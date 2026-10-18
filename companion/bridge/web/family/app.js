@@ -22,6 +22,11 @@ try {
 } catch {}
 if (location.search || location.hash) history.replaceState(null, '', location.pathname) // keep the key out of screenshots and history
 
+// Served by the relay (companion/relay) at /family/<town id>/ for a town with no node: its API goes through the relay
+// to the town, at /v1/family/<town id>/…; served by the bridge at /family, it is the bridge's own.
+const RELAYED = /^\/family\/([0-9a-f]{32})(?:\/|$)/.exec(location.pathname)
+const API = RELAYED ? `/v1/family/${RELAYED[1]}` : ''
+
 let settings = null
 let words = []
 let index = {}
@@ -48,7 +53,7 @@ function toast(msg) {
 }
 
 async function api(path, opts = {}) {
-  const r = await fetch(path, { ...opts, headers: { ...(opts.headers || {}), authorization: `Bearer ${token}` } })
+  const r = await fetch(API + path, { ...opts, headers: { ...(opts.headers || {}), authorization: `Bearer ${token}` } })
   if (r.status === 401) {
     lock()
     throw new Error('unauthorized')
@@ -186,14 +191,15 @@ $('compose-form').addEventListener('submit', async e => {
   btn.disabled = true
   try {
     const hint = $('c-hint').value.trim()
-    await sendJson('/family/api/challenges', 'POST', {
+    const sent = await sendJson('/family/api/challenges', 'POST', {
       type: document.querySelector('input[name=type]:checked').value,
       text: $('c-text').value.trim(),
       ...(hint ? { hint } : {}),
     })
     $('c-text').value = ''
     $('c-hint').value = ''
-    toast('💌 Poslano · Sent!')
+    // through the relay while the town is away: it waits there and reaches the town when it is back
+    toast(sent.queued ? `📮 Shranjeno · Saved: ${settings?.learner_name || 'Jan'} gets it when their town is back online` : '💌 Poslano · Sent!')
     await loadThread()
   } catch (err) {
     toast(`⚠️ ${err.message}`)
@@ -412,9 +418,9 @@ $('rec-save').addEventListener('click', async () => {
   btn.disabled = true
   try {
     const q = new URLSearchParams({ text: recText, speaker: $('rec-as').value.trim() || recAs() || 'Družina' })
-    await api(`/audio?${q}`, { method: 'POST', headers: { 'content-type': take.type || 'application/octet-stream' }, body: take })
+    const r = await api(`/audio?${q}`, { method: 'POST', headers: { 'content-type': take.type || 'application/octet-stream' }, body: take })
     $('sheet').hidden = true
-    toast('✅ Shranjeno · Saved. Jan bo slišal tvoj glas · Jan will hear your voice!')
+    toast(r.status === 202 ? '📮 Shranjeno · Saved: it reaches the town when it is back online' : '✅ Shranjeno · Saved. Jan bo slišal tvoj glas · Jan will hear your voice!')
     await loadWords()
   } catch (err) {
     toast(`⚠️ ${err.message}`)

@@ -12,14 +12,15 @@
 //
 // A child's town (lani-profile add --child) is linked only here, by a parent on the node: its app can't invite
 // or accept. --url is where this town's bridge answers other towns (default: http://127.0.0.1:<its port>, or the
-// profile's LANI_TOWN_URL).
+// profile's LANI_TOWN_URL). With a relay (LANI_RELAY_URL, docs/plans/05-built/relay.md) the invitation carries the
+// town's relay address too, and `list` shows it.
 import '../env' // first: LANI_* from the FLUENT_* names of a node set up before the rename
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { parseArgs } from 'node:util'
 import { resolveCulture } from '../cultures'
 import { groupFingerprint, loadBridgeKey, type BridgeKey } from '../pairing'
-import { Towns, acceptInvite, createInvite, inviteUri, parseInvite, selfDisplay, selfUrl, townRequest, townUrl, type TownDisplay, type TownLink } from '../towns'
+import { Towns, acceptInvite, createInvite, inviteUri, parseInvite, selfDisplay, selfRelay, selfUrl, townRequest, townUrl, type TownDisplay, type TownLink } from '../towns'
 import { allProfiles, appDir, bridgeUp, die, projectDir, resolveProfile, table, type Resolved } from './common'
 
 const { values, positionals } = parseArgs({
@@ -49,16 +50,18 @@ if (values.help || !cmd) {
 
 const culturesDir = process.env.LANI_CULTURES_DIR ?? join(projectDir, 'companion/cultures')
 
-/** A profile's town: its key, its links, where it answers, how it shows itself. */
-type Town = { p: Resolved; key: BridgeKey; towns: Towns; url: string; display: () => TownDisplay }
+/** A profile's town: its key, its links, where it answers (and on its relay), how it shows itself. */
+type Town = { p: Resolved; key: BridgeKey; towns: Towns; url: string; relay?: string; display: () => TownDisplay }
 
 /** [p]'s town; [url] (--url) overrides where it answers other towns. */
 function townOf(p: Resolved, url?: string): Town {
   const key = loadBridgeKey(appDir(p))
   const towns = new Towns(appDir(p))
-  const own = url === undefined ? selfUrl(p.port, p.isDefault ? process.env : { ...(p.entry?.env ?? {}) }) : townUrl(url) ?? die(`--url: an http(s) URL, e.g. http://127.0.0.1:${p.port}`)
+  const env = p.isDefault ? process.env : { ...(p.entry?.env ?? {}) }
+  const own = url === undefined ? selfUrl(p.port, env, key.fingerprint) : townUrl(url) ?? die(`--url: an http(s) URL, e.g. http://127.0.0.1:${p.port}`)
+  const relay = selfRelay(key.fingerprint, env)
   const c = resolveCulture(culturesDir, p.culture)
-  return { p, key, towns, url: own, display: () => selfDisplay({ dataDir: p.dataDir, profile: { id: p.id, isDefault: p.isDefault }, culture: c.id, manifest: c.manifest, towns }) }
+  return { p, key, towns, url: own, ...(relay ? { relay } : {}), display: () => selfDisplay({ dataDir: p.dataDir, profile: { id: p.id, isDefault: p.isDefault }, culture: c.id, manifest: c.manifest, towns }) }
 }
 
 /** The profiles of this node by their town id, for those whose bridge has a key already (none is made here). */
@@ -77,7 +80,7 @@ function list() {
   const me = t.display()
   const local = localTowns()
   console.log(`${me.name} · ${me.learner} ${flag(me.language)} (${me.culture}${t.p.child ? ', a child' : ''})`)
-  console.log(`town id ${groupFingerprint(t.key.fingerprint)}, answers on ${t.url}\n`)
+  console.log(`town id ${groupFingerprint(t.key.fingerprint)}, answers on ${t.url}${t.relay && t.relay !== t.url ? ` and on the relay, ${t.relay}` : ''}\n`)
   const links = t.towns.links()
   if (!links.length) {
     console.log(`No linked towns yet. Invite one: companion/bin/lani-town invite${t.p.isDefault ? '' : ` --profile ${t.p.id}`}`)
@@ -85,14 +88,14 @@ function list() {
   }
   console.log(table([
     ['TOWN', 'LEARNER', 'LANG', 'ID', 'ON THIS NODE', 'URL', 'LINKED', 'HOW'],
-    ...links.map(l => [l.display?.name ?? '?', l.display?.learner ?? '', l.display?.language ?? '', l.id.slice(0, 8), local.get(l.id)?.id ?? '', l.url, when(l.linked_at), `${l.via} (${l.by})`]),
+    ...links.map(l => [l.display?.name ?? '?', l.display?.learner ?? '', l.display?.language ?? '', l.id.slice(0, 8), local.get(l.id)?.id ?? '', l.relay ? `${l.url} (or the relay)` : l.url, when(l.linked_at), `${l.via} (${l.by})`]),
   ]))
 }
 
 async function invite() {
   const t = townOf(resolveProfile(values.profile), values.url)
   const { code, expiresAt } = createInvite(appDir(t.p), { by: 'cli' })
-  const link = inviteUri({ url: t.url, code, fingerprint: t.key.fingerprint })
+  const link = inviteUri({ url: t.url, code, fingerprint: t.key.fingerprint, relay: t.relay })
   console.log(`An invitation to ${whose(t)}, ${t.display().name}.\n`)
   if (!values['no-qr']) {
     const qrcode = (await import('qrcode-terminal').catch(() => null))?.default
@@ -115,7 +118,7 @@ async function accept() {
   const parsed = parseInvite(text)
   if (!parsed.ok) die(`Not an invitation this town can use: ${parsed.error}.`)
   const t = townOf(resolveProfile(values.profile), values.url)
-  const r = await acceptInvite({ key: t.key, towns: t.towns, invite: parsed.invite, self: { url: t.url, display: t.display() }, by: 'cli' })
+  const r = await acceptInvite({ key: t.key, towns: t.towns, invite: parsed.invite, self: { url: t.url, display: t.display(), relay: t.relay }, by: 'cli' })
   if (!r.ok) die(`Not linked (${r.code}): ${r.error}`)
   console.log(`Linked ${whose(t)} with ${r.link.display?.name} · ${r.link.display?.learner} (${groupFingerprint(r.link.id)}), both ways.`)
 }

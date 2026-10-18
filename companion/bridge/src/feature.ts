@@ -22,6 +22,7 @@ import type { Outbox } from './outbox'
 import type { PackStore } from './packs'
 import type { BridgeKey, Devices } from './pairing'
 import type { ReadingStore } from './readings'
+import type { RelayClient } from './relay'
 import type { Prints } from './prints'
 import type { ScenarioStore } from './scenarios'
 import type { SceneStore } from './scenes'
@@ -91,6 +92,11 @@ export type Ctx = {
   family: Family
   /** The role-plays started on visits to other towns (their brief rides along every turn: chat.ts, features/towns.ts). */
   visitTalks: VisitTalks
+  /**
+   * This town's relay client (relay.ts) when LANI_RELAY_URL is set; undefined (off) otherwise. The towns publish their
+   * state through it; startBridge starts it once the app's API is up.
+   */
+  relay?: RelayClient
   /**
    * The village language's dictionary (lexicon.ts: Wiktionary's, the supplement, the tutor's glosses; read at its first
    * use) and its forms book (forms.ts), one of each: the word lookup serves them, and the check of a dialog's woven words

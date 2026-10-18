@@ -16,6 +16,7 @@ import { runService } from './bridge-service'
 import { castVoiced, useCastFile } from './cast'
 import { Channel, ok, type ChannelOptions, type Tool } from './channel'
 import { loadConfig, log, type Config } from './config'
+import { setting } from './env'
 import { courseDir, CourseStore } from './course'
 import { cultureDir, cultureProjects, resolveCulture, tutorOf, validateCulture } from './cultures'
 import { Events } from './events'
@@ -65,6 +66,7 @@ import { Lexicon } from './lexicon'
 import { Outbox } from './outbox'
 import { PackStore, packsDirs } from './packs'
 import { Devices, loadBridgeKey } from './pairing'
+import { relayFromEnv } from './relay'
 import { ReadingStore } from './readings'
 import { Prints } from './prints'
 import { ScenarioStore } from './scenarios'
@@ -183,13 +185,16 @@ export function buildBridge(o: BridgeOptions): BuiltBridge {
   /** The village projects of the culture (its projects.json), which a scene's `needs` may name. */
   const villageProjects = cultureProjects(culturesDir, culture.id)
   const lexiconDir = env.LANI_LEXICON_DIR || join(projectDir, 'companion/lexicon')
+  const bridgeKey = loadBridgeKey(appDir)
 
   const ctx: Ctx = {
     cfg,
     log,
     profile,
     devices,
-    bridgeKey: loadBridgeKey(appDir),
+    bridgeKey,
+    // towns and the family page through the relay (companion/relay): only with LANI_RELAY_URL set
+    relay: relayFromEnv(env, bridgeKey, log),
     // The home language's databases, and another language's (visits) in languages/<code>/ (docs/DB_SCRIPTS.md).
     learner: new Learner(projectDir, dataDir, language),
     addressee: () => addresseeOf(dataDir, language),
@@ -297,6 +302,12 @@ export function buildBridge(o: BridgeOptions): BuiltBridge {
   // The channel instructions are the features' paragraphs in this order (FEATURES), and so is the tool list.
   const named = [...FEATURES, ...(o.extraFeatures ?? []).map((factory, i) => ({ name: `extra-${i + 1}`, factory }))].map(({ name, factory }) => ({ name, feature: factory(ctx) }))
   const features: Feature[] = named.map(f => f.feature)
+  // What comes through the relay is answered by the features' own routes, as if it came over HTTP, but only ever as
+  // another town (its signed requests) or the family page (its token): never with the app's role.
+  if (ctx.relay) {
+    ctx.relay.attach(router(addressed(features.flatMap(f => f.routes ?? []), ctx.addressee), req => (ctx.family.authorized(req) ? 'family' : null), log))
+    ctx.relay.provideFamily(() => (familyOnRelay(env) ? ctx.family.tokenSha256 : null))
+  }
 
   // The default learner set up by lani-setup, their data a repository of its own: the instructions name them from their
   // profile and say where their data and session results are.
@@ -358,5 +369,18 @@ export async function startBridge(o: BridgeOptions) {
     log(`no app API in this session (not the tutor: lani-session serves it); data ${dataDir}`)
   } else if (serve({ host: cfg.host, port: cfg.port, fetch: router(routes, roleOf, log), log })) {
     log(`app API on http://${cfg.host}:${cfg.port}, ${where}`)
+    // the bridge that serves the app is the town: it alone answers its mail on the relay
+    ctx.relay?.start()
   }
+}
+
+/**
+ * Whether the family page goes through the relay: LANI_RELAY_FAMILY "on" or "off"; unset, when the town has no address
+ * of its own (LANI_TOWN_URL=relay, the phone's bridge). A node's family page stays on its tailnet unless it is turned on.
+ */
+export function familyOnRelay(env: Record<string, string | undefined> = process.env): boolean {
+  const v = env.LANI_RELAY_FAMILY?.trim()
+  if (v === 'on' || v === '1') return true
+  if (v === 'off' || v === '0') return false
+  return setting('LANI_TOWN_URL', env)?.trim() === 'relay'
 }

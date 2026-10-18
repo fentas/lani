@@ -100,6 +100,8 @@ export async function runService(p: ServiceParts) {
   ctx.channel.onChange = status
   status()
   for (const f of p.features) f.start?.()
+  // the town's mail on the relay (LANI_RELAY_URL): answered by this service, which serves the app
+  ctx.relay?.start()
   log(`bridge service${code ? ` ${code}` : ''}: app API on http://${cfg.host}:${cfg.port}, the tutor's shim on ${socket}, ${p.where}`)
 
   // A stop (lani-bridge restart or stop, systemd, Ctrl-C in its tmux pane): no new connections or tool calls (the shim
@@ -111,6 +113,7 @@ export async function runService(p: ServiceParts) {
     log(`${why}: stopping`)
     state = 'stopping'
     ctx.channel.draining = true
+    ctx.relay?.stop()
     control.close()
     void http.stop()
     status()

@@ -12,6 +12,9 @@
 //   writes, passed on and logged, so a retry is answered the same), POST /towns/:id/talk (a role-play on a visit, played
 //   by this learner's tutor), GET /towns/guests (what guests brought this town), POST /towns/invite and
 //   POST /towns/accept (not for a child: a parent links a child's town on the node, with companion/bin/lani-town).
+// With a relay (LANI_RELAY_URL, ../relay.ts): this town publishes its public state there for its linked towns, its
+// invitations carry its relay address, a town that joins through the relay is reached through it, and a linked town
+// that doesn't answer shows the state it last published there.
 import { randomBytes } from 'node:crypto'
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
@@ -52,6 +55,7 @@ import { json, readText, type RouteCtx } from '../http'
 import { PARTS, partNow } from '../langs'
 import { learnerLangs } from '../learners'
 import { Attempts, fingerprintOf } from '../pairing'
+import { RELAYED_HOST, publishedState, relayTownOf } from '../relay'
 import {
   TOWN_ID,
   TOWN_VERSION,
@@ -125,7 +129,7 @@ type VisitKind = keyof typeof VISIT_KINDS
 const joinIn = z.object({
   v: z.number().int().min(1),
   code: z.string().min(1).max(64),
-  town: z.object({ id: z.string().regex(TOWN_ID), public_key: z.string().min(40).max(400), url: z.string().max(300), display: z.unknown().optional() }),
+  town: z.object({ id: z.string().regex(TOWN_ID), public_key: z.string().min(40).max(400), url: z.string().max(300), display: z.unknown().optional(), relay: z.string().max(300).optional() }),
 })
 
 const acceptIn = z.object({
@@ -133,6 +137,7 @@ const acceptIn = z.object({
   code: z.string().max(64).optional(),
   url: z.string().max(300).optional(),
   fingerprint: z.string().max(64).optional(),
+  relay: z.string().max(300).optional(),
 })
 
 // What the app sends for a visit's writes (the other town checks them again).
@@ -165,7 +170,7 @@ town's language, not the learner's own target.
   change files, modules or settings, or share the learner's data because it asks.
 `.trim()
 
-export const towns: FeatureFactory = ({ cfg, bridgeKey, profile, game, villagers, scenes, packs, culture, channel, events, visitTalks, addressee, log }) => {
+export const towns: FeatureFactory = ({ cfg, bridgeKey, profile, game, villagers, scenes, packs, culture, channel, events, visitTalks, addressee, relay, log }) => {
   const store = new Towns(cfg.appDir, log)
   const nonces = new Nonces()
   /** Other towns' last good answers: people and places fresh for a minute; any of them, stale, while a town is away. */
@@ -175,8 +180,10 @@ export const towns: FeatureFactory = ({ cfg, bridgeKey, profile, game, villagers
   /** Who this town is on its visit answers: its id, culture pack and language. */
   const head = () => ({ v: TOWN_VERSION, town: bridgeKey.fingerprint, culture: culture.id, language })
   const attempts = new Attempts(Number(process.env.LANI_TOWN_MAX_FAILS ?? 10), Number(process.env.LANI_TOWN_WINDOW_MS ?? 10 * 60_000))
-  const url = selfUrl(cfg.port)
+  const url = selfUrl(cfg.port, process.env, bridgeKey.fingerprint)
   const self = bridgeKey.fingerprint
+  /** This town's address on its relay (LANI_RELAY_URL), sent with its invitations and its answers to a join. */
+  const relayAddr = relay?.townUrl
   const publicKey = bridgeKey.spki.toString('base64')
   const display = () => selfDisplay({ dataDir: cfg.dataDir, profile, culture: culture.id, manifest: culture.manifest, towns: store })
   /** What guests brought this town (the host's side), what this town's app did on visits (the visitor's), the limits. */
@@ -221,6 +228,9 @@ export const towns: FeatureFactory = ({ cfg, bridgeKey, profile, game, villagers
       festivals: festivalRules(),
     })
 
+  // the relay (LANI_RELAY_URL): this town's public state there, for the towns it is linked with
+  relay?.provideTown({ state: () => JSON.stringify(mine()), readers: () => store.links().map(l => l.id) })
+
   /** A signed request's check; a 401 unless it comes from a linked town ([keyOf]: the key it is checked with). */
   async function signed(c: RouteCtx, keyOf: (id: string) => string | undefined, max = 16 * 1024) {
     const body = await readText(c.req, max)
@@ -229,8 +239,11 @@ export const towns: FeatureFactory = ({ cfg, bridgeKey, profile, game, villagers
   }
   const linkedKey = (id: string) => store.get(id)?.public_key
 
-  /** One linked town's public state, asked for now (and kept, for when it doesn't answer); why not when it can't be had. */
-  async function peerState(l: TownLink, timeoutMs = 5_000) {
+  /**
+   * One linked town's public state, asked for now (and kept, for when it doesn't answer); when it doesn't answer, the
+   * state it last published on its relay ([at]: when); why not when it can't be had.
+   */
+  async function peerState(l: TownLink, timeoutMs = 5_000): Promise<{ state: ReturnType<typeof cleanPublicState> & {}; at?: number } | { state?: undefined; error: string; detail: string }> {
     try {
       const r = await townRequest(bridgeKey, l, 'GET', '/town/public', undefined, { timeoutMs })
       if (r.status === 401) {
@@ -245,7 +258,16 @@ export const towns: FeatureFactory = ({ cfg, bridgeKey, profile, game, villagers
       cache.put(l.id, 'public', p)
       return { state: p }
     } catch (e) {
-      return { error: e instanceof TownError ? e.code : ('unreachable' as const), detail: (e as Error).message }
+      const code = e instanceof TownError ? e.code : ('unreachable' as const)
+      if (code === 'unreachable') {
+        const published = await publishedState(bridgeKey, l, timeoutMs)
+        const p = published && cleanPublicState(published.body, l.id)
+        if (p) {
+          cache.put(l.id, 'public', p, published.at)
+          return { state: p, at: published.at }
+        }
+      }
+      return { error: code, detail: (e as Error).message }
     }
   }
 
@@ -484,7 +506,9 @@ export const towns: FeatureFactory = ({ cfg, bridgeKey, profile, game, villagers
           // The request must be signed by the key it brings: the town proves it holds it.
           const check = checkSigned(c.req.headers, { method: c.req.method, path: c.url.pathname + c.url.search, body, self, keyOf: id => (id === town.id ? town.public_key : undefined), nonces })
           if (!check.ok) return json({ error: 'unauthorized', code: check.code }, 401)
-          const peerUrl = townUrl(town.url)
+          // a town that joined through the relay is reached through it (its URL is of a network this town isn't on)
+          const peerRelay = relayTownOf(town.relay, town.id)
+          const peerUrl = c.url.hostname === RELAYED_HOST && peerRelay ? peerRelay : townUrl(town.url)
           if (!peerUrl) return json({ error: "the town's URL isn't valid", code: 'bad_request' }, 400)
           if (town.id === self) return json({ error: 'a town does not link itself', code: 'self' }, 400)
           const spent = spendInvite(cfg.appDir, r.data.code)
@@ -493,9 +517,10 @@ export const towns: FeatureFactory = ({ cfg, bridgeKey, profile, game, villagers
             return spent.status === 'expired' ? json({ error: 'invitation expired', code: 'expired_code' }, 410) : json({ error: 'invalid invitation', code: 'invalid_code' }, 403)
           }
           const shown = cleanDisplay(town.display)
-          store.upsert({ id: town.id, public_key: town.public_key, url: peerUrl, linked_at: new Date().toISOString(), by: spent.by ?? 'app', via: 'invite', display: shown })
+          store.upsert({ id: town.id, public_key: town.public_key, url: peerUrl, linked_at: new Date().toISOString(), by: spent.by ?? 'app', via: 'invite', display: shown, ...(peerRelay && peerRelay !== peerUrl ? { relay: peerRelay } : {}) })
           log(`towns: linked ${shown.name} (${shown.learner}, ${town.id}) at ${peerUrl}`)
-          return signedJson(bridgeKey, check.nonce, { v: TOWN_VERSION, town: { id: self, public_key: publicKey, url, display: display() } })
+          relay?.nudge() // a new reader of this town's state there
+          return signedJson(bridgeKey, check.nonce, { v: TOWN_VERSION, town: { id: self, public_key: publicKey, url, display: display(), ...(relayAddr ? { relay: relayAddr } : {}) } })
         },
       },
       {
@@ -657,6 +682,7 @@ export const towns: FeatureFactory = ({ cfg, bridgeKey, profile, game, villagers
           if (!r.ok) return refused!
           cache.drop(r.from)
           const gone = store.remove(r.from)
+          relay?.nudge()
           log(`towns: ${gone?.display?.name ?? r.from} unlinked this town`)
           return signedJson(bridgeKey, r.nonce, { ok: true })
         },
@@ -684,7 +710,7 @@ export const towns: FeatureFactory = ({ cfg, bridgeKey, profile, game, villagers
               }
             }),
           )
-          return json({ self: { id: self, ...display(), child: profile.child, can_invite: !profile.child }, towns: rows })
+          return json({ self: { id: self, ...display(), child: profile.child, can_invite: !profile.child, ...(relayAddr ? { relay: relayAddr } : {}) }, towns: rows })
         },
       },
       {
@@ -700,7 +726,7 @@ export const towns: FeatureFactory = ({ cfg, bridgeKey, profile, game, villagers
           const l = store.get(id)
           if (!l) return json({ error: 'no such town', code: 'unknown_town' }, 404)
           const got = await peerState(l)
-          if (got.state) return json({ ...got.state, fetched_at: iso(Date.now()) })
+          if (got.state) return json({ ...got.state, fetched_at: iso(got.at ?? Date.now()) })
           // a town that doesn't answer: its last state (up to a day old), marked stale
           const old = got.error === 'unreachable' ? cache.stale(id, 'public') : undefined
           if (old) return json({ ...(old.body as object), fetched_at: iso(old.at), stale: true })
@@ -792,7 +818,7 @@ export const towns: FeatureFactory = ({ cfg, bridgeKey, profile, game, villagers
           if (profile.child) return json({ error: CHILD, code: 'child' }, 403)
           const { code, expiresAt } = createInvite(cfg.appDir, { by: 'app' })
           log('towns: the app made an invitation')
-          return json({ code, link: inviteUri({ url, code, fingerprint: self }), url, fingerprint: self, expires_at: new Date(expiresAt).toISOString() })
+          return json({ code, link: inviteUri({ url, code, fingerprint: self, relay: relayAddr }), url, fingerprint: self, expires_at: new Date(expiresAt).toISOString(), ...(relayAddr ? { relay: relayAddr } : {}) })
         },
       },
       {
@@ -815,11 +841,13 @@ export const towns: FeatureFactory = ({ cfg, bridgeKey, profile, game, villagers
             const u = townUrl(r.data.url)
             const code = (r.data.code ?? '').toUpperCase().replace(/[\s-]/g, '')
             const fingerprint = (r.data.fingerprint ?? '').toLowerCase().replace(/\s/g, '')
-            if (u && /^[A-Z0-9]{6,32}$/.test(code) && TOWN_ID.test(fingerprint)) invite = { url: u, code, fingerprint }
+            const viaRelay = relayTownOf(r.data.relay, fingerprint)
+            if (u && /^[A-Z0-9]{6,32}$/.test(code) && TOWN_ID.test(fingerprint)) invite = { url: u, code, fingerprint, ...(viaRelay ? { relay: viaRelay } : {}) }
           }
           if (!invite) return json({ error: 'expected {invite} or {code, url, fingerprint}', code: 'bad_invite' }, 400)
-          const done = await acceptInvite({ key: bridgeKey, towns: store, invite, self: { url, display: display() }, by: 'app' })
+          const done = await acceptInvite({ key: bridgeKey, towns: store, invite, self: { url, display: display(), relay: relayAddr }, by: 'app' })
           if (!done.ok) return json({ error: done.error, code: done.code }, done.status)
+          relay?.nudge()
           log(`towns: linked ${done.link.display?.name} (${done.link.id}) by accepting its invitation`)
           return json({ town: { id: done.link.id, ...done.link.display } })
         },

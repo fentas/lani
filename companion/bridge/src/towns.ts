@@ -9,7 +9,9 @@
 // - a town's public state: what a linked town may see (the map, the people, the day), nothing private.
 //
 // Written as if the other town were remote: on one node (option A) a peer's URL is http://127.0.0.1:<port>, and
-// federation (option B) only changes the URLs.
+// federation (option B) only changes the URLs. A town on the relay (relay.ts, companion/relay) has a URL there,
+// <relay>/v1/towns/<id>: a town with no node has only that one; a self-hosted town with LANI_RELAY_URL has it beside its
+// own, and a link keeps both ([TownLink.relay]): the direct way first, the relay when it doesn't answer.
 import { createHash, randomBytes, sign, verify } from 'node:crypto'
 import { existsSync, mkdirSync, readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
@@ -17,6 +19,7 @@ import { setting } from './env'
 import { CULTURE_ID, tutorOf, type Manifest } from './cultures'
 import { learnerFacts } from './learners'
 import { createOneTimeCode, fingerprintOf, spendOneTimeCode, withLock, writeAtomic, type BridgeKey } from './pairing'
+import { isRelayTownUrl, relayHeaders, relayTownOf, relayTownUrl, relayUrlFrom } from './relay'
 
 /** The version of the invitation link, of the signatures and of the public state. */
 export const TOWN_VERSION = 1
@@ -36,7 +39,8 @@ export type TownDisplay = { name: string; learner: string; culture: string; lang
  * A link to another town: its [id] (fingerprint), [public_key] (SubjectPublicKeyInfo DER, base64), the [url] its bridge
  * answers on, when it was linked, [by] whom (the learner's app, or the CLI on the node) and [via] which way (they
  * accepted our invitation, we accepted theirs, or the node linked two of its own towns), and how it showed itself
- * last ([display]).
+ * last ([display]). [relay]: its address on a relay too (<relay>/v1/towns/<id>), asked when [url] doesn't answer; a
+ * town only on the relay has it as its [url].
  */
 export type TownLink = {
   id: string
@@ -46,6 +50,7 @@ export type TownLink = {
   by: 'app' | 'cli'
   via: 'invite' | 'accept' | 'link'
   display?: TownDisplay
+  relay?: string
 }
 
 export type TownsFile = { schema: 'lani.towns/v1'; name?: string; links: TownLink[] }
@@ -79,8 +84,25 @@ export function selfDisplay(o: { dataDir: string; profile: { id: string; isDefau
   }
 }
 
-/** Where this town's bridge answers other towns: $LANI_TOWN_URL (lani.env's for the default learner), else its own port on this node. */
-export const selfUrl = (port: number, env = process.env) => townUrl(setting('LANI_TOWN_URL', env)) ?? `http://127.0.0.1:${port}`
+/**
+ * Where this town's bridge answers other towns: $LANI_TOWN_URL (lani.env's for the default learner), else its own port on
+ * this node. LANI_TOWN_URL=relay: a town with no address of its own (the phone's bridge) answers only on its relay
+ * ([selfRelay], with LANI_RELAY_URL set; [fingerprint]: this town's id).
+ */
+export function selfUrl(port: number, env: Record<string, string | undefined> = process.env, fingerprint?: string): string {
+  const own = setting('LANI_TOWN_URL', env)
+  if (own?.trim() === 'relay' && fingerprint) {
+    const relay = selfRelay(fingerprint, env)
+    if (relay) return relay
+  }
+  return townUrl(own) ?? `http://127.0.0.1:${port}`
+}
+
+/** This town's address on its relay (<LANI_RELAY_URL>/v1/towns/<id>); undefined without a relay. */
+export function selfRelay(fingerprint: string, env: Record<string, string | undefined> = process.env): string | undefined {
+  const relay = relayUrlFrom(env) ?? relayUrlFrom(process.env)
+  return relay ? relayTownUrl(relay, fingerprint) : undefined
+}
 
 /** An http(s) URL without credentials, query or fragment, without a trailing slash; undefined otherwise. */
 export function townUrl(s: unknown): string | undefined {
@@ -198,14 +220,17 @@ export function spendInvite(appDir: string, code: string, now = Date.now()): { s
   return r.status === 'ok' ? { status: 'ok', by: r.data?.by === 'cli' ? 'cli' : 'app' } : { status: r.status }
 }
 
-/** The invitation's text and QR code: `lani://town?v=1&u=<the inviter's URL>&c=<code>&f=<its fingerprint>`. */
-export const inviteUri = (o: { url: string; code: string; fingerprint: string }) =>
-  `lani://town?v=${TOWN_VERSION}&u=${encodeURIComponent(o.url)}&c=${o.code}&f=${o.fingerprint}`
+/**
+ * The invitation's text and QR code: `lani://town?v=1&u=<the inviter's URL>&c=<code>&f=<its fingerprint>`, and
+ * `&r=<its relay address>` when it has one besides (a bridge from before the relay reads past it).
+ */
+export const inviteUri = (o: { url: string; code: string; fingerprint: string; relay?: string }) =>
+  `lani://town?v=${TOWN_VERSION}&u=${encodeURIComponent(o.url)}&c=${o.code}&f=${o.fingerprint}${o.relay && o.relay !== o.url ? `&r=${encodeURIComponent(o.relay)}` : ''}`
 
 /** The schemes of an invitation: lani:, and fluent: as the bridges wrote it before the project was renamed. */
 const INVITE_PROTOCOLS = ['lani:', 'fluent:']
 
-export type Invite = { url: string; code: string; fingerprint: string }
+export type Invite = { url: string; code: string; fingerprint: string; relay?: string }
 
 /** An invitation link, read back; why not when it isn't one this bridge can use. */
 export function parseInvite(text: string): { ok: true; invite: Invite } | { ok: false; error: string } {
@@ -224,7 +249,9 @@ export function parseInvite(text: string): { ok: true; invite: Invite } | { ok: 
   const fingerprint = (u.searchParams.get('f') ?? '').toLowerCase()
   if (!url) return { ok: false, error: "the invitation's address isn't valid" }
   if (!/^[A-Z0-9]{6,32}$/.test(code) || !TOWN_ID.test(fingerprint)) return { ok: false, error: 'the invitation is incomplete' }
-  return { ok: true, invite: { url, code, fingerprint } }
+  // its relay address: only one of the invited town's own
+  const relay = relayTownOf(u.searchParams.get('r'), fingerprint)
+  return { ok: true, invite: { url, code, fingerprint, ...(relay ? { relay } : {}) } }
 }
 
 // --- signatures --------------------------------------------------------------------------------------------
@@ -348,7 +375,7 @@ export function checkSigned(
 
 // --- asking another town -------------------------------------------------------------------------------------
 
-export type Peer = { id: string; public_key: string; url: string }
+export type Peer = { id: string; public_key: string; url: string; relay?: string }
 
 export class TownError extends Error {
   constructor(
@@ -359,10 +386,15 @@ export class TownError extends Error {
   }
 }
 
+/** The ways to a town that didn't answer lately (a direct URL from outside its tailnet): tried after the others for a while. */
+const failedWays = new Map<string, number>()
+const FAILED_WAY_MS = 10 * 60_000
+
 /**
  * A signed request to [peer]: its status and JSON body. A successful answer must be signed by the peer's key for
  * this request (else 'bad_answer'); a peer that doesn't answer is 'unreachable'. An answer larger than [o.maxBytes]
- * (512 KB unless said) is a 'bad_answer'.
+ * (512 KB unless said) is a 'bad_answer'. A peer with a relay address besides its URL ([Peer.relay]) is asked there when
+ * its URL doesn't answer (and there first for a while after its URL didn't).
  */
 export async function townRequest(
   key: BridgeKey,
@@ -372,31 +404,73 @@ export async function townRequest(
   body?: unknown,
   o: { timeoutMs?: number; maxBytes?: number } = {},
 ): Promise<{ status: number; body: any }> {
+  const ways = [...new Set([peer.url, peer.relay].filter((u): u is string => !!u))]
+  const failed = (u: string) => (failedWays.get(u) ?? 0) > Date.now() - FAILED_WAY_MS
+  let last: unknown
+  for (const way of [...ways.filter(u => !failed(u)), ...ways.filter(failed)]) {
+    try {
+      const r = await townRequestAt(key, peer, way, method, path, body, o)
+      failedWays.delete(way)
+      return r
+    } catch (e) {
+      if (!(e instanceof TownError) || e.code !== 'unreachable') throw e
+      last = e
+      if (ways.length > 1) failedWays.set(way, Date.now())
+    }
+  }
+  throw last
+}
+
+/**
+ * [townRequest] one way: to [base] (the town's URL, or its relay address: then signed for the relay too, and an answer
+ * that isn't the town's own, such as "away", is 'unreachable').
+ */
+async function townRequestAt(
+  key: BridgeKey,
+  peer: Peer,
+  base: string,
+  method: 'GET' | 'POST',
+  path: string,
+  body: unknown,
+  o: { timeoutMs?: number; maxBytes?: number },
+): Promise<{ status: number; body: any }> {
   const text = body === undefined ? '' : JSON.stringify(body)
   const headers = signRequest(key, { method, path, body: text, to: peer.id })
+  const timeoutMs = o.timeoutMs ?? 5_000
+  const relayed = isRelayTownUrl(base)
+  // through the relay: signed for it too, and asked to answer just before this request gives up
+  const outer = relayed ? { ...relayHeaders(key, method, base + path, text), 'x-lani-relay-wait': String(Math.max(500, timeoutMs - 700)) } : {}
   let res: Response
   let answer: string
   try {
-    res = await fetch(peer.url + path, {
+    res = await fetch(base + path, {
       method,
-      headers: { ...headers, ...(body === undefined ? {} : { 'content-type': 'application/json' }) },
+      headers: { ...headers, ...outer, ...(body === undefined ? {} : { 'content-type': 'application/json' }) },
       ...(body === undefined ? {} : { body: text }),
-      signal: AbortSignal.timeout(o.timeoutMs ?? 5_000),
+      signal: AbortSignal.timeout(timeoutMs),
       redirect: 'manual',
     })
     answer = await res.text()
   } catch (e) {
-    throw new TownError('unreachable', `${peer.url}: ${(e as Error).message}`)
+    throw new TownError('unreachable', `${base}: ${(e as Error).message}`)
   }
-  if (answer.length > (o.maxBytes ?? 512 * 1024)) throw new TownError('bad_answer', `${peer.url}: the answer is too large`)
+  if (relayed && res.headers.get('x-lani-relay') !== 'tunnel') {
+    // the relay's own answer, not the town's: the town is away, or the relay refused
+    let code = ''
+    try {
+      code = String(JSON.parse(answer)?.code ?? '')
+    } catch {}
+    throw new TownError('unreachable', `${base}: ${code === 'away' || code === 'timeout' ? 'the town is away (relay)' : `the relay answered ${res.status}${code ? ` (${code})` : ''}`}`)
+  }
+  if (answer.length > (o.maxBytes ?? 512 * 1024)) throw new TownError('bad_answer', `${base}: the answer is too large`)
   let parsed: any = null
   try {
     parsed = JSON.parse(answer)
   } catch {}
   if (res.ok) {
     const sig = townHeader(res.headers, 'signature') ?? ''
-    if (!verifiedAny(peer.public_key, d => responseMessage(headers[H.nonce], answer, d), sig)) throw new TownError('bad_answer', `${peer.url}: the answer isn't signed by the town's key`)
-    if (parsed === null) throw new TownError('bad_answer', `${peer.url}: the answer isn't JSON`)
+    if (!verifiedAny(peer.public_key, d => responseMessage(headers[H.nonce], answer, d), sig)) throw new TownError('bad_answer', `${base}: the answer isn't signed by the town's key`)
+    if (parsed === null) throw new TownError('bad_answer', `${base}: the answer isn't JSON`)
   }
   return { status: res.status, body: parsed }
 }
@@ -406,42 +480,59 @@ export type AcceptResult = { ok: true; link: TownLink } | { ok: false; status: n
 /**
  * Accepts an invitation for the town of [key]: asks the inviter who it is and checks its key against the
  * invitation's fingerprint, then joins (a signed request with this town's key, URL and display, and the code). The
- * inviter links this town, answers with its own, signed, and this town links it: both ways.
+ * inviter links this town, answers with its own, signed, and this town links it: both ways. An invitation with a relay
+ * address ([Invite.relay]) is taken there when the inviter's URL doesn't answer, or answers as another town (a URL of a
+ * network this town isn't on): the link's way is then the relay. [self.relay]: this town's own relay address, sent along.
  */
 export async function acceptInvite(o: {
   key: BridgeKey
   towns: Towns
   invite: Invite
-  self: { url: string; display: TownDisplay }
+  self: { url: string; display: TownDisplay; relay?: string }
   by: 'app' | 'cli'
   timeoutMs?: number
 }): Promise<AcceptResult> {
   const { invite, key } = o
   const fail = (status: number, code: string, error: string): AcceptResult => ({ ok: false, status, code, error })
   if (invite.fingerprint === key.fingerprint) return fail(400, 'self', 'this is an invitation to this town itself')
-  let hello: any
-  try {
-    const r = await fetch(`${invite.url}/town/hello`, { signal: AbortSignal.timeout(o.timeoutMs ?? 5_000), redirect: 'manual' })
-    if (!r.ok) return fail(502, 'not_a_town', `${invite.url} answered ${r.status}: not a town that takes invitations`)
-    hello = await r.json()
-  } catch (e) {
-    return fail(502, 'unreachable', `${invite.url} doesn't answer: ${(e as Error).message}`)
+  /** The key of the town that answers at [base], when it is the invitation's town; why not otherwise. */
+  async function helloAt(base: string): Promise<{ publicKey: string } | AcceptResult> {
+    let hello: any
+    try {
+      const r = await fetch(`${base}/town/hello`, { signal: AbortSignal.timeout(o.timeoutMs ?? 5_000), redirect: 'manual' })
+      if (!r.ok) return fail(502, 'not_a_town', `${base} answered ${r.status}: not a town that takes invitations`)
+      hello = await r.json()
+    } catch (e) {
+      return fail(502, 'unreachable', `${base} doesn't answer: ${(e as Error).message}`)
+    }
+    const publicKey = typeof hello?.public_key === 'string' ? hello.public_key : ''
+    let fingerprint = ''
+    try {
+      fingerprint = fingerprintOf(Buffer.from(publicKey, 'base64'))
+    } catch {}
+    if (!publicKey || fingerprint !== invite.fingerprint || hello.id !== invite.fingerprint) {
+      return fail(409, 'not_that_town', `the town at ${base} isn't the one the invitation names`)
+    }
+    return { publicKey }
   }
-  const publicKey = typeof hello?.public_key === 'string' ? hello.public_key : ''
-  let fingerprint = ''
-  try {
-    fingerprint = fingerprintOf(Buffer.from(publicKey, 'base64'))
-  } catch {}
-  if (!publicKey || fingerprint !== invite.fingerprint || hello.id !== invite.fingerprint) {
-    return fail(409, 'not_that_town', `the town at ${invite.url} isn't the one the invitation names`)
+  let base = invite.url
+  let found = await helloAt(base)
+  if ('ok' in found && invite.relay && invite.relay !== invite.url) {
+    const there = await helloAt(invite.relay)
+    if (!('ok' in there)) {
+      base = invite.relay
+      found = there
+    }
   }
-  const peer: Peer = { id: invite.fingerprint, public_key: publicKey, url: invite.url }
+  if ('ok' in found) return found
+  const publicKey = found.publicKey
+  const peer: Peer = { id: invite.fingerprint, public_key: publicKey, url: base, ...(invite.relay ? { relay: invite.relay } : {}) }
   let r: { status: number; body: any }
   try {
     r = await townRequest(key, peer, 'POST', '/town/join', {
       v: TOWN_VERSION,
       code: invite.code,
-      town: { id: key.fingerprint, public_key: key.spki.toString('base64'), url: o.self.url, display: o.self.display },
+      town: { id: key.fingerprint, public_key: key.spki.toString('base64'), url: o.self.url, display: o.self.display, ...(o.self.relay ? { relay: o.self.relay } : {}) },
     }, { timeoutMs: o.timeoutMs })
   } catch (e) {
     const te = e as TownError
@@ -452,14 +543,16 @@ export async function acceptInvite(o: {
     return fail([403, 410, 429].includes(r.status) ? r.status : 502, code, typeof r.body?.error === 'string' ? r.body.error : `the town answered ${r.status}`)
   }
   if (r.body?.town?.id !== peer.id || r.body.town.public_key !== publicKey) return fail(502, 'bad_answer', "the town's answer names another town")
+  const relay = invite.relay ?? relayTownOf(r.body.town.relay, peer.id)
   const link: TownLink = {
     id: peer.id,
     public_key: publicKey,
-    url: invite.url,
+    url: base,
     linked_at: new Date().toISOString(),
     by: o.by,
     via: 'accept',
     display: cleanDisplay(r.body.town.display),
+    ...(relay && relay !== base ? { relay } : {}),
   }
   o.towns.upsert(link)
   return { ok: true, link }

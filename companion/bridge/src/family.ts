@@ -1,6 +1,6 @@
 // Family features: recorded voices (/audio) and partner challenges (/family).
 // The partner's page uses a separate FAMILY token that reaches only these routes.
-import { randomBytes } from 'node:crypto'
+import { createHash, randomBytes } from 'node:crypto'
 import { existsSync, mkdirSync, readFileSync, renameSync, statSync, unlinkSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { z } from 'zod'
@@ -126,6 +126,8 @@ export class Family {
   private challengeTimes: number[] = []
   /** Whether a request carries the family token. */
   readonly authorized: (req: Request) => boolean
+  /** The family token's SHA-256 (hex): what the relay keeps to let the family page through (relay.ts), never the token. */
+  readonly tokenSha256: string
 
   constructor(private readonly d: FamilyDeps) {
     this.audioDir = join(d.appDir, 'audio')
@@ -133,7 +135,9 @@ export class Family {
     mkdirSync(this.audioDir, { recursive: true })
     mkdirSync(this.dir, { recursive: true })
     this.limits = { ...LIMITS, ...d.limits }
-    this.authorized = bearer(loadToken(join(d.appDir, 'family-token'), process.env.LANI_FAMILY_TOKEN, d.log, 'family'))
+    const token = loadToken(join(d.appDir, 'family-token'), process.env.LANI_FAMILY_TOKEN, d.log, 'family')
+    this.authorized = bearer(token)
+    this.tokenSha256 = createHash('sha256').update(token).digest('hex')
   }
 
   // --- storage ------------------------------------------------------------------------
