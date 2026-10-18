@@ -20,7 +20,7 @@ ARG ANDROID_PLATFORM=android-36
 ARG ANDROID_BUILD_TOOLS=36.0.0
 
 LABEL org.opencontainers.image.title="lani-android-build" \
-      org.opencontainers.image.description="JDK 21 and the Android SDK to build the Lani app (companion/android)" \
+      org.opencontainers.image.description="JDK 21, the Android SDK and bun to build the Lani app (companion/android)" \
       org.opencontainers.image.source="https://github.com/fentas/lani" \
       org.opencontainers.image.licenses="AGPL-3.0-or-later" \
       si.lanisce.lani.build="android"
@@ -29,7 +29,7 @@ ENV ANDROID_HOME=/opt/android-sdk \
     ANDROID_SDK_ROOT=/opt/android-sdk
 ENV PATH=${PATH}:${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/build-tools/${ANDROID_BUILD_TOOLS}
 
-# git: the version is the commit count (app/build.gradle.kts); unzip: the command-line tools
+# git: the version is the commit count (app/build.gradle.kts); unzip: the command-line tools and bun (below)
 RUN apt-get update \
  && apt-get install -y --no-install-recommends git unzip curl ca-certificates \
  && rm -rf /var/lib/apt/lists/*
@@ -45,6 +45,19 @@ RUN curl -fsSLo /tmp/cmdline-tools.zip \
  && sdkmanager --install "platforms;${ANDROID_PLATFORM}" "build-tools;${ANDROID_BUILD_TOOLS}" platform-tools > /dev/null \
  && sdkmanager --list_installed \
  && rm -rf /root/.android /root/.cache /tmp/*
+
+# bun: the bridge in the app is the bridge's TypeScript, bundled by bun at build time (app/build.gradle.kts
+# phoneBridgeBundle, companion/bridge/phone/build.ts), the same bun as the bridge's CI (.github/workflows/ci.yml); the
+# baseline build runs on any x86-64. Pinned by its SHA-256 (the release's SHASUMS256.txt).
+ARG BUN_VERSION=1.3.13
+ARG BUN_SHA256=9d8a24292a7068090205daac0a5a223f5f69736f5287e37bf88d3b4031edc750
+
+RUN curl -fsSLo /tmp/bun.zip "https://github.com/oven-sh/bun/releases/download/bun-v${BUN_VERSION}/bun-linux-x64-baseline.zip" \
+ && echo "${BUN_SHA256}  /tmp/bun.zip" | sha256sum -c - \
+ && unzip -q /tmp/bun.zip -d /tmp/bun \
+ && mv /tmp/bun/bun-linux-x64-baseline/bun /usr/local/bin/bun \
+ && rm -rf /tmp/bun /tmp/bun.zip \
+ && bun --version
 
 # The home of whoever runs the build (lani-build-app mounts its cache here: ~/.gradle, Robolectric's ~/.m2): any user
 # may write it, so a run with --user and no mount still works. The JDK takes user.home from HOME when the user has

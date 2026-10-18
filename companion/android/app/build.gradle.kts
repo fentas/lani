@@ -1,4 +1,6 @@
+import java.security.MessageDigest
 import java.util.Properties
+import javax.inject.Inject
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -285,6 +287,107 @@ val tutorFiles = tasks.register<TutorFiles>("tutorFiles") {
     sources.from(fileTree("../../tutor") { include("core-prompt.md", "prices.json", "tools/*.json", "app-tools/*.json", "guide/*.md", "guide/index.json") })
 }
 
+/**
+ * The bridge for the app (si.lanisce.lani.phone.PhoneBridge, docs/plans/05-built/phone-runtime.md): the bridge's
+ * TypeScript bundled by companion/bridge/phone/build.ts into one script for QuickJS, as an asset (phone/bridge-phone.js).
+ * Made here with bun, not kept in the repository (a megabyte of generated code at every change of the bridge would
+ * weigh on its history): bun 1.3.13 is in the build image (docker/Dockerfile), and on a machine of one's own it is the
+ * `bun` on the PATH, else the one LANI_BUN or -Plani.bun names. The bridge's packages are installed first when they
+ * aren't (bun install --frozen-lockfile: bun.lock decides their versions, so a build is the same everywhere).
+ */
+abstract class PhoneBridgeBundle : DefaultTask() {
+    @get:InputFiles @get:PathSensitive(PathSensitivity.RELATIVE)
+    abstract val sources: ConfigurableFileCollection
+
+    @get:Internal
+    abstract val bridge: DirectoryProperty
+
+    @get:Input
+    abstract val bun: Property<String>
+
+    @get:OutputDirectory
+    abstract val out: DirectoryProperty
+
+    @get:Inject
+    abstract val exec: ExecOperations
+
+    @TaskAction
+    fun build() {
+        val dir = out.get().asFile.resolve("phone")
+        dir.deleteRecursively()
+        dir.mkdirs()
+        val root = bridge.get().asFile
+        fun bun(vararg args: String) = try {
+            exec.exec { workingDir(root); commandLine(bun.get(), *args) }
+        } catch (e: Exception) {
+            throw GradleException("The phone bridge's bundle needs bun (companion/bridge/phone/build.ts): ${bun.get()} ${args.joinToString(" ")} failed (${e.message}). Install bun 1.3.13, or set LANI_BUN or -Plani.bun.", e)
+        }
+        if (!root.resolve("node_modules/zod/package.json").isFile) bun("install", "--frozen-lockfile")
+        bun("phone/build.ts", "--out", dir.path, "--quiet")
+    }
+}
+
+val phoneBridgeBundle = tasks.register<PhoneBridgeBundle>("phoneBridgeBundle") {
+    bridge.set(layout.projectDirectory.dir("../../bridge"))
+    sources.from(fileTree("../../bridge") { include("src/**/*.ts", "phone/**/*.ts", "validators/zod-locales.ts", "package.json", "bun.lock") })
+    sources.from(fileTree("../../prints") { include("*.ts") })
+    bun.set(providers.gradleProperty("lani.bun").orElse(providers.environmentVariable("LANI_BUN")).orElse("bun"))
+    out.set(layout.buildDirectory.dir("generated/phoneBridge"))
+}
+
+/**
+ * What the bridge in the app reads of the repository (docs/plans/05-built/phone-runtime.md, "Content on the phone"), as
+ * assets under phone/project/ with the repository's layout, and phone/project.json listing them (path, size) with their
+ * hash: si.lanisce.lani.phone.Unpacker copies them to <filesDir>/lani/project when the app's version or the hash
+ * changed. The curated content (the culture packs with their casts, readings, stories and scenes; the modules, packs,
+ * grammar book, cheat sheet's cards, course, drills, scenarios and scenes; the dictionary and forms; «Vidim, vidim»'s
+ * clues; the voice cast), the printed sheets' style, script and fonts, the family page, and the learner data's templates.
+ */
+abstract class PhoneProject : DefaultTask() {
+    @get:InputFiles @get:PathSensitive(PathSensitivity.RELATIVE)
+    abstract val files: ConfigurableFileCollection
+
+    @get:Internal
+    abstract val root: DirectoryProperty
+
+    @get:OutputDirectory
+    abstract val out: DirectoryProperty
+
+    @TaskAction
+    fun copy() {
+        val base = out.get().asFile.resolve("phone")
+        base.deleteRecursively()
+        val dir = base.resolve("project").apply { mkdirs() }
+        val root = root.get().asFile
+        val list = files.files.filter { it.isFile }.map { it.relativeTo(root).invariantSeparatorsPath to it }.sortedBy { it.first }
+        val digest = MessageDigest.getInstance("SHA-256")
+        for ((rel, f) in list) {
+            val bytes = f.readBytes()
+            dir.resolve(rel).apply { parentFile.mkdirs() }.writeBytes(bytes)
+            digest.update(rel.toByteArray())
+            digest.update(0)
+            digest.update(bytes)
+        }
+        val hash = digest.digest().joinToString("") { "%02x".format(it) }
+        val entries = list.joinToString(",\n    ") { (rel, f) -> "[\"$rel\", ${f.length()}]" }
+        base.resolve("project.json").writeText("{\n  \"hash\": \"$hash\",\n  \"bytes\": ${list.sumOf { it.second.length() }},\n  \"files\": [\n    $entries\n  ]\n}\n")
+    }
+}
+
+val phoneProject = tasks.register<PhoneProject>("phoneProject") {
+    root.set(layout.projectDirectory.dir("../../.."))
+    files.from(fileTree("../../..") {
+        include(
+            "companion/cultures/**/*.json", "companion/voice-cast.json", "companion/modules/**/*.json", "companion/packs/**/*.json",
+            "companion/grammar/**/*.json", "companion/cards/**/*.json", "companion/course/**/*.json", "companion/drills/**/*.json",
+            "companion/scenarios/**/*.json", "companion/scenes/**/*.json", "companion/lexicon/*.json", "companion/ispy/**/*.json",
+            "companion/prints/sheet.css", "companion/prints/fit.js", "site/fonts/*.woff2", "companion/bridge/web/family/*",
+            "data-examples/*-template.json",
+        )
+    })
+    out.set(layout.buildDirectory.dir("generated/phoneProject"))
+}
+
 androidComponents {
     onVariants { variant ->
         variant.sources.resources?.addGeneratedSourceDirectory(tutorFiles, TutorFiles::out)
@@ -295,6 +398,8 @@ androidComponents {
         variant.sources.resources?.addGeneratedSourceDirectory(cardFiles, CardFiles::out)
         variant.sources.resources?.addGeneratedSourceDirectory(drillFiles, DrillFiles::out)
         variant.sources.resources?.addGeneratedSourceDirectory(courseFiles, CourseFiles::out)
+        variant.sources.assets?.addGeneratedSourceDirectory(phoneBridgeBundle, PhoneBridgeBundle::out)
+        variant.sources.assets?.addGeneratedSourceDirectory(phoneProject, PhoneProject::out)
     }
 }
 
@@ -393,6 +498,8 @@ android {
         manifest.srcFile("src/debug/AndroidManifest.xml")
         res.directories += "src/debug/res"
         assets.directories += "src/debug/assets"
+        // the debug build's probe of the phone bridge, which its manifest names (phone/PhoneBridgeProbe)
+        java.directories += "src/debug/java"
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -415,6 +522,10 @@ android {
         unitTests.isIncludeAndroidResources = true
         unitTests.all {
             it.systemProperty("lani.learner", "Jan")
+            // the phone bridge's tests (phone/PhoneBridgeTest): the bundle the APK gets, the repository as its project
+            it.inputs.files(phoneBridgeBundle)
+            it.systemProperty("lani.phoneBundle", phoneBridgeBundle.get().out.get().asFile.resolve("phone/bridge-phone.js").path)
+            it.systemProperty("lani.repo", rootDir.resolve("../..").canonicalPath)
             // the renderers' time budgets, scaled on a slow runner (FrameBudget in the tests; CI sets LANI_PERF_SCALE)
             it.systemProperty("lani.perfScale", System.getenv("LANI_PERF_SCALE") ?: "1")
         }
@@ -426,6 +537,11 @@ android {
         includeInApk = false
         includeInBundle = false
     }
+}
+
+// The unit tests' QuickJS is the JVM build (above): the Android one stays off their runtime classpath.
+configurations.configureEach {
+    if (name.endsWith("UnitTestRuntimeClasspath")) exclude(group = "io.github.dokar3", module = "quickjs-kt-android")
 }
 
 dependencies {
@@ -452,6 +568,10 @@ dependencies {
     implementation(libs.media3.session)
     // The phone's offline voice: Piper models run by sherpa-onnx (data/Piper.kt); the voice itself comes through the bridge.
     implementation("com.k2fsa.sherpa.onnx:sherpa-onnx-static-link-onnxruntime:${libs.versions.sherpaOnnx.get()}@aar")
+    // The bridge in the app (phone/PhoneBridge): QuickJS. The unit tests run it on the JVM: its JVM build (with the
+    // host's native library) instead of the Android one, which loads its library only on a phone.
+    implementation(libs.quickjs.kt)
+    testImplementation(libs.quickjs.kt.jvm)
     testImplementation(libs.junit)
     testImplementation(libs.icu4j)
     testImplementation(libs.robolectric)

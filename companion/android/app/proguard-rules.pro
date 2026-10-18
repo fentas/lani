@@ -22,3 +22,8 @@
 -keepnames class si.lanisce.lani.data.Exercise
 -keepnames class si.lanisce.lani.data.Exercise$* implements si.lanisce.lani.data.Exercise
 -keepattributes InnerClasses,EnclosingMethod
+
+# The bridge in the app (phone/PhoneBridge): QuickJS through quickjs-kt, whose native library calls back into its Kotlin
+# by name (JNI's FindClass and GetMethodID: the bindings it invokes, the MemoryUsage and the exceptions it makes, the
+# JsObject maps it hands over). Its AAR keeps only some of them: the whole package as it is.
+-keep class com.dokar.quickjs.** { *; }
