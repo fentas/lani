@@ -10,7 +10,6 @@
 import { readFileSync, statSync } from 'node:fs'
 import { hostname } from 'node:os'
 import { join } from 'node:path'
-import { fail, type Tool } from './channel'
 import { json, type Route } from './http'
 
 export const LEASE_FILE = 'app/lease.json'
@@ -165,15 +164,21 @@ export function guardRoutes(routes: Route[], guard: LeaseGuard): Route[] {
 /** The tutor's tools that write the learner's data: publishing, removing, rolling back, setting the rhythm. */
 export const WRITING_TOOL = /^(publish|remove|rollback|set)_/
 
-/** [tools], where a writing tool ([WRITING_TOOL]) fails with the reason while the lease isn't this side's. */
-export function guardTools(tools: Tool[], guard: LeaseGuard): Tool[] {
+/**
+ * What [guardTools] needs of a tool: its name and handler (channel.ts's Tool; no import of it, so the phone's bundle,
+ * which has no MCP SDK, can hold this file).
+ */
+type ToolLike = { name: string; handle: (args: Record<string, any>) => unknown }
+
+/** [tools], where a writing tool ([WRITING_TOOL]) fails with the reason (a tool error) while the lease isn't this side's. */
+export function guardTools<T extends ToolLike>(tools: T[], guard: LeaseGuard): T[] {
   return tools.map(t =>
     WRITING_TOOL.test(t.name)
       ? {
           ...t,
-          handle: args => {
+          handle: (args: Record<string, any>) => {
             const why = guard.refusal()
-            return why ? fail(`Nothing written. ${why}`) : t.handle(args)
+            return why ? { content: [{ type: 'text' as const, text: `Nothing written. ${why}` }], isError: true } : t.handle(args)
           },
         }
       : t,
