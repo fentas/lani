@@ -38,6 +38,7 @@ Android app ──HTTP/SSE──► bridge service ◄──unix socket (MCP)─
 | `bin/lani-pair` | Pairs a phone with a learner's tutor: prints a one-time QR code; lists and unpairs phones (see [Pair a phone](#pair-a-phone)). |
 | `bin/lani-send-app` | Sends the app (the newest APK of the release directory) to a phone over Tailscale (Taildrop), no cable (see [Android app](#android-app)). |
 | `bin/lani-town` | Links learners' towns: invitations (a one-time QR code), accepting one, linking two towns of this node, unlinking (see [Towns](#towns)). |
+| `bin/lani-handover` | Moves a learner's data between this node and their phone through the data repository: hands it over (the lease, then the town's key as a QR code), takes it back (`--take`), says who writes (`--status`) (see [Data: git, the handover, the backup](#data-git-the-handover-the-backup)). |
 | `bin/voice-build` | Counts and prebuilds the voice clips (see [Voice](#voice)). |
 | `bin/lexicon-build` | Builds a word lookup dictionary from a kaikki.org extract of Wiktionary, gives its lemmas their meanings in the other languages (from the English, German and Italian Wiktionaries), and shows how much of the content it knows (see [Word lookup](#word-lookup)). |
 | `bin/release-app` | Builds a release APK (`--docker`: in Docker) and publishes it to the app's self-update; `--github [<tag>]` publishes a GitHub release's APK instead (see [Android app](#android-app)). |
@@ -2960,6 +2961,29 @@ the last one of each day for 14 days, of each week for 8 weeks and of each month
 User timers only run while you're logged in, unless lingering is on (`loginctl enable-linger $USER`);
 missed runs catch up at the next login. The snapshots stay on this machine. To keep a copy
 elsewhere too, sync the backup directory to another tailnet device, e.g. with `rsync -aH`.
+
+## Data: git, the handover, the backup
+
+Opt-in, for the app's hosted mode (plan 5): the learner's data can live on the phone and move between the node and the
+phone through the data repository on GitHub. Built in [docs/plans/05-built/git-sync.md](../docs/plans/05-built/git-sync.md),
+with what to set up and a switch step by step.
+
+```bash
+companion/bin/lani-handover                 # hand the data over to the phone: commit, the lease offered, push; then a QR code
+companion/bin/lani-handover --code          # the QR code needs a code typed on the phone too
+companion/bin/lani-handover --status        # who writes the data now
+companion/bin/lani-handover --take          # take it back once the phone handed it over (--force: the phone is lost)
+```
+
+- **The lease** (`app/lease.json`, `.claude/hooks/lani_lease.py`) says who writes. While the phone holds it, this node
+  only reads: `update-db.py` and `card.py` refuse, nothing is committed, and the bridge answers the app's writes with
+  423 and fails the tutor's writing tools, each saying who writes and how to take it back. `LANI_LEASE=ignore` overrides
+  it (an emergency only).
+- **The town's own key:** `app/town-key.pem` when there is one, else the bridge key as before; a town keeps its id
+  among its friends when it moves.
+- **In the app:** 🔗 Povezava · Connection → 💾 Podatki · Data: connect git (the OAuth device flow with
+  `lani.githubClientId`, or a pasted fine-grained token), the repository and the last sync, who writes and the
+  handover's QR code, the encrypted backup (a recovery code or a passphrase; the relay's backup API, `lani.relayUrl`).
 
 ## Im Auto · In the car
 

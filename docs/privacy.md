@@ -55,6 +55,16 @@ APKs (`.gitignore`). Use a **private** repository; the wizard refuses a GitHub r
 family's recordings are their voices: ask them before they go to a remote. `LANI_DATA_PUSH=off` keeps the commits on
 this machine.
 
+**From the phone too, when git is connected in the app** (💾 Podatki · Data): the phone syncs the same repository through
+GitHub's API, with the learner's own GitHub token (kept in the phone's Keystore). It pushes what the node's `.gitignore`
+lets through, never the tokens, the town's key, the recent answers, the developer's data or the chat's photos. The app
+warns before it uses a public repository.
+
+**The encrypted backup (the app):** the phone's data directory, encrypted on the phone with a key from the learner's
+recovery code or passphrase, goes to Lani's relay; the relay holds only ciphertext and can't open it. The town's key and
+the family token are inside, encrypted with the rest, so a restore brings the town back. Without the recovery code or
+the passphrase nobody can open a backup, not even us. See [plans/05-built/git-sync.md](plans/05-built/git-sync.md).
+
 ## Only when you use them
 
 - **Linked towns** (by invitation only): a linked town's bridge gets this town's public state (the village's name, its

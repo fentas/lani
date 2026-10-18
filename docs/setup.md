@@ -145,7 +145,8 @@ machine.
 - **With a remote, it pushes.** Each commit is pushed to `origin` in the background, never forced. A push that fails (no
   network, the remote moved on) is tried again with the next commit. `~/.local/state/lani/data-push.log` says what
   happened.
-- **What stays out** (`.gitignore`, written once; edit it as you like): the tokens and the bridge's key, pairing and
+- **What stays out** (`.gitignore`, written once from `.claude/hooks/data-repo.gitignore`; edit it as you like; the app
+  never pushes what that file keeps out): the tokens, the bridge's and the town's keys, pairing and
   invitation codes, the voice clips and APKs, files the bridge rewrites all the time (`client-ids.json`,
   `devices-seen.json`, `events.json`, `channel-queue.json`), backups and temporary files. `devices.json` is in: it holds
   only hashes of the phones' tokens.
@@ -156,6 +157,10 @@ machine.
   shadow tutor's exports and the app's log, companion/README.md "Developer data on the node"): `/app/dev/`; and for the
   tutor chat's photos (`app/chat-images/`, companion/README.md "Tutor chat", "Photos"): `/app/chat-images/`.
 - **Only a repository's root counts.** The checkout's `data/` is never committed into Lani's repository.
+- **One side writes at a time: the lease** (`app/lease.json`). Without one, the node writes, as always. After `lani
+  handover` (the data to the phone's hosted mode), this node only reads: sessions aren't written or committed, and the
+  tutor and the app are told who writes. `lani handover --take` takes the data back. See
+  [docs/plans/05-built/git-sync.md](plans/05-built/git-sync.md).
 
 | Setting (lani.env) | Default | |
 |---|---|---|
