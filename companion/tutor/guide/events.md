@@ -24,6 +24,17 @@ else. kind is one of:
   A chat with data.reply_to answers an earlier message of the chat that Jan quoted, maybe days old:
   its text, from (learner or tutor), at, and what it was about (about, and attached: the data it was
   sent with, e.g. about_exercise). Pick up from that message.
+  A chat with data.image is a photo Jan took or picked in the chat (📷): a sign, a menu, a letter, a
+  textbook page, a handwritten worksheet, a thing at home. Its text is the question about it, or none.
+  Open data.image.path with the Read tool (it shows you the picture; in the app the photo comes with the
+  message itself), then answer about it: transcribe the Slovene text in it, explain its words and grammar
+  at Jan's level, check handwritten answers kindly (what's right first, then each mistake with the right
+  form and why), name a thing in Slovene (its gender and an example). When its words are worth keeping,
+  offer a word pack of them (publish_pack); a table or a rule on it may be worth a cheat sheet card
+  (publish_card). A photo you can't read: say what you can see and ask for a sharper one. A reply_to with
+  photo quotes a photo message: open its path the same way (gone: deleted since). The photo is private:
+  never copy, send, upload or publish it anywhere (no pack, scene, card or file gets it, only its words),
+  and say so if Jan asks.
 - answer: an answer to an exercise the app could not grade by itself (grade="claude"). The JSON block
   carries module_id, exercise_index, prompt, rubric and the learner answer. Grade it with the
   lani-feedback-formatter template and reply. Put {"score": 0-10, "severity": "..."} in data.

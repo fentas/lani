@@ -36,11 +36,12 @@ class DataRepoTest(unittest.TestCase):
         for t in TEMPLATES.glob("*-template.json"):
             (self.data / t.name.replace("-template", "")).write_text(t.read_text())
         app = self.data / "app"
-        for d in ("voice/files", "release", "pairing", "town-invites", "audio", "modules", "dev"):
+        for d in ("voice/files", "release", "pairing", "town-invites", "audio", "modules", "dev", "chat-images/2026-10"):
             (app / d).mkdir(parents=True)
         for f in ("bridge-token", "family-token", "bridge-key.pem", "client-ids.json", "devices-seen.json", "events.json",
                   "channel-queue.json", "answers.json", "voice/voice.db", "voice/files/a.mp3", "release/lani-1001.apk",
-                  "pairing/abc", "town-invites/def", "dev/shadow-2026-10-05.json", "dev/app-log-2026-10-05.txt"):
+                  "pairing/abc", "town-invites/def", "dev/shadow-2026-10-05.json", "dev/app-log-2026-10-05.txt",
+                  "chat-images/2026-10/0123456789abcdef0123456789abcdef.jpg"):
             (app / f).write_text("x")
         (app / "game.json").write_text("{}")
         (app / "devices.json").write_text('{"devices": []}')
@@ -99,7 +100,8 @@ class DataRepoTest(unittest.TestCase):
                                 "app/voice/files/a.mp3", "app/release/lani-1001.apk", "app/pairing/abc",
                                 "app/town-invites/def", "app/client-ids.json", "app/devices-seen.json", "app/events.json",
                                 "app/channel-queue.json", "app/answers.json", "app/dev/shadow-2026-10-05.json",
-                                "app/dev/app-log-2026-10-05.txt", ".backups/old.json", "learner-profile.json.backup-20261005-101010"):
+                                "app/dev/app-log-2026-10-05.txt", "app/chat-images/2026-10/0123456789abcdef0123456789abcdef.jpg",
+                                ".backups/old.json", "learner-profile.json.backup-20261005-101010"):
             self.assertNotIn(secret_or_cache, files)
         self.assertEqual("main", git(self.data, "branch", "--show-current"))
         self.assertEqual("lani-setup: import", git(self.data, "log", "-1", "--format=%s"))
@@ -175,16 +177,48 @@ class DataRepoTest(unittest.TestCase):
         self.assertEqual(1, (self.data / ".gitignore").read_text().count("/app/dev/"))
         self.assertEqual("", git(self.data, "status", "--porcelain"))
 
+    def test_the_chats_photos_never_go_in_also_from_a_repository_from_before_the_line(self):
+        # a repository whose .gitignore was written before the photos' line (the bridge's PUT /chat/images: app/chat-images/)
+        self.init()
+        old = "".join(line + "\n" for line in (self.data / ".gitignore").read_text().splitlines()
+                      if "/app/chat-images/" not in line and "tutor chat" not in line and line != "# this line back if it is missing.")
+        self.assertNotIn("chat-images", old)
+        (self.data / ".gitignore").write_text(old)
+        git(self.data, "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-qam", "the .gitignore from before")
+        photos = self.data / "app" / "chat-images" / "2026-11"
+        photos.mkdir(parents=True)
+        (photos / "fedcba9876543210fedcba9876543210.jpg").write_bytes(b"\xff\xd8\xff\xe0 a photo")
+        (photos / "00112233445566778899aabbccddeeff.png").write_bytes(b"\x89PNG a photo")
+        git(self.data, "add", "-A")  # one staged, not committed yet
+        self.assertIn("app/chat-images/2026-11/fedcba9876543210fedcba9876543210.jpg",
+                      git(self.data, "diff", "--cached", "--name-only").splitlines())
+        out = self.run_hook("update-db.py", self.report())
+        self.assertEqual(0, out.returncode, out.stderr)
+        files = set(git(self.data, "ls-files").splitlines())
+        self.assertFalse(any(f.startswith("app/chat-images/") for f in files), files)
+        self.assertFalse(any("chat-images" in f for f in git(self.data, "log", "--all", "--name-only", "--format=").splitlines()))
+        self.assertTrue((photos / "fedcba9876543210fedcba9876543210.jpg").exists())  # stays on the machine
+        self.assertEqual(1, (self.data / ".gitignore").read_text().count("/app/chat-images/"))
+        self.assertTrue((self.data / ".gitignore").read_text().startswith(old))  # the learner's own lines as they were
+        self.run_hook("session-end.py", "{}")
+        self.assertEqual(1, (self.data / ".gitignore").read_text().count("/app/chat-images/"))
+        self.assertEqual("", git(self.data, "status", "--porcelain"))
+
+    def test_the_gitignore_template_keeps_the_chats_photos_out(self):
+        out = self.repo("gitignore")
+        self.assertEqual(0, out.returncode, out.stderr)
+        self.assertIn("/app/chat-images/", out.stdout.splitlines())
+
     def test_a_learners_own_line_that_keeps_the_answers_out_is_enough(self):
         sys.path.insert(0, str(HOOKS))
         import lani_data_repo as r
         self.init()
-        # (and one that keeps the developer's data out: app/dev/*.json and *.txt)
-        (self.data / ".gitignore").write_text("/app/*.json*\n/app/dev/*\n")
+        # (and ones that keep the developer's data and the chat's photos out: app/dev/*.json and *.txt, app/chat-images/*/*)
+        (self.data / ".gitignore").write_text("/app/*.json*\n/app/dev/*\n/app/chat-images/*\n")
         self.assertEqual([], r.keep_private_out(self.data))
-        self.assertEqual("/app/*.json*\n/app/dev/*\n", (self.data / ".gitignore").read_text())
+        self.assertEqual("/app/*.json*\n/app/dev/*\n/app/chat-images/*\n", (self.data / ".gitignore").read_text())
         # a line that lets them in again is outdone by the one added after it
-        (self.data / ".gitignore").write_text("/app/*.json*\n/app/dev/*\n!/app/answers.json\n")
+        (self.data / ".gitignore").write_text("/app/*.json*\n/app/dev/*\n/app/chat-images/*\n!/app/answers.json\n")
         self.assertEqual(["/app/answers.json*"], r.keep_private_out(self.data))
         self.assertTrue(r.ignored(self.data, "app/answers.json"))
         self.assertEqual([], r.keep_private_out(self.data))

@@ -61,7 +61,12 @@ client.fallbackNotificationHandler = async n => {
       '1. Say „Jaz sem Jan.“ out loud.',
       '2. Then try *Midva sva iz Gorice.*',
     ].join('\n'))
-  else if (kind === 'chat') await reply(conversation_id, `(dev tutor) Prejel sem: *${String(p.content).split('\n')[0].slice(0, 60)}*`)
+  else if (kind === 'chat' && /"image":\s*\{/.test(String(p.content))) {
+    // a photo (README "Tutor chat", "Photos"): its event's data.image, as QA's chat-photo step reads it from the log
+    const image = JSON.parse(/```json\n([\s\S]*)\n```/.exec(String(p.content))?.[1] ?? '{}').image ?? {}
+    console.log(`← chat image ${JSON.stringify(image)}`)
+    await reply(conversation_id, `📷 (dev tutor) **Vidim fotografijo** · I see the photo: ${image.width}×${image.height}, ${Math.round((image.bytes ?? 0) / 1024)} KB.`)
+  } else if (kind === 'chat') await reply(conversation_id, `(dev tutor) Prejel sem: *${String(p.content).split('\n')[0].slice(0, 60)}*`)
   else if (kind === 'session_end') await reply(conversation_id, '(dev tutor) 🎉 Session saved.')
   else if (kind === 'roleplay') {
     const d = JSON.parse(/```json\n([\s\S]*)\n```/.exec(String(p.content))?.[1] ?? '{}')

@@ -41,9 +41,10 @@ import { LANGUAGES } from '../learners'
  * ("dialog-words"), and asks for a school intro's explanation as one clip (`lang` on /voice/say and /voice/prepare) only
  * from one that voices it so ("explanations"; an older bridge would voice the English as a Slovene line); it asks for
  * counting cards (POST /counting) and sends how they went (POST /reviews `counting`) only to one that makes them
- * ("counting").
+ * ("counting"); a photo in the chat goes to one that keeps it (PUT /chat/images/<id>, "chat-images"; an older bridge
+ * answers 404 and the message goes without it).
  */
-export const STATE_FEATURES = ['dialog-words', 'explanations', 'counting'] as const
+export const STATE_FEATURES = ['dialog-words', 'explanations', 'counting', 'chat-images'] as const
 
 /** A form of a card's word asked in a review: the slot ("pres.1sg"), the grammar page it counts on, how it went. */
 const formAsked = z.object({

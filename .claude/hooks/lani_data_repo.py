@@ -70,6 +70,10 @@ keys.env
 # on this machine: each commit adds this line back if it is missing.
 /app/dev/
 
+# Photos from the tutor chat (the app's 📷: a sign, a page, a worksheet). They stay on this machine: each commit adds
+# this line back if it is missing.
+/app/chat-images/
+
 # Backups (snapshots already) and temporary files
 /.backups/
 *.backup-*
@@ -85,11 +89,12 @@ __pycache__/
 # What never goes into a data repository, whatever its .gitignore says (the learner's own, or one written before a line
 # was added to GITIGNORE): what the learner typed or said lately (the bridge's answers.json, companion/README.md "Recent
 # answers"; docs/privacy.md says it stays on the machine), with its temporary files; the developer's data from the app
-# (app/dev/: companion/README.md "Developer data on the node"). Each line, with paths it must keep out (to check with
-# git).
+# (app/dev/: companion/README.md "Developer data on the node"); the tutor chat's photos (app/chat-images/: companion/
+# README.md "Tutor chat"). Each line, with paths it must keep out (to check with git).
 PRIVATE = (
     ("/app/answers.json*", ("app/answers.json", "app/answers.json.tmp-0-000000")),
     ("/app/dev/", ("app/dev/shadow-2026-01-01.json", "app/dev/app-log-2026-01-01.txt")),
+    ("/app/chat-images/", ("app/chat-images/2026-01/0123456789abcdef0123456789abcdef.jpg",)),
 )
 
 GIT_TIMEOUT = 30

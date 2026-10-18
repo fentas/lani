@@ -7,11 +7,12 @@
 // Never committed: the data repository's .gitignore keeps /app/dev/ out (lani_data_repo.py writes the line, and keeps
 // it in with each commit); the bridge adds it at its start to a .gitignore without it. The tutor knows nothing of it:
 // no tool, no paragraph of the channel guide.
-import { appendFileSync, chmodSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync } from 'node:fs'
+import { appendFileSync, chmodSync, existsSync, mkdirSync, readdirSync, rmSync } from 'node:fs'
 import { join } from 'node:path'
 import type { Log } from '../config'
 import type { FeatureFactory } from '../feature'
 import { HttpError, json, readText, type RouteCtx } from '../http'
+import { keepOut } from '../ignore'
 import { writeAtomic } from '../pairing'
 
 /** The largest upload either route takes (413 beyond). */
@@ -23,8 +24,6 @@ export const DEV_IGNORE = '/app/dev/'
 
 /** The files' names, with their day. */
 const DAY_FILE = /^(?:shadow|app-log)-(\d{4}-\d{2}-\d{2})\.(?:json|txt)$/
-/** Lines of a .gitignore that already keep app/dev/ out. */
-const IGNORES = new Set(['/app/dev/', '/app/dev', 'app/dev/', 'app/dev', '/app/dev/*', '/app/dev/**'])
 
 const pad = (n: number) => String(n).padStart(2, '0')
 
@@ -67,32 +66,17 @@ export function scrubJson(v: unknown, known: string[] = []): unknown {
   return v
 }
 
-/** Whether git ignores [rel] in the repository [dataDir] (its .gitignore and the user's excludes). */
-function gitIgnores(dataDir: string, rel: string): boolean {
-  const env: Record<string, string | undefined> = { ...process.env, GIT_TERMINAL_PROMPT: '0' }
-  for (const k of ['GIT_DIR', 'GIT_WORK_TREE', 'GIT_INDEX_FILE', 'GIT_COMMON_DIR']) delete env[k]
-  try {
-    return Bun.spawnSync(['git', '-C', dataDir, 'check-ignore', '-q', '--no-index', '--', rel], { env, stdout: 'ignore', stderr: 'ignore' }).exitCode === 0
-  } catch {
-    return false // no git on this machine: the line goes in
-  }
-}
-
 /**
  * The learner's data repository keeps app/dev/ out: a .gitignore (or a repository) without a line that does gets
- * [DEV_IGNORE] appended, once. A plain data directory without a .gitignore is left alone. Returns whether it added it.
+ * [DEV_IGNORE] appended, once (ignore.ts keepOut). A plain data directory without a .gitignore is left alone. Returns
+ * whether it added it.
  */
 export function ignoreDevData(dataDir: string, log: Log): boolean {
-  const file = join(dataDir, '.gitignore')
-  const repo = existsSync(join(dataDir, '.git'))
-  if (!repo && !existsSync(file)) return false
-  const text = existsSync(file) ? readFileSync(file, 'utf8') : ''
-  if (text.split('\n').some(l => IGNORES.has(l.trim()))) return false
-  if (repo && ['app/dev/shadow-2026-01-01.json', 'app/dev/app-log-2026-01-01.txt'].every(rel => gitIgnores(dataDir, rel))) return false
-  const sep = text && !text.endsWith('\n') ? '\n' : ''
-  appendFileSync(file, `${sep}\n# Developer data from the app (POST /dev/shadow, /dev/logs): stays on this machine (added by the bridge).\n${DEV_IGNORE}\n`)
-  log(`dev: ${file} now keeps ${DEV_IGNORE} out`)
-  return true
+  return keepOut(dataDir, {
+    line: DEV_IGNORE,
+    samples: ['app/dev/shadow-2026-01-01.json', 'app/dev/app-log-2026-01-01.txt'],
+    comment: 'Developer data from the app (POST /dev/shadow, /dev/logs): stays on this machine (added by the bridge).',
+  }, m => log(`dev: ${m}`))
 }
 
 /** Deletes the files of [dir] whose day is more than [days] days before [today]. Returns their names. */

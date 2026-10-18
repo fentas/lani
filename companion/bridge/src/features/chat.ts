@@ -1,11 +1,14 @@
 // Chat with the tutor: app messages into the session, the reply tool back out, and the permission
 // relay (tool approvals answered from the app). A session_end whose results were answered with the cheat
-// sheet open (looked_up) gets a line naming the topics looked up.
+// sheet open (looked_up) gets a line naming the topics looked up. The chat's photos (chat-images.ts): PUT, GET and
+// DELETE /chat/images/<id>, and a chat message that names one (image: {id}) carries its path to the tutor.
+import { join } from 'node:path'
 import { z } from 'zod'
 import { lookedUpNote, resultsLookedUp } from '../answers'
 import { fail, ok } from '../channel'
+import { CHAT_IMAGE_ID, CHAT_IMAGE_MAX, ChatImages } from '../chat-images'
 import type { FeatureFactory } from '../feature'
-import { json, readJson } from '../http'
+import { HttpError, json, readBody, readJson, type RouteCtx } from '../http'
 import { scenarioBrief } from '../scenarios'
 import { learnerLevel, villagerTalk } from '../villagers'
 import { talkPlace } from './villagers'
@@ -37,6 +40,17 @@ else. kind is one of:
   A chat with data.reply_to answers an earlier message of the chat that Jan quoted, maybe days old:
   its text, from (learner or tutor), at, and what it was about (about, and attached: the data it was
   sent with, e.g. about_exercise). Pick up from that message.
+  A chat with data.image is a photo Jan took or picked in the chat (📷): a sign, a menu, a letter, a
+  textbook page, a handwritten worksheet, a thing at home. Its text is the question about it, or none.
+  Open data.image.path with the Read tool (it shows you the picture; in the app the photo comes with the
+  message itself), then answer about it: transcribe the Slovene text in it, explain its words and grammar
+  at Jan's level, check handwritten answers kindly (what's right first, then each mistake with the right
+  form and why), name a thing in Slovene (its gender and an example). When its words are worth keeping,
+  offer a word pack of them (publish_pack); a table or a rule on it may be worth a cheat sheet card
+  (publish_card). A photo you can't read: say what you can see and ask for a sharper one. A reply_to with
+  photo quotes a photo message: open its path the same way (gone: deleted since). The photo is private:
+  never copy, send, upload or publish it anywhere (no pack, scene, card or file gets it, only its words),
+  and say so if Jan asks.
 - answer: an answer to an exercise the app could not grade by itself (grade="claude"). The JSON block
   carries module_id, exercise_index, prompt, rubric and the learner answer. Grade it with the
   lani-feedback-formatter template and reply. Put {"score": 0-10, "severity": "..."} in data.
@@ -79,6 +93,8 @@ const inbound = z.object({
     .default('main'),
   text: z.string().max(8000).default(''),
   data: z.record(z.string(), z.unknown()).optional(),
+  // a photo sent before it (PUT /chat/images/<id>): only with a chat
+  image: z.object({ id: z.string().regex(CHAT_IMAGE_ID) }).optional(),
 })
 
 const replyIn = z.object({
@@ -92,6 +108,7 @@ const verdict = z.object({ request_id: z.string().regex(/^[a-km-z]{5}$/), behavi
 export const chat: FeatureFactory = ctx => {
   const { cfg, channel, events, family, outbox, scenarios, villagers, game, profile, visitTalks, learner, log } = ctx
   let msgSeq = 0
+  const images = new ChatImages(join(cfg.appDir, 'chat-images'), cfg.dataDir, log)
 
   /**
    * What an arrival is written around (villager_arrived): the learner's level, their weakest patterns now (mistakes-db,
@@ -122,6 +139,25 @@ export const chat: FeatureFactory = ctx => {
     const r = inbound.safeParse(await readJson(req))
     if (!r.success) return json({ error: z.prettifyError(r.error) }, 400)
     const m = r.data
+    // what the tutor opens is the bridge's to say: a path in the app's data is never passed on
+    if (m.data && 'image' in m.data) {
+      const { image: _, ...rest } = m.data
+      m.data = rest
+    }
+    if (m.image) {
+      if (m.kind !== 'chat') return json({ error: 'a photo goes with a chat message only (kind chat)' }, 400)
+      const image = images.event(m.image.id)
+      if (!image) return json({ error: `the photo ${m.image.id} isn't on the node: PUT /chat/images/${m.image.id} first` }, 400)
+      m.data = { ...m.data, image }
+    }
+    // a quoted photo message (data.reply_to.photo: its id): its path as the image's, or gone (deleted since)
+    const quoted = m.data?.reply_to
+    if (quoted && typeof quoted === 'object' && !Array.isArray(quoted) && 'photo' in quoted) {
+      const id = (quoted as Record<string, unknown>).photo
+      const photo = typeof id === 'string' ? (images.event(id) ?? { id, gone: true }) : undefined
+      const { photo: _, ...rest } = quoted as Record<string, unknown>
+      m.data = { ...m.data, reply_to: photo ? { ...rest, photo } : rest }
+    }
     const msg_id = `m${Date.now().toString(36)}${(msgSeq++).toString(36)}`
     const scenarioId = m.kind.startsWith('roleplay') && typeof m.data?.scenario_id === 'string' ? m.data.scenario_id : undefined
     if (scenarioId?.startsWith('villager:')) {
@@ -143,16 +179,46 @@ export const chat: FeatureFactory = ctx => {
     // a run's exercises answered with the cheat sheet open (answers.ts lookedUpNote): the topics looked up, in a line
     const looked = m.kind === 'session_end' ? lookedUpNote(resultsLookedUp(m.data?.results), 'exercise') : ''
     const said = looked ? (m.text ? `${m.text}${looked}` : looked.trim()) : m.text
-    const content = m.data ? `${said}\n\n\`\`\`json\n${JSON.stringify(m.data, null, 2)}\n\`\`\`` : said
+    const content = m.data ? `${said ? `${said}\n\n` : ''}\`\`\`json\n${JSON.stringify(m.data, null, 2)}\n\`\`\`` : said
     // queued: the bridge service has no tutor session attached now; the next one gets it (docs/plans/04-bridge-service.md)
     const queued = (await channel.notify(content, { kind: m.kind, conversation_id: m.conversation_id, msg_id })) === 'queued'
     return json({ msg_id, ...(queued ? { queued: true } : {}) })
+  }
+
+  /** The id in /chat/images/<id>, or a 400. */
+  function imageId({ params }: RouteCtx): string {
+    const id = decodeURIComponent(params[0] ?? '')
+    if (!CHAT_IMAGE_ID.test(id)) throw new HttpError(400, 'a photo id is 8 to 64 letters, digits, - or _')
+    return id
+  }
+
+  /** PUT /chat/images/<id>: the photo's bytes (the content says what it is, not the Content-Type). */
+  async function putImage(c: RouteCtx): Promise<Response> {
+    const id = imageId(c)
+    const raw = await readBody(c.req, CHAT_IMAGE_MAX, `the photo is too large (max ${CHAT_IMAGE_MAX / 1024 / 1024} MB)`)
+    if (!raw.length) return json({ error: 'an empty photo' }, 400)
+    const r = images.put(id, raw)
+    if (typeof r === 'string') return json({ error: r }, 415)
+    return json({ ...r.info, ...(r.existing ? { existing: true } : {}) })
+  }
+
+  function getImage(c: RouteCtx): Response {
+    const id = imageId(c)
+    const f = images.read(id)
+    if (!f) return json({ error: `no photo ${id}` }, 404)
+    return new Response(f.bytes, {
+      headers: { 'content-type': f.type, 'content-length': String(f.bytes.length), 'cache-control': 'private, max-age=31536000, immutable' },
+    })
   }
 
   return {
     instructions,
     routes: [
       { method: 'POST', path: '/message', handle: ({ req, url }) => outbox.once(req, url.pathname, handleMessage) },
+      // the chat's photos (chat-images.ts): the app's token only; the id is the photo's message's client id
+      { method: 'PUT', path: /^\/chat\/images\/([^/]+)$/, handle: putImage },
+      { method: 'GET', path: /^\/chat\/images\/([^/]+)$/, handle: getImage },
+      { method: 'DELETE', path: /^\/chat\/images\/([^/]+)$/, handle: c => json({ id: imageId(c), deleted: images.remove(imageId(c)) }) },
       {
         method: 'POST',
         path: '/permission',
@@ -189,5 +255,6 @@ export const chat: FeatureFactory = ctx => {
         },
       },
     ],
+    start: () => images.start(),
   }
 }
