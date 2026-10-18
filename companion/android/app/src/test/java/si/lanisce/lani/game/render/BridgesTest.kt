@@ -26,6 +26,7 @@ import si.lanisce.lani.game.Land
 import si.lanisce.lani.game.Landscape
 import si.lanisce.lani.game.NO_PLOT
 import si.lanisce.lani.game.PLOTS_PER_AGE
+import si.lanisce.lani.game.render.scene.StreamPlan
 import java.io.File
 import kotlin.math.abs
 
@@ -34,8 +35,10 @@ import kotlin.math.abs
  * from nowhere"): a bridge stands where a way crosses the stream, its deck open at both ends and the way going on at both,
  * never into the palisade, a building or nothing. The cart bridge (the project "most", [LandmarkLayout]) carries its own
  * track: from the road on the village's bank over the stream and on into the woods, through a gate of its own in the
- * palisade, at every stage of the project, on every land and at every age; the road's bridge carries the road. Snapshots
- * of both, every stage, by day, by night and in winter, for review (build/village-snapshots/63-bridge-…).
+ * palisade, at every stage of the project, on every land and at every age; the road's bridge carries the road. In the
+ * stream's scene ([StreamPlan]) the paths along both banks come onto the footbridge's ends and the cart road up the ramps
+ * onto the cart bridge's. Snapshots of the map's bridges, every stage, by day, by night and in winter, and of the scene's
+ * at every stage and detail, for review (build/village-snapshots/63-bridge-…, 64-stream-bridges-…).
  */
 class BridgesTest {
     private val dir = File("build/village-snapshots").apply { mkdirs() }
@@ -164,6 +167,58 @@ class BridgesTest {
             assertTrue("$name: its deck reaches past the water", t.bridgeHalf > t.streamHalf + 0.3f)
             // and the road goes on at both its ends: off the water there
             for (x in floatArrayOf(b[0] - t.bridgeHalf - 0.2f, b[0] + t.bridgeHalf + 0.2f)) assertTrue("$name: the road at %.2f in the stream".format(x), abs(x - t.streamX(t.roadY(x))) > t.streamHalf)
+        }
+    }
+
+    // ---------------------------------------------------------------- the stream's scene
+
+    /** The stream's bridges (Ob potoku): every way meets its bridge's open end, every deck spans the water bank to bank. */
+    @Test fun `in the stream's scene the paths come onto the footbridge and the cart road onto the cart bridge`() {
+        val p = StreamPlan
+        // the footbridge: its deck over the water from bank to bank, its ends on the banks
+        for (d in floatArrayOf(p.FOOT_D0, p.FOOT_D, p.FOOT_D1)) {
+            assertTrue("the footbridge's left end on the bank at $d", p.FOOT_L < p.course(d) - p.half(d) - 0.3f)
+            assertTrue("the footbridge's right end on the bank at $d", p.FOOT_R > p.course(d) + p.half(d) + 0.3f)
+        }
+        // the paths: along the banks, off the water, from the picture's bottom up to the deck's ends, under them
+        var d = 10f
+        while (d <= p.FOOT_D0) {
+            assertTrue("the right bank's track in the water at $d", p.track(d) - p.PATH_HALF > p.course(d) + p.half(d))
+            assertTrue("the left bank's path in the water at $d", p.leftPath(d) + p.PATH_HALF < p.course(d) - p.half(d))
+            d += 0.25f
+        }
+        assertTrue("the paths reach under the deck", p.PATHS_TO > p.FOOT_D0 + 0.3f)
+        assertTrue("the track onto the footbridge's right end", abs(p.track(p.FOOT_D0) - p.FOOT_R) < p.PATH_HALF)
+        assertTrue("the path onto the footbridge's left end", abs(p.leftPath(p.FOOT_D0) - p.FOOT_L) < p.PATH_HALF)
+        // the cart bridge: its deck over the water, the piers on the banks
+        for (cd in floatArrayOf(p.CART_D0, p.CART_D, p.CART_D1)) {
+            assertTrue("the cart bridge's left end on the bank at $cd", p.CART_L < p.course(cd) - p.half(cd) - 0.5f)
+            assertTrue("the cart bridge's right end on the bank at $cd", p.CART_R > p.course(cd) + p.half(cd) + 0.5f)
+        }
+        // the cart road: straight on off both ends over the ramps, as wide as the deck there, then on its way
+        for (x in floatArrayOf(p.CART_L - p.RAMP, p.CART_L - 0.1f, p.CART_R + 0.1f, p.CART_R + p.RAMP)) {
+            assertEquals("the cart road's middle at $x", p.CART_D, p.roadMid(x), 0.001f)
+            val half = 0.75f * p.roadScale(x)
+            assertTrue("the cart road at $x as wide as the deck ($half)", half >= (p.CART_D1 - p.CART_D0) / 2f - 0.05f && half <= (p.CART_D1 - p.CART_D0) / 2f + 0.2f)
+        }
+        for (x in floatArrayOf(p.CART_L - p.RAMP - 4f, p.CART_R + p.RAMP + 4f)) assertTrue("the cart road goes on at $x", 0.75f * p.roadScale(x) > 1.2f)
+    }
+
+    /** The stream's bridges as the project goes (no step, each step), at every detail, by day; finished by night and in winter. */
+    @Test fun `render the stream's bridges at every stage`() {
+        val crop = intArrayOf(40, 50, 170, 70)
+        for (st in 0..6) for ((when_, hour, month) in listOf(Triple("day", 10f, 7), Triple("night", 22.5f, 7), Triple("winter", 12f, 1))) {
+            if (st < 6 && when_ != "day") continue
+            val world = si.lanisce.lani.game.scene.SceneWorld(Age.MESTO, si.lanisce.lani.game.BuildingType.entries.associateWith { 1 }, mapOf("mlin" to 6, "most" to st))
+            val frame = si.lanisce.lani.game.scene.SceneFrame(time = 3.0, hour = hour, month = month, objects = si.lanisce.lani.game.scene.SceneArt.objects.getValue("stream").toSet(), world = world)
+            for (k in 1..Lens.MAX_DETAIL) {
+                val c = PixelCanvas(240 * k, 160 * k)
+                si.lanisce.lani.game.scene.ScenePainters.create("stream").render(c, frame, Lens(k, 0, 0, 240, 160))
+                val s = 6 / k
+                val img = java.awt.image.BufferedImage(crop[2] * 6, crop[3] * 6, java.awt.image.BufferedImage.TYPE_INT_RGB)
+                for (y in 0 until crop[3] * 6) for (x in 0 until crop[2] * 6) img.setRGB(x, y, c.pixels[(crop[1] * k + y / s) * c.width + crop[0] * k + x / s])
+                javax.imageio.ImageIO.write(img, "png", File(dir, "64-stream-bridges-$st-$when_-d$k.png"))
+            }
         }
     }
 

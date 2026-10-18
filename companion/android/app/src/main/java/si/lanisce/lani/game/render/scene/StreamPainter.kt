@@ -16,8 +16,9 @@ import kotlin.math.sin
 import kotlin.math.sqrt
 
 /**
- * Ob potoku: the stream below the village, seen from its bank. It comes out of the woods under the hills, runs past
- * Mlinar France's mill (an overshot wheel fed by a wooden flume) and under a plank footbridge (brv), over a row of
+ * Ob potoku: the stream below the village, seen from its bank (its plan: [StreamPlan]). It comes out of the woods under
+ * the hills, runs past Mlinar France's mill (an overshot wheel fed by a wooden flume) and under a plank footbridge (brv)
+ * that the paths along both banks come onto, over a row of
  * stepping stones and on past us: clear water over pebbles, white riffles round the stones, a trout holding in the
  * current, watercress in the shallows, a dragonfly darting over the water. A weeping willow leans out over the left
  * bank; below it Micka's washing stone and her basket of laundry; a sheep drinks at the right bank. At night the mill's
@@ -43,9 +44,9 @@ internal class StreamPainter : WildPainter() {
     /** Up the stream, east-south-east, where the stars rise. */
     override val skyFacing = 120.0
 
-    // the plan, in metres: the stream's middle and half its width at each depth, the woods it comes out of
-    private fun course(d: Float) = -1.1f + 0.075f * (d - 9f) + 0.5f * sin((d - 9f) * 0.2f)
-    private fun half(d: Float) = 1.45f + 0.12f * sin(d * 0.37f) - max(0f, d - 30f) * 0.012f
+    // the plan, in metres (see [StreamPlan]): the stream's middle and half its width at each depth, the woods it comes out of
+    private fun course(d: Float) = StreamPlan.course(d)
+    private fun half(d: Float) = StreamPlan.half(d)
 
     /** Half the water's width at side [x], depth [d]: the banks a little ragged. */
     private fun reach(x: Float, d: Float) = half(d) + (Noise.v2(x * 2.2f, d * 1.6f, 305) - 0.5f) * 0.22f
@@ -53,8 +54,8 @@ internal class StreamPainter : WildPainter() {
     private val woods = 56f
     private val stonesD = 13.6f
     private val stones = floatArrayOf(1.2f, 0.45f, -0.3f, -1.05f, -1.75f)
-    private val bridgeD = 19.5f
-    private val bridgeL = -2.1f; private val bridgeR = 2.5f
+    private val bridgeD = StreamPlan.FOOT_D
+    private val bridgeL = StreamPlan.FOOT_L; private val bridgeR = StreamPlan.FOOT_R
 
     // the mill on the right bank: its front (a gable end) at millD, the wheel on its left facing us
     private val millD = 22.8f; private val millBack = 25.8f
@@ -71,14 +72,15 @@ internal class StreamPainter : WildPainter() {
     /** Whether France's mill grinds (the village project "mlin" finished): its water runs, its window glows. */
     private var millDone = true
 
-    /** Whether the cart bridge is finished (the village project "most"): a cart road runs over it. */
+    /** Whether the cart bridge has its deck (the village project "most", [DECKED]): the cart road runs over it. */
     private var roadDone = true
 
-    // the cart bridge upstream (the village project "most"): stone piers on both banks, logs across, a plank deck
-    private val cartD = 35f
-    private val cartD0 = 34.3f; private val cartD1 = 35.7f
-    private val cartL = -2.6f; private val cartR = 3.3f
-    private val pierH = 1.05f
+    // the cart bridge upstream (the village project "most"): stone piers on both banks, logs across, a plank deck, the
+    // cart road's ramps up to it
+    private val cartD = StreamPlan.CART_D
+    private val cartD0 = StreamPlan.CART_D0; private val cartD1 = StreamPlan.CART_D1
+    private val cartL = StreamPlan.CART_L; private val cartR = StreamPlan.CART_R
+    private val pierH = StreamPlan.PIER_H
 
     /** Picture pixels per scene canvas pixel: every size and offset in pixels is multiplied by it. */
     private val z: Int get() = detail
@@ -86,7 +88,7 @@ internal class StreamPainter : WildPainter() {
     override fun paint() {
         setup()
         millDone = stage(MILL) >= stages(MILL)
-        roadDone = stage(BRIDGE) >= stages(BRIDGE)
+        roadDone = stage(BRIDGE) >= DECKED
         val z = z
         vistaSky(4, 21, moonX = ox + MOON_X * z, moonY = oy + 12 * z)
         hills()
@@ -243,7 +245,7 @@ internal class StreamPainter : WildPainter() {
             val n = Noise.v2(x * 0.6f, d * 0.6f, 41) + (Dither.at(px, py) - 0.5f) * 0.2f
             var col = if (n < 0.25f) Pal.SNOW_M else Pal.SNOW_L
             if (off < 0.28f) col = if (Noise.rnd(px / z, py / z, 7) < 0.3f) Pal.STONE_M else Pal.SNOW_M // the bank's wet stones show
-            else if (abs(x - track(d)) < 0.45f && d < bridgeD + 0.5f) col = Pal.SNOW_M // the trodden track
+            else if (onPath(x, d, 0.45f)) col = Pal.SNOW_M // the trodden paths
             return hazy(col, d)
         }
         val n = Noise.v2(x * 0.7f, d * 0.7f, 3) + (Dither.at(px, py) - 0.5f) * 0.25f
@@ -256,25 +258,24 @@ internal class StreamPainter : WildPainter() {
             if (d < 24f && r > 0.985f) col = g[3]
             if (env.month in 4..8 && d < 30f && off > 1.2f && Noise.rnd(px, py, 9) < 0.012f) col = Pal.PAINTED[(px * 7 + py) % 6]
         } else col = grassCloser(col, d, off, px, py)
-        // the track to the footbridge
-        val tr = abs(x - track(d)) + (Noise.rnd(px / z, py / z, 44) - 0.5f) * 0.12f
-        if (d < bridgeD + 0.6f && tr < 0.5f) col = if (tr > 0.4f) Pal.DIRT_D else if (Noise.rnd(px / z, py / z, 45) < 0.15f) Pal.DIRT_L else Pal.DIRT_M
+        // the paths to the footbridge, along both banks
+        val tr = StreamPlan.offPath(x, d) + (Noise.rnd(px / z, py / z, 44) - 0.5f) * 0.12f
+        if (tr < StreamPlan.PATH_HALF) col = if (tr > StreamPlan.PATH_HALF - 0.1f) Pal.DIRT_D else if (Noise.rnd(px / z, py / z, 45) < 0.15f) Pal.DIRT_L else Pal.DIRT_M
         // the bank: gravel at the water's edge, damp grass above it
         if (off < 0.3f) col = gravel(x, d, px, py) else if (off < 0.95f) col = Col.scale(col, 0.84f)
         return hazy(col, d)
     }
 
-    /** The cart road's middle at side [x]: off the bridge's right end toward the village (nearer us), off its left end away into the woods. */
-    private fun roadMid(x: Float): Float = when {
-        x > cartR -> cartD - (x - cartR) * 0.35f
-        x < cartL -> cartD + (cartL - x) * 1.1f
-        else -> cartD
-    }
+    /** The cart road's middle at side [x] (see [StreamPlan.roadMid]). */
+    private fun roadMid(x: Float): Float = StreamPlan.roadMid(x)
+
+    /** Whether ([x], [d]) is on a path to the footbridge, or within [slack] m of one's middle. */
+    private fun onPath(x: Float, d: Float, slack: Float): Boolean = StreamPlan.offPath(x, d) < slack
 
     /** The cart road's ground at ([x], [d]), or null off it: packed dirt with two ruts, snow in winter. */
     private fun roadAt(x: Float, d: Float, px: Int, py: Int): Int? {
         if (d > woods || x in cartL..cartR) return null
-        val off = abs(d - roadMid(x)) / (if (x < cartL) 3.2f else 2f)
+        val off = abs(d - roadMid(x)) / StreamPlan.roadScale(x)
         if (off > 0.75f + (Noise.rnd(px / z, py / z, 47) - 0.5f) * 0.12f) return null
         if (env.snow) return if (abs(off - 0.35f) < 0.1f) Pal.SNOW_M else Pal.SNOW_L
         return when {
@@ -284,9 +285,6 @@ internal class StreamPainter : WildPainter() {
             else -> Pal.DIRT_M
         }
     }
-
-    /** The track along the right bank, from our feet to the footbridge's end. */
-    private fun track(d: Float) = 4.3f - 0.18f * (d - 9f) + 0.25f * sin(d * 0.5f)
 
     /** The banks' gravel: pebbles, lighter on top, at every detail the same stones. */
     private fun gravel(x: Float, d: Float, px: Int, py: Int): Int {
@@ -683,49 +681,62 @@ internal class StreamPainter : WildPainter() {
 
     // ------------------------------------------------------------------ the footbridge, the stones
 
-    /** The brv: planks across the stream on two logs, a handrail on posts along its far side. */
+    /**
+     * The brv: a footbridge of planks laid across two logs that rest on the banks, low over the water, the paths along
+     * both banks coming onto its ends ([StreamPlan.offPath]); one handrail on posts along its far side, the water in its
+     * shade under it.
+     */
     private fun footbridge() {
         val z = z
-        val lift = 0.55f
-        val d0 = bridgeD - 0.45f; val d1 = bridgeD + 0.45f
+        val lift = StreamPlan.FOOT_LIFT
+        val d0 = StreamPlan.FOOT_D0; val d1 = StreamPlan.FOOT_D1
         val snow = env.snow
-        // the logs it lies on, along each bank
-        for (xe in floatArrayOf(bridgeL + 0.25f, bridgeR - 0.25f)) {
-            val p = pm(bridgeD)
-            val bx = gx(xe, bridgeD)
-            c.fillRect((bx - 0.2f * p).toInt(), (gy(d0) - lift * pm(d0)).toInt(), max(2, (0.4f * p).toInt()), (lift * pm(d0)).toInt() + z, Pal.LOG_D)
-            if (z > 1) c.vline((bx - 0.2f * p).toInt(), (gy(d0) - lift * pm(d0)).toInt(), gy(d0).toInt(), Pal.LOG_M)
-        }
-        // the deck, row by row: planks along the bridge with dark seams between them, the front beam under its edge
+        // the deck, row by row: planks across it (a seam a picture pixel wide between them), lit along its front edge
         val yTop = (hz + F * (EYE - lift) / d1).toInt(); val yBot = (hz + F * (EYE - lift) / d0).toInt()
         for (py in max(yTop, c.top)..min(yBot, c.bottom - 1)) {
             val d = F * (EYE - lift) / (py + 0.5f - hz)
-            val plank = ((d - d0) / 0.3f)
-            val seam = z > 1 && plank - floor(plank) < 0.18f
             val xl = gx(bridgeL, d).toInt(); val xr = gx(bridgeR, d).toInt()
+            val seam = 1f / pm(d) // a pixel, in metres
             for (px in max(xl, c.left)..min(xr, c.right - 1)) {
-                val grain = Noise.rnd(px / (3 * z), floor(plank).toInt(), 361)
+                val u = (sideAt(px, d) - bridgeL) / PLANK
+                val plank = floor(u).toInt()
                 val col = when {
                     snow -> if (Noise.rnd(px, py, 362) < 0.1f) Pal.SNOW_M else Pal.SNOW_L
-                    seam -> Pal.WOOD_D
-                    z >= 3 && (px - xl) % (18 * z / 3) == 2 -> Pal.WOOD_X // the nails
-                    grain < 0.3f -> Pal.WOOD_M
+                    (u - plank) * PLANK < seam -> Pal.WOOD_D
+                    py == yBot -> Col.mix(Pal.WOOD_L, Col.hex(0xFFF0C8), 0.25f) // the front edge in the light
+                    z >= 3 && (py == yTop + z || py == yBot - z) && (px - xl) % (6 * z) == 3 * z -> Pal.WOOD_X // the nails
+                    Noise.rnd(plank, 0, 361) < 0.3f -> Pal.WOOD_M
                     else -> Pal.WOOD_L
                 }
                 c.set(px, py, col)
             }
         }
-        val beam = max(1, (0.14f * pm(d0)).toInt())
-        for (j in 1..beam) c.hline(gx(bridgeL, d0).toInt(), gx(bridgeR, d0).toInt(), yBot + j, if (j == 1) Pal.WOOD_M else Pal.WOOD_D)
-        // posts and the handrail on the far side
-        val railH = lift + 0.95f
-        val posts = floatArrayOf(bridgeL + 0.2f, (bridgeL + bridgeR) / 2f, bridgeR - 0.2f)
-        for (px in posts) {
-            val x = gx(px, d1); val p = pm(d1)
-            for (j in 0 until max(1, z)) c.vline(x.toInt() + j, (gy(d1) - railH * p).toInt(), (gy(d1) - lift * p).toInt(), if (j == 0) Pal.WOOD_M else Pal.WOOD_D)
+        // the planks' ends along its front, and under it the water in its shade, between the logs
+        val beam = max(1, (0.1f * pm(d0)).toInt())
+        val ax = gx(bridgeL, d0).toInt(); val bx = gx(bridgeR, d0).toInt()
+        for (j in 1..beam) c.hline(ax, bx, yBot + j, Pal.WOOD_M)
+        val under = (gy(d0) - yBot - beam).toInt().coerceAtMost(3 * z)
+        for (j in 1..under) for (px in max(ax, c.left)..min(bx, c.right - 1)) {
+            val py = yBot + beam + j
+            if (c.inside(px, py) && c.ids[c.index(px, py)] == waterId) c.blend(px, py, UNDER, 0.45f - 0.1f * j / under.coerceAtLeast(1))
         }
-        val ax = gx(posts.first(), d1); val bx = gx(posts.last(), d1); val ry = gy(d1) - railH * pm(d1)
-        for (j in 0 until max(1, z)) c.hline(ax.toInt(), bx.toInt() + z - 1, ry.toInt() + j, if (j == 0) (if (snow) Pal.SNOW_L else Pal.WOOD_L) else Pal.WOOD_D)
+        // the logs it lies on, along the banks under each end: their cut ends toward us
+        for (xe in floatArrayOf(bridgeL + 0.3f, bridgeR - 0.3f)) {
+            val p = pm(d0); val r = max(1f, lift * 0.5f * p)
+            val lx = gx(xe, d0); val ly = gy(d0) - r
+            c.fillEllipse(lx, ly, r, r, Pal.LOG_D)
+            c.fillEllipse(lx, ly, max(0.6f, r * 0.7f), max(0.6f, r * 0.7f), if (snow) Pal.SNOW_L else LOG_END)
+        }
+        // the handrail along its far side: posts on the deck's far edge, a rail on them
+        val railH = lift + 0.55f
+        val n = 4
+        val p1 = pm(d1)
+        for (k in 0 until n) {
+            val x = gx(bridgeL + 0.15f + (bridgeR - bridgeL - 0.3f) * k / (n - 1), d1)
+            for (j in 0 until max(1, z)) c.vline(x.toInt() + j, (gy(d1) - railH * p1).toInt(), (gy(d1) - lift * p1).toInt(), if (j == 0) Pal.WOOD_M else Pal.WOOD_D)
+        }
+        val rx0 = gx(bridgeL + 0.15f, d1); val rx1 = gx(bridgeR - 0.15f, d1); val ry = gy(d1) - railH * p1
+        for (j in 0 until max(1, z)) c.hline(rx0.toInt(), rx1.toInt() + z - 1, ry.toInt() + j, if (j == 0) (if (snow) Pal.SNOW_L else Pal.WOOD_L) else Pal.WOOD_D)
     }
 
     // ------------------------------------------------------------------ the cart bridge
@@ -733,8 +744,10 @@ internal class StreamPainter : WildPainter() {
     /**
      * The cart bridge upstream, as far as the village has built it (the project "most", [stage]): pegs on both banks and
      * a line over the water (measured), heaps of stones on the banks (gathered), the two stone piers (built), long logs
-     * from pier to pier (brought), a deck of thick planks across them (laid); finished, a railing along both sides, and
-     * the cart road runs over it from the village into the woods. Scenery: the scene's bridge word is the footbridge (brv).
+     * from pier to pier (brought), a deck of thick planks across them (laid); finished, a railing along both sides (the
+     * near one low). From the piers on, the cart road's ramps are heaped up to them off both banks (up to the deck once it
+     * is laid), and once the deck is laid the cart road runs up the ramps and over it, from the village into the woods.
+     * Scenery: the scene's bridge word is the footbridge (brv).
      */
     private fun cartBridge() {
         val st = stage(BRIDGE)
@@ -758,9 +771,12 @@ internal class StreamPainter : WildPainter() {
             if (st == 2) { stoneHeap(cartL + 0.9f, cartD - 0.5f, 17); stoneHeap(cartR - 0.9f, cartD - 0.6f, 23) }
             return
         }
-        // the piers, their inner faces toward the water, stone in courses
+        // the piers, their inner faces toward the water, stone in courses, and the cart road's ramps heaped up to them off
+        // both banks (up to the deck once its planks are laid)
+        val rampTop = if (st >= DECKED) pierH + 0.3f else pierH
+        ramp(cartL - StreamPlan.RAMP, cartL, 0f, rampTop)
         pier(cartL, pierLi, pierLi); pier(pierRi, cartR, pierRi)
-        if (st == 3) return
+        if (st == 3) { ramp(cartR, cartR + StreamPlan.RAMP, rampTop, 0f); return }
         // long logs from pier to pier, their cut ends toward us on the left
         val logs = floatArrayOf(cartD0 + 0.25f, cartD, cartD1 - 0.25f)
         for (d in logs.reversed()) {
@@ -771,7 +787,7 @@ internal class StreamPainter : WildPainter() {
             c.fillEllipse(x0, y, max(1f, th * 0.5f), max(1f, th * 0.5f), Col.hex(0xC8A070))
             if (snow) c.hline(x0.toInt(), x1.toInt(), (y - th / 2f).toInt() - 1, Pal.SNOW_L)
         }
-        if (st == 4) return
+        if (st == 4) { ramp(cartR, cartR + StreamPlan.RAMP, rampTop, 0f); return }
         // the deck: thick planks across the logs, dark seams between them
         val lift = pierH + 0.3f
         val yTop = (hz + F * (EYE - lift) / cartD1).toInt(); val yBot = (hz + F * (EYE - lift) / cartD0).toInt()
@@ -794,10 +810,11 @@ internal class StreamPainter : WildPainter() {
         // the deck's front edge, a beam under it
         val beam = max(z, (0.16f * pm(cartD0)).toInt())
         for (j in 1..beam) c.hline(gx(cartL, cartD0).toInt(), gx(cartR, cartD0).toInt(), yBot + j, if (j == 1) Pal.WOOD_M else Pal.WOOD_D)
+        ramp(cartR, cartR + StreamPlan.RAMP, rampTop, 0f)
         if (st < 6) return
-        // finished: a railing on posts along both sides
-        val railH = 0.85f
-        for (d in floatArrayOf(cartD1 - 0.08f, cartD0 + 0.08f)) {
+        // finished: a railing on posts along both sides, the near one low (a wheel guard), so the deck and the ramps off its
+        // open ends show over it
+        for ((d, railH) in listOf(cartD1 - 0.08f to 0.85f, cartD0 + 0.08f to 0.45f)) {
             val p = pm(d)
             val base = gy(d) - lift * p; val top = base - railH * p
             var x = cartL + 0.15f
@@ -831,6 +848,28 @@ internal class StreamPainter : WildPainter() {
         c.polyBegin()
         c.polyAdd(gx(x0, d0), gy(d0)); c.polyAdd(gx(x1, d0), gy(d0)); c.polyAdd(gx(x1, d0), gy(d0) - h * p0); c.polyAdd(gx(x0, d0), gy(d0) - h * p0)
         c.polyFill { x, y -> pierTone(x, y, gy(d0), p0, 1f) }
+    }
+
+    /**
+     * The cart road's ramp off one end of the bridge, from side [x0] to [x1] (m), as deep as the deck, its top rising from
+     * [h0] to [h1] m: the road's packed dirt with its ruts on top, a dry-stone wall holding its earth on the side toward us.
+     */
+    private fun ramp(x0: Float, x1: Float, h0: Float, h1: Float) {
+        val d0 = cartD0; val d1 = cartD1
+        val snow = env.snow
+        // the top: the road going up (or down) it
+        c.polyBegin()
+        c.polyAdd(gx(x0, d1), hy(d1, h0)); c.polyAdd(gx(x1, d1), hy(d1, h1)); c.polyAdd(gx(x1, d0), hy(d0, h1)); c.polyAdd(gx(x0, d0), hy(d0, h0))
+        c.polyFill { x, y -> if (snow) (if (Noise.rnd(x, y, 365) < 0.1f) Pal.SNOW_M else Pal.SNOW_L) else if (Noise.rnd(x / z, y / z, 366) < 0.14f) Pal.DIRT_L else Pal.DIRT_M }
+        if (!snow) for (v in floatArrayOf(0.3f, 0.7f)) {
+            val dr = d0 + (d1 - d0) * v
+            c.line(gx(x0, dr).toInt(), hy(dr, h0).toInt(), gx(x1, dr).toInt(), hy(dr, h1).toInt(), Pal.DIRT_D) // the ruts
+        }
+        // its side toward us: from the ground up to the slope
+        val p0 = pm(d0)
+        c.polyBegin()
+        c.polyAdd(gx(x0, d0), gy(d0)); c.polyAdd(gx(x1, d0), gy(d0)); c.polyAdd(gx(x1, d0), hy(d0, h1)); c.polyAdd(gx(x0, d0), hy(d0, h0))
+        c.polyFill { x, y -> pierTone(x, y, gy(d0), p0, 0.92f) }
     }
 
     /** A pier's stone: courses of blocks, the joints between them showing closer up, wet and dark at the foot. */
@@ -1137,7 +1176,7 @@ internal class StreamPainter : WildPainter() {
     private fun deckLift(x: Float): Float {
         val lift = pierH + 0.3f
         val off = max(cartL - x, x - cartR)
-        return if (off <= 0f) lift else lift * (1f - off / 3f).coerceIn(0f, 1f)
+        return if (off <= 0f) lift else lift * (1f - off / StreamPlan.RAMP).coerceIn(0f, 1f)
     }
 
     /**
@@ -1466,6 +1505,11 @@ internal class StreamPainter : WildPainter() {
         private const val PUMP_X = 1.9f
         private const val PUMP_D = 12.4f
 
+        /** How wide the footbridge's planks are (m); the cut end of its logs; the water's shade under it. */
+        private const val PLANK = 0.3f
+        private val LOG_END = Col.hex(0xC8A070)
+        private val UNDER = Col.hex(0x14202E)
+
         /** The moon's column on the stage: over the stream's far reach, so it shimmers in the water. */
         private const val MOON_X = 128
         private val BANK = Col.hex(0x3A4A30)
@@ -1473,5 +1517,70 @@ internal class StreamPainter : WildPainter() {
         private val LEAP_BACK = Col.hex(0x4A5634)
         private val LEAP_BELLY = Col.hex(0xE4E6DC)
         private val CRESS_D = Col.hex(0x1E3A1E)
+    }
+}
+
+/**
+ * The plan of [StreamPainter]'s stream, in metres (x to the side of the middle, d away from us): where the water runs,
+ * the plank footbridge and the paths along both banks onto its ends, the cart bridge upstream and the cart road with its
+ * ramps up onto its deck. The painter draws by it; its tests check by it that every way meets its bridge.
+ */
+internal object StreamPlan {
+    /** The stream's middle and half its width at depth [d]. */
+    fun course(d: Float) = -1.1f + 0.075f * (d - 9f) + 0.5f * sin((d - 9f) * 0.2f)
+    fun half(d: Float) = 1.45f + 0.12f * sin(d * 0.37f) - max(0f, d - 30f) * 0.012f
+
+    /** The footbridge: across the stream at [FOOT_D] from side [FOOT_L] to [FOOT_R], its deck from [FOOT_D0] to [FOOT_D1], [FOOT_LIFT] over the water. */
+    const val FOOT_D = 19.5f
+    const val FOOT_L = -2.1f
+    const val FOOT_R = 2.5f
+    const val FOOT_D0 = 18.7f
+    const val FOOT_D1 = 20.3f
+    const val FOOT_LIFT = 0.4f
+
+    /** Half a path's width. */
+    const val PATH_HALF = 0.5f
+
+    /** The track along the right bank, from our feet to the footbridge's right end. */
+    fun track(d: Float) = 4.3f - 0.18f * (d - 9f) + 0.25f * sin(d * 0.5f)
+
+    /** The path along the left bank, from our feet past the washing stone to the footbridge's left end. */
+    fun leftPath(d: Float) = -1.95f - 0.12f * (FOOT_D - d) + 0.15f * sin(d * 0.7f) - 0.15f * sin(FOOT_D * 0.7f)
+
+    /** The paths reach this far, under the footbridge's ends. */
+    const val PATHS_TO = FOOT_D0 + 0.8f
+
+    /** How far ([x], [d]) is from the middle of the nearer path to the footbridge (m); far off beyond them. */
+    fun offPath(x: Float, d: Float): Float = if (d > PATHS_TO) 99f else min(abs(x - track(d)), abs(x - leftPath(d)))
+
+    /** The cart bridge: across the stream at [CART_D] from side [CART_L] to [CART_R], its deck from [CART_D0] to [CART_D1], its piers [PIER_H] tall. */
+    const val CART_D = 35f
+    const val CART_D0 = 34.3f
+    const val CART_D1 = 35.7f
+    const val CART_L = -2.6f
+    const val CART_R = 3.3f
+    const val PIER_H = 1.05f
+
+    /** How long the cart road's ramps up onto the deck are (m), off either end. */
+    const val RAMP = 3f
+
+    /**
+     * The cart road's middle at side [x]: straight on off the bridge's ends over its ramps, then off the right end toward
+     * the village (nearer us) and off the left end away into the woods.
+     */
+    fun roadMid(x: Float): Float = when {
+        x > CART_R + RAMP -> CART_D - (x - CART_R - RAMP) * 0.35f
+        x < CART_L - RAMP -> CART_D + (CART_L - RAMP - x) * 1.1f
+        else -> CART_D
+    }
+
+    /**
+     * How wide the cart road is at side [x], as a scale of its half width (0.75 m): as wide as the deck over the ramps,
+     * widening beyond them, more on the woods' side.
+     */
+    fun roadScale(x: Float): Float {
+        val beyond = max(CART_L - x, x - CART_R)
+        val wide = if (x < CART_L) 3.2f else 2f
+        return 0.95f + (wide - 0.95f) * ((beyond - RAMP) / 3f).coerceIn(0f, 1f)
     }
 }
