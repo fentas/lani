@@ -1,6 +1,6 @@
 // Role-play scenarios (lani.scenario/v0): the tutor plays a character, Jan talks. The turns
 // themselves arrive as /message kind roleplay (features/chat.ts adds the scenario brief).
-import { badNote, fail, noteIn, ok } from '../channel'
+import { badNote, fail, noteIn, ok } from '../tool'
 import type { FeatureFactory } from '../feature'
 import { json } from '../http'
 import { validateScenario } from '../scenarios'

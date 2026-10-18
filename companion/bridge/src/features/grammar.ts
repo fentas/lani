@@ -1,5 +1,5 @@
 // The grammar book (lani.grammar/v0, grammar.ts): its pages for the app, and the tutor's tools to add and extend them.
-import { badNote, fail, noteIn, ok } from '../channel'
+import { badNote, fail, noteIn, ok } from '../tool'
 import type { FeatureFactory } from '../feature'
 import { ofLanguage, pageInfo, RIPE, ripeRules, titleFor, validateGrammar, type LoadedGrammar, type Meetings } from '../grammar'
 import { json } from '../http'

@@ -4,7 +4,6 @@ import type { Addressee } from './addressee'
 import type { ArrivalStore } from './arrivals'
 import type { CardStore } from './cards'
 import type { Profiles } from './profiles'
-import type { Channel, Tool } from './channel'
 import type { Config, Log } from './config'
 import type { CourseStore } from './course'
 import type { DrillStore } from './drills'
@@ -28,6 +27,7 @@ import type { ScenarioStore } from './scenarios'
 import type { SceneStore } from './scenes'
 import type { StoryStore } from './stories'
 import type { ModuleStore } from './store'
+import type { ChannelPort, Tool } from './tool'
 import type { VillagerStore } from './villagers'
 import type { VisitTalks } from './visits'
 import type { VoiceStore } from './voice'
@@ -57,7 +57,8 @@ export type Ctx = {
    */
   addressee: () => Addressee
   events: Events
-  channel: Channel
+  /** Events into the tutor's session, and tool approvals: the node's MCP channel (channel.ts), the phone's (src/phone/channel.ts). */
+  channel: ChannelPort
   outbox: Outbox
   modules: ModuleStore
   packs: PackStore

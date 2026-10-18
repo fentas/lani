@@ -2,7 +2,7 @@
 // tutor's tools to write them, and the reading practice the app reports (POST /readings/done), persisted like a
 // flashcard review: update-db.py, no LLM; the tutor hears a summary.
 import { z } from 'zod'
-import { badNote, fail, noteIn, ok } from '../channel'
+import { badNote, fail, noteIn, ok } from '../tool'
 import type { FeatureFactory } from '../feature'
 import { json, readJson } from '../http'
 import { LANGUAGES, learnerLangs } from '../learners'

@@ -2,14 +2,14 @@
 // tutor session's shim on the control socket, and a clean stop, so `lani-bridge restart` deploys new code in a few
 // seconds without a tutor restart.
 import { join } from 'node:path'
-import { ChannelQueue, channelCapabilities, listed, type ChannelOptions } from './channel'
+import { ChannelQueue, channelCapabilities, listed, type Channel, type ChannelOptions } from './channel'
 import { spawn } from './config'
 import { channelFile, controlSocket, listenControl, PROTOCOL, statusFile, writeJson, type ChannelSnapshot, type ServiceHello } from './control'
 import type { Ctx, Feature } from './feature'
 import { router, serve, type Role, type Route } from './http'
 
 export type ServiceParts = {
-  ctx: Ctx
+  ctx: Ctx & { channel: Channel }
   features: Feature[]
   channel: ChannelOptions
   routes: Route[]

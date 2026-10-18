@@ -1,7 +1,7 @@
 // The village game ("Moja vas"): the app saves its state here, the tutor reads a summary.
 import { z } from 'zod'
 import { topicsLookedUp } from '../cards'
-import { ok } from '../channel'
+import { ok } from '../tool'
 import { cultureFestivals, cultureSpots } from '../cultures'
 import { cyclesNow } from '../spot-cycles'
 import type { FeatureFactory } from '../feature'

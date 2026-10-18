@@ -2,7 +2,7 @@
 // bundles the culture pack's (arrivals.json: the cast's, and the templates for the people the village makes up) and gets
 // the tutor's here (GET /arrivals). When someone moves in or is born the app says so (villager_arrived, chat.ts adds the
 // learner's level and weak spots); the tutor writes their introduction with publish_arrival, which replaces the template.
-import { badNote, fail, noteIn, ok } from '../channel'
+import { badNote, fail, noteIn, ok } from '../tool'
 import { ARRIVAL_SCHEMA, cultureArrivals, residentIds, validateArrival } from '../arrivals'
 import type { FeatureFactory } from '../feature'
 import { json } from '../http'

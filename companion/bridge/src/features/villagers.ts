@@ -3,7 +3,7 @@
 // villager role-plays (features/chat.ts attaches the persona) and welcomes the people who move in.
 // Where the village is (its culture pack, cultures.ts) says in which language they speak and how the
 // tutor is told about the place.
-import { badNote, fail, noteIn, ok } from '../channel'
+import { badNote, fail, noteIn, ok } from '../tool'
 import { peopleLines, tutorOf } from '../cultures'
 import type { Ctx, FeatureFactory } from '../feature'
 import { json } from '../http'

@@ -4,7 +4,7 @@
 // the learner's story notebook in the app, its pictures from the vignette library sketched. When fewer than three the learner hasn't heard are
 // left at their level, the tutor is asked for another (stories_low), once a day at most.
 import { join } from 'node:path'
-import { badNote, fail, noteIn, ok } from '../channel'
+import { badNote, fail, noteIn, ok } from '../tool'
 import type { FeatureFactory } from '../feature'
 import type { GameDoc } from '../game'
 import { json } from '../http'

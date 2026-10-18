@@ -33,7 +33,7 @@
 import { join } from 'node:path'
 import { z } from 'zod'
 import { answerLine, AnswerLog, fromLabel, fromOf, lookedUpNote, reviewAnswers, timeOf, type NewAnswer, type ReviewAnswer } from '../answers'
-import { fail, ok } from '../channel'
+import { fail, ok } from '../tool'
 import { countingErrors, countingNote, countingRuns } from '../counting'
 import { formsCardsNote, formsErrors, formsRuns } from '../forms-cards'
 import { countsInDialog, type Card } from '../dialog-words'

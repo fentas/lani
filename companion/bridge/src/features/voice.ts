@@ -2,7 +2,7 @@
 // with either token; synthesis and status are the app's.
 import { join } from 'node:path'
 import { z } from 'zod'
-import { fail, ok } from '../channel'
+import { fail, ok } from '../tool'
 import type { Ctx, FeatureFactory } from '../feature'
 import { json, readJson } from '../http'
 import { cardExamples } from '../cards'

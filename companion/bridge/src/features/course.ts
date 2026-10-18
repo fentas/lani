@@ -1,7 +1,7 @@
 // The school's course (course.ts, companion/COURSE.md): the course for the app, the tutor's homework for its units, and
 // where the learner is in it (the village state's course), with the pages they looked up on the cheat sheet of late.
 import { topicsLookedUp } from '../cards'
-import { badNote, fail, noteIn, ok } from '../channel'
+import { badNote, fail, noteIn, ok } from '../tool'
 import { grammarNamed, LEVELS, validateWorksheet, type Homework, type ServedCourse, type Unit } from '../course'
 import type { FeatureFactory } from '../feature'
 import { titleFor, type GrammarExample, type GrammarPage } from '../grammar'

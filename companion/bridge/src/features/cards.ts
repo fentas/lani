@@ -1,6 +1,6 @@
 // The cheat sheet (lani.card/v0, cards.ts; companion/README.md "Cheat sheet"): its cards that aren't a grammar page's, for
 // the app (the curated ones and the tutor's), and the tutor's tools to add one, list them, take one back.
-import { badNote, fail, noteIn, ok } from '../channel'
+import { badNote, fail, noteIn, ok } from '../tool'
 import { cardIdOf, cardTitleEn, CARD_ID, sheetLookups, sheetUse, validateCard, type LoadedCard } from '../cards'
 import type { FeatureFactory } from '../feature'
 import { json } from '../http'

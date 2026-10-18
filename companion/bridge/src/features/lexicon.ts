@@ -7,7 +7,7 @@
 import { existsSync, readdirSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 import { z } from 'zod'
-import { fail, ok } from '../channel'
+import { fail, ok } from '../tool'
 import { cultureIds, readManifest } from '../cultures'
 import { renderDeep } from '../addressee'
 import type { FeatureFactory } from '../feature'

@@ -5,7 +5,7 @@
 import { join } from 'node:path'
 import { z } from 'zod'
 import { lookedUpNote, resultsLookedUp } from '../answers'
-import { fail, ok } from '../channel'
+import { fail, ok } from '../tool'
 import { CHAT_IMAGE_ID, CHAT_IMAGE_MAX, ChatImages } from '../chat-images'
 import type { FeatureFactory } from '../feature'
 import { HttpError, json, readBody, readJson, type RouteCtx } from '../http'

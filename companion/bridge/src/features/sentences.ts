@@ -3,7 +3,7 @@
 // the sentence is long-pressed (GET /sentence). An older bridge answers 404 there: the app shows no note then.
 import { join } from 'node:path'
 import { z } from 'zod'
-import { fail, ok } from '../channel'
+import { fail, ok } from '../tool'
 import type { FeatureFactory } from '../feature'
 import { json } from '../http'
 import { LANGUAGES, learnerLangs } from '../learners'

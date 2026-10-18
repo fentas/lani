@@ -14,39 +14,10 @@ import { z } from 'zod'
 import type { Log } from './config'
 import { REPLACED, RESTARTING, SERVICE_CAPABILITY, SHIM_CAPABILITY, type ServiceHello, type ShimHello } from './control'
 import { HttpError } from './http'
+import { channelEvent, fail, listed, withHint, type ChannelPort, type PermissionRequest, type Tool } from './tool'
 
-export type ToolResult = { content: { type: 'text'; text: string }[]; isError?: boolean }
-
-export type Tool = {
-  name: string
-  description: string
-  /** JSON Schema shown to the session. */
-  inputSchema: Record<string, unknown>
-  handle: (args: Record<string, any>) => ToolResult | Promise<ToolResult>
-}
-
-export const ok = (text: string): ToolResult => ({ content: [{ type: 'text', text }] })
-export const fail = (text: string): ToolResult => ({ content: [{ type: 'text', text }], isError: true })
-
-/** The optional one-line `note` of the publish tools. */
-export const noteIn = z.string().max(500).nullish()
-export const badNote = () => fail('note must be a string of at most 500 characters; nothing published')
-
-/** "</channel>" or "<channel …>" inside content → "&lt;/channel>": text, not a tag. */
-export const neutralizeTags = (s: string) => s.replace(/<(\/?\s*channel)/gi, '&lt;$1')
-
-/**
- * The line under an event that belongs to a conversation: the app never sees the terminal, and a session may have
- * the tools deferred or the instructions out of mind, so every such event says how to answer. The first event of a
- * bridge also asks for the guide (the instructions only hold the rules that fit Claude Code's limit).
- */
-export function replyHint(conversationId: string | undefined, first: boolean): string {
-  if (!conversationId) return ''
-  const guide = first ? ' First event since the session started: call the channel_guide tool before answering.' : ''
-  return `\n\n↩ The app doesn't see the terminal: anything for the learner goes through the lani reply tool (mcp__lani__reply, conversation_id "${conversationId}").${guide}`
-}
-
-export type PermissionRequest = { request_id: string; tool_name: string; description: string; input_preview: string }
+// the MCP-free parts (src/tool.ts), where they were before
+export { badNote, fail, listed, neutralizeTags, noteIn, ok, replyHint, type PermissionRequest, type Tool, type ToolResult } from './tool'
 
 const permissionRequest = z.object({
   method: z.literal('notifications/claude/channel/permission_request'),
@@ -72,9 +43,6 @@ export const channelCapabilities = (permissionRelay?: boolean): Record<string, o
   'claude/channel': {},
   ...(permissionRelay === false ? {} : { 'claude/channel/permission': {} }),
 })
-
-/** The tools as the session sees them. */
-export const listed = (tools: Tool[]) => tools.map(({ name, description, inputSchema }) => ({ name, description, inputSchema }))
 
 /** The service's session: the shim attached now (from its hello). */
 export type Attached = { since: string; client: string; session?: string; pid?: number; protocol?: number }
@@ -136,7 +104,7 @@ export class ChannelQueue {
   }
 }
 
-export class Channel {
+export class Channel implements ChannelPort {
   /** The session's server: the stdio one (classic), or the shim's that attached last (service). */
   private server?: Server
   private queue?: ChannelQueue
@@ -260,7 +228,7 @@ export class Channel {
 
   private async send(content: string, meta: Record<string, string>) {
     if (!this.server) throw new Error('channel not connected')
-    const text = content + replyHint(meta.conversation_id, !this.heard)
+    const text = withHint(content, meta, this.heard)
     await this.server.notification({ method: 'notifications/claude/channel', params: { content: text, meta } })
     if (meta.conversation_id) this.heard = true
   }
@@ -272,8 +240,7 @@ export class Channel {
    * ('queued').
    */
   notify = async (content: string, meta: Record<string, string>): Promise<'sent' | 'queued'> => {
-    const safeMeta = Object.fromEntries(Object.entries(meta).map(([k, v]) => [k, String(v).replace(/[^\w:.-]/g, '_').slice(0, 100)]))
-    const safe = neutralizeTags(content)
+    const { content: safe, meta: safeMeta } = channelEvent(content, meta)
     if (this.queue && !this.server) return this.enqueue(safe, safeMeta)
     try {
       await this.send(safe, safeMeta)

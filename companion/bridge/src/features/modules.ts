@@ -1,5 +1,5 @@
 // Practice modules (lani.module/v0): published by the tutor, served to the app.
-import { badNote, fail, noteIn, ok } from '../channel'
+import { badNote, fail, noteIn, ok } from '../tool'
 import type { FeatureFactory } from '../feature'
 import { json } from '../http'
 import { validateModule } from '../spec'

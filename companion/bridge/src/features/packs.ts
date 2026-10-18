@@ -1,6 +1,6 @@
 // Word packs (lani.pack/v0): new vocabulary the app introduces, then turns into SR items.
 import { z } from 'zod'
-import { badNote, fail, noteIn, ok } from '../channel'
+import { badNote, fail, noteIn, ok } from '../tool'
 import type { FeatureFactory } from '../feature'
 import { json, readJson } from '../http'
 import type { SrItem } from '../learner'

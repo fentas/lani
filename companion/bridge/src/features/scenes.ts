@@ -1,7 +1,7 @@
 // Scenes (lani.scene/v0): close-ups of the village the learner steps into. The app gets them
 // resolved (every object with its word); the tutor lists, reads, publishes and removes them.
 import { join } from 'node:path'
-import { badNote, fail, noteIn, ok } from '../channel'
+import { badNote, fail, noteIn, ok } from '../tool'
 import { cultureProjects } from '../cultures'
 import type { FeatureFactory } from '../feature'
 import type { GameDoc } from '../game'

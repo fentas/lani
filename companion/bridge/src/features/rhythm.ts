@@ -1,7 +1,7 @@
 // The daily rhythm: the bridge wakes the session in the morning, the evening and once a week with a
 // compact snapshot of the learner's day. The scheduling rules live in ../rhythm.ts.
 import { join } from 'node:path'
-import { fail, ok } from '../channel'
+import { fail, ok } from '../tool'
 import { lemmaFinder, WEAVES_A_DAY, wordsToWeave, weavePlan, wovenToday, type Card } from '../dialog-words'
 import type { FeatureFactory } from '../feature'
 import { ofLanguage, ripeRules } from '../grammar'
