@@ -698,7 +698,7 @@ All endpoints except `/health`, `POST /pair`, the family page and the routes bet
 | `DELETE` | `/chat/images/:id` | deletes it → `{id, deleted}` (`false` when there was none) |
 | `GET` | `/events` | SSE stream: `reply`, `module_published`, `pack_published`, `grammar_published` (`{id, title, emoji, extended, note}`), `scenario_published`, `scene_published`, `scene_removed`, `variant_published` and `variant_removed` (a happening's dialog the tutor wrote or took back, `{scene, happening, id, title, emoji, note}`: the app reloads the scene, news only with a note), `villager_published`, `villager_removed`, `permission_request`, `app_update`, `partner_challenge`, `voice_updated`, `words_added`, `lexicon_updated`, `reading_published` (`{id, title, level, note}`) and `reading_removed` (`{id}`), `worksheet_published` (the tutor's homework for a unit of the course, `{unit, id, title, note}`, the title as "target · base") and `worksheet_removed` (`{unit, id}`), `town_guest` (a guest from a linked town brought help, a gift, a trade or help against trouble, or a move changed: `{key, kind, from, learner}`, kind `help`, `gift`, `trade`, `aid`, `move`), `town_question` and `town_answer` (a guest's question to the learner, the answer to the learner's: `{key, from, learner, text}`). Resume with `Last-Event-ID`. |
 | `POST` | `/permission` | `{request_id, behavior: allow\|deny}` → answers a tool approval prompt |
-| `POST` | `/reviews` | `{results: [{item_id, quality 0-5}], duration_minutes, language?, forms?, dialog?, answers?, from?, answered_at?, counting?}` → persisted via `update-db.py` (no LLM), Claude gets a `review_done` summary. `counting`: how its counting cards went, step by step: each wrong step a mistake of its kind (see [Counting cards](#counting-cards)). `answers`, `from`, `answered_at`: what each card was answered with, where in the app and when, for the log of [recent answers](#tutor-chat) (read leniently: never a reason to refuse a review; an older bridge drops them). `language`: another language's deck (a code, e.g. `it`: practised on visits), the home language's by default. `forms`: the cards that asked a form of their word, `[{item_id, key, page, right, answer?, expected?}]` (see [Word forms](#word-forms)): the summary names the wrong ones, nothing else is written; an older bridge drops it. `dialog`: the learner's words a dialog's turns tested ([GAME.md](GAME.md#your-words-in-the-dialogs)), `{scene?, happening?, dialog?, person?, title?, words: [{item_id, word, lemma?, right, how: meaning\|form, review?, said?, expected?}]}`, its reviews in `results` (quality 4 chosen or tapped, 5 typed or said; `results` may be empty then): the bridge keeps a review only of a card within its window and not reviewed today (`skipped` says the others), lowers gently each card got wrong about its meaning, once a day (`lowered`), leaves a form slip alone, and the tutor gets a `dialog_words` line instead; an older bridge drops `dialog` and takes `results` as a review's |
+| `POST` | `/reviews` | `{results: [{item_id, quality 0-5}], duration_minutes, language?, forms?, dialog?, answers?, from?, answered_at?, counting?, forms_cards?}` → persisted via `update-db.py` (no LLM), Claude gets a `review_done` summary. `counting`: how its counting cards went, step by step: each wrong step a mistake of its kind (see [Counting cards](#counting-cards)). `forms_cards`: how its forms cards went, gap by gap: each wrong gap a mistake of its kind (see [Forms cards](#forms-cards)). `answers`, `from`, `answered_at`: what each card was answered with, where in the app and when, for the log of [recent answers](#tutor-chat) (read leniently: never a reason to refuse a review; an older bridge drops them). `language`: another language's deck (a code, e.g. `it`: practised on visits), the home language's by default. `forms`: the cards that asked a form of their word, `[{item_id, key, page, right, answer?, expected?}]` (see [Word forms](#word-forms)): the summary names the wrong ones, nothing else is written; an older bridge drops it. `dialog`: the learner's words a dialog's turns tested ([GAME.md](GAME.md#your-words-in-the-dialogs)), `{scene?, happening?, dialog?, person?, title?, words: [{item_id, word, lemma?, right, how: meaning\|form, review?, said?, expected?}]}`, its reviews in `results` (quality 4 chosen or tapped, 5 typed or said; `results` may be empty then): the bridge keeps a review only of a card within its window and not reviewed today (`skipped` says the others), lowers gently each card got wrong about its meaning, once a day (`lowered`), leaves a form slip alone, and the tutor gets a `dialog_words` line instead; an older bridge drops `dialog` and takes `results` as a review's |
 | `POST` | `/level` | `{from, to, stations: [{id, skill, right, total, minutes?}], duration_minutes?, language?, client_id}`: the treasure found (the level test at the end of `from` passed, [GAME.md](GAME.md#zemljevid-zaklada--the-treasure-map)) → the new level `to` (the one after `from`, else `400`) persisted via `update-db.py` (the report's `level` sets `current_level` and `level_since`; a session `/lani-app-treasure`, the stations' answers by skill), Claude gets a `level_up` summary with the new level's grammar pages; `{already: true, level}` and nothing written when the level is there already. An older bridge answers 404: the app sends it as a `session_end` with the report for the tutor to persist |
 | `GET` | `/readings`, `/readings/:id` | the reading corner's readings (see [GAME.md](GAME.md#the-reading-corner)): the village's culture pack's (`companion/cultures/<culture>/readings/`, read per request) with `source: curated` and `culture`, then the tutor's (`<data>/app/readings/`, `publish_reading`) with `source: tutor`, `machine_written` and `published_at` |
 | `POST` | `/readings/done` | `{kind: reading\|story\|aloud, id, title?, level?, exercises, correct, duration_minutes, questions?: [{type?, right}], looks?, aloud?: {words, right, misread, skipped, wpm?, recognizer: node\|phone, misses?: [{word, heard?}]}, language?, client_id}` → reading practice persisted via `update-db.py` (no LLM): `skill_scores.reading` (a reading's questions, a story's turns, a reading aloud's sentences; a story's "🎯 Preveri se" in the story notebook reports as a reading, `id` `book:<story>`, its questions the telling's turns), and `speaking` too for a reading aloud (`command_used` `/lani-app-reading`, `/lani-app-story`, `/lani-app-read-aloud`); Claude gets a `reading_done` summary, with `looks` (how often the text, hidden while its questions were asked, was shown again: [GAME.md](GAME.md#read-first-then-answer)) as "looked back at the text 3 times while answering" |
@@ -719,6 +719,7 @@ All endpoints except `/health`, `POST /pair`, the family page and the routes bet
 | `GET` | `/forms?w=…&w=…` | a word's forms (1-40 words): `{language, words: [{word, entries: [{lemma, pos, gloss, gender, aspect?, partner?, table: wiktionary\|checked, slots: [{key, forms, also?, grammar, page, needs?, lines?}]}]}], attribution}`; an older bridge answers 404 (see [Word forms](#word-forms)) |
 | `POST` | `/words` | `{sl, en, pos?, item_id?, example_sl?, example_en?, from?, language?, client_id}` → `{item_id, added}`: a vocabulary SR item, without a session, the home language's or `language`'s (see [Word lookup](#word-lookup)) |
 | `POST` | `/counting` | `{words: [{word, item_id?}], client_id?}` (1–40) → `{added, skipped, made_today, per_day}`: counting cards of the learner's learned nouns, from the dictionary's forms, at most `LANI_COUNTING_PER_DAY` (3) a day (see [Counting cards](#counting-cards)); `400` without words or in a village that isn't Slovene |
+| `POST` | `/forms-cards` | `{words: [{word, item_id?}], introduced: [page ids], asked?, client_id?}` (0–40 words) → `{added, skipped, resurfaced, made_today, per_day, resurface_per_day}`: forms cards of the learner's learned words from the dictionary's forms, at most `LANI_FORMS_PER_DAY` (2) a day, one at once with `asked`; the cards the `introduced` pages ask more of come back within days, at most `LANI_FORMS_RESURFACE_PER_DAY` (3) a day (see [Forms cards](#forms-cards)); `400` in a village that isn't Slovene |
 | `GET` | `/words` | `{from: [scene, roleplay, villager, chat, reading]}`: the origins `POST /words` takes (an older bridge: 404) |
 | `GET` | `/scenarios` | role-play scenarios (curated `companion/scenarios/` + tutor `<data>/app/scenarios/`) with `source` |
 | `GET` | `/scenarios/:id` | one scenario |
@@ -2666,6 +2667,122 @@ the four forms gets no card (mleko, vrata). It answers `{added: [{item_id, lemma
 made_today, per_day}` and `words_added`. In the review a few due counting cards (at most 4) are spread among the
 others; the rest wait for the next. `card.py show` tells how the app asks one.
 
+### Forms cards
+
+"📋 Oblike · Forms": one of Jan's words with its whole table in a review card of its own, so all the forms of a word are
+learned in one go. The whole table is always shown; only the forms the school has introduced are asked. The others
+are greyed with their form, a preview to read ahead, and become gaps once their page is introduced, so in the end every
+form is asked. The counting card stays separate.
+
+**What's introduced** (`FormsCard.introduced`, `tested`): a grammar page is introduced when it was met in the grammar
+book (`GameState.grammar`: a unit's intro gone through, a page the book opened, a rule answered) or a course unit
+whose `grammar` lists it had its intro done (finished or skipped as known: `School.progress(…).introDone`). A form of
+the table is asked once its page and every page it `needs` are introduced (the forms book's pages, as
+[Word forms](#word-forms) has them: a dual case needs `dvojina` and the case's page, a plural case `mnozina` too). The
+word's own form (a noun's nominative singular, an adjective's masculine) is given, never asked. What a unit turns on:
+[COURSE.md](COURSE.md#what-a-unit-turns-on).
+
+**The table** (`app/.../data/FormsCard.kt` `plans`, `ui/FormsCardView.kt`):
+
+| part of speech | sections (rows × columns) |
+|---|---|
+| noun | the six cases (1. kdo? kaj? … 6. s kom? s čim?) × ednina, dvojina, množina |
+| verb | sedanjik (persons 1–3 × numbers: jaz delam, midva delava, mi delamo), nikalna oblika where the forms book has one (nisem, nimam), prihodnjik (bom delal, bova delala, bomo delali), preteklik by gender (on je delal, onadva sta delala, oni so delali; ona je …; ono je delalo), velelnik ((ti) delaj!, (vidva) delajta!, (vi) delajte!; (midva) delajva!, (mi) delajmo!) |
+| adjective | the nominative by gender × number (dober, dobra, dobro …), then the cases 2–6 by gender in the singular, and in the plural |
+
+The forms are the dictionary's (forms.ts: Wiktionary's, or the forms book's hand-checked tables for the irregular
+verbs), never written by a rule: človek → ljudje, iti → grem, šel, biti → sem, nisem, bom. Every form the dictionary
+gives for a slot is right (brati and bratje); the spoken forms the forms book accepts too (bojo, grejo) are right and
+never shown. A verb's future (every verb but biti, whose own future the forms book has) is joined of biti's future and
+the verb's l-form, both the dictionary's ("bom delal"; persons 1 and 2 also with the feminine l-form, "bom delala", the
+learner's own first for a woman; the third person masculine, as its pronoun). An adjective's cases are read from the
+dictionary's table the same way as its nominative (an indefinite reading only; no gender named means all three); the
+accusative masculine singular, which Wiktionary gives as "genitive" or the nominative by animacy, is left out, as are
+the oblique duals and the comparative. A word whose dictionary entry has fewer than four forms besides its own gets no
+card; one missing a row or a cell gets the parts it has.
+
+**Playing.** The word at the top (its pack's emoji, its base form and gender, what it is and means), "📖 Pravila v knjigi
+· The rules in the book" (the cheat sheet at the pages of the gaps asked, as the top bar's 📋), then the table: the gaps
+asked as `____` (the one asked now framed), the other introduced forms shown, the rest greyed (TalkBack: "…, še ni
+predstavljeno · not introduced yet"), "🔒 Sivo: še ni predstavljeno …" under it. Under the table the gap asked now
+("📋 miza · 2/6 · Skloni · Cases — 4. koga? kaj? — množina · plural": the word named, the card's head may be scrolled
+away by then; the words around the gap: "on je ____"), answered:
+
+- **chosen** among three: the right form and two of the word's other forms, the closest first (the same row or column
+  of the same section: hišo · hiše · hiši for the accusative singular; a future's are futures), the introduced ones
+  before the greyed, never one that is right here;
+- **typed** once the card is secure (two good reviews in a row, the last of quality 4 or more), with č, š, ž to tap and
+  "Preveri · Check" above the keyboard, graded as a cloze (č, š, ž forgotten is almost, a wrong ending wrong; the
+  pronoun typed too is fine), "✋ Izberi raje · Let me choose" back to the choices. A part newly introduced is chosen
+  even then.
+
+Each gap is marked at once, in the table (green, the wrong answer under it in red) and under it with its 🔊; a right one
+goes on by itself, a wrong one at "Naprej · Next". At the end "🧾 Vsa tabela · The whole table": the rows asked said
+together by the narrator in one clip, made on demand like any line (nothing is voiced ahead; the car and the day's
+audio leave forms cards out), each row of the table its own 🔊 (one clip per row, on demand). The 💬 attaches the card
+(`about_exercise.forms_card`: the word, each gap's slot, where it stands, its options and answer so far, the greyed
+slots; `source.variant` `forms_card` or `forms_card_type`).
+
+**A part a review.** A long table is played a part at a time, so a card stays short: whole rows, at most 6 gaps (a
+noun's two cases, a verb's two persons; a row is never split). The parts come in turn, by the card's reviews
+(`total_reviews`); a failed review (quality under 3) asks the same part again. A part newly introduced comes first
+(below).
+
+**Its quality and its rules.** All gaps right is quality 4 (typed 5), a č, š or ž forgotten 3 (typed 4), 70 % of its
+score 3, half 2, less 1; the cheat sheet opened during it keeps it at 4 at most. Each gap counts on its slot's page in
+the grammar book (`ruleAnswers`). POST /reviews' `forms_cards` says how each card went (`[{item_id, lemma, typed,
+fresh, cells: [{key, right, kind?, answer, expected}]}]`, read leniently); the bridge writes each wrong gap as a mistake
+of its kind, `forms_<kind>`, and names them in `review_done`:
+
+| kind | when |
+|---|---|
+| `forms_case_<nominative…instrumental>` | a noun's case (or an adjective's) |
+| `forms_number_plural`, `forms_number_dual` | a plural or dual cell answered with the same case's other number; any dual cell of a verb |
+| `forms_verb_person_<1sg…3pl>` | the present's ending |
+| `forms_tense_past`, `forms_tense_future`, `forms_tense_imperative`, `forms_tense_negative` | the l-form, the future, the imperative, the negative present |
+| `forms_adjective_gender` | an adjective answered with another gender's form |
+
+The ids' words match the grammar pages' tags (grammar.ts `tagMatches`: "accusative", "dual", "verb_person", "past",
+"future", "imperative", "adjective"); a kind is only ever written for a form that was asked, so its page was introduced:
+an A2 page's name (genitive, dative, instrumental) reaches an A1 learner's patterns only once that page was.
+
+**Which words, how many** (`app/.../FormsCardController.kt`; the bridge's `bridge/src/forms-cards.ts`,
+`features/forms-cards.ts`). **`POST /forms-cards`** `{words: [{word, item_id?}] (0–40), introduced: [page ids], asked?}`
+(the bridge says `forms-cards` in GET /state's `features`; Slovene only):
+
+- **Of their own accord**: after each reload the app names its learned one-word vocabulary cards whose forms the phone
+  has (GET /forms) and that have no forms card, the core verbs first (biti, imeti, iti, delati, hoteti, moči, vedeti …),
+  at most 20. The bridge makes at most `LANI_FORMS_PER_DAY` (2) a day: a word the learner has learned, a noun, verb or
+  adjective of the dictionary with at least 2 of its forms introduced, the core verbs first, then the words the content
+  says most (its scenes, stories, readings, grammar examples and packs), then the app's order. A word refused today
+  (not learned, too few forms) isn't named again until tomorrow.
+- **On demand**: "📋 Vse oblike · All forms" on a word's card (a noun, a verb or an adjective; the home language's, not
+  a word of an exercise still open) makes its card at once (`asked: true`: whatever the day's count, learned or not,
+  at least one of its forms introduced), then "▶ Vadi zdaj · Practise now" reviews it right away; a word that has one
+  says so ("📋 Vse oblike te besede so v tvojih ponovitvah.") and offers it. Nothing introduced of it yet, or too
+  few forms in the dictionary: the card says which.
+
+Each card is a review item of its own (`forms_<word>`, type `forms`, due the day it is made), its table in the item's
+`forms` (`{v, lemma, pos, gender?, gloss, meaning?, emoji?, table, slots: [{key, forms, also?, page, needs?,
+composed?}], tested, fresh?, unlocked?, resurface?, asked?}`) so the app asks it offline; scheduled by SM-2 as any card.
+In the review at most 3 due forms cards are spread among the others; the rest wait for the next. It answers
+`{added: [{item_id, lemma, pos, tested, existing?}], skipped: [{word, why}], resurfaced: [{item_id, lemma, due_date,
+fresh}], made_today, per_day, resurface_per_day}` and `words_added`.
+
+**Back soon when a page asks more** (Jan: "it will reintroduce already learned words more often for repeated
+learning"). Every request says the pages introduced. A card whose table asks more now than when it was last scheduled
+(`forms.tested`: a unit's intro done, a page met) comes back within days: the most useful first (as above), at most
+`LANI_FORMS_RESURFACE_PER_DAY` (3) a day (the next day with room; never later than it was due), written with
+update-db.py's `resurface` ([DB_SCRIPTS.md](../docs/DB_SCRIPTS.md)): its repetitions back to 0 and its interval 1 (the
+new part is new learning: 1 day, 6 days, then times its easiness), its easiness, history, mastery and total reviews
+kept; `forms.fresh` the slots newly asked, `unlocked` the day. The app plays the fresh rows first (up to 6 gaps), chosen,
+under "🆕 Novo v tabeli · New in the table", while the card has fewer than 2 good reviews since (within 30 days); then
+the parts in turn again. A unit's intro done tells the bridge at once (the app asks right away, which also makes the
+day's new cards of words that had none yet) and says "📋 Nove oblike v tabelah: delati, hiša. · New forms in your
+tables: …" after the pages' news. A request whose pages ask nothing new writes nothing. `card.py show` tells how the app
+asks a card (its slots, what was tested, the fresh part, the joined future); a form that looks wrong is the
+dictionary's: fixed there, then the card deleted so a new one is made.
+
 ## Family
 
 The learner's family can take part in two ways:
@@ -3239,6 +3356,7 @@ companion/bin/qa --steps exercise-words          # a review's words looked up: t
 companion/bin/qa --steps exercise-explain        # the module kdo-govori's explanation in shape, «delam» in it looked up
 companion/bin/qa --steps counting                # counting cards: the unit stevila's intro skipped and its note, a card's four steps (one wrong), the lines said, the cheat sheet, 💬, typed
 companion/bin/qa --steps counting-dialogs        # the happenings with a counting dialog (Luka's cows): each opens, its number in words
+LANI_DEV_FAKE_ELEVENLABS=1 companion/bin/qa --no-town --steps forms-card  # forms cards: Vse oblike on a word's card, a noun's table (greyed rows, a mistake kept by kind, the rows said), a verb's, the day's in a review, typed, a unit done bringing a card back
 companion/bin/qa --steps school                  # the school: from Home's tile, the unit biti's intro (read aloud), sheets and test
 companion/bin/qa --steps school-build            # the school built in the hamlet: the Build sheet's tenth plot, the line under it, the bed, indoors
 companion/bin/qa --steps school-scene            # the teacher in the school's scene: her requests as on the map, the lesson by her, the blackboard

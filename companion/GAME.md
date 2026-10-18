@@ -757,6 +757,15 @@ A word Jan added (a word card's "➕ Dodaj med moje besede", a pack's word) is o
 - **Verb partners:** a tapped form two verbs share ("sedite": sesti and sedeti) shows the one the line means ("📍 tukaj · here", by its translation: "Sit down, sit down" → sesti) and the other under it as its partner, not as a second meaning: "↔ par · partner: sedeti — to sit" and how the two differ ("sesti: a movement, once · sedeti: a state that lasts"; an aspect pair: "kupiti: once, to the end (perfective) · kupovati: ongoing or repeated (imperfective)"), with its own ➕. A verb of the bridge's pairs says its aspect ("dovršni · perfective").
 - **QA:** `companion/bin/qa --steps word-forms`: the dev bridge's forms of the deck's words, then the debug build's "forms" hook starts a review of the words with a form reached, each asking one.
 
+### Forms cards
+
+Besides the one form a word's card asks now and then, a word can have a card of its own with its whole table, "📋 Oblike · Forms" ([README.md](README.md#forms-cards); `data/FormsCard.kt`), to learn all its forms in one go. The whole table is always shown: a noun's six cases by number, a verb's present, negative, future, past and imperative, an adjective's genders and cases. Only what the school has introduced is asked (its page met in the book, or taught by a unit whose intro is done); the rest is greyed with its form, to read ahead, and turns into gaps as the units come ([COURSE.md](COURSE.md#what-a-unit-turns-on)), so in the end every form is asked.
+
+- **A part a review:** whole rows, at most six gaps, in turn; a failed review asks its part again. Each gap chosen among three of the word's forms until the card is secure, typed after; marked at once, the rows read aloud at the end.
+- **Which words:** two a day of the learner's learned words, the core verbs first (biti, imeti, iti, delati …), and any word at once from its card: "📋 Vse oblike · All forms", then "▶ Vadi zdaj · Practise now". At most three forms cards in a review.
+- **New forms bring a word back:** when a unit or a page opens rows of a card's table, the card comes back within days (three a day at most), its new rows first, as new learning (its history kept): a word learned long ago is practised again with what the learner can now do with it.
+- **What an answer counts:** the card's quality comes from its gaps, each gap counts on its rule's page, a wrong one is a mistake of its kind for the tutor (the case, the number, the person, the tense, the gender).
+
 ### Words met in play
 
 A word the learner has a card of, met in play and answered right, counts as a review of the card (`game/PlayReviews.kt`):

@@ -404,6 +404,36 @@ then on and for good; the intro's end says so once, as a note ("Slovene · Engli
   `spol-samostalnikov` on the cheat sheet; the tutor points to the unit's intro and worksheets for a kind of mistake
   that keeps coming back.
 
+**Forms cards** ("📋 Oblike · Forms"; README.md "Forms cards") are on for every learner whose bridge makes them; what
+each card asks grows with the units. A form of a word's table is asked once its grammar page and the pages it needs are
+introduced: met in the grammar book, or listed in the `grammar` of a unit whose intro is done (the intro's end meets
+them anyway). Until then it is greyed with its form, to read ahead. A unit's intro done also brings back within days the
+forms cards it opened rows of (at most 3 a day, its new part first, scheduled as new learning: the card's repetitions
+back to 0, its history kept), says so ("📋 Nove oblike v tabelah: delati, hiša. · New forms in your tables: …"), and
+makes the day's new cards (two a day) of learned words that had none yet. By the A1 units' pages:
+
+| unit | its pages | what the forms cards ask from then on |
+|---|---|---|
+| `biti` | biti, zanikanje, dvojina | biti's present (sem, si, je …) and its negative (nisem …); the dual of what is introduced (a noun's nominative dual: dve hiši; the dual of a tense or case once its page is) |
+| `spol` | spol-samostalnikov, pridevniki-ujemanje | an adjective's nominative singular (dobra, dobro), its plural with `mnozina`, a case of it with that case's page |
+| `osebni-zaimki` | ti-vi, biti, dvojina | as `biti` |
+| `sedanjik` | glagoli-sedanjik, dvojina | the present of every verb but biti, imeti and iti (delam, delaš … delava) |
+| `mnozina` | mnozina, pridevniki-ujemanje | a noun's nominative plural (hiše); with a case's page, that case's plural; an adjective's plural |
+| `tozilnik` | tozilnik, pridevniki-ujemanje, mnozina | a noun's accusative row (hišo, hiše, hiši) and the adjective's accusative |
+| `stevila` | stevila-samostalniki, datumi, dvojina | the dual (and counting cards, above) |
+| `imeti-iti` | imeti-iti, kam-tozilnik | imeti's and iti's present (imam, grem …) |
+| `nikalnica-rodilnik` | zanikanje, rodilnik-nikalnica | the negative present (nisem, nimam); not the genitive row: that is `rodilnik`'s, A2 |
+| `mestnik` | kje-mestnik-orodnik, mestnik | a noun's locative row (hiši, hišah) and the adjective's locative |
+| `velelnik` | velelnik, ti-vi | the imperative (delaj, delajte, delajmo; delajva, delajta with the dual) |
+| `pretekli-cas` | pretekli-cas, naslonke | the past's l-forms (on je delal, ona je delala …) |
+| `prihodnjik` | prihodnjik, naslonke | the future (bom delal, bodo delali …) |
+| `dvojina` | dvojina, stevila-samostalniki | the dual |
+
+`vprasalnice`, `kdaj-cas`, `modalni-glagoli` and `povratni-glagoli` turn on no form of a table. The genitive, dative
+and instrumental rows (`rodilnik`, `dajalnik`, `orodnik`, A2 pages) stay greyed until those pages are met in the book;
+a noun's nominative singular is the word itself, never asked. A unit's `grammar` decides: a unit that lists another
+page turns on that page's forms too.
+
 ## Writing a unit
 
 - **Natural Slovene at the level**: short sentences of everyday words the learner meets in the village (the kitchen, the
