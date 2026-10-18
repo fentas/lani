@@ -316,6 +316,41 @@ class HandoverTest(unittest.TestCase):
         self.handover()
         self.assertIn("handed over to the phone", self.repo("lease", str(self.data)).stdout)
 
+    def test_lani_handover_shows_the_town_s_secrets_and_takes_them_back(self):
+        """companion/bin/lani-handover end to end: the handover pushed, then the QR code's text (--no-qr: as text), which
+        the bridge's own decoder opens: the town key's scalar, the family token, the profile; --status and --take."""
+        (self.data / "app" / "bridge-key.pem").unlink()  # the CLI makes a real one, as a bridge does on first use
+        (self.data / "app" / "family-token").write_text("fam-secret-123\n")
+        cli = [str(REPO / "companion/bin/lani-handover")]
+        run = lambda *a: subprocess.run(cli + list(a), cwd=self.home, capture_output=True, text=True, env=self.env(), timeout=120)
+        out = run("--yes", "--no-qr", "--device", PHONE["device"])
+        self.assertEqual(0, out.returncode, out.stdout + out.stderr)
+        uri = next(line for line in out.stdout.splitlines() if line.startswith("lani://handover?"))
+        self.assertIn("&k=", uri)
+        self.assertEqual("offered", L.state(self.remote_lease(), PHONE))
+        script = ("import { decodeHandover } from './src/handover'; import { loadTownKey, fingerprintOf } from './src/pairing';"
+                  f"const r = decodeHandover({json.dumps(uri)}); const k = loadTownKey({json.dumps(str(self.data / 'app'))});"
+                  "console.log(JSON.stringify({ b: r.bundle, f: r.fingerprint, mine: k.fingerprint, d: String(k.privateKey.export({ format: 'jwk' }).d) }))")
+        dec = subprocess.run(["bun", "-e", script], cwd=REPO / "companion/bridge", capture_output=True, text=True, env=self.env(), timeout=60)
+        self.assertEqual(0, dec.returncode, dec.stderr)
+        got = json.loads(dec.stdout)
+        self.assertEqual(got["mine"], got["f"])
+        self.assertEqual(got["d"], got["b"]["k"])
+        self.assertEqual("fam-secret-123", got["b"]["t"])
+        self.assertEqual("default", got["b"]["p"])
+        self.assertNotIn("fam-secret-123", out.stdout)  # never in clear text on the screen
+        self.assertIn("handed over to the phone", run("--status").stdout)
+        took = run("--take")
+        self.assertEqual(0, took.returncode, took.stdout + took.stderr)
+        self.assertEqual("mine", L.state(self.remote_lease(), NODE))
+        # with --code the key isn't in the code: a salt, and the code printed apart
+        out = run("--yes", "--no-qr", "--code")
+        self.assertEqual(0, out.returncode, out.stdout + out.stderr)
+        uri = next(line for line in out.stdout.splitlines() if line.startswith("lani://handover?"))
+        self.assertNotIn("&k=", uri)
+        self.assertIn("&s=", uri)
+        self.assertRegex(out.stdout, r"The code to type on the phone: [A-HJ-NP-Z2-9]{4}-[A-HJ-NP-Z2-9]{4}-[A-HJ-NP-Z2-9]{4}")
+
     def test_ignore_lets_the_node_write_in_an_emergency(self):
         self.handover()
         out = subprocess.run([sys.executable, str(HOOKS / "update-db.py")], input=self.report(), cwd=self.home,
