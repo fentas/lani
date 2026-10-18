@@ -1,0 +1,95 @@
+{
+  "schema": "lani.celebration/v0",
+  "age": "tabor",
+  "language": "sl",
+  "review": "Machine-written (Claude), not reviewed by a native speaker.",
+  "emoji": "🔥",
+  "name": { "sl": "Prvi večer ob ognju", "en": "The first evening by the fire", "de": "Der erste Abend am Feuer", "it": "La prima sera intorno al fuoco" },
+  "about": {
+    "sl": "Prvi šotor stoji. Zvečer se vsi zberejo ob ognju: pojejo, pripovedujejo in si podajajo kruh.",
+    "en": "The first tent is up. In the evening everyone gathers by the fire: they sing, tell stories and pass the bread round.",
+    "de": "Das erste Zelt steht. Am Abend versammeln sich alle am Feuer: sie singen, erzählen und reichen das Brot herum.",
+    "it": "La prima tenda è montata. La sera tutti si riuniscono intorno al fuoco: cantano, raccontano e si passano il pane."
+  },
+  "moment": { "sl": "Okrog ognja zagorijo bakle.", "en": "Torches are lit round the fire.", "de": "Rund ums Feuer werden Fackeln entzündet.", "it": "Intorno al fuoco si accendono le fiaccole." },
+  "line": { "sl": "Prvi večer ob ognju smo peli do noči.", "en": "On our first evening by the fire we sang into the night.", "de": "Am ersten Abend am Feuer haben wir bis in die Nacht gesungen.", "it": "La prima sera intorno al fuoco abbiamo cantato fino a notte." },
+  "memory": { "sl": "naš prvi večer ob ognju", "en": "our first evening by the fire", "de": "unseren ersten Abend am Feuer", "it": "la nostra prima sera intorno al fuoco" },
+  "decor": ["torches"],
+  "music": "valcek",
+  "place": "fire",
+  "host": "janez",
+  "guests": ["micka", "luka", "zala"],
+  "pack": "slavje-prvi-vecer",
+  "words": ["bakla", "peti"],
+  "levels": {
+    "A1": { "lines": [
+      { "who": "janez", "sl": "Dober večer, {learner}! To je naš prvi večer ob ognju.", "en": "Good evening, {learner}! This is our first evening by the fire.", "de": "Guten Abend, {learner}! Das ist unser erster Abend am Feuer.", "it": "Buonasera, {learner}! È la nostra prima sera intorno al fuoco." },
+      { "who": "janez", "sl": "Na naš prvi večer! Na zdravje!", "en": "To our first evening! Cheers!", "de": "Auf unseren ersten Abend! Prost!", "it": "Alla nostra prima sera! Salute!" },
+      { "choices": [
+        { "sl": "Na zdravje!", "en": "Cheers!", "de": "Prost!", "it": "Salute!", "ok": true,
+          "reply": { "sl": "Na zdravje! Čaj je še vroč.", "en": "Cheers! The tea is still hot.", "de": "Prost! Der Tee ist noch heiß.", "it": "Salute! Il tè è ancora caldo." } },
+        { "sl": "Dober tek!", "en": "Enjoy your meal!", "de": "Guten Appetit!", "it": "Buon appetito!",
+          "why": { "en": "Dober tek is said before a meal. Raising a cup, you say: na zdravje.", "de": "Dober tek sagt man vor dem Essen. Mit erhobener Tasse sagt man: na zdravje.", "it": "Dober tek si dice prima di mangiare. Alzando la tazza si dice: na zdravje." },
+          "reply": { "sl": "Dober tek? Saj pijemo, ha ha!", "en": "Enjoy your meal? We're drinking, ha ha!", "de": "Guten Appetit? Wir trinken doch, ha ha!", "it": "Buon appetito? Ma stiamo bevendo, ah ah!" } },
+        { "sl": "Lahko noč!", "en": "Good night!", "de": "Gute Nacht!", "it": "Buonanotte!",
+          "why": { "en": "Lahko noč is said when you go to bed. Raising a cup, you say: na zdravje.", "de": "Lahko noč sagt man, wenn man schlafen geht. Mit erhobener Tasse sagt man: na zdravje.", "it": "Lahko noč si dice quando si va a dormire. Alzando la tazza si dice: na zdravje." },
+          "reply": { "sl": "Že greš spat? Šele smo začeli!", "en": "Off to bed already? We've only just begun!", "de": "Gehst du schon schlafen? Wir haben doch gerade erst angefangen!", "it": "Vai già a dormire? Abbiamo appena cominciato!" } }
+      ] },
+      { "who": "micka", "sl": "Temno je že. {learner}, kaj potrebujemo?", "en": "It's dark already. {learner}, what do we need?", "de": "Es ist schon dunkel. {learner}, was brauchen wir?", "it": "È già buio. {learner}, che cosa ci serve?" },
+      { "choices": [
+        { "sl": "Potrebujemo baklo.", "en": "We need a torch.", "de": "Wir brauchen eine Fackel.", "it": "Ci serve una fiaccola.", "ok": true,
+          "reply": { "sl": "Tako je! Prižgimo jo!", "en": "That's right! Let's light it!", "de": "Genau! Zünden wir sie an!", "it": "Esatto! Accendiamola!" } },
+        { "sl": "Potrebujemo odejo.", "en": "We need a blanket.", "de": "Wir brauchen eine Decke.", "it": "Ci serve una coperta.",
+          "why": { "en": "Odeja is a blanket. In the dark you need light: a torch, bakla.", "de": "Odeja ist eine Decke. Im Dunkeln braucht man Licht: eine Fackel, bakla.", "it": "Odeja è una coperta. Al buio ci vuole luce: una fiaccola, bakla." },
+          "reply": { "sl": "Odejo? Ni nam mraz, temno pa je!", "en": "A blanket? We're not cold, it's dark!", "de": "Eine Decke? Uns ist nicht kalt, aber dunkel ist es!", "it": "Una coperta? Non abbiamo freddo, è buio!" } },
+        { "sl": "Potrebujemo zvezdo.", "en": "We need a star.", "de": "Wir brauchen einen Stern.", "it": "Ci serve una stella.",
+          "why": { "en": "Zvezda is a star: it shines high up in the sky. For light by the fire you need a torch: bakla.", "de": "Zvezda ist ein Stern: er leuchtet hoch am Himmel. Für Licht am Feuer braucht man eine Fackel: bakla.", "it": "Zvezda è una stella: brilla in alto nel cielo. Per far luce intorno al fuoco ci vuole una fiaccola: bakla." },
+          "reply": { "sl": "Zvezdo? Zvezde so visoko na nebu, ha ha!", "en": "A star? The stars are high up in the sky, ha ha!", "de": "Einen Stern? Die Sterne sind hoch oben am Himmel, ha ha!", "it": "Una stella? Le stelle sono lassù nel cielo, ah ah!" } }
+      ] },
+      { "who": "zala", "sl": "Zdaj pa zapojmo! {learner}, zapoj z nami!", "en": "Now let's sing! {learner}, sing with us!", "de": "Und jetzt singen wir! {learner}, sing mit uns!", "it": "E adesso cantiamo! {learner}, canta con noi!" },
+      { "choices": [
+        { "sl": "Rad{m:|f:a} pojem!", "en": "I love singing!", "de": "Ich singe gern!", "it": "Canto volentieri!", "ok": true,
+          "reply": { "sl": "Juhu! Vsi skupaj: la-la-la!", "en": "Yippee! All together: la-la-la!", "de": "Juhu! Alle zusammen: la-la-la!", "it": "Evviva! Tutti insieme: la-la-la!" } },
+        { "sl": "Rad{m:|f:a} spim!", "en": "I love sleeping!", "de": "Ich schlafe gern!", "it": "Dormo volentieri!",
+          "why": { "en": "Spati is to sleep: spim. Singing is peti: pojem.", "de": "Spati heißt schlafen: spim. Singen ist peti: pojem.", "it": "Spati vuol dire dormire: spim. Cantare è peti: pojem." },
+          "reply": { "sl": "Spiš? Ne zdaj, ogenj še gori!", "en": "You sleep? Not now, the fire's still burning!", "de": "Du schläfst? Nicht jetzt, das Feuer brennt noch!", "it": "Dormi? Non adesso, il fuoco arde ancora!" } }
+      ] },
+      { "who": "janez", "sl": "Lepo je, ko smo vsi skupaj ob ognju.", "en": "It's lovely when we're all together by the fire.", "de": "Es ist schön, wenn wir alle zusammen am Feuer sind.", "it": "È bello quando siamo tutti insieme intorno al fuoco." }
+    ] },
+    "A2": { "lines": [
+      { "who": "janez", "sl": "{learner}, pridi bliže k ognju! Nocoj praznujemo prvi večer v taboru.", "en": "{learner}, come closer to the fire! Tonight we celebrate the first evening in the camp.", "de": "{learner}, komm näher ans Feuer! Heute Abend feiern wir den ersten Abend im Lager.", "it": "{learner}, vieni più vicino al fuoco! Stasera festeggiamo la prima sera nell'accampamento." },
+      { "who": "micka", "sl": "Čaj je vroč, kruh je svež. Na zdravje vsem!", "en": "The tea is hot, the bread is fresh. Cheers, everyone!", "de": "Der Tee ist heiß, das Brot ist frisch. Prost, alle zusammen!", "it": "Il tè è caldo, il pane è fresco. Salute a tutti!" },
+      { "choices": [
+        { "sl": "Na zdravje!", "en": "Cheers!", "de": "Prost!", "it": "Salute!", "ok": true,
+          "reply": { "sl": "Na zdravje! In na dobre sosede!", "en": "Cheers! And to good neighbours!", "de": "Prost! Und auf gute Nachbarn!", "it": "Salute! E ai buoni vicini!" } },
+        { "sl": "Dober tek!", "en": "Enjoy your meal!", "de": "Guten Appetit!", "it": "Buon appetito!",
+          "why": { "en": "Dober tek is said before eating. Answering a toast, you say: na zdravje.", "de": "Dober tek sagt man vor dem Essen. Auf einen Trinkspruch antwortet man: na zdravje.", "it": "Dober tek si dice prima di mangiare. A un brindisi si risponde: na zdravje." },
+          "reply": { "sl": "Dober tek? Najprej nazdravimo, potem jemo!", "en": "Enjoy your meal? First we drink a toast, then we eat!", "de": "Guten Appetit? Erst stoßen wir an, dann essen wir!", "it": "Buon appetito? Prima brindiamo, poi mangiamo!" } },
+        { "sl": "Vse najboljše!", "en": "Happy birthday!", "de": "Alles Gute zum Geburtstag!", "it": "Tanti auguri!",
+          "why": { "en": "Vse najboljše is said for a birthday. Answering a toast, you say: na zdravje.", "de": "Vse najboljše sagt man zum Geburtstag. Auf einen Trinkspruch antwortet man: na zdravje.", "it": "Vse najboljše si dice per un compleanno. A un brindisi si risponde: na zdravje." },
+          "reply": { "sl": "Vse najboljše? Saj nihče nima rojstnega dne!", "en": "Happy birthday? Nobody has a birthday!", "de": "Alles Gute? Es hat doch niemand Geburtstag!", "it": "Tanti auguri? Ma non compie gli anni nessuno!" } }
+      ] },
+      { "who": "luka", "sl": "Veter piha in ogenj je majhen. Kaj nam bo svetilo, ko pade noč?", "en": "The wind is blowing and the fire is small. What will give us light when night falls?", "de": "Der Wind weht und das Feuer ist klein. Was gibt uns Licht, wenn die Nacht kommt?", "it": "Tira vento e il fuoco è piccolo. Che cosa ci farà luce quando scende la notte?" },
+      { "choices": [
+        { "sl": "Prižgimo bakle!", "en": "Let's light the torches!", "de": "Zünden wir die Fackeln an!", "it": "Accendiamo le fiaccole!", "ok": true,
+          "reply": { "sl": "Dobra misel! Glej, kako lepo gorijo.", "en": "Good thinking! Look how nicely they burn.", "de": "Gute Idee! Schau, wie schön sie brennen.", "it": "Buona idea! Guarda come bruciano bene." } },
+        { "sl": "Prižgimo odeje!", "en": "Let's light the blankets!", "de": "Zünden wir die Decken an!", "it": "Accendiamo le coperte!",
+          "why": { "en": "Odeje are blankets: you don't set them alight! For light you light the torches: bakle.", "de": "Odeje sind Decken: die zündet man nicht an! Für Licht zündet man die Fackeln an: bakle.", "it": "Odeje sono le coperte: non si accendono! Per far luce si accendono le fiaccole: bakle." },
+          "reply": { "sl": "Odeje? Raje ne, pod njimi bomo spali!", "en": "The blankets? Better not, we'll sleep under them!", "de": "Die Decken? Lieber nicht, darunter schlafen wir!", "it": "Le coperte? Meglio di no, ci dormiremo sotto!" } },
+        { "sl": "Prižgimo pesmi!", "en": "Let's light the songs!", "de": "Zünden wir die Lieder an!", "it": "Accendiamo le canzoni!",
+          "why": { "en": "Pesmi are songs: you sing them, you don't light them. You light torches: bakle.", "de": "Pesmi sind Lieder: die singt man, die zündet man nicht an. Anzünden kann man Fackeln: bakle.", "it": "Pesmi sono canzoni: si cantano, non si accendono. Si accendono le fiaccole: bakle." },
+          "reply": { "sl": "Pesmi? Te pridejo pozneje, ha ha!", "en": "Songs? Those come later, ha ha!", "de": "Lieder? Die kommen später, ha ha!", "it": "Canzoni? Quelle vengono dopo, ah ah!" } }
+      ] },
+      { "who": "janez", "sl": "Ko gorijo bakle, je čas za pesem. Kdo začne?", "en": "When the torches burn, it's time for a song. Who starts?", "de": "Wenn die Fackeln brennen, ist es Zeit für ein Lied. Wer fängt an?", "it": "Quando le fiaccole ardono, è ora di una canzone. Chi comincia?" },
+      { "who": "zala", "sl": "Jaz! Samo če {learner} poje z mano!", "en": "Me! Only if {learner} sings with me!", "de": "Ich! Nur wenn {learner} mit mir singt!", "it": "Io! Solo se {learner} canta con me!" },
+      { "choices": [
+        { "sl": "Seveda, rad{m:|f:a} pojem z vami!", "en": "Of course, I'd love to sing with you!", "de": "Natürlich, ich singe gern mit euch!", "it": "Certo, canto volentieri con voi!", "ok": true,
+          "reply": { "sl": "Super! En, dva, tri …", "en": "Great! One, two, three …", "de": "Super! Eins, zwei, drei …", "it": "Fantastico! Uno, due, tre …" } },
+        { "sl": "Seveda, rad{m:|f:a} jem z vami!", "en": "Of course, I'd love to eat with you!", "de": "Natürlich, ich esse gern mit euch!", "it": "Certo, mangio volentieri con voi!",
+          "why": { "en": "Jesti is to eat: jem. Singing is peti: pojem.", "de": "Jesti heißt essen: jem. Singen ist peti: pojem.", "it": "Jesti vuol dire mangiare: jem. Cantare è peti: pojem." },
+          "reply": { "sl": "Ješ? Kruha ni več, ha ha!", "en": "You eat? There's no bread left, ha ha!", "de": "Du isst? Es ist kein Brot mehr da, ha ha!", "it": "Mangi? Il pane è finito, ah ah!" } }
+      ] },
+      { "who": "janez", "sl": "Lepo zveni! Ta večer si bomo dolgo zapomnili.", "en": "That sounds lovely! We'll remember this evening for a long time.", "de": "Das klingt schön! An diesen Abend werden wir uns lange erinnern.", "it": "Che bello! Ci ricorderemo a lungo di questa sera." }
+    ] }
+  }
+}

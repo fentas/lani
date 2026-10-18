@@ -16,7 +16,7 @@ import { SCENE_ART, validateScene } from '../../src/scenes'
 import { profileFromEnv } from '../../src/learners'
 import { cultureSky, MOON_PHASES, SKY_FIGURES, SKY_SHOWERS, SKY_STARS } from '../../src/sky'
 import { cultureProjectSteps, cultureStepFiles, speakerGendered, stepTellings } from '../../src/project-steps'
-import { cultureCelebrations } from '../../src/celebrations'
+import { cultureCelebrationFiles, cultureCelebrations, partyTellings } from '../../src/celebrations'
 import { VillagerStore } from '../../src/villagers'
 import { auth, base, check, culturesDir, dataDir, fam, tempDir } from './harness'
 import { JAN } from '../learner-content'
@@ -327,8 +327,24 @@ export default async function cultures() {
   )
 
   // --- an age's celebration (celebrations/<age>.json, lani.celebration/v0; companion/GAME.md "Ages and their celebrations"):
-  // a pack's party for an age, checked with the pack (validateCulture above checks a pack's with its cast and its packs);
-  // what's wrong in one is named with the file
+  // Primorska's five ages each a tradition of its own with a party at A1 and A2 testing its words (validateCulture above
+  // checks each with the cast and the packs), voiced as a step's; what's wrong in one is named with the file
+  const prCel = cultureCelebrationFiles(culturesDir, 'primorska')
+  const byAge = Object.fromEntries(prCel.map(f => [f.age, f]))
+  check(
+    "primorska celebrates every age: the first evening by the fire, likof, veselica, semenj, the town's feast, each a party at A1 and A2 testing its words",
+    ['tabor', 'zaselek', 'vas', 'trg', 'mesto'].map(a => byAge[a]?.name.sl).join(', ') === 'Prvi večer ob ognju, Likof, Veselica, Semenj, Mestni praznik' &&
+      prCel.every(f => !!f.levels.A1 && !!f.levels.A2 && f.words.length >= 1 && !!f.pack && !!f.host && f.decor.length >= 1),
+    prCel.map(f => `${f.age}: ${f.name.sl}`),
+  )
+  const vida = prCast.find(v => v.id === 'vida')!
+  const partyVoiced = corpus({ learner: JAN, packs: [], modules: [], scenarios: [], villagers: prCast, steps: prCel.map(f => ({ project: `party:${f.age}`, tellings: partyTellings(f) })) })
+  check(
+    "… voice-build voices the parties: Vida's lines in her speaker's voice, the learner's choices in the default one",
+    partyVoiced.some(i => i.source === 'project:party:vas' && i.text === 'Dobrodošli na veselici! Danes praznuje vsa vas.' && i.voice === speakerFor(vida)) &&
+      partyVoiced.some(i => i.source === 'project:party:vas' && i.text === 'Nesimo kozarce.' && i.voice === 'female'),
+    partyVoiced.filter(i => i.source === 'project:party:vas').slice(0, 4),
+  )
   // the test pack with a party for Vas, in Italian: as written it passes; broken, it says what and where
   const tx = (it: string, sl: string, en: string, de: string) => ({ it, sl, en, de })
   const party = {
