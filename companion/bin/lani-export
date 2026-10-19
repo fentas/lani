@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+"""The learner's data as one file, to move them to the app (the hosted mode) or to another node.
+
+  lani export [--profile ID | --data DIR] [--out FILE] [--with-secrets] [--force]
+
+The file is a zip of the data directory, as a commit of the data repository takes it (no secrets, no voice clips, not
+what the learner typed lately), with a manifest: lani-export.json. Import it in the app, or on a node with
+`lani import FILE`. --with-secrets adds the town's key and the family token: then keep the file private. The format
+and the rules: .claude/hooks/lani_export.py.
+"""
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / ".claude" / "hooks"))
+import lani_export  # noqa: E402
+
+sys.exit(lani_export.export_main(sys.argv[1:], prog="lani export"))
