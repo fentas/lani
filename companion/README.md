@@ -39,6 +39,7 @@ Android app ──HTTP/SSE──► bridge service ◄──unix socket (MCP)─
 | `bin/lani-send-app` | Sends the app (the newest APK of the release directory) to a phone over Tailscale (Taildrop), no cable (see [Android app](#android-app)). |
 | `bin/lani-town` | Links learners' towns: invitations (a one-time QR code), accepting one, linking two towns of this node, unlinking (see [Towns](#towns)). |
 | `bin/lani-handover` | Moves a learner's data between this node and their phone through the data repository: hands it over (the lease, then the town's key as a QR code), takes it back (`--take`), says who writes (`--status`) (see [Data: git, the handover, the backup](#data-git-the-handover-the-backup)). |
+| `bin/lani-export`, `bin/lani-import` | A learner's data as one file and back (`lani.export/v1`), to move them between this node and the app's hosted mode (see [Lani on this phone](#lani-on-this-phone-no-node)). |
 | `bin/voice-build` | Counts and prebuilds the voice clips (see [Voice](#voice)). |
 | `bin/lexicon-build` | Builds a word lookup dictionary from a kaikki.org extract of Wiktionary, gives its lemmas their meanings in the other languages (from the English, German and Italian Wiktionaries), and shows how much of the content it knows (see [Word lookup](#word-lookup)). |
 | `bin/release-app` | Builds a release APK (`--docker`: in Docker) and publishes it to the app's self-update; `--github [<tag>]` publishes a GitHub release's APK instead (see [Android app](#android-app)). |
@@ -3097,6 +3098,44 @@ companion/bin/lani-handover --take          # take it back once the phone handed
   `lani.githubClientId`, or a pasted fine-grained token), the repository and the last sync, who writes and the
   handover's QR code, the encrypted backup (a recovery code or a passphrase; the relay's backup API, `lani.relayUrl`).
 
+## Lani on this phone (no node)
+
+The app's hosted mode (plan 5): "☁️ Lani na tem telefonu · Lani on this phone" on the first screen, next to "🔗 Poveži
+svojega učitelja · Connect my own tutor". The bridge runs in the app (QuickJS), the learner's data lives on the phone
+(`<filesDir>/lani/data`, a data repository's layout), and there is no node, Tailscale or Claude Code. Built in
+[docs/plans/05-built/hosted-mode.md](../docs/plans/05-built/hosted-mode.md).
+
+- **The first launch:** a fresh start asks what `lani-setup` asks (the name, how the village speaks to them, the language
+  learned, the explanations' language, the level, the minutes a day) and makes the six databases from `data-examples/`;
+  or "📥 Uvozi izvoz · Import an export" takes a file `lani export` made. Then the tutor's step, then Home, where the
+  village is founded.
+- **Moving a learner here from a node:**
+
+  ```bash
+  companion/bin/lani export                     # → ./lani-export-<name>-<date>.zip (no secrets)
+  companion/bin/lani export --with-secrets      # with the town's key and the family token: keep it private
+  companion/bin/lani export --profile luka      # another learner on this machine
+  ```
+
+  Put the file on the phone, and import it in the app (the first launch, or 🔗 Povezava · Connection → "☁️ Preklopi na
+  ta telefon · Switch to this phone"). With git, `lani handover` does it through the data repository instead
+  ([Data](#data-git-the-handover-the-backup)).
+- **Back to the node:** in the app 🔗 Povezava · Connection → "📤 Izvozi moje podatke · Export my data", then
+
+  ```bash
+  companion/bin/lani import lani-export-ana-2026-10-19.zip            # checks, asks, keeps what was there, commits
+  companion/bin/lani import --dry-run lani-export-ana-2026-10-19.zip  # only what would change
+  companion/bin/lani import --verify lani-export-ana-2026-10-19.zip   # only the checks
+  ```
+
+  and "🖥️ Na svoj računalnik · To my own computer" in the app, then pair as usual. An import refuses while the phone
+  holds the lease, and it keeps this node's own files (its secrets, voice clips, runtime files, `.gitignore` and lease).
+- **Towns and the family page** go through the relay in this mode: the build's `lani.relayUrl` (or `LANI_RELAY_URL`),
+  or the connection sheet's "🛰️ Posrednik (relay)". Without one, towns aren't available on the phone, and Friends
+  says so.
+- **What isn't there yet:** the tutor's settings (the tutor-live work), voices other than the phone's own
+  text-to-speech, the car's clips.
+
 ## Im Auto · In the car
 
 "🚗 Za pot · For the road" is a learning session for the car that uses sound only. Nothing is read, typed or looked
@@ -3523,7 +3562,8 @@ gunzip -k ~/.local/share/lani/releases/lani-1180-mapping.txt.gz
 ### Install and pair
 
 On first launch, scan the QR code from `companion/bin/lani-pair` ("📷 Skeniraj QR · Scan the QR code"),
-or enter the bridge URL (`tailscale serve status`) and the token. For Slovene speech, install the
+or enter the bridge URL (`tailscale serve status`) and the token. Without a node, choose "☁️ Lani na tem telefonu · Lani
+on this phone" instead ([Lani on this phone](#lani-on-this-phone-no-node)). For Slovene speech, install the
 Slovenian voice in Android's text-to-speech settings (Google Speech Services → sl-SI).
 
 The story notebook's handwriting is Kalam (Indian Type Foundry, SIL Open Font License 1.1), bundled in

@@ -115,6 +115,21 @@ words, never the photo.
   too, as an image block; its export and the copy it leaves on the node have a note in the photo's place, never the
   photo.
 
+## Lani on the phone (the hosted mode)
+
+With "☁️ Lani na tem telefonu · Lani on this phone" there is no machine: the learner's data lives on the phone, in the
+app's own files (`<filesDir>/lani/data`), which only the app can read, and Android's backup leaves them out
+(`allowBackup` is off). The bridge runs inside the app, so nothing of it goes over a network. What leaves the phone:
+
+- **The tutor's provider**, once the learner sets one up (the in-app tutor, on the learner's own key): what the tutor
+  needs for a turn.
+- **The relay**, only when one is set (the build's, or the connection sheet's "🛰️ Posrednik (relay)"): the town's
+  public state, its mail with other towns and the family page, and the encrypted backup. Without one, nothing.
+- **GitHub**, only when git is connected in 💾 Podatki · Data (above).
+- **An export** ("📤 Izvozi moje podatke · Export my data"): a zip of the data's files, without the secrets, the recent
+  answers, the developer's data or the chat's photos. It goes where the learner sends it from the share sheet; it holds
+  the learner's mistakes, sessions and family names, so it is private data.
+
 ## What stays on the machine
 
 The learner's data, the tokens and the bridge's key, the voice clips (and the offline voice, `~/.cache/lani/piper`), the backups (`~/.local/share/lani/backups`), the
