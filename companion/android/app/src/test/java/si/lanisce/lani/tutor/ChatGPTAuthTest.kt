@@ -162,6 +162,19 @@ class ChatGPTAuthTest {
         assertFalse(session.toString().contains("access-1"))
     }
 
+    @Test fun `the redirect names the port the listener got - the app asks for 0, the system's pick`() = runBlocking {
+        // the app begins with port 0: the URL once said 127.0.0.1:0 (the constructor's argument, not the bound port),
+        // and auth.openai.com refused it (invalid_authorize_request, param redirect_uri)
+        val pending = chatgpt().begin(0)
+        val redirect = pending.url.toHttpUrl().queryParameter("redirect_uri")!!.toHttpUrl()
+        assertEquals("127.0.0.1", redirect.host)
+        assertTrue("a real port: $redirect", redirect.port in 1..65535)
+        assertEquals(pending.redirectUri, redirect.toString())
+        val (status, _) = browser(redirect.port, "/auth/callback?code=x&state=not-this-attempt")
+        assertTrue("the listener on that port answers: $status", status.startsWith("HTTP/1.1 400"))
+        pending.cancel()
+    }
+
     @Test fun `the access token is renewed near its end, the refresh token rotating, one refresh at a time`() = runBlocking {
         val c = chatgpt()
         signIn(c, 19402)

@@ -422,12 +422,14 @@ object IdToken {
  * GET with the attempt's `state` (others: 404, or 400 for another state, so a stray request never ends the attempt),
  * with a page that sends the browser back to the app ([ChatGPTOAuth.BACK]).
  */
-class Loopback(port: Int, private val state: String, private val savedClientId: String?) : Closeable {
+class Loopback(bindPort: Int, private val state: String, private val savedClientId: String?) : Closeable {
     data class Callback(val code: String, val clientId: String)
 
-    private val server = ServerSocket(port, 8, InetAddress.getByAddress(byteArrayOf(127, 0, 0, 1)))
+    private val server = ServerSocket(bindPort, 8, InetAddress.getByAddress(byteArrayOf(127, 0, 0, 1)))
+
+    /** The port it listens on: the one asked for, or the system's pick for 0 (the redirect must name the real one). */
     val port: Int = server.localPort
-    val redirectUri = "http://127.0.0.1:$port${ChatGPTOAuth.CALLBACK_PATH}"
+    val redirectUri = "http://127.0.0.1:${server.localPort}${ChatGPTOAuth.CALLBACK_PATH}"
     val result = CompletableDeferred<Callback>()
 
     init {
