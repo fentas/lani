@@ -175,6 +175,40 @@ class ChatGPTAuthTest {
         pending.cancel()
     }
 
+    @Test fun `the exchange waits for the network - Lani in the background while the browser comes back`() = runBlocking {
+        // Android holds a background app's network (battery saver): the first tries fail to resolve auth.openai.com
+        var offline = 3
+        val waits = mutableListOf<Long>()
+        val flaky = okhttp3.Interceptor { chain ->
+            if (offline > 0 && chain.request().url.encodedPath == "/api/accounts/oauth/token") {
+                offline--
+                throw java.net.UnknownHostException("Unable to resolve host \"auth.openai.com\": No address associated with hostname")
+            }
+            chain.proceed(chain.request())
+        }
+        val c = ChatGPTAuth(vault, OkHttpClient.Builder().addInterceptor(flaky).addInterceptor(auth).build(), clock = { now }, pause = { waits += it })
+        val s = signIn(c, 19403)
+        assertTrue(s.connected)
+        assertEquals(ChatGPTAuth.OFFLINE_WAITS.take(3), waits)
+    }
+
+    @Test fun `offline for good - told plainly, nothing kept but the client`() = runBlocking {
+        val down = okhttp3.Interceptor { chain ->
+            if (chain.request().url.encodedPath == "/api/accounts/oauth/token") throw java.net.UnknownHostException("Unable to resolve host")
+            chain.proceed(chain.request())
+        }
+        val c = ChatGPTAuth(vault, OkHttpClient.Builder().addInterceptor(down).addInterceptor(auth).build(), clock = { now }, pause = { })
+        val e = try {
+            signIn(c, 19404)
+            null
+        } catch (e: ChatGPTError) {
+            e
+        }
+        assertEquals("offline", e?.code)
+        assertTrue(e!!.message!!.contains("in the background"))
+        assertEquals(null, c.session()?.accessToken)
+    }
+
     @Test fun `the access token is renewed near its end, the refresh token rotating, one refresh at a time`() = runBlocking {
         val c = chatgpt()
         signIn(c, 19402)

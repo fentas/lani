@@ -125,6 +125,8 @@ class ChatGPTAuth(
     private val clock: () -> Long = System::currentTimeMillis,
     private val random: SecureRandom = SecureRandom(),
     private val appName: String = "Lani",
+    /** Waits between the sign-in's tries while the network isn't there ([OFFLINE_WAITS]); a test passes its own. */
+    private val pause: suspend (Long) -> Unit = { kotlinx.coroutines.delay(it) },
 ) {
     private val lock = Mutex()
     private var keys: JsonObject? = null
@@ -193,18 +195,42 @@ class ChatGPTAuth(
         val before = host()
         // the issued client is kept at once: a code that fails later doesn't register another app at the next attempt
         if (before.clientId != cb.clientId) save(before.copy(clientId = cb.clientId, savedAt = clock()))
-        val data = token(
-            "grant_type" to "authorization_code", "client_id" to cb.clientId, "code" to cb.code, "code_verifier" to verifier,
-            "redirect_uri" to redirectUri, "resource" to ChatGPTOAuth.RESOURCE,
-        )
+        // the browser comes back to the loopback while it is still in front: Lani is in the background then, and
+        // Android may hold a background app's network (battery saver, data saver: "Unable to resolve host"), so the
+        // exchange and the keys are tried again for a minute, until the browser has sent the learner back to Lani
+        val data = whileOffline {
+            token(
+                "grant_type" to "authorization_code", "client_id" to cb.clientId, "code" to cb.code, "code_verifier" to verifier,
+                "redirect_uri" to redirectUri, "resource" to ChatGPTOAuth.RESOURCE,
+            )
+        }
         val idToken = data.str("id_token") ?: throw ChatGPTError("invalid_id_token", "ChatGPT returned no identity: try again")
-        val claims = verify(idToken, cb.clientId, nonce)
+        val claims = whileOffline { verify(idToken, cb.clientId, nonce) }
         if (before.subject != null && claims.sub != before.subject) {
             throw ChatGPTError("account_mismatch", "this is another ChatGPT account than the one kept: sign out first to switch")
         }
         val s = tokens(before.copy(clientId = cb.clientId), data, requireRefresh = true).copy(idToken = idToken, subject = claims.sub, email = claims.email ?: before.email)
         save(s)
         s
+    }
+
+    /**
+     * [block], tried again after each of [OFFLINE_WAITS] while it fails for want of the network ([ApiError.Network]);
+     * the last failure told plainly. A refusal by OpenAI isn't tried again.
+     */
+    private suspend fun <T> whileOffline(block: suspend () -> T): T {
+        for (wait in OFFLINE_WAITS) {
+            try {
+                return block()
+            } catch (e: ApiError.Network) {
+                pause(wait)
+            }
+        }
+        return try {
+            block()
+        } catch (e: ApiError.Network) {
+            throw ChatGPTError("offline", "Lani couldn't reach OpenAI to finish the sign-in (${e.message}). Is the phone online? Battery or data saver can hold an app's network while it's in the background: try again with Lani open")
+        }
     }
 
     /** The session with [data]'s tokens (a token endpoint's answer): rotation, expiry, scopes (kept when omitted). */
@@ -262,6 +288,8 @@ class ChatGPTAuth(
         data.str("id_token")?.let { id ->
             val claims = try {
                 verify(id, s.clientId.orEmpty(), null)
+            } catch (e: ApiError.Network) {
+                null // the keys unreachable: as below
             } catch (e: ChatGPTError) {
                 // the keys unreachable: the tokens came from the token endpoint itself; checked at the next refresh
                 if (e.code == "keys_unavailable") null else {
@@ -337,7 +365,7 @@ class ChatGPTAuth(
         val (code, body) = try {
             withContext(Dispatchers.IO) { http.newCall(Request.Builder().url(u).get().build()).execute().use { it.code to it.body?.string().orEmpty() } }
         } catch (e: IOException) {
-            throw ChatGPTError("keys_unavailable", "OpenAI's signing keys couldn't be fetched: try again")
+            throw ApiError.Network(e.message ?: "OpenAI's signing keys couldn't be fetched")
         }
         val o = runCatching { tutorJson.parseToJsonElement(body) as JsonObject }.getOrNull()
         if (code != 200 || o?.get("keys") !is JsonArray) throw ChatGPTError("keys_unavailable", "OpenAI's signing keys couldn't be fetched: try again")
@@ -353,6 +381,9 @@ class ChatGPTAuth(
     }
 
     companion object {
+        /** The waits between the sign-in's tries without a network: about a minute in all. */
+        val OFFLINE_WAITS = listOf(1_000L, 2_000L, 3_000L, 5_000L, 8_000L, 10_000L, 15_000L, 20_000L)
+
         val defaultClient: OkHttpClient by lazy {
             OkHttpClient.Builder().connectTimeout(15, TimeUnit.SECONDS).readTimeout(30, TimeUnit.SECONDS).followRedirects(false).build()
         }
