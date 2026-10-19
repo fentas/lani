@@ -43,7 +43,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   the camera's flights and the bubbles' bob); "clock:" lets it run at its pace again.
  * - "step:<project>/<n>": the village (the dev bridge's copy) gets ready for step n of that project today ([readyStep]:
  *   its steps before it done, none today yet, the stores and the 🤝 it costs, a treat for a feast), and the projects sheet
- *   opens at it ([project]): QA plays it from there (companion/SCENES.md, "Project steps"). "step:" lets it go again.
+ *   opens at it ([project]): QA plays it from there (companion/SCENES.md, "Project steps"); a step past its last
+ *   ("step:most/7") has the project finished. "step:" lets it go again.
  * - "season:<day>": the landmarks with a season (the maypole, game/ProjectSeasons) stand or not as on that day
  *   ("2027-05-10", or "05-10": the next 10 May from today; [seasonDay]), on the map and in the scenes, without a line in
  *   the chronicle; the rest of the game keeps today. "season:" goes by today again.
@@ -378,10 +379,12 @@ object QaHooks {
 
     /**
      * [s] ready for step [n] (1: the first) of project [id] [today]: its steps before it done, no step today yet, the stores,
-     * the 🤝 and (the feast) a treat it costs; the leader must live here already. A debug build's, on the dev bridge's copy.
+     * the 🤝 and (the feast) a treat it costs; the leader must live here already. A step past its last: every step done,
+     * the project finished. A debug build's, on the dev bridge's copy.
      */
     fun readyStep(s: si.lanisce.lani.game.GameState, id: String, n: Int, today: java.time.LocalDate): si.lanisce.lani.game.GameState {
         val spec = si.lanisce.lani.game.Projects.spec(id) ?: return s
+        if (n > spec.steps.size) return s.copy(projects = s.projects + (id to spec.steps.size), projectsFinished = s.projectsFinished + (id to today.toString()))
         val i = (n - 1).coerceIn(0, spec.steps.size - 1)
         val step = spec.steps[i]
         val cost = si.lanisce.lani.game.Catalog.stepCost(spec.age, step.kind)

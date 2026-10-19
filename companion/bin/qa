@@ -62,9 +62,10 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        "show:kopa", "hour:<h>"): each stage's pile on the map (the felled beech, the stack, the
                        smoke white, yellow, blue, the sacks, between piles, the winter), Miha's talk at two stages
                        with the pile over it, the night watch's breakout covered and missed (the ash after), Tone's
-                       card on a delivery's day; "bridges" the bridges on the map at the stream bank (QA's hook
-                       "show:riverbank"), closer up and by night, and in the stream's scene, then the cart bridge half
-                       built (QA's hook "step:most/4") on the map and in the scene; "trade" food for wood ("⇄ Zamenjaj · Trade"): the sheet, its run to the end,
+                       card on a delivery's day; "bridges" the crossing on the map at the stream bank (QA's hook
+                       "show:riverbank") and closer up: the stepping stones before the bridge (QA's hook "step:most/1"),
+                       the bridge half built ("step:most/4") and in the stream's scene, the bridge built
+                       ("step:most/7": the project finished) by day, by night, the whole village and the scene; "trade" food for wood ("⇄ Zamenjaj · Trade"): the sheet, its run to the end,
                        the result, the HUD's stocks moved and the dev bridge's village keeping the day's trade;
                        "village-life" the village's day on the map (QA's hook "hour:<h>", which the map follows too):
                        zoomed in at 8, 11, 15 and 19 o'clock (the people at their chores and work about the village,
@@ -3008,16 +3009,18 @@ def tap_places(timeout=10.0):
 
 
 MAYPOLE = "Mlaj · The maypole"  # its landmark's target on the map (TownView's LandmarkTargets): there while it stands
-CART_BRIDGE = "Most čez potok · A bridge over the stream"  # the cart bridge's target on the map, from its first step
+BRIDGE_TARGET = "Most čez potok · A bridge over the stream"  # the bridge's target on the map, from its project's first step
 
 
 def bridges():
-    """The bridges (GAME.md "Village projects", SCENES.md "What the village has built"): the cart bridge (the project
-    most) where its track crosses the stream, the track from the road on the village's bank and on into the woods through
-    the palisade's gate on the far one, and the road's bridge, on the map at the stream bank (QA's hook "show:riverbank"),
-    closer up, and closer up by night (QA's hook "hour:22"); the stream's scene with the plank footbridge and the cart
-    bridge, closer up; then the bridge half built (QA's hook "step:most/4": its first three steps done, the dev village's
-    copy) on the map and in the scene. A village without the project skips."""
+    """The crossing (GAME.md "The crossing", SCENES.md "What the village has built"): where the road crosses the stream,
+    stepping stones until the village's bridge (the project most) has its deck, then the one bridge there, no other. On
+    the map at the stream bank (QA's hook "show:riverbank") and closer up: the stones (QA's hook "step:most/1": no step
+    of it done, so the map has no bridge's target), the bridge half built ("step:most/4": its pillars, the stones still
+    there) and the stream's scene then, the bridge built ("step:most/7": every step done) by day and closer up by night
+    (QA's hook "hour:22"), the whole village with it and the stream's scene with it; the village's bubbles hidden
+    (QA's hook "bubbles:0"), so they leave the crossing in view. On the dev village's copy. A village before the hamlet
+    (no road west, no bridge being built) skips."""
     def village_at_stream(name: str):
         plain_village()
         qa_hook("show:riverbank")
@@ -3040,21 +3043,32 @@ def bridges():
         time.sleep(1.5)
 
     plain_village()
-    if find(CART_BRIDGE) is None:
-        return "this village has no bridge being built or built"
     try:
+        qa_hook("bubbles:0")
+        qa_hook("step:most/1")
+        plain_village()
+        if find(BRIDGE_TARGET) is not None:
+            return "the bridge's target is on the map before its first step"
+        village_at_stream("stones")
+        qa_hook("step:most/4")
+        plain_village()
+        if find(BRIDGE_TARGET) is None:
+            return "this village has no bridge being built (no project most, or no road west yet)"
+        village_at_stream("half")
+        stream("half")
+        qa_hook("step:most/7")
+        plain_village()
+        shot("bridges-built-whole")
         village_at_stream("built")
         qa_hook("hour:22")
         time.sleep(3)
         shot("bridges-built-night")
         qa_hook("hour:")
         stream("built")
-        qa_hook("step:most/4")
-        village_at_stream("half")
-        stream("half")
     finally:
         qa_hook("hour:")
         qa_hook("step:")
+        qa_hook("bubbles:")
     return None
 
 

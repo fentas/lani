@@ -117,6 +117,12 @@ class QaHooksTest {
         val spec = si.lanisce.lani.game.Projects.spec("mlaj")!!
         for ((res, n) in si.lanisce.lani.game.Catalog.stepCost(spec.age, spec.steps[1].kind)) assertTrue("$res", r.res(res) >= n)
         assertTrue(r.help >= si.lanisce.lani.game.Catalog.stepHelp(spec.age)) // the second step brings the neighbours
+        // a step past the last: the project finished (the bridge built, for QA's map)
+        val most = si.lanisce.lani.game.Projects.spec("most")!!
+        val done = QaHooks.readyStep(s, "most", most.steps.size + 1, day)
+        assertEquals(most.steps.size, done.projects["most"])
+        assertEquals(day.toString(), done.projectsFinished["most"])
+        assertTrue(si.lanisce.lani.game.Projects.finished(done, most))
     }
 
     @Test fun `a building to choose a plot for, the village ready for it, until the village takes it`() {
