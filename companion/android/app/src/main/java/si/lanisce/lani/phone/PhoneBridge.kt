@@ -101,6 +101,11 @@ class PhoneBridge(private val config: Config) : Closeable {
         val token: String = randomToken(),
         /** Where the compiled bundle is kept between starts (QuickJS bytecode, by the source's hash); none: compiled each time. */
         val bytecodeDir: File? = null,
+        /**
+         * The learner-data scripts wrote the data (the db port's afterWrite: JSON {script, paths}), on the runtime's
+         * thread: the hosted mode's sync pushes a moment later (DataSync.touched). Keep it short.
+         */
+        val onDataWritten: (String) -> Unit = {},
     )
 
     class Request(val method: String, val url: String, val headers: List<Pair<String, String>> = emptyList(), val body: ByteArray? = null) {
@@ -135,6 +140,8 @@ class PhoneBridge(private val config: Config) : Closeable {
     private val starting = Mutex()
 
     private var js: QuickJs? = null
+    /** The bundle evaluated: from its bytecode, and how long it took (ms). */
+    private var loaded: Pair<Boolean, Double>? = null
     private var boot: Boot? = null
     private var closed = false
 
@@ -189,36 +196,74 @@ class PhoneBridge(private val config: Config) : Closeable {
         }
     }
 
+    /**
+     * The runtime made and the bundle evaluated, once (the bridge not built yet), on the runtime's thread under
+     * [starting]. A bundle that doesn't load: the runtime goes, the next call tries again.
+     */
+    private suspend fun loadOnce(): QuickJs {
+        js?.let { return it }
+        check(!closed) { "the phone bridge is stopped" }
+        File(config.home, "tmp").mkdirs()
+        val q = QuickJs.create(dispatcher)
+        q.memoryLimit = config.memoryLimit
+        q.maxStackSize = config.maxStack
+        q.evaluationTimeoutMillis = config.evaluationTimeoutMs
+        defineHost(q)
+        js = q
+        val t0 = System.nanoTime()
+        try {
+            loaded = load(q, config.bundle()) to (System.nanoTime() - t0) / 1e6
+        } catch (e: Throwable) {
+            js = null
+            q.close()
+            throw e
+        }
+        return q
+    }
+
     /** The bundle loaded and the bridge built, once (later calls wait for the first); the features' work started. */
     suspend fun start(): Boot = starting.withLock {
         boot ?: onThread {
-            check(!closed) { "the phone bridge is stopped" }
-            File(config.home, "tmp").mkdirs()
-            val q = QuickJs.create(dispatcher)
-            q.memoryLimit = config.memoryLimit
-            q.maxStackSize = config.maxStack
-            q.evaluationTimeoutMillis = config.evaluationTimeoutMs
-            defineHost(q)
-            js = q
-            val t0 = System.nanoTime()
-            val (fromBytecode, summary, t1) = try {
-                val fromBytecode = load(q, config.bundle())
-                val t1 = System.nanoTime()
-                val summary = q.evaluate<String>("__laniPhone.boot()", typeOf<String>(), "boot.js", false)
-                q.evaluate<Any?>("__laniPhone.start()", typeOf<Any?>(), "start.js", false)
-                Triple(fromBytecode, summary, t1)
+            val q = loadOnce()
+            val (fromBytecode, loadMs) = loaded!!
+            val t1 = System.nanoTime()
+            val summary = try {
+                q.evaluate<String>("__laniPhone.boot()", typeOf<String>(), "boot.js", false).also {
+                    q.evaluate<Any?>("__laniPhone.start()", typeOf<Any?>(), "start.js", false)
+                }
             } catch (e: Throwable) {
-                // a bundle that doesn't load or boot: the runtime goes, the next call tries again
+                // a bridge that doesn't boot: the runtime goes, the next call tries again
                 js = null
+                loaded = null
                 q.close()
                 throw e
             }
             val t2 = System.nanoTime()
-            Boot((t1 - t0) / 1e6, (t2 - t1) / 1e6, fromBytecode, summary).also {
+            Boot(loadMs, (t2 - t1) / 1e6, fromBytecode, summary).also {
                 boot = it
                 log("info", "phone bridge: bundle ${"%.0f".format(it.loadMs)} ms${if (fromBytecode) " (bytecode)" else ""}, boot ${"%.0f".format(it.bootMs)} ms: $summary")
             }
         }
+    }
+
+    /**
+     * A new learner's data in [Config.dataDir] (the hosted mode's onboarding, docs/plans/05-built/hosted-mode.md):
+     * [answers] JSON {name, gender?, target, base, level?, goal?}, as lani-setup makes it (the bridge's initLearnerData).
+     * Before the bridge boots (its stores read the profile when they're built), so the bundle is only loaded. JSON
+     * {culture, language}; an exception with the bridge's message for a directory that holds a learner already.
+     */
+    suspend fun initLearner(answers: String): String = starting.withLock {
+        check(boot == null) { "the phone bridge runs already: a new learner's data comes before it boots" }
+        onThread { loadOnce().evaluate<String>("__laniPhone.initLearner(${JsonPrimitive(answers)})", typeOf<String>(), "init.js", false) }
+    }
+
+    /**
+     * One learner-data script on its own (the db port, as `python3 .claude/hooks/<script>.py` on a node): JSON {script,
+     * argv, stdin?, env?, cwd?} → JSON {status, stdout, stderr}. The import's checks (validate-data, read-db) on an
+     * export before it takes the data's place; the bridge needn't be booted.
+     */
+    suspend fun db(call: String): String = starting.withLock {
+        onThread { loadOnce().evaluate<String>("__laniPhone.db(${JsonPrimitive(call)})", typeOf<String>(), "db.js", false) }
     }
 
     /** Evaluates the bundle: from its bytecode when [Config.bytecodeDir] has it for this source, else compiled (and kept). */
@@ -426,6 +471,14 @@ class PhoneBridge(private val config: Config) : Closeable {
         function("channel") { a ->
             val meta = json.parseToJsonElement(a[1].str()).jsonObject.mapValues { it.value.jsonPrimitive.content }
             events.trySend(ChannelEvent(a[0].str(), meta))
+            Unit
+        }
+        function("dataWritten") { a ->
+            try {
+                config.onDataWritten(a[0].str())
+            } catch (e: Exception) {
+                log("warn", "phone bridge: onDataWritten: ${e.message}")
+            }
             Unit
         }
     }

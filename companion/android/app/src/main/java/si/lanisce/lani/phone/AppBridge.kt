@@ -41,6 +41,9 @@ object AppBridge {
         dataDir: File = dataDir(context),
         env: Map<String, String> = emptyMap(),
         log: (String, String) -> Unit = ::androidLog,
+        /** The app's token for this bridge (the hosted mode keeps one: BridgeConfig.token); none: a random one. */
+        token: String? = null,
+        onDataWritten: (String) -> Unit = {},
     ): Pair<PhoneBridge, Unpacker.Result> {
         val home = home(context)
         val unpacked = Unpacker.of(context).unpack(projectDir(context))
@@ -54,6 +57,8 @@ object AppBridge {
                 env = env,
                 log = log,
                 bytecodeDir = File(home, "cache/bytecode"),
+                token = token ?: PhoneBridge.randomToken(),
+                onDataWritten = onDataWritten,
             ),
         )
         return bridge to unpacked
