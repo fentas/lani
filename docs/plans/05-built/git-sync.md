@@ -15,7 +15,8 @@ data repository without a lease is the node's, as it always was, and the app doe
 | The node's handover | `.claude/hooks/lani_data_repo.py` (`handover`, `take`, `lease`, `push`) | Commit, offer the lease, push; take it back with a fast-forward pull; a refused push that finds the phone's lease stops the node. |
 | The node refuses writes | `update-db.py` (exit 2), `card.py` (exit 1), `lani_data_repo.py commit` (no commit), the bridge (423, writing tools fail) | While the lease isn't the node's, each says who writes and how to take the data back. |
 | `lani handover` | `companion/bin/lani-handover`, `companion/bridge/src/cli/handover.ts`, `src/handover.ts` | Hands over, then shows the town's secrets as a QR code; `--take`, `--status`, `--code`. |
-| The town's own key | `companion/bridge/src/pairing.ts` `loadTownKey` | `app/town-key.pem` when there is one, else `bridge-key.pem` as before. The towns and friendship features and `lani-town` sign with it. |
+| The town's own key | `companion/bridge/src/pairing.ts` `loadTownKey` | `app/town-key.pem` when there is one, else `bridge-key.pem` as before. Towns, friendship, the questions between towns, the relay client and `lani-town` speak as the town with it; pairing keeps the bridge key. |
+| The learner-data scripts' twins | `companion/bridge/src/db/lease.ts` | The TypeScript update-db and card (the phone's) refuse as the Python does, byte for byte (`tests/test_db_port.py` `LeaseTest`). |
 | The shared ignore list | `.claude/hooks/data-repo.gitignore` | The `.gitignore` lani-setup writes, now one file: `lani_data_repo.py` reads it, the app bundles it (`sync/data-repo.gitignore`) and never pushes what it keeps out. |
 | The app's sync | `companion/android/.../sync/` (`SyncEngine`, `GitHub`, `DataFilter`) | The phone's `<filesDir>/lani/data` with a GitHub repository over the Git Data API. No JGit. |
 | Connect git | `sync/DeviceFlow.kt`, `sync/DataSync.kt` | The OAuth device flow, or a pasted fine-grained token; pick a repository or make a private one. |
@@ -132,7 +133,13 @@ the bridge's files, the same layout on both sides):
 - The node is the node on any machine (its side counts); a phone is one device (its id).
 - The holder renews it with a commit once a day (`renewed`; `expires` = renewed + 14 days). A lease that ran out may be
   taken without a handover; it never lets anyone write by itself.
-- No lease: the node's (as before the lease); for a phone "unclaimed" when the repository has data, "free" when empty.
+- **No lease: every side writes, as before the lease** (a node as always; a phone without git). Every node's data has
+  none until `lani handover` writes one, so nothing changes there. Taking it is another matter: for a phone a repository
+  without a lease is "unclaimed" when it holds data (only a confirmed takeover), "free" when empty.
+- A note of the repository's lease from a refused push (`.git/lani-lease-remote.json`) counts only when it can be read:
+  a broken one, or a `.git` that is a file (a worktree's, a submodule's), is no note.
+- Who "this side" is: the node; with `LANI_SIDE=phone` the phone, its device id `LANI_LEASE_DEVICE` (the phone's bridge
+  and its TypeScript learner-data scripts).
 
 | State (for one side) | It writes | It may take it |
 |---|---|---|
@@ -203,7 +210,8 @@ lani://handover?v=1&f=…&x=…&d=…&s=<salt>          (--code)
   The town's key and the family token are in it: a restore brings the town back.
 - **Sealed:** `LANIBAK1`, a 16-byte salt, a 12-byte nonce, then AES-256-GCM (the key: HMAC of the master and the salt;
   the header is the additional data). The relay holds only this.
-- **The relay's API, as the shared contract says:** `PUT /v1/backup/{name}` (at most 50 MB), `GET /v1/backup/{name}`,
+- **The relay's API, as the shared contract says** (companion/relay's `backup.ts`: keys are free, a key's backups are its
+  own): `PUT /v1/backup/{name}` (at most 50 MB), `GET /v1/backup/{name}`,
   `GET /v1/backup`, `DELETE /v1/backup/{name}`, each signed with `X-Lani-Key` (base64 SPKI DER), `X-Lani-Time` (unix ms)
   and `X-Lani-Sig` (ECDSA P-256 over `METHOD\npath?query\ntime\nhex(sha256(body))`). Names: `lani-<time>.lbk`; the
   newest ten are kept.
@@ -233,11 +241,15 @@ Screenshot: `data-sheet.png` in the round's scratchpad (the emulator, the defaul
 
 ## Tests
 
-- **Python** (`tests/test_lease.py`, 17): the rules; handover and take against a bare remote with a second clone as the
+- **Python** (`tests/test_lease.py`, 20, with no lease file the node writes as before: the session written, committed
+  and pushed, card.py, a commit, nothing made; `tests/test_db_port.py` `LeaseTest`, 6: the TypeScript twins against the
+  Python, byte for byte, for no lease, the phone's, the node's, offered, run out, released, broken files, odd fields,
+  the repository's note, a .git that is a file, `LANI_LEASE=ignore`, the phone's side): the rules; handover and take against a bare remote with a second clone as the
   phone; update-db.py, card.py and commits refused while the phone holds the data; a takeover without a handover seen
   at the node's next push; histories that went apart kept on a branch; `--force`; uncommitted changes never lost; the
   daily renewal; `LANI_LEASE=ignore`.
-- **The bridge's smoke** (`test/smoke/lease.ts`): the 423 and the tools' refusal while the phone holds the data, reads
+- **The bridge's smoke** (`test/smoke/lease.ts`; `test/smoke/lease-none.ts`, the last section: without a lease a
+  write route, POST /readings/done through update-db.py, and publish_gloss write, and nothing makes a lease): the 423 and the tools' refusal while the phone holds the data, reads
   and non-data routes going on, a broken lease file; the QR code's round trip (key, code, a wrong code, another
   fingerprint, after its time); the town key. `test/handover-fixture.ts` writes the app's fixture.
 - **Android** (`sync/*Test`, 40): the sync against a fake GitHub (MockWebServer over an in-memory git: the first push
@@ -255,8 +267,6 @@ Screenshot: `data-sheet.png` in the round's scratchpad (the emulator, the defaul
   writes and read again on `DataSync.onPulled`. Until the hosted mode is on, a phone that took the data over still talks
   to the node, which answers its writes with 423: the app keeps them queued (the outbox retries a 423) until the lease
   or the mode changes.
-- **The TypeScript port of update-db.py and card.py** (`companion/bridge/src/db/`, another agent's) should refuse writes
-  as the Python does (`lani_lease.node_refusal`), for the phone's side.
 - **The way back's secrets to a new node:** a node that never had the town (a town born on the phone) needs its key.
   The node keeps its own key through a switch, so node → phone → node needs nothing; the new-node case (the phone sends
   the bundle over the paired connection, plan 5's "Hosted → self-hosted") is not built.
