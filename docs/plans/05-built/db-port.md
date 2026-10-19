@@ -91,6 +91,10 @@ dataDirFor(env, { cwd })          // lani_paths.data_dir(): learners.ts's `pytho
   repository: `update-db` after a session, `lani_data_repo.autocommit(data, session_message(report))`. A host with git
   may commit then. What the hook returns goes to stderr (the Python's `📚 data repository: …` line). On the phone,
   nothing commits for now.
+- **The lease** (`src/db/lease.ts`, `.claude/hooks/lani_lease.py`; docs/plans/05-built/git-sync.md): while
+  `app/lease.json` names another side, `update-db` exits 2 and `card`'s writes are refused, in the Python's words. The
+  phone's runtime passes `LANI_SIDE=phone` and `LANI_LEASE_DEVICE=<DataSync.settings.device>`: the phone writes while
+  it holds the lease, and, as a node, whenever there is no lease (a phone without git).
 - **On a node:** nothing changes. `learner.ts` and `config.ts` keep spawning Python. `bun companion/bridge/src/db/cli.ts
   read-db` runs the twin by hand, with the same arguments and stdin as the Python.
 

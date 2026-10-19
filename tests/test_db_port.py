@@ -845,6 +845,139 @@ class EdgeCasesTest(Scenario):
 
 
 @db_impl.needs_bun
+class LeaseTest(Scenario):
+    """The lease (app/lease.json, .claude/hooks/lani_lease.py and companion/bridge/src/db/lease.ts): without one every
+    side writes as before; while it names another side update-db.py exits 2 and card.py's writes are refused, with the
+    same words; LANI_LEASE=ignore writes anyway; the phone's side (LANI_SIDE=phone) writes while it holds it. A note of
+    the repository's lease (.git/lani-lease-remote.json) counts; one that can't be read, or a .git that is a file, doesn't."""
+
+    PHONE = {"side": "phone", "device": "p_0123abcd", "name": "Pixel 8", "mode": "hosted"}
+    NODE = {"side": "node", "device": "jan-desktop", "name": "jan-desktop", "mode": "self-hosted"}
+
+    def setUp(self):
+        super().setUp()
+        sys.path.insert(0, str(REPO_ROOT / "tests"))
+        import test_card
+        self.data.mkdir()
+        test_card.make_fixtures(self.data)
+        self.n = 0
+
+    def lease(self, doc):
+        """app/lease.json: a dict (as JSON), bytes as they are, or None (no lease)."""
+        f = self.data / "app" / "lease.json"
+        if doc is None:
+            f.unlink(missing_ok=True)
+            return
+        f.parent.mkdir(exist_ok=True)
+        f.write_bytes(doc if isinstance(doc, bytes) else json.dumps(doc, ensure_ascii=False).encode())
+
+    def held(self, holder, expires="2099-01-01T00:00:00Z", since="2026-10-18T21:00:00Z"):
+        return {"schema": "lani.lease/v1", "holder": holder, "offer": None, "since": since, "renewed": since, "expires": expires}
+
+    def offered(self, to, by, expires="2099-01-01T00:00:00Z"):
+        return {"schema": "lani.lease/v1", "holder": None, "offer": {**to, "by": by, "at": "2026-10-18T21:00:00Z"},
+                "since": "2026-10-18T21:00:00Z", "renewed": "2026-10-18T21:00:00Z", "expires": expires}
+
+    def session(self):
+        self.n += 1
+        return {"session_id": f"session-{self.n:03d}", "date": "2026-10-18", "duration_minutes": 5,
+                "review_results": [{"item_id": "vocab_da", "quality": 4}]}
+
+    def writes(self, **env):
+        """update-db.py and card.py edit write; the Python's results."""
+        u = self.update(self.session(), code=0, env=self.env(**env))
+        c = self.card("edit", "vocab_da", "--front", f"da {self.n}", "--reason", "lease", code=0, env=self.env(**env))
+        return u, c
+
+    def refused(self, *words, **env):
+        """update-db.py exits 2 and card.py edit 1, saying [words]; reading and --dry-run still work."""
+        u = self.update(self.session(), code=2, env=self.env(**env))
+        err = u.stderr.decode()
+        self.assertIn("[Lani] ⛔ Not written: Lani's data isn't this", err)
+        for w in words:
+            self.assertIn(w, err)
+        c = self.card("edit", "vocab_da", "--front", "nope", code=1, env=self.env(**env))
+        self.assertIn("[Lani] Error: not written: Lani's data isn't this", c.stderr.decode())
+        self.card("show", "vocab_da", code=0, env=self.env(**env))
+        self.card("edit", "vocab_da", "--front", "dry", "--dry-run", code=0, env=self.env(**env))
+        self.read(code=0, env=self.env(**env))
+        return err
+
+    def test_no_lease_writes_as_before(self):
+        self.lease(None)
+        u, c = self.writes()
+        self.assertNotIn("Not written", u.stderr.decode())
+        self.assertFalse((self.data / "app" / "lease.json").exists(), "no lease is made")
+        self.writes(LANI_SIDE="phone", LANI_LEASE_DEVICE="p_0123abcd")  # a phone without git
+
+    def test_held_by_the_phone_the_node_only_reads(self):
+        self.lease(self.held(self.PHONE))
+        self.refused("the phone (Pixel 8) writes the data, since 2026-10-18 21:00:00 UTC",
+                     "once it is handed back to the node, take it with `lani handover --take`")
+        self.writes(LANI_LEASE="ignore")
+        self.writes(LANI_LEASE="IGNORE")
+        # the phone itself writes; another phone doesn't
+        self.writes(LANI_SIDE="phone", LANI_LEASE_DEVICE="p_0123abcd")
+        self.refused("isn't this phone's to write now", "take it over in the app (Podatki · Data)",
+                     LANI_SIDE="phone", LANI_LEASE_DEVICE="p_ffff0000")
+
+    def test_held_by_the_node_it_writes_and_the_phone_reads(self):
+        self.lease(self.held({**self.NODE, "device": "another-machine"}))
+        self.writes()
+        self.refused("the node (jan-desktop) writes the data", LANI_SIDE="phone", LANI_LEASE_DEVICE="p_0123abcd")
+
+    def test_offered_expired_released_broken(self):
+        self.lease(self.offered({"side": "phone", "device": "", "name": "", "mode": "hosted"}, self.NODE))
+        self.refused("handed over to the phone by the node (jan-desktop) on 2026-10-18 21:00:00 UTC: waiting for the phone to take it",
+                     "take it back with `lani handover --take`")
+        self.lease(self.offered({"side": "node"}, self.PHONE))
+        self.refused("handed over to the node by the phone (Pixel 8)", "take it back with `lani handover --take`")
+        self.lease(self.held(self.PHONE, expires="2000-01-01T00:00:00Z"))
+        self.refused("take it back with `lani handover --take`")
+        self.lease({"schema": "lani.lease/v1", "holder": None, "offer": None, "since": None, "renewed": None, "expires": None})
+        self.refused("released: nobody writes the data until a side takes it")
+        for broken in [b"{broken", b"\xff\xfe not utf-8", b"[]", b'{"schema": 1}', b'{"schema": "other/v1"}', b"\xef\xbb\xbf{}"]:
+            self.lease(broken)
+            self.refused("app/lease.json can't be read")
+        self.lease(None)
+        (self.data / "app" / "lease.json").mkdir()
+        self.refused("app/lease.json can't be read")
+
+    def test_odd_fields_read_alike(self):
+        for doc in [
+            self.held({"side": "phone", "device": " \u200bp_1\t", "name": "Ana's\u0007 Pixel 🔥 " + "x" * 80, "mode": 5}),
+            self.held({"side": "phone", "device": "p_2", "name": ""}, since="2026-10-18T21:00+02:00"),
+            self.held({"side": "phone", "device": "p_3", "name": "Tab"}, since="soon", expires="2026-02-30T00:00:00Z"),
+            self.held({"side": "phone", "device": "p_4", "name": "T"}, since="2026-10-18T24:00", expires="2026-10-18 21:00:00.5"),
+            self.held({"side": "tablet", "device": "t"}),
+            {**self.held(self.PHONE), "schema": "lani.lease/v2", "extra": [1, 2]},
+            self.held(None),
+        ]:
+            self.lease(doc)
+            self.update(self.session(), env=self.env())
+            self.card("edit", "vocab_da", "--front", "odd", env=self.env())
+
+    def test_the_repository_s_lease_from_a_refused_push(self):
+        git = self.data / ".git"
+        git.mkdir()
+        (git / "lani-lease-remote.json").write_text(json.dumps(self.held(self.PHONE)))
+        err = self.refused("(the repository's lease: a push of this node's was refused)")
+        self.assertIn("the phone (Pixel 8) writes the data", err)
+        # a note that can't be read is no note (and no commit happens before the refusal: the card only)
+        (git / "lani-lease-remote.json").write_text("{broken")
+        self.card("edit", "vocab_da", "--front", "note", code=0)
+        # a .git that is a file (a worktree's): no note
+        shutil.rmtree(git)
+        git.write_text("gitdir: /elsewhere\n")
+        self.card("edit", "vocab_da", "--front", "worktree", code=0)
+        # the node's own lease in the note: it writes
+        git.unlink()
+        git.mkdir()
+        (git / "lani-lease-remote.json").write_text(json.dumps(self.held(self.NODE)))
+        self.card("edit", "vocab_da", "--front", "mine", code=0)
+
+
+@db_impl.needs_bun
 class InProcessRunTest(Scenario):
     """cli.ts run() as the phone's bridge calls it (many runs in one process, the environment and the working
     directory passed in), and its afterWrite hook: the Python's results and files, the paths each run wrote, and the

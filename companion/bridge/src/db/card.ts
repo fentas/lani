@@ -1,6 +1,7 @@
 // .claude/hooks/card.py: find a review card, show how the app asks and grades it, and fix it with its history and
 // scheduling kept (find, show, overlaps, edit, regrade, merge, split, forgive). Prints JSON. Exit 0, 1 (invalid input
 // or refused: nothing written), 2 (I/O error).
+import { nodeRefusal } from './lease'
 import { dateOf, FILE, homeLanguage, languageCode, languageDir, learned, normDate, rusty, saveJson } from './languages'
 import { dataDir } from './paths'
 import { Parser, SUPPRESS, type Namespace } from './pyargparse'
@@ -590,6 +591,9 @@ function textWarnings(cid: string, item: PyDict, its: PyDict): string[] {
 function finish(store: Store, args: Args, command: string, names: string[], data: Map<string, PyDict>, result: PyDict): PyDict {
   result.set('dry_run', truthy(arg(args, 'dry_run')))
   if (truthy(arg(args, 'dry_run'))) return result
+  // The lease (lani_lease.py, lease.ts): while another side holds the data, this side only reads it.
+  const refusal = nodeRefusal(store.ctx, store.root)
+  if (refusal) throw new Refused(`not written: ${refusal}`)
   result.set('backup', store.backup(command, names))
   for (const name of names) saveJson(store.path(name), data.get(name) as PyDict)
   result.set('written', names.map(n => store.path(n)))

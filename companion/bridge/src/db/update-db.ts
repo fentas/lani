@@ -1,5 +1,6 @@
 // .claude/hooks/update-db.py: a session report (stdin, JSON) into the six databases, after a backup, each file written
 // atomically. Exit 0, 1 (validation error, nothing written), 2 (data or I/O error, nothing written).
+import { nodeRefusal } from './lease'
 import { sessionMessage } from './data-repo'
 import {
   CEFR, dateOf, FILE, FILES, freshDatabases, homeLanguage, languageCode, languageDir, languageName, listEntry, loadJsonFile,
@@ -675,6 +676,10 @@ export function main(ctx: Ctx, _argv: string[], stdin: () => string): void {
     u.fail(1, `[Lani] Error: Invalid JSON input: ${e.msg}`)
   }
   if (!isDict(session)) u.fail(1, '[Lani] Error: the report must be a JSON object')
+
+  // The lease (lani_lease.py, lease.ts): while another side holds the data, this side only reads it.
+  const refusal = nodeRefusal(ctx, u.DATA_DIR)
+  if (refusal) u.fail(2, `[Lani] ⛔ Not written: ${refusal}`)
 
   migrateQuietly(ctx, u.DATA_DIR, u.BACKUP_DIR)
 
