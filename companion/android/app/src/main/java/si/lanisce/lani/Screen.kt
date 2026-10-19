@@ -89,12 +89,19 @@ sealed interface Screen {
     data class UnitIntro(val id: String, val fromVillage: Boolean = false) : Screen
     /** A sheet of unit [unit]: a worksheet, its test or homework ([kind], [sheet]); [run] tells one run from the next. */
     data class Sheet(val unit: String, val kind: si.lanisce.lani.app.SheetKind, val sheet: String, val fromVillage: Boolean = false, val run: Int = 0) : Screen
+    /**
+     * "🔢 Števila · Numbers" (ui/numbers/NumbersScreen, data/NumbersPractice): the ranges, the ways of asking, a run to start;
+     * closed, what opens it and the way there. Back leads to the unit stevila ([fromUnit]) or Home.
+     */
+    data class Numbers(val fromUnit: Boolean = false, val fromVillage: Boolean = false) : Screen
+    /** A run of the numbers module: its [tasks]; [run] tells one run from the next. */
+    data class NumbersRun(val tasks: List<si.lanisce.lani.data.NumberTask>, val fromUnit: Boolean = false, val fromVillage: Boolean = false, val run: Int = 0) : Screen
 }
 
 /** An exercise run: leaving it now would lose the answers so far. */
 val Screen.inRun: Boolean
     get() = this is Screen.Review || this is Screen.Player || this is Screen.Challenge || this is Screen.PackLearn || this is Screen.VisitRequest ||
-        this is Screen.GrammarPractice || this is Screen.UpgradeWords || this is Screen.Sheet
+        this is Screen.GrammarPractice || this is Screen.UpgradeWords || this is Screen.Sheet || this is Screen.NumbersRun
 
 /** What a village challenge answers to. */
 sealed interface ChallengeOrigin {

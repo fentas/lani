@@ -33,6 +33,8 @@ internal object RunTime {
         is Exercise.Counting -> 15 * ex.steps.size
         // a choice's time a gap, the table to read first
         is Exercise.FormsTable -> 15 + 12 * ex.gaps.size
+        // a number heard or read, typed on the pad; a word written
+        is Exercise.Numeral -> if (ex.pad) 12 else 20
     }
 
     /** The old flat time: 50 s and 4 s a question. */

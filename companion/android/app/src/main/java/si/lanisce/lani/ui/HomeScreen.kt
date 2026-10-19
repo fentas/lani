@@ -96,7 +96,8 @@ private fun HomeContent(vm: AppViewModel, list: LazyListState, bottom: Dp) {
         val modules = vm.content.modules.map { vm.villagers.shown(it, state) }
         val packs = vm.packs.list.map { vm.villagers.shown(it, state) }
         val festival = si.lanisce.lani.game.Calendar.soon(state, java.time.LocalDate.now())?.id
-        val today = HomeLogic.today(d, modules, vm.content.newModules, packs, vm.packs.newIds, talking, vm.family.challenges, festival, si.lanisce.lani.ui.school.lessonIdea(vm))
+        val numbers = HomeLogic.numbersIdea(vm.numbers.open, vm.numbers.progress, java.time.LocalDate.now())
+        val today = HomeLogic.today(d, modules, vm.content.newModules, packs, vm.packs.newIds, talking, vm.family.challenges, festival, si.lanisce.lani.ui.school.lessonIdea(vm), numbers)
         val offered = (listOf(today.primary) + today.more).filterIsInstance<HomeAction.Module>().map { it.info.id }.toSet()
         val needs = vm.game.state?.let { HomeLogic.needs(it, vm.scenes.active(it), vm.villagers.people(it), vm.scenes.all, offered) }.orEmpty()
 
@@ -191,6 +192,7 @@ private fun act(vm: AppViewModel, a: HomeAction) {
         is HomeAction.Talk -> vm.openTalk()
         is HomeAction.Family -> vm.openFamily(a.challenge.id)
         is HomeAction.Lesson -> vm.openUnit(a.unit)
+        is HomeAction.Numbers -> vm.openNumbers(fromUnit = false, fromVillage = false)
     }
 }
 

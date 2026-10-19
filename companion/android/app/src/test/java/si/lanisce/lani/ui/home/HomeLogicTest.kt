@@ -57,6 +57,23 @@ class HomeLogicTest {
         assertEquals(12, t.due)
     }
 
+    @Test fun `the numbers are an idea of today once open and not played today, early while numbers are due again`() {
+        val today = java.time.LocalDate.of(2026, 10, 19)
+        val lesson = HomeAction.Lesson("biti", "Biti: sem, si, je", "🟰", "A1", started = false)
+        // closed, or played today: none
+        assertEquals(null, HomeLogic.numbersIdea(false, null, today))
+        assertEquals(null, HomeLogic.numbersIdea(true, si.lanisce.lani.data.NumbersProgress(day = "2026-10-19"), today))
+        // open, nothing due: the newest range, after a pack (only where there is room)
+        val fresh = HomeLogic.numbersIdea(true, si.lanisce.lani.data.NumbersProgress(last = mapOf("11-20" to "1101")), today)!!
+        assertEquals(HomeAction.Numbers(0, "11–20", 3, 4), fresh)
+        assertEquals(listOf("pack:v-kuhinji", "numbers"), HomeLogic.today(dash(due = 12), emptyList(), emptySet(), listOf(kitchen), emptySet(), numbers = fresh).more.map { it.key })
+        assertEquals(listOf("school", "pack:v-kuhinji"), HomeLogic.today(dash(due = 12), emptyList(), emptySet(), listOf(kitchen), emptySet(), lesson = lesson, numbers = fresh).more.map { it.key })
+        // numbers missed due again: right after the modules, before the school's unit
+        val due = HomeLogic.numbersIdea(true, si.lanisce.lani.data.NumbersProgress(again = listOf(si.lanisce.lani.data.NumberAgain(27, "hear", "2026-10-19"))), today)!!
+        assertEquals(1, due.due)
+        assertEquals(listOf("numbers", "school"), HomeLogic.today(dash(due = 12), emptyList(), emptySet(), listOf(kitchen), emptySet(), lesson = lesson, numbers = due).more.map { it.key })
+    }
+
     @Test fun `the school's unit next is an idea of today, after a module, before a pack`() {
         val biti = HomeAction.Lesson("biti", "Biti: sem, si, je", "🟰", "A1", started = false)
         val t = HomeLogic.today(dash(due = 12), emptyList(), emptySet(), listOf(kitchen), emptySet(), lesson = biti)

@@ -65,6 +65,13 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   or not; "counting:type" types their steps from then on, as if each card were secure ([countingTyped]), "counting:off"
  *   lets the cards' own reviews decide again; "counting:intro" readies the class (as "school") with the unit stevila as
  *   never begun ([readyCounting]: counting off) and opens its intro, whose end ("⏭ Poznam to") turns counting on.
+ * - "numbers": "🔢 Števila · Numbers" (data/NumbersPractice.kt) opened; "numbers:locked" readies the class (as "school")
+ *   with the unit stevila as never begun and the module never played ([readyNumbers]): its closed screen; "numbers:ready"
+ *   the class with the unit's intro done (as "⏭ Poznam to" ends it) and the module never played; "numbers:time" the unit
+ *   kdaj-cas's intro done too (the clock's ways on); "numbers:ranges:<id>" the ranges open up to that one
+ *   ([numbersRanges]); "numbers:again" a few numbers missed due today ([numbersAgain]); "numbers:near" the newest range one
+ *   right answer from opening the next ([numbersNear]); "numbers:only:<mode>" asks every
+ *   task of the next runs that way ([numbersOnly]: "hear", "write", "time_hear" …), "numbers:only:" mixes them again.
  * - "formscard": forms cards (data/FormsCard.kt): today's asked of the dev bridge now, then a review of up to three of
  *   them that ask something, due or not; "formscard:<word>" a review of that word's card (made on demand first);
  *   "formscard:type" types their gaps from then on, as if each card were secure ([formsTyped]), "formscard:off" lets
@@ -122,6 +129,10 @@ object QaHooks {
 
     /** QA asked for typed forms cards ("formscard:type"): every forms card's gaps are typed (a fresh part's chosen still). */
     var formsTyped = false
+        private set
+
+    /** QA asked for one way of asking in the numbers' runs ("numbers:only:<mode>"), or null: mixed as ever. */
+    var numbersOnly: si.lanisce.lani.data.NumberMode? = null
         private set
 
     /** QA asked for typed counting cards ("counting:type"): every counting card's steps are typed. */
@@ -201,7 +212,7 @@ object QaHooks {
         season: () -> Unit = {}, ready: () -> Unit = {}, chat: (String) -> Unit = {}, cheat: (List<String>) -> Unit = {}, school: () -> Unit = {},
         shadow: (String) -> Unit = {}, counting: (String) -> Unit = {}, dev: (String) -> Unit = {}, pair: (String) -> Unit = {},
         grow: (si.lanisce.lani.game.Age) -> Unit = {}, formsCard: (String, String) -> Unit = { _, _ -> }, data: () -> Unit = {}, tutorLive: (String) -> Unit = {},
-        review: () -> Unit = {},
+        review: () -> Unit = {}, numbers: (String) -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
@@ -232,6 +243,9 @@ object QaHooks {
             command == "counting:intro" -> counting("intro")
             command == "counting:type" -> countingTyped = true
             command == "counting:off" -> countingTyped = false
+            command.startsWith("numbers:only:") -> numbersOnly = si.lanisce.lani.data.NumberMode.of(command.removePrefix("numbers:only:").trim())
+            command == "numbers" -> numbers("")
+            command.startsWith("numbers:") -> numbers(command.removePrefix("numbers:").trim())
             command == "formscard" -> formsCard("review", "")
             command == "formscard:type" -> formsTyped = true
             command == "formscard:off" -> formsTyped = false
@@ -306,6 +320,41 @@ object QaHooks {
      */
     fun readyCounting(s: si.lanisce.lani.game.GameState): si.lanisce.lani.game.GameState =
         s.copy(course = s.course?.let { c -> c.copy(units = c.units - si.lanisce.lani.game.School.key(si.lanisce.lani.data.Counting.LANGUAGE, si.lanisce.lani.data.Counting.UNIT)) })
+
+    /**
+     * [s] with the numbers module as never played ("numbers:locked", "numbers:ready"): no ranges opened by a run, no
+     * number missed. A debug build's, on the dev bridge's copy.
+     */
+    fun readyNumbers(s: si.lanisce.lani.game.GameState): si.lanisce.lani.game.GameState = s.copy(numbers = null)
+
+    /** [s] with the numbers' ranges open up to [id] ("numbers:ranges:<id>"), each opened [today]. */
+    fun numbersRanges(s: si.lanisce.lani.game.GameState, id: String, today: java.time.LocalDate): si.lanisce.lani.game.GameState {
+        val to = si.lanisce.lani.data.NumberRange.byId(id) ?: return s
+        val p = s.numbers ?: si.lanisce.lani.data.NumbersProgress()
+        val opened = si.lanisce.lani.data.NumberRange.entries.filter { it.ordinal <= to.ordinal && it !in si.lanisce.lani.data.NumbersPractice.FIRST }
+            .associate { it.id to (p.opened[it.id] ?: today.toString()) }
+        return s.copy(numbers = p.copy(opened = p.opened + opened))
+    }
+
+    /**
+     * [s] with the newest numbers range open one right answer from the next ("numbers:near"): its last answers 9 right of
+     * 9, so a run's first right one there opens the next range.
+     */
+    fun numbersNear(s: si.lanisce.lani.game.GameState): si.lanisce.lani.game.GameState {
+        val p = s.numbers ?: si.lanisce.lani.data.NumbersProgress()
+        val newest = si.lanisce.lani.data.NumbersPractice.newest(p, true) ?: return s
+        return s.copy(numbers = p.copy(last = p.last + (newest.id to "1".repeat(si.lanisce.lani.data.NumbersPractice.WINDOW - 1))))
+    }
+
+    /** [s] with a few numbers missed due [today] ("numbers:again"): 17 heard, 12 written, 19 read. */
+    fun numbersAgain(s: si.lanisce.lani.game.GameState, today: java.time.LocalDate): si.lanisce.lani.game.GameState {
+        val p = s.numbers ?: si.lanisce.lani.data.NumbersProgress()
+        val d = today.toString()
+        val add = listOf(
+            si.lanisce.lani.data.NumberAgain(17, "hear", d), si.lanisce.lani.data.NumberAgain(12, "write", d), si.lanisce.lani.data.NumberAgain(19, "read", d),
+        )
+        return s.copy(numbers = p.copy(again = p.again.filter { a -> add.none { it.n == a.n && it.mode == a.mode } } + add))
+    }
 
     /** Today at the hour QA asks the village's map to be seen at ("hour:<h>"), or null: the clock's (and the real sky). */
     fun mapNow(): java.time.LocalDateTime? = if (enabled && sceneHour != null) sceneNow(java.time.LocalDateTime.now()) else null

@@ -83,6 +83,11 @@ private fun look(a: HomeAction): ActionLook = when (a) {
         "▶  ${bi("todayCard.talk")}",
     )
     is HomeAction.Family -> ActionLook(a.challenge.emoji, a.challenge.title, a.challenge.text, "✍️  ${bi("common.answer")}")
+    is HomeAction.Numbers -> ActionLook(
+        "🔢", bi("numbers.title"),
+        if (a.due > 0) "🔁 ${bi("numbers.dueAgain", "n" to a.due)}" else bi("numbers.homeRange", "range" to a.range, "right" to a.right, "of" to a.of),
+        "▶  ${bi("numbers.practise")}",
+    )
     is HomeAction.Lesson -> ActionLook(
         a.emoji, a.title,
         "🏫 ${bi("school.title")} · ${a.level}" + if (a.started) " · ${bi("school.started")}" else " · ★ ${bi("school.next")}",

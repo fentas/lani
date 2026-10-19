@@ -422,6 +422,12 @@ data class GameState(
      * pays once, a party had again ("🎉 Poglej spet · Watch again") pays nothing. An older bridge keeps it as it is.
      */
     val parties: Map<String, String> = emptyMap(),
+    /**
+     * The learner's way through "🔢 Števila · Numbers" (see [si.lanisce.lani.data.NumbersPractice]): the ranges opened, each
+     * range's last answers, the numbers missed that come back. Null before the first run; an older bridge keeps it as it
+     * is, and the bridge keeps it from an app that leaves it out (PUT /game), as the course.
+     */
+    val numbers: si.lanisce.lani.data.NumbersProgress? = null,
 ) {
     fun res(r: Res): Int = resources[r] ?: 0
 

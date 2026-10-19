@@ -59,6 +59,14 @@ sealed interface HomeAction {
         override val key get() = "family:${challenge.id}"
     }
 
+    /**
+     * "🔢 Števila · Numbers" (data/NumbersPractice.kt), open: [due] numbers missed due again today, else the newest range
+     * open ([range]) and its last answers right of how many ([right], [of]).
+     */
+    data class Numbers(val due: Int, val range: String, val right: Int, val of: Int) : HomeAction {
+        override val key get() = "numbers"
+    }
+
     /** The school's unit suggested next (companion/GAME.md, "The school"): [unit]'s [title] of [level]; [started] once begun. */
     data class Lesson(val unit: String, val title: String, val emoji: String, val level: String, val started: Boolean) : HomeAction {
         override val key get() = "school"
@@ -176,6 +184,11 @@ object HomeLogic {
         festival: String? = null,
         /** The school's unit suggested next, once the class meets: an idea after the modules, before a pack. */
         lesson: HomeAction.Lesson? = null,
+        /**
+         * The numbers module, once open and not played today ([numbersIdea]): an idea after the modules while numbers
+         * missed are due again, else after a pack (light: only where there is room).
+         */
+        numbers: HomeAction.Numbers? = null,
     ): Today {
         val due = d.dueCards.size
         val weak = modules.filter { m -> m.targets.any { it in d.weakPatterns } }.sortedByDescending { it.id in newModules }
@@ -192,7 +205,9 @@ object HomeLogic {
             pack,
             HomeAction.Talk(talking),
         ).first()
-        val ideas = listOfNotNull(talking?.let { HomeAction.Talk(it) }, answer, weak, fresh, lesson, pack, HomeAction.Talk(null))
+        val numbersDue = numbers?.takeIf { it.due > 0 }
+        val numbersLater = numbers?.takeIf { it.due == 0 }
+        val ideas = listOfNotNull(talking?.let { HomeAction.Talk(it) }, answer, weak, fresh, numbersDue, lesson, pack, numbersLater, HomeAction.Talk(null))
         val more = ArrayList<HomeAction>()
         for (a in ideas) {
             if (more.size >= Today.MAX_MORE) break
@@ -200,6 +215,18 @@ object HomeLogic {
             more += a
         }
         return Today(primary, more, due, d.minutesToday, d.goalMinutes, d.streak, d.practisedToday)
+    }
+
+    /**
+     * The numbers' idea for "Danes · Today" (companion/README.md, "Numbers"): open ([open]: the unit stevila's intro done) and
+     * not played today ([day]: its last run's), with the numbers missed due again ([due]) or the newest range open; null
+     * otherwise.
+     */
+    fun numbersIdea(open: Boolean, p: si.lanisce.lani.data.NumbersProgress?, today: LocalDate): HomeAction.Numbers? {
+        if (!open || p?.day == today.toString()) return null
+        val newest = si.lanisce.lani.data.NumbersPractice.newest(p, true) ?: return null
+        val (right, of) = si.lanisce.lani.data.NumbersPractice.score(p, newest)
+        return HomeAction.Numbers(si.lanisce.lani.data.NumbersPractice.due(p, today).size, newest.label, right, of)
     }
 
     /**

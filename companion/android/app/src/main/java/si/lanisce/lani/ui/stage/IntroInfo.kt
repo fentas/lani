@@ -345,6 +345,7 @@ object Intros {
         is Exercise.Sort -> bi("introInfo.sort")
         is Exercise.Counting -> bi("counting.title")
         is Exercise.FormsTable -> bi("formsCard.title")
+        is Exercise.Numeral -> bi("numbers.title")
     }
 
     /** About how long one exercise takes, in seconds. */

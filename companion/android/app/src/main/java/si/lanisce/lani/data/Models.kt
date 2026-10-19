@@ -106,6 +106,7 @@ sealed interface Exercise {
         is Dictation -> audio
         is Cloze -> audio
         is Reorder -> audio
+        is Numeral -> audio
         else -> null
     }
 
@@ -316,6 +317,31 @@ sealed interface Exercise {
         /** The titles of the table's sections with no gap asked now: not shown in the review. */
         val hidden: List<String> = emptyList(),
     ) : Exercise
+
+    /**
+     * A task of the numbers module ("🔢 Števila · Numbers", data/NumbersPractice.kt): number [n] asked by [mode]
+     * ([NumberMode.wire]): heard ([audio]) or read ([prompt]: its word) and typed on the number pad (its figures; a clock
+     * time with [colon]), or its figures, a date's sentence or a clock time shown ([prompt]) and the word or the form
+     * written. [accept]: what is right ([NumbersPractice.grade]); [shown]: the right answer the feedback shows; [word]: the
+     * Slovene the feedback says aloud; a date's [month]. Only the module makes one; a module of the tutor's never has it.
+     */
+    @Serializable @SerialName("numeral")
+    data class Numeral(
+        val mode: String,
+        val n: Int,
+        val prompt: String = "",
+        val audio: String? = null,
+        val accept: List<String> = emptyList(),
+        val shown: String = "",
+        val word: String = "",
+        val colon: Boolean = false,
+        val month: Int? = null,
+        val instruction: String? = null,
+        override val grammar: String? = null,
+    ) : Exercise {
+        /** Answered on the number pad. */
+        val pad: Boolean get() = NumberMode.of(mode)?.pad == true
+    }
 }
 
 /**

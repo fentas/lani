@@ -55,6 +55,19 @@ object ExerciseSource {
         put("exercise_index", index)
     }
 
+    /**
+     * A task of the numbers module ("🔢 Števila · Numbers", data/NumbersPractice.kt): number [n] asked by [mode] (a date's
+     * [month]); made by the app's rules, not a content file (`machine_written`: the app's words, fixed in its code).
+     */
+    fun numbers(mode: String, n: Int, month: Int?, index: Int): JsonObject = buildJsonObject {
+        put("kind", "numbers")
+        put("mode", mode)
+        put("n", n)
+        month?.let { put("month", it) }
+        put("exercise_index", index)
+        put("machine_written", true)
+    }
+
     fun module(id: String, version: Int, index: Int): JsonObject = buildJsonObject {
         put("kind", "module")
         put("module_id", id)

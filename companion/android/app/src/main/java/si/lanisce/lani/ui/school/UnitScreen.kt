@@ -107,6 +107,25 @@ fun UnitScreen(vm: AppViewModel, id: String, fromVillage: Boolean) {
                 ) { vm.startIntro(unit.id, fromVillage) }
             }
         }
+        // the unit stevila's own practice (companion/README.md, "Numbers"): opened by its intro, closed before it, one tap
+        // away either way (closed, it says what opens it and leads to the intro)
+        if (unit.id == si.lanisce.lani.data.NumbersPractice.UNIT && unit.language == si.lanisce.lani.data.NumbersPractice.LANGUAGE) {
+            item { SectionTitle("🔢 ${bi("numbers.title")}") }
+            item {
+                val open = si.lanisce.lani.data.NumbersPractice.open(s)
+                val np = s?.numbers
+                val due = si.lanisce.lani.data.NumbersPractice.due(np, java.time.LocalDate.now()).size
+                StepCard(
+                    "🔢", bi("numbers.title"),
+                    when {
+                        !open -> "🔒 ${bi("numbers.lockedShort")}"
+                        due > 0 -> "🔁 ${bi("numbers.dueAgain", "n" to due)}"
+                        else -> si.lanisce.lani.data.NumbersPractice.ranges(np, true).joinToString(" · ") { it.label }
+                    },
+                    done = false,
+                ) { vm.openNumbers(fromUnit = true, fromVillage = fromVillage) }
+            }
+        }
         item { SectionTitle("📝 ${bi("school.worksheets")}") }
         for ((i, ws) in unit.worksheets.withIndex()) item("ws-${ws.id}") {
             SheetCard(vm, unit, ws, i + 1, p?.sheets?.get(ws.id), SheetKind.WORKSHEET, fromVillage)

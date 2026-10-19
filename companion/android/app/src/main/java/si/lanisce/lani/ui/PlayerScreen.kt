@@ -625,6 +625,8 @@ private fun ExerciseView(
         is Exercise.Counting -> CountingEx(vm, ex, locked, done, onStep)
         // a forms card of the review (ui/FormsCardView.kt)
         is Exercise.FormsTable -> FormsCardEx(vm, ex, locked, done, onStep)
+        // a task of the numbers module (ui/numbers/NumeralEx.kt)
+        is Exercise.Numeral -> si.lanisce.lani.ui.numbers.NumeralEx(ex, locked, done)
     }
 }
 
@@ -666,7 +668,7 @@ internal fun heardVoice(stage: StageState?, speaker: si.lanisce.lani.data.Speake
 
 /** Audio-only prompt: the Slovene is heard, never shown (unless no voice is installed). */
 @Composable
-private fun AudioPrompt(text: String) {
+internal fun AudioPrompt(text: String) {
     val speaker = LocalSpeaker.current
     if (speaker?.canSay == true) {
         // On the stage, the companion reads it (their voice's clip, else text-to-speech).
@@ -937,7 +939,7 @@ private fun UnsupportedEx(ex: Exercise.Unsupported, done: (Outcome) -> Unit) {
  * suggestions above the input, and 💡 hints built from [accept] (none when it's empty).
  */
 @Composable
-private fun TypedEx(
+internal fun TypedEx(
     prompt: String, placeholder: String?, locked: Boolean, done: (Outcome) -> Unit,
     instruction: String? = null, say: String? = null, accept: List<String> = emptyList(), grade: (String) -> Outcome,
 ) {
@@ -1190,6 +1192,8 @@ internal fun sloveneOf(ex: Exercise, isSlovene: (String) -> Boolean): String? = 
     is Exercise.Table, is Exercise.Transform, is Exercise.Sort -> null
     // a counting card's four lines are on it, with their 🔊; a forms card's rows too
     is Exercise.Counting, is Exercise.FormsTable -> null
+    // a number's word ("sedemindvajset"), a date said whole, a clock time ("ob pol šestih")
+    is Exercise.Numeral -> ex.word.takeIf { it.isNotBlank() }
 }
 
 /**
@@ -1330,6 +1334,7 @@ private fun expectedOf(ex: Exercise): String? = when (ex) {
     is Exercise.GapText -> si.lanisce.lani.data.Sheets.filled(ex, ex.gaps.map { it.accept.firstOrNull() })
     is Exercise.Counting -> ex.steps.joinToString(" · ") { it.line }
     is Exercise.FormsTable -> ex.gaps.joinToString(" · ") { g -> listOf(g.before, g.answer + g.after).filter { it.isNotBlank() }.joinToString(" ") }
+    is Exercise.Numeral -> ex.shown
     is Exercise.Free, is Exercise.Unsupported, is Exercise.Table, is Exercise.Transform, is Exercise.Sort -> null
 }
 
@@ -1348,6 +1353,8 @@ private fun shownPrompt(ex: Exercise): String = when (ex) {
     is Exercise.Counting -> "🔢 ${ex.lemma}: 1 · 2 · 3 · 5"
     // the word and where its gaps are, not its forms (they are what it asks)
     is Exercise.FormsTable -> "📋 ${ex.lemma}: ${ex.gaps.map { it.where.substringBefore(" — ") }.distinct().joinToString(", ")}"
+    // a number heard only as 🎧 (its words are the answer)
+    is Exercise.Numeral -> if (ex.audio != null) "🔢 🎧" else "🔢 ${ex.prompt}"
     else -> typeAndPrompt(ex).second
 }.ifBlank { typeAndPrompt(ex).first }
 
@@ -1370,6 +1377,7 @@ private fun typeAndPrompt(ex: Exercise): Pair<String, String> = when (ex) {
     is Exercise.Sort -> "sort" to listOfNotNull(ex.instruction, ex.prompt, ex.columns.joinToString(" | ") { it.label }).joinToString(" · ")
     is Exercise.Counting -> "counting" to "${ex.lemma} (${ex.gender}): 1 · 2 · 3 · 5${if (ex.typed) ", typed" else ""}"
     is Exercise.FormsTable -> "forms_card" to "${ex.lemma} (${ex.pos}): ${ex.gaps.joinToString(", ") { it.key }}${if (ex.typed) ", typed" else ""}"
+    is Exercise.Numeral -> "numbers_${ex.mode}" to listOfNotNull(ex.audio?.let { "🎧 $it" }, ex.prompt.takeIf { it.isNotBlank() }).joinToString(" · ")
 }
 
 /**

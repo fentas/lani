@@ -319,7 +319,11 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     val formsCards: si.lanisce.lani.app.FormsCardController = si.lanisce.lani.app.FormsCardController(viewModelScope, node, game, content, forms, notices, course = { school.course })
     val school: si.lanisce.lani.app.SchoolController = si.lanisce.lani.app.SchoolController(
         node, game, content, grammar, cheat, chat, forms, cast = { villagers.all },
-        onIntroDone = { u -> counting.introDone(u); formsCards.introDone(u) },
+        onIntroDone = { u -> counting.introDone(u); formsCards.introDone(u); numbers.introDone(u) },
+    )
+    /** "🔢 Števila · Numbers": the numbers module, open with the unit stevila's intro (app/NumbersController, data/NumbersPractice). */
+    val numbers: si.lanisce.lani.app.NumbersController = si.lanisce.lani.app.NumbersController(
+        viewModelScope, game, chat, notices, course = { school.course }, canSay = { speaker.canSay }, canListen = { canListen() },
     )
     /**
      * The learner's own words in the dialogs: which turns test them, and what a first answer on one does to its card, once
@@ -807,6 +811,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         Screen.Talk -> "a role-play"
         is Screen.Visit, is Screen.VisitScene, is Screen.VisitRequest -> "a visit to another town"
         is Screen.School, is Screen.CourseUnit, is Screen.UnitIntro, is Screen.Sheet -> "the school"
+        is Screen.Numbers, is Screen.NumbersRun -> "the numbers module (🔢 Števila)"
         else -> "the app"
     } + if (chat.isOpen) ", the tutor chat open" else ""
 
@@ -1346,6 +1351,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
             is Screen.UnitIntro -> openUnit(from.id, from.fromVillage)
             // a grammar page's "🎯 Vadi" over the progress screen (its weakest pages, those still to secure)
             is Screen.Progress -> openProgress(from.fromVillage)
+            is Screen.Numbers -> openNumbers(from.fromUnit, from.fromVillage)
             else -> home()
         }
     }
@@ -1439,6 +1445,53 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
             si.lanisce.lani.game.School.Step.Test -> startSheet(unit.id, si.lanisce.lani.app.SheetKind.TEST, "test", fromVillage = true)
             si.lanisce.lani.game.School.Step.Done, null -> openUnit(unit.id, fromVillage = true)
         }
+    }
+
+    // --- the numbers (data/NumbersPractice.kt; companion/README.md "Numbers") -------------------------------------------
+
+    /**
+     * "🔢 Števila · Numbers": its screen, open or closed (what opens it, one tap to the unit's intro); [fromUnit] when opened
+     * from the unit stevila, back leading there.
+     */
+    fun openNumbers(fromUnit: Boolean = screen is Screen.CourseUnit, fromVillage: Boolean = (screen as? Screen.CourseUnit)?.fromVillage == true) {
+        screen = Screen.Numbers(fromUnit, fromVillage)
+    }
+
+    /** Each numbers run is a screen of its own ([Screen.NumbersRun.run]). */
+    private var numberRuns = 0
+
+    /** A run of the numbers now ([si.lanisce.lani.app.NumbersController.plan]); none while closed. [again]: "▶ Še enkrat" from its end. */
+    fun startNumbers(fromUnit: Boolean, fromVillage: Boolean = false, again: Boolean = false) {
+        if (screen.inRun && !again) return
+        val tasks = numbers.plan()
+        if (tasks.isEmpty()) return
+        startRun(Screen.NumbersRun(tasks, fromUnit, fromVillage, ++numberRuns), again)
+    }
+
+    /** Back from the numbers: to the unit stevila when opened from it, else Home. */
+    fun leaveNumbers(fromUnit: Boolean, fromVillage: Boolean = false) = if (fromUnit && school.unit(si.lanisce.lani.data.NumbersPractice.UNIT) != null) openUnit(si.lanisce.lani.data.NumbersPractice.UNIT, fromVillage) else home()
+
+    /**
+     * QA's numbers hooks (app/QaHooks, "numbers…"): "locked" the class ready with the unit stevila as never begun, "ready"
+     * with its intro done (as "⏭ Poznam to"), both with the module never played; "time" the unit kdaj-cas's intro done;
+     * "ranges:<id>" the ranges open up to it; "again" numbers missed due today; "near" the newest range one right answer
+     * from the next; then the module's screen.
+     */
+    fun qaNumbers(what: String) {
+        val now = System.currentTimeMillis()
+        val today = java.time.LocalDate.now()
+        when {
+            what == "locked" -> game.apply { si.lanisce.lani.app.QaHooks.readyNumbers(si.lanisce.lani.app.QaHooks.readyCounting(si.lanisce.lani.app.QaHooks.readySchool(it, now))) }
+            what == "ready" -> {
+                game.apply { si.lanisce.lani.app.QaHooks.readyNumbers(si.lanisce.lani.app.QaHooks.readyCounting(si.lanisce.lani.app.QaHooks.readySchool(it, now))) }
+                school.unit(si.lanisce.lani.data.NumbersPractice.UNIT)?.let { u -> school.introProgress(u, u.intro?.steps?.size ?: 0, done = true) }
+            }
+            what == "time" -> school.unit(si.lanisce.lani.data.NumbersPractice.TIME_UNIT)?.let { u -> school.introProgress(u, u.intro?.steps?.size ?: 0, done = true) }
+            what.startsWith("ranges:") -> game.apply { si.lanisce.lani.app.QaHooks.numbersRanges(it, what.removePrefix("ranges:"), today) }
+            what == "again" -> game.apply { si.lanisce.lani.app.QaHooks.numbersAgain(it, today) }
+            what == "near" -> game.apply { si.lanisce.lani.app.QaHooks.numbersNear(it) }
+        }
+        openNumbers(fromUnit = false, fromVillage = false)
     }
 
     /** The village with building [id]'s card open (the school's level a course level waits for: its upgrade). */

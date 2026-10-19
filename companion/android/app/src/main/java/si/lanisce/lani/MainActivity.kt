@@ -87,7 +87,7 @@ class MainActivity : ComponentActivity() {
             shadow = { base -> vm.shadow.showDeveloper(true); if (base.isNotBlank()) vm.shadow.update { it.copy(debugBaseUrl = base) }; vm.shadow.panelOpen = true },
             dev = { what -> if (what == "again") vm.devUpload.forgetThrottle() else if (what == "off") vm.shadow.showDeveloper(false) },
             pair = { code -> vm.chooseLangPair(si.lanisce.lani.l10n.LangPair.parse(code)) }, grow = vm::qaAgeUp, formsCard = vm::qaFormsCard,
-            data = { vm.dataOpen = true }, review = vm::qaReview,
+            data = { vm.dataOpen = true }, review = vm::qaReview, numbers = vm::qaNumbers,
             tutorLive = { base -> vm.live.update { it.copy(debugBaseUrl = base.ifBlank { null }) } })
         intent?.removeExtra(si.lanisce.lani.app.QaHooks.EXTRA)
         DeepLink.parse(intent?.getStringExtra(DeepLink.EXTRA))?.let(vm::open)
@@ -182,6 +182,8 @@ private fun App(vm: AppViewModel) {
                 is Screen.CourseUnit -> key(screen) { si.lanisce.lani.ui.school.UnitScreen(vm, screen.id, screen.fromVillage) }
                 is Screen.UnitIntro -> key(screen) { si.lanisce.lani.ui.school.IntroScreen(vm, screen.id, screen.fromVillage) }
                 is Screen.Sheet -> key(screen) { si.lanisce.lani.ui.school.SheetScreen(vm, screen.unit, screen.kind, screen.sheet, screen.fromVillage) }
+                is Screen.Numbers -> si.lanisce.lani.ui.numbers.NumbersScreen(vm, screen)
+                is Screen.NumbersRun -> key(screen) { si.lanisce.lani.ui.numbers.NumbersRunScreen(vm, screen) }
             }
             VoiceBadge(vm.family.voice, Modifier.align(Alignment.TopCenter))
         }

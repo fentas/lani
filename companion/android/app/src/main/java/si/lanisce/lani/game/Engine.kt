@@ -299,6 +299,12 @@ object GameEngine {
         is Exercise.Counting -> Res.STONE
         // a forms card: a word's endings, grammar
         is Exercise.FormsTable -> Res.STONE
+        // a number heard is listening; read or written vocabulary; a date's ordinal and a clock time's -ih grammar
+        is Exercise.Numeral -> when (si.lanisce.lani.data.NumberMode.of(exercise.mode)) {
+            si.lanisce.lani.data.NumberMode.HEAR, si.lanisce.lani.data.NumberMode.TIME_HEAR -> Res.WOOD
+            si.lanisce.lani.data.NumberMode.DATE, si.lanisce.lani.data.NumberMode.TIME_WRITE -> Res.STONE
+            else -> Res.FOOD
+        }
     }
 
     /**

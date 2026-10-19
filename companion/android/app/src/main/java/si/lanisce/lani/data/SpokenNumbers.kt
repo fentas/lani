@@ -7,7 +7,8 @@ import si.lanisce.lani.l10n.Lang
  * and the phone's recognizer write "dva" as "2", even inside a word ("midva" → "mi2", "dvakrat" → "2krat"). A digit
  * run stuck to letters is joined to them as a word ("mi2" → "midva"); a free one becomes its word(s) ("2 jabolki" →
  * "dve jabolki"). Where a number has several forms (Slovene dva/dve, ena/en/eno; German eins/ein/eine; Italian uno/una),
- * the one the [expected] text uses is taken, else the counting form. 0 … 999; longer runs stay as they are.
+ * the one the [expected] text uses is taken, else the counting form. 0 … 999; longer runs stay as they are. Slovene's
+ * words beyond (years, thousands: [slovene]) and its ordinals ([ordinal]) are the numbers module's.
  */
 object SpokenNumbers {
     private val run = Regex("\\p{L}*\\d+\\p{L}*")
@@ -67,11 +68,56 @@ object SpokenNumbers {
         n < 10 -> SL_ONES[n]
         n < 20 -> SL_TEENS[n - 10]
         n < 100 -> if (n % 10 == 0) SL_TENS[n / 10] else SL_ONES[n % 10] + "in" + SL_TENS[n / 10] // enaindvajset
-        else -> {
+        n < 1000 -> {
             val h = n / 100
             val head = when (h) { 1 -> "sto"; 2 -> "dvesto"; else -> SL_ONES[h] + "sto" }
             if (n % 100 == 0) head else "$head ${slWord(n % 100)}"
         }
+        else -> {
+            // tisoč, dva tisoč, enaindvajset tisoč, sto tisoč: the thousands apart, as the hundreds are
+            val t = n / 1000
+            val head = if (t == 1) "tisoč" else "${slWord(t)} tisoč"
+            if (n % 1000 == 0) head else "$head ${slWord(n % 1000)}"
+        }
+    }
+
+    /** The largest number [slovene] writes out. */
+    const val SL_MAX = 999_999
+
+    /**
+     * [n] (0 … [SL_MAX]) in Slovene words as it is counted, the form a bare number takes: 1 ena, 2 dva, 21 enaindvajset (the
+     * ones first, joined by in, one word up to 99), 200 dvesto, 121 sto enaindvajset, 1000 tisoč, 2026 dva tisoč
+     * šestindvajset (the hundreds and the thousands apart). The numbers module's words (data/NumbersPractice.kt); speech
+     * keeps to 0 … 999 ([word]): a text may write a year in figures, and a heard "1991" must still match it.
+     */
+    fun slovene(n: Int): String {
+        require(n in 0..SL_MAX) { "$n is outside 0 … $SL_MAX" }
+        return slWord(n)
+    }
+
+    /**
+     * The other Slovene words a bare [n] is right as: a gender's form of 1 to 4 (en, eno, eden; dve; trije; štirje) and
+     * "en tisoč" for 1000. Never another number's.
+     */
+    fun sloveneAlso(n: Int): List<String> = when (n) {
+        1 -> listOf("en", "eno", "eden")
+        2 -> listOf("dve")
+        3 -> listOf("trije")
+        4 -> listOf("štirje")
+        1000 -> listOf("en tisoč")
+        else -> emptyList()
+    }
+
+    private val SL_ORDINALS = listOf("", "prvi", "drugi", "tretji", "četrti", "peti", "šesti", "sedmi", "osmi", "deveti")
+
+    /**
+     * [n] (1 … 99) as a Slovene ordinal, masculine, in the nominative ("Danes je peti maj."): prvi, drugi, tretji, četrti,
+     * peti, šesti, sedmi, osmi (the e drops: sedem → sedmi, osem → osmi), deveti, deseti; from 11 the number and -i (enajsti,
+     * dvajseti, enaindvajseti: only the last part turns, sedemindvajseti keeps its sedem).
+     */
+    fun ordinal(n: Int): String {
+        require(n in 1..99) { "$n is outside 1 … 99" }
+        return if (n < 10) SL_ORDINALS[n] else slWord(n) + "i"
     }
 
     // --- Italian ------------------------------------------------------------------------------------------------
