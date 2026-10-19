@@ -499,7 +499,7 @@ android {
         res.directories += "src/debug/res"
         assets.directories += "src/debug/assets"
         // the debug build's probe of the phone bridge, which its manifest names (phone/PhoneBridgeProbe)
-        java.directories += "src/debug/java"
+        kotlin.directories += "src/debug/java"
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17

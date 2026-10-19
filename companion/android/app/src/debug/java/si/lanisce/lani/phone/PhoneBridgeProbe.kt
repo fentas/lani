@@ -16,7 +16,8 @@ import kotlinx.serialization.json.put
 /**
  * The phone bridge on a device, timed (debug and qa builds only; docs/plans/05-built/phone-runtime.md "On the
  * emulator"): the content unpacked, the bundle compiled and then loaded from its bytecode, the first GET /state, a
- * /lookup and the pack list, a message to the tutor's channel, and the memory (QuickJS's heap, the app's native heap
+ * /lookup and the pack list, a message to the tutor's channel, the learner-data scripts (20 words kept, a review of
+ * them, the state again: update-db and read-db in TypeScript), and the memory (QuickJS's heap, the app's native heap
  * and its PSS). On a data directory of its own (<filesDir>/lani/probe/data, from the templates), never the learner's.
  *
  *     adb shell am broadcast -n si.lanisce.lani/.phone.PhoneBridgeProbe
@@ -71,6 +72,22 @@ class PhoneBridgeProbe : BroadcastReceiver() {
         val message = bridge.handle(PhoneBridge.Request.json("POST", "/message", """{"kind":"chat","conversation_id":"main","text":"Živjo!"}"""))
         val heard = withTimeoutOrNull(5_000) { bridge.notifications.first() }
         val messageMs = ms(t)
+        // the learner-data scripts in QuickJS (src/db): 20 words looked up and kept (update-db each), a review of all 20
+        // (update-db with 20 results, a mid-size session), then the state with them (read-db)
+        val words = listOf("miza", "stol", "okno", "vrata", "kruh", "voda", "mleko", "sir", "jabolko", "hruška", "pes", "mačka", "konj", "krava", "drevo", "cvet", "reka", "gora", "nebo", "sonce")
+        t = System.nanoTime()
+        val items = words.mapIndexed { i, w ->
+            val r = bridge.handle(PhoneBridge.Request.json("POST", "/words", """{"client_id":"probe-word-${"%05d".format(i)}","sl":"$w","en":"thing $i","from":"chat"}"""))
+            Regex("\"item_id\":\"([^\"]+)\"").find(r.text)?.groupValues?.get(1) ?: "vocab_word_$w"
+        }
+        val wordsMs = ms(t) / words.size
+        val results = items.mapIndexed { i, id -> """{"item_id":"$id","quality":${2 + i % 4}}""" }.joinToString(",")
+        t = System.nanoTime()
+        val review = bridge.handle(PhoneBridge.Request.json("POST", "/reviews", """{"client_id":"probe-review-0001","results":[$results],"duration_minutes":6}"""))
+        val reviewMs = ms(t)
+        t = System.nanoTime()
+        val state2 = bridge.handle(PhoneBridge.Request.get("/state"))
+        val state2Ms = ms(t)
         val heap = bridge.memory(gc = false)
         val heapGc = bridge.memory(gc = true)
         val result = buildJsonObject {
@@ -86,6 +103,9 @@ class PhoneBridgeProbe : BroadcastReceiver() {
             put("lookup_second", buildJsonObject { put("status", lookup2.status); put("ms", lookup2Ms) })
             put("packs", buildJsonObject { put("status", packs.status); put("ms", packsMs); put("bytes", packs.body.size) })
             put("message", buildJsonObject { put("status", message.status); put("ms", messageMs); put("heard", heard != null) })
+            put("words_update_db_ms_each", wordsMs)
+            put("review_20_update_db", buildJsonObject { put("status", review.status); put("ms", reviewMs); put("answer", review.text.take(200)) })
+            put("state_with_20_cards", buildJsonObject { put("status", state2.status); put("ms", state2Ms); put("bytes", state2.body.size) })
             put("quickjs_heap", buildJsonObject {
                 put("malloc_bytes", heap.mallocSize); put("used_bytes", heap.memoryUsedSize); put("objects", heap.objCount)
                 put("malloc_bytes_after_gc", heapGc.mallocSize)

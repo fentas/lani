@@ -92,7 +92,11 @@ class PhoneBridge(private val config: Config) : Closeable {
         val evaluationTimeoutMs: Long = 60_000,
         /** How long a request or a tool call may take before it fails. */
         val requestTimeoutMs: Long = 120_000,
-        val http: OkHttpClient = OkHttpClient(),
+        /**
+         * fetch's client. Its timeouts are Bun's fetch's (none but an idle one of 5 minutes: the relay's mail waits on an
+         * answer longer than OkHttp's 10 s), a request's own from its AbortSignal.timeout.
+         */
+        val http: OkHttpClient = defaultHttp(),
         /** The token the bridge takes as the app's (LANI_BRIDGE_TOKEN): added to every request that has none. */
         val token: String = randomToken(),
         /** Where the compiled bundle is kept between starts (QuickJS bytecode, by the source's hash); none: compiled each time. */
@@ -504,5 +508,11 @@ class PhoneBridge(private val config: Config) : Closeable {
 
     companion object {
         fun randomToken(): String = HostText.base64Encode(HostCrypto.randomBytes(24), url = true)
+
+        fun defaultHttp(): OkHttpClient = OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(5, TimeUnit.MINUTES)
+            .writeTimeout(5, TimeUnit.MINUTES)
+            .build()
     }
 }

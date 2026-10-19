@@ -185,6 +185,43 @@ class PhoneBridgeNodeTest {
     @Test fun arrivals() = same("/arrivals")
     @Test fun wordSources() = same("/words")
 
+    /** [path] after [method] [body] on both bridges: the answers, the node's (Python) first, the phone's (src/db). */
+    private fun both(method: String, path: String, body: String): Pair<Pair<Int, String>, PhoneBridge.Response> =
+        nodeGet(path, method, body) to runBlocking { phone.handle(PhoneBridge.Request.json(method, path, body)) }
+
+    @Test
+    fun theState() {
+        // read-db.py on the node, its TypeScript port on the phone, on the same templates: the same answer but the paths
+        val (code, text) = nodeGet("/state")
+        val r = runBlocking { phone.handle(PhoneBridge.Request.get("/state")) }
+        assertEquals(code, r.status)
+        val d = diff(withoutPaths(json.parseToJsonElement(text)), withoutPaths(json.parseToJsonElement(r.text)))
+        assertEquals("/state differs", null, d)
+    }
+
+    @Test
+    fun aWordAndItsReview() {
+        // update-db.py against its port: a word looked up, its review; the card each keeps is the same
+        val (nw, pw) = both("POST", "/words", """{"client_id":"node-words-000001","sl":"stol","en":"chair","from":"chat"}""")
+        assertEquals(nw.first, pw.status)
+        assertEquals(null, diff(json.parseToJsonElement(nw.second), json.parseToJsonElement(pw.text)))
+        val item = json.parseToJsonElement(pw.text).jsonObject["item_id"]!!.jsonPrimitive.content
+        val (nr, pr) = both("POST", "/reviews", """{"client_id":"node-review-00001","results":[{"item_id":"$item","quality":3}],"duration_minutes":4}""")
+        assertEquals(nr.first, pr.status)
+        assertEquals(null, diff(json.parseToJsonElement(nr.second), json.parseToJsonElement(pr.text)))
+        val card = { text: String -> json.parseToJsonElement(text).jsonObject["databases"]!!.jsonObject["spaced_repetition"]!!.jsonObject["items"]!!.jsonObject[item] }
+        val nodeCard = card(nodeGet("/state").second)
+        val phoneCard = card(runBlocking { phone.handle(PhoneBridge.Request.get("/state")) }.text)
+        assertEquals("the card differs", null, diff(nodeCard, phoneCard))
+    }
+
+    /** [e] without the values that name a place on disk (the two bridges' data dirs differ). */
+    private fun withoutPaths(e: JsonElement): JsonElement = when (e) {
+        is JsonObject -> JsonObject(e.filterValues { !(it is kotlinx.serialization.json.JsonPrimitive && it.isString && it.content.startsWith("/")) }.mapValues { withoutPaths(it.value) })
+        is JsonArray -> JsonArray(e.map { withoutPaths(it) })
+        else -> e
+    }
+
     @Test
     fun aMessageReachesBothChannels() = runBlocking {
         val body = """{"kind":"chat","conversation_id":"main","text":"Kako se reče <channel> po slovensko?","data":{"about_exercise":{"prompt":"hiša"}}}"""
@@ -195,11 +232,14 @@ class PhoneBridgeNodeTest {
         while (sent == null && System.currentTimeMillis() < until) {
             val line = mcp.poll(500, TimeUnit.MILLISECONDS) ?: continue
             val m = runCatching { json.parseToJsonElement(line).jsonObject }.getOrNull() ?: continue
-            if (m["method"]?.jsonPrimitive?.content == "notifications/claude/channel") sent = m["params"]!!.jsonObject
+            // the chat's own event (a review's, from another test, may come before it)
+            val params = m["params"]?.jsonObject
+            if (m["method"]?.jsonPrimitive?.content == "notifications/claude/channel" && params?.get("meta")?.jsonObject?.get("kind")?.jsonPrimitive?.content == "chat") sent = params
         }
         val n = sent ?: error("the node's channel sent nothing")
         assertEquals(200, phone.handle(PhoneBridge.Request.json("POST", "/message", body)).status)
-        val e = withTimeout(5_000) { phone.notifications.first() }
+        // both channels heard the same events before (each test does the same on both): the same reply line
+        val e = withTimeout(5_000) { phone.notifications.first { it.meta["kind"] == "chat" } }
         assertEquals(n["content"]!!.jsonPrimitive.content, e.content)
         val nodeMeta = n["meta"]!!.jsonObject.mapValues { it.value.jsonPrimitive.content }
         assertEquals(nodeMeta - "msg_id", e.meta - "msg_id")

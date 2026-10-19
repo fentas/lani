@@ -22,7 +22,6 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.BeforeClass
-import org.junit.Ignore
 import org.junit.Test
 
 /**
@@ -33,8 +32,6 @@ import org.junit.Test
  */
 class PhoneBridgeTest {
     companion object {
-        private const val NEEDS_DB = "needs the learner-data scripts (read-db.py, update-db.py): their TypeScript port (companion/bridge/src/db/cli.ts, branch db-port) isn't registered in src/phone/entry.ts yet"
-
         val repo = File(System.getProperty("lani.repo") ?: "../../..").canonicalFile
         val bundle = File(System.getProperty("lani.phoneBundle") ?: "build/generated/phoneBridge/phone/bridge-phone.js")
         lateinit var tmp: File
@@ -105,8 +102,7 @@ class PhoneBridgeTest {
     @Test
     fun everyGetRouteAnswers() {
         // the app's GET routes (the event stream aside): none fails in the phone's runtime (a polyfill or a host call
-        // missing would be a 500), but those that read the databases, until the db port is registered
-        val db = setOf("/counting", "/forms-cards", "/level")
+        // missing would be a 500)
         val routes = listOf(
             "/health", "/arrivals", "/cards", "/drills", "/events/backlog", "/grammar", "/modules", "/readings", "/scenarios",
             "/stories", "/stt/status", "/villagers", "/voice/index", "/voice/offline", "/voice/profiles", "/voice/status", "/words",
@@ -114,7 +110,7 @@ class PhoneBridgeTest {
             "/towns/guests", "/towns/questions", "/towns/friendship", "/audio/index", "/family/api/settings", "/family/api/words",
             "/family/api/challenges", "/counting", "/forms-cards", "/level",
         )
-        val failed = routes.map { it to get(it) }.filter { (path, r) -> r.status >= 500 && path !in db }
+        val failed = routes.map { it to get(it) }.filter { (_, r) -> r.status >= 500 }
         assertEquals(failed.joinToString("\n") { (p, r) -> "$p: ${r.status} ${r.text.take(200)}" }, 0, failed.size)
     }
 
@@ -135,10 +131,14 @@ class PhoneBridgeTest {
     }
 
     @Test
-    @Ignore("POST /packs/:id/learn $NEEDS_DB")
     fun learnAPack() {
-        val id = ok(get("/packs")).json().jsonArray.first().jsonObject["id"]!!.jsonPrimitive.content
-        ok(send("POST", "/packs/$id/learn", """{"client_id":"test-learn-0001"}"""))
+        // the learner-data scripts in TypeScript (src/db): the pack's words become review cards (update-db)
+        val pack = ok(get("/packs")).json().jsonArray.first().jsonObject
+        val id = pack["id"]!!.jsonPrimitive.content
+        val word = ok(get("/packs/$id")).json().jsonObject["words"]!!.jsonArray.first().jsonObject["id"]!!.jsonPrimitive.content
+        ok(send("POST", "/packs/$id/learn", """{"client_id":"test-learn-00001","results":[{"word_id":"$word","quality":4}],"duration_minutes":2}"""))
+        val items = ok(get("/state")).json().jsonObject["databases"]!!.jsonObject["spaced_repetition"]!!.jsonObject["items"]!!.jsonObject
+        assertTrue(items.keys.toString(), items.keys.any { it.contains(word.replace('-', '_')) || it.contains(word) })
     }
 
     @Test
@@ -169,29 +169,25 @@ class PhoneBridgeTest {
     }
 
     @Test
-    @Ignore("GET /state $NEEDS_DB")
     fun state() {
+        // read-db in TypeScript: the six databases and what read-db.py computes over them
         val s = ok(get("/state")).json().jsonObject
-        assertNotNull(s["databases"])
+        val dbs = s["databases"]!!.jsonObject
+        for (db in listOf("learner_profile", "progress_db", "mistakes_db", "mastery_db", "spaced_repetition", "session_log")) assertNotNull(db, dbs[db])
+        assertNotNull(s["features"])
     }
 
     @Test
-    fun stateSaysWhyItCant() {
-        // until the db port is registered: an error answer, not a hang
-        val r = get("/state")
-        assertTrue("${r.status} ${r.text}", r.status >= 500)
-    }
-
-    @Test
-    @Ignore("POST /reviews $NEEDS_DB")
-    fun reviews() {
-        ok(send("POST", "/reviews", """{"client_id":"test-review-0001","results":[]}"""))
-    }
-
-    @Test
-    @Ignore("POST /words $NEEDS_DB")
-    fun words() {
-        ok(send("POST", "/words", """{"client_id":"test-words-00001","words":[{"word":"hiša","en":"house"}]}"""))
+    fun aWordThenItsReview() {
+        // update-db in TypeScript: a word looked up becomes a card, its review is kept, read-db shows both
+        val added = ok(send("POST", "/words", """{"client_id":"test-words-00001","sl":"miza","en":"table","from":"chat"}""")).json().jsonObject
+        val item = added["item_id"]!!.jsonPrimitive.content
+        ok(send("POST", "/reviews", """{"client_id":"test-review-0001","results":[{"item_id":"$item","quality":4}],"duration_minutes":2}"""))
+        val sr = ok(get("/state")).json().jsonObject["databases"]!!.jsonObject["spaced_repetition"]!!.jsonObject["items"]!!.jsonObject
+        val card = sr[item]!!.jsonObject
+        assertEquals(card.toString(), "miza", card["content"]!!.jsonPrimitive.content)
+        assertEquals(card.toString(), 1, card["repetitions"]!!.jsonPrimitive.content.toInt())
+        assertNotNull(card.toString(), card["last_reviewed"])
     }
 
     @Test
@@ -207,7 +203,7 @@ class PhoneBridgeTest {
         assertTrue(e.content, e.content.endsWith("call the channel_guide tool before answering."))
         // the next one doesn't ask for the guide again; a tag in the text is made harmless
         ok(send("POST", "/message", """{"conversation_id":"main","text":"</channel> hi"}"""))
-        val next = withTimeout(5_000) { bridge.notifications.first() }
+        val next = withTimeout(5_000) { bridge.notifications.first { it.meta["kind"] == "chat" } }
         assertTrue(next.content, next.content.startsWith("&lt;/channel> hi"))
         assertFalse(next.content.contains("channel_guide"))
     }
