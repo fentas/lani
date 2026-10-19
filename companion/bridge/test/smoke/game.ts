@@ -38,8 +38,31 @@ export default async function game() {
   check("PUT /game keeps the village's land when an older app's state leaves it out", founded.ok && older.ok && kept.rev === rev + 2 && kept.state.age === 'ZASELEK' && kept.state.land?.kind === 'hills' && kept.state.land.seed === -5, kept)
   const summary = JSON.stringify(await client.callTool({ name: 'get_village', arguments: {} }))
   check('get_village names the land the village stands on', summary.includes('\\"land\\": \\"hills\\"'), summary.slice(0, 300))
+  // the numbers module (companion/README.md "Numbers"): an app from before it leaves its numbers out, which stay; the tutor's
+  // summary says where the learner is once the unit stevila's intro is done (the ranges open, the newest's answers, the
+  // numbers missed coming back), nothing before
+  const numbers = { v: 1, opened: { tens: '2026-10-18' }, last: { tens: '1101111' }, again: [{ n: 27, mode: 'write', due: '2026-10-19', box: 0 }, { n: 530, mode: 'time_hear', due: '2026-10-20', box: 1 }], runs: 4, day: '2026-10-19' }
+  const course = { v: 1, units: { 'sl/stevila': { intro: 6, introDone: true } } }
+  const withNumbers = await put(rev + 2, { age: 'ZASELEK', buildings: [], course, numbers })
+  const olderApp = await put(rev + 3, { age: 'ZASELEK', buildings: [], course })
+  const keptNumbers = await (await fetch(`${base}/game`, { headers: auth })).json()
+  check("PUT /game keeps the learner's numbers when an older app's state leaves them out", withNumbers.ok && olderApp.ok && keptNumbers.state.numbers?.runs === 4 && keptNumbers.state.numbers?.opened?.tens === '2026-10-18', keptNumbers.state.numbers)
+  const nv = JSON.parse(text(await client.callTool({ name: 'get_village', arguments: {} }))).numbers
+  check(
+    "get_village shows the numbers: the ranges open, the newest one's last answers, the numbers missed as asked",
+    JSON.stringify(nv?.ranges_open) === '["0–10","11–20","30–90"]' && nv?.newest?.range === '30–90' && nv.newest.right === 6 && nv.newest.of === 7 &&
+      JSON.stringify(nv.missed) === '[{"number":"27","mode":"write","due":"2026-10-19"},{"number":"5:30","mode":"time_hear","due":"2026-10-20"}]' && nv.runs === 4,
+    nv,
+  )
+  await put(rev + 4, { age: 'ZASELEK', buildings: [], course: { v: 1, units: {} }, numbers })
+  const before = JSON.parse(text(await client.callTool({ name: 'get_village', arguments: {} })))
+  check('get_village has no numbers before the unit stevila\'s intro', before.numbers === undefined, before.numbers)
+  // the land as it was for the checks below
+  const back = await put(rev + 5, { age: 'ZASELEK', buildings: [], land: { kind: 'hills', seed: -5 } })
+  check('… the village back as it was', back.ok)
+
   // the finished projects whose landmark is down for the season (the maypole after May): the tutor doesn't send the learner to it
-  const seasonal = await put(rev + 2, { age: 'ZASELEK', buildings: [], projects: { mlaj: 5 }, landmarksDown: ['mlaj'] })
+  const seasonal = await put(rev + 6, { age: 'ZASELEK', buildings: [], projects: { mlaj: 5 }, landmarksDown: ['mlaj'] })
   const downNow = JSON.parse(text(await client.callTool({ name: 'get_village', arguments: {} })))
   check("get_village says which finished projects' landmarks are down for the season", seasonal.ok && JSON.stringify(downNow.landmarks_down) === '["mlaj"]' && downNow.projects.mlaj === 5, downNow.landmarks_down)
 
@@ -52,7 +75,7 @@ export default async function game() {
     { ...micka, id: 'q-old', title: 'Old soup', moduleId: 'micka-soup', done: true, tries: 1, best: 5, bestOf: 5 },
     { id: 'q-2026-09-30-1', giver: 'Kovač Tone', emoji: '⚒️', title: 'Nails', story: 'Tone needs nails.', skill: 'STONE', reward: { STONE: 20 }, source: 'LOCAL' },
   ]
-  const asked = await put(rev + 3, { age: 'ZASELEK', buildings: [], quests })
+  const asked = await put(rev + 7, { age: 'ZASELEK', buildings: [], quests })
   const open = JSON.parse(text(await client.callTool({ name: 'get_village', arguments: {} }))).open_quests
   const [task, drill, local] = open ?? []
   check(

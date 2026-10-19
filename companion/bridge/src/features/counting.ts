@@ -23,6 +23,24 @@ the noun right), counting_dual, counting_plural, counting_from_five (the genitiv
 kind that keeps coming back: point Jan to the unit stevila (its intro again, its worksheets; get_course), the pages
 stevila-samostalniki and spol-samostalnikov, or the unit spol for the gender; a module with lani-studio if it persists.
 A form on a card that looks wrong is the dictionary's: the lani-fix skill (card.py show).
+
+The numbers module ("🔢 Števila · Numbers"), opened by the same intro, practises the numbers themselves: runs of 10, the
+ways of asking mixed: a number heard and typed on a number pad (hear), its word read and typed in figures (read), its
+figures and the word written (write: sedemindvajset, the ones first with in), said (say, from a range the learner has),
+a date's ordinal (date: "Danes je ___ maj. (15.)" → petnajsti; page datumi) and, once the unit kdaj-cas's intro is
+done, a clock time heard or written (time_hear, time_write: "ob pol šestih" is 5:30; page kdaj-cas). Its ranges grow
+one at a time: 0–10 and 11–20 with the intro, then 30–90, 21–99, 100–999, 1000–9999 with the years, the next opening
+when 8 of the last 10 answers in the newest are right. It schedules its own repeats (a number missed comes back in its
+next runs: the same day, a day, three days, a week later): make no review cards of them. A run reaches you as a
+session_end whose data.numbers has the ranges open (opened_now: one opened by this run), each task (mode, shown, answer,
+expected, verdict, kind) and errors: update-db.py's errors as they stand, to persist as the report's errors with the
+run's results (lani-db-updater; skills: listening for hear and time_hear, vocabulary for read and write, speaking for say,
+grammar for date and time_write). Their pattern ids: numbers_listening, numbers_reading, numbers_spelling,
+numbers_order (the tens first: dvajset sedem for sedemindvajset, 72 typed for 27), numbers_speaking,
+numbers_ordinal_date (on datumi), numbers_clock_time, numbers_clock_time_half (half past counted from the hour before;
+on kdaj-cas). numbers_order that keeps coming back: explain the order once more (sedem-in-dvajset, as German's
+sieben-und-zwanzig). get_village's numbers shows where the learner is. Its words are the app's rules, machine-written:
+one that looks wrong (about_exercise.source kind numbers) is a note for the developer, not a content fix.
 `.trim()
 
 /** How many counting cards are made a day at most (LANI_COUNTING_PER_DAY; 3 when it isn't a number). */

@@ -44,6 +44,35 @@ function courseOf(c: any) {
   }
 }
 
+/** The numbers module's ladder (companion/README.md "Numbers"; the app's NumberRange): each range's id and label, in order. */
+const NUMBER_RANGES: [string, string][] = [
+  ['0-10', '0–10'], ['11-20', '11–20'], ['tens', '30–90'], ['21-99', '21–99'], ['100-999', '100–999'], ['1000-9999', '1000–9999'],
+]
+
+/**
+ * Where the learner is in "🔢 Števila · Numbers" (the village state's numbers; companion/README.md "Numbers"): open once the
+ * unit stevila's intro is done ([introDone]), the ranges open (0–10 and 11–20 with the intro, the others each opened by a
+ * run), the newest one's last answers right of how many (8 of the last 10 open the next), the numbers missed coming back
+ * (as asked: the number, the way of asking, the day due), the runs and the last run's day. Undefined before the module.
+ */
+function numbersOf(n: any, introDone: boolean) {
+  if (!introDone) return undefined
+  const p = n && typeof n === 'object' ? n : {}
+  const opened = p.opened && typeof p.opened === 'object' ? p.opened : {}
+  const open = NUMBER_RANGES.filter(([id], i) => i < 2 || typeof opened[id] === 'string')
+  const newest = open[open.length - 1]
+  const last = typeof p.last?.[newest[0]] === 'string' ? (p.last[newest[0]] as string) : ''
+  const again = (Array.isArray(p.again) ? p.again : []).filter((a: any) => Number.isInteger(a?.n) && typeof a?.mode === 'string' && typeof a?.due === 'string')
+  const shown = (a: any) => (a.mode === 'date' && Number.isInteger(a.month) ? `${a.n}.${a.month}.` : a.mode.startsWith('time') ? `${Math.floor(a.n / 100)}:${String(a.n % 100).padStart(2, '0')}` : `${a.n}`)
+  return {
+    ranges_open: open.map(([, label]) => label),
+    newest: { range: newest[1], right: [...last].filter(c => c === '1').length, of: last.length, opens_next_at: '8 of the last 10' },
+    missed: again.length ? again.slice(0, 12).map((a: any) => ({ number: shown(a), mode: a.mode, due: a.due })) : undefined,
+    runs: Number.isInteger(p.runs) ? p.runs : 0,
+    last_run: typeof p.day === 'string' && p.day ? p.day : undefined,
+  }
+}
+
 export class GameStore {
   private listeners: ((doc: GameDoc) => void)[] = []
 
@@ -133,6 +162,8 @@ export class GameStore {
         surprise: s.surprise ?? undefined,
         // the school's course (companion/COURSE.md): the day the class began, the units done and started
         course: courseOf(s.course),
+        // the numbers module (companion/README.md "Numbers"), open with the unit stevila's intro: its ranges, the numbers missed
+        numbers: numbersOf(s.numbers, s.course?.units?.['sl/stevila']?.introDone === true),
         // the landscape's spots with a cycle today (the charcoal pile: its stage, the day of it, a breakout tonight, the
         // last delivery to the smith; spot-cycles.ts cyclesNow), given what the village keeps of them
         spots: spots?.(s.cycles && typeof s.cycles === 'object' ? s.cycles : {}),
