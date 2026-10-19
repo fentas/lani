@@ -890,3 +890,9 @@ export function peopleLines(culturesDir: string, cultureId: string): Pack['files
     return undefined
   }
 }
+
+/** The culture pack a learner of [target] lives in: the default one when it speaks it, else the first that does. */
+export function cultureFor(culturesDir: string, target: string): string | undefined {
+  const { complete } = culturesIn(culturesDir, target)
+  return complete.includes(DEFAULT_CULTURE) ? DEFAULT_CULTURE : complete[0]
+}

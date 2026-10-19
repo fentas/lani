@@ -81,6 +81,11 @@ export type Host = {
   toolDone(id: number, result: string): void
   /** An event into the in-app tutor's session: the content and meta Claude Code's channel gets. */
   channel(content: string, meta: string): void
+  /**
+   * The learner-data scripts wrote the data (the db port's afterWrite, where a node's Python commits the data
+   * repository): JSON {script, paths}. The app's sync pushes a moment later (the hosted mode, DataSync.touched).
+   */
+  dataWritten(info: string): void
 }
 
 declare global {

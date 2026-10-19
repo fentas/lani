@@ -13,18 +13,28 @@ import { join } from 'node:path'
 import { fromHost, host, toHost } from '../../phone/shims/host'
 import { registerInline, registerScript, registeredScripts } from '../../phone/shims/scripts'
 import { appApi, buildBridge, type BuiltBridge } from '../build'
+import { cultureFor } from '../cultures'
 import { log, type Config } from '../config'
-import { dataDirFor, run as runDb, SCRIPTS } from '../db/cli'
+import { dataDirFor, run as runDb, SCRIPTS, type Script } from '../db/cli'
 import { errorText, router } from '../http'
+import { GENDERS, initLearnerData, learnerFacts } from '../learners'
 import { fail, listed, type ToolResult } from '../tool'
 import { PhoneChannel } from './channel'
 import { phoneVoices } from './voice'
 
 // The learner-data scripts: a node runs .claude/hooks/{read-db,update-db,card,validate-data,ensure_data_dir}.py with
 // Python; the phone runs their TypeScript port (src/db/cli.ts, docs/plans/05-built/db-port.md), synchronously, in the
-// script's own working directory and environment (the bridge's spawn passes them). No hooks: the Python's commit of a
-// data repository has no git to go to on the phone (the backup takes its place).
-for (const s of SCRIPTS) registerScript(s, (argv, stdin, env, cwd) => runDb(s, argv, stdin, env, { cwd }))
+// script's own working directory and environment (the bridge's spawn passes them). Where the Python commits a data
+// repository (the hook afterWrite), the phone tells the app (host.dataWritten): its sync pushes the data a moment later
+// (the hosted mode: DataSync.touched, docs/plans/05-built/hosted-mode.md), when git is connected.
+const written = (script: Script) => ({
+  afterWrite: (e: { paths: string[] }) => {
+    try {
+      host().dataWritten(JSON.stringify({ script, paths: e.paths }))
+    } catch {}
+  },
+})
+for (const s of SCRIPTS) registerScript(s, (argv, stdin, env, cwd) => runDb(s, argv, stdin, env, { cwd, hooks: written(s) }))
 // learners.ts asks lani_paths.data_dir() with `python3 -c …`: the port's answer, with the newline print() adds
 registerInline(/from lani_paths import data_dir; print\(data_dir\(\)\)/, (_argv, _stdin, env, cwd) => ({ status: 0, stdout: `${dataDirFor(env, { cwd })}\n`, stderr: '' }))
 
@@ -50,6 +60,13 @@ function boot(): string {
   const c = JSON.parse(host().config()) as { projectDir: string; dataDir: string }
   const appDir = join(c.dataDir, 'app')
   mkdirSync(appDir, { recursive: true })
+  // the village of the language the learner learns (on a node lani-setup writes it into lani.env; the phone has none),
+  // unless the host set one: an Italian learner's export imported plays friuli
+  if (!process.env.LANI_CULTURE) {
+    const code = learnerFacts(c.dataDir).targetCode
+    const culture = code ? cultureFor(join(c.projectDir, 'companion/cultures'), code) : undefined
+    if (culture) process.env.LANI_CULTURE = culture
+  }
   const cfg: Config = {
     projectDir: c.projectDir,
     host: '127.0.0.1',
@@ -203,6 +220,42 @@ async function call(id: number) {
   host().toolDone(id, JSON.stringify(result))
 }
 
+/** What the hosted mode's onboarding asks (the app's setup, as lani-setup asks it: cli/setup.ts). */
+type NewLearnerAnswers = { name: string; gender?: string; target: string; base: string; level?: string; goal?: number }
+
+/**
+ * A new learner's data in the app's data directory, before the bridge is booted (its stores read the profile when they
+ * are built): the six databases from data-examples' templates as lani-setup makes them (learners.ts initLearnerData),
+ * in the culture pack of the language learned (cultures.ts cultureFor, as lani-setup picks it). JSON {culture, language}; throws for a directory
+ * that holds a learner already, or a language no village speaks.
+ */
+function initLearner(answers: string): string {
+  const c = JSON.parse(host().config()) as { projectDir: string; dataDir: string }
+  const a = JSON.parse(answers) as NewLearnerAnswers
+  const name = String(a.name ?? '').trim()
+  if (!name) throw new Error('a name, please')
+  if (!a.target || !a.base || a.target === a.base) throw new Error('two different languages: the one learned and the one explanations are in')
+  const culture = cultureFor(join(c.projectDir, 'companion/cultures'), a.target)
+  if (!culture) throw new Error(`no village speaks ${a.target} yet`)
+  const gender = (GENDERS as readonly string[]).includes(a.gender ?? '') ? (a.gender as (typeof GENDERS)[number]) : undefined
+  initLearnerData(c.projectDir, c.dataDir, {
+    name, target: a.target, base: a.base, level: a.level || 'A1', goal: a.goal && a.goal > 0 ? a.goal : undefined,
+    ...(gender ? { gender } : {}), culture, results: join(c.dataDir, 'results'),
+  })
+  return JSON.stringify({ culture, language: a.target })
+}
+
+/**
+ * One of the learner-data scripts on its own (the app's import checks an export with validate-data and read-db before it
+ * takes its place): JSON {script, argv, stdin?, env?, cwd?} → JSON {status, stdout, stderr}, as `python3
+ * .claude/hooks/<script>.py` answers on a node. [env] over the bridge's own.
+ */
+function db(call: string): string {
+  const r = JSON.parse(call) as { script: Script; argv?: string[]; stdin?: string; env?: Record<string, string>; cwd?: string }
+  if (!SCRIPTS.includes(r.script)) return JSON.stringify({ status: 2, stdout: '', stderr: `no script ${r.script}\n` })
+  return JSON.stringify(runDb(r.script, r.argv ?? [], r.stdin, { ...process.env, ...(r.env ?? {}) }, { cwd: r.cwd }))
+}
+
 /** A request that failed before it had an answer (the bridge not booted, the host's request gone): a 500, never a hang. */
 function failed(id: number, e: unknown) {
   log(`request ${id}: ${errorText(e)}`)
@@ -215,6 +268,8 @@ const api = {
   boot,
   start,
   stop,
+  initLearner,
+  db,
   handle: (id: number) => void handle(id).catch(e => failed(id, e)),
   cancel,
   call: (id: number) =>

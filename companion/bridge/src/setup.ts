@@ -7,7 +7,7 @@ import {
 } from 'node:fs'
 import { homedir } from 'node:os'
 import { basename, dirname, join, resolve } from 'node:path'
-import { APP_LANGUAGES, culturesIn, DEFAULT_CULTURE } from './cultures'
+import { APP_LANGUAGES } from './cultures'
 import { expandHome, parseEnvFile } from './env'
 import { LANGUAGES } from './learners'
 
@@ -255,11 +255,8 @@ export function applyLearner(dataDir: string, a: LearnerAnswers, today = new Dat
   return true
 }
 
-/** The culture pack a learner of [target] lives in: the default one when it speaks it, else the first that does. */
-export function cultureFor(culturesDir: string, target: string): string | undefined {
-  const { complete } = culturesIn(culturesDir, target)
-  return complete.includes(DEFAULT_CULTURE) ? DEFAULT_CULTURE : complete[0]
-}
+/** The culture pack a learner of [target] lives in (cultures.ts: the phone's setup uses it too). */
+export { cultureFor } from './cultures'
 
 // --- importing an earlier install --------------------------------------------------------------------------------------
 
