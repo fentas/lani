@@ -6729,18 +6729,17 @@ def data_sheet():
     assert wait_for("Poveži git · Connect git", 4), "connect git"
     time.sleep(slow())
     shot("data-sheet")
-    adb("shell", "input", "swipe", "540", "1800", "540", "700", "500")
-    time.sleep(1.2)
-    assert wait_for("Varnostna kopija · Backup", 4), "the backup section"
-    assert find("Ta telefon:") is not None, "this phone's id"
-    shot("data-sheet-backup")
-    adb("shell", "input", "swipe", "540", "700", "540", "1800", "500")
-    time.sleep(1.2)
     assert tap("Poveži git · Connect git", 4), "connect git"
     assert wait_for("prilepi žeton", 6), "the token field"
     shot("data-connect")
     adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the dialog
     time.sleep(1)
+    # up to the backup (a drag down would close the sheet: only up)
+    adb("shell", "input", "swipe", "540", "1800", "540", "900", "500")
+    time.sleep(1.2)
+    assert wait_for("Varnostna kopija · Backup", 4), "the backup section"
+    assert find("Ta telefon:") is not None, "this phone's id"
+    shot("data-sheet-backup")
     adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the sheet
     time.sleep(1)
 
