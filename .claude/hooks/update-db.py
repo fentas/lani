@@ -798,12 +798,16 @@ def add_items_only(report: dict):
             if isinstance(before.get(i), dict) and before[i].get("type") == FORMS]
     left_out = len(again or []) - len(back)
     if added or back:
-        if code is None:
-            backup = BACKUP_DIR / f"pre-words-{report['date']}"
-            backup.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(path, backup / path.name)
-        else:
-            backup_language(code, f"pre-words-{code}-{report['date']}")
+        try:
+            if code is None:
+                backup = BACKUP_DIR / f"pre-words-{report['date']}"
+                backup.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(path, backup / path.name)
+            else:
+                backup_language(code, f"pre-words-{code}-{report['date']}")
+        except OSError as e:
+            print(f"[Lani] Error backing up {path.name} (nothing written): {e}", file=sys.stderr)
+            sys.exit(2)
         try:
             if new_language:
                 path.parent.mkdir(parents=True, exist_ok=True)
@@ -893,11 +897,15 @@ def main():
         traceback.print_exc(file=sys.stderr)
         sys.exit(2)
 
-    # Backup originals BEFORE writing new state.
-    if code is None:
-        backup_all(f"pre-update-{session['session_id']}")
-    else:
-        backup_language(code, f"pre-update-{code}-{session['session_id']}")
+    # Backup originals BEFORE writing new state; a backup that fails writes nothing else (exit 2, as any I/O error).
+    try:
+        if code is None:
+            backup_all(f"pre-update-{session['session_id']}")
+        else:
+            backup_language(code, f"pre-update-{code}-{session['session_id']}")
+    except OSError as e:
+        print(f"[Lani] Error backing up the databases (nothing written): {e}", file=sys.stderr)
+        sys.exit(2)
 
     try:
         files["profile"].parent.mkdir(parents=True, exist_ok=True)

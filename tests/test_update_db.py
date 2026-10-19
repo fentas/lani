@@ -498,7 +498,7 @@ class UpdateDbSmokeTest(unittest.TestCase):
             "example": "V gozdu je tiho.", "example_translation": "It's quiet in the forest."}
 
     def _raw(self):
-        return {f.name: f.read_bytes() for f in (self.tmp / "data").glob("*.json")}
+        return {f.name: f.read_bytes() for f in (self.tmp / "data").glob("*.json") if f.is_file()}
 
     def test_items_only_adds_an_item_and_nothing_else(self):
         before = self._raw()
@@ -659,6 +659,27 @@ class UpdateDbSmokeTest(unittest.TestCase):
                 self.assertEqual(proc.returncode, 1, msg=proc.stderr)
                 self.assertEqual(self._raw(), before)
 
+
+    # --- A backup that fails ---
+
+    def test_a_backup_that_fails_is_exit_2_and_writes_nothing(self):
+        """A directory named *.json in data/ (the backup copies data/*.json) made the backup fail outside the error
+        handling: a traceback and exit 1. Now exit 2 (an I/O error, as documented), and no database written."""
+        (self.tmp / "data" / "odd.json").mkdir()
+        before = self._raw()
+        proc = self._run(SESSION_PAYLOAD)
+        self.assertEqual(proc.returncode, 2, msg=proc.stderr)
+        err = proc.stderr.decode()
+        self.assertIn("[Lani] Error backing up the databases (nothing written): [Errno 21] Is a directory", err)
+        self.assertNotIn("Traceback", err)
+        self.assertEqual(self._raw(), before)
+        # a review item without a session: its backup is the spaced-repetition file's
+        (self.tmp / "data" / ".backups").mkdir(exist_ok=True)
+        (self.tmp / "data" / ".backups" / "pre-words-2026-04-24").write_text("a file where the backup's directory goes")
+        proc = self._run({"record_session": False, "date": "2026-04-24", "new_vocabulary": [self.WORD]})
+        self.assertEqual(proc.returncode, 2, msg=proc.stderr)
+        self.assertIn("[Lani] Error backing up spaced-repetition.json (nothing written): ", proc.stderr.decode())
+        self.assertEqual(self._raw(), before)
 
     # --- The session's id: it names the backup's directory ---
 

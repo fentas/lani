@@ -157,7 +157,9 @@ Everything else is optional; omitted fields do not update.
 ### Exit codes
 - `0` success
 - `1` validation error (bad/missing JSON, missing required field)
-- `2` I/O or logic error (full traceback on stderr; no files were modified)
+- `2` I/O or logic error (full traceback on stderr; no files were modified). A backup that fails (a directory
+  named `*.json` in `data/`, a disk that is full) is one too: `[Lani] Error backing up the databases (nothing
+  written): …`, and no database is written.
 
 ### Review items without a session
 

@@ -8,7 +8,7 @@ import {
 import { ensureBackupsDir, ensureDataDir } from './paths'
 import {
   add, append, ceil, contains, deepcopy, eq, excStr, F, fixed, floordiv, fmtDate, ge, get, getItem, gt, int, isDict,
-  isList, isStr, items, iter, keysOf, le, len, lower, lt, max, min, mul, num, or, plusDays, PyDict, PyError, repr,
+  isExc, isList, isStr, items, iter, keysOf, le, len, lower, lt, max, min, mul, num, or, plusDays, PyDict, PyError, repr,
   round, setdefault, setItem, slice, str as pyStr, strip, stripChars, strptime, sub, sumOf, SysExit, traceback,
   truediv, truthy, typeName, unique, upper, values, weekday, type Py,
 } from './py'
@@ -616,11 +616,16 @@ function addItemsOnly(u: Update, report: PyDict): never {
     .filter(i => isDict(get(before, i)) && get(get(before, i), 'type') === FORMS)
   const leftOut = len(or(again, [])) - back.length
   if (added.length || back.length) {
-    if (code === null) {
-      const backup = pjoin(u.BACKUP_DIR, `pre-words-${pyStr(date)}`)
-      mkdirp(backup)
-      copy2(path, pjoin(backup, baseName(path)))
-    } else u.backupLanguage(code, `pre-words-${code}-${pyStr(date)}`)
+    try {
+      if (code === null) {
+        const backup = pjoin(u.BACKUP_DIR, `pre-words-${pyStr(date)}`)
+        mkdirp(backup)
+        copy2(path, pjoin(backup, baseName(path)))
+      } else u.backupLanguage(code, `pre-words-${code}-${pyStr(date)}`)
+    } catch (e) {
+      if (!isExc(e, 'OSError')) throw e
+      u.fail(2, `[Lani] Error backing up ${baseName(path)} (nothing written): ${excStr(e)}`)
+    }
     try {
       if (newLanguage) {
         mkdirp(parent(path))
@@ -703,8 +708,14 @@ export function main(ctx: Ctx, _argv: string[], stdin: () => string): void {
     throw new SysExit(2)
   }
 
-  if (code === null) u.backupAll(`pre-update-${pyStr(getItem(session, 'session_id'))}`)
-  else u.backupLanguage(code, `pre-update-${code}-${pyStr(getItem(session, 'session_id'))}`)
+  // the backup before anything is written; one that fails writes nothing else (exit 2, as any I/O error)
+  try {
+    if (code === null) u.backupAll(`pre-update-${pyStr(getItem(session, 'session_id'))}`)
+    else u.backupLanguage(code, `pre-update-${code}-${pyStr(getItem(session, 'session_id'))}`)
+  } catch (e) {
+    if (!isExc(e, 'OSError')) throw e
+    u.fail(2, `[Lani] Error backing up the databases (nothing written): ${excStr(e)}`)
+  }
 
   try {
     mkdirp(parent(files.get('profile') as string))
