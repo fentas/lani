@@ -7139,6 +7139,8 @@ def studio():
         tools = [t.get("type") or t.get("name") for t in (studio_calls[0].get("body") or {}).get("tools", [])]
         assert "text_editor_20250728" in tools, f"the text editor by its type: {tools[-6:]}"
         go_home()
+        # the app has it: Home offers the new module (its title machine-written, test/tutor-mock.ts)
+        assert wait_for("Pozdravi in vljudnost", 15), "the studio's module on Home"
         keep("home")
 
         # 2. a story through the text editor: refused by the story validator, then written
@@ -7199,7 +7201,10 @@ def studio():
         (OUT / "studio-logcat.txt").write_text(log)
         assert LIVE_KEY not in log, "the key in the log"
 
-        # Claude Code on the node again
+        # Claude Code on the node again (the sheet opened afresh: the Tutor section is above where the list was)
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+        open_connection_sheet()
         assert scroll_to(TUTOR_SECTION, 12), "the Tutor section"
         assert tap(ON_THE_NODE, 4), "Claude Code on my node"
         assert wait_for("Odgovarja Claude Code na vozlišču", 15), "detached"

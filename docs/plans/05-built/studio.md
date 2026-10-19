@@ -54,8 +54,10 @@ bridge's `companion/bridge/src/tutor-studio.ts`, `src/overrides.ts` and `src/fea
 
 **A run** is plan 5's loop (`TutorLoop`) on the studio's prefix: its own prompt (`studio-prompt.md`) and tools.
 - Every step is saved through `PUT /tutor/jobs/<id>`, after the model's answer and after the tools' results.
-- A resumed run starts with the tool calls still open (a publish that already went through is answered by the
-  bridge's once-per-client-id, so nothing is published twice).
+- A resumed run starts with the tool calls still open: a publish that already went through is answered by the
+  bridge's once-per-client-id, so it isn't published twice. A model call whose answer was lost with the process is
+  made again, and its tool calls get new ids: a publish in it can go through again (QA saw it: the module's next
+  version, the same content).
 - At most 24 calls on the main thread and 12 on a sub-task.
 - The spend's caps are checked before each call.
 - The first message carries the notebook, the local time and the job (`<studio_job …>`).
@@ -236,6 +238,24 @@ Without a sign-in, `report_problem` keeps the wishlist, as before. The check tha
   settings, "Razumem · Got it" and "Manage usage" (`chatgptWelcomed`). The guidelines' "Manage usage" near the composer
   while the plan pays is now beside the chat's AI line.
 
+## On the phone (the hosted mode)
+
+The studio runs the same in "☁️ Lani na tem telefonu":
+- The live tutor's `LiveBridge` goes to the phone's own bridge in-process (`PhoneLink`, set up by `TutorRuntime`).
+- The bundle carries `tutor-studio.ts` and `overrides.ts`. So the publishing tools, the file tools and their checks are
+  the bundle's own validators, in QuickJS.
+- The jobs are kept in `<filesDir>/lani/data/app/tutor/jobs/`.
+- `StudioWork` calls `HostedRuntime.init` and boots the phone's bridge in its own process at the first call, so
+  WorkManager resumes a job with the app closed.
+- On the phone the curated content is unpacked per app version, so an app update that changes a curated file retires
+  the overrides of it.
+
+`StudioPhoneTest` (3) runs it against the real bundle on the JVM (PhoneBridgeTest's harness):
+- a chat's request becomes a job, whose bad spec the bundle's `validateModule` refuses, then takes; the module is served
+  by `GET /modules`;
+- a module written through the text editor, refused, then written;
+- a job the process lost mid-way, resumed by a new process from the phone's data.
+
 ## Turning it on
 
 The studio comes with the tutor in the app (tutor-live.md, "Turning it on") on a bridge of this round. An older bridge
@@ -252,7 +272,7 @@ batch at half price", "waits for the night", "waits: the spending cap"), and "�
 
 ## Tests
 
-- **The app's JVM tests** (the tutor's 192, all passing):
+- **The app's JVM tests** (the tutor's 195, all passing):
   - `StudioTest` (10), over the real Messages API client against a scripted API and a played bridge with the studio's
     routes. The cases:
     - a chat's request_content becomes a job on Opus at medium, with the text editor by its type and the studio
@@ -270,6 +290,7 @@ batch at half price", "waits for the night", "waits: the spending cap"), and "�
     - a report: looked up, nothing posted before the learner's yes, then posted and kept.
   - `BatchesTest` (8) and `DiscussionsTest` (14) against fakes on MockWebServer (ports 19620–19626).
   - `LiveTutorTest` +1: the GPT-6 thread's per-turn effort.
+  - `StudioPhoneTest` (3): the studio on the phone's own bridge (above).
 - **The bridge's smoke:** the `tutor-studio` section (49 checks):
   - the routes, both tools, path escapes (`..`, an absolute path outside, a link, `%2e`), private reads, a database
     write refused;
@@ -286,8 +307,9 @@ batch at half price", "waits for the night", "waits: the spending cap"), and "�
 `companion/bin/qa --no-town --steps studio` (inside `flock /tmp/lani-emulator.lock`), with the dev bridge and the mock.
 The mock's studio calls wait `LANI_TUTOR_MOCK_STUDIO_MS` (2,500 ms) so the job's card can be seen.
 1. A chat "Vaje za rodilnik prosim [mock:request]": the chat's tutor says it's on its way, the card "✍️ Pišem …"
-   appears, the job publishes a module the validator refuses, then a valid one. Then its reply, the banner, the module
-   on the dev bridge (`GET /modules`), the job done there on `claude-opus-5-5`, the text editor declared by its type.
+   appears (when the quick job is still at it), the job publishes a module the validator refuses, then a valid one. Then
+   its reply, the module on the dev bridge (`GET /modules`) and on Home, the job done there on `claude-opus-5-5`, the
+   text editor declared by its type.
 2. "Zgodbo prosim [mock:request:file]": the story through the text editor, refused by the story validator, then
    written (`GET /stories`).
 3. "Vaje znova prosim [mock:request:slow]": once the job saved two calls on the dev bridge, the app is killed (`am
@@ -297,6 +319,22 @@ The mock's studio calls wait `LANI_TUTOR_MOCK_STUDIO_MS` (2,500 ms) so the job's
 
 The screenshots are `studio-*.png` in the run's folder (and in `LANI_QA_STUDIO_SHOTS`), with
 `studio-mock-requests.json` and `studio-logcat.txt` (the key in no line).
+
+**The run of 2026-10-19** (the debug build rebased on main with the hosted mode; the emulator, Android 16; a new
+learner's data made by the bridge's own setup code, `LANI_DEV_DATA`; the mock on 19610): setup and studio passed, no
+crash.
+- `studio-module.png`: the chat's tutor "naročeno, vaje so na poti · on its way", then "Mock studio · vaje so
+  objavljene". The mock's log: the chat on Sonnet (request_content beside guide and learner_state), the studio on Opus
+  at medium (guide and learner_state, the publish refused, the publish again, the reply, the end).
+- `studio-home.png`: Home offers the new module, "Pozdravi in vljudnost (strojno · machine-written)", "novo · new".
+- `studio-file.png`: the story through the text editor ("Mock studio · zgodba je zapisana").
+- `studio-slow-writing.png`: the job's card, "✍️ Pišem … · Writing …", "korak 3 · step 3", "✕ Prekliči · Cancel".
+- `studio-done.png`: after the kill and the restart, the resumed job's reply. On the dev bridge the job was done
+  with two attempts and five calls.
+- `studio-settings.png`: the Tutor section with the monthly cap, the batches' switch and the studio's three jobs, done.
+
+QA's typing: a long text sent at once with `adb shell input text` lost its end on the emulator's keyboard ("[mock:"),
+so the step types it in pieces; `input text` can't type "š" or other letters outside ASCII.
 
 ## What's left
 
@@ -314,5 +352,5 @@ The screenshots are `studio-*.png` in the run's folder (and in `LANI_QA_STUDIO_S
 - **Claude Code's publishes** are seen by the overrides' next check (within 15 minutes, or at the next start), not at
   once: the MCP tool path isn't hooked.
 - **A sub-task in a batched job** waits for its own batches; two side by side would send two (the prompt says not to).
-- **The hosted mode's own QA** (the studio on the phone's bridge in-process) is the hosted round's: the same routes
-  are in the bundle, and the JVM tests run the studio against the played routes.
+- **The studio on the emulator in the hosted mode:** QA's studio step runs against a node (the dev bridge). On the
+  phone's bridge the studio is covered by `StudioPhoneTest` against the real bundle, not by an emulator run.
