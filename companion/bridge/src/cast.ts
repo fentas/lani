@@ -27,7 +27,7 @@ const ELEVENLABS_ID = /^[A-Za-z0-9]{10,40}$/
 const factor = z.number().min(0.5).max(2)
 // a voice's own pace (voice.ts clipPace): its clips sped up (atempo, the pitch kept) by a factor, from every engine (a
 // number) or by engine ({ "elevenlabs": 1.1 }: an engine left out keeps its pace)
-const tempoSpec = z.union([factor, z.object({ elevenlabs: factor.optional(), gepard: factor.optional() }).strict()])
+const tempoSpec = z.union([factor, z.object({ elevenlabs: factor.optional(), gepard: factor.optional(), drama3: factor.optional() }).strict()])
 export type TempoSpec = z.infer<typeof tempoSpec>
 const languageSpec = z.object({
   // the ElevenLabs voice it speaks the language with: a library voice native in it (no voice slot)
@@ -224,7 +224,7 @@ export const carrierVoice = (name: string): boolean => (isSpeaker(name) && cast(
  * The factor [name]'s clips by [engine] are sped up by (the cast's `tempo`, a speaker's or its voice in a language's:
  * "female.sl"; voice.ts clipPace): 1 for none, for an engine its `tempo` leaves out, and for someone's own voice.
  */
-export function tempoOf(name: string, engine: 'elevenlabs' | 'gepard'): number {
+export function tempoOf(name: string, engine: 'elevenlabs' | 'gepard' | 'drama3'): number {
   const spec = isSpeaker(name) ? cast()[name].tempo : languageOf(name)?.spec.tempo
   const t = typeof spec === 'number' ? spec : spec?.[engine]
   return t ?? 1
