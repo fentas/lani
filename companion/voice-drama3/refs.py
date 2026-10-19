@@ -170,7 +170,7 @@ def write_list(out: Path) -> None:
     raw = load_json(VOICES)
     lines = ["Drama 3 reference candidates: three per speaker, each made by Drama 3 from the description",
              "alone (no real person's voice). The default is the best-scoring one (marked *); Jan picks with",
-             "  companion/voice-drama3/refs.py pick <speaker>=<n>", ""]
+             "  python3 companion/voice-drama3/refs.py pick <speaker>=<n>", ""]
     for sp, cands in store.items():
         ref = raw.get(sp, {}).get("ref", {})
         lines.append(f"{sp} ({raw.get(sp, {}).get('gender')}{', ' + raw[sp]['age'] if raw.get(sp, {}).get('age') else ''})")

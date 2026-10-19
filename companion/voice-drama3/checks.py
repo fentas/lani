@@ -32,10 +32,13 @@ LIMITS = {
     # the noise bed: the quietest 10 % of the frames in the 4-12 kHz band, against the speech level
     "noise_floor_warn": -60.0,
     "noise_floor_fail": -57.0,
-    # noise-like frames (a flat 4-12 kHz band near the speech level, no voice under it), seconds
-    "noise_seconds_fail": 0.5,
-    # silence (under the speech level by 40 dB): the longest run inside the take, and at its ends
+    # noise-like frames (a flat 4-12 kHz band within 60 dB of the speech level, no voice under it), seconds
+    "noise_band_db": 60.0,
+    "noise_seconds_fail": 1.0,
+    # a pause (35 dB under the speech level: a gap a low hiss fills counts too) inside the take, at most
+    "pause_db": 35.0,
     "pause_max_s": 1.5,
+    # silence at the ends (40 dB under the speech level)
     "edge_max_s": 2.0,
     # speech rate in letters a second: slower is a loop or a stall, faster a take cut short
     "rate_min": 4.0,
@@ -126,8 +129,9 @@ def noise(audio, sr: int) -> dict:
     Drama 3's codec sometimes lays a flat hiss up to a sharp edge (12-16 kHz) under a take, or
     fills its pauses with it. floor: the quietest 10 % of the frames' 4-12 kHz band, in dB under
     the speech level (clean takes -60 to -72, hissing ones -53 to -57; Gepard's -71 to -80).
-    seconds: frames whose 4-12 kHz band is flat (spectral flatness over 0.25 from 1 kHz up), near
-    the speech level (within 55 dB) and without voice under 4 kHz (25 dB down).
+    seconds: frames whose 4-12 kHz band is flat (spectral flatness over 0.25 from 1 kHz up), within
+    60 dB of the speech level, and without voice under 4 kHz (25 dB down): a gap the model filled
+    with hiss (one take had 3.5 s of it between two sentences, at -56 dB).
     """
     np = _np()
     x = np.asarray(audio, dtype=np.float64)
@@ -143,12 +147,13 @@ def noise(audio, sr: int) -> dict:
     lo = 10 * np.log10(p[:, (f >= 100) & (f < 4000)].sum(axis=1))
     band = p[:, (f >= 1000) & (f < top)]
     flat = np.exp(np.log(band).mean(axis=1)) / band.mean(axis=1)
-    noisy = (hf > ref - 55) & (flat > 0.25) & (lo < ref - 25)
+    noisy = (hf > ref - LIMITS["noise_band_db"]) & (flat > 0.25) & (lo < ref - 25)
     return {"floor": round(float(np.percentile(hf, 10) - ref), 1), "seconds": round(float(noisy.sum() * hop / sr), 2)}
 
 
 def silence(audio, sr: int) -> dict:
-    """Silent runs (40 dB under the speech level): the longest inside the take, and its ends (s)."""
+    """The longest pause inside the take (frames 35 dB under the speech level: a gap a low hiss
+    fills is a pause too), its silent ends (40 dB under) and the length of its sound (s)."""
     np = _np()
     lv = levels(audio, sr)
     if not len(lv):
@@ -157,7 +162,7 @@ def silence(audio, sr: int) -> dict:
     idx = np.nonzero(sound)[0]
     if not len(idx):
         return {"pause": 0.0, "lead": round(len(lv) * 0.01, 2), "trail": 0.0, "sound": 0.0}
-    inner = sound[idx[0]: idx[-1] + 1]
+    inner = (lv > np.percentile(lv, 95) - LIMITS["pause_db"])[idx[0]: idx[-1] + 1]
     longest = run = 0
     for s in inner:
         run = 0 if s else run + 1

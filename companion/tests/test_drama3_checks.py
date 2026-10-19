@@ -192,6 +192,15 @@ class Signal(unittest.TestCase):
         v = checks.judge(voice(140, secs=2.0), SR, "Dober dan, kako si?", {"gender": "male"}, ended=False)
         self.assertIn("length: no end (the frame cap was reached: a loop)", v.reasons)
 
+    def test_a_gap_filled_with_hiss_is_caught(self):
+        # the smoke's take: 3.5 s between two sentences filled with a low hiss, 37 dB under the speech
+        x = voice(140, secs=6.0, gaps=((1.5, 5.0),))
+        rng = np.random.default_rng(7)
+        x[int(1.5 * SR):int(5.0 * SR)] += (0.0025 * rng.standard_normal(int(3.5 * SR))).astype(np.float32)
+        v = checks.judge(x, SR, "Dober dan, jaz sem babica Micka. Koliko stane kruh?", {"gender": "male"})
+        self.assertTrue(any(r.startswith("silence: a pause of 3.5") for r in v.reasons), v.reasons)
+        self.assertTrue(any(r.startswith("noise:") for r in v.reasons), v.reasons)
+
     def test_whisper_is_not_a_voice(self):
         rng = np.random.default_rng(3)
         whisper = (0.05 * rng.standard_normal(2 * SR) * np.abs(np.sin(2 * np.pi * 3 * np.arange(2 * SR) / SR))).astype(np.float32)
