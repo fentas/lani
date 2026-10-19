@@ -154,17 +154,22 @@ class PhoneBridgeNodeTest {
         return "$at: node ${a.toString().take(200)}, phone ${b.toString().take(200)}"
     }
 
-    private fun same(path: String) {
+    /** A list in the directory's order (readdir's, which differs by file system and by how the files were written): by id. */
+    private fun byId(e: JsonElement): JsonElement =
+        if (e is JsonArray) JsonArray(e.sortedBy { (it as? JsonObject)?.get("id")?.jsonPrimitive?.content.orEmpty() }) else e
+
+    private fun same(path: String, dirOrder: Boolean = false) {
         val (code, text) = nodeGet(path)
         val r = runBlocking { phone.handle(PhoneBridge.Request.get(path)) }
         assertEquals("$path: status", code, r.status)
-        val d = diff(json.parseToJsonElement(text), json.parseToJsonElement(r.text))
+        val (a, b) = json.parseToJsonElement(text) to json.parseToJsonElement(r.text)
+        val d = if (dirOrder) diff(byId(a), byId(b)) else diff(a, b)
         assertEquals("$path differs", null, d)
     }
 
     @Test fun packs() = same("/packs")
     @Test fun aPack() = same("/packs/${json.parseToJsonElement(nodeGet("/packs").second).let { (it as JsonArray)[0].jsonObject["id"]!!.jsonPrimitive.content }}")
-    @Test fun modules() = same("/modules")
+    @Test fun modules() = same("/modules", dirOrder = true)
     @Test fun grammar() = same("/grammar")
     @Test fun cards() = same("/cards")
     @Test fun course() = same("/course")
