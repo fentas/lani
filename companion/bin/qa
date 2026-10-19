@@ -5129,6 +5129,20 @@ def review_end():
     assert wait_for("recalled", 10), "the review's end"
 
 
+def forms_note(timeout=30.0) -> str:
+    """The note that a unit's intro brought forms cards back ("📋 Nove oblike v tabelah …", a snackbar of four seconds,
+    after the book's own news): watched with screen dumps as fast as the emulator gives them; one that came and went
+    between two dumps still shows in the app's log (tag FormsCard: "note …", a debug build). How it was seen, or ""."""
+    end = time.time() + timeout * slow()
+    while time.time() < end:
+        if any(FORMS_BACK in t for t, _ in nodes()):
+            return "on screen"
+        if any("FormsCard" in l and f"note 📋 {FORMS_BACK}" in l for l in adb("logcat", "-d", "-s", "FormsCard:I", check=False).splitlines()):
+            return "shown (the app's log: between two screen dumps)"
+        time.sleep(0.2)
+    return ""
+
+
 def forms_sections(word="", timeout=12.0):
     """The sections the forms card on screen shows and those it hides (no gap asked in them), as the debug build logged
     them (tag FormsCard): (shown, hidden), the latest; None within [timeout] s."""
@@ -5318,8 +5332,11 @@ def forms_cards():
 
         # a unit's intro done: the verb's imperative rows become gaps, its card back within days, its new part first
         before = dev_forms()[FORMS_VERB]
+        adb("logcat", "-c")
         qa_hook("formscard:unit:velelnik")
-        assert wait_for(FORMS_BACK, 30), "the note: new forms in the tables"
+        how = forms_note(30)
+        assert how, "the note: new forms in the tables (on screen, or the app's log, tag FormsCard)"
+        print(f"    the note: {how}")
         shot("forms-unit-note")
         end = time.time() + 20 * slow()
         after = before

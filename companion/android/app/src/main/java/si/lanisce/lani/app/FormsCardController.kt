@@ -269,7 +269,10 @@ class FormsCardController(
             val back = content.dashboard?.formsCards.orEmpty().filter { c -> c.forms?.fresh.orEmpty().let { it.isNotEmpty() && it != before[c.id] } }
             if (back.isEmpty()) return@launch
             withTimeoutOrNull(NEWS_WAIT_MS) { while (notices.banner != null) delay(200) }
-            notices.banner = "📋 ${bi("formsCard.back", "words" to back.take(4).joinToString(", ") { it.forms?.lemma ?: it.front })}"
+            val note = "📋 ${bi("formsCard.back", "words" to back.take(4).joinToString(", ") { it.forms?.lemma ?: it.front })}"
+            notices.banner = note
+            // QA reads that the note was shown: a snackbar of a few seconds may pass between two of its screen dumps
+            if (si.lanisce.lani.BuildConfig.QA) android.util.Log.i("FormsCard", "note $note")
         }
     }
 
