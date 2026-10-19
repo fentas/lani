@@ -22,7 +22,7 @@ slowly: its own pace").
   - `Speaker.sayThrough` says a line and returns once it has been heard: the speaker is busy while the clip loads from
     the node and while it plays (`Speaker.heard`), and every route marks that at once (a clip, the family's recording, the
     offline voice; Android's text-to-speech now from the moment the line is handed to it, and only its current
-    utterance's callbacks count). It returns early when something said or stopped after it cuts it, and gives up after
+    utterance's callbacks count; one it never starts is let go after 4 s). It returns early when something said or stopped after it cuts it, and gives up after
     45 s (a player that never ends). Cancelled, it stops the line at once (`stopIfLeft`).
   - `Speaker.sayInTurn`: one of several lines in a row. It waits until what is being said has ended (`awaitQuiet`: a 🔊
     tapped meanwhile is heard out), then says the line to its end; with no voice at all it takes the time to read it
@@ -103,7 +103,8 @@ slowly: its own pace").
   without a tempo, then 0.6 s ÷1.25), `voice-build --pace`'s dry run, its run (`--max 1`, the rest, nothing), a changed
   tempo (by the difference), a tempo taken away (slowed back down); three checks adjusted for the girl's tempo (her
   level clip, `tempoStats`' shape).
-- **The app:** the unit tests, 2,853 (0 failures) before the last small commit; `LinesInTurnTest` (4: the game's line
+- **The app:** the unit tests, 2,853, 0 failures (at 828df007; after the TTS watchdog, 9b1b29eb, the data and scene
+  tests again: 544, 0 failures); `LinesInTurnTest` (4: the game's line
   to its end before the clue, the guess in its turn and lines added meanwhile waiting, leaving stops the line, the first
   pause), `SpeakerHeardTest` (4: on its way and playing, cut, the 45 s cap, nothing to say it); `ISpyTest` and
   `DialogMoodTest` after it.
