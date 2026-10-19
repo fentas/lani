@@ -167,6 +167,12 @@ class DataSync(
         tmp.renameTo(settingsFile)
     }
 
+    /**
+     * The relay's address set on this phone (the hosted mode's setting, docs/plans/05-built/hosted-mode.md): the backup's
+     * and the town's; blank goes back to the build's (BuildConfig.RELAY_URL).
+     */
+    fun setRelay(url: String?) = update { it.copy(relay = url?.trim()?.trimEnd('/')?.takeIf(String::isNotBlank)) }
+
     private fun update(f: (DataSettings) -> DataSettings) {
         settings = f(settings).also(::saveSettings)
     }

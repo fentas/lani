@@ -12,6 +12,7 @@ import si.lanisce.lani.data.Prefs
 import si.lanisce.lani.phone.AppBridge
 import si.lanisce.lani.phone.PhoneBridge
 import si.lanisce.lani.phone.PhoneTransport
+import si.lanisce.lani.sync.DataSettings
 
 /**
  * "☁️ Lani na tem telefonu · Lani on this phone" (docs/plans/05-built/hosted-mode.md): the phone's own bridge for the
@@ -24,8 +25,8 @@ import si.lanisce.lani.phone.PhoneTransport
  *   town's relay client). About half a second on the emulator; the app shows its splash meanwhile.
  * - **Stop:** [stop] ends it cleanly (its events kept, its streams closed): before an import takes the data's place,
  *   and when the learner switches to a node.
- * - **Hooks** for the parts that come with other work: [onWrite] (the data's git sync pushes a moment after a write,
- *   DataSync.touched), [environment] (the lease's side and device, the relay).
+ * - **The data's sync:** the bridge runs as the lease's phone ([phoneEnvironment]); [onWrite] tells the git sync of each
+ *   write (DataSync.touched: it pushes a moment later).
  */
 object HostedRuntime {
     const val TAG = "LaniHosted"
@@ -46,8 +47,33 @@ object HostedRuntime {
     /** Told of every write to the learner's data (a mutating request the bridge took, the db port's writes). */
     @Volatile var onWrite: () -> Unit = {}
 
-    /** More environment for the bridge (the lease: LANI_SIDE, LANI_LEASE_DEVICE; the relay), read at each boot. */
-    @Volatile var environment: () -> Map<String, String> = { emptyMap() }
+    /**
+     * More environment for the bridge, read at each boot: [phoneEnvironment] (the lease's side and this phone's device,
+     * the relay), also in a process a background job started without the screens.
+     */
+    @Volatile var environment: () -> Map<String, String> = { app?.let { phoneEnvironment(AppBridge.home(it)) }.orEmpty() }
+
+    /**
+     * The phone's bridge as the lease's phone (LANI_SIDE=phone, LANI_LEASE_DEVICE: the data sync's device id, from its
+     * settings in [home]/sync, sync/DataSync) and, with a relay (the one set on the phone, else the build's: BuildConfig.RELAY_URL), its
+     * town and family page through it (LANI_RELAY_URL, LANI_TOWN_URL=relay). Without a relay the towns aren't there.
+     */
+    fun phoneEnvironment(home: File, buildRelay: String = si.lanisce.lani.BuildConfig.RELAY_URL): Map<String, String> {
+        val settings = runCatching {
+            settingsJson.decodeFromString(DataSettings.serializer(), File(home, "sync/settings.json").readText())
+        }.getOrNull()
+        val relay = settings?.relay?.takeIf { it.isNotBlank() } ?: buildRelay
+        return buildMap {
+            put("LANI_SIDE", "phone")
+            settings?.device?.takeIf { it.isNotBlank() }?.let { put("LANI_LEASE_DEVICE", it) }
+            if (relay.isNotBlank()) {
+                put("LANI_RELAY_URL", relay.trimEnd('/'))
+                put("LANI_TOWN_URL", "relay")
+            }
+        }
+    }
+
+    private val settingsJson = kotlinx.serialization.json.Json { ignoreUnknownKeys = true }
 
     /** The app's client's way in (data/Http.kt installs it): requests to the phone's address answered by [bridge]. */
     val transport = PhoneTransport(bridge = { ensure() }, written = { _, _ -> onWrite() })

@@ -78,6 +78,25 @@ class Prefs(private val context: Context) {
             child = p[pairedChild] ?: false,
         )
     }
+    /**
+     * The connection let go (the hosted mode left for a node, docs/plans/05-built/hosted-mode.md): no tutor stored, so
+     * setup pairs anew; the events' cursors with it (the next bridge numbers its own).
+     */
+    suspend fun forgetConnection() = context.store.edit {
+        it.remove(url)
+        it.remove(token)
+        pairedKeys.forEach(it::remove)
+        it.remove(pairedChild)
+        it.remove(lastEvent)
+        it.remove(notified)
+    }
+
+    /** Another bridge from now on (the phone's own): its events are numbered apart from the last one's. */
+    suspend fun resetEventCursors() = context.store.edit {
+        it.remove(lastEvent)
+        it.remove(notified)
+    }
+
     suspend fun lastEventId(): Long = context.store.data.first()[lastEvent] ?: 0
     suspend fun saveLastEventId(id: Long) = context.store.edit { it[lastEvent] = id }
     suspend fun seenModules(): Set<String> = context.store.data.first()[seen] ?: emptySet()

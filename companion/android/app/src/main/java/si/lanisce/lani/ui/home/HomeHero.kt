@@ -76,7 +76,7 @@ fun HomeHero(vm: AppViewModel, d: Dashboard?, onLink: () -> Unit = {}) {
                     color = Color.White,
                     modifier = Modifier.weight(1f),
                 )
-                LinkDot(vm.link, vm.unpaired, onClick = onLink)
+                LinkDot(vm.link, vm.unpaired, vm.hosted.active, onClick = onLink)
             }
             if (vm.unpaired) UnpairedChip(onLink)
             Spacer(Modifier.height(12.dp))
@@ -207,21 +207,23 @@ private fun Triglav(modifier: Modifier) {
 
 /** The tutor's status as a dot; a tap opens the connection (who this phone is paired with, pairing again). */
 @Composable
-private fun LinkDot(link: Link, unpaired: Boolean, onClick: () -> Unit) {
+private fun LinkDot(link: Link, unpaired: Boolean, hosted: Boolean, onClick: () -> Unit) {
     val color = when (link) {
         Link.ONLINE -> AlpineGreen
         Link.CONNECTING -> XpGold
         Link.OFFLINE -> TriglavRed
     }
     Box(
-        Modifier.size(48.dp).clip(CircleShape).clickable(onClick = onClick).semantics { contentDescription = linkLabel(link, unpaired) },
+        Modifier.size(48.dp).clip(CircleShape).clickable(onClick = onClick).semantics { contentDescription = linkLabel(link, unpaired, hosted) },
         contentAlignment = Alignment.Center,
     ) {
         Box(Modifier.size(12.dp).clip(CircleShape).background(color))
     }
 }
 
-fun linkLabel(link: Link, unpaired: Boolean) = when {
+/** The connection in a line; [hosted]: Lani on this phone (its own bridge, nothing to be online for). */
+fun linkLabel(link: Link, unpaired: Boolean, hosted: Boolean = false) = when {
+    hosted && link != Link.OFFLINE -> "☁️ ${bi("hosted.title")}"
     unpaired -> "🔒 ${bi("homeHero.phoneNoLongerPaired")}"
     link == Link.ONLINE -> bi("homeHero.tutorOnline")
     link == Link.CONNECTING -> bi("homeHero.connecting")

@@ -230,6 +230,12 @@ private fun Intro(vm: AppViewModel, s: Scenario) {
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
+        // Lani on this phone with no tutor set up yet: the tutor plays the other person, so nobody answers yet
+        else if (vm.hosted.active && !vm.tutorReady) Text(
+            "🧑‍🏫 ${bi("hosted.noTutor")}",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
     }
 }
 
@@ -446,6 +452,7 @@ private fun Typing(vm: AppViewModel, st: TalkState) {
         }
         when {
             vm.link == Link.OFFLINE -> Text("📶 ${bi("talkScreen.offlineAnswerComesWhen")}", style = MaterialTheme.typography.labelSmall)
+            vm.hosted.active && !vm.tutorReady -> Text("🧑‍🏫 ${bi("hosted.noTutor")}", style = MaterialTheme.typography.labelSmall)
             waited >= 60 -> Row(verticalAlignment = Alignment.CenterVertically) {
                 Text("⏳ ${bi("talkScreen.tutorSeemsBusy")}", style = MaterialTheme.typography.labelSmall, modifier = Modifier.weight(1f))
                 TextButton(onClick = vm.talk::retry) { Text("↻ ${bi("talkScreen.resend")}") }

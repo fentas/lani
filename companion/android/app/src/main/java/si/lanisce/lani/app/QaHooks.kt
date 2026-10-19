@@ -77,6 +77,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   opens it.
  * - "tutorlive:<url>": the tutor in the app's Messages API base URL set to <url> (QA's mock, http://10.0.2.2:8771);
  *   "tutorlive:" the API again (tutor/live/LiveTutor). The key is entered in the Tutor section, as the learner would.
+ * - "review": a review of up to five of the learner's cards, due or not (a new learner's words are due tomorrow: the
+ *   hosted mode's QA reviews them today).
  * - "pair:<target>-<base>": the app shown in that language pair ("pair:sl-de"), as the connection sheet's languages
  *   choose it; "pair:" follows the learner profile again.
  * - "kopa:<day>": the spots' cycles (the charcoal pile's rounds, game/scene/SpotCycles) are as on that day ("2026-07-14",
@@ -199,6 +201,7 @@ object QaHooks {
         season: () -> Unit = {}, ready: () -> Unit = {}, chat: (String) -> Unit = {}, cheat: (List<String>) -> Unit = {}, school: () -> Unit = {},
         shadow: (String) -> Unit = {}, counting: (String) -> Unit = {}, dev: (String) -> Unit = {}, pair: (String) -> Unit = {},
         grow: (si.lanisce.lani.game.Age) -> Unit = {}, formsCard: (String, String) -> Unit = { _, _ -> }, data: () -> Unit = {}, tutorLive: (String) -> Unit = {},
+        review: () -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
@@ -212,6 +215,7 @@ object QaHooks {
             command.startsWith("pair:") -> pair(command.removePrefix("pair:").trim())
             command == "shadow" -> shadow("")
             command == "data" -> data()
+            command == "review" -> review()
             command.startsWith("shadow:") -> shadow(command.removePrefix("shadow:"))
             command.startsWith("tutorlive:") -> tutorLive(command.removePrefix("tutorlive:"))
             command.startsWith("audio:") -> audio(command.removePrefix("audio:"))

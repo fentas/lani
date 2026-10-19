@@ -226,6 +226,8 @@ fun ChatSheet(vm: AppViewModel) {
                 }
                 // the in-app tutor is an AI, and says so (the Usage Policy's disclosure for consumer chatbots; plan 5)
                 if (vm.live.settings.on) si.lanisce.lani.ui.tutor.AiDisclosure(vm.live)
+                // Lani on this phone with no tutor set up yet: what is written waits for one (hosted/HostedController)
+                if (vm.hosted.active && !vm.tutorReady) Text("🧑‍🏫 ${bi("hosted.noTutor")}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 if (showBookmarks) {
                     Bookmarks(
                         marked, today, zone, Modifier.weight(1f).padding(vertical = 12.dp),

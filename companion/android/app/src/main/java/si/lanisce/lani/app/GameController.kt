@@ -177,6 +177,21 @@ class GameController(
         }
     }
 
+    /**
+     * The phone's copy of the village given up: another data took the bridge's place (the hosted mode set up with a new
+     * learner, an export, or the data already on the phone; an import from the settings), so the bridge's village is the
+     * one from now on (an old copy would be pushed into it). [sync] then adopts it, or the founding comes.
+     */
+    suspend fun forgetLocal() = lock.withLock {
+        pushJob?.cancel()
+        state = null
+        rev = 0
+        dirty = false
+        unsynced = false
+        placeNeeded = false
+        withContext(io) { store.clear() }
+    }
+
     // --- sync ---------------------------------------------------------------------------------
 
     /** App start, resume, village open: reconcile with the node, then apply the days that passed. */

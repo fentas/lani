@@ -87,7 +87,7 @@ class MainActivity : ComponentActivity() {
             shadow = { base -> vm.shadow.showDeveloper(true); if (base.isNotBlank()) vm.shadow.update { it.copy(debugBaseUrl = base) }; vm.shadow.panelOpen = true },
             dev = { what -> if (what == "again") vm.devUpload.forgetThrottle() else if (what == "off") vm.shadow.showDeveloper(false) },
             pair = { code -> vm.chooseLangPair(si.lanisce.lani.l10n.LangPair.parse(code)) }, grow = vm::qaAgeUp, formsCard = vm::qaFormsCard,
-            data = { vm.dataOpen = true },
+            data = { vm.dataOpen = true }, review = vm::qaReview,
             tutorLive = { base -> vm.live.update { it.copy(debugBaseUrl = base.ifBlank { null }) } })
         intent?.removeExtra(si.lanisce.lani.app.QaHooks.EXTRA)
         DeepLink.parse(intent?.getStringExtra(DeepLink.EXTRA))?.let(vm::open)
@@ -151,7 +151,8 @@ private fun App(vm: AppViewModel) {
     ) { pad ->
         Box(Modifier.fillMaxSize().padding(pad)) {
             when (screen) {
-                Screen.Loading -> CircularProgressIndicator(Modifier.align(Alignment.Center))
+                // the hosted mode's splash while the phone's bridge boots (ui/hosted), else a spinner until the connection is read
+                Screen.Loading -> if (vm.hosted.active) si.lanisce.lani.ui.hosted.HostedSplash(vm) else CircularProgressIndicator(Modifier.align(Alignment.Center))
                 Screen.Setup -> SetupScreen(vm)
                 Screen.Home -> HomeScreen(vm)
                 is Screen.Review -> key(screen) { ReviewScreen(vm, screen.cards, screen.polish, screen.language) }

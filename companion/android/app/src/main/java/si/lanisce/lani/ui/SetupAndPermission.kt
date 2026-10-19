@@ -43,6 +43,9 @@ import si.lanisce.lani.l10n.inBase
 
 @Composable
 fun SetupScreen(vm: AppViewModel) {
+    // "☁️ Lani na tem telefonu · Lani on this phone" (ui/hosted): its own steps; also straight from the settings' switch
+    var hosted by remember { mutableStateOf(vm.setupHosted) }
+    if (hosted) return si.lanisce.lani.ui.hosted.HostedSetup(vm, onBack = { if (vm.setupHosted) vm.cancelSwitch() else hosted = false })
     var url by remember { mutableStateOf("https://") }
     var token by remember { mutableStateOf("") }
     var busy by remember { mutableStateOf(false) }
@@ -59,7 +62,11 @@ fun SetupScreen(vm: AppViewModel) {
         ) {
             Text("🏔️", style = MaterialTheme.typography.displayLarge)
             Text(inTarget("setupAndPermission.welcome"), style = MaterialTheme.typography.displaySmall, color = Color.White)
-            // No "Poveži" here: companion/bin/qa finds the connect button by that word.
+            // the two ways: Lani on this phone alone (the hosted mode), or a tutor of one's own on a computer (pairing)
+            BigButton("☁️ ${bi("hosted.title")}", onClick = { hosted = true }, color = Color.White.copy(alpha = 0.2f))
+            Text(bi("hosted.choice"), color = Color.White.copy(alpha = 0.85f), style = MaterialTheme.typography.bodySmall)
+            // companion/bin/qa taps the connect button by its whole label ("Poveži · Connect"): this heading has the word too
+            Text("🔗 ${bi("hosted.connectOwn")}", style = MaterialTheme.typography.titleMedium, color = Color.White, modifier = Modifier.padding(top = 12.dp))
             Text(
                 bi("setupAndPermission.scanQrCodeFrom"),
                 color = Color.White.copy(alpha = 0.85f),

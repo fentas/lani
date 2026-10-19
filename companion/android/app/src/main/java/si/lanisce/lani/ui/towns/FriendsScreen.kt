@@ -118,7 +118,9 @@ fun FriendsScreen(vm: AppViewModel) {
                     vm::openVillage,
                 )
             }
-            if (FriendsLogic.canLink(list)) item(key = "actions") {
+            // Lani on this phone without a relay: no town of its own to link yet (the setting is in the connection sheet)
+            if (!vm.hosted.townsAvailable) item(key = "relay") { Note("🛰️ ${bi("hosted.townsNeedRelay")}") }
+            if (vm.hosted.townsAvailable && FriendsLogic.canLink(list)) item(key = "actions") {
                 Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     FilledTonalButton(onClick = towns::makeInvite, enabled = !towns.inviting, modifier = Modifier.weight(1f).heightIn(min = 52.dp)) {
                         Text("✉️ ${bi("towns.invite")}", textAlign = TextAlign.Center)

@@ -49,25 +49,33 @@ fun ConnectionSheet(vm: AppViewModel, onScan: () -> Unit, onDismiss: () -> Unit)
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
             Text("🔗 ${bi("connectionSheet.connection")}", style = MaterialTheme.typography.titleLarge)
-            Text(linkLabel(vm.link, vm.unpaired), style = MaterialTheme.typography.bodyMedium, color = if (vm.unpaired) TriglavRed else MaterialTheme.colorScheme.onSurface)
+            val hosted = vm.hosted.active
+            Text(linkLabel(vm.link, vm.unpaired, hosted), style = MaterialTheme.typography.bodyMedium, color = if (vm.unpaired) TriglavRed else MaterialTheme.colorScheme.onSurface)
             learner?.let { InfoLine("🧒", bi("connectionSheet.learner"), it + if (p?.child == true) " · 🛡️" else "") }
-            vm.bridgeUrl?.let { InfoLine("🖥️", bi("common.tutor"), it.removePrefix("https://").removePrefix("http://")) }
-            InfoLine(
-                "📱", bi("connectionSheet.phone"),
-                if (p != null) "${p.deviceName} (${bi("connectionSheet.pairedByQrCode")})" else bi("connectionSheet.typedToken"),
-            )
-            Text(
-                if (vm.unpaired) bi("connectionSheet.runLaniPairComputer")
-                else bi("connectionSheet.pairPhoneAgainRun"),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(top = 6.dp),
-            )
-            BigButton("📷 ${bi("common.scanQrCode")}", onClick = onScan, color = TriglavRed)
+            if (hosted) {
+                // "☁️ Lani na tem telefonu": no node, no pairing; the export and import, the relay, the way to a computer
+                si.lanisce.lani.ui.hosted.HostedSection(vm, Modifier.padding(top = 6.dp))
+            } else {
+                vm.bridgeUrl?.let { InfoLine("🖥️", bi("common.tutor"), it.removePrefix("https://").removePrefix("http://")) }
+                InfoLine(
+                    "📱", bi("connectionSheet.phone"),
+                    if (p != null) "${p.deviceName} (${bi("connectionSheet.pairedByQrCode")})" else bi("connectionSheet.typedToken"),
+                )
+                Text(
+                    if (vm.unpaired) bi("connectionSheet.runLaniPairComputer")
+                    else bi("connectionSheet.pairPhoneAgainRun"),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(top = 6.dp),
+                )
+                BigButton("📷 ${bi("common.scanQrCode")}", onClick = onScan, color = TriglavRed)
+                si.lanisce.lani.ui.hosted.MoveToPhoneSection(vm, Modifier.padding(top = 6.dp))
+            }
             Languages(vm)
             AmbienceSettings(vm.ambience, Modifier.padding(top = 12.dp))
             si.lanisce.lani.ui.school.ReadSetting(vm, Modifier.padding(top = 4.dp))
-            OfflineAudioSettings(vm.offlineAudio, Modifier.padding(top = 12.dp))
+            // Lani on this phone has no node's clips nor its offline voice yet: the phone's text-to-speech speaks
+            if (!hosted) OfflineAudioSettings(vm.offlineAudio, Modifier.padding(top = 12.dp))
             si.lanisce.lani.ui.data.DataSection(vm.data, onOpen = { vm.dataOpen = true }, Modifier.padding(top = 12.dp))
             si.lanisce.lani.ui.tutor.TutorSettings(vm, Modifier.padding(top = 12.dp))
             Developer(vm)

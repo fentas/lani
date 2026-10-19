@@ -91,6 +91,11 @@ class GameStore(context: Context) {
         }
     }
 
+    /** The copy gone (another data took the bridge's place: hosted/HostedController). */
+    fun clear() {
+        synchronized(LOCK) { file.delete() }
+    }
+
     private companion object {
         val LOCK = Any()
     }

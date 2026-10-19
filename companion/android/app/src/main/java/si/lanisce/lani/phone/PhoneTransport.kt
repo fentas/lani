@@ -112,9 +112,11 @@ class PhoneTransport(
         }
         private var current: ByteArray? = null
         private var at = 0
+        private var ended = false
         @Volatile private var closed = false
 
         override fun read(sink: Buffer, byteCount: Long): Long {
+            if (ended) return -1
             while (true) {
                 val c = current
                 if (c != null && at < c.size) {
@@ -128,7 +130,10 @@ class PhoneTransport(
                 if (closed || call.isCanceled()) throw IOException("Canceled")
                 when (val next = queue.poll(POLL_MS, TimeUnit.MILLISECONDS)) {
                     null -> continue
-                    End -> return -1
+                    End -> {
+                        ended = true
+                        return -1
+                    }
                     is Broke -> throw IOException(next.error.message ?: "the stream broke off", next.error)
                     else -> current = next as ByteArray
                 }

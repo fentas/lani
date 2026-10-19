@@ -44,6 +44,12 @@ class OfflineAudioController(
     /** The phone's offline voice, for [si.lanisce.lani.data.Speaker] (the target language's, when it's on the phone). */
     val piper = Piper(app, voices)
 
+    /**
+     * Lani on this phone (the hosted mode): no node makes clips or has the offline voice to download (they come with the
+     * voice service, glas, later), so nothing is planned or offered; the phone's text-to-speech speaks.
+     */
+    var onPhone by mutableStateOf(false)
+
     var cap by mutableStateOf(settings.cap)
         private set
     var chargingOnly by mutableStateOf(settings.chargingOnly)
@@ -130,7 +136,7 @@ class OfflineAudioController(
     /** Asks the node which offline voice it has for the target language (its size and licence, for the settings). */
     fun loadOffer() {
         scope.launch {
-            val c = config() ?: return@launch
+            val c = config()?.takeUnless { onPhone } ?: return@launch
             offered = withContext(Dispatchers.IO) {
                 runCatching { OfflineVoiceApi(c).list()?.firstOrNull { it.language == target } }.getOrNull()
             }
@@ -196,7 +202,7 @@ class OfflineAudioController(
      * the phone yet.
      */
     fun afterPairing() {
-        if (settings.voiceOffered) return
+        if (settings.voiceOffered || onPhone) return
         scope.launch {
             val c = config() ?: return@launch
             val o = withContext(Dispatchers.IO) { runCatching { OfflineVoiceApi(c).list()?.firstOrNull { it.language == target } }.getOrNull() }
@@ -214,7 +220,7 @@ class OfflineAudioController(
      * every [PLAN_EVERY_MS]. Not with the cap off, nor on a visit (the town's language isn't the learner's).
      */
     fun plan(gather: () -> DayAudioGather?, force: Boolean = false, then: () -> Unit = { Prefetch.onOpen(app) }) {
-        if (!settings.cap.prefetch) return
+        if (!settings.cap.prefetch || onPhone) return
         val now = System.currentTimeMillis()
         if (!force && now - planned < PLAN_EVERY_MS) return
         val g = gather() ?: return

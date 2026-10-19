@@ -240,6 +240,12 @@ class Stt(context: Context, private val scope: CoroutineScope, private val langu
         private set
 
     fun connect(config: BridgeConfig) {
+        // Lani on this phone has no node to listen: the phone's recognizer, quietly (hosted/HostedController)
+        if (si.lanisce.lani.phone.PhoneTransport.isPhone(config.baseUrl)) {
+            api = null
+            available = false
+            return
+        }
         api = SttApi(config)
         refresh()
     }

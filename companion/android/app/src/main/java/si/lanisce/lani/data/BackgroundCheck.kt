@@ -45,6 +45,8 @@ class BackgroundCheck(context: Context, params: WorkerParameters) : CoroutineWor
         si.lanisce.lani.l10n.LearnerSetting(applicationContext).apply() // and the content said to the learner of the profile
         CultureSetting(applicationContext).apply() // and their village's culture
         val prefs = Prefs(applicationContext)
+        // Lani on this phone: its bridge boots in this process too, when the app's screens didn't (hosted/HostedRuntime)
+        si.lanisce.lani.hosted.HostedRuntime.init(applicationContext)
         val config = prefs.config() ?: return Result.success()
         val foreground = withContext(Dispatchers.Main) {
             ProcessLifecycleOwner.get().lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)

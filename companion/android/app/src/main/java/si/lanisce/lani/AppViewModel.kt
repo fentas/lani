@@ -143,6 +143,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     val notices = Notices()
     val sync = SyncController(app, viewModelScope, node, notices, onSaved = ::refresh)
     val content: ContentController = ContentController(app, prefs, node, onDashboard = {
+        timeHome()
         game.refreshWidget()
         content.dashboard?.let {
             if (languages.profileSays(it.pair)) showLanguages()
@@ -246,6 +247,35 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     )
     /** Whether the Data sheet is open (the connection sheet's "Odpri", the hosted mode's setup, QA's "data"). */
     var dataOpen by mutableStateOf(false)
+
+    /**
+     * "☁️ Lani na tem telefonu · Lani on this phone" (hosted/HostedController, docs/plans/05-built/hosted-mode.md): no node,
+     * the bridge in the app's process (QuickJS), the learner's data in <filesDir>/lani/data. The connection is then the
+     * phone's own address, so everything below talks to it as to a node (phone/PhoneTransport). Opt-in, at setup or by
+     * the settings' switch; a paired phone never runs it.
+     */
+    val hosted = si.lanisce.lani.hosted.HostedController(app, viewModelScope, prefs, data, ::appName, android.os.Build.MODEL ?: "Android").also { h ->
+        // a pull, an import or a new relay put the bridge over new data: everything is read again
+        h.onNewData = {
+            refresh()
+            game.sync(reloadFirst = true)
+            if (foreground) events.restart()
+        }
+    }
+    /** The setup opens on the hosted mode's steps (the settings' switch from a node: back goes to the node). */
+    var setupHosted by mutableStateOf(false)
+        private set
+
+    /**
+     * HOOK(tutor-live): whether a tutor answers in the hosted mode (the live tutor set up: its provider and key), and how
+     * its settings open ("🧑‍🏫 Učitelj · Tutor"). The live tutor's branch sets both; until then the hosted mode's chat says
+     * no tutor is set up yet, and the onboarding's tutor step says where the settings will be.
+     */
+    var tutorReady by mutableStateOf(false)
+    var openTutorSettings: (() -> Unit)? = null
+    /** When the view model began: the hosted mode's boot to Home is measured from here (the log, tag LaniHosted). */
+    private val startedAt = System.nanoTime()
+    private var homeTimed = false
 
     /** The app as the shadow's export names it: its id, version and build. */
     fun appName() = "${si.lanisce.lani.BuildConfig.APPLICATION_ID} ${si.lanisce.lani.BuildConfig.VERSION_NAME} (${si.lanisce.lani.BuildConfig.VERSION_CODE})"
@@ -429,7 +459,12 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch {
             val c = prefs.config()
             paired = prefs.pairing()
-            if (c == null) screen = Screen.Setup else connect(c)
+            when {
+                c == null -> screen = Screen.Setup
+                // Lani on this phone: its bridge boots first (the splash, Screen.Loading, meanwhile; ~0.5 s)
+                hosted.isHosted(c) -> if (hosted.boot(c)) connect(c)
+                else -> connect(c)
+            }
         }
         // everyone who lives in the village has a voice profile on the node (their own voice, or pitch and pace)
         viewModelScope.launch {
@@ -508,8 +543,82 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         game.sync()
         update.check()
         BackgroundCheck.schedule(getApplication())
+        // the hosted mode: no node's clips to get ahead; its rhythm wakes the app's process for its moments (hosted/HostedWork)
+        offlineAudio.onPhone = hosted.isHosted(c)
+        if (hosted.isHosted(c)) si.lanisce.lani.hosted.HostedWork.schedule(getApplication())
         if (foreground) events.restart()
         pendingLink?.let(::open)
+    }
+
+    // --- "☁️ Lani na tem telefonu" (hosted/HostedController) --------------------------------------------------------
+
+    /** The hosted mode's connection, once kept (after its onboarding's data or import). */
+    suspend fun hostedConfig(): BridgeConfig? = prefs.config()?.takeIf(hosted::isHosted)
+
+    /** The onboarding is done (the learner's data made or imported, the bridge up): Home, where the village is founded. */
+    fun hostedReady(c: BridgeConfig) {
+        setupHosted = false
+        paired = null
+        viewModelScope.launch {
+            game.forgetLocal() // the phone's bridge has the village now (or none: the founding comes)
+            connect(c)
+        }
+    }
+
+    /** The splash's "Try again" after the phone's bridge didn't boot. */
+    fun retryHostedBoot() {
+        viewModelScope.launch { prefs.config()?.takeIf(hosted::isHosted)?.let { if (hosted.boot(it)) connect(it) } }
+    }
+
+    /** An export in the hosted mode's data (the settings' 📥, asked first): checked, the data before kept aside. */
+    fun importHosted(uri: android.net.Uri) {
+        viewModelScope.launch {
+            hosted.import(uri, starting = false)
+                .onSuccess { i ->
+                    notices.banner = "📥 ${si.lanisce.lani.ui.hosted.importedLine(i.manifest)}"
+                    game.forgetLocal() // the export's village, not the phone's copy of the one before
+                    hosted.onNewData()
+                }
+                .onFailure { notices.error = it.message }
+        }
+    }
+
+    /**
+     * The settings' "🖥️ To my own computer" (after saying how the data moves): the phone's bridge stops, the connection
+     * goes, setup pairs with the node. The phone's data stays for coming back.
+     */
+    fun leaveHosted() {
+        viewModelScope.launch {
+            events.stop()
+            si.lanisce.lani.hosted.HostedWork.cancel(getApplication())
+            hosted.leave()
+            bridge = null
+            bridgeUrl = null
+            paired = null
+            setupHosted = false
+            screen = Screen.Setup
+        }
+    }
+
+    /** The settings' "☁️ Switch to this phone" (after saying how the data comes): the hosted mode's steps; back to the node. */
+    fun switchToHosted() {
+        events.stop()
+        setupHosted = true
+        screen = Screen.Setup
+    }
+
+    /** Back from the hosted steps to the node this phone was paired with. */
+    fun cancelSwitch() {
+        setupHosted = false
+        viewModelScope.launch { prefs.config()?.let(::connect) ?: run { screen = Screen.Setup } }
+    }
+
+    /** The hosted mode's boot to Home, once: from the view model's start to the first dashboard (the log, tag LaniHosted). */
+    private fun timeHome() {
+        if (homeTimed || !hosted.active) return
+        homeTimed = true
+        val boot = si.lanisce.lani.hosted.HostedRuntime.lastBoot
+        si.lanisce.lani.hosted.HostedRuntime.say("home: ${"%.0f".format((System.nanoTime() - startedAt) / 1e6)} ms after the app started (the bridge: $boot)")
     }
 
     fun refresh(): Job = launchSafely { reload() }
@@ -1016,6 +1125,12 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
             what.startsWith("revoice:") -> what.removePrefix("revoice:").split('|', limit = 2).let { clips.qaRevoice(it[0], it.getOrNull(1)?.takeIf(String::isNotBlank)) }
             what == "refresh" -> clips.refresh()
         }
+    }
+
+    /** QA's "review" hook (app/QaHooks): a review of up to five of the learner's cards, due or not. */
+    fun qaReview() {
+        val cards = content.dashboard?.pool.orEmpty().take(5)
+        if (cards.isNotEmpty()) startRun(Screen.Review(cards, run = ++reviewRuns))
     }
 
     /**
