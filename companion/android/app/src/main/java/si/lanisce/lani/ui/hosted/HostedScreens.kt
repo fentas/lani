@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.rememberScrollState
@@ -179,17 +180,11 @@ fun HostedSetup(vm: AppViewModel, onBack: () -> Unit) {
                     note?.let { Text("✅ $it", color = white) }
                     Text("🧑‍🏫 ${bi("hosted.tutorTitle")}", style = MaterialTheme.typography.titleLarge, color = white, fontWeight = FontWeight.SemiBold)
                     Text(bi("hosted.tutorWhat"), color = muted)
-                    // HOOK(tutor-live): the "🧑‍🏫 Učitelj · Tutor" settings (the provider, the key, "Sign in with ChatGPT")
-                    // come with the live tutor's branch; until they're merged vm.openTutorSettings is null and this step
-                    // only says where they will be.
-                    val tutor = vm.openTutorSettings
-                    if (tutor != null) {
-                        BigButton("🧑‍🏫 ${bi("hosted.tutorSetUp")}", onClick = { config?.let { vm.hostedReady(it); tutor() } }, color = TriglavRed)
-                        BigButton(bi("common.later"), onClick = { config?.let(vm::hostedReady) }, color = white.copy(alpha = 0.2f))
-                    } else {
-                        Text(bi("hosted.tutorLater"), color = muted, style = MaterialTheme.typography.bodySmall)
-                        BigButton("🏡 ${bi("hosted.toVillage")}", onClick = { config?.let(vm::hostedReady) }, color = TriglavRed)
-                    }
+                    // the live tutor's own settings (ui/tutor/TutorSettings: the provider, the key or "Continue with
+                    // ChatGPT"), over Home; on the phone it turns on as soon as a credential is set
+                    BigButton("🧑‍🏫 ${bi("hosted.tutorSetUp")}", onClick = { config?.let { vm.hostedReady(it); vm.openTutorSettings() } }, color = TriglavRed)
+                    BigButton("🏡 ${bi("hosted.toVillage")}", onClick = { config?.let(vm::hostedReady) }, color = white.copy(alpha = 0.2f))
+                    Text(bi("hosted.tutorLater"), color = muted, style = MaterialTheme.typography.bodySmall)
                 }
             }
         }
@@ -358,4 +353,20 @@ fun MoveToPhoneSection(vm: AppViewModel, modifier: Modifier = Modifier) {
         },
         dismissButton = { TextButton(onClick = { asking = false }) { Text(bi("dataSync.cancel")) } },
     )
+}
+
+/**
+ * "🧑‍🏫 Učitelj · Tutor" on its own, over whatever is on screen: the connection sheet's section (ui/tutor/TutorSettings),
+ * opened by the hosted onboarding's tutor step.
+ */
+@Composable
+fun TutorSheet(vm: AppViewModel, onDismiss: () -> Unit) {
+    si.lanisce.lani.ui.LaniSheet(onDismissRequest = onDismiss) {
+        Column(
+            Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 24.dp).padding(bottom = 24.dp).navigationBarsPadding(),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+        ) {
+            si.lanisce.lani.ui.tutor.TutorSettings(vm)
+        }
+    }
 }

@@ -208,6 +208,8 @@ private fun App(vm: AppViewModel) {
     vm.formsCards.view?.let { si.lanisce.lani.ui.FormsOverviewSheet(vm, it) }
     // the shadow tutor's debug panel (a developer setting: tutor/ShadowTutor), over everything
     if (vm.shadow.panelOpen) si.lanisce.lani.ui.tutor.ShadowPanel(vm.shadow, vm.devUpload) { vm.shadow.panelOpen = false }
+    // "🧑‍🏫 Učitelj · Tutor" on its own (ui/hosted/TutorSheet): the hosted onboarding's tutor step opens it
+    if (vm.tutorSheetOpen) si.lanisce.lani.ui.hosted.TutorSheet(vm) { vm.tutorSheetOpen = false }
     // "💾 Podatki · Data" (ui/data/DataSheet): opened from the connection sheet, or by the hosted mode's setup (vm.dataOpen)
     if (vm.dataOpen) si.lanisce.lani.ui.data.DataSheet(vm.data, onDismiss = { vm.dataOpen = false }, banner = { vm.notices.banner = it })
     // no village yet, anywhere: the learner chooses where it will be before anything else of the game

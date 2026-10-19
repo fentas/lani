@@ -267,12 +267,18 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         private set
 
     /**
-     * HOOK(tutor-live): whether a tutor answers in the hosted mode (the live tutor set up: its provider and key), and how
-     * its settings open ("🧑‍🏫 Učitelj · Tutor"). The live tutor's branch sets both; until then the hosted mode's chat says
-     * no tutor is set up yet, and the onboarding's tutor step says where the settings will be.
+     * Whether a tutor answers in the hosted mode: the live tutor on (tutor/live), with its credential. On the phone it is
+     * the only tutor: it is turned on as soon as a credential is set (init below), and the chat and a role-play say so
+     * while there is none.
      */
-    var tutorReady by mutableStateOf(false)
-    var openTutorSettings: (() -> Unit)? = null
+    val tutorReady: Boolean get() = live.settings.on && live.credentialReady()
+    /** The "🧑‍🏫 Učitelj · Tutor" section on its own (ui/hosted/TutorSheet): the hosted onboarding's tutor step opens it. */
+    var tutorSheetOpen by mutableStateOf(false)
+
+    fun openTutorSettings() {
+        tutorSheetOpen = true
+    }
+
     /**
      * When the view model began, or the onboarding finished: the hosted mode's way to Home is measured from here (the
      * log, tag LaniHosted).
@@ -472,6 +478,14 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         // everyone who lives in the village has a voice profile on the node (their own voice, or pitch and pace)
         viewModelScope.launch {
             snapshotFlow { villagers.voicePeople(game.state) }.distinctUntilChanged().collect { clips.syncProfiles(it) }
+        }
+        // Lani on this phone has no node: the tutor in the app is the only one, on once a credential is set
+        viewModelScope.launch {
+            snapshotFlow { hosted.active && !live.settings.on && live.settings.provider.let { live.credentialReady() } }
+                .distinctUntilChanged()
+                .collect { want ->
+                    if (want) live.setOn(true)?.let { si.lanisce.lani.hosted.HostedRuntime.say("the tutor in the app didn't turn on: $it") }
+                }
         }
         // the learner opening the chat runs the shadow tutor's digest (plan 5, "Events to turns")
         viewModelScope.launch {

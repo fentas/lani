@@ -18,6 +18,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.withContext
 import si.lanisce.lani.data.Prefs
+import si.lanisce.lani.hosted.HostedRuntime
+import si.lanisce.lani.hosted.HostedWork
+import si.lanisce.lani.phone.PhoneTransport
 import si.lanisce.lani.tutor.DataStoreSecretStore
 import si.lanisce.lani.tutor.KeyVault
 import si.lanisce.lani.tutor.KeystoreCipher
@@ -43,6 +46,12 @@ object TutorRuntime {
     /** The OpenAI key and the ChatGPT sign-in. */
     fun openai(app: Context): OpenAICredentials = openai ?: synchronized(this) { openai ?: OpenAICredentials.android(app.applicationContext).also { openai = it } }
 
+    /** The client to the phone's own bridge (the hosted mode): every call in-process ([PhoneLink]), booting it when it isn't up. */
+    private fun phoneClient(app: Context) = PhoneLink.client {
+        HostedRuntime.init(app)
+        HostedRuntime.ensure() ?: throw java.io.IOException("Lani on this phone isn't running")
+    }
+
     /** The live tutor of this process (files/tutor-live). */
     fun live(app: Application, debug: Boolean, texts: (String, Map<String, Any?>) -> String = { k, _ -> k }): LiveTutor = live ?: synchronized(this) {
         live ?: LiveTutor(
@@ -52,6 +61,8 @@ object TutorRuntime {
             openai(app),
             bridgeConfig = { Prefs(app).config() },
             debug = debug,
+            // Lani on this phone (no node): the tutor session is the phone's own bridge, in-process (hosted/HostedRuntime)
+            bridgeFor = { c -> if (PhoneTransport.isPhone(c.baseUrl)) LiveBridge(c, phoneClient(app)) else LiveBridge(c) },
             device = android.os.Build.MODEL ?: "Android",
             // its calls, turns and errors (never a key: tutor/KeyVault Redact)
             logLine = { android.util.Log.i("LiveTutor", it) },
@@ -75,6 +86,10 @@ class TutorWork(context: Context, params: WorkerParameters) : CoroutineWorker(co
         val foreground = withContext(Dispatchers.Main) { ProcessLifecycleOwner.get().lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED) }
         if (foreground) return Result.success() // the open app polls itself
         val live = TutorRuntime.live(applicationContext as Application, si.lanisce.lani.BuildConfig.QA, { k, a -> si.lanisce.lani.l10n.bi(k, *a.toList().toTypedArray()) })
+        // Lani on this phone: its bridge boots in this process and sends what the rhythm has due first (the morning's
+        // plan, the evening, the week), so this check answers it now (hosted/HostedWork)
+        HostedRuntime.init(applicationContext)
+        if (HostedRuntime.active(applicationContext)) runCatching { HostedWork.rhythmNow(applicationContext) }
         return try {
             live.backgroundCheck()
             Result.success()

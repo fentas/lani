@@ -64,8 +64,10 @@ fun TutorSettings(vm: AppViewModel, modifier: Modifier = Modifier) {
     val s = live.settings
     val scope = rememberCoroutineScope()
     val muted = MaterialTheme.colorScheme.onSurfaceVariant
-    /** "In the app" chosen here (before it's on: the credential first). */
-    var wantApp by remember { mutableStateOf(s.on) }
+    /** Lani on this phone (hosted/HostedController): no node, the tutor in the app is the only one. */
+    val hosted = vm.hosted.active
+    /** "In the app" chosen here (before it's on: the credential first); always, on the phone. */
+    var wantApp by remember { mutableStateOf(s.on || hosted) }
     var note by remember { mutableStateOf<String?>(null) }
     var busy by remember { mutableStateOf(false) }
     var month by remember { mutableStateOf<Double?>(null) }
@@ -84,8 +86,9 @@ fun TutorSettings(vm: AppViewModel, modifier: Modifier = Modifier) {
 
     Column(modifier, verticalArrangement = Arrangement.spacedBy(6.dp)) {
         Text("🧑‍🏫 ${bi("tutorLive.title")}", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
-        Text(bi("tutorLive.who"), style = MaterialTheme.typography.bodySmall, color = muted)
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+        if (hosted) Text(bi("hosted.tutorOnly"), style = MaterialTheme.typography.bodySmall, color = muted)
+        else Text(bi("tutorLive.who"), style = MaterialTheme.typography.bodySmall, color = muted)
+        if (!hosted) FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             FilterChip(
                 selected = !wantApp && !s.on, enabled = !busy, modifier = Modifier.testTag("tutor-node"),
                 onClick = { wantApp = false; if (s.on) switch(false) },

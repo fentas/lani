@@ -101,29 +101,20 @@ data class Rhythm(
  * The hosted mode's background work (plan 5, "Background work on Android"; docs/plans/05-built/hosted-mode.md): one-time
  * WorkManager work for the rhythm's next moment (the morning, the evening, the week), which wakes the app's process,
  * boots the phone's bridge (its rhythm's timers run while the process lives), waits until the bridge has sent what is
- * due (the channel's daily_morning, daily_evening, daily_weekly), and schedules the next moment. The timing isn't exact,
+ * due (the channel's daily_morning, daily_evening, daily_weekly), lets the live tutor answer it, and schedules the next
+ * moment. The timing isn't exact,
  * which is fine: the bridge catches a moment up within its window.
  */
 class HostedWork(context: Context, params: WorkerParameters) : CoroutineWorker(context, params) {
     override suspend fun doWork(): Result {
         HostedRuntime.init(applicationContext)
         if (!HostedRuntime.active(applicationContext)) return Result.success() // a node again: nothing to wake
-        val file = File(HostedRuntime.dataDir(applicationContext), "app/rhythm.json")
         try {
-            HostedRuntime.ensure()
-            val now = ZonedDateTime.now()
-            val due = Rhythm.read(file).due(now)
-            // the bridge's rhythm looks 15 s after its boot and then every minute: wait until it marked what is due as run
-            val end = System.currentTimeMillis() + WAIT_MS
-            while (due.isNotEmpty() && System.currentTimeMillis() < end) {
-                val r = Rhythm.read(file)
-                if (due.all { r.last[it] == now.toLocalDate().toString() }) break
-                delay(2_000)
-            }
+            val due = rhythmNow(applicationContext)
             HostedRuntime.say("rhythm: woke for ${due.ifEmpty { listOf("nothing due") }.joinToString()}")
-            // HOOK(tutor-live): the live tutor's inbox runs here too, so the morning's plan is answered now, not at
-            // its next 15-minute check
-            for (wake in onWake) runCatching { wake(applicationContext) }
+            // the live tutor answers it now (its inbox has the routine's event), not at its next 15-minute check
+            val live = si.lanisce.lani.tutor.live.TutorRuntime.live(applicationContext as android.app.Application, si.lanisce.lani.BuildConfig.QA, { k, a -> si.lanisce.lani.l10n.bi(k, *a.toList().toTypedArray()) })
+            if (due.isNotEmpty()) live.backgroundCheck()
         } catch (e: Exception) {
             HostedRuntime.say("rhythm: ${e.message}")
         } finally {
@@ -139,8 +130,25 @@ class HostedWork(context: Context, params: WorkerParameters) : CoroutineWorker(c
         /** After the moment itself: the bridge looks every minute (15 s after a boot). */
         const val AFTER_MS = 30_000L
 
-        /** Run after the rhythm woke the bridge (the live tutor's inbox, once it is merged). */
-        val onWake = mutableListOf<suspend (Context) -> Unit>()
+        /**
+         * The phone's bridge booted (in this process, when it isn't up yet) and what the rhythm has due sent: the bridge's
+         * rhythm looks 15 s after its boot and then every minute, so this waits until it marked what is due as run (at
+         * most [WAIT_MS]). What was due. The rhythm's own job and the live tutor's check (tutor/live/TutorWork) run it.
+         */
+        suspend fun rhythmNow(ctx: Context): List<String> {
+            HostedRuntime.init(ctx)
+            HostedRuntime.ensure() ?: return emptyList()
+            val file = File(HostedRuntime.dataDir(ctx), "app/rhythm.json")
+            val now = ZonedDateTime.now()
+            val due = Rhythm.read(file).due(now)
+            val end = System.currentTimeMillis() + WAIT_MS
+            while (due.isNotEmpty() && System.currentTimeMillis() < end) {
+                val r = Rhythm.read(file)
+                if (due.all { r.last[it] == now.toLocalDate().toString() }) break
+                delay(2_000)
+            }
+            return due
+        }
 
         /** The next moment's work, replacing any planned before (the rhythm's settings may have changed). */
         fun schedule(ctx: Context, now: ZonedDateTime = ZonedDateTime.now(ZoneId.systemDefault())) {

@@ -51,10 +51,19 @@ The other ways in:
   or what git pulled), it boots over that.
 
 **Then the tutor.** A step says what the tutor on this phone is: an AI on the learner's own key (Anthropic, OpenAI or a
-ChatGPT plan), paid to the provider by use, and that the village, the exercises and the words work without it.
-`HOOK(tutor-live)`: the live tutor's settings ("🧑‍🏫 Učitelj · Tutor") come with the tutor-live branch. Until it sets
-`vm.openTutorSettings` and `vm.tutorReady`, the step only says where the settings will be, and the chat sheet says
-"🧑‍🏫 Na tem telefonu še ni učitelja: sporočila počakajo nanj · There's no tutor on this phone yet: messages wait for one".
+ChatGPT plan), paid to the provider by use, and that the village, the exercises and the words work without it. "🧑‍🏫
+Nastavi učitelja · Set up the tutor" goes Home and opens the live tutor's own section ("🧑‍🏫 Učitelj · Tutor",
+`ui/tutor/TutorSettings`, in a sheet of its own: `ui/hosted/TutorSheet`); "🏡 V mojo vas · To my village" goes Home, and
+the same section is in the connection sheet later.
+
+- **The tutor in the app is the only one on the phone:** the section shows no "Claude Code on my node" choice there,
+  and the tutor turns on by itself as soon as a credential is set (the view model watches `hosted.active`, the
+  live tutor's credential and its `on`, and calls `LiveTutor.setOn(true)`: the session read, the channel attached).
+- **Its bridge is the phone's own:** `TutorRuntime.live` gives a hosted connection's `LiveBridge` a `PhoneLink` client
+  (`/tutor/session`, attach, the inbox's long poll, the tools: in-process), booting the phone's bridge first in a
+  process the screens didn't start (`TutorWork`).
+- **Until a credential is set** the chat and a role-play say "🧑‍🏫 Na tem telefonu še ni učitelja: sporočila počakajo
+  nanj · There's no tutor on this phone yet: messages wait for one". What is written waits in the bridge's inbox.
 
 Then Home, and the village is founded as with a node: the bridge has no `app/game.json` (`GET /game` is a 404), so the
 founding screen comes.
@@ -108,8 +117,11 @@ unchanged: `Bridge`, the outbox, `EventStream`, `ClipsApi`, `FamilyApi`, the cha
 - **The rhythm's wake-up** (`HostedWork`): one-time WorkManager work at the next moment of `<data>/app/rhythm.json`
   (morning 07:30, evening 20:30, Sunday 19:00 by default, as `rhythm.ts`; the time plus 30 s). It boots the bridge,
   waits up to 90 s until the bridge's rhythm has marked what is due as run (the channel's `daily_morning`,
-  `daily_evening`, `daily_weekly`), runs `HostedWork.onWake` (`HOOK(tutor-live)`: the live tutor's inbox), and schedules
-  the next moment. It is scheduled at every `connect` in the hosted mode, and cancelled on the way back to a node.
+  `daily_evening`, `daily_weekly`: `HostedWork.rhythmNow`), lets the live tutor answer it at once
+  (`LiveTutor.backgroundCheck`), and schedules the next moment. It is scheduled at every `connect` in the hosted mode,
+  and cancelled on the way back to a node.
+- **The live tutor's check** (`TutorWork`, every ~15 minutes while it is on) runs `HostedWork.rhythmNow` first in the
+  hosted mode, so a routine the process missed is sent before the check reads the inbox.
 - **A clean stop** (`HostedRuntime.stop`: `PhoneBridge.stop` keeps the events and closes the streams and the runtime):
   before an import takes the data's place, on a restart (a pull, a new relay), and when the learner switches to a node.
   Android ends the process without notice otherwise; the bridge's files are written as they change (the events within
@@ -235,9 +247,8 @@ companion/bin/qa --steps hosted      # inside flock /tmp/lani-emulator.lock; LAN
 
 ## What's left
 
-- **The tutor** (tutor-live): the settings' hook (`vm.openTutorSettings`, `vm.tutorReady`) and the rhythm's
-  `HostedWork.onWake` for the inbox. tutor-live's `PhoneLink` interceptor can give way to `HostedRuntime.transport`,
-  which handles streams too, and its `TutorWork` reaches the phone's bridge through it in a background process.
+- **One interceptor:** the live tutor's `PhoneLink` and the app's `PhoneTransport` both answer in-process. `PhoneLink`
+  has no streams and lets the bridge add its token; `PhoneTransport` streams and keeps the app's. One could serve both.
 - **Voices:** none on the phone yet (glas, plan 3). The phone's text-to-speech speaks, and the offline voice (Piper) and
   the day's clips are off in this mode.
 - **The car** ("🚗 Za pot") gets ready from a node's clips: in the hosted mode it has only the phone's prompts.
