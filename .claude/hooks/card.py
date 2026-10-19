@@ -44,8 +44,9 @@ force_utf8_io()
 
 SR_FILE = langs.FILES["sr"]
 MISTAKES_FILE = langs.FILES["mistakes"]
-ID = re.compile(r"^[A-Za-z0-9_][A-Za-z0-9_-]{0,127}$")
-DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+# Checked with fullmatch: re.match's $ would take a trailing newline ("vocab_x\n", "2026-09-27\n").
+ID = re.compile(r"[A-Za-z0-9_][A-Za-z0-9_-]{0,127}")
+DATE = re.compile(r"\d{4}-\d{2}-\d{2}")
 MAX_TEXT = 200
 
 
@@ -737,7 +738,7 @@ def cmd_split(store: Store, args) -> dict:
     item = card_of(items, args.id)
     if not shown(item):
         raise Refused(f"split: {args.id} is an error pattern, not a card")
-    if not ID.match(args.new_id):
+    if not ID.fullmatch(args.new_id):
         raise Refused(f"split: --new-id {args.new_id!r}: letters, digits, _ and - (e.g. vocab_ne)")
     if args.new_id in items:
         raise Refused(f"split: {args.new_id} exists already (merge into it, or pick another id)")
@@ -891,9 +892,9 @@ def main(argv=None) -> int:
     try:
         if args.today is None:
             args.today = now().strftime("%Y-%m-%d")
-        elif not DATE.match(args.today):
+        elif not DATE.fullmatch(args.today) or not langs.date_of(args.today):
             raise Refused("--today: YYYY-MM-DD")
-        if getattr(args, "date", None) and not DATE.match(args.date):
+        if getattr(args, "date", None) and (not DATE.fullmatch(args.date) or not langs.date_of(args.date)):
             raise Refused("--date: YYYY-MM-DD")
         # in the form the databases keep (ASCII digits): what is written and compared
         args.today = langs.norm_date(args.today)

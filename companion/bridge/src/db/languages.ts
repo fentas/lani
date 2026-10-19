@@ -18,8 +18,8 @@ const OTHER_NAMES: Record<string, string> = {
   deutsch: 'de', 'nemščina': 'de', 'angleščina': 'en', 'français': 'fr', 'español': 'es',
   hrvatski: 'hr', nederlands: 'nl',
 }
-/** CODE.match (Python's $ also takes a trailing newline). */
-export const CODE = /^[a-z]{2,3}\n?$/
+/** CODE.fullmatch: a language code, two or three letters, the whole string. */
+export const CODE = /^[a-z]{2,3}$/
 const codeMatch = (s: Py): boolean => isStr(s) && CODE.test(s)
 export const CEFR = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
 

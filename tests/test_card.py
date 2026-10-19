@@ -428,6 +428,18 @@ class CardTest(unittest.TestCase):
         self.assertEqual(da["review_history"][0]["regraded"], {"from": 3, "date": "2026-09-27"})  # --today in ASCII digits
         self.assertEqual((da["last_reviewed"], da["due_date"]), ("2026-9-25", "2026-10-01"))
 
+    def test_dates_and_ids_are_checked_whole(self):
+        """re.match's $ took a trailing newline: "--today 2026-09-27\\n" was written into the card, or failed in
+        strptime with a traceback; a date that doesn't exist (2026-02-30) too. Refused now, nothing written."""
+        for args in (("edit", "vocab_da", "--front", "da / ja", "--today", "2026-09-27\n"),
+                     ("edit", "vocab_da", "--front", "da / ja", "--today", "2026-02-30"),
+                     ("merge", "vocab_da", "vocab_ne", "--today", "2026-09-27\n"),
+                     ("regrade", "vocab_da", "--quality", "5", "--date", "2026-09-24\n"),
+                     ("forgive", "iz_genitive", "--date", "2026-09-31")):
+            with self.subTest(args=args):
+                self.assertIn("YYYY-MM-DD", self.refused(*args))
+        self.assertIn("--new-id", self.refused("split", "vocab_ne", "--new-id", "vocab_x\n", "--new-front", "x", "--new-back", "y"))
+
 @db_impl.needs_bun
 class CardDiffTest(CardTest):
     """Every case above, by the Python and the TypeScript port at once: the same output and files."""

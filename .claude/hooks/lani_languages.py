@@ -36,7 +36,8 @@ OTHER_NAMES = {
     "deutsch": "de", "nemščina": "de", "angleščina": "en", "français": "fr", "español": "es",
     "hrvatski": "hr", "nederlands": "nl",
 }
-CODE = re.compile(r"^[a-z]{2,3}$")
+# A language code: two or three letters, the whole string (fullmatch: re.match's $ would take "it\n" too).
+CODE = re.compile(r"[a-z]{2,3}")
 CEFR = ("A1", "A2", "B1", "B2", "C1", "C2")
 
 # The six databases, by the key update-db.py uses, and their file names (the same in every language's directory).
@@ -58,7 +59,7 @@ def language_code(s) -> str | None:
     t = s.strip().lower()
     if not t or "{" in t:
         return None
-    if CODE.match(t):
+    if CODE.fullmatch(t):
         return t
     for code, name in LANGUAGES.items():
         if name.lower() == t:
@@ -101,7 +102,7 @@ def home_language(profile: dict) -> str | None:
     if not isinstance(profile, dict):
         return None
     h = profile.get("home_language")
-    if isinstance(h, str) and CODE.match(h):
+    if isinstance(h, str) and CODE.fullmatch(h):
         return h
     learner = profile.get("learner") if isinstance(profile.get("learner"), dict) else {}
     return language_code(learner.get("target_language_code")) or language_code(learner.get("target_language"))
@@ -110,7 +111,7 @@ def home_language(profile: dict) -> str | None:
 def is_migrated(profile: dict) -> bool:
     """Whether the profile names its home language and lists the others (an empty list is fine)."""
     h = profile.get("home_language") if isinstance(profile, dict) else None
-    return isinstance(h, str) and bool(CODE.match(h)) and isinstance(profile.get("languages"), list)
+    return isinstance(h, str) and bool(CODE.fullmatch(h)) and isinstance(profile.get("languages"), list)
 
 
 def language_dir(data_dir: Path, code: str) -> Path:
@@ -120,7 +121,7 @@ def language_dir(data_dir: Path, code: str) -> Path:
 def listed(profile: dict) -> list:
     """The profile's other languages, as listed: entries with a valid code."""
     out = profile.get("languages") if isinstance(profile, dict) else None
-    return [e for e in out if isinstance(e, dict) and isinstance(e.get("code"), str) and CODE.match(e["code"])] if isinstance(out, list) else []
+    return [e for e in out if isinstance(e, dict) and isinstance(e.get("code"), str) and CODE.fullmatch(e["code"])] if isinstance(out, list) else []
 
 
 def other_codes(data_dir: Path, profile: dict) -> list:
@@ -129,7 +130,7 @@ def other_codes(data_dir: Path, profile: dict) -> list:
     root = data_dir / "languages"
     if root.is_dir():
         for d in sorted(root.iterdir()):
-            if d.is_dir() and CODE.match(d.name) and d.name not in codes and (d / FILES["profile"]).exists():
+            if d.is_dir() and CODE.fullmatch(d.name) and d.name not in codes and (d / FILES["profile"]).exists():
                 codes.append(d.name)
     home = home_language(profile)
     return [c for c in dict.fromkeys(codes) if c != home]

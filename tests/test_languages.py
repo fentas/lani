@@ -403,6 +403,19 @@ class LanguagesTest(unittest.TestCase):
         self.assertEqual(state["languages"][0]["due"], 1)
         self.assertEqual(state["databases"]["learner_profile"]["last_updated"], "2026-4-23")  # as it is written
 
+    def test_a_code_with_a_trailing_newline_is_no_code(self):
+        """re.match's $ took "nl\\n" as the home language's code: a report in "nl" was then another language's, and
+        went to languages/nl/. Now the profile isn't migrated with it, and is again, from its target language."""
+        make_fixtures(self.data)
+        profile = self.load("learner-profile.json")
+        profile["home_language"] = "nl\n"
+        (self.data / "learner-profile.json").write_text(json.dumps(profile))
+        self.update(dict(SESSION_PAYLOAD, language="nl"))
+        self.assertFalse((self.data / "languages").exists())  # the home language's data
+        self.assertEqual(self.load("learner-profile.json")["home_language"], "nl")
+        self.assertEqual(self.load("session-log.json")["sessions"][-1]["session_id"], "session-002")
+        self.assertEqual(self.read()["language"], "nl")
+
     def test_read_db_refuses_what_isnt_a_language(self):
         make_fixtures(self.data)
         p = self.run_script("read-db.py", ("--language", "not a language"))

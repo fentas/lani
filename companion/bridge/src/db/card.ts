@@ -15,8 +15,9 @@ import { copy2, exists, expanduser, isUnder, mkdirp, parent, pjoin, pnorm, readT
 
 const SR_FILE = FILE.sr
 const MISTAKES_FILE = FILE.mistakes
-const ID = /^[A-Za-z0-9_][A-Za-z0-9_-]{0,127}\n?$/
-const DATE = /^\p{Nd}{4}-\p{Nd}{2}-\p{Nd}{2}\n?$/u
+/** ID.fullmatch and DATE.fullmatch (JS's $ without the m flag is the end only, as \Z). */
+const ID = /^[A-Za-z0-9_][A-Za-z0-9_-]{0,127}$/
+const DATE = /^\p{Nd}{4}-\p{Nd}{2}-\p{Nd}{2}$/u
 const MAX_TEXT = 200
 
 /** Invalid input or a change the card can't take: exit 1, nothing written. */
@@ -915,9 +916,9 @@ export function main(ctx: Ctx, argv: string[]): void {
   try {
     const today = args.get('today') as Py
     if (today === null) args.set('today', fmtDate(ctx.now()))
-    else if (!DATE.test(today as string)) throw new Refused('--today: YYYY-MM-DD')
+    else if (!DATE.test(today as string) || !dateOf(today)) throw new Refused('--today: YYYY-MM-DD')
     const date = args.get('date') ?? null
-    if (truthy(date) && !DATE.test(date as string)) throw new Refused('--date: YYYY-MM-DD')
+    if (truthy(date) && (!DATE.test(date as string) || !dateOf(date))) throw new Refused('--date: YYYY-MM-DD')
     // in the form the databases keep (ASCII digits): what is written and compared
     args.set('today', normDate(args.get('today') as Py))
     if (truthy(date)) args.set('date', normDate(date as Py))

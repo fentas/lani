@@ -335,7 +335,9 @@ with the same prompt (when one of them is asked for) or the same answer.
 
 - Every command takes `--data DIR` (default: the learner's data directory) and `--language CODE`
   (another language's cards, `data/languages/<code>/`). The writing ones take `--reason` (kept
-  with the change), `--dry-run` (print, write nothing) and `--today YYYY-MM-DD`.
+  with the change), `--dry-run` (print, write nothing) and `--today YYYY-MM-DD`. `--today` and `--date` must be
+  whole dates that exist (`2026-09-27`; not `2026-02-30`, nor with a line break after it), and `--new-id` a whole id:
+  anything else is refused (exit `1`).
 - Before writing, the files it changes are copied to `.backups/pre-card-<command>-<time>/`; each
   is written with `.tmp` + `fsync` + rename. A regrade, merge or split rebuilds `review_queue`.
 - The app reads the cards through `GET /state` (read-db.py) each time it goes Home: no restart.
