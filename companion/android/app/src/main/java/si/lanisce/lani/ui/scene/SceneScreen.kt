@@ -339,11 +339,11 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
     // The lines of «Vidim, vidim» come out one after another (a game adds several at once: its line and the first clue): each
     // of the child's typed in and said in the child's voice to its end before the next starts, the child drawn talking
     // meanwhile (LinesInTurn). A tap on another 🔊 stops the line at once (the next waits for it); leaving the game stops it.
-    val ispyLines = remember(ispy?.started) { LinesInTurn() }
-    LaunchedEffect(ispy?.started) {
+    val ispyLines = remember(ispy?.game) { LinesInTurn() }
+    LaunchedEffect(ispy?.game) {
         val g = ispy ?: return@LaunchedEffect
         val who = voiceOf(g.host.person)
-        val lines = snapshotFlow { vm.ispy.play?.takeIf { it.started == g.started && it.sceneId == scene.id }?.run?.said.orEmpty() }
+        val lines = snapshotFlow { vm.ispy.play?.takeIf { it.game == g.game && it.sceneId == scene.id }?.run?.said.orEmpty() }
         ispyLines.follow(lines) { line -> speaker.sayInTurn(line.sl, voiceName = who.voice, fallback = who.fallback, person = who.person) }
     }
     val ispyTalking = ispyLines.talking

@@ -37,14 +37,16 @@ import java.time.LocalDate
 data class ISpyOffer(val sceneId: String, val host: ISpyHost, val left: Int, val lines: ISpyLines)
 
 /**
- * A game of «Vidim, vidim» in scene [sceneId] with [host]: the [run], when it [started] (on screen), and at its end what it
- * paid ([paid]), the friendship ([friend]) and how many of its finds were a review of a card ([reviewed]).
+ * A game of «Vidim, vidim» in scene [sceneId] with [host]: the [run], when it [started] (on screen), which game of the
+ * app's it is ([game]: the scene screen's lines in turn follow one game), and at its end what it paid ([paid]), the
+ * friendship ([friend]) and how many of its finds were a review of a card ([reviewed]).
  */
 data class ISpyPlay(
     val sceneId: String,
     val host: ISpyHost,
     val run: ISpyRun,
     val started: Long = 0L,
+    val game: Int = 0,
     val settled: Boolean = false,
     val paid: si.lanisce.lani.app.ISpyPaid? = null,
     val friend: FriendGain? = null,
@@ -77,6 +79,9 @@ class ISpyController(
     /** The game being played, or null. */
     var play by mutableStateOf<ISpyPlay?>(null)
         private set
+
+    /** The games started since the app did ([ISpyPlay.game]). */
+    private var games = 0
 
     // --- the content: bundled, read in the learner's pair --------------------------------------------------------------
 
@@ -150,7 +155,7 @@ class ISpyController(
         )
         if (rounds.isEmpty()) return false
         val names = scene.objects.associate { o -> o.slot to ((o.sl.ifBlank { o.word }) to (book?.things?.get(o.slot)?.meaning ?: ISpy.meaningOf(o.en))) }
-        play = ISpyPlay(scene.id, offer.host, ISpyRun.start(offer.host.person.id, rounds, offer.lines, names), started = ScreenClock.app.now())
+        play = ISpyPlay(scene.id, offer.host, ISpyRun.start(offer.host.person.id, rounds, offer.lines, names), started = ScreenClock.app.now(), game = ++games)
         return true
     }
 

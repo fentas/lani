@@ -304,9 +304,16 @@ class Speaker(private val context: Context) {
         }
     }
 
-    /** Waits until no voice of the app's is speaking or loading: a 🔊 tapped meanwhile is heard to its end before the next line. */
+    /**
+     * Waits until no voice of the app's is speaking or loading (a 🔊 tapped meanwhile is heard to its end before the next
+     * line), at most as long as [heard] waits for a line.
+     */
     suspend fun awaitQuiet() {
-        while (busy) delay(POLL_MS)
+        var waited = 0L
+        while (busy && waited < LONGEST_MS) {
+            delay(POLL_MS)
+            waited += POLL_MS
+        }
     }
 
     /**
