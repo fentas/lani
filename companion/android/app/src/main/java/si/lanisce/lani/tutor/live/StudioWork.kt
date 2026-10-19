@@ -33,6 +33,9 @@ class StudioWork(context: Context, params: WorkerParameters) : CoroutineWorker(c
         val foreground = withContext(Dispatchers.Main) { ProcessLifecycleOwner.get().lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED) }
         if (foreground) return Result.success() // the open app runs the studio itself
         val live = TutorRuntime.live(applicationContext as Application, si.lanisce.lani.BuildConfig.QA, { k, a -> si.lanisce.lani.l10n.bi(k, *a.toList().toTypedArray()) })
+        // Lani on this phone: the job's tools and its saved steps are the phone's own bridge, booted in this process at
+        // the first call (TutorRuntime's PhoneLink client, hosted/HostedRuntime)
+        si.lanisce.lani.hosted.HostedRuntime.init(applicationContext)
         return try {
             live.studioBackground(BUDGET_MS)
             Result.success()

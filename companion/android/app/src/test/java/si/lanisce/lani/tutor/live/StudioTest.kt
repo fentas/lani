@@ -391,7 +391,16 @@ class StudioTest {
         val t = ready()
         val id = node.push("villager_arrived", "main", "Someone moved in: Nina, the potter. [t:module]")
         t.backgroundCheck()
+        // the event's job is made on the tutor's thread after the event is taken: wait for it, then for its run
+        for (i in 0 until 200) {
+            if (node.jobs.isNotEmpty()) break
+            delay(20)
+        }
         settle(t)
+        for (i in 0 until 200) {
+            if (node.jobs.values.singleOrNull()?.str("status") == StudioJob.DONE) break
+            delay(20)
+        }
         val job = node.jobs.values.single()
         assertEquals("event", job.str("origin"))
         assertEquals("villager_arrived", job.str("event_kind"))
