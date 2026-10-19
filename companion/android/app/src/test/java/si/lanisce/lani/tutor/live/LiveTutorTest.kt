@@ -1,0 +1,470 @@
+package si.lanisce.lani.tutor.live
+
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
+import okhttp3.Interceptor
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.Protocol
+import okhttp3.Request
+import okhttp3.Response
+import okhttp3.ResponseBody.Companion.toResponseBody
+import okio.Buffer
+import org.junit.After
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
+import org.junit.Test
+import si.lanisce.lani.data.BridgeConfig
+import si.lanisce.lani.tutor.AnthropicTransport
+import si.lanisce.lani.tutor.AssistantMessage
+import si.lanisce.lani.tutor.FAKE_KEY
+import si.lanisce.lani.tutor.KeyVault
+import si.lanisce.lani.tutor.MemoryStore
+import si.lanisce.lani.tutor.SoftCipher
+import si.lanisce.lani.tutor.TurnKind
+import si.lanisce.lani.tutor.TurnStatus
+import si.lanisce.lani.tutor.Usage
+import si.lanisce.lani.tutor.blocks
+import si.lanisce.lani.tutor.message
+import si.lanisce.lani.tutor.obj
+import si.lanisce.lani.tutor.role
+import si.lanisce.lani.tutor.sse
+import si.lanisce.lani.tutor.str
+import si.lanisce.lani.tutor.text
+import si.lanisce.lani.tutor.thinking
+import si.lanisce.lani.tutor.toolUse
+import si.lanisce.lani.tutor.tutorJson
+import java.io.File
+import java.nio.file.Files
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.util.Collections
+import java.util.concurrent.Executors
+
+/**
+ * The live tutor end to end (docs/plans/05-built/tutor-live.md): over the real Messages API client (its SSE parsing, the
+ * reply's streamed input) against a scripted API, and a fake paired bridge playing the tutor session's routes
+ * (companion/bridge/src/features/tutor.ts): attach, the inbox, the tools for real through the bridge, the reply
+ * streamed into the chat, the acks, the digest, the cap, the key refused, the credit out, the role-play's own thread,
+ * the text taken as the reply, detach giving back; and the guards: the key only to the API, the bridge token only to
+ * the bridge.
+ */
+class LiveTutorTest {
+    private val zone = ZoneId.of("Europe/Ljubljana")
+    private val dir: File = Files.createTempDirectory("live-test").toFile()
+    private var now = LocalDateTime.of(2026, 10, 19, 10, 0).atZone(zone).toInstant().toEpochMilli()
+    private val lines = Collections.synchronizedList(mutableListOf<String>())
+    private val vault = KeyVault(SoftCipher(), MemoryStore())
+    private val scopes = mutableListOf<CoroutineScope>()
+    private val streamed = Collections.synchronizedList(mutableListOf<String?>())
+    private val notes = Collections.synchronizedList(mutableListOf<String>())
+
+    // --- the API -------------------------------------------------------------------------------------------------------
+
+    private var script: (JsonObject, Int) -> AssistantMessage = ::tutorTurn
+    private var usage = Usage(input = 100, cacheWrite1h = 4_000, output = 80)
+    private var failOn: (Int) -> Triple<Int, String, String>? = { null }
+    private var calls = 0
+    private val api = Answering { r ->
+        if (r.url.encodedPath == "/v1/models") return@Answering Triple(200, MODELS, "application/json")
+        val o = tutorJson.parseToJsonElement(bodyOf(r)) as JsonObject
+        calls++
+        failOn(calls)?.let { return@Answering it }
+        val m = script(o, calls)
+        Triple(200, sseOf(m.copy(usage = usage), (o["model"] as JsonPrimitive).content), "text/event-stream")
+    }
+
+    private fun posts(): List<JsonObject> = synchronized(api.requests) { api.requests.toList() }.filter { it.method == "POST" }.map { tutorJson.parseToJsonElement(bodyOf(it)) as JsonObject }
+
+    // --- the paired bridge's tutor session -----------------------------------------------------------------------------
+
+    private val node = FakeNode()
+
+    private fun tutor(): LiveTutor {
+        val scope = CoroutineScope(SupervisorJob())
+        scopes += scope
+        return LiveTutor(
+            scope, LiveStore(dir), vault, openai = null,
+            bridgeConfig = { BridgeConfig("http://node.test:8790", BRIDGE_TOKEN) },
+            debug = false,
+            transportFor = { base, key -> AnthropicTransport(base, key, OkHttpClient.Builder().addInterceptor(api).build(), clock = { now }) },
+            bridgeFor = { c -> LiveBridge(c, OkHttpClient.Builder().addInterceptor(node).build()) },
+            fran = null,
+            clock = { now }, zone = { zone }, device = "test phone",
+            logLine = { lines += it }, sleep = {},
+            io = Executors.newSingleThreadExecutor().asCoroutineDispatcher(),
+            texts = { key, _ -> key },
+        ).also { t ->
+            t.onStreaming = { conv, text -> if (conv == "main") streamed += text }
+            t.onNote = { notes += it }
+        }
+    }
+
+    @After fun stop() {
+        scopes.forEach { it.cancel() }
+        dir.deleteRecursively()
+    }
+
+    private suspend fun ready(t: LiveTutor = tutor()): LiveTutor {
+        t.refreshCredentials()
+        assertEquals(null, t.setKey(FAKE_KEY))
+        assertEquals(null, t.setOn(true))
+        return t
+    }
+
+    // --- the tests -----------------------------------------------------------------------------------------------------
+
+    @Test fun `on: attached to the bridge's tutor session; a chat is answered for real, the reply streamed, the event acknowledged`() = runBlocking {
+        val t = ready()
+        assertTrue("attached", node.attached)
+        assertEquals("test phone", node.device)
+        assertEquals(LiveState.IDLE, t.state)
+        val id = node.push("chat", "main", "Kako se reče stove?")
+        t.backgroundCheck()
+        // three calls: the guide and learner_state, then the reply, then done
+        assertEquals(3, posts().size)
+        val toolNames = node.tools.map { it.first }
+        assertEquals("learner_state and reply through the bridge (the guide is the app's own)", listOf("learner_state", "reply"), toolNames)
+        val reply = node.tools.first { it.first == "reply" }.second
+        assertEquals("main", reply["args"]!!.jsonObject["conversation_id"]!!.jsonPrimitive.content)
+        assertTrue("the tool call's id as the client id", reply["client_id"]!!.jsonPrimitive.content.startsWith("r"))
+        // the reply streamed as it was written: growing prefixes of the final text
+        val texts = streamed.filterNotNull()
+        assertTrue("streamed in pieces: $texts", texts.size >= 3)
+        assertTrue("each piece grows", texts.zipWithNext().all { (a, b) -> b.startsWith(a) })
+        assertEquals(REPLY, texts.last())
+        assertEquals("acknowledged once done", listOf(id), node.acked)
+        val turn = t.today.turns.single()
+        assertEquals(TurnStatus.DONE, turn.status)
+        assertEquals(TurnKind.DAY, turn.kind)
+        assertEquals(REPLY, turn.replies.single().text)
+        // the first message of the day's thread: the notebook from the node, the event in the channel's shape
+        val first = posts().first()["messages"]!!.jsonArray.first().toString()
+        assertTrue(first.contains("Jan likes tables") && first.contains("<event kind=\\\"chat\\\" conversation_id=\\\"main\\\""))
+        // the guards: the key only in x-api-key to the API, the bridge token only to the bridge
+        assertTrue(api.requests.all { it.url.host == "api.anthropic.com" && it.header("x-api-key") == FAKE_KEY && it.header("Authorization") == null })
+        assertTrue(node.requests.all { it.url.host == "node.test" && it.header("x-api-key") == null && it.header("Authorization") == "Bearer $BRIDGE_TOKEN" })
+        assertFalse(node.requests.any { bodyOf(it).contains(FAKE_KEY) })
+        assertFalse(api.requests.any { bodyOf(it).contains(BRIDGE_TOKEN) })
+        assertFalse(lines.any { it.contains(FAKE_KEY) || it.contains(BRIDGE_TOKEN) })
+        assertTrue("priced", t.spent() > 0)
+    }
+
+    @Test fun `session_end at once (react at once): record_session goes through the bridge with learner_state's next session id`() = runBlocking {
+        val t = ready()
+        t.update { it.copy(reactAtOnce = true) }.join()
+        script = { body, n ->
+            val last = body["messages"]!!.jsonArray.last().jsonObject
+            val results = last.blocks().any { it.str("type") == "tool_result" }
+            when {
+                !results && !body.toString().contains("tool_result") -> message("tool_use", toolUse("s$n", "learner_state"))
+                node.tools.none { it.first == "record_session" } -> message(
+                    "tool_use",
+                    toolUse("rec$n", "record_session", obj("session_id" to "session-042", "date" to "2026-10-19", "duration_minutes" to 5)),
+                    toolUse("r$n", "reply", obj("conversation_id" to "main", "text" to "Shranjeno.")),
+                )
+                else -> message("end_turn", text("Opravljeno."))
+            }
+        }
+        val id = node.push("session_end", "main", "Session done.\n\n```json\n{\"results\": []}\n```")
+        t.backgroundCheck()
+        val rec = node.tools.firstOrNull { it.first == "record_session" }?.second
+        assertNotNull("record_session ran on the bridge", rec)
+        assertEquals("session-042", rec!!["args"]!!.jsonObject["session_id"]!!.jsonPrimitive.content)
+        assertEquals(listOf(id), node.acked)
+        assertEquals("grading's model (Haiku), a stateless call", TurnKind.STATELESS, t.today.turns.single().kind)
+    }
+
+    @Test fun `the digest: nothing worth saying is acknowledged without a call; a wrong answer is a turn`() = runBlocking {
+        val t = ready()
+        val quiet = node.push("review_done", "main", "App review finished (already persisted as session-010): 5/5 recalled in 2 min.")
+        t.backgroundCheck()
+        assertEquals("into the digest: no call yet", 0, posts().size)
+        assertTrue(node.acked.isEmpty())
+        t.onChatOpened().join()
+        t.awaitIdle()
+        assertEquals("all right, five: nothing worth a call", 0, posts().size)
+        t.backgroundCheck() // the acks go out
+        assertEquals(listOf(quiet), node.acked)
+        val wrong = node.push("review_done", "main", "App review finished (already persisted as session-011): 3/5 recalled in 2 min. Struggled with: vocab_kurim.")
+        t.backgroundCheck()
+        t.onChatOpened().join()
+        t.awaitIdle()
+        assertTrue("a turn for the digest", posts().isNotEmpty())
+        t.backgroundCheck()
+        assertTrue(wrong in node.acked)
+        assertEquals("digest", t.today.turns.last().eventKind)
+    }
+
+    @Test fun `the daily cap stops it and says so in the chat`() = runBlocking {
+        val t = ready()
+        t.update { it.copy(dailyCap = 0.0001) }.join()
+        node.push("chat", "main", "Živjo")
+        t.backgroundCheck()
+        assertEquals("one call, then the cap", 1, posts().size)
+        assertEquals(LiveState.PAUSED_BUDGET, t.state)
+        assertEquals(listOf("tutorLive.note.budget"), notes)
+        assertTrue("the turn waits", t.queue().isNotEmpty())
+        assertTrue("not acknowledged: it waits", node.acked.isEmpty())
+        t.update { it.copy(dailyCap = 5.0) }.join()
+        t.awaitIdle()
+        assertEquals(TurnStatus.DONE, t.today.turns.single().status)
+    }
+
+    @Test fun `a refused key pauses it and says so; a new key goes on`() = runBlocking {
+        val t = ready()
+        failOn = { n -> if (n == 1) Triple(401, """{"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"}}""", "application/json") else null }
+        node.push("chat", "main", "Živjo")
+        t.backgroundCheck()
+        assertEquals(LiveState.PAUSED_KEY, t.state)
+        assertEquals(listOf("tutorLive.note.key"), notes)
+        assertEquals(null, t.setKey(FAKE_KEY))
+        t.awaitIdle()
+        assertEquals(TurnStatus.DONE, t.today.turns.single().status)
+    }
+
+    @Test fun `the credit out: a chat says why it can't answer, the routine waits`() = runBlocking {
+        val t = ready()
+        failOn = { Triple(400, """{"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API."}}""", "application/json") }
+        val id = node.push("chat", "main", "Živjo")
+        t.backgroundCheck()
+        assertEquals(LiveState.PAUSED_CREDIT, t.state)
+        assertEquals(listOf("tutorLive.note.credit"), notes)
+        assertEquals(TurnStatus.FAILED, t.today.turns.single().status)
+        assertEquals("told, so done with", listOf(id), node.acked)
+    }
+
+    @Test fun `off: detached, what the app hadn't answered goes back to Claude Code`() = runBlocking {
+        val t = ready()
+        failOn = { Triple(401, """{"type":"error","error":{"type":"authentication_error","message":"no"}}""", "application/json") }
+        node.push("chat", "main", "Živjo")
+        t.backgroundCheck()
+        assertTrue("the turn waits for a key", t.queue().isNotEmpty())
+        assertEquals(null, t.setOn(false))
+        assertFalse(node.attached)
+        assertEquals("the inbox held it: given back", 1, node.returned)
+        assertTrue("the queue let it go", t.queue().isEmpty())
+        assertEquals(TurnStatus.SKIPPED, t.today.turns.single().status)
+        assertEquals(LiveState.OFF, t.state)
+    }
+
+    @Test fun `what writes content is left for Claude Code: never run, never acknowledged`() = runBlocking {
+        val t = ready()
+        node.push("villager_arrived", "main", "Someone moved in.")
+        t.backgroundCheck()
+        assertEquals(0, posts().size)
+        assertTrue(node.acked.isEmpty())
+        assertEquals("villager_arrived", t.today.events.single().kind)
+    }
+
+    @Test fun `a role-play's turns on their own short thread; its end lets the thread go`() = runBlocking {
+        val t = ready()
+        script = { body, n ->
+            val last = body["messages"]!!.jsonArray.last().jsonObject
+            if (last.blocks().any { it.str("type") == "tool_result" }) message("end_turn", text("…"))
+            else {
+                val conv = Regex("""conversation_id=\\"([\w-]+)""").find(last.toString())?.groupValues?.get(1) ?: "rp-x"
+                message("tool_use", toolUse("rp$n", "reply", obj("conversation_id" to conv, "text" to "Me veseli! ($n)")))
+            }
+        }
+        node.push("roleplay", "rp-cafe", "Dober dan!\n\n```json\n{\"scenario_id\": \"kavarna\", \"turn\": 1, \"heard\": \"Dober dan\"}\n```")
+        t.backgroundCheck()
+        node.push("roleplay", "rp-cafe", "Eno kavo, prosim.\n\n```json\n{\"scenario_id\": \"kavarna\", \"turn\": 2, \"heard\": \"Eno kavo, prosim\"}\n```")
+        t.backgroundCheck()
+        val second = posts().first { it.toString().contains("Eno kavo") }
+        assertTrue("the second turn's request carries the first", second.toString().contains("Dober dan"))
+        assertTrue(t.today.turns.all { it.kind == TurnKind.ROLEPLAY })
+        assertNotNull(t.store.roleplay("rp-cafe"))
+        node.push("roleplay_end", "rp-cafe", "Role-play finished: Kavarna\n\n```json\n{\"scenario_id\": \"kavarna\", \"turns\": 2}\n```")
+        t.backgroundCheck()
+        assertEquals(null, t.store.roleplay("rp-cafe"))
+        assertEquals(3, node.tools.count { it.first == "reply" })
+    }
+
+    @Test fun `a turn that answers as text: that text goes out through the bridge's reply`() = runBlocking {
+        val t = ready()
+        script = { _, _ -> message("end_turn", text("Kar takole: peč.")) }
+        node.push("chat", "main", "Kako se reče stove?")
+        t.backgroundCheck()
+        val sent = node.tools.single()
+        assertEquals("reply", sent.first)
+        assertEquals("Kar takole: peč.", sent.second["args"]!!.jsonObject["text"]!!.jsonPrimitive.content)
+        assertTrue(t.today.turns.single().replyFromText)
+    }
+
+    @Test fun `a node without the tutor session says it needs an update, and stays off`() = runBlocking {
+        val t = tutor()
+        t.refreshCredentials()
+        assertEquals(null, t.setKey(FAKE_KEY))
+        node.old = true
+        val said = t.setOn(true)
+        assertNotNull(said)
+        assertTrue(said!!.contains("update"))
+        assertEquals(LiveState.OFF, t.state)
+        assertFalse(t.settings.on)
+    }
+
+    @Test fun `a tool the node lacks says so, nothing sent`() = runBlocking {
+        val t = ready()
+        node.lacking += "learner_state"
+        // the session was read at attach: turn it off and on again for the new list
+        t.setOn(false)
+        t.setOn(true)
+        node.push("chat", "main", "Živjo")
+        t.backgroundCheck()
+        assertFalse(node.tools.any { it.first == "learner_state" })
+        val rec = t.today.turns.single().toolCalls.first { it.name == "learner_state" }
+        assertTrue(rec.isError && rec.result.contains("needs an update"))
+    }
+
+    // --- helpers ------------------------------------------------------------------------------------------------------
+
+    /** A small tutor: guide and learner_state first, then the reply, then done (as the bun mock). */
+    private fun tutorTurn(body: JsonObject, n: Int): AssistantMessage {
+        val messages = body["messages"]!!.jsonArray.map { it.jsonObject }
+        val last = messages.last()
+        val results = last.blocks().any { it.str("type") == "tool_result" }
+        val prev = messages.getOrNull(messages.size - 2)
+        val replied = prev?.blocks()?.any { it.str("type") == "tool_use" && it.str("name") in setOf("reply", "notebook_write") } == true
+        if (!results && last.toString().contains("[notebook_write]")) return message("tool_use", toolUse("nb$n", "notebook_write", obj("text" to "# Notebook\n- Jan: A2")))
+        if (!results) return message("tool_use", thinking("sig$n"), text("Pogledam."), toolUse("g$n", "guide", obj("topic" to "feedback")), toolUse("s$n", "learner_state"))
+        if (!replied) {
+            val conv = Regex("""conversation_id=\\"([\w-]+)""").find(messages.last { m -> m.role() == "user" && m.blocks().none { it.str("type") == "tool_result" } }.toString())?.groupValues?.get(1) ?: "main"
+            return message("tool_use", toolUse("r$n", "reply", obj("conversation_id" to conv, "text" to REPLY)))
+        }
+        return message("end_turn", text("Opravljeno."))
+    }
+
+    /** An OkHttp interceptor that answers every request itself and keeps them. */
+    private class Answering(private val answer: (Request) -> Triple<Int, String, String>) : Interceptor {
+        val requests: MutableList<Request> = Collections.synchronizedList(mutableListOf())
+        override fun intercept(chain: Interceptor.Chain): Response {
+            val r = chain.request()
+            requests += r
+            val (code, body, type) = answer(r)
+            return Response.Builder().request(r).protocol(Protocol.HTTP_1_1).code(code).message("x").body(body.toResponseBody(type.toMediaType())).build()
+        }
+    }
+
+    /** The paired bridge's tutor session, played (companion/bridge/src/features/tutor.ts's routes). */
+    private inner class FakeNode : Interceptor {
+        val requests: MutableList<Request> = Collections.synchronizedList(mutableListOf())
+        private val inbox = mutableListOf<JsonObject>()
+        private var next = 1_000L
+        @Volatile var attached = false
+        @Volatile var device: String? = null
+        @Volatile var old = false
+        @Volatile var returned = 0
+        val acked: MutableList<Long> = Collections.synchronizedList(mutableListOf())
+        val tools: MutableList<Pair<String, JsonObject>> = Collections.synchronizedList(mutableListOf())
+        val lacking = mutableSetOf<String>()
+
+        @Synchronized fun push(kind: String, conversation: String, content: String): Long {
+            val id = next++
+            inbox += obj("id" to id, "content" to content, "meta" to obj("kind" to kind, "conversation_id" to conversation, "msg_id" to "m$id"), "at" to now)
+            return id
+        }
+
+        private val TOOLS = listOf("channel_guide", "reply", "get_village", "recent_answers", "list_packs", "list_grammar", "get_grammar", "publish_gloss", "publish_sentence_note", "set_rhythm")
+        private val APP_TOOLS = listOf("learner_state", "record_session", "card", "notebook_note", "notebook_write", "report_problem")
+
+        @Synchronized override fun intercept(chain: Interceptor.Chain): Response {
+            val r = chain.request()
+            requests += r
+            val path = r.url.encodedPath
+            fun ok(body: String) = Response.Builder().request(r).protocol(Protocol.HTTP_1_1).code(200).message("ok").body(body.toResponseBody("application/json".toMediaType())).build()
+            fun code(c: Int) = Response.Builder().request(r).protocol(Protocol.HTTP_1_1).code(c).message("x").body("""{"error":"x"}""".toResponseBody("application/json".toMediaType())).build()
+            val status = { obj("attached" to if (attached) obj("who" to "app", "since" to "2026-10-19T08:00:00Z") else null, "inbox" to obj("size" to inbox.size, "last_id" to next - 1)) }
+            fun names(l: List<String>) = JsonArray(l.filter { it !in lacking }.map { obj("name" to it, "description" to "", "inputSchema" to obj("type" to "object")) })
+            val body = bodyOf(r).takeIf { it.isNotBlank() }?.let { tutorJson.parseToJsonElement(it) as JsonObject }
+            return when {
+                old && path.startsWith("/tutor/") -> code(404)
+                path == "/tutor/session" -> ok(JsonObject(status() + mapOf("protocol" to JsonPrimitive(1), "instructions" to JsonPrimitive("the channel's rules"), "tools" to names(TOOLS), "app_tools" to names(APP_TOOLS))).toString())
+                path == "/tutor/attach" -> {
+                    attached = true
+                    device = body?.str("device")
+                    ok(JsonObject(status() + ("ok" to JsonPrimitive(true))).toString())
+                }
+                path == "/tutor/detach" -> {
+                    attached = false
+                    returned = inbox.size
+                    inbox.clear()
+                    ok(obj("ok" to true, "returned" to returned).toString())
+                }
+                path == "/tutor/inbox" -> {
+                    val after = r.url.queryParameter("after")?.toLong() ?: 0
+                    ok(JsonObject(status() + ("items" to JsonArray(if (attached) inbox.filter { it["id"]!!.jsonPrimitive.content.toLong() > after } else emptyList()))).toString())
+                }
+                path == "/tutor/inbox/ack" -> {
+                    val ids = body!!["ids"]!!.jsonArray.map { it.jsonPrimitive.content.toLong() }
+                    acked += ids.filter { it !in acked }
+                    inbox.removeAll { it["id"]!!.jsonPrimitive.content.toLong() in ids }
+                    ok(JsonObject(status() + ("ok" to JsonPrimitive(true))).toString())
+                }
+                path.startsWith("/tutor/tools/") -> {
+                    val name = path.removePrefix("/tutor/tools/")
+                    tools += name to body!!
+                    val text = when (name) {
+                        "reply" -> "delivered"
+                        "learner_state" -> """{"computed":{"next_session_id":"session-042","today":"2026-10-19"},"learner":{"name":"Jan"}}"""
+                        else -> "done"
+                    }
+                    ok(obj("content" to JsonArray(listOf(obj("type" to "text", "text" to text)))).toString())
+                }
+                path == "/tutor/notebook" -> ok(obj("text" to "# Notebook\n- Jan likes tables", "updated_at" to "2026-10-18T20:00:00Z").toString())
+                path == "/lookup" -> ok("""{"word":"peč","meanings":["stove"]}""")
+                else -> code(404)
+            }
+        }
+    }
+
+    private companion object {
+        const val BRIDGE_TOKEN = "bridge-token-live-test-0123456789"
+        const val REPLY = "**Peč** · the stove. *Na peči je toplo.* · It's warm on the stove."
+        const val MODELS = """{"data":[{"id":"claude-opus-5-5","created_at":"2026-10-01"},{"id":"claude-sonnet-5-5","created_at":"2026-10-01"},{"id":"claude-haiku-5-5","created_at":"2026-10-07"}],"has_more":false}"""
+
+        fun bodyOf(r: Request): String = r.body?.let { b -> Buffer().also { b.writeTo(it) }.readUtf8() }.orEmpty()
+
+        /** [m] as the API streams it: a tool's input in pieces of seven characters (input_json_delta). */
+        fun sseOf(m: AssistantMessage, model: String): String {
+            val events = mutableListOf<Pair<String, String>>()
+            fun usage(u: Usage, output: Long) = obj(
+                "input_tokens" to u.input, "cache_creation_input_tokens" to u.cacheWrite, "cache_read_input_tokens" to u.cacheRead,
+                "cache_creation" to obj("ephemeral_5m_input_tokens" to u.cacheWrite5m, "ephemeral_1h_input_tokens" to u.cacheWrite1h), "output_tokens" to output,
+            )
+            events += "message_start" to obj("type" to "message_start", "message" to obj("id" to "msg_x", "type" to "message", "role" to "assistant", "model" to model, "content" to JsonArray(emptyList()), "usage" to usage(m.usage, 1))).toString()
+            m.content.forEachIndexed { i, b ->
+                fun delta(d: JsonObject) { events += "content_block_delta" to obj("type" to "content_block_delta", "index" to i, "delta" to d).toString() }
+                when (b.str("type")) {
+                    "text" -> {
+                        events += "content_block_start" to obj("type" to "content_block_start", "index" to i, "content_block" to obj("type" to "text", "text" to "")).toString()
+                        delta(obj("type" to "text_delta", "text" to b.str("text")))
+                    }
+                    "thinking" -> {
+                        events += "content_block_start" to obj("type" to "content_block_start", "index" to i, "content_block" to obj("type" to "thinking", "thinking" to "")).toString()
+                        delta(obj("type" to "signature_delta", "signature" to b.str("signature")))
+                    }
+                    "tool_use" -> {
+                        events += "content_block_start" to obj("type" to "content_block_start", "index" to i, "content_block" to obj("type" to "tool_use", "id" to b.str("id"), "name" to b.str("name"), "input" to JsonObject(emptyMap()))).toString()
+                        b["input"].toString().chunked(7).forEach { delta(obj("type" to "input_json_delta", "partial_json" to it)) }
+                    }
+                }
+                events += "content_block_stop" to obj("type" to "content_block_stop", "index" to i).toString()
+            }
+            events += "message_delta" to obj("type" to "message_delta", "delta" to obj("stop_reason" to m.stopReason), "usage" to obj("output_tokens" to m.usage.output)).toString()
+            events += "message_stop" to obj("type" to "message_stop").toString()
+            return sse(*events.toTypedArray())
+        }
+    }
+}

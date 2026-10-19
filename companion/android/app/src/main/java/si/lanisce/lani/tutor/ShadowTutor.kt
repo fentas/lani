@@ -1038,7 +1038,7 @@ class ShadowTutor(
                     thread = fresh
                 }
             }
-            TurnKind.ALSO -> Unit
+            TurnKind.ALSO, TurnKind.ROLEPLAY -> Unit
         }
         line("turn ${t.id} ${t.eventKind} on ${t.model}${t.effort?.let { " $it" } ?: ""}: $status${if (t.replyFromText) " (reply as text)" else ""}${t.error?.let { " ($it)" } ?: ""}")
     }

@@ -140,9 +140,12 @@ data class CallRecord(
     val apiCost: Double? get() = apiEquivalent ?: cost
 }
 
-/** Where a turn ran: the day's thread, a stateless call (another model than the thread's), "also run on", closing. */
+/**
+ * Where a turn ran: the day's thread, a stateless call (another model than the thread's), "also run on", closing; the
+ * live tutor's role-play turns on their own short thread ([ROLEPLAY]).
+ */
 @Serializable
-enum class TurnKind { DAY, STATELESS, ALSO, CLOSING }
+enum class TurnKind { DAY, STATELESS, ALSO, CLOSING, ROLEPLAY }
 
 @Serializable
 enum class TurnStatus { QUEUED, RUNNING, DONE, LIMIT, REFUSED, TRUNCATED, FAILED, PAUSED, SKIPPED }
