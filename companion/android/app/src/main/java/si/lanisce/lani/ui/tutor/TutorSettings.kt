@@ -101,7 +101,8 @@ fun TutorSettings(vm: AppViewModel, modifier: Modifier = Modifier) {
             )
         }
         Text(
-            stateLine(live),
+            // on the phone, off means no credential yet: no Claude Code to answer there
+            if (hosted && live.state == LiveState.OFF) bi("hosted.tutorOff") else stateLine(live),
             style = MaterialTheme.typography.bodySmall,
             color = if (live.state.name.startsWith("PAUSED") || live.state == LiveState.OLD_NODE) MaterialTheme.colorScheme.error else muted,
             modifier = Modifier.semantics { contentDescription = "tutor-state:${live.state.name}" },
