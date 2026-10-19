@@ -205,8 +205,22 @@ WorkManager check use the same.
 
   `PartialTest` (3) covers the partial parse and both streams' tool deltas. The tutor's other 143 tests pass
   unchanged.
-- **QA on the emulator:** `companion/bin/qa --steps tutor-live` (see companion/README.md). The screenshots are in the
-  run's folder; with `LANI_QA_TUTOR_SHOTS` they are copied there too.
+- **QA on the emulator** (2026-10-19, the debug build, the dev bridge on a new learner's data made from the templates,
+  `LANI_DEV_DATA`; `companion/bin/qa --no-town --steps tutor-live`): setup and tutor-live passed, no crash.
+  - The Tutor section showed Claude Code on the node first. "In the app" with a fake key kept the key, and the dev
+    bridge's channel became the app's (`GET /tutor/session`: attached `app`; the app listed the node's 53 tools).
+  - A chat ("[mock:slow]"): its reply was seen mid-way in the typing bubble, then as the final message. The dev
+    bridge's tutor (Claude Code's stand-in) never heard it. The chat said "🤖 Odgovarja umetna inteligenca
+    (claude-sonnet-5-5) · An AI answers here".
+  - Three calls on Sonnet at `medium`: guide and learner_state, then reply and notebook_note, then the end.
+  - A session's end, posted as the app posts it, with "react at once" on: a stateless turn on Haiku at `high`, its
+    reaction in the chat. Its `record_session` was in the dev data (the session log, the mistake `mock_pattern`).
+  - "Claude Code on my node" again: detached (0 events back, all acknowledged). The next chat was answered by the dev
+    bridge's tutor, and the AI line was gone.
+  - The key was in no log line. The mock's requests had the phase A tools in order.
+  - The run's folder has the screenshots, `tutor-live-mock-requests.json` and `tutor-live-logcat.txt`;
+    `LANI_QA_TUTOR_SHOTS` copies the screenshots elsewhere too.
+  - The setup step now founds the village when a new learner's data has none ("Tu bo moja vas").
 
 ## What's left for phase A
 

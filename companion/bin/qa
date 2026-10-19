@@ -513,6 +513,12 @@ def setup():
             found_village()  # a copy without a village (a synthetic learner): founded first
         elif any("Danes · Today" in t for t, _ in ns):
             break
+        elif any("Kje bo tvoja vas?" in t for t, _ in ns):
+            # a learner without a village yet (LANI_DEV_DATA: a new learner's data): it's founded where it's offered
+            # at the screen's end it stays low, below scroll_to's band: found as it is then
+            here = scroll_to("Tu bo moja vas", 4) or find("Tu bo moja vas")
+            if here:
+                tap_at(here)
         time.sleep(1)
     assert wait_for("Danes · Today", 5), "home did not load"
 
@@ -6888,7 +6894,7 @@ def dev_bridge(path: str, body=None, method=None):
 
 
 LIVE_KEY = "sk-ant-qa-live-fake-000000000000"  # QA's mock takes any key; never a real one
-TUTOR_SECTION = "Učitelj · Tutor"  # the connection sheet's section (l10n tutorLive.title)
+TUTOR_SECTION = "Kdo odgovarja · Who answers"  # the Tutor section's first line (l10n tutorLive.who; its title "Učitelj · Tutor" is also the info line's)
 IN_THE_APP = "V aplikaciji · In the app"  # who answers (tutorLive.app)
 ON_THE_NODE = "Claude Code na mojem vozlišču · Claude Code on my node"  # (tutorLive.node)
 LIVE_READY = "The tutor in the app answers"  # its state line (tutorLive.state.IDLE, RUNNING …)
@@ -6933,7 +6939,7 @@ def tutor_live():
         assert wait_for(LIVE_READY, 20), "attached: the tutor in the app answers"
         attached = dev_bridge("/tutor/session").get("attached") or {}
         assert attached.get("who") == "app", f"the dev bridge's channel is the app's: {attached}"
-        assert scroll_to("React at once: off", 6) and tap("React at once: off", 3), "react at once"
+        assert (scroll_to("React at once: off", 6) or find("React at once: off")) and tap("React at once: off", 3), "react at once"  # at the sheet's end it stays low
         assert wait_for("React at once: on", 5), "react at once on"
         scroll_to(TUTOR_SECTION, 0)
         to_top()
