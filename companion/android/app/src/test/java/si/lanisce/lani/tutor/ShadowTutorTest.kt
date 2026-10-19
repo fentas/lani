@@ -141,6 +141,26 @@ class ShadowTutorTest {
         return "$head.$body.${b64(sig)}"
     }
 
+    // --- Gemini and OpenRouter against scripted servers --------------------------------------------------------------
+
+    private var geminiFailOn: ((Int) -> Triple<Int, String, String>?) = { null }
+    private val gem = ScriptedGemini(answer = { _, n -> geminiFailOn(n) }) { body, n -> geminiTurn(body, n) }
+    private val geminiCreds = GeminiCredentials(KeyVault(SoftCipher(), MemoryStore()), MemoryStore(), GeminiPacer(clock = { now }, sleep = {}))
+    private val router = ScriptedRouter { body, n -> routerTurn(body, n) }
+    private val routerCreds = OpenRouterCredentials(OpenRouterAuth(KeyVault(SoftCipher(), MemoryStore()), router.client))
+
+    /** "Continue with OpenRouter" through the panel's call, the browser played by a GET to the loopback. */
+    private suspend fun signInOpenRouter(t: ShadowTutor): String? = t.signInWithOpenRouter { url ->
+        val u = url.toHttpUrl()
+        val cb = u.queryParameter("callback_url")!!.toHttpUrl()
+        Thread {
+            java.net.Socket("127.0.0.1", cb.port).use { sock ->
+                sock.getOutputStream().write("GET /auth/openrouter?code=or1&state=${u.queryParameter("state")} HTTP/1.1\r\nHost: 127.0.0.1:${cb.port}\r\n\r\n".toByteArray())
+                sock.getInputStream().readBytes()
+            }
+        }.start()
+    }
+
     /** "Sign in with ChatGPT" through the panel's call, the browser played by a GET to the loopback. */
     private suspend fun signInChatGPT(t: ShadowTutor): String? = t.signInWithChatGPT { url ->
         val u = url.toHttpUrl()
@@ -175,6 +195,12 @@ class ShadowTutorTest {
             openaiTransportFor = { OpenAITransport(it, oai.client, clock = { now }) },
             openaiLaneTransportFor = { OpenAITransport(it, oai.client, clock = { now }) },
             signInPort = SIGN_IN_PORT,
+            gemini = geminiCreds,
+            geminiTransportFor = { k, p, f -> GeminiTransport(k, gem.client, clock = { now }, pacer = p, onFreeTier = f) },
+            geminiLaneTransportFor = { k, p, f -> GeminiTransport(k, gem.client, clock = { now }, pacer = p, onFreeTier = f) },
+            openrouter = routerCreds,
+            openrouterTransportFor = { OpenRouterTransport(it, router.client, clock = { now }) },
+            openrouterLaneTransportFor = { OpenRouterTransport(it, router.client, clock = { now }) },
         )
     }
 
@@ -1090,6 +1116,96 @@ class ShadowTutorTest {
         t.awaitMatrix()
         assertEquals(null, t.chatgptAccount)
         assertTrue(t.matrix.plan.single { it.family == Family.SOL }.skipped != null)
+    }
+
+    // --- the matrix's Gemini and OpenRouter lanes -------------------------------------------------------------------
+
+    private val geminiLanes = listOf("gemini:gemini-3.8-flash@medium", "gemini:gemini-4-argon@low", "gemini:gemini-4-argon@medium", "gemini:gemini-4-argon@high")
+    private val routerLanes = listOf("openrouter:google/gemini-3.8-flash@medium", "openrouter:google/gemini-4-argon@medium", "openrouter:openai/gpt-6-luna@medium")
+
+    @Test fun `Gemini's and OpenRouter's lanes join once their credentials are set, each on its own thread, the export carrying their ids`() = runBlocking {
+        val t = withMatrix()
+        assertTrue("no credential: skipped", t.matrix.plan.none { it.id?.startsWith("gemini:") == true || it.id?.startsWith("openrouter:") == true })
+        assertEquals(null, t.setGeminiKey(FAKE_GEMINI_KEY, GeminiTerms.PAID))
+        t.awaitMatrix()
+        assertTrue(t.settings.matrix.geminiOffered)
+        assertEquals(listOf("gemini-4-argon", "gemini-3.8-flash", "gemini-3.5-flash-lite"), t.settings.gemini.listed.map { it.id })
+        assertEquals(null, signInOpenRouter(t))
+        t.awaitMatrix()
+        assertTrue(t.openrouterReady && t.settings.matrix.openrouterOffered)
+        assertEquals(defaultLanes.toSet() + geminiLanes + routerLanes, t.matrix.plan.mapNotNull { it.id }.toSet())
+        // only theirs from here on
+        t.updateMatrix { m -> m.copy(lanes = m.lanes.filter { it.family.provider == ProviderId.GEMINI || it.family.provider == ProviderId.OPENROUTER }) }.join()
+        t.onDelivered("c1", "/message", chat("c1", "Kako se reče stove?")).join()
+        t.awaitMatrix()
+        val today = t.matrix.today
+        assertEquals((geminiLanes + routerLanes).toSet(), today.keys)
+        for ((id, log) in today) {
+            val (model, effort) = Lanes.parse(id)
+            val gemini = id.startsWith("gemini:")
+            assertTrue(id, log.turns.single().let { it.status == TurnStatus.DONE && it.model == model && it.effort == effort && it.replies.single().text.contains("Mock") })
+            assertTrue(id, log.calls.isNotEmpty() && log.calls.all { it.lane == id && it.provider == (if (gemini) "gemini" else "openrouter") })
+            if (gemini) assertTrue(id, log.calls.all { it.billing == Billing.API_KEY && it.cost!! > 0 && it.apiEquivalent == null && it.usage.reasoning == 40L })
+            else assertTrue("priced by OpenRouter's own cost: $id", log.calls.all { it.billing == Billing.OPENROUTER && it.cost == 0.0123 })
+        }
+        // each lane's thread in its own directory (an OpenRouter model's "/" as "~"), in its provider's format
+        val argon = ShadowStore(File(dir, "matrix/gemini:gemini-4-argon@high")).thread()!!
+        assertTrue(argon.messages.any { it.role() == "model" && it.toString().contains("thoughtSignature") })
+        val routed = ShadowStore(File(dir, "matrix/openrouter:google~gemini-4-argon@medium")).thread()!!
+        assertTrue(routed.messages.any { it.role() == "assistant" && it["reasoning_details"] != null } && routed.messages.any { it.role() == "tool" })
+        // the requests: Gemini's level per lane, OpenRouter's effort, the keys only to their APIs
+        val levels = gem.posts().map { it["generationConfig"]!!.jsonObject["thinkingConfig"]!!.jsonObject.str("thinkingLevel") }.toSet()
+        assertEquals(setOf("low", "medium", "high"), levels)
+        assertTrue(gem.http.requests.all { it.header("x-goog-api-key") == FAKE_GEMINI_KEY && it.url.host == "generativelanguage.googleapis.com" })
+        assertTrue(router.posts().all { it["reasoning"]!!.jsonObject.str("effort") == "medium" })
+        assertTrue(router.http.requests.filter { it.url.encodedPath == "/api/v1/chat/completions" }.all { it.header("Authorization") == "Bearer $FAKE_ROUTER_KEY" && it.url.host == "openrouter.ai" })
+        // the export: the lanes by their ids, the providers, never a key
+        val text = t.exportText("test")
+        assertFalse(text.contains(FAKE_GEMINI_KEY))
+        assertFalse(text.contains(FAKE_ROUTER_KEY))
+        assertTrue(lines.none { it.contains(FAKE_GEMINI_KEY) || it.contains(FAKE_ROUTER_KEY) })
+        val o = tutorJson.parseToJsonElement(text).jsonObject
+        assertEquals((geminiLanes + routerLanes).toSet(), o["days"]!!.jsonArray.single().jsonObject["lanes"]!!.jsonObject.keys)
+        val exported = o["matrix"]!!.jsonObject["lanes"]!!.jsonArray.map { it.jsonObject }.filter { it["id"] != null }
+        assertTrue(exported.filter { it.str("id")!!.startsWith("gemini:") }.all { it.str("provider") == "gemini" })
+        assertTrue(exported.filter { it.str("id")!!.startsWith("openrouter:") }.all { it.str("provider") == "openrouter" && it.str("model")!!.contains('/') })
+        assertEquals("paid", o["gemini"]!!.jsonObject.str("tier"))
+        assertEquals("true", o["openrouter"]!!.jsonObject["ready"]!!.jsonPrimitive.content)
+        // a model picked from OpenRouter's list joins as a lane of its own; signed out, its lanes are skipped
+        t.routedLane("anthropic/claude-sonnet-5.5", "low", on = true).join()
+        assertTrue(t.matrix.plan.any { it.id == "openrouter:anthropic/claude-sonnet-5.5@low" })
+        t.signOutOfOpenRouter()
+        t.awaitMatrix()
+        assertTrue(t.matrix.plan.filter { it.family == Family.ROUTED }.all { it.id == null && it.skipped!!.contains("OpenRouter") })
+    }
+
+    @Test fun `on the Gemini free tier Argon's lanes are skipped, Flash's cost nothing with their API-equivalent, and a 429 naming the free tier marks it`() = runBlocking {
+        val t = withMatrix()
+        assertEquals(null, t.setGeminiKey(FAKE_GEMINI_KEY, null))
+        // the first call: the free tier's quota for the minute (retried after its delay), which tells the key's tier
+        geminiFailOn = { n ->
+            if (n == 1) Triple(429, """{"error":{"code":429,"message":"Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 10","status":"RESOURCE_EXHAUSTED","details":[{"@type":"type.googleapis.com/google.rpc.RetryInfo","retryDelay":"2s"}]}}""", "application/json")
+            else null
+        }
+        t.updateMatrix { m -> m.copy(lanes = listOf(LaneSpec(Family.FLASH, "medium"))) }.join()
+        t.onDelivered("c1", "/message", chat("c1", "Živjo")).join()
+        t.awaitMatrix()
+        for (i in 0 until 100) {
+            if (t.geminiTier == GeminiTerms.FREE_SEEN) break
+            delay(10)
+        }
+        assertEquals(GeminiTerms.FREE_SEEN, t.geminiTier)
+        assertTrue("the free tier is paced from then on", geminiCreds.pacer.free)
+        t.updateMatrix { m -> m.copy(lanes = MatrixSettings.GEMINI_LANES) }.join()
+        t.awaitMatrix()
+        val plan = t.matrix.plan
+        assertTrue(plan.filter { it.family == Family.ARGON }.all { it.id == null && it.skipped!!.contains("no free tier") })
+        t.onDelivered("c2", "/message", chat("c2", "Kako se reče stove?")).join()
+        t.awaitMatrix()
+        val flash = t.matrix.today.getValue("gemini:gemini-3.8-flash@medium")
+        val paid = flash.calls.filter { it.error == null }
+        assertTrue(paid.isNotEmpty())
+        assertTrue("the free tier: \$0, the API-equivalent kept", paid.takeLast(3).all { it.billing == Billing.FREE_TIER && it.cost == 0.0 && it.apiEquivalent!! > 0 })
     }
 
     @Test fun `an OpenAI credential refused or out pauses OpenAI's lanes only`() = runBlocking {

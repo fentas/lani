@@ -13,6 +13,7 @@ import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Protocol
 import okhttp3.Request
@@ -31,7 +32,9 @@ import si.lanisce.lani.tutor.AssistantMessage
 import si.lanisce.lani.tutor.FAKE_KEY
 import si.lanisce.lani.tutor.KeyVault
 import si.lanisce.lani.tutor.MemoryStore
+import si.lanisce.lani.tutor.ProviderId
 import si.lanisce.lani.tutor.SoftCipher
+import si.lanisce.lani.tutor.Task
 import si.lanisce.lani.tutor.TurnKind
 import si.lanisce.lani.tutor.TurnStatus
 import si.lanisce.lani.tutor.Usage
@@ -96,6 +99,13 @@ class LiveTutorTest {
 
     private val node = FakeNode()
 
+    // --- Gemini and OpenRouter, scripted --------------------------------------------------------------------------------
+
+    private val gem = si.lanisce.lani.tutor.ScriptedGemini { body, n -> si.lanisce.lani.tutor.geminiTurn(body, n) }
+    private val geminiCreds = si.lanisce.lani.tutor.GeminiCredentials(KeyVault(SoftCipher(), MemoryStore()), MemoryStore(), si.lanisce.lani.tutor.GeminiPacer(clock = { now }, sleep = {}))
+    private val router = si.lanisce.lani.tutor.ScriptedRouter { body, n -> si.lanisce.lani.tutor.routerTurn(body, n) }
+    private val routerCreds = si.lanisce.lani.tutor.OpenRouterCredentials(si.lanisce.lani.tutor.OpenRouterAuth(KeyVault(SoftCipher(), MemoryStore()), router.client))
+
     private fun tutor(): LiveTutor {
         val scope = CoroutineScope(SupervisorJob())
         scopes += scope
@@ -110,6 +120,10 @@ class LiveTutorTest {
             logLine = { lines += it }, sleep = {},
             io = Executors.newSingleThreadExecutor().asCoroutineDispatcher(),
             texts = { key, _ -> key },
+            gemini = geminiCreds,
+            geminiTransportFor = { k, p, f -> si.lanisce.lani.tutor.GeminiTransport(k, gem.client, clock = { now }, pacer = p, onFreeTier = f) },
+            openrouter = routerCreds,
+            openrouterTransportFor = { si.lanisce.lani.tutor.OpenRouterTransport(it, router.client, clock = { now }) },
         ).also { t ->
             t.onStreaming = { conv, text -> if (conv == "main") streamed += text }
             t.onNote = { notes += it }
@@ -168,6 +182,76 @@ class LiveTutorTest {
         assertFalse(api.requests.any { bodyOf(it).contains(BRIDGE_TOKEN) })
         assertFalse(lines.any { it.contains(FAKE_KEY) || it.contains(BRIDGE_TOKEN) })
         assertTrue("priced", t.spent() > 0)
+    }
+
+    @Test fun `on Gemini's free tier - a chat answered on Flash for nothing with its API-equivalent, no Argon, the free tier told once in the chat`() = runBlocking {
+        val t = tutor()
+        t.refreshCredentials()
+        t.update { it.copy(provider = ProviderId.GEMINI) }.join()
+        assertEquals(LiveState.OFF, t.state)
+        assertEquals(null, t.setGeminiKey(si.lanisce.lani.tutor.FAKE_GEMINI_KEY, si.lanisce.lani.tutor.GeminiTerms.FREE))
+        assertEquals(null, t.setOn(true))
+        assertTrue(t.geminiFree)
+        assertEquals("gemini-3.8-flash", t.modelFor(Task.CHAT))
+        assertEquals("the free tier has no Argon: content on Flash", "gemini-3.8-flash", t.modelFor(Task.CONTENT))
+        assertEquals("gemini-3.5-flash-lite", t.modelFor(Task.ROUTINE))
+        val id = node.push("chat", "main", "Kako se reče stove?")
+        t.backgroundCheck()
+        val sent = gem.posts()
+        assertEquals("guide and learner_state, the reply, done", 3, sent.size)
+        assertTrue(gem.http.requests.filter { it.method == "POST" }.all { it.url.encodedPath == "/v1beta/models/gemini-3.8-flash:streamGenerateContent" && it.header("x-goog-api-key") == si.lanisce.lani.tutor.FAKE_GEMINI_KEY })
+        assertEquals(listOf("learner_state", "reply"), node.tools.map { it.first })
+        assertEquals(listOf(id), node.acked)
+        assertEquals(TurnStatus.DONE, t.today.turns.single().status)
+        val calls = t.today.calls
+        assertTrue(calls.all { it.billing == si.lanisce.lani.tutor.Billing.FREE_TIER && it.cost == 0.0 && it.apiEquivalent!! > 0 && it.provider == "gemini" })
+        assertEquals(0.0, t.spent(), 0.0)
+        // the free tier said once in the chat, plainly; the Tutor section says it while the key is on it
+        assertEquals(listOf("tutorLive.note.geminiFree"), notes.filter { it.contains("gemini") })
+        t.setGeminiTier(si.lanisce.lani.tutor.GeminiTerms.FREE).join()
+        assertEquals(1, notes.count { it.contains("gemini") })
+        assertFalse(lines.any { it.contains(si.lanisce.lani.tutor.FAKE_GEMINI_KEY) })
+        // paid: the table's price, Argon for content again
+        t.setGeminiTier(si.lanisce.lani.tutor.GeminiTerms.PAID).join()
+        assertEquals("gemini-4-argon", t.modelFor(Task.CONTENT))
+    }
+
+    @Test fun `on OpenRouter - signed in through the browser, a chat answered on the tier's default or the model picked, priced by OpenRouter's cost`() = runBlocking {
+        val t = tutor()
+        t.refreshCredentials()
+        t.update { it.copy(provider = ProviderId.OPENROUTER) }.join()
+        val signedIn = t.signInWithOpenRouter { url ->
+            val u = url.toHttpUrl()
+            val cb = u.queryParameter("callback_url")!!.toHttpUrl()
+            Thread {
+                java.net.Socket("127.0.0.1", cb.port).use { sock ->
+                    sock.getOutputStream().write("GET /auth/openrouter?code=or1&state=${u.queryParameter("state")} HTTP/1.1\r\nHost: 127.0.0.1:${cb.port}\r\n\r\n".toByteArray())
+                    sock.getInputStream().readBytes()
+                }
+            }.start()
+        }
+        assertEquals(null, signedIn)
+        assertTrue(t.openrouterReady)
+        assertEquals(17.5, t.openrouterKey!!.remaining!!, 0.0)
+        assertEquals("the list read: its models", "openrouter", t.settings.listedWith)
+        assertEquals(null, t.setOn(true))
+        assertEquals("the mid tier's default", "google/gemini-3.8-flash", t.modelFor(Task.CHAT))
+        assertEquals("google/gemini-4-argon", t.modelFor(Task.CONTENT))
+        node.push("chat", "main", "Kako se reče stove?")
+        t.backgroundCheck()
+        assertEquals(3, router.posts().size)
+        assertTrue(router.posts().all { it.str("model") == "google/gemini-3.8-flash" && it["reasoning"] != null })
+        val calls = t.today.calls
+        assertTrue(calls.all { it.billing == si.lanisce.lani.tutor.Billing.OPENROUTER && it.cost == 0.0123 && it.provider == "openrouter" })
+        assertEquals(3 * 0.0123, t.spent(), 1e-9)
+        assertTrue(router.http.requests.filter { it.url.encodedPath == "/api/v1/chat/completions" }.all { it.header("Authorization") == "Bearer ${si.lanisce.lani.tutor.FAKE_ROUTER_KEY}" })
+        // a model picked for the chat under "advanced"
+        t.update { it.copy(models = it.models + (Task.CHAT to "anthropic/claude-sonnet-5.5")) }.join()
+        assertEquals("anthropic/claude-sonnet-5.5", t.modelFor(Task.CHAT))
+        assertFalse(lines.any { it.contains(si.lanisce.lani.tutor.FAKE_ROUTER_KEY) })
+        // signed out: no credential, the tutor waits
+        t.signOutOfOpenRouter()
+        assertEquals(LiveState.NO_CREDENTIAL, t.state)
     }
 
     @Test fun `session_end at once (react at once), record_session goes through the bridge with learner_state's next session id`() = runBlocking {
