@@ -21,7 +21,7 @@ data class Shot(val at: CanvasPoint? = null, val zoom: Float = 0f, val rect: Can
 object MomentShots {
     /**
      * Where [beat] of [m] looks in [state]'s village on a [w] × [h] canvas: the whole clearing as the forest draws back, the
-     * new plots framed, the bridge for the road to the west, the road east of the fire for a wider road and its cobbles, the
+     * new plots framed, the crossing for the road to the west, the road east of the fire for a wider road and its cobbles, the
      * fire closer for the square and the gathering, the decorations where they go up (the likof's roof, the stalls and the
      * banners along the road, else the fire), the sign at the road, and home for the opening and the cheer.
      */

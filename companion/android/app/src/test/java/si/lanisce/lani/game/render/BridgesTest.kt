@@ -1,7 +1,7 @@
 package si.lanisce.lani.game.render
 
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import si.lanisce.lani.game.Age
@@ -31,14 +31,16 @@ import java.io.File
 import kotlin.math.abs
 
 /**
- * The bridges on the map (Jan, 2026-10-18: "the bridge seems not to be drivable ;)", "it goes right into a wall and starts
- * from nowhere"): a bridge stands where a way crosses the stream, its deck open at both ends and the way going on at both,
- * never into the palisade, a building or nothing. The cart bridge (the project "most", [LandmarkLayout]) carries its own
- * track: from the road on the village's bank over the stream and on into the woods, through a gate of its own in the
- * palisade, at every stage of the project, on every land and at every age; the road's bridge carries the road. In the
- * stream's scene ([StreamPlan]) the paths along both banks come onto the footbridge's ends and the cart road up the ramps
- * onto the cart bridge's. Snapshots of the map's bridges, every stage, by day, by night and in winter, and of the scene's
- * at every stage and detail, for review (build/village-snapshots/63-bridge-…, 64-stream-bridges-…).
+ * The crossing on the map (Jan, 2026-10-19: "maybe the first bridge (the flat one) is not there in the beginning ... just
+ * the stones across, and we build the first bridge and leave away the second one"; before, 2026-10-18: "the bridge seems
+ * not to be drivable ;)", "it goes right into a wall and starts from nowhere"): one bridge, where the road crosses the
+ * stream ([Crossing]). From Zaselek, when the road goes west over the stream, it fords it on stepping stones until the
+ * village's bridge (the project "most") has its deck; the bridge is built there, from bank to bank and as wide as the
+ * road, the road going on at both its ends, never into the palisade; no other bridge, no track or gate of its own. On
+ * every land, at every age and stage. In the stream's scene ([StreamPlan]) the paths along both banks come onto the
+ * footbridge's ends and the cart road up the ramps onto the cart bridge's. Snapshots of the crossing at every stage, by
+ * day, by night and in winter, and of the scene's at every stage and detail, for review (build/village-snapshots/63-bridge-…,
+ * 64-stream-bridges-…).
  */
 class BridgesTest {
     private val dir = File("build/village-snapshots").apply { mkdirs() }
@@ -61,105 +63,138 @@ class BridgesTest {
 
     private val ages = listOf(Age.ZASELEK, Age.VAS, Age.TRG, Age.MESTO)
 
-    /** A village of [age] on [t], its plots built, its projects at [stage] (the bridge's at [bridge]). */
+    /** A village of [age] on [t], its plots built, its projects at [stage] (the bridge's at [bridge]; 0: not begun). */
     private fun state(t: Terrain, age: Age, stage: Int = 1, bridge: Int = stage) = GameState(
         seed = 42, age = age, villagers = 10, morale = 70, fire = 70, land = t.land,
         buildings = types(age).take(PLOTS_PER_AGE[age.ordinal]).mapIndexed { i, ty -> Building("b$i", ty, if (ty.onPlot) i else NO_PLOT, level = if (i % 4 == 3) 2 else 1) },
-        projects = Catalog.projects.filter { it.age <= age }.associate { it.id to if (it.id == "most") bridge.coerceIn(1, it.steps.size) else stage.coerceIn(1, it.steps.size) },
+        projects = Catalog.projects.filter { it.age <= age }
+            .associate { it.id to if (it.id == Crossing.BRIDGE) bridge.coerceIn(0, it.steps.size) else stage.coerceIn(1, it.steps.size) }
+            .filterValues { it > 0 },
     )
 
     private val canvases = listOf(360 to 800, 400 to 180)
 
-    // ---------------------------------------------------------------- the cart bridge and its track
+    private fun road(age: Age) = if (age >= Age.VAS) 1f else 0.55f
 
-    @Test fun `the cart bridge stands where its track crosses the stream, the track going on at both its ends, on every land and at every age`() {
-        var n = 0
-        for ((name, t) in lands()) for (age in ages) for ((w, h) in canvases) {
-            val s = state(t, age)
-            val tag = "$name $age ${w}x$h"
-            val spots = LandmarkLayout.of(s, w, h)
-            val sp = spots.firstOrNull { it.landmark.id == "most" }
-            assertNotNull("$tag: the cart bridge placed", sp)
-            sp!!
-            n++
-            val x0 = sp.x; val x1 = sp.x + sp.w; val y0 = sp.y; val y1 = sp.y + sp.d; val cy = sp.cy
-            // across the stream, the water under its deck from one side to the other
-            for (y in floatArrayOf(y0, cy, y1)) {
-                val sx = t.streamX(y)
-                assertTrue("$tag: the stream (%.2f) under the deck %.2f..%.2f at %.2f".format(sx, x0, x1, y), sx - t.streamHalf > x0 + 0.5f && sx + t.streamHalf < x1 - 0.5f)
-            }
-            assertEquals("$tag: one track", 1, sp.ways.size)
-            val way = sp.ways.single()
-            // the track runs over the bridge along its middle and goes on off both its ends
-            for (x in floatArrayOf(x0 - 0.3f, x0 + 0.1f, (x0 + x1) / 2f, x1 - 0.1f, x1 + 0.3f)) {
-                assertTrue("$tag: the track at (%.2f, %.2f)".format(x, cy), LandmarkLayout.offWay(way, x, cy) < 0.05f)
-            }
-            // from the road on the village's side, past the road's bridge (in a crowded town, from a building's path to it)
-            val rx = way[0]; val ry = way[1]
-            val road = if (age >= Age.VAS) 1f else 0.55f
-            val fromRoad = abs(ry - t.roadY(rx)) < road
-            val fromPath = s.buildings.any { b ->
-                b.type.onPlot && b.type != FIELD && t.centers[b.plot].let { c -> abs(rx - c[0]) < 0.01f && ry in minOf(c[1], t.roadY(c[0]))..maxOf(c[1], t.roadY(c[0])) }
-            }
-            assertTrue("$tag: the track starts on the road or a building's path to it (%.2f, %.2f)".format(rx, ry), fromRoad || fromPath)
-            if (fromRoad) assertTrue("$tag: on the village's side of the road's bridge", rx - LandmarkLayout.TRACK_HALF > t.bridge[0] + t.bridgeHalf)
-            // the near part on dry land, off the stream and its banks, the bridge aside
-            LandmarkLayout.alongWay(way) { px, py ->
-                if (px > x1) assertTrue("$tag: the track in the stream at (%.2f, %.2f)".format(px, py), abs(px - t.streamX(py)) > t.streamBank)
-            }
-            // into the woods from its far end: among the trees, behind the horizon, at the water or on the road again
-            val fx = way[way.size - 2]; val fy = way[way.size - 1]
-            val fsx = (fx - fy) * 4f; val fsy = (fx + fy) * 2f
-            val woods = VillageLayout.screenMetric(fsx, fsy) > t.forestEdge(age, VillageLayout.angle(fsx, fsy)) + 8f
-            val gone = fsy < 4f - VillageLayout.HORIZON
-            val onRoad = abs(fy - t.roadY(fx)) < road + LandmarkLayout.TRACK_HALF + 0.3f
-            val water = t.water && t.wet(fx - 0.25f, fy, 4f)
-            assertTrue("$tag: the track ends at (%.2f, %.2f), not in the woods, at the water or on the road".format(fx, fy), woods || gone || onRoad || water)
-            // off every building's plot and the other landmarks
-            for (b in s.buildings) if (b.type.onPlot) {
-                val c = t.centers[b.plot]
-                LandmarkLayout.alongWay(way) { px, py ->
-                    assertTrue("$tag: the track over ${b.type} on plot ${b.plot} at (%.2f, %.2f)".format(px, py), abs(px - c[0]) > 1.5f + LandmarkLayout.TRACK_HALF - 0.1f || abs(py - c[1]) > 1.5f + LandmarkLayout.TRACK_HALF - 0.1f)
-                }
-            }
-            for (o in spots) if (o !== sp) LandmarkLayout.alongWay(way) { px, py ->
-                assertTrue("$tag: the track over ${o.landmark.id} at (%.2f, %.2f)".format(px, py), !o.covers(px, py, LandmarkLayout.TRACK_HALF - 0.1f))
-            }
-            // the palisade: no stake on the bridge or the track, a gate of its own where the track goes through it
-            val fg = Foreground.of(s, w, h)
-            val plain = Palisade.ring(t, age, fg)
-            val ring = Palisade.ring(t, age, fg, sp.ways)
-            for (st in ring.stakes) {
-                assertTrue("$tag: a stake on the bridge at (%.2f, %.2f)".format(st.x, st.y), !sp.covers(st.x, st.y, 0.2f))
-                assertTrue("$tag: a stake on the track at (%.2f, %.2f)".format(st.x, st.y), LandmarkLayout.offWay(way, st.x, st.y) > LandmarkLayout.TRACK_HALF + 0.2f)
-            }
-            for (st in ring.wet) assertTrue("$tag: the bridge in a water gate", !sp.covers(st.x, st.y, 0.5f))
-            val gates = ring.gates.filter { it.kind == PalisadeRing.Kind.ROAD }.size - plain.gates.filter { it.kind == PalisadeRing.Kind.ROAD }.size
-            val crosses = plain.stakes.any { LandmarkLayout.offWay(way, it.x, it.y) < LandmarkLayout.TRACK_HALF + Palisade.ROAD_CLEAR }
-            assertEquals("$tag: the track's own gate in the palisade", if (crosses) 1 else 0, gates)
-            assertEquals("$tag: the other gates stay", plain.gates.size + gates, ring.gates.size)
-            assertEquals("$tag: the main gate stays", plain.main?.let { plain.middle(it).toList() }, ring.main?.let { ring.middle(it).toList() })
+    // ---------------------------------------------------------------- the crossing: stones, then the bridge
+
+    @Test fun `the road fords the stream on stepping stones until the bridge has its deck`() {
+        val t = Terrain.CLASSIC
+        val steps = Catalog.projects.first { it.id == Crossing.BRIDGE }.steps.size
+        // before the hamlet the road doesn't go west: nothing crosses the stream
+        for (age in listOf(Age.OGENJ, Age.TABOR)) {
+            assertFalse("$age", Crossing.stones(state(t, age, bridge = 0)))
+            assertFalse("$age", Crossing.bridged(state(t, age, bridge = 0)))
         }
-        println("cart bridges: $n places checked")
+        for (age in ages) {
+            // the stones before the first step and while the bridge is built: measured, the stones, the pillars, the logs
+            for (st in 0 until Crossing.DECKED) {
+                val s = state(t, age, bridge = st)
+                assertTrue("$age stage $st: the stones", Crossing.stones(s))
+                assertFalse("$age stage $st: no bridge yet", Crossing.bridged(s))
+            }
+            // the deck laid, then the railings: over the bridge, no stones
+            for (st in Crossing.DECKED..steps) {
+                val s = state(t, age, bridge = st)
+                assertFalse("$age stage $st: no stones", Crossing.stones(s))
+                assertTrue("$age stage $st: the bridge", Crossing.bridged(s))
+            }
+        }
+        // an age's moment: the road west grows in before the stones are there
+        assertFalse(Crossing.stones(west = false, bridge = null))
+        assertTrue(Crossing.stones(west = true, bridge = null))
     }
 
-    @Test fun `the cart bridge and its track keep their place as it is built and as the projects after it start`() {
+    @Test fun `the one bridge stands where the road crosses the stream, the road going on at both its ends, on every land and at every age`() {
+        var n = 0
+        var worst = Float.MAX_VALUE
+        for ((name, t) in lands()) for (age in ages) for ((w, h) in canvases) for (st in listOf(1, 3, 6)) {
+            val s = state(t, age, bridge = st)
+            val tag = "$name $age ${w}x$h stage $st"
+            val spots = LandmarkLayout.of(s, w, h)
+            val bridges = spots.filter { it.landmark.id == Crossing.BRIDGE }
+            assertEquals("$tag: one bridge", 1, bridges.size)
+            val sp = bridges.single()
+            n++
+            // where the road crosses the stream, as wide as the road and a little more
+            assertEquals("$tag: at the crossing", Crossing.box(t, road(age)).toList(), listOf(sp.x, sp.y, sp.w, sp.d))
+            val x0 = sp.x; val x1 = sp.x + sp.w; val y0 = sp.y; val y1 = sp.y + sp.d
+            // across the stream, its ends on the banks: the water under the deck from one side to the other, its ends past
+            // it along the road's middle and along both its sides, where the stream runs aslant under it too
+            var y = y0
+            while (y <= y1 + 1e-4f) {
+                val sx = t.streamX(y)
+                val margin = minOf(sx - t.streamHalf - x0, x1 - sx - t.streamHalf)
+                worst = minOf(worst, margin)
+                assertTrue("$tag: the stream (%.2f) under the deck %.2f..%.2f at %.2f".format(sx, x0, x1, y), margin > 0.25f)
+                y += 0.1f
+            }
+            assertTrue("$tag: the deck's ends on the banks where the road crosses", t.bridge[0] - x0 >= t.bridgeHalf - 1e-4f && x1 - t.bridge[0] >= t.bridgeHalf - 1e-4f)
+            // the road on the deck and on dry land off both its ends
+            for (x in floatArrayOf(x0 - 0.2f, x0 + 0.1f, sp.cx, x1 - 0.1f, x1 + 0.2f)) {
+                val ry = t.roadY(x)
+                assertTrue("$tag: the road's middle (%.2f) off the deck at %.2f".format(ry, x), ry > y0 + Crossing.SIDE && ry < y1 - Crossing.SIDE)
+            }
+            for (x in floatArrayOf(x0 - 0.2f, x1 + 0.2f)) assertTrue("$tag: the road at %.2f in the stream".format(x), abs(x - t.streamX(t.roadY(x))) > t.streamHalf)
+            // no other landmark on it
+            for (o in spots) if (o !== sp) assertTrue("$tag: ${o.landmark.id} on the bridge", o.x + o.w <= x0 || o.x >= x1 || o.y + o.d <= y0 || o.y >= y1)
+            // the palisade: no stake on the bridge, nor on the road on from it to the west (it leaves through a gate), no
+            // gate but the road's, the path's and the stream's
+            val fg = Foreground.of(s, w, h)
+            val ring = Palisade.ring(t, age, fg)
+            for (stake in ring.stakes) {
+                assertTrue("$tag: a stake on the bridge at (%.2f, %.2f)".format(stake.x, stake.y), !sp.covers(stake.x, stake.y, 0.2f))
+                if (stake.x < x0) assertTrue("$tag: a stake on the road west at (%.2f, %.2f)".format(stake.x, stake.y), abs(stake.y - t.roadY(stake.x)) > road(age))
+            }
+            for (wet in ring.wet) assertTrue("$tag: the bridge in a water gate", !sp.covers(wet.x, wet.y, 0.3f))
+            assertTrue("$tag: a gate of the cart track's", ring.gates.count { it.kind == PalisadeRing.Kind.ROAD } <= 2)
+        }
+        println("bridges: $n places checked; the water at least %.2f cells from a deck's end".format(worst))
+    }
+
+    @Test fun `the bridge keeps its place as it is built and as the projects after it start`() {
         for ((name, t) in lands().filterIndexed { i, _ -> i % 6 == 0 } + ("classic" to Terrain.CLASSIC)) for (age in ages) {
-            val first = LandmarkLayout.of(state(t, age, stage = 1), 360, 800).first { it.landmark.id == "most" }
+            val first = LandmarkLayout.of(state(t, age, stage = 1), 360, 800).first { it.landmark.id == Crossing.BRIDGE }
             for (st in 2..6) {
-                val now = LandmarkLayout.of(state(t, age, stage = 1, bridge = st), 360, 800).first { it.landmark.id == "most" }
-                assertEquals("$name $age stage $st", listOf(first.x, first.y), listOf(now.x, now.y))
-                assertEquals("$name $age stage $st: its track", first.ways.single().toList(), now.ways.single().toList())
+                val now = LandmarkLayout.of(state(t, age, stage = 1, bridge = st), 360, 800).first { it.landmark.id == Crossing.BRIDGE }
+                assertEquals("$name $age stage $st", listOf(first.x, first.y, first.w, first.d), listOf(now.x, now.y, now.w, now.d))
             }
             // only the maypole before it: it stands where it stands with every project started
             val alone = GameState(seed = 42, age = age, villagers = 10, morale = 70, fire = 70, land = t.land,
-                buildings = state(t, age).buildings, projects = mapOf("mlaj" to 5, "most" to 3))
-            val sp = LandmarkLayout.of(alone, 360, 800).first { it.landmark.id == "most" }
+                buildings = state(t, age).buildings, projects = mapOf("mlaj" to 5, Crossing.BRIDGE to 3))
+            val sp = LandmarkLayout.of(alone, 360, 800).first { it.landmark.id == Crossing.BRIDGE }
             assertEquals("$name $age with the maypole only", listOf(first.x, first.y), listOf(sp.x, sp.y))
         }
     }
 
-    @Test fun `the road's bridge carries the road from bank to bank`() {
+    /**
+     * One bridge (Jan: "leave away the second one"): building it changes the map only at the crossing, the stones going
+     * and the bridge coming; nothing anywhere else (no track, no gate, no other bridge), by day and at night.
+     */
+    @Test fun `building the bridge changes the map only where the road crosses the stream`() {
+        val fit = SceneFit.town(1080, 2400)
+        val comp = VillageLayout.composition(fit.width, fit.height, false)
+        for ((name, t) in listOf("classic" to Terrain.CLASSIC, "valley-7" to Terrain.of(Land.of(Landscape.VALLEY, 7L)), "mountains-3" to Terrain.of(Land.of(Landscape.MOUNTAINS, 3L)))) for (age in listOf(Age.ZASELEK, Age.VAS)) {
+            for (frame in listOf(Frame(time = 3.0, hour = 11f, month = 10, placed = emptyList()), Frame(time = 3.0, hour = 22.5f, month = 1, placed = emptyList()))) {
+                val before = PixelCanvas(fit.width, fit.height).also { VillageRenderer().render(it, state(t, age, bridge = 0), frame) }
+                val after = PixelCanvas(fit.width, fit.height).also { VillageRenderer().render(it, state(t, age, bridge = 6), frame) }
+                // the crossing on the canvas: the bridge's footprint and its railings' height, a pixel or two round it
+                val b = Crossing.box(t, road(age))
+                val l = comp.fireX + (b[0] - b[1] - b[3]) * 4f - 2f; val r = comp.fireX + (b[0] + b[2] - b[1]) * 4f + 2f
+                val top = comp.fireY + (b[0] + b[1]) * 2f - 6f; val bottom = comp.fireY + (b[0] + b[2] + b[1] + b[3]) * 2f + 2f
+                var changed = 0
+                for (y in 0 until fit.height) for (x in 0 until fit.width) {
+                    val i = y * fit.width + x
+                    if (before.pixels[i] == after.pixels[i]) continue
+                    changed++
+                    assertTrue("$name $age h${frame.hour}: the picture changed at ($x, $y), off the crossing $l..$r × $top..$bottom", x >= l && x <= r && y >= top && y <= bottom)
+                }
+                assertTrue("$name $age: the bridge drawn", changed > 20)
+            }
+        }
+    }
+
+    @Test fun `the crossing carries the road from bank to bank`() {
         for ((name, t) in lands()) {
             val b = t.bridge
             // on the road, over the water onto both banks
@@ -224,8 +259,8 @@ class BridgesTest {
 
     // ---------------------------------------------------------------- snapshots
 
-    /** A village like Jan's (Vas, the classic valley): its cart bridge at every stage, and finished by night and in winter. */
-    @Test fun `render the bridges at every stage, by day, by night and in winter`() {
+    /** A village like Jan's (Vas, the classic valley): the crossing at every stage, and the bridge by night and in winter. */
+    @Test fun `render the crossing at every stage, by day, by night and in winter`() {
         val fit = SceneFit.town(1080, 2400)
         val comp = VillageLayout.composition(fit.width, fit.height, false)
         val jan = GameState(
@@ -236,37 +271,44 @@ class BridgesTest {
                 Building("b7", CHURCH, 6), Building("b8", HOUSE, 0, level = 3), Building("b9", SMITHY, 4), Building("b10", LIPA, 7),
                 Building("b11", SCHOOL, 9),
             ),
-            projects = mapOf("most" to 6, "mlin" to 2, "mlaj" to 5),
+            projects = mapOf(Crossing.BRIDGE to 6, "mlin" to 2, "mlaj" to 5),
         )
-        val sp = LandmarkLayout.of(jan, fit.width, fit.height).first { it.landmark.id == "most" }
-        // the bridge in the middle of a closer look (k = 3), 150 × 90 nominal px round it
+        val t = Terrain.CLASSIC
+        val b = Crossing.box(t, 1f)
+        val cx = b[0] + b[2] / 2f; val cy = b[1] + b[3] / 2f
+        // the crossing in the middle of a closer look (k = 3), 150 × 90 nominal px round it
         val k = 3; val cw = 150; val ch = 90
-        val fx = comp.fireX + ((sp.cx - sp.cy) * 4f).toInt() - 10; val fy = comp.fireY + ((sp.cx + sp.cy) * 2f).toInt() + 10
+        val fx = comp.fireX + ((cx - cy) * 4f).toInt(); val fy = comp.fireY + ((cx + cy) * 2f).toInt()
         val lens = Lens(k, fx * k - cw * k / 2, fy * k - ch * k / 2, fit.width, fit.height)
         val frames = listOf(
             "day" to Frame(time = 3.0, hour = 11f, month = 10),
             "night" to Frame(time = 3.0, hour = 22.5f, month = 10),
             "winter" to Frame(time = 3.0, hour = 12.5f, month = 1),
         )
-        for (st in 1..6) for ((when_, frame) in frames) {
-            if (st < 6 && when_ != "day") continue
-            val s = jan.copy(projects = jan.projects + ("most" to st))
+        for (st in 0..6) for ((when_, frame) in frames) {
+            if (st in 1..5 && when_ != "day") continue
+            val s = jan.copy(projects = if (st == 0) jan.projects - Crossing.BRIDGE else jan.projects + (Crossing.BRIDGE to st))
             val c = PixelCanvas(cw * k, ch * k)
             VillageRenderer().render(c, s, frame.copy(lens = lens))
             write(c, File(dir, "63-bridge-$st-$when_.png"), 2)
         }
-        // the whole village, finished
-        val c = PixelCanvas(fit.width, fit.height)
-        VillageRenderer().render(c, jan, frames[0].second)
-        write(c, File(dir, "63-bridge-village.png"), 3)
-        // the hamlet (its road narrower) and a town on generated lands, closer up
-        for ((name, t) in listOf("valley-7" to Terrain.of(Land.of(Landscape.VALLEY, 7L)), "mountains-3" to Terrain.of(Land.of(Landscape.MOUNTAINS, 3L)), "coast-42" to Terrain.of(Land.of(Landscape.COAST, 42L)))) for (age in listOf(Age.ZASELEK, Age.MESTO)) {
-            val s = state(t, age, stage = 6)
-            val b = LandmarkLayout.of(s, fit.width, fit.height).first { it.landmark.id == "most" }
-            val bx = comp.fireX + ((b.cx - b.cy) * 4f).toInt() - 10; val by = comp.fireY + ((b.cx + b.cy) * 2f).toInt() + 10
-            val z = PixelCanvas(cw * k, ch * k)
-            VillageRenderer().render(z, s, frames[0].second.copy(lens = Lens(k, bx * k - cw * k / 2, by * k - ch * k / 2, fit.width, fit.height)))
-            write(z, File(dir, "63-bridge-$name-${age.name.lowercase()}.png"), 2)
+        // the whole village, the stones and the bridge
+        for ((tag, s) in listOf("stones" to jan.copy(projects = jan.projects - Crossing.BRIDGE), "built" to jan)) {
+            val c = PixelCanvas(fit.width, fit.height)
+            VillageRenderer().render(c, s, frames[0].second)
+            write(c, File(dir, "63-bridge-village-$tag.png"), 3)
+        }
+        // the hamlet (its road narrower) and a town on generated lands, closer up: the stones and the bridge
+        for ((name, land) in listOf("valley-7" to Terrain.of(Land.of(Landscape.VALLEY, 7L)), "mountains-3" to Terrain.of(Land.of(Landscape.MOUNTAINS, 3L)), "coast-42" to Terrain.of(Land.of(Landscape.COAST, 42L)))) for (age in listOf(Age.ZASELEK, Age.MESTO)) {
+            for (st in listOf(0, 6)) {
+                val s = state(land, age, stage = 6, bridge = st)
+                val bb = Crossing.box(land, road(age))
+                val bcx = bb[0] + bb[2] / 2f; val bcy = bb[1] + bb[3] / 2f
+                val bx = comp.fireX + ((bcx - bcy) * 4f).toInt(); val by = comp.fireY + ((bcx + bcy) * 2f).toInt()
+                val z = PixelCanvas(cw * k, ch * k)
+                VillageRenderer().render(z, s, frames[0].second.copy(lens = Lens(k, bx * k - cw * k / 2, by * k - ch * k / 2, fit.width, fit.height)))
+                write(z, File(dir, "63-bridge-$name-${age.name.lowercase()}-$st.png"), 2)
+            }
         }
     }
 

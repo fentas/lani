@@ -86,7 +86,7 @@ class PalisadeTest {
             val a = ring.stakes[main.a]; val b = ring.stakes[main.b]
             assertTrue(a.post && b.post)
             assertTrue("$age: posts at ${a.y} and ${b.y}", a.y < -roadHalf(age) && b.y > roadHalf(age) || b.y < -roadHalf(age) && a.y > roadHalf(age))
-            // from Zaselek on the road leaves to the left over the bridge too
+            // from Zaselek on the road leaves to the left across the stream too
             assertEquals(if (age >= Age.ZASELEK) 2 else 1, ring.gates.count { it.kind == PalisadeRing.Kind.ROAD })
             // on a tall canvas, a gate on the path down into the woods
             val paths = ring.gates.filter { it.kind == PalisadeRing.Kind.PATH }

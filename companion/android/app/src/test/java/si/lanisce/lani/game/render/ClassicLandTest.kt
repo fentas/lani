@@ -76,17 +76,19 @@ class ClassicLandTest {
         // the field's soil under whoever walks by it, its crops in bands, its fence post by post; the people at the chores
         // of a household, the fire's handful (2026-10-13); the hamlet's tenth plot, the school's (2026-10-13): its clearing
         // and palisade a little wider, the meadow's flowers and stones off the new plot; the road's bridge from bank to bank,
-        // as wide as the road, a railing along each side (2026-10-18)
+        // as wide as the road, a railing along each side (2026-10-18); the road fording the stream on stepping stones until
+        // the village builds its bridge there (2026-10-19)
         "jan-like" to mapOf(
-            "side-day" to "50fa02e1787a55bb", "tall-day" to "ff3b1fcec137c41d", "tall-dusk-k2" to "1cf0af11d9282fb4",
-            "tall-night-k3" to "fa7e1c526d00e701", "compact" to "69056c0f39b9bb29", "widget" to "f0c3faba48efccdb",
+            "side-day" to "3eb9c3e6e4a5640b", "tall-day" to "22ee873584bbf4ac", "tall-dusk-k2" to "bbfcc1c496ab8b1d",
+            "tall-night-k3" to "f73afd642d9a0822", "compact" to "4f62ac12d1e45738", "widget" to "9978da454bc4c798",
         ),
         // the town's maypole by the plaza in the middle (2026-10-11; before, it stood by the linden at the side); its fields
         // drawn as the hamlet's, its people at their chores (2026-10-13); the cart bridge on its own track from the road
-        // into the woods through a gate of its own, the timber bridge its steps build, and the road's bridge (2026-10-18)
+        // into the woods through a gate of its own, the timber bridge its steps build, and the road's bridge (2026-10-18);
+        // one bridge, the village's, where the road crosses the stream: no track, no gate of its own (2026-10-19)
         "town" to mapOf(
-            "side-day" to "fb735123f3fffa02", "tall-day" to "ad5aa81355bde287", "tall-dusk-k2" to "f1cd8b210e313828",
-            "tall-night-k3" to "42fdfaef3aa863c0", "compact" to "bb2f79503da004b1", "widget" to "c18230739aa6ae9",
+            "side-day" to "2b3d9a8c5e11883c", "tall-day" to "aa15e3ffc05ae16a", "tall-dusk-k2" to "66558a92e5d67fa9",
+            "tall-night-k3" to "28a08b244b6ba717", "compact" to "921704cfe588885e", "widget" to "a5e0fab1a3125bd2",
         ),
     )
 

@@ -30,7 +30,7 @@ import kotlin.math.sqrt
  * villages from then (their land marked classic) keep their look pixel for pixel. A generated land keeps what the game
  * needs: the fire in the middle, the plots on open ground off the stream, the water, the road and the stream's bank, in
  * reach of the fire and on every canvas of the town, the road through the clearing and over the stream, the stream on the
- * left (the palisade's far-bank rule and the stream's spot, mill and footbridge take it there), the woods' path, pond and
+ * left (the palisade's far-bank rule and the stream's spot, mill and bridge take it there), the woods' path, pond and
  * meadow below.
  */
 class Terrain private constructor(val land: Land) {
@@ -101,7 +101,7 @@ class Terrain private constructor(val land: Land) {
         return x
     }
 
-    /** Where the road crosses the stream on its bridge (world cells). */
+    /** Where the road crosses the stream (world cells): on stepping stones, then on the bridge the village builds ([Crossing]). */
     val bridge: FloatArray = if (classic) floatArrayOf(streamX(0f), 0f) else {
         var y = 0f
         var x = streamX(y)
@@ -109,7 +109,7 @@ class Terrain private constructor(val land: Land) {
         floatArrayOf(x, y)
     }
 
-    /** How far the road's bridge reaches either side of the stream's middle (cells): over the water onto both banks. */
+    /** How far the bridge reaches either side of the stream's middle (cells): over the water onto both banks. */
     val bridgeHalf: Float = streamHalf + 0.45f
 
     /**

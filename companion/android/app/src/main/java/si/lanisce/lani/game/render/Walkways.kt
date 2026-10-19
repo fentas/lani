@@ -134,7 +134,7 @@ object Walkways {
     /**
      * What a walk in [state]'s village on a [w] × [h] canvas goes round: the fire, every building on a plot, a field's crops
      * (along its edge: its workers walk in from where they set off in it or to where they work in it, a block they are in being
-     * none for them), the projects' landmarks, the campsite's fire and tent at the pond.
+     * none for them), the projects' landmarks (but the bridge, which they walk over), the campsite's fire and tent at the pond.
      */
     fun blocks(state: GameState, w: Int, h: Int): List<Block> {
         val land = VillageLayout.of(state)
@@ -143,7 +143,8 @@ object Walkways {
         for (b in state.buildings) if (b.type.onPlot && b.plot in 0 until VillageLayout.MAX_PLOTS) {
             val c = land.centers[b.plot]; out += if (b.type == BuildingType.FIELD) plot(c[0], c[1], TownPeople.CROPS) else plot(c[0], c[1])
         }
-        for (m in LandmarkLayout.of(state, w, h)) out += rect(m.x, m.y, m.x + m.w, m.y + m.d)
+        // the bridge is walked over, not round
+        for (m in LandmarkLayout.of(state, w, h)) if (m.landmark.id != Crossing.BRIDGE) out += rect(m.x, m.y, m.x + m.w, m.y + m.d)
         Campsite.of(state, w, h)?.let { camp ->
             out += plot(camp.wx, camp.wy, TENT_HALF)
             val fx = camp.fireX; val fy = camp.fireY

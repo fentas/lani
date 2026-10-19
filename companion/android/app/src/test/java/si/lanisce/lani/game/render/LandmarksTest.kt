@@ -92,14 +92,17 @@ class LandmarksTest {
                     val c = Terrain.CLASSIC.centers[p]
                     assertTrue("$tag on plot $p", !(x1 > c[0] - 1.5f && x0 < c[0] + 1.5f && y1 > c[1] - 1.5f && y0 < c[1] + 1.5f))
                 }
-                assertTrue("$tag on the road", y1 <= -road || y0 >= road)
+                // the bridge carries the road over the stream; everything else keeps off the road
+                if (id != Crossing.BRIDGE) assertTrue("$tag on the road", y1 <= -road || y0 >= road)
                 // clear of the fire and the ring where people gather round it
                 val dx = maxOf(x0, 0f, -x1); val dy = maxOf(y0, 0f, -y1)
                 assertTrue("$tag by the fire", dx * dx + dy * dy >= LandmarkLayout.FIRE_RING * LandmarkLayout.FIRE_RING)
-                // the footbridge crosses the stream, well apart from the road's bridge; everything else keeps off the water
-                if (id == "most") {
+                // the bridge crosses the stream where the road does, as wide as the road; everything else keeps off the water
+                if (id == Crossing.BRIDGE) {
                     assertTrue("$tag doesn't cross the stream", Terrain.CLASSIC.streamX((y0 + y1) / 2f) in x0..x1)
-                    assertTrue("$tag on the road's bridge", y1 < -2.5f || y0 > 2.5f)
+                    assertEquals("$tag not where the road crosses", Crossing.box(Terrain.CLASSIC, road).toList(), listOf(sp.x, sp.y, sp.w, sp.d))
+                    assertEquals("$tag not as wide as the road", 2f * (road + Crossing.SIDE), sp.d, 1e-4f)
+                    assertEquals("$tag not at the crossing", Terrain.CLASSIC.bridge[0], sp.cx, 0.01f)
                 } else {
                     var y = y0
                     while (y <= y1) { val sx = Terrain.CLASSIC.streamX(y); assertTrue("$tag in the stream", x1 < sx - 1f || x0 > sx + 1f); y += 0.25f }

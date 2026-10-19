@@ -16,13 +16,10 @@ import kotlin.math.sin
 
 /**
  * Where a village project's landmark stands on the map (see [LandmarkLayout]): its footprint's top corner ([x], [y]) and
- * size ([w] along +x, [d] along +y) in world cells, and how tall it rises above it ([height], nominal px). [ways]: the
- * ways it brings (polylines of world cells, x0, y0, x1, y1, …): the cart bridge's track, from the road over the bridge
- * and on into the woods.
+ * size ([w] along +x, [d] along +y) in world cells, and how tall it rises above it ([height], nominal px).
  */
 data class LandmarkSpot(
     val landmark: Landmark, val x: Float, val y: Float, val w: Float, val d: Float, val height: Float,
-    val ways: List<FloatArray> = emptyList(),
 ) {
     val cx: Float get() = x + w / 2f
     val cy: Float get() = y + d / 2f
@@ -37,24 +34,20 @@ data class LandmarkSpot(
     /** Whether the world point ([px], [py]) is on the footprint or within [pad] cells of it. */
     fun covers(px: Float, py: Float, pad: Float): Boolean = px > x - pad && px < x + w + pad && py > y - pad && py < y + d + pad
 
-    /** Whether the world point ([px], [py]) is on one of its [ways] or within [pad] cells of its side. */
-    fun onWay(px: Float, py: Float, pad: Float): Boolean = ways.any { LandmarkLayout.offWay(it, px, py) < LandmarkLayout.TRACK_HALF + pad }
-
     /**
      * Whether a tree or a bush standing at the world point ([tx], [ty]) would be in the way: on the footprint, or just in
-     * front of it where its crown would hide it; on one of its [ways] or just in front of it. The renderer leaves those
-     * out: a little glade round the landmark, a lane through the woods along its track.
+     * front of it where its crown would hide it. The renderer leaves those out: a little glade round the landmark.
      */
-    fun clears(tx: Float, ty: Float): Boolean {
-        if (covers(tx, ty, 0.8f)) return true
-        for (way in ways) {
-            val off = LandmarkLayout.offWay(way, tx, ty)
-            if (off < LandmarkLayout.TRACK_HALF + 1f) return true
-            if (off < LandmarkLayout.TRACK_HALF + 2.4f && LandmarkLayout.inFrontOf(way, tx, ty)) return true
+    fun clears(tx: Float, ty: Float): Boolean = clears(x, y, w, d, tx, ty)
+
+    companion object {
+        /** [clears] for the footprint at ([x], [y]), [w] × [d] cells (the crossing's before its bridge stands, see [Crossing]). */
+        fun clears(x: Float, y: Float, w: Float, d: Float, tx: Float, ty: Float): Boolean {
+            if (tx > x - 0.8f && tx < x + w + 0.8f && ty > y - 0.8f && ty < y + d + 0.8f) return true
+            if (tx + ty <= x + w / 2f + y + d / 2f) return false
+            val sx = (tx - ty) * 4f; val sy = (tx + ty) * 2f
+            return sx > (x - y - d) * 4f - 5f && sx < (x + w - y) * 4f + 5f && sy < (x + w + y + d) * 2f + 18f
         }
-        if (tx + ty <= cx + cy) return false
-        val sx = (tx - ty) * 4f; val sy = (tx + ty) * 2f
-        return sx > (x - y - d) * 4f - 5f && sx < (x + w - y) * 4f + 5f && sy < (x + w + y + d) * 2f + 18f
     }
 }
 
@@ -74,12 +67,12 @@ internal class LandmarkShape(
  * Where each landmark of the village's projects stands (see [Projects.landmarks]): near the first of its sites that the
  * village has (a building, the fire, a spot of the landscape), on a spot that keeps clear of every plot of the age and
  * the paths their buildings will have, the road, the stream, the fire and the ring where people gather round it, the
- * rocks, the woodpile, the stream bank, the landing, the other landmarks and the cart bridge's track. It stays in the
+ * rocks, the woodpile, the stream bank, the landing and the other landmarks. It stays in the
  * clearing (the few trees just in front of it make way, see [LandmarkSpot.clears]), on the part of the world every canvas
  * of the town shows; it isn't mostly hidden behind a building or a landmark, nor hides much of one, unless a crowded
  * village leaves no other place. The bee meadow goes to the meadow in the woods when the canvas has the woods, else to the forest's edge.
- * The cart bridge stands where its own track crosses the stream (see [Field.crossing]): from the road on the village's
- * bank over the bridge and on into the woods, through a gate of its own in the palisade ([LandmarkSpot.ways]).
+ * The bridge stands where the road crosses the stream ([Crossing.box]: from bank to bank, as wide as the road), the one
+ * bridge on the map; until it has its deck the road fords the stream there on stepping stones ([Crossing]).
  *
  * Pure and stable: the same village gives the same places (a canvas matters only by whether it has the woods),
  * landmarks are placed in the catalog's order (a new project never moves one that is already there), and a landmark
@@ -116,7 +109,8 @@ object LandmarkLayout {
 
     internal val SHAPES: Map<String, LandmarkShape> = mapOf(
         "mlaj" to LandmarkShape(2.0f, 2.0f, 36f, stone = false, solid = 0.3f),
-        "most" to LandmarkShape(4.1f, 1.1f, 6f, stone = true, low = true),
+        // the bridge's footprint is the road's crossing ([Crossing.box]); its height, stone and the stakes making way count
+        "most" to LandmarkShape(2.8f, 2.2f, 6f, stone = true, low = true),
         "mlin" to LandmarkShape(2.4f, 2.0f, 20f, stone = false),
         "balinisce" to LandmarkShape(4.6f, 1.3f, 4f, stone = false, turns = true, shrinks = true),
         "kapelica" to LandmarkShape(1.6f, 1.6f, 20f, stone = true),
@@ -135,73 +129,8 @@ object LandmarkLayout {
 
     internal fun shapeOf(id: String): LandmarkShape = SHAPES[id] ?: MONUMENT
 
-    /** Half a track's width (cells): the cart bridge's deck is as wide. */
-    const val TRACK_HALF = 0.55f
-
-    /**
-     * How far the cart bridge stands from the road's bridge (their middles along the stream, cells), at least; [NEAR_GAP]
-     * where the village has no room further off.
-     */
-    private const val ROAD_GAP = 4.5f
-    private const val NEAR_GAP = 3.2f
-
-    /** The track off the cart bridge's near end runs straight on this far (cells) before it turns to the road. */
-    private const val RUN = 0.8f
-
-    /** The stream may wander this much (cells) under the cart bridge's deck, from one side of it to the other. */
-    private const val SQUARE = 0.8f
-
-    /** The track's gate in the palisade stands at least this many stakes from the ring's other gates. */
-    private const val GATE_APART = 4
-
-    /** How far (cells) the world point ([px], [py]) is from the polyline [way] (x0, y0, x1, y1, …). */
-    fun offWay(way: FloatArray, px: Float, py: Float): Float {
-        var best = Float.MAX_VALUE
-        var i = 0
-        while (i + 3 < way.size) {
-            best = min(best, offSegment(px, py, way[i], way[i + 1], way[i + 2], way[i + 3]))
-            i += 2
-        }
-        return best
-    }
-
-    /** Whether the world point ([px], [py]) stands in front of (nearer the viewer than) the point of [way] nearest it. */
-    internal fun inFrontOf(way: FloatArray, px: Float, py: Float): Boolean {
-        var best = Float.MAX_VALUE; var depth = 0f
-        var i = 0
-        while (i + 3 < way.size) {
-            val ax = way[i]; val ay = way[i + 1]; val dx = way[i + 2] - ax; val dy = way[i + 3] - ay
-            val len2 = dx * dx + dy * dy
-            val u = if (len2 <= 0f) 0f else (((px - ax) * dx + (py - ay) * dy) / len2).coerceIn(0f, 1f)
-            val qx = ax + dx * u; val qy = ay + dy * u
-            val d = hypot(px - qx, py - qy)
-            if (d < best) { best = d; depth = qx + qy }
-            i += 2
-        }
-        return px + py > depth
-    }
-
-    private fun offSegment(px: Float, py: Float, ax: Float, ay: Float, bx: Float, by: Float): Float {
-        val dx = bx - ax; val dy = by - ay
-        val len2 = dx * dx + dy * dy
-        val u = if (len2 <= 0f) 0f else (((px - ax) * dx + (py - ay) * dy) / len2).coerceIn(0f, 1f)
-        return hypot(px - (ax + dx * u), py - (ay + dy * u))
-    }
-
-    /** Every point of [way] [step] cells apart along it (and its corners), as (x, y) to [f]. */
-    internal inline fun alongWay(way: FloatArray, step: Float = 0.25f, f: (Float, Float) -> Unit) {
-        var i = 0
-        while (i + 3 < way.size) {
-            val ax = way[i]; val ay = way[i + 1]; val bx = way[i + 2]; val by = way[i + 3]
-            val n = max(1, (hypot(bx - ax, by - ay) / step).toInt())
-            for (j in 0 until n) { val t = j / n.toFloat(); f(ax + (bx - ax) * t, ay + (by - ay) * t) }
-            i += 2
-        }
-        if (way.size >= 2) f(way[way.size - 2], way[way.size - 1])
-    }
-
-    /** Where they stand, and the ways they bring (see [LandmarkSpot.ways]), by project. */
-    private class Placed(val boxes: Map<String, FloatArray>, val ways: Map<String, List<FloatArray>>)
+    /** Where they stand, by project. */
+    private class Placed(val boxes: Map<String, FloatArray>)
 
     private val cache = LinkedHashMap<String, Placed>()
 
@@ -230,19 +159,19 @@ object LandmarkLayout {
             }
         }
         return marks.mapNotNull { m ->
-            places.boxes[m.project]?.let { r -> LandmarkSpot(m, r[0], r[1], r[2], r[3], shapeOf(m.id).height, places.ways[m.project].orEmpty()) }
+            places.boxes[m.project]?.let { r -> LandmarkSpot(m, r[0], r[1], r[2], r[3], shapeOf(m.id).height) }
         }
     }
 
     private fun place(state: GameState, marks: List<Landmark>, fg: Foreground?): Placed {
         val f = Field(state)
         val out = LinkedHashMap<String, FloatArray>()
-        val ways = LinkedHashMap<String, List<FloatArray>>()
         for (m in marks) {
             val shape = shapeOf(m.id)
             val (anchor, woods) = anchorOf(state, m.site, fg)
             val r = when {
-                m.id == "most" -> f.crossing(anchor, shape)?.let { (box, way) -> ways[m.project] = listOf(way); f.tracks += way; box }
+                // the bridge where the road crosses the stream, whatever its site
+                m.id == Crossing.BRIDGE -> Crossing.box(f.land, f.road)
                 m.id == "mlin" -> f.bank(anchor, shape) ?: f.search(anchor, shape)
                 woods && fg != null -> f.meadow(fg, anchor, shape)
                 else -> f.search(anchor, shape)
@@ -253,7 +182,7 @@ object LandmarkLayout {
             val x0 = r[0]; val y0 = r[1]; val x1 = r[0] + r[2]; val y1 = r[1] + r[3]
             f.sprites += floatArrayOf((x0 - y1) * 4f, (x0 + y0) * 2f - shape.height, (x1 - y0) * 4f, (x1 + y1) * 2f, x0 + x1 + y0 + y1)
         }
-        return Placed(out, ways)
+        return Placed(out)
     }
 
     /**
@@ -312,8 +241,6 @@ object LandmarkLayout {
         val keep = ArrayList<FloatArray>()
         /** Where people stand at their buildings. */
         val doors = ArrayList<FloatArray>()
-        /** The buildings' paths to the road (x, y from, x, y at the road): the cart track may join one. */
-        val paths = ArrayList<FloatArray>()
         /**
          * The buildings as drawn, and the landmarks placed so far: left, top, right, bottom (px from the fire), and their
          * depth (x0 + x1 + y0 + y1 of the footprint: bigger is nearer).
@@ -321,10 +248,8 @@ object LandmarkLayout {
         val sprites = ArrayList<FloatArray>()
         /** The landmarks placed so far: x0, y0, x1, y1. */
         val placed = ArrayList<FloatArray>()
-        /** The ways placed so far (the cart bridge's track): polylines, kept clear like the landmarks. */
-        val tracks = ArrayList<FloatArray>()
 
-        /** The palisade's ring of the age, as it stands or would (the landing below; the cart track's gate in it). */
+        /** The palisade's ring of the age, as it stands or would (the landing below). */
         val ring: PalisadeRing = Palisade.ring(land, age, null)
 
         /** The path into the woods below, relative to the fire: the same on every tall canvas. */
@@ -344,11 +269,6 @@ object LandmarkLayout {
                 if (!b.type.onPlot || b.plot !in 0 until VillageLayout.MAX_PLOTS) continue
                 val c = land.centers[b.plot]
                 doors += floatArrayOf(c[0] + 2f, c[1] + 0.6f)
-                // its path to the road, as the renderer lays it, from the plot's edge on
-                if (b.type != BuildingType.FIELD) {
-                    val r = land.roadY(c[0])
-                    if (abs(r - c[1]) > 1.6f) paths += floatArrayOf(c[0], c[1] + (if (r > c[1]) 1.6f else -1.6f), c[0], r)
-                }
                 val half = if (b.type == BuildingType.LIPA) 16f else 12f
                 val base = (c[0] + c[1]) * 2f
                 sprites += floatArrayOf((c[0] - c[1]) * 4f - half, base - 6f - spriteHeight(b.type), (c[0] - c[1]) * 4f + half, base + 6f, 2f * (c[0] + c[1]))
@@ -401,21 +321,10 @@ object LandmarkLayout {
         fun onOthers(x0: Float, y0: Float, x1: Float, y1: Float): Boolean =
             placed.any { x1 > it[0] - CLEAR && x0 < it[2] + CLEAR && y1 > it[1] - CLEAR && y0 < it[3] + CLEAR }
 
-        /** On a way placed so far (the cart bridge's track), or by its side. */
-        fun onTracks(x0: Float, y0: Float, x1: Float, y1: Float): Boolean {
-            val m = TRACK_HALF + CLEAR
-            for (way in tracks) {
-                var hit = false
-                alongWay(way) { px, py -> if (px > x0 - m && px < x1 + m && py > y0 - m && py < y1 + m) hit = true }
-                if (hit) return true
-            }
-            return false
-        }
-
         /** Everything on the ground, for a footprint expanded by the clearance. */
         fun clearOfThings(x0: Float, y0: Float, x1: Float, y1: Float, stream: Boolean): Boolean =
             !onRoad(x0, y0, x1, y1) && !onPlot(x0, y0, x1, y1, 0, reserved) && !kept(x0, y0, x1, y1) && !onPath(x0, y0, x1, y1) &&
-                !onOthers(x0, y0, x1, y1) && !onTracks(x0, y0, x1, y1) && !(stream && inStream(x0, y0, x1, y1)) && !(land.water && inWater(x0, y0, x1, y1))
+                !onOthers(x0, y0, x1, y1) && !(stream && inStream(x0, y0, x1, y1)) && !(land.water && inWater(x0, y0, x1, y1))
 
         /** In a lake or the sea, or on the beach (a corner or the middle of the footprint, a little room round it). */
         fun inWater(x0: Float, y0: Float, x1: Float, y1: Float): Boolean =
@@ -548,171 +457,9 @@ object LandmarkLayout {
         }
 
         /**
-         * The cart bridge: where its own track crosses the stream, so carts get to the forest. Across the stream (its middle
-         * under the bridge's) at a row where the stream runs about square to it, well apart from the road's bridge, near
-         * [anchor] (the stream bank), its ends on the banks clear of everything and in the clearing. Its track (one
-         * polyline): from the road on the village's side, past the road's bridge (in a crowded town from a building's path to
-         * it), to the bridge's near (+x) end, the last bit straight on to it, clear of the plots (the next age's too, where it
-         * can: the bridge keeps its place), the
-         * bank where people fish, the landing, the fire and the other landmarks; over the bridge; and from its far end
-         * straight on away from the village into the woods until it is well among the trees, behind the horizon, at the
-         * water or on the road again. It goes through the palisade's ring once, in a gate of its own (the ring opens round
-         * it, see [Palisade.ring]) well apart from the ring's other gates, and no stake stands on the bridge. Returns the
-         * footprint (x0, y0, w, d) and the track.
-         */
-        fun crossing(anchor: FloatArray, shape: LandmarkShape): Pair<FloatArray, FloatArray>? {
-            // first clear of the next age's plots too; then of the age's; in a crowded or narrow village, closer to the
-            // road's bridge and with its near end at the clearing's rim
-            for (pass in 0..2) {
-                var best: Pair<FloatArray, FloatArray>? = null; var bestScore = Float.MAX_VALUE
-                var yc = -14f
-                while (yc <= 14f) {
-                    crossingAt(yc, shape, anchor, pass)?.let { (sc, found) -> if (sc < bestScore) { bestScore = sc; best = found } }
-                    yc += 0.25f
-                }
-                if (best != null) return best
-            }
-            return null
-        }
-
-        /**
-         * The cart bridge across the stream at row [yc] (see [crossing]) and what it costs, or null where it can't stand:
-         * [pass] 0 its track clear of the next age's plots too, 1 of the age's, 2 also nearer the road's bridge and its near
-         * end at the clearing's rim.
-         */
-        private fun crossingAt(yc: Float, shape: LandmarkShape, anchor: FloatArray, pass: Int): Pair<Float, Pair<FloatArray, FloatArray>>? {
-            val s = land.streamX(yc)
-            val x0 = s - shape.w / 2f; val x1 = x0 + shape.w
-            val y0 = yc - shape.d / 2f; val y1 = y0 + shape.d
-            // the stream about square to it, the road's bridge well apart
-            val skew = abs(land.streamX(y0) - land.streamX(y1))
-            if (skew > SQUARE || abs(yc - land.bridge[1]) < if (pass < 2) ROAD_GAP else NEAR_GAP) return null
-            if (!clearOfThings(x0 - CLEAR, y0 - CLEAR, x1 + CLEAR, y1 + CLEAR, stream = false)) return null
-            if (!onScreen(x0, y0, x1, y1, shape.height, clearing = false)) return null
-            // its near end in the clearing, its far end at most a little way into the woods (the trees there make way)
-            for (py in floatArrayOf(y0, y1)) {
-                if (!inClearing((x1 - py) * 4f, (x1 + py) * 2f, if (pass < 2) 2f else -3f) || !inClearing((x0 - py) * 4f, (x0 + py) * 2f, -12f)) return null
-            }
-            // the track from the road to its near end: the last bit straight on to it
-            val ex = x1 + RUN
-            if (!wayClear(x1, yc, ex, yc, pass)) return null
-            val near = nearTrack(ex, yc, pass) ?: return null
-            // from its far end into the woods
-            var fx = x0
-            while (fx > x0 - 30f) {
-                val nx = fx - 0.25f
-                val sx = (nx - yc) * 4f; val sy = (nx + yc) * 2f
-                if (land.water && land.wet(nx, yc, 4f)) break
-                if (sy < 2f - VillageLayout.HORIZON) break
-                if (VillageLayout.screenMetric(sx, sy) > land.forestEdge(age, VillageLayout.angle(sx, sy)) + 30f) break
-                fx = nx
-                if (abs(yc - land.roadY(fx)) < road + TRACK_HALF) break
-            }
-            // off the plots on the far bank (a town's clearing reaches over the stream) and the other landmarks there
-            var far = true
-            alongWay(floatArrayOf(x0, yc, fx, yc)) { px, py ->
-                if (onPlot(px - TRACK_HALF, py - TRACK_HALF, px + TRACK_HALF, py + TRACK_HALF, 0, reserved) || onOthers(px - TRACK_HALF, py - TRACK_HALF, px + TRACK_HALF, py + TRACK_HALF)) far = false
-            }
-            if (!far) return null
-            val way = near + floatArrayOf(x1, yc, x0, yc, fx, yc)
-            // through the palisade's ring once, in a gate of its own, no stake left on the bridge
-            val gate = gateOf(way) ?: return null
-            if (ring.stakes.withIndex().any { (k, st) -> k !in gate && st.x > x0 - 0.3f && st.x < x1 + 0.3f && st.y > y0 - 0.3f && st.y < y1 + 0.3f }) return null
-            if (ring.wet.any { it.x > x0 - 0.6f && it.x < x1 + 0.6f && it.y > y0 - 0.6f && it.y < y1 + 0.6f }) return null
-            // what it costs: near the stream bank, a short way from the road, square to the stream, not crowding the road's
-            // bridge, its ends well in the clearing, the bridge inside the palisade
-            val asx = (anchor[0] - anchor[1]) * 4f; val asy = (anchor[0] + anchor[1]) * 2f
-            var sc = hypot((x0 + x1 - y0 - y1) * 2f - asx, 1.5f * ((x0 + x1 + y0 + y1) - asy)) + penalty(x0, y0, x1, y1, shape)
-            var len = RUN
-            for (j in 0 until near.size - 2 step 2) len += hypot(near[j + 2] - near[j], near[j + 3] - near[j + 1])
-            sc += 3f * len + 30f * skew
-            val gap = abs(yc - land.bridge[1])
-            if (gap < 7f) sc += (7f - gap) * 6f
-            for (py in floatArrayOf(y0, y1)) if (!inClearing((x0 - py) * 4f, (x0 + py) * 2f, 0f)) sc += 10f
-            if (gate.isNotEmpty() && !Palisade.inside(ring, x1 + RUN, yc)) sc += 40f
-            return sc to (floatArrayOf(x0, y0, shape.w, shape.d) to way)
-        }
-
-        /**
-         * The track from the road to ([ex], [y]), just off the cart bridge's near end: straight to the road, or along the
-         * bridge's row and then straight to the road as a building's path goes, between the plots; the shortest that keeps
-         * clear ([wayClear]), onto the road on the village's side past its bridge (where none does, in a crowded village,
-         * onto a building's path to the road). Its points from there on, or null.
-         */
-        private fun nearTrack(ex: Float, y: Float, pass: Int): FloatArray? {
-            val from = land.bridge[0] + land.bridgeHalf + TRACK_HALF + 0.3f
-            var best: FloatArray? = null; var bestLen = Float.MAX_VALUE
-            /** A way to ([tx], [ty]) on the road or a building's path: straight, or along the row and then straight to it. */
-            fun to(tx: Float, ty: Float) {
-                val straight = hypot(tx - ex, ty - y)
-                if (straight < bestLen && wayClear(ex, y, tx, ty, pass)) { best = floatArrayOf(tx, ty, ex, y); bestLen = straight }
-                val bent = abs(tx - ex) + abs(ty - y)
-                if (tx > ex && bent < bestLen && wayClear(ex, y, tx, y, pass) && wayClear(tx, y, tx, ty, pass)) { best = floatArrayOf(tx, ty, tx, y, ex, y); bestLen = bent }
-            }
-            var dx = 0f
-            while (dx <= 14f) {
-                val rx = ex + dx
-                dx += 0.5f
-                if (rx >= from) to(rx, land.roadY(rx))
-            }
-            // in a crowded village, onto a building's path to the road, a little longer way round
-            if (best == null && pass > 0) for (p in paths) {
-                val n = max(1, (abs(p[3] - p[1]) / 0.5f).toInt())
-                for (j in 0..n) to(p[0], p[1] + (p[3] - p[1]) * j / n)
-            }
-            return best
-        }
-
-        /**
-         * The stakes of the ring the track [way] goes through (those within its gate's reach: they make way, see
-         * [Palisade.ring]), or null when it goes through the ring more than once, through or beside another gate, or near
-         * where the stream comes through the ring. Empty: it doesn't reach the ring.
-         */
-        private fun gateOf(way: FloatArray): Set<Int>? {
-            val n = ring.stakes.size
-            if (n == 0) return emptySet()
-            val reach = TRACK_HALF + Palisade.ROAD_CLEAR
-            val opened = HashSet<Int>()
-            for ((k, st) in ring.stakes.withIndex()) if (offWay(way, st.x, st.y) < reach) opened += k
-            // one run of stakes round the ring
-            if (opened.isNotEmpty() && opened.count { (it - 1 + n) % n !in opened } != 1) return null
-            for (g in ring.gates) {
-                // not through another gate (it has no stakes there), nor beside one (from the stream's water gates the wet
-                // stakes keep it); past the ring's end on the shore it may go
-                val m = ring.middle(g)
-                if (g.kind != PalisadeRing.Kind.SHORE && offWay(way, m[0], m[1]) < reach + if (g.kind == PalisadeRing.Kind.WATER) 0.5f else 1.5f) return null
-                for (post in intArrayOf(g.a, g.b)) for (k in opened) {
-                    val d = abs(k - post).let { min(it, n - it) }
-                    if (d < GATE_APART) return null
-                }
-            }
-            return opened
-        }
-
-        /**
-         * Whether a stretch of the cart track from ([ax], [ay]) to ([bx], [by]) keeps clear: of the plots of the age ([pass]
-         * 0: of the next age's too), the stream and its banks, the fire's ring and the other kept places, the landmarks, the
-         * water; in the clearing ([pass] 2: up to its rim).
-         */
-        private fun wayClear(ax: Float, ay: Float, bx: Float, by: Float, pass: Int): Boolean {
-            val m = TRACK_HALF
-            var ok = true
-            alongWay(floatArrayOf(ax, ay, bx, by)) { px, py ->
-                if (!ok) return@alongWay
-                if (onPlot(px - m, py - m, px + m, py + m, 0, if (pass == 0) next else reserved)) ok = false
-                else if (abs(px - land.streamX(py)) < land.streamBank + m) ok = false
-                else if (kept(px - m, py - m, px + m, py + m)) ok = false
-                else if (onOthers(px - m, py - m, px + m, py + m)) ok = false
-                else if (land.water && land.wet(px, py, 6f)) ok = false
-                else if (!inClearing((px - py) * 4f, (px + py) * 2f, if (pass < 2) 3f else -3f)) ok = false
-            }
-            return ok
-        }
-
-        /**
          * The mill: on the stream's bank on the village's (+x) side, its end toward the water where its race comes off the
-         * stream, near [anchor] (the stream bank), well apart from the road's bridge and clear of what's placed (the cart
-         * bridge and its track), the bank where people fish and the rest, in the clearing. Null when the stream has no such place.
+         * stream, near [anchor] (the stream bank), well apart from the bridge where the road crosses and clear of what's
+         * placed, the bank where people fish and the rest, in the clearing. Null when the stream has no such place.
          */
         fun bank(anchor: FloatArray, shape: LandmarkShape): FloatArray? {
             val asx = (anchor[0] - anchor[1]) * 4f; val asy = (anchor[0] + anchor[1]) * 2f

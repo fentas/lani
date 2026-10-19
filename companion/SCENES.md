@@ -729,7 +729,9 @@ know. A thing that goes as the room grows (the straw bed) has its sticker cut fr
 | `square` | `well` (WELL); `tower`: the church with its bell tower (CHURCH) | the maypole before the church (`mlaj`): a peg with a ribbon, the spruce on trestles, peeled, the wreath and ribbons ready, raised; taken down for the season (after May, until the village raises it again on the eve of May Day: GAME.md "Village projects") nothing of it, not even the peg; the tower's clock (`mestna_ura`): a slit window, the round window made for it, the face lifted in (stopped at twelve), then going and lit at night; the fountain in the middle of the square (`vodnjak_na_trgu`): pegs and a string where it will stand, the block of white stone on its beams, carved into a round trough with a pillar in the middle (stone chips round it), finished with the ditch dug from the spring through the garden across the square, the four iron pipes fitted to the pillar with the ditch covered over (in place as its last step begins), then the water running from them into the trough |
 | `stream` | `mill`: France's mill, once it grinds (`mlin`) | the mill as it's built (`mlin`): pegs and a string, the stone footing with the timber waiting, the walls under bare rafters, the roof, the wheel and the flume still and dry, then the water on the wheel and the window lit; the cart bridge upstream (`most`): pegs and a line over the water, heaps of stones, the two stone piers with the cart road's ramps heaped up to them off both banks (dry-stone walls holding their earth), the logs, the plank deck with the ramps up to it and the cart road coming up them from the village and going on into the woods (the first cart can cross), then the railings along both sides, the near one low so the deck and its open ends show over it |
 
-The plank footbridge (`bridge`, brv) is always there: a simple crossing, the cart bridge comes in addition. It is a
+The plank footbridge (`bridge`, brv) is always there: a simple crossing, the cart bridge comes in addition (the map
+has one bridge, the same project's, where the road crosses the stream, and stepping stones there before it:
+[GAME.md](GAME.md), "The crossing"; this stretch of the stream keeps its footbridge and its stepping stones). It is a
 footbridge to walk over (Jan, 2026-10-18: "the bridge seems not to be drivable ;)"): planks laid across two logs that rest
 on the banks, low over the water and lit along their front edge, the water in its shade under it, one low handrail along
 its far side; the track along the right bank and the path along the left (past Micka's washing stone) come onto its ends
@@ -1539,8 +1541,9 @@ that are places of their own: the woodcutter's stack (the woodpile's card), the 
 log, flowers and mushrooms (the meadow's card, "Naberi hrano · Gather food"), the high seat and its owl (the hunter's high seat: what
 it is, and who is there now), and the charcoal pile (below). The meadow's deer are their word, as the wild animals are
 (a tap right on one). The start view frames the clearing and the meadow. The palisade stands round the clearing, with a
-gate on the path; a tap on any stretch of it opens it, and its bubbles point at its gate on the road. The road's bridge
-over the stream is the stream's, as the water under it is (the stream bank's card).
+gate on the path; a tap on any stretch of it opens it, and its bubbles point at its gate on the road. Where the road
+crosses the stream, its stepping stones are the stream's, as the water round them is (the stream bank's card); the bridge
+the village builds there is its project's landmark, a tap on it opens the project ([GAME.md](GAME.md), "The crossing").
 
 **The charcoal pile** (`spot:kopa`, oglarska kopa) is there where the canvas goes down that far (`Foreground.kopa`: a
 phone held upright; on a shorter canvas it has no target, and its bubbles are where the woods' are). A tap on it, its
@@ -1572,7 +1575,7 @@ Two scenes open from spots of the landscape. The way to the stream is a footpath
 down to a little landing at the water on the village's bank, inside the palisade, which keeps to the stream's far bank
 (a ring that runs by the stream on the village's side instead opens in a river gate, a postern, for it: the campfire's
 clearing, before the palisade can go up); a tap on the landing or its stones, on the stream where it runs
-through the clearing or on its bank above the bridge opens the stream bank's card with "Vstopi · Go in" to Ob potoku,
+through the clearing or on its bank above the crossing opens the stream bank's card with "Vstopi · Go in" to Ob potoku,
 and a tap on the pond in the woods the pond's, to Pri ribniku. The landing is a thing drawn like the woodpile, found by
 the nearest pixel like everything else; the water and the bank are areas, tried after everything drawn there
 (buildings, people, the fire, the palisade), so they never take a tap from them. The scroll's places list these spots after

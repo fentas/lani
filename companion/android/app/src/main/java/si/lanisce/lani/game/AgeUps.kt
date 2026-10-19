@@ -84,13 +84,14 @@ enum class PartyPlace(val id: String) {
 
 /**
  * What an age changes on the map, as its moment shows them one after another (the renderer: [Growth]): the forest draws
- * back (the clearing of the new age), its new plots, the road to the west over its bridge (Zaselek), the road wider (Vas),
+ * back (the clearing of the new age), its new plots, the road to the west across the stream on stepping stones (Zaselek;
+ * the village builds the bridge there: render/Crossing), the road wider (Vas),
  * the open ground round the fire (Zaselek, Trg), its cobbles (Trg), the palisade moving out with the forest, the fire.
  */
 enum class Change(val emoji: String, val key: String) {
     FOREST("🌲", "ageUp.change.forest"),
     PLOTS("📐", "ageUp.change.plots"),
-    WEST("🌉", "ageUp.change.west"),
+    WEST("🪨", "ageUp.change.west"),
     WIDE("🛣️", "ageUp.change.wide"),
     SQUARE("⭕", "ageUp.change.square"),
     COBBLES("🧱", "ageUp.change.cobbles"),
@@ -101,7 +102,7 @@ enum class Change(val emoji: String, val key: String) {
 /**
  * An age-up on the map as its moment shows it (the renderer's Frame.growth): what of the new age shows yet, each 0 (as it
  * was at [from]) to 1 (grown): the forest drawing back ([forest]: the clearing's edge between the two ages', the trees going
- * as it passes them, the palisade moving out at its end), the road to the west and its bridge ([west]), the road widening
+ * as it passes them, the palisade moving out at its end), the road to the west and its stepping stones ([west]), the road widening
  * ([wide]), the open ground round the fire ([square]), its cobbles ([cobbles]), the fire ([fire]). [plots]: the new plots to
  * mark on the ground (their frames, as the plot chooser's), while they are shown.
  */
