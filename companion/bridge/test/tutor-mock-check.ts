@@ -2,11 +2,15 @@
 // A quick self-check of the Messages API mock (test/tutor-mock.ts): starts it on a free port as QA runs it, then plays
 // the app's client with plain fetch: the models, a turn's first call (streamed), its tool results, the call after the
 // reply, a 429 and its retry, a refusal, the credit error, a stream error, a non-streamed call, the effort (top-level, per
-// message with its beta, the thinking it weighs, Haiku 5.5 at low and [mock:no-reply] without a reply), the caching usage and
+// message with its beta, the thinking it weighs, Haiku 5.5 at low and [mock:no-reply] without a reply), the caching usage,
+// the studio (a chat's request_content, a content job: publish_module refused by the real validator then taken, the text
+// editor's story file, a sub-task, a slow call, no marker), the Message Batches (results, an errored request, a cancel) and
 // the request log (the key never in it).
 //
 //   bun companion/bridge/test/tutor-mock-check.ts
 import { resolve } from 'node:path'
+import { validateModule } from '../src/spec'
+import { validateStory } from '../src/stories'
 
 let failures = 0
 const check = (name: string, cond: unknown, detail?: unknown) => {
@@ -16,7 +20,7 @@ const check = (name: string, cond: unknown, detail?: unknown) => {
 
 const KEY = 'sk-mock-check-1234567890'
 const mock = Bun.spawn(['bun', resolve(import.meta.dir, 'tutor-mock.ts')], {
-  env: { ...process.env, LANI_TUTOR_MOCK_PORT: '0', LANI_TUTOR_MOCK_DELAY_MS: '1', LANI_TUTOR_MOCK_SLOW_MS: '20' },
+  env: { ...process.env, LANI_TUTOR_MOCK_PORT: '0', LANI_TUTOR_MOCK_DELAY_MS: '1', LANI_TUTOR_MOCK_SLOW_MS: '20', LANI_TUTOR_MOCK_STUDIO_MS: '300', LANI_TUTOR_MOCK_BATCH_MS: '200' },
   stdout: 'pipe',
   stderr: 'inherit',
 })
@@ -260,6 +264,125 @@ const silentTurn = { role: 'user', content: '<event kind="chat" conversation_id=
 const silent1 = assemble(await sse(await post(request([silentTurn]))))
 const silent2 = assemble(await sse(await post(request([silentTurn]))))
 check('[mock:no-reply]: once the answer as text (end_turn, no tool), then as usual', silent1.stop === 'end_turn' && !silent1.content.some((b: any) => b.type === 'tool_use') && silent2.stop === 'tool_use', { silent1, silent2 })
+
+// --- the studio: a chat hands a brief over, a content job plays ------------------------------------------------------
+const askTools = [...tools, { name: 'request_content', description: 'Brief the studio.', input_schema: { type: 'object', properties: { title: { type: 'string' }, brief: { type: 'string' } }, required: ['title', 'brief'] } }]
+const askTurn = { role: 'user', content: '<event kind="chat" conversation_id="main">Naredi mi vaje za pozdrave [mock:request]</event>' }
+const ask1 = assemble(await sse(await post(request([askTurn], { tools: askTools }))))
+const asked = ask1.content.find((b: any) => b.name === 'request_content')
+check("[mock:request]: request_content {title, brief with the chat's text and [mock:studio-module], kinds, urgent} beside guide and learner_state",
+  asked?.input.title.includes('machine-written') && asked.input.brief.includes('Naredi mi vaje za pozdrave') && asked.input.brief.includes('[mock:studio-module]') && !asked.input.brief.includes('[mock:request') && asked.input.urgent === true && ask1.content.some((b: any) => b.name === 'guide'), ask1.content)
+const ask2 = assemble(await sse(await post(request([askTurn, { role: 'assistant', content: ask1.content }, { role: 'user', content: ask1.content.filter((b: any) => b.type === 'tool_use').map((b: any) => ({ type: 'tool_result', tool_use_id: b.id, content: 'queued: job j_abc123' })) }], { tools: askTools }))))
+check("…then the reply: it's on its way", ask2.content.find((b: any) => b.name === 'reply')?.input.text.includes('on its way'), ask2.content)
+const askBatch = assemble(await sse(await post(request([{ role: 'user', content: 'kind="chat" conversation_id="main" Zgodbe za teden [mock:request:batch]' }], { tools: askTools }))))
+check('[mock:request:batch]: urgent false', askBatch.content.find((b: any) => b.name === 'request_content')?.input.urgent === false, askBatch.content)
+
+const studioSystem = [{ type: 'text', text: "# You are the studio of Lani's tutor (mock check)", cache_control: { type: 'ephemeral', ttl: '1h' } }]
+const studioTools = [
+  { name: 'reply', description: 'Reply.', input_schema: { type: 'object', properties: { conversation_id: { type: 'string' }, text: { type: 'string' } }, required: ['conversation_id', 'text'] } },
+  { name: 'guide', description: 'One topic.', input_schema: { type: 'object', properties: { topic: { type: 'string', enum: ['events', 'studio', 'studio-modules'] } }, required: ['topic'] } },
+  { name: 'learner_state', description: 'State.', input_schema: { type: 'object', properties: {} } },
+  { name: 'publish_module', description: 'Publish.', input_schema: { type: 'object', properties: { spec: { type: 'object' } }, required: ['spec'] } },
+  { name: 'studio_subtask', description: 'A sub-task.', input_schema: { type: 'object', properties: { title: { type: 'string' }, brief: { type: 'string' } } } },
+  { type: 'text_editor_20250728', name: 'str_replace_based_edit_tool' },
+]
+const studioReq = (messages: unknown[]) => ({ model: 'claude-opus-5-5', max_tokens: 32000, stream: true, cache_control: { type: 'ephemeral' }, tool_choice: { type: 'auto' }, tools: studioTools, system: studioSystem, messages })
+/** Plays a studio job to its end: each tool_use answered by [answer] (its result, its error), at most [max] calls. */
+async function playStudio(first: string, answer: (b: any) => { content: string; error?: boolean }, max = 8) {
+  const thread: any[] = [{ role: 'user', content: [{ type: 'text', text: first }] }]
+  const calls: any[] = []
+  for (let i = 0; i < max; i++) {
+    const one = assemble(await sse(await post(studioReq(thread))))
+    calls.push(one)
+    thread.push({ role: 'assistant', content: one.content })
+    const uses = one.content.filter((b: any) => b.type === 'tool_use')
+    if (one.stop !== 'tool_use' || !uses.length) break
+    thread.push({ role: 'user', content: uses.map((b: any) => { const a = answer(b); return { type: 'tool_result', tool_use_id: b.id, content: a.content, ...(a.error ? { is_error: true } : {}) } }) })
+  }
+  return calls
+}
+const asBridge = (b: any) => {
+  if (b.name === 'publish_module') {
+    const v = validateModule(b.input.spec)
+    return v.ok ? { content: `published module ${v.spec.id} v2` } : { content: `spec invalid, nothing published:\n${v.errors}`, error: true }
+  }
+  if (b.name === 'str_replace_based_edit_tool') {
+    const v = validateStory(JSON.parse(b.input.file_text))
+    return v.ok ? { content: `created ${b.input.path}` } : { content: `Nothing written: ${b.input.path} doesn't validate as a story:\n${v.errors}`, error: true }
+  }
+  return { content: 'ok' }
+}
+const studioJob = await playStudio('Studio job (conversation_id: main). Brief: a drill on greetings [mock:studio-module]', asBridge)
+const named = studioJob.map(c => c.content.filter((b: any) => b.type === 'tool_use').map((b: any) => b.name).join('+') || c.stop)
+check('[mock:studio-module]: guide (studio-modules) + learner_state, publish_module refused, publish_module taken, reply, end_turn',
+  JSON.stringify(named) === JSON.stringify(['guide+learner_state', 'publish_module', 'publish_module', 'reply', 'end_turn']) && studioJob[0].content[0].type === 'thinking' && studioJob[0].content.find((b: any) => b.name === 'guide').input.topic === 'studio-modules', named)
+const pubs = studioJob.flatMap(c => c.content).filter((b: any) => b.name === 'publish_module')
+const firstVerdict = validateModule(pubs[0]?.input.spec)
+check("…the first spec is one the bridge's validateModule refuses (answer index out of range), the second one it takes (id mock-studio-drill, 5 exercises, marked machine-written)",
+  !firstVerdict.ok && /answer index out of range/.test((firstVerdict as any).errors) && validateModule(pubs[1]?.input.spec).ok && pubs[1].input.spec.id === 'mock-studio-drill' && pubs[1].input.spec.exercises.length >= 5 && pubs[1].input.spec.title.includes('machine-written'), pubs.map(p => p.input.spec.title))
+check("…the reply to the job's conversation (\"main\")", studioJob[3]?.content[0]?.input.conversation_id === 'main' && studioJob[3].content[0].input.text.includes('the drill is published'), studioJob[3]?.content)
+check("…a studio call's tool inputs stream in big pieces", studioJob[1].pieces.length >= 1 && Math.max(...studioJob[1].pieces) > 100, studioJob[1].pieces)
+const resumed = assemble(await sse(await post(studioReq([{ role: 'user', content: [{ type: 'text', text: 'Brief [mock:studio-module]' }] }, { role: 'assistant', content: studioJob[0].content }, { role: 'user', content: studioJob[0].content.filter((b: any) => b.type === 'tool_use').map((b: any) => ({ type: 'tool_result', tool_use_id: b.id, content: 'ok' })) }, { role: 'assistant', content: studioJob[1].content }, { role: 'user', content: [{ type: 'tool_result', tool_use_id: studioJob[1].content[0].id, content: 'refused', is_error: true }] }]))))
+check('…a resumed job goes on where its thread stopped (the fixed publish next)', resumed.content[0]?.name === 'publish_module' && validateModule(resumed.content[0].input.spec).ok, resumed.content)
+
+const fileJob = await playStudio('Studio job (conversation_id: c-9): a story [mock:studio-file]', asBridge)
+const fileNamed = fileJob.map(c => c.content.filter((b: any) => b.type === 'tool_use').map((b: any) => `${b.name}${b.input?.command ? `:${b.input.command}` : ''}`).join('+') || c.stop)
+const creates = fileJob.flatMap(c => c.content).filter((b: any) => b.name === 'str_replace_based_edit_tool')
+check('[mock:studio-file]: the text editor (declared by type, no input_schema) creates app/stories/mock-studio-story.json refused by the story validator, then valid, reply to c-9, end_turn',
+  JSON.stringify(fileNamed) === JSON.stringify(['str_replace_based_edit_tool:create', 'str_replace_based_edit_tool:create', 'reply', 'end_turn']) && creates.every((b: any) => b.input.path === 'app/stories/mock-studio-story.json') &&
+    !validateStory(JSON.parse(creates[0].input.file_text)).ok && validateStory(JSON.parse(creates[1].input.file_text)).ok && JSON.parse(creates[1].input.file_text).title.en.includes('machine-written') && fileJob[2]?.content[0]?.input.conversation_id === 'c-9', fileNamed)
+
+const sub = await playStudio('Studio job: a unit [mock:subtask]', b => ({ content: b.name === 'studio_subtask' ? 'the sub-task published mock-studio-drill' : 'ok' }))
+const subNamed = sub.map(c => c.content.filter((b: any) => b.type === 'tool_use').map((b: any) => b.name).join('+') || c.stop)
+check('[mock:subtask]: studio_subtask {brief [mock:studio-module]}, then the reply, end_turn', JSON.stringify(subNamed) === JSON.stringify(['studio_subtask', 'reply', 'end_turn']) && sub[0].content.find((b: any) => b.name === 'studio_subtask').input.brief === '[mock:studio-module]', subNamed)
+const inner = assemble(await sse(await post(studioReq([{ role: 'user', content: [{ type: 'text', text: 'Sub-task of a job [mock:subtask]: [mock:studio-module]' }] }]))))
+check("…the sub-task's own thread plays studio-module (its brief's marker first)", inner.content.some((b: any) => b.name === 'guide'), inner.content)
+const slowAt2 = Date.now()
+await sse(await post(studioReq([{ role: 'user', content: [{ type: 'text', text: 'Brief [mock:studio-slow]' }] }])))
+check('[mock:studio-slow]: a studio call waits LANI_TUTOR_MOCK_STUDIO_MS (300 here)', Date.now() - slowAt2 >= 300, Date.now() - slowAt2)
+const nothing = await playStudio('Studio job: dialog_variants_heard (conversation_id: main)', () => ({ content: 'ok' }))
+check('no marker: the reply "nothing to write", then end_turn', nothing.length === 2 && nothing[0].content[0]?.input?.text.includes('nothing to write') && nothing[1].stop === 'end_turn', nothing.map(c => c.content))
+const notStudio = assemble(await sse(await post({ ...studioReq([{ role: 'user', content: [{ type: 'text', text: 'kind="chat" [mock:studio-module]' }] }]), system: [{ type: 'text', text: 'The tutor.' }] })))
+check("a request without the studio's prompt is the tutor's, markers or not", notStudio.content.some((b: any) => b.name === 'guide') && !notStudio.content.some((b: any) => b.name === 'publish_module'), notStudio.content)
+
+// --- Message Batches -------------------------------------------------------------------------------------------------
+const batchPost = (body: unknown, headers: Record<string, string> = H) => fetch(`${base}/v1/messages/batches`, { method: 'POST', headers, body: JSON.stringify(body) })
+const nonStream = (r: any) => {
+  const { stream: _s, ...rest } = r
+  return rest
+}
+check('batches: no key 401', (await batchPost({ requests: [] }, { 'anthropic-version': '2023-06-01' })).status === 401)
+check('batches: a bad custom_id, a duplicate, a streaming params: 400',
+  (await batchPost({ requests: [{ custom_id: 'a b', params: {} }] })).status === 400 &&
+    (await batchPost({ requests: [{ custom_id: 'a', params: nonStream(studioReq([])) }, { custom_id: 'a', params: nonStream(studioReq([])) }] })).status === 400 &&
+    (await batchPost({ requests: [{ custom_id: 'a', params: studioReq([{ role: 'user', content: 'x' }]) }] })).status === 400)
+const batchMade: any = await (await batchPost({
+  requests: [
+    { custom_id: 'j_batch01-1', params: nonStream(studioReq([{ role: 'user', content: [{ type: 'text', text: 'Night job (conversation_id: main) [mock:studio-module]' }] }])) },
+    { custom_id: 'j_batch01-2', params: { model: 'claude-opus-5-5', messages: [{ role: 'user', content: 'x' }] } },
+  ],
+})).json()
+check('POST /v1/messages/batches: a message_batch in progress, its counts, no results_url yet', /^msgbatch_mock_/.test(batchMade.id) && batchMade.type === 'message_batch' && batchMade.processing_status === 'in_progress' && batchMade.request_counts.processing === 2 && batchMade.results_url === null && batchMade.ended_at === null && typeof batchMade.expires_at === 'string', batchMade)
+const batchEarly = await fetch(`${base}/v1/messages/batches/${batchMade.id}/results`, { headers: H })
+check('…its results before it batchEnded: 400', batchEarly.status === 400, batchEarly.status)
+await Bun.sleep(260)
+const batchEnded: any = await (await fetch(`${base}/v1/messages/batches/${batchMade.id}`, { headers: H })).json()
+check('GET /v1/messages/batches/:id after LANI_TUTOR_MOCK_BATCH_MS: batchEnded, 1 succeeded and 1 errored, results_url', batchEnded.processing_status === 'ended' && batchEnded.request_counts.succeeded === 1 && batchEnded.request_counts.errored === 1 && batchEnded.results_url === `${base}/v1/messages/batches/${batchMade.id}/results` && !!batchEnded.ended_at, batchEnded)
+const batchLines = (await (await fetch(batchEnded.results_url, { headers: H })).text()).trim().split('\n').map(l => JSON.parse(l))
+const batchOk = batchLines.find((l: any) => l.custom_id === 'j_batch01-1')
+const batchErr = batchLines.find((l: any) => l.custom_id === 'j_batch01-2')
+check("…its results (JSONL): the succeeded one a full message (the studio's first call: guide, learner_state; stop tool_use; usage), the errored one an error",
+  batchLines.length === 2 && batchOk.result.type === 'succeeded' && batchOk.result.message.type === 'message' && batchOk.result.message.stop_reason === 'tool_use' && batchOk.result.message.content.some((b: any) => b.name === 'guide') && batchOk.result.message.usage.output_tokens > 0 &&
+    batchErr.result.type === 'errored' && batchErr.result.error.type === 'error' && batchErr.result.error.error.type === 'invalid_request_error' && /max_tokens/.test(batchErr.result.error.error.message), batchLines)
+const batchToCancel: any = await (await batchPost({ requests: [{ custom_id: 'c1', params: nonStream(studioReq([{ role: 'user', content: [{ type: 'text', text: 'x' }] }])) }] })).json()
+const batchCanceling: any = await (await fetch(`${base}/v1/messages/batches/${batchToCancel.id}/cancel`, { method: 'POST', headers: H })).json()
+await Bun.sleep(400)
+const batchCanceled: any = await (await fetch(`${base}/v1/messages/batches/${batchToCancel.id}`, { headers: H })).json()
+const batchCLines = (await (await fetch(batchCanceled.results_url, { headers: H })).text()).trim().split('\n').map(l => JSON.parse(l))
+check('POST …/cancel: batchCanceling, then batchEnded with the requests canceled', batchCanceling.processing_status === 'canceling' && !!batchCanceling.cancel_initiated_at && batchCanceled.processing_status === 'ended' && batchCanceled.request_counts.canceled === 1 && batchCLines[0].result.type === 'canceled', { batchCanceling, batchCanceled, batchCLines })
+check('an unknown batch: 404', (await fetch(`${base}/v1/messages/batches/msgbatch_nope`, { headers: H })).status === 404)
+const batchLog = (await (await fetch(`${base}/mock/requests`)).json()).filter((r: any) => String(r.call ?? '').startsWith('batch_'))
+check("the batches in /mock/requests (create with its requests' calls, get, results, cancel)", ['batch_create', 'batch_get', 'batch_results', 'batch_cancel'].every(c => batchLog.some((r: any) => r.call === c)) && batchLog.find((r: any) => r.call === 'batch_create')?.requests?.[0]?.studio === true, batchLog.map((r: any) => r.call))
 
 // --- the log --------------------------------------------------------------------------------------------------------
 const log = await (await fetch(`${base}/mock/requests`)).json()

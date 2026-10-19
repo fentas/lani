@@ -47,8 +47,10 @@
 // GET /mock/requests: the last 50 requests (method, path, model, call, status, stop_reason, usage, body, has_key; never
 // the key). POST /mock/reset: forgets the cache, the markers' once and the log.
 import { createHash } from 'node:crypto'
+import { readdirSync, readFileSync, statSync } from 'node:fs'
+import { join, resolve } from 'node:path'
 
-export type MockOptions = { port?: number; host?: string; delayMs?: number; slowMs?: number; models?: string[]; log?: (line: string) => void }
+export type MockOptions = { port?: number; host?: string; delayMs?: number; slowMs?: number; studioMs?: number; batchMs?: number; models?: string[]; log?: (line: string) => void }
 
 type Block = Record<string, any>
 type Msg = { role: string; content: string | Block[] }
@@ -123,10 +125,64 @@ function effortInEffect(messages: Msg[]): string | undefined {
 
 const errorBody = (type: string, message: string) => ({ type: 'error', error: { type, message }, request_id: `req_mock_${sha(`${type}${message}${Date.now()}${Math.random()}`).slice(0, 24)}` })
 
+/** A Message Batch as the mock keeps it: its requests' answers made at creation, shown once [endsAt] passed. */
+type Batch = {
+  id: string
+  created: number
+  endsAt: number
+  cancelInitiated?: number
+  cancelAt?: number
+  results: { custom_id: string; result: Record<string, any> }[]
+}
+
+/** The request's system prompt as text. */
+const systemText = (body: any) => (typeof body?.system === 'string' ? body.system : Array.isArray(body?.system) ? body.system.map((b: any) => b?.text ?? '').join('\n') : '')
+/** A studio call (the app's studio task, docs/plans/05-built/studio.md): the publish tools, and the studio's prompt. */
+const isStudio = (body: any) => Array.isArray(body?.tools) && body.tools.some((t: any) => t?.name === 'publish_module') && /studio/i.test(systemText(body))
+
+/**
+ * The studio's module ([mock:studio-module]): one the bridge's validateModule refuses (an answer index out of range),
+ * then one it takes. Its Slovene is machine-written (marked in the title and the note).
+ */
+const STUDIO_MODULE_ID = 'mock-studio-drill'
+function studioModule(valid: boolean) {
+  return {
+    schema: 'lani.module/v0',
+    id: STUDIO_MODULE_ID,
+    title: 'Pozdravi in vljudnost (strojno · machine-written)',
+    level: 'A1',
+    targets: ['mock_pattern'],
+    tags: ['mock', 'machine-written'],
+    exercises: [
+      { type: 'choice', prompt: 'Kateri pozdrav je vljuden? · Which greeting is polite?', options: ['Živjo', 'Dober dan'], answer: valid ? 1 : 4, explain: '**Dober dan** is polite; *živjo* is for friends.' },
+      { type: 'cloze', text: 'Ona ___ doma. · She is at home.', accept: ['je'], explain: '**je** · she/he is' },
+      { type: 'reorder', prompt: 'Good day!', tokens: ['Dober', 'dan'], solutions: [['Dober', 'dan']] },
+      { type: 'translate', prompt: 'Thank you very much.', accept: ['Hvala lepa.', 'Najlepša hvala.'] },
+      { type: 'flashcard', front: 'hvala', back: 'thank you' },
+    ],
+  }
+}
+
+/**
+ * The studio's story file ([mock:studio-file]): one the story validator refuses (no levels), then a copy of the shortest
+ * curated story of primorska under the mock's id, its title machine-written and marked so.
+ */
+const STUDIO_STORY_ID = 'mock-studio-story'
+const STUDIO_STORY_PATH = `app/stories/${STUDIO_STORY_ID}.json`
+function studioStory(valid: boolean): string {
+  if (!valid) return JSON.stringify({ schema: 'lani.story/v0', id: STUDIO_STORY_ID, language: 'sl', title: 'Poskusna zgodba (strojno · machine-written)', teller: 'janez' }, null, 2)
+  const dir = resolve(import.meta.dir, '../../cultures/primorska/stories')
+  const shortest = readdirSync(dir).filter(f => f.endsWith('.json')).map(f => join(dir, f)).sort((a, b) => statSync(a).size - statSync(b).size)[0]
+  const story = JSON.parse(readFileSync(shortest, 'utf8'))
+  return JSON.stringify({ ...story, id: STUDIO_STORY_ID, title: { sl: 'Poskusna zgodba (strojno)', en: 'A mock story (machine-written)' }, review: `the mock's copy of the curated "${story.id}" (test/tutor-mock.ts); its title machine-written`, order: undefined }, null, 2)
+}
+
 export function startTutorMock(o: MockOptions = {}) {
   const host = o.host ?? '127.0.0.1'
   const delayMs = o.delayMs ?? 15
   const slowMs = o.slowMs ?? 150
+  const studioMs = o.studioMs ?? 4000
+  const batchMs = o.batchMs ?? 1500
   const say = o.log ?? ((line: string) => console.log(line))
   const modelIds = o.models?.length ? o.models : DEFAULT_MODELS
 
@@ -138,6 +194,8 @@ export function startTutorMock(o: MockOptions = {}) {
   /** The once-markers that acted, by marker and the message's hash. */
   let spent = new Set<string>()
   let requests: Logged[] = []
+  /** The Message Batches (POST /v1/messages/batches): their requests' answers made at once, shown once they "ended". */
+  let batches = new Map<string, Batch>()
   /** Never reset: message and tool ids stay unique while the mock runs. */
   let seq = 0
 
@@ -225,6 +283,9 @@ export function startTutorMock(o: MockOptions = {}) {
       return { call: 'closing', stop: 'tool_use', content: [toolUse('notebook_write', { text: notebook })] }
     }
 
+    // the studio's calls (the app's content jobs): by the markers in the job's (or the sub-task's) first message
+    if (isStudio(body)) return studio(messages, start, turn, tools, toolUse, conversation, done, id)
+
     // Haiku 5.5 at low (as Jan's shadow saw it) or [mock:no-reply]: the answer as text at once, end_turn, no reply call
     if (!results && (noReply || (body.model === 'claude-haiku-5-5' && effort === 'low'))) {
       const said = kind === 'answer' ? 'ocenil sem odgovor · I graded the answer' : `videl sem dogodek ${kind} · I saw a ${kind} event`
@@ -245,6 +306,14 @@ export function startTutorMock(o: MockOptions = {}) {
       const looks: Block[] = []
       if (guide) looks.push(toolUse('guide', { topic: topics.includes('feedback') ? 'feedback' : (topics[0] ?? 'events') }))
       if (tools.has('learner_state')) looks.push(toolUse('learner_state', {}))
+      // [mock:request] (or [mock:request:file|slow|subtask|batch]): a chat that hands a brief to the studio
+      const asked = /\[mock:request(?::(\w+))?\]/.exec(turn)
+      if (asked && tools.has('request_content')) {
+        const variant = asked[1] ?? 'module'
+        const marker = variant === 'file' ? '[mock:studio-file]' : variant === 'slow' ? '[mock:studio-slow]' : variant === 'subtask' ? '[mock:subtask]' : '[mock:studio-module]'
+        const said = turn.replace(/<[^>]+>/g, ' ').replace(/\[mock:[\w:-]+\]/g, '').replace(/\s+/g, ' ').trim().slice(0, 300)
+        looks.push(toolUse('request_content', { title: 'Mock: vaje (strojno) · machine-written drill', brief: `${said || 'A drill'} (mock brief) ${marker}`, kinds: ['module'], urgent: variant !== 'batch' }))
+      }
       if (looks.length) {
         return {
           call: 'first',
@@ -260,7 +329,7 @@ export function startTutorMock(o: MockOptions = {}) {
 
     // 2. the reply, once a turn
     if (!replied && tools.has('reply')) {
-      const said = kind === 'answer' ? 'ocenil sem odgovor · I graded the answer' : `videl sem dogodek ${kind} · I saw a ${kind} event`
+      const said = /\[mock:request/.test(turn) && tools.has('request_content') ? 'naročeno, vaje so na poti · on its way' : kind === 'answer' ? 'ocenil sem odgovor · I graded the answer' : `videl sem dogodek ${kind} · I saw a ${kind} event`
       const long = turn.includes('[mock:slow]')
         ? '\n\nTo je daljši odgovor, ki se piše počasi, da se vidi, kako nastaja: najprej pozdrav, potem razlaga in na koncu vprašanje. · A longer reply, written slowly so you can watch it come: a greeting first, then the explanation, and a question at the end.\n\n**Kako si danes?** · How are you today?'
         : ''
@@ -285,6 +354,55 @@ export function startTutorMock(o: MockOptions = {}) {
 
     // 3. done
     return done
+  }
+
+  /**
+   * A studio call's answer: [mock:studio-module] (and -slow) guide and learner_state, publish_module refused by the
+   * validator, then a valid one, the reply, done; [mock:studio-file] the text editor's create refused, then a valid story,
+   * the reply, done; [mock:subtask] studio_subtask (its own thread plays studio-module), then the reply; no marker: the
+   * reply alone. Each step is read from what the thread already holds, so a resumed job goes on where it stopped.
+   */
+  function studio(messages: Msg[], start: number, turn: string, tools: Map<string, any>, toolUse: (name: string, input: unknown) => Block, conversation: string, done: { call: string; stop: string; content: Block[] }, id: string) {
+    const after = messages.slice(Math.max(start, 0) + 1)
+    const uses = after.filter(m => m.role === 'assistant').flatMap(blocksOf).filter(b => b?.type === 'tool_use')
+    const results = new Map(after.filter(m => m.role === 'user').flatMap(blocksOf).filter(b => b?.type === 'tool_result').map(b => [b.tool_use_id, b]))
+    const failedLast = (name: string, f: (u: Block) => boolean = () => true) => {
+      const last = uses.filter(u => u.name === name && f(u)).at(-1)
+      return last ? results.get(last.id)?.is_error === true : false
+    }
+    const replied = uses.some(u => u.name === 'reply')
+    const reply = (text: string) => ({ call: 'studio_reply', stop: 'tool_use', content: [toolUse('reply', { conversation_id: conversation, text })] as Block[] })
+    const variant = turn.includes('[mock:studio-module]') || turn.includes('[mock:studio-slow]') ? 'module' : turn.includes('[mock:studio-file]') ? 'file' : turn.includes('[mock:subtask]') ? 'subtask' : 'none'
+    const thinking = { type: 'thinking', thinking: `Mock studio: a ${variant} job. The guide first, then the learner's state.`, signature: Buffer.from(sha(`sig${id}`), 'hex').toString('base64') }
+    if (variant === 'module') {
+      const pubs = uses.filter(u => u.name === 'publish_module')
+      if (!uses.length && (tools.has('guide') || tools.has('learner_state'))) {
+        const topics: unknown[] = tools.get('guide')?.input_schema?.properties?.topic?.enum ?? []
+        const looks: Block[] = []
+        if (tools.has('guide')) looks.push(toolUse('guide', { topic: topics.includes('studio-modules') ? 'studio-modules' : (topics[0] ?? 'studio') }))
+        if (tools.has('learner_state')) looks.push(toolUse('learner_state', {}))
+        return { call: 'studio_look', stop: 'tool_use', content: [thinking, { type: 'text', text: 'Pogledam … · Let me look.' }, ...looks] as Block[] }
+      }
+      if (!pubs.length) return { call: 'studio_publish_refused', stop: 'tool_use', content: [toolUse('publish_module', { spec: studioModule(false), note: 'machine-written (mock)' })] as Block[] }
+      if (failedLast('publish_module') && pubs.length < 3) return { call: 'studio_publish', stop: 'tool_use', content: [toolUse('publish_module', { spec: studioModule(true), note: 'machine-written (mock): a drill on greetings' })] as Block[] }
+      if (!replied) return reply('**Mock studio** · vaje so objavljene · the drill is published')
+      return { ...done, call: 'studio_done' }
+    }
+    if (variant === 'file') {
+      const create = (u: Block) => u.input?.command === 'create'
+      const creates = uses.filter(u => u.name === 'str_replace_based_edit_tool' && create(u))
+      if (!creates.length) return { call: 'studio_file_refused', stop: 'tool_use', content: [thinking, toolUse('str_replace_based_edit_tool', { command: 'create', path: STUDIO_STORY_PATH, file_text: studioStory(false) })] as Block[] }
+      if (failedLast('str_replace_based_edit_tool', create) && creates.length < 3) return { call: 'studio_file', stop: 'tool_use', content: [toolUse('str_replace_based_edit_tool', { command: 'create', path: STUDIO_STORY_PATH, file_text: studioStory(true) })] as Block[] }
+      if (!replied) return reply('**Mock studio** · zgodba je zapisana · the story is written')
+      return { ...done, call: 'studio_done' }
+    }
+    if (variant === 'subtask') {
+      if (!uses.some(u => u.name === 'studio_subtask') && tools.has('studio_subtask')) return { call: 'studio_subtask', stop: 'tool_use', content: [thinking, toolUse('studio_subtask', { title: 'Mock subtask', brief: '[mock:studio-module]' })] as Block[] }
+      if (!replied) return reply('**Mock studio** · podnaloga je opravljena · the sub-task is done')
+      return { ...done, call: 'studio_done' }
+    }
+    if (!replied && tools.has('reply')) return reply('**Mock studio** · nothing to write')
+    return { ...done, call: 'studio_done' }
   }
 
   /** The text of the turn's first user message (what the markers are read from). */
@@ -314,13 +432,13 @@ export function startTutorMock(o: MockOptions = {}) {
 
   // --- responses --------------------------------------------------------------------------------------------------
   const headers = (extra: Record<string, string> = {}) => ({ 'request-id': `req_mock_${sha(`${seq}${Date.now()}`).slice(0, 24)}`, ...extra })
-  const fail = (status: number, type: string, message: string, extra: Record<string, string> = {}) => Response.json(errorBody(type, message), { status, headers: headers(extra) })
+  const failed = (status: number, type: string, message: string, extra: Record<string, string> = {}) => Response.json(errorBody(type, message), { status, headers: headers(extra) })
 
   const outputTokens = (content: Block[], effort: string | undefined) =>
     tokens(content.map(b => (b.type === 'text' ? b.text : b.type === 'thinking' ? b.thinking : b.type === 'tool_use' ? JSON.stringify(b.input) : '')).join('')) +
     (content.some(b => b.type === 'thinking') ? THINKING[effort ?? 'low'] ?? 40 : 0)
 
-  function stream(id: string, model: string, content: Block[], stop: string, usage: Omit<Usage, 'output_tokens'>, o: { stopDetails?: unknown; error?: boolean; output: number; slow?: boolean }) {
+  function stream(id: string, model: string, content: Block[], stop: string, usage: Omit<Usage, 'output_tokens'>, o: { stopDetails?: unknown; error?: boolean; output: number; slow?: boolean; chunk?: number }) {
     const enc = new TextEncoder()
     const event = (type: string, data: unknown) => enc.encode(`event: ${type}\ndata: ${JSON.stringify(data)}\n\n`)
     const events: Uint8Array[] = []
@@ -341,7 +459,7 @@ export function startTutorMock(o: MockOptions = {}) {
           for (const piece of chunks(b.text, 12)) events.push(event('content_block_delta', { type: 'content_block_delta', index, delta: { type: 'text_delta', text: piece } }))
         } else if (b.type === 'tool_use') {
           events.push(event('content_block_start', { type: 'content_block_start', index, content_block: { type: 'tool_use', id: b.id, name: b.name, input: {} } }))
-          for (const piece of chunks(JSON.stringify(b.input), 10)) {
+          for (const piece of chunks(JSON.stringify(b.input), o.chunk ?? 10)) {
             if (o.slow && b.name === 'reply') slowAfter.add(events.length)
             events.push(event('content_block_delta', { type: 'content_block_delta', index, delta: { type: 'input_json_delta', partial_json: piece } }))
           }
@@ -363,13 +481,12 @@ export function startTutorMock(o: MockOptions = {}) {
     return new Response(body, { headers: headers({ 'content-type': 'text/event-stream; charset=utf-8', 'cache-control': 'no-cache' }) })
   }
 
-  async function messages(req: Request, entry: Logged): Promise<Response> {
-    let body: any
-    try {
-      body = await req.json()
-    } catch {
-      return fail(400, 'invalid_request_error', 'The request body is not valid JSON.')
-    }
+  /** A planned answer to a /v1/messages body: what it streams or returns, or the error the API gives. */
+  type Planned = { id: string; model: string; content: Block[]; stop: string; stopDetails?: unknown; usage: Omit<Usage, 'output_tokens'>; output: number; marker?: Marker; slow: boolean; studio: boolean; wait: number }
+
+  /** The answer to [body] (headers' [betas]): its validation as the API's, the markers, the canned content, the usage. */
+  async function plan(body: any, betas: string[], entry: Logged): Promise<Planned | { error: Response }> {
+    const fail = (status: number, type: string, message: string, extra: Record<string, string> = {}) => ({ error: failed(status, type, message, extra) })
     entry.body = body
     entry.model = body?.model
     entry.stream = !!body?.stream
@@ -385,7 +502,6 @@ export function startTutorMock(o: MockOptions = {}) {
     const top = body.output_config?.effort
     if (top !== undefined && !takesEffort(model)) return fail(400, 'invalid_request_error', `output_config.effort: ${model} does not support effort`)
     if (top !== undefined && !LEVELS.includes(top)) return fail(400, 'invalid_request_error', `output_config.effort: Input should be 'low', 'medium', 'high', 'xhigh' or 'max'`)
-    const betas = (req.headers.get('anthropic-beta') ?? '').split(',').map(b => b.trim())
     const messagesIn = body.messages as Msg[]
     for (let i = 0; i < messagesIn.length; i++) {
       const m: any = messagesIn[i]
@@ -436,12 +552,120 @@ export function startTutorMock(o: MockOptions = {}) {
       ? { input_tokens: 0, cache_creation_input_tokens: 0, cache_read_input_tokens: 0, cache_creation: { ephemeral_5m_input_tokens: 0, ephemeral_1h_input_tokens: 0 } }
       : usageOf(model, body, true)
     const output = outputTokens(content, effort)
-    Object.assign(entry, { call, stop_reason: stop, usage: { ...usage, output_tokens: output }, ...(content.length ? { tools_used: content.filter(b => b.type === 'tool_use').map(b => b.name) } : {}) })
-    if (body.stream) return stream(id, model, content, stop, usage, { stopDetails, error: marker === 'stream-error', output, slow: turnText(body).includes('[mock:slow]') })
-    return Response.json(
-      { id, type: 'message', role: 'assistant', model, content, stop_reason: stop, stop_sequence: null, stop_details: stopDetails ?? null, usage: { ...usage, output_tokens: output } },
-      { headers: headers() },
-    )
+    const studio = isStudio(body)
+    Object.assign(entry, { call, stop_reason: stop, usage: { ...usage, output_tokens: output }, ...(studio ? { studio: true } : {}), ...(content.length ? { tools_used: content.filter(b => b.type === 'tool_use').map(b => b.name) } : {}) })
+    const turn = turnText(body)
+    return { id, model, content, stop, stopDetails, usage, output, marker, slow: turn.includes('[mock:slow]'), studio, wait: studio && turn.includes('[mock:studio-slow]') ? studioMs : 0 }
+  }
+
+  /** A planned answer as the API's message JSON (a non-streamed call, a batch's result). */
+  const messageOf = (p: Planned) => ({ id: p.id, type: 'message', role: 'assistant', model: p.model, content: p.content, stop_reason: p.stop, stop_sequence: null, stop_details: p.stopDetails ?? null, usage: { ...p.usage, output_tokens: p.output } })
+
+  async function messages(req: Request, entry: Logged): Promise<Response> {
+    let body: any
+    try {
+      body = await req.json()
+    } catch {
+      return failed(400, 'invalid_request_error', 'The request body is not valid JSON.')
+    }
+    const betas = (req.headers.get('anthropic-beta') ?? '').split(',').map(b => b.trim())
+    const p = await plan(body, betas, entry)
+    if ('error' in p) return p.error
+    // [mock:studio-slow]: a studio call takes its time (QA kills the app meanwhile)
+    if (p.wait) await Bun.sleep(p.wait)
+    if (body.stream) return stream(p.id, p.model, p.content, p.stop, p.usage, { stopDetails: p.stopDetails, error: p.marker === 'stream-error', output: p.output, slow: p.slow, chunk: p.studio ? 2000 : 10 })
+    return Response.json(messageOf(p), { headers: headers() })
+  }
+
+  // --- Message Batches (POST /v1/messages/batches; docs: build-with-claude/batch-processing) ------------------------
+  const BATCH_ID = /^[a-zA-Z0-9_-]{1,64}$/
+  /** The batch as the API shows it, at [now]: in progress until its time, then ended with its results' URL. */
+  function batchView(b: Batch, base: string, now = Date.now()) {
+    const ended = b.cancelAt !== undefined ? now >= b.cancelAt : now >= b.endsAt
+    const status = ended ? 'ended' : b.cancelAt !== undefined ? 'canceling' : 'in_progress'
+    const counts = { processing: 0, succeeded: 0, errored: 0, canceled: 0, expired: 0 }
+    for (const r of b.results) {
+      if (!ended) counts.processing++
+      else if (b.cancelAt !== undefined) counts.canceled++
+      else if (r.result.type === 'succeeded') counts.succeeded++
+      else counts.errored++
+    }
+    const at = (ms: number) => new Date(ms).toISOString()
+    return {
+      id: b.id, type: 'message_batch', processing_status: status, request_counts: counts,
+      ended_at: ended ? at(b.cancelAt ?? b.endsAt) : null, created_at: at(b.created), expires_at: at(b.created + 86_400_000),
+      archived_at: null, cancel_initiated_at: b.cancelInitiated !== undefined ? at(b.cancelInitiated) : null,
+      results_url: ended ? `${base}/v1/messages/batches/${b.id}/results` : null,
+    }
+  }
+
+  async function batchCreate(req: Request, url: URL, entry: Logged): Promise<Response> {
+    let body: any
+    try {
+      body = await req.json()
+    } catch {
+      return failed(400, 'invalid_request_error', 'The request body is not valid JSON.')
+    }
+    const list = body?.requests
+    if (!Array.isArray(list) || !list.length) return failed(400, 'invalid_request_error', 'requests: at least one request is required')
+    if (list.length > 100_000) return failed(400, 'invalid_request_error', 'requests: at most 100000')
+    const ids = new Set<string>()
+    for (const [i, r] of list.entries()) {
+      if (typeof r?.custom_id !== 'string' || !BATCH_ID.test(r.custom_id)) return failed(400, 'invalid_request_error', `requests.${i}.custom_id: String should match pattern '^[a-zA-Z0-9_-]{1,64}$'`)
+      if (ids.has(r.custom_id)) return failed(400, 'invalid_request_error', `requests.${i}.custom_id: duplicate custom_id ${r.custom_id}`)
+      ids.add(r.custom_id)
+      if (!r.params || typeof r.params !== 'object') return failed(400, 'invalid_request_error', `requests.${i}.params: Field required`)
+      if (r.params.stream) return failed(400, 'invalid_request_error', `requests.${i}.params.stream: streaming is not supported in a batch`)
+    }
+    const betas = (req.headers.get('anthropic-beta') ?? '').split(',').map(b => b.trim())
+    const results: Batch['results'] = []
+    const answered: Logged[] = []
+    for (const r of list) {
+      const e: Logged = { custom_id: r.custom_id }
+      const p = await plan(r.params, betas, e)
+      if ('error' in p) {
+        const err: any = await p.error.json()
+        results.push({ custom_id: r.custom_id, result: { type: 'errored', error: { type: 'error', error: { type: err?.error?.type ?? 'invalid_request_error', message: err?.error?.message ?? 'invalid request' } } } })
+      } else results.push({ custom_id: r.custom_id, result: { type: 'succeeded', message: messageOf(p) } })
+      answered.push({ custom_id: r.custom_id, model: e.model, call: e.call, stop_reason: e.stop_reason, studio: e.studio ?? false, tools_used: e.tools_used, body: r.params })
+    }
+    const now = Date.now()
+    const b: Batch = { id: `msgbatch_mock_${sha(`${now}${Math.random()}`).slice(0, 20)}`, created: now, endsAt: now + batchMs, results }
+    batches.set(b.id, b)
+    Object.assign(entry, { call: 'batch_create', batch: b.id, requests: answered })
+    return Response.json(batchView(b, `${url.protocol}//${url.host}`), { headers: headers() })
+  }
+
+  function batchRoute(req: Request, url: URL, entry: Logged): Response | undefined {
+    const m = /^\/v1\/messages\/batches\/([\w-]+)(\/results|\/cancel)?$/.exec(url.pathname)
+    if (!m) return undefined
+    const b = batches.get(m[1])
+    if (!b) return failed(404, 'not_found_error', `batch ${m[1]} not found`)
+    const base = `${url.protocol}//${url.host}`
+    entry.batch = b.id
+    if (!m[2] && req.method === 'GET') {
+      entry.call = 'batch_get'
+      const view = batchView(b, base)
+      entry.processing_status = view.processing_status
+      return Response.json(view, { headers: headers() })
+    }
+    if (m[2] === '/cancel' && req.method === 'POST') {
+      entry.call = 'batch_cancel'
+      const now = Date.now()
+      if (now < b.endsAt && b.cancelAt === undefined) {
+        b.cancelInitiated = now
+        b.cancelAt = now + Math.min(batchMs, 300)
+      }
+      return Response.json(batchView(b, base), { headers: headers() })
+    }
+    if (m[2] === '/results' && req.method === 'GET') {
+      entry.call = 'batch_results'
+      const view = batchView(b, base)
+      if (view.processing_status !== 'ended') return failed(400, 'invalid_request_error', `batch ${b.id} is still ${view.processing_status}: its results come once it has ended`)
+      const lines = b.results.map(r => JSON.stringify(b.cancelAt !== undefined ? { custom_id: r.custom_id, result: { type: 'canceled' } } : r))
+      return new Response(lines.join('\n') + '\n', { headers: headers({ 'content-type': 'application/binary' }) })
+    }
+    return failed(404, 'not_found_error', `Not found: ${req.method} ${url.pathname}`)
   }
 
   async function route(req: Request, url: URL, entry: Logged): Promise<Response> {
@@ -451,15 +675,16 @@ export function startTutorMock(o: MockOptions = {}) {
       previous = new Map()
       spent = new Set()
       requests = []
+      batches = new Map()
       return Response.json({ ok: true })
     }
-    if (!url.pathname.startsWith('/v1/')) return fail(404, 'not_found_error', `Not found: ${url.pathname}`)
+    if (!url.pathname.startsWith('/v1/')) return failed(404, 'not_found_error', `Not found: ${url.pathname}`)
     const key = req.headers.get('x-api-key')
-    if (!key) return fail(401, 'authentication_error', 'x-api-key header is required')
-    if (key.includes('bad')) return fail(401, 'authentication_error', 'invalid x-api-key')
+    if (!key) return failed(401, 'authentication_error', 'x-api-key header is required')
+    if (key.includes('bad')) return failed(401, 'authentication_error', 'invalid x-api-key')
     const version = req.headers.get('anthropic-version')
-    if (!version) return fail(400, 'invalid_request_error', 'anthropic-version: header is required')
-    if (version !== VERSION) return fail(400, 'invalid_request_error', `anthropic-version: "${version}" is not a valid version`)
+    if (!version) return failed(400, 'invalid_request_error', 'anthropic-version: header is required')
+    if (version !== VERSION) return failed(400, 'invalid_request_error', `anthropic-version: "${version}" is not a valid version`)
     if (url.pathname === '/v1/models' && req.method === 'GET') {
       const data = models()
       entry.call = 'models'
@@ -469,10 +694,13 @@ export function startTutorMock(o: MockOptions = {}) {
     if (one && req.method === 'GET') {
       entry.call = 'model'
       const m = models().find(x => x.id === one[1])
-      return m ? Response.json(m, { headers: headers() }) : fail(404, 'not_found_error', `model: ${one[1]}`)
+      return m ? Response.json(m, { headers: headers() }) : failed(404, 'not_found_error', `model: ${one[1]}`)
     }
     if (url.pathname === '/v1/messages' && req.method === 'POST') return messages(req, entry)
-    return fail(404, 'not_found_error', `Not found: ${req.method} ${url.pathname}`)
+    if (url.pathname === '/v1/messages/batches' && req.method === 'POST') return batchCreate(req, url, entry)
+    const batch = batchRoute(req, url, entry)
+    if (batch) return batch
+    return failed(404, 'not_found_error', `Not found: ${req.method} ${url.pathname}`)
   }
 
   const server = Bun.serve({
@@ -509,6 +737,8 @@ if (import.meta.main) {
     port: Number(env.LANI_TUTOR_MOCK_PORT ?? 8771),
     delayMs: env.LANI_TUTOR_MOCK_DELAY_MS !== undefined ? Number(env.LANI_TUTOR_MOCK_DELAY_MS) : 15,
     slowMs: env.LANI_TUTOR_MOCK_SLOW_MS !== undefined ? Number(env.LANI_TUTOR_MOCK_SLOW_MS) : 150,
+    studioMs: env.LANI_TUTOR_MOCK_STUDIO_MS !== undefined ? Number(env.LANI_TUTOR_MOCK_STUDIO_MS) : 4000,
+    batchMs: env.LANI_TUTOR_MOCK_BATCH_MS !== undefined ? Number(env.LANI_TUTOR_MOCK_BATCH_MS) : 1500,
     models: env.LANI_TUTOR_MOCK_MODELS?.split(',').map(s => s.trim()).filter(Boolean),
   })
   console.log(`tutor mock on ${mock.url} (the emulator: http://10.0.2.2:${mock.port}); GET /mock/requests, POST /mock/reset`)
