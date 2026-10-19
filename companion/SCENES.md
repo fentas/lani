@@ -1378,6 +1378,22 @@ end: "Hvala, lepo je bilo! Jutri spet?" ("Vse si {m:našel|f:našla}! …" when 
 on its thing; TalkBack always has them, hears each clue as it comes (the newest line is a polite live region) and reads the
 lines as the dialogs' are, with their translations. A tap on a person does nothing while a round is on; back closes the game.
 
+**Lines in turn** (`ui/scene/LinesInTurn.kt`). A game adds several lines at once: the game's line and the first clue, a
+guess with the child's reaction and the next clue, a find and (on "Naprej") the next round's line and clue. They come out
+one after another: each of the child's lines is typed in and said in the child's voice to its end (its clip played out,
+`Speaker.sayInTurn`) before the next comes out and starts, 0.35 s after a quiet spell, 0.25 s between two in a row, and
+the child is drawn talking while one is said. The learner's own guess comes out in its turn, at once and unsaid. Lines
+that come while one is said (a tap in the picture, "💡 Še en namig") wait their turn; nothing is skipped. A tap on another
+line's 🔊 stops the one being said at once, and the next waits until the 🔊 has been heard; leaving the game (✕, back,
+"Nazaj v prizor") stops it at once. Nothing to say a line (no voice at all): it stays the time to read it
+(`Speaker.readingMs`, 0.7 s and 70 ms a character). Until October 19, 2026 the screen waited that estimate instead of the
+clip: the girl's Piku said "Vidim, vidim nekaj, česar ti ne vidiš …" in 3.8 s against its 3.4, and a clip still on its way
+from the node lost the seconds it took, so the first clue cut it off ("she gets cut off at «Vidim, vidim nekaj, …»").
+The same holds for a villager's greeting ("Pogovori se": the greeting, then a memory). A dialog's lines need no queue:
+each waits for the learner's "Naprej" or pick, which cuts the line being said as it always did; the person is drawn
+talking while their line is heard (a scene's dialog, the storyteller's story, a keeper's talk, an arrival, a project's
+step).
+
 **Which things** (`ISpy.rounds`): only what the picture shows now (`SceneSights`: not the stars by day, nor a wild animal
 that isn't out, nor what the village hasn't built), with two clues to give; not one spied in the scene today already (unless
 that leaves too few). Picked by weight, the learner's words first: their card due or nearly due (8, [GAME.md](GAME.md#words-met-in-play)),
@@ -1474,7 +1490,10 @@ Tisch" with `wechselpraepositionen`, A2).
 
 **QA:** `companion/bin/qa --steps ispy`: by the fire, QA's hook ("ispy:ob-ognju/stump") offers the game whatever the day
 and spies the stump first; a wrong thing tapped in the picture, the stump, the rounds to the end card (the debug build logs
-where each round's things are on the screen, tag `ISpy`).
+where each round's things are on the screen, tag `ISpy`). The lines in turn, from the debug build's log (tags `Speaker`
+and `Voice`): each of the child's lines starts ("said «…»", "clip start") only after the one before it has ended ("clip
+end", "heard «…»"), no clip of the game is stopped before its end until the game is left, and the game's line, heard to
+its end, comes before the first clue.
 
 ### Stickers: a word's picture from its scene
 

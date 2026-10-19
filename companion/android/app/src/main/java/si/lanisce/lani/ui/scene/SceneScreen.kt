@@ -52,6 +52,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -77,6 +78,7 @@ import androidx.core.view.WindowCompat
 import kotlinx.coroutines.delay
 import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.data.SceneFound
+import si.lanisce.lani.data.Speaker
 import si.lanisce.lani.game.render.Moon
 import si.lanisce.lani.game.scene.ActiveHappening
 import si.lanisce.lani.game.scene.DayAct
@@ -325,34 +327,26 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
         delay(DialogMood.sayAfter(talk.run)) // let the panel, the bubble and the person's reaction come first
         val p = speakerOf(line.who) ?: talk.person
         val who = voiceOf(p)
-        speaker.say(line.sl, voiceName = who.voice, fallback = who.fallback, person = who.person)
+        // drawn talking while the line is heard (the next one, as the learner taps on, cuts it; nothing to say it: for as
+        // long as it takes to read)
         talkingId = p.id
-        delay(700L + line.sl.length * 70L)
+        if (!speaker.sayThrough(line.sl, voiceName = who.voice, fallback = who.fallback, person = who.person, stopIfLeft = false)) delay(Speaker.readingMs(line.sl))
         talkingId = null
     }
     // whom the learner answers: the person of the dialog, or in a project's step whoever spoke last
     val facing = if (talk?.step != null) talk.run.said.lastOrNull { it.who != null }?.who ?: talk.person.id else talk?.person?.id
     val talking = talkingId != null && talkingId == facing
-    // The child's lines of «Vidim, vidim» are said aloud one after another, each as it comes, and the child is drawn talking.
-    var ispyTalking by remember { mutableStateOf(false) }
-    var ispySpoken by remember { mutableIntStateOf(0) }
-    LaunchedEffect(ispy?.started, ispy?.run?.said?.size) {
-        val g = ispy
-        val said = g?.run?.said.orEmpty()
-        if (g == null) { ispySpoken = 0; ispyTalking = false; return@LaunchedEffect }
-        if (ispySpoken > said.size) ispySpoken = 0
-        val fresh = said.drop(ispySpoken).filter { it.who != null }
-        ispySpoken = said.size
-        if (fresh.isEmpty()) return@LaunchedEffect
-        delay(350)
+    // The lines of «Vidim, vidim» come out one after another (a game adds several at once: its line and the first clue): each
+    // of the child's typed in and said in the child's voice to its end before the next starts, the child drawn talking
+    // meanwhile (LinesInTurn). A tap on another 🔊 stops the line at once (the next waits for it); leaving the game stops it.
+    val ispyLines = remember(ispy?.started) { LinesInTurn() }
+    LaunchedEffect(ispy?.started) {
+        val g = ispy ?: return@LaunchedEffect
         val who = voiceOf(g.host.person)
-        for (line in fresh) {
-            speaker.say(line.sl, voiceName = who.voice, fallback = who.fallback, person = who.person)
-            ispyTalking = true
-            delay(700L + line.sl.length * 70L)
-        }
-        ispyTalking = false
+        val lines = snapshotFlow { vm.ispy.play?.takeIf { it.started == g.started && it.sceneId == scene.id }?.run?.said.orEmpty() }
+        ispyLines.follow(lines) { line -> speaker.sayInTurn(line.sl, voiceName = who.voice, fallback = who.fallback, person = who.person) }
     }
+    val ispyTalking = ispyLines.talking
     // The scene takes part in the dialog: the weather and effects its lines bring, how the person reacts (SceneLife.kt).
     var micOn by remember { mutableStateOf(false) }
     // where the happenings on here have their people while they wait (Nejc in his bed), and the one being played until its
@@ -519,7 +513,7 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
                 val g = vm.ispy.play?.takeIf { it.sceneId == scene.id }
                 if (mode == 2 && g != null) {
                     ISpyPanel(
-                        vm, scene, g, voiceOf(g.host.person), visible = groups.now,
+                        vm, scene, g, voiceOf(g.host.person), shown = ispyLines.out, visible = groups.now,
                         onTap = ::guess,
                         onMore = vm.ispy::more,
                         onReveal = vm.ispy::reveal,

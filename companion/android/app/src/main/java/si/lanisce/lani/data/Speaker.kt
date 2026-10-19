@@ -8,12 +8,14 @@ import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import si.lanisce.lani.BuildConfig
 import si.lanisce.lani.audio.OfflineVoice
@@ -59,9 +61,16 @@ class Speaker(private val context: Context) {
     /** Bumped by every say/stop, so a clip that arrives late doesn't talk over what came next. */
     private var turn = 0
 
-    /** The phone's voice is speaking (its callbacks come on another thread). */
+    /**
+     * The phone's voice is speaking, or about to (set as a line is handed to it, so whoever waits for the line waits from
+     * the start; its callbacks come on another thread).
+     */
     @Volatile
     private var ttsTalking = false
+
+    /** The phone's voice's utterance asked for last ("say-<turn>"): only its own callbacks say whether it is speaking. */
+    @Volatile
+    private var utterance: String? = null
 
     /**
      * The hint's 🔊 ([HintVoice]): another voice of the app's, so one voice at a time: whatever this says or stops stops it
@@ -105,13 +114,14 @@ class Speaker(private val context: Context) {
         ready = status == TextToSpeech.SUCCESS
         refresh()
     }.apply {
+        // an utterance flushed by the next one reports its stop after the next one has begun: only the current one counts
         setOnUtteranceProgressListener(object : UtteranceProgressListener() {
-            override fun onStart(utteranceId: String?) { ttsTalking = true }
-            override fun onDone(utteranceId: String?) { ttsTalking = false }
+            override fun onStart(utteranceId: String?) { if (utteranceId == utterance) ttsTalking = true }
+            override fun onDone(utteranceId: String?) { if (utteranceId == utterance) ttsTalking = false }
             @Deprecated("Deprecated in Java")
-            override fun onError(utteranceId: String?) { ttsTalking = false }
-            override fun onError(utteranceId: String?, errorCode: Int) { ttsTalking = false }
-            override fun onStop(utteranceId: String?, interrupted: Boolean) { ttsTalking = false }
+            override fun onError(utteranceId: String?) { if (utteranceId == utterance) ttsTalking = false }
+            override fun onError(utteranceId: String?, errorCode: Int) { if (utteranceId == utterance) ttsTalking = false }
+            override fun onStop(utteranceId: String?, interrupted: Boolean) { if (utteranceId == utterance) ttsTalking = false }
         })
     }
 
@@ -163,6 +173,34 @@ class Speaker(private val context: Context) {
         }
 
         private const val TAG = "Speaker"
+
+        /** How often [sayThrough] looks whether the line is still being said. */
+        private const val POLL_MS = 40L
+
+        /**
+         * How long [text] takes to read when nothing can say it (no voice at all): lines in a row ([sayInTurn]) keep that
+         * much apart, and someone is drawn talking for as long.
+         */
+        fun readingMs(text: String): Long = 700L + text.length * 70L
+
+        /** The longest [heard] waits for one line (a node's clip on its way, then played): a player that never ends doesn't hold the next line for good. */
+        private const val LONGEST_MS = 45_000L
+
+        /**
+         * Waits while the line said in turn [t] is on its way or playing ([busy]), at most [longestMs]; [turn]: the turn now
+         * (a later say or a stop cuts it); [talking]: a voice is heard. True when a voice was heard saying it, false when
+         * nothing was (no voice could say it, or it was cut while it was still on its way).
+         */
+        internal suspend fun heard(t: Int, turn: () -> Int, busy: () -> Boolean, talking: () -> Boolean, pollMs: Long = POLL_MS, longestMs: Long = LONGEST_MS): Boolean {
+            var sounded = talking()
+            var waited = 0L
+            while (turn() == t && busy() && waited < longestMs) {
+                delay(pollMs)
+                waited += pollMs
+                if (turn() == t) sounded = sounded || talking()
+            }
+            return sounded
+        }
 
         /**
          * QA's signal (a debug or qa build): how [text] was said, the last line for a text being what played ("node clip
@@ -249,6 +287,41 @@ class Speaker(private val context: Context) {
     }
 
     /**
+     * Says [text] as [say] does and returns once it has been heard: its clip (or the phone's voice) played to its end,
+     * at once when nothing can say it, or as soon as what is said or stopped after it cuts it (a tap on another 🔊, the
+     * microphone). Lines said one after another wait for each other this way ([sayInTurn]; companion/SCENES.md, "I spy").
+     * [stopIfLeft]: the caller cancelled (the game left) while the line is still being said, it stops at once; else it
+     * plays on (a dialog's line, which only the next one cuts). True when a voice was heard saying it.
+     */
+    suspend fun sayThrough(text: String, voiceName: String = Clips.FEMALE, fallback: String? = null, person: String? = null, stopIfLeft: Boolean = true): Boolean {
+        say(text, voiceName = voiceName, fallback = fallback, person = person)
+        val t = turn
+        try {
+            return heard(t, { turn }, { busy }, { talking })
+        } catch (e: CancellationException) {
+            if (stopIfLeft && turn == t) stop()
+            throw e
+        }
+    }
+
+    /** Waits until no voice of the app's is speaking or loading: a 🔊 tapped meanwhile is heard to its end before the next line. */
+    suspend fun awaitQuiet() {
+        while (busy) delay(POLL_MS)
+    }
+
+    /**
+     * One of several lines in a row (a game's lines, a villager's greeting): once what is being said has ended
+     * ([awaitQuiet]), [text] is said to its end ([sayThrough]; cancelled, it stops), or, when nothing can say it, it
+     * takes the time to read it ([readingMs]). The next line starts after it, never over it.
+     */
+    suspend fun sayInTurn(text: String, voiceName: String = Clips.FEMALE, fallback: String? = null, person: String? = null) {
+        awaitQuiet()
+        val from = System.currentTimeMillis()
+        if (!sayThrough(text, voiceName, fallback, person)) delay((readingMs(text) - (System.currentTimeMillis() - from)).coerceAtLeast(0L))
+        if (BuildConfig.QA) Log.i(TAG, "heard «${Voice.normalize(text)}» after ${System.currentTimeMillis() - from} ms")
+    }
+
+    /**
      * [text] without a clip ([fallback]): the phone's offline voice when it speaks the target language (rendered in the
      * background, 🐢 through its length scale, then played as a clip at the person's pitch and pace), else text-to-speech.
      * [t]: the turn it was asked in; a line that comes late doesn't talk over the next one.
@@ -257,14 +330,14 @@ class Speaker(private val context: Context) {
         val o = offline
         val v = voice
         val target = L10n.pair.target.code
-        if (o == null || v == null || fallback(false, o.language, target, available) != Fallback.OFFLINE) return synthesize(text, slow)
+        if (o == null || v == null || fallback(false, o.language, target, available) != Fallback.OFFLINE) return synthesize(t, text, slow)
         said(text, "offline voice")
         loading = true
         scope.launch {
             val f: File? = runCatching { o.render(text, if (slow) Piper.SLOW else 1f) }.getOrNull()
             if (t != turn) return@launch
             loading = false
-            if (f != null) v.playClips(listOf(f), false, pitch, rate) { synthesize(text, slow) } else synthesize(text, slow)
+            if (f != null) v.playClips(listOf(f), false, pitch, rate) { synthesize(t, text, slow) } else synthesize(t, text, slow)
         }
     }
 
@@ -334,11 +407,15 @@ class Speaker(private val context: Context) {
         prefs.edit().putBoolean(KEY_TIP_SEEN, true).apply()
     }
 
-    private fun synthesize(text: String, slow: Boolean) {
+    /** [text] by Android's text-to-speech, asked in turn [t]: speaking from now on, until its own callbacks say otherwise. */
+    private fun synthesize(t: Int, text: String, slow: Boolean) {
         said(text, if (available) "tts" else "nothing (no tts voice)")
         if (!available) return
         tts.setSpeechRate(if (slow) 0.55f else 0.9f)
-        tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, text.hashCode().toString())
+        val id = "say-$t"
+        utterance = id
+        ttsTalking = true
+        if (tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, id) != TextToSpeech.SUCCESS && utterance == id) ttsTalking = false
     }
 
     /** Silences speech, e.g. before the microphone opens. */

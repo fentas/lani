@@ -3,6 +3,7 @@ package si.lanisce.lani.data
 import android.content.Context
 import android.media.AudioAttributes
 import android.media.MediaPlayer
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -10,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import si.lanisce.lani.BuildConfig
 import java.io.File
 import java.text.Normalizer
 import java.util.Locale
@@ -47,6 +49,9 @@ class Voice(context: Context) {
     var onMissing: (() -> Unit)? = null
 
     private var player: MediaPlayer? = null
+
+    /** The file [player] plays, for QA's log. */
+    private var playingFile: String? = null
 
     /** A recording or a clip is playing (or about to): the background sounds duck under it. Read from any thread. */
     @Volatile
@@ -123,6 +128,7 @@ class Voice(context: Context) {
     private fun start(f: File, rec: Recording?, speed: Float?, onDone: () -> Unit, onError: () -> Unit, pitch: Float = 1f) {
         val mp = MediaPlayer()
         player = mp
+        playingFile = f.name
         playing = rec
         sounding = true
         mp.setAudioAttributes(
@@ -131,10 +137,12 @@ class Voice(context: Context) {
         mp.setOnPreparedListener {
             // Setting a speed (or a pitch) on a prepared player starts it.
             if ((speed == null && pitch == 1f) || runCatching { it.playbackParams = it.playbackParams.setSpeed(speed ?: 1f).setPitch(pitch) }.isFailure) it.start()
+            if (BuildConfig.QA) qa("clip start ${f.name} (${runCatching { it.duration }.getOrDefault(-1)} ms)")
         }
         mp.setOnCompletionListener {
             it.release()
             if (player === it) {
+                qa("clip end ${f.name}")
                 player = null
                 sounding = false // the next clip of a line sets it again at once
                 onDone()
@@ -163,13 +171,26 @@ class Voice(context: Context) {
     }
 
     fun stop() {
-        player?.let { runCatching { it.stop() }; it.release() }
+        player?.let {
+            if (BuildConfig.QA) qa("clip stopped $playingFile at ${runCatching { it.currentPosition }.getOrDefault(-1)} ms")
+            runCatching { it.stop() }
+            it.release()
+        }
         player = null
         playing = null
         sounding = false
     }
 
     companion object {
+        /**
+         * QA's signal (a debug or qa build), tag Voice: a clip starts ("clip start <file> (<ms> ms)"), plays to its end
+         * ("clip end <file>"), or is stopped before ("clip stopped <file> at <ms> ms"; companion/bin/qa's ispy: each line
+         * of a game plays to its end before the next).
+         */
+        private fun qa(what: String) {
+            if (BuildConfig.QA) Log.i("Voice", what)
+        }
+
         private const val INDEX = "index.json"
         private const val FAMILY_SLOW = 0.7f
         private const val CLIP_SLOW = 0.75f

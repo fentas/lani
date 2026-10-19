@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.app.MeetingTalk
+import si.lanisce.lani.data.Speaker
 import si.lanisce.lani.game.scene.Pose
 import si.lanisce.lani.game.villagers.Villager
 import si.lanisce.lani.l10n.bi
@@ -72,9 +73,9 @@ fun ArrivalScene(vm: AppViewModel, m: MeetingTalk) {
         if (line == null || who == null) { talking = null; return@LaunchedEffect }
         delay(DialogMood.sayAfter(talk.run))
         val v = speakers[who]?.voice ?: voice
-        vm.speaker.say(line.sl, voiceName = v.voice, fallback = v.fallback, person = v.person)
+        // drawn talking while the line is heard (SceneScreen's dialog)
         talking = who
-        delay(700L + line.sl.length * 70L)
+        if (!vm.speaker.sayThrough(line.sl, voiceName = v.voice, fallback = v.fallback, person = v.person, stopIfLeft = false)) delay(Speaker.readingMs(line.sl))
         talking = null
     }
     // who the learner answers now: whoever spoke last (the newcomer at first)

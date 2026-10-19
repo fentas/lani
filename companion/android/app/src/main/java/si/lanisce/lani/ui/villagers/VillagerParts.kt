@@ -298,7 +298,8 @@ class Greeting {
 
     /**
      * "Pogovori se": [v] greets Jan with the warmest line their friendship allows, then brings up a memory,
-     * each line spoken in their voice; afterwards they've met.
+     * each line spoken in their voice to its end before the next comes (Speaker.sayInTurn: the next never cuts it, a tap
+     * on another 🔊 does); afterwards they've met.
      */
     fun start(scope: CoroutineScope, vm: AppViewModel, v: Villager) {
         if (speaking) return
@@ -308,10 +309,10 @@ class Greeting {
             speaking = true
             try {
                 val lines = VillagerLogic.greeting(v, vm.villagers.bond(vm.game.state, v.id), LocalDate.now(), state = vm.game.state)
-                for (l in lines) {
+                for ((i, l) in lines.withIndex()) {
+                    if (i > 0) delay(si.lanisce.lani.ui.scene.LinesInTurn.GAP_MS)
                     said = said + l
-                    vm.speaker.say(l.sl, voiceName = v.speakerVoice, fallback = VillagerLogic.voiceOf(v), person = v.id)
-                    delay((900L + 70L * l.sl.length).coerceAtMost(5_500L))
+                    vm.speaker.sayInTurn(l.sl, voiceName = v.speakerVoice, fallback = VillagerLogic.voiceOf(v), person = v.id)
                 }
                 vm.villagers.greeted(v.id)
             } finally {

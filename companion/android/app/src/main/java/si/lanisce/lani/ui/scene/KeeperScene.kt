@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.app.KeeperTalk
+import si.lanisce.lani.data.Speaker
 import si.lanisce.lani.game.scene.Keepers
 import si.lanisce.lani.game.scene.Pose
 import si.lanisce.lani.l10n.bi
@@ -53,9 +54,9 @@ fun KeeperScene(vm: AppViewModel, k: KeeperTalk) {
         val line = talk.run.said.lastOrNull()
         if (line?.who == null) { talking = false; return@LaunchedEffect }
         delay(DialogMood.sayAfter(talk.run))
-        vm.speaker.say(line.sl, voiceName = voice.voice, fallback = voice.fallback)
+        // drawn talking while the line is heard (SceneScreen's dialog)
         talking = true
-        delay(700L + line.sl.length * 70L)
+        if (!vm.speaker.sayThrough(line.sl, voiceName = voice.voice, fallback = voice.fallback, stopIfLeft = false)) delay(Speaker.readingMs(line.sl))
         talking = false
     }
     val pose = rememberPartnerPose(talk.run, talking, micOn)

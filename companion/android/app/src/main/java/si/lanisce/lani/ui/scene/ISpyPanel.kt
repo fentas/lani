@@ -96,7 +96,9 @@ fun ISpyOfferCard(offer: ISpyOffer?, doneToday: Boolean, translations: Boolean, 
  * tapped opening its card) and the learner's guesses; under them, while the round is on, "👆 Poišči v prizoru · Find it in
  * the scene" (a tap in the picture answers), "💡 Še en namig · Another clue", "🙈 Pokaži mi · Show me", and "✋ Izberi raje
  * · Let me choose" with the things in the picture now ([visible]) as chips, which TalkBack always has; once a round is
- * solved its word (a tap opens it over the thing) and "Naprej · Next"; at the end what it brought.
+ * solved its word (a tap opens it over the thing) and "Naprej · Next"; at the end what it brought. [shown]: how many of the
+ * run's lines are out (the scene screen brings them out one after another, each of the child's said to its end before the
+ * next: LinesInTurn).
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -105,6 +107,7 @@ fun ISpyPanel(
     scene: SceneSpec,
     play: ISpyPlay,
     voice: Spoken,
+    shown: Int,
     visible: List<SceneObject>,
     onTap: (String) -> Unit,
     onMore: () -> Unit,
@@ -141,7 +144,7 @@ fun ISpyPanel(
                 ISpyResultCard(scene, play, onClose, Modifier.weight(1f))
             } else {
                 LinesOverTurn(
-                    lines = { ISpyLines(vm, scene, play, voice, prefs.translations) },
+                    lines = { ISpyLines(vm, scene, play, voice, shown, prefs.translations) },
                     turn = {
                         Column(
                             Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 10.dp),
@@ -161,10 +164,13 @@ fun ISpyPanel(
     }
 }
 
-/** The lines of the game: the child's (voiced by the scene screen, the newest typed in and read out by TalkBack) and the learner's guesses. */
+/**
+ * The lines of the game out so far ([shown]): the child's (voiced by the scene screen one after another, the newest typed in
+ * as it is said and read out by TalkBack) and the learner's guesses.
+ */
 @Composable
-private fun ISpyLines(vm: AppViewModel, scene: SceneSpec, play: ISpyPlay, voice: Spoken, translations: Boolean) {
-    val said = play.run.said
+private fun ISpyLines(vm: AppViewModel, scene: SceneSpec, play: ISpyPlay, voice: Spoken, shown: Int, translations: Boolean) {
+    val said = play.run.said.take(shown)
     val list = rememberLazyListState()
     LaunchedEffect(said.size) { if (said.isNotEmpty()) list.animateScrollToItem(said.lastIndex) }
     LazyColumn(Modifier.fillMaxSize(), state = list, contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
