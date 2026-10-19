@@ -1076,6 +1076,63 @@ tutor could only guess why. Now the node keeps what Jan typed or said lately:
   line); a bridge from before drops it from the answers (the schema isn't strict) and a `session_end`'s `looked_up`
   reaches its tutor only in the JSON block.
 
+## The tutor in the app ("🧑‍🏫 Učitelj · Tutor")
+
+The tutor can answer from the app itself, on the learner's own API key (plan 5, phase A;
+[docs/plans/05-built/tutor-live.md](../docs/plans/05-built/tutor-live.md)). **Claude Code on the node stays the default
+and works as before.** The app's tutor is a client of the bridge's channel: it gets the notifications Claude Code would
+get and calls the same tools, through the bridge's `/tutor/*` routes.
+
+**Turning it on.** "🔗 Povezava · Connection" (the status dot on Home) → "🧑‍🏫 Učitelj · Tutor":
+- "Kdo odgovarja · Who answers": "🖥️ Claude Code na mojem vozlišču · Claude Code on my node" (the default), or
+  "📱 V aplikaciji · In the app";
+- the provider: Anthropic with a Claude API key, or OpenAI with "Nadaljuj s ChatGPT · Continue with ChatGPT" (the
+  ChatGPT plan pays) or an OpenAI API key. A key is checked with `GET /v1/models` (not a model call) and kept encrypted
+  with a key in the Android Keystore, in the same vault as the shadow tutor's: never shown again, logged or exported;
+- the preset (Varčno · Economy, Uravnoteženo · Balanced ⭐, Najboljše · Best), "advanced" for the model and effort per
+  task, the daily cap ($1 by default), today's and this month's spend, "Odzovi se takoj · React at once";
+- "📓 Kaj ve učitelj · What my tutor knows": the notebook on the node (`app/tutor/notebook.md`), to read and correct.
+
+Once the credential is kept, the app attaches to the paired bridge. From then on:
+- **The channel's events go to the app.** The Claude Code session hears nothing new: the bridge's log says so, a
+  session that starts meanwhile reads it in its instructions, and the service's status shows `app_tutor`.
+- **Replies stream into the chat.** The typing bubble fills as the reply is written, and the final message replaces it.
+  The reply goes through the bridge's `reply` tool, so it reaches the chat as Claude Code's do: on Home's tutor bar,
+  and as a notification while the app is closed.
+- **The chat says an AI answers:** "🤖 Odgovarja umetna inteligenca (…) · An AI answers here (…)", with "Using ChatGPT
+  plan" when the plan pays.
+- **The data changes for real:** `record_session` (update-db.py), `card` (card.py), the notebook, glosses and sentence
+  notes, through the bridge. `report_problem` keeps an entry in `app/wishlist.md`: the GitHub discussions need a GitHub
+  sign-in the app doesn't have yet.
+- **What goes wrong is said in the chat, briefly:** the cap spent, the key refused, the credit out, no connection.
+- **The shadow tutor is off** meanwhile (it would shadow itself).
+- **What writes content** (an arrival, dialog variants, stories: phase C) waits for Claude Code.
+
+While the app is up it long-polls the bridge's inbox. While it's closed, a WorkManager check runs about every 15
+minutes and answers what waits (a chat, the rhythm).
+
+**Turning it off.** "Claude Code on my node": the app detaches. The bridge gives the session every event the app
+hadn't answered, and Claude Code answers as before.
+
+**The bridge's routes** (`companion/bridge/src/features/tutor.ts`, the app's token only):
+- `GET /tutor/session`: the channel's instructions and tools as Claude Code gets them, the app session's own tools
+  (`learner_state`, `record_session`, `card`, `notebook_note`, `notebook_write`, `report_problem`), protocol 1;
+- `POST /tutor/attach`, `POST /tutor/detach`;
+- `GET /tutor/inbox?after=&wait=` (a long poll of at most 25 s) and `POST /tutor/inbox/ack`, kept in
+  `app/tutor-inbox.json` (out of the data repository);
+- `POST /tutor/tools/:name {args, client_id}`: through the same handlers as Claude Code's tool calls, once per
+  `client_id`;
+- `GET` and `PUT /tutor/notebook`.
+
+**QA.** `companion/bin/qa --steps tutor-live` runs on the emulator with the dev bridge and QA's mock of the Messages
+API (`test/tutor-mock.ts`, its `[mock:slow]` reply). The step:
+1. turns the app's tutor on with a fake key, and checks the dev bridge's channel is the app's;
+2. sends a chat, and takes the streamed reply mid-way and in full; the dev tutor never hears the chat;
+3. posts a session's end, and checks its reaction and the `record_session` in the dev data;
+4. turns the app's tutor off, and checks the dev tutor answers again.
+
+The QA hook `tutorlive:<url>` sets the mock's address in a debug or qa build.
+
 ## The in-app tutor in shadow mode (developer setting)
 
 The prototype of plan 5's in-app tutor ([docs/plans/05-in-app-tutor.md](../docs/plans/05-in-app-tutor.md), phase 0,
