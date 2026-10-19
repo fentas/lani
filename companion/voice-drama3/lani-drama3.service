@@ -1,0 +1,20 @@
+# Lani's Drama 3 worker (Fish Audio Drama 3; Built with Fish Audio) on 127.0.0.1:8785, for batch clips only.
+# NOT a permanent service: it holds ~7 GB of VRAM next to Gepard and the STT worker. companion/bin/voice-build --drama3
+# --run starts ~/.local/share/lani-drama3/run.sh itself and stops it after; this unit is for a manual run only
+# (LANI_DRAMA3_SERVICE=1 companion/voice-drama3/install.sh copies it, never enables it):
+#   systemctl --user start lani-drama3   …   systemctl --user stop lani-drama3
+# Overrides (port, lock, settings) go in ~/.config/lani-drama3.env.
+[Unit]
+Description=Lani Drama 3 worker (Fish Audio Drama 3, 127.0.0.1:8785, batch clips; start by hand only)
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/.local/share/lani-drama3
+ExecStart=%h/.local/share/lani-drama3/run.sh
+Environment=LANI_DRAMA3_LOCK=/tmp/lani-heavy.lock
+EnvironmentFile=-%h/.config/lani-drama3.env
+Restart=no
+Nice=10
+MemoryHigh=8G
+MemoryMax=12G
