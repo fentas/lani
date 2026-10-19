@@ -14,9 +14,11 @@ every day that fits in 5 MB, so uploads overlap: each day is taken from the uplo
 Files that don't parse or aren't an export are left out, with a warning on stderr.
 
 The summary has a row per column: the real tutor ("real"), the primary shadow ("primary"), each lane (its id,
-model@effort, with the provider in front when it isn't Anthropic: "openai:gpt-6.1-sol@medium") and each "also run on"
-of the primary ("also:model@effort"). A call on the learner's ChatGPT plan costs nothing; its "API-equivalent" (what
-its tokens cost on the API) is in the ≈API/day column and its turn's head line. The task files (chat: the chat task;
+model@effort, with the provider in front when it isn't Anthropic: "openai:gpt-6.1-sol@medium",
+"gemini:gemini-4-argon@high", "openrouter:google/gemini-4-argon@medium") and each "also run on" of the primary
+("also:model@effort"). A call on the learner's ChatGPT plan or the Gemini free tier costs nothing; its
+"API-equivalent" (what its tokens cost on the API) is in the ≈API/day column and its turn's head line. An OpenRouter
+call costs what OpenRouter reported. The task files (chat: the chat task;
 grading; routine, with the digests) have an item per event the primary or a lane answered, a digest's events as one
 item (turns whose events overlap are one item), oldest first, under the app's day: the event, then each column's
 turn with a head line (model, effort, status, cost, first token, how it replied), its tool calls in brief and its
@@ -49,6 +51,9 @@ NOTES = ("notebook_note", "notebook_write")
 ENDED = ("DONE", "TRUNCATED", "REFUSED")  # a turn that ran to its end: its events count as answered
 NO_TURN = "— no turn (the lane was off or skipped then)"
 PLAN = "chatgpt_plan"  # a call paid by the learner's ChatGPT plan (CallRecord.billing)
+FREE_TIER = "free_tier"  # a call on the Gemini API's free tier: $0, its API-equivalent kept
+OPENROUTER = "openrouter_credits"  # a call paid by the learner's OpenRouter credits, at OpenRouter's own price
+FREE = (PLAN, FREE_TIER)  # the learner pays nothing per token: the API-equivalent is the price
 DASH = "—"
 EVENT_CUT, DATA_CUT, DIGEST_CUT, VALUE_CUT, WHY_CUT, ERROR_CUT = 600, 1000, 160, 60, 200, 200
 
@@ -347,7 +352,7 @@ class Stat:
         self.call_days.add(day)
         self.spend += float(c.get("cost") or 0)
         self.api += api_cost(c)
-        self.plan_calls += c.get("billing") == PLAN
+        self.plan_calls += c.get("billing") in FREE
         self.models[f"{c.get('model') or '?'}@{c.get('effort') or '-'}"] += 1
         if c.get("error"):
             self.errors += 1
@@ -662,7 +667,10 @@ def run_head(r: Run, label: str, item: Item, events: dict) -> str:
     parts.append(f"{n} call{'s' if n != 1 else ''}" if n else "no call")
     costs = [c.get("cost") for c in r.calls if isinstance(c.get("cost"), (int, float))]
     plan = [c for c in r.calls if c.get("billing") == PLAN]
-    parts.append((money(sum(costs)) if costs else "$—") + (f" ChatGPT plan (≈{money(sum(api_cost(c) for c in plan))} API)" if plan else ""))
+    free = [c for c in r.calls if c.get("billing") == FREE_TIER]
+    routed = any(c.get("billing") == OPENROUTER for c in r.calls)
+    parts.append((money(sum(costs)) if costs else "$—") + (f" ChatGPT plan (≈{money(sum(api_cost(c) for c in plan))} API)" if plan else "")
+                 + (f" Gemini free tier (≈{money(sum(api_cost(c) for c in free))} API)" if free else "") + (" OpenRouter's price" if routed else ""))
     first = next((c.get("firstTokenMs") for c in r.calls if isinstance(c.get("firstTokenMs"), (int, float))), None)
     if first is not None:
         parts.append(f"first token {first:.0f} ms")

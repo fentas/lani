@@ -441,6 +441,46 @@ class ShadowCompareTest(unittest.TestCase):
         _, out, _ = self.run_main("--lanes", "luna", str(dev))
         self.assertEqual(list(self.table(out)), ["real", "primary", key_lane])
 
+    def test_gemini_and_openrouter_lanes(self):
+        flash, argon, routed = "gemini:gemini-3.8-flash@medium", "gemini:gemini-4-argon@high", "openrouter:google/gemini-4-argon@medium"
+        ev = [event("e_g", "chat", T18, "Kako se reče stove?", conversationId="c1")]
+        cp = [call("c_g", "t_g", 0.01, 800, 2000)]
+        tp = [turn("t_g", ["e_g"], "DAY", "CHAT", "claude-sonnet-5-5", "chat", cp, effort="medium", replies=[reply("Peč.", T18 + 3000)])]
+        fc = [call("f1", "f_t", 0.0, 600, 1500, model="gemini-3.8-flash", lane=flash, provider="gemini", billing="free_tier", apiEquivalent=0.002, effort="medium")]
+        ft = [turn("f_t", ["e_g"], "DAY", "CHAT", "gemini-3.8-flash", "chat", fc, effort="medium", lane=flash, replies=[reply("Peč (Flash).", T18 + 2500)])]
+        ac = [call("a1", "a_t", 0.03, 1900, 9000, model="gemini-4-argon", lane=argon, provider="gemini", billing="api_key", effort="high")]
+        at = [turn("a_t", ["e_g"], "DAY", "CHAT", "gemini-4-argon", "chat", ac, effort="high", lane=argon, replies=[reply("Peč (Argon).", T18 + 9500)])]
+        rc = [call("r1", "r_t", 0.0123, 700, 3000, model="google/gemini-4-argon", lane=routed, provider="openrouter", billing="openrouter_credits", effort="medium")]
+        rt = [turn("r_t", ["e_g"], "DAY", "CHAT", "google/gemini-4-argon", "chat", rc, effort="medium", lane=routed, replies=[reply("Peč (OpenRouter).", T18 + 3500)])]
+        matrix = {"settings": {"enabled": True}, "lanes": [
+            {"id": flash, "provider": "gemini", "family": "FLASH", "effort": "medium", "model": "gemini-3.8-flash"},
+            {"id": argon, "provider": "gemini", "family": "ARGON", "effort": "high", "model": "gemini-4-argon"},
+            {"id": routed, "provider": "openrouter", "family": "ROUTED", "effort": "medium", "model": "google/gemini-4-argon"},
+            {"provider": "gemini", "family": "ARGON", "effort": "low", "model": "gemini-4-argon", "skipped": "Gemini 4 Argon has no free tier (the key is on it)"}]}
+        d = day("2026-10-19", ev, tp, cp, [real("Peč, Jan.", T18 + 2000, "e_g")], lanes={flash: (ft, fc), argon: (at, ac), routed: (rt, rc)})
+        dev = self.root / "gemini"
+        dev.mkdir()
+        (dev / "shadow-2026-10-19.json").write_text(json.dumps(export("2026-10-19T21:00:00Z", [d], matrix)))
+        code, out, _ = self.run_main(str(dev))
+        self.assertEqual(code, 0)
+        t = self.table(out)
+        self.assertEqual(list(t), ["real", "primary", flash, argon, routed])
+        # the free tier: $0 a day, its API-equivalent beside it; OpenRouter's lane at its reported cost
+        self.assertEqual((t[flash]["spend/day"], t[flash]["≈API/day"]), ("$0.0000", "$0.0020"))
+        self.assertEqual((t[argon]["spend/day"], t[argon]["≈API/day"]), ("$0.0300", "$0.0300"))
+        self.assertEqual((t[routed]["spend/day"], t[routed]["≈API/day"]), ("$0.0123", "$0.0123"))
+        self.assertIn(f"**{flash}** · `gemini-3.8-flash` · medium · DONE · 1 call · $0.0000 Gemini free tier (≈$0.0020 API) · first token 600 ms", out)
+        self.assertIn(f"**{routed}** · `google/gemini-4-argon` · medium · DONE · 1 call · $0.0123 OpenRouter's price · first token 700 ms", out)
+        self.assertIn("> Peč (OpenRouter).", out)
+        self.assertIn("skipped: Gemini 4 Argon has no free tier", out)
+        # --lanes by the provider, or by a part of an OpenRouter model's id
+        _, out, _ = self.run_main("--lanes", "gemini:", str(dev))
+        self.assertEqual(list(self.table(out)), ["real", "primary", flash, argon])
+        _, out, _ = self.run_main("--lanes", "openrouter", str(dev))
+        self.assertEqual(list(self.table(out)), ["real", "primary", routed])
+        _, out, _ = self.run_main("--lanes", "google/", str(dev))
+        self.assertEqual(list(self.table(out)), ["real", "primary", routed])
+
 
 if __name__ == "__main__":
     unittest.main()
