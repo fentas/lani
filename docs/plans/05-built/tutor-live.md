@@ -23,8 +23,15 @@ settings `ui/tutor/TutorSettings.kt`.*
 
 ## The bridge: the app's tutor session
 
-`features/tutor.ts` is built after the other features (`buildBridge`), because it needs their tools. All routes have
-the app's role (the bridge token or a paired phone's), as the rest of the app's API does.
+`features/tutor.ts` is the last of `build.ts`'s `FEATURES`, on a node and on the phone. It reads the session's tools
+and instructions lazily (`Ctx.session`), since they exist only once every feature is built. All routes have the app's
+role (the bridge token or a paired phone's), as the rest of the app's API does.
+
+**The same contract on both channels.** `ChannelPort` (src/tool.ts) has the app tutor's half: `divert` (the events go
+to an inbox), `undivert` (they go back to the session, with what the inbox held), `call` (a tool as the session's call
+runs) and `draining`. The node's `Channel` (channel.ts) and the phone's `PhoneChannel` (src/phone/channel.ts) both
+implement `divert` and `undivert`. On the phone, "the session" is the host: while the app's tutor is detached, the
+events go to `PhoneBridge`'s notifications, as before. Only the node's channel counts calls in flight and drains.
 
 | Route | What |
 |---|---|
@@ -212,9 +219,12 @@ WorkManager check use the same.
 
 ## What waits for the phone runtime
 
-- **The same routes in-process:** the app's `LiveBridge` talks HTTP to `BridgeConfig.baseUrl`. Pointing it at the
-  phone's own bridge (an in-process transport behind the same calls) is phone-runtime's work. Nothing in `LiveTutor`
-  changes.
+- **The same routes in-process: built, not wired.** `PhoneLink` is an OkHttp interceptor that hands `LiveBridge`'s calls
+  to `PhoneBridge.handle`, so the live tutor runs against the phone's own bridge with no other change. `LivePhoneTest`
+  runs it against the real bundle in QuickJS: attached in-process, a chat answered with `learner_state` from the db
+  port, the reply as the phone bridge's event, a session written by `record_session`, detached. What's left is the
+  hosted mode's wiring: a learner without a node, whose app makes its `LiveBridge` with `PhoneLink.client` instead of
+  the node's address.
 - **The scripts:** `learner_state`, `record_session` and `card` spawn `python3 .claude/hooks/*.py` through the bridge's
   spawn path, which the phone runtime dispatches to the db port (`src/db/cli.ts`). The notebook, the inbox and the
   wishlist are plain files under the data directory (`<filesDir>/lani/data/app/`).

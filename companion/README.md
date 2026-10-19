@@ -1145,7 +1145,8 @@ dot on Home) and tap the version line at the bottom ("Lani 0.2.…") seven times
 with "🕵️ Učitelj v senci · Shadow tutor", its switch, its status and "🔍 Odpri pregled · Open the panel". Turning it on
 without a key opens the panel, which asks for one.
 
-**The key.** Pasted in the panel and checked with `GET /v1/models` (not a model call). Make it in the Console in a
+**The key.** Pasted in the panel (or in "🧑‍🏫 Učitelj · Tutor": one vault for both, and one ChatGPT sign-in) and checked
+with `GET /v1/models` (not a model call). Make it in the Console in a
 workspace of its own ("Lani") with a monthly spend limit (the Default workspace can't have one), expiry "Never". The
 app keeps it encrypted: an AES-GCM key in the Android Keystore (never exportable) seals it, the ciphertext is in a
 DataStore of its own (`tutor_secrets`); it is decrypted in memory for a call only, and goes only to
