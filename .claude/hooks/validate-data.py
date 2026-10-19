@@ -53,7 +53,7 @@ def main():
         sys.exit(0)
 
     try:
-        with open(file_path, 'r') as f:
+        with open(file_path, 'r', encoding='utf-8') as f:  # the databases are UTF-8, whatever the locale's encoding
             json.load(f)
 
         timestamp = now().strftime("%Y%m%d-%H%M%S")

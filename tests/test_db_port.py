@@ -732,6 +732,21 @@ class ValidateDataTest(Scenario):
         self.run_both("validate-data", stdin=[1])
         self.hook(str(self.data / "x\0.json"))
 
+    def test_the_hook_reads_utf8_whatever_the_locale(self):
+        """validate-data.py opened the file in the locale's encoding: under an ASCII locale a good database with a
+        "č" in it was "Error processing" (exit 1), and in Latin-1 another file passed. It reads UTF-8 now, as the other
+        scripts and the TypeScript port do."""
+        self.data.mkdir()
+        good = self.data / "spaced-repetition.json"
+        good.write_text(json.dumps({"items": {"vocab_caj": {"content": "čaj", "answer": "tea"}}}, ensure_ascii=False), encoding="utf-8")
+        latin1 = self.data / "latin1.json"
+        latin1.write_bytes('{"a": "é"}'.encode("latin-1"))
+        ascii_locale = self.env(LC_ALL="C", LANG="C", PYTHONUTF8="0", PYTHONCOERCECLOCALE="0")
+        p = self.hook(str(good), env=ascii_locale, code=0)
+        self.assertIn("Data saved and validated", p.stdout.decode())
+        p = self.hook(str(latin1), env=ascii_locale, code=1)  # not UTF-8: an error, as in any locale
+        self.assertIn("'utf-8' codec can't decode", p.stderr.decode())
+
 
 @db_impl.needs_bun
 class EdgeCasesTest(Scenario):
