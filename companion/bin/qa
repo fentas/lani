@@ -505,6 +505,9 @@ def setup():
             break
     else:
         raise AssertionError("the URL field took no text")
+    # the keyboard down first: the token field sits low (under "☁️ Lani na tem telefonu" and the pairing's heading)
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(slow())
     tap("Token")
     time.sleep(slow())
     type_text(TOKEN)
@@ -7607,9 +7610,18 @@ def hosted():
     v = subprocess.run([sys.executable, str(ROOT / ".claude/hooks/lani_export.py"), "verify", str(zip_path)], capture_output=True, text=True)
     assert v.returncode == 0, f"lani import --verify: {v.stdout or v.stderr}"
     print(f"    {name}: {zip_path.stat().st_size} bytes; {v.stdout.strip().splitlines()[0] if v.stdout.strip() else 'verified'}")
-    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the share sheet
     time.sleep(1)
-    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    # the Tutor section on the phone: the tutor in the app only (no "Claude Code on my node"), its provider to choose
+    for _ in range(8):
+        if find("odgovarja učitelj v aplikaciji"):
+            break
+        adb("shell", "input", "swipe", "540", "1800", "540", "900", "400")  # up only: a drag down closes the sheet
+        time.sleep(1)
+    assert find("odgovarja učitelj v aplikaciji"), "the Tutor section's line for the phone"
+    assert not find("Claude Code"), "no node to choose on the phone"
+    hosted_shot("tutor-section")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the connection sheet
     time.sleep(1)
     assert not listeners(PORT), f"something listened on {PORT} during the hosted step"
     HOSTED["first"], HOSTED["again"] = first, again
