@@ -14,8 +14,9 @@ import si.lanisce.lani.tutor.tutorJson
  *   the dictionary's gaps (stateless, on the routine model), a role-play's turns (their own short thread), the family's
  *   and the towns' events (their untrusted text marked as the bridge marks it), and anything new;
  * - into the day's digest: reviews and session ends (at once with "react at once"), words, readings, a dialog's words;
- * - left for Claude Code: what writes content (phase C: an arrival, dialog variants, stories), which stays in the
- *   bridge's inbox and goes back to the Claude Code session when the learner switches back.
+ * - content writing (phase C: an arrival, dialog variants, stories running low): the studio's job (tutor/live/Studio),
+ *   acknowledged when it ends; on a bridge without the studio's side it stays in the inbox and goes back to the Claude
+ *   Code session when the learner switches back, as before.
  */
 object LiveEvents {
     /** The event's id for inbox item [id] ([inboxId] reads it back). */
@@ -24,14 +25,14 @@ object LiveEvents {
     /** The inbox id of event [eventId], or null (not an inbox event). */
     fun inboxId(eventId: String): Long? = eventId.removePrefix("in_").takeIf { eventId.startsWith("in_") }?.toLongOrNull()
 
-    /** The kinds that write content (phase C): recorded, left for Claude Code. */
+    /** The kinds that write content (phase C): the studio's jobs (left for Claude Code on a bridge without the studio). */
     val CONTENT = setOf("villager_arrived", "dialog_variants_heard", "stories_low")
 
     /** The routine kinds that wait for the day's digest. */
     val ROUTINE = setOf("words_added", "words_learned", "reading_done", "dialog_words")
 
     fun handling(kind: String, reactAtOnce: Boolean): Pair<Handling, String?> = when (kind) {
-        in CONTENT -> Handling.RECORDED to "content writing (phase C): left for Claude Code on the node"
+        in CONTENT -> Handling.RECORDED to "content writing: the studio's job (on a bridge without the studio: left for Claude Code)"
         "session_end", "review_done" -> (if (reactAtOnce) Handling.AT_ONCE else Handling.DIGEST) to null
         in ROUTINE -> Handling.DIGEST to null
         else -> Handling.AT_ONCE to null

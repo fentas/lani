@@ -1,4 +1,4 @@
-> In the app: read-db.py is learner_state, wishlist.md is report_problem (kind wish), content writing comes with phase C; there is no shell and no file to read under companion/.
+> In the app (the studio's job): read-db.py is learner_state; wishlist.md is report_problem (kind wish: a new mechanic or screen); the files under <data dir>/app/ are the file tools' (str_replace_based_edit_tool, search: the learner's data folder only, every write checked by its kind's validator); there is no shell, git, build or release, and nothing under companion/ is in reach. In the chat, request_content hands the studio a brief.
 
 # Lani Studio — building the app from the inside
 

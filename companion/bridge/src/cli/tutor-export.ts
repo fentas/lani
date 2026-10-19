@@ -74,7 +74,7 @@ const SKILL_TOPICS: { id: string; title: string; summary: string; skills: string
     title: 'Fixing a wrong item',
     summary: 'When the learner says a question, card, word, dialog choice or translation is wrong, or a right answer was marked wrong.',
     skills: ['lani-fix'],
-    app: '> In the app: card.py is the card tool (its command is the action), a curated item goes to report_problem instead of wishlist.md; there is no shell, grep or lani-backup.',
+    app: "> In the app: card.py is the card tool (its command is the action); a curated module, scene, story or villager is fixed for the learner by the studio (request_content with the fix: a local override that retires when the curated file changes), and every curated item goes to report_problem instead of wishlist.md; there is no shell, grep or lani-backup.",
   },
   {
     id: 'progress',
@@ -95,7 +95,7 @@ const SKILL_TOPICS: { id: string; title: string; summary: string; skills: string
     title: 'Studio: writing content',
     summary: 'Before writing or fixing app content (modules, packs, scenes, stories, readings, villagers, grammar pages, homework).',
     skills: ['lani-studio'],
-    app: '> In the app: read-db.py is learner_state, wishlist.md is report_problem (kind wish), content writing comes with phase C; there is no shell and no file to read under companion/.',
+    app: "> In the app (the studio's job): read-db.py is learner_state; wishlist.md is report_problem (kind wish: a new mechanic or screen); the files under <data dir>/app/ are the file tools' (str_replace_based_edit_tool, search: the learner's data folder only, every write checked by its kind's validator); there is no shell, git, build or release, and nothing under companion/ is in reach. In the chat, request_content hands the studio a brief.",
   },
 ]
 

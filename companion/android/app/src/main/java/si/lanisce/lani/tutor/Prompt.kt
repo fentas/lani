@@ -39,7 +39,16 @@ class Guide(private val read: (String) -> String? = Bundle::text) {
  * is, the rules, the event kinds in brief, the guide's topics), with one 1-hour cache breakpoint at its end. Nothing
  * about the learner and nothing that changes with time: that goes in the messages.
  */
-class Prefix(val tools: JsonArray, val system: String) {
+class Prefix(
+    val tools: JsonArray,
+    val system: String,
+    /**
+     * A tool the Messages API knows by its type (Anthropic's text editor, `text_editor_20250728`: no input schema of its
+     * own in [tools]) as a provider without it gets the tool: its name, description and input schema (OpenAI's function
+     * tool), by name. Empty for phase A's prefix.
+     */
+    val alternates: Map<String, JsonObject> = emptyMap(),
+) {
     /**
      * The prefix's fingerprint: a thread made with another (an app update changed a tool or the prompt) can't go on, since
      * its thinking blocks are bound to the prefix they were made under: it restarts.

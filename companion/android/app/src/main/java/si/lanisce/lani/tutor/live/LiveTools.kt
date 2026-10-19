@@ -43,6 +43,15 @@ class LiveTools(
     private val onNotebook: suspend () -> Unit = {},
     private val clock: () -> Long = System::currentTimeMillis,
     private val max: Int = 16_000,
+    /** What a tool does, by its name and input (phase A's; the studio's: [StudioSpecs.kindOf]); null: not a tool here. */
+    private val kinds: (String, JsonObject) -> ToolKind? = PhaseA::kindOf,
+    /**
+     * The tools the app carries out itself besides the guide and the dictionary (request_content, studio_subtask, a
+     * report_problem posted to the discussions): their result's text and whether it is an error.
+     */
+    private val local: Map<String, suspend (ToolUse) -> Pair<String, Boolean>> = emptyMap(),
+    /** A bridge tool's call came back (the studio keeps its drafts and what it published). */
+    private val onNode: suspend (ToolUse, LiveBridge.ToolResult) -> Unit = { _, _ -> },
 ) : ToolRunner {
     /** The turn's dictionary_lookup calls whose result came back. */
     private val lookups = AtomicInteger()
@@ -60,7 +69,7 @@ class LiveTools(
             )
         }
         val spec = specs[use.name]
-        val kind = PhaseA.kindOf(use.name, use.input)
+        val kind = kinds(use.name, use.input)
         if (spec == null || kind == null) return out(kind, "unknown tool: ${use.name}", isError = true)
         if (use.badJson != null) return out(kind, "{\"INVALID_JSON\": ${JsonPrimitive(use.badJson.take(2000))}}", isError = true)
         val errors = Schema.check(spec.inputSchema, use.input)
@@ -80,10 +89,13 @@ class LiveTools(
                     lookups.incrementAndGet()
                     out(kind, text, isError = error)
                 }
-                "report_problem" -> if (lookups.get() == 0 && ReportCheck.aboutWords(use.input)) out(kind, ReportCheck.LOOK_FIRST, isError = true) else node(use, kind, ::out)
-                else -> node(use, kind, ::out)
+                "report_problem" -> if (lookups.get() == 0 && ReportCheck.aboutWords(use.input)) out(kind, ReportCheck.LOOK_FIRST, isError = true)
+                    else local[use.name]?.let { f -> f(use).let { (text, error) -> out(kind, text, isError = error) } } ?: node(use, kind, ::out)
+                else -> local[use.name]?.let { f -> f(use).let { (text, error) -> out(kind, text, isError = error) } } ?: node(use, kind, ::out)
             }
         } catch (e: CancellationException) {
+            throw e
+        } catch (e: StudioSignal) {
             throw e
         } catch (e: LiveBridgeError) {
             out(kind, "${use.name} didn't reach the node (${if (e.offline) "no connection" else "HTTP ${e.code}"}): nothing done. ${if (e.offline) "Try again later." else ""}".trim(), isError = true)
@@ -97,6 +109,7 @@ class LiveTools(
         val b = bridge ?: return out(kind, "not connected to the tutor's node: ${use.name} didn't run", true, emptyList())
         if (nodeTools.isNotEmpty() && use.name !in nodeTools) return out(kind, "the node's bridge has no ${use.name} tool (it needs an update): nothing done", true, emptyList())
         val r = b.tool(use.name, use.input, use.id)
+        runCatching { onNode(use, r) }
         if (!r.isError) when (use.name) {
             "reply" -> onReply(ShadowReply(use.input.s("conversation_id").orEmpty(), use.input.s("text").orEmpty(), clock(), use.input["data"] as? JsonObject))
             "notebook_note", "notebook_write" -> runCatching { onNotebook() }

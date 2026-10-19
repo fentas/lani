@@ -1,0 +1,23 @@
+{
+  "name": "studio_subtask",
+  "description": "Do one independent part of a large job (one story of a set, one module of a unit, the pack a scene needs) on a thread of its own, as a sub-task: it starts fresh with only your brief (the notebook and the job's thread aren't in it), reads and publishes with the same tools, and returns what it published in a line or two. Use it when a job has several parts that don't need each other's details, so this thread stays short; a small job needs none. At most six a job; a sub-task can't start another.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string",
+        "minLength": 3,
+        "maxLength": 80,
+        "description": "The part's name, shown in the job's progress."
+      },
+      "brief": {
+        "type": "string",
+        "minLength": 10,
+        "maxLength": 4000,
+        "description": "Everything the part needs: what to write and publish, the ids it must use or avoid, the level, the mistake patterns."
+      }
+    },
+    "required": ["title", "brief"],
+    "additionalProperties": false
+  }
+}

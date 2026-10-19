@@ -31,6 +31,8 @@ import java.io.File
  * @property cursor the newest inbox id taken into the queue (the bridge's tutor inbox).
  * @property told the day each kind of note to the learner was last given (a note is given at most once a day).
  * @property learnerName the learner's name as the dashboard last gave it (the guide's paragraphs say Jan).
+ * @property monthlyCap a month's spend that stops the tutor but for the learner's own chats, once they said so ([monthAllowed]).
+ * @property batches what can wait goes through the Message Batches API (Anthropic, half price).
  */
 @Serializable
 data class LiveSettings(
@@ -53,6 +55,14 @@ data class LiveSettings(
     val eveningDigest: String? = null,
     val told: Map<String, String> = emptyMap(),
     val learnerName: String? = null,
+    /** A month's spend in dollars that stops all but what the learner sends, after asking (plan 5, "Budgets"). */
+    val monthlyCap: Double = 20.0,
+    /** The month ("2026-10") the learner said "answer anyway" at the monthly cap: their own chats run, nothing else. */
+    val monthAllowed: String? = null,
+    /** What can wait (the night's content, the dictionary's gaps) goes through the Message Batches API at half price. */
+    val batches: Boolean = true,
+    /** The ChatGPT plan's welcome was shown (OpenAI's UI guidelines: once, at the first sign-in). */
+    val chatgptWelcomed: Boolean = false,
 ) {
     val limit: Int get() = threadLimit ?: preset.threadLimit
 }
@@ -79,8 +89,38 @@ class LiveStore(dir: File) : TutorStore(dir) {
     fun notes(): List<String> = read("notes.json", ListSerializer(String.serializer())).orEmpty()
     fun saveNotes(n: List<String>) = write("notes.json", ListSerializer(String.serializer()), n)
 
+    /** The reports waiting for the learner's "Send to Lani's discussions?" ([PendingReport]). */
+    fun pendingReports(): List<PendingReport> = read("reports-pending.json", ListSerializer(PendingReport.serializer())).orEmpty()
+    fun savePendingReports(r: List<PendingReport>) = write("reports-pending.json", ListSerializer(PendingReport.serializer()), r)
+
     /** The notebook as the bridge last gave it (the thread's first message when the node can't be read). */
     fun cachedNotebook(): NotebookState = notebook()
 
     private fun safe(id: String) = id.replace(Regex("[^\\w-]"), "_").take(64)
 }
+
+/**
+ * A report_problem waiting for the learner's confirmation (plan 5, "Reports: GitHub discussions": "The learner confirms
+ * before anything is posted"): what would be posted, and the discussion that has it already ([foundNumber]: their vote
+ * goes there), or none (a new one).
+ */
+@Serializable
+data class PendingReport(
+    val id: String,
+    val kind: String,
+    val title: String,
+    val whatIsWrong: String,
+    val suggestedFix: String? = null,
+    val item: kotlinx.serialization.json.JsonObject? = null,
+    val nativeCheck: Boolean = false,
+    val conversationId: String = "main",
+    val at: Long = 0,
+    val foundId: String? = null,
+    val foundNumber: Int? = null,
+    val foundUrl: String? = null,
+    val foundTitle: String? = null,
+    val foundUpvotes: Int = 0,
+    val foundUpvoted: Boolean = false,
+    /** The tool's input as the model gave it (the wishlist's entry when it isn't posted). */
+    val input: kotlinx.serialization.json.JsonObject,
+)

@@ -67,9 +67,13 @@ object TutorRuntime {
             // its calls, turns and errors (never a key: tutor/KeyVault Redact)
             logLine = { android.util.Log.i("LiveTutor", it) },
             texts = texts,
+            // the learner's GitHub sign-in, as git sync keeps it: report_problem posts to Lani's discussions with it
+            githubToken = { runCatching { si.lanisce.lani.sync.KeystoreBox(app.applicationContext).get(si.lanisce.lani.sync.SecretBox.GIT_TOKEN) }.getOrNull() },
+            nightOk = { StudioWork.nightOk(app) },
         ).also { t ->
             t.photo = { id -> File(app.filesDir, "chat-photos/$id.jpg").takeIf { it.isFile } }
             t.schedule = { on, now -> TutorWork.schedule(app, on, now) }
+            t.studioSchedule = { wake -> StudioWork.schedule(app, wake) }
             live = t
         }
     }

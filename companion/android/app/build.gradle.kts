@@ -284,7 +284,7 @@ abstract class TutorFiles : DefaultTask() {
 
 val tutorFiles = tasks.register<TutorFiles>("tutorFiles") {
     root.set(layout.projectDirectory.dir("../../tutor"))
-    sources.from(fileTree("../../tutor") { include("core-prompt.md", "prices.json", "tools/*.json", "app-tools/*.json", "guide/*.md", "guide/index.json") })
+    sources.from(fileTree("../../tutor") { include("core-prompt.md", "studio-prompt.md", "prices.json", "tools/*.json", "app-tools/*.json", "guide/*.md", "guide/index.json") })
 }
 
 /**

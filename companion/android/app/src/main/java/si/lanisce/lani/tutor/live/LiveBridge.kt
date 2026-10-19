@@ -126,6 +126,63 @@ class LiveBridge(private val config: BridgeConfig, base: OkHttpClient = defaultC
         return Notebook((o["text"] as? JsonPrimitive)?.contentOrNull.orEmpty(), (o["updated_at"] as? JsonPrimitive)?.contentOrNull)
     }
 
+    /** A version of the notebook the bridge keeps (app/tutor/notebook-versions.json): when, why, its text. */
+    data class NotebookVersion(val at: String, val why: String, val text: String)
+
+    /** The notebook's older versions, the newest first (GET /tutor/notebook/versions). */
+    suspend fun notebookVersions(): List<NotebookVersion> =
+        (obj(call("GET", "/tutor/notebook/versions"))["versions"] as? JsonArray).orEmpty().mapNotNull { e ->
+            val o = e as? JsonObject ?: return@mapNotNull null
+            NotebookVersion(o.s("at") ?: return@mapNotNull null, o.s("why").orEmpty(), o.s("text").orEmpty())
+        }
+
+    /** An older version of the notebook back ([at]: its time as the versions give it); the notebook as it is now. */
+    suspend fun restoreNotebook(at: String): Notebook {
+        val o = obj(call("POST", "/tutor/notebook/restore", buildJsonObject { put("at", at) }))
+        return Notebook(o.s("text").orEmpty(), o.s("updated_at"))
+    }
+
+    // --- the studio (docs/plans/05-built/studio.md) -----------------------------------------------------------------
+
+    /** The studio's jobs the bridge keeps (app/tutor/jobs): their top-level fields, without their threads. */
+    suspend fun jobs(): List<JsonObject> = (obj(call("GET", "/tutor/jobs"))["jobs"] as? JsonArray).orEmpty().mapNotNull { it as? JsonObject }
+
+    /** Job [id] as saved, or null when the bridge has none. */
+    suspend fun job(id: String): StudioJob? = try {
+        si.lanisce.lani.tutor.tutorJson.decodeFromString(StudioJob.serializer(), call("GET", "/tutor/jobs/$id"))
+    } catch (e: LiveBridgeError) {
+        if (e.code == 404) null else throw e
+    } catch (e: kotlinx.serialization.SerializationException) {
+        null
+    }
+
+    /** Saves [job] (after each of its steps: a killed app resumes from here). */
+    suspend fun saveJob(job: StudioJob) {
+        call("PUT", "/tutor/jobs/${job.id}", si.lanisce.lani.tutor.tutorJson.encodeToJsonElement(StudioJob.serializer(), job) as JsonObject)
+    }
+
+    suspend fun deleteJob(id: String) {
+        try {
+            call("DELETE", "/tutor/jobs/$id")
+        } catch (e: LiveBridgeError) {
+            if (e.code != 404) throw e
+        }
+    }
+
+    /** What the bridge's validator says of [text] as a file of [kind] (or of [path]'s kind): POST /tutor/check. */
+    suspend fun check(text: String, kind: String? = null, path: String? = null): JsonObject = obj(
+        call("POST", "/tutor/check", buildJsonObject {
+            put("text", text)
+            kind?.let { put("kind", it) }
+            path?.let { put("path", it) }
+        }),
+    )
+
+    /** A report kept in the learner's data (app/reports.json): posted to the discussions, or kept in the wishlist. */
+    suspend fun saveReport(report: JsonObject) {
+        call("POST", "/tutor/reports", report)
+    }
+
     /** GET /lookup: the app's dictionary on the node (the word, the sentence it was in); the body as it came. */
     suspend fun lookup(word: String, line: String?): String {
         val url = (config.baseUrl.trimEnd('/') + "/lookup").toHttpUrlOrNull()?.newBuilder()
@@ -161,6 +218,8 @@ class LiveBridge(private val config: BridgeConfig, base: OkHttpClient = defaultC
             handle?.dispose()
         }
     }
+
+    private fun JsonObject.s(k: String) = (this[k] as? JsonPrimitive)?.contentOrNull
 
     private fun obj(raw: String): JsonObject =
         runCatching { si.lanisce.lani.tutor.tutorJson.parseToJsonElement(raw) as? JsonObject }.getOrNull() ?: throw LiveBridgeError(502, "the node's answer isn't JSON")

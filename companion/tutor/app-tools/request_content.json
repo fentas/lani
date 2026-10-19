@@ -1,0 +1,36 @@
+{
+  "name": "request_content",
+  "description": "Hand a brief to the studio, which writes content for the learner on the content model and publishes it through the app's validators: a practice module (drill, quest, challenge), a word pack, a story for the fire, a reading, a scene's happening or a dialog variant, a villager, an arrival, a grammar page, a cheat-sheet card, homework. Use it when the learner asks for new practice or content (\"make me exercises for X\", \"words for the doctor\", \"a story about the vintage\"), when a chat's data asks for a drill (quest_drill, grammar_drill, reading_request), or when a mistake pattern keeps coming back and list_modules has nothing for it. It returns at once: the studio works on its own (the learner sees \"✍️ Pišem …\" and can cancel it) and tells the learner itself when it's done. Reply in one line that it's on its way; don't write the content yourself. The brief says what to write and why: the mistake patterns' ids, the level, what the learner said they want, what to avoid; the studio reads the learner's state and the guide itself.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string",
+        "minLength": 3,
+        "maxLength": 80,
+        "description": "A short name the app shows while it's written, in the learner's languages: \"Vaje: rodilnik množine · Genitive plural drill\"."
+      },
+      "brief": {
+        "type": "string",
+        "minLength": 10,
+        "maxLength": 4000,
+        "description": "What to write and why: the kind of content, the mistake pattern ids, the level, the topic, what to avoid."
+      },
+      "kinds": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": ["module", "pack", "story", "reading", "scene", "dialog_variant", "villager", "arrival", "grammar", "card", "worksheet", "scenario"]
+        },
+        "maxItems": 6,
+        "description": "What it will be, as far as you know."
+      },
+      "urgent": {
+        "type": "boolean",
+        "description": "true (the default): the learner waits for it, it starts now. false: it can wait for the night (through the batch API at half price, or while the phone charges on Wi-Fi)."
+      }
+    },
+    "required": ["title", "brief"],
+    "additionalProperties": false
+  }
+}

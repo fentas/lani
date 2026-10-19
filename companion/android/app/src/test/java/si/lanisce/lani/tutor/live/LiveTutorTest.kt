@@ -333,6 +333,53 @@ class LiveTutorTest {
         assertTrue(rec.isError && rec.result.contains("needs an update"))
     }
 
+    @Test fun `on a GPT-6 day thread a turn at another effort carries a configuration_update, the thread's top level kept`() = runBlocking {
+        // the reasoning guide, "Change reasoning mid-conversation": {"type": "configuration_update", "reasoning": {"effort": …}}
+        // before the next user message, GPT-6 models; the request-level reasoning stays (the prompt cache holds)
+        val responses = si.lanisce.lani.tutor.ScriptedResponses { body, n ->
+            val input = si.lanisce.lani.tutor.inputOf(body)
+            if (input.last().str("type") == "function_call_output") listOf(si.lanisce.lani.tutor.messageItem("m$n", "Opravljeno."))
+            else {
+                val conv = if (input.toString().contains("session_end")) "main" else "main"
+                listOf(si.lanisce.lani.tutor.functionCall("f$n", "call_$n", "reply", obj("conversation_id" to conv, "text" to "Odgovor $n")))
+            }
+        }
+        val creds = si.lanisce.lani.tutor.OpenAICredentials(
+            KeyVault(SoftCipher(), MemoryStore()),
+            si.lanisce.lani.tutor.ChatGPTAuth(KeyVault(SoftCipher(), MemoryStore()), OkHttpClient(), clock = { now }),
+        )
+        val scope = CoroutineScope(SupervisorJob())
+        scopes += scope
+        val t = LiveTutor(
+            scope, LiveStore(dir), vault, openai = creds,
+            bridgeConfig = { BridgeConfig("http://node.test:8790", BRIDGE_TOKEN) },
+            debug = false,
+            openaiTransportFor = { bearer -> si.lanisce.lani.tutor.OpenAITransport(bearer, responses.client, clock = { now }) },
+            bridgeFor = { c -> LiveBridge(c, OkHttpClient.Builder().addInterceptor(node).build()) },
+            fran = null, clock = { now }, zone = { zone }, device = "test phone", logLine = { lines += it }, sleep = {},
+            io = Executors.newSingleThreadExecutor().asCoroutineDispatcher(), texts = { key, _ -> key },
+        )
+        t.refreshCredentials()
+        assertEquals(null, t.setOpenAIKey("sk-proj-livetest-0123456789abcdefABCDEF"))
+        t.update { it.copy(provider = si.lanisce.lani.tutor.ProviderId.OPENAI, preset = si.lanisce.lani.tutor.Preset.BEST, efforts = mapOf(si.lanisce.lani.tutor.Task.GRADING to "high"), reactAtOnce = true) }.join()
+        assertEquals(null, t.setOn(true))
+        node.push("chat", "main", "Živjo")
+        t.backgroundCheck()
+        node.push("session_end", "main", "Session done.\n\n```json\n{\"results\": []}\n```")
+        t.backgroundCheck()
+        val posts = responses.posts()
+        assertTrue(posts.all { it.str("model") == "gpt-6-astra" })
+        val grading = posts.last { si.lanisce.lani.tutor.inputOf(it).toString().contains("session_end") }
+        assertEquals("the thread's level stays at the top", "medium", (grading["reasoning"] as JsonObject).str("effort"))
+        val input = si.lanisce.lani.tutor.inputOf(grading)
+        val update = input.indexOfFirst { it.str("type") == "configuration_update" }
+        assertTrue("a configuration_update in the input", update >= 0)
+        assertEquals("high", (input[update]["reasoning"] as JsonObject).str("effort"))
+        assertEquals("right before the turn's user message", "user", input[update + 1].str("role"))
+        assertEquals(TurnKind.DAY, t.today.turns.last().kind)
+        assertEquals("high", t.today.turns.last().effort)
+    }
+
     // --- helpers ------------------------------------------------------------------------------------------------------
 
     /** The paired bridge's tutor session, played (companion/bridge/src/features/tutor.ts's routes). */

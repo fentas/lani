@@ -203,7 +203,9 @@ class OpenAIProvider(
             java.security.MessageDigest.getInstance("SHA-256").digest(s.toByteArray()).take(8).joinToString("") { "%02x".format(it) }
 
         /** The prefix's tools (the Messages API's definitions) as function tools, in the same order. */
-        fun functions(prefix: Prefix): List<JsonObject> = prefix.tools.mapNotNull { it as? JsonObject }.map { d ->
+        fun functions(prefix: Prefix): List<JsonObject> = prefix.tools.mapNotNull { it as? JsonObject }.map { def ->
+            // a tool the Messages API knows by its type (the text editor): its function form ([Prefix.alternates])
+            val d = def.str("type")?.let { prefix.alternates[def.str("name")] } ?: def
             buildJsonObject {
                 put("type", "function")
                 put("name", d.str("name").orEmpty())

@@ -1,4 +1,4 @@
-> In the app: card.py is the card tool (its command is the action), a curated item goes to report_problem instead of wishlist.md; there is no shell, grep or lani-backup.
+> In the app: card.py is the card tool (its command is the action); a curated module, scene, story or villager is fixed for the learner by the studio (request_content with the fix: a local override that retires when the curated file changes), and every curated item goes to report_problem instead of wishlist.md; there is no shell, grep or lani-backup.
 
 # Lani Fix — a wrong or confusing item
 

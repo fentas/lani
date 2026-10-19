@@ -96,6 +96,8 @@ enum class LiveState {
     PAUSED_CREDIT,
     /** Today's cap is spent. */
     PAUSED_BUDGET,
+    /** The month's cap is spent: only the learner's own chats, once they said so ([LiveTutor.allowMonth]). */
+    PAUSED_MONTH,
 }
 
 /**
@@ -146,10 +148,18 @@ class LiveTutor(
     private val texts: (String, Map<String, Any?>) -> String = { key, _ -> key },
     /** The ChatGPT sign-in's loopback port (0: any free one). */
     private val signInPort: Int = 0,
+    /** The learner's GitHub sign-in (git sync's token): report_problem posts to Lani's discussions with it, asked first. */
+    private val githubToken: suspend () -> String? = { null },
+    private val discussionsFor: (suspend () -> String?) -> Discussions = { Discussions(it) },
+    private val batchesFor: (String, suspend () -> String?) -> AnthropicBatches = { base, key -> AnthropicBatches(base, key) },
+    /** Charging on an unmetered network (Wi-Fi): the night's content may run. */
+    private val nightOk: () -> Boolean = { false },
+    /** How often the open app asks a waiting batch (the tests': a few milliseconds). */
+    studioPollMs: Long = 30_000,
 ) {
-    private val specs = PhaseA.load(read)
+    private val specs = StudioSpecs.load(StudioSpecs.CHAT, read)
     private val guide = Guide(read)
-    private val prefix = Prefix.bundled(specs, guide, read)
+    private val prefix = StudioSpecs.chatPrefix(specs, guide, read)
     private val prices = read("prices.json")?.let(Prices::parse) ?: Prices(emptyMap())
     private val wake = Channel<Unit>(Channel.CONFLATED)
     private var worker: Job? = null
@@ -204,20 +214,59 @@ class LiveTutor(
         }
     /** The WorkManager check: on while the live tutor is (tutor/live/TutorWork), and a run now when a turn waits. */
     var schedule: (on: Boolean, now: Boolean) -> Unit = { _, _ -> }
+    /** The studio's background work (tutor/live/StudioWork): now, a batch's poll, the night's. */
+    var studioSchedule: (StudioWake) -> Unit = {}
+
+    /** The reports waiting for the learner's "Send to Lani's discussions?" (the chat shows them). */
+    var reports by mutableStateOf<List<PendingReport>>(emptyList())
+        private set
+    /** This month's spend reached the monthly cap (the chat asks "answer anyway?"). */
+    var monthReached by mutableStateOf(false)
+        private set
+
+    private val studioSpecs = StudioSpecs.load(StudioSpecs.STUDIO, read)
+
+    /**
+     * The studio (docs/plans/05-built/studio.md): content jobs on the content model, through the bridge's publishing
+     * tools and the file tools, saved on the bridge after each step; what can wait through the Message Batches API.
+     */
+    val studio: Studio = Studio(
+        scope, io, StudioSpecs.studioPrefix(studioSpecs, read), studioSpecs.associateBy { it.name }, guide,
+        bridge = { bridge() },
+        providerFor = { m -> providerFor(m) },
+        batchesFor = { m -> if (ProviderId.of(m) == ProviderId.ANTHROPIC) batchesFor(baseUrl()) { vault.load() } else null },
+        nodeTools = { nodeTools },
+        fran = { fran.takeIf { language() == "sl" } },
+        learner = { learner() ?: s.learnerName },
+        notebook = { refreshNotebook(force = false) },
+        enabled = { s.on && credentialSet() && !s.keyRefused && s.lowCredit == null },
+        budgetOk = { spent() < s.dailyCap && monthSpend() < s.monthlyCap },
+        record = { job, c, thread, batch -> studioCall(job, c, thread, batch) },
+        onApiError = { job, e -> studioError(job, e) },
+        onFinished = { job -> studioDone(job) },
+        report = { use, conversation -> report(use, conversation) },
+        nightOk = nightOk,
+        schedule = { w -> studioSchedule(w) },
+        clock = clock, zone = zone, where = { where() }, line = ::line, sleep = sleep, pollEveryMs = studioPollMs,
+    )
 
     init {
         scope.launch(io) {
             s = store.settings()
             q = store.queue()
             notebook = store.cachedNotebook()
+            reports = store.pendingReports()
             hasKey = vault.has()
             loadOpenAI()
             publish()
             if (s.on) {
                 schedule(true, false)
                 wakeUp()
-                // the node's tools again (a process started anew: the session was read at attach)
-                scope.launch { runCatching { bridge()?.session() }.getOrNull()?.let { nodeTools = (it.tools + it.appTools).toSet() } }
+                // the node's tools again (a process started anew: the session was read at attach); then the studio's jobs
+                scope.launch {
+                    runCatching { bridge()?.session() }.getOrNull()?.let { nodeTools = (it.tools + it.appTools).toSet() }
+                    if (studioReady()) studio.wake()
+                }
             }
         }
     }
@@ -246,6 +295,7 @@ class LiveTutor(
         s.keyRefused -> LiveState.PAUSED_KEY
         s.lowCredit != null -> LiveState.PAUSED_CREDIT
         spent() >= s.dailyCap -> LiveState.PAUSED_BUDGET
+        monthReached && s.monthAllowed != monthNow() -> LiveState.PAUSED_MONTH
         offline -> LiveState.NO_NODE
         oldNode -> LiveState.OLD_NODE
         worker?.isActive == true && q.any { it.status == TurnStatus.RUNNING } -> LiveState.RUNNING
@@ -274,10 +324,26 @@ class LiveTutor(
     fun spent(day: String = dayNow()): Double = Meter.spend(log(day).calls)
 
     /** This month's spend in dollars (the days of the month with a log). */
-    suspend fun spentThisMonth(): Double = withContext(io) {
-        val month = dayNow().take(7)
-        (store.days().filter { it.startsWith(month) } + dayNow()).distinct().sumOf { spent(it) }
+    suspend fun spentThisMonth(): Double = withContext(io) { monthSpend() }
+
+    private fun monthNow() = dayNow().take(7)
+
+    /** This month's spend (on [io]): the month's days with a log, today's as it is. */
+    private fun monthSpend(): Double {
+        val month = monthNow()
+        val total = (store.days().filter { it.startsWith(month) } + dayNow()).distinct().sumOf { spent(it) }
+        monthReached = total >= s.monthlyCap
+        return total
     }
+
+    /** "Answer anyway this month": at the monthly cap the learner's own chats run (nothing routine, no studio job). */
+    fun allowMonth(on: Boolean = true) = scope.launch(io) {
+        saveSettings { it.copy(monthAllowed = if (on) monthNow() else null) }
+        wakeUp()
+    }
+
+    /** The ChatGPT plan's welcome was shown (once). */
+    fun welcomedChatGPT() = scope.launch(io) { saveSettings { it.copy(chatgptWelcomed = true) } }
 
     /** Day [day]'s numbers. */
     suspend fun stats(day: String = dayNow()): DayStats = withContext(io) { DayStats.of(log(day), notebook.text.length) }
@@ -522,10 +588,13 @@ class LiveTutor(
             schedule(true, false)
             startPolling()
             wakeUp()
+            if (studioReady()) studio.wake()
             null
         } else {
             poller?.cancel()
             worker?.cancel()
+            // the studio's jobs for events end (their events go back with the detach); the learner's own requests wait
+            studio.handBack()
             saveSettings { it.copy(on = false) }
             schedule(false, false)
             // what the app hadn't answered goes back to Claude Code with the detach: the queue lets it go
@@ -573,6 +642,7 @@ class LiveTutor(
         evening()
         startPolling()
         wakeUp()
+        if (studioReady()) studio.wake()
     }
 
     /** The app left the screen: the long poll stops (the WorkManager check takes over); a turn waiting runs there now. */
@@ -581,6 +651,7 @@ class LiveTutor(
         store.saveLastAway(now())
         poller?.cancel()
         if (s.on && q.isNotEmpty()) schedule(true, true)
+        if (s.on) studio.waiting()?.let { studioSchedule(it) }
     }
 
     /** The learner opened the chat: the digest's third trigger. */
@@ -604,7 +675,21 @@ class LiveTutor(
         withContext(io) { wakeUp() }
         withTimeoutOrNull(budgetMs) { while (worker?.isActive == true) delay(200) }
         flushAcks(b)
+        // a content job that came with the inbox: the studio's own background work runs it
+        withContext(io) { studio.waiting() }?.let { studioSchedule(it) }
     }
+
+    /** The studio's background work (tutor/live/StudioWork): its jobs for at most [budgetMs]. */
+    suspend fun studioBackground(budgetMs: Long = 8 * 60_000L) {
+        if (!withContext(io) { s.on } || foreground) return
+        if (nodeTools.isEmpty()) runCatching { bridge()?.session() }.getOrNull()?.let { nodeTools = (it.tools + it.appTools).toSet() }
+        if (!studioReady()) return
+        studio.background(budgetMs)
+        bridge()?.let { b -> runCatching { flushAcks(b) } }
+    }
+
+    /** Whether the paired bridge has the studio's side (its file tools: a phase C bridge). */
+    fun studioReady(): Boolean = nodeTools.isEmpty() || StudioSpecs.TEXT_EDITOR in nodeTools
 
     // --- the inbox ---------------------------------------------------------------------------------------------------
 
@@ -671,9 +756,11 @@ class LiveTutor(
         saveLog(l.copy(events = l.events + e))
         line("event ${e.kind} (${e.handling})")
         when (e.handling) {
-            Handling.AT_ONCE -> enqueue(listOf(e), e.kind)
+            // the dictionary's gaps wait for the night's batch (half price) where there is one
+            Handling.AT_ONCE -> if (e.kind == "gloss_gaps" && batchesNow()) studioEvent(e) else enqueue(listOf(e), e.kind)
             Handling.DIGEST -> store.saveDigest(store.digest() + e.id)
-            Handling.RECORDED -> Unit // left in the inbox: Claude Code gets it when the learner switches back
+            // content writing: the studio's job, when the node has its side; else left in the inbox for Claude Code
+            Handling.RECORDED -> if (e.kind in LiveEvents.CONTENT && nodeTools.isNotEmpty() && studioReady()) studioEvent(e)
         }
         evening()
         wakeUp()
@@ -788,10 +875,17 @@ class LiveTutor(
                 if (q.isNotEmpty()) tell("budget", "tutorLive.note.budget", mapOf("cap" to "%.2f".format(s.dailyCap)))
                 return
             }
+            // the monthly cap: only the learner's own chats, once they said "answer anyway"; a role-play goes on
+            val month = monthSpend() < s.monthlyCap
+            if (!month && q.isNotEmpty() && q.none { monthOk(it) }) {
+                tell("month", "tutorLive.note.month", mapOf("cap" to "%.2f".format(s.monthlyCap)))
+                state = stateNow()
+                return
+            }
             val at = now()
             val started = q.firstOrNull { it.kind == TurnKind.DAY && it.startedAt != null }
             // with the credit out only what the learner waits for runs (and is told why it can't answer)
-            val ready = q.filter { it.notBefore <= at && (it.kind != TurnKind.DAY || started == null || it.id == started.id) && (s.lowCredit == null || waits(it)) }
+            val ready = q.filter { it.notBefore <= at && (it.kind != TurnKind.DAY || started == null || it.id == started.id) && (s.lowCredit == null || waits(it)) && (month || monthOk(it)) }
             val next = ready.sortedWith(compareBy<TurnRecord>({ priority(it) }, { it.queuedAt })).firstOrNull()
             if (next == null) {
                 val wait = q.filter { s.lowCredit == null || waits(it) }.minOfOrNull { it.notBefore }?.minus(at) ?: return
@@ -814,6 +908,13 @@ class LiveTutor(
             }
         }
     }
+
+    /**
+     * Whether [t] may run past the monthly cap (plan 5: "only chats the learner sends, after asking. Never in the middle
+     * of a role-play"): a chat or an answer once the learner said "answer anyway" this month, a role-play's line.
+     */
+    private fun monthOk(t: TurnRecord): Boolean =
+        (t.kind == TurnKind.ROLEPLAY) || ((t.eventKind == "chat" || t.eventKind == "answer") && s.monthAllowed == monthNow())
 
     /** Whether the learner waits for [t]'s answer (a chat, an answer, a role-play's line). */
     private fun waits(t: TurnRecord) = t.eventKind == "chat" || t.eventKind == "answer" || t.kind == TurnKind.ROLEPLAY
@@ -904,6 +1005,15 @@ class LiveTutor(
         val b = bridge()
         val conversation = if (t.eventKind == "digest" || t.kind == TurnKind.CLOSING) "main" else events.firstOrNull()?.conversationId ?: "main"
         var replied = false
+        val github = githubToken() != null
+        val local = buildMap<String, suspend (si.lanisce.lani.tutor.ToolUse) -> Pair<String, Boolean>> {
+            // "make me exercises for X": a brief for the studio, which writes it on the content model
+            put(StudioSpecs.REQUEST) { use ->
+                if (!studioReady()) "request_content: the tutor's bridge has no studio yet (it needs an update): say so, nothing queued" to true
+                else studio.request(use.input, conversation, modelFor(Task.CONTENT), effortFor(Task.CONTENT), s.batches)
+            }
+            if (github) put("report_problem") { use -> report(use, conversation) }
+        }
         val tools = LiveTools(
             specs.associateBy { it.name }, b, nodeTools, guide, fran.takeIf { language() == "sl" },
             onReply = { r -> replied = true; t = t.copy(replies = t.replies + r); replace(t) },
@@ -911,6 +1021,8 @@ class LiveTutor(
             onGuide = { id -> val l = log(dayNow()); saveLog(l.copy(guide = l.guide + (id to (l.guide[id] ?: 0) + 1))) },
             onNotebook = { withContext(io) { refreshNotebook(b) } },
             clock = clock,
+            kinds = StudioSpecs::kindOf,
+            local = local,
         )
         val provider = providerFor(t.model)
         val format = provider.format
@@ -1154,6 +1266,227 @@ class LiveTutor(
             TurnKind.ALSO -> Unit
         }
         line("turn ${t.id} ${t.eventKind} on ${t.model}${t.effort?.let { " $it" } ?: ""}: $status${t.error?.let { " ($it)" } ?: ""}")
+    }
+
+    // --- the studio ----------------------------------------------------------------------------------------------------
+
+    /** Whether what can wait goes through the Message Batches API now (the setting, and the provider is Anthropic's). */
+    private fun batchesNow(): Boolean = s.batches && s.provider == ProviderId.ANTHROPIC && studioReady() && nodeTools.isNotEmpty()
+
+    /**
+     * An event that asks for content as the studio's job: an arrival soon (the culture pack's template plays until it's
+     * written), dialog variants and a story for the night, the dictionary's gaps through the night's batch on the
+     * routine model.
+     */
+    private fun studioEvent(e: ShadowEvent) {
+        val routine = e.kind == "gloss_gaps"
+        val task = if (routine) Task.ROUTINE else Task.CONTENT
+        val model = modelFor(task)
+        val urgency = if (e.kind == "villager_arrived") StudioJob.SOON else StudioJob.WHENEVER
+        val key = when (e.kind) {
+            "villager_arrived" -> "studio.kind.villagerArrived"
+            "dialog_variants_heard" -> "studio.kind.dialogVariantsHeard"
+            "stories_low" -> "studio.kind.storiesLow"
+            "gloss_gaps" -> "studio.kind.glossGaps"
+            else -> null
+        }
+        val title = key?.let { texts(it, emptyMap()) } ?: e.kind
+        scope.launch(io) { runCatching { studio.event(e, task, model, effortFor(task, model), urgency, s.batches, title) }.onFailure { line("studio: the event's job wasn't made: ${it.message}") } }
+    }
+
+    /** A studio call's record in the day's log, priced (at half price through a batch); its cost. */
+    private fun studioCall(job: StudioJob, c: si.lanisce.lani.tutor.CallOutcome, thread: String, batch: Boolean): Double? {
+        val turn = TurnRecord(id = job.id, eventIds = job.eventIds, kind = TurnKind.STATELESS, task = job.task, model = job.model, eventKind = "studio", queuedAt = job.createdAt)
+        val billing = if (ProviderId.of(job.model) == ProviderId.OPENAI) openaiBilling() ?: Billing.API_KEY else Billing.API_KEY
+        val priced = c.step?.let { prices.priced(it.model ?: job.model, it.usage, billing) }
+            ?.let { p -> if (batch) si.lanisce.lani.tutor.Priced(p.cost?.let { it / 2 }, p.apiEquivalent?.let { it / 2 }) else p }
+        val call = Meter.record(turn, c, now(), if (batch) "$thread-batch" else thread, priced, job.effort, billing = billing)
+        val l = log(dayNow())
+        saveLog(l.copy(calls = l.calls + call))
+        line("studio call ${call.model}${job.effort?.let { " $it" } ?: ""}${if (batch) " (batch, half price)" else ""}: ${call.stopReason ?: call.error} in:${call.usage.input} w:${call.usage.cacheWrite} r:${call.usage.cacheRead} out:${call.usage.output} \$${call.cost}")
+        monthSpend()
+        state = stateNow()
+        return priced?.cost
+    }
+
+    /** The studio's API error, as a turn's would be: the key refused, the credit out. */
+    private fun studioError(job: StudioJob, e: ApiError) {
+        val provider = ProviderId.of(job.model)
+        when (e) {
+            is ApiError.Auth -> {
+                saveSettings { it.copy(keyRefused = true) }
+                tell("key", if (provider == ProviderId.OPENAI) "tutorLive.note.signIn" else "tutorLive.note.key", emptyMap())
+            }
+            is ApiError.LowCredit -> {
+                val why = Failures.creditWhy(e, provider)
+                saveSettings { it.copy(lowCredit = why) }
+                tell("credit", "tutorLive.note.credit", mapOf("why" to why))
+            }
+            else -> Unit
+        }
+    }
+
+    /**
+     * A job ended: its events acknowledged (a cancel too: the learner chose), a line in the day's thread (the chat's
+     * tutor knows what the studio made), a turn in the day's log; a request that failed, or that ended without the
+     * studio's own reply, is told in the chat.
+     */
+    private fun studioDone(job: StudioJob) {
+        acknowledge(job.eventIds)
+        val made = job.published.map { "${it.tool.removePrefix("publish_")} ${it.item}" }.distinct()
+        val at = Instant.ofEpochMilli(job.endedAt ?: now()).atZone(zone()).toLocalTime().withSecond(0).withNano(0)
+        val entry = "$at studio (${job.model}): «${job.title}» ${job.status}: ${if (made.isEmpty()) "nothing published" else "published " + made.joinToString(", ").take(300)}"
+        store.thread()?.takeIf { it.day == dayNow() }?.let { cur -> store.saveThread(cur.copy(lines = (cur.lines + entry).takeLast(60), pending = cur.pending + entry)) }
+        val l = log(dayNow())
+        val status = when (job.status) {
+            StudioJob.DONE -> TurnStatus.DONE
+            StudioJob.CANCELLED -> TurnStatus.SKIPPED
+            else -> TurnStatus.FAILED
+        }
+        val turn = TurnRecord(
+            id = job.id, eventIds = job.eventIds, kind = TurnKind.STATELESS, task = job.task, model = job.model, eventKind = "studio",
+            queuedAt = job.createdAt, startedAt = job.startedAt, endedAt = job.endedAt ?: now(), status = status, error = job.error, why = entry,
+            effort = job.effort,
+        )
+        saveLog(l.copy(turns = l.turns.filterNot { it.id == job.id } + turn))
+        if (job.origin == StudioJob.REQUEST) when {
+            job.status == StudioJob.FAILED -> tell(null, "studio.note.failed", mapOf("title" to job.title))
+            job.status == StudioJob.DONE && !job.replied -> tell(null, "studio.note.done", mapOf("title" to job.title))
+        }
+    }
+
+    /** The learner's ✕ on a studio job. */
+    fun cancelJob(id: String) = scope.launch(io) { studio.cancel(id) }
+
+    // --- reports: Lani's GitHub discussions, asked first --------------------------------------------------------------
+
+    /**
+     * report_problem with the learner's GitHub sign-in (plan 5, "Reports: GitHub discussions"): the discussions looked
+     * up first, then the learner asked in the chat ("Send to Lani's discussions?"): their vote on the one found, or a new
+     * one. Without a sign-in (or when the lookup can't be made) the bridge keeps it in the wishlist, as before.
+     */
+    private suspend fun report(use: si.lanisce.lani.tutor.ToolUse, conversation: String): Pair<String, Boolean> {
+        val i = use.input
+        fun str(k: String) = (i[k] as? kotlinx.serialization.json.JsonPrimitive)?.takeIf { it.isString }?.content
+        val title = str("title")?.trim().orEmpty()
+        val what = str("what_is_wrong")?.trim().orEmpty()
+        val kind = str("kind") ?: "fix"
+        if (title.isEmpty() || what.isEmpty()) return "report_problem: title and what_is_wrong are needed; nothing kept" to true
+        // no GitHub sign-in: the wishlist, as before
+        if (githubToken() == null) return wishlist(use, null)
+        val found = try {
+            discussionsFor(githubToken).find(title)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: DiscussionsError) {
+            line("report: the discussions weren't looked up (${e.kind})")
+            return wishlist(use, "the discussions couldn't be looked up (${e.kind.name.lowercase()})")
+        } catch (e: java.io.IOException) {
+            return wishlist(use, "the discussions couldn't be reached")
+        }
+        val p = PendingReport(
+            id = "r_" + UUID.randomUUID().toString().replace("-", "").take(10), kind = kind, title = title.take(120), whatIsWrong = what.take(2_000),
+            suggestedFix = str("suggested_fix")?.take(2_000), item = i["item"] as? JsonObject,
+            nativeCheck = (i["native_check"] as? kotlinx.serialization.json.JsonPrimitive)?.content == "true", conversationId = conversation, at = now(),
+            foundId = found?.id, foundNumber = found?.number, foundUrl = found?.url, foundTitle = found?.title, foundUpvotes = found?.upvotes ?: 0,
+            foundUpvoted = found?.upvoted ?: false, input = i,
+        )
+        withContext(io) {
+            val next = (store.pendingReports() + p).takeLast(10)
+            store.savePendingReports(next)
+            reports = next
+        }
+        line("report: asked the learner (${if (found != null) "found #${found.number}" else "a new discussion"})")
+        val there = if (found != null) "an existing discussion has it (#${found.number} «${found.title}», ${found.upvotes} vote(s)): their vote goes there"
+        else "no discussion has it yet: a new one in ${if (kind == "wish") "Ideas" else "Content fixes"}"
+        return "Asked the learner in the chat (\"Send to Lani's discussions?\"): $there. Nothing is posted until they confirm; if they don't, it's kept in their wishlist for the developer. Tell them in one line." to false
+    }
+
+    /** The bridge's report_problem (the wishlist), [why] the reason it wasn't posted (null: no sign-in, its text as it is). */
+    private suspend fun wishlist(use: si.lanisce.lani.tutor.ToolUse, why: String?): Pair<String, Boolean> {
+        val b = bridge() ?: return "report_problem: the bridge isn't reached: nothing kept" to true
+        val r = try {
+            b.tool("report_problem", use.input, use.id)
+        } catch (e: LiveBridgeError) {
+            return "report_problem didn't reach the bridge: nothing kept" to true
+        }
+        return (if (why == null) r.text else "${r.text} ($why)") to r.isError
+    }
+
+    /**
+     * The learner's answer to "Send to Lani's discussions?" for report [id]: [send] votes on the discussion found or
+     * starts one, and the link is kept in their data (app/reports.json); else (or when posting fails) it goes to the
+     * wishlist. A short note in the chat says what happened.
+     */
+    fun answerReport(id: String, send: Boolean) = scope.launch(io) {
+        val p = store.pendingReports().firstOrNull { it.id == id } ?: return@launch
+        val rest = store.pendingReports().filterNot { it.id == id }
+        store.savePendingReports(rest)
+        reports = rest
+        val b = bridge()
+        suspend fun keep(state: String, via: String, url: String? = null, number: Int? = null) {
+            runCatching {
+                b?.saveReport(buildJsonObject {
+                    put("title", p.title)
+                    put("kind", p.kind)
+                    p.item?.let { put("item", it) }
+                    url?.let { put("url", it) }
+                    number?.let { put("number", it) }
+                    put("state", state)
+                    put("via", via)
+                    put("at", Instant.ofEpochMilli(now()).toString())
+                })
+            }
+        }
+        suspend fun toWishlist(state: String) {
+            runCatching { b?.tool("report_problem", p.input, "report-${p.id}") }
+            keep(state, "wishlist")
+        }
+        if (!send) {
+            toWishlist("declined")
+            tell(null, "studio.report.kept", emptyMap())
+            return@launch
+        }
+        val d = discussionsFor(githubToken)
+        try {
+            if (p.foundId != null && p.foundNumber != null && p.foundUrl != null) {
+                val found = Discussion(p.foundId, p.foundNumber, p.foundTitle ?: p.title, p.foundUrl, p.foundUpvotes, p.foundUpvoted, false, null)
+                d.upvote(found)
+                keep("upvoted", "discussion", p.foundUrl, p.foundNumber)
+                tell(null, "studio.report.voted", mapOf("n" to p.foundNumber, "url" to p.foundUrl))
+            } else {
+                val made = d.create(ReportDraft(p.kind, p.title, p.whatIsWrong, p.suggestedFix, p.item, p.nativeCheck))
+                keep("posted", "discussion", made.url, made.number)
+                tell(null, "studio.report.posted", mapOf("n" to made.number, "url" to made.url))
+            }
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            line("report: not posted (${(e as? DiscussionsError)?.kind ?: e.javaClass.simpleName})")
+            toWishlist("kept")
+            tell(null, "studio.report.failed", emptyMap())
+        }
+    }
+
+    // --- the notebook's versions ("What my tutor knows") ------------------------------------------------------------
+
+    /** The notebook's older versions on the bridge, newest first; empty when it can't be read. */
+    suspend fun notebookVersions(): List<LiveBridge.NotebookVersion> = runCatching { bridge()?.notebookVersions() }.getOrNull().orEmpty()
+
+    /** An older version back ([at]); null when done, else what went wrong. */
+    suspend fun restoreNotebook(at: String): String? {
+        val b = bridge() ?: return "this phone isn't paired with a node"
+        return try {
+            val n = b.restoreNotebook(at)
+            withContext(io) {
+                val next = Notebooks.written(store.cachedNotebook(), n.text, "restored", now())
+                store.saveNotebook(next)
+                notebook = next
+            }
+            null
+        } catch (e: LiveBridgeError) {
+            if (e.code == 404) "that version isn't there any more" else "the node wasn't reached"
+        }
     }
 
     // --- notes to the learner -------------------------------------------------------------------------------------
