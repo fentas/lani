@@ -394,6 +394,29 @@ class CardTest(unittest.TestCase):
         self.refused("forgive", "iz_genitive", "--date", "2026-09-26", "--answer", "something else")
 
 
+    def test_find_and_show_a_card_whose_texts_arent_strings(self):
+        """A card whose front or back isn't a string (a number, a list) made find and show fail with a traceback. Now
+        it is shown as it is stored, and says why the app skips it; find still finds it by its id."""
+        def odd(sr):
+            sr["items"]["vocab_pet"] = card("vocab_pet", 5, "five")
+            sr["items"]["vocab_six"] = card("vocab_six", "šest", ["six", 6])
+            sr["items"]["counting_odd"] = card("counting_odd", {"x": 1}, 2.5, type="counting")
+        self._write("spaced-repetition.json", odd)
+        out = self.ok("show", "vocab_pet")
+        self.assertEqual(out["card"]["content"], 5)
+        self.assertEqual(out["app"], {"shown": False, "why": "its front or back (content, answer) is missing or not a text: the app skips the card"})
+        self.assertEqual(out["problems"], ["the front is not a text (content: 5): the app skips the card"])
+        self.assertEqual(out["overlaps"], [])
+        self.assertEqual(self.ok("show", "vocab_six")["problems"], ["the back is not a text (answer: ['six', 6]): the app skips the card"])
+        self.assertEqual(self.ok("show", "counting_odd")["problems"],
+                         ["the front is not a text (content: {'x': 1}): the app skips the card", "the back is not a text (answer: 2.5): the app skips the card"])
+        self.assertEqual(self.ok("show", "iz_genitive")["app"]["why"].split(":")[0], "an error pattern")  # as before
+        found = self.ok("find", "pet")
+        self.assertEqual([(c["id"], c["front"], c["match"]) for c in found["cards"]], [("vocab_pet", 5, "text")])
+        self.assertEqual([c["id"] for c in self.ok("find", "šest")["cards"]], ["vocab_six"])
+        self.assertEqual(self.ok("find", "five")["count"], 1)  # vocab_pet's back is a string: found by it
+        self.assertEqual(self.ok("overlaps")["count"], self.ok("overlaps")["count"])  # no traceback either
+
     # --- dates: compared as dates, written zero-padded ---
 
     def _write(self, name, change):

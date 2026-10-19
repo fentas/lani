@@ -76,6 +76,9 @@ const normalize = (s: Py): string => strip(lower(s).replace(APOSTROPHE, "'").rep
 /** normalize()d, without accents: for searching, not grading. */
 const fold = (s: Py): string => [...normalize(s).normalize('NFD')].filter(c => !isCombining(c)).join('')
 
+/** A card's front or back as text to search: a str as it is; anything else (none, a number, a list) has none. */
+const text = (v: Py): string => (isStr(v) ? v : '')
+
 /** Dashboard.parse: an error pattern's content is the learner's wrong answer, never shown as a card. */
 const shown = (item: PyDict): boolean => item.get('type') !== 'error_pattern' && isStr(item.get('content')) && isStr(item.get('answer'))
 
@@ -185,7 +188,10 @@ function formsView(item: PyDict): PyDict {
 }
 
 function appView(item: PyDict): PyDict {
-  if (!shown(item)) return D({ shown: false, why: 'an error pattern: its content is the learner\'s wrong answer; the app never shows it as a card (modules drill it)' })
+  if (item.get('type') === 'error_pattern') {
+    return D({ shown: false, why: 'an error pattern: its content is the learner\'s wrong answer; the app never shows it as a card (modules drill it)' })
+  }
+  if (!shown(item)) return D({ shown: false, why: 'its front or back (content, answer) is missing or not a text: the app skips the card' })
   if (item.get('type') === COUNTING) return countingView(item)
   if (item.get('type') === FORMS) return formsView(item)
   const front = getItem(item, 'content')
@@ -255,6 +261,10 @@ function problems(item: PyDict): string[] {
   if (item.get('type') === 'error_pattern') {
     return ['an error pattern: the app never shows it as a card (its content is the learner\'s wrong answer); fix the practice that drills it instead']
   }
+  const odd = ([['front', 'content'], ['back', 'answer']] as const)
+    .filter(([, key]) => item.get(key) !== null && !isStr(item.get(key)))
+    .map(([side, key]) => `the ${side} is not a text (${key}: ${repr(item.get(key))}): the app skips the card`)
+  if (odd.length) return odd
   if (item.get('type') === COUNTING) return countingOf(item) ? [] : ['a counting card without its forms (counting: gender, lines, forms): the app skips it']
   if (item.get('type') === FORMS) return formsOf(item) ? [] : ['a forms card without its table (forms: lemma, pos, slots with key, forms, page): the app skips it']
   const front = or(item.get('content'), '')
@@ -469,8 +479,8 @@ function cmdFind(store: Store, args: Args): PyDict {
   const hits: [number, string, string, PyDict][] = []
   for (const [cid, item] of its.items()) {
     if (!isDict(item)) continue
-    const front = or(item.get('content'), '')
-    const back = or(item.get('answer'), '')
+    const front = text(item.get('content'))
+    const back = text(item.get('answer'))
     const answers = shown(item) ? [...accepted(front).map(fold), ...promptParts(back).map(fold)] : []
     const words = new Set(`${fold(front)} ${fold(back)}`.match(/[\p{L}\p{N}_'-]+/gu) ?? [])
     let score: number

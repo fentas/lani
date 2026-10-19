@@ -107,6 +107,11 @@ def fold(s: str) -> str:
     return "".join(c for c in unicodedata.normalize("NFD", normalize(s)) if not unicodedata.combining(c))
 
 
+def text(v) -> str:
+    """A card's front or back as text to search: a str as it is; anything else (none, a number, a list) has none."""
+    return v if isinstance(v, str) else ""
+
+
 def shown(item: dict) -> bool:
     """Dashboard.parse: an error pattern's content is the learner's wrong answer, never shown as a card."""
     return item.get("type") != "error_pattern" and isinstance(item.get("content"), str) and isinstance(item.get("answer"), str)
@@ -231,8 +236,10 @@ def forms_view(item: dict) -> dict:
 
 def app_view(item: dict) -> dict:
     """How the app shows and grades [item]."""
-    if not shown(item):
+    if item.get("type") == "error_pattern":
         return {"shown": False, "why": "an error pattern: its content is the learner's wrong answer; the app never shows it as a card (modules drill it)"}
+    if not shown(item):
+        return {"shown": False, "why": "its front or back (content, answer) is missing or not a text: the app skips the card"}
     if item.get("type") == COUNTING:
         return counting_view(item)
     if item.get("type") == FORMS:
@@ -308,6 +315,10 @@ def problems(item: dict) -> list:
     """What makes a card confusing or ungradeable, in the app's terms."""
     if item.get("type") == "error_pattern":
         return ["an error pattern: the app never shows it as a card (its content is the learner's wrong answer); fix the practice that drills it instead"]
+    odd = [f"the {side} is not a text ({key}: {item[key]!r}): the app skips the card"
+           for side, key in (("front", "content"), ("back", "answer")) if item.get(key) is not None and not isinstance(item[key], str)]
+    if odd:
+        return odd
     if item.get("type") == COUNTING:
         return [] if counting_of(item) else ["a counting card without its forms (counting: gender, lines, forms): the app skips it"]
     if item.get("type") == FORMS:
@@ -511,7 +522,7 @@ def cmd_find(store: Store, args) -> dict:
     for cid, item in items.items():
         if not isinstance(item, dict):
             continue
-        front, back = item.get("content") or "", item.get("answer") or ""
+        front, back = text(item.get("content")), text(item.get("answer"))
         answers = [fold(a) for a in accepted(front)] + [fold(p) for p in prompt_parts(back)] if shown(item) else []
         words = set(re.findall(r"[\w'-]+", f"{fold(front)} {fold(back)}"))
         if query in answers:
