@@ -162,7 +162,7 @@ class LiveTutor(
     private var q: List<TurnRecord> = emptyList()
     private val logs = mutableMapOf<String, DayLog>()
     /** The tools the node's session listed (its channel's and its own); empty until the session was read. */
-    private var nodeTools: Set<String> = emptySet()
+    @Volatile private var nodeTools: Set<String> = emptySet()
 
     // --- what the UI reads ------------------------------------------------------------------------------------------
 
@@ -216,6 +216,8 @@ class LiveTutor(
             if (s.on) {
                 schedule(true, false)
                 wakeUp()
+                // the node's tools again (a process started anew: the session was read at attach)
+                scope.launch { runCatching { bridge()?.session() }.getOrNull()?.let { nodeTools = (it.tools + it.appTools).toSet() } }
             }
         }
     }
@@ -535,16 +537,14 @@ class LiveTutor(
             saveQueue(emptyList())
             store.saveDigest(emptyList())
             onStreaming("main", null)
-            val said = b?.let {
-                try {
-                    flushAcks(it)
-                    val back = it.detach()
-                    line("detached: ${back} event(s) back to Claude Code")
-                    null
-                } catch (e: LiveBridgeError) {
-                    "the node wasn't reached: it is told when the app is back on, or lets go by itself after three days"
-                }
-            } ?: "this phone isn't paired with a node"
+            val said = if (b == null) "this phone isn't paired with a node" else try {
+                flushAcks(b)
+                val back = b.detach()
+                line("detached: $back event(s) back to Claude Code")
+                null
+            } catch (e: LiveBridgeError) {
+                "the node wasn't reached: it is told when the app is back on, or lets go by itself after three days"
+            }
             if (said != null) store.saveAcks(store.acks()) // kept for later
             detachPending = said != null && b != null
             publish()

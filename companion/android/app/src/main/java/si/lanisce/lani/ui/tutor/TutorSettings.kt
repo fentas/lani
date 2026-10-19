@@ -142,7 +142,7 @@ fun TutorSettings(vm: AppViewModel, modifier: Modifier = Modifier) {
             for (cap in CAPS) FilterChip(selected = s.dailyCap == cap, onClick = { live.update { it.copy(dailyCap = cap) } }, label = { Text(money(cap)) })
         }
         Text(
-            "💶 " + bi("tutorLive.spend", "today" to money(live.spent()), "cap" to money(s.dailyCap), "month" to money(month ?: 0.0)),
+            "💶 " + bi("tutorLive.spend", "today" to money(si.lanisce.lani.tutor.Meter.spend(live.today.calls)), "cap" to money(s.dailyCap), "month" to money(month ?: 0.0)),
             style = MaterialTheme.typography.bodySmall,
             modifier = Modifier.testTag("tutor-spend"),
         )
