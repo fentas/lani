@@ -1,0 +1,39 @@
+Fish Audio Drama 3 in Lani
+==========================
+
+Built with Fish Audio.
+
+These Fish Audio Materials are licensed under the Fish Audio Community License, Version 1.0. Copyright © 39 AI, INC. All Rights Reserved.
+
+The attribution above applies to the Fish Audio Materials: the Fish Audio Drama 3 model and its audio codec
+(https://huggingface.co/fishaudio/drama-3) and the Fish Speech source code (https://github.com/fishaudio/fish-speech).
+A copy of the agreement is in Fish-Audio-Community-License-1.0.md, next to this file; the original is at
+https://huggingface.co/fishaudio/drama-3/blob/main/LICENSE.
+
+What Lani does with them
+------------------------
+
+Lani's worker in companion/voice-drama3/ runs Fish Audio Drama 3 on the learner's own computer (the node) to voice
+some of the villagers' clips. Neither the model weights nor the fish-speech code are part of this repository or of
+the Android app; they are kept on the node.
+
+Lani changed the Fish Audio Materials as follows. companion/voice-drama3/drama3_rocm.py changes how the upstream
+fish-speech code (fishaudio/fish-speech, commit 541566932abbaebcb0a40e562a1f846738383f38) runs, at run time, so that
+it runs on AMD ROCm (gfx1201):
+
+  - the routed FP8 experts are streamed from the weight files through a cache on the GPU;
+  - upstream's Triton FP8 MoE kernel is enabled on RDNA4;
+  - the unit-lower triangular solve is replaced by an exact forward substitution;
+  - the token embedding stays on the CPU, and lm_head is sliced to the rows the sampler uses;
+  - the codec is loaded without two masks it does not use;
+  - no CUDA/HIP graphs are used.
+
+How Lani uses the output
+------------------------
+
+The clips Drama 3 makes are never used to create, train, distill or improve another speech, audio or voice model
+(Gepard or any other), as Section IV(b) of the agreement requires. The voices Lani asks it for are synthetic
+characters that the model makes from a written description; none imitates a real person.
+
+Lani's own code is under the GNU Affero General Public License 3.0 or later (see ../LICENSE and ../NOTICE.md); the
+attribution notice above is Fish Audio's, not Lani's.
