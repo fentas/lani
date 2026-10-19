@@ -289,7 +289,7 @@ companion/bin/qa --steps hosted      # inside flock /tmp/lani-emulator.lock; LAN
   the day's clips are off in this mode.
 - **The car** ("🚗 Za pot") gets ready from a node's clips: in the hosted mode it has only the phone's prompts.
 - **Towns and the family page** need a hosted relay (the relay isn't hosted yet).
-- **The chat archive and the notebook** aren't in the export yet (the chat lives in the app's files, outside the data
-  directory).
+- **The chat archive** isn't in the export yet (it lives in the app's files, outside the data directory). The live
+  tutor's notebook is: it lives in the data (`app/tutor/notebook.md`), and the export takes what a commit takes.
 - **A background job's writes** reach the git sync only when the app comes to the front.
 - **An arm64 phone's numbers** (the emulator's above).

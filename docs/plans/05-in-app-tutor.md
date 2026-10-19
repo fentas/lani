@@ -1175,8 +1175,8 @@ A plan's cap falls back softly (to a cheaper model, digests once a day) instead 
 - **Moving between the modes:** "📥 Uvozi izvoz · Import an export" in the hosted setup, or "☁️ Preklopi na ta telefon ·
   Switch to this phone" from a paired phone; back with "📤 Izvozi moje podatke · Export my data", `lani import` and "🖥️
   Na svoj računalnik · To my own computer". Both ways say how the data moves first.
-- **Still open:** the chat archive isn't in the export (it lives outside the data). hosted-mode.md lists the notebook as
-  missing too; since the live tutor keeps it in the data, the export should carry it: to check.
+- **Still open:** the chat archive isn't in the export (it lives outside the data). The live tutor's notebook is in it
+  (`app/tutor/notebook.md` is data, and the export takes what a commit takes; checked 2026-10-19).
 
 ### Git (optional)
 
@@ -1332,7 +1332,7 @@ handed its town over keeps its own key, so node → phone → node needs nothing
 | Covered: the LLM proxy | Yes | A separate service | after A | Dropped (2026-10-16) |
 
 *Also open as built (2026-10-19, [hosted-mode.md](05-built/hosted-mode.md)):* the chat archive isn't in the export or
-in git (the notebook: to check, see [Data](#data)); a write made by a background job alone, in a process without the
+in git (the notebook is: it lives in the data); a write made by a background job alone, in a process without the
 screens, reaches git only when the app comes to the front; the car ("🚗 Za pot") has only the phone's prompts, no
 clips; the numbers are the emulator's, not an arm64 phone's.
 
@@ -1362,7 +1362,7 @@ With every phase done, the hosted mode matches the self-hosted one for a learner
 - **Voices on the phone** are the phone's text-to-speech until glas is hosted (and its accounts for hosted learners
   are decided: open question 5).
 - **Towns and the family page** of a phone without a node need the hosted relay. So does the encrypted backup.
-- **The export** doesn't carry the chat archive (the notebook: to check, see [Data](#data)).
+- **The export** doesn't carry the chat archive (the notebook it does).
 - **A background-only process's writes** (a job WorkManager started without the screens) reach git only when the app
   comes to the front.
 - **Queued writes between towns:** the relay's tunnel reaches only a town that is there; a gift to a sleeping phone
