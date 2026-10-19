@@ -167,12 +167,15 @@ function formsView(item: PyDict): PyDict {
     shown: true,
     front: getItem(item, 'content'),
     back: getItem(item, 'answer'),
-    how: 'the word\'s whole table; the slots whose grammar page (and the pages it needs) the learner was introduced to '
-      + 'are gaps, the others a greyed preview, the word itself given; a part (a row or two, at most 6 gaps) per '
-      + 'review, the parts in turn, a resurfaced card\'s new part first; each gap chosen among three of the word\'s '
-      + 'forms until the card is secure (two good reviews in a row, the last without a slip), typed after '
-      + '(a new part chosen); any form of the slot is right, its `also` too. The app works out what is tested '
-      + 'from the learner\'s grammar book and course; `tested` is what the bridge last saw',
+    how: 'the slots whose grammar page (and the pages it needs) the learner was introduced to are gaps, the word '
+      + 'itself given; a part (a row or two, at most 6 gaps) per review, the parts in turn, a resurfaced card\'s '
+      + 'new part first; the card shows only the sections of the table (the present, the negative, the future, '
+      + 'the past, the imperative; a noun\'s cases) with a gap asked now, the others hidden, and in them a slot '
+      + 'not introduced yet greyed, to read ahead; each gap chosen among three of the word\'s forms until the '
+      + 'card is secure (two good reviews in a row, the last without a slip), typed after (a new part chosen); '
+      + 'any form of the slot is right, its `also` too. The whole table is the app\'s overview ("📋 Vse oblike" '
+      + 'on the word\'s card and after the card), to read, never graded. The app works out what is tested from '
+      + 'the learner\'s grammar book and course; `tested` is what the bridge last saw',
     pos: f.get('pos'),
     gender: f.get('gender'),
     slots,
