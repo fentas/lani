@@ -94,7 +94,9 @@ class PhoneBridgeTest {
         val s = json.parseToJsonElement(runBlocking { bridge.start() }.summary).jsonObject
         assertEquals("primorska", s["culture"]!!.jsonPrimitive.content)
         assertEquals("sl", s["language"]!!.jsonPrimitive.content)
-        assertEquals(33, s["features"]!!.jsonArray.size)
+        // the node's features, the tutor session's (features/tutor.ts: the app's own tutor's routes) among them
+        assertEquals(34, s["features"]!!.jsonArray.size)
+        assertTrue(s["features"]!!.jsonArray.any { it.jsonPrimitive.content == "tutor" })
         assertTrue(s["tools"]!!.jsonPrimitive.content.toInt() > 40)
         assertEquals("""{"ok":true}""", ok(get("/health")).text)
     }

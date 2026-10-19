@@ -6986,7 +6986,7 @@ def tutor_live():
         after = dev_bridge("/state")
         dbs = after.get("databases") or {}
         log = (dbs.get("session_log") or {}).get("sessions") or []
-        assert len(log) > sessions and any(s.get("session_notes") == "A mock session." for s in log[-2:]), f"record_session in the dev data's session log ({len(log)} sessions)"
+        assert len(log) > sessions and any(s.get("notes") == "A mock session." for s in log[-2:]), f"record_session in the dev data's session log ({len(log)} sessions)"
         assert "mock_pattern" in ((dbs.get("mistakes_db") or {}).get("error_patterns") or {}), "the mistake in the dev data"
         go_home()
 

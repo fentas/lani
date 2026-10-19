@@ -163,11 +163,32 @@ fun TutorSettings(vm: AppViewModel, modifier: Modifier = Modifier) {
 /** The state in a line: who answers now, or why the tutor in the app waits. */
 @Composable
 private fun stateLine(live: LiveTutor): String = when (live.state) {
+    LiveState.OFF -> bi("tutorLive.state.OFF")
+    LiveState.NO_CREDENTIAL -> bi("tutorLive.state.NO_CREDENTIAL")
+    LiveState.NO_NODE -> bi("tutorLive.state.NO_NODE")
+    LiveState.OLD_NODE -> bi("tutorLive.state.OLD_NODE")
+    LiveState.IDLE -> bi("tutorLive.state.IDLE")
+    LiveState.RUNNING -> bi("tutorLive.state.RUNNING")
     LiveState.WAITING -> bi("tutorLive.state.WAITING", "n" to live.waiting)
-    else -> bi("tutorLive.state.${live.state.name}")
+    LiveState.PAUSED_KEY -> bi("tutorLive.state.PAUSED_KEY")
+    LiveState.PAUSED_CREDIT -> bi("tutorLive.state.PAUSED_CREDIT")
+    LiveState.PAUSED_BUDGET -> bi("tutorLive.state.PAUSED_BUDGET")
 }
 
-private fun presetLabel(p: Preset): String = bi("tutorLive.${p.name.lowercase()}") + if (p == Preset.BALANCED) " ⭐" else ""
+private fun presetLabel(p: Preset): String = when (p) {
+    Preset.ECONOMY -> bi("tutorLive.economy")
+    Preset.BALANCED -> bi("tutorLive.balanced") + " ⭐"
+    Preset.BEST -> bi("tutorLive.best")
+}
+
+/** A task's name under "advanced". */
+private fun taskLabel(t: Task): String = when (t) {
+    Task.ROUTINE -> bi("tutorLive.task.ROUTINE")
+    Task.GRADING -> bi("tutorLive.task.GRADING")
+    Task.CHAT -> bi("tutorLive.task.CHAT")
+    Task.ROLEPLAY -> bi("tutorLive.task.ROLEPLAY")
+    Task.CONTENT -> bi("tutorLive.task.CONTENT")
+}
 
 private fun money(d: Double) = "$" + "%.2f".format(d)
 
@@ -298,7 +319,7 @@ private fun TaskLine(live: LiveTutor, task: Task) {
     val listed = s.listed.map { it.id }.filter { ProviderId.of(it) == s.provider }
     val models = (listed.ifEmpty { Family.of(s.provider).flatMap { it.preferred.take(1) } }).filter { !ModelCatalog.legacy(it) }
     FlowRow(verticalArrangement = Arrangement.Center) {
-        Text(bi("tutorLive.task.${task.name}"), style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(end = 6.dp, top = 12.dp))
+        Text(taskLabel(task), style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(end = 6.dp, top = 12.dp))
         Box {
             TextButton(onClick = { modelMenu = true }) { Text(model + if (task in s.models) " ✎" else "") }
             DropdownMenu(expanded = modelMenu, onDismissRequest = { modelMenu = false }) {

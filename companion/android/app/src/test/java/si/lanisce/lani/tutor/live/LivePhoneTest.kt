@@ -123,9 +123,11 @@ class LivePhoneTest {
         t.backgroundCheck()
         val log = tutorJson.parseToJsonElement(File(data, "session-log.json").readText()).jsonObject
         val ended = t.today.turns.last()
+        val recorded = ended.toolCalls.first { it.name == "record_session" }
+        val id = recorded.input["session_id"]!!.jsonPrimitive.content
         assertTrue(
-            "the session in the phone's data: ${ended.status} ${ended.toolCalls.map { "${it.name} ${it.isError} ${it.result.take(300)}" }}",
-            (log["sessions"] as JsonArray).any { it.jsonObject["session_notes"]?.jsonPrimitive?.content == "recorded on the phone" },
+            "the session $id in the phone's data: ${ended.status} ${ended.toolCalls.map { "${it.name} ${it.isError} ${it.result.take(300)}" }}",
+            !recorded.isError && recorded.result.contains("Updated 6 databases") && (log["sessions"] as JsonArray).any { it.jsonObject["session_id"]?.jsonPrimitive?.content == id },
         )
 
         assertEquals(null, t.setOn(false))
