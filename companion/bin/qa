@@ -46,7 +46,9 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        camera (allowed when asked), the virtual scene taken and sent alone;
                        "typed-turn" a dialog's turn typed with the keyboard up (QA's hook "turns:type"), the
                        keyboard the answer's (its language, no suggestion strip); "ispy" a game of «Vidim, vidim» by
-                       the fire (QA's hook "ispy:ob-ognju/stump"): a wrong thing tapped, the right one;
+                       the fire (QA's hook "ispy:ob-ognju/stump"): a wrong thing tapped, the right one, the child's
+                       lines in turn (tags Speaker and Voice: each clip played to its end before the next line,
+                       ispy-speech.log), a second game left mid-line (its clip stopped);
                        "scene-people" I spy offered in the church, the kitchen and the smithy (QA's hook "ispy:"):
                        who stands where, the picture as it opens and closer up; the church's top bar with the base
                        in German ("‹ Vas · Dorf"), its pills apart, then the profile's pair again;
@@ -2025,12 +2027,52 @@ def scene_people():
     return None
 
 
+def speech_log() -> list[tuple[str, str]]:
+    """What the app said and played, in order (the debug build's log, tags Speaker and Voice): ("said", text) as a line
+    starts, ("heard", text) once it has been heard (Speaker.sayInTurn), ("start" | "end" | "stopped", file) for a clip."""
+    out = []
+    for line in adb("logcat", "-d", "-v", "raw", "-s", "Speaker:I", "Voice:I", check=False).splitlines():
+        if m := re.match(r"said «(.*?)»: ", line):
+            out.append(("said", m.group(1)))
+        elif m := re.match(r"heard «(.*?)» after", line):
+            out.append(("heard", m.group(1)))
+        elif m := re.match(r"clip (start|end|stopped) (\S+)", line):
+            out.append((m.group(1), m.group(2)))
+    return out
+
+
+def lines_in_turn(log: list[tuple[str, str]], first: str) -> list[str]:
+    """What is wrong with the game's lines in [log] (companion/SCENES.md, "I spy", lines in turn): a line said while the one
+    before it was still being heard, a clip stopped before its end, the game's line ([first]) not heard to its end before
+    the next; [] when each played to its end before the next."""
+    wrong, open_line, said = [], None, []
+    for kind, what in log:
+        if kind == "said":
+            if open_line is not None and open_line != what:
+                wrong.append(f"«{what}» began while «{open_line}» was still being said")
+            open_line = what
+            said.append(what)
+        elif kind == "heard" and what == open_line:
+            open_line = None
+        elif kind == "stopped":
+            wrong.append(f"a clip stopped before its end ({what})")
+    if not said:
+        wrong.append("no line said (tag Speaker)")
+    elif first not in said[0]:
+        wrong.append(f"the first line said was «{said[0]}», not the game's line «{first}»")
+    elif len(said) > 1 and ("heard", said[0]) not in log[:log.index(("said", said[1]))]:
+        wrong.append(f"the game's line wasn't heard to its end before «{said[1]}»")
+    return wrong
+
+
 def ispy():
     """«Vidim, vidim» (companion/SCENES.md, "I spy") by the fire: QA's hook ("ispy:ob-ognju/stump") offers it whatever the
     day, with a child who comes by, its first round spying the stump. "🔍 Igrajva · Let's play" starts it; the round's first
     clue shows; a wrong thing tapped in the picture (the woodpile) is the learner's guess, marked wrong, with the child's
     kind reaction and the next clue; the stump tapped is found ("Ja, to je štor!"); then each round's thing (the debug
-    build logs where it is on the screen) to the end card."""
+    build logs where it is on the screen) to the end card. The child's lines come in turn (the debug build's log, tags
+    Speaker and Voice): each line plays to its end before the next starts, the game's line ("Vidim, vidim nekaj …") before
+    the first clue, no clip is stopped before its end until the game is left; then leaving it stops the line at once."""
     try:
         adb("logcat", "-c")
         qa_hook("ispy:ob-ognju/stump", "scene:ob-ognju")
@@ -2051,12 +2093,16 @@ def ispy():
         assert target == "stump" and "stump" in at, f"the first round spies the stump (QA's hook): {target}, {sorted(at)}"
         wrong = "logs" if "logs" in at else next(s for s in at if s != target)
         tap_at(at[wrong])
-        time.sleep(1.5)
-        reacted = any(r in t for t, _ in nodes() for r in ("Ne, to ni to", "Mrzlo", "Toplo", "Hi hi, ne", "Še en namig", "Skoraj"))
+        # the reaction comes out once the lines before it have been said (the game's line, the first clue)
+        end, reacted = time.time() + 30 * slow(), False
+        while time.time() < end and not reacted:
+            reacted = any(r in t for t, _ in nodes() for r in ("Ne, to ni to", "Mrzlo", "Toplo", "Hi hi, ne", "Še en namig", "Skoraj"))
+            if not reacted:
+                time.sleep(1)
         assert reacted, f"the child's reaction to a wrong guess ({wrong})"
         shot("ispy-wrong")
         tap_at(at[target])
-        assert wait_for("Ja, to je štor", 6), "the child's cheer: the stump found"
+        assert wait_for("Ja, to je štor", 30), "the child's cheer: the stump found"
         shot("ispy-found")
         # the other rounds: the thing's word among the things listed ("✋ Izberi raje · Let me choose", as TalkBack has them),
         # then on to the end (a thing's area can lie under another's, the stars' under the smoke: its centre is no sure tap)
@@ -2073,13 +2119,49 @@ def ispy():
             chip = next((c for t, c in nodes() if t == word), None)
             assert chip is not None, f"the chip of «{word}»"
             tap_at(chip)
-            time.sleep(1.5)
-            assert find(f"{word}! Bravo") is not None, f"the child's cheer for «{word}»"
+            assert wait_for(f"{word}! Bravo", 30) is not None, f"the child's cheer for «{word}»"
         if find("Konec") is not None:
             tap("Konec", 3)
         assert wait_for("Hvala za igro! · Thanks for the game!", 8), "the end card"
         shot("ispy-end")
+        # the lines in turn: every line said heard to its end (the goodbye too) before the game is left
+        end, last = time.time() + 30 * slow(), None
+        while time.time() < end:
+            log = speech_log()
+            at = max((i for i, (k, _) in enumerate(log) if k == "said"), default=-1)
+            if at >= 0 and ("heard", log[at][1]) in log[at:] and log == last:
+                break
+            last = log
+            time.sleep(1.5)
+        log = speech_log()
+        # with the times, for whoever reads the run: each line's start after the one before it ended
+        (OUT / "ispy-speech.log").write_text(adb("logcat", "-d", "-v", "time", "-s", "Speaker:I", "Voice:I", check=False))
+        wrong = lines_in_turn(log, "vidim vidim nekaj")
+        said = [w for i, (k, w) in enumerate(log) if k == "said" and ("said", w) != next((e for e in reversed(log[:i]) if e[0] == "said"), None)]
+        print(f"    {len(said)} lines in turn, {sum(k == 'end' for k, _ in log)} clips played to their end, none over another: " + " → ".join(said[:3]) + " …")
+        assert not wrong, "the lines in turn: " + "; ".join(wrong[:4])
         assert tap("Nazaj v prizor · Back to the scene", 4), "back to the scene"
+        time.sleep(1)
+        # a second game left while the child says its first line: the line stops at once
+        adb("logcat", "-c")
+        marker = wait_for("Vidim, vidim · I spy. Igrajva", 10)
+        card = marker or scroll_to("🔍 Igrajva · Let's play", 5)
+        if card is None:
+            print("    (no second game offered: the stop on leaving not checked)")
+        else:
+            tap_at(card)
+            end = time.time() + 15 * slow()
+            while time.time() < end and not any(k == "start" for k, _ in speech_log()):
+                time.sleep(0.3)
+            if any(k == "start" for k, _ in speech_log()):
+                adb("shell", "input", "keyevent", "KEYCODE_BACK")
+                time.sleep(1)
+                log = speech_log()
+                assert any(k == "stopped" for k, _ in log), f"leaving the game while the child talked didn't stop the line: {log[-4:]}"
+                print("    a game left mid-line: the line stopped at once")
+            else:
+                print("    (the second game's line played no clip: the stop on leaving not checked)")
+                adb("shell", "input", "keyevent", "KEYCODE_BACK")
         time.sleep(1)
         assert tap("‹ Vas · Village", 3), "back from the scene"
     finally:
