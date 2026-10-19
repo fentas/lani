@@ -665,9 +665,11 @@ if (toDrama3) {
   }
   // Ctrl-C (or SIGTERM): the clips in flight are finished, then the worker stops; a second one stops at once
   let stopping = false
+  let now = false
   const worker = new Drama3Worker(d3, s, line => console.log(line))
   const onSignal = () => {
     if (stopping) {
+      now = true
       void worker.stop().finally(() => process.exit(130))
       return
     }
@@ -691,6 +693,8 @@ if (toDrama3) {
   } finally {
     await worker.stop()
   }
+  // stopped at once (a second Ctrl-C): the signal's handler ends the process
+  if (now) await new Promise(() => {})
   if (error) console.error(`voice-build --drama3: ${error}`)
   const failedNow = store.drama3Failed(d3Speakers)
   if (failedNow.length) {

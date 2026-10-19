@@ -11,7 +11,7 @@ Built with Fish Audio. The same contract as the Gepard worker (companion/voice-l
                   422 {"ok": false, "error": "quality", "attempts": [...]}: no take passed the checks
                   400 bad input or an unknown speaker; 503 busy or not ready; 500 an error
 
-Far too slow for live lines (about 6-12 s of compute a second of audio on the RX 9070): the
+Far too slow for live lines (about 10 s of compute a second of audio on the RX 9070, checks included): the
 bridge's voice-build --drama3 starts it, voices a speaker's clips and stops it. Two requests may
 be in flight (one on the GPU while the other is decoded and heard by Whisper); a third gets 503.
 

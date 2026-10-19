@@ -14,20 +14,19 @@ import { DRAMA3_URL, type Drama3 } from './voice'
 
 /**
  * Seconds of the batch per second of audio: Drama 3 on the RX 9070 in safe mode, the CPU codec, the checks (Whisper
- * large-v3 on the CPU, overlapped with the next take's generation) and the retries. Measured 2026-10-19 over the
- * consistency run (README.md, "Speed"); LANI_DRAMA3_RTF overrides it.
+ * large-v3 on the CPU, overlapped with the next take's generation) and the retries, the prefills included. Measured
+ * 2026-10-19 on the consistency run (88 lines in 11 voices, two in flight: 273 s of audio in 2,723 s, 9.97 s a second, on
+ * a busy host; companion/voice-drama3/README.md, "Speed"); LANI_DRAMA3_RTF overrides it.
  */
-export const DRAMA3_RTF = 11
-/** Letters a second Drama 3's voices speak (the median of the consistency run): a clip's length from its text. */
+export const DRAMA3_RTF = 10
+/** Letters a second of a take, its edges included (8.4 measured on the same run): a clip's length from its text. */
 export const DRAMA3_LETTERS_PER_SECOND = 8.5
-/** What a clip costs besides its audio: the prefill of the reference and the line, and the file's encode and level. */
-export const DRAMA3_CLIP_OVERHEAD_S = 6
 
-/** The audio [texts] would make, and the batch's time for them at [rtf] (seconds). */
+/** The audio [texts] would make (a take's length from its letters, at least 0.6 s), and the batch's time at [rtf] (s). */
 export function drama3Estimate(texts: string[], rtf = DRAMA3_RTF): { audio: number; seconds: number } {
   let audio = 0
   for (const t of texts) audio += Math.max(0.6, t.replace(/[^\p{L}]/gu, '').length / DRAMA3_LETTERS_PER_SECOND + 0.3)
-  return { audio, seconds: audio * rtf + texts.length * DRAMA3_CLIP_OVERHEAD_S }
+  return { audio, seconds: audio * rtf }
 }
 
 /** "3 h 20 min", "12 min", "40 s". */
@@ -130,8 +129,10 @@ export class Drama3Worker {
     this.out(`Starting the Drama 3 worker (${this.s.cmd.join(' ')}; its output: ${this.s.log}) …`)
     const until = Date.now() + this.s.startTimeoutMs
     let said = ''
+    const proc = this.proc
     for (;;) {
-      if (this.proc.exitCode !== null) throw new Error(`the Drama 3 worker stopped (exit ${this.proc.exitCode}); its output: ${this.s.log}`)
+      if (this.proc !== proc) throw new Error('the Drama 3 worker was stopped while it started')
+      if (proc.exitCode !== null) throw new Error(`the Drama 3 worker stopped (exit ${proc.exitCode}); its output: ${this.s.log}`)
       const h = await this.engine.health()
       if (h?.ok === true) break
       if (h?.error) {

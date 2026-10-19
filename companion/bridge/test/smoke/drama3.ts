@@ -65,8 +65,8 @@ export default async function drama3() {
   // --- the estimate and the settings ---
   {
     const est = drama3Estimate(['Dober dan, Jan.', 'Midva sva na pašniku, onidve sta v kuhinji.'], 10)
-    check('the estimate: the letters at Drama 3\'s pace, the measured seconds a second of audio, a clip\'s overhead',
-      est.audio > 5 && est.audio < 8 && Math.abs(est.seconds - (est.audio * 10 + 12)) < 1e-6, est)
+    check('the estimate: the letters at Drama 3\'s pace, the measured seconds a second of audio',
+      est.audio > 5 && est.audio < 8 && Math.abs(est.seconds - est.audio * 10) < 1e-6, est)
     const s = drama3Settings({ LANI_DRAMA3_HOME: '/nowhere', LANI_HEAVY_LOCK: '/tmp/x.lock', LANI_DRAMA3_MIN_FREE_GB: '24' })
     check('the settings: the worker\'s run.sh in its home (not installed there), the heavy lock, the memory floor, Drama 3\'s port 8785',
       s.cmd.join(' ') === '/nowhere/run.sh' && !s.installed && s.lock === '/tmp/x.lock' && s.minFreeGb === 24 && s.url === 'http://127.0.0.1:8785' && drama3Settings({}).minFreeGb === 20 && drama3Settings({}).lock === '/tmp/lani-heavy.lock')

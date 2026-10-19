@@ -1356,7 +1356,7 @@ export type Drama3Rejection = { status: number; error: string; attempts?: { seed
 
 /**
  * The local Drama 3 worker (Fish Audio Drama 3, companion/voice-drama3): GET /health, POST /synth {text, speaker} → MP3,
- * the Gepard worker's contract. For batch clips only (voice-build --drama3): about 6 to 12 s of compute a second of audio,
+ * the Gepard worker's contract. For batch clips only (voice-build --drama3): about 10 s of compute a second of audio,
  * far too slow for a live line, so the bridge's own store never has it. Its voices are the cast's speakers, each a
  * reference made by Drama 3 itself (voices.json). Every take passes its quality guard (the gender by pitch, noise, the
  * text heard by Whisper, length and silence) or is made again with another seed; a line no take passes comes back as
