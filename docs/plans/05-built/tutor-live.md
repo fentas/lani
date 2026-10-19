@@ -69,6 +69,15 @@ app agree.
 | `notebook_note {text}`, `notebook_write {text}` | The notebook in the data: `app/tutor/notebook.md`, its meta `app/tutor/notebook.json` (when and why it was written, the history's times), the old texts in `app/tutor/notebook-versions.json` (the last 20). The notebook moves with the data repository between modes. |
 | `report_problem {kind, title, what_is_wrong, …}` | An entry in `app/wishlist.md`, in the `lani-fix` skill's shape, as the node does today. **What's missing for GitHub discussions:** a GitHub sign-in (the plan's GitHub App, or the learner's own account) that the app doesn't have yet. The tool's answer says so, and the tutor tells the learner that the report is kept for the developer. |
 
+**The lease** (lease.ts, git sync): while another side holds the learner's data, the writes are refused and the reads
+go on, as for the rest of the app's API.
+- The app session's writing tools (`record_session`, `notebook_note`, `notebook_write`, `report_problem`, `card`'s
+  edit, merge, split, regrade and forgive) fail with "Nothing written." and the reason. `learner_state` and `card`'s
+  find, show and overlaps go on.
+- The session's own writing tools are guarded by `guardTools`, as Claude Code's are.
+- `PUT /tutor/notebook` is refused with 423. Attaching, detaching, the inbox and its acks are the channel's state, not
+  the learner's data: lease.ts's `NOT_DATA` lets them through, and `/tutor/tools/*` too (guarded tool by tool).
+
 The scripts run through the bridge's own spawn path (`config.ts` `spawn`). On a node that is Python. On the phone,
 phone-runtime dispatches the same `python3 .claude/hooks/<script>.py …` spawns to the db port.
 
