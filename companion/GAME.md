@@ -963,6 +963,27 @@ else the answer's shape (opened, a right answer pays like an almost); č š ž c
   congratulates and may give homework (`publish_worksheet` into the unit: it shows under "🧑‍🏫 Domača naloga · Homework",
   pays like a worksheet and holds nothing back). `get_course` and `get_village`'s `course` show where the learner is.
 
+**🔢 Števila · Numbers: the unit's own practice.** Jan, 2026-10-19: "Do we learn numbers in school at some point? Would
+be nice: a separate test module." The unit `stevila` teaches the numbers and counting with nouns; its intro done also
+opens a practice module of the numbers themselves ([README.md](README.md#numbers), `data/NumbersPractice.kt`), on the
+unit's page and as an idea of Home's "Danes · Today". Closed, it says what opens it and "📖 Odpri uvod · Open the intro"
+is one tap away (never a wall). The rules:
+
+- **A run** of 10, its ways of asking mixed: a number heard and typed on a number pad, its word read and typed in figures,
+  its figures and the word written, said (from a range the learner has, when something can listen), a date's ordinal
+  ("Danes je ___ maj. (15.)": the page `datumi`), and once the unit kdaj-cas's intro is done a clock time heard ("ob pol
+  šestih" → 5:30) or written. Each gated as a forms card's gaps are: by the pages introduced, and what the phone can.
+- **The ranges grow i+1:** 0–10 and 11–20 with the intro, then 30–90, 21–99 (sedem-in-dvajset), 100–999, 1000–9999 and
+  the years; **the next opens when 8 of the last 10 answers in the newest are right** (an almost counts), shown on the
+  module's screen with a bar. A run takes 60 % of its new numbers from the newest range.
+- **Missed numbers come back in the module's own schedule**, not as review cards: the next run, then a day, three days
+  and a week after each right answer; at most 4 in a run. The village state keeps it (`GameState.numbers`; the bridge
+  keeps it from an older app, and the tutor's `get_village` shows it).
+- **What a run pays and counts:** each answer pays as practice (heard 🪵, read or written 🌾, said 📜, a date or a clock
+  🪨); a date's answer counts on `datumi`, a clock time's on `kdaj-cas`, the plain numbers on no page. The tutor hears
+  it as a `session_end` with `numbers`, its wrong answers ready as mistakes of their kinds (`numbers_order` for the tens
+  first, `numbers_listening`, `numbers_spelling` …).
+
 **On the map and in the school's scene**: the school's scene (`v-soli`) has "📚 Šola" in its top bar; the school's card
 has "📚 Šola · School" (and its course gate under the upgrade); the linden's card "📚 Pouk pod lipo" while the class meets
 under it.

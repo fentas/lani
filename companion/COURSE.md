@@ -402,7 +402,16 @@ then on and for good; the intro's end says so once, as a note ("Slovene · Engli
   who never did the unit's intro gets none (the course is a recommended order, free to jump: the intro of `stevila`
   done out of order turns them on all the same). The cards' help opens the unit's pages `stevila-samostalniki` and
   `spol-samostalnikov` on the cheat sheet; the tutor points to the unit's intro and worksheets for a kind of mistake
-  that keeps coming back.
+  that keeps coming back. It also opens **the numbers module** ("🔢 Števila · Numbers"; README.md "Numbers"): runs of
+  numbers heard and typed on a number pad, read, written and said, and a date's ordinal (its page `datumi`), the ranges
+  growing from 0–10 and 11–20 (the two the intro opens) to the years, each opening when 8 of the last 10 answers in the
+  newest are right; on the unit's page ("🔢 Števila", under the intro) and on Home. Before the intro the unit's page
+  shows it closed ("🔒 Odpre jih uvod enote.") and the module's screen leads to the intro. The note: "🔢 Števila so
+  odprta: vadi jih pri enoti in na domači strani. · The numbers are open: practise them at the unit and on Home."
+- **`kdaj-cas`** (A1, "Kdaj? Ob petih, v sredo, pozimi"): the numbers module's **clock times**, by ear ("ob pol šestih"
+  → 5:30 on the pad) and in words (5:30 → ob pol šestih), with the unit's ob + -ih and half towards the next hour. The
+  note: "⏰ Ura je odslej tudi v vaji s števili. · Clock times are in the numbers practice from now on." Before it, the
+  module's screen shows them closed with the unit one tap away.
 
 **Forms cards** ("📋 Oblike · Forms"; README.md "Forms cards") are on for every learner whose bridge makes them; what
 each card asks grows with the units. A form of a word's table is asked once its grammar page and the pages it needs are

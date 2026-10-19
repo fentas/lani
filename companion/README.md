@@ -2885,6 +2885,84 @@ the four forms gets no card (mleko, vrata). It answers `{added: [{item_id, lemma
 made_today, per_day}` and `words_added`. In the review a few due counting cards (at most 4) are spread among the
 others; the rest wait for the next. `card.py show` tells how the app asks one.
 
+### Numbers
+
+"🔢 Števila · Numbers" (Jan: "Do we learn numbers in school at some point? Would be nice: a separate test module."): a
+practice module of the numbers themselves, beside the counting cards (which count a noun). Its rules are
+`app/.../data/NumbersPractice.kt` (pure), its words `data/SpokenNumbers.kt`, its screens `ui/numbers/` (the module's
+screen, the run, the number pad: `NumeralEx.kt`), the rest `app/NumbersController.kt`.
+
+**Where it opens.** The intro of the A1 unit `stevila` opens it (finished, or skipped as known: as for counting cards),
+with its first two ranges. It opens from the unit's page ("🔢 Števila · Numbers", under the intro: its ranges, or the
+numbers due again), and from Home's "Danes · Today": an idea under "Še · Also" when it wasn't played today, right after the
+tutor's modules while numbers missed are due again, else after a word pack (only where there is room). Closed, its screen
+says what opens it with the way there one tap away: "📖 Odpri uvod · Open the intro" (the unit's intro), or before the
+class begins (the hamlet) "🏫 V šolo · To the school", which says what begins it. The intro's end says once "🔢 Števila so
+odprta: vadi jih pri enoti in na domači strani. · The numbers are open: practise them at the unit and on Home."
+
+**A run** is 10 tasks, the ways of asking mixed, never the same twice in a row while another is on, no number twice:
+
+| way | asks | answered | on |
+|---|---|---|---|
+| 🎧 hear | a number said (the app's voice: the node's clip, made on demand, else the phone's) | its figures on the number pad | with a voice |
+| 👀 read | its word ("sedemindvajset") | its figures on the pad | always |
+| ✍️ write | its figures ("27") | the word typed (č, š, ž chips, 💡) | always |
+| 🎤 say | its figures | said (the speak exercise; a recognizer's "27" is read as the word) | from a range the learner has, with something to listen |
+| 📅 date | "Danes je ___ maj. (15.)" | the ordinal typed: petnajsti | the page `datumi` introduced (the unit stevila) |
+| ⏰ time by ear | "ob pol šestih" said | 5:30 on the pad (17:30 too) | the page `kdaj-cas` introduced (the unit Kdaj?), with a voice |
+| 🕰️ time in words | "⏰ 5:30" | "ob pol šestih" typed | the page `kdaj-cas` introduced |
+
+The number pad: what is typed so far, large (TalkBack reads it as it changes), the keys 1–9, 0, ⌫ (and ":" for a clock
+time), each at least 60 dp high, then "Preveri · Check". Each task is marked at once, as any exercise: the right answer,
+the word said by the 🔊, and how it is built, in the learner's base ("**27** → **sedem** + **in** + **dvajset**: the ones
+first (7 + 20), joined by in, in one word"; -najst for 11 to 19, -deset for the tens, the hundreds and thousands apart; a
+date's ordinal; ob and -ih, half towards the next hour). The cheat sheet (📋) opens at the curated card "🔢 Števila" and
+the page `datumi`; 💬 attaches the task (`about_exercise.source` kind `numbers`, its mode and number, `machine_written`).
+The run pays the village as practice (heard: 🪵, read and written: 🌾, said: 📜, a date or a clock time: 🪨); its end
+says what opened and what comes back, with "▶️ Še enkrat · Once more".
+
+**Grading.** Figures are right or wrong ("027" is 27; a clock time on either half of the day). A word as the app grades a
+typed answer (č, š, ž forgotten is almost), with what a number's word adds: the same letters apart or together ("sedem in
+dvajset", "dvatisoč šestindvajset") is almost; a one-letter slip anywhere in it is almost (a number has no ending to get
+wrong), but never when it is another number's word ("deset" for devet), and "dvasto" for dvesto is wrong; 1 to 4 bare
+in a gender's form (en, eno, dve, trije) are right, the counting form is shown. A date's day and a clock's hour have their
+endings: "petnajst" for petnajsti, "sedemi" for sedmi, "ob pet" for ob petih are wrong.
+
+**The ranges grow one at a time:** 0–10 and 11–20 (with the intro), 30–90 (the tens), 21–99 (the "-in-" numbers:
+sedem-in-dvajset), 100–999 (dvesto, sto enaindvajset), 1000–9999 (half of them years: dva tisoč šestindvajset). **The
+next opens when 8 of the last 10 answers in the newest range are right** (an almost counts; dates and clock times count
+on no range). The screen shows each range: ✅ open, ▶️ the newest with "6 od zadnjih 10 prav · 8 od 10 odpre 21–99" and a
+bar, 🔒 the later ones ("odpre se po 11–20"). Of a run's new numbers 60 % are from the newest range, the rest from those
+before; a number to say only from a range the learner has (the next one open after it).
+
+**Numbers missed come back in the module's own schedule**, not as review cards: a number is no word the learner owns,
+the module makes its tasks from rules, and a card for every number missed would fill the review with "27" and "72". A
+wrong one comes back in the next run (the same day), then a day, three days and a week after each right answer, then it
+is gone; wrong again, it starts over; an almost comes back the next day. At most 4 a run, the oldest first, spread through
+it, asked the same way (heard ones read where there is no voice). The village state keeps it all (`GameState.numbers`:
+the day each range opened, each range's last 10 answers, the numbers missed with their day and box, the runs), so another
+phone has it; the bridge keeps it from an app that leaves it out (PUT /game), and `get_village` shows it (`numbers`: the
+ranges open, the newest one's last answers, the numbers missed as asked, the runs).
+
+**The tutor** hears each run as a `session_end` whose `data.numbers` has the ranges open (`opened_now`: one this run
+opened), the newest range's score, each task (mode, what it showed, the answer, what was right, the verdict, the kind of a
+wrong one) and `errors`: update-db.py's errors as they stand, which the tutor persists (lani-db-updater), so each wrong
+answer is a mistake of its own kind in mistakes-db: `numbers_listening`, `numbers_reading`, `numbers_spelling`,
+`numbers_order` (the tens first: "dvajset sedem" for sedemindvajset, 72 typed for 27; a said one by what was heard),
+`numbers_speaking`, `numbers_ordinal_date` (on the grammar book's `datumi` by its tag "ordinal"),
+`numbers_clock_time`, `numbers_clock_time_half` (half past counted from the hour before; on `kdaj-cas` by "clock_time").
+The plain numbers' ids name no page. The channel guide's counting paragraph says the same (the in-app tutor's topic
+"counting", tutor-export).
+
+**The words** are rule-built, never a list: `SpokenNumbers.slovene` (0 … 999 999: one word up to 99, the ones first;
+dvesto; the hundreds and thousands apart: sto enaindvajset, tisoč, dva tisoč), `SpokenNumbers.ordinal` (1 … 99: prvi,
+drugi, tretji, četrti, sedmi, osmi; else the number + -i: enaindvajseti) and the clock's hours after ob (enih, dveh, treh,
+štirih … sedmih, osmih … dvanajstih; half: ob pol šestih). Speech keeps to 0 … 999 (a heard "1991" must still match a
+text's figures), so a year said is right as its figures too. Machine-written, not checked by a native speaker yet: the
+module's screen says so ("🤖"), the tutor's data has `machine_written`, and a word that looks wrong is fixed in the app's
+code. `NumbersPracticeTest` holds a hand-checked table of the tricky ones (1 and 2's forms, 11–19, 21, 22, 99, 100, 101,
+200, 1000, 2000, 2026) and reads every number 0 … 9999 back. QA's step `numbers` goes through it ([Test](#test)).
+
 ### Forms cards
 
 "📋 Oblike · Forms": one of Jan's words with its table in a review card of its own, so all the forms of a word are
@@ -3682,6 +3760,7 @@ companion/bin/qa --steps exercise-words          # a review's words looked up: t
 companion/bin/qa --steps exercise-explain        # the module kdo-govori's explanation in shape, «delam» in it looked up
 companion/bin/qa --steps counting                # counting cards: the unit stevila's intro skipped and its note, a card's four steps (one wrong), the lines said, the cheat sheet, 💬, typed
 companion/bin/qa --steps counting-dialogs        # the happenings with a counting dialog (Luka's cows): each opens, its number in words
+companion/bin/qa --steps numbers                 # 🔢 Števila: closed with "📖 Odpri uvod", the intro skipped; a number heard on the pad, a word with the tens first, a clock time, a date, a whole run opening 100–999
 LANI_DEV_FAKE_ELEVENLABS=1 companion/bin/qa --no-town --steps forms-card  # forms cards: Vse oblike on a word's card (its overview, then Vadi oblike), a noun's table (greyed rows, a mistake kept by kind, the rows said), a verb's (its imperative hidden), the day's in a review, typed, a unit done bringing a card back
 LANI_DEV_FAKE_ELEVENLABS=1 companion/bin/qa --no-town --steps forms-view  # biti's card in a test: its present alone; the overview after it and from the word's card; Moje besede from Napredek, a search with its dictionary part, a word opened from it
 companion/bin/qa --steps school                  # the school: from Home's tile, the unit biti's intro (read aloud), sheets and test
