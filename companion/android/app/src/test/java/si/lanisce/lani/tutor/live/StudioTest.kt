@@ -119,6 +119,9 @@ class StudioTest {
             results.isEmpty() -> message("tool_use", text("Najprej učenec."), toolUse("ls$n", "learner_state"))
             lastId.startsWith("ls") -> message("tool_use", toolUse("pb$n", "publish_module", obj("spec" to spec(answer = 4), "note" to "machine-written (test)")))
             lastId.startsWith("pb") && lastError -> message("tool_use", toolUse("pg$n", "publish_module", obj("spec" to spec(answer = 0), "note" to "machine-written (test)")))
+            // the publish's answer lost on the way (the node applied it): the model tries the same publish again
+            lastId.startsWith("pg") && lastError && results.last().toString().contains("didn't reach") ->
+                message("tool_use", toolUse("pg$n", "publish_module", obj("spec" to spec(answer = 0), "note" to "machine-written (test)")))
             lastId.startsWith("pg") && !sub -> message("tool_use", toolUse("rp$n", "reply", obj("conversation_id" to conv, "text" to "**Studio** · vaje so objavljene · the drill is published.")))
             else -> message("end_turn", text("Published module:mock-studio-drill."))
         }
@@ -209,12 +212,12 @@ class StudioTest {
 
     private var token: String? = null
 
-    private fun tutor(scope: CoroutineScope = CoroutineScope(SupervisorJob()).also { scopes += it }): LiveTutor = LiveTutor(
+    private fun tutor(scope: CoroutineScope = CoroutineScope(SupervisorJob()).also { scopes += it }, pre: Interceptor? = null): LiveTutor = LiveTutor(
         scope, LiveStore(dir), vault, openai = null,
         bridgeConfig = { BridgeConfig("http://node.test:8790", "bridge-token-studio-test-0123456789") },
         debug = false,
         transportFor = { base, key -> AnthropicTransport(base, key, OkHttpClient.Builder().addInterceptor(api).build(), clock = { now }) },
-        bridgeFor = { c -> LiveBridge(c, OkHttpClient.Builder().addInterceptor(node).build()) },
+        bridgeFor = { c -> LiveBridge(c, OkHttpClient.Builder().apply { pre?.let(::addInterceptor) }.addInterceptor(node).build()) },
         fran = null,
         clock = { now }, zone = { zone }, device = "test phone",
         logLine = { lines += it }, sleep = {},
@@ -333,6 +336,106 @@ class StudioTest {
         assertEquals("the refused one and the fixed one: no publish twice", 2, node.calls.count { it.first == "publish_module" })
         assertEquals(1, node.calls.count { it.first == "reply" && it.second.toString().contains("Studio") })
         assertTrue(done["attempts"]!!.jsonPrimitive.content.toInt() >= 2)
+    }
+
+    /** The valid publish's step (the model's answer with it, the call not answered yet) as a job's save carries it. */
+    private fun withValidPublish(job: JsonObject): Boolean =
+        job["messages"]?.jsonArray?.lastOrNull()?.jsonObject?.blocks()?.any { it.str("type") == "tool_use" && it.str("id").orEmpty().startsWith("pg") } == true
+
+    @Test fun `a job killed after the publish but before the step was saved resumes without a second version`() = runBlocking {
+        val scopeA = CoroutineScope(SupervisorJob())
+        // the step with the valid publish isn't saved (lost on the way), the publish goes through, and the process is
+        // killed before anything after it is saved: the bridge's copy is the job as it was before that call
+        var dropped = 0
+        node.dropPut = { job -> withValidPublish(job) && job["intents"]?.jsonArray.orEmpty().none { it.jsonObject.str("state") == "sent" } && dropped++ == 0 }
+        node.afterTool = { name, body ->
+            if (name == "publish_module" && body["args"].toString().contains("\"answer\":0")) {
+                node.frozen = true
+                scopeA.cancel()
+                Thread.sleep(200)
+            }
+        }
+        val a = ready(tutor(scopeA))
+        node.push("chat", "main", "Exercises, please.")
+        a.backgroundCheck()
+        for (i in 0 until 100) {
+            if (node.frozen) break
+            delay(20)
+        }
+        delay(300)
+        assertEquals("the refused publish and the valid one", 2, node.calls.count { it.first == "publish_module" })
+        val saved = node.jobs.values.single()
+        val intent = saved["intents"]!!.jsonArray.map { it.jsonObject }.last()
+        assertEquals("the publish was recorded in the job before it was sent", "sent", intent.str("state"))
+        assertEquals("publish_module", intent.str("tool"))
+        node.frozen = false
+        node.afterTool = { _, _ -> }
+        // a new process: the job from the bridge's copy, run on
+        val b = tutor()
+        for (i in 0 until 200) {
+            if (node.jobs.values.single().str("status") == StudioJob.DONE) break
+            delay(25)
+        }
+        settle(b)
+        val done = node.jobs.values.single()
+        assertEquals(StudioJob.DONE, done.str("status"))
+        assertEquals("no second version: the publish isn't applied again", 2, node.calls.count { it.first == "publish_module" })
+        assertEquals(1, done["published"]!!.jsonArray.size)
+        assertEquals("published", done["intents"]!!.jsonArray.map { it.jsonObject }.last().str("state"))
+        assertEquals(1, node.calls.count { it.first == "reply" && it.second.toString().contains("Studio") })
+    }
+
+    @Test fun `a publish whose answer was lost and is sent again is answered once, not applied twice`() = runBlocking {
+        var lost = 0
+        node.loseAnswer = { name, body -> name == "publish_module" && body["args"].toString().contains("\"answer\":0") && lost++ == 0 }
+        val t = ready()
+        node.push("chat", "main", "Exercises, please.")
+        t.backgroundCheck()
+        settle(t)
+        val job = node.jobs.values.single()
+        assertEquals(StudioJob.DONE, job.str("status"))
+        val sent = node.requests.filter { it.url.encodedPath == "/tutor/tools/publish_module" }.map { tutorJson.parseToJsonElement(bodyOf(it)).jsonObject }
+        assertEquals("the refused one, the valid one, the valid one again", 3, sent.size)
+        assertEquals("the same write went again with the client id it went with first", sent[1].str("client_id"), sent[2].str("client_id"))
+        assertEquals("the node applied it once", 2, node.calls.count { it.first == "publish_module" })
+        assertEquals(1, job["published"]!!.jsonArray.size)
+    }
+
+    @Test fun `the background's run and the open app's worker never run a job at once`() = runBlocking {
+        // A queues the job and is gone before the studio's first call
+        val scopeA = CoroutineScope(SupervisorJob())
+        before = { _, body ->
+            if (isStudio(body)) {
+                node.frozen = true
+                scopeA.cancel()
+                Thread.sleep(200)
+            }
+        }
+        val a = ready(tutor(scopeA))
+        node.push("chat", "main", "Exercises, please.")
+        a.backgroundCheck()
+        for (i in 0 until 100) {
+            if (node.frozen) break
+            delay(20)
+        }
+        delay(300)
+        val studioCallsA = posts().count(::isStudio)
+        node.frozen = false
+        before = { _, body -> if (isStudio(body)) Thread.sleep(150) }
+        // B: the WorkManager's run starts while the process's start-up still reads the session (the open app's worker
+        // starts after it, StudioWork's TutorRuntime.live): before the fix both ran the job, each making its calls
+        val slowSession = Interceptor { chain ->
+            if (chain.request().url.encodedPath == "/tutor/session") Thread.sleep(400)
+            chain.proceed(chain.request())
+        }
+        val b = tutor(pre = slowSession)
+        b.studio.background(20_000)
+        settle(b)
+        val done = node.jobs.values.single()
+        assertEquals(StudioJob.DONE, done.str("status"))
+        assertEquals("learner_state, the refused publish, the fixed one, the reply, the end: once each", 5, posts().count(::isStudio) - studioCallsA)
+        assertEquals(2, node.calls.count { it.first == "publish_module" })
+        assertEquals(1, node.calls.count { it.first == "reply" && it.second.toString().contains("Studio") })
     }
 
     @Test fun `a sub-task runs on its own thread and its result goes back to the job`() = runBlocking {
@@ -478,6 +581,14 @@ class StudioTest {
         val reports: MutableList<JsonObject> = Collections.synchronizedList(mutableListOf())
         private val once = Collections.synchronizedMap(mutableMapOf<String, String>())
         @Volatile var puts = 0
+        /** The app's process is gone: its saves don't arrive. */
+        @Volatile var frozen = false
+        /** A job's save that is lost on the way (answered 500, not kept). */
+        var dropPut: (JsonObject) -> Boolean = { false }
+        /** After a tool ran on the node (its answer kept for its client id), before the app has the answer. */
+        var afterTool: (String, JsonObject) -> Unit = { _, _ -> }
+        /** A tool's answer lost on the way back (it ran on the node). */
+        var loseAnswer: (String, JsonObject) -> Boolean = { _, _ -> false }
         @Volatile var restored: String? = null
 
         @Synchronized fun push(kind: String, conversation: String, content: String): Long {
@@ -521,7 +632,8 @@ class StudioTest {
                 path.startsWith("/tutor/jobs/") -> {
                     val id = path.removePrefix("/tutor/jobs/")
                     when (r.method) {
-                        "PUT" -> { jobs[id] = body!!; puts++; ok(obj("ok" to true, "updated_at" to now).toString()) }
+                        // a process gone can't save any more; a save lost on the way ([dropPut])
+                        "PUT" -> if (frozen || dropPut(body!!)) code(500) else { jobs[id] = body; puts++; ok(obj("ok" to true, "updated_at" to now).toString()) }
                         "DELETE" -> { jobs.remove(id); ok(obj("ok" to true, "deleted" to true).toString()) }
                         else -> jobs[id]?.let { ok(it.toString()) } ?: code(404)
                     }
@@ -548,6 +660,8 @@ class StudioTest {
                         else -> result("done")
                     }
                     clientId?.let { once[it] = answer.peekBody(1_000_000).string() }
+                    afterTool(name, body)
+                    if (loseAnswer(name, body)) throw java.io.IOException("connection reset: the answer was lost")
                     answer
                 }
                 path == "/tutor/notebook" -> ok(obj("text" to "# Notebook\n- Jan likes tables", "updated_at" to "2026-10-18T20:00:00Z").toString())

@@ -50,14 +50,26 @@ bridge's `companion/bridge/src/tutor-studio.ts`, `src/overrides.ts` and `src/fea
 | `prefix` | the studio prefix its thread was made under: an app update that changes it restarts the thread as text, with what was done |
 | `messages`, `subtasks` | the thread in the provider's format; each sub-task with its own |
 | `steps`, `drafts`, `published` | the last 120 steps; the drafts by `<tool>:<item>`; what was published |
+| `intents` | the writes sent to the bridge, recorded before each call: tool, item, hash of tool and input, client id, state (`sent`, `published`, `refused`); the last 60 |
 | `calls`, `cost`, `attempts`, `not_before` | the main thread's calls (a sub-task counts its own), the spend, the runs, a retry's time |
 
 **A run** is plan 5's loop (`TutorLoop`) on the studio's prefix: its own prompt (`studio-prompt.md`) and tools.
 - Every step is saved through `PUT /tutor/jobs/<id>`, after the model's answer and after the tools' results.
 - A resumed run starts with the tool calls still open: a publish that already went through is answered by the
-  bridge's once-per-client-id, so it isn't published twice. A model call whose answer was lost with the process is
-  made again, and its tool calls get new ids: a publish in it can go through again (QA saw it: the module's next
-  version, the same content).
+  bridge's once-per-client-id, so it isn't published twice.
+- **Publishing is idempotent per job step** (fixed 2026-10-19; QA had seen the module's next version, the same
+  content, after a kill and a restart):
+  - **One run at a time.** The WorkManager's run (`StudioWork`) could begin as the process started, before the open
+    app's worker did: both ran the same job, each made its next call and each published. A lock (`Studio.runLock`) now
+    keeps one run in the process; the open app's worker waits for the background's run, then goes on.
+  - **The intended write is recorded first.** Before a publish, a remove, a rollback or a file tool's write goes to
+    the bridge, the job records it (`intents`: the tool, the item, a hash of the tool and its input, the client id) and
+    is saved, with the step that made the call. A write of the same tool and input sent again in the job (a model
+    call made again after a kill, its answer lost, or a publish whose answer was lost on the way and which the model
+    tries again) goes with the first one's client id, so the bridge's `once` answers it instead of applying it twice.
+    A write the bridge refused (a validator, the lease) is a new try with its own id.
+  - Tool call ids the bridge's `once` doesn't take (it takes `[\w-]{8,64}`; a short or dotted id of another provider)
+    go as their fingerprint (`LiveBridge.clientId`), so those calls are answered once too.
 - At most 24 calls on the main thread and 12 on a sub-task.
 - The spend's caps are checked before each call.
 - The first message carries the notebook, the local time and the job (`<studio_job â€¦>`).
@@ -273,13 +285,18 @@ batch at half price", "waits for the night", "waits: the spending cap"), and "âœ
 ## Tests
 
 - **The app's JVM tests** (the tutor's 195, all passing):
-  - `StudioTest` (10), over the real Messages API client against a scripted API and a played bridge with the studio's
+  - `StudioTest` (13), over the real Messages API client against a scripted API and a played bridge with the studio's
     routes. The cases:
     - a chat's request_content becomes a job on Opus at medium, with the text editor by its type and the studio
       prompt; the publish is refused with the validator's message, fixed and published; the reply; the job saved on
       the bridge at each step; the calls priced in the day's log;
     - the file tool refused, then accepted;
     - a killed process's job resumed by a new one from the bridge's copy, nothing published twice;
+    - a job killed after the publish but before its step was saved (the save lost on the way, the process gone):
+      resumed without a second version, the intent recorded before the call;
+    - a publish whose answer was lost, sent again by the model: the same client id, applied once;
+    - the WorkManager's run and the open app's worker at the same time: the job's calls made once (eight before the
+      lock, five with it);
     - a sub-task on its own thread;
     - a job for the night through the Message Batches API: every step a batch, no stream, no
       `eager_input_streaming`, half the price;

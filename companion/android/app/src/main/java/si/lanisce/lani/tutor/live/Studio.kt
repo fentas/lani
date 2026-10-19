@@ -88,6 +88,46 @@ data class StudioDraft(val tool: String, val item: String, val state: String, va
 data class StudioPublished(val tool: String, val item: String, val at: Long)
 
 /**
+ * A write a job sent to the bridge (a publishing tool, a remove, a rollback, a file tool's write), recorded in the job
+ * before the call ([state] [SENT]) and kept with its outcome: the tool, the item, the hash of the tool and its input
+ * ([StudioIntents.hash]), the [clientId] it went with. The bridge's /tutor/tools route answers a client id once (the
+ * outbox's `once`), so the same write sent again with the same client id is answered, not applied twice: a job resumed
+ * after the process was killed, whose model call was made again (its answer lost with the process, or its save never
+ * reached the bridge), gets its earlier publish's answer instead of a second version of the module.
+ */
+@Serializable
+data class StudioIntent(
+    val tool: String,
+    val item: String,
+    val hash: String,
+    @SerialName("client_id") val clientId: String,
+    val at: Long,
+    val state: String = SENT,
+) {
+    companion object {
+        /** Sent, the answer not known (yet): a repeat goes with the same client id. */
+        const val SENT = "sent"
+        const val PUBLISHED = "published"
+        /** The bridge refused it (a validator, the lease): a repeat is a new try. */
+        const val REFUSED = "refused"
+    }
+}
+
+/** The client ids of a job's writes ([StudioIntent]). */
+object StudioIntents {
+    /** At most this many are kept in a job (the newest). */
+    const val KEPT = 60
+
+    /** The fingerprint of [tool] with [input] (its JSON as sent: the same object gives the same text). */
+    fun hash(tool: String, input: JsonObject): String =
+        java.security.MessageDigest.getInstance("SHA-256").digest("$tool\u0000$input".toByteArray()).take(16).joinToString("") { "%02x".format(it) }
+
+    /** The client id an earlier write of the same [tool] and [hash] went with, unless the bridge refused it. */
+    fun earlier(intents: List<StudioIntent>, tool: String, hash: String): StudioIntent? =
+        intents.lastOrNull { it.tool == tool && it.hash == hash && it.state != StudioIntent.REFUSED }
+}
+
+/**
  * A call of a job (its [slot]: "m" the main thread, "s<i>" a sub-task) sent through the Message Batches API: the batch,
  * the job's call count it answers ([call]); [result] the message once the batch ended, [error] its error (an errored or
  * expired request).
@@ -141,6 +181,8 @@ data class StudioJob(
     val steps: List<StudioStep> = emptyList(),
     val drafts: Map<String, StudioDraft> = emptyMap(),
     val published: List<StudioPublished> = emptyList(),
+    /** The writes sent to the bridge with their client ids, recorded before each call ([StudioIntent]). */
+    val intents: List<StudioIntent> = emptyList(),
     /** The main thread's calls done (a sub-task counts its own). */
     val calls: Int = 0,
     val cost: Double = 0.0,
@@ -459,7 +501,13 @@ class Studio(
 
     // --- running -------------------------------------------------------------------------------------------------------
 
-    /** Starts the worker when it isn't running (the app open; the background's [background] runs it too). */
+    /**
+     * Starts the worker when it isn't running (the app open; the background's [background] runs it too). One run at a
+     * time in the process ([runLock]): the WorkManager's run may have begun as the app started (QA's restart after a
+     * kill: the work waiting with the network ran before the screen was up), and two runs of the same job would each
+     * make its next call, each publishing (a second version of the module). The open app's worker waits for the
+     * background's run to end, then goes on.
+     */
     fun wake() {
         if (worker?.isActive == true) {
             wakeUp.trySend(Unit)
@@ -467,11 +515,16 @@ class Studio(
         }
         worker = scope.launch(io) {
             guarded {
-                if (!loaded) load()
-                work(foreground = true, until = Long.MAX_VALUE)
+                runLock.withLock {
+                    if (!loaded) load()
+                    work(foreground = true, until = Long.MAX_VALUE)
+                }
             }
         }
     }
+
+    /** Held while jobs run ([work]): never two runs at once in this process. */
+    private val runLock = Mutex()
 
     /** [f], what it throws (but a cancellation) logged instead of ending the app's process. */
     private suspend fun guarded(f: suspend () -> Unit) {
@@ -487,11 +540,17 @@ class Studio(
     /** The WorkManager's run while the app isn't open: the batches asked, what may run now run for at most [budgetMs]. */
     suspend fun background(budgetMs: Long) {
         withContext(io) { load() }
-        if (worker?.isActive == true) {
-            withTimeoutOrNull(budgetMs) { while (worker?.isActive == true) kotlinx.coroutines.delay(500) }
+        // the open app's worker (or another run) has the jobs: it runs them, this waits for it at most its time
+        val busy = withContext(io) { worker?.isActive == true || !runLock.tryLock() }
+        if (busy) {
+            withTimeoutOrNull(budgetMs) { while (worker?.isActive == true || runLock.isLocked) kotlinx.coroutines.delay(500) }
             return
         }
-        withContext(io) { guarded { work(foreground = false, until = now() + budgetMs) } }
+        try {
+            withContext(io) { guarded { work(foreground = false, until = now() + budgetMs) } }
+        } finally {
+            runLock.unlock()
+        }
     }
 
     /** Whether a job waits for anything at all (the background's schedule). */
@@ -639,18 +698,52 @@ class Studio(
             onReply = { cell.job = cell.job.copy(replied = true) },
             learner = learner, clock = clock, kinds = StudioSpecs::kindOf, local = local,
             onNode = { use, r -> drafted(cell, use, r) },
+            clientIdFor = { use -> clientId(cell, use) },
         )
     }
 
-    /** A bridge tool's answer: a publishing tool's input kept as the item's draft, published or refused (its message). */
+    /** Whether [use] changes what the bridge keeps (a publish, a remove, a rollback, a file tool's write). */
+    private fun writes(use: ToolUse): Boolean = use.name != "report_problem" && StudioSpecs.kindOf(use.name, use.input) == si.lanisce.lani.tutor.ToolKind.WRITE
+
+    /**
+     * The client id [use] goes to the bridge with. A write's: the id of an earlier write of the same tool and input in
+     * this job, unless the bridge refused that one (the bridge answers it again instead of applying it twice); else the
+     * call's own, recorded in the job and saved on the bridge before the call ([StudioIntent]), so a run that resumes after
+     * the process was killed finds it even when the step with the call wasn't saved.
+     */
+    private suspend fun clientId(cell: Cell, use: ToolUse): String {
+        val own = LiveBridge.clientId(use.id)
+        if (!writes(use)) return own
+        val hash = StudioIntents.hash(use.name, use.input)
+        StudioIntents.earlier(cell.job.intents, use.name, hash)?.let { prior ->
+            line("studio: ${cell.job.id}: ${use.name} ${prior.item} again with the same input: sent as ${prior.clientId} (${prior.state}), not applied twice")
+            return prior.clientId
+        }
+        val intent = StudioIntent(use.name, StudioSpecs.itemOf(use.input), hash, own, now())
+        cell.job = cell.job.copy(intents = (cell.job.intents + intent).takeLast(StudioIntents.KEPT))
+        save(cell.job)
+        return own
+    }
+
+    /**
+     * A bridge tool's answer: a write's intent with its outcome; a publishing tool's input kept as the item's draft,
+     * published or refused (its message). An answer the bridge gave again for an earlier write isn't published twice.
+     */
     private fun drafted(cell: Cell, use: ToolUse, r: LiveBridge.ToolResult) {
+        val hash = if (writes(use)) StudioIntents.hash(use.name, use.input) else null
+        val before = hash?.let { h -> StudioIntents.earlier(cell.job.intents, use.name, h) }
+        if (before != null) {
+            val state = if (refused(r)) StudioIntent.REFUSED else StudioIntent.PUBLISHED
+            cell.job = cell.job.copy(intents = cell.job.intents.map { if (it === before) it.copy(state = state) else it })
+        }
         val writes = use.name.startsWith("publish_") || (use.name == StudioSpecs.TEXT_EDITOR && use.input.str("command") != "view")
         if (!writes) return
         val item = StudioSpecs.itemOf(use.input)
         val state = if (refused(r)) "refused" else "published"
         val d = StudioDraft(use.name, item, state, r.text.take(800), use.input.toString().take(DRAFT_MAX), now())
         var j = cell.job.copy(drafts = cell.job.drafts + ("${use.name}:$item" to d))
-        if (state == "published") j = j.copy(published = j.published + StudioPublished(use.name, item, now()))
+        val again = before?.state == StudioIntent.PUBLISHED
+        if (state == "published" && !again) j = j.copy(published = j.published + StudioPublished(use.name, item, now()))
         cell.job = j
     }
 

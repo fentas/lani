@@ -101,7 +101,7 @@ class LiveBridge(private val config: BridgeConfig, base: OkHttpClient = defaultC
     suspend fun tool(name: String, args: JsonObject, clientId: String?): ToolResult {
         val body = buildJsonObject {
             put("args", args)
-            clientId?.let { put("client_id", it.take(80)) }
+            clientId?.let { put("client_id", Companion.clientId(it)) }
         }
         val raw = try {
             call("POST", "/tutor/tools/$name", body)
@@ -226,6 +226,16 @@ class LiveBridge(private val config: BridgeConfig, base: OkHttpClient = defaultC
 
     companion object {
         private val JSON = "application/json".toMediaType()
+        private val CLIENT_ID = Regex("^[\\w-]{8,64}$")
+
+        /**
+         * A tool call's [id] as a client id the bridge answers once (its outbox takes `[\w-]{8,64}`, else the call
+         * always runs): as it is when it fits (Anthropic's toolu_…, OpenAI's call_…), else its fingerprint (a provider's
+         * short, long or dotted ids: Gemini's, OpenRouter's), the same for the same id.
+         */
+        fun clientId(id: String): String = if (CLIENT_ID.matches(id)) id else
+            "c_" + java.security.MessageDigest.getInstance("SHA-256").digest(id.toByteArray()).take(20).joinToString("") { "%02x".format(it) }
+
         private val defaultClient: OkHttpClient by lazy {
             OkHttpClient.Builder().connectTimeout(10, TimeUnit.SECONDS).readTimeout(60, TimeUnit.SECONDS).build()
         }

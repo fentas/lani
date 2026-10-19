@@ -52,6 +52,11 @@ class LiveTools(
     private val local: Map<String, suspend (ToolUse) -> Pair<String, Boolean>> = emptyMap(),
     /** A bridge tool's call came back (the studio keeps its drafts and what it published). */
     private val onNode: suspend (ToolUse, LiveBridge.ToolResult) -> Unit = { _, _ -> },
+    /**
+     * The client id a bridge tool's call goes with (the bridge answers one once): the call's own id ([LiveBridge.clientId]);
+     * the studio's writes reuse an earlier one for the same write ([Studio]'s intents).
+     */
+    private val clientIdFor: suspend (ToolUse) -> String = { LiveBridge.clientId(it.id) },
 ) : ToolRunner {
     /** The turn's dictionary_lookup calls whose result came back. */
     private val lookups = AtomicInteger()
@@ -108,7 +113,7 @@ class LiveTools(
     private suspend fun node(use: ToolUse, kind: ToolKind, out: (ToolKind?, String, Boolean, List<String>) -> ToolOutcome): ToolOutcome {
         val b = bridge ?: return out(kind, "not connected to the tutor's node: ${use.name} didn't run", true, emptyList())
         if (nodeTools.isNotEmpty() && use.name !in nodeTools) return out(kind, "the node's bridge has no ${use.name} tool (it needs an update): nothing done", true, emptyList())
-        val r = b.tool(use.name, use.input, use.id)
+        val r = b.tool(use.name, use.input, clientIdFor(use))
         runCatching { onNode(use, r) }
         if (!r.isError) when (use.name) {
             "reply" -> onReply(ShadowReply(use.input.s("conversation_id").orEmpty(), use.input.s("text").orEmpty(), clock(), use.input["data"] as? JsonObject))

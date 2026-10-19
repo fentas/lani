@@ -143,7 +143,11 @@ class LiveTutorTest {
         assertEquals("learner_state and reply through the bridge (the guide is the app's own)", listOf("learner_state", "reply"), toolNames)
         val reply = node.tools.first { it.first == "reply" }.second
         assertEquals("main", reply["args"]!!.jsonObject["conversation_id"]!!.jsonPrimitive.content)
-        assertTrue("the tool call's id as the client id", reply["client_id"]!!.jsonPrimitive.content.startsWith("r"))
+        val replyId = posts().last()["messages"]!!.jsonArray.map { it.jsonObject }.flatMap { it.blocks() }.first { it.str("type") == "tool_use" && it.str("name") == "reply" }.str("id")!!
+        // the bridge's once takes [\w-]{8,64}: a short id (the script's "r2") goes as its fingerprint, the same each time
+        assertEquals("the tool call's id as the client id", LiveBridge.clientId(replyId), reply["client_id"]!!.jsonPrimitive.content)
+        assertEquals("toolu_01ABCdef-89_x", LiveBridge.clientId("toolu_01ABCdef-89_x"))
+        assertTrue(Regex("^[\\w-]{8,64}$").matches(LiveBridge.clientId("call.1/x")))
         // the reply streamed as it was written: growing prefixes of the final text
         val texts = streamed.filterNotNull()
         assertTrue("streamed in pieces: $texts", texts.size >= 3)
