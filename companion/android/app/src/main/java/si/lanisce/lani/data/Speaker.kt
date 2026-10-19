@@ -72,6 +72,10 @@ class Speaker(private val context: Context) {
     @Volatile
     private var utterance: String? = null
 
+    /** The utterance the phone's voice last said it started ([TTS_START_MS]: one that never starts isn't waited for). */
+    @Volatile
+    private var ttsStarted: String? = null
+
     /**
      * The hint's 🔊 ([HintVoice]): another voice of the app's, so one voice at a time: whatever this says or stops stops it
      * too, and it counts as [talking].
@@ -116,7 +120,10 @@ class Speaker(private val context: Context) {
     }.apply {
         // an utterance flushed by the next one reports its stop after the next one has begun: only the current one counts
         setOnUtteranceProgressListener(object : UtteranceProgressListener() {
-            override fun onStart(utteranceId: String?) { if (utteranceId == utterance) ttsTalking = true }
+            override fun onStart(utteranceId: String?) {
+                ttsStarted = utteranceId
+                if (utteranceId == utterance) ttsTalking = true
+            }
             override fun onDone(utteranceId: String?) { if (utteranceId == utterance) ttsTalking = false }
             @Deprecated("Deprecated in Java")
             override fun onError(utteranceId: String?) { if (utteranceId == utterance) ttsTalking = false }
@@ -176,6 +183,9 @@ class Speaker(private val context: Context) {
 
         /** How often [sayThrough] looks whether the line is still being said. */
         private const val POLL_MS = 40L
+
+        /** An utterance handed to the phone's voice that hasn't started this long after counts as not speaking (an engine that went away). */
+        private const val TTS_START_MS = 4_000L
 
         /**
          * How long [text] takes to read when nothing can say it (no voice at all): lines in a row ([sayInTurn]) keep that
@@ -422,7 +432,14 @@ class Speaker(private val context: Context) {
         val id = "say-$t"
         utterance = id
         ttsTalking = true
-        if (tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, id) != TextToSpeech.SUCCESS && utterance == id) ttsTalking = false
+        if (tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, id) != TextToSpeech.SUCCESS) {
+            if (utterance == id) ttsTalking = false
+            return
+        }
+        scope.launch {
+            delay(TTS_START_MS)
+            if (utterance == id && ttsStarted != id) ttsTalking = false
+        }
     }
 
     /** Silences speech, e.g. before the microphone opens. */
