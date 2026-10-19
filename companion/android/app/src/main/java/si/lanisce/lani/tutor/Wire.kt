@@ -266,6 +266,11 @@ class StreamAccumulator {
     /** message_stop arrived: the response is whole. */
     var finished = false
         private set
+    /** The tool call whose input grew last ([takeTool]): the chat's live bubble reads `reply`'s. */
+    private var tool: ToolInputDelta? = null
+
+    /** The tool call whose input grew since the last call (its input so far), once; null when none did. */
+    fun takeTool(): ToolInputDelta? = tool.also { tool = null }
     /** An `error` event in the stream (the stream ends with it). */
     var error: ApiError? = null
         private set
@@ -298,7 +303,10 @@ class StreamAccumulator {
                     "text_delta" -> b.text.append(d.str("text").orEmpty())
                     "thinking_delta" -> b.thinking.append(d.str("thinking").orEmpty())
                     "signature_delta" -> b.signature = (b.signature.orEmpty() + d.str("signature").orEmpty())
-                    "input_json_delta" -> b.json.append(d.str("partial_json").orEmpty())
+                    "input_json_delta" -> {
+                        b.json.append(d.str("partial_json").orEmpty())
+                        tool = ToolInputDelta(b.start.str("id").orEmpty(), b.start.str("name").orEmpty(), b.json.toString())
+                    }
                     else -> return false
                 }
                 return true

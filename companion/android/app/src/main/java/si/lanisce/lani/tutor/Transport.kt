@@ -51,6 +51,12 @@ interface TutorTransport {
 
     /** POST /v1/messages with `"stream": true`; [onDelta] for each piece of content as it comes. */
     suspend fun stream(body: JsonObject, onDelta: () -> Unit = {}): StreamResult
+
+    /**
+     * [stream], and [onTool] with a tool call's input so far each time it grows (the live tutor's typing bubble: plan 5,
+     * "Streaming into the chat sheet"). A transport that can't tell streams as [stream] does.
+     */
+    suspend fun streamTools(body: JsonObject, onDelta: () -> Unit, onTool: (ToolInputDelta) -> Unit): StreamResult = stream(body, onDelta)
 }
 
 /**
@@ -109,7 +115,9 @@ class AnthropicTransport(
         }
     }
 
-    override suspend fun stream(body: JsonObject, onDelta: () -> Unit): StreamResult {
+    override suspend fun stream(body: JsonObject, onDelta: () -> Unit): StreamResult = streamTools(body, onDelta) {}
+
+    override suspend fun streamTools(body: JsonObject, onDelta: () -> Unit, onTool: (ToolInputDelta) -> Unit): StreamResult {
         val sent = JsonObject(body + ("stream" to JsonPrimitive(true)))
         val req = request("/v1/messages", apiKey())
             .header("accept", "text/event-stream")
@@ -128,6 +136,7 @@ class AnthropicTransport(
                     if (acc.accept(data)) {
                         if (first == null) first = clock() - started
                         onDelta()
+                        acc.takeTool()?.let { runCatching { onTool(it) } }
                     }
                 }
 

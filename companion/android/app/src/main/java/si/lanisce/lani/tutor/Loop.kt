@@ -108,6 +108,8 @@ class TutorLoop(
         effort: String? = task.effort,
         /** max_tokens to start with: the task's at the level the turn runs at (more at xhigh and max). */
         maxTokens: Int = task.maxTokensAt(effort),
+        /** A tool call's input as it streams (the live tutor's typing bubble); null: the provider's plain call. */
+        onToolInput: ((ToolInputDelta) -> Unit)? = null,
     ): Result {
         val format = provider.format
         var calls = callsDone
@@ -130,7 +132,7 @@ class TutorLoop(
             if (calls >= maxCalls) return Result(LoopEnd.Limit, calls)
             if (!budgetOk()) return Result(LoopEnd.Paused, calls)
             val step = try {
-                call(provider.request(prefix, model, task, messages, maxTokens, effort), task, onCall)
+                call(provider.request(prefix, model, task, messages, maxTokens, effort), task, onCall, onToolInput)
             } catch (e: ApiError) {
                 onCall(CallOutcome(null, e))
                 return Result(LoopEnd.Failed(e), calls)
@@ -169,11 +171,11 @@ class TutorLoop(
     }
 
     /** One call with its retries (the plan's table): a 429 after its retry-after, 529/5xx/network with backoff. */
-    private suspend fun call(body: JsonObject, task: Task, onCall: suspend (CallOutcome) -> Unit): Step {
+    private suspend fun call(body: JsonObject, task: Task, onCall: suspend (CallOutcome) -> Unit, onToolInput: ((ToolInputDelta) -> Unit)? = null): Step {
         var attempt = 0
         while (true) {
             try {
-                return provider.call(body)
+                return if (onToolInput == null) provider.call(body) else provider.callTools(body, {}, onToolInput)
             } catch (e: ApiError) {
                 if (!e.retryable || attempt >= maxRetries) throw e
                 val wait = when (e) {

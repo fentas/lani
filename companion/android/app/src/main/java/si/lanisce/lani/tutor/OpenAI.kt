@@ -187,10 +187,12 @@ class OpenAIProvider(
         if (billing == Billing.API_KEY) put("max_output_tokens", maxTokens)
     }
 
-    override suspend fun call(body: JsonObject, onDelta: () -> Unit): Step = try {
-        transport.stream(body, onDelta)
+    override suspend fun call(body: JsonObject, onDelta: () -> Unit): Step = callTools(body, onDelta) {}
+
+    override suspend fun callTools(body: JsonObject, onDelta: () -> Unit, onTool: (ToolInputDelta) -> Unit): Step = try {
+        transport.stream(body, onDelta, onTool)
     } catch (e: ApiError.Auth) {
-        if (renew?.invoke() == true) transport.stream(body, onDelta) else throw e
+        if (renew?.invoke() == true) transport.stream(body, onDelta, onTool) else throw e
     }
 
     companion object {
@@ -281,7 +283,7 @@ class OpenAITransport(
      * the plan's route may send a valid stream without one (the sign-in devkit's responses.ts), and only a finished
      * response (response.completed, .incomplete) counts.
      */
-    suspend fun stream(body: JsonObject, onDelta: () -> Unit = {}): Step {
+    suspend fun stream(body: JsonObject, onDelta: () -> Unit = {}, onTool: (ToolInputDelta) -> Unit = {}): Step {
         val sent = JsonObject(body + ("stream" to JsonPrimitive(true)))
         val req = request("/v1/responses").header("accept", "text/event-stream").post(sent.toString().toRequestBody(JSON)).build()
         val started = clock()
@@ -298,6 +300,7 @@ class OpenAITransport(
                 if (acc.accept(data.toString())) {
                     if (first == null) first = clock() - started
                     onDelta()
+                    acc.takeTool()?.let { runCatching { onTool(it) } }
                 }
                 data.setLength(0)
             }
@@ -396,6 +399,11 @@ class ResponsesAccumulator {
     /** The response ended (completed, incomplete, or failed for a policy reason). */
     var finished = false
         private set
+    /** The function call whose arguments grew last ([takeTool]). */
+    private var tool: ToolInputDelta? = null
+
+    /** The function call whose arguments grew since the last call (its arguments so far), once; null when none did. */
+    fun takeTool(): ToolInputDelta? = tool.also { tool = null }
     /** An `error` event, or a `response.failed` for any other reason. */
     var error: ApiError? = null
         private set
@@ -416,7 +424,11 @@ class ResponsesAccumulator {
                 return true
             }
             "response.function_call_arguments.delta" -> {
-                index()?.let { i -> args.getOrPut(i) { StringBuilder() }.append(o.str("delta").orEmpty()) }
+                index()?.let { i ->
+                    val a = args.getOrPut(i) { StringBuilder() }.append(o.str("delta").orEmpty())
+                    val item = added[i]
+                    tool = ToolInputDelta(item?.str("call_id") ?: o.str("item_id").orEmpty(), item?.str("name").orEmpty(), a.toString())
+                }
                 return true
             }
             "response.refusal.delta", "response.reasoning_summary_text.delta", "response.reasoning_text.delta" -> return true

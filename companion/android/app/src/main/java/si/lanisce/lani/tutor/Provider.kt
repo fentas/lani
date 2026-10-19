@@ -113,6 +113,12 @@ interface TutorProvider {
 
     /** Streams one call of [body] ([onDelta] for each piece of content) and normalizes its response. */
     suspend fun call(body: JsonObject, onDelta: () -> Unit = {}): Step
+
+    /**
+     * [call], and [onTool] with a tool call's input so far as it streams (the live tutor's typing bubble). A provider
+     * that can't tell calls as [call] does.
+     */
+    suspend fun callTools(body: JsonObject, onDelta: () -> Unit, onTool: (ToolInputDelta) -> Unit): Step = call(body, onDelta)
 }
 
 /**
@@ -216,6 +222,8 @@ class AnthropicProvider(private val transport: TutorTransport) : TutorProvider {
         prefix.request(model, task, messages, maxTokens, effort)
 
     override suspend fun call(body: JsonObject, onDelta: () -> Unit): Step = step(transport.stream(body, onDelta))
+
+    override suspend fun callTools(body: JsonObject, onDelta: () -> Unit, onTool: (ToolInputDelta) -> Unit): Step = step(transport.streamTools(body, onDelta, onTool))
 
     companion object {
         /** A streamed response as a [Step]: its content as one assistant message, its tool_use blocks as the calls. */
