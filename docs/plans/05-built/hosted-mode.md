@@ -272,7 +272,8 @@ Two things made a cold start slow, both found here:
   update-db); a review saved (QA's hook "review": a new learner's words are due tomorrow); the app killed and started
   again (`am start -W`, the splash, the log's "home: N ms"), the review still in the phone's `spaced-repetition.json`
   (6 cards, 5 reviewed), the packs again; the export from the connection sheet (the share sheet), pulled and passed by
-  the node's `lani import --verify`. The pairing steps (`--steps home,data-sheet,tutor-live`) pass as before.
+  the node's `lani import --verify`; the Tutor section in the connection sheet (the phone's line, no Claude Code to
+  choose, "no tutor yet"). The pairing steps (`--steps home,data-sheet,tutor-live`) pass as before.
 
 ```bash
 cd companion/android && ./gradlew :app:testDebugUnitTest --tests 'si.lanisce.lani.hosted.*'
