@@ -39,7 +39,7 @@ import java.time.format.DateTimeFormatter
  * "🔊 Zvok brez povezave · Offline audio", in the connection sheet with the phone's other settings (companion/README.md,
  * "Voice": "Offline on the phone"): the cap (one number for the day's clips, the clips heard lately and the car's library),
  * "only while charging", the offline voice (its download, size and removal, its credit), what's on the phone now and
- * "⬇️ Prenesi zdaj · Download now".
+ * "⬇️ Prenesi zdaj · Download now", and the clips' credit (Fish Audio Drama 3 on the node, "Built with Fish Audio").
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -73,6 +73,9 @@ fun OfflineAudioSettings(c: OfflineAudioController, modifier: Modifier = Modifie
         }
 
         OnPhone(c)
+        // some villagers' clips are made on the node by Fish Audio Drama 3, whose licence asks for "Built with Fish
+        // Audio" (NOTICE.md): always, since the phone doesn't know which engine made a clip; once, in the base language
+        Text(inBase("offlineAudio.clipsCredit"), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
 
         OfflineVoiceRow(c)
     }
