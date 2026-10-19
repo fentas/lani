@@ -511,7 +511,7 @@ class ShadowTutor(
     fun editNotebook(text: String) = scope.launch(io) { writeNotebook(text.trim(), "by hand") }
 
     private fun writeNotebook(text: String, why: String) {
-        nb = NotebookState(text, (nb.versions + NotebookVersion(nb.updatedAt, nb.text, why)).filter { it.text.isNotBlank() }.takeLast(30), now())
+        nb = Notebooks.written(nb, text, why, now())
         store.saveNotebook(nb)
         notebook = nb
     }
@@ -519,7 +519,7 @@ class ShadowTutor(
     private val notebookHost = object : ShadowTools.NotebookHost {
         override fun note(line: String) {
             if (line.isBlank()) return
-            nb = nb.copy(text = (nb.text.trimEnd() + "\n- " + line).trim(), updatedAt = now())
+            nb = Notebooks.noted(nb, line, now())
             store.saveNotebook(nb)
             notebook = nb
         }
@@ -917,33 +917,20 @@ class ShadowTutor(
      * when its model has no per-message effort: changing the top-level effort instead would clear the thread's cache
      * (the effort docs: it shapes the rendered prompt), so such a turn runs at the thread's level, and says so.
      */
-    private fun onThread(th: ThreadState, want: String?): String? = want.takeIf { ModelCatalog.perMessageEffort(th.model) }
+    private fun onThread(th: ThreadState, want: String?): String? = DayThreads.onThread(th, want)
 
     /** A new day's thread on [model]: its top-level effort the chat's now, fixed for its life. */
     private fun newThread(model: String, yesterday: List<String>): ThreadState =
-        ThreadState(
-            day = dayNow(), model = model, startedAt = now(), yesterday = yesterday, prefix = hashFor(model),
-            effort = ModelCatalog.effortFor(Task.CHAT, s.preset, model, s.efforts),
-        )
+        DayThreads.fresh(dayNow(), model, now(), yesterday, hashFor(model), ModelCatalog.effortFor(Task.CHAT, s.preset, model, s.efforts))
 
     /**
      * A fresh thread after [th] (plan 5, "Compaction: our own"): its first user message the notebook, a few lines on the
      * day so far and the last exchanges as plain text (never as assistant turns), so no history is edited.
      */
-    private fun restarted(th: ThreadState, why: String): ThreadState {
-        val first = listOf(
-            textBlock(TurnText.notebook(nb)),
-            textBlock("$why at ${th.tokens} tokens (the limit is ${s.limit}). " + TurnText.lines("The day so far:", th.lines.takeLast(20))),
-            textBlock(TurnText.lines("The last exchanges (as text):", lastExchanges())),
-        ).filter { (it["text"] as? JsonPrimitive)?.content?.isNotBlank() == true }
+    private fun restarted(th: ThreadState, why: String): ThreadState =
         // the same top-level effort: the prefix's cache may be bound to it (the docs: model-specific), and a turn at
         // another level sets its own by an effort message
-        return ThreadState(
-            day = th.day, model = th.model, messages = listOf(ThreadFormat.of(th.model).user(first)),
-            restarts = th.restarts + th.tokens, startedAt = now(), lines = th.lines, yesterday = th.yesterday, prefix = hashFor(th.model),
-            effort = th.topEffort, shownUntil = th.shownUntil,
-        )
-    }
+        DayThreads.restarted(th, DayThreads.restartBlocks(nb, why, th.tokens, s.limit, th.lines, lastExchanges()), now(), hashFor(th.model), th.topEffort)
 
     /** The real tutor's replies of [day] the learner saw between [after] and [before], not to [own] ([TurnText.shownOf]). */
     private fun shownBetween(day: String, after: Long, before: Long, own: Collection<String>, max: Int = 5): List<RealReply> =
@@ -958,27 +945,10 @@ class ShadowTutor(
         images: Int = 0, billing: String = Billing.API_KEY,
     ): CallRecord {
         val r = c.step
-        val usage = r?.usage ?: Usage()
         val n = log(dayNow()).calls.count { it.error == null } + 1
         val raw = r?.rawUsage?.takeIf { s.developer && UsageSample.keep(firstOfThread, n) }
-        // what the response showed (its text, its tool calls' input), for the thinking's estimate
-        val visible = r?.visibleChars
-        val priced = r?.let { prices.priced(it.model ?: t.model, usage, billing) }
-        val other = ProviderId.of(t.model).takeIf { it != ProviderId.ANTHROPIC }
-        return CallRecord(
-            effort = effort, effortByMessage = byMessage, visibleChars = visible,
-            id = "c_" + UUID.randomUUID().toString().replace("-", "").take(12),
-            turnId = t.id, model = r?.model ?: t.model, eventKind = t.eventKind, task = t.task, at = now(), usage = usage,
-            firstTokenMs = r?.firstTokenMs, totalMs = r?.totalMs ?: 0, stopReason = r?.stopReason,
-            cost = priced?.cost,
-            threadAfter = usage.prompt, thread = thread,
-            error = c.error?.let { "${it.kind}${if (c.retried) " (retried)" else ""}: ${Redact.of(it.message.orEmpty()).take(300)}" },
-            inputTransformations = r?.inputTransformations?.take(2000),
-            cacheReport = r?.rawUsage?.cacheReport,
-            usageRaw = raw,
-            images = images,
-            provider = other?.id, billing = billing.takeIf { other != null }, apiEquivalent = priced?.apiEquivalent,
-        )
+        val priced = r?.let { prices.priced(it.model ?: t.model, it.usage, billing) }
+        return Meter.record(t, c, now(), thread, priced, effort, effortByMessage = byMessage, images = images, raw = raw, billing = billing)
     }
 
     private fun replace(t: TurnRecord) {
@@ -1000,10 +970,7 @@ class ShadowTutor(
                 if (t.task == Task.CHAT || t.task == Task.GRADING) finish(t.copy(error = "low credit: the tutor can't answer ($error)"), TurnStatus.FAILED, th)
                 else replace(t.copy(status = TurnStatus.QUEUED, error = error))
             }
-            e.retryable && t.attempts < MAX_ATTEMPTS -> {
-                val wait = (e as? ApiError.RateLimited)?.retryAfterMs ?: (30_000L shl (t.attempts - 1).coerceIn(0, 5))
-                replace(t.copy(status = TurnStatus.QUEUED, error = error, notBefore = now() + wait))
-            }
+            Failures.retryAt(e, t.attempts, now()) != null -> replace(t.copy(status = TurnStatus.QUEUED, error = error, notBefore = Failures.retryAt(e, t.attempts, now())!!))
             else -> finish(t.copy(error = error), TurnStatus.FAILED, th)
         }
     }
@@ -1020,18 +987,11 @@ class ShadowTutor(
                 finish(t.copy(error = error), TurnStatus.FAILED, th)
             }
             e is ApiError.LowCredit -> {
-                val why = when {
-                    e.allowance -> "the ChatGPT plan's usage limit was reached (ChatGPT settings → Usage)"
-                    e.limit -> "an OpenAI spend limit was reached"
-                    else -> "the OpenAI credit is out"
-                }
+                val why = Failures.creditWhy(e, ProviderId.OPENAI)
                 saveSettings { it.copy(openai = it.openai.copy(exhausted = why)) }
                 finish(t.copy(error = "$why ($error)"), TurnStatus.FAILED, th)
             }
-            e.retryable && t.attempts < MAX_ATTEMPTS -> {
-                val wait = (e as? ApiError.RateLimited)?.retryAfterMs ?: (30_000L shl (t.attempts - 1).coerceIn(0, 5))
-                replace(t.copy(status = TurnStatus.QUEUED, error = error, notBefore = now() + wait))
-            }
+            Failures.retryAt(e, t.attempts, now()) != null -> replace(t.copy(status = TurnStatus.QUEUED, error = error, notBefore = Failures.retryAt(e, t.attempts, now())!!))
             else -> finish(t.copy(error = error), TurnStatus.FAILED, th)
         }
     }
@@ -1061,9 +1021,7 @@ class ShadowTutor(
                 matrix.wakeAll()
             }
             TurnKind.DAY, TurnKind.STATELESS -> {
-                val at = Instant.ofEpochMilli(t.endedAt ?: now()).atZone(zone()).toLocalTime().withNano(0).withSecond(0)
-                val said = t.replies.firstOrNull()?.text?.replace(Regex("\\s+"), " ")?.take(140)?.let { "«$it»" } ?: "no reply"
-                val entry = "$at ${t.eventKind} (${t.model}): $said"
+                val entry = DayThreads.line(t, t.endedAt ?: now(), zone())
                 val current = store.thread()?.takeIf { it.day == dayNow() }
                 if (current != null) {
                     val stateless = t.kind == TurnKind.STATELESS || current.model != t.model
@@ -1091,12 +1049,7 @@ class ShadowTutor(
      */
     private fun lastExchanges(): List<String> {
         val l = log(dayNow())
-        return l.turns.filter { it.kind == TurnKind.DAY && it.status == TurnStatus.DONE }.takeLast(3).map { t ->
-            val e = t.eventIds.firstOrNull()?.let(::findEvent)
-            val shown = l.real.filter { it.eventId != null && it.eventId in t.eventIds }.joinToString(" / ") { it.reply.text.take(600) }
-            "${t.eventKind}: ${e?.text?.take(400).orEmpty()} → you replied: ${t.replies.joinToString(" / ") { it.text.take(600) }.ifBlank { "(nothing)" }}" +
-                (if (shown.isNotBlank()) " → the learner was shown (another tutor answered): $shown" else "")
-        }
+        return DayThreads.exchanges(l.turns.filter { it.kind == TurnKind.DAY && it.status == TurnStatus.DONE }, ::findEvent, l.real)
     }
 
     // --- the panel's numbers and the export -----------------------------------------------------------------------
@@ -1217,8 +1170,4 @@ class ShadowTutor(
         error("the shadow tutor didn't get idle: ${statusNow()}")
     }
 
-    private companion object {
-        /** A turn that keeps failing (the network, an overloaded API) is given up after this many tries. */
-        const val MAX_ATTEMPTS = 5
-    }
 }

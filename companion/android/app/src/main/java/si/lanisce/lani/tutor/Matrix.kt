@@ -22,7 +22,6 @@ import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 import java.io.File
-import java.time.Instant
 import java.time.ZoneId
 import java.util.UUID
 
@@ -512,19 +511,8 @@ class ShadowMatrix(
     }
 
     private fun callRecord(l: Lane, t: TurnRecord, c: CallOutcome, images: Int, billing: String): CallRecord {
-        val r = c.step
-        val usage = r?.usage ?: Usage()
-        val priced = r?.let { host.cost(it.model ?: l.model, usage, billing) }
-        return CallRecord(
-            id = "c_" + UUID.randomUUID().toString().replace("-", "").take(12), turnId = t.id, model = r?.model ?: l.model,
-            eventKind = t.eventKind, task = t.task, at = now(), usage = usage, firstTokenMs = r?.firstTokenMs, totalMs = r?.totalMs ?: 0,
-            stopReason = r?.stopReason, cost = priced?.cost, threadAfter = usage.prompt,
-            thread = "day", error = c.error?.let { "${it.kind}${if (c.retried) " (retried)" else ""}: ${Redact.of(it.message.orEmpty()).take(300)}" },
-            inputTransformations = r?.inputTransformations?.take(500), cacheReport = r?.rawUsage?.cacheReport,
-            effort = l.effort, visibleChars = r?.visibleChars, images = images, lane = l.id,
-            provider = l.provider.id.takeIf { l.provider != ProviderId.ANTHROPIC },
-            billing = billing.takeIf { l.provider != ProviderId.ANTHROPIC }, apiEquivalent = priced?.apiEquivalent,
-        )
+        val priced = c.step?.let { host.cost(it.model ?: l.model, it.usage, billing) }
+        return Meter.record(t, c, now(), "day", priced, l.effort, model = l.model, images = images, lane = l.id, provider = l.provider, billing = billing, transformationsMax = 500)
     }
 
     private fun failed(l: Lane, t: TurnRecord, e: ApiError, th: ThreadState) {
@@ -545,10 +533,7 @@ class ShadowMatrix(
                 replace(l, t.copy(status = TurnStatus.QUEUED, error = error))
             }
             // 429 after its retry-after, 529/5xx/the network with backoff: as the primary's
-            e.retryable && t.attempts < MAX_ATTEMPTS -> {
-                val wait = (e as? ApiError.RateLimited)?.retryAfterMs ?: (30_000L shl (t.attempts - 1).coerceIn(0, 5))
-                replace(l, t.copy(status = TurnStatus.QUEUED, error = error, notBefore = now() + wait))
-            }
+            Failures.retryAt(e, t.attempts, now()) != null -> replace(l, t.copy(status = TurnStatus.QUEUED, error = error, notBefore = Failures.retryAt(e, t.attempts, now())!!))
             else -> finish(l, t.copy(error = error), TurnStatus.FAILED, th)
         }
         status = statusNow()
@@ -563,9 +548,7 @@ class ShadowMatrix(
         saveLog(l, d.copy(turns = d.turns.filterNot { it.id == t.id } + t))
         val cur = th0?.takeIf { it.day == dayNow() && t.startedAt != null }
         if (cur != null) {
-            val at = Instant.ofEpochMilli(t.endedAt ?: now()).atZone(zone()).toLocalTime().withNano(0).withSecond(0)
-            val said = t.replies.firstOrNull()?.text?.replace(Regex("\\s+"), " ")?.take(140)?.let { "«$it»" } ?: "no reply"
-            var next = cur.copy(lines = (cur.lines + "$at ${t.eventKind} (${l.model}): $said").takeLast(60))
+            var next = cur.copy(lines = (cur.lines + DayThreads.line(t, t.endedAt ?: now(), zone(), l.model)).takeLast(60))
             if (next.tokens > Lanes.limit(l.family)) {
                 next = restarted(l, next, "The thread is long (${next.tokens} tokens) and restarted", next.prefix)
                 addRestart(l, next.restarts.last())
@@ -579,28 +562,12 @@ class ShadowMatrix(
      * A fresh thread after [th] (as the primary's, plan 5 "Compaction: our own"), without a closing call: the notebook,
      * the day so far, the last exchanges as text.
      */
-    private fun restarted(l: Lane, th: ThreadState, why: String, prefix: String): ThreadState {
-        val first = listOf(
-            TurnText.notebook(host.notebook),
-            "$why at ${th.tokens} tokens (the limit is ${Lanes.limit(l.family)}). " + TurnText.lines("The day so far:", th.lines.takeLast(20)),
-            TurnText.lines("The last exchanges (as text):", lastExchanges(l)),
-        ).filter { it.isNotBlank() }.map(::textBlock)
-        return ThreadState(
-            day = th.day, model = th.model, messages = listOf(ThreadFormat.of(l.model).user(first)),
-            restarts = th.restarts + th.tokens, startedAt = now(), lines = th.lines, yesterday = th.yesterday, prefix = prefix,
-            effort = l.effort, shownUntil = th.shownUntil,
-        )
-    }
+    private fun restarted(l: Lane, th: ThreadState, why: String, prefix: String): ThreadState =
+        DayThreads.restarted(th, DayThreads.restartBlocks(host.notebook, why, th.tokens, Lanes.limit(l.family), th.lines, lastExchanges(l)), now(), prefix, l.effort)
 
     private fun lastExchanges(l: Lane): List<String> {
         val day = dayNow()
-        val real = host.real(day)
-        return l.log(day).turns.filter { it.status == TurnStatus.DONE }.takeLast(3).map { t ->
-            val e = t.eventIds.firstOrNull()?.let(host::event)
-            val shown = real.filter { it.eventId != null && it.eventId in t.eventIds }.joinToString(" / ") { it.reply.text.take(600) }
-            "${t.eventKind}: ${e?.text?.take(400).orEmpty()} → you replied: ${t.replies.joinToString(" / ") { it.text.take(600) }.ifBlank { "(nothing)" }}" +
-                (if (shown.isNotBlank()) " → the learner was shown (another tutor answered): $shown" else "")
-        }
+        return DayThreads.exchanges(l.log(day).turns.filter { it.status == TurnStatus.DONE }, host::event, host.real(day))
     }
 
     private fun addRestart(l: Lane, tokens: Long) {
@@ -674,8 +641,6 @@ class ShadowMatrix(
     }
 
     private companion object {
-        /** A turn that keeps failing is given up after this many tries (as the primary's). */
-        const val MAX_ATTEMPTS = 5
         /** How long a lane's new day waits for the primary's day closing at most. */
         const val CLOSING_WAIT_MS = 3 * 60_000L
     }

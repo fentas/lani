@@ -23,19 +23,19 @@ data class DayLog(
 )
 
 /**
- * The shadow tutor's files, in the app's private storage (files/shadow-tutor): its settings, queue, day's thread,
- * notebook, the pending digest, one log per day, a stateless turn's messages while it runs. Each written whole through
- * a temporary file, so a write cut off by Android leaves the last one.
+ * An in-app tutor's files, in the app's private storage (the shadow's files/shadow-tutor, the live tutor's
+ * files/tutor-live): its queue, day's thread, notebook, the pending digest, one log per day, a stateless turn's messages
+ * while it runs. Each written whole through a temporary file, so a write cut off by Android leaves the last one.
  */
-class ShadowStore(val dir: File) {
+open class TutorStore(val dir: File) {
     init {
         dir.mkdirs()
     }
 
-    private fun <T> read(name: String, s: KSerializer<T>): T? =
+    protected fun <T> read(name: String, s: KSerializer<T>): T? =
         runCatching { File(dir, name).takeIf { it.isFile }?.readText()?.let { tutorJson.decodeFromString(s, it) } }.getOrNull()
 
-    private fun <T> write(name: String, s: KSerializer<T>, value: T) {
+    protected fun <T> write(name: String, s: KSerializer<T>, value: T) {
         val f = File(dir, name)
         f.parentFile?.mkdirs()
         val tmp = File(f.parentFile, f.name + ".tmp")
@@ -45,9 +45,6 @@ class ShadowStore(val dir: File) {
             tmp.renameTo(f)
         }
     }
-
-    fun settings(): ShadowSettings = read("settings.json", ShadowSettings.serializer()) ?: ShadowSettings()
-    fun saveSettings(s: ShadowSettings) = write("settings.json", ShadowSettings.serializer(), s)
 
     /** The turns waiting or running, in the order they came. */
     fun queue(): List<TurnRecord> = read("queue.json", ListSerializer(TurnRecord.serializer())).orEmpty()
@@ -86,6 +83,17 @@ class ShadowStore(val dir: File) {
     companion object {
         /** The tutor's local day: from 04:00 to 04:00 (plan 5, "The day's thread"). */
         fun dayOf(ms: Long, zone: ZoneId): String = Instant.ofEpochMilli(ms).atZone(zone).minusHours(4).toLocalDate().toString()
+    }
+}
+
+/** The shadow tutor's files (files/shadow-tutor): a [TutorStore] with the panel's settings. */
+class ShadowStore(dir: File) : TutorStore(dir) {
+    fun settings(): ShadowSettings = read("settings.json", ShadowSettings.serializer()) ?: ShadowSettings()
+    fun saveSettings(s: ShadowSettings) = write("settings.json", ShadowSettings.serializer(), s)
+
+    companion object {
+        /** The tutor's local day: from 04:00 to 04:00 ([TutorStore.dayOf]). */
+        fun dayOf(ms: Long, zone: ZoneId): String = TutorStore.dayOf(ms, zone)
     }
 }
 
