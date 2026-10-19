@@ -28,7 +28,8 @@ export default async function tutorLive() {
     JSON.stringify(session.tools) === JSON.stringify(listedForClaude.map(t => ({ name: t.name, description: t.description, inputSchema: t.inputSchema }))),
     { session: session.tools?.length, claude: listedForClaude.length },
   )
-  const own = ['learner_state', 'record_session', 'card', 'notebook_note', 'notebook_write', 'report_problem']
+  // (the file tools, str_replace_based_edit_tool and search, are the studio's: test/smoke/tutor-studio.ts)
+  const own = ['learner_state', 'record_session', 'card', 'notebook_note', 'notebook_write', 'report_problem', 'str_replace_based_edit_tool', 'search']
   const appNames = (session.app_tools ?? []).map((t: any) => t.name)
   check(
     "the app session's own tools (the scripts Claude Code runs through its shell, the notebook, report_problem), with the app's specs, none of them in Claude Code's list",

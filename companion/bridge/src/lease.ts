@@ -154,6 +154,8 @@ const NOT_DATA = [
   // the app's own tutor's session (features/tutor.ts): attaching and its inbox are the channel's, not the learner's data;
   // its tool calls are guarded tool by tool (the session's by guardTools, the app session's own in features/tutor.ts)
   /^\/tutor\/(attach|detach|inbox\/ack)$/, /^\/tutor\/tools\/[\w-]+$/,
+  // a draft checked by its validator (tutor-studio.ts): nothing is written
+  /^\/tutor\/check$/,
 ]
 const READS = new Set(['GET', 'HEAD', 'OPTIONS'])
 

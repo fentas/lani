@@ -13,12 +13,16 @@
 //   POST /tutor/tools/:name {args}   a tool call, through the very handlers Claude Code's calls use (Channel.call: counted
 //                                in flight, refused while the service stops), once per client_id (the tool call's id)
 //   GET  /tutor/notebook         the tutor's notebook (app/tutor/notebook.md) and its meta; PUT {text}: the learner's own
-//                                correction ("What my tutor knows")
+//                                correction ("What my tutor knows"); GET /tutor/notebook/versions, POST …/restore {at}
+//   the studio's (tutor-studio.ts, docs/plans/05-built/studio.md): POST /tutor/check {kind?, path?, text}, the jobs
+//                                (GET /tutor/jobs, GET/PUT/DELETE /tutor/jobs/:id), GET/POST /tutor/reports, GET
+//                                /tutor/overrides (the local overrides of curated content: overrides.ts)
 //
 // The tools Claude Code runs as Python through its shell are the app session's own tools (never in Claude Code's list):
 // learner_state (read-db.py), record_session (update-db.py's report), card (card.py's commands), the notebook's
 // notebook_note and notebook_write, and report_problem (the wishlist until the discussions have a GitHub token). They
-// run the scripts through the bridge's own spawn path (config.ts), so on the phone the db port answers them.
+// run the scripts through the bridge's own spawn path (config.ts), so on the phone the db port answers them. And the file
+// tools (tutor-studio.ts): str_replace_based_edit_tool and search over the learner's data folder, checked on write.
 import { existsSync, mkdirSync, readFileSync, appendFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { z } from 'zod'
@@ -29,6 +33,8 @@ import { HttpError, json, readJson, type Route } from '../http'
 import { keepOut } from '../ignore'
 import { writeAtomic } from '../pairing'
 import { TutorInbox } from '../tutor-inbox'
+import { Overrides, type OverrideKind } from '../overrides'
+import { FILE_TOOLS, fileTools, Jobs, Reports, retiredText, studioRoutes, writesFiles } from '../tutor-studio'
 
 /** The version of this contract; the app checks it before it attaches. */
 export const TUTOR_PROTOCOL = 1
@@ -79,6 +85,19 @@ export class Notebook {
       if (m?.schema === 'lani.notebook/v0') return m
     } catch {} // none yet
     return { schema: 'lani.notebook/v0', updated_at: null, why: null, chars: this.text().length, history: [] }
+  }
+
+  /** The old texts, oldest first (the last [VERSIONS_KEPT]). */
+  versionsList(): NotebookVersion[] {
+    return this.versions()
+  }
+
+  /** Writes the version of [at] back (the text now kept as a version, as [write] does); undefined: no such version. */
+  restore(at: string): { text: string; meta: NotebookMeta } | undefined {
+    const v = this.versions().find(x => x.at === at)
+    if (!v) return undefined
+    const meta = this.write(v.text, `restored (${at})`)
+    return { text: this.text(), meta }
   }
 
   private versions(): NotebookVersion[] {
@@ -236,7 +255,8 @@ const CARD_READS = new Set(['find', 'show', 'overlaps'])
  * learner_state and card's reads go on.
  */
 function leaseGuarded(tools: Tool[], refusal: () => string | undefined): Tool[] {
-  const writes = (name: string, args: Record<string, any>) => name !== 'learner_state' && !(name === 'card' && CARD_READS.has(String(args.action)))
+  const writes = (name: string, args: Record<string, any>) =>
+    FILE_TOOLS.has(name) ? writesFiles(name, args) : name !== 'learner_state' && !(name === 'card' && CARD_READS.has(String(args.action)))
   return tools.map(t => ({
     ...t,
     handle: (args: Record<string, any>) => {
@@ -246,9 +266,13 @@ function leaseGuarded(tools: Tool[], refusal: () => string | undefined): Tool[] 
   }))
 }
 
-/** The app session's own tools (the ones Claude Code runs as Python): never in Claude Code's list. */
-export function appSessionTools(ctx: Ctx, notebook: Notebook): Tool[] {
-  return leaseGuarded(appTools(ctx, notebook), () => ctx.lease?.refusal())
+/**
+ * The app session's own tools (the ones Claude Code runs as Python, and the file tools Claude Code has as its own Read,
+ * Edit and Write): never in Claude Code's list. [written]: a file tool wrote a content file (the overrides' check).
+ */
+export function appSessionTools(ctx: Ctx, notebook: Notebook, written: (w: { rel: string; kind: string; id?: string }) => void = () => {}): Tool[] {
+  const spec = (name: string, fallback: { description: string; inputSchema: Record<string, unknown> }) => appToolSpec(ctx.cfg.projectDir, name, fallback)
+  return leaseGuarded([...appTools(ctx, notebook), ...fileTools(ctx, spec, written)], () => ctx.lease?.refusal())
 }
 
 function appTools(ctx: Ctx, notebook: Notebook): Tool[] {
@@ -345,7 +369,41 @@ function appTools(ctx: Ctx, notebook: Notebook): Tool[] {
 export const tutorSession: FeatureFactory = ctx => {
   const { cfg, channel, log } = ctx
   const notebook = new Notebook(cfg.appDir)
-  const appTools = appSessionTools(ctx, notebook)
+  const jobs = new Jobs(cfg.appDir)
+  const reports = new Reports(cfg.appDir)
+  // the local overrides of curated content (overrides.ts): a tutor item under a curated id retires when the curated file changes
+  const overrides = new Overrides({
+    appDir: cfg.appDir,
+    projectDir: cfg.projectDir,
+    log,
+    sources: {
+      module: { dirs: () => ctx.modules.dirs(), layout: 'dir' },
+      scene: { dirs: () => ctx.scenes.dirs(), layout: 'file' },
+      story: { dirs: () => ctx.stories.dirs(), layout: 'file' },
+      villager: { dirs: () => ctx.villagers.dirs(), layout: 'file' },
+    },
+    onRetired: e => {
+      const resolved = reports.resolve(e.kind, e.id, `the curated ${e.kind} changed upstream (${e.retired_at})`)
+      // the app reloads it: the curated one is back (a villager comes with the next reload)
+      const back = e.kind === 'module' ? { type: 'module_published', id: e.id, version: 1 } : e.kind === 'scene' ? { type: 'scene_removed', id: e.id } : e.kind === 'story' ? { type: 'story_removed', id: e.id } : undefined
+      if (back) ctx.events.emit(back)
+      void channel
+        .notify(retiredText(e, resolved), { kind: 'override_retired', conversation_id: 'main', msg_id: `override-${e.kind}-${e.id}-${Date.now().toString(36)}` })
+        .catch(err => log(`tutor: override_retired not sent: ${(err as Error).message}`))
+    },
+  })
+  const checkOverrides = (only?: { kind?: OverrideKind; id?: string }) => {
+    try {
+      overrides.check(only)
+    } catch (e) {
+      log(`tutor: the overrides' check: ${(e as Error).message}`)
+    }
+  }
+  const overrideKind = (k: string): OverrideKind | undefined => (k === 'module-current' ? 'module' : ['module', 'scene', 'story', 'villager'].includes(k) ? (k as OverrideKind) : undefined)
+  const appTools = appSessionTools(ctx, notebook, w => {
+    const k = overrideKind(w.kind)
+    if (k) checkOverrides({ kind: k, id: w.id })
+  })
   /** Every tool the app's tutor may call: the session's, then the app session's own. */
   let byNameMemo: Map<string, Tool> | undefined
   const byName = () => {
@@ -449,7 +507,10 @@ export const tutorSession: FeatureFactory = ctx => {
           if (!tools.has(name)) return json({ error: `no tool ${name} on this bridge`, tools: [...tools.keys()] }, 404)
           const args = body.data.args as Record<string, any>
           try {
-            return json(await (channel.call ? channel.call(tools, name, args) : runTool(tools, name, args)))
+            const result = await (channel.call ? channel.call(tools, name, args) : runTool(tools, name, args))
+            // a curated item replaced or given back: the overrides' registry follows
+            if (!result.isError && /^(publish|remove|rollback)_/.test(name)) checkOverrides()
+            return json(result)
           } catch (e) {
             if (draining()) return json({ error: 'the bridge service is restarting: try again', restarting: true }, 503)
             // what Claude Code shows of a tool that threw (the MCP server's error answer): its message
@@ -475,12 +536,20 @@ export const tutorSession: FeatureFactory = ctx => {
     },
   ]
 
+  routes.push(...studioRoutes(ctx, { jobs, reports, notebook, overrides }))
+
   return {
     routes,
     start: () => {
+      // the overrides: at start (a curated file may have changed with an update), then every 15 minutes
+      checkOverrides()
+      const every = setInterval(() => checkOverrides(), Number(process.env.LANI_OVERRIDES_CHECK_MS ?? 15 * 60_000))
+      ;(every as { unref?: () => void }).unref?.()
       // the inbox (what the learner said lately) stays on this machine, as the channel's queue does
       try {
         keepOut(cfg.dataDir, { line: '/app/tutor-inbox.json', samples: ['app/tutor-inbox.json'], comment: "The app tutor's inbox (features/tutor.ts): stays on this machine (added by the bridge)." }, m => log(`tutor: ${m}`))
+        keepOut(cfg.dataDir, { line: '/app/tutor/jobs/', samples: ['app/tutor/jobs/j_000000.json'], comment: "The app tutor's studio jobs (tutor-studio.ts): its threads, stay on this machine (added by the bridge)." }, m => log(`tutor: ${m}`))
+        keepOut(cfg.dataDir, { line: '/app/tutor/file-history/', samples: ['app/tutor/file-history/x.1'], comment: "The file tools' old texts (tutor-studio.ts): stay on this machine (added by the bridge)." }, m => log(`tutor: ${m}`))
       } catch (e) {
         log(`tutor: ${(e as Error).message}`)
       }

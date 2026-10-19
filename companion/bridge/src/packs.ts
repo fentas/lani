@@ -208,6 +208,11 @@ export class PackStore {
     return this.all().find(p => p.id === id)
   }
 
+  /** Whether [id] is a curated pack's (a tutor pack can't take it). */
+  isCurated(id: string): boolean {
+    return this.curated().some(p => p.id === id)
+  }
+
   /** The curated packs alone (what a visiting town's scenes are resolved with: visits.ts). */
   curatedOnly(): LoadedPack[] {
     return this.curated()

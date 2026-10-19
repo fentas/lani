@@ -1,0 +1,33 @@
+{
+  "name": "search",
+  "description": "Search the learner's files (the data folder, as str_replace_based_edit_tool sees it) for a text: each match as path:line: the line. Literal and case-insensitive; regex: true for a regular expression. path: a directory or a file to search in (the whole folder by default). Private files are left out.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "pattern": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 500,
+        "description": "The text (or with regex: true, the regular expression) to find."
+      },
+      "path": {
+        "type": "string",
+        "description": "A directory or file in the data folder (default: all of it)."
+      },
+      "regex": {
+        "type": "boolean",
+        "description": "pattern is a regular expression."
+      },
+      "max_results": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 200,
+        "description": "At most this many matches (default 50)."
+      }
+    },
+    "required": [
+      "pattern"
+    ],
+    "additionalProperties": false
+  }
+}

@@ -19,9 +19,11 @@ function writeAtomic(path: string, data: unknown) {
 
 export class ModuleStore {
   private curated = new Map<string, ModuleSpec & { version: number }>()
+  private readonly curatedDir?: string
 
   constructor(private root: string, curatedDir?: string, log: (...a: unknown[]) => void = () => {}) {
     mkdirSync(root, { recursive: true })
+    this.curatedDir = curatedDir
     if (!curatedDir || !existsSync(curatedDir)) return
     for (const f of readdirSync(curatedDir).filter(f => f.endsWith('.json'))) {
       const v = validateModule(JSON.parse(readFileSync(join(curatedDir, f), 'utf8')))
@@ -32,6 +34,15 @@ export class ModuleStore {
 
   private dir(id: string) {
     return join(this.root, id)
+  }
+
+  /** Where the modules are (the overrides' check, overrides.ts): the curated directory (read once, at start) and the tutor's root. */
+  dirs(): { curated: string[]; tutor: string } {
+    return { curated: this.curatedDir ? [this.curatedDir] : [], tutor: this.root }
+  }
+
+  isCurated(id: string): boolean {
+    return this.curated.has(id)
   }
 
   versions(id: string): number[] {

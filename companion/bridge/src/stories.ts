@@ -440,6 +440,11 @@ export class StoryStore {
     return this.curated().some(s => s.id === id)
   }
 
+  /** Where the stories are (the overrides' check, overrides.ts): the curated directories in order, the tutor's. */
+  dirs(): { curated: string[]; tutor: string } {
+    return { curated: this.curatedDirs.map(d => d.dir), tutor: this.tutorDir }
+  }
+
   /** Writes a tutor story (same id = replace; a curated id is replaced too, until remove()). */
   publish(s: Story): void {
     const path = join(this.tutorDir, `${s.id}.json`)

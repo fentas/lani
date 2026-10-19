@@ -1084,6 +1084,11 @@ export class SceneStore {
     return this.curated().some(s => s.id === id)
   }
 
+  /** Where the scenes are (the overrides' check, overrides.ts): the curated directories in order, the tutor's. */
+  dirs(): { curated: string[]; tutor: string } {
+    return { curated: this.curatedDirs.map(d => d.dir), tutor: this.tutorDir }
+  }
+
   /** Writes a tutor scene (same id = replace; a curated id is replaced too, until remove()). */
   publish(s: Scene): void {
     const path = join(this.tutorDir, `${s.id}.json`)

@@ -1,0 +1,57 @@
+{
+  "name": "str_replace_based_edit_tool",
+  "description": "View and edit the learner's files: the data folder, its root \"/\" (the six databases at the top, the app's files under app/: your content under app/modules, app/packs, app/scenes, app/stories, app/readings, app/villagers, app/arrivals, app/grammar, app/cards, app/course/<unit>, app/scenarios). Commands: view (a file with numbered lines, view_range [start, end] for a part, end -1 to the end; a directory: its entries two levels deep), create (a whole file, file_text; an existing one is rewritten, its old text kept), str_replace (old_str exactly once in the file → new_str), insert (insert_text after line insert_line, 0 for the start). Writes only in those content areas, and every write is checked by its kind's validator first (the same as the publish tools): a refusal says what's wrong and nothing is written; fix it and write again. Prefer the publish tools for new content (they version modules and announce it); use the file tools to read your earlier content and for small fixes in it. The six databases are read-only (record_session and card write them); keys, tokens, the lease and the app's runtime files are out of reach.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "command": {
+        "type": "string",
+        "enum": [
+          "view",
+          "create",
+          "str_replace",
+          "insert"
+        ],
+        "description": "What to do."
+      },
+      "path": {
+        "type": "string",
+        "description": "Relative to the learner's data folder (\"app/stories/my-story.json\", \"/\" its root)."
+      },
+      "view_range": {
+        "type": "array",
+        "items": {
+          "type": "integer"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "view: [start, end], 1-based lines; end -1 to the end of the file."
+      },
+      "file_text": {
+        "type": "string",
+        "description": "create: the whole file."
+      },
+      "old_str": {
+        "type": "string",
+        "description": "str_replace: the text to replace, exactly as it is in the file (once)."
+      },
+      "new_str": {
+        "type": "string",
+        "description": "str_replace: what replaces it."
+      },
+      "insert_line": {
+        "type": "integer",
+        "minimum": 0,
+        "description": "insert: the line to insert after (0: at the start)."
+      },
+      "insert_text": {
+        "type": "string",
+        "description": "insert: the text to insert."
+      }
+    },
+    "required": [
+      "command",
+      "path"
+    ]
+  }
+}

@@ -312,6 +312,11 @@ export class VillagerStore {
     return this.read(this.curatedDir, 'curated').some(v => v.id === id)
   }
 
+  /** Where the villagers are (the overrides' check, overrides.ts): the culture's cast, the tutor's. */
+  dirs(): { curated: string[]; tutor: string } {
+    return { curated: [this.curatedDir], tutor: this.tutorDir }
+  }
+
   /** Writes a tutor villager (same id = replace; a curated id is replaced too, until remove()). */
   publish(v: Villager): void {
     const path = join(this.tutorDir, `${v.id}.json`)

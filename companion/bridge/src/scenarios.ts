@@ -85,6 +85,11 @@ export class ScenarioStore {
   }
 
   /** Writes a tutor scenario (same id = replace). Returns an error for curated ids. */
+  /** Whether [id] is a curated scenario's (a tutor scenario can't take it). */
+  isCurated(id: string): boolean {
+    return this.read(this.curatedDir, 'curated').some(c => c.id === id)
+  }
+
   publish(s: Scenario): string | undefined {
     if (this.read(this.curatedDir, 'curated').some(c => c.id === s.id)) return `"${s.id}" is a curated scenario; pick another id`
     const path = join(this.tutorDir, `${s.id}.json`)
