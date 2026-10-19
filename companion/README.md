@@ -31,6 +31,7 @@ Android app ──HTTP/SSE──► bridge service ◄──unix socket (MCP)─
 | `modules/`, `packs/`, `scenarios/`, `scenes/` | Curated grammar modules (`lani.module/v0`, with villager quests), word packs (`lani.pack/v0`: Slovene in `packs/` itself, another target language in `packs/<language>/`, e.g. `packs/it/`, `packs/de/`, `packs/en/`), role-play scenarios (`lani.scenario/v0`) and village scenes (`lani.scene/v0`, see [SCENES.md](SCENES.md)). |
 | `cultures/` | Culture packs (`lani.culture/v0`, see [GAME.md](GAME.md#culture-packs)): the village's people, stories, feasts, goods and names, in its language. `primorska/` is the default village, with the cast in `primorska/villagers/` (`lani.villager/v0`, see [VILLAGERS.md](VILLAGERS.md)); `friuli/` is the second learner's Italian town in the Collio near Gorizia, with its cast, its festivals' word packs (`friuli/packs/`) and its voice cast (`friuli/voice-cast.json`, Italian voices); `kaernten/` is a German village in Carinthia (the Gailtal near Villach) for learners of German, the same parts in German with Slovene, English and Italian; `lakeland/` is the English village in a dale of the Lake District, for learners of English from Slovene, Italian or German (its starter packs in `packs/en/`), each with its voice cast. `villagers` is a link to `cultures/primorska/villagers`, the cast's old place, for a bridge started before the move; remove it once every bridge has restarted. |
 | `voice-local/` | Local Slovene text-to-speech (Gepard) on the node's GPU, the fallback voice (see [Voice](#voice)). |
+| `voice-drama3/` | Fish Audio Drama 3 on the node's GPU, a second local voice for batch clips only: `voice-build --drama3` remakes a speaker's Gepard clips with it, starting and stopping the worker (see [Voice](#voice) and [voice-drama3/README.md](voice-drama3/README.md)). Built with Fish Audio. |
 | `bin/lani-setup` | Sets up this machine step by step, or changes it: the learner, their data as a git repository of its own, a private remote, voices, the network, running, pairing ([docs/setup.md](../docs/setup.md)). `bin/lani <command>` runs `bin/lani-<command>` (`lani setup`, `lani pair`, …). |
 | `bin/lani-session` | Starts or re-attaches the always-on session in tmux, with the channel and Remote Control. Loads `~/.config/lani/keys.env`. `--profile <id>` starts another learner's session, `--list` shows the learners (see [Learners](#learners)). `--service` starts the bridge service first and the session with the shim, `--classic` the bridge inside the session (see [The bridge as a service](#the-bridge-as-a-service)). |
 | `bin/lani-bridge` | Runs each learner's bridge service in tmux: `start`, `restart` (deploys new bridge code without a tutor restart), `status`, `stop`, `logs` (see [The bridge as a service](#the-bridge-as-a-service)). `systemd/` has a user unit template for it, not installed. |
@@ -2124,8 +2125,26 @@ is set (`tempo`).
 |---|---|---|
 | ElevenLabs | The model `LANI_ELEVENLABS_MODEL` (`eleven_v4_turbo` by default; v3 and v4 speak Slovenian), `language_code: sl`, the speaker's voice from the cast (a Slovene narrator's: its `languages` `sl`). Each clip records its model (`model` in `voice.db`; null: `eleven_v3`, every clip until October 2026). | `ELEVENLABS_API_KEY=…` in `~/.config/lani/keys.env` (mode 600). `bin/lani-session` exports it into the session, so the bridge inherits it. |
 | Gepard (local) | Slovenian TTS model as a worker on `127.0.0.1:8795` (`GET /health`, `POST /synth`), the speaker's `gepard` voice (`nina`, `marko`, `ana`), sent by name. | Runs separately. When it is down, it is skipped. |
+| Drama 3 (local, batch only) | Fish Audio Drama 3 as a worker on `127.0.0.1:8785` (the same contract), the cast speaker's own voice (a reference Drama 3 made from a description), each take checked (the gender by pitch, noise, the text heard by Whisper, length and silence). Never asked live: far too slow (about 10 s a second of audio). | `companion/voice-drama3/install.sh`; `voice-build --drama3` starts and stops it (below). |
 
 If neither can make a clip, the app uses phone TTS; an engine that is down never fails a request.
+
+**Drama 3, a second local voice for batch clips (October 2026).** Jan finds Fish Audio's open model Drama 3 more natural
+than Gepard, so it remakes the villagers' local Gepard clips, in a batch, on the node's GPU: `companion/bin/voice-build
+--drama3 <speaker[,speaker]|all>` (a dry run: the clips by speaker, the time at the measured speed, the worker) and
+`--run` (most played first, `--max N`). The clips are preferred **ElevenLabs first, then Drama 3, then Gepard**: a clip
+is replaced only by an engine ranked as high (`ENGINE_RANK` in `bridge/src/voice.ts`), so a Gepard take never replaces a
+Drama 3 clip, and `--upgrade`, `--elevenlabs` and a re-record replace a Drama 3 clip with ElevenLabs as they do a
+Gepard one. Never the narrators (their local voices stay Gepard's). Each voice is a reference made by Drama 3 itself from
+a description of the character (no real person's voice; Jan picks one of three candidates); every take passes the
+worker's checks or is made again with another seed, and a line no take passes keeps its Gepard clip and is listed
+(`--retry-failed`). The clips are trimmed and levelled to −18 LUFS like every clip, marked `drama3` with the worker's
+voice (`grandma/grandma-2`). The run starts the worker and stops it after; the worker holds the host's heavy lock
+(`LANI_HEAVY_LOCK`) and ~7 GB of VRAM while it runs; the batch pauses below 20 GB available and goes on when memory is
+back; a stopped batch goes on where it stopped. Jan decides when it runs on the voice cache (overnight). Its licence
+(the Fish Audio Community License): "Built with Fish Audio" is shown (NOTICE.md, the website's credits, the app's
+Offline audio screen), no real person's voice is imitated, and **its clips are never used to train another speech
+model** (Gepard is never fine-tuned on them). Details: [voice-drama3/README.md](voice-drama3/README.md).
 A villager line whose narrator clip exists waits for ElevenLabs (no local clip in the character's
 key): the app plays the narrator clip until then.
 
@@ -2288,7 +2307,9 @@ companion/bin/voice-build --run --upgrade  # also replace local clips while the 
 companion/bin/voice-build --upgrade-model  # dry run: the ElevenLabs clips by model, those of an older one, what --run would make and its credits
 companion/bin/voice-build --upgrade-model --run --max-chars 20000   # the most played of them again in the current model
 companion/bin/voice-build --run --revoice grandma   # a swapped voice: its clips again
-companion/bin/voice-build --elevenlabs teacher       # dry run: a speaker's local (Gepard) clips, made while ElevenLabs couldn't; --run makes them in its ElevenLabs voice (never the narrators')
+companion/bin/voice-build --elevenlabs teacher       # dry run: a speaker's local clips (Gepard's, Drama 3's), made while ElevenLabs couldn't; --run makes them in its ElevenLabs voice (never the narrators')
+companion/bin/voice-build --drama3 all               # dry run: the speakers' Gepard clips Drama 3 would make again, the time it takes, the worker
+LANI_HEAVY_LOCK=<the host's heavy lock> companion/bin/voice-build --drama3 grandma,girl --run --max 50   # start the worker, make them, stop it
 companion/bin/voice-build --run --max-chars 2000
 companion/bin/voice-build --revoice-words --max 100        # dry run: old-style narrator words, the cost
 companion/bin/voice-build --revoice-words --max 100 --run  # 100 of them again, most asked for first
@@ -2414,7 +2435,9 @@ are there; a download stopped halfway goes on where it stopped.
 The espeak-ng data (GPL-3.0-or-later, like espeak-ng, which sherpa-onnx links in) comes from sherpa-onnx's own converted
 Slovene voice (`csukuangfj/vits-piper-sl_SI-artur-medium`). The app offers the voice once after pairing ("🗣️ Prenesi glas
 brez povezave (61 MB)? · Download the offline voice (61 MB)?", Wi-Fi recommended); the settings have it too (download, its
-size, remove, its credit), and with it wanted the prefetch gets it again on Wi-Fi should it go.
+size, remove, its credit; under the clips' sizes a line that some of the villagers' clips are voiced on the learner's
+computer by Fish Audio Drama 3, "Built with Fish Audio"), and with it wanted the prefetch gets it again on Wi-Fi should
+it go.
 
 It speaks when no clip of the line is on the phone and the node can't make one now (offline, an error, a clip that won't
 play), before Android's TTS, and only in its own language: on a visit to a town in another language Android's TTS speaks

@@ -342,6 +342,36 @@ four in English and German. No voice cloning.
 - **So: not a replacement for Gepard yet.** The judgement above comes from Whisper's transcripts and the pitch, not
   from listening. **The native check is pending:** the stress, the schwa in "Dober", "lj" and "nj", the dual.
 
+### Built: Drama 3, a second local voice for batch clips (2026-10-19)
+
+Jan listened to the spike's takes beside Gepard's and found Drama 3 **more natural than Gepard**, with hiccups: a
+voice of the wrong gender now and then, white noise in some takes. So it became a second local voice, **for batch
+clips only** (live lines stay ElevenLabs' or Gepard's): `companion/voice-drama3` (its README has it all) and
+`companion/bin/voice-build --drama3`. Built with Fish Audio.
+
+- **The worker** has Gepard's contract (`GET /health`, `POST /synth {text, speaker}` → MP3) on 127.0.0.1:8785, the
+  spike's runner in safe mode, two requests in flight (one on the GPU, the other decoded and heard by Whisper). It is
+  **no service**: voice-build starts it, voices the clips and stops it; it loads the model only once the host's heavy
+  lock is its own and 20 GB are available.
+- **One voice per character.** Without a reference the timbre drifted from line to line; now each cast speaker has a
+  reference take Drama 3 made itself from a description of the character (no real person's voice), and every line is
+  generated after it. Three candidates a speaker, checked automatically; the best-scoring is the default until Jan
+  picks one.
+- **A quality guard on every take:** the gender by median pitch against the cast gender (children high whichever the
+  gender) and the drift from the reference; the noise floor in the quietest frames of the 4–12 kHz band, which is what
+  catches the hissing takes (a flat hiss up to a sharp edge at 12–16 kHz, filling the pauses: −53 to −57 dB under the
+  speech on the hissing takes, −60 to −72 on the clean ones); Whisper large-v3 on the CPU, word by word, lost lj/nj and
+  "dobar" for "dober" as warnings; the silence loop, the speech rate, long pauses. A failing take is made again with
+  another seed; a line that never passes keeps its Gepard clip and is listed.
+- **In the bridge:** clips are preferred **ElevenLabs, then Drama 3, then Gepard** (a Gepard take never replaces a
+  Drama 3 clip; ElevenLabs replaces either). `voice-build --drama3 <speakers|all>` is a dry run (the clips, the time at
+  the measured speed) until `--run`; it pauses below 20 GB available, goes on where it stopped, and never takes the
+  narrators. Jan decides when it runs on the voice cache (overnight).
+- **Measured:** with the references every first take kept its speaker's gender (88 of 88; without them 2 of 16 were the
+  other gender), the pitch within 1.4 to 5.5 semitones a voice; the checks fail 10 of the spike's 25 takes (6 on noise,
+  2 on gender, 1 on "mi dva smo"). The batch makes about 10 s a second of audio on a busy host: the voice cache's 2,663
+  local villager clips would take about 22 hours (docs/plans/05-built/drama3.md).
+
 ## Where the proof of concept runs
 
 - `lani.page` itself is the site (GitHub Pages); its subdomains for the dev setup resolve to a LAN address, the local
