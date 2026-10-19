@@ -103,6 +103,10 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        mistake kept by the dev bridge by kind; a verb's card (its imperative greyed); a review of the day's
                        cards ("formscard"); typed ("formscard:type"), the keyboard up, "✋ Izberi raje"; the unit velelnik's
                        intro done ("formscard:unit:velelnik"): the verb's card due again soon, its imperative rows as gaps;
+                       "forms-view" the forms cards' view: biti's card in a test, its present alone (the unit biti's intro
+                       done), "📋 Vse oblike" at its end and on the word's card (the overview, every section, the forms
+                       practised marked), "📚 Moje besede" from Napredek's words: a search above the keyboard, a word
+                       looked up in the dictionary, a word opened from the list;
                        "school" the school (QA's hook "school"): the class begun with the hamlet, the levels, Home's
                        tile opening it, the unit biti's intro step by step, its tables with the cheat sheet over them, its gap text with one
                        mistake and a word looked up, its test passed, the dev bridge's village keeping the unit done;
@@ -500,6 +504,8 @@ def setup():
         c = next((c for t, c in ns if t == "Allow"), None)
         if c is not None:
             adb("shell", "input", "tap", str(c[0]), str(c[1]))
+        elif any("Kje bo tvoja vas" in t for t, _ in ns):
+            found_village()  # a copy without a village (a synthetic learner): founded first
         elif any("Danes · Today" in t for t, _ in ns):
             break
         time.sleep(1)
@@ -5020,6 +5026,11 @@ FORMS_HELP = "Pravila v knjigi · The rules in the book"  # its cheat sheet link
 FORMS_GREY = "še ni predstavljeno"  # a greyed cell's label for TalkBack (l10n formsCard.preview)
 FORMS_BACK = "Nove oblike v tabelah"  # the note when a unit brings cards back (l10n formsCard.back)
 FORMS_FRESH = "Novo v tabeli"  # a card's newly introduced part (l10n formsCard.fresh)
+FORMS_PRACTISE = "Vadi oblike · Practise the forms"  # the overview's way to a card (l10n formsView.practise)
+FORMS_SECTIONS = re.compile(r"FormsCard\s*:\s*sections (.*) hidden (.*)$")
+FORMS_VIEW = re.compile(r"FormsView\s*:\s*(\S+) sections (.*) practised (\d+)/(\d+)$")
+MY_WORDS = "Moje besede · My words"  # its title (l10n myWords.title)
+MY_WORDS_LOG = re.compile(r"MyWords\s*:\s*«(.*)» (\d+) of (\d+); dictionary (\S+)$")
 FORMS_GAP = re.compile(r"FormsCard\s*:\s*gap (\d+)/(\d+) (\S+) «(.*)» \[(.*)\] (typed|chosen)$")
 def scroll_up(swipes=2):
     """Scrolls the run up [swipes] times (the card's head and the table's top, above the gap kept in view)."""
@@ -5118,13 +5129,52 @@ def review_end():
     assert wait_for("recalled", 10), "the review's end"
 
 
+def forms_sections(word="", timeout=12.0):
+    """The sections the forms card on screen shows and those it hides (no gap asked in them), as the debug build logged
+    them (tag FormsCard): (shown, hidden), the latest; None within [timeout] s."""
+    end = time.time() + timeout * slow()
+    while time.time() < end:
+        hits = [m for l in adb("logcat", "-d", "-s", "FormsCard:I", check=False).splitlines() if (m := FORMS_SECTIONS.search(l))]
+        if hits:
+            m = hits[-1]
+            return [x for x in m.group(1).split("|") if x], [x for x in m.group(2).split("|") if x]
+        time.sleep(1)
+    return None
+
+
+def forms_view(word: str, timeout=15.0):
+    """The overview of [word] on screen, as the debug build logged it (tag FormsView): (sections, practised, forms), or None."""
+    end = time.time() + timeout * slow()
+    while time.time() < end:
+        hits = [m for l in adb("logcat", "-d", "-s", "FormsView:I", check=False).splitlines() if (m := FORMS_VIEW.search(l)) and m.group(1) == word]
+        if hits:
+            m = hits[-1]
+            return m.group(2).split("|"), int(m.group(3)), int(m.group(4))
+        time.sleep(1)
+    return None
+
+
+def my_words_log(query: str, dictionary=None, timeout=12.0):
+    """What "📚 Moje besede" shows for [query] (tag MyWords): (shown, of, the dictionary's state), the latest; with
+    [dictionary], waits for that state ("Found", "NotFound" …). None within [timeout] s."""
+    end = time.time() + timeout * slow()
+    while time.time() < end:
+        hits = [m for l in adb("logcat", "-d", "-s", "MyWords:I", check=False).splitlines() if (m := MY_WORDS_LOG.search(l)) and m.group(1) == query]
+        if hits and (dictionary is None or hits[-1].group(4) == dictionary):
+            m = hits[-1]
+            return int(m.group(2)), int(m.group(3)), m.group(4)
+        time.sleep(1)
+    return None
+
+
 def forms_cards():
     """Forms cards ("📋 Oblike · Forms", companion/README.md "Forms cards"): "📋 Vse oblike · All forms" on a noun's word card
-    (QA's hook "formscard:word:<word>") makes its card at once on the dev bridge and offers "▶ Vadi zdaj"; its table: the
-    forms the copy's pages introduced as gaps, the dative's row greyed (dajalnik not met); the rules' pages from the card,
+    (QA's hook "formscard:word:<word>") opens its overview, whose "🃏 Vadi oblike" makes its card at once on the dev
+    bridge and offers "▶ Vadi zdaj"; its table: the forms the copy's pages introduced as gaps, the dative's row greyed
+    (dajalnik not met); the rules' pages from the card,
     💬 attaching it, the first gap wrong (its correction), the rest right, the rows said together at the end (the narrator,
     a clip made on demand), the review's end, the mistake kept by the dev bridge by kind (forms_*). A verb's card (QA's
-    hook "formscard:<word>"): its imperative greyed, played through. The day's cards in a review ("formscard"): the core
+    hook "formscard:<word>"): its imperative hidden (no gap in it), played through. The day's cards in a review ("formscard"): the core
     verbs made, among the due cards. Typed ("formscard:type"): a gap typed with the keyboard up, Check above it, one typed
     without č/š/ž, "✋ Izberi raje" back to the options. The unit velelnik's intro done ("formscard:unit:velelnik"): the
     note, the verb's card due again within days, its repetitions back to 0, its imperative newly tested, then played
@@ -5134,6 +5184,12 @@ def forms_cards():
         return "the dev bridge makes no forms cards (an older bridge)"
     adb("logcat", "-c")
     try:
+        # the first units' intros done, as a learner past them has them (a synthetic copy has nothing introduced: no card
+        # to make, a noun's card one gap); the dative stays not met, the imperative's unit not begun
+        for unit in ("biti", "sedanjik", "mnozina", "tozilnik"):
+            qa_hook(f"formscard:unit:{unit}")
+            time.sleep(3 * slow())
+        go_home()
         # "📋 Vse oblike" on a noun's word card: its card at once
         qa_hook(f"formscard:word:{FORMS_NOUN}")
         assert wait_for(FORMS_NOUN, 15), "the word card"
@@ -5141,6 +5197,11 @@ def forms_cards():
         assert c, "📋 Vse oblike on the word card"
         shot("forms-word-card")
         tap_at(c)
+        assert forms_view(FORMS_NOUN), "the word's overview"
+        shot("forms-overview")
+        practise = sheet_find(FORMS_PRACTISE, swipes=10)
+        assert practise, "🃏 Vadi oblike in the overview"
+        tap_at(practise)
         assert wait_for(FORMS_PLAY, 20), "▶ Vadi zdaj once the card is made"
         made = dev_forms()
         assert FORMS_NOUN in made, f"the dev bridge's forms cards: {', '.join(made) or 'none'}"
@@ -5205,8 +5266,9 @@ def forms_cards():
         assert verb, "the verb's card on the dev bridge"
         imperative = [s["key"] for s in verb["forms"]["slots"] if s["key"].startswith("imp.")]
         assert imperative and not any(k in verb["forms"]["tested"] for k in imperative), f"its imperative not tested yet ({verb['forms']['tested']})"
-        assert scroll_to(FORMS_GREY, swipes=6), "its greyed cells"
-        shot("forms-verb-grey")
+        sections = forms_sections()
+        assert sections and any("velelnik" in t for t in sections[1]) and not any("velelnik" in t for t in sections[0]), f"its imperative hidden ({sections})"
+        print(f"    {FORMS_VERB}: shows {', '.join(sections[0])}; hidden {', '.join(sections[1])}")
         play_forms()
         assert wait_for(FORMS_WHOLE, 8), "the verb's whole table"
         shot("forms-verb-whole")
@@ -5293,6 +5355,185 @@ def forms_cards():
     finally:
         qa_hook("formscard:off")
         go_home()
+
+
+def found_village():
+    """A dev bridge's copy without a village (a synthetic learner, LANI_DEV_DATA): founded here, as the learner would
+    ("✓ Tu bo moja vas · My village will be here"); nothing when there is one."""
+    c = wait_for("Kje bo tvoja vas", 4)
+    if c is None:
+        return
+    for _ in range(3):  # its foot: the button under the picture (the screen scrolls only so far)
+        adb("shell", "input", "swipe", "540", "1600", "540", "900", "300")
+        time.sleep(0.6)
+    here = find("Tu bo moja vas")
+    assert here, "the founding screen's ✓ Tu bo moja vas"
+    tap_at(here)
+    time.sleep(3 * slow())
+
+
+FORMS_TEST_WORD = "biti"  # a core verb: its card made on demand, its present asked first
+
+
+def sheet_find(text: str, swipes=6):
+    """[text] in a sheet, scrolling it down: a button at a sheet's foot rests below scroll_to's band. Its centre, or None."""
+    for k in range(swipes + 1):
+        c = next((c for t, c in nodes() if text in t and 250 < c[1] < 2250), None)
+        if c is not None:
+            return c
+        adb("shell", "input", "swipe", "540", "1600", "540", "900", "400")
+        time.sleep(1)
+    return None
+
+
+def forms_view_step():
+    """The forms cards' view (Jan after the first test, with biti: "all is there … for tests it makes sense only to show
+    the table which is tested"; "I like it as a general overview … a word list, quick lookup"): the unit biti's intro done
+    ("formscard:unit:biti": biti, zanikanje and dvojina introduced), biti's card in a test (QA's hook "formscard:biti",
+    made on demand): only its present shown (the first part: the present's first two rows), the negative, future, past and
+    imperative hidden; played through, "📋 Vse oblike" at its end opens the overview over the run: every section, the
+    present and the negative marked as practised. "📋 Vse oblike" on a word's card opens the overview at once ("🃏 Vadi
+    oblike" there for a word without a card). "📚 Moje besede" from Napredek's words line: the list; a search filtering
+    it, its field above the keyboard; a word not the learner's looked up in the dictionary; a word opened from the list,
+    its card with "📋 Vse oblike"."""
+    go_home()
+    found_village()
+    go_home()
+    if "forms-cards" not in api("/state").get("features", []):
+        return "the dev bridge makes no forms cards (an older bridge)"
+    notes = []
+    adb("logcat", "-c")
+    try:
+        # the unit biti's intro done: biti's present and negative (and the dual) introduced
+        qa_hook("formscard:unit:biti")
+        time.sleep(3 * slow())
+        go_home()
+        adb("logcat", "-c")
+        fresh = FORMS_TEST_WORD not in dev_forms()
+        qa_hook(f"formscard:{FORMS_TEST_WORD}")
+        assert forms_on(FORMS_TEST_WORD), "biti's forms card"
+        sections = forms_sections()
+        assert sections, "the sections shown (the app's log, tag FormsCard)"
+        shown, hidden = sections
+        card = dev_forms().get(FORMS_TEST_WORD)
+        assert card, "biti's card on the dev bridge"
+        assert hidden and len(shown) + len(hidden) == 5, f"some of biti's five tables hidden ({sections})"
+        new_part = card["forms"].get("fresh") or []
+        if new_part:
+            # a part newly introduced (the imperative after the unit velelnik, in the step forms-card): its tables first
+            if all(k.startswith("imp.") for k in new_part):
+                assert shown == [t for t in shown if "velelnik" in t], f"the new imperative's table alone ({sections})"
+        elif fresh or card.get("total_reviews", 0) == 0:
+            assert len(shown) == 1 and "sedanjik" in shown[0], f"the present alone in its first test ({sections})"
+            assert all(any(t in h for h in hidden) for t in ("prihodnjik", "preteklik", "velelnik")), f"the future, the past, the imperative hidden ({sections})"
+        notes.append(f"test: {' + '.join(shown)}; hidden {len(hidden)}")
+        time.sleep(1.5)
+        scroll_up(4)
+        time.sleep(0.8)
+        shot("forms-view-test")
+        for _ in range(4):  # back down to the gap
+            adb("shell", "input", "swipe", "540", "1600", "540", "600", "400")
+            time.sleep(0.8)
+        play_forms()
+        assert wait_for(FORMS_WHOLE, 8), "the card's end"
+        link = scroll_to(FORMS_ALL, swipes=4)
+        assert link, "📋 Vse oblike at the card's end"
+        tap_at(link)
+        view = forms_view(FORMS_TEST_WORD)
+        assert view and len(view[0]) == 5, f"the overview over the run: every section ({view})"
+        assert 9 <= view[1] < view[2], f"the present and the negative marked as practised, the rest not ({view})"
+        assert find(FORMS_PRACTISE) is None, "no 🃏 Vadi oblike in a run"
+        time.sleep(1)
+        shot("forms-view-overview-run")
+        notes.append(f"overview: {len(view[0])} sections, {view[1]}/{view[2]} practised")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1.2)
+        review_end()
+        go_home()
+
+        # the overview from the word's card, at once
+        adb("logcat", "-c")
+        qa_hook(f"formscard:word:{FORMS_TEST_WORD}")
+        assert wait_for(FORMS_TEST_WORD, 15), "biti's word card"
+        c = sheet_find(FORMS_ALL)
+        assert c, "📋 Vse oblike on biti's card"
+        tap_at(c)
+        view = forms_view(FORMS_TEST_WORD)
+        assert view and len(view[0]) == 5, f"biti's overview: every section ({view})"
+        time.sleep(1.5)
+        shot("forms-view-overview")
+        assert sheet_find(FORMS_PLAY, swipes=10), "▶ Vadi zdaj under it (biti has its card)"
+        shot("forms-view-overview-end")
+        go_home()
+        # a word without a card: its overview offers 🃏 Vadi oblike
+        other = next((w for w in ("kruh", "hiša", "voda", "mleko") if w not in dev_forms()), None)
+        if other:
+            adb("logcat", "-c")
+            qa_hook(f"formscard:word:{other}")
+            c = wait_for(other, 15) and sheet_find(FORMS_ALL)
+            if c:
+                tap_at(c)
+                assert forms_view(other), f"{other}'s overview"
+                assert sheet_find(FORMS_PRACTISE, swipes=10), f"🃏 Vadi oblike for {other}"
+                shot("forms-view-practise")
+                notes.append(f"{other}: 🃏 Vadi oblike")
+            go_home()
+
+        # 📚 Moje besede from Napredek's words line
+        adb("logcat", "-c")
+        open_progress()
+        line = drag_to_top("Words: ") or scroll_to("Besede · Words", 8)
+        assert line, "Napredek's words line"
+        tap_at(line)
+        assert wait_for(MY_WORDS, 8), "📚 Moje besede"
+        listed = my_words_log("")
+        assert listed and listed[0] == listed[1] > 0, f"the learner's words listed ({listed})"
+        time.sleep(1)
+        shot("forms-view-words")
+        field = wait_for("Išči med besedami", 5)
+        assert field, "the search field"
+        tap_at(field)
+        top = keyboard_settled()
+        assert top is not None, "the keyboard up for the search"
+        adb("shell", "input", "text", "ma")
+        time.sleep(1.5 * slow())
+        f = find("ma")
+        assert f and f[1] < top, f"the search field above the keyboard ({f}, its top {top})"
+        mine = my_words_log("ma")
+        assert mine and 0 < mine[0] < mine[1], f"the list filtered as typed ({mine})"
+        shot("forms-view-words-typing")
+        adb("shell", "input", "keyevent", "KEYCODE_DEL", "KEYCODE_DEL")
+        adb("shell", "input", "text", "pes")
+        looked = my_words_log("pes", dictionary="Found", timeout=15)
+        assert looked, "pes looked up in the dictionary"
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the keyboard down
+        time.sleep(1)
+        assert wait_for("V slovarju · In the dictionary", 5), "the dictionary's part"
+        shot("forms-view-words-search")
+        notes.append(f"Moje besede: {listed[1]} words; «ma» {mine[0]}; «pes» from the dictionary")
+        # a word opened from the list: its card, with its forms' overview a tap away
+        clear = find("✕")
+        if clear:
+            tap_at(clear)
+        if ime_top() is not None:
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the keyboard down, the screen stays
+            time.sleep(1)
+        row = scroll_to("hiša", swipes=6, exact=True)
+        assert row, "hiša in the list"
+        tap_at(row)
+        assert wait_for("hiša", 15) and sheet_find(FORMS_ALL), "hiša's card with 📋 Vse oblike"
+        time.sleep(1)
+        shot("forms-view-word")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        assert wait_for("Napredek · Progress", 8), "back to Napredek"
+    except Exception:
+        shot("forms-view-failed")
+        raise
+    finally:
+        go_home()
+    print("    " + "; ".join(notes))
 
 
 EX_WORDS = re.compile(r"ExWords\s*:\s*(\S+) (none|tap|hold) «(.*)»(?: (.*))?$")
@@ -6956,6 +7197,7 @@ def plan():
         ("word-forms", word_forms, go_home, False, ""),
         ("counting", counting_cards, go_home, False, ""),
         ("forms-card", forms_cards, go_home, False, ""),
+        ("forms-view", forms_view_step, go_home, False, ""),
         ("exercise-words", exercise_words, go_home, False, ""),
         ("exercise-explain", exercise_explain, go_home, False, ""),
         ("progress", progress, go_home, False, ""),
