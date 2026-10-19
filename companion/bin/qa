@@ -151,7 +151,12 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        "📤 Pošlji vozlišču", nothing sent with the developer setting off;
                        "data-sheet" "💾 Podatki · Data" (QA's hook "data"): git not connected, who writes, this phone's
                        id, the backup without a relay; "🔗 Poveži git" (the debug build has no GitHub client id: the
-                       token field only); nothing connected or sent
+                       token field only); nothing connected or sent;
+                       "tutor-live" the tutor in the app answering for real against the mock and the dev bridge's tutor
+                       session: the connection sheet's "🧑‍🏫 Učitelj · Tutor", "In the app", a fake key, attached; a chat
+                       whose reply streams into the chat (a screenshot mid-way) and stays, the dev tutor hearing nothing;
+                       a session's end with its reaction and record_session in the dev data; "Claude Code on my node"
+                       again, the dev tutor answering (LANI_QA_TUTOR_SHOTS: also copied there as tutor-live-*.png)
   --dry                print the plan (bridges, ports, the fixture town, the steps) and stop
   --bridges-only       no app: start both bridges, link them, check what a visit asks through the dev bridge, stop
   --no-town            no second town (the visit steps are skipped)
@@ -6873,6 +6878,146 @@ MATRIX_LANES = ["claude-haiku-5-5@medium", "claude-haiku-5-5@high", "claude-haik
                 "claude-opus-5-5@medium"]  # the matrix's default lanes (tutor/Matrix.kt MatrixSettings.DEFAULT_LANES)
 
 
+def dev_bridge(path: str, body=None, method=None):
+    """The dev bridge's API from this machine (127.0.0.1:PORT, the app's token): its JSON answer."""
+    data = None if body is None else json.dumps(body).encode()
+    req = urllib.request.Request(f"http://127.0.0.1:{PORT}{path}", data=data, method=method or ("POST" if body is not None else "GET"),
+                                 headers={"authorization": f"Bearer {TOKEN}", "content-type": "application/json"})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        return json.loads(r.read() or b"null")
+
+
+LIVE_KEY = "sk-ant-qa-live-fake-000000000000"  # QA's mock takes any key; never a real one
+TUTOR_SECTION = "Učitelj · Tutor"  # the connection sheet's section (l10n tutorLive.title)
+IN_THE_APP = "V aplikaciji · In the app"  # who answers (tutorLive.app)
+ON_THE_NODE = "Claude Code na mojem vozlišču · Claude Code on my node"  # (tutorLive.node)
+LIVE_READY = "The tutor in the app answers"  # its state line (tutorLive.state.IDLE, RUNNING …)
+AI_HERE = "Odgovarja umetna inteligenca"  # the chat's disclosure line (tutorLive.chatDisclosure)
+SLOW_REPLY_END = "Kako si danes?"  # the end of the mock's slow reply ([mock:slow])
+SCRATCH_SHOTS = os.environ.get("LANI_QA_TUTOR_SHOTS")  # also copied there as tutor-live-<name>.png
+
+
+def tutor_live():
+    """The tutor in the app answering for real (docs/plans/05-built/tutor-live.md), against QA's mock of the Messages API
+    (test/tutor-mock.ts, its slow reply: LANI_TUTOR_MOCK_SLOW_MS 300) and the dev bridge's tutor session: the connection
+    sheet's "🧑‍🏫 Učitelj · Tutor" section (Claude Code on the node at first), "In the app", a fake key checked and kept,
+    the app attached to the dev bridge's channel, "react at once" on; a chat sent ("[mock:slow]"): the dev bridge's canned
+    tutor (Claude Code here) never hears it, the mock's reply streams into the chat's bubble (a screenshot mid-way) and
+    stays as the final message, the chat says an AI answers; a session's end (as the app posts it) gets the mock's
+    reaction, and its record_session is in the dev data (the session log, the mistake); then "Claude Code on my node"
+    again: detached, a chat answered by the dev bridge's tutor once more."""
+    os.environ["LANI_TUTOR_MOCK_SLOW_MS"] = os.environ.get("LANI_TUTOR_MOCK_SLOW_MS", "300")
+    mock = start_tutor_mock()
+    def keep(name):
+        shot(f"tutor-live-{name}")
+        if SCRATCH_SHOTS:
+            Path(SCRATCH_SHOTS).mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], Path(SCRATCH_SHOTS) / f"tutor-live-{name}.png")
+    try:
+        qa_hook(f"tutorlive:{SHADOW_MOCK}")
+        session = dev_bridge("/tutor/session")
+        assert session.get("protocol") == 1 and session.get("attached") is None, f"the dev bridge's tutor session: {session.get('protocol')}"
+        open_connection_sheet()
+        assert scroll_to(TUTOR_SECTION, 12), "the Tutor section"
+        assert find(ON_THE_NODE), "who answers: Claude Code on the node at first"
+        keep("settings-node")
+        assert tap(IN_THE_APP, 4), "In the app"
+        assert scroll_to("sk-ant-…", 4), "the key's field"
+        field = find("sk-ant-…")
+        tap_at(field)
+        time.sleep(slow())
+        adb("shell", "input", "text", LIVE_KEY)
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+        assert tap("Preveri in shrani · Check and keep", 4), "the key's check"
+        assert wait_for(LIVE_READY, 20), "attached: the tutor in the app answers"
+        attached = dev_bridge("/tutor/session").get("attached") or {}
+        assert attached.get("who") == "app", f"the dev bridge's channel is the app's: {attached}"
+        assert scroll_to("React at once: off", 6) and tap("React at once: off", 3), "react at once"
+        assert wait_for("React at once: on", 5), "react at once on"
+        scroll_to(TUTOR_SECTION, 0)
+        to_top()
+        assert scroll_to(TUTOR_SECTION, 12), "the Tutor section again"
+        adb("shell", "input", "swipe", "540", "1500", "540", "900", "300")  # its chips and the key's line in view
+        time.sleep(1)
+        keep("settings")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+        go_home()
+
+        # a chat: the mock answers through the app, streamed; the dev bridge's tutor (Claude Code here) hears nothing
+        assert tap("Tvoj učitelj · Your tutor", 6), "the tutor bar"
+        assert wait_for("💬 Tvoj učitelj", 6), "the tutor chat"
+        assert wait_for(AI_HERE, 5), "the chat says an AI answers"
+        assert tap("Napiši…", 4), "the chat's field"
+        time.sleep(slow())
+        adb("shell", "input", "text", "Zivjo%s[mock:slow]")
+        time.sleep(0.5)
+        assert tap("Pošlji · Send", 4), "send"
+        midway = False
+        end = time.time() + 40 * slow()
+        while time.time() < end:
+            texts = [t for t, _ in nodes()]
+            if any(MOCK_TUTOR in t for t in texts) and not any(SLOW_REPLY_END in t for t in texts):
+                keep("streaming")
+                midway = True
+                break
+            if any(SLOW_REPLY_END in t for t in texts):
+                break
+            time.sleep(0.3)
+        assert midway, "the reply seen while it was written"
+        assert wait_for(SLOW_REPLY_END, 40), "the final reply in the chat"
+        time.sleep(1)
+        keep("reply")
+        assert not any(DEV_TUTOR in t for t, _ in nodes()), "Claude Code's (the dev tutor's) reply while the app's tutor answers"
+        reqs = mock_api("/mock/requests")
+        posts = [r for r in reqs if r.get("path") == "/v1/messages"]
+        assert posts and all(r.get("has_key") for r in posts), "the mock's calls, each with the key"
+        tools = [t.get("name") for t in (posts[0].get("body") or {}).get("tools", [])]
+        assert tools[:3] == ["reply", "guide", "learner_state"], f"phase A's tools in order: {tools[:5]}"
+
+        # a session's end, as the app posts it: the reaction at once, and record_session in the dev data
+        before = dev_bridge("/state")
+        sessions = len(((before.get("databases") or {}).get("session_log") or {}).get("sessions") or [])
+        dev_bridge("/message", {"kind": "session_end", "conversation_id": "main", "text": "Vaja končana · Practice finished",
+                                "data": {"module_id": "qa-live", "results": [{"exercise_index": 0, "correct": False, "answer": "Jaz je Jan."}]}})
+        assert wait_for("videl sem dogodek session_end", 40), "the reaction to the session's end in the chat"
+        keep("session-end")
+        after = dev_bridge("/state")
+        dbs = after.get("databases") or {}
+        log = (dbs.get("session_log") or {}).get("sessions") or []
+        assert len(log) > sessions and any(s.get("session_notes") == "A mock session." for s in log[-2:]), f"record_session in the dev data's session log ({len(log)} sessions)"
+        assert "mock_pattern" in ((dbs.get("mistakes_db") or {}).get("error_patterns") or {}), "the mistake in the dev data"
+        go_home()
+
+        # off: Claude Code on the node answers again
+        open_connection_sheet()
+        assert scroll_to(TUTOR_SECTION, 12), "the Tutor section"
+        assert tap(ON_THE_NODE, 4), "Claude Code on my node"
+        assert wait_for("Odgovarja Claude Code na vozlišču", 15), "detached"
+        assert dev_bridge("/tutor/session").get("attached") is None, "the dev bridge's channel is Claude Code's again"
+        keep("settings-off")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+        go_home()
+        assert tap("Tvoj učitelj · Your tutor", 6), "the tutor bar"
+        assert tap("Napiši…", 4), "the chat's field"
+        time.sleep(slow())
+        adb("shell", "input", "text", "Spet%sClaude")
+        time.sleep(0.5)
+        assert tap("Pošlji · Send", 4), "send"
+        assert wait_for(DEV_TUTOR, 20), "the dev bridge's tutor (Claude Code here) answers again"
+        assert find(AI_HERE) is None, "no AI line while Claude Code answers"
+        keep("claude-code-again")
+        (OUT / "tutor-live-mock-requests.json").write_text(json.dumps(mock_api("/mock/requests"), indent=1, ensure_ascii=False))
+        log = adb("logcat", "-d", "-s", "LiveTutor", check=False)
+        (OUT / "tutor-live-logcat.txt").write_text(log)
+        assert LIVE_KEY not in log, "the key in the log"
+    finally:
+        mock.terminate()
+        os.environ.pop("LANI_TUTOR_MOCK_SLOW_MS", None)
+
+
 def shadow_matrix():
     """The shadow's matrix (docs/plans/05-phase-0.md, "The matrix") against QA's mock: the panel's Matrix tab (the
     switch, the lanes' grid), turned on with the nine default lanes; a chat answered by the primary and by every lane at
@@ -7229,6 +7374,7 @@ def plan():
         ("shadow-matrix", shadow_matrix, go_home, False, ""),
         ("dev-upload", dev_upload, go_home, False, ""),
         ("data-sheet", data_sheet, go_home, False, ""),
+        ("tutor-live", tutor_live, go_home, False, ""),
     ]
 
 
