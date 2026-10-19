@@ -2,7 +2,8 @@
 
 *Started 2026-10-14 (Jan: "phase 0: your validations, phase *: implement all"). [Plan 5](05-in-app-tutor.md)'s
 phase 0: prototype and measure, and check what the plan marks "to verify". The results land here, and the plan
-changes where they say so.*
+changes where they say so. Updated 2026-10-19: phases A–D are built on these findings (plan 5, [What is
+built](05-in-app-tutor.md#what-is-built-2026-10-19)); the statuses below are brought up to date.*
 
 **Exit:** numbers per event kind; the quality compared (Haiku against Sonnet, the in-app tutor against today's);
 the estimate confirmed or replaced; the validators' engine chosen; the SDK or the plain client chosen.
@@ -27,11 +28,11 @@ the estimate confirmed or replaced; the validators' engine chosen; the SDK or th
 | 3 | **ElevenLabs:** `/with-timestamps` and request stitching (`previous_text`, `next_text`) on v4 Turbo | a few characters | Claude | done: both work |
 | 4 | **The validators in a JS engine:** the bridge's validators bundled; QuickJS and JavaScriptEngine in the app; the size, the start, a run per file; the same verdicts and messages as the bridge on the conformance corpus (every curated file and broken variants) | the emulator | Claude | done: QuickJS |
 | 5 | **The filler-name voice sample:** lines with the name (calls, closings, thanks, mid-phrase) in three voices, voiced with a filler and the name put in, next to today's whole takes | ~2,000 ElevenLabs characters | Claude makes it; Jan and the native check listen | on Jan's phone: to listen |
-| 6 | **The prototype:** the loop in the app behind a developer setting, in shadow mode on Jan's real events (reads through the paired bridge, writes dry-run, replies in a debug panel next to the real tutor's); usage, cost and latency per call, exported | — to build; the key to run | Claude | built: waits for the key |
-| 7 | **Two weeks of shadow mode:** Balanced, and Haiku against Sonnet on the same events | 6, the key | Jan uses the app | waits |
-| 8 | **Quality:** grading agreement with the app's verdicts and Jan's corrections; the Slovene feedback on a sample | 7 | Claude measures; the native check reads | waits |
+| 6 | **The prototype:** the loop in the app behind a developer setting, in shadow mode on Jan's real events (reads through the paired bridge, writes dry-run, replies in a debug panel next to the real tutor's); usage, cost and latency per call, exported | — to build; the key to run | Claude | built; on Jan's key since 2026-10-15 |
+| 7 | **Two weeks of shadow mode:** Balanced, and Haiku against Sonnet on the same events | 6, the key | Jan uses the app | running since 2026-10-15; the matrix since 2026-10-18 |
+| 8 | **Quality:** grading agreement with the app's verdicts and Jan's corrections; the Slovene feedback on a sample | 7 | Claude measures; the native check reads | a first pass 2026-10-18 (below); the native check waits |
 | 9 | **Memory:** the notebook and the day's thread against today's long session, the same days side by side | 7 | Claude; Jan judges | waits |
-| 10 | **The Java SDK against the plain client:** R8, the APK's size, streaming on Android 8+ | R8 merged | Claude | waits |
+| 10 | **The Java SDK against the plain client:** R8, the APK's size, streaming on Android 8+ | R8 merged | Claude | not run: the plain client is built and used (check 2's numbers) |
 | 11 | **The request to Anthropic** for signing in with the subscription | 1 (where to ask) | Claude drafts; Jan sends | drafted: Jan's call |
 
 ## Results
@@ -87,7 +88,9 @@ difference is the JSON parser's own wording for invalid JSON, compared on the ve
   call, memory limits and interrupts, ~450 KB. Fast enough: the slowest file takes tens of milliseconds against a
   tool call's seconds. JavaScriptEngine is faster on heavy files and smaller, but depends on the WebView's version,
   costs a second process of 40–80 MB, allows one sandbox per app, is asynchronous and can't run in JVM tests.
-  Fallback binding: Cash App's Zipline (2.4 MB per processor type).
+  Fallback binding: Cash App's Zipline (2.4 MB per processor type). *(2026-10-18: the whole bridge followed the
+  validators into QuickJS, with the Python scripts ported to TypeScript: plan 5, [One code
+  base](05-in-app-tutor.md#one-code-base-the-bridge-on-the-phone).)*
 - **How the app calls it:** one runtime on its own thread, made on first use; the file tools call `check(kind,
   text)` on each write of a known kind and turn a failure into `is_error`; the village's references set once and
   again when content changes; the culture files and the dictionary handed over only when a check needs them.

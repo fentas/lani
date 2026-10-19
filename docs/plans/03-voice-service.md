@@ -317,6 +317,31 @@ Turbo take (C), on Jan's phone for listening. What it showed:
 - **Waiting for:** Jan's and the native check's ears (A against B, C against B), and the Slovene of the two
   mid-phrase lines and the carriers.
 
+### Tried: Fish Audio Drama 3 on the local GPU (2026-10-19)
+
+A spike: can Fish Audio's open model Drama 3 voice Lani's lines locally, next to Gepard and Whisper? It voiced 25
+clips: 8 Slovene lines in two voices set by a description (an older woman, a young man), five with direction tags,
+four in English and German. No voice cloning.
+
+- **It runs** on the RX 9070 (ROCm) with the original FP8 weights: the dense layers on the GPU, the 30 GiB of routed
+  FP8 experts streamed from the checkpoint through a cache in VRAM (7.1 GiB at the peak, beside Gepard and Whisper;
+  2.4 GiB of RAM). It is **about 6–7 times slower than real time** (5.5 times for the generation, 6.8 with the codec on
+  the CPU): a 3-second line takes about 20 s, the first audio comes after about 7 s. So batch voicing overnight (about
+  2,700 clips in some 15 hours), never live lines in the app. Fish doesn't support ROCm: the patches that make it run
+  are ours to keep.
+- **Slovene is understandable, but accented.** Whisper hears most lines word for word, but with a South or West Slavic
+  colour (often Croatian beside Slovene in its language guess): "Dober" as "Dobar", "lj" and "nj" lost, one dual said
+  as a plural. English and German are clearly better.
+- **Voices drift without a reference:** the description sets the gender most of the time, but the timbre changes from
+  line to line, even with a fixed seed. A recurring character would need a reference clip (a recording made with
+  consent, or a take of the model's own used again: not tried).
+- **The license fits** (the Fish Audio Community License): free below US$500k of revenue a year; a product's own
+  characters are allowed (not a hosted text-to-speech service); "Built with Fish Audio" shown in the app or its docs;
+  no imitating a real person without consent; **no training other speech models on its output** (so no fine-tuning
+  Gepard on its clips); the outputs are ours.
+- **So: not a replacement for Gepard yet.** The judgement above comes from Whisper's transcripts and the pitch, not
+  from listening. **The native check is pending:** the stress, the schwa in "Dober", "lj" and "nj", the dual.
+
 ## Where the proof of concept runs
 
 - `lani.page` itself is the site (GitHub Pages); its subdomains for the dev setup resolve to a LAN address, the local

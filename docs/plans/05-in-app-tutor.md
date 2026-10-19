@@ -1,11 +1,15 @@
 # Plan 5: the tutor in the app
 
-*Status: draft, 2026-10-11, updated 2026-10-14. Jan's decisions of 2026-10-11 (below) change the hosted variant of
-[plan 1](01-public-availability.md): no Claude runs on our servers. The self-hosted mode stays as it is. Builds on
-[plan 3](03-voice-service.md) (glas, the voice service) and [plan 4](04-bridge-service.md) (the bridge as a service).
-The cost figures are estimates from Jan's tutor logs; a prototype measures them first (see [Phases](#phases)). The
-second round (2026-10-14) adds the model presets, the file tools, the optional git push, the reports as GitHub
-discussions, and what's left after all phases ([After all phases](#after-all-phases)).*
+*Status: built, 2026-10-19: phase 0 since 2026-10-14, phases A–D on 2026-10-18/19. Most of it is verified only against
+fakes, and most of the phases' exit criteria wait for real use (see [What is built](#what-is-built-2026-10-19) and
+[Phases](#phases)). Drafted 2026-10-11, updated 2026-10-14 and 2026-10-16, brought up to date with the build on
+2026-10-19: what the build changed is marked "as built", with the date, and the plan's earlier text is kept beside it.
+Jan's decisions of 2026-10-11 (below) change the hosted variant of [plan 1](01-public-availability.md): no Claude runs
+on our servers. The self-hosted mode stays as it is. Builds on [plan 3](03-voice-service.md) (glas, the voice service)
+and [plan 4](04-bridge-service.md) (the bridge as a service). The cost figures are estimates from Jan's tutor logs; a
+prototype measures them first (see [Phases](#phases)). The second round (2026-10-14) adds the model presets, the file
+tools, the optional git push, the reports as GitHub discussions, and what's left after all phases ([After all
+phases](#after-all-phases)).*
 
 Today the tutor is Claude Code in a terminal on Jan's machine. The app reaches it over Tailscale through the bridge (an
 MCP server and channel). That needs an always-on machine, a Claude subscription, Tailscale and a setup most learners
@@ -17,8 +21,9 @@ can't do. This plan adds a second mode where the app itself is the tutor's home:
   glas and the services beside it). No Claude instance runs on our side; there is no Tailscale and no node. Two ways to
   pay:
   - **BYOK** (bring your own key): the learner's own Claude API key from the Anthropic Console. They pay Anthropic.
+    *(As built, 2026-10-18: an Anthropic or an OpenAI key, or the learner's ChatGPT plan; see [Providers](#providers).)*
   - **Covered**: the learner pays us, and the app's API calls go through our SaaS, which holds our key. Whether we offer
-    it, and at what price, is decided by the measured cost.
+    it, and at what price, is decided by the measured cost. *(Dropped 2026-10-16.)*
 
 **The core of the design is a slim tutor.** Claude Code's tutor carries a 107k-token context on average (Claude Code's
 system prompt, about 60 tools, CLAUDE.md, the long session) and rewrites most of it after every pause. The in-app tutor
@@ -37,7 +42,70 @@ Today's tutor costs $4.39 a day on Opus 5.5.
 
 **The bigger job isn't the agent loop.** In the hosted mode the app loses its backend: the bridge serves the app 99 HTTP
 routes besides the tutor's 41 tools, about 25,000 lines of TypeScript. Most of that moves into the app (Kotlin) or the
-SaaS (see [The app's backend](#the-apps-backend-the-bridges-http-routes)).
+SaaS (see [The app's backend](#the-apps-backend-the-bridges-http-routes)). *(As built, 2026-10-18: none of it moved to
+Kotlin. The bridge runs in the app as it is, its TypeScript in QuickJS: see [One code
+base](#one-code-base-the-bridge-on-the-phone).)*
+
+## What is built (2026-10-19)
+
+Phases A–D were built on 2026-10-18 and 2026-10-19, in overnight rounds, on phase 0's findings
+([05-phase-0.md](05-phase-0.md)). Each area wrote a note in [05-built/](05-built/): what was built, how it was tested,
+and what's left. The notes are the detailed appendices of this plan.
+
+| Phase | What exists now | Verified against | The note |
+|---|---|---|---|
+| 0 | The shadow tutor on Jan's own key (since 2026-10-15): it watches and never acts. The matrix of models × efforts on the same events (since 2026-10-18), OpenAI's models too. QuickJS chosen for the validators, the plain HTTP client for the API. | **Real calls** on Anthropic; OpenAI's lanes not called yet | [05-phase-0.md](05-phase-0.md) |
+| A | **The live tutor:** the loop on the learner's own key, real replies streamed into the chat, the learner's data written. A setting: on a node it takes the bridge's channel from Claude Code (the bridge's `/tutor/*` routes) and gives it back. **The providers:** Anthropic, and OpenAI by key or by the learner's ChatGPT plan. | A scripted Messages API and the tutor mock, the emulator (QA); Anthropic's requests pinned byte for byte to the shadow's | [tutor-live.md](05-built/tutor-live.md), [providers.md](05-built/providers.md) |
+| A | **The bridge on the phone:** its TypeScript in QuickJS, in the app's process ([below](#one-code-base-the-bridge-on-the-phone)). The learner-data scripts in TypeScript beside the Python. **The hosted mode**, "☁️ Lani na tem telefonu · Lani on this phone": no node; the onboarding, export and import with a node, the rhythm as WorkManager work. | The JVM against the real bundle, a node's bridge against the phone's, a differential test against the Python, the emulator (x86_64) | [phone-runtime.md](05-built/phone-runtime.md), [db-port.md](05-built/db-port.md), [hosted-mode.md](05-built/hosted-mode.md) |
+| B | **Git sync** over GitHub's Git Data API, the lease, `lani handover` with its QR code, the town's own key, **the encrypted backup**. In the live tutor: a role-play's own thread, `level_up`. | Fakes only: an in-memory GitHub, a bare remote, a fake relay | [git-sync.md](05-built/git-sync.md) |
+| C | **The studio:** content jobs on the content model, sub-tasks, Message Batches, the file tools checked on write, local overrides of curated content; reports as GitHub discussions; the monthly cap. | A scripted API and the mock, fakes of the Batches API and of GitHub; QA on the emulator against a node | [studio.md](05-built/studio.md) |
+| D | **The relay** (towns, the family page, the backups) and the bridge's relay client. | Unit tests, and a smoke with a relay and three bridges on one machine | [relay.md](05-built/relay.md) |
+
+**What "verified" means here.** Only the shadow (phase 0) has made real model calls. The live tutor shares its loop
+and requests (`tutor/Core.kt`; `AnthropicWireTest` pins the request byte for byte), but nothing built on 2026-10-18/19
+has called a real model, GitHub or a hosted relay. The numbers are the x86_64 emulator's; an arm64 phone is likely
+2–4 times slower for QuickJS (to measure).
+
+**What needs Jan:**
+
+- **For git sync** (and the handover, the reports): a GitHub OAuth app with the device flow, its client id in the build,
+  or a pasted fine-grained token ([git-sync.md, "What Jan sets up"](05-built/git-sync.md#what-jan-sets-up)). A token
+  for the data repository alone can't post to `fentas/lani`'s discussions.
+- **Discussions turned on in `fentas/lani`,** with the categories "Content fixes" and "Ideas" ([Reports](#reports-github-discussions)).
+- **Hosting the relay** beside glas, and its address in the build (`lani.relayUrl`; [relay.md, "Hosting it
+  later"](05-built/relay.md#hosting-it-later)). Towns, the family page and the backup of a phone without a node wait
+  for it.
+- **A first real call per provider:** the live tutor on an Anthropic key, the Message Batches API, OpenAI on a key and
+  on the ChatGPT plan ([providers.md, "Not verified"](05-built/providers.md#not-verified-built-to-the-docs-shapes)).
+- **Real use** for the exit criteria: testers, a second phone, two towns over the hosted relay
+  ([Phases](#phases)). And the native check of the shadow's Slovene.
+
+### One code base: the bridge on the phone
+
+*As built, 2026-10-18. This replaces the plan's "a good part of the rest must exist in Kotlin" ([The app's
+backend](#the-apps-backend-the-bridges-http-routes)), the Kotlin port of `update-db.py` ([The Python scripts and the
+skills](#the-python-scripts-and-the-skills)), and open question 10's "Kotlin for what runs all the time (SM-2, the word
+lookups)".*
+
+- **The bridge's TypeScript runs on the phone,** in QuickJS (quickjs-kt, as phase 0's check 4 chose for the
+  validators), in the app's process. It is a node's bridge, built by the same builder (`build.ts`) on a platform of its
+  own: the same stores, features, routes, tools, channel and guide. The app calls its routes in-process (an OkHttp
+  interceptor for `http://phone.lani.invalid`), so the app's client code is the same as against a node.
+- **Node's built-ins are shimmed onto Kotlin host functions:** `node:fs` on file roots (the learner's data writable, the
+  unpacked content read-only), crypto (the town's P-256 key), `fetch` over OkHttp, timers on the host's event loop,
+  UTF-8, base64, gzip and ICU's collation. What a phone hasn't (the MCP server, the control socket, ffmpeg, the voice
+  engines, git) fails the build when a shared module imports it, or answers as on a machine without it.
+- **The Python scripts are ported to TypeScript** (`companion/bridge/src/db/`: read-db, update-db with SM-2, card,
+  validate-data, ensure_data_dir), line by line on a small layer of Python's semantics (ints and floats apart, dicts in
+  order, CPython's rounding and JSON). **A differential test** runs both on the same fixtures (704 runs of the five
+  scripts and about 12,000 cases of the building blocks) and wants the same exit codes, output and files, byte for
+  byte. The node keeps running the Python; the phone runs the twin.
+- **Kotlin keeps** what is the app's own: the agent loop and the providers, the screens, git sync, the backup, the keys.
+- **What it costs:** about +4.4 MB in the release APK (the content 3.5 MB compressed, the bundle 0.32 MB, QuickJS's
+  library 0.41 MB); a cold start to Home's data in 1.2–1.7 s on the emulator.
+- **Why** (the plan's own reasoning, open question 10): one code base. The validators and the routes change with every
+  feature; a Kotlin port would drift, and its error messages, which the tutor reads, would differ. Speed doesn't
+  decide: a route or a check takes milliseconds in the interpreter.
 
 ## Jan's decisions (2026-10-11)
 
@@ -66,7 +134,8 @@ SaaS (see [The app's backend](#the-apps-backend-the-bridges-http-routes)).
 - **We recommend, the learner sets:** the model **and the effort** per task, with presets as starting points and our
   recommendation marked (see [Presets](#presets)). The shadow's numbers make the recommendations.
 - **Open:** the voice SaaS (glas) for hosted learners needs accounts as well (the same GDPR and login questions): to
-  decide before phase A (open question 5).
+  decide before phase A (open question 5). *(As built, 2026-10-19: phase A went ahead without glas. The phone's own
+  text-to-speech speaks in the hosted mode until glas is hosted; the question stays open.)*
 
 ## Jan's decisions (2026-10-14)
 
@@ -182,6 +251,21 @@ pay per use, from prepaid credits.
   repository's work, in either mode.
 - **Where the data lives**, and how family and towns connect.
 
+**As built (2026-10-19), the hosted column differs in these places:**
+
+- **Claude access:** an Anthropic key, an OpenAI key, or the learner's ChatGPT plan ([Providers](#providers)), each
+  sealed in the Keystore.
+- **Where the tutor runs:** the loop in the app's Kotlin; the tools in the phone's own bridge, the bridge's TypeScript
+  in QuickJS. The same tools as Claude Code's, with the same names and effects, because they are the same code.
+- **Voice:** the phone's text-to-speech only, until glas is hosted.
+- **Setup:** install the app, "☁️ Lani na tem telefonu · Lani on this phone", a few questions, then a key or "Continue
+  with ChatGPT". No account with us.
+- **Content writing:** built (phase C, the studio).
+- **Towns and family:** through the relay, built but not hosted yet. Until then a phone without a node has no towns
+  and no family page.
+- **A third arrangement:** the tutor in the app on a node. A paired phone can take the node's channel from Claude Code
+  (a setting) and answer on the learner's key; the node keeps the data.
+
 ---
 
 ## Where we are
@@ -195,11 +279,30 @@ Android app ─HTTPS (Tailscale)─► bridge service (Bun) ◄─socket─ shim
                                   ├─ towns ◄──► other bridges; the family page
                                   └─ 99 HTTP routes for the app, 41 MCP tools for the tutor
 
-Hosted (this plan):
+Hosted (this plan, 2026-10-11):
 Android app: the tutor's loop, typed tools, the learner's data (the source of truth)
   ├─HTTPS─► Claude API (BYOK: the learner's key)
   │   or ─► SaaS proxy ─► Claude API (covered: our key)
   └─HTTPS─► SaaS: glas (clips, live lines), backup, relay (towns, family), reports
+```
+
+**As built (2026-10-19):**
+
+```
+Hosted:
+Android app (Kotlin): the tutor's loop and providers, the screens, git sync, the backup, the keys (Keystore)
+  ├─in-process─► the bridge: its TypeScript in QuickJS (PhoneBridge): the routes, the tools, the channel, the
+  │               validators, the dictionary, the learner-data scripts in TypeScript (read-db, update-db, card)
+  │               └─ the learner's data: <filesDir>/lani/data, a data repository's layout (the source of truth)
+  ├─HTTPS─► Anthropic (Messages, Message Batches), or OpenAI (Responses: a key, or the ChatGPT plan)
+  ├─HTTPS─► GitHub (optional: the data repository over the Git Data API; reports as discussions)
+  ├─HTTPS─► fran.si (dictionary_lookup)
+  └─HTTPS─► the relay (towns, the family page, the encrypted backup): built, not hosted yet
+  Voices: the phone's text-to-speech until glas is hosted
+
+Self-hosted, the tutor in the app (a setting):
+Android app: the tutor's loop on the learner's key ─HTTPS (Tailscale)─► the node's bridge: /tutor/* (the channel's
+  inbox, the same tools as Claude Code's); Claude Code hears nothing new until the app hands the channel back
 ```
 
 ### What the tutor costs today (measured)
@@ -252,6 +355,12 @@ hosted mode each tool is one of:
 - **SaaS**: its work is glas's;
 - **drop**: a tool for developers or the operator, or content that is ours to make, not the tutor's.
 
+*As built (2026-10-18/19): no tool was ported. The phone runs the bridge's own tools, and the app's tutor calls them
+through the bridge's `POST /tutor/tools/:name`, on a node or in-process, as Claude Code's calls run. The chat has phase
+A's 17 (and `request_content`); the studio (phase C) has the publishing tools, their `remove_*` and `rollback_module`.
+On the phone the voice tools answer that there are no voices on the device; the voice profiles work as on a node. The
+table below is the plan's.*
+
 | Feature | Tool | Hosted | Phase | Note |
 |---|---|---|---|---|
 | chat | `reply` | port | A | Still the only way the tutor speaks, in both modes. Its text streams into the chat sheet. |
@@ -300,6 +409,14 @@ Claude Code does these today with Python, files and the shell:
 
 So phase A's tutor has 17 tools: 10 ported, 7 new (with `card` as one tool).
 
+*As built (2026-10-19): the new tools are the app session's own tools on the bridge, with their specs in
+`companion/tutor/app-tools/*.json`, never in Claude Code's list. `learner_state`, `record_session` and `card` run the
+learner-data scripts (Python on a node, their TypeScript twin on the phone). The notebook is a file of the learner's
+data (`app/tutor/notebook.md`, with its last 20 versions). `report_problem` posts to GitHub discussions through the
+app when the learner has a GitHub sign-in, and writes the wishlist otherwise. `dictionary_lookup` is the app's: the
+bridge's dictionary and, for Slovene, fran.si's search page, as marked untrusted text. The studio adds
+`str_replace_based_edit_tool`, `search` and `studio_subtask` ([studio.md](05-built/studio.md)).*
+
 ### File tools
 
 What Claude Code does with Read, Edit and Write, over the learner's data folder only:
@@ -324,6 +441,12 @@ What Claude Code does with Read, Edit and Write, over the learner's data folder 
 - **The layout is the data repository's,** so the guide's topics for writing can stay close to the self-hosted
   skills' text.
 
+*As built (2026-10-19, [studio.md](05-built/studio.md)): the bridge carries the file tools out (`tutor-studio.ts`), on a
+node and on the phone, not the app. Writes go only to the tutor's content areas (`app/modules/`, `app/packs/`,
+`app/scenes/`, `app/stories/`, …), each file checked as its publish tool checks it; anywhere else is "not a file the
+tutor writes". Private files (keys, tokens, the lease, the inbox, the answers log, `.git/`) are never read. The six
+databases are read-only, as planned. `view` returns at most 16,000 characters.*
+
 **How the self-hosted mode validates today,** with the same validators (`validateModule`, `validatePack`,
 `validateScene`, `validateStory`, `validateVillager`, `validateArrival`, `validateGrammar`, `validateDrill`,
 `validateWorksheet`, …, in `companion/bridge/src`):
@@ -335,7 +458,7 @@ What Claude Code does with Read, Edit and Write, over the learner's data folder 
 
 A file Claude Code edits directly with its Edit tool passes only the second check. The hosted file tools, checked on
 write, are stricter. Both need the validators in the app: ported, or the bridge's own code in QuickJS (see [One source
-of truth](#one-source-of-truth)).
+of truth](#one-source-of-truth)). *(As built: the bridge's own code, in QuickJS, with the rest of the bridge.)*
 
 ### The channel's events
 
@@ -361,6 +484,13 @@ hosted mode:
 | `town_gift`, `town_question`, `town_answered`, `town_check`, `town_asked`, `town_answer` | Per kind | Through the SaaS relay | Haiku or Sonnet | D |
 | (the permission relay) | The app approves Claude Code's tool use | None: typed tools need no approval | | |
 
+*As built (2026-10-19): the table holds, with these changes. The app's tutor takes these events from the bridge's
+inbox, on a node or on the phone. `level_up` and the role-play kinds came with phase A. The content kinds
+(`villager_arrived`, `dialog_variants_heard`, `stories_low`) become studio jobs, and `gloss_gaps` goes overnight through
+Message Batches ([studio.md](05-built/studio.md)). On a bridge without the studio they stay unanswered in the inbox, and
+Claude Code gets them when the learner switches back. A digest is worth a call also for a long review with every answer
+right (20 or more) and for a pack's words learned (phase 0's quality pass).*
+
 ### The Python scripts and the skills
 
 | Script or skill | Hosted |
@@ -378,33 +508,45 @@ hosted mode:
 | `lani-learn`, `-vocab`, `-writing`, `-speaking`, `-reading`, `-review` | Drop at first: they are terminal sessions, and the app has its own exercises. Writing practice in the chat comes later. |
 | `lani-setup`, `lani-update` | Drop: the app's onboarding and app updates do their work. |
 
+*As built (2026-10-18/19, [db-port.md](05-built/db-port.md)): not a Kotlin port. `read-db.py`, `update-db.py`,
+`card.py`, `validate-data.py` and `ensure_data_dir.py` (with `lani_paths.py` and `lani_languages.py`) have a
+TypeScript twin in `companion/bridge/src/db/`, kept the same as the Python by a differential test. On the phone the
+bridge's `python3 .claude/hooks/<script>.py` spawns run the twin; a node keeps running the Python. `lani_data_repo.py`
+isn't dropped: the phone has git sync (GitHub's Git Data API, in the app), and the twin's `afterWrite` hook tells it what
+changed. The hooks of Claude Code are dropped, as planned. The skills became the guide's topics
+(`companion/tutor/guide/`) and the studio's prompt (`companion/tutor/studio-prompt.md`).*
+
 ### The app's backend: the bridge's HTTP routes
 
 The tools are the smaller part. The bridge serves the app 99 routes (counted per feature). Each goes to the app, to the
-SaaS, or nowhere:
+SaaS, or nowhere. The last column is what was built ([phone-runtime.md](05-built/phone-runtime.md),
+[hosted-mode.md](05-built/hosted-mode.md)):
 
-| Area | Routes today | Hosted |
-|---|---|---|
-| The learner's data and reviews | `/state`, `/reviews`, `/readings/done`, `/packs/:id/learn`, `/level`, `/words` | The app (the Kotlin port of `update-db.py`) |
-| Content | `/modules`, `/packs`, `/grammar`, `/drills`, `/scenarios`, `/scenes`, `/villagers`, `/arrivals`, `/stories`, `/readings`, `/culture`, `/cultures` | The app. Curated content becomes a versioned download (plan 1, Phase 0, item 6: about 10 MB of JSON today). The tutor's content stays on the phone. |
-| Words | `/lookup`, `/forms`, `/sentence`, `/lexicon/status` | The app: the dictionary download (Slovene, 1.8 MB built: `sl.json`) and the lookup code (`lexicon.ts`, `forms.ts`, `lexicon-meanings.ts`: about 1,900 lines) |
-| The game | `/game` | The app, which holds the state already. The sync goes away; the backup takes its place. |
-| Chat and events | `/message`, `/permission`, `/events`, `/events/backlog` | The app's loop |
-| Voice and STT | `/voice/*` (8), `/voice/offline/*` (4), `/stt` (3) | The SaaS (glas) and the phone |
-| Family | `/audio*`, `/family/api/*` (11) | The SaaS relay (phase D) |
-| Towns, friendship, questions | `/town/*`, `/towns/*` (32) | The SaaS relay (phase D) |
-| Pairing, releases | `/pair`, `/app/latest`, `/app/apk` | Drop: sign-in instead of pairing; Play or GitHub releases |
+| Area | Routes today | Hosted (the plan) | As built (2026-10-19) |
+|---|---|---|---|
+| The learner's data and reviews | `/state`, `/reviews`, `/readings/done`, `/packs/:id/learn`, `/level`, `/words` | The app (the Kotlin port of `update-db.py`) | The phone's bridge, the same routes; the scripts in TypeScript |
+| Content | `/modules`, `/packs`, `/grammar`, `/drills`, `/scenarios`, `/scenes`, `/villagers`, `/arrivals`, `/stories`, `/readings`, `/culture`, `/cultures` | The app. Curated content becomes a versioned download (plan 1, Phase 0, item 6: about 10 MB of JSON today). The tutor's content stays on the phone. | The phone's bridge. Curated content ships in the APK (549 files, 11.7 MB, 3.5 MB compressed) and is unpacked when the app's version changes. The tutor's content stays on the phone. |
+| Words | `/lookup`, `/forms`, `/sentence`, `/lexicon/status` | The app: the dictionary download (Slovene, 1.8 MB built: `sl.json`) and the lookup code (`lexicon.ts`, `forms.ts`, `lexicon-meanings.ts`: about 1,900 lines) | The phone's bridge: the same lookup code, the dictionary in the APK's content |
+| The game | `/game` | The app, which holds the state already. The sync goes away; the backup takes its place. | The phone's bridge, as on a node (`GET`, `PUT /game`) |
+| Chat and events | `/message`, `/permission`, `/events`, `/events/backlog` | The app's loop | The phone's bridge's channel; the app's tutor takes the events through `/tutor/*`. `/permission` answers 503 (no tool approvals). |
+| Voice and STT | `/voice/*` (8), `/voice/offline/*` (4), `/stt` (3) | The SaaS (glas) and the phone | No voices yet: `/voice/say` answers 204 and the phone's text-to-speech speaks; the phone's recognizer |
+| Family | `/audio*`, `/family/api/*` (11) | The SaaS relay (phase D) | The phone's bridge, reached through the relay (built, not hosted) |
+| Towns, friendship, questions | `/town/*`, `/towns/*` (32) | The SaaS relay (phase D) | The same |
+| Pairing, releases | `/pair`, `/app/latest`, `/app/apk` | Drop: sign-in instead of pairing; Play or GitHub releases | Not used: no pairing in the hosted mode, no release on the phone |
 
 The bridge is about 25,000 lines of TypeScript, 3,000 of them the voice store (`voice.ts`), which goes to glas. A good
 part of the rest must exist in Kotlin for the hosted mode. The app already parses and renders every content type, so
-the content's validation maps onto its models.
+the content's validation maps onto its models. *(Changed 2026-10-18: none of it exists in Kotlin. The whole bridge
+runs on the phone in QuickJS, the voice store included but unused: see [One code
+base](#one-code-base-the-bridge-on-the-phone).)*
 
 **Two ways to avoid two implementations drifting:**
 1. Port feature by feature, with a shared conformance corpus (below).
 2. Run the bridge's TypeScript logic (the validators, the lookups) in a small JavaScript engine inside the app, such as
    QuickJS (1–2 MB).
 
-Decide in the prototype, for the validators first.
+Decide in the prototype, for the validators first. *(Decided: the second, in phase 0 for the validators (check 4), then
+on 2026-10-18 for the whole bridge. So there is one implementation, not two.)*
 
 ### One source of truth
 
@@ -423,6 +565,22 @@ Decide in the prototype, for the validators first.
   The bridge's `channel_guide` joins them; the app's `guide(topic)` returns one.
   - Today's text names Python scripts and skills. The topics say *what* to do; the mode-specific *how* goes in short,
     marked lines.
+
+**As built (2026-10-19): one code base, so most of this isn't needed.** The phone runs the bridge itself
+([One code base](#one-code-base-the-bridge-on-the-phone)): the schemas, the validators, the tools and their specs, the
+channel's rules and the guide are the same code on a node and on the phone. What keeps the rest in step:
+
+- **The learner-data scripts:** Python on a node, TypeScript on the phone, the same by the differential test
+  ([db-port.md](05-built/db-port.md)). A change to one without the other fails the test.
+- **The tool specs and the guide for the app:** `companion/bridge/src/cli/tutor-export.ts` writes the bridge's tool
+  definitions and its guide's topics into `companion/tutor/` (`tools/`, `guide/`), with `--check` in the smoke. The app
+  session's own tools have their specs in `companion/tutor/app-tools/*.json`, read by the bridge and the app alike. A
+  test checks that the phone's bridge lists the same tools, in the same order, as a node exports.
+- **The conformance corpus** of phase 0's check 4 stays in the repository (`companion/bridge/test/conformance/`).
+- **Not made:** the JSON Schema files (`companion/schemas/`) and the tests of the app's Kotlin models against them.
+  With the bridge's own validators on the phone, the app doesn't validate content itself.
+- **A node's bridge against the phone's:** `PhoneBridgeNodeTest` runs both over the same content and data and wants the
+  same answers from the app's routes.
 
 ---
 
@@ -487,6 +645,12 @@ Decide in the prototype, for the validators first.
 
   The requests are the same.
 
+*As built (2026-10-14 to 10-18): the plain client (phase 0's check 2: the SDK's 39 MB core jar; the SDK's spike wasn't
+run). Above the transport, a provider layer (`TutorProvider`, 2026-10-18): a provider builds the request, streams the
+call and returns one normalized step (the text, the tool calls, the usage, the stop reason), with the errors in the
+same classes. Anthropic's Messages API and OpenAI's Responses API are the two built ([Providers](#providers),
+[providers.md](05-built/providers.md)). Covered was dropped.*
+
 ### Streaming into the chat sheet
 
 - Requests stream (`stream: true`).
@@ -497,6 +661,10 @@ Decide in the prototype, for the validators first.
 - *To verify:* how it feels. The alternative: the turn's final text is the reply to its conversation, and `reply` stays
   for structured data and other conversations.
 - A reply that comes while the chat is closed arrives as a notification, as now.
+
+*As built (2026-10-19): as planned, on both providers (the Messages API's `input_json_delta`, the Responses API's
+`function_call_arguments.delta`): `reply`'s text grows in the chat's typing bubble, and the bridge's `reply` event
+replaces it with the final message. A turn that ends in text without `reply` sends that text through `reply`.*
 
 ### Background work on Android
 
@@ -515,6 +683,12 @@ Decide in the prototype, for the validators first.
   Active app gets about 30 minutes of expedited work a day (no limit while charging, or while the app is in the
   foreground). So: each step well under 10 minutes, the long jobs while charging, and on Android 8–11 expedited work
   needs `getForegroundInfo`.
+
+*As built (2026-10-19):* the live tutor's check (`TutorWork`) runs every ~15 minutes while the app is away, and once
+when it leaves with a turn waiting: it reads the inbox and runs what waits for an answer, four minutes at most. In the
+hosted mode the rhythm is one-time WorkManager work at its next moment (`HostedWork`), which boots the phone's bridge
+in its own process. The studio's jobs run as `StudioWork`, at most eight minutes a run (on OpenAI the night's jobs
+while charging on Wi-Fi), with no expedited work and no foreground service.
 
 ### The API key
 
@@ -698,6 +872,13 @@ How it's kept:
 - **At the monthly cap:** only chats the learner sends, after asking. Never in the middle of a role-play.
 - **Covered:** the SaaS enforces the plan's budget (below).
 
+*As built (2026-10-19, [tutor-live.md](05-built/tutor-live.md), [studio.md](05-built/studio.md)): a daily cap ($1 by
+default) and a monthly cap ($20), checked before each call; the spend shown against both in the Tutor section. At the
+daily cap the turns wait for the next day or a raised cap, and the chat says so once a day: there is no brief mode.
+At the monthly cap only the learner's own chats and answers run, once they said "answer my messages anyway this
+month"; a role-play's line goes on. On the ChatGPT plan a call costs $0, and its API-equivalent price is kept beside
+it.*
+
 ---
 
 ## Model per task
@@ -829,6 +1010,47 @@ A Max learner's $100 of monthly credits covers even the all-Sonnet case.
 
 ---
 
+## Providers
+
+*As built, 2026-10-18 ([providers.md](05-built/providers.md)). Gemini and OpenRouter are being built (2026-10-19).*
+
+The plan was written for Claude alone. The loop now runs the same on any provider: a provider builds the request,
+streams the call and returns one normalized step, with the errors in the same classes (auth, rate limit, overload, the
+credit or the allowance out, a refusal). A thread never changes its model or its provider.
+
+| Provider | The API | Who pays | Small · mid · top | State |
+|---|---|---|---|---|
+| Anthropic | The Messages API; Message Batches for what can wait | The learner's own Console key (with a Max or Team plan's monthly API credits when the key is in the linked organization) | Haiku 5.5 · Sonnet 5.5 · Opus 5.5 | Built. Real calls in the shadow; the live tutor not yet on a real key |
+| OpenAI, a key | The Responses API (`store: false`, the reasoning items sent back encrypted) | The learner's own OpenAI key | GPT-6 Luna · GPT-6.1 Sol · GPT-6 Astra | Built to the docs; no real call yet |
+| OpenAI, "Sign in with ChatGPT" | The same, on the plan's route | The learner's ChatGPT plan (Plus or Pro), shared with their other apps: $0 a token in the app, the API-equivalent price shown beside it | The account's catalog | Built to the docs; no real call yet, the browser's sign-in not run on the emulator |
+| Google Gemini | | The learner's own key | | Being built |
+| OpenRouter | | The learner's own key | | Being built |
+
+- **Sign in with ChatGPT** is OpenAI's offer for open-source and locally hosted apps, open since DevDay (2026-09-29):
+  OAuth with PKCE against auth.openai.com, a loopback redirect on 127.0.0.1, the tokens sealed in the Keystore. Lani is
+  AGPL-3.0 and its loop runs on the learner's phone, so it fits; a paid or remotely hosted app needs OpenAI's approval
+  first. It is what Anthropic doesn't allow for a Claude subscription ([Why not another
+  way](#why-not-another-way-checked-2026-10-11)); the request to Anthropic is drafted and is Jan's call ([phase 0,
+  check 11](05-phase-0.md#check-11-signing-in-with-the-subscription)).
+- **The presets on another provider:** a preset's tier maps to the same tier of that provider's families. OpenAI's
+  effort is `reasoning.effort` at the levels each model takes; a turn at another level on a GPT-6 thread is a
+  `configuration_update`, which keeps the cache.
+- **Prices:** Luna costs what Haiku 5.5 costs, GPT-6.1 Sol what Sonnet 5.5 costs (its cache read at half), GPT-6 Astra
+  $10 in and $50 out a million tokens (2.5 times Opus 5.5). OpenAI's cache lasts at least 30 minutes, not 5.
+- **What differs by provider:** the caching (OpenAI's is automatic past 1,024 tokens), the file tool (Anthropic's
+  text editor by its type, a function tool on OpenAI), the batches (OpenAI's batch API needs its Files API, which the
+  plan's route doesn't have: on OpenAI the night's jobs wait for the phone to charge on Wi-Fi, at the full price).
+- **The matrix** (phase 0) runs OpenAI's lanes beside Anthropic's on the same events, to compare.
+
+**Jan's decisions** (2026-10-16, and the design of the overnight rounds, 2026-10-18):
+
+- **The learner picks** the provider, the model and the effort per task. The presets and our recommendation are a
+  starting point.
+- **No hosting of our own:** no proxy, no accounts or billing with us. The calls go from the phone to the provider.
+- **The learner's own key or plan:** an API key, or a plan the provider lets other apps use (the ChatGPT plan today).
+
+---
+
 ## The covered variant
 
 *Dropped (Jan, 2026-10-16): we don't host the tutor. Kept as what was considered.*
@@ -933,6 +1155,29 @@ A plan's cap falls back softly (to a cheaper model, digests once a day) instead 
 - **One mode at a time:** switching modes moves the data. There is no live two-way sync between a node and a phone.
   With git (below), the move is a handover in one repository.
 
+**As built (2026-10-19, [hosted-mode.md](05-built/hosted-mode.md)):**
+
+- **The phone's data** is `<filesDir>/lani/data`, with a node's data repository's layout, written by the phone's bridge
+  and its TypeScript scripts. The game state is the bridge's `app/game.json`, as on a node. The notebook is a file of
+  the data (`app/tutor/notebook.md`) in both modes, kept by the app's tutor through the bridge; Claude Code doesn't
+  write it. The chat archive, the spend ledger and the settings are the app's own files, outside the data.
+- **Not data:** voice clips; the curated content, which ships in the APK and is unpacked per app version (not a
+  download); the API keys and sign-ins (in the Keystore). The town's key and the family token sit in the data folder
+  but stay out of git and the export.
+- **The export** is `lani.export/v1`: a zip of the data's files and a manifest (`lani-export.json`: the side, the app,
+  the learner, the schema versions, each file's size and SHA-256), the same on the phone and on a node. It holds what a
+  commit of the data repository takes (the shared `.gitignore`), never the secrets; `lani export --with-secrets` adds
+  the town's key and the family token.
+- **The import** refuses a broken or foreign file (paths that escape, entries not in the manifest, a wrong hash, a newer
+  format: "update this app first"), checks every file with validate-data and read-db (the TypeScript twins), keeps what
+  was there (`data.before-import-<time>`, the newest three), and never takes the other side's lease or `.gitignore`. On
+  a node, `lani import <file>` does the same with the Python and commits; `--dry-run` and `--verify` only check.
+- **Moving between the modes:** "📥 Uvozi izvoz · Import an export" in the hosted setup, or "☁️ Preklopi na ta telefon ·
+  Switch to this phone" from a paired phone; back with "📤 Izvozi moje podatke · Export my data", `lani import` and "🖥️
+  Na svoj računalnik · To my own computer". Both ways say how the data moves first.
+- **Still open:** the chat archive isn't in the export (it lives outside the data). hosted-mode.md lists the notebook as
+  missing too; since the live tutor keeps it in the data, the export should carry it: to check.
+
 ### Git (optional)
 
 **Setup in the app:** tap "Connect git" → sign in with GitHub → pick a repository or create a private one.
@@ -951,6 +1196,21 @@ A plan's cap falls back softly (to a cheaper model, digests once a day) instead 
 - **History for free:** the data folder is a working copy, so each change the tutor makes is a commit. The learner
   gets a history and "undo the tutor's change".
 - **Restore:** a new phone clones. Unlike the encrypted backup, GitHub holds the data in the clear: both are offered.
+
+*As built (2026-10-18/19, [git-sync.md](05-built/git-sync.md)), opt-in, in "💾 Podatki · Data":*
+
+- **Sign-in:** GitHub's device flow with an OAuth app (its client id in the build; the `repo` scope) or a GitHub App
+  (narrower; its user tokens must not expire, as the app holds no client secret), or a pasted fine-grained token
+  (Contents: read and write, on the data repository alone). Without Jan's OAuth app only the pasted token works.
+- **Pushing:** GitHub's Git Data API, no JGit. A pull when the app comes to the front; a push 20 seconds after the last
+  write (at most 2 minutes after the first), a look every 2 minutes while the app is in front, a push when it goes to
+  the background. Fast-forward only: the same file changed on both sides, or a rewritten history, goes to a branch
+  (`lani/phone-<device>-<time>`) and waits for the learner's choice. Nothing is overwritten.
+- **What's in it:** what the shared `.gitignore` (`.claude/hooks/data-repo.gitignore`, the node's and the phone's) lets
+  through, the repository's own `.gitignore` first. The chat archive isn't in the data folder yet, so it isn't in git.
+- **GitHub's limits** are kept: an unchanged branch is a free 304, a used-up rate limit waits for its reset, a file over
+  50 MB stays on the phone.
+- **Verified only against fakes** (an in-memory GitHub, a bare remote), never the real GitHub.
 
 ### Switching modes through git
 
@@ -976,6 +1236,21 @@ same repository, switching is a handover, not an export:
     lines are voiced again when they're played.
 - **Without git,** export and import (above) still work.
 
+*As built (2026-10-18/19, [git-sync.md](05-built/git-sync.md#switching-node--phone--node)):*
+
+- **The lease** is `app/lease.json` (not `.lani/active.json`), with the bridge's other files. The holder renews it
+  once a day; it runs out 14 days after the last renewal, and a lease that ran out may be taken without a handover. A
+  data repository without a lease is the node's, as before: nothing changes until the first handover.
+- **Node → phone:** `lani handover` commits, offers the lease to the phone, pushes, and shows the QR code; the phone
+  scans it and takes over ("📥 Prevzemi podatke · Take over the data"). From then on the node only reads: `update-db.py`,
+  `card.py`'s writes, the commits and the bridge's write routes (423) and tools refuse, each saying how to take the data
+  back.
+- **Phone → node:** "🖥️ Predaj računalniku · Hand over to the computer", then `lani handover --take` (a fast-forward,
+  never a merge).
+- **A lost device:** "Take over anyway" in the app, `lani handover --take --force` on the node; the old side stops at
+  its next sync. A node whose history went apart keeps its commits on a branch.
+- **Writes from the other side** (a node writing stories for a hosted learner) aren't built: one writer at a time.
+
 ### The secrets at the handover: a QR code
 
 What the data repository's `.gitignore` keeps out: `app/bridge-key.pem` (the town's key: its fingerprint is the
@@ -999,15 +1274,31 @@ phone checks it. So the secrets travel over it, and the QR code carries only a o
 - **The town's key apart from the node's:** today one key is both the node's pairing identity and the town's id. A
   node taking over a hosted town would have to change its own identity. So the town gets its own key
   (`app/town-key.pem`); a node without one reads `bridge-key.pem` as before, and friends keep knowing the town.
+
+*As built (2026-10-18/19, [git-sync.md](05-built/git-sync.md#the-handovers-qr-code)): the town's own key as planned.
+The QR code differs: it carries the secrets themselves (the town key's private scalar, the family token, the data
+repository), encrypted with AES-256-GCM under a one-time key that is in the code too (one scan), valid 10 minutes. With
+`--code` the key comes from a 12-letter code typed on the phone instead, so a photo of the QR code alone opens nothing.
+The phone checks the town key against the fingerprint in the code; the CLI wipes the screen and its scrollback once
+the phone has it. The plan's one-time code fetched over the paired connection wasn't built. Not built either: a new
+node that never had the town (one born on the phone) getting its key ("Hosted → self-hosted" above). A node that
+handed its town over keeps its own key, so node → phone → node needs nothing.*
 - **Backup through the SaaS:**
   - encrypted on the phone: a key in the Keystore and a recovery code the learner keeps (or a passphrase);
   - daily, and after a session ends; several versions kept;
   - restored on a new phone with the recovery code. We hold only ciphertext.
+
+  *As built (2026-10-18/19, [git-sync.md](05-built/git-sync.md#the-encrypted-backup)): to the relay's backup API. A
+  recovery code (nine groups of four letters, shown once) or a passphrase makes the master secret; the data folder is
+  zipped (without the caches) and sealed with AES-256-GCM. Daily when the app goes to the background, and "💾 Back up
+  now"; the newest ten kept. The requests are signed with a key derived from the master secret, not the town key, so a
+  new phone finds and opens its backups with the code alone. Verified against a fake relay only; it waits for the relay
+  to be hosted.*
 - **Several devices** (a phone and a tablet) need a real sync with conflicts: later. At first, one active device per
   learner.
 - **Privacy:**
   - **BYOK:** the learner's text goes from the phone to Anthropic under the learner's own Console account. They are
-    Anthropic's customer; we see none of it.
+    Anthropic's customer; we see none of it. *(As built: or to OpenAI, under their own key or ChatGPT plan.)*
   - **Covered:** it passes through our proxy without being stored.
   - **Voice:** the shared namespace gets curated texts only; personal lines go to the learner's private namespace, with
     GDPR export and deletion (plan 3).
@@ -1021,22 +1312,29 @@ phone checks it. So the secrets travel over it, and the QR code carries only a o
   packs (plan 2). The tutor's own content (modules, packs, stories, readings, dialog variants, arrivals) comes in
   phase C.
 - **The tutor's edits to the repository:** CLAUDE.md, fixes to curated files, code. A wrong curated item becomes
-  `report_problem`, and we fix it for everyone.
+  `report_problem`, and we fix it for everyone. *(As built, phase C: a wrong module, scene, story or villager is also
+  fixed at once on the phone, as a local override that retires when the curated file changes; a pack, a reading or a
+  scenario gets a card fix and the report.)*
 - **The terminal sessions** (`/lani-learn` and the others): the app has its own exercises.
 - **What needs a server:**
 
-| Feature | Needs the SaaS | What it does there | Phase |
-|---|---|---|---|
-| Curated clips | Yes (glas) | `resolve`: signed URLs; the offline packs | A |
-| Live lines (role-play, the tutor's new lines) | Yes (glas `say`, the private namespace) | A quota per account. Plan 3's open question on ElevenLabs' OEM terms applies. | B |
-| Speech checks (STT) | Optional | The phone's recognizer first; Whisper in the SaaS later | A / later |
-| Backup and restore | Yes | Encrypted blobs | B |
-| Reports of wrong items | Yes | An inbox for us | A |
-| Towns: visits, friendship, trades, questions | Yes | A relay: each town's last public state (published by the phone), mailboxes, requests signed with the town's key, which the phone holds | D |
-| The family page, partner challenges | Yes | The page on lani.team and a mailbox; recordings in glas's private namespace | D |
-| Curated content, dictionaries | A download (GitHub releases or lani.page) | Versioned files | A |
-| App updates | No | Play, or the GitHub build's self-update | A |
-| Covered: the LLM proxy | Yes | A separate service | after A |
+| Feature | Needs the SaaS | What it does there | Phase | As built (2026-10-19) |
+|---|---|---|---|---|
+| Curated clips | Yes (glas) | `resolve`: signed URLs; the offline packs | A | **Open:** no clips on the phone. The phone's text-to-speech speaks until glas is hosted; the offline voice (Piper) and the day's clips are off in this mode. |
+| Live lines (role-play, the tutor's new lines) | Yes (glas `say`, the private namespace) | A quota per account. Plan 3's open question on ElevenLabs' OEM terms applies. | B | **Open:** the same |
+| Speech checks (STT) | Optional | The phone's recognizer first; Whisper in the SaaS later | A / later | The phone's recognizer |
+| Backup and restore | Yes | Encrypted blobs | B | Built, to the relay's backup API; waits for the relay to be hosted |
+| Reports of wrong items | Yes | An inbox for us | A | No SaaS: GitHub discussions, posted as the learner's own GitHub account (git sync's sign-in), the wishlist without one. Waits for Discussions in `fentas/lani`. |
+| Towns: visits, friendship, trades, questions | Yes | A relay: each town's last public state (published by the phone), mailboxes, requests signed with the town's key, which the phone holds | D | Built (relay.md); **open:** waits for the relay to be hosted |
+| The family page, partner challenges | Yes | The page on lani.team and a mailbox; recordings in glas's private namespace | D | Built: the relay serves the page and its API, the recordings stay on the town (the phone). **Open:** the same hosting |
+| Curated content, dictionaries | A download (GitHub releases or lani.page) | Versioned files | A | In the APK, unpacked when the app's version changes: no download |
+| App updates | No | Play, or the GitHub build's self-update | A | As planned |
+| Covered: the LLM proxy | Yes | A separate service | after A | Dropped (2026-10-16) |
+
+*Also open as built (2026-10-19, [hosted-mode.md](05-built/hosted-mode.md)):* the chat archive isn't in the export or
+in git (the notebook: to check, see [Data](#data)); a write made by a background job alone, in a process without the
+screens, reaches git only when the app comes to the front; the car ("🚗 Za pot") has only the phone's prompts, no
+clips; the numbers are the emulator's, not an arm64 phone's.
 
 ---
 
@@ -1047,22 +1345,43 @@ With every phase done, the hosted mode matches the self-hosted one for a learner
 
 ### What's left, and how it closes
 
-| Gap | How it closes | Phase |
-|---|---|---|
-| New scenes and villagers | The validators: scenes in an existing art with a stage, villagers with glas's voices. New art stays culture-pack content. | C |
-| Fixing curated content: a report instead of a fix | A local override: the fix applies on the phone at once, and the report goes out. The override retires when the upstream fix arrives. Cards already get fixed at once (`card`). | A (cards), C (the rest) |
-| No web (fran.si, research) | `dictionary_lookup`, fetched by the app; the API's web search for research beyond the dictionaries if wanted (its citations shown) | A |
-| Large writing jobs (a unit of the course, a set of stories) | The long jobs: steps saved, sub-tasks with their own threads, overnight while charging, Batches. The self-hosted tutor never runs the app's QA either (that's for code): in both modes the validators check its content. | C |
-| Reactions to reviews come in the digest | The "react at once" setting | A |
-| Several devices | The git lease lets a phone and a tablet take turns. Using both at once needs a sync. | B (turns), later (a sync) |
-| New voices are a request to us; live lines have a quota | By design: the voices are shared, and audio stays in the SaaS | |
-| Visits between a hosted and a self-hosted town | Self-hosted towns sit in a private tailnet, a hosted town only in the relay: neither reaches the other. A self-hosted bridge also publishes its town to the relay and checks its mailbox there (outgoing HTTPS only, like the phone). Requests are signed with the town's key either way, and bridge to bridge stays for neighbours on one tailnet. | D |
-| Edits to code and CLAUDE.md | Self-hosted only. Developing the app is the app repository's work in either mode. | |
+| Gap | How it closes | Phase | As built (2026-10-19) |
+|---|---|---|---|
+| New scenes and villagers | The validators: scenes in an existing art with a stage, villagers with glas's voices. New art stays culture-pack content. | C | **Closed in code:** the studio's publishing and file tools, each write validated. Tried with the mock only. Villagers' voices wait for glas. |
+| Fixing curated content: a report instead of a fix | A local override: the fix applies on the phone at once, and the report goes out. The override retires when the upstream fix arrives. Cards already get fixed at once (`card`). | A (cards), C (the rest) | **Closed** for modules, scenes, stories and villagers (the curated file's hash retires the override). Packs, readings and scenarios: a card fix and a report. |
+| No web (fran.si, research) | `dictionary_lookup`, fetched by the app; the API's web search for research beyond the dictionaries if wanted (its citations shown) | A | **Closed:** the bridge's dictionary and fran.si's search page. No web search. |
+| Large writing jobs (a unit of the course, a set of stories) | The long jobs: steps saved, sub-tasks with their own threads, overnight while charging, Batches. The self-hosted tutor never runs the app's QA either (that's for code): in both modes the validators check its content. | C | **Closed in code:** jobs saved step by step on the bridge, sub-tasks, WorkManager, Message Batches on Anthropic (on OpenAI the night's jobs wait for charging on Wi-Fi). Tried with fakes only. |
+| Reactions to reviews come in the digest | The "react at once" setting | A | **Closed** |
+| Several devices | The git lease lets a phone and a tablet take turns. Using both at once needs a sync. | B (turns), later (a sync) | Turns: built (the lease). A sync: open. |
+| New voices are a request to us; live lines have a quota | By design: the voices are shared, and audio stays in the SaaS | | **Open:** no voices on the phone until glas is hosted |
+| Visits between a hosted and a self-hosted town | Self-hosted towns sit in a private tailnet, a hosted town only in the relay: neither reaches the other. A self-hosted bridge also publishes its town to the relay and checks its mailbox there (outgoing HTTPS only, like the phone). Requests are signed with the town's key either way, and bridge to bridge stays for neighbours on one tailnet. | D | **Closed in code,** as planned (the local smoke: a self-hosted and two hosted towns). Waits for the relay to be hosted. |
+| Edits to code and CLAUDE.md | Self-hosted only. Developing the app is the app repository's work in either mode. | | By design |
+
+### Still open after the build (2026-10-19)
+
+- **Voices on the phone** are the phone's text-to-speech until glas is hosted (and its accounts for hosted learners
+  are decided: open question 5).
+- **Towns and the family page** of a phone without a node need the hosted relay. So does the encrypted backup.
+- **The export** doesn't carry the chat archive (the notebook: to check, see [Data](#data)).
+- **A background-only process's writes** (a job WorkManager started without the screens) reach git only when the app
+  comes to the front.
+- **Queued writes between towns:** the relay's tunnel reaches only a town that is there; a gift to a sleeping phone
+  fails as "unreachable" and the app retries ([relay.md](05-built/relay.md#whats-left)).
+- **The real services:** no real call yet to OpenAI, the Message Batches API, GitHub or a hosted relay, and the live
+  tutor not yet on a real key (see [What needs Jan](#what-is-built-2026-10-19)).
+- **Measuring:** the live tutor's day logs aren't exported or uploaded yet, so its cost per learner-day isn't measured;
+  no arm64 phone's numbers.
+- **The self-hosted tutor's reports:** the `lani-fix` and `lani-studio` skills still write the wishlist; only the app's
+  tutor posts discussions.
+- **A local voice engine:** the Drama 3 spike (2026-10-19) runs on a local GPU but isn't a replacement for Gepard yet
+  ([plan 3](03-voice-service.md#tried-fish-audio-drama-3-on-the-local-gpu-2026-10-19)).
 
 ### Quality after all phases
 
 - **The model is a choice, not a limit.** Best is Opus for everything, as today. Balanced depends on Haiku's Slovene,
-  which phase 0 measures on Jan's real events.
+  which phase 0 measures on Jan's real events. *(The first pass, 2026-10-18: Sonnet's chat about as correct as the real
+  tutor on plain grammar questions; Haiku's school summaries had wrong corrections in 3 of 7. Grading's model is
+  decided by the matrix's numbers; the native check waits.)*
 - **The prompt:** Claude Code carries a large prompt for coding; ours is made for tutoring. For tutoring, expect equal
   or better.
 - **Memory is the main risk.** Today's session holds days of detail until it compacts. The hosted tutor keeps the
@@ -1074,7 +1393,7 @@ With every phase done, the hosted mode matches the self-hosted one for a learner
   - prompt injection contained: no shell;
   - cheaper off Max, with the spend shown and capped;
   - the memory visible: the learner reads and corrects the notebook;
-  - easy to hand to others: install, paste a key;
+  - easy to hand to others: install, paste a key (or continue with a ChatGPT plan);
   - fixes to curated content reach every learner.
 
 ---
@@ -1109,6 +1428,15 @@ skills): 7 entries in Jan's by 2026-10-14, 5 fixes and 2 wishes. Only the develo
   `lani-fix` and `lani-studio` from the wishlist to this flow. Jan's 7 wishlist entries move by hand, after a check for
   personal details, or stay where they are.
 
+*As built (2026-10-19, [studio.md](05-built/studio.md#reports-as-github-discussions)), for the app's tutor in both
+modes:* the app posts as the learner's own GitHub account, through git sync's sign-in, not through a SaaS as Lani's
+GitHub App, so each learner's vote counts. It looks the title up, then shows "📣 Pošljem v Lanijeve razprave? · Send to
+Lani's discussions?" with what will be sent; "Send" votes or creates the discussion, and the link goes to
+`app/reports.json`. "No, keep it here", a failure, or no sign-in: the wishlist, as before. When an override retires, the
+report that named its item is marked resolved and the tutor says "the fix is in". **Waits for Jan:** Discussions turned
+on with the two categories, and a sign-in that can post to `fentas/lani` (the OAuth app; a fine-grained token for the
+data repository alone can't). Not tried against the real GitHub. Claude Code's skills still write the wishlist.*
+
 ---
 
 ## Phases
@@ -1122,6 +1450,20 @@ skills): 7 entries in Jan's by 2026-10-14, 5 fixes and 2 wishes. Only the develo
 | D | **Towns and family through the SaaS relay.** Self-hosted bridges publish their towns to the relay too. | Two hosted towns visit each other and trade, and a hosted and a self-hosted town. The family page works without a node. |
 | Later | **Several devices at once:** a sync. | |
 | ~~Covered~~ | Dropped (Jan, 2026-10-16): no proxy, plans or billing; the learner's own key only. | A closed beta with the measured cost per learner under the plan's price. |
+
+### Where the phases stand (2026-10-19)
+
+Every phase is built in code. Most exit criteria need real use: testers, a second phone, two towns over a hosted relay.
+
+| Phase | State | The exit criterion |
+|---|---|---|
+| 0 | Running. The shadow on Jan's key since 2026-10-15 (about $0.43 a day over its first four days, ~2 s to the first token); a quality pass on 2026-10-18 and its six fixes; the matrix since 2026-10-18. QuickJS and the plain client chosen. The SDK's spike not run; the request to Anthropic drafted, Jan's call. | **Partly met.** The engine and the client are chosen; first numbers and a first quality comparison are in. Open: the matrix's comparison (Haiku against Sonnet for grading), two full weeks, the memory side by side, the native check. |
+| A | Built 2026-10-18/19: the live tutor, the providers, the bridge on the phone, the scripts in TypeScript, the hosted mode with export and import. Reports as discussions came in phase C. Left: clips from glas (the phone's voice instead); the live tutor's logs exported for measuring. | **Not met.** Nobody uses it daily yet (Jan on a second profile, 2–3 testers, two weeks), so the cost per learner-day isn't measured. Export and import lose nothing in the tests (a round trip between the phone and a node), but the chat archive isn't in the export. |
+| B | Built 2026-10-18/19: git sync, the lease and the handover with its QR code, the town's own key, the encrypted backup; in the live tutor a role-play's own thread and `level_up`, and `publish_grammar` with the studio's tools (phase C). Left: live lines from glas. | **Not met.** Role-play's latency isn't measured on real calls. A restore on a second phone works against a fake relay; the switch node → phone → node against a fake GitHub and a bare remote. Needs the GitHub sign-in, the hosted relay and a second phone. |
+| C | Built 2026-10-19: the studio, the long jobs, Message Batches, the file tools checked on write, local overrides, the monthly cap. | **Partly met.** The conformance corpus is green, and the app runs the bridge's own validators. A broken file is refused with the validator's message (tests, QA). A tutor-made module plays on the emulator from the mock's job; not yet from a real model or a tester's tutor. |
+| D | Built 2026-10-18 as code, tests and an image: the relay, the bridge's relay client, the hosted mode's relay setting. Not hosted. | **Not met for real.** Met on one machine: a relay and three bridges (a self-hosted town and two with no address of their own) visit, trade and answer each other, and the family page works without a node. Needs the relay hosted and two phones. |
+| Later | Not built: one writer at a time, through the lease. | |
+| ~~Covered~~ | Dropped. | |
 
 ---
 
@@ -1145,7 +1487,9 @@ skills): 7 entries in Jan's by 2026-10-14, 5 fixes and 2 wishes. Only the develo
 - **Jan's decision of 2026-09-25,** "Hosted: we host everything, and the learner needs no token or key. This comes
   last", becomes the covered variant. BYOK comes first.
 - **The first-launch choice:** "🔗 Poveži svojega učitelja · Connect my own tutor" (the QR code) stays.
-  "☁️ Lani v oblaku · Lani cloud" becomes the tutor on the phone, with "my own key" or "a subscription".
+  "☁️ Lani v oblaku · Lani cloud" becomes the tutor on the phone, with "my own key" or "a subscription". *(As built,
+  2026-10-19: "☁️ Lani na tem telefonu · Lani on this phone", above the pairing; the tutor's step offers an Anthropic
+  or OpenAI key, or "Continue with ChatGPT".)*
 - **Kept as it is:** Phase 0, Variant 1, the constraints, the Play build items.
 
 **Plan 3:**
@@ -1170,13 +1514,19 @@ skills): 7 entries in Jan's by 2026-10-14, 5 fixes and 2 wishes. Only the develo
    organization their key belongs to. The credit terms: only the account's holder uses the credits (BYOK fits).
    And signing in with the subscription (Jan wants it): no route is published and the legal page doesn't permit it;
    the request goes through "contact sales" in phase 0 (the draft: [phase 0](05-phase-0.md), check 11).
-2. **The Java SDK on Android** (R8, APK size, streaming), or our own small client.
+2. **The Java SDK on Android** (R8, APK size, streaming), or our own small client. *Answered: our own small client
+   (phase 0, check 2), which the shadow and the live tutor use.*
 3. **The cost per learner in practice:** the prototype. Above all, the cold starts a day and the thread's size.
-4. **Haiku 5.5's Slovene:** grading, feedback, role-play, against Sonnet 5.5. Jan's wife checks a sample.
+   *First numbers: the shadow's primary about $0.43 a day over four days (2026-10-15 to 18); the matrix runs. The live
+   tutor's own cost isn't measured yet.*
+4. **Haiku 5.5's Slovene:** grading, feedback, role-play, against Sonnet 5.5. Jan's wife checks a sample. *First pass
+   (2026-10-18): Haiku's school summaries had wrong corrections in 3 of 7; the matrix decides grading's model.*
 5. **The SaaS's auth:** e-mail magic links, Google sign-in, Zitadel. Does BYOK need an account at all (voices,
    backup)? Do BYOK learners get the voices free, with a quota, or for a small fee? With the covered variant dropped
    (2026-10-16), the same GDPR and login questions decide whether hosted learners get glas at all, or the phone's own
-   voices and their own ElevenLabs key.
+   voices and their own ElevenLabs key. *As built (2026-10-19): the hosted mode has no account with us. The relay knows
+   a town by its key, and the backups by a key derived from the learner's recovery code. glas: still open (the phone's
+   own voice meanwhile).*
 6. **Play policies:**
    - an app where the user brings their own API key (they buy nothing from us);
    - the [AI-Generated Content policy](https://support.google.com/googleplay/android-developer/answer/14094294). It
@@ -1205,12 +1555,18 @@ skills): 7 entries in Jan's by 2026-10-14, 5 fixes and 2 wishes. Only the develo
     - **Decided in phase 0 (check 4):** the bridge's validators, bundled with bun, in **QuickJS** (quickjs-kt):
       1,702 of 1,702 corpus cases match the bridge, a file in milliseconds, ~450 KB of APK. Kotlin for what runs all
       the time (SM-2, the word lookups). See [phase 0](05-phase-0.md#check-4-the-validators-in-a-js-engine-2026-10-14).
+    - **Changed 2026-10-18:** not only the validators. The whole bridge runs in QuickJS on the phone, SM-2 and the
+      word lookups too, and the Python scripts have a TypeScript twin ([One code
+      base](#one-code-base-the-bridge-on-the-phone)).
 11. **The notebook in the self-hosted mode too?** Yes, if switching modes goes through git (see [Switching modes
-    through git](#switching-modes-through-git)): then both sides start where the other stopped.
+    through git](#switching-modes-through-git)): then both sides start where the other stopped. *In part, as built: the
+    notebook is a file of the learner's data in both modes, so it moves with git, and the app's tutor keeps it on a
+    node too. Claude Code doesn't read or write it yet.*
 12. **Can a hosted town and a self-hosted town visit each other?** Answered (2026-10-14): yes, when a self-hosted
     bridge publishes its town to the relay too (see [After all phases](#after-all-phases)). Phase D.
 13. **Hosted learners' votes on discussions:** posted by Lani's GitHub App, they count once. The SaaS's own count, or
-    the learner's own GitHub account (see [Reports](#reports-github-discussions))?
+    the learner's own GitHub account (see [Reports](#reports-github-discussions))? *Answered as built (2026-10-19): the
+    learner's own GitHub account, through git sync's sign-in.*
 14. **Several devices at once:** what the sync is. The answers log only grows, so it merges; the databases and the
     game state need rules, or to be rebuilt from the log.
-13. **The covered plans' prices,** from the prototype's numbers.
+15. **The covered plans' prices,** from the prototype's numbers. *Dropped with the covered variant (2026-10-16).*
