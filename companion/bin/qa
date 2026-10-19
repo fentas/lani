@@ -7414,10 +7414,14 @@ def hosted_home(timeout=60):
         if (c := next((c for t, c in ns if t == "Allow"), None)) is not None:
             adb("shell", "input", "tap", str(c[0]), str(c[1]))
         elif (c := next((c for t, c in ns if "Tu bo moja vas" in t), None)) is not None:
-            if not founded:
-                hosted_shot("founding")
             adb("shell", "input", "tap", str(c[0]), str(c[1]))
             founded = True
+        elif any("Kje bo tvoja vas" in t for t, _ in ns):
+            # the founding (ui/game/FoundingScreen): its button under the picture, below the screen's edge
+            if not founded:
+                hosted_shot("founding")
+            adb("shell", "input", "swipe", "540", "1700", "540", "700", "300")
+            time.sleep(1)
         elif any("Danes · Today" in t for t, _ in ns):
             return founded
         time.sleep(1)
@@ -7459,9 +7463,10 @@ def hosted():
     time.sleep(1)
     assert tap("kot ženska", 4), "as a woman"
     hosted_shot("onboarding")
-    found = scroll_to("Ustanovi mojo vas")
-    assert found, "found my village"
-    tap_at(found)
+    for _ in range(3):  # to the end of the questions: the button sits low, under the minutes a day
+        adb("shell", "input", "swipe", "540", "1600", "540", "800", "300")
+        time.sleep(0.8)
+    assert tap("Ustanovi mojo vas", 5), "found my village"
     assert wait_for("Še učitelj", 40), "the tutor's step"
     hosted_shot("tutor")
     assert tap("V mojo vas", 5), "to my village"
@@ -7495,11 +7500,18 @@ def hosted():
     assert tap("Začni", 3), "start from the intro"
     assert wait_for("Naprej · Next", 8), "word card"
     for _ in range(80):
-        if find("Jutri jih ponovimo"):
+        ns = [t for t, _ in nodes()]
+        if any("Jutri jih ponovimo" in t for t in ns):
             break
-        if find("Vadimo!"):
+        # Ana is a woman: the cards say "Vedela sem" (answer_any knows "Vedel sem")
+        knew = next((t for t in ns if t.endswith("Vedela sem") or t.endswith("Vedel sem")), None)
+        if any("Vadimo!" in t for t in ns):
             tap("Vadimo!", 3)
-        elif find("Naprej · Next") and not find("Preveri · Check"):
+        elif knew is not None:
+            tap(knew, 3)
+        elif any("Pokaži · Show" in t for t in ns):
+            tap("Pokaži · Show", 3)
+        elif any("Naprej · Next" in t for t in ns) and not any("Preveri · Check" in t for t in ns):
             tap("Naprej · Next", 3)
         else:
             try:
@@ -7515,9 +7527,15 @@ def hosted():
     qa_hook("review")
     assert wait_for("Ponavljanje", 10) or wait_for(DONE, 10) or find("Preveri · Check"), "the review"
     for _ in range(30):
-        if find("recalled"):
+        ns = [t for t, _ in nodes()]
+        if any("recalled" in t for t in ns):
             break
-        if find("Naprej · Next") and not find("Preveri · Check"):
+        knew = next((t for t in ns if t.endswith("Vedela sem") or t.endswith("Vedel sem")), None)
+        if knew is not None:
+            tap(knew, 3)
+        elif any("Pokaži · Show" in t for t in ns):
+            tap("Pokaži · Show", 3)
+        elif any("Naprej · Next" in t for t in ns) and not any("Preveri · Check" in t for t in ns):
             tap("Naprej · Next", 3)
         else:
             try:

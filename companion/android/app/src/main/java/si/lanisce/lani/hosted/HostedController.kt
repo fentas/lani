@@ -141,14 +141,14 @@ class HostedController(
             val aside = withContext(Dispatchers.IO) { DataExport.setAside(HostedRuntime.dataDir(context), "before-fresh") }
             HostedRuntime.say("a fresh start: the data before is in $aside")
         }
-        val (b, unpackMs) = HostedRuntime.create(context, token)
+        val made = HostedRuntime.create(context, token)
         try {
-            b.initLearner(answers.json())
+            made.bridge.initLearner(answers.json())
         } catch (e: Exception) {
-            withContext(Dispatchers.IO) { b.stop() }
+            withContext(Dispatchers.IO) { made.bridge.stop() }
             throw e
         }
-        HostedRuntime.adopt(b, unpackMs)
+        HostedRuntime.adopt(made)
         keep(token)
     }
 
@@ -156,8 +156,7 @@ class HostedController(
     suspend fun goOn(): Result<BridgeConfig> = work("create") {
         val token = PhoneBridge.randomToken()
         HostedRuntime.stop()
-        val (b, unpackMs) = HostedRuntime.create(context, token)
-        HostedRuntime.adopt(b, unpackMs)
+        HostedRuntime.adopt(HostedRuntime.create(context, token))
         keep(token)
     }
 
@@ -178,22 +177,22 @@ class HostedController(
             // the db port of the bridge that runs, or of one only loaded (nothing booted over the data yet)
             val running = HostedRuntime.bridge.takeIf { !starting }
             val loaded = if (running == null) HostedRuntime.create(context, token) else null
-            val checker = running ?: loaded!!.first
+            val checker = running ?: loaded!!.bridge
             val problems = try {
                 DataExport.checkData(staging) { checker.db(it) }
             } catch (e: Exception) {
-                loaded?.first?.let { withContext(Dispatchers.IO) { it.stop() } }
+                loaded?.bridge?.let { withContext(Dispatchers.IO) { it.stop() } }
                 throw e
             }
             if (problems.isNotEmpty()) {
-                loaded?.first?.let { withContext(Dispatchers.IO) { it.stop() } }
+                loaded?.bridge?.let { withContext(Dispatchers.IO) { it.stop() } }
                 throw DataExport.Problem(problems.take(3).joinToString("; "))
             }
             HostedRuntime.stop()
             val backup = withContext(Dispatchers.IO) { DataExport.replace(HostedRuntime.dataDir(context), staging) }
             HostedRuntime.say("imported ${manifest.files.size} files from ${manifest.fromSide} ${manifest.fromName} (${manifest.created}); the data before: $backup")
             if (loaded != null) {
-                HostedRuntime.adopt(loaded.first, loaded.second)
+                HostedRuntime.adopt(loaded)
             } else {
                 HostedRuntime.ensure()
             }

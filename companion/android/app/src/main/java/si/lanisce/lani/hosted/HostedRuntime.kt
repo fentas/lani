@@ -38,7 +38,7 @@ object HostedRuntime {
     @Volatile var bridge: PhoneBridge? = null
         private set
 
-    /** How the last boot went: the content's unpack, the bundle, the bridge's own boot, all of it (ms). */
+    /** How the last boot went: the content's unpack, the bundle, the bridge's own boot, from its making to up (ms). */
     data class BootInfo(val unpackMs: Double, val unpacked: Boolean, val loadMs: Double, val bootMs: Double, val fromBytecode: Boolean, val totalMs: Double)
 
     @Volatile var lastBoot: BootInfo? = null
@@ -97,38 +97,38 @@ object HostedRuntime {
         return lock.withLock { bridge ?: boot(ctx, config.token) }
     }
 
+    /** A bridge made by [create], not booted yet: when its making began, the content's unpack (whether it unpacked). */
+    class Made(val bridge: PhoneBridge, val unpackMs: Double, val unpacked: Boolean, internal val t0: Long)
+
     /**
      * A bridge over [ctx]'s data for [token], not booted: the onboarding makes the learner's data with it first
      * ([PhoneBridge.initLearner]), an import checks an export with its db port. [adopt] makes it the process's.
      */
-    suspend fun create(ctx: Context, token: String): Pair<PhoneBridge, Double> = withContext(Dispatchers.IO) {
+    suspend fun create(ctx: Context, token: String): Made = withContext(Dispatchers.IO) {
         init(ctx)
         val t0 = System.nanoTime()
         val (b, unpacked) = AppBridge.create(ctx, env = environment(), token = token, onDataWritten = { onWrite() })
         if (unpacked.unpacked) say("content unpacked: ${unpacked.files} files, ${unpacked.bytes / 1024} KB, ${"%.0f".format(unpacked.millis)} ms")
-        b to (System.nanoTime() - t0) / 1e6
+        Made(b, unpacked.millis, unpacked.unpacked, t0)
     }
 
-    /** [b] (made by [create]) booted and kept as the process's bridge. */
-    suspend fun adopt(b: PhoneBridge, unpackMs: Double = 0.0): PhoneBridge = lock.withLock {
-        bridge?.takeIf { it !== b }?.let { old -> withContext(Dispatchers.IO) { old.stop() } }
-        started(b, unpackMs, System.nanoTime())
+    /** [m] booted and kept as the process's bridge. */
+    suspend fun adopt(m: Made): PhoneBridge = lock.withLock {
+        bridge?.takeIf { it !== m.bridge }?.let { old -> withContext(Dispatchers.IO) { old.stop() } }
+        started(m)
     }
 
-    private suspend fun boot(ctx: Context, token: String): PhoneBridge {
-        val t0 = System.nanoTime()
-        val (b, unpackMs) = create(ctx, token)
-        return started(b, unpackMs, t0)
-    }
+    private suspend fun boot(ctx: Context, token: String): PhoneBridge = started(create(ctx, token))
 
-    private suspend fun started(b: PhoneBridge, unpackMs: Double, t0: Long): PhoneBridge = withContext(Dispatchers.IO) {
+    private suspend fun started(m: Made): PhoneBridge = withContext(Dispatchers.IO) {
+        val b = m.bridge
         val boot = try {
             b.start()
         } catch (e: Exception) {
             b.stop()
             throw e
         }
-        lastBoot = BootInfo(unpackMs, unpackMs > 0, boot.loadMs, boot.bootMs, boot.fromBytecode, (System.nanoTime() - t0) / 1e6)
+        lastBoot = BootInfo(m.unpackMs, m.unpacked, boot.loadMs, boot.bootMs, boot.fromBytecode, (System.nanoTime() - m.t0) / 1e6)
         say("the phone's bridge is up: ${lastBoot}")
         bridge = b
         b

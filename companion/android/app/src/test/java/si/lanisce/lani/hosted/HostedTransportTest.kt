@@ -71,7 +71,7 @@ class HostedTransportTest {
                 // the onboarding's answers, as the setup screen sends them: the data first, then the boot
                 created = bridge.initLearner("""{"name":"Ana","gender":"female","target":"sl","base":"de","level":"A2","goal":20}""")
                 HostedRuntime.onWrite = { written.incrementAndGet() }
-                HostedRuntime.adopt(bridge)
+                HostedRuntime.adopt(HostedRuntime.Made(bridge, 0.0, false, System.nanoTime()))
             }
             app = Bridge(BridgeConfig(PhoneTransport.BASE_URL, TOKEN))
         }

@@ -273,8 +273,11 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
      */
     var tutorReady by mutableStateOf(false)
     var openTutorSettings: (() -> Unit)? = null
-    /** When the view model began: the hosted mode's boot to Home is measured from here (the log, tag LaniHosted). */
-    private val startedAt = System.nanoTime()
+    /**
+     * When the view model began, or the onboarding finished: the hosted mode's way to Home is measured from here (the
+     * log, tag LaniHosted).
+     */
+    private var startedAt = System.nanoTime()
     private var homeTimed = false
 
     /** The app as the shadow's export names it: its id, version and build. */
@@ -559,6 +562,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     fun hostedReady(c: BridgeConfig) {
         setupHosted = false
         paired = null
+        startedAt = System.nanoTime()
+        homeTimed = false
         viewModelScope.launch {
             game.forgetLocal() // the phone's bridge has the village now (or none: the founding comes)
             connect(c)
@@ -618,7 +623,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         if (homeTimed || !hosted.active) return
         homeTimed = true
         val boot = si.lanisce.lani.hosted.HostedRuntime.lastBoot
-        si.lanisce.lani.hosted.HostedRuntime.say("home: ${"%.0f".format((System.nanoTime() - startedAt) / 1e6)} ms after the app started (the bridge: $boot)")
+        si.lanisce.lani.hosted.HostedRuntime.say("home: ${"%.0f".format((System.nanoTime() - startedAt) / 1e6)} ms after the app started or the onboarding ended (the bridge: $boot)")
     }
 
     fun refresh(): Job = launchSafely { reload() }

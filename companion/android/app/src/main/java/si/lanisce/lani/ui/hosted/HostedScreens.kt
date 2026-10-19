@@ -262,7 +262,7 @@ fun HostedSection(vm: AppViewModel, modifier: Modifier = Modifier) {
         }
     }
     Column(modifier, verticalArrangement = Arrangement.spacedBy(6.dp)) {
-        Text("☁️ ${bi("hosted.title")}", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
+        // the sheet's status line says "☁️ Lani na tem telefonu" already
         Text(bi("hosted.onPhoneLine"), style = MaterialTheme.typography.bodyMedium)
         Text(if (h.relayUrl.isBlank()) "🛰️ ${bi("hosted.noRelay")}" else "🛰️ ${bi("hosted.relayOn", "url" to h.relayUrl.removePrefix("https://"))}", style = MaterialTheme.typography.bodySmall, color = muted)
         when (h.busy) {
