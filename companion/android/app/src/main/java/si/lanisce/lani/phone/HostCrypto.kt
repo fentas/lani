@@ -94,33 +94,66 @@ object HostCrypto {
         false // a malformed key or signature verifies nothing, as node's verify answers false
     }
 
-    // --- d·G on a prime curve (affine, double and add): once per key, so plain BigInteger arithmetic does ---------------
+    // --- d·G on a prime curve: once per key, in Jacobian coordinates (no inverse per step: the one at the end) ---------
+    // Affine double-and-add took one modular inverse per step, about 2 s for a P-256 key on the emulator (the phone's
+    // bridge reads its key at every boot); this takes a few milliseconds.
 
-    private fun multiply(params: ECParameterSpec, d: BigInteger): ECPoint {
-        val p = (params.curve.field as ECFieldFp).p
-        val a = params.curve.a
-        var result: ECPoint = ECPoint.POINT_INFINITY
-        var addend = params.generator
-        for (i in 0 until d.bitLength()) {
-            if (d.testBit(i)) result = add(result, addend, a, p)
-            addend = add(addend, addend, a, p)
-        }
-        return result
+    /** A point (X/Z², Y/Z³); Z = 0 is the point at infinity. */
+    private class Jacobian(val x: BigInteger, val y: BigInteger, val z: BigInteger) {
+        val infinite: Boolean get() = z.signum() == 0
     }
 
-    private fun add(s: ECPoint, t: ECPoint, a: BigInteger, p: BigInteger): ECPoint {
-        if (s == ECPoint.POINT_INFINITY) return t
-        if (t == ECPoint.POINT_INFINITY) return s
-        val (x1, y1) = s.affineX to s.affineY
-        val (x2, y2) = t.affineX to t.affineY
-        val lambda = if (x1 == x2) {
-            if ((y1 + y2).mod(p) == BigInteger.ZERO) return ECPoint.POINT_INFINITY
-            (x1.pow(2).multiply(BigInteger.valueOf(3)) + a).multiply((y1.shiftLeft(1)).modInverse(p)).mod(p)
-        } else {
-            (y2 - y1).multiply((x2 - x1).modInverse(p)).mod(p)
+    private val INFINITY = Jacobian(BigInteger.ONE, BigInteger.ONE, BigInteger.ZERO)
+    private val TWO = BigInteger.valueOf(2)
+    private val THREE = BigInteger.valueOf(3)
+    private val EIGHT = BigInteger.valueOf(8)
+
+    internal fun multiply(params: ECParameterSpec, d: BigInteger): ECPoint {
+        val p = (params.curve.field as ECFieldFp).p
+        val a = params.curve.a.mod(p)
+        val g = params.generator
+        var result = INFINITY
+        var addend = Jacobian(g.affineX, g.affineY, BigInteger.ONE)
+        for (i in 0 until d.bitLength()) {
+            if (d.testBit(i)) result = add(result, addend, a, p)
+            addend = double(addend, a, p)
         }
-        val x3 = (lambda.pow(2) - x1 - x2).mod(p)
-        val y3 = (lambda.multiply(x1 - x3) - y1).mod(p)
-        return ECPoint(x3, y3)
+        if (result.infinite) return ECPoint.POINT_INFINITY
+        val zInv = result.z.modInverse(p)
+        val zInv2 = zInv.multiply(zInv).mod(p)
+        return ECPoint(result.x.multiply(zInv2).mod(p), result.y.multiply(zInv2).multiply(zInv).mod(p))
+    }
+
+    private fun double(s: Jacobian, a: BigInteger, p: BigInteger): Jacobian {
+        if (s.infinite || s.y.signum() == 0) return INFINITY
+        val y2 = s.y.multiply(s.y).mod(p)
+        val sv = s.x.multiply(y2).shiftLeft(2).mod(p) // 4·X·Y²
+        val z2 = s.z.multiply(s.z).mod(p)
+        val m = s.x.multiply(s.x).multiply(THREE).add(a.multiply(z2.multiply(z2))).mod(p) // 3·X² + a·Z⁴
+        val x3 = m.multiply(m).subtract(sv.multiply(TWO)).mod(p)
+        val y3 = m.multiply(sv.subtract(x3)).subtract(y2.multiply(y2).multiply(EIGHT)).mod(p)
+        val z3 = s.y.multiply(s.z).shiftLeft(1).mod(p)
+        return Jacobian(x3, y3, z3)
+    }
+
+    private fun add(s: Jacobian, t: Jacobian, a: BigInteger, p: BigInteger): Jacobian {
+        if (s.infinite) return t
+        if (t.infinite) return s
+        val z1s = s.z.multiply(s.z).mod(p)
+        val z2s = t.z.multiply(t.z).mod(p)
+        val u1 = s.x.multiply(z2s).mod(p)
+        val u2 = t.x.multiply(z1s).mod(p)
+        val s1 = s.y.multiply(z2s).multiply(t.z).mod(p)
+        val s2 = t.y.multiply(z1s).multiply(s.z).mod(p)
+        if (u1 == u2) return if (s1 == s2) double(s, a, p) else INFINITY
+        val h = u2.subtract(u1).mod(p)
+        val r = s2.subtract(s1).mod(p)
+        val h2 = h.multiply(h).mod(p)
+        val h3 = h2.multiply(h).mod(p)
+        val u1h2 = u1.multiply(h2).mod(p)
+        val x3 = r.multiply(r).subtract(h3).subtract(u1h2.multiply(TWO)).mod(p)
+        val y3 = r.multiply(u1h2.subtract(x3)).subtract(s1.multiply(h3)).mod(p)
+        val z3 = h.multiply(s.z).multiply(t.z).mod(p)
+        return Jacobian(x3, y3, z3)
     }
 }

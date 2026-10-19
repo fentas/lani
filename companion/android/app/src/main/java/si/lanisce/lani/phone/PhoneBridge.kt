@@ -412,7 +412,13 @@ class PhoneBridge(private val config: Config) : Closeable {
         function("hash") { a -> HostCrypto.hash(a[0].str(), a[1].bytes() ?: ByteArray(0)) }
         function("hmac") { a -> HostCrypto.hmac(a[0].str(), a[1].bytes() ?: ByteArray(0), a[2].bytes() ?: ByteArray(0)) }
         function("ecGenerate") { _ -> HostCrypto.ecGenerate() }
-        function("ecPublic") { a -> HostCrypto.ecPublic(a[0].str()) }
+        function("ecPublic") { a ->
+            val t0 = System.nanoTime()
+            HostCrypto.ecPublic(a[0].str()).also {
+                val ms = (System.nanoTime() - t0) / 1e6
+                if (ms > 20) log("info", "phone bridge: a key's public point took ${"%.0f".format(ms)} ms")
+            }
+        }
         function("ecSign") { a -> HostCrypto.ecSign(a[0].str(), a[1].bytes() ?: ByteArray(0)) }
         function("ecVerify") { a -> HostCrypto.ecVerify(a[0].bytes() ?: ByteArray(0), a[1].bytes() ?: ByteArray(0), a[2].bytes() ?: ByteArray(0)) }
         // text and bytes
