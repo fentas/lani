@@ -262,9 +262,11 @@ Screenshot: `data-sheet.png` in the round's scratchpad (the emulator, the defaul
 
 ## What's left
 
-- **The hosted mode's side** (another agent's): its bridge must run the lease guard as the phone (`LANI_SIDE=phone`,
-  `LANI_LEASE_DEVICE=<DataSync.settings.device>`, or ask `DataSync.mayWrite`), call `DataSync.touched()` after its
-  writes and read again on `DataSync.onPulled`. Until the hosted mode is on, a phone that took the data over still talks
+- **The hosted mode's side** (another agent's): the guard is in the bridge's one builder (`build.ts`: the Ctx's
+  `lease`, `guardTools`, `guardRoutes` around `appApi`'s routes and the relay's), so the phone's bridge has it too; the
+  hosted setup sets `LANI_SIDE=phone` and `LANI_LEASE_DEVICE=<DataSync.settings.device>` in its environment (until then
+  the phone's bridge counts as a node: with no lease file, as now, it writes), calls `DataSync.touched()` after its
+  writes and reads again on `DataSync.onPulled`. Until the hosted mode is on, a phone that took the data over still talks
   to the node, which answers its writes with 423: the app keeps them queued (the outbox retries a 423) until the lease
   or the mode changes.
 - **The way back's secrets to a new node:** a node that never had the town (a town born on the phone) needs its key.
