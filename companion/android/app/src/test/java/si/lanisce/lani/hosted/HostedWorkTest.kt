@@ -74,17 +74,17 @@ class HostedEnvironmentTest {
         val home = Files.createTempDirectory("lani-env").toFile()
         try {
             // no sync settings yet: the phone's side, no device, no relay (the build's is empty)
-            assertEquals(mapOf("LANI_SIDE" to "phone"), HostedRuntime.phoneEnvironment(home, buildRelay = ""))
+            assertEquals(mapOf("LANI_SIDE" to "phone", "LANI_STORIES_CHECK_DELAY_MS" to "20000"), HostedRuntime.phoneEnvironment(home, buildRelay = ""))
             // the build's relay: towns and the family page through it
             assertEquals(
-                mapOf("LANI_SIDE" to "phone", "LANI_RELAY_URL" to "https://relay.example", "LANI_TOWN_URL" to "relay"),
+                mapOf("LANI_SIDE" to "phone", "LANI_STORIES_CHECK_DELAY_MS" to "20000", "LANI_RELAY_URL" to "https://relay.example", "LANI_TOWN_URL" to "relay"),
                 HostedRuntime.phoneEnvironment(home, buildRelay = "https://relay.example/"),
             )
             // the sync's device id, and the relay set on the phone over the build's
             File(home, "sync").mkdirs()
             File(home, "sync/settings.json").writeText("""{"device":"p_0a1b2c3d","relay":"https://mine.example"}""")
             assertEquals(
-                mapOf("LANI_SIDE" to "phone", "LANI_LEASE_DEVICE" to "p_0a1b2c3d", "LANI_RELAY_URL" to "https://mine.example", "LANI_TOWN_URL" to "relay"),
+                mapOf("LANI_SIDE" to "phone", "LANI_STORIES_CHECK_DELAY_MS" to "20000", "LANI_LEASE_DEVICE" to "p_0a1b2c3d", "LANI_RELAY_URL" to "https://mine.example", "LANI_TOWN_URL" to "relay"),
                 HostedRuntime.phoneEnvironment(home, buildRelay = "https://relay.example"),
             )
         } finally {

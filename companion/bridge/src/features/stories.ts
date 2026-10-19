@@ -142,7 +142,13 @@ export const stories: FeatureFactory = ({ stories, scenes, packs, villagers, eve
     routes: [{ method: 'GET', path: '/stories', addressed: true, handle: () => json(stories.resolved()) }],
     start: () => {
       game.onWrite(doc => void checkLow(doc).catch(e => log(`stories_low: ${(e as Error).message}`)))
-      void checkLow(game.read()).catch(e => log(`stories_low: ${(e as Error).message}`))
+      const first = () => void checkLow(game.read()).catch(e => log(`stories_low: ${(e as Error).message}`))
+      // the phone's bridge checks a while after its start, not in it (LANI_STORIES_CHECK_DELAY_MS): the check resolves
+      // every story against the packs and the cast, which in QuickJS took a second of the boot before the app's first
+      // screen; a node checks at once, as before. It asks at most once a day anyway.
+      const delay = Number(process.env.LANI_STORIES_CHECK_DELAY_MS ?? 0)
+      if (delay > 0) setTimeout(first, delay)
+      else first()
     },
     tools: [
       {

@@ -65,6 +65,8 @@ object HostedRuntime {
         val relay = settings?.relay?.takeIf { it.isNotBlank() } ?: buildRelay
         return buildMap {
             put("LANI_SIDE", "phone")
+            // the stories' daily check a while after the boot, not in it (features/stories.ts): Home comes first
+            put("LANI_STORIES_CHECK_DELAY_MS", "20000")
             settings?.device?.takeIf { it.isNotBlank() }?.let { put("LANI_LEASE_DEVICE", it) }
             if (relay.isNotBlank()) {
                 put("LANI_RELAY_URL", relay.trimEnd('/'))
