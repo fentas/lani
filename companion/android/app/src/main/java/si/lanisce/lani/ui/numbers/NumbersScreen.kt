@@ -85,7 +85,7 @@ fun NumbersScreen(vm: AppViewModel, at: Screen.Numbers) {
     LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 32.dp)) {
         item { GradientHeader("🔢 ${bi("numbers.title")}", bi("numbers.about"), back, onBack = leave) }
         if (lock != null) {
-            item { Locked(vm, lock, unitTitle) }
+            item { Locked(vm, lock, unitNamed(unit, NumbersPractice.UNIT)) }
         } else {
             item {
                 Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -107,6 +107,10 @@ fun NumbersScreen(vm: AppViewModel, at: Screen.Numbers) {
     }
 }
 
+/** A unit's title in each half of a label (its own language's: "»Ena ovca, dve ovci, pet ovc« · “Numbers: one sheep …”"), else its [id]. */
+private fun unitNamed(unit: si.lanisce.lani.data.CourseUnit?, id: String) =
+    si.lanisce.lani.l10n.Localized { l -> unit?.let { si.lanisce.lani.data.Grammar.text(it.title, l.code) } ?: id }
+
 @Composable
 private fun SectionTitle(text: String) {
     Text(text, style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 12.dp, bottom = 4.dp).semantics { heading() })
@@ -117,7 +121,7 @@ private fun SectionTitle(text: String) {
  * what begins the class and leads there). Under it, what the module asks, greyed.
  */
 @Composable
-private fun Locked(vm: AppViewModel, lock: NumbersPractice.Lock, unitTitle: String) {
+private fun Locked(vm: AppViewModel, lock: NumbersPractice.Lock, unitTitle: si.lanisce.lani.l10n.Localized) {
     Card(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
         modifier = Modifier.fillMaxWidth().padding(16.dp),
@@ -202,8 +206,8 @@ private fun Modes(vm: AppViewModel, hasRange: Boolean) {
                 m == NumberMode.HEAR -> bi("numbers.needs.voice")
                 m == NumberMode.SAY -> bi("numbers.needs.listen")
                 m == NumberMode.TIME_HEAR && NumbersPractice.TIME_PAGE in vm.numbers.introduced() -> bi("numbers.needs.voice")
-                m == NumberMode.TIME_HEAR || m == NumberMode.TIME_WRITE -> bi("numbers.needs.unit", "unit" to (clockUnit?.titleShown(L10n.pair) ?: NumbersPractice.TIME_UNIT))
-                else -> bi("numbers.needs.unit", "unit" to (vm.school.unit(NumbersPractice.UNIT)?.titleShown(L10n.pair) ?: NumbersPractice.UNIT))
+                m == NumberMode.TIME_HEAR || m == NumberMode.TIME_WRITE -> bi("numbers.needs.unit", "unit" to unitNamed(clockUnit, NumbersPractice.TIME_UNIT))
+                else -> bi("numbers.needs.unit", "unit" to unitNamed(vm.school.unit(NumbersPractice.UNIT), NumbersPractice.UNIT))
             }
             Row(Modifier.fillMaxWidth().heightIn(min = 40.dp).semantics(mergeDescendants = true) {}, verticalAlignment = Alignment.CenterVertically) {
                 Text(m.emoji, style = MaterialTheme.typography.titleMedium, modifier = Modifier.clearAndSetSemantics {})

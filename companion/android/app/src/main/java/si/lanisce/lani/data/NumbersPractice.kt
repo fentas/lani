@@ -580,7 +580,7 @@ object NumbersPractice {
         val w = words(n)
         val low = n % 100
         return when {
-            n < 11 -> inBase("numbers.why.plain", "n" to n, "word" to w)
+            n < 11 || n == 20 -> inBase("numbers.why.plain", "n" to n, "word" to w)
             n < 20 -> inBase("numbers.why.teen", "n" to n, "word" to w)
             n < 100 && low % 10 == 0 -> inBase("numbers.why.tens", "n" to n, "word" to w)
             n < 100 -> inBase("numbers.why.compound", "n" to n, "word" to w, "ones" to words(low % 10), "tens" to words(low - low % 10), "o" to low % 10, "t" to low - low % 10)
