@@ -182,8 +182,10 @@ fun ChatSheet(vm: AppViewModel) {
     }
 
     // the in-app tutor's reply as it's written grows in the typing bubble: the list follows it
-    LaunchedEffect(chat.messages.size, chat.typing, chat.streaming != null) {
-        val last = rows.size + if (chat.typing || chat.streaming != null) 1 else 0
+    // the studio's cards (a job being written, a report to confirm) come after the messages: the list shows them too
+    val studioRows = if (vm.live.settings.on) si.lanisce.lani.ui.tutor.studioItemCount(vm.live) else 0
+    LaunchedEffect(chat.messages.size, chat.typing, chat.streaming != null, studioRows) {
+        val last = rows.size + studioRows + if (chat.typing || chat.streaming != null) 1 else 0
         if (last > 0 && !showBookmarks) list.animateScrollToItem(last - 1)
     }
     // a jump waits for its message's rows (the archive opened to it), then shows it with the row above (its day's title)

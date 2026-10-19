@@ -43,6 +43,10 @@ import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
+/** How many items [tutorStudioItems] adds (the chat's list scrolls to its end with them). */
+fun studioItemCount(live: LiveTutor): Int =
+    (if (live.monthReached && live.settings.monthAllowed == null) 1 else 0) + live.reports.size + live.studio.jobs.count { it.open }
+
 /**
  * The studio and the reports in the tutor chat (docs/plans/05-built/studio.md): each open job as "✍️ Pišem …" with its
  * progress and a ✕, a report waiting for "Send to Lani's discussions?", and at the monthly cap "answer anyway this

@@ -152,6 +152,10 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        "data-sheet" "💾 Podatki · Data" (QA's hook "data"): git not connected, who writes, this phone's
                        id, the backup without a relay; "🔗 Poveži git" (the debug build has no GitHub client id: the
                        token field only); nothing connected or sent;
+                       "studio" the studio against the mock: a chat's request_content, the job's module refused by the
+                       validator then published (on the dev bridge, the banner), a story through the text editor refused
+                       then written, a slow job with the app killed mid-way and started again, the job resumed from the
+                       dev bridge's copy (LANI_QA_STUDIO_SHOTS: also copied there as studio-*.png);
                        "tutor-live" the tutor in the app answering for real against the mock and the dev bridge's tutor
                        session: the connection sheet's "🧑‍🏫 Učitelj · Tutor", "In the app", a fake key, attached; a chat
                        whose reply streams into the chat (a screenshot mid-way) and stays, the dev tutor hearing nothing;
@@ -7034,6 +7038,183 @@ def tutor_live():
         os.environ.pop("LANI_TUTOR_MOCK_SLOW_MS", None)
 
 
+STUDIO_SHOTS = os.environ.get("LANI_QA_STUDIO_SHOTS")  # also copied there as studio-<name>.png
+WRITING = "Pišem …"  # a studio job's card in the chat (l10n studio.writing)
+STUDIO_PUBLISHED = "vaje so objavljene"  # the mock studio's reply after its module ([mock:studio-module])
+STUDIO_STORY = "the story is written"  # its reply after the story the text editor wrote ([mock:studio-file])
+ON_ITS_WAY = "vaje so na poti"  # the mock tutor's reply in the chat to [mock:request]
+
+
+def live_tutor_on():
+    """The tutor in the app on against QA's mock (as the tutor-live step turns it on); the key entered when none is kept."""
+    qa_hook(f"tutorlive:{SHADOW_MOCK}")
+    open_connection_sheet()
+    assert scroll_to(TUTOR_SECTION, 12), "the Tutor section"
+    assert tap(IN_THE_APP, 4), "In the app"
+    if not wait_for(LIVE_READY, 6):
+        assert scroll_to("sk-ant-…", 4), "the key's field"
+        tap_at(find("sk-ant-…"))
+        time.sleep(slow())
+        adb("shell", "input", "text", LIVE_KEY)
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+        assert tap("Preveri in shrani · Check and keep", 4), "the key's check"
+        assert wait_for(LIVE_READY, 20), "attached: the tutor in the app answers"
+    assert (dev_bridge("/tutor/session").get("attached") or {}).get("who") == "app", "the dev bridge's channel is the app's"
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(1)
+    go_home()
+
+
+def chat_send(text: str):
+    """[text] sent from the tutor chat (Home's tutor bar)."""
+    go_home()
+    assert tap("Tvoj učitelj · Your tutor", 6), "the tutor bar"
+    assert wait_for("💬 Tvoj učitelj", 6), "the tutor chat"
+    assert tap("Napiši…", 4), "the chat's field"
+    time.sleep(slow())
+    # in pieces: a long text typed at once loses its end on the emulator's keyboard ("[mock:" and nothing after)
+    for piece in re.split(r"([ :])", text):
+        if piece:
+            adb("shell", "input", "text", "%s" if piece == " " else piece)
+            time.sleep(0.25)
+    assert wait_for(text[-12:], 10), f"the text typed: {text}"
+    time.sleep(0.5)
+    assert tap("Pošlji · Send", 4), "send"
+
+
+def studio_jobs() -> list:
+    """The studio's jobs as the dev bridge keeps them (GET /tutor/jobs), newest first."""
+    return dev_bridge("/tutor/jobs").get("jobs") or []
+
+
+def studio():
+    """The studio (docs/plans/05-built/studio.md): the tutor in the app against QA's mock (its studio calls slow:
+    LANI_TUTOR_MOCK_STUDIO_MS 2500) and the dev bridge's tutor session. A chat asks for exercises ("[mock:request]"):
+    the chat's tutor hands the studio a brief (request_content), says it's on its way, and the studio's job runs on Opus:
+    a module the bridge's validator refuses, then a valid one; its reply in the chat, the "🎉" banner, the module on
+    the dev bridge (GET /modules) and the job done there (GET /tutor/jobs). A story through the text editor
+    ("[mock:request:file]"): refused by the story validator, then written; on the dev bridge (GET /stories). A slow job
+    ("[mock:request:slow]"): its "✍️ Pišem …" card in the chat, the app killed mid-job (am force-stop) once the job saved
+    two calls on the bridge, started again: the job goes on from the bridge's copy and finishes (two attempts, the module
+    published once more). The Tutor section's studio list; then Claude Code on the node again. LANI_QA_STUDIO_SHOTS:
+    the screenshots also there as studio-*.png."""
+    os.environ["LANI_TUTOR_MOCK_STUDIO_MS"] = os.environ.get("LANI_TUTOR_MOCK_STUDIO_MS", "2500")
+    mock = start_tutor_mock()
+
+    def keep(name):
+        shot(f"studio-{name}")
+        if STUDIO_SHOTS:
+            Path(STUDIO_SHOTS).mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], Path(STUDIO_SHOTS) / f"studio-{name}.png")
+
+    try:
+        live_tutor_on()
+        session = dev_bridge("/tutor/session")
+        app_tools = [t.get("name") for t in session.get("app_tools") or []]
+        assert "str_replace_based_edit_tool" in app_tools and "search" in app_tools, f"the dev bridge's file tools: {app_tools}"
+        before = {j.get("id") for j in studio_jobs()}
+
+        # 1. a chat asks for exercises: the studio writes a module, its first try refused by the validator
+        chat_send("Vaje za rodilnik prosim [mock:request]")
+        assert wait_for(ON_ITS_WAY, 40), "the chat's tutor says it's on its way"
+        # the mock's module job is quick: its card may be gone already (the slow job's is checked below)
+        if find(WRITING):
+            keep("writing")
+        assert wait_for(STUDIO_PUBLISHED, 90), "the studio's reply in the chat"
+        time.sleep(1)
+        keep("module")
+        jobs = [j for j in studio_jobs() if j.get("id") not in before]
+        assert jobs and jobs[0].get("status") == "done", f"the job on the dev bridge: {[(j.get('id'), j.get('status')) for j in jobs]}"
+        job = jobs[0]
+        assert job.get("model") == "claude-opus-5-5", f"the studio on the content model: {job.get('model')}"
+        assert any(p.get("item", "").endswith("mock-studio-drill") for p in job.get("published") or []), f"published: {job.get('published')}"
+        modules = dev_bridge("/modules")
+        ids = [m.get("id") for m in (modules.get("modules") if isinstance(modules, dict) else modules) or []]
+        assert "mock-studio-drill" in ids, "the module on the dev bridge"
+        reqs = mock_api("/mock/requests")
+        studio_calls = [r for r in reqs if r.get("path") == "/v1/messages" and "studio of Lani" in json.dumps((r.get("body") or {}).get("system"))]
+        refused = [r for r in studio_calls if "out of range" in json.dumps((r.get("body") or {}).get("messages", [])[-1:])]
+        assert refused, "the validator's refusal went back to the model"
+        tools = [t.get("type") or t.get("name") for t in (studio_calls[0].get("body") or {}).get("tools", [])]
+        assert "text_editor_20250728" in tools, f"the text editor by its type: {tools[-6:]}"
+        go_home()
+        keep("home")
+
+        # 2. a story through the text editor: refused by the story validator, then written
+        before = {j.get("id") for j in studio_jobs()}
+        chat_send("Zgodbo prosim [mock:request:file]")
+        assert wait_for(STUDIO_STORY, 90), "the studio's reply after the story"
+        time.sleep(1)
+        keep("file")
+        stories = dev_bridge("/stories")
+        ids = [s.get("id") for s in (stories.get("stories") if isinstance(stories, dict) else stories) or []]
+        assert "mock-studio-story" in ids, f"the story on the dev bridge ({len(ids)} stories)"
+        reqs = mock_api("/mock/requests")
+        assert any("doesn't validate as a story" in json.dumps((r.get("body") or {}).get("messages", [])[-1:]) for r in reqs), "the story validator's refusal"
+
+        # 3. a slow job, the app killed in the middle, started again: the job goes on from the bridge's copy
+        before = {j.get("id") for j in studio_jobs()}
+        chat_send("Vaje znova prosim [mock:request:slow]")
+        assert wait_for(WRITING, 40), "the slow job's card"
+        keep("slow-writing")
+        end = time.time() + 90 * slow()
+        job = None
+        while time.time() < end:
+            job = next((j for j in studio_jobs() if j.get("id") not in before), None)
+            if job and int(job.get("calls") or 0) >= 2:
+                break
+            time.sleep(1)
+        assert job and int(job.get("calls") or 0) >= 2 and job.get("status") != "done", f"the job mid-way: {job and (job.get('status'), job.get('calls'))}"
+        adb("shell", "am", "force-stop", PKG)
+        time.sleep(3)
+        killed = next(j for j in studio_jobs() if j.get("id") == job.get("id"))
+        assert killed.get("status") != "done", "killed before it was done"
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity")
+        assert wait_for("Danes · Today", 30), "Home after the app started again"
+        assert tap("Tvoj učitelj · Your tutor", 6), "the tutor bar"
+        resumed = wait_for(WRITING, 30)
+        if resumed:
+            keep("resumed")
+        end = time.time() + 120 * slow()
+        while time.time() < end:
+            done = next(j for j in studio_jobs() if j.get("id") == job.get("id"))
+            if done.get("status") == "done":
+                break
+            time.sleep(2)
+        assert done.get("status") == "done", f"the resumed job: {done.get('status')}"
+        assert int(done.get("attempts") or 0) >= 2, f"run twice (killed, resumed): {done.get('attempts')}"
+        assert wait_for(STUDIO_PUBLISHED, 20), "the resumed job's reply in the chat"
+        keep("done")
+        print(f"    jobs: {len(studio_jobs())}; the killed one {done.get('id')} resumed ({done.get('attempts')} attempts, {done.get('calls')} calls)")
+
+        # the Tutor section's studio list
+        go_home()
+        open_connection_sheet()
+        # at the sheet's end it stays low, below scroll_to's band: found as it is then
+        assert scroll_to("Studio: kar napiše učitelj", 14) or find("Studio: kar napiše učitelj"), "the studio's list in the Tutor section"
+        keep("settings")
+        (OUT / "studio-mock-requests.json").write_text(json.dumps(mock_api("/mock/requests"), indent=1, ensure_ascii=False))
+        log = adb("logcat", "-d", "-s", "LiveTutor", check=False)
+        (OUT / "studio-logcat.txt").write_text(log)
+        assert LIVE_KEY not in log, "the key in the log"
+
+        # Claude Code on the node again
+        assert scroll_to(TUTOR_SECTION, 12), "the Tutor section"
+        assert tap(ON_THE_NODE, 4), "Claude Code on my node"
+        assert wait_for("Odgovarja Claude Code na vozlišču", 15), "detached"
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+    finally:
+        try:
+            (OUT / "studio-mock-requests.json").write_text(json.dumps(mock_api("/mock/requests"), indent=1, ensure_ascii=False))
+            (OUT / "studio-logcat.txt").write_text(adb("logcat", "-d", "-s", "LiveTutor", check=False))
+        except Exception:
+            pass
+        mock.terminate()
+        os.environ.pop("LANI_TUTOR_MOCK_STUDIO_MS", None)
+
+
 def shadow_matrix():
     """The shadow's matrix (docs/plans/05-phase-0.md, "The matrix") against QA's mock: the panel's Matrix tab (the
     switch, the lanes' grid), turned on with the nine default lanes; a chat answered by the primary and by every lane at
@@ -7390,6 +7571,7 @@ def plan():
         ("shadow-matrix", shadow_matrix, go_home, False, ""),
         ("dev-upload", dev_upload, go_home, False, ""),
         ("data-sheet", data_sheet, go_home, False, ""),
+        ("studio", studio, go_home, False, ""),
         ("tutor-live", tutor_live, go_home, False, ""),
         # only with --steps hosted: no node, a fresh install on the phone's own bridge
         ("hosted", hosted, None, False, ""),
