@@ -1927,7 +1927,7 @@ one loudness before it stores it:
   many the limiter holds, and by how much. `--level --run` levels them (`--max N` for a few first, `--data DIR`
   for another data directory; about 2 minutes for all 2,826). Each clip is levelled once, under a new file name;
   the old file is removed only after the new one is recorded. A clip whose voice's filter is due is filtered in
-  the same encode, and a clip whose edges wait is trimmed in it (`--denoise --run`, `--edges --run` and `--tempo --run`
+  the same encode, and a clip whose edges wait is trimmed in it (`--denoise --run`, `--edges --run` and `--pace --run`
   level in the same encode too). A clip that the bridge made again meanwhile
   keeps the new take. It uses no ElevenLabs characters. The bridge sees the changed clips within a minute and
   sends `voice_updated`, as for the denoise filter.
@@ -2004,9 +2004,9 @@ its silence at the edges is trimmed, as every clip's.
   - `LANI_VOICE_GEPARD_PAUSES`: the longest pause kept inside a clip, 0.1 to 2 s (silence: under −50 dBFS). The
     default is `off`.
 - With a pace set, the bridge paces a new Gepard clip in the level's encode, before its edges are trimmed. The row
-  records the factor (`tempo`), and the file name includes it. `companion/bin/voice-build --tempo` then measures the
-  local clips not at that pace (a dry run), and `--tempo --run` paces them. Without a pace set, `--tempo` says so and
-  does nothing.
+  records the factor (`tempo`), and the file name includes it. `companion/bin/voice-build --pace` (also `--tempo`) then
+  measures the local clips not at that pace (a dry run), and `--pace --run` paces them, with the voices' own tempos
+  (below). Without a pace set and no voice with a tempo, `--pace` says so and does nothing.
 - **The 549 clips paced before:** `companion/bin/voice-build --restore-gepard SNAPSHOT` puts them back as the worker
   made them, from a `lani-backup` snapshot taken before they were paced (the snapshot directory, or its `voice/`):
   - The dry run lists each paced clip (its row has `tempo`) and what it would restore, and the clips it can't restore,
@@ -2019,6 +2019,49 @@ its silence at the edges is trimmed, as every clip's.
   - Then `--edges --run` trims the restored clips' edges.
   - On a copy of Jan's store: 549 restored, all byte for byte the snapshot's files, no other row changed, no file left
     without a row.
+  - Only the clips paced by the local voice's pace: a clip at its voice's own tempo (below) stays.
+
+**A voice that speaks slowly: its own pace.** Jan (2026-10-19): "Zala talks a bit slow". Her voice since 2026-10-14,
+the library voice Piku, is the slowest child in the cast. So a speaker of `voice-cast.json` can have a `tempo`: its clips
+are sped up by that factor, the pitch kept (ffmpeg `atempo`, `clipPace` in `bridge/src/voice.ts`).
+
+- **The value:** a factor from 0.5 to 2, for every engine (`"tempo": 1.1`) or by engine (`"tempo": { "elevenlabs": 1.1 }`:
+  an engine left out keeps its pace). A voice in a language (the narrators' `languages` `sl`) can have one too. A wrong
+  value makes the cast invalid, as any wrong field does (the bridge logs it and speaks with the narrators only).
+- **Measured** (2026-10-19, 60 to 80 sentences of 20 to 90 characters a voice, from Jan's store, only read: the
+  syllables, the vowels and a syllabic r, over the time from a clip's first sound to its last):
+
+  | Voice (ElevenLabs) | Syllables a second | Without the pauses |
+  |---|---|---|
+  | grandpa (Tomasz Z) | 3.1–3.2 | 4.0 |
+  | **girl (Piku)** | **3.3–3.4** | **3.9–4.0** |
+  | grandma (Zlata) | 3.4 | 4.5 |
+  | teacher (Milena) | 3.7 | 4.4 |
+  | young-woman (Ana) | 3.7 | 4.1 |
+  | boy (Kavya) | 3.8–3.9 | 4.0 |
+  | female.sl (Nina) | 3.8–4.0 | 4.3 |
+  | young-man (Bartłomiej) | 4.1 | 5.0 |
+  | male.sl (Luka) | 4.7 | 4.7 |
+
+  The middle of the cast's ElevenLabs voices: 3.73 syllables a second (4.32 without the pauses). The girl is 10 to 13 %
+  under it, and 11 to 15 % under the other child (the boy). Her local clips (nina) are the fastest of all, 5.2–5.4.
+  So the girl has `"tempo": { "elevenlabs": 1.1 }`: her ElevenLabs lines come to 3.6–3.7 syllables a second (4.3–4.4
+  without the pauses), the cast's middle, and her local clips keep their pace.
+- **New clips:** the bridge paces a clip of such a voice in the level's encode: after a carrier sentence's cut (the word's
+  timestamps are the take's, so the cut is as before and the word is paced), after the voice's denoise filter, before the
+  edges are measured and trimmed and the clip is levelled (one encode). A local clip's factor is the voice's tempo times
+  the local voice's pace when one is set. The row records the factor (`tempo`), and the file name includes it, so the
+  phone downloads the paced clip.
+- **The clips from before:** `companion/bin/voice-build --pace` (also `--tempo`) is a dry run: the clips not at their pace,
+  per voice and engine, each measured now and as it would be paced (characters a second, edges, pauses, length).
+  `--pace --run` paces them (`--max N` for a few first, `--data DIR` for another data directory): each from its file as
+  it is, levelled again in the same encode, under a new file name, the old file removed once the new one is recorded. A
+  clip records its factor, so a second run does nothing; a changed tempo paces a clip by the difference (back to 1: slowed
+  down to its own pace again). It uses ffmpeg only, no ElevenLabs characters. Back up the voice cache first
+  (`lani-backup`).
+- A tempo belongs to the voice it was measured on: after swapping a speaker's voice, measure again.
+
+`voice_status` shows the voices with a tempo and their clips at it (`tempo.voices`, `tempo.voiced`) and the clips waiting.
 
 **The narrators in Slovene: native voices, the local voice as the fallback.** The narrators `female` and `male` are
 English library voices (Matilda, Daniel). In Slovene a lone word comes out with English sounds, even cut out of a carrier
@@ -2324,7 +2367,8 @@ companion/bin/voice-build --restore-gepard ~/.local/share/lani/backups/<snapshot
 companion/bin/voice-build --restore-gepard ~/.local/share/lani/backups/<snapshot> --run  # back as the worker made them
 companion/bin/voice-build --narrators      # dry run: the narrators' local clips not in their local voice yet (lone words: ana)
 companion/bin/voice-build --narrators --run   # make them again with the local worker (resumable, no characters)
-companion/bin/voice-build --tempo          # only with LANI_VOICE_GEPARD_TEMPO or _PAUSES set: the local clips not at that pace
+companion/bin/voice-build --pace           # dry run: the clips not at their pace (a voice's tempo; the local voice's pace when set)
+companion/bin/voice-build --pace --run     # pace them (ffmpeg only, no characters; a backup first)
 ```
 
 `--revoice-words` makes only the old-style narrator words again, in their carrier sentence, within the

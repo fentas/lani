@@ -9,15 +9,16 @@
 // timestamps (CARRIERS); their clips from before that are made again as the app asks for them. In a Slovene village the
 // narrators speak with their native Slovene ElevenLabs voices (Nina, Luka: the voices "female.sl", "male.sl"), the local
 // voice (ana and nina, marko) as their fallback, never the English library voices (sloveneNarrators). A voice the cast
-// marks `denoise` (a designed voice that hisses) has its clips filtered before they are stored (DENOISE), every clip's
-// silence at its edges is trimmed (EDGES), and every clip is brought to one loudness (LEVEL).
+// marks `denoise` (a designed voice that hisses) has its clips filtered before they are stored (DENOISE), a voice it gives
+// a `tempo` (one that speaks slowly) has them sped up (clipPace), every clip's silence at its edges is trimmed (EDGES), and
+// every clip is brought to one loudness (LEVEL).
 import { Database } from 'bun:sqlite'
 import { createHash, randomUUID } from 'node:crypto'
 import { copyFileSync, existsSync, mkdirSync, readFileSync, renameSync, unlinkSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { renderDeep, type Addressee } from './addressee'
-import { archetypeOf, carrierVoice, cast, castInfo, denoiseOf, denoiseVoices, elevenlabsOf, fallbacks, genderOf, GENDERS, isNarrator, isVoice, LANGUAGE_VOICE, languageVoice, languageVoiceName, personVoice, speakerFor, voiceSince, type DenoisePreset, type Gender } from './cast'
+import { archetypeOf, carrierVoice, cast, castInfo, denoiseOf, denoiseVoices, elevenlabsOf, fallbacks, genderOf, GENDERS, isNarrator, isVoice, LANGUAGE_VOICE, languageVoice, languageVoiceName, personVoice, speakerFor, tempoOf, tempoVoices, voiceSince, type DenoisePreset, type Gender } from './cast'
 import { drillTexts, type Drill } from './drills'
 import { normalizeText, phrases } from './family'
 import { ispyTexts, type ISpyBook, type ISpyLines } from './ispy'
@@ -69,8 +70,9 @@ export type Clip = {
   /** The gain that took it there, in all, from the clip as it was made (dB; 0: kept as it was). */
   gain?: number | null
   /**
-   * A local (Gepard) clip's pace (PACE, when one is set): the factor it was sped up by, in all, from the clip as it was
-   * made (1: only its pauses shortened); null or absent: at the worker's own pace.
+   * Its pace (clipPace): the factor it was sped up by, in all, from the clip as it was made: its voice's `tempo` in the
+   * cast (by its engine) times, for a local (Gepard) clip, the local voice's pace (PACE, when one is set; 1: only its
+   * pauses shortened); null or absent: at its own pace, as the engine made it.
    */
   tempo?: number | null
   /** 1 once its silence at the edges was trimmed to EDGES (or found short enough); null or absent: not yet. */
@@ -492,6 +494,20 @@ export function gepardPace(env: Record<string, string | undefined> = process.env
   }
   const tempo = read('LANI_VOICE_GEPARD_TEMPO', 0.5, 2, 'a factor from 0.5 to 2') ?? 1
   const pause = read('LANI_VOICE_GEPARD_PAUSES', 0.1, 2, 'a pause from 0.1 to 2 s')
+  return tempo === 1 && pause === null ? null : { tempo, pause }
+}
+
+/**
+ * The pace a clip of [voice] by [engine] is stored at: its voice's own `tempo` in the cast (cast.ts tempoOf: a voice that
+ * speaks slowly, by engine: the girl's Piku ×1.1 on ElevenLabs), times the local voice's pace [local] for a local
+ * (Gepard) clip, with its longest pause; null when it keeps its own (as the engine made it). It runs after a carrier
+ * sentence's cut (on the word cut out), after a voice's denoise filter and before the edges are measured and the level:
+ * in the level's encode (preChain). Its clips record the factor (Clip.tempo), so voice-build --pace paces each clip once.
+ */
+export function clipPace(voice: VoiceName, engine: EngineName, local: GepardPace | null): GepardPace | null {
+  const own = engine === 'gepard' ? local : null
+  const tempo = Math.round(tempoOf(voice, engine) * (own?.tempo ?? 1) * 10_000) / 10_000
+  const pause = own?.pause ?? null
   return tempo === 1 && pause === null ? null : { tempo, pause }
 }
 
@@ -2191,27 +2207,29 @@ export class VoiceStore {
   }
 
   /**
-   * [bytes] as they are stored: through the filter of [voice] ([filtered]), a local clip paced when a pace is set
-   * ([pace]), its edges trimmed (EDGES; a single word's ends at its first long pause, [word]) and brought to the level, in
+   * [bytes] as they are stored: through the filter of [voice] ([filtered]), paced at its voice's tempo and a local clip
+   * at the local voice's pace when one is set (clipPace), its edges trimmed (EDGES; a single word's ends at its first long pause, [word]) and brought to the level, in
    * one encode when they are ffmpeg's. What can't be done now (no ffmpeg, ffmpeg failed) is left out and logged (no
    * ffmpeg: once): voice-build --level (and --denoise, --tempo, --edges) does it later.
    */
   private async processed(bytes: Uint8Array, voice: VoiceName, engine: EngineName, text: string, word = false): Promise<{ bytes: Uint8Array; denoise: DenoisePreset | null; level: number | null; gain: number | null; tempo: number | null; edges: number | null }> {
     const preset = engine === 'elevenlabs' ? denoiseOf(voice) : undefined
-    const pace = engine === 'gepard' ? (this.pace ?? undefined) : undefined
+    const pace = clipPace(voice, engine, this.pace) ?? undefined
     const lv = this.leveller
     // ffmpeg's own filter runs in the level's encode; another one (a stand-in) before it
     if (lv && (!preset || this.o.denoise === undefined)) {
       const r = await lv.level(bytes, { denoise: preset, pace, edges: true, word })
       if (r) return { bytes: r.bytes, denoise: preset ?? null, level: lv.target, gain: r.gain, tempo: pace?.tempo ?? null, edges: r.edges ? 1 : null }
     }
-    if (pace && (lv || !this.noPaceLogged)) {
-      this.noPaceLogged ||= !lv
-      this.o.log?.(`voice: "${text}" (${voice}) stored at the local voice's own pace: ${lv ? 'ffmpeg failed' : 'no ffmpeg'}; voice-build --tempo paces it later`)
-    }
     const f = await this.filtered(bytes, voice, engine, text)
-    const r = lv ? await lv.level(f.bytes, { edges: true, word }) : null
-    if (r) return { ...f, bytes: r.bytes, level: lv!.target, gain: r.gain, tempo: null, edges: r.edges ? 1 : null }
+    // after a stand-in's filter: the pace, the edges and the level in the level's encode
+    const after = !!lv && !!preset && this.o.denoise !== undefined ? pace : undefined
+    if (pace && !after && (lv || !this.noPaceLogged)) {
+      this.noPaceLogged ||= !lv
+      this.o.log?.(`voice: "${text}" (${voice}) stored at its own pace, not ×${pace.tempo}: ${lv ? 'ffmpeg failed' : 'no ffmpeg'}; voice-build --pace paces it later`)
+    }
+    const r = lv ? await lv.level(f.bytes, { pace: after, edges: true, word }) : null
+    if (r) return { ...f, bytes: r.bytes, level: lv!.target, gain: r.gain, tempo: after?.tempo ?? null, edges: r.edges ? 1 : null }
     if (!this.noLevelLogged) {
       this.noLevelLogged = true
       this.o.log?.(`voice: "${text}" (${voice}) stored without the level and its edges trimmed: ${lv ? 'ffmpeg failed' : 'no ffmpeg'}; voice-build --level levels it later (logged once)`)
@@ -3110,9 +3128,9 @@ export class VoiceStore {
 
   /**
    * Each clip of [list] (at most [max]; a few at a time) through what it waits for, in one encode: its voice's denoise
-   * filter (an ElevenLabs clip of a voice the cast marks, not filtered yet), the local voice's pace when one is set (a
-   * Gepard clip not paced at it yet: never paced, or by another factor, which is sped up by the difference from the file
-   * as it is now), its edges (not trimmed yet: EDGES; a clip with no more than EDGES.slack of silence at either edge and
+   * filter (an ElevenLabs clip of a voice the cast marks, not filtered yet), its pace ([paceDue]: its voice's tempo, a
+   * local clip's pace when one is set; not paced at it yet: never paced, or by another factor, which is sped up by the
+   * difference from the file as it is now), its edges (not trimmed yet: EDGES; a clip with no more than EDGES.slack of silence at either edge and
    * nothing else to do keeps its file) and the level (not at the level's target: never levelled, or levelled to another
    * target, which is re-levelled from the file as it is now; a paced or trimmed clip is levelled again with it). Written
    * under a new file name (the app caches by name), recorded, and only then the old file removed; a clip kept as it is
@@ -3123,7 +3141,6 @@ export class VoiceStore {
     const r: Processed = { done: 0, kept: 0, limited: 0, trimmed: 0, skipped: 0, failed: 0, left: list.length }
     const lv = this.leveller
     const f = this.denoise
-    const factor = this.pace
     if (this.o.readonly) return r
     const todo = list.slice(0, o.max ?? list.length)
     const one = async (c: Clip) => {
@@ -3135,8 +3152,9 @@ export class VoiceStore {
         return line(this.running.has(c.key) ? '· busy' : '· no file')
       }
       const preset = c.engine === 'elevenlabs' && !c.denoise ? denoiseVoices()[c.voice] : undefined
-      // the local voice's pace, when one is set: what the clip is sped up by now (the factor, or what is left of it after another one)
-      const pace = lv && c.engine === 'gepard' && factor && c.tempo !== factor.tempo ? { tempo: Math.round((factor.tempo / (c.tempo ?? 1)) * 10_000) / 10_000, pause: factor.pause } : undefined
+      // its pace, when it isn't at it (its voice's tempo, a local clip's pace): what the clip is sped up by now (the factor,
+      // or what is left of it after another one)
+      const pace = lv ? this.paceDue(c) : undefined
       const edges = !!lv && c.edges == null
       // a single word asked for as it is ends at its first long pause (EDGES.wordGap)
       const word = edges && c.method !== 'carrier' && !explanationLang(c.norm) && isOneWord(c.text)
@@ -3172,12 +3190,12 @@ export class VoiceStore {
       const denoise = preset ?? c.denoise ?? null
       const level = levelled ? lv!.target : (c.level ?? null)
       const gain = levelled ? Math.round(((c.gain ?? 0) + levelled.gain) * 100) / 100 : (c.gain ?? null)
-      const paced = pace ? factor!.tempo : (c.tempo ?? null)
+      const paced = pace ? (clipPace(c.voice, c.engine, this.pace)?.tempo ?? null) : (c.tempo ?? null)
       const trimmed = !!levelled?.trimmed
       const edged = levelled?.edges ? 1 : (c.edges ?? null)
       const secs = (b: Uint8Array) => mp3Duration(b).toFixed(1)
       const e = levelled?.edges
-      const how = `${preset ? `${preset} ` : ''}${pace ? `×${factor!.tempo}${factor!.pause ? ` pauses ≤${factor!.pause} s` : ''} ${secs(bytes)}→${secs(out)} s ` : ''}${trimmed && e ? `edges ${e.lead.toFixed(2)}+${e.tail.toFixed(2)} s ` : ''}${levelled ? (out === bytes ? `= kept (${levelled.before.lufs.toFixed(1)} LUFS)` : `${levelled.before.lufs.toFixed(1)} ${levelled.gain >= 0 ? '+' : ''}${levelled.gain.toFixed(1)} dB${levelled.limited ? ' limited' : ''}`) : ''}`
+      const how = `${preset ? `${preset} ` : ''}${pace ? `×${paced ?? 1}${pace.pause ? ` pauses ≤${pace.pause} s` : ''} ${secs(bytes)}→${secs(out)} s ` : ''}${trimmed && e ? `edges ${e.lead.toFixed(2)}+${e.tail.toFixed(2)} s ` : ''}${levelled ? (out === bytes ? `= kept (${levelled.before.lufs.toFixed(1)} LUFS)` : `${levelled.before.lufs.toFixed(1)} ${levelled.gain >= 0 ? '+' : ''}${levelled.gain.toFixed(1)} dB${levelled.limited ? ' limited' : ''}`) : ''}`
       // kept as it is: only recorded, while it is still the clip that was measured
       if (out === bytes) {
         if (!this.db.query('UPDATE clips SET level = ?, gain = ?, edges = ? WHERE key = ? AND file = ?').run(level, gain, edged, c.key, c.file).changes) {
@@ -3278,22 +3296,39 @@ export class VoiceStore {
     return { lead: EDGES.lead, tail: EDGES.tail, threshold: EDGES.threshold, done, waiting: this.edgesQueue().length, ffmpeg: !!this.leveller }
   }
 
-  // --- the local voice's pace, when one is set: the clips from before it --------------------------------------------
+  // --- the pace: a voice's own (the cast's tempo), the local voice's when one is set; the clips from before it -------
 
   /**
-   * The local (Gepard) clips waiting for the pace: never paced, or paced by another factor; oldest first. None while no
-   * pace is set (the default: the worker's own; clips paced before go back with --restore-gepard).
+   * The pace clip [c] waits for, from its file as it is now: the factor from the tempo it was paced at (its row's tempo)
+   * to the one it should be at (clipPace: its voice's tempo by its engine, times the local voice's pace for a local
+   * clip), with the local voice's longest pause; undefined when it is at its pace. A local clip paced before while no pace
+   * is set now, its voice without a tempo of its own there, waits for --restore-gepard instead (not slowed down by another
+   * encode).
    */
-  tempoQueue(): Clip[] {
-    const pace = this.pace
-    if (!pace) return []
-    // a store from before the pace has no tempo column: every local clip waits
-    return (this.db.query("SELECT * FROM clips WHERE engine = 'gepard' ORDER BY created_at").all() as Clip[]).filter(c => c.tempo !== pace.tempo)
+  paceDue(c: Clip): GepardPace | undefined {
+    const want = clipPace(c.voice, c.engine, this.pace)
+    const target = want?.tempo ?? null
+    const has = c.tempo ?? null
+    if (has === target) return undefined
+    if (c.engine === 'gepard' && !this.pace && has !== null && tempoOf(c.voice, 'gepard') === 1) return undefined
+    return { tempo: Math.round(((target ?? 1) / (has ?? 1)) * 10_000) / 10_000, pause: want?.pause ?? null }
   }
 
   /**
-   * voice-build --tempo --run: each local clip waiting for the pace ([tempoQueue], at most [max]): its pauses shortened,
-   * sped up, its edges trimmed and levelled again, in one encode ([processClips]). No engine is asked, no characters.
+   * The clips waiting for their pace ([paceDue]): of a voice the cast gives a tempo (or no longer gives one), a local
+   * clip while the local voice's pace is set; never paced, or paced by another factor; oldest first. None while no voice
+   * has a tempo and no pace is set (the default: the engines' own; local clips paced before go back with
+   * --restore-gepard).
+   */
+  tempoQueue(): Clip[] {
+    // a store from before the pace has no tempo column: every clip of a paced voice waits
+    return (this.db.query('SELECT * FROM clips ORDER BY created_at').all() as Clip[]).filter(c => !!this.paceDue(c))
+  }
+
+  /**
+   * voice-build --pace (--tempo) --run: each clip waiting for its pace ([tempoQueue], at most [max]): a local clip's pauses
+   * shortened, sped up, its edges trimmed and levelled again, in one encode ([processClips]). No engine is asked, no
+   * characters.
    */
   async tempoClips(o: { max?: number; out?: (line: string) => void } = {}): Promise<Processed> {
     const list = this.tempoQueue()
@@ -3302,16 +3337,22 @@ export class VoiceStore {
   }
 
   /**
-   * The local voice's pace: its factor and longest pause (null: the worker's own), the local clips paced (at any factor:
-   * paced before, they wait for --restore-gepard while none is set) and waiting, and whether the node can (ffmpeg).
+   * The pace: the local voice's factor and longest pause (null: the worker's own), the local clips it paced (at any
+   * factor: paced before, they wait for --restore-gepard while none is set), the voices with a tempo of their own (the cast's)
+   * and the clips at it, the clips waiting, and whether the node can (ffmpeg).
    */
   tempoStats() {
     let paced = 0
+    let voiced = 0
+    const voices = tempoVoices()
     try {
-      paced = (this.db.query("SELECT COUNT(*) AS n FROM clips WHERE engine = 'gepard' AND tempo IS NOT NULL").get() as { n: number }).n
+      // paced by the local voice's pace: not only at their voice's own tempo
+      paced = (this.db.query("SELECT voice, tempo FROM clips WHERE engine = 'gepard' AND tempo IS NOT NULL").all() as Clip[]).filter(c => c.tempo !== (clipPace(c.voice, 'gepard', null)?.tempo ?? null)).length
+      const names = Object.keys(voices)
+      if (names.length) voiced = (this.db.query(`SELECT COUNT(*) AS n FROM clips WHERE tempo IS NOT NULL AND voice IN (${names.map(() => '?').join(', ')})`).get(...names) as { n: number }).n
     } catch {} // a store from before the pace, only read: none yet
     const pace = this.pace
-    return { tempo: pace?.tempo ?? null, pause: pace?.pause ?? null, paced, waiting: this.tempoQueue().length, ffmpeg: !!this.leveller }
+    return { tempo: pace?.tempo ?? null, pause: pace?.pause ?? null, paced, voices, voiced, waiting: this.tempoQueue().length, ffmpeg: !!this.leveller }
   }
 
   /**
@@ -3328,8 +3369,10 @@ export class VoiceStore {
     copyFileSync(join(snap, 'voice.db'), copy)
     const before = new Database(copy)
     const r: Restored = { paced: 0, restored: 0, missing: [], verified: 0, skipped: 0, failed: 0, left: 0 }
+    // paced by the local voice's pace (its tempo set), not only by its voice's own tempo
+    const byPace = (c: Clip) => c.tempo != null && c.tempo !== (clipPace(c.voice, 'gepard', null)?.tempo ?? null)
     try {
-      const paced = (this.db.query("SELECT * FROM clips WHERE engine = 'gepard' ORDER BY created_at").all() as Clip[]).filter(c => c.tempo != null)
+      const paced = (this.db.query("SELECT * FROM clips WHERE engine = 'gepard' ORDER BY created_at").all() as Clip[]).filter(byPace)
       r.paced = paced.length
       const was = before.query('SELECT * FROM clips WHERE key = ?')
       const line = (how: string, c: Clip) => o.out?.(`  ${how.padEnd(34)} ${c.voice.padEnd(10)} ${c.text.length > 56 ? `${c.text.slice(0, 55)}…` : c.text}`)
@@ -3396,7 +3439,7 @@ export class VoiceStore {
         if (Buffer.from(readFileSync(to)).equals(want)) r.verified++
         line(`✓ ${mp3Duration(new Uint8Array(want)).toFixed(1)} s, as before`, c)
       }
-      r.left = o.run ? (this.db.query("SELECT * FROM clips WHERE engine = 'gepard'").all() as Clip[]).filter(c => c.tempo != null).length : paced.length
+      r.left = o.run ? (this.db.query("SELECT * FROM clips WHERE engine = 'gepard'").all() as Clip[]).filter(byPace).length : paced.length
     } finally {
       before.close()
       for (const f of [copy, `${copy}-wal`, `${copy}-shm`]) {

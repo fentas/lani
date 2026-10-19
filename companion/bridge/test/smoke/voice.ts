@@ -6,9 +6,9 @@ import { tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
 import { validateScenario } from '../../src/scenarios'
 import { validateModule } from '../../src/spec'
-import { baseVoice, CAST_FILE, carrierVoice, cast, fallbacks, genderOf, isVoice, languageVoice, newcomerSpeaker, speakerFor } from '../../src/cast'
+import { baseVoice, CAST_FILE, carrierVoice, cast, fallbacks, genderOf, isVoice, languageVoice, newcomerSpeaker, speakerFor, tempoOf, tempoVoices } from '../../src/cast'
 import { normalizeText } from '../../src/family'
-import { charsPerSecond, corpus, creditsFor, DEFAULT_ELEVENLABS_CONCURRENCY, DEFAULT_ELEVENLABS_MODEL, modelOf, denoisedFile, EDGES, edgesOf, ElevenLabs, enginesFromEnv, explanationLang, ffmpegCutter, ffmpegDenoiser, ffmpegEdges, ffmpegLeveller, ffmpegLoudness, ffmpegPace, ffmpegRecordingLeveller, Gepard, gepardPace, isMp3, isOneWord, isShortText, LEVEL, levelGain, sloveneNarrators, mp3Duration, mp3Kbps, paceChain, processedFile, DEFAULT_REDO_DAILY, Gate, redoDaily, revoiceDaily, trimChain, trimmable, VoiceStore, wordSpan, type Clip, type Cutter, type Denoiser, type Engine, type Leveller } from '../../src/voice'
+import { charsPerSecond, clipPace, corpus, creditsFor, DEFAULT_ELEVENLABS_CONCURRENCY, DEFAULT_ELEVENLABS_MODEL, modelOf, denoisedFile, EDGES, edgesOf, ElevenLabs, enginesFromEnv, explanationLang, ffmpegCutter, ffmpegDenoiser, ffmpegEdges, ffmpegLeveller, ffmpegLoudness, ffmpegPace, ffmpegRecordingLeveller, Gepard, gepardPace, isMp3, isOneWord, isShortText, LEVEL, levelGain, sloveneNarrators, mp3Duration, mp3Kbps, paceChain, processedFile, DEFAULT_REDO_DAILY, Gate, redoDaily, revoiceDaily, trimChain, trimmable, VoiceStore, wordSpan, type Clip, type Cutter, type Denoiser, type Engine, type Leveller } from '../../src/voice'
 import { describe, Profiles, sampleOf, SPARE_SLOTS, variationOf, wordMatch } from '../../src/profiles'
 import { denoiseOf, denoiseVoices, elevenlabsOf, personVoice } from '../../src/cast'
 import { postOffice } from './fixtures'
@@ -1253,7 +1253,9 @@ export default async function voice() {
     const zm = zala ? await measure(new Uint8Array(readFileSync(join(vs.filesDir, zala.file)))) : null
     const ze = zala ? await ffmpegEdges()!(new Uint8Array(readFileSync(join(vs.filesDir, zala.file)))) : null
     check('a new clip is levelled before it is stored: its row records the level and the gain', zala?.level === LEVEL.target && (zala.gain ?? 0) < -5 && vs.get(normalizeText('Živjo, Jan!'), 'girl')?.level === LEVEL.target && near(zm), [zala, zm])
-    check('…and its silence at the edges trimmed in the same encode (0.4 s before the sound down to 0.05 s), recorded (edges)', zala?.edges === 1 && !!ze && Math.abs(ze.lead - EDGES.lead) <= 0.03 && Math.abs(ze.secs - (1.6 - 0.35)) < 0.05, [zala, ze])
+    // (at the girl's own pace: the cast's tempo for her ElevenLabs voice, ×1.1)
+    const zt = tempoOf('girl', 'elevenlabs')
+    check('…and its silence at the edges trimmed in the same encode (0.4 s before the sound down to 0.05 s), recorded (edges); at her voice\'s tempo', zala?.edges === 1 && !!ze && Math.abs(ze.lead - EDGES.lead) <= 0.03 && Math.abs(ze.secs - (EDGES.lead + 1.2 / zt)) < 0.05 && zala.tempo === (zt === 1 ? null : zt), [zala, ze, zt])
     check('…so it is not levelled or trimmed twice: nothing waits, the batch does nothing', vs.levelQueue().length === 0 && vs.edgesQueue().length === 0 && (await vs.levelClips()).done === 0 && (await vs.edgesClips()).done === 0 && vs.levelStats().levelled === 1 && vs.levelStats().waiting === 0 && vs.edgesStats().done === 1, vs.levelStats())
     const lvs = new VoiceStore({ appDir: tempDir('lani-level-gepard-'), engines: [stub('gepard', local)], queueDelayMs: 0 })
     const kruh = await lvs.voice('Kruh je še topel.', 'male', 'test')
@@ -1406,7 +1408,7 @@ export default async function voice() {
       [pc, p0, p1])
     check('…its name carries the worker\'s voice (marko), recorded too; nothing waits for a pace; it is not trimmed twice',
       pc?.engine_voice === 'marko' && fg.st.calls.at(-1)?.speaker === 'marko' && ps.tempoQueue().length === 0 && (await ps.tempoClips()).done === 0 && ps.edgesQueue().length === 0 &&
-        JSON.stringify(ps.tempoStats()) === JSON.stringify({ tempo: null, pause: null, paced: 0, waiting: 0, ffmpeg: true }), [pc, ps.tempoStats()])
+        JSON.stringify(ps.tempoStats()) === JSON.stringify({ tempo: null, pause: null, paced: 0, voices: tempoVoices(), voiced: 0, waiting: 0, ffmpeg: true }), [pc, ps.tempoStats()])
     // a pace set (LANI_VOICE_GEPARD_TEMPO=1.05, LANI_VOICE_GEPARD_PAUSES=0.4): the pause shortened, sped up, then the edges
     const set = new VoiceStore({ appDir: tempDir('lani-pace-set-'), engines: [new Gepard({ url: fg.url })], queueDelayMs: 0, pace: { tempo: 1.05, pause: 0.4 } })
     const sc = await set.voice(said, 'male', 'test')
@@ -1428,6 +1430,93 @@ export default async function voice() {
     faster.close()
     set.close()
     ps.close()
+
+    // --- a voice's own pace (the cast's tempo; Jan, 2026-10-19: "Zala talks a bit slow"): sped up as its clips are stored,
+    // by engine, after a carrier sentence's cut ---------------------------------------------------------------------
+    {
+      const tc = tempDir('lani-tempo-cast-')
+      const baseCast = JSON.parse(readFileSync(CAST_FILE, 'utf8'))
+      const writeCast = (name: string, edit: (c: any) => void) => {
+        const c = structuredClone(baseCast)
+        edit(c)
+        const f = join(tc, `${name}.json`)
+        writeFileSync(f, JSON.stringify(c))
+        return f
+      }
+      const castBefore = process.env.LANI_VOICE_CAST
+      const castT = writeCast('tempo', c => {
+        c.speakers.girl.tempo = { elevenlabs: 1.1 }
+        c.speakers.boy.tempo = 1.2
+        c.speakers.female.tempo = { elevenlabs: 1.25 }
+        c.speakers.female.languages.sl.tempo = 0.9
+      })
+      process.env.LANI_VOICE_CAST = castT
+      const sorted = (o: object) => JSON.stringify(Object.fromEntries(Object.entries(o).sort()))
+      check('the cast\'s tempo: a number for every engine, or by engine (an engine left out keeps its pace), a voice in a language its own; none for someone\'s own voice or a speaker without it',
+        tempoOf('girl', 'elevenlabs') === 1.1 && tempoOf('girl', 'gepard') === 1 && tempoOf('boy', 'elevenlabs') === 1.2 && tempoOf('boy', 'gepard') === 1.2 && tempoOf('female', 'elevenlabs') === 1.25 &&
+          tempoOf('female', 'gepard') === 1 && tempoOf('female.sl', 'elevenlabs') === 0.9 && tempoOf('@micka', 'elevenlabs') === 1 && tempoOf('grandma', 'elevenlabs') === 1 &&
+          sorted(tempoVoices()) === sorted({ girl: { elevenlabs: 1.1 }, boy: 1.2, female: { elevenlabs: 1.25 }, 'female.sl': 0.9 }), tempoVoices())
+      check('…the pace a clip is stored at (clipPace): its voice\'s tempo by its engine, a local clip\'s times the local voice\'s pace (with its pauses); none at 1',
+        JSON.stringify(clipPace('girl', 'elevenlabs', null)) === '{"tempo":1.1,"pause":null}' && clipPace('girl', 'gepard', null) === null && JSON.stringify(clipPace('girl', 'elevenlabs', { tempo: 1.05, pause: 0.4 })) === '{"tempo":1.1,"pause":null}' &&
+          JSON.stringify(clipPace('boy', 'gepard', { tempo: 1.05, pause: 0.4 })) === '{"tempo":1.26,"pause":0.4}' && JSON.stringify(clipPace('grandma', 'gepard', { tempo: 1, pause: 0.4 })) === '{"tempo":1,"pause":0.4}' && clipPace('grandma', 'elevenlabs', null) === null)
+      // a tempo out of range: the cast is refused as for any wrong field (the narrators alone), and logged
+      process.env.LANI_VOICE_CAST = writeCast('bad', c => void (c.speakers.girl.tempo = 3))
+      const errorBefore = console.error
+      const castErrors: string[] = []
+      console.error = (...a: unknown[]) => void castErrors.push(a.join(' '))
+      const badCast = Object.keys(cast())
+      console.error = errorBefore
+      check('…a tempo out of 0.5 to 2: the cast is refused (the narrators alone), logged', badCast.join() === 'female,male' && castErrors.some(l => l.includes('tempo')), [badCast, castErrors])
+      process.env.LANI_VOICE_CAST = castT
+
+      // the girl's new line from ElevenLabs: ×1.1; the grandmother's, without a tempo, as made
+      const ts = new VoiceStore({ appDir: tempDir('lani-tempo-'), engines: [stub('elevenlabs', worker)], queueDelayMs: 0 })
+      const line = 'Vidim, vidim nekaj, česar ti ne vidiš …'
+      const zg = await ts.voice(line, 'girl', 'test')
+      const gm = await ts.voice(line, 'grandma', 'test')
+      const [zp, gp] = await Promise.all([zg, gm].map(c => (c ? pace(new Uint8Array(readFileSync(join(ts.filesDir, c.file)))) : null)))
+      check('a new clip of a voice with a tempo (the girl, ElevenLabs ×1.1): sped up in the level\'s encode (its sound and its pause ÷1.1), the edges trimmed after, levelled; recorded (tempo); a voice without one as made',
+        zg?.tempo === 1.1 && zg.engine === 'elevenlabs' && zg.edges === 1 && zg.level === LEVEL.target && gm?.tempo == null && gm.edges === 1 && !!zp && !!gp &&
+          Math.abs(zp.longest - 1 / 1.1) < 0.05 && Math.abs(zp.sound - 1.6 / 1.1) < 0.08 && zp.lead <= 0.08 && zp.tail <= 0.16 && Math.abs(gp.longest - 1) < 0.06 && Math.abs(zp.span * 1.1 - gp.span) < 0.12 &&
+          near(await measure(new Uint8Array(readFileSync(join(ts.filesDir, zg.file))))), [zg, zp, gp])
+      check('…nothing waits for its pace, and a pass does nothing (each clip records its factor); the status lists the voices and their clips at it',
+        ts.tempoQueue().length === 0 && (await ts.tempoClips()).done === 0 && ts.tempoStats().voiced === 1 && sorted(ts.tempoStats().voices) === sorted(tempoVoices()), ts.tempoStats())
+      ts.close()
+      // the local worker: the girl's tempo is ElevenLabs' only (her local voice is fast already); the boy's every engine's,
+      // times the local voice's pace when one is set
+      const tg = new VoiceStore({ appDir: tempDir('lani-tempo-gepard-'), engines: [stub('gepard', worker)], queueDelayMs: 0 })
+      const tgp = new VoiceStore({ appDir: tempDir('lani-tempo-gepard-pace-'), engines: [stub('gepard', worker)], queueDelayMs: 0, pace: { tempo: 1.05, pause: 0.4 } })
+      const [zl, bl, bp] = [await tg.voice('Toplo, toplo!', 'girl', 'test'), await tg.voice('Toplo, toplo!', 'boy', 'test'), await tgp.voice('Toplo, toplo!', 'boy', 'test')]
+      const [zlp, blp] = await Promise.all([zl, bl].map(c => (c ? pace(new Uint8Array(readFileSync(join(tg.filesDir, c.file)))) : null)))
+      const bpp = bp ? await pace(new Uint8Array(readFileSync(join(tgp.filesDir, bp.file)))) : null
+      check('…a local clip: the girl\'s at its own pace (her tempo is ElevenLabs\'), the boy\'s ×1.2 (every engine), ×1.26 with the local voice\'s pace (its pause down to 0.4 s, then sped up)',
+        zl?.engine === 'gepard' && zl.tempo == null && bl?.tempo === 1.2 && bp?.tempo === 1.26 && !!zlp && !!blp && !!bpp && Math.abs(zlp.longest - 1) < 0.06 && Math.abs(blp.longest - 1 / 1.2) < 0.05 &&
+          Math.abs(blp.sound - 1.6 / 1.2) < 0.08 && Math.abs(bpp.longest - 0.4 / 1.26) < 0.05 && Math.abs(bpp.sound - 1.6 / 1.26) < 0.08, [zl, bl, bp, zlp, blp, bpp])
+      tg.close()
+      tgp.close()
+      // a lone word of a carrier voice (the female narrator, Matilda: ×1.25 in this cast): cut out of its carrier sentence
+      // by the take's own timestamps, as without a tempo, and then paced
+      const fe = fakeEleven({ tones: true })
+      const cutter = ffmpegCutter()!
+      const cuts: [number, number][] = []
+      const el = new ElevenLabs({ key: 'test-key', base: fe.url, cut: async (take, from, to) => (cuts.push([from, to]), cutter(take, from, to)) })
+      const cs = new VoiceStore({ appDir: tempDir('lani-tempo-carrier-'), engines: [el], queueDelayMs: 0 })
+      const word = await cs.voice('kosilo', 'female', 'test')
+      const wb = word ? new Uint8Array(readFileSync(join(cs.filesDir, word.file))) : new Uint8Array()
+      process.env.LANI_VOICE_CAST = writeCast('plain', () => {})
+      const plainStore = new VoiceStore({ appDir: tempDir('lani-tempo-carrier-plain-'), engines: [el], queueDelayMs: 0 })
+      const plain = await plainStore.voice('kosilo', 'female', 'test')
+      const pb = plain ? new Uint8Array(readFileSync(join(plainStore.filesDir, plain.file))) : new Uint8Array()
+      check('…a carrier cut: the word cut at the take\'s timestamps (0.91 to 1.51 s, as without a tempo), then paced (0.6 s ÷1.25), edges and level after; recorded (carrier, tempo)',
+        word?.method === 'carrier' && word.tempo === 1.25 && word.level === LEVEL.target && plain?.method === 'carrier' && plain.tempo == null && cuts.length === 2 &&
+          cuts.every(c => Math.abs(c[0] - 0.91) < 1e-6 && Math.abs(c[1] - 1.51) < 1e-6) && Math.abs(mp3Duration(wb) * 1.25 - mp3Duration(pb)) < 0.08 && mp3Duration(wb) < mp3Duration(pb) - 0.06,
+        [word, plain, cuts, mp3Duration(wb), mp3Duration(pb)])
+      cs.close()
+      plainStore.close()
+      fe.stop()
+      if (castBefore === undefined) delete process.env.LANI_VOICE_CAST
+      else process.env.LANI_VOICE_CAST = castBefore
+    }
 
     // voice-build --tempo, --edges and --restore-gepard on a copy of the data: a store from before the pace and the edges
     // (no tempo, no edges column), levelled, real MP3s: two local clips as the worker made them, an ElevenLabs one
@@ -1542,6 +1631,81 @@ export default async function voice() {
     const en = tbridge.checkExternal()
     check('…the bridge sees the trimmed clips and tells the app (voice_updated); the one only recorded is no change', en === 3 && ttold.join() === '2,2,3', [en, ttold])
     tbridge.close()
+
+    // voice-build --pace on a copy of the data: the girl's two ElevenLabs clips from before her tempo, her local clip, the
+    // grandmother's (no tempo), and a local clip the local voice's pace sped up before (×1.05; none set now)
+    {
+      const pData = tempDir('lani-tempo-data-')
+      mkdirSync(join(pData, 'app/voice/files'), { recursive: true })
+      const pdb = new Database(join(pData, 'app/voice/voice.db'))
+      pdb.exec('CREATE TABLE clips (key TEXT PRIMARY KEY, norm TEXT NOT NULL, text TEXT NOT NULL, voice TEXT NOT NULL, engine TEXT NOT NULL, file TEXT NOT NULL, chars INTEGER NOT NULL, created_at TEXT NOT NULL, source TEXT NOT NULL, method TEXT, hits INTEGER NOT NULL DEFAULT 0, denoise TEXT, level REAL, gain REAL, tempo REAL, edges INTEGER, engine_voice TEXT, model TEXT)')
+      const pclips: [string, string, string, number | null][] = [
+        ['Vidim, vidim nekaj, česar ti ne vidiš …', 'girl', 'elevenlabs', null], ['Je oster.', 'girl', 'elevenlabs', null], ['Toplo, toplo!', 'girl', 'gepard', null],
+        ['Kje je pošta?', 'grandma', 'elevenlabs', null], ['Dober dan.', 'male', 'gepard', 1.05],
+      ]
+      pclips.forEach(([text, voice, engine, t], i) => {
+        const file = `${createHash('sha1').update(`tempo|${voice}|${engine}|${text}`).digest('hex')}.mp3`
+        writeFileSync(join(pData, 'app/voice/files', file), levelled)
+        pdb.query('INSERT INTO clips (key, norm, text, voice, engine, file, chars, created_at, source, hits, level, gain, tempo, edges) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
+          .run(`${voice}:${normalizeText(text)}`, normalizeText(text), text, voice, engine, file, text.length, `2026-10-1${i}T10:00:00.000Z`, 'ispy:test', 2, LEVEL.target, 0, t, 1)
+      })
+      pdb.close()
+      const pc = tempDir('lani-tempo-data-cast-')
+      const pcBase = JSON.parse(readFileSync(CAST_FILE, 'utf8'))
+      const castOf = (girl: unknown) => {
+        const c = structuredClone(pcBase)
+        for (const sp of Object.values(c.speakers) as any[]) delete sp.tempo
+        if (girl !== undefined) c.speakers.girl.tempo = girl
+        const f = join(pc, `cast-${JSON.stringify(girl ?? 'none').replace(/\W/g, '')}.json`)
+        writeFileSync(f, JSON.stringify(c))
+        return { LANI_VOICE_CAST: f }
+      }
+      const prows = () => {
+        const d = new Database(join(pData, 'app/voice/voice.db'), { readonly: true })
+        const r = Object.fromEntries((d.query('SELECT * FROM clips').all() as Clip[]).map(c => [`${c.voice}:${c.text}`, c]))
+        d.close()
+        return r
+      }
+      const secsOf = (c: Clip) => mp3Duration(new Uint8Array(readFileSync(join(pData, 'app/voice/files', c.file))))
+      const girlEl = ['girl:Vidim, vidim nekaj, česar ti ne vidiš …', 'girl:Je oster.']
+      const others = ['girl:Toplo, toplo!', 'grandma:Kje je pošta?', 'male:Dober dan.']
+      const before = prows()
+      // the clips' length as stored: 3.9 s, at the level
+      const made = mp3Duration(levelled)
+      const at11 = castOf({ elevenlabs: 1.1 })
+      const pdry = await vbt(at11, '--pace', '--data', pData)
+      const pj = JSON.parse((await vbt(at11, '--pace', '--json', '--data', pData)).stdout || '{}')
+      check('voice-build --pace (dry run): the girl\'s two ElevenLabs clips wait (×1.1, the cast\'s tempo), each measured now and as it would be paced (more characters a second); her local clip, the grandmother\'s and the one the local pace sped up (left for --restore-gepard) don\'t; nothing changed',
+        pdry.exitCode === 0 && pj.waiting === 2 && pj.measured === 2 && pj.clips?.every((c: any) => c.voice === 'girl' && c.engine === 'elevenlabs' && c.by === 1.1 && c.after.secs < c.now.secs - 0.25) &&
+          pj.voices?.['girl elevenlabs']?.rate.after.median > pj.voices['girl elevenlabs'].rate.now.median * 1.07 && JSON.stringify(pj.cast) === '{"girl":{"elevenlabs":1.1}}' &&
+          pdry.stdout.includes('girl elevenlabs') && pdry.stdout.includes('girl (elevenlabs ×1.1)') && pdry.stdout.includes('×1.1') && pdry.stdout.includes('Dry run') && pdry.stdout.includes('--pace --run') &&
+          pdry.stdout.includes('1 local clip(s) were paced before') && JSON.stringify(prows()) === JSON.stringify(before),
+        [pdry.stdout, pdry.stderr, pj])
+      const q1 = await vbt(at11, '--pace', '--run', '--max', '1', '--data', pData)
+      const q2 = await vbt(at11, '--pace', '--run', '--data', pData)
+      const q3 = await vbt(at11, '--pace', '--run', '--data', pData)
+      const r11 = prows()
+      check('voice-build --pace --run (--max 1, then the rest, then nothing): each of the girl\'s ElevenLabs clips paced once (×1.1: 3.9 s → 3.55 s), levelled again in the same encode, under a new name, the old file gone; recorded (tempo); the other clips as they were',
+        q1.exitCode === 0 && q1.stdout.includes('Paced 1 clip(s)') && q2.stdout.includes('Paced 1 clip(s)') && q3.stdout.includes('Paced 0 clip(s)') &&
+          girlEl.every(k => r11[k].tempo === 1.1 && r11[k].level === LEVEL.target && r11[k].edges === 1 && r11[k].hits === 2 && r11[k].file === processedFile(before[k].file, { level: LEVEL.target, tempo: 1.1 }) &&
+            !existsSync(join(pData, 'app/voice/files', before[k].file)) && Math.abs(secsOf(r11[k]) - made / 1.1) < 0.08) &&
+          others.every(k => JSON.stringify(r11[k]) === JSON.stringify(before[k]) && existsSync(join(pData, 'app/voice/files', before[k].file))),
+        [q1.stdout + q1.stderr, q2.stdout, q3.stdout, r11])
+      const at12 = castOf({ elevenlabs: 1.2 })
+      const q4 = await vbt(at12, '--pace', '--run', '--data', pData)
+      const r12 = prows()
+      check('…a tempo changed (1.2): her clips paced by the difference from their files as they are (×1.0909), under a new name; recorded 1.2',
+        q4.exitCode === 0 && q4.stdout.includes('Paced 2 clip(s)') && girlEl.every(k => r12[k].tempo === 1.2 && r12[k].file === processedFile(r11[k].file, { level: LEVEL.target, tempo: 1.2 }) && Math.abs(secsOf(r12[k]) - made / 1.2) < 0.1),
+        [q4.stdout + q4.stderr, r12])
+      const none = castOf(undefined)
+      const q5 = await vbt(none, '--pace', '--run', '--data', pData)
+      const q6 = await vbt(none, '--pace', '--data', pData)
+      const r1 = prows()
+      check('…the tempo taken away: her clips slowed down to their own pace again (÷1.2), recorded at their own (no tempo); then nothing to pace',
+        q5.exitCode === 0 && q5.stdout.includes('Paced 2 clip(s)') && girlEl.every(k => r1[k].tempo == null && Math.abs(secsOf(r1[k]) - made) < 0.12) &&
+          q6.exitCode === 0 && q6.stdout.includes('nothing to pace') && q6.stdout.includes('keeps its own pace') && JSON.stringify(prows()) === JSON.stringify(r1),
+        [q5.stdout + q5.stderr, q6.stdout, r1])
+    }
   }
 
   // --- voice profiles through the bridge ---------------------------------------------------------------
@@ -1777,7 +1941,7 @@ export default async function voice() {
       const spBytes = new Uint8Array(await (await fetch(`${base}${sp.url}`, { headers: auth })).arrayBuffer())
       const stp = (await (await fetch(`${base}/voice/status`, { headers: auth })).json()).tempo
       check('…and the bridge keeps its clip at the worker\'s pace, only the edges trimmed (3.9 s as the worker made it, about 2.75 s stored); nothing paced',
-        sp.engine === 'gepard' && Math.abs(mp3Duration(spBytes) - (EDGES.lead + 2.6 + EDGES.tail)) < 0.15 && stp?.tempo === null && stp.paced === 0 && stp.waiting === 0 && stp.ffmpeg === true, [sp, mp3Duration(spBytes), stp])
+        sp.engine === 'gepard' && Math.abs(mp3Duration(spBytes) - (EDGES.lead + 2.6 + EDGES.tail)) < 0.15 && stp?.tempo === null && stp.paced === 0 && stp.ffmpeg === true && JSON.stringify(stp.voices) === JSON.stringify(tempoVoices()), [sp, mp3Duration(spBytes), stp])
       bridgeGepard.st.audio = undefined
     }
     bridgeGepard.st.busy = true

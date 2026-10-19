@@ -6,7 +6,8 @@
 // archetypes): a speaker whose ElevenLabs id is still empty has no voice yet, and a cast with none voices
 // nothing, so the app speaks with the phone's text-to-speech (castVoiced).
 // The cast's `denoise` names the voices whose ElevenLabs clips go through a filter before they are stored (a designed
-// voice that hisses: Stari Janez's own); voice.ts DENOISE has the filters.
+// voice that hisses: Stari Janez's own); voice.ts DENOISE has the filters. A speaker's `tempo` speeds up a voice that
+// speaks slowly (voice.ts clipPace): its clips are paced as they are stored, the ones from before by voice-build --pace.
 // A speaker's `languages` are the voices it speaks a language with that its own voice doesn't speak natively: the
 // narrators' Slovene voices (Nina, Luka) beside their English ones (Matilda, Daniel). Their clips are those of the voice
 // "female.sl" (languageVoice), next to the narrator's local Gepard clips (voice.ts, "The narrators in Slovene").
@@ -22,6 +23,12 @@ export const SPEAKER_ID = /^[a-z][a-z0-9-]{0,31}$/
 export const LANGUAGE_VOICE = /^([a-z][a-z0-9-]{0,31})\.([a-z]{2})$/
 
 const ELEVENLABS_ID = /^[A-Za-z0-9]{10,40}$/
+/** A pace factor: 0.5 to 2 (1: as the engine makes it). */
+const factor = z.number().min(0.5).max(2)
+// a voice's own pace (voice.ts clipPace): its clips sped up (atempo, the pitch kept) by a factor, from every engine (a
+// number) or by engine ({ "elevenlabs": 1.1 }: an engine left out keeps its pace)
+const tempoSpec = z.union([factor, z.object({ elevenlabs: factor.optional(), gepard: factor.optional() }).strict()])
+export type TempoSpec = z.infer<typeof tempoSpec>
 const languageSpec = z.object({
   // the ElevenLabs voice it speaks the language with: a library voice native in it (no voice slot)
   elevenlabs: z.string().regex(ELEVENLABS_ID, 'an ElevenLabs voice id'),
@@ -30,6 +37,8 @@ const languageSpec = z.object({
   carrier: z.boolean().optional(),
   // the library voice's owner, to add it to another account (the first request with its id adds it to this one)
   library_owner: z.string().max(80).optional(),
+  // its own pace (tempoSpec)
+  tempo: tempoSpec.optional(),
 })
 const speakerSpec = z.object({
   gender: z.enum(['female', 'male']),
@@ -47,6 +56,8 @@ const speakerSpec = z.object({
   carrier: z.boolean().optional(),
   // the voices it speaks a language with that its own voice doesn't speak natively (the narrators' Slovene: Nina, Luka)
   languages: z.record(z.string().regex(/^[a-z]{2}$/), languageSpec).optional(),
+  // its own pace (tempoSpec): a voice that speaks slowly sped up (the girl's Piku, ×1.1 since 2026-10-19)
+  tempo: tempoSpec.optional(),
   name: z.string().max(80).optional(),
   role: z.string().max(200).optional(),
 })
@@ -208,6 +219,26 @@ export const elevenlabsOf = (name: string): string | undefined => personVoice(na
  * library voices), or one's voice in a language marked so. A person's own voice is designed from Slovene and never needs it.
  */
 export const carrierVoice = (name: string): boolean => (isSpeaker(name) && cast()[name].carrier === true) || languageOf(name)?.spec.carrier === true
+
+/**
+ * The factor [name]'s clips by [engine] are sped up by (the cast's `tempo`, a speaker's or its voice in a language's:
+ * "female.sl"; voice.ts clipPace): 1 for none, for an engine its `tempo` leaves out, and for someone's own voice.
+ */
+export function tempoOf(name: string, engine: 'elevenlabs' | 'gepard'): number {
+  const spec = isSpeaker(name) ? cast()[name].tempo : languageOf(name)?.spec.tempo
+  const t = typeof spec === 'number' ? spec : spec?.[engine]
+  return t ?? 1
+}
+
+/** The voices the cast gives a pace of their own, with their `tempo` (the status, voice-build --pace). */
+export function tempoVoices(): Record<string, TempoSpec> {
+  const out: Record<string, TempoSpec> = {}
+  for (const [id, s] of Object.entries(cast())) {
+    if (s.tempo !== undefined) out[id] = s.tempo
+    for (const [lang, l] of Object.entries(s.languages ?? {})) if (l.tempo !== undefined) out[`${id}.${lang}`] = l.tempo
+  }
+  return out
+}
 
 /** Whether anyone in the cast has a voice (an ElevenLabs id or a local Gepard voice): a culture's cast may have none yet. */
 export const castVoiced = (): boolean => Object.values(cast()).some(s => !!s.elevenlabs || !!s.gepard)
