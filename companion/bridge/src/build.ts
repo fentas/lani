@@ -47,6 +47,7 @@ import { sentences } from './features/sentences'
 import { stories } from './features/stories'
 import { stt } from './features/stt'
 import { towns } from './features/towns'
+import { tutorSession } from './features/tutor'
 import { villagers } from './features/villagers'
 import { voice } from './features/voice'
 import { GameStore } from './game'
@@ -116,6 +117,8 @@ export const FEATURES: readonly { name: string; factory: FeatureFactory }[] = [
   { name: 'questions', factory: townQuestions },
   // the developer's data from the app (app/dev/): routes only, nothing for the tutor
   { name: 'dev', factory: dev },
+  // the app's own tutor as a client of the channel (/tutor/*: features/tutor.ts): routes only, over the tools above
+  { name: 'tutor', factory: tutorSession },
 ]
 
 /** What the voices of the village need to know when they are made: its language and the voice its tutor speaks in. */
@@ -214,7 +217,11 @@ export function buildBridge<C extends ChannelPort>(platform: Platform<C>, o: Bui
   // the town's own key (app/town-key.pem), else the bridge's: what towns, friends and the relay know the town by
   const townKey = loadTownKey(appDir)
 
+  // what the app's own tutor's session reads of the session (features/tutor.ts): set once the features are built
+  let sessionTools: Tool[] = []
+  let sessionRules: () => string = () => ''
   const ctx: Ctx & { channel: C } = {
+    session: { tools: () => sessionTools, rules: () => sessionRules() },
     cfg,
     log,
     profile,
@@ -331,6 +338,8 @@ export function buildBridge<C extends ChannelPort>(platform: Platform<C>, o: Bui
   }
   // The tutor's writing tools fail while another side holds the learner's data (the lease: lease.ts).
   const tools = guardTools([guideTool, ...features.flatMap(f => f.tools ?? [])], ctx.lease)
+  sessionTools = tools
+  sessionRules = rulesNow
   return { cfg, ctx, profile, isApp, named, features, guide, rulesNow, rules, guideTool, tools, place }
 }
 

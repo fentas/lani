@@ -149,7 +149,12 @@ export class LeaseGuard {
  * Paths of the app's API that write no learner data: pairing a phone, the tutor's permission prompts, the developer's
  * files, speech recognition and the voice store (a cache of clips).
  */
-const NOT_DATA = [/^\/pair$/, /^\/permission$/, /^\/health$/, /^\/dev\//, /^\/stt$/, /^\/voice\//]
+const NOT_DATA = [
+  /^\/pair$/, /^\/permission$/, /^\/health$/, /^\/dev\//, /^\/stt$/, /^\/voice\//,
+  // the app's own tutor's session (features/tutor.ts): attaching and its inbox are the channel's, not the learner's data;
+  // its tool calls are guarded tool by tool (the session's by guardTools, the app session's own in features/tutor.ts)
+  /^\/tutor\/(attach|detach|inbox\/ack)$/, /^\/tutor\/tools\/[\w-]+$/,
+]
 const READS = new Set(['GET', 'HEAD', 'OPTIONS'])
 
 /**

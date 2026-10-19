@@ -94,6 +94,8 @@ export async function runService(p: ServiceParts) {
       ...(supervisor ? { supervisor } : {}),
       session: ctx.channel.attached ?? null,
       queued: ctx.channel.queued,
+      // the app's own tutor, when it has the channel (features/tutor.ts): the session above hears nothing new meanwhile
+      ...(ctx.channel.appTutor ? { app_tutor: { who: ctx.channel.appTutor.who, since: ctx.channel.appTutor.since } } : {}),
       tools: tools.map(t => t.name),
       updated_at: new Date().toISOString(),
     })

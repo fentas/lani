@@ -50,10 +50,44 @@ export const withHint = (content: string, meta: Record<string, string>, heard: b
 
 export type PermissionRequest = { request_id: string; tool_name: string; description: string; input_preview: string }
 
-/** What the features use of the channel: events into the tutor's session, and the learner's answer to a tool approval. */
+/**
+ * The app's own tutor's inbox as the channel sees it (src/tutor-inbox.ts TutorInbox): while the app's tutor is attached
+ * (features/tutor.ts), the channel's events wait there instead of reaching the session.
+ */
+export type AppInbox = {
+  push: (content: string, meta: Record<string, string>, at?: number) => unknown
+  /** Everything still waiting, in order, and the inbox emptied (a detach gives it back to the session). */
+  takeAll: () => { content: string; meta: Record<string, string>; at: number }[]
+  readonly attached?: { who: string; since: string; device?: string }
+}
+
+/**
+ * What the features use of the channel: events into the tutor's session, and the learner's answer to a tool approval;
+ * and for the app's own tutor's session (features/tutor.ts, docs/plans/05-built/tutor-live.md), on a node's channel and
+ * the phone's alike: [divert] the events to its inbox while it is attached, [undivert] them back to the session, [call]
+ * a tool as a session's call runs (a node's counts it in flight and refuses it while the service stops: [draining]).
+ */
 export type ChannelPort = {
-  notify: (content: string, meta: Record<string, string>) => Promise<'sent' | 'queued'>
+  /** 'app': the app's own tutor is attached; the event waits in its inbox. */
+  notify: (content: string, meta: Record<string, string>) => Promise<'sent' | 'queued' | 'app'>
   permission: (verdict: { request_id: string; behavior: 'allow' | 'deny' }) => Promise<void>
+  /** The app's tutor attaches: every event goes to [inbox] from now on (and what waited for a session); how many moved. */
+  divert?: (inbox: AppInbox, log: (...a: unknown[]) => void) => number
+  /** The app's tutor detached: the events reach the session again, with what [inbox] still held; how many went back. */
+  undivert?: (log: (...a: unknown[]) => void) => Promise<number>
+  /** Tool [name] of [byName], run as a session's tool call. */
+  call?: (byName: Map<string, Tool>, name: string, args: Record<string, any>) => Promise<ToolResult>
+  /** The service is stopping (a node's): tool calls are refused, a long poll ends. */
+  readonly draining?: boolean
+  /** Runs [f] when the service starts stopping. */
+  whenDraining?: (f: () => void) => void
+}
+
+/** Tool [name] of [byName] with [args], as the session's call runs it: an unknown one is a failed result. */
+export async function runTool(byName: Map<string, Tool>, name: string, args: Record<string, any>): Promise<ToolResult> {
+  const tool = byName.get(name)
+  if (!tool) return fail(`unknown tool: ${name}`)
+  return await tool.handle(args)
 }
 
 /** The tools as the session sees them. */

@@ -64,6 +64,12 @@ export type Ctx = {
   events: Events
   /** Events into the tutor's session, and tool approvals: the node's MCP channel (channel.ts), the phone's (src/phone/channel.ts). */
   channel: ChannelPort
+  /**
+   * The session as the tutor gets it, for the app's own tutor's session (features/tutor.ts): every tool the session
+   * lists (channel_guide, then the features'), and its instructions now. Read lazily: they exist once every feature is
+   * built.
+   */
+  session: { tools: () => Tool[]; rules: () => string }
   outbox: Outbox
   modules: ModuleStore
   packs: PackStore

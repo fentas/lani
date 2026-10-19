@@ -14,7 +14,7 @@ import { z } from 'zod'
 import type { Log } from './config'
 import { REPLACED, RESTARTING, SERVICE_CAPABILITY, SHIM_CAPABILITY, type ServiceHello, type ShimHello } from './control'
 import { HttpError } from './http'
-import { channelEvent, fail, listed, withHint, type ChannelPort, type PermissionRequest, type Tool } from './tool'
+import { channelEvent, listed, runTool, withHint, type AppInbox, type ChannelPort, type PermissionRequest, type Tool, type ToolResult } from './tool'
 
 // the MCP-free parts (src/tool.ts), where they were before
 export { badNote, fail, listed, neutralizeTags, noteIn, ok, replyHint, type PermissionRequest, type Tool, type ToolResult } from './tool'
@@ -43,6 +43,14 @@ export const channelCapabilities = (permissionRelay?: boolean): Record<string, o
   'claude/channel': {},
   ...(permissionRelay === false ? {} : { 'claude/channel/permission': {} }),
 })
+
+/**
+ * What a Claude Code session that starts while the app's own tutor is attached reads at the end of its instructions:
+ * the channel's events go to the app (features/tutor.ts, docs/plans/05-built/tutor-live.md), so it hears nothing new
+ * until that tutor detaches.
+ */
+export const APP_TUTOR_NOTE =
+  "\n\nRight now the Lani app's own tutor is attached (the learner chose \"In the app\" as who answers): the app's events go to it, and this session gets none until the learner switches back to \"Claude Code on my node\". The tools still work."
 
 /** The service's session: the shim attached now (from its hello). */
 export type Attached = { since: string; client: string; session?: string; pid?: number; protocol?: number }
@@ -112,8 +120,26 @@ export class Channel implements ChannelPort {
   attached?: Attached
   /** Tool calls running now (the service waits for them before it stops). */
   inflight = 0
+  private stopping = false
+  /** Told when the service starts stopping (the app tutor's long polls end at once). */
+  private readonly onDrain = new Set<() => void>()
   /** Service: stopping; new tool calls are refused as RESTARTING, and the shim retries them on the next service. */
-  draining = false
+  get draining() {
+    return this.stopping
+  }
+  set draining(on: boolean) {
+    this.stopping = on
+    if (on) for (const f of this.onDrain) f()
+  }
+  /** Runs [f] when the service starts stopping. */
+  whenDraining(f: () => void) {
+    this.onDrain.add(f)
+  }
+  /**
+   * The app's own tutor's inbox while it is attached (features/tutor.ts, POST /tutor/attach): every notification goes
+   * there instead of to the session, until it detaches.
+   */
+  private app?: AppInbox
   /** Service: a session attached or left, or the queue changed. */
   onChange?: () => void
   /** Whether the session has had a conversation's event from this bridge yet (the first one also asks for the guide). */
@@ -127,25 +153,31 @@ export class Channel implements ChannelPort {
           experimental: { ...channelCapabilities(o.permissionRelay), ...(service ? { [SERVICE_CAPABILITY]: service } : {}) },
           tools: {},
         },
-        instructions: typeof o.instructions === 'function' ? o.instructions() : o.instructions,
+        instructions: (typeof o.instructions === 'function' ? o.instructions() : o.instructions) + (this.app ? APP_TUTOR_NOTE : ''),
       },
     )
     const byName = new Map(o.tools.map(t => [t.name, t]))
     server.setRequestHandler(ListToolsRequestSchema, async () => ({ tools: listed(o.tools) }))
-    server.setRequestHandler(CallToolRequestSchema, async req => {
-      if (this.draining) throw new McpError(RESTARTING, 'the bridge service is restarting')
-      const tool = byName.get(req.params.name)
-      if (!tool) return fail(`unknown tool: ${req.params.name}`)
-      this.inflight++
-      try {
-        return await tool.handle((req.params.arguments ?? {}) as Record<string, any>)
-      } finally {
-        this.inflight--
-      }
-    })
+    server.setRequestHandler(CallToolRequestSchema, async req => this.call(byName, req.params.name, (req.params.arguments ?? {}) as Record<string, any>))
     // Permission relay: tool approvals show up in the app; the app answers via POST /permission.
     server.setNotificationHandler(permissionRequest, async ({ params }) => o.onPermissionRequest(params))
     return server
+  }
+
+  /**
+   * Runs tool [name] of [byName] with [args], as a session's tool call: refused while the service is stopping
+   * (RESTARTING: the caller tries again on the next one), counted in [inflight] while it runs. The session's calls (MCP)
+   * and the app tutor's (POST /tutor/tools/:name) both come here.
+   */
+  call = async (byName: Map<string, Tool>, name: string, args: Record<string, any>): Promise<ToolResult> => {
+    if (this.draining) throw new McpError(RESTARTING, 'the bridge service is restarting')
+    if (!byName.has(name)) return runTool(byName, name, args)
+    this.inflight++
+    try {
+      return await runTool(byName, name, args)
+    } finally {
+      this.inflight--
+    }
   }
 
   /** Classic: starts the channel on stdio (Claude Code spawned this bridge). */
@@ -158,6 +190,56 @@ export class Channel implements ChannelPort {
   /** Service: events wait in [queue] while no session is attached. */
   useQueue(queue: ChannelQueue) {
     this.queue = queue
+    if (this.app) this.moveQueued()
+  }
+
+  /**
+   * The app's own tutor attaches ([inbox], who is attached set in it): from now on every notification waits in [inbox]
+   * instead of reaching the session, and what the queue held for the next session moves there too. Returns how many
+   * moved. The session (a shim, or Claude Code on stdio) stays connected and its tools keep working; it hears nothing
+   * new until [undivert].
+   */
+  divert = (inbox: AppInbox, log: Log): number => {
+    this.app = inbox
+    const moved = this.moveQueued()
+    log(`the app's own tutor is attached (${inbox.attached?.who ?? 'app'}${inbox.attached?.device ? `, ${inbox.attached.device}` : ''}): the channel's events go to its inbox, the Claude Code session gets none until it detaches${moved ? `; ${moved} queued event(s) moved to it` : ''}`)
+    this.onChange?.()
+    return moved
+  }
+
+  /**
+   * The app's tutor detached: notifications reach the session again, and what its inbox still held (not acknowledged)
+   * goes to the session now (or the queue, with none attached), in order. Returns how many were given back.
+   */
+  undivert = async (log: Log): Promise<number> => {
+    const inbox = this.app
+    if (!inbox) return 0
+    this.app = undefined
+    const back = inbox.takeAll()
+    log(`the app's own tutor detached: the channel's events go to the Claude Code session again${back.length ? `; ${back.length} unanswered event(s) given back to it` : ''}`)
+    for (const q of back) {
+      try {
+        await this.notify(q.content, { ...q.meta, queued_at: q.meta.queued_at ?? new Date(q.at).toISOString() })
+      } catch (e) {
+        log(`an event of the app tutor's inbox couldn't be given back (${q.meta.kind ?? 'event'}): ${(e as Error).message}`)
+      }
+    }
+    this.onChange?.()
+    return back.length
+  }
+
+  /** The app's own tutor attached now (who, since, its phone), or undefined: for the service's status. */
+  get appTutor(): AppInbox['attached'] {
+    return this.app?.attached
+  }
+
+  /** The queue's events into the app tutor's inbox (they keep their time). */
+  private moveQueued(): number {
+    const inbox = this.app
+    if (!inbox || !this.queue?.size) return 0
+    const waiting = this.queue.take()
+    for (const q of waiting) inbox.push(q.content, q.meta, q.at)
+    return waiting.length
   }
 
   get queued() {
@@ -211,6 +293,7 @@ export class Channel implements ChannelPort {
   }
 
   private async deliverQueued(log: Log) {
+    if (this.app) return // the app's own tutor has them (moveQueued)
     const waiting = this.queue?.take() ?? []
     if (!waiting.length) return
     log(`channel queue: ${waiting.length} event(s) to the session`)
@@ -239,8 +322,14 @@ export class Channel implements ChannelPort {
    * open or close a <channel> tag of its own. In the service with no session attached, it waits in the queue
    * ('queued').
    */
-  notify = async (content: string, meta: Record<string, string>): Promise<'sent' | 'queued'> => {
+  notify = async (content: string, meta: Record<string, string>): Promise<'sent' | 'queued' | 'app'> => {
     const { content: safe, meta: safeMeta } = channelEvent(content, meta)
+    if (this.app) {
+      // the app's own tutor answers now: its inbox, never the session (features/tutor.ts)
+      this.app.push(safe, safeMeta)
+      this.onChange?.()
+      return 'app'
+    }
     if (this.queue && !this.server) return this.enqueue(safe, safeMeta)
     try {
       await this.send(safe, safeMeta)

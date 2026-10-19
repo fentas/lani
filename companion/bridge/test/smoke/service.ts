@@ -256,6 +256,35 @@ export default async function service() {
     check("profiles: each service's events reach only its own session", !!heard(k, 'k1') && !heard(t4, 'k1') && !t4.notes.some(n => n.method === 'notifications/claude/channel' && n.params?.content?.includes('Živjo')))
     check("profiles: the child's app can't answer permission prompts (403)", (await post(kid, '/permission', { request_id: 'abcde', behavior: 'allow' })).status === 403)
     await k.client.close()
+
+    // --- the app's own tutor takes the channel (features/tutor.ts): the session hears nothing new ---------------------
+    const inboxOf = async (after = 0, wait = 0) => (await fetch(`${sam.base}/tutor/inbox?after=${after}&wait=${wait}`, { headers: auth })).json() as Promise<any>
+    const took: any = await (await post(sam, '/tutor/attach', { who: 'app', device: 'smoke phone' })).json()
+    await until(() => status(sam).app_tutor, 2_000)
+    check("app tutor: attached, the service's status says so", took.ok && status(sam).app_tutor?.who === 'app' && status(sam).session?.pid === t4.pid, status(sam))
+    await post(sam, '/message', { text: 'Za učitelja v aplikaciji.', conversation_id: 'a1' })
+    await Bun.sleep(300)
+    const forApp = (await inboxOf()).items as any[]
+    check("app tutor: a message waits in the app's inbox, the attached session (the shim) gets nothing", forApp.some(i => i.meta.conversation_id === 'a1') && !heard(t4, 'a1'), forApp)
+    const t6 = await shim(sam.env)
+    check("app tutor: a session that starts meanwhile is told in its instructions that the app's tutor has the channel", (t6.client.getInstructions() ?? '').includes("the Lani app's own tutor is attached"), (t6.client.getInstructions() ?? '').slice(-300))
+    const lastId = forApp.at(-1).id
+    const p0 = Date.now()
+    const polling = inboxOf(lastId, 20).then(r => r, () => 'failed')
+    await Bun.sleep(200)
+    await stopService(svc)
+    const ended = await polling
+    check("app tutor: a stop ends the app's long poll at once (the service doesn't wait for it)", typeof ended === 'object' && Array.isArray(ended.items) && Date.now() - p0 < 2_500, { ended, ms: Date.now() - p0 })
+    svc = await startService(sam, { LANI_PROBE_NEW: '1' })
+    const kept2 = (await inboxOf()).items as any[]
+    await Bun.sleep(300)
+    check("app tutor: across a restart it stays attached and its inbox kept; the session still hears nothing", status(sam).app_tutor?.who === 'app' && kept2.some(i => i.meta.conversation_id === 'a1') && !heard(t6, 'a1'), { st: status(sam).app_tutor, kept2 })
+    const tool: any = await (await post(sam, '/tutor/tools/smoke_new', { args: {} })).json()
+    check("app tutor: its tool calls run on the service's handlers", tool?.content?.[0]?.text === 'new', tool)
+    const gone: any = await (await post(sam, '/tutor/detach', {})).json()
+    await until(() => heard(t6, 'a1'), 3_000)
+    check("app tutor: detached, the session gets what the inbox held, and the status lets go", gone.returned === 1 && !!heard(t6, 'a1')?.meta?.queued_at && !status(sam).app_tutor, { gone, st: status(sam) })
+    await t6.client.close()
     await t4.client.close()
 
     // --- lani-bridge: the loop and the CLI (no tmux: the loop runs right here) ----------------------------------------
