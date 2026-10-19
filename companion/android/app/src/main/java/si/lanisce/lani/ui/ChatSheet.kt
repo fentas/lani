@@ -95,6 +95,7 @@ import si.lanisce.lani.l10n.inBase
 import si.lanisce.lani.l10n.inTarget
 import java.time.LocalDate
 import java.time.ZoneId
+import si.lanisce.lani.ui.tutor.tutorStudioItems
 
 /**
  * The tutor chat: today's conversation up front, the days before folded into "📦 Arhiv · Archive" (weeks, days, their
@@ -286,6 +287,8 @@ fun ChatSheet(vm: AppViewModel) {
                             }
                         }
                     }
+                    // the studio's jobs ("✍️ Pišem …"), a report to confirm, the monthly cap's question (ui/tutor/StudioUi)
+                    if (vm.live.settings.on) tutorStudioItems(vm.live)
                     // the in-app tutor's reply streams into it as it's written (tutor/live/LiveTutor); the final message replaces it
                     if (chat.typing || chat.streaming != null) item(key = "typing") { ChatBubble(chat.streaming?.takeIf { it.isNotBlank() } ?: "…", fromMe = false) }
                 }

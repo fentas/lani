@@ -150,6 +150,8 @@ fun TutorSettings(vm: AppViewModel, modifier: Modifier = Modifier) {
             style = MaterialTheme.typography.bodySmall,
             modifier = Modifier.testTag("tutor-spend"),
         )
+        // the monthly cap beside the daily one, and what can wait at half price (docs/plans/05-built/studio.md)
+        MonthlyCap(live)
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
                 Text(bi("tutorLive.reactAtOnce"), style = MaterialTheme.typography.bodyMedium)
@@ -160,6 +162,7 @@ fun TutorSettings(vm: AppViewModel, modifier: Modifier = Modifier) {
                 modifier = Modifier.testTag("tutor-react").semantics { contentDescription = if (s.reactAtOnce) "React at once: on" else "React at once: off" },
             )
         }
+        if (s.on) StudioJobs(live)
         if (s.on) Notebook(live)
     }
 }
@@ -177,6 +180,7 @@ private fun stateLine(live: LiveTutor): String = when (live.state) {
     LiveState.PAUSED_KEY -> bi("tutorLive.state.PAUSED_KEY")
     LiveState.PAUSED_CREDIT -> bi("tutorLive.state.PAUSED_CREDIT")
     LiveState.PAUSED_BUDGET -> bi("tutorLive.state.PAUSED_BUDGET")
+    LiveState.PAUSED_MONTH -> bi("tutorLive.state.PAUSED_MONTH")
 }
 
 private fun presetLabel(p: Preset): String = when (p) {
@@ -246,7 +250,9 @@ private fun OpenAICredential(live: LiveTutor, kept: () -> Unit) {
     var key by remember { mutableStateOf("") }
     var note by remember { mutableStateOf<String?>(null) }
     var busy by remember { mutableStateOf(false) }
+    var welcome by remember { mutableStateOf(false) }
     val muted = MaterialTheme.colorScheme.onSurfaceVariant
+    if (welcome) ChatGPTWelcome { welcome = false; live.welcomedChatGPT() }
     fun browse(url: String) = runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, android.net.Uri.parse(url)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }
     val account = live.chatgptAccount
     if (account != null && Billing.CHATGPT_PLAN in live.openaiReady) {
@@ -263,6 +269,8 @@ private fun OpenAICredential(live: LiveTutor, kept: () -> Unit) {
             scope.launch {
                 val e = live.signInWithChatGPT { url -> browse(url) }
                 note = e?.let { "⚠️ $it" }
+                // OpenAI's UI guidelines: the welcome once, at the first sign-in with the plan
+                if (e == null && !live.settings.chatgptWelcomed) welcome = true
                 if (e == null) kept()
                 busy = false
             }
@@ -364,6 +372,8 @@ private fun Notebook(live: LiveTutor) {
     } else {
         Text(text.ifBlank { bi("tutorLive.notebookEmpty") }, style = MaterialTheme.typography.bodySmall)
         TextButton(onClick = { editing = true }) { Text("✏️ ${bi("tutorLive.notebookEdit")}") }
+        // the bridge keeps the last versions (app/tutor/notebook-versions.json): see one, put it back
+        NotebookVersions(live) { restored -> text = restored }
     }
     note?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
 }
@@ -375,10 +385,17 @@ private fun Notebook(live: LiveTutor) {
 @Composable
 fun AiDisclosure(live: LiveTutor) {
     val plan = live.settings.provider == ProviderId.OPENAI && live.openaiBilling() == Billing.CHATGPT_PLAN
-    Text(
-        "🤖 ${bi("tutorLive.chatDisclosure", "model" to live.modelFor(Task.CHAT))}" + if (plan) " · ${bi("tutorLive.chatPlan")}" else "",
-        style = MaterialTheme.typography.labelSmall,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
-        modifier = Modifier.padding(bottom = 2.dp).testTag("tutor-disclosure"),
-    )
+    val context = LocalContext.current
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Text(
+            "🤖 ${bi("tutorLive.chatDisclosure", "model" to live.modelFor(Task.CHAT))}" + if (plan) " · ${bi("tutorLive.chatPlan")}" else "",
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(bottom = 2.dp).weight(1f, fill = false).testTag("tutor-disclosure"),
+        )
+        // OpenAI's UI guidelines: "Manage usage" near the composer while the plan pays
+        if (plan) TextButton(onClick = {
+            runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, android.net.Uri.parse(ChatGPTOAuth.MANAGE_USAGE)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }
+        }) { Text(bi("tutorLive.manageUsage"), style = MaterialTheme.typography.labelSmall) }
+    }
 }
