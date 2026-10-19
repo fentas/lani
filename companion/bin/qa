@@ -97,6 +97,12 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        card's steps, one wrong, the four lines said together, the cheat sheet, 💬 attaching it, the
                        mistake kept by the dev bridge; then typed ("counting:type"), the keyboard up, "✋ Izberi raje";
                        "counting-dialogs" the happenings with a counting dialog (Luka's cows) opened, no placeholder left;
+                       "numbers" the numbers module ("🔢 Števila · Numbers"): closed (QA's hook "numbers:locked") with
+                       "📖 Odpri uvod" to the unit's intro, skipped there (its note); a number heard typed on the number
+                       pad; figures → the word with the tens first (the order's why); a clock time heard ("numbers:time")
+                       typed with the pad's colon; a date's ordinal; a whole run read → figures one right answer from the
+                       next range ("numbers:near"): the range opened, the number missed coming back, the dev bridge's
+                       village keeping both, the dev tutor hearing the run;
                        "forms-card" forms cards ("📋 Oblike · Forms"): "📋 Vse oblike" on a noun's word card (QA's hook
                        "formscard:word:<word>") making its card at once, "▶ Vadi zdaj": its table (rows greyed, gaps), the
                        rules' pages, 💬 attaching it, a gap wrong, the rest right, the rows said together at the end, the
@@ -5044,6 +5050,253 @@ def counting_cards():
         go_home()
 
 
+NUMBERS_OPEN_INTRO = "Odpri uvod · Open the intro"  # the closed module's way to the intro (l10n numbers.openIntro)
+NUMBERS_LOCKED = "Odpre jih uvod enote"  # what opens it (l10n numbers.lockedIntro)
+NUMBERS_ON = "Števila so odprta"  # the note when the unit stevila's intro ends (l10n numbers.on)
+NUMBERS_START = "Začni · Start"  # the module's ▶️ (l10n numbers.start)
+NUMBERS_ASK = {  # each way's instruction (l10n numbers.ask.<mode>)
+    "hear": "Poslušaj in vtipkaj število", "read": "Preberi in vtipkaj število", "write": "Napiši z besedo",
+    "date": "Dopolni datum", "time_hear": "Poslušaj in vtipkaj uro",
+}
+NUMBERS_OPENED = "Novo odprto"  # a run's end, a range opened (l10n numbers.opened)
+NUMBERS_BACK = "Pridejo spet"  # a run's end, the numbers missed (l10n numbers.comingBack)
+CONTINUE = "Naprej · Continue"  # a run's end (l10n common.continue)
+NEXT = "Naprej · Next"  # an answer's feedback (l10n common.next)
+SL_ONES = ["nič", "ena", "dva", "tri", "štiri", "pet", "šest", "sedem", "osem", "devet"]
+SL_TEENS = ["deset", "enajst", "dvanajst", "trinajst", "štirinajst", "petnajst", "šestnajst", "sedemnajst", "osemnajst", "devetnajst"]
+SL_TENS = ["", "", "dvajset", "trideset", "štirideset", "petdeset", "šestdeset", "sedemdeset", "osemdeset", "devetdeset"]
+SL_ORD = ["", "prvi", "drugi", "tretji", "četrti", "peti", "šesti", "sedmi", "osmi", "deveti"]
+HOURS_AT = ["enih", "dveh", "treh", "štirih", "petih", "šestih", "sedmih", "osmih", "devetih", "desetih", "enajstih", "dvanajstih"]
+
+
+def sl_number(n: int) -> str:
+    """[n] in Slovene words as the app counts it (data/SpokenNumbers.slovene): 27 sedemindvajset, 2026 dva tisoč šestindvajset."""
+    if n < 10:
+        return SL_ONES[n]
+    if n < 20:
+        return SL_TEENS[n - 10]
+    if n < 100:
+        return SL_TENS[n // 10] if n % 10 == 0 else SL_ONES[n % 10] + "in" + SL_TENS[n // 10]
+    if n < 1000:
+        head = {1: "sto", 2: "dvesto"}.get(n // 100, SL_ONES[n // 100] + "sto")
+        return head if n % 100 == 0 else f"{head} {sl_number(n % 100)}"
+    head = "tisoč" if n // 1000 == 1 else f"{sl_number(n // 1000)} tisoč"
+    return head if n % 1000 == 0 else f"{head} {sl_number(n % 1000)}"
+
+
+NUMBER_WORDS = {sl_number(n): n for n in range(10000)}
+CLOCK_WORDS = {**{f"ob {HOURS_AT[h - 1]}": f"{h}:00" for h in range(1, 13)}, **{f"ob pol {HOURS_AT[h % 12]}": f"{h}:30" for h in range(1, 13)}}
+
+
+def numbers_said(timeout=15.0) -> str:
+    """What the app said last (the debug build's log, tag Speaker: "said «…»: how"), or ""; the log cleared before."""
+    end = time.time() + timeout * slow()
+    while time.time() < end:
+        hit = re.findall(r"said «(.*?)»", adb("logcat", "-d", "-s", "Speaker:I", check=False))
+        if hit:
+            return hit[-1]
+        time.sleep(1)
+    return ""
+
+
+def pad_type(figures: str):
+    """[figures] tapped on the number pad (its keys' labels: "1" … "9", "0", "Dvopičje · Colon"), below the prompt."""
+    for ch in figures:
+        label = "Dvopičje · Colon" if ch == ":" else ch
+        keys = [c for t, c in nodes() if t == label and c[1] > 900]
+        assert keys, f"the pad's key {label}"
+        tap_at(max(keys, key=lambda c: c[1]))
+
+
+def numbers_on_screen(timeout=10.0):
+    """The task's figures shown (a node of figures alone, above the pad or the field), or None."""
+    end = time.time() + timeout * slow()
+    while time.time() < end:
+        figs = [t for t, c in nodes() if re.fullmatch(r"\d{1,4}", t) and c[1] < 900]
+        if figs:
+            return int(figs[0])
+        time.sleep(1)
+    return None
+
+
+def word_on_screen(timeout=10.0):
+    """The number word shown to read ("sedemindvajset"), or None."""
+    end = time.time() + timeout * slow()
+    while time.time() < end:
+        words = [t for t, _ in nodes() if t in NUMBER_WORDS]
+        if words:
+            return words[0]
+        time.sleep(1)
+    return None
+
+
+def numbers_run_end():
+    """Leaves the run on screen: its answer's feedback on (the run keeps an answer once on to the next), then its
+    "Končaj · Done" (its end: how it went), and back to the module's screen."""
+    assert tap(NEXT, 6), "on from the answer"
+    assert tap(DONE, 6), "the run's Done"
+    assert wait_for(CONTINUE, 10), "the run's end"
+    assert tap(CONTINUE, 4), "back from the run's end"
+    assert wait_for(NUMBERS_START, 8), "the module's screen again"
+
+
+def numbers():
+    """"🔢 Števila · Numbers" (companion/README.md "Numbers"): closed (QA's hook "numbers:locked": the unit stevila as never
+    begun), what opens it and "📖 Odpri uvod" one tap to the unit's intro, skipped there ("⏭ Poznam to"): its note, the
+    module open with 0–10 and 11–20; a number heard (the app's log says which) typed on the number pad, right; with the
+    ranges up to 21–99 open ("numbers:ranges:21-99") a number's figures and its word typed with the tens first, the order's
+    why; the unit kdaj-cas's intro done ("numbers:time"): a clock time heard and typed with the pad's colon; a date's
+    ordinal; then a whole run read → figures with the newest range one right answer from the next ("numbers:near"), one
+    figure swapped: its end says the range opened and the number that comes back, the dev bridge's village keeps both, and
+    the run reached the dev tutor as a session_end."""
+    go_home()
+    try:
+        # closed: what opens it, one tap to the unit's intro
+        qa_hook("numbers:locked")
+        assert wait_for(NUMBERS_OPEN_INTRO, 12), "the closed module's 📖 Odpri uvod"
+        assert wait_for(NUMBERS_LOCKED, 3), "what opens it"
+        shot("numbers-locked")
+        assert tap(NUMBERS_OPEN_INTRO, 3), "📖 Odpri uvod"
+        assert wait_for("Poznam to", 12), "the unit stevila's intro, one tap away"
+        shot("numbers-intro")
+        assert tap("Poznam to", 4), "⏭ Poznam to"
+        assert wait_for(NUMBERS_ON, 45), "the note: the numbers are open"
+        shot("numbers-note")
+
+        # open: its first two ranges; 🎧 a number heard, typed on the pad
+        qa_hook("numbers:only:hear")
+        qa_hook("numbers")
+        assert wait_for(NUMBERS_START, 10), "▶️ Začni"
+        assert wait_for("11–20", 4), "the first two ranges open"
+        shot("numbers-open")
+        adb("logcat", "-c")
+        assert tap(NUMBERS_START, 4), "start a run"
+        assert wait_for(NUMBERS_ASK["hear"], 12), "a number to hear"
+        said = numbers_said()
+        assert said in NUMBER_WORDS, f"the number said ({said!r})"
+        n = NUMBER_WORDS[said]
+        print(f"    heard «{said}»: {n}")
+        pad_type(str(n))
+        assert wait_for(f"Vtipkano: {n}", 4), "the pad shows what was typed"
+        shot("numbers-pad")
+        assert tap("Preveri · Check", 3), "check the figures"
+        assert wait_for("✅", 6), "right"
+        shot("numbers-pad-right")
+        numbers_run_end()
+
+        # ✍️ figures → the word, with 21–99 open: the tens first, the order's why
+        qa_hook("numbers:ranges:21-99")
+        qa_hook("numbers:only:write")
+        qa_hook("numbers")
+        assert tap(NUMBERS_START, 8), "start a run"
+        shown = None
+        for _ in range(10):  # to a number of 21–99 (60 % of a run's new ones)
+            assert wait_for(NUMBERS_ASK["write"], 10), "figures to write"
+            shown = numbers_on_screen()
+            assert shown is not None, "the figures shown"
+            field = wait_for(ANSWER_FIELD, 6)
+            assert field, "the answer field"
+            if 21 <= shown <= 99 and shown % 10:
+                break
+            tap_at(field)
+            type_text(ascii_of(sl_number(shown)))
+            assert tap("Preveri · Check", 3), "check the word"
+            assert tap(NEXT, 6), "on to the next"
+        assert shown is not None and 21 <= shown <= 99 and shown % 10, f"a number of 21–99 to write ({shown})"
+        tap_at(field)
+        top = keyboard_settled()
+        tens_first = f"{SL_TENS[shown // 10]} {SL_ONES[shown % 10]}"
+        type_text(ascii_of(tens_first))
+        shot("numbers-write")
+        assert tap("Preveri · Check", 3), "check the word"
+        assert wait_for("❌", 6), "wrong: the tens first"
+        assert wait_for(sl_number(shown), 4), f"the right word ({sl_number(shown)})"
+        assert wait_for("ones first", 4) or wait_for("najprej enice", 2), "the order's why"
+        print(f"    {shown}: «{tens_first}» for «{sl_number(shown)}», the order's why shown")
+        shot("numbers-write-order")
+        numbers_run_end()
+
+        # ⏰ a clock time by ear, once the unit kdaj-cas's intro is done: "ob pol šestih" → 5:30, the pad's colon
+        qa_hook("numbers:time")
+        qa_hook("numbers:only:time_hear")
+        qa_hook("numbers")
+        adb("logcat", "-c")
+        assert tap(NUMBERS_START, 8), "start a run"
+        assert wait_for(NUMBERS_ASK["time_hear"], 12), "a time to hear"
+        said = numbers_said()
+        assert said in CLOCK_WORDS, f"the time said ({said!r})"
+        pad_type(CLOCK_WORDS[said])
+        shot("numbers-time")
+        assert tap("Preveri · Check", 3), "check the time"
+        assert wait_for("✅", 6), f"right: «{said}» is {CLOCK_WORDS[said]}"
+        print(f"    heard «{said}»: {CLOCK_WORDS[said]}")
+        shot("numbers-time-right")
+        numbers_run_end()
+
+        # 📅 a date's day: its ordinal ("Danes je ___ maj. (15.)")
+        qa_hook("numbers:only:date")
+        qa_hook("numbers")
+        assert tap(NUMBERS_START, 8), "start a run"
+        assert wait_for(NUMBERS_ASK["date"], 10), "a date to fill in"
+        frame = next((t for t, _ in nodes() if t.startswith("Danes je ___")), "")
+        m = re.search(r"\((\d+)\.\)", frame)
+        assert m, f"the date's frame ({frame!r})"
+        day = int(m.group(1))
+        ordinal = SL_ORD[day] if day < 10 else sl_number(day) + "i"
+        field = wait_for(ANSWER_FIELD, 6)
+        assert field, "the answer field"
+        tap_at(field)
+        type_text(ascii_of(ordinal))
+        assert tap("Preveri · Check", 3), "check the date"
+        assert wait_for("🟡", 6) or wait_for("✅", 2), f"«{ordinal}» typed without č, š, ž: almost, or right"
+        shot("numbers-date")
+        numbers_run_end()
+
+        # a whole run, read → figures, the newest range (21–99) one right answer from the next; one figure swapped
+        qa_hook("numbers:near")
+        qa_hook("numbers:only:read")
+        qa_hook("numbers")
+        assert tap(NUMBERS_START, 8), "start a run"
+        swapped = None
+        for i in range(10):
+            assert wait_for(NUMBERS_ASK["read"], 10), f"task {i + 1}: a word to read"
+            w = word_on_screen()
+            assert w, "the word shown"
+            n = NUMBER_WORDS[w]
+            typed = str(n)
+            if swapped is None and 21 <= n % 100 <= 99 and n % 10 and (n // 10) % 10 != n % 10:
+                typed = str(n - n % 100 + (n % 10) * 10 + (n // 10) % 10)
+                swapped = (n, typed)
+            pad_type(typed)
+            assert tap("Preveri · Check", 3), "check"
+            assert wait_for(NEXT, 6), "the answer's feedback"
+            tap(NEXT, 3)
+        assert wait_for(CONTINUE, 15), "the run's end"
+        assert wait_for(NUMBERS_OPENED, 4), "the range it opened"
+        if swapped:
+            assert wait_for(NUMBERS_BACK, 3), "the number missed, coming back"
+        shot("numbers-end")
+        # the dev bridge's village keeps the ranges and the number missed; the dev tutor heard the run
+        kept = api("/game").get("state", {}).get("numbers", {})
+        assert "100-999" in kept.get("opened", {}), f"the dev bridge's village: 100–999 open ({kept.get('opened')})"
+        if swapped:
+            assert any(a.get("n") == swapped[0] and a.get("mode") == "read" for a in kept.get("again", [])), f"{swapped[0]} coming back ({kept.get('again')})"
+        end = time.time() + 20 * slow()
+        while time.time() < end and "Practised the numbers" not in (OUT / "bridge.log").read_text(errors="replace"):
+            time.sleep(1)
+        assert "Practised the numbers" in (OUT / "bridge.log").read_text(errors="replace"), "the run's session_end at the dev tutor"
+        print(f"    the end: 100–999 opened{f', {swapped[0]} typed {swapped[1]}: coming back' if swapped else ''}; the dev tutor heard it")
+        assert tap(CONTINUE, 4), "back to the module's screen"
+        assert wait_for("100–999", 6), "the ladder with 100–999 open"
+        shot("numbers-ladder")
+    except Exception:
+        shot("numbers-failed")
+        raise
+    finally:
+        qa_hook("numbers:only:")
+        go_home()
+
+
 FORMS_ALL = "Vse oblike · All forms"  # a word card's button (l10n formsCard.allForms)
 FORMS_PLAY = "Vadi zdaj · Practise now"  # once its card is made (l10n formsCard.playNow)
 FORMS_WHOLE = "Vsa tabela · The whole table"  # a forms card's end (l10n formsCard.whole)
@@ -7560,6 +7813,7 @@ def plan():
         ("packs", packs, None, False, ""),
         ("word-forms", word_forms, go_home, False, ""),
         ("counting", counting_cards, go_home, False, ""),
+        ("numbers", numbers, go_home, False, ""),
         ("forms-card", forms_cards, go_home, False, ""),
         ("forms-view", forms_view_step, go_home, False, ""),
         ("exercise-words", exercise_words, go_home, False, ""),
