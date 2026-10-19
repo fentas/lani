@@ -11,7 +11,7 @@ export function spawnSync(cmd: string, args: readonly string[] | Opts = [], o: O
   const argv = Array.isArray(args) ? [...args] : []
   const opts = Array.isArray(args) ? o : (args as Opts)
   const env = { ...(globalThis as unknown as { process: { env: Record<string, string> } }).process.env, ...(opts.env ?? {}) }
-  const r = dispatch(cmd, argv, text(opts.input), env)
+  const r = dispatch(cmd, argv, text(opts.input), env, opts.cwd)
   const out = (s: string) => (opts.encoding && opts.encoding !== 'buffer' ? s : Buffer.from(s))
   if ('missing' in r) {
     const error = enoent(cmd, `spawnSync ${cmd}`)

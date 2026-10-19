@@ -63,7 +63,7 @@ function spawnSync(cmd: string[] | { cmd: string[] } & SpawnOpts, o: SpawnOpts =
   const opts = Array.isArray(cmd) ? o : cmd
   const env = opts.env ?? (globalThis as unknown as { process: { env: Record<string, string> } }).process.env
   const stdin = opts.stdin instanceof Uint8Array ? Buffer.view(opts.stdin).toString() : typeof opts.stdin === 'string' ? opts.stdin : undefined
-  const r = dispatch(argv[0], argv.slice(1), stdin, env)
+  const r = dispatch(argv[0], argv.slice(1), stdin, env, opts.cwd)
   if ('missing' in r) throw enoent(argv[0])
   return { exitCode: r.status, success: r.status === 0, signalCode: null, pid: 0, stdout: Buffer.from(r.stdout), stderr: Buffer.from(r.stderr), resourceUsage: undefined }
 }

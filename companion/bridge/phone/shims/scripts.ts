@@ -4,13 +4,19 @@
 // registered by src/phone/entry.ts); git answers as outside a repository, so the bridge leaves the data's git alone; any
 // other program isn't there (ENOENT), as on a machine without it.
 
-export type ScriptRun = (argv: string[], stdin: string | undefined, env: Record<string, string | undefined>) => { status: number; stdout: string; stderr: string }
+export type ScriptRun = (argv: string[], stdin: string | undefined, env: Record<string, string | undefined>, cwd?: string) => { status: number; stdout: string; stderr: string }
 
 const scripts = new Map<string, ScriptRun>()
+const inline: { code: RegExp; run: ScriptRun }[] = []
 
 /** [name] (read-db, update-db, card, validate-data …) runs [run] when the bridge runs `python3 .claude/hooks/<name>.py`. */
 export function registerScript(name: string, run: ScriptRun) {
   scripts.set(name, run)
+}
+
+/** `python3 -c <code>` with a [code] it matches runs [run] (learners.ts asks lani_paths.data_dir() so). */
+export function registerInline(code: RegExp, run: ScriptRun) {
+  inline.push({ code, run })
 }
 
 export const registeredScripts = () => [...scripts.keys()]
@@ -20,18 +26,25 @@ export type Ran = { status: number; stdout: string; stderr: string } | { missing
 const HOOK = /^(?:.*\/)?\.claude\/hooks\/([\w.-]+)\.py$/
 
 /** Runs [cmd] with [args] as the phone can: a registered script, git's "not a git repository", or nothing (missing). */
-export function dispatch(cmd: string, args: string[], stdin: string | undefined, env: Record<string, string | undefined>): Ran {
+export function dispatch(cmd: string, args: string[], stdin: string | undefined, env: Record<string, string | undefined>, cwd?: string): Ran {
   const name = cmd.split('/').pop() ?? cmd
   if (/^python3?$/.test(name)) {
+    const call = (what: string, run: ScriptRun, argv: string[]): Ran => {
+      try {
+        return run(argv, stdin, env, cwd)
+      } catch (e) {
+        return { status: 1, stdout: '', stderr: `${what}: ${(e as Error)?.stack ?? e}\n` }
+      }
+    }
+    if (args[0] === '-c') {
+      const i = inline.find(x => x.code.test(args[1] ?? ''))
+      return i ? call('python3 -c', i.run, args.slice(2)) : { status: 2, stdout: '', stderr: `${name} -c: not on this device: ${(args[1] ?? '').slice(0, 120)}\n` }
+    }
     const m = HOOK.exec(args[0] ?? '')
     if (!m) return { status: 2, stdout: '', stderr: `${name}: the phone runs only the learner-data scripts (.claude/hooks/<name>.py), not ${args.join(' ')}\n` }
     const run = scripts.get(m[1])
-    if (!run) return { status: 127, stdout: '', stderr: `${m[1]}.py is not on this device: its TypeScript port isn't registered (src/phone/entry.ts)\n` }
-    try {
-      return run(args.slice(1), stdin, env)
-    } catch (e) {
-      return { status: 1, stdout: '', stderr: `${m[1]}: ${(e as Error)?.stack ?? e}\n` }
-    }
+    if (!run) return { status: 2, stdout: '', stderr: `${name}: can't open file '.claude/hooks/${m[1]}.py': [Errno 2] No such file or directory\n` }
+    return call(m[1], run, args.slice(1))
   }
   if (name === 'git') return { status: 128, stdout: '', stderr: 'fatal: not a git repository (or any of the parent directories): .git\n' }
   return { missing: cmd }

@@ -11,23 +11,22 @@ import '../../phone/shims/prelude' // first: process, Buffer, URL, fetch, the ti
 import { mkdirSync } from 'node:fs'
 import { join } from 'node:path'
 import { fromHost, host, toHost } from '../../phone/shims/host'
-import { registerScript, registeredScripts } from '../../phone/shims/scripts'
+import { registerInline, registerScript, registeredScripts } from '../../phone/shims/scripts'
 import { appApi, buildBridge, type BuiltBridge } from '../build'
 import { log, type Config } from '../config'
+import { dataDirFor, run as runDb, SCRIPTS } from '../db/cli'
 import { errorText, router } from '../http'
 import { fail, listed, type ToolResult } from '../tool'
 import { PhoneChannel } from './channel'
 import { phoneVoices } from './voice'
 
-// ── The learner-data scripts ───────────────────────────────────────────────────────────────────────────────────────────
-// The node runs .claude/hooks/{read-db,update-db,card,validate-data}.py with Python; the phone runs their TypeScript port
-// (companion/bridge/src/db/cli.ts, the shared contract: run(script, argv, stdin, env) → {status, stdout, stderr}). Until
-// it is merged, those scripts answer "not on this device" (shims/scripts.ts) and the routes that need them fail.
-// WIRE THE DB PORT HERE (the lead, at merge):
-//   import { run as runDb } from '../db/cli'
-//   for (const s of ['read-db', 'update-db', 'card', 'validate-data'] as const) registerScript(s, (argv, stdin, env) => runDb(s, argv, stdin, env))
-// ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-void registerScript
+// The learner-data scripts: a node runs .claude/hooks/{read-db,update-db,card,validate-data,ensure_data_dir}.py with
+// Python; the phone runs their TypeScript port (src/db/cli.ts, docs/plans/05-built/db-port.md), synchronously, in the
+// script's own working directory and environment (the bridge's spawn passes them). No hooks: the Python's commit of a
+// data repository has no git to go to on the phone (the backup takes its place).
+for (const s of SCRIPTS) registerScript(s, (argv, stdin, env, cwd) => runDb(s, argv, stdin, env, { cwd }))
+// learners.ts asks lani_paths.data_dir() with `python3 -c …`: the port's answer, with the newline print() adds
+registerInline(/from lani_paths import data_dir; print\(data_dir\(\)\)/, (_argv, _stdin, env, cwd) => ({ status: 0, stdout: `${dataDirFor(env, { cwd })}\n`, stderr: '' }))
 
 type Phone = {
   bridge: BuiltBridge<PhoneChannel>
@@ -87,7 +86,7 @@ const summary = (p: Phone) =>
     scripts: registeredScripts(),
   })
 
-/** The features' background work (timers, the variants, the dictionary): once. */
+/** The features' background work (timers, the variants, the dictionary) and the town's mail on the relay: once. */
 function start() {
   const p = need()
   if (p.started) return
@@ -99,6 +98,9 @@ function start() {
       log(`a feature's start failed: ${errorText(e)}`)
     }
   }
+  // the town on the relay (relay.ts), when the hosted setup gives it one (LANI_RELAY_URL; LANI_TOWN_URL=relay): the
+  // phone's bridge serves the app, so it answers the town's mail, as a node's that serves the app does
+  p.bridge.ctx.relay?.start()
 }
 
 /** The bridge ends: the events kept, the devices' last seen written, the streams closed. */
@@ -106,6 +108,7 @@ function stop() {
   if (!phone) return
   for (const s of streams.values()) s.abort()
   streams.clear()
+  phone.bridge.ctx.relay?.stop()
   phone.bridge.ctx.events.flush()
   for (const f of phone.exits) {
     try {
