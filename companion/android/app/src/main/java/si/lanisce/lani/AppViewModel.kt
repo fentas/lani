@@ -172,7 +172,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     val shadow = si.lanisce.lani.tutor.ShadowTutor(
         viewModelScope,
         si.lanisce.lani.tutor.ShadowStore(File(app.filesDir, "shadow-tutor")),
-        si.lanisce.lani.tutor.KeyVault(si.lanisce.lani.tutor.KeystoreCipher(), si.lanisce.lani.tutor.DataStoreSecretStore(app)),
+        // the Claude key, shared with the live tutor (one vault and one ChatGPT sign-in a process: tutor/live/TutorRuntime)
+        si.lanisce.lani.tutor.live.TutorRuntime.vault(app),
         bridgeConfig = { prefs.config() },
         debug = si.lanisce.lani.BuildConfig.QA, // a debug or qa build: the base URL may be QA's mock
         learner = { content.dashboard?.name },
@@ -184,8 +185,27 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         photo = { id -> chat.photos?.file(id)?.takeIf { it.isFile } },
         // OpenAI (the matrix's OpenAI lanes, "also run on" an OpenAI model): an API key and/or "Sign in with ChatGPT",
         // each encrypted with a Keystore key of its own (docs/plans/05-built/providers.md)
-        openai = si.lanisce.lani.tutor.OpenAICredentials.android(app),
-    ).also { s -> sync.onDelivered = { e -> s.onDelivered(e.clientId, e.path, e.body) } }
+        openai = si.lanisce.lani.tutor.live.TutorRuntime.openai(app),
+        // hidden while the live tutor answers: it would shadow itself
+    ).also { s -> sync.onDelivered = { e -> if (!live.settings.on) s.onDelivered(e.clientId, e.path, e.body) } }
+
+    /**
+     * The tutor in the app (docs/plans/05-built/tutor-live.md): off by default, Claude Code on the node answers as before.
+     * "🧑‍🏫 Učitelj · Tutor" → "In the app" attaches it to the paired bridge's channel: it answers for real, on the
+     * learner's own key, its replies stream into the chat. It lives as long as the process (tutor/live/TutorRuntime), so
+     * the WorkManager check uses the same.
+     */
+    val live: si.lanisce.lani.tutor.live.LiveTutor = si.lanisce.lani.tutor.live.TutorRuntime.live(
+        app, si.lanisce.lani.BuildConfig.QA, { k, a -> bi(k, *a.toList().toTypedArray()) },
+    ).also { t ->
+        t.learner = { content.dashboard?.name }
+        t.where = ::whereNow
+        t.language = { grammar.language }
+        t.photo = { id -> chat.photos?.file(id)?.takeIf { it.isFile } }
+        // the reply as it's written, in the chat's typing bubble; the final message (the bridge's reply event) replaces it
+        t.onStreaming = { conversation, text -> if (conversation == "main") chat.streaming = text }
+        t.onNote = { text -> viewModelScope.launch { chat.note(text) } }
+    }
     /**
      * The developer's data on the node (companion/README.md "Developer data on the node"): the shadow's export and the
      * app's log, cleaned of secrets, sent to the paired node by itself while the developer setting is on: after the
@@ -281,7 +301,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope,
         send = { kind, conv, text, data ->
             (bridge ?: throw java.io.IOException("not connected")).message(kind, conv, text, data)
-            shadow.onRoleplay(kind, conv, text, data) // seen by the shadow tutor (phase B: not run)
+            if (!live.settings.on) shadow.onRoleplay(kind, conv, text, data) // seen by the shadow tutor (phase B: not run)
         },
         fetch = { bridge?.scenarios().orEmpty() },
         reward = game::rewardTalk,
@@ -417,7 +437,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         }
         // the learner opening the chat runs the shadow tutor's digest (plan 5, "Events to turns")
         viewModelScope.launch {
-            snapshotFlow { chat.isOpen }.distinctUntilChanged().collect { if (it) shadow.onChatOpened() }
+            snapshotFlow { chat.isOpen }.distinctUntilChanged().collect { if (it) { if (live.settings.on) live.onChatOpened() else shadow.onChatOpened() } }
         }
         // the day's audio is planned once the village and the cards are there (a reload may end before the village loads)
         viewModelScope.launch {
@@ -562,7 +582,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         when (ev) {
             is BridgeEvent.Reply -> {
                 // the real tutor's reply, next to the shadow tutor's in its panel (it only reads it)
-                shadow.onRealReply(ev.conversationId, ev.text, ev.data)
+                if (!live.settings.on) shadow.onRealReply(ev.conversationId, ev.text, ev.data)
                 if (ev.conversationId.startsWith("rp-")) talk.onReply(ev)
                 else if (ev.conversationId.startsWith("ex")) chat.onGraded(ev)
                 else if (ev.conversationId.startsWith("fam_")) {
@@ -705,6 +725,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         commitRoadRatings()
         shadow.onForeground() // a digest when the app was away two hours or more
         data.onForeground() // the data repository pulled (git connected only)
+        live.onForeground() // the live tutor's long poll of the bridge's inbox (when it's on)
     }
 
     /**
@@ -717,6 +738,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         speaker.stop()
         update.onBackground()
         shadow.onBackground()
+        live.onBackground() // its poll stops; the WorkManager check takes over (tutor/live/TutorWork)
         devUpload.onBackground() // the developer's data to the node (developer setting on, at most every 30 minutes)
         data.onBackground() // the phone's writes pushed, the day's backup (each only when set up)
     }

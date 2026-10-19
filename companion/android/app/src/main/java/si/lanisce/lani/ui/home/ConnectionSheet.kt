@@ -69,6 +69,7 @@ fun ConnectionSheet(vm: AppViewModel, onScan: () -> Unit, onDismiss: () -> Unit)
             si.lanisce.lani.ui.school.ReadSetting(vm, Modifier.padding(top = 4.dp))
             OfflineAudioSettings(vm.offlineAudio, Modifier.padding(top = 12.dp))
             si.lanisce.lani.ui.data.DataSection(vm.data, onOpen = { vm.dataOpen = true }, Modifier.padding(top = 12.dp))
+            si.lanisce.lani.ui.tutor.TutorSettings(vm, Modifier.padding(top = 12.dp))
             Developer(vm)
         }
     }
@@ -89,7 +90,9 @@ private fun Developer(vm: AppViewModel) {
     if (shown) {
         Column(Modifier.padding(top = 12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Text("🛠️ ${bi("developer.title")}", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            // the shadow is hidden while the tutor in the app answers: it would shadow itself
+            if (vm.live.settings.on) Text("🕵️ ${bi("developer.shadowHidden")}", style = MaterialTheme.typography.bodySmall, color = muted)
+            else Row(verticalAlignment = Alignment.CenterVertically) {
                 Column(Modifier.weight(1f)) {
                     Text("🕵️ ${bi("developer.shadowTutor")}", style = MaterialTheme.typography.bodyLarge)
                     Text(shadow.status, style = MaterialTheme.typography.bodySmall, color = muted)

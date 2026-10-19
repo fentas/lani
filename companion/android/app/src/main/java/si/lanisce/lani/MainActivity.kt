@@ -87,7 +87,8 @@ class MainActivity : ComponentActivity() {
             shadow = { base -> vm.shadow.showDeveloper(true); if (base.isNotBlank()) vm.shadow.update { it.copy(debugBaseUrl = base) }; vm.shadow.panelOpen = true },
             dev = { what -> if (what == "again") vm.devUpload.forgetThrottle() else if (what == "off") vm.shadow.showDeveloper(false) },
             pair = { code -> vm.chooseLangPair(si.lanisce.lani.l10n.LangPair.parse(code)) }, grow = vm::qaAgeUp, formsCard = vm::qaFormsCard,
-            data = { vm.dataOpen = true })
+            data = { vm.dataOpen = true },
+            tutorLive = { base -> vm.live.update { it.copy(debugBaseUrl = base.ifBlank { null }) } })
         intent?.removeExtra(si.lanisce.lani.app.QaHooks.EXTRA)
         DeepLink.parse(intent?.getStringExtra(DeepLink.EXTRA))?.let(vm::open)
         intent?.removeExtra(DeepLink.EXTRA)

@@ -138,6 +138,11 @@ class ChatController(
     /** The tutor is answering (a message or a finished module went out). */
     var typing by mutableStateOf(false)
         private set
+    /**
+     * The in-app tutor's reply as it's written (tutor/live/LiveTutor: the reply tool's streamed input), shown in the
+     * "typing" bubble until the final message arrives ([onReply]); null: nothing streaming.
+     */
+    var streaming by mutableStateOf<String?>(null)
     var unread by mutableIntStateOf(0)
         private set
     /** The exercise the next message is about; the sheet can clear it. */
@@ -396,9 +401,21 @@ class ChatController(
         while (gradedOrder.size > MAX_GRADED) gradedReplies.remove(gradedOrder.removeFirst())
     }
 
+    /**
+     * A short note of the in-app tutor's own for the learner (its daily cap reached, the key refused, no connection:
+     * tutor/live/LiveTutor), as a tutor message in the chat; nothing goes to the node.
+     */
+    fun note(text: String) {
+        typing = false
+        streaming = null
+        add(ChatMessage(fromMe = false, text = text))
+        if (!isOpen) unread++
+    }
+
     /** A reply in the main conversation. */
     fun onReply(ev: BridgeEvent.Reply) {
         typing = false
+        streaming = null
         add(ChatMessage(fromMe = false, text = ev.text))
         if (!isOpen) unread++
         if (ev.plan) {

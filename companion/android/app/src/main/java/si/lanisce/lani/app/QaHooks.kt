@@ -75,6 +75,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   entered in the panel, as the learner would.
  * - "data": the "💾 Podatki · Data" sheet open (ui/data/DataSheet, sync/DataSync), as the connection sheet's "Odpri"
  *   opens it.
+ * - "tutorlive:<url>": the tutor in the app's Messages API base URL set to <url> (QA's mock, http://10.0.2.2:8771);
+ *   "tutorlive:" the API again (tutor/live/LiveTutor). The key is entered in the Tutor section, as the learner would.
  * - "pair:<target>-<base>": the app shown in that language pair ("pair:sl-de"), as the connection sheet's languages
  *   choose it; "pair:" follows the learner profile again.
  * - "kopa:<day>": the spots' cycles (the charcoal pile's rounds, game/scene/SpotCycles) are as on that day ("2026-07-14",
@@ -196,7 +198,7 @@ object QaHooks {
         command: String?, road: (String) -> Unit = {}, forms: () -> Unit = {}, step: (String, Int) -> Unit = { _, _ -> }, audio: (String) -> Unit = {},
         season: () -> Unit = {}, ready: () -> Unit = {}, chat: (String) -> Unit = {}, cheat: (List<String>) -> Unit = {}, school: () -> Unit = {},
         shadow: (String) -> Unit = {}, counting: (String) -> Unit = {}, dev: (String) -> Unit = {}, pair: (String) -> Unit = {},
-        grow: (si.lanisce.lani.game.Age) -> Unit = {}, formsCard: (String, String) -> Unit = { _, _ -> }, data: () -> Unit = {},
+        grow: (si.lanisce.lani.game.Age) -> Unit = {}, formsCard: (String, String) -> Unit = { _, _ -> }, data: () -> Unit = {}, tutorLive: (String) -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
@@ -211,6 +213,7 @@ object QaHooks {
             command == "shadow" -> shadow("")
             command == "data" -> data()
             command.startsWith("shadow:") -> shadow(command.removePrefix("shadow:"))
+            command.startsWith("tutorlive:") -> tutorLive(command.removePrefix("tutorlive:"))
             command.startsWith("audio:") -> audio(command.removePrefix("audio:"))
             command == "zoom" -> zooms++
             command.startsWith("happening:") -> happening = command.removePrefix("happening:").takeIf { '/' in it }

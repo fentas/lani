@@ -180,8 +180,9 @@ fun ChatSheet(vm: AppViewModel) {
         }
     }
 
-    LaunchedEffect(chat.messages.size, chat.typing) {
-        val last = rows.size + if (chat.typing) 1 else 0
+    // the in-app tutor's reply as it's written grows in the typing bubble: the list follows it
+    LaunchedEffect(chat.messages.size, chat.typing, chat.streaming != null) {
+        val last = rows.size + if (chat.typing || chat.streaming != null) 1 else 0
         if (last > 0 && !showBookmarks) list.animateScrollToItem(last - 1)
     }
     // a jump waits for its message's rows (the archive opened to it), then shows it with the row above (its day's title)
@@ -223,6 +224,8 @@ fun ChatSheet(vm: AppViewModel) {
                     IconButton(onClick = { vm.cheat.show(chatCheatContext(vm)) }) { EmojiLabel("📋", bi("cheatSheet.title")) }
                     TextButton(onClick = vm::openTalk) { Text("🗣️ ${bi("common.talk")}") }
                 }
+                // the in-app tutor is an AI, and says so (the Usage Policy's disclosure for consumer chatbots; plan 5)
+                if (vm.live.settings.on) si.lanisce.lani.ui.tutor.AiDisclosure(vm.live)
                 if (showBookmarks) {
                     Bookmarks(
                         marked, today, zone, Modifier.weight(1f).padding(vertical = 12.dp),
@@ -281,7 +284,8 @@ fun ChatSheet(vm: AppViewModel) {
                             }
                         }
                     }
-                    if (chat.typing) item(key = "typing") { ChatBubble("…", fromMe = false) }
+                    // the in-app tutor's reply streams into it as it's written (tutor/live/LiveTutor); the final message replaces it
+                    if (chat.typing || chat.streaming != null) item(key = "typing") { ChatBubble(chat.streaming?.takeIf { it.isNotBlank() } ?: "…", fromMe = false) }
                 }
                 chat.attached?.let { ctx ->
                     ContextCard(ctx.label, onClear = { chat.attached = null })
