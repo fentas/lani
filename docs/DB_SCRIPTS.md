@@ -143,7 +143,10 @@ EOF
 - `date` (YYYY-MM-DD; a date that isn't one is a validation error, exit `1`. One without its zeros, `2026-4-24`, is
   taken and written `2026-04-24`: see [Dates](#dates))
 
-Everything else is optional; omitted fields do not update.
+Everything else is optional; omitted fields do not update. The ids in a report are non-empty strings: each
+`new_vocabulary` and `review_results` entry's `item_id`, each error's `pattern_id` (they are the keys of the review
+items and the error patterns, which JSON keeps as strings). An entry that isn't an object with one, such as an
+`item_id` of `5`, is a validation error (exit `1`, nothing written).
 
 ### Side effects
 - Backs up `data/*.json` to `.backups/pre-update-<session_id>/` *before*

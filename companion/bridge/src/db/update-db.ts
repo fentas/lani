@@ -18,6 +18,8 @@ import { baseName, copy2, exists, globSuffix, isDir, mkdirp, parent, pjoin, type
 const DATE_FULL = /^\p{Nd}{4}-\p{Nd}{2}-\p{Nd}{2}$/u
 /** A session's id names its backup's directory (.backups/pre-update-<session_id>/): one name, never a path. */
 const SESSION_ID = /^[A-Za-z0-9][A-Za-z0-9._-]{0,99}$/
+/** A report's ids: the keys of the review items and of the error patterns. */
+const REPORT_IDS: [string, string][] = [['new_vocabulary', 'item_id'], ['review_results', 'item_id'], ['errors', 'pattern_id']]
 const FORMS = 'forms'
 const RESURFACE_DAYS = 30
 const RESURFACED_KEPT = 10
@@ -85,6 +87,21 @@ class Update {
         + `(at most 100; e.g. session-005), got ${repr(sid)}`)
     }
     return sid
+  }
+
+  /** check_ids: each new_vocabulary and review_results entry's item_id, each error's pattern_id, a non-empty string;
+   *  exit 1 otherwise. */
+  checkIds(report: PyDict): void {
+    for (const [field, key] of REPORT_IDS) {
+      const entries = report.get(field)
+      if (!isList(entries)) continue
+      entries.forEach((e, i) => {
+        const v = isDict(e) ? e.get(key) : e
+        if (!(isDict(e) && isStr(v) && strip(v))) {
+          this.fail(1, `[Lani] Error: ${field}[${i}] must be an object with '${key}' a non-empty string, got ${repr(v)}`)
+        }
+      })
+    }
   }
 
   /** report_date: the report's date, zero-padded (the databases compare dates as text); exit 1 when it isn't one. */
@@ -669,6 +686,7 @@ export function main(ctx: Ctx, _argv: string[], stdin: () => string): void {
   u.reportSessionId(session)
   // the date as the databases keep it: "2026-4-24" is written "2026-04-24" (they compare dates as text)
   session.set('date', u.reportDate(session))
+  u.checkIds(session)
 
   u.normalizeMilestones(session)
   const level = u.reportLevel(session)

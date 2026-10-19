@@ -107,6 +107,25 @@ def report_date(report: dict) -> str:
     return d
 
 
+# A report's ids: the keys of the review items and of the error patterns.
+REPORT_IDS = (("new_vocabulary", "item_id"), ("review_results", "item_id"), ("errors", "pattern_id"))
+
+
+def check_ids(report: dict):
+    """A report's ids are non-empty strings (vocab_hisa): each new_vocabulary and review_results entry's item_id, each
+    error's pattern_id. JSON keeps the keys of the items and patterns as strings, so an int 5 was kept as it came (the
+    item's key "5" in the file, its id 5) and a review of it never found it. Exits 1 otherwise."""
+    for field, key in REPORT_IDS:
+        entries = report.get(field)
+        if not isinstance(entries, list):
+            continue
+        for i, e in enumerate(entries):
+            v = e.get(key) if isinstance(e, dict) else e
+            if not (isinstance(e, dict) and isinstance(v, str) and v.strip()):
+                print(f"[Lani] Error: {field}[{i}] must be an object with '{key}' a non-empty string, got {v!r}", file=sys.stderr)
+                sys.exit(1)
+
+
 def due_of(v):
     """A report's due_date (new_vocabulary, resurface): YYYY-MM-DD, zero-padded; None when it isn't a date in that form."""
     return langs.date_of(v) if isinstance(v, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", v) else None
@@ -854,6 +873,7 @@ def main():
     report_session_id(session)
     # The date as the databases keep it: "2026-4-24" is written "2026-04-24" (they compare dates as text).
     session["date"] = report_date(session)
+    check_ids(session)
 
     # Validate + canonicalize milestones before touching any DB (exits 1 on
     # malformed input, so disk stays untouched on a validation failure).

@@ -660,6 +660,31 @@ class UpdateDbSmokeTest(unittest.TestCase):
                 self.assertEqual(self._raw(), before)
 
 
+    # --- A report's ids are strings ---
+
+    def test_ids_that_arent_strings_are_refused(self):
+        """An int item_id was kept as it came: the item's key "5" in the file, its id 5, and a review with item_id 5
+        never found it (the keys are strings once read back). Refused now, as other bad input: exit 1, nothing written."""
+        before = self._raw()
+        bad = [dict(SESSION_PAYLOAD, new_vocabulary=[{"item_id": 5, "content": "vijf", "answer": "five"}]),
+               dict(SESSION_PAYLOAD, new_vocabulary=[{"content": "x"}]),
+               dict(SESSION_PAYLOAD, new_vocabulary=[{"item_id": "  "}]),
+               dict(SESSION_PAYLOAD, new_vocabulary=["het_huis"]),
+               dict(SESSION_PAYLOAD, review_results=[{"item_id": 7, "quality": 4}]),
+               dict(SESSION_PAYLOAD, review_results=[{"quality": 4}]),
+               dict(SESSION_PAYLOAD, review_results=[{"item_id": ["vocab_dag"], "quality": 4}]),
+               dict(SESSION_PAYLOAD, errors=[{"pattern_id": 3}]),
+               dict(SESSION_PAYLOAD, errors=[{}])]
+        for report in bad:
+            with self.subTest(report={k: report[k] for k in ("new_vocabulary", "review_results", "errors")}):
+                proc = self._run(report)
+                self.assertEqual(proc.returncode, 1, msg=proc.stderr)
+                self.assertIn("a non-empty string, got ", proc.stderr.decode())
+                self.assertEqual(self._raw(), before)
+        self.assertIn("new_vocabulary[0] must be an object with 'item_id' a non-empty string, got 5", self._run(bad[0]).stderr.decode())
+        # strings, as every report has them: as before
+        self.assertEqual(self._run(dict(SESSION_PAYLOAD, new_vocabulary=[], review_results=[], errors=[])).returncode, 0)
+
     # --- A backup that fails ---
 
     def test_a_backup_that_fails_is_exit_2_and_writes_nothing(self):
