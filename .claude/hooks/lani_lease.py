@@ -34,6 +34,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import socket
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -66,8 +67,15 @@ def iso(t: datetime) -> str:
     return t.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
+# The times a lease holds: a date, a time to the minute, second or microsecond, an offset (Z or ±HH:MM); the same
+# everywhere the lease is read (lease.ts, Lease.kt), whatever the Python version's fromisoformat takes besides.
+TIME = re.compile(r"\d{4}-\d{2}-\d{2}(?:[T ](\d{2}):\d{2}(?::\d{2}(?:\.\d{1,6})?)?)?(?:Z|[+-](\d{2}):\d{2})?", re.ASCII)
+
+
 def parse_time(s) -> datetime | None:
-    if not isinstance(s, str):
+    """A lease's time ([TIME]; without an offset, UTC), or None."""
+    m = TIME.fullmatch(s) if isinstance(s, str) else None
+    if not m or int(m.group(1) or 0) > 23 or int(m.group(2) or 0) > 23:
         return None
     try:
         t = datetime.fromisoformat(s.replace("Z", "+00:00"))
@@ -80,6 +88,15 @@ def this_node() -> dict:
     """This node as a party of the lease: its host name (LANI_LEASE_DEVICE to name it otherwise)."""
     host = (os.environ.get("LANI_LEASE_DEVICE") or socket.gethostname() or "node").strip()[:64] or "node"
     return {"side": "node", "device": host, "name": host, "mode": MODES["node"]}
+
+
+def this_side() -> dict:
+    """Where the learner-data scripts run: the node (as always), or the phone when LANI_SIDE=phone (the TypeScript twins
+    of these scripts run in the phone's bridge, companion/bridge/src/db/lease.ts), its device id LANI_LEASE_DEVICE."""
+    if (os.environ.get("LANI_SIDE") or "").strip().lower() != "phone":
+        return this_node()
+    device = _text(os.environ.get("LANI_LEASE_DEVICE"), 64)
+    return {"side": "phone", "device": device, "name": device, "mode": MODES["phone"]}
 
 
 def _text(v, n: int) -> str:
@@ -117,11 +134,13 @@ def dump(lease: dict) -> str:
 
 
 def read_file(path: Path) -> dict | None:
+    """The lease in [path]; None when there is no such file; {"invalid": True} when it can't be read (not UTF-8, a
+    directory, no permission)."""
     try:
         return parse(Path(path).read_text(encoding="utf-8"))
-    except FileNotFoundError:
+    except (FileNotFoundError, NotADirectoryError):
         return None
-    except OSError:
+    except (OSError, ValueError):
         return {"invalid": True}
 
 
@@ -130,11 +149,14 @@ def read(data: Path) -> dict | None:
     return read_file(Path(data) / FILE)
 
 
-def effective(data: Path) -> dict | None:
-    """The lease this node goes by: its own copy, unless a refused push found the repository's in another's hands."""
+def effective(data: Path, me: dict | None = None) -> dict | None:
+    """The lease this side ([me], default this_side()) goes by: its own copy, unless a refused push found the
+    repository's in another's hands (.git/lani-lease-remote.json; one that can't be read, or a .git that is a file, is
+    no note)."""
+    me = me or this_side()
     local = read(data)
     note = read_file(Path(data) / ".git" / REMOTE_NOTE)
-    if note is not None and state(note, this_node()) not in ("mine",):
+    if note is not None and not note.get("invalid") and state(note, me) != "mine":
         return {**note, "seen_remote": True}
     return local
 
@@ -246,14 +268,22 @@ def describe(lease: dict | None) -> str:
 
 
 def node_refusal(data: Path) -> str | None:
-    """Why this node may not write the data directory [data] now (the lease names another side), or None when it may.
-    LANI_LEASE=ignore: it may."""
+    """Why this side (the node; the phone with LANI_SIDE=phone) may not write the data directory [data] now (the lease
+    names another side), or None when it may. LANI_LEASE=ignore: it may. Without a lease every side writes, as always.
+    companion/bridge/src/db/lease.ts says the same, byte for byte (tests/test_db_port.py)."""
     if (os.environ.get("LANI_LEASE") or "").lower() == "ignore":
         return None
-    lease = effective(data)
-    st = state(lease, this_node())
+    me = this_side()
+    lease = effective(data, me)
+    if lease is None:
+        return None  # no lease: every side writes, as before the lease (a node as always, a phone without git)
+    st = state(lease, me)
     if st == "mine":
         return None
-    how = ("take it back with `lani handover --take`" if st in TAKEABLE
-           else "once it is handed back to the node, take it with `lani handover --take`")
-    return f"Lani's data isn't this node's to write now: {describe(lease)}. This node only reads it; {how}."
+    side = me["side"]
+    if side == "phone":
+        how = "take it over in the app (Podatki · Data)"
+    else:
+        how = ("take it back with `lani handover --take`" if st in TAKEABLE
+               else "once it is handed back to the node, take it with `lani handover --take`")
+    return f"Lani's data isn't this {side}'s to write now: {describe(lease)}. This {side} only reads it; {how}."

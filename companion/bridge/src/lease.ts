@@ -109,7 +109,8 @@ export class LeaseGuard {
       const st = statSync(path)
       return { lease: parseLease(readFileSync(path, 'utf8')), stamp: `${st.ino}:${st.mtimeMs}:${st.size}` }
     } catch (e) {
-      return (e as NodeJS.ErrnoException).code === 'ENOENT' ? { lease: null, stamp: 'none' } : { lease: { invalid: true }, stamp: 'bad' }
+      // no file, or a parent that is a file (a .git of a worktree): none; anything else can't be read
+      return ['ENOENT', 'ENOTDIR'].includes(String((e as NodeJS.ErrnoException).code)) ? { lease: null, stamp: 'none' } : { lease: { invalid: true }, stamp: 'bad' }
     }
   }
 
@@ -119,7 +120,8 @@ export class LeaseGuard {
     const stamp = `${local.stamp}|${note.stamp}`
     if (stamp !== this.stamp) {
       this.stamp = stamp
-      this.lease = note.lease && leaseState(note.lease, this.me) !== 'mine' ? { ...note.lease, seen_remote: true } : local.lease
+      // a note that can't be read is no note
+      this.lease = note.lease && !('invalid' in note.lease) && leaseState(note.lease, this.me) !== 'mine' ? { ...note.lease, seen_remote: true } : local.lease
     }
     return this.lease
   }
@@ -128,10 +130,14 @@ export class LeaseGuard {
     return leaseState(this.current(), this.me)
   }
 
-  /** Why this side may not write now, or undefined when it may (LANI_LEASE=ignore: it may). */
+  /**
+   * Why this side may not write now, or undefined when it may (LANI_LEASE=ignore: it may). Without a lease every side
+   * writes, as before the lease: a node as always, a phone without git.
+   */
   refusal(): string | undefined {
     if ((this.env.LANI_LEASE ?? '').toLowerCase() === 'ignore') return undefined
     const lease = this.current()
+    if (lease === null) return undefined
     const st = leaseState(lease, this.me)
     if (st === 'mine') return undefined
     const back = this.me.side === 'node' ? 'lani handover --take on the node takes it back once it is handed over' : 'take it over in the app (Podatki · Data)'

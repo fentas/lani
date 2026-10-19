@@ -7,7 +7,7 @@ import { generateKeyPairSync } from 'node:crypto'
 import { mkdirSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { decodeHandover, encodeHandover, githubRepo, scalarOf } from '../../src/handover'
-import { describeLease, leaseState, parseLease, type Party } from '../../src/lease'
+import { describeLease, LeaseGuard, leaseState, parseLease, type Party } from '../../src/lease'
 import { loadBridgeKey, loadTownKey } from '../../src/pairing'
 import { auth, base, check, client, dataDir, tempDir } from './harness'
 
@@ -62,6 +62,22 @@ export default async function lease() {
   check('lease: run out after its time: takeable, not writable', leaseState(app, NODE, Date.parse('2026-11-02T00:00:00Z')) === 'expired')
   check('lease: a node with no lease writes; a phone finds it unclaimed', leaseState(null, NODE) === 'mine' && leaseState(null, PHONE) === 'unclaimed' && leaseState(null, PHONE, Date.now(), false) === 'free')
   check('lease: described in one line', describeLease(app) === 'the phone (Pixel 8) writes the data, since 2026-10-18 21:00:00 UTC', describeLease(app))
+
+  // --- the guard alone: no lease writes on every side; a note that can't be read, or a .git that is a file, is none ----
+  const g = tempDir('lani-smoke-guard-')
+  const phoneGuard = new LeaseGuard(g, PHONE, {})
+  const nodeGuard = new LeaseGuard(g, NODE, {})
+  check('guard: without a lease the node writes, and a phone (no git) too', nodeGuard.refusal() === undefined && phoneGuard.refusal() === undefined)
+  writeFileSync(join(g, '.git'), 'gitdir: /elsewhere\n')
+  check('guard: a .git that is a file (a worktree) is no note', new LeaseGuard(g, NODE, {}).refusal() === undefined)
+  rmSync(join(g, '.git'))
+  mkdirSync(join(g, '.git'))
+  writeFileSync(join(g, '.git/lani-lease-remote.json'), '{broken')
+  check("guard: a note that can't be read is no note", new LeaseGuard(g, NODE, {}).refusal() === undefined)
+  writeFileSync(join(g, '.git/lani-lease-remote.json'), JSON.stringify(held(PHONE)))
+  const noted = new LeaseGuard(g, NODE, {}).refusal()
+  check("guard: the repository's lease from a refused push counts", !!noted && noted.includes("a push of this node's was refused"), noted)
+  check('guard: LANI_LEASE=ignore writes anyway', new LeaseGuard(g, NODE, { LANI_LEASE: 'ignore' }).refusal() === undefined)
 
   // --- the handover's QR code -----------------------------------------------------------------------------
   const dir = tempDir('lani-smoke-handover-')

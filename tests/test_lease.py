@@ -93,6 +93,27 @@ class LeaseRulesTest(unittest.TestCase):
         self.assertFalse(L.may_take(bad, NODE))
         self.assertEqual({"invalid": True}, L.parse('{"schema": "something/else"}'))
 
+    def test_without_a_lease_every_side_writes_and_a_note_that_cant_be_read_is_none(self):
+        with tempfile.TemporaryDirectory() as d:
+            data = Path(d)
+            self.assertIsNone(L.node_refusal(data))
+            # a .git that is a file (a worktree's, a submodule's): reading the note under it fails: no note
+            (data / ".git").write_text("gitdir: /elsewhere\n")
+            self.assertIsNone(L.node_refusal(data))
+            (data / ".git").unlink()
+            (data / ".git").mkdir()
+            (data / ".git" / L.REMOTE_NOTE).write_text("{broken")
+            self.assertIsNone(L.node_refusal(data))
+            # the phone's side without git (no lease): it writes too
+            os.environ["LANI_SIDE"] = "phone"
+            try:
+                self.assertIsNone(L.node_refusal(data))
+                L.write(data, L.held(NODE))
+                self.assertIn("isn't this phone's to write now", L.node_refusal(data))
+            finally:
+                del os.environ["LANI_SIDE"]
+            self.assertIsNone(L.node_refusal(data))
+
     def test_the_file_round_trips_and_the_app_s_shape_reads(self):
         lease = L.offered(PHONE, NODE, T0)
         self.assertEqual(lease, L.parse(L.dump(lease)))
@@ -350,6 +371,31 @@ class HandoverTest(unittest.TestCase):
         self.assertNotIn("&k=", uri)
         self.assertIn("&s=", uri)
         self.assertRegex(out.stdout, r"The code to type on the phone: [A-HJ-NP-Z2-9]{4}-[A-HJ-NP-Z2-9]{4}-[A-HJ-NP-Z2-9]{4}")
+
+    def test_no_lease_file_the_node_writes_as_before(self):
+        """Jan's data repository has no app/lease.json: everything the node did before the lease it does now (the
+        session written, committed and pushed; card.py's edit; a commit), and nothing makes a lease or a note."""
+        self.assertFalse((self.data / L.FILE).exists())
+        self.assertIsNone(L.node_refusal(self.data))
+        head = git(self.data, "rev-parse", "HEAD")
+        out = self.hook("update-db.py", stdin=self.report())
+        self.assertEqual(0, out.returncode, out.stderr)
+        self.assertNotIn("Not written", out.stderr)
+        self.assertIn("Updated 6 databases", out.stdout)
+        new = git(self.data, "rev-parse", "HEAD")
+        self.assertNotEqual(head, new, "the session is committed")
+        deadline = time.monotonic() + 20
+        while git(self.remote, "rev-parse", "main") != new and time.monotonic() < deadline:
+            time.sleep(0.1)
+        self.assertEqual(new, git(self.remote, "rev-parse", "main"), "and pushed in the background")
+        out = self.hook("card.py", "edit", "example_item_id", "--front", "x", "--data", str(self.data))
+        self.assertEqual(0, out.returncode, out.stderr)
+        self.assertIn('"written"', out.stdout)
+        (self.data / "app" / "game.json").write_text('{"day": 3}')
+        self.assertTrue(self.repo("commit", str(self.data), "-m", "the village").stdout.strip())
+        self.assertFalse((self.data / L.FILE).exists(), "nothing made a lease")
+        self.assertFalse((self.data / ".git" / L.REMOTE_NOTE).exists(), "nor a note")
+        self.assertIn("no lease: the node writes the data", self.repo("lease", str(self.data)).stdout)
 
     def test_ignore_lets_the_node_write_in_an_emergency(self):
         self.handover()
