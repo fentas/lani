@@ -45,6 +45,11 @@ import si.lanisce.lani.tutor.text
 import si.lanisce.lani.tutor.thinking
 import si.lanisce.lani.tutor.toolUse
 import si.lanisce.lani.tutor.tutorJson
+import si.lanisce.lani.tutor.live.LiveFakes.Answering
+import si.lanisce.lani.tutor.live.LiveFakes.MODELS
+import si.lanisce.lani.tutor.live.LiveFakes.REPLY
+import si.lanisce.lani.tutor.live.LiveFakes.bodyOf
+import si.lanisce.lani.tutor.live.LiveFakes.sseOf
 import java.io.File
 import java.nio.file.Files
 import java.time.LocalDateTime
@@ -72,7 +77,7 @@ class LiveTutorTest {
 
     // --- the API -------------------------------------------------------------------------------------------------------
 
-    private var script: (JsonObject, Int) -> AssistantMessage = ::tutorTurn
+    private var script: (JsonObject, Int) -> AssistantMessage = LiveFakes::tutorTurn
     private var usage = Usage(input = 100, cacheWrite1h = 4_000, output = 80)
     private var failOn: (Int) -> Triple<Int, String, String>? = { null }
     private var calls = 0
@@ -125,7 +130,7 @@ class LiveTutorTest {
 
     // --- the tests -----------------------------------------------------------------------------------------------------
 
-    @Test fun `on: attached to the bridge's tutor session; a chat is answered for real, the reply streamed, the event acknowledged`() = runBlocking {
+    @Test fun `on, attached to the bridge's tutor session, a chat is answered for real, the reply streamed, the event acknowledged`() = runBlocking {
         val t = ready()
         assertTrue("attached", node.attached)
         assertEquals("test phone", node.device)
@@ -161,7 +166,7 @@ class LiveTutorTest {
         assertTrue("priced", t.spent() > 0)
     }
 
-    @Test fun `session_end at once (react at once): record_session goes through the bridge with learner_state's next session id`() = runBlocking {
+    @Test fun `session_end at once (react at once), record_session goes through the bridge with learner_state's next session id`() = runBlocking {
         val t = ready()
         t.update { it.copy(reactAtOnce = true) }.join()
         script = { body, n ->
@@ -186,7 +191,7 @@ class LiveTutorTest {
         assertEquals("grading's model (Haiku), a stateless call", TurnKind.STATELESS, t.today.turns.single().kind)
     }
 
-    @Test fun `the digest: nothing worth saying is acknowledged without a call; a wrong answer is a turn`() = runBlocking {
+    @Test fun `the digest, nothing worth saying is acknowledged without a call, a wrong answer is a turn`() = runBlocking {
         val t = ready()
         val quiet = node.push("review_done", "main", "App review finished (already persisted as session-010): 5/5 recalled in 2 min.")
         t.backgroundCheck()
@@ -222,7 +227,7 @@ class LiveTutorTest {
         assertEquals(TurnStatus.DONE, t.today.turns.single().status)
     }
 
-    @Test fun `a refused key pauses it and says so; a new key goes on`() = runBlocking {
+    @Test fun `a refused key pauses it and says so, a new key goes on`() = runBlocking {
         val t = ready()
         failOn = { n -> if (n == 1) Triple(401, """{"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"}}""", "application/json") else null }
         node.push("chat", "main", "Živjo")
@@ -234,7 +239,7 @@ class LiveTutorTest {
         assertEquals(TurnStatus.DONE, t.today.turns.single().status)
     }
 
-    @Test fun `the credit out: a chat says why it can't answer, the routine waits`() = runBlocking {
+    @Test fun `the credit out, a chat says why it can't answer, the routine waits`() = runBlocking {
         val t = ready()
         failOn = { Triple(400, """{"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API."}}""", "application/json") }
         val id = node.push("chat", "main", "Živjo")
@@ -245,7 +250,7 @@ class LiveTutorTest {
         assertEquals("told, so done with", listOf(id), node.acked)
     }
 
-    @Test fun `off: detached, what the app hadn't answered goes back to Claude Code`() = runBlocking {
+    @Test fun `off, detached, what the app hadn't answered goes back to Claude Code`() = runBlocking {
         val t = ready()
         failOn = { Triple(401, """{"type":"error","error":{"type":"authentication_error","message":"no"}}""", "application/json") }
         node.push("chat", "main", "Živjo")
@@ -259,7 +264,7 @@ class LiveTutorTest {
         assertEquals(LiveState.OFF, t.state)
     }
 
-    @Test fun `what writes content is left for Claude Code: never run, never acknowledged`() = runBlocking {
+    @Test fun `what writes content is left for Claude Code, never run, never acknowledged`() = runBlocking {
         val t = ready()
         node.push("villager_arrived", "main", "Someone moved in.")
         t.backgroundCheck()
@@ -268,7 +273,7 @@ class LiveTutorTest {
         assertEquals("villager_arrived", t.today.events.single().kind)
     }
 
-    @Test fun `a role-play's turns on their own short thread; its end lets the thread go`() = runBlocking {
+    @Test fun `a role-play's turns on their own short thread, its end lets the thread go`() = runBlocking {
         val t = ready()
         script = { body, n ->
             val last = body["messages"]!!.jsonArray.last().jsonObject
@@ -292,7 +297,7 @@ class LiveTutorTest {
         assertEquals(3, node.tools.count { it.first == "reply" })
     }
 
-    @Test fun `a turn that answers as text: that text goes out through the bridge's reply`() = runBlocking {
+    @Test fun `a turn that answers as text, that text goes out through the bridge's reply`() = runBlocking {
         val t = ready()
         script = { _, _ -> message("end_turn", text("Kar takole: peč.")) }
         node.push("chat", "main", "Kako se reče stove?")
@@ -329,33 +334,6 @@ class LiveTutorTest {
     }
 
     // --- helpers ------------------------------------------------------------------------------------------------------
-
-    /** A small tutor: guide and learner_state first, then the reply, then done (as the bun mock). */
-    private fun tutorTurn(body: JsonObject, n: Int): AssistantMessage {
-        val messages = body["messages"]!!.jsonArray.map { it.jsonObject }
-        val last = messages.last()
-        val results = last.blocks().any { it.str("type") == "tool_result" }
-        val prev = messages.getOrNull(messages.size - 2)
-        val replied = prev?.blocks()?.any { it.str("type") == "tool_use" && it.str("name") in setOf("reply", "notebook_write") } == true
-        if (!results && last.toString().contains("[notebook_write]")) return message("tool_use", toolUse("nb$n", "notebook_write", obj("text" to "# Notebook\n- Jan: A2")))
-        if (!results) return message("tool_use", thinking("sig$n"), text("Pogledam."), toolUse("g$n", "guide", obj("topic" to "feedback")), toolUse("s$n", "learner_state"))
-        if (!replied) {
-            val conv = Regex("""conversation_id=\\"([\w-]+)""").find(messages.last { m -> m.role() == "user" && m.blocks().none { it.str("type") == "tool_result" } }.toString())?.groupValues?.get(1) ?: "main"
-            return message("tool_use", toolUse("r$n", "reply", obj("conversation_id" to conv, "text" to REPLY)))
-        }
-        return message("end_turn", text("Opravljeno."))
-    }
-
-    /** An OkHttp interceptor that answers every request itself and keeps them. */
-    private class Answering(private val answer: (Request) -> Triple<Int, String, String>) : Interceptor {
-        val requests: MutableList<Request> = Collections.synchronizedList(mutableListOf())
-        override fun intercept(chain: Interceptor.Chain): Response {
-            val r = chain.request()
-            requests += r
-            val (code, body, type) = answer(r)
-            return Response.Builder().request(r).protocol(Protocol.HTTP_1_1).code(code).message("x").body(body.toResponseBody(type.toMediaType())).build()
-        }
-    }
 
     /** The paired bridge's tutor session, played (companion/bridge/src/features/tutor.ts's routes). */
     private inner class FakeNode : Interceptor {
@@ -431,40 +409,5 @@ class LiveTutorTest {
 
     private companion object {
         const val BRIDGE_TOKEN = "bridge-token-live-test-0123456789"
-        const val REPLY = "**Peč** · the stove. *Na peči je toplo.* · It's warm on the stove."
-        const val MODELS = """{"data":[{"id":"claude-opus-5-5","created_at":"2026-10-01"},{"id":"claude-sonnet-5-5","created_at":"2026-10-01"},{"id":"claude-haiku-5-5","created_at":"2026-10-07"}],"has_more":false}"""
-
-        fun bodyOf(r: Request): String = r.body?.let { b -> Buffer().also { b.writeTo(it) }.readUtf8() }.orEmpty()
-
-        /** [m] as the API streams it: a tool's input in pieces of seven characters (input_json_delta). */
-        fun sseOf(m: AssistantMessage, model: String): String {
-            val events = mutableListOf<Pair<String, String>>()
-            fun usage(u: Usage, output: Long) = obj(
-                "input_tokens" to u.input, "cache_creation_input_tokens" to u.cacheWrite, "cache_read_input_tokens" to u.cacheRead,
-                "cache_creation" to obj("ephemeral_5m_input_tokens" to u.cacheWrite5m, "ephemeral_1h_input_tokens" to u.cacheWrite1h), "output_tokens" to output,
-            )
-            events += "message_start" to obj("type" to "message_start", "message" to obj("id" to "msg_x", "type" to "message", "role" to "assistant", "model" to model, "content" to JsonArray(emptyList()), "usage" to usage(m.usage, 1))).toString()
-            m.content.forEachIndexed { i, b ->
-                fun delta(d: JsonObject) { events += "content_block_delta" to obj("type" to "content_block_delta", "index" to i, "delta" to d).toString() }
-                when (b.str("type")) {
-                    "text" -> {
-                        events += "content_block_start" to obj("type" to "content_block_start", "index" to i, "content_block" to obj("type" to "text", "text" to "")).toString()
-                        delta(obj("type" to "text_delta", "text" to b.str("text")))
-                    }
-                    "thinking" -> {
-                        events += "content_block_start" to obj("type" to "content_block_start", "index" to i, "content_block" to obj("type" to "thinking", "thinking" to "")).toString()
-                        delta(obj("type" to "signature_delta", "signature" to b.str("signature")))
-                    }
-                    "tool_use" -> {
-                        events += "content_block_start" to obj("type" to "content_block_start", "index" to i, "content_block" to obj("type" to "tool_use", "id" to b.str("id"), "name" to b.str("name"), "input" to JsonObject(emptyMap()))).toString()
-                        b["input"].toString().chunked(7).forEach { delta(obj("type" to "input_json_delta", "partial_json" to it)) }
-                    }
-                }
-                events += "content_block_stop" to obj("type" to "content_block_stop", "index" to i).toString()
-            }
-            events += "message_delta" to obj("type" to "message_delta", "delta" to obj("stop_reason" to m.stopReason), "usage" to obj("output_tokens" to m.usage.output)).toString()
-            events += "message_stop" to obj("type" to "message_stop").toString()
-            return sse(*events.toTypedArray())
-        }
     }
 }
