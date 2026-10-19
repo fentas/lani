@@ -2208,9 +2208,10 @@ export class VoiceStore {
 
   /**
    * [bytes] as they are stored: through the filter of [voice] ([filtered]), paced at its voice's tempo and a local clip
-   * at the local voice's pace when one is set (clipPace), its edges trimmed (EDGES; a single word's ends at its first long pause, [word]) and brought to the level, in
-   * one encode when they are ffmpeg's. What can't be done now (no ffmpeg, ffmpeg failed) is left out and logged (no
-   * ffmpeg: once): voice-build --level (and --denoise, --tempo, --edges) does it later.
+   * at the local voice's pace when one is set (clipPace), its edges trimmed (EDGES; a single word's ends at its first
+   * long pause, [word]) and brought to the level, in one encode when they are ffmpeg's. What can't be done now (no
+   * ffmpeg, ffmpeg failed) is left out and logged (no ffmpeg: once): voice-build --level (and --denoise, --pace, --edges)
+   * does it later.
    */
   private async processed(bytes: Uint8Array, voice: VoiceName, engine: EngineName, text: string, word = false): Promise<{ bytes: Uint8Array; denoise: DenoisePreset | null; level: number | null; gain: number | null; tempo: number | null; edges: number | null }> {
     const preset = engine === 'elevenlabs' ? denoiseOf(voice) : undefined
@@ -3130,8 +3131,8 @@ export class VoiceStore {
    * Each clip of [list] (at most [max]; a few at a time) through what it waits for, in one encode: its voice's denoise
    * filter (an ElevenLabs clip of a voice the cast marks, not filtered yet), its pace ([paceDue]: its voice's tempo, a
    * local clip's pace when one is set; not paced at it yet: never paced, or by another factor, which is sped up by the
-   * difference from the file as it is now), its edges (not trimmed yet: EDGES; a clip with no more than EDGES.slack of silence at either edge and
-   * nothing else to do keeps its file) and the level (not at the level's target: never levelled, or levelled to another
+   * difference from the file as it is now), its edges (not trimmed yet: EDGES; a clip with no more than EDGES.slack of
+   * silence at either edge and nothing else to do keeps its file) and the level (not at the level's target: never levelled, or levelled to another
    * target, which is re-levelled from the file as it is now; a paced or trimmed clip is levelled again with it). Written
    * under a new file name (the app caches by name), recorded, and only then the old file removed; a clip kept as it is
    * keeps its file and is only recorded. A clip the bridge made again meanwhile (a re-record) keeps that take. The app
