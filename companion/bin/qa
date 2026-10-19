@@ -156,7 +156,13 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        session: the connection sheet's "🧑‍🏫 Učitelj · Tutor", "In the app", a fake key, attached; a chat
                        whose reply streams into the chat (a screenshot mid-way) and stays, the dev tutor hearing nothing;
                        a session's end with its reaction and record_session in the dev data; "Claude Code on my node"
-                       again, the dev tutor answering (LANI_QA_TUTOR_SHOTS: also copied there as tutor-live-*.png)
+                       again, the dev tutor answering (LANI_QA_TUTOR_SHOTS: also copied there as tutor-live-*.png);
+                       "hosted" (alone, --steps hosted: no dev bridge, nothing may listen on its port) "☁️ Lani na tem
+                       telefonu": a fresh install's setup choice, the onboarding, the tutor's step, Home on the phone's
+                       own bridge and the village founded; a pack learned (a word looked up), a review saved (QA's hook
+                       "review"), the app killed and started again (the splash, Home's timing in the log, the review
+                       still in the phone's data), the packs again, the export (📤, the share sheet) pulled and checked
+                       by lani import --verify; its screenshots also to $LANI_QA_HOSTED_SHOTS
   --dry                print the plan (bridges, ports, the fixture town, the steps) and stop
   --bridges-only       no app: start both bridges, link them, check what a visit asks through the dev bridge, stop
   --no-town            no second town (the visit steps are skipped)
@@ -502,7 +508,8 @@ def setup():
     tap("Token")
     time.sleep(slow())
     type_text(TOKEN)
-    assert tap("Poveži"), "connect button"
+    # the button's whole label: the setup's heading "🔗 Poveži svojega učitelja" has the word too
+    assert tap("Poveži · Connect"), "connect button"
     end = time.time() + 30
     while time.time() < end:  # Home, and the notification permission whenever it comes
         ns = list(nodes())
@@ -7381,17 +7388,227 @@ def plan():
         ("dev-upload", dev_upload, go_home, False, ""),
         ("data-sheet", data_sheet, go_home, False, ""),
         ("tutor-live", tutor_live, go_home, False, ""),
+        # only with --steps hosted: no node, a fresh install on the phone's own bridge
+        ("hosted", hosted, None, False, ""),
     ]
 
 
+HOSTED_TITLE = "Lani na tem telefonu"  # l10n hosted.title: the setup's choice, the splash, the connection sheet
+HOSTED_NAME = "Ana"
+
+
+def hosted_shot(name: str):
+    """A screenshot of the hosted step, also as hosted-<name>.png in $LANI_QA_HOSTED_SHOTS when it's set."""
+    shot(f"hosted-{name}")
+    if d := os.environ.get("LANI_QA_HOSTED_SHOTS"):
+        Path(d).mkdir(parents=True, exist_ok=True)
+        shutil.copy(shots[-1], Path(d) / f"hosted-{name}.png")
+
+
+def hosted_home(timeout=60):
+    """Waits for Home on a fresh hosted install: the notification permission allowed, the village founded where offered."""
+    end = time.time() + timeout * slow()
+    founded = False
+    while time.time() < end:
+        ns = list(nodes())
+        if (c := next((c for t, c in ns if t == "Allow"), None)) is not None:
+            adb("shell", "input", "tap", str(c[0]), str(c[1]))
+        elif (c := next((c for t, c in ns if "Tu bo moja vas" in t), None)) is not None:
+            if not founded:
+                hosted_shot("founding")
+            adb("shell", "input", "tap", str(c[0]), str(c[1]))
+            founded = True
+        elif any("Danes · Today" in t for t, _ in ns):
+            return founded
+        time.sleep(1)
+    raise AssertionError("Home did not load on the phone's bridge")
+
+
+def hosted_log(pattern: str) -> list[str]:
+    """The app's LaniHosted lines matching [pattern] (hosted/HostedRuntime)."""
+    return [l for l in adb("logcat", "-d", "-s", "LaniHosted:I", check=False).splitlines() if re.search(pattern, l)]
+
+
+def hosted_home_ms() -> str:
+    """The last "home: N ms after the app started" of the log, and the bridge's boot, for the report."""
+    lines = hosted_log(r"home: \d+ ms")
+    return lines[-1].split("LaniHosted: ", 1)[-1] if lines else "(no timing line)"
+
+
+def hosted():
+    """"☁️ Lani na tem telefonu · Lani on this phone" (docs/plans/05-built/hosted-mode.md) with no node at all: nothing
+    may listen on the dev bridge's port. A fresh install: the setup's choice, the onboarding (a name, as a woman, Slovene
+    from English, A1, 30 minutes), the tutor's step, Home on the phone's own bridge and the village founded; a word looked
+    up in a pack, the pack learned (its words saved by the phone's update-db), a review (QA's hook "review") saved; the
+    app killed and started again: the splash, Home in N ms (the log's timing), the review still there (the phone's
+    spaced-repetition.json, the streak); the packs screen; the export made (the connection sheet's 📤, the share sheet),
+    pulled and checked by the node's `lani import --verify`. Screenshots also to $LANI_QA_HOSTED_SHOTS."""
+    assert not listeners(PORT), f"something listens on {PORT}: the hosted step runs with no node"
+    assert wait_for(HOSTED_TITLE, 30), "the setup's hosted choice"
+    hosted_shot("setup")
+    assert tap(f"☁️ {HOSTED_TITLE}", 5), "the hosted choice"
+    assert wait_for("Nov začetek", 8), "the hosted start"
+    hosted_shot("start")
+    assert tap("Nov začetek", 4), "a fresh start"
+    c = wait_for("Kako ti je ime?", 6)
+    assert c, "the name field"
+    adb("shell", "input", "tap", str(c[0]), str(c[1]))
+    time.sleep(1.2 * slow())
+    adb("shell", "input", "text", HOSTED_NAME)
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(1)
+    assert tap("kot ženska", 4), "as a woman"
+    hosted_shot("onboarding")
+    found = scroll_to("Ustanovi mojo vas")
+    assert found, "found my village"
+    tap_at(found)
+    assert wait_for("Še učitelj", 40), "the tutor's step"
+    hosted_shot("tutor")
+    assert tap("V mojo vas", 5), "to my village"
+    hosted_home()
+    time.sleep(2 * slow())
+    assert find(HOSTED_NAME), "Home greets the learner"
+    hosted_shot("home")
+    first = hosted_home_ms()
+    print(f"    first start: {first}")
+    assert not listeners(PORT), f"something listens on {PORT}"
+
+    # a word looked up: its card (as a tap on it in a dialog: QA's hook), the meaning from the phone's dictionary
+    qa_hook("formscard:word:hiša")
+    assert wait_for("house", 20), "hiša's card with its meaning (the phone's /lookup)"
+    hosted_shot("lookup")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(1)
+    go_home()
+
+    # the packs: a pack learned to its end (its words saved by the phone's update-db)
+    tile = scroll_to("Nove besede")
+    assert tile, "new words tile"
+    tap_at(tile)
+    assert wait_for("Znaš ", 10), "packs screen"
+    time.sleep(1)
+    hosted_shot("packs")
+    ring = next((c for t, c in nodes() if (m := re.fullmatch(r"(\d+)/(\d+)", t)) and m[1] != m[2]), None)
+    assert ring, "a learnable pack"
+    tap_at(ring)
+    assert wait_for("Pozneje · Later", 8), "the pack's intro"
+    assert tap("Začni", 3), "start from the intro"
+    assert wait_for("Naprej · Next", 8), "word card"
+    for _ in range(80):
+        if find("Jutri jih ponovimo"):
+            break
+        if find("Vadimo!"):
+            tap("Vadimo!", 3)
+        elif find("Naprej · Next") and not find("Preveri · Check"):
+            tap("Naprej · Next", 3)
+        else:
+            try:
+                answer_any()
+            except AssertionError:
+                time.sleep(1)
+    assert wait_for("Jutri jih ponovimo", 10), "the pack's end"
+    hosted_shot("pack-learned")
+    tap("Naprej", 4)
+    go_home()
+
+    # a review of the new words today (QA's hook: they are due tomorrow), to its end
+    qa_hook("review")
+    assert wait_for("Ponavljanje", 10) or wait_for(DONE, 10) or find("Preveri · Check"), "the review"
+    for _ in range(30):
+        if find("recalled"):
+            break
+        if find("Naprej · Next") and not find("Preveri · Check"):
+            tap("Naprej · Next", 3)
+        else:
+            try:
+                answer_any()
+            except AssertionError:
+                time.sleep(1)
+    assert wait_for("recalled", 15), "the review's end"
+    hosted_shot("review-saved")
+    time.sleep(3 * slow())  # the outbox delivers it (in-process)
+    sr = json.loads(run_as("cat", "files/lani/data/spaced-repetition.json") or "{}")
+    reviewed = [i for i in sr.get("items", {}).values() if i.get("total_reviews", 0) > 0]
+    assert reviewed, "the phone's spaced-repetition.json has no reviewed card"
+    print(f"    {len(sr.get('items', {}))} cards on the phone, {len(reviewed)} reviewed")
+    go_home()
+
+    # killed and started again: the splash, then Home with the review still there
+    adb("shell", "am", "force-stop", PKG)
+    adb("logcat", "-c")
+    time.sleep(1)
+    started = adb("shell", "am", "start", "-W", "-n", f"{PKG}/.MainActivity")
+    launch = re.search(r"TotalTime: (\d+)", started)
+    HOSTED["launch"] = f"{launch[1]} ms to the first frame (am start -W)" if launch else "?"
+    for _ in range(10):
+        if find(HOSTED_TITLE):
+            hosted_shot("splash")
+            break
+        if find("Danes · Today"):
+            break
+        time.sleep(0.2)
+    hosted_home(30)
+    time.sleep(2 * slow())
+    again = hosted_home_ms()
+    print(f"    after a restart: {HOSTED['launch']}; {again}")
+    sr2 = json.loads(run_as("cat", "files/lani/data/spaced-repetition.json") or "{}")
+    assert [i for i in sr2.get("items", {}).values() if i.get("total_reviews", 0) > 0], "the review is gone after the restart"
+    hosted_shot("home-again")
+
+    # the packs screen again (on the restarted bridge)
+    tile = scroll_to("Nove besede")
+    assert tile, "new words tile"
+    tap_at(tile)
+    assert wait_for("Znaš ", 10), "packs screen after the restart"
+    go_home()
+
+    # the export: the connection sheet's 📤, the share sheet; the zip checked by the node's lani import --verify
+    to_top()
+    dot = find(f"☁️ {HOSTED_TITLE}")
+    assert dot, "the status dot"
+    tap_at(dot)
+    assert wait_for("Izvozi moje podatke", 8) or scroll_to("Izvozi moje podatke", 3), "the export button"
+    hosted_shot("settings")
+    assert tap("Izvozi moje podatke", 4), "export"
+    time.sleep(3 * slow())
+    hosted_shot("export")
+    listing = run_as("ls", "cache/shared")
+    name = next((n for n in listing.split() if n.startswith("lani-export-")), None)
+    assert name, f"no export in the cache ({listing.strip()})"
+    zip_path = OUT / name
+    assert pull(f"cache/shared/{name}", zip_path), "the export pulled"
+    v = subprocess.run([sys.executable, str(ROOT / ".claude/hooks/lani_export.py"), "verify", str(zip_path)], capture_output=True, text=True)
+    assert v.returncode == 0, f"lani import --verify: {v.stdout or v.stderr}"
+    print(f"    {name}: {zip_path.stat().st_size} bytes; {v.stdout.strip().splitlines()[0] if v.stdout.strip() else 'verified'}")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(1)
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(1)
+    assert not listeners(PORT), f"something listened on {PORT} during the hosted step"
+    HOSTED["first"], HOSTED["again"] = first, again
+
+
+HOSTED: dict = {}
+
+
+def hosted_only(steps) -> bool:
+    """Whether the run is the hosted step alone: no node then (no dev bridge, no pairing)."""
+    return bool(steps) and all(s[0] == "hosted" for s in steps)
+
+
 def selected(steps):
-    """The steps --steps names (a step, or the group "visit"), and setup; all without it."""
+    """The steps --steps names (a step, or the group "visit"), and setup; all without it. The hosted step comes alone,
+    without setup's pairing (and without the dev bridge: main)."""
     want = arg("--steps")
     if not want:
-        return steps
+        return [s for s in steps if s[0] != "hosted"]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")
+    if "hosted" in names:
+        if names != {"hosted"}:
+            sys.exit("the hosted step runs alone (no node): --steps hosted")
+        return [s for s in steps if s[0] == "hosted"]
     return [s for s in steps if s[0] == "setup" or s[0] in names or s[4] in names]
 
 
@@ -7464,9 +7681,16 @@ def main():
         subprocess.run(["./gradlew", "-q", BUILD_TASK], cwd=ANDROID, env=env, check=True)
     ensure_emulator()
 
-    bridge = start_bridge()
-    town = start_town() if visiting else None
-    time.sleep(4)
+    alone = hosted_only(steps)
+    if alone:
+        # "Lani on this phone": no node at all, and nothing listening on the dev bridge's port
+        if pids := listeners(PORT):
+            sys.exit(f"the hosted step runs with no node: {PORT} is in use (pid {', '.join(pids)})")
+        bridge, town = None, None
+    else:
+        bridge = start_bridge()
+        town = start_town() if visiting else None
+        time.sleep(4)
 
     adb("uninstall", PKG, check=False)
     adb("install", "-r", str(app_apk()))
@@ -7489,7 +7713,8 @@ def main():
         results.append(("crash check", "ok"))
 
     if "--keep-bridge" not in sys.argv:
-        bridge.terminate()
+        if bridge is not None:
+            bridge.terminate()
         if town is not None:
             town.terminate()
 
