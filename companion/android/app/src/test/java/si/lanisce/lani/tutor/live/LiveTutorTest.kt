@@ -248,6 +248,12 @@ class LiveTutorTest {
         // a model picked for the chat under "advanced"
         t.update { it.copy(models = it.models + (Task.CHAT to "anthropic/claude-sonnet-5.5")) }.join()
         assertEquals("anthropic/claude-sonnet-5.5", t.modelFor(Task.CHAT))
+        // across providers: the content on Claude directly while its key is kept, the rest on OpenRouter
+        t.update { it.copy(models = it.models + (Task.CONTENT to "claude-opus-5-5")) }.join()
+        assertEquals("no Claude key: the preset's", "google/gemini-4-argon", t.modelFor(Task.CONTENT))
+        assertEquals(null, t.setKey(FAKE_KEY))
+        assertEquals("claude-opus-5-5", t.modelFor(Task.CONTENT))
+        assertEquals("the small tier's default", "openai/gpt-6-luna", t.modelFor(Task.ROUTINE))
         assertFalse(lines.any { it.contains(si.lanisce.lani.tutor.FAKE_ROUTER_KEY) })
         // signed out: no credential, the tutor waits
         t.signOutOfOpenRouter()

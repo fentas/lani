@@ -5,6 +5,11 @@ ChatGPT') next to it"). Branch `providers`. Code: `companion/android/app/src/mai
 (`Provider.kt`, `Loop.kt`, `OpenAI.kt`, `ChatGPT.kt`), the panel `ui/tutor/ShadowPanel.kt`, `companion/tutor/prices.json`,
 `companion/bin/shadow-compare`.*
 
+*Extended 2026-10-19 (branch `providers2`): Gemini direct with a Google AI Studio key, and OpenRouter ("one sign-in,
+every model"), for the live tutor, the studio and the matrix ([Gemini](#gemini-the-gemini-api-direct),
+[OpenRouter](#openrouter-one-sign-in-every-model)). Code: `tutor/Gemini.kt`, `tutor/OpenRouter.kt`, `tutor/Loopback.kt`
+(the loopback ChatGPT's sign-in and OpenRouter's share), the Tutor section `ui/tutor/TutorSettings.kt`.*
+
 ## What
 
 - **A provider layer.** The tool loop runs the same on any LLM provider. A provider builds the request, streams the
@@ -20,14 +25,19 @@ ChatGPT') next to it"). Branch `providers`. Code: `companion/android/app/src/mai
   follow the same rules as Anthropic's: their own thread, the notebook read-only, writes as dry runs. Their ids carry
   the provider (`openai:gpt-6.1-sol@medium`). `shadow-compare` reads them and shows the plan's API-equivalent price.
 - **The primary shadow stays Anthropic Balanced.** No preset changed. "Also run on" can also pick a GPT-6 model.
+- **Gemini and OpenRouter** (2026-10-19) on the same interfaces: the Gemini API's `streamGenerateContent` with a
+  Google AI Studio key, OpenRouter's chat completions with the learner's own key from its PKCE sign-in. The live
+  tutor and the studio can run on either; the matrix gets their lanes (`gemini:gemini-4-argon@high`,
+  `openrouter:google/gemini-4-argon@medium`).
 
 ## The provider API (for the live tutor)
 
 Everything is in `tutor/Provider.kt`. The live tutor builds on these types:
 
 ```kotlin
-enum class ProviderId { ANTHROPIC, OPENAI; companion object { fun of(model: String): ProviderId } }
-object Billing { const val API_KEY = "api_key"; const val CHATGPT_PLAN = "chatgpt_plan" }
+enum class ProviderId { ANTHROPIC, OPENAI, GEMINI, OPENROUTER; companion object { fun of(model: String): ProviderId } }
+    // OpenRouter's ids have a "/" (google/gemini-4-argon), Gemini's begin with gemini-, OpenAI's gpt-, o3 …, else Claude
+object Billing { API_KEY = "api_key"; CHATGPT_PLAN = "chatgpt_plan"; FREE_TIER = "free_tier"; OPENROUTER = "openrouter_credits" }
 object Stop { END_TURN, TOOL_USE, MAX_TOKENS, REFUSAL }            // the loop's stop reasons (strings)
 
 data class Step(                                                    // one call's response, normalized
@@ -38,6 +48,7 @@ data class Step(                                                    // one call'
     val model: String?, val id: String?, val firstTokenMs: Long?, val totalMs: Long, val visibleChars: Int,
     val kept: List<JsonObject>,         // what stays of a response cut off at max tokens
     val inputTransformations: String?, val rawUsage: RawUsage,
+    val cost: Double?,                  // the provider's own price of the call (OpenRouter's usage.cost); null: the table's
 )
 
 interface TutorProvider {
@@ -50,7 +61,7 @@ interface TutorProvider {
     suspend fun call(body: JsonObject, onDelta: () -> Unit = {}): Step   // throws ApiError
 }
 
-interface ThreadFormat {                                            // AnthropicFormat, OpenAIFormat
+interface ThreadFormat {                                            // AnthropicFormat, OpenAIFormat, GeminiFormat, ChatFormat
     fun user(blocks: List<JsonObject>): JsonObject
     fun append(messages: List<JsonObject>, blocks: List<JsonObject>, top: String?, want: String?): List<JsonObject>
     fun pending(messages: List<JsonObject>): List<ToolUse>?         // null: the next step is a call
@@ -74,6 +85,14 @@ class ChatGPTAuth(vault: KeyVault, http, clock, random, appName = "Lani") {
     suspend fun signOut(): String?                                  // revoked; null when confirmed
     suspend fun session(): ChatGPTSession?
 }
+
+class GeminiProvider(transport: GeminiTransport, billing: String = Billing.API_KEY)    // or Billing.FREE_TIER
+class GeminiTransport(key: suspend () -> String?, client, clock, pacer: GeminiPacer?, onFreeTier: () -> Unit)
+class GeminiCredentials(key: KeyVault, tierStore: SecretStore, pacer: GeminiPacer) { suspend fun tier(): String?; suspend fun setTier(t: String?) }
+class OpenRouterProvider(transport: OpenRouterTransport)                               // Billing.OPENROUTER
+class OpenRouterTransport(token: suspend () -> String?, client, clock) { suspend fun models(); suspend fun key(): OpenRouterKey }
+class OpenRouterAuth(vault: KeyVault, http, random, label = "Lani", pause) { suspend fun begin(port: Int = 0): SignIn; suspend fun signOut(): String }
+class LoopbackServer(bindPort: Int, path: String, threadName: String, handle: (Hit) -> Answer)  // ChatGPT's and OpenRouter's
 ```
 
 **How the live tutor uses it.**
@@ -345,6 +364,322 @@ pages), the discovery document and OpenAI's own repositories.
   browser with a socket. Not run on the emulator tonight.
 - **The plan's catalog for Jan's account:** which GPT-6 models it lists depends on the account.
 
+## Gemini: the Gemini API, direct
+
+`tutor/Gemini.kt`. A key from Google AI Studio (aistudio.google.com/apikey), kept in its own KeyVault
+(`lani-tutor-gemini-key`, `gemini_key_sealed`), and the key's tier beside it (`gemini_tier`).
+
+**The request:** `POST https://generativelanguage.googleapis.com/v1beta/models/{model}:streamGenerateContent?alt=sse`,
+the key in `x-goog-api-key` (never in the URL). Google's docs now call generateContent "legacy" and recommend their
+new Interactions API; generateContent "remains fully supported". The body:
+- `systemInstruction`: the core prompt;
+- `contents`: the thread;
+- `tools`: one `functionDeclarations`, the bridge's JSON schemas as `parametersJsonSchema`, in the prefix's order. The
+  schemas use `additionalProperties` and `anyOf`, which JSON Schema mode takes; none uses `$ref`;
+- `toolConfig.functionCallingConfig.mode: AUTO`;
+- `generationConfig`: `maxOutputTokens` (thinking counts toward it on Argon) and `thinkingConfig.thinkingLevel`,
+  written lowercase as the docs' REST examples have it. No `temperature`, `top_p` or `top_k`: Argon ignores them, and
+  from 3.6 Flash on they are deprecated.
+
+The model goes in the URL; the provider's request carries it as `model` for the transport, which leaves it out of the
+body. The read timeout is 20 minutes ("Set HTTP client timeouts to at least 20 minutes per call": Argon).
+
+**The thread** (`GeminiFormat`): `{"role": "user" | "model", "parts": […]}`.
+- A model turn is kept exactly as it came: its parts in order, each `thoughtSignature` where it was. Only plain text
+  parts are joined while the stream is put together; a part with a signature is never merged with another ("Don't
+  concatenate parts with signatures together"). "When using Gemini 4 and Gemini 3 models, you must pass back thought
+  signatures during function calling, otherwise you will get a validation error"; on parallel calls "the
+  thought_signature is attached only to the first functionCall part". The last turn's empty text part with its
+  signature is kept too (recommended, not enforced).
+- A tool's result is a `functionResponse` part in one user turn, by the call's `id` ("Gemini 3 now always returns a
+  unique id with every functionCall. Include this exact id in your functionResponse"), with `{"output": …}` or
+  `{"error": …}`.
+- A call that came without an id gets one of ours (`lani_gc_<response>_<i>`), kept beside the parts (`lani_ids`) and
+  never sent; its result then goes without an id.
+- A photo is an `inlineData` part (`image/jpeg`, base64). The export keeps a note of its size.
+
+**Thinking** (`ModelCatalog.geminiLevels`; the thinking guide and the model pages):
+
+| Model | Levels | Default |
+|---|---|---|
+| `gemini-4-argon` | low, medium, high ("minimal" is an error; thinking can't be turned off) | medium |
+| `gemini-3.8-flash` | low, medium, high ("minimal" is an error) | medium |
+| `gemini-3.6-flash` | minimal, low, medium, high | not checked |
+| `gemini-3.5-flash-lite`, `gemini-3.1-flash-lite` | minimal, low, medium, high | minimal |
+
+A preset's level is fitted (`xhigh` and `max` go as `high`). **Per turn within a thread:** `thinkingLevel` is a request's
+own field, so a thread could change it from one request to the next, but Google's docs don't say whether that is
+allowed or what it does to the implicit cache (OpenRouter's reasoning guide: a request-level change "invalidates the
+prompt cache"). So a Gemini thread keeps its level, as a Claude model without per-message effort does
+(`ModelCatalog.perMessageEffort` is false); another task's level is a stateless call on its own.
+
+**Caching:** implicit, on by default from Gemini 2.5, at least 4,096 tokens on Argon and 3.8 Flash; the stable prefix
+(the prompt, the tools in a fixed order) comes first in every request. Hits are reported as `cachedContentTokenCount`.
+Argon has no explicit caching ("Explicit caching is not supported"): none is used.
+
+**Usage** (the API reference's UsageMetadata): `promptTokenCount` includes the cached part, so `Usage.input` is the rest
+(plus `toolUsePromptTokenCount`, none here) and `cacheRead` the cached; `thoughtsTokenCount` is apart from
+`candidatesTokenCount` ("prompt + tool-use prompt + thoughts + response candidates") and billed as output, so `output` is
+both and `reasoning` the thoughts. Implicit caching bills no writes.
+
+**Finish reasons:** `STOP` (a turn's end, or `tool_use` with calls), `MAX_TOKENS`; `SAFETY`, `RECITATION`, `LANGUAGE`,
+`BLOCKLIST`, `PROHIBITED_CONTENT`, `SPII` and the image ones, and `promptFeedback.blockReason`, are a refusal;
+`MALFORMED_FUNCTION_CALL`, `UNEXPECTED_TOOL_CALL`, `TOO_MANY_TOOL_CALLS`, `MALFORMED_RESPONSE` are made again (the loop's
+backoff); `MISSING_THOUGHT_SIGNATURE` is a bad request (our bug).
+
+**Errors** (`GeminiErrors`; the body `{"error": {code, message, status, details}}`, also array-wrapped):
+
+| Response | Class |
+|---|---|
+| 400 with `API_KEY_INVALID` ("API key not valid"), 401, 403 (permission, a key reported as leaked) | `Auth` |
+| 400 `FAILED_PRECONDITION` ("free tier is not available in your country. Please enable billing") | `LowCredit(limit)` |
+| 402 ("Your Prepay credit balance is depleted") | `LowCredit` |
+| 429 with a day's quota (`PerDay`, a retry delay of an hour or more), or "limit: 0" (a model without free quota on the key: Argon on the free tier) | `LowCredit(limit)` |
+| any other 429 | `RateLimited`, after RetryInfo's `retryDelay` or `retry-after` |
+| 408, 499, 500, 503 ("temporarily overloaded"), 504 | `Overloaded` |
+| the rest (400 `INVALID_ARGUMENT`, 404) | `BadRequest` |
+
+### The free tier and privacy
+
+- **Which tier the key is on:** no API tells it (Google documents none; `usageMetadata.serviceTier` says standard, flex
+  or priority). So the learner says so in the Tutor section ("Brezplačna raven · Free tier" or "Plačljiva (obračun
+  vklopljen) · Paid (billing on)"). A 429 whose error names the free tier's quota (`generate_content_free_tier_requests`,
+  a `FreeTier` quota id) marks the key as free too (`free-seen`), and the section says Google's answer showed it.
+- **What the app says:** while the key is on the free tier, the Tutor section shows, in the error colour: "Na
+  brezplačni ravni lahko Google uporabi, kar pošlješ, in odgovore za izboljšanje svojih izdelkov, in to lahko berejo
+  ljudje. Ne pošiljaj osebnih ali občutljivih podatkov. … · On the free tier Google may use what you send, and the
+  answers, to improve its products, and people may read them. Don't send personal or sensitive information. Gemini 4
+  Argon isn't available there, and calls go more slowly (the free tier's limits)." The chat says it once
+  (`tutorLive.note.geminiFree`), and its AI line adds "brezplačna raven Gemini · Gemini free tier".
+- **Google's terms** (the Gemini API Additional Terms of Service, [ai.google.dev/gemini-api/terms](https://ai.google.dev/gemini-api/terms),
+  "Effective March 23, 2026", read 2026-10-19):
+  - "When you use Unpaid Services, including, for example, Google AI Studio and the unpaid quota on Gemini API,
+    Google uses the content you submit to the Services and any generated responses to provide, improve, and develop
+    Google products and services and machine learning technologies, including Google's enterprise features, products,
+    and services, consistent with our Privacy Policy."
+  - "To help with quality and improve our products, human reviewers may read, annotate, and process your API input
+    and output. … Do not submit sensitive, confidential, or personal information to the Unpaid Services."
+  - Paid Services: "Google doesn't use your prompts (including associated system instructions, cached content, and
+    files such as images, videos, or documents) or responses to improve our products", and logs them "for a limited
+    period of time, solely for detecting and preventing violations of the Prohibited Use Policy".
+  - "Your access to Gemini API is a 'Paid Service' only when accessing the API through a Cloud Project associated
+    with an active billing account."
+- **For the lead (not settled tonight):** the same terms say "If you're in the European Economic Area, Switzerland, or
+  the United Kingdom, the terms under 'How Google uses Your Data' in 'Paid Services' apply to all Services, including
+  Google AI Studio and unpaid quota in the Gemini API", and "You may use only Paid Services when making API Clients
+  available to users in the European Economic Area, Switzerland, or the United Kingdom". Jan is in Slovenia. The app's
+  note says what Google *may* do on the free tier, which is the cautious reading; whether Lani may offer the free tier
+  to learners in the EEA at all (the learner's own key in an app offered to them) needs a decision. The terms also say
+  the API is for "professional or business purposes, not for consumer use", and 18+.
+- **The pace** (`GeminiPacer`, one per key: the quota is the project's, so the primary, the studio and the lanes share
+  it): the free tier's limits per model aren't published ("can be viewed in Google AI Studio"; the lead read 5–15
+  requests a minute and about 1,000 a day; a forum reports 20 a day for 3.8 Flash). On the free tier a call waits for
+  its slot, one every 6 s; a 429 doubles the gap (at most a minute) and waits its retry delay; calls that go through
+  ease it back by a quarter. The loop's own retry (after the retry delay, at most 30 s, three times) comes on top; a
+  day's quota is `LowCredit`, not retried: the tutor pauses until the learner checks again or a new day.
+- **No Argon on the free tier** ("Free tier: Not available"): the presets' top tier maps to Flash there
+  (`LiveTutor.modelFor`), the matrix skips Argon's lanes, and a call that still gets "limit: 0" pauses as
+  `LowCredit(limit)`.
+- **Its price:** a free-tier call costs $0 (`Billing.FREE_TIER`); its API-equivalent is recorded as the ChatGPT plan's
+  is, so the caps don't stop it and the numbers still compare.
+
+### Models and prices
+
+From [ai.google.dev/gemini-api/docs/models](https://ai.google.dev/gemini-api/docs/models) and
+[pricing](https://ai.google.dev/gemini-api/docs/pricing) (Standard, paid tier, per million tokens, checked 2026-10-19):
+
+| Model | Family | Free tier | Input | Cached input | Output (thinking included) |
+|---|---|---|---|---|---|
+| `gemini-4-argon` | ARGON (top) | no | $2.00 through 2026-11-30, then $4.00 | $0.10, then $0.20 | $10.00, then $20.00 |
+| `gemini-3.8-flash` | FLASH (mid) | yes | $0.75 through 2026-12-31, then $1.50 | $0.075, then $0.15 | $3.75, then $7.50 |
+| `gemini-3.6-flash` | (Flash's fallback) | yes | as 3.8 Flash | as 3.8 Flash | as 3.8 Flash |
+| `gemini-3.5-flash-lite` | FLASH_LITE (small) | yes | $0.30 | $0.03 | $2.50 |
+
+- `prices.json` has a row per span of days (`from`, `until`): `Prices` takes the row of the call's day (UTC).
+- No long-context tier on these three (only the Pro models have one). Thought signatures sent back count as input.
+- The lead's "gemini-3.8-flash" is the real id.
+
+## OpenRouter: one sign-in, every model
+
+`tutor/OpenRouter.kt`. The learner's own key, from OpenRouter's sign-in, billed to their OpenRouter credits; kept in
+its own KeyVault (`lani-tutor-openrouter-key`, `openrouter_key_sealed`).
+
+**"Nadaljuj z OpenRouter · Continue with OpenRouter"** (`OpenRouterAuth`; [the OAuth guide](https://openrouter.ai/docs/guides/overview/auth/oauth)):
+1. The shared loopback listens on 127.0.0.1 (port 0: the system's pick; the redirect names the port it got) at
+   `/auth/openrouter`.
+2. The browser opens `https://openrouter.ai/auth?callback_url=http://127.0.0.1:<port>/auth/openrouter&code_challenge=…&code_challenge_method=S256&state=…&key_label=Lani`.
+   The API reference takes "localhost/127.0.0.1 URLs on any port"; `state` is "Returned unchanged as a state query
+   parameter on the callback URL"; `key_label` "Prefills the label of the API key".
+3. The callback: another `state` gets a 400, a stray request a 404 (neither ends the attempt); no code and no state is
+   a decline ("Not returned when the user denies access"). The page sends the browser back to the app
+   (`lani://tutor/signed-in`).
+4. The exchange: `POST https://openrouter.ai/api/v1/auth/keys` with `{code, code_verifier, code_challenge_method}`,
+   answered `{"key": "sk-or-v1-…", "user_id": …}`. "The code is single-use and expires after 10 minutes": the attempt
+   waits 10 minutes at most. While the network isn't there the exchange is tried again for about a minute
+   (`WhileOffline`, ChatGPT's `OFFLINE_WAITS`: Lani is in the background while the browser comes back); a 403 ("Invalid
+   code or code_verifier", "Authorization code expired") is told, not tried again.
+5. The check: `GET /api/v1/key` (the key's label, limit, `limit_remaining`, usage): the Tutor section shows what's left.
+6. **Sign out** forgets the key on the phone. OpenRouter has no revocation for a user's key from an app (deleting a key
+   needs a management key), so the section links to openrouter.ai/settings/keys to delete it there.
+
+**The request** (`OpenRouterProvider`; [chat completions](https://openrouter.ai/docs/api_reference/overview),
+[tool calling](https://openrouter.ai/docs/guides/features/tool-calling)): `POST https://openrouter.ai/api/v1/chat/completions`,
+`Authorization: Bearer <key>`, `HTTP-Referer: https://github.com/fentas/lani` and `X-OpenRouter-Title: Lani` (the
+app's attribution).
+- `messages`: the core prompt as the system message, then the thread; `tools`: function tools from the bridge's
+  schemas, in the prefix's order; `tool_choice: auto` (Claude 5.5 refuses a forced tool there too); `stream: true`;
+  `max_tokens`; `session_id` by the prefix (sticky routing, for the provider's cache).
+- `reasoning.effort` where the model takes one: the model list's `reasoning.supported_efforts` (`RoutedModels`), else
+  the vendor's own levels (Gemini's, OpenAI's, Claude's). OpenRouter maps effort onto Gemini's `thinkingLevel` and onto
+  Anthropic's thinking budget (`budget_tokens = max(min(max_tokens × ratio, 128000), 1024)`).
+- **Claude through OpenRouter:** the system prompt's text with `cache_control: {type: ephemeral, ttl: 1h}` and a
+  top-level `cache_control` (the moving breakpoint), as the Messages API's request has them (OpenRouter passes
+  Anthropic's breakpoints on, at most four, `ttl: "1h"` included). The others cache by themselves (OpenAI's, Gemini's
+  implicit cache); no `cache_control` is sent to Gemini (explicit caching is an error on Argon at Google's).
+- **The thread** (`ChatFormat`): the user's `content` parts (`text`, `image_url` with a data URL); the assistant's
+  message as it came: `content`, `tool_calls`, and `reasoning_details` unchanged ("the entire sequence of consecutive
+  reasoning blocks must match the outputs generated by the model during the original request"); a result is
+  `{"role": "tool", "tool_call_id", "content"}` (no error flag: a failed one begins "Error: ").
+- **The stream** (`ChatAccumulator`): `: OPENROUTER PROCESSING` comments skipped; `delta.content`, `delta.tool_calls`
+  by `index` (the id and the name once, the arguments in pieces), `delta.reasoning_details` joined by `index` (text,
+  summary and data in pieces, the last signature); `finish_reason` (it comes twice: the usage chunk "repeats the
+  finish_reason"); the usage on the last chunk; `data: [DONE]`. A chunk's `error` ("The error can be the first and
+  only event in the stream") is classified by its code. `length` is `max_tokens`, `content_filter` and a `refusal`
+  are a refusal.
+- **Per turn within a thread:** no ("Request-level effort applies to the whole conversation, so raising it for one
+  hard turn and lowering it again on the next changes the request prefix and invalidates the prompt cache").
+
+**Usage and cost** ([usage accounting](https://openrouter.ai/docs/cookbook/administration/usage-accounting)): it comes
+always now ("The usage: { include: true } … parameters are deprecated and have no effect"). `prompt_tokens` counts the
+cached and written tokens, so `input` is the rest, `cacheRead` `prompt_tokens_details.cached_tokens`, `cacheWrite5m`
+its `cache_write_tokens`; `completion_tokens` includes the reasoning (`reasoning` its `reasoning_tokens`). Each call
+is priced by `usage.cost` ("total amount charged to your account"), the table's vendor row only when it's missing.
+
+**Errors** (`OpenRouterErrors`; [errors](https://openrouter.ai/docs/api_reference/errors-and-debugging),
+[limits](https://openrouter.ai/docs/api_reference/limits)), the body `{"error": {code, message, metadata}}`:
+
+| Response | Class |
+|---|---|
+| 401 ("OAuth session expired, disabled/invalid API key") | `Auth` |
+| 402 `limit_source: openrouter_in_flight_budget` (passing, with Retry-After) | `RateLimited` |
+| 402 `openrouter_key_limit` (the key's own limit) | `LowCredit(limit)` |
+| 402 `openrouter_credits` ("insufficient credits") | `LowCredit` |
+| 403 with a `limit_source` or "Budget limit exceeded" (a key, workspace or guardrail budget) | `LowCredit(limit)` |
+| 403 moderation (`reasons`, `flagged_input`) | `BadRequest` (not retried) |
+| other 403 (permissions) | `Auth` |
+| 429 | `RateLimited` (after `retry-after`) |
+| 408, 502 ("model is down"), 503 ("no available model provider"), 5xx | `Overloaded` |
+| the rest (400) | `BadRequest` |
+
+**The models** (`GET https://openrouter.ai/api/v1/models?supported_parameters=tools`, public: no key sent; ids from the
+live list, 2026-10-19): the learner picks any model that takes tools, per task under "advanced". The tiers' defaults
+(`OpenRouterModels.DEFAULTS`, a preset's small, mid, top): `openai/gpt-6-luna`, `google/gemini-3.8-flash`,
+`google/gemini-4-argon`. Shown first: those, `google/gemini-3.5-flash-lite`, `openai/gpt-6.1-sol`,
+`anthropic/claude-sonnet-5.5` (with a dot: OpenRouter's id), `google/gemma-4-31b-it`.
+- **An open model with good Slovene:** none is documented on OpenRouter. Gemma 4 ("35+ languages, pre-trained on 140+"),
+  Qwen 3.5 ("201 languages and dialects") and Mistral Small name many languages, not Slovene; CJVT's Slovene GaMS
+  models are on Hugging Face, not on OpenRouter. So no open model is a default; Gemma 4 is in the list to try.
+- **"Claude works best directly"** (the Tutor section says so): Lani's 1-hour cache and per-message effort are
+  Anthropic features. OpenRouter passes `cache_control` with `ttl: 1h` on for Anthropic's models, but per-message
+  effort isn't used through it.
+- **Fees** ([FAQ](https://openrouter.ai/docs/faq)): "OpenRouter charges a 5.5% ($0.80 minimum) fee when you purchase
+  credits. We pass through the pricing of the underlying model providers without any markup." Crypto: 5%. The Tutor
+  section says so. (BYOK's fee doesn't apply: the key is OpenRouter's.)
+- **Privacy:** "Prompt and completion are not logged by default" (OpenRouter's FAQ); the providers it routes to have
+  their own data policies, which the learner sets in their OpenRouter account.
+
+## The presets across providers (the live tutor)
+
+- **A preset's tier per provider** (`LiveTutor.modelFor`): the provider chosen in the Tutor section plays each task's
+  tier (small, mid, top: Economy, Balanced and Best as before):
+
+  | Tier | Anthropic | OpenAI | Gemini | OpenRouter (defaults) |
+  |---|---|---|---|---|
+  | small | Haiku 5.5 | GPT-6 Luna | 3.5 Flash-Lite | `openai/gpt-6-luna` |
+  | mid | Sonnet 5.5 | GPT-6.1 Sol | 3.8 Flash | `google/gemini-3.8-flash` |
+  | top | Opus 5.5 | GPT-6 Astra | 4 Argon (Flash on the free tier) | `google/gemini-4-argon` |
+
+  The preset's effort is fitted to the model (Gemini's `xhigh` and `max` are `high`; Flash-Lite takes `minimal`).
+- **A task's model across providers:** under "advanced" a task can take a model of another provider whose credential
+  is kept (the chat on the provider chosen, the content on Claude Opus or Gemini Argon); its calls go to that provider,
+  priced by it. Without that credential the preset's model plays. Changing the provider clears the overrides, as before.
+- **The studio** runs on the content task's model; only Anthropic's has the Message Batches API: on the others the
+  night's jobs wait for charging on Wi-Fi.
+
+## The loopback, shared
+
+`tutor/Loopback.kt`: `LoopbackServer` is the HTTP listener on 127.0.0.1 that both sign-ins' browsers come back to (one
+GET on its path with the Host `127.0.0.1:<port>`, a strict CSP, no outside resources, a page back to the app).
+ChatGPT's `Loopback` is built on it with its own checks (the state, the issued client id), unchanged in behaviour
+(`ChatGPTAuthTest` passes as before). The two fixes that came after this doc was first written are in it: the
+redirect names the port the server socket got (the constructor's `bindPort` no longer shadows `port`), and
+`WhileOffline` tries the exchange again while Android holds the background app's network.
+
+## Lanes of Gemini and OpenRouter
+
+- **Gemini's** (`MatrixSettings.GEMINI_LANES`): 3.8 Flash at medium, 4 Argon at low, medium and high
+  (`gemini:gemini-4-argon@high`). They join once, when a Gemini key is first set (`geminiOffered`). On the free tier
+  Argon's are skipped ("Gemini 4 Argon has no free tier") and Flash's cost $0 with their API-equivalent.
+- **OpenRouter's**: a `LaneSpec(Family.ROUTED, effort, model)` per picked model (the grid's "+ a model", from its list:
+  the suggestions, then the rest; at an effort the model takes, or `none` for one that takes none). At the first
+  sign-in the tier defaults join at medium (`openrouterOffered`). Ids: `openrouter:google/gemini-4-argon@medium`; the
+  directory replaces the "/" with "~" (`Lanes.dir`), so a lane is one directory (`matrix/openrouter:google~gemini-4-argon@medium`).
+- A provider without its credential, a model the list lacks, an effort the model doesn't take: skipped, and the panel
+  and the export say why. A credential refused or out pauses only its provider's lanes.
+- The export carries them like the others (each day's `lanes` by id, `matrix.lanes` with `provider` and `model`), and
+  the tiers (`gemini: {ready, tier}`, `openrouter: {ready}`; never a key). `shadow-compare` shows them as columns: a
+  free-tier call "$0.0000 Gemini free tier (≈$… API)", an OpenRouter call "OpenRouter's price"; `--lanes gemini:` or
+  `--lanes openrouter` (or a part of a model's id, `google/`).
+
+## Verified against Gemini's and OpenRouter's docs (2026-10-19)
+
+| What | Where |
+|---|---|
+| The model ids, their limits, levels, caching, the sampling parameters ignored, the 20-minute timeouts | [models](https://ai.google.dev/gemini-api/docs/models), `/models/gemini-4-argon`, `/models/gemini-3.8-flash`, `/models/gemini-3.5-flash-lite`, [latest model](https://ai.google.dev/gemini-api/docs/generate-content/latest-model), [what's new in 3.6](https://ai.google.dev/gemini-api/docs/generate-content/whats-new-gemini-3.6) |
+| Prices, the dates, no free tier for Argon, thinking billed as output, signatures counted as input | [pricing](https://ai.google.dev/gemini-api/docs/pricing), [thinking](https://ai.google.dev/gemini-api/docs/generate-content/thinking) |
+| The endpoint, `x-goog-api-key`, the request and response fields, UsageMetadata's definitions, FinishReason | [generate-content reference](https://ai.google.dev/api/generate-content), [text generation](https://ai.google.dev/gemini-api/docs/generate-content/text-generation) |
+| Function calling, the ids, `parametersJsonSchema`, the modes | [function calling](https://ai.google.dev/gemini-api/docs/generate-content/function-calling) |
+| Thought signatures: required back, the first parallel call's, strict for the current turn, no merging | [thought signatures](https://ai.google.dev/gemini-api/docs/generate-content/thought-signatures) |
+| `thinkingLevel` per model, lowercase in REST, no `thinkingBudget` with a level | [thinking](https://ai.google.dev/gemini-api/docs/generate-content/thinking) |
+| Implicit caching, its minimums, no explicit caching on Argon | [caching](https://ai.google.dev/gemini-api/docs/generate-content/caching) |
+| The error codes, the invalid key's body, retry only 429, 408, 5xx | [API errors](https://ai.google.dev/gemini-api/docs/generate-content/api-errors), [troubleshooting](https://ai.google.dev/gemini-api/docs/troubleshooting) |
+| Rate limits per project, RPD at midnight Pacific, no per-model free limits published | [rate limits](https://ai.google.dev/gemini-api/docs/rate-limits) |
+| Image input, MIME types | [image understanding](https://ai.google.dev/gemini-api/docs/generate-content/image-understanding) |
+| Unpaid and paid services, the EEA clauses | [terms](https://ai.google.dev/gemini-api/terms) |
+| OpenRouter's PKCE: the URL, `state`, `key_label`, the exchange, the code's 10 minutes, localhost and 127.0.0.1 on any port | [OAuth](https://openrouter.ai/docs/guides/overview/auth/oauth), the API reference's `POST /auth/keys` |
+| The attribution headers, the stream's comments and `[DONE]`, the usage chunk, a mid-stream error | [app attribution](https://openrouter.ai/docs/app-attribution), [streaming](https://openrouter.ai/docs/api_reference/streaming) |
+| Tool calling's shapes | [tool calling](https://openrouter.ai/docs/guides/features/tool-calling) |
+| `reasoning`, its efforts, the mapping to Gemini and Anthropic, `reasoning_details` passed back unchanged, the effort change clearing the cache | [reasoning tokens](https://openrouter.ai/docs/guides/best-practices/reasoning-tokens), the [Gemini 4 migration note](https://openrouter.ai/docs/cookbook/evaluate-and-optimize/model-migrations/gemini-4) |
+| `cache_control` for Anthropic (four breakpoints, `ttl: 1h`), Gemini's last breakpoint only, the cache fields | [prompt caching](https://openrouter.ai/docs/guides/best-practices/prompt-caching) |
+| Usage always on, its fields, `cost` | [usage accounting](https://openrouter.ai/docs/cookbook/administration/usage-accounting) |
+| The model list's fields, `supported_parameters`, `reasoning.supported_efforts` | [list models](https://openrouter.ai/docs/api/api-reference/models/list-all-models-and-their-properties) and the live list |
+| The errors and `limit_source`; the key's own state | [errors](https://openrouter.ai/docs/api_reference/errors-and-debugging), [limits](https://openrouter.ai/docs/api_reference/limits) |
+| The fees, no logging by default | [FAQ](https://openrouter.ai/docs/faq) |
+
+## Not verified for Gemini and OpenRouter (built to the docs' shapes)
+
+- **No real call tonight** to Gemini or OpenRouter, nor a real sign-in.
+- **Gemini:**
+  - the 429's details (QuotaFailure, RetryInfo) aren't in Google's docs; the shapes are from reports in the wild, and
+    some 429s carry none. The free tier's detection from a 429 rests on them;
+  - whether a long `functionCall` can be split across stream chunks (the accumulator expects each part whole);
+  - whether changing `thinkingLevel` within a conversation is allowed and what it does to the implicit cache (not
+    used);
+  - `parametersJsonSchema` with our schemas as Google takes them (the docs: "The model ignores unsupported
+    properties"); `$ref` is undocumented there (none used);
+  - the error a monthly tier cap returns ("service is paused"), and Argon on a free key ("limit: 0" by reports);
+  - the free tier's real limits on Jan's key (AI Studio shows them): the 6-second pace is a guess;
+  - Flash-Lite's implicit-cache minimum;
+  - the EEA question above.
+- **OpenRouter:**
+  - how `delta.tool_calls` and `delta.reasoning_details` come in pieces: the accumulator joins by `index`; a model
+    whose details come whole keeps them whole;
+  - that Gemini's thought signatures travel in `reasoning_details` (implied by `format: google-gemini-v1`, never
+    stated);
+  - Chrome on Android following the loopback's redirect to 127.0.0.1 and back (as for ChatGPT's sign-in, the page has a
+    button too);
+  - `cache_discount`, mentioned once in the docs, isn't read.
+
 ## Tests
 
 All JVM, no network but the loopback in this round's port block (19400–19499):
@@ -388,6 +723,38 @@ All JVM, no network but the loopback in this round's port block (19400–19499):
 **Numbers** (2026-10-18): the Android unit tests 2,620, 0 failed (the tutor's 143; 107 before). Python
 `-s companion/tests` 49 and `-s tests` 106, all OK. The bridge isn't touched (`prices.json` isn't the bridge's).
 
+**Gemini and OpenRouter** (2026-10-19), against fakes on MockWebServer in the block (19440 Gemini, 19450 OpenRouter),
+the sign-ins' loopback on port 0:
+- **`GeminiTest` (9):** a turn over the real client (two calls with their signature, then the reply; the URL with the
+  model, the key in its header only, the body's fields; the model turn sent back exactly; results by id; usage with the
+  cached part and the thoughts); levels fitted per model, none sent without one; a photo as `inlineData`, our ids for a
+  call without one, never sent; each error class (the invalid key, a leaked key, billing off in the region, prepay,
+  a minute's 429 with its delay, the free tier's day with its quota named, "limit: 0", a bare 429, 503, 500, 504, 404,
+  an array-wrapped body); the finish reasons (a block, a cut-off, a botched call made again, an early end, an error in
+  the stream); the pacer (the gap, the backoff after a 429, easing back, a paid key unpaced); the guard and `Redact`;
+  the model list and the families; the prices by day (Argon on 2026-11-30 and 2026-12-01, Flash in January, the free
+  tier's $0 and API-equivalent).
+- **`OpenRouterTest` (9):** PKCE with the loopback on port 0 (the redirect names the real port; a stray request,
+  another state and another Host never end it; the code with the verifier whose S256 is the challenge; the key kept;
+  sign out); the exchange tried again while offline (three failed resolutions, then the key; the waits the
+  `OFFLINE_WAITS`); offline for good, declined, a refused code; a turn over the real client (the request's fields and
+  headers, `reasoning_details` joined and passed back unchanged, results as `tool` messages, usage and `cost`); Claude's
+  `cache_control`, a model without efforts, `image_url`; the stream (a cut-off, the content filter, an error chunk, an
+  in-stream 402, an early end); each error class; the model list without a key, its efforts and prices, the key's
+  credit; the guard and `Redact`.
+- **`OpenAIWireTest` (4):** the Responses API's request byte for byte with an API key and with the ChatGPT plan, the
+  wire, the appended items: OpenAI's format stays as it was (`OpenAI.kt` is unchanged).
+- **`ProviderLanesTest` (3):** lane ids and directories, the plan's skips, providers and formats by id, a routed
+  model's vendor price.
+- **`ShadowTutorTest` (+2), `LiveTutorTest` (+2):** above ("Lanes"; the live tutor on Gemini's free tier and on
+  OpenRouter, through the browser played).
+- **`companion/tests/test_shadow_compare.py` (+1):** Gemini's and OpenRouter's lanes, the free tier's API-equivalent,
+  OpenRouter's price, `--lanes gemini:` and `openrouter`.
+- `ChatGPTAuthTest` passes unchanged on the shared loopback; `AnthropicWireTest` too.
+
+**Numbers** (2026-10-19): the Android unit tests 2,826, 0 failed (the tutor's 230; 198 before this round, the studio
+fix's three included). Python `-s companion/tests` 68 and `-s tests` 249, all OK. The bridge isn't touched.
+
 ## What's left
 
 - **The live tutor** builds on this loop (the next agent): the learner-facing setup ("Continue with ChatGPT" in the
@@ -400,3 +767,12 @@ All JVM, no network but the loopback in this round's port block (19400–19499):
   `tutor-mock.ts` (that is the bridge's directory: not touched tonight).
 - **Account switching:** the guide's account picker (several registrations). One account is kept for now; signing
   out and in with another is refused as "another account" until the session is cleared.
+- **Gemini and OpenRouter, the first real calls:** one Gemini lane and one OpenRouter lane on Jan's keys, then the
+  "Not verified" lists (the 429's details on the free tier, the routed stream's pieces, Gemini's signatures through
+  OpenRouter).
+- **The EEA question** (Gemini's free tier for a learner in the EEA): a decision for the lead and Jan.
+- **Per-turn thinking on Gemini:** if Google documents that a level change keeps the implicit cache, a turn at another
+  level could stay on the day's thread (a marker item, as OpenAI's `configuration_update`).
+- **QA on the emulator:** the two sign-ins through a real browser (Chrome to 127.0.0.1 and back), and mocks of
+  Gemini's and OpenRouter's APIs next to `tutor-mock.ts`.
+- **The Interactions API:** Google's new default for Gemini; generateContent stays supported.

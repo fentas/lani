@@ -1029,8 +1029,21 @@ class LiveTutor(
 
     private fun findEvent(id: String): ShadowEvent? = recentEvents().firstOrNull { it.id == id } ?: logs.values.asSequence().flatMap { it.events }.firstOrNull { it.id == id }
 
-    /** The model of [task] with the provider and preset set: the advanced override, else the preset's family of the provider. */
+    /** Whether [p]'s credential is kept (a key, a sign-in). */
+    fun ready(p: ProviderId): Boolean = when (p) {
+        ProviderId.ANTHROPIC -> hasKey
+        ProviderId.OPENAI -> openaiReady.isNotEmpty()
+        ProviderId.GEMINI -> geminiReady
+        ProviderId.OPENROUTER -> openrouterReady
+    }
+
+    /**
+     * The model of [task] with the provider and preset set: the advanced override, else the preset's family of the
+     * provider. An override may be another provider's model while its credential is kept (the presets across
+     * providers: the chat on Claude, the content on Gemini 4 Argon); its calls go to that provider.
+     */
     fun modelFor(task: Task): String {
+        s.models[task]?.let { m -> ProviderId.of(m).takeIf { it != s.provider && ready(it) }?.let { return m } }
         val listed = s.listed.takeIf { s.listedWith == listedKey() }.orEmpty()
         val cat = ModelCatalog(listed)
         val tier = s.preset.families.getValue(task).tier

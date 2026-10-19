@@ -155,11 +155,13 @@ private val clock = DateTimeFormatter.ofPattern("HH:mm:ss")
 private fun at(ms: Long) = clock.format(Instant.ofEpochMilli(ms).atZone(ZoneId.systemDefault()))
 private fun money(d: Double?) = d?.let { "$" + "%.4f".format(it) } ?: "—"
 
-/** What calls cost: their spend, and with the ChatGPT plan ($0) their API-equivalent, labelled so. */
+/** What calls cost: their spend, and with the ChatGPT plan or the Gemini free tier ($0) their API-equivalent, labelled so. */
 private fun spendOf(calls: List<CallRecord>): String {
     val spend = calls.sumOf { it.cost ?: 0.0 }
     val plan = calls.filter { it.billing == Billing.CHATGPT_PLAN }
-    return money(spend) + if (plan.isEmpty()) "" else " (ChatGPT plan; ≈${money(plan.sumOf { it.apiEquivalent ?: 0.0 })} API-equivalent)"
+    val free = calls.filter { it.billing == Billing.FREE_TIER }
+    return money(spend) + (if (plan.isEmpty()) "" else " (ChatGPT plan; ≈${money(plan.sumOf { it.apiEquivalent ?: 0.0 })} API-equivalent)") +
+        if (free.isEmpty()) "" else " (Gemini free tier; ≈${money(free.sumOf { it.apiEquivalent ?: 0.0 })} API-equivalent)"
 }
 
 @Composable

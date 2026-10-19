@@ -1087,9 +1087,14 @@ get and calls the same tools, through the bridge's `/tutor/*` routes.
 **Turning it on.** "🔗 Povezava · Connection" (the status dot on Home) → "🧑‍🏫 Učitelj · Tutor":
 - "Kdo odgovarja · Who answers": "🖥️ Claude Code na mojem vozlišču · Claude Code on my node" (the default), or
   "📱 V aplikaciji · In the app";
-- the provider: Anthropic with a Claude API key, or OpenAI with "Nadaljuj s ChatGPT · Continue with ChatGPT" (the
-  ChatGPT plan pays) or an OpenAI API key. A key is checked with `GET /v1/models` (not a model call) and kept encrypted
-  with a key in the Android Keystore, in the same vault as the shadow tutor's: never shown again, logged or exported;
+- the provider: Anthropic with a Claude API key; OpenAI with "Nadaljuj s ChatGPT · Continue with ChatGPT" (the
+  ChatGPT plan pays) or an OpenAI API key; "Google · Gemini" with a key from Google AI Studio and the learner's word on
+  its tier (free, or paid with billing on: no API tells); or "Nadaljuj z OpenRouter · Continue with OpenRouter" (one
+  sign-in, every model, the learner's OpenRouter credits pay; Claude works best directly). A key is checked with the
+  provider's model list (not a model call) and kept encrypted with a key in the Android Keystore, in the same vault as
+  the shadow tutor's: never shown again, logged or exported. On Gemini's free tier the section says plainly that Google
+  may use what's sent to improve its products (and the chat says it once); Argon isn't there, and the calls are paced
+  ([docs/plans/05-built/providers.md](../docs/plans/05-built/providers.md), "Gemini", "OpenRouter");
 - the preset (Varčno · Economy, Uravnoteženo · Balanced ⭐, Najboljše · Best), "advanced" for the model and effort per
   task, the daily cap ($1 by default) and the monthly cap ($20 by default), today's and this month's spend, "Odzovi se
   takoj · React at once", "🌙 Kar lahko počaka, ponoči za pol cene · What can wait, overnight at half price";
@@ -1104,7 +1109,7 @@ Once the credential is kept, the app attaches to the paired bridge. From then on
   The reply goes through the bridge's `reply` tool, so it reaches the chat as Claude Code's do: on Home's tutor bar,
   and as a notification while the app is closed.
 - **The chat says an AI answers:** "🤖 Odgovarja umetna inteligenca (…) · An AI answers here (…)", with "Using ChatGPT
-  plan" when the plan pays.
+  plan" when the plan pays, and "brezplačna raven Gemini · Gemini free tier" on Gemini's free tier.
 - **The data changes for real:** `record_session` (update-db.py), `card` (card.py), the notebook, glosses and sentence
   notes, through the bridge.
 - **Reports go to Lani's GitHub discussions** when git sync is signed in to GitHub ("💾 Podatki · Data"): the tutor's
@@ -1326,6 +1331,11 @@ day's `lanes`, the top-level `matrix`; tool calls in brief). Compared afterwards
 lanes). **OpenAI's lanes** (GPT-6 Luna at medium to max, GPT-6.1 Sol at low to high, GPT-6 Astra at low and medium: the
 same places in the grid) join once, when an OpenAI credential is first set (below); their ids carry the provider
 (`openai:gpt-6.1-sol@medium`; Anthropic's keep theirs), and an OpenAI credential refused or out pauses only them.
+**Gemini's lanes** (4 Argon at low, medium and high, 3.8 Flash at medium; `gemini:gemini-4-argon@high`) join once a
+Gemini key is set; on the free tier Argon's are skipped and Flash's cost $0 with their API-equivalent. **OpenRouter's**
+(any model of its list that takes tools, picked in the grid; at the first sign-in GPT-6 Luna, Gemini 3.8 Flash and
+Gemini 4 Argon at medium; `openrouter:google/gemini-4-argon@medium`, its directory `openrouter:google~gemini-4-argon@medium`)
+are priced at the cost OpenRouter reports. `--lanes gemini:` or `--lanes openrouter` picks them in shadow-compare.
 
 **OpenAI: an API key, or "Sign in with ChatGPT"** (the panel's Settings, "🤖 OpenAI"; `tutor/OpenAI.kt`,
 `tutor/ChatGPT.kt`): for the matrix's OpenAI lanes and "Also run on" a GPT-6 model; the primary stays on Claude. The
@@ -1340,6 +1350,13 @@ shadow-compare show their API-equivalent price beside it. "Sign out" revokes the
 checked with `GET /v1/models` and kept as the Claude key is (its own Keystore key and DataStore entry); with both, a
 chip picks which one the calls use. The key and the sign-in's tokens go only to api.openai.com and auth.openai.com,
 never into a log line, the export, a prompt or a tool's result.
+
+**Gemini and OpenRouter** (the panel's Settings, "💎 Gemini" and "🔀 OpenRouter"; `tutor/Gemini.kt`,
+`tutor/OpenRouter.kt`): the live tutor's vaults, for their lanes and "Also run on". Gemini: `streamGenerateContent`
+with `x-goog-api-key`, the model turns passed back with their thought signatures, its thinking level per lane; the
+key's tier as said (a 429 that names the free tier's quota marks it). OpenRouter: "Continue with OpenRouter" (OAuth
+PKCE on the same 127.0.0.1 listener as ChatGPT's sign-in) for a key of the learner's own; chat completions with tools,
+the reasoning details passed back unchanged. Their keys go only to generativelanguage.googleapis.com and openrouter.ai.
 
 **Metering** (`tutor/ShadowStore.kt` `DayStats`): per call the model, its effort (and whether an effort message set it),
 the event kind, input, the cache writes (5-minute and 1-hour, from `usage.cache_creation`), cache reads, output (thinking
@@ -1365,7 +1382,8 @@ tap away.
 queue, and each day's events, turns, replies, tool calls, calls and numbers) through the share sheet (a FileProvider
 on the cache's `shared/`). No key and no token: neither is kept with them, and every text is cleaned of the keys, the
 ChatGPT sign-in's tokens, the node's token and anything shaped like a secret (`Redact.json`: `sk-ant-…`, OpenAI's
-`sk-…`, JSON Web Tokens); a photo and a reasoning item's encrypted content are notes of their size.
+and OpenRouter's `sk-…`, Google's `AIza…`, JSON Web Tokens); a photo and a reasoning item's encrypted content are
+notes of their size.
 
 **Without a key: the mock.** `bun companion/bridge/test/tutor-mock.ts` serves a canned Messages API on
 127.0.0.1:8771 (the emulator: `http://10.0.2.2:8771`): `GET /v1/models` and streamed `POST /v1/messages` in the real

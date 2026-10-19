@@ -21,7 +21,7 @@ bridge's `companion/bridge/src/tutor-studio.ts`, `src/overrides.ts` and `src/fea
   with their own threads, the steps, the drafts (each publishing call's input and what came of it) and what was
   published. A killed app resumes from there. The job runs while the app is open, else as WorkManager work.
 - **Batches.** What can wait goes through Anthropic's Message Batches API (50 % off), each step a batch of one; the
-  results go through the same tools. On OpenAI it waits until the phone charges on Wi-Fi.
+  results go through the same tools. On OpenAI, Gemini or OpenRouter it waits until the phone charges on Wi-Fi.
 - **The file tools** over the learner's data folder: Anthropic's text editor (`text_editor_20250728`, the tool
   `str_replace_based_edit_tool`) and `search`, carried out by the bridge. Every write of a file the app reads runs that
   kind's validator first. On OpenAI the same tools are function tools.
@@ -111,7 +111,7 @@ content is the studio's: a brief with `request_content`, and a line that it's on
 | A request (urgent) | at once | one-time work with the network, at once |
 | An arrival | at once | the same |
 | The night's, on Anthropic | its steps sent as batches; the open app asks them every 30 s | a poll in 5 minutes with the network, again while a batch waits |
-| The night's, on OpenAI (or batches off) | while the phone charges on Wi-Fi | one-time work with `requiresCharging` and an unmetered network |
+| The night's, on OpenAI, Gemini or OpenRouter (or batches off) | while the phone charges on Wi-Fi | one-time work with `requiresCharging` and an unmetered network |
 
 - A background run takes at most eight minutes; what's saved goes on at the next.
 - No expedited work and no foreground service: nothing here is a call the learner sits and waits for (the open app runs

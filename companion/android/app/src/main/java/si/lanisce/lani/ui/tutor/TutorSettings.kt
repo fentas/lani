@@ -445,11 +445,16 @@ private fun TaskLine(live: LiveTutor, task: Task) {
     var modelMenu by remember { mutableStateOf(false) }
     var effortMenu by remember { mutableStateOf(false) }
     val listed = s.listed.map { it.id }.filter { ProviderId.of(it) == s.provider }
-    val models = when (s.provider) {
+    val own = when (s.provider) {
         // OpenRouter's list (the models that take tools), its suggestions first
         ProviderId.OPENROUTER -> (OpenRouterModels.SUGGESTED.filter { listed.isEmpty() || it in listed } + listed).distinct()
         else -> (listed.ifEmpty { Family.of(s.provider).flatMap { it.preferred.take(1) } }).filter { !ModelCatalog.legacy(it) }
     }
+    // the other providers with a credential kept: their families' models (OpenRouter's suggestions)
+    val others = ProviderId.entries.filter { it != s.provider && live.ready(it) }.flatMap { p ->
+        if (p == ProviderId.OPENROUTER) OpenRouterModels.SUGGESTED else Family.of(p).map { it.preferred.first() }
+    }
+    val models = own + others
     FlowRow(verticalArrangement = Arrangement.Center) {
         Text(taskLabel(task), style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(end = 6.dp, top = 12.dp))
         Box {
