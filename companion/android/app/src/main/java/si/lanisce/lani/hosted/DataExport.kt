@@ -132,7 +132,7 @@ object DataExport {
     fun learnerOf(profile: File): JsonObject {
         val l = runCatching { Json.parseToJsonElement(profile.readText()).jsonObject["learner"]?.jsonObject }.getOrNull()
         fun plain(key: String): JsonElement = l?.get(key)?.let { it as? JsonPrimitive }?.contentOrNull?.trim()
-            ?.takeIf { it.isNotEmpty() && !Regex("\\{[^{}]*\\}").containsMatchIn(it) }?.let(::JsonPrimitive) ?: JsonNull
+            ?.takeIf { it.isNotEmpty() && !Regex("\\{[^\\{\\}]*\\}").containsMatchIn(it) }?.let(::JsonPrimitive) ?: JsonNull
         return buildJsonObject {
             put("name", plain("name"))
             put("target", plain("target_language_code"))
