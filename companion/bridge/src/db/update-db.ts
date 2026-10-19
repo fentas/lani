@@ -16,6 +16,8 @@ import { loads } from './pyjson'
 import { baseName, copy2, exists, globSuffix, isDir, mkdirp, parent, pjoin, type Ctx } from './sys'
 
 const DATE_FULL = /^\p{Nd}{4}-\p{Nd}{2}-\p{Nd}{2}$/u
+/** A session's id names its backup's directory (.backups/pre-update-<session_id>/): one name, never a path. */
+const SESSION_ID = /^[A-Za-z0-9][A-Za-z0-9._-]{0,99}$/
 const FORMS = 'forms'
 const RESURFACE_DAYS = 30
 const RESURFACED_KEPT = 10
@@ -72,6 +74,17 @@ class Update {
       this.fail(2, `[Lani] Error loading ${baseName(this.HOME_PROFILE)}: ${excStr(e)}`)
     }
     return code === home ? null : code
+  }
+
+  /** report_session_id: letters, digits, '.', '_' and '-', a letter or digit first, at most 100 (session-NNN); exit 1
+   *  otherwise. */
+  reportSessionId(report: PyDict): string {
+    const sid = report.get('session_id')
+    if (!(isStr(sid) && SESSION_ID.test(sid))) {
+      this.fail(1, "[Lani] Error: 'session_id' must be letters, digits, '.', '_' and '-', a letter or digit first "
+        + `(at most 100; e.g. session-005), got ${repr(sid)}`)
+    }
+    return sid
   }
 
   /** report_date: the report's date, zero-padded (the databases compare dates as text); exit 1 when it isn't one. */
@@ -648,6 +661,7 @@ export function main(ctx: Ctx, _argv: string[], stdin: () => string): void {
   for (const field of ['session_id', 'date']) {
     if (!session.has(field)) u.fail(1, `[Lani] Error: Missing required field '${field}'`)
   }
+  u.reportSessionId(session)
   // the date as the databases keep it: "2026-4-24" is written "2026-04-24" (they compare dates as text)
   session.set('date', u.reportDate(session))
 

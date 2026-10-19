@@ -759,7 +759,10 @@ class EdgeCasesTest(Scenario):
         self.run_both("ensure_data_dir", env=self.env(LANI_DATA_DIR=str(file_dir / "below")))
         spaced = self.root / "dätä mit Leerzeichen"
         self.run_both("ensure_data_dir", env=self.env(LANI_DATA_DIR=str(spaced)))
-        self.run_both("update-db", stdin={"session_id": "a/b/../c", "date": "2026-10-03"}, env=self.env(LANI_DATA_DIR=str(spaced)))
+        # a session_id that isn't one name (its backup would be elsewhere than .backups/pre-update-<id>/): refused
+        for sid in ("a/b/../c", "../../../../escaped", ".."):
+            self.run_both("update-db", stdin={"session_id": sid, "date": "2026-10-03"}, env=self.env(LANI_DATA_DIR=str(spaced)), code=1)
+        self.assertFalse((self.root.parent / "escaped").exists())
 
     def test_card_corners(self):
         sys.path.insert(0, str(REPO_ROOT / "tests"))

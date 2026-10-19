@@ -660,6 +660,26 @@ class UpdateDbSmokeTest(unittest.TestCase):
                 self.assertEqual(self._raw(), before)
 
 
+    # --- The session's id: it names the backup's directory ---
+
+    def test_a_session_id_that_isnt_one_name_is_refused(self):
+        """A session_id with '/' or '..' put the backup elsewhere than .backups/pre-update-<id>/, enough '../' outside
+        the data directory: refused now (exit 1), nothing written anywhere."""
+        outside = self.tmp / "outside"
+        before = self._raw()
+        for bad in ("../../../outside/x", "a/b", "../x", "..", "a\\b", "session 005", "x" * 101, "", "session-005\n", 5, None, ["s"]):
+            with self.subTest(session_id=bad):
+                proc = self._run(dict(SESSION_PAYLOAD, session_id=bad))
+                self.assertEqual(proc.returncode, 1, msg=proc.stderr)
+                self.assertIn("'session_id' must be letters, digits", proc.stderr.decode())
+                self.assertEqual(self._raw(), before)
+        self.assertFalse(outside.exists())
+        self.assertEqual(sorted(p.name for p in (self.tmp / "data" / ".backups").iterdir()), [])
+        for good in ("session-003", "session-it-004", "s.1_x-Y"):
+            with self.subTest(session_id=good):
+                self.assertEqual(self._run(dict(SESSION_PAYLOAD, session_id=good)).returncode, 0)
+                self.assertTrue((self.tmp / "data" / ".backups" / f"pre-update-{good}").is_dir())
+
     # --- Dates: compared as dates, written zero-padded ---
 
     def _write(self, name, change):

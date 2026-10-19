@@ -138,7 +138,8 @@ EOF
 ```
 
 ### Required fields
-- `session_id` (string, conventionally `session-NNN`)
+- `session_id` (string, conventionally `session-NNN`: letters, digits, `.`, `_` and `-`, a letter or digit first, at
+  most 100. It names the backup's directory, so anything else, such as a `/`, is a validation error, exit `1`)
 - `date` (YYYY-MM-DD; a date that isn't one is a validation error, exit `1`. One without its zeros, `2026-4-24`, is
   taken and written `2026-04-24`: see [Dates](#dates))
 

@@ -82,6 +82,21 @@ def get_week_start(today_str: str) -> str:
     return date_str(monday)
 
 
+# A session's id names its backup's directory (.backups/pre-update-<session_id>/): one name, never a path.
+SESSION_ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,99}")
+
+
+def report_session_id(report: dict) -> str:
+    """The report's session_id: letters, digits, '.', '_' and '-', a letter or digit first, at most 100 (session-NNN).
+    It is part of the backup's directory name, so a '/' or '..' in it would put the backup elsewhere. Exits 1 otherwise."""
+    sid = report.get("session_id")
+    if not (isinstance(sid, str) and SESSION_ID.fullmatch(sid)):
+        print("[Lani] Error: 'session_id' must be letters, digits, '.', '_' and '-', a letter or digit first "
+              f"(at most 100; e.g. session-005), got {sid!r}", file=sys.stderr)
+        sys.exit(1)
+    return sid
+
+
 def report_date(report: dict) -> str:
     """The report's date in the form the databases keep (zero-padded: "2026-4-24" -> "2026-04-24"; they compare dates as
     text). Exits 1 when it isn't a date (YYYY-MM-DD)."""
@@ -832,6 +847,7 @@ def main():
         if field not in session:
             print(f"[Lani] Error: Missing required field '{field}'", file=sys.stderr)
             sys.exit(1)
+    report_session_id(session)
     # The date as the databases keep it: "2026-4-24" is written "2026-04-24" (they compare dates as text).
     session["date"] = report_date(session)
 
