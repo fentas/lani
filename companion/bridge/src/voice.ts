@@ -1,6 +1,8 @@
 // Voice store: natural Slovene audio for the app, made once on the node and cached.
 // Engines: ElevenLabs (LANI_ELEVENLABS_MODEL, eleven_v4_turbo by default: v3 and v4 speak Slovenian; quota-guarded) and the local
-// Gepard worker on 127.0.0.1:8795. Clips live in the voice cache, {voice.db,files/<sha1>.mp3}: $LANI_VOICE_CACHE
+// Gepard worker on 127.0.0.1:8795; for batch clips only, the local Drama 3 worker (companion/voice-drama3, 127.0.0.1:8785:
+// voice-build --drama3 remakes a speaker's Gepard clips with it; far too slow for live lines). A clip is replaced only by an
+// engine ranked as high or higher: ElevenLabs, then Drama 3, then Gepard (ENGINE_RANK). Clips live in the voice cache, {voice.db,files/<sha1>.mp3}: $LANI_VOICE_CACHE
 // (~/.cache/lani/voice after lani-setup), else <data>/app/voice (paths.ts voiceDir).
 // A clip is keyed by its speaker from the voice cast (cast.ts): the narrators female/male or a
 // character voice ("grandma"). An English narrator says a lone word inside a carrier sentence, cut out by its
@@ -30,7 +32,15 @@ import { allLines, type Villager } from './villagers'
 
 /** A speaker of the voice cast: the narrators "female" and "male", or a character voice ("grandma"). */
 export type VoiceName = string
-export type EngineName = 'elevenlabs' | 'gepard'
+export type EngineName = 'elevenlabs' | 'gepard' | 'drama3'
+/**
+ * The engines in the order their clips are preferred: ElevenLabs, then Drama 3 (batch clips, voice-build --drama3), then
+ * Gepard. An existing clip is replaced only by a take of an engine ranked as high or higher: a Gepard take never replaces
+ * a Drama 3 clip, and ElevenLabs replaces either (--upgrade, --elevenlabs, a re-record).
+ */
+export const ENGINE_RANK: Record<EngineName, number> = { elevenlabs: 3, drama3: 2, gepard: 1 }
+/** Whether a take of [engine] may replace [have], a clip there (ENGINE_RANK; an engine from another version ranks lowest). */
+export const outranks = (engine: string, have: { engine: string }) => (ENGINE_RANK[engine as EngineName] ?? 0) >= (ENGINE_RANK[have.engine as EngineName] ?? 0)
 /**
  * How a clip was made, besides plainly: 'carrier', cut out of its carrier sentence; 'plain', asked plainly because the
  * word could not be cut out of it (not tried again). Null: plainly, as before the carrier sentence or where it doesn't apply.
@@ -1338,6 +1348,87 @@ export class Gepard implements Engine {
   async status() { return { up: await this.up(), url: this.url } }
 }
 
+/** The Drama 3 worker's address by default (companion/voice-drama3; LANI_DRAMA3_URL). */
+export const DRAMA3_URL = 'http://127.0.0.1:8785'
+
+/** Why the Drama 3 worker made no clip of a line: its quality guard's reasons for each take, or the HTTP error. */
+export type Drama3Rejection = { status: number; error: string; attempts?: { seed?: number; reasons: string[] }[] }
+
+/**
+ * The local Drama 3 worker (Fish Audio Drama 3, companion/voice-drama3): GET /health, POST /synth {text, speaker} → MP3,
+ * the Gepard worker's contract. For batch clips only (voice-build --drama3): about 6 to 12 s of compute a second of audio,
+ * far too slow for a live line, so the bridge's own store never has it. Its voices are the cast's speakers, each a
+ * reference made by Drama 3 itself (voices.json). Every take passes its quality guard (the gender by pitch, noise, the
+ * text heard by Whisper, length and silence) or is made again with another seed; a line no take passes comes back as
+ * 422, and [lastRejection] holds why. Built with Fish Audio.
+ */
+export class Drama3 implements Engine {
+  readonly name = 'drama3' as const
+  /** Why the last [synth] made no clip (the quality guard's reasons, an HTTP error); undefined after a clip. */
+  lastRejection?: Drama3Rejection
+
+  constructor(private readonly o: { url?: string; timeoutMs?: number; log?: Log } = {}) {}
+
+  get url() { return (this.o.url ?? DRAMA3_URL).replace(/\/$/, '') }
+
+  /** The worker's voice for [voice]: the cast speaker (a person's own voice: their archetype), else the gender narrator's. */
+  speakerOf(voice: VoiceName): string {
+    const a = archetypeOf(voice)
+    return Object.hasOwn(cast(), a) ? a : genderOf(voice)
+  }
+
+  /** The worker's /health: its JSON (ok, or loading and what it waits for), or null when nothing answers. */
+  async health(): Promise<Record<string, unknown> | null> {
+    try {
+      const r = await fetch(`${this.url}/health`, { signal: AbortSignal.timeout(3_000) })
+      return ((await r.json().catch(() => null)) as Record<string, unknown> | null) ?? { ok: false, status: r.status }
+    } catch {
+      return null
+    }
+  }
+
+  async up(): Promise<boolean> { return (await this.health())?.ok === true }
+
+  ready(): Promise<boolean> { return this.up() }
+
+  async synth(text: string, voice: VoiceName): Promise<Take | null> {
+    const r = await this.make(text, voice)
+    this.lastRejection = r.rejection
+    return r.take ?? null
+  }
+
+  /** [synth] with the reason when there is no clip, for each call apart (voice-build has two in flight). */
+  async make(text: string, voice: VoiceName): Promise<{ take?: Take; rejection?: Drama3Rejection }> {
+    try {
+      const speaker = this.speakerOf(voice)
+      const r = await fetch(`${this.url}/synth`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ text, speaker }),
+        // up to four takes of 20 to 60 s each, and the other request in flight
+        signal: AbortSignal.timeout(this.o.timeoutMs ?? 900_000),
+      })
+      if (!r.ok) {
+        const body = (await r.json().catch(() => ({}))) as { error?: string; attempts?: { seed?: number; reasons?: string[] }[] }
+        const rejection: Drama3Rejection = { status: r.status, error: body.error ?? `HTTP ${r.status}`, ...(body.attempts ? { attempts: body.attempts.map(a => ({ seed: a.seed, reasons: a.reasons ?? [] })) } : {}) }
+        if (r.status !== 503 && r.status !== 422) this.o.log?.(`drama3: HTTP ${r.status} ${rejection.error}`)
+        return { rejection }
+      }
+      const bytes = new Uint8Array(await r.arrayBuffer())
+      if (!isMp3(bytes)) return { rejection: { status: r.status, error: 'not an MP3' } }
+      return { take: { bytes, voice: r.headers.get('x-voice') || speaker } }
+    } catch (e) {
+      this.o.log?.(`drama3: ${(e as Error).message}`)
+      return { rejection: { status: 0, error: (e as Error).message } }
+    }
+  }
+
+  async status() {
+    const h = await this.health()
+    return { up: h?.ok === true, url: this.url, ...(h && h.ok !== true ? { waiting: h.waiting ?? h.error ?? null } : {}) }
+  }
+}
+
 /**
  * Engines from the environment: ELEVENLABS_API_KEY (+ ELEVENLABS_BASE_URL, LANI_ELEVENLABS_CONCURRENCY: its requests at
  * once, DEFAULT_ELEVENLABS_CONCURRENCY; LANI_ELEVENLABS_MODEL: its model, DEFAULT_ELEVENLABS_MODEL), LANI_GEPARD_URL, LANI_FFMPEG (the carrier cut's ffmpeg, "off" for none; else the
@@ -1904,6 +1995,9 @@ export class VoiceStore {
       // the stale clips the app asked for (a swapped voice, an older model), how often and when first: the lazy re-voice
       // makes them again (an old clip played before isn't re-voiced until the app asks for it again)
       this.db.exec('CREATE TABLE IF NOT EXISTS stale_asks (key TEXT PRIMARY KEY, n INTEGER NOT NULL, first TEXT NOT NULL)')
+      // the lines Drama 3 could not make (no take passed its checks), and why: voice-build --drama3 reports them and
+      // leaves them for the next run only with --retry-failed; a line whose text changed has another key
+      this.db.exec('CREATE TABLE IF NOT EXISTS drama3_failed (key TEXT PRIMARY KEY, voice TEXT NOT NULL, text TEXT NOT NULL, reasons TEXT NOT NULL, at TEXT NOT NULL, tries INTEGER NOT NULL DEFAULT 1)')
     }
     this.db.exec('PRAGMA busy_timeout = 5000')
   }
@@ -2212,6 +2306,8 @@ export class VoiceStore {
       for (const e of this.o.engines) {
         if (opt.engines && !opt.engines.includes(e.name)) continue
         if (waits && e.name !== 'elevenlabs') continue
+        // a clip there is replaced only by an engine ranked as high: never a Drama 3 clip by a Gepard take
+        if (have && !outranks(e.name, have)) continue
         try {
           // a short narrator word costs its carrier sentence
           if (!(await e.ready(e.cost?.(t, voice, lang) ?? t.length, !!opt.live))) continue
@@ -2817,15 +2913,15 @@ export class VoiceStore {
   }
 
   /**
-   * The local (Gepard) clips of [speakers] made while ElevenLabs couldn't (the quota, an error, the bridge's fallback),
-   * most played first, then the oldest: what voice-build --elevenlabs makes in the speaker's ElevenLabs voice. Never a
-   * narrator's (female, male): theirs stay beside their Slovene ElevenLabs clips as the fallback (--narrators); never a
-   * speaker without an ElevenLabs voice.
+   * The local clips of [speakers] (Gepard's, made while ElevenLabs couldn't: the quota, an error, the bridge's fallback;
+   * and Drama 3's, voice-build --drama3), most played first, then the oldest: what voice-build --elevenlabs makes in the
+   * speaker's ElevenLabs voice (ElevenLabs ranks above both, ENGINE_RANK). Never a narrator's (female, male): theirs
+   * stay beside their Slovene ElevenLabs clips as the fallback (--narrators); never a speaker without an ElevenLabs voice.
    */
   localQueue(speakers: VoiceName[]): Clip[] {
     const names = speakers.filter(v => !isNarrator(v) && !!elevenlabsOf(v))
     if (!names.length) return []
-    return (this.db.query(`SELECT * FROM clips WHERE engine = 'gepard' AND voice IN (${names.map(() => '?').join(', ')})`).all(...names) as Clip[])
+    return (this.db.query(`SELECT * FROM clips WHERE engine IN ('gepard', 'drama3') AND voice IN (${names.map(() => '?').join(', ')})`).all(...names) as Clip[])
       .sort((a, b) => (b.hits ?? 0) - (a.hits ?? 0) || a.created_at.localeCompare(b.created_at))
   }
 
@@ -2857,9 +2953,109 @@ export class VoiceStore {
       }
       made++
       chars += cost
-      o.out?.(`  ✓ gepard → elevenlabs ${c.voice.padEnd(11)} ${c.text}`)
+      o.out?.(`  ✓ ${c.engine} → elevenlabs ${c.voice.padEnd(11)} ${c.text}`)
     }
     return { made, chars, skipped, left: list.length - made - skipped, ...(stopped ? { stopped } : {}) }
+  }
+
+  // --- Drama 3: a speaker's local clips made again by the Drama 3 worker (voice-build --drama3) -----------------------
+
+  /**
+   * The Gepard clips of [speakers] that voice-build --drama3 makes again with Drama 3, most played first, then the oldest.
+   * Never a narrator's (female, male: their local clips are the fallback of their Slovene ElevenLabs voices, and the
+   * narrators' local voices stay Gepard's); never an explanation (Drama 3 speaks the village's language here); never a
+   * line Drama 3 could not make before ([drama3Failed]) unless [retry].
+   */
+  drama3Queue(speakers: VoiceName[], retry = false): Clip[] {
+    const names = speakers.filter(v => !isNarrator(v) && isVoice(v))
+    if (!names.length) return []
+    const failed = retry ? new Set<string>() : new Set(this.drama3Failed().map(f => f.key))
+    return (this.db.query(`SELECT * FROM clips WHERE engine = 'gepard' AND voice IN (${names.map(() => '?').join(', ')})`).all(...names) as Clip[])
+      .filter(c => !explanationLang(c.norm) && !failed.has(c.key))
+      .sort((a, b) => (b.hits ?? 0) - (a.hits ?? 0) || a.created_at.localeCompare(b.created_at))
+  }
+
+  /** The lines Drama 3 could not make (no take passed its checks), and why; of [speakers] when given. */
+  drama3Failed(speakers?: VoiceName[]): { key: string; voice: VoiceName; text: string; reasons: string[]; at: string; tries: number }[] {
+    let rows: { key: string; voice: string; text: string; reasons: string; at: string; tries: number }[]
+    try {
+      rows = this.db.query('SELECT * FROM drama3_failed ORDER BY at').all() as typeof rows
+    } catch {
+      return [] // a store from before, only read
+    }
+    return rows
+      .filter(r => !speakers || speakers.includes(r.voice))
+      .map(r => ({ ...r, reasons: (() => { try { return JSON.parse(r.reasons) as string[] } catch { return [r.reasons] } })() }))
+  }
+
+  /**
+   * voice-build --drama3 S --run: each clip of [drama3Queue] made again by [engine], [concurrency] at a time (the worker
+   * takes two: one on the GPU while the other is checked), most played first, at most [max]. A take is stored as every new
+   * clip is (its edges trimmed, brought to the level; no filter, no pace) under a new file name, its hits kept, the Gepard
+   * file removed, its row marked drama3 with the worker's voice ("grandma/grandma-2"); a running bridge tells the app
+   * within a minute (voice_updated). A line no take passed (422) is recorded with the reasons ([drama3Failed]) and keeps
+   * its Gepard clip; a clip that changed meanwhile (the bridge made an ElevenLabs one, a re-record) is left as it is.
+   * [before] runs before each clip: false stops the batch (the memory pause gave up, a signal). Stops when the worker
+   * can't be reached; what is left is taken up by the next run (the queue is what is still Gepard's).
+   */
+  async drama3For(engine: Drama3, speakers: VoiceName[], o: { max?: number; retry?: boolean; concurrency?: number; before?: () => Promise<boolean>; out?: (line: string) => void } = {}) {
+    let made = 0
+    let failed = 0
+    let changed = 0
+    let stopped: string | undefined
+    const list = this.drama3Queue(speakers, o.retry)
+    const todo = o.max !== undefined ? list.slice(0, o.max) : list
+    let next = 0
+    const one = async (c: Clip) => {
+      if (this.running.has(c.key)) return
+      let why: Drama3Rejection | undefined
+      const job = (async (): Promise<Clip | null> => {
+        const { take, rejection } = await engine.make(c.text, c.voice)
+        why = rejection
+        if (!take) return null
+        // made meanwhile by another engine, or re-recorded: that one stays
+        const now = this.get(c.norm, c.voice)
+        if (!now || now.file !== c.file || !outranks('drama3', now)) {
+          changed++
+          o.out?.(`  · changed  ${c.voice.padEnd(11)} ${c.text} (left as it is now)`)
+          return null
+        }
+        return await this.save(c.norm, c.text, c.voice, 'drama3', take.bytes, c.source, take)
+      })()
+      this.running.set(c.key, job.catch(() => null).finally(() => this.running.delete(c.key)))
+      const clip = await job.catch(() => null)
+      if (clip) {
+        made++
+        try {
+          this.db.query('DELETE FROM drama3_failed WHERE key = ?').run(c.key)
+        } catch {}
+        o.out?.(`  ✓ gepard → drama3 ${c.voice.padEnd(11)} ${c.text}`)
+        return
+      }
+      if (why?.status === 422) {
+        failed++
+        const reasons = (why.attempts ?? []).map(a => a.reasons.join('; ')).filter(Boolean)
+        this.db
+          .query('INSERT INTO drama3_failed (key, voice, text, reasons, at, tries) VALUES (?, ?, ?, ?, ?, 1) ON CONFLICT (key) DO UPDATE SET reasons = excluded.reasons, at = excluded.at, tries = tries + 1')
+          .run(c.key, c.voice, c.text, JSON.stringify(reasons.length ? reasons : [why.error]), new Date().toISOString())
+        o.out?.(`  ✗ failed   ${c.voice.padEnd(11)} ${c.text} (${reasons.at(-1) ?? why.error}; its Gepard clip stays)`)
+      } else if (why) {
+        stopped ??= `the Drama 3 worker: ${why.error}`
+      }
+    }
+    const lane = async () => {
+      while (!stopped && next < todo.length) {
+        if (o.before && !(await o.before())) {
+          stopped ??= 'stopped'
+          break
+        }
+        if (stopped) break
+        await one(todo[next++])
+      }
+    }
+    await Promise.all(Array.from({ length: Math.max(1, o.concurrency ?? 2) }, lane))
+    if (made) this.o.onUpdated?.(made)
+    return { made, failed, changed, left: this.drama3Queue(speakers, o.retry).length, ...(stopped ? { stopped } : {}) }
   }
 
   /**
@@ -3497,7 +3693,9 @@ export class VoiceStore {
 export const voiceInstructions = `
 Audio is automatic: every Slovene word, example, module line, scenario opener, scene dialog line,
 villager line and role-play line is voiced by the bridge (ElevenLabs, or the local Gepard model, cached on the node) and played by the
-app, which falls back to phone TTS. Don't add audio files or TTS notes yourself; voice_status shows
+app, which falls back to phone TTS. Some character clips the Gepard model made are made again in a batch by the local Drama 3 model
+(companion/bin/voice-build --drama3, Jan's call; Built with Fish Audio): ElevenLabs' clips come first, then Drama 3's, then
+Gepard's. Don't add audio files or TTS notes yourself; voice_status shows
 coverage, quota, which engines are up and the voice cast. Generic texts use the narrators (female,
 male); each villager speaks with their speaker from the cast (grandma, grandpa, young-man, gruff,
 woman, teacher, young-woman, girl, boy), set in the villager's "speaker" field ("voice" stays their

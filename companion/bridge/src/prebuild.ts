@@ -268,7 +268,7 @@ export async function run(
   store: VoiceStore,
   o: BuildOptions & { out?: (line: string) => void } = {},
 ): Promise<{ made: Record<EngineName, number>; replaced: number; chars: number; left: number }> {
-  const made: Record<EngineName, number> = { elevenlabs: 0, gepard: 0 }
+  const made: Record<EngineName, number> = { elevenlabs: 0, gepard: 0, drama3: 0 }
   let replaced = 0
   const anyReady = async () => {
     for (const e of store.engines) if (await e.ready(1, false)) return true

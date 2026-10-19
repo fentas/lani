@@ -85,6 +85,19 @@
 //                    name, the local file removed; a running bridge tells the app within a minute (voice_updated). Never
 //                    the narrators (female, male: their local clips stay beside their Slovene ElevenLabs ones). E.g.
 //                    --elevenlabs teacher: Učiteljica Mojca's lines the local voice said for her (Jan, 2026-10-16).
+//                    Drama 3's clips count as local here too: ElevenLabs ranks above Drama 3, Drama 3 above Gepard.
+//   --drama3 S       speaker S's local Gepard clips (S: speaker[,speaker], or all: every speaker but the narrators) made
+//                    again by the local Drama 3 worker (companion/voice-drama3; Built with Fish Audio), most played first,
+//                    at most --max N; each take passes the worker's checks (the gender by pitch, noise, the text heard
+//                    by Whisper, length and silence) or is made again with another seed; a line no take passes is
+//                    reported and keeps its Gepard clip (tried again only with --retry-failed). Trimmed and levelled as
+//                    every new clip, under a new file name, the Gepard file removed; a running bridge tells the app within
+//                    a minute (voice_updated). The dry run shows the clips, an estimate of the time at the measured speed
+//                    (LANI_DRAMA3_RTF) and the worker. --run starts the worker (LANI_DRAMA3_CMD, else
+//                    ~/.local/share/lani-drama3/run.sh) unless one answers at LANI_DRAMA3_URL (127.0.0.1:8785), and stops
+//                    it after; the worker holds the host's heavy lock (LANI_HEAVY_LOCK, /tmp/lani-heavy.lock) while it
+//                    runs; the batch pauses below 20 GB available (LANI_DRAMA3_MIN_FREE_GB) and goes on when memory is
+//                    back. Stopped (Ctrl-C), it goes on where it stopped with the next --run. Never the narrators.
 //   --data DIR       the learner data directory, as LANI_DATA_DIR (a copy; another learner's profiles/<id>/data with
 //                    their LANI_CULTURE)
 // Without --run, a dry run. The key comes from ELEVENLABS_API_KEY, else ~/.config/lani/keys.env (LANI_KEYS_FILE).
@@ -106,8 +119,9 @@ import { ScenarioStore } from '../bridge/src/scenarios'
 import { SceneStore, scenesDirs } from '../bridge/src/scenes'
 import { StoryStore, storiesDirs } from '../bridge/src/stories'
 import { VillagerStore } from '../bridge/src/villagers'
-import { cardTexts, charsPerSecond, clipKey, corpus, creditsFor, lazyModelUpgrade, EDGES, explanationLang, modelOf, enginesFromEnv, ffmpegDenoiser, ffmpegFileEdges, ffmpegLeveller, ffmpegLoudness, ffmpegPace, FILE, LEVEL, levelGain, LIMIT_MARGIN, paceChain, redoDaily, revoiceDaily, sloveneNarrators, trimmable, VoiceStore, type Clip, type Edges, type Loudness, type Pace } from '../bridge/src/voice'
+import { cardTexts, charsPerSecond, clipKey, corpus, creditsFor, Drama3, lazyModelUpgrade, EDGES, explanationLang, modelOf, enginesFromEnv, ffmpegDenoiser, ffmpegFileEdges, ffmpegLeveller, ffmpegLoudness, ffmpegPace, FILE, LEVEL, levelGain, LIMIT_MARGIN, paceChain, redoDaily, revoiceDaily, sloveneNarrators, trimmable, VoiceStore, type Clip, type Edges, type Loudness, type Pace } from '../bridge/src/voice'
 import { formatPlan, plan, run } from '../bridge/src/prebuild'
+import { availableGb, drama3Estimate, drama3Settings, Drama3Worker, duration, memoryGate } from '../bridge/src/drama3'
 import { normalizeText } from '../bridge/src/family'
 import { keysFile } from '../bridge/src/env'
 import { voiceDir } from '../bridge/src/paths'
@@ -146,6 +160,13 @@ const elevenSpeakers = elAt >= 0 ? (args[elAt + 1] ?? '').split(',').filter(Bool
 const elevenUnknown = elevenSpeakers.filter(s => !isSpeaker(s))
 const elevenNarrators = elevenSpeakers.filter(s => s === 'female' || s === 'male')
 const toEleven = elAt >= 0
+const d3At = args.indexOf('--drama3')
+const d3Arg = d3At >= 0 ? (args[d3At + 1] ?? '') : ''
+const toDrama3 = d3At >= 0
+// all: every speaker of the village's cast but the narrators
+const d3Speakers = d3Arg === 'all' ? Object.keys(cast()).filter(s => s !== 'female' && s !== 'male') : d3Arg.split(',').filter(Boolean)
+const d3Unknown = d3Speakers.filter(s => !isSpeaker(s))
+const d3Narrators = d3Speakers.filter(s => s === 'female' || s === 'male')
 const restoreAt = args.indexOf('--restore-gepard')
 const snapshotArg = restoreAt >= 0 ? args[restoreAt + 1] : undefined
 // a lani-backup snapshot (its voice/), or a voice store's own directory (voice.db and files/)
@@ -158,12 +179,15 @@ const badMax = max !== undefined && !(Number.isInteger(max) && max >= 0)
 const dataAt = args.indexOf('--data')
 const data = dataAt >= 0 ? args[dataAt + 1] : undefined
 const badData = dataAt >= 0 && !(data && existsSync(data) && statSync(data).isDirectory())
-const modes = [revoiceWords, denoise, level, tempo, edges, restore, narrators, upgradeModel, toEleven, revAt >= 0 || flag('--upgrade')].filter(Boolean).length
+const modes = [revoiceWords, denoise, level, tempo, edges, restore, narrators, upgradeModel, toEleven, toDrama3, revAt >= 0 || flag('--upgrade')].filter(Boolean).length
 const ffmpegOnly = denoise || level || tempo || edges || restore || narrators
-if (flag('--help') || flag('-h') || (maxChars !== undefined && !(maxChars >= 0)) || (revAt >= 0 && !revoice.length) || unknown.length || badMax || badData || badSnapshot || (maxAt2 >= 0 && !revoiceWords && !upgradeModel && !toEleven && !ffmpegOnly) || modes > 1 || (ffmpegOnly && maxAt >= 0) || (toEleven && (!elevenSpeakers.length || elevenUnknown.length || elevenNarrators.length))) {
+if (flag('--help') || flag('-h') || (maxChars !== undefined && !(maxChars >= 0)) || (revAt >= 0 && !revoice.length) || unknown.length || badMax || badData || badSnapshot || (maxAt2 >= 0 && !revoiceWords && !upgradeModel && !toEleven && !toDrama3 && !ffmpegOnly) || modes > 1 || (ffmpegOnly && maxAt >= 0) || (toEleven && (!elevenSpeakers.length || elevenUnknown.length || elevenNarrators.length)) || (toDrama3 && (!d3Speakers.length || d3Unknown.length || d3Narrators.length || maxAt >= 0)) || (flag('--retry-failed') && !toDrama3)) {
   if (unknown.length) console.error(`not in the voice cast: ${unknown.join(', ')} (the cast: ${Object.keys(cast()).join(', ')})`)
   if (elevenUnknown.length) console.error(`--elevenlabs: not in the voice cast: ${elevenUnknown.join(', ')} (the cast: ${Object.keys(cast()).join(', ')})`)
   if (elevenNarrators.length) console.error(`--elevenlabs: not the narrators (${elevenNarrators.join(', ')}): their local clips stay beside their Slovene ElevenLabs ones (--narrators)`)
+  if (d3Unknown.length) console.error(`--drama3: not in the voice cast: ${d3Unknown.join(', ')} (the cast: ${Object.keys(cast()).join(', ')}, or all)`)
+  if (d3Narrators.length) console.error(`--drama3: not the narrators (${d3Narrators.join(', ')}): their local voices stay Gepard's, the fallback of their Slovene ElevenLabs voices`)
+  if (toDrama3 && !d3Speakers.length) console.error('--drama3: which speakers? speaker[,speaker] or all')
   if (badData) console.error(`--data: no directory ${data ?? ''}`)
   if (badSnapshot) console.error(`--restore-gepard: no voice store (voice.db and files/) in ${snapshotArg ?? '(none given)'} or its voice/`)
   console.log('Usage: companion/bin/voice-build [--run] [--upgrade] [--revoice speaker[,speaker]] [--max-chars N] [--json] [--data DIR]')
@@ -176,6 +200,7 @@ if (flag('--help') || flag('-h') || (maxChars !== undefined && !(maxChars >= 0))
   console.log('       companion/bin/voice-build --narrators [--max N] [--run] [--json] [--data DIR]')
   console.log('       companion/bin/voice-build --upgrade-model [--max N] [--max-chars N] [--run] [--json] [--data DIR]')
   console.log('       companion/bin/voice-build --elevenlabs speaker[,speaker] [--max N] [--max-chars N] [--run] [--json] [--data DIR]')
+  console.log('       companion/bin/voice-build --drama3 speaker[,speaker]|all [--max N] [--retry-failed] [--run] [--json] [--data DIR]')
   process.exit(flag('--help') || flag('-h') ? 0 : 2)
 }
 // the data directory the clips are in (ensure_data_dir.py reads LANI_DATA_DIR)
@@ -583,6 +608,99 @@ if (toEleven) {
   if (flag('--json')) console.log(JSON.stringify(r))
   store.close()
   process.exit(r.stopped && !r.made ? 1 : 0)
+}
+
+if (toDrama3) {
+  // a speaker's local Gepard clips again with Drama 3, on the worker started for the batch: the store, no corpus
+  if (language !== 'sl') {
+    console.error(`voice-build --drama3: the Drama 3 voices speak Slovene (companion/voice-drama3/voices.json); this village speaks ${language}`)
+    process.exit(2)
+  }
+  const s = drama3Settings(process.env)
+  const d3 = new Drama3({ url: s.url, log })
+  const retry = flag('--retry-failed')
+  const queue = store.drama3Queue(d3Speakers, retry)
+  const failedBefore = store.drama3Failed(d3Speakers)
+  const would = max !== undefined ? queue.slice(0, max) : queue
+  const est = drama3Estimate(would.map(c => c.text), s.rtf)
+  const n = (x: number) => x.toLocaleString('en-US')
+  const by: Record<string, { clips: number; audio: number }> = {}
+  for (const c of queue) {
+    const b = (by[c.voice] ??= { clips: 0, audio: 0 })
+    b.clips++
+    b.audio += drama3Estimate([c.text], s.rtf).audio
+  }
+  const health = await d3.health()
+  const mem = availableGb(s.meminfo)
+  const summary = {
+    speakers: d3Speakers, local: queue.length, played: queue.filter(c => (c.hits ?? 0) > 0).length, chars: queue.reduce((k, c) => k + c.text.length, 0),
+    by_voice: Object.fromEntries(Object.entries(by).map(([v, b]) => [v, { clips: b.clips, audio_seconds: Math.round(b.audio) }])),
+    would: { clips: would.length, audio_seconds: Math.round(est.audio), seconds: Math.round(est.seconds) },
+    rtf: s.rtf, failed_before: failedBefore.length, retry_failed: retry,
+    worker: { url: s.url, up: health?.ok === true, waiting: health && health.ok !== true ? (health.waiting ?? health.error ?? null) : null, cmd: s.cmd.join(' '), installed: s.installed, log: s.log },
+    memory: { available_gb: mem === undefined ? null : Math.round(mem * 10) / 10, min_free_gb: s.minFreeGb }, lock: s.lock, dir: store.dir,
+  }
+  if (!flag('--run')) {
+    if (flag('--json')) console.log(JSON.stringify({ ...summary, failed: failedBefore, clips: would.map(c => ({ key: c.key, voice: c.voice, hits: c.hits ?? 0, source: c.source, text: c.text })) }, null, 2))
+    else {
+      console.log(`Local (Gepard) clips of ${d3Speakers.join(', ')} in ${store.dir} for Drama 3: ${n(queue.length)} (${n(summary.chars)} characters, ≈ ${duration(Object.values(by).reduce((a, b) => a + b.audio, 0))} of audio; ${n(summary.played)} played at least once)`)
+      for (const [v, b] of Object.entries(by).sort((a, b2) => b2[1].clips - a[1].clips)) console.log(`  ${v.padEnd(12)} ${String(b.clips).padStart(6)} clips  ≈ ${duration(b.audio)} of audio`)
+      if (failedBefore.length) console.log(`${n(failedBefore.length)} line(s) no take passed before keep their Gepard clip${retry ? ': tried again (--retry-failed)' : ' (--retry-failed tries them again)'}.`)
+      console.log(`--run would make ${n(would.length)} with Drama 3, most played first: ≈ ${duration(est.audio)} of audio in ≈ ${duration(est.seconds)} (${s.rtf} s a second of audio with the checks and retries, LANI_DRAMA3_RTF).`)
+      for (const c of would.slice(0, 15)) console.log(`  ${String(c.hits ?? 0).padStart(4)}× ${c.voice.padEnd(11)} ${(c.source ?? '').padEnd(24)} ${c.text.length > 50 ? `${c.text.slice(0, 49)}…` : c.text}`)
+      if (would.length > 15) console.log(`  … and ${n(would.length - 15)} more`)
+      console.log(`The worker: ${summary.worker.up ? `up at ${s.url} (used as it is, not stopped after)` : health ? `at ${s.url}, waiting for ${String(summary.worker.waiting)}` : `not running; --run starts ${s.cmd.join(' ')}${s.installed ? '' : ' (NOT INSTALLED: companion/voice-drama3/install.sh)'} and stops it after`}.`)
+      console.log(`It holds the heavy lock ${s.lock} while it runs (LANI_HEAVY_LOCK). Memory: ${mem === undefined ? '?' : mem.toFixed(1)} GB available now; the batch pauses below ${s.minFreeGb} GB.`)
+      console.log('\nDry run: nothing changed. Each take passes the worker\'s checks (the gender by pitch, noise, the text heard by Whisper, length')
+      console.log('and silence) or is made again; a line that never passes keeps its Gepard clip. Trimmed and levelled as every new clip,')
+      console.log('under a new file name, the Gepard file removed; a running bridge tells the app. Built with Fish Audio.')
+      console.log(`Make them with: companion/bin/voice-build --drama3 ${d3Arg} --run${max !== undefined ? ` --max ${max}` : ''}${retry ? ' --retry-failed' : ''}${data ? ` --data ${data}` : ''}`)
+    }
+    process.exit(0)
+  }
+  if (!would.length) {
+    console.log(`Nothing to make: no local (Gepard) clips of ${d3Speakers.join(', ')} left for Drama 3${failedBefore.length ? ` (${failedBefore.length} failed before: --retry-failed)` : ''}.`)
+    store.close()
+    process.exit(0)
+  }
+  // Ctrl-C (or SIGTERM): the clips in flight are finished, then the worker stops; a second one stops at once
+  let stopping = false
+  const worker = new Drama3Worker(d3, s, line => console.log(line))
+  const onSignal = () => {
+    if (stopping) {
+      void worker.stop().finally(() => process.exit(130))
+      return
+    }
+    stopping = true
+    console.log('\nStopping after the clips in flight (again to stop at once); the next --run goes on from here.')
+  }
+  process.on('SIGINT', onSignal)
+  process.on('SIGTERM', onSignal)
+  console.log(`Making ${n(would.length)} of ${n(queue.length)} local clip(s) with Drama 3 (≈ ${duration(est.seconds)}) …`)
+  const gate = memoryGate(worker, s, () => stopping, line => console.log(line))
+  let r: Awaited<ReturnType<VoiceStore['drama3For']>> | undefined
+  let error: string | undefined
+  try {
+    if (!(await gate())) throw new Error('stopped')
+    await worker.start()
+    const t0 = Date.now()
+    r = await store.drama3For(d3, d3Speakers, { max, retry, concurrency: 2, before: gate, out: line => console.log(line) })
+    console.log(`\nMade ${n(r.made)} with Drama 3 in ${duration((Date.now() - t0) / 1000)}${r.failed ? `; ${n(r.failed)} failed every take (their Gepard clip stays: voice-build --drama3 ${d3Arg} --retry-failed tries them again)` : ''}${r.changed ? `; ${r.changed} changed meanwhile, left as they are` : ''}; ${n(r.left)} left${r.stopped ? ` (stopped: ${r.stopped})` : ''}.`)
+  } catch (e) {
+    error = (e as Error).message
+  } finally {
+    await worker.stop()
+  }
+  if (error) console.error(`voice-build --drama3: ${error}`)
+  const failedNow = store.drama3Failed(d3Speakers)
+  if (failedNow.length) {
+    console.log(`\nLines no take passed (${failedNow.length}; their Gepard clip stays):`)
+    for (const f of failedNow.slice(-20)) console.log(`  ${f.voice.padEnd(11)} ${f.text.length > 50 ? `${f.text.slice(0, 49)}…` : f.text}  — ${f.reasons.at(-1) ?? ''}`)
+  }
+  if (r?.made) console.log('A running bridge tells the app within a minute (voice_updated); the app downloads the new files as it plays them.')
+  if (flag('--json')) console.log(JSON.stringify({ ...(r ?? {}), ...(error ? { error } : {}), failed_lines: failedNow }))
+  store.close()
+  process.exit(error || (r?.stopped && !r.made) ? 1 : 0)
 }
 
 if (upgradeModel) {

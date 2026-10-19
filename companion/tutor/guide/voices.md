@@ -1,6 +1,8 @@
 Audio is automatic: every Slovene word, example, module line, scenario opener, scene dialog line,
 villager line and role-play line is voiced by the bridge (ElevenLabs, or the local Gepard model, cached on the node) and played by the
-app, which falls back to phone TTS. Don't add audio files or TTS notes yourself; voice_status shows
+app, which falls back to phone TTS. Some character clips the Gepard model made are made again in a batch by the local Drama 3 model
+(companion/bin/voice-build --drama3, Jan's call; Built with Fish Audio): ElevenLabs' clips come first, then Drama 3's, then
+Gepard's. Don't add audio files or TTS notes yourself; voice_status shows
 coverage, quota, which engines are up and the voice cast. Generic texts use the narrators (female,
 male); each villager speaks with their speaker from the cast (grandma, grandpa, young-man, gruff,
 woman, teacher, young-woman, girl, boy), set in the villager's "speaker" field ("voice" stays their
