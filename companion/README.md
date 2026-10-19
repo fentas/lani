@@ -1091,8 +1091,11 @@ get and calls the same tools, through the bridge's `/tutor/*` routes.
   ChatGPT plan pays) or an OpenAI API key. A key is checked with `GET /v1/models` (not a model call) and kept encrypted
   with a key in the Android Keystore, in the same vault as the shadow tutor's: never shown again, logged or exported;
 - the preset (Varčno · Economy, Uravnoteženo · Balanced ⭐, Najboljše · Best), "advanced" for the model and effort per
-  task, the daily cap ($1 by default), today's and this month's spend, "Odzovi se takoj · React at once";
-- "📓 Kaj ve učitelj · What my tutor knows": the notebook on the node (`app/tutor/notebook.md`), to read and correct.
+  task, the daily cap ($1 by default) and the monthly cap ($20 by default), today's and this month's spend, "Odzovi se
+  takoj · React at once", "🌙 Kar lahko počaka, ponoči za pol cene · What can wait, overnight at half price";
+- "✍️ Studio": the content jobs, open and the last few, each with a ✕;
+- "📓 Kaj ve učitelj · What my tutor knows": the notebook on the node (`app/tutor/notebook.md`), to read and correct,
+  and "🕘 Starejše različice · Older versions" (the last 20) to see and restore.
 
 Once the credential is kept, the app attaches to the paired bridge. From then on:
 - **The channel's events go to the app.** The Claude Code session hears nothing new: the bridge's log says so, a
@@ -1103,27 +1106,62 @@ Once the credential is kept, the app attaches to the paired bridge. From then on
 - **The chat says an AI answers:** "🤖 Odgovarja umetna inteligenca (…) · An AI answers here (…)", with "Using ChatGPT
   plan" when the plan pays.
 - **The data changes for real:** `record_session` (update-db.py), `card` (card.py), the notebook, glosses and sentence
-  notes, through the bridge. `report_problem` keeps an entry in `app/wishlist.md`: the GitHub discussions need a GitHub
-  sign-in the app doesn't have yet.
-- **What goes wrong is said in the chat, briefly:** the cap spent, the key refused, the credit out, no connection.
+  notes, through the bridge.
+- **Reports go to Lani's GitHub discussions** when git sync is signed in to GitHub ("💾 Podatki · Data"): the tutor's
+  `report_problem` looks the report up first, and the chat asks "📣 Pošljem v Lanijeve razprave? · Send to Lani's
+  discussions?" with what would be posted. "Send" votes on the discussion that has it, or starts one ("Content fixes",
+  "Ideas"); the link is kept in `app/reports.json`. Without a sign-in, or with "No, keep it here", it goes to
+  `app/wishlist.md` as before.
+- **Content is the studio's** (below): "make me exercises for X" becomes a job, and so do an arrival, dialog variants,
+  stories running low and the dictionary's gaps.
+- **What goes wrong is said in the chat, briefly:** the cap spent (today's or the month's: "Vseeno odgovarjaj na moja
+  sporočila ta mesec · Answer my messages anyway this month"), the key refused, the credit out, no connection.
 - **The shadow tutor is off** meanwhile (it would shadow itself).
-- **What writes content** (an arrival, dialog variants, stories: phase C) waits for Claude Code.
 
 While the app is up it long-polls the bridge's inbox. While it's closed, a WorkManager check runs about every 15
 minutes and answers what waits (a chat, the rhythm).
 
 **Turning it off.** "Claude Code on my node": the app detaches. The bridge gives the session every event the app
-hadn't answered, and Claude Code answers as before.
+hadn't answered, and Claude Code answers as before. The studio's jobs for events end (their events go back to Claude
+Code); the learner's own requests wait until the app's tutor is on again.
 
-**The bridge's routes** (`companion/bridge/src/features/tutor.ts`, the app's token only):
+### The studio: content written in the app
+
+[docs/plans/05-built/studio.md](../docs/plans/05-built/studio.md). The chat's tutor hands a brief to the studio with
+`request_content` ("make me exercises for the genitive", "words for the doctor", "a story about the vintage"), and says
+it's on its way. The studio is a job of its own, on the content model (Opus 5.5 at the preset's effort):
+- it reads the guide's topics and the learner's state, then publishes with the bridge's own tools (`publish_module`,
+  `publish_pack`, `publish_story`, `publish_reading`, `publish_scene`, `publish_dialog_variant`, `publish_villager`,
+  `publish_arrival`, `publish_grammar`, …). They validate on write: a refusal is the validator's message, and the model
+  fixes it and publishes again;
+- it has the file tools over the learner's data folder (`str_replace_based_edit_tool`, Anthropic's text editor, and
+  `search`), checked on write by the same validators; the six databases are read-only to them;
+- a large job gives its parts to sub-tasks, each on a thread of its own;
+- each step is saved on the bridge (`app/tutor/jobs/<id>.json`), so a killed app goes on where it stopped;
+- the chat shows "✍️ Pišem … · Writing …" with the job's step and what it published, and a ✕; the studio tells the
+  learner itself when it's done.
+
+When it runs: a request the learner waits for at once (in the background too, with the network); an arrival soon; new
+dialog variants, a story for the fire and the dictionary's gaps overnight, through Anthropic's Message Batches API at
+half price (OpenAI: while the phone charges on Wi-Fi). Everything is metered in the spend.
+
+**Local overrides of curated content.** A module, scene, story or villager the studio publishes under a curated id
+replaces it for this learner at once. The bridge records the curated file's hash (`app/overrides.json`); when the
+curated file changes upstream (the fix arrived), the override retires by itself, its report is marked resolved, and the
+tutor hears `override_retired`.
+
+**The bridge's routes** (`companion/bridge/src/features/tutor.ts` and `src/tutor-studio.ts`, the app's token only):
 - `GET /tutor/session`: the channel's instructions and tools as Claude Code gets them, the app session's own tools
-  (`learner_state`, `record_session`, `card`, `notebook_note`, `notebook_write`, `report_problem`), protocol 1;
+  (`learner_state`, `record_session`, `card`, `notebook_note`, `notebook_write`, `report_problem`,
+  `str_replace_based_edit_tool`, `search`), protocol 1;
 - `POST /tutor/attach`, `POST /tutor/detach`;
 - `GET /tutor/inbox?after=&wait=` (a long poll of at most 25 s) and `POST /tutor/inbox/ack`, kept in
   `app/tutor-inbox.json` (out of the data repository);
 - `POST /tutor/tools/:name {args, client_id}`: through the same handlers as Claude Code's tool calls, once per
   `client_id`;
-- `GET` and `PUT /tutor/notebook`.
+- `GET` and `PUT /tutor/notebook`, `GET /tutor/notebook/versions`, `POST /tutor/notebook/restore {at}`;
+- the studio's: `POST /tutor/check {kind?, path?, text}` (a validator's verdict, nothing written), `GET /tutor/jobs`,
+  `GET`/`PUT`/`DELETE /tutor/jobs/:id`, `GET`/`POST /tutor/reports`, `GET /tutor/overrides`.
 
 **QA.** `companion/bin/qa --steps tutor-live` runs on the emulator with the dev bridge and QA's mock of the Messages
 API (`test/tutor-mock.ts`, its `[mock:slow]` reply). The step:
@@ -1133,6 +1171,11 @@ API (`test/tutor-mock.ts`, its `[mock:slow]` reply). The step:
 4. turns the app's tutor off, and checks the dev tutor answers again.
 
 The QA hook `tutorlive:<url>` sets the mock's address in a debug or qa build.
+
+`companion/bin/qa --steps studio` plays the studio against the mock (its studio calls slowed by
+`LANI_TUTOR_MOCK_STUDIO_MS`): a chat's `[mock:request]`, the module refused by the validator then published (on the dev
+bridge, the banner); a story through the text editor, refused then written; a slow job, the app killed mid-way and
+started again, the job resumed from the dev bridge's copy.
 
 ## The in-app tutor in shadow mode (developer setting)
 

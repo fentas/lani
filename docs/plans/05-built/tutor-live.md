@@ -224,18 +224,18 @@ WorkManager check use the same.
 
 ## What's left for phase A
 
-- **Reports as GitHub discussions:** the app has no GitHub sign-in yet. `report_problem` keeps the wishlist meanwhile.
+- **Reports as GitHub discussions:** built in phase C with git sync's GitHub sign-in ([studio.md](studio.md), "Reports as
+  GitHub discussions"); without a sign-in `report_problem` keeps the wishlist.
 - **The rhythm on the phone:** the node's timer still sends `daily_*`. On the phone it becomes one-time WorkManager work.
 - **Export and import with a node** (plan 5's phase A exit): not in this round.
 - **Curated content as a download, clips from glas, the phone's STT** for a learner without a node (the hosted mode
   proper).
-- **"What my tutor knows"** is a plain text view with an edit. The notebook's versions are kept on the node, but the
-  settings don't show them yet.
-- **The learner-facing setup** of the first launch ("☁️ Lani v oblaku"), the ChatGPT sign-in's first-sign-in
-  confirmation (OpenAI's UI guidelines), and OpenAI's `configuration_update` for a turn at another effort on a GPT-6
-  thread: OpenAI threads run at the thread's effort meanwhile.
-- **The monthly cap** of the plan ("only chats the learner sends, after asking"): this month's spend is shown, and only
-  the daily cap stops the tutor.
+- **"What my tutor knows"** shows the notebook's versions and restores one since phase C ([studio.md](studio.md)).
+- **The learner-facing setup** of the first launch ("☁️ Lani v oblaku"): the hosted round's. The ChatGPT plan's
+  welcome at the first sign-in (OpenAI's UI guidelines) and the GPT-6 thread's `configuration_update` for a turn at
+  another effort are done in phase C ([studio.md](studio.md), "The caps, the notebook's versions, OpenAI").
+- **The monthly cap** of the plan ("only chats the learner sends, after asking"): built in phase C
+  ([studio.md](studio.md), "The caps").
 - **Batching `gloss_gaps`:** each one is a stateless call on the routine model now.
 - **Measuring:** the live tutor's calls are in its day logs (`files/tutor-live/days/`). There is no export or upload
   of them yet (the shadow's `DevUpload` doesn't include them).
