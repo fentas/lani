@@ -24,7 +24,9 @@
 // Markers in the turn's first user message act once per distinct message, so the app's retry then succeeds:
 // [mock:429] (retry-after: 1), [mock:529], [mock:500], [mock:refusal] (stop_reason refusal, stop_details),
 // [mock:max_tokens] (a text cut off), [mock:stream-error] (message_start, then an error event), [mock:no-reply] (the
-// answer as text, end_turn, no reply call); [mock:credit] (a 400: the credit balance is too low) acts every time.
+// answer as text, end_turn, no reply call); [mock:credit] (a 400: the credit balance is too low) acts every time;
+// [mock:slow] (every time) makes the reply long and streams its input slowly (LANI_TUTOR_MOCK_SLOW_MS a piece of ten
+// characters, default 150), so the app's live tutor shows it while it is written (QA's screenshot mid-way).
 //
 // Effort (output_config.effort; docs: build-with-claude/effort): the top-level level must be one of low, medium, high,
 // xhigh, max, and claude-haiku-4-5 takes none (400). An effort-only system message in messages ({"role": "system",
@@ -46,7 +48,7 @@
 // the key). POST /mock/reset: forgets the cache, the markers' once and the log.
 import { createHash } from 'node:crypto'
 
-export type MockOptions = { port?: number; host?: string; delayMs?: number; models?: string[]; log?: (line: string) => void }
+export type MockOptions = { port?: number; host?: string; delayMs?: number; slowMs?: number; models?: string[]; log?: (line: string) => void }
 
 type Block = Record<string, any>
 type Msg = { role: string; content: string | Block[] }
@@ -124,6 +126,7 @@ const errorBody = (type: string, message: string) => ({ type: 'error', error: { 
 export function startTutorMock(o: MockOptions = {}) {
   const host = o.host ?? '127.0.0.1'
   const delayMs = o.delayMs ?? 15
+  const slowMs = o.slowMs ?? 150
   const say = o.log ?? ((line: string) => console.log(line))
   const modelIds = o.models?.length ? o.models : DEFAULT_MODELS
 
@@ -258,7 +261,10 @@ export function startTutorMock(o: MockOptions = {}) {
     // 2. the reply, once a turn
     if (!replied && tools.has('reply')) {
       const said = kind === 'answer' ? 'ocenil sem odgovor · I graded the answer' : `videl sem dogodek ${kind} · I saw a ${kind} event`
-      const reply: Block[] = [toolUse('reply', { conversation_id: conversation, text: `**Mock tutor** · ${said}.`, ...(kind === 'answer' ? { data: { score: 8, severity: '🟢' } } : {}) })]
+      const long = turn.includes('[mock:slow]')
+        ? '\n\nTo je daljši odgovor, ki se piše počasi, da se vidi, kako nastaja: najprej pozdrav, potem razlaga in na koncu vprašanje. · A longer reply, written slowly so you can watch it come: a greeting first, then the explanation, and a question at the end.\n\n**Kako si danes?** · How are you today?'
+        : ''
+      const reply: Block[] = [toolUse('reply', { conversation_id: conversation, text: `**Mock tutor** · ${said}.${long}`, ...(kind === 'answer' ? { data: { score: 8, severity: '🟢' } } : {}) })]
       if (tools.has('notebook_note')) reply.push(toolUse('notebook_note', { text: `mock: saw a ${kind} event on ${conversation}` }))
       if (tools.has('record_session') && /session_end/.test(turn)) {
         const all = messages.map(m => JSON.stringify(m.content)).join('\n')
@@ -279,6 +285,14 @@ export function startTutorMock(o: MockOptions = {}) {
 
     // 3. done
     return done
+  }
+
+  /** The text of the turn's first user message (what the markers are read from). */
+  function turnText(body: any): string {
+    const messages = (body.messages as Msg[]).filter(m => m.role !== 'system')
+    let start = messages.length - 1
+    while (start >= 0 && !(messages[start].role === 'user' && !hasToolResult(messages[start]))) start--
+    return textOf(messages[Math.max(start, 0)])
   }
 
   /** The marker that acts on this request, if any (a once-marker is spent here). */
@@ -306,10 +320,12 @@ export function startTutorMock(o: MockOptions = {}) {
     tokens(content.map(b => (b.type === 'text' ? b.text : b.type === 'thinking' ? b.thinking : b.type === 'tool_use' ? JSON.stringify(b.input) : '')).join('')) +
     (content.some(b => b.type === 'thinking') ? THINKING[effort ?? 'low'] ?? 40 : 0)
 
-  function stream(id: string, model: string, content: Block[], stop: string, usage: Omit<Usage, 'output_tokens'>, o: { stopDetails?: unknown; error?: boolean; output: number }) {
+  function stream(id: string, model: string, content: Block[], stop: string, usage: Omit<Usage, 'output_tokens'>, o: { stopDetails?: unknown; error?: boolean; output: number; slow?: boolean }) {
     const enc = new TextEncoder()
     const event = (type: string, data: unknown) => enc.encode(`event: ${type}\ndata: ${JSON.stringify(data)}\n\n`)
     const events: Uint8Array[] = []
+    /** The events after which the stream waits longer ([mock:slow]: the reply's input pieces). */
+    const slowAfter = new Set<number>()
     events.push(event('message_start', { type: 'message_start', message: { id, type: 'message', role: 'assistant', model, content: [], stop_reason: null, stop_sequence: null, stop_details: null, usage: { ...usage, output_tokens: 1 } } }))
     if (o.error) {
       events.push(event('error', { type: 'error', error: { type: 'overloaded_error', message: 'Overloaded' } }))
@@ -325,7 +341,10 @@ export function startTutorMock(o: MockOptions = {}) {
           for (const piece of chunks(b.text, 12)) events.push(event('content_block_delta', { type: 'content_block_delta', index, delta: { type: 'text_delta', text: piece } }))
         } else if (b.type === 'tool_use') {
           events.push(event('content_block_start', { type: 'content_block_start', index, content_block: { type: 'tool_use', id: b.id, name: b.name, input: {} } }))
-          for (const piece of chunks(JSON.stringify(b.input), 10)) events.push(event('content_block_delta', { type: 'content_block_delta', index, delta: { type: 'input_json_delta', partial_json: piece } }))
+          for (const piece of chunks(JSON.stringify(b.input), 10)) {
+            if (o.slow && b.name === 'reply') slowAfter.add(events.length)
+            events.push(event('content_block_delta', { type: 'content_block_delta', index, delta: { type: 'input_json_delta', partial_json: piece } }))
+          }
         }
         events.push(event('content_block_stop', { type: 'content_block_stop', index }))
       })
@@ -336,7 +355,8 @@ export function startTutorMock(o: MockOptions = {}) {
     const body = new ReadableStream<Uint8Array>({
       async pull(c) {
         if (i >= events.length) return c.close()
-        if (i > 0 && delayMs > 0) await Bun.sleep(delayMs)
+        const wait = slowAfter.has(i - 1) ? slowMs : delayMs
+        if (i > 0 && wait > 0) await Bun.sleep(wait)
         c.enqueue(events[i++])
       },
     })
@@ -417,7 +437,7 @@ export function startTutorMock(o: MockOptions = {}) {
       : usageOf(model, body, true)
     const output = outputTokens(content, effort)
     Object.assign(entry, { call, stop_reason: stop, usage: { ...usage, output_tokens: output }, ...(content.length ? { tools_used: content.filter(b => b.type === 'tool_use').map(b => b.name) } : {}) })
-    if (body.stream) return stream(id, model, content, stop, usage, { stopDetails, error: marker === 'stream-error', output })
+    if (body.stream) return stream(id, model, content, stop, usage, { stopDetails, error: marker === 'stream-error', output, slow: turnText(body).includes('[mock:slow]') })
     return Response.json(
       { id, type: 'message', role: 'assistant', model, content, stop_reason: stop, stop_sequence: null, stop_details: stopDetails ?? null, usage: { ...usage, output_tokens: output } },
       { headers: headers() },
@@ -488,6 +508,7 @@ if (import.meta.main) {
   const mock = startTutorMock({
     port: Number(env.LANI_TUTOR_MOCK_PORT ?? 8771),
     delayMs: env.LANI_TUTOR_MOCK_DELAY_MS !== undefined ? Number(env.LANI_TUTOR_MOCK_DELAY_MS) : 15,
+    slowMs: env.LANI_TUTOR_MOCK_SLOW_MS !== undefined ? Number(env.LANI_TUTOR_MOCK_SLOW_MS) : 150,
     models: env.LANI_TUTOR_MOCK_MODELS?.split(',').map(s => s.trim()).filter(Boolean),
   })
   console.log(`tutor mock on ${mock.url} (the emulator: http://10.0.2.2:${mock.port}); GET /mock/requests, POST /mock/reset`)

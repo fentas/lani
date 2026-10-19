@@ -16,7 +16,7 @@ const check = (name: string, cond: unknown, detail?: unknown) => {
 
 const KEY = 'sk-mock-check-1234567890'
 const mock = Bun.spawn(['bun', resolve(import.meta.dir, 'tutor-mock.ts')], {
-  env: { ...process.env, LANI_TUTOR_MOCK_PORT: '0', LANI_TUTOR_MOCK_DELAY_MS: '1' },
+  env: { ...process.env, LANI_TUTOR_MOCK_PORT: '0', LANI_TUTOR_MOCK_DELAY_MS: '1', LANI_TUTOR_MOCK_SLOW_MS: '20' },
   stdout: 'pipe',
   stderr: 'inherit',
 })
@@ -169,6 +169,15 @@ const nTools = [...tools, { name: 'notebook_write', description: 'Write.', input
 const c1 = assemble(await sse(await post(request([closing], { tools: nTools }))))
 const c2 = assemble(await sse(await post(request([closing, { role: 'assistant', content: c1.content }, { role: 'user', content: [{ type: 'tool_result', tool_use_id: c1.content[0]?.id, content: 'saved' }] }], { tools: nTools }))))
 check('[notebook_write]: notebook_write {text "# Notebook (mock)…"} (tool_use), then end_turn', c1.content[0]?.name === 'notebook_write' && c1.content[0].input.text.startsWith('# Notebook (mock)') && c1.stop === 'tool_use' && c2.stop === 'end_turn', { c1, c2 })
+
+// [mock:slow]: a long reply whose input streams slowly (the live tutor's typing bubble, QA's screenshot mid-way)
+const slowTurn = { role: 'user', content: '<event kind="chat" conversation_id="main">Živjo [mock:slow]</event>' }
+const slow1 = assemble(await sse(await post(request([slowTurn]))))
+const slowAt = Date.now()
+const slow2 = assemble(await sse(await post(request([slowTurn, { role: 'assistant', content: slow1.content }, { role: 'user', content: slow1.content.filter((b: any) => b.type === 'tool_use').map((b: any) => ({ type: 'tool_result', tool_use_id: b.id, content: 'ok' })) }]))))
+const slowMs = Date.now() - slowAt
+const slowReply = slow2.content.find((b: any) => b.name === 'reply')
+check('[mock:slow]: a long reply ("Kako si danes?"), its input in many pieces with LANI_TUTOR_MOCK_SLOW_MS between them', slowReply?.input.text.includes('Kako si danes?') && slow2.pieces.length > 30 && slowMs >= 20 * 30, { ms: slowMs, pieces: slow2.pieces.length })
 
 // --- errors and markers -------------------------------------------------------------------------------------------
 const limited = { role: 'user', content: 'kind="chat" conversation_id="main" Zdravo! [mock:429]' }
