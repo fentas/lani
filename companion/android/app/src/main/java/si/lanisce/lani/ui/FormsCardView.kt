@@ -61,6 +61,7 @@ import si.lanisce.lani.data.ItemMark
 import si.lanisce.lani.data.WordEntry
 import si.lanisce.lani.l10n.Lang
 import si.lanisce.lani.l10n.bi
+import si.lanisce.lani.l10n.inBase
 import si.lanisce.lani.ui.school.verdictColor
 import si.lanisce.lani.ui.theme.AlpineGreen
 import si.lanisce.lani.ui.theme.TriglavRed
@@ -196,10 +197,11 @@ internal fun FormsHead(emoji: String?, lemma: String, gender: String?, pos: Stri
         Text(emoji ?: "📋", style = MaterialTheme.typography.displaySmall)
         Spacer(Modifier.width(12.dp))
         Column {
+            // the gender in the learner's base, as the word card says it ("m.", not "m. · m.")
             val g = when (gender) {
-                "m" -> bi("words.genderM")
-                "f" -> bi("words.genderF")
-                "n" -> bi("words.genderN")
+                "m" -> inBase("words.genderM")
+                "f" -> inBase("words.genderF")
+                "n" -> inBase("words.genderN")
                 else -> null
             }
             Text(lemma + (g?.let { " · $it" } ?: ""), style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)

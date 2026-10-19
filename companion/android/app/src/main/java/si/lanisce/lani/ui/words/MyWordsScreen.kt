@@ -51,6 +51,7 @@ import si.lanisce.lani.data.MyWords
 import si.lanisce.lani.data.WordEntry
 import si.lanisce.lani.data.Words
 import si.lanisce.lani.l10n.bi
+import si.lanisce.lani.l10n.inBase
 import si.lanisce.lani.ui.GradientHeader
 import si.lanisce.lani.ui.theme.AlpineGreen
 import java.time.LocalDate
@@ -198,9 +199,9 @@ private fun EntryRow(e: WordEntry, onClick: () -> Unit) {
             }
             Column(Modifier.weight(1f)) {
                 val gender = when (e.gender?.lowercase()) {
-                    "m" -> bi("words.genderM")
-                    "f" -> bi("words.genderF")
-                    "n" -> bi("words.genderN")
+                    "m" -> inBase("words.genderM")
+                    "f" -> inBase("words.genderF")
+                    "n" -> inBase("words.genderN")
                     else -> null
                 }
                 Text(e.lemma + (gender?.let { " · $it" } ?: ""), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
