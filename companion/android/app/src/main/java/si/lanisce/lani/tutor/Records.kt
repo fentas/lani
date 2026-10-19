@@ -220,12 +220,17 @@ data class ShadowSettings(
     val matrix: MatrixSettings = MatrixSettings(),
     /** OpenAI (the matrix's OpenAI lanes, "also run on" an OpenAI model): what its credential lists, which one to use. */
     val openai: OpenAISettings = OpenAISettings(),
+    /** Gemini (its lanes, "also run on" a Gemini model): what the key lists, why its calls stopped. */
+    val gemini: OpenAISettings = OpenAISettings(),
+    /** OpenRouter (its lanes): the tool-taking models its list has, why its calls stopped. */
+    val openrouter: OpenAISettings = OpenAISettings(),
 ) {
     val limit: Int get() = threadLimit ?: preset.threadLimit
 }
 
 /**
- * The OpenAI side of the settings (never a credential: those are in their [KeyVault]s, [OpenAICredentials]): the models
+ * The OpenAI side of the settings, and Gemini's and OpenRouter's in the same shape ([use] is OpenAI's alone; never a
+ * credential: those are in their [KeyVault]s, [OpenAICredentials], [GeminiCredentials], [OpenRouterCredentials]): the models
  * the credential in use listed and when ([listed], [listedAt]); which credential to use when both are set ([use]: a
  * [Billing], null: the ChatGPT plan when signed in, else the key); why its calls stopped ([refused]: a 401, the sign-in
  * ended; [exhausted]: the credit, a spend limit or the plan's usage limit), until it's checked again.

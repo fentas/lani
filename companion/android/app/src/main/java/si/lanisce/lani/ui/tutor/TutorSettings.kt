@@ -43,7 +43,10 @@ import si.lanisce.lani.tutor.Billing
 import si.lanisce.lani.tutor.ChatGPTOAuth
 import si.lanisce.lani.tutor.Effort
 import si.lanisce.lani.tutor.Family
+import si.lanisce.lani.tutor.GeminiTerms
 import si.lanisce.lani.tutor.ModelCatalog
+import si.lanisce.lani.tutor.OpenRouterLinks
+import si.lanisce.lani.tutor.OpenRouterModels
 import si.lanisce.lani.tutor.Preset
 import si.lanisce.lani.tutor.ProviderId
 import si.lanisce.lani.tutor.Task
@@ -53,7 +56,8 @@ import si.lanisce.lani.tutor.live.LiveTutor
 /**
  * "🧑‍🏫 Učitelj · Tutor" (docs/plans/05-built/tutor-live.md), in the connection sheet: who answers, Claude Code on the
  * node (as before, the default) or the tutor in the app; then, for the app, the provider and its credential (a Claude
- * API key, an OpenAI API key, or "Continue with ChatGPT"), the preset with "advanced" per task, the daily cap and
+ * API key, an OpenAI API key or "Continue with ChatGPT", a Gemini key from Google AI Studio, "Continue with
+ * OpenRouter"), the preset with "advanced" per task, the daily cap and
  * the spend, "react at once", what the tutor knows (its notebook). The credentials are the shadow tutor's (one vault):
  * encrypted with a Keystore key, never shown again, logged or exported.
  */
@@ -120,9 +124,22 @@ fun TutorSettings(vm: AppViewModel, modifier: Modifier = Modifier) {
         FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             FilterChip(selected = s.provider == ProviderId.ANTHROPIC, onClick = { live.update { it.copy(provider = ProviderId.ANTHROPIC, models = emptyMap()) } }, label = { Text("Anthropic · Claude") })
             if (live.openaiAvailable) FilterChip(selected = s.provider == ProviderId.OPENAI, onClick = { live.update { it.copy(provider = ProviderId.OPENAI, models = emptyMap()) } }, label = { Text("OpenAI · GPT") })
+            if (live.geminiAvailable) FilterChip(
+                selected = s.provider == ProviderId.GEMINI, modifier = Modifier.testTag("tutor-gemini"),
+                onClick = { live.update { it.copy(provider = ProviderId.GEMINI, models = emptyMap()) } }, label = { Text("Google · Gemini") },
+            )
+            if (live.openrouterAvailable) FilterChip(
+                selected = s.provider == ProviderId.OPENROUTER, modifier = Modifier.testTag("tutor-openrouter"),
+                onClick = { live.update { it.copy(provider = ProviderId.OPENROUTER, models = emptyMap()) } }, label = { Text("OpenRouter") },
+            )
         }
-        if (s.provider == ProviderId.ANTHROPIC) ClaudeKey(live) { if (wantApp && !s.on) switch(true) }
-        else OpenAICredential(live) { if (wantApp && !s.on) switch(true) }
+        val kept = { if (wantApp && !s.on) switch(true) }
+        when (s.provider) {
+            ProviderId.ANTHROPIC -> ClaudeKey(live, kept)
+            ProviderId.OPENAI -> OpenAICredential(live, kept)
+            ProviderId.GEMINI -> GeminiCredential(live, kept)
+            ProviderId.OPENROUTER -> OpenRouterCredential(live, kept)
+        }
         if (live.debug) DebugBase(live)
         if (!live.credentialReady()) return@Column
         if (!s.on && wantApp) Button(enabled = !busy, onClick = { switch(true) }, modifier = Modifier.testTag("tutor-on")) { Text("📱 ${bi("tutorLive.turnOn")}") }
@@ -309,6 +326,105 @@ private fun OpenAICredential(live: LiveTutor, kept: () -> Unit) {
     note?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
 }
 
+/**
+ * Gemini, direct: a key from Google AI Studio, checked with the model list (not a model call), and the learner's word
+ * on its tier (the API doesn't tell; a 429 that names the free tier's quota does). On the free tier, what Google's terms
+ * say of it, plainly (docs/plans/05-built/providers.md, "The free tier and privacy").
+ */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun GeminiCredential(live: LiveTutor, kept: () -> Unit) {
+    val scope = rememberCoroutineScope()
+    var key by remember { mutableStateOf("") }
+    var tier by remember(live.geminiTier) { mutableStateOf(live.geminiTier?.let { if (GeminiTerms.isFree(it)) GeminiTerms.FREE else it }) }
+    var note by remember { mutableStateOf<String?>(null) }
+    var busy by remember { mutableStateOf(false) }
+    val muted = MaterialTheme.colorScheme.onSurfaceVariant
+    Text("🔑 ${bi("tutorLive.geminiKey")}", style = MaterialTheme.typography.bodyMedium)
+    val ready = live.geminiReady && !live.settings.keyRefused
+    if (!ready) Text(bi("tutorLive.geminiHint"), style = MaterialTheme.typography.bodySmall, color = muted)
+    FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+        FilterChip(selected = tier == GeminiTerms.FREE, modifier = Modifier.testTag("gemini-free"), onClick = { tier = GeminiTerms.FREE; if (ready) live.setGeminiTier(GeminiTerms.FREE) }, label = { Text(bi("tutorLive.geminiFree")) })
+        FilterChip(selected = tier == GeminiTerms.PAID, modifier = Modifier.testTag("gemini-paid"), onClick = { tier = GeminiTerms.PAID; if (ready) live.setGeminiTier(GeminiTerms.PAID) }, label = { Text(bi("tutorLive.geminiPaid")) })
+    }
+    if (live.geminiTier == GeminiTerms.FREE_SEEN) Text(bi("tutorLive.geminiSeen"), style = MaterialTheme.typography.bodySmall, color = muted)
+    if (tier == GeminiTerms.FREE || (ready && live.geminiFree)) {
+        Text("⚠️ ${bi("tutorLive.geminiFreeNote")}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error, modifier = Modifier.testTag("gemini-free-note"))
+    }
+    if (ready) {
+        Text(bi("tutorLive.keyKept"), style = MaterialTheme.typography.bodySmall, color = muted)
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            OutlinedButton(enabled = !busy, onClick = { busy = true; scope.launch { note = live.recheck()?.let { "⚠️ $it" } ?: "✓ ${bi("tutorLive.checked")}"; busy = false } }) { Text(bi("tutorLive.checkAgain")) }
+            TextButton(onClick = { live.removeGeminiKey(); note = null }) { Text(bi("tutorLive.keyRemove")) }
+        }
+    } else {
+        if (live.settings.keyRefused && live.geminiReady) Text("⚠️ ${bi("tutorLive.keyRefused")}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error)
+        OutlinedTextField(
+            key, { key = it.trim() }, Modifier.fillMaxWidth().testTag("tutor-gemini-key"),
+            label = { Text("AIza…") }, singleLine = true, visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+        )
+        Button(enabled = key.isNotBlank() && !busy, modifier = Modifier.testTag("tutor-gemini-check"), onClick = {
+            busy = true
+            scope.launch {
+                val e = live.setGeminiKey(key, tier)
+                note = e?.let { "⚠️ $it" } ?: "✓ ${bi("tutorLive.keyWorks")}"
+                if (e == null) {
+                    key = ""
+                    kept()
+                }
+                busy = false
+            }
+        }) { Text(if (busy) "…" else bi("tutorLive.keyCheck")) }
+    }
+    note?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
+}
+
+/**
+ * OpenRouter, "one sign-in, every model": "Continue with OpenRouter" (OAuth PKCE: the browser, then back to Lani with
+ * a key of the learner's own, billed to their OpenRouter credits), the key's credit, the models per task under
+ * "advanced"; that Claude works best directly, and OpenRouter's fee on credits.
+ */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun OpenRouterCredential(live: LiveTutor, kept: () -> Unit) {
+    val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+    var note by remember { mutableStateOf<String?>(null) }
+    var busy by remember { mutableStateOf(false) }
+    val muted = MaterialTheme.colorScheme.onSurfaceVariant
+    fun browse(url: String) = runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, android.net.Uri.parse(url)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }
+    Text(bi("tutorLive.openrouterWhat"), style = MaterialTheme.typography.bodySmall, color = muted)
+    Text("ℹ️ ${bi("tutorLive.openrouterClaude")}", style = MaterialTheme.typography.bodySmall, color = muted)
+    if (live.openrouterReady && !live.settings.keyRefused) {
+        Text("✓ ${bi("tutorLive.openrouterSignedIn")}", style = MaterialTheme.typography.bodySmall, modifier = Modifier.testTag("openrouter-signed-in"))
+        live.openrouterKey?.let { k ->
+            if (k.limit != null && k.remaining != null) Text(bi("tutorLive.openrouterCredit", "left" to money(k.remaining), "limit" to money(k.limit)), style = MaterialTheme.typography.bodySmall, color = muted)
+            k.usageMonthly?.let { Text(bi("tutorLive.openrouterUsed", "month" to money(it)), style = MaterialTheme.typography.bodySmall, color = muted) }
+        }
+        Text(bi("tutorLive.openrouterModels"), style = MaterialTheme.typography.bodySmall, color = muted)
+        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            OutlinedButton(enabled = !busy, onClick = { busy = true; scope.launch { note = live.recheck()?.let { "⚠️ $it" } ?: "✓ ${bi("tutorLive.checked")}"; busy = false } }) { Text(bi("tutorLive.checkAgain")) }
+            TextButton(onClick = { browse(OpenRouterLinks.KEYS) }) { Text(bi("tutorLive.openrouterKeys")) }
+            TextButton(enabled = !busy, onClick = { busy = true; scope.launch { note = live.signOutOfOpenRouter(); busy = false } }) { Text(bi("tutorLive.signOut")) }
+        }
+    } else {
+        if (live.settings.keyRefused && live.openrouterReady) Text("⚠️ ${bi("tutorLive.keyRefused")}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error)
+        Button(enabled = !busy, modifier = Modifier.testTag("tutor-openrouter-signin"), onClick = {
+            busy = true
+            note = null
+            scope.launch {
+                val e = live.signInWithOpenRouter { url -> browse(url) }
+                note = e?.let { "⚠️ $it" }
+                if (e == null) kept()
+                busy = false
+            }
+        }) { Text(if (busy) "…" else bi("tutorLive.continueOpenRouter")) }
+        if (busy) TextButton(onClick = { live.cancelOpenRouterSignIn(); busy = false }) { Text(bi("tutorLive.cancel")) }
+    }
+    note?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
+}
+
 /** A debug or qa build's base URL for Claude's calls (QA's mock); a release build never shows it. */
 @Composable
 private fun DebugBase(live: LiveTutor) {
@@ -329,7 +445,11 @@ private fun TaskLine(live: LiveTutor, task: Task) {
     var modelMenu by remember { mutableStateOf(false) }
     var effortMenu by remember { mutableStateOf(false) }
     val listed = s.listed.map { it.id }.filter { ProviderId.of(it) == s.provider }
-    val models = (listed.ifEmpty { Family.of(s.provider).flatMap { it.preferred.take(1) } }).filter { !ModelCatalog.legacy(it) }
+    val models = when (s.provider) {
+        // OpenRouter's list (the models that take tools), its suggestions first
+        ProviderId.OPENROUTER -> (OpenRouterModels.SUGGESTED.filter { listed.isEmpty() || it in listed } + listed).distinct()
+        else -> (listed.ifEmpty { Family.of(s.provider).flatMap { it.preferred.take(1) } }).filter { !ModelCatalog.legacy(it) }
+    }
     FlowRow(verticalArrangement = Arrangement.Center) {
         Text(taskLabel(task), style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(end = 6.dp, top = 12.dp))
         Box {
@@ -385,10 +505,12 @@ private fun Notebook(live: LiveTutor) {
 @Composable
 fun AiDisclosure(live: LiveTutor) {
     val plan = live.settings.provider == ProviderId.OPENAI && live.openaiBilling() == Billing.CHATGPT_PLAN
+    val free = live.settings.provider == ProviderId.GEMINI && live.geminiFree
     val context = LocalContext.current
     Row(verticalAlignment = Alignment.CenterVertically) {
         Text(
-            "🤖 ${bi("tutorLive.chatDisclosure", "model" to live.modelFor(Task.CHAT))}" + if (plan) " · ${bi("tutorLive.chatPlan")}" else "",
+            "🤖 ${bi("tutorLive.chatDisclosure", "model" to live.modelFor(Task.CHAT))}" + (if (plan) " · ${bi("tutorLive.chatPlan")}" else "") +
+                if (free) " · ${bi("tutorLive.geminiTag")}" else "",
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(bottom = 2.dp).weight(1f, fill = false).testTag("tutor-disclosure"),

@@ -27,10 +27,16 @@ import java.util.UUID
 
 /**
  * A lane of the matrix (docs/plans/05-phase-0.md, "The matrix"): one model family at one effort, beside the primary.
- * [Lanes.plan] resolves the family to the model the key lists.
+ * [Lanes.plan] resolves the family to the model the key lists. An OpenRouter lane names its [model] (the learner picked
+ * it from OpenRouter's list; its family is [Family.ROUTED]); its [effort] is "none" for a model that takes no effort.
  */
 @Serializable
-data class LaneSpec(val family: Family, val effort: String)
+data class LaneSpec(val family: Family, val effort: String, val model: String? = null) {
+    companion object {
+        /** An OpenRouter lane on [model] at [effort]. */
+        fun routed(model: String, effort: String) = LaneSpec(Family.ROUTED, effort, model)
+    }
+}
 
 /**
  * The matrix's settings ([ShadowSettings.matrix]): off by default, the default lanes preselected (Jan asked for Haiku at
@@ -46,6 +52,10 @@ data class MatrixSettings(
      * off afterwards stays off.
      */
     val openaiOffered: Boolean = false,
+    /** Gemini's default lanes ([GEMINI_LANES]) were added once, when a Gemini key was first set. */
+    val geminiOffered: Boolean = false,
+    /** OpenRouter's default lanes ([OPENROUTER_LANES]) were added once, at the first OpenRouter sign-in. */
+    val openrouterOffered: Boolean = false,
 ) {
     companion object {
         val DEFAULT_LANES = listOf(
@@ -64,6 +74,18 @@ data class MatrixSettings(
             LaneSpec(Family.SOL, Effort.LOW), LaneSpec(Family.SOL, Effort.MEDIUM), LaneSpec(Family.SOL, Effort.HIGH),
             LaneSpec(Family.ASTRA, Effort.LOW), LaneSpec(Family.ASTRA, Effort.MEDIUM),
         )
+
+        /**
+         * Gemini's lanes, added when a Gemini key is first set: 4 Argon at each of its thinking levels (low, medium, high),
+         * and 3.8 Flash at its default (medium). On the free tier Argon's are skipped (no free tier).
+         */
+        val GEMINI_LANES = listOf(
+            LaneSpec(Family.FLASH, Effort.MEDIUM),
+            LaneSpec(Family.ARGON, Effort.LOW), LaneSpec(Family.ARGON, Effort.MEDIUM), LaneSpec(Family.ARGON, Effort.HIGH),
+        )
+
+        /** OpenRouter's lanes, added at the first sign-in: its tier defaults ([OpenRouterModels.DEFAULTS]) at medium. */
+        val OPENROUTER_LANES = OpenRouterModels.DEFAULTS.map { LaneSpec.routed(it, Effort.MEDIUM) }
     }
 }
 
@@ -75,15 +97,23 @@ data class LanePlan(val family: Family, val effort: String, val model: String? =
 
 object Lanes {
     /**
-     * A lane's id: "<model>@<effort>", with the provider in front when it isn't Anthropic ("openai:gpt-6.1-sol@medium").
-     * Anthropic's lanes keep the ids they had before the provider layer ("claude-sonnet-5-5@low"), so the days recorded
-     * already compare with the new ones.
+     * A lane's id: "<model>@<effort>", with the provider in front when it isn't Anthropic ("openai:gpt-6.1-sol@medium",
+     * "gemini:gemini-4-argon@high", "openrouter:google/gemini-4-argon@medium"). Anthropic's lanes keep the ids they had
+     * before the provider layer ("claude-sonnet-5-5@low"), so the days recorded already compare with the new ones.
      */
     fun id(model: String, effort: String): String =
         ProviderId.of(model).let { p -> if (p == ProviderId.ANTHROPIC) "" else "${p.id}:" } + "$model@$effort"
 
-    /** A lane id's model and effort ([id]'s inverse). */
-    fun parse(id: String): Pair<String, String> = id.substringBefore('@').substringAfter(':') to id.substringAfter('@')
+    /** A lane id's model and effort ([id]'s inverse; a lane's directory name too: [dir]). */
+    fun parse(id: String): Pair<String, String> {
+        val name = id.replace(DIR_SLASH, '/')
+        return name.substringBeforeLast('@').substringAfter(':') to name.substringAfterLast('@')
+    }
+
+    /** A lane's directory under the matrix's: its id, an OpenRouter model's "/" as "~" (one directory, not two). */
+    fun dir(id: String): String = id.replace('/', DIR_SLASH)
+
+    private const val DIR_SLASH = '~'
 
     /** A lane's thread restarts past this many tokens: its tier's preset's limit (small 20k, mid 30k, top 60k). */
     fun limit(f: Family): Int = when (f.tier) {
@@ -92,23 +122,39 @@ object Lanes {
         else -> Preset.BEST.threadLimit
     }
 
-    /** The family of a lane's [model] (its id names it). */
-    fun familyOf(model: String): Family = Family.ofModel(model) ?: Family.HAIKU
+    /** The family of a lane's [model] (its id names it; an OpenRouter model's: [Family.ROUTED]). */
+    fun familyOf(model: String): Family = Family.ofModel(model) ?: if (ProviderId.of(model) == ProviderId.OPENROUTER) Family.ROUTED else Family.HAIKU
+
+    /** Why a provider's lanes can't run without a credential (the panel and the export say so). */
+    private fun missing(p: ProviderId): String = when (p) {
+        ProviderId.OPENAI -> "no OpenAI credential (sign in with ChatGPT or keep an API key)"
+        ProviderId.GEMINI -> "no Gemini key (Google AI Studio)"
+        ProviderId.OPENROUTER -> "not signed in with OpenRouter"
+        ProviderId.ANTHROPIC -> "no key"
+    }
 
     /**
      * The lanes of [m] (ModelCatalog.own: the family's own model, never another family's), in the grid's order: an
-     * Anthropic lane by the Claude key's [listed] models, an OpenAI lane by [openai]'s (null: no OpenAI credential, so
-     * they're skipped); a lane whose model the credential doesn't list, or that doesn't take the effort, is skipped.
+     * Anthropic lane by the Claude key's [listed] models, another provider's by [others]' list (a provider missing from
+     * it has no credential, so its lanes are skipped); an OpenRouter lane is its picked model, when OpenRouter's list has
+     * it. A lane whose model the credential doesn't list, or that doesn't take the effort, is skipped; on the Gemini free
+     * tier ([geminiFree]) Gemini 4 Argon's lanes are (it has no free tier).
      */
-    fun plan(m: MatrixSettings, listed: List<ModelInfo>, openai: List<ModelInfo>? = null): List<LanePlan> {
-        val catalogs = mapOf(ProviderId.ANTHROPIC to ModelCatalog(listed), ProviderId.OPENAI to ModelCatalog(openai.orEmpty()))
-        return m.lanes.distinct().sortedWith(compareBy({ it.family.ordinal }, { Effort.ALL.indexOf(it.effort) })).map { spec ->
+    fun plan(m: MatrixSettings, listed: List<ModelInfo>, others: Map<ProviderId, List<ModelInfo>> = emptyMap(), geminiFree: Boolean = false): List<LanePlan> {
+        val catalogs = mapOf(ProviderId.ANTHROPIC to ModelCatalog(listed)) + others.mapValues { ModelCatalog(it.value) }
+        return m.lanes.distinct().sortedWith(compareBy({ it.family.ordinal }, { it.model.orEmpty() }, { Effort.ALL.indexOf(it.effort) })).map { spec ->
             val p = spec.family.provider
-            val model = catalogs.getValue(p).own(spec.family)
+            val catalog = catalogs[p]
+            val model = if (spec.family == Family.ROUTED) spec.model?.takeIf { id -> catalog != null && (catalog.listed.isEmpty() || catalog.listed.any { it.id == id }) } else catalog?.own(spec.family)
+            val levels = model?.let(ModelCatalog::efforts).orEmpty()
             when {
-                p == ProviderId.OPENAI && openai == null -> LanePlan(spec.family, spec.effort, skipped = "no OpenAI credential (sign in with ChatGPT or keep an API key)")
-                model == null -> LanePlan(spec.family, spec.effort, skipped = "the ${if (p == ProviderId.OPENAI) "OpenAI credential" else "key"} lists no ${spec.family.name.lowercase()} model (${spec.family.preferred.first()})")
-                spec.effort !in ModelCatalog.efforts(model) -> LanePlan(spec.family, spec.effort, model, "$model takes no ${spec.effort}")
+                catalog == null -> LanePlan(spec.family, spec.effort, spec.model, skipped = missing(p))
+                spec.family == Family.ROUTED && spec.model == null -> LanePlan(spec.family, spec.effort, skipped = "an OpenRouter lane without a model")
+                model == null && spec.family == Family.ROUTED -> LanePlan(spec.family, spec.effort, spec.model, "OpenRouter's list has no ${spec.model} (or it takes no tools)")
+                model == null -> LanePlan(spec.family, spec.effort, skipped = "the ${if (p == ProviderId.ANTHROPIC) "key" else "${p.label} credential"} lists no ${spec.family.label.lowercase()} model (${spec.family.preferred.first()})")
+                geminiFree && spec.family == Family.ARGON -> LanePlan(spec.family, spec.effort, model, "Gemini 4 Argon has no free tier (the key is on it)")
+                spec.effort == Effort.NONE && levels.isEmpty() -> LanePlan(spec.family, spec.effort, model)
+                spec.effort !in levels -> LanePlan(spec.family, spec.effort, model, "$model takes no ${spec.effort}")
                 else -> LanePlan(spec.family, spec.effort, model)
             }
         }
@@ -212,6 +258,8 @@ class ShadowMatrix(
         fun blocked(provider: ProviderId): String?
         /** The models [provider]'s credential lists (null: none set). */
         fun listed(provider: ProviderId): List<ModelInfo>?
+        /** The Gemini key is on the free tier (Argon's lanes are skipped, the calls cost $0 and are paced). */
+        fun geminiFree(): Boolean = false
         /** The provider for a lane's turn on [model] (the lanes' own client). */
         fun provider(model: String): TutorProvider
         /** A lane's tool runner: the shared reads, the guide, [notebook] (read-only), [onReply], [onGuide]. */
@@ -222,8 +270,11 @@ class ShadowMatrix(
         /** A turn's event as the primary sends it: the photo's image block, the event's (or the digest's) text. */
         fun blocks(t: TurnRecord, events: List<ShadowEvent>): List<JsonObject>
         fun where(): String?
-        /** What [usage] on [model] cost paid by [billing] ([Priced]: 0 and the API-equivalent with the ChatGPT plan). */
-        fun cost(model: String, usage: Usage, billing: String): Priced
+        /**
+         * What [usage] on [model] cost paid by [billing] ([Priced]: 0 and the API-equivalent with the ChatGPT plan or the
+         * Gemini free tier; [reported] OpenRouter's own price of the call).
+         */
+        fun cost(model: String, usage: Usage, billing: String, reported: Double? = null): Priced
         /** The primary's day closing is due or running: a lane's new day waits for the notebook it rewrites. */
         fun closingPending(): Boolean
     }
@@ -231,7 +282,7 @@ class ShadowMatrix(
     private inner class Lane(val id: String, val model: String, val effort: String) {
         val family = Lanes.familyOf(model)
         val provider = ProviderId.of(model)
-        val store = ShadowStore(File(dir, id))
+        val store = ShadowStore(File(dir, Lanes.dir(id)))
         var q: List<TurnRecord> = store.queue()
         var th: ThreadState? = store.thread()
         var worker: Job? = null
@@ -264,7 +315,12 @@ class ShadowMatrix(
 
     /** Why [p]'s lanes can't run now, or null: no credential, the credential refused or out, a pause of the lanes' own. */
     private fun stopped(p: ProviderId): String? = when {
-        !host.ready(p) -> if (p == ProviderId.ANTHROPIC) "no key" else "no OpenAI credential"
+        !host.ready(p) -> when (p) {
+            ProviderId.ANTHROPIC -> "no key"
+            ProviderId.OPENAI -> "no OpenAI credential"
+            ProviderId.GEMINI -> "no Gemini key"
+            ProviderId.OPENROUTER -> "not signed in with OpenRouter"
+        }
         else -> host.blocked(p) ?: paused[p]
     }
 
@@ -301,7 +357,8 @@ class ShadowMatrix(
     fun start() {
         dir.listFiles { f -> f.isDirectory && f.name.contains('@') }.orEmpty().forEach { f ->
             val (model, effort) = Lanes.parse(f.name)
-            if (f.name !in lanes) lanes[f.name] = Lane(f.name, model, effort)
+            val id = Lanes.id(model, effort)
+            if (id !in lanes) lanes[id] = Lane(id, model, effort)
         }
         refresh()
     }
@@ -312,7 +369,8 @@ class ShadowMatrix(
      */
     fun refresh() {
         val s = host.settings
-        val next = Lanes.plan(s.matrix, s.listed, host.listed(ProviderId.OPENAI))
+        val others = listOf(ProviderId.OPENAI, ProviderId.GEMINI, ProviderId.OPENROUTER).mapNotNull { p -> host.listed(p)?.let { p to it } }.toMap()
+        val next = Lanes.plan(s.matrix, s.listed, others, host.geminiFree())
         plan = next
         val ids = if (s.matrix.enabled) next.mapNotNull { it.id }.toSet() else emptySet()
         for (l in lanes.values) if (l.id !in ids && (l.worker != null || l.q.isNotEmpty())) {
@@ -511,7 +569,7 @@ class ShadowMatrix(
     }
 
     private fun callRecord(l: Lane, t: TurnRecord, c: CallOutcome, images: Int, billing: String): CallRecord {
-        val priced = c.step?.let { host.cost(it.model ?: l.model, it.usage, billing) }
+        val priced = c.step?.let { host.cost(it.model ?: l.model, it.usage, billing, it.cost) }
         return Meter.record(t, c, now(), "day", priced, l.effort, model = l.model, images = images, lane = l.id, provider = l.provider, billing = billing, transformationsMax = 500)
     }
 
@@ -521,15 +579,20 @@ class ShadowMatrix(
             // the same credential as every lane of its provider's (Anthropic's: the primary's key): they stop until it's
             // checked again
             e is ApiError.Auth -> {
-                paused[l.provider] = if (l.provider == ProviderId.ANTHROPIC) "the key was refused (401)" else "the OpenAI credential was refused (sign in or check again)"
+                paused[l.provider] = when (l.provider) {
+                    ProviderId.ANTHROPIC -> "the key was refused (401)"
+                    ProviderId.OPENAI -> "the OpenAI credential was refused (sign in or check again)"
+                    ProviderId.GEMINI -> "the Gemini key was refused (check it in Google AI Studio)"
+                    ProviderId.OPENROUTER -> "the OpenRouter key was refused (sign in again)"
+                }
                 replace(l, t.copy(status = TurnStatus.QUEUED, error = error))
             }
             e is ApiError.LowCredit -> {
-                paused[l.provider] = when {
+                paused[l.provider] = if (l.provider == ProviderId.ANTHROPIC || l.provider == ProviderId.OPENAI) when {
                     e.allowance -> "the ChatGPT plan's usage limit was reached (ChatGPT settings → Usage)"
                     e.limit -> "a spend limit was reached"
                     else -> "the credit balance is too low"
-                }
+                } else Failures.creditWhy(e, l.provider)
                 replace(l, t.copy(status = TurnStatus.QUEUED, error = error))
             }
             // 429 after its retry-after, 529/5xx/the network with backoff: as the primary's

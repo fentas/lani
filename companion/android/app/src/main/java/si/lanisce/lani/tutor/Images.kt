@@ -29,8 +29,14 @@ object ShadowImages {
         }
     }
 
-    /** How many images [messages] carry (the Messages API's image blocks, the Responses API's input_image parts). */
-    fun count(messages: List<JsonObject>): Int = messages.sumOf { m -> m.blocks().count { it.str("type") == "image" || it.str("type") == "input_image" } }
+    /**
+     * How many images [messages] carry (the Messages API's image blocks, the Responses API's input_image parts, chat
+     * completions' image_url parts, Gemini's inlineData parts).
+     */
+    fun count(messages: List<JsonObject>): Int = messages.sumOf { m ->
+        m.blocks().count { it.str("type") == "image" || it.str("type") == "input_image" || it.str("type") == "image_url" } +
+            GeminiFormat.parts(m).count { it["inlineData"] is JsonObject }
+    }
 
     /**
      * [e] with every image's data replaced by a note of its size ("‹an image, 312 KB, left out›"): what the export keeps
@@ -47,6 +53,15 @@ object ShadowImages {
                     JsonObject(e + ("source" to JsonObject(source + ("data" to JsonPrimitive(note(data.length))))))
                 e.str("type") == "input_image" && url != null && url.startsWith("data:") ->
                     JsonObject(e + ("image_url" to JsonPrimitive(url.substringBefore(',') + "," + note(url.length - url.indexOf(',') - 1))))
+                // Gemini's inlineData, chat completions' image_url: the data left out the same way
+                e["inlineData"] is JsonObject && (e["inlineData"] as JsonObject).str("data") != null -> {
+                    val d = e["inlineData"] as JsonObject
+                    JsonObject(e + ("inlineData" to JsonObject(d + ("data" to JsonPrimitive(note(d.str("data")!!.length))))))
+                }
+                e.str("type") == "image_url" && (e["image_url"] as? JsonObject)?.str("url")?.startsWith("data:") == true -> {
+                    val u = (e["image_url"] as JsonObject).str("url")!!
+                    JsonObject(e + ("image_url" to JsonObject(mapOf("url" to JsonPrimitive(u.substringBefore(',') + "," + note(u.length - u.indexOf(',') - 1))))))
+                }
                 e.str("type") == "reasoning" && e.str("encrypted_content") != null ->
                     JsonObject(e + ("encrypted_content" to JsonPrimitive("‹encrypted reasoning, ${e.str("encrypted_content")!!.length} characters, left out›")))
                 else -> JsonObject(e.mapValues { (_, v) -> omit(v) })

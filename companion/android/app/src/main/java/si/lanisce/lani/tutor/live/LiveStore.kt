@@ -16,7 +16,8 @@ import java.io.File
  * The live tutor's settings (the "🧑‍🏫 Učitelj · Tutor" section; never a credential: those are in their KeyVaults).
  *
  * @property on who answers: false the Claude Code session on the node (as before, the default), true the app.
- * @property provider whose models: Anthropic's with the Claude key, or OpenAI's with its key or the ChatGPT sign-in.
+ * @property provider whose models: Anthropic's with the Claude key, OpenAI's with its key or the ChatGPT sign-in,
+ *   Gemini's with a Google AI Studio key, or OpenRouter's (any model) with the OpenRouter sign-in.
  * @property openai which OpenAI credential ([Billing]): null the ChatGPT plan when signed in, else the key.
  * @property models the model per task set under "advanced" (a task without one follows the preset).
  * @property efforts the effort per task set under "advanced".
@@ -63,6 +64,8 @@ data class LiveSettings(
     val batches: Boolean = true,
     /** The ChatGPT plan's welcome was shown (OpenAI's UI guidelines: once, at the first sign-in). */
     val chatgptWelcomed: Boolean = false,
+    /** The chat was told what the Gemini free tier means (Google may use what's sent): once. */
+    val geminiFreeTold: Boolean = false,
 ) {
     val limit: Int get() = threadLimit ?: preset.threadLimit
 }

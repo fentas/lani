@@ -115,8 +115,10 @@ class KeyVault(private val cipher: SecretCipher, private val store: SecretStore)
  */
 object Redact {
     private val keyLike = Regex("""sk-ant-[A-Za-z0-9_\-]{6,}""")
-    /** An OpenAI API key (sk-proj-…, sk-svcacct-…, sk-…), after Anthropic's are out. */
+    /** An OpenAI API key (sk-proj-…, sk-svcacct-…, sk-…) or OpenRouter's (sk-or-v1-…), after Anthropic's are out. */
     private val openAIKey = Regex("""\bsk-(?!ant-)[A-Za-z0-9_\-]{16,}""")
+    /** A Google API key (a Gemini key from Google AI Studio: AIza and 35 more). */
+    private val googleKey = Regex("""\bAIza[0-9A-Za-z_\-]{35}""")
     /** A JSON Web Token (the ChatGPT sign-in's access and ID tokens): three base64url parts, the first a JSON header. */
     private val jwt = Regex("""\beyJ[A-Za-z0-9_\-]{6,}\.[A-Za-z0-9_\-]{6,}\.[A-Za-z0-9_\-]{6,}""")
     /** A name that says a secret is in its value: a token, an API key, a password (not a count of tokens: input_tokens). */
@@ -133,12 +135,13 @@ object Redact {
         if (!key.isNullOrBlank() && key.length >= 8) t = t.replace(key, "‹key›")
         t = keyLike.replace(t, "sk-ant-‹…›")
         t = openAIKey.replace(t, "sk-‹…›")
+        t = googleKey.replace(t, "AIza‹…›")
         return jwt.replace(t, "‹token›")
     }
 
     /**
      * [text] cleaned of what could carry a secret: the [known] values (the API keys, the sign-in's tokens, the device
-     * token), API keys (sk-ant-…, OpenAI's sk-…), JSON Web Tokens (eyJ….….…), Bearer tokens, the value after a secret's name (token=…, x-api-key: …, Authorization: …, "api_key": "…")
+     * token), API keys (sk-ant-…, OpenAI's and OpenRouter's sk-…, Google's AIza…), JSON Web Tokens (eyJ….….…), Bearer tokens, the value after a secret's name (token=…, x-api-key: …, Authorization: …, "api_key": "…")
      * and a URL's key, sig or code. Counts of tokens (input_tokens: 12) stay.
      */
     fun all(text: String, known: Collection<String?> = emptyList()): String {
@@ -146,6 +149,7 @@ object Redact {
         for (k in known) if (!k.isNullOrBlank() && k.length >= 8) t = t.replace(k, "‹secret›")
         t = keyLike.replace(t, "sk-ant-‹…›")
         t = openAIKey.replace(t, "sk-‹…›")
+        t = googleKey.replace(t, "AIza‹…›")
         t = jwt.replace(t, "‹token›")
         t = bearer.replace(t, "Bearer ‹…›")
         t = named.replace(t) { m -> m.groupValues[1] + m.groupValues[2] + "‹…›" }

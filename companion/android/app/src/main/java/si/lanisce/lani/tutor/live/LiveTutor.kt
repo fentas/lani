@@ -32,6 +32,11 @@ import si.lanisce.lani.tutor.DayThreads
 import si.lanisce.lani.tutor.Effort
 import si.lanisce.lani.tutor.Failures
 import si.lanisce.lani.tutor.Family
+import si.lanisce.lani.tutor.GeminiCredentials
+import si.lanisce.lani.tutor.GeminiPacer
+import si.lanisce.lani.tutor.GeminiProvider
+import si.lanisce.lani.tutor.GeminiTerms
+import si.lanisce.lani.tutor.GeminiTransport
 import si.lanisce.lani.tutor.Guide
 import si.lanisce.lani.tutor.Handling
 import si.lanisce.lani.tutor.KeyGuard
@@ -46,12 +51,20 @@ import si.lanisce.lani.tutor.OpenAIBearer
 import si.lanisce.lani.tutor.OpenAICredentials
 import si.lanisce.lani.tutor.OpenAIProvider
 import si.lanisce.lani.tutor.OpenAITransport
+import si.lanisce.lani.tutor.OpenRouterAuth
+import si.lanisce.lani.tutor.OpenRouterCredentials
+import si.lanisce.lani.tutor.OpenRouterError
+import si.lanisce.lani.tutor.OpenRouterKey
+import si.lanisce.lani.tutor.OpenRouterModels
+import si.lanisce.lani.tutor.OpenRouterProvider
+import si.lanisce.lani.tutor.OpenRouterTransport
 import si.lanisce.lani.tutor.PartialJson
 import si.lanisce.lani.tutor.PhaseA
 import si.lanisce.lani.tutor.Prefix
 import si.lanisce.lani.tutor.Prices
 import si.lanisce.lani.tutor.ProviderId
 import si.lanisce.lani.tutor.Redact
+import si.lanisce.lani.tutor.RoutedModels
 import si.lanisce.lani.tutor.ReplyFallback
 import si.lanisce.lani.tutor.ShadowEvent
 import si.lanisce.lani.tutor.ShadowImages
@@ -156,6 +169,13 @@ class LiveTutor(
     private val nightOk: () -> Boolean = { false },
     /** How often the open app asks a waiting batch (the tests': a few milliseconds). */
     studioPollMs: Long = 30_000,
+    /** The Gemini key and its tier (the shadow's vault: one for both), or null: no Gemini in this build. */
+    private val gemini: GeminiCredentials? = null,
+    /** The Gemini API's client for a key, its pacer, and what a 429 naming the free tier calls. */
+    private val geminiTransportFor: (suspend () -> String?, GeminiPacer?, () -> Unit) -> GeminiTransport = { k, p, f -> GeminiTransport(k, pacer = p, onFreeTier = f) },
+    /** OpenRouter's sign-in and key, or null: no OpenRouter in this build. */
+    private val openrouter: OpenRouterCredentials? = null,
+    private val openrouterTransportFor: (suspend () -> String?) -> OpenRouterTransport = { OpenRouterTransport(it) },
 ) {
     private val specs = StudioSpecs.load(StudioSpecs.CHAT, read)
     private val guide = Guide(read)
@@ -197,6 +217,22 @@ class LiveTutor(
         private set
     /** Whether this build has OpenAI. */
     val openaiAvailable: Boolean get() = openai != null
+    val geminiAvailable: Boolean get() = gemini != null
+    val openrouterAvailable: Boolean get() = openrouter != null
+    /** A Gemini key is kept. */
+    var geminiReady by mutableStateOf(false)
+        private set
+    /** The Gemini key's tier ([GeminiTerms]: free, free-seen, paid; null: not said). */
+    var geminiTier by mutableStateOf<String?>(null)
+        private set
+    /** Signed in with OpenRouter (its key kept). */
+    var openrouterReady by mutableStateOf(false)
+        private set
+    /** The OpenRouter key's credit (GET /api/v1/key at its check), or null. */
+    var openrouterKey by mutableStateOf<OpenRouterKey?>(null)
+        private set
+    /** The Gemini key is on the free tier: Google may use what's sent (the section and the chat say so). */
+    val geminiFree: Boolean get() = GeminiTerms.isFree(geminiTier)
 
     /** The learner's name (the guide's paragraphs say Jan), where the learner is in the app, a chat photo's file. */
     var learner: () -> String? = { null }
@@ -258,6 +294,7 @@ class LiveTutor(
             reports = store.pendingReports()
             hasKey = vault.has()
             loadOpenAI()
+            loadOthers()
             publish()
             if (s.on) {
                 schedule(true, false)
@@ -353,6 +390,8 @@ class LiveTutor(
     private fun credentialSet(): Boolean = when (s.provider) {
         ProviderId.ANTHROPIC -> hasKey
         ProviderId.OPENAI -> openaiReady.isNotEmpty()
+        ProviderId.GEMINI -> geminiReady
+        ProviderId.OPENROUTER -> openrouterReady
     }
 
     /** Whether the provider chosen has its credential (a key kept, or the ChatGPT sign-in). */
@@ -362,6 +401,7 @@ class LiveTutor(
     suspend fun refreshCredentials() = withContext(io) {
         hasKey = vault.has()
         loadOpenAI()
+        loadOthers()
         state = stateNow()
     }
 
@@ -375,8 +415,172 @@ class LiveTutor(
         else -> null
     }
 
-    /** Whose models [LiveSettings.listed] are now: "anthropic", or the OpenAI billing in use. */
-    private fun listedKey(): String? = if (s.provider == ProviderId.ANTHROPIC) "anthropic" else openaiBilling()
+    /** Whose models [LiveSettings.listed] are now: "anthropic", the OpenAI billing in use, "gemini", "openrouter". */
+    private fun listedKey(): String? = when (s.provider) {
+        ProviderId.ANTHROPIC -> "anthropic"
+        ProviderId.OPENAI -> openaiBilling()
+        ProviderId.GEMINI -> "gemini"
+        ProviderId.OPENROUTER -> "openrouter"
+    }
+
+    /** How a call on [model] is paid: the Claude or Gemini key, the ChatGPT plan, the Gemini free tier, OpenRouter's credits. */
+    private fun billingFor(model: String): String = when (ProviderId.of(model)) {
+        ProviderId.ANTHROPIC -> Billing.API_KEY
+        ProviderId.OPENAI -> openaiBilling() ?: Billing.API_KEY
+        ProviderId.GEMINI -> if (geminiFree) Billing.FREE_TIER else Billing.API_KEY
+        ProviderId.OPENROUTER -> Billing.OPENROUTER
+    }
+
+    private suspend fun loadOthers() {
+        gemini?.let { c ->
+            geminiReady = c.has()
+            geminiTier = c.tier()
+        }
+        openrouter?.let { openrouterReady = it.has() }
+        if (s.listedWith == "openrouter") RoutedModels.learn(s.listed)
+    }
+
+    // --- Gemini (a Google AI Studio key) ------------------------------------------------------------------------------
+
+    /**
+     * Checks a Gemini [key] with GET /v1beta/models (not a model call) and keeps it, encrypted with a Keystore key (the
+     * shadow's vault: one key for both), with the learner's word on its [tier] ([GeminiTerms.FREE], [GeminiTerms.PAID];
+     * null: not said). Null when kept, else what went wrong.
+     */
+    suspend fun setGeminiKey(key: String, tier: String?): String? = withContext(io) {
+        val c = gemini ?: return@withContext "this build has no Gemini"
+        val k = key.trim()
+        if (k.isEmpty()) return@withContext "the key is empty"
+        val models = try {
+            geminiTransportFor({ k }, null, {}).models()
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: ApiError) {
+            line("Gemini key check failed: ${e.kind}")
+            return@withContext if (e is ApiError.Auth) "the key was refused" else Redact.of(e.message ?: e.kind, k)
+        }
+        val before = c.key.load()
+        if (before != null && before != k) store.thread()?.takeIf { ProviderId.of(it.model) == ProviderId.GEMINI }?.let { store.saveThread(it.copy(prefix = "another-key")) }
+        c.key.save(k)
+        c.setTier(tier)
+        loadOthers()
+        saveSettings {
+            val mine = it.provider == ProviderId.GEMINI
+            it.copy(listed = if (mine) models else it.listed, listedAt = now(), listedWith = if (mine) "gemini" else it.listedWith, keyRefused = false, lowCredit = null)
+        }
+        line("Gemini key checked: ${models.size} model(s)")
+        if (geminiFree) tellGeminiFree()
+        wakeUp()
+        null
+    }
+
+    /** The learner's word on the Gemini key's tier: on the free tier the chat says once what that means. */
+    fun setGeminiTier(tier: String?) = scope.launch(io) {
+        gemini?.setTier(tier)
+        loadOthers()
+        if (geminiFree) tellGeminiFree()
+        state = stateNow()
+    }
+
+    fun removeGeminiKey() = scope.launch(io) {
+        gemini?.remove()
+        loadOthers()
+        saveSettings { it.copy(keyRefused = false, listed = if (it.listedWith == "gemini") emptyList() else it.listed) }
+    }
+
+    /** A 429 named the free tier's quota: the key is on it (said in the section; once in the chat). */
+    private suspend fun seenFreeTier() {
+        val c = gemini ?: return
+        if (GeminiTerms.isFree(c.tier())) return
+        c.setTier(GeminiTerms.FREE_SEEN)
+        loadOthers()
+        line("Gemini: a 429 named the free tier's quota: the key is on the free tier")
+        tellGeminiFree()
+    }
+
+    /** Once in the chat, while the key is on the free tier: what Google's terms say of it. */
+    private fun tellGeminiFree() {
+        if (s.geminiFreeTold) return
+        saveSettings { it.copy(geminiFreeTold = true) }
+        tell(null, "tutorLive.note.geminiFree", emptyMap())
+    }
+
+    // --- OpenRouter ("Continue with OpenRouter") ----------------------------------------------------------------------
+
+    private var routerSignIn: OpenRouterAuth.SignIn? = null
+
+    /**
+     * "Continue with OpenRouter": the browser's sign-in, the learner's own key kept, its credit and OpenRouter's list of
+     * models that take tools read. Null when signed in, else what went wrong.
+     */
+    suspend fun signInWithOpenRouter(open: (String) -> Unit): String? {
+        val c = openrouter ?: return "this build has no OpenRouter"
+        routerSignIn?.cancel()
+        val pending = try {
+            withContext(Dispatchers.IO) { c.auth.begin(signInPort) }
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            return "the sign-in couldn't start: ${Redact.of(e.message ?: e.javaClass.simpleName)}"
+        }
+        routerSignIn = pending
+        try {
+            open(pending.url)
+            withContext(Dispatchers.IO) { pending.await() }
+        } catch (e: CancellationException) {
+            pending.cancel()
+            throw e
+        } catch (e: OpenRouterError) {
+            return e.message
+        } catch (e: Exception) {
+            return "the sign-in failed: ${Redact.of(e.message ?: e.javaClass.simpleName)}"
+        } finally {
+            if (routerSignIn === pending) routerSignIn = null
+        }
+        return withContext(io) {
+            loadOthers()
+            routerCheck()
+        }
+    }
+
+    fun cancelOpenRouterSignIn() {
+        routerSignIn?.cancel()
+        routerSignIn = null
+    }
+
+    suspend fun signOutOfOpenRouter(): String? = withContext(io) {
+        val note = openrouter?.auth?.signOut()
+        loadOthers()
+        openrouterKey = null
+        saveSettings { it.copy(listed = if (it.listedWith == "openrouter") emptyList() else it.listed) }
+        state = stateNow()
+        note
+    }
+
+    /** The OpenRouter key's credit and the list of models again: the credential's check. Null when fine. */
+    private suspend fun routerCheck(): String? {
+        val t = openrouterTransportFor { openrouter?.key() }
+        val info = try {
+            t.key()
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: ApiError) {
+            if (e is ApiError.Auth) saveSettings { it.copy(keyRefused = true) }
+            return Redact.of(e.message ?: e.kind)
+        }
+        openrouterKey = info
+        val models = runCatching { t.models() }.getOrNull()
+        models?.let(RoutedModels::learn)
+        saveSettings {
+            val mine = it.provider == ProviderId.OPENROUTER
+            it.copy(
+                listed = if (mine && models != null) models else it.listed, listedAt = now(), listedWith = if (mine && models != null) "openrouter" else it.listedWith,
+                keyRefused = false, lowCredit = null,
+            )
+        }
+        wakeUp()
+        return if (models == null) "signed in; OpenRouter's models couldn't be listed: Check again" else null
+    }
 
     private suspend fun loadOpenAI() {
         val c = openai ?: return
@@ -521,6 +725,7 @@ class LiveTutor(
 
     /** The models again with the credential in use (the credit came back, a model was added); clears a pause. Null when listed. */
     suspend fun recheck(): String? = withContext(io) {
+        if (s.provider == ProviderId.OPENROUTER) return@withContext routerCheck()
         val models = try {
             when (s.provider) {
                 ProviderId.ANTHROPIC -> transportFor(baseUrl()) { vault.load() }.models()
@@ -528,6 +733,8 @@ class LiveTutor(
                     val billing = openaiBilling() ?: return@withContext "no OpenAI credential"
                     openaiTransportFor { openai?.bearer(billing) }.models()
                 }
+                ProviderId.GEMINI -> geminiTransportFor({ gemini?.key?.load() }, null, {}).models()
+                ProviderId.OPENROUTER -> emptyList()
             }
         } catch (e: CancellationException) {
             throw e
@@ -826,12 +1033,17 @@ class LiveTutor(
     fun modelFor(task: Task): String {
         val listed = s.listed.takeIf { s.listedWith == listedKey() }.orEmpty()
         val cat = ModelCatalog(listed)
+        val tier = s.preset.families.getValue(task).tier
         return when (s.provider) {
             ProviderId.ANTHROPIC -> cat.modelFor(task, s.preset, s.models.filterValues { ProviderId.of(it) == ProviderId.ANTHROPIC })
-            ProviderId.OPENAI -> {
-                val set = s.models[task]?.takeIf { ProviderId.of(it) == ProviderId.OPENAI && (listed.isEmpty() || listed.any { m -> m.id == it }) }
-                set ?: Family.of(ProviderId.OPENAI).first { it.tier == s.preset.families.getValue(task).tier }.let { f -> cat.own(f) ?: f.preferred.first() }
+            ProviderId.OPENAI, ProviderId.GEMINI -> {
+                val set = s.models[task]?.takeIf { ProviderId.of(it) == s.provider && (listed.isEmpty() || listed.any { m -> m.id == it }) }
+                // Gemini's free tier has no Argon: its tasks go to Flash there
+                val t = if (s.provider == ProviderId.GEMINI && geminiFree) minOf(tier, Family.FLASH.tier) else tier
+                set ?: Family.of(s.provider).first { it.tier == t }.let { f -> cat.own(f) ?: f.preferred.first() }
             }
+            // OpenRouter: the model the learner picked for the task, else the tier's default (OpenRouterModels.DEFAULTS)
+            ProviderId.OPENROUTER -> s.models[task]?.takeIf { ProviderId.of(it) == ProviderId.OPENROUTER } ?: OpenRouterModels.forTier(tier)
         }
     }
 
@@ -944,6 +1156,11 @@ class LiveTutor(
     }
 
     private fun providerFor(model: String): TutorProvider = when (ProviderId.of(model)) {
+        ProviderId.GEMINI -> {
+            val c = gemini
+            GeminiProvider(geminiTransportFor({ c?.key?.load() }, c?.pacer) { scope.launch(io) { seenFreeTier() } }, billingFor(model))
+        }
+        ProviderId.OPENROUTER -> OpenRouterProvider(openrouterTransportFor { openrouter?.key() })
         ProviderId.ANTHROPIC -> AnthropicProvider(transportFor(baseUrl()) { vault.load() })
         ProviderId.OPENAI -> {
             val billing = openaiBilling() ?: Billing.API_KEY
@@ -1187,7 +1404,7 @@ class LiveTutor(
     }
 
     private fun callRecord(t: TurnRecord, c: CallOutcome, thread: String, effort: String?, byMessage: Boolean, images: Int, billing: String): CallRecord {
-        val priced = c.step?.let { prices.priced(it.model ?: t.model, it.usage, billing) }
+        val priced = c.step?.let { prices.priced(it.model ?: t.model, it.usage, billing, it.cost) }
         return Meter.record(t, c, now(), thread, priced, effort, effortByMessage = byMessage, images = images, billing = billing)
     }
 
@@ -1198,7 +1415,7 @@ class LiveTutor(
             e is ApiError.Auth -> {
                 saveSettings { it.copy(keyRefused = true) }
                 replace(t.copy(status = TurnStatus.QUEUED, error = error))
-                tell("key", if (provider == ProviderId.OPENAI) "tutorLive.note.signIn" else "tutorLive.note.key", emptyMap())
+                tell("key", keyNote(provider), emptyMap())
             }
             e is ApiError.LowCredit -> {
                 val why = Failures.creditWhy(e, provider)
@@ -1297,8 +1514,8 @@ class LiveTutor(
     /** A studio call's record in the day's log, priced (at half price through a batch); its cost. */
     private fun studioCall(job: StudioJob, c: si.lanisce.lani.tutor.CallOutcome, thread: String, batch: Boolean): Double? {
         val turn = TurnRecord(id = job.id, eventIds = job.eventIds, kind = TurnKind.STATELESS, task = job.task, model = job.model, eventKind = "studio", queuedAt = job.createdAt)
-        val billing = if (ProviderId.of(job.model) == ProviderId.OPENAI) openaiBilling() ?: Billing.API_KEY else Billing.API_KEY
-        val priced = c.step?.let { prices.priced(it.model ?: job.model, it.usage, billing) }
+        val billing = billingFor(job.model)
+        val priced = c.step?.let { prices.priced(it.model ?: job.model, it.usage, billing, it.cost) }
             ?.let { p -> if (batch) si.lanisce.lani.tutor.Priced(p.cost?.let { it / 2 }, p.apiEquivalent?.let { it / 2 }) else p }
         val call = Meter.record(turn, c, now(), if (batch) "$thread-batch" else thread, priced, job.effort, billing = billing)
         val l = log(dayNow())
@@ -1315,7 +1532,7 @@ class LiveTutor(
         when (e) {
             is ApiError.Auth -> {
                 saveSettings { it.copy(keyRefused = true) }
-                tell("key", if (provider == ProviderId.OPENAI) "tutorLive.note.signIn" else "tutorLive.note.key", emptyMap())
+                tell("key", keyNote(provider), emptyMap())
             }
             is ApiError.LowCredit -> {
                 val why = Failures.creditWhy(e, provider)
@@ -1495,6 +1712,13 @@ class LiveTutor(
      * Tells the learner [key]'s note in the chat, briefly: once a day per [kind] (null: every time). While no chat listens
      * (the app closed: the WorkManager check) it waits for the chat.
      */
+    /** The chat's note for a refused credential: a sign-in to renew (ChatGPT, OpenRouter), or a key to enter again. */
+    private fun keyNote(p: ProviderId): String = when (p) {
+        ProviderId.OPENAI -> "tutorLive.note.signIn"
+        ProviderId.OPENROUTER -> "tutorLive.note.signInRouter"
+        else -> "tutorLive.note.key"
+    }
+
     private fun tell(kind: String?, key: String, args: Map<String, Any?>) {
         val day = dayNow()
         if (kind != null && s.told[kind] == day) return

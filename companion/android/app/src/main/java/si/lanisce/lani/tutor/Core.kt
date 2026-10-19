@@ -122,10 +122,23 @@ object Failures {
     fun retryAt(e: ApiError, attempts: Int, now: Long, max: Int = MAX_ATTEMPTS): Long? =
         if (e.retryable && attempts < max) now + ((e as? ApiError.RateLimited)?.retryAfterMs ?: (30_000L shl (attempts - 1).coerceIn(0, 5))) else null
 
-    /** Why money stops the calls ([e]): the ChatGPT plan's usage limit, a spend limit, or the credit out. */
+    /**
+     * Why money stops the calls ([e]): the ChatGPT plan's usage limit, a spend limit (Gemini: a quota or billing that
+     * isn't on; OpenRouter: the key's limit), or the credit out.
+     */
     fun creditWhy(e: ApiError.LowCredit, provider: ProviderId): String = when {
         e.allowance -> "the ChatGPT plan's usage limit was reached (ChatGPT settings → Usage)"
-        e.limit -> if (provider == ProviderId.OPENAI) "an OpenAI spend limit was reached" else "a spend limit was reached"
-        else -> if (provider == ProviderId.OPENAI) "the OpenAI credit is out" else "the credit balance is too low"
+        e.limit -> when (provider) {
+            ProviderId.OPENAI -> "an OpenAI spend limit was reached"
+            ProviderId.GEMINI -> "a Gemini API quota or billing limit was reached (${e.message.orEmpty().substringAfterLast(": ").take(160)})"
+            ProviderId.OPENROUTER -> "the OpenRouter key's credit limit was reached (openrouter.ai/settings/keys)"
+            ProviderId.ANTHROPIC -> "a spend limit was reached"
+        }
+        else -> when (provider) {
+            ProviderId.OPENAI -> "the OpenAI credit is out"
+            ProviderId.GEMINI -> "the Gemini API's prepaid credit is out (Google AI Studio → Billing)"
+            ProviderId.OPENROUTER -> "the OpenRouter credits are out (openrouter.ai/settings/credits)"
+            ProviderId.ANTHROPIC -> "the credit balance is too low"
+        }
     }
 }

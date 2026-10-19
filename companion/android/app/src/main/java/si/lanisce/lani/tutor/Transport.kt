@@ -27,7 +27,11 @@ import okhttp3.sse.EventSources
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
-/** A model the key may use (GET /v1/models). */
+/**
+ * A model the key may use (GET /v1/models). OpenRouter's list says more of each ([OpenRouterTransport.parseModels]):
+ * the reasoning efforts it takes ([efforts]: empty, none; null, not said), its default, its prices in dollars per
+ * million tokens, whether it takes images.
+ */
 @Serializable
 data class ModelInfo(
     val id: String,
@@ -35,6 +39,11 @@ data class ModelInfo(
     val createdAt: String? = null,
     val maxInputTokens: Long? = null,
     val maxTokens: Long? = null,
+    val efforts: List<String>? = null,
+    val defaultEffort: String? = null,
+    val inputPrice: Double? = null,
+    val outputPrice: Double? = null,
+    val images: Boolean? = null,
 )
 
 /** A streamed response, with the time to its first token and in all (milliseconds). */

@@ -20,10 +20,6 @@ import okhttp3.Request
 import java.io.Closeable
 import java.io.IOException
 import java.math.BigInteger
-import java.net.InetAddress
-import java.net.ServerSocket
-import java.net.Socket
-import java.net.URLDecoder
 import java.security.KeyFactory
 import java.security.MessageDigest
 import java.security.SecureRandom
@@ -70,7 +66,7 @@ object ChatGPTOAuth {
     const val DYNAMIC_CLIENT = "dynamic_agent_client"
     const val CALLBACK_PATH = "/auth/callback"
     /** Where the callback page sends the browser on: back to the app. */
-    const val BACK = "lani://tutor/signed-in"
+    const val BACK = LoopbackPage.BACK
     /** ChatGPT Settings → Usage: where the learner sees and limits what the app uses of their plan. */
     const val MANAGE_USAGE = "https://chatgpt.com/settings/usage"
 
@@ -216,22 +212,11 @@ class ChatGPTAuth(
 
     /**
      * [block], tried again after each of [OFFLINE_WAITS] while it fails for want of the network ([ApiError.Network]);
-     * the last failure told plainly. A refusal by OpenAI isn't tried again.
+     * the last failure told plainly. A refusal by OpenAI isn't tried again ([WhileOffline]).
      */
-    private suspend fun <T> whileOffline(block: suspend () -> T): T {
-        for (wait in OFFLINE_WAITS) {
-            try {
-                return block()
-            } catch (e: ApiError.Network) {
-                pause(wait)
-            }
-        }
-        return try {
-            block()
-        } catch (e: ApiError.Network) {
-            throw ChatGPTError("offline", "Lani couldn't reach OpenAI to finish the sign-in (${e.message}). Is the phone online? Battery or data saver can hold an app's network while it's in the background: try again with Lani open")
-        }
-    }
+    private suspend fun <T> whileOffline(block: suspend () -> T): T = WhileOffline.run(OFFLINE_WAITS, pause, { e ->
+        ChatGPTError("offline", "Lani couldn't reach OpenAI to finish the sign-in (${e.message}). Is the phone online? Battery or data saver can hold an app's network while it's in the background: try again with Lani open")
+    }, block)
 
     /** The session with [data]'s tokens (a token endpoint's answer): rotation, expiry, scopes (kept when omitted). */
     private fun tokens(s: ChatGPTSession, data: JsonObject, requireRefresh: Boolean): ChatGPTSession {
@@ -382,7 +367,7 @@ class ChatGPTAuth(
 
     companion object {
         /** The waits between the sign-in's tries without a network: about a minute in all. */
-        val OFFLINE_WAITS = listOf(1_000L, 2_000L, 3_000L, 5_000L, 8_000L, 10_000L, 15_000L, 20_000L)
+        val OFFLINE_WAITS = WhileOffline.WAITS
 
         val defaultClient: OkHttpClient by lazy {
             OkHttpClient.Builder().connectTimeout(15, TimeUnit.SECONDS).readTimeout(30, TimeUnit.SECONDS).followRedirects(false).build()
@@ -449,95 +434,49 @@ object IdToken {
 
 /**
  * The loopback listener the browser comes back to (the sign-in guide: "an HTTP loopback callback on 127.0.0.1 …
- * Start the listener before opening the browser … only the port may vary", the path `/auth/callback`). It answers one
- * GET with the attempt's `state` (others: 404, or 400 for another state, so a stray request never ends the attempt),
- * with a page that sends the browser back to the app ([ChatGPTOAuth.BACK]).
+ * Start the listener before opening the browser … only the port may vary", the path `/auth/callback`), on the shared
+ * [LoopbackServer]. It answers one GET with the attempt's `state` (others: 404, or 400 for another state, so a stray
+ * request never ends the attempt), with a page that sends the browser back to the app ([ChatGPTOAuth.BACK]).
  */
 class Loopback(bindPort: Int, private val state: String, private val savedClientId: String?) : Closeable {
     data class Callback(val code: String, val clientId: String)
 
-    private val server = ServerSocket(bindPort, 8, InetAddress.getByAddress(byteArrayOf(127, 0, 0, 1)))
-
-    /** The port it listens on: the one asked for, or the system's pick for 0 (the redirect must name the real one). */
-    val port: Int = server.localPort
-    val redirectUri = "http://127.0.0.1:${server.localPort}${ChatGPTOAuth.CALLBACK_PATH}"
     val result = CompletableDeferred<Callback>()
 
-    init {
-        Thread({
-            while (!server.isClosed && !result.isCompleted) {
-                val socket = try {
-                    server.accept()
-                } catch (e: IOException) {
-                    break
-                }
-                runCatching { socket.use(::handle) }
-            }
-        }, "chatgpt-sign-in").apply { isDaemon = true }.start()
-    }
+    private val server = LoopbackServer(bindPort, ChatGPTOAuth.CALLBACK_PATH, "chatgpt-sign-in") { hit -> answer(hit) }
 
-    private fun handle(socket: Socket) {
-        socket.soTimeout = 10_000
-        val input = socket.getInputStream().bufferedReader(Charsets.UTF_8)
-        val line = input.readLine() ?: return
-        val headers = generateSequence { input.readLine()?.takeIf { it.isNotEmpty() } }.take(100).toList()
-        val host = headers.firstOrNull { it.startsWith("host:", ignoreCase = true) }?.substringAfter(':')?.trim()
-        val (method, target) = line.split(' ').let { (it.getOrNull(0) ?: "") to (it.getOrNull(1) ?: "") }
-        val path = target.substringBefore('?')
-        val out = socket.getOutputStream()
-        fun respond(code: Int, html: String) {
-            val bytes = html.toByteArray(Charsets.UTF_8)
-            out.write(
-                ("HTTP/1.1 $code ${if (code == 200) "OK" else "Error"}\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: ${bytes.size}\r\n" +
-                    "Cache-Control: no-store\r\nReferrer-Policy: no-referrer\r\nContent-Security-Policy: $CSP\r\nConnection: close\r\n\r\n").toByteArray(Charsets.US_ASCII),
-            )
-            out.write(bytes)
-            out.flush()
+    /** The port it listens on: the one asked for, or the system's pick for 0 (the redirect must name the real one). */
+    val port: Int = server.port
+    val redirectUri: String = server.uri
+
+    private fun answer(hit: LoopbackServer.Hit): LoopbackServer.Answer {
+        val states = hit.all("state")
+        if (states.size != 1 || !LoopbackPage.same(states[0], state)) {
+            return LoopbackServer.Answer(400, LoopbackPage.page("Prijava ni veljavna · Invalid sign-in", "Vrni se v zavihek, ki je začel prijavo. · Return to the tab that started the sign-in."), done = false)
         }
-        if (method != "GET" || path != ChatGPTOAuth.CALLBACK_PATH || host != "127.0.0.1:$port" || result.isCompleted) return respond(404, page("Not found", ""))
-        val params = target.substringAfter('?', "").split('&').filter { it.isNotEmpty() }.map {
-            URLDecoder.decode(it.substringBefore('='), "UTF-8") to URLDecoder.decode(it.substringAfter('=', ""), "UTF-8")
+        hit.all("error").firstOrNull()?.let { e ->
+            return LoopbackServer.Answer(200, LoopbackPage.page("Prijava preklicana · Sign-in declined", LoopbackPage.BACK_LINK), done = true) {
+                result.completeExceptionally(ChatGPTError(e, if (e == "access_denied") "the sign-in was declined" else "the sign-in failed ($e)"))
+            }
         }
-        fun all(k: String) = params.filter { it.first == k }.map { it.second }
-        val states = all("state")
-        if (states.size != 1 || !MessageDigest.isEqual(states[0].toByteArray(), state.toByteArray())) {
-            return respond(400, page("Prijava ni veljavna · Invalid sign-in", "Vrni se v zavihek, ki je začel prijavo. · Return to the tab that started the sign-in."))
-        }
-        all("error").firstOrNull()?.let { e ->
-            respond(200, page("Prijava preklicana · Sign-in declined", BACK_LINK))
-            result.completeExceptionally(ChatGPTError(e, if (e == "access_denied") "the sign-in was declined" else "the sign-in failed ($e)"))
-            return
-        }
-        val codes = all("code")
-        val ids = all("client_id")
+        val codes = hit.all("code")
+        val ids = hit.all("client_id")
         val clientId = ids.firstOrNull() ?: savedClientId
         val okId = clientId != null && clientId != ChatGPTOAuth.DYNAMIC_CLIENT && Regex("^[A-Za-z0-9_-]{1,200}$").matches(clientId) &&
             ids.size <= 1 && (savedClientId == null || ids.isEmpty() || ids[0] == savedClientId)
         if (codes.size != 1 || !okId) {
-            respond(200, page("Prijava ni uspela · Sign-in failed", BACK_LINK))
-            result.completeExceptionally(ChatGPTError("registration_incomplete", "ChatGPT didn't complete the app's registration: try again"))
-            return
+            return LoopbackServer.Answer(200, LoopbackPage.page("Prijava ni uspela · Sign-in failed", LoopbackPage.BACK_LINK), done = true) {
+                result.completeExceptionally(ChatGPTError("registration_incomplete", "ChatGPT didn't complete the app's registration: try again"))
+            }
         }
-        respond(200, page("✓ Prijava uspela · Signed in", "<p>Lani zdaj preveri povezavo s ChatGPT. · Lani is checking the ChatGPT connection now.</p>$BACK_LINK<script>$SCRIPT</script>"))
-        result.complete(Callback(codes[0], clientId!!))
+        return LoopbackServer.Answer(200, LoopbackPage.signedIn("Lani zdaj preveri povezavo s ChatGPT. · Lani is checking the ChatGPT connection now."), done = true) {
+            result.complete(Callback(codes[0], clientId!!))
+        }
     }
 
     override fun close() {
-        runCatching { server.close() }
+        server.close()
         if (!result.isCompleted) result.completeExceptionally(ChatGPTError("cancelled", "the sign-in was cancelled"))
-    }
-
-    private companion object {
-        const val SCRIPT = "setTimeout(function(){location.href='${ChatGPTOAuth.BACK}'},400);"
-        val CSP = "default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-" +
-            Base64.getEncoder().encodeToString(MessageDigest.getInstance("SHA-256").digest(SCRIPT.toByteArray())) + "'; base-uri 'none'; frame-ancestors 'none'"
-        const val BACK_LINK = "<p><a href=\"${ChatGPTOAuth.BACK}\">↩ Nazaj v Lani · Back to Lani</a></p>"
-
-        fun page(title: String, body: String) =
-            "<!doctype html><html lang=\"sl\"><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>Lani</title>" +
-                "<style>body{font:17px system-ui,sans-serif;max-width:32rem;margin:15vh auto;padding:24px;color:#202123}h1{font-size:24px}" +
-                "a{display:inline-block;margin-top:12px;padding:12px 18px;border-radius:12px;background:#1f6f43;color:#fff;text-decoration:none}</style>" +
-                "<h1>$title</h1>$body</html>"
     }
 }
 

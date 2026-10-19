@@ -68,6 +68,8 @@ import si.lanisce.lani.tutor.LaneSpec
 import si.lanisce.lani.tutor.Lanes
 import si.lanisce.lani.tutor.MatrixSettings
 import si.lanisce.lani.tutor.ModelCatalog
+import si.lanisce.lani.tutor.OpenRouterLinks
+import si.lanisce.lani.tutor.OpenRouterModels
 import si.lanisce.lani.tutor.Preset
 import si.lanisce.lani.tutor.ProviderId
 import si.lanisce.lani.tutor.ShadowEvent
@@ -342,11 +344,19 @@ private fun AlsoRun(shadow: ShadowTutor, e: ShadowEvent) {
 private fun models(shadow: ShadowTutor): List<String> =
     shadow.settings.listed.map { it.id }.ifEmpty { listOf("claude-haiku-5-5", "claude-sonnet-5-5", "claude-opus-5-5") }
 
-/** "Also run on"'s: the Claude key's, and with an OpenAI credential its GPT-6 and GPT-5.6 models. */
-private fun alsoModels(shadow: ShadowTutor): List<String> =
-    models(shadow) + if (shadow.openaiReady.isEmpty()) emptyList()
-    else shadow.settings.openai.listed.map { it.id }.filter { Regex("""^gpt-(6|5\.6)""").containsMatchIn(it) && ModelCatalog.openAIEfforts(it).isNotEmpty() }
+/**
+ * "Also run on"'s: the Claude key's; with an OpenAI credential its GPT-6 and GPT-5.6 models; with a Gemini key its
+ * families' own; signed in with OpenRouter, its suggestions.
+ */
+private fun alsoModels(shadow: ShadowTutor): List<String> {
+    val s = shadow.settings
+    val openai = if (shadow.openaiReady.isEmpty()) emptyList()
+    else s.openai.listed.map { it.id }.filter { Regex("""^gpt-(6|5\.6)""").containsMatchIn(it) && ModelCatalog.openAIEfforts(it).isNotEmpty() }
         .ifEmpty { Family.of(ProviderId.OPENAI).map { it.preferred.first() } }
+    val gemini = if (!shadow.geminiReady) emptyList() else Family.of(ProviderId.GEMINI).mapNotNull { ModelCatalog(s.gemini.listed).own(it) }
+    val routed = if (!shadow.openrouterReady) emptyList() else OpenRouterModels.SUGGESTED.filter { m -> s.openrouter.listed.isEmpty() || s.openrouter.listed.any { it.id == m } }
+    return models(shadow) + openai + gemini + routed
+}
 
 private fun count(n: Long) = "%,d".format(n)
 
@@ -456,7 +466,10 @@ private fun Matrix(shadow: ShadowTutor) {
     val s = shadow.settings
     val m = s.matrix
     val matrix = shadow.matrix
-    val catalogs = mapOf(ProviderId.ANTHROPIC to ModelCatalog(s.listed), ProviderId.OPENAI to ModelCatalog(s.openai.listed))
+    val catalogs = mapOf(
+        ProviderId.ANTHROPIC to ModelCatalog(s.listed), ProviderId.OPENAI to ModelCatalog(s.openai.listed),
+        ProviderId.GEMINI to ModelCatalog(s.gemini.listed), ProviderId.OPENROUTER to ModelCatalog(s.openrouter.listed),
+    )
     val today = matrix.today
     LazyColumn(Modifier.fillMaxSize().padding(horizontal = 12.dp).testTag("shadow-matrix")) {
         item {
@@ -482,10 +495,18 @@ private fun Matrix(shadow: ShadowTutor) {
                 Small("Lanes", bold = true)
                 Small(
                     "A family's model (its credential's) × the efforts it takes. ${m.lanes.size} picked; the defaults: Haiku medium to max, Sonnet low to high, " +
-                        "Opus low and medium; OpenAI's in the same places (Luna, Sol, Astra) once an OpenAI credential is set.",
+                        "Opus low and medium; OpenAI's in the same places (Luna, Sol, Astra) once an OpenAI credential is set; " +
+                        "Gemini 4 Argon at low, medium and high and 3.8 Flash at medium once a Gemini key is; OpenRouter's picks (below).",
                 )
-                for (f in Family.entries) {
-                    val openai = f.provider == ProviderId.OPENAI
+                for (f in Family.entries.filter { it != Family.ROUTED }) {
+                    if (f == Family.FLASH_LITE) {
+                        Small(
+                            if (!shadow.geminiReady) "Gemini · ⚠️ no key: keep a Google AI Studio key in Settings"
+                            else "Gemini · " + if (si.lanisce.lani.tutor.GeminiTerms.isFree(shadow.geminiTier)) "the free tier (\$0 a token, the API-equivalent shown; paced; no Argon)" else "the key",
+                            bold = true,
+                        )
+                    }
+                    val openai = f.provider != ProviderId.ANTHROPIC
                     if (openai && f == Family.LUNA) {
                         Small(
                             if (shadow.openaiReady.isEmpty()) "OpenAI · ⚠️ no credential: sign in with ChatGPT or keep an API key in Settings"
@@ -493,7 +514,11 @@ private fun Matrix(shadow: ShadowTutor) {
                             bold = true,
                         )
                     }
-                    val usable = !openai || shadow.openaiReady.isNotEmpty()
+                    val usable = when (f.provider) {
+                        ProviderId.OPENAI -> shadow.openaiReady.isNotEmpty()
+                        ProviderId.GEMINI -> shadow.geminiReady
+                        else -> true
+                    }
                     val model = catalogs.getValue(f.provider).own(f)
                     val levels = ModelCatalog.efforts(model ?: f.preferred.first())
                     Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 4.dp)) {
@@ -511,8 +536,10 @@ private fun Matrix(shadow: ShadowTutor) {
                         }
                     }
                 }
-                matrix.plan.filter { it.skipped != null }.forEach { p -> Small("⚠️ ${p.family.name.lowercase()} · ${p.effort}: skipped, ${p.skipped}") }
-                val defaults = MatrixSettings.DEFAULT_LANES + if (m.openaiOffered) MatrixSettings.OPENAI_LANES else emptyList()
+                RoutedLanes(shadow)
+                matrix.plan.filter { it.skipped != null }.forEach { p -> Small("⚠️ ${p.model ?: p.family.name.lowercase()} · ${p.effort}: skipped, ${p.skipped}") }
+                val defaults = MatrixSettings.DEFAULT_LANES + (if (m.openaiOffered) MatrixSettings.OPENAI_LANES else emptyList()) +
+                    (if (m.geminiOffered) MatrixSettings.GEMINI_LANES else emptyList()) + (if (m.openrouterOffered) MatrixSettings.OPENROUTER_LANES else emptyList())
                 if (m.lanes.toSet() != defaults.toSet()) {
                     TextButton(onClick = { shadow.updateMatrix { it.copy(lanes = defaults) } }) { Text("The defaults again") }
                 }
@@ -647,6 +674,8 @@ private fun Settings(shadow: ShadowTutor) {
             }
         }
         if (shadow.openaiAvailable) item { OpenAICard(shadow) }
+        if (shadow.geminiAvailable) item { GeminiCard(shadow) }
+        if (shadow.openrouterAvailable) item { OpenRouterCard(shadow) }
         if (shadow.debug) item {
             Card {
                 Small("🧪 QA build (debug or qa): the Messages API's base URL", bold = true)
@@ -850,6 +879,126 @@ private fun OpenAICard(shadow: ShadowTutor) {
 /** Our recommendation, in the pickers (a task's model and effort, "Also run on"'s). */
 private const val RECOMMENDED = "⭐ priporočeno · recommended"
 private const val MORE_LEVELS = "more… (xhigh, max)"
+
+/**
+ * The matrix's OpenRouter lanes: a picked model (its suggestions, then any of OpenRouter's list that takes tools) at an
+ * effort it takes, each a lane of its own ("openrouter:google/gemini-4-argon@medium").
+ */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun RoutedLanes(shadow: ShadowTutor) {
+    val s = shadow.settings
+    Small(if (!shadow.openrouterReady) "OpenRouter · ⚠️ not signed in: Continue with OpenRouter in Settings" else "OpenRouter · the learner's credits (OpenRouter's own price of each call)", bold = true)
+    val picked = s.matrix.lanes.filter { it.family == Family.ROUTED }
+    val listed = s.openrouter.listed.map { it.id }
+    var menu by remember { mutableStateOf(false) }
+    FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+        for (spec in picked) FilterChip(
+            selected = true, enabled = shadow.openrouterReady,
+            onClick = { shadow.routedLane(spec.model.orEmpty(), spec.effort, on = false) },
+            label = { Text("${spec.model} · ${spec.effort} ✕", fontSize = 12.sp) },
+        )
+        Box {
+            TextButton(enabled = shadow.openrouterReady, onClick = { menu = true }) { Text("+ a model") }
+            DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
+                (OpenRouterModels.SUGGESTED.filter { listed.isEmpty() || it in listed } + listed).distinct().take(60).forEach { m ->
+                    val levels = ModelCatalog.efforts(m).ifEmpty { listOf(Effort.NONE) }
+                    levels.filter { it !in Effort.MORE }.forEach { level ->
+                        DropdownMenuItem(text = { Text("$m · $level", fontSize = 13.sp) }, onClick = { menu = false; shadow.routedLane(m, level, on = true) })
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Gemini, direct (docs/plans/05-built/providers.md, "Gemini"): a Google AI Studio key, its tier (the free tier: $0 a
+ * token, paced, no Argon, and Google may use what's sent). For the matrix's Gemini lanes and "also run on" a Gemini
+ * model; the live tutor shares the key.
+ */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun GeminiCard(shadow: ShadowTutor) {
+    val s = shadow.settings
+    val scope = rememberCoroutineScope()
+    var key by remember { mutableStateOf("") }
+    var note by remember { mutableStateOf<String?>(null) }
+    var busy by remember { mutableStateOf(false) }
+    val free = si.lanisce.lani.tutor.GeminiTerms.isFree(shadow.geminiTier)
+    Card {
+        Small("💎 Gemini", bold = true)
+        Small("For the matrix's Gemini lanes and \"Also run on\" a Gemini model. streamGenerateContent with x-goog-api-key; the check is GET /v1beta/models: not a model call.")
+        FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            FilterChip(selected = free, onClick = { shadow.setGeminiTier(si.lanisce.lani.tutor.GeminiTerms.FREE) }, label = { Text("free tier") })
+            FilterChip(selected = shadow.geminiTier == si.lanisce.lani.tutor.GeminiTerms.PAID, onClick = { shadow.setGeminiTier(si.lanisce.lani.tutor.GeminiTerms.PAID) }, label = { Text("billing on") })
+        }
+        if (free) Small("⚠️ The free tier: Google may use what's sent to improve its products, and people may read it (the Gemini API's terms, \"Unpaid Services\"). Paced at most one call every 6 s, slower after a 429; Argon's lanes are skipped." + if (shadow.geminiTier == si.lanisce.lani.tutor.GeminiTerms.FREE_SEEN) " (A 429 named the free tier's quota.)" else "")
+        if (shadow.geminiReady) {
+            Small("Kept, encrypted with a key in the Android Keystore. ${s.gemini.listed.size} model(s) listed" + (s.gemini.exhausted?.let { " · ⚠️ $it" } ?: "") + (if (s.gemini.refused) " · ⚠️ the key was refused" else ""))
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                OutlinedButton(enabled = !busy, onClick = { busy = true; scope.launch { note = shadow.recheckGemini() ?: "✓ checked"; busy = false } }) { Text("Check again") }
+                TextButton(onClick = { shadow.removeGeminiKey(); note = "the key was removed" }) { Text("Remove") }
+            }
+        } else {
+            OutlinedTextField(
+                key, { key = it.trim() }, Modifier.fillMaxWidth().testTag("gemini-key"),
+                label = { Text("AIza…") }, singleLine = true, visualTransformation = PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            )
+            Button(enabled = key.isNotBlank() && !busy, onClick = {
+                busy = true
+                scope.launch {
+                    note = shadow.setGeminiKey(key, shadow.geminiTier)?.let { "⚠️ $it" } ?: "✓ the key works: kept"
+                    if (note?.startsWith("✓") == true) key = ""
+                    busy = false
+                }
+            }) { Text(if (busy) "Checking…" else "Check (GET /v1beta/models) and keep") }
+        }
+        note?.let { Small(it) }
+        Small("The key goes only to generativelanguage.googleapis.com, never into a log, the export, a prompt or a tool's result.")
+    }
+}
+
+/**
+ * OpenRouter (docs/plans/05-built/providers.md, "OpenRouter"): "Continue with OpenRouter" (PKCE: a key of the
+ * learner's own, billed to their credits), its list of models that take tools; the matrix's OpenRouter lanes.
+ */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun OpenRouterCard(shadow: ShadowTutor) {
+    val s = shadow.settings
+    val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+    var note by remember { mutableStateOf<String?>(null) }
+    var busy by remember { mutableStateOf(false) }
+    fun browse(url: String) = runCatching { context.startActivity(android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(url)).addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)) }
+    Card {
+        Small("🔀 OpenRouter", bold = true)
+        Small("For the matrix's OpenRouter lanes (any model of its list that takes tools). Chat completions with tools, streamed; each call priced by OpenRouter's own usage.cost. OpenRouter charges 5.5% (\$0.80 at least) on credit purchases. Claude works best directly (the 1-hour cache, per-message effort).")
+        if (shadow.openrouterReady) {
+            Small("✓ Signed in: the key kept, encrypted. ${s.openrouter.listed.size} model(s) with tools listed" + (s.openrouter.exhausted?.let { " · ⚠️ $it" } ?: "") + (if (s.openrouter.refused) " · ⚠️ the key was refused" else ""))
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                OutlinedButton(enabled = !busy, onClick = { busy = true; scope.launch { note = shadow.recheckOpenRouter() ?: "✓ checked"; busy = false } }) { Text("Check again") }
+                TextButton(onClick = { browse(OpenRouterLinks.KEYS) }) { Text("Keys on OpenRouter") }
+                TextButton(enabled = !busy, onClick = { busy = true; scope.launch { note = shadow.signOutOfOpenRouter(); busy = false } }) { Text("Sign out") }
+            }
+        } else {
+            Small("The browser opens OpenRouter's sign-in; it comes back to Lani (127.0.0.1) with a key of your own.")
+            Button(enabled = !busy, modifier = Modifier.testTag("openrouter-signin"), onClick = {
+                busy = true
+                note = null
+                scope.launch {
+                    note = shadow.signInWithOpenRouter { url -> browse(url) }?.let { "⚠️ $it" } ?: "✓ signed in"
+                    busy = false
+                }
+            }) { Text(if (busy) "…" else "Continue with OpenRouter") }
+            if (busy) TextButton(onClick = { shadow.cancelOpenRouterSignIn(); busy = false }) { Text("Cancel") }
+        }
+        note?.let { Small(it) }
+        Small("The key goes only to openrouter.ai, never into a log, the export, a prompt or a tool's result.")
+    }
+}
 
 @Composable
 private fun NumberField(label: String, value: String, onDone: (String) -> Unit) {

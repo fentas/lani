@@ -187,6 +187,9 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         // OpenAI (the matrix's OpenAI lanes, "also run on" an OpenAI model): an API key and/or "Sign in with ChatGPT",
         // each encrypted with a Keystore key of its own (docs/plans/05-built/providers.md)
         openai = si.lanisce.lani.tutor.live.TutorRuntime.openai(app),
+        // Gemini (a Google AI Studio key) and OpenRouter (its sign-in), the live tutor's vaults: their lanes and "also run on"
+        gemini = si.lanisce.lani.tutor.live.TutorRuntime.gemini(app),
+        openrouter = si.lanisce.lani.tutor.live.TutorRuntime.openrouter(app),
         // hidden while the live tutor answers: it would shadow itself
     ).also { s -> sync.onDelivered = { e -> if (!live.settings.on) s.onDelivered(e.clientId, e.path, e.body) } }
 

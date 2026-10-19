@@ -24,7 +24,9 @@ import si.lanisce.lani.phone.PhoneTransport
 import si.lanisce.lani.tutor.DataStoreSecretStore
 import si.lanisce.lani.tutor.KeyVault
 import si.lanisce.lani.tutor.KeystoreCipher
+import si.lanisce.lani.tutor.GeminiCredentials
 import si.lanisce.lani.tutor.OpenAICredentials
+import si.lanisce.lani.tutor.OpenRouterCredentials
 import java.io.File
 import java.util.concurrent.TimeUnit
 
@@ -38,6 +40,8 @@ object TutorRuntime {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
     @Volatile private var vault: KeyVault? = null
     @Volatile private var openai: OpenAICredentials? = null
+    @Volatile private var gemini: GeminiCredentials? = null
+    @Volatile private var openrouter: OpenRouterCredentials? = null
     @Volatile private var live: LiveTutor? = null
 
     /** The Claude key's vault (the Keystore's key, the DataStore's ciphertext). */
@@ -45,6 +49,12 @@ object TutorRuntime {
 
     /** The OpenAI key and the ChatGPT sign-in. */
     fun openai(app: Context): OpenAICredentials = openai ?: synchronized(this) { openai ?: OpenAICredentials.android(app.applicationContext).also { openai = it } }
+
+    /** The Gemini key and its tier (one pacer for the key: the free tier's quota is the project's). */
+    fun gemini(app: Context): GeminiCredentials = gemini ?: synchronized(this) { gemini ?: GeminiCredentials.android(app.applicationContext).also { gemini = it } }
+
+    /** The OpenRouter sign-in's key. */
+    fun openrouter(app: Context): OpenRouterCredentials = openrouter ?: synchronized(this) { openrouter ?: OpenRouterCredentials.android(app.applicationContext).also { openrouter = it } }
 
     /** The client to the phone's own bridge (the hosted mode): every call in-process ([PhoneLink]), booting it when it isn't up. */
     private fun phoneClient(app: Context) = PhoneLink.client {
@@ -70,6 +80,8 @@ object TutorRuntime {
             // the learner's GitHub sign-in, as git sync keeps it: report_problem posts to Lani's discussions with it
             githubToken = { runCatching { si.lanisce.lani.sync.KeystoreBox(app.applicationContext).get(si.lanisce.lani.sync.SecretBox.GIT_TOKEN) }.getOrNull() },
             nightOk = { StudioWork.nightOk(app) },
+            gemini = gemini(app),
+            openrouter = openrouter(app),
         ).also { t ->
             t.photo = { id -> File(app.filesDir, "chat-photos/$id.jpg").takeIf { it.isFile } }
             t.schedule = { on, now -> TutorWork.schedule(app, on, now) }

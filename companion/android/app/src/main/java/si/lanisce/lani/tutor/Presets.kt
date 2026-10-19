@@ -57,24 +57,66 @@ enum class Task(val family: Family, val effort: String, val maxTokens: Int) {
  * flagship model for complex reasoning and coding".
  */
 @Serializable
-enum class Family(val provider: ProviderId, val tier: Int, val preferred: List<String>, val match: String) {
+enum class Family(val provider: ProviderId, val tier: Int, val preferred: List<String>, val match: String, private val unless: String? = null) {
     HAIKU(ProviderId.ANTHROPIC, 0, listOf("claude-haiku-5-5"), "haiku"),
     SONNET(ProviderId.ANTHROPIC, 1, listOf("claude-sonnet-5-5", "claude-sonnet-5"), "sonnet"),
     OPUS(ProviderId.ANTHROPIC, 2, listOf("claude-opus-5-5", "claude-opus-5"), "opus"),
     LUNA(ProviderId.OPENAI, 0, listOf("gpt-6-luna"), "luna"),
     SOL(ProviderId.OPENAI, 1, listOf("gpt-6.1-sol", "gpt-6-sol"), "sol"),
-    ASTRA(ProviderId.OPENAI, 2, listOf("gpt-6-astra"), "astra");
+    ASTRA(ProviderId.OPENAI, 2, listOf("gpt-6-astra"), "astra"),
 
-    /** "Haiku", "Sol". */
-    val label: String get() = name.lowercase().replaceFirstChar { it.uppercase() }
+    /**
+     * Gemini's (the models page, ai.google.dev/gemini-api/docs/models, checked 2026-10-19): 3.5 Flash-Lite (free
+     * tier), 3.8 Flash (free tier; 3.6 Flash the one before), 4 Argon (no free tier).
+     */
+    FLASH_LITE(ProviderId.GEMINI, 0, listOf("gemini-3.5-flash-lite", "gemini-3.1-flash-lite"), "flash-lite"),
+    FLASH(ProviderId.GEMINI, 1, listOf("gemini-3.8-flash", "gemini-3.6-flash"), "flash", unless = "lite"),
+    ARGON(ProviderId.GEMINI, 2, listOf("gemini-4-argon"), "argon"),
+
+    /**
+     * A model the learner picked from OpenRouter's list (a matrix lane's [LaneSpec.model], a task's model): OpenRouter
+     * has no families of its own; its tiers are [OpenRouterModels.DEFAULTS].
+     */
+    ROUTED(ProviderId.OPENROUTER, 1, listOf(OpenRouterModels.FLASH), "/");
+
+    /** "Haiku", "Sol", "Flash-Lite". */
+    val label: String get() = name.lowercase().split('_').joinToString("-") { it.replaceFirstChar { c -> c.uppercase() } }
+
+    /** Whether [model]'s id names this family. */
+    fun matches(model: String): Boolean = model.contains(match) && (unless == null || !model.contains(unless))
 
     companion object {
         /** [provider]'s families, small to top. */
         fun of(provider: ProviderId): List<Family> = entries.filter { it.provider == provider }
 
-        /** The family [model] belongs to (its id names it), or null. */
-        fun ofModel(model: String): Family? = entries.firstOrNull { model.contains(it.match) }
+        /** The family [model] belongs to (its id names it, of its own provider), or null. */
+        fun ofModel(model: String): Family? = ProviderId.of(model).let { p -> entries.firstOrNull { it.provider == p && it.matches(model) } }
     }
+}
+
+/**
+ * OpenRouter's models as the tutor offers them (openrouter.ai/api/v1/models, the live list read 2026-10-19; the learner
+ * picks from the list filtered to tool use): the defaults per tier and the suggestions shown first. No open model's card
+ * there documents Slovene (Gemma 4, Qwen 3.5, Mistral Small name many languages, not Slovene; CJVT's Slovene GaMS models
+ * aren't on OpenRouter), so none is a default.
+ */
+object OpenRouterModels {
+    const val ARGON = "google/gemini-4-argon"
+    const val FLASH = "google/gemini-3.8-flash"
+    const val FLASH_LITE = "google/gemini-3.5-flash-lite"
+    const val SOL = "openai/gpt-6.1-sol"
+    const val LUNA = "openai/gpt-6-luna"
+    const val SONNET = "anthropic/claude-sonnet-5.5"
+    const val GEMMA = "google/gemma-4-31b-it"
+
+    /** A tier's default (small, mid, top): GPT-6 Luna, Gemini 3.8 Flash, Gemini 4 Argon. */
+    val DEFAULTS = listOf(LUNA, FLASH, ARGON)
+
+    /** Shown first in the picker, in this order (the rest of the list after them). */
+    val SUGGESTED = listOf(ARGON, FLASH, FLASH_LITE, SOL, LUNA, SONNET, GEMMA)
+
+    /** The default of [tier] (0 small, 1 mid, 2 top). */
+    fun forTier(tier: Int): String = DEFAULTS[tier.coerceIn(0, 2)]
 }
 
 /**
@@ -106,7 +148,7 @@ class ModelCatalog(val listed: List<ModelInfo>) {
         val newest = listed.sortedByDescending { it.createdAt.orEmpty() }
         for (family in Family.of(f.provider).filter { it.tier >= f.tier }) {
             family.preferred.firstOrNull { it in ids }?.let { return it }
-            newest.firstOrNull { it.id.contains(family.match) && !legacy(it.id) }?.let { return it.id }
+            newest.firstOrNull { family.matches(it.id) && !legacy(it.id) }?.let { return it.id }
         }
         return newest.firstOrNull { !legacy(it.id) }?.id ?: newest.first().id
     }
@@ -120,7 +162,7 @@ class ModelCatalog(val listed: List<ModelInfo>) {
         if (listed.isEmpty()) return f.preferred.first()
         val ids = listed.map { it.id }.toSet()
         return f.preferred.firstOrNull { it in ids }
-            ?: listed.sortedByDescending { it.createdAt.orEmpty() }.firstOrNull { it.id.contains(f.match) && !legacy(it.id) }?.id
+            ?: listed.sortedByDescending { it.createdAt.orEmpty() }.firstOrNull { f.matches(it.id) && !legacy(it.id) }?.id
     }
 
     /** The model of [task]: the panel's override for it when the key lists it, else the preset's. */
@@ -141,6 +183,8 @@ class ModelCatalog(val listed: List<ModelInfo>) {
          */
         fun efforts(model: String): List<String> = when {
             ProviderId.of(model) == ProviderId.OPENAI -> openAIEfforts(model)
+            ProviderId.of(model) == ProviderId.GEMINI -> geminiLevels(model)
+            ProviderId.of(model) == ProviderId.OPENROUTER -> routedEfforts(model)
             !adaptive(model) -> emptyList()
             Regex("""claude-(opus-4-6|sonnet-4-6|mythos-preview)""").containsMatchIn(model) -> Effort.LEVELS - Effort.XHIGH
             else -> Effort.LEVELS
@@ -161,6 +205,38 @@ class ModelCatalog(val listed: List<ModelInfo>) {
                 Regex("""^gpt-5\.5(-|$)""").containsMatchIn(model) && !model.contains("pro") -> listOf(Effort.NONE, Effort.LOW, Effort.MEDIUM, Effort.HIGH, Effort.XHIGH)
                 Regex("""^(gpt-5|o\d)""").containsMatchIn(model) && !model.contains("chat") -> listOf(Effort.LOW, Effort.MEDIUM, Effort.HIGH)
                 else -> emptyList()
+            }
+        }
+
+        /**
+         * Gemini's `thinkingLevel` per model (the thinking guide and the model pages, ai.google.dev, checked 2026-10-19):
+         * 4 Argon and 3.8 Flash low, medium (their default), high ("`minimal` is not supported and returns an error";
+         * thinking can't be turned off); 3.6 Flash, 3.5 and 3.1 Flash-Lite minimal to high (Flash-Lite's default
+         * minimal). Another Gemini 3 or 4 model: low, medium, high. Gemini 2.5 takes a budget, not a level: none here.
+         */
+        fun geminiLevels(model: String): List<String> {
+            val m = model.substringAfter('/')
+            return when {
+                Regex("""^gemini-(3\.6-flash|3\.\d+-flash-lite)""").containsMatchIn(m) -> listOf(Effort.MINIMAL, Effort.LOW, Effort.MEDIUM, Effort.HIGH)
+                Regex("""^gemini-([3-9]|\d{2,})""").containsMatchIn(m) -> listOf(Effort.LOW, Effort.MEDIUM, Effort.HIGH)
+                else -> emptyList()
+            }
+        }
+
+        /**
+         * The `reasoning.effort` levels OpenRouter takes for [model] (its reasoning guide: max, xhigh, high, medium, low,
+         * minimal, none; per model GET /models's `reasoning.supported_efforts`): the list's when it was read
+         * ([RoutedModels]), else the vendor's own levels (Gemini's, OpenAI's, Claude's), else low, medium, high.
+         */
+        fun routedEfforts(model: String): List<String> {
+            RoutedModels.efforts(model)?.let { return it }
+            val vendor = model.substringBefore('/')
+            val id = model.substringAfter('/').substringBefore(':')
+            return when (vendor) {
+                "google" -> geminiLevels(id)
+                "openai" -> openAIEfforts(id)
+                "anthropic" -> if (adaptive(id.replace('.', '-'))) Effort.LEVELS else emptyList()
+                else -> listOf(Effort.LOW, Effort.MEDIUM, Effort.HIGH)
             }
         }
 
@@ -188,6 +264,9 @@ class ModelCatalog(val listed: List<ModelInfo>) {
         fun defaultEffort(model: String): String? = when {
             efforts(model).isEmpty() -> null
             ProviderId.of(model) == ProviderId.OPENAI -> Effort.MEDIUM
+            // Gemini: medium on Argon and 3.8 Flash, minimal on Flash-Lite (the thinking guide)
+            ProviderId.of(model) == ProviderId.GEMINI -> if (model.contains("flash-lite")) Effort.MINIMAL else Effort.MEDIUM
+            ProviderId.of(model) == ProviderId.OPENROUTER -> RoutedModels.defaultEffort(model) ?: Effort.MEDIUM
             Regex("""claude-(opus-5-5|haiku-5-5)(-|$)""").containsMatchIn(model) -> Effort.MEDIUM
             else -> Effort.HIGH
         }
@@ -225,7 +304,17 @@ data class Price(
     val longAbove: Long? = null,
     val longFactor: Double = 1.0,
     val longOutputFactor: Double? = null,
+    /**
+     * The days it holds, as ISO dates, both included (null: open): an introductory price ends ([until]: Gemini 4 Argon's
+     * $2 / $10 "through November 30, 2026"), the next row begins ([from]: "$4.00 starting December 1, 2026").
+     */
+    val from: String? = null,
+    val until: String? = null,
 ) {
+    /** Whether it holds on [day] (UTC). */
+    fun holds(day: java.time.LocalDate): Boolean =
+        (from == null || !day.isBefore(java.time.LocalDate.parse(from))) && (until == null || !day.isAfter(java.time.LocalDate.parse(until)))
+
     /** The dollars [u] costs. */
     fun of(u: Usage): Double {
         val long = longAbove != null && u.prompt > longAbove
@@ -241,23 +330,46 @@ data class Price(
  */
 data class Priced(val cost: Double?, val apiEquivalent: Double? = null)
 
-/** The bundled price table (companion/tutor/prices.json), by model id; a model it lacks is priced by its family. */
-class Prices(private val byModel: Map<String, Price>) {
-    fun of(model: String): Price? = byModel[model]
-        ?: Family.ofModel(model)?.let { f -> f.preferred.firstNotNullOfOrNull(byModel::get) }
+/**
+ * The bundled price table (companion/tutor/prices.json), by model id; a model it lacks is priced by its family. A model
+ * may have rows for spans of days ([Price.from], [Price.until]): the row of the call's day ([clock], UTC) prices it.
+ */
+class Prices(private val rows: List<Price>, private val clock: () -> Long = System::currentTimeMillis) {
+    constructor(byModel: Map<String, Price>) : this(byModel.values.toList())
+
+    private val byModel: Map<String, List<Price>> = rows.groupBy { it.model }
+
+    private fun row(model: String, day: java.time.LocalDate): Price? = byModel[model]?.let { r -> r.firstOrNull { it.holds(day) } ?: r.last() }
+
+    fun of(model: String): Price? {
+        val day = java.time.Instant.ofEpochMilli(clock()).atZone(java.time.ZoneOffset.UTC).toLocalDate()
+        row(model, day)?.let { return it }
+        // an OpenRouter model without its reported cost: the vendor's own row (google/gemini-4-argon: gemini-4-argon;
+        // anthropic/claude-sonnet-5.5: claude-sonnet-5-5)
+        if (model.contains('/')) {
+            val own = model.substringAfter('/').substringBefore(':')
+            return (row(own, day) ?: row(own.replace('.', '-'), day))
+                ?: of(own).takeIf { ProviderId.of(own) != ProviderId.OPENROUTER }
+        }
+        return Family.ofModel(model)?.let { f -> f.preferred.firstNotNullOfOrNull { row(it, day) } }
+    }
 
     /** What [u] on [model] costs, or null when nothing prices it. */
     fun cost(model: String, u: Usage): Double? = of(model)?.of(u)
 
     /**
-     * What [u] on [model] cost paid by [billing]: its price; with the ChatGPT plan nothing ($0: the plan pays), and the
-     * price as its API-equivalent.
+     * What [u] on [model] cost paid by [billing]: its price; with the ChatGPT plan or the Gemini free tier nothing ($0),
+     * and the price as its API-equivalent; with OpenRouter's credits the price OpenRouter reported ([reported], its
+     * `usage.cost`), else the table's.
      */
-    fun priced(model: String, u: Usage, billing: String): Priced =
-        if (billing == Billing.CHATGPT_PLAN) Priced(0.0, cost(model, u)) else Priced(cost(model, u))
+    fun priced(model: String, u: Usage, billing: String, reported: Double? = null): Priced = when {
+        Billing.free(billing) -> Priced(0.0, cost(model, u))
+        reported != null -> Priced(reported)
+        else -> Priced(cost(model, u))
+    }
 
     companion object {
-        fun parse(raw: String): Prices {
+        fun parse(raw: String, clock: () -> Long = System::currentTimeMillis): Prices {
             val o = tutorJson.parseToJsonElement(raw) as JsonObject
             val list = (o["models"] as? JsonArray).orEmpty().mapNotNull { e ->
                 val m = e as? JsonObject ?: return@mapNotNull null
@@ -272,9 +384,11 @@ class Prices(private val byModel: Map<String, Price>) {
                     longAbove = (m["long_above"] as? JsonPrimitive)?.longOrNull,
                     longFactor = d("long_factor") ?: 1.0,
                     longOutputFactor = d("long_output_factor"),
+                    from = m.str("from"),
+                    until = m.str("until"),
                 )
             }
-            return Prices(list.associateBy { it.model })
+            return Prices(list, clock)
         }
 
         /** The bundled table, from the app's resources. */

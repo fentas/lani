@@ -26,20 +26,49 @@ import kotlinx.serialization.json.put
 @Serializable
 enum class ProviderId(val id: String) {
     ANTHROPIC("anthropic"),
-    OPENAI("openai");
+    OPENAI("openai"),
+    /** Google's Gemini API, direct, with a Google AI Studio key ([GeminiProvider]). */
+    GEMINI("gemini"),
+    /** OpenRouter, "one sign-in, every model": its ids name the vendor (google/gemini-4-argon) ([OpenRouterProvider]). */
+    OPENROUTER("openrouter");
+
+    /** "Anthropic", "OpenAI", "Gemini", "OpenRouter". */
+    val label: String get() = when (this) {
+        ANTHROPIC -> "Anthropic"
+        OPENAI -> "OpenAI"
+        GEMINI -> "Gemini"
+        OPENROUTER -> "OpenRouter"
+    }
 
     companion object {
         private val OPENAI_MODEL = Regex("""^(gpt-|o\d|chatgpt-|codex-)""")
 
-        /** The provider of [model]: OpenAI's ids (gpt-…, o3, chatgpt-…, codex-…), else Anthropic's (claude-…). */
-        fun of(model: String): ProviderId = if (OPENAI_MODEL.containsMatchIn(model)) OPENAI else ANTHROPIC
+        /**
+         * The provider of [model]: OpenRouter's ids name their vendor (`google/gemini-4-argon`, `openai/gpt-6.1-sol`),
+         * Gemini's begin with gemini-, OpenAI's with gpt-, o3, chatgpt-, codex-; else Anthropic's (claude-…).
+         */
+        fun of(model: String): ProviderId = when {
+            model.contains('/') -> OPENROUTER
+            model.startsWith("gemini-") -> GEMINI
+            OPENAI_MODEL.containsMatchIn(model) -> OPENAI
+            else -> ANTHROPIC
+        }
     }
 }
 
-/** How a call is paid: an API key (the learner pays per token), or the learner's ChatGPT plan (no per-token cost). */
+/**
+ * How a call is paid: an API key (the learner pays per token), the learner's ChatGPT plan (no per-token cost), the
+ * Gemini API's free tier (no per-token cost; Google may use what's sent: [GeminiTerms]), OpenRouter's credits (the
+ * price OpenRouter reports for each call).
+ */
 object Billing {
     const val API_KEY = "api_key"
     const val CHATGPT_PLAN = "chatgpt_plan"
+    const val FREE_TIER = "free_tier"
+    const val OPENROUTER = "openrouter_credits"
+
+    /** Whether calls paid by [billing] cost the learner nothing per token (the API-equivalent is kept beside them). */
+    fun free(billing: String): Boolean = billing == CHATGPT_PLAN || billing == FREE_TIER
 }
 
 /** Why a response stopped, in the loop's words (the Messages API's; OpenAI's are mapped onto them). */
@@ -81,6 +110,8 @@ data class Step(
     val kept: List<JsonObject> = emptyList(),
     val inputTransformations: String? = null,
     val rawUsage: RawUsage = RawUsage(),
+    /** What the provider says the call cost, in dollars (OpenRouter's `usage.cost`); null: priced by the table. */
+    val cost: Double? = null,
 )
 
 /**
@@ -150,19 +181,28 @@ interface ThreadFormat {
         fun of(model: String): ThreadFormat = when (ProviderId.of(model)) {
             ProviderId.ANTHROPIC -> AnthropicFormat
             ProviderId.OPENAI -> OpenAIFormat
+            ProviderId.GEMINI -> GeminiFormat
+            ProviderId.OPENROUTER -> ChatFormat
         }
     }
 }
 
-/** What reads a thread of either provider (the loop's callers: records, restarts, the panel). */
+/** What reads a thread of any provider (the loop's callers: records, restarts, the panel). */
 object Threads {
-    /** Whether the model answered anything in [messages] (an assistant message, a reasoning item, a function call). */
-    fun answered(messages: List<JsonObject>): Boolean = messages.any { it.role() == "assistant" || it.str("type") in OUTPUT }
+    /**
+     * Whether the model answered anything in [messages] (an assistant message, a reasoning item, a function call, a
+     * Gemini model turn).
+     */
+    fun answered(messages: List<JsonObject>): Boolean = messages.any { it.role() == "assistant" || it.role() == "model" || it.str("type") in OUTPUT }
 
-    /** The model's visible text in [items] (the Messages API's text blocks, the Responses API's output_text parts). */
+    /**
+     * The model's visible text in [items] (the Messages API's text blocks, the Responses API's output_text parts, chat
+     * completions' content, a Gemini model turn's text parts but its thoughts).
+     */
     fun text(items: List<JsonObject>): String =
-        items.filter { it.role() == "assistant" }.flatMap { it.blocks() }.filter { it.str("type") == "text" || it.str("type") == "output_text" }
-            .joinToString("\n") { it.str("text").orEmpty() }
+        (items.filter { it.role() == "assistant" }.flatMap { it.blocks() }.filter { it.str("type") == "text" || it.str("type") == "output_text" }.map { it.str("text").orEmpty() } +
+            items.filter { it.role() == "model" }.flatMap { GeminiFormat.parts(it) }.filter { it.str("text").orEmpty().isNotEmpty() && it["thought"]?.toString() != "true" }.map { it.str("text").orEmpty() })
+            .joinToString("\n")
 
     private val OUTPUT = setOf("reasoning", "function_call")
 }
