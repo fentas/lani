@@ -49,21 +49,26 @@ the host: __lani (fs on roots, crypto, fetch over OkHttp, timers, clock, log, en
   (`host.chunk`), until it ends (`host.end`) or the app lets go (the Flow's collector stops: `__laniPhone.cancel(id)`
   aborts the request's signal, as a closed connection would).
 - **Features' start()** runs once, after the bundle's boot: the rhythm's timers, the scenes' variants, the stories,
-  the dictionary download (only for a language the content lacks), the dev data's pruning. The events are kept in
-  `<data>/app/events.json` across the app's restarts, as the bridge service keeps them.
+  the dictionary download (only for a language the content lacks), the dev data's pruning; then the town's relay
+  client (`ctx.relay?.start()`, relay.ts), which is there only when the hosted setup sets `LANI_RELAY_URL` (and
+  `LANI_TOWN_URL=relay`), unset by default. The events are kept in `<data>/app/events.json` across the app's restarts,
+  as the bridge service keeps them.
+- **The culture check** (`validateCulture`, which only logs what's wrong with the pack) is left out on the phone
+  (`Platform.checkCulture`; `LANI_CULTURE_CHECK=1` turns it on): the APK's content was checked when it was built, and
+  in QuickJS the check was most of the boot.
 
 ### The learner-data scripts
 
-A node runs `.claude/hooks/{read-db,update-db,card,validate-data}.py` with Python (`config.ts spawn`, through
-`Bun.spawnSync`). On the phone, `Bun.spawnSync`, `Bun.spawn` and `child_process.spawnSync` go to a dispatcher
-(`phone/shims/scripts.ts`):
+A node runs `.claude/hooks/{read-db,update-db,card,validate-data,ensure_data_dir}.py` with Python (`config.ts
+spawn`, through `Bun.spawnSync`). On the phone, `Bun.spawnSync`, `Bun.spawn` and `child_process.spawnSync` go to a
+dispatcher (`phone/shims/scripts.ts`):
 
-- `python3 .claude/hooks/<name>.py …` runs the function registered for `<name>` (`registerScript(name, run)`, with
-  the db port's contract `run(argv, stdin, env) → {status, stdout, stderr}`). **The db port** (`companion/bridge/src/db/
-  cli.ts`, branch db-port) is registered in one marked spot of `src/phone/entry.ts` ("WIRE THE DB PORT HERE") when it
-  is merged; until then such a script answers status 127, "<name>.py is not on this device", and the routes that need
-  it fail with a 500 (`/state`, `/reviews`, `POST /words`, `/packs/:id/learn` and the others that read or write the
-  databases: [below](#what-isnt-on-the-phone-yet)).
+- `python3 .claude/hooks/<name>.py …` runs the function registered for `<name>` (`registerScript(name, run)`):
+  `src/phone/entry.ts` registers the five scripts of **the db port** (`src/db/cli.ts` `run(script, argv, stdin, env,
+  {cwd})`, [db-port.md](db-port.md)), synchronously, in the spawn's own working directory and environment. No hooks:
+  the Python's commit of a data repository (`afterWrite`) has no git to go to on the phone; the backup takes its place.
+- `python3 -c "… from lani_paths import data_dir; print(data_dir())"` (learners.ts) answers the port's `dataDirFor`.
+  Another `-c` or another script: Python's own error (status 2).
 - `git …` answers as outside a repository (status 128, "fatal: not a git repository"): the bridge leaves the data's
   git alone (`ignore.ts`, the dev data's `.gitignore`).
 - Any other program isn't there: ENOENT, as on a machine without it.
@@ -71,7 +76,7 @@ A node runs `.claude/hooks/{read-db,update-db,card,validate-data}.py` with Pytho
 ## The bundle: `companion/bridge/phone/`
 
 `bun phone/build.ts [--out <dir>] [--debug]` bundles `src/phone/entry.ts` into one script, `bridge-phone.js` (an IIFE,
-target browser). **829.7 KB minified, 281.7 KB gzipped** (1.48 MB unminified); it builds in under a second.
+target browser). **943 KB minified, 320 KB gzipped** (the db port is 102 KB of it); it builds in under a second.
 
 - **Aliases** (`phone/shims/`, over the host `globalThis.__lani`, `shims/host.ts`): `node:fs` (and `fs/promises`),
   `path`, `os`, `crypto`, `util`, `zlib`, `url`, `child_process`; `bun:sqlite` is a stub that says why. Anything else of
@@ -194,29 +199,35 @@ read at run time: `companion/tutor` (the app bundles it), `LEARNING_SYSTEM.md`, 
   compressed in the APK).
 - **On the phone:** `Unpacker` copies them to `<filesDir>/lani/project` when the app's version (name and code) or the
   content's hash differs from the last copy's (`.lani-unpacked`), into `project.new` first, which then takes the old
-  one's place, so the bridge never reads half of one: 181 ms on the emulator.
+  one's place, so the bridge never reads half of one: 125–181 ms on the emulator.
 
 ## Tests
 
 On the JVM (quickjs-kt's JVM build, the same QuickJS), with the real bundle (`phoneBridgeBundle`), the learner data
 from data-examples' templates and the repository as the project (read only):
 
-- `PhoneBridgeTest` (20; 4 ignored until the db port is wired): `/health`; a wrong token's 401; `GET /packs` and a
-  pack; `/modules`, `/grammar`; `/lookup?w=hiša`, `/forms`; `GET /game`, `PUT /game` (and its 409 for a stale rev);
-  `/state` fails cleanly without the scripts; `POST /message` (the channel's event: its meta, the text, the reply
-  line, the guide asked for once, a `</channel>` made harmless); `GET /events` (an event the reply tool puts there
-  arrives on the stream; the stream ends with the collector); the tools (`channel_guide` first, the same names, order,
-  descriptions and schemas as `companion/tutor/tools`, exported from a node), `get_village`, `publish_gloss` then a
-  lookup that shows it, an unknown tool; voice_status's "no voices on this device", `/voice/say`'s 204 and the voice
-  profiles; the instructions and the guide; the bridge key (PKCS#8, sign and verify, Q = d·G against Java's own); the
-  file roots (EACCES, EROFS, ENOENT, EEXIST); the bundle from bytecode. Ignored, with the reason: `GET /state`,
-  `POST /reviews`, `POST /words`, `POST /packs/:id/learn` (they need read-db.py and update-db.py: the db port).
-- `PhoneBridgeNodeTest` (23): a node bridge (`bun src/index.ts`, classic, its MCP channel initialized over stdio) on
-  127.0.0.1:19110 on a copy of the same data, against the phone's: `/packs`, a pack, `/modules`, `/grammar`, `/cards`,
-  `/course`, `/drills`, `/scenarios`, `/scenes`, `/villagers`, `/stories`, `/readings`, `/culture`, `/cultures`,
-  `/lookup` (a noun, a verb's form), `/forms`, `/voice/profiles`, `/game`, `/health`, `/arrivals`, `/words` give the
-  same status and the same JSON; and one `POST /message` reaches both channels with the same content and meta (but
-  the msg_id). Skipped without bun or python3.
+- `PhoneBridgeTest` (19): `/health`; a wrong token's 401; every one of the app's 36 GET routes (the event stream
+  aside) answers without a 5xx; `GET /packs` and a pack, `POST /packs/:id/learn` (its word a card in `/state`);
+  `/modules`, `/grammar`; `/lookup?w=hiša`, `/forms`; `GET /game`, `PUT /game` (and its 409 for a stale rev); `GET
+  /state` (read-db's six databases, in TypeScript); `POST /words` then `POST /reviews` (update-db: the card, its
+  repetition, its review day); `POST /message` (the channel's event: its meta, the text, the reply line, the guide
+  asked for once, a `</channel>` made harmless); `GET /events` (an event the reply tool puts there arrives on the
+  stream; the stream ends with the collector); the tools (`channel_guide` first, the same names, order, descriptions
+  and schemas as `companion/tutor/tools`, exported from a node), `get_village`, `publish_gloss` then a lookup that
+  shows it, an unknown tool; voice_status's "no voices on this device", `/voice/say`'s 204 and the voice profiles;
+  the instructions and the guide; the bridge key (PKCS#8, sign and verify, Q = d·G against Java's own); the file
+  roots (EACCES, EROFS, ENOENT, EEXIST); the bundle from bytecode.
+- `PhoneBridgeNodeTest` (25): a node bridge (`bun src/index.ts`, classic, its MCP channel initialized over stdio, the
+  Python scripts) on 127.0.0.1:19110 over the repository, against the phone's over the content the APK carries
+  (`phoneProject`'s output), each on its own copy of the same templates: `/packs`, a pack, `/modules`, `/grammar`,
+  `/cards`, `/course`, `/drills`, `/scenarios`, `/scenes`, `/villagers`, `/stories`, `/readings`, `/culture`,
+  `/cultures`, `/lookup` (a noun, a verb's form), `/forms`, `/voice/profiles`, `/game`, `/health`, `/arrivals`,
+  `/words` give the same status and the same JSON; `/state` (read-db.py against its port) is the same but for the
+  paths; a word and its review (update-db.py against its port) give the same answers and leave the same card; one
+  `POST /message` reaches both channels with the same content and meta (but the msg_id). Skipped without bun or
+  python3.
+- The smoke's `phone` section: the bundle builds, nothing of Node or Bun is left in it, and its URL,
+  URLSearchParams, Buffer and path shims answer as Bun's own (`test/phone-shims.ts`).
 
 ```bash
 cd companion/android && ./gradlew :app:testDebugUnitTest --tests 'si.lanisce.lani.phone.*'
@@ -234,47 +245,50 @@ adb logcat -s PhoneBridgeProbe LaniBridge      # the result, also in <filesDir>/
 
 ## The numbers
 
-The x86_64 emulator (Android 16, API 36) on a desktop CPU, a debug build, 2026-10-18 (an arm64 phone is likely 2–4×
-slower for QuickJS, as phase 0 estimated):
+The x86_64 emulator (Android 16, API 36) on a desktop CPU, 2026-10-19, the debug build and the qa build (the release
+build's R8 and rules, with the probe); an arm64 phone is likely 2–4× slower for QuickJS, as phase 0 estimated:
 
-| | Emulator | JVM (the same machine) |
-|---|---|---|
-| Unpacking the content (549 files, 11.7 MB), first time | 181 ms | |
-| The bundle compiled and run | 237 ms | 227–354 ms |
-| The bundle from its bytecode | 57 ms | 70–84 ms |
-| The boot: the bridge built (stores, culture check, 33 features), start() | 1,017–1,061 ms | 1,003–1,156 ms |
-| The first `GET /state` | 4 ms (a 500: the db port isn't wired) | |
-| The first `/lookup?w=hiša` (the dictionary read) | 251 ms | |
-| The next lookup | 7 ms | |
-| `GET /packs` (58 KB) | 87 ms | |
-| `POST /message` to the channel's event | 3 ms | |
-| QuickJS's heap after a lookup | 66 MB allocated, 35.6 MB used, 223,000 objects | |
-| The app's PSS, before and after | 98.7 → 174.4 MB (+76 MB) | |
+| | Emulator, debug | Emulator, qa (R8) | JVM (the same machine) |
+|---|---|---|---|
+| Unpacking the content (549 files, 11.7 MB), first time | 173 ms | 125 ms | |
+| The bundle compiled and run | 276 ms | 457 ms | 226–280 ms |
+| The bundle from its bytecode | 67 ms | 83 ms | 48–69 ms |
+| The boot: the bridge built (33 features), start() | 116–148 ms | 128–157 ms | 70–96 ms |
+| The first `GET /state` (read-db in TypeScript, new data) | 11 ms | 7 ms | |
+| The first `/lookup?w=hiša` (the dictionary read: 1.8 MB) | 274 ms | 213 ms | |
+| The next lookup | 9 ms | 7 ms | |
+| `GET /packs` (58 KB) | 98 ms | 70 ms | |
+| `POST /message` to the channel's event | 4 ms | 1 ms | |
+| `POST /words` (update-db: a card), each of 20 | 12 ms | 7 ms | |
+| `POST /reviews` of those 20 (update-db, a mid-size session) | 43 ms | 29 ms | |
+| `GET /state` with the 20 cards (16 KB) | 14 ms | 11 ms | |
+| QuickJS's heap at the end | 45.7 MB allocated, 30.8 MB used, 180,000 objects | the same | |
+| The app's PSS, before and after (the qa run started cold) | 98.9 → 150.3 MB | 17.3 → 142.9 MB | |
 
-On a node (Bun, the same machine) the bridge builds in 447 ms: QuickJS's boot is about twice as slow.
+The boot was about a second before the culture check left it (1,017–1,061 ms on the emulator): on a node (Bun) the
+whole buildBridge takes 342 ms, 300 of them the check.
 
-**The APK** (debug: arm64-v8a and x86_64; release: arm64-v8a, R8), before (71d4595) and after:
+**The APK** (debug: arm64-v8a and x86_64; release: arm64-v8a, R8), before (71d4595, where this branch began) and
+after (rebased on main with the db port and the relay):
 
 | | Before | After | |
 |---|---|---|---|
-| Debug | 54,073,789 B (51.6 MB) | 59,686,983 B (56.9 MB) | +5.6 MB |
-| Release | 19,025,962 B (18.1 MB) | 23,411,990 B (22.3 MB) | +4.4 MB |
+| Debug | 54,073,789 B (51.6 MB) | 60,101,196 B (57.3 MB) | +5.7 MB |
+| Release | 19,025,962 B (18.1 MB) | 23,451,110 B (22.4 MB) | +4.4 MB |
 
-In the release APK: the content 3.5 MB compressed (11.7 MB), the bundle 0.28 MB (0.85 MB), QuickJS's library 0.41 MB
-(0.9 MB), the rest the Kotlin. In the debug APK the content is 4.1 MB, the bundle 0.33 MB, the library 0.45 MB a
-processor type (two).
+In the release APK: the content 3.5 MB compressed (11.7 MB), the bundle 0.32 MB (0.94 MB), QuickJS's library 0.41 MB
+(0.9 MB), the rest the Kotlin. In the debug APK the content is 4.1 MB, the library 0.45 MB a processor type (two).
 
 ## What isn't on the phone (yet)
 
-- **The learner-data scripts** until the db port is registered (above): what reads or writes the six databases
-  (`/state`, `/reviews`, `/readings/done`, `/level`, `POST /words`, `/packs/:id/learn`, `/counting`, `/forms-cards`)
-  fails with a 500; the rhythm's routines, the scenes' variants and the stories' check, which read the state, log why
-  and do nothing.
+- **The data repository's commits:** update-db.py commits and pushes a learner's data repository; on the phone the
+  port's `afterWrite` hook is left out (no git there): the backup takes its place.
 - **Voices:** no voice store, no ElevenLabs, no Gepard: the phone's text-to-speech (glas, plan 3, later). Recordings
   for the family aren't levelled (no ffmpeg).
 - **The MCP server, the control socket, the shim:** the in-app tutor is the channel. No tool approvals.
-- **The HTTP server:** the app calls the routes in-process; the family page and other towns can't reach a phone
-  (towns and family through the relay: phase D). Outgoing requests (a visit, a town's hello) go out through fetch.
+- **The HTTP server:** the app calls the routes in-process; the family page and other towns reach a phone's town only
+  through the relay (relay.ts, started with the features when `LANI_RELAY_URL` is set: the hosted setup's to set).
+  Outgoing requests (a visit, a town's hello) go out through fetch.
 - **The pairing QR code, tailscale, git, lani-setup:** the CLIs aren't in the bundle. `git` answers "not a git
   repository".
 - **Speech recognition** (the node's Whisper worker at `LANI_STT_URL`): its routes say it's down; the phone's
@@ -291,12 +305,10 @@ processor type (two).
 ## What's left
 
 - Wire the hosted mode into the app (the screens, the setup, the in-process transport): another change, on this API.
-- Register the db port at merge (`src/phone/entry.ts`), and un-ignore the four tests.
-- The boot takes about a second on the emulator (more on a phone): the culture pack's check (`validateCulture`, which
-  only logs) could run after the first answers; the bundle could leave out the node's voice store (split
-  `voice.ts`'s shared helpers from its store: about 100 KB).
+- The relay on the phone, tried end to end (a hosted town visited through a relay): the client runs in the bundle
+  (fetch, timers, the key), but no test here starts a relay.
+- The bundle could leave out the node's voice store (split `voice.ts`'s shared helpers from its store: about 100 KB).
 - The content duplicates in part what the app bundles as Java resources (the culture packs, grammar, cards, course,
   drills, I spy, the festivals' packs): the app could read them from the unpacked project, or the unpacker could make
   the project from them (about a third of the 4.1 MB).
-- A test on an arm64 phone (the numbers above are the emulator's), and of the qa build (R8) on the emulator: the probe
-  runs there too.
+- A test on an arm64 phone (the numbers above are the emulator's).
