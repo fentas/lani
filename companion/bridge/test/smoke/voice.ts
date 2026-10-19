@@ -715,6 +715,9 @@ export default async function voice() {
     await Bun.sleep(60)
     const capped = !ns.get('juha', 'female.sl')
     const rj = await ns.redo('juha', 'female')
+    const rjCall = fe.st.tts.at(-1)
+    check('…a re-record of a word alone: inside its carrier sentence even in Nina\'s native voice (/with-timestamps, "Beseda je: juha.", Slovenian), cut out; a lone word said plainly came out in another language\'s sound ("učiteljica", 2026-10-19)',
+      rj.status === 'done' && rjCall?.voice === NINA && !!rjCall.timestamps && rjCall.body.text === 'Beseda je: juha.' && rjCall.body.language_code === 'sl' && (rj as any).clip.method === 'carrier', [rjCall?.body, (rj as any).clip?.method])
     check('…the day\'s cap: a fourth asked for waits (3 of 3 used); a long press makes it in Nina\'s voice now, a re-record of its own (1 of 1; the lazy re-voice\'s still 3), the local clip kept',
       lj?.engine_voice === 'ana' && capped && rj.status === 'done' && rj.clip.voice === 'female.sl' && rj.clip.engine_voice === NINA && ns.redosToday() === 1 && ns.lazyToday() === 3 && ns.get('juha', 'female')?.file === lj!.file && existsSync(join(ns.filesDir, lj!.file)), [capped, rj])
     const rj2 = await ns.redo('juha', 'female')
@@ -932,7 +935,7 @@ export default async function voice() {
     check('a sentence: a plain re-take (no carrier sentence), under a new name', r3.status === 'done' && !r3.clip.method && r3.clip.file !== s0?.file && fe.st.tts.at(-1)?.body.text === 'Kosilo je na mizi.' && !fe.st.tts.at(-1)?.timestamps && vs.redosToday() === 2, r3)
     const g0 = await vs.voice('kosilo', 'grandma', 'test', { live: true })
     const r4 = await vs.redo('kosilo', 'grandma')
-    check('a villager\'s voice: a plain re-take in it, under a new name', r4.status === 'done' && r4.clip.voice === 'grandma' && r4.clip.file !== g0?.file && fe.st.tts.at(-1)?.voice === cast().grandma.elevenlabs && !fe.st.tts.at(-1)?.timestamps && vs.redosToday() === 3 && vs.lazyToday() === 0, r4)
+    check('a villager\'s voice: a word alone re-taken in it inside its carrier sentence (since 2026-10-19), under a new name', r4.status === 'done' && r4.clip.voice === 'grandma' && r4.clip.file !== g0?.file && r4.clip.method === 'carrier' && fe.st.tts.at(-1)?.voice === cast().grandma.elevenlabs && !!fe.st.tts.at(-1)?.timestamps && fe.st.tts.at(-1)?.body.text === 'Beseda je: kosilo.' && vs.redosToday() === 3 && vs.lazyToday() === 0, r4)
     // old-style narrator words the app asks for: the lazy re-voice takes one (its cap of 1), the re-records left untouched;
     // the next waits for tomorrow, and a re-record of it still goes
     const oldOf = (w: string) => {
@@ -1648,8 +1651,8 @@ export default async function voice() {
           (await updates()) > u0 && (await fetch(`${base}/voice/file/${oldFile}`, { headers: auth })).ok, [url, kolo])
       const rk = await fetch(`${base}/voice/redo`, { method: 'POST', headers: auth, body: JSON.stringify({ text: 'kolovrat', voice: 'female', client_id: 'redo-smoke-kolovrat' }) })
       const rkb = await rk.json()
-      check('…a long press: a new take in Nina\'s voice, under a new name, the take before gone, the answer in the voice the app knows (female); counted in the day\'s re-records (30)',
-        rk.ok && rkb.status === 'done' && rkb.voice === 'female' && rkb.url !== url && bridgeEleven.st.tts.at(-1)?.body.text === 'kolovrat' && bridgeEleven.st.tts.at(-1)?.voice === NINA &&
+      check('…a long press: a new take in Nina\'s voice inside its carrier sentence, under a new name, the take before gone, the answer in the voice the app knows (female); counted in the day\'s re-records (30)',
+        rk.ok && rkb.status === 'done' && rkb.voice === 'female' && rkb.url !== url && bridgeEleven.st.tts.at(-1)?.body.text === 'Beseda je: kolovrat.' && !!bridgeEleven.st.tts.at(-1)?.timestamps && bridgeEleven.st.tts.at(-1)?.voice === NINA &&
           (await fetch(`${base}${url}`, { headers: auth })).status === 404 && (await fetch(`${base}/voice/file/${oldFile}`, { headers: auth })).ok && rkb.today >= 1 && rkb.daily === 30, rkb)
     }
 

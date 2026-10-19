@@ -986,11 +986,11 @@ export class ElevenLabs implements Engine {
 
   /**
    * The carrier sentence [text] is said in by [voice]: for a short text (a word, up to three) in a voice marked
-   * `carrier` in the cast, in a language with a carrier sentence; else undefined.
+   * `carrier` in the cast ([force]: in any voice, a re-record), in a language with a carrier sentence; else undefined.
    */
-  carrierFor(text: string, voice: VoiceName): string | undefined {
+  carrierFor(text: string, voice: VoiceName, force = false): string | undefined {
     const template = (this.o.carriers ?? CARRIERS)[this.o.language ?? 'sl']
-    if (!template || !carrierVoice(voice) || !isShortText(text)) return undefined
+    if (!template || !(force || carrierVoice(voice)) || !isShortText(text)) return undefined
     return template.replace('{w}', text.trim())
   }
 
@@ -1003,8 +1003,8 @@ export class ElevenLabs implements Engine {
    * Whether [text] in [voice] is said in its carrier sentence now: it applies, and the node can cut (ffmpeg). Never an
    * explanation in another language ([lang]): it is said plainly, however short.
    */
-  usesCarrier(text: string, voice: VoiceName, lang?: string): boolean {
-    if (this.explains(lang) || !this.carrierFor(text, voice)) return false
+  usesCarrier(text: string, voice: VoiceName, lang?: string, force = false): boolean {
+    if (this.explains(lang) || !this.carrierFor(text, voice, force)) return false
     if (this.cut) return true
     if (!this.noCutterLogged) {
       this.noCutterLogged = true
@@ -1014,8 +1014,8 @@ export class ElevenLabs implements Engine {
   }
 
   /** The characters a request for [text] in [voice] costs: its carrier sentence when it is said in one, else the text. */
-  cost(text: string, voice: VoiceName, lang?: string): number {
-    return this.usesCarrier(text, voice, lang) ? this.carrierFor(text, voice)!.length : text.trim().length
+  cost(text: string, voice: VoiceName, lang?: string, force = false): number {
+    return this.usesCarrier(text, voice, lang, force) ? this.carrierFor(text, voice, force)!.length : text.trim().length
   }
 
   private voiceId(voice: VoiceName): string | undefined {
@@ -1066,16 +1066,16 @@ export class ElevenLabs implements Engine {
    * explanation in another language than the village's ([lang]) is asked for plainly and without a language_code, so
    * the model says the learner's language as it is and the Slovene forms inside it as Slovene.
    */
-  async synth(text: string, voice: VoiceName, o: { live?: boolean; lang?: string; urgent?: boolean } = {}): Promise<Take | null> {
+  async synth(text: string, voice: VoiceName, o: { live?: boolean; lang?: string; urgent?: boolean; carrier?: boolean } = {}): Promise<Take | null> {
     if (!this.o.key) return null
     const urgent = !!(o.live || o.urgent)
-    const said = this.usesCarrier(text, voice, o.lang) ? this.carrierFor(text, voice) : undefined
+    const said = this.usesCarrier(text, voice, o.lang, o.carrier) ? this.carrierFor(text, voice, o.carrier) : undefined
     const id = this.o.voices?.[voice] ?? elevenlabsOf(voice)
     if (!said) {
       const bytes = await this.plain(text, voice, this.explains(o.lang), urgent)
       return bytes ? { bytes, voice: id, model: this.model } : null
     }
-    const r = await this.carrierTake(text, voice, urgent)
+    const r = await this.carrierTake(text, voice, urgent, o.carrier)
     if (r instanceof Uint8Array) return { bytes: r, method: 'carrier', chars: said.length, voice: id, model: this.model }
     if (!r && Date.now() < this.pausedUntil) return null
     this.o.log?.(`elevenlabs: "${text}" (${voice}) without its carrier sentence: ${r ? r.miss : this.lastError}; asked for plainly`)
@@ -1122,8 +1122,8 @@ export class ElevenLabs implements Engine {
    * word ([retry]: ffmpeg failed, not the word; the carrier sentence is then off until a restart, so no more takes
    * are paid for nothing); null when ElevenLabs can't now or the request failed (the last error says why).
    */
-  async carrierTake(text: string, voice: VoiceName, urgent = false): Promise<Uint8Array | { miss: string; retry?: boolean } | null> {
-    const said = this.carrierFor(text, voice)
+  async carrierTake(text: string, voice: VoiceName, urgent = false, force = false): Promise<Uint8Array | { miss: string; retry?: boolean } | null> {
+    const said = this.carrierFor(text, voice, force)
     const cut = this.cut
     if (!this.o.key || !said || !cut) return null
     const id = this.voiceId(voice)
@@ -2622,7 +2622,10 @@ export class VoiceStore {
       if (!el?.configured) return { status: 'failed', message: 'ElevenLabs is not set up on the node' }
       const today = this.redosToday()
       if (today >= this.redoDaily) return { status: 'limit', reason: 'cap', message: `no re-recordings left today (${today} of ${this.redoDaily})` }
-      const cost = el.cost(have.text, target)
+      // a word alone: said inside its carrier sentence, in every voice. A native voice (Nina) says a lone word plainly
+      // and ElevenLabs takes language_code as a hint only, so a word alone can come out in another language's sound
+      // ("učiteljica" sounded Italian to Jan, 2026-10-19, and a re-take the same); inside "Beseda je: …" it is Slovene
+      const cost = el.cost(have.text, target, undefined, true)
       if (!(await el.ready(cost, false))) {
         const left = el.remaining()
         return left !== undefined && left - cost < el.reserve
@@ -2632,7 +2635,7 @@ export class VoiceStore {
       const before = el.remaining()
       const job = (async (): Promise<Clip | null> => {
         // the learner waits for it (a long press on 🔊): ahead of the background work, but not from the live reserve
-        const take = await el.synth(have.text, target, { urgent: true })
+        const take = await el.synth(have.text, target, { urgent: true, carrier: true })
         return take ? await this.save(norm, have.text, target, 'elevenlabs', take.bytes, have.source, { ...take, salt: `redo ${new Date().toISOString()}` }) : null
       })()
       this.running.set(key, job.catch(() => null).finally(() => this.running.delete(key)))
