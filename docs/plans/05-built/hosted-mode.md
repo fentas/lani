@@ -217,9 +217,33 @@ many changes still wait for the computer.
 
 ## The numbers
 
-On the x86_64 emulator (Android 16), the debug build:
+The x86_64 emulator (Android 16, API 36) on a desktop CPU, 2026-10-19, the qa build (R8, as a release) unless said.
+The host was busy with other builds (load 18-40), so these are upper bounds; an arm64 phone is likely 2-4× slower for
+QuickJS.
 
-*Filled in by the QA run below.*
+| | |
+|---|---|
+| A fresh install's onboarding: the content unpacked (549 files, 11.7 MB) | 80-102 ms |
+| … the bundle compiled (then kept as bytecode) | 349-373 ms |
+| … the bridge's boot (no village yet) | 145-175 ms |
+| … "Ustanovi mojo vas" to the bridge up (the learner's data made too) | 0.6-0.7 s |
+| … Home's data after "🏡 V mojo vas" | 45-86 ms |
+| A cold start (the process killed): the first frame, the splash (`am start -W`) | 0.69-1.7 s |
+| … the bundle from its bytecode | 150-310 ms |
+| … the bridge's boot over the learner's village | 160-580 ms |
+| … Home's data after the view model started | **1.2-1.7 s** (2.4 s the first time after an install) |
+| The same cold start before the two fixes below | boot 1.8-2.2 s, Home 2.5-2.6 s (debug build: 1.8 s to the first frame, Home 3.7 s) |
+| A new learner's export (6 cards, a village) | 10 KB, 10 files |
+
+Two things made a cold start slow, both found here:
+
+- **The stories' daily check in the boot.** With a village, the stories feature's start resolved every story against
+  the packs and the cast (`checkLow`): about a second of QuickJS (1,039 ms against 90-105 ms on the JVM:
+  `HostedBootTest`). The onboarding's first boot has no village, so it never showed there. The phone now sets
+  `LANI_STORIES_CHECK_DELAY_MS=20000`: the check runs 20 s after the boot. A node checks at once, as before.
+- **The bridge key's public point** (Java reads a PKCS#8 key without it, so `HostCrypto` computes Q = d·G): affine
+  double-and-add, one modular inverse per step. Now Jacobian coordinates, one inverse at the end (2.3 ms on the JVM);
+  the bridge logs a public point that takes over 20 ms. It was the smaller part.
 
 ## Tests
 
@@ -231,13 +255,24 @@ On the x86_64 emulator (Android 16), the debug build:
   IOException), a wrong token (401).
 - **`HostedExportTest`** (6): an export's entries and manifest (what stays out, the schemas, the hashes, the file's
   name); a round trip into another phone's data (every file's hash, the phone's own key and lease kept, a stale file
-  gone into the backup, read-db over the result); the newest three backups kept; 15 refusals; a broken database found by
+  gone into the backup, read-db over the result); the newest three backups kept; 14 refusals; a broken database found by
   the db port's validate-data; the node's `lani export` imported here and this app's export passing the node's
   `lani import --verify` (with python3).
-- **`HostedWorkTest`**: the rhythm's next moment and what is due, as `rhythm.ts` decides it.
+- **`HostedWorkTest`** (3): the rhythm's next moment and what is due, as `rhythm.ts` decides it, from `rhythm.json`.
+  **`HostedEnvironmentTest`** (1): the lease's phone, its device id, the shared relay.
+- **`HostedBootTest`** (1): the onboarding's boot, then boots from the bytecode over a learner with a village (90-105
+  ms on the JVM), and one with the stories' check in the start (1,039 ms).
+- **`HostCryptoPointTest`** (2): the bridge key's public point (Jacobian coordinates) is Java's own for 40 keys; 2.3 ms.
 - **`companion/tests/test_export.py`** (18): the node's side (the manifest, the rules, a round trip, a git data
   repository's commits, the lease, `--with-secrets`, `--dry-run`, 18 refusals).
-- **QA** (`companion/bin/qa --steps hosted`, with no node): below.
+- **QA** (`companion/bin/qa --steps hosted`, alone: no dev bridge, and nothing may listen on its port, checked before,
+  during and after), on the debug and the qa build. A fresh install: the setup's choice, the onboarding (Ana, as a
+  woman, Slovene from English), the tutor's step, Home on the phone's bridge and the village founded; the chat's "no
+  tutor yet" line; hiša's card from the phone's dictionary; the packs and a pack learned (its words saved by the phone's
+  update-db); a review saved (QA's hook "review": a new learner's words are due tomorrow); the app killed and started
+  again (`am start -W`, the splash, the log's "home: N ms"), the review still in the phone's `spaced-repetition.json`
+  (6 cards, 5 reviewed), the packs again; the export from the connection sheet (the share sheet), pulled and passed by
+  the node's `lani import --verify`. The pairing steps (`--steps home,data-sheet,tutor-live`) pass as before.
 
 ```bash
 cd companion/android && ./gradlew :app:testDebugUnitTest --tests 'si.lanisce.lani.hosted.*'

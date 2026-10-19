@@ -7405,8 +7405,9 @@ def hosted_shot(name: str):
         shutil.copy(shots[-1], Path(d) / f"hosted-{name}.png")
 
 
-def hosted_home(timeout=60):
-    """Waits for Home on a fresh hosted install: the notification permission allowed, the village founded where offered."""
+def hosted_home(timeout=60, found=False):
+    """Waits for Home on a hosted install: the notification permission allowed, the village founded where offered; with
+    [found] (a new learner) until it was founded (the founding comes over Home once the village was asked for)."""
     end = time.time() + timeout * slow()
     founded = False
     while time.time() < end:
@@ -7422,10 +7423,10 @@ def hosted_home(timeout=60):
                 hosted_shot("founding")
             adb("shell", "input", "swipe", "540", "1700", "540", "700", "300")
             time.sleep(1)
-        elif any("Danes · Today" in t for t, _ in ns):
+        elif any("Danes · Today" in t for t, _ in ns) and (founded or not found):
             return founded
         time.sleep(1)
-    raise AssertionError("Home did not load on the phone's bridge")
+    raise AssertionError("Home did not load on the phone's bridge" + ("" if founded or not found else " (no founding)"))
 
 
 def hosted_log(pattern: str) -> list[str]:
@@ -7470,7 +7471,7 @@ def hosted():
     assert wait_for("Še učitelj", 40), "the tutor's step"
     hosted_shot("tutor")
     assert tap("V mojo vas", 5), "to my village"
-    hosted_home()
+    hosted_home(found=True)
     time.sleep(2 * slow())
     assert find(HOSTED_NAME), "Home greets the learner"
     hosted_shot("home")
@@ -7478,9 +7479,17 @@ def hosted():
     print(f"    first start: {first}")
     assert not listeners(PORT), f"something listens on {PORT}"
 
+    # the chat without a tutor yet: it says so, rather than waiting in silence
+    assert tap("Tvoj učitelj · Your tutor", 6), "the tutor bar"
+    assert wait_for("Na tem telefonu še ni učitelja", 10), "the chat's no-tutor line"
+    hosted_shot("chat")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(1)
+    go_home()
+
     # a word looked up: its card (as a tap on it in a dialog: QA's hook), the meaning from the phone's dictionary
     qa_hook("formscard:word:hiša")
-    assert wait_for("house", 20), "hiša's card with its meaning (the phone's /lookup)"
+    assert wait_for("house", 40), "hiša's card with its meaning (the phone's /lookup)"
     hosted_shot("lookup")
     adb("shell", "input", "keyevent", "KEYCODE_BACK")
     time.sleep(1)
