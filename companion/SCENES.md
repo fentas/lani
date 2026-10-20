@@ -765,6 +765,24 @@ isn't there has no hit. `RoomLevelsRenderTest` renders every room (the kitchen, 
 at levels 1, 2 and 3, empty, side by side and one by one (`app/build/scene-snapshots/rooms/<art>-levels.png`,
 `<art>-L1.png` …), and checks that each level differs from the one before and that what can be tapped is what the level has.
 
+### Ob ognju by the age
+
+The village's centre changes with its ages (GAME.md "Hearths"): the open campfire to Zaselek, the stone fire ring with its
+benches at Vas, the cobbled square's fire basket from Trg. Everything that happens "by the fire" keeps its place there
+(the place key `fire`: the evening by the fire, Stari Janez's stories, the class before the linden, the people's
+reactions, an age's party, «Vidim, vidim», the treasure's riddles), and so does the scene `ob-ognju` (art `campfire`,
+`from` the fire). It follows the age where it's cheap:
+
+- **Its name** (`Hearths.sceneTitle`, wherever a scene is named: its top bar, a card's 🚪, the scroll's places): its own,
+  "Ob ognju · At the campfire", to Zaselek; "Ob ognjišču · At the fire ring" at Vas; "Na trgu ob ognju · By the fire on the
+  square" from Trg. Every culture's campfire scene alike (Al fuoco, Am Feuer, By the fire), in the learner's pair.
+- **Its picture** (`CampfirePainter`, by the village's age, `SceneWorld.age`): from Vas the two logs to sit on are the
+  fire ring's plank benches (the stage's `left` and `right` sit on them as before); from Trg the ground round the fire is
+  cobbled out to the benches. The fire in its stones, the tripod and the kettle, the woodpile, the stump and the spruces
+  round it stay: a corner of the square under the trees.
+- **What stays**: its objects and words, its people, dialogs and stage, the woods at its back (the camp's tent while one
+  stands in the village). A scene of the square with its houses round the fire is left for later.
+
 ### Project steps: a village project's step as a short scene
 
 A village project's step (GAME.md, "Village projects") is a short dialog that does what the step says, with the project's
@@ -1736,7 +1754,8 @@ native speaker.
 
 ## Stories: the evening story
 
-Every evening the village's storyteller sits by the fire and tells a story: Stari Janez at the campfire (`ob-ognju`),
+Every evening the village's storyteller sits by the fire (the village's centre: the campfire, from Vas the fire ring lit for
+the evening, from Trg the square's fire basket: GAME.md "Hearths") and tells a story: Stari Janez at the campfire (`ob-ognju`),
 Nonno Bepi at the Italian village's (`al-fuoco`), Old Wilf at the English village's (`by-the-fire`). Not the same one every night: the next one the learner hasn't heard,
 told at their level, a long legend in chapters, one an evening. The HUD's "Danes in kmalu · Today and coming up" says what comes:
 "Nocoj ob ognju: Janez pove zgodbo o Zlatorogu · Tonight by the fire: Janez tells the story of Zlatorog" until it is heard,
@@ -1951,7 +1970,7 @@ stand, sit, lie or hide (see [Stage directions](#stage-directions-people-move-on
 
 | Art | Object slots | Person spots | Effects (`fx`) |
 |---|---|---|---|
-| `campfire` | fire, logs, kettle, stones, smoke, sparks, moon, stars, tent, axe, bucket, stump | left, right, back (a stage: [Stage directions](#stage-directions-people-move-on-cue)) | `flare` (the fire burns higher, sparks fly), `embers` (the fire burns down: the flames lower and fewer, no sparks, a thread of smoke and a smaller light; 1: only the embers glowing red in the ash; Rosa's and Resi's "the fire is small now"), `steam` (the kettle steams), `bell` (a distant bell: its rings go out in the sky over the woods, opposite the moon), `sheepbells` (the sheep's bells up on the pasture, out of sight: small clinks going out here and there among the crowns of the trees at the back on the right, below the top bar's 🔍, and their sound: Luka's "Slišiš zvonce?") |
+| `campfire` | fire, logs, kettle, stones, smoke, sparks, moon, stars, tent, axe, bucket, stump (from Vas plank benches for the logs to sit on, from Trg cobbles round the fire: [Ob ognju by the age](#ob-ognju-by-the-age)) | left, right, back (a stage: [Stage directions](#stage-directions-people-move-on-cue)) | `flare` (the fire burns higher, sparks fly), `embers` (the fire burns down: the flames lower and fewer, no sparks, a thread of smoke and a smaller light; 1: only the embers glowing red in the ash; Rosa's and Resi's "the fire is small now"), `steam` (the kettle steams), `bell` (a distant bell: its rings go out in the sky over the woods, opposite the moon), `sheepbells` (the sheep's bells up on the pasture, out of sight: small clinks going out here and there among the crowns of the trees at the back on the right, below the top bar's 🔍, and their sound: Luka's "Slišiš zvonce?") |
 | `kitchen` | stove, pot, bowl, table, chair, bread, plate, glass, cup, spoon, fork, knife, window, door, cupboard, clock, milk, eggs, water, salt, potatoes, hearth, bench, bed, shelf, curtains, corner (by the level: see [What the village has built](#what-the-village-has-built)) | stove, table, door | `oven` (the stove fired up, smoke from the chimney; at level 1 the hearth's fire burns higher), `steam` (off the cup and the bowl) |
 | `forest` | tree, spruce, mushroom, berries, stream, stone, path, bird, deer, squirrel, owl, leaves, sheep, highseat (the hunter's preža), flowers; the wild: hare, butterfly, fox, stag, hedgehog, boar, badger, dormouse, bat | path, clearing, highseat (sitting up in it) | `birds` (a flock flies up out of the trees and away), `herd` (a stag and two hinds step out of the trees at the far edge: how far out), `fox` (the fox trots along the edge to her place: how far she has come), `hoot` (the owl turns its head and hoots again and again), `bats` (bats over the clearing: how many), `sheepbells` (the brass bell under the lost sheep's chin swings and rings, its clinks going out, each at an end of its swing: `Sfx.SHEEP_BELL_SWING`; Luka's "Slišiš? Zvonec!"), `owl-flies` (the owl spreads her wings and flies off her branch, up and away across the clearing into the far trees, how far she has flown; at 1 she is gone, the branch bare, and her word with her, as the market's pigeons: [The words panel](#the-words-panel-here-now-seen-before-still-hidden); "Huu … odletela je") |
 | `square` | linden, bench, ball, well, dog, cat, house, tower, bicycle, flowers, sun, fence | bench, well, play1, play2, play3 | `bell` (the tower's bell swings and rings), `cat` (the cat up the linden: 0 stuck on its lowest limb just out from the fork, mewing; down the limb, down the trunk tail first and a hop onto the bench; 1 curled up there again, as by herself: how far down she has come), `dog` (Muri, Janez's dog: 0 away, nothing of him on the square; up from behind the flower bed, out to its end, 0.5 sniffing at the flowers there; running back to his place, 1 as by himself), `wag` (Muri wagging hard, his tongue out, hopping for joy: how hard), `ball` (0 lost under the bench, its red and white showing in the shade between the legs: the `bench`'s to tap, not a word of its own while it's lost; rolling out to the game; 1 in play), `goal` (a shot in a high arc between two satchels at the back of the game, the children jumping for joy, then the ball kicked back into play: how far it has gone; 1 the game as ever), `cart-pump` and `cart-stone` (a horse and cart coming toward us out of the lane by the church, trotting, and stopping in the middle of the square: how far it has come; on it the fire pump from Gorica, red with its brass cylinders and long handles, or blocks of white stone glinting in the sun, unloaded once the fountain's stone lies on the square), `band` (the village band under the linden in blue coats and caps, a helicon, two trumpets and the big drum, bobbing to the beat, notes going up: how loud), `dance` (couples dancing a polka on the square, turning hand in hand, her skirt flying out: how many, up to four), `maypole` (the maypole raised: its top hauled up on two ropes while its foot slides from its trestles into its hole, the wreath and the ribbons on it: how far up; only where it lies ready, its wreath woven, or stands, never out of its season), `fountain` (the fountain's water: down the open ditch from the garden while the ditch is dug and until the pipes are in, how far it has come; from its four pipes into the trough once they are fitted, how much; not set: dry until it is finished, then running) |

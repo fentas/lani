@@ -783,7 +783,10 @@ harvesting, a wave now and then; Tone with a request hammers at his anvil. At a 
 does a chore of the house, at its nook: Micka in her garden (sweeping in winter), Ančka at the washing line (a rug in
 winter), Vida with her broom, a child with the hens.
 
-**Round the fire.** Whoever is at the fire (a happening's person, someone waiting for the learner there, the evening's
+**Round the fire.** The fire is the village's centre, whatever its age makes it (GAME.md "Hearths": the campfire, from
+Vas the stone fire ring with its two benches, where the first on either side sit, lit for the evening's gathering, from Trg
+the square's fire basket); nobody's place changed with it. Whoever is at the fire (a happening's person, someone waiting for
+the learner there, the evening's
 sitters, the village's unnamed people, a visitor) stands or sits beside it and faces it (`TownPeople.aroundFire`): never in
 its flames, nor just behind them (hidden by them) or just in front (hiding them). The first stands on its right (a
 happening's person there comes first: Luka on the morning he warms his hands), the next on its left, then on each side a step
@@ -794,7 +797,8 @@ building (a field is walked in) or in the campsite's fire, and a building's corn
 people beside them; whoever walks by goes round it ("Walks"). The evening's sitters keep their places round it as the others
 go home to bed. With people round it, the fire stays the easiest place to tap: a
 tap anywhere on its flames, stones and smoke that isn't right on someone or something drawn there is the fire's, and its
-TalkBack target ("Ogenj · The fire", 48 dp, the others' 40) is drawn over theirs, so it is never left out (`FireRingTest`).
+TalkBack target (the centre's name by the age, "Ogenj · The campfire", "Ognjišče · The fire ring", 48 dp, the others' 40)
+is drawn over theirs, so it is never left out (`FireRingTest`).
 Their bubbles keep off it too: a bubble over someone beside the fire (France working at the field's edge by it, Luka
 warming his hands) that would cover its flames, stones, smoke or target moves away from the fire, out sideways and a
 little up as its person stands beside it, up over it, its pointer still at its person (`layoutBubbles`, `fireKeepOff`:

@@ -116,11 +116,11 @@ three designs on 2026-10-16: a sheet from the bar, a row of cards, a side panel)
   on the ring says one of them has something new.
 - **The cards** (one row under the bar, two lines each, swiped sideways; the next one peeks in):
   - the goal: "🎯 🏘️ Vas: še 2 koraka" over the next open step and how far ("Les · Wood 198/320"), and that step's own
-    button ("🪵 Nabiraj · Gather"); a goal that isn't a step of the next age (the fire dying, a building to build,
+    button ("🪵 Nabiraj · Gather"); a goal that isn't a step of the next age (hearths going out, a building to build,
     advancing) has its one action (`NextGoal.action`, "🔨 Zgradi zdaj · Build now" …);
   - today and what's coming: the next line of the timeline, when and what in each language, "+2" for the others;
   - the settlement: "🛖 Zaselek → 🏘️ Vas" with its bar, and its six numbers, each with its name under it in brief
-    (👥 Prebivalci, 😄 Razpoloženje, 🔥 Ogenj, 🤝 Pomoč, 🧰 Skrinja, 🏗️ Projekti).
+    (👥 Prebivalci, 😄 Razpoloženje, 🔥 Ognjišča, 🤝 Pomoč, 🧰 Skrinja, 🏗️ Projekti).
 - **A card's tap opens its section in the sheet**, as tall as it needs: closed by its ✕, by dragging its handle down,
   by back, or by a tap on the map above it (that tap opens nothing; a drag closes it and pans on). Whatever leads on
   from it closes it.
@@ -137,7 +137,8 @@ three designs on 2026-10-16: a sheet from the bar, a row of cards, a side panel)
     one of those shows all of it. A villager's request or a happening isn't there: their bubbles are on the map.
   - "Naselje · Settlement": the age and the way to the next ("Zaselek → 🏘️ Vas · Hamlet → Village", its bar; a tap:
     the ages sheet with every step), "📊 Napredek ›" (progress), and the six numbers as tiles, each its value over
-    its name in the target and the base: people and mood (the village's sheet), the fire (its sheet; red and pulsing
+    its name in the target and the base: people and mood (the village's sheet), the hearths ("6/7" lit of all and a thin
+    bar; their sheet: see "Hearths"; red and pulsing
     while it dies), help (🤝, the village's sheet), the chest (how many things are in it; the chest), the projects
     (finished / open; the projects sheet).
 - **Dots only for something new**, one for each thing, never a standing count: on the goal's card while one of its
@@ -474,7 +475,8 @@ village, party or buildings changing". Since 2026-10-18 it comes in three parts.
    forest drawing back to the new clearing (its trees going in rings as the edge passes them, the palisade moving out
    with it), the new plots framed on the ground ("📐 4 nove parcele · 4 new plots"), the road to the west across the stream on
    stepping stones (Zaselek: "🪨 Nova cesta proti zahodu, čez potok po kamnih"), the road wider (Vas), more room round the fire (Zaselek, Trg), the cobbles (Trg) (`AgeUps.changes`; the
-   renderer's `Frame.growth`); the villagers gather round the fire, which burns up; the celebration's decorations go up
+   renderer's `Frame.growth`); the villagers gather round the fire, which burns up (the centre becoming the age's: the
+   fire ring at Vas, the square's fire basket at Trg, its lanterns at Mesto, see "Hearths"); the celebration's decorations go up
    one by one (`Frame.festive`) as its music starts (synthesized like the village's other sounds:
    `tools/ambient_sounds.py`, `harmonika.ogg`, `valcek.ogg`, the godba's `polka.ogg`); the village's sign at the road
    turns to the new age, its name over it ("🏘️ Vas"); fireworks and the celebration's name. About 15–22 s; "⏭ Preskoči ·
@@ -547,7 +549,9 @@ The test asserts these properties for all three profiles and for six other seeds
 - Every session from Tabor on has something new: the day's surprise (played, or the pedlar to see), a festival or a project step.
 - The stores are never all full (95 % or more) for more than a week of sessions in a row.
 - No resource sits at its cap for more than 5 days while another is below a quarter of its cap.
-- After each 10-day gap, the village is repaired, fed and warm again within 2 active days.
+- After each 10-day gap, the village is repaired, fed and warm again within 2 active days (warm: no hearth out for want of wood).
+- No session has a hearth out for want of wood (see "Hearths": the player keeps two days of the hearths' wood, and the
+  charcoal pile's once the HUD shows it coming).
 - Talk brings at least twice as much 📜 as any other source. Without talk, 📜 from quests, the linden and the modules still reaches Vas on time.
 - The 170-day run: the Vas village has something to build until day 130 or later, every project of Zaselek and Vas is done in Vas, and eight friends come within the 170 days.
 - With trading (`trading keeps the pacing`: every profile, this village and the six others): the player trades in place of a village run, once a session, when a store is (nearly) full while what it saves for lacks another resource (the fullest store's surplus for the largest shortfall, about what a run of 4 of 6 needs to cover it, at least 10; never what it keeps of that store unless the store is full anyway; the run's answers on their own dice). Every property above holds, a store sits at its cap while another is nearly empty no longer than without trading (a day's leeway, see below), trades bring at most 15 % of any resource that came in, and talk stays the best 📜 source for the committed learner. Measured: the committed learner and the one who never talks trade 6 to 11 times in 60 days, mostly 🌾 for 🪵 and 🪵 for 🌾, a little 🪨, none into 📜; their days with a store capped go from 11–16 to 2–9, and those with one capped while another is nearly empty from up to 2 to none for every profile; the ages still come with their words (they are the gate); trades bring at most 11 % of a resource (🪵, for the learner who never talks); the casual and the binge learner trade 0 to 2 times.
@@ -569,63 +573,111 @@ Until October 2026 the village had one fire in the middle at every age, a number
 index 🪵 a day. Jan asked whether it ever goes away: "The fire in the middle would be exchanged with every house plus the
 smithy, no? So the HUD would be substituted depending on the buildings?" Now every building with a hearth has its own
 fire (`game/Hearths.kt`, pure; the numbers in `Catalog`), and the village's warmth moves into its houses as they are
-built: chimney smoke by day, warm windows at night, the forge's glow. A hearth is lit or out for the day.
+built: chimney smoke by day, warm windows at night, the forge's glow (`render/Centre.kt`, `render/Buildings.kt`). A
+hearth is lit or out for the day (`GameState.hearths`, `HearthDay`: the day's tick decides).
 
-**The hearths** (`Hearths.of`):
+**The hearths** (`Hearths.of`, in the order their wood is paid):
 
 | Hearth | Where | 🪵 a day | On the map |
 |---|---|---|---|
-| 🔥 The campfire (the centre) | Ogenj, Tabor, Zaselek | 2, 3, 2 | the open fire in its ring of stones, burning all day; at Ogenj and Tabor the only hearth, and it never goes out quite: without wood it smoulders |
-| 🔥 The fire ring (the centre) | Vas | 1 | a wider ring of stones with benches round it, lit for the evening's gathering (the storyteller, the evening by the fire, a party, the wolves at night, a cheer after a fight); by day a quiet ember |
-| 🔥 The fire basket (the centre) | Trg, Mesto | 1 | an iron basket on legs in the middle of the cobbled square, lit in the evening; at Mesto lanterns round the square; on a feast evening the kres, a big bonfire (its wood is in the feast's price) |
+| ⚒️ The forge | from Zaselek | charcoal | the forge's glow, smoke and sparks over its chimney on Oglar Miha's charcoal (see below), grey ash without; a culture without a charcoal burner feeds it 2 🪵 |
+| 🔥 The campfire (the centre) | Ogenj, Tabor, Zaselek | 2, 3, 1 | the open fire in its ring of stones, burning all day; at Ogenj and Tabor the only hearth, and it never goes out quite: without wood it smoulders |
+| 🏫 The school | from Zaselek | 1 | the classroom's stove: smoke from a chimney at the back of its roof |
 | 🛖 A hut | from Tabor | 1 | its open hearth's smoke through the roof (by its chimney from level 2) |
 | 🏠 A house | from Zaselek | 2 | the kitchen's stove and the bread oven: smoke from the chimney |
-| 🏫 The school | from Zaselek | 2 | the classroom's stove |
-| ⚒️ The forge | from Zaselek | charcoal | the forge's glow, the sparks over its chimney; on Oglar Miha's charcoal (see below); a culture without a charcoal burner feeds it 2 🪵 |
+| 🔥 The fire ring (the centre) | Vas | 1 | a wider ring of big flat stones with two plank benches, lit for the evening's gathering; by day a few coals and a thread of smoke |
+| 🔥 The fire basket (the centre) | Trg, Mesto | 1 | an iron basket on three legs in the middle of the cobbled square, lit for the evening; at Mesto lanterns round the square from dusk; on a feast evening the kres, a cone of logs burning high (its wood is in the feast's price) |
 
-The tent, the field, the well, the hayrack, the bee house, the palisade, the watchtower, the linden, the church (unheated:
-candles) and the market have none; the tent's people sit at the campfire. A damaged building's hearth is cold and doesn't
-count until it is repaired. The village has no inn or bakery: Vida's inn is her house, the bread is baked in the houses.
+The huts and the houses come in their plots' order (plot 0 the nearest the centre). The tent, the field, the well, the
+hayrack, the bee house, the palisade, the watchtower, the linden, the church (unheated: candles) and the market have none;
+the tent's people sit at the campfire (the tent at the pond has its own small fire, Luka's, out of the village's count). A
+damaged building's hearth is cold and doesn't count until it is repaired. The village has no inn or bakery: Vida's inn is
+her house, the bread is baked in the houses.
 
 **The centre changes with the ages, and stays the centre.** Everything that walks people "to the fire" or happens there
-(the evening by the fire, the storyteller, the class before the school, a party, the people's reactions, a feast, «Vidim,
-vidim», the scene "Ob ognju") keeps its place in the middle of the village (`TownPlace.Fire`, the place key `fire`): the
-campfire, then the fire ring, then the square's fire basket. Its name follows (`Hearths.centreName`): "Ogenj · The
-campfire" ("ob ognju · by the fire"), "Ognjišče · The fire ring" ("ob ognjišču · by the fire ring"), "Žerjavnica · The fire
-basket" ("na trgu · on the square").
+(the evening by the fire and its storyteller, the lunch by the fire, the class before the linden and the school, a party,
+the people's reactions, a feast, «Vidim, vidim», the scene "Ob ognju", the treasure's riddle station) keeps its place in
+the middle of the village (`TownPlace.Fire`, the place key `fire`, the same anchors and the same tap area): the campfire,
+then the fire ring, then the square's fire basket. It burns when people sit there (`CentreLook`): the campfire all day;
+the fire ring and the fire basket for the evening's gathering (17:30 to 23:30), the lunch by the fire, a party or a
+festival, an age's moment, the wolves or a bear in the dark, the cheer after a fight won; otherwise their coals glow. Its
+name follows the age wherever a place is named (`Hearths.centreName`, `Hearths.shown`): "Ogenj · The campfire" ("ob
+ognju · by the fire"), "Ognjišče · The fire ring" ("ob ognjišču · by the fire ring"), "Žerjavnica · The fire basket"
+("na trgu · on the square"); the scene "Ob ognju" is "Ob ognjišču · At the fire ring" at Vas and "Na trgu ob ognju · By
+the fire on the square" from Trg (SCENES.md, "Ob ognju by the age"). An age-up's moment says what its centre becomes: the
+hamlet's huts and houses get hearths of their own, the village its stone fire ring, the market town the square's fire
+basket, the town its lanterns.
 
-**Wood a day and the order they go out.** The day's tick pays the hearths from the store one after another, the heart of
-the village first: the campfire (Ogenj to Zaselek), the school, then the houses and huts from the one nearest the centre
-out; from Vas the centre's evening fire last (the village gives up its gathering fire before a home). The first hearth the
-store can't pay goes out, and every one after it: when wood runs short the gathering fire and the outlying huts go out
-first, visibly (no smoke, dark windows at night). The forge goes by its own rule, its charcoal, so it is the last to go
-cold. Wood that comes in later the same day lights the hearths that went out again, in the same order, as far as it pays
-their day (`Hearths.relight`). From the 4th missed day each hearth burns half.
+**Wood a day and the order they go out.** The day's tick pays the hearths from the store one after another in the
+table's order, the heart of the village first, and from Vas the centre's evening fire last (the village gives up its
+gathering fire before a home). The first hearth the store can't pay goes out, and every one after it: when wood runs
+short the gathering fire and the outlying huts and houses go out first, visibly (no smoke, dark windows at night). The
+forge goes by its own rule, its charcoal, so it is the last to go cold. Wood that comes in later the same day lights the
+hearths that went out again, in the same order, as far as it pays their day (`Hearths.relight`, from every credit). From
+the 4th missed day each hearth burns half. A lost storm blows out ⌈str/2⌉ hearths, the outlying first, until the next day
+(`Hearths.blowOut`: no wood brought that day lights them; it was "fire −20").
 
 **Morale** follows the share of hearths lit: −6 × the share out a day (−1 for one hearth of six, −6 when all are out;
 from the 4th missed day −2 × the share). It replaces "the fire below 25: −5".
 
-**The forge burns charcoal, and the charcoal costs wood.** Kovač Tone's forge burns a day of charcoal a day
-(`HearthDay.charcoal`, days of it in the smith's shed): a new smithy comes with 30 days (Tone brings sacks from the
-valley), each pile of Oglar Miha's brings 100 more (the shed holds 250: the season's last pile carries the forge through
-the winter, when there is none), and without charcoal the forge goes cold. Building a pile takes the village's wood: the
-stages that use it (`wood: true`: felling and stacking, 4 to 6 days) take the pile's wood from the store once, 100 🪵 at
-Zaselek, 150 at Vas, 200 at Trg, 250 at Mesto (`Catalog.kopaWood`: about a day or two of a committed learner's
-listening, a large share of a casual learner's): on the first of those days the store can pay it and still keep two days
-of the hearths' wood. Until then Miha waits (his bubble and his card say so, his talk is the `waiting` entry's, the HUD's
-sheet shows the need); if those days pass unpaid, that pile isn't built (the pile's ground stays bare until the next, no
-delivery, no charcoal: `GameState.cycles[spot].unbuilt`; paid: `stacked`). Only while the village has a smithy: before
-it, Miha burns his own wood and his charcoal goes to Gorizia.
+**The forge burns charcoal, and the charcoal costs wood** (Jan: "the Köhler needs a ton of wood"). Kovač Tone's forge
+burns Oglar Miha's charcoal (a spot's cycle that delivers to the smith: "A spot's cycle"). A pile's charcoal lasts until
+the next pile's delivery and a week (`Catalog.CHARCOAL_MARGIN`, "about the cycle"; the season's last pile carries the
+forge through the winter to the next spring's), and so do the sacks a new smithy comes with (Tone brings them from the
+valley): the forge is on charcoal until the latest of those that came (`Hearths.charcoalUntil`, a function of the date,
+the village's marks and the smithy's day, as the cycle is). Without it the forge goes cold, and Tone says so on his card
+(the delivery's `cold` lines). A pile comes to the village's smith only when the village gave its wood: the stages that
+take it (`wood: true`: Primorska's felling and stacking, 4 to 6 days) take the pile's wood from the store once, 15 % of
+the age's store (`Catalog.kopaWood`: 75 🪵 at Zaselek, 120 at Vas, 180 at Trg, 270 at Mesto; about half a day of a
+committed learner's wood, a day of a casual learner's), on the first of those days the store can pay it and still keep
+two days of the hearths' wood (the chronicle: "Oglar Miha je dobil iz vasi 120 🪵 za kopo"). Until then Miha waits (the
+cycle's day is `waiting`: his bubble "Oglar Miha čaka na drva", the pile's card, his talk; the HUD's sheet says so); if
+those days pass unpaid, that pile isn't built (the ground bare until the round would have ended, no delivery, no charcoal:
+`GameState.cycles[spot].unbuilt`; paid: `stacked`; the chronicle: "Oglar Miha ni dobil drv: te kope ne bo"). Only while
+the village has a smithy: before it, Miha burns his own wood and his charcoal goes to Gorizia. The forging discount
+(a quarter less 🪵 with a delivery's charcoal) stays as it was, a pile not built bringing none.
 
-**The HUD.** The settlement's 🔥 tile is the hearths: "🔥 6/7" lit of all, with a thin bar, red and pulsing while one is
-out for want of wood. Its sheet lists every hearth (lit or out, its wood a day), the forge ("na oglje · on charcoal, še 186
-dni · 186 days left"), the wood a day, the days the store lasts, and Miha's pile when its wood is due. The goal's card
-says "Ognjišča ugašajo · Hearths are going out" (gather wood) instead of "the fire dying".
+**The numbers** (SimulationTest's `hearthLines`, the committed learner over 170 days from 1 September, the casual and the
+binge learner over 60; `HearthsTest` for villages like the sim's at every age):
 
-**Saved villages.** No migration: a village saved before the hearths derives them from its buildings and its wood (all
-lit that the store can pay a day of), and the smith's charcoal from the smithy's age and the piles since (as if the
-village had paid their wood); the piles whose wood was due before its first day with hearths count as paid. The old
-`fire` field stays, written for an older app or bridge: 10 + 90 × the share lit (100 when all are lit).
+| Age | 🪵 a day before (2 + age index) | 🪵 a day now, all lit | The pile's 🪵 | 🪵 that came in a day (committed / casual) | Days the store lasts the hearths (committed / casual) |
+|---|---|---|---|---|---|
+| Ogenj | 2 | 2 (the campfire) | – | – | – |
+| Tabor | 3 | 3–4 (the campfire, a hut) | – | 99 / 50 | 25 / 16 |
+| Zaselek | 4 | 3–4 (the campfire 1, two huts, the school) | 75 once a round (one paid in September) | 165 / 71 | 57 / 27 |
+| Vas | 5 | 6 in the sim (one house), 6–10 with more houses | 120 | 167 | 87 |
+| Trg | 6 | 14 (four or five houses) | 180 | 211 | 13 |
+| Mesto | 7 | about 24 (ten houses) | 270 | – | – |
+
+No building brings wood: it comes from listening practice, with Luka's axe (+10 %, forged twice more), the cart bridge
+(+5 %) and the town clock (+5 %) on top; none needed a raise. The hearths take 2–8 % of what comes in, the pile's wood a
+lump that is felt in the hamlet (its store holds 500). Every profile and seed keeps its pacing, and no learner who
+practises has a hearth out for want of wood on a day they play (a pacing property now); a village that burns more than it
+gathers loses one hearth after another, the outlying first (`HearthsTest`). The hamlet keeps today's 4 a day: with more
+(the campfire 2 and the school 2, 6 a day) one of the seven villages of the learner who never talks had a store at its
+cap while wood was nearly empty for six days in a row (the pacing allows five).
+
+**The HUD.** The settlement's 🔥 tile is the hearths: "🔥 6/7" lit of all, with a thin bar under it, red and pulsing
+while one is out for want of wood (`HearthsView`, `HearthsSheet`). Its sheet lists every hearth (lit, out for want of
+wood, blown out, the centre "lit in the evening for everyone"), what each burns a day, the forge ("na oglje, še 186 dni ·
+on charcoal, 186 days left", "mrzla: ni oglja · cold: no charcoal"), the wood a day and the days the store lasts, Miha's
+pile when its wood is coming within a week, waited for or given, and "🎧 Nabiraj les · Gather wood". The goal's card,
+Home's strip and the centre's card say "Ognjišča ugašajo · Hearths are going out" (gather wood) instead of "the fire is
+dying"; the wood's sheet "Ognjišča porabijo N 🪵 na dan".
+
+**Saved villages.** No migration: a village saved before the hearths derives them from its buildings and its wood (lit
+as far as the store pays a day of them), its first tick decides them without paying again that day, and the piles whose
+wood was due before that first day count as given (Jan's, at Vas on 20 October 2026: the year's last pile, stacked in
+September, comes on 23 October and lasts the forge to next May's). An older save's smithy, built on an unknown day,
+stands a year back. The old `fire` field stays, written for an older app or bridge: 10 + 90 × the share lit (100 when all
+are lit). An older app drops `hearths` and this one derives them again; an older bridge keeps them.
+
+**The tutor** sees them in `get_village`'s `hearths` (the centre's look, lit of all, the ones out, the wood a day, the
+days of it, the forge's charcoal until when) and the pile's wood in its `spots` (how much, the days, given or waited for,
+a round not built).
+
+**QA**: "hearths:<age>", "hearths:short", "hearths:lit", "hearths:feast", "hearths:cold" (app/QaHooks); the step
+`hearths` (companion/bin/qa).
 
 ## Events
 
@@ -1566,9 +1618,15 @@ A spot of a culture pack may have a `cycle` (`world.json` `spots.<id>.cycle`; th
 - **The delivery.** The stage that `delivers` takes the round's yield to its receiver (`delivery.to`, one of the cast:
   Kovač Tone) on its first day. When he lives in the village (a smithy stands), the day's tick writes `delivery.line` in
   the chronicle ("♨️ Oglar Miha je pripeljal oglje kovaču Tonetu"); for `delivery.days` (14) after, the receiver speaks of it on his card and first in his greeting (a
-  line of `says`, the day's; after a round lost, of `waits`: "Brez Mihovega oglja kurim z drvmi"), and the smith's forge
-  burns the charcoal: forging costs a quarter less 🪵 (`SpotCycles.CHARCOAL_SAVES`, the chest's forge row "♨️ Z oglarjevim
-  ogljem: −25 % 🪵"), once (`GameState.cycles[spot].used`). Nothing else changes: no resource, no wall.
+  line of `says`, the day's; after a round lost, of `waits`: "Brez Mihovega oglja bo moja kovačnica kmalu mrzla"), and the
+  smith's forge burns the charcoal: it lasts the forge until the next pile and a week, and forging costs a quarter less 🪵
+  while he has the delivery (`SpotCycles.CHARCOAL_SAVES`, the chest's forge row "♨️ Z oglarjevim ogljem: −25 % 🪵"), once
+  (`GameState.cycles[spot].used`). With his charcoal gone his forge is cold and he says so (`cold`).
+- **The village's wood** (see "Hearths"): the stages marked `wood` take the round's wood from the village's store once,
+  while the village has the smithy its yield goes to; until it is given the keeper waits (the day's kind `waiting`, the
+  cycle's `waiting` entry: his bubble, the card's line, his talk), and a round whose wood days passed unpaid isn't built
+  (`unbuilt`: the rest's ground and texts until the round would have ended, no delivery). The bridge mirrors it
+  (`spot-cycles.ts`: `on` with the village's `waits`, `cyclesNow`'s `wood`).
 - **QA** sets the cycle's day: "kopa:<day>", "kopa:<stage>" (the stage's first day in the next round that has it, its second
   when the first is the breakout night), "kopa:breakout" (the next breakout night; "breakout:2" the one after),
   "kopa:delivery", "kopa:rest", "kopa:winter" (app/QaHooks); the keepers are there whatever their dice then. "show:kopa"

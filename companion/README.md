@@ -3836,6 +3836,7 @@ companion/bin/qa --steps chat-links              # a tutor message's links: exam
 companion/bin/qa --steps chat-attach             # 💬 in an exercise's top bar: the exercise attached, ✕, the answer with it; chat-attach-pack: a pack's word
 companion/bin/qa --steps chat-photo              # a photo (GPS EXIF) from the gallery and one from the camera: the node keeps them upright, 1568 px, without EXIF; full screen, deleted
 companion/bin/qa --steps village-hud             # the village's HUD: its bar and cards, the ring, each card's sheet, German, the plot chooser's ★
+companion/bin/qa --steps hearths                 # the hearths: each age's centre, smoke by day, warm windows and the forge at night, a wood shortage, the 🔥 tile and its sheet, the kres, Miha waiting
 companion/bin/qa --steps scroll                  # the village's scroll: its count, the grid, each collection, a grammar page, the count cleared, German
 companion/bin/qa --steps scene-people            # I spy in the church, the kitchen, the smithy: who stands where (SCENES.md "Where people stand"); the church's top bar in German, its pills apart
 companion/bin/qa --steps bubbles-follow          # the village's bubbles with their people: dragged, zoomed in, the edge chip tapped
@@ -4176,6 +4177,27 @@ age's, when the age's own are all taken: Jan's Zaselek has none left), and opens
 with its ★ (`village-hud` looks at the HUD over it, its cards hidden, then goes back: nothing is built). `build:` lets it go.
 `pair:<target>-<base>` shows the app in that language pair (`pair:sl-de`), as the connection sheet's languages choose
 it; `pair:` follows the learner profile again (`village-hud`'s German).
+
+`hearths:<what>` (GAME.md "Hearths") sets the dev village's copy for the hearths' step: `hearths:tabor` … `hearths:mesto`
+a village of that age as the step builds it (its buildings on plots 0, 1, …, the palisade, every hearth lit, wood for
+days), `hearths:short` the store short of wood with the outlying hearths out as the day's tick leaves them,
+`hearths:lit` every one lit again, `hearths:feast` a feast today (the square's kres in the evening), `hearths:cold` the
+forge without charcoal. `companion/bin/qa --steps hearths` shoots the camp's campfire, the hamlet's smoke by day, the fire
+ring by day and in the evening, the warm windows and the forge at night, the shortage at night (dark windows) with the HUD's
+🔥 tile red and its sheet, the sheet all lit, the square's basket and its kres, the town's lanterns, the forge cold, and
+Oglar Miha waiting for the village's wood at his pile (`kopa:sekanje`, `show:kopa`) with the sheet's line of it
+(`LANI_QA_HEARTHS_SHOTS`: a folder for its screenshots as `hearths-*.png`).
+
+**The hearths** (GAME.md "Hearths"). `game/HearthsTest` checks the table (which buildings have a hearth, what each burns,
+the order they're paid), the wood a day at every age before (2 + age index) and after, the order they go out when wood
+runs short, the morale they cost, wood brought in lighting them again, the storm blowing some out, an older save loading
+(derived, the fire field still written); `game/KopaWoodTest` the forge on Oglar Miha's charcoal (a new smithy's sacks and
+each pile's charcoal until the next pile and a week, the winter's from the season's last), his pile taking the village's
+wood once (keeping two days of the hearths'), waiting without it, not built when its days pass, the piles due before the
+village kept its hearths counted as given; `ui/game/HearthsViewTest` the HUD's tile and sheet; `render/HearthsRenderTest`
+each age's centre, smoke and windows lit and out, the forge lit and cold (build/village-snapshots/hearths);
+`SimulationTest` the pacing with them (no session with a hearth out for want of wood) and each age's numbers
+(`hearthLines`).
 
 **The school** (GAME.md, "The school"; [COURSE.md](COURSE.md)). `data/SheetsTest` checks the four worksheet types'
 items (a gap in its own sentence, a table's cells with their forms, a transform's lines, a sorted word), their grading
