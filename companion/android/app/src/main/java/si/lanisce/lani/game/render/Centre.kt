@@ -155,7 +155,7 @@ internal data class CentreLook(val flames: Float, val embers: Boolean = false, v
         /**
          * The centre of [kind] in [frame]: the campfire burns all day while lit ([lit]: its wood paid today), smoulders
          * without; the fire ring and the fire basket burn for a gathering (the evening's, the lunch by the fire, a party or a
-         * festival, an age's moment, the wolves or a bear about in the dark, a cheer after a fight won), else their coals
+         * festival, an age's moment's gathering, the wolves or a bear about in the dark, a cheer after a fight won), else their coals
          * glow (by day a thread of smoke); cold when their wood wasn't paid. On a feast evening (the village's feast, a
          * festival's day, an age's party) the square burns its kres.
          */
@@ -164,7 +164,7 @@ internal data class CentreLook(val flames: Float, val embers: Boolean = false, v
             if (!lit) return CentreLook(0f)
             val h = frame.hour
             val stir = si.lanisce.lani.game.villagers.Reactions.stir(state, frame.wall)
-            val party = frame.festive?.gather == true || frame.growth != null || state.event?.kind == si.lanisce.lani.game.EventKind.FESTIVAL
+            val party = frame.festive?.gather == true || state.event?.kind == si.lanisce.lani.game.EventKind.FESTIVAL
             val gathering = party ||
                 (si.lanisce.lani.game.villagers.Reactions.threat(state.event?.kind) && env.dark > 0.3f) ||
                 stir?.phase == si.lanisce.lani.game.villagers.Stir.Phase.WON

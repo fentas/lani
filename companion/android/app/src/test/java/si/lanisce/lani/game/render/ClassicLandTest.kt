@@ -77,20 +77,22 @@ class ClassicLandTest {
         // of a household, the fire's handful (2026-10-13); the hamlet's tenth plot, the school's (2026-10-13): its clearing
         // and palisade a little wider, the meadow's flowers and stones off the new plot; the road's bridge from bank to bank,
         // as wide as the road, a railing along each side (2026-10-18); the road fording the stream on stepping stones until
-        // the village builds its bridge there (2026-10-19)
+        // the village builds its bridge there (2026-10-19); the hearths (GAME.md "Hearths", 2026-10-20): the house's and the
+        // hut's smoke from their chimneys by day, their windows lit while their hearths burn
         "jan-like" to mapOf(
-            "side-day" to "3eb9c3e6e4a5640b", "tall-day" to "22ee873584bbf4ac", "tall-dusk-k2" to "bbfcc1c496ab8b1d",
-            "tall-night-k3" to "f73afd642d9a0822", "compact" to "4f62ac12d1e45738", "widget" to "9978da454bc4c798",
+            "side-day" to "e88ba89b33b48100", "tall-day" to "6a6432b856047b02", "tall-dusk-k2" to "f5a0d648147029bb",
+            "tall-night-k3" to "964e1eac3deaa622", "compact" to "5bc52f6883de077b", "widget" to "a6b75b92251751e2",
         ),
         // the town's maypole by the plaza in the middle (2026-10-11; before, it stood by the linden at the side); its fields
         // drawn as the hamlet's, its people at their chores (2026-10-13); the cart bridge on its own track from the road
         // into the woods through a gate of its own, the timber bridge its steps build, and the road's bridge (2026-10-18);
         // one bridge, the village's, where the road crosses the stream: no track, no gate of its own (2026-10-19); the
         // people react to the wolves at the gate (GAME.md "People react"): the defenders, the fire's gathering, the hens,
-        // the unnamed by the fire, nobody else about (2026-10-20)
+        // the unnamed by the fire, nobody else about (2026-10-20); the hearths (GAME.md "Hearths", 2026-10-20): the town's
+        // fire basket on the square (burning for the wolves' gathering in the dark), its lanterns, smoke from the chimneys
         "town" to mapOf(
-            "side-day" to "41a8224ed6ecb701", "tall-day" to "5d12f61d07efe080", "tall-dusk-k2" to "7661a84d194827d8",
-            "tall-night-k3" to "d9baa1a58f358b52", "compact" to "ab4f34e56d6a72b6", "widget" to "d98c02e65493a719",
+            "side-day" to "d7a25cebb4f12829", "tall-day" to "2425b077810c30cd", "tall-dusk-k2" to "f64c6689a34a339c",
+            "tall-night-k3" to "1b9b2665aed8a183", "compact" to "98dbb1dc41bafb3d", "widget" to "b7eee1ac5c5e8a3a",
         ),
     )
 

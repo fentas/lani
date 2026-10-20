@@ -206,17 +206,19 @@ class HomeLogicTest {
 
     // --- header, tiles, road, plan ---------------------------------------------------------------
 
-    @Test fun `the header names an event first, then a dying fire, else the age`() {
+    @Test fun `the header names an event first, then hearths going out, else the age`() {
         val e = GameEvent("e", EventKind.WOLVES, 1, 0, 1000)
-        assertEquals(VillageHint.Event(e), HomeLogic.villageHint(GameState(event = e, fire = 5)))
-        assertEquals(VillageHint.FireLow, HomeLogic.villageHint(GameState(fire = 20)))
+        // the campfire out for want of wood today (companion/GAME.md "Hearths")
+        val cold = si.lanisce.lani.game.HearthDay(out = listOf(si.lanisce.lani.game.Hearths.CENTRE))
+        assertEquals(VillageHint.Event(e), HomeLogic.villageHint(GameState(event = e, hearths = cold)))
+        assertEquals(VillageHint.FireLow, HomeLogic.villageHint(GameState(hearths = cold)))
         assertEquals(VillageHint.Calm(Age.TABOR), HomeLogic.villageHint(GameState(age = Age.TABOR)))
         // Someone waiting for room nudges to build; waiting for a building (the school) doesn't.
         val room = Arrival(Arrival.Kind.BIRTH, "Furlan", "🍼", "prostor · room")
         val school = Arrival(Arrival.Kind.CAST, "Učiteljica Mojca", "👩‍🏫", "Šola · School")
         assertEquals(VillageHint.NeedsRoom(room), HomeLogic.villageHint(GameState(), listOf(school, room)))
         assertEquals(VillageHint.Calm(Age.OGENJ), HomeLogic.villageHint(GameState(), listOf(school)))
-        assertEquals(VillageHint.FireLow, HomeLogic.villageHint(GameState(fire = 20), listOf(room)))
+        assertEquals(VillageHint.FireLow, HomeLogic.villageHint(GameState(hearths = cold), listOf(room)))
         assertTrue(HomeLogic.roomText(room).startsWith("🍼 Družina Furlan pričakuje otroka"))
         assertTrue(HomeLogic.threat(EventKind.STORM))
         assertFalse(HomeLogic.threat(EventKind.FESTIVAL))

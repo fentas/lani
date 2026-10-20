@@ -282,6 +282,8 @@ internal class SceneCtx(val canvas: PixelCanvas) {
 class VillageRenderer {
     private val ctxs = LinkedHashMap<PixelCanvas, SceneCtx>()
     private val hits = ArrayList<Pair<VillageHit, IntArray>>()
+    /** Last frame's space of the centre's flames at their highest [x0, y0, x1, y1] (see [hitTest]); null before a frame. */
+    private var fireColumn: IntArray? = null
     /** Ground spots that are areas, not objects: (what, ellipse [cx, cy, rx, ry] in canvas px). */
     private val areas = ArrayList<Pair<VillageHit, FloatArray>>()
     /** Object id -> 1 + index into [hits] (0 = not tappable), for pixel-exact taps. */
@@ -373,7 +375,7 @@ class VillageRenderer {
         kopaLook = frame.kopa
         mark(0)
         s.reset()
-        hits.clear()
+        hits.clear(); fireColumn = null
         areas.clear()
         anchors.clear()
         owner.fill(0)
@@ -662,6 +664,9 @@ class VillageRenderer {
             val tall = ((5f + 10f) * fireScale * k).roundToInt()
             val reach = (TownAnchors.fireReach(fireScale) * k).roundToInt(); val front = (TownAnchors.fireFront(fireScale) * k).roundToInt()
             hits.add(VillageHit.OnFire to intArrayOf(fireX - reach, fireY - maxOf(fh, tall) - 6 * k, fireX + reach, fireY + front))
+            // where its flames burn at their highest: the centre's, over whatever stands behind it, burning now or not
+            val half = (tall * 0.5f).roundToInt() + k
+            fireColumn = intArrayOf(fireX - half, fireY - tall - 3 * k, fireX + half, fireY)
         })
         // the fire ring's benches, where the evening sits: one to either side, behind whoever sits there
         if (centre == si.lanisce.lani.game.HearthKind.FIRE_RING) for (side in intArrayOf(1, -1)) {
@@ -805,6 +810,10 @@ class VillageRenderer {
         if (exact == 0 || hits[exact - 1].first == VillageHit.OnFire) hits.firstOrNull { it.first == VillageHit.OnFire }?.second?.let { r ->
             if (x in r[0]..r[2] && y in r[1]..r[3]) return VillageHit.OnFire
         }
+        // the space of its flames at their highest (the fire ring's and the fire basket's burn only for a gathering): the
+        // centre's over what was drawn before it (behind it, the ground), as when its flames cover them
+        val fireSlot = hits.indexOfFirst { it.first == VillageHit.OnFire } + 1
+        fireColumn?.let { r -> if (exact != 0 && exact < fireSlot && x in r[0]..r[2] && y in r[1]..r[3]) return VillageHit.OnFire }
         var bestSlot = 0; var bestD = Int.MAX_VALUE; var ringD = Int.MAX_VALUE
         var wildSlot = 0; var wildD = Int.MAX_VALUE
         val reach = max(1, slop / 2)

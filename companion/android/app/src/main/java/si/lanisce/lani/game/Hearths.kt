@@ -195,10 +195,13 @@ object Hearths {
         return lit(s, today, world).size.toFloat() / all.size
     }
 
-    /** Whether a hearth is out for want of wood (not blown out by the storm, not the forge's charcoal): the goal's "gather wood". */
+    /**
+     * Whether a hearth is out for want of wood (not blown out by the storm, not the forge's charcoal): the goal's "gather
+     * wood". Not before the day's tick decided them (an older save before its first tick, a friend's town on a visit).
+     */
     fun short(s: GameState, today: LocalDate = dayOf(s), world: WorldFile = Cultures.current.world): Boolean {
-        val blown = s.hearths?.blown.orEmpty()
-        return out(s, today, world).any { !it.charcoal && it.id !in blown }
+        val h = s.hearths ?: return false
+        return out(s, today, world).any { !it.charcoal && it.id !in h.blown }
     }
 
     /** The old fire field from the share lit, for an older app or bridge: 10 + 90 × the share (100 when all are lit). */
@@ -216,9 +219,8 @@ object Hearths {
     // --- the day ------------------------------------------------------------------------------------------------------
 
     /**
-     * One day of the hearths ([date], half their wood from the 4th missed day: [soft]): the smith's charcoal (a pile
-     * delivered today, a day burnt), the wood paid in order (the first the store can't pay goes out, and every one after
-     * it), the charcoal pile's wood when it is due (the store keeping [Catalog.KOPA_KEEPS_DAYS] days of the hearths' wood),
+     * One day of the hearths ([date], half their wood from the 4th missed day: [soft]): the forge on its charcoal while it
+     * lasts ([charcoalUntil]), the wood paid in order (the first the store can't pay goes out, and every one after it), the charcoal pile's wood when it is due (the store keeping [Catalog.KOPA_KEEPS_DAYS] days of the hearths' wood),
      * a pile whose wood days passed unpaid not built. Returns the state, the morale it costs (the share out) and the
      * chronicle's lines (the pile's wood given, a pile not built).
      */
