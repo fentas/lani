@@ -214,10 +214,15 @@ fun WordBubble(
     }
 }
 
-/** Someone who is just there (no dialog now): they greet the learner for the time of day, in their voice ([SceneWords.voiceOf]). */
+/**
+ * Someone who is just there (no dialog now): they greet the learner for the time of day, in their voice ([SceneWords.voiceOf]);
+ * while the village reacts to something ([said]: wolves about, the merchant come; companion/GAME.md "People react") they
+ * say that instead, its translation under it.
+ */
 @Composable
-fun PersonBubble(emoji: String, name: String, line: String?, hour: Int, speaker: Speaker, color: Color, voice: Spoken = Spoken(Clips.FEMALE)) {
-    val hello = "${greeting(hour)}!"
+fun PersonBubble(emoji: String, name: String, line: String?, hour: Int, speaker: Speaker, color: Color, voice: Spoken = Spoken(Clips.FEMALE), said: Pair<String, String>? = null) {
+    val hello = said?.first ?: "${greeting(hour)}!"
+    @Suppress("NAME_SHADOWING") val line = if (said != null) said.second.ifBlank { null } else line
     LaunchedEffect(name) { speaker.say(hello, voiceName = voice.voice, fallback = voice.fallback, person = voice.person) }
     Surface(color = color, shape = RoundedCornerShape(18.dp), modifier = Modifier.widthIn(max = 320.dp).popIn(name)) {
         Row(Modifier.padding(start = 14.dp, end = 6.dp, top = 8.dp, bottom = 8.dp), verticalAlignment = Alignment.CenterVertically) {

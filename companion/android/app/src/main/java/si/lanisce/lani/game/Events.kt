@@ -160,7 +160,8 @@ internal object Events {
             if (won) it.copy(eventsWon = it.eventsWon + 1) else if (counted) it.copy(eventsLost = it.eventsLost + 1) else it
         }
         val text = if (expired && e.kind != EventKind.FESTIVAL) "$message (⌛ ${Cultures.current.events.tooLate.bi()})" else message
-        val done = afterGain.copy(stats = stats).logged(now, e.kind.emoji to text.removePrefix("${e.kind.emoji} "))
+        val done = afterGain.copy(stats = stats, ended = EventEnd(e.kind, won, now, damaged, expired))
+            .logged(now, e.kind.emoji to text.removePrefix("${e.kind.emoji} "))
         return done to ChallengeResult(won, got, lost, damaged, text)
     }
 }

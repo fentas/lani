@@ -154,7 +154,7 @@ class VillagerController(
 
     /** Whether [id] lives here and waits to be met (their introduction, or someone's they wait for, can be played). */
     fun waitsToMeet(state: GameState?, id: String): Boolean =
-        state != null && livesHere(state, id) && !Arrivals.met(state, id) && Arrivals.next(state, id, LocalDate.now()) != null
+        state != null && !si.lanisce.lani.game.villagers.Reactions.quiet(state) && livesHere(state, id) && !Arrivals.met(state, id) && Arrivals.next(state, id, LocalDate.now()) != null
 
     /**
      * Meets [id] (a bubble at their home, the scroll's Today, their card): their introduction opens, at the learner's
@@ -163,6 +163,8 @@ class VillagerController(
      */
     fun meet(id: String): Boolean {
         val s = game.state ?: return false
+        // the meeting waits while wolves, a bear or a storm are about (companion/GAME.md "People react")
+        if (si.lanisce.lani.game.villagers.Reactions.quiet(s)) return false
         val today = LocalDate.now()
         val p = Arrivals.next(s, id, today) ?: return false
         val lang = si.lanisce.lani.game.culture.Cultures.home.manifest.language

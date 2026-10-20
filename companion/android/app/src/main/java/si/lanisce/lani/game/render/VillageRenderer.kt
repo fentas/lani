@@ -318,6 +318,13 @@ class VillageRenderer {
     /** Where the people who live here were drawn in the last frame: villager id → the point above their head, in nominal canvas pixels. */
     val villagerAnchors: Map<String, CanvasPoint> get() = anchors
 
+    /**
+     * Who of the last frame's people calls out, and what (companion/GAME.md "People react": "Volkovi!", "Hitro noter!"),
+     * over their head at [villagerAnchors]; none most of the time.
+     */
+    @Volatile var shouts: List<Pair<String, si.lanisce.lani.game.culture.Text>> = emptyList()
+        private set
+
     /** The wild animals drawn in the last frame (see [Wildlife]). */
     val wildlife: List<WildSeen> get() = seen
 
@@ -617,68 +624,52 @@ class VillageRenderer {
 
         // people: those who live here around their homes, the rest of the population walking about unnamed
         val gather = frame.festive?.gather == true
-        val placed = frame.placed ?: TownPeople.of(state, frame.people, frame.time, frame.hour, frame.month, bw, bh, storm, event == EventKind.FESTIVAL || gather, frame.standing, frame.date, frame.day)
-        addPeople(s, placed, comp, objs)
+        // what the village reacts to now (companion/GAME.md "People react"): its event, or one just over
+        val stir = si.lanisce.lani.game.villagers.Reactions.stir(state, frame.wall)
+        val placed = frame.placed ?: TownPeople.of(state, frame.people, frame.time, frame.hour, frame.month, bw, bh, festival = gather, standing = frame.standing, date = frame.date, day = frame.day, wall = frame.wall)
+        addPeople(s, placed, comp, objs, painter)
+        shouts = if (frame.compact) emptyList() else TownReactions.shouts(stir, placed, frame.time, stir?.let { si.lanisce.lani.game.villagers.Reactions.shouts(it) }.orEmpty())
         // round the fire, the unnamed after the named (and a visitor waiting there): each in a place of their own, past the
         // named's places (they keep theirs while others come and go, so some round it may be free)
         val named = placed.filter { it.place == TownPlace.Fire }.maxOfOrNull { it.slot + 1 } ?: 0
         val atFire = named + if (!frame.compact && TownPlace.Fire in frame.visitors) 1 else 0
-        addVillagers(s, state, (state.villagers - frame.people.count { it.art != "baby" }).coerceAtLeast(0), buildings, objs, if (gather && !storm) EventKind.FESTIVAL else event, atFire, bw, bh)
+        addVillagers(s, state, (state.villagers - frame.people.count { it.art != "baby" }).coerceAtLeast(0), buildings, objs, if (gather && !storm) EventKind.FESTIVAL else event, atFire, bw, bh, stir)
         if (!frame.compact) addVisitors(s, state, frame.visitors, objs, comp, bw, bh, named)
+        // the hens bunched up by a house while wolves or a bear are about, by day
+        if (stir?.threat == true && stir.phase == si.lanisce.lani.game.villagers.Stir.Phase.ON && env.dark < 0.55f) {
+            buildings.firstOrNull { it.type == BuildingType.HUT || it.type == BuildingType.HOUSE }?.let { b ->
+                val c = land.centers[b.plot]
+                val hx = c[0] + TownPeople.Nook.YARD.dx; val hy = c[1] + TownPeople.Nook.YARD.dy
+                objs.add(Obj(hx + hy) {
+                    s.newObject(Pal.OUTLINE)
+                    s.effects.huddle(s.iso.ix(hx, hy), s.iso.iy(hx, hy, 0f), 3, Noise.hash(b.plot, 29))
+                })
+            }
+        }
 
         // events
         when (event) {
-            EventKind.WOLVES -> {
-                val n = 2 + (state.event?.strength ?: 1).coerceIn(1, 5) / 2
-                // with a palisade they gather outside it: at the gate of the path from the woods, or at the ring's lower left
-                val ring = if (palisade != null) Palisade.ring(land, age, fg) else null
-                val gate = ring?.gates?.firstOrNull { it.kind == PalisadeRing.Kind.PATH }?.let { ring.middle(it) }
-                for (j in 0 until n) {
-                    val step = ((s.time * 5).toInt() + j) and 1
-                    if (fg != null) {
-                        // out of the woods, up the path from the meadow towards the village (or its gate)
-                        val py = if (gate != null) comp.fireY + (gate[0] + gate[1]) * 2f + 6f + j * 6f else fg.meadowY - fg.meadowRy - 3f - j * 9f
-                        val px = fg.pathX(py) + (j % 2 * 2 - 1) * 4f + sin(s.time * 0.6 + j).toFloat() * 2f
-                        objs.add(Obj((py - comp.fireY) / 2f) {
-                            s.newObject(Pal.OUTLINE)
-                            val ax = s.cx(px).roundToInt(); val ay = s.cy(py).roundToInt()
-                            s.sprite(ax, ay) { s.effects.wolf(ax, ay, faceRight = j % 2 == 0, eyes = env.dark > 0.3f, step = step) }
-                        })
-                        continue
-                    }
-                    val a = PI * (0.66 + j * 0.1)
-                    val p = dry(land, edgePoint(comp, if (ring != null) land.forestEdge(age, a.toFloat()) + 2f else clearR * 0.98f, a, bw, bh))
-                    val wx = p[0] + sin(s.time * 0.6 + j).toFloat() * 0.8f; val wy = p[1] - j * 0.3f
-                    objs.add(Obj(wx + wy) {
+            EventKind.WOLVES, EventKind.BEAR -> Threats.of(state, comp, fg, bw, bh)?.let { threat ->
+                // out of the woods, up the path from the meadow towards the village (or its gate), or at the forest's edge; the
+                // bear at the forest's edge on the field's side (see [Threats]): where the people keep away from
+                for ((j, b) in threat.beasts.withIndex()) {
+                    objs.add(Obj(b.x + b.y) {
+                        val p = b.at(s.time)
                         s.newObject(Pal.OUTLINE)
-                        val ax = s.iso.ix(wx, wy); val ay = s.iso.iy(wx, wy, 0f)
-                        s.sprite(ax, ay) { s.effects.wolf(ax, ay, faceRight = true, eyes = env.dark > 0.3f, step = step) }
+                        val ax = s.iso.ix(p[0], p[1]); val ay = s.iso.iy(p[0], p[1], 0f)
+                        if (event == EventKind.WOLVES) {
+                            val step = ((s.time * 5).toInt() + j) and 1
+                            s.sprite(ax, ay) { s.effects.wolf(ax, ay, faceRight = b.faceRight, eyes = env.dark > 0.3f, step = step) }
+                        } else s.sprite(ax, ay) { s.effects.bear(ax, ay, faceRight = b.faceRight, step = ((s.time * 3).toInt()) and 1) }
                     })
                 }
             }
-            EventKind.BEAR -> {
-                val field = buildings.firstOrNull { it.type == BuildingType.FIELD }
-                val p = if (field != null) {
-                    val c = land.centers[field.plot]; val len = sqrt(c[0] * c[0] + c[1] * c[1])
-                    floatArrayOf(c[0] + c[0] / len * 3.2f, c[1] + c[1] / len * 3.2f)
-                }
-                else dry(land, edgePoint(comp, clearR * 0.85f, PI * 0.12, bw, bh))
-                val bx = p[0] + sin(s.time * 0.5).toFloat() * 0.5f; val by = p[1]
-                objs.add(Obj(bx + by) {
-                    s.newObject(Pal.OUTLINE)
-                    val ax = s.iso.ix(bx, by); val ay = s.iso.iy(bx, by, 0f)
-                    s.sprite(ax, ay) { s.effects.bear(ax, ay, faceRight = false, step = ((s.time * 3).toInt()) and 1) }
-                })
-            }
             EventKind.MERCHANT -> {
-                val u = (s.time / 7.0).coerceIn(0.0, 1.0).toFloat()
-                val e = 1 - (1 - u) * (1 - u)
-                // park just past the last building that would hide the road
-                var stop = 6.5f
-                for (b in buildings) { val c = land.centers[b.plot]; if (c[1] > land.roadY(c[0])) stop = max(stop, c[0] - c[1] + 8f) }
-                stop = min(stop, (bw / 2f - 22f) / 4f)
-                val cx = 30f - (30f - stop) * e; val cy = 0.1f + land.roadY(cx)
-                objs.add(Obj(cx + cy + 0.6f) { s.newObject(Pal.OUTLINE); s.effects.cart(cx, cy, u < 1f) })
+                // up the road when he comes, parked just past the last building that would hide the road (see [Threats.cart]):
+                // where the people gather round it
+                val c = Threats.cartAt(state, bw, stir?.since ?: Double.POSITIVE_INFINITY)
+                val cx = c[0]; val cy = c[1]
+                objs.add(Obj(cx + cy + 0.6f) { s.newObject(Pal.OUTLINE); s.effects.cart(cx, cy, c[2] > 0f) })
             }
             EventKind.FESTIVAL -> {
                 val poles = arrayOf(floatArrayOf(-3.4f, -3.4f), floatArrayOf(3.4f, -3.4f), floatArrayOf(3.4f, 3.4f), floatArrayOf(-3.4f, 3.4f))
@@ -1790,23 +1781,6 @@ class VillageRenderer {
         painter.gather(b, ring, landmarks, keep, grow, horizon, add = { depth, draw -> objs.add(Obj(depth, draw)) }, tag = { owner[it] = slot })
     }
 
-    /** World point [p] (cells), moved in off the water of [land] (its lake or sea) when it is in it. */
-    private fun dry(land: Terrain, p: FloatArray): FloatArray {
-        if (!land.water) return p
-        val sx = (p[0] - p[1]) * 4f; val sy = (p[0] + p[1]) * 2f
-        if (!land.wetScreen(sx, sy, 4f)) return p
-        val q = land.inland(sx, sy, 4f)
-        return floatArrayOf((q[0] / 4f + q[1] / 2f) / 2f, (q[1] / 2f - q[0] / 4f) / 2f)
-    }
-
-    /** A world point [r] (screen metric) from the fire at angle [a], kept on the nominal canvas. */
-    private fun edgePoint(comp: Composition, r: Float, a: Double, w: Int, h: Int): FloatArray {
-        var sx = (r * cos(a)).toFloat(); var sy = (r * sin(a)).toFloat() / 2.4f
-        sx = sx.coerceIn(14f - comp.fireX, w - 14f - comp.fireX)
-        sy = sy.coerceIn(comp.horizon + 10f - comp.fireY, h - 8f - comp.fireY)
-        return floatArrayOf((sx / 4f + sy / 2f) / 2f, (sy / 2f - sx / 4f) / 2f)
-    }
-
     // ------------------------------------------------------------------ people
 
     /**
@@ -1814,17 +1788,20 @@ class VillageRenderer {
      * with a hat and a prop, or the scene's people with faces at k = 3. Each is tappable and keeps a bubble anchor
      * above their head.
      */
-    private fun addPeople(s: SceneCtx, placed: List<Placed>, comp: Composition, objs: ArrayList<Obj>) {
+    private fun addPeople(s: SceneCtx, placed: List<Placed>, comp: Composition, objs: ArrayList<Obj>, painter: BuildingPainter? = null) {
         val k = s.k
         for (p in placed) {
             val look = Effects.lookOf(p.villager.art, Noise.hash(p.id.hashCode(), 13))
             val height = when (k) { 1 -> 7f; 2 -> 7f; else -> s.people.height(p.villager.art) / 3f }
             anchors[p.id] = TownPeople.headAnchor(p, comp, if (p.seated) height * 0.7f else height)
+            // up on the watchtower: behind its parapet, in front of the rest of it
+            val tower = if (p.z >= TownReactions.TOWER_Z - 0.5f && (p.place as? TownPlace.At)?.type == BuildingType.WATCHTOWER) p else null
             objs.add(Obj(p.x + p.y + (if (p.z > 0f) 0.05f else 0f)) {
                 val bx = s.iso.ix(p.x, p.y); val by = s.iso.iy(p.x, p.y, p.z)
                 owner[s.newObject(Pal.OUTLINE)] = hits.size + 1
                 val seed = TownPeople.drawSeed(p.id)
                 val hh = s.effects.person(bx, by, p.villager.art, look, seed, p.activity, p.flip, lantern = p.lantern, load = p.load)
+                if (tower != null && painter != null) painter.parapet(tower.x - 1.5f, tower.y - 1.5f)
                 hits.add(VillageHit.OnVillager(p.id) to intArrayOf(bx - 5 * k, by - hh, bx + 5 * k, by + k))
             })
             // the children's ball, where it flies between them (in front of whoever it passes)
@@ -1840,15 +1817,38 @@ class VillageRenderer {
     /**
      * The population beyond the named villagers, unnamed: at a festival dancing round the fire; in the dark evening a few
      * round it; by day going between the doors and the plaza on errands of their own, a while at each (a word at a
-     * neighbour's door), along the paths and the road, never through the fire or a building ([TownPeople.route]).
+     * neighbour's door), along the paths and the road, never through the fire or a building ([TownPeople.route]). In a
+     * storm they're in; while wolves or a bear are about a few stand by the fire, and after a won fight a few cheer there
+     * ([stir]: companion/GAME.md "People react").
      */
-    private fun addVillagers(s: SceneCtx, state: GameState, total0: Int, buildings: List<Building>, objs: ArrayList<Obj>, event: EventKind?, atFire: Int = 0, cw: Int = 0, ch: Int = 0) {
+    private fun addVillagers(
+        s: SceneCtx, state: GameState, total0: Int, buildings: List<Building>, objs: ArrayList<Obj>, event: EventKind?, atFire: Int = 0, cw: Int = 0, ch: Int = 0,
+        stir: si.lanisce.lani.game.villagers.Stir? = null,
+    ) {
         val total = total0.coerceIn(0, 20)
         if (total == 0) return
         val env = s.env
         val seed0 = (state.seed xor (state.seed ushr 32)).toInt()
         val night = env.dark > 0.55f
         val storm = event == EventKind.STORM
+        // wolves or a bear about: a few by the fire (the rest in the house); a won fight: a few more there, cheering; a
+        // storm: everyone in
+        val fight = stir?.threat == true && (stir.phase == si.lanisce.lani.game.villagers.Stir.Phase.ON || stir.phase == si.lanisce.lani.game.villagers.Stir.Phase.WON && stir.since < si.lanisce.lani.game.villagers.Reactions.CHEER_S)
+        if (storm) return
+        if (fight) {
+            val cheer = stir?.phase == si.lanisce.lani.game.villagers.Stir.Phase.WON
+            val n = min(total, if (cheer) 4 else 3)
+            val scale = TownAnchors.FIRE_SCALE[state.age.ordinal]
+            for (k in 0 until n) {
+                val p = TownPeople.aroundFire(atFire + k, scale)
+                val x = p[0]; val y = p[1]
+                objs.add(Obj(x + y) {
+                    s.newObject(Pal.OUTLINE)
+                    s.effects.villager(s.iso.ix(x, y), s.iso.iy(x, y, 0f), Noise.hash(seed0, k), false, flip = x - y > 0, bob = if (cheer) ((s.time * 5).toInt() + k) and 1 else 0)
+                })
+            }
+            return
+        }
         if (event == EventKind.FESTIVAL) {
             val n = min(total, 14)
             for (k in 0 until n) {
@@ -1862,10 +1862,9 @@ class VillageRenderer {
             }
             return
         }
-        if (night || storm) {
+        if (night) {
             // the dark evening: a few by the fire, fewer as it gets late; from ten, and in the dark morning, they're home
             val n = when {
-                storm -> min(total, 1)
                 s.hour >= 22f || s.hour < 12f -> 0
                 s.hour >= 21f -> min(total, 2)
                 else -> min(total, 4)

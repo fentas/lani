@@ -199,6 +199,8 @@ object TownMarkers {
         out += arrivals(state, cast, today)
         // a request from someone of the cast who isn't in the village today waits for them; at most two of each are up
         out += questMarkers(si.lanisce.lani.game.villagers.Residents.queue(state, cast, today).up, state, cast)
+        // wolves, a bear or a storm about: only the event and the requests (companion/GAME.md "People react"); the rest waits
+        if (si.lanisce.lani.game.villagers.Reactions.quiet(state)) return out
         // today's visitor waits with a bubble until Jan has greeted or met them today; then they're just about
         si.lanisce.lani.game.villagers.Residents.visitorToday(state, today)
             ?.takeIf { id -> state.bonds[id]?.seen != today.toString() }
@@ -241,10 +243,11 @@ object TownMarkers {
 
     /**
      * "arrival:<id>" at the home of each who joined the village and whose introduction can be played now
-     * ([si.lanisce.lani.game.villagers.Arrivals.ready]): 🧳 someone who moved in, 👶 a baby.
+     * ([si.lanisce.lani.game.villagers.Arrivals.ready]): 🧳 someone who moved in, 👶 a baby; none while wolves, a bear or a
+     * storm are about (the meeting waits: [si.lanisce.lani.game.villagers.Reactions.quiet]).
      */
     fun arrivals(state: GameState, cast: List<Villager>, today: java.time.LocalDate): List<TownMarker> =
-        si.lanisce.lani.game.villagers.Arrivals.ready(state, today).mapNotNull { p ->
+        if (si.lanisce.lani.game.villagers.Reactions.quiet(state)) emptyList() else si.lanisce.lani.game.villagers.Arrivals.ready(state, today).mapNotNull { p ->
             val v = cast.firstOrNull { it.id == p.id } ?: si.lanisce.lani.game.villagers.Residents.villagerOf(p.resident, cast, today) ?: return@mapNotNull null
             TownMarker("arrival:${p.id}", TownMarker.Kind.HAPPENING, p.emoji, si.lanisce.lani.game.villagers.Arrivals.title(p, v), homeOf(v, state))
         }

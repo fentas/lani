@@ -134,7 +134,8 @@ object Walkways {
     /**
      * What a walk in [state]'s village on a [w] × [h] canvas goes round: the fire, every building on a plot, a field's crops
      * (along its edge: its workers walk in from where they set off in it or to where they work in it, a block they are in being
-     * none for them), the projects' landmarks (but the bridge, which they walk over), the campsite's fire and tent at the pond.
+     * none for them), the projects' landmarks (but the bridge, which they walk over), the campsite's fire and tent at the pond,
+     * and the wolves or the bear while they're about ([Threats.Threat.block]).
      */
     fun blocks(state: GameState, w: Int, h: Int): List<Block> {
         val land = VillageLayout.of(state)
@@ -153,6 +154,8 @@ object Walkways {
             for (i in core.indices step 2) { core[i] += fx; core[i + 1] += fy; grown[i] += fx; grown[i + 1] += fy }
             out += Block(core, grown)
         }
+        // wolves or a bear about: nobody walks near them ([Threats.KEEP]), a way goes round them at that distance
+        Threats.of(state, w, h)?.let { out += it.block() }
         return out
     }
 
@@ -238,6 +241,8 @@ object Walkways {
             for (b in state.buildings) append(b.plot).append(':').append(b.type.ordinal).append(',')
             // a landmark down for the season (the maypole after May) is nothing to go round
             append('/').append(si.lanisce.lani.game.Projects.landmarks(state).joinToString(",") { it.project + ":" + it.finished + if (it.down) ":down" else "" })
+            // the wolves or the bear about, as many as come
+            state.event?.takeIf { it.kind == si.lanisce.lani.game.EventKind.WOLVES || it.kind == si.lanisce.lani.game.EventKind.BEAR }?.let { append('/').append(it.kind.name).append(':').append(it.strength) }
         }
         synchronized(ways) { ways[key] }?.let { return it }
         return Ways(blocks(state, w, h)).also { synchronized(ways) { ways[key] = it } }

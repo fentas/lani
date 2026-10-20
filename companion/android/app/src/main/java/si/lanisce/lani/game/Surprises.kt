@@ -88,9 +88,10 @@ object Surprises {
 
     /**
      * The stranger at the road [today], to draw there: the pedlar all his day, the pilgrim until he's been shown the way
-     * (his surprise done). Null on other days.
+     * (his surprise done). Null on other days, and while wolves, a bear or a storm are about (he's in at the inn).
      */
-    fun stranger(s: GameState, today: LocalDate): Villager? = today(s, today)?.takeIf { !it.done }?.let { strangers[it.kind] }
+    fun stranger(s: GameState, today: LocalDate): Villager? =
+        if (si.lanisce.lani.game.villagers.Reactions.quiet(s)) null else today(s, today)?.takeIf { !it.done }?.let { strangers[it.kind] }
 
     /** The children in the village today (the cast's and those born here), ids; null = everyone (no names yet). */
     private fun children(s: GameState, today: LocalDate): List<String>? {

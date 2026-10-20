@@ -172,6 +172,16 @@ internal object Palisade {
 
     private val cache = LinkedHashMap<String, PalisadeRing>()
 
+    /** Where a damaged palisade is breached (in the clearing's metric: the lower left, towards the forest spot). */
+    private val BREACH_ANGLE = (0.72 * PI).toFloat()
+
+    /** The stake of [ring] where a damaged palisade is breached (its index; -1: no stakes): the lower left, where the wolves come from. */
+    fun breachAt(ring: PalisadeRing): Int =
+        ring.stakes.indices.minByOrNull { abs(VillageLayout.angle((ring.stakes[it].x - ring.stakes[it].y) * 4f, (ring.stakes[it].x + ring.stakes[it].y) * 2f) - BREACH_ANGLE) } ?: -1
+
+    /** The stake where [ring] is breached when the palisade is damaged ([breachAt]), or null. */
+    fun breach(ring: PalisadeRing): PalisadeRing.Stake? = ring.stakes.getOrNull(breachAt(ring))
+
     /**
      * The ring of [age]'s clearing on [land]; [woods]: the woods below the village on this canvas (their path gets a gate),
      * or null.
@@ -413,7 +423,7 @@ internal class PalisadePainter(private val s: SceneCtx, private val buildings: B
             shown[n] = true
         }
         // the breach: a few stakes knocked down, those beside them broken off (towards the lower left, where the wolves come from)
-        val breach = if (b.damaged) stakes.indices.minByOrNull { abs(breachAngle(stakes[it]) - BREACH_ANGLE) } ?: -1 else -1
+        val breach = if (b.damaged) Palisade.breachAt(ring) else -1
         val gates = ring.gates.associateBy { it.b }
         val torches = if (b.level < 2) emptySet() else ring.gates.filter { it.kind == PalisadeRing.Kind.ROAD || it.kind == PalisadeRing.Kind.PATH }.flatMap { listOf(it.a, it.b) }.toSet()
         val flag = if (b.level >= 3) ring.main?.a ?: -1 else -1
@@ -476,7 +486,6 @@ internal class PalisadePainter(private val s: SceneCtx, private val buildings: B
         return intArrayOf(l.toInt(), t.toInt(), r.toInt(), bot.toInt())
     }
 
-    private fun breachAngle(st: PalisadeRing.Stake): Float = VillageLayout.angle((st.x - st.y) * 4f, (st.x + st.y) * 2f)
 
     /**
      * Whether stake [st] stands on landmark [l]'s footprint, or in front of it, high enough to hide some of it (one that
@@ -610,8 +619,6 @@ internal class PalisadePainter(private val s: SceneCtx, private val buildings: B
         val FOAM = Col.hex(0xE8F2FA)
         const val WET_POINT = 2f
 
-        /** Where a damaged palisade is breached (in the clearing's metric: the lower left, towards the forest spot). */
-        val BREACH_ANGLE = (0.72 * PI).toFloat()
 
         /** The stakes standing within this many px below the horizon get lower towards it, into the far treeline. */
         const val TAPER = 4f

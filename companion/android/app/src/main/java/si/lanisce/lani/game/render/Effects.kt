@@ -173,6 +173,67 @@ internal class Effects(private val s: SceneCtx) {
     /** At play: both arms up for a moment every few seconds. */
     private fun cheering(seed: Int): Boolean = cyc(seed, 4.3, 0.61) < 0.21f
 
+    /** Cheering after a won fight: the arms up most of the time, down for a breath. */
+    private fun cheerUp(seed: Int): Boolean = cyc(seed, 1.9, 0.17) < 0.62f
+
+    /** A defender's tool shaken up a pixel for a moment every couple of seconds (0 or 1). */
+    private fun shaking(seed: Int): Int = if (cyc(seed, 2.3, 0.43) < 0.18f) 1 else 0
+
+    /** The harmonika's bellows drawn out (or pressed in). */
+    private fun bellows(seed: Int): Boolean = cyc(seed, 0.9, 0.11) < 0.5f
+
+    /**
+     * The notes of a tune going up from ([x], [y]), at detail [k]: two at a time, each rising a few pixels and fading as it
+     * goes, drifting a little sideways; light, warm, lit at night.
+     */
+    private fun notes(x: Int, y: Int, seed: Int, k: Int) {
+        glow {
+            for (j in 0..1) {
+                val u = cyc(seed + j * 131, 1.7, j * 0.5)
+                if (u > 0.85f) continue
+                val nx = x + (sin(u * 6 + j * 2).toFloat() * k).toInt() + j * 2 * k
+                val ny = y - (u * 6 * k).toInt()
+                val col = if (j == 0) Pal.GOLD else Pal.FLAG_WHITE
+                // the head, the stem up from its right; at a closer look a flag
+                c.set(nx, ny, col)
+                if (k >= 2) { c.set(nx + 1, ny, col); c.vline(nx + 1, ny - 2 * k + 1, ny - 1, col) } else c.set(nx + 1, ny - 1, col)
+                if (k >= 3) { c.set(nx + 2, ny - 2 * k + 1, col); c.set(nx + 3, ny - 2 * k + 2, col); c.set(nx, ny + 1, col); c.set(nx + 1, ny + 1, col) }
+            }
+        }
+    }
+
+    /** A torch at the nominal detail, its stick's top at ([x], [y]): two pixels of flame over it, flickering, and its light. */
+    private fun torch1(x: Int, y: Int, seed: Int) {
+        val f = flicker(seed)
+        c.set(x, y, Pal.WOOD_M); c.set(x, y + 1, Pal.WOOD_M)
+        glow { c.set(x, y - 1, if (f > 0.5f) Pal.FLAME[0] else Pal.FLAME[1]); c.set(x, y - 2, Pal.FLAME[2]) }
+        s.light(x + 0.5f, y - 1f, TORCH_R, TORCH_I * (0.8f + 0.2f * f))
+    }
+
+    /** A torch at the middle detail: its flame over the stick's top at ([x], [y]), three rows of it, flickering, and its light. */
+    private fun torch2(x: Int, y: Int, seed: Int) {
+        val f = flicker(seed)
+        glow {
+            c.set(x, y, Pal.FLAME[1]); c.set(x - 1, y, Pal.FLAME[2]); c.set(x + 1, y, Pal.FLAME[2])
+            c.set(x, y - 1, if (f > 0.5f) Pal.FLAME[0] else Pal.FLAME[1]); c.set(x + (if (f > 0.6f) 1 else 0), y - 2, Pal.FLAME[2])
+        }
+        s.light(x + 0.5f, y - 1f, TORCH_R * 1.2f, TORCH_I * (0.8f + 0.2f * f))
+    }
+
+    /** A torch at the finest detail: a flame over the stick's top at ([x], [y]), licking up, flickering, and its light. */
+    private fun torch3(x: Int, y: Int, seed: Int) {
+        val f = flicker(seed)
+        c.fillRect(x - 1, y, 3, 2, Pal.LOG_D)
+        glow {
+            for (r in 0..5) {
+                val half = (if (r < 2) 2 else if (r < 4) 1 else 0)
+                val wob = if (r >= 3 && f > 0.5f) 1 else 0
+                for (dx in -half..half) c.set(x + dx + wob, y - 1 - r, if (r < 2) Pal.FLAME[if (dx == 0) 0 else 1] else if (r < 4) Pal.FLAME[1] else Pal.FLAME[2])
+            }
+        }
+        s.light(x + 0.5f, y - 3f, TORCH_R * 1.5f, TORCH_I * (0.8f + 0.2f * f))
+    }
+
     /** The hoe up (raised over the shoulder) or down (in the soil), and how far the clod has flown (0 until 1, or -1). */
     private fun hoeUp(seed: Int): Boolean = cyc(seed, 1.4) < 0.5f
     private fun clod(seed: Int): Float { val u = cyc(seed, 1.4); return if (u in 0.5f..0.86f) (u - 0.5f) / 0.36f else -1f }
@@ -374,8 +435,8 @@ internal class Effects(private val s: SceneCtx) {
                 }
                 return if (L.hat != 0) 8 else 7
             }
-            Activity.PLAY -> {
-                val up = cheering(seed)
+            Activity.PLAY, Activity.CHEER -> {
+                val up = if (a == Activity.CHEER) cheerUp(seed) else cheering(seed)
                 val hop = if (sin(t * 9 + (seed and 0xFF) * 0.1) > 0.2) 1 else 0
                 val y = by - hop
                 tiny(bx, y, L, !up, flip, seed, hand = !up)
@@ -384,6 +445,43 @@ internal class Effects(private val s: SceneCtx) {
                     val top = y - (if (L.small) 6 else 7)
                     for (side in intArrayOf(-1, 1)) { c.set(bx + 2 * side, top, L.skin); c.set(bx + 2 * side, top + 1, L.shirt) }
                 }
+            }
+            Activity.GUARD -> {
+                // facing them, the near hand up with the tool (shaken now and then): a torch at night, the hammer, a stick
+                tiny(bx, by, L, false, flip, seed, hand = false, held = false)
+                val hx = bx + 2 * d; val hy = by - 5 - shaking(seed)
+                c.set(hx, hy, L.skin)
+                when {
+                    lantern -> torch1(hx, hy - 1, seed)
+                    L.prop == PROP_HAMMER -> { c.set(hx, hy - 1, Pal.WOOD_M); c.set(hx, hy - 2, Pal.SLATE_M); c.set(hx + d, hy - 2, Pal.SLATE_L) }
+                    else -> c.vline(hx, hy - 3, by - 1, Pal.WOOD_M)
+                }
+                return if (L.hat != 0) 8 else 7
+            }
+            Activity.HAT -> {
+                // hurrying, a hand on the head to keep the hat on
+                val top = by - (if (L.small) 6 else 7)
+                tiny(bx, by, L, true, flip, seed, hand = false, held = false)
+                c.set(bx + 2 * d, top + 1, L.shirt); c.set(bx + d, top - 1, L.skin)
+                return if (L.hat != 0) 8 else 7
+            }
+            Activity.REPAIR -> {
+                // at the wall in front, the hammer up and down on a plank, more planks leaning behind
+                tiny(bx, by, L, false, flip, seed, hand = false, held = false)
+                c.vline(bx - 3 * d, by - 4, by - 1, Pal.WOOD_L); c.vline(bx - 4 * d, by - 3, by - 1, Pal.WOOD_M)
+                c.vline(bx + 4 * d, by - 6, by - 2, Pal.WOOD_L)
+                if (hammerUp(seed)) { c.set(bx + 2 * d, by - 5, L.skin); c.set(bx + 2 * d, by - 6, Pal.WOOD_M); c.set(bx + 3 * d, by - 7, Pal.SLATE_M) }
+                else { c.set(bx + 2 * d, by - 4, L.skin); c.set(bx + 3 * d, by - 4, Pal.SLATE_M) }
+                return if (L.hat != 0) 8 else 7
+            }
+            Activity.MUSIC -> {
+                // the harmonika in both hands in front, its bellows going in and out, the notes going up
+                tiny(bx, by, L, false, flip, seed, hand = false, held = false)
+                val out = bellows(seed)
+                c.set(bx + d, by - 4, Pal.FLAG_RED); c.set(bx + 2 * d, by - 4, if (out) Pal.FLAG_WHITE else Pal.FLAG_RED)
+                if (out) c.set(bx + 3 * d, by - 4, Pal.FLAG_RED)
+                notes(bx + 2 * d, by - 9, seed, 1)
+                return if (L.hat != 0) 8 else 7
             }
             Activity.CHAT -> {
                 val g = gesturing(seed)
@@ -620,12 +718,48 @@ internal class Effects(private val s: SceneCtx) {
                 if (lantern) lamp2(bx - 4 * d, base + d * swing, seed) // in the far hand
                 return 14
             }
-            Activity.PLAY -> {
-                // skipping in place; now and then both arms up
-                val up = cheering(seed)
+            Activity.PLAY, Activity.CHEER -> {
+                // skipping in place; now and then both arms up (cheering: most of the time)
+                val up = if (a == Activity.CHEER) cheerUp(seed) else cheering(seed)
                 val y = by - (if (sin(t * 9 + (seed and 0xFF) * 0.1) > 0.2) 2 else 0)
                 val hTop = tTopAt(y) - 5
                 figure(bx, y, L, !up, flip, false, seed, reach = if (up) intArrayOf(bx + 5 * d, hTop, bx - 5 * d, hTop) else null, held = !up)
+            }
+            Activity.GUARD -> {
+                // facing them, the near hand up with the tool (shaken now and then): a torch at night, the hammer, a stick
+                val hTop = tTopAt(by) - 5
+                val hx = bx + 4 * d; val hy = hTop + 2 - shaking(seed)
+                figure(bx, by, L, false, flip, false, seed, reach = intArrayOf(hx, hy), held = false)
+                when {
+                    lantern -> { c.vline(hx, hy - 3, hy, Pal.WOOD_M); torch2(hx, hy - 4, seed) }
+                    L.prop == PROP_HAMMER -> { c.vline(hx, hy - 3, hy, Pal.WOOD_M); c.fillRect(if (d > 0) hx - 1 else hx - 1, hy - 5, 3, 2, Pal.SLATE_M); c.hline(hx - 1, hx + 1, hy - 5, Pal.SLATE_L) }
+                    else -> c.vline(hx, hy - 4, by - 1, Pal.WOOD_M)
+                }
+            }
+            Activity.HAT -> {
+                // hurrying, the near hand on the head keeping the hat on
+                val hTop = tTopAt(by) - 5
+                figure(bx, by, L, true, flip, false, seed, reach = intArrayOf(bx + 2 * d, hTop - 1), held = false)
+            }
+            Activity.REPAIR -> {
+                // at the wall in front, the hammer up and down on a plank held against it, more planks leaning behind
+                val hTop = tTopAt(by) - 5
+                val up = hammerUp(seed)
+                for (j in 0..1) { c.vline(bx - (5 + j * 2) * d, by - 7 + j, by - 1, if (j == 0) Pal.WOOD_L else Pal.WOOD_M) }
+                c.vline(bx + 7 * d, by - 11, by - 3, Pal.WOOD_L); c.vline(bx + 8 * d, by - 11, by - 3, Pal.WOOD_D)
+                figure(bx, by, L, false, flip, false, seed, reach = if (up) intArrayOf(bx + 4 * d, hTop + 1) else intArrayOf(bx + 5 * d, by - 8), held = false)
+                if (up) { c.vline(bx + 4 * d, hTop - 2, hTop, Pal.WOOD_M); c.fillRect(if (d > 0) bx + 3 else bx - 5, hTop - 4, 3, 2, Pal.SLATE_M) }
+                else { c.hline(bx + 5 * d, bx + 6 * d, by - 8, Pal.WOOD_M); c.fillRect(if (d > 0) bx + 6 else bx - 7, by - 10, 2, 3, Pal.SLATE_M) }
+            }
+            Activity.MUSIC -> {
+                // the harmonika held in both hands in front, its bellows going in and out, the notes going up
+                val tTop = tTopAt(by)
+                val out = bellows(seed)
+                figure(bx, by, L, false, flip, false, seed, reach = intArrayOf(bx + (if (out) 6 else 5) * d, tTop + 3, bx + 2 * d, tTop + 3), held = false)
+                val x0 = bx + 2 * d; val x1 = bx + (if (out) 6 else 5) * d
+                c.hline(minOf(x0, x1), maxOf(x0, x1), tTop + 2, Pal.FLAG_RED); c.hline(minOf(x0, x1), maxOf(x0, x1), tTop + 4, Pal.FLAG_RED)
+                for (x in minOf(x0, x1)..maxOf(x0, x1)) c.set(x, tTop + 3, if ((x + (if (out) 1 else 0)) % 2 == 0) Pal.FLAG_WHITE else Col.scale(Pal.FLAG_RED, 0.7f))
+                notes(bx + 4 * d, tTop - 8, seed, 2)
             }
             Activity.CHAT -> {
                 val g = gesturing(seed)
@@ -913,10 +1047,59 @@ internal class Effects(private val s: SceneCtx) {
                 if (lantern) lamp3(bx - d * (B.tw + 2), by + B.hand + swing + 2, seed) // in the far hand
                 return H
             }
-            Activity.PLAY -> {
-                // hopping and skipping in place, a smile; now and then both arms up in a jump
-                val up = cheering(seed)
+            Activity.PLAY, Activity.CHEER -> {
+                // hopping and skipping in place, a smile; now and then both arms up in a jump (cheering: most of the time)
+                val up = if (a == Activity.CHEER) cheerUp(seed) else cheering(seed)
                 P.draw(c, ar, bx, by, t, seed, false, flip, !up, false, pose = if (up) Pose.CHEER else Pose.HAPPY)
+            }
+            Activity.GUARD -> {
+                // facing them, the near hand up with the tool (shaken now and then): a torch at night, the hammer, a stick
+                val hx = bx + d * (B.hw + 1); val hy = by + B.hTop + 6 - shaking(seed) * 2
+                P.draw(c, ar, bx, by, t, seed, false, flip, false, false, reach = intArrayOf(hx, hy), holding = true)
+                when {
+                    lantern -> { c.vline(hx, hy - 9, hy - 1, Pal.WOOD_M); c.vline(hx + d, hy - 9, hy - 1, Pal.WOOD_D); torch3(hx, hy - 10, seed) }
+                    ar == "smith" -> {
+                        c.vline(hx, hy - 6, hy - 1, Pal.WOOD_M)
+                        c.fillRect(hx - 2, hy - 9, 5, 3, Pal.SLATE_M); c.hline(hx - 2, hx + 2, hy - 9, Pal.SLATE_L); c.hline(hx - 2, hx + 2, hy - 7, Pal.SLATE_D)
+                    }
+                    else -> { c.vline(hx, hy - 12, by - 1, Pal.WOOD_M); c.vline(hx + d, hy - 12, by - 1, Pal.WOOD_D) }
+                }
+            }
+            Activity.HAT -> {
+                // hurrying, the near hand on the head keeping the hat on
+                P.draw(c, ar, bx, by, t, seed, false, flip, true, false, reach = intArrayOf(bx + d * 2, by + B.hTop + 1), holding = true)
+            }
+            Activity.REPAIR -> {
+                // at the wall in front, the hammer up and down on a plank held against it, more planks leaning behind
+                for (j in 0..2) {
+                    val px = bx - d * (B.tw + 6 + j * 3)
+                    c.fillRect(if (d > 0) px - 1 else px, by - 16 + j * 2, 2, 16 - j * 2, if (j % 2 == 0) Pal.WOOD_L else Pal.WOOD_M)
+                }
+                val wx = bx + d * (B.tw + 12)
+                c.fillRect(if (d > 0) wx else wx - 2, by - 26, 3, 20, Pal.WOOD_L); c.vline(if (d > 0) wx + 2 else wx - 2, by - 26, by - 7, Pal.WOOD_D)
+                if (hammerUp(seed)) {
+                    val hx = bx + d * (B.hw + 1); val hy = by + B.hTop + 4
+                    P.draw(c, ar, bx, by, t, seed, false, flip, false, false, reach = intArrayOf(hx, hy), holding = true)
+                    c.vline(hx, hy - 6, hy - 1, Pal.WOOD_M)
+                    c.fillRect(hx - 2, hy - 9, 5, 3, Pal.SLATE_M); c.hline(hx - 2, hx + 2, hy - 9, Pal.SLATE_L); c.hline(hx - 2, hx + 2, hy - 7, Pal.SLATE_D)
+                } else {
+                    val hx = wx - d * 7
+                    P.draw(c, ar, bx, by, t, seed, false, flip, false, false, reach = intArrayOf(hx, by - 18), holding = true)
+                    c.hline(hx + 2 * d, wx - 2 * d, by - 17, Pal.WOOD_M)
+                    c.fillRect(wx - 3 * d - 1, by - 19, 3, 4, Pal.SLATE_M); c.hline(wx - 3 * d - 1, wx - 3 * d + 1, by - 19, Pal.SLATE_L)
+                }
+            }
+            Activity.MUSIC -> {
+                // the harmonika held in both hands in front, its bellows going in and out, the notes going up
+                val out = bellows(seed)
+                val y0 = by + B.armTop + 2
+                val near = bx + d * (B.tw + (if (out) 9 else 7)); val far = bx + d * (B.tw - 1)
+                P.draw(c, ar, bx, by, t, seed, false, flip, false, false, reach = intArrayOf(near, y0 + 2, far, y0 + 2), holding = true)
+                val x0 = minOf(near, far); val x1 = maxOf(near, far)
+                c.fillRect(x0, y0, x1 - x0 + 1, 6, Pal.FLAG_RED)
+                for (x in x0 + 2 until x1 - 1 step 2) c.vline(x, y0 + 1, y0 + 4, Pal.FLAG_WHITE)
+                c.fillRect(x0, y0, 2, 6, Pal.WOOD_D); c.fillRect(x1 - 1, y0, 2, 6, Pal.WOOD_D)
+                notes(bx + d * (B.tw + 6), by + B.hTop - 4, seed, 3)
             }
             Activity.CHAT -> {
                 // talking in turns: the mouth going and a hand now and then, then listening
@@ -1124,6 +1307,25 @@ internal class Effects(private val s: SceneCtx) {
         } else {
             c.fillRect(if (d > 0) x + 2 else x - 3, y - 8, 2, 3, body); c.set(x + 2 * d, y - 9, Pal.FLAG_RED); c.set(x + 3 * d, y - 9, Pal.FLAG_RED)
             c.set(x + 4 * d, y - 7, Pal.GOLD); c.set(x + 3 * d, y - 6, Pal.FLAG_RED); c.set(x + 3 * d, y - 7, Col.hex(0x1E1618))
+        }
+    }
+
+    /**
+     * Hens bunched up by a house while wolves or a bear are about, their feet round ([bx], [by]): [n] of them close
+     * together, heads up, now one, now another turning, at the lens's detail.
+     */
+    fun huddle(bx: Int, by: Int, n: Int, seed: Int) {
+        val step = when (k) { 1 -> 2; 2 -> 3; else -> 5 }
+        for (j in 0 until n) {
+            val x = bx + ((j - (n - 1) / 2f) * step).toInt()
+            val y = by + (j % 2) * (step / 2)
+            val d = if (cyc(seed + j * 211, 2.7, j * 0.3) < 0.5f) 1 else -1
+            val white = (seed ushr (9 + j)) % 2 == 0
+            when (k) {
+                1 -> hen1(x, y, d, false, white)
+                2 -> hen2(x, y, d, false, white)
+                else -> hen3(x, y, d, false, white)
+            }
         }
     }
 
@@ -1650,6 +1852,9 @@ internal class Effects(private val s: SceneCtx) {
         private val LAMP_L = Col.hex(0x4A4550)
         private const val LAMP_R = 14f
         private const val LAMP_I = 0.6f
+        /** A defender's torch: its light reaches farther than a lantern's, and flickers more (see [torch1]). */
+        private const val TORCH_R = 20f
+        private const val TORCH_I = 0.75f
         /** The washing: white linen, grey where it's wet. */
         private val CLOTH = Col.hex(0xF4EEDD)
         private val CLOTH_D = Col.hex(0xB4BECA)

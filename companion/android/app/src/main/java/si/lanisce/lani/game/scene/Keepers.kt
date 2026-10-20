@@ -97,9 +97,12 @@ object Keepers {
     /**
      * Who is at their spot at [now]: in their part of the day (dawn: the morning's first hours, as a happening's), on a day
      * the dice give them, each where the learner is in their story ([at]). Whether their talk is done today doesn't
-     * matter: they stay ([waiting] are the bubbles).
+     * matter: they stay ([waiting] are the bubbles). Nobody while wolves or a bear are about (companion/GAME.md "People
+     * react").
      */
     fun here(state: GameState, now: LocalDateTime, world: WorldFile = Cultures.current.world): List<ActiveKeeper> {
+        // while wolves or a bear are about nobody sits out in the woods (in a storm he does: his talks know the rain)
+        if (si.lanisce.lani.game.villagers.Reactions.threat(state.event?.kind)) return emptyList()
         val today = now.toLocalDate()
         val tod = TimeOfDay.of(now.hour)
         val time = tod.name.lowercase()

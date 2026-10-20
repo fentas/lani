@@ -2,6 +2,7 @@ package si.lanisce.lani.game.render
 
 import si.lanisce.lani.game.Building
 import si.lanisce.lani.game.BuildingType
+import si.lanisce.lani.game.EventKind
 import si.lanisce.lani.game.GameState
 import si.lanisce.lani.game.TentMove
 import si.lanisce.lani.game.scene.TownMarkers
@@ -9,7 +10,9 @@ import si.lanisce.lani.game.scene.TownPlace
 import si.lanisce.lani.game.scene.TownSpots
 import si.lanisce.lani.game.villagers.Doing
 import si.lanisce.lani.game.villagers.Now
+import si.lanisce.lani.game.villagers.Reactions
 import si.lanisce.lani.game.villagers.Routine
+import si.lanisce.lani.game.villagers.Stir
 import si.lanisce.lani.game.villagers.Trip
 import si.lanisce.lani.game.villagers.Villager
 import si.lanisce.lani.game.villagers.Where
@@ -68,6 +71,16 @@ enum class Activity {
     HIDE,
     /** The seeker counting, hands over the eyes. */
     COUNT,
+    /** Facing wolves or a bear at a distance, a tool raised now and then (the smith's hammer, a stick), a torch at night. */
+    GUARD,
+    /** Arms up, hopping: the cheer after a won fight. */
+    CHEER,
+    /** Hurrying home in a storm, a hand on the head holding the hat. */
+    HAT,
+    /** Patching up a damaged building: the hammer at its wall, planks leaning beside. */
+    REPAIR,
+    /** Playing the harmonika at a feast, the notes going up. */
+    MUSIC,
 }
 
 /** What someone carries ([Activity.CARRY]). */
@@ -84,7 +97,7 @@ data class Placed(
     val slot: Int = 0, val z: Float = 0f, val lantern: Boolean = false, val load: Load = Load.NONE, val ball: FloatArray? = null,
 ) {
     val id: String get() = villager.id
-    val walking: Boolean get() = activity == Activity.WALK || activity == Activity.CARRY
+    val walking: Boolean get() = activity == Activity.WALK || activity == Activity.CARRY || activity == Activity.HAT
     /** Sitting, crouching or kneeling: lower than standing (their bubble sits lower). */
     val seated: Boolean get() = activity == Activity.SIT || activity == Activity.WARM || activity == Activity.TEND || activity == Activity.WASH ||
         activity == Activity.MEND || activity == Activity.GATHER || activity == Activity.HIDE
@@ -110,7 +123,8 @@ data class Placed(
  * ([Walkways]). Nobody of the village wanders about but the children at play: whoever
  * stands somewhere looks about now and then. In the dark evening some sit by the fire until their bedtime, the others are
  * home (not listed: their windows are lit, [darkWindows]); then they walk home and are in bed. At night only a ritual brings
- * someone out, with a lantern. In a storm everyone is inside; at a festival whoever is up gathers round the fire. Round the
+ * someone out, with a lantern. At a festival whoever is up gathers round the fire; what the village does in its events
+ * otherwise (wolves about, a storm, the merchant) and after them is [TownReactions]' (companion/GAME.md "People react"). Round the
  * fire they stand or sit beside it, facing it ([aroundFire]), never in its flames; at the other places beside each other,
  * never in a building. The strangers of the day's surprise (the pedlar, the pilgrim) keep to the road, day and night, a
  * step aside now and then. Babies are carried, so they aren't listed on their own.
@@ -275,10 +289,10 @@ object TownPeople {
     private val CHOPPERS = setOf("smith", "man", "farmer", "shepherd", "winemaker", "innkeeper", "grandpa", "beekeeper", "woman", "hunter", "teacher", "aunt", "grandma")
 
     /** The sprites of the strangers at the road (Surprises.strangers): they don't go to bed or to the fire here. */
-    private val STRANGERS = setOf("pedlar", "pilgrim")
+    internal val STRANGERS = setOf("pedlar", "pilgrim")
 
     /** The spots in the woods below the village: a walk there goes by the forest path. */
-    private val WOODS = setOf("meadow", "pond", "highseat", "path", "kopa")
+    internal val WOODS = setOf("meadow", "pond", "highseat", "path", "kopa")
 
     /** Seconds of a person's activity cycle (a stretch of chopping, then a rest). */
     private const val CYCLE = 16.0
@@ -327,11 +341,27 @@ object TownPeople {
     fun of(
         state: GameState, people: List<Villager>, time: Double, hour: Float, month: Int, w: Int, h: Int,
         storm: Boolean = false, festival: Boolean = false, standing: Map<String, TownPlace> = emptyMap(),
-        date: LocalDate = DEFAULT_DATE, day: Routine.Day = Routine.Day(),
+        date: LocalDate = DEFAULT_DATE, day: Routine.Day = Routine.Day(), wall: Long = 0L,
     ): List<Placed> {
         if (people.isEmpty() || storm) return emptyList()
+        // what the village reacts to now (its event, or one just over: companion/GAME.md "People react"): the people's day,
+        // then where the reaction takes them, on their way there at first
+        val stir = Reactions.stir(state, wall)
+        val fest = festival || stir?.kind == EventKind.FESTIVAL && stir.phase == Stir.Phase.ON
+        val routine = byDay(state, people, time, hour, month, w, h, fest, standing, date, day)
+        if (stir == null && state.ended == null) return routine
+        return TownReactions.react(state, people, routine, stir, time, hour, month, w, h, standing, date, day, wall) { f ->
+            if (f == fest) routine else byDay(state, people, time, hour, month, w, h, f, standing, date, day)
+        }
+    }
+
+    /** Where everyone is by their day ([of] without what the village reacts to): [festival], round the fire. */
+    private fun byDay(
+        state: GameState, people: List<Villager>, time: Double, hour: Float, month: Int, w: Int, h: Int,
+        festival: Boolean, standing: Map<String, TownPlace>, date: LocalDate, day: Routine.Day,
+    ): List<Placed> {
         val comp = VillageLayout.composition(w, h, compact = false)
-        val dark = Env(hour, month, storm).dark > 0.55f
+        val dark = Env(hour, month, state.event?.kind == EventKind.STORM).dark > 0.55f
         val fg = Foreground.of(state, w, h)
         val land = VillageLayout.of(state)
         val gate = TownAnchors.visitorSpot(state, TownPlace.Forest, comp, w, h)
@@ -661,7 +691,7 @@ object TownPeople {
     }
 
     /** How fast someone walks a way of [len] cells: an unhurried stride, brisker on a long way so it takes no longer than [Routine.WALK_S]. */
-    private fun pace(len: Float): Float = maxOf(SPEED, len / Routine.WALK_S.toFloat())
+    internal fun pace(len: Float): Float = maxOf(SPEED, len / Routine.WALK_S.toFloat())
 
     /** The work someone waiting for the learner at [place] does between the waves: the field's, the anvil's, the hives'; else none. */
     private fun workAt(place: TownPlace): Doing? = when ((place as? TownPlace.At)?.type) {
@@ -700,7 +730,7 @@ object TownPeople {
      * Where nobody stands, world cells: in a building, in the fire of [scale] ([inFire]), in the campsite's fire or its tent
      * at the pond; with [fields] in a field's crops too (anybody but its workers: a field is walked in by them).
      */
-    private fun blocked(state: GameState, land: Terrain, scale: Float, w: Int, h: Int, fields: Boolean): (Float, Float) -> Boolean {
+    internal fun blocked(state: GameState, land: Terrain, scale: Float, w: Int, h: Int, fields: Boolean): (Float, Float) -> Boolean {
         val solid = state.buildings.filter { it.type.onPlot && it.type != BuildingType.FIELD && it.plot in 0 until VillageLayout.MAX_PLOTS }.map { land.centers[it.plot] }
         val crops = if (fields) fields(state, land) else emptyList()
         val camp = Campsite.of(state, w, h)
@@ -935,7 +965,7 @@ object TownPeople {
      * place's visitor spot. A building of [v]'s home types (the old way: their dwellings
      * shared out by id) when [place] is one of their homes' types without an id.
      */
-    private fun groundOf(v: Villager, place: TownPlace, state: GameState, comp: Composition, w: Int, h: Int, seed: Int, land: Terrain, nook: Nook? = null): FloatArray? {
+    internal fun groundOf(v: Villager, place: TownPlace, state: GameState, comp: Composition, w: Int, h: Int, seed: Int, land: Terrain, nook: Nook? = null): FloatArray? {
         if (place is TownPlace.At && place.type.onPlot && !(place.type == BuildingType.TENT && TentMove.moved(state))) {
             val b = buildingOf(place, state, seed)
             if (b != null && b.plot in 0 until VillageLayout.MAX_PLOTS) {
@@ -993,8 +1023,8 @@ object TownPeople {
         return state.buildings.filter { b -> if (b.id in homes) b.id !in lit else late }.map { it.id }.toSet()
     }
 
-    private fun worldX(sx: Float, sy: Float): Float = (sx / 4f + sy / 2f) / 2f
-    private fun worldY(sx: Float, sy: Float): Float = (sy / 2f - sx / 4f) / 2f
+    internal fun worldX(sx: Float, sy: Float): Float = (sx / 4f + sy / 2f) / 2f
+    internal fun worldY(sx: Float, sy: Float): Float = (sy / 2f - sx / 4f) / 2f
 
     /** Someone's nominal-canvas point above their head (for a bubble), given their feet at ([x], [y]) and a sprite [height] px tall. */
     fun headAnchor(p: Placed, comp: Composition, height: Float): CanvasPoint =

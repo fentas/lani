@@ -1119,6 +1119,16 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         openVillage()
     }
 
+    /**
+     * QA's "event:<what>" (a debug build, app/QaHooks.kt): the village (the dev bridge's copy) with that event on from now,
+     * or the one on ended ("won", "lost"), or none (""), and the village shown, its people reacting (companion/GAME.md
+     * "People react").
+     */
+    fun qaEvent(what: String) {
+        game.apply { si.lanisce.lani.app.QaHooks.eventState(it, what, System.currentTimeMillis()) }
+        openVillage()
+    }
+
     /** QA's "school" (app/QaHooks): the dev village ready for the classroom under the linden, and the school open. */
     fun qaSchool() {
         game.apply { si.lanisce.lani.app.QaHooks.readySchool(it, System.currentTimeMillis()) }

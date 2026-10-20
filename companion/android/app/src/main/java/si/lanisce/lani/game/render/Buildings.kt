@@ -541,12 +541,7 @@ internal class BuildingPainter(private val s: SceneCtx) {
         // platform + parapet
         i.box(x0 - 0.4f, y0 - 0.4f, 16f, w + 0.8f, w + 0.8f, 2f, Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
         i.post(x0 - 0.3f, y0 - 0.3f, 18f, 24f, Pal.WOOD_X)
-        i.panelY(x0 - 0.4f, y0 + w + 0.4f, 18f, w + 0.8f, 3f, Pal.WOOD_M)
-        i.panelX(x0 + w + 0.4f, y0 - 0.4f, 18f, w + 0.8f, 3f, Pal.WOOD_D)
-        if (fine) { // the parapet's boards
-            for (u in 1..4) { i.line(x0 - 0.4f + u * (w + 0.8f) / 5f, y0 + w + 0.4f, 18f, x0 - 0.4f + u * (w + 0.8f) / 5f, y0 + w + 0.4f, 21f, Pal.WOOD_D); i.line(x0 + w + 0.4f, y0 - 0.4f + u * (w + 0.8f) / 5f, 18f, x0 + w + 0.4f, y0 - 0.4f + u * (w + 0.8f) / 5f, 21f, Pal.WOOD_X) }
-        }
-        i.line(x0 - 0.4f, y0 + w + 0.4f, 21f, x0 + w + 0.4f, y0 + w + 0.4f, 21f, Pal.WOOD_L)
+        parapet(x, y)
         i.post(x0 + w + 0.3f, y0 - 0.3f, 21f, 24f, Pal.WOOD_X); i.post(x0 - 0.3f, y0 + w + 0.3f, 21f, 24f, Pal.WOOD_X)
         i.post(x0 + w + 0.3f, y0 + w + 0.3f, 21f, 24f, Pal.WOOD_X)
         if (lit) {
@@ -570,6 +565,21 @@ internal class BuildingPainter(private val s: SceneCtx) {
                 c.set(ax + 1 + j, ay - 6 + dy, Pal.FLAG_WHITE); c.set(ax + 1 + j, ay - 5 + dy, Pal.FLAG_BLUE); c.set(ax + 1 + j, ay - 4 + dy, Pal.FLAG_RED)
             }
         }
+    }
+
+    /**
+     * The front of the watchtower at ([x], [y]) (its plot's corner): the parapet round its platform, its boards at a closer
+     * look. Drawn with the tower, and again over whoever stands up there (the lookout, companion/GAME.md "People react"),
+     * whom it hides to the waist.
+     */
+    fun parapet(x: Float, y: Float) {
+        val x0 = x + 0.75f; val y0 = y + 0.75f; val w = 1.5f
+        i.panelY(x0 - 0.4f, y0 + w + 0.4f, 18f, w + 0.8f, 3f, Pal.WOOD_M)
+        i.panelX(x0 + w + 0.4f, y0 - 0.4f, 18f, w + 0.8f, 3f, Pal.WOOD_D)
+        if (fine) { // the parapet's boards
+            for (u in 1..4) { i.line(x0 - 0.4f + u * (w + 0.8f) / 5f, y0 + w + 0.4f, 18f, x0 - 0.4f + u * (w + 0.8f) / 5f, y0 + w + 0.4f, 21f, Pal.WOOD_D); i.line(x0 + w + 0.4f, y0 - 0.4f + u * (w + 0.8f) / 5f, 18f, x0 + w + 0.4f, y0 - 0.4f + u * (w + 0.8f) / 5f, 21f, Pal.WOOD_X) }
+        }
+        i.line(x0 - 0.4f, y0 + w + 0.4f, 21f, x0 + w + 0.4f, y0 + w + 0.4f, 21f, Pal.WOOD_L)
     }
 
     private fun smithy(b: Building, x: Float, y: Float) {

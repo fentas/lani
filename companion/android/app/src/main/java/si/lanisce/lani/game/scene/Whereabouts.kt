@@ -80,9 +80,19 @@ object Whereabouts {
             state.buildings.firstOrNull { it.id == id }?.let { TownPlace.of(it, state) }
         } else null
         val place = here ?: TownMarkers.placeOf(scene, state)
+        // wolves, a bear or a storm about (companion/GAME.md "People react"): who is where the reaction has them, as on the
+        // map: by the fire the children and the old, up the watchtower its lookout; nobody else out
+        val e = state.event?.takeIf { si.lanisce.lani.game.villagers.Reactions.quieting(it.kind) }
+        val stances = e?.let { si.lanisce.lani.game.villagers.Reactions.stances(state, people, it.kind, it.strength) }
         return scene.people.mapNotNull { p ->
             val v = p.villager?.let { id -> people.firstOrNull { it.id == id } } ?: return@mapNotNull null
             val now = Routine.now(v, state, at, day)
+            if (e != null && stances != null) {
+                val st = stances[v.id] ?: return@mapNotNull null
+                val up = now.where == Where.OUT || st == si.lanisce.lani.game.villagers.Stance.LOOKOUT
+                val where = si.lanisce.lani.game.villagers.Reactions.placeOf(e.kind, st, day.homes[v.id])
+                return@mapNotNull if (up && where != null && !Homes.isRoom(scene) && where.general() == place.general()) PersonInScene(p.id, p.art, p.slot) else null
+            }
             val there = now.where == Where.OUT && now.doing != Doing.CARRY && now.errand == null && (now.from == null || now.since >= Routine.WALK_S) &&
                 now.place != null && (now.place == place || (!Homes.isRoom(scene) && now.place.general() == place.general()))
             if (there) PersonInScene(p.id, p.art, p.slot) else null

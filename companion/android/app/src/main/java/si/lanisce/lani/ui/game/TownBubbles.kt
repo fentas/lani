@@ -474,3 +474,46 @@ private fun Bubble(m: TownMarker, badge: String?, threat: Boolean, face: Village
         }
     }
 }
+
+/**
+ * The short calls over people's heads while the village reacts to its event (companion/GAME.md "People react":
+ * "Volkovi!", "Hitro noter!"): the last frame's [shouts] (who and what, [si.lanisce.lani.game.render.VillageRenderer.shouts]),
+ * each a small speech bubble over its person at [anchorOf] (nominal canvas pixels, through [camera]), its tail down to
+ * them, popping in. Not tappable: a tap goes to whoever is under it; nor read out by TalkBack (the person's card says it).
+ * [tick]: the clock, read each frame.
+ */
+@Composable
+internal fun TownShouts(
+    shouts: () -> List<Pair<String, si.lanisce.lani.game.culture.Text>>, anchorOf: (String) -> CanvasPoint?, camera: () -> Camera, tick: () -> Long,
+) {
+    tick() // a new frame, perhaps someone else calling out
+    val density = LocalDensity.current
+    val gap = with(density) { 6.dp.roundToPx() }
+    fun fixed(size: Float) = with(density) { TextStyle(fontSize = size.dp.toSp(), lineHeight = (size * 1.2f).dp.toSp(), platformStyle = PlatformTextStyle(includeFontPadding = false)) }
+    for ((id, text) in shouts()) {
+        val a = anchorOf(id) ?: continue
+        key(id, text.target) {
+            val pop = remember { Animatable(0.4f) }
+            LaunchedEffect(Unit) { pop.animateTo(1f, spring(Spring.DampingRatioMediumBouncy, Spring.StiffnessMedium)) }
+            Box(
+                Modifier
+                    .layout { m, c ->
+                        val p = m.measure(c.copy(minWidth = 0, minHeight = 0))
+                        layout(0, 0) {
+                            val cam = camera()
+                            val x = cam.toScreenX(a.x).roundToInt(); val y = cam.toScreenY(a.y).roundToInt()
+                            p.place(x - p.width / 2, y - p.height - gap)
+                        }
+                    }
+                    .graphicsLayer { scaleX = pop.value; scaleY = pop.value; transformOrigin = TransformOrigin(0.5f, 1f) }
+                    .clearAndSetSemantics { }
+                    .zIndex(2f),
+            ) {
+                Box(
+                    Modifier.shadow(3.dp, RoundedCornerShape(10.dp)).background(BubblePaper, RoundedCornerShape(10.dp)).border(2.dp, BubbleInk, RoundedCornerShape(10.dp))
+                        .padding(horizontal = 8.dp, vertical = 3.dp),
+                ) { Text(text.target, color = BubbleInk, fontWeight = FontWeight.Black, style = fixed(14f)) }
+            }
+        }
+    }
+}

@@ -124,6 +124,8 @@ class ISpyController(
         if (state == null || scene.objects.isEmpty()) return null
         val l = lines(scene.language) ?: return null
         val forced = QaHooks.ispy?.takeIf { it.substringBefore('/') == scene.id }
+        // no games while wolves, a bear or a storm are about (companion/GAME.md "People react")
+        if (forced == null && si.lanisce.lani.game.villagers.Reactions.quiet(state)) return null
         val left = if (forced != null) ISpy.GAMES_PER_DAY else ISpy.gamesLeft(state, scene.id, today)
         if (left <= 0) return null
         val host = ISpy.host(scene, drawn, children, state.seed, today, cast) ?: return null

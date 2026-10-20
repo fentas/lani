@@ -130,6 +130,21 @@ data class GameEvent(
     val helpers: List<String> = emptyList(),
 )
 
+/**
+ * How the village's last event ended ([Events.outcome]): its [kind], [won] or lost (or never played: [expired]), when
+ * ([at], epoch ms) and the buildings it [damaged]. The people react to it for a while (companion/GAME.md "People react":
+ * a cheer round the defenders after a won fight, someone with planks at a building it damaged). An older app ignores it,
+ * an older bridge keeps it as it is.
+ */
+@Serializable
+data class EventEnd(
+    val kind: EventKind,
+    val won: Boolean,
+    val at: Long,
+    val damaged: List<String> = emptyList(),
+    val expired: Boolean = false,
+)
+
 /** Where a quest comes from: generated in the app, or written by the tutor (a module with a quest block). */
 @Serializable
 enum class QuestSource { LOCAL, TUTOR }
@@ -276,6 +291,8 @@ data class GameState(
     /** ISO date (yyyy-MM-dd) up to which daily upkeep was applied. */
     val lastTick: String = "",
     val event: GameEvent? = null,
+    /** How the last event ended, for the people's reactions afterwards (see [EventEnd]); null before the first. */
+    val ended: EventEnd? = null,
     val quests: List<Quest> = emptyList(),
     val log: List<LogEntry> = emptyList(),
     val stats: GameStats = GameStats(),

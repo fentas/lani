@@ -207,19 +207,36 @@ object VillagerLogic {
 
     /**
      * "Pogovori se": the greeting for the time of day, then what is on their mind: news of a spot's cycle that came to them
-     * ([news]: Tone with Miha's charcoal), else a memory if they have one to share.
+     * ([news]: Tone with Miha's charcoal), else a memory if they have one to share. While the village reacts to something
+     * ([reaction]: wolves about, the merchant come), only what they say of it.
      */
-    fun greeting(v: Villager, bond: Bond, day: LocalDate, time: TimeOfDay = TimeOfDay.now(), state: GameState? = null): List<Said> {
+    fun greeting(
+        v: Villager, bond: Bond, day: LocalDate, time: TimeOfDay = TimeOfDay.now(), state: GameState? = null,
+        people: List<Villager>? = null, wall: Long = System.currentTimeMillis(),
+    ): List<Said> {
+        reaction(v, state, day, people, wall)?.let { return listOf(it) }
         val level = Bonds.level(bond.points)
         return listOfNotNull(greet(v, level, day, time), news(v, state, day) ?: remember(v, level, bond.memories, day, time))
     }
 
     /**
-     * Something they say on their card when nothing is going on: what a spot's cycle brought them lately ([news]), else an
-     * `idle` line of the day that fits [time]; none when none does.
+     * What [v] says of what the village reacts to now (companion/GAME.md "People react": wolves about, the merchant come,
+     * a fight just won, a building to patch up), in [state]'s village of [people] (null: who lives there of the cast), at
+     * [wall]; null when nothing is going on, or the culture has no words for it ([Reactions.says]).
      */
-    fun idle(v: Villager, level: Int, day: LocalDate, time: TimeOfDay = TimeOfDay.now(), state: GameState? = null): Said? =
-        news(v, state, day) ?: pick(Bonds.linesFor(v.lines.idle.at(time), level), day, v.id + ":idle")?.let { Said(it.target, it.base) }
+    fun reaction(v: Villager, state: GameState?, day: LocalDate, people: List<Villager>? = null, wall: Long = System.currentTimeMillis()): Said? {
+        if (state == null) return null
+        if (state.event == null && state.ended == null) return null
+        val folk = people ?: si.lanisce.lani.game.villagers.Residents.people(state, si.lanisce.lani.game.villagers.Mentions.cast, day)
+        return si.lanisce.lani.game.villagers.Reactions.says(state, v, folk, day, wall)?.let { Said(it.target, it.base) }
+    }
+
+    /**
+     * Something they say on their card: what they say of what the village reacts to now ([reaction]), else what a spot's
+     * cycle brought them lately ([news]), else an `idle` line of the day that fits [time]; none when none does.
+     */
+    fun idle(v: Villager, level: Int, day: LocalDate, time: TimeOfDay = TimeOfDay.now(), state: GameState? = null, people: List<Villager>? = null, wall: Long = System.currentTimeMillis()): Said? =
+        reaction(v, state, day, people, wall) ?: news(v, state, day) ?: pick(Bonds.linesFor(v.lines.idle.at(time), level), day, v.id + ":idle")?.let { Said(it.target, it.base) }
 
     /**
      * What a spot's cycle delivered to [v] lately, in their words ([si.lanisce.lani.game.scene.SpotCycles.says]: "Miha mi

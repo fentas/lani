@@ -292,6 +292,8 @@ fun TownView(
                 // the edge chip's tap: the camera pans to the bubble's place, into the part of the screen the HUD and the bar leave
                 onReveal = { p -> cam.reveal(p, freeArea(w.toFloat(), h.toFloat(), bubbleInset.toFloat(), bottomInset.toFloat(), margin)) },
             )
+            // the people's calls while the village reacts to its event (companion/GAME.md "People react")
+            TownShouts({ renderer.shouts }, { id -> renderer.villagerAnchors[id] }, { cam.camera }, { clock.tick })
         }
     }
 }

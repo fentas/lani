@@ -308,7 +308,7 @@ class Greeting {
             said = emptyList()
             speaking = true
             try {
-                val lines = VillagerLogic.greeting(v, vm.villagers.bond(vm.game.state, v.id), LocalDate.now(), state = vm.game.state)
+                val lines = VillagerLogic.greeting(v, vm.villagers.bond(vm.game.state, v.id), LocalDate.now(), state = vm.game.state, people = vm.game.state?.let { vm.villagers.people(it) })
                 for ((i, l) in lines.withIndex()) {
                     if (i > 0) delay(si.lanisce.lani.ui.scene.LinesInTurn.GAP_MS)
                     said = said + l

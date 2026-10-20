@@ -85,7 +85,7 @@ object Happenings {
     /**
      * Whether one happening is on (what it [Happening.needs]: the age, a building, a project; its months, the weekday, the
      * time of day, today's chance; a story to tell, for the storyteller's; a variant to play in season, [variant]) and not
-     * done today.
+     * done today; none while wolves, a bear or a storm are about ([si.lanisce.lani.game.villagers.Reactions.quiet]).
      * [world] is [state]'s, as the happening's scene sees it (in its building: [ActiveHappening.home], else
      * [Homes.buildingOf]); [dawn]: whether it is dawn now, the first hours of the [time]'s morning ([TimeOfDay.isDawn]),
      * when a happening "when" dawn is on. Its person, and everyone of [cast] its title and memory name, must be in the
@@ -101,6 +101,9 @@ object Happenings {
     ): Boolean {
         val h = a.happening
         if (a.person == null) return false
+        // wolves, a bear or a storm about: the everyday talks wait until it's over (companion/GAME.md "People react"); a
+        // dialog that was due is due again then
+        if (si.lanisce.lani.game.villagers.Reactions.quiet(state)) return false
         if (h.stories && Stories.of(a.scene, a.person).isEmpty()) return false
         // someone of the cast is only here if they live here or visit today
         val present = si.lanisce.lani.game.villagers.Residents.present(state, today)

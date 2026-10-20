@@ -621,7 +621,11 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
             val whoTarget = who?.let { SceneTarget.Person(it.id) }
             if (who != null && whoTarget != null && anchors.drawn(whoTarget)) {
                 val line = here.firstOrNull { it.person?.id == who.id }?.happening?.title
-                Anchored({ anchors.shown(whoTarget) }, topLimit, bubbleColor, keepOff = keepOff) { PersonBubble(who.emoji, who.name, line, now.hour, speaker, bubbleColor, voiceOf(who)) }
+                // wolves about, the merchant come, a fight just won (companion/GAME.md "People react"): what they say of it
+                val said = remember(who, state, minute) {
+                    who.villager?.let { id -> everyone.firstOrNull { it.id == id } }?.let { v -> si.lanisce.lani.ui.villagers.VillagerLogic.reaction(v, state, now.toLocalDate(), everyone) }
+                }
+                Anchored({ anchors.shown(whoTarget) }, topLimit, bubbleColor, keepOff = keepOff) { PersonBubble(who.emoji, who.name, line, now.hour, speaker, bubbleColor, voiceOf(who), said?.let { it.sl to it.en }) }
             }
             mumble?.let { (id, at) ->
                 val target = SceneTarget.Person(id)

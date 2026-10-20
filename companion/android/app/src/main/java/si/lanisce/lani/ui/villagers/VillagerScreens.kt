@@ -429,8 +429,13 @@ private fun TalkPanel(vm: AppViewModel, v: Villager, greeting: Greeting, modifie
     Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.large, modifier = modifier.fillMaxWidth()) {
         Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             for (l in greeting.said) SpeechBubble(vm, v, l, Modifier.fillMaxWidth())
-            // someone who lives here and hasn't been met: their introduction first, before a talk
-            if (vm.villagers.waitsToMeet(vm.game.state, v.id)) {
+            val s = vm.game.state
+            // wolves, a bear or a storm about (companion/GAME.md "People react"): what they say of it, and the event's run;
+            // their talk waits until it's over
+            if (s != null && si.lanisce.lani.game.villagers.Reactions.quiet(s)) {
+                if (greeting.said.isEmpty()) VillagerLogic.reaction(v, s, java.time.LocalDate.now(), vm.villagers.people(s))?.let { SpeechBubble(vm, v, it, Modifier.fillMaxWidth()) }
+                EventCallButton(vm, s, Modifier.fillMaxWidth())
+            } else if (vm.villagers.waitsToMeet(vm.game.state, v.id)) {
                 MeetButton(vm, v, Modifier.fillMaxWidth())
             } else if (greeting.said.isEmpty()) {
                 Button(
@@ -452,6 +457,25 @@ private fun TalkPanel(vm: AppViewModel, v: Villager, greeting: Greeting, modifie
             )
         }
     }
+}
+
+/**
+ * The village's event's run, from a villager's card or page while it's on (companion/GAME.md "People react"): the
+ * culture's call for it ("🐺 Branimo vas! · Let's defend the village!", [si.lanisce.lani.game.villagers.Reactions.call]),
+ * else the event's title. [onGo]: before the run starts (the card closes).
+ */
+@Composable
+internal fun EventCallButton(vm: AppViewModel, s: si.lanisce.lani.game.GameState, modifier: Modifier = Modifier, onGo: () -> Unit = {}) {
+    val e = s.event ?: return
+    val stir = si.lanisce.lani.game.villagers.Stir(e.kind, si.lanisce.lani.game.villagers.Stir.Phase.ON, 0.0, e.strength)
+    val label = si.lanisce.lani.game.villagers.Reactions.call(stir)?.let { "${e.kind.emoji} ${it.bi()}" } ?: si.lanisce.lani.game.Events.title(s, e)
+    val threat = si.lanisce.lani.game.villagers.Reactions.quieting(e.kind)
+    Button(
+        onClick = { onGo(); vm.startEvent() },
+        modifier = modifier.heightIn(min = 48.dp),
+        shape = MaterialTheme.shapes.medium,
+        colors = if (threat) ButtonDefaults.buttonColors(containerColor = si.lanisce.lani.ui.theme.TriglavRed, contentColor = Color.White) else ButtonDefaults.buttonColors(),
+    ) { Text(label, textAlign = TextAlign.Center, style = MaterialTheme.typography.labelLarge) }
 }
 
 /** "🗣️ Pogovor s tutorjem · Talk freely": the tutor plays the villager; a spinner while the scene is prepared. */
@@ -713,16 +737,22 @@ fun VillagerCard(vm: AppViewModel, id: String, onDismiss: () -> Unit, modifier: 
                     }
                 }
                 ritual != null && greeting.said.isEmpty() -> Text("🏮 $ritual", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                greeting.said.isEmpty() -> VillagerLogic.idle(v, level, LocalDate.now(), state = s)?.let { SpeechBubble(vm, v, it, Modifier.fillMaxWidth()) }
+                greeting.said.isEmpty() -> VillagerLogic.idle(v, level, LocalDate.now(), state = s, people = s?.let { vm.villagers.people(it) })?.let { SpeechBubble(vm, v, it, Modifier.fillMaxWidth()) }
             }
             // nothing up, only requests waiting in "Later" (one never started, asked again another day): still one tap away
             if (today.quests.isEmpty() && today.waiting.isNotEmpty()) CardRequests(vm, today, onDismiss)
             for (l in greeting.said) SpeechBubble(vm, v, l, Modifier.fillMaxWidth())
             // the storyteller: the notebook of the stories he told (over the card; closed, the card is there again)
             if (tellsStories(vm, id)) si.lanisce.lani.ui.notebook.NotebookRow(si.lanisce.lani.ui.notebook.rememberNotebook(vm)) { vm.openNotebook() }
+            // the village's event on (companion/GAME.md "People react"): its run a tap away; while wolves, a bear or a storm
+            // are about it is what there is to do with them (their everyday talk waits)
+            val quiet = si.lanisce.lani.game.villagers.Reactions.quiet(s)
+            if (s?.event != null && !quiet) EventCallButton(vm, s, Modifier.fillMaxWidth(), onDismiss)
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
                 // someone who lives here and hasn't been met: their introduction first (companion/VILLAGERS.md "Arrivals")
-                if (vm.villagers.waitsToMeet(s, id)) {
+                if (quiet && s != null) {
+                    EventCallButton(vm, s, Modifier.weight(1f), onDismiss)
+                } else if (vm.villagers.waitsToMeet(s, id)) {
                     MeetButton(vm, v, Modifier.weight(1f), onMeet = onDismiss)
                 } else if (greeting.said.isEmpty()) {
                     FilledTonalButton(

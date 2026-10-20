@@ -46,9 +46,12 @@ object SceneOffers {
     fun classHere(scene: SceneSpec, s: GameState, course: Course?): Boolean =
         course != null && School.open(s) && !Homes.isRoom(scene) && TownMarkers.placeOf(scene, s) == classPlace(s)
 
-    /** The class's lesson in [scene] ([School.lesson]), while the class meets there ([classHere]); null elsewhere, or all done. */
+    /**
+     * The class's lesson in [scene] ([School.lesson]), while the class meets there ([classHere]); null elsewhere, or all done,
+     * and while wolves, a bear or a storm are about (it waits: [si.lanisce.lani.game.villagers.Reactions.quiet]).
+     */
     fun lesson(scene: SceneSpec, s: GameState, course: Course?): School.Lesson? =
-        if (course != null && classHere(scene, s, course)) School.lesson(s, course) else null
+        if (course != null && !si.lanisce.lani.game.villagers.Reactions.quiet(s) && classHere(scene, s, course)) School.lesson(s, course) else null
 
     /** Whether a tap on thing [slot] leads to the class's units: the blackboard, where the class meets ([classHere]). */
     fun opensSchool(slot: String, classHere: Boolean): Boolean = classHere && slot == BLACKBOARD

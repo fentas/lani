@@ -543,9 +543,22 @@ fun VillageScreen(vm: AppViewModel) {
                 val b = vm.game.justBuilt?.let { id -> s.buildings.firstOrNull { it.id == id } } ?: return@LaunchedEffect
                 cam.reveal(TownAnchors.top(b, s, fit.width, fit.height), area())
             }
-            // QA's "show:<spot>": the camera at that spot of the landscape, as a place of the scroll flies it there
+            // QA's "show:<spot>": the camera at that spot of the landscape, as a place of the scroll flies it there; "fire",
+            // the merchant's "cart", the wolves or the bear ("threat") too
             val qaShow = si.lanisce.lani.app.QaHooks.show
-            LaunchedEffect(qaShow) { qaShow?.let { (spot, _) -> cam.show(anchorOf(TownPlace.Spot(spot)), area()) } }
+            LaunchedEffect(qaShow) {
+                qaShow?.let { (spot, _) ->
+                    val comp = si.lanisce.lani.game.render.VillageLayout.composition(fit.width, fit.height, compact = false)
+                    fun at(w: FloatArray) = CanvasPoint(comp.fireX + (w[0] - w[1]) * 4f, comp.fireY + (w[0] + w[1]) * 2f - 6f)
+                    val p = when (spot) {
+                        "fire" -> anchorOf(TownPlace.Fire)
+                        "cart" -> at(si.lanisce.lani.game.render.Threats.cart(s, fit.width))
+                        "threat" -> si.lanisce.lani.game.render.Threats.of(s, fit.width, fit.height)?.let { at(floatArrayOf(it.cx, it.cy)) } ?: anchorOf(TownPlace.Fire)
+                        else -> anchorOf(TownPlace.Spot(spot))
+                    }
+                    cam.show(p, area())
+                }
+            }
             // The place card doesn't cover its place: the anchor (the place's top) stays well above the card.
             LaunchedEffect(card, cardH) {
                 val c = card ?: return@LaunchedEffect

@@ -104,6 +104,7 @@ object Cultures {
         loaded.clear()
         libraries.clear()
         skies.clear()
+        reactionFiles.clear()
         active = null
     }
 
@@ -252,6 +253,45 @@ object Cultures {
         if (problems.isNotEmpty()) onProblem?.invoke(CultureError(id, problems))
         java.util.Optional.ofNullable(sky.takeIf { problems.isEmpty() })
     }.orElse(null)
+
+    /** The reactions files read so far, by pack id; a pack without one (or with one that can't be used) has none. */
+    private val reactionFiles = ConcurrentHashMap<String, java.util.Optional<ReactionsFile>>()
+
+    /** The schema of reactions.json. */
+    const val REACTIONS_SCHEMA = "lani.reactions/v0"
+
+    /**
+     * What pack [id]'s people say while an event is on or just over (reactions.json, optional; companion/GAME.md "People
+     * react"). Read and checked once; null for a pack without one or one that can't be used ([onProblem] hears why).
+     */
+    fun reactions(id: String): ReactionsFile? = reactionFiles.getOrPut(id) {
+        val raw = resource("$id/reactions.json") ?: return@getOrPut java.util.Optional.empty()
+        val problems = ArrayList<String>()
+        val r = try {
+            json.decodeFromString(ReactionsFile.serializer(), raw)
+        } catch (e: SerializationException) {
+            null.also { problems += "$id/reactions.json: ${e.message?.lines()?.first()}" }
+        } catch (e: IllegalArgumentException) {
+            null.also { problems += "$id/reactions.json: ${e.message?.lines()?.first()}" }
+        }
+        if (r != null) problems += checkReactions(id, r)
+        if (problems.isNotEmpty()) onProblem?.invoke(CultureError(id, problems))
+        java.util.Optional.ofNullable(r.takeIf { problems.isEmpty() })
+    }.orElse(null)
+
+    /** What the people of the village on screen say in its events: the current culture's ([reactions]). */
+    val currentReactions: ReactionsFile? get() = reactions(current.id)
+
+    /**
+     * The problems of [r], pack [id]'s reactions.json: its schema and language, every text in the pack's language with no
+     * arguments, every call short (a word or three: it's a button) and every shout too (a word or two over a head).
+     */
+    fun checkReactions(id: String, r: ReactionsFile): List<String> {
+        val lang = manifest(id)?.language ?: return listOf("$id: no such culture pack")
+        val c = Check(id, lang)
+        c.reactions(r)
+        return c.problems
+    }
 
     /** The sky of the village on screen: the current culture's ([sky]). */
     val currentSky: SkyFile? get() = sky(current.id)
@@ -938,6 +978,26 @@ object Cultures {
             if (e.merchant.gift == null) fail("merchant.gift", "missing: the merchant's gift when there's nothing to trade")
             if (e.festival.quiet == null) fail("festival.quiet", "missing: a feast day that passed without anyone")
             text("too_late", e.tooLate)
+        }
+
+        fun reactions(r: ReactionsFile) {
+            file = "reactions"
+            if (!Schema.matches(r.schema, REACTIONS_SCHEMA)) fail("schema", "\"${r.schema}\", not \"$REACTIONS_SCHEMA\"")
+            if (r.language != lang) fail("language", "\"${r.language}\", not the pack's \"$lang\"")
+            val all = listOf("wolves" to r.wolves, "bear" to r.bear, "storm" to r.storm, "merchant" to r.merchant, "festival" to r.festival, "won" to r.won, "lost" to r.lost)
+            for ((k, t) in all) {
+                fun lines(role: String, list: List<Text>) = list.forEachIndexed { i, l -> text("$k.$role[$i]", l) }
+                t.shout.forEachIndexed { i, l ->
+                    text("$k.shout[$i]", l)
+                    l.by[lang]?.let { if (it.trim().split(Regex("\\s+")).size > 3) fail("$k.shout[$i]", "\"$it\": a shout is a word or two (three at most)") }
+                }
+                text("$k.call", t.call)
+                t.call?.by?.get(lang)?.let { if (it.trim().split(Regex("\\s+")).size > 4) fail("$k.call", "\"$it\": a call is a button, four words at most") }
+                lines("defender", t.defender); lines("child", t.child); lines("elder", t.elder); lines("keeper", t.keeper)
+                lines("other", t.other); lines("repair", t.repair)
+                if (t.other.isEmpty()) fail("$k.other", "empty: whoever has no line of their own says one of these")
+            }
+            for (k in listOf("wolves", "bear", "storm", "merchant", "festival")) if (all.first { it.first == k }.second.call == null) fail("$k.call", "missing: the card's button to the event's run")
         }
 
         fun people(p: PeopleFile) {

@@ -96,7 +96,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   the keepers come whatever their dice. The rest of the game keeps today. "kopa:" goes by today again.
  * - "show:<spot>": the village's camera flies to that spot of the landscape ("show:kopa"), as a place of the scroll's
  *   "Kraji" flies it there ([show]): a spot deep in the woods framed without drags that a busy machine sends unevenly;
- *   asked again, it flies there again. "show:" lets it go.
+ *   asked again, it flies there again; "show:fire" the fire, "show:cart" the merchant's cart on the road, "show:threat"
+ *   the wolves or the bear. "show:" lets it go.
  * - "dev:again": the developer's next upload to the node when the app goes to the background doesn't wait for the 30
  *   minutes since the last one (app/DevUpload); "dev:off" hides the developer settings (as their "Hide these settings").
  * - "ageup:<age>": the village (the dev bridge's copy) grows to that age today from the one before ([grownTo]: whatever it
@@ -105,6 +106,11 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   screenshot (the card from its end on: [ageUpAt]), "ageup:at:" lets it play on.
  * - "level:<A1|A2|…>": the dialogs opened from now on (a scene's, a party's, a step's) are at that level, whatever the
  *   learner's ([level]: an age's party at A1); "level:" lets the learner's own decide again.
+ * - "event:<kind>" ("event:wolves", "event:bear/3", "event:storm", "event:merchant", "event:festival"): the village (the
+ *   dev bridge's copy) has that event on from now ([eventState]: of strength 1, or the one after the slash), as the day's
+ *   tick brings one, and the village shows, its people reacting (companion/GAME.md "People react"); "event:won" and
+ *   "event:lost" end the one on as its run would ("event:lost" damages a house when the dice didn't), "event:" ends it
+ *   without a trace (nor the reactions after it).
  */
 object QaHooks {
     const val EXTRA = "si.lanisce.lani.qa"
@@ -180,6 +186,36 @@ object QaHooks {
     fun tookAgeUp() { ageUp = null }
 
     /**
+     * [s] with the event QA asks for ("event:<what>", [handle]) at [now] (epoch ms): "wolves", "bear", "storm", "merchant",
+     * "festival" on from now (strength 1, or "bear/3"'s), as the day's tick brings one (36 hours to play it); "won" and
+     * "lost" the one on ended as its run ends it ([si.lanisce.lani.game.Events.outcome]; lost, a house or hut damaged when
+     * the dice damaged nothing and the age can be damaged); "" none, nor how the last one ended. Anything else: [s]. A debug
+     * build's, on the dev bridge's copy.
+     */
+    fun eventState(s: si.lanisce.lani.game.GameState, what: String, now: Long): si.lanisce.lani.game.GameState {
+        val name = what.substringBefore('/').trim().uppercase()
+        val strength = what.substringAfter('/', "1").toIntOrNull()?.coerceIn(1, 5) ?: 1
+        si.lanisce.lani.game.EventKind.entries.firstOrNull { it.name == name }?.let { k ->
+            return s.copy(event = si.lanisce.lani.game.GameEvent("ev-qa-${k.name.lowercase()}", k, strength, now, now + 36 * 3_600_000L), ended = null)
+        }
+        return when (name) {
+            "" -> s.copy(event = null, ended = null)
+            "WON", "LOST" -> {
+                val e = s.event ?: return s
+                var r = si.lanisce.lani.game.Events.outcome(s, e, won = name == "WON", expired = false, now = now).first
+                val end = r.ended
+                if (name == "LOST" && end != null && end.damaged.isEmpty() && r.age > si.lanisce.lani.game.Age.TABOR) {
+                    r.buildings.firstOrNull { (it.type == si.lanisce.lani.game.BuildingType.HOUSE || it.type == si.lanisce.lani.game.BuildingType.HUT) && !it.damaged }?.let { b ->
+                        r = r.copy(buildings = r.buildings.map { if (it.id == b.id) it.copy(damaged = true) else it }, ended = end.copy(damaged = listOf(b.id)))
+                    }
+                }
+                r
+            }
+            else -> s
+        }
+    }
+
+    /**
      * [s] grown to [to] [today] from the age before it ("ageup:<age>"), whatever it lacks for it: the age, the day it grew
      * (its decorations up, its party tonight, not had yet), its line in the chronicle. A debug build's, on the dev bridge's copy.
      */
@@ -213,10 +249,11 @@ object QaHooks {
         season: () -> Unit = {}, ready: () -> Unit = {}, chat: (String) -> Unit = {}, cheat: (List<String>) -> Unit = {}, school: () -> Unit = {},
         shadow: (String) -> Unit = {}, counting: (String) -> Unit = {}, dev: (String) -> Unit = {}, pair: (String) -> Unit = {},
         grow: (si.lanisce.lani.game.Age) -> Unit = {}, formsCard: (String, String) -> Unit = { _, _ -> }, data: () -> Unit = {}, tutorLive: (String) -> Unit = {},
-        review: () -> Unit = {}, numbers: (String) -> Unit = {},
+        review: () -> Unit = {}, numbers: (String) -> Unit = {}, event: (String) -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
+            command.startsWith("event:") -> event(command.removePrefix("event:").trim())
             command.startsWith("dev:") -> dev(command.removePrefix("dev:"))
             command.startsWith("level:") -> level = command.removePrefix("level:").trim().uppercase().takeIf { it in listOf("A1", "A2", "B1", "B2", "C1", "C2") }
             command.startsWith("ageup:at:") -> ageUpAt = command.removePrefix("ageup:at:").toFloatOrNull()?.coerceAtLeast(0f)
