@@ -132,11 +132,13 @@ object TownAnchors {
     /** How far above the horizon the land's band reaches: most of the Alps' height (see [Backdrop]). */
     private fun horizonBand(comp: Composition): Float = min(comp.horizon - 3f, Backdrop.MAX_MOUNTAIN_PX) * 0.7f
 
-    /** Just above the flames (they grow with the fire's strength and the age). */
+    /**
+     * Just above the centre's flames at their highest (they grow with the age; companion/GAME.md "Hearths": the fire ring and
+     * the fire basket burn for the evening, the campfire smoulders without wood, and their place stays where it is).
+     */
     fun fireTop(state: GameState, comp: Composition): CanvasPoint {
-        val fire = state.fire.coerceIn(0, 100) / 100f
         val fireScale = FIRE_SCALE[state.age.ordinal]
-        val fh = (5f + fire * 10f) * fireScale
+        val fh = (5f + 10f) * fireScale
         return CanvasPoint(comp.fireX.toFloat(), comp.fireY - fh - 5f)
     }
 
@@ -411,15 +413,15 @@ object TownAnchors {
     }
 
     /**
-     * The fire's tap area on a [w] × [h] canvas, nominal px [left, top, right, bottom]: its flames as tall as they burn
-     * now, its smoke just above them, its stones to either side ([fireReach]) and in front ([fireFront]); a tap within it
+     * The fire's tap area on a [w] × [h] canvas, nominal px [left, top, right, bottom]: its flames as tall as they burn at
+     * their highest, its smoke just above them, its stones to either side ([fireReach]) and in front ([fireFront]); a tap within it
      * is the fire's ([VillageRenderer.hitTest] has the same box, in its canvas's pixels). The bubbles keep off it
      * (si.lanisce.lani.ui.game.layoutBubbles).
      */
     fun fireArea(state: GameState, w: Int, h: Int): FloatArray {
         val comp = VillageLayout.composition(w, h, compact = false)
         val scale = FIRE_SCALE[state.age.ordinal]
-        val fh = (5f + state.fire.coerceIn(0, 100) / 100f * 10f) * scale
+        val fh = (5f + 10f) * scale
         val reach = fireReach(scale)
         return floatArrayOf(comp.fireX - reach, comp.fireY - fh - 6f, comp.fireX + reach, comp.fireY + fireFront(scale))
     }

@@ -219,6 +219,11 @@ internal class SceneCtx(val canvas: PixelCanvas) {
     var clear = 1f
     /** The buildings whose windows are dark tonight, everyone in them asleep ([TownPeople.darkWindows]). */
     var darkWindows: Set<String> = emptySet()
+    /**
+     * The hearths out today ([si.lanisce.lani.game.Hearths]: building ids, the centre's): no smoke, dark windows at night, a
+     * cold forge. A village whose hearths weren't decided yet (a test's, a friend's town on a visit) has all lit.
+     */
+    var hearthsOut: Set<String> = emptySet()
     /** The class meets under the linden (GAME.md, "The school"): its blackboard and the pupils' bench by the tree. */
     var classroom = false
     val trees = TreePainter(this)
@@ -245,6 +250,7 @@ internal class SceneCtx(val canvas: PixelCanvas) {
     fun fx(block: () -> Unit) { fxList.add(block) }
     fun smoke(x: Float, y: Float, amount: Float, seed: Int, dark: Boolean = false, tint: Int? = null) = fx { effects.smoke(x, y, amount, seed, dark, tint) }
     fun sparks(x: Float, y: Float, n: Int, seed: Int) = fx { effects.sparks(x, y, n, seed) }
+    fun plume(x: Float, y: Float, seed: Int) = fx { effects.plume(x, y, seed) }
 
     var nLights = 0
     val lx = FloatArray(MAX_LIGHTS); val ly = FloatArray(MAX_LIGHTS); val lr = FloatArray(MAX_LIGHTS); val li = FloatArray(MAX_LIGHTS)
@@ -395,6 +401,7 @@ class VillageRenderer {
         s.clear = skyClear(sky, storm)
         val env = s.env
         s.darkWindows = if (env.windows > 0.35f) TownPeople.darkWindows(state, frame.people, frame.hour, frame.month, frame.date, frame.day, frame.standing) else emptySet()
+        s.hearthsOut = if (state.hearths == null) emptySet() else si.lanisce.lani.game.Hearths.out(state, frame.date).map { it.id }.toSet()
         skyColor = env.skyTop
         canvas.reset(env.skyTop)
 
@@ -604,23 +611,72 @@ class VillageRenderer {
             })
         }
 
-        // fire
-        val fire = state.fire.coerceIn(0, 100) / 100f
+        // the centre (companion/GAME.md "Hearths"): the campfire to Zaselek, the fire ring with its benches at Vas, the
+        // square's fire basket from Trg (the kres on a feast evening, lanterns round the square at Mesto); its look switches
+        // halfway through an age-up's fire
         val fireScale = grown(g?.fire ?: 1f) { TownAnchors.FIRE_SCALE[it.ordinal] }
+        val centre = si.lanisce.lani.game.Hearths.centreKind(ageAt(g?.fire ?: 1f))
+        val centreLit = si.lanisce.lani.game.Hearths.CENTRE !in s.hearthsOut
+        val look = CentreLook.of(state, frame, centre, centreLit, env)
+        val centrePainter = CentrePainter(s)
         objs.add(Obj(-0.01f) {
             val slot = hits.size + 1
             owner[s.newObject(Pal.OUTLINE)] = slot
-            s.effects.hearth(fireX, fireY, fireScale, back = true)
-            owner[s.newObject(0)] = slot
-            val fh = s.effects.flames(fireX, fireY - k, fire, fireScale)
-            owner[s.newObject(Pal.OUTLINE)] = slot
-            s.effects.hearth(fireX, fireY, fireScale, back = false)
-            s.sparks(fireX.toFloat(), fireY - fh * 0.8f, 3 + (fire * 6).toInt(), 1)
-            s.smoke(fireX + 1f * k, fireY - fh - 2f * k, 0.5f + fire * 0.6f, 3)
-            // the flames, the stones and a little more: a tap there is the fire's (see [hitTest])
+            var fh = 0
+            when (centre) {
+                si.lanisce.lani.game.HearthKind.FIRE_RING -> {
+                    centrePainter.ring(fireX, fireY, fireScale, back = true)
+                    owner[s.newObject(0)] = slot
+                    if (look.flames > 0f) fh = s.effects.flames(fireX, fireY - k, look.flames, fireScale)
+                    else if (look.embers) centrePainter.embers(fireX, fireY, 3, smoke = env.dark < 0.5f)
+                    owner[s.newObject(Pal.OUTLINE)] = slot
+                    centrePainter.ring(fireX, fireY, fireScale, back = false)
+                }
+                si.lanisce.lani.game.HearthKind.FIRE_BASKET -> if (look.kres) {
+                    val top = centrePainter.kres(fireX, fireY, fireScale)
+                    owner[s.newObject(0)] = slot
+                    fh = s.effects.flames(fireX, top, 1f, fireScale * 1.5f) + (fireY - top)
+                } else {
+                    centrePainter.basket(fireX, fireY, fireScale, back = true)
+                    owner[s.newObject(0)] = slot
+                    val bowl = fireY - ((CentrePainter.BASKET_LEGS * fireScale).roundToInt() + 2) * k
+                    if (look.flames > 0f) fh = s.effects.flames(fireX, bowl, look.flames, fireScale * 0.7f) + (fireY - bowl)
+                    else if (look.embers) centrePainter.embers(fireX, bowl, 3, smoke = env.dark < 0.5f)
+                    owner[s.newObject(Pal.OUTLINE)] = slot
+                    centrePainter.basket(fireX, fireY, fireScale, back = false)
+                }
+                else -> {
+                    s.effects.hearth(fireX, fireY, fireScale, back = true)
+                    owner[s.newObject(0)] = slot
+                    fh = s.effects.flames(fireX, fireY - k, look.flames, fireScale)
+                    owner[s.newObject(Pal.OUTLINE)] = slot
+                    s.effects.hearth(fireX, fireY, fireScale, back = false)
+                }
+            }
+            if (fh > 0) {
+                s.sparks(fireX.toFloat(), fireY - fh * 0.8f, 3 + (look.flames * 6).toInt() + if (look.kres) 6 else 0, 1)
+                s.smoke(fireX + 1f * k, fireY - fh - 2f * k, 0.5f + look.flames * 0.6f, 3)
+            }
+            // the flames as tall as they burn at their highest, the stones and a little more: a tap there is the centre's
+            // whatever burns now (see [hitTest]; the bubbles keep off the same box: TownAnchors.fireArea)
+            val tall = ((5f + 10f) * fireScale * k).roundToInt()
             val reach = (TownAnchors.fireReach(fireScale) * k).roundToInt(); val front = (TownAnchors.fireFront(fireScale) * k).roundToInt()
-            hits.add(VillageHit.OnFire to intArrayOf(fireX - reach, fireY - fh - 6 * k, fireX + reach, fireY + front))
+            hits.add(VillageHit.OnFire to intArrayOf(fireX - reach, fireY - maxOf(fh, tall) - 6 * k, fireX + reach, fireY + front))
         })
+        // the fire ring's benches, where the evening sits: one to either side, behind whoever sits there
+        if (centre == si.lanisce.lani.game.HearthKind.FIRE_RING) for (side in intArrayOf(1, -1)) {
+            val bx = fireX + (side * TownPeople.fireClear(fireScale) * k).roundToInt(); val by = fireY + 2 * k
+            objs.add(Obj(0.95f) { s.newObject(Pal.OUTLINE); centrePainter.bench(bx, by, 4) })
+        }
+        // the lanterns round the town's square, lit from dusk
+        if (centre == si.lanisce.lani.game.HearthKind.FIRE_BASKET && ageAt(g?.fire ?: 1f) >= Age.MESTO) {
+            val r = plazaR + 0.3f
+            for (j in 0 until 4) {
+                val a = PI / 4 + j * PI / 2
+                val lx = (cos(a) * r).toFloat(); val ly = (sin(a) * r).toFloat()
+                objs.add(Obj(lx + ly) { s.newObject(Pal.OUTLINE); centrePainter.lantern(lx, ly, env.windows > 0.3f, j) })
+            }
+        }
 
         // people: those who live here around their homes, the rest of the population walking about unnamed
         val gather = frame.festive?.gather == true

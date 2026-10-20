@@ -103,6 +103,21 @@ internal class Effects(private val s: SceneCtx) {
         }
     }
 
+    /**
+     * A hearth's plume from a chimney or a roof (companion/GAME.md "Hearths"): a few soft puffs rising and drifting off, thick
+     * near the chimney so it shows by day, thinning as they rise.
+     */
+    fun plume(x: Float, y: Float, seed: Int) {
+        val n = 5
+        for (j in 0 until n) {
+            val a = ((t / 4.0 + j.toFloat() / n + seed * 0.137) % 1.0).toFloat()
+            val px = x + (a * 6f + sin(a * 4 + seed + j).toFloat()) * k
+            val py = y - (1f + a * 14f) * k
+            val r = (1.1f + a * 2.2f) * k
+            c.ditherCircle(px, py, r, Col.mix(PLUME, Col.hex(0xE8E8EE), a * 0.5f), 1.15f - a)
+        }
+    }
+
     fun sparks(x: Float, y: Float, n: Int, seed: Int) {
         c.penEmissive = true
         for (j in 0 until n) {
@@ -1841,6 +1856,8 @@ internal class Effects(private val s: SceneCtx) {
     }
 
     companion object {
+        /** A hearth's smoke: a light grey. */
+        val PLUME = Col.hex(0xBEBCC4)
         const val PROP_NONE = 0; const val PROP_STICK = 1; const val PROP_CROOK = 2; const val PROP_HAMMER = 3; const val PROP_BASKET = 4
         const val PROP_BOOK = 5; const val PROP_SPOON = 6; const val PROP_MUG = 7; const val PROP_BOTTLE = 8; const val PROP_SMOKER = 9; const val PROP_FLOWER = 10
         /** The pilgrim's tall staff with a gourd. */

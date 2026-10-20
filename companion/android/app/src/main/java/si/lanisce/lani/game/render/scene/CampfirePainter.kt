@@ -122,6 +122,13 @@ internal class CampfirePainter : DioramaPainter() {
         for (p in peopleAt(spot)) if (p.pose == Pose.SLEEP) personAt(p, m.x, m.y, flip = m.flip)
     }
 
+    /**
+     * The village's centre by its age (companion/GAME.md "Hearths"): from Vas the fire ring, its logs to sit on plank benches;
+     * from Trg the square, cobbles round the fire. The camp in the woods it always was before.
+     */
+    private val ring get() = frame.world.age >= si.lanisce.lani.game.Age.VAS
+    private val square get() = frame.world.age >= si.lanisce.lani.game.Age.TRG
+
     override fun paint() {
         fit()
         vignette()
@@ -174,11 +181,11 @@ internal class CampfirePainter : DioramaPainter() {
         thing("stones") { hearth(front = true) }
         prop { tripodLeg(-0.42f, 1.57f); tripodLeg(1.57f, -0.42f); lashing() }
 
-        // the bucket, the logs by the fire and the people on them, the stump in front
+        // the bucket, the logs by the fire and the people on them (from Vas the fire ring's plank benches), the stump in front
         thing("bucket", slop = 1) { bucket(lit) }
-        prop { seat(leftX, leftY, 0.45f, 71) }
+        prop { if (ring) bench(leftX, leftY, 0.45f) else seat(leftX, leftY, 0.45f, 71) }
         cast("left"); dozing("left")
-        prop { seat(rightX, rightY, 0.55f, 73) }
+        prop { if (ring) bench(rightX, rightY, 0.55f) else seat(rightX, rightY, 0.55f, 73) }
         cast("right"); dozing("right")
         cast("stump")
         thing("stump") { stump() }
@@ -427,6 +434,8 @@ internal class CampfirePainter : DioramaPainter() {
             col = if (n < 0.3f) Pal.SOIL_D else if (n < 0.85f) Pal.SOIL_M else Pal.DIRT_D
         }
         if (dFire < 0.45f && Noise.rnd(px, py, 51) < 0.3f) col = if (Noise.rnd(px, py, 52) < 0.5f) Col.hex(0x5A5450) else Col.hex(0x7A726A)
+        // on the town's square: cobbles round the fire, out to the benches
+        if (square && dFire in 0.35f..3.6f + (Noise.v1((x + y) * 1.3f, 61) - 0.5f) * 0.5f) col = cobble(x, y, px, py)
         // chips round the chopping block
         if (hypot(x - blockX, y - blockY) < 1.05f && Noise.rnd(px, py, 47) < 0.07f) col = if (Noise.rnd(px, py, 48) < 0.5f) Col.hex(0xE8C890) else Col.hex(0xC89A62)
         return col
@@ -879,6 +888,43 @@ internal class CampfirePainter : DioramaPainter() {
         c.hline(hx, hx + 2 * q - 1, hy - q - 1, ashD)
         c.set(hx - 2 * q, hy - q, Col.hex(0x8A8E9C)); c.set(hx - q, hy, Col.hex(0x8A8E9C)) // a scratch or two
         for (r in 0 until q) c.hline(hx - 5 * q, hx + 5 * q - 1, hy + 2 * q + r, if (r == 0) Col.hex(0x2A1E14) else Col.hex(0x3A2A1C))
+    }
+
+    /** A cobble of the square at world ([x], [y]): rounded stones in rows, dark joints between them. */
+    private fun cobble(x: Float, y: Float, px: Int, py: Int): Int {
+        val u = x * 2.6f; val v = y * 2.6f + if (floor(x * 2.6f).toInt() % 2 == 0) 0.5f else 0f
+        val fu = u - floor(u); val fv = v - floor(v)
+        if (fu < 0.12f || fv < 0.12f) return Pal.COBBLE_D
+        val n = Noise.rnd(floor(u).toInt(), floor(v).toInt(), 63)
+        val base = if (n < 0.33f) Pal.COBBLE_L else if (n < 0.8f) Pal.COBBLE_M else Col.mix(Pal.COBBLE_M, Pal.DIRT_M, 0.4f)
+        return if (fu + fv < 0.55f && Noise.rnd(px, py, 64) < 0.5f) Col.mix(base, Col.hex(0xFFFFFF), 0.12f) else base
+    }
+
+    /**
+     * A plank bench behind the person at world ([x], [y]), along where the log lies ([skew]): the seat a pixel row lit on top,
+     * its front edge darker, a leg at each end (the fire ring's, from Vas).
+     */
+    private fun bench(x: Float, y: Float, skew: Float) {
+        val cx = x - 0.3f; val cy = y - 0.3f
+        val len = sqrt(1f + skew * skew)
+        val dx = 1.3f / len; val dy = -1.3f * skew / len
+        shade(iso.sx(cx + 0.2f, cy + 0.2f), iso.sy(cx + 0.2f, cy + 0.2f, 0f), 13f * K, 2.6f * K, 0.78f, groundId)
+        val q = detail
+        val z = 2.4f
+        val x0 = iso.sx(cx - dx, cy - dy); val y0 = iso.sy(cx - dx, cy - dy, z)
+        val x1 = iso.sx(cx + dx, cy + dy); val y1 = iso.sy(cx + dx, cy + dy, z)
+        val legs = (z * K).toInt()
+        for ((lx, ly) in listOf(x0 + 2f * q to y0, x1 - 2f * q to y1 + (y0 - y1) * (2f * q / max(1f, abs(x1 - x0))))) {
+            c.fillRect(floor(lx).toInt(), floor(ly).toInt(), 2 * q, legs, Pal.WOOD_X)
+        }
+        val n = max(1, abs(x1 - x0).toInt())
+        for (i in 0..n) {
+            val u = i / n.toFloat()
+            val px = floor(x0 + (x1 - x0) * u).toInt(); val py = floor(y0 + (y1 - y0) * u).toInt()
+            c.fillRect(px, py - 2 * q, 1, q, if (winter) Pal.SNOW_L else Pal.WOOD_L)
+            c.fillRect(px, py - q, 1, 2 * q, Pal.WOOD_M)
+            c.fillRect(px, py + q, 1, q, Pal.WOOD_D)
+        }
     }
 
     /** A log to sit on, lying behind the person at world ([x], [y]), a little askew ([skew]); its cut end toward us on the right. */

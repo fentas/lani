@@ -102,10 +102,19 @@ internal class BuildingPainter(private val s: SceneCtx) {
     internal fun shingles() = if (env.snow) Roof(Pal.SNOW_L, Pal.SNOW_M, Pal.SHINGLE_D, rows = false) else Roof(Pal.SHINGLE_L, Pal.SHINGLE_M, Pal.SHINGLE_D, stagger = true)
     internal fun slate() = if (env.snow) Roof(Pal.SNOW_L, Pal.SNOW_M, Pal.SLATE_D, rows = false) else Roof(Pal.SLATE_L, Pal.SLATE_M, Pal.SLATE_D)
 
-    /** The building being drawn ([draw]): its windows are dark once everyone in it is asleep ([SceneCtx.darkWindows]). */
+    /**
+     * The building being drawn ([draw]): its windows are dark once everyone in it is asleep ([SceneCtx.darkWindows]), and
+     * when its hearth is out ([SceneCtx.hearthsOut]: no fire, no light in a cold house).
+     */
     private var current: Building? = null
 
-    private val lit get() = env.windows > 0.35f && current?.id?.let { it in s.darkWindows } != true
+    private val lit get() = env.windows > 0.35f && current?.id?.let { it in s.darkWindows || it in s.hearthsOut } != true
+
+    /** The hearth of the building being drawn burns (companion/GAME.md "Hearths"): smoke from its chimney, its fire's glow. */
+    private val hearth get() = current?.id?.let { it !in s.hearthsOut } != false
+
+    /** Its hearth burns and someone is up (by night, after everyone is asleep, the smoke stops). */
+    private val smoking get() = hearth && current?.id?.let { it in s.darkWindows } != true
 
     /** A gable roof with the ridge along x, and at a closer look its rows of tiles or shingles. */
     internal fun roofX(x: Float, y: Float, z: Float, w: Float, d: Float, rise: Float, r: Roof, gable: Int) {
@@ -246,7 +255,8 @@ internal class BuildingPainter(private val s: SceneCtx) {
         i.box(x, y, z, 0.5f, 0.5f, h, Pal.STONE_L, Pal.STONE_M, Pal.STONE_D)
         i.top(x, y, z + h, 0.5f, 0.5f, Pal.STONE_X)
         if (fine) { i.line(x, y + 0.5f, z + h - 1f, x + 0.5f, y + 0.5f, z + h - 1f, Pal.STONE_D); i.line(x + 0.5f, y, z + h - 1f, x + 0.5f, y + 0.5f, z + h - 1f, Pal.STONE_X) }
-        if (smoke) s.smoke(i.sx(x + 0.25f, y + 0.25f), i.sy(x + 0.25f, y + 0.25f, z + h), 0.6f, x.toInt() * 31 + y.toInt())
+        // a hearth's smoke: thick enough to see by day (companion/GAME.md "Hearths": smoke from the chimneys of the hearths lit)
+        if (smoke) s.plume(i.sx(x + 0.25f, y + 0.25f), i.sy(x + 0.25f, y + 0.25f, z + h), x.toInt() * 31 + y.toInt())
     }
 
     // ---------------------------------------------------------------- buildings
@@ -456,7 +466,9 @@ internal class BuildingPainter(private val s: SceneCtx) {
             i.line(x0 - 0.3f, y0 + 1.9f, 8.5f, x0 + 2.3f, y0 + 1.9f, 8.5f, Pal.SHINGLE_D)
             i.line(x0 - 0.3f, y0 + 1.6f, 10.5f, x0 + 2.3f, y0 + 1.6f, 10.5f, Pal.SHINGLE_D)
         }
-        if (b.level >= 2) chimney(x0 + 0.3f, y0 + 1.0f, 9f, 5f, true)
+        // its open hearth: the smoke through the roof (a chimney from level 2), while it burns
+        if (b.level >= 2) chimney(x0 + 0.3f, y0 + 1.0f, 9f, 5f, smoking)
+        else if (smoking) s.plume(i.sx(x0 + 1f, y0 + 1f), i.sy(x0 + 1f, y0 + 1f, 11f), b.plot * 13 + 7)
     }
 
     private fun kozolec(b: Building, x: Float, y: Float) {
@@ -591,14 +603,21 @@ internal class BuildingPainter(private val s: SceneCtx) {
         }
         speckle(x0, y0, 0f, 2f, 2f, 8f, b.plot * 7, Pal.STONE_D, Pal.STONE_X)
         mortar(x0, y0, 0f, 2f, 2f, 8f, Pal.STONE_D, Pal.STONE_X)
-        // open forge
+        // open forge: glowing while it has its charcoal (companion/GAME.md "Hearths"), a cold grey hearth without
         i.panelY(x0 + 0.3f, y0 + 2f, 0f, 1.1f, 6f, Col.hex(0x2A1E18))
         val flick = 0.8f + 0.2f * sin(s.time * 13).toFloat()
-        glow {
-            i.panelY(x0 + 0.5f, y0 + 2f, 0.5f, 0.6f, 2f, Pal.FLAME[2])
-            i.px(x0 + 0.75f, y0 + 2f, 2f, Pal.FLAME[1])
+        val forge = hearth
+        if (forge) {
+            glow {
+                i.panelY(x0 + 0.5f, y0 + 2f, 0.5f, 0.6f, 2f, Pal.FLAME[2])
+                i.px(x0 + 0.75f, y0 + 2f, 2f, Pal.FLAME[1])
+            }
+            s.light(i.sx(x0 + 0.8f, y0 + 2f), i.sy(x0 + 0.8f, y0 + 2f, 2f), 18f, 0.7f * flick)
+        } else {
+            // the cold forge: grey ash where the glow was
+            i.panelY(x0 + 0.5f, y0 + 2f, 0.5f, 0.6f, 1f, Col.hex(0x5A5652))
+            i.px(x0 + 0.75f, y0 + 2f, 1.5f, Col.hex(0x6E6A64))
         }
-        s.light(i.sx(x0 + 0.8f, y0 + 2f), i.sy(x0 + 0.8f, y0 + 2f, 2f), 18f, 0.7f * flick)
         winX(x0 + 2f, y0 + 0.7f, 3f, 0.5f, 2f)
         // anvil
         val ax = i.ix(x0 + 1.6f, y0 + 2.5f); val ay = i.iy(x0 + 1.6f, y0 + 2.5f, 0f)
@@ -607,12 +626,14 @@ internal class BuildingPainter(private val s: SceneCtx) {
             c.set(ax - 2, ay - 3, Col.hex(0x6A6A76))
         }
         roofX(x0 - 0.3f, y0 - 0.3f, 7.5f, 2.6f, 2.6f, 5f, slate(), Pal.STONE_M)
-        // chimney with glowing mouth
+        // chimney with glowing mouth, its smoke and sparks while the forge burns
         i.box(x0 + 1.4f, y0 + 0.2f, 6f, 0.6f, 0.6f, 11f, Pal.STONE_L, Pal.STONE_M, Pal.STONE_D)
-        glow { i.top(x0 + 1.5f, y0 + 0.3f, 17f, 0.4f, 0.4f, Pal.FLAME[2]) }
-        val cx = i.sx(x0 + 1.7f, y0 + 0.5f); val cy = i.sy(x0 + 1.7f, y0 + 0.5f, 17f)
-        s.smoke(cx, cy, 0.8f, b.plot * 5)
-        s.sparks(cx, cy, 3, b.plot)
+        if (forge) glow { i.top(x0 + 1.5f, y0 + 0.3f, 17f, 0.4f, 0.4f, Pal.FLAME[2]) } else i.top(x0 + 1.5f, y0 + 0.3f, 17f, 0.4f, 0.4f, Pal.STONE_X)
+        if (forge) {
+            val cx = i.sx(x0 + 1.7f, y0 + 0.5f); val cy = i.sy(x0 + 1.7f, y0 + 0.5f, 17f)
+            s.smoke(cx, cy, 0.8f, b.plot * 5)
+            s.sparks(cx, cy, 3, b.plot)
+        }
     }
 
     private fun lipa(b: Building, x: Float, y: Float) {
@@ -684,7 +705,8 @@ internal class BuildingPainter(private val s: SceneCtx) {
         if (!env.snow) {
             i.line(x0 + w * 0.75f + 0.2f, y0 - 0.4f, 16f, x0 + w * 0.75f + 0.2f, y0 + w + 0.7f, 16f, Col.hex(0x6A2616))
         }
-        chimney(x0 + 1.85f, y0 + 0.8f, 15f, 5f, env.windows > 0.1f || env.season == Season.WINTER || b.level >= 2)
+        // the kitchen's stove and the bread oven: smoke from the chimney while the hearth burns, by day and evening
+        chimney(x0 + 1.85f, y0 + 0.8f, 15f, 5f, smoking)
     }
 
     private fun church(b: Building, x: Float, y: Float) {
@@ -734,6 +756,8 @@ internal class BuildingPainter(private val s: SceneCtx) {
         i.box(bx, by, 18f, 0.5f, 0.5f, 3f, Pal.WALL_L, Pal.WALL_M, Pal.WALL_D)
         i.panelY(bx + 0.12f, by + 0.5f, 18.5f, 0.25f, 2f, Pal.GOLD)
         i.pyramid(bx - 0.15f, by - 0.15f, 21f, 0.8f, 0.8f, 4f, tilesSideLit().front, Pal.ROOF_D)
+        // the classroom's stove: its chimney at the back of the roof, smoking while it burns
+        chimney(x0 + 2.0f, y0 + 0.35f, 14f, 6.5f, smoking)
     }
 
     private fun market(b: Building, x: Float, y: Float) {
