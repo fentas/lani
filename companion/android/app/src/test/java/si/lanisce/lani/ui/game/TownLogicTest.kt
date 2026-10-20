@@ -56,6 +56,9 @@ class TownLogicTest {
     )
     private val afternoon = LocalDateTime.of(2026, 9, 24, 14, 0)
 
+    /** The camp with the merchant come instead of the wolves: he keeps nobody from their day (GAME.md "People react"). */
+    private val calm = camp.copy(event = camp.event!!.copy(kind = EventKind.MERCHANT))
+
     @Test fun `one bubble sits right over its place`() {
         assertEquals(listOf(BubbleOffset(0f, 0f)), fanOut(1))
         assertEquals(emptyList<BubbleOffset>(), fanOut(0))
@@ -604,9 +607,7 @@ class TownLogicTest {
     }
 
     @Test fun `today lists the event, what's on now and later, and the open requests`() {
-        val o = TownOverview.of(camp, scenes, afternoon)
-        assertEquals(TimeOfDay.AFTERNOON, o.time)
-        val kinds = o.today.map {
+        fun kinds(o: TownOverview) = o.today.map {
             when (it) {
                 is TodayItem.Event -> "event:${it.place}"
                 is TodayItem.Happening -> "${if (it.now) "now" else "later"}:${it.on.key}@${it.time}"
@@ -615,21 +616,25 @@ class TownLogicTest {
                 is TodayItem.Keeper -> "keeper:${it.keeper.id}@${it.place}"
             }
         }
+        val o = TownOverview.of(calm, scenes, afternoon)
+        assertEquals(TimeOfDay.AFTERNOON, o.time)
         assertEquals(
-            listOf("event:Forest", "now:ob-ognju/igra@AFTERNOON", "later:ob-ognju/juha@EVENING", "quest:q1@Forest", "quest:t1@Fire"),
-            kinds,
+            listOf("event:Fire", "now:ob-ognju/igra@AFTERNOON", "later:ob-ognju/juha@EVENING", "quest:q1@Forest", "quest:t1@Fire"),
+            kinds(o),
         )
         assertEquals(4, o.todayCount) // later happenings don't count as "going on"
         // late at night nothing is left for later
-        assertTrue(TownOverview.laterToday(scenes, camp, afternoon.withHour(23)).isEmpty())
+        assertTrue(TownOverview.laterToday(scenes, calm, afternoon.withHour(23)).isEmpty())
+        // while the wolves are about the happenings wait (GAME.md "People react"): the event and the requests
+        assertEquals(listOf("event:Forest", "quest:q1@Forest", "quest:t1@Fire"), kinds(TownOverview.of(camp, scenes, afternoon)))
     }
 
     @Test fun `a happening on now says how many of the learner's words its dialog tests`() {
-        val o = TownOverview.of(camp, scenes, afternoon, words = { a -> if (a.key == "ob-ognju/igra") 3 else 0 })
+        val o = TownOverview.of(calm, scenes, afternoon, words = { a -> if (a.key == "ob-ognju/igra") 3 else 0 })
         val now = o.today.filterIsInstance<TodayItem.Happening>()
         // only what's on now is asked (the scroll's row of it); later today says none yet
         assertEquals(mapOf("ob-ognju/igra" to 3, "ob-ognju/juha" to 0), now.associate { it.on.key to it.words })
-        assertTrue(TownOverview.of(camp, scenes, afternoon).today.filterIsInstance<TodayItem.Happening>().all { it.words == 0 })
+        assertTrue(TownOverview.of(calm, scenes, afternoon).today.filterIsInstance<TodayItem.Happening>().all { it.words == 0 })
     }
 
     @Test fun `places list the village's own places with the scenes that open there`() {
@@ -649,7 +654,7 @@ class TownLogicTest {
     }
 
     @Test fun `residents are the requesters and the people of open scenes, once each`() {
-        val o = TownOverview.of(camp, scenes, afternoon)
+        val o = TownOverview.of(calm, scenes, afternoon)
         assertEquals(listOf("Pastir Luka", "Gostilničarka Vida", "Otroci", "Babica Micka"), o.residents.map { it.name })
         val luka = o.residents[0]
         assertTrue(luka.doing[0] is Doing.Asks)

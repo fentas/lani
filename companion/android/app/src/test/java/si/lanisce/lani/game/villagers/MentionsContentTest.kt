@@ -51,6 +51,7 @@ class MentionsContentTest {
         "events.json" to Policy.RULED, "people.json" to Policy.NOBODY, "chronicle.json" to Policy.NOBODY, "chest.json" to Policy.NOTES,
         "culture.json" to Policy.NOTES, "world.json" to Policy.NOTES, "packs" to Policy.NOTES, "voice-cast.json" to Policy.NOTES,
         "sky.json" to Policy.NOTES, "stories" to Policy.LEGENDS, "project-steps" to Policy.RULED, "celebrations" to Policy.NOBODY,
+        "reactions.json" to Policy.NOBODY,
     )
 
     private fun castOf(id: String): List<Villager> =
@@ -184,6 +185,8 @@ class MentionsContentTest {
             // the newcomers' plain lines and the chronicle's lines name nobody of the cast
             only("people.json", names.inTexts(read(dir.resolve("people.json")), lang), emptySet())
             only("chronicle.json", names.inTexts(read(dir.resolve("chronicle.json")), lang), emptySet())
+            // what the people say in the village's events (GAME.md "People react"): anyone may say it, so it names nobody
+            dir.resolve("reactions.json").takeIf { it.isFile }?.let { only("reactions.json", names.inTexts(read(it), lang), emptySet()) }
 
             // introductions: a level that names someone the learner doesn't know gives way to an easier one (Arrivals.meeting)
             val arrivals = (read(dir.resolve("arrivals.json")) as JsonObject)["cast"] as JsonObject

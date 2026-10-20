@@ -85,10 +85,12 @@ class ClassicLandTest {
         // the town's maypole by the plaza in the middle (2026-10-11; before, it stood by the linden at the side); its fields
         // drawn as the hamlet's, its people at their chores (2026-10-13); the cart bridge on its own track from the road
         // into the woods through a gate of its own, the timber bridge its steps build, and the road's bridge (2026-10-18);
-        // one bridge, the village's, where the road crosses the stream: no track, no gate of its own (2026-10-19)
+        // one bridge, the village's, where the road crosses the stream: no track, no gate of its own (2026-10-19); the
+        // people react to the wolves at the gate (GAME.md "People react"): the defenders, the fire's gathering, the hens,
+        // the unnamed by the fire, nobody else about (2026-10-20)
         "town" to mapOf(
-            "side-day" to "2b3d9a8c5e11883c", "tall-day" to "aa15e3ffc05ae16a", "tall-dusk-k2" to "66558a92e5d67fa9",
-            "tall-night-k3" to "28a08b244b6ba717", "compact" to "921704cfe588885e", "widget" to "a5e0fab1a3125bd2",
+            "side-day" to "41a8224ed6ecb701", "tall-day" to "5d12f61d07efe080", "tall-dusk-k2" to "7661a84d194827d8",
+            "tall-night-k3" to "d9baa1a58f358b52", "compact" to "ab4f34e56d6a72b6", "widget" to "d98c02e65493a719",
         ),
     )
 
