@@ -722,6 +722,9 @@ fun VillagerCard(vm: AppViewModel, id: String, onDismiss: () -> Unit, modifier: 
                 }
                 IconButton(onClick = onDismiss) { EmojiLabel("✕", Labels.CLOSE, style = MaterialTheme.typography.titleMedium) }
             }
+            // what they say of what's going on (companion/GAME.md "People react": the wolves, the merchant), before the rest
+            val reaction = if (greeting.said.isEmpty()) s?.let { VillagerLogic.reaction(v, it, LocalDate.now(), vm.villagers.people(it)) } else null
+            if (reaction != null) SpeechBubble(vm, v, reaction, Modifier.fillMaxWidth())
             when {
                 today.quests.isNotEmpty() -> CardRequests(vm, today, onDismiss)
                 today.now.isNotEmpty() -> {
@@ -737,7 +740,7 @@ fun VillagerCard(vm: AppViewModel, id: String, onDismiss: () -> Unit, modifier: 
                     }
                 }
                 ritual != null && greeting.said.isEmpty() -> Text("🏮 $ritual", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                greeting.said.isEmpty() -> VillagerLogic.idle(v, level, LocalDate.now(), state = s, people = s?.let { vm.villagers.people(it) })?.let { SpeechBubble(vm, v, it, Modifier.fillMaxWidth()) }
+                greeting.said.isEmpty() && reaction == null -> VillagerLogic.idle(v, level, LocalDate.now(), state = s, people = s?.let { vm.villagers.people(it) })?.let { SpeechBubble(vm, v, it, Modifier.fillMaxWidth()) }
             }
             // nothing up, only requests waiting in "Later" (one never started, asked again another day): still one tap away
             if (today.quests.isEmpty() && today.waiting.isNotEmpty()) CardRequests(vm, today, onDismiss)
