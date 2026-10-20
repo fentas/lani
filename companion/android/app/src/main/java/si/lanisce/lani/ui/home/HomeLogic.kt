@@ -347,14 +347,14 @@ object HomeLogic {
     }
 
     /**
-     * The header's word on the village: an event first, then a dying fire, then someone waiting for room
+     * The header's word on the village: an event first, then hearths going out (companion/GAME.md "Hearths"), then someone waiting for room
      * ([outlook], see [si.lanisce.lani.app.VillagerController.outlook]), else just the age.
      */
     fun villageHint(state: GameState, outlook: List<Arrival> = emptyList()): VillageHint {
         val room = outlook.firstOrNull { it.waitingFor == ROOM }
         return when {
             state.event != null -> VillageHint.Event(state.event)
-            state.fire < 25 -> VillageHint.FireLow
+            si.lanisce.lani.game.Hearths.short(state) -> VillageHint.FireLow
             room != null -> VillageHint.NeedsRoom(room)
             else -> VillageHint.Calm(state.age)
         }

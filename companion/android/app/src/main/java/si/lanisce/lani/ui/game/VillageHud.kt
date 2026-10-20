@@ -114,6 +114,7 @@ import si.lanisce.lani.l10n.inTarget
 import si.lanisce.lani.ui.EmojiLabel
 import si.lanisce.lani.ui.Labels
 import si.lanisce.lani.ui.theme.AlpineGreen
+import si.lanisce.lani.ui.theme.FlameOrange
 import si.lanisce.lani.ui.theme.TriglavRed
 import si.lanisce.lani.ui.theme.XpGold
 import java.time.LocalDate
@@ -827,9 +828,11 @@ private fun SettlementSection(view: HudView, actions: HudActions) {
 private class Tile(
     val emoji: String, val value: String, val label: Pair<String, String>, val description: String,
     val warn: Boolean = false, val dot: Boolean = false, val onClick: () -> Unit,
+    /** A thin bar under the value, 0..1 (the hearths lit of all); null: none. */
+    val bar: Float? = null,
 )
 
-/** The settlement's six numbers: people, mood, the fire, help, the chest, the projects (from Zaselek). */
+/** The settlement's six numbers: people, mood, the hearths lit of all (companion/GAME.md "Hearths"), help, the chest, the projects (from Zaselek). */
 private fun tiles(view: HudView, actions: HudActions): List<Tile> {
     val s = view.state
     val open = if (s.age >= Age.ZASELEK) Projects.open(s) else emptyList()
@@ -838,10 +841,12 @@ private fun tiles(view: HudView, actions: HudActions): List<Tile> {
     return listOfNotNull(
         Tile("👥", "${s.villagers}/${view.attrs.populationCap}", VillageHudLogic.two("villageHud.people"), "${bi("villageScreen.villagers")}: ${s.villagers} / ${view.attrs.populationCap}", onClick = actions.info),
         Tile(moraleEmoji(s.morale), "${s.morale}", VillageHudLogic.two("villageHud.mood"), "${bi("villageScreen.morale")}: ${s.morale}", onClick = actions.info),
-        Tile(
-            "🔥", "${s.fire}", VillageHudLogic.two("villageScreen.fire"),
-            "${bi("villageScreen.fire")}: ${s.fire}" + if (s.fire < 25) ", ${bi("villageScreen.dying")}" else "", warn = s.fire < 25, onClick = actions.fire,
-        ),
+        HearthsView.of(s, java.time.LocalDate.now()).let { h ->
+            Tile(
+                "🔥", h.tile, VillageHudLogic.two("hearths.title"), "${bi("hearths.title")}: ${h.sub}",
+                warn = h.short, onClick = actions.fire, bar = h.share,
+            )
+        },
         Tile("🤝", "${s.help}", VillageHudLogic.two("common.help"), "${bi("common.help")}: ${s.help}", onClick = actions.info),
         Tile(
             "🧰", "$goods", VillageHudLogic.two("villageScreen.chest"),
@@ -868,6 +873,12 @@ private fun StatTile(t: Tile, modifier: Modifier) {
                     Text(t.emoji, style = MaterialTheme.typography.titleSmall)
                     Spacer(Modifier.width(5.dp))
                     Text(t.value, color = Color.White, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, maxLines = 1)
+                }
+                t.bar?.let { f ->
+                    // the hearths lit of all: a thin bar under the number
+                    Box(Modifier.padding(vertical = 2.dp).fillMaxWidth().height(3.dp).clip(RoundedCornerShape(2.dp)).background(Color.White.copy(alpha = 0.18f))) {
+                        Box(Modifier.fillMaxWidth(f.coerceIn(0f, 1f)).height(3.dp).background(if (t.warn) Color.White else FlameOrange))
+                    }
                 }
                 Text(t.label.first, color = Color.White.copy(alpha = 0.9f), style = MaterialTheme.typography.labelMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
                 Text(t.label.second, color = Color.White.copy(alpha = 0.55f), style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)

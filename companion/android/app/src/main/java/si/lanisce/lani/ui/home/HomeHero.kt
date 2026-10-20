@@ -107,7 +107,7 @@ private fun VillageChip(hint: VillageHint, onClick: () -> Unit) {
             val left = timeLeft(hint.event.deadline, System.currentTimeMillis())
             (if (HomeLogic.threat(k)) TriglavRed else XpGold.copy(alpha = 0.95f)) to "${k.emoji} ${k.sl} · ${k.en} · ⏳ $left"
         }
-        VillageHint.FireLow -> FlameOrange to "🔥 ${bi("common.fireDying")}"
+        VillageHint.FireLow -> FlameOrange to "🔥 ${bi("hearths.goingOut")}"
         is VillageHint.NeedsRoom -> SloBlueDeep.copy(alpha = 0.85f) to HomeLogic.roomText(hint.arrival)
         is VillageHint.Calm -> Color.Black.copy(alpha = 0.45f) to "${hint.age.emoji} ${bi("homeHero.myVillage")} · ${hint.age.sl}"
     }

@@ -64,7 +64,7 @@ class VillageLogicTest {
     private fun option(t: BuildingType, cost: Map<Res, Int>, available: Boolean = true) =
         BuildOption(t, cost, available, if (available) null else "locked", "+1")
 
-    @Test fun `next goal prefers fire, then advancing, then a new affordable building`() {
+    @Test fun `next goal prefers hearths going out, then advancing, then a new affordable building`() {
         val rich = GameState(resources = mapOf(Res.FOOD to 50, Res.WOOD to 50, Res.STONE to 50, Res.WISDOM to 50))
         val opts = listOf(
             option(BuildingType.TENT, mapOf(Res.WOOD to 5)),
@@ -72,14 +72,19 @@ class VillageLogicTest {
             option(BuildingType.WELL, mapOf(Res.STONE to 1), available = false),
         )
         val noAdvance = AdvanceCheck(Age.TABOR, false, listOf("2 tents"))
-        assertEquals(NextGoal.FeedFire, nextGoal(rich.copy(fire = 10), opts, noAdvance, emptyMap()))
+        // the campfire out for want of wood today (companion/GAME.md "Hearths")
+        val cold = rich.copy(hearths = si.lanisce.lani.game.HearthDay(out = listOf(si.lanisce.lani.game.Hearths.CENTRE)))
+        assertEquals(NextGoal.FeedFire, nextGoal(cold, opts, noAdvance, emptyMap()))
+        // blown out by the storm: nothing to gather for, it burns again tomorrow
+        assertEquals(NextGoal.Advance(Age.TABOR), nextGoal(cold.copy(hearths = cold.hearths!!.copy(blown = listOf(si.lanisce.lani.game.Hearths.CENTRE))), opts, AdvanceCheck(Age.TABOR, true, emptyList()), emptyMap()))
         assertEquals(NextGoal.Advance(Age.TABOR), nextGoal(rich, opts, AdvanceCheck(Age.TABOR, true, emptyList()), emptyMap()))
         val withTent = rich.copy(buildings = listOf(Building("b1", BuildingType.TENT, 0)))
         assertEquals(BuildingType.FIELD, (nextGoal(withTent, opts, noAdvance, emptyMap()) as NextGoal.Build).option.type)
     }
 
     @Test fun `growing gathers what the next age is shortest of, else the scarcest resource`() {
-        val poor = GameState(resources = mapOf(Res.FOOD to 9, Res.WOOD to 1, Res.STONE to 5, Res.WISDOM to 5))
+        // its campfire lit today (the day's tick paid it), so the goal is the next age's
+        val poor = GameState(resources = mapOf(Res.FOOD to 9, Res.WOOD to 1, Res.STONE to 5, Res.WISDOM to 5), hearths = si.lanisce.lani.game.HearthDay())
         val caps = Res.entries.associateWith { 10 }
         // Tabor: a tent (25 🌾 15 🪵) and 20 🌾 10 🪵 → 36 🌾 short, 24 🪵 short: food, never stone
         val g = nextGoal(poor, listOf(option(BuildingType.TENT, mapOf(Res.WOOD to 5))), AdvanceCheck(Age.TABOR, false, listOf("x")), caps)

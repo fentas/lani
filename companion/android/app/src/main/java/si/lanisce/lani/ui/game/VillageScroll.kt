@@ -431,7 +431,7 @@ private fun LazyListScope.collection(c: Collection, d: ScrollData, a: ScrollRowA
                     if (e.scenes.isNotEmpty()) FlowRow(Modifier.padding(start = 52.dp), horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                         for (sc in e.scenes) Surface(onClick = { a.scene(sc) }, shape = RoundedCornerShape(50), color = MaterialTheme.colorScheme.secondaryContainer, modifier = Modifier.heightIn(min = 40.dp)) {
                             Box(Modifier.padding(horizontal = 12.dp, vertical = 8.dp), contentAlignment = Alignment.Center) {
-                                Text("🚪 ${sc.emoji} ${sc.title}", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSecondaryContainer, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                                Text("🚪 ${sc.emoji} ${si.lanisce.lani.game.Hearths.sceneTitle(sc)}", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSecondaryContainer, maxLines = 1, overflow = TextOverflow.Ellipsis)
                             }
                         }
                     }

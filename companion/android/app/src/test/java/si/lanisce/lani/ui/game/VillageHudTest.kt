@@ -169,7 +169,7 @@ class VillageHudTest {
         show(view(chestNew = true))
         cardAt(2)
         node(settlementCard).performClick()
-        for (d in listOf("Vaščani · Villagers: 16", "Razpoloženje · Morale: 77", "Ogenj · Fire: 80", "Pomoč · Help: 65", "Skrinja · The chest: ", "Skupni projekti · Village projects: ", "Napredek · Progress")) node(d).assertExists()
+        for (d in listOf("Vaščani · Villagers: 16", "Razpoloženje · Morale: 77", "Ognjišča · Hearths: ", "Pomoč · Help: 65", "Skrinja · The chest: ", "Skupni projekti · Village projects: ", "Napredek · Progress")) node(d).assertExists()
         text("Prebivalci").assertExists()
         text("Razpoloženje").assertExists()
         node("Skrinja · The chest: 0, nekaj novega · something new").performClick()

@@ -779,7 +779,7 @@ fun VillageScreen(vm: AppViewModel) {
             course = vm.school.course,
         )
         VillageSheet.Info -> InfoSheet(s, attrs, onDismiss = { sheet = null })
-        VillageSheet.Fire -> FireSheet(s, attrs, onGather = { sheet = null; card = null; vm.startGather(Res.WOOD) }, onDismiss = { sheet = null })
+        VillageSheet.Fire -> HearthsSheet(s, java.time.LocalDate.now(), onGather = { sheet = null; card = null; vm.startGather(Res.WOOD) }, onDismiss = { sheet = null })
         VillageSheet.Ages -> AgeSheet(
             s, check, onAdvance = advance,
             onGather = { r -> sheet = null; scrollOpen = false; vm.startGather(r) },

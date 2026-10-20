@@ -143,14 +143,15 @@ fun PlaceCard(
                     Text(place.label(), style = MaterialTheme.typography.titleMedium, modifier = Modifier.semantics { heading() })
                     val sub = when (tap) {
                         is PlaceTap.Built -> "${bi("common.level")} ${tap.building.level}" + household(scenes) + if (tap.building.damaged) "  ⚠️ ${bi("common.damaged")}" else ""
-                        PlaceTap.Fire -> if (guest) "🔥 ${bi("visit.fireWarm")}" else "🔥 ${state.fire} / 100" + if (state.fire < 25) " · ${bi("placeCard.dying")}" else ""
+                        // the village's hearths: lit of all, or going out (companion/GAME.md "Hearths")
+                        PlaceTap.Fire -> if (guest) "🔥 ${bi("visit.fireWarm")}" else "🔥 " + HearthsView.of(state, java.time.LocalDate.now()).sub
                         PlaceTap.Forest -> bi("placeCard.woodAnimalsQuiet")
                         is PlaceTap.Spot -> use!!.sub
                         is PlaceTap.Landmark -> si.lanisce.lani.game.Projects.spec(tap.project)?.about.orEmpty()
                     }
                     Text(
                         sub, style = MaterialTheme.typography.bodySmall,
-                        color = if (tap is PlaceTap.Built && tap.building.damaged || !guest && tap == PlaceTap.Fire && state.fire < 25) TriglavRed else MaterialTheme.colorScheme.onSurfaceVariant,
+                        color = if (tap is PlaceTap.Built && tap.building.damaged || !guest && tap == PlaceTap.Fire && si.lanisce.lani.game.Hearths.short(state)) TriglavRed else MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
                 Surface(onClick = onClose, shape = CircleShape, color = MaterialTheme.colorScheme.surfaceVariant, modifier = Modifier.size(40.dp)) {
@@ -194,7 +195,7 @@ fun PlaceCard(
             if (story != null && (story.lore != null || story.words.isNotEmpty())) SpotStorySection(story, onWord, if (guest) null else onLearn, speaker)
             for (sc in scenes) {
                 FilledTonalButton(onClick = { onScene(sc) }, modifier = Modifier.fillMaxWidth().padding(end = 8.dp).heightIn(min = 48.dp), shape = MaterialTheme.shapes.small) {
-                    Text("🚪 ${bi("placeCard.go")}: ${sc.emoji} ${sc.title} ›", fontWeight = FontWeight.SemiBold, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                    Text("🚪 ${bi("placeCard.go")}: ${sc.emoji} ${si.lanisce.lani.game.Hearths.sceneTitle(sc)} ›", fontWeight = FontWeight.SemiBold, maxLines = 2, overflow = TextOverflow.Ellipsis)
                 }
             }
             if (guest) {

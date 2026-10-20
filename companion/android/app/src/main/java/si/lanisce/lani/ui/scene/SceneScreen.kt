@@ -854,7 +854,7 @@ private fun WordsPanel(
             Text(scene.emoji, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.clearAndSetSemantics { })
             Spacer(Modifier.width(10.dp))
             Column(Modifier.weight(1f)) {
-                Text(scene.title, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold, modifier = Modifier.semantics { heading() })
+                Text(si.lanisce.lani.game.Hearths.sceneTitle(scene), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold, modifier = Modifier.semantics { heading() })
                 Text("${scene.level} · $total ${bi("sceneScreen.things", "n" to total)}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }

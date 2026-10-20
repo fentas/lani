@@ -183,6 +183,7 @@ fun BuildingType.label() = "$sl · $en"
 
 /** The single most useful thing to do in the village right now. */
 sealed interface NextGoal {
+    /** Hearths are going out for want of wood (companion/GAME.md "Hearths"): gather wood. */
     data object FeedFire : NextGoal
     data class Advance(val to: Age) : NextGoal
     data class Build(val option: BuildOption) : NextGoal
@@ -213,12 +214,13 @@ fun stepAction(step: AgeStep): StepAction? = when {
 }
 
 /**
- * Low fire first, then advancing, then polishing rusty words when only they (and words or friends) are missing, then
+ * Hearths going out for want of wood first, then advancing, then polishing rusty words when only they (and words or friends) are missing, then
  * friends when only friends (and words) are missing, then (with every plot taken) learning towards the next age, then
  * the cheapest affordable new building, then gathering for the next age.
  */
 fun nextGoal(state: GameState, options: List<BuildOption>, check: AdvanceCheck, caps: Map<Res, Int>): NextGoal {
-    if (state.fire < 25) return NextGoal.FeedFire
+    // a hearth out for want of wood (companion/GAME.md "Hearths")
+    if (si.lanisce.lani.game.Hearths.short(state)) return NextGoal.FeedFire
     if (check.ok && check.next != null) return NextGoal.Advance(check.next)
     val plotsFull = state.plotsTaken >= PLOTS_PER_AGE[state.age.ordinal]
     val open = check.steps.filterNot { it.done }

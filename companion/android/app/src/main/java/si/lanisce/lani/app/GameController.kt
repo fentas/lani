@@ -326,6 +326,8 @@ class GameController(
         placeNeeded = false
         // who the village's texts may name now: the people here whom the learner has met (game/villagers/Mentions)
         si.lanisce.lani.game.villagers.Mentions.known = Residents.present(s, LocalDate.now())
+        // the village's age, for naming its centre (the campfire, the fire ring, the square's fire basket)
+        si.lanisce.lani.game.Hearths.shown = s.age
         this.rev = rev
         this.dirty = dirty
         val c = GameCache(rev, s, dirty)

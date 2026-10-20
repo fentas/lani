@@ -52,9 +52,9 @@ fun TownPlace.emoji(): String = when (this) {
     is TownPlace.Landmark -> si.lanisce.lani.game.Projects.spec(project)?.emoji ?: "🏗️"
 }
 
-/** "Ogenj · The fire", "Koča · Hut". */
+/** "Ogenj · The campfire" (the centre by the village's age: "Ognjišče · The fire ring" …), "Koča · Hut". */
 fun TownPlace.label(): String = when (this) {
-    TownPlace.Fire -> bi("common.fire")
+    TownPlace.Fire -> si.lanisce.lani.game.Hearths.centreName(si.lanisce.lani.game.Hearths.shown)
     TownPlace.Forest -> bi("townLogic.forest")
     is TownPlace.At -> type.label()
     is TownPlace.Spot -> TownSpots.info(id).label
@@ -70,9 +70,12 @@ fun TownPlace.key(): String = when (this) {
     is TownPlace.Landmark -> "project:$project"
 }
 
-/** Where something is, with the right Slovene preposition and case: "ob ognju · by the fire", "pod lipo · under the linden tree". */
+/**
+ * Where something is, with the right Slovene preposition and case: "ob ognju · by the fire" (the centre by the village's
+ * age: "ob ognjišču · by the fire ring", "na trgu · on the square"), "pod lipo · under the linden tree".
+ */
 fun TownPlace.where(): String = when (this) {
-    TownPlace.Fire -> bi("townLogic.byFire")
+    TownPlace.Fire -> si.lanisce.lani.game.Hearths.centreAt(si.lanisce.lani.game.Hearths.shown)
     TownPlace.Forest -> bi("townLogic.inForest")
     is TownPlace.Spot -> TownSpots.info(id).where
     // the culture pack's own words for where it is ("v vinogradu · in the vineyard"), else its name
@@ -139,7 +142,7 @@ fun lockReasons(scene: SceneSpec, state: GameState): List<String> {
 
 /** The next goal in a few words, for the pill under the HUD. */
 fun NextGoal.short(): String = when (this) {
-    NextGoal.FeedFire -> bi("common.fireDying")
+    NextGoal.FeedFire -> bi("hearths.goingOut")
     is NextGoal.Advance -> "${bi("townLogic.advance")}: ${to.emoji} ${to.sl}"
     is NextGoal.Build -> "${bi("townLogic.build")}: ${option.type.emoji} ${option.type.sl}"
     is NextGoal.Grow -> "${to.emoji} ${to.sl}: ${stepsLeft(missing.size)}"

@@ -326,7 +326,7 @@ fun ResourceSheet(s: GameState, attrs: Attributes, res: Res, onGather: () -> Uni
         if (prod > 1f) Text("⚙️ ×${"%.1f".format(prod)} ${bi("villageSheets.fromBuildings")}", style = MaterialTheme.typography.bodyMedium)
         when (res) {
             Res.FOOD -> Text("🍲 ${bi("villageSheets.villagersEat", "foodUpkeep" to attrs.foodUpkeep)}", style = MaterialTheme.typography.bodyMedium)
-            Res.WOOD -> Text("🔥 ${bi("villageSheets.fireBurns", "woodUpkeep" to attrs.woodUpkeep)}", style = MaterialTheme.typography.bodyMedium)
+            Res.WOOD -> Text("🔥 ${bi("hearths.burn", "wood" to attrs.woodUpkeep)}", style = MaterialTheme.typography.bodyMedium)
             else -> Unit
         }
         Text(bi("villageSheets.everyCorrectSkillAnswer", "skillSlAt" to res.skillAt(), "resEmoji" to res.emoji, "skill" to res.skillName()), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -340,27 +340,13 @@ fun ResourceSheet(s: GameState, attrs: Attributes, res: Res, onGather: () -> Uni
 }
 
 @Composable
-fun FireSheet(s: GameState, attrs: Attributes, onGather: () -> Unit, onDismiss: () -> Unit) {
-    Sheet(onDismiss) {
-        SheetHeader("🔥", bi("common.fire"), if (s.fire < 25) bi("villageSheets.dying") else bi("villageSheets.burningBright"))
-        FillBar(s.fire / 100f, if (s.fire < 25) TriglavRed else FlameOrange)
-        Text("${s.fire} / 100", style = MaterialTheme.typography.titleMedium)
-        Text(
-            bi("villageSheets.fireBurnsWithout", "woodUpkeep" to attrs.woodUpkeep),
-            style = MaterialTheme.typography.bodyMedium,
-        )
-        BigButton("🎧 ${bi("common.gatherWood")}", onClick = onGather, color = FlameOrange)
-    }
-}
-
-@Composable
 fun InfoSheet(s: GameState, attrs: Attributes, onDismiss: () -> Unit) {
     Sheet(onDismiss) {
         SheetHeader(s.age.emoji, bi("homeHero.myVillage"), s.age.label())
         InfoRow("👥", bi("villageScreen.villagers"), "${s.villagers} / ${attrs.populationCap}")
         InfoRow("🛡️", bi("villageSheets.defence"), "${attrs.defence}")
         InfoRow(moraleEmoji(s.morale), bi("villageSheets.morale"), "${s.morale} / 100")
-        InfoRow("🔥", bi("villageScreen.fire"), "${s.fire} / 100")
+        InfoRow("🔥", bi("hearths.title"), HearthsView.of(s, java.time.LocalDate.now()).tile)
         InfoRow("🍲", bi("villageSheets.foodDay"), "−${attrs.foodUpkeep} 🌾")
         InfoRow("🪵", bi("villageSheets.woodDay"), "−${attrs.woodUpkeep} 🪵")
         InfoRow("🏆", bi("villageSheets.eventsWon"), "${s.stats.eventsWon} / ${s.stats.eventsWon + s.stats.eventsLost}")

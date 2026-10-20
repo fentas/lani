@@ -419,10 +419,22 @@ object AgeUps {
         return Moment(from, to, celebration, beats, newPlots(from, to).filter { p -> state.buildings.none { it.type.onPlot && it.plot == p } }, changes)
     }
 
-    /** The caption of a change, "target · base": "🌲 Gozd se je umaknil · The forest has drawn back" (the plots counted). */
+    /**
+     * The caption of a change, "target · base": "🌲 Gozd se je umaknil · The forest has drawn back" (the plots counted); the
+     * fire's by the age the centre becomes (companion/GAME.md "Hearths"): it burns higher in the camp, the hamlet's huts and
+     * houses get hearths of their own, the village its stone fire ring, the market town the square's fire basket, the town
+     * its lanterns.
+     */
     fun caption(c: Change, from: Age, to: Age): String {
         // the plots' count in it (the other changes have no argument)
         val count = "n" to newPlots(from, to).size
+        if (c == Change.FIRE) return "${c.emoji} " + when {
+            to >= Age.MESTO -> bi("ageUp.change.lanterns")
+            to >= Age.TRG -> bi("ageUp.change.fireBasket")
+            to >= Age.VAS -> bi("ageUp.change.fireRing")
+            to >= Age.ZASELEK -> bi("ageUp.change.hearths")
+            else -> bi("ageUp.change.fire")
+        }
         return "${c.emoji} ${bi(c.key, count)}"
     }
 
