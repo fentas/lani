@@ -122,7 +122,7 @@ private fun todayOf(vm: AppViewModel, v: Villager, s: GameState?): Today {
     val queue = Residents.queue(s, vm.villagers.all, t.toLocalDate())
     val up = queue.upOf(v.name)
     val waiting = queue.laterOf(v.name)
-    val own = if (up.isEmpty() && waiting.isEmpty()) QuestQueue.of(s.quests, s.quests.filter { !it.done && it.giver == v.name }, t.toLocalDate()) else null
+    val own = if (up.isEmpty() && waiting.isEmpty()) QuestQueue.of(s.quests, s.quests.filter { !it.done && it.giver == v.name }, t.toLocalDate(), s.event?.kind) else null
     return Today(
         quests = own?.up ?: up,
         waiting = own?.later ?: waiting,
@@ -150,7 +150,9 @@ fun VillagersScreen(vm: AppViewModel) {
     val scenes = vm.scenes.all
     val reg = remember(s, cast, scenes) {
         val busy = s?.let { st -> vm.scenes.active(st).mapNotNull { a -> cast.firstOrNull { VillagerLogic.isVillager(a.person, it) }?.id }.toSet() }.orEmpty()
-        VillagerLogic.register(cast, s, VillagerLogic.needing(cast, s?.quests.orEmpty(), busy), LocalDate.now())
+        // their "!" as the map's bubbles: the requests up (not a drill whose task is passed, none while wolves are about)
+        val up = s?.let { st -> QuestQueue.of(st.quests, st.quests.filter { !it.done }, LocalDate.now(), st.event?.kind).up }.orEmpty()
+        VillagerLogic.register(cast, s, VillagerLogic.needing(cast, up, busy), LocalDate.now())
     }
     val coming = remember(s, cast) { VillagerLogic.coming(vm.villagers.outlook(s), cast) }
     val list = rememberLazyListState()

@@ -1,5 +1,6 @@
 package si.lanisce.lani.ui.game
 
+import si.lanisce.lani.game.EventKind
 import si.lanisce.lani.game.Quest
 import si.lanisce.lani.game.QuestQueue
 import si.lanisce.lani.l10n.bi
@@ -18,12 +19,22 @@ fun progressText(q: Quest): String? {
 
 /**
  * Why a request waits in "📜 Kasneje · Later": "⏸️ Najprej · First: Kam? Na tržnico!" (behind its drill), "🕰️ Čaka na
- * vrsto · Waits its turn", "💤 Vpraša te kdaj drugič · Asks you another day".
+ * vrsto · Waits its turn", "💤 Vpraša te kdaj drugič · Asks you another day", "🐺 Po volkovih · After the wolves" (wolves,
+ * a bear or a storm about), "✓ Naloga je opravljena: za vajo · The task is done: for practice" (a drill whose task is passed).
  */
 fun whyText(why: QuestQueue.Why): String = when (why) {
     is QuestQueue.Why.After -> "⏸️ ${bi("quests.first")}: ${why.drill.title.substringBefore(" · ")}"
     QuestQueue.Why.Queued -> "🕰️ ${bi("quests.queued")}"
     QuestQueue.Why.Stale -> "💤 ${bi("quests.askAgain")}"
+    is QuestQueue.Why.Danger -> "${why.kind.emoji} ${dangerText(why.kind)}"
+    is QuestQueue.Why.Spent -> "✓ ${bi("quests.taskDone")}"
+}
+
+/** "Po volkovih · After the wolves", "Po medvedu · After the bear", "Po nevihti · After the storm": until [kind] is over. */
+fun dangerText(kind: EventKind): String = when (kind) {
+    EventKind.BEAR -> bi("quests.afterBear")
+    EventKind.STORM -> bi("quests.afterStorm")
+    else -> bi("quests.afterWolves")
 }
 
 /** "📜 Kasneje · Later": where the waiting requests are listed. */

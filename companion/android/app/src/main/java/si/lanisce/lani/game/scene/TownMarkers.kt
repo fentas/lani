@@ -197,9 +197,10 @@ object TownMarkers {
         val out = ArrayList<TownMarker>()
         state.event?.let { e -> out += TownMarker("event:${e.id}", TownMarker.Kind.EVENT, e.kind.emoji, "${e.kind.sl} · ${e.kind.en}", eventPlace(e.kind, state)) }
         out += arrivals(state, cast, today)
-        // a request from someone of the cast who isn't in the village today waits for them; at most two of each are up
+        // a request from someone of the cast who isn't in the village today waits for them; at most two of each are up (none
+        // while wolves, a bear or a storm are about: they wait in the scroll, QuestQueue.Why.Danger)
         out += questMarkers(si.lanisce.lani.game.villagers.Residents.queue(state, cast, today).up, state, cast)
-        // wolves, a bear or a storm about: only the event and the requests (companion/GAME.md "People react"); the rest waits
+        // wolves, a bear or a storm about: only the event (companion/GAME.md "People react"); the rest waits
         if (si.lanisce.lani.game.villagers.Reactions.quiet(state)) return out
         // today's visitor waits with a bubble until Jan has greeted or met them today; then they're just about
         si.lanisce.lani.game.villagers.Residents.visitorToday(state, today)

@@ -95,14 +95,14 @@ class ReactionTalksTest {
         assertEquals(before.map { it.key to it.dialog }, Happenings.active(scenes, after, at, cast = cast).map { it.key to it.dialog })
     }
 
-    @Test fun `the map shows the event and the requests only, no meeting, visitor, surprise or project`() {
-        // (the surprise's bubble waits; its run stays a tap away from the HUD and Home)
+    @Test fun `the map shows the event only, no request, meeting, visitor, surprise or project`() {
+        // (the surprise's bubble waits; its run stays a tap away from the HUD and Home, the requests in the scroll and the cards)
         val surprise = town.copy(surprise = Surprise(october.toString(), Surprises.PILGRIM))
         val quiet = on(surprise, EventKind.WOLVES)
         val at = busy(town)
         val markers = TownMarkers.of(quiet, Happenings.active(scenes, quiet, at, cast = cast), cast, october)
-        assertTrue("$markers", markers.all { it.kind == TownMarker.Kind.EVENT || it.id.startsWith("quest:") })
-        assertTrue(markers.any { it.kind == TownMarker.Kind.EVENT } && markers.any { it.id.startsWith("quest:") })
+        assertEquals("$markers", listOf(TownMarker.Kind.EVENT), markers.map { it.kind })
+        assertTrue(TownMarkers.of(surprise, emptyList(), cast, october).any { it.id.startsWith("quest:") })
         assertTrue(TownMarkers.arrivals(quiet, cast, october).isEmpty())
         // the stranger keeps in at the inn; the day's surprise stays the learner's to play (the HUD, Home), as the requests
         assertNull(Surprises.stranger(quiet, october))
@@ -110,6 +110,69 @@ class ReactionTalksTest {
         // the merchant: the rest as ever
         val merchant = on(surprise, EventKind.MERCHANT)
         assertEquals(Surprises.stranger(surprise, october), Surprises.stranger(merchant, october))
+    }
+
+    /** [town] with a request of the tutor's at Vinar Marko besides Tone's own: two villagers, one request up each. */
+    private val asking: GameState by lazy {
+        town.copy(quests = town.quests + Quest(
+            "tutor-marko-kaksno-vino-v1", "Vinar Marko", "🍇", "Kakšno vino? · What wine?", "Marko toči. · Marko pours.", si.lanisce.lani.game.Res.WISDOM,
+            emptyMap(), source = si.lanisce.lani.game.QuestSource.TUTOR, moduleId = "marko-kaksno-vino", since = "2026-10-13",
+        ))
+    }
+
+    @Test fun `the requests fold away while wolves, a bear or a storm are about, wait in the scroll and on the cards, and come back as they were`() {
+        L10n.pair = LangPair(Lang.SL, Lang.EN)
+        val before = Residents.queue(asking, cast, october)
+        assertEquals(listOf("q1", "tutor-marko-kaksno-vino-v1"), before.up.map { it.id })
+        assertTrue(before.later.isEmpty())
+        val marko = cast.first { it.id == "marko" }
+        val markoInScene = si.lanisce.lani.game.scene.ScenePerson("marko", "Vinar Marko", "🍇", "winemaker", "stand", villager = "marko")
+        for (k in listOf(EventKind.WOLVES, EventKind.BEAR, EventKind.STORM)) {
+            val quiet = on(asking, k)
+            val q = Residents.queue(quiet, cast, october)
+            // none up: no bubble on the map, no marker nor a tap straight into one in a scene
+            assertTrue("$k", q.up.isEmpty())
+            assertTrue("$k", TownMarkers.of(quiet, emptyList(), cast, october).none { it.id.startsWith("quest:") })
+            val requests = si.lanisce.lani.game.scene.SceneOffers.requestsBy(q.up, cast)
+            assertTrue(si.lanisce.lani.game.scene.SceneOffers.of(markoInScene, emptyList(), { true }, requests, null, null).isEmpty())
+            // listed in the scroll and on their card, waiting for it to pass ("🐺 Po volkovih · After the wolves")
+            assertEquals(before.up.map { it.id }, q.later.map { it.quest.id })
+            assertTrue(q.later.all { it.why == si.lanisce.lani.game.QuestQueue.Why.Danger(k) })
+            assertEquals(listOf("tutor-marko-kaksno-vino-v1"), q.laterOf(marko.name).map { it.quest.id })
+            val overview = si.lanisce.lani.ui.game.TownOverview.of(quiet, scenes, october.atTime(10, 0), cast)
+            assertEquals(before.up.map { it.id }, overview.later.map { it.quest.id })
+            assertTrue(overview.today.none { it is si.lanisce.lani.ui.game.TodayItem.Task })
+            assertEquals(
+                mapOf(EventKind.WOLVES to "🐺 Po volkovih · After the wolves", EventKind.BEAR to "🐻 Po medvedu · After the bear", EventKind.STORM to "⛈️ Po nevihti · After the storm")[k],
+                si.lanisce.lani.ui.game.whyText(q.later.first().why),
+            )
+            // only what shows: the requests as they were, no try, no change
+            assertEquals(asking.quests, quiet.quests)
+            // over, won or lost: up again as before
+            for (won in listOf(true, false)) assertEquals("$k", before, Residents.queue(quiet.copy(event = null, ended = EventEnd(k, won, t0)), cast, october))
+        }
+        // the merchant and a feast day hold nothing back
+        for (k in listOf(EventKind.MERCHANT, EventKind.FESTIVAL)) {
+            assertEquals("$k", before, Residents.queue(on(asking, k), cast, october))
+            assertEquals(2, TownMarkers.of(on(asking, k), emptyList(), cast, october).count { it.id.startsWith("quest:") })
+        }
+    }
+
+    @Test fun `Home's strip has the threat first, its requests dim and waiting, and all as before when it's over`() {
+        L10n.pair = LangPair(Lang.SL, Lang.EN)
+        val calm = si.lanisce.lani.ui.home.HomeLogic.needs(asking, emptyList(), cast, scenes, today = october)
+        assertEquals(listOf("Kovač Tone", "Vinar Marko"), calm.map { it.name })
+        assertTrue(calm.none { it.alarm || it.waits != null })
+        val wolves = si.lanisce.lani.ui.home.HomeLogic.needs(on(asking, EventKind.WOLVES), emptyList(), cast, scenes, today = october)
+        val threat = wolves.first()
+        assertTrue(threat.alarm)
+        assertEquals(si.lanisce.lani.ui.home.NeedTarget.Event, threat.target)
+        assertEquals("Branimo vas! · Defend the village!", threat.name)
+        assertEquals("smith", threat.art) // the event's leader, Kovač Tone
+        assertEquals(listOf("Kovač Tone", "Vinar Marko"), wolves.drop(1).map { it.name })
+        assertTrue(wolves.drop(1).all { it.waits == "🐺 Po volkovih · After the wolves" && it.target is si.lanisce.lani.ui.home.NeedTarget.Quest })
+        // the merchant: no threat, the requests as ever
+        assertEquals(calm, si.lanisce.lani.ui.home.HomeLogic.needs(on(asking, EventKind.MERCHANT), emptyList(), cast, scenes, today = october))
     }
 
     @Test fun `the charcoal burner stays home while wolves or a bear are about, not in a storm`() {

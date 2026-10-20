@@ -152,10 +152,11 @@ object Residents {
 
     /**
      * The [openQuests] as they show today ([si.lanisce.lani.game.QuestQueue]): at most two of each villager up (the map's
-     * bubbles, their card, the Scroll's requests), the rest waiting in the Scroll's "Later".
+     * bubbles, their card, the Scroll's requests), the rest waiting in the Scroll's "Later"; while wolves, a bear or a storm
+     * are about none up, all of them waiting until it's over ([Reactions.quiet]).
      */
     fun queue(state: GameState, cast: List<Villager>, today: LocalDate): si.lanisce.lani.game.QuestQueue.Queue =
-        si.lanisce.lani.game.QuestQueue.of(state.quests, openQuests(state, cast, today), today)
+        si.lanisce.lani.game.QuestQueue.of(state.quests, openQuests(state, cast, today), today, state.event?.kind)
 
     fun stage(r: Resident, today: LocalDate): Stage? {
         val born = r.born?.let { runCatching { LocalDate.parse(it) }.getOrNull() } ?: return null

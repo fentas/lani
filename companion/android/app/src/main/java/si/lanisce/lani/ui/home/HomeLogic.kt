@@ -10,11 +10,13 @@ import si.lanisce.lani.data.previewLine
 import si.lanisce.lani.game.Age
 import si.lanisce.lani.game.Calendar
 import si.lanisce.lani.game.EventKind
+import si.lanisce.lani.game.Events
 import si.lanisce.lani.game.Projects
 import si.lanisce.lani.game.Surprises
 import si.lanisce.lani.game.Tomorrow
 import si.lanisce.lani.game.GameEvent
 import si.lanisce.lani.game.GameState
+import si.lanisce.lani.game.QuestQueue
 import si.lanisce.lani.game.QuestSource
 import si.lanisce.lani.game.scene.ActiveHappening
 import si.lanisce.lani.game.scene.ActiveKeeper
@@ -22,9 +24,12 @@ import si.lanisce.lani.game.scene.Keepers
 import si.lanisce.lani.game.scene.SceneSpec
 import si.lanisce.lani.game.scene.TownMarkers
 import si.lanisce.lani.game.villagers.Arrival
+import si.lanisce.lani.game.villagers.Reactions
 import si.lanisce.lani.game.villagers.Residents
+import si.lanisce.lani.game.villagers.Stir
 import si.lanisce.lani.game.villagers.Villager
 import si.lanisce.lani.l10n.bi
+import si.lanisce.lani.ui.game.whyText
 import java.time.LocalDate
 
 // Pure logic behind Home: what to do today, who in the village needs Jan, and the tiles' statuses.
@@ -110,11 +115,18 @@ data class VillagerNeed(
     val more: Int,
     /** Where a tap goes when they have no page. */
     val target: NeedTarget,
+    /** Why their request waits ("🐺 Po volkovih · After the wolves": wolves, a bear or a storm about); dim then. */
+    val waits: String? = null,
+    /** The village's threat itself ("🐺 Branimo vas! · Defend the village!"): first, in red, a tap its run. */
+    val alarm: Boolean = false,
 )
 
 sealed interface NeedTarget {
     data class Quest(val id: String) : NeedTarget
     data class Scene(val id: String, val focus: String) : NeedTarget
+
+    /** The village's event's run (wolves, a bear, a storm). */
+    data object Event : NeedTarget
 }
 
 /**
@@ -280,7 +292,9 @@ object HomeLogic {
      * people of the happenings on now; one entry per person, with how many more things of theirs wait.
      * [people] are the village's people (the cast and those born here or who moved in,
      * [si.lanisce.lani.app.VillagerController.people]): their ids open their pages, their sprites draw the
-     * portraits. Tutor quests for a module Home already offers today ([offered] module ids) are left out.
+     * portraits. Tutor quests for a module Home already offers today ([offered] module ids) are left out. While wolves, a
+     * bear or a storm are about (companion/GAME.md "People react") the threat comes first ("🐺 Branimo vas! · Defend the
+     * village!", its leader's portrait, a tap its run) and the requests up wait, dim, until it's over ([VillagerNeed.waits]).
      */
     fun needs(
         state: GameState?,
@@ -296,12 +310,17 @@ object HomeLogic {
             people.firstOrNull { it.name == name }?.art ?: scenes.flatMap { it.people }.firstOrNull { it.name == name }?.art
 
         val all = ArrayList<VillagerNeed>()
+        // wolves, a bear or a storm about: the threat first, the requests waiting for it to pass
+        threatNeed(state, people)?.let { all += it }
         // the requests of who is in the village today (a tutor's request waits for its giver to come), those up now
-        val quests = Residents.queue(state, people, today).up.filter { !(it.source == QuestSource.TUTOR && it.moduleId in offered) }
-            .sortedBy { it.source != QuestSource.LOCAL }
-        for (q in quests) {
+        val queue = Residents.queue(state, people, today)
+        val held = queue.later.filter { it.why is QuestQueue.Why.Danger }
+        val quests = (queue.up.map { it to null } + held.map { it.quest to whyText(it.why) })
+            .filter { (q, _) -> !(q.source == QuestSource.TUTOR && q.moduleId in offered) }
+            .sortedBy { (q, _) -> q.source != QuestSource.LOCAL }
+        for ((q, waits) in quests) {
             val v = people.firstOrNull { it.name == q.giver }
-            all += VillagerNeed(q.giver, v?.emoji ?: q.emoji, artOf(q.giver), v?.id, q.title, now = false, more = 0, NeedTarget.Quest(q.id))
+            all += VillagerNeed(q.giver, v?.emoji ?: q.emoji, artOf(q.giver), v?.id, q.title, now = false, more = 0, NeedTarget.Quest(q.id), waits = waits)
         }
         for (a in active) {
             val p = a.person ?: continue
@@ -309,6 +328,22 @@ object HomeLogic {
             all += VillagerNeed(p.name, v?.emoji ?: p.emoji, v?.art ?: p.art, v?.id, a.happening.title, now = true, more = 0, NeedTarget.Scene(a.scene.id, a.key))
         }
         return all.groupBy { it.name }.values.map { mine -> mine.first().copy(more = mine.size - 1) }.take(max)
+    }
+
+    /**
+     * The village's threat for "Vaščani te čakajo" while wolves, a bear or a storm are about ([Reactions.quiet]): the culture's
+     * call to its run ("🐺 Branimo vas! · Defend the village!", [Reactions.call]; its title without a reactions file), the
+     * event's title under it, the portrait of its leader when they live here (the smith against the wolves); null otherwise.
+     */
+    fun threatNeed(state: GameState, people: List<Villager>): VillagerNeed? {
+        val e = state.event?.takeIf { Reactions.quiet(state) } ?: return null
+        val call = Reactions.call(Stir(e.kind, Stir.Phase.ON, 0.0, e.strength))?.bi()
+        val title = Events.title(state, e)
+        val leader = runCatching { Events.texts(e.kind).leader }.getOrNull()?.let { name -> people.firstOrNull { it.name == name } }
+        return VillagerNeed(
+            call ?: title.removePrefix("${e.kind.emoji} "), e.kind.emoji, leader?.art, null, if (call != null) title else "", now = false, more = 0,
+            NeedTarget.Event, alarm = true,
+        )
     }
 
     /**

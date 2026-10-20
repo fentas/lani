@@ -196,13 +196,14 @@ private fun act(vm: AppViewModel, a: HomeAction) {
     }
 }
 
-/** A villager's page when the cast knows them, else straight to their request or their scene. */
+/** A villager's page when the cast knows them, else straight to their request or their scene; the village's threat: its run. */
 private fun open(vm: AppViewModel, n: VillagerNeed) {
     val id = n.villagerId?.takeIf { vm.villagers.byId(it) != null }
     if (id != null) return vm.openVillager(id)
     when (val t = n.target) {
         is NeedTarget.Quest -> vm.startQuest(t.id)
         is NeedTarget.Scene -> vm.openScene(t.id, t.focus)
+        NeedTarget.Event -> vm.startEvent()
     }
 }
 

@@ -1,5 +1,6 @@
 package si.lanisce.lani.game
 
+import si.lanisce.lani.game.villagers.Reactions
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 
@@ -8,7 +9,9 @@ import java.time.temporal.ChronoUnit
  * their own (the local one) first, then a task of the tutor's that comes back from its drill, then the tutor's newest. The
  * rest wait in the Scroll's "📜 Kasneje · Later", in the order they come up as those are done, and any of them opens from
  * there. A tutor's task waits behind a smaller drill for it at the same villager (the drill's [Quest.helps]) until the drill
- * is passed; a local request never started for [STALE_DAYS] days waits too (the villager asks again another day). Pure.
+ * is passed; a local request never started for [STALE_DAYS] days waits too (the villager asks again another day); a drill
+ * whose task is passed already is practice for later ([Why.Spent]). While wolves, a bear or a storm are about the requests
+ * up fold away until it's over ([Why.Danger]). Pure.
  */
 object QuestQueue {
     /** Requests a villager shows at once (a bubble on the map, a row on their card, one in "Prošnje vaščanov"). */
@@ -39,6 +42,15 @@ object QuestQueue {
 
         /** The villager's own request, never started for [STALE_DAYS] days: they ask again another day. */
         data object Stale : Why
+
+        /**
+         * Up but for [kind] about (wolves, a bear, a storm: [Reactions.quieting]): off the map until it's over, then up again
+         * as it was (companion/GAME.md "People react").
+         */
+        data class Danger(val kind: EventKind) : Why
+
+        /** A drill whose task ([task], the request its [Quest.helps] names) is passed: practice now, no "!" ([spentFor]). */
+        data class Spent(val task: Quest) : Why
     }
 
     /** A request waiting in "Later", and why. */
@@ -55,24 +67,29 @@ object QuestQueue {
 
     /**
      * The requests [open] (the open ones of who is here, [si.lanisce.lani.game.villagers.Residents.openQuests]) as they
-     * show [today]; [all] are the village's quests (the newest last: their order says which is newer, and a drill passed
-     * brings its task back).
+     * show [today]; [all] are the village's quests (the newest last: their order says which is newer, a drill passed brings
+     * its task back, and a task passed leaves its drill for practice). [event]: the village's event now; wolves, a bear or a
+     * storm ([Reactions.quieting]) fold the requests up away ([Why.Danger], first of each villager's in "Later"), the
+     * merchant and a festival nothing.
      */
-    fun of(all: List<Quest>, open: List<Quest>, today: LocalDate): Queue {
+    fun of(all: List<Quest>, open: List<Quest>, today: LocalDate, event: EventKind? = null): Queue {
         val index = all.withIndex().associate { (i, q) -> q.id to i }
+        val danger = event?.takeIf { Reactions.quieting(it) }
         val up = ArrayList<Quest>()
         val later = ArrayList<Waiting>()
         for (mine in open.filter { !it.done }.groupBy { it.giver }.values) {
             val parked = mine.mapNotNull { q -> drillFor(q, mine)?.let { Waiting(q, Why.After(it)) } }
-            val waiting = parked.map { it.quest.id }.toSet()
+            val spent = mine.filter { q -> parked.none { it.quest.id == q.id } }.mapNotNull { q -> spentFor(q, all)?.let { Waiting(q, Why.Spent(it)) } }
+            val waiting = (parked + spent).map { it.quest.id }.toSet()
             val stale = mine.filter { it.id !in waiting && stale(it, today) }.map { Waiting(it, Why.Stale) }
             // their own in the order asked (the first expires first), the tutor's newest first
             val rest = mine.filter { q -> q.id !in waiting && stale.none { it.quest.id == q.id } }
                 .sortedWith(compareBy<Quest> { rank(it, all) }.thenBy { (index[it.id] ?: 0).let { i -> if (it.source == QuestSource.LOCAL) i else -i } })
-            up += rest.take(UP)
+            if (danger == null) up += rest.take(UP) else later += rest.take(UP).map { Waiting(it, Why.Danger(danger)) }
             later += rest.drop(UP).map { Waiting(it, Why.Queued) }
             later += parked
             later += stale
+            later += spent
         }
         return Queue(up, later)
     }
@@ -87,19 +104,50 @@ object QuestQueue {
     /** A tutor's task whose drill (at the same villager) was passed: it comes back first. */
     fun returning(q: Quest, all: List<Quest>): Boolean =
         q.source == QuestSource.TUTOR && q.moduleId != null &&
-            all.any { d -> d.done && d.source == QuestSource.TUTOR && d.giver == q.giver && d.helps == q.moduleId && d.id != q.id }
+            all.any { d -> d.done && d.source == QuestSource.TUTOR && d.giver == q.giver && d.id != q.id && d.helps?.let { names(it, q) } == true }
 
     /**
-     * The open drill of [others] that tutor task [q] waits behind: the tutor's, at the same villager, whose [Quest.helps] is
-     * [q]'s module (two that name each other wait for neither); null when there is none.
+     * The open drill of [others] that tutor task [q] waits behind: the tutor's, at the same villager, whose [Quest.helps] names
+     * [q] ([names]: its module; two that name each other wait for neither); null when there is none.
      */
     fun drillFor(q: Quest, others: List<Quest>): Quest? {
-        val module = q.moduleId ?: return null
-        if (q.source != QuestSource.TUTOR || q.done) return null
+        if (q.moduleId == null || q.source != QuestSource.TUTOR || q.done) return null
         return others.firstOrNull { d ->
-            d.id != q.id && !d.done && d.source == QuestSource.TUTOR && d.giver == q.giver && d.helps == module && d.moduleId != q.helps
+            d.id != q.id && !d.done && d.source == QuestSource.TUTOR && d.giver == q.giver &&
+                d.helps?.let { names(it, q) } == true && q.helps?.let { names(it, d) } != true
         }
     }
+
+    /** The tutor's request ids: "tutor-<module>-v<version>" ([Quests.tutorId]). */
+    private val TUTOR_ID = Regex("""tutor-(.+)-v\d+""")
+
+    /**
+     * Whether [helps] (a drill's [Quest.helps]: a module's id, as the tutor writes it, or a request's id) names request [q]:
+     * its module, its id, or its module by the tutor's request id of another version ("tutor-kaksno-vino-v1" for v2).
+     */
+    fun names(helps: String, q: Quest): Boolean =
+        q.moduleId == helps || q.id == helps || (q.moduleId != null && TUTOR_ID.matchEntire(helps)?.groupValues?.get(1) == q.moduleId)
+
+    /**
+     * The task drill [d] helps with ([Quest.helps]), when it is passed (a request of [all] it names done, none open): [d] is
+     * practice now, in "Later" without a "!" and not one of the [UP] ("✓ Naloga je opravljena: za vajo"); null for any
+     * other request, a drill whose task is open (it comes first, as ever) or one whose task the village doesn't have (not
+     * published yet, or gone without a pass). Passed later all the same, [d] is done as any request.
+     */
+    fun spentFor(d: Quest, all: List<Quest>): Quest? {
+        val task = d.helps ?: return null
+        if (d.source != QuestSource.TUTOR || d.done) return null
+        val named = all.filter { it.id != d.id && names(task, it) }
+        if (named.any { !it.done }) return null
+        return named.lastOrNull { it.done }
+    }
+
+    /**
+     * Whether done request [q] is the task an open drill of [quests] helps with: it is kept (not pruned, not dropped with its
+     * module) while that drill is open, so the drill stays practice ([spentFor]) and doesn't ask with a "!" again.
+     */
+    fun helpedByOpen(q: Quest, quests: List<Quest>): Boolean =
+        q.done && quests.any { d -> d.id != q.id && !d.done && d.source == QuestSource.TUTOR && d.helps?.let { names(it, q) } == true }
 
     /**
      * A local request (not the tent's move, which waits for good) never started, asked [STALE_DAYS] days ago or more. One

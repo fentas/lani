@@ -260,17 +260,21 @@ object GameEngine {
     }
 
     /**
-     * Adds quests for tutor modules that carry a quest block (and drops tutor quests whose module is gone). A drill's link to
-     * the task it helps with comes from its quest block's `helps`, else it is found by a grammar page both modules share
-     * ([pagesOf]: a module's pages; [QuestQueue.link]).
+     * Adds quests for tutor modules that carry a quest block (and drops tutor quests whose module is gone, but a passed task
+     * an open drill helps with: [QuestQueue.helpedByOpen]). A drill's link to the task it helps with comes from its quest
+     * block's `helps`, else it is found by a grammar page both modules share ([pagesOf]: a module's pages; [QuestQueue.link]).
      */
     fun withTutorQuests(state: GameState, modules: List<ModuleInfo>, now: Long, pagesOf: (String) -> Set<String> = { emptySet() }): GameState {
         val today = java.time.Instant.ofEpochMilli(now).atZone(java.time.ZoneId.systemDefault()).toLocalDate()
         val wanted = modules.mapNotNull { Quests.fromModule(it, state.age, today) }
         val byId = wanted.associateBy { it.id }
         // a module published with `helps` before the app knew it: the link comes to its request now
-        val kept = state.quests.filter { it.source == QuestSource.LOCAL || it.id in byId }
-            .map { q -> if (q.source == QuestSource.TUTOR && q.helps == null && !q.done) byId[q.id]?.helps?.let { q.copy(helps = it) } ?: q else q }
+        fun linked(q: Quest) = if (q.source == QuestSource.TUTOR && q.helps == null && !q.done) byId[q.id]?.helps?.let { q.copy(helps = it) } ?: q else q
+        val stays = { q: Quest -> q.source == QuestSource.LOCAL || q.id in byId }
+        // a task passed whose module is gone (retired, or a new version of it published) stays while a drill for it is open
+        // (of those there will be): the drill stays practice, without a "!" (QuestQueue.spentFor)
+        val drills = state.quests.filter(stays).map(::linked) + wanted.filter { w -> state.quests.none { it.id == w.id } }
+        val kept = state.quests.filter { stays(it) || (it.source == QuestSource.TUTOR && QuestQueue.helpedByOpen(it, drills)) }.map(::linked)
         val known = kept.map { it.id }.toSet()
         val added = wanted.filter { it.id !in known }
         val short = modules.filter { QuestQueue.SHORT in it.tags }.map { it.id }.toSet()

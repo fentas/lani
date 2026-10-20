@@ -625,8 +625,11 @@ class TownLogicTest {
         assertEquals(4, o.todayCount) // later happenings don't count as "going on"
         // late at night nothing is left for later
         assertTrue(TownOverview.laterToday(scenes, calm, afternoon.withHour(23)).isEmpty())
-        // while the wolves are about the happenings wait (GAME.md "People react"): the event and the requests
-        assertEquals(listOf("event:Forest", "quest:q1@Forest", "quest:t1@Fire"), kinds(TownOverview.of(camp, scenes, afternoon)))
+        // while the wolves are about the happenings wait (GAME.md "People react"): the event only, the requests in "Later"
+        val wolves = TownOverview.of(camp, scenes, afternoon)
+        assertEquals(listOf("event:Forest"), kinds(wolves))
+        assertEquals(listOf("q1", "t1"), wolves.later.map { it.quest.id })
+        assertTrue(wolves.later.all { it.why == si.lanisce.lani.game.QuestQueue.Why.Danger(EventKind.WOLVES) })
     }
 
     @Test fun `a happening on now says how many of the learner's words its dialog tests`() {
@@ -644,7 +647,9 @@ class TownLogicTest {
         assertEquals(listOf("v-gozdu"), o.places[1].scenes.map { it.id })
         assertEquals(2, o.places[2].count)
         assertEquals(listOf("kuhinja"), o.places[3].scenes.map { it.id })
-        assertEquals(listOf("event:e", "quest:q1"), o.places[1].here.map { it.id })
+        // the wolves in the forest; Luka's request waits while they're about, his bubble there once they're gone
+        assertEquals(listOf("event:e"), o.places[1].here.map { it.id })
+        assertEquals(listOf("quest:q1"), TownOverview.of(calm, scenes, afternoon).places.first { it.place == TownPlace.Forest }.here.map { it.id })
         // the square needs the linden tree and the Vas age
         val locked = o.locked.single()
         assertEquals("na-vasi", locked.scene.id)
@@ -667,7 +672,7 @@ class TownLogicTest {
     }
 
     @Test fun `no scenes (an older bridge) still gives a useful overview`() {
-        val o = TownOverview.of(camp, emptyList(), afternoon)
+        val o = TownOverview.of(calm, emptyList(), afternoon)
         assertEquals(3, o.today.size)
         assertTrue(o.places.all { it.scenes.isEmpty() })
         assertTrue(o.locked.isEmpty())

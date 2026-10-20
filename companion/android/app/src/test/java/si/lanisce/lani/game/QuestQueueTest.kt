@@ -175,6 +175,91 @@ class QuestQueueTest {
         assertTrue(q.later.isEmpty())
     }
 
+    // --- a drill whose task is passed (Jan, 2026-10-20: "I did it for Vinar Marko, but it's still there with the exclamation") ---
+
+    private val markoCast = cast + si.lanisce.lani.game.villagers.Villager("marko", "Vinar Marko", "🍇", "winemaker", voice = "male", home = listOf("market"))
+    private fun marko(module: String, title: String, v: Int = 1, done: Boolean = false, helps: String? = null) = Quest(
+        id = "tutor-$module-v$v", giver = "Vinar Marko", emoji = "🍇", title = title, story = "$title · $title", skill = Res.WISDOM,
+        reward = mapOf(Res.WISDOM to 60), source = QuestSource.TUTOR, moduleId = module, done = done, helps = helps, since = "2026-09-28",
+    )
+
+    /** His wine request passed today (7 of 11), the tutor's drill for it published this morning, and a new request of his. */
+    private val wine = QuestQueue.tried(QuestQueue.tried(marko("marko-kaksno-vino", "Kakšno vino?"), 4, 11), 7, 11).copy(done = true)
+    private val mehkiE = marko("marko-mehki-e", "Rdeč teran, sveže mleko", helps = "marko-kaksno-vino")
+    private val trgatev = marko("marko-trgatev", "Trgatev: grozdje in sod")
+    private fun markoQueue(quests: List<Quest>) =
+        Residents.queue(JanRequests.state.copy(buildings = JanRequests.state.buildings + Building("b6", BuildingType.MARKET, 5), quests = quests), markoCast, today)
+
+    @Test fun `a drill whose task is passed is practice under Later, no bubble, not one of the two up`() {
+        val q = markoQueue(listOf(wine, mehkiE))
+        assertTrue(q.upOf("Vinar Marko").isEmpty())
+        val w = q.laterOf("Vinar Marko").single()
+        assertEquals(mehkiE.id, w.quest.id)
+        assertEquals(QuestQueue.Why.Spent(wine), w.why)
+        // no "!" over him on the map
+        val s = JanRequests.state.copy(buildings = JanRequests.state.buildings + Building("b6", BuildingType.MARKET, 5), quests = listOf(wine, mehkiE))
+        assertTrue(TownMarkers.of(s, emptyList(), markoCast, today).none { it.id.startsWith("quest:") })
+        // with two more of his, both are up: the drill isn't counted
+        val local = podkev.copy(id = "q-marko", giver = "Vinar Marko", emoji = "🍇", since = today.toString())
+        val busy = markoQueue(listOf(wine, local, trgatev, mehkiE))
+        assertEquals(listOf("q-marko", trgatev.id), busy.upOf("Vinar Marko").map { it.id })
+        assertEquals(listOf(mehkiE.id to QuestQueue.Why.Spent(wine)), busy.laterOf("Vinar Marko").map { it.quest.id to it.why })
+        val bubble = TownMarkers.of(s.copy(quests = listOf(wine, local, trgatev, mehkiE)), emptyList(), markoCast, today).single { it.id.startsWith("quest:") }
+        assertEquals("quest:q-marko" to 2, bubble.id to bubble.count)
+        assertFalse(bubble.label, mehkiE.title in bubble.label)
+        // still playable: passed after all, it's done as any request, and nowhere then
+        val (played, r) = GameEngine.completeQuest(s, mehkiE.id, 5, 6, JanRequests.noonOf(today))
+        assertTrue(r.won)
+        assertTrue(played.quests.single { it.id == mehkiE.id }.done)
+        assertTrue(markoQueue(played.quests).laterOf("Vinar Marko").isEmpty())
+        // failed: a try, still practice
+        val (tried, _) = GameEngine.completeQuest(s, mehkiE.id, 1, 6, JanRequests.noonOf(today))
+        assertEquals(1, tried.quests.single { it.id == mehkiE.id }.tries)
+        assertTrue(markoQueue(tried.quests).why(mehkiE.id) is QuestQueue.Why.Spent)
+    }
+
+    @Test fun `a drill whose task is still open comes first, the task waiting behind it, as before`() {
+        val q = markoQueue(listOf(wine.copy(done = false), mehkiE))
+        assertEquals(listOf(mehkiE.id), q.upOf("Vinar Marko").map { it.id })
+        assertEquals(QuestQueue.Why.After(mehkiE), q.why(wine.id))
+        assertNull(QuestQueue.spentFor(mehkiE, listOf(wine.copy(done = false), mehkiE)))
+        // the task published again (a new version, open): the drill comes first again, the old pass left aside
+        val again = markoQueue(listOf(wine, mehkiE, marko("marko-kaksno-vino", "Kakšno vino?", v = 2)))
+        assertEquals(listOf(mehkiE.id), again.upOf("Vinar Marko").map { it.id })
+        assertTrue(again.why("tutor-marko-kaksno-vino-v2") is QuestQueue.Why.After)
+    }
+
+    @Test fun `the task a drill helps is found by its module or its request's id, done or gone with its pass`() {
+        // by the request's id, of this version or another one
+        assertEquals(wine, QuestQueue.spentFor(mehkiE.copy(helps = wine.id), listOf(wine, mehkiE)))
+        val wine2 = wine.copy(id = "tutor-marko-kaksno-vino-v2")
+        assertEquals(wine2, QuestQueue.spentFor(mehkiE.copy(helps = wine.id), listOf(wine2, mehkiE)))
+        // a task the village doesn't have (not published yet, or gone without a pass): the drill is an ordinary request
+        val unknown = mehkiE.copy(helps = "marko-sod")
+        assertNull(QuestQueue.spentFor(unknown, listOf(wine, unknown)))
+        assertEquals(listOf(unknown.id), markoQueue(listOf(wine, unknown)).upOf("Vinar Marko").map { it.id })
+        // the wine module retired after the pass: its request stays (done) while the drill is open, the drill stays practice
+        val quest = { helps: String? -> QuestMeta("Vinar Marko", "🍇", "Marko toči.", skill = "wisdom", helps = helps) }
+        val modules = listOf(
+            ModuleInfo("marko-kaksno-vino", 1, "Kakšno vino?", "A1", quest = quest(null)),
+            ModuleInfo("marko-mehki-e", 1, "Rdeč teran, sveže mleko", "A1", quest = quest("marko-kaksno-vino"), tags = listOf(QuestQueue.SHORT)),
+        )
+        val synced = GameEngine.withTutorQuests(GameState(age = Age.VAS), modules, 0L)
+        val (passed, _) = GameEngine.completeQuest(synced, "tutor-marko-kaksno-vino-v1", 7, 11, 0L)
+        val retired = GameEngine.withTutorQuests(passed, modules.drop(1), 0L)
+        assertTrue(retired.quests.single { it.moduleId == "marko-kaksno-vino" }.done)
+        assertTrue(QuestQueue.spentFor(retired.quests.single { it.moduleId == "marko-mehki-e" }, retired.quests) != null)
+        // the drill done or retired too: the old task goes with it
+        assertTrue(GameEngine.withTutorQuests(retired, emptyList(), 0L).quests.isEmpty())
+        // a villager's own request passed: kept while a drill names it (pruned otherwise)
+        val local = podkev.copy(id = "q-2026-09-29-1", done = true)
+        val forLocal = mehkiE.copy(giver = podkev.giver, helps = local.id)
+        val (pruned, _) = Quests.prune(GameState(quests = listOf(local, forLocal)), 0L)
+        assertEquals(listOf(local.id, forLocal.id), pruned.quests.map { it.id })
+        assertEquals(local, QuestQueue.spentFor(forLocal, pruned.quests))
+        assertEquals(listOf(forLocal.id), Quests.prune(GameState(quests = listOf(local, forLocal.copy(done = true))), 0L).first.quests.map { it.id })
+    }
+
     @Test fun `someone the cast doesn't know gets one bubble for their place`() {
         val a = naTrznico.copy(id = "a", giver = "Ribič Gregor", emoji = "🎣", moduleId = "a")
         val b = naTrznico.copy(id = "b", giver = "Ribič Gregor", emoji = "🎣", moduleId = "b")

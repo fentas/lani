@@ -26,7 +26,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -36,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import si.lanisce.lani.ui.stage.portraitPx
 import si.lanisce.lani.ui.Portrait
 import si.lanisce.lani.ui.theme.AlpineGreen
+import si.lanisce.lani.ui.theme.TriglavRed
 import si.lanisce.lani.l10n.bi
 
 /**
@@ -55,14 +58,18 @@ fun VillagersStrip(needs: List<VillagerNeed>, onOpen: (VillagerNeed) -> Unit, on
     }
 }
 
+/**
+ * One of them: their portrait (or emoji) and what they ask for. The village's threat ([VillagerNeed.alarm]) in red; a request
+ * waiting for it to pass ([VillagerNeed.waits]) dim, with why ("🐺 Po volkovih · After the wolves").
+ */
 @Composable
 private fun NeedCard(n: VillagerNeed, onClick: () -> Unit) {
     Card(
         onClick = onClick,
-        modifier = Modifier.width(152.dp).fillMaxHeight(),
+        modifier = Modifier.width(152.dp).fillMaxHeight().alpha(if (n.waits != null) 0.62f else 1f),
         shape = MaterialTheme.shapes.medium,
-        colors = homeCardColors(),
-        elevation = CardDefaults.cardElevation(2.dp),
+        colors = if (n.alarm) CardDefaults.cardColors(containerColor = TriglavRed, contentColor = Color.White) else homeCardColors(),
+        elevation = CardDefaults.cardElevation(if (n.waits != null) 0.dp else 2.dp),
     ) {
         Column(Modifier.padding(12.dp), horizontalAlignment = Alignment.CenterHorizontally) {
             Box(Modifier.size(76.dp)) {
@@ -89,11 +96,12 @@ private fun NeedCard(n: VillagerNeed, onClick: () -> Unit) {
             Spacer(Modifier.height(8.dp))
             Text(n.name, style = MaterialTheme.typography.titleSmall, textAlign = TextAlign.Center, maxLines = 2, overflow = TextOverflow.Ellipsis)
             if (n.now) Text("💬 ${bi("villagersStrip.now")}", style = MaterialTheme.typography.labelSmall, color = AlpineGreen)
+            n.waits?.let { Text(it, style = MaterialTheme.typography.labelSmall, textAlign = TextAlign.Center, color = MaterialTheme.colorScheme.onSurfaceVariant) }
             Spacer(Modifier.height(2.dp))
             Text(
                 n.request,
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                color = if (n.alarm) Color.White.copy(alpha = 0.9f) else MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center,
                 maxLines = 3,
                 overflow = TextOverflow.Ellipsis,

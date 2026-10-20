@@ -81,8 +81,8 @@ object Reactions {
      * Whether the everyday talks wait in [state]'s village now: wolves, a bear or a storm about. The happenings, the
      * storyteller's story, the meetings with who joined, the keepers' talks (not in a storm: theirs know the rain), the
      * class's lesson, «Vidim, vidim», the stranger at the road and the bubbles of the day's surprise, the projects and the
-     * festivals are off until it's over; the requests and the day's surprise stay the learner's to play (the scroll, the
-     * cards, the HUD).
+     * festivals are off until it's over; so are the requests' bubbles (they wait in the scroll and on the cards:
+     * [si.lanisce.lani.game.QuestQueue.Why.Danger]), and the day's surprise stays the learner's to play (the HUD, Home).
      */
     fun quiet(state: GameState?): Boolean = quieting(state?.event?.kind)
 

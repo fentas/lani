@@ -49,13 +49,14 @@ internal object Quests {
     /**
      * Drops finished and expired local quests, and those of someone no longer in the village ([present]: the
      * names of who is, null for everyone; a visitor's request goes with them; the tent's move waits); tutor quests
-     * stay (done ones mark the module as played). Returns the expired ones, for the chronicle.
+     * stay (done ones mark the module as played), and so does a passed one an open drill of the tutor's helps with
+     * ([QuestQueue.helpedByOpen]: the drill is practice now). Returns the expired ones, for the chronicle.
      */
     fun prune(s: GameState, now: Long, present: Set<String>? = null): Pair<GameState, List<Quest>> {
         val expired = s.quests.filter { it.source == QuestSource.LOCAL && !it.done && it.expiresAt in 1..now }
         // the shepherd's request to move the tent waits for him (see TentMove), like a tutor's
         val gone = s.quests.filter { it.source == QuestSource.LOCAL && !it.done && present != null && it.giver !in present && it.id != TentMove.ID }
-        val kept = s.quests.filter { q -> q.source == QuestSource.TUTOR || (!q.done && q !in expired && q !in gone) }
+        val kept = s.quests.filter { q -> q.source == QuestSource.TUTOR || (!q.done && q !in expired && q !in gone) || QuestQueue.helpedByOpen(q, s.quests) }
         return s.copy(quests = kept) to expired
     }
 
