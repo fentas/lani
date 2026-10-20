@@ -1,0 +1,147 @@
+{
+  "schema": "lani.reactions/v0",
+  "language": "en",
+  "review": "machine-written (Claude), not reviewed by a native speaker; every language",
+  "wolves": {
+    "shout": [
+      {"en": "Wolves!", "sl": "Volkovi!", "de": "Wölfe!", "it": "Lupi!"},
+      {"en": "Watch out!", "sl": "Pazi!", "de": "Vorsicht!", "it": "Attenzione!"},
+      {"en": "Quick, inside!", "sl": "Hitro noter!", "de": "Schnell rein!", "it": "Presto, dentro!"}
+    ],
+    "call": {"en": "Defend the village!", "sl": "Branimo vas!", "de": "Verteidigen wir das Dorf!", "it": "Difendiamo il paese!"},
+    "defender": [
+      {"en": "The wolves are close. Stay behind me!", "sl": "Volkovi so blizu. Ostani za mano!", "de": "Die Wölfe sind nah. Bleib hinter mir!", "it": "I lupi sono vicini. Resta dietro di me!"},
+      {"en": "Don't be afraid. Help me!", "sl": "Ne boj se. Pomagaj mi!", "de": "Keine Angst. Hilf mir!", "it": "Non avere paura. Aiutami!"}
+    ],
+    "child": [
+      {"en": "Wolves! I'm scared.", "sl": "Volkovi! Bojim se.", "de": "Wölfe! Ich habe Angst.", "it": "Lupi! Ho paura."},
+      {"en": "Quick, to the fire!", "sl": "Hitro k ognju!", "de": "Schnell zum Feuer!", "it": "Presto, al fuoco!"}
+    ],
+    "elder": [
+      {"en": "The wolves are close! Stay by the fire.", "sl": "Volkovi so blizu! Ostani pri ognju.", "de": "Die Wölfe sind nah! Bleib beim Feuer.", "it": "I lupi sono vicini! Resta vicino al fuoco."}
+    ],
+    "keeper": [
+      {"en": "The door is shut. The wolves are close!", "sl": "Vrata so zaprta. Volkovi so blizu!", "de": "Die Tür ist zu. Die Wölfe sind nah!", "it": "La porta è chiusa. I lupi sono vicini!"}
+    ],
+    "other": [
+      {"en": "Wolves! Don't go into the forest.", "sl": "Volkovi! Ne hodi v gozd.", "de": "Wölfe! Geh nicht in den Wald.", "it": "Lupi! Non andare nel bosco."},
+      {"en": "Quick, go home, the wolves are here!", "sl": "Hitro domov, volkovi so tu!", "de": "Schnell nach Hause, die Wölfe sind da!", "it": "Presto a casa, ci sono i lupi!"}
+    ]
+  },
+  "bear": {
+    "shout": [
+      {"en": "A bear!", "sl": "Medved!", "de": "Ein Bär!", "it": "Un orso!"},
+      {"en": "Watch out!", "sl": "Pazi!", "de": "Vorsicht!", "it": "Attenzione!"},
+      {"en": "Quick, inside!", "sl": "Hitro noter!", "de": "Schnell rein!", "it": "Presto, dentro!"}
+    ],
+    "call": {"en": "Chase the bear off!", "sl": "Preženimo medveda!", "de": "Verjagen wir den Bären!", "it": "Cacciamo l'orso!"},
+    "defender": [
+      {"en": "The bear is close. Stay behind me!", "sl": "Medved je blizu. Ostani za mano!", "de": "Der Bär ist nah. Bleib hinter mir!", "it": "L'orso è vicino. Resta dietro di me!"},
+      {"en": "Don't be afraid. Help me!", "sl": "Ne boj se. Pomagaj mi!", "de": "Keine Angst. Hilf mir!", "it": "Non avere paura. Aiutami!"}
+    ],
+    "child": [
+      {"en": "A bear! I'm scared.", "sl": "Medved! Bojim se.", "de": "Ein Bär! Ich habe Angst.", "it": "Un orso! Ho paura."}
+    ],
+    "elder": [
+      {"en": "The bear is hungry. Stay by the fire.", "sl": "Medved je lačen. Ostani pri ognju.", "de": "Der Bär hat Hunger. Bleib beim Feuer.", "it": "L'orso ha fame. Resta vicino al fuoco."}
+    ],
+    "keeper": [
+      {"en": "The door is shut. The bear is close!", "sl": "Vrata so zaprta. Medved je blizu!", "de": "Die Tür ist zu. Der Bär ist nah!", "it": "La porta è chiusa. L'orso è vicino!"}
+    ],
+    "other": [
+      {"en": "A bear! Don't go into the orchard.", "sl": "Medved! Ne hodi v sadovnjak.", "de": "Ein Bär! Geh nicht in den Obstgarten.", "it": "Un orso! Non andare nel frutteto."}
+    ]
+  },
+  "storm": {
+    "shout": [
+      {"en": "A storm!", "sl": "Nevihta!", "de": "Ein Gewitter!", "it": "Un temporale!"},
+      {"en": "Quick, home!", "sl": "Hitro domov!", "de": "Schnell heim!", "it": "Presto, a casa!"},
+      {"en": "It's raining!", "sl": "Dežuje!", "de": "Es regnet!", "it": "Piove!"}
+    ],
+    "call": {"en": "Help in the storm!", "sl": "Pomagaj v nevihti!", "de": "Hilf im Gewitter!", "it": "Aiuta nel temporale!"},
+    "child": [
+      {"en": "It's thundering! I'm scared.", "sl": "Grmi! Bojim se.", "de": "Es donnert! Ich habe Angst.", "it": "Tuona! Ho paura."}
+    ],
+    "elder": [
+      {"en": "A storm is coming. I'm going home.", "sl": "Nevihta prihaja. Grem domov.", "de": "Ein Gewitter kommt. Ich gehe heim.", "it": "Arriva un temporale. Vado a casa."}
+    ],
+    "keeper": [
+      {"en": "Everything is wet!", "sl": "Vse je mokro!", "de": "Alles ist nass!", "it": "È tutto bagnato!"}
+    ],
+    "other": [
+      {"en": "Quick, inside, it's raining!", "sl": "Hitro noter, dežuje!", "de": "Schnell rein, es regnet!", "it": "Presto, dentro, piove!"},
+      {"en": "The wind took my hat!", "sl": "Veter mi je vzel klobuk!", "de": "Der Wind hat meinen Hut genommen!", "it": "Il vento mi ha preso il cappello!"}
+    ]
+  },
+  "merchant": {
+    "shout": [
+      {"en": "The merchant!", "sl": "Trgovec!", "de": "Der Händler!", "it": "Il mercante!"},
+      {"en": "Look!", "sl": "Poglej!", "de": "Schau!", "it": "Guarda!"}
+    ],
+    "call": {"en": "To the merchant!", "sl": "K trgovcu!", "de": "Zum Händler!", "it": "Dal mercante!"},
+    "child": [
+      {"en": "What has the merchant got?", "sl": "Kaj ima trgovec?", "de": "Was hat der Händler?", "it": "Cosa ha il mercante?"}
+    ],
+    "elder": [
+      {"en": "The merchant has come from Kendal.", "sl": "Trgovec je prišel iz Kendala.", "de": "Der Händler ist aus Kendal gekommen.", "it": "Il mercante è venuto da Kendal."}
+    ],
+    "keeper": [
+      {"en": "The merchant has fine goods.", "sl": "Trgovec ima lepo blago.", "de": "Der Händler hat schöne Ware.", "it": "Il mercante ha bella merce."}
+    ],
+    "other": [
+      {"en": "Are you going to the merchant?", "sl": "Greš k trgovcu?", "de": "Gehst du zum Händler?", "it": "Vai dal mercante?"}
+    ]
+  },
+  "festival": {
+    "shout": [
+      {"en": "Hooray!", "sl": "Juhu!", "de": "Juhu!", "it": "Evviva!"},
+      {"en": "Cheers!", "sl": "Na zdravje!", "de": "Prost!", "it": "Salute!"}
+    ],
+    "call": {"en": "Let's celebrate!", "sl": "Praznujmo!", "de": "Feiern wir!", "it": "Festeggiamo!"},
+    "child": [
+      {"en": "Today is a feast day!", "sl": "Danes je praznik!", "de": "Heute ist ein Fest!", "it": "Oggi è festa!"}
+    ],
+    "elder": [
+      {"en": "Happy feast day!", "sl": "Vesel praznik!", "de": "Frohes Fest!", "it": "Buona festa!"}
+    ],
+    "keeper": [
+      {"en": "There is food for everyone!", "sl": "Hrane je dovolj za vse!", "de": "Es gibt Essen für alle!", "it": "C'è cibo per tutti!"}
+    ],
+    "other": [
+      {"en": "Come and dance!", "sl": "Pridi plesat!", "de": "Komm tanzen!", "it": "Vieni a ballare!"}
+    ]
+  },
+  "won": {
+    "shout": [
+      {"en": "Well done!", "sl": "Bravo!", "de": "Bravo!", "it": "Bravo!"},
+      {"en": "Hooray!", "sl": "Hura!", "de": "Hurra!", "it": "Urrà!"}
+    ],
+    "defender": [
+      {"en": "We did it! Thank you.", "sl": "Uspelo nam je! Hvala ti.", "de": "Wir haben es geschafft! Danke.", "it": "Ce l'abbiamo fatta! Grazie."}
+    ],
+    "child": [
+      {"en": "We won!", "sl": "Zmagali smo!", "de": "Wir haben gewonnen!", "it": "Abbiamo vinto!"}
+    ],
+    "elder": [
+      {"en": "Thank you. We're safe again.", "sl": "Hvala ti. Spet smo varni.", "de": "Danke. Wir sind wieder sicher.", "it": "Grazie. Siamo di nuovo al sicuro."}
+    ],
+    "keeper": [
+      {"en": "The door is open again!", "sl": "Vrata so spet odprta!", "de": "Die Tür ist wieder offen!", "it": "La porta è di nuovo aperta!"}
+    ],
+    "other": [
+      {"en": "Well done! The village is safe again.", "sl": "Bravo! Vas je spet varna.", "de": "Bravo! Das Dorf ist wieder sicher.", "it": "Bravo! Il paese è di nuovo al sicuro."}
+    ]
+  },
+  "lost": {
+    "defender": [
+      {"en": "A pity. Next time we'll be stronger.", "sl": "Škoda. Naslednjič bomo močnejši.", "de": "Schade. Nächstes Mal sind wir stärker.", "it": "Peccato. La prossima volta saremo più forti."}
+    ],
+    "other": [
+      {"en": "Never mind. We'll fix it together.", "sl": "Nič hudega. Skupaj bomo popravili.", "de": "Nicht schlimm. Wir reparieren es zusammen.", "it": "Non importa. Lo ripariamo insieme."}
+    ],
+    "repair": [
+      {"en": "We'll fix it all. Can you help me?", "sl": "Vse bomo popravili. Mi lahko pomagaš?", "de": "Wir reparieren alles. Hilfst du mir?", "it": "Ripariamo tutto. Mi aiuti?"},
+      {"en": "Plank by plank …", "sl": "Deska za desko …", "de": "Brett für Brett …", "it": "Asse dopo asse …"}
+    ]
+  }
+}
