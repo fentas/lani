@@ -105,15 +105,17 @@ const dayRange = (least: number, most: number) => z.array(z.number().int().min(l
 /** A variant of a keeper's talk in a stage of his spot's cycle: its levels, for the parts of the day ([when]) and the weather ([sky]) it fits. */
 const cycleTalk = <T extends z.ZodTypeAny>(levels: T) => obj({ when: z.array(z.enum(TIMES)).default([]), sky: z.enum(SPOT_SKIES).optional(), levels })
 /**
- * A stage of a spot's cycle (or its rest, its winter, a round lost): how long it takes ([days]: the least and the most), how
- * the app draws the spot ([art], [smoke]), the keeper's bubble ([title]) and the card's line ([about]), how often he is
- * there ([chance], [when]), whether it delivers the round's yield ([delivers]), his talks (variants) and what he tells of
- * it once it is over ([done]).
+ * A stage of a spot's cycle (or its rest, its winter, a round lost, the keeper waiting for the village's wood): how long it
+ * takes ([days]: the least and the most), how the app draws the spot ([art], [smoke]), the keeper's bubble ([title]) and
+ * the card's line ([about]), how often he is there ([chance], [when]), whether it delivers the round's yield ([delivers]),
+ * whether the round's wood comes from the village's store in it ([wood]: the charcoal pile's felling and stacking,
+ * companion/GAME.md "Hearths"), his talks (variants) and what he tells of it once it is over ([done]).
  */
 const cycleStage = obj({
   id, days: dayRange(1, 60).default([1, 1]), art: z.enum(SPOT_ARTS), smoke: z.enum(SPOT_SMOKES).optional(),
   title: text.optional(), about: text.optional(), chance: z.number().min(0).max(1).optional(), when: z.array(z.enum(TIMES)).optional(),
   delivers: z.boolean().default(false), talks: z.array(cycleTalk(keeperLevels)).default([]), done: pieceLevels(2).optional(),
+  wood: z.boolean().default(false),
 })
 /**
  * A spot's work in stages over real days (GAME.md "A spot's cycle", spot-cycles.ts): the season, the rounds' stages, the
@@ -127,6 +129,8 @@ const spotCycle = obj({
   pause: dayRange(0, 90).default([3, 7]),
   stages: z.array(cycleStage).min(1),
   rest: cycleStage.optional(), winter: cycleStage.optional(), lost: cycleStage.optional(),
+  // while its keeper waits for the village's wood (its `wood` stages unpaid, the village's smithy to feed: GAME.md "Hearths")
+  waiting: cycleStage.optional(),
   meeting: keeperLevels.optional(),
   greet: z.array(cycleTalk(pieceLevels(1))).default([]),
   missed: pieceLevels(2).optional(),
@@ -135,7 +139,8 @@ const spotCycle = obj({
     title: text, levels: pieceLevels(10), saved: pieceLevels(6), lost: pieceLevels(6), missed: pieceLevels(2).optional(), covered: text.optional(), burnt: text.optional(),
   }).optional(),
   nights: z.array(obj({ id, stages: z.array(id).min(1), chance: z.number().min(0).max(1), told: pieceLevels(2) })).default([]),
-  delivery: obj({ to: id, days: z.number().int().min(1).max(90).default(14), line: text, says: z.array(text).default([]), waits: z.array(text).default([]) }).optional(),
+  // where a round's yield goes; `cold`: what the receiver says while his hearth is cold for want of it (the forge without charcoal)
+  delivery: obj({ to: id, days: z.number().int().min(1).max(90).default(14), line: text, says: z.array(text).default([]), waits: z.array(text).default([]), cold: z.array(text).default([]) }).optional(),
 })
 export type SpotCycle = z.infer<typeof spotCycle>
 /**
@@ -645,7 +650,8 @@ export function spotErrors(spots: Spots, lang: string, packs?: SceneRefs['packs'
       stage(st, here)
     })
     if (c.stages.filter(st => st.delivers).length > 1) errs.push(`${at}.cycle.stages: more than one stage delivers`)
-    for (const k2 of ['rest', 'winter', 'lost'] as const) if (c[k2]) stage(c[k2]!, `${at}.cycle.${k2}`)
+    for (const k2 of ['rest', 'winter', 'lost', 'waiting'] as const) if (c[k2]) stage(c[k2]!, `${at}.cycle.${k2}`)
+    if (c.stages.some(st => st.wood) && !c.delivery) errs.push(`${at}.cycle.stages: a stage takes the village's wood ("wood": true), but nothing is delivered for it ("delivery")`)
     if (c.meeting) talk(c.meeting, `${at}.cycle.meeting`)
     c.greet.forEach((g, j) => piece(g.levels, `${at}.cycle.greet[${j}]`, 0))
     piece(c.missed, `${at}.cycle.missed`, 0)
@@ -677,6 +683,7 @@ export function spotErrors(spots: Spots, lang: string, packs?: SceneRefs['packs'
       all(c.delivery.line, `${here}.line`)
       c.delivery.says.forEach((t, j) => all(t, `${here}.says[${j}]`))
       c.delivery.waits.forEach((t, j) => all(t, `${here}.waits[${j}]`))
+      c.delivery.cold.forEach((t, j) => all(t, `${here}.cold[${j}]`))
     }
   }
   return errs
@@ -700,7 +707,7 @@ export function keeperTellings(k: Keeper, c?: SpotCycle): (KeeperTelling & { at:
     ...(c
       ? [
           ...c.stages.flatMap((st, i) => stage(st, `cycle.stages[${i}]`)),
-          ...(['rest', 'winter', 'lost'] as const).flatMap(x => (c[x] ? stage(c[x]!, `cycle.${x}`) : [])),
+          ...(['rest', 'winter', 'lost', 'waiting'] as const).flatMap(x => (c[x] ? stage(c[x]!, `cycle.${x}`) : [])),
           ...levels(c.meeting, 'cycle.meeting.'),
           ...c.greet.flatMap((g, j) => levels(g.levels, `cycle.greet[${j}].`)),
           ...levels(c.missed, 'cycle.missed.'),

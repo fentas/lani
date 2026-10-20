@@ -94,6 +94,60 @@ function numbersOf(n: any, introDone: boolean) {
   }
 }
 
+const AGES = ['OGENJ', 'TABOR', 'ZASELEK', 'VAS', 'TRG', 'MESTO']
+
+/**
+ * The village's hearths (GAME.md "Hearths"; the app's Hearths.kt, its numbers in Catalog): the centre's 🪵 a day by the
+ * age while it is the campfire (Ogenj, Tabor, Zaselek), then the fire ring's and the fire basket's; a hut's, a house's, the
+ * school's, the forge's where the land has no charcoal burner.
+ */
+const HEARTH_WOOD = { campfire: [2, 3, 1], centre: 1, HUT: 1, HOUSE: 2, SCHOOL: 1, SMITHY: 2 }
+
+/** The charcoal pile's 🪵 from the village's store, by age (Catalog.kopaWood: 15 % of the age's store, from Zaselek). */
+export function kopaWood(age: unknown): number {
+  const caps = [100, 200, 500, 800, 1200, 1800]
+  const i = Math.max(2, AGES.indexOf(typeof age === 'string' ? age : 'OGENJ'))
+  return Math.round((caps[i] * 0.15) / 5) * 5
+}
+
+/**
+ * Whether the village gives round [woodUntil] (the last day of its wood stages, days since 1970) of the charcoal pile its wood:
+ * a smithy stands and the day isn't before the village kept its hearths (hearths.since): the app's Hearths.waits.
+ */
+export function givesWood(s: any, woodUntil: number | undefined): boolean {
+  if (woodUntil === undefined || !(s?.buildings ?? []).some((b: any) => b?.type === 'SMITHY')) return false
+  const since = typeof s?.hearths?.since === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s.hearths.since) ? Math.round(Date.parse(`${s.hearths.since}T00:00:00Z`) / 86400000) : undefined
+  return since !== undefined && woodUntil >= since
+}
+
+/**
+ * The hearths as the tutor sees them: the centre's look by the age, how many are lit of all (the day's tick's: the hearths
+ * out for want of wood, blown out by the storm, a cold forge), the 🪵 they burn a day all lit, the days the store lasts, the
+ * smith's charcoal (until when, as the app's last tick saw it). [charcoal]: the land has a charcoal burner for the forge.
+ */
+function hearthsOf(s: any, charcoal: boolean) {
+  const age = AGES.indexOf(typeof s?.age === 'string' ? s.age : 'OGENJ')
+  const standing = (s?.buildings ?? []).filter((b: any) => b && !b.damaged && ['HUT', 'HOUSE', 'SCHOOL', 'SMITHY'].includes(b.type))
+  const centre = age >= 4 ? 'fire basket on the square' : age >= 3 ? 'stone fire ring with benches' : 'campfire'
+  const centreWood = age <= 2 ? HEARTH_WOOD.campfire[Math.max(0, age)] : HEARTH_WOOD.centre
+  const wood = centreWood + standing.reduce((n: number, b: any) => n + (b.type === 'SMITHY' && charcoal ? 0 : (HEARTH_WOOD as any)[b.type]), 0)
+  const h = s?.hearths && typeof s.hearths === 'object' ? s.hearths : undefined
+  const out: string[] = Array.isArray(h?.out) ? h.out.filter((x: unknown) => typeof x === 'string') : []
+  const all = standing.length + 1
+  const typeOf = (id: string) => (id === 'centre' ? 'centre' : (s?.buildings ?? []).find((b: any) => b?.id === id)?.type?.toLowerCase() ?? id)
+  const store = Number.isInteger(s?.resources?.WOOD) ? s.resources.WOOD : 0
+  return {
+    centre,
+    lit: Math.max(0, all - out.filter(id => id === 'centre' || standing.some((b: any) => b.id === id)).length),
+    all,
+    out: out.length ? out.map(typeOf) : undefined,
+    blown_out: Array.isArray(h?.blown) && h.blown.length ? h.blown.map(typeOf) : undefined,
+    wood_a_day: wood,
+    days_of_wood: wood > 0 ? Math.floor(store / wood) : undefined,
+    forge: standing.some((b: any) => b.type === 'SMITHY') ? (charcoal ? { on: 'charcoal', until: typeof h?.charcoal === 'string' && h.charcoal ? h.charcoal : undefined } : { on: 'wood' }) : undefined,
+  }
+}
+
 export class GameStore {
   private listeners: ((doc: GameDoc) => void)[] = []
 
@@ -130,7 +184,8 @@ export class GameStore {
     nameOf: (id: string) => string | undefined = () => undefined,
     calendar?: (kept: Record<string, unknown>) => unknown,
     lookedUp?: (sheet: unknown) => unknown[],
-    spots?: (cycles: Record<string, unknown>) => unknown,
+    spots?: (cycles: Record<string, unknown>, state: any) => unknown,
+    charcoal = false,
   ): string {
     const g = this.read()
     if (!g) return 'No village yet: Jan has not opened the game.'
@@ -156,6 +211,9 @@ export class GameStore {
         resources: s.resources,
         villagers: s.villagers,
         people,
+        // the hearths (GAME.md "Hearths": every hut, house, the school, the forge and the centre its own fire); fire is the
+        // old one-fire number an older app reads, written from the share lit
+        hearths: hearthsOf(s, charcoal),
         fire: s.fire,
         morale: s.morale,
         buildings: count,
@@ -188,7 +246,7 @@ export class GameStore {
         numbers: numbersOf(s.numbers, s.course?.units?.['sl/stevila']?.introDone === true),
         // the landscape's spots with a cycle today (the charcoal pile: its stage, the day of it, a breakout tonight, the
         // last delivery to the smith; spot-cycles.ts cyclesNow), given what the village keeps of them
-        spots: spots?.(s.cycles && typeof s.cycles === 'object' ? s.cycles : {}),
+        spots: spots?.(s.cycles && typeof s.cycles === 'object' ? s.cycles : {}, s),
         // the grammar pages looked up on the cheat sheet during exercises, the last two weeks (most first): work potential
         looked_up: looked.length ? looked : undefined,
         stats: s.stats,

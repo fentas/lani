@@ -17,6 +17,9 @@ export default async function game() {
   check('bad PUT /game body is a 400', (await fetch(`${base}/game`, { method: 'PUT', headers: auth, body: '{nope' })).status === 400)
   const village = await client.callTool({ name: 'get_village', arguments: {} })
   check('get_village summarises the village', JSON.stringify(village).includes('TABOR') && JSON.stringify(village).includes('TENT'))
+  // the hearths (GAME.md "Hearths"): the camp's campfire alone, all lit, its 3 🪵 a day, no wood in store (0 days)
+  const camp = JSON.parse(text(village)).hearths
+  check("get_village's hearths: the camp's campfire, lit, 3 🪵 a day", camp?.centre === 'campfire' && camp.lit === 1 && camp.all === 1 && camp.wood_a_day === 3 && camp.days_of_wood === 0, camp)
 
   const big = await sendChunked(`${base}/game`, 'PUT', auth, 600 * 1024)
   check('a chunked PUT /game over 512 KB is a 413', big.status === 413 || big.status === 0, big)

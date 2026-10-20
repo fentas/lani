@@ -19,16 +19,20 @@ export type CycleSpec = {
   season: { from: string; until: string }
   start?: number[]
   pause?: number[]
-  stages: { id: string; days?: number[]; art: string; delivers?: boolean; title?: Record<string, string> }[]
+  stages: { id: string; days?: number[]; art: string; delivers?: boolean; wood?: boolean; title?: Record<string, string> }[]
   rest?: { title?: Record<string, string>; art: string }
   winter?: { title?: Record<string, string>; art: string }
   lost?: { title?: Record<string, string>; art: string }
+  waiting?: { title?: Record<string, string>; art: string }
   breakout?: { stages: string[]; chance: number }
   delivery?: { to: string; days?: number }
 }
 
-/** What a village keeps of a spot's cycle (the app's GameState.cycles[spot]): rounds lost, saved, deliveries used. */
-export type CycleMarks = { lost?: string[]; saved?: string[]; used?: string[] }
+/**
+ * What a village keeps of a spot's cycle (the app's GameState.cycles[spot]): rounds lost, saved, deliveries used; the rounds
+ * the village gave its wood (stacked) and those not built for want of it (unbuilt: GAME.md "Hearths").
+ */
+export type CycleMarks = { lost?: string[]; saved?: string[]; used?: string[]; stacked?: string[]; unbuilt?: string[] }
 
 /** FNV-1a (32 bits) of [parts] joined by "|", unsigned: SpotCycles.hash. */
 export function hash(...parts: (string | number)[]): number {
@@ -57,7 +61,8 @@ const yearOf = (n: number) => Number(isoOf(n).slice(0, 4))
 const atYear = (md: string, year: number) => dayOf(`${year}-${md}`)
 
 export type Span = { index: number; id: string; from: number; until: number }
-export type Round = { key: string; year: number; n: number; spans: Span[]; breakout?: number; delivery?: number }
+/** A round: its stages' spans, the night it breaks out, the day it delivers, the days its wood comes from the village (woodFrom, woodUntil). */
+export type Round = { key: string; year: number; n: number; spans: Span[]; breakout?: number; delivery?: number; woodFrom?: number; woodUntil?: number }
 
 const cache = new WeakMap<CycleSpec, Map<string, Round[]>>()
 
@@ -90,7 +95,8 @@ export function rounds(c: CycleSpec, spot: string, year: number): Round[] {
         if (days.length) breakout = days[Math.min(days.length - 1, Math.floor(frac(seed, year, n, 'breakout-day') * days.length))]
       }
       const delivers = spans.find(s => c.stages[s.index].delivers)
-      out.push({ key: `${year}-${n}`, year, n, spans, breakout, delivery: delivers?.from })
+      const wood = spans.filter(s => c.stages[s.index].wood)
+      out.push({ key: `${year}-${n}`, year, n, spans, breakout, delivery: delivers?.from, woodFrom: wood[0]?.from, woodUntil: wood[wood.length - 1]?.until })
       d = spans[spans.length - 1].until + 1 + pick(c.pause ?? [3, 7], seed, year, n, 'pause')
     }
   }
@@ -98,10 +104,17 @@ export function rounds(c: CycleSpec, spot: string, year: number): Round[] {
   return out
 }
 
-/** Where a cycle is on a day (SpotCycles.on, CycleDay): its kind, the stage (or rest, winter, lost), the round, the day of it. */
-export type CycleDay = { date: string; kind: 'stage' | 'rest' | 'winter' | 'lost'; id: string; round?: string; day: number; days: number; breakout?: string; delivery?: string }
+/**
+ * Where a cycle is on a day (SpotCycles.on, CycleDay): its kind, the stage (or rest, winter, lost; its keeper waiting for the
+ * village's wood, a round not built for want of it), the round, the day of it.
+ */
+export type CycleDay = { date: string; kind: 'stage' | 'rest' | 'winter' | 'lost' | 'waiting' | 'unbuilt'; id: string; round?: string; day: number; days: number; breakout?: string; delivery?: string }
 
-export function on(c: CycleSpec, spot: string, iso: string, marks: CycleMarks = {}): CycleDay {
+/**
+ * [c] on day [iso] (SpotCycles.on), given what the village keeps of it ([marks]) and whether the village gives a round its
+ * wood ([waits]: a smithy stands, the round's wood days not over before the village kept its hearths: Hearths.waits).
+ */
+export function on(c: CycleSpec, spot: string, iso: string, marks: CycleMarks = {}, waits: (r: Round) => boolean = () => false): CycleDay {
   const date = dayOf(iso)
   const year = yearOf(date)
   const all = rounds(c, spot, year)
@@ -109,6 +122,14 @@ export function on(c: CycleSpec, spot: string, iso: string, marks: CycleMarks = 
     const span = r.spans.find(s => date >= s.from && date <= s.until)
     if (!span) continue
     const extra = { round: r.key, breakout: r.breakout !== undefined ? isoOf(r.breakout) : undefined, delivery: r.delivery !== undefined ? isoOf(r.delivery) : undefined }
+    if (r.woodFrom !== undefined && r.woodUntil !== undefined && date >= r.woodFrom) {
+      if (marks.unbuilt?.includes(r.key) && date > r.woodUntil) {
+        const last = r.spans[r.spans.length - 1].until
+        return { date: iso, kind: 'unbuilt', id: 'unbuilt', day: date - r.woodUntil - 1, days: last - r.woodUntil, ...extra }
+      }
+      if (date <= r.woodUntil && !marks.stacked?.includes(r.key) && !marks.unbuilt?.includes(r.key) && waits(r))
+        return { date: iso, kind: 'waiting', id: 'waiting', day: date - r.woodFrom, days: r.woodUntil - r.woodFrom + 1, ...extra }
+    }
     if (marks.lost?.includes(r.key) && r.breakout !== undefined && date >= r.breakout) {
       const last = r.spans[r.spans.length - 1].until
       return { date: iso, kind: 'lost', id: 'lost', day: date - r.breakout, days: last - r.breakout + 1, ...extra }
@@ -134,14 +155,22 @@ export function on(c: CycleSpec, spot: string, iso: string, marks: CycleMarks = 
  * title in the village's language and English), the day of it, the round, a breakout tonight or a round lost, and the
  * next stage; the last delivery and whether it came. [lang]: the village's language.
  */
-export function cyclesNow(spots: Record<string, { cycle?: CycleSpec; keeper?: { name: string } } | undefined>, iso: string, marksOf: (spot: string) => CycleMarks, lang: string) {
+export function cyclesNow(
+  spots: Record<string, { cycle?: CycleSpec; keeper?: { name: string } } | undefined>,
+  iso: string,
+  marksOf: (spot: string) => CycleMarks,
+  lang: string,
+  waitsFor: (spot: string, c: CycleSpec, r: Round) => boolean = () => false,
+  kopaWood?: number,
+) {
   const out: Record<string, unknown> = {}
   for (const [spot, s] of Object.entries(spots)) {
     const c = s?.cycle
     if (!c) continue
     const marks = marksOf(spot)
-    const d = on(c, spot, iso, marks)
-    const stage = d.kind === 'stage' ? c.stages.find(st => st.id === d.id) : d.kind === 'rest' ? c.rest : d.kind === 'winter' ? c.winter : c.lost
+    const d = on(c, spot, iso, marks, r => waitsFor(spot, c, r))
+    const stage =
+      d.kind === 'stage' ? c.stages.find(st => st.id === d.id) : d.kind === 'rest' || d.kind === 'unbuilt' ? c.rest : d.kind === 'winter' ? c.winter : d.kind === 'waiting' ? (c.waiting ?? c.stages.find(st => st.wood)) : c.lost
     const title = stage?.title
     const say = (t?: Record<string, string>) => (t ? (lang === 'en' ? t.en : `${t[lang] ?? t.en} · ${t.en}`) : undefined)
     // the next stage and when (within the round; else the next round's first)
@@ -157,8 +186,33 @@ export function cyclesNow(spots: Record<string, { cycle?: CycleSpec; keeper?: { 
       round: d.round,
       breakout_tonight: d.kind === 'stage' && d.breakout === iso && !(marks.lost?.includes(d.round!) || marks.saved?.includes(d.round!)) ? true : undefined,
       next: ahead ? { stage: ahead.sp.id, on: isoOf(ahead.sp.from) } : undefined,
-      last_delivery: last && c.delivery ? { on: isoOf(last.delivery!), to: c.delivery.to, came: !marks.lost?.includes(last.key) } : undefined,
+      last_delivery: last && c.delivery ? { on: isoOf(last.delivery!), to: c.delivery.to, came: !marks.lost?.includes(last.key) && !marks.unbuilt?.includes(last.key) } : undefined,
+      // the village's wood for the pile (GAME.md "Hearths"): waited for now, given, or the next round's coming
+      wood: woodOf(c, spot, today, marks, r => waitsFor(spot, c, r), kopaWood),
     }
   }
   return Object.keys(out).length ? out : undefined
+}
+
+/**
+ * The charcoal pile's wood from the village (GAME.md "Hearths"), for the tutor: the round whose wood days are on, else the
+ * next within a week: how much, the days, given (stacked) or waited for; a round not built for want of it lately. None when
+ * the village doesn't give it (no smithy) or the cycle takes none.
+ */
+function woodOf(c: CycleSpec, spot: string, today: number, marks: CycleMarks, waits: (r: Round) => boolean, amount?: number) {
+  if (!c.stages.some(st => st.wood)) return undefined
+  const all = [...rounds(c, spot, yearOf(today)), ...rounds(c, spot, yearOf(today) + 1)]
+  const r = all.find(r => r.woodUntil !== undefined && r.woodFrom !== undefined && r.woodUntil >= today && r.woodFrom - today <= 7)
+  const unbuilt = [...rounds(c, spot, yearOf(today) - 1), ...rounds(c, spot, yearOf(today))].filter(x => marks.unbuilt?.includes(x.key)).pop()
+  if (!r || !waits(r)) return unbuilt ? { unbuilt: unbuilt.key } : undefined
+  const given = marks.stacked?.includes(r.key) === true
+  return {
+    round: r.key,
+    amount,
+    from: isoOf(r.woodFrom!),
+    until: isoOf(r.woodUntil!),
+    given,
+    waiting: !given && today >= r.woodFrom! ? true : undefined,
+    unbuilt: unbuilt?.key,
+  }
 }

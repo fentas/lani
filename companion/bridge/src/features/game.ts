@@ -4,6 +4,7 @@ import { topicsLookedUp } from '../cards'
 import { ok } from '../tool'
 import { cultureFestivals, cultureSpots } from '../cultures'
 import { cyclesNow } from '../spot-cycles'
+import { givesWood, kopaWood } from '../game'
 import type { FeatureFactory } from '../feature'
 import { json, readText } from '../http'
 import { localDate } from '../rhythm'
@@ -35,6 +36,14 @@ the day of it, a breakout tonight (the learner's night watch: covered in time, o
 ash) and the last delivery to the smith (came or not: a pile burnt down brings none). The burner tells
 it in the app; you may mention it in a chat ("Miha's pile smokes blue: the charcoal is nearly done"),
 never decide it: the days follow from the calendar.
+get_village's hearths: every hut, house, the school and the forge has its own fire, and so has the
+centre (the campfire, from Vas the stone fire ring lit for the evening, from Trg the square's fire
+basket; a kres on feast evenings). Each day the hearths burn their wood (wood_a_day) and the ones on
+the edge go out first when it runs short (out, lit of all); the forge burns Miha's charcoal (until
+when). Miha's pile takes the village's wood once a round (spots.<pile>.wood: how much, the days, given
+or waiting); without it he waits, and a pile not built brings the smith no charcoal. When hearths are
+out or Miha waits, a listening round brings wood ("Miha is waiting for 120 wood for his pile: a
+listening drill would get it to him"). Never promise wood: the app pays it.
 Every age the village reaches is a celebration of its culture (companion/GAME.md "Ages and their
 celebrations"; Primorska: the first evening by the fire, the likof, the veselica, the semenj, the town's
 feast): get_village's grown has the day each age came and parties the day its party was had. That evening
@@ -87,7 +96,7 @@ export const game: FeatureFactory = ({ game, villagers, culture, cards, grammar 
     {
       name: 'get_village',
       description:
-        "Summary of the learner's village in the app's game: age, resources, buildings, who is here and met (people.known: all a scene, a request or a line may name) and who waits to be met (people.to_meet), active event, open quests (their module, tries, best try and pass mark, the grammar pages missed, the task a drill helps and task_passed once that task is passed: the drill is optional practice then), help (🤝, earned by helping villagers, spent on a moba), friends, the chest's tools and goods, the village projects (steps done; landmarks_down: finished ones whose landmark is down for the season now, as the maypole after May: not standing in the village or on its square), the calendar (the culture's days on now and the next, a quiet one marked: remembered, not celebrated), spots (the landscape's spots with work over real days, the charcoal pile: its stage today, the day of it, a breakout tonight, the last delivery to the smith), the school's course (the day the class began, the units done and in progress: get_course has the rest), numbers (the numbers module 🔢 Števila, once the unit stevila's intro is done: the ranges open, the newest one's last answers right of how many, 8 of the last 10 opening the next, the numbers missed coming back as asked, the runs), looked_up (the grammar pages Jan looked up on the cheat sheet during exercises in the last two weeks, most first: page, title, n answers given with one of its cards open, the last day; left out when none: work potential, get_course names their units), grown and parties (the day each age came, the day its party was had), recent chronicle.",
+        "Summary of the learner's village in the app's game: age, resources, buildings, the hearths (each hut, house, the school, the forge and the centre its own fire: lit of all, the ones out, the wood a day and the days the store lasts, the forge's charcoal), who is here and met (people.known: all a scene, a request or a line may name) and who waits to be met (people.to_meet), active event, open quests (their module, tries, best try and pass mark, the grammar pages missed, the task a drill helps and task_passed once that task is passed: the drill is optional practice then), help (🤝, earned by helping villagers, spent on a moba), friends, the chest's tools and goods, the village projects (steps done; landmarks_down: finished ones whose landmark is down for the season now, as the maypole after May: not standing in the village or on its square), the calendar (the culture's days on now and the next, a quiet one marked: remembered, not celebrated), spots (the landscape's spots with work over real days, the charcoal pile: its stage today, the day of it, a breakout tonight, the last delivery to the smith, the village's wood for it: given or waited for), the school's course (the day the class began, the units done and in progress: get_course has the rest), numbers (the numbers module 🔢 Števila, once the unit stevila's intro is done: the ranges open, the newest one's last answers right of how many, 8 of the last 10 opening the next, the numbers missed coming back as asked, the runs), looked_up (the grammar pages Jan looked up on the cheat sheet during exercises in the last two weeks, most first: page, title, n answers given with one of its cards open, the last day; left out when none: work potential, get_course names their units), grown and parties (the day each age came, the day its party was had), recent chronicle.",
       inputSchema: { type: 'object', properties: {} },
       // the calendar as the app has it today: the days on, the next, which are quiet (towns.ts calendarOn); what was looked
       // up on the cheat sheet, in its language (the village's)
@@ -96,7 +105,13 @@ export const game: FeatureFactory = ({ game, villagers, culture, cards, grammar 
         const spots = cultureSpots(culture.dir, culture.id)
         return ok(game.summary(
           id => villagers.get(id)?.name, kept => calendarOn(cultureFestivals(culture.dir, culture.id), today, kept), sheet => topicsLookedUp(sheet, cards.language, today, grammar.all()),
-          cycles => cyclesNow(spots, today, spot => ((cycles as Record<string, unknown>)[spot] ?? {}) as Record<string, string[]>, culture.manifest?.language ?? 'sl'),
+          (cycles, s) =>
+            cyclesNow(
+              spots, today, spot => ((cycles as Record<string, unknown>)[spot] ?? {}) as Record<string, string[]>, culture.manifest?.language ?? 'sl',
+              (_spot, _c, r) => givesWood(s, r.woodUntil), kopaWood(s?.age),
+            ),
+          // the forge burns charcoal where a spot's cycle brings it to the smith (Primorska's kopa), else wood
+          Object.values(spots).some(sp => sp?.cycle?.delivery),
         ))
       },
     },

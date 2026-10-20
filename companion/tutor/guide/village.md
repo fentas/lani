@@ -23,6 +23,14 @@ the day of it, a breakout tonight (the learner's night watch: covered in time, o
 ash) and the last delivery to the smith (came or not: a pile burnt down brings none). The burner tells
 it in the app; you may mention it in a chat ("Miha's pile smokes blue: the charcoal is nearly done"),
 never decide it: the days follow from the calendar.
+get_village's hearths: every hut, house, the school and the forge has its own fire, and so has the
+centre (the campfire, from Vas the stone fire ring lit for the evening, from Trg the square's fire
+basket; a kres on feast evenings). Each day the hearths burn their wood (wood_a_day) and the ones on
+the edge go out first when it runs short (out, lit of all); the forge burns Miha's charcoal (until
+when). Miha's pile takes the village's wood once a round (spots.<pile>.wood: how much, the days, given
+or waiting); without it he waits, and a pile not built brings the smith no charcoal. When hearths are
+out or Miha waits, a listening round brings wood ("Miha is waiting for 120 wood for his pile: a
+listening drill would get it to him"). Never promise wood: the app pays it.
 Every age the village reaches is a celebration of its culture (companion/GAME.md "Ages and their
 celebrations"; Primorska: the first evening by the fire, the likof, the veselica, the semenj, the town's
 feast): get_village's grown has the day each age came and parties the day its party was had. That evening
