@@ -79,6 +79,12 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        the fire's gathering), a villager's card then (their line, "🐺 Branimo vas!", no talk), wolves at
                        night (torches), the cheer after a won fight, the bear, a storm, the merchant's cart, a feast day;
                        also as react-*.png in $LANI_QA_REACT_SHOTS;
+                       "quests-threat" the requests during a threat and a drill whose task is passed, on a synthetic
+                       learner with Vinar Marko's wine request passed and the drill for it open (LANI_DEV_DATA): the map
+                       with the requests' bubbles, the wolves on (QA's hook "event:wolves/2") with none, the Scroll's
+                       villagers with them waiting ("🐺 Po volkovih"), Home's strip with "Branimo vas" first, the bubbles
+                       back after, Marko's card with the drill under Later ("✓ Naloga je opravljena: za vajo"); also as
+                       quests-*.png in $LANI_QA_QUESTS_SHOTS;
                        "bubbles-follow" the village's bubbles with their people (QA's hook "hour:11"): at home, dragged
                        so some are off screen, zoomed in and dragged, the edge chip ("‹ 🐑 2") tapped and its bubble on
                        screen then;
@@ -3599,6 +3605,102 @@ def reactions():
         qa_hook("show:")
         qa_hook("hour:")
         qa_hook("bubbles:")
+    return "; ".join(notes) or None
+
+
+TUTOR_REQUEST = ", prošnja od učitelja · request from your tutor"  # a tutor's request bubble's TalkBack label's end
+
+
+def request_bubbles() -> list[str]:
+    """The labels of the requests' bubbles on screen (a villager's own, the tutor's; not a village project's)."""
+    return [t for t, _ in nodes() if (t.endswith(REQUEST) and not PROJECT.search(t)) or t.endswith(TUTOR_REQUEST)]
+
+
+def quests_threat():
+    """The requests and the village's threats, and a drill whose task is passed (companion/GAME.md "People react", "A drill
+    before its task"; Jan, 2026-10-20). On a synthetic learner whose Vinar Marko has his wine request passed and the
+    tutor's drill for it ("Rdeč teran, sveže mleko") open, a new request of his and Kovač Tone's own (LANI_DEV_DATA): the
+    map by day with the requests' bubbles, none of them the drill's; wolves on (QA's hook "event:wolves/2"): the event's
+    bubble only, no request's; the Scroll's villagers with them waiting ("🐺 Po volkovih · After the wolves"); Home's strip
+    with "Branimo vas" first and the requests dim; the wolves gone ("event:"): the bubbles back as they were; Marko's card
+    with the drill under "📜 Kasneje · Later" ("✓ Naloga je opravljena: za vajo"). Each also as quests-<name>.png in
+    $LANI_QA_QUESTS_SHOTS when it's set. Nothing after: no event, the clock's hour."""
+    notes = []
+
+    def snap(name: str):
+        shot(f"quests-{name}")
+        if d := os.environ.get("LANI_QA_QUESTS_SHOTS"):
+            Path(d).mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], Path(d) / f"quests-{name}.png")
+
+    def settled() -> list[str]:
+        time.sleep(3 * slow())  # the bubbles pop in and glide to their people
+        return request_bubbles()
+
+    try:
+        qa_hook("event:")
+        qa_hook("hour:11")
+        plain_village()
+        calm = settled()
+        print(f"    calm: {len(calm)} request bubbles: {calm}")
+        assert calm, "the requests' bubbles by day"
+        assert not any("Rdeč teran" in t for t in calm), f"the drill whose task is passed has a bubble: {calm}"
+        snap("map-calm")
+
+        # wolves: the event's bubble, no request's
+        qa_hook("event:wolves/2")
+        plain_village()
+        wolves = settled()
+        assert not wolves, f"request bubbles while the wolves are about: {wolves}"
+        assert any(", dogodek · " in t for t, _ in nodes()), "the wolves' bubble"
+        snap("map-wolves")
+        # the Scroll's villagers: the requests listed, waiting for the wolves to pass
+        open_scroll()
+        scroll_card("Prebivalci · Villagers: ")
+        shot("quests-scroll-top")
+        if not scroll_to("Po volkovih", 6):
+            event = (api("/game").get("state") or {}).get("event")
+            raise AssertionError(f"the requests waiting in the scroll (🐺 Po volkovih · After the wolves); the dev bridge's event: {event}")
+        snap("scroll-wolves")
+        assert tap("Zapri · Close", 3), "the scroll's ✕"
+        time.sleep(1.2)
+
+        # Home's strip: the threat first, the requests dim and waiting
+        go_home()
+        if scroll_to("Vaščani te čakajo", 4):
+            adb("shell", "input", "swipe", "540", "1300", "540", "900", "400")  # the strip's cards whole on screen
+            time.sleep(1)
+            if not find("Branimo vas"):
+                notes.append("no «Branimo vas» on Home's strip")
+            snap("home-wolves")
+        else:
+            notes.append("no «Vaščani te čakajo» on Home")
+        to_top()
+        village()
+
+        # the wolves gone: the bubbles back as they were
+        qa_hook("event:")
+        plain_village()
+        after = settled()
+        print(f"    after: {len(after)} request bubbles")
+        assert sorted(after) == sorted(calm), f"the requests' bubbles after the wolves: {after} (before: {calm})"
+        snap("map-after")
+
+        # Marko's card: his new request up, the drill under Later as practice
+        marko = next((c for t, c in nodes() if "Trgatev" in t and (t.endswith(TUTOR_REQUEST) or t.endswith(REQUEST))), None)
+        if marko is not None:
+            tap_at(marko)
+        if not wait_for("Prosi te za pomoč", 5):
+            plain_village()
+            open_scroll()
+            scroll_card("Prebivalci · Villagers: ")
+            assert tap("Vinar Marko", 5), "Vinar Marko in the scroll"
+        assert wait_for("Prosi te za pomoč", 6), "Marko's card with his requests"
+        assert scroll_to("Naloga je opravljena", 3), "the drill under Later as practice (✓ Naloga je opravljena: za vajo)"
+        snap("marko-card")
+    finally:
+        qa_hook("event:")
+        qa_hook("hour:")
     return "; ".join(notes) or None
 
 
@@ -8018,6 +8120,7 @@ def plan():
         ("school-seats", school_seats, v, False, ""),
         ("village-life", village_life, v, False, ""),
         ("reactions", reactions, v, False, ""),
+        ("quests-threat", quests_threat, v, False, ""),
         ("friends", friends, h, True, "visit"),
         ("visit", visit_town, h, True, "visit"),
         ("visit-villager", visit_villager, h, True, "visit"),
