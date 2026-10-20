@@ -69,7 +69,9 @@ internal fun credit(s: GameState, gain: Map<Res, Int>): Pair<GameState, Map<Res,
     val credited = gain.mapValues { (r, n) -> n.coerceAtMost((caps.getValue(r) - s.res(r)).coerceAtLeast(0)) }
         .filterValues { it > 0 }
     val stats = s.stats.copy(totalEarned = s.stats.totalEarned.plusSaturated(credited))
-    return s.copy(resources = s.resources.sumWith(credited), stats = stats) to credited
+    val after = s.copy(resources = s.resources.sumWith(credited), stats = stats)
+    // wood brought in lights the hearths that went out today again (companion/GAME.md "Hearths")
+    return (if ((credited[Res.WOOD] ?: 0) > 0) Hearths.relight(after) else after) to credited
 }
 
 /** Lifetime totals only grow: they stop at Int.MAX_VALUE instead of wrapping to a negative number. */
@@ -93,22 +95,23 @@ internal class UpkeepReport {
     var cold = 0
     var joined = 0
     var left = 0
+    /** The chronicle's lines of the days (the charcoal pile's wood given, a pile not built). */
+    val news = ArrayList<Pair<String, String>>()
 }
 
 /**
- * One day of upkeep. From the fourth missed day on ([dayIndex] ≥ 3) villagers forage and
- * the fire smoulders: half the consumption and much smaller losses, so a long break is recoverable.
+ * One day of upkeep, of [date]. From the fourth missed day on ([dayIndex] ≥ 3) villagers forage and the hearths burn half
+ * (see [Hearths.day]): half the consumption and much smaller losses, so a long break is recoverable.
  */
-internal fun upkeepDay(s: GameState, dayIndex: Int, report: UpkeepReport): GameState {
-    val a = GameEngine.attributes(s)
+internal fun upkeepDay(s0: GameState, dayIndex: Int, report: UpkeepReport, date: LocalDate = isoDay(s0.lastTick)?.plusDays(1) ?: LocalDate.now()): GameState {
+    val a = GameEngine.attributes(s0)
     val soft = dayIndex >= 3
     val foodNeed = if (soft) ceil(a.foodUpkeep / 2.0).toInt() else a.foodUpkeep
-    val woodNeed = if (soft) ceil(a.woodUpkeep / 2.0).toInt() else a.woodUpkeep
-    val fed = s.res(Res.FOOD) >= foodNeed
-    val warm = s.res(Res.WOOD) >= woodNeed
-
-    val fire = if (warm) (s.fire + 10).coerceAtMost(100)
-    else (s.fire - if (soft) 5 else 15).coerceAtLeast(GameState.MIN_FIRE)
+    val fed = s0.res(Res.FOOD) >= foodNeed
+    // the hearths: their wood in order, the smith's charcoal, the charcoal pile's wood when it is due
+    val hearths = Hearths.day(s0, date, soft)
+    val s = hearths.state
+    report.news += hearths.news
 
     val target = moraleTarget(s)
     var morale = when {
@@ -116,7 +119,8 @@ internal fun upkeepDay(s: GameState, dayIndex: Int, report: UpkeepReport): GameS
         s.morale < target -> (s.morale + 5).coerceAtMost(target)
         else -> (s.morale - 2).coerceAtLeast(target) // festival glow fades slowly
     }
-    if (fire < 25) morale -= if (soft) 1 else 5
+    // the hearths out: their share of the village's
+    morale -= hearths.morale
     // A long break stops hurting at SOFT_MORALE_FLOOR: coming back must feel recoverable.
     morale = morale.coerceIn(0, 100)
     if (soft) morale = morale.coerceAtLeast(minOf(s.morale, SOFT_MORALE_FLOOR))
@@ -134,11 +138,9 @@ internal fun upkeepDay(s: GameState, dayIndex: Int, report: UpkeepReport): GameS
 
     report.days++
     if (!fed) report.hungry++
-    if (!warm) report.cold++
-    val resources = s.resources.sumWith(
-        mapOf(Res.FOOD to -foodNeed.coerceAtMost(s.res(Res.FOOD)), Res.WOOD to -woodNeed.coerceAtMost(s.res(Res.WOOD))),
-    )
-    return s.copy(resources = resources, fire = fire, morale = morale, villagers = villagers, lowMoraleDays = low)
+    if (hearths.cold) report.cold++
+    val resources = s.resources.sumWith(mapOf(Res.FOOD to -foodNeed.coerceAtMost(s.res(Res.FOOD))))
+    return s.copy(resources = resources, morale = morale, villagers = villagers, lowMoraleDays = low)
 }
 
 internal fun UpkeepReport.lines(): List<Pair<String, String>> = buildList {
@@ -148,4 +150,5 @@ internal fun UpkeepReport.lines(): List<Pair<String, String>> = buildList {
     if (cold > 0) add("🥶" to c.cold.bi("days" to cold))
     if (joined > 0) add("🧑" to c.joined.bi("n" to joined))
     if (left > 0) add("😢" to c.left.bi("n" to left))
+    addAll(news)
 }

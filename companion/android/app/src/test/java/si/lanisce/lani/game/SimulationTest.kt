@@ -48,8 +48,13 @@ import kotlin.random.Random
  * ([School.gate]): such an upgrade is no purchase until then, and a village waiting on it waits on learning, as one
  * waiting on words.
  *
- * Printed per day: age, words (and 🔩 rusty ones), resources/caps, villagers, morale, fire, events won/lost, friends
- * and 🤝, buildings and what was done (or what the player saves for and how much is missing).
+ * The hearths (GAME.md "Hearths"): every hut, house, the school and the centre burn their wood a day, the forge Oglar Miha's
+ * charcoal, whose pile takes the village's wood once a round (the player keeps it in its reserve once the HUD shows it
+ * coming); a learner who practises keeps them lit ([hearthLines]: each age's wood a day before and after, the pile's wood,
+ * the income and the days of buffer).
+ *
+ * Printed per day: age, words (and 🔩 rusty ones), resources/caps, villagers, morale, the hearths lit of all, events
+ * won/lost, friends and 🤝, buildings and what was done (or what the player saves for and how much is missing).
  */
 class SimulationTest {
     // --- the learner --------------------------------------------------------------------------
@@ -202,7 +207,7 @@ class SimulationTest {
 
     private data class Row(
         val day: Int, val active: Boolean, val age: Age, val words: Int, val res: Map<Res, Int>, val caps: Map<Res, Int>,
-        val buildings: List<Building>, val villagers: Int, val morale: Int, val fire: Int, val won: Int, val lost: Int,
+        val buildings: List<Building>, val villagers: Int, val morale: Int, val lit: Int, val hearths: Int, val won: Int, val lost: Int,
         val acts: List<String>,
         /** What the player saves for at the end of the day, how much is still missing, and how much is covered. */
         val target: String?, val shortfall: Int, val covered: Int,
@@ -216,6 +221,10 @@ class SimulationTest {
         val steps: Int = 0,
         /** Rusty words at the end of the day (their last review failed). */
         val rusty: Int = 0,
+        /** A hearth out for want of wood at the end of the day; the hearths' wood a day, all lit; the smith's charcoal (days). */
+        val short: Boolean = false,
+        val need: Int = 0,
+        val charcoal: Int? = null,
     ) {
         val capped get() = Res.entries.any { r -> res.getValue(r) >= caps.getValue(r) * 0.95 }
         /** Every store (nearly) full: nothing the village earns now is kept. */
@@ -264,16 +273,22 @@ class SimulationTest {
         private var news = false
         private var projectTries = 0
 
+        /** 🪵 that came in at each age (every source), and the charcoal pile's wood the village gave at each. */
+        val woodIn = mutableMapOf<Age, Int>()
+        val kopaPaid = mutableMapOf<Age, Int>()
+
         private fun credit(source: String, results: List<Pair<Res, Verdict>>) {
             val (n, got) = GameEngine.earn(s, results)
             s = n
             val m = income.getOrPut(source) { mutableMapOf() }
             got.forEach { (r, v) -> m[r] = (m[r] ?: 0) + v }
+            woodIn[s.age] = (woodIn[s.age] ?: 0) + (got[Res.WOOD] ?: 0)
         }
 
         private fun bonus(source: String, before: GameState) {
             val m = income.getOrPut(source) { mutableMapOf() }
             Res.entries.forEach { r -> (s.res(r) - before.res(r)).takeIf { it > 0 }?.let { m[r] = (m[r] ?: 0) + it } }
+            (s.res(Res.WOOD) - before.res(Res.WOOD)).takeIf { it > 0 }?.let { woodIn[s.age] = (woodIn[s.age] ?: 0) + it }
         }
 
         // --- the people ------------------------------------------------------------------------
@@ -347,7 +362,9 @@ class SimulationTest {
                 }
                 if (lastActive > 0 && day - lastActive > 3) gapReturns += day to villagersBefore
                 lastActive = day
+                val stacked = s.cycles["kopa"]?.stacked?.size ?: 0
                 s = GameEngine.tick(s, today, now, pool()).state
+                if ((s.cycles["kopa"]?.stacked?.size ?: 0) > stacked) kopaPaid[s.age] = (kopaPaid[s.age] ?: 0) + Catalog.kopaWood(s.age)
                 settle()
                 s = GameEngine.withTutorQuests(s, modules(day), now)
                 val acts = mutableListOf<String>()
@@ -682,7 +699,9 @@ class SimulationTest {
          */
         fun reserve(): Map<Res, Int> {
             val a = GameEngine.attributes(s)
-            var r: Map<Res, Int> = mapOf(Res.FOOD to a.foodUpkeep * 2, Res.WOOD to a.woodUpkeep * 2)
+            // the hearths' two days, and the charcoal pile's wood once the HUD shows it coming
+            val kopa = Hearths.kopaWood(s, today)?.takeIf { !it.paid }?.amount ?: 0
+            var r: Map<Res, Int> = mapOf(Res.FOOD to a.foodUpkeep * 2, Res.WOOD to a.woodUpkeep * 2 + kopa)
             val w = wanted()
             w.firstOrNull()?.let { r = r.sumWith(Catalog.spec(it).cost) }
             nextRule()?.let { rule ->
@@ -846,10 +865,11 @@ class SimulationTest {
             val t = target()
             return Row(
                 day, active, s.age, words, Res.entries.associateWith { s.res(it) }, GameEngine.attributes(s).caps,
-                s.buildings, s.villagers, s.morale, s.fire, s.stats.eventsWon, s.stats.eventsLost, acts,
+                s.buildings, s.villagers, s.morale, Hearths.lit(s, today).size, Hearths.of(s).size, s.stats.eventsWon, s.stats.eventsLost, acts,
                 t?.first, shortfall(goal()), goal().entries.sumOf { (r, n) -> minOf(n, s.res(r)) },
                 Bonds.friends(s), s.help, s.chest.goods.values.sum(), s.chest.tools.size, complete(),
                 news, s.projects.values.sum() + festivals + surprises + bought, rusty,
+                Hearths.short(s, today), Hearths.need(s), Hearths.charcoal(s, today),
             )
         }
 
@@ -908,14 +928,38 @@ class SimulationTest {
         /** Longest run of active days with every store (nearly) full: what the village earns is thrown away. */
         val fullStores get() = longest { it.full }
 
-        /** Active days after each gap until the village has no damage, food and wood for two days, a fire and its people. */
+        /**
+         * Active days after each gap until the village has no damage, food and wood for two days, every hearth lit that wood
+         * lights (none out for want of it) and its people.
+         */
         fun recovery(): List<Int> = gapReturns.map { (day, people) ->
             val after = active.filter { it.day >= day }
             after.indexOfFirst { r ->
-                val a = GameEngine.attributes(GameState(age = r.age, villagers = r.villagers))
+                val a = GameEngine.attributes(GameState(age = r.age, villagers = r.villagers, buildings = r.buildings))
                 r.buildings.none { it.damaged } && r.res.getValue(Res.FOOD) >= a.foodUpkeep * 2 &&
-                    r.res.getValue(Res.WOOD) >= a.woodUpkeep * 2 && r.fire >= 25 && r.villagers >= people
+                    r.res.getValue(Res.WOOD) >= a.woodUpkeep * 2 && !r.short && r.villagers >= people
             }.let { if (it < 0) 99 else it + 1 }
+        }
+
+        /** Active days with a hearth out for want of wood. */
+        val cold get() = active.count { it.short }
+
+        /**
+         * Each age's hearths: the days in it, the wood a day of its fire before the hearths (2 + age index) and of its hearths
+         * now (the mean, all lit), the charcoal pile's wood the village gave, the 🪵 that came in a day, the days the store
+         * lasted the hearths (the mean), the active days a hearth was out for want of wood.
+         */
+        fun hearthLines(): List<String> = Age.entries.mapNotNull { a ->
+            val days = rows.filter { it.age == a }
+            if (days.isEmpty()) return@mapNotNull null
+            val act = days.filter { it.active }
+            val need = days.map { it.need }.average()
+            val buffer = days.filter { it.need > 0 }.map { it.res.getValue(Res.WOOD).toDouble() / it.need }.average()
+            "%-7s %3d days: 🪵 a day %d before, %.1f now (%d–%d); pile %d🪵; in %.0f🪵 a day; buffer %.0f days; out for want of wood %d of %d active days; charcoal %s".format(
+                a, days.size, 2 + a.ordinal, need, days.minOf { it.need }, days.maxOf { it.need }, kopaPaid[a] ?: 0,
+                (woodIn[a] ?: 0).toDouble() / days.size, buffer, act.count { it.short }, act.size,
+                days.mapNotNull { it.charcoal }.let { if (it.isEmpty()) "-" else "${it.min()}–${it.max()}" },
+            )
         }
 
         fun print() {
@@ -926,16 +970,17 @@ class SimulationTest {
                     continue
                 }
                 println(
-                    "day %3d %-7s w%4d 🔩%-2d %s 👥%2d 😊%3d 🔥%3d ⚔️%d/%d 💞%d 🤝%3d 🧺%2d 🧰%d  🏠%2d %s  %s".format(
+                    "day %3d %-7s w%4d 🔩%-2d %s 👥%2d 😊%3d 🔥%2d/%-2d ⚔️%d/%d 💞%d 🤝%3d 🧺%2d 🧰%d  🏠%2d %s  %s".format(
                         r.day, r.age, r.words, r.rusty,
                         Res.entries.joinToString(" ") { "${it.emoji}%4d/%-4d".format(r.res[it], r.caps[it]) },
-                        r.villagers, r.morale, r.fire, r.won, r.lost, r.friends, r.help, r.goods, r.tools, r.buildings.size,
+                        r.villagers, r.morale, r.lit, r.hearths, r.won, r.lost, r.friends, r.help, r.goods, r.tools, r.buildings.size,
                         r.buildings.joinToString(",") { it.type.name.lowercase().take(4) + (if (it.level > 1) "${it.level}" else "") + if (it.damaged) "!" else "" },
                         r.acts.joinToString(" ").ifEmpty { (if (r.complete) "✔ " else "") + "… ${r.target} −${r.shortfall}" },
                     ),
                 )
             }
             println(summary())
+            hearthLines().forEach { println("hearths: $it") }
             println("income: " + income.entries.joinToString("; ") { (k, v) -> "$k " + Res.entries.filter { v.containsKey(it) }.joinToString(" ") { "${it.emoji}${v[it]}" } })
         }
 
@@ -945,6 +990,7 @@ class SimulationTest {
             " | projects ${Catalog.projects.count { Projects.finished(s, it) }} done (${s.projects.values.sum()} steps), complete " +
             Age.entries.mapNotNull { a -> rows.firstOrNull { it.complete && it.age == a }?.let { "${a.sl} ${it.day}" } }.joinToString(", ").ifEmpty { "-" } +
             " | surprises $surprises, festivals $festivals, bought $bought" +
+            " | hearths out for want of wood on $cold active days, piles ${s.cycles["kopa"]?.stacked?.size ?: 0} given wood, ${s.cycles["kopa"]?.unbuilt?.size ?: 0} not built" +
             " | rusty ${rows.maxOfOrNull { it.rusty } ?: 0} at most, $polished polished in $polishes sessions" +
             " | events ${s.stats.eventsWon}/${s.stats.eventsLost} | ${s.buildings.size} buildings, levels ${s.buildings.sumOf { it.level }}" +
             " | 🤝 ${s.stats.helpEarned} earned, ${s.stats.mobas} mobas | tools ${s.chest.tools.size}, forged ${s.chest.tools.values.sumOf { it.forged }} | friends ${Bonds.friends(s)}" +
@@ -974,6 +1020,8 @@ class SimulationTest {
             if (sim.nothingNew > 0) add("${sim.nothingNew} sessions in a row with nothing new")
             // the long ages: projects, the feast and the stalls keep a use for the stores; never every store full a week long
             if (sim.fullStores > Catalog.FEAST_EVERY_DAYS) add("${sim.fullStores} sessions in a row with every store full")
+            // a learner who practises keeps the village warm: no hearth out for want of wood on a day they play
+            if (sim.cold > 0) add("${sim.cold} sessions with a hearth out for want of wood")
         }
         assertTrue("${sim.summary()}: $problems", problems.isEmpty())
     }

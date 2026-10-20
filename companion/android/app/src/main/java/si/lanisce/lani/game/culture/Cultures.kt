@@ -579,6 +579,8 @@ object Cultures {
             c.rest?.let { stage("$where.rest", it, ranged = false) }
             c.winter?.let { stage("$where.winter", it, ranged = false) }
             c.lost?.let { stage("$where.lost", it, ranged = false) }
+            c.waiting?.let { stage("$where.waiting", it, ranged = false) }
+            if (c.stages.any { it.wood } && c.delivery == null) fail("$where.stages", "a stage takes the village's wood (\"wood\": true), but nothing is delivered for it (\"delivery\")")
             c.meeting?.let { levels("$where.meeting", it) }
             talks("$where.greet", c.greet)
             c.missed?.let { levels("$where.missed", it) }
@@ -607,6 +609,7 @@ object Cultures {
                 text("$where.delivery.line", d.line)
                 d.says.forEachIndexed { i, t -> text("$where.delivery.says[$i]", t) }
                 d.waits.forEachIndexed { i, t -> text("$where.delivery.waits[$i]", t) }
+                d.cold.forEachIndexed { i, t -> text("$where.delivery.cold[$i]", t) }
             }
         }
 

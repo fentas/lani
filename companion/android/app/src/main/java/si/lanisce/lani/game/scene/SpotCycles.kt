@@ -21,10 +21,18 @@ import java.util.concurrent.ConcurrentHashMap
 /**
  * What a village keeps of a spot's cycle ([GameState.cycles], by spot id), by round ("2026-1"): the rounds that burnt down
  * while the learner kept the night watch ([lost]), those they helped save ([saved]), and the deliveries whose yield the
- * smith has used ([used]: the charcoal burnt in a forging). The last [KEEP] of each. An older save has none.
+ * smith has used ([used]: the charcoal burnt in a forging); the rounds whose wood the village gave ([stacked]: its smithy's
+ * charcoal pile, companion/GAME.md "Hearths") and those it couldn't, so they weren't built ([unbuilt]). The last [KEEP] of
+ * each. An older save has none; an older bridge keeps them as they are.
  */
 @Serializable
-data class CycleMarks(val lost: List<String> = emptyList(), val saved: List<String> = emptyList(), val used: List<String> = emptyList()) {
+data class CycleMarks(
+    val lost: List<String> = emptyList(),
+    val saved: List<String> = emptyList(),
+    val used: List<String> = emptyList(),
+    val stacked: List<String> = emptyList(),
+    val unbuilt: List<String> = emptyList(),
+) {
     fun decided(round: String): Boolean = round in lost || round in saved
 
     companion object {
@@ -57,11 +65,18 @@ data class CycleRound(val key: String, val year: Int, val n: Int, val spans: Lis
     /** The day its yield is delivered (the first day of the stage that delivers), if one does. */
     val delivery: LocalDate? get() = spans.firstOrNull { it.stage.delivers }?.from
 
+    /** The days its wood comes from the village's store ([CycleStage.wood]: the first and the last), if any stage takes it. */
+    val woodFrom: LocalDate? get() = spans.firstOrNull { it.stage.wood }?.from
+    val woodUntil: LocalDate? get() = spans.lastOrNull { it.stage.wood }?.until
+
     operator fun contains(d: LocalDate): Boolean = !d.isBefore(from) && !d.isAfter(until)
 }
 
-/** What a cycle's day is: a stage of a round, the rest between rounds, the winter outside the season, a round lost. */
-enum class CycleKind { STAGE, REST, WINTER, LOST }
+/**
+ * What a cycle's day is: a stage of a round, the rest between rounds, the winter outside the season, a round lost; a day its
+ * keeper waits for the village's wood ([WAITING]: its wood stages unpaid), a round not built for want of it ([UNBUILT]).
+ */
+enum class CycleKind { STAGE, REST, WINTER, LOST, WAITING, UNBUILT }
 
 /**
  * Where a spot's cycle is on [date]: a [kind] of day, what shows ([shown]: the stage, else the cycle's rest, winter or lost
@@ -85,6 +100,8 @@ data class CycleDay(
         CycleKind.REST -> "rest"
         CycleKind.WINTER -> "winter"
         CycleKind.LOST -> "lost"
+        CycleKind.WAITING -> "waiting"
+        CycleKind.UNBUILT -> "unbuilt"
     }
 }
 
@@ -107,6 +124,9 @@ object SpotCycles {
 
     /** The most rounds a year has (a guard: a cycle of one-day stages in a long season). */
     const val MAX_ROUNDS = 24
+
+    /** How far the felled logs show while the keeper waits for the village's wood ([CycleKind.WAITING]): a few. */
+    const val WAITING_LOGS = 0.3f
 
     /** What the smith's forging saves in 🪵 while he has the round's charcoal ([charcoal]): a quarter. */
     const val CHARCOAL_SAVES = 0.25f
@@ -198,12 +218,29 @@ object SpotCycles {
     fun roundOn(c: SpotCycle, spot: String, date: LocalDate): CycleRound? = rounds(c, spot, date.year).firstOrNull { date in it }
 
     /**
-     * Where [c] is on [date], given what the village keeps of it ([marks]: a round lost burns from its breakout night on).
+     * Where [c] is on [date], given what the village keeps of it ([marks]: a round lost burns from its breakout night on; a
+     * round not built for want of the village's wood is bare from its wood stages on) and whether the village gives a round
+     * its wood ([waits]: its smithy, companion/GAME.md "Hearths"; [Hearths.waits]): then, while a round's wood stages are on
+     * and unpaid, its keeper waits ([CycleKind.WAITING]).
      */
-    fun on(c: SpotCycle, spot: String, date: LocalDate, marks: CycleMarks = CycleMarks()): CycleDay {
+    fun on(c: SpotCycle, spot: String, date: LocalDate, marks: CycleMarks = CycleMarks(), waits: (CycleRound) -> Boolean = { false }): CycleDay {
         val rounds = rounds(c, spot, date.year)
         for (r in rounds) {
             val span = r.spans.firstOrNull { date in it } ?: continue
+            val wf = r.woodFrom; val wu = r.woodUntil
+            if (wf != null && wu != null && !date.isBefore(wf)) {
+                if (r.key in marks.unbuilt && date.isAfter(wu)) {
+                    // the pile wasn't built: its ground bare (the rest's) until the round would have ended
+                    val day = ChronoUnit.DAYS.between(wu.plusDays(1), date).toInt()
+                    val days = (ChronoUnit.DAYS.between(wu.plusDays(1), r.until) + 1).toInt()
+                    return CycleDay(date, CycleKind.UNBUILT, c.rest, r, span, day, days, SpotLook(c.rest?.art ?: "empty", (day + 1f) / days))
+                }
+                if (!date.isAfter(wu) && r.key !in marks.stacked && r.key !in marks.unbuilt && waits(r)) {
+                    val day = ChronoUnit.DAYS.between(wf, date).toInt()
+                    val days = (ChronoUnit.DAYS.between(wf, wu) + 1).toInt()
+                    return CycleDay(date, CycleKind.WAITING, c.waiting ?: span.stage, r, span, day, days, SpotLook(c.waiting?.art ?: "logs", WAITING_LOGS))
+                }
+            }
             val b = r.breakout
             if (r.key in marks.lost && b != null && !date.isBefore(b)) {
                 val day = ChronoUnit.DAYS.between(b, date).toInt()
@@ -254,7 +291,12 @@ object SpotCycles {
         val from = maxOf(after.year, before.year - 1)
         return (from..before.year).flatMap { y -> rounds(c, spot, y) }.flatMap { r ->
             val lostFrom = r.breakout?.takeIf { r.key in marks.lost }
-            r.spans.filter { s -> s.until.isAfter(after) && s.until.isBefore(before) && (lostFrom == null || s.until.isBefore(lostFrom)) }
+            // a pile not built for want of wood: nothing of it from its wood stages on
+            val unbuiltFrom = r.woodFrom?.takeIf { r.key in marks.unbuilt }
+            r.spans.filter { s ->
+                s.until.isAfter(after) && s.until.isBefore(before) && (lostFrom == null || s.until.isBefore(lostFrom)) &&
+                    (unbuiltFrom == null || s.until.isBefore(unbuiltFrom))
+            }
         }
     }
 
@@ -272,13 +314,13 @@ object SpotCycles {
     /** How the app draws [spot] on [today] (QA's day, when it asks for one), when its culture gives it a cycle; null: as ever. */
     fun look(state: GameState?, spot: String, today: LocalDate, world: WorldFile = Cultures.current.world): SpotLook? {
         val c = world.spots[spot]?.cycle ?: return null
-        return on(c, spot, dayOf(today), marks(state, spot)).look
+        return on(c, spot, dayOf(today), marks(state, spot)) { si.lanisce.lani.game.Hearths.waits(state, c, it) }.look
     }
 
     /** Where [spot]'s cycle is on [today] (QA's day, when it asks for one); null when it has none. */
     fun day(state: GameState?, spot: String, today: LocalDate, world: WorldFile = Cultures.current.world): CycleDay? {
         val c = world.spots[spot]?.cycle ?: return null
-        return on(c, spot, dayOf(today), marks(state, spot))
+        return on(c, spot, dayOf(today), marks(state, spot)) { si.lanisce.lani.game.Hearths.waits(state, c, it) }
     }
 
     /** [state] with round [round] of [spot] marked [lost] or saved (once: a round decided stays as it was). */
@@ -296,14 +338,17 @@ object SpotCycles {
      */
     data class Yield(val spot: String, val round: String, val date: LocalDate, val delivery: CycleDelivery, val lost: Boolean)
 
-    /** The latest delivery of a spot whose receiver is [to] (the smith), as of [today], while it lasts; null: none. */
+    /**
+     * The latest delivery of a spot whose receiver is [to] (the smith), as of [today], while it lasts; null: none. A pile not
+     * built for want of the village's wood brought nothing and isn't one ([CycleMarks.unbuilt]).
+     */
     fun yieldFor(state: GameState?, to: String, today: LocalDate, world: WorldFile = Cultures.current.world): Yield? {
         val day = dayOf(today)
         return world.spots.mapNotNull { (spot, s) ->
             val c = s.cycle ?: return@mapNotNull null
             val d = c.delivery?.takeIf { it.to == to } ?: return@mapNotNull null
             val m = marks(state, spot)
-            deliveries(c, spot, day.minusDays(d.days - 1L), day).lastOrNull()?.let { (r, on) -> Yield(spot, r.key, on, d, r.key in m.lost) }
+            deliveries(c, spot, day.minusDays(d.days - 1L), day).lastOrNull { (r, _) -> r.key !in m.unbuilt }?.let { (r, on) -> Yield(spot, r.key, on, d, r.key in m.lost) }
         }.maxByOrNull { it.date }
     }
 
@@ -323,10 +368,21 @@ object SpotCycles {
      * [CycleDelivery.waits]), the day's pick; null when none is on.
      */
     fun says(state: GameState?, who: String, today: LocalDate, world: WorldFile = Cultures.current.world): Text? {
-        val y = yieldFor(state, who, today, world) ?: return null
+        val y = yieldFor(state, who, today, world) ?: return cold(state, who, today, world)
         val lines = if (y.lost) y.delivery.waits else y.delivery.says
         if (lines.isEmpty()) return null
         return lines[Math.floorMod(ChronoUnit.DAYS.between(y.date, dayOf(today)), lines.size.toLong()).toInt()]
+    }
+
+    /**
+     * What [who] says while his hearth is cold for want of a spot's yield (the smith's forge without charcoal: companion/GAME.md
+     * "Hearths"; [CycleDelivery.cold], the day's pick); null while it burns, or when none is said.
+     */
+    private fun cold(state: GameState?, who: String, today: LocalDate, world: WorldFile): Text? {
+        if (state == null) return null
+        val d = world.spots.values.firstNotNullOfOrNull { s -> s.cycle?.delivery?.takeIf { it.to == who } } ?: return null
+        if (d.cold.isEmpty() || si.lanisce.lani.game.Hearths.charcoal(state, today, world) != 0) return null
+        return d.cold[Math.floorMod(today.toEpochDay(), d.cold.size.toLong()).toInt()]
     }
 
     /**
@@ -340,7 +396,9 @@ object SpotCycles {
             val c = s.cycle ?: return@flatMap emptyList()
             val d = c.delivery?.takeIf { d -> state.residents.any { it.id == d.to } } ?: return@flatMap emptyList()
             val m = marks(state, spot)
-            deliveries(c, spot, maxOf(last.plusDays(1), today.minusDays(d.days.toLong())), today).filter { (r, _) -> r.key !in m.lost }.map { (s.emoji ?: "♨️") to d.line.bi() }
+            // a pile that came to the village's smith: not burnt down, and built with its wood (or before it gave any)
+            deliveries(c, spot, maxOf(last.plusDays(1), today.minusDays(d.days.toLong())), today)
+                .filter { (r, _) -> r.key !in m.lost && si.lanisce.lani.game.Hearths.delivers(state, spot, c, r) }.map { (s.emoji ?: "♨️") to d.line.bi() }
         }
     }
 

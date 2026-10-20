@@ -123,7 +123,8 @@ class GameEngineTest {
         assertEquals(650, a.caps[Res.FOOD]) // 500 at Zaselek + 150 from the hayrack
         assertEquals(500, a.caps[Res.STONE])
         assertEquals(6, a.foodUpkeep)
-        assertEquals(4, a.woodUpkeep)
+        // the hearths' wood (GAME.md "Hearths"): the hamlet's campfire alone (no hut or house has its own yet); it was 2 + age index
+        assertEquals(1, a.woodUpkeep)
     }
 
     @Test fun `repair costs half and restores the building`() {

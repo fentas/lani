@@ -284,7 +284,11 @@ data class GameState(
     val resources: Map<Res, Int> = emptyMap(),
     val buildings: List<Building> = emptyList(),
     val villagers: Int = 1,
-    /** Fire strength 0..100, fed by wood. Never below [MIN_FIRE], so the village can always recover. */
+    /**
+     * The fire of the village's one hearth before every building had its own (companion/GAME.md "Hearths"): 0..100. Kept and
+     * written for an older app or bridge, from the share of the hearths lit ([Hearths.fire]: 100 when all are lit, never
+     * below [MIN_FIRE]); read by nothing of this app's (the hearths are [hearths]).
+     */
     val fire: Int = 60,
     /** Morale 0..100: food, the linden tree, festivals. */
     val morale: Int = 60,
@@ -445,6 +449,12 @@ data class GameState(
      * is, and the bridge keeps it from an app that leaves it out (PUT /game), as the course.
      */
     val numbers: si.lanisce.lani.data.NumbersProgress? = null,
+    /**
+     * The village's hearths today (see [Hearths], companion/GAME.md "Hearths"): which went out for want of wood or were blown
+     * out by the storm, and the smith's charcoal. Null in a save from before the hearths: derived from the buildings and the
+     * wood until the next day's tick decides. An older app drops it (and derives it again here), an older bridge keeps it.
+     */
+    val hearths: HearthDay? = null,
 ) {
     fun res(r: Res): Int = resources[r] ?: 0
 

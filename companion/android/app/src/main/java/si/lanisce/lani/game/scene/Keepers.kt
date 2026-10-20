@@ -111,7 +111,7 @@ object Keepers {
         return world.spots.mapNotNull { (spot, s) ->
             s.keeper?.let { k ->
                 val marks = SpotCycles.marks(state, spot)
-                val day = s.cycle?.let { SpotCycles.on(it, spot, SpotCycles.dayOf(today), marks) }
+                val day = s.cycle?.let { c -> SpotCycles.on(c, spot, SpotCycles.dayOf(today), marks) { si.lanisce.lani.game.Hearths.waits(state, c, it) } }
                 ActiveKeeper(spot, k, cycle = s.cycle, day = day, marks = marks, time = tod, dawn = dawn, sky = sky, today = dayFor(s.cycle, today))
             }
         }.filter { a ->

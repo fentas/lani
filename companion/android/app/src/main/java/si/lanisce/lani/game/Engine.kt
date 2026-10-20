@@ -101,7 +101,7 @@ data class Attributes(
     val production: Map<Res, Float>,
     /** Daily food eaten. */
     val foodUpkeep: Int,
-    /** Daily wood burnt by the fire. */
+    /** Daily wood burnt by the hearths, all lit (see [Hearths.need]). */
     val woodUpkeep: Int,
 )
 
@@ -223,8 +223,16 @@ object GameEngine {
         val news = mutableListOf<Pair<String, String>>()
         if (days > 0) {
             val report = UpkeepReport()
-            repeat(days.coerceAtMost(MAX_CATCH_UP_DAYS.toLong()).toInt()) { s = upkeepDay(s, it, report) }
+            // the days caught up on are the last ones (a longer gap skips the first: the smith's charcoal piles still come)
+            val n = days.coerceAtMost(MAX_CATCH_UP_DAYS.toLong()).toInt()
+            if (days > n && last != null) s = Hearths.skipped(s, last.plusDays(1), today.minusDays(n.toLong()))
+            repeat(n) { s = upkeepDay(s, it, report, today.minusDays((n - 1 - it).toLong())) }
             news += report.lines()
+        }
+        // a village's first day with its hearths: they are decided now (a save from before them, a new village)
+        if (s.hearths == null) s = Hearths.day(s.copy(resources = s.resources), today, soft = false).state.let { d ->
+            // only what is lit: nothing is paid on a day already ticked (its wood was the old fire's)
+            d.copy(resources = s.resources, cycles = s.cycles, log = s.log)
         }
         if (newDay) s = s.copy(lastTick = today.toString(), answersToday = 0)
         if (isoDay(s.foundedOn) == null) s = s.copy(foundedOn = s.lastTick)
@@ -346,7 +354,7 @@ object GameEngine {
             },
             // Micka's recipe: the same meals from less (never below one a day for someone living here)
             foodUpkeep = ceil(state.villagers * 1.5 * (1.0 - tools.thrift.coerceIn(0f, 0.5f)) - 1e-6).toInt(),
-            woodUpkeep = 2 + state.age.ordinal,
+            woodUpkeep = Hearths.need(state),
         )
     }
 

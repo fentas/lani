@@ -114,7 +114,8 @@ internal object Events {
                 t.won.bi()
             } else {
                 loss = mapOf(Res.WOOD to share(Res.WOOD, 0.1f + 0.03f * str))
-                s = s.copy(fire = (s.fire - 20).coerceAtLeast(GameState.MIN_FIRE))
+                // the wind blows out hearths, the outlying first, until tomorrow (it was the fire −20: GAME.md "Hearths")
+                s = Hearths.blowOut(s, (str + 1) / 2)
                 damage(0.2f + 0.05f * str)
                 t.lost.bi()
             }

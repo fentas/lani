@@ -119,6 +119,33 @@ internal object Catalog {
         ),
     )
 
+    // --- the hearths (see Hearths, GAME.md "Hearths") ------------------------------------------------------------------
+
+    /** 🪵 a day of the campfire in the middle while it is the village's (Ogenj, Tabor, Zaselek): it was 2 + age index. */
+    val CAMPFIRE_WOOD = listOf(2, 3, 1)
+    /** 🪵 a day of the centre's evening fire from Vas: the fire ring, then the square's fire basket. */
+    const val CENTRE_WOOD = 1
+    /** 🪵 a day of a hut's open hearth, a house's stove and oven, the school's stove. */
+    const val HUT_WOOD = 1
+    const val HOUSE_WOOD = 2
+    const val SCHOOL_WOOD = 1
+    /** 🪵 a day of the forge where the land has no charcoal burner (else it burns charcoal). */
+    const val FORGE_WOOD = 2
+    /** Morale a day when every hearth is out (−6 × the share out); from the 4th missed day, this instead. */
+    const val HEARTH_MORALE = 6
+    const val HEARTH_MORALE_SOFT = 2
+    /** Days a pile's charcoal (and a new smithy's sacks) lasts beyond the next pile's coming: "about the cycle". */
+    const val CHARCOAL_MARGIN = 7
+    /** Days of the hearths' wood the store keeps when it gives the charcoal pile its wood. */
+    const val KOPA_KEEPS_DAYS = 2
+
+    /**
+     * 🪵 one charcoal pile takes from the village's store, by age: 15 % of the age's store (75 at Zaselek, the smithy's; 120,
+     * 180, 270 at Mesto): about a day or two of a committed learner's listening, a large share of a casual learner's.
+     */
+    fun kopaWood(age: Age): Int = (baseCap[age.coerceAtLeast(Age.ZASELEK).ordinal] * KOPA_SHARE / 5f).roundToInt() * 5
+    const val KOPA_SHARE = 0.15f
+
     /** The target level when the learner profile names none (and the app's default). */
     const val DEFAULT_TARGET = "B2"
 

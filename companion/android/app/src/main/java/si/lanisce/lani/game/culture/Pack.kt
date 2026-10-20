@@ -114,6 +114,11 @@ data class SpotCycle(
     val breakout: CycleBreakout? = null,
     val nights: List<CycleNight> = emptyList(),
     val delivery: CycleDelivery? = null,
+    /**
+     * While the keeper waits for the village's wood (its stages with [CycleStage.wood], the village's smithy to be fed:
+     * companion/GAME.md "Hearths"): his bubble, the spot card's line and his talks then; none: the stage's own.
+     */
+    val waiting: CycleStage? = null,
 )
 
 /** When a cycle's rounds go on each year: from day [from] ("04-20") until day [until] ("10-31"), both month-day. */
@@ -142,6 +147,11 @@ data class CycleStage(
     val delivers: Boolean = false,
     val talks: List<CycleTalk> = emptyList(),
     val done: kotlinx.serialization.json.JsonObject? = null,
+    /**
+     * The round's wood comes from the village's store in this stage (the charcoal pile's felling and stacking: companion/GAME.md
+     * "Hearths"), once a round, while the village has the smithy its yield goes to; until it is paid the keeper waits.
+     */
+    val wood: Boolean = false,
 )
 
 /**
@@ -193,6 +203,8 @@ data class CycleDelivery(
     val line: Text,
     val says: List<Text> = emptyList(),
     val waits: List<Text> = emptyList(),
+    /** What the receiver says while his hearth is cold for want of the yield (the forge without charcoal: companion/GAME.md "Hearths"). */
+    val cold: List<Text> = emptyList(),
 )
 
 /**
