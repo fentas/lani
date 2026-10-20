@@ -74,6 +74,11 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        a few at a place, a couple at the fire by day, a handful in the evening), and the field beside
                        the fire at the moments someone walks by it ($LANI_QA_FIELD_WALK, "h:mm[:ss],…"; "9:25,11:02,12:30"
                        when unset);
+                       "reactions" the people reacting to the village's events (QA's hooks "event:<kind>", "event:won",
+                       "hour:<h>", "show:<spot>"): wolves coming and there by day (the defenders in the gate, the lookout,
+                       the fire's gathering), a villager's card then (their line, "🐺 Branimo vas!", no talk), wolves at
+                       night (torches), the cheer after a won fight, the bear, a storm, the merchant's cart, a feast day;
+                       also as react-*.png in $LANI_QA_REACT_SHOTS;
                        "bubbles-follow" the village's bubbles with their people (QA's hook "hour:11"): at home, dragged
                        so some are off screen, zoomed in and dragged, the edge chip ("‹ 🐑 2") tapped and its bubble on
                        screen then;
@@ -3481,6 +3486,120 @@ def village_life():
         qa_hook("hour:")
         qa_hook("bubbles:")
     return None
+
+
+def reactions():
+    """The people react to the village's events (companion/GAME.md "People react"; QA's hooks "event:<kind>",
+    "event:won", "event:", with "hour:<h>" and "show:<spot>"): wolves about by day, first on their way (the children
+    running) and a little later there (the defenders in the gate, the lookout on the watchtower, the children, the old
+    and the innkeeper by the fire, the others home, a call over someone's head); a villager by the fire tapped (what they
+    say of it instead of their greeting, the card's "🐺 Branimo vas!", no talk); wolves at night (the torches); the cheer
+    after the fight won; the bear; a storm (going home in the rain); the merchant (some at his cart); a feast day (round
+    the fire, dancing, the harmonika). Each also as react-<name>.png in $LANI_QA_REACT_SHOTS when it's set. Nothing
+    after: no event ("event:"), the clock's hour."""
+    notes = []
+
+    def snap(name: str):
+        shot(f"react-{name}")
+        if d := os.environ.get("LANI_QA_REACT_SHOTS"):
+            Path(d).mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], Path(d) / f"react-{name}.png")
+
+    def ready(spot: str, hour: float, closer=True):
+        """No event, the village at [hour], the camera at [spot]: where the next one is seen coming."""
+        qa_hook("event:")
+        qa_hook(f"hour:{hour}")
+        plain_village()
+        look(spot, closer=closer)
+
+    def look(spot: str, wait=3.0, closer=True):
+        """The camera at [spot] ("fire", "threat", "cart"), closer once more: the people's faces."""
+        qa_hook(f"show:{spot}")
+        time.sleep(wait * slow())
+        if closer:
+            qa_hook("zoom")
+            time.sleep(wait * slow())
+
+    def calling(timeout=12.0) -> bool:
+        """Waits for someone's call over their head (the debug build's log, tag Shout); whether one came."""
+        adb("logcat", "-c")
+        end = time.time() + timeout * slow()
+        while time.time() < end:
+            if adb("logcat", "-d", "-s", "Shout:D", check=False).count("Shout") > 0:
+                time.sleep(1.0)  # popped in (an emulator's frames come slowly)
+                return True
+            time.sleep(0.3)
+        return False
+
+    try:
+        qa_hook("bubbles:2")  # the event's and one more: the people, not a crowd of bubbles
+        # wolves by day: on their way at first, there a little later (the walks take up to 45 s)
+        ready("fire", 10.5)
+        qa_hook("event:wolves/3")
+        time.sleep(3.5)  # a few seconds in: on their way
+        snap("wolves-coming")
+        time.sleep(45)
+        look("threat")
+        if not calling():
+            notes.append("no call over a head while the wolves were about")
+        snap("wolves-day")
+        # a defender at the gate: what he says of the wolves, the call to the run, no talk (the first whose card a tap on
+        # him opens: one behind the palisade's stakes may have the palisade's taken instead)
+        who = None
+        for name in ("Pastir Luka", "Kovač Tone", "Lovec Jože"):
+            if (c := clear_of_others(name)) is None:
+                continue
+            tap_at(c)
+            if wait_for("Branimo vas", 6):
+                who = name
+                break
+            plain_village()
+            look("threat")
+        assert who, "a defender's card with the call to the wolves' run"
+        assert find("Pogovori se") is None, f"{who}'s card offers a talk while the wolves are about"
+        snap("wolves-talk")
+        plain_village()
+        # at night: the torches
+        qa_hook("hour:21.8")
+        plain_village()
+        look("threat")
+        snap("wolves-night")
+        # the fight won: everyone up round the fire with the defenders, cheering
+        qa_hook("hour:10.5")
+        qa_hook("event:won")
+        plain_village()
+        time.sleep(40)
+        look("fire")
+        calling(8)
+        snap("won")
+        # the bear
+        ready("fire", 11.0, closer=False)
+        qa_hook("event:bear/2")
+        time.sleep(48)
+        look("threat")
+        snap("bear")
+        # a storm: home in the rain, a hat held
+        ready("fire", 11.0)
+        qa_hook("event:storm")
+        time.sleep(2)
+        snap("storm")
+        # the merchant: some at his cart
+        ready("cart", 10.5)
+        qa_hook("event:merchant")
+        time.sleep(48)
+        look("cart")
+        snap("merchant")
+        # a feast day: round the fire, dancing, the harmonika
+        ready("fire", 16.5)
+        qa_hook("event:festival")
+        time.sleep(48)
+        snap("festival")
+    finally:
+        qa_hook("event:")
+        qa_hook("show:")
+        qa_hook("hour:")
+        qa_hook("bubbles:")
+    return "; ".join(notes) or None
 
 
 def project_step():
@@ -7898,6 +8017,7 @@ def plan():
         ("school-scene", school_scene, v, False, ""),
         ("school-seats", school_seats, v, False, ""),
         ("village-life", village_life, v, False, ""),
+        ("reactions", reactions, v, False, ""),
         ("friends", friends, h, True, "visit"),
         ("visit", visit_town, h, True, "visit"),
         ("visit-villager", visit_villager, h, True, "visit"),
