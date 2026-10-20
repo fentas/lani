@@ -109,7 +109,7 @@ fun HearthsSheet(s: GameState, today: LocalDate, onGather: () -> Unit, onDismiss
                 }
             }
         }
-        Text("🪵 ${bi("hearths.woodDay", "wood" to v.wood)}" + (v.days?.let { " · ${bi("hearths.woodFor", "days" to it)}" } ?: ""), style = MaterialTheme.typography.bodyMedium)
+        Text(v.days?.let { bi("hearths.woodDayFor", "wood" to v.wood, "days" to it) } ?: bi("hearths.woodDay", "wood" to v.wood), style = MaterialTheme.typography.bodyMedium)
         v.kopa?.let { Text("🔥 $it", style = MaterialTheme.typography.bodyMedium, color = if (v.short) TriglavRed else MaterialTheme.colorScheme.onSurface) }
         Text(bi("hearths.note"), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
         BigButton("🎧 ${bi("common.gatherWood")}", onClick = onGather, color = if (v.short) FlameOrange else AlpineGreen)
