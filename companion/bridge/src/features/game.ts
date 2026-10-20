@@ -82,9 +82,10 @@ export const game: FeatureFactory = ({ game, villagers, culture, cards, grammar 
         // an app from before generated land doesn't know the village's land and would drop it (its next tick would then
         // mark it classic): the land stays as it was founded (GAME.md, "The land"); an app from before the school drops
         // the learner's course (companion/COURSE.md) the same way, and one from before the numbers module its numbers
-        // (companion/README.md "Numbers"): they stay as the newer app left them
+        // (companion/README.md "Numbers"), and one from before the hearths its hearths (GAME.md "Hearths": the first day it
+        // kept them, which piles count as given): they stay as the newer app left them
         const was = (current?.state ?? undefined) as Record<string, unknown> | null | undefined
-        const kept = Object.fromEntries((['land', 'course', 'numbers'] as const).flatMap(k => (was?.[k] !== undefined && r.data.state[k] === undefined ? [[k, was[k]]] : [])))
+        const kept = Object.fromEntries((['land', 'course', 'numbers', 'hearths'] as const).flatMap(k => (was?.[k] !== undefined && r.data.state[k] === undefined ? [[k, was[k]]] : [])))
         const state = Object.keys(kept).length ? { ...r.data.state, ...kept } : r.data.state
         const next = { rev: r.data.rev + 1, state }
         game.write(next)

@@ -46,10 +46,13 @@ export default async function game() {
   // numbers missed coming back), nothing before
   const numbers = { v: 1, opened: { tens: '2026-10-18' }, last: { tens: '1101111' }, again: [{ n: 27, mode: 'write', due: '2026-10-19', box: 0 }, { n: 530, mode: 'time_hear', due: '2026-10-20', box: 1 }], runs: 4, day: '2026-10-19' }
   const course = { v: 1, units: { 'sl/stevila': { intro: 6, introDone: true } } }
-  const withNumbers = await put(rev + 2, { age: 'ZASELEK', buildings: [], course, numbers })
+  const hearths = { on: '2026-10-20', out: [], since: '2026-10-20' }
+  const withNumbers = await put(rev + 2, { age: 'ZASELEK', buildings: [], course, numbers, hearths })
   const olderApp = await put(rev + 3, { age: 'ZASELEK', buildings: [], course })
   const keptNumbers = await (await fetch(`${base}/game`, { headers: auth })).json()
   check("PUT /game keeps the learner's numbers when an older app's state leaves them out", withNumbers.ok && olderApp.ok && keptNumbers.state.numbers?.runs === 4 && keptNumbers.state.numbers?.opened?.tens === '2026-10-18', keptNumbers.state.numbers)
+  // … and the village's hearths (GAME.md "Hearths": the first day it kept them, which piles count as given)
+  check("PUT /game keeps the village's hearths when an older app's state leaves them out", keptNumbers.state.hearths?.since === '2026-10-20', keptNumbers.state.hearths)
   const nv = JSON.parse(text(await client.callTool({ name: 'get_village', arguments: {} }))).numbers
   check(
     "get_village shows the numbers: the ranges open, the newest one's last answers, the numbers missed as asked",
