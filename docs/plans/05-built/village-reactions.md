@@ -76,4 +76,5 @@ left.
 - A visit's guest card (`VisitScreen.GuestCard`) greets as before (it has no state of the host's to read).
 - The free talk with the tutor isn't told about the event: during wolves, a bear or a storm the card hides it; at the
   merchant's and a feast day it runs as before.
-- The requests stay up during a threat (the learner's work); their givers shelter like everyone else.
+- ~~The requests stay up during a threat~~: since quests-threat they fold away until it's over, waiting in the Scroll and
+  on the cards (docs/plans/05-built/quests-threat.md).

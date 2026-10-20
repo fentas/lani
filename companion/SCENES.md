@@ -1517,8 +1517,8 @@ at card size).
 ### Bubbles in the village
 
 `TownMarkers.of` lists what the village shows: the event (wolves and the bear in the forest, the
-merchant at the market, the festival under the linden tree; while wolves, a bear or a storm are about only the event and
-the requests: GAME.md "People react"), who joined the village and waits to be met at their home
+merchant at the market, the festival under the linden tree; while wolves, a bear or a storm are about only the event, the
+requests waiting in the Scroll: GAME.md "People react"), who joined the village and waits to be met at their home
 (🧳, 👶 a baby: VILLAGERS.md, "Arrivals"), each open quest at its giver's place
 (Babica Micka at a house or hut, Pastir Luka in the forest, Kovač Tone at the smithy, … else by the
 fire), and each happening at its scene's place.

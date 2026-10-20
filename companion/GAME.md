@@ -644,19 +644,29 @@ their own. The bridge doesn't read it.
 **The everyday talks wait** while wolves, a bear or a storm are about (`Reactions.quiet`): no happening, no storyteller's
 story (nor its teaser), no meeting with who joined, no keeper's talk (in a storm the charcoal burner stays: his talks know
 the rain), no class's lesson, no «Vidim, vidim», no stranger at the road (he is in at the inn), no bubble of the day's
-surprise, a project, a festival or today's visitor. The map shows the event's bubble and the requests' (the learner's
-work stays, in the scroll and on the cards; so does the day's surprise, a tap away from the HUD and Home). They are deferred, never lost: a dialog that was due is due when it's over (`DialogVariants` picks the
-same), and a meeting waits. A villager's card has the event's run a tap away instead of the talk ("🐺 Branimo vas! ·
+surprise, a project, a festival or today's visitor. The map shows the event's bubble only (the day's surprise stays a
+tap away from the HUD and Home). They are deferred, never lost: a dialog that was due is due when it's over
+(`DialogVariants` picks the same), and a meeting waits.
+
+**The requests fold away** too (Jan, 2026-10-20: "And they overrule the current wolf event?"): `QuestQueue.of` with the
+event puts none up (`Why.Danger`), so no request bubble on the map, no request marker in a scene, no tap on someone there
+straight into one, no "!" on the register's cards. The learner's work stays: the Scroll's villagers and the villager's card
+list them under "📜 Kasneje · Later", first of each villager's, "🐺 Po volkovih · After the wolves" ("🐻 Po medvedu · After
+the bear", "⛈️ Po nevihti · After the storm"), each a tap away as ever; Home's "Vaščani te čakajo" has the threat first
+("🐺 Branimo vas! · Defend the village!" in red, the event's leader's portrait, a tap its run; `HomeLogic.threatNeed`), then
+the requests dim and waiting. Only what shows changes: no try, nothing of theirs is touched, and when it's over they are up
+again as they were. The merchant and a feast day hold nothing back. A villager's card has the event's run a tap away instead of the talk ("🐺 Branimo vas! ·
 Defend the village!", red; the event's title without a reactions file); at the merchant's and a feast day it's there
 beside the talk. The scenes show who the reaction has there: by the fire the children and the old, up the watchtower its
 lookout, nobody in the field. The merchant and a feast day keep nobody from their day.
 
-QA: the step `reactions` (companion/bin/qa; QA's hooks `event:<kind>`, `event:won`, `event:lost`, `event:`). Tests:
+QA: the steps `reactions` and `quests-threat` (companion/bin/qa; QA's hooks `event:<kind>`, `event:won`, `event:lost`,
+`event:`). Tests:
 `ReactionsTest` (who does what for each event and after, nobody and no way within reach of the animals second by second
 as they come, the walks and the children running, the storm's dashes and washing, the cart's few, the feast, the cheer,
 the repair, the lines, the packs' files, the frame budget with wolves on, snapshots 70-77), `ReactionTalksTest` (no
 everyday talk during a threat or a storm, all of it back after with the dialog that was due, the map's bubbles, the
-burner, the greetings, the scenes).
+requests folded away and back as they were, Home's strip, the burner, the greetings, the scenes).
 
 ## Challenges
 
@@ -698,7 +708,8 @@ A villager can have more requests than Jan can take in: their own, and the tutor
   task of the tutor's that comes back from its drill, then the tutor's newest. The rest wait in the scroll's villagers
   under "📜 Kasneje · Later", after the requests that are up, each villager's together and in the order they come up, with why
   ("🕰️ Čaka na vrsto · Waits its turn"). They come up as those are done. Any request opens from "Later" and from the
-  villager's card, where they are listed dim under the ones up.
+  villager's card, where they are listed dim under the ones up. While wolves, a bear or a storm are about none is up: they
+  all wait, "🐺 Po volkovih · After the wolves" (see "People react").
 - **A drill before its task.** When the tutor adds a smaller drill for a task Jan keeps failing (same villager: the drill's
   quest block names the task's module, `helps`), the task waits in "Later" behind the drill: "⏸️ Najprej · First: Kam? Na
   tržnico!". Once the drill is passed, the task comes back, first among the tutor's. Without `helps` (an older bridge drops
@@ -706,6 +717,18 @@ A villager can have more requests than Jan can take in: their own, and the tutor
   open task of the tutor's, and a grammar page that lists both modules (the book's pages and the pages their exercises
   name). A full module on a rule another one touches (the dual after "imeti in iti") is no drill. A link found is kept
   (`Quest.helps`); two requests that name each other wait for neither.
+- **A drill whose task is passed** is practice (Jan, 2026-10-20: "I did it for Vinar Marko, but it's still there with the
+  exclamation": the wine request passed 7/11 while the drill published that morning for it, "Rdeč teran, sveže mleko",
+  kept its "!"). Once the task its `helps` names is passed, the drill waits in "Later" with "✓ Naloga je opravljena: za
+  vajo · The task is done: for practice" (`QuestQueue.spentFor`, `Why.Spent`): no bubble on the map, no marker in a scene,
+  not one of the two up; still played from "Later" and the villager's card, it counts its tries, and passed all the same
+  it's done as any request. The task is the request `helps` names by its module, its id, or the module of a tutor's
+  request id of another version (`tutor-<module>-v<n>`, `QuestQueue.names`); passed means one of them done and none open
+  (a new version of the task published, open, puts the drill first again). A passed request is the village's quest with
+  `done` (the tutor's stay while their module is published, the villagers' own go at the next tick); one an open drill
+  names stays while that drill is open (`QuestQueue.helpedByOpen`: also when its module is retired or published anew, or
+  a villager's own request passed), so the drill doesn't ask again. A drill whose task the village never had (not
+  published yet) is an ordinary request.
 - **How close.** Every run of a request counts as a try (`Quest.tries`), and the best try is kept (`best` of `bestOf`,
   the best share of right answers). Its row on the card and in the Scroll, its intro and its result say it: "🎯 Najboljše
   7/12 · potrebuješ 8 · Best 7/12, you need 8  🔁 3 poskusi · 3 tries". A request not tried yet says nothing; its intro
@@ -720,8 +743,9 @@ A villager can have more requests than Jan can take in: their own, and the tutor
   is asked and the next; it still expires three days after it was asked, and the villager asks something new on a later
   day. Started once, it stays up. The tent's move never waits by age, nor does a request asked before the app counted
   tries (it may have been started).
-- **For the tutor**, `get_village` lists each open request's module, tries, best try, pass mark, the pages missed and the
-  task a drill helps.
+- **For the tutor**, `get_village` lists each open request's module, tries, best try, pass mark, the pages missed, the
+  task a drill helps, and `task_passed` on a drill whose task is passed already (practice now). `publish_module` says so
+  too when the drill's task is passed ("the app shows this drill as optional practice").
 
 ### The tent moves to the pond
 
