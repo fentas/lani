@@ -558,11 +558,74 @@ What changed in the properties, and why: "complete" now counts the project steps
 
 - The engine applies upkeep once for each calendar day since `lastTick`, for at most 14 days. Days are dates, so month ends, leap days and summer time do not matter. A second tick on the same day changes nothing. The first tick only records the day (and `foundedOn`).
 - If the date goes back by one day (a time zone change), the tick waits for the date to catch up. If it goes back by more (the phone clock was set far ahead at the last tick), the village starts again from today: no upkeep for the jump, and dates and deadlines set in the future come back to today. An unreadable date counts as a first tick.
-- Villagers eat ⌈1.5 × villagers⌉ 🌾 each day, less with Micka's recipe (see "The chest"). The fire burns 2 + age index 🪵 each day.
-- If there is enough wood, fire +10. If not, fire −15. The fire never goes below 10.
-- If there is enough food, morale moves 5 per day toward its target (50 + linden, well and church bonuses, + Anton's candles and the children's keepsakes, at most 100). Morale above the target (after a festival or a feast) goes down by 2 per day. If there is not enough food, morale −10. If the fire is below 25, morale −5.
+- Villagers eat ⌈1.5 × villagers⌉ 🌾 each day, less with Micka's recipe (see "The chest"). The village's hearths burn their wood (see "Hearths"): each lit hearth its own, the forge its charcoal.
+- If there is enough food, morale moves 5 per day toward its target (50 + linden, well and church bonuses, + Anton's candles and the children's keepsakes, at most 100). Morale above the target (after a festival or a feast) goes down by 2 per day. If there is not enough food, morale −10. Hearths out cost morale by their share (see "Hearths").
 - If morale stays below 25 for 3 days, a villager leaves. The village always keeps at least 1 villager. If there is enough food and morale is 50 or more, a villager joins, up to the population cap.
 - From the 4th missed day, the rules are gentler: consumption is halved, penalties are smaller, and morale does not go below 30. Upkeep never destroys buildings.
+
+## Hearths
+
+Until October 2026 the village had one fire in the middle at every age, a number from 10 to 100 that burnt 2 + age
+index 🪵 a day. Jan asked whether it ever goes away: "The fire in the middle would be exchanged with every house plus the
+smithy, no? So the HUD would be substituted depending on the buildings?" Now every building with a hearth has its own
+fire (`game/Hearths.kt`, pure; the numbers in `Catalog`), and the village's warmth moves into its houses as they are
+built: chimney smoke by day, warm windows at night, the forge's glow. A hearth is lit or out for the day.
+
+**The hearths** (`Hearths.of`):
+
+| Hearth | Where | 🪵 a day | On the map |
+|---|---|---|---|
+| 🔥 The campfire (the centre) | Ogenj, Tabor, Zaselek | 2, 3, 2 | the open fire in its ring of stones, burning all day; at Ogenj and Tabor the only hearth, and it never goes out quite: without wood it smoulders |
+| 🔥 The fire ring (the centre) | Vas | 1 | a wider ring of stones with benches round it, lit for the evening's gathering (the storyteller, the evening by the fire, a party, the wolves at night, a cheer after a fight); by day a quiet ember |
+| 🔥 The fire basket (the centre) | Trg, Mesto | 1 | an iron basket on legs in the middle of the cobbled square, lit in the evening; at Mesto lanterns round the square; on a feast evening the kres, a big bonfire (its wood is in the feast's price) |
+| 🛖 A hut | from Tabor | 1 | its open hearth's smoke through the roof (by its chimney from level 2) |
+| 🏠 A house | from Zaselek | 2 | the kitchen's stove and the bread oven: smoke from the chimney |
+| 🏫 The school | from Zaselek | 2 | the classroom's stove |
+| ⚒️ The forge | from Zaselek | charcoal | the forge's glow, the sparks over its chimney; on Oglar Miha's charcoal (see below); a culture without a charcoal burner feeds it 2 🪵 |
+
+The tent, the field, the well, the hayrack, the bee house, the palisade, the watchtower, the linden, the church (unheated:
+candles) and the market have none; the tent's people sit at the campfire. A damaged building's hearth is cold and doesn't
+count until it is repaired. The village has no inn or bakery: Vida's inn is her house, the bread is baked in the houses.
+
+**The centre changes with the ages, and stays the centre.** Everything that walks people "to the fire" or happens there
+(the evening by the fire, the storyteller, the class before the school, a party, the people's reactions, a feast, «Vidim,
+vidim», the scene "Ob ognju") keeps its place in the middle of the village (`TownPlace.Fire`, the place key `fire`): the
+campfire, then the fire ring, then the square's fire basket. Its name follows (`Hearths.centreName`): "Ogenj · The
+campfire" ("ob ognju · by the fire"), "Ognjišče · The fire ring" ("ob ognjišču · by the fire ring"), "Žerjavnica · The fire
+basket" ("na trgu · on the square").
+
+**Wood a day and the order they go out.** The day's tick pays the hearths from the store one after another, the heart of
+the village first: the campfire (Ogenj to Zaselek), the school, then the houses and huts from the one nearest the centre
+out; from Vas the centre's evening fire last (the village gives up its gathering fire before a home). The first hearth the
+store can't pay goes out, and every one after it: when wood runs short the gathering fire and the outlying huts go out
+first, visibly (no smoke, dark windows at night). The forge goes by its own rule, its charcoal, so it is the last to go
+cold. Wood that comes in later the same day lights the hearths that went out again, in the same order, as far as it pays
+their day (`Hearths.relight`). From the 4th missed day each hearth burns half.
+
+**Morale** follows the share of hearths lit: −6 × the share out a day (−1 for one hearth of six, −6 when all are out;
+from the 4th missed day −2 × the share). It replaces "the fire below 25: −5".
+
+**The forge burns charcoal, and the charcoal costs wood.** Kovač Tone's forge burns a day of charcoal a day
+(`HearthDay.charcoal`, days of it in the smith's shed): a new smithy comes with 30 days (Tone brings sacks from the
+valley), each pile of Oglar Miha's brings 100 more (the shed holds 250: the season's last pile carries the forge through
+the winter, when there is none), and without charcoal the forge goes cold. Building a pile takes the village's wood: the
+stages that use it (`wood: true`: felling and stacking, 4 to 6 days) take the pile's wood from the store once, 100 🪵 at
+Zaselek, 150 at Vas, 200 at Trg, 250 at Mesto (`Catalog.kopaWood`: about a day or two of a committed learner's
+listening, a large share of a casual learner's): on the first of those days the store can pay it and still keep two days
+of the hearths' wood. Until then Miha waits (his bubble and his card say so, his talk is the `waiting` entry's, the HUD's
+sheet shows the need); if those days pass unpaid, that pile isn't built (the pile's ground stays bare until the next, no
+delivery, no charcoal: `GameState.cycles[spot].unbuilt`; paid: `stacked`). Only while the village has a smithy: before
+it, Miha burns his own wood and his charcoal goes to Gorizia.
+
+**The HUD.** The settlement's 🔥 tile is the hearths: "🔥 6/7" lit of all, with a thin bar, red and pulsing while one is
+out for want of wood. Its sheet lists every hearth (lit or out, its wood a day), the forge ("na oglje · on charcoal, še 186
+dni · 186 days left"), the wood a day, the days the store lasts, and Miha's pile when its wood is due. The goal's card
+says "Ognjišča ugašajo · Hearths are going out" (gather wood) instead of "the fire dying".
+
+**Saved villages.** No migration: a village saved before the hearths derives them from its buildings and its wood (all
+lit that the store can pay a day of), and the smith's charcoal from the smithy's age and the piles since (as if the
+village had paid their wood); the piles whose wood was due before its first day with hearths count as paid. The old
+`fire` field stays, written for an older app or bridge: 10 + 90 × the share lit (100 when all are lit).
 
 ## Events
 
@@ -588,7 +651,7 @@ What changed in the properties, and why: "complete" now counts the project steps
 |---|---|---|---|---|
 | 🐺 Volkovi · Wolves | 🪨 grammar | 75 % − defence/2 %, 40–80 % | 8×str 🪨, 6×str 🌾 | lose (6 + 3×str) % of 🌾 and 🪵, morale −5, chance to damage a building |
 | 🐻 Medved · Bear (Zaselek or later) | 🪨 grammar | 80 % − defence/2 %, 45–85 % | 1.5× the wolf loot | 1.5× the wolf losses, higher chance of damage |
-| ⛈️ Nevihta · Storm (only if the phone can speak) | 🪵 listening | 60 % | 12×str 🪵 | lose (10 + 3×str) % of 🪵, fire −20, chance of damage |
+| ⛈️ Nevihta · Storm (only if the phone can speak) | 🪵 listening | 60 % | 12×str 🪵 | lose (10 + 3×str) % of 🪵, the wind blows out ⌈str/2⌉ hearths (the outlying first) until the next day, chance of damage |
 | 🧳 Trgovec · Merchant | 📜 wisdom | 60 % | trade up to 15×str of the largest stock for 2× (market: 2.5×; Vida's scales: +25 %) of the scarcest resource, never more than its store can take. While he is in the village he also buys goods (see "The chest"). | nothing is lost |
 | 🎉 Praznik · Festival (morale 60 or more) | 🌾 vocabulary | 50 % | morale +15, 10×str 🌾, 5×str 📜 | morale +5, 5×str 🌾 (expired: morale +3) |
 
