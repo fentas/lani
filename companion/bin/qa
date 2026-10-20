@@ -85,6 +85,13 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        villagers with them waiting ("🐺 Po volkovih"), Home's strip with "Branimo vas" first, the bubbles
                        back after, Marko's card with the drill under Later ("✓ Naloga je opravljena: za vajo"); also as
                        quests-*.png in $LANI_QA_QUESTS_SHOTS;
+                       "hearths" the hearths (QA's hooks "hearths:<age>", "hearths:short", "hearths:lit",
+                       "hearths:feast", "hearths:cold", "hour:<h>", "kopa:sekanje", "show:kopa"): the camp's campfire,
+                       the hamlet's first houses smoking, the village's fire ring by day and lit for the evening, its warm
+                       windows and the forge at night, a wood shortage (the outlying houses dark, the HUD's 🔥 tile red,
+                       its sheet), the square's fire basket and its kres on a feast evening, the town's lanterns, the
+                       forge cold, Oglar Miha waiting for the village's wood; also as hearths-*.png in
+                       $LANI_QA_HEARTHS_SHOTS;
                        "bubbles-follow" the village's bubbles with their people (QA's hook "hour:11"): at home, dragged
                        so some are off screen, zoomed in and dragged, the edge chip ("‹ 🐑 2") tapped and its bubble on
                        screen then;
@@ -3701,6 +3708,168 @@ def quests_threat():
     finally:
         qa_hook("event:")
         qa_hook("hour:")
+    return "; ".join(notes) or None
+
+
+def hearths():
+    """The hearths (companion/GAME.md "Hearths"; Jan, 2026-10-20: "The fire in the middle would be exchanged with every house
+    plus the smithy, no?"). On the dev bridge's copy QA's hook "hearths:<age>" builds a village of each age, every hearth lit:
+    the camp's campfire (Tabor), the hamlet's huts and first house smoking by day (Zaselek), the village's stone fire ring
+    with its benches by day (embers) and lit for the evening, at night the warm windows and the forge's glow (Vas); short of
+    wood ("hearths:short") the outlying houses dark and the ring cold at night, the HUD's 🔥 tile red with "Ognjišča ugašajo",
+    its sheet listing each hearth; every one lit again ("hearths:lit") and the sheet then; the square's fire basket (Trg)
+    and its kres on a feast evening ("hearths:feast"); the town's lanterns (Mesto); the forge without charcoal
+    ("hearths:cold"); Oglar Miha waiting for the village's wood at his pile ("kopa:sekanje", "show:kopa"). Each also as
+    hearths-<name>.png in $LANI_QA_HEARTHS_SHOTS when it's set. Nothing after: the village lit, the clock's hour and day."""
+    notes = []
+
+    def snap(name: str):
+        shot(f"hearths-{name}")
+        if d := os.environ.get("LANI_QA_HEARTHS_SHOTS"):
+            Path(d).mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], Path(d) / f"hearths-{name}.png")
+
+    def settle():
+        """The village plain again: the news of who moved into the new homes first ("Naprej · Continue"), then home."""
+        for _ in range(12):
+            c = find("Naprej · Continue")
+            if c is None:
+                break
+            tap_at(c)
+            time.sleep(1.5)
+        plain_village()
+
+    def at(what: str, hour: str):
+        qa_hook(f"hearths:{what}")
+        qa_hook(f"hour:{hour}")
+        settle()
+        time.sleep(3 * slow())  # the map settles: the people walk to their places, the smoke rises
+
+    def close_up(name: str):
+        """The camera flown to the centre (QA's hook "show:fire"), the shot, and home again."""
+        qa_hook("show:fire")
+        time.sleep(3 * slow())
+        snap(name)
+        plain_village()
+
+    def hearths_sheet(tiles: str | None = None) -> str:
+        """The settlement's 🔥 tile's label (its tiles shot as hearths-[tiles] when asked), and its sheet opened from it."""
+        c = hud_find("Ognjišča · Hearths: ", 8)
+        if c is None:  # a dump of a busy night map can come back empty: once more from the plain village
+            plain_village()
+            c = hud_find("Ognjišča · Hearths: ", 8)
+        assert c is not None, "the hearths' tile in the settlement's sheet"
+        label = next(t for t, cc in nodes() if t.startswith("Ognjišča · Hearths: "))
+        if tiles:
+            time.sleep(1)
+            snap(tiles)
+        tap_at(c)
+        assert wait_for("Ognjišča · Hearths", 6), "the hearths' sheet"
+        time.sleep(1.2)
+        return label
+
+    try:
+        qa_hook("event:")
+        qa_hook("kopa:")
+        at("tabor", "11")
+        snap("tabor")
+        close_up("tabor-campfire")
+        at("zaselek", "10")
+        snap("zaselek")
+        close_up("zaselek-centre")
+        state = api("/game").get("state") or {}
+        assert (state.get("hearths") or {}).get("out") in (None, []), f"every hearth lit in the hamlet: {state.get('hearths')}"
+        at("vas", "11")
+        snap("vas-day")
+        close_up("vas-ring-day")
+        qa_hook("hour:19.5")
+        time.sleep(3 * slow())
+        snap("vas-evening")
+        close_up("vas-ring-evening")
+        qa_hook("hour:21.5")
+        time.sleep(3 * slow())
+        snap("vas-night")
+
+        # short of wood: the outlying hearths out, the HUD's tile red, the goal "Ognjišča ugašajo"
+        qa_hook("hearths:short")
+        qa_hook("hour:21")
+        settle()
+        time.sleep(3 * slow())
+        snap("short-night")
+        out = []
+        for _ in range(10):  # the app pushes its village to the dev bridge a moment after
+            out = ((api("/game").get("state") or {}).get("hearths") or {}).get("out") or []
+            if out:
+                break
+            time.sleep(1)
+        assert out, "hearths out when the store is short"
+        label = hearths_sheet("tile-short")
+        print(f"    short: {label}; out {out}")
+        assert "ugašajo" in label, f"the tile says the hearths are going out: {label}"
+        assert find("ugasnilo: ni drv") is not None, "a hearth's row: out for want of wood"
+        snap("sheet-short")
+        plain_village()
+
+        # every one lit again: the tile and its sheet
+        at("lit", "11")
+        label = hearths_sheet("tile")
+        assert " od " in label and "gori" in label, f"the tile's lit of all: {label}"
+        snap("sheet")
+        assert find("na oglje") is not None or find("mrzla: ni oglja") is not None, "the forge's row (its charcoal)"
+        plain_village()
+        b = box_starting(HUD_SETTLEMENT)
+        if b is not None:
+            snap("hud")
+
+        # the town's square: its fire basket in the evening, the kres of a feast evening, the town's lanterns
+        at("trg", "19.5")
+        snap("trg")
+        close_up("trg-basket")
+        qa_hook("hearths:feast")
+        qa_hook("hour:21")
+        settle()
+        time.sleep(3 * slow())
+        snap("kres")
+        close_up("kres-close")
+        at("mesto", "21.5")
+        snap("mesto-lanterns")
+        close_up("mesto-close")
+
+        # the forge without charcoal, and Miha waiting for the village's wood at his pile
+        at("vas", "21")
+        qa_hook("hearths:cold")
+        settle()
+        time.sleep(3 * slow())
+        snap("forge-cold")
+        qa_hook("kopa:sekanje")
+        qa_hook("hour:20")
+        qa_hook("show:kopa")
+        time.sleep(4 * slow())
+        snap("kopa-waiting")
+        # his bubble (a busy night map's dump may leave it out), else Miha himself: his talk, why he waits
+        who = next((c for t, c in nodes() if "čaka na drva" in t), None) or next((c for t, c in nodes() if t == "Oglar Miha"), None)
+        if who is None:
+            notes.append("no Oglar Miha at the pile")
+        else:
+            tap_at(who)
+            if wait_for("čaka na drva", 10):
+                time.sleep(1.5)
+                snap("kopa-talk")
+            else:
+                notes.append("Miha's talk didn't say he waits for wood")
+        plain_village()
+        try:
+            hearths_sheet()
+            if find("čaka na") is None and find("potreboval") is None:
+                notes.append("no line of the pile's wood in the hearths' sheet")
+            snap("sheet-kopa")
+        except AssertionError as e:
+            notes.append(f"the sheet with the pile's wood: {e}")
+    finally:
+        qa_hook("kopa:")
+        qa_hook("hearths:lit")
+        qa_hook("hour:")
+        plain_village()
     return "; ".join(notes) or None
 
 
@@ -8121,6 +8290,7 @@ def plan():
         ("village-life", village_life, v, False, ""),
         ("reactions", reactions, v, False, ""),
         ("quests-threat", quests_threat, v, False, ""),
+        ("hearths", hearths, v, False, ""),
         ("friends", friends, h, True, "visit"),
         ("visit", visit_town, h, True, "visit"),
         ("visit-villager", visit_villager, h, True, "visit"),

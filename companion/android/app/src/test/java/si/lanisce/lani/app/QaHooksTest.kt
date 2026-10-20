@@ -146,6 +146,33 @@ class QaHooksTest {
         assertEquals("a free plot left: the age stays", age, QaHooks.readyBuild(s.copy(buildings = full.drop(1)), caps).age)
     }
 
+    @Test fun `the hearths as QA asks, an age's village, short of wood, lit again, a feast, the forge cold`() {
+        si.lanisce.lani.game.culture.Cultures.use("primorska")
+        var asked = ""
+        QaHooks.handle("hearths:vas", hearths = { asked = it })
+        assertEquals("vas", asked)
+        val today = java.time.LocalDate.of(2026, 10, 20)
+        val now = today.atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()
+        val s = si.lanisce.lani.game.GameState(lastTick = today.toString())
+        val vas = QaHooks.hearthsState(s, "vas", today, now)
+        assertEquals(si.lanisce.lani.game.Age.VAS, vas.age)
+        assertTrue(vas.buildings.any { it.type == si.lanisce.lani.game.BuildingType.SMITHY } && vas.buildings.count { it.type == si.lanisce.lani.game.BuildingType.HOUSE } == 3)
+        assertTrue(vas.hearths!!.out.isEmpty())
+        assertEquals(si.lanisce.lani.game.Hearths.of(vas).size, si.lanisce.lani.game.Hearths.lit(vas, today).size)
+        // short of wood: the outlying ones out, the store empty, the HUD's goal on them
+        val short = QaHooks.hearthsState(vas, "short", today, now)
+        assertTrue(short.hearths!!.out.isNotEmpty())
+        assertTrue(si.lanisce.lani.game.Hearths.CENTRE in short.hearths!!.out)
+        assertEquals(0, short.res(si.lanisce.lani.game.Res.WOOD))
+        assertTrue(si.lanisce.lani.game.Hearths.short(short, today))
+        assertTrue(QaHooks.hearthsState(short, "lit", today, now).hearths!!.out.isEmpty())
+        assertEquals(today.toString(), QaHooks.hearthsState(vas, "feast", today, now).lastFeast)
+        val cold = QaHooks.hearthsState(vas, "cold", today, now)
+        assertTrue(cold.buildings.first { it.type == si.lanisce.lani.game.BuildingType.SMITHY }.id in cold.hearths!!.out)
+        // anything else: as it was
+        assertEquals(vas, QaHooks.hearthsState(vas, "nonsense", today, now))
+    }
+
     @Test fun `the school readied, the unit biti as never begun, the other units' progress kept`() {
         val s = si.lanisce.lani.game.GameState(
             age = si.lanisce.lani.game.Age.ZASELEK,

@@ -1129,6 +1129,16 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         openVillage()
     }
 
+    /**
+     * QA's "hearths:<what>" (a debug build, app/QaHooks.kt): the village (the dev bridge's copy) as [QaHooks.hearthsState]
+     * makes it (an age's village, short of wood, lit again, a feast, the forge cold), and the village shown (companion/GAME.md
+     * "Hearths").
+     */
+    fun qaHearths(what: String) {
+        game.apply { si.lanisce.lani.app.QaHooks.hearthsState(it, what, java.time.LocalDate.now(), System.currentTimeMillis()) }
+        openVillage()
+    }
+
     /** QA's "school" (app/QaHooks): the dev village ready for the classroom under the linden, and the school open. */
     fun qaSchool() {
         game.apply { si.lanisce.lani.app.QaHooks.readySchool(it, System.currentTimeMillis()) }

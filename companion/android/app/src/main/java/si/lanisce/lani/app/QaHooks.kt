@@ -111,6 +111,11 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   tick brings one, and the village shows, its people reacting (companion/GAME.md "People react"); "event:won" and
  *   "event:lost" end the one on as its run would ("event:lost" damages a house when the dice didn't), "event:" ends it
  *   without a trace (nor the reactions after it).
+ * - "hearths:<what>" (companion/GAME.md "Hearths"): the village (the dev bridge's copy) as [hearthsState] makes it, and the
+ *   village shown: "hearths:tabor" (… "zaselek", "vas", "trg", "mesto") a village of that age built as QA's step needs it,
+ *   every hearth lit and wood for days; "hearths:short" the store short of wood, the outlying hearths out as the day's tick
+ *   leaves them; "hearths:lit" every one lit again; "hearths:feast" a feast today (the square's kres in the evening);
+ *   "hearths:cold" the forge without charcoal.
  */
 object QaHooks {
     const val EXTRA = "si.lanisce.lani.qa"
@@ -228,6 +233,54 @@ object QaHooks {
         )
     }
 
+    /** The buildings of QA's village of each age ("hearths:<age>"), on plots 0, 1, … (the palisade round the clearing). */
+    private val HEARTH_VILLAGES: Map<si.lanisce.lani.game.Age, List<si.lanisce.lani.game.BuildingType>> = run {
+        fun of(vararg names: String) = names.map { si.lanisce.lani.game.BuildingType.valueOf(it) }
+        val tabor = of("TENT", "FIELD", "HUT", "KOZOLEC", "TENT")
+        val zaselek = of("TENT", "FIELD", "HUT", "KOZOLEC", "LIPA", "HUT", "CHURCH", "SMITHY", "SCHOOL", "HOUSE")
+        val vas = zaselek + of("WELL", "MARKET", "HOUSE", "HOUSE")
+        val trg = vas + of("HOUSE", "BEEHIVE", "HOUSE", "WATCHTOWER", "HOUSE", "FIELD")
+        mapOf(
+            si.lanisce.lani.game.Age.TABOR to tabor, si.lanisce.lani.game.Age.ZASELEK to zaselek, si.lanisce.lani.game.Age.VAS to vas,
+            si.lanisce.lani.game.Age.TRG to trg, si.lanisce.lani.game.Age.MESTO to trg + of("HOUSE", "HOUSE", "BEEHIVE", "KOZOLEC"),
+        )
+    }
+
+    /**
+     * [s] as QA's "hearths:<what>" asks (companion/GAME.md "Hearths"): an age's village ("tabor" … "mesto": its buildings on
+     * plots 0, 1, … and the palisade, every hearth lit, wood for days, the age's decorations down), the store short of wood
+     * ("short": the outlying hearths out as the day's tick leaves them with half a day's wood), every one lit again ("lit"), a
+     * feast today ("feast"), the forge without charcoal ("cold"). A debug build's, on the dev bridge's copy.
+     */
+    fun hearthsState(s: si.lanisce.lani.game.GameState, what: String, today: java.time.LocalDate, now: Long): si.lanisce.lani.game.GameState {
+        val day = today.toString()
+        // kept from today: the piles whose wood was due before count as given (the forge on their charcoal)
+        val lit = si.lanisce.lani.game.HearthDay(on = day, since = s.hearths?.since?.ifEmpty { null } ?: day)
+        fun wood(st: si.lanisce.lani.game.GameState, n: Int) = st.copy(resources = st.resources + (si.lanisce.lani.game.Res.WOOD to n))
+        si.lanisce.lani.game.Age.entries.firstOrNull { it.name == what.uppercase() }?.let { age ->
+            val types = HEARTH_VILLAGES[age] ?: return s
+            val built = types.mapIndexed { i, t -> si.lanisce.lani.game.Building("${t.name.lowercase()}-${i + 1}", t, i, level = 2, builtAt = now - 200L * 86_400_000L) } +
+                si.lanisce.lani.game.Building("palisade-qa", si.lanisce.lani.game.BuildingType.PALISADE, si.lanisce.lani.game.NO_PLOT, builtAt = now - 200L * 86_400_000L)
+            val v = s.copy(age = age, buildings = built, hearths = lit.copy(since = day), grown = s.grown - si.lanisce.lani.game.AgeUps.key(age), lastFeast = "", event = null, ended = null)
+            return wood(v, maxOf(v.res(si.lanisce.lani.game.Res.WOOD), 300)).copy(fire = 100)
+        }
+        return when (what) {
+            "short" -> {
+                // the day's tick with half a day's wood: the outlying hearths go out; then the store is empty
+                val need = si.lanisce.lani.game.Hearths.need(s)
+                val d = si.lanisce.lani.game.Hearths.day(wood(s, need / 2), today, soft = false).state
+                wood(s, 0).copy(hearths = d.hearths?.copy(on = day), fire = d.fire)
+            }
+            "lit" -> wood(s, maxOf(s.res(si.lanisce.lani.game.Res.WOOD), 300)).copy(hearths = lit, fire = 100)
+            "feast" -> s.copy(lastFeast = day)
+            "cold" -> s.buildings.firstOrNull { it.type == si.lanisce.lani.game.BuildingType.SMITHY }?.let { f ->
+                val h = s.hearths ?: lit
+                s.copy(hearths = h.copy(out = (h.out + f.id).distinct(), charcoal = today.minusDays(1).toString()))
+            } ?: s
+            else -> s
+        }
+    }
+
     /** The building QA asked the plot chooser for ("build:<type>"), until the village opens it ([tookBuild]); null: none. */
     var build by mutableStateOf<si.lanisce.lani.game.BuildingType?>(null)
         private set
@@ -249,11 +302,12 @@ object QaHooks {
         season: () -> Unit = {}, ready: () -> Unit = {}, chat: (String) -> Unit = {}, cheat: (List<String>) -> Unit = {}, school: () -> Unit = {},
         shadow: (String) -> Unit = {}, counting: (String) -> Unit = {}, dev: (String) -> Unit = {}, pair: (String) -> Unit = {},
         grow: (si.lanisce.lani.game.Age) -> Unit = {}, formsCard: (String, String) -> Unit = { _, _ -> }, data: () -> Unit = {}, tutorLive: (String) -> Unit = {},
-        review: () -> Unit = {}, numbers: (String) -> Unit = {}, event: (String) -> Unit = {},
+        review: () -> Unit = {}, numbers: (String) -> Unit = {}, event: (String) -> Unit = {}, hearths: (String) -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
             command.startsWith("event:") -> event(command.removePrefix("event:").trim())
+            command.startsWith("hearths:") -> hearths(command.removePrefix("hearths:").trim())
             command.startsWith("dev:") -> dev(command.removePrefix("dev:"))
             command.startsWith("level:") -> level = command.removePrefix("level:").trim().uppercase().takeIf { it in listOf("A1", "A2", "B1", "B2", "C1", "C2") }
             command.startsWith("ageup:at:") -> ageUpAt = command.removePrefix("ageup:at:").toFloatOrNull()?.coerceAtLeast(0f)
