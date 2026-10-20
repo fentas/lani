@@ -207,7 +207,7 @@
         }
       },
       "pack": "pri-kopi",
-      "review": "The story, the burner's talks, his days at the pile (its cycle), his own story and their reactions: machine-written (Claude), not reviewed by a native speaker.",
+      "review": "The story, the burner's talks, his days at the pile (its cycle, his waiting for the village's wood), his own story and their reactions, the smith's lines of his charcoal and his cold forge: machine-written (Claude), not reviewed by a native speaker.",
       "keeper": {
         "id": "oglar",
         "name": "Oglar Miha",
@@ -400,7 +400,7 @@
           {
             "id": "sekanje",
             "days": [2, 3],
-            "art": "logs",
+            "art": "logs", "wood": true,
             "chance": 0.6,
             "title": { "sl": "Oglar Miha pripravlja drva", "en": "Miha the charcoal burner gets the wood ready", "de": "Köhler Miha richtet das Holz her", "it": "Il carbonaio Miha prepara la legna" },
             "about": { "sl": "Miha žaga suhe bukve na polena in jih nosi na kopišče", "en": "Miha saws the dry beech into logs and carries them to the pile's ground", "de": "Miha sägt die trockenen Buchen zu Scheiten und trägt sie zum Meilerplatz", "it": "Miha sega i faggi secchi in ciocchi e li porta alla piazzola" },
@@ -488,7 +488,7 @@
           {
             "id": "zlaganje",
             "days": [2, 3],
-            "art": "stack",
+            "art": "stack", "wood": true,
             "chance": 0.6,
             "title": { "sl": "Oglar Miha zlaga kopo", "en": "Miha the charcoal burner stacks the pile", "de": "Köhler Miha schichtet den Meiler", "it": "Il carbonaio Miha accatasta la carbonaia" },
             "about": { "sl": "Polena stojijo pokonci okrog kola", "en": "The logs stand upright round the pole", "de": "Die Scheite stehen aufrecht um den Pfahl", "it": "I ciocchi stanno in piedi attorno al palo" },
@@ -1886,6 +1886,45 @@
             }
           }
         ],
+        "waiting": {
+          "id": "waiting",
+          "art": "logs",
+          "chance": 0.8,
+          "title": { "sl": "Oglar Miha čaka na drva", "en": "Miha the charcoal burner waits for wood", "de": "Köhler Miha wartet auf Holz", "it": "Il carbonaio Miha aspetta la legna" },
+          "about": { "sl": "Miha čaka na drva iz vasi: brez njih ni kope", "en": "Miha is waiting for wood from the village: without it there's no pile", "de": "Miha wartet auf Holz aus dem Dorf: ohne Holz kein Meiler", "it": "Miha aspetta la legna dal villaggio: senza legna niente carbonaia" },
+          "talks": [
+            {
+              "levels": {
+                "A1": {
+                  "lines": [
+                    { "who": "oglar", "sl": "Čakam na drva. Brez drv ni kope.", "en": "I'm waiting for wood. Without wood there's no pile.", "de": "Ich warte auf Holz. Ohne Holz gibt es keinen Meiler.", "it": "Aspetto la legna. Senza legna non c'è la carbonaia." },
+                    { "choices": [
+                      { "sl": "Koliko drv potrebujete?", "en": "How much wood do you need?", "de": "Wie viel Holz brauchen Sie?", "it": "Quanta legna le serve?", "ok": true,
+                        "reply": { "sl": "Veliko! Cel kup. Drva mi da vas.", "en": "A lot! A whole heap. The village gives me the wood.", "de": "Viel! Einen ganzen Haufen. Das Holz gibt mir das Dorf.", "it": "Tanta! Un mucchio intero. La legna me la dà il villaggio." } },
+                      { "sl": "Koliko drv potrebuješ?", "en": "How much wood do you need? (ti)", "de": "Wie viel Holz brauchst du? (ti)", "it": "Quanta legna ti serve? (ti)",
+                        "why": { "en": "You say vi to Miha: potrebujete, not potrebuješ.", "de": "Zu Miha sagst du vi: potrebujete, nicht potrebuješ.", "it": "A Miha dai del vi: potrebujete, non potrebuješ." },
+                        "reply": { "sl": "Potrebuješ? No, ja. Veliko drv.", "en": "Need (ti)? Well, yes. A lot of wood.", "de": "Brauchst du? Na ja. Viel Holz.", "it": "Ti serve? Be', sì. Tanta legna." } }
+                    ] },
+                    { "who": "oglar", "sl": "Ko bodo drva tu, zložim kopo.", "en": "When the wood is here, I'll stack the pile.", "de": "Wenn das Holz da ist, schichte ich den Meiler.", "it": "Quando la legna è qui, accatasto la carbonaia." }
+                  ]
+                },
+                "A2": {
+                  "lines": [
+                    { "who": "oglar", "sl": "Kopa potrebuje veliko lesa. Brez drv iz vasi ne morem začeti.", "en": "A pile needs a lot of wood. Without wood from the village I can't start.", "de": "Ein Meiler braucht viel Holz. Ohne Holz aus dem Dorf kann ich nicht anfangen.", "it": "Una carbonaia vuole tanta legna. Senza la legna del villaggio non posso cominciare." },
+                    { "choices": [
+                      { "sl": "Jutri vam prinesem drva.", "en": "I'll bring you wood tomorrow.", "de": "Morgen bringe ich Ihnen Holz.", "it": "Domani le porto la legna.", "ok": true,
+                        "reply": { "sl": "Hvala! Potem bo kovač Tone spet imel oglje.", "en": "Thanks! Then Tone the smith will have charcoal again.", "de": "Danke! Dann hat Schmied Tone wieder Holzkohle.", "it": "Grazie! Così il fabbro Tone avrà di nuovo il carbone." } },
+                      { "sl": "Včeraj vam prinesem drva.", "en": "Yesterday I'll bring you wood.", "de": "Gestern bringe ich Ihnen Holz.", "it": "Ieri le porto la legna.",
+                        "why": { "en": "Včeraj is yesterday: for what you'll do, say jutri (tomorrow).", "de": "Včeraj heißt gestern: für das, was du tun wirst, sag jutri (morgen).", "it": "Včeraj vuol dire ieri: per quello che farai, di' jutri (domani)." },
+                        "reply": { "sl": "Včeraj? Včeraj jih ni bilo.", "en": "Yesterday? Yesterday there wasn't any.", "de": "Gestern? Gestern gab es keins.", "it": "Ieri? Ieri non ce n'era." } }
+                    ] },
+                    { "who": "oglar", "sl": "Če drv ne bo, letos ene kope ne bo. In kovačnica bo mrzla.", "en": "If there's no wood, there'll be one pile fewer this year. And the forge will go cold.", "de": "Wenn kein Holz kommt, gibt es dieses Jahr einen Meiler weniger. Und die Schmiede wird kalt.", "it": "Se la legna non arriva, quest'anno ci sarà una carbonaia in meno. E la fucina resterà fredda." }
+                  ]
+                }
+              }
+            }
+          ]
+        },
         "delivery": {
           "to": "tone",
           "days": 14,
@@ -1897,7 +1936,11 @@
           ],
           "waits": [
             { "sl": "Mihova kopa je pogorela. Ta mesec bo oglja malo.", "en": "Miha's pile burnt down. This month there'll be little charcoal.", "de": "Mihas Meiler ist abgebrannt. Diesen Monat gibt es wenig Kohle.", "it": "La carbonaia di Miha è bruciata. Questo mese ci sarà poco carbone." },
-            { "sl": "Brez Mihovega oglja kurim z drvmi. Ni isto.", "en": "Without Miha's charcoal I fire with wood. It isn't the same.", "de": "Ohne Mihas Kohle heize ich mit Holz. Es ist nicht dasselbe.", "it": "Senza il carbone di Miha scaldo con la legna. Non è la stessa cosa." }
+            { "sl": "Brez Mihovega oglja bo moja kovačnica kmalu mrzla.", "en": "Without Miha's charcoal my forge will soon be cold.", "de": "Ohne Mihas Kohle wird meine Schmiede bald kalt.", "it": "Senza il carbone di Miha la mia fucina sarà presto fredda." }
+          ],
+          "cold": [
+            { "sl": "Ni več oglja. Ogenj v kovačnici je ugasnil.", "en": "There's no charcoal left. The fire in the smithy has gone out.", "de": "Es ist keine Kohle mehr da. Das Feuer in der Schmiede ist aus.", "it": "Il carbone è finito. Il fuoco della fucina si è spento." },
+            { "sl": "Brez oglja ne morem kovati. Čakam na Mihovo kopo.", "en": "Without charcoal I can't forge. I'm waiting for Miha's pile.", "de": "Ohne Kohle kann ich nicht schmieden. Ich warte auf Mihas Meiler.", "it": "Senza carbone non posso forgiare. Aspetto la carbonaia di Miha." }
           ]
         }
       }

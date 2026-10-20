@@ -5,7 +5,8 @@
 import { cpSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { cultureFestivals, cultureIds, cultureKeepers, cultureReadings, cultureScenes, cultureSpots, DEFAULT_CULTURE, FILES, PRICES, PRIMORSKA_TUTOR, READING_KINDS, READING_LEVELS, keeperTellings, readingRefs, readManifest, resolveCulture, TOOL_EFFECTS, validateCulture } from '../../src/cultures'
-import { SPOT_ARTS, cyclesNow, hash, on as cycleOn, type CycleMarks } from '../../src/spot-cycles'
+import { SPOT_ARTS, cyclesNow, hash, isoOf, on as cycleOn, rounds, type CycleMarks } from '../../src/spot-cycles'
+import { givesWood, kopaWood } from '../../src/game'
 import { speakerFor } from '../../src/cast'
 import { feastOf } from '../../src/friendship'
 import { calendarOn } from '../../src/towns'
@@ -222,6 +223,23 @@ export default async function cultures() {
     "… the tutor's view of it: what Miha does today (\"Kopa se kadi …\"), the day of it, the next stage; in winter, the winter",
     !!july?.kopa?.doing && /^\d+\/\d+$/.test(july.kopa.day) && !!july.kopa.next && winterNow?.kopa?.now === 'winter' && /Oglar Miha/.test(winterNow.kopa.doing),
     { july, winterNow },
+  )
+  // the pile takes the village's wood (GAME.md "Hearths"): its felling and stacking, Miha waiting without it; the tutor
+  // sees the wood waited for (a village with its smithy, keeping its hearths since spring), given, or the next round's
+  const woodStages = kopa.cycle!.stages.filter(st => st.wood).map(st => st.id)
+  const woodRound = rounds(kopa.cycle!, 'kopa', 2026)[1]
+  const smithy = { buildings: [{ id: 's', type: 'SMITHY' }], hearths: { since: '2026-03-01' } }
+  const waitingDay = cyclesNow({ kopa }, isoOf(woodRound.woodFrom!), () => ({}), 'sl', (_s, _c, r) => givesWood(smithy, r.woodUntil), kopaWood('VAS')) as Record<string, any>
+  const givenDay = cyclesNow({ kopa }, isoOf(woodRound.woodFrom!), () => ({ stacked: [woodRound.key] }), 'sl', (_s, _c, r) => givesWood(smithy, r.woodUntil), kopaWood('VAS')) as Record<string, any>
+  const unbuiltDay = cyclesNow({ kopa }, isoOf(woodRound.woodUntil! + 2), () => ({ unbuilt: [woodRound.key] }), 'sl', (_s, _c, r) => givesWood(smithy, r.woodUntil), kopaWood('VAS')) as Record<string, any>
+  const noSmithy = cyclesNow({ kopa }, isoOf(woodRound.woodFrom!), () => ({}), 'sl', (_s, _c, r) => givesWood({ buildings: [] }, r.woodUntil), kopaWood('VAS')) as Record<string, any>
+  check(
+    "… the pile takes the village's wood on its felling and stacking: Miha waits for it (120 🪵 at Vas), given it stacks, not given the pile isn't built; without a smithy it's his own",
+    woodStages.join() === 'sekanje,zlaganje' && !!kopa.cycle!.waiting?.talks.length && kopa.cycle!.delivery!.cold.length >= 1 &&
+      waitingDay.kopa.now === 'waiting' && /čaka na drva/.test(waitingDay.kopa.doing) && waitingDay.kopa.wood?.amount === 120 && waitingDay.kopa.wood?.waiting === true &&
+      givenDay.kopa.now === 'stage' && givenDay.kopa.wood?.given === true && unbuiltDay.kopa.now === 'unbuilt' && unbuiltDay.kopa.wood?.unbuilt === woodRound.key &&
+      noSmithy.kopa.now === 'stage' && noSmithy.kopa.wood === undefined,
+    { waitingDay, givenDay, unbuiltDay, noSmithy },
   )
   const [mihaAll] = cultureKeepers(culturesDir, 'primorska')
   const mihaDays = corpus({ learner: JAN, packs: [], modules: [], scenarios: [], keepers: [mihaAll].map(k => ({ ...k, tellings: keeperTellings(k, k.cycle) })) })
