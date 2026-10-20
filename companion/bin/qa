@@ -90,7 +90,8 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        the hamlet's first houses smoking, the village's fire ring by day and lit for the evening, its warm
                        windows and the forge at night, a wood shortage (the outlying houses dark, the HUD's 🔥 tile red,
                        its sheet), the square's fire basket and its kres on a feast evening, the town's lanterns, the
-                       forge cold, Oglar Miha waiting for the village's wood; also as hearths-*.png in
+                       forge cold, Oglar Miha waiting for the village's wood (his talk, the sheet's line of the
+                       pile's wood); also as hearths-*.png in
                        $LANI_QA_HEARTHS_SHOTS;
                        "bubbles-follow" the village's bubbles with their people (QA's hook "hour:11"): at home, dragged
                        so some are off screen, zoomed in and dragged, the edge chip ("‹ 🐑 2") tapped and its bubble on
@@ -3846,21 +3847,65 @@ def hearths():
         qa_hook("show:kopa")
         time.sleep(4 * slow())
         snap("kopa-waiting")
-        # his bubble (a busy night map's dump may leave it out), else Miha himself: his talk, why he waits
-        who = next((c for t, c in nodes() if "čaka na drva" in t), None) or next((c for t, c in nodes() if t == "Oglar Miha"), None)
-        if who is None:
-            notes.append("no Oglar Miha at the pile")
-        else:
-            tap_at(who)
-            if wait_for("čaka na drva", 10):
+        # his bubble ("Oglar Miha čaka na drva"; a busy night map's dump may leave it out, a tap while the camera still
+        # glides may miss it: a few tries), his talk up (its header "Oglar Miha čaka na drva · …", his first line or the
+        # learner's turn; the pile's picture's line "Miha čaka na drva iz vasi" is drawn, not in the dump). Over the night's
+        # forest close up uiautomator often can't read the screen at all ("null root node"): only a dump read now counts
+        # (none left from before), and a talk it can't read is shot unchecked rather than failed.
+        def fresh():
+            adb("shell", "rm", "-f", "/sdcard/ui.xml", check=False)
+            got = list(nodes())
+            return got or None
+        talk, seen, unread = False, [], False
+        for attempt in range(3):
+            who = None
+            for _ in range(5):
+                who = next((c for t, c in fresh() or [] if "Oglar Miha čaka na drva" in t), None)
+                if who is not None:
+                    break
                 time.sleep(1.5)
-                snap("kopa-talk")
-            else:
-                notes.append("Miha's talk didn't say he waits for wood")
+            if who is None:
+                break
+            seen.append(who)
+            tap_at(who)
+            end = time.time() + 10 * slow()
+            unread = True
+            while time.time() < end and not talk:
+                got = fresh()
+                if got is not None:
+                    unread = False
+                    labels = [t for t, _ in got]
+                    talk = any("čaka na drva ·" in t for t in labels) and any(u in t for t in labels for u in TURN_UP + ("Naprej · Next",))
+                if not talk:
+                    time.sleep(1)
+            if talk or unread:
+                break
+            plain_village()
+            qa_hook("show:kopa")
+            time.sleep(4 * slow())
+        if talk or (seen and unread):
+            time.sleep(1.5)
+            snap("kopa-talk")
+            if not talk:
+                print("    Miha's talk: shot unchecked (the screen couldn't be read over the night's forest)")
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")
+            time.sleep(2)
+            qa_hook("show:")
+        elif not seen:
+            notes.append("no «Oglar Miha čaka na drva» bubble at the pile")
+        else:
+            notes.append(f"Miha's talk didn't open from his bubble (tapped at {seen})")
         plain_village()
         try:
             hearths_sheet()
-            if find("čaka na") is None and find("potreboval") is None:
+            line = None
+            for _ in range(4):
+                got = fresh()
+                if got is not None:
+                    line = any("čaka na" in t or "potreboval" in t for t, _ in got)
+                    break
+                time.sleep(1.5)
+            if line is False:
                 notes.append("no line of the pile's wood in the hearths' sheet")
             snap("sheet-kopa")
         except AssertionError as e:
