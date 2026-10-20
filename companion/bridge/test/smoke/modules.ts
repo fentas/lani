@@ -1,5 +1,5 @@
 // Smoke checks: publishing, serving, exercise types, quests, curated modules.
-import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { validateModule } from '../../src/spec'
 import { reference, spec } from './fixtures'
@@ -107,6 +107,18 @@ export default async function modules() {
   check("quest.helps naming no published module: published with a note", !lost.isError && text(lost).includes(`"no-such-task", which isn't published`), lost)
   const tone = await client.callTool({ name: 'publish_module', arguments: { spec: { ...spec, id: 'tone-drill', quest: { ...micka, giver: 'Kovač Tone', helps: 'micka-kitchen' } } } })
   check("quest.helps naming another giver's task: published with a note", !tone.isError && text(tone).includes("Babica Micka's, not Kovač Tone's"), tone)
+  // a task the learner passed already (the village's request of it done, none open): published, said to be practice now
+  const gamePath = join(dataDir, 'app/game.json')
+  const savedGame = existsSync(gamePath) ? readFileSync(gamePath, 'utf8') : undefined
+  const kitchen = { id: 'tutor-micka-kitchen-v1', giver: 'Babica Micka', moduleId: 'micka-kitchen', source: 'TUTOR' }
+  writeFileSync(gamePath, JSON.stringify({ rev: 1, state: { quests: [{ ...kitchen, done: true }] } }))
+  const late = await client.callTool({ name: 'publish_module', arguments: { spec: { ...spec, id: 'micka-pans', quest: { ...micka, helps: 'micka-kitchen' } } } })
+  check('quest.helps naming a task passed already: published, with a note that the drill is practice', !late.isError && text(late).includes('passed "micka-kitchen" already') && text(late).includes('optional practice'), late)
+  writeFileSync(gamePath, JSON.stringify({ rev: 1, state: { quests: [{ ...kitchen, done: false }] } }))
+  const open = await client.callTool({ name: 'publish_module', arguments: { spec: { ...spec, id: 'micka-pans', quest: { ...micka, helps: 'micka-kitchen' } } } })
+  check('… and without it while the task is open', !open.isError && !text(open).includes('already'), open)
+  if (savedGame === undefined) rmSync(gamePath, { force: true })
+  else writeFileSync(gamePath, savedGame)
 
   // curated modules (companion/modules) — a throwaway dir via LANI_MODULES_DIR
   const listed2 = await (await fetch(`${base}/modules`, { headers: auth })).json()

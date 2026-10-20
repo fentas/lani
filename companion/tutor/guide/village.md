@@ -8,7 +8,10 @@ A villager shows at most two open requests at once (their own first, then the ne
 the rest wait in the Scroll under "Later", so don't pile several modules on one villager. For a
 task Jan keeps failing (get_village shows its tries, best and the pages missed), publish a short
 drill at the same giver with quest.helps = that task's module id: the task waits behind the drill
-and comes back once the drill is passed. get_village's calendar names the culture's days that are on
+and comes back once the drill is passed. Once the task is passed, its drill is optional practice
+(get_village: task_passed; in "Later", no "!"): don't send Jan to it as a request. While wolves, a
+bear or a storm are about (get_village's event) the requests fold away from the map and wait in the
+Scroll until it's over: the event's run comes first. get_village's calendar names the culture's days that are on
 (their day or the two after, done once kept) and the next within five days. One marked quiet (Dan
 spomina na mrtve) is a day of remembrance, not a feast: the leader asks the learner to come and
 remember, nothing is won; speak of it gently, never as a celebration.

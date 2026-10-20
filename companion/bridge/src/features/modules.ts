@@ -1,6 +1,7 @@
 // Practice modules (lani.module/v0): published by the tutor, served to the app.
 import { badNote, fail, noteIn, ok } from '../tool'
 import type { FeatureFactory } from '../feature'
+import { taskPassed } from '../game'
 import { json } from '../http'
 import { validateModule } from '../spec'
 import { corpus } from '../voice'
@@ -10,7 +11,7 @@ To create, change or retire practice content in the app, load the lani-studio sk
 publish_module / list_modules / get_module / rollback_module. Never write module files directly.
 `.trim()
 
-export const modules: FeatureFactory = ({ modules: store, events, voice, grammar, addressee }) => ({
+export const modules: FeatureFactory = ({ modules: store, events, voice, grammar, addressee, game }) => ({
   instructions,
   routes: [
     { method: 'GET', path: '/modules', addressed: true, handle: () => json(store.list()) },
@@ -51,16 +52,20 @@ export const modules: FeatureFactory = ({ modules: store, events, voice, grammar
         const missing = [...new Set(v.spec.exercises.flatMap(e => (e.grammar && !pages.has(e.grammar) ? [e.grammar] : [])))]
         const note_ = missing.length ? `\nNote: no grammar page ${missing.map(id => `"${id}"`).join(', ')} yet (list_grammar; publish_grammar)` : ''
         // a drill for a task (quest.helps) that isn't published or is another villager's: said back too, the app then
-        // doesn't hold that task back behind the drill
+        // doesn't hold that task back behind the drill; one Jan passed already: the drill is practice (GAME.md "A drill
+        // before its task")
         const q = v.spec.quest
         const task = q?.helps ? store.get(q.helps) : undefined
+        const quests = (game.read()?.state as any)?.quests
         const helps = !q?.helps
           ? ''
           : !task
             ? `\nNote: quest.helps names "${q.helps}", which isn't published (list_modules)`
             : task.quest?.giver !== q.giver
               ? `\nNote: quest.helps names "${q.helps}", whose request is ${task.quest ? `${task.quest.giver}'s` : "no villager's"}, not ${q.giver}'s: a drill helps a task at the same giver`
-              : ''
+              : taskPassed(q.helps, quests, `tutor-${v.spec.id}-v${version}`)
+                ? `\nNote: the learner passed "${q.helps}" already: the app shows this drill as optional practice (under "Later", no "!"), not before the task`
+                : ''
         return ok(`published ${v.spec.id} v${version} (${v.spec.exercises.length} exercises)${note_}${helps}`)
       },
     },

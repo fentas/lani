@@ -6,11 +6,31 @@ import { knownIds } from './mentions'
 export type GameDoc = { rev: number; state: Record<string, unknown> }
 
 /**
+ * Whether [helps] (a drill's quest.helps: a module id, or a request's id) names request [q]: its module, its id, or its module
+ * by the tutor's request id of another version ("tutor-<module>-v<n>"), as the app's QuestQueue.names.
+ */
+function names(helps: string, q: any): boolean {
+  const module = typeof q?.moduleId === 'string' ? q.moduleId : undefined
+  return module === helps || q?.id === helps || (module !== undefined && /^tutor-(.+)-v\d+$/.exec(helps)?.[1] === module)
+}
+
+/**
+ * Whether the task [helps] names (a drill's quest.helps) is passed among the village's requests [all]: one it names is done
+ * and none is open (the app's QuestQueue.spentFor); [self]: the drill's own request id, never its own task. The app then
+ * shows the drill as practice ("📜 Kasneje · Later", no "!", not one of the two up).
+ */
+export function taskPassed(helps: string, all: any[], self?: string): boolean {
+  const named = (Array.isArray(all) ? all : []).filter(q => q?.id !== self && names(helps, q))
+  return named.some(q => q.done === true) && !named.some(q => q.done !== true)
+}
+
+/**
  * An open request as the tutor sees it: its module, how often Jan played it and their best try against its pass mark (60 % of
  * that try's questions, at least 1: the app's Quests.passMark), the grammar pages its wrong answers named (most missed
- * first: what a drill for it would practise), and the task it is a drill for (quest.helps).
+ * first: what a drill for it would practise), the task it is a drill for (quest.helps), and whether that task is passed
+ * already (task_passed: the drill is optional practice now, under "Later" without a "!"). [all]: the village's requests.
  */
-function openQuest(q: any) {
+function openQuest(q: any, all: any[] = []) {
   const count = (v: unknown) => (Number.isInteger(v) && (v as number) > 0 ? (v as number) : 0)
   const bestOf = count(q.bestOf)
   return {
@@ -24,6 +44,7 @@ function openQuest(q: any) {
     pass_mark: bestOf ? Math.max(1, Math.ceil((bestOf * 3) / 5)) : undefined,
     missed: Array.isArray(q.missed) && q.missed.some((p: unknown) => typeof p === 'string') ? q.missed.filter((p: unknown) => typeof p === 'string') : undefined,
     helps: typeof q.helps === 'string' ? q.helps : undefined,
+    task_passed: (typeof q.helps === 'string' && q.source === 'TUTOR' && taskPassed(q.helps, all, q.id)) || undefined,
   }
 }
 
@@ -140,7 +161,8 @@ export class GameStore {
         buildings: count,
         damaged: (s.buildings ?? []).filter((b: any) => b.damaged).map((b: any) => b.type),
         event: s.event,
-        open_quests: (s.quests ?? []).filter((q: any) => !q.done).map(openQuest),
+        // while wolves, a bear or a storm are about (event) the app folds the requests up away until it's over (GAME.md "People react")
+        open_quests: (s.quests ?? []).filter((q: any) => !q.done).map((q: any) => openQuest(q, s.quests ?? [])),
         // 🤝 earned by helping people (requests, talks, scenes, family), spent on a moba (companion/GAME.md)
         help: s.help ?? 0,
         friends,

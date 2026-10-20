@@ -74,18 +74,23 @@ export default async function game() {
     { ...micka, id: 'q-drill', title: 'The pots first', moduleId: 'micka-pots', helps: 'micka-kitchen', since: '2026-09-30' },
     { ...micka, id: 'q-old', title: 'Old soup', moduleId: 'micka-soup', done: true, tries: 1, best: 5, bestOf: 5 },
     { id: 'q-2026-09-30-1', giver: 'Kovač Tone', emoji: '⚒️', title: 'Nails', story: 'Tone needs nails.', skill: 'STONE', reward: { STONE: 20 }, source: 'LOCAL' },
+    // a drill for the soup Jan passed already (by its module), and one for it by the request's id: optional practice now
+    { ...micka, id: 'q-salt', title: 'Salt first', moduleId: 'micka-salt', helps: 'micka-soup' },
+    { ...micka, id: 'q-pepper', title: 'Pepper first', moduleId: 'micka-pepper', helps: 'q-old' },
   ]
   const asked = await put(rev + 7, { age: 'ZASELEK', buildings: [], quests })
   const open = JSON.parse(text(await client.callTool({ name: 'get_village', arguments: {} }))).open_quests
-  const [task, drill, local] = open ?? []
+  const [task, drill, local, salt, pepper] = open ?? []
   check(
     "get_village shows each open request's module, tries, best try, pass mark and the task a drill helps",
-    asked.ok && open?.length === 3 &&
+    asked.ok && open?.length === 5 &&
       task.module === 'micka-kitchen' && task.tries === 3 && task.best === '7/12' && task.pass_mark === 8 && task.helps === undefined &&
       JSON.stringify(task.missed) === '["predlogi-kraja"]' && drill.missed === undefined &&
       drill.module === 'micka-pots' && drill.helps === 'micka-kitchen' && drill.tries === undefined && drill.best === undefined && drill.pass_mark === undefined &&
+      drill.task_passed === undefined && task.task_passed === undefined &&
       JSON.stringify(local) === JSON.stringify({ giver: 'Kovač Tone', title: 'Nails', skill: 'STONE', source: 'LOCAL' }),
     open,
   )
+  check("get_village says when the task a drill helps is passed already (task_passed: the drill is practice now)", salt?.task_passed === true && pepper?.task_passed === true, open)
   writeFileSync(gamePath, saved)
 }
