@@ -3840,6 +3840,7 @@ companion/bin/qa --steps scroll                  # the village's scroll: its cou
 companion/bin/qa --steps scene-people            # I spy in the church, the kitchen, the smithy: who stands where (SCENES.md "Where people stand"); the church's top bar in German, its pills apart
 companion/bin/qa --steps bubbles-follow          # the village's bubbles with their people: dragged, zoomed in, the edge chip tapped
 companion/bin/qa --steps village-life            # the village's day on the map at 8, 11, 15, 19 o'clock, walkers by the field
+companion/bin/qa --steps reactions               # the people reacting: wolves coming and there, a villager's card then, at night, the cheer, the bear, a storm, the merchant, a feast
 companion/bin/qa --steps age-up                  # Zaselek to Vas and Vas to Trg: each moment beat by beat, its card, the veselica at A1 to its end, the chronicle's Watch again (recorded)
 companion/bin/qa --steps exercise-words          # a review's words looked up: the sentence's, not the forms to choose
 companion/bin/qa --steps exercise-explain        # the module kdo-govori's explanation in shape, «delam» in it looked up
@@ -4158,6 +4159,16 @@ dialog's opening: the grass stirs, the hare leaps out and is off within four sec
 tower in the morning and walking in at the gate, Micka's hen flying onto Marko's cart and the tap turn that finds her
 there, Muri barking by the jetty and asleep. A scene the village hasn't opened yet (no market, no tower) is skipped and
 said.
+
+`event:<kind>` gives the dev village's copy that event from now (`event:wolves`, `event:bear/3`: its strength,
+`event:storm`, `event:merchant`, `event:festival`), as the day's tick brings one, and shows the village: its people
+react (GAME.md, "People react"); `event:won` and `event:lost` end the one on as its run would (a lost one damages a house
+when the dice didn't), `event:` ends it without a trace. `show:<spot>` flies the village's camera to a spot of the
+landscape (`show:kopa`), also `show:fire`, the merchant's `show:cart` and the wolves' or the bear's `show:threat`. With
+them, `reactions` looks at wolves coming (on their way, the children running) and there by day, a villager's card by the
+fire then (their line of the wolves, "🐺 Branimo vas!", no talk), at night, the cheer after the fight won, the bear, a
+storm, the merchant and a feast day (`LANI_QA_REACT_SHOTS`: a folder for its screenshots as `react-*.png`); a debug
+build logs each call over someone's head as it pops in (tag `Shout`), and the step takes its shot of the wolves then.
 
 `build:<type>` gets the dev village's copy ready to build one (`build:field`): its stores full and a free plot (the next
 age's, when the age's own are all taken: Jan's Zaselek has none left), and opens the plot chooser for it over the map,

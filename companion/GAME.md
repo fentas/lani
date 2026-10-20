@@ -599,6 +599,65 @@ towns, a linked town can send help against wolves, a bear or a storm (it costs t
 (3 at most) makes a lost event take less: its losses and its chance to damage a building are divided by 1 + helpers. Help
 that comes after the event is over brings its 10 🌾 and 10 🪵 instead. The event's intro names the helpers.
 
+### People react
+
+Jan, 2026-10-20: "There are wolves :) I see them. The rest apparently not: they do what they always do, including just
+walking through them." Now the village's people react to what is going on (`game/villagers/Reactions.kt`, pure; on the
+map `game/render/TownReactions.kt`): a reaction is a place and a pace for someone while the event is on, not a new day.
+When it comes they walk there from where their day had them, the children running (the walk takes at most
+`Routine.WALK_S`, 45 s), and when it's over they walk back to their day the same way.
+
+- **Wolves or a bear** (`Stance`, by who they are): two grown-ups face them at a distance, three from strength 3: the
+  event's leader (the smith, Kovač Tone), the shepherd, the hunter; else a grown-up. They stand on the way from the
+  animals to the fire, as near as `Threats.GUARD` (1.3 cells), within the clearing (in the palisade's gate when the
+  wolves come up the path to it), where they are seen (not behind a stake, the gate's beam, a building or the bear),
+  facing them, a tool raised now and then: the smith's hammer, a stick; a torch at night (they get up for it). With a
+  watchtower someone is up on it waving (the hunter, else the winemaker or a grown-up). The children, the old (the
+  grandparents, the storyteller, the aunt) and the innkeeper gather by the fire; the others go home. A few unnamed stand
+  by the fire too; nobody else walks about. The hens bunch up by the first house. Nobody comes within `Threats.KEEP`
+  (2.5 cells) of an animal, nor walks there: the ground round them is a block of the walkways (`Threats.Threat.block`),
+  so every way goes round it, someone near them leaves it straight away from them first, and the forest path's gate
+  isn't taken while they're on it. The bear comes out of the forest's edge on the field's side, outside the palisade
+  when there is one.
+- **A storm**: everyone goes home, the children running, every other grown-up with a hand on their hat. Now and then
+  (every 6 minutes of the village's clock) someone dashes from one door to another holding their hat, and for the first
+  minutes of every half hour the aunt or a grandmother takes the washing in (not in winter); otherwise nobody is out.
+- **The merchant**: his cart comes up the road once, when he comes (`Threats.cartAt`), and parks; by daylight the
+  innkeeper and two others stand at it talking, two others every quarter of an hour.
+- **A festival**: everyone up round the fire as before, dancing now, the winemaker (else a grown-up) playing the
+  harmonika, the notes going up.
+- **Afterwards**: after a won fight everyone up gathers round the fire with the defenders first beside it and cheers
+  (`Reactions.CHEER_S`, 2½ minutes; the lookout cheers on the tower), then they go back to their day. After a lost
+  event that damaged a building (`GameState.ended`, `EventEnd`: how the last event ended), the smith (else a grown-up)
+  patches it up by daylight that day and the next, planks leaning beside him (at the palisade's breach, inside it).
+
+**What they say.** A short call now and then over someone's head on the map, one at a time ("Volkovi!", "Pazi!",
+"Hitro noter!"; "Bravo!", "Hura!" after a won fight), and their card, their greeting ("💬 Pogovori se") and a scene's
+greeting say a line of the event for who they are instead of their everyday one ("Volkovi so blizu! Ostani pri
+ognju."); at the merchant's of his wares, at a feast festive; the one patching up says so. The lines are the culture
+pack's (`reactions.json`, `lani.reactions/v0`: per event and after a fight won or lost, `shout`, `call`, and the lines
+of the `defender`, `child`, `elder`, `keeper`, `other`, `repair`), in its language with every base's translation, short
+and A1 where they can be; checked by the app (the pack's language, a shout three words at most, a call four). They are
+machine-written (Claude), not reviewed by a native speaker. A pack without the file has the people react without words of
+their own. The bridge doesn't read it.
+
+**The everyday talks wait** while wolves, a bear or a storm are about (`Reactions.quiet`): no happening, no storyteller's
+story (nor its teaser), no meeting with who joined, no keeper's talk (in a storm the charcoal burner stays: his talks know
+the rain), no class's lesson, no «Vidim, vidim», no stranger at the road (he is in at the inn), no bubble of the day's
+surprise, a project, a festival or today's visitor. The map shows the event's bubble and the requests' (the learner's
+work stays, in the scroll and on the cards; so does the day's surprise, a tap away from the HUD and Home). They are deferred, never lost: a dialog that was due is due when it's over (`DialogVariants` picks the
+same), and a meeting waits. A villager's card has the event's run a tap away instead of the talk ("🐺 Branimo vas! ·
+Defend the village!", red; the event's title without a reactions file); at the merchant's and a feast day it's there
+beside the talk. The scenes show who the reaction has there: by the fire the children and the old, up the watchtower its
+lookout, nobody in the field. The merchant and a feast day keep nobody from their day.
+
+QA: the step `reactions` (companion/bin/qa; QA's hooks `event:<kind>`, `event:won`, `event:lost`, `event:`). Tests:
+`ReactionsTest` (who does what for each event and after, nobody and no way within reach of the animals second by second
+as they come, the walks and the children running, the storm's dashes and washing, the cart's few, the feast, the cheer,
+the repair, the lines, the packs' files, the frame budget with wolves on, snapshots 70-77), `ReactionTalksTest` (no
+everyday talk during a threat or a storm, all of it back after with the dialog that was due, the map's bubbles, the
+burner, the greetings, the scenes).
+
 ## Challenges
 
 - Gathering: 7 untimed exercises, mostly of the chosen resource.

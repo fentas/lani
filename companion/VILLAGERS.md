@@ -831,6 +831,12 @@ at his bedtime (22:45, after everyone else) when it was heard earlier, five minu
 app keeps the minute while it runs, `GameController.storyHeardAt`); unheard, the story's happening is off from 23:30
 (`Routine.STORY_UNTIL`, `Happenings.active`) and he walks home then. The other villages' storytellers the same.
 
+**When something is going on** (GAME.md, "People react"): while wolves or a bear are about a few grown-ups face them, the
+children, the old and the innkeeper gather by the fire and the others go home; in a storm everyone goes home; at the
+merchant's a few stand at his cart; at a feast everyone up dances round the fire. Each walks there from where their day
+has them, and back to their day when it's over. Meanwhile the everyday talks wait (wolves, a bear, a storm), and each
+says a line of what is going on instead of their greeting.
+
 **Night rituals**: the only reason to be out at night. At its time the villager walks out with a lantern (a warm glow on the
 map), does it, and walks home (or back to the fire, when bedtime is still a while off); one whose place the village hasn't
 built (the watchtower) doesn't happen. A tap on them shows it on their card ("🏮 Luka pogleda ovce v staji · Luka checks
