@@ -7,6 +7,7 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import kotlin.math.roundToInt
 import si.lanisce.lani.data.Grading.Verdict
 import si.lanisce.lani.game.Fixtures.day0
 import si.lanisce.lani.game.Fixtures.noon
@@ -141,12 +142,21 @@ class ChestTest {
         val tone = listOf(Resident("tone", "2026-08-01"))
         var s = withGoods(withTool(village(Age.ZASELEK, all(400), BuildingType.SMITHY), "luka"), "potica" to 2, "med" to 1)
         s = s.copy(residents = tone)
-        val o = Chest.forgeOption(s, "luka")!!
+        // the charcoal burner's charcoal saves the forge wood on the days after a delivery (the real calendar): a day without
+        // it for the plain cost, a day with it for the saving
+        val days = generateSequence(java.time.LocalDate.of(2026, 9, 1)) { it.plusDays(1) }.take(120)
+        val plain = days.first { Chest.forgeCharcoal(s, it) == null }
+        val o = Chest.forgeOption(s, "luka", plain)!!
         assertTrue(o.reason, o.available)
         assertEquals(Catalog.forgeCost(1), o.cost)
+        days.firstOrNull { Chest.forgeCharcoal(s, it) != null }?.let { coal ->
+            val c = Chest.forgeOption(s, "luka", coal)!!.cost
+            assertEquals((Catalog.forgeCost(1).getValue(Res.WOOD) * (1f - si.lanisce.lani.game.scene.SpotCycles.CHARCOAL_SAVES)).roundToInt(), c[Res.WOOD])
+            assertEquals(Catalog.forgeCost(1)[Res.FOOD], c[Res.FOOD])
+        }
         assertEquals("potica", o.good?.id) // the good Jan has most of
         assertEquals("+15 % 🪵", o.effect)
-        val forged = Chest.forge(s, "luka", t0)
+        val forged = Chest.forge(s, "luka", t0, plain)
         assertEquals(Tool(1, 1), forged.chest.tools["luka"])
         assertEquals(1, forged.chest.goods["potica"])
         assertEquals(400 - 300, forged.res(Res.WOOD))

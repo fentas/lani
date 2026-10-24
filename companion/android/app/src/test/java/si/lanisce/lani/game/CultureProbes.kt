@@ -348,8 +348,11 @@ internal object CultureProbes {
         p("chest/forgeReason/age", Chest.forgeOption(smith.copy(age = Age.TABOR, residents = listOf(tone)), "luka")?.reason)
         p("chest/forgeReason/age2", Chest.forgeOption(smith.copy(age = Age.ZASELEK).tool("luka", 1, 1), "luka")?.reason)
         p("chest/forgeReason/pay", Chest.forgeOption(smith.goods(), "luka")?.reason)
-        p("chest/forgeReason/short", Chest.forgeOption(smith.copy(resources = all(10)), "luka")?.reason)
-        p("chest/forgeReason/ok", Chest.forgeOption(smith, "luka"))
+        // a day without the charcoal burner's charcoal (it saves the forge wood on the days after a delivery, by the real
+        // calendar), so the costs read the same whatever day the tests run
+        val noCoal = generateSequence(day) { it.plusDays(1) }.first { Chest.forgeCharcoal(smith, it) == null }
+        p("chest/forgeReason/short", Chest.forgeOption(smith.copy(resources = all(10)), "luka", noCoal)?.reason)
+        p("chest/forgeReason/ok", Chest.forgeOption(smith, "luka", noCoal))
         // the feast
         val lipa = village(Age.VAS, BuildingType.LIPA, res = all(1500)).goods("kruh" to 3, "med" to 1, "podkev" to 2)
         p("chest/feast/log", Chest.feast(lipa, day, t0).lastLog())

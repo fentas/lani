@@ -123,6 +123,8 @@ class SimulationTest {
     private data class Person(val id: String, val name: String, val since: Age, val home: List<BuildingType> = emptyList())
 
     private companion object {
+        /** The calendar day the simulation's day 0 stands for (the charcoal burner's deliveries go by date). */
+        val SIM_START: java.time.LocalDate = java.time.LocalDate.of(2026, 9, 1)
         const val DAYS = 60
         const val START_WORDS = 23 // Jan's learned words today (answered right at least once)
         /** Jan's target level: Zaselek at 60 learned words, Vas at 300, Trg at 1000, Mesto at 2000. */
@@ -817,11 +819,13 @@ class SimulationTest {
                     s = u
                     continue
                 }
-                val forge = s.chest.tools.keys.mapNotNull { Chest.forgeOption(s, it) }
+                // the simulated day on the calendar (the charcoal burner's deliveries are by date), never the real one
+                val day = SIM_START.plusDays(now / 86_400_000L)
+                val forge = s.chest.tools.keys.mapNotNull { Chest.forgeOption(s, it, day) }
                     .filter { it.available && keeps(it.cost, reserve) }
                     .minByOrNull { it.cost.values.sum() }
                 if (forge != null) {
-                    s = Chest.forge(s, forge.giver, now)
+                    s = Chest.forge(s, forge.giver, now, day)
                     acts += "⚒${forge.giver}${forge.step}"
                     continue
                 }
@@ -858,8 +862,8 @@ class SimulationTest {
             s.plotsTaken >= PLOTS_PER_AGE[s.age.ordinal] &&
                 // the school's next level waits for a course level, as an age waits for words: learning, not buying
                 s.buildings.all { b -> b.level >= minOf(Catalog.MAX_LEVEL, s.age.ordinal + 1) || School.gate(s, COURSE, b.id)?.done == false } &&
-                s.chest.tools.keys.none { id -> Chest.forgeOption(s, id)?.reason?.let { it.startsWith("Manjka") } ?: false } &&
-                s.chest.tools.keys.none { id -> Chest.forgeOption(s, id)?.available == true }
+                s.chest.tools.keys.none { id -> Chest.forgeOption(s, id, SIM_START.plusDays(now / 86_400_000L))?.reason?.let { it.startsWith("Manjka") } ?: false } &&
+                s.chest.tools.keys.none { id -> Chest.forgeOption(s, id, SIM_START.plusDays(now / 86_400_000L))?.available == true }
 
         private fun row(day: Int, active: Boolean, acts: List<String>): Row {
             val t = target()
