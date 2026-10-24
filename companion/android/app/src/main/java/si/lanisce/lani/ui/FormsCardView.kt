@@ -55,6 +55,7 @@ import si.lanisce.lani.data.FormsCard
 import si.lanisce.lani.data.FormsCell
 import si.lanisce.lani.data.FormsCellState
 import si.lanisce.lani.data.FormsGap
+import si.lanisce.lani.data.FormsRow
 import si.lanisce.lani.data.FormsSection
 import si.lanisce.lani.data.Grading.Verdict
 import si.lanisce.lani.data.ItemMark
@@ -212,8 +213,9 @@ internal fun FormsHead(emoji: String?, lemma: String, gender: String?, pos: Stri
 }
 
 /**
- * A part of the table: its title, its columns' heads, its rows (a label, its cells; at the [end] each row's 🔊). [marks]:
- * the gaps answered by key; [current]: the gap asked now.
+ * A part of the table: its title, its columns' heads, its rows (a label, its cells, and each row's 🔊 once nothing in it
+ * is still to answer: a row with no gap from the start, a row whose gaps are answered, every row at the [end]; never one
+ * that would say a gap's answer). [marks]: the gaps answered by key; [current]: the gap asked now.
  */
 @Composable
 private fun Section(vm: AppViewModel, s: FormsSection, marks: Map<String, ItemMark>, current: String?, end: Boolean) {
@@ -222,7 +224,7 @@ private fun Section(vm: AppViewModel, s: FormsSection, marks: Map<String, ItemMa
     Row(Modifier.fillMaxWidth()) {
         if (labelled) Spacer(Modifier.width(LABEL))
         for (c in s.columns) Text(c, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.weight(1f))
-        if (end) Spacer(Modifier.width(40.dp))
+        Spacer(Modifier.width(40.dp))
     }
     for (r in s.rows) {
         Row(Modifier.fillMaxWidth().padding(vertical = 2.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -233,10 +235,15 @@ private fun Section(vm: AppViewModel, s: FormsSection, marks: Map<String, ItemMa
                     else Cell(cell, marks[cell.key], cell.key == current, end)
                 }
             }
-            if (end) Row(Modifier.width(40.dp)) { SpeakButton(vm.speaker, r.said) }
+            // the row's 🔊 where hearing it gives nothing away (the place kept either way, so the columns don't move)
+            Row(Modifier.width(40.dp)) { if (end || heard(r, marks)) SpeakButton(vm.speaker, r.said) }
         }
     }
 }
+
+/** Whether [r] can be read aloud during the card: none of its cells is a gap still to answer. */
+internal fun heard(r: FormsRow, marks: Map<String, ItemMark>): Boolean =
+    r.said.isNotBlank() && r.cells.none { it != null && it.state == FormsCellState.GAP && marks[it.key] == null }
 
 /** A cell: the words before it small, then its form (greyed to read ahead; a gap's ____ until answered, framed when asked now). */
 @Composable

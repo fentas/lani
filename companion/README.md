@@ -3106,7 +3106,9 @@ away by then; the words around the gap: "on je ____"), answered:
 Each gap is marked at once, in the table (green, the wrong answer under it in red) and under it with its 🔊; a right one
 goes on by itself, a wrong one at "Naprej · Next". At the end "🧾 Vsa tabela · The whole table": the rows asked said
 together by the narrator in one clip, made on demand like any line (nothing is voiced ahead; the car and the day's
-audio leave forms cards out), each row of the table its own 🔊 (one clip per row, on demand), and "📋 Vse oblike · All
+audio leave forms cards out), each row of the table its own 🔊 (one clip per row, on demand; during the card already
+once the row has no gap left to answer: a row of known or read-ahead forms from the start, a row whose gaps are answered,
+never one that would say an answer), and "📋 Vse oblike · All
 forms" under the score: the overview of the word over the run. The 💬 attaches the card (`about_exercise.forms_card`:
 the word, each gap's slot, where it stands, its options and answer so far, the greyed slots on screen (`preview`), the
 titles of the sections hidden in this review (`hidden`); `source.variant` `forms_card` or `forms_card_type`).
