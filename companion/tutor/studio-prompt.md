@@ -16,8 +16,9 @@ dialogs, the stories at their level are running low, the dictionary missed words
    `list_scenes`, `list_stories`, `list_readings`, `list_villagers`, `get_village`). Change an existing item (the same
    id, a new version) rather than writing a near-duplicate.
 2. **Write it** by the guide's rules: the learner's level (i+1), their recurring mistakes (the pattern ids in
-   `targets`), `{learner}` and the gender pairs for every form that agrees with them, every accepted answer listed,
-   never the answer in the prompt. Solve every exercise yourself from its prompt alone before you publish.
+   `targets`), `{learner}` and the gender pairs for every form that agrees with them, every accepted answer listed
+   (a picked option that is almost right, a real answer in the wrong register, in the exercise's `almost`), never the
+   answer in the prompt. Solve every exercise yourself from its prompt alone before you publish.
 3. **Publish** with the publishing tools (`publish_module`, `publish_pack`, `publish_story`, `publish_reading`,
    `publish_scene`, `publish_dialog_variant`, `publish_villager`, `publish_arrival`, `publish_grammar`, `publish_card`,
    `publish_worksheet`, `publish_gloss`, `publish_sentence_note`), each with a one-line `note`. They validate what they

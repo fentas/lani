@@ -113,6 +113,7 @@ sealed interface Exercise {
     @Serializable @SerialName("flashcard")
     data class Flashcard(val front: String, val back: String, val note: String? = null, val speak: Boolean = true, override val grammar: String? = null) : Exercise
 
+    /** Pick one of [options]: [answer] is right, one of [almost] almost (a real answer that doesn't fit here), the rest wrong. */
     @Serializable @SerialName("choice")
     data class Choice(
         val prompt: String,
@@ -124,7 +125,11 @@ sealed interface Exercise {
         val say: String? = null,
         @SerialName("say_options") val sayOptions: Boolean = false,
         override val grammar: String? = null,
-    ) : Exercise
+        val almost: List<Int> = emptyList(),
+    ) : Exercise {
+        /** The verdict of picking option [i] ([Grading.picked]). */
+        fun verdict(i: Int): Grading.Verdict = Grading.picked(i, answer, almost)
+    }
 
     /** A gap to type; with [audio], a gap by ear: the whole sentence is heard, the missing word typed. */
     @Serializable @SerialName("cloze")
@@ -180,6 +185,7 @@ sealed interface Exercise {
         override val grammar: String? = null,
     ) : Exercise
 
+    /** A situation answered typed ([accept]) or picked ([options], [answer], the near misses [almost], as a [Choice]'s). */
     @Serializable @SerialName("scenario")
     data class Scenario(
         val scene: String,
@@ -191,6 +197,7 @@ sealed interface Exercise {
         val accept: List<String>? = null,
         val explain: String? = null,
         override val grammar: String? = null,
+        val almost: List<Int> = emptyList(),
     ) : Exercise
 
     /**

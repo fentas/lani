@@ -740,8 +740,8 @@ private fun AdaptiveChoiceEx(vm: AppViewModel, a: AdaptedChoice, locked: Boolean
             if (ex.audio != null) {
                 Prompt("", ex.instruction)
                 AudioPrompt(ex.audio)
-                ChoiceEx(ex.prompt, ex.options, ex.answer, ex.explain, locked, done, sayOptions = ex.sayOptions)
-            } else ChoiceEx(ex.prompt, ex.options, ex.answer, ex.explain, locked, done, ex.instruction, ex.say, ex.sayOptions)
+                ChoiceEx(ex.prompt, ex.options, ex.answer, ex.explain, locked, done, sayOptions = ex.sayOptions, almost = ex.almost)
+            } else ChoiceEx(ex.prompt, ex.options, ex.answer, ex.explain, locked, done, ex.instruction, ex.say, ex.sayOptions, ex.almost)
         a.mode == TurnMode.TYPE -> {
             TypedEx(g.shown, null, locked, done, "✍️ ${bi("adaptive.typeMissingWord")}", accept = g.accept) { t -> typed(t, g.accept, ex.explain) }
             if (!locked) LetMeChooseButton { chosen = true }
@@ -762,10 +762,14 @@ private fun LetMeChooseButton(onClick: () -> Unit) {
     TextButton(onClick = onClick, modifier = Modifier.heightIn(min = 48.dp).padding(top = 8.dp)) { Text("✋ ${bi("adaptive.letMeChoose")}") }
 }
 
+/**
+ * Pick one of [options]: [answer] is right, one of the near misses [almost] almost (a real answer that doesn't fit here,
+ * [Grading.picked]: paid as almost, with the [explain]), the rest wrong.
+ */
 @Composable
 private fun ChoiceEx(
     prompt: String, options: List<String>, answer: Int, explain: String?, locked: Boolean, done: (Outcome) -> Unit,
-    instruction: String? = null, say: String? = null, sayOptions: Boolean = false,
+    instruction: String? = null, say: String? = null, sayOptions: Boolean = false, almost: List<Int> = emptyList(),
 ) {
     var picked by remember { mutableStateOf<Int?>(null) }
     val speakable = speakableOptions(options, sayOptions)
@@ -775,6 +779,7 @@ private fun ChoiceEx(
         val color = when {
             picked == null -> CardDefaults.cardColors()
             i == answer -> CardDefaults.cardColors(containerColor = AlpineGreen.copy(alpha = 0.18f))
+            i == picked && i in almost -> CardDefaults.cardColors(containerColor = FlameOrange.copy(alpha = 0.22f))
             i == picked -> CardDefaults.cardColors(containerColor = TriglavRed.copy(alpha = 0.18f))
             else -> CardDefaults.cardColors()
         }
@@ -783,7 +788,7 @@ private fun ChoiceEx(
                 onClick = {
                     if (picked == null && !locked) {
                         picked = i
-                        done(Outcome(if (i == answer) Verdict.CORRECT else Verdict.WRONG, opt, options[answer], explain))
+                        done(Outcome(Grading.picked(i, answer, almost), opt, options[answer], explain))
                     }
                 },
                 colors = color,
@@ -920,7 +925,7 @@ private fun ScenarioEx(vm: AppViewModel, ex: Exercise.Scenario, locked: Boolean,
         }
     }
     Spacer(Modifier.height(20.dp))
-    if (ex.options != null && ex.answer != null) ChoiceEx(ex.prompt, ex.options, ex.answer, ex.explain, locked, done)
+    if (ex.options != null && ex.answer != null) ChoiceEx(ex.prompt, ex.options, ex.answer, ex.explain, locked, done, almost = ex.almost)
     else TypedEx(ex.prompt, null, locked, done, accept = ex.accept.orEmpty()) { a -> typed(a, ex.accept.orEmpty(), ex.explain) }
 }
 
@@ -1228,6 +1233,8 @@ internal fun chatContext(ex: Exercise, o: Outcome?, moduleId: String?, source: J
         put("type", type)
         put("prompt", prompt)
         if (ex is Exercise.Choice) put("options", buildJsonArray { ex.options.forEach { add(JsonPrimitive(it)) } })
+        // its near misses, which a pick of is almost (the tutor's `almost`)
+        if (ex is Exercise.Choice && ex.almost.isNotEmpty()) put("almost", buildJsonArray { ex.almost.mapNotNull(ex.options::getOrNull).forEach { add(JsonPrimitive(it)) } })
         if (ex is Exercise.Multi) put("options", buildJsonArray { ex.options.forEach { add(JsonPrimitive(it)) } })
         // a counting card: its noun and gender, each step (asked, its options, typed or not) and how those answered went
         if (ex is Exercise.Counting) put("counting", countingSteps(ex, o?.sheet ?: steps))

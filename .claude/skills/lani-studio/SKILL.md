@@ -39,7 +39,7 @@ Pick exercise types that attack the error, not just test it:
 | Word order / clitics | `reorder`, then `translate` |
 | Endings, agreement, cases | `cloze`, `choice` with near-miss options |
 | Spelling / diacritics | `cloze`, `translate` (match grading) |
-| Register (ti/vi) | `scenario`, `multi` ("which are polite?") |
+| Register (ti/vi) | `scenario`, `multi` ("which are polite?"), `choice` with the other register in `almost` |
 | New vocabulary | `flashcard`, `choice` with `audio`, then `translate` |
 | Listening | `choice` with `audio`, `scenario` with a spoken `line` |
 | Real-life use | `scenario` (bakery, bank, the in-laws' kitchen) |
@@ -62,7 +62,7 @@ Rules:
 Solve every exercise yourself from the prompt alone. Check that:
 
 - every `reorder` solution uses exactly the given tokens,
-- every `choice` has exactly one defensible answer,
+- every `choice` has exactly one defensible answer; an option that is a real answer but not the best here (the wrong register, a near form) goes in `almost` (picking it is almost, its `explain` says why), never in the answer,
 - each `cloze` gap has a single unambiguous slot.
 
 ### 4. Publish

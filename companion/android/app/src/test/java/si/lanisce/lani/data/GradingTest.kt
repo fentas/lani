@@ -73,6 +73,15 @@ class GradingTest {
     @Test fun `closest accepted answer is used for feedback`() =
         assertEquals("Kako si?", check("kako sj", "Kako ste?", "Kako si?").expected)
 
+    @Test fun `a picked option is right, almost when it's one of the exercise's near misses, else wrong`() {
+        assertEquals(Verdict.CORRECT, Grading.picked(0, answer = 0, almost = listOf(1)))
+        assertEquals(Verdict.ALMOST, Grading.picked(1, answer = 0, almost = listOf(1)))
+        assertEquals(Verdict.WRONG, Grading.picked(2, answer = 0, almost = listOf(1)))
+        assertEquals(Verdict.WRONG, Grading.picked(1, answer = 0))
+        val greet = Exercise.Choice("Soseda: »Dober dan!«", listOf("Dober dan!", "Živjo!", "Lahko noč!"), 0, almost = listOf(1))
+        assertEquals(listOf(Verdict.CORRECT, Verdict.ALMOST, Verdict.WRONG), greet.options.indices.map(greet::verdict))
+    }
+
     @Test fun `select all, every right one and none else is right, one off almost`() {
         val answers = listOf(0, 2)
         assertEquals(Verdict.CORRECT, Grading.multi(listOf(2, 0), answers))

@@ -11,7 +11,7 @@
 | 🪨 Kamen · Stone | grammar | cloze, reorder (without `audio`), multi |
 | 📜 Modrost · Wisdom | conversation, writing | scenario, free, translate (`grade: claude`) |
 
-- Each answer pays: correct = 6, almost = 3, wrong = 1. A right answer after a hint pays like an almost. The learner always gets something for the effort.
+- Each answer pays: correct = 6, almost = 3, wrong = 1. Almost is a slip in a typed answer (a typo in a stem, a missing č/š/ž), one miss or one extra in a multi-select, or a picked option the exercise lists in `almost` (a real answer that doesn't fit there: "Živjo!" for a first "Dober dan"). A right answer after a hint pays like an almost. The learner always gets something for the effort.
 - **Fresh mind.** The first 40 answers of a game day pay in full. Later answers pay half. The count starts again at the first tick of a new day (`answersToday`). Forty answers are about one review session and one word pack. The rule makes daily practice build the village faster than one long session. It also keeps a 60-minute day from buying a whole age at once.
 - The pay is multiplied by the production of the resource: 1.0, plus building bonuses, plus tools (see "The chest"), plus morale ((morale − 50) / 500, so ±10 %), plus 2 % per villager after the first (at most +30 %).
 - Each resource has a storage cap. The base cap by age is 100 / 200 / 500 / 800 / 1200 / 1800. Buildings and Marko's barrel can raise it. Nothing costs more than the base cap of the age that unlocks it, so every price can be paid without extra storage.

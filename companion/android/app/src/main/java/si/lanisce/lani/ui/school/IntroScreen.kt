@@ -99,6 +99,7 @@ import si.lanisce.lani.ui.inlineMarkdown
 import si.lanisce.lani.ui.stage.portraitPx
 import si.lanisce.lani.ui.stage.rememberReducedMotion
 import si.lanisce.lani.ui.theme.AlpineGreen
+import si.lanisce.lani.ui.theme.FlameOrange
 import si.lanisce.lani.ui.theme.TriglavRed
 import si.lanisce.lani.ui.theme.XpGold
 import si.lanisce.lani.ui.words.WordText
@@ -625,6 +626,7 @@ private fun IntroAsk(
                         val color = when {
                             verdict == null -> CardDefaults.cardColors()
                             o == ask.answer -> CardDefaults.cardColors(containerColor = AlpineGreen.copy(alpha = 0.2f))
+                            o == picked && o in ask.almost -> CardDefaults.cardColors(containerColor = FlameOrange.copy(alpha = 0.22f))
                             o == picked -> CardDefaults.cardColors(containerColor = TriglavRed.copy(alpha = 0.2f))
                             else -> CardDefaults.cardColors()
                         }
@@ -632,7 +634,7 @@ private fun IntroAsk(
                             onClick = {
                                 if (verdict == null) {
                                     picked = o
-                                    val v = if (o == ask.answer) Grading.Verdict.CORRECT else Grading.Verdict.WRONG
+                                    val v = ask.verdict(o)
                                     verdict = v
                                     onAnswered(v, gapFilled(ask.prompt, ask.options.getOrNull(ask.answer)))
                                 }

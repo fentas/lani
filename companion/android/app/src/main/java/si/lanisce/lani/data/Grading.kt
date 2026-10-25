@@ -151,6 +151,16 @@ object Grading {
     }
 
     /**
+     * Picking option [picked] of a choice (or a picked scenario) whose [answer] is right: [Verdict.ALMOST] for one of its
+     * near misses ([almost]: a real answer that doesn't fit here, the wrong register or a near form), else wrong.
+     */
+    fun picked(picked: Int, answer: Int, almost: List<Int> = emptyList()): Verdict = when (picked) {
+        answer -> Verdict.CORRECT
+        in almost -> Verdict.ALMOST
+        else -> Verdict.WRONG
+    }
+
+    /**
      * The options [selected] in a select-all exercise whose right ones are [answers]: all of them and none else is right,
      * one missed or one too many (not both more) almost, anything else wrong.
      */

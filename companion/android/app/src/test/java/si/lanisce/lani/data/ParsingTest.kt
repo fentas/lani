@@ -32,6 +32,20 @@ class ParsingTest {
         assertEquals("Kaj bo?", (m.exercises[2] as Exercise.Scenario).line)
     }
 
+    @Test fun `a picked exercise's near misses (almost) are read, none when a module has none`() {
+        val m = parseModule(
+            """{"id":"x","version":1,"title":"t","level":"A1","exercises":[
+              {"type":"choice","prompt":"Soseda: »Dober dan!«","options":["Dober dan!","Živjo!","Lahko noč!"],"answer":0,"almost":[1],"explain":"Živjo is for friends."},
+              {"type":"scenario","scene":"🏡","prompt":"Greet her back.","line":"Dober dan!","options":["Živjo!","Dober dan!","Hvala!"],"answer":1,"almost":[0]},
+              {"type":"choice","prompt":"hvala","options":["thanks","please"],"answer":0}]}""",
+        )
+        val c = m.exercises[0] as Exercise.Choice
+        assertEquals(listOf(1), c.almost)
+        assertEquals(Grading.Verdict.ALMOST, c.verdict(1))
+        assertEquals(listOf(0), (m.exercises[1] as Exercise.Scenario).almost)
+        assertEquals(emptyList<Int>(), (m.exercises[2] as Exercise.Choice).almost)
+    }
+
     @Test fun `parses dashboard from read-db output`() {
         val raw = """
         {"databases": {

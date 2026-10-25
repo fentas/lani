@@ -35,9 +35,10 @@ internal object CultureProbes {
     private fun p(key: String, value: Any?) {
         check(key !in out) { "probe $key twice" }
         // an exercise that names no grammar book page (Exercise.grammar, newer than the fixture) reads as it did, and so does
-        // a villager without a day of their own nor a bed elsewhere (Villager.routine, Villager.sleeps, newer too: the
-        // strangers at the road)
-        out[key] = value?.toString()?.replace(", grammar=null)", ")")?.replace(", sleeps=null)", ")")?.replace(", routine=null)", ")") ?: "null"
+        // a choice without near misses (Exercise.Choice.almost, newer too) and a villager without a day of their own nor a
+        // bed elsewhere (Villager.routine, Villager.sleeps, newer too: the strangers at the road)
+        out[key] = value?.toString()?.replace(", almost=[])", ")")?.replace(", grammar=null)", ")")?.replace(", sleeps=null)", ")")
+            ?.replace(", routine=null)", ")") ?: "null"
     }
 
     /** [l] as Jan reads it: its Slovene and English, without the translations for other learners (de, it …). */

@@ -66,6 +66,12 @@ the app, and its `explain` gets "📖 V knjigo · To the book". Tag every exerci
 { "type": "choice", "prompt": "Your neighbour at 8:00 — you say…", "options": ["Dober jutro", "Dobro jutro", "Dobra jutro"], "answer": 1, "explain": "jutro is neuter → dobro" }
 ```
 2-6 options. `answer` is the 0-based index. Make distractors plausible near-misses.
+Optional `almost`: the indices of options that are almost right, a real answer that doesn't fit here (the wrong register,
+a near form). Picking one is **almost**, as a typo in a typed answer is (paid as almost), and the `explain` says why the
+answer fits better: write one that covers it. Not the answer itself, and at least one option stays wrong.
+```json
+{ "type": "choice", "prompt": "Micka's new neighbour greets you: »Dober dan!« You say…", "options": ["Dober dan!", "Živjo!", "Lahko noč!"], "answer": 0, "almost": [1], "explain": "**Dober dan** to someone you meet → *vi* register\n- živjo · hi, for friends: almost" }
+```
 Optional `audio`: Slovene text the app plays with TTS (a listening exercise). Don't put it in the prompt too.
 ```json
 { "type": "choice", "prompt": "🎧 What did you hear?", "audio": "Na svidenje!", "options": ["Hello", "Goodbye", "Thanks"], "answer": 1 }
@@ -108,7 +114,7 @@ The app shows a checkbox on each option and the number picked on its Check butto
 ```
 `scene` sets the place (start with an emoji). `line` is what `speaker` says. The app shows it as a speech bubble and plays it with TTS. Then the learner answers `prompt` in one of two ways:
 - typed: `accept` (match grading), or
-- picked: `options` + `answer`.
+- picked: `options` + `answer`, and optionally `almost` (as on `choice`: options that are almost right).
 Use exactly one of the two.
 
 ### `dictation` — hear it, write it
@@ -597,6 +603,7 @@ New types need two changes that ship together: the validator (`companion/bridge/
 - **one typo in a word's stem** (a missing, extra, wrong or swapped letter; word of 4+ letters) is **almost**: `zivo` → `živjo`, `hvlaa` → `hvala`; a word of 9+ letters forgives two (`Burgermaister` → `Bürgermeister`)
 - **anything in a word's ending stays wrong**, because endings carry the grammar: the last letter of words up to 5 letters, the last 2 of longer words. `moj` → `moja`, `Berlin` → `Berlina` and `imenujme` → `imenujem` are wrong, with a "check the ending" hint
 - the app highlights the differing letters in the correct answer
+- picked answers (`choice`, a picked `scenario`) are right or wrong, or **almost** when the option is in the exercise's `almost`
 
 So `accept` only needs genuinely different valid answers. Don't list misspellings.
 

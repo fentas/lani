@@ -59,7 +59,8 @@ object Adaptive {
      */
     fun choice(ex: Exercise.Choice, rule: String?, level: Mastery?, canSay: Boolean, trap: (List<String>, Int) -> List<String>): AdaptedChoice {
         val options = if (rule != null && ex.audio == null) trap(ex.options, ex.answer) else ex.options
-        val shown = if (options == ex.options) ex else ex.copy(options = options)
+        // a near miss their own trap took the place of is wrong now, as the trap is
+        val shown = if (options == ex.options) ex else ex.copy(options = options, almost = ex.almost.filter { options.getOrNull(it) == ex.options[it] })
         val gap = ex.options.getOrNull(ex.answer)?.takeIf { ex.audio == null }?.let { Forms.gap(ex.prompt, it) }
         val mode = if (rule == null || gap == null) TurnMode.CHOOSE else Masteries.mode(listOf(level ?: Mastery.NEW), canSay)
         return AdaptedChoice(shown, mode, gap)

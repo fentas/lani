@@ -39,6 +39,36 @@ export default async function modules() {
   })
   check('scenario with both answer kinds rejected', both.isError)
 
+  // a picked exercise's near misses (almost): kept and served; an index out of range, the answer, a typed scenario's or
+  // one that leaves no option wrong is refused
+  const greet = { type: 'choice', prompt: 'Micka\'s neighbour: "Dober dan!" You say…', options: ['Dober dan!', 'Živjo!', 'Lahko noč!'], answer: 0 }
+  const near = await client.callTool({
+    name: 'publish_module',
+    arguments: {
+      spec: {
+        ...spec,
+        id: 'almost-greetings',
+        exercises: [
+          { ...greet, almost: [1], explain: 'Živjo is for friends: to a new neighbour, Dober dan.' },
+          { type: 'scenario', scene: '🏡 At the fence', speaker: 'Soseda', line: 'Dober dan!', prompt: 'Greet her back.', options: ['Živjo!', 'Dober dan!', 'Hvala!'], answer: 1, almost: [0] },
+        ],
+      },
+    },
+  })
+  check('almost on choice and picked scenario accepted', !near.isError, near)
+  const nearServed = await (await fetch(`${base}/modules/almost-greetings`, { headers: auth })).json()
+  check('almost served as published', JSON.stringify(nearServed.exercises?.map((e: any) => e.almost)) === '[[1],[0]]', nearServed)
+  for (const [label, ex] of [
+    ['almost out of range rejected', { ...greet, almost: [3] }],
+    ['almost naming the answer rejected', { ...greet, almost: [0] }],
+    ['almost leaving no option wrong rejected', { ...greet, almost: [1, 2] }],
+    ['almost twice rejected', { ...greet, almost: [1, 1] }],
+    ['almost on a typed scenario rejected', { type: 'scenario', scene: 's', prompt: 'p', accept: ['a'], almost: [0] }],
+  ] as const) {
+    const r = await client.callTool({ name: 'publish_module', arguments: { spec: { ...spec, id: 'bad-almost', exercises: [ex] } } })
+    check(label, r.isError && /almost/.test(text(r)), r)
+  }
+
   // speaking
   const spoken = await client.callTool({
     name: 'publish_module',

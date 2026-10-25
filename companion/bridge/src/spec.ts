@@ -14,6 +14,29 @@ const say = text.optional()
 // The grammar book's page of the rule the exercise practises (lani.grammar/v0, grammar.ts): meeting it unlocks the page,
 // and its "why" leads there.
 const grammar = grammarRef.optional()
+// A picked exercise's near misses: the indices of the options that are almost right (a real answer, the wrong register or
+// a near form: "Živjo!" for a first "Dober dan"). Picking one is "almost", as a typo in a typed answer, with the explain.
+const almost = z.array(z.number().int().min(0)).min(1).optional()
+
+/**
+ * The issues of [almost] beside [options] and [answer]: no options (a typed scenario), an index out of range, the answer
+ * itself, one twice, every wrong option (none left to be wrong).
+ */
+function almostIssues(e: { almost?: number[]; answer?: number; options?: string[] }, ctx: z.RefinementCtx) {
+  if (!e.almost) return
+  if (!e.options) {
+    ctx.addIssue({ code: 'custom', message: 'almost needs options: it names options that are almost right', path: ['almost'] })
+    return
+  }
+  e.almost.forEach((a, i) => {
+    if (a >= e.options!.length) ctx.addIssue({ code: 'custom', message: 'almost index out of range', path: ['almost', i] })
+    else if (a === e.answer) ctx.addIssue({ code: 'custom', message: 'almost names the answer: it is right, not almost', path: ['almost', i] })
+  })
+  if (new Set(e.almost).size !== e.almost.length) ctx.addIssue({ code: 'custom', message: 'duplicate almost index', path: ['almost'] })
+  if (new Set(e.almost.filter(a => a !== e.answer && a < e.options!.length)).size >= e.options.length - 1) {
+    ctx.addIssue({ code: 'custom', message: 'almost names every wrong option: keep at least one wrong', path: ['almost'] })
+  }
+}
 
 const flashcard = z.object({
   type: z.literal('flashcard'),
@@ -32,12 +55,14 @@ export const choice = z
     audio: text.optional(), // Slovene text played via TTS (listening exercise)
     options: z.array(text).min(2).max(6),
     answer: z.number().int().min(0),
+    almost,
     explain,
     instruction,
     say,
     say_options: z.boolean().default(false), // read-aloud button on each (Slovene) option
   })
   .refine(e => e.answer < e.options.length, { message: 'answer index out of range', path: ['answer'] })
+  .superRefine(almostIssues)
 
 export const cloze = z.object({
   type: z.literal('cloze'),
@@ -116,6 +141,7 @@ const scenario = z
     prompt: text, // what the learner should do
     options: z.array(text).min(2).max(6).optional(),
     answer: z.number().int().min(0).optional(),
+    almost, // with options + answer only
     accept: z.array(text).min(1).optional(),
     explain,
   })
@@ -124,6 +150,7 @@ const scenario = z
     const types = e.accept !== undefined
     if (picks === types) ctx.addIssue({ code: 'custom', message: 'use either options+answer or accept, not both' })
     if (picks && e.answer! >= e.options!.length) ctx.addIssue({ code: 'custom', message: 'answer index out of range', path: ['answer'] })
+    almostIssues(e, ctx)
   })
 
 // Listening and spelling: the Slovene is only heard (TTS), never shown; the learner types it.
