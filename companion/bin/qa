@@ -87,6 +87,10 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        villagers with them waiting ("🐺 Po volkovih"), Home's strip with "Branimo vas" first, the bubbles
                        back after, Marko's card with the drill under Later ("✓ Naloga je opravljena: za vajo"); also as
                        quests-*.png in $LANI_QA_QUESTS_SHOTS;
+                       "wishlist" the tutor's wishlist in the app: a select-all with its checkboxes and the count on
+                       Check ("0 izbranih", "Preveri · Check (2)"), a choice's and a picked scenario's near miss (almost:
+                       "Skoraj!"), a request's grammar card as a flashcard in its challenge (QA's hook "request:<ids>"); the
+                       module and the cards written into the dev bridge's copy; also as wish-*.png in $LANI_QA_WISH_SHOTS;
                        "hearths" the hearths (QA's hooks "hearths:<age>", "hearths:short", "hearths:lit",
                        "hearths:feast", "hearths:cold", "hour:<h>", "kopa:sekanje", "show:kopa"): the camp's campfire,
                        the hamlet's first houses smoking, the village's fire ring by day and lit for the evening, its warm
@@ -8586,6 +8590,118 @@ def dev_upload():
         mock.terminate()
 
 
+WISH_MODULE = {
+    # a tutor's module as the dev bridge keeps it (app/modules/<id>/v1.json): a select-all, then two near misses (almost)
+    "schema": "lani.module/v0", "id": "wish-qa", "version": 1, "title": "Pozdravi · Greetings (QA)", "level": "A1",
+    "targets": [], "tags": [],
+    "exercises": [
+        {"type": "multi", "prompt": "Which greetings are polite (vi)?", "options": ["Dober dan", "Živjo", "Dobro jutro", "Oj"],
+         "answers": [0, 2], "say_options": True, "explain": "**dober dan**, **dobro jutro** → *vi*\n- živjo, oj · for friends"},
+        {"type": "choice", "prompt": "Micka's new neighbour greets you: »Dober dan!« You say…", "options": ["Dober dan!", "Živjo!", "Lahko noč!"],
+         "answer": 0, "almost": [1], "say_options": False,
+         "explain": "**Dober dan** to someone you meet for the first time → *vi*\n- živjo · hi, for friends: almost"},
+        {"type": "scenario", "scene": "🏡 Ob ograji, 9:00", "speaker": "Soseda", "line": "Dober dan!", "prompt": "Greet her back.",
+         "options": ["Živjo!", "Dober dan!", "Hvala!"], "answer": 1, "almost": [0],
+         "explain": "**Dober dan** back to a neighbour you don't know yet\n- živjo · for friends: almost"},
+    ],
+}
+# the cards of the request QA makes: a word, and a grammar card of three forms joined by " · " (vocab_biti_dual's, as it was)
+WISH_CARDS = {
+    "vocab_hvala": {"type": "vocabulary", "content": "hvala", "answer": "thank you", "category": "politeness"},
+    "vocab_biti_dual": {"type": "grammar", "content": "midva sva · vidva sta · onadva sta",
+                        "answer": "we two are · you two are · they two are", "category": "grammar_dual"},
+}
+
+
+def wish_snap(name: str):
+    """A screenshot of the wishlist step, also as wish-<name>.png in $LANI_QA_WISH_SHOTS when it's set."""
+    shot(f"wish-{name}")
+    if d := os.environ.get("LANI_QA_WISH_SHOTS"):
+        Path(d).mkdir(parents=True, exist_ok=True)
+        shutil.copy(shots[-1], Path(d) / f"wish-{name}.png")
+
+
+def wishlist():
+    """The tutor's wishlist of 2026-10-25 in the app: a select-all exercise looks like one (a checkbox on each option, the
+    count on its Check button: "0 izbranih · 0 selected", "Preveri · Check (2)"); a picked near miss is almost (a choice's
+    and a picked scenario's `almost`: "Živjo!" to a first "Dober dan", the feedback "Skoraj!"); a request's grammar card is
+    a flashcard in its challenge, never typed (QA's hook "request:<ids>"; companion/GAME.md, "Cards in a challenge"). The
+    module and the cards go into the dev bridge's copy first (the copy's own deck may have neither); the app is started
+    again to read the cards. Each screenshot also as wish-<name>.png in $LANI_QA_WISH_SHOTS when it's set."""
+    copy = dev_copy()
+    mod = copy / "app/modules/wish-qa"
+    mod.mkdir(parents=True, exist_ok=True)
+    (mod / "v1.json").write_text(json.dumps(WISH_MODULE, ensure_ascii=False, indent=2))
+    (mod / "current.json").write_text(json.dumps({"version": 1}))
+    sr_file = copy / "spaced-repetition.json"
+    sr = json.loads(sr_file.read_text())
+    today = time.strftime("%Y-%m-%d")
+    for cid, c in WISH_CARDS.items():
+        sr.setdefault("items", {}).setdefault(cid, {
+            **c, "id": cid, "difficulty": "A1", "created_date": today, "due_date": today, "interval_days": 1, "repetitions": 0,
+            "easiness_factor": 2.5, "consecutive_correct": 0, "consecutive_incorrect": 0, "last_quality": 0, "mastery_level": 0,
+            "total_reviews": 0, "priority": "medium"})
+    sr_file.write_text(json.dumps(sr, ensure_ascii=False, indent=2))
+
+    # 1 · the select-all
+    adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "module:wish-qa")
+    assert tap("Začni", 15), "wish-qa's intro"
+    assert wait_for("0 izbranih", 10), "the select-all's Check button before anything is ticked (0 izbranih · 0 selected)"
+    wish_snap("multi-none")
+    assert tap("Dober dan", 4) and tap("Dobro jutro", 4), "two options ticked"
+    assert wait_for("Preveri · Check (2)", 4), "the count on the Check button"
+    wish_snap("multi-two")
+    assert tap("Preveri · Check (2)", 3), "check"
+    assert wait_for("Pravilno!", 6), "both polite greetings: right"
+    assert tap("Naprej · Next", 4), "next"
+
+    # 2 · a choice's near miss
+    assert tap("Živjo!", 8), "the choice's near miss"
+    assert wait_for("Skoraj!", 6), "a near miss picked: almost (Skoraj!), not wrong"
+    wish_snap("almost")
+    assert tap("Naprej · Next", 4), "next"
+
+    # 3 · a picked scenario's near miss
+    assert wait_for("Greet her back", 8), "the scenario"
+    assert tap("Živjo!", 4), "the scenario's near miss"
+    assert wait_for("Skoraj!", 6), "the scenario's near miss: almost"
+    wish_snap("almost-scenario")
+    assert tap("Naprej · Next", 4), "next"
+    time.sleep(2)
+    go_home()
+
+    # 4 · a request with a grammar card: the app again, so its deck has the copy's new cards
+    adb("shell", "am", "force-stop", PKG)
+    adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity")
+    assert wait_for("Danes · Today", 40), "Home after the restart"
+    time.sleep(3 * slow())  # the deck (read-db) loads after Home
+    qa_hook("request:vocab_hvala,vocab_biti_dual")
+    assert wait_for("Napake na tabli", 10), "the request's challenge"
+    wish_snap("challenge-intro")
+    assert tap("Začni", 6), "start the challenge"
+    seen = False
+    for _ in range(3):
+        time.sleep(1.5)
+        if find("midva sva · vidva sta · onadva sta"):
+            # the grammar card: a flashcard (turned over, self-rated), no answer field
+            assert not find("Napiši odgovor"), "the grammar card asked typed"
+            wish_snap("challenge-grammar")
+            assert tap("Pokaži · Show", 4), "the flashcard's Show"
+            wish_snap("challenge-grammar-back")
+            assert tap("Vedel sem", 4), "knew it"
+            seen = True
+        elif find("Napiši odgovor") or find("Preveri · Check"):
+            answer_any()  # the word: typed (hvala)
+        else:
+            break
+        if not tap("Naprej · Next", 4):
+            break
+    assert seen, "the grammar card in the request's challenge"
+    time.sleep(2)
+    wish_snap("challenge-result")
+    go_home()
+
+
 # --- main -----------------------------------------------------------------------------------
 
 def plan():
@@ -8653,6 +8769,7 @@ def plan():
         ("village-life", village_life, v, False, ""),
         ("reactions", reactions, v, False, ""),
         ("quests-threat", quests_threat, v, False, ""),
+        ("wishlist", wishlist, go_home, False, ""),
         ("hearths", hearths, v, False, ""),
         ("storm", storm, v, False, ""),
         ("friends", friends, h, True, "visit"),

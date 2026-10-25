@@ -1180,6 +1180,15 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
+    /**
+     * QA's "request:<ids>" (a debug build, app/QaHooks.kt): the village (the dev bridge's copy) with Mojca's request of those
+     * cards ([QaHooks.withRequest]), and its challenge started as from its bubble.
+     */
+    fun qaRequest(cardIds: List<String>) {
+        game.apply { si.lanisce.lani.app.QaHooks.withRequest(it, cardIds, java.time.LocalDate.now(), System.currentTimeMillis()) }
+        startQuest(si.lanisce.lani.app.QaHooks.REQUEST)
+    }
+
     /** QA's "review" hook (app/QaHooks): a review of up to five of the learner's cards, due or not. */
     fun qaReview() {
         val cards = content.dashboard?.pool.orEmpty().take(5)

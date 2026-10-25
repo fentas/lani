@@ -127,6 +127,22 @@ class QaHooksTest {
         assertTrue(si.lanisce.lani.game.Projects.finished(done, most))
     }
 
+    @Test fun `a request of the cards QA names, in place of the one before, its challenge started`() {
+        val asked = ArrayList<List<String>>()
+        QaHooks.handle("request:vocab_hvala, vocab_biti_dual", request = { asked += it })
+        QaHooks.handle("request:", request = { asked += it }) // no cards: nothing
+        assertEquals(listOf(listOf("vocab_hvala", "vocab_biti_dual")), asked)
+        val day = java.time.LocalDate.of(2026, 10, 25)
+        val s = QaHooks.withRequest(si.lanisce.lani.game.GameState(), listOf("vocab_ampak"), day, 0)
+        val r = QaHooks.withRequest(s, asked.single(), day, 0)
+        val q = r.quests.single()
+        assertEquals(QaHooks.REQUEST, q.id)
+        assertEquals(listOf("vocab_hvala", "vocab_biti_dual"), q.cardIds)
+        assertEquals(si.lanisce.lani.game.QuestSource.LOCAL, q.source)
+        assertEquals(si.lanisce.lani.game.Res.STONE, q.skill)
+        assertTrue(!q.done && q.tries == 0)
+    }
+
     @Test fun `a building to choose a plot for, the village ready for it, until the village takes it`() {
         var readied = 0
         QaHooks.handle("build:field", ready = { readied++ })

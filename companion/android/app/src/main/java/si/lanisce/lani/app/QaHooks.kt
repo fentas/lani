@@ -91,6 +91,9 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   "tutorlive:" the API again (tutor/live/LiveTutor). The key is entered in the Tutor section, as the learner would.
  * - "review": a review of up to five of the learner's cards, due or not (a new learner's words are due tomorrow: the
  *   hosted mode's QA reviews them today).
+ * - "request:<card id>,<card id>…": the village (the dev bridge's copy) gets Mojca's request "Napake na tabli" of those
+ *   cards of the learner's ([withRequest]: the cards a request was made from, a grammar card among them) and its challenge
+ *   starts, as from its bubble: what the challenge asks of each card (companion/GAME.md, "Cards in a challenge").
  * - "pair:<target>-<base>": the app shown in that language pair ("pair:sl-de"), as the connection sheet's languages
  *   choose it; "pair:" follows the learner profile again.
  * - "kopa:<day>": the spots' cycles (the charcoal pile's rounds, game/scene/SpotCycles) are as on that day ("2026-07-14",
@@ -311,6 +314,7 @@ object QaHooks {
         shadow: (String) -> Unit = {}, counting: (String) -> Unit = {}, dev: (String) -> Unit = {}, pair: (String) -> Unit = {},
         grow: (si.lanisce.lani.game.Age) -> Unit = {}, formsCard: (String, String) -> Unit = { _, _ -> }, data: () -> Unit = {}, tutorLive: (String) -> Unit = {},
         review: () -> Unit = {}, numbers: (String) -> Unit = {}, event: (String) -> Unit = {}, hearths: (String) -> Unit = {},
+        request: (List<String>) -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
@@ -327,6 +331,8 @@ object QaHooks {
             command == "shadow" -> shadow("")
             command == "data" -> data()
             command == "review" -> review()
+            command.startsWith("request:") -> command.removePrefix("request:").split(',').map { it.trim() }.filter { it.isNotEmpty() }
+                .takeIf { it.isNotEmpty() }?.let(request)
             command.startsWith("shadow:") -> shadow(command.removePrefix("shadow:"))
             command.startsWith("tutorlive:") -> tutorLive(command.removePrefix("tutorlive:"))
             command.startsWith("audio:") -> audio(command.removePrefix("audio:"))
@@ -395,6 +401,23 @@ object QaHooks {
         val free = (0 until plots).any { p -> s.buildings.none { it.type.onPlot && it.plot == p } }
         val next = si.lanisce.lani.game.Age.entries.getOrNull(s.age.ordinal + 1)
         return if (free || next == null) full else full.copy(age = next)
+    }
+
+    /** The id of the request QA makes ("request:<ids>", [withRequest]). */
+    const val REQUEST = "q-qa-request"
+
+    /**
+     * [s] with Mojca's request "Napake na tabli" (grammar, stone) of the learner's cards [cardIds] ("request:<ids>"), in place of
+     * one QA made before, open, untried, asked [today]. A debug build's, on the dev bridge's copy.
+     */
+    fun withRequest(s: si.lanisce.lani.game.GameState, cardIds: List<String>, today: java.time.LocalDate, now: Long): si.lanisce.lani.game.GameState {
+        val stone = si.lanisce.lani.game.Res.STONE
+        val q = si.lanisce.lani.game.Quest(
+            id = REQUEST, giver = "Učiteljica Mojca", emoji = "👩‍🏫", title = "Napake na tabli",
+            story = "Nekdo je na tablo napisal stavke z napakami. Mojca prosi, da jih popraviš.", skill = stone,
+            reward = mapOf(stone to 30), cardIds = cardIds, expiresAt = now + 7L * 24 * 3600 * 1000, since = today.toString(),
+        )
+        return s.copy(quests = s.quests.filter { it.id != REQUEST } + q)
     }
 
     /**
