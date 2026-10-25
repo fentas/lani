@@ -56,6 +56,11 @@ data class SceneWorld(
      * that isn't known (tools, tests, a visit): the school's own greeting.
      */
     val board: Blackboard? = null,
+    /**
+     * The hearth of the building the scene is seen in ([here]) is cold today ([si.lanisce.lani.game.Hearths.cold]: no wood,
+     * blown out by a lost storm, the forge without charcoal): its stove or forge is drawn cold, unless a dialog fires it up.
+     */
+    val cold: Boolean = false,
 ) {
     /** Whether a building of [type] stands. */
     fun has(type: BuildingType): Boolean = buildings?.containsKey(type) ?: true
@@ -76,8 +81,8 @@ data class SceneWorld(
      */
     val hereLevel: Int get() = here?.level ?: if (buildings == null) Catalog.MAX_LEVEL else 1
 
-    /** This world seen in [building] (null: as it is). */
-    fun seenIn(building: Building?): SceneWorld = if (building == null || building == here) this else copy(here = building)
+    /** This world seen in [building] (null: as it is); its hearth taken as lit (the world doesn't know the village's fires). */
+    fun seenIn(building: Building?): SceneWorld = if (building == null || building == here) this else copy(here = building, cold = false)
 
     /** Steps done of [project], 0 … [stages]. */
     fun stage(project: String): Int = projects?.let { (it[project] ?: 0).coerceIn(0, stages(project)) } ?: stages(project)
@@ -115,6 +120,7 @@ data class SceneWorld(
             wolves = state.event?.kind == si.lanisce.lani.game.EventKind.WOLVES,
             here = here,
             down = state.landmarksDown,
+            cold = here != null && si.lanisce.lani.game.Hearths.cold(state, here),
         )
 
         /** Everything built, seen in a room at [level]: what a tool shows of a room's stages (and a sticker of a thing that goes as the room grows). */

@@ -5,7 +5,7 @@ import kotlin.math.floor
 
 /**
  * When the lightning flashes, on the picture's clock (its seconds: [SceneFrame.time], the village's frame time): one flash
- * in each [period], up to [late] seconds into it. A scene's sky with `lightning` (SCENES.md, "Sky cues") flashes by
+ * in each [period], up to [late] seconds into it, each one soft pulse ([glow]). A scene's sky with `lightning` (SCENES.md, "Sky cues") flashes by
  * [SCENE]; the village by [village] (the storm event, or a dialog's sky kept for the day). Pure: the painters draw each flash
  * from here (game/render/scene/Weather.kt, game/render/VillageRenderer.kt), and the thunder after it is timed from here
  * (game/ambient/Thunder.kt), so the flash and its sound agree.
@@ -37,21 +37,41 @@ class Lightning private constructor(val period: Double, val late: Double, privat
 
     companion object {
         /**
-         * A scene's: a flash every 7.3 s, up to 2.5 s late (so every 4.8 to 9.8 s), drawn as a flicker of 0.08 s and an
-         * echo at 0.15 to 0.22 s (`Weather.flash`).
+         * A scene's: a flash every 9 s, up to 4 s late (so every 5 to 13 s), drawn as one soft flash ([glow]): no flicker,
+         * no echo (`Weather.flash`).
          */
-        val SCENE = Lightning(7.3, 2.5, 81)
+        val SCENE = Lightning(9.0, 4.0, 81)
 
-        /** The village's storm event: a flash every 5.3 s, on the dot. */
-        val STORM = Lightning(5.3, 0.0, 81)
+        /** The village's storm event: a flash every 10 s, up to 5 s late (every 5 to 15 s), now and then, never in a rhythm. */
+        val STORM = Lightning(10.0, 5.0, 81)
 
-        /** A dialog's lightning kept over the village for the day ([DaySky]): a flash every 8.1 s, on the dot. */
-        val KEPT = Lightning(8.1, 0.0, 81)
+        /** A dialog's lightning kept over the village for the day ([DaySky]): a flash every 13 s, up to 5 s late. */
+        val KEPT = Lightning(13.0, 5.0, 81)
 
         /** The village's lightning: the storm event's, else the kept sky's. */
         fun village(storm: Boolean): Lightning = if (storm) STORM else KEPT
 
-        /** How much of its period a village flash shows (0.3 s in a storm): the bolt and the whitened sky, fading. */
-        const val VILLAGE_SHOWS = 0.06f
+        /** A flash brightens over this many seconds … */
+        const val RISE_S = 0.06
+
+        /** … and fades over this many after (an ease out): one soft flash, never a flicker. */
+        const val FADE_S = 0.5
+
+        /** How long a flash shows, all told (s). */
+        const val SHOWS_S = RISE_S + FADE_S
+
+        /** How long the bolt itself shows at the flash's start (s). */
+        const val BOLT_S = 0.18
+
+        /**
+         * How bright a flash is [since] seconds after it began, 0..1: a quick soft rise to 1 over [RISE_S], then an ease out
+         * over [FADE_S]; 0 before and after. The village and the scenes draw their flash with it, so every flash is one soft
+         * pulse well under the three a second that would count as flashing (WCAG 2.3.1), and none comes within 5 s of the next.
+         */
+        fun glow(since: Double): Float = when {
+            since < 0.0 || since >= SHOWS_S -> 0f
+            since < RISE_S -> (since / RISE_S).toFloat().let { it * it * (3f - 2f * it) }
+            else -> (1.0 - (since - RISE_S) / FADE_S).toFloat().let { it * it }
+        }
     }
 }

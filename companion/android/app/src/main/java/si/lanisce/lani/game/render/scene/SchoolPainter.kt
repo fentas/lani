@@ -530,7 +530,9 @@ internal class SchoolPainter : DioramaPainter() {
                     } else {
                         val frost = winter && (min(u, 1f - u) * 3f + min(v, 1f - v) * 2f < 0.35f + Noise.rnd(px, py, 5) * 0.2f)
                         c.penEmissive = !frost
-                        if (frost) Col.hex(0xE8F0F8) else if (detail == 1) view(px, py, u, v, seed) else glass(view(px, py, u, v, seed), u, v, b - a, z1 - z0)
+                        // the weather on the glass: grey under the clouds, the rain streaking past and running down the pane
+                        val out = Weather.glass(view(px, py, u, v, seed), u, v, (b - a) * 8f, (z1 - z0) * 2f, t, frame.sky)
+                        if (frost) Col.hex(0xE8F0F8) else if (detail == 1) out else glass(out, u, v, b - a, z1 - z0)
                     }
                 }
             }

@@ -48,6 +48,12 @@ data class Sky(
     companion object {
         val CLEAR = Sky()
 
+        /**
+         * The storm event's weather (companion/GAME.md "People react"): heavy rain slanting in the wind under a grey sky,
+         * lightning now and then. Over the village and every scene while it is on ([DaySky.over]).
+         */
+        val STORM = Sky(rain = 0.9f, wind = 0.7f, gloom = 1f, lightning = true)
+
         /** A cue's change eases in over this many seconds: the rain begins slowly. */
         const val RAMP_S = 4.0
     }
@@ -133,6 +139,14 @@ data class DaySky(val on: String, val scene: String, val sky: Sky) {
     companion object {
         /** The kept sky of [today] over [scene], or over the village when [scene] is null; otherwise clear. */
         fun of(state: GameState?, today: LocalDate, scene: String? = null): Sky = of(state, today.toString(), scene)
+
+        /**
+         * The weather over [scene] (or the village, null) of [state]'s village now: the storm's while the storm event is on
+         * ([Sky.STORM]: it rains over every scene, a room seeing it through its window), else what a dialog left today
+         * ([of]). The storm is never kept: when it's over the scene eases back to the day's sky.
+         */
+        fun over(state: GameState?, today: LocalDate, scene: String? = null): Sky =
+            if (state?.event?.kind == si.lanisce.lani.game.EventKind.STORM) Sky.STORM else of(state, today, scene)
 
         /** The same for [today] as an ISO date; an empty one (no day known) is clear. */
         fun of(state: GameState?, today: String, scene: String? = null): Sky {

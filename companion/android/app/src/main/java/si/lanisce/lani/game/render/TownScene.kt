@@ -123,6 +123,8 @@ fun TownScene(
     val drawnFine = remember(iw, ih) { Drawn() }
     val switch = remember(iw, ih) { Switch() }
 
+    // the system's animations off: no flash of lightning over the village
+    val calm = si.lanisce.lani.ui.stage.rememberReducedMotion()
     Canvas(modifier) {
         val tick = clock.tick // reading the clock here re-runs only the draw phase
         val t = tick / 1e9
@@ -165,6 +167,7 @@ fun TownScene(
             // an age-up's moment (the village growing, its decorations going up), a celebration's decorations on the map
             growth = growth(),
             festive = festive(),
+            calm = calm,
         )
         // the nominal canvas: every tick while it is the picture, else only when its inputs change
         if (drawnBase.stale(if (k == 1) tick else 0L, state, highlightPlot, justBuilt, celebrate, visitors, people, today, standing, skyMark, plots, day, frame.kopa, frame.growth, frame.festive)) {

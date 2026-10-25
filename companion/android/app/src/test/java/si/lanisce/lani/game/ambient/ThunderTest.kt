@@ -29,7 +29,7 @@ class ThunderTest {
         for (l in listOf(Lightning.SCENE, Lightning.STORM, Lightning.KEPT)) {
             val seconds = 600.0
             val flashes = l.between(0.0, seconds)
-            assertTrue(flashes.size > seconds / 10)
+            assertTrue(flashes.size >= seconds / l.period - 1)
             for (seed in 1..3) {
                 val cues = heardOver(l, seconds, seed)
                 assertEquals(flashes.size, cues.size)

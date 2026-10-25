@@ -570,8 +570,8 @@ internal abstract class VistaPainter : ArtPainter() {
         wx.snow()
         val flash = wx.flash()
         if (flash > 0f) {
-            wx.lighten(flash, 0.42f, 0.42f)
-            if (flash >= 1f) wx.boltLine(6 * detail, hz - 2 * detail, wx.bolt())
+            wx.lighten(flash, 0.3f, 0.3f)
+            if (wx.boltShows()) wx.boltLine(6 * detail, hz - 2 * detail, wx.bolt())
         }
     }
 

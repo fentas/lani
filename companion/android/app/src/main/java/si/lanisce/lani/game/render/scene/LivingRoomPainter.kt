@@ -166,7 +166,8 @@ internal class LivingRoomPainter : RoomPainter() {
         // light: the lamp from dusk, the stove's warmth when it is fired up (and a little while Janez sleeps by it, the
         // lamp out), the sun through the window
         if (lit) s.light(iso.sx(lampX, lampY), iso.sy(lampX, lampY, fl + 16f), 50f, 1.05f * env.windows)
-        val warm = max(fxOn("stove"), if (asleepHere) SLEEP_WARM else 0f)
+        // on a rainy day the stove kept warm (everyone in); none from a cold one (the house's hearth out), unless a dialog fires it
+        val warm = if (frame.world.cold) fxOn("stove") else max(fxOn("stove"), if (asleepHere) SLEEP_WARM else if (frame.sky.rain > 0.3f) RAIN_WARM else 0f)
         if (warm > 0.02f) s.light(iso.sx(sx1 + 0.3f, sy1 + 0.3f), iso.sy(sx1 + 0.3f, sy1 + 0.3f, fl + 6f), 30f * warm + 10f, 0.55f * warm)
         sunPatch()
     }
@@ -454,6 +455,9 @@ internal class LivingRoomPainter : RoomPainter() {
 
         /** How warm the stove glows while Janez sleeps by it (as the `stove` effect's level). */
         const val SLEEP_WARM = 0.5f
+
+        /** How warm the stove glows on a rainy day (the storm's, a dialog's shower), its hearth lit. */
+        const val RAIN_WARM = 0.45f
 
         /** Janez's wool blanket: loden green, a cream check (the tiled stove's green, the cloth's linen). */
         val GREEN_WOOL = intArrayOf(Col.hex(0x6E9A62), Col.hex(0x4E7A48), Col.hex(0x2E4E2C), Col.hex(0xE6D6A6))

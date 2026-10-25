@@ -16,6 +16,7 @@ The files are dedicated to the public domain under CC0 1.0 (https://creativecomm
 | wind.ogg | Wind in the mountains, soft gusts | 30 s | Pink-brown noise through a slowly moving band-pass, slow gusts, and a narrow whistle band in the strongest gusts. |
 | sea.ogg | Small waves on a sandy lagoon shore | 32 s | About four waves of noise under a moving low-pass (swell, soft break, long hiss as the wave runs back), foam grains and a quiet surf. |
 | frogs.ogg | Tree frogs and pond frogs on a spring night | 24 s | Three tree frogs take turns with buzzy "kre" notes (1.2–1.9 kHz tones, pulsed 100–150 times a second). Two pond frogs make short rolling croaks (380–580 Hz). A short reverb. |
+| rain-in.ogg | The rain heard from inside a house, for the rooms | 16 s | A low wash of brown noise (120 Hz – 1.1 kHz) with slow swells for the rain through the walls, many dull taps on the roof (short damped tones at 250–700 Hz with a little noise, band-passed at 150 Hz – 1.4 kHz), now and then a soft tick of a drop on the window pane (1.8–3 kHz), the water running off the eaves (band noise that swells), and a short room reverb. |
 
 Each loop is built round a circle, so it repeats exactly: noise is shaped in the frequency domain, slow changes have
 whole cycles per loop, events that run past the end continue at the start, and the reverb is a circular convolution.

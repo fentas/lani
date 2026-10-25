@@ -101,13 +101,20 @@ class SoundscapeTest {
         assertTrue(scene("livingroom", 20f, 1, fx = mapOf("stove" to 1f)).of(Layer.FIRE) > 0f)
     }
 
-    @Test fun `indoors the rain is fainter, in the cellar faintest, under the roof louder`() {
+    @Test fun `indoors the rain is muffled, in the cellar faintest, under the roof loudest`() {
         val rain = Sky(rain = 0.7f)
         val out = scene("field", 12f, 6, rain).of(Layer.RAIN)
-        val kitchen = scene("kitchen", 12f, 6, rain).of(Layer.RAIN)
-        val attic = scene("attic", 12f, 6, rain).of(Layer.RAIN)
-        val cellar = scene("cellar", 12f, 6, rain).of(Layer.RAIN)
-        assertTrue("$cellar < $kitchen < $attic < $out", cellar < kitchen && kitchen < attic && attic < out)
+        // a room hears the rain through its walls and roof: the muffled loop, not the rain itself
+        for (art in listOf("kitchen", "livingroom", "workshop", "school", "smithy", "attic", "cellar", "church")) {
+            assertFalse(art, Layer.RAIN in scene(art, 12f, 6, rain))
+            assertTrue(art, scene(art, 12f, 6, rain).of(Layer.RAIN_IN) > 0f)
+        }
+        val kitchen = scene("kitchen", 12f, 6, rain).of(Layer.RAIN_IN)
+        val attic = scene("attic", 12f, 6, rain).of(Layer.RAIN_IN)
+        val cellar = scene("cellar", 12f, 6, rain).of(Layer.RAIN_IN)
+        assertTrue("$cellar < $kitchen < $attic", cellar < kitchen && kitchen < attic)
+        assertTrue("$kitchen < $out", kitchen < out)
+        assertFalse(Layer.RAIN_IN in scene("field", 12f, 6, rain))
         assertEquals(out, scene("tent", 12f, 6, rain).of(Layer.RAIN), 0.001f) // the canvas drums
         assertFalse(Layer.BIRDS in scene("church", 12f, 6))
         assertTrue(scene("kitchen", 12f, 6).of(Layer.BIRDS) < scene("square", 12f, 6).of(Layer.BIRDS))

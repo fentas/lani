@@ -152,18 +152,14 @@ internal class Weather(
     }
 
     /**
-     * How bright a flash of lightning is now, 0..1: now and then (when [Lightning.SCENE] says: every 5–10 s) a flicker and
-     * an echo. The thunder after it is timed from the same flashes (game/ambient/Thunder.kt).
+     * How bright a flash of lightning is now, 0..1: now and then (when [Lightning.SCENE] says: every 5–13 s) one soft
+     * flash ([Lightning.glow]: a quick rise, half a second's fade). The thunder after it is timed from the same flashes
+     * (game/ambient/Thunder.kt). None with the system's animations off: the scene's sky comes without lightning then.
      */
-    fun flash(): Float {
-        if (!sky.lightning) return 0f
-        val ph = Lightning.SCENE.since(t)
-        return when {
-            ph in 0.0..0.08 -> 1f
-            ph in 0.15..0.22 -> 0.55f
-            else -> 0f
-        }
-    }
+    fun flash(): Float = if (!sky.lightning) 0f else Lightning.glow(Lightning.SCENE.since(t))
+
+    /** Whether the bolt of the flash shows now: its first [Lightning.BOLT_S] (none without lightning). */
+    fun boltShows(): Boolean = sky.lightning && Lightning.SCENE.since(t) in 0.0..Lightning.BOLT_S
 
     /** Which flash it is (a new bolt each time). */
     fun bolt(): Int = Lightning.SCENE.index(t)
@@ -208,6 +204,68 @@ internal class Weather(
     }
 
     companion object {
+        /**
+         * A window's glass in the weather ([sky]), seen from inside (companion/SCENES.md "The rain indoors"): at ([u], [v])
+         * of the glass (0..1 from its lower left; it is [ww] × [wh] scene-canvas pixels), what the window shows there
+         * ([col]) greyed under the clouds; in the rain the drops streaking past outside, beads clinging to the pane and now
+         * and then a trickle running down it; a flash of lightning brightening it ([Lightning.glow] at [t], none when the
+         * sky has no lightning: the system's animations off). Pure per pixel: every painter's window agrees, and closer up
+         * the same drops are finer.
+         */
+        fun glass(col: Int, u: Float, v: Float, ww: Float, wh: Float, t: Double, sky: Sky): Int {
+            if (sky.clear) return col
+            var out = col
+            if (sky.gloom > 0f) out = Col.mix(out, GLASS_GREY, 0.55f * sky.gloom)
+            val level = sky.rain
+            if (level > 0.02f) {
+                val x = u * ww; val y = (1f - v) * wh // px from the glass's top left
+                // the rain outside: thin streaks slanting in the wind, one in some columns along the slant
+                val slant = 0.2f + 0.5f * sky.wind
+                val sx = x - y * slant
+                val ci = floor(sx / STREAK_GAP).toInt()
+                if (Noise.rnd(ci, 84) < 0.3f + 0.45f * level && abs(sx - (ci + 0.5f) * STREAK_GAP) < 0.5f) {
+                    val len = 2.5f + 3.5f * level
+                    val period = wh + len + 6f
+                    val head = ((Noise.rnd(ci, 86) * period + t * (55.0 + Noise.rnd(ci, 85) * 35.0)) % period).toFloat() - 3f
+                    val d = y - (head - len)
+                    if (d in 0f..len) out = Col.mix(out, RAIN, 0.75f * (0.35f + 0.65f * d / len))
+                }
+                // beads on the pane: a drop in some cells of a small grid, light on top, a shade under it
+                val gx = floor(x / BEAD_GRID).toInt(); val gy = floor(y / BEAD_GRID).toInt()
+                if (Noise.rnd(gx, gy, 87) < 0.32f * level) {
+                    val bx = (gx + 0.25f + 0.5f * Noise.rnd(gx, gy, 88)) * BEAD_GRID
+                    val by = (gy + 0.25f + 0.5f * Noise.rnd(gx, gy, 89)) * BEAD_GRID
+                    val dx = x - bx; val dy = y - by
+                    if (dx * dx + dy * dy < 0.36f) out = Col.mix(out, SHINE, if (dy < 0f) 0.5f else 0.3f)
+                    else if (dy in 0.5f..1.1f && abs(dx) < 0.6f) out = Col.scale(out, 0.82f)
+                }
+                // now and then a trickle runs down, a drop at its head, a wet trail behind it
+                val tc = floor(x / TRICKLE_GAP).toInt()
+                if (Noise.rnd(tc, 90) < 0.3f * level) {
+                    val per = 5.0 + Noise.rnd(tc, 91) * 6.0
+                    val ph = ((t / per + Noise.rnd(tc, 92)) % 1.0).toFloat()
+                    val head = ph * (wh * 1.6f) - 2f
+                    val tx = (tc + 0.5f) * TRICKLE_GAP + sin(y * 0.8f + tc).toFloat() * 0.35f
+                    val ax = abs(x - tx)
+                    if (ax < 0.6f && abs(y - head) < 0.6f) out = Col.mix(out, SHINE, 0.55f)
+                    else if (ax < 0.45f && y < head && y > head - wh * 0.6f) out = Col.mix(out, RAIN, 0.3f * (1f - (head - y) / (wh * 0.6f)))
+                }
+            }
+            if (sky.lightning) {
+                val f = Lightning.glow(Lightning.SCENE.since(t))
+                if (f > 0f) out = Col.mix(out, FLASH, 0.55f * f)
+            }
+            return out
+        }
+
+        /** The grey of a storm's sky in a window. */
+        private val GLASS_GREY = Col.hex(0x56606E)
+        private val SHINE = Col.hex(0xF2F6FF)
+        /** Px between the columns a streak of rain may fall in, seen through a window; a bead's cell; a trickle's column. */
+        private const val STREAK_GAP = 2.2f
+        private const val BEAD_GRID = 3.2f
+        private const val TRICKLE_GAP = 3.7f
+
         private val RAIN = Col.hex(0xC4D2E6)
         private val SNOW = Col.hex(0xFFFFFF)
         private val SNOW_SHADE = Col.hex(0xDDE7F3)

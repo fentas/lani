@@ -188,6 +188,16 @@ object Hearths {
         return of(s, world).filter { it.id !in lit }
     }
 
+    /**
+     * Whether building [b]'s own hearth is cold now: a hut, a house, the school or the smithy whose fire is out (for want
+     * of wood, blown out by a lost storm, the forge without charcoal: not [lit]) or that is damaged. Its scene shows the
+     * stove or the forge cold (companion/SCENES.md "The rain indoors"); any other building has no hearth to be cold.
+     */
+    fun cold(s: GameState, b: Building, today: LocalDate = dayOf(s), world: WorldFile = Cultures.current.world): Boolean {
+        if (b.type != BuildingType.HUT && b.type != BuildingType.HOUSE && b.type != BuildingType.SCHOOL && b.type != BuildingType.SMITHY) return false
+        return b.damaged || b.id !in lit(s, today, world)
+    }
+
     /** The share of the hearths lit, 0..1 (1 with none). */
     fun share(s: GameState, today: LocalDate = dayOf(s), world: WorldFile = Cultures.current.world): Float {
         val all = of(s, world)

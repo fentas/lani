@@ -1214,8 +1214,8 @@ internal class WatchtowerPainter : VistaPainter() {
         beyond.snow()
         val flash = wx.flash()
         if (flash > 0f) {
-            wx.lighten(flash, 0.42f, 0.12f)
-            if (flash >= 1f) wx.boltLine(ROOF_B * z + 4 * z, hz - 2 * z, wx.bolt())
+            wx.lighten(flash, 0.3f, 0.1f)
+            if (wx.boltShows()) wx.boltLine(ROOF_B * z + 4 * z, hz - 2 * z, wx.bolt())
         }
     }
 

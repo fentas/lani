@@ -204,6 +204,8 @@ fun SceneView(
     val currentPics by rememberUpdatedState(pics)
     val currentPainter by rememberUpdatedState(painter)
     val currentCloser by rememberUpdatedState(closer)
+    // the system's animations off: the picture's sky without its flashes of lightning (the thunder still rolls)
+    val calm = si.lanisce.lani.ui.stage.rememberReducedMotion()
 
     Canvas(
         modifier
@@ -283,7 +285,7 @@ fun SceneView(
             objects = objects,
             people = cast,
             highlight = highlight,
-            sky = cues.sky.at(SkyEase.clock()),
+            sky = cues.sky.at(SkyEase.clock()).let { if (calm && it.lightning) it.copy(lightning = false) else it },
             fx = cues.fx.at(SkyEase.clock()),
             pokes = pokes.at(tick / 1e9),
             world = world,

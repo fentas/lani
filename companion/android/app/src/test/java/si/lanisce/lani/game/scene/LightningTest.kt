@@ -14,34 +14,34 @@ class LightningTest {
     private fun drawn(t: Double, sky: Sky = storm): Float =
         Weather(PixelCanvas(8, 8), 8, 8, 1, t, Env(12f, 6, false), sky).flash()
 
-    @Test fun `a scene's flash is drawn when the schedule says, a flicker then an echo`() {
+    @Test fun `a scene's flash is drawn when the schedule says, one soft pulse`() {
         val l = Lightning.SCENE
         for (n in 0 until 60) {
             val at = l.at(n)
-            assertEquals("flash $n", 1f, drawn(at + 0.03), 0f)
-            assertEquals("its echo", 0.55f, drawn(at + 0.18), 0f)
-            assertEquals("between them", 0f, drawn(at + 0.12), 0f)
+            assertEquals("flash $n at its brightest", 1f, drawn(at + Lightning.RISE_S), 1e-4f)
+            assertTrue("fading", drawn(at + 0.3) in 0.05f..0.9f)
+            assertTrue("rising softly", drawn(at + 0.02) in 0.05f..0.9f)
             assertEquals("before it", 0f, drawn(at - 0.05), 0f)
-            assertEquals("after it", 0f, drawn(at + 0.3), 0f)
+            assertEquals("after it", 0f, drawn(at + Lightning.SHOWS_S + 0.02), 0f)
             assertEquals("its bolt", n, l.index(at + 0.03))
         }
         assertEquals("no lightning, no flash", 0f, drawn(l.at(3) + 0.03, Sky(rain = 1f)), 0f)
-        // every 5 to 10 s
-        for (n in 0 until 200) assertTrue("gap $n", l.at(n + 1) - l.at(n) in 4.8..9.8)
+        // every 5 to 13 s
+        for (n in 0 until 200) assertTrue("gap $n", l.at(n + 1) - l.at(n) in 5.0..13.0)
     }
 
-    @Test fun `the village flashes on the dot, more often in its storm`() {
-        assertEquals(5.3, Lightning.STORM.period, 0.0)
-        assertEquals(8.1, Lightning.KEPT.period, 0.0)
+    @Test fun `the village flashes now and then, in its storm every 5 to 15 s, under a kept sky less often`() {
+        assertEquals(10.0, Lightning.STORM.period, 0.0)
+        assertEquals(13.0, Lightning.KEPT.period, 0.0)
         assertEquals(Lightning.STORM, Lightning.village(storm = true))
         assertEquals(Lightning.KEPT, Lightning.village(storm = false))
-        for (n in 0 until 50) {
-            assertEquals(n * 5.3, Lightning.STORM.at(n), 1e-9)
-            assertEquals(n * 8.1, Lightning.KEPT.at(n), 1e-9)
+        for (n in 0 until 200) {
+            assertTrue(Lightning.STORM.at(n + 1) - Lightning.STORM.at(n) in 5.0..15.0)
+            assertTrue(Lightning.KEPT.at(n + 1) - Lightning.KEPT.at(n) in 8.0..18.0)
         }
-        // what the village renderer draws: the first 6 % of each period
-        val t = 3 * 5.3 + 0.1
-        assertTrue(Lightning.STORM.since(t) / Lightning.STORM.period < Lightning.VILLAGE_SHOWS)
+        // what the village renderer draws: a pulse of Lightning.SHOWS_S from each flash
+        val t = Lightning.STORM.at(3) + 0.1
+        assertTrue(Lightning.glow(Lightning.STORM.since(t)) > 0f)
         assertEquals(3, Lightning.STORM.index(t))
     }
 

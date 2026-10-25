@@ -688,8 +688,8 @@ internal class SeaPainter : VistaPainter() {
         wx.snow()
         val flash = wx.flash()
         if (flash > 0f) {
-            wx.lighten(flash, 0.42f, 0.42f)
-            if (flash >= 1f) wx.boltLine(8 * detail, hz, wx.bolt())
+            wx.lighten(flash, 0.3f, 0.3f)
+            if (wx.boltShows()) wx.boltLine(8 * detail, hz, wx.bolt())
         }
     }
 

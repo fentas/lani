@@ -65,7 +65,7 @@ class VillageRendererTest {
         Shot("05-market-town-winter", village(Age.TRG, *trgTypes, villagers = 14), Frame(time = 4.0, hour = 12.5f, month = 1)),
         Shot("06-town-golden-hour", village(Age.MESTO, *townTypes, villagers = 20), Frame(time = 6.0, hour = 18.75f, month = 9)),
         Shot("07-wolves-night", village(Age.VAS, *villageTypes, event = EventKind.WOLVES), Frame(time = 1.0, hour = 23f, month = 9)),
-        Shot("08-storm", village(Age.ZASELEK, *hamlet, event = EventKind.STORM), Frame(time = 5.3 * 3 + 0.05, hour = 14f, month = 9)),
+        Shot("08-storm", village(Age.ZASELEK, *hamlet, event = EventKind.STORM), Frame(time = si.lanisce.lani.game.scene.Lightning.STORM.at(3) + 0.05, hour = 14f, month = 9)),
         Shot("09-festival-evening", village(Age.VAS, *villageTypes, villagers = 12, event = EventKind.FESTIVAL), Frame(time = 3.0, hour = 20.6f, month = 9)),
         Shot("10-merchant", village(Age.TRG, *trgTypes, event = EventKind.MERCHANT), Frame(time = 10.0, hour = 10f, month = 9)),
         Shot("11-compact-town-golden", village(Age.MESTO, *townTypes, villagers = 16), Frame(time = 6.0, hour = 18.75f, month = 9, compact = true), 360, 234),

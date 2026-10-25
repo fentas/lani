@@ -158,7 +158,8 @@ class Env(hour: Float, val month: Int, storm: Boolean, gloom: Float = 0f, moonAg
             top = Col.mix(top, Col.scale(grey, 0.6f + 0.4f * (1 - dark)), 0.75f)
             mid = Col.mix(mid, Col.scale(grey, 0.7f + 0.3f * (1 - dark)), 0.7f)
             hor = Col.mix(hor, Col.scale(Col.hex(0x7A8292), 0.6f + 0.4f * (1 - dark)), 0.65f)
-            ar *= 0.66f; ag *= 0.70f; ab *= 0.80f
+            // a dark, cold light under the storm's clouds
+            ar *= 0.6f; ag *= 0.64f; ab *= 0.76f
         } else if (gloom > 0f) {
             // overcast: a lighter grey than the storm's, soon all of the sky
             val g = gloom.coerceAtMost(1f)

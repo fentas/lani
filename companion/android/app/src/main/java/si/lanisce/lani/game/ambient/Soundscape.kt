@@ -1,6 +1,5 @@
 package si.lanisce.lani.game.ambient
 
-import si.lanisce.lani.game.EventKind
 import si.lanisce.lani.game.GameState
 import si.lanisce.lani.game.render.Env
 import si.lanisce.lani.game.scene.DaySky
@@ -30,6 +29,8 @@ enum class Layer(val file: String, val seconds: Int, val trim: Float) {
     FIRE("fire", 20, 1f),
     WIND("wind", 30, 0.9f),
     SEA("sea", 32, 0.9f),
+    /** The rain heard from inside a house: muffled by the walls, drumming on the roof, a drop on the pane now and then. */
+    RAIN_IN("rain-in", 16, 0.9f),
 }
 
 /** Where the learner is: what is on screen. */
@@ -61,13 +62,15 @@ object Soundscape {
         val sea: Float = 0f,
         val weather: Float = 1f,
         val meadow: Boolean = false,
+        /** Under a roof, behind walls: the rain is heard muffled ([Layer.RAIN_IN]), not as in the open. */
+        val indoor: Boolean = false,
     )
 
     /** Out in the open, somewhere the table doesn't know (a newer art, a tutor's): birds, crickets, now and then the owl. */
     internal val OPEN = Spot(birds = 0.5f, crickets = 0.5f, owl = 0.3f)
 
-    /** A room: the birds and the crickets outside faint through the window, the rain on the roof. */
-    private val ROOM = Spot(birds = 0.18f, crickets = 0.14f, owl = 0.1f, weather = 0.4f)
+    /** A room: the birds and the crickets outside faint through the window, the rain on the roof, muffled. */
+    private val ROOM = Spot(birds = 0.18f, crickets = 0.14f, owl = 0.1f, weather = 0.4f, indoor = true)
 
     /** Each art's sounds (SCENES.md, "Arts"). */
     internal val SPOTS: Map<String, Spot> = mapOf(
@@ -101,9 +104,9 @@ object Soundscape {
         // right under the roof: the rain loud on the tiles, the wind round the gable
         "attic" to ROOM.copy(birds = 0.15f, owl = 0.15f, wind = 0.1f, weather = 0.7f),
         // under the ground: only a little of the rain
-        "cellar" to Spot(weather = 0.12f),
+        "cellar" to Spot(weather = 0.12f, indoor = true),
         // a quiet church
-        "church" to Spot(weather = 0.3f),
+        "church" to Spot(weather = 0.3f, indoor = true),
     )
 
     /** The village from above: its birds and crickets, the owl from the woods; the sea along the horizon by the coast. */
@@ -135,7 +138,10 @@ object Soundscape {
         val owl = max(spot.owl * night * OWLS[m - 1], (fx["hoot"] ?: 0f) * 0.9f) * (1f - wet)
         // frogs love the rain: it only halves them
         val frogs = spot.frogs * max(night, day * FROGS_DAY) * FROGS[m - 1] * (1f - wet * 0.5f) * (1f - sky.snow)
-        val rain = if (sky.rain < 0.02f) 0f else spot.weather * sqrt(sky.rain)
+        // in the open the rain itself; indoors its muffled sound, fuller (the room's own: the walls take the hiss away)
+        val heard = if (sky.rain < 0.02f) 0f else spot.weather * sqrt(sky.rain)
+        val rain = if (spot.indoor) 0f else heard
+        val rainIn = if (spot.indoor) heard * INDOOR_RAIN else 0f
         val wind = max(spot.wind, spot.weather * sky.wind)
         // the stream runs fuller in the rain
         val stream = spot.stream * (1f + 0.2f * sky.rain)
@@ -160,6 +166,7 @@ object Soundscape {
         put(Layer.FIRE, fire)
         put(Layer.WIND, wind)
         put(Layer.SEA, sea)
+        put(Layer.RAIN_IN, rainIn)
         return out
     }
 
@@ -167,11 +174,10 @@ object Soundscape {
      * The weather over the village today: the storm event's (heavy rain, wind), else what a scene's dialog left
      * ([DaySky]: a shower after Luka's hay), else clear.
      */
-    fun villageSky(state: GameState?, today: LocalDate): Sky =
-        if (state?.event?.kind == EventKind.STORM) STORM else DaySky.of(state, today)
+    fun villageSky(state: GameState?, today: LocalDate): Sky = DaySky.over(state, today)
 
-    /** The storm event's weather. */
-    val STORM = Sky(rain = 0.9f, wind = 0.7f, gloom = 1f, lightning = true)
+    /** The storm event's weather ([Sky.STORM]). */
+    val STORM: Sky get() = Sky.STORM
 
     /**
      * How much it is day, 0..1, as the scenes' sun ([Env]) has it: the birds start singing about 45 minutes before the
@@ -198,6 +204,12 @@ object Soundscape {
 
     /** Below this a loop is left out. */
     const val MIN = 0.01f
+
+    /**
+     * How much fuller the muffled rain indoors ([Layer.RAIN_IN]) plays than the share of the rain a room lets in: it has no
+     * hiss left to be loud with (a heavy rain in the kitchen at 0.57, under the attic's roof at its full level).
+     */
+    const val INDOOR_RAIN = 1.5f
 
     /** The grasshoppers of a summer's day on a meadow, against the crickets at night. */
     private const val MEADOW_DAY = 0.45f

@@ -129,8 +129,9 @@ internal class SmithyPainter : DioramaPainter() {
         fit()
         vignette()
         val lit = env.windows > 0.35f
-        // Tone asleep by it: the fire banked for the night, the bellows at rest (unless a dialog fires the forge up)
-        val banked = asleepHere && fxOn("forge") < 0.02f
+        // Tone asleep by it: the fire banked for the night, the bellows at rest (unless a dialog fires the forge up); the
+        // forge cold (no charcoal, the smithy damaged: companion/GAME.md "Hearths"), its coals under ash the same way
+        val banked = (asleepHere || frame.world.cold) && fxOn("forge") < 0.02f
         // the bellows come with the smithy's second level ([SceneFixtures]); before them the coals only glow and flicker
         val bellows = there("bellows")
         val br = if (banked) REST else if (bellows) breath() else 0.3f + 0.12f * sin(t * 1.7).toFloat()
@@ -839,11 +840,13 @@ internal class SmithyPainter : DioramaPainter() {
             quadFill(x0, wa, za, x0, wb, za, x0, wb, zb, x0, wa, zb) { px, py ->
                 val y = wallXy(px, xb); val z = wallXz(px, py, xb)
                 val hill = za + 2.6f + Noise.v1(y * 3f, 15) * 2.2f
-                when {
+                val out = when {
                     z < hill -> env.lit(if (winter) Pal.SNOW_M else if (z < hill - 1.2f) Col.hex(0x4E8A40) else Col.hex(0x6AA84E))
                     env.dark > 0.3f && (if (fine) starAt(px, py) else Noise.rnd(px, py, 16) < 0.04f * env.dark) -> Col.hex(0xFFF6D8)
                     else -> skyCol(((zb - z) / (zb - za) * 0.9f + Dither.at(px, py) * 0.1f).coerceIn(0f, 1f))
                 }
+                // the weather on the glass: grey under the clouds, the rain streaking past and running down the pane
+                Weather.glass(out, ((y - wa) / (wb - wa)).coerceIn(0f, 1f), ((z - za) / (zb - za)).coerceIn(0f, 1f), (wb - wa) * 8f, (zb - za) * 2f, t, frame.sky)
             }
         }
         // the frame's cross in the outer plane, then the sill and the jamb in front of it

@@ -89,6 +89,8 @@ fun VillageScene(
             }
         }
 
+    // the system's animations off: no flash of lightning over the village
+    val calm = si.lanisce.lani.ui.stage.rememberReducedMotion()
     Canvas(modifier.onSizeChanged { size = it }.then(tapModifier)) {
         if (size.width == 0 || size.height == 0) return@Canvas
         val t = clock.longValue / 1e9 // reading the clock here re-runs only the draw phase
@@ -109,6 +111,7 @@ fun VillageScene(
             moon = Moon.now(),
             skyNow = si.lanisce.lani.game.sky.SkyCards.now(),
             wall = System.currentTimeMillis(),
+            calm = calm,
         )
         renderer.render(canvas, state, frame)
         bitmap.setPixels(canvas.pixels, 0, iw, 0, 0, iw, ih)

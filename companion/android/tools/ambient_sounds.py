@@ -3,16 +3,16 @@
 # requires-python = ">=3.9"
 # dependencies = ["numpy>=1.25"]
 # ///
-"""Background ambience for the village scenes: nine quiet loops and nineteen one-shots, synthesized from code (no
+"""Background ambience for the village scenes: ten quiet loops and nineteen one-shots, synthesized from code (no
 recordings, no samples).
 
   uv run companion/android/tools/ambient_sounds.py [OUT_DIR] [--preview DIR] [--only NAME ...]
       [--shots | --only-shots NAME ...] [--preview-shots DIR]
 
 OUT_DIR defaults to app/src/main/assets/ambient next to this script. It gets one Ogg Vorbis file per loop (mono,
-24 kHz): birds, crickets, owl, rain, stream, fire, wind, sea and frogs; and one per one-shot: thunder-1, thunder-2,
-thunder-3, bell, bell-far, anvil, cowbell, hoot, whistle, lid, purr, whoosh, meow, bark, hooves, polka, gush, harmonika
-and valcek (the harmonika's polka and waltz of an age's celebration).
+24 kHz): birds, crickets, owl, rain, stream, fire, wind, sea, frogs and rain-in (the rain heard indoors); and one per
+one-shot: thunder-1, thunder-2, thunder-3, bell, bell-far, anvil, cowbell, hoot, whistle, lid, purr, whoosh, meow, bark,
+hooves, polka, gush, harmonika and valcek (the harmonika's polka and waltz of an age's celebration).
 ffmpeg with libvorbis must be on the PATH: it encodes the files and measures their loudness. The WAVs it encodes go to
 a temporary directory.
 
@@ -290,6 +290,37 @@ def rain(rng, n):
 
     return (swell * (bed + 0.3 * sizzle / rms(sizzle) + 0.3 * ticks / rms(ticks)) + 0.25 * leaves / rms(leaves)
             + 0.45 * far)
+
+
+def rain_in(rng, n):
+    """The rain heard from inside a house: the rain outside muffled by the walls (a low wash, no hiss), the drops drumming
+    dully on the roof over the room, now and then a drop ticking on the window pane, and the water running off the
+    eaves."""
+    p = n / SR
+    swell = db(2.0 * slow(rng, n, 1, 3))
+    wash = noise(rng, n, -1.0, lambda f: band(f, 120, 1100))
+
+    roof = np.zeros(n)
+    for start in rng.integers(0, n, int(170 * p)):  # dull taps on the tiles, many
+        tau = rng.uniform(0.002, 0.006)
+        m = int((0.002 + 6 * tau) * SR)
+        f0 = rng.uniform(250, 700)
+        ev = (0.6 * sine(np.full(m, f0), rng.uniform(0, TAU)) + 0.4 * rng.standard_normal(m)) * decay(m, 0.001, tau)
+        place(roof, db(rng.uniform(-18, 0)) * ev, start)
+    roof = filt(roof, lambda f: band(f, 150, 1400))
+
+    pane = np.zeros(n)
+    for start in rng.integers(0, n, int(5 * p)):  # a drop on the glass: a small soft tick
+        f0 = rng.uniform(1800, 3000)
+        tau = rng.uniform(0.003, 0.008)
+        m = int((0.002 + 5 * tau) * SR)
+        ev = sine(np.full(m, f0), rng.uniform(0, TAU)) * decay(m, 0.001, tau)
+        place(pane, db(rng.uniform(-14, -2)) * ev, start)
+    pane = filt(pane, lambda f: band(f, 800, 3600))
+
+    eaves = noise(rng, n, -0.5, lambda f: band(f, 300, 1500)) * db(3.0 * slow(rng, n, 2, 6))
+    out = swell * (wash + 0.35 * roof / rms(roof)) + 0.12 * pane / rms(pane) + 0.12 * eaves
+    return out + 0.25 * reverb(rng, out, 0.35, 1500)
 
 
 def stream(rng, n):
@@ -737,6 +768,7 @@ LOOPS = {
     "wind": (30, 1107, wind),
     "sea": (32, 1108, sea),
     "frogs": (24, 1109, frogs),
+    "rain-in": (16, 1110, rain_in),
 }
 
 # Mixes for the previews only (loop name, gain in dB); the app mixes the loops itself.
@@ -744,6 +776,7 @@ MIXES = {
     "mix-forest-day": (("birds", 0),),
     "mix-night-meadow": (("crickets", 0), ("owl", -2), ("frogs", -8)),
     "mix-rainy-village": (("rain", 0), ("wind", -10)),
+    "mix-rainy-kitchen": (("rain-in", 0), ("fire", -8)),
     "mix-stream-day": (("stream", 0), ("birds", -4)),
     "mix-campfire-night": (("fire", 0), ("crickets", -8)),
     "mix-alps": (("wind", 0), ("stream", -8)),

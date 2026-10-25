@@ -540,8 +540,21 @@ internal abstract class RoomPainter : DioramaPainter() {
         return view(u, v, px, py)
     }
 
-    /** What the window shows at ([u], [v]) of the glass, 0..1 from its lower left: pre-lit, since the glass glows. */
-    protected fun view(u: Float, v: Float, px: Int, py: Int): Int {
+    /**
+     * The house's hearth is out today ([si.lanisce.lani.game.scene.SceneWorld.cold]: no wood, a lost storm blew it out) and no
+     * dialog fires the oven up: the stove's grate dark, the open hearth's logs cold on grey ash, no glow from them.
+     */
+    protected val hearthCold: Boolean get() = frame.world.cold && fxOn("oven") < 0.02f
+
+    /**
+     * What the window shows at ([u], [v]) of the glass, 0..1 from its lower left: pre-lit, since the glass glows; the
+     * weather on it ([Weather.glass]: grey under the clouds, the rain streaking past and running down the pane, a flash).
+     */
+    protected fun view(u: Float, v: Float, px: Int, py: Int): Int =
+        Weather.glass(outside(u, v, px, py), u, v, (winB - winA) * 8f, (winZ1 - winZ0) * 2f, t, frame.sky)
+
+    /** What is outside the window at ([u], [v]) of the glass: the hills, the spruce, the sky, the sun or the moon. */
+    private fun outside(u: Float, v: Float, px: Int, py: Int): Int {
         val ww = (winB - winA) * 8f; val wh = (winZ1 - winZ0) * 2f
         // snow falling in winter, in front of everything
         if (winter) for (k in 0 until 7) {
@@ -561,8 +574,9 @@ internal abstract class RoomPainter : DioramaPainter() {
             spruce > 0f && v > near - 0.05f -> return env.lit(if (snow && ((v * wh).toInt() % 3 == 0)) Pal.SNOW_L else Col.hex(0x2C5E3A))
             v < far -> return env.lit(if (snow) Col.hex(0xC8D4E4) else Col.hex(0x6F8F7A))
         }
-        // the sun by day, the moon by night
-        if (env.sun > -0.1f) {
+        // the sun by day, the moon by night (behind the clouds of a grey sky)
+        if (frame.sky.gloom > 0.5f) Unit
+        else if (env.sun > -0.1f) {
             val span = ((s.hour - env.sunrise) / (env.sunset - env.sunrise)).coerceIn(0f, 1f)
             val sd = hypot((u - 0.15f - span * 0.7f) * ww, (v - 0.55f - env.sun.coerceIn(0f, 1f) * 0.35f) * wh)
             if (sd < 2.3f) return Col.mix(Col.hex(0xFFF6D8), Col.hex(0xFFB04A), (1f - env.sun * 2.5f).coerceIn(0f, 1f))
@@ -870,6 +884,8 @@ internal abstract class RoomPainter : DioramaPainter() {
             if (fx < 0.1f || fz > 2.45f) return steel
             if (fx > 0.52f || fz < 0.4f) return steelD
             if (((fz / 0.5f).toInt() % 2) == 1) {
+                // the house's hearth out (no wood, a storm blew it out): a dark grate, unless a dialog fires the oven up
+                if (hearthCold) return Col.mix(ironD, Col.hex(0x5A524C), if (Noise.rnd((x * 9f).toInt(), (fz * 4f).toInt(), 3) < 0.3f) 0.5f else 0f)
                 c.penEmissive = true
                 // fired up (see paint), the grate burns brighter
                 val flick = Noise.rnd((x * 9f).toInt(), (t * 6).toInt(), 3) - fxOn("oven") * 0.35f
@@ -1212,6 +1228,11 @@ internal abstract class RoomPainter : DioramaPainter() {
                 val ex = cos(a) * 3.4f * p; val ey = sin(a) * 1.4f * p
                 for (tk in 0 until P + 1) c.line((cx - ex).toInt(), (cy - ey).toInt() - tk, (cx + ex).toInt(), (cy + ey).toInt() - P - tk, if (tk == 0) Pal.LOG_D else if (tk == P) Pal.LOG_L else Pal.LOG_M)
             }
+        }
+        // the house's hearth out: cold logs on grey ash, no flame, no smoke (unless a dialog fires it up)
+        if (hearthCold) {
+            prop(outline = 0) { for (e in 0 until 8 * P) c.set((cx + (Noise.rnd(e, 91) - 0.5f) * 6f * p).toInt(), (cy - Noise.rnd(e, 92) * 1.6f * p).toInt(), Col.hex(0x8A8480)) }
+            return
         }
         prop(outline = 0) {
             glow {

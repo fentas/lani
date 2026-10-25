@@ -37,15 +37,17 @@ data class SceneCues(val sky: SkyEase = SkyEase.CLEAR, val fx: FxEase = FxEase.N
 }
 
 /**
- * The sky, the effects and the stage of [scene] now: the day's (what finished dialogs left, [DaySky], [DayFx] and
- * [DayAct]; where the happenings [waiting] have their people, [Happening.act]), changed by the dialog [run] played there
+ * The sky, the effects and the stage of [scene] now: the day's (the storm's while it is on, else what finished dialogs
+ * left: [DaySky.over], [DayFx] and [DayAct]; where the happenings [waiting] have their people, [Happening.act]), changed
+ * by the dialog [run] played there
  * as its lines go, each change easing in over a few seconds (a person walks, dashes into hiding or pops out of it). A
  * dialog closed before its end takes what it brought with it: the scene eases back to the day's, its people back to
  * their spots.
  */
 @Composable
 fun rememberSceneCues(state: GameState?, scene: SceneSpec, run: DialogRun?, today: LocalDate, waiting: List<Happening> = emptyList()): SceneCues {
-    val daySky = DaySky.of(state, today, scene.id)
+    // the storm's rain while it is on (DaySky.over), over every scene, a room seeing it through its window
+    val daySky = DaySky.over(state, today, scene.id)
     val dayFx = DayFx.of(state, today, scene.id)
     val sky = run?.sky(daySky) ?: daySky
     val fx = run?.fx(dayFx) ?: dayFx

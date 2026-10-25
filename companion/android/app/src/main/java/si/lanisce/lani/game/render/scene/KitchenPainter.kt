@@ -164,11 +164,14 @@ internal class KitchenPainter : RoomPainter() {
         // light: the lamp from dusk, the embers always (the stove fired up: brighter, further), the sun through the window by day
         val oven = fxOn("oven")
         if (lit) s.light(iso.sx(lampX, lampY), iso.sy(lampX, lampY, fl + 16f), 50f, 1.05f * env.windows)
-        // the embers, further and warmer while the lamp is out for a sleeper, glowing on her bench
-        val embers = if (quiet) 1f else 0f
-        if (stove) s.light(iso.sx(2.85f, stoveY), iso.sy(2.85f, stoveY, fl + 3.5f), 18f + 14f * embers + 24f * oven, 0.7f + 0.25f * embers + 0.5f * oven)
-        // the hearth's fire lights the bare room, all the light there is at night
-        else s.light(iso.sx(fireX, fireY), iso.sy(fireX, fireY, hz + 3f), 34f + 10f * embers + 22f * oven, 0.95f + 0.2f * embers + 0.4f * oven)
+        // the embers, further and warmer while the lamp is out for a sleeper, glowing on her bench; on a rainy day the fire
+        // kept up (everyone in, a grey light through the window); none from a cold hearth (the house's out of wood, blown out)
+        val embers = if (quiet) 1f else if (frame.sky.rain > 0.3f) 0.7f else 0f
+        if (!hearthCold) {
+            if (stove) s.light(iso.sx(2.85f, stoveY), iso.sy(2.85f, stoveY, fl + 3.5f), 18f + 14f * embers + 24f * oven, 0.7f + 0.25f * embers + 0.5f * oven)
+            // the hearth's fire lights the bare room, all the light there is at night
+            else s.light(iso.sx(fireX, fireY), iso.sy(fireX, fireY, hz + 3f), 34f + 10f * embers + 22f * oven, 0.95f + 0.2f * embers + 0.4f * oven)
+        }
         // the stove fired up: smoke from the chimney over the corner
         if (stove && oven > 0.05f) {
             val sx = iso.sx(2.1f, y0 - tk / 2f); val sy = iso.sy(2.1f, y0 - tk / 2f, hw + 1f)

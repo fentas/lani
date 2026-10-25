@@ -91,6 +91,8 @@ data class Frame(
      * floor, the stalls, the banners), the sign at the road, the village gathered round the fire; null: none.
      */
     val festive: si.lanisce.lani.game.Festive? = null,
+    /** The system's animations are off ("remove animations"): no flash of lightning (the rain still falls, the thunder rolls). */
+    val calm: Boolean = false,
 ) {
     /** The frame's date ([today]), or the tests' day when it has none. */
     val date: java.time.LocalDate get() = runCatching { java.time.LocalDate.parse(today) }.getOrNull() ?: TownPeople.DEFAULT_DATE
@@ -472,7 +474,9 @@ class VillageRenderer {
         if (landing != null && riverGate != null) paths.mark(landing[0] + 0.2f, landing[1] - 0.3f, riverGate[0] + 2.2f, landing[1] + 0.3f)
         // the village projects' landmarks (where the trees and bushes make way for them below)
         val landmarks = landmarksFor(state, bw, bh, frame.compact)
-        groundPass(s, horizon, clearR, roadLeft, roadHalf, plazaR, age, paths, fg, cobbled)
+        // in the rain the ground is wet: darker, puddles on the paths and the road (the storm's, a dialog's shower a little)
+        val wet = if (storm) 1f else if (sky.rain > 0.02f && !env.snow) (sky.rain * 1.4f).coerceAtMost(1f) else 0f
+        groundPass(s, horizon, clearR, roadLeft, roadHalf, plazaR, age, paths, fg, cobbled, wet)
         if (k > 1) groundDetail(s, horizon)
         // no far treeline where the sea comes up to the horizon (a coast)
         if (land.sea != null) backdrop.treeline(horizon, from = comp.fireX + land.shoreX((comp.horizon - comp.fireY).toFloat()) + Terrain.BEACH) else backdrop.treeline(horizon)
@@ -781,14 +785,15 @@ class VillageRenderer {
         mark(7)
         if (profile) lastProfile = listOf("backdrop", "ground", "gather", "objects", "outline", "fx", "light").withIndex()
             .joinToString(" ") { (i, n) -> "%s %.1f".format(n, (marks[i + 1] - marks[i]) / 1e6) }
-        if (storm || sky.lightning) {
-            // when is the thunder's business too (game/ambient/Thunder.kt): the same flashes
+        if ((storm || sky.lightning) && !frame.calm) {
+            // when is the thunder's business too (game/ambient/Thunder.kt): the same flashes, each one soft pulse
+            // (Lightning.glow), the bolt at its start; none with the system's animations off ([Frame.calm])
             val lightning = Lightning.village(storm)
-            val phase = (lightning.since(s.time) / lightning.period).toFloat()
-            val bolt = lightning.index(s.time)
-            if (phase < Lightning.VILLAGE_SHOWS) {
-                s.effects.lightning(horizon, phase, bolt)
-                flash(canvas, 0.55f * (1f - phase / Lightning.VILLAGE_SHOWS))
+            val since = lightning.since(s.time)
+            val glow = Lightning.glow(since)
+            if (glow > 0f) {
+                if (since < Lightning.BOLT_S) s.effects.lightning(horizon, lightning.index(s.time))
+                flash(canvas, FLASH * glow)
             }
         }
     }
@@ -870,9 +875,13 @@ class VillageRenderer {
         }
     }
 
+    /**
+     * The ground below the [horizon]: grass, the forest floor, the paths, the road, the square, the water. [wet] (0..1): in
+     * the rain, the ground darker and puddles on the paths, the road and the cobbles, catching the grey sky.
+     */
     private fun groundPass(
         s: SceneCtx, horizon: Int, clearR: Float, roadLeft: Boolean, roadHalf: Float, plazaR: Float, age: Age, paths: PathGrid, fg: Foreground?,
-        cobbled: Boolean = age.ordinal >= Age.TRG.ordinal,
+        cobbled: Boolean = age.ordinal >= Age.TRG.ordinal, wet: Float = 0f,
     ) {
         val c = s.canvas; val env = s.env; val iso = s.iso; val lens = s.lens; val k = s.k
         val land = s.land
@@ -891,6 +900,8 @@ class VillageRenderer {
         val waterT = (s.time * 3).toInt()
         val autumnFloor = !env.snow && env.season == Season.AUTUMN
         val bank = if (env.snow) Pal.SNOW_D else Col.hex(0x4E7A3A)
+        // a puddle: the grey sky in it, a little of the water's blue
+        val puddle = Col.mix(env.skyHorizon, Pal.WATER_D, 0.3f)
         val kinds = s.ground
         // the path south: its centre column per row
         val fgTop = if (fg == null) c.height else max(horizon, lens.cy(fg.pathTop).toInt())
@@ -1007,6 +1018,7 @@ class VillageRenderer {
                     if (!env.snow && forest < 0f && env.month in 4..8 && Noise.rnd(bxi, byi, 9) < 0.006f) col = Pal.PAINTED[(bxi + byi) % 6]
                     else if (autumnFloor && forest > 0.5f && Noise.rnd(bxi, byi, 9) < 0.035f) col = LEAF_LITTER[(bxi + byi).mod(3)]
                 }
+                if (wet > 0f) col = wetted(col, kind, wx, wy, wet, puddle)
                 val i = y * c.width + x
                 c.pixels[i] = col; c.ids[i] = 0; c.emissive[i] = false
                 kinds[i] = kind
@@ -1056,6 +1068,17 @@ class VillageRenderer {
             }
             else -> if (env.snow) Pal.SNOW_M else VINE_EARTH
         }
+    }
+
+    /**
+     * [col] of ground [kind] at world cell ([wx], [wy]) in the rain ([wet] 0..1): the paths, the road and the cobbles darker,
+     * with puddles in their hollows ([puddle]: the sky in them); the grass and the forest floor a little darker.
+     */
+    private fun wetted(col: Int, kind: Byte, wx: Float, wy: Float, wet: Float, puddle: Int): Int = when (kind) {
+        Ground.DIRT, Ground.COBBLE ->
+            if (Noise.v2(wx * 1.7f, wy * 1.7f, 61) > 1f - PUDDLES * wet) Col.mix(col, puddle, 0.7f) else Col.scale(col, 1f - 0.16f * wet)
+        Ground.GRASS, Ground.FLOOR -> Col.scale(col, 1f - 0.08f * wet)
+        else -> col
     }
 
     /**
@@ -2076,14 +2099,21 @@ class VillageRenderer {
         }
     }
 
+    /** The whole picture whitened by [a] of a flash (a soft, cold light). */
     private fun flash(c: PixelCanvas, a: Float) {
         val white = Col.hex(0xE8EEFF)
-        for (i in c.pixels.indices) c.pixels[i] = Col.mix(c.pixels[i], white, a * 0.6f)
+        for (i in c.pixels.indices) c.pixels[i] = Col.mix(c.pixels[i], white, a)
     }
 
     private fun smooth(t: Float) = t * t * (3 - 2 * t)
 
     private companion object {
+        /** How much of the paths and the road lies under puddles in the storm's rain (a share of the noise's range). */
+        const val PUDDLES = 0.26f
+
+        /** How far a flash of lightning whitens the village at its brightest: soft (it was 0.33 at once). */
+        const val FLASH = 0.22f
+
         /** Slides the Alps so Triglav (u ≈ 0.71) stands at ≈ 0.84 of the width, clear of the village centre. */
         const val COMPACT_SHIFT = 0.13f
 

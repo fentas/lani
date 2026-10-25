@@ -1728,29 +1728,76 @@ internal class Effects(private val s: SceneCtx) {
     // ------------------------------------------------------------------ weather + particles
 
     /** Rain over the village, [density] 1 in a storm, less when a scene's dialog brought a shower. */
+    /**
+     * Rain over the village ([density] 0..1: the storm's 1, a dialog's shower less; companion/GAME.md "People react"):
+     * streaks slanting in the wind, fading toward their tails, and where they land below the [horizon] the ground is wet,
+     * the drops splashing and spreading in rings. Sized in nominal px and drawn at the lens's detail (as the scenes' rain
+     * is, render/scene/Weather.kt), so closer up the streaks are longer and fewer, as near rain is.
+     */
     fun rain(horizon: Int, density: Float = 1f) {
+        if (density <= 0.01f) return
         val w = c.width; val h = c.height
-        val col = Col.hex(0xB8C8E0)
-        for (j in 0 until (150 * density).toInt()) {
-            val x0 = Noise.rnd(j, 31) * (w + 30)
-            val sp = (120f + Noise.rnd(j, 32) * 60f) * k
-            val yy = ((Noise.rnd(j, 33) * (h + 20) + t * sp) % (h + 20)).toFloat() - 10
-            val x = (x0 - yy * 0.3f).toInt()
-            val y = yy.toInt()
-            s.sprite(x, y) { for (q in 0..3) c.blend(x - q / 3, y + q, col, 0.55f) }
+        // what of the nominal canvas this canvas shows, in nominal px
+        val vw = w / k.toFloat(); val vh = h / k.toFloat()
+        val col = Col.hex(0xC0CEE4)
+        val n = (vw * vh / 55f * density).toInt()
+        val slant = 0.38f
+        val len = 4f + 3f * density // nominal px
+        val a = 0.38f + 0.22f * density
+        val thick = k.coerceAtMost(2)
+        val span = vh + len + 12f
+        val reach = slant * span
+        val pxLen = (len * k).toInt().coerceAtLeast(2)
+        for (j in 0 until n) {
+            val sp = 150f + Noise.rnd(j, 32) * 70f // nominal px a second
+            val yb = ((Noise.rnd(j, 33) * span + t * sp) % span).toFloat() - len - 6f
+            val xb = Noise.rnd(j, 31) * (vw + reach + 16f) - reach - 8f + yb * slant
+            // the canvas pixel of the streak's head, and its length in canvas px
+            val x = (xb * k).toInt(); val y = (yb * k).toInt()
+            if (y < 0 || y - pxLen >= h || x < -pxLen || x - pxLen >= w) continue
+            for (q in 0 until pxLen) {
+                val px = x - (q * slant).toInt(); val py = y - q
+                if (py < 0 || py >= h) continue
+                val f = a * (1f - 0.65f * q / pxLen)
+                for (o in 0 until thick) if (px + o in 0 until w) c.blend(px + o, py, col, f)
+            }
         }
-        // splashes on the ground
-        for (j in 0 until (30 * density).toInt()) {
-            val ph = ((t * 2 + Noise.rnd(j, 34)) % 1.0).toFloat()
-            if (ph > 0.3f) continue
-            val x = (Noise.rnd(j, 35, (t * 2 + Noise.rnd(j, 34)).toInt()) * w).toInt()
-            val y = horizon + 6 * k + (Noise.rnd(j, 36, (t * 2 + Noise.rnd(j, 34)).toInt()) * (h - horizon - 6 * k)).toInt()
-            s.sprite(x, y) { c.blend(x - 1, y, col, 0.6f); c.blend(x + 1, y, col, 0.6f) }
+        // on the ground (what isn't a building, a person or a tree: the canvas's background), the drops splash and ring out
+        val ground = (horizon + 4 * k).coerceAtLeast(0)
+        if (ground >= h) return
+        val gh = (h - ground) / k.toFloat()
+        val m = (vw * gh / 260f * density).toInt()
+        val ring = Col.mix(col, Col.hex(0xFFFFFF), 0.25f)
+        for (j in 0 until m) {
+            val cycle = t * 1.7 + Noise.rnd(j, 34)
+            val ph = (cycle % 1.0).toFloat()
+            if (ph > 0.55f) continue
+            val round = cycle.toInt()
+            val bx = Noise.rnd(j, 35, round) * vw; val by = Noise.rnd(j, 36, round) * gh
+            val cx = (bx * k).toInt(); val cy = ground + (by * k).toInt()
+            if (cx !in 0 until w || cy !in 0 until h || c.ids[cy * w + cx] != 0) continue
+            if (ph < 0.12f) {
+                // the drop's crown
+                s.sprite(cx, cy) {
+                    c.blend(cx - k, cy - k, ring, 0.7f); c.blend(cx + k, cy - k, ring, 0.7f); c.blend(cx, cy - 2 * k, ring, 0.5f)
+                }
+            } else {
+                // its ring spreading on the wet ground, fading
+                val u = (ph - 0.12f) / 0.43f
+                val rx = (1f + 2.6f * u) * k; val ry = rx * 0.45f
+                val fa = 0.5f * (1f - u)
+                val steps = (rx * 3f).toInt().coerceIn(8, 40)
+                for (i in 0 until steps) {
+                    val ang = i * (2.0 * PI / steps)
+                    val px = (cx + cos(ang) * rx).toInt(); val py = (cy + sin(ang) * ry).toInt()
+                    if (px in 0 until w && py in 0 until h && c.ids[py * w + px] == 0) c.blend(px, py, ring, fa)
+                }
+            }
         }
     }
 
-    fun lightning(horizon: Int, phase: Float, seed: Int) {
-        if (phase > 0.06f) return
+    /** A bolt of lightning from the top of the sky down to [horizon], crooked, seeded by [seed] (a new one each flash). */
+    fun lightning(horizon: Int, seed: Int) {
         c.penEmissive = true
         var x = c.width * (0.25f + Noise.rnd(seed, 41) * 0.5f)
         var y = 0f
