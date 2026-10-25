@@ -603,8 +603,9 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
                 if (!anchors.drawn(target)) continue
                 val key = "person:${p.id}"
                 val says = reactionOf(p)?.let { "${p.name}: ${it.sl}" } ?: p.name
-                Anchored({ anchors.shown(target)?.let { IntRect(it.left, it.top, it.right, it.top) } }, topLimit = 0, color = XpGold, keepOff = markerKeepOff(markers.toList())) {
-                    SpeechMarker(reacting.kind.emoji, says, XpGold, modifier = Modifier.pill(markerRects, key)) { approach(p) }
+                // small and quiet, on the dark: nothing waits for the learner, a tap greets them with their line
+                Anchored({ anchors.shown(target)?.let { IntRect(it.left, it.top, it.right, it.top) } }, topLimit = 0, color = REACTED, keepOff = markerKeepOff(markers.toList())) {
+                    SpeechMarker(reacting.kind.emoji, says, REACTED, modifier = Modifier.pill(markerRects, key), small = true) { approach(p) }
                 }
                 markers += key
             }
@@ -1021,6 +1022,9 @@ private fun ReactedHere(kind: si.lanisce.lani.game.EventKind, reacted: List<Pair
         }
     }
 }
+
+/** The quiet marker over who an event has in a scene ([ReactedHere]): dark and see-through, unlike the gold of an offer. */
+private val REACTED = Color(0xB3202630)
 
 /** "Zvečer · In the evening" */
 private fun partLabel(part: TimeOfDay): String = when (part) {

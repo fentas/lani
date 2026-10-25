@@ -244,7 +244,12 @@ fun PersonBubble(emoji: String, name: String, line: String?, hour: Int, speaker:
  * A tap opens it, or the choice of what they have. [modifier] goes outside the bob (where it rests: others keep off it).
  */
 @Composable
-fun SpeechMarker(emoji: String, description: String, color: Color, requests: Int = 0, modifier: Modifier = Modifier, onClick: () -> Unit) {
+fun SpeechMarker(
+    emoji: String, description: String, color: Color, requests: Int = 0, modifier: Modifier = Modifier,
+    /** A small quiet marker: the emoji alone, smaller (who an event has here: a tap greets them, nothing waits). */
+    small: Boolean = false,
+    onClick: () -> Unit,
+) {
     val bob by rememberInfiniteTransition(label = "bob").animateFloat(
         0f, -6f, infiniteRepeatable(tween(700), RepeatMode.Reverse), label = "bob",
     )
@@ -259,10 +264,11 @@ fun SpeechMarker(emoji: String, description: String, color: Color, requests: Int
             .semantics { contentDescription = description },
     ) {
         Row(
-            Modifier.padding(horizontal = 12.dp, vertical = 6.dp).clearAndSetSemantics { },
+            Modifier.padding(horizontal = if (small) 7.dp else 12.dp, vertical = if (small) 3.dp else 6.dp).clearAndSetSemantics { },
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(emoji, fontSize = 22.sp)
+            Text(emoji, fontSize = if (small) 15.sp else 22.sp)
+            if (small) return@Row
             Spacer(Modifier.width(4.dp))
             Text("💬", fontSize = 16.sp)
             if (requests > 0) {

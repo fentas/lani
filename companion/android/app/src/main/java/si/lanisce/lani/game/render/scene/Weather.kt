@@ -223,7 +223,7 @@ internal class Weather(
                 val slant = 0.2f + 0.5f * sky.wind
                 val sx = x - y * slant
                 val ci = floor(sx / STREAK_GAP).toInt()
-                if (Noise.rnd(ci, 84) < 0.3f + 0.45f * level && abs(sx - (ci + 0.5f) * STREAK_GAP) < 0.5f) {
+                if (Noise.rnd(ci, 84) < 0.4f + 0.5f * level && abs(sx - (ci + 0.5f) * STREAK_GAP) < 0.5f) {
                     val len = 2.5f + 3.5f * level
                     val period = wh + len + 6f
                     val head = ((Noise.rnd(ci, 86) * period + t * (55.0 + Noise.rnd(ci, 85) * 35.0)) % period).toFloat() - 3f
@@ -232,7 +232,7 @@ internal class Weather(
                 }
                 // beads on the pane: a drop in some cells of a small grid, light on top, a shade under it
                 val gx = floor(x / BEAD_GRID).toInt(); val gy = floor(y / BEAD_GRID).toInt()
-                if (Noise.rnd(gx, gy, 87) < 0.32f * level) {
+                if (Noise.rnd(gx, gy, 87) < 0.45f * level) {
                     val bx = (gx + 0.25f + 0.5f * Noise.rnd(gx, gy, 88)) * BEAD_GRID
                     val by = (gy + 0.25f + 0.5f * Noise.rnd(gx, gy, 89)) * BEAD_GRID
                     val dx = x - bx; val dy = y - by
@@ -241,7 +241,7 @@ internal class Weather(
                 }
                 // now and then a trickle runs down, a drop at its head, a wet trail behind it
                 val tc = floor(x / TRICKLE_GAP).toInt()
-                if (Noise.rnd(tc, 90) < 0.3f * level) {
+                if (Noise.rnd(tc, 90) < 0.4f * level) {
                     val per = 5.0 + Noise.rnd(tc, 91) * 6.0
                     val ph = ((t / per + Noise.rnd(tc, 92)) % 1.0).toFloat()
                     val head = ph * (wh * 1.6f) - 2f
@@ -262,7 +262,7 @@ internal class Weather(
         private val GLASS_GREY = Col.hex(0x56606E)
         private val SHINE = Col.hex(0xF2F6FF)
         /** Px between the columns a streak of rain may fall in, seen through a window; a bead's cell; a trickle's column. */
-        private const val STREAK_GAP = 2.2f
+        private const val STREAK_GAP = 1.9f
         private const val BEAD_GRID = 3.2f
         private const val TRICKLE_GAP = 3.7f
 
