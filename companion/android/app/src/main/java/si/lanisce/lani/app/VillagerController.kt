@@ -180,7 +180,7 @@ class VillagerController(
         return true
     }
 
-    fun meetChoose(k: Int) = stepMeeting { it.choose(k) }
+    fun meetChoose(k: Int, by: si.lanisce.lani.ui.scene.Said.By = si.lanisce.lani.ui.scene.Said.By.PICK) = stepMeeting { it.choose(k, by) }
 
     fun meetNext() = stepMeeting { it.next() }
 

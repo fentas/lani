@@ -321,7 +321,8 @@ class SceneController(
     /** "Nocoj: …" or "Jutri: …": the storyteller's story, for "Jutri · Tomorrow" ([Stories.teaser]). */
     fun storyTeaser(state: GameState, today: LocalDate = LocalDate.now()): Teaser? = Stories.teaser(all, state, today, level)
 
-    fun choose(k: Int) = step { it.choose(k) }
+    /** Choice [k] of the turn answered, as shown: tapped, or [by] another way (said into the 🎤: not said again). */
+    fun choose(k: Int, by: si.lanisce.lani.ui.scene.Said.By = si.lanisce.lani.ui.scene.Said.By.PICK) = step { it.choose(k, by) }
 
     fun next() = step { it.next() }
 
@@ -468,7 +469,7 @@ class SceneController(
         if (t.race != null && t.raced == null && seconds > t.seconds) keeperTalk = t.copy(seconds = seconds)
     }
 
-    fun keeperChoose(k: Int) = stepKeeper { it.choose(k) }
+    fun keeperChoose(k: Int, by: si.lanisce.lani.ui.scene.Said.By = si.lanisce.lani.ui.scene.Said.By.PICK) = stepKeeper { it.choose(k, by) }
 
     fun keeperNext() = stepKeeper { it.next() }
 

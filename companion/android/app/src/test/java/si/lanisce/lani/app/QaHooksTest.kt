@@ -2,6 +2,7 @@ package si.lanisce.lani.app
 
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -27,6 +28,7 @@ class QaHooksTest {
         QaHooks.enabled = true
         QaHooks.handle("happening:")
         QaHooks.handle("turns:")
+        QaHooks.handle("mic:")
         QaHooks.handle("bubbles:")
         QaHooks.handle("clock:")
         QaHooks.handle("step:")
@@ -241,6 +243,18 @@ class QaHooksTest {
         QaHooks.enabled = false
         QaHooks.handle("turns:type")
         assertTrue(Adaptive.dialog(dialog, QaHooks.mastery(own), canSay = true).modes.isEmpty())
+    }
+
+    @Test fun `a dialog's 🎤 hears the right choice while QA asks it to, the microphone again after`() {
+        assertFalse(QaHooks.micRight)
+        QaHooks.handle("mic:right")
+        assertTrue(QaHooks.micRight)
+        QaHooks.handle("mic:")
+        assertFalse(QaHooks.micRight)
+        // a release build hears nothing
+        QaHooks.enabled = false
+        QaHooks.handle("mic:right")
+        assertFalse(QaHooks.micRight)
     }
 
     @Test fun `a happening QA names is on, first, with its person, until it is let go`() {

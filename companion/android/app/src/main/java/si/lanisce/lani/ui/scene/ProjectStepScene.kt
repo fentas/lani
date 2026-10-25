@@ -35,7 +35,6 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.app.SceneTalk
-import si.lanisce.lani.data.Speaker
 import si.lanisce.lani.game.ambient.Sfx
 import si.lanisce.lani.game.scene.Pose
 import si.lanisce.lani.game.scene.ScenePerson
@@ -68,19 +67,9 @@ fun ProjectStepScene(vm: AppViewModel, talk: SceneTalk) {
     val speakers = remember(step.cast, people) { step.cast.associate { p -> p.id to Speaking(p.emoji, SceneWords.voiceOf(p.art, people[p.id])) } }
     val voice = speakers[talk.person.id]?.voice ?: Spoken(SceneWords.voiceOf(talk.person.art))
     // each new line said aloud in its speaker's voice, and drawn talking meanwhile
-    var talking by remember { mutableStateOf<String?>(null) }
     var micOn by remember { mutableStateOf(false) }
-    LaunchedEffect(talk.key, talk.run.said.size) {
-        val line = talk.run.said.lastOrNull()
-        val who = line?.who
-        if (line == null || who == null) { talking = null; return@LaunchedEffect }
-        delay(DialogMood.sayAfter(talk.run))
-        val v = speakers[who]?.voice ?: voice
-        // drawn talking while the line is heard (SceneScreen's dialog)
-        talking = who
-        if (!vm.speaker.sayThrough(line.sl, voiceName = v.voice, fallback = v.fallback, person = v.person, stopIfLeft = false)) delay(Speaker.readingMs(line.sl))
-        talking = null
-    }
+    // drawn talking while the line is heard; the learner's own first, in their voice (SceneScreen's dialog)
+    val talking = rememberDialogVoice(vm.speaker, talk) { who -> who to (speakers[who]?.voice ?: voice) }
     // whom the learner answers: whoever spoke last (the leader at first)
     val facing = talk.run.said.lastOrNull { it.who != null }?.who ?: talk.person.id
     val pose = rememberPartnerPose(talk.run, talking != null && talking == facing, micOn)

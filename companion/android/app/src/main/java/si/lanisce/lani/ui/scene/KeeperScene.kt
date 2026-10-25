@@ -26,7 +26,6 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.app.KeeperTalk
-import si.lanisce.lani.data.Speaker
 import si.lanisce.lani.game.scene.Keepers
 import si.lanisce.lani.game.scene.Pose
 import si.lanisce.lani.l10n.bi
@@ -48,17 +47,9 @@ fun KeeperScene(vm: AppViewModel, k: KeeperTalk) {
     val v = remember(k.keeper) { Keepers.villager(k.keeper) }
     // his speaker's voice, else his gender's; he has no voice of his own (no one's profile)
     val voice = remember(v) { Spoken(v.speakerVoice, v.voice) }
-    var talking by remember { mutableStateOf(false) }
     var micOn by remember { mutableStateOf(false) }
-    LaunchedEffect(talk.key, talk.run.said.size) {
-        val line = talk.run.said.lastOrNull()
-        if (line?.who == null) { talking = false; return@LaunchedEffect }
-        delay(DialogMood.sayAfter(talk.run))
-        // drawn talking while the line is heard (SceneScreen's dialog)
-        talking = true
-        if (!vm.speaker.sayThrough(line.sl, voiceName = voice.voice, fallback = voice.fallback, stopIfLeft = false)) delay(Speaker.readingMs(line.sl))
-        talking = false
-    }
+    // his lines said aloud, drawn talking while one is heard; the learner's own first, in their voice (SceneScreen's dialog)
+    val talking = rememberDialogVoice(vm.speaker, talk) { who -> who to voice } != null
     val pose = rememberPartnerPose(talk.run, talking, micOn)
     LaniSheet(onDismissRequest = vm.scenes::closeKeeper) {
         Box(Modifier.fillMaxWidth().fillMaxHeight()) {

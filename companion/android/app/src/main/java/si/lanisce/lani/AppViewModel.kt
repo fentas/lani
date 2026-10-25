@@ -117,8 +117,14 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     val recognizer = Recognizer(app)
     /** Family voices and partner challenges; family recordings play through [speaker]. */
     val family = FamilyHub(app, viewModelScope).also { speaker.voice = it.voice }
-    /** Natural voice clips from the node; played through [speaker] after family recordings. */
-    val clips = Clips(app, viewModelScope).also { speaker.clips = it }
+    /**
+     * Natural voice clips from the node; played through [speaker] after family recordings. The learner's own lines are in
+     * the voice the node says (its cast's `player`), until it does their profile's gender's narrator ([Clips.playerOf]).
+     */
+    val clips = Clips(app, viewModelScope).also {
+        speaker.clips = it
+        it.playerGender = { learners.profile.gender }
+    }
     /** The hint's 🔊 in a dialog: its TL;DR in the learner's base with the Slovene in the app's voice; stopped by [speaker]. */
     val hintVoice = si.lanisce.lani.data.HintVoice(app, viewModelScope, speaker).also { speaker.hint = it }
     /** A unit's introduction read aloud in the teacher's voice (data/IntroVoice.kt); stopped by [speaker], as the hint's. */

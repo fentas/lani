@@ -171,8 +171,11 @@ class Speaker(private val context: Context) {
          * villager's or resident's: their own voice "@micka", else their archetype first): the ones to try, best first;
          * [Voices.shared]: their archetype's and the chain's; [Voices.own]: they have a voice of their own, heard only in it
          * unless the node can't make it now. The day's audio asks for the same ([si.lanisce.lani.audio.DayAudio]).
+         * The learner's own lines ([Clips.PLAYER]) are heard in their voice alone: no other voice's clip stands in (a
+         * narrator of the other gender), the phone's voice speaks when theirs can't be had.
          */
         fun voices(voiceName: String = Clips.FEMALE, fallback: String? = null, profile: VoiceProfile? = null): Voices {
+            if (voiceName == Clips.PLAYER) return Voices(listOf(Clips.PLAYER), listOf(Clips.PLAYER), own = false)
             val own = profile?.own == true
             // their archetype first (the node's profile knows it even where the caller passes a narrator), then the chain
             val shared = (listOfNotNull(profile?.takeIf { !own }?.speaker) + Clips.chain(voiceName, fallback)).distinct()

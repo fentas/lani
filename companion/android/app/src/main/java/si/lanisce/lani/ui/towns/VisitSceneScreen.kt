@@ -66,8 +66,8 @@ import si.lanisce.lani.l10n.bi
 import si.lanisce.lani.ui.game.EmojiBadge
 import kotlinx.coroutines.delay
 import si.lanisce.lani.ui.scene.Anchored
-import si.lanisce.lani.ui.scene.DialogMood
 import si.lanisce.lani.ui.scene.DialogPanel
+import si.lanisce.lani.ui.scene.rememberDialogVoice
 import si.lanisce.lani.ui.scene.OverlayPill
 import si.lanisce.lani.ui.scene.PersonBubble
 import si.lanisce.lani.ui.scene.SceneWordGroups
@@ -121,15 +121,9 @@ private fun VisitPlace(vm: AppViewModel, v: TownVisit, spec: SceneSpec) {
     val sceneClock = si.lanisce.lani.game.render.rememberTownClock()
     si.lanisce.lani.ui.AmbientSound(vm.ambience, si.lanisce.lani.game.ambient.Place.Scene(scene.art, cues.fx.target), cues.sky.target, sceneClock)
     fun voiceOf(p: ScenePerson) = SceneWords.voiceOf(p.art, p.villager?.let { v.villager(it) })
-    // a person's new line is said aloud; the dialog played to its end: the learner met them
-    LaunchedEffect(talk?.key, talk?.run?.said?.size) {
-        val t = talk ?: return@LaunchedEffect
-        val line = t.run.said.lastOrNull() ?: return@LaunchedEffect
-        if (line.who == null) return@LaunchedEffect
-        delay(DialogMood.sayAfter(t.run))
-        val who = voiceOf(t.person)
-        vm.speaker.say(line.sl, voiceName = who.voice, fallback = who.fallback, person = who.person)
-    }
+    // a person's new line is said aloud, the learner's own first in their voice (as at home: DialogVoice); the dialog
+    // played to its end: the learner met them
+    rememberDialogVoice(vm.speaker, talk) { who -> who to voiceOf(talk!!.person) }
     LaunchedEffect(talk?.key, talk?.settled) {
         val t = talk ?: return@LaunchedEffect
         if (t.settled) vm.metOnVisit(t.person.villager ?: t.person.id, t.person.name)

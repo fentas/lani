@@ -27,9 +27,26 @@ import si.lanisce.lani.l10n.inTarget
 
 /**
  * One line said in a scene dialog: by a person ([who] = their id) or by the learner ([who] null). [wrong]: the
- * learner's wrong choice, said when the person reacts to it (see [DialogRun.choose]).
+ * learner's wrong choice, said when the person reacts to it (see [DialogRun.choose]). [by]: how the learner's line came.
  */
-data class Said(val who: String?, val sl: String, val en: String, val wrong: Boolean = false)
+data class Said(val who: String?, val sl: String, val en: String, val wrong: Boolean = false, val by: By = By.PICK) {
+    /**
+     * How the learner's line came (companion/SCENES.md, "The learner's voice"): [PICK] a choice tapped (in the list or in
+     * the picture, or "✓ Naprej" at an echo), [TYPE] typed into its gap (right, or a wrong form that is one of the
+     * choices), [MIC] said into the 🎤, [SLIP] typed as a form none of the choices has.
+     */
+    enum class By { PICK, TYPE, MIC, SLIP }
+
+    /**
+     * The learner's line is said aloud in their voice as it comes (the player's: Clips.PLAYER): one picked or typed, which
+     * nobody said yet; not one they said into the 🎤 themselves, nor a slip typed (their own wording, no line of the
+     * dialog's to make a clip of).
+     */
+    val voiced: Boolean get() = who == null && (by == By.PICK || by == By.TYPE)
+
+    /** Its 🔊 says it again: someone's line, or the learner's in their voice (a slip typed has none). */
+    val replayable: Boolean get() = who != null || by != By.SLIP
+}
 
 /**
  * A scene dialog being played (companion/SCENES.md, `dialogs[]`). Pure: the scene screen shows it.
@@ -214,11 +231,14 @@ data class DialogRun(
      * [TurnMode.ECHO] ("✓ Naprej · Next", or the line said): the right line is said as the learner's, the person's reply
      * follows, and the rules it says are met ([meetings]). Nothing is graded: no answer counts, no mistake is possible.
      */
-    fun echo(): DialogRun {
+    fun echo(): DialogRun = echoBy(Said.By.PICK)
+
+    /** [echo], the learner's line come [by] "✓ Naprej" or the 🎤. */
+    private fun echoBy(by: Said.By): DialogRun {
         if (mode != TurnMode.ECHO) return this
         val turn = dialog.lines[at].choices
         val right = turn.indexOfFirst { it.ok }.takeIf { it >= 0 } ?: return this
-        return pick(order(turn.size).indexOf(right), produced = false, graded = false)
+        return pick(order(turn.size).indexOf(right), produced = false, graded = false, how = by)
     }
 
     /**
@@ -230,7 +250,7 @@ data class DialogRun(
         if (mode != TurnMode.ECHO) return null
         val line = dialog.lines[at].choices.firstOrNull { it.ok }?.sl ?: return null
         val heard = alternatives.filter { it.isNotBlank() }.ifEmpty { return null }
-        return if (echoed(line, heard)) echo() else null
+        return if (echoed(line, heard)) echoBy(Said.By.MIC) else null
     }
 
     /**
@@ -245,14 +265,14 @@ data class DialogRun(
         val g = gap ?: return letMeChoose()
         val turn = dialog.lines[at].choices
         val right = turn.indexOfFirst { it.ok }
-        if (Grading.check(text, g.accept).verdict != Grading.Verdict.WRONG) return pick(order(turn.size).indexOf(right), produced = true)
+        if (Grading.check(text, g.accept).verdict != Grading.Verdict.WRONG) return pick(order(turn.size).indexOf(right), produced = true, how = Said.By.TYPE)
         val typed = text.trim()
         val word = typed.takeIf { Forms.words(it).size == 1 }
         val sentence = word?.let { g.before + it + g.after } ?: typed
         val back = copy(modes = modes - at)
         // one of the file's wrong choices: as if picked
         val k = turn.indices.firstOrNull { i -> i != right && Grading.fold(turn[i].sl) == Grading.fold(sentence) }
-        if (k != null) return back.choose(order(turn.size).indexOf(k))
+        if (k != null) return back.choose(order(turn.size).indexOf(k), Said.By.TYPE)
         return back.slipped(sentence)
     }
 
@@ -269,11 +289,11 @@ data class DialogRun(
         val heard = SpeechGrading.best(alternatives, null, rights)
         if (heard != null && heard.result.verdict != Grading.Verdict.WRONG) {
             val filed = turn.indexOfFirst { it.ok && it.sl == heard.result.expected }.takeIf { it >= 0 } ?: turn.indexOfFirst { it.ok }
-            return pick(order(turn.size).indexOf(filed), produced = true)
+            return pick(order(turn.size).indexOf(filed), produced = true, how = Said.By.MIC)
         }
         val m = ChoiceMatch.match(alternatives, choices.map { it.sl }) as? ChoiceMatch.Result.Said ?: return null
         if (choices[m.index].ok) return null // the right one, but not quite: again
-        return copy(modes = modes - at).choose(m.index)
+        return copy(modes = modes - at).choose(m.index, Said.By.MIC)
     }
 
     /** A form typed wrong that is none of the choices: said, the person puzzled, a slip on the gap's pages; the learner picks. */
@@ -288,7 +308,7 @@ data class DialogRun(
             WordAnswer(w, false, DialogWords.typed(w.card, sentence.let { s -> Forms.words(s).getOrNull(w.slot) ?: s }), produced = true, at, sentence, right.orEmpty())
         }
         return copy(
-            said = said + Said(null, sentence, "", wrong = true) + Said(by, puzzled.sl, puzzled.en),
+            said = said + Said(null, sentence, "", wrong = true, by = Said.By.SLIP) + Said(by, puzzled.sl, puzzled.en),
             why = bi("adaptive.notThatForm"), wrongPick = null, puzzledBy = puzzled, mistakes = mistakes + 1,
             missedTurns = missedTurns + if (missed) 0 else 1, missed = true, rule = line.grammar ?: pages.firstOrNull(),
             answers = answers + pages.map { RuleAnswer(it, false, sentence, right) },
@@ -344,15 +364,18 @@ data class DialogRun(
     /** On from a line the learner listened to. */
     fun next(): DialogRun = if (step == Step.LISTEN) copy(listening = false).play() else this
 
-    /** The learner picks choice [k] of their turn, as shown ([choices]). */
-    fun choose(k: Int): DialogRun = pick(k, produced = false)
+    /**
+     * The learner picks choice [k] of their turn, as shown ([choices]): tapped, or [by] another way (the choice said into
+     * the 🎤 counts as tapped, but isn't said again: [Said.voiced]).
+     */
+    fun choose(k: Int, by: Said.By = Said.By.PICK): DialogRun = pick(k, produced = false, how = by)
 
     /**
      * Choice [k] (as shown) answered: picked, or ([produced]) typed or said as the right one; not [graded]: an echo, heard
      * and repeated, which counts on no rule. A rule not yet of the turn ([notYet]) counts nothing either way: passing the
-     * turn meets it.
+     * turn meets it. [how]: how the learner's line came ([Said.by]).
      */
-    private fun pick(k: Int, produced: Boolean, graded: Boolean = true): DialogRun {
+    private fun pick(k: Int, produced: Boolean, graded: Boolean = true, how: Said.By = Said.By.PICK): DialogRun {
         if (step != Step.CHOOSE) return this
         val line = dialog.lines[at]
         val turn = line.choices
@@ -364,7 +387,7 @@ data class DialogRun(
         if (!right) {
             if (k in tried) return this // the same wrong choice again doesn't count twice
             // with a reaction, the wrong choice is said and the person answers what they heard; the learner picks again
-            val heard = c.reply?.let { listOf(Said(null, c.sl, c.en, wrong = true), Said(by, it.sl, it.en)) }.orEmpty()
+            val heard = c.reply?.let { listOf(Said(null, c.sl, c.en, wrong = true, by = how), Said(by, it.sl, it.en)) }.orEmpty()
             val page = (c.grammar ?: line.grammar)?.takeIf { it !in notHere }
             return copy(
                 said = said + heard, tried = tried + k, why = c.why ?: bi("dialogRun.tryAnotherOne"), wrongPick = k, mistakes = mistakes + 1,
@@ -383,7 +406,7 @@ data class DialogRun(
         val words = if (graded) wordAnswersOf(line, filed, right = true, produced) else emptyList()
         val missedHere = wordAnswers.filter { it.turn == at && !it.right }
         val mine = copy(
-            at = at + 1, said = said + Said(null, c.sl, c.en), tried = emptySet(), why = null, wrongPick = null, picks = picks + filed,
+            at = at + 1, said = said + Said(null, c.sl, c.en, by = how), tried = emptySet(), why = null, wrongPick = null, picks = picks + filed,
             rule = null, missed = false, puzzledBy = null, answers = answers + pages.map { RuleAnswer(it, true, c.sl, null, hinted) }, hinted = false,
             meetings = meetings + notHere, wordAnswers = wordAnswers + words,
         )

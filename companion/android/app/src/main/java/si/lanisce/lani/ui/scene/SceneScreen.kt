@@ -78,7 +78,6 @@ import androidx.core.view.WindowCompat
 import kotlinx.coroutines.delay
 import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.data.SceneFound
-import si.lanisce.lani.data.Speaker
 import si.lanisce.lani.game.render.Moon
 import si.lanisce.lani.game.scene.ActiveHappening
 import si.lanisce.lani.game.scene.DayAct
@@ -317,21 +316,12 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
     }
 
     // A person's new line is said aloud in their voice, and they're drawn talking meanwhile (a project's step has several
-    // people: each says their own lines).
-    var talkingId by remember { mutableStateOf<String?>(null) }
-    val lastLine = talk?.run?.said?.lastOrNull()
+    // people: each says their own lines); the learner's own line first, in their voice (DialogVoice). The panel, the bubble
+    // and the person's reaction come first; the next line, as the learner taps on, cuts it.
     fun speakerOf(id: String?): ScenePerson? = talk?.step?.cast?.firstOrNull { it.id == id } ?: talk?.person
-    LaunchedEffect(talk?.key, talk?.run?.said?.size) {
-        val line = lastLine
-        if (talk == null || line?.who == null) { talkingId = null; return@LaunchedEffect }
-        delay(DialogMood.sayAfter(talk.run)) // let the panel, the bubble and the person's reaction come first
-        val p = speakerOf(line.who) ?: talk.person
-        val who = voiceOf(p)
-        // drawn talking while the line is heard (the next one, as the learner taps on, cuts it; nothing to say it: for as
-        // long as it takes to read)
-        talkingId = p.id
-        if (!speaker.sayThrough(line.sl, voiceName = who.voice, fallback = who.fallback, person = who.person, stopIfLeft = false)) delay(Speaker.readingMs(line.sl))
-        talkingId = null
+    val talkingId = rememberDialogVoice(speaker, talk) { who ->
+        val p = speakerOf(who) ?: talk!!.person
+        p.id to voiceOf(p)
     }
     // whom the learner answers: the person of the dialog, or in a project's step whoever spoke last
     val facing = if (talk?.step != null) talk.run.said.lastOrNull { it.who != null }?.who ?: talk.person.id else talk?.person?.id

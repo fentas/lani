@@ -90,7 +90,7 @@ fun canListen(vm: AppViewModel, phoneMic: Boolean): Boolean =
  * allowed) or its system voice dialog. [expected] steers the node's spelling (the choices). What was heard goes to
  * [onHeard], the alternatives most likely first ([phone]: from the phone's recognizer); a take that failed (nothing
  * heard, the service or node unreachable, the microphone refused) to [onFailed] as a message for the learner.
- * [onStart]: a take begins.
+ * [onStart]: a take begins. [qaHeard]: what QA's hook has it hear without listening (app/QaHooks "mic:right"), if any.
  */
 @Composable
 fun rememberDialogMic(
@@ -99,6 +99,7 @@ fun rememberDialogMic(
     onHeard: (alternatives: List<String>, phone: Boolean) -> Unit,
     onFailed: (String) -> Unit,
     onStart: () -> Unit = {},
+    qaHeard: () -> String? = { null },
 ): DialogMic {
     val context = LocalContext.current
     val rec = vm.recognizer
@@ -110,6 +111,7 @@ fun rememberDialogMic(
     val failed by rememberUpdatedState(onFailed)
     val prompt by rememberUpdatedState(expected)
     val started by rememberUpdatedState(onStart)
+    val qa by rememberUpdatedState(qaHeard)
     LaunchedEffect(Unit) { vm.stt.refresh() } // the node's recognizer may have started or stopped since
 
     fun phoneHeard(alternatives: List<String>) {
@@ -172,6 +174,8 @@ fun rememberDialogMic(
     fun listen() {
         started()
         vm.speaker.stop() // or the recognizer hears the person
+        // QA's take, as the node's recognizer would give it, without the microphone (a debug or qa build)
+        qa()?.let { return heard(listOf(it), false) }
         val phone = (rec.inApp || rec.dialog) && rec.support != Recognizer.Support.NO
         mic.server = vm.stt.available == true && (vm.stt.accurate || !phone)
         val recorder = mic.server || sr != null // records in the app: needs the microphone

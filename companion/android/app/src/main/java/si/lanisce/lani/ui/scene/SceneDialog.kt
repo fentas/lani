@@ -94,6 +94,7 @@ import si.lanisce.lani.game.HintSpeech
 import si.lanisce.lani.game.HintText
 import si.lanisce.lani.game.TurnHints
 import si.lanisce.lani.data.Grading.Verdict
+import si.lanisce.lani.data.Clips
 import si.lanisce.lani.data.Speaker
 import si.lanisce.lani.data.Words
 import si.lanisce.lani.game.TurnMode
@@ -150,7 +151,8 @@ fun DialogPanel(
     talk: SceneTalk,
     /** Who reads their lines: a voice and its fallback ([SceneWords.voiceOf]). */
     voice: Spoken,
-    onChoose: (Int) -> Unit,
+    /** A choice answered, as shown: tapped, or said into the 🎤 ([Said.By.MIC]: the learner's line isn't said again). */
+    onChoose: (Int, Said.By) -> Unit,
     onNext: () -> Unit,
     onClose: () -> Unit,
     onKeepTalking: ((String) -> Unit)?,
@@ -194,10 +196,11 @@ fun DialogPanel(
         val played = talk // the dialog as played this time (its key and its run's seed): what finish sends
         onDispose { vm.dialogWords.finish(played) }
     }
-    val choose: (Int) -> Unit = { k ->
-        count(run.choose(k))
-        onChoose(k)
+    val choose: (Int, Said.By) -> Unit = { k, by ->
+        count(run.choose(k, by))
+        onChoose(k, by)
     }
+    val tapped: (Int) -> Unit = { k -> choose(k, Said.By.PICK) }
     val type: (String) -> Unit = { text ->
         count(run.type(text))
         onType(text)
@@ -218,8 +221,10 @@ fun DialogPanel(
     }
     val prefs = vm.dialogPrefs
     val phoneMic = remember { vm.recognizer.inApp || vm.recognizer.dialog }
-    val listens = canListen(vm, phoneMic)
-    val (mic, takes) = rememberAnswering(vm, talk, choose, say, echoSaid)
+    // QA's hook has the 🎤 hear the right choice without listening (app/QaHooks "mic:right"): it shows then
+    val listens = canListen(vm, phoneMic) || si.lanisce.lani.app.QaHooks.micRight
+    // a choice said into the 🎤 counts as tapped, but the learner said it: it isn't said again in their voice
+    val (mic, takes) = rememberAnswering(vm, talk, { k -> choose(k, Said.By.MIC) }, say, echoSaid)
     LaunchedEffect(mic.listening) { onListening(mic.listening) }
     val hint = rememberHint(vm, talk, onHint)
     Surface(
@@ -271,10 +276,10 @@ fun DialogPanel(
                                 DialogRun.Step.LISTEN -> BigButton("${bi("common.next")} ›", onClick = onNext)
                                 DialogRun.Step.CHOOSE -> when {
                                     run.mode == TurnMode.ECHO -> EchoTurn(vm, run, listens && !micBlocked, mic, takes, echo, hint)
-                                    run.mode == TurnMode.TAP -> TapTurn(vm, run, listens, mic, takes, choose, prefs.translations, onLetMeChoose, hint)
+                                    run.mode == TurnMode.TAP -> TapTurn(vm, run, listens, mic, takes, tapped, prefs.translations, onLetMeChoose, hint)
                                     run.mode == TurnMode.SAY && listens && !micBlocked && run.gap != null -> SayTurn(vm, run, mic, takes, onLetMeChoose, hint)
                                     (run.mode == TurnMode.TYPE || run.mode == TurnMode.SAY) && run.gap != null -> TypeTurn(vm, run, type, onLetMeChoose, hint, scroll)
-                                    else -> Turn(vm, run, listens, mic, takes, choose, prefs.translations, hint)
+                                    else -> Turn(vm, run, listens, mic, takes, tapped, prefs.translations, hint)
                                 }
                                 DialogRun.Step.END -> Unit
                             }
@@ -366,7 +371,8 @@ private fun Lines(vm: AppViewModel, talk: SceneTalk, voice: Spoken, modifier: Mo
             }
             val missed = cards[i].orEmpty()
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                if (s.who == null) Mine(s, onWord, translation, onLong)
+                // the learner's own line with its 🔊 in their voice (a slip typed has none)
+                if (s.who == null) Mine(s, onWord, translation, onLong, vm.speaker.takeIf { s.replayable })
                 else Theirs(s, who?.emoji ?: talk.person.emoji, vm.speaker, who?.voice ?: voice, typing = i == said.lastIndex, onWord = onWord, translation = translation, onLong = onLong)
                 // the learner's words the turn just passed got wrong: their cards, after it (the dialog goes on)
                 for (c in missed) MissedWord(vm, c.answer)
@@ -547,10 +553,12 @@ internal fun Theirs(s: Said, emoji: String, speaker: Speaker, voice: Spoken, typ
 
 /**
  * The learner's own line, right; a wrong choice the person reacted to is marked as the choice is (red, ✗). Its
- * translation as someone's line has it ([translation]).
+ * translation as someone's line has it ([translation]). With a [speaker], its 🔊 says it again in the learner's voice
+ * ([Clips.PLAYER]), as it was said when it came (companion/SCENES.md, "The learner's voice"); without one (an I spy guess,
+ * a word) it has none.
  */
 @Composable
-internal fun Mine(s: Said, onWord: (WordToken) -> Unit, translation: LineTranslation, onLong: () -> Unit) {
+internal fun Mine(s: Said, onWord: (WordToken) -> Unit, translation: LineTranslation, onLong: () -> Unit, speaker: Speaker? = null) {
     Row(Modifier.fillMaxWidth().popIn(s, from = 0.85f, origin = androidx.compose.ui.graphics.TransformOrigin(1f, 0f)), horizontalArrangement = Arrangement.End) {
         Spacer(Modifier.width(48.dp))
         val ink = if (s.wrong) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onPrimaryContainer
@@ -559,14 +567,17 @@ internal fun Mine(s: Said, onWord: (WordToken) -> Unit, translation: LineTransla
             shape = RoundedCornerShape(topStart = 18.dp, topEnd = 4.dp, bottomEnd = 18.dp, bottomStart = 18.dp),
             border = if (s.wrong) BorderStroke(1.dp, TriglavRed) else null,
         ) {
-            Row(Modifier.lineGestures(translation, onLong).padding(horizontal = 14.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-                Column(horizontalAlignment = Alignment.End, modifier = Modifier.clearAndSetSemantics { describeLine(s, translation, onWord, onLong) }) {
+            // with its 🔊 the bubble ends at the button, as someone's does
+            val end = if (speaker != null && speaker.canSay) 4.dp else 14.dp
+            Row(Modifier.lineGestures(translation, onLong).padding(start = 14.dp, top = 8.dp, bottom = 8.dp, end = end), verticalAlignment = Alignment.CenterVertically) {
+                Column(horizontalAlignment = Alignment.End, modifier = Modifier.weight(1f, fill = false).clearAndSetSemantics { describeLine(s, translation, onWord, onLong) }) {
                     WordText(s.sl, onWord, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold, color = ink, onElse = translation.toggle, onLongPress = onLong)
                     if (translation.shows) Text(s.en, style = MaterialTheme.typography.bodySmall, fontStyle = FontStyle.Italic, color = ink.copy(alpha = 0.75f))
                 }
                 if (s.wrong) {
                     Text("✗", color = TriglavRed, fontWeight = FontWeight.Black, modifier = Modifier.padding(start = 8.dp).clearAndSetSemantics { contentDescription = bi("sceneDialog.wrong") })
                 }
+                if (speaker != null) SpeakButton(speaker, s.sl, Modifier.padding(start = 4.dp), voiceName = Clips.PLAYER)
             }
         }
     }
@@ -638,6 +649,11 @@ private fun rememberAnswering(
         },
         onFailed = { message -> if (current()) takes.failed(message) },
         onStart = { startedAt = run.at },
+        // QA: the turn's right choice, as the recognizer writes it (small letters, no punctuation)
+        qaHeard = {
+            if (!si.lanisce.lani.app.QaHooks.micRight) null
+            else run.choices.firstOrNull { it.ok }?.sl?.lowercase()?.replace(Regex("[^\\p{L}\\p{N} ]"), "")?.trim()
+        },
     )
     return mic to takes
 }

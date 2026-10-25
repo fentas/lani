@@ -15,7 +15,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,16 +27,13 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.delay
 import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.app.MeetingTalk
-import si.lanisce.lani.data.Speaker
 import si.lanisce.lani.game.scene.Pose
 import si.lanisce.lani.game.villagers.Villager
 import si.lanisce.lani.l10n.bi
 import si.lanisce.lani.ui.Confetti
 import si.lanisce.lani.ui.LaniSheet
-import si.lanisce.lani.ui.scene.DialogMood
 import si.lanisce.lani.ui.scene.DialogPanel
 import si.lanisce.lani.ui.scene.DialogRun
 import si.lanisce.lani.ui.scene.DialogStage
@@ -45,6 +41,7 @@ import si.lanisce.lani.ui.scene.SceneWords
 import si.lanisce.lani.ui.scene.Speaking
 import si.lanisce.lani.ui.scene.Spoken
 import si.lanisce.lani.ui.scene.rememberPartnerPose
+import si.lanisce.lani.ui.scene.rememberDialogVoice
 import si.lanisce.lani.ui.stage.Backdrop
 import si.lanisce.lani.ui.stage.StagePlace
 
@@ -65,19 +62,9 @@ fun ArrivalScene(vm: AppViewModel, m: MeetingTalk) {
     val speakers = remember(people) { people.mapValues { (_, v) -> Speaking(v.emoji, SceneWords.voiceOf(v.art, v)) } }
     val voice = speakers[id]?.voice ?: Spoken(SceneWords.voiceOf(talk.person.art))
     // each new line said aloud in its speaker's voice, and drawn talking meanwhile
-    var talking by remember { mutableStateOf<String?>(null) }
     var micOn by remember { mutableStateOf(false) }
-    LaunchedEffect(talk.key, talk.run.said.size) {
-        val line = talk.run.said.lastOrNull()
-        val who = line?.who
-        if (line == null || who == null) { talking = null; return@LaunchedEffect }
-        delay(DialogMood.sayAfter(talk.run))
-        val v = speakers[who]?.voice ?: voice
-        // drawn talking while the line is heard (SceneScreen's dialog)
-        talking = who
-        if (!vm.speaker.sayThrough(line.sl, voiceName = v.voice, fallback = v.fallback, person = v.person, stopIfLeft = false)) delay(Speaker.readingMs(line.sl))
-        talking = null
-    }
+    // drawn talking while the line is heard; the learner's own first, in their voice (SceneScreen's dialog)
+    val talking = rememberDialogVoice(vm.speaker, talk) { who -> who to (speakers[who]?.voice ?: voice) }
     // who the learner answers now: whoever spoke last (the newcomer at first)
     val facing = talk.run.said.lastOrNull { it.who != null }?.who ?: id
     val pose = rememberPartnerPose(talk.run, talking != null && talking == facing, micOn)

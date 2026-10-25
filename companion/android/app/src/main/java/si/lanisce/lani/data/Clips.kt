@@ -163,6 +163,28 @@ class Clips(context: Context, private val scope: CoroutineScope) {
     /** Everyone's voice profile by person id (the node's), so each person always sounds like themselves. */
     var profiles by mutableStateOf<Map<String, VoiceProfile>>(emptyMap())
         private set
+
+    /**
+     * The voice the node says the learner's own lines in ([PLAYER]: its cast's `player` for their gender, "male" for Jan),
+     * from their voice profiles; null until it said (offline, an older bridge).
+     */
+    var player by mutableStateOf<String?>(null)
+        private set
+
+    /** The learner profile's gender ("male", "female"; null when it says none): their voice until the node says ([player]). */
+    var playerGender: () -> String? = { null }
+
+    /** The voice the learner's own lines are in on the phone: the node's ([player]), else their gender's narrator ([playerOf]). */
+    val playerVoice: String get() = player ?: playerOf(playerGender())
+
+    /** [voices] as the clips on the phone know them: the learner's own ([PLAYER]) as the voice they are in ([playerVoice]). */
+    private fun known(voices: List<String>): List<String> = knownAs(voices, playerVoice)
+
+    /** Everyone's voice profile and the learner's voice ([player]), as the node says them (GET or POST /voice/profiles). */
+    internal fun profilesSaid(raw: String) {
+        runCatching { parseProfiles(raw) }.getOrNull()?.let { profiles = it }
+        runCatching { parsePlayer(raw) }.getOrNull()?.let { player = it }
+    }
     /** The people last told to the node, so an unchanged list isn't sent again. */
     private var told: List<PersonVoice>? = null
     /** The node's index arrived, so the (older) disk copy must not overwrite it. */
@@ -204,7 +226,7 @@ class Clips(context: Context, private val scope: CoroutineScope) {
         scope.launch {
             val raw = withContext(Dispatchers.IO) { runCatching { a.profiles(people) }.getOrNull() } ?: return@launch
             told = people
-            runCatching { parseProfiles(raw) }.getOrNull()?.let { profiles = it }
+            profilesSaid(raw)
         }
     }
 
@@ -213,7 +235,7 @@ class Clips(context: Context, private val scope: CoroutineScope) {
         val a = api ?: return
         scope.launch {
             val raw = withContext(Dispatchers.IO) { runCatching { a.profiles() }.getOrNull() } ?: return@launch
-            runCatching { parseProfiles(raw) }.getOrNull()?.let { profiles = it }
+            profilesSaid(raw)
         }
         scope.launch {
             // A bad index must not crash the app: parse inside the catch, write the file off the main thread.
@@ -253,7 +275,7 @@ class Clips(context: Context, private val scope: CoroutineScope) {
      * earlier clip, when that is here ([PreviousClips]); online the new one is fetched meanwhile, for the next time.
      */
     fun onDevice(text: String, voices: List<String>): List<File>? {
-        val (got, stale) = local(text, voices) ?: return null
+        val (got, stale) = local(text, known(voices)) ?: return null
         stale?.let(::renew)
         return got
     }
@@ -396,7 +418,7 @@ class Clips(context: Context, private val scope: CoroutineScope) {
      */
     fun prepare(text: String, voices: List<String>, waitMs: Long = WAIT_MS, then: (List<File>?) -> Unit) {
         val work = fetchOnce(text, voices)
-        scope.launch { then(withTimeoutOrNull(waitMs) { work.await() } ?: local(text, voices.take(1))?.first) }
+        scope.launch { then(withTimeoutOrNull(waitMs) { work.await() } ?: local(text, known(voices.take(1)))?.first) }
     }
 
     /**
@@ -424,10 +446,13 @@ class Clips(context: Context, private val scope: CoroutineScope) {
 
     private suspend fun fetch(text: String, voices: List<String>): List<File>? {
         val a = api ?: return null
-        val urls = resolve(index, text, voices.first()) ?: run {
+        // the clips on the phone by the voice they are in; the node asked in the voices asked for (the learner's own as
+        // "player": it says them in their voice, a word to three in its carrier sentence)
+        val here = known(voices)
+        val urls = resolve(index, text, here.first()) ?: run {
             val got = mutableListOf<String>()
             for (p in parts(text)) {
-                val r = pick(index, Voice.normalize(p), voices) { ask(a, p, voices) }
+                val r = pick(index, Voice.normalize(p), here) { ask(a, p, voices) }
                 if (r == null) {
                     misses[missKey(text, voices.first())] = System.currentTimeMillis()
                     return null
@@ -517,7 +542,7 @@ class Clips(context: Context, private val scope: CoroutineScope) {
         val a = api ?: return then(ReRecord.Offline)
         scope.launch {
             val r = try {
-                ReRecorder(cache) { p, v -> a.redo(p, v) }.run(text, voices)
+                ReRecorder(cache) { p, v -> a.redo(p, v) }.run(text, known(voices))
             } catch (e: CancellationException) {
                 throw e
             } catch (_: Exception) {
@@ -542,6 +567,26 @@ class Clips(context: Context, private val scope: CoroutineScope) {
     companion object {
         const val FEMALE = "female"
         const val MALE = "male"
+
+        /**
+         * The learner's own lines in a dialog (companion/SCENES.md, "The learner's voice"): asked of the node in this voice,
+         * which says them in its cast's `player` for the learner's gender (companion/voice-cast.json: the male narrator's
+         * Luka for Jan); on the phone their clips are that voice's ([playerVoice]), so a narrator's clip of a text serves.
+         */
+        const val PLAYER = "player"
+
+        /**
+         * The voice the learner's lines are in while the node hasn't said ([player]): the narrator of the profile's [gender]
+         * ("male", "m": the male one), the female one when it says none, as the node's cast has it.
+         */
+        fun playerOf(gender: String?): String = if (gender?.trim()?.lowercase() in setOf("m", "male")) MALE else FEMALE
+
+        /** [voices] with the learner's own ([PLAYER]) as the voice their clips are in, [player] ("male"): what the index knows. */
+        fun knownAs(voices: List<String>, player: String): List<String> = voices.map { if (it == PLAYER) player else it }.distinct()
+
+        /** The voice the learner's lines are in, from GET or POST /voice/profiles ("player": "male"); null from an older bridge. */
+        fun parsePlayer(raw: String): String? =
+            json.parseToJsonElement(raw).jsonObject["player"]?.jsonPrimitive?.contentOrNull?.takeIf { it.isNotBlank() && it != PLAYER }
         private const val TAG = "Clips"
 
         /**

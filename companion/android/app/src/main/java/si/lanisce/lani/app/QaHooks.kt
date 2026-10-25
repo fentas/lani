@@ -27,6 +27,10 @@ import si.lanisce.lani.game.scene.SceneSpec
  * - "turns:type": the dialogs opened from now on ask every turn that tests a form typed into its gap, as if the learner
  *   had each rule secure ([typedTurns]; companion/SCENES.md, "Adaptive turns"): QA's typed turn with the keyboard up;
  *   "turns:" lets the learner's own masteries decide again.
+ * - "mic:right": a dialog's 🎤 hears the turn's right choice when it is tapped, as the node's recognizer would give it (in
+ *   small letters, without its punctuation), without listening ([micRight]): an emulator's microphone hears nothing, and
+ *   QA checks a line said into the 🎤 isn't said again (companion/SCENES.md, "The learner's voice"); the 🎤 shows while it
+ *   is set. "mic:" lets the microphone listen again.
  * - "bubbles:<n>": the village shows only the n bubbles nearest the fire ([fewer]), for a recording that isn't crowded;
  *   "bubbles:" shows them all again.
  * - "ispy:<scene>/<slot>": «Vidim, vidim» is offered in that scene whatever the day (games played, the hour: a child comes
@@ -137,6 +141,10 @@ object QaHooks {
 
     /** QA asked for typed turns ("turns:type"): every rule of a dialog's form turns counts as secure. */
     var typedTurns = false
+        private set
+
+    /** QA asked a dialog's 🎤 to hear the turn's right choice without listening ("mic:right"). */
+    var micRight by mutableStateOf(false)
         private set
 
     /** QA asked for typed forms cards ("formscard:type"): every forms card's gaps are typed (a fresh part's chosen still). */
@@ -331,6 +339,7 @@ object QaHooks {
             }
             command == "forms:off" -> this.forms = false
             command.startsWith("turns:") -> typedTurns = command == "turns:type"
+            command.startsWith("mic:") -> micRight = command == "mic:right"
             command == "counting" -> counting("")
             command == "counting:intro" -> counting("intro")
             command == "counting:type" -> countingTyped = true

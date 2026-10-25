@@ -276,7 +276,7 @@ class VisitController(
     }
 
     /** The learner answers with choice [k] (or goes on: [next]); at the end it is settled: nothing is paid on a visit. */
-    fun chooseInScene(k: Int) = stepScene { it.choose(k) }
+    fun chooseInScene(k: Int, by: si.lanisce.lani.ui.scene.Said.By = si.lanisce.lani.ui.scene.Said.By.PICK) = stepScene { it.choose(k, by) }
 
     fun nextInScene() = stepScene { it.next() }
 
