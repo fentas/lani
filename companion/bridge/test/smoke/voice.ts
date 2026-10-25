@@ -1,12 +1,13 @@
 // Smoke checks: the voice store, companion/bin/voice-build, and the voice routes.
 import { Database } from 'bun:sqlite'
 import { createHash } from 'node:crypto'
-import { cpSync, existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { cpSync, existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, utimesSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
 import { validateScenario } from '../../src/scenarios'
 import { validateModule } from '../../src/spec'
-import { baseVoice, CAST_FILE, carrierVoice, cast, fallbacks, genderOf, isVoice, languageVoice, newcomerSpeaker, speakerFor, tempoOf, tempoVoices } from '../../src/cast'
+import { baseVoice, CAST_FILE, carrierVoice, cast, fallbacks, genderOf, isVoice, languageVoice, newcomerSpeaker, PLAYER, playerVoice, playerVoices, speakerFor, tempoOf, tempoVoices, voiceFor } from '../../src/cast'
+import { addressee, voicedGender } from '../../src/addressee'
 import { normalizeText } from '../../src/family'
 import { charsPerSecond, clipPace, corpus, creditsFor, DEFAULT_ELEVENLABS_CONCURRENCY, DEFAULT_ELEVENLABS_MODEL, modelOf, denoisedFile, EDGES, edgesOf, ElevenLabs, enginesFromEnv, explanationLang, ffmpegCutter, ffmpegDenoiser, ffmpegEdges, ffmpegLeveller, ffmpegLoudness, ffmpegPace, ffmpegRecordingLeveller, Gepard, gepardPace, isMp3, isOneWord, isShortText, LEVEL, levelGain, sloveneNarrators, mp3Duration, mp3Kbps, paceChain, processedFile, DEFAULT_REDO_DAILY, Gate, redoDaily, revoiceDaily, trimChain, trimmable, VoiceStore, wordSpan, type Clip, type Cutter, type Denoiser, type Engine, type Leveller } from '../../src/voice'
 import { describe, Profiles, sampleOf, SPARE_SLOTS, variationOf, wordMatch } from '../../src/profiles'
@@ -111,6 +112,10 @@ export default async function voice() {
     const toMale = await quiet.say(`${long} Pa še sladica.`, 'grandpa')
     const toFemale = await quiet.say(long, 'grandpa')
     check('a live character line nobody can make: the gender narrator\'s clip, then the other one', toMale?.voice === 'male' && toFemale?.voice === 'female' && toFemale.file === lg?.file, [toMale, toFemale])
+    // the learner's own line (the voice "player", said in the male narrator's voice for Jan): only in their voice; nobody
+    // else's clip stands in (the app speaks it otherwise)
+    const alone = await quiet.say(long, 'male', undefined, { alone: true })
+    check("the learner's own line nobody can make in their voice: no other voice's clip (alone), where any other line gets the other narrator's", alone === null && (await quiet.say(long, 'male'))?.voice === 'female', alone)
     quiet.close()
     // Swapping a voice is one line in the cast; --revoice makes the speaker's clips again, under new names.
     const swapped = join(mkdtempSync(join(tmpdir(), 'lani-cast-')), 'voice-cast.json')
@@ -122,6 +127,27 @@ export default async function voice() {
     delete process.env.LANI_VOICE_CAST
     check('a swapped voice: --revoice replaces the clip with the new voice, under a new name', re?.engine === 'elevenlabs' && re.file !== gm?.file && fe.st.tts.at(-1)?.voice === 'nEu1CRXDjHpQT7G4E6sZ' && !vs.path(gm!.file) && !!vs.path(re.file), [re, fe.st.tts.at(-1)])
     check('the cast file is read again when it changes', cast().grandma.elevenlabs === c.grandma.elevenlabs)
+
+    // --- the player: who says the learner's own lines (the cast's `player`, by the learner's gender) ------------------
+    check("the cast's player: Luka's and Nina's voices (the narrators' Slovene ones), as the voices the store speaks in (male, female); the female one when the profile says no gender",
+      JSON.stringify(playerVoices()) === JSON.stringify({ female: 'female.sl', male: 'male.sl' }) && playerVoice('male') === 'male' && playerVoice('female') === 'female' && playerVoice() === 'female' &&
+        voiceFor(PLAYER, 'male') === 'male' && voiceFor(PLAYER) === 'female' && voiceFor('grandma', 'male') === 'grandma' && languageVoice(playerVoice('male'), 'sl') === 'male.sl' && !isVoice(PLAYER),
+      [playerVoices(), playerVoice('male'), playerVoice()])
+    check("the learner's gender for their voice: the profile's, none when it says none (spoken to as a man all the same)",
+      voicedGender(JAN) === 'male' && voicedGender(addressee({ name: 'Ana', gender: 'F' })) === 'female' && voicedGender(addressee({ name: 'Kim' })) === undefined && addressee({ name: 'Kim' }).gender === 'male' && addressee({ name: 'Kim', gender: '{GENDER}' }).unsaid === true && JAN.unsaid === undefined)
+    // a voice of the learner's own: one line in the cast's player (a speaker of the cast); a wrong one keeps the narrator
+    const ownPlayer = join(mkdtempSync(join(tmpdir(), 'lani-cast-')), 'voice-cast.json')
+    writeFileSync(ownPlayer, JSON.stringify({ ...castJson, player: { _comment: 'x', male: 'grandpa', female: 'nobody', other: 'female' } }))
+    const castErrors: string[] = []
+    const consoleError = console.error
+    console.error = (...a: unknown[]) => void castErrors.push(a.join(' '))
+    process.env.LANI_VOICE_CAST = ownPlayer
+    const swappedPlayer = [playerVoice('male'), playerVoice('female'), playerVoice()]
+    delete process.env.LANI_VOICE_CAST
+    console.error = consoleError
+    check("the player swapped in the cast is one line (male: grandpa); a voice not in the cast, or no gender, is logged and that gender keeps its narrator",
+      JSON.stringify(swappedPlayer) === JSON.stringify(['grandpa', 'female', 'female']) && castErrors.some(e => e.includes('player female') && e.includes('nobody')) && castErrors.some(e => e.includes('player "other"')) && playerVoice('male') === 'male',
+      [swappedPlayer, castErrors])
 
     // The corpus and companion/bin/voice-build on a fixture (fresh data dir, own content dirs).
     const vbPacks = mkdtempSync(join(tmpdir(), 'lani-vb-packs-'))
@@ -1774,6 +1800,53 @@ export default async function voice() {
     check('POST /voice/say with a voice not in the cast is a 400 (the app tries its fallback)', unknownVoice.status === 400 && (await unknownVoice.text()).includes('grandma'))
     const idx3 = await (await fetch(`${base}/voice/index`, { headers: auth })).json()
     check('GET /voice/index carries the character voices next to the narrators', idx3['dobro jutro micka']?.grandma === s7.url && !!idx3['dobro jutro micka']?.female, idx3['dobro jutro micka'])
+
+    // The learner's own lines (the voice "player"): said in the cast's player for the profile's gender, on the normal path,
+    // their clip the voice's (Jan, a man: the male narrator's, Luka in the Slovene village)
+    {
+      const p0 = bridgeEleven.st.tts.length
+      const mine = await say('Ja, zelo rad.', 'player')
+      const mineBody = await mine.json()
+      check("POST /voice/say for the learner's own line (player): Jan is a man, so the male narrator's Slovene voice (Luka) on the normal path, the clip the voice the app knows it by (male), in the index under it",
+        mine.ok && mineBody.voice === 'male' && mineBody.engine === 'elevenlabs' && bridgeEleven.st.tts.length === p0 + 1 && bridgeEleven.st.tts.at(-1)?.voice === LUKA && bridgeEleven.st.tts.at(-1)?.body.text === 'Ja, zelo rad.' &&
+          (await (await fetch(`${base}/voice/index`, { headers: auth })).json())['ja zelo rad']?.male === mineBody.url, [mineBody, bridgeEleven.st.tts.at(-1)])
+      const again = await (await say('ja, zelo rad', 'player')).json()
+      const asMale = await (await say('Ja, zelo rad.', 'male')).json()
+      check("… asked again: the cached clip, which is the male narrator's too (one clip of a text)", again.url === mineBody.url && asMale.url === mineBody.url && bridgeEleven.st.tts.length === p0 + 1, [again, asMale])
+      const profiles = await (await fetch(`${base}/voice/profiles`, { headers: auth })).json()
+      check('GET /voice/profiles says the voice the learner\'s lines are in (male), for the app to look their clips up by', profiles.player === 'male', profiles.player)
+      if (ffmpeg) {
+        const word = await (await say('Hvala lepa', 'player')).json()
+        const take = bridgeEleven.st.tts.at(-1)
+        check("the learner's own line of a word to three, made new: said inside its carrier sentence, as a re-record says it (Luka would say it plainly)", word.voice === 'male' && take?.timestamps === true && take.voice === LUKA && take.body.text === 'Beseda je: Hvala lepa.', [word, take])
+        const plainly = await (await say('Lepa hvala', 'male')).json()
+        check("… where the male narrator's own line of a word to three is said plainly", plainly.voice === 'male' && !bridgeEleven.st.tts.at(-1)?.timestamps && bridgeEleven.st.tts.at(-1)?.body.text === 'Lepa hvala', [plainly, bridgeEleven.st.tts.at(-1)])
+      }
+      const prep = await (await fetch(`${base}/voice/prepare`, { method: 'POST', headers: auth, body: JSON.stringify({ texts: [{ text: 'Ja, zelo rad.', voice: 'player' }] }) })).json()
+      check('POST /voice/prepare in the learner\'s voice: their clip, under the voice asked for', prep.clips?.[0]?.url === mineBody.url && prep.clips[0].voice === 'player', prep)
+      // the profile says a woman, then no gender: the female narrator's voice (Nina) both times
+      const profile = join(dataDir, 'learner-profile.json')
+      const was = readFileSync(profile, 'utf8')
+      const as = (gender: string | undefined, t: number) => {
+        const p = JSON.parse(was)
+        writeFileSync(profile, JSON.stringify({ ...p, learner: { ...p.learner, gender } }, null, 2))
+        utimesSync(profile, t, t) // its own mtime: the bridge reads it again
+      }
+      try {
+        as('female', Date.now() / 1000 + 5)
+        const her = await (await say('Ja, zelo rada.', 'player')).json()
+        const herProfiles = await (await fetch(`${base}/voice/profiles`, { headers: auth })).json()
+        check("a learner who is a woman: her lines in the female narrator's Slovene voice (Nina)", her.voice === 'female' && bridgeEleven.st.tts.at(-1)?.voice === NINA && herProfiles.player === 'female', [her, herProfiles.player])
+        as(undefined, Date.now() / 1000 + 10)
+        const none = await (await fetch(`${base}/voice/profiles`, { headers: auth })).json()
+        const noneSaid = await (await say('Ja, zelo rada.', 'player')).json()
+        check('a profile without a gender: the female voice (as an unknown name counts)', none.player === 'female' && noneSaid.url === her.url, [none.player, noneSaid])
+      } finally {
+        writeFileSync(profile, was)
+        utimesSync(profile, Date.now() / 1000 + 15, Date.now() / 1000 + 15)
+      }
+      check('… and Jan a man again', (await (await fetch(`${base}/voice/profiles`, { headers: auth })).json()).player === 'male')
+    }
 
     check('family token reads the voice index and files', (await fetch(`${base}/voice/index`, { headers: fam })).ok && (await fetch(`${base}${s1Body.url}`, { headers: fam })).ok)
     check('family token cannot synthesize or read status', (await say('Živjo', undefined, { ...fam, 'content-type': 'application/json' })).status === 403 && (await fetch(`${base}/voice/status`, { headers: fam })).status === 403)

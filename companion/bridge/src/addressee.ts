@@ -25,9 +25,11 @@ export type NameForms = Record<NameCase, string>
 
 /**
  * Who the content speaks to: the [name] and its [forms], the [gender]; [generic] when the profile has no name and the
- * village's word for a friend stands in for it ("prijatelj"), which is written small inside a sentence.
+ * village's word for a friend stands in for it ("prijatelj"), which is written small inside a sentence; [unsaid] when the
+ * profile doesn't say their gender (the content speaks to them as to a man; their own lines are said in the female voice:
+ * cast.ts playerVoice).
  */
-export type Addressee = { name: string; gender: Gender; forms: NameForms; generic?: boolean }
+export type Addressee = { name: string; gender: Gender; forms: NameForms; generic?: boolean; unsaid?: boolean }
 
 const CASE = `(?::(${NAME_CASES.join('|')}))?`
 const NAME_SRC = `\\{learner${CASE}\\}`
@@ -100,6 +102,7 @@ const TEMPLATE = /\{[^{}]*\}/
  */
 export function addressee(p: { name?: unknown; gender?: unknown; forms?: unknown } = {}, language = 'sl'): Addressee {
   const gender: Gender = typeof p.gender === 'string' && /^(f|female)$/i.test(p.gender.trim()) ? 'female' : 'male'
+  const said = typeof p.gender === 'string' && /^(m|male|f|female)$/i.test(p.gender.trim())
   const given = typeof p.name === 'string' && !TEMPLATE.test(p.name) ? p.name.trim() : ''
   const friend = FRIEND[language] ?? FRIEND.sl
   const name = given || friend[gender === 'female' ? 1 : 0]
@@ -109,8 +112,11 @@ export function addressee(p: { name?: unknown; gender?: unknown; forms?: unknown
       const v = (p.forms as Record<string, unknown>)[k]
       if (typeof v === 'string' && v.trim() && !TEMPLATE.test(v)) forms[k] = v.trim()
     }
-  return { name, gender, forms, ...(given ? {} : { generic: true }) }
+  return { name, gender, forms, ...(given ? {} : { generic: true }), ...(said ? {} : { unsaid: true }) }
 }
+
+/** The gender [a]'s own lines are said in ([a].gender), undefined when the profile doesn't say it (cast.ts playerVoice). */
+export const voicedGender = (a: Addressee): Gender | undefined => (a.unsaid ? undefined : a.gender)
 
 const profiles = new Map<string, { mtime: number; a: Addressee }>()
 

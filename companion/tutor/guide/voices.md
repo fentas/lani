@@ -25,6 +25,10 @@ In the Slovene village the narrators (female, male) speak with their native Slov
 local Gepard voice as their fallback (ana for a lone word, nina for a sentence; marko), never with the English library
 voices; a narrator's local clip stays when the ElevenLabs one is made, and the ElevenLabs ones are made as the app asks
 for them, within the day's re-voice cap and above the reserve (voice_status: narrators). The villagers keep their voices.
+The learner has a voice too: their own lines in a dialog (a choice tapped, a turn typed right, an echo gone on from) are
+said in it before the reply comes, the "player" of companion/voice-cast.json by the profile's learner.gender (in the
+Slovene village Luka for a man, Nina for a woman, Nina while the profile says none; voice_status: player). A line the
+learner said into the microphone isn't said again; their line's 🔊 plays it in their voice.
 The school's guided introductions are read out too: each step's explanation in the learner's own language, the Slovene forms
 in it, one clip in the teacher's voice made by ElevenLabs as the app first asks for it (never from the reserve; the app
 reads the step with the phone's voice and the Slovene clips meanwhile); voice_status counts them apart (explanations).

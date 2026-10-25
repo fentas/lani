@@ -18,7 +18,7 @@ import { copyFileSync, existsSync, mkdirSync, readFileSync, renameSync, unlinkSy
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { renderDeep, type Addressee } from './addressee'
-import { archetypeOf, carrierVoice, cast, castInfo, denoiseOf, denoiseVoices, elevenlabsOf, fallbacks, genderOf, GENDERS, isNarrator, isVoice, LANGUAGE_VOICE, languageVoice, languageVoiceName, personVoice, speakerFor, tempoOf, tempoVoices, voiceSince, type DenoisePreset, type Gender } from './cast'
+import { archetypeOf, carrierVoice, cast, castInfo, playerVoices, denoiseOf, denoiseVoices, elevenlabsOf, fallbacks, genderOf, GENDERS, isNarrator, isVoice, LANGUAGE_VOICE, languageVoice, languageVoiceName, personVoice, speakerFor, tempoOf, tempoVoices, voiceSince, type DenoisePreset, type Gender } from './cast'
 import { drillTexts, type Drill } from './drills'
 import { normalizeText, phrases } from './family'
 import { ispyTexts, type ISpyBook, type ISpyLines } from './ispy'
@@ -803,15 +803,17 @@ export interface Engine {
   ready(chars: number, live: boolean): Promise<boolean>
   /**
    * The characters a request for [text] in [voice] costs (ElevenLabs: a short word's carrier sentence); else its length.
-   * [lang]: an explanation in that language, said plainly.
+   * [lang]: an explanation in that language, said plainly; [carrier]: a short text in its carrier sentence in any voice.
    */
-  cost?(text: string, voice: VoiceName, lang?: string): number
+  cost?(text: string, voice: VoiceName, lang?: string, carrier?: boolean): number
   /**
    * The clip, or null when the engine can't make it now. Never throws. [live]: a live line, which may use the reserve;
    * [lang]: the language of the text when it isn't the village's (an explanation in the learner's own language);
-   * [urgent]: someone waits for it (a live line is): it goes ahead of the background work waiting its turn ([Gate]).
+   * [urgent]: someone waits for it (a live line is): it goes ahead of the background work waiting its turn ([Gate]);
+   * [carrier]: a short text said inside its carrier sentence whatever the voice (ElevenLabs; a re-record, the learner's
+   * own line).
    */
-  synth(text: string, voice: VoiceName, o?: { live?: boolean; lang?: string; urgent?: boolean }): Promise<Take | null>
+  synth(text: string, voice: VoiceName, o?: { live?: boolean; lang?: string; urgent?: boolean; carrier?: boolean }): Promise<Take | null>
   status(): Promise<Record<string, unknown>>
 }
 
@@ -1798,6 +1800,11 @@ export type VoiceOptions = {
    * key ([explanationNorm]), made by ElevenLabs only (the local worker speaks only Slovene), plainly.
    */
   lang?: string
+  /**
+   * A short text (a word, up to three) made new is said inside its carrier sentence in any voice, as a re-record says it
+   * (a native voice such as Nina says a lone word plainly otherwise): the learner's own line (cast.ts PLAYER).
+   */
+  carrier?: boolean
 }
 
 /** Carrier re-voices a day, by default (about 720 characters sent: about 360 credits with eleven_v4_turbo, MODEL_CREDITS). */
@@ -2329,8 +2336,8 @@ export class VoiceStore {
         if (have && !outranks(e.name, have)) continue
         try {
           // a short narrator word costs its carrier sentence
-          if (!(await e.ready(e.cost?.(t, voice, lang) ?? t.length, !!opt.live))) continue
-          const take = await e.synth(t, voice, { live: !!opt.live, lang })
+          if (!(await e.ready(e.cost?.(t, voice, lang, opt.carrier) ?? t.length, !!opt.live))) continue
+          const take = await e.synth(t, voice, { live: !!opt.live, lang, carrier: opt.carrier })
           if (take) return await this.save(norm, t, voice, e.name, take.bytes, source, take)
         } catch (err) {
           this.o.log?.(`voice: ${e.name} failed: ${(err as Error).message}`)
@@ -2374,9 +2381,10 @@ export class VoiceStore {
         if (!e) continue
         const v = as(name)!
         try {
-          // Nina and Luka say a lone word plainly (no carrier sentence): its characters
-          if (!(await e.ready(e.cost?.(t, v, opt.lang) ?? t.length, !!opt.live))) continue
-          const take = await e.synth(t, v, { live: !!opt.live, lang: opt.lang })
+          // Nina and Luka say a lone word plainly (no carrier sentence): its characters; the learner's own line in its
+          // carrier sentence ([opt].carrier), as a re-record
+          if (!(await e.ready(e.cost?.(t, v, opt.lang, opt.carrier) ?? t.length, !!opt.live))) continue
+          const take = await e.synth(t, v, { live: !!opt.live, lang: opt.lang, carrier: opt.carrier })
           if (take) return await this.save(norm, t, v, name, take.bytes, source, take)
         } catch (err) {
           this.o.log?.(`voice: ${name} failed: ${(err as Error).message}`)
@@ -2392,15 +2400,17 @@ export class VoiceStore {
    * A live line from the app: rate-limited, may use the reserve; the speaker's gender clip, then the
    * other narrator's, beats nothing. An explanation in the learner's own language ([lang]: a school intro's step) is
    * rate-limited the same but is no live line: it never goes into the reserve, and nobody else's voice stands in for the
-   * teacher's (the app reads it with the phone's voice and the Slovene clips meanwhile).
+   * teacher's (the app reads it with the phone's voice and the Slovene clips meanwhile). [o].carrier: a short text made new
+   * is said in its carrier sentence ([VoiceOptions].carrier); [o].alone: nobody else's clip stands in either (the
+   * learner's own line, in their voice or not at all).
    */
-  async say(text: string, voice: VoiceName, lang?: string): Promise<Clip | null> {
+  async say(text: string, voice: VoiceName, lang?: string, o: { carrier?: boolean; alone?: boolean } = {}): Promise<Clip | null> {
     const explanation = this.explains(lang)
     const norm = this.normOf(text, lang)
     const have = this.best(norm, voice)
     if (have) return this.served(have)
     const other = () => {
-      if (explanation) return null
+      if (explanation || o.alone) return null
       const c = fallbacks(voice).map(v => this.best(norm, v)).find(Boolean)
       return c ? this.served(c) : null
     }
@@ -2412,7 +2422,7 @@ export class VoiceStore {
       this.liveCalls.push(now)
     }
     if (explanation) return this.voice(text, voice, 'explanation', { lang })
-    return (await this.voice(text, voice, 'live', { live: true })) ?? other()
+    return (await this.voice(text, voice, 'live', { live: true, carrier: o.carrier })) ?? other()
   }
 
   // --- the carrier re-voice: short narrator words from before the carrier sentence ---------------------------------
@@ -3717,6 +3727,8 @@ export class VoiceStore {
       ...(this.eleven?.configured ? { stale: this.staleStats() } : {}),
       engines,
       cast: castInfo(),
+      // who says the learner's own lines in a dialog, by their gender (the cast's `player`)
+      player: playerVoices(),
       queued: this.queue.length,
       ...(this.eleven ? { carrier: this.carrierStats() } : {}),
       ...(Object.keys(denoiseVoices()).length ? { denoise: this.denoiseStats() } : {}),
@@ -3762,6 +3774,10 @@ In the Slovene village the narrators (female, male) speak with their native Slov
 local Gepard voice as their fallback (ana for a lone word, nina for a sentence; marko), never with the English library
 voices; a narrator's local clip stays when the ElevenLabs one is made, and the ElevenLabs ones are made as the app asks
 for them, within the day's re-voice cap and above the reserve (voice_status: narrators). The villagers keep their voices.
+The learner has a voice too: their own lines in a dialog (a choice tapped, a turn typed right, an echo gone on from) are
+said in it before the reply comes, the "player" of companion/voice-cast.json by the profile's learner.gender (in the
+Slovene village Luka for a man, Nina for a woman, Nina while the profile says none; voice_status: player). A line the
+learner said into the microphone isn't said again; their line's 🔊 plays it in their voice.
 The school's guided introductions are read out too: each step's explanation in the learner's own language, the Slovene forms
 in it, one clip in the teacher's voice made by ElevenLabs as the app first asks for it (never from the reserve; the app
 reads the step with the phone's voice and the Slovene clips meanwhile); voice_status counts them apart (explanations).

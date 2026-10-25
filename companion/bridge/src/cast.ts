@@ -11,6 +11,8 @@
 // A speaker's `languages` are the voices it speaks a language with that its own voice doesn't speak natively: the
 // narrators' Slovene voices (Nina, Luka) beside their English ones (Matilda, Daniel). Their clips are those of the voice
 // "female.sl" (languageVoice), next to the narrator's local Gepard clips (voice.ts, "The narrators in Slovene").
+// The cast's `player` is who says the learner's own lines in a dialog: a voice of the cast for each gender (the narrators'
+// Slovene voices: Luka, Nina), the app asking for them as the voice "player" (PLAYER, playerVoice).
 import { readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 import { z } from 'zod'
@@ -92,7 +94,7 @@ export const CAST_FILE = join(import.meta.dir, '../../voice-cast.json')
 export const DENOISE_PRESETS = ['hiss', 'hiss-strong'] as const
 export type DenoisePreset = (typeof DENOISE_PRESETS)[number]
 
-let cached: { path: string; mtime: number; cast: Cast; denoise: Record<string, DenoisePreset> } | undefined
+let cached: { path: string; mtime: number; cast: Cast; denoise: Record<string, DenoisePreset>; player: Record<Gender, string> } | undefined
 let castFile: string | undefined
 
 /** The voice cast this bridge speaks with from now on: its culture pack's (voice-cast.json in the pack), else the default. */
@@ -116,6 +118,7 @@ function load(path = process.env.LANI_VOICE_CAST || castFile || CAST_FILE): NonN
   if (cached?.path === path && cached.mtime === mtime) return cached
   let c = NARRATORS
   let denoise: Record<string, DenoisePreset> = {}
+  let player = { ...PLAYER_DEFAULT }
   if (mtime >= 0) {
     try {
       const raw = JSON.parse(readFileSync(path, 'utf8'))
@@ -123,13 +126,59 @@ function load(path = process.env.LANI_VOICE_CAST || castFile || CAST_FILE): NonN
       if (r.success) c = r.data.speakers
       else console.error(`[voice] ${path}: ${z.prettifyError(r.error)}; using the narrators only`)
       denoise = denoiseSpec(raw?.denoise, c, path)
+      player = playerSpec(raw?.player, c, path)
     } catch (e) {
       console.error(`[voice] ${path}: ${(e as Error).message}; using the narrators only`)
     }
   }
-  cached = { path, mtime, cast: c, denoise }
+  cached = { path, mtime, cast: c, denoise, player }
   return cached
 }
+
+/** The voice name the app asks for the learner's own lines in a dialog with: said in the cast's `player` ([playerVoice]). */
+export const PLAYER = 'player'
+
+/** Who says the learner's lines when the cast doesn't say: the narrator of their gender (in a Slovene village Luka, Nina). */
+const PLAYER_DEFAULT: Record<Gender, string> = { female: 'female', male: 'male' }
+
+/**
+ * The cast's `player`: a gender (female, male) → the voice the learner's lines are said in, a speaker of the cast
+ * ("player-male", a voice of the learner's own) or a speaker's voice in a language ("male.sl": the male narrator's
+ * Slovene voice, Luka; a speaker without one there speaks it in its own); keys starting with "_" are comments. A wrong
+ * entry is logged and that gender keeps its narrator.
+ */
+function playerSpec(raw: unknown, speakers: Cast, path: string): Record<Gender, string> {
+  const out = { ...PLAYER_DEFAULT }
+  if (raw === undefined) return out
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) {
+    console.error(`[voice] ${path}: "player" must map a gender (female, male) to a voice of the cast; the narrators say the learner's lines`)
+    return out
+  }
+  for (const [g, v] of Object.entries(raw)) {
+    if (g.startsWith('_')) continue
+    if (!(GENDERS as string[]).includes(g)) console.error(`[voice] ${path}: player "${g}": not a gender (female, male); left out`)
+    else if (typeof v !== 'string' || !Object.hasOwn(speakers, LANGUAGE_VOICE.exec(v)?.[1] ?? v)) console.error(`[voice] ${path}: player ${g}: ${JSON.stringify(v)} is neither a speaker of the cast nor one's voice in a language ("male.sl"); the ${g} narrator says the learner's lines`)
+    else out[g as Gender] = v
+  }
+  return out
+}
+
+/** The cast's `player` as it is written, by gender ({male: "male.sl", female: "female.sl"}): the status, the tutor. */
+export const playerVoices = (): Record<Gender, string> => ({ ...load().player })
+
+/**
+ * The voice the learner's own lines are said in, for a learner of [gender] (the cast's `player`): the voice the store
+ * speaks with, a speaker of the cast. A speaker's voice in a language there ("male.sl") is that speaker's: the store says
+ * the village's language with it (the narrators' Slovene voices in a Slovene village: Luka, Nina). A learner whose gender
+ * the profile doesn't say ([gender] undefined) has the female one, as [genderOf] counts a name it doesn't know.
+ */
+export function playerVoice(gender?: Gender): string {
+  const v = load().player[gender ?? 'female']
+  return LANGUAGE_VOICE.test(v) ? baseVoice(v) : v
+}
+
+/** [name] as the store speaks it: the learner's lines ([PLAYER]) in [playerVoice] for [gender], any other voice itself. */
+export const voiceFor = (name: string, gender?: Gender): string => (name === PLAYER ? playerVoice(gender) : name)
 
 /**
  * The cast's `denoise`: a voice (a speaker, or someone's own voice "@janez") → its preset (`true`: the first, `false`:

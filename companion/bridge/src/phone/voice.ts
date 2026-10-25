@@ -6,7 +6,7 @@
 // archetype, pitch and pace) work as on a node, their table in a JSON file (profiles-table.ts); no voice is designed.
 import { join } from 'node:path'
 import type { Voicing, VoiceSetting } from '../build'
-import { castInfo } from '../cast'
+import { castInfo, playerVoices } from '../cast'
 import { log } from '../config'
 import { tutorOf } from '../cultures'
 import { renderDeep } from '../addressee'
@@ -83,7 +83,7 @@ export class PhoneVoiceStore implements Pick<VoiceStore, 'dir' | 'language' | 'r
   dropVoice(_voice: VoiceName) {}
 
   async status(_items?: CorpusItem[]) {
-    return { device: NO_VOICES, clips: { total: 0, chars: 0, by: [] }, engines: {}, cast: castInfo(), queued: 0 } as unknown as Awaited<ReturnType<VoiceStore['status']>>
+    return { device: NO_VOICES, clips: { total: 0, chars: 0, by: [] }, engines: {}, cast: castInfo(), player: playerVoices(), queued: 0 } as unknown as Awaited<ReturnType<VoiceStore['status']>>
   }
 }
 

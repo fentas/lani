@@ -6,7 +6,8 @@ import { fail, ok } from '../tool'
 import type { Ctx, FeatureFactory } from '../feature'
 import { json, readJson } from '../http'
 import { cardExamples } from '../cards'
-import { baseVoice, cast, isVoice, PERSON_VOICE, personVoice, SPEAKER_ID } from '../cast'
+import { voicedGender } from '../addressee'
+import { baseVoice, cast, isVoice, PERSON_VOICE, personVoice, PLAYER, SPEAKER_ID, voiceFor } from '../cast'
 import { cultureKeepers, keeperTellings } from '../cultures'
 import { cultureStepFiles, stepTellings } from '../project-steps'
 import { cultureCelebrationFiles, partyTellings } from '../celebrations'
@@ -14,8 +15,9 @@ import { readISpy } from '../ispy'
 import { localDate } from '../rhythm'
 import { corpus, EXPLANATION_CHARS, fileUrl, LINE_CHARS, voiceInstructions, type CorpusItem, type Redo, type VoiceStore } from '../voice'
 
-// voice: a speaker of the cast (female, male, grandma, …) or someone's own voice ("@micka"); an unknown one is a
-// 400, so the app tries its fallback.
+// voice: a speaker of the cast (female, male, grandma, …), someone's own voice ("@micka"), or the learner's ("player":
+// their own lines in a dialog, in the cast's `player` for their gender); an unknown one is a 400, so the app tries its
+// fallback.
 const lineIn = z.object({ text: z.string().trim().min(1).max(LINE_CHARS), voice: z.union([z.string().regex(SPEAKER_ID), z.string().regex(PERSON_VOICE)]).default('female') })
 // lang: the text's language when it isn't the village's: an explanation in the learner's own (a school intro's step,
 // the Slovene forms inside it), up to EXPLANATION_CHARS; without it (or in the village's language) a line, up to LINE_CHARS
@@ -81,11 +83,15 @@ function voiceCorpus({ cfg, modules, packs, scenarios, scenes, villagers, learne
 
 export const voice: FeatureFactory = ctx => {
   const { voice, profiles, outbox } = ctx
+  // the voice a line asked for in [v] is said in: the learner's own ("player") in the cast's `player` for their gender
+  // (the profile's learner.gender; the female one while it says none), anyone else's as asked
+  const voiceOf = (v: string) => voiceFor(v, voicedGender(ctx.addressee()))
   const handleRedo = async (req: Request) => {
     const r = redoIn.safeParse(await readJson(req))
     if (!r.success) return json({ error: z.prettifyError(r.error) }, 400)
-    if (!isVoice(r.data.voice)) return json({ error: `unknown voice "${r.data.voice}"; the cast has ${Object.keys(cast()).join(', ')}` }, 400)
-    return redoAnswer(await voice.redo(r.data.text, r.data.voice), voice)
+    const v = voiceOf(r.data.voice)
+    if (!isVoice(v)) return json({ error: `unknown voice "${r.data.voice}"; the cast has ${Object.keys(cast()).join(', ')}` }, 400)
+    return redoAnswer(await voice.redo(r.data.text, v), voice)
   }
   const roadDaily = process.env.LANI_VOICE_ROAD_DAILY ? Number(process.env.LANI_VOICE_ROAD_DAILY) : ROAD_DAILY
   // the characters /voice/prepare had voiced new today; kept in memory (a restart counts the day again)
@@ -101,10 +107,11 @@ export const voice: FeatureFactory = ctx => {
     const long = r.data.texts.map(t => tooLong(voice, t)).find(Boolean)
     if (long) return json({ error: long }, 400)
     const clips: Prepared[] = []
-    for (const { text, voice: v, lang } of r.data.texts) {
+    for (const { text, voice: asked, lang } of r.data.texts) {
+      const v = voiceOf(asked)
       // a voice not in the cast: none for this text only (the app asks in the voice it wants, no other voice's clip)
       if (!isVoice(v)) {
-        clips.push({ text, voice: v, url: null })
+        clips.push({ text, voice: asked, url: null })
         continue
       }
       // the clip the app would get (a Slovene narrator's in its Slovene ElevenLabs voice or the local one; an explanation's
@@ -114,13 +121,15 @@ export const voice: FeatureFactory = ctx => {
       // the day's cap
       const c = had ?? (roadToday() + voice.cost(text, v, lang) <= roadDaily ? await voice.voice(text, v, 'road', { lang }) : null)
       if (c && !had && c.source === 'road') road.chars = roadToday() + c.chars
-      clips.push(c ? { text, voice: v, url: fileUrl(c.file), engine: c.engine } : { text, voice: v, url: null })
+      clips.push(c ? { text, voice: asked, url: fileUrl(c.file), engine: c.engine } : { text, voice: asked, url: null })
     }
     return json({ clips, today: roadToday(), daily: roadDaily })
   }
+  // everyone's voice profile, and the voice the learner's own lines are said in (the cast's `player` for their gender):
+  // the app looks their clips up by it
   const views = () => {
     profiles.syncCast()
-    return { people: profiles.views() }
+    return { people: profiles.views(), player: voiceOf(PLAYER) }
   }
   return {
     start: () => {
@@ -157,9 +166,13 @@ export const voice: FeatureFactory = ctx => {
           if (!r.success) return json({ error: z.prettifyError(r.error) }, 400)
           const long = tooLong(voice, r.data)
           if (long) return json({ error: long }, 400)
-          if (!isVoice(r.data.voice)) return json({ error: `unknown voice "${r.data.voice}"; the cast has ${Object.keys(cast()).join(', ')}` }, 400)
-          // with lang: an explanation in the learner's own language (not a live line: never the reserve)
-          const c = await voice.say(r.data.text, r.data.voice, r.data.lang)
+          const v = voiceOf(r.data.voice)
+          if (!isVoice(v)) return json({ error: `unknown voice "${r.data.voice}"; the cast has ${Object.keys(cast()).join(', ')}` }, 400)
+          // with lang: an explanation in the learner's own language (not a live line: never the reserve). The learner's own
+          // line: on the normal path in their voice, a word to three said inside the carrier sentence as a re-record says
+          // it, and never in the other gender's voice when theirs can't be had now (the app speaks it otherwise)
+          const own = r.data.voice === PLAYER
+          const c = await voice.say(r.data.text, v, r.data.lang, own ? { carrier: true, alone: true } : undefined)
           // the voice the app knows the clip by (a Slovene narrator's in its ElevenLabs voice: the narrator's)
           return c ? json({ url: fileUrl(c.file), voice: baseVoice(c.voice), engine: c.engine }) : new Response(null, { status: 204 })
         },
