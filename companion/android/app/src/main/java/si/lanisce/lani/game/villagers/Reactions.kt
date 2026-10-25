@@ -199,12 +199,18 @@ object Reactions {
     /**
      * What [v] says in [stance] now (on their card, greeting the learner, in a scene): a line of [stir]'s for who they are
      * (the defenders' for the lookout too; anyone's whose own is empty, the others'), the day's dice picking one; [repair]:
-     * they patch up what a lost fight damaged. Null without a reactions file, or nothing to say of it (after a storm).
+     * they patch up what a lost fight damaged; [home]: met at home, where the event sent them (their home's scene), a line
+     * for inside while it's on when the file has one ("Doma smo na suhem."). Null without a reactions file, or nothing to
+     * say of it (after a storm).
      */
-    fun line(stir: Stir, stance: Stance, v: Villager, day: LocalDate, file: ReactionsFile? = Cultures.currentReactions, seed: Long = 0L, repair: Boolean = false): Text? {
+    fun line(
+        stir: Stir, stance: Stance, v: Villager, day: LocalDate, file: ReactionsFile? = Cultures.currentReactions, seed: Long = 0L,
+        repair: Boolean = false, home: Boolean = false,
+    ): Text? {
         val t = texts(stir, file) ?: return null
         val own = when {
             repair -> t.repair
+            home && stir.phase == Stir.Phase.ON && t.home.isNotEmpty() -> t.home
             stance == Stance.DEFENDER || stance == Stance.LOOKOUT -> t.defender
             stance == Stance.CHILD -> t.child
             stance == Stance.ELDER -> t.elder
@@ -213,20 +219,25 @@ object Reactions {
         }
         val pool = own.ifEmpty { t.other }
         if (pool.isEmpty()) return null
-        val i = (Happenings.roll(seed, day, "react:${stir.kind}:${stir.phase}:${v.id}") * pool.size).toInt().coerceIn(0, pool.size - 1)
+        val key = if (own === t.home) "react:${stir.kind}:home:${v.id}" else "react:${stir.kind}:${stir.phase}:${v.id}"
+        val i = (Happenings.roll(seed, day, key) * pool.size).toInt().coerceIn(0, pool.size - 1)
         return pool[i]
     }
 
     /**
      * What [v] says now in [state]'s village at [wall] (epoch ms), [people] being the village's: while an event is on, or
-     * right after a fight, their line of it for what they do in it ([line]); the day a fight was lost and the next, who
-     * patches up what it damaged says so ([repair]). Null: nothing of the kind (their everyday lines then), or no file.
+     * right after a fight, their line of it for what they do in it ([line]; [home]: met at home, in their home's scene,
+     * where the event sent them); the day a fight was lost and the next, who patches up what it damaged says so
+     * ([repair]). Null: nothing of the kind (their everyday lines then), or no file.
      */
-    fun says(state: GameState, v: Villager, people: List<Villager>, day: LocalDate, wall: Long, file: ReactionsFile? = Cultures.currentReactions): Text? {
+    fun says(
+        state: GameState, v: Villager, people: List<Villager>, day: LocalDate, wall: Long, file: ReactionsFile? = Cultures.currentReactions,
+        home: Boolean = false,
+    ): Text? {
         val stir = stir(state, wall)
         if (stir != null && stir.phase != Stir.Phase.OVER) {
             val stance = stances(state, people, stir.kind, stir.strength)[v.id] ?: return null
-            return line(stir, stance, v, day, file, state.seed)
+            return line(stir, stance, v, day, file, state.seed, home = home)
         }
         val (who, _) = repair(state, people, day) ?: return null
         if (who != v.id) return null

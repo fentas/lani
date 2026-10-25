@@ -222,13 +222,14 @@ object VillagerLogic {
     /**
      * What [v] says of what the village reacts to now (companion/GAME.md "People react": wolves about, the merchant come,
      * a fight just won, a building to patch up), in [state]'s village of [people] (null: who lives there of the cast), at
-     * [wall]; null when nothing is going on, or the culture has no words for it ([Reactions.says]).
+     * [wall]; [home]: met at home, in their home's scene, where the event sent them (a line for inside). Null when nothing
+     * is going on, or the culture has no words for it ([Reactions.says]).
      */
-    fun reaction(v: Villager, state: GameState?, day: LocalDate, people: List<Villager>? = null, wall: Long = System.currentTimeMillis()): Said? {
+    fun reaction(v: Villager, state: GameState?, day: LocalDate, people: List<Villager>? = null, wall: Long = System.currentTimeMillis(), home: Boolean = false): Said? {
         if (state == null) return null
         if (state.event == null && state.ended == null) return null
         val folk = people ?: si.lanisce.lani.game.villagers.Residents.people(state, si.lanisce.lani.game.villagers.Mentions.cast, day)
-        return si.lanisce.lani.game.villagers.Reactions.says(state, v, folk, day, wall)?.let { Said(it.target, it.base) }
+        return si.lanisce.lani.game.villagers.Reactions.says(state, v, folk, day, wall, home = home)?.let { Said(it.target, it.base) }
     }
 
     /**

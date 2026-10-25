@@ -208,7 +208,8 @@ class ReactionTalksTest {
         val day = Whereabouts.day(scenes, wolves, cast, cast, october)
         for (h in listOf(10, 15)) {
             val at = october.atTime(h, 20)
-            val inFire = Whereabouts.inScene(fireScene, wolves, cast, at, day, scenes).map { p -> fireScene.people.first { it.id == p.id }.villager }
+            // the fire's own people, and more of the children and the old beside them (as themselves: their villager id)
+            val inFire = Whereabouts.inScene(fireScene, wolves, cast, at, day, scenes).map { p -> fireScene.people.firstOrNull { it.id == p.id }?.villager ?: p.id }
             val stances = Reactions.stances(wolves, cast, EventKind.WOLVES, 2)
             assertTrue("$h: $inFire", inFire.all { it != null && Reactions.byFire(stances.getValue(it)) })
             for (s in scenes.filter { it.from.any { f -> f == "field" } }) assertTrue(Whereabouts.inScene(s, wolves, cast, at, day, scenes).isEmpty())

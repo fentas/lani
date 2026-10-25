@@ -997,7 +997,7 @@ object Cultures {
                 text("$k.call", t.call)
                 t.call?.by?.get(lang)?.let { if (it.trim().split(Regex("\\s+")).size > 4) fail("$k.call", "\"$it\": a call is a button, four words at most") }
                 lines("defender", t.defender); lines("child", t.child); lines("elder", t.elder); lines("keeper", t.keeper)
-                lines("other", t.other); lines("repair", t.repair)
+                lines("other", t.other); lines("repair", t.repair); lines("home", t.home)
                 if (t.other.isEmpty()) fail("$k.other", "empty: whoever has no line of their own says one of these")
             }
             for (k in listOf("wolves", "bear", "storm", "merchant", "festival")) if (all.first { it.first == k }.second.call == null) fail("$k.call", "missing: the card's button to the event's run")

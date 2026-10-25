@@ -186,9 +186,15 @@ object Sleep {
         val homes = day.homes.ifEmpty { bedrooms.mapNotNull { (id, b) -> b.building?.let { id to TownPlace.of(it, state) } }.toMap() }
         val today = day.copy(homes = homes)
         val asleep = HashSet<String>()
+        // wolves or a bear about at night: the defenders and the lookout got up for it (companion/GAME.md "People react"),
+        // their beds empty (one up for the night leaves it to the next)
+        val woken = state.event?.takeIf { si.lanisce.lani.game.villagers.Reactions.threat(it.kind) }?.let { e ->
+            si.lanisce.lani.game.villagers.Reactions.stances(state, people, e.kind, e.strength)
+                .filterValues { it == si.lanisce.lani.game.villagers.Stance.DEFENDER || it == si.lanisce.lani.game.villagers.Stance.LOOKOUT }.keys
+        }.orEmpty()
         // whose bed is here tonight: who is in it, and who is still up and comes to it later
         val claims = people.filter { v ->
-            if (bedrooms[v.id]?.scene?.id != scene.id || (living != null && v.id !in living) || !Arrivals.met(state, v.id)) return@filter false
+            if (bedrooms[v.id]?.scene?.id != scene.id || (living != null && v.id !in living) || !Arrivals.met(state, v.id) || v.id in woken) return@filter false
             if (Routine.now(v, state, date, minute, month, today).where == Where.ASLEEP) asleep.add(v.id) else Routine.toBed(v, state, date, minute, today)
         }.sortedWith(compareBy({ it.id !in scene.household }, { it.order }))
         val free = beds.toMutableList()

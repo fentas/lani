@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
  * (companion/GAME.md "People react"), in the pack's language with its translations: the short calls over the map
  * ([ReactionTexts.shout]: "Volkovi!", "Pazi!"), the call to the event's run on a villager's card ([ReactionTexts.call]:
  * "Branimo vas!"), and each one's line by what they do in it (the defenders, the children, the old, the innkeeper, the
- * others). A pack without it has the people react without words of their own: a villager's card says the event's title.
+ * others), and at home, for whoever the event sends home and is met in their home's scene. A pack without it has the people react without words of their own: a villager's card says the event's title.
  * The bridge doesn't read it.
  */
 @Serializable
@@ -46,4 +46,9 @@ data class ReactionTexts(
     val other: List<Text> = emptyList(),
     /** After a lost fight: whoever patches up the building it damaged. */
     val repair: List<Text> = emptyList(),
+    /**
+     * Anyone the event sends home, met there in their home's scene (companion/SCENES.md "Who is at home in an event"):
+     * a line for inside, out of it ("Doma smo na suhem.", "Vrata so zaprta. Tukaj smo varni."). Empty: their own line.
+     */
+    val home: List<Text> = emptyList(),
 )

@@ -165,12 +165,34 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
     val sleepers = remember(scene, state, now, day) {
         state?.let { s -> Sleep.sleepers(scene, s, now.toLocalDate(), Routine.minuteOf(now), everyone, scenes.all, day ?: Routine.Day()) }.orEmpty()
     }
-    val about = remember(scene, state, now, day) {
+    val about = remember(scene, state, now, day, world) {
         state?.let { s ->
             val present = Residents.present(s, now.toLocalDate())
-            Whereabouts.inScene(scene, s, everyone.filter { present == null || it.id in present }, now, day ?: Routine.Day(), scenes.all)
+            Whereabouts.inScene(scene, s, everyone.filter { present == null || it.id in present }, now, day ?: Routine.Day(), scenes.all, seenIn = world.here)
         }.orEmpty()
     }
+    // wolves, a bear or a storm about (companion/GAME.md "People react"): who the reaction has here (at home in their room,
+    // by the fire, up the watchtower), each with a marker and a row under "Danes tukaj" saying what they say of it; at home,
+    // a line for inside ("Doma smo na suhem.")
+    val reacting = remember(state) { state?.event?.takeIf { si.lanisce.lani.game.villagers.Reactions.quieting(it.kind) } }
+    val homeHere = remember(scene, state, world, day, about) {
+        val s = state
+        if (s == null || reacting == null) emptySet()
+        else {
+            val place = Whereabouts.placeOf(scene, s, scenes.all, world.here)
+            about.mapNotNull { p -> (scene.people.firstOrNull { it.id == p.id }?.villager ?: p.id).takeIf { day?.homes?.get(it) == place } }.toSet()
+        }
+    }
+    /** Someone drawn here: the scene's person, or one of the village the scene doesn't list (Lovec Jože at home with Janez). */
+    fun personOf(id: String?): ScenePerson? = id?.let { i ->
+        scene.people.firstOrNull { it.id == i }
+            ?: everyone.firstOrNull { it.id == i }?.let { v -> ScenePerson(v.id, v.name, v.emoji, v.art, "", villager = v.id) }
+    }
+    /** What [p] says of the event now ([reacting]): at home a line for inside. */
+    fun reactionOf(p: ScenePerson): si.lanisce.lani.ui.villagers.Said? =
+        p.villager?.let { id -> everyone.firstOrNull { it.id == id } }?.let { v ->
+            si.lanisce.lani.ui.villagers.VillagerLogic.reaction(v, state, now.toLocalDate(), everyone, home = v.id in homeHere)
+        }
     var mumble by remember { mutableStateOf<Pair<String, Long>?>(null) } // who mumbles "Pusti me spati …", since when
     LaunchedEffect(mumble) { if (mumble != null) { delay((Sleep.MUMBLE_S * 1000).toLong()); mumble = null } }
     val later = remember(state, scenes.all, now) {
@@ -550,10 +572,14 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
                             HereCard(teacher?.id ?: "teacher", teacher?.emoji ?: "👩‍🏫", teacher?.name ?: si.lanisce.lani.l10n.inTarget("school.teacher"), emptyList(), listOf(Offer.Lesson(lesson)), school = true),
                         )
                     }.sortedByDescending { c -> c.offers.any { it is Offer.Lesson } }
+                    // wolves, a bear or a storm about: who the reaction has here, each with what they say of it
+                    val reacted = if (reacting == null) emptyList() else about.filter { d -> sleepers.none { it.id == d.id } }
+                        .mapNotNull { d -> personOf(d.id)?.let { p -> p to reactionOf(p) } }
                     WordsPanel(
                         vm, scene, groups, here, later, doneToday, found, selected, asleep, onWord = ::select, onTalk = ::talkTo, onLearn = { vm.learnScene(scene.id) }, opens = ::opens,
                         ispy = { ISpyOfferCard(offer, offer == null && vm.ispy.doneToday(scene, state, now.toLocalDate()), vm.dialogPrefs.translations) { offer?.let(::startISpy) } },
                         cards = cards, onTake = ::take, onSchool = { vm.openSchool(fromVillage = true) },
+                        reaction = reacting?.kind, reacted = reacted, onGreet = ::approach,
                     )
                 }
             }
@@ -569,8 +595,22 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
             fun markerKeepOff(before: List<String>): () -> List<IntRect> = {
                 keepOff() + before.mapNotNull { k -> markerRects[k]?.translate(-viewAt.x.toInt(), -viewAt.y.toInt()) }
             }
+            // wolves, a bear or a storm about: over each the reaction has here, its emoji ("⛈️"), a tap their line of it
+            if (ispy == null && reacting != null) for (d in about) {
+                if (sleepers.any { it.id == d.id }) continue
+                val p = personOf(d.id) ?: continue
+                val target = SceneTarget.Person(p.id)
+                if (!anchors.drawn(target)) continue
+                val key = "person:${p.id}"
+                val says = reactionOf(p)?.let { "${p.name}: ${it.sl}" } ?: p.name
+                Anchored({ anchors.shown(target)?.let { IntRect(it.left, it.top, it.right, it.top) } }, topLimit = 0, color = XpGold, keepOff = markerKeepOff(markers.toList())) {
+                    SpeechMarker(reacting.kind.emoji, says, XpGold, modifier = Modifier.pill(markerRects, key)) { approach(p) }
+                }
+                markers += key
+            }
             if (ispy == null) for (p in scene.people) {
                 if (people.none { it.id == p.id } || sleepers.any { it.id == p.id }) continue
+                if (reacting != null && about.any { it.id == p.id }) continue
                 val offers = offersOf(p)
                 val emoji = SceneOffers.marker(offers) ?: continue
                 val target = SceneTarget.Person(p.id)
@@ -607,14 +647,13 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
                 if (anchors.drawn(selTarget)) Anchored({ anchors.shown(selTarget) }, topLimit, bubbleColor, keepOff = keepOff) { bubble() }
                 else Box(Modifier.fillMaxWidth().height(sceneHeight).statusBarsPadding().padding(top = 56.dp, start = 10.dp, end = 10.dp), contentAlignment = Alignment.Center) { bubble() }
             }
-            val who = scene.people.firstOrNull { it.id == greeted }
+            val who = personOf(greeted)
             val whoTarget = who?.let { SceneTarget.Person(it.id) }
             if (who != null && whoTarget != null && anchors.drawn(whoTarget)) {
                 val line = here.firstOrNull { it.person?.id == who.id }?.happening?.title
-                // wolves about, the merchant come, a fight just won (companion/GAME.md "People react"): what they say of it
-                val said = remember(who, state, minute) {
-                    who.villager?.let { id -> everyone.firstOrNull { it.id == id } }?.let { v -> si.lanisce.lani.ui.villagers.VillagerLogic.reaction(v, state, now.toLocalDate(), everyone) }
-                }
+                // wolves about, the merchant come, a fight just won (companion/GAME.md "People react"): what they say of it;
+                // at home where the event sent them, a line for inside
+                val said = remember(who, state, minute, homeHere) { reactionOf(who) }
                 Anchored({ anchors.shown(whoTarget) }, topLimit, bubbleColor, keepOff = keepOff) { PersonBubble(who.emoji, who.name, line, now.hour, speaker, bubbleColor, voiceOf(who), said?.let { it.sl to it.en }) }
             }
             mumble?.let { (id, at) ->
@@ -829,6 +868,10 @@ private fun WordsPanel(
     onTake: (Offer) -> Unit = {},
     /** The class's units (the school's screen), by the teacher where the class meets. */
     onSchool: () -> Unit = {},
+    /** Wolves, a bear or a storm about: who the reaction has here ([reacted]), each with what they say of it; [onGreet] greets one. */
+    reaction: si.lanisce.lani.game.EventKind? = null,
+    reacted: List<Pair<ScenePerson, si.lanisce.lani.ui.villagers.Said?>> = emptyList(),
+    onGreet: (ScenePerson) -> Unit = {},
 ) {
     val packs = vm.scenes.packs
     val present = vm.game.state?.let { Residents.present(it, LocalDate.now()) }
@@ -869,7 +912,7 @@ private fun WordsPanel(
             }
         }
         ispy()
-        People(vm, scene, here, later, doneToday, present, asleep, onTalk, opens, cards, onTake, onSchool)
+        People(vm, scene, here, later, doneToday, present, asleep, onTalk, opens, cards, onTake, onSchool, reaction, reacted, onGreet)
     }
 }
 
@@ -882,16 +925,25 @@ internal class HereCard(
     val id: String, val emoji: String, val name: String, val happenings: List<ActiveHappening>, val offers: List<Offer>, val school: Boolean,
 )
 
-/** "Danes tukaj · Here today": who is here with something to say, who sleeps here, and what's done today. */
+/**
+ * "Danes tukaj · Here today": who is here with something to say, who sleeps here, and what's done today; while wolves, a
+ * bear or a storm are about ([reaction]), who the reaction has here ([reacted]: at home, by the fire) under the event's
+ * name, each with what they say of it, a tap greeting them ([onGreet]).
+ */
 @Composable
 private fun People(
     vm: AppViewModel, scene: SceneSpec, here: List<ActiveHappening>, later: List<Pair<TimeOfDay, ActiveHappening>>, doneToday: List<String>, present: Set<String>?,
     asleep: List<ScenePerson>, onTalk: (ActiveHappening) -> Unit, opens: (ActiveHappening) -> Boolean = { it.talks },
     cards: List<HereCard> = emptyList(), onTake: (Offer) -> Unit = {}, onSchool: () -> Unit = {},
+    reaction: si.lanisce.lani.game.EventKind? = null, reacted: List<Pair<ScenePerson, si.lanisce.lani.ui.villagers.Said?>> = emptyList(),
+    onGreet: (ScenePerson) -> Unit = {},
 ) {
-    val always = Happenings.always(scene, present).filter { p -> cards.none { it.id == p.id } && here.none { a -> a.person?.id == p.id } && asleep.none { it.id == p.id } }
-    if (cards.isEmpty() && here.isEmpty() && later.isEmpty() && doneToday.isEmpty() && always.isEmpty() && asleep.isEmpty() && scene.happenings.isEmpty()) return
+    val always = Happenings.always(scene, present).filter { p ->
+        cards.none { it.id == p.id } && here.none { a -> a.person?.id == p.id } && asleep.none { it.id == p.id } && reacted.none { it.first.id == p.id }
+    }
+    if (cards.isEmpty() && here.isEmpty() && later.isEmpty() && doneToday.isEmpty() && always.isEmpty() && asleep.isEmpty() && scene.happenings.isEmpty() && reacted.isEmpty()) return
     Text(bi("sceneScreen.hereToday"), style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(top = 4.dp).semantics { heading() })
+    if (reaction != null && reacted.isNotEmpty()) ReactedHere(reaction, reacted, onGreet)
     for (c in cards) {
         Surface(color = MaterialTheme.colorScheme.tertiaryContainer, shape = RoundedCornerShape(16.dp), modifier = Modifier.fillMaxWidth()) {
             Row(Modifier.padding(12.dp), verticalAlignment = Alignment.Top) {
@@ -932,12 +984,41 @@ private fun People(
             val who = list.mapNotNull { it.person }.distinctBy { it.id }.joinToString(", ") { "${it.emoji} ${it.name}" }
             Text("🕰️ ${partLabel(part)}: $who", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
-    } else if (here.isEmpty() && doneToday.isEmpty() && cards.isEmpty()) {
+    } else if (here.isEmpty() && doneToday.isEmpty() && cards.isEmpty() && reacted.isEmpty()) {
         Text(
             "🌙 ${bi("sceneScreen.quietHereNow")}. ${bi("sceneScreen.comeBackTomorrow")}.",
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
+    }
+}
+
+/**
+ * Who the village's event has here (companion/GAME.md "People react"): under its name ("⛈️ Nevihta · Storm"), a row for
+ * each with their face, their name and what they say of it in the village's language, its meaning under it; a tap greets
+ * them, as a tap on them in the picture does.
+ */
+@Composable
+private fun ReactedHere(kind: si.lanisce.lani.game.EventKind, reacted: List<Pair<ScenePerson, si.lanisce.lani.ui.villagers.Said?>>, onGreet: (ScenePerson) -> Unit) {
+    Surface(color = MaterialTheme.colorScheme.secondaryContainer, shape = RoundedCornerShape(16.dp), modifier = Modifier.fillMaxWidth()) {
+        Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text("${kind.emoji} ${kind.sl} · ${kind.en}", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
+            for ((p, said) in reacted) {
+                Surface(onClick = { onGreet(p) }, color = MaterialTheme.colorScheme.surface.copy(alpha = 0.7f), shape = MaterialTheme.shapes.small, modifier = Modifier.fillMaxWidth()) {
+                    Row(Modifier.heightIn(min = 48.dp).padding(horizontal = 10.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                        EmojiBadge(p.emoji, MaterialTheme.colorScheme.surfaceVariant, size = 36)
+                        Spacer(Modifier.width(10.dp))
+                        Column(Modifier.weight(1f)) {
+                            Text(p.name, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
+                            said?.let {
+                                Text(it.sl, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
+                                if (it.en.isNotBlank()) Text(it.en, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
