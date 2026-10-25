@@ -1017,9 +1017,59 @@ below like a lake, rain veils the far hills and the mountain first, lightning st
 and the snow fall beyond the tower, seen between its posts and over its railing: nothing falls under its roof, on the
 platform, the posts, the railing or the people on it; indoors (the dioramas) the rain, snow and fog fall in the dark
 around the plot and over its open ground, never in a room nor under a roof (the ground under the bee house's eaves stays
-dry), and the room's light dims a little. The campfire is all out in the open. The tent is cut open at the front for us
-to look in, and for the weather its roof goes on over the floor: nothing falls into it, and nothing drips off the cut
-(the rolled flap along the open front). Its canvas darkens in the rain and water drips off its eave onto the grass.
+dry), the room's light dims a little and its window shows the weather ([The rain indoors](#the-rain-indoors)). The
+campfire is all out in the open. The tent is cut open at the front for us to look in, and for the weather its roof goes
+on over the floor: nothing falls into it, and nothing drips off the cut (the rolled flap along the open front). Its
+canvas darkens in the rain and water drips off its eave onto the grass.
+
+### The rain indoors
+
+The storm event's weather (GAME.md "People react": heavy rain slanting in the wind, a grey sky, lightning now and then)
+is over every scene while the storm is on (`DaySky.over`, `Sky.STORM`), under whatever a dialog cues; when it's over the
+scene eases back to the day's sky (nothing of the storm is kept). Outdoors it rains as a dialog's rain does (above). In a
+room (the house's rooms, the kitchen, the school, the smithy) the rain falls in the dark round the plot and over its
+garden, and:
+
+- **the window** runs with it (`Weather.glass`, the same for every painter's window): the sky in it grey under the clouds
+  (no sun nor moon behind a grey sky), the rain streaking past outside, beads clinging to the pane, now and then a trickle
+  running down it, a drop at its head, the glass brightening with a flash of lightning; the cellar's slit high in the
+  wall shows a little of it;
+- **the room** a little darker (a room keeps half of the grey sky's gloom), the lamp from dusk as ever;
+- **the hearth** glowing warmer where it's lit (the kitchen's stove or open hearth further and brighter, the living room's
+  kmečka peč warm), on any rainy day; where it's out (`SceneWorld.cold`, `Hearths.cold`: the house out of wood, its fire
+  blown out by a lost storm, the forge without charcoal) the stove's grate is dark, the open hearth's logs lie cold on
+  grey ash, the forge's coals under ash as when it's banked for the night, unless a dialog fires it up;
+- **the sound**: the rain heard indoors (`rain-in`, muffled, the drops on the roof) instead of the rain itself, and the
+  thunder about half as loud (GAME.md "Background sounds").
+
+With the system's animations off ("remove animations") the picture keeps its sky without the flashes (`SceneView`); the
+thunder still comes. `StormRenderTest` renders the storm over the village and in the kitchen, the living room, the field,
+the forest, the square and by the fire (build/scene-snapshots/storm).
+
+### Who is at home in an event
+
+While wolves, a bear or a storm are about (GAME.md "People react") a scene shows who the reaction has at its place
+(`Whereabouts.inScene`, `Whereabouts.during`), as the map has them:
+
+- **at home**: whoever the event sends home (in a storm everyone; while wolves or a bear are about everyone but the
+  defenders, the lookout and who gathers by the fire), and whoever was in the house when it came, is in the room of the
+  house they walk into on the map: their bed's house (`Sleep.homes`, which the map's doors are). The room is the house it
+  is seen in (`Whereabouts.placeOf`: the house tapped, else the house it is dealt; the hut's kitchen in the hut). The
+  scene's own people at their spots, then the household, the cast and the village's own people at the art's free person
+  spots, as many as there are: in a storm Babica Micka by the stove, Teta Ančka at the table and Zala by the door in the
+  kitchen, Stari Janez at the table and Lovec Jože by the stove in the living room;
+- **by the fire**: the children, the old and the innkeeper who were out, the fire's own people at their seats, more of
+  them beside the stump and in front of the woodpile (standing there, not hiding);
+- **up the watchtower**: its lookout; the defenders out by the forest's edge are in no scene;
+- **asleep**: in bed as ever ([Asleep at night](#asleep-at-night)), but the wolves get the defenders and the lookout up.
+
+Nobody is in two scenes at once. Each has a small quiet marker with the event's emoji ("⛈️", "🐺", "🐻": dark and
+see-through, the emoji alone, unlike the gold markers of what someone has for the learner); "Danes tukaj · Here today"
+lists them under the event's name, each with what they say of it in the village's language and its meaning under it; a tap
+on them, their marker or their row greets them with it: at home a line for inside (`reactions.json` `home`), by the fire
+and up the tower the event's own for who they are. The everyday talks still wait. `StormIndoorsTest` checks who is in
+which room, the map's doors agreeing, the fire's gathering, the beds the wolves empty and the lines; QA's step `storm` takes
+the pictures.
 
 ### Effects: the place joins in
 
@@ -1268,8 +1318,9 @@ child in a child's bed first, a grown-up never in one; a bed waits for whoever i
 never takes Janez's place while Janez tells his story), and one whose sleeper is up, or out for the night after their
 bedtime, is free (Ančka has the bench on a night Micka is out, and once Micka is up). In a kitchen at level 1, before the
 stove, Micka lies in the straw bed along the left wall under a coarse brown blanket. Someone with a happening on anywhere is up and there instead: Luka listening for the owl in
-the forest, Micka bringing Jan a blanket in the tent, Nejc awake in the burja. Someone of the scene whose file doesn't list
-them (Zala in the kitchen) sleeps as themselves, their sprite and their name. By day nobody is in bed; whoever is at the
+the forest, Micka bringing Jan a blanket in the tent, Nejc awake in the burja; while wolves or a bear are about, the
+defenders and the lookout are up and out (GAME.md "People react"), their beds empty. Someone of the scene whose file
+doesn't list them (Zala in the kitchen) sleeps as themselves, their sprite and their name. By day nobody is in bed; whoever is at the
 scene's place by their day stands there ([Bubbles in the village](#bubbles-in-the-village)).
 
 A sleeper is a person of the frame at the bed's "slot" in `Pose.SLEEP` (`PeoplePainter.lying`): on their back under the

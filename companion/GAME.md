@@ -737,14 +737,41 @@ When it comes they walk there from where their day had them, the children runnin
 - **A storm**: everyone goes home, the children running, every other grown-up with a hand on their hat. Now and then
   (every 6 minutes of the village's clock) someone dashes from one door to another holding their hat, and for the first
   minutes of every half hour the aunt or a grandmother takes the washing in (not in winter); otherwise nobody is out.
-- **The merchant**: his cart comes up the road once, when he comes (`Threats.cartAt`), and parks; by daylight the
-  innkeeper and two others stand at it talking, two others every quarter of an hour.
-- **A festival**: everyone up round the fire as before, dancing now, the winemaker (else a grown-up) playing the
-  harmonika, the notes going up.
-- **Afterwards**: after a won fight everyone up gathers round the fire with the defenders first beside it and cheers
-  (`Reactions.CHEER_S`, 2½ minutes; the lookout cheers on the tower), then they go back to their day. After a lost
-  event that damaged a building (`GameState.ended`, `EventEnd`: how the last event ended), the smith (else a grown-up)
-  patches it up by daylight that day and the next, planks leaning beside him (at the palisade's breach, inside it).
+  It rains (Jan, 2026-10-25: "And it was not raining."): over the map heavy rain slanting in the wind (streaks as many and
+  as long as the scenes' rain, longer and fewer closer up), drops splashing and ringing out on the ground, the paths, the
+  road and the cobbles dark and wet with puddles catching the grey sky, the grass a little darker, the light dark and cold
+  under the clouds; now and then (every 5 to 15 s, never in a rhythm) one soft flash of lightning, a bolt and the village
+  whitened a little for half a second (`Lightning.glow`: a quick rise, an ease out, no flicker, no echo; well under the
+  three flashes a second that would count as flashing), none when the system's animations are off ("remove animations":
+  `Frame.calm`; the rain still falls and the thunder still rolls). The same rain is over every scene while the storm is
+  on (`DaySky.over`: [SCENES.md](SCENES.md#the-rain-indoors)) and the scenes ease back to the day's sky when it's over; its
+  sound is the rain in the open, muffled in a room (below, "Background sounds"). A dialog's shower kept for the day
+  (SCENES.md, "Sky cues") wets the map's ground the same way, as much as it rains.
+
+**At home in an event** (Jan, 2026-10-25: "I went into a house: nobody there (where are they?)"). Whoever wolves, a bear
+or a storm sends home is in their home's scene (`Whereabouts.inScene` while `Reactions.quiet`;
+[SCENES.md](SCENES.md#who-is-at-home-in-an-event)): the house they walk into on the map (their bed's, `Sleep.homes`,
+which is where the map's doors are) is the house whose room shows them, the children with their family. In the Primorska
+village in a storm: Babica Micka, Teta Ančka and Zala in the kitchen, Stari Janez and Lovec Jože (who lodges with him)
+in the living room, France and Tine in the workshop, Vinar Marko and Čebelar Anton in the cellar, Vida and Nejc in the
+attic, Kovač Tone in his smithy, Učiteljica Mojca in her school, Pastir Luka in his tent; nobody in the field, on the
+square or by the fire. Who was in the house when it came stays in (also a child while the wolves are about: the map
+keeps them in too); who is asleep stays in bed, but the wolves get the defenders and the lookout up, their beds empty.
+Who gathers by the fire is in the fire's scene, beside the stump and in front of the woodpile too when more come than
+its own people; the lookout up the watchtower. Each has a small quiet marker with the event's emoji (dark, not an
+offer's gold), a row under "Danes tukaj · Here today" under its name ("⛈️ Nevihta · Storm") with what they say of it,
+and a tap on them is their line: at home a line for inside (`reactions.json` `home`: "Doma smo na suhem.", "Vrata so
+zaprta. Tukaj smo varni."), by the fire the event's own, never their everyday talk. The village's own people (born here
+or moved in) go into their house too, where a room shows them only as its spots allow (the cast of its household first),
+as at night they sleep where we don't see them. A house whose hearth is out (no wood, a lost storm blew it out:
+`Hearths.cold`) shows its stove cold; a lit one glows warmer on a rainy day. - **The merchant**: his cart comes up the
+road once, when he comes (`Threats.cartAt`), and parks; by daylight the innkeeper and two others stand at it talking,
+two others every quarter of an hour. - **A festival**: everyone up round the fire as before, dancing now, the winemaker
+(else a grown-up) playing the harmonika, the notes going up. - **Afterwards**: after a won fight everyone up gathers
+round the fire with the defenders first beside it and cheers (`Reactions.CHEER_S`, 2½ minutes; the lookout cheers on the
+tower), then they go back to their day. After a lost event that damaged a building (`GameState.ended`, `EventEnd`: how
+the last event ended), the smith (else a grown-up) patches it up by daylight that day and the next, planks leaning
+beside him (at the palisade's breach, inside it).
 
 **What they say.** A short call now and then over someone's head on the map, one at a time ("Volkovi!", "Pazi!",
 "Hitro noter!"; "Bravo!", "Hura!" after a won fight), and their card, their greeting ("💬 Pogovori se") and a scene's
@@ -752,7 +779,8 @@ greeting say a line of the event for who they are instead of their everyday one 
 ognju."); at the merchant's of his wares, at a feast festive; the one patching up says so. The lines are the culture
 pack's (`reactions.json`, `lani.reactions/v0`: per event and after a fight won or lost, `shout`, `call`, and the lines
 of the `defender`, `child`, `elder`, `keeper`, `other`, `repair`), in its language with every base's translation, short
-and A1 where they can be; checked by the app (the pack's language, a shout three words at most, a call four). They are
+and A1 where they can be, and for wolves, a bear and a storm the lines of whoever is met at home (`home`, for inside);
+checked by the app (the pack's language, a shout three words at most, a call four). They are
 machine-written (Claude), not reviewed by a native speaker. A pack without the file has the people react without words of
 their own. The bridge doesn't read it.
 
@@ -773,7 +801,8 @@ the requests dim and waiting. Only what shows changes: no try, nothing of theirs
 again as they were. The merchant and a feast day hold nothing back. A villager's card has the event's run a tap away instead of the talk ("🐺 Branimo vas! ·
 Defend the village!", red; the event's title without a reactions file); at the merchant's and a feast day it's there
 beside the talk. The scenes show who the reaction has there: by the fire the children and the old, up the watchtower its
-lookout, nobody in the field. The merchant and a feast day keep nobody from their day.
+lookout, at home in their room who went home, nobody in the field (above, "At home in an event"). The merchant and a feast
+day keep nobody from their day.
 
 QA: the steps `reactions` and `quests-threat` (companion/bin/qa; QA's hooks `event:<kind>`, `event:won`, `event:lost`,
 `event:`). Tests:
@@ -781,7 +810,12 @@ QA: the steps `reactions` and `quests-threat` (companion/bin/qa; QA's hooks `eve
 as they come, the walks and the children running, the storm's dashes and washing, the cart's few, the feast, the cheer,
 the repair, the lines, the packs' files, the frame budget with wolves on, snapshots 70-77), `ReactionTalksTest` (no
 everyday talk during a threat or a storm, all of it back after with the dialog that was due, the map's bubbles, the
-requests folded away and back as they were, Home's strip, the burner, the greetings, the scenes).
+requests folded away and back as they were, Home's strip, the burner, the greetings, the scenes), `StormIndoorsTest`
+(who is in which room in a storm and while the wolves are about, the map's doors and the rooms agreeing, nobody in two
+scenes, the beds the wolves empty, the lines for inside, the storm's rain over the scenes and gone after, heard muffled
+in a room, a cold hearth), `StormRenderTest` (the rain over the map and on the windows, the soft flash, none with the
+animations off, the frame budget with the rain: the village 25 ms at the fitted canvas and 22 ms at detail 3, the
+kitchen 6 and 19 ms; snapshots in build/scene-snapshots/storm). QA: the step `storm`.
 
 ## Challenges
 
@@ -2018,18 +2052,22 @@ loop; pure, unit-tested in `SoundscapeTest`):
 | `alps` | a few birds (the choughs) | | the pasture's brook, the wind |
 | `sea` | | a few crickets | the waves, a breeze |
 | `watchtower` | birds, far off | crickets, the owl | the wind |
-| the rooms: `kitchen`, `livingroom`, `workshop`, `school`, `smithy`, `attic` | birds, faint through the window | crickets and the owl, faint | the stove in the kitchen, the forge in the smithy |
-| `cellar`, `church` | | | only the weather, faint |
+| the rooms: `kitchen`, `livingroom`, `workshop`, `school`, `smithy`, `attic` | birds, faint through the window | crickets and the owl, faint | the stove in the kitchen, the forge in the smithy; the rain muffled |
+| `cellar`, `church` | | | only the weather, faint (the rain muffled) |
 
 - **The hour**: day and night follow the scenes' sun (`Env`: the month's sunrise and sunset). The birds begin 45 minutes
   before sunrise, a quarter louder in the dawn chorus (to an hour and a half after sunrise), and stop 45 minutes after
   sunset. The crickets, the frogs and the owl come in as the birds go.
 - **The month**: fewer birds in winter (a third of May's); crickets from May to October, most in July and August; frogs
   from March to September; the owl all year, most in autumn and winter.
-- **The weather**: a scene's sky (its dialog's cues, [SCENES.md](SCENES.md#sky-cues-the-weather-in-a-dialog)); over the
-  village, the storm event or the sky a dialog left today (`Soundscape.villageSky`). The rain is heard at the square root of
-  its level: fully in the open and under the tent's canvas, 0.7 in the attic under the roof, 0.4 in a room, a little in
-  the cellar. A light shower (0.2) halves the birds; from 0.4 the birds, the crickets and the owl are quiet, and the frogs
+- **The weather**: a scene's sky (the storm event's while it is on, else its dialog's cues and what a dialog left
+  today: `DaySky.over`, [SCENES.md](SCENES.md#sky-cues-the-weather-in-a-dialog)); over the village, the storm event or the
+  sky a dialog left today (`Soundscape.villageSky`). The rain is heard at the square root of its level: fully in the open
+  and under the tent's canvas. Under a roof it is the rain heard indoors instead (`rain-in`: muffled by the walls, dull taps
+  on the roof, now and then a drop ticking on the pane, the water off the eaves), at its share of the room
+  (0.7 in the attic under the roof, 0.4 in a room, a little in the cellar) times 1.5, since it has no hiss left to be loud
+  with (`Soundscape.INDOOR_RAIN`): a heavy rain in the kitchen at 0.57, in the attic at its full level. A light shower
+  (0.2) halves the birds; from 0.4 the birds, the crickets and the owl are quiet, and the frogs
   only halve. The sky's wind is heard as wind. Fog and snow muffle the birds; snow quiets the crickets and the frogs. When
   the sky has lightning, thunder follows each flash (below).
 - **A dialog's effects** join in: the campfire's `flare`, the kitchen's `oven`, the living room's `stove` and the smithy's
@@ -2041,8 +2079,10 @@ its clock to `AmbientSound` (`TownClock.origin`, the clock's second 0 in `System
 agree.
 
 - **Thunder.** The flashes come from one schedule, `game/scene/Lightning.kt`, which the painters draw from too. A scene
-  flashes every 7.3 s, up to 2.5 s late: a flicker of 0.08 s and an echo (`Weather.flash`). The village flashes every
-  5.3 s in the storm event and every 8.1 s under a dialog's sky kept for the day (`VillageRenderer`). As it plays, the
+  flashes every 9 s, up to 4 s late (5 to 13 s apart); the village every 10 s, up to 5 s late, in the storm event (5 to 15
+  s apart) and every 13 s, up to 5 s late, under a dialog's sky kept for the day (`VillageRenderer`). Each flash is one soft
+  pulse (`Lightning.glow`: brighter over 0.06 s, fading over half a second), the bolt in its first 0.18 s; with the system's
+  animations off the picture doesn't flash, and the thunder still comes. As it plays, the
   player looks at the picture's clock and takes the flashes since it last looked. Each flash's thunder comes 2.5 to 6 s
   after it (the storm is 1 to 2 km off): the farther, the later, the softer (down to 0.55) and the deeper (played at 0.9
   instead of 1.06). Three rumbles take turns; each rises softly over a quarter second or more. All of it is heard in the
@@ -2110,10 +2150,11 @@ level of the whole like the loops. Then:
 by default) and the volume. Moving the slider plays the stream for three seconds, so the level can be heard. The phone
 keeps both (`ambience` preferences).
 
-**The sounds** (`android/app/src/main/assets/ambient/`; the sources and licence of each in `CREDITS.md` there): nine loops,
+**The sounds** (`android/app/src/main/assets/ambient/`; the sources and licence of each in `CREDITS.md` there): ten loops,
 all synthesized by `android/tools/ambient_sounds.py` from filtered noise and simple tones, no recordings, CC0: `birds`
 (36 s), `crickets` (20 s), `owl` (40 s), `frogs` (24 s), `rain` (16 s), `stream` (18 s), `fire` (20 s), `wind` (30 s),
-`sea` (32 s). Ogg Vorbis (quality 1), mono, 24 kHz, about 700 KB together. Each file holds its loop with a quarter second of the loop's end
+`sea` (32 s), `rain-in` (16 s: the rain heard indoors). Ogg Vorbis (quality 1), mono, 24 kHz, about 760 KB together.
+Each file holds its loop with a quarter second of the loop's end
 before it and of its start after it, so the codec's edges never fall on the loop point. The player (`data/AmbientPlayer.kt`)
 decodes a loop once, the first time it is wanted, and cuts one period out of the middle (`LoopCut`). It mixes the loops in
 one `AudioTrack` on a thread of its own (`AmbientMixer`, pure). With nothing to play, the track pauses and the thread

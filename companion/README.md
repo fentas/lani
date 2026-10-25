@@ -3858,6 +3858,7 @@ companion/bin/qa --steps scene-people            # I spy in the church, the kitc
 companion/bin/qa --steps bubbles-follow          # the village's bubbles with their people: dragged, zoomed in, the edge chip tapped
 companion/bin/qa --steps village-life            # the village's day on the map at 8, 11, 15, 19 o'clock, walkers by the field
 companion/bin/qa --steps reactions               # the people reacting: wolves coming and there, a villager's card then, at night, the cheer, the bear, a storm, the merchant, a feast
+companion/bin/qa --steps storm                   # the storm: the map in the rain, a soft flash, a house's room with its people at home and rain on its window, the field, the wolves by the fire (a synthetic learner: LANI_DEV_DATA)
 companion/bin/qa --steps quests-threat           # the requests during wolves (none on the map, waiting in the Scroll, Home's strip) and back after; a drill whose task is passed under Later (a synthetic learner: LANI_DEV_DATA)
 companion/bin/qa --steps age-up                  # Zaselek to Vas and Vas to Trg: each moment beat by beat, its card, the veselica at A1 to its end, the chronicle's Watch again (recorded)
 companion/bin/qa --steps exercise-words          # a review's words looked up: the sentence's, not the forms to choose
@@ -4194,6 +4195,12 @@ them, `reactions` looks at wolves coming (on their way, the children running) an
 fire then (their line of the wolves, "🐺 Branimo vas!", no talk), at night, the cheer after the fight won, the bear, a
 storm, the merchant and a feast day (`LANI_QA_REACT_SHOTS`: a folder for its screenshots as `react-*.png`); a debug
 build logs each call over someone's head as it pops in (tag `Shout`), and the step takes its shot of the wolves then.
+`storm` (on a synthetic learner with the whole cast moved in, `LANI_DEV_DATA`) looks at the storm (GAME.md "People
+react", SCENES.md "The rain indoors", "Who is at home in an event"): the map in the rain by day, a flash caught (the
+brightest of 45 screenshots), Stari Janez's living room with Janez and Lovec Jože at home and the rain on its window,
+closer, a tap on one of them (their line for inside), "Danes tukaj" with "⛈️ Nevihta", the kitchen with its three, the
+field in the rain, then the wolves and the fire's scene with the children and the old gathered (`LANI_QA_STORM_SHOTS`: a
+folder for its screenshots as `storm-*.png`).
 
 `build:<type>` gets the dev village's copy ready to build one (`build:field`): its stores full and a free plot (the next
 age's, when the age's own are all taken: Jan's Zaselek has none left), and opens the plot chooser for it over the map,
