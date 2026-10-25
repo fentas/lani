@@ -97,7 +97,8 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        $LANI_QA_HEARTHS_SHOTS;
                        "storm" the storm and who is where (QA's hooks "event:storm", "event:wolves/2", "hour:11",
                        "show:fire"; a synthetic learner with the whole cast moved in, LANI_DEV_DATA): the map in the rain
-                       (streaks, wet paths, puddles), a flash caught (the brightest of a run of screenshots), Stari Janez's
+                       (streaks, wet paths, puddles), a flash caught (the brightest sky of screenshots over 25 s of the
+                       village's clock at a quarter: "clock:0.25"), Stari Janez's
                        living room with Janez and Lovec Jože at home and the rain on its window, "Danes tukaj" with
                        "⛈️ Nevihta", a tap on one: their line for inside; the kitchen; the field in the rain; the wolves
                        and the fire's scene with the children and the old gathered; also as storm-*.png in
@@ -4101,7 +4102,8 @@ def storm():
     indoors"; Jan, 2026-10-25: "We had a storm: nobody outside, good. I went into a house: nobody there (where are they?).
     And it was not raining."). On the dev bridge's copy of a synthetic learner with the whole cast moved in (LANI_DEV_DATA)
     QA's hook "event:storm": the map in the rain (its streaks, the wet paths and their puddles) by day, a flash of lightning
-    caught when one comes (the brightest of a run of screenshots; none with the animations off); Stari Janez's living
+    caught (the brightest sky of a run of screenshots over 25 s of the village's clock slowed to a quarter, "clock:0.25";
+    none with the animations off); Stari Janez's living
     room ("scene:v-hisi") with Janez and Lovec Jože at home, the rain on its window, "Danes tukaj" with "⛈️ Nevihta" and
     what each says, a tap on one of them: their line for inside; the kitchen with Babica Micka, Teta Ančka and Zala; an
     outdoor scene in the rain (the field); then the wolves ("event:wolves/2") and the fire's scene with the children and
@@ -4114,9 +4116,6 @@ def storm():
         if d := os.environ.get("LANI_QA_STORM_SHOTS"):
             Path(d).mkdir(parents=True, exist_ok=True)
             shutil.copy(shots[-1], Path(d) / f"storm-{name}.png")
-
-    def luma(path: Path) -> float:
-        return float(sh("magick", str(path), "-colorspace", "gray", "-format", "%[fx:mean]", "info:").strip() or 0)
 
     def open_scene(sid: str) -> bool:
         adb("logcat", "-c")
@@ -4149,19 +4148,28 @@ def storm():
         qa_hook("show:fire")
         time.sleep(3 * slow())
         snap("map")
-        # a flash: one soft one every 5 to 15 s, half a second long; the brightest of a run of screenshots over 40 s
+        # a flash: one soft one every 5 to 15 s of the village's clock, half a second long. With the clock at a quarter
+        # (QA's hook "clock:0.25") a flash lasts over 2 s, longer than a screenshot takes, and 25 s of the clock hold one
+        # at least: the brightest sky of the run is the flash (the sky between the HUD and the houses)
         tries = OUT / "storm-flash-tries"
         tries.mkdir(exist_ok=True)
+        qa_hook("clock:0.25")
         best, base = None, None
-        for k in range(45):
-            p = tries / f"{k:02d}.png"
-            with open(p, "wb") as f:
-                f.write(subprocess.run(["adb", *(("-s", SERIAL) if SERIAL else ()), "exec-out", "screencap", "-p"], capture_output=True).stdout)
-            v = luma(p)
-            base = v if base is None else min(base, v)
-            if best is None or v > best[0]:
-                best = (v, p)
-        if best is not None and base is not None and best[0] > base + 0.01:
+        try:
+            end = time.time() + 100
+            k = 0
+            while time.time() < end:
+                p = tries / f"{k:02d}.png"
+                with open(p, "wb") as f:
+                    f.write(subprocess.run(["adb", *(("-s", SERIAL) if SERIAL else ()), "exec-out", "screencap", "-p"], capture_output=True).stdout)
+                v = float(sh("magick", str(p), "-crop", "1080x500+0+520", "-colorspace", "gray", "-format", "%[fx:mean]", "info:").strip() or 0)
+                base = v if base is None else min(base, v)
+                if best is None or v > best[0]:
+                    best = (v, p)
+                k += 1
+        finally:
+            qa_hook("clock:")
+        if best is not None and base is not None and best[0] > base + 0.03:
             shutil.copy(best[1], OUT / f"{len(shots) + 1:02d}-storm-map-flash.png")
             shots.append(OUT / f"{len(shots) + 1:02d}-storm-map-flash.png")
             if d := os.environ.get("LANI_QA_STORM_SHOTS"):
@@ -4177,9 +4185,15 @@ def storm():
             print(f"    v-hisi in the storm: {people}")
             if not any(p in ("janez", "joze") for p in people):
                 notes.append(f"nobody at home in the living room: {people}")
-            qa_hook("zoom")
+            # closer, at the window: a double tap on it (where SceneAt has it), else the zoom
+            win = (at or {}).get("things", {}).get("window")
+            if win is None or not double_tap_zoom((win[0] + win[2]) // 2, (win[1] + win[3]) // 2):
+                qa_hook("zoom")
             time.sleep(2 * slow())
             snap("house-window")
+            plain_scene = find("Na sredino · Recenter")
+            if plain_scene is not None:
+                tap_at(plain_scene)
             # a tap on someone at home: their line for inside
             if tap_in_scene("people", "janez") or tap_in_scene("people", "joze"):
                 time.sleep(2)
