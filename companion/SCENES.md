@@ -115,6 +115,45 @@ Answer by speaking", which made the choices untappable (the 🎤 the only way to
 after two failed takes); the 🎤 beside the choices does that job, and a mastered rule's turn is said whole anyway (see
 [Adaptive turns](#adaptive-turns)).
 
+### The learner's voice
+
+The learner has a voice of their own in the dialogs (Jan, October 25, 2026: "If I select a sentence in a dialog, it should
+speak it, unless I selected it via the microphone. And does the player have a voice, meaning male or female?"). Their
+line is said aloud as it comes, in their voice, and the other side's reply waits for it:
+
+- **Said:** a choice tapped (in the list, or its place in the picture at a [tap turn](#tap-turns-answer-by-tapping-the-scene)),
+  "✓ Naprej" at an [echo](#rules-not-yet-what-the-learner-is-asked-grows-with-the-grammar), a turn
+  [typed](#adaptive-turns) right, and a wrong choice tapped or typed that the person reacts to (they answer what they
+  heard). Nobody said those yet.
+- **Not said again:** a line the learner said into the 🎤 (a choice said, a turn said whole, an echo said): they said it
+  themselves, and the reply comes as it always did. A form typed that none of the choices has (a slip, "Deset jajcev,
+  prosim.") isn't said either: it is the learner's own wording, with no line of the dialog's to make a clip of.
+- **In turn** (`ui/scene/DialogVoice.kt`): the learner's line 0.25 s after it shows (the person's reaction to the pick plays
+  meanwhile), said to its end (`Speaker.sayThrough`); the reply a breath (0.25 s) after it has been heard, and after a 🔊
+  tapped meanwhile has been heard too, never over it; the person is drawn talking only while their own line is said.
+  Without a line of the learner's to say, the reply comes 0.7 s after the pick, as before. The next step ("Naprej", the
+  next pick) cuts what is being said, as it always did.
+- **Its 🔊:** the learner's line in the conversation has its 🔊, like the others' lines, which says it again in their voice
+  (TalkBack: "Poslušaj · Listen"; a long press records it again). A slip typed has none.
+- **The voice:** the voice cast's `player` (`companion/voice-cast.json`), one voice per gender by the learner profile's
+  `learner.gender`: in the Slovene village Luka for a man, Nina for a woman (the narrators' Slovene voices), Nina while
+  the profile says none (the content still speaks to them as to a man). The app asks the node for the voice `player`; the
+  bridge says it in that voice on its normal path (a word to three inside its carrier sentence, as a re-record), so the
+  learner's clip of a text is the narrator's. On the phone the clips are looked up by the voice the node names in its
+  voice profiles (`GET /voice/profiles`: `player`), else by the narrator of the profile's gender. When the learner's
+  voice can't be had, no clip of the other gender stands in: the phone's offline voice or text-to-speech says it.
+- **Where:** every dialog panel: a scene's dialog and the storyteller's evening story (its turns), a keeper's talk, an
+  arrival, a village project's step and an age's party, and a guest's dialog on a visit. In «Vidim, vidim» the learner's
+  guesses are words and stay silent, without a 🔊 ([I spy](#i-spy-vidim-vidim-nekaj-česar-ti-ne-vidiš)).
+- **Settings:** the app has no mute or auto-play setting for the dialogs: the learner's line is said as everyone's lines
+  are, at the phone's volume, with TalkBack too (it reads a choice before the tap, the line is said after it).
+
+**QA:** `companion/bin/qa --steps player-voice`: a dialog by the fire (Babica's soup): a choice tapped, its line said in the
+learner's voice ("said «…»: node clip (player)" or "clip on the phone"), heard to its end before the reply starts (tag
+Speaker); a turn typed right (QA's hook "turns:type"), said; a choice said into the 🎤 (QA's hook "mic:<text>", a debug
+build: the 🎤's take as the recognizer would give it), not said, the reply only; a screenshot of the 🔊 on the learner's
+line.
+
 ### Reactions and more than one right answer
 
 A wrong choice is said, and the person reacts to what the learner actually said, taken at face value: Jan says "Ja,
@@ -1408,7 +1447,8 @@ line's 🔊 stops the one being said at once, and the next waits until the 🔊 
 clip: the girl's Piku said "Vidim, vidim nekaj, česar ti ne vidiš …" in 3.8 s against its 3.4, and a clip still on its way
 from the node lost the seconds it took, so the first clue cut it off ("she gets cut off at «Vidim, vidim nekaj, …»").
 The same holds for a villager's greeting ("Pogovori se": the greeting, then a memory). A dialog's lines need no queue:
-each waits for the learner's "Naprej" or pick, which cuts the line being said as it always did; the person is drawn
+each waits for the learner's "Naprej" or pick, which cuts the line being said as it always did; a pick's two lines, the
+learner's in their voice and the reply, come in turn ([The learner's voice](#the-learners-voice)); the person is drawn
 talking while their line is heard (a scene's dialog, the storyteller's story, a keeper's talk, an arrival, a project's
 step).
 

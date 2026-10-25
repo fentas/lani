@@ -1779,6 +1779,20 @@ The app plays a line in the speaker's voice; without that clip, in the villager'
 then `female`, then it asks the node (an older bridge refuses a character voice, and the app then
 asks in the next voice), then Android TTS. The bridge's `POST /voice/say` falls back the same way.
 
+**The learner's voice.** The learner's own lines in a dialog (a choice tapped, a turn typed right, an echo gone on from)
+are said in their voice before the reply comes, and their line has a 🔊 like everyone's; a line they said into the 🎤
+isn't said again ([SCENES.md](SCENES.md#the-learners-voice)). The voice is the cast's `player`, one voice per gender by
+the learner profile's `learner.gender`: `{"male": "male.sl", "female": "female.sl"}`, Luka for a man and Nina for a
+woman in the Slovene village, Nina while the profile says none (`unsaid` on the bridge's addressee; the content speaks
+to them as to a man all the same). The app asks for the voice `player` (`POST /voice/say`, `/voice/prepare`,
+`/voice/redo`); the bridge says it in the cast's voice for the learner's gender on its normal path (a word to three
+inside its carrier sentence, as a re-record says it), so a line's clip is the narrator's, and never answers with the other
+gender's clip when theirs can't be had now: the phone's offline voice or TTS says it then. `GET /voice/profiles` names
+the voice (`"player": "male"`), and the phone looks the learner's clips up by it (`Clips.playerVoice`; before the node
+said, the narrator of the profile's gender). A voice of the learner's own is a speaker added to the cast and named in
+`player`: one line. Nina and Luka are ElevenLabs library voices that leave the library on about October 21, 2027: a
+replacement comes before then, for the narrators and for the learner. `voice_status` shows the cast's `player`.
+
 **A culture pack's voices.** A village in another language has its own voice cast, `voice-cast.json` in its
 culture pack (`cultures/friuli/voice-cast.json`), with the same archetypes (`grandma`, `grandpa`, `young-man`, …)
 so the cast's `speaker` fields carry over. The bridge uses it instead of `companion/voice-cast.json`
@@ -4133,6 +4147,13 @@ It also types "hisa" into the field and reads `adb shell dumpsys input_method` t
 ([Answer fields and the keyboard](#answer-fields-and-the-keyboard)): plain text with no suggestions, Gboard's
 `noDecoding`, and `hintLocales` `[sl]`. With Gboard it also checks that the current subtype is Slovene and that its
 candidate strip (`LatinFixedCountCandidatesHolderView`) is not visible.
+`mic:right` has a dialog's 🎤 hear the turn's right choice when it is tapped, as the node's recognizer would write it,
+without listening (an emulator's microphone hears nothing), and shows the 🎤 while it is set (`mic:` lets the microphone
+listen again). With it and `turns:type`, `player-voice` ([SCENES.md](SCENES.md#the-learners-voice)) plays Babica's soup
+by the fire (`happening:ob-ognju/juha/juha-sol`): a choice tapped is said in the learner's voice and heard to its end
+before her reply starts (the debug build's log, tag `Speaker`: "said «…»: node clip (player)", "heard «…» after …"; the
+run's `player-voice.log`), its line has its 🔊 (a screenshot), the next turn by the 🎤 isn't said again (her reply only),
+and the dialog again with its turn typed right says it before the reply.
 `ispy:<scene>/<slot>` offers «Vidim, vidim» in that scene whatever the day (a child comes by if none is there), its first
 round spying that thing, and the debug build logs where each round's things are on the screen (tag `ISpy`, with the
 thing's word); `ispy` (companion/SCENES.md, "I spy") plays a game by the fire: the stump spied, a wrong thing (the
