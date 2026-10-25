@@ -95,6 +95,13 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        forge cold, Oglar Miha waiting for the village's wood (his talk, the sheet's line of the
                        pile's wood); also as hearths-*.png in
                        $LANI_QA_HEARTHS_SHOTS;
+                       "storm" the storm and who is where (QA's hooks "event:storm", "event:wolves/2", "hour:11",
+                       "show:fire"; a synthetic learner with the whole cast moved in, LANI_DEV_DATA): the map in the rain
+                       (streaks, wet paths, puddles), a flash caught (the brightest of a run of screenshots), Stari Janez's
+                       living room with Janez and Lovec Jože at home and the rain on its window, "Danes tukaj" with
+                       "⛈️ Nevihta", a tap on one: their line for inside; the kitchen; the field in the rain; the wolves
+                       and the fire's scene with the children and the old gathered; also as storm-*.png in
+                       $LANI_QA_STORM_SHOTS;
                        "bubbles-follow" the village's bubbles with their people (QA's hook "hour:11"): at home, dragged
                        so some are off screen, zoomed in and dragged, the edge chip ("‹ 🐑 2") tapped and its bubble on
                        screen then;
@@ -4084,6 +4091,131 @@ def hearths():
     finally:
         qa_hook("kopa:")
         qa_hook("hearths:lit")
+        qa_hook("hour:")
+        plain_village()
+    return "; ".join(notes) or None
+
+
+def storm():
+    """The storm and who is where (companion/GAME.md "People react", SCENES.md "Who is at home in an event", "The rain
+    indoors"; Jan, 2026-10-25: "We had a storm: nobody outside, good. I went into a house: nobody there (where are they?).
+    And it was not raining."). On the dev bridge's copy of a synthetic learner with the whole cast moved in (LANI_DEV_DATA)
+    QA's hook "event:storm": the map in the rain (its streaks, the wet paths and their puddles) by day, a flash of lightning
+    caught when one comes (the brightest of a run of screenshots; none with the animations off); Stari Janez's living
+    room ("scene:v-hisi") with Janez and Lovec Jože at home, the rain on its window, "Danes tukaj" with "⛈️ Nevihta" and
+    what each says, a tap on one of them: their line for inside; the kitchen with Babica Micka, Teta Ančka and Zala; an
+    outdoor scene in the rain (the field); then the wolves ("event:wolves/2") and the fire's scene with the children and
+    the old gathered. Each also as storm-<name>.png in $LANI_QA_STORM_SHOTS when it's set. Nothing after: no event, the
+    clock's hour."""
+    notes = []
+
+    def snap(name: str):
+        shot(f"storm-{name}")
+        if d := os.environ.get("LANI_QA_STORM_SHOTS"):
+            Path(d).mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], Path(d) / f"storm-{name}.png")
+
+    def luma(path: Path) -> float:
+        return float(sh("magick", str(path), "-colorspace", "gray", "-format", "%[fx:mean]", "info:").strip() or 0)
+
+    def open_scene(sid: str) -> bool:
+        adb("logcat", "-c")
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, f"scene:{sid}")
+        if wait_for("‹ Vas · Village", 10) is None:
+            notes.append(f"{sid} didn't open")
+            return False
+        time.sleep(3 * slow())  # the rain eases in over 4 s, the camera rests
+        return True
+
+    def here_today(name: str, who: list[str]):
+        """The panel scrolled to "Danes tukaj": the event's block and each of [who] in it, shot as [name]."""
+        if scroll_to("Danes tukaj · Here today", 6) is None:
+            notes.append(f"{name}: no «Danes tukaj»")
+            return
+        time.sleep(1)
+        labels = " ".join(t for t, _ in nodes())
+        missing = [w for w in who if w not in labels]
+        if missing:
+            notes.append(f"{name}: not under «Danes tukaj»: {missing}")
+        snap(name)
+
+    try:
+        qa_hook("event:")
+        qa_hook("hour:11")
+        plain_village()
+        qa_hook("event:storm")
+        plain_village()
+        time.sleep(4 * slow())
+        qa_hook("show:fire")
+        time.sleep(3 * slow())
+        snap("map")
+        # a flash: one soft one every 5 to 15 s, half a second long; the brightest of a run of screenshots over 40 s
+        tries = OUT / "storm-flash-tries"
+        tries.mkdir(exist_ok=True)
+        best, base = None, None
+        for k in range(45):
+            p = tries / f"{k:02d}.png"
+            with open(p, "wb") as f:
+                f.write(subprocess.run(["adb", *(("-s", SERIAL) if SERIAL else ()), "exec-out", "screencap", "-p"], capture_output=True).stdout)
+            v = luma(p)
+            base = v if base is None else min(base, v)
+            if best is None or v > best[0]:
+                best = (v, p)
+        if best is not None and base is not None and best[0] > base + 0.01:
+            shutil.copy(best[1], OUT / f"{len(shots) + 1:02d}-storm-map-flash.png")
+            shots.append(OUT / f"{len(shots) + 1:02d}-storm-map-flash.png")
+            if d := os.environ.get("LANI_QA_STORM_SHOTS"):
+                shutil.copy(best[1], Path(d) / "storm-map-flash.png")
+            print(f"    a flash caught: {best[0]:.3f} against {base:.3f}")
+        else:
+            notes.append("no flash caught in 45 screenshots")
+        # in the house: Janez and Jože at home, the rain on the window
+        if open_scene("v-hisi"):
+            snap("house")
+            at = scene_at(5)
+            people = sorted((at or {}).get("people", {}))
+            print(f"    v-hisi in the storm: {people}")
+            if not any(p in ("janez", "joze") for p in people):
+                notes.append(f"nobody at home in the living room: {people}")
+            qa_hook("zoom")
+            time.sleep(2 * slow())
+            snap("house-window")
+            # a tap on someone at home: their line for inside
+            if tap_in_scene("people", "janez") or tap_in_scene("people", "joze"):
+                time.sleep(2)
+                snap("house-greet")
+            here_today("house-here", ["Nevihta", "Stari Janez"])
+            tap("‹ Vas · Village", 3)
+            time.sleep(1)
+        if open_scene("kuhinja"):
+            people = sorted((scene_at(5) or {}).get("people", {}))
+            print(f"    kuhinja in the storm: {people}")
+            if len(people) < 2:
+                notes.append(f"the kitchen in the storm: {people}")
+            snap("kitchen")
+            tap("‹ Vas · Village", 3)
+            time.sleep(1)
+        if open_scene("na-njivi"):
+            snap("outdoor")
+            tap("‹ Vas · Village", 3)
+            time.sleep(1)
+        # the wolves: the children and the old by the fire, in the fire's scene too
+        qa_hook("event:")
+        qa_hook("event:wolves/2")
+        plain_village()
+        time.sleep(2 * slow())
+        if open_scene("ob-ognju"):
+            people = sorted((scene_at(5) or {}).get("people", {}))
+            print(f"    ob-ognju with the wolves: {people}")
+            if len(people) < 3:
+                notes.append(f"by the fire with the wolves: {people}")
+            snap("wolves-fire")
+            here_today("wolves-fire-here", ["Volkovi"])
+            tap("‹ Vas · Village", 3)
+            time.sleep(1)
+    finally:
+        qa_hook("event:")
+        qa_hook("show:")
         qa_hook("hour:")
         plain_village()
     return "; ".join(notes) or None
@@ -8508,6 +8640,7 @@ def plan():
         ("reactions", reactions, v, False, ""),
         ("quests-threat", quests_threat, v, False, ""),
         ("hearths", hearths, v, False, ""),
+        ("storm", storm, v, False, ""),
         ("friends", friends, h, True, "visit"),
         ("visit", visit_town, h, True, "visit"),
         ("visit-villager", visit_villager, h, True, "visit"),
