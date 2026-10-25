@@ -326,7 +326,8 @@ python3 "$card" forgive iz_genitive --date 2026-09-26 --answer "iz Ljubljana"
 back's `(…)`, shown on the flashcard only), `accepted` (the front's alternatives, split at ` / `,
 with and without its optional `(…)` words; empty for a rule or placeholder), `first` (what
 dictation plays and tiles build), `variants` (the app's names: `flip`, `recognize`, `listen`,
-`pick_slovene`, `tiles`, `type`, `dictation`, `speak`), `rusty` and `learned`. `problems` says
+`pick_slovene`, `tiles`, `type`, `dictation`, `speak`; `flip` alone for a rule or placeholder, a card that isn't
+`vocabulary` and a list, a front or a meaning of parts between ` · `), `rusty` and `learned`. `problems` says
 what makes it ungradeable or confusing (a back asking for several meanings while each answer is
 one alternative, `/` without spaces, an alternative over 40 letters); `overlaps` lists the cards
 with the same prompt (when one of them is asked for) or the same answer. A card whose front or back isn't a string

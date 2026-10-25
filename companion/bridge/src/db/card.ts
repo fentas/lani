@@ -31,6 +31,8 @@ class Refused {
 const paren = () => new RegExp(`[${WS}]*\\(([^)]*)\\)`, 'gu')
 const SPACES = new RegExp(`[${WS}]+`, 'gu')
 const PUNCTUATION = /[.,!?;:¡¿"„“”«»]/gu
+const SEPARATOR = /·/gu
+const LIST = ' · ' // ReviewPlanner.list: a front or a meaning of parts between " · "
 const APOSTROPHE = /[’ʼ`´]/gu
 const MAX_ANSWER = 40
 
@@ -72,7 +74,8 @@ function withNote(back: Py, note: string): string {
   return strip(note) ? `${base} (${strip(note)})` : base
 }
 
-const normalize = (s: Py): string => strip(lower(s).replace(APOSTROPHE, "'").replace(PUNCTUATION, '').replace(SPACES, ' '))
+const normalize = (s: Py): string =>
+  strip(lower(s).replace(APOSTROPHE, "'").replace(PUNCTUATION, '').replace(SEPARATOR, ' ').replace(SPACES, ' '))
 
 /** normalize()d, without accents: for searching, not grading. */
 const fold = (s: Py): string => [...normalize(s).normalize('NFD')].filter(c => !isCombining(c)).join('')
@@ -88,7 +91,8 @@ function variants(item: PyDict): string[] {
   if (item.get('type') === COUNTING) return countingOf(item) ? ['counting', 'counting_type'] : []
   if (item.get('type') === FORMS) return formsOf(item) ? ['forms_card', 'forms_card_type'] : []
   const acc = accepted(item.get('content'))
-  if (item.get('type', 'vocabulary') !== 'vocabulary' || !acc.length) return ['flip']
+  // ReviewPlanner.quizzes: a word with a front to type, not a list of forms ("midva sva · vidva sta")
+  if (item.get('type', 'vocabulary') !== 'vocabulary' || !acc.length || contains(item.get('content'), LIST) || meaning(item.get('answer')).includes(LIST)) return ['flip']
   const out = ['flip', 'recognize', 'listen', 'pick_slovene', 'type', 'dictation', 'speak']
   if (acc[0].split(' ').length >= 2) out.splice(4, 0, 'tiles')
   return out

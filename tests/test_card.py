@@ -417,6 +417,24 @@ class CardTest(unittest.TestCase):
         self.assertEqual(self.ok("find", "five")["count"], 1)  # vocab_pet's back is a string: found by it
         self.assertEqual(self.ok("overlaps")["count"], self.ok("overlaps")["count"])  # no traceback either
 
+    def test_a_grammar_card_and_a_list_are_flashcards_and_a_dot_counts_like_a_comma(self):
+        """ReviewPlanner.quizzes (wishlist 2026-10-25: a village challenge asked vocab_biti_dual typed, its forms joined by
+        " · "): a card that isn't vocabulary, and a front or a meaning of parts between " · ", the app only flips; typed,
+        " · " counts like a comma, so a list and the same list with commas take the same answer."""
+        def lists(sr):
+            sr["items"]["vocab_biti_dual"] = card("vocab_biti_dual", "midva sva · vidva sta · onadva sta",
+                                                  "we two are · you two are · they two are", type="grammar")
+            sr["items"]["vocab_dual_commas"] = card("vocab_dual_commas", "midva sva, vidva sta, onadva sta", "we two are (dual)")
+            sr["items"]["vocab_dober"] = card("vocab_dober", "dober", "good · fine")  # one front, a list of meanings
+            sr["items"]["vocab_vroce"] = card("vocab_vroce", "vroče (je)", "it's hot (the weather · vroč = hot)")  # dots in a note
+        self._write("spaced-repetition.json", lists)
+        for cid in ("vocab_biti_dual", "vocab_dober"):
+            self.assertEqual(self.ok("show", cid)["app"]["variants"], ["flip"], cid)
+        self.assertIn("type", self.ok("show", "vocab_dual_commas")["app"]["variants"])
+        self.assertIn("type", self.ok("show", "vocab_vroce")["app"]["variants"])
+        same = self.ok("overlaps", "vocab_biti_dual")["overlaps"]
+        self.assertEqual([(o["id"], o.get("same_answer")) for o in same], [("vocab_dual_commas", ["midva sva vidva sta onadva sta"])])
+
     # --- dates: compared as dates, written zero-padded ---
 
     def _write(self, name, change):

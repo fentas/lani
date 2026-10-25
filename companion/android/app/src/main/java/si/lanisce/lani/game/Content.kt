@@ -22,7 +22,8 @@ internal object Content {
      * ear, never a whole dictation ([ListeningMix]).
      */
     fun pick(res: Res, n: Int, pool: ContentPool, random: Random, cards: List<ReviewCard>? = null, timed: Boolean = false): Picked {
-        // Whole deck in pick order: some builders skip cards they can't use.
+        // Whole deck in pick order: some builders skip cards they can't use. A card the reviews only flip (a grammar card,
+        // a list: ReviewPlanner.quizzes) is a flashcard here too
         val deck = pickCards(cards ?: pool.cards, (cards ?: pool.cards).size, random)
         val modules = pool.moduleExercises
             .filter { (_, ex) -> ex !is Exercise.Unsupported && GameEngine.resourceOf(ex) == res }
@@ -71,6 +72,8 @@ internal object Content {
         val slots = ListeningMix.typed(n)
         val written = ArrayList<Item>()
         val heard = ArrayList<Item>()
+        // a list isn't heard (its forms are no one phrase to hear): a flip, only where the run would be short without it
+        val flips = deck.filter(ReviewPlanner::list).mapNotNull { flip(it, Res.WOOD) }
         for (m in modules) {
             val d = m.exercise as? Exercise.Dictation
             when {
@@ -89,12 +92,13 @@ internal object Content {
             if (l != null) heard += Item(l, Res.WOOD, card.id)
             else if (written.size < slots) write(card, all, random, timed, chipsFirst(written))?.let { written += Item(it, Res.WOOD, card.id) }
         }
-        return ListeningMix.arrange(n, written.shuffled(random), heard.shuffled(random))
+        val run = ListeningMix.arrange(n, written.shuffled(random), heard.shuffled(random))
+        return run + flips.take(n - run.size)
     }
 
     /** [card] written after hearing it: its short phrase's dictation, or against the clock ([timed]) by ear. */
     private fun write(card: ReviewCard, all: List<ReviewCard>, random: Random, timed: Boolean, chipsFirst: Boolean): Exercise? {
-        if (card.kind != "vocabulary") return null
+        if (!ReviewPlanner.quizzes(card)) return null
         val accept = ReviewPlanner.accepted(card.front)
         val said = accept.firstOrNull() ?: return null
         return if (timed) byEar(said, accept, "= ${card.back}", all, random, chipsFirst)
@@ -111,7 +115,8 @@ internal object Content {
      */
     private fun byEar(said: String, accept: List<String>, explain: String?, all: List<ReviewCard>, random: Random, chipsFirst: Boolean): Exercise? {
         fun chips(): Exercise? {
-            val extra = all.flatMap { ReviewPlanner.accepted(it.front).firstOrNull()?.split(' ').orEmpty() }.shuffled(random).take(4)
+            // no list's words among the extra chips: its " · " is no word
+            val extra = all.filterNot(ReviewPlanner::list).flatMap { ReviewPlanner.accepted(it.front).firstOrNull()?.split(' ').orEmpty() }.shuffled(random).take(4)
             return ListeningMix.chips(said, accept, extra, bi("content.hearOrder"), explain, extras = 1 + random.nextInt(2))
         }
         fun gap(): Exercise? = ListeningMix.gapWords(said).takeIf { it.isNotEmpty() }?.let { ListeningMix.gap(said, it.random(random), bi("content.hearGap"), explain) }
@@ -122,9 +127,9 @@ internal object Content {
         deck.asSequence().mapNotNull { card ->
             val accept = ReviewPlanner.accepted(card.front)
             val words = accept.firstOrNull()?.split(' ').orEmpty()
-            if (card.kind == "vocabulary" && words.size >= 2) {
+            if (ReviewPlanner.quizzes(card) && words.size >= 2) {
                 val lower = words.map { it.lowercase() }.toSet()
-                val extra = all.filter { it.id != card.id }
+                val extra = all.filter { it.id != card.id && !ReviewPlanner.list(it) }
                     .flatMap { ReviewPlanner.accepted(it.front).firstOrNull()?.split(' ').orEmpty() }
                     .filter { it.lowercase() !in lower }.distinct().shuffled(random).take(3)
                 Item(
@@ -141,22 +146,37 @@ internal object Content {
         }.toList()
 
     // Prompts and options show a card's meaning without its notes, as reviews do (ReviewPlanner.meaning): a note may name
-    // the answer ("yes (da = written, ja = spoken)"). The explanation after the answer keeps the whole back.
+    // the answer ("yes (da = written, ja = spoken)"). The explanation after the answer keeps the whole back. A card the
+    // reviews don't quiz (a grammar card, a list: ReviewPlanner.quizzes) is a flashcard here as there, never typed; a rule
+    // or a placeholder, no phrase to type, is left out as ever.
     private fun translate(card: ReviewCard, res: Res): Item? {
-        val accept = ReviewPlanner.accepted(card.front).ifEmpty { return null }
+        if (!ReviewPlanner.quizzes(card)) return flip(card, res)
+        val accept = ReviewPlanner.accepted(card.front)
         return Item(Exercise.Translate(ReviewPlanner.meaning(card.back), accept, instruction = bi("common.writeSlovene")), res, card.id)
     }
 
+    /**
+     * [card] recalled on a flashcard, as the reviews ask what they don't quiz (read aloud as there: a word's); null for a
+     * rule or a placeholder ("Nemčija → iz Nemčije", "Imenujem se ..."), which a run leaves out as ever.
+     */
+    private fun flip(card: ReviewCard, res: Res): Item? {
+        if (ReviewPlanner.accepted(card.front).isEmpty()) return null
+        return Item(Exercise.Flashcard(card.front, card.back, speak = card.kind == "vocabulary"), res, card.id)
+    }
+
+    /** [card] heard, its meaning picked among the others' (a pick, never typed); not a list, whose forms are no one phrase. */
     private fun listen(card: ReviewCard, all: List<ReviewCard>, random: Random): Exercise? {
+        if (ReviewPlanner.list(card)) return null
         val right = ReviewPlanner.meaning(card.back)
-        val wrong = all.filter { it.id != card.id }.map { ReviewPlanner.meaning(it.back) }.filter { it != right }.distinct()
+        // no list's meaning among the options (the reviews keep lists out of the distractors too)
+        val wrong = all.filter { it.id != card.id && !ReviewPlanner.list(it) }.map { ReviewPlanner.meaning(it.back) }.filter { it != right }.distinct()
         if (wrong.isEmpty()) return null
         val opts = (wrong.shuffled(random).take(3) + right).shuffled(random)
         return Exercise.Choice("", opts, opts.indexOf(right), audio = card.front, instruction = LISTEN_SL)
     }
 
     private fun dictation(card: ReviewCard): Exercise? {
-        if (card.kind != "vocabulary") return null
+        if (!ReviewPlanner.quizzes(card)) return null
         val said = ReviewPlanner.accepted(card.front).firstOrNull() ?: return null
         return Exercise.Dictation(said, listOf(said), explain = "= ${card.back}", instruction = bi("common.writeWhatHear"))
     }

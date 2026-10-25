@@ -59,8 +59,10 @@ class Refused(Exception):
 
 PAREN = re.compile(r"\s*\(([^)]*)\)")
 SPACES = re.compile(r"\s+")
-# Grading.normalize: lowercase, no punctuation, one kind of apostrophe, single spaces.
+# Grading.normalize: lowercase, no punctuation, a list's middle dot a space, one kind of apostrophe, single spaces.
 PUNCTUATION = re.compile(r"[.,!?;:¡¿\"„“”«»]")
+SEPARATOR = re.compile(r"·")
+LIST = " · "  # ReviewPlanner.list: a front or a meaning of parts between " · "
 APOSTROPHE = re.compile(r"[’ʼ`´]")
 MAX_ANSWER = 40  # ReviewPlanner.accepted drops longer alternatives
 
@@ -100,7 +102,7 @@ def with_note(back: str, note: str) -> str:
 
 
 def normalize(s: str) -> str:
-    return SPACES.sub(" ", PUNCTUATION.sub("", APOSTROPHE.sub("'", s.lower()))).strip()
+    return SPACES.sub(" ", SEPARATOR.sub(" ", PUNCTUATION.sub("", APOSTROPHE.sub("'", s.lower())))).strip()
 
 
 def fold(s: str) -> str:
@@ -128,7 +130,8 @@ def variants(item: dict) -> list:
     if item.get("type") == FORMS:
         return ["forms_card", "forms_card_type"] if forms_of(item) else []
     acc = accepted(item["content"])
-    if item.get("type", "vocabulary") != "vocabulary" or not acc:
+    # ReviewPlanner.quizzes: a word with a front to type, not a list of forms ("midva sva · vidva sta")
+    if item.get("type", "vocabulary") != "vocabulary" or not acc or LIST in item["content"] or LIST in meaning(item["answer"]):
         return ["flip"]
     out = ["flip", "recognize", "listen", "pick_slovene", "type", "dictation", "speak"]
     if len(acc[0].split(" ")) >= 2:

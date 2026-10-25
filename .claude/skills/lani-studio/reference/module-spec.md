@@ -597,7 +597,7 @@ A text with a name written out still works, it just says that name to everyone.
 New types need two changes that ship together: the validator (`companion/bridge/src/spec.ts`) and a renderer in the app (`ExerciseView` in `companion/android/.../ui/PlayerScreen.kt`). An app that is older than the bridge shows unknown types as a "new exercise type, update the app" card and skips them. So publish a new type only after the app release that renders it.
 
 ## App matching rules (for `match`)
-- case-insensitive; trims and collapses whitespace; ignores punctuation (`.,!?;:` and quotes)
+- case-insensitive; trims and collapses whitespace; ignores punctuation (`.,!?;:` and quotes); a list's middle dot (`·`) is a separator like a comma
 - an answer that equals an accepted one except for diacritics (`c`↔`č`, `s`↔`š`, `z`↔`ž`) is **almost**: shown as a near-miss with the correct spelling
 - in another target language, its own table decides (`app/src/main/resources/grading/<code>.json`): Italian's accents (`e`↔`è`, `perche`/`perchè`/`perche'`↔`perché`, `citta`↔`città`) and its apostrophes (`un amica`↔`un'amica`, `la acqua`/`l acqua`↔`l'acqua`) are **almost**, with an accent or apostrophe hint; German's `ae`/`oe`/`ue`/`ss` for `ä`/`ö`/`ü`/`ß` are **almost** (umlaut hint); English contractions are the same answer (`don't` = `do not`, `it's` = `it is`)
 - **one typo in a word's stem** (a missing, extra, wrong or swapped letter; word of 4+ letters) is **almost**: `zivo` → `živjo`, `hvlaa` → `hvala`; a word of 9+ letters forgives two (`Burgermaister` → `Bürgermeister`)

@@ -29,6 +29,11 @@ object Grading {
     data class Result(val verdict: Verdict, val hint: Hint, val expected: String, val marks: List<IntRange>)
 
     private val punctuation = Regex("[.,!?;:¡¿\"„“”«»]")
+    /**
+     * The middle dot between the parts of a list ("midva sva · vidva sta"), a separator like a comma: read as a space,
+     * so the parts typed with commas, spaces or the dots all match, and two words around a dot never run together.
+     */
+    private val separator = Regex("·")
     private val space = Regex("\\s+")
     /** Typographic apostrophes (and the accents typed for one: perche`) as '. */
     private val apostrophe = Regex("[’ʼ`´]")
@@ -47,9 +52,10 @@ object Grading {
 
     private fun target(): Lang = L10n.pair.target
 
-    /** Lowercase (in [lang]'s locale), no punctuation, one kind of apostrophe, single spaces. */
+    /** Lowercase (in [lang]'s locale), no punctuation (a list's middle dot a space), one kind of apostrophe, single spaces. */
     fun normalize(s: String, lang: Lang = target()): String =
-        s.lowercase(Spelling.of(lang).locale).replace(apostrophe, "'").replace(punctuation, "").replace(space, " ").trim()
+        s.lowercase(Spelling.of(lang).locale).replace(apostrophe, "'").replace(punctuation, "").replace(separator, " ")
+            .replace(space, " ").trim()
 
     /** [normalize]d, with the language's other spellings of the same answer written one way ("don't" → "do not"). */
     fun canonical(s: String, lang: Lang = target()): String = rewrite(normalize(s, lang), Spelling.of(lang).same)
@@ -117,7 +123,8 @@ object Grading {
      * words and at most two words differ. Otherwise the whole answer is different: no highlights.
      */
     private fun marks(answer: String, expected: String, lang: Lang): List<IntRange> {
-        val expWords = Regex("\\S+").findAll(expected).toList()
+        // a list's middle dots stand between its words, they are none ([separator])
+        val expWords = Regex("[^\\s·]+").findAll(expected).toList()
         val ansWords = normalize(answer, lang).split(' ')
         if (expWords.size != ansWords.size) return emptyList()
         val out = mutableListOf<IntRange>()

@@ -73,6 +73,22 @@ class GradingTest {
     @Test fun `closest accepted answer is used for feedback`() =
         assertEquals("Kako si?", check("kako sj", "Kako ste?", "Kako si?").expected)
 
+    @Test fun `a list's middle dot is a separator like a comma`() {
+        val forms = "midva sva · vidva sta · onadva sta"
+        // typed with commas, spaces only or the dots: the same answer; the dots never glue two words together
+        for (typed in listOf("midva sva, vidva sta, onadva sta", "midva sva vidva sta onadva sta", "Midva sva · vidva sta · onadva sta.", "midva sva·vidva sta·onadva sta")) {
+            assertEquals(typed, Verdict.CORRECT, check(typed, forms).verdict)
+        }
+        assertEquals(Verdict.CORRECT, check("midva sva · vidva sta", "midva sva, vidva sta").verdict)
+        assertEquals("midva sva vidva sta", Grading.normalize("midva sva·vidva sta"))
+        // one part short is still wrong, a slip in a part's stem still a typo, and the marks point into the list
+        assertEquals(Verdict.WRONG, check("sva", forms).verdict)
+        val r = check("midva sva, vidva sta, onadvo sta", forms)
+        assertEquals(Verdict.WRONG, r.verdict)
+        assertEquals(Hint.ENDING, r.hint)
+        assertEquals(listOf(forms.indexOf("onadva") + 5..forms.indexOf("onadva") + 5), r.marks)
+    }
+
     @Test fun `a picked option is right, almost when it's one of the exercise's near misses, else wrong`() {
         assertEquals(Verdict.CORRECT, Grading.picked(0, answer = 0, almost = listOf(1)))
         assertEquals(Verdict.ALMOST, Grading.picked(1, answer = 0, almost = listOf(1)))

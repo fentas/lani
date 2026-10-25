@@ -68,6 +68,21 @@ object ReviewPlanner {
     fun meaning(back: String): String = back.replace(Regex("""\s*\([^)]*\)"""), "").trim().ifEmpty { back }
 
     /**
+     * A list of forms, each with its own meaning ("midva sva · vidva sta · onadva sta" = "we two are · you two are · they
+     * two are"): its front or its meaning (the back without its notes) is parts between " · ". Not a word to type or pick.
+     */
+    fun list(card: ReviewCard): Boolean = LIST in card.front || LIST in meaning(card.back)
+
+    private const val LIST = " · "
+
+    /**
+     * Whether the reviews quiz [card] (pick, hear, type, build or say it): a word, its front a phrase that can be typed
+     * ([accepted]), not a [list]. Everything else, a grammar card, a rule, a placeholder, a list, is recalled on a
+     * flashcard; a village challenge never types or builds one either (game/Content).
+     */
+    fun quizzes(card: ReviewCard): Boolean = card.kind == "vocabulary" && accepted(card.front).isNotEmpty() && !list(card)
+
+    /**
      * The SM-2 quality of an answer. A wrong form ([Variant.form]) leaves the word as it was known, 3: its meaning wasn't
      * asked, and the mistake counts on the form's grammar rule instead (companion/GAME.md, "A word's forms").
      */
@@ -130,13 +145,13 @@ object ReviewPlanner {
 
     private fun plainTask(card: ReviewCard, pool: List<ReviewCard>, canSpeak: Boolean, random: Random, canRecognize: Boolean): Task {
         val accept = accepted(card.front)
-        // Distractors must be real words too: no rules ("dober/dobra/dobro …") or placeholders.
+        // Distractors must be real words too: no rules ("dober/dobra/dobro …"), placeholders or lists.
         val others = pool.filter {
-            it.id != card.id && it.back != card.back && it.front != card.front && accepted(it.front).isNotEmpty()
+            it.id != card.id && it.back != card.back && it.front != card.front && accepted(it.front).isNotEmpty() && !list(it)
         }
-        // Rules and placeholders ("dober/dobra/dobro …", "Imenujem se ...") aren't words: recall them on a
-        // flashcard instead of making a quiz out of them.
-        val word = card.kind == "vocabulary" && accept.isNotEmpty()
+        // Rules, placeholders and lists ("dober/dobra/dobro …", "Imenujem se ...", "midva sva · vidva sta") aren't
+        // words: recall them on a flashcard instead of making a quiz out of them ([quizzes]).
+        val word = quizzes(card)
         val allowed = if (!word) mapOf(Variant.FLIP to 1) else weights.getValue(familiarity(card)).filterKeys { v ->
             when (v) {
                 Variant.FLIP -> true

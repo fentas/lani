@@ -59,7 +59,7 @@ A developer's edit of curated files: packs, scenes, stories, villagers and scena
 **Review cards** (`data/ReviewPlanner.kt`; `card.py show` says all of this per card):
 
 - The front (`content`) is the answer; the back (`answer`) is the meaning, the prompt.
-- Front: ` / ` (with spaces) separates alternatives, each accepted alone. `(…)` is optional: `hvala (lepa)` takes `hvala` and `hvala lepa`. `→ ♂ ♀ …` or `...` make a rule or placeholder: a flashcard only, self-rated. Alternatives over 40 letters are dropped.
+- Front: ` / ` (with spaces) separates alternatives, each accepted alone. `(…)` is optional: `hvala (lepa)` takes `hvala` and `hvala lepa`. `→ ♂ ♀ …` or `...` make a rule or placeholder: a flashcard only, self-rated. So does a list, a front or a meaning of parts between ` · ` (`midva sva · vidva sta`), and a card that isn't `vocabulary` (a grammar card): the reviews and the village's challenges flip them, never type them. Alternatives over 40 letters are dropped. Typed, ` · ` counts like a comma.
 - Back: `(…)` is a note. It shows on the flashcard only, never in a prompt or option (reviews and village challenges ask with the meaning alone).
 - Variants (`source.variant`): `flip` (self-rated), `recognize` (front → pick the meaning), `listen`, `pick_slovene` (meaning → pick the front, shown as written), `tiles` (build the first alternative), `type` (any alternative), `dictation` (only the first alternative: it is what was spoken), `speak`.
 - Each answer is one alternative. A back `yes / no` with a front `ja / ne` asks for both meanings and takes one word: nothing is right. Two cards with one meaning (`yes` on two cards) mark the other card's word wrong. `card.py overlaps` finds both.
