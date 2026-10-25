@@ -45,7 +45,9 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        the chat event's image (bridge.log), deleted from its long press (on the node too); then 📷 → the
                        camera (allowed when asked), the virtual scene taken and sent alone;
                        "typed-turn" a dialog's turn typed with the keyboard up (QA's hook "turns:type"), the
-                       keyboard the answer's (its language, no suggestion strip); "ispy" a game of «Vidim, vidim» by
+                       keyboard the answer's (its language, no suggestion strip); "player-voice" the learner's voice in
+                       Babica's soup: a choice tapped said in it before her reply (tag Speaker, player-voice.log), its
+                       line's 🔊, a turn by the 🎤 (QA's hook "mic:right") not said again, a turn typed right said; "ispy" a game of «Vidim, vidim» by
                        the fire (QA's hook "ispy:ob-ognju/stump"): a wrong thing tapped, the right one, the child's
                        lines in turn (tags Speaker and Voice: each clip played to its end before the next line,
                        ispy-speech.log), a second game left mid-line (its clip stopped);
@@ -220,6 +222,7 @@ import shutil
 import subprocess
 import sys
 import time
+import unicodedata
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -2645,6 +2648,174 @@ def typed_in_dialog():
     assert tap("Zapri · Close", 3), "close the dialog"
     assert tap("‹ Vas · Village", 5), "back from the scene"
     plain_village()  # the village (its first-time intro skipped, when this step runs alone on a fresh install)
+
+
+PLAYER_DIALOG = ("ob-ognju", "juha", "juha-sol")  # Babica's soup, the salt: "Lahko pomagam?", then "Še malo soli"
+LISTEN = "Poslušaj · Listen"  # a line's 🔊 (common.listen)
+SPEAK = "Govori · Speak"  # a turn's 🎤 (components.speak)
+
+
+def norm(text: str) -> str:
+    """[text] as the app's log writes it (data/Voice.normalize): small letters, words only."""
+    return re.sub(r"\s+", " ", re.sub(r"[^\w\s]", "", unicodedata.normalize("NFC", text).lower())).strip()
+
+
+def said_in_log() -> list[tuple[str, str]]:
+    """What the app said and heard since the log was cleared (tag Speaker), in order: ("said", text, how) and ("heard",
+    text, the rest of the line)."""
+    out = []
+    for line in adb("logcat", "-d", "-v", "raw", "-s", "Speaker:I", check=False).splitlines():
+        if m := re.match(r"said «(.*?)»: (.*)", line):
+            out.append(("said", m.group(1), m.group(2)))
+        elif m := re.match(r"heard «(.*?)» after (.*)", line):
+            out.append(("heard", m.group(1), m.group(2)))
+    return out
+
+
+def wait_said(text: str, kind="heard", timeout=25.0) -> list:
+    """Waits until the log has [kind] ("said", "heard") of [text]: the log then."""
+    end = time.time() + timeout * slow()
+    while time.time() < end:
+        log = said_in_log()
+        if any(k == kind and t == norm(text) for k, t, _ in log):
+            return log
+        time.sleep(0.5)
+    return said_in_log()
+
+
+def in_turn(log: list, mine: str, reply: str) -> str:
+    """Why [log] doesn't have the learner's line [mine] said and heard before the [reply] is said; "" when it has."""
+    m, r = norm(mine), norm(reply)
+    said = next((i for i, (k, t, _) in enumerate(log) if k == "said" and t == m), None)
+    heard = next((i for i, (k, t, _) in enumerate(log) if k == "heard" and t == m), None)
+    theirs = next((i for i, (k, t, _) in enumerate(log) if k == "said" and t == r), None)
+    if said is None:
+        return f"the learner's line «{m}» wasn't said"
+    if heard is None:
+        return f"the learner's line «{m}» wasn't heard to its end"
+    if theirs is None:
+        return f"the reply «{r}» wasn't said"
+    return "" if said < heard < theirs else f"the reply «{r}» began before the learner's line «{m}» was heard (log order {said}, {heard}, {theirs})"
+
+
+def at_turn(timeout=12.0) -> bool:
+    """Plays the open dialog on to the learner's turn (chosen, typed or an echo); False when none came."""
+    end = time.time() + timeout * slow()
+    while time.time() < end:
+        labels = [t for t, _ in nodes()]
+        if any(t.startswith("Tvoj odgovor") or TYPED_TURN in t or "Poslušaj in ponovi" in t for t in labels):
+            time.sleep(1.2)  # the person's line types in, the choices stop moving
+            return True
+        if not tap("Naprej · Next", 2):
+            time.sleep(0.8)
+    return False
+
+
+def player_voice():
+    """The learner's voice (companion/SCENES.md, "The learner's voice"): in Babica's soup by the fire (QA's hook, the salt's
+    variant), a choice tapped is said in the learner's voice ("said «…»: node clip (player)" or the clip on the phone; the
+    debug build's log, tag Speaker), heard to its end before her reply starts; its line in the conversation has its 🔊
+    (a screenshot); the next turn answered by the 🎤 (QA's hook "mic:right": the emulator's microphone hears nothing) is
+    not said again, only her reply; then the dialog again with its turns typed (QA's hook "turns:type"): the turn typed
+    right is said, then her reply."""
+    try:
+        return voice_in_dialog()
+    finally:
+        qa_hook("mic:")
+        qa_hook("turns:")
+        qa_hook("happening:")
+
+
+def voice_in_dialog():
+    """[player_voice], its hooks asked."""
+    sid, hid, did = PLAYER_DIALOG
+    try:
+        scene = next(s for s in api("/scenes") if isinstance(s, dict) and s.get("id") == sid)
+    except (OSError, RuntimeError, ValueError, StopIteration) as e:
+        return f"the dev bridge's {sid}: {e}"
+    dialog = next((d for d in scene.get("dialogs", []) if d.get("id") == did), None)
+    if dialog is None:
+        return f"no dialog {did} in {sid}"
+    turns = [l for l in dialog["lines"] if l.get("choices")]
+    replies = {c["sl"]: c["reply"]["sl"] for l in turns for c in l["choices"] if c.get("reply")}
+    first = next(c["sl"] for c in turns[0]["choices"] if c.get("ok"))
+    second = next(c["sl"] for c in turns[1]["choices"] if c.get("ok"))
+    log_file = OUT / "player-voice.log"
+    lines = []
+
+    def open_it():
+        qa_hook(f"happening:{sid}/{hid}/{did}", f"scene:{sid}@{sid}/{hid}")
+        assert wait_for("‹ Vas · Village", 10), "the fire's scene"
+        assert wait_for("Zapri · Close", 8), f"the dialog {did} (QA's hook)"
+        assert at_turn(), "the learner's first turn"
+
+    # a choice tapped: said in the learner's voice, heard to its end, then Babica's reply
+    open_it()
+    if any(TYPED_TURN in t for t, _ in nodes()):
+        return "the first turn came typed (the dev learner has its rule secure): the tap isn't checked"
+    adb("logcat", "-c")
+    assert answer_right({first}), f"the right choice «{first}» on screen"
+    log = wait_said(replies[first], "said")
+    lines += [f"tapped «{first}»:"] + [f"  {k} «{t}» {how}" for k, t, how in log]
+    why = in_turn(log, first, replies[first])
+    assert not why, f"a choice tapped: {why}; the log: {log[-6:]}"
+    how = next(h for k, t, h in log if k == "said" and t == norm(first))
+    print(f"    tapped «{first}»: said ({how}), heard, then «{replies[first]}»")
+    assert how.startswith(("node clip (player)", "clip on the phone", "offline voice", "tts", "another")), f"how the learner's line was said: {how}"
+    time.sleep(1)
+    # its 🔊 in the conversation, on the learner's line's row
+    bs = list(boxes())
+    mine = box_of(bs, first)
+    assert mine is not None, f"the learner's line «{first}» in the conversation"
+    listen = [b for t, b in bs if t == LISTEN and b[1] < mine[3] and b[3] > mine[1] and b[0] >= mine[0] - 40]
+    shot("player-voice-line")
+    assert listen, f"a 🔊 on the learner's line «{first}» (its row {mine}): {[b for t, b in bs if t == LISTEN]}"
+
+    # the next turn said into the 🎤: not said again, only the reply
+    qa_hook("mic:right")
+    assert at_turn(), "the learner's second turn"
+    adb("logcat", "-c")
+    assert tap(SPEAK, 4), "the 🎤 at the turn (QA's hook shows it)"
+    log = wait_said(replies[second], "said")
+    lines += [f"said into the 🎤 «{second}»:"] + [f"  {k} «{t}» {how}" for k, t, how in log]
+    assert any(k == "said" and t == norm(replies[second]) for k, t, _ in log), f"the reply «{replies[second]}» after the 🎤: {log[-6:]}"
+    assert not any(k == "said" and t == norm(second) for k, t, _ in log), f"the line said into the 🎤 was said again: {log}"
+    print(f"    «{second}» by the 🎤: not said again, «{replies[second]}» said")
+    shot("player-voice-mic")
+    qa_hook("mic:")
+    tap("Zapri · Close", 3)
+    time.sleep(1)
+    if find("‹ Vas · Village") is not None:
+        tap("‹ Vas · Village", 4)
+    plain_village()
+
+    # a turn typed right: said, then the reply
+    qa_hook("turns:type")
+    open_it()
+    if not any(TYPED_TURN in t for t, _ in nodes()):
+        return "the first turn wasn't typed (QA's hook turns:type): the typed line isn't checked"
+    wrong = next(c["sl"] for c in turns[0]["choices"] if not c.get("ok"))
+    word = next(a for a, b in zip(first.split(), wrong.split()) if a != b).strip("?!.,")
+    field = wait_for(ANSWER_FIELD, 5)
+    assert field is not None, "the answer field"
+    tap_at(field)
+    time.sleep(1)
+    type_text(word)
+    adb("logcat", "-c")
+    assert tap(CHECK, 4), "Preveri · Check"
+    log = wait_said(replies[first], "said")
+    lines += [f"typed «{word}»:"] + [f"  {k} «{t}» {how}" for k, t, how in log]
+    why = in_turn(log, first, replies[first])
+    assert not why, f"a turn typed right: {why}; the log: {log[-6:]}"
+    print(f"    typed «{word}»: «{first}» said, heard, then «{replies[first]}»")
+    shot("player-voice-typed")
+    log_file.write_text("\n".join(lines) + "\n")
+    tap("Zapri · Close", 3)
+    time.sleep(1)
+    if find("‹ Vas · Village") is not None:
+        tap("‹ Vas · Village", 4)
+    plain_village()
+    return None
 
 
 def forest():
@@ -8298,6 +8469,7 @@ def plan():
         ("fire-peek", fire_peek, v, False, ""),
         ("dialog-words", dialog_words, v, False, ""),
         ("typed-turn", typed_turn, v, False, ""),
+        ("player-voice", player_voice, v, False, ""),
         ("ispy", ispy, v, False, ""),
         ("scene-people", scene_people, v, False, ""),
         ("your-words", your_words, v, False, ""),
