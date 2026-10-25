@@ -150,6 +150,20 @@ object Grading {
         return d[a.length][b.length]
     }
 
+    /**
+     * The options [selected] in a select-all exercise whose right ones are [answers]: all of them and none else is right,
+     * one missed or one too many (not both more) almost, anything else wrong.
+     */
+    fun multi(selected: Collection<Int>, answers: Collection<Int>): Verdict {
+        val hits = selected.count { it in answers }
+        val extra = selected.size - hits
+        return when {
+            hits == answers.size && extra == 0 -> Verdict.CORRECT
+            hits >= answers.size - 1 && extra <= 1 -> Verdict.ALMOST
+            else -> Verdict.WRONG
+        }
+    }
+
     fun reorder(order: List<String>, solutions: List<List<String>>, lang: Lang = target()): Boolean {
         val a = order.map { normalize(it, lang) }
         return solutions.any { sol -> sol.map { normalize(it, lang) } == a }

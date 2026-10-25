@@ -100,6 +100,7 @@ Always graded by Claude via a `kind="answer"` channel event.
 { "type": "multi", "prompt": "Which greetings are polite (vi)?", "options": ["Dober dan", "Živjo", "Dobro jutro", "Oj"], "answers": [0, 2], "explain": "živjo and oj are for friends." }
 ```
 3-8 options, `answers` lists every correct index. All right and none wrong = correct. One miss or one extra = almost.
+The app shows a checkbox on each option and the number picked on its Check button ("Preveri · Check (2)").
 
 ### `scenario` — a situation to respond to
 ```json

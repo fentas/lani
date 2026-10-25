@@ -886,18 +886,16 @@ private fun MultiEx(ex: Exercise.Multi, locked: Boolean, done: (Outcome) -> Unit
         }
     }
     Spacer(Modifier.height(16.dp))
-    if (!locked) BigButton(bi("playerScreen.check"), enabled = selected.isNotEmpty(), onClick = {
+    // how many are ticked, on the button itself: a multi-select reads as one before anything is picked
+    if (!locked) BigButton(multiCheckLabel(selected.size), enabled = selected.isNotEmpty(), onClick = {
         checked = true
-        val hits = selected.count { it in ex.answers }
-        val wrongPicks = selected.size - hits
-        val verdict = when {
-            hits == ex.answers.size && wrongPicks == 0 -> Verdict.CORRECT
-            hits >= ex.answers.size - 1 && wrongPicks <= 1 -> Verdict.ALMOST
-            else -> Verdict.WRONG
-        }
+        val verdict = Grading.multi(selected, ex.answers)
         done(Outcome(verdict, selected.sorted().joinToString(", ") { ex.options[it] }, ex.answers.joinToString(", ") { ex.options[it] }, ex.explain))
     })
 }
+
+/** A select-all exercise's Check button with [n] options ticked: "Preveri · Check (2)"; "0 izbranih · 0 selected" before any. */
+internal fun multiCheckLabel(n: Int): String = if (n <= 0) bi("playerScreen.noneSelected") else "${bi("playerScreen.check")} ($n)"
 
 @Composable
 private fun ScenarioEx(vm: AppViewModel, ex: Exercise.Scenario, locked: Boolean, done: (Outcome) -> Unit) {

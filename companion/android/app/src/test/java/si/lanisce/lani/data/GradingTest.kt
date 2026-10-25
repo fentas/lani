@@ -73,6 +73,16 @@ class GradingTest {
     @Test fun `closest accepted answer is used for feedback`() =
         assertEquals("Kako si?", check("kako sj", "Kako ste?", "Kako si?").expected)
 
+    @Test fun `select all, every right one and none else is right, one off almost`() {
+        val answers = listOf(0, 2)
+        assertEquals(Verdict.CORRECT, Grading.multi(listOf(2, 0), answers))
+        assertEquals(Verdict.ALMOST, Grading.multi(listOf(0), answers)) // one missed: clitic-se-basics #1 picked as a single choice
+        assertEquals(Verdict.ALMOST, Grading.multi(listOf(0, 1, 2), answers)) // one too many
+        assertEquals(Verdict.ALMOST, Grading.multi(listOf(0, 1), answers)) // one missed, one too many
+        assertEquals(Verdict.WRONG, Grading.multi(listOf(1, 3), answers))
+        assertEquals(Verdict.WRONG, Grading.multi(emptyList(), answers))
+    }
+
     @Test fun `reorder compares case-insensitively`() {
         val sols = listOf(listOf("Tudi", "jaz", "se", "imenujem", "Jan."), listOf("Jaz", "se", "tudi", "imenujem", "Jan."))
         assertTrue(Grading.reorder(listOf("jaz", "se", "Tudi", "imenujem", "Jan."), sols))
