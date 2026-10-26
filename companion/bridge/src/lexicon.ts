@@ -382,6 +382,26 @@ export class Lexicon {
     return { ...r, fallback: true }
   }
 
+  /** The forms and lemmas of the tutor's glosses, made again when they change ([has]). */
+  private glossKeys: { of: TutorGloss[]; keys: Set<string> } | null = null
+
+  /**
+   * Whether the dictionary has a normalized form at all, as it is now: Wiktionary's, the supplement's, or a form or
+   * lemma of the tutor's glosses (in any language). What a suggestion ("did you mean …?") is checked against: the
+   * tutor's file is looked at once, not per form.
+   */
+  knows(): (form: string) => boolean {
+    this.load()
+    const glosses = this.glosses()
+    if (this.glossKeys?.of !== glosses) {
+      const lang = this.o.language
+      this.glossKeys = { of: glosses, keys: new Set(glosses.flatMap(g => [g.key, normalizeForm(g.lemma, lang)])) }
+    }
+    const { file, extra } = this
+    const tutor = this.glossKeys.keys
+    return form => (!!file && Object.hasOwn(file.forms, form)) || extra.has(form) || tutor.has(form)
+  }
+
   /** The tutor's glosses, newest last. */
   glosses(): TutorGloss[] {
     const path = this.o.tutorFile
@@ -510,7 +530,17 @@ export type Aspect = 'pf' | 'impf' | 'both'
  */
 export type Partner = { lemma: string; aspect: Aspect; kind: 'position' | 'aspect'; gloss: string[] }
 
-export type LookupResult = { word: string; entries: LookupEntry[]; attribution: string | null }
+/**
+ * A word the dictionary has that a form it doesn't know may be ("Did you mean …?"): the [word] to look up instead, its
+ * lemma, part of speech and meaning, as its own lookup's first entry has them.
+ */
+export type Suggestion = { word: string; lemma: string; pos: string; gloss: string[]; gloss_lang: string }
+
+/**
+ * [suggestions]: only when there are no entries, the words the form may be instead (a typo, a letter without its
+ * accent, another ending of a word the dictionary has: [suggest]).
+ */
+export type LookupResult = { word: string; entries: LookupEntry[]; attribution: string | null; suggestions?: Suggestion[] }
 
 /** Someone a name in a dialog can be: a villager, or the learner. */
 export type Person = { name: string; given: string; gloss: string; emoji: string | null }
@@ -524,6 +554,8 @@ export type LookupSources = {
   items: Record<string, SrItem>
   /** A verb's aspect and partner (forms.ts); none for a word the forms book doesn't pair. */
   partners?: (lemma: string) => { aspect: Aspect; partner: Partner } | undefined
+  /** No suggestions when nothing is found (a suggestion's own lookup). */
+  noSuggest?: boolean
 }
 
 const CASES = ['nominative', 'genitive', 'dative', 'accusative', 'locative', 'instrumental', 'vocative']
@@ -827,7 +859,118 @@ export function lookup(word: string, at: { line?: string; en?: string }, s: Look
   // an English meaning for a learner who reads another language: the app says it is English
   if (s.base !== 'en') for (const e of ranked) if (e.gloss_lang === 'en') e.fallback = true
   markPartners(ranked, en, s.partners, lang)
-  return { word: raw, entries: ranked, attribution: ranked.some(e => attributed.has(e)) ? ATTRIBUTION : null }
+  // not found: the words it may be instead, before the app says the dictionary doesn't know it
+  const suggestions = ranked.length || s.noSuggest ? [] : suggest(form, s)
+  return { word: raw, entries: ranked, attribution: ranked.some(e => attributed.has(e)) ? ATTRIBUTION : null, ...(suggestions.length ? { suggestions } : {}) }
+}
+
+// --- did you mean … ---------------------------------------------------------------------------------------------
+
+/** The letters each language writes: what a suggestion's edits put in. Another language: a to z and the form's own. */
+const LETTERS: Record<string, string> = {
+  sl: 'abcčdefghijklmnoprsštuvzž',
+  it: 'abcdefghilmnopqrstuvzàèéìòù',
+  de: 'abcdefghijklmnopqrstuvwxyzäöüß',
+  en: 'abcdefghijklmnopqrstuvwxyz',
+}
+
+/** A letter typed without its accent, by language, and the letters it may stand for ("zlica": žlica). */
+const ACCENTS: Record<string, Record<string, string[]>> = {
+  sl: { c: ['č'], s: ['š'], z: ['ž'] },
+  it: { a: ['à'], e: ['è', 'é'], i: ['ì'], o: ['ò'], u: ['ù'] },
+  de: { a: ['ä'], o: ['ö'], u: ['ü'], s: ['ß'] },
+}
+
+/**
+ * The endings a form may have where the dictionary has another one of the same word ("vretenom": vreteno; the
+ * supplement lists only the forms the content uses), by language: the last 1-3 letters swapped for each.
+ */
+const ENDINGS: Record<string, string[]> = {
+  sl: ['', 'a', 'e', 'i', 'o', 'u', 'em', 'om', 'ih', 'ah', 'am', 'ami', 'ega', 'emu', 'im', 'ja', 'je', 'ji', 'jo', 'ju', 'ti', 'ec', 'ek'],
+  it: ['', 'o', 'a', 'e', 'i', 're', 'are', 'ere', 'ire'],
+  de: ['', 'e', 'en', 'er', 'es', 'n', 's', 'em', 'st', 't'],
+  en: ['', 's', 'es', 'ed', 'ing', 'e'],
+}
+
+/** At most this many suggestions, one per lemma. */
+const SUGGESTIONS = 3
+/** Accented letters tried together in a form at most this many ("cesnja": češnja, both). */
+const ACCENT_SPOTS = 6
+
+/**
+ * How sure a suggestion is: the form's letters with the accents a learner left out given back ("zlica": žlica, "cesnja":
+ * češnja), another ending of a word the dictionary has ("kozolcu": kozolca; the supplement lists only the forms the
+ * content uses), or a typo of a word's dictionary form (two letters swapped, one wrong, missing or too many past the
+ * first: "gozdk": gozd).
+ */
+export const Likely = { ACCENTS: 0, ENDING: 1, TYPO: 2 } as const
+export type Likely = (typeof Likely)[keyof typeof Likely]
+
+/**
+ * The forms the dictionary has that [form] (normalized, not found) may be, each with how sure ([Likely]), the surest
+ * first. Each is a form of the dictionary (Wiktionary's, the supplement's, the tutor's) or a pack word; none for a word
+ * shorter than 3 letters.
+ */
+export function suggestedForms(form: string, s: Pick<LookupSources, 'lexicon' | 'packs'>): { form: string; likely: Likely }[] {
+  const lang = s.lexicon.language
+  const letters = [...form]
+  if (letters.length < 3 || !/\p{L}/u.test(form)) return []
+  const packs = new Set(s.packs.flatMap(p => p.words.flatMap(w => [packKey(wordOf(p, w), lang), ...(w.plural ? [packKey(w.plural, lang)] : [])])))
+  const has = s.lexicon.knows()
+  const out = new Map<string, Likely>()
+  const add = (c: string, likely: Likely) => {
+    if (c !== form && !out.has(c) && (has(c) || packs.has(c))) out.set(c, likely)
+  }
+  // the accents a learner left out: every way of giving them back, at the first few spots
+  const accents = ACCENTS[lang] ?? {}
+  const spots = letters.flatMap((c, i) => (accents[c] ? [i] : [])).slice(0, ACCENT_SPOTS)
+  for (let mask = 1; mask < 1 << spots.length; mask++) {
+    let variants = [letters.slice()]
+    spots.forEach((at, k) => {
+      if (mask & (1 << k)) variants = variants.flatMap(v => accents[letters[at]].map(a => v.map((c, i) => (i === at ? a : c))))
+    })
+    for (const v of variants) add(v.join(''), Likely.ACCENTS)
+  }
+  // another ending of the same word: an ending of the language taken off (or none), another put on
+  const endings = ENDINGS[lang] ?? ENDINGS.en
+  for (const cut of endings) {
+    if (letters.length - [...cut].length < 3 || !form.endsWith(cut)) continue
+    const stem = form.slice(0, form.length - cut.length)
+    for (const end of endings) if (end !== cut) add(stem + end, Likely.ENDING)
+  }
+  // a typo, past the first letter: two letters swapped, one wrong, missing or too many
+  const typo = (v: string[]) => add(v.join(''), Likely.TYPO)
+  const alphabet = [...new Set([...(LETTERS[lang] ?? LETTERS.en), ...letters])].filter(c => /\p{L}/u.test(c))
+  for (let i = 1; i + 1 < letters.length; i++) if (letters[i] !== letters[i + 1]) typo([...letters.slice(0, i), letters[i + 1], letters[i], ...letters.slice(i + 2)])
+  for (let i = 1; i < letters.length; i++) for (const c of alphabet) if (c !== letters[i]) typo([...letters.slice(0, i), c, ...letters.slice(i + 1)])
+  for (let i = 1; i < letters.length; i++) typo([...letters.slice(0, i), ...letters.slice(i + 1)])
+  for (let i = 1; i <= letters.length; i++) for (const c of alphabet) typo([...letters.slice(0, i), c, ...letters.slice(i)])
+  return [...out].map(([f, likely]) => ({ form: f, likely })).sort((a, b) => a.likely - b.likely)
+}
+
+/**
+ * The suggestions for [form] (normalized, not found): the surest kind of [suggestedForms] there is, looked up, one per
+ * lemma, at most [SUGGESTIONS]. A typo's word must be a dictionary form (its lemma) or a pack word: an inflected form one
+ * letter off a rare word is more often another word ("vretenom" is not vremenom).
+ */
+function suggest(form: string, s: LookupSources): Suggestion[] {
+  const lang = s.lexicon.language
+  const out: Suggestion[] = []
+  const lemmas = new Set<string>()
+  let kind: Likely | undefined
+  for (const c of suggestedForms(form, s)) {
+    if (kind !== undefined && c.likely !== kind) break
+    const e = lookup(c.form, {}, { ...s, noSuggest: true }).entries[0]
+    if (!e) continue
+    if (c.likely === Likely.TYPO && e.source !== 'pack' && normalizeForm(e.lemma, lang) !== c.form) continue
+    const key = `${normalizeForm(e.lemma, lang)}|${e.pos}`
+    if (lemmas.has(key)) continue
+    lemmas.add(key)
+    kind = c.likely
+    out.push({ word: c.form, lemma: e.lemma, pos: e.pos, gloss: e.gloss.slice(0, 3), gloss_lang: e.gloss_lang })
+    if (out.length >= SUGGESTIONS) break
+  }
+  return out
 }
 
 /**
