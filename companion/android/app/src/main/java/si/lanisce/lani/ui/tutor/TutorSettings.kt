@@ -330,14 +330,19 @@ private fun OpenAICredential(live: LiveTutor, kept: () -> Unit) {
 /**
  * Gemini, direct: a key from Google AI Studio, checked with the model list (not a model call), and the learner's word
  * on its tier (the API doesn't tell; a 429 that names the free tier's quota does). On the free tier, what Google's terms
- * say of it, plainly (docs/plans/05-built/providers.md, "The free tier and privacy").
+ * say of it, plainly (docs/plans/05-built/providers.md, "The free tier and privacy"). Where Google allows only the paid
+ * API (the EEA, Switzerland, the UK: [LiveTutor.geminiPaidOnly]) there's no free-tier choice, and a line says why; a key
+ * marked free before is treated as paid, its privacy note kept.
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun GeminiCredential(live: LiveTutor, kept: () -> Unit) {
     val scope = rememberCoroutineScope()
     var key by remember { mutableStateOf("") }
-    var tier by remember(live.geminiTier) { mutableStateOf(live.geminiTier?.let { if (GeminiTerms.isFree(it)) GeminiTerms.FREE else it }) }
+    val paidOnly = live.geminiPaidOnly
+    var tier by remember(live.geminiTier, paidOnly) {
+        mutableStateOf(if (paidOnly) GeminiTerms.PAID else live.geminiTier?.let { if (GeminiTerms.isFree(it)) GeminiTerms.FREE else it })
+    }
     var note by remember { mutableStateOf<String?>(null) }
     var busy by remember { mutableStateOf(false) }
     val muted = MaterialTheme.colorScheme.onSurfaceVariant
@@ -345,11 +350,15 @@ private fun GeminiCredential(live: LiveTutor, kept: () -> Unit) {
     val ready = live.geminiReady && !live.settings.keyRefused
     if (!ready) Text(bi("tutorLive.geminiHint"), style = MaterialTheme.typography.bodySmall, color = muted)
     FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-        FilterChip(selected = tier == GeminiTerms.FREE, modifier = Modifier.testTag("gemini-free"), onClick = { tier = GeminiTerms.FREE; if (ready) live.setGeminiTier(GeminiTerms.FREE) }, label = { Text(bi("tutorLive.geminiFree")) })
+        // Google: "You may use only Paid Services when making API Clients available to users in the European Economic Area,
+        // Switzerland, or the United Kingdom" (tutor/Region)
+        if (!paidOnly) FilterChip(selected = tier == GeminiTerms.FREE, modifier = Modifier.testTag("gemini-free"), onClick = { tier = GeminiTerms.FREE; if (ready) live.setGeminiTier(GeminiTerms.FREE) }, label = { Text(bi("tutorLive.geminiFree")) })
         FilterChip(selected = tier == GeminiTerms.PAID, modifier = Modifier.testTag("gemini-paid"), onClick = { tier = GeminiTerms.PAID; if (ready) live.setGeminiTier(GeminiTerms.PAID) }, label = { Text(bi("tutorLive.geminiPaid")) })
     }
+    if (paidOnly) Text(bi("tutorLive.geminiPaidOnly"), style = MaterialTheme.typography.bodySmall, color = muted, modifier = Modifier.testTag("gemini-paid-only"))
     if (live.geminiTier == GeminiTerms.FREE_SEEN) Text(bi("tutorLive.geminiSeen"), style = MaterialTheme.typography.bodySmall, color = muted)
-    if (tier == GeminiTerms.FREE || (ready && live.geminiFree)) {
+    // the privacy note stays for a key marked free, also where it is treated as paid
+    if (tier == GeminiTerms.FREE || (ready && live.geminiMarkedFree)) {
         Text("⚠️ ${bi("tutorLive.geminiFreeNote")}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error, modifier = Modifier.testTag("gemini-free-note"))
     }
     if (ready) {
@@ -514,7 +523,7 @@ private fun Notebook(live: LiveTutor) {
 @Composable
 fun AiDisclosure(live: LiveTutor) {
     val plan = live.settings.provider == ProviderId.OPENAI && live.openaiBilling() == Billing.CHATGPT_PLAN
-    val free = live.settings.provider == ProviderId.GEMINI && live.geminiFree
+    val free = live.settings.provider == ProviderId.GEMINI && live.geminiFree // priced as free (not where only paid is allowed)
     val context = LocalContext.current
     Row(verticalAlignment = Alignment.CenterVertically) {
         Text(

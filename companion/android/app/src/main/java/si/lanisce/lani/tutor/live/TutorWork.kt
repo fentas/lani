@@ -81,6 +81,8 @@ object TutorRuntime {
             githubToken = { runCatching { si.lanisce.lani.sync.KeystoreBox(app.applicationContext).get(si.lanisce.lani.sync.SecretBox.GIT_TOKEN) }.getOrNull() },
             nightOk = { StudioWork.nightOk(app) },
             gemini = gemini(app),
+            // the EEA, Switzerland, the UK: Google allows only the Gemini API's paid services there (tutor/Region)
+            paidOnlyRegion = { AndroidRegion.geminiPaidOnly(app) },
             openrouter = openrouter(app),
             // offline (also Android holding the background app's network): the queue waits for the network
             online = AndroidOnline.of(app),

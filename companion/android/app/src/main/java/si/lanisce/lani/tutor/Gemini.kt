@@ -58,7 +58,15 @@ object GeminiTerms {
     const val FREE_SEEN = "free-seen"
     const val PAID = "paid"
 
+    /** Whether [tier] is the free tier, as the learner said it or a 429 showed it (its privacy note shows). */
     fun isFree(tier: String?): Boolean = tier == FREE || tier == FREE_SEEN
+
+    /**
+     * Whether calls on a key of [tier] go as the free tier's (priced $0 with the API-equivalent, Argon left out, paced):
+     * the free tier, unless the phone is where Google allows only the paid API ([paidOnly]: [Region.geminiPaidOnly]),
+     * where such a key is treated as paid (its privacy note kept: [isFree]).
+     */
+    fun freeCalls(tier: String?, paidOnly: Boolean): Boolean = isFree(tier) && !paidOnly
 }
 
 /**
@@ -193,21 +201,27 @@ class GeminiPacer(private val clock: () -> Long = System::currentTimeMillis, pri
 
 /**
  * The Gemini key ([key], encrypted as the others are) and its tier ([tier]: what the learner said, or what a 429 showed;
- * no API tells it: Google documents none), with its [pacer].
+ * no API tells it: Google documents none), with its [pacer]. [paidOnly]: the phone is where Google allows only the paid
+ * API ([Region.geminiPaidOnly]): a key marked free is treated as paid ([GeminiTerms.freeCalls]).
  */
-class GeminiCredentials(val key: KeyVault, private val tierStore: SecretStore, val pacer: GeminiPacer = GeminiPacer()) {
+class GeminiCredentials(
+    val key: KeyVault,
+    private val tierStore: SecretStore,
+    val pacer: GeminiPacer = GeminiPacer(),
+    private val paidOnly: () -> Boolean = { false },
+) {
     suspend fun has(): Boolean = key.has()
 
     /** [GeminiTerms.FREE], [GeminiTerms.FREE_SEEN], [GeminiTerms.PAID], or null (not said). */
-    suspend fun tier(): String? = tierStore.read().also { pacer.free = GeminiTerms.isFree(it) }
+    suspend fun tier(): String? = tierStore.read().also { pacer.free = GeminiTerms.freeCalls(it, paidOnly()) }
 
     suspend fun setTier(t: String?) {
         tierStore.write(t)
-        pacer.free = GeminiTerms.isFree(t)
+        pacer.free = GeminiTerms.freeCalls(t, paidOnly())
     }
 
-    /** How its calls are paid: [Billing.FREE_TIER] on the free tier, else [Billing.API_KEY]. */
-    suspend fun billing(): String = if (GeminiTerms.isFree(tier())) Billing.FREE_TIER else Billing.API_KEY
+    /** How its calls are paid: [Billing.FREE_TIER] on the free tier (where it may be offered), else [Billing.API_KEY]. */
+    suspend fun billing(): String = if (GeminiTerms.freeCalls(tier(), paidOnly())) Billing.FREE_TIER else Billing.API_KEY
 
     suspend fun remove() {
         key.remove()
@@ -219,6 +233,7 @@ class GeminiCredentials(val key: KeyVault, private val tierStore: SecretStore, v
         fun android(context: android.content.Context): GeminiCredentials = GeminiCredentials(
             KeyVault(KeystoreCipher("lani-tutor-gemini-key"), DataStoreSecretStore(context, "gemini_key_sealed")),
             DataStoreSecretStore(context, "gemini_tier"),
+            paidOnly = { si.lanisce.lani.tutor.live.AndroidRegion.geminiPaidOnly(context) },
         )
     }
 }

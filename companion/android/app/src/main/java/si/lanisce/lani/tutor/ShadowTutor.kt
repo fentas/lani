@@ -77,6 +77,8 @@ class ShadowTutor(
      * run on" a Gemini model use it. The live tutor shares the vault (tutor/live/TutorRuntime).
      */
     private val gemini: GeminiCredentials? = null,
+    /** Where Google allows only the Gemini API's paid services ([Region.geminiPaidOnly]): a key marked free is treated as paid. */
+    private val paidOnlyRegion: () -> Boolean = { false },
     /** The Gemini API's client for a key, its pacer, and what a 429 naming the free tier calls. */
     private val geminiTransportFor: (suspend () -> String?, GeminiPacer?, () -> Unit) -> GeminiTransport = { k, p, f -> GeminiTransport(k, pacer = p, onFreeTier = f) },
     private val geminiLaneTransportFor: (suspend () -> String?, GeminiPacer?, () -> Unit) -> GeminiTransport = { k, p, f -> GeminiTransport(k, GeminiTransport.laneClient, pacer = p, onFreeTier = f) },
@@ -134,7 +136,7 @@ class ShadowTutor(
             ProviderId.GEMINI -> s.gemini.listed.takeIf { ready(ProviderId.GEMINI) }
             ProviderId.OPENROUTER -> s.openrouter.listed.takeIf { ready(ProviderId.OPENROUTER) }
         }
-        override fun geminiFree(): Boolean = GeminiTerms.isFree(geminiTier)
+        override fun geminiFree(): Boolean = GeminiTerms.freeCalls(geminiTier, paidOnlyRegion())
         override fun provider(model: String): TutorProvider = when (ProviderId.of(model)) {
             ProviderId.ANTHROPIC -> AnthropicProvider(laneTransportFor(baseUrl()) { vault.load() })
             ProviderId.OPENAI -> openaiProvider(lane = true)
@@ -190,6 +192,9 @@ class ShadowTutor(
     /** The Gemini key's tier ([GeminiTerms]: free, free-seen, paid; null: not said). */
     var geminiTier by mutableStateOf<String?>(null)
         private set
+
+    /** Only the paid Gemini API may be offered where the phone is (the EEA, Switzerland, the UK): the panel hides the free tier. */
+    val geminiPaidOnly: Boolean get() = paidOnlyRegion()
     /** Signed in with OpenRouter (its key kept). */
     var openrouterReady by mutableStateOf(false)
         private set
@@ -317,7 +322,7 @@ class ShadowTutor(
         val key: suspend () -> String? = { c?.key?.load() }
         val onFree: () -> Unit = { scope.launch(io) { seenFreeTier() } }
         val transport = if (lane) geminiLaneTransportFor(key, c?.pacer, onFree) else geminiTransportFor(key, c?.pacer, onFree)
-        return GeminiProvider(transport, if (GeminiTerms.isFree(geminiTier)) Billing.FREE_TIER else Billing.API_KEY)
+        return GeminiProvider(transport, if (GeminiTerms.freeCalls(geminiTier, paidOnlyRegion())) Billing.FREE_TIER else Billing.API_KEY)
     }
 
     private fun openrouterProvider(lane: Boolean): TutorProvider {

@@ -105,6 +105,8 @@ class LiveTutorTest {
     // --- Gemini and OpenRouter, scripted --------------------------------------------------------------------------------
 
     private val gem = si.lanisce.lani.tutor.ScriptedGemini { body, n -> si.lanisce.lani.tutor.geminiTurn(body, n) }
+    /** The phone is where Google allows only the Gemini API's paid services (the EEA, Switzerland, the UK). */
+    private var paidOnly = false
     private val geminiCreds = si.lanisce.lani.tutor.GeminiCredentials(KeyVault(SoftCipher(), MemoryStore()), MemoryStore(), si.lanisce.lani.tutor.GeminiPacer(clock = { now }, sleep = {}))
     private val router = si.lanisce.lani.tutor.ScriptedRouter { body, n -> si.lanisce.lani.tutor.routerTurn(body, n) }
     private val routerCreds = si.lanisce.lani.tutor.OpenRouterCredentials(si.lanisce.lani.tutor.OpenRouterAuth(KeyVault(SoftCipher(), MemoryStore()), router.client))
@@ -124,6 +126,7 @@ class LiveTutorTest {
             io = Executors.newSingleThreadExecutor().asCoroutineDispatcher(),
             texts = { key, _ -> key },
             gemini = geminiCreds,
+            paidOnlyRegion = { paidOnly },
             geminiTransportFor = { k, p, f -> si.lanisce.lani.tutor.GeminiTransport(k, gem.client, clock = { now }, pacer = p, onFreeTier = f) },
             openrouter = routerCreds,
             openrouterTransportFor = { si.lanisce.lani.tutor.OpenRouterTransport(it, router.client, clock = { now }) },
@@ -218,6 +221,25 @@ class LiveTutorTest {
         // paid: the table's price, Argon for content again
         t.setGeminiTier(si.lanisce.lani.tutor.GeminiTerms.PAID).join()
         assertEquals("gemini-4-argon", t.modelFor(Task.CONTENT))
+    }
+
+    @Test fun `where only Google's paid API is allowed, a Gemini key marked free is treated as paid, its privacy note kept`() = runBlocking {
+        paidOnly = true
+        val t = tutor()
+        t.refreshCredentials()
+        t.update { it.copy(provider = ProviderId.GEMINI) }.join()
+        assertEquals(null, t.setGeminiKey(si.lanisce.lani.tutor.FAKE_GEMINI_KEY, si.lanisce.lani.tutor.GeminiTerms.FREE))
+        assertEquals(null, t.setOn(true))
+        assertTrue(t.geminiPaidOnly)
+        assertFalse("not priced as free", t.geminiFree)
+        assertTrue("the privacy note stays", t.geminiMarkedFree)
+        assertEquals("paid: Argon for content", "gemini-4-argon", t.modelFor(Task.CONTENT))
+        node.push("chat", "main", "Kako se reče stove?")
+        t.backgroundCheck()
+        val calls = t.today.calls
+        assertTrue(calls.isNotEmpty() && calls.all { it.billing == si.lanisce.lani.tutor.Billing.API_KEY && it.cost!! > 0 && it.apiEquivalent == null })
+        assertTrue(t.spent() > 0)
+        assertEquals(listOf("tutorLive.note.geminiFree"), notes.filter { it.contains("gemini") })
     }
 
     @Test fun `on OpenRouter - signed in through the browser, a chat answered on the tier's default or the model picked, priced by OpenRouter's cost`() = runBlocking {

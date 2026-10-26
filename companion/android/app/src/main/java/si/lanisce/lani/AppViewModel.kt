@@ -198,6 +198,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         openai = si.lanisce.lani.tutor.live.TutorRuntime.openai(app),
         // Gemini (a Google AI Studio key) and OpenRouter (its sign-in), the live tutor's vaults: their lanes and "also run on"
         gemini = si.lanisce.lani.tutor.live.TutorRuntime.gemini(app),
+        // the EEA, Switzerland, the UK: Google allows only the Gemini API's paid services there (tutor/Region)
+        paidOnlyRegion = { si.lanisce.lani.tutor.live.AndroidRegion.geminiPaidOnly(app) },
         openrouter = si.lanisce.lani.tutor.live.TutorRuntime.openrouter(app),
         // offline (also Android holding the background app's network): its queue and the lanes' wait for the network
         online = si.lanisce.lani.tutor.live.AndroidOnline.of(app),

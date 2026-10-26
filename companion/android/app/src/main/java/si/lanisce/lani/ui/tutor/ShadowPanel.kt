@@ -504,7 +504,7 @@ private fun Matrix(shadow: ShadowTutor) {
                     if (f == Family.FLASH_LITE) {
                         Small(
                             if (!shadow.geminiReady) "Gemini · ⚠️ no key: keep a Google AI Studio key in Settings"
-                            else "Gemini · " + if (si.lanisce.lani.tutor.GeminiTerms.isFree(shadow.geminiTier)) "the free tier (\$0 a token, the API-equivalent shown; paced; no Argon)" else "the key",
+                            else "Gemini · " + if (si.lanisce.lani.tutor.GeminiTerms.freeCalls(shadow.geminiTier, shadow.geminiPaidOnly)) "the free tier (\$0 a token, the API-equivalent shown; paced; no Argon)" else "the key",
                             bold = true,
                         )
                     }
@@ -933,11 +933,13 @@ private fun GeminiCard(shadow: ShadowTutor) {
     Card {
         Small("💎 Gemini", bold = true)
         Small("For the matrix's Gemini lanes and \"Also run on\" a Gemini model. streamGenerateContent with x-goog-api-key; the check is GET /v1beta/models: not a model call.")
+        val paidOnly = shadow.geminiPaidOnly
         FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            FilterChip(selected = free, onClick = { shadow.setGeminiTier(si.lanisce.lani.tutor.GeminiTerms.FREE) }, label = { Text("free tier") })
-            FilterChip(selected = shadow.geminiTier == si.lanisce.lani.tutor.GeminiTerms.PAID, onClick = { shadow.setGeminiTier(si.lanisce.lani.tutor.GeminiTerms.PAID) }, label = { Text("billing on") })
+            if (!paidOnly) FilterChip(selected = free, onClick = { shadow.setGeminiTier(si.lanisce.lani.tutor.GeminiTerms.FREE) }, label = { Text("free tier") })
+            FilterChip(selected = shadow.geminiTier == si.lanisce.lani.tutor.GeminiTerms.PAID || (paidOnly && free), onClick = { shadow.setGeminiTier(si.lanisce.lani.tutor.GeminiTerms.PAID) }, label = { Text("billing on") })
         }
-        if (free) Small("⚠️ The free tier: Google may use what's sent to improve its products, and people may read it (the Gemini API's terms, \"Unpaid Services\"). Paced at most one call every 6 s, slower after a 429; Argon's lanes are skipped." + if (shadow.geminiTier == si.lanisce.lani.tutor.GeminiTerms.FREE_SEEN) " (A 429 named the free tier's quota.)" else "")
+        if (paidOnly) Small("Google allows only the paid API for apps used in the EEA, Switzerland and the UK: no free tier here" + if (free) " (the key marked free is treated as paid)." else ".")
+        if (free) Small("⚠️ The free tier: Google may use what's sent to improve its products, and people may read it (the Gemini API's terms, \"Unpaid Services\")." + (if (paidOnly) "" else " Paced at most one call every 6 s, slower after a 429; Argon's lanes are skipped.") + if (shadow.geminiTier == si.lanisce.lani.tutor.GeminiTerms.FREE_SEEN) " (A 429 named the free tier's quota.)" else "")
         if (shadow.geminiReady) {
             Small("Kept, encrypted with a key in the Android Keystore. ${s.gemini.listed.size} model(s) listed" + (s.gemini.exhausted?.let { " · ⚠️ $it" } ?: "") + (if (s.gemini.refused) " · ⚠️ the key was refused" else ""))
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -953,7 +955,7 @@ private fun GeminiCard(shadow: ShadowTutor) {
             Button(enabled = key.isNotBlank() && !busy, onClick = {
                 busy = true
                 scope.launch {
-                    note = shadow.setGeminiKey(key, shadow.geminiTier)?.let { "⚠️ $it" } ?: "✓ the key works: kept"
+                    note = shadow.setGeminiKey(key, if (paidOnly) si.lanisce.lani.tutor.GeminiTerms.PAID else shadow.geminiTier)?.let { "⚠️ $it" } ?: "✓ the key works: kept"
                     if (note?.startsWith("✓") == true) key = ""
                     busy = false
                 }

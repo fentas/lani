@@ -176,6 +176,11 @@ class LiveTutor(
     studioPollMs: Long = 30_000,
     /** The Gemini key and its tier (the shadow's vault: one for both), or null: no Gemini in this build. */
     private val gemini: GeminiCredentials? = null,
+    /**
+     * The phone is where Google allows only the Gemini API's paid services ([Region.geminiPaidOnly]: the EEA,
+     * Switzerland, the UK): no free tier is offered, and a key marked free is treated as paid ([GeminiTerms.freeCalls]).
+     */
+    private val paidOnlyRegion: () -> Boolean = { false },
     /** The Gemini API's client for a key, its pacer, and what a 429 naming the free tier calls. */
     private val geminiTransportFor: (suspend () -> String?, GeminiPacer?, () -> Unit) -> GeminiTransport = { k, p, f -> GeminiTransport(k, pacer = p, onFreeTier = f) },
     /** OpenRouter's sign-in and key, or null: no OpenRouter in this build. */
@@ -241,8 +246,17 @@ class LiveTutor(
     /** The OpenRouter key's credit (GET /api/v1/key at its check), or null. */
     var openrouterKey by mutableStateOf<OpenRouterKey?>(null)
         private set
-    /** The Gemini key is on the free tier: Google may use what's sent (the section and the chat say so). */
-    val geminiFree: Boolean get() = GeminiTerms.isFree(geminiTier)
+    /**
+     * The Gemini key's calls go as the free tier's ($0, no Argon: [GeminiTerms.freeCalls]): it's marked free, where
+     * Google allows the free tier ([geminiPaidOnly] not).
+     */
+    val geminiFree: Boolean get() = GeminiTerms.freeCalls(geminiTier, geminiPaidOnly)
+
+    /** The Gemini key is marked free: Google may use what's sent (the section and the chat say so, also where it's treated as paid). */
+    val geminiMarkedFree: Boolean get() = GeminiTerms.isFree(geminiTier)
+
+    /** Only the paid Gemini API may be offered where the phone is (the EEA, Switzerland, the UK): no free-tier choice. */
+    val geminiPaidOnly: Boolean get() = paidOnlyRegion()
 
     /** The learner's name (the guide's paragraphs say Jan), where the learner is in the app, a chat photo's file. */
     var learner: () -> String? = { null }
@@ -480,7 +494,7 @@ class LiveTutor(
             it.copy(listed = if (mine) models else it.listed, listedAt = now(), listedWith = if (mine) "gemini" else it.listedWith, keyRefused = false, lowCredit = null)
         }
         line("Gemini key checked: ${models.size} model(s)")
-        if (geminiFree) tellGeminiFree()
+        if (geminiMarkedFree) tellGeminiFree()
         wakeUp()
         null
     }
@@ -489,7 +503,7 @@ class LiveTutor(
     fun setGeminiTier(tier: String?) = scope.launch(io) {
         gemini?.setTier(tier)
         loadOthers()
-        if (geminiFree) tellGeminiFree()
+        if (geminiMarkedFree) tellGeminiFree()
         state = stateNow()
     }
 
