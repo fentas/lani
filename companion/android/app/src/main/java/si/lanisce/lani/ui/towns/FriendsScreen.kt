@@ -94,7 +94,8 @@ import si.lanisce.lani.ui.theme.XpGold
  * one (scanned or pasted). A child's app shows the towns only: a parent links them on the node. "Obišči · Visit" opens
  * a linked town, read-only, in its language (VisitScreen). Each town's card shows the friendship both towns agree on
  * ("Friendship between towns"), what its next level brings, and what can be done now: help against its trouble, a feast
- * to share, a move offered or to offer, each with its button.
+ * to share, a move offered or to offer, each with its button; and what each town shares of its learning with the other,
+ * with "📈 Napredek · Progress" (TownShare.kt, "Progress between towns").
  */
 @Composable
 fun FriendsScreen(vm: AppViewModel) {
@@ -165,7 +166,11 @@ fun FriendsScreen(vm: AppViewModel) {
                 val notices = remember(f, state, child) {
                     f?.let { FriendsLogic.notices(it, state, state?.let { s -> Chest.feastOption(s, LocalDate.now()) }, child) }.orEmpty()
                 }
-                FriendCard(row, f, notices, busy = towns.sending, onVisit = { vm.visitTown(row.id) }, onAction = { a -> f?.let { act(vm, it, a) } })
+                val town = list?.towns?.firstOrNull { it.id == row.id }
+                FriendCard(row, f, notices, busy = towns.sending, onVisit = { vm.visitTown(row.id) }, onAction = { a -> f?.let { act(vm, it, a) } }) {
+                    // what each shares of its learning with the other, and "📈 Napredek · Progress" (TownShare.kt)
+                    TownShareRow(vm, row.id, town?.learner.orEmpty(), town?.sharing)
+                }
             }
             if (list != null && towns.problem != null) item(key = "stale") { Note(towns.problem!!) }
             // what guests brought: help, gifts and their messages (plain text, as written), trades
@@ -236,7 +241,7 @@ private fun FriendNoticeBox(n: FriendNotice, busy: Boolean, onAction: (FriendAct
 }
 
 @Composable
-private fun FriendCard(r: FriendRow, f: FriendTown?, notices: List<FriendNotice>, busy: Boolean, onVisit: () -> Unit, onAction: (FriendAction) -> Unit) {
+private fun FriendCard(r: FriendRow, f: FriendTown?, notices: List<FriendNotice>, busy: Boolean, onVisit: () -> Unit, onAction: (FriendAction) -> Unit, progress: @Composable () -> Unit = {}) {
     Card(
         modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 6.dp),
         shape = MaterialTheme.shapes.large,
@@ -269,6 +274,7 @@ private fun FriendCard(r: FriendRow, f: FriendTown?, notices: List<FriendNotice>
                 Text(FriendsLogic.nextLine(it), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
             for (n in notices) FriendNoticeBox(n, busy, onAction)
+            progress()
             // a town that isn't answering can still be visited: its bridge keeps what it had of it
             if (r.canVisit) FilledTonalButton(onClick = onVisit, modifier = Modifier.align(Alignment.End).heightIn(min = 48.dp)) {
                 Text("🚶 ${bi("towns.visit")}")

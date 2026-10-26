@@ -28,7 +28,8 @@ data class TownSelf(
 /**
  * A linked town: who it is, when and how it was linked, and ([status] "ok") what its public state says now: its age
  * (an [si.lanisce.lani.game.Age] name), how many live there, its buildings by type. Another [status]
- * ("unreachable", "refused", "bad_answer") keeps how it showed itself last.
+ * ("unreachable", "refused", "bad_answer") keeps how it showed itself last. [sharing]: what each shares of its learning
+ * with the other (companion/README.md, "Progress between towns").
  */
 @Serializable
 data class TownRow(
@@ -45,6 +46,8 @@ data class TownRow(
     val villagers: Int? = null,
     val buildings: Map<String, Int> = emptyMap(),
     val date: String? = null,
+    /** What this learner shares of their learning with it, and it with them (data/TownProgress.kt); null from an older bridge. */
+    val sharing: Sharing? = null,
 ) {
     val reachable: Boolean get() = status == "ok"
 }

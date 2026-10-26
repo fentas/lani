@@ -174,6 +174,7 @@ private fun App(vm: AppViewModel) {
                 Screen.Villagers -> VillagersScreen(vm)
                 is Screen.Villager -> VillagerScreen(vm, screen.id)
                 Screen.Friends -> FriendsScreen(vm)
+                is Screen.TownProgress -> key(screen) { si.lanisce.lani.ui.towns.TownProgressScreen(vm, screen.id) }
                 is Screen.Visit -> VisitScreen(vm)
                 is Screen.VisitScene -> VisitSceneScreen(vm, screen.scene)
                 is Screen.VisitRequest -> key(screen) { VisitRequestScreen(vm, screen.request) }

@@ -432,6 +432,11 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         // what the friendships bring (a shared feast, someone who moved) comes into the village as the list comes
         t.onFriendships = { l -> viewModelScope.launch { game.applyFriendships(l) } }
     }
+    /**
+     * Learning progress between linked towns (companion/README.md, "Progress between towns"; ui/towns/TownProgressScreen):
+     * what each linked town shares with this learner, what this learner shares with each, a challenge sent from there.
+     */
+    val townProgress = si.lanisce.lani.app.TownProgressController(viewModelScope, node, notices)
     /** A linked town being visited, in its language (plan 2, §3; ui/towns/VisitScreen), and the things to do there. */
     val visits = VisitController(
         viewModelScope,
@@ -845,6 +850,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
                 notices.banner = "${TownQuestions.title(ev)}: ${ev.text}"
                 questions.onEvent(ev)
             }
+            // a parent's weekly note of a linked town's progress: a notice (a notification while the app is closed)
+            is BridgeEvent.TownProgressNote -> notices.banner = "📈 ${ev.text()}"
         }
     }
 
@@ -864,6 +871,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         is Screen.Readings, is Screen.ReadAloud -> "the reading corner"
         Screen.Talk -> "a role-play"
         is Screen.Visit, is Screen.VisitScene, is Screen.VisitRequest -> "a visit to another town"
+        is Screen.TownProgress -> "a linked town's progress"
         is Screen.School, is Screen.CourseUnit, is Screen.UnitIntro, is Screen.Sheet -> "the school"
         is Screen.Numbers, is Screen.NumbersRun -> "the numbers module (🔢 Števila)"
         else -> "the app"
@@ -955,6 +963,10 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
                 openFamily(link.challengeId)
             }
             is DeepLink.Question -> openQuestion(link.key, link.asked)
+            is DeepLink.TownProgress -> {
+                towns.load() // the town's row (its name, its sharing) for the screen
+                openTownProgress(link.town)
+            }
             is DeepLink.School -> link.unit?.takeIf { school.unit(it) != null }?.let { openUnit(it) } ?: openSchool(fromVillage = false)
         }
     }
@@ -1775,6 +1787,18 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     /** "Prijatelji · Friends": the towns linked with this one (the screen loads them). */
     fun openFriends() {
         screen = Screen.Friends
+    }
+
+    /** "📈 Napredek · Progress" of linked town [id]: what its learner shares with this one (ui/towns/TownProgressScreen). */
+    fun openTownProgress(id: String) {
+        if (screen.inRun) return
+        screen = Screen.TownProgress(id)
+    }
+
+    /** Back from a town's progress to Friends. */
+    fun closeTownProgress() {
+        townProgress.close()
+        openFriends()
     }
 
     /** A question between towns ([key]): a guest's to answer, or ([asked]) the learner's with the answer; back to Friends. */

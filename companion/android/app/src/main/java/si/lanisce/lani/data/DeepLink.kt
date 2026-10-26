@@ -14,11 +14,14 @@ sealed interface DeepLink {
     data class Family(val challengeId: String) : DeepLink
     /** A question between towns ([key]): one the learner [asked] another town, or a guest's to them (data/TownQuestions.kt). */
     data class Question(val key: String, val asked: Boolean) : DeepLink
+    /** "📈 Napredek · Progress" of linked town [town] (a parent's weekly note of their child's). */
+    data class TownProgress(val town: String) : DeepLink
     /** "🏫 Šola · School": a unit of the course ([unit]: the tutor's homework is in it), or the school. */
     data class School(val unit: String? = null) : DeepLink
 
     companion object {
         const val EXTRA = "si.lanisce.lani.open"
+        private val TOWN_ID = Regex("^[0-9a-f]{32}$")
 
         fun encode(link: DeepLink): String = when (link) {
             Chat -> "chat"
@@ -31,6 +34,7 @@ sealed interface DeepLink {
             is Family -> "family:${link.challengeId}"
             is Question -> "question:${if (link.asked) "a" else "r"}:${link.key}"
             is School -> "school" + (link.unit?.let { ":$it" } ?: "")
+            is TownProgress -> "progress:${link.town}"
         }
 
         fun parse(s: String?): DeepLink? {
@@ -47,6 +51,7 @@ sealed interface DeepLink {
                 "scene" -> arg?.let { Scene(it.substringBefore('@'), it.substringAfter('@', "").ifBlank { null }) }
                 "family" -> arg?.let(::Family)
                 "question" -> arg?.substringAfter(':', "")?.takeIf { it.isNotBlank() }?.let { Question(it, asked = arg.substringBefore(':') == "a") }
+                "progress" -> arg?.takeIf { TOWN_ID.matches(it) }?.let(::TownProgress)
                 else -> null
             }
         }
@@ -78,6 +83,8 @@ sealed interface DeepLink {
             is BridgeEvent.TownQuestion -> Question(ev.key, asked = ev.kind == TownQuestions.ANSWER)
             // the tutor's homework: in its unit
             is BridgeEvent.WorksheetPublished -> if (ev.removed) null else School(ev.unit)
+            // a parent's weekly note: the town's progress screen
+            is BridgeEvent.TownProgressNote -> TownProgress(ev.town)
         }
     }
 }

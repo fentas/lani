@@ -95,6 +95,7 @@ class BackgroundCheck(context: Context, params: WorkerParameters) : CoroutineWor
             is BridgeEvent.CardPublished -> Unit
             is BridgeEvent.TownGuest -> post(("guest" + ev.kind + ev.from).hashCode(), "🧳 ${TownGuests.title(ev)}", ev.from, link)
             is BridgeEvent.TownQuestion -> post(("question" + ev.kind + ev.key).hashCode(), TownQuestions.title(ev), ev.text, link)
+            is BridgeEvent.TownProgressNote -> post(("progress" + ev.town + ev.week).hashCode(), "📈 ${bi("townProgress.weeklyTitle", "name" to ev.learner.ifBlank { "?" })}", ev.text(), link)
             is BridgeEvent.ScenePublished -> when {
                 ev.removed -> Unit
                 ev.variant -> if (ev.note != null) post(("variant:" + ev.id + ev.note).hashCode(), bi("backgroundCheck.newScene", "evEmoji" to (ev.emoji ?: "💬")), ev.note, link)

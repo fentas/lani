@@ -428,7 +428,42 @@ class Speaker(private val context: Context) {
     }
 
     /** [text] by Android's text-to-speech, asked in turn [t]: speaking from now on, until its own callbacks say otherwise. */
+    /** The language the phone's voice was set to by [sayIn] (not the target's): set back before the next line. */
+    private var foreign: Lang? = null
+
+    /**
+     * [text] in [lang], when it isn't the target language (a linked town's word on its progress screen): the phone's
+     * text-to-speech in its locale (never a node clip or the offline voice: those speak the target only); in the target,
+     * as [say]. False when the phone has no voice of [lang].
+     */
+    fun sayIn(text: String, lang: Lang): Boolean {
+        if (lang == L10n.pair.target) {
+            say(text)
+            return true
+        }
+        if (!ready) return false
+        stop()
+        val r = tts.setLanguage(locale(lang))
+        if (r == TextToSpeech.LANG_MISSING_DATA || r == TextToSpeech.LANG_NOT_SUPPORTED) {
+            refresh()
+            return false
+        }
+        foreign = lang
+        said(text, "tts (${lang.code})")
+        tts.setSpeechRate(0.9f)
+        val id = "say-$turn"
+        utterance = id
+        ttsTalking = true
+        if (tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, id) != TextToSpeech.SUCCESS && utterance == id) ttsTalking = false
+        return true
+    }
+
     private fun synthesize(t: Int, text: String, slow: Boolean) {
+        // the phone's voice spoke another language last ([sayIn]): the target's again
+        if (foreign != null) {
+            foreign = null
+            refresh()
+        }
         said(text, if (available) "tts" else "nothing (no tts voice)")
         if (!available) return
         tts.setSpeechRate(if (slow) 0.55f else 0.9f)

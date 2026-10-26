@@ -62,6 +62,8 @@ sealed interface Screen {
     data class Villager(val id: String) : Screen
     /** "Prijatelji · Friends": the towns linked with this one, invitations (ui/towns). */
     data object Friends : Screen
+    /** "📈 Napredek · Progress" of linked town [id]: what its learner shares of their learning with this one (ui/towns/TownProgressScreen). */
+    data class TownProgress(val id: String) : Screen
     /** Linked town [id], visited: its village read-only, in its language and look (ui/towns/VisitScreen). */
     data class Visit(val id: String) : Screen
     /** Place [scene] of visited town [town]: its words to tap, a guest's dialog (ui/towns/VisitSceneScreen). */

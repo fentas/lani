@@ -896,6 +896,15 @@ sealed interface BridgeEvent {
         val who: String get() = learner.ifBlank { from }
     }
 
+    /**
+     * A parent's weekly note of linked town [town]'s progress (companion/README.md, "Progress between towns"): its learner's
+     * [days] practised and [newWords] this [week], and what is hard for them ([hard]: the patterns' names).
+     */
+    data class TownProgressNote(val town: String, val learner: String, val week: String, val days: Int, val newWords: Int, val hard: List<String>) : BridgeEvent {
+        /** "Teo ta teden: 4 dni, 23 novih besed, težave: la/il · Teo this week: …". */
+        fun text(): String = si.lanisce.lani.ui.towns.TownProgressLogic.weeklyNote(learner, days, newWords, hard)
+    }
+
     companion object {
         fun parse(data: String): BridgeEvent? {
             val o = runCatching { json.parseToJsonElement(data).jsonObject }.getOrNull() ?: return null
@@ -949,6 +958,14 @@ sealed interface BridgeEvent {
                 "town_guest" -> TownGuest(s("kind") ?: return null, s("from").orEmpty(), s("learner").orEmpty())
                 "town_question" -> TownQuestion(TownQuestions.QUESTION, s("key") ?: return null, s("from").orEmpty(), s("learner").orEmpty(), s("text").orEmpty())
                 "town_answer" -> TownQuestion(TownQuestions.ANSWER, s("key") ?: return null, s("from").orEmpty(), s("learner").orEmpty(), s("text").orEmpty())
+                "town_progress" -> TownProgressNote(
+                    town = s("town")?.takeIf { Regex("^[0-9a-f]{32}$").matches(it) } ?: return null,
+                    learner = s("learner").orEmpty(),
+                    week = s("week").orEmpty(),
+                    days = o["days"]?.jsonPrimitive?.intOrNull ?: 0,
+                    newWords = o["new_words"]?.jsonPrimitive?.intOrNull ?: 0,
+                    hard = (o["hard"] as? JsonArray).orEmpty().mapNotNull { (it as? JsonPrimitive)?.contentOrNull },
+                )
                 else -> null
             }
         }

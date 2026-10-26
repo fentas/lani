@@ -365,6 +365,21 @@ class Bridge(private val config: BridgeConfig) {
      */
     suspend fun friendshipWrite(id: String, what: String, body: JsonObject = buildJsonObject { }): Pair<Int, String> =
         exchange(request("/towns/$id/$what").post(body.toString().toRequestBody(Http.jsonType)).build())
+    /**
+     * Linked town [id]'s progress as it shares it with this learner (GET /towns/:id/progress, data/TownProgress.kt), as
+     * answered: the status and body. [fresh]: asked again now, not the minute's copy.
+     */
+    suspend fun townProgress(id: String, fresh: Boolean = false): Pair<Int, String> =
+        exchange(request("/towns/$id/progress" + if (fresh) "?fresh=1" else "").build())
+
+    /** PUT /towns/:id/sharing as answered: what this learner shares with town [id] ({share}), a weekly note of theirs ({weekly}). */
+    suspend fun townSharing(id: String, body: JsonObject): Pair<Int, String> =
+        exchange(request("/towns/$id/sharing").put(body.toString().toRequestBody(Http.jsonType)).build())
+
+    /** POST /towns/:id/challenges as answered: a challenge to town [id]'s learner ({id, type, text, hint?}; a retry sends the same id). */
+    suspend fun townChallenge(id: String, body: JsonObject): Pair<Int, String> =
+        exchange(request("/towns/$id/challenges").post(body.toString().toRequestBody(Http.jsonType)).build())
+
     /** GET /towns/questions as answered (data/TownQuestions.kt): the status and body; an older bridge answers 404. */
     suspend fun townQuestions(): Pair<Int, String> = exchange(request("/towns/questions").build())
 
