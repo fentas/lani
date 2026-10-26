@@ -35,7 +35,9 @@ const languageSpec = z.object({
   // the ElevenLabs voice it speaks the language with: a library voice native in it (no voice slot)
   elevenlabs: z.string().regex(ELEVENLABS_ID, 'an ElevenLabs voice id'),
   name: z.string().max(80).optional(),
-  // says a lone word inside the language's carrier sentence (voice.ts, CARRIERS); a native voice says it plainly
+  // says a lone word inside the language's carrier sentence, which is cut out (voice.ts, CARRIERS), as a speaker's
+  // `carrier`: the narrators' Slovene voices since 2026-10-26 (Nina, Luka: a native voice's lone word said plainly can
+  // come out in another language's sound); their clips from before, said plainly, are kept (voice.ts oldStyle)
   carrier: z.boolean().optional(),
   // the library voice's owner, to add it to another account (the first request with its id adds it to this one)
   library_owner: z.string().max(80).optional(),
@@ -72,16 +74,17 @@ export type Cast = Record<string, Speaker>
 
 /**
  * The narrators alone, when there's no cast file: Matilda and Daniel (English), in Slovene Nina and Luka (native library
- * voices); the worker's nina (ana for lone words) and marko.
+ * voices, a lone word in its carrier sentence too, as in the cast file); the worker's nina (ana for lone words) and
+ * marko.
  */
 export const NARRATORS: Cast = {
   female: {
     gender: 'female', elevenlabs: 'XrExE9yKIg1WjnnlVkGX', gepard: 'nina', gepard_words: 'ana', name: 'Matilda', carrier: true,
-    languages: { sl: { elevenlabs: '0IwLFuWc6siAnpd77hRG', name: 'Nina' } },
+    languages: { sl: { elevenlabs: '0IwLFuWc6siAnpd77hRG', name: 'Nina', carrier: true } },
   },
   male: {
     gender: 'male', elevenlabs: 'onwK4e9ZLuTAKqWW03F9', gepard: 'marko', name: 'Daniel', carrier: true,
-    languages: { sl: { elevenlabs: 'SmCUS1ekZnVjC5lqnRQG', name: 'Luka' } },
+    languages: { sl: { elevenlabs: 'SmCUS1ekZnVjC5lqnRQG', name: 'Luka', carrier: true } },
   },
 }
 
@@ -265,7 +268,8 @@ export const elevenlabsOf = (name: string): string | undefined => personVoice(na
 
 /**
  * Whether [name] says a lone word inside a carrier sentence: a cast speaker marked `carrier` (the narrators, English
- * library voices), or one's voice in a language marked so. A person's own voice is designed from Slovene and never needs it.
+ * library voices), or one's voice in a language marked so (the narrators' Slovene voices, "female.sl" and "male.sl":
+ * Nina and Luka, since 2026-10-26). A person's own voice is designed from Slovene and never needs it.
  */
 export const carrierVoice = (name: string): boolean => (isSpeaker(name) && cast()[name].carrier === true) || languageOf(name)?.spec.carrier === true
 

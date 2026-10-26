@@ -2130,8 +2130,20 @@ picked one for each narrator. They come first now, and the local Gepard voice is
   the car's English prompts come from the phone).
 - **The setting:** `LANI_VOICE_NARRATOR_SL` (in `lani.env`, read when the bridge starts): `elevenlabs` (the default:
   Nina and Luka first) or `gepard` (the local voice first, Nina and Luka when it can't; as from 10 October 2026).
-- **Lone words:** Nina and Luka say a lone word plainly, not in a carrier sentence. A check with Jan's key (8 words: Nina
-  *kosilo*, *žlica*, *hrbet*, *včeraj*; Luka *kosilo*, *miza*, *jajce*, *stol*; 268 characters, into a scratch store):
+- **Lone words:** since 26 October 2026 Nina and Luka say a new lone word (one to three words, no sentence punctuation)
+  inside its carrier sentence, `Beseda je: …`, cut out by its timestamps, as an English narrator does ("Lone words: a
+  carrier sentence", below): their `languages` `sl` voices are marked `"carrier": true` in `voice-cast.json`. Said
+  plainly, a lone word can come out in another language's sound even in a native voice, because ElevenLabs takes
+  `language_code` only as a hint (*učiteljica* sounded Italian to Jan on 19 October, and a re-take the same; a long
+  press has said a lone word in its carrier sentence in every voice since then). It costs the sentence: *kosilo* alone
+  is 6 characters, `Beseda je: kosilo.` 18. Without ffmpeg a lone word is said plainly, as before.
+  - **The clips from before stay:** Nina's and Luka's lone words said plainly before 26 October are not re-voiced. They
+    aren't old-style (a clip of a voice in a language, `female.sl` or `male.sl`, never is), so neither the lazy re-voice
+    nor `voice-build --revoice-words` makes them again, and `voice_status` doesn't count them (`carrier.old`). A long
+    press re-records one in its carrier sentence. A clip of an older model is made again as any stale clip is ("Stale
+    clips", below), and then in its carrier sentence.
+  - **Until then plainly.** A check with Jan's key (8 words: Nina *kosilo*, *žlica*, *hrbet*, *včeraj*; Luka *kosilo*,
+    *miza*, *jajce*, *stol*; 268 characters, into a scratch store, 11 October 2026):
 
   | Way | The takes | After the store's trim |
   |---|---|---|
@@ -2140,9 +2152,9 @@ picked one for each narrator. They come first now, and the local Gepard voice is
   | plainly, with a period | 0.78–1.75 s | 2 of 8 with a breath or another sound after the word |
   | Gepard (for comparison) | | nina 0.99–1.07 s, marko 0.73–0.91 s (0.46–0.64 s of sound) |
 
-  So plainly, and every single word's sound ends at its first pause of 0.25 s or more ("The silence at a clip's edges",
-  above): with it, the plain takes are 0.71–0.99 s with 0.48–0.68 s of sound, like Gepard's. Plainly also costs the
-  word alone: *kosilo* is 6 characters, `Beseda je: kosilo.` 18.
+  So they were said plainly then, and a single word said plainly has its sound end at its first pause of 0.25 s or more
+  ("The silence at a clip's edges", above): with it, the plain takes are 0.71–0.99 s with 0.48–0.68 s of sound, like
+  Gepard's. A carrier cut isn't trimmed that way: it is the word already.
 - **Two clips:** a narrator's line has a row for each voice: the ElevenLabs clip (`female.sl:<text>`) and the local clip
   (`female:<text>`). The app knows only `female`. `/voice/index`, `/voice/say` and `/voice/prepare` give it the first
   that is there, in the setting's order: with `elevenlabs`, Nina's clip, else the local one. So while Nina's clip is
@@ -2222,11 +2234,12 @@ key): the app plays the narrator clip until then.
 
 **Lone words: a carrier sentence.** Where an English library voice narrates with ElevenLabs (a village in another
 language whose cast marks a narrator `carrier`: the Kärnten village's Daniel; in a Slovene village the narrators speak
-with native voices since October 2026, which say a lone word plainly, above): `eleven_v3` (and v4) take
+with native voices since October 2026, Nina and Luka, whose lone words are said this way too since 26 October, above):
+`eleven_v3` (and v4) take
 `language_code: sl` only as a hint: a lone Slovene word (*kosilo*) comes out with English sounds, a
 sentence doesn't (`previous_text`/`next_text` are not supported for `eleven_v3`). So a speaker marked
-`"carrier": true` in the cast (the narrators; villagers' voices are Slovene enough) says a short text inside
-a carrier sentence:
+`"carrier": true` in the cast (the narrators; villagers' voices are Slovene enough), or a speaker's voice in a language
+marked so (the narrators' `languages` `sl`: Nina, Luka), says a short text inside a carrier sentence:
 
 - **Short text:** one to three words without sentence punctuation (`kosilo`, `dober dan`; not `Kako si?`).
 - **The request:** `Beseda je: kosilo.` to `POST /v1/text-to-speech/{voice}/with-timestamps` (the model,
@@ -2242,7 +2255,8 @@ a carrier sentence:
 
 **The words from before** (about 500 narrator words said plainly) are voiced again lazily, where an English narrator
 speaks (in a Slovene village the narrators' clips go to Nina and Luka instead, the same way, and `voice-build
---narrators` makes the local clips from before again in the local voice: above). When the app
+--narrators` makes the local clips from before again in the local voice: above; Nina's and Luka's own lone words said
+plainly before 26 October stay as they are). When the app
 asks for one (it downloads the file, or `/voice/say` hands it over), it gets the old clip at once. The
 bridge counts the request and soon re-voices the word in its carrier sentence:
 
@@ -2292,9 +2306,9 @@ long press on its 🔊 has the node record it again at once (`POST /voice/redo {
 ahead of the lazy re-voice:
 
 - **What is made:** the clip in the voice a tap plays (the first voice of the speaker's chain that the phone
-  has a clip in). A short text in a carrier voice is said in its carrier sentence and cut, as above. Anything
-  else (a sentence, a villager's voice, someone's own voice) is a plain re-take: ElevenLabs never says a text
-  the same way twice. A clip that the local worker made is made again with ElevenLabs. A text without a clip is
+  has a clip in). A short text is said in its carrier sentence and cut, as above, in every voice (since 19 October
+  2026: a villager's, someone's own, Nina's and Luka's too). Anything else (a sentence) is a plain re-take: ElevenLabs
+  never says a text the same way twice. A clip that the local worker made is made again with ElevenLabs. A text without a clip is
   voiced as `/voice/say` voices a live line, and is not counted. A Slovene narrator's clip is made in its Slovene
   voice (Nina, Luka): a new take, or the first one where only the local clip is there, which stays. With the local voice
   first (`LANI_VOICE_NARRATOR_SL=gepard`), a clip from before is made in the local voice now (not counted), and one in it

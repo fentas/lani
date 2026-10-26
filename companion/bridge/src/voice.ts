@@ -7,7 +7,8 @@
 // A clip is keyed by its speaker from the voice cast (cast.ts): the narrators female/male or a
 // character voice ("grandma"). An English narrator says a lone word inside a carrier sentence, cut out by its
 // timestamps (CARRIERS); their clips from before that are made again as the app asks for them. In a Slovene village the
-// narrators speak with their native Slovene ElevenLabs voices (Nina, Luka: the voices "female.sl", "male.sl"), the local
+// narrators speak with their native Slovene ElevenLabs voices (Nina, Luka: the voices "female.sl", "male.sl"; a new
+// lone word inside its carrier sentence too since 2026-10-26, their plain ones from before kept), the local
 // voice (ana and nina, marko) as their fallback, never the English library voices (sloveneNarrators). A voice the cast
 // marks `denoise` (a designed voice that hisses) has its clips filtered before they are stored (DENOISE), a voice it gives
 // a `tempo` (one that speaks slowly) has them sped up (clipPace), every clip's silence at its edges is trimmed (EDGES), and
@@ -353,7 +354,8 @@ function mp3Frames(b: Uint8Array): { secs: number; bytes: number } {
 // 2026), its clips sounded too fast to Jan. The pace stays settable, off by default (PACE: LANI_VOICE_GEPARD_TEMPO,
 // LANI_VOICE_GEPARD_PAUSES).
 //
-// One word alone from ElevenLabs (a native voice says it plainly, without a carrier sentence) sometimes has something
+// One word alone from ElevenLabs said plainly, without a carrier sentence (Nina's and Luka's until 2026-10-26, a word
+// that couldn't be cut out of its take, a node without ffmpeg) sometimes has something
 // after it: in the check of October 2026 (Nina and Luka, 8 words, 24 plain takes), 5 takes had a breath or the start of
 // another sound 0.38 to 1 s after the word, louder than the threshold, so the trim kept it (clips of 1.2–1.75 s). So a
 // single word's sound ends at its first pause of [wordGap] (0.25 s) or more: no word has one inside (a stop's closure is
@@ -1802,7 +1804,8 @@ export type VoiceOptions = {
   lang?: string
   /**
    * A short text (a word, up to three) made new is said inside its carrier sentence in any voice, as a re-record says it
-   * (a native voice such as Nina says a lone word plainly otherwise): the learner's own line (cast.ts PLAYER).
+   * (a voice the cast doesn't mark `carrier`, a villager's, says a lone word plainly otherwise): the learner's own line
+   * (cast.ts PLAYER).
    */
   carrier?: boolean
 }
@@ -2115,8 +2118,8 @@ export class VoiceStore {
 
   /**
    * The characters ElevenLabs would be sent for [text] in [voice] (a short word's carrier sentence); a Slovene narrator's:
-   * in its Slovene ElevenLabs voice where that comes first (Nina, Luka say a word plainly), else the text. An explanation
-   * in another language ([lang]): its text, said plainly.
+   * in its Slovene ElevenLabs voice where that comes first (Nina, Luka: a short word's carrier sentence too), else the
+   * text. An explanation in another language ([lang]): its text, said plainly.
    */
   cost(text: string, voice: VoiceName, lang?: string): number {
     if (this.explains(lang)) return text.trim().length
@@ -2381,8 +2384,8 @@ export class VoiceStore {
         if (!e) continue
         const v = as(name)!
         try {
-          // Nina and Luka say a lone word plainly (no carrier sentence): its characters; the learner's own line in its
-          // carrier sentence ([opt].carrier), as a re-record
+          // a lone word costs its carrier sentence (Nina and Luka say it in one since 2026-10-26; [opt].carrier: in any
+          // voice, the learner's own line); an explanation in another language, said plainly, its text
           if (!(await e.ready(e.cost?.(t, v, opt.lang, opt.carrier) ?? t.length, !!opt.live))) continue
           const take = await e.synth(t, v, { live: !!opt.live, lang: opt.lang, carrier: opt.carrier })
           if (take) return await this.save(norm, t, v, name, take.bytes, source, take)
@@ -2456,11 +2459,15 @@ export class VoiceStore {
 
   /**
    * A clip of a short text in a carrier voice that ElevenLabs made plainly, before the carrier sentence: it may sound
-   * English. Not a Slovene narrator's ([sloveneNarrator]): those never speak with the English voice. Never an explanation
-   * in the learner's own language ([explanationLang]), however short: it was said plainly on purpose.
+   * English. Not a Slovene narrator's ([sloveneNarrator]): those never speak with the English voice. Never a clip of
+   * one's voice in a language ("female.sl", "male.sl": Nina, Luka), though the cast marks it `carrier` since
+   * 2026-10-26: its lone words from before were said plainly on purpose by a native voice and are kept (a long press
+   * re-records one). Never an explanation in the learner's own language ([explanationLang]), however short: it was
+   * said plainly on purpose.
    */
   oldStyle(c: Clip): boolean {
-    return c.engine === 'elevenlabs' && !c.method && !explanationLang(c.norm) && !this.sloveneNarrator(c.voice) && !!this.eleven?.carrierFor(c.text, c.voice)
+    return c.engine === 'elevenlabs' && !c.method && !explanationLang(c.norm) && !this.sloveneNarrator(c.voice) && !LANGUAGE_VOICE.test(c.voice) &&
+      !!this.eleven?.carrierFor(c.text, c.voice)
   }
 
   // --- the Slovene narrators in their ElevenLabs voices, as the app asks for them --------------------------------------
@@ -2600,8 +2607,8 @@ export class VoiceStore {
 
   /**
    * [c], a Slovene narrator's clip in the narrator's key, made in the narrator's Slovene ElevenLabs voice too (Nina, Luka;
-   * a lone word plainly), the clip there kept as its fallback: 'made'; 'stop' when it can't be now (the quota down to the
-   * reserve, kept for live lines; an error). A take paid for counts for the day.
+   * a lone word inside its carrier sentence), the clip there kept as its fallback: 'made'; 'stop' when it can't be now
+   * (the quota down to the reserve, kept for live lines; an error). A take paid for counts for the day.
    */
   async upgradeOne(c: Clip): Promise<Revoiced> {
     const el = this.eleven
@@ -2747,9 +2754,10 @@ export class VoiceStore {
       if (!el?.configured) return { status: 'failed', message: 'ElevenLabs is not set up on the node' }
       const today = this.redosToday()
       if (today >= this.redoDaily) return { status: 'limit', reason: 'cap', message: `no re-recordings left today (${today} of ${this.redoDaily})` }
-      // a word alone: said inside its carrier sentence, in every voice. A native voice (Nina) says a lone word plainly
-      // and ElevenLabs takes language_code as a hint only, so a word alone can come out in another language's sound
-      // ("učiteljica" sounded Italian to Jan, 2026-10-19, and a re-take the same); inside "Beseda je: …" it is Slovene
+      // a word alone: said inside its carrier sentence, in every voice. Said plainly, a word alone can come out in
+      // another language's sound even in a native voice (Nina): ElevenLabs takes language_code as a hint only
+      // ("učiteljica" sounded Italian to Jan, 2026-10-19, and a re-take the same); inside "Beseda je: …" it is Slovene.
+      // So since 2026-10-26 Nina and Luka say every new lone word in it; a re-record is the way to one from before
       const cost = el.cost(have.text, target, undefined, true)
       if (!(await el.ready(cost, false))) {
         const left = el.remaining()

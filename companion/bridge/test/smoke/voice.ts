@@ -389,11 +389,14 @@ export default async function voice() {
       const g0 = fg.st.calls.length
       const erun = await eb('--run')
       const made = slRows()
-      check('voice-build --run (the default): the narrators\' lines in their Slovene ElevenLabs voices in the priority order, plainly (no carrier sentence), as many as the budget allows, never into the reserve; their local clips stay as they were; the worker not asked',
+      const madeWords = made.filter(c => isShortText(c.text))
+      const sentNow = fe.st.tts.slice(t0)
+      check('voice-build --run (the default): the narrators\' lines in their Slovene ElevenLabs voices in the priority order, as many as the budget allows (a lone word costs its carrier sentence), never into the reserve; a sentence plainly, a lone word inside its carrier sentence (since 2026-10-26; without ffmpeg plainly); their local clips stay as they were; the worker not asked',
         erun.exitCode === 0 && fe.st.tts.length - t0 === eplan.would.elevenlabs.texts && made.length === eplan.would.elevenlabs.texts && fe.st.tts[t0]?.body.text === 'Kako ste?' && fe.st.tts[t0]?.voice === NINA &&
-          fe.st.tts.slice(t0).every(c => (c.voice === NINA || c.voice === LUKA) && !c.timestamps && c.body.language_code === 'sl') && made.every(c => c.engine === 'elevenlabs' && c.engine_voice === (c.voice === 'female.sl' ? NINA : LUKA)) &&
+          sentNow.every(c => (c.voice === NINA || c.voice === LUKA) && c.body.language_code === 'sl' && !!c.timestamps === c.body.text.startsWith('Beseda je: ')) && madeWords.length > 0 &&
+          sentNow.filter(c => c.timestamps).length === (ffmpeg ? madeWords.length : 0) && made.every(c => c.engine === 'elevenlabs' && c.engine_voice === (c.voice === 'female.sl' ? NINA : LUKA) && (c.method ?? null) === (ffmpeg && isShortText(c.text) ? 'carrier' : null)) &&
           fe.st.used <= fe.st.limit - 5_000 && fg.st.calls.length === g0 && JSON.stringify(narratorRows()) === JSON.stringify(localBefore),
-        [erun.stdout.slice(-600), erun.stderr.slice(-300), made.map(c => c.key)])
+        [erun.stdout.slice(-600), erun.stderr.slice(-300), made.map(c => [c.key, c.method]), sentNow.map(c => [c.body.text, !!c.timestamps])])
       // what the app gets: the ElevenLabs clip where there is one, else the local one; with the local voice first, the local ones
       const seen = (narrators: 'elevenlabs' | 'gepard') => {
         const vs2 = new VoiceStore({ appDir: join(vbData, 'app'), engines: [], readonly: true, narrators, language: 'sl' })
@@ -694,9 +697,12 @@ export default async function voice() {
     const ns = new VoiceStore({ appDir: dir, engines: [el, gp], queueDelayMs: 0, level: null, narrators: 'elevenlabs', language: 'sl', revoiceDaily: 3, redoDaily: 1, onUpdated: n => void updated.push(n) })
     const w = await ns.voice('kruh', 'female', 'pack:hrana')
     const call = fe.st.tts.at(-1)
-    check('a Slovene narrator\'s line (the default): its Slovene ElevenLabs voice first (female: Nina), a lone word plainly (no carrier sentence), a clip of the voice "female.sl"; the app gets it as the narrator\'s',
-      w?.engine === 'elevenlabs' && w.voice === 'female.sl' && w.key === 'female.sl:kruh' && w.engine_voice === NINA && call?.voice === NINA && call.body.text === 'kruh' && !call.timestamps && call.body.language_code === 'sl' && fg.st.calls.length === 0 &&
-        ns.index().kruh?.female === `/voice/file/${w.file}` && !ns.index().kruh?.['female.sl'] && ns.best('kruh', 'female')?.file === w.file && !ns.get('kruh', 'female') && ns.cost('kruh', 'female') === 4 && ns.sloveneNarrator('female') && !ns.sloveneNarrator('grandma'), [w, call])
+    check('a Slovene narrator\'s line (the default): its Slovene ElevenLabs voice first (female: Nina), a clip of the voice "female.sl"; a new lone word inside its carrier sentence (since 2026-10-26: "Beseda je: kruh.", /with-timestamps, Slovenian), cut out and costing the sentence (without ffmpeg: plainly, the word); the app gets it as the narrator\'s',
+      w?.engine === 'elevenlabs' && w.voice === 'female.sl' && w.key === 'female.sl:kruh' && w.engine_voice === NINA && call?.voice === NINA && call.body.language_code === 'sl' && fg.st.calls.length === 0 &&
+        (ffmpeg
+          ? !!call.timestamps && call.body.text === 'Beseda je: kruh.' && w.method === 'carrier' && w.chars === 16 && ns.cost('kruh', 'female') === 16
+          : !call.timestamps && call.body.text === 'kruh' && !w.method && ns.cost('kruh', 'female') === 4) &&
+        ns.index().kruh?.female === `/voice/file/${w.file}` && !ns.index().kruh?.['female.sl'] && ns.best('kruh', 'female')?.file === w.file && !ns.get('kruh', 'female') && ns.sloveneNarrator('female') && !ns.sloveneNarrator('grandma'), [w, call])
     const m = await ns.say('Dober dan, Jan.', 'male')
     check('…the male narrator Luka, a live line too; a villager keeps their own voice', m?.voice === 'male.sl' && fe.st.tts.at(-1)?.voice === LUKA && (await ns.voice('Kje je mlin?', 'grandpa', 'villager:janez'))?.engine === 'elevenlabs' && fe.st.tts.at(-1)?.voice === cast().grandpa.elevenlabs, m)
     // the quota down to the reserve: a line voiced ahead comes from the local voice
@@ -725,10 +731,14 @@ export default async function voice() {
     await el.subscription(true)
     ns.requested(ls!.file)
     ns.requested(lm!.file)
-    for (let i = 0; i < 40 && ns.upgradeQueue().length; i++) await Bun.sleep(25)
+    // (the lone words' carrier takes are cut with ffmpeg: a moment more)
+    for (let i = 0; i < 80 && ns.upgradeQueue().length; i++) await Bun.sleep(25)
     const up = ns.get('mleko', 'female.sl')
-    check('…the quota back: the ElevenLabs ones made soon, most asked for first (Nina, Luka; a lone word plainly), each as its voice\'s clip; the local clips kept, their files there; the index on the ElevenLabs ones; the app told; counted for the day',
-      !!up && up.engine_voice === NINA && !!ns.get('mleko je hladno', 'female.sl') && ns.get('mleko', 'male.sl')?.engine_voice === LUKA && fe.st.tts.length - t0 === 3 && fe.st.tts.slice(t0).every(c => !c.timestamps) && fe.st.tts[t0]?.body.text === 'mleko' &&
+    const upSent = fe.st.tts.slice(t0)
+    check('…the quota back: the ElevenLabs ones made soon, most asked for first (Nina, Luka; a lone word inside its carrier sentence, without ffmpeg plainly; the sentence plainly), each as its voice\'s clip; the local clips kept, their files there; the index on the ElevenLabs ones; the app told; counted for the day',
+      !!up && up.engine_voice === NINA && !!ns.get('mleko je hladno', 'female.sl') && ns.get('mleko', 'male.sl')?.engine_voice === LUKA && fe.st.tts.length - t0 === 3 &&
+        upSent.every(c => !!c.timestamps === c.body.text.startsWith('Beseda je: ')) && upSent.filter(c => c.timestamps).length === (ffmpeg ? 2 : 0) && fe.st.tts[t0]?.body.text === (ffmpeg ? 'Beseda je: mleko.' : 'mleko') &&
+        (up.method ?? null) === (ffmpeg ? 'carrier' : null) && (ns.get('mleko', 'male.sl')?.method ?? null) === (ffmpeg ? 'carrier' : null) && !ns.get('mleko je hladno', 'female.sl')?.method &&
         ns.get('mleko', 'female')?.file === lw!.file && existsSync(join(ns.filesDir, lw!.file)) && existsSync(join(ns.filesDir, ls!.file)) && ns.index().mleko?.female === `/voice/file/${up!.file}` && ns.index().mleko?.male === `/voice/file/${ns.get('mleko', 'male.sl')!.file}` &&
         ns.revoicedToday() === 3 && updated.length > 0 && ns.upgradeQueue(false).length === 0, [up, fe.st.tts.slice(t0).map(c => c.body.text), ns.revoicedToday()])
     // the day's cap: the lazy re-voice has used its 3; one more asked for waits, a long press still goes (in Nina's voice): its own count
@@ -742,7 +752,7 @@ export default async function voice() {
     const capped = !ns.get('juha', 'female.sl')
     const rj = await ns.redo('juha', 'female')
     const rjCall = fe.st.tts.at(-1)
-    check('…a re-record of a word alone: inside its carrier sentence even in Nina\'s native voice (/with-timestamps, "Beseda je: juha.", Slovenian), cut out; a lone word said plainly came out in another language\'s sound ("učiteljica", 2026-10-19)',
+    check('…a re-record of a word alone: inside its carrier sentence in Nina\'s native voice too (/with-timestamps, "Beseda je: juha.", Slovenian), cut out; a lone word said plainly came out in another language\'s sound ("učiteljica", 2026-10-19)',
       rj.status === 'done' && rjCall?.voice === NINA && !!rjCall.timestamps && rjCall.body.text === 'Beseda je: juha.' && rjCall.body.language_code === 'sl' && (rj as any).clip.method === 'carrier', [rjCall?.body, (rj as any).clip?.method])
     check('…the day\'s cap: a fourth asked for waits (3 of 3 used); a long press makes it in Nina\'s voice now, a re-record of its own (1 of 1; the lazy re-voice\'s still 3), the local clip kept',
       lj?.engine_voice === 'ana' && capped && rj.status === 'done' && rj.clip.voice === 'female.sl' && rj.clip.engine_voice === NINA && ns.redosToday() === 1 && ns.lazyToday() === 3 && ns.get('juha', 'female')?.file === lj!.file && existsSync(join(ns.filesDir, lj!.file)), [capped, rj])
@@ -756,6 +766,53 @@ export default async function voice() {
     const oldRow = ns.get('sir', 'female')!
     check('an English narrator\'s word from before: not old-style (no carrier re-voice), not in the local voice, its Slovene ElevenLabs clip wanted', !ns.oldStyle(oldRow) && ns.revoiceQueue(false).length === 0 && !ns.inLocalVoice(oldRow) && ns.wantsUpgrade(oldRow) && ns.lazyQueue()[0]?.key === 'female:sir', oldRow)
     ns.close()
+
+    // Nina's and Luka's lone words from before 2026-10-26, said plainly (no method), in their voice and the model now:
+    // kept as they are, never re-voiced in their carrier sentence (the lazy re-voice, voice-build --revoice-words, the
+    // status); a new lone word beside them is said in its carrier sentence
+    {
+      const ks = new VoiceStore({ appDir: tempDir('lani-narrators-before-'), engines: [el], queueDelayMs: 0, level: null, narrators: 'elevenlabs', language: 'sl' })
+      const put = (text: string, voice: string, engine: string, ev: string | null, model: string | null, hits: number) => {
+        const key = `${voice}:${normalizeText(text)}`
+        const f = `${createHash('sha1').update(`smoke|before|${key}`).digest('hex')}.mp3`
+        writeFileSync(join(ks.filesDir, f), mp3(`before:${key}`))
+        ks.database.query('INSERT OR REPLACE INTO clips (key, norm, text, voice, engine, file, chars, created_at, source, hits, engine_voice, model) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
+          .run(key, normalizeText(text), text, voice, engine, f, text.length, '2026-10-20T10:00:00.000Z', 'pack:hrana', hits, ev, model)
+        return ks.get(normalizeText(text), voice)!
+      }
+      const ninaOld = put('sol', 'female.sl', 'elevenlabs', NINA, el.model, 3)
+      const lukaOld = put('Dober dan', 'male.sl', 'elevenlabs', LUKA, el.model, 2)
+      const local = put('kis', 'female', 'gepard', 'ana', null, 0)
+      const old = [ninaOld, lukaOld]
+      const cs0 = ks.carrierStats()
+      check('the narrators\' Slovene voices say a lone word in its carrier sentence now ("female.sl", "male.sl" carrier voices), yet their plain clips from before are not old-style: not in the carrier re-voice\'s queue nor the lazy re-voice\'s (asked for or not), not counted as old-style, not stale, no upgrade wanted',
+        carrierVoice('female.sl') && carrierVoice('male.sl') && el.carrierFor('sol', 'female.sl') === 'Beseda je: sol.' && old.every(c => !ks.oldStyle(c) && !ks.stale(c) && !ks.wantsUpgrade(c)) &&
+          ks.revoiceQueue(false).length === 0 && ks.lazyQueue(false).map(c => c.key).join() === 'female:kis' && ks.lazyQueue().length === 0 && cs0.old === 0 && cs0.old_chars === 0 && cs0.asked === 0,
+        [old.map(c => [c.key, ks.oldStyle(c), ks.stale(c)]), ks.lazyQueue(false).map(c => c.key), cs0])
+      const t1 = fe.st.tts.length
+      ks.requested(ninaOld.file)
+      ks.requested(lukaOld.file)
+      const saidF = await ks.say('sol', 'female')
+      const saidM = await ks.say('dober dan', 'male')
+      // the local clip asked for: the lazy re-voice runs, and makes its clip in Nina's voice (a new lone word)
+      ks.requested(local.file)
+      for (let i = 0; i < 80 && !ks.get('kis', 'female.sl'); i++) await Bun.sleep(25)
+      await Bun.sleep(60)
+      const kis = ks.get('kis', 'female.sl')
+      const sent = fe.st.tts.slice(t1)
+      const words = await ks.revoiceWords()
+      check('…asked for (a download, /voice/say): the clips from before served as they are, their asks counted, nothing sent for them; the lazy re-voice that ran meanwhile, and voice-build --revoice-words, leave them as they were (file, no method, the old file there, the index on them)',
+        saidF?.file === ninaOld.file && saidM?.file === lukaOld.file && sent.every(c => !c.body.text.includes('sol') && !/dober dan/i.test(c.body.text)) && words.made === 0 && words.plain === 0 && words.left === 0 && fe.st.tts.length === t1 + sent.length &&
+          old.every(c => { const now = ks.get(c.norm, c.voice); return now?.file === c.file && !now.method && now.hits === (c.hits ?? 0) + 2 && existsSync(join(ks.filesDir, c.file)) }) &&
+          ks.index().sol?.female === `/voice/file/${ninaOld.file}` && ks.index()['dober dan']?.male === `/voice/file/${lukaOld.file}` && ks.carrierStats().old === 0,
+        [saidF, saidM, sent.map(c => c.body.text), words, old.map(c => ks.get(c.norm, c.voice))])
+      check('…the new lone word beside them, made by the lazy re-voice in Nina\'s voice: inside its carrier sentence ("Beseda je: kis.", /with-timestamps, Slovenian), cut out, costing the sentence (without ffmpeg: plainly); the local clip kept',
+        !!kis && kis.engine_voice === NINA && sent.length === 1 && sent[0].voice === NINA && sent[0].body.language_code === 'sl' &&
+          (ffmpeg ? !!sent[0].timestamps && sent[0].body.text === 'Beseda je: kis.' && kis.method === 'carrier' && kis.chars === 15 : !sent[0].timestamps && sent[0].body.text === 'kis' && !kis.method) &&
+          ks.get('kis', 'female')?.file === local.file && ks.index().kis?.female === `/voice/file/${kis.file}`,
+        [kis, sent.map(c => [c.body.text, !!c.timestamps])])
+      ks.close()
+    }
 
     // the local voice first (LANI_VOICE_NARRATOR_SL=gepard), on the same clips: the local ones again, each kept
     const gs = new VoiceStore({ appDir: dir, engines: [el, gp], queueDelayMs: 0, level: null, narrators: 'gepard', language: 'sl' })
@@ -1226,11 +1283,11 @@ export default async function voice() {
       sloveneNarrators('sl', {}) === 'elevenlabs' && sloveneNarrators('sl', { LANI_VOICE_NARRATOR_SL: 'gepard' }) === 'gepard' && sloveneNarrators('sl', { LANI_VOICE_NARRATOR_SL: 'elevenlabs' }) === 'elevenlabs' &&
         sloveneNarrators('sl', { LANI_VOICE_NARRATOR_SL: 'matilda' }, (...a) => void narratorLog.push(a.join(' '))) === 'elevenlabs' && narratorLog.some(l => l.includes('matilda')) &&
         !sloveneNarrators('en', {}) && !sloveneNarrators('it', { LANI_VOICE_NARRATOR_SL: 'gepard' }), narratorLog)
-    check('the cast: the narrators\' Slovene voices (Nina, Luka: "female.sl", "male.sl", plainly, no carrier), their local voices (female nina, a lone word ana; male marko); the English voices kept for elsewhere',
+    check('the cast: the narrators\' Slovene voices (Nina, Luka: "female.sl", "male.sl"; a lone word inside its carrier sentence since 2026-10-26), their local voices (female nina, a lone word ana; male marko); the English voices kept for elsewhere',
       cast().female.gepard === 'nina' && cast().female.gepard_words === 'ana' && cast().male.gepard === 'marko' && !cast().male.gepard_words &&
         cast().female.languages?.sl?.elevenlabs === '0IwLFuWc6siAnpd77hRG' && cast().male.languages?.sl?.elevenlabs === 'SmCUS1ekZnVjC5lqnRQG' && cast().female.elevenlabs === 'XrExE9yKIg1WjnnlVkGX' &&
         languageVoice('female', 'sl') === 'female.sl' && languageVoice('male', 'sl') === 'male.sl' && !languageVoice('grandma', 'sl') && !languageVoice('female', 'it') &&
-        elevenlabsOf('female.sl') === '0IwLFuWc6siAnpd77hRG' && elevenlabsOf('male.sl') === 'SmCUS1ekZnVjC5lqnRQG' && !carrierVoice('female.sl') && carrierVoice('female') && baseVoice('female.sl') === 'female' && baseVoice('grandma') === 'grandma' &&
+        elevenlabsOf('female.sl') === '0IwLFuWc6siAnpd77hRG' && elevenlabsOf('male.sl') === 'SmCUS1ekZnVjC5lqnRQG' && carrierVoice('female.sl') && carrierVoice('male.sl') && carrierVoice('female') && !carrierVoice('grandma.sl') && baseVoice('female.sl') === 'female' && baseVoice('grandma') === 'grandma' &&
         genderOf('male.sl') === 'male' && !isVoice('female.sl') &&
         new Gepard().speakerOf('female', 'kosilo') === 'ana' && new Gepard().speakerOf('female', 'dober dan') === 'ana' && new Gepard().speakerOf('female', 'Kosilo je na mizi.') === 'nina' && new Gepard().speakerOf('male', 'kosilo') === 'marko' &&
         new Gepard().speakerOf('grandma', 'kosilo') === 'nina' && new Gepard({ speakers: { female: 'ana' } }).speakerOf('female', 'Kosilo je na mizi.') === 'ana')
@@ -1818,9 +1875,10 @@ export default async function voice() {
       if (ffmpeg) {
         const word = await (await say('Hvala lepa', 'player')).json()
         const take = bridgeEleven.st.tts.at(-1)
-        check("the learner's own line of a word to three, made new: said inside its carrier sentence, as a re-record says it (Luka would say it plainly)", word.voice === 'male' && take?.timestamps === true && take.voice === LUKA && take.body.text === 'Beseda je: Hvala lepa.', [word, take])
-        const plainly = await (await say('Lepa hvala', 'male')).json()
-        check("… where the male narrator's own line of a word to three is said plainly", plainly.voice === 'male' && !bridgeEleven.st.tts.at(-1)?.timestamps && bridgeEleven.st.tts.at(-1)?.body.text === 'Lepa hvala', [plainly, bridgeEleven.st.tts.at(-1)])
+        check("the learner's own line of a word to three, made new: said inside its carrier sentence, as a re-record says it", word.voice === 'male' && take?.timestamps === true && take.voice === LUKA && take.body.text === 'Beseda je: Hvala lepa.', [word, take])
+        const lepa = await (await say('Lepa hvala', 'male')).json()
+        const lepaTake = bridgeEleven.st.tts.at(-1)
+        check("… and the male narrator's own new line of a word to three too (Luka, since 2026-10-26)", lepa.voice === 'male' && lepaTake?.timestamps === true && lepaTake.voice === LUKA && lepaTake.body.text === 'Beseda je: Lepa hvala.', [lepa, lepaTake])
       }
       const prep = await (await fetch(`${base}/voice/prepare`, { method: 'POST', headers: auth, body: JSON.stringify({ texts: [{ text: 'Ja, zelo rad.', voice: 'player' }] }) })).json()
       check('POST /voice/prepare in the learner\'s voice: their clip, under the voice asked for', prep.clips?.[0]?.url === mineBody.url && prep.clips[0].voice === 'player', prep)
@@ -1867,8 +1925,9 @@ export default async function voice() {
         st.cast?.find((c: any) => c.id === 'female')?.languages?.sl === 'Nina' && st.tempo?.tempo === null && st.tempo.pause === null, [st.edges, st.narrators, st.tempo])
 
     // A narrator word from before the carrier sentence in the bridge's store (an English narrator's): the app downloads it
-    // and gets it as it is. In the Slovene village it is never re-voiced in its carrier sentence: the narrator's Slovene
-    // ElevenLabs voice makes it soon (Nina, plainly), the clip from before kept in the narrator's key.
+    // and gets it as it is. In the Slovene village it is never re-voiced in the English voice: the narrator's Slovene
+    // ElevenLabs voice makes it soon (Nina, inside its carrier sentence since 2026-10-26), the clip from before kept in the
+    // narrator's key.
     if (ffmpeg) {
       const voiceDir = join(dataDir, 'app/voice')
       const oldFile = `${createHash('sha1').update('smoke|old|kolovrat').digest('hex')}.mp3`
@@ -1880,11 +1939,14 @@ export default async function voice() {
       const u0 = await updates()
       const got = await fetch(`${base}/voice/file/${oldFile}`, { headers: auth })
       check('GET /voice/file of an old-style narrator word: the old clip, at once', got.ok && new TextDecoder().decode((await got.arrayBuffer()).slice(6)) === 'el:old:kolovrat')
+      // its carrier take is cut, then levelled (ffmpeg twice): up to 3 s
+      const koloUrl = async () => (await (await fetch(`${base}/voice/index`, { headers: auth })).json()).kolovrat?.female as string | undefined
       await Bun.sleep(300)
-      const url = (await (await fetch(`${base}/voice/index`, { headers: auth })).json()).kolovrat?.female
+      for (let i = 0; i < 27 && (await koloUrl()) === `/voice/file/${oldFile}`; i++) await Bun.sleep(100)
+      const url = await koloUrl()
       const kolo = bridgeEleven.st.tts.filter(c => c.body.text.includes('kolovrat'))
-      check('…no re-voice in its carrier sentence (an English narrator): the narrator\'s Slovene ElevenLabs voice makes it soon (Nina, plainly), the index on it, the app told, counted for the day; the clip from before kept',
-        url !== `/voice/file/${oldFile}` && /^\/voice\/file\/[a-f0-9]{40}\.mp3$/.test(url ?? '') && kolo.length === 1 && kolo[0].voice === NINA && kolo[0].body.text === 'kolovrat' && !kolo[0].timestamps &&
+      check('…no re-voice in the English voice: the narrator\'s Slovene ElevenLabs voice makes it soon (Nina, a new lone word inside its carrier sentence: "Beseda je: kolovrat."), the index on it, the app told, counted for the day; the clip from before kept',
+        url !== `/voice/file/${oldFile}` && /^\/voice\/file\/[a-f0-9]{40}\.mp3$/.test(url ?? '') && kolo.length === 1 && kolo[0].voice === NINA && kolo[0].body.text === 'Beseda je: kolovrat.' && !!kolo[0].timestamps &&
           (await updates()) > u0 && (await fetch(`${base}/voice/file/${oldFile}`, { headers: auth })).ok, [url, kolo])
       const rk = await fetch(`${base}/voice/redo`, { method: 'POST', headers: auth, body: JSON.stringify({ text: 'kolovrat', voice: 'female', client_id: 'redo-smoke-kolovrat' }) })
       const rkb = await rk.json()
