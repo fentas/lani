@@ -589,12 +589,28 @@ lead into (`project:<id>`): Primorska's vineyard opens once the village has fini
 `vinograd`); then a tap on the terraces on the map opens their place card with "Vstopi · Go in" and the project itself,
 where before it opened the project straight away.
 
+A pack whose language has no curated scenes (no `companion/scenes/<language>/`) brings its village's everyday places
+too, the same arts as the Slovene scenes and so the same slots, `needs` and stages: the Friuli pack has its tent, its
+kitchen, its field, its wood, its stream, its pond and its smithy in Italian (below; docs/plans/05-built/friuli-scenes.md),
+so its tent, hut, field and smithy have "Vstopi · Go in" and the wood, the stream bank and the pond open their scene
+from the first day. Their words are the pack's own packs (`nella-tenda`, `in-cucina`, `nel-campo`, `animali-del-bosco`,
+`nel-bosco`, `al-ruscello`, `allo-stagno`, `nella-fucina`) and the Italian starter packs, and each has its I spy clues
+in `companion/ispy/scenes/` (the app bundles those, so the clues come with the next app build; the scenes themselves go
+out with the bridge).
+
 | Pack | Scene | From | What is there |
 |---|---|---|---|
 | `primorska` | `v-gorah`, V gorah · In the mountains (`alps`) | the horizon | a mountain pasture above a lake under Triglav, the way Bohinj looks from Vogar: the lake with the peaks mirrored in it, the little church and its stone bridge on the shore, the shepherd's hut, cows with bells, a larch and a spruce, a stream with a waterfall, a big stone, a dry-stone wall with a step stile; Janez (a guest's first time in the mountains, the choughs off the peak and a storm over Triglav), Luka (the cows' bells, cheese from the pasture; milking at dawn while the peaks glow pink), Nejc (fishing in the morning fog, the church bell, a fish jumping); chamois by the forest and an ibex on a crag, by day |
 | `primorska` | `na-gricih`, Na gričih · On the hills (`hills`) | the vineyard project | the village's vineyard, its rows running away to a white farmstead with its cellar, cypresses and trees about it, the rolling hills of Brda with the church on a hilltop, the Alps and a glint of the sea; the kaki behind a dry-stone terrace wall, lavender; Marko (the starlings in his vines, a first visit), Janez (the bell against a storm from the Vipava valley, into the cellar), Tine (grandpa's tractor, counting crates) |
 | `friuli` | `al-fuoco`, Al fuoco · At the campfire (`campfire`) | the fire | the village's campfire, in Italian: Nonna Rosa's tisana in the evening, Tommaso bringing wood in the afternoon, and Nonno Bepi's evening story ([Stories](#stories-the-evening-story)). |
 | `friuli` | `il-mare`, Il mare · The sea (`sea`) | the horizon | Grado: the lagoon with its casoni, the bricole and the gulls, the pier and the batela, the beach and the open sea; Zia Nives (a guest, the gulls), Tommaso (the waves, a squall over the lagoon), Nonno Bepi (sea mist, then the sail) |
+| `friuli` | `nella-tenda`, Nella tenda · In the tent (`tent`) | the tent | the learner's tent at the camp; Pastore Davide (a lantern in the evening, shelter from the rain: by the lantern in a summer thunderstorm), Lorenzo (a bedtime story, asleep before its end), Giulia (her treasure map, found with a tap) |
+| `friuli` | `in-cucina`, In cucina · In the kitchen (`kitchen`) | the hut, a house | Nonna Rosa's kitchen, growing with the building's level (the fogolâr hearth at 1); Rosa (polenta or polenta and frico in the evening, breakfast, the eggs counted), Zia Nives (the radio: the bora, the Udinese match) |
+| `friuli` | `nel-campo`, Nel campo · In the field (`field`) | the field, the hay barn | Mugnaio Franco's field; Lorenzo (the scarecrow's hat, a scarf in the cold months), Franco (the wheat harvest in summer, Lei to signor Franco; his horse Baio in the evening) |
+| `friuli` | `nel-bosco`, Nel bosco · In the wood (`forest`) | the forest | Pastore Davide (Bianca the lamb lost, in the fog in winter), Apicoltore Aldo (mushrooms in autumn, the poisonous one; counted), Nonno Bepi on the high seat at dawn (the stag and the hinds; the owl, found with a tap) |
+| `friuli` | `al-ruscello`, Al ruscello · By the stream (`stream`) | the stream bank | Mugnaio Franco (the mill he dreams of, until the mill project grinds), Nonna Rosa (the laundry, a sheet in the wind), Pastore Davide (the sheep drinking, the lamb that won't; counted) |
+| `friuli` | `allo-stagno`, Allo stagno · At the pond (`pond`) | the pond | Apicoltore Aldo (the heron in the mist, the ducks), Tommaso (a frog caught and let go, the tadpoles in spring), Nonno Bepi fishing with his dog Moro in the afternoon |
+| `friuli` | `nella-fucina`, Nella fucina · In the smithy (`smithy`) | the smithy | Fabbro Bruno's smithy, growing with its level; Bruno (a horseshoe in the morning, counted in the bucket; an order from Gorizia written in his black notebook, Lei to signor Bruno), Tommaso (the bellows from level 2) |
 | `kaernten` | `am-feuer`, Am Feuer · At the campfire (`campfire`) | the fire | the village's campfire, in German: Oma Resi's tea in the evening, Maxi gathering wood in the afternoon, and Opa Sepp's evening story ([Stories](#stories-the-evening-story)). |
 | `kaernten` | `am-see`, Am See · By the lake (`alps`) | the horizon | the Faaker See under the Mittagskogel in the Karawanken: the turquoise lake, the peak and the mountains, the little church on the shore, the wooden bridge, the Alm with its hut, cows and cowbells, larches and spruces, a waterfall; Opa Sepp (a guest's first time, a storm over the Mittagskogel), Florian (the cowbells on the Alm; milking at dawn while the peaks glow), Maxi (fishing in the morning fog); chamois and an ibex |
 | `lakeland` | `by-the-fire`, By the fire (`campfire`) | the fire | the village's campfire, in English: Granny Maggie's hot chocolate in the evening, Harry bringing wood in the afternoon, and Old Wilf's evening story ([Stories](#stories-the-evening-story)) |
@@ -686,6 +702,7 @@ something on in every month):
 | `na-gricih`, `v-gorah` | the cows on the planina, the milking 6–9 | the grapes offered 8–10, the starlings and "come to the trgatev" 7–9, the storm and the hail 4–10 |
 | `am-see`, `il-mare` | the Alm, the milking 6–9; a swim in the sea 5–9 | |
 | `al-fuoco`, `am-feuer` | | "are you cold?" by the fire 9–5 |
+| `nella-tenda`, `nel-campo`, `nel-bosco`, `allo-stagno` (friuli) | the wheat harvest 6–8, the mushrooms 8–11, the frog 3–9 | the thunderstorm in the tent 4–10, the scarecrow's scarf 10–3, Bianca in the fog 10–3, the tadpoles 3–6 |
 
 ### What the village has built
 

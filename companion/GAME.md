@@ -1898,7 +1898,11 @@ cuccagna", the town clock "L'orologio del campanile").
 | 🎄 Natale | 25 December | Rosa, Nives, Bepi | 🎂 panettone |
 | ⭐ Santo Stefano | 26 December | Marisa, Nives, Tommaso | 🍫 torrone |
 
-Each has its word pack in `cultures/friuli/packs/festa-<…>.json` (8 words). Its own place is Il mare (`scenes/il-mare.json`,
+Each has its word pack in `cultures/friuli/packs/festa-<…>.json` (8 words). Its village's places to step into are its own
+too, in Italian with Slovene, English and German (SCENES.md, "Scenes of a culture pack"): Nella tenda, In cucina (from
+the hut and the houses), Nel campo, Nel bosco, Al ruscello, Allo stagno and Nella fucina, each with its word pack
+(`nella-tenda`, `in-cucina`, `nel-campo`, `nel-bosco`, `al-ruscello`, `allo-stagno`, `nella-fucina`, and the wild
+animals' `animali-del-bosco`). Its landscape is Il mare (`scenes/il-mare.json`,
 in Italian with Slovene and English, machine-written like the rest), its words in `packs/il-mare.json`; its campfire is Al fuoco
 (`scenes/al-fuoco.json`, words in `packs/al-fuoco.json`), where Nonno Bepi tells his five legends in the evening (`stories/`:
 the agane, the Devil's Bridge of Cividale, the castle hill of Udine, the sbilfs, the Orcolat; words in `packs/storie.json`). The starter packs of Italian are in
