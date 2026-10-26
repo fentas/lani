@@ -2107,7 +2107,7 @@ class VillageRenderer {
 
     private fun smooth(t: Float) = t * t * (3 - 2 * t)
 
-    private companion object {
+    internal companion object {
         /** How much of the paths and the road lies under puddles in the storm's rain (a share of the noise's range). */
         const val PUDDLES = 0.26f
 

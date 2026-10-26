@@ -293,14 +293,35 @@ The coast is only for a region that has the sea (its culture's backdrop shows it
 below. A lake or the sea is a wall of the palisade: the ring ends on its shore either side (a `SHORE` opening, two
 posts), and the plots, the landmarks, the trees, the animals and the forest's spot keep off the water.
 
+**The water is in view on every canvas of the town** (`CoastTest`). The narrowest is a tablet's or a phone's held
+upright, 320 or 360 nominal px wide, 160 px either side of the fire. The sea's shore lies 122 to 136 px left of the fire at
+the horizon (24 to 38 px of water there on the narrowest canvas, more on a wider one) and comes in lower down; a lake's
+near shore is at least 24 px inside that canvas. Where the water would leave the plots too little room, the sea comes in
+less lower down, then lies further out, never more than 140 px left of the fire; a lake lies further out and a little
+smaller, at most 32 px further and 0.84 of its size. "Too little room" is measured against the land without the water: its
+last plot no further out than without it (or than 132 px, where it is nearer). Where no place does, the water takes the
+one that leaves the plots the most room, and the town's last plot lies a little further out (at most 20 px; on one coast
+in about thirty). A plot keeps 12 px from the beach (its footprint's corner on the sand's edge), 16 px from a lake.
+
+By the sea the town view's first look (its home, when it opens and recentres) takes in the beach and a strip of the water
+too, wherever the clearing ends; the camera pans and zooms over the whole canvas, the sea's edge with it. The village hears
+the sea nearer on the coast than where it is only at the horizon (see "Background sounds").
+
+Until 2026-10-26 a coast or a lake whose water left the plots too little room had it pushed further out: the sea 30 px
+past its place, 160 to 180 px left of the fire, off the narrowest canvas (half the coasts showed no sea but the horizon's,
+and nowhere to pan to it), the lake 42 or 52 px further and smaller, a few px of it in view. Every coast changed then (its shore
+14 px further in, a plot 4 px nearer the beach), and so did the lakes that were pushed out: their plots, apart from the
+first ones by the fire, may lie elsewhere now. The other lakes are as they were. The founding's preview draws the same
+land as the village.
+
 What a generated land keeps is what the game needs (`LandsTest`, over 18 seeds of every landscape): the fire in the
 middle; the 28 plots on open ground, off the stream, its bank's spot and the road, on every canvas of the town, the first
 by the fire; the stream on the left (the palisade keeps to its far bank, the mill and the bridge are on it), the road
 through the clearing and across the stream; the palisade's gates on the road and the path, no stake in the water or on a
 plot, a way down to the stream; every named spot on the canvas, in the woods or the clearing as it should be, and a tap
 on it opens it; every project's landmark placed; the wild animals outside the palisade; no tall building hiding most of a
-small one behind it; a lake or the sea leaving room for all 28 plots with the town's clearing on its canvases (a smaller
-lake, a shore further out where it wouldn't); a town of every landscape within the frame budget.
+small one behind it; a lake or the sea leaving room for all 28 plots, in view on every canvas of the town (above); a town
+of every landscape within the frame budget.
 
 **The choice at setup** (`Founding`, `ui/game/FoundingScreen.kt`). A village is founded at the app's first start, once
 the node has no village and the phone none either (offline too: it goes to the node when it answers): "🏡 Kje bo tvoja
@@ -2043,7 +2064,7 @@ loop; pure, unit-tested in `SoundscapeTest`):
 
 | Place | By day | At night | Day and night |
 |---|---|---|---|
-| The village | birds | crickets, the owl | the sea, faint, by the coast (friuli) |
+| The village | birds | crickets, the owl | the sea, faint, where the horizon shows it (friuli); nearer on the coast |
 | `forest` | birds, the most | the owl, a few crickets | the brook, faint; a breath of wind |
 | `field`, `hills`, `apiary` | birds; grasshoppers on summer days | crickets, the owl | a breeze on the field and the hills |
 | `campfire` | birds | crickets, the owl | the fire, higher when it flares |

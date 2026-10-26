@@ -176,17 +176,42 @@ class Terrain private constructor(val land: Land) {
     // ------------------------------------------------------------------ the water: a lake, the sea
 
     /**
+     * How far out (the clearing's metric) a land with water may have its last plot: [FARTHEST_PLOT], or as far as its last
+     * plot lies without the water, when that is further (about half the lands of every landscape): the water leaves the
+     * plots room when the town's clearing is no bigger with it than without.
+     */
+    private val reach: Float = if (landscape != LAKE && landscape != COAST) FARTHEST_PLOT
+    else max(FARTHEST_PLOT, candidates { _, _ -> false }.getOrNull(VillageLayout.MAX_PLOTS - 1)?.get(2) ?: FARTHEST_PLOT)
+
+    /**
      * The lake at the clearing's right, a little above the road (nominal px from the fire: its middle and radii, [cx, cy,
      * rx, ry]), or null. Its shore is a little ragged; a path runs along it on the village's side.
      */
     internal val lake: FloatArray? = if (landscape != LAKE) null else {
-        // farther out, then a little smaller, where the whole one would leave too little room for the plots
+        // farther out, then a little smaller, where the whole one would leave too little room for the plots; never so far
+        // that it isn't on the narrowest canvas of the town (its near shore about 25 px in at least; 2026-10-26: a lake
+        // pushed out 42 or 52 px and smaller showed a few px of water there, or none)
         val a = between(80, -0.1f, 0.04f) * PI.toFloat()
         val d = between(81, 118f, 142f)
         val rx = between(82, 44f, 58f); val ry = between(83, 16f, 21f)
         fun shape(out: Float, s: Float) = floatArrayOf((d + out) * cos(a), (d + out) * sin(a) / 2.4f, rx * s, ry * s)
-        listOf(shape(0f, 1f), shape(12f, 1f), shape(22f, 0.92f), shape(32f, 0.84f), shape(42f, 0.76f))
-            .firstOrNull { l -> roomy(candidates { sx, sy -> ellipse(l, sx, sy, PLOT_ROOM) }) } ?: shape(52f, 0.7f)
+        roomiest(listOf(shape(0f, 1f), shape(12f, 1f), shape(22f, 0.92f), shape(32f, 0.84f))) { l -> candidates { sx, sy -> ellipse(l, sx, sy, PLOT_ROOM) } }
+    }
+
+    /**
+     * The first of the water's [shapes] that leaves the plots room ([roomy], the places [places] leaves with it); where none
+     * does, the one whose last plot lies nearest (the first of equals).
+     */
+    private fun roomiest(shapes: List<FloatArray>, places: (FloatArray) -> List<FloatArray>): FloatArray {
+        var best = shapes.first()
+        var nearest = Float.MAX_VALUE
+        for (s in shapes) {
+            val cand = places(s)
+            if (roomy(cand)) return s
+            val last = cand.getOrNull(VillageLayout.MAX_PLOTS - 1)?.get(2) ?: continue
+            if (last < nearest) { best = s; nearest = last }
+        }
+        return best
     }
     private val lakeSeed = 31 + (land.seed ushr 5 and 0xff)
 
@@ -208,23 +233,35 @@ class Terrain private constructor(val land: Land) {
 
     /**
      * The sea along the left (the coast): the shore's x at the horizon's row (nominal px from the fire), how it comes in to
-     * the right going down, and how far right it may come (well left of the woods' pond). Null without the sea.
+     * the right going down, and how far right it may come by the woods' pond (well left of it). Null without the sea.
+     *
+     * Every shore is on the narrowest canvas of the town ([SceneFit.TOWN_W] wide, 160 px each side of the fire) at every
+     * row: at the horizon 24 to 38 px of water, more lower down, never further out than [SEA_OUT]. Where it would leave the
+     * plots too little room it comes in less lower down, then lies further out, as far as [SEA_OUT]; where even that doesn't
+     * leave them room, the shore that leaves them the most stands (its town's clearing a little bigger than without the
+     * sea). Until 2026-10-26 the shore went out 30 px past its place there, 160 to 180 px from the fire, off the canvas of a
+     * phone held upright and of a tablet: half the coasts had no sea in view but the horizon's, and nowhere to pan to it.
      */
     internal val sea: FloatArray? = if (landscape != COAST) null else {
         val w = woods!!
         // the pond's left bank from the fire (the path's column where the pond lies, less the pond's offset and radius)
         val pondLeft = 8f + w.a1 * sin(w.pondDY * w.f1 + w.p1) + w.a2 * sin(w.pondDY * w.f2 + w.p2) - w.pondDX - w.pondRx
-        val s0 = between(85, -150f, -132f); val slope = between(86, 0.08f, 0.2f)
-        // further out where it would leave too little room for the plots
-        floatArrayOf(0f, 10f, 20f).map { floatArrayOf(s0 - it, slope, pondLeft - 18f) }
-            .firstOrNull { s -> roomy(candidates { sx, sy -> sx < shore(s, sy) + BEACH + PLOT_ROOM }) } ?: floatArrayOf(s0 - 30f, 0f, pondLeft - 18f)
+        val cap = pondLeft - 18f
+        val s0 = between(85, -136f, -122f); val slope = between(86, 0.08f, 0.2f)
+        roomiest(listOf(s0 to slope, s0 to slope / 2f, s0 to 0f, SEA_OUT to slope / 2f, SEA_OUT to 0f).map { (x, k) -> floatArrayOf(x, k, cap) }) { s ->
+            candidates { sx, sy -> sx < shore(s, sy) + BEACH + SEA_ROOM }
+        }
     }
 
     /** The sea's shore at nominal row [sy] from the fire: the sea lies left of it, the beach just right. */
     fun shoreX(sy: Float): Float = sea?.let { shore(it, sy) } ?: -1e4f
 
-    /** The shore of the sea [s] ([shoreX]). */
-    private fun shore(s: FloatArray, sy: Float): Float = min(s[0] + s[1] * (sy + VillageLayout.HORIZON), s[2]) + (Noise.v1(sy * 0.05f, seaSeed) - 0.5f) * 10f
+    /**
+     * The shore of the sea [s] ([shoreX]): its line from the horizon down, kept left of the pond's bank in the woods below
+     * (from [POND_ROWS] px below the fire; above them the bank's limit eases off a px a row, so the shore stays in view).
+     */
+    private fun shore(s: FloatArray, sy: Float): Float =
+        min(s[0] + s[1] * (sy + VillageLayout.HORIZON), s[2] + max(0f, POND_ROWS - sy)) + (Noise.v1(sy * 0.05f, seaSeed) - 0.5f) * 10f
 
     /** Whether there is a lake or the sea. */
     val water: Boolean = lake != null || sea != null
@@ -285,16 +322,17 @@ class Terrain private constructor(val land: Land) {
      * little noise in the order. A generated land shifts the rows along the road, bends them with it, and has its own noise.
      */
     private fun plots(): List<FloatArray> {
-        val cand = candidates { sx, sy -> water && wetScreen(sx, sy, PLOT_ROOM) }
+        val room = if (sea != null) SEA_ROOM else PLOT_ROOM
+        val cand = candidates { sx, sy -> water && wetScreen(sx, sy, room) }
         check(cand.size >= VillageLayout.MAX_PLOTS) { "the land ${land.kind}:${land.seed} has room for ${cand.size} plots" }
         return cand.take(VillageLayout.MAX_PLOTS)
     }
 
     /**
-     * Whether the places [cand] leave room for every plot, the last of them no farther out than a town's clearing may reach
-     * (so the town's clearing, 30 px beyond it, stays on the canvases of the town).
+     * Whether the places [cand] leave room for every plot, the last of them no farther out than the water may take it
+     * ([reach]: the town's clearing, 30 px beyond it, no bigger than without the water).
      */
-    private fun roomy(cand: List<FloatArray>): Boolean = cand.size >= VillageLayout.MAX_PLOTS && cand[VillageLayout.MAX_PLOTS - 1][2] <= FARTHEST_PLOT
+    private fun roomy(cand: List<FloatArray>): Boolean = cand.size >= VillageLayout.MAX_PLOTS && cand[VillageLayout.MAX_PLOTS - 1][2] <= reach
 
     /** The places a plot could be (see [plots]), nearest the fire first, off what [wet] says is water (nominal px from the fire). */
     private fun candidates(wet: (Float, Float) -> Boolean): List<FloatArray> {
@@ -479,6 +517,21 @@ class Terrain private constructor(val land: Land) {
         /** The sea's beach (px wide), and the room a plot keeps from the water (px). */
         const val BEACH = 7f
         private const val PLOT_ROOM = 16f
+
+        /**
+         * The room a plot keeps from the sea's beach (px): its footprint's corner on the sand's edge. Less than by a lake,
+         * so the sea can come in where it shows (see [sea]).
+         */
+        private const val SEA_ROOM = 12f
+
+        /** How far out the sea's shore may lie (nominal px left of the fire): 20 px of water on the narrowest canvas of the town. */
+        private const val SEA_OUT = -140f
+
+        /**
+         * From this far below the fire (nominal px) the sea's shore keeps left of the woods' pond: the pond lies below the
+         * forest's edge, further down than this at every age (CoastTest).
+         */
+        private const val POND_ROWS = 40f
 
         /** The land dice's own salt. */
         private const val DICE = 0x51ad

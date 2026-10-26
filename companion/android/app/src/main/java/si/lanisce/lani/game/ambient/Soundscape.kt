@@ -36,10 +36,11 @@ enum class Layer(val file: String, val seconds: Int, val trim: Float) {
 /** Where the learner is: what is on screen. */
 sealed interface Place {
     /**
-     * The village from above; [sea]: it lies by the coast (its culture's backdrop, the friuli pack's lagoon); [storm]: the
+     * The village from above; [sea]: the sea is at its horizon (its culture's backdrop, the friuli pack's lagoon); [beach]:
+     * it stands on the coast, the sea along its left (its land's, [si.lanisce.lani.game.render.Terrain.sea]); [storm]: the
      * storm event is on (its lightning flashes more often than a kept sky's, [si.lanisce.lani.game.scene.Lightning]).
      */
-    data class Village(val sea: Boolean = false, val storm: Boolean = false) : Place
+    data class Village(val sea: Boolean = false, val storm: Boolean = false, val beach: Boolean = false) : Place
 
     /** A close-up scene of [art] (SCENES.md, "Arts"); [fx]: the effects its dialog has set (the fire flaring, the forge roaring). */
     data class Scene(val art: String, val fx: Map<String, Float> = emptyMap()) : Place
@@ -109,8 +110,11 @@ object Soundscape {
         "church" to Spot(weather = 0.3f, indoor = true),
     )
 
-    /** The village from above: its birds and crickets, the owl from the woods; the sea along the horizon by the coast. */
-    private fun village(sea: Boolean) = Spot(birds = 0.6f, crickets = 0.6f, owl = 0.4f, sea = if (sea) 0.35f else 0f)
+    /**
+     * The village from above: its birds and crickets, the owl from the woods; the sea, faint, where it lies along the horizon,
+     * nearer where the village stands on the coast.
+     */
+    private fun village(sea: Boolean, beach: Boolean) = Spot(birds = 0.6f, crickets = 0.6f, owl = 0.4f, sea = if (beach) 0.6f else if (sea) 0.35f else 0f)
 
     /**
      * What plays at [place] at [hour] (local, 0..24) of a day in [month] (1..12) under [sky]: each loop's level, 0..1
@@ -121,7 +125,7 @@ object Soundscape {
      */
     fun mix(place: Place, hour: Float, month: Int, sky: Sky = Sky.CLEAR): Map<Layer, Float> {
         val spot = when (place) {
-            is Place.Village -> village(place.sea)
+            is Place.Village -> village(place.sea, place.beach)
             is Place.Scene -> SPOTS[place.art] ?: OPEN
         }
         val fx = (place as? Place.Scene)?.fx.orEmpty()

@@ -92,6 +92,9 @@ class SoundscapeTest {
         val coast = Soundscape.mix(Place.Village(sea = true), 12f, 7).of(Layer.SEA)
         assertTrue(coast > 0f && coast < scene("sea", 12f, 7).of(Layer.SEA))
         assertFalse(Layer.SEA in Soundscape.mix(Place.Village(), 12f, 7))
+        // a village on the coast hears its sea nearer than one with the sea only at its horizon, still less than the lagoon
+        val beach = Soundscape.mix(Place.Village(sea = true, beach = true), 12f, 7).of(Layer.SEA)
+        assertTrue(beach > coast && beach < scene("sea", 12f, 7).of(Layer.SEA))
     }
 
     @Test fun `the fire is only where one burns`() {

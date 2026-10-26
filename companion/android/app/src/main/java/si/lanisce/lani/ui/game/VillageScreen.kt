@@ -154,6 +154,7 @@ fun VillageScreen(vm: AppViewModel) {
         si.lanisce.lani.game.ambient.Place.Village(
             sea = si.lanisce.lani.game.culture.Cultures.current.world.backdrop?.sea == true,
             storm = s.event?.kind == si.lanisce.lani.game.EventKind.STORM,
+            beach = si.lanisce.lani.game.render.VillageLayout.of(s).sea != null,
         ),
         si.lanisce.lani.game.ambient.Soundscape.villageSky(s, java.time.LocalDate.now()),
         townClock,

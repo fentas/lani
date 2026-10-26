@@ -42,6 +42,9 @@ object TownAnchors {
     /** How far bubbles need to be from each other's places (canvas px) before the forest spot moves on. */
     private const val CROWD = 26f
 
+    /** How much of the sea the town view's home frames beyond the shore by the fire (nominal px; see [home]). */
+    private const val SEA_IN_VIEW = 16f
+
     /** The bubble anchor of every place in the village: the fire, the forest and the first building of each type. */
     fun of(state: GameState, w: Int, h: Int): Map<TownPlace, CanvasPoint> {
         val comp = VillageLayout.composition(w, h, compact = false)
@@ -211,14 +214,18 @@ object TownAnchors {
 
     /**
      * The clearing and what stands in it, with the Alps' feet above and (on a tall canvas) the meadow below where
-     * the forest's bubbles point: what the town view frames when it (re)centres. Canvas pixels, clipped to the canvas.
+     * the forest's bubbles point: what the town view frames when it (re)centres. By the sea (the coast) the beach and a strip
+     * of the water too, wherever the clearing ends: the coast is in view from the first look. Canvas pixels, clipped to the
+     * canvas.
      */
     fun home(state: GameState, w: Int, h: Int): CanvasRect {
         val comp = VillageLayout.composition(w, h, compact = false)
-        val r = VillageLayout.of(state).clearing(state.age)
+        val land = VillageLayout.of(state)
+        val r = land.clearing(state.age)
         val meadow = Foreground.of(state, w, h)?.let { it.anchorY + 16f } ?: 0f
+        val sea = if (land.sea != null) comp.fireX + land.shoreX(0f) - SEA_IN_VIEW else Float.MAX_VALUE
         return CanvasRect(
-            (comp.fireX - r - 6f).coerceAtLeast(0f),
+            min(comp.fireX - r - 6f, sea).coerceAtLeast(0f),
             (comp.horizon - 28f).coerceAtLeast(0f),
             (comp.fireX + r + 6f).coerceAtMost(w.toFloat()),
             max(comp.fireY + r / 2.4f + 8f, meadow).coerceAtMost(h.toFloat()),

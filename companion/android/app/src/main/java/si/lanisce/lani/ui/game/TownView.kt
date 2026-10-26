@@ -175,7 +175,7 @@ fun TownView(
     BoxWithConstraints(modifier.fillMaxSize()) {
         val w = constraints.maxWidth; val h = constraints.maxHeight
         val rig = remember(fit, w, h) { CameraRig.town(fit, w, h) }
-        val homeRect = remember(state.age, fit) { TownAnchors.home(state, fit.width, fit.height) }
+        val homeRect = remember(state.land, state.age, fit) { TownAnchors.home(state, fit.width, fit.height) }
         val margin = with(density) { 12.dp.toPx() }
         val home = remember(rig, homeRect, topInset, bottomInset) {
             rig.frame(homeRect, freeArea(w.toFloat(), h.toFloat(), topInset.toFloat(), bottomInset.toFloat(), margin), maxFrame = rig.minScale * 2, above = HOME_ABOVE)
@@ -305,7 +305,7 @@ fun TownView(
  */
 @Composable
 private fun PlaceTargets(state: GameState, fit: SceneFit, horizon: Boolean, camera: () -> si.lanisce.lani.game.render.Camera, fire: Boolean, onPlace: (PlaceTap) -> Unit) {
-    val bodies = remember(state.buildings, state.age, state.fire, fit, horizon) { TownAnchors.bodies(state, fit.width, fit.height, horizon) }
+    val bodies = remember(state.land, state.buildings, state.age, state.fire, fit, horizon) { TownAnchors.bodies(state, fit.width, fit.height, horizon) }
     val density = LocalDensity.current
     val dp = if (fire) TownTargets.FIRE_DP else TownTargets.DP
     val size = with(density) { dp.dp.roundToPx() }
@@ -367,7 +367,7 @@ private fun PlotTargets(state: GameState, fit: SceneFit, plots: PlotMarks, label
  */
 @Composable
 private fun LandmarkTargets(state: GameState, fit: SceneFit, camera: () -> si.lanisce.lani.game.render.Camera, onProject: (String) -> Unit) {
-    val marks = remember(state.projects, state.landmarksDown, state.buildings, state.age, fit) { TownAnchors.landmarks(state, fit.width, fit.height) }
+    val marks = remember(state.land, state.projects, state.landmarksDown, state.buildings, state.age, fit) { TownAnchors.landmarks(state, fit.width, fit.height) }
     val density = LocalDensity.current
     val half = with(density) { 20.dp.roundToPx() }
     for ((spot, p) in marks) {
@@ -447,4 +447,4 @@ private fun AnimalTargets(renderer: VillageRenderer, camera: () -> si.lanisce.la
 /** Bubble anchors for [state] on [fit]'s canvas, recomputed only when what they depend on changes. */
 @Composable
 fun townAnchors(state: GameState, fit: SceneFit): Map<TownPlace, CanvasPoint> =
-    remember(state.buildings, state.age, state.fire, state.projects, state.landmarksDown, fit) { TownAnchors.withSpots(state, fit.width, fit.height) }
+    remember(state.land, state.buildings, state.age, state.fire, state.projects, state.landmarksDown, fit) { TownAnchors.withSpots(state, fit.width, fit.height) }
