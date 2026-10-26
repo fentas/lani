@@ -114,6 +114,12 @@ class VisitVoiceController(
         prompt = null
     }
 
+    /** QA's "audio:visitvoice:again" (a debug build): this visit's note may come again, the offers declined kept (the 🔇 note then). */
+    fun qaAgain() {
+        told = false
+        prompt = null
+    }
+
     private companion object {
         const val TAG = "VisitVoice"
     }

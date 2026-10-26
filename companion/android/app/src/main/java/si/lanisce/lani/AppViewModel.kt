@@ -1253,6 +1253,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
             what == "tts:" -> speaker.qaNoTts = false
             // a visit's note and offer of the offline voice to come again (the declines forgotten)
             what == "visitvoice:reset" -> visitVoice.qaReset()
+            // this visit's note may come again, the declines kept: the 🔇 note after a "Ne zdaj"
+            what == "visitvoice:again" -> visitVoice.qaAgain()
             // the offline voice of a language off the phone ("voice:remove:sl"), as the settings' 🗑️ takes it
             what.startsWith("voice:remove:") -> offlineAudio.removeFor(what.removePrefix("voice:remove:"))
         }

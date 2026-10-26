@@ -44,7 +44,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   earlier clip stands in; "audio:refresh" takes the node's index again (a visited town's, on a visit). "audio:tts:off"
  *   has Android's text-to-speech count as having no voice for any language (a tablet without the visited town's; Speaker.qaNoTts),
  *   "audio:tts:" lets it be; "audio:visitvoice:reset" forgets the visits' offers of an offline voice declined, and lets this
- *   visit's note come again (app/VisitVoiceController); "audio:voice:remove:<lang>" takes that language's offline voice
+ *   visit's note come again (app/VisitVoiceController), "audio:visitvoice:again" lets it come again keeping the declines (the
+ *   🔇 note after a "Ne zdaj"); "audio:voice:remove:<lang>" takes that language's offline voice
  *   off the phone, as the settings' 🗑️ does.
  * - "render:full": the village's map draws its ground whole every frame, as it did before 2026-10-26, instead of keeping its
  *   still picture and drawing only its water anew ([si.lanisce.lani.game.render.VillageRenderer.groundKept]): QA measures
