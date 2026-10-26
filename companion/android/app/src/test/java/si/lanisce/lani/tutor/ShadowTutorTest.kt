@@ -400,7 +400,11 @@ class ShadowTutorTest {
         assertEquals(listOf(9_000L), t.today.restarts)
         // the old thread's turns aren't sent again: the first message is the restart's, as text
         val sent = tutorJson.parseToJsonElement(Buffer().also { api.requests.first { it.method == "POST" }.body!!.writeTo(it) }.readUtf8()) as JsonObject
-        val first = sent["messages"]!!.jsonArray.first().toString()
+        // the thread from before keeps its top-level level (medium: the prefix's cache), the chat's xhigh by an effort
+        // message before it
+        val messages = sent["messages"]!!.jsonArray.map { it.jsonObject }
+        assertEquals(listOf("xhigh"), messages.mapNotNull(Effort::of))
+        val first = messages.first { it.role() == "user" }.toString()
         assertTrue(first.contains("The app was updated") && first.contains("Po posodobitvi"))
         assertFalse(sent.toString().contains("old-sig"))
     }
