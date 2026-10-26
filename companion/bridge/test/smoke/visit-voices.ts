@@ -146,8 +146,9 @@ export async function visitVoiceChecks(jan: Town, mia: Town, luka: Town) {
   const bBody = await b.json()
   const asked = visitGepard.st.calls.filter((c: any) => c.text === fresh)
   check("visit voices: … ElevenLabs down: her local worker in Babica's local voice (nina)", b.status === 200 && bBody.from === 'node' && bBody.engine === 'gepard' && bBody.voice === 'grandma' && asked.length === 1 && asked[0].speaker === 'nina', { bBody, asked })
-  const word = await (await say(mia, jan, { text: 'kolovrat', voice: 'female' })).json()
-  check("visit voices: … a lone word of the female narrator in her local voice for words (ana)", word.from === 'node' && visitGepard.st.calls.some((c: any) => c.text === 'kolovrat' && c.speaker === 'ana'), { word, calls: visitGepard.st.calls.slice(-2) })
+  // a word no section voiced before (the host has none of it)
+  const word = await (await say(mia, jan, { text: 'brumbrumček', voice: 'female' })).json()
+  check("visit voices: … a lone word of the female narrator in her local voice for words (ana)", word.from === 'node' && visitGepard.st.calls.some((c: any) => c.text === 'brumbrumček' && c.speaker === 'ana'), { word, calls: visitGepard.st.calls.slice(-2) })
 
   // the learner's own line: in the town's voice for her (Mia's profile says no gender: the female one), the host's clip
   const prof = await (await fetch(`${mia.base}/towns/${jan.key.fingerprint}/voice/profiles`, { headers: mia.auth })).json()
