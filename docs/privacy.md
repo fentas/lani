@@ -117,7 +117,7 @@ words, never the photo.
 
 ## Lani on the phone (the hosted mode)
 
-With "☁️ Lani na tem telefonu · Lani on this phone" there is no machine: the learner's data lives on the phone, in the
+With "📱 Samo ta telefon / tablica · Just this device" (the app's "☁️ Lani na tej napravi") there is no machine: the learner's data lives on the phone, in the
 app's own files (`<filesDir>/lani/data`), which only the app can read, and Android's backup leaves them out
 (`allowBackup` is off). The bridge runs inside the app, so nothing of it goes over a network. What leaves the phone:
 

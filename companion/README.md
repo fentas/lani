@@ -296,6 +296,11 @@ slots from the default profile's village.
 - Tool approvals are not relayed to the child's phone (the bridge doesn't offer the channel's permission
   relay, and `POST /permission` answers `403`). A parent answers them in the terminal or through Remote
   Control.
+- The child's app asks no keys or accounts: the pairing tells it the profile is a child's (`learner.child`), and the
+  connection sheet's data and tutor settings (GitHub, the backup, the tutor's key or ChatGPT) say "👪 To nastavi starš ·
+  A parent sets this up", open after a two-second hold ("🔒 Drži za starše · Hold (for parents)"). A device set up on
+  its own ("📱 Samo ta telefon / tablica", "🧒 Za otroka") is a child's the same way, and its bridge runs with
+  `LANI_CHILD=1` ([docs/plans/05-built/onboarding.md](../docs/plans/05-built/onboarding.md)).
 
 ## Pair a phone
 
@@ -312,8 +317,9 @@ lani://pair?v=1&u=<bridge URL>&c=<code>&p=<profile>&f=<bridge key fingerprint>
 
 (The app also reads `fluent://pair?…`, as bridges printed it before the project was renamed.)
 
-In the app, tap "📷 Skeniraj QR · Scan the QR code" on the first screen (the URL and token fields stay
-for typing), or, to pair again, the tutor's status dot on Home. The app asks for the camera only then,
+In the app's first launch, after the languages: "🖥️ S svojim računalnikom · With my family's computer" →
+"📷 Skeniraj kodo · Scan the code" (the URL and token, or the `lani://pair?…` text pasted, are behind "Ročno · Enter
+manually"); or, to pair again, the tutor's status dot on Home. The app asks for the camera only then,
 reads the code with CameraX and ZXing (no Google Play services), calls `POST /pair` and shows which
 learner it paired with. The phone must be on the tailnet: the Tailscale app, signed in to your tailnet,
 or with this node shared with it.
@@ -3376,14 +3382,17 @@ companion/bin/lani-handover --take          # take it back once the phone handed
 
 ## Lani on this phone (no node)
 
-The app's hosted mode (plan 5): "☁️ Lani na tem telefonu · Lani on this phone" on the first screen, next to "🔗 Poveži
-svojega učitelja · Connect my own tutor". The bridge runs in the app (QuickJS), the learner's data lives on the phone
+The app's hosted mode (plan 5): "📱 Samo ta telefon / tablica · Just this device" in the first launch, next to "🖥️ S
+svojim računalnikom · With my family's computer" ([the first launch](../docs/plans/05-built/onboarding.md)); its screens
+say "☁️ Lani na tej napravi · Lani on this device". The bridge runs in the app (QuickJS), the learner's data lives on the phone
 (`<filesDir>/lani/data`, a data repository's layout), and there is no node, Tailscale or Claude Code. Built in
 [docs/plans/05-built/hosted-mode.md](../docs/plans/05-built/hosted-mode.md).
 
-- **The first launch:** a fresh start asks what `lani-setup` asks (the name, how the village speaks to them, the language
-  learned, the explanations' language, the level, the minutes a day) and makes the six databases from `data-examples/`;
-  or "📥 Uvozi izvoz · Import an export" takes a file `lani export` made. Then the tutor's step, then Home, where the
+- **The first launch:** a fresh start asks what `lani-setup` asks (the name, how the village speaks to them, the level,
+  the minutes a day, and "🧒 Za otroka · For a child"; the languages come from the setup's first steps) and makes the six
+  databases from `data-examples/`; or "📥 Uvozi izvoz · Import an export" takes a file `lani export` made. Then the
+  tutor's step ("🔑 Claude (svoj ključ)", "Nadaljuj s ChatGPT · Continue with ChatGPT", or "Pozneje · Later"; on a
+  child's device "👪 To nastavi starš · A parent sets this up" and a two-second hold), then Home, where the
   village is founded.
 - **Moving a learner here from a node:**
 
@@ -3837,9 +3846,11 @@ gunzip -k ~/.local/share/lani/releases/lani-1180-mapping.txt.gz
 
 ### Install and pair
 
-On first launch, scan the QR code from `companion/bin/lani-pair` ("📷 Skeniraj QR · Scan the QR code"),
-or enter the bridge URL (`tailscale serve status`) and the token. Without a node, choose "☁️ Lani na tem telefonu · Lani
-on this phone" instead ([Lani on this phone](#lani-on-this-phone-no-node)). For Slovene speech, install the
+On first launch, choose the language to learn and the explanations' language, then "🖥️ S svojim računalnikom · With my
+family's computer" and scan the QR code from `companion/bin/lani-pair` ("📷 Skeniraj kodo · Scan the code"); "Ročno ·
+Enter manually" takes the code's text or the bridge URL (`tailscale serve status`) and the token. Without a node, choose
+"📱 Samo ta telefon / tablica · Just this device" instead ([Lani on this phone](#lani-on-this-phone-no-node)). The
+steps: [docs/plans/05-built/onboarding.md](../docs/plans/05-built/onboarding.md). For Slovene speech, install the
 Slovenian voice in Android's text-to-speech settings (Google Speech Services → sl-SI).
 
 The story notebook's handwriting is Kalam (Indian Type Foundry, SIL Open Font License 1.1), bundled in

@@ -105,7 +105,9 @@ Once the app runs, it updates itself from your bridge whenever you publish a new
 companion/bin/lani-pair
 ```
 
-It prints a QR code that works once, for 10 minutes. In the app: "📷 Skeniraj QR · Scan the QR code". With Tailscale,
+It prints a QR code that works once, for 10 minutes. In the app's first launch, after the languages: "🖥️ S svojim
+računalnikom · With my family's computer" → "📷 Skeniraj kodo · Scan the code" ("Ročno · Enter manually" takes the text
+under the code instead). With Tailscale,
 the phone needs the Tailscale app, signed in to the same tailnet. More: [companion/README.md, "Pair a
 phone"](../companion/README.md#pair-a-phone).
 

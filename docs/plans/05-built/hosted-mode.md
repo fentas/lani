@@ -1,4 +1,4 @@
-# Built: the hosted mode, "☁️ Lani na tem telefonu · Lani on this phone"
+# Built: the hosted mode, "☁️ Lani na tej napravi · Lani on this device"
 
 *Plan 5, phase A, the app's side (2026-10-19, branch `hosted`). What [plan 5](../05-in-app-tutor.md) asks in "The modes
 side by side", "Data" (export and import), "Background work on Android" and "What the hosted mode leaves out at first",
@@ -7,14 +7,16 @@ as built on [the bridge on the phone](phone-runtime.md), [the relay](relay.md) a
 The hosted mode runs Lani on the phone alone: no node, no Tailscale, no Claude Code. The bridge's TypeScript runs in
 the app's process (QuickJS, `PhoneBridge`), the learner's data lives in `<filesDir>/lani/data` with a node's data
 repository's layout, and the app talks to that bridge exactly as to a node. It is opt-in: the first launch offers it next
-to pairing, and the settings switch to it and back. A paired phone never runs it, and self-hosted works as before.
+to pairing ("📱 Samo ta telefon / tablica · Just this device", [the first launch](onboarding.md)), and the settings switch
+to it and back. A paired phone never runs it, and self-hosted works as before. (Its screens said "Lani na tem telefonu ·
+Lani on this phone" until the first launch was redone: a tablet runs it too.)
 
 ## What is built
 
 | Part | Where | What |
 |---|---|---|
-| The setup's choice | `ui/SetupAndPermission.kt` | "☁️ Lani na tem telefonu · Lani on this phone" above today's pairing, which is now headed "🔗 Poveži svojega učitelja · Connect my own tutor" |
-| The onboarding | `ui/hosted/HostedScreens.kt` `HostedSetup` | A fresh start (the questions below), an export imported, or the data already on the phone; then the tutor's step |
+| The setup's choice | `ui/setup/SetupScreen.kt`, `app/SetupFlow.kt` | "📱 Samo ta telefon / tablica · Just this device" next to "🖥️ S svojim računalnikom · With my family's computer", after the welcome and the languages ([onboarding.md](onboarding.md)) |
+| The onboarding | `ui/hosted/HostedScreens.kt` `HostedSetup`, `TutorStep` | A fresh start (the questions below), an export imported, or the data already on the phone; then the tutor's step |
 | The new learner's data | `companion/bridge/src/phone/entry.ts` `initLearner`, `PhoneBridge.initLearner` | The six databases from `data-examples/`, exactly as `lani-setup` makes them (`learners.ts initLearnerData`), before the bridge boots |
 | The in-process transport | `phone/PhoneTransport.kt`, installed in `data/Http.kt` | An OkHttp interceptor for `http://phone.lani.invalid`: every request answered by `PhoneBridge.handle`, a stream as a streaming body |
 | The runtime | `hosted/HostedRuntime.kt` | The bridge for the whole process (the screens and the background jobs): boot, stop, restart, the lease's environment |
@@ -26,14 +28,17 @@ to pairing, and the settings switch to it and back. A paired phone never runs it
 
 ## The onboarding
 
-What `/lani-setup` and `lani-setup` ask a new learner (`companion/bridge/src/cli/setup.ts`):
+What `/lani-setup` and `lani-setup` ask a new learner (`companion/bridge/src/cli/setup.ts`). With no learner on the
+phone yet the questions come at once; with one, "▶ Nadaljuj kot Ana", "✨ Nov začetek" and "📥 Uvozi izvoz" first.
 
 - the name;
-- how the village speaks to them: "kot ženska (lačna)" or "kot moški (lačen)" (the profile's `gender`; without a choice
-  the tutor asks later);
-- the language learned: slovenščina (the default), English, italiano, Deutsch, the languages the culture packs speak
-  (a language other than Slovene says its village has less content so far);
-- the language explanations are in (the other three);
+- who learns: "🧑 Zame · For me" or "🧒 Za otroka · For a child" (a child's: 15 minutes a day to start, the bridge as a
+  child's profile, keys and accounts a parent's; below);
+- how the village speaks to them: "kot ženska (lačna)" or "kot moški (lačen)", the example in the language learned
+  (Italian "stanca/stanco"; the profile's `gender`; without a choice the tutor asks later);
+- the language learned and the one explanations are in: chosen in the setup's first steps already, shown as "Učiš se:
+  italiano; razlage: Deutsch" with "Spremeni · Change" back to them (from the settings' switch, as chips here: slovenščina,
+  English, italiano, Deutsch; a language other than Slovene says its village has less content so far);
 - the level now (A1 to C2, A1 for a beginner);
 - minutes a day (10, 15, 20, 30, 45, 60).
 
@@ -50,11 +55,20 @@ The other ways in:
 - **"▶ Nadaljuj kot Ana · Go on as Ana":** shown when the phone holds a learner's data already (an earlier hosted start,
   or what git pulled), it boots over that.
 
-**Then the tutor.** A step says what the tutor on this phone is: an AI on the learner's own key (Anthropic, OpenAI or a
-ChatGPT plan), paid to the provider by use, and that the village, the exercises and the words work without it. "🧑‍🏫
-Nastavi učitelja · Set up the tutor" goes Home and opens the live tutor's own section ("🧑‍🏫 Učitelj · Tutor",
-`ui/tutor/TutorSettings`, in a sheet of its own: `ui/hosted/TutorSheet`); "🏡 V mojo vas · To my village" goes Home, and
-the same section is in the connection sheet later.
+**Then the tutor** (`TutorStep`). A step says in plain words what the tutor is (an AI that writes, answers and makes
+exercises; on this device it needs the learner's own key or a ChatGPT account, paid to the provider; the village, the
+exercises and the words work without it), and offers three ways:
+
+- **"🔑 Claude (svoj ključ) · Claude (your own key)":** where a key is made (console.anthropic.com, a link), the key's
+  field and "✓ Preveri ključ"; the key is checked there (`LiveTutor.setKey`: GET /v1/models, no model call) and kept,
+  then Home. A refused key says "🔑 Ta ključ ne deluje. Preveri, da je prekopiran ves: začne se s sk-ant-." (`TutorKey`).
+- **"💬 Nadaljuj s ChatGPT · Continue with ChatGPT"** (where the build has OpenAI): the browser's sign-in
+  (`LiveTutor.signInWithChatGPT`), OpenAI's welcome the first time, then Home.
+- **"🏡 Pozneje · Later":** Home; the same section is in the connection sheet ("🧑‍🏫 Učitelj · Tutor",
+  `ui/tutor/TutorSettings`).
+
+On a child's device the step says "👪 To nastavi starš · A parent sets this up" and opens after a two-second hold
+(`ui/setup/ParentGated`, [onboarding.md](onboarding.md)); "🏡 V mojo vas · To my village" goes Home without it.
 
 - **The tutor in the app is the only one on the phone:** the section shows no "Claude Code on my node" choice there,
   and the tutor turns on by itself as soon as a credential is set (the view model watches `hosted.active`, the
@@ -97,7 +111,7 @@ unchanged: `Bridge`, the outbox, `EventStream`, `ClipsApi`, `FamilyApi`, the cha
 | `/voice/index`, `/voice/prepare` | An empty index; `url: null`. No clip is fetched. |
 | The day's clips ahead, the offline voice (Piper) | Off (`OfflineAudioController.onPhone`): nothing planned or offered. The connection sheet hides "🔊 Zvok brez povezave". |
 | Speech recognition (`/stt`) | `Stt.connect` doesn't ask: `available = false`, so the phone's recognizer is used. No "node listens" option shows. |
-| The status dot and the connection sheet | "☁️ Lani na tem telefonu" in place of "tutor online" or a URL. No pairing, no "Scan the QR code". |
+| The status dot and the connection sheet | "☁️ Lani na tej napravi" in place of "tutor online" or a URL. No pairing, no "Scan the QR code". |
 | The chat | Its note while no tutor is set up (above). The outbox delivers in-process, so nothing waits for a network. |
 | Friends (towns) | Without a relay: "🛰️ Na tem telefonu se vasi povezujejo prek posrednika …", and no Invite or Accept. |
 | The family page | Through the relay only. Without one it isn't reachable; the family screen's own routes work locally. |
@@ -106,7 +120,7 @@ unchanged: `Bridge`, the outbox, `EventStream`, `ClipsApi`, `FamilyApi`, the cha
 ## Lifecycle
 
 - **At the app's start** with the hosted connection, the view model calls `HostedController.boot` before `connect`. The
-  splash ("☁️ Lani na tem telefonu", a spinner; `Screen.Loading`) shows meanwhile. A boot that fails shows its reason
+  splash ("☁️ Lani na tej napravi", a spinner; `Screen.Loading`) shows meanwhile. A boot that fails shows its reason
   and "Poskusi znova · Retry".
 - **The boot** (`HostedRuntime.ensure`, on `Dispatchers.IO`): `AppBridge.create` unpacks the content when the app's
   version changed, then `PhoneBridge.start` loads the bundle (from its bytecode after the first time), builds the
@@ -204,7 +218,7 @@ The format, `lani.export/v1`, is the same on both sides: the app's `DataExport` 
 ### Moving between the modes
 
 - **Self-hosted → hosted:** on the node `lani export`, the file to the phone (Taildrop, a cable, a cloud drive), then in
-  the app "☁️ Lani na tem telefonu" → "📥 Uvozi izvoz" (a fresh install), or, from a paired phone, the connection
+  the app's first launch "📱 Samo ta telefon / tablica" → "📥 Uvozi izvoz" (a fresh install), or, from a paired phone, the connection
   sheet's "☁️ Preklopi na ta telefon · Switch to this phone" → the same steps. With git, `lani handover` on the node and
   "📥 Prevzemi podatke · Take over the data" in 💾 Podatki · Data, then "▶ Nadaljuj kot …" in the hosted steps.
 - **Hosted → self-hosted:** the connection sheet's "📤 Izvozi moje podatke · Export my data" (the share sheet), then
