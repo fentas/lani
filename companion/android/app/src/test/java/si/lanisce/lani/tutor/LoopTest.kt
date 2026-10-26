@@ -268,8 +268,11 @@ class LoopTest {
 
     @Test fun `a tool_use stop with no tool call is asked once more, not kept`() = runBlocking {
         val t = ScriptedTransport { _, n ->
-            if (n == 1) message("tool_use", thinking(), text("Pogledam …")) // the stop says tool_use, no block came
-            else message("tool_use", toolUse("r", "reply", obj("conversation_id" to "main", "text" to "Kranj je mesto.")))
+            when (n) {
+                1 -> message("tool_use", thinking(), text("Pogledam …")) // the stop says tool_use, no block came
+                2 -> message("tool_use", toolUse("r", "reply", obj("conversation_id" to "main", "text" to "Kranj je mesto.")))
+                else -> message("end_turn", text("ok"))
+            }
         }
         val runner = Replies()
         val m = turn()
