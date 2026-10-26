@@ -8,6 +8,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import si.lanisce.lani.data.Bridge
+import si.lanisce.lani.data.PackSession
+import si.lanisce.lani.data.PackWord
+import si.lanisce.lani.data.ReviewCard
 import si.lanisce.lani.data.VisitWorld
 import si.lanisce.lani.data.WordEntry
 import si.lanisce.lani.data.WordLookup
@@ -70,6 +73,26 @@ class WordsController(
     var card by mutableStateOf<WordCard?>(null)
         private set
     private var job: Job? = null
+
+    /**
+     * Pack words just learned on this phone, by language (null: the home language's), as the cards the node will make
+     * of them ([PackSession.card]): a pack run's words once introduced, which its practice asks right away. They are the
+     * learner's at once ("packs count at once"), while the node has their cards only once the run ends and the outbox
+     * sends it: the word card ([Words.yours]) and an exercise's dots (KnownWords) count them.
+     */
+    var fresh by mutableStateOf<Map<String?, List<ReviewCard>>>(emptyMap())
+        private set
+
+    /** The words of pack [packId] a run has just introduced ([words]) are the learner's from now on, in [language]. */
+    fun learning(packId: String, words: List<PackWord>, language: String? = VisitWorld.language) {
+        val had = fresh[language].orEmpty()
+        val cards = words.map { PackSession.card(packId, it) }.filter { c -> had.none { it.id == c.id } }
+        if (cards.isNotEmpty()) fresh = fresh + (language to had + cards)
+    }
+
+    /** The learner's words in [language] (null: the home language's) for [Words.yours]: [deck]'s cards and the fresh ones. */
+    fun mine(language: String?, deck: List<ReviewCard>?): Words.Mine =
+        Words.Mine.of(deck.orEmpty() + fresh[language].orEmpty(), language ?: L10n.ownPair.target.code)
 
     /** What the bridge [sources] were asked of takes as `from` (GET /words; null: an older bridge, the old four). */
     private var sources: Pair<Bridge, Set<String>?>? = null

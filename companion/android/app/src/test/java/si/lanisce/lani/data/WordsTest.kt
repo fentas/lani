@@ -37,6 +37,61 @@ class WordsTest {
         assertNull(Words.foreignGloss(casa, Lang.SL)) // a node before languages says nothing
     }
 
+    // --- whose a word is ("✓ V tvojih besedah · In your words") -------------------------------------------------------
+
+    private val casa = PackWord(id = "casa", it = "la casa", sl = "hiša; dom", en = "house; home", de = "Haus; Zuhause", plural = "le case", lang = "it")
+
+    /** A tapped "case" in an Italian village: the pack's la casa (by its plural), and, with a dictionary, Wiktionary's casa. */
+    private fun caseLookup(dictionary: Boolean): WordLookup {
+        val pack = """{"lemma":"la casa","pos":"noun","gloss":["Haus; Zuhause"],"gloss_lang":"de","grammar":"plural","source":"pack","item_id":"vocab_casa-e-cucina_casa","known":false}"""
+        val wiktionary = """{"lemma":"casa","pos":"noun","gloss":["Haus, Zuhause"],"gloss_lang":"de","grammar":"plural","source":"wiktionary","item_id":"vocab_word_casa","known":false}"""
+        return Words.parse("""{"word":"case","entries":[""" + (if (dictionary) "$pack,$wiktionary" else pack) + "]}")
+    }
+
+    @Test fun `a word just learned in a pack run is the learner's before the node has its card, in Italian without a dictionary`() {
+        // Learn on Home: la casa introduced, the run's practice asks it; the node gets the card when the run ends
+        val fresh = PackSession.card("casa-e-cucina", casa)
+        assertEquals("la casa", fresh.front)
+        val before = Words.Mine.of(emptyList(), "it")
+        val after = Words.Mine.of(listOf(fresh), "it")
+        val (pack) = caseLookup(dictionary = false).entries
+        assertFalse(Words.yours(pack, before)) // the node doesn't know it yet, nor the phone: "➕"
+        assertTrue(Words.yours(pack, after)) // the phone's fresh card: "✓ In your words"
+        assertFalse(Words.yours(pack, null))
+    }
+
+    @Test fun `with the Italian dictionary, the dictionary's casa is the learner's too, by the card's word, its article aside`() {
+        val (pack, wiktionary) = caseLookup(dictionary = true).entries
+        // the card the node has (or the phone's fresh one): its front is "la casa"
+        val mine = Words.Mine.of(listOf(ReviewCard(id = "vocab_casa-e-cucina_casa", front = "la casa", back = "Haus; Zuhause")), "it")
+        assertTrue(Words.yours(pack, mine))
+        assertTrue(Words.yours(wiktionary, mine)) // vocab_word_casa isn't a card, but casa is their word
+        // a card of another word isn't: not by a word inside it, nor another lemma
+        val other = Words.Mine.of(listOf(ReviewCard(id = "vocab_cibo_pane", front = "il pane", back = "Brot"), ReviewCard(id = "vocab_x_casetta", front = "la casetta della nonna", back = "")), "it")
+        assertFalse(Words.yours(pack, other))
+        assertFalse(Words.yours(wiktionary, other))
+        // the node already says so: kept
+        assertTrue(Words.yours(wiktionary.copy(known = true), Words.Mine.of(emptyList(), "it")))
+    }
+
+    @Test fun `whose a word is, in each language: its article aside, alternatives each, a name never`() {
+        assertEquals(listOf("casa"), Words.ownKeys("la casa", "it"))
+        assertEquals(listOf("acqua"), Words.ownKeys("l’acqua", "it"))
+        assertEquals(listOf("wald"), Words.ownKeys("der Wald", "de"))
+        assertEquals(listOf("forest"), Words.ownKeys("the forest", "en"))
+        assertEquals(listOf("dober dan", "živjo"), Words.ownKeys("Dober dan! / živjo (informal)", "sl"))
+        // Slovene has no articles: "la" stays a word
+        assertEquals(listOf("la casa"), Words.ownKeys("la casa", "sl"))
+        val hisa = WordEntry(lemma = "hiša", pos = "noun", source = "wiktionary", itemId = "vocab_word_hisa")
+        assertTrue(Words.yours(hisa, Words.Mine.of(listOf(ReviewCard(id = "vocab_dom_hisa", front = "hiša", back = "house")), "sl")))
+        val wald = WordEntry(lemma = "Wald", pos = "noun", source = "wiktionary", itemId = "vocab_word_wald")
+        assertTrue(Words.yours(wald, Words.Mine.of(listOf(ReviewCard(id = "vocab_natur_wald", front = "der Wald", back = "gozd")), "de")))
+        // a grammar card's front isn't a word of theirs
+        assertFalse(Words.yours(wald, Words.Mine.of(listOf(ReviewCard(id = "grammar_x", front = "der Wald", back = "", kind = "grammar")), "de")))
+        val rosa = WordEntry(lemma = "Nonna Rosa", pos = "name", source = "village", itemId = null)
+        assertFalse(Words.yours(rosa, Words.Mine.of(listOf(ReviewCard(id = "vocab_x_rosa", front = "Nonna Rosa", back = "")), "it")))
+    }
+
     @Test fun `a lookup's entries parse, nulls and unknown fields included`() {
         val l = Words.parse(gozdu)
         assertEquals("gozdu", l.word)

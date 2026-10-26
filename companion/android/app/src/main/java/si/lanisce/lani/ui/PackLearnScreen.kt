@@ -114,12 +114,17 @@ fun PackLearnScreen(vm: AppViewModel, pack: Pack, words: List<PackWord>, fromVil
         }
         step < words.size -> Intro(vm, pack, words, step, voice = stage.voice, onStep = { step = it }, onLeave = leave)
         // ✕ before the first answer still keeps the words: they were all introduced.
-        else -> ExerciseRun(
-            vm, bi("packLearnScreen.practise", "packEmoji" to pack.emoji), tasks.map { it.exercise }, moduleId = null,
-            onExit = { finish(emptyList()) }, stage = stage,
-            source = { i -> tasks.getOrNull(i)?.let { ExerciseSource.pack(pack.id, it.card.id, it.variant) } },
-            onComplete = finish,
-        )
+        else -> {
+            // introduced, they are the learner's: a word of them tapped in the practice is "in your words" before the
+            // node has its card (it gets it once the run ends)
+            LaunchedEffect(pack.id, words) { vm.words.learning(pack.id, words) }
+            ExerciseRun(
+                vm, bi("packLearnScreen.practise", "packEmoji" to pack.emoji), tasks.map { it.exercise }, moduleId = null,
+                onExit = { finish(emptyList()) }, stage = stage,
+                source = { i -> tasks.getOrNull(i)?.let { ExerciseSource.pack(pack.id, it.card.id, it.variant) } },
+                onComplete = finish,
+            )
+        }
     }
 }
 

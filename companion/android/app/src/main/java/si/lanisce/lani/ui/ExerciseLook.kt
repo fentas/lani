@@ -82,13 +82,17 @@ internal class ExerciseLook(
 
 internal val LocalLook = compositionLocalOf<ExerciseLook?> { null }
 
-/** The learner's words in [language]'s deck (null: the world's), with the forms the phone has of the home deck's. */
+/**
+ * The learner's words in [language]'s deck (null: the world's), with the forms the phone has of the home deck's, and the
+ * words a run has just made theirs before the node has their cards (a pack run's, [WordsController.fresh]).
+ */
 @Composable
 internal fun rememberKnownWords(vm: AppViewModel, language: String?): KnownWords? {
     val lang = language ?: VisitWorld.language
     val pool = vm.content.deck(lang)?.pool
+    val fresh = vm.words.fresh[lang]
     val cache = if (lang == null) vm.forms.cache else emptyMap()
-    return remember(pool, cache) { pool?.let { p -> KnownWords.ofDeck(p) { l -> cache[WordFormsWire.key(l)]?.entries } } }
+    return remember(pool, fresh, cache) { pool?.let { p -> KnownWords.ofDeck(p + fresh.orEmpty()) { l -> cache[WordFormsWire.key(l)]?.entries } } }
 }
 
 /** What can be looked up in [ex] (the [index]th of the run), before its answer and after ([answered]). */

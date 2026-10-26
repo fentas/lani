@@ -127,6 +127,51 @@ object Words {
     fun meaning(e: WordEntry): String = e.gloss.map { it.trim() }.filter { it.isNotEmpty() }.distinct().take(3).joinToString(", ")
 
     /**
+     * The article a pack word or a card may start with, by language, as the bridge's lookup leaves it out (`packKey`,
+     * bridge/src/lexicon.ts): Italian "la casa", "l'acqua", German "der Wald", English "the forest", "to roll".
+     */
+    private val ARTICLES = mapOf(
+        "it" to Regex("^(?:(?:il|lo|la|i|gli|le|un|uno|una) +|(?:l|un)')"),
+        "de" to Regex("^(?:der|die|das|ein|eine) +"),
+        "en" to Regex("^(?:the|an?|to) +"),
+    )
+
+    /**
+     * The words a card's [content] (or a lemma) is in [language], as "is it theirs" compares them: each alternative as
+     * the bridge compares words ([PackSession.wordKeys]), one apostrophe, its article left out ("la casa" → casa).
+     */
+    fun ownKeys(content: String, language: String): List<String> =
+        PackSession.wordKeys(content.replace('’', '\'')).map { k -> ARTICLES[language]?.let { k.replace(it, "") } ?: k }.filter { it.isNotEmpty() }
+
+    /**
+     * The learner's words in one language, as a word card checks an entry against them ([yours]): their cards' ids, and
+     * their vocabulary cards' words ([ownKeys]). [of] the deck's cards and the run's fresh ones (a pack run's words once
+     * introduced: [PackSession.card]), which the node doesn't have yet.
+     */
+    class Mine(val language: String, val ids: Set<String>, val words: Set<String>) {
+        companion object {
+            fun of(cards: List<ReviewCard>, language: String) = Mine(
+                language,
+                cards.map { it.id }.toSet(),
+                cards.filter { it.kind == "vocabulary" }.flatMap { ownKeys(it.front, language) }.toSet(),
+            )
+        }
+    }
+
+    /**
+     * Whether [e] is one of the learner's words ("✓ V tvojih besedah · In your words"): the node says so, or [mine] has its
+     * review item (a word learned in a run counts at once, before the node has its card), or a vocabulary card of theirs
+     * is its lemma, an article aside: the card "la casa" makes the dictionary's casa theirs, in a language with a
+     * dictionary or without one. A name, which has no item, never.
+     */
+    fun yours(e: WordEntry, mine: Mine?): Boolean {
+        if (e.known) return true
+        val id = e.itemId ?: return false
+        if (mine == null) return false
+        return id in mine.ids || ownKeys(e.lemma, mine.language).any { it in mine.words }
+    }
+
+    /**
      * The language [e]'s gloss is in when it isn't the learner's [base] (Wiktionary's English for a learner who reads
      * Slovene), for the card to say so; null when it is the base.
      */

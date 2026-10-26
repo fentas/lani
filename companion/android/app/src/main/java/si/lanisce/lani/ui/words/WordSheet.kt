@@ -89,8 +89,12 @@ fun WordSheet(vm: AppViewModel, card: WordCard) {
                     // on a visit the words are another town's language: they join the learner's words in that language
                     // (its own profile: WordsController.add)
                     // an aspect partner goes under the entry the line means (sesti, and sedeti under it: "sedite"),
-                    // not as an entry of its own; a word the learner has shows its forms
-                    for ((e, partner) in Words.withPartners(s.lookup.entries)) {
+                    // not as an entry of its own; a word the learner has shows its forms. Theirs: what the node says,
+                    // and what the phone knows before it does (a run's words just learned; a card's word under the
+                    // dictionary's lemma, "la casa" for casa)
+                    val mine = vm.words.mine(q.lang, vm.content.deck(q.lang)?.pool)
+                    val entries = s.lookup.entries.map { if (!it.known && Words.yours(it, mine)) it.copy(known = true) else it }
+                    for ((e, partner) in Words.withPartners(entries)) {
                         Entry(
                             e, card.added[e.key], e.itemId?.let { vm.scenes.stickers.ofItem(it, e.emoji) }, onAdd = { vm.words.add(e) },
                             partner = partner, partnerAdding = partner?.let { card.added[it.key] }, onAddPartner = { partner?.let(vm.words::add) },

@@ -120,6 +120,29 @@ export default async function friuli() {
     check('friuli: a lookup finds an Italian pack word by its plural first, meant in Slovene (gloss_lang sl)', case_.entries[0]?.lemma === 'la casa' && case_.entries[0].gloss[0] === 'hiša; dom' && case_.entries[0].gloss_lang === 'sl' && case_.entries[0].grammar === 'plural' && case_.entries[0].source === 'pack', case_)
     const casa = (await lookup('w=casa')).entries.find((e: any) => e.source === 'wiktionary')
     check("friuli: it←sl: the dictionary's casa is hiša (through English), the English kept", casa?.lemma === 'casa' && casa.gloss[0] === 'hiša' && casa.gloss_lang === 'sl' && casa.gloss_via === 'pivot' && casa.gloss_en?.[0] === 'house' && !casa.fallback, casa)
+    // Italian from German (the app sends its pair's base): an inflected form, the lemma, their German meaning
+    const mangio = await lookup(`w=mangio&base=de&line=${encodeURIComponent('Io mangio il pane.')}&en=${encodeURIComponent('I eat bread.')}`)
+    const m0 = mangio.entries[0]
+    check(
+      "friuli, meant in German (base=de): mangio is mangiare, first-person singular present, essen (German Wiktionary's own), with the attribution",
+      m0?.lemma === 'mangiare' && m0.grammar === 'first-person singular present' && m0.gloss[0] === 'essen' && m0.gloss_lang === 'de' && m0.gloss_via === 'direct' && m0.gloss_en?.[0] === 'to eat' && m0.source === 'wiktionary' && !m0.fallback && mangio.attribution !== null,
+      mangio,
+    )
+    const casaDe = (await lookup('w=casa&base=de')).entries
+    check("friuli, in German: casa is the pack's Haus; Zuhause first, then the dictionary's Haus, Zuhause", casaDe[0]?.source === 'pack' && casaDe[0].gloss[0] === 'Haus; Zuhause' && casaDe[0].gloss_lang === 'de' && casaDe.some((e: any) => e.source === 'wiktionary' && e.gloss[0] === 'Haus, Zuhause' && e.gloss_lang === 'de'), casaDe)
+    // a word learned from a pack is the learner's under the dictionary's lemma too: the card "la casa" is casa's
+    const learnCasa = await fetch(`${base}/packs/casa-e-cucina/learn`, { method: 'POST', headers: auth, body: JSON.stringify({ results: [{ word_id: 'casa', quality: 4 }], duration_minutes: 1 }) })
+    const casaMine = (await lookup(`w=case&base=de&line=${encodeURIComponent('Le case sono vecchie.')}`)).entries
+    check(
+      "friuli: the pack's la casa learned, a lookup of case knows both entries as the learner's: the pack's by its card, the dictionary's casa by the card's word, its article aside (before: neither)",
+      learnCasa.ok && casaDe.every((e: any) => !e.known) && casaMine.some((e: any) => e.source === 'pack' && e.item_id === 'vocab_casa-e-cucina_casa' && e.known) && casaMine.some((e: any) => e.source === 'wiktionary' && e.lemma === 'casa' && e.item_id === 'vocab_word_casa' && e.known),
+      casaMine,
+    )
+    // what is Slovene's alone stays out of an Italian village: a word's forms by slot, counting and forms cards
+    const forms = await (await fetch(`${base}/forms?w=mangiare&w=casa`, { headers: auth })).json()
+    check('friuli: GET /forms answers no table for an Italian word (the slots, pages and tables are Slovene\'s): the word card shows none', forms.language === 'it' && forms.words.length === 2 && forms.words.every((w: any) => Array.isArray(w.entries) && w.entries.length === 0) && forms.attribution === null, forms)
+    const features = (await (await fetch(`${base}/state`, { headers: auth })).json()).features
+    check("friuli: GET /state's features say no counting cards and no forms cards (Slovene's), the rest as for Jan", Array.isArray(features) && !features.includes('counting') && !features.includes('forms-cards') && features.includes('dialog-words') && features.includes('explanations'), features)
     const rosaName = await lookup('w=Rosa')
     const nobody = await lookup('w=xyzzyq')
     check('friuli: a villager is found by name; a word nobody knows, not at all', rosaName.entries[0]?.lemma === 'Nonna Rosa' && rosaName.entries[0].source === 'village' && nobody.entries.length === 0, { rosaName, nobody })

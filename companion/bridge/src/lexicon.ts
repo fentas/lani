@@ -701,7 +701,10 @@ export function lookup(word: string, at: { line?: string; en?: string }, s: Look
 
   const direct = s.lexicon.readings(form, s.base)
   const known = vocabularyWords(s.items)
-  const isKnown = (id: string | null, lemma: string) => (!!id && !!s.items[id]) || known.has(normWord(lemma))
+  // the learner's cards by their word, as a pack word is compared (its article left out: the card "la casa" is the
+  // dictionary's casa, "der Wald" Wald), so a word is theirs by its lemma whatever card it came with
+  const theirs = new Set([...known.keys()].map(k => packKey(k, lang)))
+  const isKnown = (id: string | null, lemma: string) => (!!id && !!s.items[id]) || known.has(normWord(lemma)) || theirs.has(packKey(lemma, lang))
   const entries: LookupEntry[] = []
   // the entries that are Wiktionary's readings (the ranking puts its forms of other words after the rest), and those
   // that show some of Wiktionary's text (their answer carries the attribution)
