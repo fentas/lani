@@ -454,7 +454,10 @@ private fun TaskLine(live: LiveTutor, task: Task) {
     val others = ProviderId.entries.filter { it != s.provider && live.ready(it) }.flatMap { p ->
         if (p == ProviderId.OPENROUTER) OpenRouterModels.SUGGESTED else Family.of(p).map { it.preferred.first() }
     }
-    val models = own + others
+    // never GPT-6 Luna for the tutor (the matrix, 2026-10: Family.matrixOnly); a task set to it before keeps it
+    val models = (own + others).filter { !Family.matrixOnly(it) }
+    // ⭐ our recommendation for the model's provider: the Balanced preset's effort there (Sol's medium on OpenAI)
+    val recommended = Preset.BALANCED.effort(task, ProviderId.of(model))
     FlowRow(verticalArrangement = Arrangement.Center) {
         Text(taskLabel(task), style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(end = 6.dp, top = 12.dp))
         Box {
@@ -469,7 +472,7 @@ private fun TaskLine(live: LiveTutor, task: Task) {
             TextButton(enabled = levels.isNotEmpty(), onClick = { effortMenu = true }) { Text("${bi("tutorLive.effort")}: ${effort ?: "—"}" + if (task in s.efforts) " ✎" else "") }
             DropdownMenu(expanded = effortMenu, onDismissRequest = { effortMenu = false }) {
                 DropdownMenuItem(text = { Text(bi("tutorLive.asPreset")) }, onClick = { effortMenu = false; live.update { it.copy(efforts = it.efforts - task) } })
-                ModelCatalog.efforts(model).forEach { l -> DropdownMenuItem(text = { Text(l + if (l == task.effort) " ⭐" else "") }, onClick = { effortMenu = false; live.update { it.copy(efforts = it.efforts + (task to l)) } }) }
+                ModelCatalog.efforts(model).forEach { l -> DropdownMenuItem(text = { Text(l + if (l == recommended) " ⭐" else "") }, onClick = { effortMenu = false; live.update { it.copy(efforts = it.efforts + (task to l)) } }) }
             }
         }
     }

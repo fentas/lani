@@ -8,23 +8,31 @@ import kotlinx.serialization.json.doubleOrNull
 import kotlinx.serialization.json.longOrNull
 
 /**
- * What a turn is for (plan 5, "Model per task"): [family] and [effort] our recommendation for it (the Balanced preset;
- * the learner sets both per task), its max_tokens. [ROUTINE] the digest of reviews, words and readings; [GRADING] an
- * `answer` and a `session_end`; [CHAT] the chat, "Why?" on an exercise, card fixes, the notebook; [ROLEPLAY] a
- * role-play's turns (phase B); [CONTENT] writing content on request (phase C).
+ * What a turn is for (plan 5, "Model per task"): [family] and [effort] our recommendation for it (the Balanced preset on
+ * an Anthropic key; the learner sets both per task), its max_tokens. [ROUTINE] the digest of reviews, words and
+ * readings; [GRADING] an `answer` and a `session_end`; [CHAT] the chat, "Why?" on an exercise, card fixes, the notebook;
+ * [ROLEPLAY] a role-play's turns (phase B); [CONTENT] writing content on request (phase C).
  *
- * Why these (Jan, 2026-10-16): Haiku 5.5 at `low` answered a review in plain text and never called `reply`; Anthropic
- * recommends `high` on Haiku 5.5 for strict instruction following, and it costs ~$0.001–0.002 more a reaction. Chat on
- * Sonnet at `medium`; role-play on Sonnet at `low` (latency: the line is voiced; to measure in phase B); content on Opus
- * at `medium` (its own default; what the learner drills again and again, so its Slovene matters most; `high` for large
- * pieces). Grading on Haiku at `high`, to be measured against Sonnet at `medium`.
+ * **Why these (the matrix, 2026-10-19 to 10-22**: 32 events of Jan's, 20 lanes beside the real tutor on Opus 5.5 in
+ * Claude Code, scored 1–5 on Slovene, grading, teaching, context, tools, habits and tone, Σ of 35; costs at Jan's use of
+ * about 5 chats, 1 session end and 2 review digests a day; docs/plans/05-built/tutor-live.md, "The presets"):
+ * - **Chat on Sonnet 5.5 at `xhigh`**: Σ30, $0.23 a day (+$0.05 the day's closing), a reply in 15 s; Sonnet at `low` and
+ *   `medium` (Σ21, about 6 wrong Slovene claims in 20 chats: the locative "the 6th case", dual *šla*) and `high` (Σ22)
+ *   were the weak spot. Opus 5.5 at `low` is the faster alternative (Σ29, $0.29 a day, 5 s).
+ * - **Grading on Haiku 5.5 at `high`**, stateless: $0.005 a day, every verdict right; Sonnet at `medium` was no better.
+ * - **Routine on Haiku 5.5 at `xhigh`**, stateless: about $0.009 a day, 23 s (it waits for no one), fewer miscounts than
+ *   `high`. Haiku's knee is `xhigh` (Σ25 against Σ19–20 at `medium` and `high`); `max` took a median 63 s a chat.
+ * - **Role-play on Sonnet 5.5 at `low`** (the line is voiced: latency; not measured yet), **content on Opus 5.5 at
+ *   `medium`** (its own default: what the learner drills again and again; no content event ran in the matrix).
+ *
+ * Before (2026-10-16): chat on Sonnet at `medium`, routine on Haiku at `high`.
  */
 @Serializable
 enum class Task(val family: Family, val effort: String, val maxTokens: Int) {
     // thinking counts toward max_tokens: room for a long think and the reply
-    ROUTINE(Family.HAIKU, Effort.HIGH, 16_000),
+    ROUTINE(Family.HAIKU, Effort.XHIGH, 16_000),
     GRADING(Family.HAIKU, Effort.HIGH, 16_000),
-    CHAT(Family.SONNET, Effort.MEDIUM, 16_000),
+    CHAT(Family.SONNET, Effort.XHIGH, 16_000),
     ROLEPLAY(Family.SONNET, Effort.LOW, 8_000),
     CONTENT(Family.OPUS, Effort.MEDIUM, 32_000);
 
@@ -49,12 +57,15 @@ enum class Task(val family: Family, val effort: String, val maxTokens: Int) {
 /**
  * A model family: what a preset or a matrix lane names, resolved to an id the credential lists ([ModelCatalog]): its
  * [provider], its [tier] (0 small, 1 mid, 2 top), its [preferred] ids, and what an id of it contains ([match]). The
- * presets use Anthropic's alone. Haiku 4.5 is legacy (retired from 2026-10-15 on): never a default; the panel can still
- * pick it for a test.
+ * presets name Anthropic's, and their own picks on OpenAI ([Preset.family]); another provider plays a task's tier. Haiku
+ * 4.5 is legacy (retired from 2026-10-15 on): never a default; the panel can still pick it for a test.
  *
  * OpenAI's (the models page, developers.openai.com/api/docs/models, checked 2026-10-18): GPT-6 Luna "for cost-sensitive,
  * high-volume workloads", GPT-6.1 Sol "to balance intelligence and cost" (GPT-6 Sol the older), GPT-6 Astra "our
- * flagship model for complex reasoning and coding".
+ * flagship model for complex reasoning and coding". **GPT-6 Luna is for the matrix only** ([matrixOnly]): in the matrix
+ * (2026-10-19 to 10-22) it was not acceptable for any task at any effort (Σ15–19 of 35: it refused an action it has,
+ * retracted correct rules it had been shown, claimed a card fix it never made), so no preset and no tutor's picker
+ * offers it; the matrix's lanes still can.
  */
 @Serializable
 enum class Family(val provider: ProviderId, val tier: Int, val preferred: List<String>, val match: String, private val unless: String? = null) {
@@ -85,12 +96,23 @@ enum class Family(val provider: ProviderId, val tier: Int, val preferred: List<S
     /** Whether [model]'s id names this family. */
     fun matches(model: String): Boolean = model.contains(match) && (unless == null || !model.contains(unless))
 
+    /** Only the matrix's lanes run it, never the tutor (GPT-6 Luna: above). */
+    val matrixOnly: Boolean get() = this == LUNA
+
     companion object {
         /** [provider]'s families, small to top. */
         fun of(provider: ProviderId): List<Family> = entries.filter { it.provider == provider }
 
         /** The family [model] belongs to (its id names it, of its own provider), or null. */
         fun ofModel(model: String): Family? = ProviderId.of(model).let { p -> entries.firstOrNull { it.provider == p && it.matches(model) } }
+
+        /**
+         * Whether [model] is for the matrix only, never offered to the tutor ([matrixOnly]: GPT-6 Luna, direct or through
+         * OpenRouter, `openai/gpt-6-luna`).
+         */
+        fun matrixOnly(model: String): Boolean = model.substringAfter('/').let { id ->
+            entries.any { it.matrixOnly && it.provider == ProviderId.of(id) && it.matches(id) }
+        }
     }
 }
 
@@ -109,30 +131,85 @@ object OpenRouterModels {
     const val SONNET = "anthropic/claude-sonnet-5.5"
     const val GEMMA = "google/gemma-4-31b-it"
 
-    /** A tier's default (small, mid, top): GPT-6 Luna, Gemini 3.8 Flash, Gemini 4 Argon. */
-    val DEFAULTS = listOf(LUNA, FLASH, ARGON)
+    /**
+     * A tier's default (small, mid, top): GPT-6.1 Sol, Gemini 3.8 Flash, Gemini 4 Argon. Not GPT-6 Luna (the small one
+     * until 2026-10-26): the matrix found it unacceptable for the tutor ([Family.matrixOnly]); Sol was the plan's best.
+     */
+    val DEFAULTS = listOf(SOL, FLASH, ARGON)
 
-    /** Shown first in the picker, in this order (the rest of the list after them). */
+    /** Shown first in the picker, in this order (the rest of the list after them; the tutor's leaves out [Family.matrixOnly]'s). */
     val SUGGESTED = listOf(ARGON, FLASH, FLASH_LITE, SOL, LUNA, SONNET, GEMMA)
 
     /** The default of [tier] (0 small, 1 mid, 2 top). */
     fun forTier(tier: Int): String = DEFAULTS[tier.coerceIn(0, 2)]
 }
 
+/** A preset's choice for a task on a provider: the model [family] and the [effort]. */
+data class Pick(val family: Family, val effort: String)
+
 /**
- * The presets (plan 5, "Presets"): the model and the effort per task, and the thread's limit. [ECONOMY] the cheapest:
- * Haiku 5.5 at its default (`medium`, role-play `low`), content on Sonnet 5.5 at `medium`; [BALANCED] our recommendation
- * (each task's [Task.family] and [Task.effort]); [BEST] Opus 5.5 at `medium` for all but content at `high`.
+ * The presets (plan 5, "Presets"): the model and the effort per task, and the thread's limit; learners who chose one get
+ * a change of it with the next turn (a task set under "advanced" keeps its own). Measured in the matrix (2026-10-19 to
+ * 10-22; the numbers in [Task]'s note and docs/plans/05-built/tutor-live.md, "The presets"):
+ * - [ECONOMY] (≈ $0.03 a day at Jan's use): Haiku 5.5, chat at `xhigh` (Σ25: far fewer errors than Haiku at `medium` or
+ *   `high`, and than Sonnet at `low` or `medium`), grading and routine at `high`, role-play at `low`; content on Sonnet
+ *   5.5 at `xhigh` (the matrix's inference: not Sonnet at `medium`, whose Slovene erred most in chat).
+ * - [BALANCED] (≈ $0.30 a day), our recommendation (each task's [Task.family] and [Task.effort]).
+ * - [BEST] (≈ $0.85 a day): Opus 5.5 at `medium` (Σ32.5, the best overall: the only family with Sonnet at `xhigh` that
+ *   found and fixed an ambiguous card reliably), content at `high`.
+ *
+ * **With OpenAI** (an API key or the ChatGPT plan, [openai]): GPT-6.1 Sol for chat, grading and routine, at `low` in
+ * Economy (Σ25) and `medium` in Balanced and Best (Σ27; GPT-6 Astra scored no higher at about 4.5 times the price; no plan
+ * model reached Sonnet at `xhigh` or Opus: for the best, a Claude key); never GPT-6 Luna ([Family.matrixOnly]).
+ * Role-play and content keep their tier's family (Sol, Astra), as before. **Another provider** (Gemini, OpenRouter)
+ * plays each task's tier ([Family.tier]) at the Anthropic preset's effort, fitted to the model: no matrix data yet.
  */
 @Serializable
-enum class Preset(val families: Map<Task, Family>, val efforts: Map<Task, String>, val threadLimit: Int) {
+enum class Preset(val families: Map<Task, Family>, val efforts: Map<Task, String>, val threadLimit: Int, private val openai: Map<Task, Pick>) {
     ECONOMY(
         Task.entries.associateWith { if (it == Task.CONTENT) Family.SONNET else Family.HAIKU },
-        Task.entries.associateWith { if (it == Task.ROLEPLAY) Effort.LOW else Effort.MEDIUM },
+        mapOf(Task.ROUTINE to Effort.HIGH, Task.GRADING to Effort.HIGH, Task.CHAT to Effort.XHIGH, Task.ROLEPLAY to Effort.LOW, Task.CONTENT to Effort.XHIGH),
         20_000,
+        mapOf(
+            Task.ROUTINE to Pick(Family.SOL, Effort.LOW), Task.GRADING to Pick(Family.SOL, Effort.LOW), Task.CHAT to Pick(Family.SOL, Effort.LOW),
+            Task.ROLEPLAY to Pick(Family.SOL, Effort.LOW), Task.CONTENT to Pick(Family.SOL, Effort.MEDIUM),
+        ),
     ),
-    BALANCED(Task.entries.associateWith { it.family }, Task.entries.associateWith { it.effort }, 30_000),
-    BEST(Task.entries.associateWith { Family.OPUS }, Task.entries.associateWith { if (it == Task.CONTENT) Effort.HIGH else Effort.MEDIUM }, 60_000),
+    BALANCED(
+        Task.entries.associateWith { it.family },
+        Task.entries.associateWith { it.effort },
+        30_000,
+        mapOf(
+            Task.ROUTINE to Pick(Family.SOL, Effort.MEDIUM), Task.GRADING to Pick(Family.SOL, Effort.MEDIUM), Task.CHAT to Pick(Family.SOL, Effort.MEDIUM),
+            Task.ROLEPLAY to Pick(Family.SOL, Effort.LOW), Task.CONTENT to Pick(Family.ASTRA, Effort.MEDIUM),
+        ),
+    ),
+    BEST(
+        Task.entries.associateWith { Family.OPUS },
+        Task.entries.associateWith { if (it == Task.CONTENT) Effort.HIGH else Effort.MEDIUM },
+        60_000,
+        mapOf(
+            Task.ROUTINE to Pick(Family.SOL, Effort.MEDIUM), Task.GRADING to Pick(Family.SOL, Effort.MEDIUM), Task.CHAT to Pick(Family.SOL, Effort.MEDIUM),
+            Task.ROLEPLAY to Pick(Family.ASTRA, Effort.MEDIUM), Task.CONTENT to Pick(Family.ASTRA, Effort.HIGH),
+        ),
+    );
+
+    /**
+     * The family [task] runs on with [provider]'s credential: Anthropic's [families], OpenAI's own picks ([openai]: Sol,
+     * never Luna), else the provider's family of the same tier (OpenRouter's: [Family.ROUTED], its model the tier's
+     * default, [OpenRouterModels.forTier]).
+     */
+    fun family(task: Task, provider: ProviderId = ProviderId.ANTHROPIC): Family = when (provider) {
+        ProviderId.ANTHROPIC -> families.getValue(task)
+        ProviderId.OPENAI -> openai.getValue(task).family
+        else -> families.getValue(task).tier.let { t -> Family.of(provider).firstOrNull { it.tier == t } ?: Family.of(provider).first() }
+    }
+
+    /** The effort [task] runs at on a model of [provider]: OpenAI's picks have their own ([openai]), the rest the preset's. */
+    fun effort(task: Task, provider: ProviderId = ProviderId.ANTHROPIC): String = when (provider) {
+        ProviderId.OPENAI -> openai.getValue(task).effort
+        else -> efforts.getValue(task)
+    }
 }
 
 /**
@@ -252,9 +329,18 @@ class ModelCatalog(val listed: List<ModelInfo>) {
             return Effort.ALL.take(maxOf(i, 0)).lastOrNull { it in levels } ?: levels.first()
         }
 
-        /** The effort of [task] on [model]: the panel's for it ([overrides]), else [preset]'s, fitted to [model]. */
+        /**
+         * The effort of [task] on [model]: the panel's for it ([overrides]), else [preset]'s for the model's provider
+         * ([Preset.effort]: OpenAI's picks have their own, also for an OpenAI model through OpenRouter, `openai/…`),
+         * fitted to [model].
+         */
         fun effortFor(task: Task, preset: Preset, model: String, overrides: Map<Task, String> = emptyMap()): String? =
-            fit(overrides[task] ?: preset.efforts.getValue(task), model)
+            fit(overrides[task] ?: preset.effort(task, vendorOf(model)), model)
+
+        /** Whose model [model] is: its provider, or for one through OpenRouter its vendor's when that's OpenAI's. */
+        private fun vendorOf(model: String): ProviderId = ProviderId.of(model).let { p ->
+            if (p == ProviderId.OPENROUTER && ProviderId.of(model.substringAfter('/')) == ProviderId.OPENAI) ProviderId.OPENAI else p
+        }
 
         /**
          * The API's effort when a request sets none: `medium` on Opus 5.5 and Haiku 5.5, `high` on the other Claude

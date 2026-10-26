@@ -599,8 +599,8 @@ class ShadowTutorTest {
         assertEquals("main" to "**Peč** · stove. Odlično!", reply.conversationId to reply.text)
         val stats = t.stats()
         assertEquals(1, stats.repliesFromText)
-        assertEquals(1, stats.byModelEffort.getValue("claude-sonnet-5-5 · medium").repliesFromText)
-        assertEquals(0, stats.byModelEffort.getValue("claude-sonnet-5-5 · medium").repliesByTool)
+        assertEquals(1, stats.byModelEffort.getValue("claude-sonnet-5-5 · xhigh").repliesFromText)
+        assertEquals(0, stats.byModelEffort.getValue("claude-sonnet-5-5 · xhigh").repliesByTool)
         // the thread's line has it, the log says so, the export carries the mark and the count
         assertTrue(t.thread!!.lines.single().contains("Peč"))
         assertTrue(lines.any { it.contains("no reply tool called") })
@@ -608,33 +608,33 @@ class ShadowTutorTest {
         assertTrue(text.contains("\"replyFromText\":true") && text.contains("\"repliesFromText\":1") && text.contains("byModelEffort"))
     }
 
-    @Test fun `Balanced - the routine digest on Haiku at high, with room for its thinking`() = runBlocking {
+    @Test fun `Balanced - the routine digest on Haiku at xhigh, with room for its thinking`() = runBlocking {
         val t = ready()
         t.onDelivered("r1", "/reviews", review("r1", 1)).join()
         t.onChatOpened().join()
         t.awaitIdle()
         val digest = t.today.turns.single()
-        assertEquals("claude-haiku-5-5" to "high", digest.model to digest.effort)
+        assertEquals("claude-haiku-5-5" to "xhigh", digest.model to digest.effort)
         val sent = posts()
         assertTrue(sent.isNotEmpty())
         for (r in sent) {
-            assertEquals("high", r.effort)
-            assertEquals(16_000, r.body["max_tokens"]!!.jsonPrimitive.content.toInt())
+            assertEquals("xhigh", r.effort)
+            assertEquals(32_000, r.body["max_tokens"]!!.jsonPrimitive.content.toInt())
             assertEquals("thinking-binding-controls-2026-08-01", r.beta)
         }
-        assertTrue(t.today.calls.all { it.effort == "high" && !it.effortByMessage && it.visibleChars != null })
+        assertTrue(t.today.calls.all { it.effort == "xhigh" && !it.effortByMessage && it.visibleChars != null })
     }
 
     @Test fun `a turn at another level on the day's thread - an effort message, the beta, the history and the top-level effort as they were`() = runBlocking {
         val t = ready()
-        // grading on the thread's model (Sonnet) at high, the chat at medium (Balanced's)
+        // grading on the thread's model (Sonnet) at high, the chat at xhigh (Balanced's)
         t.update { it.copy(models = mapOf(Task.GRADING to "claude-sonnet-5-5"), efforts = mapOf(Task.GRADING to "high")) }.join()
         t.onDelivered("c1", "/message", chat("c1", "Živjo")).join()
         t.awaitIdle()
-        assertEquals("medium", t.thread!!.effort)
+        assertEquals("xhigh", t.thread!!.effort)
         val chatSent = posts()
         assertEquals(3, chatSent.size)
-        assertTrue(chatSent.all { it.beta == "thinking-binding-controls-2026-08-01" && it.effort == "medium" && it.messages.none { m -> Effort.of(m) != null } })
+        assertTrue(chatSent.all { it.beta == "thinking-binding-controls-2026-08-01" && it.effort == "xhigh" && it.messages.none { m -> Effort.of(m) != null } })
         val afterChat = t.thread!!.messages
 
         t.onDelivered("a1", "/message", """{"kind":"answer","conversation_id":"ex-1","text":"Jaz sem Jan.","client_id":"a1"}""").join()
@@ -647,7 +647,7 @@ class ShadowTutorTest {
         val answerSent = posts().drop(3)
         assertEquals(3, answerSent.size)
         for (r in answerSent) {
-            assertEquals("medium", r.effort) // the thread's top-level effort: unchanged, so its cache holds
+            assertEquals("xhigh", r.effort) // the thread's top-level effort: unchanged, so its cache holds
             assertEquals("thinking-binding-controls-2026-08-01,mid-conversation-output-config-2026-07-01", r.beta)
             assertEquals(afterChat, r.messages.take(afterChat.size)) // the history before it: as sent before
             assertEquals(Effort.message("high"), r.messages[afterChat.size])
@@ -659,11 +659,11 @@ class ShadowTutorTest {
         t.onDelivered("c2", "/message", chat("c2", "Hvala")).join()
         t.awaitIdle()
         val last = posts().last()
-        assertEquals(listOf("high", "medium"), last.messages.mapNotNull(Effort::of))
-        assertEquals("medium", last.effort)
-        assertEquals(listOf("medium"), t.today.calls.takeLast(3).map { it.effort }.distinct())
+        assertEquals(listOf("high", "xhigh"), last.messages.mapNotNull(Effort::of))
+        assertEquals("xhigh", last.effort)
+        assertEquals(listOf("xhigh"), t.today.calls.takeLast(3).map { it.effort }.distinct())
         val stats = t.stats()
-        assertEquals(setOf("claude-sonnet-5-5 · high", "claude-sonnet-5-5 · medium"), stats.byModelEffort.keys)
+        assertEquals(setOf("claude-sonnet-5-5 · high", "claude-sonnet-5-5 · xhigh"), stats.byModelEffort.keys)
         assertEquals(3, stats.byModelEffort.getValue("claude-sonnet-5-5 · high").calls)
     }
 
@@ -677,8 +677,8 @@ class ShadowTutorTest {
         t.awaitIdle()
         val answer = t.today.turns.single { it.eventKind == "answer" }
         assertEquals(TurnKind.DAY, answer.kind)
-        assertEquals("medium", answer.effort) // asked for high, ran at the thread's
-        assertTrue(posts().all { it.effort == "medium" && it.beta == "thinking-binding-controls-2026-08-01" && it.messages.none { m -> Effort.of(m) != null } })
+        assertEquals("xhigh", answer.effort) // asked for high, ran at the thread's
+        assertTrue(posts().all { it.effort == "xhigh" && it.beta == "thinking-binding-controls-2026-08-01" && it.messages.none { m -> Effort.of(m) != null } })
     }
 
     @Test fun `also run on a model at an effort - its own call at that level, its numbers apart`() = runBlocking {
@@ -697,7 +697,7 @@ class ShadowTutorTest {
         assertEquals(listOf("low", "low", "low", "xhigh", "xhigh", "xhigh"), haiku.map { it.effort })
         assertEquals(32_000, haiku.last().body["max_tokens"]!!.jsonPrimitive.content.toInt())
         val stats = t.stats()
-        assertEquals(setOf("claude-haiku-5-5 · low", "claude-haiku-5-5 · xhigh", "claude-sonnet-5-5 · medium"), stats.byModelEffort.keys)
+        assertEquals(setOf("claude-haiku-5-5 · low", "claude-haiku-5-5 · xhigh", "claude-sonnet-5-5 · xhigh"), stats.byModelEffort.keys)
         assertEquals(1, stats.byModelEffort.getValue("claude-haiku-5-5 · low").repliesByTool)
     }
 
@@ -1121,7 +1121,7 @@ class ShadowTutorTest {
     // --- the matrix's Gemini and OpenRouter lanes -------------------------------------------------------------------
 
     private val geminiLanes = listOf("gemini:gemini-3.8-flash@medium", "gemini:gemini-4-argon@low", "gemini:gemini-4-argon@medium", "gemini:gemini-4-argon@high")
-    private val routerLanes = listOf("openrouter:google/gemini-3.8-flash@medium", "openrouter:google/gemini-4-argon@medium", "openrouter:openai/gpt-6-luna@medium")
+    private val routerLanes = listOf("openrouter:google/gemini-3.8-flash@medium", "openrouter:google/gemini-4-argon@medium", "openrouter:openai/gpt-6.1-sol@medium")
 
     @Test fun `Gemini's and OpenRouter's lanes join once their credentials are set, each on its own thread, the export carrying their ids`() = runBlocking {
         val t = withMatrix()

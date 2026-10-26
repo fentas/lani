@@ -253,7 +253,7 @@ class LiveTutorTest {
         assertEquals("no Claude key: the preset's", "google/gemini-4-argon", t.modelFor(Task.CONTENT))
         assertEquals(null, t.setKey(FAKE_KEY))
         assertEquals("claude-opus-5-5", t.modelFor(Task.CONTENT))
-        assertEquals("the small tier's default", "openai/gpt-6-luna", t.modelFor(Task.ROUTINE))
+        assertEquals("the small tier's default: Sol, never Luna (the matrix)", "openai/gpt-6.1-sol", t.modelFor(Task.ROUTINE))
         assertFalse(lines.any { it.contains(si.lanisce.lani.tutor.FAKE_ROUTER_KEY) })
         // signed out: no credential, the tutor waits
         t.signOutOfOpenRouter()
@@ -462,7 +462,8 @@ class LiveTutorTest {
         node.push("session_end", "main", "Session done.\n\n```json\n{\"results\": []}\n```")
         t.backgroundCheck()
         val posts = responses.posts()
-        assertTrue(posts.all { it.str("model") == "gpt-6-astra" })
+        // Best on OpenAI: GPT-6.1 Sol for chat and grading (the matrix: Astra scored no higher), so one thread
+        assertTrue(posts.all { it.str("model") == "gpt-6.1-sol" })
         val grading = posts.last { si.lanisce.lani.tutor.inputOf(it).toString().contains("session_end") }
         assertEquals("the thread's level stays at the top", "medium", (grading["reasoning"] as JsonObject).str("effort"))
         val input = si.lanisce.lani.tutor.inputOf(grading)

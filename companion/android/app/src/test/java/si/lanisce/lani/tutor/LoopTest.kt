@@ -51,7 +51,7 @@ class LoopTest {
         val body = t.bodies[0]
         assertEquals("auto", body["tool_choice"]!!.jsonObject["type"]!!.jsonPrimitive.content)
         assertEquals("adaptive", body["thinking"]!!.jsonObject["type"]!!.jsonPrimitive.content)
-        assertEquals("medium", body["output_config"]!!.jsonObject["effort"]!!.jsonPrimitive.content)
+        assertEquals("the chat's recommended level (the matrix: Sonnet at xhigh)", "xhigh", body["output_config"]!!.jsonObject["effort"]!!.jsonPrimitive.content)
         assertEquals("1h", body["system"]!!.jsonArray.last().jsonObject["cache_control"]!!.jsonObject["ttl"]!!.jsonPrimitive.content)
         assertEquals("ephemeral", body["cache_control"]!!.jsonObject["type"]!!.jsonPrimitive.content)
         assertEquals(true, body["tools"]!!.jsonArray[0].jsonObject["eager_input_streaming"]!!.jsonPrimitive.content.toBoolean())
@@ -72,7 +72,7 @@ class LoopTest {
     @Test fun `max_tokens is retried once with more room, then the turn ends truncated`() = runBlocking {
         val t = ScriptedTransport { _, _ -> message("max_tokens", text("Ker je to …")) }
         val m = turn()
-        val r = TutorLoop(t, Runner()).run(prefix, "claude-sonnet-5-5", Task.CHAT, m)
+        val r = TutorLoop(t, Runner()).run(prefix, "claude-sonnet-5-5", Task.CHAT, m, effort = "medium")
         assertEquals(LoopEnd.Truncated, r.end)
         assertEquals(listOf(16_000, 32_000), t.bodies.map { it["max_tokens"]!!.jsonPrimitive.int })
         assertEquals("assistant", m.last().role()) // what was said stays

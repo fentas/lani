@@ -1038,9 +1038,11 @@ class LiveTutor(
     }
 
     /**
-     * The model of [task] with the provider and preset set: the advanced override, else the preset's family of the
-     * provider. An override may be another provider's model while its credential is kept (the presets across
-     * providers: the chat on Claude, the content on Gemini 4 Argon); its calls go to that provider.
+     * The model of [task] with the provider and preset set: the advanced override, else the preset's family for the
+     * provider ([Preset.family]: Anthropic's, OpenAI's own picks, the tier's on the others). An override may be another
+     * provider's model while its credential is kept (the presets across providers: the chat on Claude, the content on
+     * Gemini 4 Argon); its calls go to that provider. An override stays as the learner set it (also GPT-6 Luna, which no
+     * picker offers any more: [Family.matrixOnly]).
      */
     fun modelFor(task: Task): String {
         s.models[task]?.let { m -> ProviderId.of(m).takeIf { it != s.provider && ready(it) }?.let { return m } }
@@ -1051,9 +1053,10 @@ class LiveTutor(
             ProviderId.ANTHROPIC -> cat.modelFor(task, s.preset, s.models.filterValues { ProviderId.of(it) == ProviderId.ANTHROPIC })
             ProviderId.OPENAI, ProviderId.GEMINI -> {
                 val set = s.models[task]?.takeIf { ProviderId.of(it) == s.provider && (listed.isEmpty() || listed.any { m -> m.id == it }) }
+                val pick = s.preset.family(task, s.provider)
                 // Gemini's free tier has no Argon: its tasks go to Flash there
-                val t = if (s.provider == ProviderId.GEMINI && geminiFree) minOf(tier, Family.FLASH.tier) else tier
-                set ?: Family.of(s.provider).first { it.tier == t }.let { f -> cat.own(f) ?: f.preferred.first() }
+                val f = if (s.provider == ProviderId.GEMINI && geminiFree && pick.tier > Family.FLASH.tier) Family.FLASH else pick
+                set ?: cat.own(f) ?: f.preferred.first()
             }
             // OpenRouter: the model the learner picked for the task, else the tier's default (OpenRouterModels.DEFAULTS)
             ProviderId.OPENROUTER -> s.models[task]?.takeIf { ProviderId.of(it) == ProviderId.OPENROUTER } ?: OpenRouterModels.forTier(tier)

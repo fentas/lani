@@ -41,23 +41,64 @@ class EffortTest {
     @Test fun `our recommendation is Balanced, the presets set model and effort together`() {
         val c = ModelCatalog(listOf(ModelInfo("claude-opus-5-5"), ModelInfo("claude-sonnet-5-5"), ModelInfo("claude-haiku-5-5")))
         fun choice(p: Preset, t: Task) = c.modelFor(t, p).let { it to ModelCatalog.effortFor(t, p, it) }
-        // Jan, 2026-10-16: routine and grading on Haiku at high, chat on Sonnet at medium, role-play on Sonnet at low, content on Opus at medium
-        assertEquals("claude-haiku-5-5" to "high", choice(Preset.BALANCED, Task.ROUTINE))
+        // the matrix (2026-10-19 to 10-22): chat on Sonnet at xhigh, grading on Haiku at high, routine on Haiku at xhigh,
+        // role-play on Sonnet at low, content on Opus at medium
+        assertEquals("claude-haiku-5-5" to "xhigh", choice(Preset.BALANCED, Task.ROUTINE))
         assertEquals("claude-haiku-5-5" to "high", choice(Preset.BALANCED, Task.GRADING))
-        assertEquals("claude-sonnet-5-5" to "medium", choice(Preset.BALANCED, Task.CHAT))
+        assertEquals("claude-sonnet-5-5" to "xhigh", choice(Preset.BALANCED, Task.CHAT))
         assertEquals("claude-sonnet-5-5" to "low", choice(Preset.BALANCED, Task.ROLEPLAY))
         assertEquals("claude-opus-5-5" to "medium", choice(Preset.BALANCED, Task.CONTENT))
         for (t in Task.entries) assertEquals(t.name, c.resolve(t.family) to t.effort, choice(Preset.BALANCED, t))
-        // Economy: Haiku at its default (role-play low), content on Sonnet at medium
-        assertEquals("claude-haiku-5-5" to "medium", choice(Preset.ECONOMY, Task.ROUTINE))
+        // Economy: Haiku, chat at xhigh, grading and routine at high, role-play at low; content on Sonnet at xhigh
+        assertEquals("claude-haiku-5-5" to "xhigh", choice(Preset.ECONOMY, Task.CHAT))
+        assertEquals("claude-haiku-5-5" to "high", choice(Preset.ECONOMY, Task.GRADING))
+        assertEquals("claude-haiku-5-5" to "high", choice(Preset.ECONOMY, Task.ROUTINE))
         assertEquals("claude-haiku-5-5" to "low", choice(Preset.ECONOMY, Task.ROLEPLAY))
-        assertEquals("claude-sonnet-5-5" to "medium", choice(Preset.ECONOMY, Task.CONTENT))
+        assertEquals("claude-sonnet-5-5" to "xhigh", choice(Preset.ECONOMY, Task.CONTENT))
         // Best: Opus at medium, content at high
-        assertEquals("claude-opus-5-5" to "medium", choice(Preset.BEST, Task.GRADING))
+        for (t in listOf(Task.CHAT, Task.GRADING, Task.ROUTINE, Task.ROLEPLAY)) assertEquals(t.name, "claude-opus-5-5" to "medium", choice(Preset.BEST, t))
         assertEquals("claude-opus-5-5" to "high", choice(Preset.BEST, Task.CONTENT))
         // the panel's effort for a task wins, fitted to the model
         assertEquals("low", ModelCatalog.effortFor(Task.ROUTINE, Preset.BALANCED, "claude-haiku-5-5", mapOf(Task.ROUTINE to "low")))
         assertNull(ModelCatalog.effortFor(Task.ROUTINE, Preset.BALANCED, "claude-haiku-4-5", mapOf(Task.ROUTINE to "low")))
+    }
+
+    @Test fun `with OpenAI the presets pick GPT-6_1 Sol for chat, grading and routine, never GPT-6 Luna`() {
+        // the matrix: Sol at low as economy (Σ25), Sol at medium otherwise (Σ27); Astra scored no higher; Luna not acceptable
+        for (t in listOf(Task.CHAT, Task.GRADING, Task.ROUTINE)) {
+            assertEquals(t.name, Family.SOL to "low", Preset.ECONOMY.family(t, ProviderId.OPENAI) to Preset.ECONOMY.effort(t, ProviderId.OPENAI))
+            assertEquals(t.name, Family.SOL to "medium", Preset.BALANCED.family(t, ProviderId.OPENAI) to Preset.BALANCED.effort(t, ProviderId.OPENAI))
+            assertEquals(t.name, Family.SOL to "medium", Preset.BEST.family(t, ProviderId.OPENAI) to Preset.BEST.effort(t, ProviderId.OPENAI))
+        }
+        // role-play and content keep their tier's family, at the efforts they had
+        assertEquals(Family.SOL to "low", Preset.ECONOMY.family(Task.ROLEPLAY, ProviderId.OPENAI) to Preset.ECONOMY.effort(Task.ROLEPLAY, ProviderId.OPENAI))
+        assertEquals(Family.SOL to "low", Preset.BALANCED.family(Task.ROLEPLAY, ProviderId.OPENAI) to Preset.BALANCED.effort(Task.ROLEPLAY, ProviderId.OPENAI))
+        assertEquals(Family.ASTRA to "medium", Preset.BALANCED.family(Task.CONTENT, ProviderId.OPENAI) to Preset.BALANCED.effort(Task.CONTENT, ProviderId.OPENAI))
+        assertEquals(Family.ASTRA to "high", Preset.BEST.family(Task.CONTENT, ProviderId.OPENAI) to Preset.BEST.effort(Task.CONTENT, ProviderId.OPENAI))
+        for (p in Preset.entries) for (t in Task.entries) assertFalse("$p $t", Preset.valueOf(p.name).family(t, ProviderId.OPENAI).matrixOnly)
+        // the effort follows the model's provider: Sol's own on an OpenAI model, the preset's on Claude's
+        assertEquals("medium", ModelCatalog.effortFor(Task.CHAT, Preset.BALANCED, "gpt-6.1-sol"))
+        assertEquals("xhigh", ModelCatalog.effortFor(Task.CHAT, Preset.BALANCED, "claude-sonnet-5-5"))
+        assertEquals("high", ModelCatalog.effortFor(Task.CHAT, Preset.BALANCED, "gpt-6.1-sol", mapOf(Task.CHAT to "high")))
+        // through OpenRouter: an OpenAI model at OpenAI's picks' level, the others at the Anthropic preset's, fitted
+        assertEquals("medium", ModelCatalog.effortFor(Task.ROUTINE, Preset.BALANCED, "openai/gpt-6.1-sol"))
+        assertEquals("xhigh", ModelCatalog.effortFor(Task.CHAT, Preset.BALANCED, "anthropic/claude-sonnet-5.5"))
+        // Gemini plays each task's tier, at the Anthropic preset's effort fitted to the model (no xhigh there: high)
+        assertEquals(Family.FLASH_LITE, Preset.BALANCED.family(Task.GRADING, ProviderId.GEMINI))
+        assertEquals(Family.FLASH, Preset.BALANCED.family(Task.CHAT, ProviderId.GEMINI))
+        assertEquals(Family.ARGON, Preset.BEST.family(Task.CHAT, ProviderId.GEMINI))
+        assertEquals("high", ModelCatalog.effortFor(Task.CHAT, Preset.BALANCED, "gemini-3.8-flash"))
+    }
+
+    @Test fun `GPT-6 Luna is for the matrix only, direct or through OpenRouter`() {
+        assertTrue(Family.LUNA.matrixOnly)
+        assertTrue(Family.matrixOnly("gpt-6-luna"))
+        assertTrue(Family.matrixOnly("gpt-6-luna-2026-08-01"))
+        assertTrue(Family.matrixOnly("openai/gpt-6-luna"))
+        for (m in listOf("gpt-6.1-sol", "gpt-6-astra", "openai/gpt-6.1-sol", "claude-haiku-5-5", "google/gemini-3.8-flash", "some-lab/luna-7b")) assertFalse(m, Family.matrixOnly(m))
+        // OpenRouter's small tier is Sol now, not Luna
+        assertEquals(OpenRouterModels.SOL, OpenRouterModels.forTier(0))
+        assertTrue(OpenRouterModels.DEFAULTS.none { Family.matrixOnly(it) })
     }
 
     @Test fun `room for thinking - routine and grading 16k, content 32k, more at xhigh and max`() {

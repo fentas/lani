@@ -526,6 +526,8 @@ private fun Matrix(shadow: ShadowTutor) {
                     Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 4.dp)) {
                         Small(f.label + " · " + (model ?: "⚠️ not listed (${f.preferred.first()})"), bold = true)
                     }
+                    // GPT-6 Luna: the matrix's only (2026-10: not acceptable for the tutor at any effort; no preset or picker of it)
+                    if (f.matrixOnly) Small("For the matrix only: never the tutor's (the 2026-10 matrix: Σ15–19 of 35; it refused actions it has and retracted correct rules).")
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                         for (level in levels) {
                             val spec = LaneSpec(f, level)

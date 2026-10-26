@@ -7949,11 +7949,13 @@ def shadow_tutor():
     line seven times, the shadow tutor turned on, which opens its panel for a key; the mock's base URL (a QA build's), a
     fake key checked (GET /v1/models) and kept; a chat sent from the tutor chat (the real tutor, the dev bridge's canned
     one, answers it there; the shadow's reply only in the panel), a review finished (its digest runs when the chat
-    opens: Haiku at high, the recommended routine level); the panel's events, "Also run on" Haiku at low (the mock answers
+    opens: Haiku at xhigh, the recommended routine level); the panel's events, "Also run on" Haiku at low (the mock answers
     as text without reply, as Haiku at low did in Jan's shadow: the panel's "✍️ as text, no reply tool"), its numbers,
     the export through the share sheet (no key in it, the replies from text and the numbers by model × effort in it);
-    the effort: the settings' model and effort per task with our recommendation (⭐), the chat's effort set to high
-    (its picker, xhigh and max behind "more"), a second chat on the day's thread at high by an effort message (its beta,
+    the effort: the settings' model and effort per task with our recommendation (⭐: the matrix's, chat and routine at
+    xhigh, grading at high), a picker below xhigh (grading's: xhigh and max behind "more"), the chat's effort set to high
+    (its picker opens with xhigh and max: its level is xhigh), a second chat on the day's thread at high by an effort
+    message (its beta,
     the thread's top-level effort and history as they were), "Also run on" Haiku at high, the numbers by model × effort,
     the chat's effort back to the preset's; the mock's log: the key only in x-api-key, the 1-hour breakpoint, the tool
     order, the per-message effort's beta only with an effort message; the chat never shows the shadow's reply."""
@@ -8084,17 +8086,23 @@ def shadow_tutor():
         # the effort: the model and the effort per task, our recommendation marked; the chat's set to high
         assert tap("Settings", 3), "the settings tab"
         assert scroll_to("chat effort:", 6), "the effort per task"
-        assert find("routine effort: high ⭐") and find("chat effort: medium ⭐"), "the recommended efforts (routine high, chat medium)"
+        # the matrix's recommendation (2026-10): chat and routine at xhigh, grading at high, content on Opus at medium
+        assert find("routine effort: xhigh ⭐") and find("chat effort: xhigh ⭐") and find("grading effort: high ⭐"), "the recommended efforts (routine xhigh, chat xhigh, grading high)"
         assert find("content: claude-opus-5-5 ⭐") and find("content effort: medium ⭐"), "content on Opus at medium"
         shot("shadow-effort-settings")
-        assert tap("chat effort: medium", 3), "the chat's effort picker"
-        assert wait_for("medium " + RECOMMENDED, 4) and find(MORE_LEVELS), "the levels, the recommended one marked, more behind a toggle"
+        # a picker at a level below xhigh (grading's): xhigh and max behind "more"
+        assert tap("grading effort: high", 3), "the grading's effort picker"
+        assert wait_for("high " + RECOMMENDED, 4) and find(MORE_LEVELS), "the levels, the recommended one marked, more behind a toggle"
         assert not any(t in ("xhigh", "max") for t, _ in nodes()), "xhigh and max behind more"
         assert tap(MORE_LEVELS, 3), "more levels"
         time.sleep(1)
         shown = {t for t, _ in nodes()}
         assert {"xhigh", "max"} <= shown, f"xhigh and max after more: {sorted(t for t in shown if len(t) < 40)}"
         shot("shadow-effort-picker")
+        assert tap("as the preset (high)", 3), "grading's as the preset"
+        # the chat's picker opens with xhigh and max (its level is xhigh); the chat's effort set to high
+        assert tap("chat effort: xhigh", 3), "the chat's effort picker"
+        assert wait_for("xhigh " + RECOMMENDED, 4) and find("max"), "the chat's levels, xhigh recommended, the more levels shown"
         assert tap("high", 3), "high"
         assert wait_for("chat effort: high ✎", 4), "the chat's effort set to high"
         adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the panel
@@ -8133,8 +8141,8 @@ def shadow_tutor():
         assert tap("Settings", 3), "the settings tab"
         assert scroll_to("chat effort:", 6), "the effort per task"
         assert tap("chat effort: high", 3), "the chat's effort picker"
-        assert tap("as the preset (medium)", 3), "as the preset"
-        assert wait_for("chat effort: medium ⭐", 4), "the chat's effort as the preset's"
+        assert tap("as the preset (xhigh)", 3), "as the preset"
+        assert wait_for("chat effort: xhigh ⭐", 4), "the chat's effort as the preset's"
         adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the panel
         time.sleep(1)
 
@@ -8153,11 +8161,11 @@ def shadow_tutor():
             assert "thinking-binding-controls-2026-08-01" in betas, "the thinking-binding beta"
             assert (EFFORT_BETA in betas) == bool(r.get("effort_messages")), f"the per-message effort's beta with an effort message only: {betas} {r.get('effort_messages')}"
         digest = [r for r in reqs if r.get("model") == "claude-haiku-5-5" and "<digest" in json.dumps(r["body"]["messages"])]  # the core prompt names it too
-        assert not digest or all(r["effort"] == "high" and r["body"]["max_tokens"] == 16000 for r in digest), "the digest on Haiku at high, 16,000 tokens of room"
+        assert not digest or all(r["effort"] == "xhigh" and r["body"]["max_tokens"] == 32000 for r in digest), "the digest on Haiku at xhigh, 32,000 tokens of room"
         sonnet = [r for r in reqs if r.get("model") == "claude-sonnet-5-5"]
         at_high = [r for r in sonnet if r.get("effort") == "high"]
         assert at_high, "the second chat's calls at high"
-        assert all(r["effort_top"] == "medium" and r.get("effort_messages") for r in at_high), "the thread's top-level effort kept, the level by an effort message"
+        assert all(r["effort_top"] == "xhigh" and r.get("effort_messages") for r in at_high), "the thread's top-level effort (the chat's: xhigh) kept, the level by an effort message"
         earlier = [r for r in sonnet if not r.get("effort_messages")]
         msgs, prev = at_high[0]["body"]["messages"], earlier[-1]["body"]["messages"]
         assert msgs[:len(prev)] == prev, "the thread's history before the effort message: as sent before (the cache's prefix)"
