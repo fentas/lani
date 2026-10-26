@@ -37,7 +37,7 @@ const FEATURE_TOPICS: Record<string, { id: string; title: string; summary: strin
   rhythm: { id: 'rhythm', title: 'Daily rhythm', summary: 'For daily_morning, daily_evening and daily_weekly, or when the learner changes the times (set_rhythm).' },
   game: { id: 'village', title: 'The village game', summary: "When the village (get_village) can motivate, or for sidequests and a task the learner keeps failing." },
   packs: { id: 'packs', title: 'Word packs', summary: 'When the learner asks for words on a topic (publish_pack, list_packs), or for words_learned.' },
-  lexicon: { id: 'word-lookup', title: 'Word lookup', summary: 'For a chat with data.lookup, gloss_gaps or words_added (publish_gloss).' },
+  lexicon: { id: 'word-lookup', title: 'Word lookup', summary: 'For a chat with data.lookup, gloss_gaps, gloss_request or words_added (publish_gloss).' },
   sentences: { id: 'sentence-grammar', title: 'Sentence grammar', summary: "For a chat with data.about_sentence: explain a line's grammar and keep it (publish_sentence_note)." },
   scenarios: { id: 'role-play', title: 'Role-play', summary: 'For roleplay and roleplay_end (in character, hints, the debrief), or to write a scenario.' },
   scenes: { id: 'scenes', title: 'Scenes and dialogs', summary: "For dialog_variants_heard and words_to_weave, writing scenes or dialog variants, and the learner placeholders." },

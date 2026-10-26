@@ -1,6 +1,6 @@
 {
   "name": "publish_gloss",
-  "description": "Explain a word for the app's word lookup: one the dictionary didn't know (Jan asked about it), or one it knew only in English (a gloss_gaps note). The form as it appears in the line, its lemma (base form), part of speech, 1-3 short glosses, the language they are in (gloss_lang, default Jan's base) and the grammar of this form. The next lookup of the form or the lemma shows it: as the meaning of the dictionary's entry of that lemma, or as an entry of its own, flagged machine-written. Replaces your earlier gloss of the same form, lemma and gloss language.",
+  "description": "Explain a word for the app's word lookup: one the dictionary didn't know (Jan asked about it, or asked to add it: a gloss_request note, and the bridge adds it to Jan's words then), or one it knew only in English (a gloss_gaps note). The form as it appears in the line, its lemma (base form), part of speech, 1-3 short glosses, the language they are in (gloss_lang, default Jan's base) and the grammar of this form. The next lookup of the form or the lemma shows it: as the meaning of the dictionary's entry of that lemma, or as an entry of its own, flagged machine-written. Replaces your earlier gloss of the same form, lemma and gloss language.",
   "input_schema": {
     "type": "object",
     "properties": {

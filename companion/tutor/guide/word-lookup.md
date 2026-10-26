@@ -9,5 +9,11 @@ appears, its lemma, pos, 1-3 short glosses (in the language you explain in) and 
 it. gloss_gaps lists words whose lookup had no meaning in Jan's base, with the English: for each, call publish_gloss
 {form, lemma, pos, gloss: 1-3 short meanings in that base, gloss_lang, language when the note names one}; the app
 shows them flagged machine-written, and the card open on the word updates. No reply needed for gloss_gaps.
+gloss_request lists words Jan tapped "Add to my words" on that the dictionary doesn't know, with the line each was met
+in (JSON block gloss_requests): for each, call publish_gloss {form exactly as listed, lemma, pos, gloss: 1-3 short
+meanings in the note's gloss_lang (the one the line means first), gloss_lang, grammar of this form, language when the
+note names one}. The bridge then adds the word to Jan's words itself (don't persist it) and the open card fills in: no
+reply needed. A typo of another word: gloss that word (its lemma) with a note; a name: pos "name" (not added). Ask Jan
+in a reply only if the word can't be explained at all.
 publish_gloss's gloss_lang is the language your glosses are in (default: Jan's base); language is the word's (default:
 the village's; on a visit, the town's, as the note or data.lookup.language says).

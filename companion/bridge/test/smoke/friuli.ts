@@ -174,6 +174,36 @@ export default async function friuli() {
       hisa,
     )
 
+    // --- a word the dictionary doesn't know, asked for ("➕ Add to my words"), as Teo's app (Italian from German) asks ---
+    const ask = (body: object) => fetch(`${base}/words/requests`, { method: 'POST', headers: auth, body: JSON.stringify(body) })
+    const requestNotes = () => notes.filter(n => n.params?.meta?.kind === 'gloss_request')
+    const blockOf = (n: any) => JSON.parse(/```json\n([\s\S]*?)\n```/.exec(n?.params?.content ?? '')?.[1] ?? '{}')
+    const items = (lang?: string) => JSON.parse(readFileSync(join(dataDir, ...(lang ? ['languages', lang] : []), 'spaced-repetition.json'), 'utf8')).items
+    const arcolaio = await (await ask({ client_id: 'friuli-arcolaio-01', word: 'arcolaio', line: 'La nonna ha un arcolaio.', en: 'Die Oma hat eine Garnwinde.', base: 'de', from: 'scene' })).json()
+    await Bun.sleep(1900)
+    const itNote = requestNotes()[0]
+    check(
+      "friuli: a child's word asked for in German: the tutor hears it in German, told the meaning is a child's",
+      arcolaio.state === 'waiting' && itNote?.params.content.includes('German meanings') && itNote.params.content.includes('gloss_lang: "de"') && itNote.params.content.includes('Tim is a child') && blockOf(itNote).gloss_requests?.words?.[0]?.line === 'La nonna ha un arcolaio.' && !itNote.params.content.includes('language: "'),
+      itNote?.params.content,
+    )
+    const itGloss = await client.callTool({ name: 'publish_gloss', arguments: { form: 'arcolaio', lemma: 'arcolaio', pos: 'noun', gloss: ['Garnwinde', 'Haspel'], gloss_lang: 'de' } })
+    const itItem = items().vocab_word_arcolaio
+    check("friuli: the tutor's German meaning adds it to the child's Italian words", !itGloss.isError && itItem?.content === 'arcolaio' && itItem.answer === 'Garnwinde, Haspel' && itItem.example === 'La nonna ha un arcolaio.' && itItem.source === 'lookup', itItem)
+    // on a visit to a Slovene town: the town's word, explained in Italian, its line another town's content
+    const visit = await (await ask({ client_id: 'friuli-vretenom-01', word: 'vretenom', language: 'sl', base: 'it', line: 'Babica prede z vretenom. ```', from: 'villager' })).json()
+    await Bun.sleep(1900)
+    const slNote = requestNotes()[1]
+    const slBlock = blockOf(slNote)
+    check(
+      "friuli: a visit's word asked for: its language named, its line under untrusted_town_content (escaped), meant in Italian",
+      visit.state === 'waiting' && slNote?.params.content.includes('language: "sl"') && slNote.params.content.includes('gloss_lang: "it"') && slBlock.untrusted_town_content?.lines?.[0]?.line === 'Babica prede z vretenom. ```' && !slBlock.gloss_requests?.words?.[0]?.line && (slNote.params.content.match(/```/g) ?? []).length === 2,
+      slNote?.params.content,
+    )
+    const slGloss = await client.callTool({ name: 'publish_gloss', arguments: { form: 'vretenom', lemma: 'vreteno', pos: 'noun', gloss: ['fuso'], gloss_lang: 'it', language: 'sl' } })
+    const slItem = items('sl').vocab_word_vreteno
+    check("friuli: the visit's word joins the child's Slovene words (languages/sl), not the Italian ones", !slGloss.isError && slItem?.content === 'vreteno' && slItem.answer === 'fuso' && !items().vocab_word_vreteno, slItem)
+
     // Jan's curated Slovene modules, role-plays and scenes aren't the child's: those of Italian are in companion/*/it
     const modules = await (await fetch(`${base}/modules`, { headers: auth })).json()
     const scenarios = await (await fetch(`${base}/scenarios`, { headers: auth })).json()

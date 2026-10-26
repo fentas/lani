@@ -27,6 +27,7 @@ import leaseNone from './smoke/lease-none'
 import game from './smoke/game'
 import packs from './smoke/packs'
 import lexicon from './smoke/lexicon'
+import wordRequests from './smoke/word-requests'
 import forms from './smoke/forms'
 import counting from './smoke/counting'
 import formsCards from './smoke/forms-cards'
@@ -66,5 +67,5 @@ import setup from './smoke/setup'
 // its bridge services and their shims (docs/plans/04-bridge-service.md); setup a bridge configured by lani.env alone. level raises the learner to A2 (and their
 // Italian): it runs late, after the checks that read the level. tutorLive (the app's own tutor: features/tutor.ts) records a
 // session and fixes a card in the learner's data, so it comes after them too.
-for (const section of [core, tutor, phone, chat, chatImages, modules, grammar, cards, course, prints, drills, ispy, events, reviews, outbox, releases, dev, lease, game, packs, lexicon, forms, counting, formsCards, sentences, meanings, rhythm, scenarios, scenes, variants, dialogWords, stories, readings, villagers, learner, arrivals, cultures, friuli, kaernten, lakeland, pairs, family, offlineVoice, voice, drama3, stt, towns, languages, service, level, tutorLive, tutorStudio, pairing, rename, setup, leaseNone]) await section()
+for (const section of [core, tutor, phone, chat, chatImages, modules, grammar, cards, course, prints, drills, ispy, events, reviews, outbox, releases, dev, lease, game, packs, lexicon, wordRequests, forms, counting, formsCards, sentences, meanings, rhythm, scenarios, scenes, variants, dialogWords, stories, readings, villagers, learner, arrivals, cultures, friuli, kaernten, lakeland, pairs, family, offlineVoice, voice, drama3, stt, towns, languages, service, level, tutorLive, tutorStudio, pairing, rename, setup, leaseNone]) await section()
 await done()
