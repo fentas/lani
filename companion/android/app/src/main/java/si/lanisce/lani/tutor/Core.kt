@@ -64,7 +64,7 @@ object DayThreads {
             val e = t.eventIds.firstOrNull()?.let(event)
             val shown = real.filter { it.eventId != null && it.eventId in t.eventIds }.joinToString(" / ") { it.reply.text.take(600) }
             "${t.eventKind}: ${e?.text?.take(400).orEmpty()} → you replied: ${t.replies.joinToString(" / ") { it.text.take(600) }.ifBlank { "(nothing)" }}" +
-                (if (shown.isNotBlank()) " → the learner was shown (another tutor answered): $shown" else "")
+                (if (shown.isNotBlank()) " → the learner was shown (another tutor's words, not yours: never correct or claim them): $shown" else "")
         }
 }
 

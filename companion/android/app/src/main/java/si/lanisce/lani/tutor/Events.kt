@@ -27,7 +27,7 @@ object ShadowEvents {
         val data = JsonObject(o - "client_id")
         val (kind, conv, text, d) = when {
             path == "/message" -> Quad(o.str("kind") ?: "chat", o.str("conversation_id") ?: "main", o.str("text").orEmpty(), o["data"] as? JsonObject)
-            path == "/reviews" -> Quad(if (o["dialog"] is JsonObject) "dialog_words" else "review_done", null, reviewLine(data), data)
+            path == "/reviews" -> Quad(if (o["dialog"] is JsonObject) "dialog_words" else "review_done", null, reviewLine(data), JsonObject(data + ("counts" to reviewCounts(data))))
             path == "/words" -> Quad("words_added", null, "added a word: ${o.str("sl").orEmpty()} (${o.str("en").orEmpty()})", data)
             packLearn.matches(path) -> Quad("words_learned", null, "learned words of the pack ${packLearn.find(path)!!.groupValues[1]}", JsonObject(data + ("pack_id" to JsonPrimitive(packLearn.find(path)!!.groupValues[1]))))
             path == "/readings/done" -> Quad("reading_done", null, "reading practice done", data)
@@ -53,9 +53,40 @@ object ShadowEvents {
     }
 
     private fun reviewLine(o: JsonObject): String {
+        val c = reviewCounts(o)
+        fun n(k: String) = (c[k] as? JsonPrimitive)?.intOrNull ?: 0
+        val inside = buildList {
+            if (n("forms_asked") > 0) add("${n("forms_asked")} form(s) asked of them, ${n("forms_wrong")} wrong")
+            if (n("steps") > 0) add("${n("steps")} step(s) of counting and forms cards, ${n("steps_wrong")} wrong")
+        }
+        return "a review: ${n("cards")} card(s), ${n("cards_wrong")} wrong" +
+            (if (inside.isNotEmpty()) "; within those cards (not cards of their own): ${inside.joinToString("; ")}" else "") +
+            (o.str("from")?.let { " (from $it)" } ?: "")
+    }
+
+    /**
+     * A review's numbers, card by card (the matrix, 2026-10: lanes counted form gaps as cards, "17 of 20" where the app
+     * said 19 of 20): the cards and those wrong (quality under 3), the forms asked of them and those wrong, the counting
+     * and forms cards' steps and cells and those wrong.
+     */
+    fun reviewCounts(o: JsonObject): JsonObject {
         val results = (o["results"] as? JsonArray).orEmpty().mapNotNull { (it as? JsonObject)?.get("quality")?.let { q -> (q as? JsonPrimitive)?.intOrNull } }
-        val wrong = results.count { it < 3 }
-        return "a review: ${results.size} card(s), $wrong wrong${o.str("from")?.let { " (from $it)" } ?: ""}"
+        val forms = (o["forms"] as? JsonArray).orEmpty().mapNotNull { it as? JsonObject }
+        fun right(e: JsonObject) = (e["right"] as? JsonPrimitive)?.booleanOrNull
+        val steps = ((o["counting"] as? JsonArray).orEmpty().flatMap { ((it as? JsonObject)?.get("steps") as? JsonArray).orEmpty() } +
+            (o["forms_cards"] as? JsonArray).orEmpty().flatMap { ((it as? JsonObject)?.get("cells") as? JsonArray).orEmpty() }).mapNotNull { it as? JsonObject }
+        return kotlinx.serialization.json.buildJsonObject {
+            put("cards", JsonPrimitive(results.size))
+            put("cards_wrong", JsonPrimitive(results.count { it < 3 }))
+            if (forms.isNotEmpty()) {
+                put("forms_asked", JsonPrimitive(forms.size))
+                put("forms_wrong", JsonPrimitive(forms.count { right(it) == false }))
+            }
+            if (steps.isNotEmpty()) {
+                put("steps", JsonPrimitive(steps.size))
+                put("steps_wrong", JsonPrimitive(steps.count { right(it) == false }))
+            }
+        }
     }
 
     /**
@@ -112,7 +143,8 @@ object TurnText {
         append("<digest events=\"${events.size}\" why=\"$why\">\n")
         events.forEach { append(event(it, zone)).append('\n') }
         append("</digest>\n")
-        append("The day's routine events since the last digest (already persisted by the app). React only if it helps the learner: ")
+        append("The day's routine events since the last digest. The app has persisted all of them except a session_end: persist ")
+        append("each session_end with record_session first (the session-end topic). React only if it helps the learner: ")
         append("a tip on what they typed wrong, a word on a milestone. Answer with the reply tool on conversation_id \"main\", or end the turn without a reply.")
     }
 
@@ -122,13 +154,19 @@ object TurnText {
 
     fun lines(title: String, lines: List<String>): String = if (lines.isEmpty()) "" else "$title\n" + lines.joinToString("\n") { "- $it" }
 
+    /**
+     * What the shown replies are, said outright (the matrix, 2026-10: GPT-6 Luna took them as its own and "corrected"
+     * them, retracting correct rules and a grammar page another tutor had added; Haiku named "the other tutor").
+     */
+    private const val NOT_YOURS = "These replies are not your words and not your actions: never correct, retract, " +
+        "apologise for or claim them (nor what they say was done: a card fixed, a page added), and never mention them or " +
+        "another tutor to the learner. Take them as what the learner saw; their next messages answer them."
+
     /** [shown]'s title on the day's thread: the replies since its last turn. */
-    const val SHOWN = "What the learner was shown in reply (another tutor answered this time). Their next messages answer this: " +
-        "take it as what they saw, and don't mention it or the other tutor to them."
+    const val SHOWN = "What the learner was shown in reply since your last turn (another tutor answered). $NOT_YOURS"
 
     /** [shown]'s title in a stateless turn, next to "Today so far". */
-    const val SHOWN_TODAY = "What the learner was shown in reply today (another tutor answered). Their messages answer this: " +
-        "take it as what they saw, and don't mention it or the other tutor to them."
+    const val SHOWN_TODAY = "What the learner was shown in reply today (another tutor answered). $NOT_YOURS"
 
     /** A reply in [shown] is cut here. */
     const val SHOWN_MAX = 1_500

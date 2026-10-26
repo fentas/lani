@@ -1013,7 +1013,7 @@ class ShadowTutorTest {
         t.onDelivered("c2", "/message", chat("c2", "Kaj pa peč?")).join()
         t.awaitIdle()
         val first = t.thread!!.messages.first().toString()
-        assertTrue(first, first.contains("the learner was shown (another tutor answered): REAL: živjo, Jan"))
+        assertTrue(first, first.contains("the learner was shown (another tutor's words, not yours: never correct or claim them): REAL: živjo, Jan"))
     }
 
     // --- the matrix's OpenAI lanes ------------------------------------------------------------------------------------

@@ -13,6 +13,23 @@ import java.time.ZoneId
 class EventsTest {
     private fun of(e: si.lanisce.lani.data.OutboxEntry, reactAtOnce: Boolean = false) = ShadowEvents.of("ev_" + e.clientId, e.path, e.body, 1_000, reactAtOnce)!!
 
+    @Test fun `a review's numbers card by card - the forms asked within its cards are not cards`() {
+        // the matrix, 2026-10: lanes counted form gaps as cards ("17 of 20" where the app said 19 of 20)
+        val body = """{"results":[{"item_id":"a","quality":5},{"item_id":"b","quality":1},{"item_id":"c","quality":4}],"duration_minutes":2,""" +
+            """"forms":[{"item_id":"a","key":"pl","page":"p","right":false},{"item_id":"c","key":"du","page":"p","right":true}],""" +
+            """"counting":[{"item_id":"k","lemma":"kava","steps":[{"n":1,"right":true},{"n":2,"right":false}]}],"client_id":"x"}"""
+        val e = ShadowEvents.of("ev", "/reviews", body, 0)!!
+        assertEquals(
+            "a review: 3 card(s), 1 wrong; within those cards (not cards of their own): 2 form(s) asked of them, 1 wrong; 2 step(s) of counting and forms cards, 1 wrong",
+            e.text,
+        )
+        assertEquals(obj("cards" to 3, "cards_wrong" to 1, "forms_asked" to 2, "forms_wrong" to 1, "steps" to 2, "steps_wrong" to 1), e.data!!["counts"])
+        // a plain review: its cards only
+        val plain = ShadowEvents.of("ev2", "/reviews", """{"results":[{"item_id":"a","quality":5}],"duration_minutes":1}""", 0)!!
+        assertEquals("a review: 1 card(s), 0 wrong", plain.text)
+        assertEquals(obj("cards" to 1, "cards_wrong" to 0), plain.data!!["counts"])
+    }
+
     @Test fun `each write the app sends the node is the channel's kind of event`() {
         val chat = of(Writes.message("chat", "main", "Živjo", null, id = "a"))
         assertEquals("chat" to Handling.AT_ONCE, chat.kind to chat.handling)

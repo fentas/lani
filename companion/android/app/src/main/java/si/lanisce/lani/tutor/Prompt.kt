@@ -96,16 +96,20 @@ class Prefix(
 
     companion object {
         /**
-         * The bundled prefix: the core prompt (companion/tutor/core-prompt.md). The guide's topics are listed once, in the
-         * `guide` tool's description (companion/tutor/tools/guide.json, made with the topics); a guide without that tool
-         * gets the list here.
+         * The bundled prefix: the core prompt (companion/tutor/core-prompt.md), its HTML comments left out (they are for
+         * whoever edits it: where a rule came from; never sent). The guide's topics are listed once, in the `guide`
+         * tool's description (companion/tutor/tools/guide.json, made with the topics); a guide without that tool gets the
+         * list here.
          */
         fun bundled(specs: List<ToolSpec>, guide: Guide, read: (String) -> String? = Bundle::text): Prefix {
-            val core = read("core-prompt.md").orEmpty().trim()
+            val core = uncommented(read("core-prompt.md").orEmpty())
             val listed = specs.any { it.name == "guide" && guide.topics.all { t -> it.description.contains(t.id) } }
             val topics = guide.topics.joinToString("\n") { "- `${it.id}`: ${it.title}. ${it.summary}" }
             val text = if (listed || topics.isEmpty()) core else "$core\n\n## The guide's topics (`guide(topic)`)\n\n$topics"
             return Prefix(PhaseA.definitions(specs), text)
         }
+
+        /** [text] without its HTML comments (`<!-- … -->`, each with the line break right after it), trimmed. */
+        fun uncommented(text: String): String = text.replace(Regex("""<!--[\s\S]*?-->[ \t]*(\r?\n)?"""), "").trim()
     }
 }
