@@ -204,7 +204,7 @@ fun TownView(
                 is VillageHit.OnVillager -> Tapped.Person(hit.id, renderer.villagerAnchors[hit.id])
                 is VillageHit.OnSpot -> Tapped.Place(PlaceTap.Spot(hit.id))
                 is VillageHit.OnLandmark -> Tapped.Project(hit.project)
-                is VillageHit.OnAnimal -> if (tapAnimal != null) Tapped.Animal(hit.word) else ground()
+                is VillageHit.OnAnimal -> if (tapAnimal != null) Tapped.Animal(hit.kind.word()) else ground()
                 // the night sky: the moon, a star, a planet … within a finger's reach (nominal px), else the land
                 null -> tapSky?.let { renderer.skyAt(nx, ny, with(density) { 20.dp.toPx() } / c.scale, System.currentTimeMillis()) }?.let { Tapped.Sky(it) } ?: ground()
             }
@@ -436,9 +436,9 @@ private fun AnimalTargets(renderer: VillageRenderer, camera: () -> si.lanisce.la
                 }
                 .size(40.dp)
                 .semantics {
-                    contentDescription = kind.word
+                    contentDescription = kind.word()
                     role = Role.Button
-                    onClick { onAnimal(kind.word); true }
+                    onClick { onAnimal(kind.word()); true }
                 },
         )
     }

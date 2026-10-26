@@ -334,6 +334,11 @@ next one, and the same seed is always the same land); "✓ Tu bo moja vas · My 
 first day ticked, for good. A village that exists is never asked about, and a village that arrives from the node or
 another phone meanwhile stays.
 
+**The wild animals round the village** (`game/render/Wildlife.kt`: a squirrel and a hare by day, roe deer and a fox at
+dawn and dusk, a boar with her young at night, tracks in the snow) are each a word: a tap opens its card in the village's
+language, the one its bridge looks words up in (the string tables' `wild.*`: "veverica", "scoiattolo", "Eichhörnchen",
+"squirrel"; on a visit the town's). Until 2026-10-26 it was always the Slovene word.
+
 **A visit shows the host's land.** A town's public state carries its land (`land`: the landscape and the number its map
 is made from, not the village's seed; README, "What a town shows"), and the visitor's app draws the host's village on
 it; a town whose bridge is older shows the classic valley.

@@ -131,8 +131,8 @@ sealed interface VillageHit {
     data class OnSpot(val id: String) : VillageHit
     /** A village project's landmark, finished or being built (its project id; see [LandmarkLayout]). */
     data class OnLandmark(val project: String) : VillageHit
-    /** A wild animal round the village (see [Wildlife]): its [word], to look up ("divji prašič"). */
-    data class OnAnimal(val word: String) : VillageHit
+    /** A wild animal round the village (see [Wildlife]): its [kind], whose word a tap looks up ([Wild.word]). */
+    data class OnAnimal(val kind: Wild) : VillageHit
 }
 
 /** A wild animal drawn in the last frame (see [Wildlife]): where it stands (or flies), in nominal canvas pixels. */
@@ -1489,7 +1489,7 @@ class VillageRenderer {
                 owner[s.newObject(Pal.OUTLINE)] = slot
                 val ax = s.cx(x).roundToInt(); val ay = s.cy(y).roundToInt()
                 s.sprite(ax, ay) { draw(ax, ay) }
-                hits.add(VillageHit.OnAnimal(Wild.DEER.word) to intArrayOf(ax - 5 * k, ay - 7 * k, ax + 5 * k, ay + k))
+                hits.add(VillageHit.OnAnimal(Wild.DEER) to intArrayOf(ax - 5 * k, ay - 7 * k, ax + 5 * k, ay + k))
                 if (slot < wild.size) wild[slot] = true
             })
         }
@@ -1630,7 +1630,7 @@ class VillageRenderer {
                 owner[s.newObject(Pal.OUTLINE)] = slot
                 val ax = s.cx(x).roundToInt(); val ay = s.cy(y).roundToInt()
                 s.sprite(ax, ay) { draw(ax, ay) }
-                hits.add(VillageHit.OnAnimal(kind.word) to intArrayOf(ax - 6 * k, ay - 8 * k, ax + 6 * k, ay + k))
+                hits.add(VillageHit.OnAnimal(kind) to intArrayOf(ax - 6 * k, ay - 8 * k, ax + 6 * k, ay + k))
                 tag(slot)
             })
         }
@@ -1644,7 +1644,7 @@ class VillageRenderer {
                 draw()
                 s.canvas.penId = 0
                 val ax = s.cx(x).roundToInt(); val ay = s.cy(y).roundToInt()
-                hits.add(VillageHit.OnAnimal(kind.word) to intArrayOf(ax - 8 * k, ay - 6 * k, ax + 8 * k, ay + 2 * k))
+                hits.add(VillageHit.OnAnimal(kind) to intArrayOf(ax - 8 * k, ay - 6 * k, ax + 8 * k, ay + 2 * k))
                 tag(slot)
             }
         }
@@ -1732,7 +1732,7 @@ class VillageRenderer {
                         owner[s.newObject(Pal.OUTLINE)] = slot
                         val ax = s.cx(x).roundToInt(); val ay = s.cy(y).roundToInt()
                         s.sprite(ax, ay) { s.woods.owl(ax, ay) }
-                        hits.add(VillageHit.OnAnimal(Wild.OWL.word) to intArrayOf(ax - 3 * k, ay - 5 * k, ax + 3 * k, ay + k))
+                        hits.add(VillageHit.OnAnimal(Wild.OWL) to intArrayOf(ax - 3 * k, ay - 5 * k, ax + 3 * k, ay + k))
                         tag(slot)
                     })
                 }
@@ -1810,7 +1810,7 @@ class VillageRenderer {
                     paint.tracks(s.cx(p[0]), s.cy(p[1]), p[2] * dir, p[3] * dir, 5)
                     s.canvas.penId = 0
                     val ax = s.cx(p[0]).roundToInt(); val ay = s.cy(p[1]).roundToInt()
-                    hits.add(VillageHit.OnAnimal(Wild.TRACKS.word) to intArrayOf(ax - 12 * k, ay - 6 * k, ax + 12 * k, ay + 6 * k))
+                    hits.add(VillageHit.OnAnimal(Wild.TRACKS) to intArrayOf(ax - 12 * k, ay - 6 * k, ax + 12 * k, ay + 6 * k))
                     tag(slot)
                 }
             }

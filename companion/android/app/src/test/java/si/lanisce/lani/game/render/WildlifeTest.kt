@@ -150,7 +150,32 @@ class WildlifeTest {
             Wild.SQUIRREL to "🐿️", Wild.HARE to "🐇", Wild.BIRDS to "🐦", Wild.DEER to "🦌", Wild.FOX to "🦊", Wild.HEDGEHOG to "🦔",
             Wild.BATS to "🦇", Wild.BOARS to "🐗", Wild.BADGER to "🦡", Wild.OWL to "🦉", Wild.BEAR to "🐻", Wild.TRACKS to "🐾",
         )
-        for (w in Wild.entries) assertEquals("${w.word} in the pack", shows[w], words[w.word])
+        for (w in Wild.entries) assertEquals("${w.word(si.lanisce.lani.l10n.Lang.SL)} in the pack", shows[w], words[w.word(si.lanisce.lani.l10n.Lang.SL)])
+    }
+
+    @Test fun `an animal's word is in the village's language, a Friuli village's squirrel a scoiattolo`() {
+        // every language's table has every animal's word
+        for (lang in si.lanisce.lani.l10n.Lang.entries) for (w in Wild.entries) {
+            val word = w.word(lang)
+            assertTrue("${lang.code}: $w", word.isNotBlank() && !word.startsWith("wild."))
+        }
+        val words = mapOf("primorska" to "veverica", "friuli" to "scoiattolo", "kaernten" to "Eichhörnchen", "lakeland" to "squirrel")
+        try {
+            for ((culture, squirrel) in words) {
+                si.lanisce.lani.game.culture.Cultures.use(culture)
+                assertEquals(culture, squirrel, Wild.SQUIRREL.word())
+            }
+            si.lanisce.lani.game.culture.Cultures.use("friuli")
+            assertEquals("cinghiale", Wild.BOARS.word())
+            // on a visit, the visited town's language (its culture's)
+            si.lanisce.lani.game.culture.Cultures.visiting = si.lanisce.lani.game.culture.Cultures.load("kaernten")
+            assertEquals("Wildschwein", Wild.BOARS.word())
+        } finally {
+            si.lanisce.lani.game.culture.Cultures.visiting = null
+            si.lanisce.lani.game.culture.Cultures.use(si.lanisce.lani.game.culture.Cultures.DEFAULT)
+        }
+        // Jan's: as before
+        assertEquals("divji prašič", Wild.BOARS.word())
     }
 
     // ---------------------------------------------------------------- where
@@ -178,7 +203,7 @@ class WildlifeTest {
                     if (a.kind != Wild.BEAR && a.kind != Wild.TRACKS && a.kind != Wild.BIRDS && a.kind != Wild.BATS) {
                         var shows = 0
                         for (y in a.at.y.toInt() - 10..a.at.y.toInt() + 1) for (x in a.at.x.toInt() - 8..a.at.x.toInt() + 8) {
-                            if (x in 0 until c.width && y in 0 until c.height && r.hitTest(x, y, 0) == VillageHit.OnAnimal(a.kind.word)) shows++
+                            if (x in 0 until c.width && y in 0 until c.height && r.hitTest(x, y, 0) == VillageHit.OnAnimal(a.kind)) shows++
                         }
                         assertTrue("$age ${w}x$h $hour/$month $today: ${a.kind} at ${a.at} shows $shows px", shows >= SHOWS.getValue(a.kind))
                     }
@@ -207,7 +232,7 @@ class WildlifeTest {
         for (dy in -12..3) for (dx in -9..9) {
             val x = a.at.x.toInt() + dx; val y = a.at.y.toInt() + dy
             if (x !in 0 until c.width || y !in 0 until c.height) continue
-            if (r.hitTest(x, y, 0) == VillageHit.OnAnimal(kind.word)) return intArrayOf(x, y)
+            if (r.hitTest(x, y, 0) == VillageHit.OnAnimal(kind)) return intArrayOf(x, y)
         }
         return null
     }
@@ -223,7 +248,7 @@ class WildlifeTest {
             val (r, c) = render(s, Frame(time = 3.0, hour = hour, month = month, today = today))
             val p = pixelOf(r, c, kind)
             assertTrue("$kind on $today at $hour is drawn and tappable: ${r.wildlife}", p != null)
-            assertEquals(VillageHit.OnAnimal(kind.word), r.hitTest(p!![0], p[1], 8))
+            assertEquals(VillageHit.OnAnimal(kind), r.hitTest(p!![0], p[1], 8))
             // the fire keeps its taps, and nothing wild comes near it (the grass by it is where a double tap zooms)
             assertEquals(VillageHit.OnFire, r.hitTest(comp.fireX, comp.fireY - 3))
             for (dy in -30..30 step 2) for (dx in -60..60 step 2) {
@@ -244,7 +269,7 @@ class WildlifeTest {
         val today = dayWith(s.seed, 23f, 9, Wild.BOARS)
         val (r, c) = render(s, Frame(time = 3.0, hour = 23f, month = 9, today = today))
         val p = pixelOf(r, c, Wild.BOARS)!!
-        assertEquals(VillageHit.OnAnimal("divji prašič"), r.hitTest(p[0], p[1], 8))
+        assertEquals(VillageHit.OnAnimal(Wild.BOARS), r.hitTest(p[0], p[1], 8))
         // a tap a little off it, where nothing else is, still finds it; farther off it doesn't
         val a = r.wildlife.first { it.kind == Wild.BOARS }.at
         var near = 0; var far = 0
@@ -252,7 +277,7 @@ class WildlifeTest {
             val x = a.x.toInt() + dx; val y = a.y.toInt() + dy
             val exact = r.hitTest(x, y, 0)
             val hit = r.hitTest(x, y, 8)
-            if (exact == null && hit == VillageHit.OnAnimal("divji prašič")) near++
+            if (exact == null && hit == VillageHit.OnAnimal(Wild.BOARS)) near++
             // wherever something else is drawn right there, it keeps the tap
             if (exact != null && exact !is VillageHit.OnAnimal) assertFalse("$x,$y: $exact lost to $hit", hit is VillageHit.OnAnimal)
             if (dx * dx + dy * dy > 30 * 30 && hit is VillageHit.OnAnimal) far++
@@ -280,7 +305,7 @@ class WildlifeTest {
             // and a tap on the boar through the lens finds her
             val x = lens.cx(boar.x).toInt(); val y = lens.cy(boar.y).toInt() - 2 * k
             val hit = (0..6 * k).asSequence().flatMap { dx -> sequenceOf(x + dx, x - dx) }.map { fine.hitTest(it, y, 0) }.firstOrNull { it is VillageHit.OnAnimal }
-            assertEquals("k=$k", VillageHit.OnAnimal("divji prašič"), hit)
+            assertEquals("k=$k", VillageHit.OnAnimal(Wild.BOARS), hit)
             assertTrue(c.width > 0)
         }
     }

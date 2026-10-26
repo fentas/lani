@@ -1,6 +1,9 @@
 package si.lanisce.lani.game.render
 
 import si.lanisce.lani.game.GameState
+import si.lanisce.lani.game.culture.Cultures
+import si.lanisce.lani.l10n.L10n
+import si.lanisce.lani.l10n.Lang
 import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.cos
@@ -11,37 +14,45 @@ import kotlin.math.min
 import kotlin.math.sin
 
 /**
- * A wild animal of the woods round the village, and its word: what a tap on it looks up (the word pack
- * companion/packs/zivali-v-gozdu.json has them all, so the pack and the word card agree).
+ * A wild animal of the woods round the village, and its word ([word]): what a tap on it looks up, in the village's
+ * language (the string tables' "wild.…": "veverica", "scoiattolo", "Eichhörnchen", "squirrel"; the Slovene word pack
+ * companion/packs/zivali-v-gozdu.json has the Slovene ones, so the pack and the word card agree).
  */
-enum class Wild(val word: String) {
+enum class Wild(private val key: String) {
     /** On a tree at the forest's edge, by day. */
-    SQUIRREL("veverica"),
+    SQUIRREL("wild.squirrel"),
     /** In the meadow, by day and at dawn. */
-    HARE("zajec"),
+    HARE("wild.hare"),
     /** A small flock over the far treeline, by day. */
-    BIRDS("ptica"),
+    BIRDS("wild.bird"),
     /** Grazing at the forest's edge, at dawn and at dusk. */
-    DEER("srna"),
+    DEER("wild.deer"),
     /** Slinking along outside the palisade, at dawn and dusk, sometimes at night. */
-    FOX("lisica"),
+    FOX("wild.fox"),
     /** By a bush, at dusk and at night; asleep all winter. */
-    HEDGEHOG("jež"),
+    HEDGEHOG("wild.hedgehog"),
     /** Over the roofs at dusk; asleep all winter. */
-    BATS("netopir"),
+    BATS("wild.bat"),
     /** A sow and her young rooting at the meadow's edge, at night. */
-    BOARS("divji prašič"),
+    BOARS("wild.boar"),
     /** Snuffling along the forest's edge at night. */
-    BADGER("jazbec"),
+    BADGER("wild.badger"),
     /** On a branch at the forest's edge at night, its eyes glowing. */
-    OWL("sova"),
+    OWL("wild.owl"),
     /** Very rarely at night: two eyes glowing at the forest's edge, nothing more. Asleep all winter. */
-    BEAR("medved"),
+    BEAR("wild.bear"),
     /** In winter: tracks in the snow, from the forest to the palisade and back. */
-    TRACKS("sled");
+    TRACKS("wild.track");
 
     /** In the air or in a tree: the ones the palisade doesn't keep out. */
     val aloft: Boolean get() = this == BIRDS || this == BATS || this == OWL || this == SQUIRREL
+
+    /**
+     * Its word in [lang]: by default the language of the village on screen (its culture's: Friuli's Italian, a visited
+     * town's on a visit), the one its bridge looks the word up in. Until 2026-10-26 it was always the Slovene word, so a
+     * learner of Italian tapped a squirrel and got "veverica".
+     */
+    fun word(lang: Lang = Cultures.current.language): String = L10n.text(lang, key)
 }
 
 /** The parts of the day the animals keep to (see [Wildlife.time]). */
