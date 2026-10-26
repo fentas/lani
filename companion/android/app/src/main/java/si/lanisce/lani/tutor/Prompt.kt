@@ -91,7 +91,8 @@ class Prefix(
             if (effort != null) putJsonObject("output_config") { put("effort", effort) }
         }
         putJsonObject("cache_control") { put("type", "ephemeral") }
-        put("messages", JsonArray(messages))
+        // a snapshot: JsonArray keeps the list it's given, and the loop's list grows after the call
+        put("messages", JsonArray(messages.toList()))
     }
 
     companion object {

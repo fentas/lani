@@ -176,7 +176,7 @@ class OpenAIProvider(
     override fun request(prefix: Prefix, model: String, task: Task, messages: List<JsonObject>, maxTokens: Int, effort: String?): JsonObject = buildJsonObject {
         put("model", model)
         put("instructions", prefix.system)
-        put("input", JsonArray(messages))
+        put("input", JsonArray(messages.toList())) // a snapshot: the loop's list grows after the call
         put("tools", tools(prefix, billing))
         put("tool_choice", "auto")
         if (effort != null && ModelCatalog.efforts(model).isNotEmpty()) putJsonObject("reasoning") { put("effort", effort) }
