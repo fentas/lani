@@ -74,7 +74,7 @@ class WordsTest {
         assertTrue(Words.yours(wiktionary.copy(known = true), Words.Mine.of(emptyList(), "it")))
     }
 
-    @Test fun `whose a word is, in each language: its article aside, alternatives each, a name never`() {
+    @Test fun `whose a word is in each language (its article aside, alternatives each, a name never)`() {
         assertEquals(listOf("casa"), Words.ownKeys("la casa", "it"))
         assertEquals(listOf("acqua"), Words.ownKeys("l’acqua", "it"))
         assertEquals(listOf("wald"), Words.ownKeys("der Wald", "de"))
