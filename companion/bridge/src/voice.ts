@@ -97,6 +97,8 @@ export const modelOf = (c: Pick<Clip, 'engine' | 'model'>): string | undefined =
 export type CorpusItem = { text: string; voice: VoiceName; source: string; priority: number }
 
 export const FILE = /^[a-f0-9]{40}\.mp3$/
+/** An ElevenLabs voice id, as the cast writes them. */
+export const ELEVENLABS_ID = /^[A-Za-z0-9]{10,40}$/
 /** Today on the node's clock, "2026-09-26": the daily cap's day. */
 const localDay = (d = new Date()) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 export const clipKey = (norm: string, voice: VoiceName) => `${voice}:${norm}`
@@ -1019,8 +1021,16 @@ export class ElevenLabs implements Engine {
    * `carrier` in the cast ([force]: in any voice, a re-record), in a language with a carrier sentence; else undefined.
    */
   carrierFor(text: string, voice: VoiceName, force = false): string | undefined {
-    const template = (this.o.carriers ?? CARRIERS)[this.o.language ?? 'sl']
-    if (!template || !(force || carrierVoice(voice)) || !isShortText(text)) return undefined
+    return this.carrierIn(text, this.o.language ?? 'sl', force || carrierVoice(voice))
+  }
+
+  /**
+   * The carrier sentence a short [text] (a word, up to three) is said in, in [language] (CARRIERS), when its voice says a
+   * lone word in one ([carrier]); else undefined.
+   */
+  carrierIn(text: string, language: string, carrier: boolean): string | undefined {
+    const template = (this.o.carriers ?? CARRIERS)[language]
+    if (!template || !carrier || !isShortText(text)) return undefined
     return template.replace('{w}', text.trim())
   }
 
@@ -1046,6 +1056,17 @@ export class ElevenLabs implements Engine {
   /** The characters a request for [text] in [voice] costs: its carrier sentence when it is said in one, else the text. */
   cost(text: string, voice: VoiceName, lang?: string, force = false): number {
     return this.usesCarrier(text, voice, lang, force) ? this.carrierFor(text, voice, force)!.length : text.trim().length
+  }
+
+  /** The carrier sentence [text] is said in by [sayAs] ([o]: the language and whether the voice says a lone word in one), when the node can cut. */
+  private carrierAs(text: string, o: { language: string; carrier?: boolean }): string | undefined {
+    const said = this.carrierIn(text, o.language, !!o.carrier)
+    return said && this.cut ? said : undefined
+  }
+
+  /** The characters [sayAs] sends for [text] ([o] as there): its carrier sentence when it is said in one, else the text. */
+  costAs(text: string, o: { language: string; carrier?: boolean }): number {
+    return this.carrierAs(text, o)?.length ?? text.trim().length
   }
 
   private voiceId(voice: VoiceName): string | undefined {
@@ -1116,14 +1137,43 @@ export class ElevenLabs implements Engine {
     return bytes ? { bytes, method: r && !r.retry ? 'plain' : undefined, chars: (r ? said.length : 0) + text.trim().length, voice: id, model: this.model } : null
   }
 
+  /**
+   * [text] in a voice that isn't this village's cast's ([o].id: an ElevenLabs voice id) and in [o].language, which may be
+   * another than the village's: a visited town's people in its own cast's voices (visit-voices.ts). A short text of a
+   * voice that says a lone word in a carrier sentence ([o].carrier) is said inside the language's one and cut out, as
+   * [synth] does; when the word can't be cut out of it, it is asked for plainly. [o].live: a live line, which may use the
+   * reserve; [o].urgent: someone waits for it ([Gate]). Null when ElevenLabs can't now; never throws.
+   */
+  async sayAs(text: string, o: { id: string; language: string; carrier?: boolean; live?: boolean; urgent?: boolean }): Promise<Take | null> {
+    if (!this.o.key || !ELEVENLABS_ID.test(o.id)) return null
+    const urgent = !!(o.live || o.urgent)
+    const said = this.carrierAs(text, o)
+    if (!said) {
+      const bytes = await this.plainWith(text, o.id, o.language, urgent)
+      return bytes ? { bytes, voice: o.id, model: this.model } : null
+    }
+    const r = await this.carrierWith(text, said, o.id, o.language, urgent)
+    if (r instanceof Uint8Array) return { bytes: r, method: 'carrier', chars: said.length, voice: o.id, model: this.model }
+    if (!r && Date.now() < this.pausedUntil) return null
+    this.o.log?.(`elevenlabs: "${text}" (${o.id}, ${o.language}) without its carrier sentence: ${r ? r.miss : this.lastError}; asked for plainly`)
+    if (!(await this.ready(text.trim().length, !!o.live))) return null
+    const bytes = await this.plainWith(text, o.id, o.language, urgent)
+    return bytes ? { bytes, method: r && !r.retry ? 'plain' : undefined, chars: (r ? said.length : 0) + text.trim().length, voice: o.id, model: this.model } : null
+  }
+
   /** [text] asked for as it is; [mixed]: an explanation, its language left to the model (no language_code); [urgent]: [Gate]. */
   private async plain(text: string, voice: VoiceName, mixed = false, urgent = false): Promise<Uint8Array | null> {
     const id = this.voiceId(voice)
     if (!id) return null
+    return this.plainWith(text, id, mixed ? undefined : (this.o.language ?? 'sl'), urgent)
+  }
+
+  /** [text] asked for as it is in the voice [id], with [language] as its language_code (none: the model's own guess). */
+  private async plainWith(text: string, id: string, language: string | undefined, urgent: boolean): Promise<Uint8Array | null> {
     try {
       const r = await this.tts(
         `${this.base}/v1/text-to-speech/${id}?output_format=mp3_44100_128`,
-        mixed ? { text, model_id: this.model } : { text, model_id: this.model, language_code: this.o.language ?? 'sl' },
+        language === undefined ? { text, model_id: this.model } : { text, model_id: this.model, language_code: language },
         'audio/mpeg',
         async r => new Uint8Array(await r.arrayBuffer()),
         urgent,
@@ -1154,15 +1204,21 @@ export class ElevenLabs implements Engine {
    */
   async carrierTake(text: string, voice: VoiceName, urgent = false, force = false): Promise<Uint8Array | { miss: string; retry?: boolean } | null> {
     const said = this.carrierFor(text, voice, force)
-    const cut = this.cut
-    if (!this.o.key || !said || !cut) return null
+    if (!this.o.key || !said || !this.cut) return null
     const id = this.voiceId(voice)
     if (!id) return null
+    return this.carrierWith(text, said, id, this.o.language ?? 'sl', urgent)
+  }
+
+  /** [carrierTake] of [text] inside [said] (its carrier sentence), in the voice [id], with [language] as its language_code. */
+  private async carrierWith(text: string, said: string, id: string, language: string, urgent: boolean): Promise<Uint8Array | { miss: string; retry?: boolean } | null> {
+    const cut = this.cut
+    if (!this.o.key || !cut) return null
     let d: { audio_base64?: string; alignment?: Alignment; normalized_alignment?: Alignment }
     try {
       const r = await this.tts(
         `${this.base}/v1/text-to-speech/${id}/with-timestamps?output_format=mp3_44100_128`,
-        { text: said, model_id: this.model, language_code: this.o.language ?? 'sl' },
+        { text: said, model_id: this.model, language_code: language },
         undefined,
         async r => (await r.json()) as typeof d,
         urgent,
@@ -1344,8 +1400,19 @@ export class Gepard implements Engine {
   ready(): Promise<boolean> { return this.up() }
 
   async synth(text: string, voice: VoiceName): Promise<Take | null> {
+    return this.request(text, this.speakerOf(voice, text))
+  }
+
+  /**
+   * [text] (Slovene: the worker speaks nothing else) in the worker's voice [speaker] ("nina", "marko"), not a speaker of
+   * this village's cast: a visited Slovene town's people in its own cast's local voices (visit-voices.ts).
+   */
+  async sayAs(text: string, speaker: string): Promise<Take | null> {
+    return /^[a-z0-9-]{1,32}$/.test(speaker) ? this.request(text, speaker) : null
+  }
+
+  private async request(text: string, speaker: string | undefined): Promise<Take | null> {
     try {
-      const speaker = this.speakerOf(voice, text)
       const r = await fetch(`${this.url}/synth`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
@@ -2417,15 +2484,23 @@ export class VoiceStore {
       const c = fallbacks(voice).map(v => this.best(norm, v)).find(Boolean)
       return c ? this.served(c) : null
     }
-    if (!this.running.has(clipKey(norm, voice))) {
-      const lim = this.o.liveLimit ?? { max: 60, windowMs: 600_000 }
-      const now = Date.now()
-      this.liveCalls = this.liveCalls.filter(t => now - t < lim.windowMs)
-      if (this.liveCalls.length >= lim.max) return other()
-      this.liveCalls.push(now)
-    }
+    if (!this.running.has(clipKey(norm, voice)) && !this.liveSlot()) return other()
     if (explanation) return this.voice(text, voice, 'explanation', { lang })
     return (await this.voice(text, voice, 'live', { live: true, carrier: o.carrier })) ?? other()
+  }
+
+  /**
+   * A live line may be voiced now: within the rate limit of the app's live lines ([liveLimit]: 60 in 10 minutes unless
+   * set), which this takes a place of; false over it. A visit's lines voiced on this node count in it too
+   * (visit-voices.ts).
+   */
+  liveSlot(): boolean {
+    const lim = this.o.liveLimit ?? { max: 60, windowMs: 600_000 }
+    const now = Date.now()
+    this.liveCalls = this.liveCalls.filter(t => now - t < lim.windowMs)
+    if (this.liveCalls.length >= lim.max) return false
+    this.liveCalls.push(now)
+    return true
   }
 
   // --- the carrier re-voice: short narrator words from before the carrier sentence ---------------------------------
