@@ -41,7 +41,11 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   say a text as a 🔊 does (normal, 🐢), so QA hears the offline voice with the network off ("audio:say:<text>|<voice>|<person>"
  *   as a villager's line: that person in that voice, the debug build logging how it was said, tag Speaker); "audio:revoice:<text>|<url>"
  *   gives the text's narrator clip a new URL (url, else one the node hasn't got) as a re-voice on the node does, so its
- *   earlier clip stands in; "audio:refresh" takes the node's index again.
+ *   earlier clip stands in; "audio:refresh" takes the node's index again (a visited town's, on a visit). "audio:tts:off"
+ *   has Android's text-to-speech count as having no voice for any language (a tablet without the visited town's; Speaker.qaNoTts),
+ *   "audio:tts:" lets it be; "audio:visitvoice:reset" forgets the visits' offers of an offline voice declined, and lets this
+ *   visit's note come again (app/VisitVoiceController); "audio:voice:remove:<lang>" takes that language's offline voice
+ *   off the phone, as the settings' 🗑️ does.
  * - "render:full": the village's map draws its ground whole every frame, as it did before 2026-10-26, instead of keeping its
  *   still picture and drawing only its water anew ([si.lanisce.lani.game.render.VillageRenderer.groundKept]): QA measures
  *   the two (the frames' times, and the map's own: logged every 24 frames, tag TownScene); "render:" keeps it again.

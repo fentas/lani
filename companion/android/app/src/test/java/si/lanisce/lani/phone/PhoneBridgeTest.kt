@@ -95,10 +95,12 @@ class PhoneBridgeTest {
         assertEquals("primorska", s["culture"]!!.jsonPrimitive.content)
         assertEquals("sl", s["language"]!!.jsonPrimitive.content)
         // the node's features, the tutor session's (features/tutor.ts: the app's own tutor's routes) among them
-        assertEquals(35, s["features"]!!.jsonArray.size)
+        assertEquals(36, s["features"]!!.jsonArray.size)
         assertTrue(s["features"]!!.jsonArray.any { it.jsonPrimitive.content == "tutor" })
         // progress between linked towns (features/progress.ts) runs on the phone too
         assertTrue(s["features"]!!.jsonArray.any { it.jsonPrimitive.content == "progress" })
+        // a visited town's voices (features/visit-voices.ts): its clips handed on through the relay, none made here
+        assertTrue(s["features"]!!.jsonArray.any { it.jsonPrimitive.content == "visit-voices" })
         assertTrue(s["tools"]!!.jsonPrimitive.content.toInt() > 40)
         assertEquals("""{"ok":true}""", ok(get("/health")).text)
     }

@@ -241,12 +241,18 @@ class OfflineVoiceWorker(context: android.content.Context, params: androidx.work
         const val TOTAL = "total"
         const val ERROR = "error"
 
-        fun start(context: android.content.Context, language: String) {
+        /**
+         * The download's work name: [NAME] for the voice of the learner's own target language, its own for another's (a
+         * visited town's: app/VisitVoiceController), so one never waits for, or keeps, the other.
+         */
+        fun nameFor(language: String, own: Boolean): String = if (own) NAME else "$NAME-$language"
+
+        fun start(context: android.content.Context, language: String, name: String = NAME) {
             val req = androidx.work.OneTimeWorkRequestBuilder<OfflineVoiceWorker>()
                 .setConstraints(androidx.work.Constraints(requiredNetworkType = androidx.work.NetworkType.CONNECTED, requiresStorageNotLow = true))
                 .setInputData(androidx.work.workDataOf(LANGUAGE to language))
                 .build()
-            androidx.work.WorkManager.getInstance(context).enqueueUniqueWork(NAME, androidx.work.ExistingWorkPolicy.KEEP, req)
+            androidx.work.WorkManager.getInstance(context).enqueueUniqueWork(name, androidx.work.ExistingWorkPolicy.KEEP, req)
         }
     }
 }

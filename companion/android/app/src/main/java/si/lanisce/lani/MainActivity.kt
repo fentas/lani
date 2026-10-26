@@ -188,6 +188,9 @@ private fun App(vm: AppViewModel) {
                 is Screen.NumbersRun -> key(screen) { si.lanisce.lani.ui.numbers.NumbersRunScreen(vm, screen) }
             }
             VoiceBadge(vm.family.voice, Modifier.align(Alignment.TopCenter))
+            // on a visit, once, when a line can't be heard: the town language's offline voice offered, or a note that nothing
+            // speaks it (ui/towns/VisitVoiceNote)
+            if (si.lanisce.lani.data.VisitWorld.active) si.lanisce.lani.ui.towns.VisitVoiceNote(vm, Modifier.align(Alignment.TopCenter))
         }
     }
     // the story notebook over any screen (the chest, the reading corner, the storyteller, a story's end), under a word's card opened from it

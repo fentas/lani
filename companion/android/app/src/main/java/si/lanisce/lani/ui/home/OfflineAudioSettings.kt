@@ -78,7 +78,27 @@ fun OfflineAudioSettings(c: OfflineAudioController, modifier: Modifier = Modifie
         Text(inBase("offlineAudio.clipsCredit"), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
 
         OfflineVoiceRow(c)
+        VisitVoicesRow(c)
     }
+}
+
+/**
+ * "🧳 Glasovi za obiske · Voices for visits": the offline voices of other languages on the phone, got on a visit to a town
+ * of that language (ui/towns/VisitVoiceNote), each with its size and "🗑️ Odstrani · Remove"; nothing when there are none.
+ */
+@Composable
+private fun VisitVoicesRow(c: OfflineAudioController) {
+    val list = c.visitVoices
+    if (list.isEmpty()) return
+    Text("🧳 ${bi("offlineAudio.visitVoices")}", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(top = 8.dp))
+    for (v in list) Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(
+            "✅ ${bi("offlineAudio.visitVoiceOn", "name" to v.name.ifBlank { v.id }, "lang" to v.language, "mb" to mb(v.files.sumOf { it.bytes }))}",
+            Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium,
+        )
+        TextButton(onClick = { c.removeFor(v.language) }) { Text("🗑️ ${bi("offlineAudio.voiceRemove")}") }
+    }
+    for (v in list) credit(v)?.let { Text(inBase("offlineAudio.voiceCredit", "attribution" to it), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
 }
 
 /** What's on the phone now, how the day's lines stand, and "⬇️ Prenesi zdaj". */

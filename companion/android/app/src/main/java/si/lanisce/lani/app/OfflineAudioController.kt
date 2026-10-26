@@ -87,6 +87,21 @@ class OfflineAudioController(
     var offer by mutableStateOf(false)
         private set
 
+    /** The offline voices on the phone of other languages than the learner's own (a visited town's), for the settings. */
+    var visitVoices by mutableStateOf<List<OfflineVoiceInfo>>(emptyList())
+        private set
+
+    /** A visited town's voice on its way, by language: bytes done of all (0 of 0 while it starts). */
+    var visitProgress by mutableStateOf<Map<String, Pair<Long, Long>>>(emptyMap())
+        private set
+
+    /** Why a visited town's voice didn't come, by language. */
+    var visitProblem by mutableStateOf<Map<String, String>>(emptyMap())
+        private set
+
+    /** The downloads of visited towns' voices followed ([watch]), by work name. */
+    private val watched = mutableSetOf<String>()
+
     private val target: String get() = L10n.ownPair.target.code
 
     init {
@@ -120,16 +135,72 @@ class OfflineAudioController(
         Prefetch.schedule(app)
     }
 
-    /** Reads what's on the phone again (the sizes, the last prefetch, the voice). */
+    /** Reads what's on the phone again (the sizes, the last prefetch, the voice, the voices for visits). */
     fun load() {
         scope.launch {
+            val own = target
             val (u, s, v) = withContext(Dispatchers.IO) {
                 piper.refresh()
-                Triple(runCatching { files.usage() }.getOrNull(), DayPlans.readStatus(files), voices.installed(target))
+                Triple(runCatching { files.usage() }.getOrNull(), DayPlans.readStatus(files), voices.installed(own))
             }
             usage = u
             status = s
             voice = v
+            visitVoices = withContext(Dispatchers.IO) { si.lanisce.lani.l10n.Lang.entries.filter { it.code != own }.mapNotNull { voices.installed(it.code) } }
+        }
+    }
+
+    // --- the offline voices of other languages: a visited town's (app/VisitVoiceController) ----------------------------
+
+    /** The offline voice the node offers for [language] (its name, size, licence); null when none, or no node (the hosted mode). */
+    suspend fun offerFor(language: String): OfflineVoiceInfo? {
+        val c = config()?.takeUnless { onPhone } ?: return null
+        return withContext(Dispatchers.IO) { runCatching { OfflineVoiceApi(c).list()?.firstOrNull { it.language == language } }.getOrNull() }
+    }
+
+    /**
+     * "⬇️ Prenesi · Download" the offline voice of [language], a visited town's (the learner's own: [downloadVoice]): in the
+     * background, apart from the own voice's download; Piper speaks it once it is on the phone.
+     */
+    fun downloadFor(language: String) {
+        if (language == target) return downloadVoice()
+        visitProblem = visitProblem - language
+        visitProgress = visitProgress + (language to (0L to 0L))
+        val name = OfflineVoiceWorker.nameFor(language, own = false)
+        OfflineVoiceWorker.start(app, language, name)
+        watch(language, name)
+    }
+
+    /** Follows the download [name] of [language]'s voice: its progress, why it failed, the voice on the phone after it. */
+    private fun watch(language: String, name: String) {
+        if (!watched.add(name)) return
+        scope.launch {
+            WorkManager.getInstance(app).getWorkInfosForUniqueWorkFlow(name).collect { infos ->
+                val w = infos.firstOrNull() ?: return@collect
+                when (w.state) {
+                    WorkInfo.State.RUNNING, WorkInfo.State.ENQUEUED, WorkInfo.State.BLOCKED ->
+                        visitProgress = visitProgress + (language to (w.progress.getLong(OfflineVoiceWorker.DONE, 0) to w.progress.getLong(OfflineVoiceWorker.TOTAL, 0)))
+                    WorkInfo.State.FAILED -> {
+                        visitProgress = visitProgress - language
+                        visitProblem = visitProblem + (language to (w.outputData.getString(OfflineVoiceWorker.ERROR) ?: "?"))
+                        load()
+                    }
+                    else -> {
+                        visitProgress = visitProgress - language
+                        load()
+                    }
+                }
+            }
+        }
+    }
+
+    /** "🗑️ Odstrani · Remove" the voice of [language] (a visited town's) off the phone. */
+    fun removeFor(language: String) {
+        if (language == target) return removeVoice()
+        WorkManager.getInstance(app).cancelUniqueWork(OfflineVoiceWorker.nameFor(language, own = false))
+        scope.launch {
+            withContext(Dispatchers.IO) { voices.remove(language) }
+            load()
         }
     }
 

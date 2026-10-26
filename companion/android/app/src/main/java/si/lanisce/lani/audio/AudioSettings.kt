@@ -31,7 +31,7 @@ const val MB = 1024L * 1024L
 /**
  * This phone's offline audio settings (SharedPreferences "offline-audio", read without waiting: the clip cache trims by them
  * as it plays): the cap, whether the day's clips are got ready only while charging, whether the offline voice is wanted (the
- * prefetch gets it on Wi-Fi then), and whether the offer after pairing was answered.
+ * prefetch gets it on Wi-Fi then), whether the offer after pairing was answered, and the visits' offers declined, by language.
  */
 class AudioSettings(context: Context) {
     private val prefs = context.applicationContext.getSharedPreferences("offline-audio", Context.MODE_PRIVATE)
@@ -54,10 +54,26 @@ class AudioSettings(context: Context) {
         get() = prefs.getBoolean(OFFERED, false)
         set(value) = prefs.edit().putBoolean(OFFERED, value).apply()
 
+    /**
+     * The offer of the offline voice of [language] for visits ("🗣️ Prenesi slovenski glas za obiske?") was declined: later
+     * visits to a town of that language say only that nothing can speak it, with the download (app/VisitVoiceController).
+     */
+    fun visitVoiceDeclined(language: String): Boolean = prefs.getBoolean("$VISIT_DECLINED$language", false)
+
+    fun declineVisitVoice(language: String) = prefs.edit().putBoolean("$VISIT_DECLINED$language", true).apply()
+
+    /** QA's "audio:visitvoice:reset" (a debug build): every visit's offer comes again. */
+    fun forgetVisitVoiceDeclines() {
+        val e = prefs.edit()
+        for (k in prefs.all.keys) if (k.startsWith(VISIT_DECLINED)) e.remove(k)
+        e.apply()
+    }
+
     private companion object {
         const val CAP = "cap"
         const val CHARGING = "charging_only"
         const val VOICE = "voice_wanted"
         const val OFFERED = "voice_offered"
+        const val VISIT_DECLINED = "visit_voice_declined_"
     }
 }

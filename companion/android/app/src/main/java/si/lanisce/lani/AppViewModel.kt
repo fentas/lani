@@ -139,6 +139,15 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
      * (Piper), which [speaker] speaks with when no clip can be had (app/OfflineAudioController).
      */
     val offlineAudio = si.lanisce.lani.app.OfflineAudioController(app, viewModelScope, config = { prefs.config() }).also { speaker.offline = it.piper }
+    /**
+     * A visit's note when nothing can say a line (no clip of the town's, none voiced by the node, no offline voice of its
+     * language, no Android voice for it): once a visit, the offline voice to download (app/VisitVoiceController).
+     */
+    val visitVoice = si.lanisce.lani.app.VisitVoiceController(viewModelScope, offlineAudio, offlineAudio.settings).also { v ->
+        speaker.onSilent = { if (VisitWorld.active) v.silent() }
+    }
+    /** On a visit, the visited town's clips through the node ([Clips] at the town's routes); null at home. */
+    private var visitClips: Clips? = null
     /** "🚗 Za pot · For the road": the car's sessions got ready on the phone (road/RoadPrep), played by road/RoadService. */
     val road = si.lanisce.lani.road.RoadPrep(app, viewModelScope)
     /** The phone's own player for the road's sessions (Bluetooth without Android Auto). */
@@ -148,6 +157,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     val ambience = si.lanisce.lani.data.Ambience(app, viewModelScope, talking = { speaker.talking })
     private var bridge: Bridge? = null
     private val node = { bridge }
+    /** The connection the app has now (a visit's clips are asked at the town's routes of the same node). */
+    private var connected: BridgeConfig? = null
 
     val notices = Notices()
     val sync = SyncController(app, viewModelScope, node, notices, onSaved = ::refresh)
@@ -609,6 +620,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     private fun connect(c: BridgeConfig) {
         bridgeUrl = c.baseUrl
         bridge = Bridge(c)
+        connected = c
         family.connect(c)
         clips.connect(c)
         stt.connect(c)
@@ -1235,7 +1247,14 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
             }
             what.startsWith("slow:") -> speaker.say(what.removePrefix("slow:"), slow = true)
             what.startsWith("revoice:") -> what.removePrefix("revoice:").split('|', limit = 2).let { clips.qaRevoice(it[0], it.getOrNull(1)?.takeIf(String::isNotBlank)) }
-            what == "refresh" -> clips.refresh()
+            what == "refresh" -> (visitClips ?: clips).refresh()
+            // the phone's text-to-speech as if it had no voice for any language (a tablet without the town's), and back
+            what == "tts:off" -> speaker.qaNoTts = true
+            what == "tts:" -> speaker.qaNoTts = false
+            // a visit's note and offer of the offline voice to come again (the declines forgotten)
+            what == "visitvoice:reset" -> visitVoice.qaReset()
+            // the offline voice of a language off the phone ("voice:remove:sl"), as the settings' 🗑️ takes it
+            what.startsWith("voice:remove:") -> offlineAudio.removeFor(what.removePrefix("voice:remove:"))
         }
     }
 
@@ -1819,7 +1838,15 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         if (screen.inRun) return
         game.paused = true
         VisitWorld.enter(t.language, t.culture)
-        speaker.clips = null // the node's voices speak the learner's own language; the phone speaks the town's
+        // the town's own voices (companion/README.md, "Voices on a visit"): its clips through the node, else the node voices
+        // the line in the town's cast voice; then the phone's offline voice of the town's language, Android's, else a note
+        speaker.clips = Clips(getApplication(), viewModelScope, visit = true).also { c ->
+            c.playerGender = clips.playerGender
+            connected?.let { c.connect(it, si.lanisce.lani.data.ClipRoutes.visit(t.id)) }
+            c.refresh()
+            visitClips = c
+        }
+        visitVoice.start(t.language)
         speaker.refresh()
         showWorld()
         visits.start(t.id, t.name, t.learner, t.culture, t.language)
@@ -1998,7 +2025,10 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     private fun endVisit() {
         visits.end()
         VisitWorld.leave()
+        speaker.stop()
         speaker.clips = clips
+        visitClips = null
+        visitVoice.end()
         speaker.refresh()
         showWorld()
         game.paused = false

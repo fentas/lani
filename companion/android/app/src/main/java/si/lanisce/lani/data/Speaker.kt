@@ -43,6 +43,22 @@ class Speaker(private val context: Context) {
     var available by mutableStateOf(false)
         private set
 
+    /**
+     * Told of a line nothing could say (no clip, no offline voice of the language, no Android voice for it): on a visit the
+     * app says so once, with the offline voice to download (app/VisitVoiceController). The line's text stays on screen.
+     */
+    var onSilent: ((String) -> Unit)? = null
+
+    /**
+     * QA's "audio:tts:off" (a debug build, app/QaHooks): Android's text-to-speech counts as having no voice for any language,
+     * as a tablet without the town's language: what speaks then, and the note when nothing can. "audio:tts:" lets it be.
+     */
+    var qaNoTts = false
+        set(value) {
+            field = value
+            refresh()
+        }
+
     private var ready = false
 
     /** Family recordings: when one exists for the text, it plays instead of TTS. Also plays [clips]. */
@@ -140,7 +156,7 @@ class Speaker(private val context: Context) {
     fun refresh() {
         if (!ready) return
         val r = tts.setLanguage(locale(L10n.pair.target))
-        available = r != TextToSpeech.LANG_MISSING_DATA && r != TextToSpeech.LANG_NOT_SUPPORTED
+        available = !qaNoTts && r != TextToSpeech.LANG_MISSING_DATA && r != TextToSpeech.LANG_NOT_SUPPORTED
     }
 
     /** What speaks a line when no clip of the voice wanted can be had (see [fallback]). */
@@ -465,7 +481,10 @@ class Speaker(private val context: Context) {
             refresh()
         }
         said(text, if (available) "tts" else "nothing (no tts voice)")
-        if (!available) return
+        if (!available) {
+            if (t == turn) onSilent?.invoke(text)
+            return
+        }
         tts.setSpeechRate(if (slow) 0.55f else 0.9f)
         val id = "say-$t"
         utterance = id
