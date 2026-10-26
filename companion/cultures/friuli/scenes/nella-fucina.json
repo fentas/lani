@@ -71,7 +71,7 @@
             "grammar": "domande", "why": { "sl": "Dove pomeni kje. Za čas vprašaš quando (kdaj).", "en": "Dove means where. For a time, ask quando (when).", "de": "Dove heißt wo. Nach der Zeit fragst du quando (wann)." },
             "reply": { "it": "Dove? Fuori. Qui dentro fa caldo.", "sl": "Kje? Zunaj. Tukaj notri je vroče.", "en": "Where? Outside. In here it's hot.", "de": "Wo? Draußen. Hier drin ist es heiß." } }
         ] },
-        { "who": "bruno", "it": "Quattro buchi per i chiodi. Uno, due, tre, quattro. Ecco. Prendilo.", "sl": "Štiri luknje za žeblje. Ena, dve, tri, štiri. Tako. Vzemi jo.", "en": "Four holes for the nails. One, two, three, four. There. Take it.", "de": "Vier Löcher für die Nägel. Eins, zwei, drei, vier. So. Nimm es.",
+        { "who": "bruno", "it": "Otto buchi per i chiodi. Uno, due, tre… otto. Ecco. Prendilo.", "sl": "Osem lukenj za žeblje. Ena, dve, tri … osem. Tako. Vzemi jo.", "en": "Eight holes for the nails. One, two, three… eight. There. Take it.", "de": "Acht Löcher für die Nägel. Eins, zwei, drei … acht. So. Nimm es.",
           "fx": { "sparks": 0 } },
         { "choices": [
           { "it": "Per me? Grazie! Il ferro di cavallo porta fortuna.", "sl": "Zame? Hvala! Podkev prinaša srečo.", "en": "For me? Thank you! A horseshoe brings luck.", "de": "Für mich? Danke! Ein Hufeisen bringt Glück.", "ok": true,
@@ -129,7 +129,7 @@
             "reply": { "it": "Dieci ferri di cavallo. Scrivi: dieci ferri.", "sl": "Deset podkev. Piši: deset podkev.", "en": "Ten horseshoes. Write: ten horseshoes.", "de": "Zehn Hufeisen. Schreib: zehn Hufeisen." } },
           { "it": "Va bene. Scrivi. Che cosa ordinano?", "sl": "Prav. Pišeš. Kaj naročajo?", "en": "All right. You're writing. What are they ordering?", "de": "In Ordnung. Du schreibst. Was bestellen sie?",
             "grammar": "presente-regolare", "why": { "sl": "Scrivi je ti pišeš (ali piši!). O sebi: scrivo (pišem).", "en": "Scrivi is you write (or write!). About yourself: scrivo.", "de": "Scrivi heißt du schreibst (oder schreib!). Über dich selbst: scrivo." },
-            "reply": { "it": "Scrivi? Io no. Le mie lettere sembrano chiodi.", "sl": "Piši? Jaz ne. Moje črke so videti kot žeblji.", "en": "Scrivi (you write)? Not me. My letters look like nails.", "de": "Scrivi (du schreibst)? Ich nicht. Meine Buchstaben sehen aus wie Nägel." } }
+            "reply": { "it": "Scrivi? Io no. Le mie lettere sembrano chiodi.", "sl": "Pišem jaz? Ne, jaz ne. Moje črke so videti kot žeblji.", "en": "Scrivi (you write)? Not me. My letters look like nails.", "de": "Scrivi (du schreibst)? Ich nicht. Meine Buchstaben sehen aus wie Nägel." } }
         ] },
         { "who": "bruno", "it": "Poi: venti chiodi e una catena. Di due metri. Ripeti.", "sl": "Potem: dvajset žebljev in ena veriga. Dolga dva metra. Ponovi.", "en": "Then: twenty nails and one chain. Two metres long. Repeat.", "de": "Dann: zwanzig Nägel und eine Kette. Zwei Meter lang. Wiederhol." },
         { "choices": [
@@ -156,7 +156,7 @@
           "fx": { "forge": 0.7 } },
         { "choices": [
           { "it": "{C'è|Ci sono} {n} {ferro|ferri} di cavallo nel secchio.", "sl": "V vedru {je|sta|so|je} {n} {podkev|podkvi|podkve|podkev}.", "en": "There {is|are} {n} {horseshoe|horseshoes} in the bucket.", "de": "Im Eimer {ist|sind} {n} {Hufeisen|Hufeisen}.", "ok": true,
-            "reply": { "it": "Giusto. È così. Buon lavoro.", "sl": "Tako je. Prav. Dobro delo.", "en": "Right. That's it. Good work.", "de": "Richtig. So ist es. Gute Arbeit." } },
+            "reply": { "it": "Giusto. È così. Bel lavoro.", "sl": "Tako je. Prav. Lepo opravljeno.", "en": "Right. That's it. Nice work.", "de": "Richtig. So ist es. Gute Arbeit." } },
           { "it": "{C'è|Ci sono} {n} {!ferro|ferri} di cavallo nel secchio.", "sl": "V vedru {je|sta|so|je} {n} {!podkev|podkvi|podkve|podkev}.", "en": "There {is|are} {n} {!horseshoe|horseshoes} in the bucket.", "de": "Im Eimer {ist|sind} {n} {!Hufeisen|Hufeisen}.", "wrong_form": 1, "grammar": "plurale",
             "why": { "sl": "{Ena je v ednini|Več jih je v množini}: {n} {ferro|ferri} di cavallo.", "en": "{One takes the singular|More than one takes the plural}: {n} {ferro|ferri} di cavallo.", "de": "{Eins steht im Singular|Mehrere stehen im Plural}: {n} {ferro|ferri} di cavallo." },
             "reply": { "it": "Hm. No. Conta ancora.", "sl": "Hm. Ne. Štej še enkrat.", "en": "Hm. No. Count again.", "de": "Hm. Nein. Zähl noch mal." } },
@@ -179,7 +179,7 @@
       "id": "mantice-caffe",
       "memory": { "it": "il fuoco grande che abbiamo fatto con il mantice", "sl": "velik ogenj, ki sva ga naredila z mehom", "en": "the big fire we made with the bellows", "de": "das große Feuer, das wir mit dem Blasebalg gemacht haben" },
       "lines": [
-        { "who": "tommaso", "it": "{learner}! Bruno beve il caffè. Io tiro il mantice. Guarda che fuoco!", "sl": "{learner}! Bruno pije kavo. Jaz delam z mehom. Poglej, kakšen ogenj!", "en": "{learner}! Bruno's having his coffee. I'm working the bellows. Look at that fire!", "de": "{learner}! Bruno trinkt Kaffee. Ich mache den Blasebalg. Schau, was für ein Feuer!",
+        { "who": "tommaso", "it": "{learner}! Bruno beve il caffè. Io tiro il mantice. Guarda che fuoco!", "sl": "{learner}! Bruno pije kavo. Jaz delam z mehom. Poglej, kakšen ogenj!", "en": "{learner}! Bruno's having his coffee. I'm working the bellows. Look at that fire!", "de": "{learner}! Bruno trinkt Kaffee. Ich bediene den Blasebalg. Schau, was für ein Feuer!",
           "fx": { "forge": 1 }, "act": { "bruno": { "to": "door" } } },
         { "choices": [
           { "it": "Tommaso, attento! Volano le scintille!", "sl": "Tommaso, pazi! Iskre letijo!", "en": "Tommaso, careful! Sparks are flying!", "de": "Tommaso, pass auf! Funken fliegen!", "ok": true,
@@ -188,7 +188,7 @@
             "grammar": "aggettivi-accordo", "why": { "sl": "Tommaso je fant: attento.", "en": "Tommaso is a boy: attento.", "de": "Tommaso ist ein Junge: attento." },
             "reply": { "it": "Attenta? Io sono un maschio, sai!", "sl": "Attenta? Saj sem fant, veš!", "en": "Attenta (to a girl)? I'm a boy, you know!", "de": "Attenta (zu einem Mädchen)? Ich bin ein Junge, weißt du!" } }
         ] },
-        { "who": "tommaso", "it": "Uffa, il fuoco è troppo grande. Che cosa faccio?", "sl": "Ojoj, ogenj je prevelik. Kaj naj naredim?", "en": "Oh no, the fire's too big. What do I do?", "de": "Mist, das Feuer ist zu groß. Was mach ich?" },
+        { "who": "tommaso", "it": "Mamma mia, il fuoco è troppo grande! Che cosa faccio?", "sl": "Ojoj, ogenj je prevelik! Kaj naj naredim?", "en": "Oh no, the fire's too big! What do I do?", "de": "Oje, das Feuer ist zu groß! Was mach ich?" },
         { "choices": [
           { "it": "Piano, Tommaso! Aspetta un po'.", "sl": "Počasi, Tommaso! Malo počakaj.", "en": "Slowly, Tommaso! Wait a bit.", "de": "Langsam, Tommaso! Warte ein bisschen.", "ok": true,
             "reply": { "it": "Va bene, aspetto. Guarda, il fuoco è già più piccolo.", "sl": "Prav, čakam. Poglej, ogenj je že manjši.", "en": "OK, I'm waiting. Look, the fire's smaller already.", "de": "Okay, ich warte. Schau, das Feuer ist schon kleiner.", "fx": { "forge": 0.4 } } },

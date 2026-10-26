@@ -94,7 +94,7 @@
         { "who": "franco", "it": "Io taglio con la falce, tu raccogli. Una riga, due righe… Conta!", "sl": "Jaz režem s koso, ti pobiraš. Ena vrsta, dve vrsti … Štej!", "en": "I cut with the scythe, you gather. One row, two rows… Count!", "de": "Ich schneide mit der Sense, du sammelst. Eine Reihe, zwei Reihen … Zähl!" },
         { "choices": [
           { "it": "Tre righe, quattro righe, cinque righe!", "sl": "Tri vrste, štiri vrste, pet vrst!", "en": "Three rows, four rows, five rows!", "de": "Drei Reihen, vier Reihen, fünf Reihen!", "ok": true,
-            "reply": { "it": "Giusto! Cinque righe. Come un vero contadino.", "sl": "Tako je! Pet vrst. Kot pravi kmet.", "en": "Right! Five rows. Like a real farmer.", "de": "Richtig! Fünf Reihen. Wie ein echter Bauer." } },
+            "reply": { "it": "Giusto! Cinque righe. Come {m:un vero contadino|f:una vera contadina}.", "sl": "Tako je! Pet vrst. Kot {m:pravi kmet|f:prava kmetica}.", "en": "Right! Five rows. Like a real farmer.", "de": "Richtig! Fünf Reihen. Wie {m:ein echter Bauer|f:eine echte Bäuerin}." } },
           { "it": "Tre riga, quattro riga, cinque riga!", "sl": "Tri vrste, štiri vrste, pet vrst!", "en": "Three rows, four rows, five rows!", "de": "Drei Reihen, vier Reihen, fünf Reihen!",
             "grammar": "plurale", "why": { "sl": "Za več stvari je množina: -a postane -e, h pa ohrani trdi g: righe.", "en": "More than one takes the plural: -a becomes -e, and an h keeps the g hard: righe.", "de": "Mehrere stehen im Plural: -a wird zu -e, und ein h hält das g hart: righe." },
             "reply": { "it": "Riga, riga, riga? Ne vedo tante, sai!", "sl": "Riga, riga, riga? Jaz jih vidim veliko!", "en": "Riga, riga, riga? I can see lots of them, you know!", "de": "Riga, riga, riga? Ich sehe aber viele!" } }
@@ -159,7 +159,7 @@
           { "it": "Sì, la mettiamo insieme!", "sl": "Ja, dajva mu ga skupaj!", "en": "Yes, let's put it on together!", "de": "Ja, wir legen ihn zusammen um!", "ok": true,
             "reply": { "it": "Ecco! Adesso non ha più freddo.", "sl": "Tako! Zdaj ga ne zebe več.", "en": "There! Now it's not cold any more.", "de": "So! Jetzt friert sie nicht mehr.", "fx": { "scarf": 1 } } },
           { "it": "Sì, la mettete insieme!", "sl": "Ja, dajta mu ga skupaj!", "en": "Yes, you two put it on together!", "de": "Ja, ihr legt ihn zusammen um!",
-            "grammar": "presente-regolare", "why": { "sl": "Mettete je za vas (voi). Za naju oba: mettiamo.", "en": "Mettete is you all (voi). For the two of you: mettiamo.", "de": "Mettete heißt ihr (voi). Für euch beide: mettiamo." },
+            "grammar": "presente-regolare", "why": { "sl": "Mettete je za vas (voi). Za naju oba: mettiamo.", "en": "Mettete is you all (voi). For the two of us: mettiamo.", "de": "Mettete heißt ihr (voi). Für uns beide: mettiamo." },
             "reply": { "it": "Mettete? Chi, io e il nonno? Dai, vieni anche tu!", "sl": "Dajta? Kdo, jaz in dedek? Daj, pridi še ti!", "en": "You two? Who, me and Grandpa? Come on, you too!", "de": "Ihr? Wer, ich und Opa? Komm, du auch!" } }
         ] },
         { "who": "lorenzo", "it": "Con la sciarpa rossa è il più bello del paese!", "sl": "Z rdečim šalom je najlepše strašilo v vasi!", "en": "With the red scarf it's the finest in the village!", "de": "Mit dem roten Schal ist sie die Schönste im Dorf!" }
@@ -187,7 +187,7 @@
             "grammar": "presente-regolare", "why": { "sl": "Prende pomeni vzame (on, ona). O sebi: prendo.", "en": "Prende is he or she takes. About yourself: prendo.", "de": "Prende heißt er oder sie nimmt. Über dich selbst: prendo." },
             "reply": { "it": "Chi lo prende? Io? No, no, tu!", "sl": "Kdo jih vzame? Jaz? Ne, ne, ti!", "en": "Who takes it? Me? No, no, you!", "de": "Wer nimmt ihn? Ich? Nein, nein, du!" } }
         ] },
-        { "who": "franco", "it": "Per stasera tutto il grano è sul carro. Una bella giornata!", "sl": "Do večera bo vsa pšenica na vozu. Lep dan!", "en": "By this evening all the wheat will be on the cart. A fine day!", "de": "Bis heute Abend ist der ganze Weizen auf dem Wagen. Ein schöner Tag!" }
+        { "who": "franco", "it": "Entro stasera tutto il grano sarà sul carro. Una bella giornata!", "sl": "Do večera bo vsa pšenica na vozu. Lep dan!", "en": "By this evening all the wheat will be on the cart. A fine day!", "de": "Bis heute Abend ist der ganze Weizen auf dem Wagen. Ein schöner Tag!" }
       ]
     },
     {

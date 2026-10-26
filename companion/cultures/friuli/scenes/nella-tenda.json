@@ -79,8 +79,8 @@
           { "it": "Buonanotte, Davide! Grazie per la lanterna.", "sl": "Lahko noč, Davide! Hvala za svetilko.", "en": "Good night, Davide! Thanks for the lantern.", "de": "Gute Nacht, Davide! Danke für die Laterne.", "ok": true,
             "reply": { "it": "Di niente. Ciao, e non leggere troppo!", "sl": "Ni za kaj. Adijo, in ne beri predolgo!", "en": "Not at all. Bye, and don't read too long!", "de": "Keine Ursache. Tschüss, und lies nicht zu lange!" } },
           { "it": "Buonasera, Davide! Grazie per la lanterna.", "sl": "Dober večer, Davide! Hvala za svetilko.", "en": "Good evening, Davide! Thanks for the lantern.", "de": "Guten Abend, Davide! Danke für die Laterne.",
-            "why": { "sl": "Buonasera rečeš, ko prideš. Ko se zvečer posloviš ali greš spat: buonanotte.", "en": "Buonasera is for when you arrive. When you part at night or go to bed: buonanotte.", "de": "Buonasera sagt man, wenn man ankommt. Wenn man sich abends verabschiedet oder schlafen geht: buonanotte." },
-            "reply": { "it": "Buonasera? Ma io vado via, non arrivo!", "sl": "Dober večer? Saj odhajam, ne prihajam!", "en": "Good evening? But I'm leaving, not arriving!", "de": "Guten Abend? Ich gehe doch, ich komme nicht an!" } },
+            "why": { "sl": "Davide gre, ti pa greš spat: pred spanjem rečeš buonanotte.", "en": "Davide is going and you're going to bed: at bedtime, say buonanotte.", "de": "Davide geht, und du gehst schlafen: vor dem Schlafengehen sagt man buonanotte." },
+            "reply": { "it": "Buonasera? Ma è già notte, si va a dormire!", "sl": "Dober večer? Saj je že noč, čas je za spat!", "en": "Good evening? But it's night already, time for bed!", "de": "Guten Abend? Es ist doch schon Nacht, ab ins Bett!" } },
           { "it": "Grazie, Davide, sei un amico! Buonanotte.", "sl": "Hvala, Davide, pravi prijatelj si! Lahko noč.", "en": "Thanks, Davide, you're a friend! Good night.", "de": "Danke, Davide, du bist ein Freund! Gute Nacht.", "ok": true,
             "reply": { "it": "Anche tu, {learner}! Sogni d'oro.", "sl": "Ti tudi, {learner}! Sladke sanje.", "en": "You too, {learner}! Sweet dreams.", "de": "Du auch, {learner}! Träum was Schönes." } }
         ] }
@@ -185,7 +185,7 @@
           "fx": { "lantern": 1 } },
         { "choices": [
           { "it": "Leggo un libro. È una storia di pirati!", "sl": "Berem knjigo. Zgodba o piratih je!", "en": "I'm reading a book. It's a pirate story!", "de": "Ich lese ein Buch. Es ist eine Piratengeschichte!", "ok": true,
-            "reply": { "it": "Pirati? Bello! Io invece vado a dormire.", "sl": "Pirati? Super! Jaz pa grem spat.", "en": "Pirates? Cool! I'm off to bed, though.", "de": "Piraten? Toll! Ich gehe dagegen schlafen." } },
+            "reply": { "it": "Pirati? Bello! Io invece vado a dormire.", "sl": "Pirati? Super! Jaz pa grem spat.", "en": "Pirates? Cool! I'm off to bed, though.", "de": "Piraten? Toll! Ich gehe aber schlafen." } },
           { "it": "Leggi un libro. È una storia di pirati!", "sl": "Bereš knjigo. Zgodba o piratih je!", "en": "You're reading a book. It's a pirate story!", "de": "Du liest ein Buch. Es ist eine Piratengeschichte!",
             "grammar": "presente-regolare", "why": { "sl": "Leggi pomeni bereš (ti). O sebi rečeš leggo (berem).", "en": "Leggi means you read. About yourself, say leggo (I read).", "de": "Leggi heißt „du liest“. Über dich selbst sagst du leggo (ich lese)." },
             "reply": { "it": "Io? No, no, io dormo! Il libro è tuo.", "sl": "Jaz? Ne, ne, jaz spim! Knjiga je tvoja.", "en": "Me? No, no, I'm sleeping! The book is yours.", "de": "Ich? Nein, nein, ich schlafe! Das Buch gehört dir." } },
@@ -196,7 +196,7 @@
         { "who": "davide", "it": "Domani porto le pecore sulla collina. Vieni con me?", "sl": "Jutri peljem ovce na hrib. Greš z mano?", "en": "Tomorrow I'm taking the sheep up the hill. Will you come with me?", "de": "Morgen bringe ich die Schafe auf den Hügel. Kommst du mit?" },
         { "choices": [
           { "it": "Sì, vengo! A che ora?", "sl": "Ja, pridem! Ob kateri uri?", "en": "Yes, I'll come! At what time?", "de": "Ja, ich komme! Um wie viel Uhr?", "ok": true,
-            "reply": { "it": "Alle sei. Presto, eh!", "sl": "Ob šestih. Zgodaj, veš!", "en": "At six. Early, mind!", "de": "Um sechs. Früh, was!" } },
+            "reply": { "it": "Alle sei. Presto, eh!", "sl": "Ob šestih. Zgodaj, veš!", "en": "At six. Early, mind!", "de": "Um sechs. Ganz schön früh!" } },
           { "it": "Sì, vieni! A che ora?", "sl": "Ja, prideš! Ob kateri uri?", "en": "Yes, you're coming! At what time?", "de": "Ja, du kommst! Um wie viel Uhr?",
             "grammar": "verbi-irregolari", "why": { "sl": "Vieni pomeni prideš (ti). O sebi rečeš vengo (pridem).", "en": "Vieni means you come. About yourself, say vengo (I'm coming).", "de": "Vieni heißt „du kommst“. Über dich selbst sagst du vengo (ich komme)." },
             "reply": { "it": "Io? Certo, le pecore sono mie! Ma tu?", "sl": "Jaz? Seveda, ovce so moje! Pa ti?", "en": "Me? Of course, they're my sheep! But you?", "de": "Ich? Klar, das sind meine Schafe! Und du?" } }
@@ -214,12 +214,12 @@
         { "who": "davide", "it": "{learner}! Tuona e piove! Posso entrare nella tenda?", "sl": "{learner}! Grmi in lije! Lahko pridem v šotor?", "en": "{learner}! It's thundering and pouring! Can I come into the tent?", "de": "{learner}! Es donnert und gießt! Darf ich ins Zelt kommen?",
           "sky": { "rain": 0.85, "gloom": 0.9, "wind": 0.35, "lightning": true } },
         { "choices": [
-          { "it": "Certo, entra nella tenda! Siediti vicino alla lanterna.", "sl": "Seveda, pridi v šotor! Sedi k svetilki.", "en": "Of course, come into the tent! Sit by the lantern.", "de": "Klar, komm ins Zelt! Setz dich zur Laterne.", "ok": true,
+          { "it": "Certo, entra nella tenda! Siediti vicino alla lanterna.", "sl": "Seveda, pridi v šotor! Sedi k svetilki.", "en": "Of course, come into the tent! Sit by the lantern.", "de": "Klar, komm ins Zelt! Setz dich neben die Laterne.", "ok": true,
             "reply": { "it": "Grazie, {learner}! Qui dentro è asciutto.", "sl": "Hvala, {learner}! Tukaj notri je suho.", "en": "Thanks, {learner}! It's dry in here.", "de": "Danke, {learner}! Hier drin ist es trocken.", "act": { "davide": { "to": "lantern", "pose": "sit" } } } },
-          { "it": "Certo, entra nella tenda! Siediti vicino la lanterna.", "sl": "Seveda, pridi v šotor! Sedi k svetilki.", "en": "Of course, come into the tent! Sit by the lantern.", "de": "Klar, komm ins Zelt! Setz dich zur Laterne.",
+          { "it": "Certo, entra nella tenda! Siediti vicino la lanterna.", "sl": "Seveda, pridi v šotor! Sedi k svetilki.", "en": "Of course, come into the tent! Sit by the lantern.", "de": "Klar, komm ins Zelt! Setz dich neben die Laterne.",
             "grammar": "dove-preposizioni", "why": { "sl": "Vicino obdrži svoj a, ki se zlije s členom: vicino alla lanterna.", "en": "Vicino keeps its a, which fuses with the article: vicino alla lanterna.", "de": "Vicino behält sein a, das mit dem Artikel verschmilzt: vicino alla lanterna." },
             "reply": { "it": "Vicino la lanterna? Hm, manca qualcosa…", "sl": "Vicino la lanterna? Hm, nekaj manjka …", "en": "Vicino la lanterna? Hm, something's missing…", "de": "Vicino la lanterna? Hm, da fehlt doch was …" } },
-          { "it": "Certo, entra nella tenda! Siediti vicino al lanterna.", "sl": "Seveda, pridi v šotor! Sedi k svetilki.", "en": "Of course, come into the tent! Sit by the lantern.", "de": "Klar, komm ins Zelt! Setz dich zur Laterne.",
+          { "it": "Certo, entra nella tenda! Siediti vicino al lanterna.", "sl": "Seveda, pridi v šotor! Sedi k svetilki.", "en": "Of course, come into the tent! Sit by the lantern.", "de": "Klar, komm ins Zelt! Setz dich neben die Laterne.",
             "grammar": "preposizioni-articolate", "why": { "sl": "Lanterna je ženskega spola: a + la = alla, vicino alla lanterna.", "en": "Lanterna is feminine: a + la = alla, vicino alla lanterna.", "de": "Lanterna ist weiblich: a + la = alla, vicino alla lanterna." },
             "reply": { "it": "Al lanterna? Come? Tuona troppo forte!", "sl": "Al lanterna? Kako? Preveč grmi!", "en": "Al lanterna? What? The thunder's too loud!", "de": "Al lanterna? Wie bitte? Es donnert zu laut!" } }
         ] },

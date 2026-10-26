@@ -55,7 +55,7 @@
         { "who": "franco", "it": "Buongiorno, {learner}. Guarda quanta acqua! Qui voglio fare un mulino.", "sl": "Dober dan, {learner}. Poglej, koliko vode! Tukaj hočem postaviti mlin.", "en": "Good morning, {learner}. Look how much water! I want to build a mill here.", "de": "Guten Morgen, {learner}. Schau, wie viel Wasser! Hier will ich eine Mühle bauen." },
         { "choices": [
           { "it": "Buongiorno, signor Franco! Un mulino? Che bello!", "sl": "Dober dan, gospod Franco! Mlin? Kako lepo!", "en": "Good morning, Mr Franco! A mill? How lovely!", "de": "Guten Morgen, Herr Franco! Eine Mühle? Wie schön!", "ok": true,
-            "reply": { "it": "Sì! L'acqua gira la ruota, e la ruota macina il grano.", "sl": "Ja! Voda vrti kolo, kolo pa melje žito.", "en": "Yes! The water turns the wheel, and the wheel grinds the grain.", "de": "Ja! Das Wasser dreht das Rad, und das Rad mahlt das Korn." } },
+            "reply": { "it": "Sì! L'acqua fa girare la ruota, e la ruota macina il grano.", "sl": "Ja! Voda vrti kolo, kolo pa melje žito.", "en": "Yes! The water turns the wheel, and the wheel grinds the grain.", "de": "Ja! Das Wasser dreht das Rad, und das Rad mahlt das Korn." } },
           { "it": "Ciao, Franco! Un mulino? Che bello!", "sl": "Živjo, Franco! Mlin? Kako lepo!", "en": "Hi, Franco! A mill? How lovely!", "de": "Hallo, Franco! Eine Mühle? Wie schön!",
             "grammar": "tu-lei", "why": { "sl": "Franco je starejši gospod: buongiorno in signor Franco, ne ciao.", "en": "Franco is an older gentleman: buongiorno and signor Franco, not ciao.", "de": "Franco ist ein älterer Herr: buongiorno und signor Franco, nicht ciao." },
             "reply": { "it": "Ciao? Eh, i giovani di oggi…", "sl": "Živjo? Eh, ta današnja mladina …", "en": "Ciao? Ah, young people today…", "de": "Ciao? Tja, die jungen Leute heute …" } }
@@ -101,7 +101,7 @@
           "fx": { "lamb": 0.2 } },
         { "choices": [
           { "it": "Ciao, Davide! Ma l'agnellino non beve.", "sl": "Živjo, Davide! Ampak jagenjček ne pije.", "en": "Hi, Davide! But the little lamb isn't drinking.", "de": "Hallo, Davide! Aber das Lämmchen trinkt nicht.", "ok": true,
-            "reply": { "it": "Hai ragione. Ha paura dell'acqua, poverino.", "sl": "Prav imaš. Boji se vode, revček.", "en": "You're right. He's scared of the water, poor thing.", "de": "Du hast recht. Es hat Angst vor dem Wasser, das arme." } },
+            "reply": { "it": "Hai ragione. Ha paura dell'acqua, poverino.", "sl": "Prav imaš. Boji se vode, revček.", "en": "You're right. He's scared of the water, poor thing.", "de": "Du hast recht. Es hat Angst vor dem Wasser, das Arme." } },
           { "it": "Ciao, Davide! Ma l'agnellino non bevi.", "sl": "Živjo, Davide! Ampak jagenjček ne piješ.", "en": "Hi, Davide! But the little lamb, you aren't drinking.", "de": "Hallo, Davide! Aber das Lämmchen, du trinkst nicht.",
             "grammar": "presente-regolare", "why": { "sl": "Za jagenjčka (on) je beve. Bevi je ti piješ.", "en": "For the lamb (he) it's beve. Bevi is you drink.", "de": "Für das Lämmchen (er) heißt es beve. Bevi heißt du trinkst." },
             "reply": { "it": "Bevi? Io? No, io non ho sete!", "sl": "Pijem? Jaz? Ne, jaz nisem žejen!", "en": "Bevi (you drink)? Me? No, I'm not thirsty!", "de": "Bevi (du trinkst)? Ich? Nein, ich habe keinen Durst!" } }
@@ -131,12 +131,12 @@
             "grammar": "articoli-genere", "why": { "sl": "Sasso je moškega spola: il sasso.", "en": "Sasso is masculine: il sasso.", "de": "Sasso ist männlich: il sasso." },
             "reply": { "it": "La sasso? Che strana pietra è?", "sl": "La sasso? Kakšen čuden kamen je to?", "en": "La sasso? What strange stone is that?", "de": "La sasso? Was ist das für ein komischer Stein?" } }
         ] },
-        { "who": "franco", "it": "Uno, due, tre… Mi servono cento sassi! Lavoriamo, eh!", "sl": "Ena, dve, tri … Potrebujem sto kamnov! Na delo, a?", "en": "One, two, three… I need a hundred stones! Let's get to work, eh!", "de": "Eins, zwei, drei … Ich brauche hundert Steine! An die Arbeit, was!" },
+        { "who": "franco", "it": "Uno, due, tre… Mi servono cento sassi! Lavoriamo, eh!", "sl": "Ena, dve, tri … Potrebujem sto kamnov! Na delo, a?", "en": "One, two, three… I need a hundred stones! Let's get to work, eh!", "de": "Eins, zwei, drei … Ich brauche hundert Steine! An die Arbeit, los!" },
         { "choices": [
           { "it": "Cento? Allora ci vediamo anche domani!", "sl": "Sto? Potem se vidiva tudi jutri!", "en": "A hundred? Then see you tomorrow too!", "de": "Hundert? Dann sehen wir uns morgen auch!", "ok": true,
             "reply": { "it": "Eh sì. Un mulino non si fa in un giorno.", "sl": "Ja, ja. Mlin ni narejen v enem dnevu.", "en": "Oh yes. A mill isn't built in a day.", "de": "Oh ja. Eine Mühle baut man nicht an einem Tag." } },
           { "it": "Cento? Allora ci vedete anche domani!", "sl": "Sto? Potem se vidite tudi jutri!", "en": "A hundred? Then you lot see each other tomorrow too!", "de": "Hundert? Dann seht ihr euch morgen auch!",
-            "grammar": "presente-regolare", "why": { "sl": "Ci vedete je za vas (voi). Za naju: ci vediamo (se vidiva).", "en": "Ci vedete is you all (voi). For the two of you: ci vediamo.", "de": "Ci vedete heißt ihr seht euch (voi). Für euch beide: ci vediamo (wir sehen uns)." },
+            "grammar": "presente-regolare", "why": { "sl": "Ci vedete je za vas (voi). Za naju: ci vediamo (se vidiva).", "en": "Ci vedete is you all (voi). For the two of us: ci vediamo.", "de": "Ci vedete heißt ihr seht euch (voi). Für uns beide: ci vediamo (wir sehen uns)." },
             "reply": { "it": "Ci vedete? Chi? Io e il ruscello?", "sl": "Se vidite? Kdo? Jaz in potok?", "en": "You lot? Who? Me and the stream?", "de": "Ihr seht euch? Wer? Ich und der Bach?" } }
         ] }
       ]
