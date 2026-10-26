@@ -161,6 +161,11 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        done), "📋 Vse oblike" at its end and on the word's card (the overview, every section, the forms
                        practised marked), "📚 Moje besede" from Napredek's words: a search above the keyboard, a word
                        looked up in the dictionary, a word opened from the list;
+                       "missing-word" a word the dictionary doesn't know, added from its card (QA's hook "word:…"): "Did
+                       you mean" (zlica: žlica), then «vretenom» added, the card waiting until the dev tutor's gloss fills
+                       it, the word in the dev bridge's copy and in "📚 Moje besede"; offline (airplane mode) one waiting
+                       in the outbox and listed so, sent once online, the quiet notice; an Italian village's words for Teo
+                       ($LANI_QA_MISSING_PAIR=it-de: the cards in it · de); also as missing-*.png in $LANI_QA_MISSING_SHOTS;
                        "school" the school (QA's hook "school"): the class begun with the hamlet, the levels, Home's
                        tile opening it, the unit biti's intro step by step, its tables with the cheat sheet over them, its gap text with one
                        mistake and a word looked up, its test passed, the dev bridge's village keeping the unit done;
@@ -6863,6 +6868,237 @@ def forms_view_step():
     print("    " + "; ".join(notes))
 
 
+# A word the dictionary doesn't know, added from its card (companion/README.md "Word lookup", "A word the dictionary
+# doesn't know"), by the village's language: the word, the line it is in and its translation (no apostrophe: the device's
+# shell quotes the hook), the word asked for offline, and a word "Did you mean" finds (None: no dictionary to suggest
+# from). The dev tutor glosses them (test/dev-bridge.ts DEV_GLOSSES), the first by its lemma.
+MISSING_WORDS = {
+    "sl": {"word": "vretenom", "lemma": "vreteno", "line": "Babica prede z vretenom.", "en": "Grandma spins with a spindle.",
+           "offline": "motovilo", "offline_line": "Na podstrešju je staro motovilo.", "typo": ("zlica", "Daj mi zlico.", "žlica")},
+    "it": {"word": "arcolaio", "lemma": "arcolaio", "line": "La nonna ha un arcolaio.", "en": "Die Oma hat eine Garnwinde.",
+           "offline": "aspo", "offline_line": "La nonna usa un vecchio aspo.", "typo": None},
+}
+
+
+def pair_now() -> tuple:
+    """The pair the phone shows its labels in, as QA set it (LANI_QA_PAIR, else Jan's sl · en)."""
+    t, _, b = os.environ.get("LANI_QA_PAIR", "sl-en").partition("-")
+    return t, b or "en"
+
+
+APP_TEXTS: dict = {}
+
+
+def app_texts(lang: str) -> dict:
+    """The app's string table of [lang] (app/src/main/resources/l10n/<lang>.json), read once."""
+    if lang not in APP_TEXTS:
+        try:
+            APP_TEXTS[lang] = json.loads((ANDROID / f"app/src/main/resources/l10n/{lang}.json").read_text())
+        except (OSError, ValueError):
+            APP_TEXTS[lang] = {}
+    return APP_TEXTS[lang]
+
+
+def label(key: str, pair=None, half=False) -> str:
+    """[key] as the app's bi() shows it in [pair] ("Dodano · Added"); [half]: the target's part alone, without a trailing
+    ellipsis (for a label with an emoji or more around it)."""
+    t, b = pair or pair_now()
+    target = app_texts(t).get(key, key)
+    if half:
+        return target.rstrip(" …").rstrip("…")
+    return f"{target} · {app_texts(b).get(key, key)}"
+
+
+def missing_shot(name: str):
+    """A screenshot of the missing-word step, also as missing-<name>.png in $LANI_QA_MISSING_SHOTS when it's set."""
+    shot(f"missing-{name}")
+    if d := os.environ.get("LANI_QA_MISSING_SHOTS"):
+        Path(d).mkdir(parents=True, exist_ok=True)
+        shutil.copy(shots[-1], Path(d) / f"missing-{name}.png")
+
+
+def dev_item(item_id: str, language=None):
+    """The dev bridge's review item [item_id] (its copy of the learner data; [language]: another language's deck), or None."""
+    path = f"/state?language={language}" if language else "/state"
+    return api(path).get("databases", {}).get("spaced_repetition", {}).get("items", {}).get(item_id)
+
+
+def word_slug(lemma: str) -> str:
+    """The id part of a word's review item (src/lexicon.ts wordSlug): vreteno → vreteno, žlica → zlica."""
+    s = re.sub(r"[^a-z0-9]+", "-", unicodedata.normalize("NFD", lemma.lower()).encode("ascii", "ignore").decode()).strip("-")
+    return s[:60].rstrip("-") or "word"
+
+
+def open_my_words():
+    """"📚 Moje besede" from Napredek's words line."""
+    open_progress()
+    line = drag_to_top("Words: ") or scroll_to("Besede · Words", 8)
+    assert line, "Napredek's words line"
+    tap_at(line)
+    assert wait_for(MY_WORDS, 8), "📚 Moje besede"
+    time.sleep(1.5)
+
+
+def search_my_words(text: str):
+    """Types [text] into Moje besede's search, the keyboard down after it."""
+    field = wait_for("Išči med besedami", 5)
+    assert field, "the search field"
+    tap_at(field)
+    keyboard_settled()
+    adb("shell", "input", "text", text)
+    time.sleep(1.5 * slow())
+    if ime_top() is not None:
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+
+
+def missing_word():
+    """A word the dictionary doesn't know, added from its card (Jan: "if a definition is missing I can't add it but have to
+    go to tutor -> ask to add"). In a Slovene village "Did you mean" first: «zlica» (QA's hook "word:…": the card as a tap
+    in a line opens it) offers žlica, whose card a tap opens. Then «vretenom» in "Babica prede z vretenom.": "🤷 Te besede ni
+    v slovarju", "➕ Dodaj med moje besede" tapped, the card waits ("✍️ Tvoj učitelj piše pomen …") until the dev tutor's
+    gloss (gloss_request → publish_gloss, 4 s) fills it: vreteno, "Dodano", machine-written; the dev bridge's copy has
+    vocab_word_vreteno with its meaning and the line; "📚 Moje besede" lists it. Offline: the card of «motovilo», airplane
+    mode on, Add: "📶 … ko boš spet povezan"; the card closed, Moje besede lists it waiting (📶); airplane mode off: the
+    outbox sends it, the dev tutor glosses it, the quiet notice ("Zdaj med tvojimi besedami") and the word in Moje besede.
+    The village's language picks the words (MISSING_WORDS: an Italian village's for Teo); $LANI_QA_MISSING_PAIR ("it-de")
+    shows the cards in the learner's own pair (QA's hook "pair:"), the base their meaning is asked in, the rest in QA's.
+    Screenshots also to $LANI_QA_MISSING_SHOTS."""
+    go_home()
+    found_village()
+    go_home()
+    lang = api("/culture").get("language") or "sl"
+    w = MISSING_WORDS.get(lang)
+    if w is None:
+        return f"no missing word for a village in {lang}"
+    if api(f"/lookup?w={urllib.parse.quote(w['word'])}").get("entries"):
+        return f"the dev bridge's dictionary knows {w['word']} (glossed in an earlier run?): nothing missing to add"
+    own = os.environ.get("LANI_QA_MISSING_PAIR")
+    cards = tuple(own.split("-", 1)) if own else pair_now()
+
+    def in_cards():
+        if own:
+            qa_hook(f"pair:{own}")
+            time.sleep(1.5)
+
+    def in_qa():
+        if own:
+            qa_hook(f"pair:{os.environ.get('LANI_QA_PAIR', '')}")
+            time.sleep(1.5)
+
+    missing, add = label("words.notInDictionary", cards, half=True), label("words.addToMyWords", cards, half=True)
+    notes = [f"cards in {'·'.join(cards)}"]
+    airplane = False
+    try:
+        # did you mean …
+        in_cards()
+        if w["typo"]:
+            typo, typo_line, meant = w["typo"]
+            qa_hook(f"'word:{typo}|{typo_line}'")
+            assert wait_for(label("words.didYouMean", cards, half=True), 15), f"«{typo}»: Did you mean"
+            time.sleep(1)
+            missing_shot("did-you-mean")
+            c = find(meant)
+            assert c, f"{meant} suggested"
+            tap_at(c)
+            assert wait_for(add, 15) or wait_for(label("words.inYourWords", cards, half=True), 3), f"{meant}'s card from the suggestion"
+            assert find(missing) is None, f"{meant}'s card says it's in the dictionary"
+            missing_shot("suggestion-card")
+            notes.append(f"«{typo}» → {meant}")
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")
+            time.sleep(1)
+
+        # added from its card: the card waits for the tutor's meaning, then fills in
+        qa_hook(f"'word:{w['word']}|{w['line']}|{w['en']}'")
+        assert wait_for(missing, 15), f"«{w['word']}»'s card: not in the dictionary"
+        time.sleep(1)
+        missing_shot("card")
+        assert tap(add, 5), "➕ Add to my words"
+        assert wait_for(label("words.tutorWriting", cards, half=True), 8), "the card waits: ✍️ the tutor is writing its meaning"
+        missing_shot("writing")
+        started = time.time()
+        item = f"vocab_word_{word_slug(w['lemma'])}"
+        added = label("words.added", cards)
+        end = time.time() + 40 * slow()
+        # its entry, added (not the card's "✓ Dodano" while it looks again: the missing word's line still there)
+        filled = lambda: find(added) is not None and find(missing) is None
+        while time.time() < end and not filled():
+            time.sleep(1)
+        assert filled(), f"the card filled in: {w['lemma']}, added"
+        notes.append(f"«{w['word']}» filled in {round(time.time() - started)} s after Add")
+        time.sleep(1)
+        missing_shot("filled")
+        assert find(label("words.machineWritten", cards, half=True)), "the tutor's meaning flagged machine-written"
+        got = dev_item(item)
+        assert got and got.get("content") == w["lemma"] and got.get("example") == w["line"] and got.get("source") == "lookup", f"the dev bridge's {item}: {got}"
+        notes.append(f"{item}: {got.get('answer')}")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+        in_qa()
+        go_home()
+        open_my_words()
+        search_my_words(w["lemma"])
+        assert find(w["lemma"]) and find(got.get("answer", "")[:12]), f"{w['lemma']} in Moje besede with its meaning"
+        missing_shot("my-words")
+        go_home()
+
+        # offline: it waits in the outbox, goes once online, a quiet notice when it is in
+        in_cards()
+        qa_hook(f"'word:{w['offline']}|{w['offline_line']}'")
+        assert wait_for(missing, 15), f"«{w['offline']}»'s card: not in the dictionary"
+        adb("shell", "cmd", "connectivity", "airplane-mode", "enable")
+        airplane = True
+        time.sleep(4)
+        assert tap(add, 5), "➕ Add to my words, offline"
+        assert wait_for(label("words.reachesTutorOnline", cards, half=True), 10), "the card: it reaches the tutor once online"
+        missing_shot("offline-card")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+        in_qa()
+        open_my_words()
+        assert wait_for(label("myWords.waiting", half=True), 8) and find(w["offline"]), "Moje besede: the word waiting, offline"
+        missing_shot("offline-waiting")
+        go_home()
+        adb("logcat", "-c")
+        adb("shell", "cmd", "connectivity", "airplane-mode", "disable")
+        airplane = False
+        offline_item = f"vocab_word_{word_slug(w['offline'])}"
+        back = time.time()
+        added_at = noticed = None
+        now_in = label("words.nowInYourWords", half=True)
+        end = time.time() + 120 * slow()
+        # the item on the dev bridge, and the app's notice (the snackbar on screen, and the debug build's log line, tag
+        # WordRequest: it may come and go between two dumps)
+        while time.time() < end and not (added_at and noticed):
+            if added_at is None and dev_item(offline_item):
+                added_at = time.time()
+            if noticed is None and find(now_in):
+                noticed = "on screen"
+                missing_shot("online-notice")
+            if noticed is None and f"done «{w['offline']}» notice" in adb("logcat", "-d", "-s", "WordRequest:I", check=False):
+                noticed = "logged"
+            if added_at and time.time() - added_at > 20 * slow():
+                break
+            time.sleep(1)
+        assert added_at, f"{offline_item} on the dev bridge once online"
+        assert noticed, "the app's notice: «… zdaj med tvojimi besedami»"
+        notes.append(f"«{w['offline']}» added {round(added_at - back)} s after the network came back, the notice {noticed}")
+        open_my_words()
+        search_my_words(w["offline"])
+        assert find(w["offline"]), f"{w['offline']} in Moje besede"
+        missing_shot("online-my-words")
+    except Exception:
+        shot("missing-failed")
+        raise
+    finally:
+        if airplane:
+            adb("shell", "cmd", "connectivity", "airplane-mode", "disable")
+            time.sleep(3)
+        in_qa()
+        go_home()
+    print("    " + "; ".join(notes))
+
+
 EX_WORDS = re.compile(r"ExWords\s*:\s*(\S+) (none|tap|hold) «(.*)»(?: (.*))?$")
 EX_TIP = "Tapni besedo in poglej, kaj pomeni (pikice"  # the exercises' tip about their words (l10n words.tapInExercise)
 
@@ -9284,6 +9520,7 @@ def plan():
         ("numbers", numbers, go_home, False, ""),
         ("forms-card", forms_cards, go_home, False, ""),
         ("forms-view", forms_view_step, go_home, False, ""),
+        ("missing-word", missing_word, go_home, False, ""),
         ("exercise-words", exercise_words, go_home, False, ""),
         ("exercise-explain", exercise_explain, go_home, False, ""),
         ("progress", progress, go_home, False, ""),
