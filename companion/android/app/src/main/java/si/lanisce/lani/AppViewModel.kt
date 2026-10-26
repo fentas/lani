@@ -659,11 +659,13 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         val b = bridge ?: return
         // on a visit the host's language and culture are shown: the learner's own content waits until they're home
         if (VisitWorld.active) return
+        // first the culture the bridge plays: what the village, its founding and everything after read (a new phone has
+        // the default's until then, and a step below that fails mustn't keep it from coming)
+        reloadCulture(b)
         family.refresh()
         questions.load() // guests' questions, and the answers to the learner's (their ties with each town)
         clips.refresh()
         content.reload(b)
-        reloadCulture(b)
         grammar.reload(b)
         cheat.reload(b)
         school.reload(b)
