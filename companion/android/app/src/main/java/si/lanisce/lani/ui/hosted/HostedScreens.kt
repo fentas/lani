@@ -237,7 +237,8 @@ private fun TutorStep(vm: AppViewModel, child: Boolean, onDone: () -> Unit) {
     fun browse(url: String) = runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }
 
     Text("🧑‍🏫 ${bi("hosted.tutorTitle")}", style = MaterialTheme.typography.titleLarge, color = white, fontWeight = FontWeight.SemiBold)
-    si.lanisce.lani.ui.setup.ParentGated(child, onLight = false) {
+    // a child's: the way on without a tutor, while a parent hasn't opened it
+    si.lanisce.lani.ui.setup.ParentGated(child, onLight = false, whileLocked = { BigButton("🏡 ${bi("hosted.toVillage")}", onClick = onDone, color = TriglavRed) }) {
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Text(bi("hosted.tutorWhat"), color = muted)
             problem?.let { Text(it, color = Color(0xFFFFD1D8)) }
@@ -294,7 +295,6 @@ private fun TutorStep(vm: AppViewModel, child: Boolean, onDone: () -> Unit) {
             }
         }
     }
-    if (child) BigButton("🏡 ${bi("hosted.toVillage")}", onClick = onDone, color = TriglavRed)
     if (welcome) si.lanisce.lani.ui.tutor.ChatGPTWelcome { welcome = false; live.welcomedChatGPT(); onDone() }
 }
 

@@ -341,10 +341,14 @@ private const val TAILSCALE = "com.tailscale.ipn"
 /**
  * A child's device (app/ParentGate): "👪 To nastavi starš · A parent sets this up" and a button a parent holds for two
  * seconds, its fill growing as it's held; then [content] (the tutor's key, an account). A grown-up's shows [content].
- * [onLight]: on a sheet's light surface; false on the setup's blue (white text).
+ * [onLight]: on a sheet's light surface; false on the setup's blue (white text). [whileLocked]: below the hold while it's
+ * closed (the setup's way on without it).
  */
 @Composable
-fun ParentGated(child: Boolean, modifier: Modifier = Modifier, onLight: Boolean = true, content: @Composable () -> Unit) {
+fun ParentGated(
+    child: Boolean, modifier: Modifier = Modifier, onLight: Boolean = true,
+    whileLocked: (@Composable () -> Unit)? = null, content: @Composable () -> Unit,
+) {
     var gate by remember(child) { mutableStateOf(ParentGate(child)) }
     if (!gate.locked) return content()
     val ink = if (onLight) MaterialTheme.colorScheme.onSurface else White
@@ -353,6 +357,7 @@ fun ParentGated(child: Boolean, modifier: Modifier = Modifier, onLight: Boolean 
         Text("👪 ${bi("setup.parentSets")}", style = MaterialTheme.typography.titleSmall, color = ink)
         Text(bi("setup.parentSetsWhat"), style = MaterialTheme.typography.bodySmall, color = muted)
         HoldToOpen("🔒 ${bi("setup.parentHold")}", onLight = onLight, onOpen = { gate = gate.held(ParentGate.HOLD_MS) })
+        whileLocked?.invoke()
     }
 }
 
