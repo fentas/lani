@@ -36,6 +36,7 @@ import { modules } from './features/modules'
 import { offlineVoice } from './features/offline-voice'
 import { packs } from './features/packs'
 import { pairing } from './features/pairing'
+import { progress } from './features/progress'
 import { townQuestions } from './features/questions'
 import { readings } from './features/readings'
 import { releases } from './features/releases'
@@ -115,6 +116,7 @@ export const FEATURES: readonly { name: string; factory: FeatureFactory }[] = [
   { name: 'towns', factory: towns },
   { name: 'friendship', factory: friendship },
   { name: 'questions', factory: townQuestions },
+  { name: 'progress', factory: progress },
   // the developer's data from the app (app/dev/): routes only, nothing for the tutor
   { name: 'dev', factory: dev },
   // the app's own tutor as a client of the channel (/tutor/*: features/tutor.ts): routes only, over the tools above

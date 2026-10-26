@@ -6,12 +6,18 @@
 //                                                         a one-time invitation (30 minutes), as a QR code
 //   lani-town accept <invitation> [--profile <id>] [--url <URL>]
 //                                                         accept another town's invitation (lani://town?…)
-//   lani-town link <profile> <profile>                  link two towns of this node directly (a parent's shortcut)
+//   lani-town link <profile> <profile> [--no-guardian]  link two towns of this node directly (a parent's shortcut); an
+//                                                         adult's and a child's: the adult's town is the child's guardian
 //   lani-town unlink <town> [--profile <id>]            let go of a town (a profile, a town id or a name), both ways
 //   lani-town name [<name> | --clear] [--profile <id>]  the village's name other towns see
+//   lani-town share <town> village|summary|details [--profile <id>]
+//                                                         what this town shares of its learning with that one
+//   lani-town guardian <town> --profile <child> [--clear]
+//                                                         that town is the child's guardian's: it sees the child's progress
 //
 // A child's town (lani-profile add --child) is linked only here, by a parent on the node: its app can't invite
-// or accept. --url is where this town's bridge answers other towns (default: http://127.0.0.1:<its port>, or the
+// or accept. Its guardian's town sees its progress in detail, and its app can't lower that; `share … --profile <child>`
+// can (companion/README.md, "Progress between towns"). --url is where this town's bridge answers other towns (default: http://127.0.0.1:<its port>, or the
 // profile's LANI_TOWN_URL). With a relay (LANI_RELAY_URL, docs/plans/05-built/relay.md) the invitation carries the
 // town's relay address too, and `list` shows it.
 import '../env' // first: LANI_* from the FLUENT_* names of a node set up before the rename
@@ -20,7 +26,8 @@ import { join } from 'node:path'
 import { parseArgs } from 'node:util'
 import { resolveCulture } from '../cultures'
 import { groupFingerprint, loadTownKey, type BridgeKey } from '../pairing'
-import { Towns, acceptInvite, createInvite, inviteUri, parseInvite, selfDisplay, selfRelay, selfUrl, townRequest, townUrl, type TownDisplay, type TownLink } from '../towns'
+import { LEVEL_TEXT } from '../progress'
+import { SHARE_LEVELS, Towns, acceptInvite, createInvite, inviteUri, isShareLevel, parseInvite, selfDisplay, selfRelay, selfUrl, shareOf, townRequest, townUrl, type ShareLevel, type TownDisplay, type TownLink } from '../towns'
 import { allProfiles, appDir, bridgeUp, die, projectDir, resolveProfile, table, type Resolved } from './common'
 
 const { values, positionals } = parseArgs({
@@ -31,6 +38,7 @@ const { values, positionals } = parseArgs({
     url: { type: 'string' },
     'no-qr': { type: 'boolean', default: false },
     clear: { type: 'boolean', default: false },
+    'no-guardian': { type: 'boolean', default: false },
     help: { type: 'boolean', short: 'h', default: false },
   },
 })
@@ -38,9 +46,11 @@ const { values, positionals } = parseArgs({
 const USAGE = `usage: lani-town list [--profile <id>]
        lani-town invite [--profile <id>] [--url <this town's URL>] [--no-qr]
        lani-town accept <invitation> [--profile <id>] [--url <this town's URL>]
-       lani-town link <profile> <profile>
+       lani-town link <profile> <profile> [--no-guardian]
        lani-town unlink <town> [--profile <id>]
-       lani-town name [<name> | --clear] [--profile <id>]`
+       lani-town name [<name> | --clear] [--profile <id>]
+       lani-town share <town> village|summary|details [--profile <id>]
+       lani-town guardian <town> --profile <child> [--clear]`
 
 const [cmd, ...args] = positionals
 if (values.help || !cmd) {
@@ -87,9 +97,29 @@ function list() {
     return
   }
   console.log(table([
-    ['TOWN', 'LEARNER', 'LANG', 'ID', 'ON THIS NODE', 'URL', 'LINKED', 'HOW'],
-    ...links.map(l => [l.display?.name ?? '?', l.display?.learner ?? '', l.display?.language ?? '', l.id.slice(0, 8), local.get(l.id)?.id ?? '', l.relay ? `${l.url} (or the relay)` : l.url, when(l.linked_at), `${l.via} (${l.by})`]),
+    ['TOWN', 'LEARNER', 'LANG', 'ID', 'ON THIS NODE', 'URL', 'LINKED', 'HOW', 'SHARES', 'THEY SHARE'],
+    ...links.map(l => [l.display?.name ?? '?', l.display?.learner ?? '', l.display?.language ?? '', l.id.slice(0, 8), local.get(l.id)?.id ?? '', l.relay ? `${l.url} (or the relay)` : l.url, when(l.linked_at), `${l.via} (${l.by})`, mineTo(t, l), theirsOf(t, l, local)]),
   ]))
+  console.log(`\nSHARES: what ${whose(t)} shares of its learning with that town; THEY SHARE: what that town shares with it (another node's: as it said when asked last).
+village: ${LEVEL_TEXT.village}. summary: ${LEVEL_TEXT.summary}. ${LEVEL_TEXT.details}.`)
+}
+
+/** What town [t] shares with link [l]: "summary", "details (guardian)", "village (default)". */
+function mineTo(t: Town, l: TownLink): string {
+  const s = shareOf(l, t.p.child)
+  return `${s.level}${s.guardian ? ` (guardian${s.floor !== 'details' ? `, at least ${s.floor}` : ''})` : s.set ? '' : ' (default)'}`
+}
+
+/** What link [l]'s town shares with [t]: read from its towns.json on this node, else as it said when asked last. */
+function theirsOf(t: Town, l: TownLink, local: Map<string, Resolved>): string {
+  const p = local.get(l.id)
+  if (p) {
+    const back = new Towns(appDir(p)).get(t.key.fingerprint)
+    if (!back) return '(not linked back)'
+    const s = shareOf(back, p.child)
+    return `${s.level}${s.guardian ? ' (you are the guardian)' : s.set ? '' : ' (default)'}`
+  }
+  return l.theirs && isShareLevel(l.theirs.share) ? `${l.theirs.share}${l.theirs.guardian ? ' (you are the guardian)' : ''}, ${l.theirs.at.slice(0, 10)}` : '? (not asked yet)'
 }
 
 async function invite() {
@@ -130,10 +160,18 @@ function linkBoth() {
   const tb = townOf(resolveProfile(b))
   if (ta.key.fingerprint === tb.key.fingerprint) die('A town does not link itself.')
   const now = new Date().toISOString()
-  const linkTo = (t: Town): TownLink => ({ id: t.key.fingerprint, public_key: t.key.spki.toString('base64'), url: t.url, linked_at: now, by: 'cli', via: 'link', display: t.display() })
-  ta.towns.upsert(linkTo(tb))
-  tb.towns.upsert(linkTo(ta))
+  // an adult's town and a child's: the adult's is the child's guardian (it sees the child's progress), unless --no-guardian
+  const guardianOf = (child: Town, adult: Town) => child.p.child && !adult.p.child && !values['no-guardian']
+  // linked again: what was set for it stays (Towns.upsert: what it shares, a guardian's floor, a weekly note); the guardian
+  // is said each time (--no-guardian takes it away)
+  const linkTo = (t: Town, from: Town): TownLink =>
+    ({ id: t.key.fingerprint, public_key: t.key.spki.toString('base64'), url: t.url, linked_at: now, by: 'cli', via: 'link', display: t.display(), guardian: guardianOf(from, t) ? true : undefined })
+  ta.towns.upsert(linkTo(tb, ta))
+  tb.towns.upsert(linkTo(ta, tb))
   console.log(`Linked ${whose(ta)} (${ta.display().name}) and ${whose(tb)} (${tb.display().name}), both ways.`)
+  for (const [child, adult] of [[ta, tb], [tb, ta]] as const) {
+    if (guardianOf(child, adult)) console.log(`${whose(adult)} is ${child.display().learner}'s guardian: it sees ${child.display().learner}'s progress in detail, and ${child.display().learner}'s app can't lower that (lani-town share ${adult.p.id} summary --profile ${child.p.id} can; --no-guardian links without).`)
+  }
 }
 
 /** The link [which] names: a profile of this node, a town id (or its first characters), or a town's or learner's name. */
@@ -178,6 +216,30 @@ function name() {
   console.log(`${whose(t)} is called "${d.name}"${t.towns.name() ? '' : ' (its culture pack\'s name: set one with lani-town name "<name>")'}.`)
 }
 
+function share() {
+  const [which, level] = args
+  if (!which || !isShareLevel(level)) die(`lani-town share <town> ${SHARE_LEVELS.join('|')} [--profile <id>]`)
+  const t = townOf(resolveProfile(values.profile))
+  const l = findLink(t, which, localTowns())
+  const lv = level as ShareLevel
+  // a child's guardian link: the parent sets the level and the least the child's app may set (it can raise it, not lower it)
+  t.towns.patch(l.id, x => ({ ...x, share: lv, ...(t.p.child && x.guardian ? { floor: lv } : {}) }))
+  const s = shareOf(t.towns.get(l.id)!, t.p.child)
+  console.log(`${whose(t)} shares ${s.level} with ${l.display?.name ?? l.id} (${l.display?.learner ?? '?'}): ${LEVEL_TEXT[s.level]}.${s.guardian ? ` That town is ${t.display().learner}'s guardian: ${t.display().learner}'s app can't set less than ${s.floor}.` : ''}`)
+}
+
+function guardian() {
+  const which = args[0] ?? die('lani-town guardian <town> --profile <child> [--clear]: a linked town that is the child\'s guardian\'s (a parent\'s)')
+  const t = townOf(resolveProfile(values.profile))
+  if (!t.p.child) die(`${whose(t)} isn't a child's: only a child's town has a guardian (lani-profile add --child).`)
+  const l = findLink(t, which, localTowns())
+  t.towns.patch(l.id, ({ guardian: _g, floor: _f, ...x }) => (values.clear ? x : { ...x, guardian: true }))
+  const s = shareOf(t.towns.get(l.id)!, true)
+  console.log(values.clear
+    ? `${l.display?.name ?? l.id} isn't ${t.display().learner}'s guardian any more: it sees ${s.level}${s.set ? '' : ' (the default)'}.`
+    : `${l.display?.name ?? l.id} (${l.display?.learner ?? '?'}) is ${t.display().learner}'s guardian: it sees ${s.level}, and ${t.display().learner}'s app can't lower that.`)
+}
+
 switch (cmd) {
   case 'list':
     list()
@@ -196,6 +258,12 @@ switch (cmd) {
     break
   case 'name':
     name()
+    break
+  case 'share':
+    share()
+    break
+  case 'guardian':
+    guardian()
     break
   default:
     die(USAGE)

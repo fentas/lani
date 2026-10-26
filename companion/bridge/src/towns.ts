@@ -51,6 +51,42 @@ export type TownLink = {
   via: 'invite' | 'accept' | 'link'
   display?: TownDisplay
   relay?: string
+  /**
+   * What this town shares of its learning with that one (progress.ts, "Progress between towns" in companion/README.md):
+   * none set is the link's default ([shareOf]: Details to a guardian, Just my village from a child's town, else Summary).
+   */
+  share?: ShareLevel
+  /** A child's town: that town is the child's guardian's (a parent's). It sees Details unless the parent lowered it ([floor]). */
+  guardian?: true
+  /** A guardian link: the least the child's own app may set ([share] below it is refused); the parent sets it on the node. */
+  floor?: ShareLevel
+  /** What that town said it shares with this one when asked last (GET /town/progress), and whether this town is its guardian. */
+  theirs?: { share: ShareLevel; at: string; guardian?: true }
+  /** This learner wants a weekly note of that town's progress (a parent's setting), and the ISO week of the last one sent. */
+  weekly?: true
+  weekly_sent?: string
+}
+
+/** How much of its learning a town shares with a linked one: just the village (the public state), a summary, or details. */
+export const SHARE_LEVELS = ['village', 'summary', 'details'] as const
+export type ShareLevel = (typeof SHARE_LEVELS)[number]
+export const isShareLevel = (v: unknown): v is ShareLevel => typeof v === 'string' && (SHARE_LEVELS as readonly string[]).includes(v)
+/** A level's rank: village 0, summary 1, details 2. */
+export const shareRank = (l: ShareLevel) => SHARE_LEVELS.indexOf(l)
+
+/**
+ * What this town (a [child]'s or not) shares with the town of link [l], and why: [level] as set (never below a guardian
+ * link's [floor]), else the link's default: Details to a child's guardian, Just my village from a child's town to anyone
+ * else (high privacy by default for a child), Summary between two adults' towns and from an adult's town to a child's.
+ */
+export function shareOf(l: Pick<TownLink, 'share' | 'guardian' | 'floor'>, child: boolean): { level: ShareLevel; set: boolean; floor?: ShareLevel; guardian: boolean } {
+  const guardian = child && l.guardian === true
+  const floor = guardian ? (isShareLevel(l.floor) ? l.floor : 'details') : undefined
+  const set = isShareLevel(l.share)
+  const dflt: ShareLevel = guardian ? 'details' : child ? 'village' : 'summary'
+  let level: ShareLevel = set ? l.share! : dflt
+  if (floor && shareRank(level) < shareRank(floor)) level = floor
+  return { level, set, ...(floor ? { floor } : {}), guardian }
 }
 
 export type TownsFile = { schema: 'lani.towns/v1'; name?: string; links: TownLink[] }
@@ -186,9 +222,16 @@ export class Towns {
     return this.refresh().links.find(l => l.id === id)
   }
 
-  /** Adds [link], or replaces the one with its id (linked again: a new URL or key). */
+  /**
+   * Adds [link], or replaces the one with its id (linked again: a new URL or key). Linked again with the same key, what
+   * was set for it stays unless [link] says otherwise: what this town shares with it, a guardian's floor, a weekly note.
+   */
   upsert(link: TownLink) {
-    this.change(d => ({ ...d, links: [...d.links.filter(l => l.id !== link.id), link] }))
+    this.change(d => {
+      const had = d.links.find(l => l.id === link.id && l.public_key === link.public_key)
+      const kept = had ? Object.fromEntries((['share', 'guardian', 'floor', 'weekly'] as const).filter(k => had[k] !== undefined).map(k => [k, had[k]])) : {}
+      return { ...d, links: [...d.links.filter(l => l.id !== link.id), { ...kept, ...link }] }
+    })
   }
 
   /** Removes the link [id]; the link it was, if there was one. */
@@ -203,6 +246,18 @@ export class Towns {
     const l = this.get(id)
     if (!l || JSON.stringify(l.display) === JSON.stringify(display)) return
     this.change(d => ({ ...d, links: d.links.map(x => (x.id === id ? { ...x, display } : x)) }))
+  }
+
+  /**
+   * Changes link [id] by [fn] (its sharing: [TownLink.share], [guardian], [floor], [theirs], [weekly]), when that changes
+   * anything; the link as it is then, undefined when there is none.
+   */
+  patch(id: string, fn: (l: TownLink) => TownLink): TownLink | undefined {
+    const l = this.get(id)
+    if (!l) return undefined
+    const next = fn(l)
+    if (JSON.stringify(next) !== JSON.stringify(l)) this.change(d => ({ ...d, links: d.links.map(x => (x.id === id ? fn(x) : x)) }))
+    return this.get(id)
   }
 }
 

@@ -4,6 +4,8 @@
 #   lani-town link <profile> <profile>
 #   lani-town unlink <town> [--profile <id>]
 #   lani-town name [<name> | --clear] [--profile <id>]
+#   lani-town share <town> village|summary|details [--profile <id>]
+#   lani-town guardian <town> --profile <child> [--clear]
 # See companion/README.md, "Towns".
 set -euo pipefail
 root="$(cd "$(dirname "$0")/../.." && pwd)"

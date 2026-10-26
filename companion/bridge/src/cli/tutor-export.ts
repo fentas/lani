@@ -51,6 +51,7 @@ const FEATURE_TOPICS: Record<string, { id: string; title: string; summary: strin
   towns: { id: 'visits', title: 'Visits', summary: 'For talks and sessions on a visit to a linked town (town:, market:) and town_gift.' },
   friendship: { id: 'friendship', title: 'Friendship between towns', summary: "When a friend town's neighbour moves in (villager_arrived, kind moved)." },
   questions: { id: 'town-questions', title: 'Questions between towns', summary: 'For town_check, town_asked, town_answer, town_question and town_answered.' },
+  progress: { id: 'town-progress', title: 'Progress between towns', summary: "When the learner asks who sees their learning, or wants something with a linked learner's progress (town_progress)." },
 }
 
 /** The skills the app's tutor reads as guide topics (the plan's "The Python scripts and the skills"). */
@@ -103,7 +104,7 @@ const SKILL_TOPICS: { id: string; title: string; summary: string; skills: string
 const ORDER = [
   'events', 'feedback', 'session-end', 'fix', 'progress', 'analysis', 'rhythm', 'village', 'grammar-book', 'cheat-sheet',
   'school', 'counting', 'forms-cards', 'packs', 'word-lookup', 'sentence-grammar', 'role-play', 'villagers', 'scenes',
-  'stories', 'readings', 'arrivals', 'level-up', 'voices', 'family', 'visits', 'friendship', 'town-questions',
+  'stories', 'readings', 'arrivals', 'level-up', 'voices', 'family', 'visits', 'friendship', 'town-questions', 'town-progress',
   'studio-modules', 'studio',
 ]
 

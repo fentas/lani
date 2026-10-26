@@ -1,0 +1,13 @@
+{
+  "name": "town_progress",
+  "description": "Progress between linked towns (companion/README.md, \"Progress between towns\"). Without town: what this learner shares with each linked town, and what each shares with them (say it truthfully when asked who can see what). With town (its learner's or village's name, or its id): that town's progress as it shares it with this learner. Use it only when the learner asks for something with it (a quiz with a friend's hard words); never pass it on.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "town": {
+        "type": "string",
+        "description": "a linked town: its learner's or village's name, or its id"
+      }
+    }
+  }
+}

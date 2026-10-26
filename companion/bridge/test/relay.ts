@@ -212,6 +212,17 @@ try {
     fa?.status === 'ok' && fm?.status === 'ok' && fa.level === fm.level && fa.points === fm.points && fa.mine.visit === 1 && fa.mine.help === 1 && fa.mine.gift === 1 && fa.mine.trade === 1 && fa.theirs.answer === 1 && JSON.stringify(fa.mine) === JSON.stringify(fm.theirs),
     { fa: fa && { status: fa.status, level: fa.level, mine: fa.mine, theirs: fa.theirs }, fm: fm && { status: fm.status, level: fm.level, mine: fm.mine } })
 
+  // --- learning progress between towns (features/progress.ts) through the relay ---------------------------------------------------
+  const prog = await get(ana, `/towns/${marta.id}/progress?fresh=1`)
+  check("relay: Ana's app gets Marta's progress through the relay: a summary between two adults' towns, no details", prog.status === 200 && prog.body.level === 'summary' && !!prog.body.summary && prog.body.details === undefined && prog.body.town?.id === marta.id, prog.body)
+  // the tunnel, asked by someone who isn't a linked town (signed for the relay only, or not at all): the town gives nothing
+  const tunnel = `${relayUrl}/v1/towns/${marta.id}/town/progress`
+  const stranger = loadBridgeKey(mkdtempSync(join(root, 'stranger-')))
+  const outerOnly = await fetch(tunnel, { headers: relayHeaders(stranger, 'GET', tunnel) })
+  const bare = await fetch(tunnel)
+  const [oText, bText] = [await outerOnly.text(), await bare.text()]
+  check("relay: … a request for a town's progress without a linked town's signature gets nothing (the relay refuses it: 401 unsigned, 403 not the signer's)", bare.status === 401 && outerOnly.status === 403 && !oText.includes('summary') && !bText.includes('summary'), { outerOnly: [outerOnly.status, oText.slice(0, 120)], bare: [bare.status, bText.slice(0, 120)] })
+
   // --- the family page without a node (Marta's) ---------------------------------------------------------------------------------
   const fam = (tok: string, extra: Record<string, string> = {}) => ({ authorization: `Bearer ${tok}`, ...extra })
   const fapi = (path: string, init: RequestInit = {}) => fetch(`${relayUrl}/v1/family/${marta.id}${path}`, init)
@@ -293,6 +304,10 @@ try {
     { id: mailId('f'), scope: 'family', request: { method: 'POST', path: '/audio?text=x', headers: auth }, body_size: 100_000, body_url: '@127.0.0.1:9/elsewhere' },
     { id: mailId('g'), scope: 'admin', request: { method: 'GET', path: '/town/hello', headers: {} }, body_size: 0 },
     { id: mailId('h'), scope: 'family', request: { method: 'GET', path: '/family/api/settings', headers: auth }, body_size: 0 },
+    // a town's progress: without a town's signature, through the family's scope, and the app's own route
+    { id: mailId('i'), scope: 'town', request: { method: 'GET', path: '/town/progress', headers: {} }, body_size: 0 },
+    { id: mailId('j'), scope: 'family', request: { method: 'GET', path: '/town/progress', headers: auth }, body_size: 0 },
+    { id: mailId('k'), scope: 'family', request: { method: 'GET', path: `/towns/${'0'.repeat(32)}/progress`, headers: auth }, body_size: 0 },
   ].map(m => ({ kind: 'http', from: 'family:x', at: new Date().toISOString(), expires: new Date(Date.now() + 60_000).toISOString(), sender: null, ...m }))
   const answered = new Map<string, { status: number; body: any }>()
   let handed = false
@@ -327,6 +342,7 @@ try {
   check("relay: a lying relay: paths a URL turns into another route (%2e%2e, ..), the app's routes, the learner's answer, another scope: refused (403), never routed",
     refused.every(([, st, code]) => st === 403 && code === 'forbidden'), refused)
   check("relay: … a body from elsewhere than the relay's own message: not fetched, refused", status('f')?.status === 403, status('f'))
+  check("relay: … a town's progress: unsigned (401), through the family's scope or the app's route (403): nothing of it", status('i')?.status === 401 && status('j')?.status === 403 && status('k')?.status === 403 && !JSON.stringify([status('i'), status('j'), status('k')]).includes('summary'), [status('i'), status('j'), status('k')])
   check("relay: … the family page's own request is answered (the token checked by the town)", status('h')?.status === 200 && status('h')?.body?.partner_name !== undefined, status('h'))
   const vidDevices = JSON.parse(await Bun.file(join(vid.data, 'app/devices.json')).text().catch(() => '{"devices":[]}'))
   check('relay: … and no phone was paired through it', !vidDevices.devices?.length, vidDevices)

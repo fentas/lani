@@ -12,6 +12,7 @@ import { H, createInvite, festivalDay, localDate, parseInvite, publicState, resp
 import { auth, base, bridgeWhisper, channelEvents, check, client as janClient, culturesDir, curatedDir, dataDir, fam, modulesDir, port, scenesDir, tempDir } from './harness'
 import { friendship } from './friendship'
 import { visitActs } from './guests'
+import { progress } from './progress'
 import { questions, questionsOffline } from './questions'
 import { visits, visitsOffline } from './visits'
 
@@ -59,7 +60,8 @@ export default async function towns() {
   const miaData = join(profilesDir, 'mia/data')
   const luka = await startBridge({ profile: 'luka', data: lukaData, port: townPort, token: 'luka-town-token', child: true, culture: 'friuli' })
   // Mia's town takes three gifts a day from a town (./guests.ts checks the limit), and one help against an event (./friendship.ts)
-  const mia = await startBridge({ profile: 'mia', data: miaData, port: townPort + 1, token: 'mia-town-token', culture: 'friuli', env: { LANI_TOWN_GIFTS_PER_DAY: '3', LANI_TOWN_AID_PER_DAY: '1' } })
+  // and checks for its weekly notes of other towns' progress every few hundred ms, today being their day (./progress.ts)
+  const mia = await startBridge({ profile: 'mia', data: miaData, port: townPort + 1, token: 'mia-town-token', culture: 'friuli', env: { LANI_TOWN_GIFTS_PER_DAY: '3', LANI_TOWN_AID_PER_DAY: '1', LANI_TOWN_WEEKLY_DAY: String(new Date().getDay()), LANI_TOWN_WEEKLY_HOUR: '0', LANI_TOWN_WEEKLY_CHECK_MS: '300' } })
   const janKey = loadBridgeKey(join(dataDir, 'app'))
   const lukaKey = loadBridgeKey(join(lukaData, 'app'))
   const miaKey = loadBridgeKey(join(miaData, 'app'))
@@ -109,6 +111,7 @@ export default async function towns() {
     // --- the parent's shortcut: two towns of this node -----------------------------------------------------------
     const linked = cli(['bun', join(cliDir, 'town.ts'), 'link', 'default', 'luka'], env)
     check('towns: lani-town link default luka links the two towns both ways', linked.code === 0 && town(dataDir).links.some((l: any) => l.id === lukaKey.fingerprint && l.via === 'link' && l.by === 'cli' && l.url === luka.base) && town(lukaData).links.some((l: any) => l.id === janKey.fingerprint && l.url === base), linked.out + linked.err)
+    check("towns: … an adult's town and a child's: the adult's is the child's guardian (on the child's side), and the CLI says so", town(lukaData).links.find((l: any) => l.id === janKey.fingerprint)?.guardian === true && !town(dataDir).links.find((l: any) => l.id === lukaKey.fingerprint)?.guardian && linked.out.includes("Luka's guardian"), linked.out)
     const listed = cli(['bun', join(cliDir, 'town.ts'), 'list', '--profile', 'luka'], env)
     check("towns: lani-town list shows a profile's links", listed.code === 0 && listed.out.includes(janKey.fingerprint.slice(0, 8)) && /\bdefault\b/.test(listed.out) && listed.out.includes('a child'), listed.out + listed.err)
 
@@ -194,6 +197,9 @@ export default async function towns() {
     // --- the host takes part (M6): a guest's question and the host's answer, each one's tutor grading it (./questions.ts) ---
     const janPeer = { ...janTown, notes: channelEvents, client: janClient }
     await questions(janPeer, { ...mia, key: miaKey, data: miaData }, lukaTown)
+
+    // --- learning progress between towns: what each shares, a guardian's, challenges, the weekly note (./progress.ts) ----
+    await progress(janPeer, { ...mia, key: miaKey, data: miaData }, { ...luka, key: lukaKey, data: lukaData }, env)
 
     // --- the CLI on the node: an invitation to the child's town, accepted for Mia ------------------------------------
     const made = cli(['bun', join(cliDir, 'town.ts'), 'invite', '--profile', 'luka', '--no-qr'], env)

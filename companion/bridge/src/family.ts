@@ -8,6 +8,9 @@ import { addressee, sloveneName } from './addressee'
 import { bearer, json, loadToken, readBody, readJson } from './http'
 import type { RecordingLeveller } from './voice'
 
+/** A language's English name, for the tutor's notes ("write it in German"). */
+const LANGUAGE_NAMES: Record<string, string> = { sl: 'Slovene', en: 'English', de: 'German', it: 'Italian', hr: 'Croatian', fr: 'French', es: 'Spanish' }
+
 /** "Dober dan!" / " dober  DAN " → "dober dan": the key a recording is stored and looked up under. */
 export const normalizeText = (s: string) =>
   s.normalize('NFC').toLocaleLowerCase('sl').replace(/[^\p{L}\p{N}\s]/gu, '').replace(/\s+/g, ' ').trim()
@@ -30,7 +33,17 @@ export type Challenge = {
   created_at: string
   answer?: { text: string; spoken: boolean; at: string }
   feedback?: { text: string; partner_note?: string; score?: number; at: string }
+  /**
+   * A challenge from a linked town (features/progress.ts, "Progress between towns"): that town's id, its sender's act id
+   * ([key]: a retry is the same challenge), and the language its learner reads the tutor's note in ([base]).
+   */
+  town?: { id: string; key: string; name: string; learner: string; base?: string }
 }
+
+/** A challenge's kinds, its text's and its hint's lengths (the family page's, a linked town's). */
+export const CHALLENGE_TYPES = ['question', 'translate', 'say'] as const
+export const MAX_CHALLENGE_TEXT = 500
+export const MAX_CHALLENGE_HINT = 300
 
 type Settings = { partner_name: string; partner_emoji: string; from_sl?: string }
 
@@ -94,9 +107,9 @@ export function genitive(name: string): string {
 }
 
 const challengeIn = z.object({
-  type: z.enum(['question', 'translate', 'say']).default('question'),
-  text: z.string().trim().min(1).max(500),
-  hint: z.string().trim().max(300).optional(),
+  type: z.enum(CHALLENGE_TYPES).default('question'),
+  text: z.string().trim().min(1).max(MAX_CHALLENGE_TEXT),
+  hint: z.string().trim().max(MAX_CHALLENGE_HINT).optional(),
 })
 const answerIn = z.object({ text: z.string().trim().min(1).max(2000), spoken: z.boolean().default(false) })
 const settingsIn = z.object({
@@ -294,23 +307,44 @@ export class Family {
     this.challengeTimes.push(now)
     const s = this.settings()
     const from = s.partner_name || 'Družina'
-    const c: Challenge = {
-      id: `${Date.now().toString(36)}${(this.seq++).toString(36)}${randomBytes(2).toString('hex')}`,
+    const c = await this.add({
       from,
       from_sl: s.partner_name ? s.from_label : 'družine',
       emoji: s.partner_emoji || '💌',
       type: r.data.type,
       text: r.data.text,
       ...(r.data.hint ? { hint: r.data.hint } : {}),
-      created_at: new Date().toISOString(),
-    }
-    this.write(this.threadPath, [...this.challenges(), c].slice(-200))
-    this.d.emit({ type: 'partner_challenge', id: c.id, from: c.from, from_sl: c.from_sl, emoji: c.emoji, kind: c.type, text: c.text })
-    await this.d.notify(
-      `A family challenge (${c.type}) for Jan, from the family page. It is shown in the app; wait for the partner_answer.\n\n${untrustedJson({ type: c.type }, { from: c.from, text: c.text, hint: c.hint })}`,
-      { kind: 'partner_challenge', conversation_id: `fam_${c.id}`, msg_id: `fc_${c.id}` },
-    )
+    })
     return json(c)
+  }
+
+  /**
+   * A challenge from linked town [town] (its learner's [type], [text] and [hint], already cleaned), once per its act id
+   * ([town.key]: a retry is answered with the challenge it made); into the same thread as the family page's, so the app
+   * shows it as "💌 Od Jana · From Jan" and the tutor answers it the same way, its note in the sender's [town.base].
+   */
+  async addFromTown(o: { type: Challenge['type']; text: string; hint?: string; town: NonNullable<Challenge['town']> }): Promise<{ challenge: Challenge; duplicate: boolean }> {
+    const had = this.challenges().find(c => c.town?.id === o.town.id && c.town.key === o.town.key)
+    if (had) return { challenge: had, duplicate: true }
+    const who = o.town.learner || o.town.name
+    const challenge = await this.add({ from: who, from_sl: genitive(who), emoji: '💌', type: o.type, text: o.text, ...(o.hint ? { hint: o.hint } : {}), town: o.town })
+    return { challenge, duplicate: false }
+  }
+
+  /** Keeps challenge [c] (a new id, now), tells the app and the tutor (its texts as untrusted content). */
+  private async add(c: Omit<Challenge, 'id' | 'created_at'>): Promise<Challenge> {
+    const made: Challenge = { id: `${Date.now().toString(36)}${(this.seq++).toString(36)}${randomBytes(2).toString('hex')}`, ...c, created_at: new Date().toISOString() }
+    this.write(this.threadPath, [...this.challenges(), made].slice(-200))
+    this.d.emit({ type: 'partner_challenge', id: made.id, from: made.from, from_sl: made.from_sl, emoji: made.emoji, kind: made.type, text: made.text })
+    const t = made.town
+    const where = t
+      ? `from ${t.learner || t.name} of the linked town ${t.name} (a town challenge, sent from their progress screen). Write the partner_note for ${t.learner || t.name}${t.base ? ` in ${LANGUAGE_NAMES[t.base] ?? t.base}` : ''}`
+      : 'from the family page'
+    await this.d.notify(
+      `A family challenge (${made.type}) for ${this.settings().learner_name || 'Jan'}, ${where}. It is shown in the app; wait for the partner_answer.\n\n${untrustedJson({ type: made.type, ...(t ? { town: true } : {}) }, { from: made.from, text: made.text, hint: made.hint, ...(t ? { town: t.name } : {}) }, t ? 'untrusted_town_content' : 'untrusted_family_content')}`,
+      { kind: 'partner_challenge', conversation_id: `fam_${made.id}`, msg_id: `fc_${made.id}` },
+    )
+    return made
   }
 
   async answer(req: Request, id: string): Promise<Response> {

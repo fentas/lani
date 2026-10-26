@@ -53,6 +53,7 @@ import {
 } from '../guests'
 import { json, readText, type RouteCtx } from '../http'
 import { PARTS, partNow } from '../langs'
+import { sharingRow } from '../progress'
 import { learnerLangs } from '../learners'
 import { Attempts, fingerprintOf } from '../pairing'
 import { RELAYED_HOST, publishedState, relayTownOf } from '../relay'
@@ -709,6 +710,8 @@ export const towns: FeatureFactory = ({ cfg, townKey: bridgeKey, profile, game, 
                 via: l.via,
                 status: s ? 'ok' : got.error,
                 ...(s ? { age: s.age, villagers: s.villagers, buildings, date: s.date } : {}),
+                // what this learner shares of their learning with it, and it with them (progress.ts)
+                sharing: sharingRow(l, profile.child),
               }
             }),
           )
