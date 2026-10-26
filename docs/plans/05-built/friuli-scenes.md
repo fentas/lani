@@ -64,10 +64,18 @@ voiced here: the node voices the lines when they are first played (the culture's
 - The prompts (card.py's `prompt_parts`): no two Italian words of the new packs share an English, German or Slovene prompt
   with another Italian word (481 words over the Italian packs; two clashes were fixed: `pontile` and `molo` both
   "pomol" in Slovene, `galleggiante` and Carnival's `carro` both "float").
-- The app's content tests, replayed per scene while writing and then run with Gradle: DialogReactionsTest,
-  VariantsContentTest, ISpyContentTest, ScenesContentTest, WordStickersTest, StickersTest, CultureScenesTest,
-  BuildingWordsTest, MentionsContentTest, RoutineTest, SleepTest, GrammarTest, LearnerContentTest.
-- The bridge smoke's culture sections (cultures, friuli).
+- The app's content tests, replayed per scene while writing and then run with Gradle on the final content: 161 tests
+  in 20 classes, none failing (DialogReactionsTest, VariantsContentTest, ISpyContentTest, ScenesContentTest,
+  WordStickersTest, StickersTest, CultureScenesTest, BuildingWordsTest, MentionsContentTest, RoutineTest, SleepTest,
+  GrammarTest, LearnerContentTest, IntroductionContentTest, TurnHintTest, HintSpeechTest, VillagersContentTest,
+  StormIndoorsTest, SceneWorldTest, VisitsTest).
+- A second reader proofread the Italian, German and Slovene of the seven scenes and eight packs; their 32 points are
+  fixed (articles with possessives, the causative fa girare, the whys' "for the two of us", German idiom, two Slovene
+  duals, a few notes).
+- The bridge typechecks (`bunx tsc --noEmit -p .`; no code changed), and the whole bridge smoke passes: 2597 checks,
+  none failing, its culture sections among them (every culture pack validates with its scenes' words in its packs;
+  the Friuli village gets no Slovene scenes; all 34 Italian packs validate).
+- No QA screenshot: companion/bin/qa plays the Friuli village only as a town visited, with no step for its scenes.
 
 ## How to use
 
