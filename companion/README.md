@@ -1137,7 +1137,9 @@ Once the credential is kept, the app attaches to the paired bridge. From then on
   "Ideas"); the link is kept in `app/reports.json`. Without a sign-in, or with "No, keep it here", it goes to
   `app/wishlist.md` as before.
 - **Content is the studio's** (below): "make me exercises for X" becomes a job, and so do an arrival, dialog variants,
-  stories running low and the dictionary's gaps.
+  stories running low and the dictionary's gaps. A word the learner asked to add from its card (`gloss_request`) is
+  answered at once on the routine model, never in the night's batch: its card waits for it. The dictionary's notes need
+  no reply: a turn of theirs that ends in text (a "done") sends nothing to the chat.
 - **What goes wrong is said in the chat, briefly:** the cap spent (today's or the month's: "Vseeno odgovarjaj na moja
   sporočila ta mesec · Answer my messages anyway this month"), the key refused, the credit out, no connection.
 - **The shadow tutor is off** meanwhile (it would shadow itself).
@@ -1775,8 +1777,15 @@ words" (the word packs); back leads where it came from.
 - **A word** opens its card (the word sheet, [Word lookup](#word-lookup)): its meanings, its forms, "📋 Vse oblike · All
   forms" ([Forms cards](#forms-cards)), ➕ for a dictionary word not theirs yet (POST /words `from: "search"`, to a
   bridge whose GET /words lists it; "villager" to an older one).
+- **A word the dictionary doesn't know** (searched, none of theirs matching): "➕ Dodaj «…» med moje besede · Add «…» to
+  my words" opens its card, with what it may be instead and "➕ Add to my words" (the tutor writes its meaning: [Word
+  lookup](#word-lookup), "A word the dictionary doesn't know").
+- **Waiting for their meaning.** The words asked for that way and not explained yet are on top, "✍️ Čakajo na pomen ·
+  Waiting for their meaning" (GET /words/requests, and those still in the phone's outbox: "📶 … once you're online"),
+  each opening its card; a word of another language says which (" · IT").
 
-QA's step `forms-view` searches it and opens a word from it ([Test](#test)).
+QA's step `forms-view` searches it and opens a word from it, `missing-word` lists a word waiting for its meaning and the
+word once added ([Test](#test)).
 
 ## Voice
 
@@ -2693,9 +2702,59 @@ pack word's `item_id` gives the same card as learning it from its pack. The app 
 tutor hears the words added in one line, gathered (5 minutes after the first; `LANI_WORDS_NOTE_MS`), marked as
 already persisted.
 
+**A word the dictionary doesn't know** (Jan: "if a definition is missing I can't add it but have to go to tutor ->
+ask to add"; built in [docs/plans/05-built/missing-word.md](../docs/plans/05-built/missing-word.md)). Its card says
+"🤷 Te besede ni v slovarju · This word isn't in the dictionary" and offers, in this order:
+
+1. **"🔎 Morda iščeš · Did you mean"**: the words it may be instead, each with its meaning, a tap opening that word's card
+   in the same line. A lookup without entries has `suggestions: [{word, lemma, pos, gloss, gloss_lang}]` (at most 3, one
+   per lemma; left out when there are none), the surest kind only: the accents a learner left out given back ("zlica":
+   žlica, "cesnja": češnja), another ending of a word the dictionary has ("kozolcu": kozolca; the supplement lists only
+   the forms the content uses), or a typo of a dictionary form past its first letter (two letters swapped, one wrong,
+   missing or too many: "gozdk": gozd; a typo's word is a lemma or a pack word itself, so "vretenom" isn't vremenom).
+   Each must be a form of the dictionary, the supplement, the tutor's glosses or a pack word, the pack words first among
+   equally sure ones ("sneh": sneg, then smeh); none for a word shorter than 3 letters. The edits are hash lookups (a few
+   hundred a word), fast on the phone's bridge too.
+2. **"➕ Dodaj med moje besede · Add to my words"** (the main action): one tap. The card stays open: "✍️ Tvoj učitelj
+   piše pomen … · Your tutor is writing its meaning…" ("📶 Učitelj jo dobi, ko boš spet povezan · Your tutor gets it once
+   you're online" while offline). When the meaning comes, the card fills in with the tutor's entry (flagged "🤖 strojno
+   napisano, ni pregledano · machine-written, not reviewed") marked "✓ Dodano · Added". With the card closed meanwhile, a
+   quiet notice says "📚 Zdaj med tvojimi besedami · Now in your words: «vreteno» — spindle", and the word is in "📚 Moje
+   besede" with its meaning.
+3. **"📖 Vprašaj učitelja · Ask the tutor"**, quieter: the chat, for "what does it mean here?" (below).
+
+**`POST /words/requests`** `{word, line?, en?, from?, language?, base?, client_id}` (through the outbox: queued offline,
+never lost, sent in order when the node is back; the app sends its outbox as soon as the phone's network is back while
+it is on screen, `app/NetworkBack.kt`, not at the outbox's next retry) → `{state: "waiting", word, id}`: the word waits in the learner's data
+(`<data>/app/word-requests.json`, so a restart or a handover keeps it) and the tutor hears a `gloss_request`, gathered a
+moment (`LANI_WORD_REQUEST_MS`, 1.5 s): the words, what to call (`publish_gloss` with the form as listed, its lemma, part
+of speech, a noun's gender, 1-3 meanings in the learner's base, the grammar of the form; `language` on a visit; the line
+becomes the word's example), that the bridge adds it
+(don't persist it), no reply needed; a typo glossed as the word meant, a name as `pos: "name"` (not added); a child's
+profile asks for a simple, age-appropriate meaning. Its JSON block has `gloss_requests {language, gloss_lang, words:
+[{form, line?, en?}]}`; a visit's lines go under `untrusted_town_content` (another town's content, escaped as the
+family's). The same word asked again (another tap, another device) waits under the first request; one the dictionary
+knows by the time it arrives (it waited offline) is added at once with the entry its line means (`{state: "added",
+item_id, added}`); a word not yet told (no session) or still unanswered after `LANI_WORD_REQUEST_RETELL_MS` (12 h) is told
+again with the next word asked or at the bridge's start, three times at most; one 60 days old is dropped (logged). `400`
+for a word that isn't one (letters, an apostrophe, a hyphen or a space inside, at most 40), an unknown language or
+origin, or a base the same as the word's; `409` past 200 words waiting. `GET /words/requests` → `{requests: [{word,
+language, base, line?, at}]}`. `GET /lookup` of a word waiting says `requested: true`, so its card shows the tutor writing
+when it is opened again.
+
+When the tutor's `publish_gloss` explains a word waiting (its form or lemma is the word, in the language asked for), the
+bridge adds it to the learner's words before the app hears of it, as `POST /words` would (`vocab_word_<lemma>`, the
+meaning the tutor wrote, the line it was met in as its example, `source: "lookup"`; on a visit, that language's words),
+emits `words_added`, `lexicon_updated`, then `word_request_done {word, lemma, gloss, item_id, added, language?}`, and the
+tool's answer says what was added. A gloss in another language than the one asked for leaves it waiting, and the answer
+says which one it waits for. The in-app tutor answers a `gloss_request` at once on the routine model (never in the
+night's batch), before routine events. A node from before the route answers `404`: the app sends the word as a chat
+message instead ("➕ «vretenom» — Dodaj med moje besede", `data.lookup` with `add: true`), and the tutor explains it as
+below.
+
 **Ask the tutor.** For a word not found, the app sends a chat message with `data.lookup {word, line, en,
 language?}` (`language` on a visit). The tutor explains it with `reply` and keeps the explanation with
-`publish_gloss {form, lemma, pos?, gloss (1-3), grammar?, note?, gloss_lang?, language?}` in `<data>/app/lexicon.json`
+`publish_gloss {form, lemma, pos?, gloss (1-3), grammar?, note?, gender?, gloss_lang?, language?}` in `<data>/app/lexicon.json`
 (another language's word: `lexicon.<language>.json`); the app gets `lexicon_updated {word, language?}`, and the next
 lookup finds it. `gloss_lang` is the language of the glosses (default: the learner's base for that word's language);
 a gloss kept before glosses had one is in the learner's base.
@@ -3971,6 +4030,7 @@ companion/bin/qa --steps counting-dialogs        # the happenings with a countin
 companion/bin/qa --steps numbers                 # 🔢 Števila: closed with "📖 Odpri uvod", the intro skipped; a number heard on the pad, a word with the tens first, a clock time, a date, a whole run opening 100–999
 LANI_DEV_FAKE_ELEVENLABS=1 companion/bin/qa --no-town --steps forms-card  # forms cards: Vse oblike on a word's card (its overview, then Vadi oblike), a noun's table (greyed rows, a mistake kept by kind, the rows said), a verb's (its imperative hidden), the day's in a review, typed, a unit done bringing a card back
 LANI_DEV_FAKE_ELEVENLABS=1 companion/bin/qa --no-town --steps forms-view  # biti's card in a test: its present alone; the overview after it and from the word's card; Moje besede from Napredek, a search with its dictionary part, a word opened from it
+companion/bin/qa --no-town --steps missing-word  # a word the dictionary doesn't know: Did you mean (zlica: žlica), Add, the card waiting until the dev tutor's gloss fills it, the word in Moje besede; offline (airplane mode) waiting, sent once online, the notice (a synthetic learner: LANI_DEV_DATA; Teo's: LANI_CULTURE=friuli, LANI_QA_PAIR=sl-en, LANI_QA_MISSING_PAIR=it-de)
 companion/bin/qa --steps school                  # the school: from Home's tile, the unit biti's intro (read aloud), sheets and test
 companion/bin/qa --steps school-build            # the school built in the hamlet: the Build sheet's tenth plot, the line under it, the bed, indoors
 companion/bin/qa --steps school-scene            # the teacher in the school's scene: her requests as on the map, the lesson by her, the blackboard
