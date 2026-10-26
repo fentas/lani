@@ -301,7 +301,7 @@ less lower down, then lies further out, never more than 140 px left of the fire;
 smaller, at most 32 px further and 0.84 of its size. "Too little room" is measured against the land without the water: its
 last plot no further out than without it (or than 132 px, where it is nearer). Where no place does, the water takes the
 one that leaves the plots the most room, and the town's last plot lies a little further out (at most 20 px; on one coast
-in about thirty). A plot keeps 12 px from the beach (its footprint's corner on the sand's edge), 16 px from a lake.
+in about thirty, on more than half the lakes, which lie where the plots are). A plot keeps 12 px from the beach (its footprint's corner on the sand's edge), 16 px from a lake.
 
 By the sea the town view's first look (its home, when it opens and recentres) takes in the beach and a strip of the water
 too, wherever the clearing ends; the camera pans and zooms over the whole canvas, the sea's edge with it. A tap on the sea
