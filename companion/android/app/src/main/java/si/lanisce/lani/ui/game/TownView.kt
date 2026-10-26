@@ -192,6 +192,8 @@ fun TownView(
             /** Nothing drawn there: the forest round the clearing, the land at the horizon, or nothing. */
             fun ground(): Tapped = Tapped.Place(
                 when {
+                    // the coast's sea and its beach: the sea along the horizon too
+                    TownAnchors.isSea(latestState, fit.width, fit.height, nx, ny) -> PlaceTap.Spot(TownSpots.HORIZON)
                     TownAnchors.isForest(latestState, fit.width, fit.height, nx, ny) -> PlaceTap.Forest
                     // the hills and mountains behind the village (or the sea): what nothing else there took
                     TownAnchors.isHorizon(fit.width, fit.height, nx, ny) -> PlaceTap.Spot(TownSpots.HORIZON)

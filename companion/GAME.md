@@ -304,8 +304,10 @@ one that leaves the plots the most room, and the town's last plot lies a little 
 in about thirty). A plot keeps 12 px from the beach (its footprint's corner on the sand's edge), 16 px from a lake.
 
 By the sea the town view's first look (its home, when it opens and recentres) takes in the beach and a strip of the water
-too, wherever the clearing ends; the camera pans and zooms over the whole canvas, the sea's edge with it. The village hears
-the sea nearer on the coast than where it is only at the horizon (see "Background sounds").
+too, wherever the clearing ends; the camera pans and zooms over the whole canvas, the sea's edge with it. A tap on the sea
+or the beach is a tap on the sea at the horizon: it opens the culture's place there (Friuli's "Il mare", its lagoon), as the
+horizon does (`TownAnchors.isSea`). The village hears the sea nearer on the coast than where it is only at the horizon
+(see "Background sounds").
 
 Until 2026-10-26 a coast or a lake whose water left the plots too little room had it pushed further out: the sea 30 px
 past its place, 160 to 180 px left of the fire, off the narrowest canvas (half the coasts showed no sea but the horizon's,

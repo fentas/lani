@@ -52,6 +52,19 @@ class CoastTest {
         assertTrue(Terrain.of(v).sea != null)
     }
 
+    /**
+     * Teo's camp keeps its plots: before 2026-10-26 his sea lay off every canvas and took no place of a plot (his plots were
+     * the land's without the water, as the valley of the same seed has them); its own two by the fire, and the ones the
+     * camp's next ages add, stand where they stood.
+     */
+    @Test fun `Teo's camp keeps its plots`() {
+        val now = Terrain.of(teo.village(0L)).centers
+        val before = Terrain.of(Land(Landscape.VALLEY.id, 551323397)).centers
+        val same = now.indices.takeWhile { now[it].toList() == before[it].toList() }.size
+        println("Teo's land: the first $same plots where they were")
+        assertTrue("Teo's first plots moved: $same", same >= PLOTS_PER_AGE[Age.TABOR.ordinal])
+    }
+
     @Test fun `the sea is on the narrowest canvas of the town at every row, from the horizon past the last plot`() {
         for (seed in seeds) {
             val t = Terrain.of(Land.of(Landscape.COAST, seed))
@@ -124,6 +137,23 @@ class CoastTest {
         } finally {
             Cultures.use(Cultures.DEFAULT)
         }
+    }
+
+    @Test fun `a tap on the coast's sea or its beach is a tap on the sea at the horizon`() {
+        val s = teo.village(0L)
+        val t = Terrain.of(s)
+        for ((w, h) in canvases) {
+            val comp = VillageLayout.composition(w, h, false)
+            val shore = comp.fireX + t.shoreX(0f)
+            assertTrue("${w}x$h: the water", TownAnchors.isSea(s, w, h, shore - 6f, comp.fireY.toFloat()))
+            assertTrue("${w}x$h: the beach", TownAnchors.isSea(s, w, h, shore + Terrain.BEACH - 1f, comp.fireY.toFloat()))
+            assertTrue("${w}x$h: the land", !TownAnchors.isSea(s, w, h, shore + Terrain.BEACH + 4f, comp.fireY.toFloat()))
+            assertTrue("${w}x$h: the sky", !TownAnchors.isSea(s, w, h, 2f, comp.horizon - 4f))
+            assertTrue("${w}x$h: the fire", !TownAnchors.isSea(s, w, h, comp.fireX.toFloat(), comp.fireY.toFloat()))
+        }
+        // a land without the sea has none
+        val valley = Founding("friuli", Landscape.VALLEY, 551323397L).village(0L)
+        assertTrue(!TownAnchors.isSea(valley, 320, 200, 2f, 150f))
     }
 
     @Test fun `the coast is kept through a tick, a sync and the node's copy`() {

@@ -124,6 +124,19 @@ object TownAnchors {
     }
 
     /**
+     * Whether a canvas point is on the coast's sea or its beach (the land's, [Terrain.sea]): the same sea as the one along
+     * the horizon, so a tap there opens what the horizon does (the culture's sea, Friuli's lagoon).
+     */
+    fun isSea(state: GameState, w: Int, h: Int, x: Float, y: Float): Boolean {
+        val land = VillageLayout.of(state)
+        if (land.sea == null) return false
+        val comp = VillageLayout.composition(w, h, compact = false)
+        if (y < comp.horizon || x < 0 || y < 0 || x >= w || y >= h) return false
+        val dy = y - comp.fireY
+        return x - comp.fireX < land.shoreX(dy) + Terrain.BEACH
+    }
+
+    /**
      * Whether a canvas point is on the land at the horizon: the band from the mountains' shoulders down to the horizon,
      * the whole width (a tap the buildings, people, spots and the forest didn't take; see [horizon]).
      */
