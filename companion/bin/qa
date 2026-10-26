@@ -598,7 +598,14 @@ def first_launch(way_key="setup.computerTitle"):
     to learn ([SETUP_PAIR]'s; its explanations' language chosen when it isn't the emulator's English), "Naprej", the two
     ways, the one titled [way_key]."""
     target, base = SETUP_PAIR
-    assert wait_for(OWN_NAMES[target], 20), "the welcome's languages"
+    # the greeting and the languages together: the welcome itself, not a screen of before
+    end = time.time() + 30 * slow()
+    while time.time() < end:
+        texts = [t for t, _ in nodes()]
+        if any("Dobrodošli!" in t for t in texts) and any(t == OWN_NAMES[target] for t in texts):
+            break
+        time.sleep(1)
+    assert wait_for(OWN_NAMES[target], 2), "the welcome's languages"
     texts = [t for t, _ in nodes()]
     assert any("Dobrodošli!" in t for t in texts), f"the welcome's greeting: {texts[:12]}"
     assert not any("Dobrodošel" in t or "Dobrodošla" in t for t in texts), "a greeting with a gender before anyone said who they are"
@@ -9524,6 +9531,8 @@ def main():
 
     adb("uninstall", PKG, check=False)
     adb("install", "-r", str(app_apk()))
+    # an earlier run's last screen: a dump that fails while the app starts would leave it to be read (nodes())
+    adb("shell", "rm", "-f", "/sdcard/ui.xml", check=False)
     adb("logcat", "-c")
     adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity")
 
