@@ -316,6 +316,18 @@ and nowhere to pan to it), the lake 42 or 52 px further and smaller, a few px of
 first ones by the fire, may lie elsewhere now. The other lakes are as they were. The founding's preview draws the same
 land as the village.
 
+**The sea runs up to the horizon** (`game/render/Sea.kt`, `CoastHorizonTest`). A coast's sea is one water from the beach
+to where it meets the sky. The land's sea comes up to the horizon's row; left of where it and its beach end there, the far
+sea along the horizon comes down to meet it, and no far treeline stands in front of it (the far trees end low at the beach,
+rising to their height over 8 px). Near and far take the same colours, a little more of the sky's toward the horizon (in
+dithered steps: 0.3 of it at the horizon, 0.44 at the far line, none from 28 px below the horizon), the same glints and the
+same light, by day, at dusk and at night, in the rain and in winter; closer up, the near sea's ripples thin out toward the
+horizon. The far sea's line against the sky is fainter at night. Until 2026-10-26 the far sea was a band 6 px above the
+horizon, laid out to stand behind the far treeline as a culture's sea does over a valley: where the coast leaves the
+treeline out, a strip of the hills behind showed between the two seas (dark at night), and the far sea, with its own
+colours and drifting glints, read as a second sea moving behind the village. A lake lies at least 16 px below the horizon
+on every land, so nothing cuts it there. The classic land and the dry lands keep their horizon pixel for pixel.
+
 What a generated land keeps is what the game needs (`LandsTest`, over 18 seeds of every landscape): the fire in the
 middle; the 28 plots on open ground, off the stream, its bank's spot and the road, on every canvas of the town, the first
 by the fire; the stream on the left (the palisade keeps to its far bank, the mill and the bridge are on it), the road
@@ -324,6 +336,15 @@ plot, a way down to the stream; every named spot on the canvas, in the woods or 
 on it opens it; every project's landmark placed; the wild animals outside the palisade; no tall building hiding most of a
 small one behind it; a lake or the sea leaving room for all 28 plots, in view on every canvas of the town (above); a town
 of every landscape within the frame budget.
+
+**The ground is drawn once** (`game/render/GroundCache.kt`, `GroundCacheTest`). The village's map is drawn by the phone's
+processor about 12 times a second, and its ground (the grass, the forest floor, the paths, the water) was most of each
+frame's cost, the same on every land: the sea costs no more than the land it covers. Now the ground is drawn once and
+kept: the next frames take its picture back and draw only the water that moves (the sea's surf and glints, the twinkle of
+the stream, the pond and a lake, a torrent's white water), until the land, the canvas, the camera's window, the age, the
+paths, the season, the weather or the sky's colour at the horizon change. The frames are the same pixels as before, and
+a frame at rest costs about a quarter of what it did (docs/plans/05-built/coast-horizon.md). QA's hook "render:full"
+draws the ground whole every frame again, to compare.
 
 **The choice at setup** (`Founding`, `ui/game/FoundingScreen.kt`). A village is founded at the app's first start, once
 the node has no village and the phone none either (offline too: it goes to the node when it answers): "🏡 Kje bo tvoja
