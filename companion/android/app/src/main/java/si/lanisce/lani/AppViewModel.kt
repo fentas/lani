@@ -452,6 +452,16 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         onAnswered = { game.rewardFamily() },
     )
     private val events = EventStream(viewModelScope, prefs, node, notices, onOpen = { flushOutbox() }, onEvent = ::handle)
+    /**
+     * The network back after it was lost, while the app is on screen: the outbox sent at once and the live events
+     * reconnected (a word asked for offline reaches the tutor then, not at the outbox's next retry).
+     */
+    private val networkBack = si.lanisce.lani.app.NetworkBack(app) {
+        viewModelScope.launch {
+            if (foreground && bridge != null) events.restart()
+            flushOutbox()
+        }
+    }
     /** The app is on screen; the event stream only runs then. */
     private var foreground = false
     /** A notification link that arrived before the connection. */
@@ -818,6 +828,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
                 refresh() // the review counts grow
             }
             is BridgeEvent.LexiconUpdated -> words.onLexiconUpdated(ev.word)
+            // a word asked for from its card got its meaning: the card shows it added, else a quiet notice
+            is BridgeEvent.WordRequestDone -> words.onWordRequestDone(ev)
             is BridgeEvent.SentenceExplained -> sentences.onExplained(ev.sentence)
             // the tutor wrote how someone who joined the village is introduced: it plays from now on, instead of the template
             is BridgeEvent.ArrivalPublished -> launchSafely {
@@ -899,6 +911,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     fun onForeground() {
         foreground = true
         if (bridge != null) events.start()
+        networkBack.start()
         commitRoadRatings()
         shadow.onForeground() // a digest when the app was away two hours or more
         data.onForeground() // the data repository pulled (git connected only)
@@ -912,6 +925,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     fun onBackground() {
         foreground = false
         events.stop()
+        networkBack.stop()
         speaker.stop()
         update.onBackground()
         shadow.onBackground()
@@ -1248,6 +1262,13 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
      * made on demand first; app/FormsCardController.forQa); "unit" the unit [word]'s intro done, as "⏭ Poznam to" ends it
      * (its pages met, the node told: the cards it opens rows of come back); "word" the word's card open.
      */
+    /** QA's "word:<word>|<line>|<en>": that word's card, as a tap on it in that line (meant [en]) opens it in a scene. */
+    fun qaWord(what: String) {
+        val parts = what.split('|')
+        val w = parts[0].trim().takeIf { it.isNotEmpty() } ?: return
+        words.open(si.lanisce.lani.app.WordQuery(w, parts.getOrNull(1)?.trim().orEmpty(), parts.getOrNull(2)?.trim()?.takeIf { it.isNotEmpty() }, si.lanisce.lani.data.Words.SCENE))
+    }
+
     fun qaFormsCard(what: String, word: String) {
         when (what) {
             "unit" -> school.unit(word)?.let { u -> school.introProgress(u, u.intro?.steps?.size ?: 0, done = true) }

@@ -870,6 +870,14 @@ sealed interface BridgeEvent {
     data class WordsAdded(val itemIds: List<String>) : BridgeEvent
     /** The node learned more about [word] (the tutor explained it): an open word card can look again. */
     data class LexiconUpdated(val word: String) : BridgeEvent
+    /**
+     * A word the learner asked for from its card (the dictionary didn't know it: POST /words/requests) got its meaning:
+     * [word] as tapped, its [lemma] and [gloss] (the tutor's), the review item it became ([itemId]; null for a name, not
+     * added), [added] false when it was theirs already or a name; [language] a visit's word's, null for the home language.
+     */
+    data class WordRequestDone(
+        val word: String, val lemma: String, val gloss: List<String>, val itemId: String?, val added: Boolean, val language: String? = null,
+    ) : BridgeEvent
     /** The tutor explained [sentence]'s grammar (publish_sentence_note): an open sheet of it shows the explanation. */
     data class SentenceExplained(val sentence: String) : BridgeEvent
     /** The tutor published (or took back) how someone who joined the village is introduced ([id]; companion/VILLAGERS.md "Arrivals"). */
@@ -927,6 +935,14 @@ sealed interface BridgeEvent {
                 "app_update" -> AppUpdate(o["versionCode"]?.jsonPrimitive?.intOrNull ?: 0, s("versionName") ?: "?", s("notes"))
                 "words_added" -> WordsAdded((o["item_ids"] as? JsonArray).orEmpty().mapNotNull { (it as? JsonPrimitive)?.contentOrNull })
                 "lexicon_updated" -> LexiconUpdated(s("word") ?: return null)
+                "word_request_done" -> WordRequestDone(
+                    word = s("word") ?: return null,
+                    lemma = s("lemma") ?: s("word")!!,
+                    gloss = (o["gloss"] as? JsonArray).orEmpty().mapNotNull { (it as? JsonPrimitive)?.contentOrNull },
+                    itemId = s("item_id"),
+                    added = o["added"]?.jsonPrimitive?.booleanOrNull == true,
+                    language = s("language"),
+                )
                 "sentence_explained" -> SentenceExplained(s("sentence") ?: return null)
                 "arrival_published" -> ArrivalPublished(s("id") ?: return null, s("note"))
                 "arrival_removed" -> ArrivalPublished(s("id") ?: return null, null)

@@ -265,6 +265,16 @@ class Bridge(private val config: BridgeConfig) {
      * What POST /words takes as `from` (GET /words: "reading" too); null from an older bridge that doesn't say (404),
      * which takes [Words.OLD_SOURCES].
      */
+    /** The words asked for that wait for the tutor's meaning (GET /words/requests); null from an older bridge without them. */
+    suspend fun wordRequests(): List<WaitingWord>? {
+        val (code, body) = exchange(request("/words/requests").build())
+        return when (code) {
+            200 -> Words.parseWaiting(body)
+            404, 405 -> null
+            else -> throw IOException("HTTP $code: ${body.take(200)}")
+        }
+    }
+
     suspend fun wordSources(): Set<String>? {
         val (code, body) = exchange(request("/words").build())
         return when (code) {

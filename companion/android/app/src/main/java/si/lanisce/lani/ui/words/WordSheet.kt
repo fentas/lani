@@ -22,17 +22,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.app.Adding
+import si.lanisce.lani.app.Requesting
 import si.lanisce.lani.app.WordCard
 import si.lanisce.lani.app.WordQuery
 import si.lanisce.lani.app.WordState
 import si.lanisce.lani.data.WordEntry
+import si.lanisce.lani.data.WordLookup
+import si.lanisce.lani.data.WordSuggestion
 import si.lanisce.lani.data.Words
 import si.lanisce.lani.game.scene.StickerSpot
 import si.lanisce.lani.l10n.L10n
@@ -49,7 +56,8 @@ fun lookUpIn(vm: AppViewModel, line: String, en: String?, from: String): (WordTo
 /**
  * A tapped word's card: the word big with 🔊 and the line it's in, then each meaning (emoji, dictionary form and
  * gender, part of speech and what this form is, the English, an example) with "➕ Add to my words", and where the
- * meanings come from. Not in the dictionary, or the node too old for lookups: the tutor is asked instead.
+ * meanings come from. Not in the dictionary: the words it may be instead, "➕ Add to my words" all the same (the tutor
+ * writes its meaning: [MissingWord]) and the tutor to ask. The node too old for lookups: the tutor is asked instead.
  */
 @Composable
 fun WordSheet(vm: AppViewModel, card: WordCard) {
@@ -81,8 +89,7 @@ fun WordSheet(vm: AppViewModel, card: WordCard) {
                     AskButton(vm, prominent = true)
                 }
                 is WordState.NotFound -> {
-                    Text("🤷 ${bi("words.notInDictionary")}", style = MaterialTheme.typography.bodyMedium)
-                    AskButton(vm, prominent = true)
+                    MissingWord(vm, card, s.lookup)
                     Attribution(s.lookup.attribution)
                 }
                 is WordState.Found -> {
@@ -209,6 +216,70 @@ private fun Partner(e: WordEntry, p: si.lanisce.lani.data.FormPartner, entry: Wo
             entry == null || entry.itemId == null -> Unit
             entry.known -> Text("✓ ${bi("words.inYourWords")}", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
             else -> TextButton(onClick = onAdd, modifier = Modifier.heightIn(min = 48.dp)) { Text("➕ ${bi("words.addToMyWords")}") }
+        }
+    }
+}
+
+/**
+ * A word the dictionary doesn't know: first the words it may be instead ("🔎 Morda iščeš · Did you mean", each opening
+ * its card in the same line), then "➕ Add to my words": the node asks the tutor for its meaning and adds the word when it
+ * comes, the card waiting for it here ("✍️ Tvoj učitelj piše pomen …", or offline: it reaches the tutor once online);
+ * the tutor to ask in the chat stays, quieter ("what does it mean here?").
+ */
+@Composable
+private fun MissingWord(vm: AppViewModel, card: WordCard, lookup: WordLookup) {
+    if (lookup.suggestions.isNotEmpty()) {
+        Text("🔎 ${bi("words.didYouMean")}", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold, modifier = Modifier.semantics { heading() })
+        for (sug in lookup.suggestions) Suggestion(sug) { vm.words.openSuggestion(sug) }
+    }
+    Text("🤷 ${bi("words.notInDictionary")}", style = MaterialTheme.typography.bodyMedium)
+    // asked for already (another tap, before a restart): the node says so
+    when (card.request ?: Requesting.WAITING.takeIf { lookup.requested }) {
+        null -> if (Words.requestable(card.query.word) != null) {
+            FilledTonalButton(onClick = vm.words::request, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text("➕ ${bi("words.addToMyWords")}") }
+            Text("✍️ ${bi("words.tutorWritesIt")}", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+        Requesting.SENDING, Requesting.WAITING -> Waiting("✍️ ${bi("words.tutorWriting")}", bi("words.joinsYourWords"), busy = true)
+        Requesting.QUEUED -> Waiting("📶 ${bi("words.reachesTutorOnline")}", bi("words.joinsYourWords"), busy = false)
+        // its meaning came: the card looks again, and shows the tutor's entry added
+        Requesting.DONE -> Waiting("✓ ${bi("words.added")}", bi("words.inYourReviews"), busy = false)
+    }
+    AskButton(vm, prominent = false)
+}
+
+/** The word asked for, waiting: [title] ("✍️ Tvoj učitelj piše pomen …"), what happens then; a spinner while [busy]. */
+@Composable
+private fun Waiting(title: String, then: String, busy: Boolean) {
+    Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth().semantics { liveRegion = LiveRegionMode.Polite }) {
+        Row(Modifier.padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
+            if (busy) {
+                CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
+                Spacer(Modifier.width(12.dp))
+            }
+            Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Text(title, style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
+                Text(then, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+        }
+    }
+}
+
+/** A word the dictionary has that the tapped one may be: the form (its lemma when another), what it means; ›. */
+@Composable
+private fun Suggestion(s: WordSuggestion, onClick: () -> Unit) {
+    val meaning = s.gloss.map { it.trim() }.filter { it.isNotEmpty() }.take(2).joinToString("; ")
+    val head = s.word + if (!s.lemma.equals(s.word, ignoreCase = true)) " (${s.lemma})" else ""
+    Surface(
+        onClick = onClick, color = MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.medium,
+        modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).semantics { contentDescription = "${bi("words.didYouMean")}: $head, $meaning" },
+    ) {
+        Row(Modifier.padding(horizontal = 14.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+            Column(Modifier.weight(1f)) {
+                Text(head, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                val what = listOfNotNull(s.pos?.takeIf { it.isNotBlank() }?.let(::posLabel), meaning.takeIf { it.isNotEmpty() })
+                if (what.isNotEmpty()) Text(what.joinToString(" — "), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2, overflow = TextOverflow.Ellipsis)
+            }
+            Text("›", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(start = 8.dp).clearAndSetSemantics { })
         }
     }
 }

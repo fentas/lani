@@ -88,7 +88,7 @@ class MainActivity : ComponentActivity() {
             dev = { what -> if (what == "again") vm.devUpload.forgetThrottle() else if (what == "off") vm.shadow.showDeveloper(false) },
             pair = { code -> vm.chooseLangPair(si.lanisce.lani.l10n.LangPair.parse(code)) }, grow = vm::qaAgeUp, formsCard = vm::qaFormsCard,
             data = { vm.dataOpen = true }, review = vm::qaReview, numbers = vm::qaNumbers, event = vm::qaEvent, hearths = vm::qaHearths,
-            request = vm::qaRequest,
+            request = vm::qaRequest, word = vm::qaWord,
             tutorLive = { base -> vm.live.update { it.copy(debugBaseUrl = base.ifBlank { null }) } })
         intent?.removeExtra(si.lanisce.lani.app.QaHooks.EXTRA)
         DeepLink.parse(intent?.getStringExtra(DeepLink.EXTRA))?.let(vm::open)

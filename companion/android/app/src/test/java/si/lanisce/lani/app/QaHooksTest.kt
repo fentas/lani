@@ -345,6 +345,16 @@ class QaHooksTest {
         assertEquals(listOf("mini", "car"), asked)
     }
 
+    @Test fun `a word's card QA names opens with its line and translation, and a release build hears nothing`() {
+        val asked = mutableListOf<String>()
+        QaHooks.handle("word:vretenom|Babica prede z vretenom.|Grandma spins with a spindle.", word = asked::add)
+        QaHooks.handle("word:zlica", word = asked::add)
+        assertEquals(listOf("vretenom|Babica prede z vretenom.|Grandma spins with a spindle.", "zlica"), asked)
+        QaHooks.enabled = false
+        QaHooks.handle("word:gozd", word = asked::add)
+        assertEquals(2, asked.size)
+    }
+
     @Test fun `a zoom is counted, and a release build hears nothing`() {
         val before = QaHooks.zooms
         QaHooks.handle("zoom")

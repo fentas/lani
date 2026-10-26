@@ -90,6 +90,8 @@ class BackgroundCheck(context: Context, params: WorkerParameters) : CoroutineWor
             // a newcomer's introduction: the bubble in the village says it (the arrival itself was news enough)
             // a card on the cheat sheet: marked new there, no notification of its own
             is BridgeEvent.VoiceUpdated, is BridgeEvent.WordsAdded, is BridgeEvent.LexiconUpdated, is BridgeEvent.SentenceExplained, is BridgeEvent.ArrivalPublished,
+            // a word asked for from its card got its meaning: quiet, the app says it when it's opened (the event replays)
+            is BridgeEvent.WordRequestDone,
             is BridgeEvent.CardPublished -> Unit
             is BridgeEvent.TownGuest -> post(("guest" + ev.kind + ev.from).hashCode(), "🧳 ${TownGuests.title(ev)}", ev.from, link)
             is BridgeEvent.TownQuestion -> post(("question" + ev.kind + ev.key).hashCode(), TownQuestions.title(ev), ev.text, link)

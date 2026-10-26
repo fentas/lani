@@ -1,5 +1,6 @@
 package si.lanisce.lani.data
 
+import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
@@ -244,5 +245,83 @@ class WordsTest {
         assertEquals(BridgeEvent.LexiconUpdated("gozd"), BridgeEvent.parse("""{"type":"lexicon_updated","word":"gozd"}"""))
         assertNull(BridgeEvent.parse("""{"type":"lexicon_updated"}"""))
         assertNull(DeepLink.of(BridgeEvent.WordsAdded(listOf("a"))))
+    }
+
+    @Test fun `a word asked for, done - its event parses, a name's and a visit's too`() {
+        assertEquals(
+            BridgeEvent.WordRequestDone("vretenom", "vreteno", listOf("spindle"), "vocab_word_vreteno", added = true),
+            BridgeEvent.parse("""{"type":"word_request_done","word":"vretenom","lemma":"vreteno","gloss":["spindle"],"item_id":"vocab_word_vreteno","added":true,"at":1}"""),
+        )
+        assertEquals(
+            BridgeEvent.WordRequestDone("Zalka", "Zalka", listOf("a name"), null, added = false, language = "it"),
+            BridgeEvent.parse("""{"type":"word_request_done","word":"Zalka","lemma":"Zalka","gloss":["a name"],"item_id":null,"added":false,"language":"it"}"""),
+        )
+        assertNull(BridgeEvent.parse("""{"type":"word_request_done"}"""))
+        assertNull(DeepLink.of(BridgeEvent.WordRequestDone("a", "a", emptyList(), null, false)))
+    }
+
+    @Test fun `not found - what it may be instead and whether it was asked for parse, an older node sends neither`() {
+        val l = Words.parse(
+            """{"word":"zlica","entries":[],"attribution":null,"requested":true,
+              "suggestions":[{"word":"žlica","lemma":"žlica","pos":"noun","gloss":["spoon"],"gloss_lang":"en"},{"word":"zli"}]}""",
+        )
+        assertTrue(l.requested)
+        assertEquals(listOf("žlica", "zli"), l.suggestions.map { it.word })
+        assertEquals("spoon", l.suggestions[0].gloss.single())
+        assertEquals("zli", l.suggestions[1].lemma) // the word itself when the node gives no lemma
+        val old = Words.parse("""{"word":"xyz","entries":[]}""")
+        assertFalse(old.requested)
+        assertTrue(old.suggestions.isEmpty())
+    }
+
+    @Test fun `the word asked for is the tapped one without its punctuation, and only a word`() {
+        assertEquals("vretenom", Words.requestable("«vretenom,»"))
+        assertEquals("l'acqua", Words.requestable("l'acqua"))
+        assertEquals("na svidenje", Words.requestable("na svidenje!"))
+        assertNull(Words.requestable("123"))
+        assertNull(Words.requestable("a<b>"))
+        assertNull(Words.requestable("x".repeat(41)))
+    }
+
+    @Test fun `the request's body - the word, its line and translation, where, a visit's language and the base`() {
+        val home = Words.requestData("vretenom", " Babica prede z vretenom. ", "Grandma spins.", "scene", meaningIn = "en")
+        assertEquals("vretenom", home["word"]!!.jsonPrimitive.content)
+        assertEquals("Babica prede z vretenom.", home["line"]!!.jsonPrimitive.content)
+        assertEquals("Grandma spins.", home["en"]!!.jsonPrimitive.content)
+        assertEquals("scene", home["from"]!!.jsonPrimitive.content)
+        assertEquals("en", home["base"]!!.jsonPrimitive.content)
+        assertFalse("language" in home)
+        val search = Words.requestData("motovilo", "", null, "search")
+        assertFalse("line" in search || "en" in search || "base" in search)
+        val visit = Words.requestData("arcolaio", "La nonna ha un arcolaio.", null, "villager", language = "it", meaningIn = "de")
+        assertEquals("it", visit["language"]!!.jsonPrimitive.content)
+        assertEquals("de", visit["base"]!!.jsonPrimitive.content)
+        assertFalse("base" in Words.requestData("x", "", null, "scene", language = "sl", meaningIn = "sl"))
+    }
+
+    @Test fun `the request goes to POST words requests, the chat message the old way's fallback, one client id`() {
+        val e = Writes.requestWord(Words.requestData("vretenom", "", null, "scene"), Words.addText("vretenom", ""), Words.askData("vretenom", "", null, add = true), id = "rq1", now = 1)
+        assertEquals("/words/requests", e.path)
+        assertEquals("rq1", Json.parseToJsonElement(e.body).jsonObject["client_id"]!!.jsonPrimitive.content)
+        assertEquals("/message", e.fallbackPath)
+        val chat = Json.parseToJsonElement(e.fallbackBody!!).jsonObject
+        assertEquals("rq1", chat["client_id"]!!.jsonPrimitive.content)
+        assertEquals("chat", chat["kind"]!!.jsonPrimitive.content)
+        assertEquals("true", chat["data"]!!.jsonObject["lookup"]!!.jsonObject["add"]!!.jsonPrimitive.content)
+        assertFalse("add" in Words.askData("gozdu", "", null)["lookup"]!!.jsonObject)
+    }
+
+    @Test fun `the words waiting - the node's first, then the outbox's not sent yet, each once`() {
+        val node = listOf(WaitingWord("vretenom", "sl", "Babica prede z vretenom."))
+        val outbox = listOf(
+            Words.requestData("Vretenom", "", null, "scene", language = "sl").toString(),
+            Words.requestData("motovilo", "", null, "search").toString(),
+            "not json",
+        )
+        val all = Words.waiting(node, outbox)
+        assertEquals(listOf("vretenom" to false, "motovilo" to true), all.map { it.word to it.queued })
+        assertEquals("Babica prede z vretenom.", all[0].line)
+        assertEquals(emptyList<WaitingWord>(), Words.waiting(emptyList(), emptyList()))
+        assertEquals(listOf(WaitingWord("x", "sl", "l")), Words.parseWaiting("""{"requests":[{"word":"x","language":"sl","base":"en","line":"l","at":"2026-10-26"}]}"""))
     }
 }

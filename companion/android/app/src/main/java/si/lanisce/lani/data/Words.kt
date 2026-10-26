@@ -58,9 +58,42 @@ data class WordEntry(
     val key: String get() = "$lemma|${pos.orEmpty()}"
 }
 
-/** GET /lookup: the form asked about and its meanings; no entries means the dictionary doesn't know it. */
+/**
+ * A word the dictionary has that a form it doesn't know may be ("Morda iščeš · Did you mean"): the [word] to look up
+ * instead, its lemma, part of speech and meaning (in [glossLang]).
+ */
 @Serializable
-data class WordLookup(val word: String, val entries: List<WordEntry> = emptyList(), val attribution: String? = null)
+data class WordSuggestion(
+    val word: String,
+    val lemma: String = word,
+    val pos: String? = null,
+    val gloss: List<String> = emptyList(),
+    @SerialName("gloss_lang") val glossLang: String? = null,
+)
+
+/**
+ * GET /lookup: the form asked about and its meanings; no entries means the dictionary doesn't know it. Then
+ * [suggestions] are the words it may be instead (a typo, an accent left out, another ending), and [requested] says the
+ * learner asked for it already ("➕ Add to my words": the tutor is writing its meaning). An older node sends neither.
+ */
+@Serializable
+data class WordLookup(
+    val word: String,
+    val entries: List<WordEntry> = emptyList(),
+    val attribution: String? = null,
+    val suggestions: List<WordSuggestion> = emptyList(),
+    val requested: Boolean = false,
+)
+
+/**
+ * A word the learner asked for that waits for the tutor's meaning (GET /words/requests; [queued]: still in the phone's
+ * outbox, offline): the form as tapped, its language (null: the village's), the line it was met in.
+ */
+@Serializable
+data class WaitingWord(val word: String, val language: String? = null, val line: String? = null, val queued: Boolean = false)
+
+@Serializable
+private data class WaitingWords(val requests: List<WaitingWord> = emptyList())
 
 /** The pure parts of looking a word up and adding it to the learner's words. */
 object Words {
@@ -106,6 +139,24 @@ object Words {
             .build()
 
     fun parse(raw: String): WordLookup = json.decodeFromString(WordLookup.serializer(), raw)
+
+    /** GET /words/requests: the words waiting for their meaning, the oldest first. */
+    fun parseWaiting(raw: String): List<WaitingWord> = json.decodeFromString(WaitingWords.serializer(), raw).requests
+
+    /**
+     * The words waiting for their meaning as "📚 Moje besede" lists them: the node's ([node]), then those still in the
+     * phone's outbox ([outbox]: POST /words/requests bodies), each word once (the outbox's is the node's once it went).
+     */
+    fun waiting(node: List<WaitingWord>, outbox: List<String>): List<WaitingWord> {
+        val queued = outbox.mapNotNull { body ->
+            val o = runCatching { json.parseToJsonElement(body) as? JsonObject }.getOrNull() ?: return@mapNotNull null
+            val word = (o["word"] as? JsonPrimitive)?.content ?: return@mapNotNull null
+            WaitingWord(word, (o["language"] as? JsonPrimitive)?.content, (o["line"] as? JsonPrimitive)?.content, queued = true)
+        }
+        val key = { w: WaitingWord -> "${w.language.orEmpty()}|${w.word.lowercase()}" }
+        val seen = node.map(key).toMutableSet()
+        return node + queued.filter { seen.add(key(it)) }
+    }
 
     /**
      * The entries a word card shows, each with the partner entry it carries under it (sesti with sedeti for "sedite"): an
@@ -198,16 +249,50 @@ object Words {
 
     /**
      * The chat message's data when the tutor is asked about a word: `{"lookup": {"word", "line", "en", "language"}}`;
-     * [language] on a visit, the town's (the tutor's gloss goes to that language's dictionary).
+     * [language] on a visit, the town's (the tutor's gloss goes to that language's dictionary); [add]: the learner wants
+     * it among their words (a node from before POST /words/requests gets the request as this message).
      */
-    fun askData(word: String, line: String, en: String?, language: String? = null): JsonObject = buildJsonObject {
+    fun askData(word: String, line: String, en: String?, language: String? = null, add: Boolean = false): JsonObject = buildJsonObject {
         put("lookup", buildJsonObject {
             put("word", word)
             put("line", line)
             en?.takeIf { it.isNotBlank() }?.let { put("en", it) }
             language?.let { put("language", it) }
+            if (add) put("add", true)
         })
     }
+
+    /**
+     * "➕ «vretenom» — Dodaj med moje besede · Add to my words" and the line below: the chat message a node from before
+     * POST /words/requests gets instead of the request (the tutor explains the word in the chat, and keeps it).
+     */
+    fun addText(word: String, line: String): String =
+        "➕ «$word» — ${bi("words.addToMyWords")}" + if (line.isNotBlank()) "\n«${line.trim()}»" else ""
+
+    /**
+     * POST /words/requests' body: a word the dictionary doesn't know that the learner wants among their words, the line
+     * it was met in and its translation, where ([from], as POST /words takes it), its [language] (a visit's, another
+     * deck's; null: the village's) and the language its meaning is wanted in ([meaningIn], left out when it is the
+     * word's own).
+     */
+    fun requestData(word: String, line: String, en: String?, from: String, language: String? = null, meaningIn: String? = null): JsonObject = buildJsonObject {
+        put("word", word.trim().take(40))
+        line.trim().takeIf { it.isNotEmpty() }?.let { put("line", it.take(MAX_LINE)) }
+        en?.trim()?.takeIf { it.isNotEmpty() }?.let { put("en", it.take(MAX_LINE)) }
+        put("from", from)
+        language?.let { put("language", it) }
+        meaningIn?.takeIf { it != language }?.let { put("base", it) }
+    }
+
+    /**
+     * The form a word asked for is sent as: the tapped token without the punctuation around it ("vretenom," → vretenom),
+     * as the node looks it up; null when nothing of it is a word POST /words/requests takes (letters, an apostrophe, a
+     * hyphen or a space inside, at most 40).
+     */
+    fun requestable(word: String): String? =
+        word.replace(Regex("^[^\\p{L}]+|[^\\p{L}\\p{M}]+$"), "").takeIf { it.isNotEmpty() && it.length <= 40 && REQUESTABLE.matches(it) }
+
+    private val REQUESTABLE = Regex("^[\\p{L}\\p{M}][\\p{L}\\p{M}'’ -]*$")
 
     /** "📖 «gozdu» — Kaj pomeni tukaj? · What does it mean here?" and the line below. */
     fun askText(word: String, line: String): String =

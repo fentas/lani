@@ -52,6 +52,9 @@ class SyncController(
         return flush()?.sent?.any { it.clientId == e.clientId } == true
     }
 
+    /** The writes to [path] waiting in the outbox (offline), oldest first. */
+    suspend fun queued(path: String): List<OutboxEntry> = withContext(Dispatchers.IO) { outbox.entries().filter { it.path == path } }
+
     /** [submit] in the background; a failure goes to the snackbar. */
     fun submitLater(e: OutboxEntry): Job = scope.launchSafely(notices::fail) { submit(e) }
 

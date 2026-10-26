@@ -67,7 +67,7 @@ sealed interface DeepLink {
             is BridgeEvent.ScenePublished -> if (ev.removed || ev.id.isEmpty()) Village else Scene(ev.id)
             // A permission prompt shows as a dialog once the app is open; an update as the Home banner.
             is BridgeEvent.PermissionRequest, is BridgeEvent.AppUpdate, BridgeEvent.VoiceUpdated,
-            is BridgeEvent.WordsAdded, is BridgeEvent.LexiconUpdated, is BridgeEvent.SentenceExplained -> null
+            is BridgeEvent.WordsAdded, is BridgeEvent.LexiconUpdated, is BridgeEvent.SentenceExplained, is BridgeEvent.WordRequestDone -> null
             // a card on the cheat sheet: it shows there, marked new, the next time it's opened
             is BridgeEvent.CardPublished -> null
             // a newcomer's introduction: their bubble waits in the village

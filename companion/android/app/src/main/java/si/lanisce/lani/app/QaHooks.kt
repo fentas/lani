@@ -63,6 +63,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   stores full, a free plot, the next age's when its own are all taken) and the plot chooser opens for it over the map
  *   ([build], taken by the village: [tookBuild]), with its ★; QA looks at the HUD over it (its cards hidden) and goes back,
  *   nothing built. "build:" lets it go.
+ * - "word:<word>|<line>|<en>": that word's card opens as a tap on it in that line (meant [en]) would, from a scene: QA's
+ *   word the dictionary doesn't know, added from its card (companion/README.md, "Word lookup").
  * - "chat:<text>": a tutor message comes into the chat on the phone (as a reply would, not sent anywhere; "\n" in [text]
  *   a new line), "chat:table" the tutor's imeti with its list ([TUTOR_TABLE]): QA pins it to the cheat sheet.
  * - "cheat" opens the cheat sheet; "cheat:<page>,<page>" as an exercise of those grammar pages would (their cards first).
@@ -324,7 +326,7 @@ object QaHooks {
         shadow: (String) -> Unit = {}, counting: (String) -> Unit = {}, dev: (String) -> Unit = {}, pair: (String) -> Unit = {},
         grow: (si.lanisce.lani.game.Age) -> Unit = {}, formsCard: (String, String) -> Unit = { _, _ -> }, data: () -> Unit = {}, tutorLive: (String) -> Unit = {},
         review: () -> Unit = {}, numbers: (String) -> Unit = {}, event: (String) -> Unit = {}, hearths: (String) -> Unit = {},
-        request: (List<String>) -> Unit = {},
+        request: (List<String>) -> Unit = {}, word: (String) -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
@@ -390,6 +392,7 @@ object QaHooks {
                 project = arg.substringBefore('/').takeIf { it.isNotBlank() && n != null }
                 project?.let { step(it, n!!) }
             }
+            command.startsWith("word:") -> word(command.removePrefix("word:"))
             command == "chat:table" -> chat(TUTOR_TABLE)
             command.startsWith("chat:") -> command.removePrefix("chat:").replace("\\n", "\n").takeIf { it.isNotBlank() }?.let(chat)
             command == "cheat" -> cheat(emptyList())

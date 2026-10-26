@@ -39,6 +39,7 @@ import si.lanisce.lani.tutor.TurnKind
 import si.lanisce.lani.tutor.TurnStatus
 import si.lanisce.lani.tutor.Usage
 import si.lanisce.lani.tutor.blocks
+import si.lanisce.lani.tutor.hasToolResult
 import si.lanisce.lani.tutor.message
 import si.lanisce.lani.tutor.obj
 import si.lanisce.lani.tutor.role
@@ -309,6 +310,31 @@ class LiveTutorTest {
         assertEquals("session-042", rec!!["args"]!!.jsonObject["session_id"]!!.jsonPrimitive.content)
         assertEquals(listOf(id), node.acked)
         assertEquals("grading's model (Haiku), a stateless call", TurnKind.STATELESS, t.today.turns.single().kind)
+    }
+
+    @Test fun `a word asked for from its card - at once on the routine model, its gloss through the bridge, no batch, no reply`() = runBlocking {
+        val t = ready()
+        t.update { it.copy(batches = true) }.join() // what can wait goes overnight: the card can't
+        script = { body, n ->
+            if (!hasToolResult(body)) message("tool_use", toolUse("g$n", "publish_gloss", obj("form" to "vretenom", "lemma" to "vreteno", "pos" to "noun", "gloss" to JsonArray(listOf(JsonPrimitive("spindle"))), "gloss_lang" to "en")))
+            else message("end_turn", text("Opravljeno."))
+        }
+        val id = node.push(
+            "gloss_request", "main",
+            "App: Jan tapped \"Add to my words\" on a word the dictionary doesn't know: «vretenom». For each, call publish_gloss …\n\n" +
+                "```json\n{\"gloss_requests\": {\"language\": \"sl\", \"gloss_lang\": \"en\", \"words\": [{\"form\": \"vretenom\", \"line\": \"Babica prede z vretenom.\"}]}}\n```",
+        )
+        t.backgroundCheck()
+        val gloss = node.tools.firstOrNull { it.first == "publish_gloss" }?.second
+        assertNotNull("publish_gloss ran on the bridge", gloss)
+        assertEquals("vreteno", gloss!!["args"]!!.jsonObject["lemma"]!!.jsonPrimitive.content)
+        assertTrue("no reply needed", node.tools.none { it.first == "reply" })
+        assertEquals(listOf(id), node.acked)
+        val turn = t.today.turns.single()
+        assertEquals("gloss_request", turn.eventKind)
+        assertEquals(Task.ROUTINE, turn.task)
+        assertEquals("the routine model, a stateless call", TurnKind.STATELESS, turn.kind)
+        assertEquals(TurnStatus.DONE, turn.status)
     }
 
     @Test fun `the digest, nothing worth saying is acknowledged without a call, a wrong answer is a turn`() = runBlocking {

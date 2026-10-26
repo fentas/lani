@@ -11,12 +11,16 @@ import si.lanisce.lani.data.Bridge
 import si.lanisce.lani.data.PackSession
 import si.lanisce.lani.data.PackWord
 import si.lanisce.lani.data.ReviewCard
+import si.lanisce.lani.data.BridgeEvent
 import si.lanisce.lani.data.VisitWorld
+import si.lanisce.lani.data.WaitingWord
 import si.lanisce.lani.data.WordEntry
 import si.lanisce.lani.data.WordLookup
+import si.lanisce.lani.data.WordSuggestion
 import si.lanisce.lani.data.Words
 import si.lanisce.lani.data.Writes
 import si.lanisce.lani.l10n.L10n
+import si.lanisce.lani.l10n.bi
 
 /**
  * A word tapped in a line: the form as written ([word]), the line it's in and its translation ([en], when there is
@@ -44,7 +48,10 @@ data class WordQuery(
 sealed interface WordState {
     data object Loading : WordState
     data class Found(val lookup: WordLookup) : WordState
-    /** The dictionary doesn't know it: the tutor can say. */
+    /**
+     * The dictionary doesn't know it: the words it may be instead ([WordLookup.suggestions]), "➕ Add to my words" (the
+     * tutor writes its meaning: [WordsController.request]; [WordLookup.requested]: asked for already), and the tutor to ask.
+     */
     data class NotFound(val lookup: WordLookup) : WordState
     /** The node is older than lookups (404). */
     data object Unavailable : WordState
@@ -55,13 +62,29 @@ sealed interface WordState {
 /** An entry being added to the learner's words: on its way, on the node, or waiting in the outbox (offline). */
 enum class Adding { SENDING, ADDED, QUEUED }
 
-/** The word card on screen: what was tapped, what's known about it, and which entries were added (by [WordEntry.key]). */
-data class WordCard(val query: WordQuery, val state: WordState = WordState.Loading, val added: Map<String, Adding> = emptyMap())
+/**
+ * A word the dictionary doesn't know, asked for from its card ([WordsController.request]): on its way, waiting on the
+ * node for the tutor's meaning, waiting in the outbox (offline), or done (its meaning came: the card looks again).
+ */
+enum class Requesting { SENDING, WAITING, QUEUED, DONE }
+
+/**
+ * The word card on screen: what was tapped, what's known about it, which entries were added (by [WordEntry.key]), and,
+ * for a word the dictionary didn't know, how asking for it goes ([request]; [requestedItem]: the review item it became).
+ */
+data class WordCard(
+    val query: WordQuery,
+    val state: WordState = WordState.Loading,
+    val added: Map<String, Adding> = emptyMap(),
+    val request: Requesting? = null,
+    val requestedItem: String? = null,
+)
 
 /**
  * Looking up words tapped in dialogs, role-plays and villagers' lines (GET /lookup), adding them to the learner's
- * words (POST /words, through the outbox), and asking the tutor about a word the dictionary doesn't know.
- * One [card] at a time; the sheet shows it over any screen.
+ * words (POST /words, through the outbox), and a word the dictionary doesn't know: one it may be instead ("Did you
+ * mean …?"), asked for with one tap (POST /words/requests: the tutor writes its meaning and the node adds it), or the
+ * tutor asked in the chat. One [card] at a time; the sheet shows it over any screen.
  */
 class WordsController(
     private val scope: CoroutineScope,
@@ -93,6 +116,10 @@ class WordsController(
     /** The learner's words in [language] (null: the home language's) for [Words.yours]: [deck]'s cards and the fresh ones. */
     fun mine(language: String?, deck: List<ReviewCard>?): Words.Mine =
         Words.Mine.of(deck.orEmpty() + fresh[language].orEmpty(), language ?: L10n.ownPair.target.code)
+
+    /** The words asked for that wait for their meaning ("📚 Moje besede"): [loadWaiting] fills it. */
+    var waiting by mutableStateOf<List<WaitingWord>>(emptyList())
+        private set
 
     /** What the bridge [sources] were asked of takes as `from` (GET /words; null: an older bridge, the old four). */
     private var sources: Pair<Bridge, Set<String>?>? = null
@@ -159,7 +186,11 @@ class WordsController(
                 if (quiet) return@launch
                 WordState.Offline
             }
-            card?.takeIf { it.query == q }?.let { card = it.copy(state = state) }
+            card?.takeIf { it.query == q }?.let { c ->
+                // the word asked for came back as an entry: it shows added (the node added it with its meaning)
+                val asked = c.requestedItem?.let { id -> (state as? WordState.Found)?.lookup?.entries?.filter { it.itemId == id } }.orEmpty()
+                card = c.copy(state = state, added = c.added + asked.associate { it.key to Adding.ADDED })
+            }
         }
     }
 
@@ -184,6 +215,74 @@ class WordsController(
             val sent = sync.submit(write)
             card?.takeIf { it.query == q }?.let { card = it.copy(added = it.added + (e.key to if (sent) Adding.ADDED else Adding.QUEUED)) }
         }
+    }
+
+    /**
+     * "➕ Add to my words" on a word the dictionary doesn't know: the node asks the tutor for its meaning (POST
+     * /words/requests, through the outbox: queued offline, kept across restarts) and adds the word when it comes. The card
+     * stays open, saying the tutor is writing it, and fills in then ([onWordRequestDone], [onLexiconUpdated]); closed
+     * meanwhile, a quiet notice says so. On a visit the word is the town's language's, its meaning in the visit's base.
+     */
+    fun request() {
+        val c = card ?: return
+        if (c.state !is WordState.NotFound || c.request != null || c.state.lookup.requested) return
+        val q = c.query
+        val word = Words.requestable(q.word) ?: return
+        card = c.copy(request = Requesting.SENDING)
+        val back = { card?.takeIf { it.query == q && it.request == Requesting.SENDING }?.let { card = it.copy(request = null) } }
+        scope.launchSafely({ e -> back(); notices.fail(e) }) {
+            val pair = L10n.pair
+            val body = Words.requestData(word, q.line, q.en, sourceFor(q.from), q.lang, pair.base.code.takeIf { pair.base != pair.target })
+            val e = Writes.requestWord(body, Words.addText(word, q.line), Words.askData(word, q.line, q.en, q.lang, add = true))
+            val sent = sync.submit(e)
+            // not sent and not waiting either: the node refused it (the snackbar says why), the button is back
+            val state = when {
+                sent -> Requesting.WAITING
+                sync.queued(e.path).any { it.clientId == e.clientId } -> Requesting.QUEUED
+                else -> null
+            }
+            card?.takeIf { it.query == q && it.request == Requesting.SENDING }?.let { card = it.copy(request = state) }
+            loadWaiting()
+        }
+    }
+
+    /** A word the dictionary may mean instead ("Did you mean …?"): its card, in the same line. */
+    fun openSuggestion(s: WordSuggestion) {
+        val q = card?.query ?: return
+        open(q.copy(word = s.word))
+    }
+
+    /**
+     * A word asked for got its meaning (word_request_done): the card open on it shows it added and looks again (its entry
+     * is the tutor's now); else a quiet notice says it is among the learner's words, with its meaning.
+     */
+    fun onWordRequestDone(ev: BridgeEvent.WordRequestDone) {
+        val c = card
+        val word = c?.query?.word?.let(Words::requestable)
+        val onCard = c != null && word != null && word.equals(ev.word, ignoreCase = true) && (ev.language == null || c.query.lang == null || ev.language == c.query.lang)
+        if (onCard) {
+            card = c!!.copy(request = Requesting.DONE, requestedItem = ev.itemId)
+            fetch(c.query, quiet = true)
+        } else if (ev.added) {
+            val meaning = ev.gloss.map { it.trim() }.filter { it.isNotEmpty() }.take(2).joinToString(", ")
+            notices.banner = "📚 ${bi("words.nowInYourWords")}: «${ev.lemma}»" + if (meaning.isNotEmpty()) " — $meaning" else ""
+        }
+        // QA reads where it showed (a debug or qa build)
+        if (si.lanisce.lani.BuildConfig.QA) runCatching { android.util.Log.i("WordRequest", "done «${ev.word}» ${if (onCard) "card" else if (ev.added) "notice" else "quiet"}") }
+        scope.launchSafely({}) { loadWaiting() }
+    }
+
+    /** The words waiting for their meaning: the node's (GET /words/requests) and those still in the outbox. */
+    suspend fun loadWaiting() {
+        val node = try {
+            bridge()?.wordRequests()
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            null // offline: the outbox's at least
+        }
+        val queued = sync.queued("/words/requests").map { it.body }
+        waiting = Words.waiting(node ?: waiting.filter { !it.queued }, queued)
     }
 
     /** Asks the tutor what the word means in its line; the chat opens for the answer. */

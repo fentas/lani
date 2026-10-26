@@ -48,8 +48,10 @@ import si.lanisce.lani.app.MyWordsSearch
 import si.lanisce.lani.app.WordQuery
 import si.lanisce.lani.data.MyWord
 import si.lanisce.lani.data.MyWords
+import si.lanisce.lani.data.WaitingWord
 import si.lanisce.lani.data.WordEntry
 import si.lanisce.lani.data.Words
+import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.bi
 import si.lanisce.lani.l10n.inBase
 import si.lanisce.lani.ui.GradientHeader
@@ -59,6 +61,8 @@ import java.time.LocalDate
 // "📚 Moje besede · My words" (data/MyWords.kt; companion/README.md "My words"): the learner's words, the newest few on
 // top, then all of them by letter; a search that filters them as it is typed and looks the word up in the dictionary
 // (GET /lookup) when it isn't one of theirs. A word opens its card (WordSheet: its meanings, its forms, "📋 Vse oblike").
+// A word asked for that waits for the tutor's meaning (GET /words/requests, or the outbox offline) is on top ("✍️ Čakajo na
+// pomen"); a search the dictionary doesn't know offers its card all the same ("➕ Dodaj «…» med moje besede").
 // The app draws edge to edge and the window doesn't shrink for the keyboard: the screen keeps above it (imePadding after
 // navigationBarsPadding), the search field at its top, the list taking the room left.
 
@@ -81,6 +85,9 @@ fun MyWordsScreen(vm: AppViewModel, at: Screen.MyWords) {
         android.util.Log.i("MyWords", "«${search.query}» ${if (search.query.isBlank()) words.size else found.size} of ${words.size}; dictionary ${search.look::class.simpleName}")
     }
     val open = { w: String -> vm.words.open(WordQuery(w, "", null, Words.SEARCH)) }
+    // the words asked for that wait for their meaning (the node's, and the outbox's while offline): on top
+    LaunchedEffect(Unit) { vm.words.loadWaiting() }
+    val waiting = vm.words.waiting
     Column(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).navigationBarsPadding().imePadding()) {
         val learning = words.size - known
         GradientHeader(
@@ -101,6 +108,10 @@ fun MyWordsScreen(vm: AppViewModel, at: Screen.MyWords) {
                         "🌱 ${bi("myWords.empty")}", style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(20.dp),
                     )
+                }
+                if (waiting.isNotEmpty()) {
+                    item("h-waiting") { GroupHead("✍️ ${bi("myWords.waiting")}") }
+                    items(waiting, key = { "w-${it.language}-${it.word}" }) { w -> WaitingRow(w) { vm.words.open(WordQuery(w.word, w.line.orEmpty(), null, Words.SEARCH, language = w.language?.takeIf { it != L10n.ownPair.target.code })) } }
                 }
                 for (g in groups) {
                     item("h-${g.key}") { GroupHead(if (g.recent) "🆕 ${bi("myWords.recent")}" else g.key) }
@@ -178,9 +189,45 @@ private fun Dictionary(look: DictionaryLook, mine: Boolean, open: (String) -> Un
             GroupHead("📖 ${bi("myWords.dictionary")}")
             for (e in look.entries) EntryRow(e) { open(look.word) }
         }
-        is DictionaryLook.NotFound -> if (!mine) Quiet("🤷 ${bi("words.notInDictionary")}")
+        // not in the dictionary: its card all the same, where it can be added (the tutor writes its meaning)
+        is DictionaryLook.NotFound -> if (!mine) Column {
+            Quiet("🤷 ${bi("words.notInDictionary")}")
+            AddMissingRow(look.word) { open(look.word) }
+        }
         is DictionaryLook.Offline -> if (!mine) Quiet("📶 ${bi("words.cantReachTutor")}")
         DictionaryLook.Unavailable -> if (!mine) Quiet("🧭 ${bi("words.lookupNeedsNewerTutor")}")
+    }
+}
+
+/** A word asked for, waiting for its meaning: the word, and the line it was met in, or that it waits to be sent (offline). */
+@Composable
+private fun WaitingRow(w: WaitingWord, onClick: () -> Unit) {
+    Surface(onClick = onClick, color = MaterialTheme.colorScheme.background, modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp)) {
+        Row(Modifier.padding(horizontal = 20.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+            Column(Modifier.weight(1f)) {
+                val other = w.language?.takeIf { it != L10n.ownPair.target.code }?.let { " · ${it.uppercase()}" }.orEmpty()
+                Text(w.word + other, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                Text(
+                    if (w.queued) "📶 ${bi("words.reachesTutorOnline")}" else w.line?.takeIf { it.isNotBlank() }?.let { "«${it.trim()}»" } ?: bi("words.tutorWriting"),
+                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1, overflow = TextOverflow.Ellipsis,
+                )
+            }
+            Text("✍️", modifier = Modifier.padding(start = 8.dp).semantics { contentDescription = bi("words.tutorWriting") })
+        }
+    }
+}
+
+/** A word searched that the dictionary doesn't know: "➕ Add «it» to my words", its card (where the tutor is asked for its meaning). */
+@Composable
+private fun AddMissingRow(word: String, onClick: () -> Unit) {
+    Surface(onClick = onClick, color = MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.medium, modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 3.dp).heightIn(min = 52.dp)) {
+        Row(Modifier.padding(horizontal = 14.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+            Column(Modifier.weight(1f)) {
+                Text("➕ ${bi("myWords.addMissing", "word" to word)}", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                Text("✍️ ${bi("words.tutorWritesIt")}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+            Text("›", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(start = 8.dp).clearAndSetSemantics { })
+        }
     }
 }
 

@@ -321,6 +321,17 @@ object Writes {
     }, id, now)
 
     /**
+     * A word the dictionary doesn't know that the learner wants among their words ("➕ Add to my words" on its card): POST
+     * /words/requests with [body] ([Words.requestData]). It waits on the node for the tutor's meaning and becomes one of
+     * their words then. A node from before the route (404) gets it as a chat message to the tutor instead ([text], [data]:
+     * [Words.addText], data.lookup with add), the same client id.
+     */
+    fun requestWord(body: JsonObject, text: String, data: JsonObject, id: String = Outbox.newId(), now: Long = System.currentTimeMillis()): OutboxEntry {
+        val chat = message("chat", "main", text, data, id, now)
+        return entry("/words/requests", bi("outbox.word"), body, id, now).copy(fallbackPath = chat.path, fallbackBody = chat.body)
+    }
+
+    /**
      * Reading practice ([ReadingPractice]: a reading's questions, a story heard to its end, a reading aloud), persisted as
      * the learner's reading (and speaking) practice on the node.
      */
