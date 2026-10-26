@@ -1,0 +1,112 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "nella-tenda",
+  "language": "it",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in it, with sl, en and de translations, from the tent's picture (its painter's colours and where each thing is drawn, as v-sotoru's clues have them); not reviewed by a native speaker",
+  "things": {
+    "lantern": {
+      "clues": [
+        { "kind": "colour", "it": "È nera.", "sl": "Je črne barve.", "en": "It's black.", "de": "Sie ist schwarz.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "Pende da una catena.", "sl": "Visi na verigi.", "en": "It hangs on a chain.", "de": "Sie hängt an einer Kette.", "grammar": ["presente-regolare"] },
+        { "kind": "where", "it": "È appesa sopra il tavolo.", "sl": "Visi nad mizo.", "en": "It hangs above the table.", "de": "Sie hängt über dem Tisch.", "grammar": ["dove-preposizioni", "aggettivi-accordo"] },
+        { "kind": "use", "it": "L'accendiamo di sera.", "sl": "To zvečer prižgemo.", "en": "We light it in the evening.", "de": "Wir zünden sie am Abend an.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "sleepingbag": {
+      "name": { "en": "sleeping bag", "de": "Schlafsack", "sl": "spalna vreča" },
+      "clues": [
+        { "kind": "colour", "it": "È verde.", "sl": "Je zelene barve.", "en": "It's green.", "de": "Er ist grün.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha una cerniera.", "sl": "Ima zadrgo.", "en": "It has a zip.", "de": "Er hat einen Reißverschluss.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È sul letto.", "sl": "Je na postelji.", "en": "It's on the bed.", "de": "Er liegt auf dem Bett.", "grammar": ["preposizioni-articolate"] },
+        { "kind": "does", "it": "Di notte ci tiene caldo.", "sl": "Ponoči nas greje.", "en": "At night it keeps us warm.", "de": "Nachts hält er uns warm.", "grammar": ["verbi-irregolari"] }
+      ]
+    },
+    "blanket": {
+      "clues": [
+        { "kind": "colour", "it": "È rossa.", "sl": "Je rdeče barve.", "en": "It's red.", "de": "Sie ist rot.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "material", "it": "È di lana.", "sl": "Je iz volne.", "en": "It's made of wool.", "de": "Sie ist aus Wolle.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È piegata sul letto.", "sl": "Zložena leži na postelji.", "en": "It's folded on the bed.", "de": "Sie liegt gefaltet auf dem Bett.", "grammar": ["preposizioni-articolate", "aggettivi-accordo"] },
+        { "kind": "use", "it": "La prendiamo quando abbiamo freddo.", "sl": "Vzamemo jo, ko nas zebe.", "en": "We take it when we're cold.", "de": "Wir nehmen sie, wenn uns kalt ist.", "grammar": ["essere-avere", "presente-regolare"] }
+      ]
+    },
+    "pillow": {
+      "clues": [
+        { "kind": "colour", "it": "È bianco.", "sl": "Je bele barve.", "en": "It's white.", "de": "Es ist weiß.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "È morbido.", "sl": "To je nekaj mehkega.", "en": "It's soft.", "de": "Es ist weich.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È sul letto, accanto al sacco a pelo.", "sl": "Je na postelji, zraven spalne vreče.", "en": "It's on the bed, next to the sleeping bag.", "de": "Es liegt auf dem Bett, neben dem Schlafsack.", "grammar": ["dove-preposizioni", "preposizioni-articolate"], "ref": "sleepingbag" },
+        { "kind": "use", "it": "Ci appoggiamo la testa.", "sl": "Tja položimo glavo.", "en": "We lay our head on it.", "de": "Darauf legen wir den Kopf.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "backpack": {
+      "clues": [
+        { "kind": "trait", "it": "Ha una tasca.", "sl": "Ima žep.", "en": "It has a pocket.", "de": "Er hat eine Tasche.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È per terra.", "sl": "Je na tleh.", "en": "It's on the floor.", "de": "Er steht auf dem Boden.", "grammar": ["dove-preposizioni"] },
+        { "kind": "where", "it": "È vicino alla giacca.", "sl": "Je zraven jakne.", "en": "It's next to the jacket.", "de": "Er steht neben der Jacke.", "grammar": ["dove-preposizioni", "preposizioni-articolate"], "ref": "coat" },
+        { "kind": "use", "it": "Ci mettiamo le cose per la gita.", "sl": "Tja damo stvari za izlet.", "en": "We put our things for a trip in it.", "de": "Da packen wir die Sachen für den Ausflug hinein.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "map": {
+      "clues": [
+        { "kind": "colour", "it": "È verde e blu.", "sl": "Je zelene in modre barve.", "en": "It's green and blue.", "de": "Sie ist grün und blau.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È sulla parete.", "sl": "Je na steni.", "en": "It's on the wall.", "de": "Sie hängt an der Wand.", "grammar": ["preposizioni-articolate"] },
+        { "kind": "where", "it": "È sopra il letto.", "sl": "Je nad posteljo.", "en": "It's above the bed.", "de": "Sie hängt über dem Bett.", "grammar": ["dove-preposizioni"] },
+        { "kind": "use", "it": "Mostra la strada per il tesoro.", "sl": "Kaže pot do zaklada.", "en": "It shows the way to the treasure.", "de": "Sie zeigt den Weg zum Schatz.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "boots": {
+      "number": "pl",
+      "name": { "en": "hiking boots", "de": "Wanderschuhe", "sl": "pohodni čevlji" },
+      "clues": [
+        { "kind": "colour", "it": "Sono marroni.", "sl": "So rjave barve.", "en": "They're brown.", "de": "Die sind braun.", "grammar": ["aggettivi-accordo", "plurale"] },
+        { "kind": "material", "it": "Sono di cuoio.", "sl": "So iz usnja.", "en": "They're made of leather.", "de": "Die sind aus Leder.", "grammar": ["essere-avere"] },
+        { "kind": "trait", "it": "Hanno i lacci.", "sl": "Imajo vezalke.", "en": "They have laces.", "de": "Die haben Schnürsenkel.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "Sono per terra.", "sl": "So na tleh.", "en": "They're on the floor.", "de": "Die stehen auf dem Boden.", "grammar": ["dove-preposizioni"] },
+        { "kind": "use", "it": "Li mettiamo ai piedi.", "sl": "Obujemo jih.", "en": "We wear them on our feet.", "de": "Die ziehen wir an die Füße.", "grammar": ["presente-regolare", "preposizioni-articolate"] }
+      ]
+    },
+    "coat": {
+      "clues": [
+        { "kind": "colour", "it": "È blu.", "sl": "Je modre barve.", "en": "It's blue.", "de": "Sie ist blau.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha i bottoni gialli.", "sl": "Ima rumene gumbe.", "en": "It has yellow buttons.", "de": "Sie hat gelbe Knöpfe.", "grammar": ["essere-avere", "aggettivi-accordo"] },
+        { "kind": "where", "it": "È appesa al palo.", "sl": "Visi na drogu.", "en": "It hangs on the pole.", "de": "Sie hängt am Pfosten.", "grammar": ["preposizioni-articolate", "aggettivi-accordo"] },
+        { "kind": "where", "it": "È sotto il cappello.", "sl": "Je pod klobukom.", "en": "It's under the hat.", "de": "Sie hängt unter dem Hut.", "grammar": ["dove-preposizioni"], "ref": "hat" },
+        { "kind": "use", "it": "La mettiamo quando fa freddo.", "sl": "Oblečemo jo, ko je mraz.", "en": "We put it on when it's cold.", "de": "Wir ziehen sie an, wenn es kalt ist.", "grammar": ["verbi-irregolari"] }
+      ]
+    },
+    "hat": {
+      "clues": [
+        { "kind": "colour", "it": "È marrone.", "sl": "Je rjave barve.", "en": "It's brown.", "de": "Er ist braun.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha una piuma.", "sl": "Ima pero.", "en": "It has a feather.", "de": "Er hat eine Feder.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È in cima al palo.", "sl": "Je na vrhu droga.", "en": "It's on top of the pole.", "de": "Er sitzt oben auf dem Pfosten.", "grammar": ["dove-preposizioni", "preposizioni-articolate"] },
+        { "kind": "where", "it": "È sopra la giacca.", "sl": "Je nad jakno.", "en": "It's above the jacket.", "de": "Er ist über der Jacke.", "grammar": ["dove-preposizioni"], "ref": "coat" },
+        { "kind": "use", "it": "Lo mettiamo in testa.", "sl": "Damo si ga na glavo.", "en": "We put it on our head.", "de": "Den setzen wir auf den Kopf.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "book": {
+      "clues": [
+        { "kind": "colour", "it": "Ha la copertina rossa.", "sl": "Ima rdeče platnice.", "en": "It has a red cover.", "de": "Es hat einen roten Einband.", "grammar": ["essere-avere", "aggettivi-accordo"] },
+        { "kind": "trait", "it": "È aperto.", "sl": "To je nekaj odprtega.", "en": "It's open.", "de": "Es ist offen.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È sul tavolo.", "sl": "Je na mizi.", "en": "It's on the table.", "de": "Es liegt auf dem Tisch.", "grammar": ["preposizioni-articolate"] },
+        { "kind": "use", "it": "Lo leggiamo di sera.", "sl": "Zvečer to beremo.", "en": "We read it in the evening.", "de": "Abends lesen wir darin.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "cup": {
+      "name": { "en": "mug", "de": "Becher", "sl": "lonček" },
+      "clues": [
+        { "kind": "size", "it": "È piccola.", "sl": "To je nekaj majhnega.", "en": "It's small.", "de": "Sie ist klein.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha un manico.", "sl": "Ima ročaj.", "en": "It has a handle.", "de": "Sie hat einen Henkel.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È sul tavolo, vicino al libro.", "sl": "Je na mizi, zraven knjige.", "en": "It's on the table, next to the book.", "de": "Sie steht auf dem Tisch, neben dem Buch.", "grammar": ["preposizioni-articolate", "dove-preposizioni"], "ref": "book" },
+        { "kind": "use", "it": "Ci beviamo il tè.", "sl": "Iz tega pijemo čaj.", "en": "We drink tea from it.", "de": "Daraus trinken wir Tee.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "rope": {
+      "clues": [
+        { "kind": "colour", "it": "È marrone chiaro.", "sl": "Je svetlo rjave barve.", "en": "It's light brown.", "de": "Es ist hellbraun.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "size", "it": "È lunga.", "sl": "To je nekaj dolgega.", "en": "It's long.", "de": "Es ist lang.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È fuori, sull'erba.", "sl": "Leži zunaj na travi.", "en": "It's outside, on the grass.", "de": "Es liegt draußen im Gras.", "grammar": ["preposizioni-articolate"] },
+        { "kind": "use", "it": "Tiene ferma la tenda.", "sl": "Drži šotor, da stoji.", "en": "It holds the tent in place.", "de": "Es hält das Zelt fest.", "grammar": ["verbi-irregolari"] }
+      ]
+    }
+  }
+}

@@ -1,0 +1,288 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "nella-tenda",
+  "language": "it",
+  "title": { "it": "Nella tenda", "sl": "V šotoru", "en": "In the tent", "de": "Im Zelt" },
+  "emoji": "⛺",
+  "level": "A1",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker",
+  "art": "tent",
+  "from": ["tent"],
+  "pack": "nella-tenda",
+  "objects": [
+    { "slot": "lantern", "word": "lanterna" },
+    { "slot": "sleepingbag", "word": "sacco-a-pelo" },
+    { "slot": "blanket", "word": "coperta", "pack": "festa-pasquetta" },
+    { "slot": "pillow", "word": "cuscino" },
+    { "slot": "backpack", "word": "zaino" },
+    { "slot": "map", "word": "mappa" },
+    { "slot": "boots", "word": "scarponi" },
+    { "slot": "coat", "word": "giacca" },
+    { "slot": "hat", "word": "cappello" },
+    { "slot": "book", "word": "libro" },
+    { "slot": "cup", "word": "tazza" },
+    { "slot": "rope", "word": "corda" }
+  ],
+  "people": [
+    { "id": "davide", "name": "Pastore Davide", "emoji": "🐑", "art": "shepherd", "slot": "door", "villager": "davide" },
+    { "id": "lorenzo", "name": "Lorenzo", "emoji": "👦", "art": "child3", "slot": "left", "villager": "lorenzo" },
+    { "id": "giulia", "name": "Giulia", "emoji": "👧", "art": "child2", "slot": "right", "villager": "giulia" }
+  ],
+  "happenings": [
+    {
+      "id": "lanterna", "title": { "it": "Davide porta una lanterna", "sl": "Davide prinese svetilko", "en": "Davide brings a lantern", "de": "Davide bringt eine Laterne" }, "who": "davide",
+      "when": ["evening"], "chance": 0.5, "dialog": "lanterna", "dialogs": ["lanterna-libro", "lanterna"], "reward": { "wood": 15 }, "marker": "🏮",
+      "memory": { "it": "la lanterna che ti ho portato nella tenda", "sl": "svetilko, ki sem ti jo prinesel v šotor", "en": "the lantern I brought you in the tent", "de": "die Laterne, die ich dir ins Zelt gebracht habe" }
+    },
+    {
+      "id": "pioggia", "title": { "it": "Davide si ripara dalla pioggia", "sl": "Davide se skrije pred dežjem", "en": "Davide shelters from the rain", "de": "Davide sucht Schutz vor dem Regen" }, "who": "davide",
+      "when": ["morning", "afternoon"], "chance": 0.3, "dialog": "pioggia", "dialogs": ["pioggia-tuono", "pioggia"], "reward": { "wood": 15 }, "marker": "🌧️",
+      "memory": { "it": "la pioggia, quando abbiamo aspettato insieme nella tenda", "sl": "dež, ko sva skupaj čakala v šotoru", "en": "the rain, when we waited together in the tent", "de": "den Regen, als wir zusammen im Zelt gewartet haben" }
+    },
+    {
+      "id": "storia", "title": { "it": "Lorenzo vuole una storia", "sl": "Lorenzo hoče zgodbo", "en": "Lorenzo wants a story", "de": "Lorenzo will eine Geschichte" }, "who": "lorenzo",
+      "when": ["evening", "night"], "chance": 0.4, "dialog": "storia", "dialogs": ["storia-stella", "storia"], "reward": { "wisdom": 20 }, "marker": "📖", "act": { "lorenzo": { "pose": "lie" } },
+      "memory": { "it": "la storia del cavallino che mi hai raccontato nella tenda", "sl": "zgodbo o konjičku, ki si mi jo {m:povedal|f:povedala} v šotoru", "en": "the story of the little horse you told me in the tent", "de": "die Geschichte vom kleinen Pferd, die du mir im Zelt erzählt hast" }
+    },
+    {
+      "id": "mappa", "title": { "it": "Giulia cerca la sua mappa", "sl": "Giulia išče svoj zemljevid", "en": "Giulia is looking for her map", "de": "Giulia sucht ihre Landkarte" }, "who": "giulia",
+      "when": ["afternoon"], "chance": 0.4, "dialog": "mappa", "dialogs": ["mappa-zaino", "mappa"], "reward": { "food": 15 }, "marker": "🗺️",
+      "memory": { "it": "la mia mappa del tesoro, che hai trovato nella tenda", "sl": "moj zemljevid zaklada, ki si ga {m:našel|f:našla} v šotoru", "en": "my treasure map, which you found in the tent", "de": "meine Schatzkarte, die du im Zelt gefunden hast" }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "lanterna",
+      "fx_stays": true,
+      "lines": [
+        { "who": "davide", "it": "Buonasera, {learner}! Guarda, ti ho portato una lanterna. Nella tenda è buio.", "sl": "Dober večer, {learner}! Poglej, prinesel sem ti svetilko. V šotoru je tema.", "en": "Good evening, {learner}! Look, I've brought you a lantern. It's dark in the tent.", "de": "Guten Abend, {learner}! Schau, ich habe dir eine Laterne mitgebracht. Im Zelt ist es dunkel.",
+          "fx": { "lantern": 0 } },
+        { "choices": [
+          { "it": "Buonasera, Davide! Grazie mille.", "sl": "Dober večer, Davide! Najlepša hvala.", "en": "Good evening, Davide! Thanks a lot.", "de": "Guten Abend, Davide! Vielen Dank.", "ok": true,
+            "reply": { "it": "Prego! L'appendo qui, sopra il tavolo.", "sl": "Ni za kaj! Obesim jo sem, nad mizo.", "en": "You're welcome! I'll hang it here, over the table.", "de": "Gern geschehen! Ich hänge sie hier auf, über den Tisch." } },
+          { "it": "Ciao, Davide! Che bella!", "sl": "Živjo, Davide! Kako lepa!", "en": "Hi, Davide! How lovely!", "de": "Hallo, Davide! Wie schön!", "ok": true,
+            "reply": { "it": "Ti piace? Era di mio nonno.", "sl": "Ti je všeč? Bila je od mojega dedka.", "en": "Do you like it? It was my grandpa's.", "de": "Gefällt sie dir? Sie war von meinem Opa." } },
+          { "it": "Buongiorno, Davide! Grazie mille.", "sl": "Dobro jutro, Davide! Najlepša hvala.", "en": "Good morning, Davide! Thanks a lot.", "de": "Guten Morgen, Davide! Vielen Dank.",
+            "why": { "sl": "Buongiorno rečeš zjutraj in podnevi. Zvečer rečeš buonasera.", "en": "Buongiorno is for the morning and the day. In the evening, say buonasera.", "de": "Buongiorno sagt man morgens und tagsüber. Am Abend sagt man buonasera." },
+            "reply": { "it": "Buongiorno? Ma guarda fuori, è già buio!", "sl": "Dobro jutro? Poglej ven, saj je že tema!", "en": "Good morning? Look outside, it's dark already!", "de": "Guten Morgen? Schau doch raus, es ist schon dunkel!" } }
+        ] },
+        { "who": "davide", "it": "Ecco. Adesso l'accendo. Hai i fiammiferi?", "sl": "Tako. Zdaj jo prižgem. Imaš vžigalice?", "en": "There. Now I'll light it. Have you got matches?", "de": "So. Jetzt zünde ich sie an. Hast du Streichhölzer?" },
+        { "choices": [
+          { "it": "No, non ho fiammiferi. E tu?", "sl": "Ne, nimam vžigalic. Pa ti?", "en": "No, I haven't got any matches. And you?", "de": "Nein, ich habe keine Streichhölzer. Und du?", "ok": true,
+            "reply": { "it": "Io sì. Un pastore ha sempre i fiammiferi!", "sl": "Jaz jih imam. Pastir ima vedno vžigalice!", "en": "I have. A shepherd always has matches!", "de": "Ich schon. Ein Hirte hat immer Streichhölzer!", "fx": { "lantern": 1 } } },
+          { "it": "No, ho non fiammiferi. E tu?", "sl": "Ne, nimam vžigalic. Pa ti?", "en": "No, I haven't got any matches. And you?", "de": "Nein, ich habe keine Streichhölzer. Und du?",
+            "grammar": "domande", "why": { "sl": "Non stoji pred glagolom: non ho.", "en": "Non goes before the verb: non ho.", "de": "Non steht vor dem Verb: non ho." },
+            "reply": { "it": "Eh? Che cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Huh? What did you say?", "de": "Hä? Was hast du gesagt?" } }
+        ] },
+        { "who": "davide", "it": "Ecco la luce! Adesso puoi leggere. Buonanotte, {learner}!", "sl": "Glej, luč! Zdaj lahko bereš. Lahko noč, {learner}!", "en": "There's the light! Now you can read. Good night, {learner}!", "de": "Da ist das Licht! Jetzt kannst du lesen. Gute Nacht, {learner}!" },
+        { "choices": [
+          { "it": "Buonanotte, Davide! Grazie per la lanterna.", "sl": "Lahko noč, Davide! Hvala za svetilko.", "en": "Good night, Davide! Thanks for the lantern.", "de": "Gute Nacht, Davide! Danke für die Laterne.", "ok": true,
+            "reply": { "it": "Di niente. Ciao, e non leggere troppo!", "sl": "Ni za kaj. Adijo, in ne beri predolgo!", "en": "Not at all. Bye, and don't read too long!", "de": "Keine Ursache. Tschüss, und lies nicht zu lange!" } },
+          { "it": "Buonasera, Davide! Grazie per la lanterna.", "sl": "Dober večer, Davide! Hvala za svetilko.", "en": "Good evening, Davide! Thanks for the lantern.", "de": "Guten Abend, Davide! Danke für die Laterne.",
+            "why": { "sl": "Buonasera rečeš, ko prideš. Ko se zvečer posloviš ali greš spat: buonanotte.", "en": "Buonasera is for when you arrive. When you part at night or go to bed: buonanotte.", "de": "Buonasera sagt man, wenn man ankommt. Wenn man sich abends verabschiedet oder schlafen geht: buonanotte." },
+            "reply": { "it": "Buonasera? Ma io vado via, non arrivo!", "sl": "Dober večer? Saj odhajam, ne prihajam!", "en": "Good evening? But I'm leaving, not arriving!", "de": "Guten Abend? Ich gehe doch, ich komme nicht an!" } },
+          { "it": "Grazie, Davide, sei un amico! Buonanotte.", "sl": "Hvala, Davide, pravi prijatelj si! Lahko noč.", "en": "Thanks, Davide, you're a friend! Good night.", "de": "Danke, Davide, du bist ein Freund! Gute Nacht.", "ok": true,
+            "reply": { "it": "Anche tu, {learner}! Sogni d'oro.", "sl": "Ti tudi, {learner}! Sladke sanje.", "en": "You too, {learner}! Sweet dreams.", "de": "Du auch, {learner}! Träum was Schönes." } }
+        ] }
+      ]
+    },
+    {
+      "id": "pioggia",
+      "lines": [
+        { "who": "davide", "it": "{learner}! Piove forte! Posso entrare?", "sl": "{learner}! Močno dežuje! Lahko vstopim?", "en": "{learner}! It's pouring! May I come in?", "de": "{learner}! Es regnet stark! Darf ich reinkommen?",
+          "sky": { "rain": 0.8, "gloom": 0.8, "wind": 0.3 } },
+        { "choices": [
+          { "it": "Certo, entra! Siediti qui.", "sl": "Seveda, vstopi! Sedi sem.", "en": "Of course, come in! Sit here.", "de": "Klar, komm rein! Setz dich hierher.", "ok": true,
+            "reply": { "it": "Grazie! Sono tutto bagnato.", "sl": "Hvala! Ves sem moker.", "en": "Thanks! I'm soaking wet.", "de": "Danke! Ich bin ganz nass.", "act": { "davide": { "to": "lantern", "pose": "sit" } } } },
+          { "it": "Certo, entrate! Sedetevi qui.", "sl": "Seveda, vstopite! Sedite sem.", "en": "Of course, come in, all of you! Sit here, all of you.", "de": "Klar, kommt rein! Setzt euch hierher.",
+            "grammar": "tu-lei", "why": { "sl": "Entrate in sedetevi sta za več ljudi (voi). Davidu rečeš tu: entra, siediti.", "en": "Entrate and sedetevi are for more than one person (voi). To Davide, say tu: entra, siediti.", "de": "Entrate und sedetevi sind für mehrere Leute (voi). Zu Davide sagst du tu: entra, siediti." },
+            "reply": { "it": "Entrate? Anche le pecore? Non c'è posto!", "sl": "Vstopite? Tudi ovce? Saj ni prostora!", "en": "All of you? The sheep too? There's no room!", "de": "Kommt alle rein? Die Schafe auch? Dafür ist kein Platz!" } },
+          { "it": "Certo, esci! Siediti qui.", "sl": "Seveda, pojdi ven! Sedi sem.", "en": "Of course, go out! Sit here.", "de": "Klar, geh raus! Setz dich hierher.",
+            "why": { "sl": "Esci pomeni pojdi ven. Ko spustiš koga noter: entra.", "en": "Esci means go out. To let someone in: entra.", "de": "Esci heißt „geh raus“. Um jemanden hereinzulassen: entra." },
+            "reply": { "it": "Esci? Ma io sono già fuori, sotto la pioggia!", "sl": "Pojdi ven? Saj sem že zunaj, na dežju!", "en": "Go out? But I'm already outside, in the rain!", "de": "Geh raus? Ich bin doch schon draußen, im Regen!" } }
+        ] },
+        { "who": "davide", "it": "Le pecore sono sotto un albero. Ma io no!", "sl": "Ovce so pod drevesom. Jaz pa ne!", "en": "The sheep are under a tree. But not me!", "de": "Die Schafe stehen unter einem Baum. Ich aber nicht!",
+          "sky": { "rain": 1, "gloom": 0.9 } },
+        { "choices": [
+          { "it": "Prendi la mia giacca. È asciutta.", "sl": "Vzemi mojo jakno. Suha je.", "en": "Take my jacket. It's dry.", "de": "Nimm meine Jacke. Sie ist trocken.", "ok": true,
+            "reply": { "it": "Grazie! È proprio calda.", "sl": "Hvala! Res je topla.", "en": "Thanks! It's really warm.", "de": "Danke! Die ist richtig warm.", "sky": { "rain": 0.4, "gloom": 0.6, "wind": 0.1 } } },
+          { "it": "Prendi la mia giacca. È asciutto.", "sl": "Vzemi mojo jakno. Suh je.", "en": "Take my jacket. He's dry.", "de": "Nimm meine Jacke. Er ist trocken.",
+            "grammar": "aggettivi-accordo", "why": { "sl": "Giacca je ženskega spola, zato asciutta.", "en": "Giacca is feminine, so asciutta.", "de": "Giacca ist weiblich, also asciutta." },
+            "reply": { "it": "Asciutto? Chi, io? Io sono bagnato fradicio!", "sl": "Suh? Kdo, jaz? Jaz sem do kože moker!", "en": "Asciutto (dry, him)? Who, me? I'm wet through!", "de": "Asciutto (trocken, er)? Wer, ich? Ich bin klatschnass!" } }
+        ] },
+        { "who": "davide", "it": "Guarda, il sole! Non piove più. Torno dalle pecore.", "sl": "Poglej, sonce! Ne dežuje več. Grem nazaj k ovcam.", "en": "Look, the sun! It's stopped raining. I'm going back to the sheep.", "de": "Schau, die Sonne! Es regnet nicht mehr. Ich gehe zurück zu den Schafen.",
+          "sky": { "rain": 0, "gloom": 0, "wind": 0 }, "act": { "davide": { "to": "door" } } },
+        { "choices": [
+          { "it": "Va bene. Ciao, Davide! Saluta le pecore.", "sl": "Prav. Adijo, Davide! Pozdravi ovce.", "en": "OK. Bye, Davide! Say hello to the sheep.", "de": "Okay. Tschüss, Davide! Grüß die Schafe.", "ok": true,
+            "reply": { "it": "Certo! Bianca, Nerina, {learner} vi saluta!", "sl": "Seveda! Bianca, Nerina, {learner} vas pozdravlja!", "en": "Sure! Bianca, Nerina, {learner} says hello!", "de": "Klar! Bianca, Nerina, {learner} lässt euch grüßen!" } },
+          { "it": "Va bene. Buon appetito, Davide! Saluta le pecore.", "sl": "Prav. Dober tek, Davide! Pozdravi ovce.", "en": "OK. Enjoy your meal, Davide! Say hello to the sheep.", "de": "Okay. Guten Appetit, Davide! Grüß die Schafe.",
+            "why": { "sl": "Buon appetito rečeš pred jedjo. Ob slovesu: ciao.", "en": "Buon appetito is for before a meal. To say goodbye: ciao.", "de": "Buon appetito sagt man vor dem Essen. Zum Abschied: ciao." },
+            "reply": { "it": "Buon appetito? L'erba è per le pecore, non per me!", "sl": "Dober tek? Trava je za ovce, ne zame!", "en": "Enjoy your meal? The grass is for the sheep, not for me!", "de": "Guten Appetit? Das Gras ist für die Schafe, nicht für mich!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "storia",
+      "lines": [
+        { "who": "lorenzo", "it": "{learner}! Non riesco a dormire. Mi racconti una storia? Per favore!", "sl": "{learner}! Ne morem spati. Mi poveš zgodbo? Prosim!", "en": "{learner}! I can't sleep. Will you tell me a story? Please!", "de": "{learner}! Ich kann nicht schlafen. Erzählst du mir eine Geschichte? Bitte!" },
+        { "choices": [
+          { "it": "Va bene, Lorenzo. Quale storia vuoi?", "sl": "Prav, Lorenzo. Katero zgodbo hočeš?", "en": "All right, Lorenzo. Which story do you want?", "de": "Na gut, Lorenzo. Welche Geschichte willst du?", "ok": true,
+            "reply": { "it": "Quella del cavallino bianco! Sempre quella!", "sl": "Tisto o belem konjičku! Vedno tisto!", "en": "The one about the little white horse! Always that one!", "de": "Die vom kleinen weißen Pferd! Immer die!" } },
+          { "it": "Va bene, Lorenzo. Quale storia vuole?", "sl": "Prav, Lorenzo. Katero zgodbo želite?", "en": "All right, Lorenzo. Which story would you like (polite)?", "de": "Na gut, Lorenzo. Welche Geschichte möchten Sie?",
+            "grammar": "tu-lei", "why": { "sl": "Vuole je vikanje (Lei) ali on, ona. Lorenzu, otroku, rečeš tu: vuoi.", "en": "Vuole is the polite Lei form (or he, she). To Lorenzo, a child, say tu: vuoi.", "de": "Vuole ist die höfliche Lei-Form (oder er, sie). Zu Lorenzo, einem Kind, sagst du tu: vuoi." },
+            "reply": { "it": "Vuole? Chi? Io sono piccolo, non sono un signore!", "sl": "Želite? Kdo? Saj sem majhen, nisem gospod!", "en": "Would you like, sir? Who? I'm little, I'm not a gentleman!", "de": "Möchten Sie? Wer? Ich bin klein, ich bin doch kein Herr!" } }
+        ] },
+        { "who": "lorenzo", "it": "Ti ricordi? Il cavallino bianco che vive sulla collina!", "sl": "Se spomniš? Beli konjiček, ki živi na hribu!", "en": "Remember? The little white horse who lives on the hill!", "de": "Weißt du noch? Das kleine weiße Pferd, das auf dem Hügel wohnt!" },
+        { "choices": [
+          { "it": "C'era una volta un cavallino bianco…", "sl": "Nekoč je živel bel konjiček …", "en": "Once upon a time there was a little white horse…", "de": "Es war einmal ein kleines weißes Pferd …", "ok": true,
+            "reply": { "it": "Sì… e correva sulla collina… zzz…", "sl": "Ja … in tekel je po hribu … zzz …", "en": "Yes… and he ran on the hill… zzz…", "de": "Ja … und es lief über den Hügel … zzz …", "act": { "lorenzo": { "pose": "sleep" } } } },
+          { "it": "C'era una volta una cavallino bianco…", "sl": "Nekoč je živel bel konjiček …", "en": "Once upon a time there was a little white horse…", "de": "Es war einmal ein kleines weißes Pferd …",
+            "grammar": "articoli-genere", "why": { "sl": "Cavallino je moškega spola: un cavallino.", "en": "Cavallino is masculine: un cavallino.", "de": "Cavallino ist männlich: un cavallino." },
+            "reply": { "it": "Una cavallino? È una cavalla? Ih ih!", "sl": "Una cavallino? Je kobila? Hi hi!", "en": "Una cavallino? Is it a mare? Hee hee!", "de": "Una cavallino? Ist das eine Stute? Hihi!" } }
+        ] },
+        { "who": "lorenzo", "it": "… cavallino … collina … zzz. Buonanotte, {learner}.", "sl": "… konjiček … hrib … zzz. Lahko noč, {learner}.", "en": "… little horse … hill … zzz. Good night, {learner}.", "de": "… Pferdchen … Hügel … zzz. Gute Nacht, {learner}." }
+      ]
+    },
+    {
+      "id": "mappa",
+      "lines": [
+        { "who": "giulia", "it": "{learner}! Hai visto la mia mappa del tesoro? È verde e blu!", "sl": "{learner}! Si {m:videl|f:videla} moj zemljevid zaklada? Zelen in moder je!", "en": "{learner}! Have you seen my treasure map? It's green and blue!", "de": "{learner}! Hast du meine Schatzkarte gesehen? Sie ist grün und blau!" },
+        { "choices": [
+          { "it": "No. Dov'è? Cerchiamo insieme!", "sl": "Ne. Kje je? Poiščiva skupaj!", "en": "No. Where is it? Let's look together!", "de": "Nein. Wo ist sie? Suchen wir zusammen!", "ok": true,
+            "reply": { "it": "Sì! Tu cerca qui, io cerco là.", "sl": "Ja! Ti išči tukaj, jaz iščem tam.", "en": "Yes! You look here, I'll look there.", "de": "Ja! Du suchst hier, ich suche dort." } },
+          { "it": "No. Dove sei? Cerchiamo insieme!", "sl": "Ne. Kje si? Poiščiva skupaj!", "en": "No. Where are you? Let's look together!", "de": "Nein. Wo bist du? Suchen wir zusammen!",
+            "grammar": "essere-avere", "why": { "sl": "Dove sei? pomeni Kje si? Za zemljevid vprašaš: Dov'è? (Kje je?)", "en": "Dove sei? means where are you? For the map, ask: Dov'è? (Where is it?)", "de": "Dove sei? heißt „Wo bist du?“. Nach der Karte fragst du: Dov'è? (Wo ist sie?)" },
+            "reply": { "it": "Io? Sono qui, davanti a te! Ih ih!", "sl": "Jaz? Tukaj sem, pred tabo! Hi hi!", "en": "Me? I'm right here, in front of you! Hee hee!", "de": "Ich? Ich bin hier, direkt vor dir! Hihi!" } }
+        ] },
+        { "who": "giulia", "it": "Non è nello zaino. Non è sotto il cuscino. Dove sarà?", "sl": "V nahrbtniku ga ni. Pod blazino ga ni. Kje neki je?", "en": "It's not in the backpack. It's not under the pillow. Where can it be?", "de": "Im Rucksack ist sie nicht. Unter dem Kissen ist sie nicht. Wo kann sie nur sein?" },
+        { "choices": [
+          { "it": "Eccola! È sulla parete, sopra il letto.", "sl": "Tukaj je! Na steni je, nad posteljo.", "en": "Here it is! It's on the wall, above the bed.", "de": "Da ist sie! Sie hängt an der Wand, über dem Bett.", "ok": true, "tap": "map", "grammar": "dove-preposizioni",
+            "reply": { "it": "La mia mappa! {m:Bravo|f:Brava}, {learner}!", "sl": "Moj zemljevid! Bravo, {learner}!", "en": "My map! Well done, {learner}!", "de": "Meine Karte! Super, {learner}!" } },
+          { "it": "Eccola! È nella giacca.", "sl": "Tukaj je! V jakni je.", "en": "Here it is! It's in the jacket.", "de": "Da ist sie! Sie ist in der Jacke.", "tap": "coat",
+            "why": { "sl": "Poglej bolje: zemljevid je zelen in moder. Jakna je modra in ima gumbe.", "en": "Look again: the map is green and blue. The jacket is blue, with buttons.", "de": "Schau genauer hin: Die Karte ist grün und blau. Die Jacke ist blau und hat Knöpfe." },
+            "reply": { "it": "Nella giacca? Ci sono solo i bottoni!", "sl": "V jakni? Tam so samo gumbi!", "en": "In the jacket? There are only buttons!", "de": "In der Jacke? Da sind nur Knöpfe!" } },
+          { "it": "Eccola! È sotto gli scarponi.", "sl": "Tukaj je! Pod čevlji je.", "en": "Here it is! It's under the boots.", "de": "Da ist sie! Sie ist unter den Schuhen.", "tap": "boots",
+            "why": { "sl": "Pod čevlji so samo tla. Poišči nekaj zelenega in modrega.", "en": "Under the boots there's only the floor. Look for something green and blue.", "de": "Unter den Schuhen ist nur der Boden. Such etwas Grünes und Blaues." },
+            "reply": { "it": "Sotto gli scarponi? Bleah, che puzza! No!", "sl": "Pod čevlji? Fuj, kako smrdijo! Ne!", "en": "Under the boots? Yuck, what a pong! No!", "de": "Unter den Schuhen? Igitt, wie das stinkt! Nein!" } }
+        ] },
+        { "who": "giulia", "it": "Adesso cerchiamo il tesoro! Vieni domani?", "sl": "Zdaj pa iščeva zaklad! Prideš jutri?", "en": "Now let's look for the treasure! Will you come tomorrow?", "de": "Jetzt suchen wir den Schatz! Kommst du morgen?" },
+        { "choices": [
+          { "it": "Sì, vengo domani!", "sl": "Ja, pridem jutri!", "en": "Yes, I'll come tomorrow!", "de": "Ja, ich komme morgen!", "ok": true,
+            "reply": { "it": "Evviva! A domani, {learner}!", "sl": "Juhu! Se vidiva jutri, {learner}!", "en": "Hooray! See you tomorrow, {learner}!", "de": "Juhu! Bis morgen, {learner}!" } },
+          { "it": "Sì, vengo ieri!", "sl": "Ja, pridem včeraj!", "en": "Yes, I'll come yesterday!", "de": "Ja, ich komme gestern!",
+            "why": { "sl": "Ieri pomeni včeraj. Jutri je domani.", "en": "Ieri means yesterday. Tomorrow is domani.", "de": "Ieri heißt gestern. Morgen ist domani." },
+            "reply": { "it": "Ieri? Ma ieri è già finito! Ih ih!", "sl": "Včeraj? Saj je včeraj že mimo! Hi hi!", "en": "Yesterday? But yesterday's over! Hee hee!", "de": "Gestern? Gestern ist doch schon vorbei! Hihi!" } }
+        ] }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "lanterna-libro",
+      "fx_stays": true,
+      "lines": [
+        { "who": "davide", "it": "Ehi, {learner}! Ecco la lanterna, è già accesa. Che cosa fai stasera?", "sl": "Hej, {learner}! Izvoli svetilko, že gori. Kaj delaš nocoj?", "en": "Hey, {learner}! Here's the lantern, it's already lit. What are you doing tonight?", "de": "He, {learner}! Hier ist die Laterne, sie brennt schon. Was machst du heute Abend?",
+          "fx": { "lantern": 1 } },
+        { "choices": [
+          { "it": "Leggo un libro. È una storia di pirati!", "sl": "Berem knjigo. Zgodba o piratih je!", "en": "I'm reading a book. It's a pirate story!", "de": "Ich lese ein Buch. Es ist eine Piratengeschichte!", "ok": true,
+            "reply": { "it": "Pirati? Bello! Io invece vado a dormire.", "sl": "Pirati? Super! Jaz pa grem spat.", "en": "Pirates? Cool! I'm off to bed, though.", "de": "Piraten? Toll! Ich gehe dagegen schlafen." } },
+          { "it": "Leggi un libro. È una storia di pirati!", "sl": "Bereš knjigo. Zgodba o piratih je!", "en": "You're reading a book. It's a pirate story!", "de": "Du liest ein Buch. Es ist eine Piratengeschichte!",
+            "grammar": "presente-regolare", "why": { "sl": "Leggi pomeni bereš (ti). O sebi rečeš leggo (berem).", "en": "Leggi means you read. About yourself, say leggo (I read).", "de": "Leggi heißt „du liest“. Über dich selbst sagst du leggo (ich lese)." },
+            "reply": { "it": "Io? No, no, io dormo! Il libro è tuo.", "sl": "Jaz? Ne, ne, jaz spim! Knjiga je tvoja.", "en": "Me? No, no, I'm sleeping! The book is yours.", "de": "Ich? Nein, nein, ich schlafe! Das Buch gehört dir." } },
+          { "it": "Leggo una libro. È una storia di pirati!", "sl": "Berem knjigo. Zgodba o piratih je!", "en": "I'm reading a book. It's a pirate story!", "de": "Ich lese ein Buch. Es ist eine Piratengeschichte!",
+            "grammar": "articoli-genere", "why": { "sl": "Libro je moškega spola: un libro.", "en": "Libro is masculine: un libro.", "de": "Libro ist männlich: un libro." },
+            "reply": { "it": "Una libro? Il libro non è una ragazza!", "sl": "Una libro? Knjiga v italijanščini ni punca!", "en": "Una libro? In Italian a book isn't a girl!", "de": "Una libro? Auf Italienisch ist ein Buch kein Mädchen!" } }
+        ] },
+        { "who": "davide", "it": "Domani porto le pecore sulla collina. Vieni con me?", "sl": "Jutri peljem ovce na hrib. Greš z mano?", "en": "Tomorrow I'm taking the sheep up the hill. Will you come with me?", "de": "Morgen bringe ich die Schafe auf den Hügel. Kommst du mit?" },
+        { "choices": [
+          { "it": "Sì, vengo! A che ora?", "sl": "Ja, pridem! Ob kateri uri?", "en": "Yes, I'll come! At what time?", "de": "Ja, ich komme! Um wie viel Uhr?", "ok": true,
+            "reply": { "it": "Alle sei. Presto, eh!", "sl": "Ob šestih. Zgodaj, veš!", "en": "At six. Early, mind!", "de": "Um sechs. Früh, was!" } },
+          { "it": "Sì, vieni! A che ora?", "sl": "Ja, prideš! Ob kateri uri?", "en": "Yes, you're coming! At what time?", "de": "Ja, du kommst! Um wie viel Uhr?",
+            "grammar": "verbi-irregolari", "why": { "sl": "Vieni pomeni prideš (ti). O sebi rečeš vengo (pridem).", "en": "Vieni means you come. About yourself, say vengo (I'm coming).", "de": "Vieni heißt „du kommst“. Über dich selbst sagst du vengo (ich komme)." },
+            "reply": { "it": "Io? Certo, le pecore sono mie! Ma tu?", "sl": "Jaz? Seveda, ovce so moje! Pa ti?", "en": "Me? Of course, they're my sheep! But you?", "de": "Ich? Klar, das sind meine Schafe! Und du?" } }
+        ] },
+        { "who": "davide", "it": "Bene! Allora leggi, ma non troppo. Buonanotte!", "sl": "Dobro! Potem beri, ampak ne predolgo. Lahko noč!", "en": "Good! Then read, but not too long. Good night!", "de": "Gut! Dann lies, aber nicht zu lange. Gute Nacht!" }
+      ]
+    },
+    {
+      "id": "pioggia-tuono",
+      "months": [4, 5, 6, 7, 8, 9, 10],
+      "act_stays": true,
+      "fx_stays": true,
+      "memory": { "it": "il giorno che abbiamo ascoltato la pioggia nella tenda", "sl": "dan, ko sva v šotoru poslušala dež", "en": "the day we listened to the rain in the tent", "de": "den Tag, an dem wir im Zelt dem Regen zugehört haben" },
+      "lines": [
+        { "who": "davide", "it": "{learner}! Tuona e piove! Posso entrare nella tenda?", "sl": "{learner}! Grmi in lije! Lahko pridem v šotor?", "en": "{learner}! It's thundering and pouring! Can I come into the tent?", "de": "{learner}! Es donnert und gießt! Darf ich ins Zelt kommen?",
+          "sky": { "rain": 0.85, "gloom": 0.9, "wind": 0.35, "lightning": true } },
+        { "choices": [
+          { "it": "Certo, entra nella tenda! Siediti vicino alla lanterna.", "sl": "Seveda, pridi v šotor! Sedi k svetilki.", "en": "Of course, come into the tent! Sit by the lantern.", "de": "Klar, komm ins Zelt! Setz dich zur Laterne.", "ok": true,
+            "reply": { "it": "Grazie, {learner}! Qui dentro è asciutto.", "sl": "Hvala, {learner}! Tukaj notri je suho.", "en": "Thanks, {learner}! It's dry in here.", "de": "Danke, {learner}! Hier drin ist es trocken.", "act": { "davide": { "to": "lantern", "pose": "sit" } } } },
+          { "it": "Certo, entra nella tenda! Siediti vicino la lanterna.", "sl": "Seveda, pridi v šotor! Sedi k svetilki.", "en": "Of course, come into the tent! Sit by the lantern.", "de": "Klar, komm ins Zelt! Setz dich zur Laterne.",
+            "grammar": "dove-preposizioni", "why": { "sl": "Vicino obdrži svoj a, ki se zlije s členom: vicino alla lanterna.", "en": "Vicino keeps its a, which fuses with the article: vicino alla lanterna.", "de": "Vicino behält sein a, das mit dem Artikel verschmilzt: vicino alla lanterna." },
+            "reply": { "it": "Vicino la lanterna? Hm, manca qualcosa…", "sl": "Vicino la lanterna? Hm, nekaj manjka …", "en": "Vicino la lanterna? Hm, something's missing…", "de": "Vicino la lanterna? Hm, da fehlt doch was …" } },
+          { "it": "Certo, entra nella tenda! Siediti vicino al lanterna.", "sl": "Seveda, pridi v šotor! Sedi k svetilki.", "en": "Of course, come into the tent! Sit by the lantern.", "de": "Klar, komm ins Zelt! Setz dich zur Laterne.",
+            "grammar": "preposizioni-articolate", "why": { "sl": "Lanterna je ženskega spola: a + la = alla, vicino alla lanterna.", "en": "Lanterna is feminine: a + la = alla, vicino alla lanterna.", "de": "Lanterna ist weiblich: a + la = alla, vicino alla lanterna." },
+            "reply": { "it": "Al lanterna? Come? Tuona troppo forte!", "sl": "Al lanterna? Kako? Preveč grmi!", "en": "Al lanterna? What? The thunder's too loud!", "de": "Al lanterna? Wie bitte? Es donnert zu laut!" } }
+        ] },
+        { "who": "davide", "it": "Brr! Accendo la lanterna, così c'è luce.", "sl": "Brr! Prižgem svetilko, da bo svetlo.", "en": "Brr! I'll light the lantern, so there's some light.", "de": "Brr! Ich zünde die Laterne an, damit es hell ist.",
+          "fx": { "lantern": 1 } },
+        { "choices": [
+          { "it": "Bene. Resta qui finché piove.", "sl": "Dobro. Ostani tukaj, dokler dežuje.", "en": "Good. Stay here while it rains.", "de": "Gut. Bleib hier, solange es regnet.", "ok": true,
+            "reply": { "it": "Grazie. Le pecore sono sotto gli alberi, e io sto con te.", "sl": "Hvala. Ovce so pod drevesi, jaz pa ostanem s tabo.", "en": "Thanks. The sheep are under the trees, and I'm staying with you.", "de": "Danke. Die Schafe sind unter den Bäumen, und ich bleibe bei dir." } },
+          { "it": "Bene. Restate qui finché piove.", "sl": "Dobro. Ostanite tukaj, dokler dežuje.", "en": "Good. Stay here, all of you, while it rains.", "de": "Gut. Bleibt hier, solange es regnet.",
+            "grammar": "tu-lei", "why": { "sl": "Restate je za več ljudi (voi). Davidu rečeš resta.", "en": "Restate is for more than one person (voi). To Davide, say resta.", "de": "Restate ist für mehrere Leute (voi). Zu Davide sagst du resta." },
+            "reply": { "it": "Restate? Ci sono solo io, le pecore sono fuori!", "sl": "Ostanite? Tu sem samo jaz, ovce so zunaj!", "en": "All of you? It's only me, the sheep are outside!", "de": "Bleibt alle? Hier bin nur ich, die Schafe sind draußen!" } }
+        ] },
+        { "who": "davide", "it": "Ascolta la pioggia sulla tenda. Che bello, vero?", "sl": "Poslušaj dež na šotoru. Lepo je, kajne?", "en": "Listen to the rain on the tent. Lovely, isn't it?", "de": "Hör mal, der Regen auf dem Zelt. Schön, oder?" }
+      ]
+    },
+    {
+      "id": "storia-stella",
+      "memory": { "it": "la storia della stellina che mi hai raccontato", "sl": "zgodbo o zvezdici, ki si mi jo {m:povedal|f:povedala}", "en": "the story of the little star you told me", "de": "die Geschichte vom kleinen Stern, die du mir erzählt hast" },
+      "lines": [
+        { "who": "lorenzo", "it": "{learner}! Fuori c'è un rumore… È un lupo?", "sl": "{learner}! Zunaj nekaj šumi … Je to volk?", "en": "{learner}! There's a noise outside… Is it a wolf?", "de": "{learner}! Draußen ist ein Geräusch … Ist das ein Wolf?" },
+        { "choices": [
+          { "it": "No, è solo il vento. Hai paura?", "sl": "Ne, samo veter je. Te je strah?", "en": "No, it's only the wind. Are you scared?", "de": "Nein, das ist nur der Wind. Hast du Angst?", "ok": true,
+            "reply": { "it": "Un pochino. Ma solo di notte!", "sl": "Malo. Ampak samo ponoči!", "en": "A tiny bit. But only at night!", "de": "Ein bisschen. Aber nur nachts!" } },
+          { "it": "No, è solo il vento. Sei paura?", "sl": "Ne, samo veter je. Si strah?", "en": "No, it's only the wind. Are you fear?", "de": "Nein, das ist nur der Wind. Bist du Angst?",
+            "grammar": "essere-avere", "why": { "sl": "Strah izraziš z avere: hai paura? (imaš strah). Tako tudi ho fame, ho freddo.", "en": "Fear goes with avere: hai paura? (have you fear). So do ho fame, ho freddo.", "de": "Angst geht mit avere: hai paura? (hast du Angst), wie im Deutschen. Ebenso ho fame, ho freddo." },
+            "reply": { "it": "Sei paura? Io sono Lorenzo, non sono la paura!", "sl": "Si strah? Jaz sem Lorenzo, nisem strah!", "en": "Are you fear? I'm Lorenzo, I'm not fear!", "de": "Bist du Angst? Ich bin Lorenzo, ich bin doch nicht die Angst!" } },
+          { "it": "Sì, è un lupo. Hai paura?", "sl": "Ja, volk je. Te je strah?", "en": "Yes, it's a wolf. Are you scared?", "de": "Ja, das ist ein Wolf. Hast du Angst?",
+            "why": { "sl": "Lorenzo se boji. Pomiri ga: è solo il vento (samo veter je).", "en": "Lorenzo is scared. Calm him down: è solo il vento (it's only the wind).", "de": "Lorenzo hat Angst. Beruhige ihn: è solo il vento (es ist nur der Wind)." },
+            "reply": { "it": "Un lupo?! Aiuto! Nonno!", "sl": "Volk?! Na pomoč! Dedek!", "en": "A wolf?! Help! Grandpa!", "de": "Ein Wolf?! Hilfe! Opa!" } }
+        ] },
+        { "who": "lorenzo", "it": "Mi racconti una storia? Una storia bella, non di paura!", "sl": "Mi poveš zgodbo? Lepo, ne strašne!", "en": "Will you tell me a story? A nice one, not a scary one!", "de": "Erzählst du mir eine Geschichte? Eine schöne, keine gruselige!" },
+        { "choices": [
+          { "it": "C'era una volta una stella piccola piccola…", "sl": "Nekoč je bila majhna, majhna zvezdica …", "en": "Once upon a time there was a tiny little star…", "de": "Es war einmal ein winzig kleiner Stern …", "ok": true,
+            "reply": { "it": "Una stella… nel cielo… zzz…", "sl": "Zvezdica … na nebu … zzz …", "en": "A star… in the sky… zzz…", "de": "Ein Stern … am Himmel … zzz …", "act": { "lorenzo": { "pose": "sleep" } } } },
+          { "it": "C'era una volta una stella piccolo piccolo…", "sl": "Nekoč je bila majhna, majhna zvezdica …", "en": "Once upon a time there was a tiny little star…", "de": "Es war einmal ein winzig kleiner Stern …",
+            "grammar": "aggettivi-accordo", "why": { "sl": "Stella je ženskega spola: una stella piccola.", "en": "Stella is feminine: una stella piccola.", "de": "Stella ist weiblich: una stella piccola." },
+            "reply": { "it": "Piccolo? Ma la stella è femmina!", "sl": "Piccolo? Saj je zvezda punčka!", "en": "Piccolo? But the star's a girl!", "de": "Piccolo? Aber la stella ist doch ein Mädchen!" } }
+        ] },
+        { "who": "lorenzo", "it": "… stella … zzz. Buonanotte, {learner}.", "sl": "… zvezdica … zzz. Lahko noč, {learner}.", "en": "… star … zzz. Good night, {learner}.", "de": "… Stern … zzz. Gute Nacht, {learner}." }
+      ]
+    },
+    {
+      "id": "mappa-zaino",
+      "memory": { "it": "la mappa del tesoro che abbiamo guardato insieme", "sl": "zemljevid zaklada, ki sva ga {m:gledala|f:gledali} skupaj", "en": "the treasure map we looked at together", "de": "die Schatzkarte, die wir zusammen angeschaut haben" },
+      "lines": [
+        { "who": "giulia", "it": "{learner}! Guarda la mia mappa del tesoro! Il tesoro è nel bosco.", "sl": "{learner}! Poglej moj zemljevid zaklada! Zaklad je v gozdu.", "en": "{learner}! Look at my treasure map! The treasure is in the woods.", "de": "{learner}! Schau dir meine Schatzkarte an! Der Schatz ist im Wald." },
+        { "choices": [
+          { "it": "Che bello! Andiamo nel bosco?", "sl": "Super! Greva v gozd?", "en": "Great! Shall we go to the woods?", "de": "Toll! Gehen wir in den Wald?", "ok": true,
+            "reply": { "it": "Sì, ma prima ci serve lo zaino.", "sl": "Ja, ampak najprej potrebujeva nahrbtnik.", "en": "Yes, but first we need the backpack.", "de": "Ja, aber zuerst brauchen wir den Rucksack." } },
+          { "it": "Che bello! Andiamo nella bosco?", "sl": "Super! Greva v gozd?", "en": "Great! Shall we go to the woods?", "de": "Toll! Gehen wir in den Wald?",
+            "grammar": "preposizioni-articolate", "why": { "sl": "Bosco je moškega spola: in + il = nel bosco.", "en": "Bosco is masculine: in + il = nel bosco.", "de": "Bosco ist männlich: in + il = nel bosco." },
+            "reply": { "it": "Nella bosco? Ih ih, bosco è maschile!", "sl": "Nella bosco? Hi hi, bosco je moškega spola!", "en": "Nella bosco? Hee hee, bosco is masculine!", "de": "Nella bosco? Hihi, bosco ist männlich!" } }
+        ] },
+        { "who": "giulia", "it": "Che cosa mettiamo nello zaino?", "sl": "Kaj dava v nahrbtnik?", "en": "What shall we put in the backpack?", "de": "Was packen wir in den Rucksack?" },
+        { "choices": [
+          { "it": "La mappa, la corda e la lanterna!", "sl": "Zemljevid, vrv in svetilko!", "en": "The map, the rope and the lantern!", "de": "Die Karte, das Seil und die Laterne!", "ok": true,
+            "reply": { "it": "Perfetto! E anche due mele, se abbiamo fame.", "sl": "Odlično! Pa še dve jabolki, če bova {m:lačna|f:lačni}.", "en": "Perfect! And two apples too, in case we get hungry.", "de": "Perfekt! Und noch zwei Äpfel, falls wir Hunger kriegen." } },
+          { "it": "La mappa, il corda e la lanterna!", "sl": "Zemljevid, vrv in svetilko!", "en": "The map, the rope and the lantern!", "de": "Die Karte, das Seil und die Laterne!",
+            "grammar": "articoli-genere", "why": { "sl": "Corda je ženskega spola: la corda.", "en": "Corda is feminine: la corda.", "de": "Corda ist weiblich: la corda." },
+            "reply": { "it": "Il corda? Ma che dici? Ih ih!", "sl": "Il corda? Kaj pa govoriš? Hi hi!", "en": "Il corda? What are you saying? Hee hee!", "de": "Il corda? Was sagst du da? Hihi!" } }
+        ] },
+        { "who": "giulia", "it": "Allora domani si parte! Che avventura!", "sl": "Potem pa jutri greva! Kakšna dogodivščina!", "en": "So tomorrow we're off! What an adventure!", "de": "Dann geht's morgen los! Was für ein Abenteuer!" }
+      ]
+    }
+  ]
+}
