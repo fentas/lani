@@ -94,14 +94,17 @@ class CoastHorizonTest {
         }
     }
 
-    /** The lake's water is drawn on the land, well below the horizon, on every canvas of the town: nothing cuts it there. */
+    /**
+     * The lake's water is drawn on the land, at least 16 px below the horizon (its far shore, the noise of its shore at its
+     * most taken in), on every canvas of the town: nothing cuts it there.
+     */
     @Test fun `a lake keeps well below the horizon`() {
         for (seed in (1L..300L) + listOf(551323397L, 42L, -5L)) {
             val t = Terrain.of(Land.of(Landscape.LAKE, seed))
             val l = t.lake!!
             // its far shore, the noise of its shore at its most (lakeD's 0.1 of its radii) taken in
             val top = l[1] - l[3] * 1.12f
-            assertTrue("lake:$seed: its far shore $top px from the fire", top > 8f - VillageLayout.HORIZON)
+            assertTrue("lake:$seed: its far shore $top px from the fire", top > 16f - VillageLayout.HORIZON)
         }
     }
 
