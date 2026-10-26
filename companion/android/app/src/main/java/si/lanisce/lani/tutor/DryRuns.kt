@@ -255,7 +255,7 @@ object CardOverlay {
                         put("answer", back)
                         put("category", item.s("category").orEmpty())
                         put("created_date", today)
-                        put("due_date", java.time.LocalDate.parse(today).plusDays(1).toString())
+                        runCatching { java.time.LocalDate.parse(today).plusDays(1).toString() }.getOrNull()?.let { put("due_date", it) }
                         put("interval_days", 1)
                         put("repetitions", 0)
                         put("mastery_level", 0)
@@ -274,7 +274,7 @@ object CardOverlay {
         val note = w.s("note")
         var back = w.s("back")?.trim()
         if (note != null) back = withNote(back ?: item.s("answer").orEmpty(), note)
-        val after = buildMap {
+        val after = buildMap<String, String> {
             w.s("front")?.trim()?.let { put("content", it) }
             back?.let { put("answer", it) }
             w.s("category")?.trim()?.let { put("category", it) }
