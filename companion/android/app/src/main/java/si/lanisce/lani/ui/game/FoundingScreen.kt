@@ -74,7 +74,9 @@ fun FoundingScreen(vm: AppViewModel) {
     // the choice is the step: back doesn't skip it
     BackHandler {}
     val culture = vm.culture
-    var founding by remember(culture) { mutableStateOf(Founding.start(culture, vm.nodeLandscape, Random.nextLong())) }
+    // QA's "seed:<n>" (a debug build): that place, as the learner would have rolled it
+    val qaSeed = si.lanisce.lani.app.QaHooks.foundingSeed
+    var founding by remember(culture, qaSeed) { mutableStateOf(Founding.start(culture, vm.nodeLandscape, qaSeed ?: Random.nextLong())) }
     val preview = remember(founding) { founding.preview() }
     val choices = remember(culture) { Founding.choices(culture) }
     // the regions of the village's language: the one the node plays, and the others there are (chosen on the node)

@@ -35,6 +35,22 @@ class QaHooksTest {
         QaHooks.handle("season:")
         QaHooks.handle("hour:")
         QaHooks.handle("build:")
+        QaHooks.handle("seed:")
+    }
+
+    @Test fun `a founding's seed asked, the founding starts there, until let go`() {
+        assertNull(QaHooks.foundingSeed)
+        QaHooks.handle("seed:551323397")
+        assertEquals(551323397L, QaHooks.foundingSeed)
+        // Teo's coast: the dice's seed is the land's too
+        assertEquals(si.lanisce.lani.game.Land("coast", 551323397), si.lanisce.lani.game.Founding.start("friuli", "coast", QaHooks.foundingSeed!!).village(0L).land)
+        QaHooks.handle("seed:-5")
+        assertEquals(-5L, QaHooks.foundingSeed)
+        QaHooks.handle("seed:")
+        assertNull(QaHooks.foundingSeed)
+        QaHooks.enabled = false
+        QaHooks.handle("seed:7")
+        assertNull(QaHooks.foundingSeed)
     }
 
     @Test fun `a scene and the map seen at QA's hour of today, to the second, kept in range, until let go`() {

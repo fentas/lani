@@ -123,6 +123,9 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   every hearth lit and wood for days; "hearths:short" the store short of wood, the outlying hearths out as the day's tick
  *   leaves them; "hearths:lit" every one lit again; "hearths:feast" a feast today (the square's kres in the evening);
  *   "hearths:cold" the forge without charcoal.
+ * - "seed:<n>": the founding's place ("Kje bo tvoja vas?", ui/game/FoundingScreen) is the one of that seed for the dice and
+ *   the land ([foundingSeed]; 551323397: Teo's coast, whose land seed it is too), a reroll going on from it; "seed:" rolls
+ *   one at random again.
  */
 object QaHooks {
     const val EXTRA = "si.lanisce.lani.qa"
@@ -192,6 +195,10 @@ object QaHooks {
 
     /** The second QA holds an age's moment at ("ageup:at:<s>"), or null: it plays on its clock. */
     var ageUpAt by mutableStateOf<Float?>(null)
+        private set
+
+    /** The seed QA founds a village with ("seed:<n>"), or null: a random one. */
+    var foundingSeed by mutableStateOf<Long?>(null)
         private set
 
     /** The level QA asks the dialogs to be at ("level:<lv>"), or null: the learner's. */
@@ -321,6 +328,7 @@ object QaHooks {
             command.startsWith("event:") -> event(command.removePrefix("event:").trim())
             command.startsWith("hearths:") -> hearths(command.removePrefix("hearths:").trim())
             command.startsWith("dev:") -> dev(command.removePrefix("dev:"))
+            command.startsWith("seed:") -> foundingSeed = command.removePrefix("seed:").trim().toLongOrNull()
             command.startsWith("level:") -> level = command.removePrefix("level:").trim().uppercase().takeIf { it in listOf("A1", "A2", "B1", "B2", "C1", "C2") }
             command.startsWith("ageup:at:") -> ageUpAt = command.removePrefix("ageup:at:").toFloatOrNull()?.coerceAtLeast(0f)
             command.startsWith("ageup:") -> {
