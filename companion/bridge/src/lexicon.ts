@@ -126,6 +126,8 @@ export const glossIn = z.object({
   gloss: z.array(z.string().trim().min(1).max(120)).min(1).max(3),
   grammar: z.string().trim().min(1).max(80).optional(),
   note: z.string().trim().min(1).max(300).optional(),
+  /** A noun's gender (m | f | n): the card shows it after the lemma, as the dictionary's. */
+  gender: z.enum(['m', 'f', 'n']).optional(),
   gloss_lang: z.string().trim().regex(LANG_CODE, 'a language code, e.g. "sl"').optional(),
   language: z.string().trim().regex(LANG_CODE, 'a language code, e.g. "it"').optional(),
 })
@@ -472,7 +474,7 @@ export class Lexicon {
       .filter(g => (g.key === form || normalizeForm(g.lemma, lang) === form) && !used.has(g) && readable(g))
       .reverse()
       .map(g => ({
-        lemma: g.lemma, pos: g.pos ?? 'word', gloss: g.gloss, gender: null, grammar: g.key === form ? (g.grammar ?? null) : null, source: 'tutor',
+        lemma: g.lemma, pos: g.pos ?? 'word', gloss: g.gloss, gender: g.gender ?? null, grammar: g.key === form ? (g.grammar ?? null) : null, source: 'tutor',
         ...(g.note ? { note: g.note } : {}), via: 'claude', ...((g.gloss_lang ?? this.base) !== 'en' ? { glossLang: g.gloss_lang ?? this.base } : {}),
       }))
     return [...tutor, ...extra, ...wiktionary]
@@ -931,10 +933,11 @@ export function suggestedForms(form: string, s: Pick<LookupSources, 'lexicon' | 
     })
     for (const v of variants) add(v.join(''), Likely.ACCENTS)
   }
-  // another ending of the same word: an ending of the language taken off (or none), another put on
+  // another ending of the same word: an ending of the language taken off, another (or none) put on; a form without one
+  // of the endings is no other form of a word ("sneh" is sneg's typo, not sneha)
   const endings = ENDINGS[lang] ?? ENDINGS.en
   for (const cut of endings) {
-    if (letters.length - [...cut].length < 3 || !form.endsWith(cut)) continue
+    if (!cut || letters.length - [...cut].length < 3 || !form.endsWith(cut)) continue
     const stem = form.slice(0, form.length - cut.length)
     for (const end of endings) if (end !== cut) add(stem + end, Likely.ENDING)
   }
@@ -950,24 +953,35 @@ export function suggestedForms(form: string, s: Pick<LookupSources, 'lexicon' | 
 
 /**
  * The suggestions for [form] (normalized, not found): the surest kind of [suggestedForms] there is, looked up, one per
- * lemma, at most [SUGGESTIONS]. A typo's word must be a dictionary form (its lemma) or a pack word: an inflected form one
- * letter off a rare word is more often another word ("vretenom" is not vremenom).
+ * lemma, at most [SUGGESTIONS], the pack words among them first. A typo's word must be a dictionary form (its lemma) or a
+ * pack word as the pack has it: an inflected form one letter off a rare word is more often another word ("vretenom" is
+ * not vremenom, a form of the pack word vreme).
  */
 function suggest(form: string, s: LookupSources): Suggestion[] {
   const lang = s.lexicon.language
-  const out: Suggestion[] = []
-  const lemmas = new Set<string>()
+  // the surest kind's words, the learner's pack words first (as sure, a word of the curriculum is the likelier)
+  const found: LookupEntry[] = []
+  const words = new Map<LookupEntry, string>()
   let kind: Likely | undefined
   for (const c of suggestedForms(form, s)) {
     if (kind !== undefined && c.likely !== kind) break
     const e = lookup(c.form, {}, { ...s, noSuggest: true }).entries[0]
     if (!e) continue
-    if (c.likely === Likely.TYPO && e.source !== 'pack' && normalizeForm(e.lemma, lang) !== c.form) continue
+    // a typo's word is a dictionary form itself (its lemma), or a pack word itself: not a form of one ("vremenom")
+    if (c.likely === Likely.TYPO && (e.source === 'pack' ? packKey(e.lemma, lang) : normalizeForm(e.lemma, lang)) !== c.form) continue
+    kind = c.likely
+    found.push(e)
+    words.set(e, c.form)
+    if (found.length >= 4 * SUGGESTIONS) break
+  }
+  found.sort((a, b) => Number(a.source !== 'pack') - Number(b.source !== 'pack'))
+  const out: Suggestion[] = []
+  const lemmas = new Set<string>()
+  for (const e of found) {
     const key = `${normalizeForm(e.lemma, lang)}|${e.pos}`
     if (lemmas.has(key)) continue
     lemmas.add(key)
-    kind = c.likely
-    out.push({ word: c.form, lemma: e.lemma, pos: e.pos, gloss: e.gloss.slice(0, 3), gloss_lang: e.gloss_lang })
+    out.push({ word: words.get(e)!, lemma: e.lemma, pos: e.pos, gloss: e.gloss.slice(0, 3), gloss_lang: e.gloss_lang })
     if (out.length >= SUGGESTIONS) break
   }
   return out

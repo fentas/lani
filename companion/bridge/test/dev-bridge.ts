@@ -91,19 +91,19 @@ client.fallbackNotificationHandler = async n => {
     for (const w of d.words ?? []) {
       const known = DEV_GLOSSES[String(w.form).toLowerCase()]
       const gloss = known?.gloss[d.gloss_lang] ?? [`(dev tutor) ${w.form}`]
-      const r = await client.callTool({ name: 'publish_gloss', arguments: { form: w.form, lemma: known?.lemma ?? w.form, pos: known?.pos ?? 'noun', gloss, gloss_lang: d.gloss_lang, language: d.language, ...(known?.grammar ? { grammar: known.grammar } : {}) } })
+      const r = await client.callTool({ name: 'publish_gloss', arguments: { form: w.form, lemma: known?.lemma ?? w.form, pos: known?.pos ?? 'noun', gloss, gloss_lang: d.gloss_lang, language: d.language, ...(known?.grammar ? { grammar: known.grammar } : {}), ...(known?.gender ? { gender: known.gender } : {}) } })
       console.log(`→ publish_gloss ${w.form}: ${JSON.stringify((r as any).content?.[0]?.text ?? r).slice(0, 200)}`)
     }
   }
 }
 
 /** The dev tutor's meanings of the words QA asks for (a card's "➕ Add to my words"), by their gloss language. */
-const DEV_GLOSSES: Record<string, { lemma: string; pos: string; grammar?: string; gloss: Record<string, string[]> }> = {
-  vreteno: { lemma: 'vreteno', pos: 'noun', grammar: 'nominative/accusative singular', gloss: { en: ['spindle'], de: ['Spindel'], it: ['fuso'] } },
-  vretenom: { lemma: 'vreteno', pos: 'noun', grammar: 'instrumental singular', gloss: { en: ['spindle'], de: ['Spindel'], it: ['fuso'] } },
-  motovilo: { lemma: 'motovilo', pos: 'noun', grammar: 'nominative/accusative singular', gloss: { en: ['reel', 'yarn reel'], de: ['Haspel'], it: ['aspo'] } },
-  arcolaio: { lemma: 'arcolaio', pos: 'noun', grammar: 'masculine singular', gloss: { de: ['Garnwinde', 'Haspel'], en: ['yarn swift'], sl: ['motovilo'] } },
-  aspo: { lemma: 'aspo', pos: 'noun', grammar: 'masculine singular', gloss: { de: ['Haspel', 'Weife'], en: ['reel'], sl: ['motovilo'] } },
+const DEV_GLOSSES: Record<string, { lemma: string; pos: string; gender?: string; grammar?: string; gloss: Record<string, string[]> }> = {
+  vreteno: { lemma: 'vreteno', pos: 'noun', gender: 'n', grammar: 'nominative/accusative singular', gloss: { en: ['spindle'], de: ['Spindel'], it: ['fuso'] } },
+  vretenom: { lemma: 'vreteno', pos: 'noun', gender: 'n', grammar: 'instrumental singular', gloss: { en: ['spindle'], de: ['Spindel'], it: ['fuso'] } },
+  motovilo: { lemma: 'motovilo', pos: 'noun', gender: 'n', grammar: 'nominative/accusative singular', gloss: { en: ['reel', 'yarn reel'], de: ['Haspel'], it: ['aspo'] } },
+  arcolaio: { lemma: 'arcolaio', pos: 'noun', gender: 'm', grammar: 'masculine singular', gloss: { de: ['Garnwinde', 'Haspel'], en: ['yarn swift'], sl: ['motovilo'] } },
+  aspo: { lemma: 'aspo', pos: 'noun', gender: 'm', grammar: 'masculine singular', gloss: { de: ['Haspel', 'Weife'], en: ['reel'], sl: ['motovilo'] } },
 }
 
 // LANI_DEV_FAKE_ELEVENLABS=1: the bridge talks to a fake ElevenLabs here (test/fakes/eleven.ts: tones, longer for a longer

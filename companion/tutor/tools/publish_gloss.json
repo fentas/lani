@@ -27,6 +27,15 @@
         "type": "string",
         "description": "What this form is, e.g. \"masculine singular l-participle\""
       },
+      "gender": {
+        "type": "string",
+        "enum": [
+          "m",
+          "f",
+          "n"
+        ],
+        "description": "A noun's gender: m, f or n"
+      },
       "note": {
         "type": "string",
         "description": "Optional usage note, one line"

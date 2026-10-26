@@ -3,7 +3,9 @@
 // publish_gloss adds it to the learner's words, and the app hears word_request_done. Runs after the lexicon section: gozd
 // is one of Jan's words there. A visit's word, and a child's (Italian from German), are the friuli section's.
 import { existsSync, readFileSync } from 'node:fs'
-import { join } from 'node:path'
+import { join, resolve } from 'node:path'
+import { Lexicon, lookup as lookUp } from '../../src/lexicon'
+import type { LoadedPack } from '../../src/packs'
 import { WordRequests } from '../../src/word-requests'
 import { auth, base, channelEvents, check, client, dataDir, guideOf } from './harness'
 
@@ -27,6 +29,12 @@ export default async function wordRequests() {
   check('GET /lookup: nothing like it: no suggestions, as before', nothing.entries.length === 0 && nothing.suggestions === undefined && nothing.requested === undefined, nothing)
   const found = await lookup('gozdu')
   check('GET /lookup: a word found has no suggestions', found.entries.length > 0 && found.suggestions === undefined)
+  // a typo's word is a dictionary form or a pack word itself, not a form of one: vretenom is not vremenom (vreme's)
+  const dict = new Lexicon({ dir: resolve(import.meta.dir, '../../../lexicon'), language: 'sl', tutorFile: join(dataDir, 'no-glosses.json') })
+  const weather = { id: 'smoke-weather', language: 'sl', level: 'A1', title: 'Weather', source: 'curated', words: [{ id: 'vreme', sl: 'vreme', en: 'weather', emoji: '🌦️' }, { id: 'sneg', sl: 'sneg', en: 'snow' }] } as unknown as LoadedPack
+  const shelf = { lexicon: dict, base: 'en', packs: [weather], people: [], items: {} }
+  const [vretenom, sneh] = [lookUp('vretenom', {}, shelf), lookUp('sneh', {}, shelf)]
+  check('lookup: no typo of a form of a pack word (vretenom, not vremenom), a typo of the pack word itself first (sneh: sneg, then smeh)', vretenom.suggestions === undefined && sneh.suggestions?.[0]?.word === 'sneg' && sneh.suggestions[0].lemma === 'sneg' && sneh.suggestions.some((x: any) => x.word === 'smeh'), { vretenom: vretenom.suggestions, sneh: sneh.suggestions })
 
   // --- asked for: it waits for the tutor's meaning ---------------------------------------------------------------
   const line = 'Babica prede z vretenom.'
@@ -64,7 +72,7 @@ export default async function wordRequests() {
 
   // --- the tutor's meaning: the word is added -------------------------------------------------------------------
   const before2 = (await backlog()).at(-1)?.id ?? 0
-  const pub = await publish({ form: 'vretenom', lemma: 'vreteno', pos: 'noun', gloss: ['spindle'], grammar: 'instrumental singular' })
+  const pub = await publish({ form: 'vretenom', lemma: 'vreteno', pos: 'noun', gender: 'n', gloss: ['spindle'], grammar: 'instrumental singular' })
   check("publish_gloss: the word asked for is added to Jan's words, and the tutor is told not to persist it", !pub.isError && text(pub).includes("«vretenom» was asked for: added to Jan's words as vreteno (vocab_word_vreteno)") && text(pub).includes("don't persist it"), text(pub))
   const item = sr().vocab_word_vreteno
   check('the item is a vocabulary card from a lookup, the meaning the tutor wrote, the line it was met in', item?.type === 'vocabulary' && item.content === 'vreteno' && item.answer === 'spindle' && item.example === line && item.example_translation === en && item.source === 'lookup' && item.total_reviews === 0, item)
@@ -77,7 +85,9 @@ export default async function wordRequests() {
     after,
   )
   const filled = await lookup('vretenom', { line })
-  check("GET /lookup: now the tutor's entry, flagged machine-written, known, no longer waiting", filled.entries[0]?.lemma === 'vreteno' && filled.entries[0].source === 'tutor' && filled.entries[0].gloss_via === 'claude' && filled.entries[0].known === true && filled.entries[0].item_id === 'vocab_word_vreteno' && filled.requested === undefined, filled)
+  check("GET /lookup: now the tutor's entry, its gender, flagged machine-written, known, no longer waiting", filled.entries[0]?.lemma === 'vreteno' && filled.entries[0].gender === 'n' && filled.entries[0].grammar === 'instrumental singular' && filled.entries[0].source === 'tutor' && filled.entries[0].gloss_via === 'claude' && filled.entries[0].known === true && filled.entries[0].item_id === 'vocab_word_vreteno' && filled.requested === undefined, filled)
+  const badGender = await publish({ form: 'vretenom', lemma: 'vreteno', gloss: ['spindle'], gender: 'x' })
+  check('publish_gloss refuses a gender that isn\'t m, f or n', badGender.isError, text(badGender))
   const left = await (await fetch(`${base}/words/requests`, { headers: auth })).json()
   check('GET /words/requests: the word is no longer waiting', left.requests.map((r: any) => r.word).join() === 'motovilo', left)
   const twiceMore = await publish({ form: 'vretenom', lemma: 'vreteno', pos: 'noun', gloss: ['spindle', 'distaff spindle'] })
