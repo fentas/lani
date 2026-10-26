@@ -210,12 +210,17 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        whose reply streams into the chat (a screenshot mid-way) and stays, the dev tutor hearing nothing;
                        a session's end with its reaction and record_session in the dev data; "Claude Code on my node"
                        again, the dev tutor answering (LANI_QA_TUTOR_SHOTS: also copied there as tutor-live-*.png);
-                       "hosted" (alone, --steps hosted: no dev bridge, nothing may listen on its port) "☁️ Lani na tem
-                       telefonu": a fresh install's setup choice, the onboarding, the tutor's step, Home on the phone's
+                       "hosted" (alone, --steps hosted: no dev bridge, nothing may listen on its port) "☁️ Lani na tej
+                       napravi": a fresh install's first launch to "📱 Samo ta telefon / tablica", the onboarding, the
+                       tutor's step (LANI_QA_HOSTED_CHILD=1: a child's, a parent's hold opening it), Home on the phone's
                        own bridge and the village founded; a pack learned (a word looked up), a review saved (QA's hook
                        "review"), the app killed and started again (the splash, Home's timing in the log, the review
                        still in the phone's data), the packs again, the export (📤, the share sheet) pulled and checked
-                       by lani import --verify; its screenshots also to $LANI_QA_HOSTED_SHOTS
+                       by lani import --verify; its screenshots also to $LANI_QA_HOSTED_SHOTS; "intro-voice" the
+                       village's first words on the fresh install, each step read aloud (tag HintVoice: intro-voice.log);
+                       "setup" (always) the first launch: the welcome, the languages (LANI_QA_SETUP_PAIR, e.g. it-de),
+                       the two ways, the computer's code, "Ročno", an unreachable address's plain error, the dev bridge;
+                       its screenshots also to $LANI_QA_SETUP_SHOTS (onb-*.png)
   --dry                print the plan (bridges, ports, the fixture town, the steps) and stop
   --bridges-only       no app: start both bridges, link them, check what a visit asks through the dev bridge, stop
   --no-town            no second town (the visit steps are skipped)
@@ -269,6 +274,8 @@ PKG = "si.lanisce.lani"
 OUT = ROOT / "companion/qa-shots" / time.strftime("%Y%m%d-%H%M%S")
 PORT = os.environ.get("LANI_DEV_PORT", "8791")
 BRIDGE_URL, TOKEN = f"http://10.0.2.2:{PORT}", "dev-token"
+# the setup's unreachable computer: a port nothing listens on (LANI_QA_NOBODY_PORT; never the bridges')
+SETUP_NOBODY_PORT = os.environ.get("LANI_QA_NOBODY_PORT", "19601")
 SERIAL = os.environ.get("ANDROID_SERIAL")
 # The second town (test/dev-town.ts): its own port (reserved for it in src/learners.ts) and app token.
 TOWN_PORT = os.environ.get("LANI_DEV_TOWN_PORT", "8797")
@@ -543,35 +550,121 @@ def step(name: str, fn, cleanup=None, keep=False):
 
 # --- flows ----------------------------------------------------------------------------------
 
-def setup():
-    if wait_for("Poveži", 12) is None:
-        return "already connected"
+SETUP: dict = {}
+
+
+def setup_shot(name: str):
+    """A screenshot of the first launch, also as onb-<name>.png in $LANI_QA_SETUP_SHOTS when it's set."""
+    shot(f"setup-{name}")
+    d = os.environ.get("LANI_QA_SETUP_SHOTS")
+    if d:
+        Path(d).mkdir(parents=True, exist_ok=True)
+        shutil.copy(shots[-1], Path(d) / f"onb-{name}.png")
+
+
+def type_into(field: str, text: str, clear=40):
+    """Taps the field showing [field] (its text or its label), empties it and types [text]; the keyboard down after."""
     for _ in range(3):  # a busy emulator's keyboard can come up only after the text went nowhere: type it again
-        c = find("http") or find("Bridge URL")  # the field itself: a tap on its label puts the cursor inside the text
-        assert c is not None, "the URL field"
+        c = find(field)
+        assert c is not None, f"the field {field}"
         adb("shell", "input", "tap", str(c[0]), str(c[1]))
         time.sleep(1.5 * slow())
-        # empty it wherever the cursor is, then the URL; it must be all the field has
-        adb("shell", "input", "keyevent", *["KEYCODE_DEL"] * 40 + ["KEYCODE_FORWARD_DEL"] * 40)
-        adb("shell", "input", "text", BRIDGE_URL)
+        if clear:
+            adb("shell", "input", "keyevent", *["KEYCODE_DEL"] * clear + ["KEYCODE_FORWARD_DEL"] * clear)
+        adb("shell", "input", "text", text)
         time.sleep(slow())
-        if any(t == BRIDGE_URL for t, _ in nodes()):
+        if any(t == text or (t.startswith("•") and len(t) == len(text)) for t, _ in nodes()):
             break
     else:
-        raise AssertionError("the URL field took no text")
-    # the keyboard down first: the token field sits low (under "☁️ Lani na tem telefonu" and the pairing's heading)
+        raise AssertionError(f"the field {field} took no text")
     adb("shell", "input", "keyevent", "KEYCODE_BACK")
     time.sleep(slow())
-    tap("Token")
-    time.sleep(slow())
-    type_text(TOKEN)
-    # the button's whole label: the setup's heading "🔗 Poveži svojega učitelja" has the word too
-    assert tap("Poveži · Connect"), "connect button"
+
+
+# The pair the first launch chooses (LANI_QA_SETUP_PAIR, "it-de": an Italian learner explained in German, on a dev bridge
+# with such a learner: LANI_DEV_DATA, LANI_CULTURE=friuli); its labels read from the app's tables, "target · base".
+SETUP_PAIR = os.environ.get("LANI_QA_SETUP_PAIR", "sl-en").split("-")
+OWN_NAMES = {"sl": "slovenščina", "en": "English", "it": "italiano", "de": "Deutsch"}  # l10n/Lang.kt ownName
+
+
+def say(key: str, part: int | None = None) -> str:
+    """[key] as the first launch shows it: "target · base", or only the target's (0) or the base's (1) half."""
+    halves = [l10n(lang).get(key, key) for lang in SETUP_PAIR]
+    return " · ".join(halves) if part is None else halves[part]
+
+
+def first_launch(way_key="setup.computerTitle"):
+    """The first launch's steps to a way (docs/plans/05-built/onboarding.md): the welcome without a gender, the language
+    to learn ([SETUP_PAIR]'s; its explanations' language chosen when it isn't the emulator's English), "Naprej", the two
+    ways, the one titled [way_key]."""
+    target, base = SETUP_PAIR
+    assert wait_for(OWN_NAMES[target], 20), "the welcome's languages"
+    texts = [t for t, _ in nodes()]
+    assert any("Dobrodošli!" in t for t in texts), f"the welcome's greeting: {texts[:12]}"
+    assert not any("Dobrodošel" in t or "Dobrodošla" in t for t in texts), "a greeting with a gender before anyone said who they are"
+    setup_shot("welcome")
+    assert tap(OWN_NAMES[target], 4), f"learn {target}"
+    assert wait_for(say("common.next", 0), 8), "the languages' step"
+    if base != "en":
+        assert tap(OWN_NAMES[base], 4), f"explained in {base}"
+        time.sleep(2)
+    assert find(say("setup.hello", 0)) and find(say("setup.hello", 1)), "the welcome in the pair now"
+    setup_shot("languages")
+    assert tap(say("common.next", 0), 4), "next"
+    assert wait_for("Lani?", 8), "the two ways"
+    setup_shot("ways")
+    assert tap(say(way_key, 0), 4), f"the way {way_key}"
+
+
+def setup():
+    """The first launch to the dev bridge (docs/plans/05-built/onboarding.md): the welcome (no gender), Slovene to learn
+    from English (LANI_QA_SETUP_PAIR: another pair), "S svojim računalnikom · With my family's computer" (its "📷 Skeniraj
+    kodo" the big button; the scanner opened once), "Ročno · Enter manually"; an address where nothing answers first (the
+    plain error: "Can't reach your computer", "Poskusi znova", "Odpri Tailscale"), then the dev bridge's address and
+    token, Home (the village founded where a synthetic learner has none). Screenshots also to $LANI_QA_SETUP_SHOTS."""
+    if wait_for(OWN_NAMES[SETUP_PAIR[0]], 12) is None:
+        return "already connected"
+    first_launch()
+    assert wait_for(say("setup.scan", 0), 8), "the QR code's button"
+    setup_shot("computer")
+    # the scanner itself, once: the camera asked for (allowed), the virtual scene; closed again
+    if tap(say("setup.scan", 0), 4):
+        for _ in range(8):  # the system's question may come a moment later
+            c = next((c for t, c in nodes() if t in ("While using the app", "Only this time", "Allow")), None)
+            if c is not None:
+                tap_at(c)
+                break
+            time.sleep(1)
+        time.sleep(2 * slow())
+        setup_shot("scan")
+        for _ in range(3):  # closed again: back on the computer's step
+            if find(say("setup.manual", 0)):
+                break
+            if not tap(say("common.close"), 3):
+                adb("shell", "input", "keyevent", "KEYCODE_BACK")
+            time.sleep(1)
+    assert tap(say("setup.manual", 0), 6), "enter manually"
+    assert wait_for(say("setup.address", 0), 8), "the address field"
+    setup_shot("manual")
+    # an address where nothing answers (the emulator's host, a port of QA's block nothing listens on): plain words
+    nobody = f"http://10.0.2.2:{SETUP_NOBODY_PORT}"
+    assert not listeners(SETUP_NOBODY_PORT), f"something listens on {SETUP_NOBODY_PORT}"
+    type_into("https://", nobody)
+    type_into(say("setup.token"), TOKEN, clear=0)
+    assert tap(say("setupAndPermission.connect")), "connect button"
+    assert wait_for(say("pairing.cantReachTutorPhone", 0)[:24], 30), "the unreachable computer, in plain words"
+    assert find(say("setup.openTailscale", 0)) and find(say("pairScan.tryAgain", 0)), "its ways out: try again, the Tailscale app"
+    setup_shot("error")
+    type_into(nobody, BRIDGE_URL)
+    # the button's whole label: "Povezujem…" while it connects
+    assert tap(say("setupAndPermission.connect")), "connect button"
     pair = os.environ.get("LANI_QA_PAIR")
     if pair:
         # a learner of another language (the Friuli culture's Italian from German): the phone shows the pair QA reads its
         # labels in ("sl-en"), as the connection sheet's languages would choose it; the village keeps its culture
         qa_hook(f"pair:{pair}")
+    # the learner's own pair from here (the profile's, or LANI_QA_PAIR's): Home's and the founding's labels in it
+    today, where, here = (f"{say(k, 0)}" for k in ("common.today", "founding.title", "founding.here"))
     end = time.time() + 30
     while time.time() < end:  # Home, and the notification permission whenever it comes
         ns = list(nodes())
@@ -582,18 +675,63 @@ def setup():
             qa_hook(f"pair:{pair}")
         if c is not None:
             adb("shell", "input", "tap", str(c[0]), str(c[1]))
-        elif any("Kje bo tvoja vas" in t for t, _ in ns):
-            found_village()  # a copy without a village (a synthetic learner): founded first
-        elif any("Danes · Today" in t for t, _ in ns):
-            break
-        elif any("Kje bo tvoja vas?" in t for t, _ in ns):
-            # a learner without a village yet (LANI_DEV_DATA: a new learner's data): it's founded where it's offered
+        elif any(where[:12] in t for t, _ in ns):
+            # a learner without a village yet (LANI_DEV_DATA: a new learner's data): it's founded where it's offered;
             # at the screen's end it stays low, below scroll_to's band: found as it is then
-            here = scroll_to("Tu bo moja vas", 4) or find("Tu bo moja vas")
-            if here:
-                tap_at(here)
+            setup_shot("founding")
+            here_at = scroll_to(here, 4) or find(here)
+            if here_at:
+                tap_at(here_at)
+                time.sleep(3 * slow())
+        elif any(t.startswith(f"{today} · ") for t, _ in ns):
+            break
         time.sleep(1)
-    assert wait_for("Danes · Today", 5), "home did not load"
+    assert any(t.startswith(f"{today} · ") for t, _ in nodes()), "home did not load"
+
+
+def intro_voice():
+    """The village's first words read aloud (ui/game/GameIntro; docs/plans/05-built/onboarding.md, "The introduction's
+    voice"): on a fresh install "Moja vas" opens the intro, and each of its three steps is read as it shows: the language
+    learned in the narrator's voice (the node's clip; else the phone's voice for it), the base under it by the phone's
+    (tag HintVoice: each piece's language and where its sound came from). Its 🔊 there; then "Prižgi ogenj". The log in
+    intro-voice.log (onb-intro-voice.log in $LANI_QA_SETUP_SHOTS)."""
+    to_top()
+    adb("logcat", "-c")
+    assert tap(say("homeHero.myVillage", 0)), "open village"
+    assert wait_for(say("common.skip", 0), 10), "the village's first words (its Skip)"
+    assert find(say("gameIntro.readAloud", 0)) or find("⏹") or find("🔊"), "its 🔊"
+    lines: list[str] = []
+    for step_no in range(3):
+        end = time.time() + 45 * slow()
+        while time.time() < end:  # each step logs its pieces once they're got (the node's clip made, or the phone's voice)
+            lines = [l for l in adb("logcat", "-d", "-s", "HintVoice:I", check=False).splitlines() if re.search(r" \d+/\d+ \w\w ", l)]
+            if sum(1 for l in lines if " 1/" in l) > step_no:
+                break
+            time.sleep(2)
+        if step_no == 0:
+            setup_shot("intro")
+        time.sleep(4 * slow())  # heard, more or less
+        if step_no < 2:
+            assert tap(say("common.next"), 4), "next"
+    log = "\n".join(lines) + "\n"
+    (OUT / "intro-voice.log").write_text(log)
+    if os.environ.get("LANI_QA_SETUP_SHOTS"):
+        (Path(os.environ["LANI_QA_SETUP_SHOTS"]) / "onb-intro-voice.log").write_text(log)
+    print("    " + "\n    ".join(l.split("HintVoice: ", 1)[-1] for l in lines))
+    target = SETUP_PAIR[0]
+    learned = [l for l in lines if f" {target} " in l and " none " not in l]
+    assert sum(1 for l in lines if " 1/" in l) >= 3, f"each of the three steps read: {lines}"
+    assert learned, f"the language learned ({target}) said: {lines}"
+    assert tap(say("gameIntro.lightFire", 0), 4), "light the fire"
+    time.sleep(2)
+    # Home in the learner's pair (go_home knows Jan's): the village and the news over it closed
+    today = f'{say("common.today", 0)} · '
+    for _ in range(5):
+        if any(t.startswith(today) for t, _ in nodes()):
+            break
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1.5)
+    assert any(t.startswith(today) for t, _ in nodes()), "back to Home"
 
 
 def scroll_to(text: str, swipes=5, exact=False):
@@ -8927,6 +9065,8 @@ def plan():
     v, h = plain_village, leave_visit
     return [
         ("setup", setup, None, False, ""),
+        # the first visit to the village, on the fresh install: its first words read aloud (before "village" skips them)
+        ("intro-voice", intro_voice, None, False, ""),
         ("home", home, None, False, ""),
         ("challenges", challenges, None, False, ""),
         ("sheets-settle", sheets_settle, go_home, False, ""),
@@ -9023,7 +9163,7 @@ def plan():
     ]
 
 
-HOSTED_TITLE = "Lani na tem telefonu"  # l10n hosted.title: the setup's choice, the splash, the connection sheet
+HOSTED_TITLE = "Lani na tej napravi"  # l10n hosted.title: the onboarding, the splash, the connection sheet
 HOSTED_NAME = "Ana"
 
 
@@ -9071,21 +9211,20 @@ def hosted_home_ms() -> str:
 
 
 def hosted():
-    """"☁️ Lani na tem telefonu · Lani on this phone" (docs/plans/05-built/hosted-mode.md) with no node at all: nothing
-    may listen on the dev bridge's port. A fresh install: the setup's choice, the onboarding (a name, as a woman, Slovene
-    from English, A1, 30 minutes), the tutor's step, Home on the phone's own bridge and the village founded; a word looked
+    """"☁️ Lani na tej napravi · Lani on this device" (docs/plans/05-built/hosted-mode.md) with no node at all: nothing
+    may listen on the dev bridge's port. A fresh install: the first launch's "📱 Samo ta telefon / tablica", the
+    onboarding (a name, as a woman, Slovene from English, A1, 30 minutes; LANI_QA_HOSTED_CHILD=1: for a child), the
+    tutor's step (a child's closed until a parent's hold), Home on the phone's own bridge and the village founded; a word looked
     up in a pack, the pack learned (its words saved by the phone's update-db), a review (QA's hook "review") saved; the
     app killed and started again: the splash, Home in N ms (the log's timing), the review still there (the phone's
     spaced-repetition.json, the streak); the packs screen; the export made (the connection sheet's 📤, the share sheet),
     pulled and checked by the node's `lani import --verify`. Screenshots also to $LANI_QA_HOSTED_SHOTS."""
     assert not listeners(PORT), f"something listens on {PORT}: the hosted step runs with no node"
-    assert wait_for(HOSTED_TITLE, 30), "the setup's hosted choice"
+    # the first launch: the welcome, Slovene from English, "📱 Samo ta telefon / tablica · Just this device"
+    first_launch(way_key="setup.deviceTitle")
     hosted_shot("setup")
-    assert tap(f"☁️ {HOSTED_TITLE}", 5), "the hosted choice"
-    assert wait_for("Nov začetek", 8), "the hosted start"
-    hosted_shot("start")
-    assert tap("Nov začetek", 4), "a fresh start"
-    c = wait_for("Kako ti je ime?", 6)
+    # no learner on the phone yet: the questions at once (an export imported from there too)
+    c = wait_for("Kako ti je ime?", 8)
     assert c, "the name field"
     adb("shell", "input", "tap", str(c[0]), str(c[1]))
     time.sleep(1.2 * slow())
@@ -9093,14 +9232,32 @@ def hosted():
     adb("shell", "input", "keyevent", "KEYCODE_BACK")
     time.sleep(1)
     assert tap("kot ženska", 4), "as a woman"
+    child = os.environ.get("LANI_QA_HOSTED_CHILD") == "1"
+    if child:  # a child's device: keys and accounts a parent's (app/ParentGate)
+        assert tap("Za otroka", 4), "for a child"
+    assert find("Učiš se: slovenščina"), "the setup's languages, not asked again"
     hosted_shot("onboarding")
     for _ in range(3):  # to the end of the questions: the button sits low, under the minutes a day
         adb("shell", "input", "swipe", "540", "1600", "540", "800", "300")
         time.sleep(0.8)
     assert tap("Ustanovi mojo vas", 5), "found my village"
     assert wait_for("Še učitelj", 40), "the tutor's step"
+    if child:
+        # "a parent sets this up": nothing to type for the child; a hold opens it
+        assert wait_for("To nastavi starš", 4) and not find("Claude (svoj ključ)"), "the child's tutor step, closed"
+        hosted_shot("tutor-child")
+        c = find("Drži za starše")
+        assert c, "the parent's hold"
+        adb("shell", "input", "tap", str(c[0]), str(c[1]))  # a tap doesn't open it
+        time.sleep(1)
+        assert not find("Claude (svoj ključ)"), "a tap opened the parent's gate"
+        adb("shell", "input", "swipe", str(c[0]), str(c[1]), str(c[0]), str(c[1]), "2800")  # held for 2.8 s
+        assert wait_for("Claude (svoj ključ)", 6), "the hold opens it"
+        hosted_shot("tutor-child-open")
+    # the three ways: Claude with one's own key, ChatGPT (where the build has OpenAI), or later
+    assert find("Claude (svoj ključ)"), "Claude (your own key)"
     hosted_shot("tutor")
-    assert tap("V mojo vas", 5), "to my village"
+    assert tap("Pozneje · Later", 5), "the tutor later: to the village"
     hosted_home(found=True)
     time.sleep(2 * slow())
     assert find(HOSTED_NAME), "Home greets the learner"
@@ -9243,6 +9400,13 @@ def hosted():
     for _ in range(8):
         if find("odgovarja učitelj v aplikaciji"):
             break
+        gate = find("Drži za starše")
+        if gate is not None and os.environ.get("LANI_QA_HOSTED_CHILD") == "1":
+            # a child's device: the data and the tutor a parent's, behind the hold
+            hosted_shot("settings-child")
+            adb("shell", "input", "swipe", str(gate[0]), str(gate[1]), str(gate[0]), str(gate[1]), "2800")
+            time.sleep(1.5)
+            continue
         adb("shell", "input", "swipe", "540", "1800", "540", "900", "400")  # up only: a drag down closes the sheet
         time.sleep(1)
     assert find("odgovarja učitelj v aplikaciji"), "the Tutor section's line for the phone"
