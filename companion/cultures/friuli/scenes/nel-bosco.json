@@ -1,0 +1,222 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "nel-bosco",
+  "language": "it",
+  "title": { "it": "Nel bosco", "sl": "V gozdu", "en": "In the wood", "de": "Im Wald" },
+  "emoji": "🌲",
+  "level": "A1",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker",
+  "art": "forest",
+  "from": ["forest"],
+  "pack": "nel-bosco",
+  "objects": [
+    { "slot": "tree", "word": "albero" },
+    { "slot": "spruce", "word": "abete" },
+    { "slot": "mushroom", "word": "fungo" },
+    { "slot": "berries", "word": "mirtillo" },
+    { "slot": "stream", "word": "ruscello" },
+    { "slot": "stone", "word": "roccia", "pack": "leggende" },
+    { "slot": "path", "word": "sentiero", "pack": "nel-campo" },
+    { "slot": "bird", "word": "uccello", "pack": "animali-del-bosco" },
+    { "slot": "deer", "word": "capriolo", "pack": "animali-del-bosco" },
+    { "slot": "squirrel", "word": "scoiattolo", "pack": "animali-del-bosco" },
+    { "slot": "owl", "word": "gufo", "pack": "animali-del-bosco" },
+    { "slot": "leaves", "word": "foglia", "pack": "festa-san-martino" },
+    { "slot": "sheep", "word": "pecora", "pack": "leggende" },
+    { "slot": "flowers", "word": "fiore", "pack": "festa-liberazione" },
+    { "slot": "highseat", "word": "altana" },
+    { "slot": "hare", "word": "lepre", "pack": "animali-del-bosco" },
+    { "slot": "butterfly", "word": "farfalla", "pack": "animali-del-bosco" },
+    { "slot": "fox", "word": "volpe", "pack": "animali-del-bosco" },
+    { "slot": "stag", "word": "cervo", "pack": "animali-del-bosco" },
+    { "slot": "hedgehog", "word": "riccio", "pack": "animali-del-bosco" },
+    { "slot": "boar", "word": "cinghiale", "pack": "animali-del-bosco" },
+    { "slot": "badger", "word": "tasso", "pack": "animali-del-bosco" },
+    { "slot": "dormouse", "word": "ghiro", "pack": "animali-del-bosco" },
+    { "slot": "bat", "word": "pipistrello", "pack": "animali-del-bosco" }
+  ],
+  "people": [
+    { "id": "davide", "name": "Pastore Davide", "emoji": "🐑", "art": "shepherd", "slot": "path", "villager": "davide" },
+    { "id": "aldo", "name": "Apicoltore Aldo", "emoji": "🐝", "art": "beekeeper", "slot": "clearing", "villager": "aldo" },
+    { "id": "bepi", "name": "Nonno Bepi", "emoji": "👴", "art": "grandpa", "slot": "highseat", "villager": "bepi" }
+  ],
+  "happenings": [
+    {
+      "id": "pecora", "title": { "it": "Davide cerca una pecora", "sl": "Davide išče ovco", "en": "Davide is looking for a sheep", "de": "Davide sucht ein Schaf" }, "who": "davide",
+      "when": ["morning", "afternoon"], "chance": 0.5, "dialog": "pecora", "dialogs": ["pecora-nebbia", "pecora"], "reward": { "wood": 20 }, "marker": "🐑",
+      "memory": { "it": "Bianca, che abbiamo trovato insieme nel bosco", "sl": "Bianco, ki sva jo skupaj našla v gozdu", "en": "Bianca, whom we found together in the wood", "de": "Bianca, die wir zusammen im Wald gefunden haben" }
+    },
+    {
+      "id": "funghi", "title": { "it": "Aldo cerca i funghi", "sl": "Aldo nabira gobe", "en": "Aldo is looking for mushrooms", "de": "Aldo sucht Pilze" }, "who": "aldo",
+      "when": ["morning"], "months": [8, 9, 10, 11], "chance": 0.6, "dialog": "funghi", "dialogs": ["funghi-cesto", "funghi"], "reward": { "food": 20 }, "marker": "🍄",
+      "memory": { "it": "i funghi che abbiamo trovato nel bosco", "sl": "gobe, ki sva jih našla v gozdu", "en": "the mushrooms we found in the wood", "de": "die Pilze, die wir im Wald gefunden haben" }
+    },
+    {
+      "id": "altana", "title": { "it": "Nonno Bepi sull'altana", "sl": "Dedek Bepi na preži", "en": "Nonno Bepi on the high seat", "de": "Nonno Bepi auf dem Hochsitz" }, "who": "bepi",
+      "when": ["dawn"], "chance": 0.6, "dialog": "altana", "dialogs": ["altana-gufo", "altana"], "reward": { "wisdom": 20 }, "marker": "🦌",
+      "memory": { "it": "l'alba che abbiamo guardato dall'altana", "sl": "zoro, ki sva jo gledala s preže", "en": "the dawn we watched from the high seat", "de": "den Morgen, den wir vom Hochsitz aus angeschaut haben" }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "pecora",
+      "lines": [
+        { "who": "davide", "it": "{learner}! Hai visto Bianca? È la mia pecora più piccola!", "sl": "{learner}! Si {m:videl|f:videla} Bianco? Moja najmanjša ovca je!", "en": "{learner}! Have you seen Bianca? She's my smallest sheep!", "de": "{learner}! Hast du Bianca gesehen? Sie ist mein kleinstes Schaf!" },
+        { "choices": [
+          { "it": "No. Com'è Bianca?", "sl": "Ne. Kakšna je Bianca?", "en": "No. What does Bianca look like?", "de": "Nein. Wie sieht Bianca aus?", "ok": true,
+            "reply": { "it": "È bianca, con la testa nera. E ha un campanello!", "sl": "Bela je, s črno glavo. In ima zvonček!", "en": "She's white, with a black head. And she has a little bell!", "de": "Sie ist weiß, mit schwarzem Kopf. Und sie hat ein Glöckchen!" } },
+          { "it": "No. Come sta Bianca?", "sl": "Ne. Kako se ima Bianca?", "en": "No. How is Bianca?", "de": "Nein. Wie geht es Bianca?",
+            "grammar": "verbi-irregolari", "why": { "sl": "Come sta? pomeni Kako se ima? Za videz vprašaš: com'è? (kakšna je?)", "en": "Come sta? asks how she's doing. To ask what she looks like: com'è?", "de": "Come sta? fragt, wie es ihr geht. Nach dem Aussehen fragst du: com'è? (wie ist sie?)" },
+            "reply": { "it": "Come sta? Ha paura, poverina! È sola nel bosco.", "sl": "Kako se ima? Boji se, revica! Sama je v gozdu.", "en": "How is she? Scared, poor thing! She's alone in the wood.", "de": "Wie es ihr geht? Sie hat Angst, die Arme! Sie ist allein im Wald." } }
+        ] },
+        { "who": "davide", "it": "Ascolta! Senti il campanello?", "sl": "Poslušaj! Slišiš zvonček?", "en": "Listen! Can you hear the bell?", "de": "Hör mal! Hörst du das Glöckchen?",
+          "fx": { "sheepbells": 1 } },
+        { "choices": [
+          { "it": "Sì, lo sento! È vicino al sentiero.", "sl": "Ja, slišim ga! Blizu steze je.", "en": "Yes, I can hear it! It's near the path.", "de": "Ja, ich höre es! Es ist beim Pfad.", "ok": true,
+            "reply": { "it": "Bianca! Eccola! Grazie, {learner}!", "sl": "Bianca! Tukaj je! Hvala, {learner}!", "en": "Bianca! There she is! Thanks, {learner}!", "de": "Bianca! Da ist sie! Danke, {learner}!", "fx": { "sheepbells": 0 } } },
+          { "it": "Sì, lo senti! È vicino al sentiero.", "sl": "Ja, slišiš ga! Blizu steze je.", "en": "Yes, you can hear it! It's near the path.", "de": "Ja, du hörst es! Es ist beim Pfad.",
+            "grammar": "presente-regolare", "why": { "sl": "Senti pomeni slišiš (ti). O sebi: sento (slišim).", "en": "Senti means you hear. About yourself: sento (I hear).", "de": "Senti heißt „du hörst“. Über dich selbst: sento (ich höre)." },
+            "reply": { "it": "Io? Sì! Ma tu dove lo senti?", "sl": "Jaz? Ja! Ampak kje ga slišiš ti?", "en": "Me? Yes! But where do you hear it?", "de": "Ich? Ja! Aber wo hörst du es?" } },
+          { "it": "Sì, lo sento! È vicino il sentiero.", "sl": "Ja, slišim ga! Blizu steze je.", "en": "Yes, I can hear it! It's near the path.", "de": "Ja, ich höre es! Es ist beim Pfad.",
+            "grammar": "dove-preposizioni", "why": { "sl": "Vicino obdrži a, ki se zlije s členom: vicino al sentiero.", "en": "Vicino keeps its a, which fuses with the article: vicino al sentiero.", "de": "Vicino behält sein a, das mit dem Artikel verschmilzt: vicino al sentiero." },
+            "reply": { "it": "Vicino il sentiero? Hm, qualcosa non va…", "sl": "Vicino il sentiero? Hm, nekaj ni prav …", "en": "Vicino il sentiero? Hm, something's not right…", "de": "Vicino il sentiero? Hm, da stimmt was nicht …" } }
+        ] },
+        { "who": "davide", "it": "Bianca, birbante! Sempre lei. Torniamo al prato.", "sl": "Bianca, porednica! Vedno ona. Greva nazaj na travnik.", "en": "Bianca, you rascal! Always her. Let's go back to the meadow.", "de": "Bianca, du Schlingel! Immer sie. Gehen wir zurück zur Wiese." }
+      ]
+    },
+    {
+      "id": "funghi",
+      "lines": [
+        { "who": "aldo", "it": "Buongiorno, {learner}. Piano, piano… Cerco i funghi.", "sl": "Dobro jutro, {learner}. Počasi, počasi … Iščem gobe.", "en": "Good morning, {learner}. Slowly, slowly… I'm looking for mushrooms.", "de": "Guten Morgen, {learner}. Langsam, langsam … Ich suche Pilze." },
+        { "choices": [
+          { "it": "Buongiorno, Aldo! Posso cercare con te?", "sl": "Dobro jutro, Aldo! Lahko iščem s tabo?", "en": "Good morning, Aldo! Can I look with you?", "de": "Guten Morgen, Aldo! Darf ich mit dir suchen?", "ok": true,
+            "reply": { "it": "Sì, ma piano. Guarda bene nell'erba.", "sl": "Ja, ampak počasi. Dobro poglej v travo.", "en": "Yes, but slowly. Look carefully in the grass.", "de": "Ja, aber langsam. Schau gut ins Gras." } },
+          { "it": "Buongiorno, Aldo! Posso cercare con Lei?", "sl": "Dobro jutro, Aldo! Lahko iščem z Vami?", "en": "Good morning, Aldo! May I look with you (polite)?", "de": "Guten Morgen, Aldo! Darf ich mit Ihnen suchen?",
+            "grammar": "tu-lei", "why": { "sl": "Aldo ti reče tu in ti njemu tudi: con te.", "en": "Aldo says tu to you, and you say tu back: con te.", "de": "Aldo duzt dich, und du duzt ihn auch: con te." },
+            "reply": { "it": "Con Lei? Chi è Lei? Io sono solo Aldo!", "sl": "Z Vami? Kdo pa je to? Jaz sem samo Aldo!", "en": "With you, polite? Who's that? I'm just Aldo!", "de": "Mit Ihnen? Wer soll das sein? Ich bin nur Aldo!" } }
+        ] },
+        { "who": "aldo", "it": "Oh, guarda quel fungo rosso, con i puntini bianchi!", "sl": "Oh, poglej to rdečo gobo z belimi pikicami!", "en": "Oh, look at that red mushroom, with the white spots!", "de": "Oh, schau den roten Pilz mit den weißen Punkten!" },
+        { "choices": [
+          { "it": "Che bello! Ma non si mangia, vero?", "sl": "Kako lepa! Ampak se ne je, kajne?", "en": "How pretty! But you can't eat it, can you?", "de": "Wie schön! Aber den isst man nicht, oder?", "ok": true,
+            "reply": { "it": "Giusto. È velenoso. Lo guardiamo e basta.", "sl": "Tako je. Strupena je. Samo gledava jo.", "en": "Right. It's poisonous. We just look at it.", "de": "Richtig. Er ist giftig. Wir schauen ihn nur an." } },
+          { "it": "Che bella! Ma non si mangia, vero?", "sl": "Kako lepa! Ampak se ne je, kajne?", "en": "How pretty! But you can't eat it, can you?", "de": "Wie schön! Aber den isst man nicht, oder?",
+            "grammar": "aggettivi-accordo", "why": { "sl": "Fungo je moškega spola: che bello!", "en": "Fungo is masculine: che bello!", "de": "Fungo ist männlich: che bello!" },
+            "reply": { "it": "Bella? Chi, l'erba? Ah, il fungo…", "sl": "Bella? Kdo, trava? Aha, goba …", "en": "Bella (she)? Who, the grass? Ah, the mushroom…", "de": "Bella (sie)? Wer, das Gras? Ach, der Pilz …" } },
+          { "it": "Che bello! Lo mangiamo stasera?", "sl": "Kako lepa! Jo bomo jedli nocoj?", "en": "How pretty! Shall we eat it tonight?", "de": "Wie schön! Essen wir ihn heute Abend?",
+            "why": { "sl": "Rdeče gobe z belimi pikami so strupene: non si mangia.", "en": "Red mushrooms with white spots are poisonous: non si mangia.", "de": "Rote Pilze mit weißen Punkten sind giftig: non si mangia." },
+            "reply": { "it": "No, no! È velenoso! Mai, mai!", "sl": "Ne, ne! Strupena je! Nikoli, nikoli!", "en": "No, no! It's poisonous! Never, never!", "de": "Nein, nein! Der ist giftig! Niemals, niemals!" } }
+        ] },
+        { "who": "aldo", "it": "Ecco, un porcino! Questo sì, è buonissimo. Grazie della compagnia.", "sl": "Glej, jurček! Ta pa, odličen je. Hvala za družbo.", "en": "Look, a porcino! This one, yes, it's delicious. Thanks for the company.", "de": "Schau, ein Steinpilz! Der schon, der ist köstlich. Danke für die Gesellschaft." }
+      ]
+    },
+    {
+      "id": "altana",
+      "lines": [
+        { "who": "bepi", "it": "Shh, {learner}. Vieni piano. Dall'altana si vede tutto il bosco.", "sl": "Pst, {learner}. Pridi počasi. S preže se vidi ves gozd.", "en": "Shh, {learner}. Come slowly. From the high seat you can see the whole wood.", "de": "Pst, {learner}. Komm leise. Vom Hochsitz aus sieht man den ganzen Wald." },
+        { "choices": [
+          { "it": "Buongiorno, nonno. Che cosa guardi?", "sl": "Dobro jutro, dedek. Kaj gledaš?", "en": "Good morning, Nonno. What are you looking at?", "de": "Guten Morgen, Opa. Was schaust du an?", "ok": true,
+            "reply": { "it": "I cervi. All'alba vengono al ruscello.", "sl": "Jelene. Ob zori pridejo k potoku.", "en": "The deer. At dawn they come to the stream.", "de": "Die Hirsche. Im Morgengrauen kommen sie zum Bach." } },
+          { "it": "Buonasera, nonno. Che cosa guardi?", "sl": "Dober večer, dedek. Kaj gledaš?", "en": "Good evening, Nonno. What are you looking at?", "de": "Guten Abend, Opa. Was schaust du an?",
+            "why": { "sl": "Zdaj je zora, jutro: buongiorno.", "en": "It's dawn, the morning: buongiorno.", "de": "Es ist Morgengrauen, also Morgen: buongiorno." },
+            "reply": { "it": "Buonasera? Ma il sole sorge adesso, guarda!", "sl": "Dober večer? Saj sonce ravno vzhaja, poglej!", "en": "Good evening? But the sun's just rising, look!", "de": "Guten Abend? Die Sonne geht doch gerade auf, schau!" } },
+          { "it": "Buongiorno, nonno. Che cosa guarda?", "sl": "Dobro jutro, dedek. Kaj gledate?", "en": "Good morning, Nonno. What are you (polite) looking at?", "de": "Guten Morgen, Opa. Was schauen Sie an?",
+            "grammar": "tu-lei", "why": { "sl": "Nonnu rečeš tu: guardi. Guarda je vikanje (Lei).", "en": "To your nonno, say tu: guardi. Guarda is the polite Lei.", "de": "Zu deinem Nonno sagst du tu: guardi. Guarda ist die höfliche Lei-Form." },
+            "reply": { "it": "Guarda? Eh eh, sono il tuo nonno, non il sindaco!", "sl": "Gledate? He he, tvoj dedek sem, ne župan!", "en": "Guarda (polite)? Heh heh, I'm your nonno, not the mayor!", "de": "Guarda (Sie)? Hehe, ich bin dein Opa, nicht der Bürgermeister!" } }
+        ] },
+        { "who": "bepi", "it": "Eccoli! Un cervo e due cerve. Piano, piano…", "sl": "Tam so! Jelen in dve košuti. Počasi, počasi …", "en": "There they are! A stag and two hinds. Slowly, slowly…", "de": "Da sind sie! Ein Hirsch und zwei Hirschkühe. Leise, leise …",
+          "fx": { "herd": 1 } },
+        { "choices": [
+          { "it": "Che belli! Il cervo ha le corna grandi.", "sl": "Kako lepi! Jelen ima veliko rogovje.", "en": "How beautiful! The stag has big antlers.", "de": "Wie schön! Der Hirsch hat ein großes Geweih.", "ok": true,
+            "reply": { "it": "Sì. Più è vecchio, più grandi sono le corna.", "sl": "Ja. Starejši ko je, večje rogovje ima.", "en": "Yes. The older he is, the bigger his antlers.", "de": "Ja. Je älter er ist, desto größer ist sein Geweih." } },
+          { "it": "Che belli! Il cervo ha le corna grande.", "sl": "Kako lepi! Jelen ima veliko rogovje.", "en": "How beautiful! The stag has big antlers.", "de": "Wie schön! Der Hirsch hat ein großes Geweih.",
+            "grammar": "aggettivi-accordo", "why": { "sl": "Corna je množina: le corna grandi.", "en": "Corna is plural: le corna grandi.", "de": "Corna ist Plural: le corna grandi." },
+            "reply": { "it": "Grande? Ma le corna sono due, non una!", "sl": "Grande (ednina)? Roga sta dva, ne eden!", "en": "Grande (one)? But there are two antlers, not one!", "de": "Grande (eins)? Es sind doch zwei Stangen, nicht eine!" } }
+        ] },
+        { "who": "bepi", "it": "Chi va piano va sano e va lontano. Ricordalo, {learner}.", "sl": "Kdor počasi hodi, daleč pride. Zapomni si, {learner}.", "en": "Slow and steady goes far. Remember that, {learner}.", "de": "Wer langsam geht, kommt weit. Merk dir das, {learner}." }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "pecora-nebbia",
+      "months": [10, 11, 12, 1, 2, 3],
+      "sky_stays": false,
+      "memory": { "it": "il giorno di nebbia che abbiamo trovato Bianca", "sl": "megleni dan, ko sva našla Bianco", "en": "the foggy day we found Bianca", "de": "den nebligen Tag, an dem wir Bianca gefunden haben" },
+      "lines": [
+        { "who": "davide", "it": "{learner}! Che nebbia! Non vedo le pecore. Bianca è sparita!", "sl": "{learner}! Kakšna megla! Ne vidim ovac. Bianca je izginila!", "en": "{learner}! What fog! I can't see the sheep. Bianca's gone!", "de": "{learner}! So ein Nebel! Ich sehe die Schafe nicht. Bianca ist weg!",
+          "sky": { "fog": 0.8, "gloom": 0.5 } },
+        { "choices": [
+          { "it": "Non ti preoccupare! La cerchiamo insieme.", "sl": "Ne skrbi! Poiščeva jo skupaj.", "en": "Don't worry! We'll look for her together.", "de": "Keine Sorge! Wir suchen sie zusammen.", "ok": true,
+            "reply": { "it": "Grazie! Tu cerca a destra, io a sinistra.", "sl": "Hvala! Ti išči na desni, jaz na levi.", "en": "Thanks! You look on the right, I'll look on the left.", "de": "Danke! Du suchst rechts, ich links." } },
+          { "it": "Non ti preoccupare! La cercate insieme.", "sl": "Ne skrbi! Poiščite jo skupaj.", "en": "Don't worry! You all look for her together.", "de": "Keine Sorge! Ihr sucht sie zusammen.",
+            "grammar": "presente-regolare", "why": { "sl": "Cercate je za vas (voi). Za naju oba: cerchiamo.", "en": "Cercate is you all (voi). For the two of you: cerchiamo.", "de": "Cercate heißt ihr (voi). Für euch beide: cerchiamo." },
+            "reply": { "it": "Cercate? Chi, io e le pecore? Dai, aiutami!", "sl": "Iščete? Kdo, jaz in ovce? Daj, pomagaj mi!", "en": "You all? Who, me and the sheep? Come on, help me!", "de": "Ihr sucht? Wer, ich und die Schafe? Komm, hilf mir!" } }
+        ] },
+        { "who": "davide", "it": "Io fischio. Bianca conosce il mio fischio!", "sl": "Zažvižgam. Bianca pozna moj žvižg!", "en": "I'll whistle. Bianca knows my whistle!", "de": "Ich pfeife. Bianca kennt meinen Pfiff!" },
+        { "choices": [
+          { "it": "Senti! Il campanello! Viene di qua!", "sl": "Poslušaj! Zvonček! Prihaja sem!", "en": "Listen! The bell! She's coming this way!", "de": "Hör mal! Das Glöckchen! Sie kommt hierher!", "ok": true,
+            "reply": { "it": "Sì! Eccola! E la nebbia va via.", "sl": "Ja! Tukaj je! In megla se dviga.", "en": "Yes! There she is! And the fog's lifting.", "de": "Ja! Da ist sie! Und der Nebel geht weg.", "sky": { "fog": 0.2, "gloom": 0.1 }, "fx": { "sheepbells": 1 } } },
+          { "it": "Senti! Il campanello! Va di qua!", "sl": "Poslušaj! Zvonček! Gre stran!", "en": "Listen! The bell! She's going away!", "de": "Hör mal! Das Glöckchen! Sie geht weg!",
+            "grammar": "verbi-irregolari", "why": { "sl": "Ko gre kdo k nam, rečeš viene (prihaja). Va je gre.", "en": "Coming towards us is viene. Va is going.", "de": "Wenn jemand zu uns kommt, sagt man viene (kommt). Va heißt geht." },
+            "reply": { "it": "Va? Dove va? No, Bianca, torna qui!", "sl": "Gre? Kam gre? Ne, Bianca, vrni se!", "en": "Going? Where to? No, Bianca, come back!", "de": "Geht? Wohin denn? Nein, Bianca, komm zurück!" } }
+        ] },
+        { "who": "davide", "it": "Brava Bianca! E {m:bravo|f:brava} anche tu, {learner}. Che nebbia, però!", "sl": "Pridna Bianca! Pa ti tudi, {learner}. Ampak kakšna megla!", "en": "Good girl, Bianca! And well done you, {learner}. What fog, though!", "de": "Brave Bianca! Und gut gemacht, {learner}. Aber so ein Nebel!" }
+      ]
+    },
+    {
+      "id": "funghi-cesto",
+      "count": { "from": "dice", "min": 3, "max": 12, "gender": "m" },
+      "memory": { "it": "il cesto pieno di funghi che abbiamo contato", "sl": "polno košaro gob, ki sva jih preštela", "en": "the basket full of mushrooms we counted", "de": "den Korb voller Pilze, die wir gezählt haben" },
+      "lines": [
+        { "who": "aldo", "it": "{learner}, guarda nel mio cesto. Quanti funghi ci sono?", "sl": "{learner}, poglej v mojo košaro. Koliko gob je notri?", "en": "{learner}, look in my basket. How many mushrooms are there?", "de": "{learner}, schau in meinen Korb. Wie viele Pilze sind drin?" },
+        { "choices": [
+          { "it": "{C'è|Ci sono} {n} {fungo|funghi}!", "sl": "Tu {je|sta|so|je} {n} {goba|gobi|gobe|gob}!", "en": "There {is|are} {n} {mushroom|mushrooms}!", "de": "Da {ist|sind} {n} {Pilz|Pilze}!", "ok": true,
+            "reply": { "it": "Giusto. Bastano per una buona minestra.", "sl": "Tako je. Dovolj jih je za dobro juho.", "en": "That's right. Enough for a good soup.", "de": "Richtig. Das reicht für eine gute Suppe." } },
+          { "it": "{C'è|Ci sono} {n} {!fungo|funghi}!", "sl": "Tu {je|sta|so|je} {n} {!goba|gobi|gobe|gob}!", "en": "There {is|are} {n} {!mushroom|mushrooms}!", "de": "Da {ist|sind} {n} {!Pilz|Pilze}!", "wrong_form": 1, "grammar": "plurale",
+            "why": { "sl": "{Ena stvar je v ednini|Več stvari je v množini}: {n} {fungo|funghi}.", "en": "{One takes the singular|More than one takes the plural}: {n} {fungo|funghi}.", "de": "{Eins steht im Singular|Mehrere stehen im Plural}: {n} {fungo|funghi}." },
+            "reply": { "it": "Fungo? Uno solo? Conta ancora, piano.", "sl": "Fungo (goba)? Samo ena? Štej še enkrat, počasi.", "en": "Fungo (one mushroom)? Just one? Count again, slowly.", "de": "Fungo (ein Pilz)? Nur einer? Zähl noch mal, langsam." } },
+          { "it": "{C'è|Ci sono} {n} fungi!", "sl": "Tu {je|sta|so|je} {n} {goba|gobi|gobe|gob}!", "en": "There {is|are} {n} {mushroom|mushrooms}!", "de": "Da {ist|sind} {n} {Pilz|Pilze}!", "grammar": "plurale",
+            "why": { "sl": "Fungo dobi v množini h, da g ostane trd: funghi.", "en": "Fungo keeps its hard g in the plural with an h: funghi.", "de": "Fungo behält im Plural sein hartes g, mit einem h: funghi." },
+            "reply": { "it": "Fungi? Hm, suona diverso. Ascolta bene.", "sl": "Fungi? Hm, drugače zveni. Dobro poslušaj.", "en": "Fungi? Hm, it sounds different. Listen carefully.", "de": "Fungi? Hm, das klingt anders. Hör gut hin." } }
+        ] },
+        { "who": "aldo", "it": "Adesso andiamo piano a casa. Le api ci aspettano.", "sl": "Zdaj pa počasi domov. Čebele naju čakajo.", "en": "Now let's go home, slowly. The bees are waiting for us.", "de": "Jetzt gehen wir langsam nach Hause. Die Bienen warten auf uns." },
+        { "choices": [
+          { "it": "Va bene. Grazie, Aldo!", "sl": "Prav. Hvala, Aldo!", "en": "OK. Thanks, Aldo!", "de": "Okay. Danke, Aldo!", "ok": true,
+            "reply": { "it": "Grazie a te. Piano, piano.", "sl": "Hvala tebi. Počasi, počasi.", "en": "Thank you. Slowly, slowly.", "de": "Danke dir. Langsam, langsam." } },
+          { "it": "Va bene. Prego, Aldo!", "sl": "Prav. Ni za kaj, Aldo!", "en": "OK. You're welcome, Aldo!", "de": "Okay. Gern geschehen, Aldo!",
+            "why": { "sl": "Prego rečeš, ko se ti kdo zahvali. Za zahvalo: grazie.", "en": "Prego answers a thank-you. To say thanks: grazie.", "de": "Prego antwortet man auf ein Danke. Zum Danken: grazie." },
+            "reply": { "it": "Prego? Ma i funghi li ho trovati io!", "sl": "Ni za kaj? Saj sem gobe našel jaz!", "en": "You're welcome? But I found the mushrooms!", "de": "Gern geschehen? Die Pilze habe doch ich gefunden!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "altana-gufo",
+      "fx_stays": true,
+      "memory": { "it": "il gufo che abbiamo trovato sull'abete", "sl": "sovo, ki sva jo našla na jelki", "en": "the owl we found in the fir", "de": "die Eule, die wir auf der Tanne gefunden haben" },
+      "lines": [
+        { "who": "bepi", "it": "Buongiorno, {learner}. Shh… Senti? Uh uh! È il gufo. Dove sarà?", "sl": "Dobro jutro, {learner}. Pst … Slišiš? Hu hu! Sova je. Kje neki je?", "en": "Good morning, {learner}. Shh… Hear that? Hoo hoo! It's the owl. Where can it be?", "de": "Guten Morgen, {learner}. Pst … Hörst du? Uhu! Das ist die Eule. Wo sie wohl ist?",
+          "fx": { "hoot": 1 } },
+        { "choices": [
+          { "it": "Eccolo, là sull'abete!", "sl": "Tam je, na jelki!", "en": "There it is, up in the fir!", "de": "Da ist sie, oben auf der Tanne!", "ok": true, "tap": "owl", "grammar": "preposizioni-articolate",
+            "reply": { "it": "{m:Bravo|f:Brava}! Hai gli occhi buoni.", "sl": "Bravo! Dobre oči imaš.", "en": "Well done! You've got good eyes.", "de": "Gut gemacht! Du hast gute Augen." } },
+          { "it": "Eccolo, sull'albero!", "sl": "Tam je, na drevesu!", "en": "There it is, on the tree!", "de": "Da ist sie, auf dem Baum!", "tap": "squirrel",
+            "why": { "sl": "To je veverica. Sova ima velike oči in sedi na jelki.", "en": "That's the squirrel. The owl has big eyes and sits in the fir.", "de": "Das ist das Eichhörnchen. Die Eule hat große Augen und sitzt auf der Tanne." },
+            "reply": { "it": "Quello ha la coda! È lo scoiattolo, eh eh.", "sl": "Ta ima rep! To je veverica, he he.", "en": "That one has a tail! It's the squirrel, heh heh.", "de": "Der hat einen Schwanz! Das ist das Eichhörnchen, hehe." } },
+          { "it": "Eccolo, in cielo!", "sl": "Tam je, na nebu!", "en": "There it is, in the sky!", "de": "Da ist sie, am Himmel!", "tap": "bird",
+            "why": { "sl": "To je ptica. Poišči velike oči na jelki.", "en": "That's a bird. Look for big eyes in the fir.", "de": "Das ist ein Vogel. Such große Augen auf der Tanne." },
+            "reply": { "it": "Quello è un uccellino. Il gufo di giorno dorme!", "sl": "To je ptiček. Sova podnevi spi!", "en": "That's a little bird. The owl sleeps by day!", "de": "Das ist ein Vögelchen. Die Eule schläft am Tag!" } }
+        ] },
+        { "who": "bepi", "it": "Adesso il gufo va a dormire. Guarda, vola via!", "sl": "Zdaj gre sova spat. Poglej, odleti!", "en": "Now the owl's going to sleep. Look, it's flying away!", "de": "Jetzt geht die Eule schlafen. Schau, sie fliegt weg!",
+          "fx": { "owl-flies": 1 } },
+        { "choices": [
+          { "it": "Il gufo dorme di giorno?", "sl": "Sova podnevi spi?", "en": "Does the owl sleep by day?", "de": "Schläft die Eule am Tag?", "ok": true,
+            "reply": { "it": "Sì. Di giorno dorme, di notte caccia.", "sl": "Ja. Podnevi spi, ponoči lovi.", "en": "Yes. By day it sleeps, at night it hunts.", "de": "Ja. Am Tag schläft sie, nachts jagt sie." } },
+          { "it": "Il gufo dormo di giorno?", "sl": "Sova podnevi spim?", "en": "The owl I sleep by day?", "de": "Die Eule schlafe ich am Tag?",
+            "grammar": "presente-regolare", "why": { "sl": "Za sovo (on, ona) je dorme. Dormo je jaz spim.", "en": "For the owl (he, she) it's dorme. Dormo is I sleep.", "de": "Für die Eule (er, sie) heißt es dorme. Dormo heißt ich schlafe." },
+            "reply": { "it": "Dormo? Chi, tu? Eh eh, hai sonno anche tu?", "sl": "Spim? Kdo, ti? He he, si tudi ti {m:zaspan|f:zaspana}?", "en": "Dormo (I sleep)? Who, you? Heh heh, are you sleepy too?", "de": "Dormo (ich schlafe)? Wer, du? Hehe, bist du auch müde?" } }
+        ] },
+        { "who": "bepi", "it": "Anche il gufo ha la sua casa. Ognuno ha la sua, come noi.", "sl": "Tudi sova ima svoj dom. Vsak ima svojega, kot mi.", "en": "The owl has its home too. Everyone has their own, like us.", "de": "Auch die Eule hat ihr Zuhause. Jeder hat seins, wie wir." }
+      ]
+    }
+  ]
+}

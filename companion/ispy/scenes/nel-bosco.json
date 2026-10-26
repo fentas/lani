@@ -1,0 +1,206 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "nel-bosco",
+  "language": "it",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in it, with sl, en and de translations, from the forest's picture (its painter's colours and where each thing is drawn, as v-gozdu's clues have them; the wild animals only when they are out); not reviewed by a native speaker",
+  "things": {
+    "tree": {
+      "clues": [
+        { "kind": "size", "it": "È grande.", "sl": "To je nekaj velikega.", "en": "It's big.", "de": "Er ist groß.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha il tronco grigio.", "sl": "Ima sivo deblo.", "en": "It has a grey trunk.", "de": "Er hat einen grauen Stamm.", "grammar": ["essere-avere", "aggettivi-accordo"] },
+        { "kind": "where", "it": "È vicino al ruscello.", "sl": "Stoji ob potoku.", "en": "It stands by the stream.", "de": "Er steht am Bach.", "grammar": ["dove-preposizioni", "preposizioni-articolate"], "ref": "stream" },
+        { "kind": "trait", "it": "D'autunno ha le foglie gialle.", "sl": "Jeseni ima rumene liste.", "en": "In autumn it has yellow leaves.", "de": "Im Herbst hat er gelbe Blätter.", "grammar": ["essere-avere", "aggettivi-accordo"] }
+      ]
+    },
+    "spruce": {
+      "name": { "en": "fir tree", "de": "Tanne", "sl": "jelka" },
+      "clues": [
+        { "kind": "size", "it": "È alto.", "sl": "To je nekaj visokega.", "en": "It's tall.", "de": "Das ist hoch.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha gli aghi.", "sl": "Ima iglice.", "en": "It has needles.", "de": "Das hat Nadeln.", "grammar": ["essere-avere"] },
+        { "kind": "colour", "it": "È verde anche d'inverno.", "sl": "Tudi pozimi je zelene barve.", "en": "It's green in winter too.", "de": "Das ist auch im Winter grün.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "use", "it": "A Natale lo addobbiamo.", "sl": "Za božič ga okrasimo.", "en": "We decorate it for Christmas.", "de": "Zu Weihnachten schmücken wir das.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "mushroom": {
+      "clues": [
+        { "kind": "colour", "it": "È rosso.", "sl": "Je rdeče barve.", "en": "It's red.", "de": "Er ist rot.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha i puntini bianchi.", "sl": "Ima bele pikice.", "en": "It has white spots.", "de": "Er hat weiße Punkte.", "grammar": ["essere-avere", "aggettivi-accordo"] },
+        { "kind": "does", "it": "Cresce nell'erba.", "sl": "Raste v travi.", "en": "It grows in the grass.", "de": "Er wächst im Gras.", "grammar": ["presente-regolare", "preposizioni-articolate"] },
+        { "kind": "use", "it": "Non si mangia!", "sl": "Tega se ne je!", "en": "You mustn't eat it!", "de": "Den darf man nicht essen!", "grammar": ["domande"] }
+      ]
+    },
+    "berries": {
+      "name": { "en": "blueberry", "de": "Heidelbeere", "sl": "borovnica" },
+      "clues": [
+        { "kind": "colour", "it": "D'estate è blu.", "sl": "Poleti je modre barve.", "en": "In summer it's blue.", "de": "Im Sommer ist das blau.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "È dolce.", "sl": "To je nekaj sladkega.", "en": "It's sweet.", "de": "Das ist süß.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "does", "it": "Cresce su un cespuglio.", "sl": "Raste na grmu.", "en": "It grows on a bush.", "de": "Das wächst an einem Strauch.", "grammar": ["presente-regolare"] },
+        { "kind": "use", "it": "Lo raccogliamo d'estate.", "sl": "To nabiramo poleti.", "en": "We pick it in summer.", "de": "Das pflücken wir im Sommer.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "stream": {
+      "clues": [
+        { "kind": "size", "it": "È lungo.", "sl": "To je nekaj dolgega.", "en": "It's long.", "de": "Er ist lang.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "È freddo.", "sl": "To je nekaj mrzlega.", "en": "It's cold.", "de": "Er ist kalt.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "does", "it": "Attraversa la radura.", "sl": "Teče čez jaso.", "en": "It runs across the clearing.", "de": "Er fließt über die Lichtung.", "grammar": ["presente-regolare"] },
+        { "kind": "use", "it": "Dentro c'è l'acqua pulita.", "sl": "V njem je čista voda.", "en": "There's clear water in it.", "de": "Darin ist klares Wasser.", "grammar": ["ce-ci-sono"] }
+      ]
+    },
+    "stone": {
+      "clues": [
+        { "kind": "colour", "it": "È grigia.", "sl": "Je sive barve.", "en": "It's grey.", "de": "Das ist grau.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "size", "it": "È grande.", "sl": "To je nekaj velikega.", "en": "It's big.", "de": "Das ist groß.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È vicino al ruscello.", "sl": "Leži ob potoku.", "en": "It's lying by the stream.", "de": "Das liegt am Bach.", "grammar": ["dove-preposizioni", "preposizioni-articolate"], "ref": "stream" },
+        { "kind": "use", "it": "Sopra cresce il muschio.", "sl": "Na tem raste mah.", "en": "Moss grows on it.", "de": "Darauf wächst Moos.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "path": {
+      "clues": [
+        { "kind": "trait", "it": "È stretto.", "sl": "To je nekaj ozkega.", "en": "It's narrow.", "de": "Er ist schmal.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "size", "it": "È lungo.", "sl": "To je nekaj dolgega.", "en": "It's long.", "de": "Er ist lang.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "does", "it": "Porta nel bosco.", "sl": "Pelje v gozd.", "en": "It leads into the wood.", "de": "Er führt in den Wald.", "grammar": ["presente-regolare", "preposizioni-articolate"] },
+        { "kind": "use", "it": "Ci camminiamo sopra.", "sl": "Po tem hodimo.", "en": "We walk along it.", "de": "Darauf gehen wir.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "bird": {
+      "clues": [
+        { "kind": "colour", "it": "È nero.", "sl": "Je črne barve.", "en": "It's black.", "de": "Er ist schwarz.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "size", "it": "È piccolo.", "sl": "To je nekaj majhnega.", "en": "It's small.", "de": "Er ist klein.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha le ali.", "sl": "Ima krila.", "en": "It has wings.", "de": "Er hat Flügel.", "grammar": ["essere-avere"] },
+        { "kind": "does", "it": "Vola nel cielo.", "sl": "Leta po nebu.", "en": "It flies in the sky.", "de": "Er fliegt am Himmel.", "grammar": ["presente-regolare", "preposizioni-articolate"] }
+      ]
+    },
+    "deer": {
+      "clues": [
+        { "kind": "colour", "it": "È marrone.", "sl": "Je rjave barve.", "en": "It's brown.", "de": "Es ist braun.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Non ha le corna.", "sl": "Nima rogovja.", "en": "It has no antlers.", "de": "Es hat kein Geweih.", "grammar": ["domande", "essere-avere"] },
+        { "kind": "where", "it": "È dall'altra parte del ruscello.", "sl": "Stoji na drugi strani potoka.", "en": "It's across the stream.", "de": "Es steht auf der anderen Seite des Baches.", "grammar": ["preposizioni-articolate"], "ref": "stream" },
+        { "kind": "does", "it": "Corre veloce.", "sl": "Hitro teče.", "en": "It runs fast.", "de": "Es läuft schnell.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "squirrel": {
+      "clues": [
+        { "kind": "colour", "it": "È arancione.", "sl": "Je oranžne barve.", "en": "It's orange.", "de": "Es ist orange.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha una coda grande.", "sl": "Ima velik rep.", "en": "It has a big tail.", "de": "Es hat einen großen Schwanz.", "grammar": ["essere-avere", "aggettivi-accordo"] },
+        { "kind": "where", "it": "È sull'albero.", "sl": "Sedi na drevesu.", "en": "It's sitting on the tree.", "de": "Es sitzt auf dem Baum.", "grammar": ["preposizioni-articolate"], "ref": "tree" },
+        { "kind": "does", "it": "Gli piacciono le nocciole.", "sl": "Rad ima lešnike.", "en": "It likes hazelnuts.", "de": "Es mag Haselnüsse.", "grammar": ["piacere"] }
+      ]
+    },
+    "owl": {
+      "clues": [
+        { "kind": "colour", "it": "È marrone.", "sl": "Je rjave barve.", "en": "It's brown.", "de": "Das ist braun.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha gli occhi grandi.", "sl": "Ima velike oči.", "en": "It has big eyes.", "de": "Das hat große Augen.", "grammar": ["essere-avere", "aggettivi-accordo"] },
+        { "kind": "where", "it": "È sull'abete.", "sl": "Sedi na jelki.", "en": "It's sitting in the fir.", "de": "Das sitzt auf der Tanne.", "grammar": ["preposizioni-articolate"], "ref": "spruce" },
+        { "kind": "does", "it": "Di giorno dorme.", "sl": "Podnevi spi.", "en": "By day it sleeps.", "de": "Das schläft am Tag.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "leaves": {
+      "name": { "en": "leaf", "de": "Blatt", "sl": "list" },
+      "clues": [
+        { "kind": "size", "it": "È piccola.", "sl": "To je nekaj majhnega.", "en": "It's small.", "de": "Es ist klein.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "È secca.", "sl": "To je nekaj suhega.", "en": "It's dry.", "de": "Es ist trocken.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È per terra.", "sl": "Leži na tleh.", "en": "It's lying on the ground.", "de": "Es liegt am Boden.", "grammar": ["dove-preposizioni"] },
+        { "kind": "where", "it": "È sotto l'albero.", "sl": "Leži pod drevesom.", "en": "It's lying under the tree.", "de": "Es liegt unter dem Baum.", "grammar": ["dove-preposizioni"], "ref": "tree" },
+        { "kind": "does", "it": "D'autunno cade dall'albero.", "sl": "Jeseni pade z drevesa.", "en": "In autumn it falls from the tree.", "de": "Im Herbst fällt es vom Baum.", "grammar": ["presente-regolare", "preposizioni-articolate"] }
+      ]
+    },
+    "sheep": {
+      "clues": [
+        { "kind": "colour", "it": "È bianca.", "sl": "Je bele barve.", "en": "It's white.", "de": "Es ist weiß.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha la testa nera.", "sl": "Ima črno glavo.", "en": "It has a black head.", "de": "Es hat einen schwarzen Kopf.", "grammar": ["essere-avere", "aggettivi-accordo"] },
+        { "kind": "where", "it": "È vicino al sentiero.", "sl": "Stoji ob stezi.", "en": "It stands by the path.", "de": "Es steht am Pfad.", "grammar": ["dove-preposizioni", "preposizioni-articolate"], "ref": "path" },
+        { "kind": "does", "it": "Ci dà la lana.", "sl": "Daje nam volno.", "en": "It gives us wool.", "de": "Es gibt uns Wolle.", "grammar": ["verbi-irregolari"] }
+      ]
+    },
+    "flowers": {
+      "name": { "en": "flower", "de": "Blume", "sl": "roža" },
+      "clues": [
+        { "kind": "colour", "it": "D'estate è colorato.", "sl": "Poleti je pisane barve.", "en": "In summer it's colourful.", "de": "Im Sommer ist das bunt.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "size", "it": "È piccolo.", "sl": "To je nekaj majhnega.", "en": "It's small.", "de": "Das ist klein.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "does", "it": "Ha un buon profumo.", "sl": "Lepo diši.", "en": "It smells nice.", "de": "Das duftet gut.", "grammar": ["essere-avere"] },
+        { "kind": "use", "it": "Lo raccogliamo per la mamma.", "sl": "To naberemo za mamo.", "en": "We pick it for Mum.", "de": "Das pflücken wir für Mama.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "highseat": {
+      "name": { "en": "high seat", "de": "Hochsitz", "sl": "preža" },
+      "clues": [
+        { "kind": "trait", "it": "Ha una scala.", "sl": "Ima lestev.", "en": "It has a ladder.", "de": "Das hat eine Leiter.", "grammar": ["essere-avere"] },
+        { "kind": "material", "it": "È di legno.", "sl": "Je iz lesa.", "en": "It's made of wood.", "de": "Das ist aus Holz.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È dall'altra parte del ruscello.", "sl": "Stoji na drugi strani potoka.", "en": "It's across the stream.", "de": "Das steht auf der anderen Seite des Baches.", "grammar": ["preposizioni-articolate"], "ref": "stream" },
+        { "kind": "use", "it": "Da lì guardiamo gli animali.", "sl": "Od tam gledamo živali.", "en": "From up there we watch the animals.", "de": "Von dort oben beobachten wir die Tiere.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "hare": {
+      "clues": [
+        { "kind": "colour", "it": "È marrone.", "sl": "Je rjave barve.", "en": "It's brown.", "de": "Das ist braun.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha le orecchie lunghe.", "sl": "Ima dolga ušesa.", "en": "It has long ears.", "de": "Das hat lange Ohren.", "grammar": ["essere-avere", "aggettivi-accordo"] },
+        { "kind": "compare", "it": "È più grande dello scoiattolo.", "sl": "Večje je od veverice.", "en": "It's bigger than the squirrel.", "de": "Das ist größer als das Eichhörnchen.", "grammar": ["aggettivi-accordo", "preposizioni-articolate"], "ref": "squirrel" },
+        { "kind": "does", "it": "Salta veloce.", "sl": "Hitro skače.", "en": "It hops fast.", "de": "Das hüpft schnell.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "butterfly": {
+      "clues": [
+        { "kind": "size", "it": "È piccola.", "sl": "To je nekaj majhnega.", "en": "It's small.", "de": "Das ist klein.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha le ali colorate.", "sl": "Ima pisana krila.", "en": "It has colourful wings.", "de": "Das hat bunte Flügel.", "grammar": ["essere-avere", "aggettivi-accordo"] },
+        { "kind": "does", "it": "Vola di fiore in fiore.", "sl": "Leta od cveta do cveta.", "en": "It flies from flower to flower.", "de": "Das fliegt von Blüte zu Blüte.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "fox": {
+      "clues": [
+        { "kind": "colour", "it": "È arancione.", "sl": "Je oranžne barve.", "en": "It's orange.", "de": "Das ist orange.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha la coda lunga.", "sl": "Ima dolg rep.", "en": "It has a long tail.", "de": "Das hat einen langen Schwanz.", "grammar": ["essere-avere", "aggettivi-accordo"] },
+        { "kind": "does", "it": "Caccia i topi.", "sl": "Lovi miši.", "en": "It hunts mice.", "de": "Das jagt Mäuse.", "grammar": ["presente-regolare"] },
+        { "kind": "does", "it": "Vive nel bosco.", "sl": "Živi v gozdu.", "en": "It lives in the wood.", "de": "Das lebt im Wald.", "grammar": ["presente-regolare", "preposizioni-articolate"] }
+      ]
+    },
+    "stag": {
+      "clues": [
+        { "kind": "colour", "it": "È marrone.", "sl": "Je rjave barve.", "en": "It's brown.", "de": "Er ist braun.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha le corna grandi.", "sl": "Ima veliko rogovje.", "en": "It has big antlers.", "de": "Er hat ein großes Geweih.", "grammar": ["essere-avere", "aggettivi-accordo"] },
+        { "kind": "compare", "it": "È più grande del capriolo.", "sl": "Večji je od srne.", "en": "It's bigger than the roe deer.", "de": "Er ist größer als das Reh.", "grammar": ["aggettivi-accordo", "preposizioni-articolate"], "ref": "deer" },
+        { "kind": "does", "it": "Vive nel bosco.", "sl": "Živi v gozdu.", "en": "It lives in the wood.", "de": "Er lebt im Wald.", "grammar": ["presente-regolare", "preposizioni-articolate"] }
+      ]
+    },
+    "hedgehog": {
+      "clues": [
+        { "kind": "size", "it": "È piccolo.", "sl": "To je nekaj majhnega.", "en": "It's small.", "de": "Er ist klein.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha le spine.", "sl": "Ima bodice.", "en": "It has spines.", "de": "Er hat Stacheln.", "grammar": ["essere-avere"] },
+        { "kind": "does", "it": "D'inverno dorme.", "sl": "Pozimi spi.", "en": "In winter it sleeps.", "de": "Im Winter schläft er.", "grammar": ["presente-regolare"] },
+        { "kind": "does", "it": "Si chiude a palla.", "sl": "Zvije se v kepo.", "en": "It rolls up into a ball.", "de": "Er rollt sich zu einer Kugel ein.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "boar": {
+      "clues": [
+        { "kind": "colour", "it": "È marrone scuro.", "sl": "Je temno rjave barve.", "en": "It's dark brown.", "de": "Es ist dunkelbraun.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha il muso lungo.", "sl": "Ima dolg rilec.", "en": "It has a long snout.", "de": "Es hat eine lange Schnauze.", "grammar": ["essere-avere", "aggettivi-accordo"] },
+        { "kind": "compare", "it": "È più grande del tasso.", "sl": "Večji je od jazbeca.", "en": "It's bigger than the badger.", "de": "Es ist größer als der Dachs.", "grammar": ["aggettivi-accordo", "preposizioni-articolate"], "ref": "badger" },
+        { "kind": "does", "it": "Di notte scava nella terra.", "sl": "Ponoči rije po zemlji.", "en": "At night it digs in the ground.", "de": "Nachts wühlt es in der Erde.", "grammar": ["presente-regolare", "preposizioni-articolate"] }
+      ]
+    },
+    "badger": {
+      "clues": [
+        { "kind": "colour", "it": "È grigio.", "sl": "Je sive barve.", "en": "It's grey.", "de": "Er ist grau.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha la testa bianca e nera.", "sl": "Ima črno-belo glavo.", "en": "It has a black-and-white head.", "de": "Er hat einen schwarz-weißen Kopf.", "grammar": ["essere-avere", "aggettivi-accordo"] },
+        { "kind": "does", "it": "Di notte cerca da mangiare.", "sl": "Ponoči išče hrano.", "en": "At night it looks for food.", "de": "Nachts sucht er Futter.", "grammar": ["presente-regolare"] },
+        { "kind": "use", "it": "Vive in una tana sotto terra.", "sl": "Živi v brlogu pod zemljo.", "en": "It lives in a burrow underground.", "de": "Er lebt in einem Bau unter der Erde.", "grammar": ["presente-regolare", "dove-preposizioni"] }
+      ]
+    },
+    "dormouse": {
+      "clues": [
+        { "kind": "colour", "it": "È grigio.", "sl": "Je sive barve.", "en": "It's grey.", "de": "Er ist grau.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "size", "it": "È piccolo.", "sl": "To je nekaj majhnega.", "en": "It's small.", "de": "Er ist klein.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha la coda folta.", "sl": "Ima košat rep.", "en": "It has a bushy tail.", "de": "Er hat einen buschigen Schwanz.", "grammar": ["essere-avere", "aggettivi-accordo"] },
+        { "kind": "does", "it": "D'inverno dorme tanto.", "sl": "Pozimi dolgo spi.", "en": "In winter it sleeps a long time.", "de": "Im Winter schläft er lange.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "bat": {
+      "clues": [
+        { "kind": "colour", "it": "È nero.", "sl": "Je črne barve.", "en": "It's black.", "de": "Das ist schwarz.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha le ali.", "sl": "Ima krila.", "en": "It has wings.", "de": "Das hat Flügel.", "grammar": ["essere-avere"] },
+        { "kind": "does", "it": "Vola di notte.", "sl": "Leta ponoči.", "en": "It flies at night.", "de": "Das fliegt nachts.", "grammar": ["presente-regolare"] },
+        { "kind": "use", "it": "Dorme a testa in giù.", "sl": "Spi z glavo navzdol.", "en": "It sleeps upside down.", "de": "Das schläft kopfüber.", "grammar": ["presente-regolare"] }
+      ]
+    }
+  }
+}
