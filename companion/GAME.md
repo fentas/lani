@@ -306,8 +306,8 @@ in about thirty, on more than half the lakes, which lie where the plots are). A 
 By the sea the town view's first look (its home, when it opens and recentres) takes in the beach and a strip of the water
 too, wherever the clearing ends; the camera pans and zooms over the whole canvas, the sea's edge with it. A tap on the sea
 or the beach is a tap on the sea at the horizon: it opens the culture's place there (Friuli's "Il mare", its lagoon), as the
-horizon does (`TownAnchors.isSea`). The village hears the sea nearer on the coast than where it is only at the horizon
-(see "Background sounds").
+horizon does (`TownAnchors.isSea`). The village hears the sea a little nearer on the coast than where it is only at the
+horizon, and nearer still as the view comes onto the beach (see "Background sounds", "The sea over the village").
 
 Until 2026-10-26 a coast or a lake whose water left the plots too little room had it pushed further out: the sea 30 px
 past its place, 160 to 180 px left of the fire, off the narrowest canvas (half the coasts showed no sea but the horizon's,
@@ -2092,7 +2092,7 @@ loop; pure, unit-tested in `SoundscapeTest`):
 
 | Place | By day | At night | Day and night |
 |---|---|---|---|
-| The village | birds | crickets, the owl | the sea, faint, where the horizon shows it (friuli); nearer on the coast |
+| The village | birds | crickets, the owl | the sea: a breath where only the horizon shows it (friuli), a quiet background on the coast, nearer with the beach in view (below); a lake village no water |
 | `forest` | birds, the most | the owl, a few crickets | the brook, faint; a breath of wind |
 | `field`, `hills`, `apiary` | birds; grasshoppers on summer days | crickets, the owl | a breeze on the field and the hills |
 | `campfire` | birds | crickets, the owl | the fire, higher when it flares |
@@ -2183,8 +2183,9 @@ level, and a thunder at −26 LUFS, as loud as one. Each plays at a gain of 1 or
 loop. A far bell's peal and the cow's shaking bell stay under 0.9 (their strikes overlap). Short sounds play under the
 level of the whole like the loops. Then:
 
-- **Under a voice** (a clip, a family recording, the phone's TTS: `Speaker.talking`) they duck to 0.3 (−10 dB) in 0.3 s,
-  and come back in 1.2 s. A dialog's effect doesn't duck (`Sfx.fx`, queued by `Ambience` with `duck = false`): the voice is saying the line that
+- **Under a voice** (a villager's or the narrator's clip, the tutor's line, a family recording, the phone's offline voice
+  or its TTS, a hint or an intro read aloud: every voice goes through `Speaker`, `Speaker.talking`) they duck to 0.3
+  (−10 dB) in 0.3 s, and come back in 1.2 s, each a smooth fade (`Fader`). The sea ducks with the rest. A dialog's effect doesn't duck (`Sfx.fx`, queued by `Ambience` with `duck = false`): the voice is saying the line that
   rings the bell or fires up the oven, and ducked, the church's peal under Tine's "Vlečem! Bim, bam!" was too quiet to
   hear. It plays at the level of the whole without the duck (`AmbientMixer.undimmed`): at the default volume a bell's
   strike is still about 27 dB under the voice (ducked, 37).
@@ -2195,6 +2196,24 @@ level of the whole like the loops. Then:
 - **When the app pauses** (the background, or another app's dialog over it) they stop at once, and come back with a 2 s
   fade.
 - They play as a game's sound (`USAGE_GAME`), so the phone's media volume sets how loud they are.
+
+**The sea over the village** (`Soundscape.HORIZON_SEA`, `COAST_SEA`, `BEACH_SEA`, `Soundscape.beachView`; pinned in
+`SoundscapeTest`). The sea is one unbroken wash with a wave breaking every 7 to 9 s, and under a voice it masks speech more
+than the birds or the crickets do. So over the village it is a background, under the birds and the crickets:
+
+| Where | The sea's level | At the default volume, under the voices |
+|---|---|---|
+| A village whose culture's horizon shows the sea (Friuli's lagoon far off) | 0.1 | about 46 dB (56 under a voice) |
+| A village on the coast, its home view (the beach and a strip of the water at its edge) | 0.2 | about 40 dB (50) |
+| The coast with the beach in the middle of the view | up to 0.45, in quarters | about 33 dB (43) |
+| The sea's own scene (`sea`, the lagoon) | 0.85 | about 27 dB (37) |
+
+The coast's level rises from 0.2 to 0.45 as the middle of the town view comes from 64 px inland of the shore to 16 px (the
+beach's sand and a strip of land), in quarters, so a pan changes it a few times and each change fades over 1.5 s. The home
+view's middle is always further inland: it hears 0.2. Until 2026-10-26 the coast played its sea at 0.6 whatever the view,
+louder than its birds by day and its crickets at night ("the sea sounds are way too loud"), and the horizon's at 0.35. A
+village by a lake plays no water of its own over the village; close up, the pond's brook (0.3) and the Alps' pasture brook
+(0.6) stay under the voices as the sea at the beach does.
 
 **The setting**: Home's status dot, "🔗 Povezava · Connection", then "🐦 Zvoki v ozadju · Background sounds": a switch (on
 by default) and the volume. Moving the slider plays the stream for three seconds, so the level can be heard. The phone

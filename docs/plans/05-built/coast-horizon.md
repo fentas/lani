@@ -93,14 +93,36 @@ the map's own time is the number to carry over. Panned at a closer look the fram
 
 ## The sea's sound
 
-Since 438d8caa the village on the coast heard its sea at 0.6 (`Place.Village.beach`), louder than the birds and the
-crickets (0.6 at most), and 0.35 where the culture's horizon only shows the sea. The sound's change (the sea a quiet
-background in the village, nearer only as the view comes onto the beach, ducked under a voice; a lake's water checked the
-same way) comes in its own commit, with its levels in GAME.md, "Background sounds".
+**Why.** Since 438d8caa the village on the coast played its sea at 0.6 (`Place.Village.beach`), whatever the view: after
+the loops' trims 0.54, louder than its birds by day and its crickets at night (0.6 each, 0.48 and 0.33 after their trims),
+and the sea is the loop that masks speech most (one unbroken wash, a wave breaking every 7 to 9 s, its breaks up to 6.6 LU
+over its −26 LUFS). Where the culture's horizon only shows the sea, it played at 0.35.
+
+**What** (`Soundscape.HORIZON_SEA`, `COAST_SEA`, `BEACH_SEA`, `Soundscape.beachView`, `ui/AmbientSound.kt`'s
+`VillageSound`, at home and on a visit):
+
+| Where | Before | Now | At the default volume, under the voices |
+|---|---|---|---|
+| The culture's horizon shows the sea | 0.35 | 0.1 | about 46 dB (56 under a voice) |
+| The coast, its home view | 0.6 | 0.2 | about 40 dB (50) |
+| The coast, the beach in the middle of the view | 0.6 | up to 0.45 | about 33 dB (43) |
+| The sea's own scene | 0.85 | 0.85 | about 27 dB (37) |
+
+The coast's level rises from 0.2 to 0.45 as the middle of the view comes from 64 px inland of the shore to 16 px, in
+quarters (a pan changes it a few times, each change a 1.5 s fade); the home view's middle is always further inland. Under
+any voice (a villager's or the narrator's clip, the tutor's line, a family recording, the offline voice, the phone's TTS,
+a hint or an intro: all through `Speaker`, `Speaker.talking`) everything ducks to 0.3 of its level (−10 dB) in 0.3 s and
+comes back in 1.2 s, smooth fades; the sea with the rest (one bus for all loops, `AmbientMixer`). A lake village plays no
+water of its own over the village (its lake is still water); close up, the pond's brook (0.3) and the Alps' pasture brook
+(0.6) stay under the voices as the sea at the beach does.
 
 ## Tests
 
-- **App:** the unit tests, 2,966, all passing (with the sound's changes in). New: `CoastHorizonTest` (the strip's region
+- **App:** the unit tests, 2,967, all passing (after the sound's commit). New: `SoundscapeTest`'s sea and lake
+  (the levels above pinned: the coast's sea under the birds and the crickets, 40 dB under the voices, 50 ducked; the horizon's
+  6 dB fainter; the beach nearer, the lagoon's scene nearer still; the town view's home hearing 0.2 on four screens at
+  every age, the beach 1, a step between in quarters; the sea ducking with the rest in the mixer; a lake village without
+  water over it), `CoastHorizonTest` (the strip's region
   the sea's, on Teo's land and three other coasts, on a phone upright, a tablet either way and a phone on its side, at every
   detail, by day, at dusk and at night: it fails on the strip, about two fifths of the region the hills'; no edge where the
   two seas meet, in the storm and in winter too; a lake at least 16 px below the horizon over 303 seeds; the dry lands'
@@ -115,8 +137,11 @@ same way) comes in its own commit, with its levels in GAME.md, "Background sound
   friuli, made by the bridge's `initLearnerData`; `LANI_CULTURE=friuli LANI_LANDSCAPE=coast LANI_QA_FOUND_SEED=551323397`;
   `companion/bin/qa --no-town --steps coast,sea-frames`): setup, sea-frames and the crash check passed. The coast step shot
   the founding's preview, the village, the beach, the sea's horizon closer up by night, at dusk and by day (one sea up to
-  its line, no strip) and the tablet held upright; it then failed tapping the squirrel for its word card (the animal hops:
-  the same step's animal part passed on 2026-10-26 before this change, which doesn't touch taps). sea-frames' numbers are
+  its line, no strip) and the tablet held upright. Its first run then failed tapping the squirrel for its word card (QA
+  reads the animal's place from its TalkBack node, then taps: an animal on the move can be elsewhere by then); run again, the squirrel's card came ("scoiattolo"), and
+  the villager's talk with its goals in it · de, and the step failed later going back from Nonna Rosa's page to the
+  village (QA's navigation after the talk, as the pair switches back). Neither touches the map's taps: the hit test reads
+  the frame's objects, and the kept ground clears them under it as the ground drawn whole does. sea-frames' numbers are
   above.
 
 ## What's left
