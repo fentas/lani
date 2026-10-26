@@ -114,6 +114,11 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        to the beach, closer at the sea's horizon by night, at dusk and by day, a wild animal tapped (its card in Italian), a villager's free talk in it · de (its
                        goals in Italian and German), the same land as a village and a town ("hearths:vas", "hearths:mesto");
                        also as coast-*.png in $LANI_QA_COAST_SHOTS;
+                       "sea-frames" what a frame costs on Teo's coast against the same village on dry land, by a lake
+                       and on the classic valley (its land changed on the dev bridge's copy, then back), the display as
+                       Teo's tablet on its side (2560 × 1600): at rest, closer, closest and panned, the ground kept and
+                       drawn whole (QA's hook "render:full"): the map's render time (tag TownScene) and the frames'
+                       (dumpsys gfxinfo), a table, also frames.tsv in $LANI_QA_COAST_SHOTS;
                        "bubbles-follow" the village's bubbles with their people (QA's hook "hour:11"): at home, dragged
                        so some are off screen, zoomed in and dragged, the edge chip ("‹ 🐑 2") tapped and its bubble on
                        screen then;
@@ -9088,6 +9093,109 @@ def coast():
     return "; ".join(n for n in notes if n.startswith(("no animal", "talk: ")) and "goals in it · de" not in n) or None
 
 
+def sea_frames():
+    """What a frame of the village costs on the coast, against the same village on dry land, by a lake and on the classic
+    valley (2026-10-26, Jan: Teo's tablet lags in his coast village, less on a visit to Jan's classic one; GAME.md "The
+    land", docs/plans/05-built/coast-horizon.md). On the dev village of a synthetic learner of the Friuli culture
+    (LANI_DEV_DATA, LANI_CULTURE=friuli, LANI_LANDSCAPE=coast; founded here when it has none, at LANI_QA_FOUND_SEED), the
+    emulator's display as Teo's tablet on its side (2560 × 1600 px at 320 dpi: the town's 320 × 200 canvas): its land and
+    then each of the others (the dev bridge's copy's land changed, the app adopting it), at night (QA's hook "hour:22"),
+    the village at rest, closer (QA's hook "zoom", twice: the details 2 and 3) and panned there; each with the ground's
+    still picture kept and drawn whole every frame (QA's hook "render:full"). For each: the map's own render time (the
+    debug build's log, tag TownScene) and the frames' (dumpsys gfxinfo: the 50th and 90th percentile, the janky share).
+    Printed as a table, also as frames.tsv in $LANI_QA_COAST_SHOTS. The dev village keeps its own land after."""
+    go_home()
+    found_village()
+    go_home()
+    snap0 = dev_bridge("/game")
+    own = (snap0.get("state") or {}).get("land") or {"kind": "classic"}
+    seed = own.get("seed", 551323397)
+    lands = [own] + [l for l in ({"kind": "valley", "seed": seed}, {"kind": "lake", "seed": seed}, {"kind": "classic"}) if l != own]
+    rows = []
+
+    def put_land(land):
+        snap = dev_bridge("/game")
+        st = snap["state"]
+        st["land"] = land
+        dev_bridge("/game", {"rev": snap["rev"], "state": st}, method="PUT")
+        go_home()  # the village again: the app syncs and adopts the node's copy
+        village()
+
+    def gfx() -> dict:
+        out = adb("shell", "dumpsys", "gfxinfo", PKG, check=False)
+        got = {}
+        for key, pat in (("frames", r"Total frames rendered: (\d+)"), ("janky", r"Janky frames: \d+ \(([\d.]+)%\)"),
+                         ("p50", r"50th percentile: (\d+)ms"), ("p90", r"90th percentile: (\d+)ms")):
+            m = re.search(pat, out)
+            got[key] = m.group(1) if m else "?"
+        return got
+
+    def renders(key: str) -> str:
+        """The map's render times logged since the log was cleared, of [key]'s land: their middle (ms) and the detail."""
+        times = []
+        for line in adb("logcat", "-d", "-s", "TownScene:D", check=False).splitlines():
+            m = re.search(r"TownScene: (\S+) at detail (\d): ([\d.]+) ms per frame", line)
+            if m and m.group(1) == key:
+                times.append((float(m.group(3)), m.group(2)))
+        if not times:
+            return "?\t?"
+        times.sort()
+        return f"{times[len(times) // 2][0]:.1f}\t{times[len(times) // 2][1]}"
+
+    def look(land, mode: str, name: str, pan=False):
+        key = land["kind"] if land["kind"] == "classic" else f"{land['kind']}:{land.get('seed', 0)}"
+        adb("logcat", "-c")
+        adb("shell", "dumpsys", "gfxinfo", PKG, "reset", check=False)
+        end = time.time() + 8
+        while time.time() < end:
+            if pan:  # back and forth over the sea's side and the village
+                adb("shell", "input", "swipe", "700", "800", "1700", "850", "700")
+                adb("shell", "input", "swipe", "1700", "850", "700", "800", "700")
+            else:
+                time.sleep(0.5)
+        g = gfx()
+        row = f"{key}\t{mode}\t{name}\t{renders(key)}\t{g['frames']}\t{g['p50']}\t{g['p90']}\t{g['janky']}"
+        rows.append(row)
+        print(f"    {row}")
+
+    try:
+        adb("shell", "wm", "size", "2560x1600")
+        adb("shell", "wm", "density", "320")
+        time.sleep(6 * slow())
+        qa_hook("hour:22")
+        for land in lands:
+            if land != lands[0] or rows:
+                put_land(land)
+            for mode in ("kept", "whole"):
+                qa_hook("render:" if mode == "kept" else "render:full")
+                plain_village()
+                time.sleep(2 * slow())
+                look(land, mode, "rest")
+                qa_hook("zoom")
+                time.sleep(2 * slow())
+                look(land, mode, "closer")
+                qa_hook("zoom")
+                time.sleep(2 * slow())
+                look(land, mode, "closest")
+                look(land, mode, "panned", pan=True)
+                if land == lands[0] and mode == "kept":
+                    shot("sea-frames-closest")
+    finally:
+        qa_hook("render:")
+        qa_hook("hour:")
+        if lands[1:] and rows:
+            put_land(own)
+        adb("shell", "wm", "size", "reset")
+        adb("shell", "wm", "density", "reset")
+        time.sleep(6 * slow())
+    head = "land\tground\tlook\trender ms\tdetail\tframes\tp50 ms\tp90 ms\tjanky %"
+    print(f"    {head}")
+    if d := os.environ.get("LANI_QA_COAST_SHOTS"):
+        Path(d).mkdir(parents=True, exist_ok=True)
+        (Path(d) / "frames.tsv").write_text("\n".join([head] + rows) + "\n")
+    return None
+
+
 # --- main -----------------------------------------------------------------------------------
 
 def plan():
@@ -9161,6 +9269,7 @@ def plan():
         ("hearths", hearths, v, False, ""),
         ("storm", storm, v, False, ""),
         ("coast", coast, v, False, ""),
+        ("sea-frames", sea_frames, v, False, ""),
         ("friends", friends, h, True, "visit"),
         ("visit", visit_town, h, True, "visit"),
         ("visit-villager", visit_villager, h, True, "visit"),

@@ -42,6 +42,9 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   as a villager's line: that person in that voice, the debug build logging how it was said, tag Speaker); "audio:revoice:<text>|<url>"
  *   gives the text's narrator clip a new URL (url, else one the node hasn't got) as a re-voice on the node does, so its
  *   earlier clip stands in; "audio:refresh" takes the node's index again.
+ * - "render:full": the village's map draws its ground whole every frame, as it did before 2026-10-26, instead of keeping its
+ *   still picture and drawing only its water anew ([si.lanisce.lani.game.render.VillageRenderer.groundKept]): QA measures
+ *   the two (the frames' times, and the map's own: logged every 24 frames, tag TownScene); "render:" keeps it again.
  * - "clock:<f>": the towns' and scenes' time runs at f of the wall's (0.05 to 1; [TownClock.rate]), so a slow emulator
  *   renders every frame of a recording that is sped up again afterwards (with the animator duration scale at 1/f for
  *   the camera's flights and the bubbles' bob); "clock:" lets it run at its pace again.
@@ -371,6 +374,7 @@ object QaHooks {
             command.startsWith("bubbles:") -> bubbles = command.removePrefix("bubbles:").toIntOrNull()?.coerceAtLeast(0)
             command.startsWith("hour:") -> sceneHour = command.removePrefix("hour:").toFloatOrNull()?.takeIf { it in 0f..24f }
             command.startsWith("clock:") -> TownClock.rate = command.removePrefix("clock:").toFloatOrNull()?.coerceIn(0.05f, 1f) ?: 1f
+            command.startsWith("render:") -> si.lanisce.lani.game.render.VillageRenderer.groundKept = command != "render:full"
             command.startsWith("show:") -> show = command.removePrefix("show:").trim().takeIf { it.isNotEmpty() }?.let { it to (show?.second ?: 0) + 1 }
             command.startsWith("kopa:") -> {
                 kopa = kopaDay(command.removePrefix("kopa:"), java.time.LocalDate.now())

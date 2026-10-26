@@ -120,6 +120,7 @@ fun TownScene(
     val fine = remember(iw, ih) { Layer(iw, ih) }
     val prev = remember(iw, ih) { Layer(iw, ih) }
     val drawnBase = remember(iw, ih) { Drawn() }
+    val timing = remember { Timing() }
     val drawnFine = remember(iw, ih) { Drawn() }
     val switch = remember(iw, ih) { Switch() }
 
@@ -171,14 +172,18 @@ fun TownScene(
         )
         // the nominal canvas: every tick while it is the picture, else only when its inputs change
         if (drawnBase.stale(if (k == 1) tick else 0L, state, highlightPlot, justBuilt, celebrate, visitors, people, today, standing, skyMark, plots, day, frame.kopa, frame.growth, frame.festive)) {
+            val t0 = System.nanoTime()
             renderer.render(base.canvas, state, frame)
+            if (si.lanisce.lani.BuildConfig.QA) timing.add(state, 1, iw, ih, System.nanoTime() - t0)
             base.lens = Lens(1, 0, 0, iw, ih)
             base.upload()
         }
         // the closer look: every tick, at the window the camera sees now
         if (k > 1 && drawnFine.stale(tick, k, state, highlightPlot, justBuilt, celebrate, visitors, people, today, standing, skyMark, plots, day, frame.kopa, frame.growth, frame.festive)) {
             val lens = Lens.of(k, cam, size.width.roundToInt(), size.height.roundToInt(), iw, ih, iw, ih)
+            val t0 = System.nanoTime()
             renderer.render(fine.canvas, state, frame.copy(lens = lens))
+            if (si.lanisce.lani.BuildConfig.QA) timing.add(state, k, iw, ih, System.nanoTime() - t0)
             fine.lens = lens
             fine.upload()
         }
@@ -222,6 +227,29 @@ internal class Layer(val w: Int, val h: Int) {
         System.arraycopy(o.canvas.pixels, 0, canvas.pixels, 0, canvas.pixels.size)
         lens = o.lens
         upload()
+    }
+}
+
+/**
+ * Debug and qa builds: the village's render time, logged every 24 frames, about 2 s (tag TownScene; QA reads it): its land,
+ * the detail, the canvas, and whether the ground's still picture is kept ([VillageRenderer.groundKept]).
+ */
+private class Timing {
+    private var nanos = 0L
+    private var frames = 0
+    private var k = 0
+
+    fun add(state: GameState, k: Int, w: Int, h: Int, took: Long) {
+        if (k != this.k) { this.k = k; nanos = 0L; frames = 0 }
+        nanos += took
+        if (++frames < 24) return
+        android.util.Log.d(
+            "TownScene",
+            "%s at detail %d: %.1f ms per frame (%d × %d, ground %s)".format(
+                Terrain.of(state).key, k, nanos / 1e6 / frames, w, h, if (VillageRenderer.groundKept) "kept" else "whole",
+            ),
+        )
+        nanos = 0L; frames = 0
     }
 }
 

@@ -238,6 +238,8 @@ internal class SceneCtx(val canvas: PixelCanvas) {
     val lightBuf = FloatArray(canvas.width * canvas.height)
     /** Ground kinds by pixel (see [Ground]), written by the ground pass. */
     val ground = ByteArray(canvas.width * canvas.height)
+    /** The ground's still picture, kept for the next frames: only its water is drawn anew (see [GroundCache]). */
+    val groundCache = GroundCache()
 
     /** Nominal canvas x → this canvas's x. */
     fun cx(bx: Float): Float = lens.cx(bx)
@@ -481,7 +483,7 @@ class VillageRenderer {
         val landmarks = landmarksFor(state, bw, bh, frame.compact)
         // in the rain the ground is wet: darker, puddles on the paths and the road (the storm's, a dialog's shower a little)
         val wet = if (storm) 1f else if (sky.rain > 0.02f && !env.snow) (sky.rain * 1.4f).coerceAtMost(1f) else 0f
-        groundPass(s, horizon, clearR, roadLeft, roadHalf, plazaR, age, paths, fg, cobbled, wet)
+        ground(s, horizon, clearR, roadLeft, roadHalf, plazaR, age, paths, fg, cobbled, wet)
         if (k > 1) groundDetail(s, horizon)
         // no far treeline where the sea comes up to the horizon (a coast)
         backdrop.treeline(horizon, from = seaTo)
@@ -868,7 +870,11 @@ class VillageRenderer {
     private class PathGrid {
         val n = 256
         val cells = BooleanArray(n * n)
+        /** What was marked, in order (the ground's kept picture keys on it: the same marks, the same paths). */
+        var marks = 17L
+            private set
         fun mark(x0: Float, y0: Float, x1: Float, y1: Float) {
+            for (v in floatArrayOf(x0, y0, x1, y1)) marks = marks * 31 + v.toRawBits()
             for (gy in floor(y0 * 2).toInt() until floor(y1 * 2).toInt() + 1) for (gx in floor(x0 * 2).toInt() until floor(x1 * 2).toInt()) {
                 val ix = gx + n / 2; val iy = gy + n / 2
                 if (ix in 0 until n && iy in 0 until n) cells[iy * n + ix] = true
@@ -881,13 +887,50 @@ class VillageRenderer {
     }
 
     /**
+     * What the ground's picture is drawn for (see [GroundCache]): everything the ground pass reads but the water's tick.
+     * [fg] is the woods' layout, kept while it is the same ([foregroundFor]); [sky] the sky's colour at the horizon where the
+     * ground shows it (puddles in the rain, the sea's haze), else 0.
+     */
+    private data class GroundKey(
+        val land: String, val w: Int, val h: Int, val lens: Lens, val horizon: Int, val ox: Float, val oy: Float,
+        val age: Age, val shrink: Float, val roadLeft: Boolean, val roadHalf: Float, val plazaR: Float, val cobbled: Boolean,
+        val paths: Long, val fg: Foreground?, val month: Int, val sky: Int, val wet: Float,
+    )
+
+    /**
+     * The ground below the [horizon] (see [groundPass]): the picture kept from the frame before when nothing it shows has
+     * changed, its water drawn anew ([GroundCache]); else drawn, and kept.
+     */
+    private fun ground(
+        s: SceneCtx, horizon: Int, clearR: Float, roadLeft: Boolean, roadHalf: Float, plazaR: Float, age: Age, paths: PathGrid, fg: Foreground?,
+        cobbled: Boolean, wet: Float,
+    ) {
+        val c = s.canvas; val g = s.groundCache
+        val key = GroundKey(
+            s.land.key, c.width, c.height, s.lens, horizon, s.iso.ox, s.iso.oy, age, edgeShrink, roadLeft, roadHalf, plazaR, cobbled,
+            paths.marks, fg, s.env.month, if (wet > 0f || s.land.sea != null) s.env.skyHorizon else 0, wet,
+        )
+        if (groundKept && g.key == key) {
+            g.restore(c, s.ground)
+            c.penId = 0; c.penEmissive = false
+            g.animate(c, (s.time * 3).toInt())
+            return
+        }
+        g.begin(groundKept)
+        groundPass(s, horizon, clearR, roadLeft, roadHalf, plazaR, age, paths, fg, cobbled, wet)
+        if (groundKept) g.store(c, s.ground, max(horizon, 0), key)
+    }
+
+    /**
      * The ground below the [horizon]: grass, the forest floor, the paths, the road, the square, the water. [wet] (0..1): in
-     * the rain, the ground darker and puddles on the paths, the road and the cobbles, catching the grey sky.
+     * the rain, the ground darker and puddles on the paths, the road and the cobbles, catching the grey sky. The water that
+     * moves goes into the ground's kept picture as it is drawn ([SceneCtx.groundCache], [GroundCache.shade]).
      */
     private fun groundPass(
         s: SceneCtx, horizon: Int, clearR: Float, roadLeft: Boolean, roadHalf: Float, plazaR: Float, age: Age, paths: PathGrid, fg: Foreground?,
         cobbled: Boolean = age.ordinal >= Age.TRG.ordinal, wet: Float = 0f,
     ) {
+        val kept = s.groundCache
         val c = s.canvas; val env = s.env; val iso = s.iso; val lens = s.lens; val k = s.k
         val land = s.land
         // a generated land's water, rises, vineyards and torrent (the classic land has none of them)
@@ -957,27 +1000,31 @@ class VillageRenderer {
                 val shorePath = lake != null && lakeD > 1.2f && lakeD < 1.34f + jag * 0.2f &&
                     ((dx - lake[0]) / lake[2] * lakeFx + (dy - lake[1]) / lake[3] * lakeFy) / lakeD > -0.25f
                 if (seaD < 0f) {
-                    // the sea: surf at the beach, lighter over the shallows, deeper further out, glints drifting on it
-                    col = when {
-                        seaD > -1.6f + jag * 2f && (Noise.rnd(byi, waterT / 2, 23) < 0.7f) -> SURF
-                        seaD > -6f -> SHALLOWS
-                        Sea.glint(bxi, byi, waterT) -> Pal.WATER_L
-                        seaD < -40f -> SEA_DEEP
-                        else -> Pal.WATER_M
+                    // the sea: surf at the beach, lighter over the shallows, deeper further out, glints on it
+                    val moves: Byte; var on: Int; var off: Int
+                    when {
+                        seaD > -1.6f + jag * 2f -> { moves = GroundCache.SURF; on = SURF; off = SHALLOWS }
+                        seaD > -6f -> { moves = GroundCache.STILL; on = SHALLOWS; off = SHALLOWS }
+                        else -> { moves = GroundCache.GLINT; on = Pal.WATER_L; off = if (seaD < -40f) SEA_DEEP else Pal.WATER_M }
                     }
                     // toward the horizon, a little of the sky's colour: the far sea beyond it has the same
-                    if (far < Sea.HAZE_ROWS) col = Col.mix(col, env.skyHorizon, Sea.hazeAt(far, x, y))
+                    if (far < Sea.HAZE_ROWS) {
+                        val haze = Sea.hazeAt(far, x, y)
+                        on = Col.mix(on, env.skyHorizon, haze); off = Col.mix(off, env.skyHorizon, haze)
+                    }
+                    col = GroundCache.shade(moves, bxi, byi, on, off, waterT)
+                    if (moves != GroundCache.STILL) kept.add(y * c.width + x, moves, bxi, byi, on, off)
                     kind = Ground.SEA
                 } else if (streamD < sHalf + jag * 0.5f || pond < 1f || lakeD < 1f) {
                     val deep = if (pond < 1f) pond < 0.82f else if (lakeD < 1f) lakeD < 0.88f else streamD <= sDeep
-                    col = if (env.snow) (if (Noise.rnd(x, y, 8) < 0.2f) Pal.ICE_L else Pal.ICE_M)
-                    else when {
-                        !deep -> Pal.WATER_D
-                        Noise.rnd(bxi / 2, byi, waterT + bxi / 7) < 0.1f -> Pal.WATER_L
-                        else -> Pal.WATER_M
+                    if (env.snow) col = if (Noise.rnd(x, y, 8) < 0.2f) Pal.ICE_L else Pal.ICE_M
+                    else {
+                        // deep water twinkles; the torrent breaks white over its stones, deep or not
+                        val moves = if (torrent && pond >= 1f && lakeD >= 1f) GroundCache.TORRENT else if (deep) GroundCache.TWINKLE else GroundCache.STILL
+                        val on = if (deep) Pal.WATER_L else Pal.WATER_D; val off = if (deep) Pal.WATER_M else Pal.WATER_D
+                        col = GroundCache.shade(moves, bxi, byi, on, off, waterT)
+                        if (moves != GroundCache.STILL) kept.add(y * c.width + x, moves, bxi, byi, on, off)
                     }
-                    // the torrent breaks white over its stones
-                    if (torrent && !env.snow && pond >= 1f && lakeD >= 1f && Noise.rnd(bxi, byi / 2, waterT * 3 + 17) < 0.2f) col = SURF
                     kind = Ground.WATER
                 } else if (plaza && cobbled) {
                     val fx = wx * 2 - floor(wx * 2); val fy = wy * 2 - floor(wy * 2)
@@ -2126,6 +2173,12 @@ class VillageRenderer {
     private fun smooth(t: Float) = t * t * (3 - 2 * t)
 
     internal companion object {
+        /**
+         * Whether the renderers keep the ground's still picture from frame to frame ([GroundCache]); off, every frame draws
+         * it whole, as before 2026-10-26 (the tests compare the two, QA's hook "render:full" measures it on a phone).
+         */
+        @Volatile @JvmStatic var groundKept = true
+
         /** How much of the paths and the road lies under puddles in the storm's rain (a share of the noise's range). */
         const val PUDDLES = 0.26f
 

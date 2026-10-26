@@ -10,6 +10,7 @@ import si.lanisce.lani.game.Adaptive
 import si.lanisce.lani.game.Mastery
 import si.lanisce.lani.game.TurnMode
 import si.lanisce.lani.game.render.TownClock
+import si.lanisce.lani.game.render.VillageRenderer
 import si.lanisce.lani.game.scene.ActiveHappening
 import si.lanisce.lani.game.scene.parseScene
 import java.io.File
@@ -31,6 +32,7 @@ class QaHooksTest {
         QaHooks.handle("mic:")
         QaHooks.handle("bubbles:")
         QaHooks.handle("clock:")
+        QaHooks.handle("render:")
         QaHooks.handle("step:")
         QaHooks.handle("season:")
         QaHooks.handle("hour:")
@@ -238,6 +240,18 @@ class QaHooksTest {
         QaHooks.enabled = false
         QaHooks.handle("clock:0.4")
         assertEquals(1f, TownClock.rate)
+    }
+
+    @Test fun `the village's ground drawn whole while QA measures it, kept again after`() {
+        assertTrue(VillageRenderer.groundKept)
+        QaHooks.handle("render:full")
+        assertFalse(VillageRenderer.groundKept)
+        QaHooks.handle("render:")
+        assertTrue(VillageRenderer.groundKept)
+        // a release build keeps it whatever is asked
+        QaHooks.enabled = false
+        QaHooks.handle("render:full")
+        assertTrue(VillageRenderer.groundKept)
     }
 
     @Test fun `fewer bubbles asked, the village shows the nearest ones in their order, until let go`() {
