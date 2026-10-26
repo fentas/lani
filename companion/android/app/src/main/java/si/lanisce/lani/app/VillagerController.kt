@@ -395,7 +395,7 @@ class VillagerController(
         try {
             val b = bridge() ?: throw java.io.IOException("not connected")
             return try {
-                b.villagerScenario(id)
+                b.villagerScenario(id).let { s -> byId(id)?.let { VillagerLogic.localized(s, it) } ?: s }
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {

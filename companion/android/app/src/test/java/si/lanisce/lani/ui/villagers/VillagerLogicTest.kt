@@ -288,6 +288,35 @@ class VillagerLogicTest {
         assertTrue(s.goals.first().contains("vikaj"))
     }
 
+    @Test fun `a villager talk's goals are in the learner's languages, not the node's English`() {
+        // the node's role-play (villagers.ts villagerScenario): the contract's four goals, in English for the tutor
+        val node = si.lanisce.lani.data.Scenario(
+            id = "villager:tone", title = "Kovač Tone", setting = "x", role = "Kovač Tone, the smith",
+            goals = listOf("Greet Kovač Tone politely (vi)", "Ask how they are", "Talk about something they like (iron)", "Say goodbye"),
+            openerSl = "Dober dan.", openerEn = "Good day.",
+        )
+        val own = si.lanisce.lani.l10n.L10n.pair
+        try {
+            // Teo's pair: Italian from German
+            si.lanisce.lani.l10n.L10n.pair = si.lanisce.lani.l10n.LangPair(si.lanisce.lani.l10n.Lang.IT, si.lanisce.lani.l10n.Lang.DE)
+            val s = VillagerLogic.localized(node, tone)
+            assertEquals(4, s.goals.size)
+            assertEquals("Saluta (dai del Lei) · Begrüßen (per Lei)", s.goals[0])
+            assertEquals("Saluta e vai · Verabschiede dich", s.goals[3])
+            assertTrue(s.goals.none { "Greet" in it || "goodbye" in it })
+            // everything else as the node said it
+            assertEquals(node.copy(goals = s.goals), s)
+            // a node that changed the contract keeps its goals
+            val five = node.copy(goals = node.goals + "Tell them about your day")
+            assertEquals(five, VillagerLogic.localized(five, tone))
+            // Jan's pair: as before
+            si.lanisce.lani.l10n.L10n.pair = si.lanisce.lani.l10n.LangPair(si.lanisce.lani.l10n.Lang.SL, si.lanisce.lani.l10n.Lang.EN)
+            assertEquals(VillagerLogic.localScenario(tone, Bond(points = 12), day).goals, VillagerLogic.localized(node, tone).goals)
+        } finally {
+            si.lanisce.lani.l10n.L10n.pair = own
+        }
+    }
+
     @Test fun `short names and voices`() {
         assertEquals("Micka", VillagerLogic.shortName("Babica Micka"))
         assertEquals("Vida", VillagerLogic.shortName("Gostilničarka Vida"))

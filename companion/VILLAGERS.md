@@ -935,7 +935,11 @@ freely: a role-play with the tutor playing them, through the Talk screen, with t
 `villager:<id>` (`GET /villagers/:id/scenario?time=evening`: the phone's part of the day, for the opener; without it
 the node's, `Bridge.villagerScenario`). The bridge builds that scenario from the villager: their personality, story, likes,
 register, the friendship level and their memories, open goals (greet, ask how they are, talk about
-something they like, say goodbye). At `roleplay_end`, the tutor's debrief may carry
+something they like, say goodbye). The scenario format has the goals in English, for the tutor, who ticks them by their
+place; the app shows these four in the learner's languages ("Saluta (dai del Lei) · Begrüßen (per Lei)" for a learner of
+Italian from German; `VillagerLogic.localized`), and a node's scenario with another number of goals as it came. Its
+setting is English too (its opener's translation and the hints are in the learner's base); a curated scenario's goals,
+setting and translations (`opener_en`, the hints' `en`) are English only. At `roleplay_end`, the tutor's debrief may carry
 `data.memory: {sl, en}` (something from this conversation worth remembering, in the villager's words; in an
 Italian village `{it, sl, en}`); the app stores it and adds the points. The role-play's setting, the way the
 villager is introduced and the hints come from the culture pack (its `tutor` texts, the village's language and

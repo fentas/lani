@@ -542,12 +542,33 @@ object VillagerLogic {
     const val SCENARIO_PREFIX = "villager:"
 
     /**
+     * The goals of a talk with [v], in the learner's languages ("Saluta · Begrüßen"): the contract every villager's
+     * role-play has, in its order (greet them, ask how they are, talk about something they like, say goodbye; the node's
+     * `GET /villagers/:id/scenario` says them in English for the tutor, who ticks them by their place).
+     */
+    fun goals(v: Villager): List<String> {
+        val vi = v.register == "vi"
+        return listOf(
+            if (vi) bi("villagerLogic.greetThemFormalVi") else bi("villagerLogic.greetThem"),
+            bi("villagerLogic.askHowTheyAre", "vi" to if (vi) "yes" else "no"),
+            bi("villagerLogic.talkAboutLikes", "g" to gender(v)),
+            bi("villagerLogic.sayGoodbye"),
+        )
+    }
+
+    /**
+     * [s], the node's role-play with [v], with its goals in the learner's languages ([goals]) when they are the contract's
+     * four: the scenario format has them in English only, which a learner whose base is German or Italian read as they
+     * came (2026-10-26). Another number of goals (a node that changed the contract) stays as the node said them.
+     */
+    fun localized(s: Scenario, v: Villager): Scenario = if (s.goals.size == 4) s.copy(goals = goals(v)) else s
+
+    /**
      * A role-play with [v] built on the phone, for debug builds while the node can't build one
      * (`GET /villagers/:id/scenario`): their greeting opens it, and the goals are the contract's.
      */
     fun localScenario(v: Villager, bond: Bond, day: LocalDate, time: TimeOfDay = TimeOfDay.now()): Scenario {
         val hello = greet(v, Bonds.level(bond.points), day, time)
-        val vi = v.register == "vi"
         return Scenario(
             id = SCENARIO_PREFIX + v.id,
             title = bi("villagerLogic.chatWith", "vName" to v.name, "vName2" to (shortName(v.name))),
@@ -556,12 +577,7 @@ object VillagerLogic {
             setting = v.story.ifBlank { bi("villagerLogic.village") },
             role = "${v.name}, ${v.personality}".trimEnd(',', ' '),
             voice = voiceOf(v),
-            goals = listOf(
-                if (vi) bi("villagerLogic.greetThemFormalVi") else bi("villagerLogic.greetThem"),
-                bi("villagerLogic.askHowTheyAre", "vi" to if (vi) "yes" else "no"),
-                bi("villagerLogic.talkAboutLikes", "g" to gender(v)),
-                bi("villagerLogic.sayGoodbye"),
-            ),
+            goals = goals(v),
             openerSl = hello.sl,
             openerEn = hello.en,
             source = "debug",
