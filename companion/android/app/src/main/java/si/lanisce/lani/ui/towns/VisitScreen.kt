@@ -99,19 +99,10 @@ fun VisitScreen(vm: AppViewModel) {
         Arrival(v, onRetry = { vm.visits.retry() }, onHome = { vm.leaveVisit() })
         return
     }
-    // the host village's background sounds, as at home
     val townClock = si.lanisce.lani.game.render.rememberTownClock()
-    si.lanisce.lani.ui.AmbientSound(
-        vm.ambience,
-        si.lanisce.lani.game.ambient.Place.Village(
-            sea = si.lanisce.lani.game.culture.Cultures.current.world.backdrop?.sea == true,
-            storm = s.event?.kind == si.lanisce.lani.game.EventKind.STORM,
-            beach = si.lanisce.lani.game.render.VillageLayout.of(s).sea != null,
-        ),
-        si.lanisce.lani.game.ambient.Soundscape.villageSky(s, java.time.LocalDate.now()),
-        townClock,
-    )
     val cam = rememberTownCamera()
+    // the host village's background sounds, as at home (its culture's: Cultures.visiting while the visit lasts)
+    si.lanisce.lani.ui.VillageSound(vm.ambience, s, cam, townClock)
     val people = remember(v) { v.people() }
     var card by remember { mutableStateOf<PlaceTap?>(null) }
     var villager by remember { mutableStateOf<String?>(null) }

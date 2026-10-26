@@ -2,11 +2,14 @@ package si.lanisce.lani.game.ambient
 
 import si.lanisce.lani.game.GameState
 import si.lanisce.lani.game.render.Env
+import si.lanisce.lani.game.render.Terrain
+import si.lanisce.lani.game.render.VillageLayout
 import si.lanisce.lani.game.scene.DaySky
 import si.lanisce.lani.game.scene.Sky
 import java.time.LocalDate
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.math.roundToInt
 import kotlin.math.sqrt
 
 // The background sounds of the village and its scenes (companion/GAME.md, "Background sounds"): what is heard where and
@@ -37,10 +40,12 @@ enum class Layer(val file: String, val seconds: Int, val trim: Float) {
 sealed interface Place {
     /**
      * The village from above; [sea]: the sea is at its horizon (its culture's backdrop, the friuli pack's lagoon); [beach]:
-     * it stands on the coast, the sea along its left (its land's, [si.lanisce.lani.game.render.Terrain.sea]); [storm]: the
-     * storm event is on (its lightning flashes more often than a kept sky's, [si.lanisce.lani.game.scene.Lightning]).
+     * it stands on the coast, the sea along its left (its land's, [si.lanisce.lani.game.render.Terrain.sea]); [beachView]:
+     * how far the town view has come onto that beach, 0..1 in quarters ([Soundscape.beachView]: 0 at its home view, 1 with
+     * the beach in the middle of the view); [storm]: the storm event is on (its lightning flashes more often than a kept
+     * sky's, [si.lanisce.lani.game.scene.Lightning]).
      */
-    data class Village(val sea: Boolean = false, val storm: Boolean = false, val beach: Boolean = false) : Place
+    data class Village(val sea: Boolean = false, val storm: Boolean = false, val beach: Boolean = false, val beachView: Float = 0f) : Place
 
     /** A close-up scene of [art] (SCENES.md, "Arts"); [fx]: the effects its dialog has set (the fire flaring, the forge roaring). */
     data class Scene(val art: String, val fx: Map<String, Float> = emptyMap()) : Place
@@ -111,10 +116,37 @@ object Soundscape {
     )
 
     /**
-     * The village from above: its birds and crickets, the owl from the woods; the sea, faint, where it lies along the horizon,
-     * nearer where the village stands on the coast.
+     * The village from above: its birds and crickets, the owl from the woods; the sea, faintest where it lies only along the
+     * horizon ([HORIZON_SEA]), a quiet background where the village stands on the coast ([COAST_SEA]), nearer as the view
+     * comes onto the beach ([beachView], up to [BEACH_SEA]).
      */
-    private fun village(sea: Boolean, beach: Boolean) = Spot(birds = 0.6f, crickets = 0.6f, owl = 0.4f, sea = if (beach) 0.6f else if (sea) 0.35f else 0f)
+    private fun village(sea: Boolean, beach: Boolean, beachView: Float) = Spot(
+        birds = 0.6f, crickets = 0.6f, owl = 0.4f,
+        sea = when {
+            beach -> COAST_SEA + (BEACH_SEA - COAST_SEA) * beachView.coerceIn(0f, 1f)
+            sea -> HORIZON_SEA
+            else -> 0f
+        },
+    )
+
+    /**
+     * How far the town view has come onto the coast's beach, 0..1: [x], [y] are the canvas point in the middle of the view,
+     * in nominal px of the town's [w] × [h] canvas ([VillageLayout.composition]), on the village's [land]. 1 with the water
+     * or the beach in the middle, up to [BEACH_NEAR] px inland of the shore on that row, nothing from [BEACH_FAR] px inland
+     * on: the home view frames the clearing with a strip of the sea at its edge, its middle well inland, so it hears the
+     * coast's quiet sea, and only panning or zooming onto the beach brings it nearer. In quarters, so a pan
+     * changes the level a few times and each change fades ([AmbientBus.FADE_S]), not at every frame. 0 on a land without
+     * the sea, and for a point that isn't one.
+     */
+    fun beachView(land: Terrain, w: Int, h: Int, x: Float, y: Float): Float {
+        if (land.sea == null || !x.isFinite() || !y.isFinite()) return 0f
+        val comp = VillageLayout.composition(w, h, compact = false)
+        // above the horizon (the sky over the sea) the shore's line at the horizon
+        val row = max(y, comp.horizon.toFloat()) - comp.fireY
+        val inland = x - comp.fireX - land.shoreX(row)
+        val near = 1f - ((inland - BEACH_NEAR) / (BEACH_FAR - BEACH_NEAR)).coerceIn(0f, 1f)
+        return (near * 4f).roundToInt() / 4f
+    }
 
     /**
      * What plays at [place] at [hour] (local, 0..24) of a day in [month] (1..12) under [sky]: each loop's level, 0..1
@@ -125,7 +157,7 @@ object Soundscape {
      */
     fun mix(place: Place, hour: Float, month: Int, sky: Sky = Sky.CLEAR): Map<Layer, Float> {
         val spot = when (place) {
-            is Place.Village -> village(place.sea, place.beach)
+            is Place.Village -> village(place.sea, place.beach, place.beachView)
             is Place.Scene -> SPOTS[place.art] ?: OPEN
         }
         val fx = (place as? Place.Scene)?.fx.orEmpty()
@@ -208,6 +240,38 @@ object Soundscape {
 
     /** Below this a loop is left out. */
     const val MIN = 0.01f
+
+    // The sea over the village (2026-10-26, "the sea sounds are way too loud" on Teo's coast and on a visit to it). The sea is
+    // one unbroken wash with a wave breaking every 7 to 9 s, the breaks up to 6.6 LU over the loop's −26 LUFS; the birds and
+    // the owl come and go, and the crickets are a thin chirp. Under a voice it masks the speech more than any of them. At 0.6
+    // on the coast it played louder than the village's birds by day and its crickets at night (0.6 each: after their trims
+    // 0.48 and 0.33, against the sea's 0.54). Now it sits under them and under the voices, and only the beach in view or the
+    // sea's own scene (its 0.85, [SPOTS]) bring it forward. Under a voice it ducks with the rest ([AmbientBus.DUCK]).
+
+    /**
+     * The sea where the village only sees it at its horizon (its culture's backdrop, the friuli pack's lagoon far off): a
+     * breath under everything, half the coast's (it was 0.35 until 2026-10-26).
+     */
+    const val HORIZON_SEA = 0.1f
+
+    /**
+     * The sea of a village on the coast, as its home view frames it (the beach and a strip of the water at the view's
+     * edge): a quiet background, after its trim under the birds and the crickets at their fullest and, at the default
+     * volume, about 40 dB under the voices (50 ducked). It was 0.6 until 2026-10-26, 9.5 dB louder.
+     */
+    const val COAST_SEA = 0.2f
+
+    /**
+     * The coast's sea with the beach in the middle of the town view ([beachView] 1): what is looked at, about as loud as
+     * the birds at their fullest, still well under the sea's close-up scene (0.85).
+     */
+    const val BEACH_SEA = 0.45f
+
+    /** Up to this far inland of the shore (nominal px: the beach's sand, [Terrain.BEACH], and a strip of land) the view is on the beach. */
+    const val BEACH_NEAR = 16f
+
+    /** From this far inland of the shore (nominal px) on the view is in the village, the beach at its edge or out of it. */
+    const val BEACH_FAR = 64f
 
     /**
      * How much fuller the muffled rain indoors ([Layer.RAIN_IN]) plays than the share of the rain a room lets in: it has no

@@ -147,19 +147,7 @@ fun VillageScreen(vm: AppViewModel) {
         VillageLoading(vm::home)
         return
     }
-    // the village's background sounds now: the birds by day, the crickets and the owl at night, its weather, the sea by the
-    // coast, and on the picture's clock the thunder after each flash of a storm
     val townClock = si.lanisce.lani.game.render.rememberTownClock()
-    si.lanisce.lani.ui.AmbientSound(
-        vm.ambience,
-        si.lanisce.lani.game.ambient.Place.Village(
-            sea = si.lanisce.lani.game.culture.Cultures.current.world.backdrop?.sea == true,
-            storm = s.event?.kind == si.lanisce.lani.game.EventKind.STORM,
-            beach = si.lanisce.lani.game.render.VillageLayout.of(s).sea != null,
-        ),
-        si.lanisce.lani.game.ambient.Soundscape.villageSky(s, java.time.LocalDate.now()),
-        townClock,
-    )
     val haptic = LocalHapticFeedback.current
     val density = LocalDensity.current
     val attrs = remember(s) { GameEngine.attributes(s) }
@@ -244,6 +232,9 @@ fun VillageScreen(vm: AppViewModel) {
     val visitors = remember(s, active, people) { TownPeople.waiting(s, active, people) }
     val badges = remember(active) { active.associate { "happening:${it.key}" to it.happening.marker.takeIf { m -> m != it.person?.emoji } } }
     val cam = rememberTownCamera()
+    // the village's background sounds now: the birds by day, the crickets and the owl at night, its weather, the sea by the
+    // coast (nearer as the view comes onto the beach), and on the picture's clock the thunder after each flash of a storm
+    si.lanisce.lani.ui.VillageSound(vm.ambience, s, cam, townClock)
     // Zoomed out, places are close together: one bubble each; closer in, they fan out.
     val zoomedOut by remember { derivedStateOf { cam.rig?.let { cam.camera.scale < it.minScale * 1.5f } ?: false } }
     val shown = remember(markers, zoomedOut) { if (zoomedOut) clusterBubbles(markers) else foldBubbles(markers) }

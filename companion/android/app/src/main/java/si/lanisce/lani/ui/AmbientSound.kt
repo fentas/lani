@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -25,10 +26,17 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import si.lanisce.lani.data.Ambience
+import si.lanisce.lani.game.EventKind
+import si.lanisce.lani.game.GameState
 import si.lanisce.lani.game.ambient.Place
+import si.lanisce.lani.game.ambient.Soundscape
+import si.lanisce.lani.game.culture.Cultures
 import si.lanisce.lani.game.render.TownClock
+import si.lanisce.lani.game.render.VillageLayout
 import si.lanisce.lani.game.scene.Sky
 import si.lanisce.lani.l10n.bi
+import si.lanisce.lani.ui.game.TownCameraState
+import java.time.LocalDate
 
 /**
  * While this is on screen, the learner is at [place] under [sky]: its background sounds play ([Ambience]), and fade out
@@ -40,6 +48,36 @@ fun AmbientSound(ambience: Ambience, place: Place, sky: Sky = Sky.CLEAR, clock: 
     val owner = remember { Any() }
     SideEffect { ambience.show(owner, place, sky, clock) }
     DisposableEffect(ambience) { onDispose { ambience.leave(owner) } }
+}
+
+/**
+ * The background sounds of [state]'s village while the town view shows it, at home and on a visit: its birds, crickets and
+ * owl, its weather, the sea of its culture's horizon and of its coast, and on the picture's [clock] the thunder after each
+ * flash of a storm. The coast's sea comes nearer as [cam]'s view comes onto the beach ([Soundscape.beachView], from the
+ * canvas point in the middle of the view); it follows the camera here, in a composable of its own, so a pan recomposes
+ * nothing else, and only when the level steps to its next quarter.
+ */
+@Composable
+fun VillageSound(ambience: Ambience, state: GameState, cam: TownCameraState, clock: TownClock) {
+    val land = VillageLayout.of(state)
+    val beachView by remember(land, cam) {
+        derivedStateOf {
+            val rig = cam.rig ?: return@derivedStateOf 0f
+            val c = cam.camera
+            Soundscape.beachView(land, rig.canvasW, rig.canvasH, c.toCanvasX(rig.viewW / 2f), c.toCanvasY(rig.viewH / 2f))
+        }
+    }
+    AmbientSound(
+        ambience,
+        Place.Village(
+            sea = Cultures.current.world.backdrop?.sea == true,
+            storm = state.event?.kind == EventKind.STORM,
+            beach = land.sea != null,
+            beachView = beachView,
+        ),
+        Soundscape.villageSky(state, LocalDate.now()),
+        clock,
+    )
 }
 
 /**
