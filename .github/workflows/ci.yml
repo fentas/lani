@@ -51,9 +51,11 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+      # the node's Python (the scripts run there): the db port's differential test (tests/test_db_port.py) compares
+      # the TypeScript twin with Python's own messages, which differ between versions (a date out of range, a bad UTF-8 byte)
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          python-version: "3.13"
+          python-version: "3.14"
       # Bun and the bridge's packages: the setup wizard (companion/bin/lani-setup) and lani.env's TypeScript reader,
       # which the tests run end to end
       - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
