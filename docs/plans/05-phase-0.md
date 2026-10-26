@@ -208,7 +208,7 @@ same events.
 | # | Fix | Where | Status |
 |---|---|---|---|
 | 1 | **The learner's view into the context:** each real reply goes into the shadow's next user message, as what the learner was shown | this round (`tutor/Events.kt` `TurnText.shown`) | done |
-| 2 | **Grading's model:** Haiku at `high` or Sonnet? Decided by the matrix's numbers and replies, not by changing Balanced now | the matrix (below) | measuring |
+| 2 | **Grading's model:** Haiku at `high` or Sonnet? Decided by the matrix's numbers and replies, not by changing Balanced now | the matrix (below) | decided 2026-10-26: Haiku at `high` (every verdict right; Sonnet at `medium` no better), and the presets as the matrix recommends ([tutor-live.md](05-built/tutor-live.md#the-presets-and-the-matrixs-fixes-2026-10-26)) |
 | 3 | **No "not a word" and no report without a `dictionary_lookup`:** a check on `report_problem` (a fix about a word, a form or a key fails until a lookup came back in the turn) and a prompt rule | the parallel round (c682350) | done |
 | 4 | **Standard against spoken:** the core prompt's "Correct Slovene" (the supine is standard, a spoken form from home is named as spoken, never a mistake) | the parallel round | done |
 | 5 | **Offer only what the tools can do:** the reviews, the homework, the grammar book's pages; one practice question on a topic at most | the parallel round | done |
@@ -296,6 +296,13 @@ files) writes `summary.md` (per lane, the primary and the real tutor: days, even
 token and call, replies, the share taken from text, errors, refusals, truncations, guide and `dictionary_lookup` calls,
 writes) and `chat.md`, `grading.md`, `routine.md` (per event: the event, the real reply, the primary's and each lane's
 reply with its tool calls in brief), for a judged reading. `--task`, `--lanes`, `--day` narrow it.
+
+**The results (19 to 22 October, read 2026-10-26):** 19 lanes and the primary on 32 of Jan's events, judged against the
+real tutor. The presets now follow them (Balanced's chat on Sonnet 5.5 at `xhigh`, routine on Haiku 5.5 at `xhigh`;
+Economy on Haiku 5.5 with the chat at `xhigh`; GPT-6.1 Sol on OpenAI, never GPT-6 Luna), and the fixes the data
+suggested are in: no silent turn at the call limit, dry runs visible to later reads, the card-fault rule, the queue
+paused offline, and more ([tutor-live.md](05-built/tutor-live.md#the-presets-and-the-matrixs-fixes-2026-10-26)). The
+claims the models disagreed on wait for the native speaker.
 
 ### Check 11: signing in with the subscription
 

@@ -1110,10 +1110,13 @@ get and calls the same tools, through the bridge's `/tutor/*` routes.
   provider's model list (not a model call) and kept encrypted with a key in the Android Keystore, in the same vault as
   the shadow tutor's: never shown again, logged or exported. On Gemini's free tier the section says plainly that Google
   may use what's sent to improve its products (and the chat says it once); Argon isn't there, and the calls are paced
-  ([docs/plans/05-built/providers.md](../docs/plans/05-built/providers.md), "Gemini", "OpenRouter");
-- the preset (Varčno · Economy, Uravnoteženo · Balanced ⭐, Najboljše · Best), "advanced" for the model and effort per
-  task, the daily cap ($1 by default) and the monthly cap ($20 by default), today's and this month's spend, "Odzovi se
-  takoj · React at once", "🌙 Kar lahko počaka, ponoči za pol cene · What can wait, overnight at half price";
+  ([docs/plans/05-built/providers.md](../docs/plans/05-built/providers.md), "Gemini", "OpenRouter"). Where the phone is
+  in the EEA, Switzerland or the UK there's no free-tier choice (Google allows only the paid API for apps used there),
+  and a key marked free before is treated as paid, its privacy note kept;
+- the preset (Varčno · Economy, Uravnoteženo · Balanced ⭐, Najboljše · Best: the matrix's picks, below), "advanced" for
+  the model and effort per task (⭐ the effort Balanced recommends for the model's provider), the daily cap ($1 by
+  default) and the monthly cap ($20 by default), today's and this month's spend, "Odzovi se takoj · React at once",
+  "🌙 Kar lahko počaka, ponoči za pol cene · What can wait, overnight at half price";
 - "✍️ Studio": the content jobs, open and the last few, each with a ✕;
 - "📓 Kaj ve učitelj · What my tutor knows": the notebook on the node (`app/tutor/notebook.md`), to read and correct,
   and "🕘 Starejše različice · Older versions" (the last 20) to see and restore.
@@ -1140,7 +1143,24 @@ Once the credential is kept, the app attaches to the paired bridge. From then on
 - **The shadow tutor is off** meanwhile (it would shadow itself).
 
 While the app is up it long-polls the bridge's inbox. While it's closed, a WorkManager check runs about every 15
-minutes and answers what waits (a chat, the rhythm).
+minutes and answers what waits (a chat, the rhythm). Without a usable network (or while Android holds the background
+app's network) the turns wait for it: no call, no try counted, "brez povezave · no connection, n waiting" in the
+section, and once in the chat that the message waits.
+
+**The presets** (the matrix, 2026-10-19 to 10-22: 32 of Jan's events, 19 lanes beside the real tutor;
+[tutor-live.md](../docs/plans/05-built/tutor-live.md#the-presets-and-the-matrixs-fixes-2026-10-26)): with a Claude key,
+Economy (≈ $0.03 a day) is Haiku 5.5, the chat at `xhigh`, grading and routine at `high`; Balanced ⭐ (≈ $0.30 a day)
+has the chat on Sonnet 5.5 at `xhigh` (Opus 5.5 at `low` is the faster choice under "advanced"), grading on Haiku 5.5 at
+`high`, routine on Haiku 5.5 at `xhigh`; Best (≈ $0.85 a day) is Opus 5.5 at `medium`, content at `high`. With OpenAI
+(the ChatGPT plan or a key): GPT-6.1 Sol for chat, grading and routine, at `low` in Economy and `medium` otherwise;
+never GPT-6 Luna (only the matrix runs it). A learner on a preset gets a change of it with the next turn; a task set
+under "advanced" keeps its own.
+
+**Never a silent turn:** with one call of a turn's eight left and nothing sent yet, the tools' results say so; at the
+limit the tutor gets one more call with the tools off, and its text is the reply. A `tool_use` stop without a tool call
+is asked again, and a chat, an answer or a session's end that ends with nothing gets that last word too
+(`tutor/Loop.kt`). A session's end is persisted (`record_session`) before its reply goes, and a score goes only on an
+answer's reply.
 
 **Turning it off.** "Claude Code on my node": the app detaches. The bridge gives the session every event the app
 hadn't answered, and Claude Code answers as before. The studio's jobs for events end (their events go back to Claude
@@ -1263,15 +1283,18 @@ writes: every output token, thinking included, is billed as output.
 
 | Task | Recommended (Balanced) | Economy | Best |
 |---|---|---|---|
-| routine (the digest) | Haiku 5.5 · high | Haiku 5.5 · medium | Opus 5.5 · medium |
-| grading (answer, session end) | Haiku 5.5 · high (to measure against Sonnet · medium) | Haiku 5.5 · medium | Opus 5.5 · medium |
-| chat (and the notebook) | Sonnet 5.5 · medium | Haiku 5.5 · medium | Opus 5.5 · medium |
+| routine (the digest) | Haiku 5.5 · xhigh | Haiku 5.5 · high | Opus 5.5 · medium |
+| grading (answer, session end) | Haiku 5.5 · high | Haiku 5.5 · high | Opus 5.5 · medium |
+| chat (and the notebook) | Sonnet 5.5 · xhigh | Haiku 5.5 · xhigh | Opus 5.5 · medium |
 | role-play (phase B) | Sonnet 5.5 · low | Haiku 5.5 · low | Opus 5.5 · medium |
-| content (phase C) | Opus 5.5 · medium | Sonnet 5.5 · medium | Opus 5.5 · high |
+| content (phase C) | Opus 5.5 · medium | Sonnet 5.5 · xhigh | Opus 5.5 · high |
 
-Why: Haiku 5.5 at `low` skipped `reply` in the shadow, and Anthropic recommends `high` on Haiku 5.5 for strict
-instruction following (~$0.001–0.002 more a reaction); content is what the learner drills again and again, so its
-Slovene matters most. Routine and grading get 16,000 tokens of room (thinking counts toward `max_tokens`), content
+Why (the matrix, 2026-10-19 to 10-22, Σ of 35 against the real tutor's 35;
+[tutor-live.md](../docs/plans/05-built/tutor-live.md#the-presets-and-the-matrixs-fixes-2026-10-26)): Sonnet 5.5 at
+`xhigh` Σ30 for $0.23 a day (at `low` to `high` only Σ21–22, about 6 wrong claims in 20 chats at `medium`); Haiku 5.5's
+knee is `xhigh` (Σ25 against 19–20), `high` enough for grading (every verdict right) and Economy's routine; Opus 5.5 at
+`medium` the best overall (Σ32.5). Content is what the learner drills again and again, so its Slovene matters most.
+Before (2026-10-16): chat on Sonnet at `medium`, routine on Haiku at `high`, Economy on Haiku at `medium`. Routine and grading get 16,000 tokens of room (thinking counts toward `max_tokens`), content
 32,000; `xhigh` at least 32,000, `max` 64,000. The ids come from the key's `GET /v1/models`: the plan's when listed, else
 the family's newest, else the family above's; never a legacy model (Haiku 4.5) by default.
 

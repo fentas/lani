@@ -113,8 +113,9 @@ WorkManager check use the same.
     `stories_low`. These stay unacknowledged in the inbox, and the bridge gives them to Claude Code when the learner
     switches back. Meanwhile the app's template plays, as it does when no tutor answers.
 - **Turns.** Plan 5's loop (`TutorLoop`), with the provider and the model per task: the presets, and the per-task
-  model and effort under "advanced". With OpenAI, a preset's tier maps to the same tier of OpenAI's families (Luna,
-  Sol, Astra).
+  model and effort under "advanced". With OpenAI the presets pick GPT-6.1 Sol for chat, grading and routine, never
+  GPT-6 Luna ([The presets](#the-presets-and-the-matrixs-fixes-2026-10-26)); role-play and content keep their tier's
+  family (Sol, Astra).
   - A turn on the chat's model joins the day's thread (from 04:00, append-only, the notebook in its first message).
   - Another model's task is a stateless call, its line added to the day's thread (`pending`).
   - A role-play gets its own short thread per conversation (`rp/<conversation>.json`). Its end drops that thread, and
@@ -151,7 +152,8 @@ WorkManager check use the same.
   | The daily cap is spent | Turns wait; "raise it under Connection → Tutor" |
   | The key refused (401), the ChatGPT sign-in ended | The tutor pauses; "enter a new one" |
   | The credit out, a spend limit, the ChatGPT plan's limit | A chat or an answer says it can't answer now, routine work waits; a new day or "Check again" tries again |
-  | Offline, the API busy (a chat's second failed try) | "your message waits and gets its answer once you're back online" |
+  | Offline (no usable network, or Android holding the background app's network) | The queue waits for the network (no call, no try counted); a chat or an answer says "your message waits and gets its answer once you're back online", and the section says "no connection, n waiting" |
+  | The API busy (a chat's second failed try) | "your message waits and gets its answer once you're back online" |
   | A refusal, a failure the loop doesn't retry | A short line, no retry |
 
 - **The AI disclosure** (the Usage Policy's rule for consumer chatbots, plan 5 "Practicalities"):
@@ -165,6 +167,74 @@ WorkManager check use the same.
   key, one ChatGPT sign-in, so its token refreshes one at a time. AES-GCM with a Keystore key, decrypted for a call
   only, only in `x-api-key` to the API (or the OpenAI bearer to api.openai.com). Never in a log line (`Redact`), the
   settings or a tool's input. The bridge token goes only to the bridge.
+
+## The presets and the matrix's fixes (2026-10-26)
+
+The matrix ran 19 lanes beside the primary and the real tutor (Opus 5.5 in Claude Code) on Jan's events of 19 to 22
+October: 32 events (20 chats, 4 session ends, 8 review digests), each lane scored 1–5 on Slovene, grading, teaching,
+context, tools, habits and tone (Σ of 35; the real tutor 35). Costs are at Jan's use (about 5 chats, 1 session end and
+2 review digests a day). The presets follow its recommendations; learners who chose a preset get them with the next
+turn, and a task set under "advanced" keeps its own model and effort.
+
+**With an Anthropic key** (`tutor/Presets.kt`, `Task` and `Preset`):
+
+| Task | Economy (≈ $0.03 a day) | Balanced ⭐ (≈ $0.30 a day) | Best (≈ $0.85 a day) |
+|---|---|---|---|
+| chat (and the notebook) | Haiku 5.5 · xhigh (Σ25, 17 s) | Sonnet 5.5 · xhigh (Σ30, $0.23 a day, 15 s) | Opus 5.5 · medium (Σ32.5, 9 s) |
+| grading (answer, session end) | Haiku 5.5 · high | Haiku 5.5 · high (stateless, $0.005 a day, every verdict right) | Opus 5.5 · medium |
+| routine (the digest) | Haiku 5.5 · high | Haiku 5.5 · xhigh (stateless, ≈ $0.009 a day, fewer miscounts) | Opus 5.5 · medium |
+| role-play | Haiku 5.5 · low | Sonnet 5.5 · low | Opus 5.5 · medium |
+| content | Sonnet 5.5 · xhigh | Opus 5.5 · medium | Opus 5.5 · high |
+
+- **Before** (2026-10-16): Economy on Haiku at `medium` (content on Sonnet at `medium`), Balanced's chat on Sonnet at
+  `medium` and routine on Haiku at `high`. Sonnet at `low` and `medium` was the weak spot: about 6 wrong claims in 20
+  chats (the locative "the 6th case", the dual *šla*, a *pika/točka* table backwards).
+- **The faster alternative to Balanced's chat:** Opus 5.5 at `low` (Σ29, $0.29 a day, 5 s), under "advanced".
+- **Effort's knees:** Haiku's at `xhigh` (Σ25 against 19–20 at `medium` and `high`; `max` took a median 63 s a chat),
+  Sonnet's at `xhigh` (`low` to `high` Σ21–22), Opus good from `low`.
+- **Economy's content** is the matrix's inference (no content event ran): not Sonnet at `medium`, whose Slovene erred
+  most in chat. Sonnet at `xhigh` is the cheaper of its two picks (Opus at `low` the other).
+
+**With OpenAI** (an API key or the ChatGPT plan, $0 on the plan): GPT-6.1 Sol for chat, grading and routine, at `low` in
+Economy (Σ25) and `medium` in Balanced and Best (Σ27). GPT-6 Astra scored no higher at about 4.5 times the API price;
+no plan model reached Sonnet at `xhigh` or Opus, so for the best a Claude key. Role-play and content keep their tier's
+family: Sol at `low` (Economy, Balanced) or Astra at `medium` (Best) for role-play, Sol at `medium` (Economy) or Astra at
+`medium` (Balanced) and `high` (Best) for content.
+
+**GPT-6 Luna is for the matrix only** (`Family.matrixOnly`): not acceptable on any task at any effort (Σ15–19: it refused
+an action it has, retracted correct rules it had been shown, claimed a card fix it never made). No preset picks it, the
+Tutor section's pickers don't offer it (a task set to it before keeps it), and OpenRouter's small tier is GPT-6.1 Sol
+now (`OpenRouterModels.DEFAULTS`). The matrix's grid still has its lanes, with a note.
+
+**The matrix's fixes** (its report's 15, section 7):
+
+| # | Fix | What was done |
+|---|---|---|
+| 1 | Never end a turn silently | With one call left and no reply, the tools' results say so (`TutorLoop.LAST_CALL`). At the limit with still none, one more call with the tools off (`TutorProvider.toolsOff`: `tool_choice: none` on Anthropic, which thinking accepts; forced `tool`/`any` is a 400 on the 5.5 models), after a note (`TOOLS_OFF`); its text is the reply (`ReplyFallback`, now also at the limit). A required turn (a chat, an answer, a session's end, a role-play: `Owed.REQUIRED`) that ends with neither a reply nor text gets that call too, after a user line (`NO_REPLY`). A digest may still end silent. |
+| 2 | `tool_use` with no tool call | Asked once more, the empty answer not kept; the second time its text is the reply, or the tools-off call gives one. |
+| 3 | Dry runs visible to later reads | The shadow's and the lanes' `card` reads lay the day's dry-run card writes over the deck (`CardOverlay`: an edit's texts and `edits` entry, a merge, a split's new card, a regrade), within the turn and across the day's turns (from the day log's tool calls); never the model's own `dry_run: true` preview nor a refused write. The lanes' shared reads key on each lane's writes. |
+| 4 | The card-fault rule | Core prompt rule 15: a wrong answer that is a valid translation of the card's prompt (*mrzel* for "cold", *luč* for "lamp, lantern"), or a confusing card, is the card's fault: `overlaps`, `edit`, `regrade`, tell the learner it counts. |
+| 5 | "Correct Slovene" | Added where certain: the cases by number (*mestnik* the 5th, *orodnik* the 6th), the locative of a neuter noun in *-u* with *-em* only for adjectival words (*v Trnovem*, *v Novem mestu*), the dual l-participle (m *-la*, f/n *-li*). Left for the native check: *bojo*, *pa* as "and", *Me zebe*, *noht/nohet*, *Pazi se*. |
+| 6 | Speaking items | A sound-spelling from speech-to-text (*u vasi*) is never counted; the standard form beside it (Correct Slovene). |
+| 7 | "Not your words" | The shown replies' title says it outright: never correct, retract, apologise for or claim them (nor what they say was done), never mention them or another tutor (`TurnText.SHOWN`, `SHOWN_TODAY`; a restart's exchanges too). |
+| 8 | `data.score` only on answers | The `reply` tool (the shadow's and the live one) drops `score` and `severity` unless the reply answers an event whose guide asks for a score (`ReplyData.SCORED`: an answer, a town's check, question and answer, a market's debrief, the family's challenges) and tells the model. |
+| 9 | Card-level numbers in `review_done` | Not done here: the bridge's `review_done` text belongs to Claude Code's channel too; for the lead. |
+| 10 | A words-added digest's line-up | Not done: a feature (the line-up made by the app from the dictionary, as the counting card's forms are, without a call), not a fix. |
+| 11 | `session_end` must persist | A turn with session ends to persist gets its `reply` refused until `record_session` ran (`ReplyData.persistFirst`, as `report_problem`'s lookup check); a message's `reply` runs after its other calls, so one with both passes. The digest's text says a `session_end` in it isn't persisted yet (it claimed every event was). |
+| 12 | Follow-ups | Core prompt rule 16: a short follow-up goes on with the last topic, no "which card?". |
+| 13 | A practice question every reply, correction messages | Rule 14: most replies end without a question. Rule 1: a correction of an earlier reply in one line of the next. Replacing the last reply in place needs the chat's support: not done. |
+| 14 | Offline | The queues (the live tutor's, the shadow's, the lanes') pause while the phone has no usable network (`Online`, `AndroidOnline`: ConnectivityManager's default-network callback: a default network with internet, not blocked for the app; not "validated" too, so a VPN never pauses it wrongly); a network error then isn't retried and its try isn't counted (`Failures.offline`). The background check stops waiting when offline; its next run needs a network (WorkManager's constraint). |
+| 15 | OpenAI threads re-fetching the guide | Checked: the Responses thread replays the whole history with `store: false`, the function results included. Luna's re-fetch was Luna's; Luna is out of the tutor. Nothing changed. |
+
+**Gemini's free tier in the EEA** ([providers.md](providers.md), "The free tier and privacy"): hidden where the phone
+is in the EEA, Switzerland or the UK (`Region`, `AndroidRegion`: the mobile network's country, else the SIM's, else
+the locale's), with the line "Google allows only the paid API for apps used in the EEA (and in Switzerland and the UK):
+no free tier here". A key marked free before is treated as paid there (priced and capped, Argon offered, not paced); its
+privacy note stays.
+
+**The core prompt changed** (rules 1, 14, 15, 16, the kinds, Correct Slovene), so a day's thread restarts as text at the
+first turn after the update (the prefix's hash), as after any prompt change. Its HTML comments are for maintainers and
+never sent (`Prefix.bundled`).
 
 ## Turning it on
 

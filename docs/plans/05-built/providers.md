@@ -269,7 +269,8 @@ balance intelligence and cost, or GPT-6 Luna for cost-sensitive, high-volume wor
 | mid | Sonnet · `claude-sonnet-5-5` | Sol · `gpt-6.1-sol` (then `gpt-6-sol`) |
 | top | Opus · `claude-opus-5-5` | Astra · `gpt-6-astra` |
 
-A family resolves to its own model in its provider's catalog, never another provider's.
+A family resolves to its own model in its provider's catalog, never another provider's. Since 2026-10-26 Luna is for the
+matrix only (`Family.matrixOnly`: the matrix found it unacceptable for the tutor); the presets put Sol in its place.
 
 **OpenAI's default lanes** take the same places as Anthropic's nine:
 - Luna at medium, high, xhigh and max;
@@ -464,13 +465,25 @@ backoff); `MISSING_THOUGHT_SIGNATURE` is a bad request (our bug).
     period of time, solely for detecting and preventing violations of the Prohibited Use Policy".
   - "Your access to Gemini API is a 'Paid Service' only when accessing the API through a Cloud Project associated
     with an active billing account."
-- **For the lead (not settled tonight):** the same terms say "If you're in the European Economic Area, Switzerland, or
-  the United Kingdom, the terms under 'How Google uses Your Data' in 'Paid Services' apply to all Services, including
-  Google AI Studio and unpaid quota in the Gemini API", and "You may use only Paid Services when making API Clients
-  available to users in the European Economic Area, Switzerland, or the United Kingdom". Jan is in Slovenia. The app's
-  note says what Google *may* do on the free tier, which is the cautious reading; whether Lani may offer the free tier
-  to learners in the EEA at all (the learner's own key in an app offered to them) needs a decision. The terms also say
-  the API is for "professional or business purposes, not for consumer use", and 18+.
+- **The EEA, Switzerland and the UK (decided 2026-10-26):** the same terms say "If you're in the European Economic Area,
+  Switzerland, or the United Kingdom, the terms under 'How Google uses Your Data' in 'Paid Services' apply to all
+  Services, including Google AI Studio and unpaid quota in the Gemini API", and "You may use only Paid Services when
+  making API Clients available to users in the European Economic Area, Switzerland, or the United Kingdom". So there the
+  app offers no free tier:
+  - **Where the phone is** (`tutor/Region.kt`, `tutor/live/AndroidRegion.kt`): the mobile network's country
+    (`TelephonyManager.networkCountryIso`: where it is now), else the SIM's, else the locale's region. `Region.EEA` is
+    the EU's 27 and Iceland, Liechtenstein, Norway; `GEMINI_PAID_ONLY` adds Switzerland and the UK (`GB`, also `UK`).
+    Not known: as elsewhere.
+  - **The Tutor section** (and the developer panel) shows no "Brezplačna raven · Free tier" chip there, only "Plačljiva
+    (obračun vklopljen) · Paid (billing on)", and the line "Google za aplikacije, ki se uporabljajo v EGP (in v Švici
+    ter Združenem kraljestvu), dovoljuje le plačljivi API: brezplačne ravni tu ni. · Google allows only the paid API
+    for apps used in the EEA (and in Switzerland and the UK): no free tier here." (`tutorLive.geminiPaidOnly`, also de
+    and it). Elsewhere the choice stays as before.
+  - **A key marked free before** (by the learner, or a 429 that named the free tier) is treated as paid there
+    (`GeminiTerms.freeCalls`): priced and capped, Argon for the top tier, not paced (`GeminiCredentials.paidOnly`). Its
+    privacy note stays (the section's, and the chat's once), since the key may still be on the free tier; a free-tier
+    key there gets Google's "free tier is not available in your country" (`LowCredit`: "enable billing").
+  - The terms also say the API is for "professional or business purposes, not for consumer use", and 18+.
 - **The pace** (`GeminiPacer`, one per key: the quota is the project's, so the primary, the studio and the lanes share
   it): the free tier's limits per model aren't published ("can be viewed in Google AI Studio"; the lead read 5–15
   requests a minute and about 1,000 a day; a forum reports 20 a day for 3.8 Flash). On the free tier a call waits for
@@ -573,9 +586,10 @@ is priced by `usage.cost` ("total amount charged to your account"), the table's 
 
 **The models** (`GET https://openrouter.ai/api/v1/models?supported_parameters=tools`, public: no key sent; ids from the
 live list, 2026-10-19): the learner picks any model that takes tools, per task under "advanced". The tiers' defaults
-(`OpenRouterModels.DEFAULTS`, a preset's small, mid, top): `openai/gpt-6-luna`, `google/gemini-3.8-flash`,
-`google/gemini-4-argon`. Shown first: those, `google/gemini-3.5-flash-lite`, `openai/gpt-6.1-sol`,
-`anthropic/claude-sonnet-5.5` (with a dot: OpenRouter's id), `google/gemma-4-31b-it`.
+(`OpenRouterModels.DEFAULTS`, a preset's small, mid, top): `openai/gpt-6.1-sol` (`openai/gpt-6-luna` until
+2026-10-26), `google/gemini-3.8-flash`, `google/gemini-4-argon`. Shown first: those, `google/gemini-3.5-flash-lite`,
+`anthropic/claude-sonnet-5.5` (with a dot: OpenRouter's id), `google/gemma-4-31b-it`; the tutor's picker leaves
+`openai/gpt-6-luna` out (the matrix's grid keeps it).
 - **An open model with good Slovene:** none is documented on OpenRouter. Gemma 4 ("35+ languages, pre-trained on 140+"),
   Qwen 3.5 ("201 languages and dialects") and Mistral Small name many languages, not Slovene; CJVT's Slovene GaMS
   models are on Hugging Face, not on OpenRouter. So no open model is a default; Gemma 4 is in the list to try.
@@ -590,16 +604,26 @@ live list, 2026-10-19): the learner picks any model that takes tools, per task u
 
 ## The presets across providers (the live tutor)
 
-- **A preset's tier per provider** (`LiveTutor.modelFor`): the provider chosen in the Tutor section plays each task's
-  tier (small, mid, top: Economy, Balanced and Best as before):
+- **The presets per provider** (`Preset.family`, `Preset.effort`, `LiveTutor.modelFor`; since 2026-10-26, from the
+  matrix: [tutor-live.md](tutor-live.md#the-presets-and-the-matrixs-fixes-2026-10-26)):
+  - **Anthropic:** the presets' own families and efforts (Balanced: chat on Sonnet 5.5 at `xhigh`, grading on Haiku 5.5
+    at `high`, routine on Haiku 5.5 at `xhigh`).
+  - **OpenAI** (an API key or the ChatGPT plan): its own picks. GPT-6.1 Sol for chat, grading and routine, at `low` in
+    Economy and `medium` in Balanced and Best; role-play and content keep their tier's family (Sol, Astra) at the
+    efforts they had. **Never GPT-6 Luna** (`Family.matrixOnly`: not acceptable for the tutor at any effort): no preset
+    picks it and the Tutor section's pickers leave it out (a task set to it before keeps it); the matrix keeps its lanes.
+  - **Gemini and OpenRouter** play each task's tier (small, mid, top), at the Anthropic preset's effort fitted to the
+    model (Gemini's `xhigh` and `max` are `high`; Flash-Lite takes `minimal`; an OpenAI model through OpenRouter,
+    `openai/…`, at OpenAI's picks' effort): no matrix data for them yet.
 
   | Tier | Anthropic | OpenAI | Gemini | OpenRouter (defaults) |
   |---|---|---|---|---|
-  | small | Haiku 5.5 | GPT-6 Luna | 3.5 Flash-Lite | `openai/gpt-6-luna` |
+  | small | Haiku 5.5 | GPT-6.1 Sol (its own picks) | 3.5 Flash-Lite | `openai/gpt-6.1-sol` (was `openai/gpt-6-luna`) |
   | mid | Sonnet 5.5 | GPT-6.1 Sol | 3.8 Flash | `google/gemini-3.8-flash` |
-  | top | Opus 5.5 | GPT-6 Astra | 4 Argon (Flash on the free tier) | `google/gemini-4-argon` |
+  | top | Opus 5.5 | GPT-6 Astra (content, Best's role-play) | 4 Argon (Flash on the free tier) | `google/gemini-4-argon` |
 
-  The preset's effort is fitted to the model (Gemini's `xhigh` and `max` are `high`; Flash-Lite takes `minimal`).
+  OpenRouter's tier defaults are also the lanes added at its first sign-in (`MatrixSettings.OPENROUTER_LANES`): Sol at
+  `medium` in Luna's place.
 - **A task's model across providers:** under "advanced" a task can take a model of another provider whose credential
   is kept (the chat on the provider chosen, the content on Claude Opus or Gemini Argon); its calls go to that provider,
   priced by it. Without that credential the preset's model plays. Changing the provider clears the overrides, as before.
@@ -670,7 +694,7 @@ redirect names the port the server socket got (the constructor's `bindPort` no l
   - the error a monthly tier cap returns ("service is paused"), and Argon on a free key ("limit: 0" by reports);
   - the free tier's real limits on Jan's key (AI Studio shows them): the 6-second pace is a guess;
   - Flash-Lite's implicit-cache minimum;
-  - the EEA question above.
+  - the country Android reports on Jan's phone (the network's, the SIM's): the EEA check rests on it.
 - **OpenRouter:**
   - how `delta.tool_calls` and `delta.reasoning_details` come in pieces: the accumulator joins by `index`; a model
     whose details come whole keeps them whole;
@@ -770,7 +794,8 @@ fix's three included). Python `-s companion/tests` 68 and `-s tests` 249, all OK
 - **Gemini and OpenRouter, the first real calls:** one Gemini lane and one OpenRouter lane on Jan's keys, then the
   "Not verified" lists (the 429's details on the free tier, the routed stream's pieces, Gemini's signatures through
   OpenRouter).
-- **The EEA question** (Gemini's free tier for a learner in the EEA): a decision for the lead and Jan.
+- **The EEA question:** decided 2026-10-26 (no free tier offered in the EEA, Switzerland and the UK: "The free tier and
+  privacy" above).
 - **Per-turn thinking on Gemini:** if Google documents that a level change keeps the implicit cache, a turn at another
   level could stay on the day's thread (a marker item, as OpenAI's `configuration_update`).
 - **QA on the emulator:** the two sign-ins through a real browser (Chrome to 127.0.0.1 and back), and mocks of
