@@ -77,7 +77,8 @@ export default async function pairing() {
   const profilesDir = tempDir('lani-smoke-profiles-')
   // where lani-profile picks a port when none is given: next to the smoke's (harness.ts), never a real learner's
   const pickFrom = port + 11
-  const pEnv = { ...defaultEnv, LANI_PROFILES_DIR: profilesDir, LANI_TAILNET_HOST: 'node.test.ts.net', LANI_PROFILE_PORT_BASE: String(pickFrom) }
+  // never this machine's keys file (lani-profile add looks there for LANI_LEXICON_URL)
+  const pEnv = { ...defaultEnv, LANI_PROFILES_DIR: profilesDir, LANI_TAILNET_HOST: 'node.test.ts.net', LANI_PROFILE_PORT_BASE: String(pickFrom), LANI_KEYS_FILE: '/nonexistent' }
   const port2 = port + 1
   const added = cli(['bun', join(cliDir, 'profile.ts'), 'add', 'luka', '--name', 'Luka', '--target', 'it', '--base', 'sl', '--child', '--culture', 'friuli', '--landscape', 'hills', '--port', String(port2)], pEnv)
   const reg = JSON.parse(readFileSync(join(profilesDir, 'profiles.json'), 'utf8'))

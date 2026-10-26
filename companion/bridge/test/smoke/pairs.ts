@@ -137,10 +137,12 @@ export default async function pairs() {
   // explicit ports (numbers in the registry only: the CLI then binds nothing to find a free one), and a tailnet name
   let n = 0
   const add = (id: string, ...args: string[]) => addIn(cultures, id, ...args)
-  function addIn(packs: string, id: string, ...args: string[]) {
+  const addIn = (packs: string, id: string, ...args: string[]) => addWith({}, packs, id, ...args)
+  // never this machine's keys file (the CLI looks there for LANI_LEXICON_URL), nor a LANI_LEXICON_URL of the shell
+  function addWith(env: Record<string, string>, packs: string, id: string, ...args: string[]) {
     n++
     return Bun.spawnSync(['bun', cli, 'add', id, '--name', id, '--port', String(18870 + n), '--https-port', String(18443 + n * 1000), ...args], {
-      env: { ...process.env, LANI_PROFILES_DIR: profiles, LANI_CULTURES_DIR: packs, LANI_TAILNET_HOST: 'smoke.example.ts.net' } as Record<string, string>,
+      env: { ...process.env, LANI_PROFILES_DIR: profiles, LANI_CULTURES_DIR: packs, LANI_TAILNET_HOST: 'smoke.example.ts.net', LANI_KEYS_FILE: '/nonexistent', LANI_LEXICON_URL: '', ...env } as Record<string, string>,
     })
   }
   const text = (r: ReturnType<typeof add>) => `${r.stdout}${r.stderr}`
@@ -153,6 +155,22 @@ export default async function pairs() {
   const it = add('marco', '--target', 'Italian', '--base', 'de')
   const reg = () => JSON.parse(readFileSync(join(profiles, 'profiles.json'), 'utf8')).profiles
   check('lani-profile add --target it: the village is friuli, the Italian pack', it.exitCode === 0 && reg().find((e: any) => e.id === 'marco')?.culture === 'friuli' && reg().find((e: any) => e.id === 'marco')?.base === 'de', text(it))
+  const profileOf = (id: string) => JSON.parse(readFileSync(join(profiles, `${id}/data/learner-profile.json`), 'utf8')).learner
+  check(
+    'lani-profile add without --gender: added, with a warning of what that means (the masculine address, the female voice) and how to set it; no gender in the profile',
+    text(it).includes('Warning: no gender. The village speaks to marco in the masculine forms') && text(it).includes('female voice') && text(it).includes('--gender male|female') && profileOf('marco').gender === undefined,
+    text(it),
+  )
+  check(
+    'lani-profile add, an Italian village on a node without its dictionary (none in the repository, no LANI_LEXICON_URL): a warning that says what lookups lack and what to do',
+    text(it).includes('Warning: no Italian dictionary') && text(it).includes('LANI_LEXICON_URL is unset') && text(it).includes('lexicon-build'),
+    text(it),
+  )
+  const teo = addWith({ LANI_LEXICON_URL: '/srv/lexicon' }, cultures, 'teo', '--target', 'it', '--base', 'de', '--child', '--gender', 'male')
+  check('lani-profile add --gender male: the profile says so, no warning; with LANI_LEXICON_URL set, no dictionary warning', teo.exitCode === 0 && profileOf('teo').gender === 'male' && text(teo).includes('teo (child), male, learns Italian from German') && !text(teo).includes('Warning'), text(teo))
+  const mia = add('mia', '--target', 'it', '--base', 'sl', '--gender', 'F')
+  const bad = add('zed', '--target', 'it', '--base', 'de', '--gender', 'x')
+  check('lani-profile add --gender F is female; another value is refused, nothing registered', mia.exitCode === 0 && profileOf('mia').gender === 'female' && bad.exitCode !== 0 && text(bad).includes('--gender: male or female') && !reg().some((e: any) => e.id === 'zed'), { mia: text(mia), bad: text(bad) })
   const en = add('ella', '--target', 'en', '--base', 'sl')
   check('lani-profile add --target en: the English pack', en.exitCode === 0 && reg().find((e: any) => e.id === 'ella')?.culture === 'smoke-en', text(en))
   // the repository's packs: German has its village (kaernten)

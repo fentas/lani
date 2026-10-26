@@ -50,7 +50,8 @@ export default async function towns() {
   // --- three learners on one node --------------------------------------------------------------------
   const profilesDir = tempDir('lani-smoke-towns-')
   const env = { LANI_DATA_DIR: dataDir, LANI_BRIDGE_PORT: String(port), LANI_PROFILES_DIR: profilesDir, LANI_TAILNET_HOST: 'node.test.ts.net' }
-  const add = (args: string[]) => cli(['bun', join(cliDir, 'profile.ts'), 'add', ...args], env)
+  // never this machine's keys file (lani-profile add looks there for LANI_LEXICON_URL)
+  const add = (args: string[]) => cli(['bun', join(cliDir, 'profile.ts'), 'add', ...args], { ...env, LANI_KEYS_FILE: '/nonexistent' })
   const a1 = add(['luka', '--name', 'Luka', '--target', 'it', '--base', 'sl', '--child', '--culture', 'friuli', '--port', String(townPort)])
   const a2 = add(['mia', '--name', 'Mia Novak', '--target', 'it', '--base', 'en', '--culture', 'friuli', '--port', String(townPort + 1)])
   check('towns: two more learners on the node (a child and an adult)', a1.code === 0 && a2.code === 0, a1.err + a2.err)

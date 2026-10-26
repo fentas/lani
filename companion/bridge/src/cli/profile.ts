@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 // companion/bin/lani-profile: the learners on this machine (companion/README.md, "Learners").
 //
-//   lani-profile add <id> --name <name> --target <lang> --base <lang> [--child] [--level A1]
+//   lani-profile add <id> --name <name> --target <lang> --base <lang> --gender male|female [--child] [--level A1]
 //                           [--culture <pack>] [--landscape valley|hills|lake|mountains|coast]
 //                           [--port N] [--https-port N]
 //   lani-profile list                  (also: lani-session --list)
@@ -11,10 +11,11 @@
 //                                        tutor with the shim, the bridge in lani-bridge; docs/plans/04-bridge-service.md)
 import '../env' // first: LANI_* from the FLUENT_* names of a node set up before the rename
 import { parseArgs } from 'node:util'
+import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { keysFile } from '../env'
+import { keysFile, parseEnvFile } from '../env'
 import { APP_LANGUAGES, cultureIds, culturesIn, DEFAULT_CULTURE, LANDSCAPES, landscapesOf, readManifest } from '../cultures'
-import { entryDataDir, initLearnerData, languageCode, LANGUAGES, newEntry, readRegistry, writeRegistry, type ProfileEntry } from '../learners'
+import { entryDataDir, GENDERS, initLearnerData, languageCode, LANGUAGES, newEntry, readRegistry, writeRegistry, type ProfileEntry } from '../learners'
 import { allProfiles, bridgeEnv, bridgeUp, die, projectDir, q, registryDir, resolveProfile, serveCommand, serviceSocket, short, table, tailnetUrl, tmuxUp, type Resolved } from './common'
 
 const [cmd, ...rest] = process.argv.slice(2)
@@ -91,6 +92,7 @@ async function add() {
       target: { type: 'string' },
       base: { type: 'string' },
       child: { type: 'boolean', default: false },
+      gender: { type: 'string' },
       level: { type: 'string', default: 'A1' },
       culture: { type: 'string' },
       landscape: { type: 'string' },
@@ -98,7 +100,7 @@ async function add() {
       'https-port': { type: 'string' },
     },
   })
-  const id = positionals[0] ?? die('usage: lani-profile add <id> --name <name> --target <lang> --base <lang> [--child]')
+  const id = positionals[0] ?? die('usage: lani-profile add <id> --name <name> --target <lang> --base <lang> --gender male|female [--child]')
   // The app has labels, grading and speech settings for these (l10n/Lang.kt): any two of them are a pair.
   const langs = APP_LANGUAGES.map(k => `${k} (${LANGUAGES[k]})`).join(', ')
   const appLanguage = (flag: string, v: string | undefined, what: string) => {
@@ -110,6 +112,11 @@ async function add() {
   const base = appLanguage('base', values.base, 'the language explanations are in')
   if (target === base) die(`--target and --base: two different languages (both are ${LANGUAGES[target]})`)
   const name = values.name?.trim() || die('--name: the learner\'s name')
+  // The learner's grammatical gender: what the village says to them agrees with it ("sei stanco/stanca?"), and their own
+  // lines in a dialog are said in a voice of it. Left out, the profile has none (learner.gender).
+  const g = values.gender?.trim().toLowerCase()
+  const gender = g === undefined ? undefined : ({ m: 'male', f: 'female' } as Record<string, (typeof GENDERS)[number]>)[g] ?? GENDERS.find(x => x === g)
+  if (g !== undefined && !gender) die(`--gender: ${GENDERS.join(' or ')}`)
   const level = values.level.toUpperCase()
   if (!/^[ABC][12]$/.test(level)) die('--level: A1, A2, B1, B2, C1 or C2')
   const culture = values.culture?.trim() || cultureFor(target)
@@ -134,17 +141,42 @@ async function add() {
     die((e as Error).message)
   }
   try {
-    initLearnerData(projectDir, entryDataDir(registryDir, entry), { name, target, base, level, child: values.child })
+    initLearnerData(projectDir, entryDataDir(registryDir, entry), { name, target, base, level, child: values.child, ...(gender ? { gender } : {}) })
   } catch (e) {
     die((e as Error).message)
   }
   writeRegistry(registryDir, { ...r, profiles: [...r.profiles, entry] })
-  console.log(`Added ${id}: ${name}${values.child ? ' (child)' : ''}, learns ${LANGUAGES[target]} from ${LANGUAGES[base]}, level ${level}.`)
+  console.log(`Added ${id}: ${name}${values.child ? ' (child)' : ''}${gender ? `, ${gender}` : ''}, learns ${LANGUAGES[target]} from ${LANGUAGES[base]}, level ${level}.`)
   if (manifest.manifest.language !== target) console.log(`  The ${culture} culture pack is in ${LANGUAGES[manifest.manifest.language] ?? manifest.manifest.language}, not ${LANGUAGES[target]}: its village speaks that.`)
+  if (!gender)
+    console.log(
+      `  Warning: no gender. The village speaks to ${name} in the masculine forms, and ${name}'s own lines in the dialogs are said in the female voice. ` +
+        `Set it: --gender male|female (or learner.gender in ${join(short(entryDataDir(registryDir, entry)), 'learner-profile.json')}).`,
+    )
+  const noDictionary = dictionaryMissing(manifest.manifest.language, entry)
+  if (noDictionary) console.log(`  ${noDictionary}`)
   describe(resolveProfile(id))
   if (values.child) console.log(`
   A child profile: the tutor's instructions say so (age-appropriate, no personal data), and tool
   approvals are not relayed to the phone; answer them in the terminal or through Remote Control.`)
+}
+
+/**
+ * Why a learner in a village of [language] would find no dictionary word lookup can use (companion/README.md, "Word
+ * lookup"): the repository has none of the language (companion/lexicon/<language>.json) and nothing names where to
+ * download it (LANI_LEXICON_URL: in the environment, lani.env, the keys file or the profile's env). Undefined when there is one.
+ */
+function dictionaryMissing(language: string, entry: ProfileEntry): string | undefined {
+  if (existsSync(join(projectDir, 'companion/lexicon', `${language}.json`))) return undefined
+  const keys = keysFile()
+  const fromKeys = existsSync(keys) ? parseEnvFile(readFileSync(keys, 'utf8')).LANI_LEXICON_URL : undefined
+  if ((process.env.LANI_LEXICON_URL || fromKeys || entry.env?.LANI_LEXICON_URL)?.trim()) return undefined
+  const lang = LANGUAGES[language] ?? language
+  return (
+    `Warning: no ${lang} dictionary. companion/lexicon/${language}.json isn't in the repository and LANI_LEXICON_URL is unset, so a word tapped ` +
+    `in the app finds only the word packs, the supplement, the villagers and the tutor's glosses. Build it with companion/bin/lexicon-build ` +
+    `--lang ${language} … --manifest --gzip and set LANI_LEXICON_URL in ${short(keys)} (companion/README.md, "Word lookup").`
+  )
 }
 
 function session() {
