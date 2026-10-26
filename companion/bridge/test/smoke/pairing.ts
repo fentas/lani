@@ -3,7 +3,7 @@
 import { Client } from '@modelcontextprotocol/sdk/client/index.js'
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
 import { createHash, verify } from 'node:crypto'
-import { existsSync, readFileSync, readdirSync } from 'node:fs'
+import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { loadConfig } from '../../src/config'
 import { cleanDeviceName, createPairingCode, fingerprintOf, loadBridgeKey, pairMessage } from '../../src/pairing'
@@ -124,6 +124,16 @@ export default async function pairing() {
   const sess = cli(['bash', join(binDir, 'lani-session'), '--profile', 'luka', '--print'], { ...pEnv, LANI_BRIDGE_MODE: 'classic' })
   const spec = cli(['bun', join(cliDir, 'profile.ts'), 'session', 'luka', '--keys', '/k.env'], pEnv).out.split('\n')
   check("lani-session --profile luka: its own tmux session, data, port, child flag and Remote Control name", sess.code === 0 && sess.out.startsWith('tmux new-session -A -s lani-luka ') && spec[0] === 'lani-luka' && spec[1].includes(`LANI_PROFILE='luka'`) && spec[1].includes(`LANI_TUTOR='1'`) && spec[1].includes(`LANI_DATA_DIR='${lukaData}'`) && spec[1].includes(`LANI_BRIDGE_PORT='${port2}'`) && spec[1].includes(`LANI_CHILD='1'`) && spec[1].includes(`LANI_CULTURE='friuli'`) && spec[1].includes(`LANI_LANDSCAPE='hills'`) && spec[1].includes(`LANI_RELEASE_DIR='${join(dataDir, 'app/release')}'`) && spec[1].includes(`--remote-control 'lani-tutor-luka' --append-system-prompt '`) && spec[1].indexOf('/k.env') < spec[1].indexOf('LANI_DATA_DIR'), sess.out + sess.err + spec.join('\n'))
+  // a profile's env in profiles.json may write a path with ~ (the how-to's "LANI_LEXICON_URL": "~/.local/share/lani/lexicon"):
+  // the session exports it quoted, so it is expanded here, for this home
+  const registry = join(profilesDir, 'profiles.json')
+  const kept = readFileSync(registry, 'utf8')
+  const withLexicon = JSON.parse(kept)
+  withLexicon.profiles.find((e: any) => e.id === 'luka').env.LANI_LEXICON_URL = '~/lexicon'
+  writeFileSync(registry, JSON.stringify(withLexicon, null, 2))
+  const tilde = cli(['bun', join(cliDir, 'profile.ts'), 'session', 'luka', '--keys', '/k.env'], { ...pEnv, HOME: '/home/smoke' }).out
+  writeFileSync(registry, kept)
+  check("a profile's env value with ~ is this home's in the session: LANI_LEXICON_URL='/home/smoke/lexicon'", tilde.includes(`LANI_LEXICON_URL='/home/smoke/lexicon'`) && !tilde.includes("'~/lexicon'"), tilde)
   // CLAUDE.md is written for the default learner: the session's prompt says whose it is and where their data is
   const prompt = spec[1].slice(spec[1].indexOf('--append-system-prompt'))
   check("… and its prompt says whose session it is, where their data is, and that it's a child's", prompt.includes('for Luka (learner profile "luka"), not for Jan') && prompt.includes(`data is in ${lukaData}`) && prompt.includes('learns Italian from Slovene') && prompt.includes('is a child'), prompt)

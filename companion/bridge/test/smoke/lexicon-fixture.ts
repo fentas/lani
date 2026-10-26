@@ -27,6 +27,7 @@ export const english = [
   // "present" has a table for the time only (the gift has none): never taken for regalo, "present, gift"
   { word: 'present', pos: 'noun', lang_code: 'en', senses: [{ glosses: ['The current moment.'], translations: [t('sl', 'sedanjost', 'current time'), t('de', 'Gegenwart', 'current time')] }] },
   { word: 'gift', pos: 'noun', lang_code: 'en', senses: [{ glosses: ['Something given.'], translations: [t('it', 'regalo', 'present'), t('sl', 'darilo', 'present'), t('de', 'Geschenk', 'present')] }] },
+  { word: 'eat', pos: 'verb', lang_code: 'en', senses: [{ glosses: ['To consume food.'], translations: [t('it', 'mangiare', 'consume'), t('sl', 'jesti', 'consume'), t('de', 'essen', 'consume')] }] },
 ]
 
 /** English Wiktionary's Italian entries: the dictionary, and the English glosses the pivot starts from. */
@@ -46,6 +47,16 @@ export const italian = [
     ],
   },
   { word: 'regalo', pos: 'noun', lang_code: 'it', senses: [{ glosses: ['present, gift'] }] },
+  // a verb and its present (a learner of Italian from German looks up "mangio": mangiare, essen)
+  {
+    word: 'mangiare', pos: 'verb', lang_code: 'it', senses: [{ glosses: ['to eat'] }],
+    forms: [
+      { form: 'mangio', tags: ['first-person', 'singular', 'present', 'indicative'] },
+      { form: 'mangia', tags: ['third-person', 'singular', 'present', 'indicative'] },
+      { form: 'mangia', tags: ['second-person', 'singular', 'imperative'] },
+      { form: 'mangiamo', tags: ['first-person', 'plural', 'present', 'indicative'] },
+    ],
+  },
 ]
 
 /** English Wiktionary's Slovene entries. */
@@ -58,6 +69,7 @@ export const german = [
   { word: 'hiša', pos: 'noun', lang_code: 'sl', senses: [{ glosses: ['zum Wohnen dienendes Gebäude; Haus'] }] },
   { word: 'casa', pos: 'noun', lang_code: 'it', senses: [{ glosses: ['das Haus, das Zuhause'] }] },
   { word: 'banca', pos: 'noun', lang_code: 'it', senses: [{ glosses: ['männliche oder weibliche Person, die Geld verwahrt'] }] },
+  { word: 'mangiare', pos: 'verb', lang_code: 'it', senses: [{ glosses: ['essen'] }] },
 ]
 
 export type Built = { dir: string; work: string; it: string; sl: string; log: string }

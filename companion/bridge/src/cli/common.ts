@@ -4,7 +4,7 @@ import { spawnSync } from 'node:child_process'
 import { join, resolve } from 'node:path'
 import { controlSocket } from '../control'
 import { DEFAULT_CULTURE } from '../cultures'
-import { setting } from '../env'
+import { expandHome, setting } from '../env'
 import { releaseDir } from '../paths'
 import { DEFAULT_ID, DEFAULT_PROFILE, defaultDataDir, entryDataDir, learnerFacts, profilesDir, readRegistry, type ProfileEntry } from '../learners'
 
@@ -85,7 +85,9 @@ export const appDir = (p: Resolved) => join(p.dataDir, 'app')
 export function bridgeEnv(p: Resolved): Record<string, string> {
   if (p.isDefault || !p.entry) return {}
   return {
-    ...(p.entry.env ?? {}),
+    // a value written with ~ or $HOME in profiles.json ("LANI_LEXICON_URL": "~/.local/share/lani/lexicon") is this
+    // home's: the session exports it quoted, so no shell would expand it
+    ...Object.fromEntries(Object.entries(p.entry.env ?? {}).map(([k, v]) => [k, expandHome(v)])),
     LANI_PROFILE: p.id,
     LANI_DATA_DIR: p.dataDir,
     LANI_BRIDGE_PORT: String(p.port),

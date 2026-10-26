@@ -281,7 +281,12 @@ export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox,
   return {
     instructions,
     start: () => {
-      if (cfg.serveApp) void fetchDictionary(dict, s => (download = s))
+      if (!cfg.serveApp) return
+      // a village whose language the repository has no dictionary of, and nothing to download it from: said once, plainly
+      // (the second learner's Italian village had none: "a lot of words are missing from the dictionary")
+      if (!source && !existsSync(join(lexiconDir, `${language}.json`)))
+        log(`lexicon ${language}: no dictionary (${language}.json isn't in ${lexiconDir}, LANI_LEXICON_URL is unset): a tapped word finds only the word packs, the villagers, the supplement and the tutor's glosses; build it with companion/bin/lexicon-build and set LANI_LEXICON_URL (companion/README.md, "Word lookup")`)
+      void fetchDictionary(dict, s => (download = s))
     },
     routes: [
       {

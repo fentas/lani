@@ -14,7 +14,7 @@ import { gunzipSync } from 'node:zlib'
 import { z } from 'zod'
 import { schemaField } from './schema'
 import type { Log } from './config'
-import { laniDir } from './env'
+import { expandHome, laniDir } from './env'
 import type { LexiconFile } from './lexicon'
 
 export const lexiconManifest = z.object({
@@ -38,9 +38,9 @@ export const lexiconManifest = z.object({
 })
 export type LexiconManifest = z.infer<typeof lexiconManifest>
 
-/** Where downloaded dictionaries are kept. */
+/** Where downloaded dictionaries are kept (a leading ~ or $HOME expanded). */
 export function lexiconCacheDir(env: Record<string, string | undefined> = process.env): string {
-  if (env.LANI_LEXICON_CACHE) return resolve(env.LANI_LEXICON_CACHE)
+  if (env.LANI_LEXICON_CACHE) return resolve(expandHome(env.LANI_LEXICON_CACHE, env.HOME || homedir()))
   return join(laniDir(env.XDG_CACHE_HOME || join(homedir(), '.cache')), 'lexicon')
 }
 
@@ -67,18 +67,23 @@ export type LexiconSource = {
   cacheDir: string
   log?: Log
   timeoutMs?: number
+  /** What a local directory's leading ~ or $HOME stands for (default: the home directory). */
+  home?: string
 }
 
 const isHttp = (u: string) => /^https?:\/\//i.test(u)
 
-/** Reads [name] at [base]: a URL (base + "/" + name) or a local directory (file:// or a path). */
-async function read(base: string, name: string, timeoutMs: number): Promise<Uint8Array> {
+/**
+ * Reads [name] at [base]: a URL (base + "/" + name) or a local directory (file://, or a path: a leading ~ or $HOME is
+ * [home]'s, as a profile's env in profiles.json may write it, "~/.local/share/lani/lexicon").
+ */
+async function read(base: string, name: string, timeoutMs: number, home?: string): Promise<Uint8Array> {
   if (isHttp(base)) {
     const r = await fetch(`${base.replace(/\/+$/, '')}/${name}`, { signal: AbortSignal.timeout(timeoutMs) })
     if (!r.ok) throw new Error(`HTTP ${r.status} for ${name}`)
     return new Uint8Array(await r.arrayBuffer())
   }
-  const dir = base.startsWith('file://') ? new URL(base).pathname : base
+  const dir = base.startsWith('file://') ? new URL(base).pathname : expandHome(base, home ?? (process.env.HOME || homedir()))
   return new Uint8Array(readFileSync(join(dir, name)))
 }
 
@@ -113,7 +118,7 @@ export async function fetchLexicon<T>(o: LexiconSource, parse: (bytes: Uint8Arra
   }
   let manifest: LexiconManifest
   try {
-    const m = lexiconManifest.safeParse(JSON.parse(new TextDecoder().decode(await read(url, `${name}.manifest.json`, Math.min(timeoutMs, 15_000)))))
+    const m = lexiconManifest.safeParse(JSON.parse(new TextDecoder().decode(await read(url, `${name}.manifest.json`, Math.min(timeoutMs, 15_000), o.home))))
     if (!m.success) throw new Error(`manifest: ${z.prettifyError(m.error)}`)
     if (!fits(m.data, o)) throw new Error(`manifest is for ${m.data.language}, not ${name}`)
     manifest = m.data
@@ -124,7 +129,7 @@ export async function fetchLexicon<T>(o: LexiconSource, parse: (bytes: Uint8Arra
   if (have && have.manifest.sha256 === manifest.sha256) return fromCache()
   let bytes: Uint8Array
   try {
-    bytes = await read(url, manifest.file, timeoutMs)
+    bytes = await read(url, manifest.file, timeoutMs, o.home)
   } catch (e) {
     if (have) return fromCache(`${manifest.file} not reachable (${(e as Error).message})`)
     return { error: `${manifest.file}: ${(e as Error).message}` }

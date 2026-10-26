@@ -114,7 +114,7 @@ export default async function friuli() {
       if (lex.download !== 'loading' && lex.download !== 'off') break
       await Bun.sleep(100)
     }
-    check("friuli: GET /lexicon/status: the Italian dictionary is downloaded, with its meanings in the child's Slovene (and German)", lex.language === 'it' && lex.download === 'ready' && lex.from === 'download' && lex.lemmas === 8 && lex.base === 'sl' && lex.base_meanings === 6 && JSON.stringify(lex.bases) === '["en","sl","de"]' && /^\d{4}-\d\d-\d\d-[0-9a-f]{8}$/.test(lex.version), lex)
+    check("friuli: GET /lexicon/status: the Italian dictionary is downloaded, with its meanings in the child's Slovene (and German)", lex.language === 'it' && lex.download === 'ready' && lex.from === 'download' && lex.lemmas === 9 && lex.base === 'sl' && lex.base_meanings === 7 && JSON.stringify(lex.bases) === '["en","sl","de"]' && /^\d{4}-\d\d-\d\d-[0-9a-f]{8}$/.test(lex.version), lex)
     check('friuli: the download is cached with its manifest', ['it.json.gz', 'it.manifest.json'].every(f => existsSync(join(lexCache, f))), readdirSync(lexCache))
     const case_ = await lookup(`w=case&line=${encodeURIComponent('Le case sono vecchie.')}`)
     check('friuli: a lookup finds an Italian pack word by its plural first, meant in Slovene (gloss_lang sl)', case_.entries[0]?.lemma === 'la casa' && case_.entries[0].gloss[0] === 'hiša; dom' && case_.entries[0].gloss_lang === 'sl' && case_.entries[0].grammar === 'plural' && case_.entries[0].source === 'pack', case_)

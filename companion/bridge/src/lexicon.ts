@@ -86,8 +86,17 @@ const extraEntry = z.object({
    * (babica: grandmother, where Wiktionary starts with midwife).
    */
   override: z.boolean().optional(),
+  /**
+   * Its meaning in Lani's other languages, written with it ("de": ["Frico (Käse-Kartoffel-Gericht)"]): before the
+   * dictionary's meaning of the lemma, machine-written as the supplement is (the lookup's gloss_via "claude").
+   */
+  meanings: z.record(z.string().regex(/^[a-z]{2,3}$/, 'a language code, e.g. "de"'), z.array(z.string().trim().min(1).max(120)).min(1).max(3)).optional(),
 })
 type ExtraEntry = z.infer<typeof extraEntry>
+
+/** A supplement entry's own meanings, as the dictionary's are kept (lexicon-meanings.ts). */
+const ownMeanings = (e: ExtraEntry): Record<string, Meaning> | undefined =>
+  e.meanings ? Object.fromEntries(Object.entries(e.meanings).map(([l, gloss]) => [l, { gloss, via: 'claude' as const }])) : undefined
 
 /** The supplement's entries, each checked on its own: a wrong one is reported and left out, never the whole file. */
 export function validateExtra(input: unknown): { entries: ExtraEntry[]; errors: string[] } {
@@ -142,6 +151,8 @@ export type Reading = {
   en?: string[]
   /** No meaning in the base language asked for: [gloss] is English. */
   fallback?: true
+  /** The supplement's own meanings of its entry, in the other languages (lexicon/<language>.extra.json `meanings`). */
+  meanings?: Record<string, Meaning>
 }
 
 /** The tutor's glosses kept: the newest this many. */
@@ -204,7 +215,8 @@ export class Lexicon {
         for (const [form, grammar] of Object.entries(e.forms)) {
           const key = normalizeForm(form, language)
           const list = this.extra.get(key) ?? []
-          list.push({ lemma: e.lemma, pos: e.pos, gloss: e.gloss, gender: e.gender ?? null, grammar, source: 'extra' })
+          const meanings = ownMeanings(e)
+          list.push({ lemma: e.lemma, pos: e.pos, gloss: e.gloss, gender: e.gender ?? null, grammar, source: 'extra', ...(meanings ? { meanings } : {}) })
           this.extra.set(key, list)
         }
       }
@@ -415,8 +427,9 @@ export class Lexicon {
     this.load()
     const lang = this.o.language
     const used = new Set<TutorGloss>()
-    // the supplement's entry of a word Wiktionary has too (hvala, the interjection) takes that lemma's meanings
-    const extra = (this.extra.get(form) ?? []).map(r => this.meant(r, base === 'en' ? undefined : this.lemmaMeanings(r.lemma, r.pos), base, used))
+    // the supplement's entry of a word Wiktionary has too (hvala, the interjection) takes that lemma's meanings, but
+    // for those it has of its own
+    const extra = (this.extra.get(form) ?? []).map(r => this.meant(r, base === 'en' ? undefined : { ...this.lemmaMeanings(r.lemma, r.pos), ...r.meanings }, base, used))
     const wiktionary: Reading[] = []
     const f = this.file
     if (f && Object.hasOwn(f.forms, form)) {
@@ -428,7 +441,9 @@ export class Lexicon {
         const r: Reading = own
           ? { lemma: own.lemma, pos: own.pos, gloss: own.gloss, gender: own.gender ?? l.gender ?? null, grammar, source: 'extra', wiktionary: true }
           : { lemma: l.lemma, pos: l.pos, gloss: l.gloss, gender: l.gender ?? null, grammar, source: 'wiktionary' }
-        wiktionary.push(this.meant(r, l.meanings, base, used, !own))
+        // an override's own meanings, else the lemma's (not through the English it replaced)
+        const mine = own ? ownMeanings(own) : undefined
+        wiktionary.push(this.meant(r, mine ?? l.meanings, base, used, !own || !!mine))
       }
     }
     // the tutor's other glosses: in the base, or in English (the fallback); not in a third language
@@ -672,8 +687,9 @@ export function lookup(word: string, at: { line?: string; en?: string }, s: Look
   const raw = word.replace(/^[^\p{L}]+|[^\p{L}\p{M}]+$/gu, '')
   let form = normalizeForm(raw, lang)
   // an elided word before an apostrophe ("l'acqua", "dell'acqua", "un'amica"): the word after it, unless the whole is
-  // an entry of its own
-  if (ELIDES.has(lang) && /'\p{L}/u.test(form) && !s.lexicon.readings(form, s.base).length) form = form.slice(form.lastIndexOf("'") + 1)
+  // an entry of its own ("dov'è"); a name only when it is written as one ("Dell'Acqua", a surname, isn't "dell'acqua")
+  const ownEntry = (f: string) => s.lexicon.readings(f, s.base).some(r => r.pos !== 'name' || /^\p{Lu}/u.test(raw))
+  if (ELIDES.has(lang) && /'\p{L}/u.test(form) && !ownEntry(form)) form = form.slice(form.lastIndexOf("'") + 1)
   if (!form) return { word: raw, entries: [], attribution: null }
 
   const tokens = at.line ? wordsOf(at.line).map(t => normalizeForm(t, lang)) : []

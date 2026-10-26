@@ -2,9 +2,10 @@
 // companion/bin/lexicon-build --index/--meanings): reading Wiktionary's extracts, picking a meaning (the base's own
 // Wiktionary, a table between the two languages, through English), and the Lexicon serving them with the English as
 // the marked fallback. No bridge: the functions, and the builder run on tiny extracts (lexicon-fixture.ts).
-import { existsSync, readFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { Lexicon, lookup, type LexiconFile } from '../../src/lexicon'
+import { Lexicon, lookup, validateExtra, type LexiconFile } from '../../src/lexicon'
+import { fetchLexicon, parseLexicon } from '../../src/lexicon-download'
 import type { LoadedPack } from '../../src/packs'
 import {
   chooseMeaning, cleanGloss, englishHeads, glossesOf, indexRow, listedBy, meaningPart, pivot, plainWord, tablesOf, together, translationWords, unshare,
@@ -72,11 +73,24 @@ export default async function meanings() {
   check("lexicon-build: it←de: casa is German Wiktionary's own \"Haus, Zuhause\" (direct); banca's German definition loses to the pivot's Bank", m('casa', 'de')?.gloss[0] === 'Haus, Zuhause' && m('casa', 'de')?.via === 'direct' && m('banca', 'de')?.gloss[0] === 'Bank', [lemma(it, 'casa'), lemma(it, 'banca')])
   check('lexicon-build: only clear matches: banco ("bank") has none; regalo is darilo, not the time; sponda is breg by its "of a river"; no dialect word', !lemma(it, 'banco').meanings && m('regalo', 'sl')?.gloss.join() === 'darilo' && m('regalo', 'de')?.gloss.join() === 'Geschenk' && m('sponda', 'sl')?.gloss[0] === 'breg' && !JSON.stringify(it).includes('Huus'), it.lemmas)
   check('lexicon-build: essere has no Slovene meaning (English "be" lists none), a German one', !m('essere', 'sl') && m('essere', 'de')?.gloss[0] === 'sein', lemma(it, 'essere'))
+  const grammarOf = (form: string) => it.forms[form]?.map(([i, g]) => `${it.lemmas[i].lemma}: ${g === undefined ? null : it.grammar[g]}`)
+  check(
+    "lexicon-build: an Italian verb's present, the indicative left out: mangio is mangiare's first-person singular present, mangia also its imperative; mangiare is essen (German Wiktionary's own) and jesti (through English)",
+    JSON.stringify(grammarOf('mangio')) === '["mangiare: first-person singular present"]' && JSON.stringify(grammarOf('mangia')) === '["mangiare: third-person singular present; second-person singular imperative"]' && m('mangiare', 'de')?.gloss[0] === 'essen' && m('mangiare', 'de')?.via === 'direct' && m('mangiare', 'sl')?.gloss[0] === 'jesti',
+    { mangio: grammarOf('mangio'), mangia: grammarOf('mangia'), mangiare: lemma(it, 'mangiare') },
+  )
   const sl = JSON.parse(readFileSync(built.sl, 'utf8')) as LexiconFile
   check("lexicon-build: sl←de: hiša is Haus (German Wiktionary: \"…; Haus\"); sl←it: casa", lemma(sl, 'hiša')?.meanings?.de?.gloss[0] === 'Haus' && lemma(sl, 'hiša')?.meanings?.de?.via === 'direct' && lemma(sl, 'hiša')?.meanings?.it?.gloss[0] === 'casa', lemma(sl, 'hiša'))
   const manifest = JSON.parse(readFileSync(join(built.dir, 'it.manifest.json'), 'utf8'))
-  check('lexicon-build --manifest: the bases with their coverage and how found, the sources and the attribution', existsSync(join(built.dir, 'it.json.gz')) && manifest.language === 'it' && manifest.bases?.sl?.lemmas === 6 && manifest.bases.en.lemmas === 8 && manifest.bases.de.via.direct === 1 && manifest.sources?.some((s: any) => s.edition === 'de' && s.urls[0] === 'https://kaikki.org/dewiktionary/') && manifest.attribution === 'Wiktionary (CC BY-SA 4.0) via kaikki.org' && manifest.licence === 'CC BY-SA 4.0', manifest)
+  check('lexicon-build --manifest: the bases with their coverage, of the lemmas and of the content\'s words, and how found, the sources and the attribution', existsSync(join(built.dir, 'it.json.gz')) && manifest.language === 'it' && manifest.bases?.sl?.lemmas === 7 && manifest.bases.en.lemmas === 9 && manifest.bases.de.via.direct === 2 && manifest.bases.de.content?.words > 0 && typeof manifest.bases.de.content.share === 'number' && manifest.sources?.some((s: any) => s.edition === 'de' && s.urls[0] === 'https://kaikki.org/dewiktionary/') && manifest.attribution === 'Wiktionary (CC BY-SA 4.0) via kaikki.org' && manifest.licence === 'CC BY-SA 4.0', manifest)
   check('lexicon-build: an old dictionary\'s rows stay as they were, the meanings added at their end (sl.json\'s diff: one line a lemma)', /^\{"lemma":"casa","pos":"noun","gloss":\["house","home"\],"gender":"f","meanings":/m.test(readFileSync(built.it, 'utf8')))
+
+  // a local LANI_LEXICON_URL written with ~ (a profile's env: "~/.local/share/lani/lexicon") is the home's
+  const home = tempDir('lani-smoke-lexicon-home-')
+  mkdirSync(join(home, 'lex'))
+  for (const f of ['it.json.gz', 'it.manifest.json']) writeFileSync(join(home, 'lex', f), readFileSync(join(built.dir, f)))
+  const fetched = await fetchLexicon({ url: '~/lex', language: 'it', cacheDir: tempDir('lani-smoke-lexicon-tilde-cache-'), home }, parseLexicon)
+  check('fetchLexicon: a local directory written ~/lex is the home\'s: the dictionary is read and cached', !('error' in fetched) && fetched.from === 'download' && fetched.file.lemmas.length === 9, 'error' in fetched ? fetched.error : fetched.from)
 
   // --- the Lexicon serves them ------------------------------------------------------------------------------------
   const dir = tempDir('lani-smoke-meanings-dict-')
@@ -91,7 +105,49 @@ export default async function meanings() {
   const filled = d.readings('sono')
   check("Lexicon.readings: the tutor's gloss in the base fills the gap: essere is biti (claude), with the dictionary's grammar, no entry of its own", filled.length === 1 && filled[0].gloss[0] === 'biti' && filled[0].via === 'claude' && filled[0].glossLang === 'sl' && filled[0].source === 'wiktionary' && filled[0].grammar !== null && !filled[0].fallback, filled)
   check("Lexicon.readings: the tutor's Slovene gloss isn't a German one: in German essere stays sein", d.readings('sono', 'de')[0]?.gloss[0] === 'sein')
-  check('Lexicon.status: the bases the dictionary has meanings in, and how many in the learner\'s', JSON.stringify(d.status().bases) === '["en","sl","de"]' && d.status().base_meanings === 6 && d.meaningsIn('de') === 7, d.status())
+  check('Lexicon.status: the bases the dictionary has meanings in, and how many in the learner\'s', JSON.stringify(d.status().bases) === '["en","sl","de"]' && d.status().base_meanings === 7 && d.meaningsIn('de') === 8, d.status())
+  // a learner of Italian from German (the second learner's son): a lemma, an inflected form, their German meaning
+  const fromGerman = new Lexicon({ dir, language: 'it', base: 'de', tutorFile: join(dataDir, 'fixture-glosses-de.json') })
+  const eats = lookup('mangio', { line: 'Io mangio il frico.', en: 'I eat frico.' }, { lexicon: fromGerman, base: 'de', packs: [], people: [], items: {} })
+  const house = lookup('casa', {}, { lexicon: fromGerman, base: 'de', packs: [], people: [], items: {} }).entries[0]
+  check(
+    'lookup, Italian from German: "mangio" is mangiare, first-person singular present, essen (German Wiktionary, direct); casa is Haus; the attribution with them',
+    eats.entries[0]?.lemma === 'mangiare' && eats.entries[0].grammar === 'first-person singular present' && eats.entries[0].gloss[0] === 'essen' && eats.entries[0].gloss_lang === 'de' && eats.entries[0].gloss_via === 'direct' && eats.entries[0].gloss_en?.[0] === 'to eat' && !eats.entries[0].fallback && eats.entries[0].item_id === 'vocab_word_mangiare' && eats.attribution === 'Wiktionary (CC BY-SA 4.0) via kaikki.org' && house?.gloss[0] === 'Haus, Zuhause' && house.gloss_lang === 'de',
+    { eats, house },
+  )
+  // the supplement's own meanings (it.extra.json: a word Wiktionary lacks, meant in German by the one who wrote it)
+  const withExtra = tempDir('lani-smoke-extra-meanings-')
+  writeFileSync(join(withExtra, 'it.json'), readFileSync(built.it))
+  writeFileSync(join(withExtra, 'it.extra.json'), JSON.stringify({
+    meta: { language: 'it', reviewed: false, note: 'machine-written' },
+    entries: [
+      { lemma: 'frico', pos: 'noun', gender: 'm', gloss: ['frico (a Friulian dish of cheese and potatoes)'], meanings: { de: ['Frico (Käse-Kartoffel-Gericht)'] }, forms: { frico: 'singular' } },
+      { lemma: 'casa', pos: 'noun', gender: 'f', gloss: ['house; home'], override: true, meanings: { de: ['Haus; Zuhause'] }, forms: { casa: null } },
+      { lemma: 'eh', pos: 'intj', gloss: ['eh; well'], forms: { eh: null }, meanings: { de: 'nicht eine Liste' } },
+    ],
+  }))
+  const x = new Lexicon({ dir: withExtra, language: 'it', base: 'de', tutorFile: join(dataDir, 'fixture-glosses-x.json') })
+  const [frico] = x.readings('frico', 'de')
+  const [fricoSl] = x.readings('frico', 'sl')
+  const [casaDe] = x.readings('case', 'de')
+  check(
+    "Lexicon: the supplement's own meaning in the base, flagged machine-written (claude): frico is Frico in German; in Slovene, which it hasn't, the English (fallback)",
+    frico?.source === 'extra' && frico.gloss[0] === 'Frico (Käse-Kartoffel-Gericht)' && frico.glossLang === 'de' && frico.via === 'claude' && frico.en?.[0].startsWith('frico (a Friulian') && fricoSl?.fallback === true && fricoSl.gloss[0].startsWith('frico (a Friulian'),
+    { frico, fricoSl },
+  )
+  check("Lexicon: an override's own meaning replaces the dictionary's (casa: Haus; Zuhause), Wiktionary's grammar kept", casaDe?.gloss[0] === 'Haus; Zuhause' && casaDe.via === 'claude' && casaDe.grammar === 'plural', casaDe)
+  // an elided word is the word after it, unless the whole is an entry of its own: a name only when written as one
+  const elided = tempDir('lani-smoke-elided-')
+  writeFileSync(join(elided, 'it.json'), JSON.stringify({
+    meta: { language: 'it', source: 'fixture', licence: 'CC BY-SA 4.0', url: '', built: '', counts: {} }, grammar: [],
+    lemmas: [{ lemma: 'acqua', pos: 'noun', gloss: ['water'] }, { lemma: "Dell'Acqua", pos: 'name', gloss: ['a surname'] }],
+    forms: { acqua: [[0]], "dell'acqua": [[1]] },
+  }))
+  const el = new Lexicon({ dir: elided, language: 'it', tutorFile: join(dataDir, 'fixture-glosses-el.json') })
+  const small = lookup("dell'acqua", { line: "Un bicchiere dell'acqua." }, { lexicon: el, base: 'en', packs: [], people: [], items: {} }).entries
+  const named = lookup("Dell'Acqua", { line: "Il signor Dell'Acqua." }, { lexicon: el, base: 'en', packs: [], people: [], items: {} }).entries
+  check("lookup: dell'acqua is acqua, not the surname Dell'Acqua; written capitalized, the surname", small[0]?.lemma === 'acqua' && small.length === 1 && named[0]?.lemma === "Dell'Acqua", { small, named })
+  check('validateExtra: an entry whose meanings are not a list is left out, the others kept', validateExtra(JSON.parse(readFileSync(join(withExtra, 'it.extra.json'), 'utf8'))).entries.length === 2 && !x.readings('eh', 'de').length)
   const noSlovene = { id: 'casa-pack', language: 'it', level: 'A1', title: 'Casa', source: 'curated', words: [{ id: 'casa', it: 'la casa', en: 'house', emoji: '🏠', plural: 'le case' }] } as unknown as LoadedPack
   const [pack] = lookup('case', {}, { lexicon: d, base: 'sl', packs: [noSlovene], people: [], items: {} }).entries
   check("lookup: a pack word without the learner's base (Italian and English only) takes the dictionary's meaning in it: la casa → hiša", pack?.source === 'pack' && pack.emoji === '🏠' && pack.gloss[0] === 'hiša' && pack.gloss_lang === 'sl' && pack.gloss_en?.[0] === 'house' && !pack.fallback, pack)
