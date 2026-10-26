@@ -7,25 +7,33 @@ Jan decided to do it later; this is the checklist. Details are in [companion/REA
 ## 1. Make their profile
 
 ```bash
-companion/bin/lani-profile add luka --name Luka --target it --base sl --child --culture friuli
+companion/bin/lani-profile add luka --name Luka --target it --base sl --gender male --child --culture friuli
 ```
 
 - Pick the id and name you want (`luka` is only an example). `--child` gives the child's rules (invite only,
   no approvals on their phone, age-appropriate tutor). `--culture friuli` is their village in the Collio near
   Gorizia. `--level A1` unless you say otherwise.
-- It prints their bridge port (8792 up), their tailnet HTTPS port (8443 up) and the next steps.
+- `--gender male|female`: what the village says to them agrees with it, and their own lines are said in a voice of
+  it. Without it the CLI warns (the village then speaks in the masculine, their own lines in the female voice).
+- It prints their bridge port (8792 up), their tailnet HTTPS port (8443 up) and the next steps, and warns when the
+  village's language has no dictionary on this node (step 2).
 
 ## 2. Switch on the Italian dictionary and speech
 
-- **Dictionary:** the built Italian dictionary is in `~/.local/share/lani/lexicon/` (`it.json.gz`,
-  `it.manifest.json`). Add the variable to their profile's `env` in `profiles/profiles.json`:
+- **Dictionary:** the Italian dictionary is a download, not in the repository (38 MB; [Word
+  lookup](../companion/README.md#word-lookup)). Build it once (a few minutes; the commands are in the README), and put
+  `it.json.gz` and `it.manifest.json` in `~/.local/share/lani/lexicon/`. Then add the variable to their profile's
+  `env` in `profiles/profiles.json`:
 
   ```json
   "env": { "LANI_LEXICON_URL": "~/.local/share/lani/lexicon" }
   ```
 
-  For Jan's own visits to Italian towns, add the same line to `~/.config/lani/keys.env`
-  (`LANI_LEXICON_URL=~/.local/share/lani/lexicon`) and restart Jan's tutor.
+  (A `~` there is the node's home: `lani-session` and `lani-bridge` expand it. Before 2026-10-26 they passed it on as
+  it was, and the bridge found no dictionary.) For Jan's own visits to Italian towns, and for every learner at once,
+  add the same line to `~/.config/lani/keys.env` (`LANI_LEXICON_URL=~/.local/share/lani/lexicon`). Restart the
+  learner's bridge. Its log then says `lexicon it: <version> (download), … lemmas`, and `GET /lexicon/status` says
+  `"download": "ready"`; without one, the log says `lexicon it: no dictionary (…)` and what to do.
 - **Speech (node):** put the new speech worker in place once (it restarts the Whisper service):
   `companion/stt-local/install.sh`. The phone's own recognizer already listens in it-IT.
 

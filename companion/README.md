@@ -179,7 +179,7 @@ app and the bridge say it to the learner of the profile ([SCENES.md](SCENES.md#t
 **Add a learner:**
 
 ```bash
-companion/bin/lani-profile add luka --name Luka --target it --base sl --child --culture friuli --landscape hills
+companion/bin/lani-profile add luka --name Luka --target it --base sl --gender male --child --culture friuli --landscape hills
 ```
 
 It makes the six learner databases from `data-examples/` (level A1 unless `--level`), picks the ports,
@@ -192,6 +192,15 @@ what to do; a pack that isn't there is refused, and a stub plays `primorska` unt
 learner's village is offered first when it's founded (see "The village's place" below); without it the region's usual
 one comes first (Friuli's hills, the lakes of Kärnten and the Lake District, Primorska's valley). The coast for a region
 without the sea, or a landscape the app hasn't, is refused.
+
+`--gender male|female` (or `m`, `f`) is the learner's grammatical gender, kept as `learner.gender`: what the village
+says to them agrees with it ("sei stanco/stanca?", "si lačen/lačna?"), and their own lines in the dialogs are said in a
+voice of it. Without it the profile has none, and the CLI warns: "Warning: no gender. The village speaks to Luka in the
+masculine forms, and Luka's own lines in the dialogs are said in the female voice. Set it: --gender male|female (or
+learner.gender in …/learner-profile.json)." It also warns when the village's language has no dictionary on this node
+(no `companion/lexicon/<language>.json`, no `LANI_LEXICON_URL` in the environment, `lani.env`, `keys.env` or the
+profile's env): a tapped word then finds only the word packs, the supplement, the villagers and the tutor's glosses
+(see [Word lookup](#word-lookup)).
 
 1. Publish the bridge to the tailnet, once. The command and the resulting URL are printed, e.g.
    `tailscale serve --bg --https=8443 http://127.0.0.1:8792` → `https://<node>.<tailnet>.ts.net:8443`.
@@ -2596,7 +2605,12 @@ With `&base=de`, the same entry has `"gloss": ["Wald", "Forst"], "gloss_lang": "
   The word before a noun narrows its case ("v gozdu": locative, not dative).
 - `item_id`: a pack word's own item (`vocab_<pack>_<word>`, as `POST /packs/:id/learn` makes it), else
   `vocab_word_<lemma>` (lowercase, č š ž as c s z, other characters as `-`); none for a name. `known`: that item, or
-  a vocabulary item with the same word, exists.
+  a vocabulary item with the same word, exists; the word compared as a pack word is, its article left out, so the
+  card "la casa" makes the dictionary's casa the learner's too ("der Wald": Wald). The app counts more before the node
+  has it (`Words.yours`): the words a pack run has just introduced are the learner's in its practice ("✓ V tvojih
+  besedah · In your words", no dots under them), while their cards reach the node only when the run ends
+  (`WordsController.fresh`, `PackLearnScreen`), and its own cards by their word in the same way, with a dictionary or
+  without one.
 - `gloss_lang`: the language of an entry's gloss: the base, when the pack word, the dictionary or the tutor has a
   meaning in it; else English, with `fallback: true`. `gloss_via` says how a meaning in the base was found: `direct`
   (the base language's own Wiktionary explains the word), `translations` (a translation table between the two
@@ -2606,7 +2620,10 @@ With `&base=de`, the same entry has `"gloss": ["Wald", "Forst"], "gloss_lang": "
   pomen po slovensko" while the tutor writes one, and flags a Claude-written meaning "🤖 strojno napisano ·
   machine-written".
 - A village in another language uses `companion/lexicon/<language>.json` when there is one, else the dictionary
-  downloaded for it (below); without either, the answer has the pack words, the villagers and the tutor's glosses only.
+  downloaded for it (below), and its supplement (`<language>.extra.json`: Italian's is `it.extra.json`); without a
+  dictionary, the answer has the pack words, the supplement, the villagers and the tutor's glosses only. The bridge then
+  says so once at start (`lexicon it: no dictionary (it.json isn't in …, LANI_LEXICON_URL is unset): …`), and
+  `lani-profile add` warns when it adds a learner whose village has none ([Learners](#learners)).
 - **On a visit** the words are the host town's language, explained in the visit's base: the learner's base, or their
   own target when the town speaks their base (the second learner, Italian from Slovene, reads a Slovene town in Italian). The
   app sends both (`language`, `base`); the bridge loads that language's dictionary at its first lookup (bundled, or
@@ -2614,7 +2631,8 @@ With `&base=de`, the same entry has `"gloss": ["Wald", "Forst"], "gloss_lang": "
   it in memory. It looks in that language's curated packs and its culture packs' packs, and in the tutor's glosses of
   its words (`<data>/app/lexicon.<language>.json`); the host's villagers aren't among the entries.
 - Italian (and French) elide a word before an apostrophe: a tapped "l'acqua", "dell'acqua" or "un'amica" is looked up as
-  the word after it, unless the whole is an entry of its own ("dov'è").
+  the word after it, unless the whole is an entry of its own ("dov'è"), a name only when written capitalized
+  ("dell'acqua" is acqua, "Dell'Acqua" the surname).
 - `GET /lexicon/status`: the village's language, where its dictionary came from (`bundled`, `download`, `cache` or
   none), its version, lemmas and forms, the base languages it has meanings in (`bases`), the learner's base and how
   many lemmas have a meaning in it (`base_meanings`), the download's state, and the same for each language looked up on
@@ -2666,7 +2684,9 @@ tagged `table-tags`, `inflection-template` or `error-…` are not forms. The bui
 on the same day gives the same file. Forms are compared without Wiktionary's tonal accents (potọ́ka → potoka),
 with the caron (č, š, ž). September 2026: 5,774 lemmas, 43,097 forms, 322 grammar strings; 1.75 MB with its meanings
 in Italian and German (1.40 MB without; see below). The builder reads an extract line by line, gzipped or not, or
-from standard input (`--from -`), so a large one builds the same way.
+from standard input (`--from -`), so a large one builds the same way: a chunk at a time as the lines are taken, its
+garbage collected every 20,000 lines, the file written a row at a time, the tag sets interned, so Italian's 624,000
+entries build in about 1.5 GB (they took 6 GB and more, and a busy node's memory, before 2026-10-26).
 
 **Italian, German and English are downloads.** They are too large for the repository (plan 1, "Jan's decisions
 (2026-09-26)"), so a bridge downloads the ones its learners use. They are built from kaikki.org's extracts, gzipped
@@ -2694,7 +2714,7 @@ Nothing large has to be kept: `curl -s … | lexicon-build --index - …` stream
 | | lemmas | forms | JSON | gzipped | heap in the bridge | built in |
 |---|---:|---:|---:|---:|---:|---:|
 | `sl` (bundled) | 5,774 | 43,097 | 1.75 MB | | small | 2 s (meanings) |
-| `it` | 201,097 | 684,211 | 38.0 MB | 6.5 MB | 166 MB | 57 s |
+| `it` (2026-10-26) | 201,408 | 684,809 | 38.0 MB | 6.5 MB | 166 MB | 87 s (68 s, meanings 19 s; 1.9 GB at most) |
 | `de` | 102,531 | 468,234 | 24.7 MB | 4.7 MB | 112 MB | 59 s |
 | `en` | 123,300 | 279,076 | 29.9 MB | 7.0 MB | 138 MB | 79 s |
 
@@ -2703,15 +2723,29 @@ Nothing large has to be kept: `curl -s … | lexicon-build --index - …` stream
   counts, the bases the lemmas have meanings in (`bases`: how many, their share, how found, the content words'
   share) and the Wiktionaries they come from (`sources`). `--gzip` makes the file downloaded `<language>.json.gz`.
 - `LANI_LEXICON_URL` (unset: nothing is downloaded) is an `https://` base URL or a local directory holding the
-  manifest and the file. A bridge that serves the app and has no `companion/lexicon/<language>.json` fetches the
+  manifest and the file (a leading `~` or `$HOME` is the home's, also when a profile's env in `profiles.json` writes it:
+  `lani-session` and `lani-bridge` expand it). The node keeps the built files in `~/.local/share/lani/lexicon/`, and
+  one line in `~/.config/lani/keys.env` (`LANI_LEXICON_URL=~/.local/share/lani/lexicon`) gives them to every learner
+  ([howto-second-town.md](../docs/howto-second-town.md), step 2). A bridge that serves the app and has no `companion/lexicon/<language>.json` fetches the
   manifest at start (another town's language: at the first lookup of a visit there), then the file when the cache
   doesn't have that version, checks its size and sha256, and keeps both in `${XDG_CACHE_HOME:-~/.cache}/lani/lexicon/`
   (`LANI_LEXICON_CACHE`). A file that doesn't match its manifest is refused; when the source can't be reached, the
   cached copy serves. Lookups work without Wiktionary until the dictionary is there (`GET /lexicon/status`).
+- **On the phone** (Lani on this phone, no node) the APK bundles `companion/lexicon/*.json`: Slovene's dictionary,
+  forms book and supplement, and Italian's supplement. The phone's bridge downloads a dictionary from
+  `LANI_LEXICON_URL` as a node's does, but the app sets none yet (`HostedRuntime.phoneEnvironment`): until the
+  dictionaries are published at an `https://` address, a phone-only learner of Italian finds the packs, the
+  supplement, the villagers and the tutor's glosses.
 - Italian: the forms drop the stress marks Wiktionary writes inside a word (casìna → casina) and keep the accent
   Italian writes (città, perché); the grammar leaves out the indicative ("first-person plural present", "… present
-  subjunctive"). Of the Italian content's words it knows 98.5 %; what it lacks is mostly the region's names (Collio,
-  Gorica, Carnia, Cormons, Castelmonte) and foods (frico).
+  subjunctive"). The text an Italian learner meets (the friuli culture pack, `packs/it`, the grammar book's pages: 27,740
+  words, 2,680 different; `lexicon-build --coverage --lang it`, 2026-10-26): Wiktionary knows 97.9 % of them (97.5 % of
+  the different words), with the supplement 99.0 %, with the pack words and the villagers' names 99.4 %; 92.2 % have a
+  meaning in German, 88.0 % in Slovene. Without the dictionary the packs and the names alone know 21.1 % (15.4 % of the
+  different words). What none knows (31 words, 158 in all): sounds and interjections (hm, shh, bzz: 91), people's names
+  (Marko, Nika: 40, with Gorica and Rimska, which the supplement has in Nova Gorica and Rimska cesta), the dialogs' wrong
+  choices on purpose (venirò, vedito), the Slovene word guba and onomatopoeia (din, bip, glu). No Friulian word is left:
+  the supplement has them (below).
 - English Wiktionary has 1.4 million English entries, most of them rare words and names: the English dictionary keeps
   the words it translates into any language (and their forms), no names (830,000 lemmas and 120 MB otherwise). It knows
   93 % of the lakeland pack's words; its glosses are English definitions.
@@ -2744,8 +2778,8 @@ articles ("das Haus") are left out; Slovene loses Wiktionary's tonal accents (d�
 |---|---:|---:|---:|---|
 | sl ← de | 81.6 % | 96.5 % of 2,396 | 97.6 % | pivot 2,911, direct 329, translations 212 |
 | sl ← it | 79.8 % | 95.8 % | 98.1 % | pivot 3,182, direct 181, translations 13 |
-| it ← sl | 7.7 % | 87.0 % of 1,712 | 94.2 % | pivot 14,152, translations 121 |
-| it ← de | 22.1 % | 95.7 % | 98.9 % | pivot 25,155, direct 9,494, translations 6,126 |
+| it ← sl | 7.8 % | 85.3 % of 2,563 | 94.2 % | pivot 14,189, translations 120 |
+| it ← de | 22.2 % | 94.8 % | 98.9 % | pivot 25,246, direct 9,493, translations 6,134 |
 | de ← sl | 18.1 % | 87.0 % of 1,874 | 88.9 % | pivot 13,305, translations 3,655 |
 | de ← it | 43.4 % | 97.0 % | 97.3 % | pivot 25,642, direct 6,959, translations 8,057 |
 | en ← sl | 11.7 % | 88.7 % of 1,751 | 92.3 % | translations 10,242, pivot 4,220 |
@@ -2754,7 +2788,9 @@ articles ("das Haus") are left out; Slovene loses Wiktionary's tonal accents (d�
 
 Every lemma has its English (an English dictionary's: its definition). "Content words": the different words of the
 curated content (scenes, packs, culture packs; `lexicon-build --coverage`) the dictionary knows, with a meaning in the
-base in one of their readings; "pack words": the word packs' words (the most frequent). The share of all lemmas is low
+base in one of their readings; "pack words": the word packs' words (the most frequent). The rows it ← sl and it ← de
+are the rebuild of 2026-10-26, its content words counted with the grammar book's pages and grown since (the pack words'
+column is September's). The share of all lemmas is low
 for the large dictionaries: most of their lemmas are rare words. How good the pivot is: where a table between the two
 languages has a meaning too, the confirmed pivot shares a word with it for 96 % (sl ← it), 92 % (sl ← de), 88 %
 (de ← sl), 79 % (de ← it) and 77-78 % (it ← de, it ← sl) of the lemmas; the rest are mostly synonyms (of 25 it ← de
@@ -2788,7 +2824,18 @@ apart from the code: the bundled `sl.json`, the downloads outside the repository
   kaj, hvala lepa, kaj pa ti, na zdravje, ne vem, rad bi, v redu, …;
 - with `"override": true`, a better gloss for a lemma whose Wiktionary gloss starts with a rare sense (babica:
   grandmother, not midwife; mesto: town; za, do, po). It replaces Wiktionary's gloss for every form of that lemma
-  and part of speech; the grammar stays Wiktionary's, and the answer keeps the attribution.
+  and part of speech; the grammar stays Wiktionary's, and the answer keeps the attribution;
+- with `"meanings"`, its meaning in the other languages (`{"de": ["Frico (Käse-Kartoffel-Gericht)"], "sl": [...]}`):
+  shown before the dictionary's meaning of the lemma, flagged machine-written (`gloss_via: "claude"`); an override's
+  own meanings replace the dictionary's. An entry whose `meanings` isn't a list of 1-3 glosses per language is left out.
+
+**Italian's supplement**, `lexicon/it.extra.json` (machine-written, `"machine_written": true`, `"reviewed": false`), has
+the Friuli content's gaps, each with its German and Slovene: the folklore of Nonno Bepi's stories (sbilfs, krivapete,
+the Orcolat), Friulian words (fogolâr, pignarûl, cramaro), the region's places as the content names them (the Collio,
+Cormòns, Brda, Nova Gorica, Cividale, Carnia, Duino, Monte Lussari, Camporosso, Monte Canin, Castelmonte), the stories'
+heroes (Lopichis, Tergesteo), Miklavž, Rimska cesta, the sky's meteor showers, the elided c'è (c'era, ci sono), dov'è,
+cos'è, com'è, eh, and suo's meaning (an override: through English its German was "sein; n"). Unlike Slovene's it has
+places and the stories' names: the villagers' names come from the cast, the region's would not come at all.
 
 An entry's form with `null` grammar takes Wiktionary's grammar of that form when Wiktionary has it. Names and pure
 interjections are left out. It is machine-written and not reviewed by a native speaker (`"reviewed": false`). Of the
@@ -2837,8 +2884,9 @@ Slovene, a meaning to translate isn't). Where it can't tell, nothing is looked u
 **New words dotted.** A word the learner hasn't met has a faint dotted underline in the text's own colour (both themes;
 `WordText`'s `unknown`); the words they have look plain. Met: a word of any of their cards (the deck's `pool`: a
 phrase's words each, a pack's words once learned, a word added from a dialog), and every form of the lemmas among them
-that the phone has from `GET /forms` ("mizo" is "miza"'s; `KnownWords`, tested in `KnownWordsTest`). A name inside a
-sentence (capitalized after a word) isn't marked. Another language's deck (a review of it at home, a visit's run) goes by
+that the phone has from `GET /forms` ("mizo" is "miza"'s; `KnownWords`, tested in `KnownWordsTest`), and the words a
+pack run has just introduced, in its own practice, before the node has their cards (`WordsController.fresh`). A name
+inside a sentence (capitalized after a word) isn't marked. Another language's deck (a review of it at home, a visit's run) goes by
 its own cards, and its words are looked up in its language (`WordQuery.language`).
 
 **The tip.** The first time an exercise has words to look up, "👆 Tapni besedo in poglej, kaj pomeni (pikice: nova
@@ -2907,6 +2955,12 @@ adjective; `lep` is an adjective, nice, and a noun, glue):
   minutes, or until the tutor publishes something with lines in it.
 - No entries: a word the dictionary doesn't know, or whose Wiktionary entry has no table (krožnik, šotor). `400`
   without `w`, with more than 40, one longer than 80 characters, or `language` other than the village's.
+- **Slovene only.** The slots, the grammar book's pages they count on and the app's tables and form questions are
+  Slovene's (its cases, the dual, the l-form): a village in another language answers no entries for any word
+  (`FORMS_LANGUAGES` in forms.ts), so the word card shows no table and the review asks no form. Italian's dictionary has
+  the forms (its present, future, imperative and the rest), but the app has no table of them yet. Counting cards and
+  forms cards are Slovene's too: their routes answer `400` for another language, and `GET /state`'s `features` leave
+  out `counting` and `forms-cards` for a village that doesn't speak Slovene (the app checks the language as well).
 
 **The forms book.** `lexicon/sl.forms.json` is written by hand (machine-written, not reviewed by a native speaker:
 `"reviewed": false`, `"machine_written": true`):
