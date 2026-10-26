@@ -53,6 +53,12 @@ import { LANGUAGES } from '../learners'
  */
 export const STATE_FEATURES = ['dialog-words', 'explanations', 'counting', 'chat-images', 'forms-cards'] as const
 
+/** What makes counting and forms cards is Slovene's (its numerals, cases and dual): a village in another language says neither. */
+const SLOVENE_ONLY = new Set<string>(['counting', 'forms-cards'])
+
+/** [STATE_FEATURES] as a bridge whose village speaks [language] says them. */
+export const stateFeatures = (language: string): string[] => STATE_FEATURES.filter(f => language === 'sl' || !SLOVENE_ONLY.has(f))
+
 /** A form of a card's word asked in a review: the slot ("pres.1sg"), the grammar page it counts on, how it went. */
 const formAsked = z.object({
   item_id: z.string().min(1),
@@ -220,7 +226,7 @@ const whereOf = (d: DialogRun): string => {
   return [d.person, d.title].filter(Boolean).join(', ') + (at ? ` (${at})` : '') || 'a dialog'
 }
 
-export const reviews: FeatureFactory = ({ cfg, learner, channel, outbox }) => {
+export const reviews: FeatureFactory = ({ cfg, learner, channel, outbox, culture }) => {
   // what the learner typed or said lately (answers.ts): a rolling log beside the learner's data
   const log = new AnswerLog(join(cfg.appDir, 'answers.json'))
 
@@ -339,7 +345,7 @@ export const reviews: FeatureFactory = ({ cfg, learner, channel, outbox }) => {
         handle: ({ url }) => {
           const l = languageParam.safeParse(url.searchParams.get('language') ?? undefined)
           if (!l.success) return json({ error: 'language: a language code, e.g. "it"' }, 400)
-          return json({ ...JSON.parse(learner.stateJson(l.data)), features: STATE_FEATURES })
+          return json({ ...JSON.parse(learner.stateJson(l.data)), features: stateFeatures(culture.manifest?.language ?? 'sl') })
         },
       },
     ],

@@ -15,7 +15,7 @@ import { json, readJson } from '../http'
 import { languageParam, type SrItem } from '../learner'
 import { LANGUAGES, learnerFacts, learnerLangs } from '../learners'
 import { ATTRIBUTION, glossIn, Lexicon, lookup, wordItemId, type LookupResult, type Person } from '../lexicon'
-import { contentLines, formsOf, LineIndex, partnerOf } from '../forms'
+import { contentLines, formsOf, FORMS_LANGUAGES, LineIndex, partnerOf } from '../forms'
 import { fetchLexicon, lexiconCacheDir, parseLexicon } from '../lexicon-download'
 import { itemId, meaningOf, normWord, PackStore, packsDirs, vocabularyWords, wordOf, type LoadedPack } from '../packs'
 import { labelEn } from '../langs'
@@ -338,6 +338,10 @@ export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox,
           if (!words.length || words.length > FORMS_WORDS || words.some(w => !w || w.length > 80)) return json({ error: `w: 1-${FORMS_WORDS} words, each 1-80 characters` }, 400)
           const asks = url.searchParams.get('language')?.trim().toLowerCase()
           if (asks && asks !== language) return json({ error: `language: the village's language only ("${language}")` }, 400)
+          // the slots (cases, the dual, the l-form), the grammar book's pages they count on and the app's tables and
+          // questions are Slovene's: another language's word has none, so the word card shows no table and the review
+          // asks no form (an Italian village: its dictionary has the forms, the app has no table of them yet)
+          if (!FORMS_LANGUAGES.has(language)) return json({ language, words: words.map(word => ({ word, entries: [] })), attribution: null })
           const { index, pages } = content()
           const c = { dict, book, pages, lines: index, language }
           const out = words.map(word => ({ word, entries: formsOf(c, word) }))

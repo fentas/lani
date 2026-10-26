@@ -15,6 +15,12 @@ import { englishWords, enScore, glossCoverage, normalizeForm, PREPOSITIONS, word
 
 // --- slots -------------------------------------------------------------------------------------------------------
 
+/**
+ * The languages whose words GET /forms answers: the slots below, the grammar book's pages they count on and the app's
+ * tables and form questions are Slovene's (its cases, the dual, the l-form). Another language's village answers none.
+ */
+export const FORMS_LANGUAGES: ReadonlySet<string> = new Set(['sl'])
+
 const PERSONS = ['1sg', '2sg', '3sg', '1pl', '2pl', '3pl', '1du', '2du', '3du']
 /** A verb's slots, in the order the table shows them: present, negative present, future, the l-form (past), imperative. */
 export const VERB_KEYS = [
