@@ -107,6 +107,13 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        "⛈️ Nevihta", a tap on one: their line for inside; the kitchen; the field in the rain; the wolves
                        and the fire's scene with the children and the old gathered; also as storm-*.png in
                        $LANI_QA_STORM_SHOTS;
+                       "coast" Teo's coast (a synthetic learner of the Friuli culture without a village, LANI_DEV_DATA;
+                       the dev bridge's LANI_CULTURE=friuli and LANI_LANDSCAPE=coast; the phone in sl · en,
+                       LANI_QA_PAIR=sl-en; LANI_QA_FOUND_SEED=551323397 founds at Teo's land, QA's hook "seed:<n>"): the
+                       founding's preview, the village after founding with the sea and the beach in its first look, dragged
+                       to the beach, a wild animal tapped (its card in Italian), a villager's free talk in it · de (its
+                       goals in Italian and German), the same land as a village and a town ("hearths:vas", "hearths:mesto");
+                       also as coast-*.png in $LANI_QA_COAST_SHOTS;
                        "bubbles-follow" the village's bubbles with their people (QA's hook "hour:11"): at home, dragged
                        so some are off screen, zoomed in and dragged, the edge chip ("‹ 🐑 2") tapped and its bubble on
                        screen then;
@@ -560,10 +567,19 @@ def setup():
     type_text(TOKEN)
     # the button's whole label: the setup's heading "🔗 Poveži svojega učitelja" has the word too
     assert tap("Poveži · Connect"), "connect button"
+    pair = os.environ.get("LANI_QA_PAIR")
+    if pair:
+        # a learner of another language (the Friuli culture's Italian from German): the phone shows the pair QA reads its
+        # labels in ("sl-en"), as the connection sheet's languages would choose it; the village keeps its culture
+        qa_hook(f"pair:{pair}")
     end = time.time() + 30
     while time.time() < end:  # Home, and the notification permission whenever it comes
         ns = list(nodes())
         c = next((c for t, c in ns if t == "Allow"), None)
+        if pair and c is None and not any("Kje bo tvoja vas" in t or "Danes · Today" in t or "Poveži" in t for t, _ in ns):
+            # the hook came while the app was still connecting: the profile's pair shows (the founding's "Dove sarà il tuo
+            # villaggio?"): asked again
+            qa_hook(f"pair:{pair}")
         if c is not None:
             adb("shell", "input", "tap", str(c[0]), str(c[1]))
         elif any("Kje bo tvoja vas" in t for t, _ in ns):
@@ -6506,10 +6522,24 @@ def forms_cards():
 
 def found_village():
     """A dev bridge's copy without a village (a synthetic learner, LANI_DEV_DATA): founded here, as the learner would
-    ("✓ Tu bo moja vas · My village will be here"); nothing when there is one."""
+    ("✓ Tu bo moja vas · My village will be here"); nothing when there is one. With LANI_QA_FOUND_SEED the place is that
+    seed's (QA's hook "seed:<n>"; 551323397: Teo's coast), its preview shot first (founding-preview; also as
+    coast-preview.png in $LANI_QA_COAST_SHOTS)."""
     c = wait_for("Kje bo tvoja vas", 4)
     if c is None:
         return
+    if seed := os.environ.get("LANI_QA_FOUND_SEED"):
+        qa_hook(f"seed:{seed}")
+        time.sleep(2 * slow())
+        # the picture whole under the landscapes' chips
+        for _ in range(2):
+            adb("shell", "input", "swipe", "540", "1500", "540", "1000", "300")
+            time.sleep(0.6)
+        time.sleep(1.5)
+        shot("founding-preview")
+        if d := os.environ.get("LANI_QA_COAST_SHOTS"):
+            Path(d).mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], Path(d) / "coast-preview.png")
     for _ in range(3):  # its foot: the button under the picture (the screen scrolls only so far)
         adb("shell", "input", "swipe", "540", "1600", "540", "900", "300")
         time.sleep(0.6)
@@ -8702,6 +8732,191 @@ def wishlist():
     go_home()
 
 
+# a wild animal's word on the map of a Friuli village (the string tables' "wild.*" in Italian; GAME.md "The land")
+WILD_IT = ("scoiattolo", "lepre", "uccello", "capriolo", "volpe", "riccio", "pipistrello", "cinghiale", "tasso", "gufo", "orso", "orma")
+WILD_SL = ("veverica", "zajec", "ptica", "srna", "lisica", "jež", "netopir", "divji prašič", "jazbec", "sova", "medved", "sled")
+
+
+def l10n(lang: str, key: str) -> str:
+    """[key]'s message in the app's [lang] table (app/src/main/resources/l10n)."""
+    return json.loads((ANDROID / f"app/src/main/resources/l10n/{lang}.json").read_text())[key]
+
+
+def coast():
+    """Teo's coast (2026-10-25, on the tablet: "He chose the beach location. I hear the beach, but can't move to it / can't
+    see it. Also the location does not look like what we saw in the preview. It looks like my location."; "If I tap the
+    animals, it shows me the Slovene words, not Italian."; "the aims are in English, not German"; GAME.md "The land",
+    VILLAGERS.md "Talking to a villager"). On a synthetic learner of the Friuli culture without a village (LANI_DEV_DATA,
+    the dev bridge's LANI_CULTURE=friuli and LANI_LANDSCAPE=coast, the phone's labels in sl · en: LANI_QA_PAIR=sl-en),
+    founded at LANI_QA_FOUND_SEED (551323397: Teo's land) where setup's founding shot its preview. The village after
+    founding: the sea and the beach on its left from the town view's first look; dragged to the beach (the canvas's left
+    edge, where the camera stops); on a tablet held upright (the emulator's display at 1600 × 2560 px for a moment: the
+    town's narrowest canvas, 320 nominal px wide). A wild animal on the map (QA's hook "hour:<h>" until one is out) tapped:
+    its card with its Italian word. A villager's free talk (the register, their page, the greeting, then "Pogovor s
+    tutorjem") in Teo's pair, Italian from German (QA's hook "pair:it-de"): its goals in Italian and German, not the
+    node's English. The same land as a village and as a town (QA's hook "hearths:vas", "hearths:mesto"). Each also as
+    coast-<name>.png in $LANI_QA_COAST_SHOTS. The dev village's copy grows: the run's last step."""
+    notes = []
+
+    def snap(name: str):
+        shot(f"coast-{name}")
+        if d := os.environ.get("LANI_QA_COAST_SHOTS"):
+            Path(d).mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], Path(d) / f"coast-{name}.png")
+
+    go_home()
+    found_village()
+    go_home()
+    land = (api("/game").get("state") or {}).get("land") or {}
+    culture = api("/culture").get("id")
+    if land.get("kind") != "coast":
+        return (f"the dev village stands on {land or 'no land'} ({culture}): a learner without a village (LANI_DEV_DATA), "
+                "LANI_CULTURE=friuli, LANI_LANDSCAPE=coast")
+    notes.append(f"{culture}, land {land.get('kind')}:{land.get('seed')}")
+    try:
+        qa_hook("hour:11")
+        village()
+        plain_village()
+        time.sleep(2 * slow())
+        snap("village")
+        # dragged right: the land to the left comes into view, as far as the canvas goes (the sea's edge)
+        for _ in range(3):
+            adb("shell", "input", "swipe", "200", "1300", "1000", "1300", "400")
+            time.sleep(1)
+        time.sleep(1.5 * slow())
+        snap("beach")
+        plain_village()
+        # a tablet held upright (1600 × 2560 px at 320 dpi): the town's narrowest canvas, 320 nominal px wide, as on Teo's
+        # tablet; the emulator's own size again after
+        try:
+            adb("shell", "wm", "size", "1600x2560")
+            adb("shell", "wm", "density", "320")
+            time.sleep(6 * slow())
+            plain_village()
+            time.sleep(2 * slow())
+            snap("tablet")
+        finally:
+            adb("shell", "wm", "size", "reset")
+            adb("shell", "wm", "density", "reset")
+            time.sleep(6 * slow())
+        plain_village()
+
+        # a wild animal: the windows of the day one after another until one is out on the map (the day's dice)
+        word = None
+        for h in (12, 7, 19.6, 23, 9, 16, 6.5, 21.5):
+            qa_hook(f"hour:{h}")
+            time.sleep(2 * slow())
+            for _ in range(2):
+                # the animal's TalkBack node: a box round it, its feet three quarters down (TownView's AnimalTargets)
+                on = [(t, ((b[0] + b[2]) // 2, b[1] + (b[3] - b[1]) * 7 // 10)) for t, b in boxes()
+                      if (t in WILD_IT or t in WILD_SL) and 0 < (b[0] + b[2]) // 2 < 1080 and 400 < (b[1] + b[3]) // 2 < 2000]
+                if on:
+                    break
+                time.sleep(1.5)
+            if on:
+                word, at = on[0]
+                break
+        if word is None:
+            notes.append("no animal out at 6:30, 7, 9, 12, 16, 19:36, 21:30 or 23 today")
+        else:
+            assert word in WILD_IT, f"the animal's TalkBack node in Slovene: {word}"
+            snap("animal")
+            # it moves a little (a hare hops, birds fly): a tap right on it, again where it is now if the first missed
+            for _ in range(3):
+                tap_at(at)
+                if word_card(6):
+                    break
+                plain_village()
+                again = [((b[0] + b[2]) // 2, b[1] + (b[3] - b[1]) * 7 // 10) for t, b in boxes() if t == word]
+                if not again:
+                    break
+                at = again[0]
+            assert word_card(2), f"the word card of {word}"
+            time.sleep(1.5)
+            snap("animal-word")
+            labels = [t for t, _ in nodes()]
+            assert any(word in t for t in labels), f"{word} on its card"
+            assert not any(t in WILD_SL for t in labels), f"a Slovene animal's word on the card: {[t for t in labels if t in WILD_SL]}"
+            notes.append(f"animal: {word}")
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")
+            time.sleep(1.2)
+        qa_hook("hour:11")
+        plain_village()
+
+        # a villager's free talk in Teo's pair: its goals in Italian and German. A new village's people are met first (their
+        # introduction): the cast counts as met on the dev bridge's copy, which the app adopts
+        try:
+            snap_state = dev_bridge("/game")
+            st = snap_state["state"]
+            for v in api("/villagers"):
+                bond = st.setdefault("bonds", {}).setdefault(v["id"], {})
+                bond["met"] = bond.get("met") or time.strftime("%Y-%m-%d")
+            dev_bridge("/game", {"rev": snap_state["rev"], "state": st}, method="PUT")
+            go_home()  # the village again: the app syncs and adopts the node's copy
+            village()
+            open_scroll()
+            scroll_card("Prebivalci · Villagers: ")
+            assert tap("Vsi prebivalci", 5), "link to the register"
+            assert wait_for("Prebivalci · Villagers", 8), "register"
+            talk = next((c for t, c in nodes() if t.startswith("Pogovori se · Talk: ")), None)
+            if talk is None:
+                notes.append("talk: nobody in the register")
+            else:
+                tap_at(talk)
+                assert wait_for("Več · More", 5), "villager card"
+                assert tap("Več · More", 3), "more"
+                assert wait_for("‹ Prebivalci · Villagers", 8), "villager page"
+                qa_hook("pair:it-de")
+                time.sleep(2 * slow())
+                speak = f"💬 {l10n('it', 'common.talkVerb')} · "
+                assert tap(speak, 8), f"{speak}… on the villager's page in it · de"
+                free = f"{l10n('it', 'villagerScreens.talkFreely')} · {l10n('de', 'villagerScreens.talkFreely')}"
+                assert tap(free, 15), f"{free}: the free talk after the greeting"
+                # the talk starts at once: its goals under the 🎯 chip of its top bar
+                chip = f"{l10n('it', 'talkScreen.goals')} · {l10n('de', 'talkScreen.goals')}: "
+                assert tap(chip, 20), f"the talk's goals chip ({chip}0 / 4)"
+                time.sleep(1.5)
+                greet = l10n("de", "villagerLogic.greetThem")
+                bye = l10n("de", "villagerLogic.sayGoodbye")
+                labels = " ".join(t for t, _ in nodes())
+                snap("talk-goals")
+                assert greet in labels and bye in labels, f"the talk's goals in German ({greet}, {bye})"
+                assert "Say goodbye" not in labels and "Ask how they are" not in labels, "the node's English goals"
+                notes.append("talk: goals in it · de")
+                # left before a line is said: nothing to debrief
+                adb("shell", "input", "keyevent", "KEYCODE_BACK")
+                time.sleep(1.5)
+        except Exception as e:  # noqa: BLE001 — the talk is one look of several: the land's steps go on
+            snap("talk-failed")
+            notes.append(f"talk: {e}")
+        finally:
+            qa_hook("pair:sl-en")
+            time.sleep(2 * slow())
+            plain_village()
+
+        # the same land later: a village and a town, built as the hearths' step builds them
+        for age in ("vas", "mesto"):
+            qa_hook(f"hearths:{age}")
+            time.sleep(3 * slow())
+            plain_village()
+            time.sleep(2 * slow())
+            snap(age)
+            for _ in range(3):
+                adb("shell", "input", "swipe", "200", "1300", "1000", "1300", "400")
+                time.sleep(1)
+            time.sleep(1.5 * slow())
+            snap(f"{age}-beach")
+            plain_village()
+        land = (api("/game").get("state") or {}).get("land") or {}
+        assert land.get("kind") == "coast", f"the land after growing: {land}"
+    finally:
+        qa_hook("hour:")
+    for n in notes:
+        print(f"    {n}")
+    # what it couldn't look at is a skip; the rest is said above
+    return "; ".join(n for n in notes if n.startswith(("no animal", "talk: ")) and "goals in it · de" not in n) or None
+
+
 # --- main -----------------------------------------------------------------------------------
 
 def plan():
@@ -8772,6 +8987,7 @@ def plan():
         ("wishlist", wishlist, go_home, False, ""),
         ("hearths", hearths, v, False, ""),
         ("storm", storm, v, False, ""),
+        ("coast", coast, v, False, ""),
         ("friends", friends, h, True, "visit"),
         ("visit", visit_town, h, True, "visit"),
         ("visit-villager", visit_villager, h, True, "visit"),

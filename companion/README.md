@@ -3859,6 +3859,7 @@ companion/bin/qa --steps bubbles-follow          # the village's bubbles with th
 companion/bin/qa --steps village-life            # the village's day on the map at 8, 11, 15, 19 o'clock, walkers by the field
 companion/bin/qa --steps reactions               # the people reacting: wolves coming and there, a villager's card then, at night, the cheer, the bear, a storm, the merchant, a feast
 companion/bin/qa --steps storm                   # the storm: the map in the rain, a soft flash, a house's room with its people at home and rain on its window, the field, the wolves by the fire (a synthetic learner: LANI_DEV_DATA)
+companion/bin/qa --steps coast                   # Teo's coast: the founding's preview, the sea and the beach after founding, dragged to the beach, an animal's Italian word, a villager talk's goals in it · de, a village and a town (a synthetic Friuli learner: LANI_DEV_DATA, LANI_CULTURE=friuli, LANI_LANDSCAPE=coast, LANI_QA_PAIR=sl-en, LANI_QA_FOUND_SEED=551323397)
 companion/bin/qa --steps quests-threat           # the requests during wolves (none on the map, waiting in the Scroll, Home's strip) and back after; a drill whose task is passed under Later (a synthetic learner: LANI_DEV_DATA)
 companion/bin/qa --steps age-up                  # Zaselek to Vas and Vas to Trg: each moment beat by beat, its card, the veselica at A1 to its end, the chronicle's Watch again (recorded)
 companion/bin/qa --steps exercise-words          # a review's words looked up: the sentence's, not the forms to choose
@@ -4201,6 +4202,14 @@ brightest of 45 screenshots), Stari Janez's living room with Janez and Lovec Jo�
 closer, a tap on one of them (their line for inside), "Danes tukaj" with "⛈️ Nevihta", the kitchen with its three, the
 field in the rain, then the wolves and the fire's scene with the children and the old gathered (`LANI_QA_STORM_SHOTS`: a
 folder for its screenshots as `storm-*.png`).
+`coast` looks at a coast village (GAME.md, "The land") on a synthetic learner of the Friuli culture without a village
+(`LANI_DEV_DATA`; the dev bridge's `LANI_CULTURE=friuli`, `LANI_LANDSCAPE=coast`; the phone's labels in sl · en,
+`LANI_QA_PAIR=sl-en`, which setup asks right after connecting). `LANI_QA_FOUND_SEED` founds it at that seed (`seed:<n>`,
+a debug build's hook: the founding's place; 551323397 is Teo's land) after a shot of the founding's preview. Then the
+village's first look with the sea and the beach, dragged to the beach, a wild animal tapped (`hour:<h>` until one is out:
+its card with its Italian word), a villager's free talk in Teo's pair (`pair:it-de`: its goals in Italian and German) and
+the same land as a village and a town (`hearths:vas`, `hearths:mesto`; `LANI_QA_COAST_SHOTS`: a folder for its
+screenshots as `coast-*.png`).
 
 `build:<type>` gets the dev village's copy ready to build one (`build:field`): its stores full and a free plot (the next
 age's, when the age's own are all taken: Jan's Zaselek has none left), and opens the plot chooser for it over the map,
