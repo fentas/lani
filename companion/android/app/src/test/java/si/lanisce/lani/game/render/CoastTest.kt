@@ -192,7 +192,11 @@ class CoastTest {
     }
 
     private companion object {
-        val SEA = setOf(VillageRenderer.SURF, VillageRenderer.SHALLOWS, VillageRenderer.SEA_DEEP)
+        /** The sea's surf, shallows and deep water, with any share of the sky's haze toward the horizon (see [Sea]), by day. */
+        val SEA: Set<Int> = Env(11f, 6, false).let { env ->
+            listOf(VillageRenderer.SURF, VillageRenderer.SHALLOWS, VillageRenderer.SEA_DEEP)
+                .flatMap { c -> (0..(Sea.HAZE / Sea.STEP).toInt() + 1).map { i -> Col.mix(c, env.skyHorizon, i * Sea.STEP) } }.toSet()
+        }
         val SAND = setOf(VillageRenderer.SAND_L, VillageRenderer.SAND_M, VillageRenderer.SAND_D, VillageRenderer.SAND_WET)
     }
 }

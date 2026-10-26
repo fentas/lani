@@ -195,6 +195,8 @@ internal object Ground {
     const val DIRT: Byte = 3
     const val WATER: Byte = 4
     const val COBBLE: Byte = 5
+    /** The sea of a coast: its ripples fade toward the horizon, into the far sea beyond (see [Sea]). */
+    const val SEA: Byte = 6
 }
 
 /** Shared per-frame drawing context. */
@@ -453,7 +455,10 @@ class VillageRenderer {
 
         // ---- backdrop
         val backdrop = Backdrop(s)
-        backdrop.draw(horizon, storm, shift = if (frame.compact) COMPACT_SHIFT else 0f, sea = frame.sea, skyline = land.skyline)
+        // a coast: up to where its sea and beach come up to the horizon (nominal x), the far sea comes down to join it, and
+        // no far treeline stands in front of it there
+        val seaTo = if (land.sea != null) comp.fireX + land.shoreX((comp.horizon - comp.fireY).toFloat()) + Terrain.BEACH else Float.NEGATIVE_INFINITY
+        backdrop.draw(horizon, storm, shift = if (frame.compact) COMPACT_SHIFT else 0f, sea = frame.sea, skyline = land.skyline, seaTo = seaTo)
         mark(1)
 
         // ---- ground
@@ -479,7 +484,7 @@ class VillageRenderer {
         groundPass(s, horizon, clearR, roadLeft, roadHalf, plazaR, age, paths, fg, cobbled, wet)
         if (k > 1) groundDetail(s, horizon)
         // no far treeline where the sea comes up to the horizon (a coast)
-        if (land.sea != null) backdrop.treeline(horizon, from = comp.fireX + land.shoreX((comp.horizon - comp.fireY).toFloat()) + Terrain.BEACH) else backdrop.treeline(horizon)
+        backdrop.treeline(horizon, from = seaTo)
         frame.highlightPlot?.let { if (it in 0 until VillageLayout.MAX_PLOTS) highlightGround(s, it) }
         frame.plots?.let { plotGround(s, it) }
         // the plots an age brings, framed on the ground while its moment shows them
@@ -912,12 +917,15 @@ class VillageRenderer {
         c.penId = 0; c.penEmissive = false
         val nominal = lens.nominal
         val ux = 4f * k; val uy = 2f * k
+        // the horizon's nominal row: toward it the sea takes on the sky's haze, into the far sea beyond (see [Sea])
+        val hb = lens.by(horizon.toFloat())
         for (y in max(horizon, 0) until c.height) {
             val dy = (y + 0.5f - iso.oy) / k
             val b = (y + 0.5f - iso.oy) / uy
             // the sea's shore on this row
             val shore = if (seaOn) land.shoreX(dy) else 0f
             val byf = if (nominal) y + 0.5f else lens.by(y + 0.5f)
+            val far = byf - hb
             val byi = if (nominal) y else floor(byf).toInt()
             val woods = y >= fgTop
             for (x in 0 until c.width) {
@@ -953,11 +961,13 @@ class VillageRenderer {
                     col = when {
                         seaD > -1.6f + jag * 2f && (Noise.rnd(byi, waterT / 2, 23) < 0.7f) -> SURF
                         seaD > -6f -> SHALLOWS
-                        Noise.rnd(bxi / 2, byi, waterT + bxi / 7) < 0.08f -> Pal.WATER_L
+                        Sea.glint(bxi, byi, waterT) -> Pal.WATER_L
                         seaD < -40f -> SEA_DEEP
                         else -> Pal.WATER_M
                     }
-                    kind = Ground.WATER
+                    // toward the horizon, a little of the sky's colour: the far sea beyond it has the same
+                    if (far < Sea.HAZE_ROWS) col = Col.mix(col, env.skyHorizon, Sea.hazeAt(far, x, y))
+                    kind = Ground.SEA
                 } else if (streamD < sHalf + jag * 0.5f || pond < 1f || lakeD < 1f) {
                     val deep = if (pond < 1f) pond < 0.82f else if (lakeD < 1f) lakeD < 0.88f else streamD <= sDeep
                     col = if (env.snow) (if (Noise.rnd(x, y, 8) < 0.2f) Pal.ICE_L else Pal.ICE_M)
@@ -1093,6 +1103,7 @@ class VillageRenderer {
         val floorD = Col.scale(env.forestFloor[2], 0.8f)
         val ripple = if (env.snow) Pal.ICE_L else Pal.WATER_L
         val waterT = (s.time * 2).toInt()
+        val hb = lens.by(horizon.toFloat())
         val by0 = lens.by(max(horizon, 0).toFloat()).toInt(); val by1 = lens.by(h.toFloat()).toInt() + 1
         val bx0 = lens.bx(0f).toInt(); val bx1 = lens.bx(w.toFloat()).toInt() + 1
         c.penId = 0; c.penEmissive = false
@@ -1120,6 +1131,13 @@ class VillageRenderer {
                 }
                 Ground.WATER -> if (!env.snow && (bx + waterT + by * 3).mod(11) == 0 && Noise.rnd(bx, by, 45) < 0.5f) {
                     c.hline(x, x + 2 * k - 1, y, ripple)
+                }
+                Ground.SEA -> {
+                    // the sea's ripples, fewer and hazier toward the horizon (the far sea beyond it has none, see [Sea]); the
+                    // sea doesn't freeze
+                    val far = by + 0.5f - hb
+                    if ((bx + waterT + by * 3).mod(11) == 0 && Noise.rnd(bx, by, 45) < 0.5f * min(1f, far / Sea.HAZE_ROWS))
+                        c.hline(x, x + 2 * k - 1, y, Col.mix(Pal.WATER_L, env.skyHorizon, Sea.hazeAt(far, x, y)))
                 }
                 else -> Unit
             }

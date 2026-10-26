@@ -203,9 +203,11 @@ internal class Backdrop(private val s: SceneCtx) {
      * [shift] slides the mountain range sideways (fraction of the width), e.g. to frame Triglav in a compact view; [sea]:
      * the sea shows along the horizon on the left, where the hills open to the coast (the culture pack's backdrop).
      * [skyline]: the village's land's horizon (see [Terrain.skyline]): the Alps lower behind the hills, higher over the
-     * mountains, the sea wider along a coast.
+     * mountains, the sea wider along a coast. [seaTo]: on a coast, the nominal x up to which the land's sea and its beach
+     * come up to the horizon (no treeline stands there): the far sea comes down to the horizon left of it, to join the
+     * land's (see [Sea]).
      */
-    fun draw(horizon: Int, storm: Boolean, shift: Float = 0f, sea: Boolean = false, skyline: Skyline = Skyline.CLASSIC) {
+    fun draw(horizon: Int, storm: Boolean, shift: Float = 0f, sea: Boolean = false, skyline: Skyline = Skyline.CLASSIC, seaTo: Float = Float.NEGATIVE_INFINITY) {
         val env = s.env
         val w = c.width
         c.penEmissive = true
@@ -227,8 +229,45 @@ internal class Backdrop(private val s: SceneCtx) {
         if (!storm) sunAndMoon(horizon, view)
         clouds(horizon, storm)
         mountains(horizon, shift, skyline)
-        if (sea || skyline.sea) sea(horizon, skyline.seaReach)
+        if (skyline.sea) coast(horizon, skyline.seaReach, seaTo) else if (sea) sea(horizon, skyline.seaReach)
         c.penEmissive = false
+    }
+
+    /**
+     * The far sea of a coast (see [Sea]): the same band along the horizon on the left as [sea]'s, as far across as [reach]
+     * of the width, its line where it meets the sky, the treeline's tips in front of its foot; but left of [seaTo] (nominal
+     * x), where the land's sea comes up to the horizon, it comes down to the horizon and joins it: the same water in the
+     * same colours, a little more of the sky's in them the further off it is, the same glints, lit as the land is lit.
+     */
+    private fun coast(horizon: Int, reach: Float, seaTo: Float) {
+        val env = s.env
+        val sky = env.skyHorizon
+        val line = Sea.line(env)
+        val bw = lens.baseW.toFloat()
+        val hb = lens.by(horizon.toFloat())
+        val shore = seaTo - Terrain.BEACH
+        // down to the horizon where the land's sea comes up to it, and behind the treeline's low end beside it
+        val down = seaTo + Sea.TREELINE_TAPER
+        val waterT = (s.time * 3).toInt()
+        for (x in 0 until c.width) {
+            val u = ux(x) / bw
+            val m = ((reach - u) / 0.12f).coerceIn(0f, 1f)
+            if (m <= 0f) continue
+            val rows = (2f + 2.5f * m) * k
+            val foot = horizon - 6 * k
+            val top = (foot - rows).toInt()
+            val bxf = lens.bx(x + 0.5f); val bxi = floor(bxf).toInt()
+            // past the treeline's low end its foot rises to the band's, a row a px, behind the trees
+            val bottom = if (bxf < down) horizon else max(foot, horizon - ((bxf - down) * k).toInt())
+            // as the land's sea is in the column below: deeper further out from the shore (see VillageRenderer's ground)
+            val base = if (bxf - shore < -40f) VillageRenderer.SEA_DEEP else Pal.WATER_M
+            for (y in max(top, 0) until min(bottom, c.height)) {
+                if (y < top + k) { c.set(x, y, line); continue }
+                val byf = lens.by(y + 0.5f)
+                val col = if (Sea.glint(bxi, floor(byf).toInt(), waterT)) Pal.WATER_L else base
+                c.set(x, y, env.lit(Col.mix(col, sky, Sea.hazeAt(byf - hb, x, y))))
+            }
+        }
     }
 
     /**
@@ -475,7 +514,10 @@ internal class Backdrop(private val s: SceneCtx) {
         }
     }
 
-    /** Dark band of distant forest where the ground meets the hills, from nominal x [from] on (a coast's sea comes up to the horizon left of it). */
+    /**
+     * Dark band of distant forest where the ground meets the hills, from nominal x [from] on (a coast's sea comes up to the
+     * horizon left of it): there the trees end low, rising to their height over [Sea.TREELINE_TAPER] px, the far sea behind.
+     */
     fun treeline(horizon: Int, from: Float = -1e9f) {
         val env = s.env
         c.penEmissive = true
@@ -486,7 +528,9 @@ internal class Backdrop(private val s: SceneCtx) {
             val bx = floor(lens.bx(x + 0.5f)).toInt()
             if (bx < from) continue
             val tip = abs(((bx + (Noise.rnd(bx / 5, 1) * 3).toInt()) % 5) - 2).toFloat()
-            val top = horizon - 2 * k - (3 - tip) * k - Noise.v1(bx * 0.15f, 21) * 3 * k
+            val rise = (bx + 1 - from) / Sea.TREELINE_TAPER
+            val top = if (rise >= 1f) horizon - 2 * k - (3 - tip) * k - Noise.v1(bx * 0.15f, 21) * 3 * k
+            else horizon - (2 * k + (3 - tip) * k + Noise.v1(bx * 0.15f, 21) * 3 * k) * rise
             for (y in max(top.toInt(), 0)..min(horizon + 3 * k, c.height - 1)) c.set(x, y, if (y < top + 2 * k && tip < 1.5f) colL else col)
         }
         c.penEmissive = false

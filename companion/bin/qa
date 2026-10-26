@@ -111,7 +111,7 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        the dev bridge's LANI_CULTURE=friuli and LANI_LANDSCAPE=coast; the phone in sl · en,
                        LANI_QA_PAIR=sl-en; LANI_QA_FOUND_SEED=551323397 founds at Teo's land, QA's hook "seed:<n>"): the
                        founding's preview, the village after founding with the sea and the beach in its first look, dragged
-                       to the beach, a wild animal tapped (its card in Italian), a villager's free talk in it · de (its
+                       to the beach, closer at the sea's horizon by night, at dusk and by day, a wild animal tapped (its card in Italian), a villager's free talk in it · de (its
                        goals in Italian and German), the same land as a village and a town ("hearths:vas", "hearths:mesto");
                        also as coast-*.png in $LANI_QA_COAST_SHOTS;
                        "bubbles-follow" the village's bubbles with their people (QA's hook "hour:11"): at home, dragged
@@ -8903,7 +8903,8 @@ def coast():
     the dev bridge's LANI_CULTURE=friuli and LANI_LANDSCAPE=coast, the phone's labels in sl · en: LANI_QA_PAIR=sl-en),
     founded at LANI_QA_FOUND_SEED (551323397: Teo's land) where setup's founding shot its preview. The village after
     founding: the sea and the beach on its left from the town view's first look; dragged to the beach (the canvas's left
-    edge, where the camera stops); on a tablet held upright (the emulator's display at 1600 × 2560 px for a moment: the
+    edge, where the camera stops); closer at the sea's horizon by night, at dusk and by day (the far sea joining the land's,
+    no strip of the hills between: horizon-night, horizon-dusk, horizon-day); on a tablet held upright (the emulator's display at 1600 × 2560 px for a moment: the
     town's narrowest canvas, 320 nominal px wide). A wild animal on the map (QA's hook "hour:<h>" until one is out) tapped:
     its card with its Italian word. A villager's free talk (the register, their page, the greeting, then "Pogovor s
     tutorjem") in Teo's pair, Italian from German (QA's hook "pair:it-de"): its goals in Italian and German, not the
@@ -8938,6 +8939,23 @@ def coast():
             time.sleep(1)
         time.sleep(1.5 * slow())
         snap("beach")
+        plain_village()
+        # the sea at the horizon, closer (2026-10-26, Jan on a visit at night: "this strip looks weird - kind of a cut-off
+        # moving sea behind the scene?"): the far sea comes down to the land's, one water, no strip of the hills between
+        # them, by night, at dusk and by day (GAME.md "The land"; the camera at the canvas's left edge, the horizon brought
+        # down into the screen's middle)
+        for name, h in (("night", 22), ("dusk", 19.6), ("day", 11)):
+            qa_hook(f"hour:{h}")
+            plain_village()
+            qa_hook("zoom")
+            time.sleep(1.5)
+            for _ in range(3):
+                adb("shell", "input", "swipe", "200", "1300", "1000", "1300", "400")
+                time.sleep(1)
+            adb("shell", "input", "swipe", "540", "700", "540", "1500", "400")
+            time.sleep(2 * slow())
+            snap(f"horizon-{name}")
+        qa_hook("hour:11")
         plain_village()
         # a tablet held upright (1600 × 2560 px at 320 dpi): the town's narrowest canvas, 320 nominal px wide, as on Teo's
         # tablet; the emulator's own size again after
