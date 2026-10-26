@@ -187,6 +187,8 @@ class OpenAIProvider(
         if (billing == Billing.API_KEY) put("max_output_tokens", maxTokens)
     }
 
+    override fun toolsOff(body: JsonObject): JsonObject = JsonObject(body + ("tool_choice" to JsonPrimitive("none")))
+
     override suspend fun call(body: JsonObject, onDelta: () -> Unit): Step = callTools(body, onDelta) {}
 
     override suspend fun callTools(body: JsonObject, onDelta: () -> Unit, onTool: (ToolInputDelta) -> Unit): Step = try {

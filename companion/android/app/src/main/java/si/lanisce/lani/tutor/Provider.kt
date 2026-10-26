@@ -142,6 +142,13 @@ interface TutorProvider {
      */
     fun request(prefix: Prefix, model: String, task: Task, messages: List<JsonObject>, maxTokens: Int, effort: String?): JsonObject
 
+    /**
+     * [body] (one of [request]'s) with the tools turned off for this one call: the model can only answer in text (the
+     * loop's last word for a turn that would end without a reply: [TutorLoop]). The tools stay listed, so the prefix's
+     * cache holds; Anthropic's `tool_choice: none` is accepted with thinking on (only `any` and `tool` are refused).
+     */
+    fun toolsOff(body: JsonObject): JsonObject
+
     /** Streams one call of [body] ([onDelta] for each piece of content) and normalizes its response. */
     suspend fun call(body: JsonObject, onDelta: () -> Unit = {}): Step
 
@@ -260,6 +267,8 @@ class AnthropicProvider(private val transport: TutorTransport) : TutorProvider {
 
     override fun request(prefix: Prefix, model: String, task: Task, messages: List<JsonObject>, maxTokens: Int, effort: String?): JsonObject =
         prefix.request(model, task, messages, maxTokens, effort)
+
+    override fun toolsOff(body: JsonObject): JsonObject = JsonObject(body + ("tool_choice" to buildJsonObject { put("type", "none") }))
 
     override suspend fun call(body: JsonObject, onDelta: () -> Unit): Step = step(transport.stream(body, onDelta))
 

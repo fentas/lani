@@ -257,6 +257,9 @@ class GeminiProvider(private val transport: GeminiTransport, override val billin
         }
     }
 
+    override fun toolsOff(body: JsonObject): JsonObject =
+        JsonObject(body + ("toolConfig" to buildJsonObject { putJsonObject("functionCallingConfig") { put("mode", "NONE") } }))
+
     override suspend fun call(body: JsonObject, onDelta: () -> Unit): Step = transport.stream(body, onDelta)
 
     override suspend fun callTools(body: JsonObject, onDelta: () -> Unit, onTool: (ToolInputDelta) -> Unit): Step = transport.stream(body, onDelta, onTool)

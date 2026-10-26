@@ -5,6 +5,7 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import si.lanisce.lani.tutor.Guide
 import si.lanisce.lani.tutor.PhaseA
+import si.lanisce.lani.tutor.ReplyData
 import si.lanisce.lani.tutor.ReportCheck
 import si.lanisce.lani.tutor.Schema
 import si.lanisce.lani.tutor.ShadowReply
@@ -28,6 +29,9 @@ import java.util.concurrent.atomic.AtomicInteger
  *
  * Every input is checked against its tool's schema first; an invalid one returns the errors (`is_error`), as the
  * bridge's `fail()` does. A tool the node's bridge doesn't have says so. One instance serves one turn.
+ *
+ * A `reply` goes with `data.score` only where the event asks for one ([ReplyData.clean]: the matrix found scores on
+ * chats and digests), and in a turn with a session's end only once `record_session` ran ([persist]).
  */
 class LiveTools(
     private val specs: Map<String, ToolSpec>,
@@ -57,9 +61,16 @@ class LiveTools(
      * the studio's writes reuse an earlier one for the same write ([Studio]'s intents).
      */
     private val clientIdFor: suspend (ToolUse) -> String = { LiveBridge.clientId(it.id) },
+    /** The kind of the event a reply's conversation belongs to ([ReplyData.kindOf]); null: not known (the studio's). */
+    private val replyKind: ((String) -> String?)? = null,
+    /** The sessions' ends the turn must persist before it replies ([ReplyData.persistFirst]: 0 for none). */
+    private val persist: Int = 0,
 ) : ToolRunner {
     /** The turn's dictionary_lookup calls whose result came back. */
     private val lookups = AtomicInteger()
+
+    /** The turn's record_session calls (tried: one the node refused counts, the reply then says why). */
+    private val recorded = AtomicInteger()
 
     override suspend fun run(use: ToolUse): ToolOutcome {
         val started = clock()
@@ -96,6 +107,16 @@ class LiveTools(
                 }
                 "report_problem" -> if (lookups.get() == 0 && ReportCheck.aboutWords(use.input)) out(kind, ReportCheck.LOOK_FIRST, isError = true)
                     else local[use.name]?.let { f -> f(use).let { (text, error) -> out(kind, text, isError = error) } } ?: node(use, kind, ::out)
+                "reply" -> {
+                    ReplyData.persistFirst(persist, recorded.get())?.let { return out(kind, it, isError = true) }
+                    val (data, dropped) = ReplyData.clean(use.input["data"] as? JsonObject, replyKind?.invoke(use.input.s("conversation_id").orEmpty()), replyKind != null)
+                    val sent = if (dropped == null) use else use.copy(input = JsonObject((use.input - "data") + (data?.let { mapOf("data" to it) } ?: emptyMap())))
+                    node(sent, kind) { k, text, error, errors -> out(k, if (dropped != null && !error) "$text ($dropped)" else text, error, errors) }
+                }
+                "record_session" -> {
+                    recorded.incrementAndGet()
+                    local[use.name]?.let { f -> f(use).let { (text, error) -> out(kind, text, isError = error) } } ?: node(use, kind, ::out)
+                }
                 else -> local[use.name]?.let { f -> f(use).let { (text, error) -> out(kind, text, isError = error) } } ?: node(use, kind, ::out)
             }
         } catch (e: CancellationException) {

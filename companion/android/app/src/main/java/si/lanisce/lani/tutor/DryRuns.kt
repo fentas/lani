@@ -207,3 +207,112 @@ object DryRuns {
 
     private fun JsonObject.s(k: String) = (this[k] as? JsonPrimitive)?.takeIf { it.isString }?.content
 }
+
+/**
+ * The shadow's dry-run card writes as later reads see them (the matrix, 2026-10: a dry-run edit followed by `card show`
+ * returned the old card, so models told Jan "the change didn't seem to save" and four turns looped to the call limit):
+ * the day's `card` edits, merges, splits and regrades the shadow answered as done (live they would have written the
+ * deck) are laid over the deck before `card` find, show or overlaps reads it, the way card.py writes them: the new
+ * texts and an `edits` entry, a merged card gone into the kept one, a split's new card, a review's new grade. Never a
+ * write the model asked as a dry run itself (`dry_run: true`: live, card.py writes nothing then), nor a refused one.
+ */
+object CardOverlay {
+    private val WRITES = setOf("edit", "merge", "split", "regrade")
+    private val PAREN = Regex("""\s*\(([^)]*)\)""")
+
+    /** The writes of [calls] (a day's tool calls, oldest first) to lay over the deck: their inputs, in order. */
+    fun writes(calls: List<ToolCallRecord>): List<JsonObject> = calls.filter { c ->
+        c.name == "card" && c.dryRun && !c.isError && c.input.s("action") in WRITES &&
+            (c.input["dry_run"] as? JsonPrimitive)?.booleanOrNull != true
+    }.map { it.input }
+
+    /** [items] (spaced_repetition's, by id) after [writes], on [today] (the learner's day, YYYY-MM-DD). */
+    fun apply(items: JsonObject, writes: List<JsonObject>, today: String): JsonObject {
+        if (writes.isEmpty()) return items
+        val deck = items.toMutableMap()
+        for (w in writes) {
+            val id = w.s("card_id")?.trim()?.takeIf { it.isNotEmpty() } ?: continue
+            val item = deck[id] as? JsonObject ?: continue
+            when (w.s("action")) {
+                "edit" -> deck[id] = retext(item, w, today, "edit")
+                "merge" -> {
+                    val drop = w.s("drop_id")?.trim()?.takeIf { it.isNotEmpty() && it != id && deck[it] is JsonObject } ?: continue
+                    val kept = retext(item, w, today, "merge")
+                    val merged = (kept["merged"] as? JsonArray).orEmpty() + buildJsonObject { put("date", today); put("id", drop) }
+                    deck[id] = JsonObject(kept + ("merged" to JsonArray(merged)))
+                    deck.remove(drop)
+                }
+                "split" -> {
+                    val newId = w.s("new_id")?.trim()?.takeIf { it.isNotEmpty() && it !in deck } ?: continue
+                    val front = w.s("new_front")?.trim().orEmpty()
+                    val back = w.s("new_back")?.trim().orEmpty().let { b -> w.s("new_note")?.let { withNote(b, it) } ?: b }
+                    if (front.isEmpty() || back.isEmpty()) continue
+                    deck[id] = retext(item, w, today, "split")
+                    deck[newId] = buildJsonObject {
+                        put("id", newId)
+                        put("type", item.s("type") ?: "vocabulary")
+                        put("content", front)
+                        put("answer", back)
+                        put("category", item.s("category").orEmpty())
+                        put("created_date", today)
+                        put("due_date", java.time.LocalDate.parse(today).plusDays(1).toString())
+                        put("interval_days", 1)
+                        put("repetitions", 0)
+                        put("mastery_level", 0)
+                        put("total_reviews", 0)
+                        put("split_from", id)
+                    }
+                }
+                "regrade" -> deck[id] = regraded(item, w, today)
+            }
+        }
+        return JsonObject(deck)
+    }
+
+    /** card.py's retext: --front, --back, --note (the back's only note), --category; the old texts in `edits`. */
+    private fun retext(item: JsonObject, w: JsonObject, today: String, action: String): JsonObject {
+        val note = w.s("note")
+        var back = w.s("back")?.trim()
+        if (note != null) back = withNote(back ?: item.s("answer").orEmpty(), note)
+        val after = buildMap {
+            w.s("front")?.trim()?.let { put("content", it) }
+            back?.let { put("answer", it) }
+            w.s("category")?.trim()?.let { put("category", it) }
+        }.filter { (k, v) -> item.s(k) != v }
+        if (after.isEmpty()) return item
+        val entry = buildJsonObject {
+            put("date", today)
+            put("action", action)
+            for (k in after.keys) item[k]?.let { put(k, it) }
+            w.s("reason")?.trim()?.takeIf { it.isNotEmpty() }?.let { put("reason", it) }
+        }
+        val edits = (item["edits"] as? JsonArray).orEmpty() + entry
+        return JsonObject(item + after.mapValues { JsonPrimitive(it.value) } + ("edits" to JsonArray(edits)))
+    }
+
+    /** card.py's regrade: the review on `date` (else the last) with its new quality, `regraded` its old one; a card never reviewed, its first grade. */
+    private fun regraded(item: JsonObject, w: JsonObject, today: String): JsonObject {
+        val quality = (w["quality"] as? JsonPrimitive)?.intOrNull ?: return item
+        val history = (item["review_history"] as? JsonArray).orEmpty().map { it as? JsonObject ?: return item }
+        if (history.isEmpty()) {
+            val old = item["last_quality"]
+            val entry = buildJsonObject { put("date", today); put("action", "regrade"); old?.let { put("last_quality", it) } }
+            return JsonObject(item + ("last_quality" to JsonPrimitive(quality)) + ("edits" to JsonArray((item["edits"] as? JsonArray).orEmpty() + entry)))
+        }
+        val date = w.s("date")?.trim()
+        val at = if (date != null) history.indexOfLast { it.s("date")?.take(10) == date }.takeIf { it >= 0 } ?: return item else history.lastIndex
+        val old = history[at]["quality"]
+        val changed = JsonObject(history[at] + ("quality" to JsonPrimitive(quality)) + ("regraded" to buildJsonObject { old?.let { put("from", it) }; put("date", today) }))
+        val next = history.toMutableList().also { it[at] = changed }
+        val last = if (at == history.lastIndex) mapOf("last_quality" to JsonPrimitive(quality)) else emptyMap()
+        return JsonObject(item + ("review_history" to JsonArray(next)) + last)
+    }
+
+    /** card.py's with_note: the back's meaning with [note] as its only note ("" removes the notes). */
+    private fun withNote(back: String, note: String): String {
+        val base = if (PAREN.containsMatchIn(back)) PAREN.replace(back, "").trim().ifEmpty { back } else back.trim()
+        return if (note.isNotBlank()) "$base (${note.trim()})" else base
+    }
+
+    private fun JsonObject.s(k: String) = (this[k] as? JsonPrimitive)?.takeIf { it.isString }?.content
+}

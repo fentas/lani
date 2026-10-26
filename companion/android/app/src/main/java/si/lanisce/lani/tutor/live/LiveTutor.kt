@@ -31,6 +31,8 @@ import si.lanisce.lani.tutor.DayStats
 import si.lanisce.lani.tutor.DayThreads
 import si.lanisce.lani.tutor.Effort
 import si.lanisce.lani.tutor.Failures
+import si.lanisce.lani.tutor.Online
+import si.lanisce.lani.tutor.Owed
 import si.lanisce.lani.tutor.Family
 import si.lanisce.lani.tutor.GeminiCredentials
 import si.lanisce.lani.tutor.GeminiPacer
@@ -65,6 +67,7 @@ import si.lanisce.lani.tutor.Prices
 import si.lanisce.lani.tutor.ProviderId
 import si.lanisce.lani.tutor.Redact
 import si.lanisce.lani.tutor.RoutedModels
+import si.lanisce.lani.tutor.ReplyData
 import si.lanisce.lani.tutor.ReplyFallback
 import si.lanisce.lani.tutor.ShadowEvent
 import si.lanisce.lani.tutor.ShadowImages
@@ -103,6 +106,8 @@ enum class LiveState {
     RUNNING,
     /** Turns waiting (a retry's time, the queue). */
     WAITING,
+    /** The phone has no usable network ([Online]): the turns wait for it, none fails meanwhile. */
+    OFFLINE,
     /** The key was refused (401), or the sign-in ended. */
     PAUSED_KEY,
     /** The credit is out, a spend limit was reached, or the ChatGPT plan's usage limit. */
@@ -176,6 +181,11 @@ class LiveTutor(
     /** OpenRouter's sign-in and key, or null: no OpenRouter in this build. */
     private val openrouter: OpenRouterCredentials? = null,
     private val openrouterTransportFor: (suspend () -> String?) -> OpenRouterTransport = { OpenRouterTransport(it) },
+    /**
+     * The phone's network ([AndroidOnline]): while it's down the queue waits for it, and a network error then goes back
+     * to the queue untried (no retries burned, the turn's try not counted).
+     */
+    private val online: Online = Online.ALWAYS,
 ) {
     private val specs = StudioSpecs.load(StudioSpecs.CHAT, read)
     private val guide = Guide(read)
@@ -333,6 +343,7 @@ class LiveTutor(
         s.lowCredit != null -> LiveState.PAUSED_CREDIT
         spent() >= s.dailyCap -> LiveState.PAUSED_BUDGET
         monthReached && s.monthAllowed != monthNow() -> LiveState.PAUSED_MONTH
+        !online.now() && q.isNotEmpty() -> LiveState.OFFLINE
         offline -> LiveState.NO_NODE
         oldNode -> LiveState.OLD_NODE
         worker?.isActive == true && q.any { it.status == TurnStatus.RUNNING } -> LiveState.RUNNING
@@ -880,7 +891,8 @@ class LiveTutor(
             return
         }
         withContext(io) { wakeUp() }
-        withTimeoutOrNull(budgetMs) { while (worker?.isActive == true) delay(200) }
+        // offline meanwhile: the turns wait for the network, and the next check (it needs one) runs them
+        withTimeoutOrNull(budgetMs) { while (worker?.isActive == true && online.now()) delay(200) }
         flushAcks(b)
         // a content job that came with the inbox: the studio's own background work runs it
         withContext(io) { studio.waiting() }?.let { studioSchedule(it) }
@@ -1110,6 +1122,14 @@ class LiveTutor(
                 state = stateNow()
                 return
             }
+            // the phone offline (Android holds a background app's network too): the queue waits for the network, no turn fails
+            if (q.isNotEmpty() && !online.now()) {
+                state = stateNow()
+                if (q.any(::waits)) tell("offline", "tutorLive.note.offline", emptyMap())
+                line("offline: ${q.size} turn(s) wait for the network")
+                withTimeoutOrNull(60_000) { online.await() }
+                continue
+            }
             val at = now()
             val started = q.firstOrNull { it.kind == TurnKind.DAY && it.startedAt != null }
             // with the credit out only what the learner waits for runs (and is told why it can't answer)
@@ -1256,10 +1276,13 @@ class LiveTutor(
             clock = clock,
             kinds = StudioSpecs::kindOf,
             local = local,
+            // data.score only on the reply to an answer (a town's check, a debrief); a session's end persisted first
+            replyKind = { conv -> ReplyData.kindOf(events, conv) },
+            persist = ReplyData.persistFirst(events),
         )
         val provider = providerFor(t.model)
         val format = provider.format
-        val loop = TutorLoop(provider, tools, maxCalls = if (t.kind == TurnKind.CLOSING) 3 else 8, budgetOk = { spent() < s.dailyCap }, sleep = sleep)
+        val loop = TutorLoop(provider, tools, maxCalls = if (t.kind == TurnKind.CLOSING) 3 else 8, budgetOk = { spent() < s.dailyCap }, sleep = sleep, online = online::now)
         val want = ModelCatalog.fit(t.effort ?: ModelCatalog.effortFor(t.task, s.preset, t.model, s.efforts), t.model)
         val nb = refreshNotebook(b, force = false)
 
@@ -1374,6 +1397,8 @@ class LiveTutor(
                     line("call ${call.model}${call.effort?.let { " $it" } ?: ""} ${call.eventKind}: ${call.stopReason ?: call.error} in:${call.usage.input} w:${call.usage.cacheWrite} r:${call.usage.cacheRead} out:${call.usage.output} \$${call.cost}")
                 },
                 onTool = { rec -> t = t.copy(toolCalls = t.toolCalls + rec); replace(t) },
+                // never a silent turn: the loop asks for the reply as the calls run out, and for a last word in text
+                owed = Owed.of(t.eventKind, t.kind) { replied },
             )
         } finally {
             if (!replied) onStreaming(conversation, null)
@@ -1438,6 +1463,12 @@ class LiveTutor(
                 saveSettings { it.copy(lowCredit = why) }
                 if (waits(t)) finish(t.copy(error = "$why ($error)"), TurnStatus.FAILED, th) else replace(t.copy(status = TurnStatus.QUEUED, error = error))
                 tell("credit", "tutorLive.note.credit", mapOf("why" to why))
+            }
+            // offline (the phone, or Android holding the background app's network): back to the queue, which waits for the
+            // network; the try isn't counted
+            Failures.offline(e, online) -> {
+                replace(t.copy(status = TurnStatus.QUEUED, error = error, attempts = (t.attempts - 1).coerceAtLeast(0)))
+                if (waits(t)) tell("offline", "tutorLive.note.offline", emptyMap())
             }
             Failures.retryAt(e, t.attempts, now()) != null -> {
                 replace(t.copy(status = TurnStatus.QUEUED, error = error, notBefore = Failures.retryAt(e, t.attempts, now())!!))

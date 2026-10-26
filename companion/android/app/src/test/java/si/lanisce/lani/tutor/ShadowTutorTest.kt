@@ -201,8 +201,12 @@ class ShadowTutorTest {
             openrouter = routerCreds,
             openrouterTransportFor = { OpenRouterTransport(it, router.client, clock = { now }) },
             openrouterLaneTransportFor = { OpenRouterTransport(it, router.client, clock = { now }) },
+            online = net,
         )
     }
+
+    /** The phone's network, as the app's callback reports it. */
+    private val net = OnlineState(true)
 
     @After fun stop() {
         laneGate?.countDown()
@@ -1278,6 +1282,43 @@ class ShadowTutorTest {
             return message("tool_use", toolUse("r$n", "reply", obj("conversation_id" to conv, "text" to "**Mock** · peč = stove")))
         }
         return message("end_turn", text("Opravljeno."))
+    }
+
+    // --- the matrix's fixes (2026-10-26) ---------------------------------------------------------------------------------
+
+    @Test fun `a dry-run card edit shows in the day's next turn's card show, as live it would`() = runBlocking {
+        val t = ready()
+        script = { _, n ->
+            when (n) {
+                1 -> message("tool_use", toolUse("e1", "card", obj("action" to "edit", "card_id" to "vocab_kurim", "back" to "I heat (a stove)", "reason" to "the stove")))
+                4 -> message("tool_use", toolUse("s4", "card", obj("action" to "show", "card_id" to "vocab_kurim")))
+                2, 5 -> message("tool_use", toolUse("r$n", "reply", obj("conversation_id" to "main", "text" to "Popravljeno.")))
+                else -> message("end_turn", text("ok"))
+            }
+        }
+        t.onDelivered("c1", "/message", chat("c1", "Kurim je narobe.")).join()
+        t.awaitIdle()
+        t.onDelivered("c2", "/message", chat("c2", "Je zdaj prav?")).join()
+        t.awaitIdle()
+        val edit = t.today.turns.first().toolCalls.single { it.name == "card" }
+        assertTrue(edit.dryRun && !edit.isError)
+        val show = t.today.turns.last().toolCalls.single { it.name == "card" }
+        assertTrue(show.result, show.result.contains("I heat (a stove)"))
+        assertTrue("the node got GETs only", bridgeHttp.requests.all { it.method == "GET" })
+    }
+
+    @Test fun `offline the shadow's queue waits for the network, no try counted`() = runBlocking {
+        net.set(false)
+        val t = ready()
+        t.onDelivered("c1", "/message", chat("c1", "Kako se reče stove?")).join()
+        kotlinx.coroutines.delay(200)
+        assertEquals("no call while offline", 0, posts().size)
+        assertTrue(t.today.turns.isEmpty())
+        net.set(true)
+        t.awaitIdle()
+        val turn = t.today.turns.single()
+        assertEquals(TurnStatus.DONE, turn.status)
+        assertEquals(1, turn.attempts)
     }
 
     private companion object {

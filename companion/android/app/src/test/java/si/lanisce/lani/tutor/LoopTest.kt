@@ -1,5 +1,6 @@
 package si.lanisce.lani.tutor
 
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.JsonArray
@@ -178,7 +179,10 @@ class LoopTest {
         assertEquals("ex-3", ReplyFallback.of(done, TurnKind.DAY, false, "ex-3", 7)!!.conversationId)
         assertEquals(null, ReplyFallback.of(done, TurnKind.DAY, replied = true, conversation = "main", at = 7))
         assertEquals(null, ReplyFallback.of(done, TurnKind.CLOSING, false, "main", 7))
-        assertEquals(null, ReplyFallback.of(TutorLoop.Result(LoopEnd.Limit, 8, "Bravo"), TurnKind.DAY, false, "main", 7))
+        // at the limit only the loop's last word has text (the tools-off call): it is the reply
+        assertEquals("Bravo", ReplyFallback.of(TutorLoop.Result(LoopEnd.Limit, 9, "Bravo"), TurnKind.DAY, false, "main", 7)!!.text)
+        assertEquals(null, ReplyFallback.of(TutorLoop.Result(LoopEnd.Limit, 8), TurnKind.DAY, false, "main", 7))
+        assertEquals(null, ReplyFallback.of(TutorLoop.Result(LoopEnd.Truncated, 2, "Bravo"), TurnKind.DAY, false, "main", 7))
         assertEquals(null, ReplyFallback.of(TutorLoop.Result(LoopEnd.Done, 1, " "), TurnKind.DAY, false, "main", 7))
     }
 
@@ -195,5 +199,158 @@ class LoopTest {
         TutorLoop(t, Runner()).run(prefix, "claude-haiku-4-5", Task.ROUTINE, turn())
         assertTrue("thinking" !in t.bodies[0] && "output_config" !in t.bodies[0])
         assertTrue(ModelCatalog.adaptive("claude-haiku-5-5"))
+    }
+
+    // --- never a silent turn (the matrix, 2026-10) ------------------------------------------------------------------
+
+    /** A runner whose `reply` counts as sent (the turn's [Owed]). */
+    private class Replies : ToolRunner {
+        val sent = mutableListOf<String>()
+        override suspend fun run(use: ToolUse): ToolOutcome {
+            if (use.name == "reply") sent += use.input["text"]!!.jsonPrimitive.content
+            return ToolOutcome("ok ${use.name}", false, ToolCallRecord(use.id, use.name, use.input, "read", "ok"))
+        }
+    }
+
+    private fun lastResult(body: JsonObject): String = (body["messages"] as JsonArray).last().jsonObject.blocks().last()["content"]!!.jsonPrimitive.content
+
+    @Test fun `a turn looping without a reply is told one call is left, then gets a last word with the tools off`() = runBlocking {
+        var n = 0
+        val t = ScriptedTransport { body, _ ->
+            n++
+            if (body["tool_choice"]!!.jsonObject["type"]!!.jsonPrimitive.content == "none") message("end_turn", text("Kartico sem popravil: mrzel šteje."))
+            else message("tool_use", toolUse("c$n", "card", obj("action" to "show", "card_id" to "vocab_mrzlo")))
+        }
+        val runner = Replies()
+        val m = turn()
+        val r = TutorLoop(t, runner).run(prefix, "claude-haiku-5-5", Task.ROUTINE, m, owed = Owed({ runner.sent.isNotEmpty() }, required = false))
+        assertEquals(LoopEnd.Limit, r.end)
+        assertEquals("eight calls and the last word", 9, r.calls)
+        assertEquals("Kartico sem popravil: mrzel šteje.", r.endText)
+        // the seventh call's results say one call is left; the eighth's that the tools are off
+        assertTrue(lastResult(t.bodies[7]).endsWith(TutorLoop.LAST_CALL))
+        assertTrue(lastResult(t.bodies[8]).endsWith(TutorLoop.TOOLS_OFF))
+        assertTrue((0..5).none { lastResult(t.bodies[it + 1]).contains("[Lani]") })
+        // only the last word goes with the tools off; the tools stay listed (the prefix's cache)
+        assertEquals(listOf("auto"), t.bodies.dropLast(1).map { it["tool_choice"]!!.jsonObject["type"]!!.jsonPrimitive.content }.distinct())
+        assertEquals("none", t.bodies.last()["tool_choice"]!!.jsonObject["type"]!!.jsonPrimitive.content)
+        assertEquals(t.bodies[0]["tools"], t.bodies.last()["tools"])
+        // the thread keeps the answer; the reply fallback sends it
+        assertEquals("assistant", m.last().role())
+        assertEquals("Kartico sem popravil: mrzel šteje.", ReplyFallback.of(r, TurnKind.DAY, false, "main", 1)!!.text)
+    }
+
+    @Test fun `a turn that replied runs to its limit as before, with no note and no last word`() = runBlocking {
+        var n = 0
+        val t = ScriptedTransport { _, _ ->
+            n++
+            if (n == 1) message("tool_use", toolUse("r", "reply", obj("conversation_id" to "main", "text" to "Že popravljam.")))
+            else message("tool_use", toolUse("c$n", "card", obj("action" to "show")))
+        }
+        val runner = Replies()
+        val r = TutorLoop(t, runner).run(prefix, "claude-haiku-5-5", Task.ROUTINE, turn(), owed = Owed({ runner.sent.isNotEmpty() }, required = true))
+        assertEquals(LoopEnd.Limit, r.end)
+        assertEquals(8, r.calls)
+        assertTrue(t.bodies.none { lastUser(it).contains("[Lani]") })
+    }
+
+    @Test fun `the one-call-left note leads to the reply`() = runBlocking {
+        val t = ScriptedTransport { body, n ->
+            if (lastUser(body).contains("One call is left")) message("tool_use", toolUse("r", "reply", obj("conversation_id" to "main", "text" to "Tako je.")))
+            else message("tool_use", toolUse("c$n", "learner_state"))
+        }
+        val runner = Replies()
+        val r = TutorLoop(t, runner).run(prefix, "claude-sonnet-5-5", Task.CHAT, turn(), owed = Owed({ runner.sent.isNotEmpty() }, required = true))
+        assertEquals(listOf("Tako je."), runner.sent)
+        assertEquals(LoopEnd.Limit, r.end)
+        assertEquals(8, r.calls)
+    }
+
+    @Test fun `a tool_use stop with no tool call is asked once more, not kept`() = runBlocking {
+        val t = ScriptedTransport { _, n ->
+            if (n == 1) message("tool_use", thinking(), text("Pogledam …")) // the stop says tool_use, no block came
+            else message("tool_use", toolUse("r", "reply", obj("conversation_id" to "main", "text" to "Kranj je mesto.")))
+        }
+        val runner = Replies()
+        val m = turn()
+        val r = TutorLoop(t, runner).run(prefix, "claude-sonnet-5-5", Task.CHAT, m, owed = Owed({ runner.sent.isNotEmpty() }, required = true))
+        assertEquals(listOf("Kranj je mesto."), runner.sent)
+        assertEquals(3, r.calls)
+        // the empty answer wasn't kept: the second call asked from the same messages
+        assertEquals(t.bodies[0]["messages"], t.bodies[1]["messages"])
+        assertEquals(listOf("user", "assistant", "user", "assistant"), m.map { it.role() })
+    }
+
+    @Test fun `twice a tool_use stop with no tool call - its text is the reply, or the tools-off call gives one`() = runBlocking {
+        val worded = ScriptedTransport { _, _ -> message("tool_use", text("Trnovo je srednjega spola: v Trnovem.")) }
+        val runner = Replies()
+        val r = TutorLoop(worded, runner).run(prefix, "claude-sonnet-5-5", Task.CHAT, turn(), owed = Owed({ runner.sent.isNotEmpty() }, required = true))
+        assertEquals(LoopEnd.Done, r.end)
+        assertEquals(2, r.calls)
+        assertEquals("Trnovo je srednjega spola: v Trnovem.", r.endText)
+
+        val bare = ScriptedTransport { body, _ ->
+            if (body["tool_choice"]!!.jsonObject["type"]!!.jsonPrimitive.content == "none") message("end_turn", text("Oprosti, tu je odgovor."))
+            else message("tool_use", thinking())
+        }
+        val m = turn()
+        val r2 = TutorLoop(bare, runner).run(prefix, "claude-sonnet-5-5", Task.CHAT, m, owed = Owed({ runner.sent.isNotEmpty() }, required = true))
+        assertEquals(LoopEnd.Done, r2.end)
+        assertEquals(3, r2.calls)
+        assertEquals("Oprosti, tu je odgovor.", r2.endText)
+        // the call before the last word ends with the model's answer: the reason goes as a user line, never a prefill
+        assertEquals("user", (bare.bodies.last()["messages"] as JsonArray).last().jsonObject.role())
+        assertTrue(lastUser(bare.bodies.last()).contains("the `reply` tool wasn't called"))
+    }
+
+    @Test fun `a required turn that ends silent gets a last word, a digest may end silent`() = runBlocking {
+        val t = ScriptedTransport { body, _ ->
+            if (body["tool_choice"]!!.jsonObject["type"]!!.jsonPrimitive.content == "none") message("end_turn", text("Lepo, 7/11."))
+            else message("end_turn", thinking())
+        }
+        val runner = Replies()
+        val r = TutorLoop(t, runner).run(prefix, "claude-haiku-5-5", Task.GRADING, turn(), owed = Owed({ runner.sent.isNotEmpty() }, required = true))
+        assertEquals("Lepo, 7/11.", r.endText)
+        assertEquals(2, r.calls)
+        val digest = ScriptedTransport { _, _ -> message("end_turn", thinking()) }
+        val d = TutorLoop(digest, runner).run(prefix, "claude-haiku-5-5", Task.ROUTINE, turn(), owed = Owed({ false }, required = false))
+        assertEquals(1, d.calls)
+        assertEquals(null, d.endText)
+        // what a turn owes: a chat, an answer, a session's end must reply; a digest needn't; a closing owes nothing
+        assertTrue(Owed.of("chat", TurnKind.DAY) { false }!!.required)
+        assertTrue(Owed.of("session_end", TurnKind.STATELESS) { false }!!.required)
+        assertTrue(!Owed.of("digest", TurnKind.STATELESS) { false }!!.required)
+        assertEquals(null, Owed.of("closing", TurnKind.CLOSING) { false })
+    }
+
+    @Test fun `a network error while offline isn't retried - the queue waits for the network`() = runBlocking {
+        var calls = 0
+        val t = object : TutorTransport {
+            override suspend fun models() = emptyList<ModelInfo>()
+            override suspend fun stream(body: JsonObject, onDelta: () -> Unit): StreamResult { calls++; throw ApiError.Network("Unable to resolve host \"api.anthropic.com\"") }
+        }
+        val offline = OnlineState(false)
+        val r = TutorLoop(t, Runner(), sleep = { error("no retry while offline") }, online = offline::now).run(prefix, "claude-sonnet-5-5", Task.CHAT, turn())
+        assertTrue((r.end as LoopEnd.Failed).error is ApiError.Network)
+        assertEquals(1, calls)
+        assertTrue(Failures.offline((r.end as LoopEnd.Failed).error, offline))
+        // online, the same error is retried as before (a blip)
+        calls = 0
+        val waits = mutableListOf<Long>()
+        TutorLoop(t, Runner(), sleep = { waits += it }, online = { true }).run(prefix, "claude-sonnet-5-5", Task.CHAT, turn())
+        assertEquals(4, calls)
+        assertEquals(listOf(1_000L, 2_000L, 4_000L), waits)
+        assertTrue(!Failures.offline(ApiError.Network("x"), OnlineState(true)))
+        assertTrue(!Failures.offline(ApiError.Overloaded(529, "x"), offline))
+    }
+
+    @Test fun `the network state - waits until it's back`() = runBlocking {
+        val s = OnlineState(false)
+        val waiter = async { s.await(); "back" }
+        delay(50)
+        assertTrue(!waiter.isCompleted)
+        s.set(true)
+        assertEquals("back", kotlinx.coroutines.withTimeout(2_000) { waiter.await() })
+        assertTrue(Online.ALWAYS.now())
     }
 }

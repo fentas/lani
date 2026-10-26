@@ -88,3 +88,50 @@ object PhaseA {
         return JsonArray(TOOLS.mapNotNull { (n, _) -> byName[n]?.definition() })
     }
 }
+
+/**
+ * What a `reply` may carry and when it may go, the same for the shadow ([ShadowTools]) and the live tutor
+ * (live/LiveTools): the matrix (2026-10-19 to 10-22) found seven lanes putting `{"score": …}` on chat and digest
+ * replies, and Sonnet at `low` skipping `record_session` on two session ends.
+ */
+object ReplyData {
+    /**
+     * The kinds whose reply carries a score (their guide asks for one): an exercise's answer, a town's check, question and
+     * answer, a market's debrief (a role-play's end), the family's challenges. Nowhere else: not on a chat, a digest, a
+     * session's end or the rhythm.
+     */
+    val SCORED = setOf("answer", "town_check", "town_asked", "town_answer", "roleplay_end", "partner_challenge", "partner_answer")
+
+    /** What a score goes with: its severity (an answer's feedback). */
+    private val WITH_SCORE = listOf("score", "severity")
+
+    /**
+     * The kind of the event a reply to [conversation] answers, of a turn's [events]: the event of that conversation, else
+     * (a turn of one event, the model naming another conversation) that event's; null when none fits (a digest's "main").
+     */
+    fun kindOf(events: List<ShadowEvent>, conversation: String): String? =
+        events.lastOrNull { it.conversationId == conversation }?.kind ?: events.singleOrNull()?.kind
+
+    /**
+     * [data] for a reply to an event of [kind] (null: none of the turn's), when [known] (the caller knows the turn's
+     * events): `score` (and its `severity`) dropped unless [kind] is [SCORED]. The data and what was dropped (for the
+     * tool's answer: the model learns it), or null.
+     */
+    fun clean(data: JsonObject?, kind: String?, known: Boolean = true): Pair<JsonObject?, String?> {
+        if (data == null || !known || kind in SCORED || WITH_SCORE.none { it in data }) return data to null
+        val kept = JsonObject(data - WITH_SCORE.toSet())
+        return kept.takeIf { it.isNotEmpty() } to "data.score dropped: a score goes only on the reply to an answer (or a town's check, a debrief)"
+    }
+
+    /** How many session ends of [events] a turn must persist (`record_session`) before it replies. */
+    fun persistFirst(events: List<ShadowEvent>): Int = events.count { it.kind == "session_end" }
+
+    /**
+     * Why a reply can't go yet: [needed] session ends to persist and [recorded] `record_session` calls so far (a refused
+     * one counts as tried: the reply then says why); null when it may.
+     */
+    fun persistFirst(needed: Int, recorded: Int): String? =
+        if (recorded >= needed) null
+        else "not sent: this turn has ${if (needed == 1) "a session's end" else "$needed session ends"} to persist first. " +
+            "Call record_session with the session's report (the session-end topic of the guide), then reply."
+}

@@ -194,21 +194,25 @@ class SharedReads(
     private val io: CoroutineDispatcher,
     private val clock: () -> Long,
     private val ttlMs: Long = 120_000,
-    private val source: suspend (String, JsonObject) -> ReadResult,
+    /** A read of the node, with a lane's dry-run card writes laid over the deck ([CardOverlay]). */
+    private val source: suspend (String, JsonObject, List<JsonObject>) -> ReadResult,
 ) : ReadSource {
     private class Entry(val at: Long, val result: Deferred<ReadResult>)
 
     private val cache = mutableMapOf<String, Entry>()
 
-    override suspend fun read(name: String, input: JsonObject): ReadResult = withContext(io) {
-        val key = name + "\u0000" + input
+    override suspend fun read(name: String, input: JsonObject): ReadResult = read(name, input, emptyList())
+
+    /** The same read with the same writes (a lane's own: each lane's card fixes are its own) is shared. */
+    override suspend fun read(name: String, input: JsonObject, writes: List<JsonObject>): ReadResult = withContext(io) {
+        val key = name + "\u0000" + input + "\u0000" + writes
         val now = clock()
         cache.values.removeAll { now - it.at > ttlMs }
         val e = cache[key] ?: Entry(
             now,
             scope.async(io) {
                 try {
-                    source(name, input)
+                    source(name, input, writes)
                 } catch (c: CancellationException) {
                     throw c
                 } catch (x: Exception) {
@@ -262,8 +266,17 @@ class ShadowMatrix(
         fun geminiFree(): Boolean = false
         /** The provider for a lane's turn on [model] (the lanes' own client). */
         fun provider(model: String): TutorProvider
-        /** A lane's tool runner: the shared reads, the guide, [notebook] (read-only), [onReply], [onGuide]. */
-        fun tools(notebook: ShadowTools.NotebookHost, onReply: suspend (ShadowReply) -> Unit, onGuide: (String) -> Unit): ToolRunner
+        /**
+         * A lane's tool runner: the shared reads, the guide, [notebook] (read-only), [onReply], [onGuide]; [writes] the
+         * lane's dry-run card writes of the day ([CardOverlay]), [events] the turn's (what a reply may carry: [ReplyData]).
+         */
+        fun tools(
+            notebook: ShadowTools.NotebookHost, onReply: suspend (ShadowReply) -> Unit, onGuide: (String) -> Unit,
+            writes: List<JsonObject> = emptyList(), events: List<ShadowEvent> = emptyList(),
+        ): ToolRunner
+
+        /** The phone's network: while it's down the lanes' queues wait for it ([Online]). */
+        val online: Online get() = Online.ALWAYS
         fun event(id: String): ShadowEvent?
         /** The real tutor's replies of [day] (the primary's log keeps them). */
         fun real(day: String): List<RealReply>
@@ -443,6 +456,11 @@ class ShadowMatrix(
     private suspend fun work(l: Lane) {
         while (true) {
             if (!running(l) || l.id !in active) return
+            // the phone offline: the lane's queue waits for the network, no turn fails
+            if (l.q.isNotEmpty() && !host.online.now()) {
+                withTimeoutOrNull(60_000) { host.online.await() }
+                continue
+            }
             val started = l.q.firstOrNull { it.startedAt != null }
             if (started == null) rollover(l)
             val at = now()
@@ -505,11 +523,14 @@ class ShadowMatrix(
             notebook,
             onReply = { r -> t = t.copy(replies = t.replies + r); replace(l, t) },
             onGuide = { id -> val d = l.log(dayNow()); saveLog(l, d.copy(guide = d.guide + (id to (d.guide[id] ?: 0) + 1))) },
+            // the lane's own dry-run card writes of the day (its other turns', this one's before a resume)
+            writes = CardOverlay.writes(l.log(dayNow()).turns.filter { it.id != t0.id }.flatMap { it.toolCalls } + t0.toolCalls),
+            events = events,
         )
         val provider = host.provider(l.model)
         val format = provider.format
         val hash = provider.prefixHash(host.prefix)
-        val loop = TutorLoop(provider, tools, maxCalls = 8, sleep = sleep)
+        val loop = TutorLoop(provider, tools, maxCalls = 8, sleep = sleep, online = host.online::now)
 
         // its thread: a turn begun goes on where it began (also past the day's end), else today's
         var th = (if (resumed) l.th else null) ?: l.th?.takeIf { it.day == dayNow() } ?: newThread(l, provider)
@@ -553,6 +574,7 @@ class ShadowMatrix(
                 line("${l.id} ${call.eventKind}: ${call.stopReason ?: call.error} in:${call.usage.input} w:${call.usage.cacheWrite} r:${call.usage.cacheRead} out:${call.usage.output} \$${call.cost}")
             },
             onTool = { rec -> t = t.copy(toolCalls = t.toolCalls + Lanes.brief(rec)); replace(l, t) },
+            owed = Owed.of(t.eventKind, t.kind) { t.replies.isNotEmpty() },
         )
         t = t.copy(text = Threads.text(messages.drop(before)).take(500))
         val conversation = if (t.eventKind == "digest") "main" else events.firstOrNull()?.conversationId ?: "main"
@@ -576,6 +598,8 @@ class ShadowMatrix(
     private fun failed(l: Lane, t: TurnRecord, e: ApiError, th: ThreadState) {
         val error = Redact.of(e.message ?: e.kind)
         when {
+            // offline: back to the queue, which waits for the network; the try isn't counted
+            Failures.offline(e, host.online) -> replace(l, t.copy(status = TurnStatus.QUEUED, error = error, attempts = (t.attempts - 1).coerceAtLeast(0)))
             // the same credential as every lane of its provider's (Anthropic's: the primary's key): they stop until it's
             // checked again
             e is ApiError.Auth -> {

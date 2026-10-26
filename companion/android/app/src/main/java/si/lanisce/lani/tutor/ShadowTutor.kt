@@ -84,6 +84,8 @@ class ShadowTutor(
     private val openrouter: OpenRouterCredentials? = null,
     private val openrouterTransportFor: (suspend () -> String?) -> OpenRouterTransport = { OpenRouterTransport(it) },
     private val openrouterLaneTransportFor: (suspend () -> String?) -> OpenRouterTransport = { OpenRouterTransport(it, OpenRouterTransport.laneClient) },
+    /** The phone's network ([Online]): while it's down the primary's and the lanes' queues wait for it, no turn fails. */
+    private val online: Online = Online.ALWAYS,
 ) {
     private val specs = PhaseA.load(read)
     private val guide = Guide(read)
@@ -98,9 +100,9 @@ class ShadowTutor(
     private val logs = mutableMapOf<String, DayLog>()
 
     /** The lanes' reads: one GET for the same read of all lanes at an event (the primary keeps its own). */
-    private val laneReads = SharedReads(scope, io, clock) { name, input ->
+    private val laneReads = SharedReads(scope, io, clock) { name, input, writes ->
         val bridge = bridgeConfig()?.let(bridgeFor)
-        BridgeReads({ bridge }, ::allEvents).read(name, input)
+        BridgeReads({ bridge }, ::allEvents, today = ::dayNow).read(name, input, writes)
     }
 
     private val matrixHost = object : ShadowMatrix.Host {
@@ -139,8 +141,14 @@ class ShadowTutor(
             ProviderId.GEMINI -> geminiProvider(lane = true)
             ProviderId.OPENROUTER -> openrouterProvider(lane = true)
         }
-        override fun tools(notebook: ShadowTools.NotebookHost, onReply: suspend (ShadowReply) -> Unit, onGuide: (String) -> Unit): ToolRunner =
-            ShadowTools(specs.associateBy { it.name }, laneReads, guide, notebook, onReply, learner, onGuide, clock)
+        override val online: Online get() = this@ShadowTutor.online
+        override fun tools(
+            notebook: ShadowTools.NotebookHost, onReply: suspend (ShadowReply) -> Unit, onGuide: (String) -> Unit,
+            writes: List<JsonObject>, events: List<ShadowEvent>,
+        ): ToolRunner = ShadowTools(
+            specs.associateBy { it.name }, laneReads, guide, notebook, onReply, learner, onGuide, clock,
+            earlierWrites = writes, replyKind = { conv -> ReplyData.kindOf(events, conv) }, persist = ReplyData.persistFirst(events),
+        )
         override fun event(id: String): ShadowEvent? = findEvent(id)
         override fun real(day: String): List<RealReply> = log(day).real
         override fun blocks(t: TurnRecord, events: List<ShadowEvent>): List<JsonObject> = imageBlocks(t, events) + textBlock(content(t, events))
@@ -926,6 +934,11 @@ class ShadowTutor(
             if (!s.enabled || !hasKey || s.keyRefused || s.lowCredit) return
             rollover()
             if (spent() >= s.budgetPerDay) return
+            // the phone offline (Android holds a background app's network too): the queue waits for the network
+            if (q.isNotEmpty() && !online.now()) {
+                withTimeoutOrNull(60_000) { online.await() }
+                continue
+            }
             val at = now()
             val dayTurnStarted = q.firstOrNull { it.kind == TurnKind.DAY && it.startedAt != null }
             val ready = q.filter { it.notBefore <= at && (it.kind != TurnKind.DAY || dayTurnStarted == null || it.id == dayTurnStarted.id) }
@@ -986,17 +999,21 @@ class ShadowTutor(
         val bridge = bridgeConfig()?.let(bridgeFor)
         val tools = ShadowTools(
             specs.associateBy { it.name },
-            BridgeReads({ bridge }, ::allEvents),
+            BridgeReads({ bridge }, ::allEvents, today = ::dayNow),
             guide,
             notebookHost,
             onReply = { r -> t = t.copy(replies = t.replies + r); replace(t) },
             learner = learner,
             onGuide = { id -> val l = log(dayNow()); saveLog(l.copy(guide = l.guide + (id to (l.guide[id] ?: 0) + 1))) },
             clock = clock,
+            // the day's dry-run card writes (its other turns', and this one's before a resume): later card reads show them
+            earlierWrites = CardOverlay.writes(log(dayNow()).turns.filter { it.id != t0.id }.flatMap { it.toolCalls } + t0.toolCalls),
+            replyKind = { conv -> ReplyData.kindOf(events, conv) },
+            persist = ReplyData.persistFirst(events),
         )
         val provider = providerFor(t.model)
         val format = provider.format
-        val loop = TutorLoop(provider, tools, maxCalls = if (t.kind == TurnKind.CLOSING) 3 else 8, budgetOk = { spent() < s.budgetPerDay }, sleep = sleep)
+        val loop = TutorLoop(provider, tools, maxCalls = if (t.kind == TurnKind.CLOSING) 3 else 8, budgetOk = { spent() < s.budgetPerDay }, sleep = sleep, online = online::now)
 
         // the level the turn asks for: queued with it, or (a closing, a turn queued before efforts were settings) its task's now
         val want = ModelCatalog.fit(t.effort ?: ModelCatalog.effortFor(t.task, s.preset, t.model, s.efforts), t.model)
@@ -1107,6 +1124,8 @@ class ShadowTutor(
                 )
             },
             onTool = { rec -> t = t.copy(toolCalls = t.toolCalls + rec); replace(t) },
+            // never a silent turn: the loop asks for the reply as the calls run out, and for a last word in text
+            owed = Owed.of(t.eventKind, t.kind) { t.replies.isNotEmpty() },
         )
         t = t.copy(text = Threads.text(messages.drop(before)).take(2000))
         // no reply tool called, the answer written as text: that text is the reply (marked, and counted per day)
@@ -1181,6 +1200,8 @@ class ShadowTutor(
 
     private fun failed(t: TurnRecord, e: ApiError, th: ThreadState?) {
         val error = Redact.of(e.message ?: e.kind)
+        // offline: back to the queue, which waits for the network; the try isn't counted
+        if (Failures.offline(e, online)) return replace(t.copy(status = TurnStatus.QUEUED, error = error, attempts = (t.attempts - 1).coerceAtLeast(0)))
         if (ProviderId.of(t.model) != ProviderId.ANTHROPIC) return otherFailed(ProviderId.of(t.model), t, e, error, th)
         when {
             e is ApiError.Auth -> {

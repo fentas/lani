@@ -116,6 +116,12 @@ object Failures {
     const val MAX_ATTEMPTS = 5
 
     /**
+     * Whether [e] came while the phone is offline ([Online]: no usable network, or Android holding the background app's
+     * network): the turn goes back to the queue with its try not counted, and the queue waits for the network.
+     */
+    fun offline(e: ApiError, online: Online): Boolean = e is ApiError.Network && !online.now()
+
+    /**
      * When a turn that failed with [e] on its [attempts]th try may go again: after a 429's retry-after, else 30 s
      * doubling (at most 16 min); null when [e] isn't retried or the tries are used.
      */

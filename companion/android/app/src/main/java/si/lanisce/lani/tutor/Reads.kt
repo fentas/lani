@@ -77,6 +77,12 @@ data class ReadResult(val text: String, val isError: Boolean = false)
 /** The read tools' answers in shadow mode. */
 fun interface ReadSource {
     suspend fun read(name: String, input: JsonObject): ReadResult
+
+    /**
+     * [read], with the day's dry-run card [writes] laid over the deck first ([CardOverlay]: what the tutor "saved" shows
+     * in its later `card` reads, as live); a source without a deck of its own reads as [read].
+     */
+    suspend fun read(name: String, input: JsonObject, writes: List<JsonObject>): ReadResult = read(name, input)
 }
 
 /**
@@ -88,8 +94,12 @@ class BridgeReads(
     private val bridge: () -> ShadowBridge?,
     private val events: () -> List<ShadowEvent>,
     private val max: Int = 12_000,
+    /** The learner's day now (YYYY-MM-DD): a dry-run write's date in [CardOverlay]. */
+    private val today: () -> String = { java.time.LocalDate.now().toString() },
 ) : ReadSource {
-    override suspend fun read(name: String, input: JsonObject): ReadResult = try {
+    override suspend fun read(name: String, input: JsonObject): ReadResult = read(name, input, emptyList())
+
+    override suspend fun read(name: String, input: JsonObject, writes: List<JsonObject>): ReadResult = try {
         val r = when (name) {
             "learner_state" -> get("/state", input.s("language")?.let { mapOf("language" to it) }.orEmpty()) { Summaries.learnerState(it) }
             "get_village" -> get("/game") { Summaries.village(it) }
@@ -104,7 +114,7 @@ class BridgeReads(
                 val q = buildMap { put("w", w); input.s("line")?.let { put("line", it.take(300)) } }
                 get("/lookup", q) { "<untrusted_dictionary_content source=\"Lani's dictionary\">\n$it\n</untrusted_dictionary_content>" }
             }
-            "card" -> get("/state") { Summaries.card(it, input) }
+            "card" -> get("/state") { Summaries.card(it, input, writes, today()) }
             "recent_answers" -> ReadResult(Summaries.recentAnswers(events(), input))
             else -> ReadResult("$name: not a read tool", true)
         }
@@ -205,9 +215,13 @@ object Summaries {
 
     private fun fold(s: String) = Normalizer.normalize(s.lowercase(), Normalizer.Form.NFD).replace(Regex("\\p{M}+"), "")
 
-    /** card's reads (find, show, overlaps) over the review deck (GET /state's spaced_repetition): the items as kept. */
-    fun card(raw: String, input: JsonObject): String {
-        val items = ((((obj(raw)?.get("databases") as? JsonObject)?.get("spaced_repetition") as? JsonObject)?.get("items")) as? JsonObject).orEmpty()
+    /**
+     * card's reads (find, show, overlaps) over the review deck (GET /state's spaced_repetition): the items as kept, with
+     * the day's dry-run card [writes] laid over them ([CardOverlay], on [today]).
+     */
+    fun card(raw: String, input: JsonObject, writes: List<JsonObject> = emptyList(), today: String = java.time.LocalDate.now().toString()): String {
+        val kept = ((((obj(raw)?.get("databases") as? JsonObject)?.get("spaced_repetition") as? JsonObject)?.get("items")) as? JsonObject) ?: JsonObject(emptyMap())
+        val items = CardOverlay.apply(kept, writes, today)
         val action = (input["action"] as? JsonPrimitive)?.content
         val id = (input["card_id"] as? JsonPrimitive)?.content
         val text = (input["text"] as? JsonPrimitive)?.content?.let(::fold)

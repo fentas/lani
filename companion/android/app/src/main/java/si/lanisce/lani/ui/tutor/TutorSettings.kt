@@ -194,6 +194,7 @@ private fun stateLine(live: LiveTutor): String = when (live.state) {
     LiveState.IDLE -> bi("tutorLive.state.IDLE")
     LiveState.RUNNING -> bi("tutorLive.state.RUNNING")
     LiveState.WAITING -> bi("tutorLive.state.WAITING", "n" to live.waiting)
+    LiveState.OFFLINE -> bi("tutorLive.state.OFFLINE", "n" to live.waiting)
     LiveState.PAUSED_KEY -> bi("tutorLive.state.PAUSED_KEY")
     LiveState.PAUSED_CREDIT -> bi("tutorLive.state.PAUSED_CREDIT")
     LiveState.PAUSED_BUDGET -> bi("tutorLive.state.PAUSED_BUDGET")

@@ -352,6 +352,8 @@ class OpenRouterProvider(private val transport: OpenRouterTransport) : TutorProv
         put("session_id", "lani-tutor-" + prefixHash(prefix))
     }
 
+    override fun toolsOff(body: JsonObject): JsonObject = JsonObject(body + ("tool_choice" to JsonPrimitive("none")))
+
     override suspend fun call(body: JsonObject, onDelta: () -> Unit): Step = transport.stream(body, onDelta)
 
     override suspend fun callTools(body: JsonObject, onDelta: () -> Unit, onTool: (ToolInputDelta) -> Unit): Step = transport.stream(body, onDelta, onTool)

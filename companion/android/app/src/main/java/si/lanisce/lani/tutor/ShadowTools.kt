@@ -14,6 +14,9 @@ import java.util.concurrent.atomic.AtomicInteger
  * Every input is checked against its tool's schema first; an invalid one returns the errors (`is_error`), as the
  * bridge's `fail()` does. A `report_problem` about a word needs a `dictionary_lookup` earlier in the turn
  * ([ReportCheck]): one instance serves one turn (ShadowTutor makes it per turn), so it keeps its own lookups.
+ * A `card` read sees the day's dry-run card writes ([earlierWrites], then this turn's: [CardOverlay]), as live it would
+ * see them written. A `reply` keeps `data.score` only where the event asks for one ([ReplyData]); a turn with a
+ * session's end to persist replies only once `record_session` ran ([persist]).
  */
 class ShadowTools(
     private val specs: Map<String, ToolSpec>,
@@ -24,6 +27,12 @@ class ShadowTools(
     private val learner: () -> String? = { null },
     private val onGuide: (String) -> Unit = {},
     private val clock: () -> Long = System::currentTimeMillis,
+    /** The day's dry-run card writes before this turn ([CardOverlay.writes] of the day's tool calls), oldest first. */
+    private val earlierWrites: List<JsonObject> = emptyList(),
+    /** The kind of the event a reply's conversation belongs to, for [ReplyData] (null: not known: kept as it is). */
+    private val replyKind: ((String) -> String?)? = null,
+    /** The sessions' ends the turn must persist before it replies ([ReplyData.persistFirst]: 0 for none). */
+    private val persist: Int = 0,
 ) : ToolRunner {
 
     /** The notebook as the tools change it. */
@@ -56,10 +65,12 @@ class ShadowTools(
             ToolKind.REPLY -> {
                 val conv = use.input.s("conversation_id").orEmpty()
                 if (!Regex("""^[\w-]{1,64}$""").matches(conv)) return out(kind, "not sent: conversation_id must be the one from the event", isError = true)
-                onReply(ShadowReply(conv, use.input.s("text").orEmpty(), clock(), use.input["data"] as? JsonObject))
-                out(kind, "delivered")
+                ReplyData.persistFirst(persist, recorded.get())?.let { return out(kind, it, isError = true) }
+                val (data, dropped) = ReplyData.clean(use.input["data"] as? JsonObject, replyKind?.invoke(conv), replyKind != null)
+                onReply(ShadowReply(conv, use.input.s("text").orEmpty(), clock(), data))
+                out(kind, "delivered" + (dropped?.let { " ($it)" } ?: ""))
             }
-            ToolKind.READ -> reads.read(use.name, use.input).let {
+            ToolKind.READ -> (if (use.name == "card") reads.read(use.name, use.input, earlierWrites + synchronized(ownWrites) { ownWrites.toList() }) else reads.read(use.name, use.input)).let {
                 // counted when its result is back: a lookup sent with the report in one message (its result not read yet)
                 // doesn't count, since the report, with no I/O, ends first
                 if (use.name == "dictionary_lookup") lookups.incrementAndGet()
@@ -68,7 +79,11 @@ class ShadowTools(
             ToolKind.WRITE -> {
                 val r = if (use.name == "report_problem" && lookups.get() == 0 && ReportCheck.aboutWords(use.input)) DryRuns.Result(ReportCheck.LOOK_FIRST, isError = true)
                 else DryRuns.of(use.name, use.input, learner(), clock())
-                out(kind, r.text, isError = r.isError, dryRun = true, errors = if (r.isError) listOf(r.text) else emptyList())
+                // a session persisted (live or not: a refused one counts as tried, the reply then says why)
+                if (use.name == "record_session") recorded.incrementAndGet()
+                out(kind, r.text, isError = r.isError, dryRun = true, errors = if (r.isError) listOf(r.text) else emptyList()).also { o ->
+                    synchronized(ownWrites) { ownWrites += CardOverlay.writes(listOf(o.record)) }
+                }
             }
             ToolKind.LOCAL -> when (use.name) {
                 "guide" -> {
@@ -95,6 +110,12 @@ class ShadowTools(
 
     /** The turn's dictionary_lookup calls whose result came back (tool calls of one message run together). */
     private val lookups = AtomicInteger()
+
+    /** The turn's record_session calls. */
+    private val recorded = AtomicInteger()
+
+    /** This turn's dry-run card writes, laid over the deck after [earlierWrites]. */
+    private val ownWrites = mutableListOf<JsonObject>()
 
     private fun JsonObject.s(k: String) = (this[k] as? JsonPrimitive)?.takeIf { it.isString }?.content
 

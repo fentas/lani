@@ -82,6 +82,8 @@ object TutorRuntime {
             nightOk = { StudioWork.nightOk(app) },
             gemini = gemini(app),
             openrouter = openrouter(app),
+            // offline (also Android holding the background app's network): the queue waits for the network
+            online = AndroidOnline.of(app),
         ).also { t ->
             t.photo = { id -> File(app.filesDir, "chat-photos/$id.jpg").takeIf { it.isFile } }
             t.schedule = { on, now -> TutorWork.schedule(app, on, now) }

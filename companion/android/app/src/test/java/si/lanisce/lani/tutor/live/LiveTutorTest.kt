@@ -99,6 +99,9 @@ class LiveTutorTest {
 
     private val node = FakeNode()
 
+    /** The phone's network, as the app's callback reports it (tutor/live/AndroidOnline). */
+    private val net = si.lanisce.lani.tutor.OnlineState(true)
+
     // --- Gemini and OpenRouter, scripted --------------------------------------------------------------------------------
 
     private val gem = si.lanisce.lani.tutor.ScriptedGemini { body, n -> si.lanisce.lani.tutor.geminiTurn(body, n) }
@@ -124,6 +127,7 @@ class LiveTutorTest {
             geminiTransportFor = { k, p, f -> si.lanisce.lani.tutor.GeminiTransport(k, gem.client, clock = { now }, pacer = p, onFreeTier = f) },
             openrouter = routerCreds,
             openrouterTransportFor = { si.lanisce.lani.tutor.OpenRouterTransport(it, router.client, clock = { now }) },
+            online = net,
         ).also { t ->
             t.onStreaming = { conv, text -> if (conv == "main") streamed += text }
             t.onNote = { notes += it }
@@ -473,6 +477,93 @@ class LiveTutorTest {
         assertEquals("right before the turn's user message", "user", input[update + 1].str("role"))
         assertEquals(TurnKind.DAY, t.today.turns.last().kind)
         assertEquals("high", t.today.turns.last().effort)
+    }
+
+    // --- the matrix's fixes (2026-10-26) ---------------------------------------------------------------------------------
+
+    /** The conversation of the turn's event (the last user message that isn't tools' results). */
+    private fun conversationOf(body: JsonObject): String =
+        Regex("""conversation_id=\\"([\w-]+)""").find(body["messages"]!!.jsonArray.map { it.jsonObject }.last { m -> m.role() == "user" && m.blocks().none { it.str("type") == "tool_result" } }.toString())?.groupValues?.get(1) ?: "main"
+
+    private fun answered(body: JsonObject): Boolean = body["messages"]!!.jsonArray.last().jsonObject.blocks().any { it.str("type") == "tool_result" }
+
+    private suspend fun until(what: String, ok: () -> Boolean) {
+        val end = System.currentTimeMillis() + 5_000
+        while (!ok()) {
+            assertTrue("waited for: $what", System.currentTimeMillis() < end)
+            kotlinx.coroutines.delay(20)
+        }
+    }
+
+    @Test fun `offline the queue waits for the network - no call, no try counted - and answers once it's back`() = runBlocking {
+        val t = ready()
+        net.set(false)
+        val id = node.push("chat", "main", "Kako se reče stove?")
+        t.backgroundCheck()
+        until("the offline state") { t.state == LiveState.OFFLINE }
+        assertEquals("no call while offline", 0, posts().size)
+        assertTrue("the chat says it waits", notes.contains("tutorLive.note.offline"))
+        assertTrue(node.acked.isEmpty())
+        net.set(true)
+        t.awaitIdle()
+        t.backgroundCheck()
+        assertEquals(3, posts().size)
+        val turn = t.today.turns.single()
+        assertEquals(TurnStatus.DONE, turn.status)
+        assertEquals(1, turn.attempts)
+        assertEquals(listOf(id), node.acked)
+    }
+
+    @Test fun `a network error as the phone goes offline - back to the queue untried, run once it's back`() = runBlocking {
+        val t = ready()
+        failOn = { n -> if (n == 1) { net.set(false); throw java.io.IOException("Unable to resolve host \"api.anthropic.com\"") } else null }
+        node.push("chat", "main", "Kako se reče stove?")
+        t.backgroundCheck()
+        until("the offline state") { t.state == LiveState.OFFLINE }
+        assertEquals("the failed call, not retried while offline", 1, calls)
+        assertTrue(t.today.turns.isEmpty())
+        net.set(true)
+        t.awaitIdle()
+        val turn = t.today.turns.single()
+        assertEquals(TurnStatus.DONE, turn.status)
+        assertEquals("the offline try isn't counted", 1, turn.attempts)
+        assertEquals(1 + 3, calls)
+    }
+
+    @Test fun `a score goes on an answer's reply only - dropped on a chat's, the model told`() = runBlocking {
+        val t = ready()
+        script = { body, n ->
+            if (answered(body)) message("end_turn", text("ok"))
+            else message("tool_use", toolUse("r$n", "reply", obj("conversation_id" to conversationOf(body), "text" to "Bravo!", "data" to obj("score" to 9, "severity" to "🟢", "plan" to true))))
+        }
+        node.push("chat", "main", "Kako se reče stove?")
+        t.backgroundCheck()
+        val chat = node.tools.single { it.first == "reply" }.second["args"]!!.jsonObject
+        assertEquals(obj("plan" to true), chat["data"])
+        assertTrue(t.today.turns.single().toolCalls.single { it.name == "reply" }.result.contains("data.score dropped"))
+        node.push("answer", "ex-7", "Grade this.\n\n```json\n{\"prompt\": \"Opiši sobo\", \"answer\": \"Soba je velika.\"}\n```")
+        t.backgroundCheck()
+        val answer = node.tools.last { it.first == "reply" }.second["args"]!!.jsonObject
+        assertEquals("ex-7", answer["conversation_id"]!!.jsonPrimitive.content)
+        assertEquals("9", answer["data"]!!.jsonObject["score"]!!.jsonPrimitive.content)
+    }
+
+    @Test fun `a session's end replies only once record_session ran`() = runBlocking {
+        val t = ready()
+        t.update { it.copy(reactAtOnce = true) }.join()
+        script = { _, n ->
+            when {
+                n == 1 -> message("tool_use", toolUse("r$n", "reply", obj("conversation_id" to "main", "text" to "Shranjeno.")))
+                node.tools.none { it.first == "record_session" } -> message("tool_use", toolUse("rec$n", "record_session", obj("session_id" to "session-042", "date" to "2026-10-19", "duration_minutes" to 5)))
+                node.tools.none { it.first == "reply" } -> message("tool_use", toolUse("r$n", "reply", obj("conversation_id" to "main", "text" to "Shranjeno.")))
+                else -> message("end_turn", text("ok"))
+            }
+        }
+        node.push("session_end", "main", "Session done.\n\n```json\n{\"results\": []}\n```")
+        t.backgroundCheck()
+        assertEquals("persisted, then the reply", listOf("record_session", "reply"), node.tools.map { it.first })
+        val early = t.today.turns.single().toolCalls.first()
+        assertTrue(early.isError && early.result.contains("record_session"))
     }
 
     // --- helpers ------------------------------------------------------------------------------------------------------

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- The tutors' queues wait for the network instead of failing turns (tutor/live/AndroidOnline; WorkManager adds it too). -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <!-- Self-update: installs APKs published by companion/bin/release-app (user confirms each). -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
