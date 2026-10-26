@@ -1026,10 +1026,11 @@ fun FillBar(fraction: Float, color: Color, modifier: Modifier = Modifier) {
 /**
  * What the card of spot [tap] tells beyond its name when its culture tells it (world.json `spots`: the charcoal pile): its
  * history at the learner's level in the village's language, and its words, from its pack as the node has it (loaded for the
- * card; the cached one offline). Null for any other place.
+ * card; the cached one offline). Null for any other place. A visited town's spot too (ui/towns/VisitScreen): its culture's
+ * history in its language, at the learner's level in it.
  */
 @Composable
-private fun spotStory(vm: AppViewModel, tap: PlaceTap): SpotStory? {
+internal fun spotStory(vm: AppViewModel, tap: PlaceTap): SpotStory? {
     val id = (tap as? PlaceTap.Spot)?.id ?: return null
     val culture = si.lanisce.lani.game.culture.Cultures.current
     val texts = culture.world.spots[id] ?: return null

@@ -79,8 +79,9 @@ import java.time.LocalDate
 /**
  * A linked town, visited (plan 2, §3; companion/README.md, "Visiting"): its village drawn from its public state in its
  * culture's look, its people walking about, in its language explained in the learner's base. A tap on a place shows its
- * card and the ways into its scenes ("Tukaj si gost · You're a guest here": nothing to build), a tap on someone who they
- * are, their greeting and a talk with them. The bar below holds the things to do here (VisitActs.kt): a request of its
+ * card, its story and words, and the ways into its scenes ("Tukaj si gost · You're a guest here": nothing to build), a tap
+ * on someone who they are, their greeting and a talk with them, on a wild animal its word's card, on the night sky its
+ * card (the moon, a star, a planet …): what only looks or teaches works as at home ([VisitTaps]). The bar below holds the things to do here (VisitActs.kt): a request of its
  * people, a gift or a message, the market, a question for its learner (TownQuestionScreens.kt). "⌂ Domov · Home" leads
  * back to the learner's own village, back to Friends. A
  * town that isn't answering shows what was had of it last, marked, or says so with a retry.
@@ -108,23 +109,42 @@ fun VisitScreen(vm: AppViewModel) {
     var villager by remember { mutableStateOf<String?>(null) }
     var act by remember { mutableStateOf<VisitAct?>(null) }
     var topH by remember { mutableIntStateOf(0) }
+    var skyCard by remember { mutableStateOf<si.lanisce.lani.game.sky.SkyTap?>(null) }
+    var skyList by remember { mutableStateOf<List<si.lanisce.lani.game.sky.SkyTap>?>(null) }
+    /** What a tap opens ([VisitTaps]): one thing at a time. */
+    fun open(o: VisitTaps.Open) {
+        card = null
+        villager = null
+        act = null
+        when (o) {
+            is VisitTaps.Open.Place -> card = o.tap
+            is VisitTaps.Open.Person -> villager = o.id
+            // its card, looked up in the town's language (a word of the visit goes to the learner's words in it)
+            is VisitTaps.Open.Word -> vm.words.open(si.lanisce.lani.app.WordQuery(o.word, "", null, si.lanisce.lani.data.Words.SCENE))
+            is VisitTaps.Open.Sky -> skyCard = o.tap
+            is VisitTaps.Open.SkyList -> skyList = o.up
+            VisitTaps.Open.Nothing -> Unit
+        }
+    }
     BoxWithConstraints(Modifier.fillMaxSize().background(Color(0xFF16202E))) {
         val fit = remember(constraints.maxWidth, constraints.maxHeight) { SceneFit.town(constraints.maxWidth, constraints.maxHeight) }
         val anchors = townAnchors(s, fit)
-        fun tapPlace(tap: PlaceTap?) {
-            villager = null
-            act = null
-            // the far hills with nothing to walk into: a tap on nothing, as at home
-            card = tap?.takeUnless { it == PlaceTap.Spot(TownSpots.HORIZON) && v.scenesAt(it.place.key()).isEmpty() }
-        }
+        // the far hills with nothing to walk into: a tap on nothing, as at home
+        fun tapPlace(tap: PlaceTap?) = open(VisitTaps.place(tap, tap?.let { v.scenesAt(it.place.key()).size } ?: 0))
         TownView(
             state = s, cam = cam, fit = fit, anchors = anchors, markers = emptyList(), visitors = emptyList(), clock = townClock,
             topInset = topH, bottomInset = 0, threat = false, badge = { null },
             onPlace = ::tapPlace,
             onMarker = {},
             people = people,
-            onVillager = { id, _ -> card = null; act = null; villager = id },
+            onVillager = { id, _ -> open(VisitTaps.person(id) { v.villager(it) != null }) },
             onProject = { id -> tapPlace(PlaceTap.Landmark(id)) },
+            // a wild animal at the forest's edge: its word's card in the town's language
+            onAnimal = { word -> open(VisitTaps.animal(word)) },
+            // the night sky: the moon's card, a constellation's, a planet's, a shooting star's wish (TalkBack: a list)
+            onSky = { tap -> open(VisitTaps.sky(tap)) },
+            skyMark = skyCard?.mark,
+            onSkyList = { up -> open(VisitTaps.skyList(up)) },
             horizon = remember(v) { v.scenesAt("spot:${TownSpots.HORIZON}").isNotEmpty() },
             // the host's people keep their day (where they sleep, their storyteller) by the host's village
             day = remember(v, people) {
@@ -161,11 +181,18 @@ fun VisitScreen(vm: AppViewModel) {
                         onClose = { card = null },
                         guest = true,
                         modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+                        // a spot the town's culture tells about (its charcoal pile): its history and its words, as at home
+                        story = si.lanisce.lani.ui.game.spotStory(vm, tap),
+                        onWord = { w, line, meant -> vm.words.open(si.lanisce.lani.app.WordQuery(w, line, meant.takeIf { it.isNotBlank() }, si.lanisce.lani.data.Words.SCENE)) },
+                        speaker = vm.speaker,
                     )
                 }
             }
         }
     }
+    // the night sky's cards, as at home; a guest learns its words here, not its pack or its reading (ui/sky/SkySheet)
+    skyList?.let { up -> si.lanisce.lani.ui.sky.SkyTonightSheet(vm, up, onOpen = { skyList = null; skyCard = it }, onDismiss = { skyList = null }) }
+    skyCard?.let { t -> si.lanisce.lani.ui.sky.SkySheet(vm, t, onDismiss = { skyCard = null }, guest = true) }
 }
 
 /**

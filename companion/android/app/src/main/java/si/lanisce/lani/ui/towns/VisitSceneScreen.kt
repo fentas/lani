@@ -131,6 +131,9 @@ private fun VisitPlace(vm: AppViewModel, v: TownVisit, spec: SceneSpec) {
     BackHandler(enabled = talk != null) { vm.visits.closeSceneTalk() }
     var selected by rememberSaveable(scene.id) { mutableStateOf<String?>(null) }
     var greeted by remember { mutableStateOf<String?>(null) }
+    // the moon, a star … tapped in the night sky over an outdoor place, as at home (VisitTaps)
+    var skyCard by remember { mutableStateOf<si.lanisce.lani.game.sky.SkyTap?>(null) }
+    var skyList by remember { mutableStateOf<List<si.lanisce.lani.game.sky.SkyTap>?>(null) }
     var found by remember(scene.id) { mutableStateOf(listOf<String>()) }
     // the words by what the picture shows now (SceneSights, as the painters draw it), looked at again every minute
     var minute by remember { mutableIntStateOf(0) }
@@ -177,6 +180,10 @@ private fun VisitPlace(vm: AppViewModel, v: TownVisit, spec: SceneSpec) {
                 modifier = Modifier.fillMaxWidth().height(sceneHeight), anchors = anchors, cues = cues, world = world,
                 onPoke = { id, poked -> vm.ambience.poke(scene.art, id, poked, sceneClock) },
                 village = state?.seed ?: 0L, clock = sceneClock,
+                // the night sky over an outdoor place: its card, in the town's language (not during a dialog)
+                onSky = { tap -> if (talk == null) (VisitTaps.sky(tap) as? VisitTaps.Open.Sky)?.let { selected = null; greeted = null; skyCard = it.tap } },
+                skyMark = skyCard?.mark,
+                onSkyList = { up -> if (talk == null) (VisitTaps.skyList(up) as? VisitTaps.Open.SkyList)?.let { selected = null; greeted = null; skyList = it.up } },
             )
             // a guest's dialog: over the words, played to its end (nothing is paid on a visit; the learner met them)
             if (talk != null) DialogPanel(
@@ -254,4 +261,6 @@ private fun VisitPlace(vm: AppViewModel, v: TownVisit, spec: SceneSpec) {
             }
         }
     }
+    skyList?.let { up -> si.lanisce.lani.ui.sky.SkyTonightSheet(vm, up, onOpen = { skyList = null; skyCard = it }, onDismiss = { skyList = null }) }
+    skyCard?.let { t -> si.lanisce.lani.ui.sky.SkySheet(vm, t, onDismiss = { skyCard = null }, guest = true) }
 }

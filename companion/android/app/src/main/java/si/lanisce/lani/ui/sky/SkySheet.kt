@@ -55,9 +55,13 @@ import java.time.ZoneId
  * and days, a constellation's names and where it stands, a planet as the morning or the evening star, the Milky Way, a
  * shooting star's wish. Every line in the village's language can be tapped word by word for the word's card, the sky's
  * words are chips to tap, "📚 Learn them" learns the sky's word pack, and the moon's card opens the old almanac.
+ *
+ * [guest]: on a visit to another town (its culture's sky, in its language explained in the learner's base): the card, its
+ * lines and its words to look up, as at home; not the pack's run nor the almanac's reading, whose answers are kept in the
+ * learner's own village (as a place's story on a visit has no "📚 Learn the words": ui/game/PlaceCard).
  */
 @Composable
-fun SkySheet(vm: AppViewModel, tap: SkyTap, onDismiss: () -> Unit, fromVillage: Boolean = true) {
+fun SkySheet(vm: AppViewModel, tap: SkyTap, onDismiss: () -> Unit, fromVillage: Boolean = true, guest: Boolean = false) {
     val culture = Cultures.current
     val sky = remember(culture.id) { Cultures.sky(culture.id) }
     val pair = L10n.pair
@@ -91,7 +95,7 @@ fun SkySheet(vm: AppViewModel, tap: SkyTap, onDismiss: () -> Unit, fromVillage: 
         }
         Column(Modifier.heightIn(max = 620.dp).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Body(vm, card)
-            Actions(vm, card, readable?.let { { reading = true } }, fromVillage, onDismiss)
+            if (!guest) Actions(vm, card, readable?.let { { reading = true } }, fromVillage, onDismiss)
         }
     }
 }
