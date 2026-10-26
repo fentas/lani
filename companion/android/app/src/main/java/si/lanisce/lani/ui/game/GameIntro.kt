@@ -46,7 +46,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import si.lanisce.lani.data.HintVoice
+import si.lanisce.lani.data.Speaker
+import si.lanisce.lani.game.GameIntroSpeech
 import si.lanisce.lani.game.Res
+import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.ui.BigButton
 import si.lanisce.lani.ui.theme.FlameOrange
 import si.lanisce.lani.ui.theme.SloBlueDeep
@@ -55,11 +63,22 @@ import si.lanisce.lani.l10n.bi
 import si.lanisce.lani.l10n.inTarget
 import si.lanisce.lani.l10n.inBase
 
-/** First visit: arriving in the valley, what feeds the village, what threatens it. */
+/**
+ * First visit: arriving in the valley, what feeds the village, what threatens it. Each step is read aloud as it shows
+ * ([GameIntroSpeech]: the language learned in the narrator's voice, the node's clip, else the phone's voice for it; the
+ * base under it by the phone's voice of the base), when [auto] (the school's "🔊 Beri razlago" setting, and no screen
+ * reader); its 🔊 reads it again or stops it. [voice]: null, silent (a preview).
+ */
 @Composable
-fun GameIntro(onDone: () -> Unit) {
+fun GameIntro(onDone: () -> Unit, voice: HintVoice? = null, speaker: Speaker? = null, auto: Boolean = true) {
     var step by remember { mutableIntStateOf(0) }
     BackHandler { if (step > 0) step-- else onDone() }
+    val pair = L10n.pair
+    val scripts = remember(pair) { GameIntroSpeech.STEPS.indices.map { GameIntroSpeech.step(it, pair) } }
+    // the node voices the lines ahead, while the first one is read: the next steps find theirs on the phone
+    LaunchedEffect(pair) { runCatching { speaker?.preload(GameIntroSpeech.learned(pair)) } }
+    LaunchedEffect(step) { if (auto && voice != null) voice.play(scripts[step], needsBase = false) }
+    DisposableEffect(Unit) { onDispose { voice?.stop() } }
     val flicker = rememberInfiniteTransition(label = "fire").animateFloat(0.9f, 1.12f, infiniteRepeatable(tween(420), RepeatMode.Reverse), label = "f").value
     Box(
         Modifier.fillMaxSize().background(
@@ -72,8 +91,16 @@ fun GameIntro(onDone: () -> Unit) {
                 .background(Brush.verticalGradient(listOf(Color.Transparent, FlameOrange.copy(alpha = 0.6f)))),
         )
         Column(Modifier.fillMaxSize().safeDrawingPadding().padding(24.dp)) {
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                TextButton(onClick = onDone) { Text(bi("common.skip"), color = Color.White.copy(alpha = 0.7f)) }
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End, verticalAlignment = Alignment.CenterVertically) {
+                if (voice != null) {
+                    val playing = voice.current == scripts[step]
+                    TextButton(
+                        onClick = { voice.toggle(scripts[step], needsBase = false) },
+                        modifier = Modifier.semantics { contentDescription = if (playing) bi("components.stop") else bi("gameIntro.readAloud") },
+                    ) { Text(if (playing) "⏹" else "🔊", style = MaterialTheme.typography.titleLarge) }
+                }
+                Spacer(Modifier.weight(1f))
+                TextButton(onClick = { voice?.stop(); onDone() }) { Text(bi("common.skip"), color = Color.White.copy(alpha = 0.7f)) }
             }
             AnimatedContent(
                 step,
@@ -120,7 +147,7 @@ fun GameIntro(onDone: () -> Unit) {
             }
             BigButton(
                 if (step < 2) bi("common.next") else "🔥  ${bi("gameIntro.lightFire")}",
-                onClick = { if (step < 2) step++ else onDone() },
+                onClick = { if (step < 2) step++ else { voice?.stop(); onDone() } },
                 color = if (step < 2) Color.White.copy(alpha = 0.18f) else FlameOrange,
             )
         }

@@ -138,7 +138,8 @@ sealed interface VillageSheet {
 fun VillageScreen(vm: AppViewModel) {
     BackHandler(onBack = vm::home)
     if (!vm.game.introSeen) {
-        GameIntro(onDone = vm.game::finishIntro)
+        // read aloud as the school's explanations are (their "🔊 Beri razlago" setting), not over a screen reader
+        GameIntro(onDone = vm.game::finishIntro, voice = vm.hintVoice, speaker = vm.speaker, auto = vm.introVoice.auto && !vm.introVoice.screenReader)
         return
     }
     val s = vm.game.state

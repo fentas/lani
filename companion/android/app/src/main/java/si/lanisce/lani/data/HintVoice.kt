@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -70,10 +71,14 @@ class HintVoice(context: Context, private val scope: CoroutineScope, private val
     /** The renders under way, by file name: a second ask for the same piece waits for the first. */
     private val rendering = HashMap<String, Deferred<File?>>()
 
-    /** A tap on the 🔊: [script] plays, or stops when it is the one playing. */
-    fun toggle(script: List<HintPiece>) = if (current == script) stop() else play(script)
+    /** A tap on the 🔊: [script] plays, or stops when it is the one playing ([needsBase]: see [play]). */
+    fun toggle(script: List<HintPiece>, needsBase: Boolean = true) = if (current == script) stop() else play(script, needsBase)
 
-    fun play(script: List<HintPiece>) {
+    /**
+     * Plays [script]. [needsBase]: without a phone's voice for the learner's base nothing plays (a hint's Slovene words
+     * alone explain nothing); the village's first words (ui/game/GameIntro) play their language learned all the same.
+     */
+    fun play(script: List<HintPiece>, needsBase: Boolean = true) {
         speaker.stop() // what a line says now
         stop() // and a hint playing or loading
         if (script.isEmpty()) return
@@ -81,7 +86,7 @@ class HintVoice(context: Context, private val scope: CoroutineScope, private val
         loading = true
         job = scope.launch {
             val files = try {
-                files(script)
+                files(script, needsBase)
             } catch (e: CancellationException) {
                 throw e
             } catch (_: Exception) {
@@ -129,34 +134,38 @@ class HintVoice(context: Context, private val scope: CoroutineScope, private val
     }
 
     /**
-     * Each piece's files, in order: a base piece rendered by the phone's voice (all of them failing, nothing: a hint of
-     * Slovene words alone explains nothing), a Slovene one from the voice store or the phone's voice (else left out).
+     * Each piece's files, in order ([playable]): a base piece rendered by the phone's voice, a Slovene one from the voice
+     * store or the phone's voice (else left out). Each piece's source is logged (tag HintVoice: QA's evidence).
      */
-    private suspend fun files(script: List<HintPiece>): List<File> = coroutineScope {
+    private suspend fun files(script: List<HintPiece>, needsBase: Boolean): List<File> = coroutineScope {
         val base = L10n.pair.base
         val got = script.map { p ->
-            async { if (p.target) target(p.text) else render(base, p.text, BASE_RATE)?.let(::listOf) }
+            async { if (p.target) target(p.text) else render(base, p.text, BASE_RATE)?.let { Sourced(listOf(it), "tts:${base.code}") } }
         }.awaitAll()
-        val said = script.indices.filter { !script[it].target }
-        if (said.isNotEmpty() && said.all { got[it] == null }) emptyList() else got.flatMap { it.orEmpty() }
+        script.forEachIndexed { i, p -> Log.i(TAG, "${i + 1}/${script.size} ${if (p.target) L10n.pair.target.code else base.code} ${got[i]?.source ?: "none"} \"${p.text.take(60)}\"") }
+        playable(script, got.map { it?.files }, needsBase)
     }
+
+    /** A piece's files and where they came from: "clip" (on the phone), "node" (voiced now), "clip:other", "tts:<lang>". */
+    private class Sourced(val files: List<File>, val source: String)
 
     /**
      * A Slovene piece's clips: the narrator's on the phone, else the node gets or voices it now (waiting as long as a
      * line's 🔊 does), else another narrator's on the phone, else the phone's own voice for the language learned; null when
      * none can say it.
      */
-    private suspend fun target(text: String): List<File>? {
+    private suspend fun target(text: String): Sourced? {
         val c = speaker.clips
         if (c != null) {
-            c.onDevice(text, NARRATOR.take(1))?.let { return it }
+            c.onDevice(text, NARRATOR.take(1))?.let { return Sourced(it, "clip") }
             if (c.online && !c.missedRecently(text, NARRATOR) && withTimeoutOrNull(Clips.WAIT_MS) { c.load(text, NARRATOR) } == true) {
-                c.onDevice(text, NARRATOR)?.let { return it }
+                c.onDevice(text, NARRATOR)?.let { return Sourced(it, "node") }
             }
-            c.onDevice(text, NARRATOR.drop(1))?.let { return it }
+            c.onDevice(text, NARRATOR.drop(1))?.let { return Sourced(it, "clip:other") }
         }
         if (!speaker.available) return null
-        return render(L10n.pair.target, text, TARGET_RATE)?.let(::listOf)
+        val lang = L10n.pair.target
+        return render(lang, text, TARGET_RATE)?.let { Sourced(listOf(it), "tts:${lang.code}") }
     }
 
     /** [text] in [lang] by the phone's voice, as a file in the cache (rendered once); null when the phone can't say it. */
@@ -214,15 +223,27 @@ class HintVoice(context: Context, private val scope: CoroutineScope, private val
         p.play()
     }
 
-    private companion object {
+    companion object {
+        private const val TAG = "HintVoice"
+
         /** The narrators: the Slovene of a hint is nobody's line. */
-        val NARRATOR = listOf(Clips.FEMALE, Clips.MALE)
+        private val NARRATOR = listOf(Clips.FEMALE, Clips.MALE)
+
+        /**
+         * What plays of [script], whose pieces got [got] (null: nothing could say it), in order. [needsBase]: when every
+         * base piece failed (the phone has no voice for the learner's base), nothing; else what was got, the rest left out.
+         */
+        fun <F> playable(script: List<HintPiece>, got: List<List<F>?>, needsBase: Boolean): List<F> {
+            val said = script.indices.filter { !script[it].target }
+            if (needsBase && said.isNotEmpty() && said.all { got[it] == null }) return emptyList()
+            return got.flatMap { it.orEmpty() }
+        }
 
         /** The phone's voice in the learner's own language at its own pace; the Slovene a little slower, as [Speaker]'s. */
-        const val BASE_RATE = 1f
-        const val TARGET_RATE = 0.9f
+        private const val BASE_RATE = 1f
+        private const val TARGET_RATE = 0.9f
 
         /** The rendered pieces kept in the cache. */
-        const val MAX_BYTES = 20L * 1024 * 1024
+        private const val MAX_BYTES = 20L * 1024 * 1024
     }
 }
