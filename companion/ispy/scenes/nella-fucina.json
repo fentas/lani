@@ -1,0 +1,128 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "nella-fucina",
+  "language": "it",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in it, with sl, en and de translations, from the smithy's picture (its painter's colours and where each thing is drawn at each level, as v-kovacnici's clues have them); not reviewed by a native speaker",
+  "things": {
+    "forge": {
+      "clues": [
+        { "kind": "colour", "it": "È rossa.", "sl": "Je rdeče barve.", "en": "It's red.", "de": "Sie ist rot.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "material", "it": "È di mattoni.", "sl": "Je iz opeke.", "en": "It's made of brick.", "de": "Sie ist aus Ziegeln.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È nell'angolo.", "sl": "Stoji v kotu.", "en": "It stands in the corner.", "de": "Sie steht in der Ecke.", "grammar": ["preposizioni-articolate"] },
+        { "kind": "use", "it": "Il fabbro ci scalda il ferro.", "sl": "Kovač na tem greje železo.", "en": "The smith heats iron on it.", "de": "Der Schmied erhitzt darauf das Eisen.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "fire": {
+      "clues": [
+        { "kind": "colour", "it": "È giallo e rosso.", "sl": "Je rumene in rdeče barve.", "en": "It's yellow and red.", "de": "Es ist gelb und rot.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "È caldo.", "sl": "To je nekaj vročega.", "en": "It's hot.", "de": "Es ist heiß.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "does", "it": "Brucia e scoppietta.", "sl": "Gori in prasketa.", "en": "It burns and crackles.", "de": "Es brennt und knistert.", "grammar": ["presente-regolare"] },
+        { "kind": "use", "it": "Ci scaldiamo il ferro.", "sl": "V tem grejemo železo.", "en": "We heat iron in it.", "de": "Darin erhitzen wir das Eisen.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "anvil": {
+      "clues": [
+        { "kind": "colour", "it": "È grigia.", "sl": "Je sive barve.", "en": "It's grey.", "de": "Das ist grau.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "È pesante.", "sl": "To je nekaj težkega.", "en": "It's heavy.", "de": "Das ist schwer.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È su un ceppo di legno.", "sl": "Stoji na lesenem štoru.", "en": "It stands on a block of wood.", "de": "Das steht auf einem Holzklotz.", "grammar": ["dove-preposizioni"] },
+        { "kind": "where", "it": "È in mezzo alla fucina.", "sl": "Stoji sredi kovačnice.", "en": "It stands in the middle of the smithy.", "de": "Das steht mitten in der Schmiede.", "grammar": ["dove-preposizioni", "preposizioni-articolate"] },
+        { "kind": "use", "it": "Ci battiamo sopra il ferro.", "sl": "Na tem kujemo železo.", "en": "We beat iron on it.", "de": "Darauf schlagen wir das Eisen.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "hammer": {
+      "clues": [
+        { "kind": "trait", "it": "È pesante.", "sl": "To je nekaj težkega.", "en": "It's heavy.", "de": "Er ist schwer.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha il manico di legno.", "sl": "Ima lesen ročaj.", "en": "It has a wooden handle.", "de": "Er hat einen Holzstiel.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È sull'incudine.", "sl": "Leži na nakovalu.", "en": "It's lying on the anvil.", "de": "Er liegt auf dem Amboss.", "grammar": ["preposizioni-articolate"], "ref": "anvil" },
+        { "kind": "use", "it": "Il fabbro lo usa ogni giorno.", "sl": "Kovač ga rabi vsak dan.", "en": "The smith uses it every day.", "de": "Der Schmied braucht ihn jeden Tag.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "tongs": {
+      "number": "pl",
+      "clues": [
+        { "kind": "colour", "it": "Sono nere.", "sl": "So črne barve.", "en": "They're black.", "de": "Sie ist schwarz.", "grammar": ["aggettivi-accordo", "plurale"] },
+        { "kind": "size", "it": "Sono lunghe.", "sl": "So dolge.", "en": "They're long.", "de": "Sie ist lang.", "grammar": ["aggettivi-accordo", "plurale"] },
+        { "kind": "where", "it": "Sono appoggiate all'incudine.", "sl": "Naslonjene so na nakovalo.", "en": "They lean against the anvil.", "de": "Sie lehnt am Amboss.", "grammar": ["preposizioni-articolate", "aggettivi-accordo"], "ref": "anvil" },
+        { "kind": "use", "it": "Ci teniamo il ferro caldo.", "sl": "S tem držimo vroče železo.", "en": "We hold hot iron with them.", "de": "Damit halten wir das heiße Eisen.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "bellows": {
+      "clues": [
+        { "kind": "colour", "it": "È marrone.", "sl": "Je rjave barve.", "en": "It's brown.", "de": "Er ist braun.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "size", "it": "È grande.", "sl": "To je nekaj velikega.", "en": "It's big.", "de": "Er ist groß.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È vicino alla forgia.", "sl": "Stoji zraven ognjišča.", "en": "It stands next to the forge.", "de": "Er steht neben der Esse.", "grammar": ["dove-preposizioni", "preposizioni-articolate"], "ref": "forge" },
+        { "kind": "does", "it": "Soffia nel fuoco.", "sl": "Piha v ogenj.", "en": "It blows into the fire.", "de": "Er bläst ins Feuer.", "grammar": ["presente-regolare", "preposizioni-articolate"] }
+      ]
+    },
+    "horseshoe": {
+      "clues": [
+        { "kind": "colour", "it": "È nero.", "sl": "Je črne barve.", "en": "It's black.", "de": "Es ist schwarz.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "È come la lettera U.", "sl": "Je kot črka U.", "en": "It's like the letter U.", "de": "Es ist wie der Buchstabe U.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È appeso alla parete.", "sl": "Visi na steni.", "en": "It hangs on the wall.", "de": "Es hängt an der Wand.", "grammar": ["preposizioni-articolate", "aggettivi-accordo"] },
+        { "kind": "where", "it": "È vicino alla porta.", "sl": "Visi zraven vrat.", "en": "It hangs next to the door.", "de": "Es hängt neben der Tür.", "grammar": ["dove-preposizioni", "preposizioni-articolate"], "ref": "door" },
+        { "kind": "use", "it": "Il cavallo lo porta sotto lo zoccolo.", "sl": "Konj ga nosi na kopitu.", "en": "A horse wears it on its hoof.", "de": "Das Pferd trägt es am Huf.", "grammar": ["presente-regolare", "dove-preposizioni"] }
+      ]
+    },
+    "nails": {
+      "name": { "en": "nail", "de": "Nagel", "sl": "žebelj" },
+      "clues": [
+        { "kind": "size", "it": "È piccolo.", "sl": "To je nekaj majhnega.", "en": "It's small.", "de": "Er ist klein.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "È appuntito.", "sl": "To je nekaj koničastega.", "en": "It's sharp.", "de": "Er ist spitz.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È in una scatola.", "sl": "Je v škatli.", "en": "It's in a box.", "de": "Er ist in einer Schachtel.", "grammar": ["dove-preposizioni"] },
+        { "kind": "where", "it": "È davanti al mantice.", "sl": "Je pred mehom.", "en": "It's in front of the bellows.", "de": "Er ist vor dem Blasebalg.", "grammar": ["dove-preposizioni", "preposizioni-articolate"], "ref": "bellows" },
+        { "kind": "use", "it": "Serve per il ferro di cavallo.", "sl": "Potrebujemo ga za podkev.", "en": "It's for the horseshoe.", "de": "Den braucht man für das Hufeisen.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "bucket": {
+      "clues": [
+        { "kind": "trait", "it": "Ha i cerchi di ferro.", "sl": "Ima železne obroče.", "en": "It has iron hoops.", "de": "Er hat Eisenreifen.", "grammar": ["essere-avere"] },
+        { "kind": "material", "it": "È di legno.", "sl": "Je iz lesa.", "en": "It's made of wood.", "de": "Er ist aus Holz.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È davanti all'incudine.", "sl": "Stoji pred nakovalom.", "en": "It stands in front of the anvil.", "de": "Er steht vor dem Amboss.", "grammar": ["dove-preposizioni", "preposizioni-articolate"], "ref": "anvil" },
+        { "kind": "use", "it": "Ci raffreddiamo il ferro caldo.", "sl": "V tem ohladimo vroče železo.", "en": "We cool hot iron in it.", "de": "Darin kühlen wir das heiße Eisen.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "chain": {
+      "clues": [
+        { "kind": "colour", "it": "È grigia.", "sl": "Je sive barve.", "en": "It's grey.", "de": "Sie ist grau.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha un gancio.", "sl": "Ima kavelj.", "en": "It has a hook.", "de": "Sie hat einen Haken.", "grammar": ["essere-avere"] },
+        { "kind": "material", "it": "È di ferro.", "sl": "Je iz železa.", "en": "It's made of iron.", "de": "Sie ist aus Eisen.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È appesa sopra il mantice.", "sl": "Visi nad mehom.", "en": "It hangs above the bellows.", "de": "Sie hängt über dem Blasebalg.", "grammar": ["dove-preposizioni", "aggettivi-accordo"], "ref": "bellows" }
+      ]
+    },
+    "axe": {
+      "clues": [
+        { "kind": "trait", "it": "È affilata.", "sl": "To je nekaj ostrega.", "en": "It's sharp.", "de": "Sie ist scharf.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha il manico di legno.", "sl": "Ima lesen ročaj.", "en": "It has a wooden handle.", "de": "Sie hat einen Holzstiel.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È appesa alla parete.", "sl": "Visi na steni.", "en": "It hangs on the wall.", "de": "Sie hängt an der Wand.", "grammar": ["preposizioni-articolate", "aggettivi-accordo"] },
+        { "kind": "where", "it": "È vicino alla finestra.", "sl": "Visi zraven okna.", "en": "It hangs next to the window.", "de": "Sie hängt neben dem Fenster.", "grammar": ["dove-preposizioni", "preposizioni-articolate"], "ref": "window" },
+        { "kind": "use", "it": "Ci spacchiamo la legna.", "sl": "S tem cepimo drva.", "en": "We split firewood with it.", "de": "Damit spalten wir das Brennholz.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "wheel": {
+      "clues": [
+        { "kind": "trait", "it": "È rotonda.", "sl": "To je nekaj okroglega.", "en": "It's round.", "de": "Es ist rund.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "material", "it": "È di legno.", "sl": "Je iz lesa.", "en": "It's made of wood.", "de": "Es ist aus Holz.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È appoggiata alla parete.", "sl": "Naslonjeno je na steno.", "en": "It leans against the wall.", "de": "Es lehnt an der Wand.", "grammar": ["preposizioni-articolate", "aggettivi-accordo"] },
+        { "kind": "where", "it": "È sotto l'ascia.", "sl": "Stoji pod sekiro.", "en": "It stands under the axe.", "de": "Es steht unter der Axt.", "grammar": ["dove-preposizioni"], "ref": "axe" },
+        { "kind": "use", "it": "Serve per un carro.", "sl": "Potrebujemo ga za voz.", "en": "It's for a cart.", "de": "Es ist für einen Wagen.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "window": {
+      "clues": [
+        { "kind": "size", "it": "È piccola.", "sl": "To je nekaj majhnega.", "en": "It's small.", "de": "Es ist klein.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "material", "it": "È di vetro.", "sl": "Je iz stekla.", "en": "It's made of glass.", "de": "Es ist aus Glas.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È sulla parete di sinistra.", "sl": "Je na levi steni.", "en": "It's on the left wall.", "de": "Es ist an der linken Wand.", "grammar": ["preposizioni-articolate"] },
+        { "kind": "use", "it": "La apriamo quando fa caldo.", "sl": "Odpremo ga, ko je vroče.", "en": "We open it when it's hot.", "de": "Wir machen es auf, wenn es heiß ist.", "grammar": ["presente-regolare", "verbi-irregolari"] }
+      ]
+    },
+    "door": {
+      "clues": [
+        { "kind": "colour", "it": "È marrone.", "sl": "Je rjave barve.", "en": "It's brown.", "de": "Sie ist braun.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha un anello di ferro.", "sl": "Ima železen obroč.", "en": "It has an iron ring.", "de": "Sie hat einen Eisenring.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È sulla parete di destra.", "sl": "Je na desni steni.", "en": "It's on the right wall.", "de": "Sie ist an der rechten Wand.", "grammar": ["preposizioni-articolate"] },
+        { "kind": "use", "it": "La apriamo per uscire.", "sl": "Odpremo jih, ko gremo ven.", "en": "We open it to go out.", "de": "Wir machen sie auf, um hinauszugehen.", "grammar": ["presente-regolare"] }
+      ]
+    }
+  }
+}
