@@ -31,6 +31,8 @@ data class HostedAnswers(
     val base: String,
     val level: String = "A1",
     val goal: Int = 30,
+    /** The learner is a child: the tutor speaks as to a child, keys and accounts are a parent's (app/ParentGate). */
+    val child: Boolean = false,
 ) {
     fun json(): String = buildJsonObject {
         put("name", name.trim())
@@ -39,6 +41,7 @@ data class HostedAnswers(
         put("base", base)
         put("level", level)
         put("goal", goal)
+        if (child) put("child", true)
     }.toString()
 
     companion object {
@@ -87,6 +90,15 @@ class HostedController(
 
     /** Hooked up by the view model: a pull or an import put new data under the bridge (it booted again). */
     var onNewData: () -> Unit = {}
+
+    private val childFile = File(si.lanisce.lani.phone.AppBridge.home(context), HostedRuntime.CHILD_FILE)
+
+    /**
+     * The learner on this phone is a child (the onboarding's "👧 Za otroka · For a child"): the bridge boots as a child's
+     * profile (LANI_CHILD) and the app leaves keys and accounts to a parent (app/ParentGate).
+     */
+    var child by mutableStateOf(childFile.isFile)
+        private set
 
     init {
         HostedRuntime.init(context)
@@ -141,6 +153,12 @@ class HostedController(
             val aside = withContext(Dispatchers.IO) { DataExport.setAside(HostedRuntime.dataDir(context), "before-fresh") }
             HostedRuntime.say("a fresh start: the data before is in $aside")
         }
+        // before the bridge is made: its environment (LANI_CHILD) is read as it boots
+        withContext(Dispatchers.IO) {
+            childFile.parentFile?.mkdirs()
+            if (answers.child) childFile.writeText("1\n") else childFile.delete()
+        }
+        child = answers.child
         val made = HostedRuntime.create(context, token)
         try {
             made.bridge.initLearner(answers.json())

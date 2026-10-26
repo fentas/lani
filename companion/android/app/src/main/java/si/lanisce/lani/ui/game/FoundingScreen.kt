@@ -133,10 +133,10 @@ fun FoundingScreen(vm: AppViewModel) {
 
 /**
  * The village [state] drawn as it would stand, by day in this month, the whole land round it (the town's framing,
- * [SceneFit.town]): the fire flickers, nothing to tap.
+ * [SceneFit.town]): the fire flickers, nothing to tap. Also the first launch's welcome (ui/setup).
  */
 @Composable
-private fun LandPreview(state: GameState, modifier: Modifier) {
+internal fun LandPreview(state: GameState, modifier: Modifier) {
     val renderer = remember { VillageRenderer() }
     var size by remember { mutableStateOf(IntSize.Zero) }
     val clock = remember { mutableLongStateOf(0L) }

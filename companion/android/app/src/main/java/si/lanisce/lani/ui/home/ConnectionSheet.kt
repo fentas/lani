@@ -76,8 +76,13 @@ fun ConnectionSheet(vm: AppViewModel, onScan: () -> Unit, onDismiss: () -> Unit)
             si.lanisce.lani.ui.school.ReadSetting(vm, Modifier.padding(top = 4.dp))
             // Lani on this phone has no node's clips nor its offline voice yet: the phone's text-to-speech speaks
             if (!hosted) OfflineAudioSettings(vm.offlineAudio, Modifier.padding(top = 12.dp))
-            si.lanisce.lani.ui.data.DataSection(vm.data, onOpen = { vm.dataOpen = true }, Modifier.padding(top = 12.dp))
-            si.lanisce.lani.ui.tutor.TutorSettings(vm, Modifier.padding(top = 12.dp))
+            // keys and accounts (git's GitHub, the backup, the tutor's provider): a parent's on a child's device (app/ParentGate)
+            si.lanisce.lani.ui.setup.ParentGated(vm.child, Modifier.padding(top = 12.dp)) {
+                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    si.lanisce.lani.ui.data.DataSection(vm.data, onOpen = { vm.dataOpen = true }, Modifier.padding(top = 12.dp))
+                    si.lanisce.lani.ui.tutor.TutorSettings(vm, Modifier.padding(top = 12.dp))
+                }
+            }
             Developer(vm)
         }
     }

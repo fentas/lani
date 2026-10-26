@@ -61,6 +61,7 @@ import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.data.PairParse
 import si.lanisce.lani.data.PairPayload
 import si.lanisce.lani.data.PairProblem
+import si.lanisce.lani.data.PairTrouble
 import si.lanisce.lani.ui.theme.TriglavRed
 import si.lanisce.lani.l10n.bi
 import java.util.concurrent.Executors
@@ -71,16 +72,18 @@ private sealed interface Scan {
     /** Looking for a code; [hint] when the camera saw a QR code that isn't Lani's. */
     data class Looking(val hint: String? = null) : Scan
     data object Pairing : Scan
-    data class Failed(val message: String) : Scan
+    data class Failed(val trouble: PairTrouble, val code: String) : Scan
     data object NoCamera : Scan
 }
 
 /**
  * "📷 Skeniraj QR · Scan the QR code", full screen: asks for the camera (only now), reads the QR code that
- * `companion/bin/lani-pair` shows, and pairs ([AppViewModel.pair]). Closes itself once paired.
+ * `companion/bin/lani-pair` shows, and pairs ([AppViewModel.pair]). Closes itself once paired. What goes wrong says so in
+ * plain words with its way out (ui/setup/TroubleCard): the same code again ("Poskusi znova", and the Tailscale app when
+ * the computer can't be reached), another code scanned, or [onManual]: the address typed (the setup's "Ročno").
  */
 @Composable
-fun PairDialog(vm: AppViewModel, onDismiss: () -> Unit) {
+fun PairDialog(vm: AppViewModel, onDismiss: () -> Unit, onManual: (() -> Unit)? = null) {
     val context = LocalContext.current
     var granted by remember { mutableStateOf(cameraGranted(context)) }
     var state by remember { mutableStateOf<Scan>(Scan.Looking()) }
@@ -98,7 +101,13 @@ fun PairDialog(vm: AppViewModel, onDismiss: () -> Unit) {
             return
         }
         state = Scan.Pairing
-        vm.pair(text) { error -> if (error == null) onDismiss() else state = Scan.Failed(error) }
+        vm.pair(text) { trouble -> if (trouble == null) onDismiss() else state = Scan.Failed(trouble, text) }
+    }
+
+    /** The same code again (the computer was off, Tailscale wasn't on): it may still be good for its 10 minutes. */
+    fun again(code: String) {
+        state = Scan.Pairing
+        vm.pair(code) { trouble -> if (trouble == null) onDismiss() else state = Scan.Failed(trouble, code) }
     }
 
     Dialog(onDismissRequest = onDismiss, properties = DialogProperties(usePlatformDefaultWidth = false)) {
@@ -124,7 +133,14 @@ fun PairDialog(vm: AppViewModel, onDismiss: () -> Unit) {
                         CircularProgressIndicator(color = Color.White)
                         Text(bi("pairScan.pairingTutor"), color = Color.White, textAlign = TextAlign.Center)
                     }
-                    is Scan.Failed -> Text(s.message, color = Color(0xFFFFD1D8), textAlign = TextAlign.Center, modifier = Modifier.padding(20.dp))
+                    is Scan.Failed -> Box(Modifier.padding(12.dp)) {
+                        si.lanisce.lani.ui.setup.TroubleCard(
+                            s.trouble,
+                            onRetry = { again(s.code) },
+                            onScan = { state = Scan.Looking() },
+                            onManual = { onManual?.invoke() ?: run { state = Scan.Looking() } },
+                        )
+                    }
                     Scan.NoCamera -> Text(
                         "📷 ${bi("pairScan.needsCamera")}. ${bi("pairScan.onlyReadsCode")}.",
                         color = Color(0xFFFFD1D8),
@@ -135,7 +151,6 @@ fun PairDialog(vm: AppViewModel, onDismiss: () -> Unit) {
             }
             (state as? Scan.Looking)?.hint?.let { Text(it, color = Color(0xFFFFD1D8), textAlign = TextAlign.Center) }
             when (state) {
-                is Scan.Failed -> BigButton("🔄 ${bi("pairScan.tryAgain")}", onClick = { state = Scan.Looking() }, color = TriglavRed)
                 Scan.NoCamera -> {
                     // After "don't ask again", only the system settings can allow the camera.
                     val activity = context as? Activity

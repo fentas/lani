@@ -105,8 +105,9 @@ class PairingTest {
 
     @Test fun `every problem says it in Slovene and English`() {
         for (p in PairProblem.entries) assertTrue(p.message, " · " in p.message)
-        for (m in listOf(Pairing.WRONG_CODE, Pairing.EXPIRED, Pairing.TOO_MANY, Pairing.OLD_TUTOR, Pairing.UNREACHABLE, Pairing.NOT_THAT_TUTOR, Pairing.GARBLED, Pairing.failed(500), Pairing.otherLearner("Jan")))
-            assertTrue(m, " · " in m)
+        for (f in PairFailure.entries) assertTrue(f.message(), " · " in f.message())
+        assertTrue(Pairing.otherLearner("Jan"), " · " in Pairing.otherLearner("Jan") && "Jan" in Pairing.otherLearner("Jan"))
+        assertTrue(PairOutcome.Failed(PairFailure.HTTP, 500).message, "500" in PairOutcome.Failed(PairFailure.HTTP, 500).message)
     }
 
     // --- the bridge's signature ------------------------------------------------------------------------
@@ -214,39 +215,46 @@ class PairingTest {
     @Test fun `a wrong, spent, expired or throttled code says so`() = runBlocking {
         val b = FakeBridge()
         val flow = PairFlow(b::post)
-        suspend fun failed(status: Int): String {
+        suspend fun failed(status: Int): PairOutcome.Failed {
             b.status = status
-            return (flow.pair(payloadFor(b), "x") as PairOutcome.Failed).message
+            return flow.pair(payloadFor(b), "x") as PairOutcome.Failed
         }
-        assertEquals(Pairing.WRONG_CODE, failed(403))
-        assertEquals(Pairing.EXPIRED, failed(410))
-        assertEquals(Pairing.TOO_MANY, failed(429))
-        assertEquals(Pairing.OLD_TUTOR, failed(401))
-        assertEquals(Pairing.OLD_TUTOR, failed(404))
-        assertEquals(Pairing.failed(500), failed(500))
+        assertEquals(PairOutcome.Failed(PairFailure.USED), failed(403))
+        assertEquals(PairOutcome.Failed(PairFailure.EXPIRED), failed(410))
+        assertEquals(PairOutcome.Failed(PairFailure.TOO_MANY), failed(429))
+        assertEquals(PairOutcome.Failed(PairFailure.OLD_COMPUTER), failed(401))
+        assertEquals(PairOutcome.Failed(PairFailure.OLD_COMPUTER), failed(404))
+        assertEquals(PairOutcome.Failed(PairFailure.HTTP, 500), failed(500))
+        // the ways out: a new code for a spent or old one, the address typed for a computer too old to pair by code
+        assertEquals(PairFailure.Out.SCAN, PairTrouble.of(failed(410)).out)
+        assertEquals(PairFailure.Out.SCAN, PairTrouble.of(failed(403)).out)
+        assertEquals(PairFailure.Out.MANUAL, PairTrouble.of(failed(404)).out)
     }
 
     @Test fun `an unreachable tutor says to check Tailscale`() = runBlocking {
         val b = FakeBridge().apply { fail = IOException("timeout") }
-        assertEquals(PairOutcome.Failed(Pairing.UNREACHABLE), PairFlow(b::post).pair(payloadFor(b), "x"))
+        assertEquals(PairOutcome.Failed(PairFailure.UNREACHABLE), PairFlow(b::post).pair(payloadFor(b), "x"))
+        val t = PairTrouble.of(PairOutcome.Failed(PairFailure.UNREACHABLE))
+        assertEquals(PairFailure.Out.RETRY, t.out)
+        assertTrue(t.message, "Tailscale" in t.message && "računalnik" in t.message.lowercase())
     }
 
     @Test fun `an answer from another bridge or for another learner is refused`() = runBlocking {
         val b = FakeBridge()
         val other = FakeBridge()
         // the QR code names another bridge's key
-        assertEquals(PairOutcome.Failed(Pairing.NOT_THAT_TUTOR), PairFlow(b::post).pair(payloadFor(other), "x"))
+        assertEquals(PairOutcome.Failed(PairFailure.NOT_THAT_COMPUTER), PairFlow(b::post).pair(payloadFor(other), "x"))
         // the QR code is for another learner on the same bridge
-        assertEquals(PairOutcome.Failed(Pairing.NOT_THAT_TUTOR), PairFlow(b::post).pair(payloadFor(b, profile = "jan"), "x"))
+        assertEquals(PairOutcome.Failed(PairFailure.NOT_THAT_COMPUTER), PairFlow(b::post).pair(payloadFor(b, profile = "jan"), "x"))
     }
 
     @Test fun `a garbled answer is refused`() = runBlocking {
         val p = ok(uri())
-        assertEquals(PairOutcome.Failed(Pairing.GARBLED), PairFlow { _, _ -> 200 to "<html>hi</html>" }.pair(p, "x"))
-        assertEquals(PairOutcome.Failed(Pairing.GARBLED), PairFlow { _, _ -> 200 to """{"token":"t"}""" }.pair(p, "x"))
+        assertEquals(PairOutcome.Failed(PairFailure.GARBLED), PairFlow { _, _ -> 200 to "<html>hi</html>" }.pair(p, "x"))
+        assertEquals(PairOutcome.Failed(PairFailure.GARBLED), PairFlow { _, _ -> 200 to """{"token":"t"}""" }.pair(p, "x"))
         val b = FakeBridge()
         val noPrefix = PairFlow { _, body -> 200 to b.answer(Json.parseToJsonElement(body).jsonObject["code"]!!.jsonPrimitive.content, token = "plain-token") }
-        assertEquals(PairOutcome.Failed(Pairing.GARBLED), noPrefix.pair(payloadFor(b), "x"))
+        assertEquals(PairOutcome.Failed(PairFailure.GARBLED), noPrefix.pair(payloadFor(b), "x"))
     }
 
     // --- one phone, one learner --------------------------------------------------------------------------

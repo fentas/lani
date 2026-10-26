@@ -54,6 +54,9 @@ import si.lanisce.lani.data.Grading.Verdict
 import si.lanisce.lani.data.Pack
 import si.lanisce.lani.data.PairFlow
 import si.lanisce.lani.data.PairOutcome
+import si.lanisce.lani.data.PairFailure
+import si.lanisce.lani.data.PairTrouble
+import si.lanisce.lani.app.SetupFlow
 import si.lanisce.lani.data.PairParse
 import si.lanisce.lani.data.PairPayload
 import si.lanisce.lani.data.PairedInfo
@@ -460,6 +463,13 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         private set
     var paired by mutableStateOf<PairedInfo?>(null)
         private set
+
+    /**
+     * The learner of this device is a child: their node's profile says so (lani-profile --child, told at pairing), or the
+     * hosted onboarding was for a child. Keys and accounts are then a parent's (app/ParentGate: the tutor's and the data's
+     * settings say so, and open after a hold).
+     */
+    val child: Boolean get() = paired?.child == true || (hosted.active && hosted.child)
     var permission by mutableStateOf<BridgeEvent.PermissionRequest?>(null)
         private set
     /**
@@ -522,8 +532,22 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         (si.lanisce.lani.data.Grammar.ofModule(id, grammar.pages).map { it.id } +
             content.moduleExercises().filter { it.first == id }.mapNotNull { it.second.grammar }).toSet()
 
-    /** Validates the config against the bridge, then stores it. Returns an error message or null. */
-    suspend fun setup(url: String, token: String): String? {
+    /**
+     * The first launch's state (app/SetupFlow, ui/setup/SetupScreen): kept here, so the screens built anew in the pair the
+     * learner chose keep their step. The explanations start in the phone's language.
+     */
+    var setupFlow by mutableStateOf(SetupFlow.start(java.util.Locale.getDefault().language))
+
+    /**
+     * The setup's languages ([SetupFlow.pair]): every label reads in them from now on, as the learner profile's pair until
+     * the learner's profile says its own (a node's, or the one the hosted onboarding makes from them).
+     */
+    fun setupLanguages(p: LangPair) {
+        if (languages.profileSays(p)) showLanguages()
+    }
+
+    /** Validates the config against the bridge, then stores it. Null when connected, else what went wrong, in plain words. */
+    suspend fun setup(url: String, token: String): PairTrouble? {
         val c = BridgeConfig(url.trim().trimEnd('/'), token.trim())
         return try {
             Bridge(c).modules()
@@ -531,26 +555,29 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
             paired = null
             connect(c)
             null
+        } catch (e: kotlinx.coroutines.CancellationException) {
+            throw e
         } catch (e: Exception) {
-            e.message ?: "connection failed"
+            android.util.Log.i("LaniSetup", "the typed connection failed: ${e.javaClass.simpleName} ${e.message?.take(80)}")
+            PairTrouble.typed(e)
         }
     }
 
     /**
      * Pairs with the tutor in a scanned QR code (data/Pairing.kt): checks the code, trades it for this phone's own
-     * token, and connects. [done] gets null when paired, else the message to show ("Slovene · English").
+     * token, and connects. [done] gets null when paired, else what went wrong and its way out ("Slovene · English").
      */
-    fun pair(scanned: String, done: (String?) -> Unit) = viewModelScope.launch {
+    fun pair(scanned: String, done: (PairTrouble?) -> Unit) = viewModelScope.launch {
         val p = when (val r = PairPayload.parse(scanned)) {
             is PairParse.Ok -> r.payload
-            is PairParse.Invalid -> return@launch done(r.problem.message)
+            is PairParse.Invalid -> return@launch done(PairTrouble.of(r.problem))
         }
         // Another learner's bridge would get this phone's village, chat and queued answers: not without a fresh start.
         if (!Pairing.sameLearner(prefs.config()?.baseUrl, prefs.pairing(), p)) {
-            return@launch done(Pairing.otherLearner(paired?.learner ?: content.dashboard?.name))
+            return@launch done(PairTrouble.of(PairFailure.OTHER_LEARNER, who = paired?.learner ?: content.dashboard?.name))
         }
         when (val o = PairFlow(PairingApi::post).pair(p, android.os.Build.MODEL ?: "Android")) {
-            is PairOutcome.Failed -> done(o.message)
+            is PairOutcome.Failed -> done(PairTrouble.of(o))
             is PairOutcome.Paired -> {
                 prefs.savePairing(o.config, o.info)
                 paired = o.info
@@ -628,6 +655,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
             bridgeUrl = null
             paired = null
             setupHosted = false
+            // to the computer's code, in the learner's languages
+            setupFlow = SetupFlow(step = SetupFlow.Step.COMPUTER, target = L10n.ownPair.target, base = L10n.ownPair.base, way = SetupFlow.Way.COMPUTER)
             screen = Screen.Setup
         }
     }

@@ -77,7 +77,8 @@ const until = `${String(at.getHours()).padStart(2, '0')}:${String(at.getMinutes(
 console.log(`
 ${payload}
 
-In the app: "📷 Skeniraj QR · Scan the QR code" (on the first screen; to pair again, tap the tutor's status dot on Home).
+In the app: "🖥️ S svojim računalnikom · With my family's computer" → "📷 Skeniraj kodo · Scan the code" (the first
+launch; to pair again, tap the tutor's status dot on Home). No camera: "Ročno · Enter manually" takes the text above.
 The code works once, until ${until} (10 minutes).
 Bridge ${url} → 127.0.0.1:${p.port}, key fingerprint ${groupFingerprint(key.fingerprint)}`)
 if (!(await bridgeUp(p.port))) {

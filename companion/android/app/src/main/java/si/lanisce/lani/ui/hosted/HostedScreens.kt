@@ -6,6 +6,10 @@ import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -62,32 +66,37 @@ private val ZIP_TYPES = arrayOf("application/zip", "application/x-zip-compressed
 private enum class Step { START, LEARNER, WORKING, TUTOR }
 
 /**
- * "☁️ Lani na tem telefonu · Lani on this phone" (docs/plans/05-built/hosted-mode.md): the first launch's other way, next
- * to pairing with a node. A new learner (what /lani-setup and lani-setup ask: the name, how the village speaks to
- * them, the language learned, the one explanations are in, the level, the minutes a day), an export imported (from
- * `lani export` on a computer, or this app's), or the data already on the phone; then the tutor; then Home, where the
- * village is founded as with a node. [onBack]: to the setup's choice (or, switching from a node, back to it).
+ * "☁️ Lani na tej napravi · Lani on this device" (docs/plans/05-built/hosted-mode.md, onboarding.md): the setup's way
+ * "📱 Samo ta telefon / tablica · Just this device". A new learner (what /lani-setup and lani-setup ask: the name, how the
+ * village speaks to them, the level, the minutes a day, and whether a child learns here; the languages the setup asked
+ * already: [chosenTarget], [chosenBase], [onLanguages] to change them), an export imported (from `lani export` on a computer, or this
+ * app's), or the data already on the phone; then the tutor; then Home, where the village is founded as with a node.
+ * [onBack]: to the setup's choice (or, switching from a node, back to it: then the languages are asked here, as the
+ * learner's are now).
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun HostedSetup(vm: AppViewModel, onBack: () -> Unit) {
+fun HostedSetup(vm: AppViewModel, onBack: () -> Unit, chosenTarget: String? = null, chosenBase: String? = null, onLanguages: (() -> Unit)? = null) {
     val h = vm.hosted
-    var step by remember { mutableStateOf(Step.START) }
+    val onPhone = remember { h.learnerOnPhone() }
+    // a learner on the phone already: go on, start afresh or import; else straight to the questions
+    var step by remember { mutableStateOf(if (onPhone != null) Step.START else Step.LEARNER) }
     var error by remember { mutableStateOf<String?>(null) }
     var note by remember { mutableStateOf<String?>(null) }
     var name by remember { mutableStateOf("") }
     var gender by remember { mutableStateOf<String?>(null) }
-    var target by remember { mutableStateOf("sl") }
-    var base by remember { mutableStateOf("en") }
+    val own = remember { si.lanisce.lani.l10n.L10n.ownPair }
+    var target by remember { mutableStateOf(chosenTarget ?: own.target.code) }
+    var base by remember { mutableStateOf(chosenBase?.takeIf { it != target } ?: own.base.code.takeIf { it != target } ?: if (target == "en") "sl" else "en") }
     var level by remember { mutableStateOf("A1") }
     var goal by remember { mutableStateOf(30) }
+    var child by remember { mutableStateOf(false) }
     var config by remember { mutableStateOf<si.lanisce.lani.data.BridgeConfig?>(null) }
-    val onPhone = remember { h.learnerOnPhone() }
     val scope = rememberCoroutineScope()
 
     fun done(r: Result<si.lanisce.lani.data.BridgeConfig>) {
         r.onSuccess { config = it; error = null; step = Step.TUTOR }
-            .onFailure { error = it.message ?: it.toString(); step = if (step == Step.WORKING && name.isNotBlank()) Step.LEARNER else Step.START }
+            .onFailure { error = it.message ?: it.toString(); step = if (step == Step.WORKING && name.isNotBlank()) Step.LEARNER else if (onPhone != null) Step.START else Step.LEARNER }
     }
     val pick = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri: Uri? ->
         if (uri == null) return@rememberLauncherForActivityResult
@@ -109,7 +118,7 @@ fun HostedSetup(vm: AppViewModel, onBack: () -> Unit) {
             Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).heightIn(min = maxHeight).padding(24.dp),
             verticalArrangement = Arrangement.spacedBy(14.dp, Alignment.CenterVertically),
         ) {
-            Text("☁️", style = MaterialTheme.typography.displayMedium)
+            Text("📱", style = MaterialTheme.typography.displayMedium)
             Text(bi("hosted.title"), style = MaterialTheme.typography.headlineMedium, color = white)
             error?.let { Text("⚠️ $it", color = Color(0xFFFFD1D8)) }
             when (step) {
@@ -128,29 +137,47 @@ fun HostedSetup(vm: AppViewModel, onBack: () -> Unit) {
                     TextButton(onClick = onBack) { Text("‹ ${bi("components.back")}", color = white) }
                 }
                 Step.LEARNER -> {
+                    if (onPhone == null) Text(bi("hosted.what"), color = muted)
                     val fieldColors = OutlinedTextFieldDefaults.colors(
                         focusedTextColor = white, unfocusedTextColor = white, focusedLabelColor = white, unfocusedLabelColor = white.copy(alpha = 0.75f),
                         focusedBorderColor = white, unfocusedBorderColor = white.copy(alpha = 0.6f), cursorColor = white,
                     )
                     OutlinedTextField(name, { name = it.take(40) }, Modifier.fillMaxWidth(), label = { Text(bi("hosted.name")) }, singleLine = true, colors = fieldColors)
+                    // who learns here: a child's device leaves the tutor's key and accounts to a parent (app/ParentGate)
+                    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        FilterChip(!child, { child = false }, { Text("🧑 ${bi("hosted.forMe")}") }, colors = chipColors)
+                        FilterChip(child, { child = true; if (goal == 30) goal = 15 }, { Text("🧒 ${bi("hosted.forChild")}") }, colors = chipColors)
+                    }
+                    if (child) Text(bi("hosted.forChildWhat"), color = muted, style = MaterialTheme.typography.bodySmall)
                     Label(bi("hosted.gender"))
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         FilterChip(gender == "female", { gender = "female" }, { Text(bi("hosted.asWoman")) }, colors = chipColors)
                         FilterChip(gender == "male", { gender = "male" }, { Text(bi("hosted.asMan")) }, colors = chipColors)
                     }
                     Text(bi("hosted.genderWhat"), color = muted, style = MaterialTheme.typography.bodySmall)
-                    Label(bi("hosted.target"))
-                    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        for (code in HostedAnswers.LANGUAGES) FilterChip(target == code, {
-                            target = code
-                            if (base == code) base = if (code == "en") "sl" else "en"
-                        }, { Text(Lang.of(code)!!.ownName) }, colors = chipColors)
+                    if (onLanguages != null) {
+                        // asked by the setup already: what was chosen, and the way back to it
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text(
+                                bi("hosted.languages", "target" to Lang.of(target)!!.ownName, "base" to Lang.of(base)!!.ownName),
+                                color = white, modifier = Modifier.weight(1f),
+                            )
+                            TextButton(onClick = onLanguages) { Text(bi("hosted.change"), color = white) }
+                        }
+                    } else {
+                        Label(bi("hosted.target"))
+                        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            for (code in HostedAnswers.LANGUAGES) FilterChip(target == code, {
+                                target = code
+                                if (base == code) base = if (code == "en") "sl" else "en"
+                            }, { Text(Lang.of(code)!!.ownName) }, colors = chipColors)
+                        }
+                        Label(bi("hosted.base"))
+                        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            for (code in HostedAnswers.LANGUAGES.filter { it != target }) FilterChip(base == code, { base = code }, { Text(Lang.of(code)!!.ownName) }, colors = chipColors)
+                        }
                     }
                     if (target != "sl") Text(bi("hosted.lessContent", "lang" to Lang.of(target)!!.ownName), color = muted, style = MaterialTheme.typography.bodySmall)
-                    Label(bi("hosted.base"))
-                    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        for (code in HostedAnswers.LANGUAGES.filter { it != target }) FilterChip(base == code, { base = code }, { Text(Lang.of(code)!!.ownName) }, colors = chipColors)
-                    }
                     Label(bi("hosted.level"))
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         for (l in HostedAnswers.LEVELS) FilterChip(level == l, { level = l }, { Text(l) }, colors = chipColors)
@@ -166,11 +193,13 @@ fun HostedSetup(vm: AppViewModel, onBack: () -> Unit) {
                         onClick = {
                             error = null
                             step = Step.WORKING
-                            scope.launch { done(h.create(HostedAnswers(name.trim(), gender, target, base, level, goal))) }
+                            scope.launch { done(h.create(HostedAnswers(name.trim(), gender, target, base, level, goal, child))) }
                         },
                         color = TriglavRed, disabledColor = white.copy(alpha = 0.2f),
                     )
-                    TextButton(onClick = { step = Step.START }) { Text("‹ ${bi("components.back")}", color = white) }
+                    // the other ways in: an export from a computer (no learner on the phone: there's no start step)
+                    if (onPhone == null) TextButton(onClick = { error = null; pick.launch(ZIP_TYPES) }) { Text("📥 ${bi("hosted.importExport")}", color = white) }
+                    TextButton(onClick = { if (onPhone != null) step = Step.START else onBack() }) { Text("‹ ${bi("components.back")}", color = white) }
                 }
                 Step.WORKING -> {
                     CircularProgressIndicator(color = white)
@@ -178,18 +207,99 @@ fun HostedSetup(vm: AppViewModel, onBack: () -> Unit) {
                 }
                 Step.TUTOR -> {
                     note?.let { Text("✅ $it", color = white) }
-                    Text("🧑‍🏫 ${bi("hosted.tutorTitle")}", style = MaterialTheme.typography.titleLarge, color = white, fontWeight = FontWeight.SemiBold)
-                    Text(bi("hosted.tutorWhat"), color = muted)
-                    // the live tutor's own settings (ui/tutor/TutorSettings: the provider, the key or "Continue with
-                    // ChatGPT"), over Home; on the phone it turns on as soon as a credential is set
-                    BigButton("🧑‍🏫 ${bi("hosted.tutorSetUp")}", onClick = { config?.let { vm.hostedReady(it); vm.openTutorSettings() } }, color = TriglavRed)
-                    BigButton("🏡 ${bi("hosted.toVillage")}", onClick = { config?.let(vm::hostedReady) }, color = white.copy(alpha = 0.2f))
-                    Text(bi("hosted.tutorLater"), color = muted, style = MaterialTheme.typography.bodySmall)
+                    TutorStep(vm, child = h.child, onDone = { config?.let(vm::hostedReady) })
                 }
             }
         }
     }
 }
+
+private enum class TutorWay { CLAUDE }
+
+/**
+ * The onboarding's tutor step: "🔑 Claude (svoj ključ) · Claude (your own key)" (the key typed and checked here, at
+ * once), "Nadaljuj s ChatGPT · Continue with ChatGPT" (the browser's sign-in), or later. On a child's device a parent sets
+ * it up: the step says so and opens after a hold (ui/setup/ParentGated). The tutor in the app turns on by itself once a
+ * credential is set (the view model). [onDone]: Home.
+ */
+@Composable
+private fun TutorStep(vm: AppViewModel, child: Boolean, onDone: () -> Unit) {
+    val live = vm.live
+    val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+    val white = Color.White
+    val muted = Color.White.copy(alpha = 0.85f)
+    var way by remember { mutableStateOf<TutorWay?>(null) }
+    var key by remember { mutableStateOf("") }
+    var busy by remember { mutableStateOf(false) }
+    var problem by remember { mutableStateOf<String?>(null) }
+    var welcome by remember { mutableStateOf(false) }
+    fun browse(url: String) = runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }
+
+    Text("🧑‍🏫 ${bi("hosted.tutorTitle")}", style = MaterialTheme.typography.titleLarge, color = white, fontWeight = FontWeight.SemiBold)
+    si.lanisce.lani.ui.setup.ParentGated(child, onLight = false) {
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Text(bi("hosted.tutorWhat"), color = muted)
+            problem?.let { Text(it, color = Color(0xFFFFD1D8)) }
+            when (way) {
+                null -> {
+                    BigButton("🔑 ${bi("setup.tutorClaude")}", onClick = {
+                        problem = null
+                        live.update { it.copy(provider = si.lanisce.lani.tutor.ProviderId.ANTHROPIC, models = emptyMap()) }
+                        way = TutorWay.CLAUDE
+                    }, color = white.copy(alpha = 0.2f))
+                    if (live.openaiAvailable) BigButton(if (busy) "…" else "💬 ${bi("tutorLive.continueChatGPT")}", enabled = !busy, onClick = {
+                        problem = null
+                        busy = true
+                        live.update { it.copy(provider = si.lanisce.lani.tutor.ProviderId.OPENAI, models = emptyMap()) }
+                        scope.launch {
+                            val e = live.signInWithChatGPT { url -> browse(url) }
+                            busy = false
+                            if (e != null) problem = "⚠️ $e"
+                            // OpenAI's UI guidelines: the welcome once, at the first sign-in with the plan; then Home
+                            else if (!live.settings.chatgptWelcomed) welcome = true
+                            else onDone()
+                        }
+                    }, color = white.copy(alpha = 0.2f))
+                    if (busy) TextButton(onClick = { live.cancelSignIn(); busy = false }) { Text(bi("tutorLive.cancel"), color = white) }
+                    BigButton("🏡 ${bi("common.later")}", onClick = onDone, color = TriglavRed)
+                    Text(bi("hosted.tutorLater"), color = muted, style = MaterialTheme.typography.bodySmall)
+                }
+                TutorWay.CLAUDE -> {
+                    Text(bi("setup.keyWhere"), color = muted, style = MaterialTheme.typography.bodySmall)
+                    TextButton(onClick = { browse(ANTHROPIC_KEYS) }) { Text("🌐 console.anthropic.com", color = white) }
+                    val fieldColors = OutlinedTextFieldDefaults.colors(
+                        focusedTextColor = white, unfocusedTextColor = white, focusedLabelColor = white, unfocusedLabelColor = white.copy(alpha = 0.75f),
+                        focusedBorderColor = white, unfocusedBorderColor = white.copy(alpha = 0.6f), cursorColor = white,
+                    )
+                    OutlinedTextField(
+                        key, { key = it.trim(); problem = null }, Modifier.fillMaxWidth(),
+                        label = { Text("sk-ant-…") }, singleLine = true, visualTransformation = PasswordVisualTransformation(), colors = fieldColors,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                    )
+                    BigButton(if (busy) "…" else "✓ ${bi("tutorLive.keyCheck")}", enabled = key.isNotBlank() && !busy, onClick = {
+                        busy = true
+                        scope.launch {
+                            val e = live.setKey(key)
+                            busy = false
+                            problem = si.lanisce.lani.app.TutorKey.problem(e)
+                            if (e == null) {
+                                key = ""
+                                onDone()
+                            }
+                        }
+                    }, color = TriglavRed, disabledColor = white.copy(alpha = 0.2f))
+                    TextButton(onClick = { way = null; problem = null }) { Text("‹ ${bi("components.back")}", color = white) }
+                }
+            }
+        }
+    }
+    if (child) BigButton("🏡 ${bi("hosted.toVillage")}", onClick = onDone, color = TriglavRed)
+    if (welcome) si.lanisce.lani.ui.tutor.ChatGPTWelcome { welcome = false; live.welcomedChatGPT(); onDone() }
+}
+
+/** Where an Anthropic API key is made. */
+private const val ANTHROPIC_KEYS = "https://console.anthropic.com/settings/keys"
 
 @Composable
 private fun Label(text: String) {

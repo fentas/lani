@@ -83,7 +83,7 @@ sealed interface PairParse {
     data class Invalid(val problem: PairProblem) : PairParse
 }
 
-/** Why a scanned code can't be used, "target · base". */
+/** Why a scanned code can't be used, "target · base". Each asks for another code (a new one, or the app updated first). */
 enum class PairProblem(private val emoji: String, private val key: String) {
     NOT_PAIRING("🤔", "pairing.isntLaniPairingCode"),
     NEWER_VERSION("⬆️", "pairing.codeNeedsNewerLani"),
@@ -92,6 +92,40 @@ enum class PairProblem(private val emoji: String, private val key: String) {
 
     /** Read when shown, so it is in the pair of the moment (an enum's arguments are built once). */
     val message: String get() = "$emoji ${bi(key)}"
+}
+
+/**
+ * A connection to the family's computer that didn't work: the line the learner reads and the way out the setup offers
+ * ([PairFailure.Out]); [failure] when it was the pairing's or the connection's (null: the scanned code itself).
+ */
+data class PairTrouble(val message: String, val out: PairFailure.Out, val failure: PairFailure? = null) {
+    companion object {
+        fun of(f: PairFailure, status: Int = 0, who: String? = null) = PairTrouble(f.message(who, status), f.out, f)
+        fun of(p: PairProblem) = PairTrouble(p.message, PairFailure.Out.SCAN)
+        fun of(o: PairOutcome.Failed) = of(o.failure, o.status)
+
+        /**
+         * The connection typed by hand ("Ročno · Enter manually": the address and the token) failed with [e], from the
+         * first request to the computer ([si.lanisce.lani.data.Bridge]): a refused token (HTTP 401, 403), an address
+         * where something else answers (404, 405, or an answer that isn't the bridge's), another status, an address
+         * OkHttp won't take; every other I/O failure is a computer out of reach.
+         */
+        fun typed(e: Throwable): PairTrouble {
+            val status = (e.message ?: "").let { m -> HTTP_STATUS.find(m)?.groupValues?.get(1)?.toIntOrNull() }
+            return when {
+                // an answer that isn't the bridge's JSON (kotlinx's exception is an IllegalArgumentException too)
+                e is kotlinx.serialization.SerializationException -> of(PairFailure.NOT_LANI)
+                e is IllegalArgumentException -> of(PairFailure.BAD_ADDRESS)
+                status == 401 || status == 403 -> of(PairFailure.WRONG_TOKEN)
+                status == 404 || status == 405 -> of(PairFailure.NOT_LANI)
+                status != null -> of(PairFailure.HTTP, status)
+                e is IOException -> of(PairFailure.UNREACHABLE)
+                else -> of(PairFailure.NOT_LANI)
+            }
+        }
+
+        private val HTTP_STATUS = Regex("""^HTTP (\d{3})\b""")
+    }
 }
 
 /** Who a phone paired with: kept next to the connection, shown in the connection sheet. */
@@ -124,24 +158,57 @@ data class PairLearner(val name: String = "", val target: String = "", val base:
 
 sealed interface PairOutcome {
     data class Paired(val config: BridgeConfig, val info: PairedInfo) : PairOutcome
-    data class Failed(val message: String) : PairOutcome
+    data class Failed(val failure: PairFailure, val status: Int = 0) : PairOutcome {
+        /** What the learner reads, "target · base". */
+        val message: String get() = failure.message(status = status)
+    }
+}
+
+/**
+ * What can go wrong connecting to the family's computer (pairing by its QR code, or its address and token typed), in
+ * plain words, and the way out each offers ([out]: what the setup's button does; ui/setup). [emoji] and [key]: its line.
+ */
+enum class PairFailure(private val emoji: String, private val key: String, val out: Out) {
+    /** No answer: the computer is off, or Tailscale isn't on here. "Try again", and a way to the Tailscale app. */
+    UNREACHABLE("📡", "pairing.cantReachTutorPhone", Out.RETRY),
+    /** The code was used already (or mistyped): a new one. */
+    USED("❌", "pairing.codeWrongOrAlready", Out.SCAN),
+    /** The code is older than its 10 minutes: a new one. */
+    EXPIRED("⌛", "pairing.codeHasExpiredLasts", Out.SCAN),
+    TOO_MANY("⏳", "pairing.tooManyWrongTries", Out.RETRY),
+    /** The computer's Lani is older than pairing by code: update it, or type its address and token. */
+    OLD_COMPUTER("🧰", "pairing.tutorCantPairBy", Out.MANUAL),
+    /** Another computer answered than the code names (or for another learner): not paired. */
+    NOT_THAT_COMPUTER("🔒", "pairing.differentTutorAnsweredThan", Out.SCAN),
+    GARBLED("⚠️", "pairing.tutorsAnswerWasntUnderstood", Out.RETRY),
+    /** Another HTTP status ([PairOutcome.Failed.status]). */
+    HTTP("⚠️", "pairing.pairingFailedHttpStatus", Out.RETRY),
+    /** This device holds another learner's village: a code for someone else needs a fresh start first. */
+    OTHER_LEARNER("🔀", "pairing.phoneBelongsWhoPair", Out.SCAN),
+    /** The address in a code, or the one typed, isn't one. */
+    BAD_ADDRESS("🔗", "pairing.addressCodeIsntValid", Out.FIX),
+    /** Typed by hand: the computer doesn't know this token. */
+    WRONG_TOKEN("🔑", "pairing.wrongToken", Out.FIX),
+    /** Typed by hand: something answers at the address, but not Lani. */
+    NOT_LANI("🤷", "pairing.notLani", Out.FIX);
+
+    /** What the setup offers after it: try the same again, scan a new code, type the address, or fix what was typed. */
+    enum class Out { RETRY, SCAN, MANUAL, FIX }
+
+    /** The line, "target · base": [who] for [OTHER_LEARNER], [status] for [HTTP]. */
+    fun message(who: String? = null, status: Int = 0): String {
+        val args: Array<Pair<String, Any?>> = when (this) {
+            OTHER_LEARNER -> arrayOf("who" to (who?.takeIf { it.isNotBlank() } ?: bi("pairing.anotherLearner")))
+            HTTP -> arrayOf("status" to status)
+            else -> emptyArray()
+        }
+        return "$emoji ${bi(key, *args)}"
+    }
 }
 
 object Pairing {
-    val WRONG_CODE: String get() = "❌ ${bi("pairing.codeWrongOrAlready")}"
-    val EXPIRED: String get() = "⌛ ${bi("pairing.codeHasExpiredLasts")}"
-    val TOO_MANY: String get() = "⏳ ${bi("pairing.tooManyWrongTries")}"
-    val OLD_TUTOR: String get() = "🧰 ${bi("pairing.tutorCantPairBy")}"
-    val UNREACHABLE: String get() = "📡 ${bi("pairing.cantReachTutorPhone")}"
-    val NOT_THAT_TUTOR: String get() = "🔒 ${bi("pairing.differentTutorAnsweredThan")}"
-    val GARBLED: String get() = "⚠️ ${bi("pairing.tutorsAnswerWasntUnderstood")}"
-
-    fun failed(status: Int) = "⚠️ ${bi("pairing.pairingFailedHttpStatus", "status" to status)}"
-
     /** This phone holds another learner's village, chat and queue: pairing it with someone else needs a fresh start. */
-    fun otherLearner(name: String?) = (name?.takeIf { it.isNotBlank() } ?: bi("pairing.anotherLearner")).let { who ->
-        "🔀 ${bi("pairing.phoneBelongsWhoPair", "who" to who)}"
-    }
+    fun otherLearner(name: String?) = PairFailure.OTHER_LEARNER.message(who = name)
 
     /** "✅ Povezano: Luka · Paired with Luka's tutor". */
     fun pairedBanner(info: PairedInfo) = info.learner.ifBlank { info.profile }.let { "✅ ${bi("pairing.pairedWithTutor", "it" to it)}" }
@@ -205,26 +272,26 @@ class PairFlow(private val post: suspend (url: String, body: String) -> Pair<Int
         } catch (e: CancellationException) {
             throw e
         } catch (e: IOException) {
-            return PairOutcome.Failed(Pairing.UNREACHABLE)
+            return PairOutcome.Failed(PairFailure.UNREACHABLE)
         } catch (e: IllegalArgumentException) { // an address OkHttp won't take
-            return PairOutcome.Failed(PairProblem.BAD_URL.message)
+            return PairOutcome.Failed(PairFailure.BAD_ADDRESS)
         }
         return when (status) {
             200 -> {
                 val r = runCatching { json.decodeFromString(PairResponse.serializer(), raw) }.getOrNull()
-                    ?: return PairOutcome.Failed(Pairing.GARBLED)
-                if (!r.token.startsWith("fd_")) return PairOutcome.Failed(Pairing.GARBLED)
-                if (!Pairing.verified(r, p)) return PairOutcome.Failed(Pairing.NOT_THAT_TUTOR)
+                    ?: return PairOutcome.Failed(PairFailure.GARBLED)
+                if (!r.token.startsWith("fd_")) return PairOutcome.Failed(PairFailure.GARBLED)
+                if (!Pairing.verified(r, p)) return PairOutcome.Failed(PairFailure.NOT_THAT_COMPUTER)
                 PairOutcome.Paired(
                     BridgeConfig(p.url, r.token),
                     PairedInfo(r.profile, r.learner.name, p.fingerprint, r.device.id, r.device.name, r.learner.child),
                 )
             }
-            403 -> PairOutcome.Failed(Pairing.WRONG_CODE)
-            410 -> PairOutcome.Failed(Pairing.EXPIRED)
-            429 -> PairOutcome.Failed(Pairing.TOO_MANY)
-            401, 404, 405 -> PairOutcome.Failed(Pairing.OLD_TUTOR) // an older bridge: /pair isn't a route, so it asks for a token
-            else -> PairOutcome.Failed(Pairing.failed(status))
+            403 -> PairOutcome.Failed(PairFailure.USED)
+            410 -> PairOutcome.Failed(PairFailure.EXPIRED)
+            429 -> PairOutcome.Failed(PairFailure.TOO_MANY)
+            401, 404, 405 -> PairOutcome.Failed(PairFailure.OLD_COMPUTER) // an older bridge: /pair isn't a route, so it asks for a token
+            else -> PairOutcome.Failed(PairFailure.HTTP, status)
         }
     }
 }

@@ -79,12 +79,12 @@ class LearnerTest {
 
     @Test fun `the app's labels agree with the learner (learnerGender)`() {
         Learner.current = Learner.of("Ana", "female")
-        assertEquals("Dobrodošla!", L10n.text(Lang.SL, "setupAndPermission.welcome"))
-        assertEquals("Benvenuta!", L10n.text(Lang.IT, "setupAndPermission.welcome"))
+        assertEquals("Boj si zapustila", L10n.text(Lang.SL, "challengeScreen.leftFight"))
         assertEquals("Spoznala si: Micka (Lanišče)", L10n.text(Lang.SL, "guests.youMet", mapOf("who" to "Micka", "town" to "Lanišče")))
         Learner.current = Learner.of("Jan")
-        assertEquals("Dobrodošel!", L10n.text(Lang.SL, "setupAndPermission.welcome"))
-        assertEquals("Benvenuto!", L10n.text(Lang.IT, "setupAndPermission.welcome"))
+        assertEquals("Boj si zapustil", L10n.text(Lang.SL, "challengeScreen.leftFight"))
+        // the first launch's greeting has none: nobody has said who they are yet
+        assertEquals("Dobrodošli!", L10n.text(Lang.SL, "setup.hello"))
     }
 
     @Test fun `the family's from form declines as before, and further`() {

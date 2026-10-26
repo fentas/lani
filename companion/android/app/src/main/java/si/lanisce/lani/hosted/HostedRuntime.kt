@@ -68,6 +68,8 @@ object HostedRuntime {
             // the stories' daily check a while after the boot, not in it (features/stories.ts): Home comes first
             put("LANI_STORIES_CHECK_DELAY_MS", "20000")
             settings?.device?.takeIf { it.isNotBlank() }?.let { put("LANI_LEASE_DEVICE", it) }
+            // a child's device (the onboarding's "for a child"): the bridge's profile is a child's, as a node's lani-profile --child
+            if (File(home, CHILD_FILE).isFile) put("LANI_CHILD", "1")
             if (relay.isNotBlank()) {
                 put("LANI_RELAY_URL", relay.trimEnd('/'))
                 put("LANI_TOWN_URL", "relay")
@@ -76,6 +78,9 @@ object HostedRuntime {
     }
 
     private val settingsJson = kotlinx.serialization.json.Json { ignoreUnknownKeys = true }
+
+    /** In the phone's home (`<filesDir>/lani`): there when the learner on this phone is a child (HostedController.child). */
+    const val CHILD_FILE = "child"
 
     /** The app's client's way in (data/Http.kt installs it): requests to the phone's address answered by [bridge]. */
     val transport = PhoneTransport(bridge = { ensure() }, written = { _, _ -> onWrite() })

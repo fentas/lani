@@ -36,8 +36,8 @@ import si.lanisce.lani.ui.PacksScreen
 import si.lanisce.lani.ui.PermissionDialog
 import si.lanisce.lani.ui.PlayerScreen
 import si.lanisce.lani.ui.ReviewScreen
-import si.lanisce.lani.ui.SetupScreen
 import si.lanisce.lani.ui.family.FamilyScreen
+import si.lanisce.lani.ui.setup.SetupScreen
 import si.lanisce.lani.ui.family.VoiceBadge
 import si.lanisce.lani.ui.game.ChallengeScreen
 import si.lanisce.lani.ui.game.GrammarPracticeScreen
