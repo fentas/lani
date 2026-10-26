@@ -301,8 +301,10 @@ class BuildingWordsTest {
         }
     }
 
-    @Test fun `in the four cultures a hut asks for its words, Primorska's kitchen, the others' home and kitchen pack`() {
-        val expected = mapOf("primorska" to null, "friuli" to "casa-e-cucina", "kaernten" to "haus-und-kueche", "lakeland" to "home-and-kitchen")
+    @Test fun `in the four cultures a hut asks for its words, Primorska's and Friuli's kitchen, the others' home and kitchen pack`() {
+        // the kitchen's pot, window and door, where the culture has a kitchen to step into
+        val kitchen = mapOf("primorska" to listOf("lonec", "okno", "vrata"), "friuli" to listOf("pentola", "finestra", "porta"))
+        val expected = mapOf("primorska" to null, "friuli" to null, "kaernten" to "haus-und-kueche", "lakeland" to "home-and-kitchen")
         for ((id, pack) in expected) {
             val language = Cultures.use(id).manifest.language
             val sc = scenes(id, language)
@@ -310,7 +312,7 @@ class BuildingWordsTest {
             val s = village(hut(1))
             val w = BuildingWords.forUpgrade(s, "hut-1", sc, p, WordBook(emptyList(), emptySet(), emptySet()), id)!!
             assertEquals(id, 8, w.need)
-            if (pack == null) assertEquals(id, listOf("lonec", "okno", "vrata"), w.words.take(3).map { it.id }) // the kitchen's pot, window, door
+            if (pack == null) assertEquals(id, kitchen.getValue(id), w.words.take(3).map { it.id })
             else assertEquals(id, p.getValue(pack).words.take(8).map { it.id }, w.words.map { it.id })
             // and known, the upgrade can be done there too
             val cards = w.words.map { PackSession.card(it.pack, it.learn!!) }

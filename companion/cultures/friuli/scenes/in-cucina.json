@@ -1,0 +1,249 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "in-cucina",
+  "language": "it",
+  "title": { "it": "In cucina", "sl": "V kuhinji", "en": "In the kitchen", "de": "In der Küche" },
+  "emoji": "🍲",
+  "level": "A1",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker",
+  "art": "kitchen",
+  "from": ["hut", "house"],
+  "pack": "in-cucina",
+  "objects": [
+    { "slot": "stove", "word": "fornello", "pack": "casa-e-cucina", "needs": { "level": 2 } },
+    { "slot": "pot", "word": "pentola", "pack": "casa-e-cucina" },
+    { "slot": "bowl", "word": "scodella", "needs": { "level": 2 } },
+    { "slot": "table", "word": "tavolo", "pack": "casa-e-cucina", "needs": { "level": 2 } },
+    { "slot": "chair", "word": "sedia", "pack": "casa-e-cucina", "needs": { "level": 2 } },
+    { "slot": "bread", "word": "pane", "pack": "cibo", "needs": { "level": 2 } },
+    { "slot": "plate", "word": "piatto", "pack": "casa-e-cucina", "needs": { "level": 2 } },
+    { "slot": "glass", "word": "bicchiere", "pack": "casa-e-cucina", "needs": { "level": 2 } },
+    { "slot": "cup", "word": "tazza", "pack": "nella-tenda", "needs": { "level": 2 } },
+    { "slot": "spoon", "word": "cucchiaio", "pack": "casa-e-cucina", "needs": { "level": 2 } },
+    { "slot": "fork", "word": "forchetta", "pack": "casa-e-cucina", "needs": { "level": 2 } },
+    { "slot": "knife", "word": "coltello", "pack": "casa-e-cucina", "needs": { "level": 2 } },
+    { "slot": "window", "word": "finestra", "pack": "casa-e-cucina" },
+    { "slot": "door", "word": "porta", "pack": "casa-e-cucina" },
+    { "slot": "cupboard", "word": "credenza", "needs": { "level": 3 } },
+    { "slot": "clock", "word": "orologio", "needs": { "level": 3 } },
+    { "slot": "milk", "word": "latte", "pack": "cibo" },
+    { "slot": "eggs", "word": "uovo", "pack": "cibo" },
+    { "slot": "water", "word": "acqua", "pack": "cibo" },
+    { "slot": "salt", "word": "sale", "needs": { "level": 2 } },
+    { "slot": "potatoes", "word": "patata", "pack": "cibo" },
+    { "slot": "hearth", "word": "focolare", "needs": { "level": 2, "before": true } },
+    { "slot": "bench", "word": "panca" },
+    { "slot": "bed", "word": "letto", "pack": "casa-e-cucina", "needs": { "level": 2, "before": true } },
+    { "slot": "shelf", "word": "mensola", "needs": { "level": 3, "before": true } },
+    { "slot": "curtains", "word": "tendina", "needs": { "level": 2 } },
+    { "slot": "corner", "word": "angolo", "needs": { "level": 3 } }
+  ],
+  "people": [
+    { "id": "rosa", "name": "Nonna Rosa", "emoji": "👵", "art": "grandma", "slot": "stove", "villager": "rosa" },
+    { "id": "nives", "name": "Zia Nives", "emoji": "📻", "art": "aunt", "slot": "table", "villager": "nives" }
+  ],
+  "happenings": [
+    {
+      "id": "polenta", "title": { "it": "Nonna Rosa fa la polenta", "sl": "Babica Rosa kuha polento", "en": "Nonna Rosa is making polenta", "de": "Nonna Rosa kocht Polenta" }, "who": "rosa",
+      "when": ["evening"], "chance": 0.5, "dialog": "polenta", "dialogs": ["polenta-frico", "polenta"], "reward": { "food": 20 }, "marker": "🍲",
+      "memory": { "it": "la polenta che abbiamo girato insieme", "sl": "polento, ki sva jo skupaj {m:mešala|f:mešali}", "en": "the polenta we stirred together", "de": "die Polenta, die wir zusammen gerührt haben" }
+    },
+    {
+      "id": "colazione", "title": { "it": "La colazione della nonna", "sl": "Babičin zajtrk", "en": "Nonna's breakfast", "de": "Omas Frühstück" }, "who": "rosa",
+      "when": ["morning"], "chance": 0.5, "dialog": "colazione", "dialogs": ["colazione-uova", "colazione"], "reward": { "food": 15 }, "marker": "🥛",
+      "memory": { "it": "le colazioni nella mia cucina", "sl": "zajtrke v moji kuhinji", "en": "the breakfasts in my kitchen", "de": "die Frühstücke in meiner Küche" }
+    },
+    {
+      "id": "radio", "title": { "it": "Zia Nives ascolta la radio", "sl": "Teta Nives posluša radio", "en": "Zia Nives is listening to the radio", "de": "Zia Nives hört Radio" }, "who": "nives",
+      "when": ["afternoon", "evening"], "chance": 0.4, "dialog": "radio", "dialogs": ["radio-partita", "radio"], "reward": { "wood": 15 }, "marker": "📻",
+      "memory": { "it": "le notizie che mi hai detto quando non sentivo", "sl": "novice, ki si mi jih {m:povedal|f:povedala}, ko nisem slišala", "en": "the news you told me when I couldn't hear", "de": "die Nachrichten, die du mir gesagt hast, als ich nichts gehört habe" }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "polenta",
+      "lines": [
+        { "who": "rosa", "it": "Buonasera, tesoro! Stasera c'è la polenta. Mi aiuti?", "sl": "Dober večer, srček! Nocoj je polenta. Mi pomagaš?", "en": "Good evening, sweetheart! It's polenta tonight. Will you help me?", "de": "Guten Abend, Schatz! Heute Abend gibt es Polenta. Hilfst du mir?",
+          "fx": { "oven": 1 } },
+        { "choices": [
+          { "it": "Sì, nonna! Che cosa faccio?", "sl": "Ja, babica! Kaj naj naredim?", "en": "Yes, Nonna! What shall I do?", "de": "Ja, Oma! Was soll ich machen?", "ok": true,
+            "reply": { "it": "Prendi il cucchiaio di legno e gira, gira!", "sl": "Vzemi leseno žlico in mešaj, mešaj!", "en": "Take the wooden spoon and stir, stir!", "de": "Nimm den Holzlöffel und rühr, rühr!" } },
+          { "it": "Sì, nonna! Che cosa fai?", "sl": "Ja, babica! Kaj delaš?", "en": "Yes, Nonna! What are you doing?", "de": "Ja, Oma! Was machst du?",
+            "grammar": "verbi-irregolari", "why": { "sl": "Fai pomeni delaš (ti). Za svoje delo vprašaš: che cosa faccio? (kaj naj naredim?)", "en": "Fai means you do. To ask about your own job: che cosa faccio? (what shall I do?)", "de": "Fai heißt „du machst“. Nach deiner eigenen Aufgabe fragst du: che cosa faccio? (was soll ich machen?)" },
+            "reply": { "it": "Io? La polenta, come sempre! E tu?", "sl": "Jaz? Polento, kot vedno! Pa ti?", "en": "Me? Polenta, as always! And you?", "de": "Ich? Polenta, wie immer! Und du?" } }
+        ] },
+        { "who": "rosa", "it": "{m:Bravo|f:Brava}! Gira piano, sempre dalla stessa parte.", "sl": "Bravo! Mešaj počasi, vedno v isto smer.", "en": "Good! Stir slowly, always the same way round.", "de": "Gut so! Rühr langsam, immer in dieselbe Richtung.",
+          "fx": { "steam": 1 } },
+        { "choices": [
+          { "it": "Così, nonna? È tanto pesante!", "sl": "Takole, babica? Tako težka je!", "en": "Like this, Nonna? It's so heavy!", "de": "So, Oma? Die ist so schwer!", "ok": true,
+            "reply": { "it": "Sì, così. La polenta vuole braccia forti!", "sl": "Ja, takole. Polenta hoče močne roke!", "en": "Yes, like that. Polenta wants strong arms!", "de": "Ja, so. Polenta braucht starke Arme!" } },
+          { "it": "Così, nonna? È tanto pesanti!", "sl": "Takole, babica? Tako težka je!", "en": "Like this, Nonna? It's so heavy!", "de": "So, Oma? Die ist so schwer!",
+            "grammar": "aggettivi-accordo", "why": { "sl": "È je za eno stvar: pesante. Pesanti je množina.", "en": "È is one thing: pesante. Pesanti is the plural.", "de": "È steht für eine Sache: pesante. Pesanti ist der Plural." },
+            "reply": { "it": "Pesanti? Quante polente vedi, tesoro?", "sl": "Pesanti (množina)? Koliko polent pa vidiš, srček?", "en": "Pesanti (plural)? How many polentas can you see, sweetheart?", "de": "Pesanti (Plural)? Wie viele Polentas siehst du denn, Schatz?" } },
+          { "it": "Così, nonna? È tanto leggera!", "sl": "Takole, babica? Tako lahka je!", "en": "Like this, Nonna? It's so light!", "de": "So, Oma? Die ist so leicht!",
+            "why": { "sl": "Leggera pomeni lahka. Polenta je gosta in težka.", "en": "Leggera means light. Polenta is thick and heavy.", "de": "Leggera heißt leicht. Polenta ist dick und schwer." },
+            "reply": { "it": "Leggera? Allora gira tu tutta la sera!", "sl": "Lahka? Potem pa ti mešaj cel večer!", "en": "Light? Then you can stir all evening!", "de": "Leicht? Dann rührst du den ganzen Abend!" } }
+        ] },
+        { "who": "rosa", "it": "Ecco, è pronta! La metto sul tagliere. Hai fame?", "sl": "Tako, gotova je! Dam jo na desko. Si {m:lačen|f:lačna}?", "en": "There, it's ready! I'll put it on the board. Are you hungry?", "de": "So, sie ist fertig! Ich stürze sie aufs Brett. Hast du Hunger?",
+          "fx": { "steam": 0.6 } },
+        { "choices": [
+          { "it": "Sì, ho tanta fame!", "sl": "Ja, zelo {m:lačen|f:lačna} sem!", "en": "Yes, I'm really hungry!", "de": "Ja, ich habe großen Hunger!", "ok": true,
+            "reply": { "it": "Allora mangia, mangia! C'è anche il formaggio.", "sl": "Potem pa jej, jej! Tudi sir je.", "en": "Then eat, eat! There's cheese too.", "de": "Dann iss, iss! Es gibt auch Käse." } },
+          { "it": "Sì, sono tanta fame!", "sl": "Ja, sem velika lakota!", "en": "Yes, I am great hunger!", "de": "Ja, ich bin großer Hunger!",
+            "grammar": "essere-avere", "why": { "sl": "Lakota gre z avere: ho fame (imam lakoto). Sono je jaz sem.", "en": "Hunger goes with avere: ho fame (I have hunger). Sono is I am.", "de": "Hunger geht mit avere: ho fame (ich habe Hunger), wie im Deutschen. Sono heißt ich bin." },
+            "reply": { "it": "Sei la fame? Allora sei {m:un lupetto|f:una lupetta}!", "sl": "Si lakota? Potem si pa {m:mali volk|f:mala volkulja}!", "en": "You are hunger? Then you're a little wolf!", "de": "Du bist Hunger? Dann bist du {m:ein kleiner Wolf|f:eine kleine Wölfin}!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "colazione",
+      "lines": [
+        { "who": "rosa", "it": "Buongiorno, tesoro! Hai dormito bene? La colazione è pronta.", "sl": "Dobro jutro, srček! Si dobro {m:spal|f:spala}? Zajtrk je pripravljen.", "en": "Good morning, sweetheart! Did you sleep well? Breakfast is ready.", "de": "Guten Morgen, Schatz! Hast du gut geschlafen? Das Frühstück ist fertig.",
+          "fx": { "steam": 1 } },
+        { "choices": [
+          { "it": "Buongiorno, nonna! Sì, benissimo.", "sl": "Dobro jutro, babica! Ja, odlično.", "en": "Good morning, Nonna! Yes, really well.", "de": "Guten Morgen, Oma! Ja, sehr gut.", "ok": true,
+            "reply": { "it": "Bene! Siediti qui, vicino a me.", "sl": "Dobro! Sedi sem, k meni.", "en": "Good! Sit here, next to me.", "de": "Schön! Setz dich hierher, zu mir." } },
+          { "it": "Buonanotte, nonna! Sì, benissimo.", "sl": "Lahko noč, babica! Ja, odlično.", "en": "Good night, Nonna! Yes, really well.", "de": "Gute Nacht, Oma! Ja, sehr gut.",
+            "why": { "sl": "Buonanotte rečeš zvečer, ko greš spat. Zjutraj: buongiorno.", "en": "Buonanotte is for going to bed at night. In the morning: buongiorno.", "de": "Buonanotte sagt man abends vor dem Schlafen. Am Morgen: buongiorno." },
+            "reply": { "it": "Buonanotte? Ma il sole è appena sorto!", "sl": "Lahko noč? Saj je sonce ravnokar vzšlo!", "en": "Good night? But the sun's only just come up!", "de": "Gute Nacht? Die Sonne ist doch gerade erst aufgegangen!" } }
+        ] },
+        { "who": "rosa", "it": "Vuoi il latte o il tè?", "sl": "Hočeš mleko ali čaj?", "en": "Would you like milk or tea?", "de": "Möchtest du Milch oder Tee?" },
+        { "choices": [
+          { "it": "Il latte, per favore. Con il pane!", "sl": "Mleko, prosim. S kruhom!", "en": "Milk, please. With bread!", "de": "Milch, bitte. Mit Brot!", "ok": true,
+            "reply": { "it": "Ecco il latte caldo e il pane fresco.", "sl": "Izvoli, toplo mleko in svež kruh.", "en": "Here's warm milk and fresh bread.", "de": "Hier, warme Milch und frisches Brot." } },
+          { "it": "Il tè, per favore. Con il miele!", "sl": "Čaj, prosim. Z medom!", "en": "Tea, please. With honey!", "de": "Tee, bitte. Mit Honig!", "ok": true,
+            "reply": { "it": "Ecco il tè con il miele, bello caldo.", "sl": "Izvoli, čaj z medom, lepo topel.", "en": "Here's tea with honey, nice and hot.", "de": "Hier, Tee mit Honig, schön heiß." } },
+          { "it": "La latte, per favore. Con il pane!", "sl": "Mleko, prosim. S kruhom!", "en": "Milk, please. With bread!", "de": "Milch, bitte. Mit Brot!",
+            "grammar": "articoli-genere", "why": { "sl": "Latte je moškega spola: il latte.", "en": "Latte is masculine: il latte.", "de": "Latte ist männlich: il latte (die Milch ist weiblich)." },
+            "reply": { "it": "La latte? Tesoro, sei ancora {m:mezzo addormentato|f:mezza addormentata}!", "sl": "La latte? Srček, še na pol spiš!", "en": "La latte? Sweetheart, you're still half asleep!", "de": "La latte? Schatz, du schläfst ja noch halb!" } }
+        ] },
+        { "who": "rosa", "it": "Mangia piano. Che cosa fai oggi?", "sl": "Jej počasi. Kaj pa danes počneš?", "en": "Eat slowly. What are you doing today?", "de": "Iss langsam. Was machst du heute?" },
+        { "choices": [
+          { "it": "Gioco fuori tutto il giorno!", "sl": "Ves dan se igram zunaj!", "en": "I'm playing outside all day!", "de": "Ich spiele den ganzen Tag draußen!", "ok": true,
+            "reply": { "it": "Bene, ma metti la giacca!", "sl": "Prav, ampak obleci jakno!", "en": "Good, but put your jacket on!", "de": "Gut, aber zieh die Jacke an!" } },
+          { "it": "Giochi fuori tutto il giorno!", "sl": "Ves dan se igraš zunaj!", "en": "You're playing outside all day!", "de": "Du spielst den ganzen Tag draußen!",
+            "grammar": "presente-regolare", "why": { "sl": "Giochi pomeni igraš se (ti). O sebi: gioco (igram se).", "en": "Giochi means you play. About yourself: gioco (I play).", "de": "Giochi heißt „du spielst“. Über dich selbst: gioco (ich spiele)." },
+            "reply": { "it": "Io? No, tesoro, io lavoro in cucina!", "sl": "Jaz? Ne, srček, jaz delam v kuhinji!", "en": "Me? No, sweetheart, I'm working in the kitchen!", "de": "Ich? Nein, Schatz, ich arbeite in der Küche!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "radio",
+      "lines": [
+        { "who": "nives", "it": "Shh, {learner}! C'è il meteo alla radio!", "sl": "Pst, {learner}! Po radiu je vremenska napoved!", "en": "Shh, {learner}! The weather forecast is on the radio!", "de": "Pst, {learner}! Im Radio kommt der Wetterbericht!" },
+        { "choices": [
+          { "it": "Scusa, zia! Che cosa dice?", "sl": "Oprosti, teta! Kaj pravi?", "en": "Sorry, Zia! What does it say?", "de": "Entschuldige, Tante! Was sagt er?", "ok": true,
+            "reply": { "it": "Domani c'è la bora! La bora, ho detto!", "sl": "Jutri bo burja! Burja, sem rekla!", "en": "The bora's coming tomorrow! The bora, I said!", "de": "Morgen kommt die Bora! Die Bora, hab ich gesagt!" } },
+          { "it": "Scusi, zia! Che cosa dice?", "sl": "Oprostite, teta! Kaj pravi?", "en": "Sorry (polite), Zia! What does it say?", "de": "Entschuldigen Sie, Tante! Was sagt er?",
+            "grammar": "tu-lei", "why": { "sl": "Scusi je vikanje (Lei). Teti rečeš tu: scusa.", "en": "Scusi is the polite Lei. To your aunt, say tu: scusa.", "de": "Scusi ist die höfliche Lei-Form. Zu deiner Tante sagst du tu: scusa." },
+            "reply": { "it": "Scusi? Ma sono la tua zia, non la regina!", "sl": "Oprostite? Saj sem tvoja teta, ne kraljica!", "en": "Scusi? But I'm your aunt, not the queen!", "de": "Scusi? Ich bin doch deine Tante, nicht die Königin!" } }
+        ] },
+        { "who": "nives", "it": "Come? Parla più forte, non sento bene!", "sl": "Kako? Govori glasneje, ne slišim dobro!", "en": "What? Speak up, I can't hear well!", "de": "Wie bitte? Sprich lauter, ich höre nicht gut!" },
+        { "choices": [
+          { "it": "Domani c'è la bora? Fa freddo?", "sl": "Jutri bo burja? Bo mrzlo?", "en": "Is the bora coming tomorrow? Will it be cold?", "de": "Kommt morgen die Bora? Wird es kalt?", "ok": true,
+            "reply": { "it": "Sì, sì! Freddo e vento forte. Freddo, eh!", "sl": "Ja, ja! Mraz in močan veter. Mraz, ja!", "en": "Yes, yes! Cold and a strong wind. Cold, mind!", "de": "Ja, ja! Kalt und starker Wind. Kalt, sag ich!" } },
+          { "it": "Domani c'è la bora? È freddo?", "sl": "Jutri bo burja? Je mrzel?", "en": "Is the bora coming tomorrow? Is it cold (a thing)?", "de": "Kommt morgen die Bora? Ist er kalt?",
+            "grammar": "essere-avere", "why": { "sl": "Za vreme rečeš fa freddo (je mrzlo). È freddo je za stvar: il tè è freddo.", "en": "The weather takes fare: fa freddo. È freddo is for a thing: il tè è freddo.", "de": "Beim Wetter sagt man fa freddo (es ist kalt). È freddo ist für eine Sache: il tè è freddo." },
+            "reply": { "it": "È freddo? Chi? Il mio tè? No, è caldo!", "sl": "Mrzel? Kdo? Moj čaj? Ne, vroč je!", "en": "Cold? What is? My tea? No, it's hot!", "de": "Kalt? Was denn? Mein Tee? Nein, der ist heiß!" } }
+        ] },
+        { "who": "nives", "it": "Domani resta a casa, {learner}! Con la bora si vola via!", "sl": "Jutri ostani doma, {learner}! Burja te odpihne!", "en": "Stay at home tomorrow, {learner}! In the bora you'll blow away!", "de": "Bleib morgen zu Hause, {learner}! Bei der Bora fliegt man weg!" },
+        { "choices": [
+          { "it": "Grazie, zia. Domani resto a casa.", "sl": "Hvala, teta. Jutri ostanem doma.", "en": "Thanks, Zia. I'll stay at home tomorrow.", "de": "Danke, Tante. Morgen bleibe ich zu Hause.", "ok": true,
+            "reply": { "it": "{m:Bravo|f:Brava}! E vieni da me per un tè.", "sl": "Bravo! In pridi k meni na čaj.", "en": "Good! And come round to me for a tea.", "de": "Brav! Und komm zu mir auf einen Tee." } },
+          { "it": "Va bene, zia! Domani gioco in casa.", "sl": "Prav, teta! Jutri se igram doma.", "en": "OK, Zia! Tomorrow I'll play indoors.", "de": "Okay, Tante! Morgen spiele ich drinnen.", "ok": true,
+            "reply": { "it": "Giusto! La bora non è uno scherzo.", "sl": "Pametno! Burja ni šala.", "en": "Right! The bora is no joke.", "de": "Richtig! Die Bora ist kein Spaß." } },
+          { "it": "Grazie, zia. Domani vado al mare!", "sl": "Hvala, teta. Jutri grem na morje!", "en": "Thanks, Zia. Tomorrow I'm going to the sea!", "de": "Danke, Tante. Morgen fahre ich ans Meer!",
+            "why": { "sl": "Teta pravi, naj ostaneš doma: resta a casa.", "en": "Your aunt says to stay at home: resta a casa.", "de": "Deine Tante sagt, du sollst zu Hause bleiben: resta a casa." },
+            "reply": { "it": "Al mare? Con la bora? Voli via come un gabbiano!", "sl": "Na morje? V burji? Odneslo te bo kot galeba!", "en": "To the sea? In the bora? You'll fly off like a gull!", "de": "Ans Meer? Bei Bora? Du fliegst weg wie eine Möwe!" } }
+        ] }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "polenta-frico",
+      "memory": { "it": "la sera che abbiamo mangiato il frico insieme", "sl": "večer, ko sva skupaj {m:jedla|f:jedli} frico", "en": "the evening we ate frico together", "de": "den Abend, an dem wir zusammen Frico gegessen haben" },
+      "lines": [
+        { "who": "rosa", "it": "Tesoro, stasera polenta e frico! Sai che cos'è il frico?", "sl": "Srček, nocoj bosta polenta in frico! Veš, kaj je frico?", "en": "Sweetheart, polenta and frico tonight! Do you know what frico is?", "de": "Schatz, heute Abend gibt es Polenta und Frico! Weißt du, was Frico ist?",
+          "fx": { "oven": 1 } },
+        { "choices": [
+          { "it": "No, non lo so. Che cos'è?", "sl": "Ne, ne vem. Kaj je to?", "en": "No, I don't know. What is it?", "de": "Nein, weiß ich nicht. Was ist das?", "ok": true,
+            "reply": { "it": "Formaggio e patate, fritti nella padella. Buonissimo!", "sl": "Sir in krompir, ocvrta v ponvi. Odlično!", "en": "Cheese and potatoes, fried in the pan. Delicious!", "de": "Käse und Kartoffeln, in der Pfanne gebraten. Köstlich!" } },
+          { "it": "No, lo non so. Che cos'è?", "sl": "Ne, ne vem. Kaj je to?", "en": "No, I don't know. What is it?", "de": "Nein, weiß ich nicht. Was ist das?",
+            "grammar": "domande", "why": { "sl": "Non stoji pred lo: non lo so.", "en": "Non comes before lo: non lo so.", "de": "Non steht vor lo: non lo so." },
+            "reply": { "it": "Eh? Ripeti piano piano, tesoro.", "sl": "Eh? Ponovi počasi, srček.", "en": "Eh? Say it again slowly, sweetheart.", "de": "Hä? Sag es noch mal langsam, Schatz." } }
+        ] },
+        { "who": "rosa", "it": "Nel frico c'è il formaggio di montagna. Ti piace il formaggio?", "sl": "V fricu je planinski sir. Ti je všeč sir?", "en": "There's mountain cheese in frico. Do you like cheese?", "de": "Im Frico ist Bergkäse. Magst du Käse?" },
+        { "choices": [
+          { "it": "Sì, mi piace tanto!", "sl": "Ja, zelo mi je všeč!", "en": "Yes, I like it a lot!", "de": "Ja, ich mag ihn sehr!", "ok": true,
+            "reply": { "it": "Allora il primo pezzo è per te!", "sl": "Potem je prvi kos zate!", "en": "Then the first piece is for you!", "de": "Dann ist das erste Stück für dich!" } },
+          { "it": "Sì, il formaggio è buonissimo!", "sl": "Ja, sir je odličen!", "en": "Yes, cheese is delicious!", "de": "Ja, Käse ist super lecker!", "ok": true,
+            "reply": { "it": "Hai ragione! Il primo pezzo è tuo.", "sl": "Prav imaš! Prvi kos je tvoj.", "en": "You're right! The first piece is yours.", "de": "Du hast recht! Das erste Stück gehört dir." } },
+          { "it": "Sì, ti piace tanto!", "sl": "Ja, tebi je zelo všeč!", "en": "Yes, you like it a lot!", "de": "Ja, dir schmeckt er sehr!",
+            "grammar": "piacere", "why": { "sl": "O sebi rečeš mi piace (meni je všeč). Ti piace je tebi je všeč.", "en": "About yourself, say mi piace. Ti piace means you like it.", "de": "Über dich selbst sagst du mi piace (mir gefällt es). Ti piace heißt: dir gefällt es." },
+            "reply": { "it": "Lo so che piace a me! E a te, tesoro?", "sl": "Vem, da je meni všeč! Pa tebi, srček?", "en": "I know I like it! And you, sweetheart?", "de": "Ich weiß, dass er mir schmeckt! Und dir, Schatz?" } }
+        ] },
+        { "who": "rosa", "it": "Ecco, frico e polenta. Buon appetito, tesoro!", "sl": "Izvoli, frico in polenta. Dober tek, srček!", "en": "Here you are, frico and polenta. Enjoy your meal, sweetheart!", "de": "Bitte schön, Frico und Polenta. Guten Appetit, Schatz!",
+          "fx": { "steam": 1 } },
+        { "choices": [
+          { "it": "Grazie, nonna! Buon appetito anche a te.", "sl": "Hvala, babica! Dober tek tudi tebi.", "en": "Thank you, Nonna! Enjoy your meal too.", "de": "Danke, Oma! Guten Appetit auch dir.", "ok": true,
+            "reply": { "it": "Grazie, tesoro. Mangia piano, è caldo!", "sl": "Hvala, srček. Jej počasi, vroče je!", "en": "Thank you, sweetheart. Eat slowly, it's hot!", "de": "Danke, Schatz. Iss langsam, es ist heiß!" } },
+          { "it": "Prego, nonna! Buon appetito anche a te.", "sl": "Ni za kaj, babica! Dober tek tudi tebi.", "en": "You're welcome, Nonna! Enjoy your meal too.", "de": "Gern geschehen, Oma! Guten Appetit auch dir.",
+            "why": { "sl": "Prego pomeni prosim ali ni za kaj. Za hrano se zahvališ: grazie.", "en": "Prego means you're welcome. To thank her for the food: grazie.", "de": "Prego heißt „gern geschehen“. Für das Essen bedankst du dich: grazie." },
+            "reply": { "it": "Prego? Ma il frico l'ho fatto io, tesoro!", "sl": "Ni za kaj? Saj sem frico naredila jaz, srček!", "en": "You're welcome? But I made the frico, sweetheart!", "de": "Gern geschehen? Den Frico hab doch ich gemacht, Schatz!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "colazione-uova",
+      "count": { "from": "dice", "min": 2, "max": 12, "gender": "m" },
+      "memory": { "it": "la mattina che abbiamo contato le uova", "sl": "jutro, ko sva {m:štela|f:šteli} jajca", "en": "the morning we counted the eggs", "de": "den Morgen, an dem wir die Eier gezählt haben" },
+      "lines": [
+        { "who": "rosa", "it": "Buongiorno, tesoro! Faccio una frittata. Quante uova ci sono nel cesto? Contale tu!", "sl": "Dobro jutro, srček! Delam frtaljo. Koliko jajc je v košari? Preštej jih ti!", "en": "Good morning, sweetheart! I'm making a frittata. How many eggs are there in the basket? You count them!", "de": "Guten Morgen, Schatz! Ich mache eine Frittata. Wie viele Eier sind im Korb? Zähl du sie!" },
+        { "choices": [
+          { "it": "{C'è|Ci sono} {n} {uovo|uova}!", "sl": "Tu {je|sta|so|je} {n} {jajce|jajci|jajca|jajc}!", "en": "There {is|are} {n} {egg|eggs}!", "de": "Da {ist|sind} {n} {Ei|Eier}!", "ok": true,
+            "reply": { "it": "Giusto! Bastano per una bella frittata.", "sl": "Tako je! Dovolj jih je za lepo frtaljo.", "en": "That's right! Enough for a nice frittata.", "de": "Richtig! Das reicht für eine schöne Frittata." } },
+          { "it": "{C'è|Ci sono} {n} {!uovo|uova}!", "sl": "Tu {je|sta|so|je} {n} {!jajce|jajci|jajca|jajc}!", "en": "There {is|are} {n} {!egg|eggs}!", "de": "Da {ist|sind} {n} {!Ei|Eier}!", "wrong_form": 1, "grammar": "plurale",
+            "why": { "sl": "{Eno jajce je v ednini|Več jajc je v množini}: {n} {uovo|uova}.", "en": "{One takes the singular|More than one takes the plural}: {n} {uovo|uova}.", "de": "{Eins steht im Singular|Mehrere stehen im Plural}: {n} {uovo|uova}." },
+            "reply": { "it": "Uovo? Uno solo? Guarda bene nel cesto!", "sl": "Uovo (jajce)? Samo eno? Dobro poglej v košaro!", "en": "Uovo (egg)? Just one? Look carefully in the basket!", "de": "Uovo (Ei)? Nur eins? Schau genau in den Korb!" } },
+          { "it": "{C'è|Ci sono} {n} uovi!", "sl": "Tu {je|sta|so|je} {n} {jajce|jajci|jajca|jajc}!", "en": "There {is|are} {n} {egg|eggs}!", "de": "Da {ist|sind} {n} {Ei|Eier}!", "grammar": "plurale",
+            "why": { "sl": "Uovo ima nepravilno množino: le uova, ne uovi.", "en": "Uovo has an irregular plural: le uova, not uovi.", "de": "Uovo hat einen unregelmäßigen Plural: le uova, nicht uovi." },
+            "reply": { "it": "Uovi? Che parola buffa, tesoro!", "sl": "Uovi? Kakšna smešna beseda, srček!", "en": "Uovi? What a funny word, sweetheart!", "de": "Uovi? Was für ein lustiges Wort, Schatz!" } }
+        ] },
+        { "who": "rosa", "it": "Grazie! Adesso rompo le uova. Mi passi il sale?", "sl": "Hvala! Zdaj ubijem jajca. Mi podaš sol?", "en": "Thank you! Now I'll crack the eggs. Will you pass me the salt?", "de": "Danke! Jetzt schlage ich die Eier auf. Gibst du mir das Salz?" },
+        { "choices": [
+          { "it": "Ecco il sale, nonna.", "sl": "Izvoli sol, babica.", "en": "Here's the salt, Nonna.", "de": "Hier ist das Salz, Oma.", "ok": true,
+            "reply": { "it": "Grazie, tesoro. Solo un pizzico!", "sl": "Hvala, srček. Samo ščepec!", "en": "Thank you, sweetheart. Just a pinch!", "de": "Danke, Schatz. Nur eine Prise!" } },
+          { "it": "Ecco lo zucchero, nonna.", "sl": "Izvoli sladkor, babica.", "en": "Here's the sugar, Nonna.", "de": "Hier ist der Zucker, Oma.",
+            "why": { "sl": "Zucchero je sladkor. Sol je il sale.", "en": "Zucchero is sugar. Salt is il sale.", "de": "Zucchero ist Zucker. Salz ist il sale." },
+            "reply": { "it": "Lo zucchero? Nella frittata? No, no, tesoro!", "sl": "Sladkor? V frtaljo? Ne, ne, srček!", "en": "Sugar? In a frittata? No, no, sweetheart!", "de": "Zucker? In die Frittata? Nein, nein, Schatz!" } }
+        ] },
+        { "who": "rosa", "it": "Ecco la frittata! Buon appetito, tesoro.", "sl": "Izvoli frtaljo! Dober tek, srček.", "en": "Here's the frittata! Enjoy, sweetheart.", "de": "Hier ist die Frittata! Guten Appetit, Schatz.",
+          "fx": { "oven": 0.8, "steam": 1 } }
+      ]
+    },
+    {
+      "id": "radio-partita",
+      "memory": { "it": "la partita dell'Udinese che abbiamo sentito alla radio", "sl": "tekmo Udineseja, ki sva jo {m:poslušala|f:poslušali} po radiu", "en": "the Udinese match we listened to on the radio", "de": "das Spiel von Udinese, das wir im Radio gehört haben" },
+      "lines": [
+        { "who": "nives", "it": "{learner}, vieni! Alla radio c'è la partita dell'Udinese!", "sl": "{learner}, pridi! Po radiu je tekma Udineseja!", "en": "{learner}, come here! The Udinese match is on the radio!", "de": "{learner}, komm! Im Radio läuft das Spiel von Udinese!" },
+        { "choices": [
+          { "it": "Chi vince, zia?", "sl": "Kdo zmaguje, teta?", "en": "Who's winning, Zia?", "de": "Wer gewinnt, Tante?", "ok": true,
+            "reply": { "it": "L'Udinese! Due a uno! Due a uno, capito?", "sl": "Udinese! Dve proti ena! Dve proti ena, razumeš?", "en": "Udinese! Two-one! Two-one, got it?", "de": "Udinese! Zwei zu eins! Zwei zu eins, verstanden?" } },
+          { "it": "Dove vince, zia?", "sl": "Kje zmaguje, teta?", "en": "Where's winning, Zia?", "de": "Wo gewinnt, Tante?",
+            "grammar": "domande", "why": { "sl": "Dove pomeni kje. Za osebo ali moštvo vprašaš: chi? (kdo?)", "en": "Dove means where. For a person or a team, ask chi? (who?)", "de": "Dove heißt wo. Nach einer Person oder Mannschaft fragst du: chi? (wer?)" },
+            "reply": { "it": "Dove? Allo stadio, a Udine! Dove, se no?", "sl": "Kje? Na stadionu, v Vidmu! Kje pa drugje?", "en": "Where? At the stadium, in Udine! Where else?", "de": "Wo? Im Stadion, in Udine! Wo denn sonst?" } }
+        ] },
+        { "who": "nives", "it": "Gol! Gol dell'Udinese! Hai sentito?", "sl": "Gol! Udinese je zabil gol! Si {m:slišal|f:slišala}?", "en": "Goal! Goal for Udinese! Did you hear?", "de": "Tor! Tor für Udinese! Hast du gehört?" },
+        { "choices": [
+          { "it": "Sì! Adesso è tre a uno!", "sl": "Ja! Zdaj je tri proti ena!", "en": "Yes! Now it's three-one!", "de": "Ja! Jetzt steht es drei zu eins!", "ok": true,
+            "reply": { "it": "Evviva! Domani lo dico a tutto il paese!", "sl": "Juhu! Jutri to povem vsej vasi!", "en": "Hooray! Tomorrow I'll tell the whole village!", "de": "Hurra! Morgen erzähle ich es dem ganzen Dorf!" } },
+          { "it": "Sì! Adesso è due a due!", "sl": "Ja! Zdaj je dve proti dve!", "en": "Yes! Now it's two-two!", "de": "Ja! Jetzt steht es zwei zu zwei!",
+            "why": { "sl": "Bilo je dve proti ena in Udinese je zabil: zdaj je tre a uno.", "en": "It was two-one and Udinese scored: now it's tre a uno.", "de": "Es stand zwei zu eins, und Udinese hat getroffen: jetzt steht es tre a uno." },
+            "reply": { "it": "Due a due? No, no! Ha segnato l'Udinese!", "sl": "Dve proti dve? Ne, ne! Zabil je Udinese!", "en": "Two-two? No, no! Udinese scored!", "de": "Zwei zu zwei? Nein, nein! Udinese hat getroffen!" } }
+        ] },
+        { "who": "nives", "it": "Che bella giornata! Grazie per la compagnia, {learner}.", "sl": "Kako lep dan! Hvala za družbo, {learner}.", "en": "What a lovely day! Thanks for the company, {learner}.", "de": "Was für ein schöner Tag! Danke für die Gesellschaft, {learner}." }
+      ]
+    }
+  ]
+}

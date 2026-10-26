@@ -1,0 +1,227 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "in-cucina",
+  "language": "it",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in it, with sl, en and de translations, from the kitchen's picture (its painter's colours and where each thing is drawn at each level, as kuhinja's clues have them); not reviewed by a native speaker",
+  "things": {
+    "stove": {
+      "clues": [
+        { "kind": "colour", "it": "È verde.", "sl": "Je zelene barve.", "en": "It's green.", "de": "Er ist grün.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "size", "it": "È grande.", "sl": "To je nekaj velikega.", "en": "It's big.", "de": "Er ist groß.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "does", "it": "D'inverno scalda la cucina.", "sl": "Pozimi greje kuhinjo.", "en": "In winter it warms the kitchen.", "de": "Im Winter wärmt er die Küche.", "grammar": ["presente-regolare"] },
+        { "kind": "use", "it": "Ci cuciniamo sopra.", "sl": "Na tem kuhamo.", "en": "We cook on it.", "de": "Darauf kochen wir.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "pot": {
+      "clues": [
+        { "kind": "colour", "it": "È blu.", "sl": "Je modre barve.", "en": "It's blue.", "de": "Das ist blau.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È sul focolare.", "sl": "Stoji na ognjišču.", "en": "It's on the hearth.", "de": "Das steht auf der Feuerstelle.", "grammar": ["preposizioni-articolate"], "ref": "hearth" },
+        { "kind": "where", "it": "È sul fornello.", "sl": "Stoji na štedilniku.", "en": "It's on the stove.", "de": "Das steht auf dem Herd.", "grammar": ["preposizioni-articolate"], "ref": "stove" },
+        { "kind": "use", "it": "Ci cuciniamo la minestra.", "sl": "V tem kuhamo juho.", "en": "We cook soup in it.", "de": "Darin kochen wir Suppe.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "bowl": {
+      "clues": [
+        { "kind": "colour", "it": "È bianca.", "sl": "Je bele barve.", "en": "It's white.", "de": "Sie ist weiß.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "È rotonda.", "sl": "To je nekaj okroglega.", "en": "It's round.", "de": "Sie ist rund.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È sul tavolo.", "sl": "Stoji na mizi.", "en": "It's on the table.", "de": "Sie steht auf dem Tisch.", "grammar": ["preposizioni-articolate"], "ref": "table" },
+        { "kind": "use", "it": "Ci mangiamo la minestra.", "sl": "Iz tega jemo juho.", "en": "We eat soup out of it.", "de": "Daraus essen wir Suppe.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "table": {
+      "clues": [
+        { "kind": "size", "it": "È grande.", "sl": "To je nekaj velikega.", "en": "It's big.", "de": "Er ist groß.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "material", "it": "È di legno.", "sl": "Je iz lesa.", "en": "It's made of wood.", "de": "Er ist aus Holz.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È in mezzo alla cucina.", "sl": "Stoji sredi kuhinje.", "en": "It's in the middle of the kitchen.", "de": "Er steht mitten in der Küche.", "grammar": ["dove-preposizioni", "preposizioni-articolate"] },
+        { "kind": "use", "it": "Qui mangiamo tutti insieme.", "sl": "Tukaj vsi skupaj jemo.", "en": "We all eat here together.", "de": "Hier essen wir alle zusammen.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "chair": {
+      "clues": [
+        { "kind": "colour", "it": "È marrone.", "sl": "Je rjave barve.", "en": "It's brown.", "de": "Das ist braun.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "material", "it": "È di legno.", "sl": "Je iz lesa.", "en": "It's made of wood.", "de": "Das ist aus Holz.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È vicino al tavolo.", "sl": "Stoji pri mizi.", "en": "It's next to the table.", "de": "Das steht neben dem Tisch.", "grammar": ["dove-preposizioni", "preposizioni-articolate"], "ref": "table" },
+        { "kind": "use", "it": "Ci sediamo sopra.", "sl": "Na to se usedemo.", "en": "We sit on it.", "de": "Darauf setzen wir uns.", "grammar": ["verbi-irregolari"] }
+      ]
+    },
+    "bread": {
+      "clues": [
+        { "kind": "colour", "it": "È marrone.", "sl": "Je rjave barve.", "en": "It's brown.", "de": "Es ist braun.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "È rotondo.", "sl": "To je nekaj okroglega.", "en": "It's round.", "de": "Es ist rund.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È sul tavolo.", "sl": "Leži na mizi.", "en": "It's on the table.", "de": "Es liegt auf dem Tisch.", "grammar": ["preposizioni-articolate"], "ref": "table" },
+        { "kind": "does", "it": "Ha un buon profumo.", "sl": "Lepo diši.", "en": "It smells good.", "de": "Es duftet gut.", "grammar": ["essere-avere"] },
+        { "kind": "use", "it": "La nonna lo fa nel forno.", "sl": "Babica ga speče v peči.", "en": "Grandma makes it in the oven.", "de": "Oma backt es im Ofen.", "grammar": ["verbi-irregolari", "preposizioni-articolate"] }
+      ]
+    },
+    "plate": {
+      "clues": [
+        { "kind": "colour", "it": "È bianco.", "sl": "Je bele barve.", "en": "It's white.", "de": "Er ist weiß.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "È rotondo.", "sl": "To je nekaj okroglega.", "en": "It's round.", "de": "Er ist rund.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È sul tavolo.", "sl": "Leži na mizi.", "en": "It's on the table.", "de": "Er steht auf dem Tisch.", "grammar": ["preposizioni-articolate"], "ref": "table" },
+        { "kind": "use", "it": "Ci mettiamo il pranzo.", "sl": "Nanj damo kosilo.", "en": "We put lunch on it.", "de": "Darauf kommt das Mittagessen.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "glass": {
+      "clues": [
+        { "kind": "trait", "it": "È alto.", "sl": "To je nekaj visokega.", "en": "It's tall.", "de": "Es ist hoch.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "material", "it": "È di vetro.", "sl": "Je iz stekla.", "en": "It's see-through.", "de": "Es ist durchsichtig.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È sul tavolo.", "sl": "Stoji na mizi.", "en": "It's on the table.", "de": "Es steht auf dem Tisch.", "grammar": ["preposizioni-articolate"], "ref": "table" },
+        { "kind": "use", "it": "Ci beviamo l'acqua.", "sl": "Iz tega pijemo vodo.", "en": "We drink water out of it.", "de": "Daraus trinken wir Wasser.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "cup": {
+      "clues": [
+        { "kind": "colour", "it": "È rossa.", "sl": "Je rdeče barve.", "en": "It's red.", "de": "Sie ist rot.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "size", "it": "È piccola.", "sl": "To je nekaj majhnega.", "en": "It's small.", "de": "Sie ist klein.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È sul tavolo.", "sl": "Stoji na mizi.", "en": "It's on the table.", "de": "Sie steht auf dem Tisch.", "grammar": ["preposizioni-articolate"], "ref": "table" },
+        { "kind": "use", "it": "Ci beviamo il caffè.", "sl": "Iz tega pijemo kavo.", "en": "We drink coffee out of it.", "de": "Daraus trinken wir Kaffee.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "spoon": {
+      "clues": [
+        { "kind": "colour", "it": "È grigio.", "sl": "Je sive barve.", "en": "It's grey.", "de": "Er ist grau.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È sul tavolo.", "sl": "Leži na mizi.", "en": "It's on the table.", "de": "Er liegt auf dem Tisch.", "grammar": ["preposizioni-articolate"], "ref": "table" },
+        { "kind": "use", "it": "Ci serve per la minestra.", "sl": "Potrebujemo ga za juho.", "en": "We need it for soup.", "de": "Den brauchen wir für die Suppe.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "fork": {
+      "clues": [
+        { "kind": "colour", "it": "È grigia.", "sl": "Je sive barve.", "en": "It's grey.", "de": "Sie ist grau.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È sul tavolo.", "sl": "Leži na mizi.", "en": "It's on the table.", "de": "Sie liegt auf dem Tisch.", "grammar": ["preposizioni-articolate"], "ref": "table" },
+        { "kind": "use", "it": "Ci mangiamo la carne.", "sl": "Z njo jemo meso.", "en": "We eat meat with it.", "de": "Damit essen wir Fleisch.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "knife": {
+      "clues": [
+        { "kind": "trait", "it": "Taglia bene.", "sl": "Dobro reže.", "en": "It cuts well.", "de": "Es schneidet gut.", "grammar": ["presente-regolare"] },
+        { "kind": "where", "it": "È sul tavolo.", "sl": "Leži na mizi.", "en": "It's on the table.", "de": "Es liegt auf dem Tisch.", "grammar": ["preposizioni-articolate"], "ref": "table" },
+        { "kind": "use", "it": "Ci tagliamo il pane.", "sl": "S tem režemo kruh.", "en": "We cut bread with it.", "de": "Damit schneiden wir Brot.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "window": {
+      "clues": [
+        { "kind": "material", "it": "È di vetro.", "sl": "Je iz stekla.", "en": "It's made of glass.", "de": "Es ist aus Glas.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È vicino alla porta.", "sl": "Je pri vratih.", "en": "It's by the door.", "de": "Es ist neben der Tür.", "grammar": ["dove-preposizioni", "preposizioni-articolate"], "ref": "door" },
+        { "kind": "where", "it": "È sopra la panca.", "sl": "Je nad klopjo.", "en": "It's above the bench.", "de": "Es ist über der Bank.", "grammar": ["dove-preposizioni"], "ref": "bench" },
+        { "kind": "use", "it": "Davanti c'è un fiore rosso.", "sl": "Pred njim je rdeča roža.", "en": "There's a red flower in front of it.", "de": "Davor steht eine rote Blume.", "grammar": ["ce-ci-sono"] }
+      ]
+    },
+    "door": {
+      "clues": [
+        { "kind": "colour", "it": "È marrone.", "sl": "Je rjave barve.", "en": "It's brown.", "de": "Sie ist braun.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "material", "it": "È di legno.", "sl": "Je iz lesa.", "en": "It's made of wood.", "de": "Sie ist aus Holz.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È vicino alla finestra.", "sl": "Je pri oknu.", "en": "It's by the window.", "de": "Sie ist neben dem Fenster.", "grammar": ["dove-preposizioni", "preposizioni-articolate"], "ref": "window" },
+        { "kind": "use", "it": "L'apriamo per uscire.", "sl": "Odpremo jih, ko gremo ven.", "en": "We open it to go out.", "de": "Wir machen sie auf, um hinauszugehen.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "cupboard": {
+      "name": { "en": "dresser", "de": "Küchenschrank", "sl": "kredenca" },
+      "clues": [
+        { "kind": "colour", "it": "È blu.", "sl": "Je modre barve.", "en": "It's blue.", "de": "Sie ist blau.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "size", "it": "È alta.", "sl": "To je nekaj visokega.", "en": "It's tall.", "de": "Sie ist hoch.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È contro la parete.", "sl": "Stoji ob steni.", "en": "It stands against the wall.", "de": "Sie steht an der Wand.", "grammar": ["dove-preposizioni"] },
+        { "kind": "use", "it": "Dentro ci sono i piatti.", "sl": "Notri so krožniki.", "en": "There are plates inside it.", "de": "Darin sind die Teller.", "grammar": ["ce-ci-sono"] }
+      ]
+    },
+    "clock": {
+      "clues": [
+        { "kind": "colour", "it": "È marrone.", "sl": "Je rjave barve.", "en": "It's brown.", "de": "Das ist braun.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È appeso alla parete.", "sl": "Visi na steni.", "en": "It hangs on the wall.", "de": "Das hängt an der Wand.", "grammar": ["preposizioni-articolate", "aggettivi-accordo"] },
+        { "kind": "where", "it": "È vicino alla credenza.", "sl": "Visi zraven kredence.", "en": "It hangs next to the dresser.", "de": "Das hängt neben dem Küchenschrank.", "grammar": ["dove-preposizioni", "preposizioni-articolate"], "ref": "cupboard" },
+        { "kind": "does", "it": "Fa tic tac e segna l'ora.", "sl": "Dela tik tak in kaže čas.", "en": "It goes tick-tock and tells the time.", "de": "Das macht tick tack und zeigt die Zeit.", "grammar": ["verbi-irregolari"] }
+      ]
+    },
+    "milk": {
+      "clues": [
+        { "kind": "colour", "it": "È bianco.", "sl": "Je bele barve.", "en": "It's white.", "de": "Das ist weiß.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È sulla mensola.", "sl": "Je na polici.", "en": "It's on the shelf.", "de": "Das steht auf dem Regal.", "grammar": ["preposizioni-articolate"], "ref": "shelf" },
+        { "kind": "where", "it": "È sulla credenza.", "sl": "Je na kredenci.", "en": "It's on the dresser.", "de": "Das steht auf dem Küchenschrank.", "grammar": ["preposizioni-articolate"], "ref": "cupboard" },
+        { "kind": "use", "it": "Lo beviamo a colazione.", "sl": "To pijemo za zajtrk.", "en": "We drink it for breakfast.", "de": "Das trinken wir zum Frühstück.", "grammar": ["presente-regolare"] },
+        { "kind": "use", "it": "Ce lo dà la mucca.", "sl": "Daje nam ga krava.", "en": "The cow gives it to us.", "de": "Das gibt uns die Kuh.", "grammar": ["verbi-irregolari"] }
+      ]
+    },
+    "eggs": {
+      "name": { "en": "egg", "de": "Ei", "sl": "jajce" },
+      "clues": [
+        { "kind": "colour", "it": "È bianco.", "sl": "Je bele barve.", "en": "It's white.", "de": "Es ist weiß.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "size", "it": "È piccolo.", "sl": "To je nekaj majhnega.", "en": "It's small.", "de": "Es ist klein.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È nel cesto.", "sl": "Je v košari.", "en": "It's in the basket.", "de": "Es liegt im Korb.", "grammar": ["preposizioni-articolate"] },
+        { "kind": "use", "it": "Lo fa la gallina.", "sl": "Znese ga kokoš.", "en": "A hen lays it.", "de": "Das legt die Henne.", "grammar": ["verbi-irregolari"] }
+      ]
+    },
+    "water": {
+      "clues": [
+        { "kind": "colour", "it": "Non ha colore.", "sl": "Nima barve.", "en": "It has no colour.", "de": "Es hat keine Farbe.", "grammar": ["domande", "essere-avere"] },
+        { "kind": "where", "it": "È in una brocca sulla mensola.", "sl": "Je v vrču na polici.", "en": "It's in a jug on the shelf.", "de": "Es ist in einem Krug auf dem Regal.", "grammar": ["preposizioni-articolate"], "ref": "shelf" },
+        { "kind": "where", "it": "È in una brocca sulla credenza.", "sl": "Je v vrču na kredenci.", "en": "It's in a jug on the dresser.", "de": "Es ist in einem Krug auf dem Küchenschrank.", "grammar": ["preposizioni-articolate"], "ref": "cupboard" },
+        { "kind": "use", "it": "La beviamo quando abbiamo sete.", "sl": "To pijemo, ko smo žejni.", "en": "We drink it when we're thirsty.", "de": "Es trinken wir, wenn wir Durst haben.", "grammar": ["essere-avere", "presente-regolare"] }
+      ]
+    },
+    "salt": {
+      "clues": [
+        { "kind": "colour", "it": "È bianco.", "sl": "Je bele barve.", "en": "It's white.", "de": "Es ist weiß.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "È salato.", "sl": "To je nekaj slanega.", "en": "It's salty.", "de": "Es ist salzig.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È sul tavolo.", "sl": "Je na mizi.", "en": "It's on the table.", "de": "Es steht auf dem Tisch.", "grammar": ["preposizioni-articolate"], "ref": "table" },
+        { "kind": "use", "it": "Lo mettiamo nella minestra.", "sl": "To damo v juho.", "en": "We put it in the soup.", "de": "Das kommt in die Suppe.", "grammar": ["presente-regolare", "preposizioni-articolate"] }
+      ]
+    },
+    "potatoes": {
+      "name": { "en": "potatoes", "de": "Kartoffeln", "sl": "krompir" },
+      "clues": [
+        { "kind": "colour", "it": "È marrone.", "sl": "Je rjave barve.", "en": "It's brown.", "de": "Sie ist braun.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È in un sacco.", "sl": "Je v vreči.", "en": "It's in a sack.", "de": "Sie ist in einem Sack.", "grammar": ["dove-preposizioni"] },
+        { "kind": "does", "it": "Cresce sotto terra.", "sl": "Raste pod zemljo.", "en": "It grows under the ground.", "de": "Sie wächst unter der Erde.", "grammar": ["presente-regolare"] },
+        { "kind": "use", "it": "La peliamo e la cuciniamo.", "sl": "Olupimo ga in skuhamo.", "en": "We peel it and cook it.", "de": "Wir schälen sie und kochen sie.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "hearth": {
+      "clues": [
+        { "kind": "colour", "it": "È grigio.", "sl": "Je sive barve.", "en": "It's grey.", "de": "Das ist grau.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "material", "it": "È di pietra.", "sl": "Je iz kamna.", "en": "It's made of stone.", "de": "Das ist aus Stein.", "grammar": ["essere-avere"] },
+        { "kind": "use", "it": "Dentro brucia il fuoco.", "sl": "V tem gori ogenj.", "en": "A fire burns in it.", "de": "Darin brennt das Feuer.", "grammar": ["presente-regolare"] },
+        { "kind": "use", "it": "Sopra c'è la pentola.", "sl": "Na tem stoji lonec.", "en": "The pot stands on it.", "de": "Darauf steht der Topf.", "grammar": ["ce-ci-sono"], "ref": "pot" }
+      ]
+    },
+    "bench": {
+      "clues": [
+        { "kind": "size", "it": "È lunga.", "sl": "To je nekaj dolgega.", "en": "It's long.", "de": "Sie ist lang.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "material", "it": "È di legno.", "sl": "Je iz lesa.", "en": "It's made of wood.", "de": "Sie ist aus Holz.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È vicino alla porta.", "sl": "Stoji pri vratih.", "en": "It stands by the door.", "de": "Sie steht neben der Tür.", "grammar": ["dove-preposizioni", "preposizioni-articolate"], "ref": "door" },
+        { "kind": "where", "it": "È sotto la finestra.", "sl": "Stoji pod oknom.", "en": "It stands under the window.", "de": "Sie steht unter dem Fenster.", "grammar": ["dove-preposizioni"], "ref": "window" },
+        { "kind": "use", "it": "Ci sediamo sopra.", "sl": "Na to se usedemo.", "en": "We sit on it.", "de": "Darauf setzen wir uns.", "grammar": ["verbi-irregolari"] }
+      ]
+    },
+    "bed": {
+      "clues": [
+        { "kind": "trait", "it": "È morbido.", "sl": "To je nekaj mehkega.", "en": "It's soft.", "de": "Es ist weich.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È contro la parete.", "sl": "Stoji ob steni.", "en": "It stands against the wall.", "de": "Es steht an der Wand.", "grammar": ["dove-preposizioni"] },
+        { "kind": "where", "it": "È sotto la mensola.", "sl": "Stoji pod polico.", "en": "It stands under the shelf.", "de": "Es steht unter dem Regal.", "grammar": ["dove-preposizioni"], "ref": "shelf" },
+        { "kind": "use", "it": "Ci dormiamo di notte.", "sl": "Ponoči spimo v tem.", "en": "We sleep in it at night.", "de": "Darin schlafen wir nachts.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "shelf": {
+      "clues": [
+        { "kind": "material", "it": "È di legno.", "sl": "Je iz lesa.", "en": "It's made of wood.", "de": "Es ist aus Holz.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È appesa alla parete.", "sl": "Visi na steni.", "en": "It hangs on the wall.", "de": "Es hängt an der Wand.", "grammar": ["preposizioni-articolate", "aggettivi-accordo"] },
+        { "kind": "use", "it": "Sopra ci sono le brocche.", "sl": "Na tem so vrči.", "en": "There are jugs on it.", "de": "Darauf stehen Krüge.", "grammar": ["ce-ci-sono"] }
+      ]
+    },
+    "curtains": {
+      "name": { "en": "curtain", "de": "Gardine", "sl": "zavesica" },
+      "clues": [
+        { "kind": "colour", "it": "È rossa e bianca.", "sl": "Je rdeče in bele barve.", "en": "It's red and white.", "de": "Das ist rot und weiß.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "material", "it": "È di stoffa.", "sl": "Je iz blaga.", "en": "It's made of cloth.", "de": "Das ist aus Stoff.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È alla finestra.", "sl": "Visi na oknu.", "en": "It hangs at the window.", "de": "Das hängt am Fenster.", "grammar": ["preposizioni-articolate"], "ref": "window" },
+        { "kind": "use", "it": "La sera la chiudiamo.", "sl": "Zvečer jo zagrnemo.", "en": "In the evening we draw it.", "de": "Abends ziehen wir das zu.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "corner": {
+      "clues": [
+        { "kind": "where", "it": "È sulla parete di sinistra.", "sl": "Je na levi steni.", "en": "It's on the left wall.", "de": "Das ist an der linken Wand.", "grammar": ["preposizioni-articolate"] },
+        { "kind": "use", "it": "C'è appesa una croce.", "sl": "Tam visi križ.", "en": "A cross hangs there.", "de": "Dort hängt ein Kreuz.", "grammar": ["ce-ci-sono"] },
+        { "kind": "use", "it": "C'è una candela accesa.", "sl": "Tam gori sveča.", "en": "A candle burns there.", "de": "Dort brennt eine Kerze.", "grammar": ["ce-ci-sono"] }
+      ]
+    }
+  }
+}
