@@ -74,8 +74,8 @@ class LandsTest {
         else -> town
     }
 
-    /** The canvases of the full-screen town: a phone upright, a tall one, a tablet, a phone on its side. */
-    private val canvases = listOf(360 to 800, 360 to 780, 320 to 512, 400 to 180, 360 to 480)
+    /** The canvases of the full-screen town: a phone upright, a tall one, a tablet upright and on its side, a phone on its side. */
+    private val canvases = listOf(360 to 800, 360 to 780, 320 to 512, 320 to 200, 400 to 180, 360 to 480)
 
     // ---------------------------------------------------------------- the land itself
 
