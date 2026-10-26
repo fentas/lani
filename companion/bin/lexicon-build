@@ -27,12 +27,11 @@
 //               form of another word, the most frequent first (--all: every one)
 import '../bridge/src/env' // first: LANI_* from the FLUENT_* names of a node set up before the rename
 import { createHash } from 'node:crypto'
-import { createReadStream, existsSync, mkdirSync, readdirSync, readFileSync, renameSync, statSync, writeFileSync } from 'node:fs'
+import { closeSync, createReadStream, existsSync, mkdirSync, openSync, readdirSync, readFileSync, renameSync, statSync, writeFileSync, writeSync } from 'node:fs'
 import { homedir } from 'node:os'
 import { basename, dirname, join, resolve } from 'node:path'
-import { createInterface } from 'node:readline'
 import { createGunzip, gzipSync } from 'node:zlib'
-import { ATTRIBUTION, normalizeForm, wordsOf, type LexiconFile } from '../bridge/src/lexicon'
+import { ATTRIBUTION, normalizeForm, packKey, wordsOf, type LexiconFile } from '../bridge/src/lexicon'
 import {
   chooseMeaning, LANI_LANGUAGES, indexRow, meaningsOf, pairsOf, pivot, samePos, shortGloss, stripArticle, unshare,
   type Candidates, type IndexRow, type Kind, type Listed, type Meaning, type PivotKind, type Table, type Together, type Via,
@@ -65,10 +64,36 @@ if (args.includes('--help') || args.includes('-h') || usage) {
   process.exit(args.includes('--help') || args.includes('-h') ? 0 : 2)
 }
 
-/** The lines of an extract: a file (gzipped when it ends in .gz) or standard input ("-", gzipped or not: gunzip first). */
-function lines(file: string): AsyncIterable<string> {
+/**
+ * Every this many lines read (and forms written), the garbage is collected: Bun's collector lets it grow to gigabytes on
+ * a large extract, while what the builder keeps is under 1 GB.
+ */
+const COLLECT_EVERY = 20_000
+let sinceCollect = 0
+const collect = () => {
+  if (++sinceCollect < COLLECT_EVERY) return
+  sinceCollect = 0
+  Bun.gc(true)
+}
+
+/**
+ * The lines of an extract: a file (gzipped when it ends in .gz) or standard input ("-", gzipped or not: gunzip first).
+ * Read a chunk at a time as the lines are taken: readline's own iterator lets the stream run ahead of the reader, and a
+ * large extract's lines then pile up in memory (Italian: gigabytes within half a minute).
+ */
+async function* lines(file: string): AsyncIterable<string> {
   const raw = file === '-' ? process.stdin : createReadStream(file)
-  return createInterface({ input: file.endsWith('.gz') ? raw.pipe(createGunzip()) : raw, crlfDelay: Infinity })
+  const input = file.endsWith('.gz') ? raw.pipe(createGunzip()) : raw
+  const text = new TextDecoder()
+  let rest = ''
+  for await (const chunk of input) {
+    rest += typeof chunk === 'string' ? chunk : text.decode(chunk as Uint8Array, { stream: true })
+    const parts = rest.split('\n')
+    rest = parts.pop() ?? ''
+    for (const p of parts) yield p.endsWith('\r') ? p.slice(0, -1) : p
+  }
+  rest += text.decode()
+  if (rest) yield rest.endsWith('\r') ? rest.slice(0, -1) : rest
 }
 
 /** The Wiktionaries a dictionary's meanings come from (<lang>.json's meta.sources, the manifest's). */
@@ -96,15 +121,36 @@ function writeManifest(file: string, meta: LexiconFile['meta']) {
   console.log(`${path}: ${manifest.version}, ${basename(target)} ${(bytes.length / 1024 / 1024).toFixed(2)} MB`)
 }
 
-/** A dictionary as the repository keeps it: one row per line, so a rebuild's diff shows what changed. */
-function writeDict(path: string, f: LexiconFile) {
-  const text = [
-    `{"meta": ${JSON.stringify(f.meta)},`,
-    `"grammar": [\n${f.grammar.map(g => JSON.stringify(g)).join(',\n')}\n],`,
-    `"lemmas": [\n${f.lemmas.map(l => JSON.stringify(l)).join(',\n')}\n],`,
-    `"forms": {\n${Object.entries(f.forms).map(([k, r]) => `${JSON.stringify(k)}: ${JSON.stringify(r)}`).join(',\n')}\n}}\n`,
-  ].join('\n')
-  writeFileSync(`${path}.part`, text)
+/**
+ * A dictionary as the repository keeps it: one row per line, so a rebuild's diff shows what changed. Written a row at a
+ * time (a megabyte at once), not joined into one string: Italian's 684,000 forms would take gigabytes. [f.forms]: the
+ * forms by form, or their rows in order.
+ */
+function writeDict(path: string, f: Omit<LexiconFile, 'forms'> & { forms: LexiconFile['forms'] | [string, number[][]][] }) {
+  const fd = openSync(`${path}.part`, 'w')
+  let buf = ''
+  const put = (s: string) => {
+    buf += s
+    if (buf.length > 1 << 20) {
+      writeSync(fd, buf)
+      buf = ''
+    }
+  }
+  put(`{"meta": ${JSON.stringify(f.meta)},\n`)
+  put(`"grammar": [\n${f.grammar.map(g => JSON.stringify(g)).join(',\n')}\n],\n`)
+  put('"lemmas": [\n')
+  f.lemmas.forEach((l, i) => put(`${i ? ',\n' : ''}${JSON.stringify(l)}`))
+  put('\n],\n"forms": {\n')
+  let first = true
+  const row = (k: string, r: number[][]) => {
+    put(`${first ? '' : ',\n'}${JSON.stringify(k)}: ${JSON.stringify(r)}`)
+    first = false
+  }
+  if (Array.isArray(f.forms)) for (const [k, r] of f.forms) row(k, r)
+  else for (const k in f.forms) row(k, f.forms[k])
+  put('\n}}\n')
+  writeSync(fd, buf)
+  closeSync(fd)
   renameSync(`${path}.part`, path)
 }
 
@@ -288,18 +334,30 @@ function grammarOf(form: string, sets: string[][]): string | null {
 
 async function build(file: string) {
   const lemmas = new Map<string, Lemma>() // "gozd|noun" → the lemma
-  const forms = new Map<string, Map<string, string[][]>>() // "gozdu" → "gozd|noun" → its readings' tags
-  const formOf: { form: string; target: string; pos: string; tags: string[]; gloss: string; word: string }[] = []
+  // "gozdu" → "gozd|noun" → its readings' tags, each set as one string ("locative singular"), the same string for the
+  // same set: Italian has 684,000 forms, and their tags as arrays took gigabytes
+  const forms = new Map<string, Map<string, string[]>>()
+  const tagSets = new Map<string, string>()
+  const tagSet = (tags: string[]) => {
+    const t = [...new Set(tags)].sort().join(' ')
+    const had = tagSets.get(t)
+    if (had !== undefined) return had
+    tagSets.set(t, t)
+    return t
+  }
+  const formOf: { form: string; target: string; pos: string; tags: string; gloss: string; word: string }[] = []
   const addForm = (form: string, key: string, tags: string[]) => {
-    const byLemma = forms.get(form) ?? new Map<string, string[][]>()
+    const t = tagSet(tags)
+    const byLemma = forms.get(form) ?? new Map<string, string[]>()
     const sets = byLemma.get(key) ?? []
-    if (!sets.some(s => s.length === tags.length && s.every(t => tags.includes(t)))) sets.push(tags)
+    if (!sets.includes(t)) sets.push(t)
     byLemma.set(key, sets)
     forms.set(form, byLemma)
   }
   let read = 0
   for await (const line of lines(file)) {
     if (!line.trim()) continue
+    collect()
     const e = JSON.parse(line) as Entry
     read++
     if ((e.lang_code && e.lang_code !== lang) || SKIP_POS.has(e.pos) || (TRANSLATED_ONLY && e.pos === 'name')) continue
@@ -310,7 +368,7 @@ async function build(file: string) {
     // a form of another word ("gozdu", "so"): resolved once every lemma is read
     for (const s of senses.filter(isRef)) {
       for (const t of [...(s.form_of ?? []), ...(s.alt_of ?? [])]) {
-        formOf.push({ form: norm, target: normalizeForm(t.word, lang), pos: e.pos, tags: s.form_of?.length ? (s.tags ?? []) : ['alternative'], gloss: (s.glosses ?? []).join(' '), word: e.word })
+        formOf.push({ form: norm, target: normalizeForm(t.word, lang), pos: e.pos, tags: tagSet(s.form_of?.length ? (s.tags ?? []) : ['alternative']), gloss: (s.glosses ?? []).join(' '), word: e.word })
       }
     }
     const meanings = senses.filter(s => !isRef(s) && !s.tags?.includes('form-of'))
@@ -354,10 +412,11 @@ async function build(file: string) {
   }
   let unresolved = 0
   for (const r of formOf) {
+    collect()
     const targets = byNorm.get(r.target) ?? []
     const key = targets.find(k => k.endsWith(`|${r.pos}`)) ?? targets[0]
     if (key) {
-      addForm(r.form, key, r.tags.filter(t => t !== 'form-of'))
+      addForm(r.form, key, r.tags.split(' ').filter(t => t && t !== 'form-of'))
       continue
     }
     // the lemma isn't in the extract: the form stays a word of its own, glossed as what it is a form of (not in the
@@ -374,7 +433,10 @@ async function build(file: string) {
   }
 
   // homographs (biti "to be", biti "to beat") share an entry: the first gloss of each, then the second …
-  const keys = [...lemmas.keys()].sort((a, b) => a.localeCompare(b, lang) || (a < b ? -1 : 1))
+  // one collator for the whole sort: localeCompare(b, lang) makes one a comparison (Italian's 200,000 lemmas: gigabytes
+  // outside the heap), and orders the same
+  const collator = new Intl.Collator(lang)
+  const keys = [...lemmas.keys()].sort((a, b) => collator.compare(a, b) || (a < b ? -1 : 1))
   const index = new Map(keys.map((k, i) => [k, i]))
   const lemmaRows = keys.map(k => {
     const l = lemmas.get(k)!
@@ -388,8 +450,9 @@ async function build(file: string) {
   const grammarIndex = new Map<string, number>()
   const formRows: [string, number[][]][] = []
   for (const form of [...forms.keys()].sort()) {
+    collect()
     const readings = [...forms.get(form)!].map(([key, sets]) => {
-      const g = grammarOf(form, sets)
+      const g = grammarOf(form, sets.map(t => (t ? t.split(' ') : [])))
       if (g !== null && !grammarIndex.has(g)) grammarIndex.set(g, grammar.push(g) - 1)
       return { own: key.startsWith(`${form}|`), row: g === null ? [index.get(key)!] : [index.get(key)!, grammarIndex.get(g)!] }
     })
@@ -409,7 +472,7 @@ async function build(file: string) {
     built: today,
     counts: { entries_read: read, lemmas: lemmaRows.length, forms: formRows.length, grammar: grammar.length, unresolved_form_of: unresolved },
   }
-  writeDict(out, { meta, grammar, lemmas: lemmaRows, forms: Object.fromEntries(formRows) })
+  writeDict(out, { meta, grammar, lemmas: lemmaRows, forms: formRows })
   console.log(`${out}: ${lemmaRows.length} lemmas, ${formRows.length} forms, ${grammar.length} grammar strings, ${unresolved} forms of words not in the extract; ${(statSync(out).size / 1024 / 1024).toFixed(2)} MB from ${read} entries`)
 }
 
@@ -434,6 +497,7 @@ async function indexExtract(file: string, ed: string) {
   const n = { tables: 0, glosses: 0 }
   for await (const line of lines(file)) {
     read++
+    collect()
     // most entries of a Wiktionary's dump are of other languages: a cheap look first
     if (!langs.test(line)) continue
     let row: IndexRow | undefined
@@ -505,7 +569,10 @@ async function addMeanings(path: string, to: string) {
     const ed = source.edition
     if (ed !== 'en' && ed !== lang && !(bases as string[]).includes(ed)) continue
     const rows: IndexRow[] = []
-    for await (const line of lines(file)) if (!line.startsWith('{"index"')) rows.push(JSON.parse(line) as IndexRow)
+    for await (const line of lines(file)) {
+      collect()
+      if (!line.startsWith('{"index"')) rows.push(JSON.parse(line) as IndexRow)
+    }
     let used = false
     for (const r of unshare(rows)) {
       if (r.t) {
@@ -593,7 +660,7 @@ async function addMeanings(path: string, to: string) {
     return Object.keys(meanings).length ? { ...rest, meanings } : rest
   })
   const counted = dict.lemmas.length - named
-  const content = contentCounts()
+  const { count: content } = contentCounts()
   for (const b of bases) {
     const s = stats[b]
     s.share = round(s.lemmas / Math.max(1, counted))
@@ -670,35 +737,79 @@ function contentFiles(): { files: string[]; keys: Set<string>; own: boolean } {
     return existsSync(m) ? (JSON.parse(readFileSync(m, 'utf8')).language as string) : undefined
   }
   const culture = readdirSync(cultures).find(c => cultureOf(c) === lang)
-  // the curated content of the language: Slovene in the directories themselves, another in a subdirectory of its code
+  // the curated content of the language: Slovene in the directories themselves, another in a subdirectory of its code;
+  // the grammar book's pages are in a directory of each language's code (their titles and examples)
   const dirs = (l: string) => ['scenes', 'packs', 'scenarios', 'modules'].map(d => join(root, 'companion', d, ...(l === 'sl' ? [] : [l])))
-  const files = [...dirs(lang).flatMap(d => jsonFiles(d, false)), ...(culture ? jsonFiles(join(cultures, culture)) : [])]
+  const files = [...dirs(lang).flatMap(d => jsonFiles(d, false)), ...jsonFiles(join(root, 'companion/grammar', lang), false), ...(culture ? jsonFiles(join(cultures, culture)) : [])]
   if (files.length) return { files, keys: TEXT_KEYS, own: true }
   const all = [...new Set(readdirSync(cultures).flatMap(c => [cultureOf(c) ?? 'sl']))].flatMap(l => dirs(l).flatMap(d => jsonFiles(d, false)))
   return { files: [...all, ...readdirSync(cultures).flatMap(c => jsonFiles(join(cultures, c)))], keys: new Set([lang, `example_${lang}`]), own: false }
 }
 
-/** The content's words (normalized) and how often each is met. */
-function contentCounts(): Map<string, number> {
+/**
+ * A text of the content as its words are counted: both forms of a gender pair ({m:piccolo|f:piccola}), no other
+ * {placeholder} or message select ({g, select, f {…} other {…}}), no cloze's translation in parentheses.
+ */
+export function countedText(t: string): string {
+  let s = t.replace(/\{[mf]:([^{}|]*)\|[mf]:([^{}|]*)\}/g, ' $1 $2 ')
+  for (let before = ''; before !== s; ) {
+    before = s
+    s = s.replace(/\{[^{}]*\}/g, ' ')
+  }
+  return s.replace(/[{}]/g, ' ').replace(/\([^)]*\)/g, ' ')
+}
+
+/**
+ * The content's words (normalized) and how often each is met. What kind of word one is, for the words none knows:
+ * [lower] the words written small at least once, [inside] those written capitalized inside a sentence (a word never
+ * written small, and capitalized there, is a name: Cormòns, Isonzo, Bepi; one capitalized only where a sentence starts
+ * is a word: "Hm, …"), [marked] those written with Friulian's letters (fogolâr, pignarûl: their form drops the mark).
+ */
+function contentCounts(): { count: Map<string, number>; lower: Set<string>; inside: Set<string>; marked: Set<string> } {
   const { files, keys } = contentFiles()
   const count = new Map<string, number>()
+  const lower = new Set<string>()
+  const inside = new Set<string>()
+  const marked = new Set<string>()
   for (const f of files) {
     for (const t of texts(JSON.parse(readFileSync(f, 'utf8')), keys)) {
-      // not {placeholders}, nor a cloze's translation in parentheses; an elided word ("l'acqua", "dov'è") is looked
-      // up as the word after its apostrophe, as the app's tap does (bridge/src/lexicon.ts)
-      const plain = t.replace(/\{[^}]*\}|\([^)]*\)/g, ' ')
-      for (const w of wordsOf(ELIDING.has(lang) ? plain.replace(/\p{L}+['’](?=\p{L})/gu, '') : plain)) {
+      // an elided word ("l'acqua", "dov'è") is looked up as the word after its apostrophe, as the app's tap does
+      // (bridge/src/lexicon.ts)
+      const plain = countedText(t)
+      const text = ELIDING.has(lang) ? plain.replace(/\p{L}+['’](?=\p{L})/gu, '') : plain
+      for (const m of text.matchAll(/[\p{L}\p{M}]+/gu)) {
+        const w = m[0]
+        if (!/\p{L}/u.test(w)) continue // an emoji's variation selector
         const n = normalizeForm(w, lang)
         count.set(n, (count.get(n) ?? 0) + 1)
+        if (!/^\p{Lu}/u.test(w)) lower.add(n)
+        else if (/[\p{L}\p{M},;]\s*$/u.test(text.slice(0, m.index))) inside.add(n)
+        if (DIALECT_LETTERS.test(w.toLowerCase())) marked.add(n)
       }
     }
   }
-  return count
+  return { count, lower, inside, marked }
 }
+
+/**
+ * The words the content says are a dialect's or a regional language's, not the language's own: written with Friulian's
+ * circumflex or cedilla (fogolâr, pignarûl), or named so in a translation ("mandi: Friulian for bye", "Friulian aganis",
+ * "(in Friulian aganis)"; Slovene's "furlanski pozdrav" alike).
+ */
+function dialectWords(files: string[]): Set<string> {
+  const out = new Set<string>()
+  const said = /(\p{L}+):\s+(?:Friulian|furlansk\p{L}*|friaulisch\p{L}*|friulan\p{L}*)|(?:Friulian|furlansko|friaulisch|friulano)\s+(\p{Ll}+)/gu
+  for (const f of files) {
+    const text = readFileSync(f, 'utf8')
+    for (const m of text.matchAll(said)) out.add(normalizeForm(m[1] ?? m[2], lang))
+  }
+  return out
+}
+const DIALECT_LETTERS = /[âêîôûç]/u
 
 function coverage() {
   const { files, own } = contentFiles()
-  const count = contentCounts()
+  const { count, lower, inside, marked } = contentCounts()
   const load = (f: string) => (existsSync(f) ? JSON.parse(readFileSync(f, 'utf8')) : undefined)
   const dict = load(dictPath) as LexiconFile | undefined
   const wikt = new Set(Object.keys(dict?.forms ?? {}))
@@ -713,7 +824,10 @@ function coverage() {
   const names = new Set<string>(['jan'])
   for (const f of files) {
     const j = JSON.parse(readFileSync(f, 'utf8'))
-    if (isSchema(j.schema, 'lani.pack/v0')) for (const w of j.words) for (const s of [w[lang], w.plural]) if (s) packWords.add(normalizeForm(s, lang))
+    // as the lookup compares them: without punctuation, an article ("il frico" → frico), a gender pair as one of its
+    // forms ("{m:rad|f:rada} bi" → rad bi)
+    const oneForm = (t: string) => t.replace(/\{[mf]:([^{}|]*)\|[mf]:([^{}|]*)\}/g, '$1')
+    if (isSchema(j.schema, 'lani.pack/v0')) for (const w of j.words) for (const s of [w[lang], w.plural]) if (s) packWords.add(packKey(oneForm(s), lang))
     if (isSchema(j.schema, 'lani.villager/v0')) for (const w of wordsOf(j.name)) names.add(normalizeForm(w, lang))
   }
   const total = [...count.values()].reduce((a, b) => a + b, 0)
@@ -730,7 +844,8 @@ function coverage() {
   for (const b of LANI_LANGUAGES.filter(b => b !== lang)) {
     report(`meant in ${b} (a reading)`, w => (dict?.forms[w] ?? []).some(([i]) => (b === 'en' ? !!dict!.lemmas[i]?.gloss.length : !!dict!.lemmas[i]?.meanings?.[b])))
   }
-  const byCount = (a: [string, number], b: [string, number]) => b[1] - a[1] || a[0].localeCompare(b[0], lang)
+  const collator = new Intl.Collator(lang)
+  const byCount = (a: [string, number], b: [string, number]) => b[1] - a[1] || collator.compare(a[0], b[0])
   const list = (label: string, words: [string, number][], show: (w: string) => string = w => w) => {
     const shown = args.includes('--all') ? words : words.slice(0, 80)
     console.log(`\n${words.length} ${label}${shown.length < words.length ? ` (the ${shown.length} most frequent; --all for every one)` : ''}:`)
@@ -738,6 +853,23 @@ function coverage() {
   }
   const missing = [...count].filter(([w]) => !wikt.has(w) && !extra.has(w) && !packWords.has(w) && !names.has(w)).sort(byCount)
   list('words none knows', missing)
+  // what kind of word each is: a dialect's (Friulian), a name (never written small, capitalized inside a sentence), a
+  // sound or an interjection (no vowel, or a letter three times: shh, bzz, oooh), or one of the language's own
+  const dialect = dialectWords(files)
+  const kindOf = (w: string) =>
+    dialect.has(w) || marked.has(w) ? 'dialect' : !lower.has(w) && inside.has(w) ? 'name' : !/[aeiouyàèéìíòóùú]/u.test(w) || /(\p{L})\1\1/u.test(w) ? 'sound' : 'word'
+  const tokensOf = (ws: [string, number][]) => ws.reduce((a, [, n]) => a + n, 0)
+  console.log(`\nof them, by kind (words, tokens):`)
+  for (const [kind, label] of [['name', 'names (never written small, capitalized inside a sentence)'], ['dialect', 'dialect (Friulian: â ê î ô û ç, or named so in a translation)'], ['sound', 'sounds and interjections (no vowel, or a letter three times)'], ['word', 'words of the language']] as const) {
+    const ws = missing.filter(([w]) => kindOf(w) === kind)
+    console.log(`  ${label}: ${ws.length}, ${tokensOf(ws)}${ws.length ? `: ${ws.slice(0, args.includes('--all') ? ws.length : 40).map(([w, n]) => `${w} ${n}`).join(', ')}` : ''}`)
+  }
+  // the expressions of the word packs (two words or more, articles aside): the lookup finds them in the line through the
+  // pack; these the dictionary and the supplement have no entry for, so a line without the pack's own words misses them
+  const phraseKnown = (p: string) => wikt.has(p) || extra.has(p)
+  const phrases = [...packWords].filter(w => w.includes(' '))
+  const lacking = [...new Set(phrases)].filter(p => !phraseKnown(p)).sort(collator.compare)
+  console.log(`\n${lacking.length} of the ${new Set(phrases).size} multi-word pack words (articles aside) no entry of the dictionary or the supplement has: ${lacking.join(', ')}`)
   // a word the dictionary knows only as a form of another ("prav": genitive plural of pravo, never the adverb) is
   // shown only as that form: the supplement gives it an entry of its own when it is a word in its own right
   const formsOnly = [...count].filter(([w]) => lemmasOf.has(w) && !lemmasOf.get(w)!.includes(w) && !packWords.has(w) && !names.has(w)).sort(byCount)

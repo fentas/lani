@@ -630,7 +630,7 @@ const ARTICLES: Record<string, RegExp> = {
 }
 
 /** A pack word as it is compared: as phraseKey, its article left out ("il bosco" → "bosco", "der Wald" → "wald"). */
-function packKey(word: string, language: string): string {
+export function packKey(word: string, language: string): string {
   const w = phraseKey(word, language)
   return ARTICLES[language] ? w.replace(ARTICLES[language], '') : w
 }
