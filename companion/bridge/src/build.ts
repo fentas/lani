@@ -50,6 +50,7 @@ import { stt } from './features/stt'
 import { towns } from './features/towns'
 import { tutorSession } from './features/tutor'
 import { villagers } from './features/villagers'
+import { visitVoices } from './features/visit-voices'
 import { voice } from './features/voice'
 import { GameStore } from './game'
 import { DrillStore, drillsDir } from './drills'
@@ -74,6 +75,7 @@ import { StoryStore, storiesDirs } from './stories'
 import { ModuleStore } from './store'
 import { ok, type ChannelPort, type Tool } from './tool'
 import { VillagerStore } from './villagers'
+import type { VisitEngines } from './visit-voices'
 import { VisitTalks } from './visits'
 import type { RecordingLeveller, VoiceStore } from './voice'
 import { resultsDirOf } from './paths'
@@ -117,6 +119,8 @@ export const FEATURES: readonly { name: string; factory: FeatureFactory }[] = [
   { name: 'friendship', factory: friendship },
   { name: 'questions', factory: townQuestions },
   { name: 'progress', factory: progress },
+  // a visited town's voices: its clips, else its cast's voices on this node (features/visit-voices.ts): routes only
+  { name: 'visit-voices', factory: visitVoices },
   // the developer's data from the app (app/dev/): routes only, nothing for the tutor
   { name: 'dev', factory: dev },
   // the app's own tutor as a client of the channel (/tutor/*: features/tutor.ts): routes only, over the tools above
@@ -135,6 +139,8 @@ export type Voicing = {
   store: (o: { appDir: string; ctx: () => Ctx }) => VoiceStore
   profiles: (ctx: Ctx) => Profiles
   ready?: (ctx: Ctx) => void
+  /** The platform's engines for a visited town's lines (Ctx.voiceEngines): a node's ElevenLabs and Gepard; none on the phone. */
+  engines?: () => VisitEngines
 }
 
 /** What the place the bridge runs in brings: a node (bridge.ts) or the phone (src/phone/entry.ts). */
@@ -289,6 +295,7 @@ export function buildBridge<C extends ChannelPort>(platform: Platform<C>, o: Bui
       level: platform.level,
     }),
     voice: voicing.store({ appDir, ctx: () => ctx }),
+    voiceEngines: voicing.engines?.() ?? {},
     // Set right below: the profiles share the voice store's database.
     profiles: undefined as unknown as Profiles,
     visitTalks: new VisitTalks(),

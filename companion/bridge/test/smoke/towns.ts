@@ -15,6 +15,7 @@ import { visitActs } from './guests'
 import { progress } from './progress'
 import { questions, questionsOffline } from './questions'
 import { visits, visitsOffline } from './visits'
+import { visitEleven, visitGepard, visitVoiceChecks } from './visit-voices'
 
 const cliDir = resolve(import.meta.dir, '../../src/cli')
 const townPort = Number(process.env.LANI_SMOKE_TOWN_PORT ?? port + 3)
@@ -58,10 +59,12 @@ export default async function towns() {
   check('towns: two more learners on the node (a child and an adult)', a1.code === 0 && a2.code === 0, a1.err + a2.err)
   const lukaData = join(profilesDir, 'luka/data')
   const miaData = join(profilesDir, 'mia/data')
-  const luka = await startBridge({ profile: 'luka', data: lukaData, port: townPort, token: 'luka-town-token', child: true, culture: 'friuli' })
+  // Luka's town hands another town at most two clips an hour (./visit-voices.ts checks the limit)
+  const luka = await startBridge({ profile: 'luka', data: lukaData, port: townPort, token: 'luka-town-token', child: true, culture: 'friuli', env: { LANI_TOWN_VOICE_PER_HOUR: '2' } })
   // Mia's town takes three gifts a day from a town (./guests.ts checks the limit), and one help against an event (./friendship.ts)
-  // and checks for its weekly notes of other towns' progress every few hundred ms, today being their day (./progress.ts)
-  const mia = await startBridge({ profile: 'mia', data: miaData, port: townPort + 1, token: 'mia-town-token', culture: 'friuli', env: { LANI_TOWN_GIFTS_PER_DAY: '3', LANI_TOWN_AID_PER_DAY: '1', LANI_TOWN_WEEKLY_DAY: String(new Date().getDay()), LANI_TOWN_WEEKLY_HOUR: '0', LANI_TOWN_WEEKLY_CHECK_MS: '300' } })
+  // and checks for its weekly notes of other towns' progress every few hundred ms, today being their day (./progress.ts);
+  // her node's ElevenLabs and local worker voice a Slovene town's line on a visit (./visit-voices.ts)
+  const mia = await startBridge({ profile: 'mia', data: miaData, port: townPort + 1, token: 'mia-town-token', culture: 'friuli', env: { LANI_TOWN_GIFTS_PER_DAY: '3', LANI_TOWN_AID_PER_DAY: '1', LANI_TOWN_WEEKLY_DAY: String(new Date().getDay()), LANI_TOWN_WEEKLY_HOUR: '0', LANI_TOWN_WEEKLY_CHECK_MS: '300', ELEVENLABS_API_KEY: 'test-key', ELEVENLABS_BASE_URL: visitEleven.url, LANI_GEPARD_URL: visitGepard.url } })
   const janKey = loadBridgeKey(join(dataDir, 'app'))
   const lukaKey = loadBridgeKey(join(lukaData, 'app'))
   const miaKey = loadBridgeKey(join(miaData, 'app'))
@@ -200,6 +203,9 @@ export default async function towns() {
 
     // --- learning progress between towns: what each shares, a guardian's, challenges, the weekly note (./progress.ts) ----
     await progress(janPeer, { ...mia, key: miaKey, data: miaData }, { ...luka, key: lukaKey, data: lukaData }, env)
+
+    // --- voices on a visit: the host's clips, else the visitor's node in the host's cast voice (./visit-voices.ts) -------
+    await visitVoiceChecks(janTown, { ...mia, key: miaKey, data: miaData }, lukaTown)
 
     // --- the CLI on the node: an invitation to the child's town, accepted for Mia ------------------------------------
     const made = cli(['bun', join(cliDir, 'town.ts'), 'invite', '--profile', 'luka', '--no-qr'], env)

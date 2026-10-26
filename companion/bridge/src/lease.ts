@@ -151,6 +151,8 @@ export class LeaseGuard {
  */
 const NOT_DATA = [
   /^\/pair$/, /^\/permission$/, /^\/health$/, /^\/dev\//, /^\/stt$/, /^\/voice\//,
+  // a visit's voices (features/visit-voices.ts): clips of the visited town kept in the voice store, not the learner's data
+  /^\/towns\/[0-9a-f]{32}\/voice\//,
   // the app's own tutor's session (features/tutor.ts): attaching and its inbox are the channel's, not the learner's data;
   // its tool calls are guarded tool by tool (the session's by guardTools, the app session's own in features/tutor.ts)
   /^\/tutor\/(attach|detach|inbox\/ack)$/, /^\/tutor\/tools\/[\w-]+$/,

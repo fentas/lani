@@ -30,6 +30,7 @@ import type { StoryStore } from './stories'
 import type { ModuleStore } from './store'
 import type { ChannelPort, Tool } from './tool'
 import type { VillagerStore } from './villagers'
+import type { VisitEngines } from './visit-voices'
 import type { VisitTalks } from './visits'
 import type { VoiceStore } from './voice'
 
@@ -101,6 +102,12 @@ export type Ctx = {
   profiles: Profiles
   game: GameStore
   voice: VoiceStore
+  /**
+   * This node's own engines, for what isn't its village's: a visited town's lines in the host's cast voices
+   * (features/visit-voices.ts). The same instances as the store's (one quota guard, one gate at ElevenLabs); none on the
+   * phone.
+   */
+  voiceEngines: VisitEngines
   family: Family
   /** The role-plays started on visits to other towns (their brief rides along every turn: chat.ts, features/towns.ts). */
   visitTalks: VisitTalks

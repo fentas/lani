@@ -80,6 +80,9 @@ export function nodeVoices({ env, language, culture }: VoiceSetting): Voicing {
         onUpdated: person => ctx.events.emit({ type: 'voice_updated', clips: 0, person }),
       }),
     ready: ctx => log(`voice: elevenlabs ${eleven.configured ? 'configured' : 'not configured'}, local worker checked on demand, clips in ${ctx.voice.dir}`),
+    // a visited town's lines in its own cast's voices (features/visit-voices.ts): ElevenLabs in any language, the local
+    // worker for a Slovene town; the same engines as the village's (one quota guard, one gate)
+    engines: () => ({ eleven, gepard }),
   }
 }
 

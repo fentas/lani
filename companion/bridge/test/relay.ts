@@ -19,13 +19,15 @@ import '../src/env'
 import { Client } from '@modelcontextprotocol/sdk/client/index.js'
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
 import { randomBytes } from 'node:crypto'
-import { mkdtempSync, readFileSync, rmSync } from 'node:fs'
+import { Database } from 'bun:sqlite'
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { RESERVED_PORTS, initLearnerData, portFree } from '../src/learners'
 import { loadBridgeKey } from '../src/pairing'
 import { parseInvite, localDate } from '../src/towns'
 import { relayHeaders } from '../src/relay'
+import { normalizeText } from '../src/family'
 
 const projectDir = resolve(import.meta.dir, '../../..')
 const relayPort = Number(process.env.LANI_RELAY_SMOKE_PORT ?? 18870)
@@ -178,6 +180,24 @@ try {
   check("relay: … its people's open requests", reqs.status === 200 && reqs.body.requests?.some((q: any) => q.id === 'q-dev-rosa'), reqs.body)
   const market = await get(ana, `/towns/${marta.id}/market`)
   check("relay: … the goods its market can spare", market.status === 200 && market.body.wares?.miele === 3, market.body)
+
+  // --- voices on a visit: Marta visits Ana's Slovene town, reached only through the relay ---------------------------------
+  // a clip of Babica's in Ana's voice store (as her node made it), then Marta's app asks her bridge for the line
+  const line = 'Dober dan, dobrodošla pri nas!'
+  const clip = new Uint8Array([0x49, 0x44, 0x33, 4, 0, 0, ...new TextEncoder().encode(`relay-clip:${'x'.repeat(2_000)}`)])
+  const voiceFile = `${'d'.repeat(40)}.mp3`
+  writeFileSync(join(ana.data, 'app/voice/files', voiceFile), clip)
+  const vdb = new Database(join(ana.data, 'app/voice/voice.db'))
+  vdb.exec('PRAGMA busy_timeout = 5000')
+  vdb.query('INSERT OR REPLACE INTO clips (key, norm, text, voice, engine, file, chars, created_at, source) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)').run(`grandma:${normalizeText(line)}`, normalizeText(line), line, 'grandma', 'elevenlabs', voiceFile, line.length, new Date().toISOString(), 'relay-smoke')
+  vdb.close()
+  const vs = await post(marta, `/towns/${ana.id}/voice/say`, { text: line, voice: 'grandma' })
+  const got = vs.body?.url ? new Uint8Array(await (await fetch(`${marta.base}${vs.body.url}`, { headers: marta.auth })).arrayBuffer()) : new Uint8Array()
+  check("relay: voices on a visit: Marta's app gets Ana's own clip of Babica's line through the relay, byte for byte, kept on Marta's node", vs.status === 200 && vs.body.from === 'host' && vs.body.voice === 'grandma' && Buffer.from(got).equals(Buffer.from(clip)), vs.body)
+  const vp = await get(marta, `/towns/${ana.id}/voice/profiles`)
+  check("relay: … and the town's cast (the learner's voice there by gender, its language) through the relay", vp.status === 200 && vp.body.language === 'sl' && ['female', 'male'].includes(vp.body.player), vp.body)
+  const none = await fetch(`${marta.base}/towns/${ana.id}/voice/say`, { method: 'POST', headers: marta.auth, body: JSON.stringify({ text: 'Tega Ana nima posnetega.', voice: 'grandma' }) })
+  check("relay: … a line Ana's town has no clip of, and no engine on Marta's node: 204 (the phone speaks it)", none.status === 204, none.status)
 
   // --- things to do there ----------------------------------------------------------------------------------------------
   const help = await post(ana, `/towns/${marta.id}/help`, { id: 'relay-help-0001', request: 'q-dev-rosa' })
