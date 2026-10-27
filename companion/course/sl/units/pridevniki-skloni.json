@@ -1,0 +1,241 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "pridevniki-skloni",
+  "language": "sl",
+  "level": "A2",
+  "emoji": "🎨",
+  "title": { "sl": "Pridevniki v sklonih: v veliki hiši", "en": "Adjectives through the cases: in the big house", "de": "Adjektive in den Fällen: im großen Haus", "it": "Gli aggettivi nei casi: nella grande casa" },
+  "goal": {
+    "en": "You can make an adjective follow its noun through all six cases and the plural: blizu velike lipe, staremu sosedu, z novim vozom, o starih časih.",
+    "de": "Du lässt ein Adjektiv seinem Nomen durch alle sechs Fälle und den Plural folgen: blizu velike lipe, staremu sosedu, z novim vozom, o starih časih.",
+    "it": "Sai far seguire all'aggettivo il suo nome in tutti e sei i casi e al plurale: blizu velike lipe, staremu sosedu, z novim vozom, o starih časih."
+  },
+  "grammar": ["pridevniki-ujemanje", "skloni"],
+  "words": ["velik", "nov", "star", "mlad", "bel", "črn", "zelen", "topel", "svež", "lesen", "prost", "težek", "domač", "lačen", "odprt", "majhen", "visok", "mlin", "hiša", "okno", "voz", "lipa", "vodnjak", "vinograd", "sosed", "konj", "travnik", "plašč", "stojnica", "gostilna", "pastir", "čas"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "sklon", "en": "case", "de": "Fall", "it": "caso" },
+        { "sl": "moški", "en": "masculine", "de": "männlich", "it": "maschile" },
+        { "sl": "ženski", "en": "feminine", "de": "weiblich", "it": "femminile" },
+        { "sl": "srednji", "en": "neuter", "de": "sächlich", "it": "neutro" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "An adjective takes its noun's gender, number and case: you know **velika hiša**, **vidim veliko hišo** and **v veliki hiši** (in the big house). Now all six cases, with *velik* (big). In the base form (**1.**, *kdo? kaj?*): **velik mlin**, **velika hiša**, **veliko okno**.",
+          "de": "Ein Adjektiv übernimmt Geschlecht, Zahl und Fall seines Nomens: Du kennst **velika hiša**, **vidim veliko hišo** und **v veliki hiši** (im großen Haus). Jetzt alle sechs Fälle, mit *velik* (groß). In der Grundform (**1.**, *kdo? kaj?*): **velik mlin**, **velika hiša**, **veliko okno**.",
+          "it": "L'aggettivo prende il genere, il numero e il caso del suo nome: conosci **velika hiša**, **vidim veliko hišo** e **v veliki hiši** (nella grande casa). Ora tutti e sei i casi, con *velik* (grande). Nella forma base (**1.**, *kdo? kaj?*): **velik mlin**, **velika hiša**, **veliko okno**."
+        },
+        "examples": [
+          { "sl": "France ima velik mlin.", "en": "France has a big mill.", "de": "France hat eine große Mühle.", "it": "France ha un grande mulino." },
+          { "sl": "V naši vasi je velika lipa.", "en": "There's a big linden in our village.", "de": "In unserem Dorf steht eine große Linde.", "it": "Nel nostro paese c'è un grande tiglio." }
+        ],
+        "rows": [["1. kdo? kaj?", "velik mlin", "velika hiša", "veliko okno"]],
+        "ask": {
+          "type": "cloze", "grammar": "pridevniki-ujemanje", "text": "Stanujem v ___ hiši. (velik)", "accept": ["veliki"], "hint": "hiši: feminine, kje?",
+          "explain": "**v hiši** → feminine, kje? → the adjective **-i** too: v veliki hiši"
+        }
+      },
+      {
+        "say": {
+          "en": "**2.** (*koga? česa?*: after no, a quantity, iz, brez, blizu …): masculine and neuter **-ega**, feminine **-e**: **velikega mlina**, **velike hiše**, **velikega okna**. **Blizu velike lipe je vodnjak.**",
+          "de": "**2.** (*koga? česa?*: nach einer Verneinung, einer Menge, iz, brez, blizu …): männlich und sächlich **-ega**, weiblich **-e**: **velikega mlina**, **velike hiše**, **velikega okna**. **Blizu velike lipe je vodnjak.**",
+          "it": "**2.** (*koga? česa?*: dopo una negazione, una quantità, iz, brez, blizu …): maschile e neutro **-ega**, femminile **-e**: **velikega mlina**, **velike hiše**, **velikega okna**. **Blizu velike lipe je vodnjak.**"
+        },
+        "examples": [
+          { "sl": "Blizu velike lipe je vodnjak.", "en": "Near the big linden there's a well.", "de": "Nahe der großen Linde ist ein Brunnen.", "it": "Vicino al grande tiglio c'è un pozzo." },
+          { "sl": "V vrču ni svežega mleka.", "en": "There's no fresh milk in the jug.", "de": "Im Krug ist keine frische Milch.", "it": "Nella brocca non c'è latte fresco." }
+        ],
+        "rows": [["2. koga? česa?", "velikega mlina", "velike hiše", "velikega okna"]],
+        "ask": {
+          "type": "cloze", "grammar": "pridevniki-ujemanje", "text": "V trgovini ni ___ kruha. (svež)", "accept": ["svežega"], "hint": "kruha: masculine",
+          "explain": "**ni** + the genitive → masculine **-ega**: svežega kruha"
+        }
+      },
+      {
+        "say": {
+          "en": "**3.** (*komu? čemu?*): masculine and neuter **-emu**, feminine **-i**: **velikemu mlinu**, **veliki hiši**, **velikemu oknu**. **Babica pomaga staremu sosedu.**",
+          "de": "**3.** (*komu? čemu?*): männlich und sächlich **-emu**, weiblich **-i**: **velikemu mlinu**, **veliki hiši**, **velikemu oknu**. **Babica pomaga staremu sosedu.**",
+          "it": "**3.** (*komu? čemu?*): maschile e neutro **-emu**, femminile **-i**: **velikemu mlinu**, **veliki hiši**, **velikemu oknu**. **Babica pomaga staremu sosedu.**"
+        },
+        "examples": [
+          { "sl": "Babica pomaga staremu sosedu.", "en": "Granny helps the old neighbour.", "de": "Oma hilft dem alten Nachbarn.", "it": "La nonna aiuta il vecchio vicino." },
+          { "sl": "Zvečer gremo k veliki lipi.", "en": "In the evening we go to the big linden.", "de": "Am Abend gehen wir zur großen Linde.", "it": "La sera andiamo al grande tiglio." }
+        ],
+        "rows": [["3. komu? čemu?", "velikemu mlinu", "veliki hiši", "velikemu oknu"]],
+        "ask": {
+          "type": "choice", "grammar": "pridevniki-ujemanje", "prompt": "Nejc nese vodo ___ konju. (bel)", "options": ["belemu", "belem", "belega"], "answer": 0, "say_options": true,
+          "explain": "**komu?** → the dative → **-emu**: belemu konju\n- belem is where (pri belem konju)"
+        }
+      },
+      {
+        "say": {
+          "en": "**4.** and **5.** you know: the object is **velik mlin**, **veliko hišo**, **veliko okno**; where is **pri velikem mlinu**, **pri veliki hiši**. A living masculine noun takes **-ega** as its object, as in 2.: **France ima starega konja** (an old horse).",
+          "de": "**4.** und **5.** kennst du: Das Objekt ist **velik mlin**, **veliko hišo**, **veliko okno**; wo ist **pri velikem mlinu**, **pri veliki hiši**. Ein lebendiges männliches Nomen bekommt als Objekt **-ega**, wie im 2.: **France ima starega konja** (ein altes Pferd).",
+          "it": "Il **4.** e il **5.** li conosci: l'oggetto è **velik mlin**, **veliko hišo**, **veliko okno**; dove è **pri velikem mlinu**, **pri veliki hiši**. Un nome maschile di essere vivente come oggetto prende **-ega**, come nel 2.: **France ima starega konja** (un vecchio cavallo)."
+        },
+        "examples": [
+          { "sl": "France ima starega konja.", "en": "France has an old horse.", "de": "France hat ein altes Pferd.", "it": "France ha un vecchio cavallo." },
+          { "sl": "Marko dela v novem vinogradu.", "en": "Marko works in the new vineyard.", "de": "Marko arbeitet im neuen Weinberg.", "it": "Marko lavora nella vigna nuova." }
+        ],
+        "rows": [
+          ["4. koga? kaj?", "velik mlin", "veliko hišo", "veliko okno"],
+          ["5. pri kom? pri čem?", "pri velikem mlinu", "pri veliki hiši", "pri velikem oknu"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "pridevniki-ujemanje", "prompt": "Zala riše ___ konja. (bel)", "options": ["bel", "belega", "belem"], "answer": 1, "say_options": true,
+          "explain": "**konj** is alive → the object like the genitive: **belega** konja\n- a thing stays: bel voz"
+        }
+      },
+      {
+        "say": {
+          "en": "**6.** (*s kom? s čim?*): masculine and neuter **-im**, feminine **-o**: **z velikim mlinom**, **z veliko hišo**, **z velikim oknom**. Feminine 4. and 6. look alike: **veliko hišo**. **Tone kuje z novim kladivom.**",
+          "de": "**6.** (*s kom? s čim?*): männlich und sächlich **-im**, weiblich **-o**: **z velikim mlinom**, **z veliko hišo**, **z velikim oknom**. Weiblich sehen der 4. und der 6. gleich aus: **veliko hišo**. **Tone kuje z novim kladivom.**",
+          "it": "**6.** (*s kom? s čim?*): maschile e neutro **-im**, femminile **-o**: **z velikim mlinom**, **z veliko hišo**, **z velikim oknom**. Al femminile il 4. e il 6. sono uguali: **veliko hišo**. **Tone kuje z novim kladivom.**"
+        },
+        "examples": [
+          { "sl": "Tone kuje z novim kladivom.", "en": "Tone forges with a new hammer.", "de": "Tone schmiedet mit einem neuen Hammer.", "it": "Tone forgia con un martello nuovo." },
+          { "sl": "Kavo s toplim mlekom, prosim.", "en": "Coffee with warm milk, please.", "de": "Kaffee mit warmer Milch, bitte.", "it": "Un caffè con latte caldo, per favore." }
+        ],
+        "rows": [["6. s kom? s čim?", "z velikim mlinom", "z veliko hišo", "z velikim oknom"]],
+        "ask": {
+          "type": "cloze", "grammar": "pridevniki-ujemanje", "text": "France pride z ___ vozom. (nov)", "accept": ["novim"], "hint": "vozom: masculine",
+          "explain": "**z** + the instrumental → masculine **-im**: z novim vozom"
+        }
+      },
+      {
+        "say": {
+          "en": "In the plural one ending serves all three genders: **-ih** in 2. and 5. (**velikih hiš**, **pri velikih hišah**), **-im** in 3. (**velikim hišam**), **-imi** in 6. (**z velikimi hišami**). **Stari Janez govori o starih časih.**",
+          "de": "Im Plural dient eine Endung allen drei Geschlechtern: **-ih** im 2. und 5. (**velikih hiš**, **pri velikih hišah**), **-im** im 3. (**velikim hišam**), **-imi** im 6. (**z velikimi hišami**). **Stari Janez govori o starih časih.**",
+          "it": "Al plurale una sola desinenza vale per tutti e tre i generi: **-ih** nel 2. e nel 5. (**velikih hiš**, **pri velikih hišah**), **-im** nel 3. (**velikim hišam**), **-imi** nel 6. (**z velikimi hišami**). **Stari Janez govori o starih časih.**"
+        },
+        "examples": [
+          { "sl": "Stari Janez govori o starih časih.", "en": "Old Janez talks about the old days.", "de": "Der alte Janez erzählt von alten Zeiten.", "it": "Il vecchio Janez parla dei tempi andati." },
+          { "sl": "Na sejmu so stojnice z domačimi siri.", "en": "At the fair there are stalls with homemade cheeses.", "de": "Auf dem Markt gibt es Stände mit Käse vom Hof.", "it": "Alla fiera ci sono bancarelle con formaggi nostrani." }
+        ],
+        "rows": [
+          ["2. množina", "velikih mlinov", "velikih hiš", "velikih oken"],
+          ["6. množina", "z velikimi mlini", "z velikimi hišami", "z velikimi okni"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "pridevniki-ujemanje", "prompt": "Luka se pogovarja z ___ pastirji. (mlad)", "options": ["mladih", "mladim", "mladimi"], "answer": 2, "say_options": true,
+          "explain": "**z** + the plural instrumental → **-imi**: z mladimi pastirji"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "pridevniki-skloni-1",
+      "title": { "sl": "Nov, nova, novo", "en": "New in every case", "de": "Neu in jedem Fall", "it": "Nuovo in ogni caso" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "pridevniki-ujemanje", "instruction": "Dopolni pridevnik · Fill in the adjective", "prompt": "nov · new",
+          "columns": ["moški · voz", "ženski · hiša", "srednji · okno"],
+          "rows": [
+            { "label": "1. kdo? kaj?", "cells": ["nov", "nova", "novo"] },
+            { "label": "2. koga? česa?", "cells": [{ "accept": ["novega"], "hint": "masculine: -ega" }, { "accept": ["nove"], "hint": "feminine: -e" }, "novega"] },
+            { "label": "3. komu? čemu?", "cells": [{ "accept": ["novemu"] }, { "accept": ["novi"] }, "novemu"] },
+            { "label": "5. pri kom? pri čem?", "cells": ["novem", { "accept": ["novi"] }, { "accept": ["novem"] }] },
+            { "label": "6. s kom? s čim?", "cells": [{ "accept": ["novim"] }, { "accept": ["novo"] }, "novim"] }
+          ],
+          "explain": "**the adjective's endings** → masculine and neuter, feminine\n- 2. novega · nove\n- 3. novemu · novi\n- 5. novem · novi\n- 6. novim · novo"
+        },
+        {
+          "type": "sort", "grammar": "pridevniki-ujemanje", "instruction": "Kateri sklon? · Which case?",
+          "columns": [
+            { "label": "2. rodilnik · genitive", "words": ["brez toplega plašča", "blizu nove šole"] },
+            { "label": "3. dajalnik · dative", "words": ["k staremu mlinu", "k stari teti"] },
+            { "label": "5. mestnik · locative", "words": ["v novem vinogradu", "pri stari lipi"] },
+            { "label": "6. orodnik · instrumental", "words": ["z belim konjem", "s toplo juho"] }
+          ],
+          "explain": "**the little word** decides, the ending follows\n- brez, blizu → 2.: toplega, nove\n- k → 3.: staremu, stari\n- v, pri → 5.: novem, stari\n- z, s → 6.: belim, toplo"
+        }
+      ]
+    },
+    {
+      "id": "pridevniki-skloni-2",
+      "title": { "sl": "Sejem v vasi", "en": "The village fair", "de": "Markttag im Dorf", "it": "La fiera del paese" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "pridevniki-ujemanje", "instruction": "Dopolni pridevnik · Fill in the adjective", "title": "Sejem v vasi",
+          "text": "Danes je v vasi sejem. Pred ___ (nov) gostilno stoji Vida. Vinar Marko pride z ___ (velik) vozom. Nejc pomaga ___ (star) sosedu. Zala nima ___ (topel) plašča. Babica Micka prodaja kruh na ___ (lesen) stojnici. Luka kupi ___ (bel) ovco.",
+          "gaps": [
+            { "accept": ["novo"], "hint": "kje? feminine" },
+            { "accept": ["velikim"], "hint": "z + masculine" },
+            { "accept": ["staremu"], "hint": "komu? masculine" },
+            { "accept": ["toplega"], "hint": "nima + …; the e drops", "explain": "after **nima** the genitive, and topel loses its e: **toplega** plašča." },
+            { "accept": ["leseni"], "hint": "kje? feminine" },
+            { "accept": ["belo"], "hint": "the object, feminine" }
+          ],
+          "bank": true, "distractors": ["novi", "velikem", "starega"],
+          "translation": "Today there's a fair in the village. Vida stands in front of the new inn. Marko the winemaker comes with a big cart. Nejc helps the old neighbour. Zala has no warm coat. Granny Micka sells bread at a wooden stall. Luka buys a white sheep."
+        },
+        {
+          "type": "choice", "grammar": "pridevniki-ujemanje", "instruction": "Izberi · Choose", "prompt": "Ovce se pasejo na ___ travnikih. (zelen)", "options": ["zelenih", "zelenim", "zelenimi"], "answer": 0, "say_options": true,
+          "explain": "**na** + kje? in the plural → **-ih**: na zelenih travnikih\n- zelenim is to whom (3.), zelenimi with (6.)"
+        }
+      ]
+    },
+    {
+      "id": "pridevniki-skloni-3",
+      "title": { "sl": "Povej natančneje", "en": "Say it more exactly", "de": "Sag es genauer", "it": "Dillo con più precisione" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "pridevniki-ujemanje", "instruction": "Dodaj pridevnik · Add the adjective", "cue": "+",
+          "items": [
+            { "from": "Luka sedi pri ognju. (velik)", "accept": ["Luka sedi pri velikem ognju."], "hint": "pri: -em" },
+            { "from": "Babica pomaga sosedi. (star)", "accept": ["Babica pomaga stari sosedi."], "hint": "komu? feminine" },
+            { "from": "Nimam časa. (prost)", "accept": ["Nimam prostega časa."], "hint": "nimam + 2." },
+            { "from": "France ima konja. (bel)", "accept": ["France ima belega konja."], "hint": "a horse is alive" },
+            { "from": "Tone dela s kladivom. (težek)", "accept": ["Tone dela s težkim kladivom."], "hint": "the e drops" },
+            { "from": "Vida kuha z mlekom. (svež)", "accept": ["Vida kuha s svežim mlekom."], "hint": "z → s before s", "explain": "**z** becomes **s** before the s of svežim: **s svežim mlekom**." },
+            { "from": "Luka pase ovce na pašnikih. (visok)", "accept": ["Luka pase ovce na visokih pašnikih."], "hint": "plural: -ih" }
+          ],
+          "explain": "**the adjective** takes its noun's case\n- pri velikem ognju · stari sosedi · prostega časa\n- belega konja · s težkim kladivom · na visokih pašnikih"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "pridevniki-ujemanje", "instruction": "Dopolni pridevnik · Fill in the adjective", "prompt": "star · old",
+        "columns": ["moški · mlin", "ženski · hiša", "srednji · okno"],
+        "rows": [
+          { "label": "2. koga? česa?", "cells": [{ "accept": ["starega"] }, "stare", "starega"] },
+          { "label": "3. komu? čemu?", "cells": ["staremu", { "accept": ["stari"] }, "staremu"] },
+          { "label": "6. s kom? s čim?", "cells": ["starim", "staro", { "accept": ["starim"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "pridevniki-ujemanje", "instruction": "Dopolni pridevnik · Fill in the adjective",
+        "text": "Anton živi blizu ___ (velik) gozda. Tine da ___ (lačen) psu kost. Zala sedi pri ___ (odprt) oknu. Marko se pelje z ___ (nov) vlakom.",
+        "gaps": [
+          { "accept": ["velikega"] },
+          { "accept": ["lačnemu"] },
+          { "accept": ["odprtem"] },
+          { "accept": ["novim"] }
+        ],
+        "translation": "Anton lives near a big forest. Tine gives the hungry dog a bone. Zala sits by the open window. Marko travels on the new train."
+      },
+      {
+        "type": "transform", "grammar": "pridevniki-ujemanje", "instruction": "Dodaj pridevnik · Add the adjective", "cue": "+",
+        "items": [
+          { "from": "Grem k sosedu. (star)", "accept": ["Grem k staremu sosedu."] },
+          { "from": "Jem juho. (topel)", "accept": ["Jem toplo juho."] },
+          { "from": "Zala se igra z mucami. (majhen)", "accept": ["Zala se igra z majhnimi mucami."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "pridevniki-ujemanje", "prompt": "Luka išče ___ psa. (črn)", "options": ["črn", "črnega", "črnem"], "answer": 1, "say_options": true,
+        "explain": "**pes** is alive → the object like the genitive: **črnega** psa\n- a thing stays: črn klobuk"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: Sejem v vasi (na leseni stojnici), z velikim mlinom/oknom (the table), z domačimi siri, Luka se pogovarja z mladimi pastirji"
+}

@@ -1,0 +1,241 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "skloni",
+  "language": "sl",
+  "level": "A2",
+  "emoji": "🧩",
+  "title": { "sl": "Šest sklonov: vprašaj!", "en": "The six cases: ask the question", "de": "Die sechs Fälle: frag!", "it": "I sei casi: fai la domanda" },
+  "goal": {
+    "en": "You find the case of any noun by asking its question (kdo? koga? komu? pri kom? s kom?) and know each case's ending in the singular.",
+    "de": "Du findest den Fall jedes Nomens mit seiner Frage (kdo? koga? komu? pri kom? s kom?) und kennst die Endung jedes Falls im Singular.",
+    "it": "Trovi il caso di ogni nome con la sua domanda (kdo? koga? komu? pri kom? s kom?) e conosci la desinenza di ogni caso al singolare."
+  },
+  "grammar": ["skloni", "imenovalnik"],
+  "words": ["sklon", "vprašanje", "knjiga", "brat", "sestra", "mama", "babica", "mleko", "med", "čaj", "kladivo", "svinčnik", "sosed", "potica", "kovačnica", "pomagati", "dati", "pisati", "čakati", "brati", "vlak", "pismo", "sin", "kost", "medved", "juha"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "sklon", "en": "case", "de": "Fall", "it": "caso" },
+        { "sl": "vprašanje", "en": "question", "de": "Frage", "it": "domanda" },
+        { "sl": "ženski: knjiga", "en": "feminine: knjiga", "de": "weiblich: knjiga", "it": "femminile: knjiga" },
+        { "sl": "moški: brat", "en": "masculine: brat", "de": "männlich: brat", "it": "maschile: brat" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "A Slovene noun changes its ending with its job in the sentence: there are six cases (**skloni**). Each case has its question, and the question finds it: put the question where the noun is, and the answer takes that case. The first, the nominative (**imenovalnik**), is the form in the dictionary: who or what does something, or is somewhere (**kdo? kaj?**). **Kdo bere? Babica.** (Who's reading? Granny.)",
+          "de": "Ein slowenisches Nomen ändert seine Endung mit seiner Aufgabe im Satz: Es gibt sechs Fälle (**skloni**). Jeder Fall hat seine Frage, und die Frage findet ihn: Setz die Frage an die Stelle des Nomens, und die Antwort steht in diesem Fall. Der erste, der Nominativ (**imenovalnik**), ist die Form im Wörterbuch: wer oder was etwas tut oder irgendwo ist (**kdo? kaj?**). **Kdo bere? Babica.** (Wer liest? Die Oma.)",
+          "it": "Un nome sloveno cambia desinenza secondo il suo compito nella frase: ci sono sei casi (**skloni**). Ogni caso ha la sua domanda, e la domanda lo trova: metti la domanda al posto del nome, e la risposta va in quel caso. Il primo, il nominativo (**imenovalnik**), è la forma del dizionario: chi o che cosa fa qualcosa o si trova da qualche parte (**kdo? kaj?**). **Kdo bere? Babica.** (Chi legge? La nonna.)"
+        },
+        "examples": [
+          { "sl": "Kdo bere? Babica bere.", "en": "Who's reading? Granny is.", "de": "Wer liest? Die Oma liest.", "it": "Chi legge? Legge la nonna." },
+          { "sl": "Kaj je na mizi? Knjiga.", "en": "What's on the table? A book.", "de": "Was liegt auf dem Tisch? Ein Buch.", "it": "Che cosa c'è sul tavolo? Un libro." }
+        ],
+        "rows": [[{ "sl": "1. imenovalnik", "en": "1. nominative", "de": "1. Nominativ", "it": "1. nominativo" }, "kdo? kaj?", "knjiga", "brat"]],
+        "ask": {
+          "type": "choice", "grammar": "skloni", "prompt": "___ je na mizi? Knjiga.", "options": ["Kdo", "Kaj", "Koga"], "answer": 1, "say_options": true,
+          "explain": "**a thing** that is somewhere → **kaj?** → the nominative: knjiga\n- kdo? · a person"
+        }
+      },
+      {
+        "say": {
+          "en": "The genitive (**rodilnik**) answers **koga? česa?** (of whom? of what?). You know it after a no: **Nimam knjige.** (I don't have the book.) **Ne vidim brata.** It also follows **iz, od, do, brez** and amounts: the next unit. A feminine noun in -a takes **-e**, a masculine or neuter noun **-a**: **knjige, brata, mleka**.",
+          "de": "Der Genitiv (**rodilnik**) antwortet auf **koga? česa?** (wessen? wovon?). Du kennst ihn nach einer Verneinung: **Nimam knjige.** (Ich habe das Buch nicht.) **Ne vidim brata.** Er steht auch nach **iz, od, do, brez** und nach Mengen: die nächste Lektion. Ein weibliches Nomen auf -a bekommt **-e**, ein männliches oder sächliches **-a**: **knjige, brata, mleka**.",
+          "it": "Il genitivo (**rodilnik**) risponde a **koga? česa?** (di chi? di che cosa?). Lo conosci dopo una negazione: **Nimam knjige.** (Non ho il libro.) **Ne vidim brata.** Segue anche **iz, od, do, brez** e le quantità: la prossima unità. Un nome femminile in -a prende **-e**, uno maschile o neutro **-a**: **knjige, brata, mleka**."
+        },
+        "examples": [
+          { "sl": "Danes nimam knjige.", "en": "I don't have the book today.", "de": "Heute habe ich das Buch nicht.", "it": "Oggi non ho il libro." },
+          { "sl": "Kavo pijem brez mleka.", "en": "I drink my coffee without milk.", "de": "Ich trinke den Kaffee ohne Milch.", "it": "Bevo il caffè senza latte." }
+        ],
+        "rows": [[{ "sl": "2. rodilnik", "en": "2. genitive", "de": "2. Genitiv", "it": "2. genitivo" }, "koga? česa?", "knjige", "brata"]],
+        "ask": {
+          "type": "choice", "grammar": "skloni", "prompt": "Zala nima ___. (knjiga)", "options": ["knjigo", "knjige", "knjigi"], "answer": 1, "say_options": true,
+          "explain": "**nima** (no) → **česa?** → the genitive: knjiga → **knjige**"
+        }
+      },
+      {
+        "say": {
+          "en": "The dative (**dajalnik**) is new: **komu? čemu?** (to whom? to what?), who gets something or is helped. **Komu daš knjigo? Bratu.** (Who do you give the book to? My brother.) A feminine noun takes **-i** (**babici**), a masculine or neuter noun **-u** (**bratu**). After **k** (to someone's) it says where to: **grem k babici**.",
+          "de": "Der Dativ (**dajalnik**) ist neu: **komu? čemu?** (wem?), wer etwas bekommt oder wem man hilft. **Komu daš knjigo? Bratu.** (Wem gibst du das Buch? Dem Bruder.) Ein weibliches Nomen bekommt **-i** (**babici**), ein männliches oder sächliches **-u** (**bratu**). Nach **k** (zu jemandem) sagt er, wohin: **grem k babici**.",
+          "it": "Il dativo (**dajalnik**) è nuovo: **komu? čemu?** (a chi? a che cosa?), chi riceve qualcosa o chi viene aiutato. **Komu daš knjigo? Bratu.** (A chi dai il libro? A mio fratello.) Un nome femminile prende **-i** (**babici**), uno maschile o neutro **-u** (**bratu**). Dopo **k** (da qualcuno) dice dove si va: **grem k babici**."
+        },
+        "examples": [
+          { "sl": "Zala da babici rožo.", "en": "Zala gives Granny a flower.", "de": "Zala gibt der Oma eine Blume.", "it": "Zala dà un fiore alla nonna." },
+          { "sl": "Jutri grem k bratu.", "en": "Tomorrow I'm going to my brother's.", "de": "Morgen gehe ich zu meinem Bruder.", "it": "Domani vado da mio fratello." }
+        ],
+        "rows": [[{ "sl": "3. dajalnik", "en": "3. dative", "de": "3. Dativ", "it": "3. dativo" }, "komu? čemu?", "knjigi", "bratu"]],
+        "ask": {
+          "type": "choice", "grammar": "skloni", "prompt": "___ daš kos kruha? Muriju.", "options": ["Kdo", "Koga", "Komu"], "answer": 2, "say_options": true,
+          "explain": "**who gets it** → **komu?** → the dative: Muri → **Muriju**"
+        }
+      },
+      {
+        "say": {
+          "en": "The accusative (**tožilnik**) is the object: whom or what you see, eat or wait for (**koga? kaj?**). **Koga vidiš? Mojco.** (Whom do you see? Mojca.) A feminine noun in -a takes **-o** (**knjigo**), a masculine thing stays as it is (**kruh**), and a living masculine noun takes **-a**, as in the genitive: **vidim brata, ne vidim brata**.",
+          "de": "Der Akkusativ (**tožilnik**) ist das Objekt: wen oder was man sieht, isst oder erwartet (**koga? kaj?**). **Koga vidiš? Mojco.** (Wen siehst du? Mojca.) Ein weibliches Nomen auf -a bekommt **-o** (**knjigo**), ein männliches Ding bleibt, wie es ist (**kruh**), und ein männliches Lebewesen bekommt **-a**, wie im Genitiv: **vidim brata, ne vidim brata**.",
+          "it": "L'accusativo (**tožilnik**) è l'oggetto: chi o che cosa si vede, si mangia o si aspetta (**koga? kaj?**). **Koga vidiš? Mojco.** (Chi vedi? Mojca.) Un nome femminile in -a prende **-o** (**knjigo**), una cosa maschile resta com'è (**kruh**), e un essere vivente maschile prende **-a**, come al genitivo: **vidim brata, ne vidim brata**."
+        },
+        "examples": [
+          { "sl": "Koga čakaš? Brata.", "en": "Who are you waiting for? My brother.", "de": "Auf wen wartest du? Auf meinen Bruder.", "it": "Chi aspetti? Mio fratello." },
+          { "sl": "Kaj bere {learner}? Knjigo.", "en": "What is {learner} reading? A book.", "de": "Was liest {learner}? Ein Buch.", "it": "Che cosa legge {learner}? Un libro." }
+        ],
+        "rows": [[{ "sl": "4. tožilnik", "en": "4. accusative", "de": "4. Akkusativ", "it": "4. accusativo" }, "koga? kaj?", "knjigo", "brata"]],
+        "ask": {
+          "type": "choice", "grammar": "skloni", "prompt": "___ vidiš? Mojco.", "options": ["Kdo", "Koga", "Komu"], "answer": 1, "say_options": true,
+          "explain": "**the object**, whom you see → **koga?** → the accusative: Mojco"
+        }
+      },
+      {
+        "say": {
+          "en": "The locative (**mestnik**) never stands without a preposition, and its question carries one: **pri kom? o čem?** (at whose place? about what?). **Kje je Zala? Pri bratu.** **O čem govorite? O knjigi.** (What are you talking about? The book.) Its endings are the dative's: **-i** for a feminine noun, **-u** for a masculine or neuter one: **v šoli, na vrtu, pri bratu**.",
+          "de": "Der Lokativ (**mestnik**) steht nie ohne Präposition, und seine Frage hat eine dabei: **pri kom? o čem?** (bei wem? worüber?). **Kje je Zala? Pri bratu.** **O čem govorite? O knjigi.** (Worüber sprecht ihr? Über das Buch.) Seine Endungen sind die des Dativs: **-i** bei einem weiblichen Nomen, **-u** bei einem männlichen oder sächlichen: **v šoli, na vrtu, pri bratu**.",
+          "it": "Il locativo (**mestnik**) non sta mai senza preposizione, e la sua domanda ne porta una: **pri kom? o čem?** (da chi? di che cosa?). **Kje je Zala? Pri bratu.** **O čem govorite? O knjigi.** (Di che cosa parlate? Del libro.) Le sue desinenze sono quelle del dativo: **-i** per un nome femminile, **-u** per uno maschile o neutro: **v šoli, na vrtu, pri bratu**."
+        },
+        "examples": [
+          { "sl": "Zala je pri bratu.", "en": "Zala is at her brother's.", "de": "Zala ist bei ihrem Bruder.", "it": "Zala è da suo fratello." },
+          { "sl": "Zvečer govorimo o knjigi.", "en": "In the evening we talk about the book.", "de": "Am Abend sprechen wir über das Buch.", "it": "La sera parliamo del libro." }
+        ],
+        "rows": [[{ "sl": "5. mestnik", "en": "5. locative", "de": "5. Lokativ", "it": "5. locativo" }, "pri kom? o čem?", "o knjigi", "pri bratu"]],
+        "ask": {
+          "type": "cloze", "grammar": "skloni", "text": "Stari Janez govori o ___. (medved)", "accept": ["medvedu"], "hint": "o kom? masculine: -u",
+          "explain": "**o** (about) + the locative → medved → **o medvedu**"
+        }
+      },
+      {
+        "say": {
+          "en": "The instrumental (**orodnik**) is new too: **s kom? s čim?** (with whom? with what?), always after a preposition. **S kom greš? Z bratom.** (Who are you going with? With my brother.) A feminine noun takes **-o**, a masculine or neuter noun **-om**: **s knjigo, z bratom, z mlekom**. **s** before p, t, k, f, h, c, č, s, š, **z** before the rest. That's all six: ask, and the answer finds its case.",
+          "de": "Auch der Instrumental (**orodnik**) ist neu: **s kom? s čim?** (mit wem? womit?), immer nach einer Präposition. **S kom greš? Z bratom.** (Mit wem gehst du? Mit meinem Bruder.) Ein weibliches Nomen bekommt **-o**, ein männliches oder sächliches **-om**: **s knjigo, z bratom, z mlekom**. **s** vor p, t, k, f, h, c, č, s, š, **z** vor allen anderen. Das sind alle sechs: Frag, und die Antwort findet ihren Fall.",
+          "it": "Anche lo strumentale (**orodnik**) è nuovo: **s kom? s čim?** (con chi? con che cosa?), sempre dopo una preposizione. **S kom greš? Z bratom.** (Con chi vai? Con mio fratello.) Un nome femminile prende **-o**, uno maschile o neutro **-om**: **s knjigo, z bratom, z mlekom**. **s** davanti a p, t, k, f, h, c, č, s, š, **z** davanti agli altri. Ecco tutti e sei: fai la domanda, e la risposta trova il suo caso."
+        },
+        "examples": [
+          { "sl": "Babica pije kavo z mlekom.", "en": "Granny drinks her coffee with milk.", "de": "Die Oma trinkt den Kaffee mit Milch.", "it": "La nonna beve il caffè con il latte." },
+          { "sl": "Nejc gre v šolo s sestro.", "en": "Nejc goes to school with his sister.", "de": "Nejc geht mit seiner Schwester zur Schule.", "it": "Nejc va a scuola con sua sorella." }
+        ],
+        "rows": [[{ "sl": "6. orodnik", "en": "6. instrumental", "de": "6. Instrumental", "it": "6. strumentale" }, "s kom? s čim?", "s knjigo", "z bratom"]],
+        "ask": {
+          "type": "cloze", "grammar": "skloni", "text": "Kovač Tone kuje s ___. (kladivo)", "accept": ["kladivom"], "hint": "s čim? neuter: -om",
+          "explain": "**s** (with) + the instrumental → kladivo → **s kladivom**"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "skloni-1",
+      "title": { "sl": "Šest vprašanj", "en": "Six questions", "de": "Sechs Fragen", "it": "Sei domande" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "skloni", "instruction": "Dopolni sklone · Fill in the cases", "prompt": "knjiga, brat",
+          "columns": ["ženski: knjiga · feminine", "moški: brat · masculine"],
+          "rows": [
+            { "label": "1. kdo? kaj?", "cells": ["knjiga", "brat"] },
+            { "label": "2. koga? česa?", "cells": [{ "accept": ["knjige"], "hint": "-a → -e" }, { "accept": ["brata"], "hint": "+ -a" }] },
+            { "label": "3. komu? čemu?", "cells": [{ "accept": ["knjigi"], "hint": "-a → -i" }, { "accept": ["bratu"], "hint": "+ -u" }] },
+            { "label": "4. koga? kaj?", "cells": [{ "accept": ["knjigo"] }, { "accept": ["brata"], "hint": "alive: as the genitive" }] },
+            { "label": "5. pri kom? o čem?", "cells": [{ "accept": ["o knjigi", "knjigi", "pri knjigi"] }, { "accept": ["pri bratu", "bratu", "o bratu"] }] },
+            { "label": "6. s kom? s čim?", "cells": [{ "accept": ["s knjigo", "knjigo"] }, { "accept": ["z bratom", "bratom"], "hint": "z or s? b is voiced" }] }
+          ],
+          "explain": "**the six cases** in the singular\n- knjiga, knjige, knjigi, knjigo, o knjigi, s knjigo\n- brat, brata, bratu, brata, pri bratu, z bratom"
+        },
+        {
+          "type": "sort", "grammar": "skloni", "instruction": "Kateri sklon? · Which case?",
+          "columns": [
+            { "label": "2. rodilnik · koga? česa?", "words": ["brez mleka", "iz Gorice"] },
+            { "label": "3. dajalnik · komu? čemu?", "words": ["k babici", "Muriju"] },
+            { "label": "5. mestnik · pri kom? o čem?", "words": ["pri babici", "v gozdu"] },
+            { "label": "6. orodnik · s kom? s čim?", "words": ["z mlekom", "s Tonetom"] }
+          ],
+          "explain": "**the preposition or the question decides**\n- brez, iz → the genitive · k → the dative\n- pri, v (kje?) → the locative · z, s → the instrumental\n- babici alone or after k: the dative; after pri: the locative"
+        }
+      ]
+    },
+    {
+      "id": "skloni-2",
+      "title": { "sl": "Dan pri babici", "en": "A day at Granny's", "de": "Ein Tag bei der Oma", "it": "Una giornata dalla nonna" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "skloni", "instruction": "Dopolni s sklonom · Fill in the case", "title": "Dan pri babici",
+          "text": "Zjutraj je Zala pri ___ (babica). Babica peče ___ (potica). Zala pomaga ___ (babica). Potem gresta k ___ (sosed). Sosed nima ___ (mleko). Zvečer Zala pije čaj z ___ (med).",
+          "gaps": [
+            { "accept": ["babici"], "hint": "pri kom?", "grammar": "mestnik" },
+            { "accept": ["potico"], "hint": "kaj?", "grammar": "tozilnik" },
+            { "accept": ["babici"], "hint": "komu?", "explain": "**pomagati** (to help) asks **komu?**: the dative, babici.", "grammar": "dajalnik" },
+            { "accept": ["sosedu"], "hint": "k komu?", "grammar": "dajalnik" },
+            { "accept": ["mleka"], "hint": "česa? (nima)", "grammar": "rodilnik-nikalnica" },
+            { "accept": ["medom"], "hint": "s čim?", "grammar": "orodnik" }
+          ],
+          "bank": true, "distractors": ["babico", "potice", "mlekom"],
+          "translation": "In the morning Zala is at Granny's. Granny is baking a potica. Zala helps Granny. Then the two of them go to the neighbour's. The neighbour has no milk. In the evening Zala drinks tea with honey."
+        },
+        {
+          "type": "choice", "grammar": "skloni", "instruction": "Izberi vprašanje · Choose the question", "prompt": "»___ pišeš?« »S svinčnikom.«", "options": ["S kom", "S čim", "Kaj"], "answer": 1, "say_options": true,
+          "explain": "**a thing** you write with → **s čim?** → the instrumental: s svinčnikom\n- s kom? · with a person"
+        },
+        {
+          "type": "choice", "grammar": "skloni", "instruction": "Izberi vprašanje · Choose the question", "prompt": "»___ pišeš pismo?« »Teti Ančki.«", "options": ["Koga", "Komu", "S kom"], "answer": 1, "say_options": true,
+          "explain": "**who gets the letter** → **komu?** → the dative: teti Ančki"
+        }
+      ]
+    },
+    {
+      "id": "skloni-3",
+      "title": { "sl": "Vprašaj in odgovori", "en": "Ask and answer", "de": "Frag und antworte", "it": "Chiedi e rispondi" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "skloni", "instruction": "Odgovori v pravem sklonu · Answer in the right case",
+          "items": [
+            { "from": "Kaj piješ? (kava)", "accept": ["Kavo.", "Pijem kavo."], "hint": "kaj? the object", "lemma": "kava", "form": "acc.sg" },
+            { "from": "Česa nimaš? (čas)", "accept": ["Časa.", "Nimam časa."], "hint": "česa? the genitive", "lemma": "čas", "form": "gen.sg" },
+            { "from": "Komu pišeš? (brat)", "accept": ["Bratu.", "Pišem bratu.", "Bratu pišem."], "hint": "komu? the dative", "lemma": "brat", "form": "dat.sg" },
+            { "from": "Pri kom je Zala? (babica)", "accept": ["Pri babici.", "Zala je pri babici."], "hint": "pri kom? the locative", "lemma": "babica", "form": "loc.sg" },
+            { "from": "S čim greš v Gorico? (vlak)", "accept": ["Z vlakom.", "Grem z vlakom.", "V Gorico grem z vlakom.", "Z vlakom grem v Gorico.", "Grem z vlakom v Gorico."], "hint": "s čim? z or s?", "lemma": "vlak", "form": "ins.sg" },
+            { "from": "O kom govori Janez? (medved)", "accept": ["O medvedu.", "Janez govori o medvedu."], "hint": "o kom? the locative", "lemma": "medved", "form": "loc.sg" },
+            { "from": "S kom greš na sejem? (sestra)", "accept": ["S sestro.", "Grem s sestro.", "Na sejem grem s sestro.", "S sestro grem na sejem.", "Grem s sestro na sejem."], "hint": "s kom? feminine: -o", "lemma": "sestra", "form": "ins.sg" }
+          ],
+          "explain": "**ask, and answer in its case**\n- kaj? kavo · česa? časa · komu? bratu\n- pri kom? pri babici · s čim? z vlakom · s kom? s sestro"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "skloni", "instruction": "Dopolni sklone · Fill in the cases", "prompt": "mama", "lemma": "mama",
+        "columns": ["mama · mum"],
+        "rows": [
+          { "label": "2. koga? česa?", "cells": [{ "accept": ["mame"], "form": "gen.sg" }] },
+          { "label": "3. komu? čemu?", "cells": [{ "accept": ["mami"], "form": "dat.sg" }] },
+          { "label": "4. koga? kaj?", "cells": [{ "accept": ["mamo"], "form": "acc.sg" }] },
+          { "label": "6. z …", "cells": [{ "accept": ["mamo", "z mamo"], "form": "ins.sg" }] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "skloni", "prompt": "»___ greš na sejem?« »Z Nejcem.«", "options": ["Kdo", "S kom", "S čim"], "answer": 1, "say_options": true,
+        "explain": "**a person** you go with → **s kom?** → the instrumental: z Nejcem"
+      },
+      {
+        "type": "gaptext", "grammar": "skloni", "instruction": "Dopolni s sklonom · Fill in the case",
+        "text": "Kovač Tone je danes v ___ (kovačnica). Kuje s ___ (kladivo). Nima ___ (čas). Zvečer piše ___ (sin) pismo.",
+        "gaps": [
+          { "accept": ["kovačnici"], "grammar": "mestnik" },
+          { "accept": ["kladivom"], "grammar": "orodnik" },
+          { "accept": ["časa"], "grammar": "rodilnik-nikalnica" },
+          { "accept": ["sinu"], "grammar": "dajalnik" }
+        ],
+        "translation": "Today Tone the smith is in the smithy. He forges with a hammer. He has no time. In the evening he writes a letter to his son."
+      },
+      {
+        "type": "transform", "grammar": "skloni", "instruction": "Odgovori v pravem sklonu · Answer in the right case",
+        "items": [
+          { "from": "Kaj ješ? (juha)", "accept": ["Juho.", "Jem juho."], "lemma": "juha", "form": "acc.sg" },
+          { "from": "Komu daš kost? (Muri)", "accept": ["Muriju.", "Muriju dam kost.", "Dam Muriju kost.", "Dam kost Muriju.", "Kost dam Muriju."] },
+          { "from": "Koga ni doma? (Nejc)", "accept": ["Nejca.", "Nejca ni doma.", "Doma ni Nejca."] }
+        ]
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: Dan pri babici (Potem gresta k sosedu), Muriju alone in the sort, the word orders accepted in Vprašaj in odgovori"
+}

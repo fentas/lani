@@ -1,0 +1,253 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "dajalnik",
+  "language": "sl",
+  "level": "A2",
+  "emoji": "🎁",
+  "title": { "sl": "Dajalnik: babici, k babici", "en": "The dative: to Granny, to Granny's", "de": "Der Dativ: der Oma, zur Oma", "it": "Il dativo: alla nonna, dalla nonna" },
+  "goal": {
+    "en": "You can say to whom you give, show or tell something and whom you help (dam babici kruh, pomagam ti), go to someone (grem k babici), and say how you feel (mrzlo mi je, všeč mi je).",
+    "de": "Du sagst, wem du etwas gibst, zeigst oder erzählst und wem du hilfst (dam babici kruh, pomagam ti), gehst zu jemandem (grem k babici) und sagst, wie es dir geht (mrzlo mi je, všeč mi je).",
+    "it": "Sai dire a chi dai, mostri o racconti qualcosa e chi aiuti (dam babici kruh, pomagam ti), andare da qualcuno (grem k babici) e dire come ti senti (mrzlo mi je, všeč mi je)."
+  },
+  "grammar": ["dajalnik", "osebni-zaimki"],
+  "words": ["dati", "prinesti", "nesti", "pokazati", "posoditi", "povedati", "pisati", "pomagati", "odgovoriti", "verjeti", "babica", "teta", "sestra", "brat", "sosed", "gost", "kovač", "učiteljica", "otrok", "ogenj", "pismo", "zgodba", "voščilo", "kost", "kladivo", "praznik", "všeč", "mrzlo", "proti", "leto", "potica", "roža"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "beseda", "en": "word", "de": "Wort", "it": "parola" },
+        { "sl": "kdo? kaj?", "en": "base form (kdo? kaj?)", "de": "Grundform (kdo? kaj?)", "it": "forma base (kdo? kaj?)" },
+        { "sl": "komu? čemu?", "en": "to whom (komu? čemu?)", "de": "wem (komu? čemu?)", "it": "a chi (komu? čemu?)" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "Who gets something, or is shown or told something, answers **komu?** (to whom?): the dative (*dajalnik*). A feminine noun in **-a** ends in **-i**: *babica* → **Zala da babici rožo.** (Zala gives Granny a flower.) *sestra* → **Pišem sestri pismo.**",
+          "de": "Wer etwas bekommt, gezeigt oder erzählt bekommt, antwortet auf **komu?** (wem?): der Dativ (*dajalnik*). Ein weibliches Nomen auf **-a** endet auf **-i**: *babica* → **Zala da babici rožo.** (Zala gibt der Oma eine Blume.) *sestra* → **Pišem sestri pismo.**",
+          "it": "Chi riceve qualcosa, o a chi si mostra o si racconta qualcosa, risponde a **komu?** (a chi?): il dativo (*dajalnik*). Un nome femminile in **-a** finisce in **-i**: *babica* → **Zala da babici rožo.** (Zala dà un fiore alla nonna.) *sestra* → **Pišem sestri pismo.**"
+        },
+        "examples": [
+          { "sl": "Zala da babici rožo.", "en": "Zala gives Granny a flower.", "de": "Zala gibt der Oma eine Blume.", "it": "Zala dà un fiore alla nonna." },
+          { "sl": "Pišem sestri pismo.", "en": "I'm writing my sister a letter.", "de": "Ich schreibe meiner Schwester einen Brief.", "it": "Scrivo una lettera a mia sorella." }
+        ],
+        "rows": [[{ "sl": "ženski", "en": "feminine", "de": "weiblich", "it": "femminile" }, "babica, sestra", "babici, sestri"]],
+        "ask": {
+          "type": "cloze", "grammar": "dajalnik", "text": "Tine pokaže ___ zvezek. (učiteljica)", "accept": ["učiteljici"], "hint": "-a → -i",
+          "explain": "**komu?** + a feminine noun → **-i**: učiteljici"
+        }
+      },
+      {
+        "say": {
+          "en": "Masculine and neuter nouns take **-u**: *brat* → **bratu**, *Janez* → **Janezu**, *okno* → **oknu**. A name in -i adds **-ju**: **Muriju**. Several people take **-om**, feminine **-am**: **otrokom, sestram**.",
+          "de": "Männliche und sächliche Nomen bekommen **-u**: *brat* → **bratu**, *Janez* → **Janezu**, *okno* → **oknu**. Ein Name auf -i bekommt **-ju**: **Muriju**. Mehrere Leute bekommen **-om**, weibliche **-am**: **otrokom, sestram**.",
+          "it": "I nomi maschili e neutri prendono **-u**: *brat* → **bratu**, *Janez* → **Janezu**, *okno* → **oknu**. Un nome in -i aggiunge **-ju**: **Muriju**. Più persone prendono **-om**, le femminili **-am**: **otrokom, sestram**."
+        },
+        "examples": [
+          { "sl": "Nejc da Muriju kost.", "en": "Nejc gives Muri a bone.", "de": "Nejc gibt Muri einen Knochen.", "it": "Nejc dà un osso a Muri." },
+          { "sl": "Učiteljica pokaže otrokom zemljevid.", "en": "The teacher shows the children a map.", "de": "Die Lehrerin zeigt den Kindern eine Landkarte.", "it": "La maestra mostra una cartina ai bambini." }
+        ],
+        "rows": [
+          [{ "sl": "moški", "en": "masculine", "de": "männlich", "it": "maschile" }, "brat, Janez", "bratu, Janezu"],
+          [{ "sl": "srednji", "en": "neuter", "de": "sächlich", "it": "neutro" }, "okno, mesto", "oknu, mestu"],
+          [{ "sl": "množina", "en": "plural", "de": "Plural", "it": "plurale" }, "otroci, sestre", "otrokom, sestram"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "dajalnik", "prompt": "Babica da ___ kos potice. (Nejc)", "options": ["Nejca", "Nejcu", "Nejcem"], "answer": 1, "say_options": true,
+          "explain": "**komu?** + a masculine noun → **-u**: Nejcu"
+        }
+      },
+      {
+        "say": {
+          "en": "Verbs of giving and telling put the one who gets in the dative: **dati, prinesti, nesti, pokazati, posoditi, povedati, pisati**. So does **pomagati** (to help), unlike English: **Pomagam babici** (never *Pomagam babico*).",
+          "de": "Verben des Gebens und Sagens setzen den Empfänger in den Dativ: **dati, prinesti, nesti, pokazati, posoditi, povedati, pisati**. Auch **pomagati** (helfen), wie im Deutschen: **Pomagam babici**, nie *Pomagam babico*.",
+          "it": "I verbi del dare e del dire mettono al dativo chi riceve: **dati, prinesti, nesti, pokazati, posoditi, povedati, pisati**. Anche **pomagati** (aiutare), a differenza dell'italiano: **Pomagam babici**, mai *Pomagam babico*."
+        },
+        "examples": [
+          { "sl": "Zala pomaga babici v kuhinji.", "en": "Zala helps Granny in the kitchen.", "de": "Zala hilft der Oma in der Küche.", "it": "Zala aiuta la nonna in cucina." },
+          { "sl": "Tone posodi sosedu kladivo.", "en": "Tone lends the neighbour a hammer.", "de": "Tone leiht dem Nachbarn einen Hammer.", "it": "Tone presta un martello al vicino." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "dajalnik", "prompt": "Nejc pomaga ___. (sestra)", "options": ["sestro", "sestri", "sestre"], "answer": 1, "say_options": true,
+          "explain": "**pomagati** → komu? → the dative: sestri\n- sestro is the object form (vidim sestro)"
+        }
+      },
+      {
+        "say": {
+          "en": "To someone, or up to something, is **k** + the dative: **Grem k babici. Zvečer gremo k ognju.** Before k and g it is **h**: **h kovaču** (to the smith). **Proti** (towards) takes it too: **proti vasi**.",
+          "de": "Zu jemandem oder zu etwas hin ist **k** + Dativ: **Grem k babici. Zvečer gremo k ognju.** Vor k und g heißt es **h**: **h kovaču** (zum Schmied). Auch **proti** (in Richtung) verlangt ihn: **proti vasi**.",
+          "it": "Da qualcuno, o verso qualcosa, è **k** + il dativo: **Grem k babici. Zvečer gremo k ognju.** Davanti a k e g diventa **h**: **h kovaču** (dal fabbro). Anche **proti** (verso) lo vuole: **proti vasi**."
+        },
+        "examples": [
+          { "sl": "Zvečer gremo k ognju.", "en": "In the evening we go to the fire.", "de": "Am Abend gehen wir ans Feuer.", "it": "La sera andiamo al fuoco." },
+          { "sl": "Nejc teče h kovaču.", "en": "Nejc runs to the smith.", "de": "Nejc läuft zum Schmied.", "it": "Nejc corre dal fabbro." }
+        ],
+        "rows": [[{ "sl": "k, h", "en": "k, h (to)", "de": "k, h (zu)", "it": "k, h (da, verso)" }, "babica, kovač", "k babici, h kovaču"]],
+        "ask": {
+          "type": "choice", "grammar": "dajalnik", "prompt": "Luka nese seno ___ kozolcu.", "options": ["k", "h", "pri"], "answer": 1, "say_options": true,
+          "explain": "**k** → **h** before k and g: h kozolcu\n- k babici, k ognju"
+        }
+      },
+      {
+        "say": {
+          "en": "The pronouns have a short form, the usual one, in second place: **Babica mi da kruh.** **mi, ti, mu, ji** (to me, you, him, her), **nam, vam, jim**. The long one, **meni, tebi, njemu, njej**, carries weight and stands alone: **Komu? Meni!**",
+          "de": "Die Pronomen haben eine kurze Form, die übliche, an zweiter Stelle: **Babica mi da kruh.** **mi, ti, mu, ji** (mir, dir, ihm, ihr), **nam, vam, jim**. Die lange, **meni, tebi, njemu, njej**, hat Gewicht und steht allein: **Komu? Meni!**",
+          "it": "I pronomi hanno una forma breve, quella usuale, al secondo posto: **Babica mi da kruh.** **mi, ti, mu, ji** (a me, a te, a lui, a lei), **nam, vam, jim**. Quella lunga, **meni, tebi, njemu, njej**, dà peso e sta da sola: **Komu? Meni!**"
+        },
+        "examples": [
+          { "sl": "Babica mi da kos potice.", "en": "Granny gives me a piece of potica.", "de": "Oma gibt mir ein Stück Potica.", "it": "La nonna mi dà una fetta di potica." },
+          { "sl": "»Komu naj dam vodo?« »Meni, prosim!«", "en": "\"Who should I give the water to?\" \"Me, please!\"", "de": "„Wem soll ich das Wasser geben?“ „Mir, bitte!“", "it": "«A chi do l'acqua?» «A me, per favore!»" }
+        ],
+        "rows": [
+          [{ "sl": "zaimki", "en": "pronouns", "de": "Pronomen", "it": "pronomi" }, "jaz · ti", "meni, mi · tebi, ti"],
+          [{ "sl": "zaimki", "en": "pronouns", "de": "Pronomen", "it": "pronomi" }, "on · ona", "njemu, mu · njej, ji"],
+          [{ "sl": "zaimki", "en": "pronouns", "de": "Pronomen", "it": "pronomi" }, "mi · vi · oni", "nam · vam · njim, jim"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "osebni-zaimki", "prompt": "Zala je lačna. Babica ___ da kruh.", "options": ["ji", "jo", "mu"], "answer": 0, "say_options": true,
+          "explain": "**Zala** → to her → **ji**\n- jo is whom (vidim jo)"
+        }
+      },
+      {
+        "say": {
+          "en": "Who feels something is in the dative too: **mrzlo mi je** (I'm cold), **toplo mi je**, **dolgčas mi je** (I'm bored), **všeč mi je** (I like it). And age: **Koliko ti je let?** (How old are you?) The answer has no dative: **Star sem trideset let.**",
+          "de": "Wer etwas fühlt, steht auch im Dativ: **mrzlo mi je** (mir ist kalt), **toplo mi je**, **dolgčas mi je** (mir ist langweilig), **všeč mi je** (es gefällt mir). Und das Alter: **Koliko ti je let?** (Wie alt bist du?) Die Antwort hat keinen Dativ: **Star sem trideset let.**",
+          "it": "Anche chi sente qualcosa va al dativo: **mrzlo mi je** (ho freddo), **toplo mi je**, **dolgčas mi je** (mi annoio), **všeč mi je** (mi piace). E l'età: **Koliko ti je let?** (Quanti anni hai?) La risposta non ha il dativo: **Star sem trideset let.**"
+        },
+        "examples": [
+          { "sl": "Zapri okno, prosim. Mrzlo mi je.", "en": "Close the window, please. I'm cold.", "de": "Mach bitte das Fenster zu. Mir ist kalt.", "it": "Chiudi la finestra, per favore. Ho freddo." },
+          { "sl": "Potica mi je zelo všeč.", "en": "I really like potica.", "de": "Potica schmeckt mir sehr.", "it": "La potica mi piace molto." }
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "dajalnik", "text": "Zakuri ogenj, mrzlo ___ je. (jaz)", "accept": ["mi"], "hint": "jaz → the short form",
+          "explain": "who feels → the dative: **mrzlo mi je**\n- meni only for weight: Meni je mrzlo, tebi pa ne?"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "dajalnik-1",
+      "title": { "sl": "Komu?", "en": "To whom?", "de": "Wem?", "it": "A chi?" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "dajalnik", "instruction": "Dopolni dajalnik · Fill in the dative", "prompt": "kdo? kaj? → komu? čemu?",
+          "columns": ["kdo? kaj? · base", "komu? čemu? · to whom"],
+          "rows": [
+            { "label": "Dam …", "cells": ["babica", { "accept": ["babici"], "hint": "-a → -i" }] },
+            { "label": "Pomagam …", "cells": ["sosed", { "accept": ["sosedu"], "hint": "masculine: + -u" }] },
+            { "label": "Pišem …", "cells": ["teta", { "accept": ["teti"] }] },
+            { "label": "Pokažem …", "cells": ["gost", { "accept": ["gostu"] }] },
+            { "label": "Grem k …", "cells": ["ogenj", { "accept": ["ognju"], "hint": "the e drops" }] },
+            { "label": "Grem h …", "cells": ["kovač", { "accept": ["kovaču"] }] },
+            { "label": "Povem …", "cells": ["otroci", { "accept": ["otrokom"], "hint": "plural: -om" }] }
+          ],
+          "explain": "**the dative** → feminine **-i**, masculine and neuter **-u**, plural **-om**\n- babici, teti\n- sosedu, gostu, ognju, kovaču\n- otrokom"
+        },
+        {
+          "type": "sort", "grammar": "dajalnik", "instruction": "Komu ali koga? · To whom or whom?",
+          "columns": [
+            { "label": "komu? · pomagam babici", "words": ["pomagati", "odgovoriti", "verjeti"] },
+            { "label": "koga? · vidim babico", "words": ["videti", "čakati", "klicati"] }
+          ],
+          "explain": "**komu?** → the dative: pomagam babici, odgovorim babici, verjamem babici\n- **koga?** → the object: vidim, čakam, kličem babico"
+        }
+      ]
+    },
+    {
+      "id": "dajalnik-2",
+      "title": { "sl": "Darila za praznik", "en": "Presents for the holiday", "de": "Geschenke zum Fest", "it": "Regali per la festa" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "dajalnik", "instruction": "Dopolni z dajalnikom · Fill in the dative", "title": "Darila za praznik",
+          "text": "Jutri je praznik. Zala nese ___ (babica) rože. Nejc da ___ (Janez) kos potice. Luka prinese ___ (učiteljica) sir. Tine napiše ___ (teta) voščilo. Zvečer gremo vsi k ___ (ogenj). Stari Janez pove ___ (otroci) zgodbo.",
+          "gaps": [
+            { "accept": ["babici"], "hint": "-a → -i" },
+            { "accept": ["Janezu"], "hint": "masculine: + -u" },
+            { "accept": ["učiteljici"] },
+            { "accept": ["teti"] },
+            { "accept": ["ognju"], "hint": "k + …; the e drops", "explain": "**k** takes the dative, and ogenj loses its e: **k ognju**." },
+            { "accept": ["otrokom"], "hint": "plural: -om", "explain": "otroci → several → **-om**: **otrokom**." }
+          ],
+          "bank": true, "distractors": ["babico", "Janeza", "ogenj"],
+          "translation": "Tomorrow is a holiday. Zala takes Granny flowers. Nejc gives Janez a piece of potica. Luka brings the teacher cheese. Tine writes his aunt a card. In the evening we all go to the fire. Old Janez tells the children a story."
+        },
+        {
+          "type": "choice", "grammar": "osebni-zaimki", "instruction": "Izberi · Choose", "prompt": "Zala je v kuhinji. Babica ___ pomaga.", "options": ["jo", "ji", "ga"], "answer": 1, "say_options": true,
+          "explain": "**pomagati** → komu? → to her: **ji**\n- jo would be whom (vidim jo)"
+        }
+      ]
+    },
+    {
+      "id": "dajalnik-3",
+      "title": { "sl": "Komu? Njemu, njej", "en": "To whom? To him, to her", "de": "Wem? Ihm, ihr", "it": "A chi? A lui, a lei" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "dajalnik", "instruction": "Povej, komu · Say to whom", "cue": "komu?",
+          "items": [
+            { "from": "Dam kruh. (brat)", "accept": ["Dam bratu kruh.", "Dam kruh bratu."], "hint": "masculine: + -u", "lemma": "brat", "form": "dat.sg" },
+            { "from": "Pomagam. (babica)", "accept": ["Pomagam babici."], "lemma": "babica", "form": "dat.sg" },
+            { "from": "Luka pokaže pot. (gost)", "accept": ["Luka pokaže gostu pot.", "Luka pokaže pot gostu."], "lemma": "gost", "form": "dat.sg" },
+            { "from": "Nesem vodo. (konj)", "accept": ["Nesem konju vodo.", "Nesem vodo konju."], "lemma": "konj", "form": "dat.sg" },
+            { "from": "Pišem pismo. (sestra)", "accept": ["Pišem sestri pismo.", "Pišem pismo sestri."], "lemma": "sestra", "form": "dat.sg" }
+          ],
+          "explain": "**komu?** → the dative\n- bratu, gostu, konju · masculine -u\n- babici, sestri · feminine -i"
+        },
+        {
+          "type": "transform", "grammar": "osebni-zaimki", "instruction": "Namesto imena kratki zaimek · A short pronoun for the name", "cue": "mu, ji, jim",
+          "items": [
+            { "from": "Dam babici kruh.", "accept": ["Dam ji kruh.", "Ji dam kruh."], "hint": "to her" },
+            { "from": "Pomagam bratu.", "accept": ["Pomagam mu.", "Mu pomagam."], "hint": "to him" },
+            { "from": "Luka pokaže Nejcu ovce.", "accept": ["Luka mu pokaže ovce."], "hint": "second place" },
+            { "from": "Mojca pove otrokom zgodbo.", "accept": ["Mojca jim pove zgodbo."], "hint": "to them" },
+            { "from": "Zali je mrzlo.", "accept": ["Mrzlo ji je.", "Ji je mrzlo."], "hint": "ji before je" }
+          ],
+          "explain": "**the short pronoun** → in second place\n- Dam ji kruh. · Luka mu pokaže ovce.\n- Mrzlo ji je. · ji before je"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "dajalnik", "instruction": "Dopolni dajalnik · Fill in the dative", "prompt": "kdo? kaj? → komu? čemu?",
+        "columns": ["kdo? kaj? · base", "komu? čemu? · to whom"],
+        "rows": [
+          { "label": "Dam …", "cells": ["krava", { "accept": ["kravi"] }] },
+          { "label": "Pomagam …", "cells": ["učitelj", { "accept": ["učitelju"] }] },
+          { "label": "Pokažem …", "cells": ["Marko", { "accept": ["Marku"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "dajalnik", "instruction": "Dopolni z dajalnikom · Fill in the dative",
+        "text": "Vida prinese ___ (lovec) juho. Anton pokaže ___ (Zala) panje. Nejc pomaga ___ (sosed) na vrtu. Ta potica ___ (jaz) je zelo všeč.",
+        "gaps": [
+          { "accept": ["lovcu"] },
+          { "accept": ["Zali"] },
+          { "accept": ["sosedu"] },
+          { "accept": ["mi"], "grammar": "osebni-zaimki" }
+        ],
+        "translation": "Vida brings the hunter soup. Anton shows Zala the beehives. Nejc helps the neighbour in the garden. I really like this potica."
+      },
+      {
+        "type": "transform", "grammar": "dajalnik", "instruction": "Povej, komu · Say to whom", "cue": "komu?",
+        "items": [
+          { "from": "Dam kost. (pes)", "accept": ["Dam psu kost.", "Dam kost psu."], "lemma": "pes", "form": "dat.sg" },
+          { "from": "Pomagam. (učiteljica)", "accept": ["Pomagam učiteljici."], "lemma": "učiteljica", "form": "dat.sg" },
+          { "from": "Nesem seno. (koza)", "accept": ["Nesem kozi seno.", "Nesem seno kozi."], "lemma": "koza", "form": "dat.sg" }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "dajalnik", "prompt": "Ovce gredo ___ koritu.", "options": ["k", "h", "s"], "answer": 1, "say_options": true,
+        "explain": "**k** → **h** before k and g: h koritu\n- k babici, k ognju"
+      },
+      {
+        "type": "choice", "grammar": "osebni-zaimki", "prompt": "»Komu daš rožo?« »___!«", "options": ["Mi", "Meni", "Mene"], "answer": 1, "say_options": true,
+        "explain": "alone, with weight → the long form **meni**\n- mi only leans on another word; mene is whom"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: Darila za praznik (napiše teti voščilo), h kozolcu, h koritu, Zakuri ogenj, mrzlo mi je, Ji je mrzlo, verjeti komu"
+}

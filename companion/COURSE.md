@@ -478,7 +478,7 @@ them anyway). Until then it is greyed with its form, to read ahead, in a table t
 tables with a gap asked now) and in the word's overview ("📋 Vse oblike"). A unit's intro done also brings back within days the
 forms cards it opened rows of (at most 3 a day, its new part first, scheduled as new learning: the card's repetitions
 back to 0, its history kept), says so ("📋 Nove oblike v tabelah: delati, hiša. · New forms in your tables: …"), and
-makes the day's new cards (two a day) of learned words that had none yet. By the units' pages:
+makes the day's new cards (two a day) of learned words that had none yet. By the units' pages (A1, A2, B1):
 
 | unit | its pages | what the forms cards ask from then on |
 |---|---|---|
@@ -496,6 +496,16 @@ makes the day's new cards (two a day) of learned words that had none yet. By the
 | `pretekli-cas` | pretekli-cas, naslonke | the past's l-forms (on je delal, ona je delala …) |
 | `prihodnjik` | prihodnjik, naslonke | the future (bom delal, bodo delali …) |
 | `dvojina` | dvojina, stevila-samostalniki | the dual |
+| `skloni` | skloni, imenovalnik | nothing new: a noun's nominative singular is the word itself, never asked; the other cases' rows come with their units |
+| `rodilnik` | rodilnik, rodilnik-kolicina, rodilnik-predlogi | a noun's genitive row (hiše, hiš; dveh hiš with `dvojina`) and the adjective's genitive (velike, velikega) |
+| `kje-kam-od-kod` | kam-tozilnik, kje-mestnik-orodnik, rodilnik-predlogi | nothing new: its accusative, locative and genitive rows are `tozilnik`'s, `mestnik`'s and `rodilnik`'s |
+| `dajalnik` | dajalnik, osebni-zaimki | a noun's dative row (hiši, hišam, hišama) and the adjective's dative (veliki, velikemu) |
+| `orodnik` | orodnik, kje-mestnik-orodnik | a noun's instrumental row (hišo, hišami, hišama) and the adjective's instrumental (veliko, velikim) |
+| `mnozina-skloni` | mnozina-skloni, mnozina, rodilnik-kolicina, stevila-samostalniki | nothing new: a case's plural row (hišah, hiš, hišam, hišami) comes with that case's page and `mnozina`, as `mestnik`'s does at A1, so the A2 case units before it open them; its tables and transforms name the forms (`gen.pl` … `ins.pl`) |
+| `pridevniki-skloni` | pridevniki-ujemanje, skloni | an adjective's cases, each once its case's page is introduced (all six by the units above) |
+| `cigav` | cigav, pridevniki-ujemanje | as `spol` (the adjective's rows); the possessives aren't in the forms book |
+| `primernik` | primernik, prislovi | an adjective's comparative (lepši, boljši, večji: `cmp.m.sg`) |
+| `glagolski-vid` | glagolski-vid, pretekli-cas | nothing new: the past's l-forms are on since A1 (`pretekli-cas`); a verb's aspect and its partner show in the word lookup for every learner |
 | `sklanjatev-posebnosti` (B1) | sklanjatev-posebnosti, sklanjatev-moski, sklanjatev-srednji, sklanjatev-zenski | no form of a table of its own: the odd nouns' forms (očeta, psa, ljudmi) are asked with each case's page, as any noun's |
 | `dvojina-skloni` (B1) | dvojina-skloni, dvojina | the dual of every case whose page is introduced (dveh bratov, dvema sestrama, pri dveh oknih) |
 | `vid-vsi-casi` (B1) | vid-casi, glagolski-vid, velelnik | the imperative (as `velelnik`) |
@@ -505,22 +515,15 @@ makes the day's new cards (two a day) of learned words that had none yet. By the
 | `odvisni-govor` (B1) | odvisni-govor, naslonke | no form of a table |
 | `odvisniki` (B1) | odvisniki, vezniki, pogojnik, naslonke | no form of a table (the conditional isn't asked as a form) |
 
-By the A2 units' pages (machine-written, 2026-10-27):
-
-| unit | its pages | what the forms cards ask from then on |
-|---|---|---|
-| `mnozina-skloni` | mnozina-skloni, mnozina, rodilnik-kolicina, stevila-samostalniki | nothing new: a case's plural row (hišah, hiš, hišam, hišami) comes with that case's page and `mnozina`, as `mestnik`'s does at A1, so the A2 case units before it open them; its tables and transforms name the forms (`gen.pl` … `ins.pl`) |
-| `primernik` | primernik, prislovi | an adjective's comparative (lepši, boljši, večji: `cmp.m.sg`) |
-| `cigav` | cigav, pridevniki-ujemanje | as `spol` (the adjective's rows); the possessives aren't in the forms book |
-| `glagolski-vid` | glagolski-vid, pretekli-cas | nothing new: the past's l-forms are on since A1 (`pretekli-cas`); a verb's aspect and its partner show in the word lookup for every learner |
-
 `vprasalnice`, `kdaj-cas`, `modalni-glagoli` and `povratni-glagoli` turn on no form of a table, nor do A2's
 `zaimki-skloni` (osebni-zaimki, naslonke: the pronouns aren't in the forms book), `namenilnik` (namenilnik,
 modalni-glagoli: the supine has no slot), `pogojnik` (pogojnik, naslonke: the conditional is bi and the past's
-l-form) and `vezniki` (vezniki, naslonke). The genitive, dative
-and instrumental rows (`rodilnik`, `dajalnik`, `orodnik`, A2 pages) stay greyed until those pages are met in the book;
-a noun's nominative singular is the word itself, never asked. A unit's `grammar` decides: a unit that lists another
-page turns on that page's forms too.
+l-form) and `vezniki` (vezniki, naslonke). The genitive, dative and instrumental rows stay greyed until their pages are
+met: in the book, or by A2's units `rodilnik`, `dajalnik` and `orodnik` (the overview `skloni` shows each case's
+singular to read ahead and turns none of them on); a noun's nominative singular is the word itself, never asked. A
+unit's `grammar` decides: a unit that lists another page turns on that page's forms too. The bridge's smoke keeps this
+table true (`test/smoke/course-content.ts`): a unit that names a page a form counts on (`forms.ts` `pageOf`) has its
+row here, with its pages as the unit lists them.
 
 B1's second half (`pogojnik-polno` to `glagolniki`) teaches pages of its own, written with it (each a B1 page with
 its cheat-sheet card): `pogojnik-ce-bi`, `nedolocni-zaimki`, `naslonke-red`, `stevila-glagol`, `cas-izrazi`, `custva`,
@@ -587,6 +590,26 @@ multi, a sort, a word bank), and only the easy ones are made (Okno je odprto, pl
   imeti-iti, nikalnica-rodilnik, mestnik, kdaj-cas, velelnik, modalni-glagoli, povratni-glagoli, pretekli-cas,
   prihodnjik, dvojina (each with the grammar pages it is to teach). A unit may only use the grammar of the units before
   it around its gaps: biti and spol first, then the pronouns and the present, so the cases come after sedanjik.
+
+### The cases (A2)
+
+Jan, 2026-10-27: "so there are no school lessons for cases? (one for each case + maybe a PDF … as a compact overview)".
+A1 has the accusative (`tozilnik`), the locative (`mestnik`) and the genitive after a no (`nikalnica-rodilnik`); A2 opens
+with the rest, in this order: `skloni` (the six cases by their questions, each one's singular: the method, and the
+overview to print, "Printed sheets"), `rodilnik` (of, amounts and five and more, iz/brez/zaradi, od … do, blizu,
+mimo, bati se), `kje-kam-od-kod` (one place, three questions: v → iz, na → z / s, pri → k → od, doma → domov → od
+doma), `dajalnik` (komu?, giving and telling, pomagati, k/h, mi/ti/mu/ji, mrzlo mi je), `orodnik` (s kom? s čim?, s or
+z, z mano, pod/nad/pred/za/med for kje? and kam?), and after the plural's unit `pridevniki-skloni` (an adjective through
+the six cases, singular and plural). Writing one:
+
+- **Ask the question** in a gap's hint ("komu?", "s čim?", "pri kom?"): the method `skloni` teaches, never the answer.
+- **The word in brackets** is the noun or adjective as the dictionary has it. The smoke checks that each such answer is
+  one of its forms (the dictionary's; a name, a pronoun or an adverb made of the word isn't judged) and that each named
+  form (`lemma` + `form`) is its slot's (`test/smoke/course-content.ts`).
+- **The little word decides** where it can: k → h before k and g (h kovaču), z → s before p, t, k, f, h, c, č, s, š
+  (s pošte, s kladivom).
+- **Names decline**: Muri → Muriju, z Murijem; Luka → Luki, z Luko; France → Francetu, s Francetom; Nejc → Nejcu,
+  z Nejcem (-em after c).
 
 ## Printed sheets
 

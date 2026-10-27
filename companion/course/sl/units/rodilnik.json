@@ -1,0 +1,235 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "rodilnik",
+  "language": "sl",
+  "level": "A2",
+  "emoji": "🧺",
+  "title": { "sl": "Rodilnik: brez mleka, iz Gorice", "en": "The genitive: without milk, from Gorica", "de": "Der Genitiv: ohne Milch, aus Gorica", "it": "Il genitivo: senza latte, da Gorizia" },
+  "goal": {
+    "en": "You can say how much and how many (kos kruha, pet ovc), where from and without what (iz Gorice, brez mleka), and what someone is afraid of or looks forward to.",
+    "de": "Du sagst, wie viel und wie viele (kos kruha, pet ovc), woher und ohne was (iz Gorice, brez mleka), und wovor jemand Angst hat oder worauf er sich freut.",
+    "it": "Sai dire quanto e quanti (kos kruha, pet ovc), da dove e senza che cosa (iz Gorice, brez mleka), e di che cosa qualcuno ha paura o che cosa aspetta con gioia."
+  },
+  "grammar": ["rodilnik", "rodilnik-kolicina", "rodilnik-predlogi"],
+  "words": ["malo", "veliko", "koliko", "nekaj", "kos", "liter", "kilogram", "kozarec", "skodelica", "steklenica", "iz", "brez", "zaradi", "od", "do", "blizu", "mimo", "bati se", "veseliti se", "spomniti se", "sled", "vrh", "gora", "koča", "sneg", "goba", "sladkor", "dež", "cerkev", "nevihta", "praznik", "moka", "jajce", "koza", "borovnica", "tržnica", "gost", "lisica", "mačka"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "raba", "en": "job", "de": "Aufgabe", "it": "uso" },
+        { "sl": "za", "en": "after", "de": "nach", "it": "dopo" },
+        { "sl": "ženski", "en": "feminine", "de": "weiblich", "it": "femminile" },
+        { "sl": "moški, srednji", "en": "masculine, neuter", "de": "männlich, sächlich", "it": "maschile, neutro" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "The genitive (**rodilnik**, **koga? česa?**) does more than the no you know (**nimam časa**). The first job: *of*. It comes after the noun it belongs to: **sledi medveda** (the bear's tracks), **vrh gore** (the top of the mountain). A feminine noun in -a takes **-e**, a masculine or neuter noun **-a**, a feminine one without -a **-i**: vas → **vasi**.",
+          "de": "Der Genitiv (**rodilnik**, **koga? česa?**) kann mehr als das Nein, das du kennst (**nimam časa**). Die erste Aufgabe: *von*. Er steht nach dem Nomen, zu dem er gehört: **sledi medveda** (die Spuren des Bären), **vrh gore** (der Gipfel des Berges). Ein weibliches Nomen auf -a bekommt **-e**, ein männliches oder sächliches **-a**, ein weibliches ohne -a **-i**: vas → **vasi**.",
+          "it": "Il genitivo (**rodilnik**, **koga? česa?**) fa più del no che conosci (**nimam časa**). Il primo compito: *di*. Viene dopo il nome a cui appartiene: **sledi medveda** (le tracce dell'orso), **vrh gore** (la cima del monte). Un nome femminile in -a prende **-e**, uno maschile o neutro **-a**, uno femminile senza -a **-i**: vas → **vasi**."
+        },
+        "examples": [
+          { "sl": "Glej, sledi medveda!", "en": "Look, the bear's tracks!", "de": "Schau, die Spuren des Bären!", "it": "Guarda, le tracce dell'orso!" },
+          { "sl": "Na vrhu gore je koča.", "en": "There's a hut at the top of the mountain.", "de": "Oben auf dem Berg steht eine Hütte.", "it": "In cima al monte c'è una baita." }
+        ],
+        "rows": [
+          [{ "sl": "čigav", "en": "of, whose", "de": "von, wessen", "it": "di, di chi" }, { "sl": "za samostalnikom", "en": "after a noun", "de": "nach einem Nomen", "it": "dopo un nome" }, "vrh gore", "sledi medveda"],
+          [{ "sl": "nikalnica", "en": "no, none", "de": "nein, kein", "it": "no, nessuno" }, "ne, ni, nimam", "nimam vode", "ni kruha"]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "rodilnik", "text": "Na snegu so sledi ___. (lisica)", "accept": ["lisice"], "hint": "-a → -e",
+          "explain": "**of** whom? → the genitive: lisica → **sledi lisice**"
+        }
+      },
+      {
+        "say": {
+          "en": "After an amount the noun goes into the genitive: **malo** (a little), **veliko** (a lot), **nekaj** (some), **koliko?** (how much?), and measures: **kos** (a piece), **liter**, **kilogram**, **kozarec** (a glass, a jar), **skodelica** (a cup). **Kos kruha, prosim.** What you can't count stays singular: **malo vode, veliko snega** (a lot of snow).",
+          "de": "Nach einer Menge steht das Nomen im Genitiv: **malo** (ein wenig), **veliko** (viel), **nekaj** (etwas), **koliko?** (wie viel?), und Maße: **kos** (ein Stück), **liter**, **kilogram**, **kozarec** (ein Glas), **skodelica** (eine Tasse). **Kos kruha, prosim.** Was man nicht zählen kann, bleibt im Singular: **malo vode, veliko snega** (viel Schnee).",
+          "it": "Dopo una quantità il nome va al genitivo: **malo** (un po'), **veliko** (tanto), **nekaj** (qualche), **koliko?** (quanto?), e le misure: **kos** (un pezzo), **liter**, **kilogram**, **kozarec** (un bicchiere, un vasetto), **skodelica** (una tazza). **Kos kruha, prosim.** Ciò che non si conta resta al singolare: **malo vode, veliko snega** (tanta neve)."
+        },
+        "examples": [
+          { "sl": "Kos kruha in malo sira, prosim.", "en": "A piece of bread and a little cheese, please.", "de": "Ein Stück Brot und ein wenig Käse, bitte.", "it": "Un pezzo di pane e un po' di formaggio, per favore." },
+          { "sl": "Pozimi je tukaj veliko snega.", "en": "In winter there's a lot of snow here.", "de": "Im Winter liegt hier viel Schnee.", "it": "D'inverno qui c'è tanta neve." }
+        ],
+        "rows": [[{ "sl": "količina", "en": "how much", "de": "wie viel", "it": "quanto" }, "malo, veliko, kos, liter", "skodelica kave", "kos kruha"]],
+        "ask": {
+          "type": "choice", "grammar": "rodilnik-kolicina", "prompt": "Liter ___, prosim. (mleko)", "options": ["mleko", "mleka", "mlekom"], "answer": 1, "say_options": true,
+          "explain": "**liter** (an amount) → the genitive: mleko → **mleka**"
+        }
+      },
+      {
+        "say": {
+          "en": "What you can count goes into the genitive plural. A masculine noun takes **-ov** (**-ev** after c, č, j, š, ž): **pet bratov**, **veliko konjev**. A feminine or neuter noun takes no ending at all: **pet ovc**, **deset jajc**, **veliko gob** (a lot of mushrooms). From five on, numbers work the same way: **pet ovc**, but **dve ovci, tri ovce**.",
+          "de": "Was man zählen kann, steht im Genitiv Plural. Ein männliches Nomen bekommt **-ov** (**-ev** nach c, č, j, š, ž): **pet bratov**, **veliko konjev**. Ein weibliches oder sächliches Nomen bekommt gar keine Endung: **pet ovc**, **deset jajc**, **veliko gob** (viele Pilze). Ab fünf gehen die Zahlen genauso: **pet ovc**, aber **dve ovci, tri ovce**.",
+          "it": "Ciò che si conta va al genitivo plurale. Un nome maschile prende **-ov** (**-ev** dopo c, č, j, š, ž): **pet bratov**, **veliko konjev**. Un nome femminile o neutro non prende nessuna desinenza: **pet ovc**, **deset jajc**, **veliko gob** (tanti funghi). Da cinque in su i numeri fanno lo stesso: **pet ovc**, ma **dve ovci, tri ovce**."
+        },
+        "examples": [
+          { "sl": "Luka ima dvanajst ovc.", "en": "Luka has twelve sheep.", "de": "Luka hat zwölf Schafe.", "it": "Luka ha dodici pecore." },
+          { "sl": "V gozdu je veliko gob.", "en": "There are lots of mushrooms in the woods.", "de": "Im Wald gibt es viele Pilze.", "it": "Nel bosco ci sono tanti funghi." }
+        ],
+        "rows": [[{ "sl": "pet in več", "en": "five and more", "de": "ab fünf", "it": "da cinque in su" }, "pet, veliko, koliko", "pet ovc", "pet bratov, deset jajc"]],
+        "ask": {
+          "type": "cloze", "grammar": "rodilnik-kolicina", "text": "Koliko ___ potrebuješ za potico? (jajce)", "accept": ["jajc"], "hint": "neuter plural: no ending",
+          "explain": "**koliko** + a plural you count → the genitive plural: jajce → **jajc**"
+        }
+      },
+      {
+        "say": {
+          "en": "Some prepositions always take the genitive. **iz** (out of, from): **iz Gorice, iz hiše**. **brez** (without): **brez mleka**. **zaradi** (because of): **zaradi dežja**. A few masculine nouns add a **j** before the ending: sladkor → **sladkorja**, dež → **dežja**, krompir → **krompirja**.",
+          "de": "Manche Präpositionen verlangen immer den Genitiv. **iz** (aus): **iz Gorice, iz hiše**. **brez** (ohne): **brez mleka**. **zaradi** (wegen): **zaradi dežja**. Ein paar männliche Nomen bekommen ein **j** vor der Endung: sladkor → **sladkorja**, dež → **dežja**, krompir → **krompirja**.",
+          "it": "Alcune preposizioni vogliono sempre il genitivo. **iz** (da, fuori da): **iz Gorice, iz hiše**. **brez** (senza): **brez mleka**. **zaradi** (a causa di): **zaradi dežja**. Alcuni nomi maschili aggiungono una **j** prima della desinenza: sladkor → **sladkorja**, dež → **dežja**, krompir → **krompirja**."
+        },
+        "examples": [
+          { "sl": "Kavo pijem brez sladkorja.", "en": "I drink my coffee without sugar.", "de": "Ich trinke den Kaffee ohne Zucker.", "it": "Bevo il caffè senza zucchero." },
+          { "sl": "Zaradi dežja ostanemo doma.", "en": "Because of the rain we're staying at home.", "de": "Wegen des Regens bleiben wir zu Hause.", "it": "A causa della pioggia restiamo a casa." }
+        ],
+        "rows": [[{ "sl": "predlogi", "en": "prepositions", "de": "Präpositionen", "it": "preposizioni" }, "iz, brez, zaradi", "iz Gorice, brez vode", "brez mleka, zaradi dežja"]],
+        "ask": {
+          "type": "choice", "grammar": "rodilnik-predlogi", "prompt": "Čaj pijem brez ___. (sladkor)", "options": ["sladkor", "sladkorja", "sladkorju"], "answer": 1, "say_options": true,
+          "explain": "**brez** (without) + the genitive → sladkor → **sladkorja**, with a j"
+        }
+      },
+      {
+        "say": {
+          "en": "**od** (from) and **do** (up to, until) mark a start and an end, in space and in time: **od Nove Gorice do Ljubljane**, **od jutra do večera** (from morning till evening). **blizu** is near: **blizu cerkve**; **mimo** is past: **mimo šole**. They all take the genitive.",
+          "de": "**od** (von) und **do** (bis) markieren einen Anfang und ein Ende, im Raum und in der Zeit: **od Nove Gorice do Ljubljane**, **od jutra do večera** (von morgens bis abends). **blizu** heißt nahe: **blizu cerkve**; **mimo** heißt vorbei: **mimo šole**. Alle verlangen den Genitiv.",
+          "it": "**od** (da) e **do** (fino a) segnano un inizio e una fine, nello spazio e nel tempo: **od Nove Gorice do Ljubljane**, **od jutra do večera** (dalla mattina alla sera). **blizu** vuol dire vicino: **blizu cerkve**; **mimo** vuol dire passando davanti: **mimo šole**. Vogliono tutte il genitivo."
+        },
+        "examples": [
+          { "sl": "Vlak gre od Nove Gorice do Ljubljane.", "en": "The train goes from Nova Gorica to Ljubljana.", "de": "Der Zug fährt von Nova Gorica bis Ljubljana.", "it": "Il treno va da Nova Gorica a Lubiana." },
+          { "sl": "Luka je na pašniku od jutra do večera.", "en": "Luka is on the pasture from morning till evening.", "de": "Luka ist von morgens bis abends auf der Weide.", "it": "Luka sta al pascolo dalla mattina alla sera." }
+        ],
+        "rows": [[{ "sl": "od … do, blizu, mimo", "en": "from … to, near, past", "de": "von … bis, nahe, vorbei", "it": "da … a, vicino, davanti" }, "od, do, blizu, mimo", "do Ljubljane, blizu cerkve", "od jutra do večera"]],
+        "ask": {
+          "type": "cloze", "grammar": "rodilnik-predlogi", "text": "Pošta je blizu ___. (cerkev)", "accept": ["cerkve"], "hint": "feminine; the e drops",
+          "explain": "**blizu** (near) + the genitive → cerkev → **cerkve**"
+        }
+      },
+      {
+        "say": {
+          "en": "A few verbs take the genitive too: **bati se** (to be afraid of), **veseliti se** (to look forward to), **spomniti se** (to remember). **Nejc se boji nevihte** (Nejc is afraid of the storm), never *Nejc se boji nevihto*. **Veselim se praznika.** (I'm looking forward to the festival.)",
+          "de": "Auch ein paar Verben verlangen den Genitiv: **bati se** (Angst haben vor), **veseliti se** (sich freuen auf), **spomniti se** (sich erinnern an). **Nejc se boji nevihte** (Nejc hat Angst vor dem Gewitter), nie *Nejc se boji nevihto*. **Veselim se praznika.** (Ich freue mich auf das Fest.)",
+          "it": "Anche alcuni verbi vogliono il genitivo: **bati se** (avere paura di), **veseliti se** (non vedere l'ora di), **spomniti se** (ricordarsi di). **Nejc se boji nevihte** (Nejc ha paura del temporale), mai *Nejc se boji nevihto*. **Veselim se praznika.** (Non vedo l'ora che arrivi la festa.)"
+        },
+        "examples": [
+          { "sl": "Nejc se boji nevihte.", "en": "Nejc is afraid of the storm.", "de": "Nejc hat Angst vor dem Gewitter.", "it": "Nejc ha paura del temporale." },
+          { "sl": "Veselim se praznika.", "en": "I'm looking forward to the festival.", "de": "Ich freue mich auf das Fest.", "it": "Non vedo l'ora che arrivi la festa." }
+        ],
+        "rows": [[{ "sl": "glagoli", "en": "some verbs", "de": "manche Verben", "it": "alcuni verbi" }, "bati se, veseliti se", "bojim se nevihte", "veselim se praznika"]],
+        "ask": {
+          "type": "choice", "grammar": "rodilnik", "prompt": "Muri se boji ___. (mačka)", "options": ["mačko", "mačke", "mački"], "answer": 1, "say_options": true,
+          "explain": "**bati se** → koga? → the genitive: mačka → **mačke**"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "rodilnik-1",
+      "title": { "sl": "Koliko?", "en": "How much? How many?", "de": "Wie viel? Wie viele?", "it": "Quanto? Quanti?" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "rodilnik", "instruction": "Dopolni rodilnik · Fill in the genitive", "prompt": "brez …, pet …",
+          "columns": ["kaj? · base", "brez … · without", "pet … · five"],
+          "rows": [
+            { "label": "ženski · feminine", "cells": ["ovca", { "accept": ["ovce"], "hint": "-a → -e" }, { "accept": ["ovc"], "hint": "plural: no ending", "grammar": "rodilnik-kolicina" }] },
+            { "label": "moški · masculine", "cells": ["brat", { "accept": ["brata"] }, { "accept": ["bratov"], "hint": "+ -ov", "grammar": "rodilnik-kolicina" }] },
+            { "label": "moški · masculine", "cells": ["konj", { "accept": ["konja"] }, { "accept": ["konjev"], "hint": "after j: -ev", "grammar": "rodilnik-kolicina" }] },
+            { "label": "srednji · neuter", "cells": ["jajce", { "accept": ["jajca"] }, { "accept": ["jajc"], "grammar": "rodilnik-kolicina" }] }
+          ],
+          "explain": "**the genitive** → singular -e (f), -a (m, n) · plural -ov, -ev (m), no ending (f, n)\n- brez ovce, brez brata, brez jajca\n- pet ovc, pet bratov, pet konjev, pet jajc"
+        },
+        {
+          "type": "sort", "grammar": "rodilnik-kolicina", "instruction": "Malo česa? · A little of what?",
+          "columns": [
+            { "label": "malo mleka · singular: you can't count it", "words": ["mleko", "moka", "sol", "med"] },
+            { "label": "malo jajc · plural: you count them", "words": ["jajce", "ovca", "goba", "jabolko"] }
+          ],
+          "explain": "**what you can't count** stays singular: malo mleka, moke, soli, medu\n- **what you count** goes plural: malo jajc, ovc, gob, jabolk"
+        }
+      ]
+    },
+    {
+      "id": "rodilnik-2",
+      "title": { "sl": "Na tržnici", "en": "At the market", "de": "Auf dem Markt", "it": "Al mercato" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "rodilnik", "instruction": "Dopolni z rodilnikom · Fill in the genitive", "title": "Na tržnici",
+          "text": "Babica Micka je na tržnici. Kupi kilogram ___ (moka) in liter ___ (mleko). Pri Marku vzame steklenico ___ (vino). Kupi še deset ___ (jajce). Domov gre mimo ___ (cerkev). Zaradi ___ (dež) hiti.",
+          "gaps": [
+            { "accept": ["moke"], "hint": "-a → -e", "grammar": "rodilnik-kolicina" },
+            { "accept": ["mleka"], "hint": "-o → -a", "grammar": "rodilnik-kolicina" },
+            { "accept": ["vina"], "grammar": "rodilnik-kolicina" },
+            { "accept": ["jajc"], "hint": "deset: plural, no ending", "grammar": "rodilnik-kolicina" },
+            { "accept": ["cerkve"], "hint": "the e drops", "explain": "cerkev is feminine and loses its e: **mimo cerkve**.", "grammar": "rodilnik-predlogi" },
+            { "accept": ["dežja"], "hint": "+ j", "explain": "dež adds a j, as sladkor does: **zaradi dežja**.", "grammar": "rodilnik-predlogi" }
+          ],
+          "bank": true, "distractors": ["moko", "jajca", "cerkev"],
+          "translation": "Granny Micka is at the market. She buys a kilo of flour and a litre of milk. At Marko's she takes a bottle of wine. She also buys ten eggs. She goes home past the church. Because of the rain she hurries."
+        },
+        {
+          "type": "choice", "grammar": "rodilnik-kolicina", "instruction": "Izberi · Choose", "prompt": "V gostilni je danes veliko ___.", "options": ["gosti", "gostov", "gostom"], "answer": 1, "say_options": true,
+          "explain": "**veliko** + a plural you count → the genitive plural: gost → **gostov**"
+        }
+      ]
+    },
+    {
+      "id": "rodilnik-3",
+      "title": { "sl": "Zamenjaj besedo", "en": "Swap the word", "de": "Tausch das Wort", "it": "Cambia la parola" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "rodilnik", "instruction": "Zamenjaj besedo · Swap the word",
+          "items": [
+            { "from": "Daj mi kos kruha. (sir)", "accept": ["Daj mi kos sira."], "grammar": "rodilnik-kolicina", "lemma": "sir", "form": "gen.sg" },
+            { "from": "Luka ima pet ovc. (koza)", "accept": ["Luka ima pet koz."], "hint": "plural: no ending", "grammar": "rodilnik-kolicina", "lemma": "koza", "form": "gen.pl" },
+            { "from": "Kavo pijem brez mleka. (sladkor)", "accept": ["Kavo pijem brez sladkorja."], "hint": "+ j", "grammar": "rodilnik-predlogi", "lemma": "sladkor", "form": "gen.sg" },
+            { "from": "Marko je iz Gorice. (Ljubljana)", "accept": ["Marko je iz Ljubljane."], "grammar": "rodilnik-predlogi" },
+            { "from": "Tine se boji psa. (nevihta)", "accept": ["Tine se boji nevihte."], "lemma": "nevihta", "form": "gen.sg" },
+            { "from": "V gozdu je veliko gob. (borovnica)", "accept": ["V gozdu je veliko borovnic."], "grammar": "rodilnik-kolicina", "lemma": "borovnica", "form": "gen.pl" },
+            { "from": "Vlak gre do Ljubljane. (morje)", "accept": ["Vlak gre do morja."], "grammar": "rodilnik-predlogi", "lemma": "morje", "form": "gen.sg" },
+            { "from": "Blizu šole je pošta. (cerkev)", "accept": ["Blizu cerkve je pošta."], "hint": "the e drops", "grammar": "rodilnik-predlogi", "lemma": "cerkev", "form": "gen.sg" }
+          ],
+          "explain": "**the genitive** after amounts, prepositions and bati se\n- kos sira · pet koz · veliko borovnic\n- brez sladkorja · iz Ljubljane · do morja · blizu cerkve · boji se nevihte"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "rodilnik", "instruction": "Dopolni rodilnik · Fill in the genitive", "prompt": "brez …, pet …",
+        "columns": ["kaj? · base", "brez … · without", "pet … · five"],
+        "rows": [
+          { "label": "ženski · feminine", "cells": ["hruška", { "accept": ["hruške"] }, { "accept": ["hrušk"], "grammar": "rodilnik-kolicina" }] },
+          { "label": "moški · masculine", "cells": ["stol", { "accept": ["stola"] }, { "accept": ["stolov"], "grammar": "rodilnik-kolicina" }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "rodilnik", "instruction": "Dopolni z rodilnikom · Fill in the genitive",
+        "text": "Danes ni ___ (sonce). Nejc pije čaj brez ___ (limona). V gozdu je veliko ___ (jagoda). Zala se veseli ___ (praznik).",
+        "gaps": [
+          { "accept": ["sonca"], "grammar": "rodilnik-nikalnica" },
+          { "accept": ["limone"], "grammar": "rodilnik-predlogi" },
+          { "accept": ["jagod"], "grammar": "rodilnik-kolicina" },
+          { "accept": ["praznika"] }
+        ],
+        "translation": "There's no sun today. Nejc drinks his tea without lemon. There are lots of strawberries in the woods. Zala is looking forward to the festival."
+      },
+      {
+        "type": "transform", "grammar": "rodilnik", "instruction": "Zamenjaj besedo · Swap the word",
+        "items": [
+          { "from": "Kupim liter mleka. (olje)", "accept": ["Kupim liter olja."], "grammar": "rodilnik-kolicina", "lemma": "olje", "form": "gen.sg" },
+          { "from": "France ima šest konjev. (krava)", "accept": ["France ima šest krav."], "grammar": "rodilnik-kolicina", "lemma": "krava", "form": "gen.pl" },
+          { "from": "Vida je iz Kopra. (Piran)", "accept": ["Vida je iz Pirana."], "grammar": "rodilnik-predlogi" }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "rodilnik-predlogi", "prompt": "Do ___ je še daleč.", "options": ["vas", "vasi", "vasjo"], "answer": 1, "say_options": true,
+        "explain": "**do** (up to) + the genitive → vas → **vasi**"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Fran: sladkor (-orja), dež (dežja), cerkev (cerkve), med (medu). Native check: Na tržnici (Zaradi dežja hiti), the sort malo mleka / malo jajc"
+}

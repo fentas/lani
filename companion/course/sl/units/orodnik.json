@@ -1,0 +1,244 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "orodnik",
+  "language": "sl",
+  "level": "A2",
+  "emoji": "🔨",
+  "title": { "sl": "Orodnik: s kruhom, pod mizo", "en": "The instrumental: with bread, under the table", "de": "Der Instrumental: mit Brot, unter dem Tisch", "it": "Lo strumentale: con il pane, sotto il tavolo" },
+  "goal": {
+    "en": "You can say with whom and with what (z babico, s kladivom, kava z mlekom), and where something is under, over, in front of, behind or between (pod mizo, za šotorom).",
+    "de": "Du sagst, mit wem und womit (z babico, s kladivom, kava z mlekom) und wo etwas ist: unter, über, vor, hinter oder zwischen (pod mizo, za šotorom).",
+    "it": "Sai dire con chi e con che cosa (z babico, s kladivom, kava z mlekom) e dove si trova qualcosa: sotto, sopra, davanti, dietro o tra (pod mizo, za šotorom)."
+  },
+  "grammar": ["orodnik", "kje-mestnik-orodnik"],
+  "words": ["z", "s", "pod", "nad", "pred", "za", "med", "kladivo", "nož", "žlica", "žoga", "voz", "vlak", "čaj", "mleko", "kruh", "maslo", "miza", "stol", "šotor", "drevo", "hiša", "hlev", "grm", "ogenj", "drva", "slika", "kovati", "rezati", "igrati se"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "beseda", "en": "word", "de": "Wort", "it": "parola" },
+        { "sl": "kdo? kaj?", "en": "base form (kdo? kaj?)", "de": "Grundform (kdo? kaj?)", "it": "forma base (kdo? kaj?)" },
+        { "sl": "s kom? s čim?", "en": "with whom? with what?", "de": "mit wem? womit?", "it": "con chi? con che cosa?" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "The instrumental (*orodnik*) always comes after a little word. With **z** (with) it answers **s kom?** (with whom?) and **s čim?** (with what?). A feminine noun in **-a** ends in **-o**: *babica* → **z babico**, *mačka* → **z mačko**.",
+          "de": "Der Instrumental (*orodnik*) steht immer nach einem kleinen Wort. Mit **z** (mit) antwortet er auf **s kom?** (mit wem?) und **s čim?** (womit?). Ein weibliches Nomen auf **-a** endet auf **-o**: *babica* → **z babico**, *mačka* → **z mačko**.",
+          "it": "Lo strumentale (*orodnik*) viene sempre dopo una parolina. Con **z** (con) risponde a **s kom?** (con chi?) e **s čim?** (con che cosa?). Un nome femminile in **-a** finisce in **-o**: *babica* → **z babico**, *mačka* → **z mačko**."
+        },
+        "examples": [
+          { "sl": "Micka gre z Zalo na tržnico.", "en": "Micka goes to the market with Zala.", "de": "Micka geht mit Zala auf den Markt.", "it": "Micka va al mercato con Zala." },
+          { "sl": "Nejc se igra z mačko.", "en": "Nejc is playing with the cat.", "de": "Nejc spielt mit der Katze.", "it": "Nejc gioca con il gatto." }
+        ],
+        "rows": [[{ "sl": "ženski", "en": "feminine", "de": "weiblich", "it": "femminile" }, "babica, mačka", "z babico, z mačko"]],
+        "ask": {
+          "type": "cloze", "grammar": "orodnik", "text": "Tine se igra z ___. (žoga)", "accept": ["žogo"], "hint": "-a → -o",
+          "explain": "**z** + a feminine noun → **-o**: z žogo"
+        }
+      },
+      {
+        "say": {
+          "en": "Masculine and neuter nouns take **-om**: *brat* → **z bratom**, *kruh* → **s kruhom**, *mleko* → **z mlekom**. After c, č, j, š and ž it is **-em**: **s čajem, z nožem**, **z Nejcem** (never *z Nejcom*). Several: **-i** (**z brati**), feminine **-ami** (**z ovcami**).",
+          "de": "Männliche und sächliche Nomen bekommen **-om**: *brat* → **z bratom**, *kruh* → **s kruhom**, *mleko* → **z mlekom**. Nach c, č, j, š und ž heißt es **-em**: **s čajem, z nožem, z Nejcem**, nie *z Nejcom*. Mehrere: **-i** (**z brati**), weibliche **-ami** (**z ovcami**).",
+          "it": "I nomi maschili e neutri prendono **-om**: *brat* → **z bratom**, *kruh* → **s kruhom**, *mleko* → **z mlekom**. Dopo c, č, j, š e ž diventa **-em**: **s čajem, z nožem, z Nejcem**, mai *z Nejcom*. Al plurale: **-i** (**z brati**), i femminili **-ami** (**z ovcami**)."
+        },
+        "examples": [
+          { "sl": "Juho jem s kruhom.", "en": "I eat soup with bread.", "de": "Ich esse die Suppe mit Brot.", "it": "Mangio la minestra con il pane." },
+          { "sl": "Luka je na pašniku z ovcami.", "en": "Luka is on the pasture with the sheep.", "de": "Luka ist mit den Schafen auf der Weide.", "it": "Luka è al pascolo con le pecore." }
+        ],
+        "rows": [
+          [{ "sl": "moški", "en": "masculine", "de": "männlich", "it": "maschile" }, "brat, kruh, nož", "z bratom, s kruhom, z nožem"],
+          [{ "sl": "srednji", "en": "neuter", "de": "sächlich", "it": "neutro" }, "mleko, jajce", "z mlekom, z jajcem"],
+          [{ "sl": "množina", "en": "plural", "de": "Plural", "it": "plurale" }, "bratje, ovce", "z brati, z ovcami"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "orodnik", "prompt": "Tine se igra z ___. (Nejc)", "options": ["Nejcom", "Nejcem", "Nejca"], "answer": 1, "say_options": true,
+          "explain": "after **c** → **-em**: z Nejcem\n- z bratom, but z Nejcem"
+        }
+      },
+      {
+        "say": {
+          "en": "**s** before p, t, k, f, h, c, č, s and š; **z** before every other sound, vowels too: **s kladivom, s Tonetom**; **z vozom, z Ančko**. The instrumental says what you do something with (**Tone kuje s kladivom.**), how you go (**z vlakom, z vozom**) and what comes with food (**kava z mlekom**).",
+          "de": "**s** vor p, t, k, f, h, c, č, s und š; **z** vor jedem anderen Laut, auch vor Vokalen: **s kladivom, s Tonetom**; **z vozom, z Ančko**. Der Instrumental sagt, womit man etwas tut (**Tone kuje s kladivom.**), womit man fährt (**z vlakom, z vozom**) und was zum Essen dazukommt (**kava z mlekom**).",
+          "it": "**s** davanti a p, t, k, f, h, c, č, s e š; **z** davanti a ogni altro suono, anche alle vocali: **s kladivom, s Tonetom**; **z vozom, z Ančko**. Lo strumentale dice con che cosa si fa qualcosa (**Tone kuje s kladivom.**), con che cosa si viaggia (**z vlakom, z vozom**) e che cosa accompagna il cibo (**kava z mlekom**)."
+        },
+        "examples": [
+          { "sl": "Tone kuje s kladivom.", "en": "Tone forges with a hammer.", "de": "Tone schmiedet mit dem Hammer.", "it": "Tone forgia con il martello." },
+          { "sl": "V Gorico gremo z vlakom.", "en": "We go to Gorica by train.", "de": "Wir fahren mit dem Zug nach Gorica.", "it": "Andiamo a Gorizia in treno." }
+        ],
+        "rows": [[{ "sl": "s, z", "en": "s, z (with)", "de": "s, z (mit)", "it": "s, z (con)" }, "kladivo, voz", "s kladivom, z vozom"]],
+        "ask": {
+          "type": "choice", "grammar": "orodnik", "prompt": "Babica reže kruh ___ nožem.", "options": ["s", "z"], "answer": 1, "say_options": true,
+          "explain": "**z** before n: z nožem\n- s only before p, t, k, f, h, c, č, s, š"
+        }
+      },
+      {
+        "say": {
+          "en": "With a person in a pronoun: **z mano** (with me), **s tabo** (with you), **z njim** (with him), **z njo** (with her), **z nami, z vami, z njimi**. You also hear **z menoj, s teboj**: both are right.",
+          "de": "Mit einer Person als Pronomen: **z mano** (mit mir), **s tabo** (mit dir), **z njim** (mit ihm), **z njo** (mit ihr), **z nami, z vami, z njimi**. Man hört auch **z menoj, s teboj**: beides ist richtig.",
+          "it": "Con una persona espressa da un pronome: **z mano** (con me), **s tabo** (con te), **z njim** (con lui), **z njo** (con lei), **z nami, z vami, z njimi**. Si sente anche **z menoj, s teboj**: vanno bene tutte e due."
+        },
+        "examples": [
+          { "sl": "Pojdi z mano!", "en": "Come with me!", "de": "Komm mit mir!", "it": "Vieni con me!" },
+          { "sl": "Seveda, grem s tabo.", "en": "Of course, I'm going with you.", "de": "Klar, ich gehe mit dir.", "it": "Certo, vengo con te." }
+        ],
+        "rows": [
+          [{ "sl": "zaimki", "en": "pronouns", "de": "Pronomen", "it": "pronomi" }, "jaz · ti", "z mano · s tabo"],
+          [{ "sl": "zaimki", "en": "pronouns", "de": "Pronomen", "it": "pronomi" }, "on · ona", "z njim · z njo"],
+          [{ "sl": "zaimki", "en": "pronouns", "de": "Pronomen", "it": "pronomi" }, "mi · vi · oni", "z nami · z vami · z njimi"]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "orodnik", "text": "Zala gre na sprehod. Greš z ___? (ona)", "accept": ["njo"], "hint": "ona → z …",
+          "explain": "**z** + ona → **z njo**\n- z njim (him), z njimi (them)"
+        }
+      },
+      {
+        "say": {
+          "en": "**pod** (under), **nad** (above), **pred** (in front of), **za** (behind) and **med** (between, among) take the instrumental too, when they say where something is (**Kje?**): **pod mizo, nad ognjem, pred hišo, za šotorom, med drevesi**.",
+          "de": "**pod** (unter), **nad** (über), **pred** (vor), **za** (hinter) und **med** (zwischen, unter) verlangen auch den Instrumental, wenn sie sagen, wo etwas ist (**Kje?**): **pod mizo, nad ognjem, pred hišo, za šotorom, med drevesi**.",
+          "it": "**pod** (sotto), **nad** (sopra), **pred** (davanti a), **za** (dietro) e **med** (tra, fra) vogliono anche loro lo strumentale, quando dicono dove si trova qualcosa (**Kje?**): **pod mizo, nad ognjem, pred hišo, za šotorom, med drevesi**."
+        },
+        "examples": [
+          { "sl": "Muri spi pod mizo.", "en": "Muri is sleeping under the table.", "de": "Muri schläft unter dem Tisch.", "it": "Muri dorme sotto il tavolo." },
+          { "sl": "Nad ognjem visi kotel.", "en": "A cauldron hangs over the fire.", "de": "Über dem Feuer hängt ein Kessel.", "it": "Sopra il fuoco pende un paiolo." }
+        ],
+        "rows": [[{ "sl": "pod, nad, pred, za, med", "en": "under, above, in front, behind, between (kje?)", "de": "unter, über, vor, hinter, zwischen (kje?)", "it": "sotto, sopra, davanti, dietro, tra (kje?)" }, "miza, šotor", "pod mizo, za šotorom"]],
+        "ask": {
+          "type": "cloze", "grammar": "orodnik", "text": "Mačka spi pod ___. (stol)", "accept": ["stolom"], "hint": "kje? masculine: -om",
+          "explain": "**pod** + kje? → the instrumental: pod stolom"
+        }
+      },
+      {
+        "say": {
+          "en": "Where to (**Kam?**) is different: then the same five take the object form, as **v** and **na** do. **Luka nese drva za šotor** (kam?), and then **drva so za šotorom** (kje?). With a feminine noun the two sound alike: **Muri gre pod mizo. Muri spi pod mizo.**",
+          "de": "Wohin (**Kam?**) ist anders: Dann nehmen dieselben fünf die Objektform, wie **v** und **na**. **Luka nese drva za šotor** (kam?), und dann **drva so za šotorom** (kje?). Bei einem weiblichen Nomen klingen beide gleich: **Muri gre pod mizo. Muri spi pod mizo.**",
+          "it": "Il moto a luogo (**Kam?**) è diverso: allora le stesse cinque vogliono la forma dell'oggetto, come **v** e **na**. **Luka nese drva za šotor** (kam?), e poi **drva so za šotorom** (kje?). Con un nome femminile le due forme suonano uguali: **Muri gre pod mizo. Muri spi pod mizo.**"
+        },
+        "examples": [
+          { "sl": "Luka nese drva za šotor.", "en": "Luka carries the firewood behind the tent.", "de": "Luka trägt das Holz hinter das Zelt.", "it": "Luka porta la legna dietro la tenda." },
+          { "sl": "Zdaj so drva za šotorom.", "en": "Now the firewood is behind the tent.", "de": "Jetzt ist das Holz hinter dem Zelt.", "it": "Ora la legna è dietro la tenda." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "orodnik", "prompt": "Tine postavi kolo pod ___. (kozolec)", "options": ["kozolec", "kozolcem", "kozolca"], "answer": 0, "say_options": true,
+          "explain": "**postavi** (puts) → kam? → the object form: pod kozolec\n- kje? pod kozolcem"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "orodnik-1",
+      "title": { "sl": "S kom? S čim?", "en": "With whom? With what?", "de": "Mit wem? Womit?", "it": "Con chi? Con che cosa?" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "orodnik", "instruction": "Dopolni orodnik · Fill in the instrumental", "prompt": "kdo? kaj? → s kom? s čim?",
+          "columns": ["kdo? kaj? · base", "s kom? s čim? · with"],
+          "rows": [
+            { "label": "s kom?", "cells": ["babica", { "accept": ["babico"], "hint": "-a → -o" }] },
+            { "label": "s kom?", "cells": ["brat", { "accept": ["bratom"], "hint": "masculine: + -om" }] },
+            { "label": "s čim?", "cells": ["kladivo", { "accept": ["kladivom"] }] },
+            { "label": "s čim?", "cells": ["čaj", { "accept": ["čajem"], "hint": "after j: -em" }] },
+            { "label": "s kom?", "cells": ["sestra", { "accept": ["sestro"] }] },
+            { "label": "s čim?", "cells": ["voz", { "accept": ["vozom"] }] },
+            { "label": "s kom?", "cells": ["Nejc", { "accept": ["Nejcem"], "hint": "after c: -em" }] }
+          ],
+          "explain": "**the instrumental** → feminine **-o**, masculine and neuter **-om**, after c, č, j, š, ž **-em**\n- babico, sestro\n- bratom, kladivom, vozom\n- čajem, Nejcem"
+        },
+        {
+          "type": "sort", "grammar": "orodnik", "instruction": "S ali z? · S or z?",
+          "columns": [
+            { "label": "s …", "words": ["kruh", "kladivo", "sestra", "Tone"] },
+            { "label": "z …", "words": ["mleko", "voz", "Zala", "nož"] }
+          ],
+          "explain": "**s** before p, t, k, f, h, c, č, s, š: s kruhom, s kladivom, s sestro, s Tonetom\n- **z** before every other sound: z mlekom, z vozom, z Zalo, z nožem"
+        }
+      ]
+    },
+    {
+      "id": "orodnik-2",
+      "title": { "sl": "Pri kovaču Tonetu", "en": "At Tone the smith's", "de": "Beim Schmied Tone", "it": "Dal fabbro Tone" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "orodnik", "instruction": "Dopolni z orodnikom · Fill in the instrumental", "title": "Pri kovaču Tonetu",
+          "text": "Nejc gre k Tonetu z ___ (Zala). Tone kuje s ___ (kladivo). Pod ___ (miza) spi Muri. Nad ___ (ogenj) visi kotel. Za ___ (hiša) so drva. Tone pije čaj z ___ (med).",
+          "gaps": [
+            { "accept": ["Zalo"], "hint": "-a → -o" },
+            { "accept": ["kladivom"], "hint": "neuter: -om" },
+            { "accept": ["mizo"], "hint": "kje? feminine" },
+            { "accept": ["ognjem"], "hint": "the e drops; after j: -em", "explain": "ogenj loses its e (ognja, ognju), and after j the ending is **-em**: **nad ognjem**." },
+            { "accept": ["hišo"], "hint": "kje? feminine" },
+            { "accept": ["medom"] }
+          ],
+          "bank": true, "distractors": ["mizi", "ognjom", "Zali"],
+          "translation": "Nejc goes to Tone's with Zala. Tone forges with a hammer. Muri sleeps under the table. A cauldron hangs over the fire. Behind the house there is firewood. Tone drinks tea with honey."
+        },
+        {
+          "type": "choice", "grammar": "orodnik", "instruction": "Izberi · Choose", "prompt": "Muri zleze pod ___.", "options": ["stol", "stolom", "stola"], "answer": 0, "say_options": true,
+          "explain": "**zleze** (crawls) → kam? → the object form: pod stol\n- kje? pod stolom"
+        }
+      ]
+    },
+    {
+      "id": "orodnik-3",
+      "title": { "sl": "Kam? Kje?", "en": "Where to? Where?", "de": "Wohin? Wo?", "it": "Verso dove? Dove?" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "orodnik", "instruction": "Povej, kje je · Say where it is", "cue": "Kje?",
+          "items": [
+            { "from": "Luka nese drva za šotor.", "accept": ["Drva so za šotorom.", "Drva ležijo za šotorom."], "hint": "kje? → -om", "lemma": "šotor", "form": "ins.sg" },
+            { "from": "Mačka zleze pod stol.", "accept": ["Mačka je pod stolom.", "Mačka leži pod stolom."], "lemma": "stol", "form": "ins.sg" },
+            { "from": "Babica obesi kotel nad ogenj.", "accept": ["Kotel visi nad ognjem.", "Kotel je nad ognjem."], "hint": "the e drops; after j: -em", "lemma": "ogenj", "form": "ins.sg" },
+            { "from": "France pripelje voz pred hišo.", "accept": ["Voz je pred hišo.", "Voz stoji pred hišo."], "hint": "feminine: kam and kje sound alike", "lemma": "hiša", "form": "ins.sg" },
+            { "from": "Ovce gredo med drevesa.", "accept": ["Ovce so med drevesi.", "Ovce se pasejo med drevesi."], "hint": "plural: -i", "lemma": "drevo", "form": "ins.pl" },
+            { "from": "Sivko gre za hlev.", "accept": ["Sivko je za hlevom.", "Sivko stoji za hlevom."], "lemma": "hlev", "form": "ins.sg" }
+          ],
+          "explain": "**kam?** the object form → **kje?** the instrumental\n- za šotor → za šotorom · nad ogenj → nad ognjem\n- pred hišo → pred hišo · med drevesa → med drevesi"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "orodnik", "instruction": "Dopolni orodnik · Fill in the instrumental", "prompt": "kdo? kaj? → s kom? s čim?",
+        "columns": ["kdo? kaj? · base", "s kom? s čim? · with"],
+        "rows": [
+          { "label": "s kom?", "cells": ["sosed", { "accept": ["sosedom"] }] },
+          { "label": "s čim?", "cells": ["žlica", { "accept": ["žlico"] }] },
+          { "label": "s kom?", "cells": ["konj", { "accept": ["konjem"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "orodnik", "instruction": "Dopolni z orodnikom · Fill in the instrumental",
+        "text": "Marko gre na sejem z ___ (voz). Kokoši so pred ___ (hlev). Tine gre na sprehod s ___ (pes). Jem kruh z ___ (maslo).",
+        "gaps": [
+          { "accept": ["vozom"] },
+          { "accept": ["hlevom"] },
+          { "accept": ["psom"] },
+          { "accept": ["maslom"] }
+        ],
+        "translation": "Marko goes to the fair with the cart. The hens are in front of the barn. Tine goes for a walk with the dog. I eat bread with butter."
+      },
+      {
+        "type": "transform", "grammar": "orodnik", "instruction": "Povej, kje je · Say where it is", "cue": "Kje?",
+        "items": [
+          { "from": "Nejc skoči za grm.", "accept": ["Nejc je za grmom."], "lemma": "grm", "form": "ins.sg" },
+          { "from": "Pes teče pod voz.", "accept": ["Pes je pod vozom."], "lemma": "voz", "form": "ins.sg" },
+          { "from": "Obesim sliko nad mizo.", "accept": ["Slika visi nad mizo.", "Slika je nad mizo."], "lemma": "miza", "form": "ins.sg" }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "orodnik", "prompt": "Kavo ___ mlekom, prosim.", "options": ["s", "z"], "answer": 1, "say_options": true,
+        "explain": "**z** before m: z mlekom\n- s only before p, t, k, f, h, c, č, s, š"
+      },
+      {
+        "type": "choice", "grammar": "orodnik", "prompt": "Tine se igra z ___. (oni)", "options": ["njimi", "njih", "jim"], "answer": 0, "say_options": true,
+        "explain": "**z** + oni → **z njimi**\n- jim is to them (the dative)"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: Pri kovaču Tonetu (nad ognjem visi kotel, čaj z medom), Muri zleze pod stol, France pripelje voz pred hišo, z mano/z menoj"
+}

@@ -1,0 +1,227 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "kje-kam-od-kod",
+  "language": "sl",
+  "level": "A2",
+  "emoji": "🧭",
+  "title": { "sl": "Kje? Kam? Od kod?", "en": "Where? Where to? From where?", "de": "Wo? Wohin? Woher?", "it": "Dove? Verso dove? Da dove?" },
+  "goal": {
+    "en": "You can say where someone is, where they go and where they come from, with the right little word and case for each place (v šoli, v šolo, iz šole; pri bratu, k bratu, od brata).",
+    "de": "Du sagst, wo jemand ist, wohin er geht und woher er kommt, mit dem richtigen kleinen Wort und Fall für jeden Ort (v šoli, v šolo, iz šole; pri bratu, k bratu, od brata).",
+    "it": "Sai dire dove si trova qualcuno, dove va e da dove viene, con la parolina e il caso giusti per ogni luogo (v šoli, v šolo, iz šole; pri bratu, k bratu, od brata)."
+  },
+  "grammar": ["kam-tozilnik", "kje-mestnik-orodnik", "rodilnik-predlogi"],
+  "words": ["kje", "kam", "od kod", "pri", "k", "iz", "od", "doma", "domov", "tja", "tam", "tukaj", "šola", "pošta", "njiva", "tržnica", "pašnik", "travnik", "gozd", "vrt", "morje", "miza", "lonec", "shramba", "polica", "kovač", "kosilo", "prihajati", "vrniti se", "postaviti", "vzeti", "Bled", "Gorica", "Ljubljana"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "kraj", "en": "place", "de": "Ort", "it": "luogo" },
+        { "sl": "kje?", "en": "where?", "de": "wo?", "it": "dove?" },
+        { "sl": "kam?", "en": "where to?", "de": "wohin?", "it": "verso dove?" },
+        { "sl": "od kod?", "en": "where from?", "de": "woher?", "it": "da dove?" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "One place, three questions, three cases. **Kje?** (where) takes the locative, **Kam?** (where to) the accusative, **Od kod?** (where from) the genitive. With **v** (in) the *from* is **iz**: **v šoli, v šolo, iz šole**; **v Gorici, v Gorico, iz Gorice**.",
+          "de": "Ein Ort, drei Fragen, drei Fälle. **Kje?** (wo) verlangt den Lokativ, **Kam?** (wohin) den Akkusativ, **Od kod?** (woher) den Genitiv. Zu **v** (in) gehört beim Woher **iz**: **v šoli, v šolo, iz šole**; **v Gorici, v Gorico, iz Gorice**.",
+          "it": "Un luogo, tre domande, tre casi. **Kje?** (dove) vuole il locativo, **Kam?** (verso dove) l'accusativo, **Od kod?** (da dove) il genitivo. Con **v** (in) il *da* è **iz**: **v šoli, v šolo, iz šole**; **v Gorici, v Gorico, iz Gorice**."
+        },
+        "examples": [
+          { "sl": "Zala je v šoli.", "en": "Zala is at school.", "de": "Zala ist in der Schule.", "it": "Zala è a scuola." },
+          { "sl": "Ob dveh pride iz šole.", "en": "At two she comes home from school.", "de": "Um zwei kommt sie aus der Schule.", "it": "Alle due torna da scuola." }
+        ],
+        "rows": [[{ "sl": "v", "en": "v: inside, a town", "de": "v: drinnen, eine Stadt", "it": "v: dentro, una città" }, "v šoli, v Gorici", "v šolo, v Gorico", "iz šole, iz Gorice"]],
+        "ask": {
+          "type": "cloze", "grammar": "rodilnik-predlogi", "text": "Vida pride ob petih iz ___. (Gorica)", "accept": ["Gorice"], "hint": "od kod? the genitive",
+          "explain": "**v** Gorici → from it **iz** + the genitive: **iz Gorice**"
+        }
+      },
+      {
+        "say": {
+          "en": "With **na** (on, at; open places) the *from* is **z**, or **s** before p, t, k, f, h, c, č, s, š: **na njivi, na njivo, z njive**; **na pošti, na pošto, s pošte**. So each place has its pair: **v** goes with **iz**, **na** with **z / s**.",
+          "de": "Zu **na** (auf, an; offene Orte) gehört beim Woher **z**, oder **s** vor p, t, k, f, h, c, č, s, š: **na njivi, na njivo, z njive**; **na pošti, na pošto, s pošte**. Jeder Ort hat also sein Paar: **v** geht mit **iz**, **na** mit **z / s**.",
+          "it": "Con **na** (su, a; luoghi aperti) il *da* è **z**, oppure **s** davanti a p, t, k, f, h, c, č, s, š: **na njivi, na njivo, z njive**; **na pošti, na pošto, s pošte**. Così ogni luogo ha la sua coppia: **v** va con **iz**, **na** con **z / s**."
+        },
+        "examples": [
+          { "sl": "Micka gre na tržnico.", "en": "Micka is going to the market.", "de": "Micka geht auf den Markt.", "it": "Micka va al mercato." },
+          { "sl": "Ravno prihajam s tržnice.", "en": "I'm just coming from the market.", "de": "Ich komme gerade vom Markt.", "it": "Sto tornando proprio ora dal mercato." }
+        ],
+        "rows": [[{ "sl": "na", "en": "na: on, open places", "de": "na: auf, offene Orte", "it": "na: su, luoghi aperti" }, "na njivi, na pošti", "na njivo, na pošto", "z njive, s pošte"]],
+        "ask": {
+          "type": "choice", "grammar": "rodilnik-predlogi", "prompt": "Luka pride ___ pašnika.", "options": ["iz", "z", "s"], "answer": 2, "say_options": true,
+          "explain": "**na** pašniku → from it **z / s**; before p: **s pašnika**"
+        }
+      },
+      {
+        "say": {
+          "en": "To a person you don't go **v** or **na**: you are **pri** someone (the locative), go **k** someone (the dative) and come **od** someone (the genitive): **pri bratu, k bratu, od brata**. **k** becomes **h** before k and g: **h kovaču** (to the smith's).",
+          "de": "Zu einer Person geht man nicht mit **v** oder **na**: Man ist **pri** jemandem (Lokativ), geht **k** jemandem (Dativ) und kommt **od** jemandem (Genitiv): **pri bratu, k bratu, od brata**. Vor k und g wird **k** zu **h**: **h kovaču** (zum Schmied).",
+          "it": "Da una persona non si va con **v** o **na**: si è **pri** qualcuno (locativo), si va **k** qualcuno (dativo) e si viene **od** qualcuno (genitivo): **pri bratu, k bratu, od brata**. Davanti a k e g, **k** diventa **h**: **h kovaču** (dal fabbro)."
+        },
+        "examples": [
+          { "sl": "Zala je pri babici.", "en": "Zala is at Granny's.", "de": "Zala ist bei der Oma.", "it": "Zala è dalla nonna." },
+          { "sl": "Nejc gre h kovaču.", "en": "Nejc is going to the smith's.", "de": "Nejc geht zum Schmied.", "it": "Nejc va dal fabbro." }
+        ],
+        "rows": [[{ "sl": "k osebi", "en": "a person", "de": "eine Person", "it": "una persona" }, "pri bratu, pri babici", "k bratu, k babici", "od brata, od babice"]],
+        "ask": {
+          "type": "choice", "grammar": "kam-tozilnik", "prompt": "Jutri gremo ___ babici.", "options": ["pri", "k", "od"], "answer": 1, "say_options": true,
+          "explain": "**going to** a person → **k** + the dative: k babici\n- pri babici · at Granny's"
+        }
+      },
+      {
+        "say": {
+          "en": "Home has three words of its own: **doma** (at home), **domov** (home, going there), **od doma** (from home). So do here and there: **tukaj, tam** (where), **sem, tja** (to here, to there), **od tod, od tam** (from here, from there). **Pridi sem!** (Come here!) **Grem tja.** (I'm going there.)",
+          "de": "Das Zuhause hat drei eigene Wörter: **doma** (zu Hause), **domov** (nach Hause), **od doma** (von zu Hause). Ebenso hier und dort: **tukaj, tam** (wo), **sem, tja** (hierher, dorthin), **od tod, od tam** (von hier, von dort). **Pridi sem!** (Komm her!) **Grem tja.** (Ich gehe dorthin.)",
+          "it": "La casa ha tre parole tutte sue: **doma** (a casa), **domov** (a casa, andandoci), **od doma** (da casa). Così anche qui e lì: **tukaj, tam** (dove), **sem, tja** (qui, là: andandoci), **od tod, od tam** (da qui, da lì). **Pridi sem!** (Vieni qui!) **Grem tja.** (Vado là.)"
+        },
+        "examples": [
+          { "sl": "Zvečer gremo domov.", "en": "In the evening we go home.", "de": "Am Abend gehen wir nach Hause.", "it": "La sera andiamo a casa." },
+          { "sl": "Muri, pridi sem!", "en": "Muri, come here!", "de": "Muri, komm her!", "it": "Muri, vieni qui!" }
+        ],
+        "rows": [
+          [{ "sl": "dom", "en": "home", "de": "Zuhause", "it": "casa" }, "doma", "domov", "od doma"],
+          [{ "sl": "tu · tam", "en": "here · there", "de": "hier · dort", "it": "qui · lì" }, "tukaj, tam", "sem, tja", "od tod, od tam"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "kam-tozilnik", "prompt": "Tine, pojdi ___ in prinesi vodo!", "options": ["tam", "tja", "od tam"], "answer": 1, "say_options": true,
+          "explain": "**go there** → kam? → **tja**\n- tam · there (kje?)\n- od tam · from there"
+        }
+      },
+      {
+        "say": {
+          "en": "Learn **v** or **na** with each place, and the rest follows: **na morje, na morju, z morja** (the seaside); **na Bled, na Bledu, z Bleda**; **v Ljubljano, v Ljubljani, iz Ljubljane**. Towns mostly take **v**, but a few take **na**: **na Bledu, na Ptuju**.",
+          "de": "Lerne zu jedem Ort **v** oder **na**, der Rest folgt: **na morje, na morju, z morja** (ans Meer); **na Bled, na Bledu, z Bleda**; **v Ljubljano, v Ljubljani, iz Ljubljane**. Städte nehmen meist **v**, ein paar aber **na**: **na Bledu, na Ptuju**.",
+          "it": "Impara **v** o **na** con ogni luogo, il resto viene da sé: **na morje, na morju, z morja** (al mare); **na Bled, na Bledu, z Bleda**; **v Ljubljano, v Ljubljani, iz Ljubljane**. Le città prendono quasi sempre **v**, ma alcune **na**: **na Bledu, na Ptuju**."
+        },
+        "examples": [
+          { "sl": "Poleti gremo na morje.", "en": "In summer we go to the seaside.", "de": "Im Sommer fahren wir ans Meer.", "it": "D'estate andiamo al mare." },
+          { "sl": "Teta Ančka se vrača z Bleda.", "en": "Aunt Ančka is on her way back from Bled.", "de": "Tante Ančka kommt aus Bled zurück.", "it": "Zia Ančka sta tornando da Bled." }
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "rodilnik-predlogi", "text": "Vračamo se z ___. (morje)", "accept": ["morja"], "hint": "od kod? the genitive",
+          "explain": "**na** morje → from it **z** + the genitive: **z morja**"
+        }
+      },
+      {
+        "say": {
+          "en": "Things move the same way. **Postavi lonec na mizo.** (Put the pot on the table: kam?) **Lonec je na mizi.** (kje?) **Vzemi lonec z mize.** (Take the pot off the table: od kod?) And into and out of something: **v shrambi, v shrambo, iz shrambe** (the pantry).",
+          "de": "Dinge bewegen sich genauso. **Postavi lonec na mizo.** (Stell den Topf auf den Tisch: kam?) **Lonec je na mizi.** (kje?) **Vzemi lonec z mize.** (Nimm den Topf vom Tisch: od kod?) Und hinein und heraus: **v shrambi, v shrambo, iz shrambe** (die Speisekammer).",
+          "it": "Le cose si muovono allo stesso modo. **Postavi lonec na mizo.** (Metti la pentola sul tavolo: kam?) **Lonec je na mizi.** (kje?) **Vzemi lonec z mize.** (Togli la pentola dal tavolo: od kod?) E dentro e fuori: **v shrambi, v shrambo, iz shrambe** (la dispensa)."
+        },
+        "examples": [
+          { "sl": "Postavi lonec na mizo.", "en": "Put the pot on the table.", "de": "Stell den Topf auf den Tisch.", "it": "Metti la pentola sul tavolo." },
+          { "sl": "Vzemi kruh iz shrambe.", "en": "Take the bread out of the pantry.", "de": "Nimm das Brot aus der Speisekammer.", "it": "Prendi il pane dalla dispensa." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "rodilnik-predlogi", "prompt": "Vzemi knjigo ___ mize.", "options": ["iz", "z", "s"], "answer": 1, "say_options": true,
+          "explain": "**na** mizi → off it: **z mize**\n- s before p, t, k …: s police"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "kje-kam-od-kod-1",
+      "title": { "sl": "Tri vprašanja", "en": "Three questions", "de": "Drei Fragen", "it": "Tre domande" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "kam-tozilnik", "instruction": "Dopolni · Fill in", "prompt": "kje? → kam? → od kod?",
+          "columns": ["kje? · where", "kam? · where to", "od kod? · where from"],
+          "rows": [
+            { "label": "šola", "cells": ["v šoli", { "accept": ["v šolo"], "hint": "-a → -o" }, { "accept": ["iz šole"], "hint": "v → iz", "grammar": "rodilnik-predlogi" }] },
+            { "label": "pošta", "cells": ["na pošti", { "accept": ["na pošto"] }, { "accept": ["s pošte"], "hint": "na → z / s; before p: s", "grammar": "rodilnik-predlogi" }] },
+            { "label": "babica", "cells": ["pri babici", { "accept": ["k babici"], "hint": "to a person: k" }, { "accept": ["od babice"], "grammar": "rodilnik-predlogi" }] },
+            { "label": "gozd", "cells": ["v gozdu", { "accept": ["v gozd"], "hint": "a thing: no change" }, { "accept": ["iz gozda"], "grammar": "rodilnik-predlogi" }] },
+            { "label": "travnik", "cells": ["na travniku", { "accept": ["na travnik"] }, { "accept": ["s travnika"], "hint": "before t: s", "grammar": "rodilnik-predlogi" }] }
+          ],
+          "explain": "**kje? · kam? · od kod?**\n- v šoli · v šolo · iz šole\n- na pošti · na pošto · s pošte\n- pri babici · k babici · od babice"
+        },
+        {
+          "type": "choice", "grammar": "rodilnik-predlogi", "instruction": "Izberi · Choose", "prompt": "»Od kod prihajaš?« »___ tržnice.«", "options": ["Iz", "Z", "S"], "answer": 2, "say_options": true,
+          "explain": "**na** tržnici → from it **z / s**; before t: **s tržnice**"
+        }
+      ]
+    },
+    {
+      "id": "kje-kam-od-kod-2",
+      "title": { "sl": "Zalin dan", "en": "Zala's day", "de": "Zalas Tag", "it": "La giornata di Zala" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "kam-tozilnik", "instruction": "Dopolni · Fill in", "title": "Zalin dan",
+          "text": "Zjutraj gre Zala ___ šolo. V ___ (šola) je do poldneva. Potem gre ___ babici na kosilo. Babica je še na ___ (vrt). Po kosilu gresta ___ tržnico. Zvečer se vrneta s ___ (tržnica) domov.",
+          "gaps": [
+            { "accept": ["v"], "hint": "kam? into a building" },
+            { "accept": ["šoli"], "hint": "kje? -a → -i", "grammar": "kje-mestnik-orodnik" },
+            { "accept": ["k"], "hint": "kam? to a person" },
+            { "accept": ["vrtu"], "hint": "kje? masculine: -u", "grammar": "kje-mestnik-orodnik" },
+            { "accept": ["na"], "hint": "kam? the market takes na" },
+            { "accept": ["tržnice"], "hint": "od kod? the genitive", "grammar": "rodilnik-predlogi" }
+          ],
+          "bank": true, "distractors": ["pri", "šolo", "iz"],
+          "translation": "In the morning Zala goes to school. She's at school until noon. Then she goes to Granny's for lunch. Granny is still in the garden. After lunch the two of them go to the market. In the evening they come back home from the market."
+        },
+        {
+          "type": "choice", "grammar": "kam-tozilnik", "instruction": "Izberi · Choose", "prompt": "Nejc gre ___ kovaču.", "options": ["k", "h", "pri"], "answer": 1, "say_options": true,
+          "explain": "**k** → **h** before k and g: **h kovaču**"
+        }
+      ]
+    },
+    {
+      "id": "kje-kam-od-kod-3",
+      "title": { "sl": "Od kod prihajaš?", "en": "Where are you coming from?", "de": "Woher kommst du?", "it": "Da dove arrivi?" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "rodilnik-predlogi", "instruction": "Povej, od kod prihajaš · Say where you're coming from", "cue": "Prihajam …",
+          "items": [
+            { "from": "Sem v šoli.", "accept": ["Prihajam iz šole.", "Iz šole."], "hint": "v → iz", "lemma": "šola", "form": "gen.sg" },
+            { "from": "Sem na pošti.", "accept": ["Prihajam s pošte.", "S pošte."], "hint": "na → z / s", "lemma": "pošta", "form": "gen.sg" },
+            { "from": "Sem pri babici.", "accept": ["Prihajam od babice.", "Od babice."], "hint": "pri → od", "lemma": "babica", "form": "gen.sg" },
+            { "from": "Sem v gozdu.", "accept": ["Prihajam iz gozda.", "Iz gozda."], "lemma": "gozd", "form": "gen.sg" },
+            { "from": "Sem na njivi.", "accept": ["Prihajam z njive.", "Z njive."], "lemma": "njiva", "form": "gen.sg" },
+            { "from": "Sem doma.", "accept": ["Prihajam od doma.", "Od doma."], "hint": "home: od doma" },
+            { "from": "Sem v Ljubljani.", "accept": ["Prihajam iz Ljubljane.", "Iz Ljubljane."] },
+            { "from": "Sem na morju.", "accept": ["Prihajam z morja.", "Z morja."], "lemma": "morje", "form": "gen.sg" }
+          ],
+          "explain": "**od kod?** → the pair of the place's little word, and the genitive\n- v šoli → iz šole · na pošti → s pošte\n- pri babici → od babice · doma → od doma"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "kam-tozilnik", "instruction": "Dopolni · Fill in", "prompt": "kje? → kam? → od kod?",
+        "columns": ["kje? · where", "kam? · where to", "od kod? · where from"],
+        "rows": [
+          { "label": "hiša", "cells": ["v hiši", { "accept": ["v hišo"] }, { "accept": ["iz hiše"], "grammar": "rodilnik-predlogi" }] },
+          { "label": "brat", "cells": ["pri bratu", { "accept": ["k bratu"] }, { "accept": ["od brata"], "grammar": "rodilnik-predlogi" }] },
+          { "label": "Bled", "cells": ["na Bledu", { "accept": ["na Bled"] }, { "accept": ["z Bleda"], "grammar": "rodilnik-predlogi" }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "kam-tozilnik", "instruction": "Dopolni · Fill in",
+        "text": "Luka gre zjutraj ___ pašnik. Na ___ (pašnik) je ves dan. Zvečer pride s ___ (pašnik) in gre ___ Micki.",
+        "gaps": [
+          { "accept": ["na"] },
+          { "accept": ["pašniku"], "grammar": "kje-mestnik-orodnik" },
+          { "accept": ["pašnika"], "grammar": "rodilnik-predlogi" },
+          { "accept": ["k"] }
+        ],
+        "translation": "In the morning Luka goes to the pasture. He's on the pasture all day. In the evening he comes back from the pasture and goes to Micka's."
+      },
+      {
+        "type": "choice", "grammar": "rodilnik-predlogi", "prompt": "Vzemi kozarec ___ police.", "options": ["iz", "z", "s"], "answer": 2, "say_options": true,
+        "explain": "**na** polici → off it **z / s**; before p: **s police**"
+      },
+      {
+        "type": "choice", "grammar": "kam-tozilnik", "prompt": "»Kam greš?« »___.«", "options": ["Doma", "Domov", "Od doma"], "answer": 1, "say_options": true,
+        "explain": "**kam?** home → **domov**\n- doma · at home\n- od doma · from home"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Fran: od tod, na Ptuju, z Bleda, poldne (do poldneva). Native check: Zalin dan, Prihajam od doma, Teta Ančka se vrača z Bleda"
+}
