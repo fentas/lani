@@ -10,6 +10,8 @@ import { validateGrammar } from '../../src/grammar'
 import { localDate } from '../../src/rhythm'
 import { auth, base, check, client, dataDir, guideOf, tempDir } from './harness'
 import { gaptext, outline, sort, table, transform, unit } from './course-fixture'
+import { turnsOn, unitAnswers } from './course-content'
+import { FORMS_LANGUAGES } from '../../src/forms'
 
 const repo = resolve(import.meta.dir, '../../..')
 const text = (r: any): string => r?.content?.[0]?.text ?? ''
@@ -45,6 +47,15 @@ export default async function course() {
     const lacking = [...units.flatMap(u => grammarNamed(u).filter(g => !pages.has(g)).map(g => `${u.id}: ${g}`)), ...levels.flatMap(l => l.units.flatMap(u => u.grammar.filter(g => !pages.has(g)).map(g => `outline ${u.id}: ${g}`)))]
     check(`course/${lang}: every page a unit (or the outline) names is a page of the ${lang} grammar book`, lacking.length === 0, lacking)
     check(`course/${lang}: each unit is machine-written and says who checked it`, units.every(u => u.machine_written && u.review?.includes('not reviewed by a native speaker')), units.filter(u => !u.review).map(u => u.id))
+    // the answers against the dictionary, the forms each unit turns on against COURSE.md (course-content.ts)
+    if (FORMS_LANGUAGES.has(lang)) {
+      const a = unitAnswers(units, lang, pages, join(repo, 'lexicon'))
+      check(`course/${lang}: the answers are the dictionary's forms: a cell's or a line's named form its slot's, a gap's answer a form of the word in brackets (${a.checked} checked)`, a.checked > 100 && a.problems.length === 0, a.problems)
+    }
+    if (lang === 'sl') {
+      const t = turnsOn(units, readFileSync(join(repo, 'COURSE.md'), 'utf8'))
+      check(`course/${lang}: COURSE.md's "What a unit turns on" lists every unit that turns on a form, with the pages the unit names (${t.rows} rows)`, t.rows > 10 && t.problems.length === 0, t.problems)
+    }
   }
   check(`the repository's course languages checked: ${langs.join(', ') || 'none yet'}`, true)
 
