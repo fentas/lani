@@ -70,7 +70,7 @@ bridge's `companion/bridge/src/tutor-studio.ts`, `src/overrides.ts` and `src/fea
     A write the bridge refused (a validator, the lease) is a new try with its own id.
   - Tool call ids the bridge's `once` doesn't take (it takes `[\w-]{8,64}`; a short or dotted id of another provider)
     go as their fingerprint (`LiveBridge.clientId`), so those calls are answered once too.
-- **A request is queued once** (fixed 2026-10-27; CI's 2-core runner hit it in `StudioTest`, see
+- **A request is queued once** (fixed 2026-10-27; CI's runner hit it in `StudioTest`, see
   [ci-green.md](ci-green.md)). A chat's turn runs a step's tool calls and saves their results after them. A process
   killed in between (the job saved on the bridge, the step's results not) resumes the turn and runs its
   `request_content` again. That made a second job of the same brief, and both ran: the Opus calls twice, the module

@@ -4215,12 +4215,16 @@ now) and of the swipe's tip.
 
 **CI.** `.github/workflows/ci.yml` runs on every push and pull request: the bridge's typecheck
 (`bunx tsc --noEmit -p .`) and the whole smoke, which needs no local workers, network or tmux (it starts its bridges
-on 18800 and the ports after it, and fakes the voice and speech servers; ffmpeg is installed for the voice checks);
+on 18800 and the ports after it, and fakes the voice and speech servers; ffmpeg is installed for the voice checks, from
+a cache of Ubuntu's packages and in bounded tries by `.github/scripts/ffmpeg.sh`: when it can't be, the smoke skips
+those checks and the job's summary says so);
 both Python suites; and the app's unit tests with the debug APK, built with `companion/bin/lani-build-app` in the
 build image, the APK kept for a week as an artifact, then the release APK with R8 (`lani-build-app --release`), so an
 R8 error shows on the push and not first on a release tag; without the release key it is signed with a throwaway
-debug key and not kept. The QA on an emulator stays local. The release APKs come from
-`.github/workflows/android-release.yml` (see [docs/releasing.md](../docs/releasing.md)).
+debug key and not kept. Each step that downloads something has a time limit of its own, so a hung mirror or service
+fails that step in minutes instead of taking the job's time; no test is retried. The QA on an emulator stays local.
+The release APKs come from `.github/workflows/android-release.yml` (see [docs/releasing.md](../docs/releasing.md)).
+What made CI red in October 2026 and how each was fixed: [docs/plans/05-built/ci-green.md](../docs/plans/05-built/ci-green.md).
 
 **The road's player in the unit tests.** `road/RoadPlayerTest` runs under Robolectric (a test dependency only, with
 media3's test utilities: a fake clock and fake renderers). It builds `RoadPlayer` over a real ExoPlayer with road
