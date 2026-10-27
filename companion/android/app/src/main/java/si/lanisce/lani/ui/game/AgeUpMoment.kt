@@ -2,6 +2,7 @@ package si.lanisce.lani.ui.game
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
@@ -65,6 +66,7 @@ import si.lanisce.lani.game.GameState
 import si.lanisce.lani.game.Moment
 import si.lanisce.lani.game.MomentFrame
 import si.lanisce.lani.game.NewThing
+import si.lanisce.lani.game.WhatsNew
 import si.lanisce.lani.game.render.Camera
 import si.lanisce.lani.game.render.CanvasPoint
 import si.lanisce.lani.l10n.bi
@@ -131,7 +133,7 @@ class MomentActions(
  * Skip"; then the card ([AgeUpCard]). Taps on the map wait while it plays.
  */
 @Composable
-fun AgeUpOverlay(run: MomentRun, sign: () -> CanvasPoint?, camera: () -> Camera, actions: MomentActions, party: Celebration?, tonight: Celebration?, whatsNew: List<NewThing>) {
+fun AgeUpOverlay(run: MomentRun, sign: () -> CanvasPoint?, camera: () -> Camera, actions: MomentActions, party: Celebration?, tonight: Celebration?, whatsNew: WhatsNew) {
     val m = run.moment
     val haptic = LocalHapticFeedback.current
     val f = run.frame
@@ -182,7 +184,8 @@ private fun Title(m: Moment, beat: Beat?, modifier: Modifier) {
 @Composable
 private fun Caption(m: Moment, beat: Beat?, modifier: Modifier) {
     val text = beat?.let { captionOf(m, it) } ?: return
-    AnimatedContent(text, modifier, transitionSpec = { fadeIn() togetherWith fadeOut() }, label = "caption") { t ->
+    // one caption after the other, never two over each other: the old fades out, then the new fades in
+    AnimatedContent(text, modifier, transitionSpec = { fadeIn(tween(260, delayMillis = 240)) togetherWith fadeOut(tween(220)) }, label = "caption") { t ->
         Surface(color = Color.Black.copy(alpha = 0.5f), shape = RoundedCornerShape(18.dp), modifier = Modifier.fillMaxWidth().semantics { liveRegion = LiveRegionMode.Polite }) {
             Text(
                 t, color = Color.White, style = if (beat.kind == Beat.Kind.CHEER) MaterialTheme.typography.titleLarge else MaterialTheme.typography.titleMedium,
@@ -232,11 +235,11 @@ private fun SignLabel(m: Moment, f: MomentFrame, sign: () -> CanvasPoint?, camer
 
 /**
  * The moment's card: the new age's name, its celebration (and what it is), the party (now: "🎉 Na veselico"; tonight: when;
- * played again from the chronicle: now), "Kaj je novo · What's new" (each to where it is), what changed on the map, and
- * "Naprej · Continue".
+ * played again from the chronicle: now), "Kaj je novo · What's new": its two or three most important things ([WhatsNew.top],
+ * each to where it is), the rest and what changed on the map folded ("▸ Še 5 novosti · 5 more"), and "Naprej · Continue".
  */
 @Composable
-fun AgeUpCard(m: Moment, replay: Boolean, party: Celebration?, tonight: Celebration?, whatsNew: List<NewThing>, actions: MomentActions) {
+fun AgeUpCard(m: Moment, replay: Boolean, party: Celebration?, tonight: Celebration?, whatsNew: WhatsNew, actions: MomentActions) {
     val c = m.celebration
     Box(
         Modifier.fillMaxSize().background(Color(0x99070D1A)).clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) {},
@@ -265,14 +268,22 @@ fun AgeUpCard(m: Moment, replay: Boolean, party: Celebration?, tonight: Celebrat
                         }
                     }
                 }
-                if (whatsNew.isNotEmpty()) {
+                if (whatsNew.top.isNotEmpty()) {
                     Text("✨ ${bi("ageUp.whatsNew")}", style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.primary, modifier = Modifier.semantics { heading() })
-                    for (n in whatsNew) NewRow(n) { actions.open(n) }
+                    for (n in whatsNew.top) NewRow(n) { actions.open(n) }
                 }
-                // what changed on the map (the moment showed it; TalkBack and a skip read it here)
-                if (m.changes.isNotEmpty()) {
-                    Text("🗺️ ${bi("ageUp.onTheMap")}", style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.primary, modifier = Modifier.semantics { heading() })
-                    for (ch in m.changes) Text(AgeUps.caption(ch, m.from, m.to), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                // the rest, and what changed on the map (the moment showed it; TalkBack and a skip read it here): folded
+                val more = whatsNew.more.size + if (m.changes.isNotEmpty()) 1 else 0
+                if (more > 0) Fold(if (whatsNew.more.isNotEmpty()) bi("ageUp.more", "n" to whatsNew.more.size) else "🗺️ ${bi("ageUp.onTheMap")}", "") {
+                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        for (n in whatsNew.more) NewRow(n) { actions.open(n) }
+                        // the new plots are a row of what's new already (to the build sheet): not said twice
+                        val shown = m.changes.filter { it != si.lanisce.lani.game.Change.PLOTS || (whatsNew.top + whatsNew.more).none { n -> n.emoji == "📐" } }
+                        if (shown.isNotEmpty()) {
+                            Text("🗺️ ${bi("ageUp.onTheMap")}", style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.primary, modifier = Modifier.semantics { heading() })
+                            for (ch in shown) Text(AgeUps.caption(ch, m.from, m.to), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        }
+                    }
                 }
                 Spacer(Modifier.size(4.dp))
                 BigButton(bi("common.continue"), onClick = actions.done)

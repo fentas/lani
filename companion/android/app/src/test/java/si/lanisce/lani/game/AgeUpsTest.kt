@@ -77,10 +77,12 @@ class AgeUpsTest {
             assertEquals("$to's changes", changes, m.beats.mapNotNull { it.change })
             // the palisade moves out with the forest and the fire burns up with the gathering: changes, no beats of their own
             assertTrue(Change.PALISADE in m.changes && Change.FIRE in m.changes)
-            // one after another, no gap, short enough to watch
+            // one after another, no gap; long enough to breathe (Jan: "too fast" at 15–22 s), short enough to watch
             m.beats.zipWithNext().forEach { (a, b) -> assertEquals(a.to, b.from, 1e-9) }
             assertEquals(0.0, m.beats.first().from, 1e-9)
-            assertTrue("$to: ${m.length} s", m.length in 12.0..25.0)
+            assertTrue("$to: ${m.length} s", m.length in 26.0..36.0)
+            // every beat long enough for its caption to be read after the camera's flight
+            assertTrue(m.beats.all { it.to - it.from >= 3.0 })
             assertEquals(AgeUps.newPlots(from, to), m.plots)
         }
         // no palisade, no palisade to move
@@ -184,6 +186,27 @@ class AgeUpsTest {
         assertTrue(mesto.none { it.emoji == "⬆️" }) // the top level came with Trg
         // every age's stores
         for (a in Age.entries.drop(1)) assertTrue(go(a).any { it.go == NewThing.Go.INFO && it.text.contains("${Catalog.baseCap[a.ordinal]}") })
+    }
+
+    @Test fun `the new age's card says three things first, the rest folded, nothing lost`() {
+        val cast = listOf(Villager(id = "ana", name = "Ana", art = "woman", since = "zaselek"), Villager(id = "tine", name = "Tine", art = "man", since = "zaselek"))
+        val d = AgeUps.digest(Age.ZASELEK, cast = cast)
+        assertEquals(AgeUps.TOP, d.top.size)
+        // the buildings the hamlet opens as one row, then its own new thing (the school), then who can move in, as one
+        assertEquals(NewThing.Go.BUILD, d.top[0].go)
+        assertTrue(d.top[0].text, d.top[0].text.startsWith("Nove stavbe: ") && d.top[0].text.contains("čebelnjak") && d.top[0].text.contains(" · New buildings: "))
+        assertEquals(NewThing.Go.SCHOOL, d.top[1].go)
+        assertEquals("Lahko se priselita: Ana, Tine · Can move in: Ana, Tine", d.top[2].text)
+        // the projects as one row, folded with the rest
+        val projects = d.more.filter { it.go == NewThing.Go.PROJECTS }
+        assertEquals(1, projects.size)
+        assertTrue(projects.single().text, projects.single().text.startsWith("3 skupni projekti: "))
+        // nothing lost: every thing of the full list is in it, the grouped ones as their group
+        val all = AgeUps.whatsNew(Age.ZASELEK, cast = cast)
+        val kept = d.top + d.more
+        for (n in all) assertTrue(n.text, n in kept || n.go == NewThing.Go.PROJECTS || n.go == NewThing.Go.PERSON || (n.go == NewThing.Go.BUILD && n.arg != null))
+        // an age without people or buildings of its own still says its three
+        assertTrue(AgeUps.digest(Age.MESTO).top.isNotEmpty())
     }
 
     // --- the party --------------------------------------------------------------------------------------------------

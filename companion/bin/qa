@@ -4616,7 +4616,7 @@ def over_the_village():
 
 # The beats of an age's moment and how long each lasts (s): game/AgeUps.kt (OPEN_S, GROW_S, GATHER_S, DECORATE_S, SIGN_S,
 # CHEER_S), and the changes each age brings on the map (AgeUps.changes; the palisade and the fire have no beat of their own)
-MOMENT_S = {"open": 1.8, "grow": 2.3, "gather": 2.6, "decorate": 3.4, "sign": 2.2, "cheer": 2.8}
+MOMENT_S = {"open": 3.0, "grow": 3.6, "gather": 4.0, "decorate": 5.4, "sign": 3.4, "cheer": 4.4}
 MOMENT_GROWS = {"tabor": ["forest", "plots"], "zaselek": ["forest", "plots", "west", "square"], "vas": ["forest", "plots", "wide"],
                 "trg": ["forest", "plots", "square", "cobbles"], "mesto": ["forest", "plots"]}
 

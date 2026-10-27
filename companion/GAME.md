@@ -650,16 +650,20 @@ village, party or buildings changing". Since 2026-10-18 it comes in three parts.
    fire ring at Vas, the square's fire basket at Trg, its lanterns at Mesto, see "Hearths"); the celebration's decorations go up
    one by one (`Frame.festive`) as its music starts (synthesized like the village's other sounds:
    `tools/ambient_sounds.py`, `harmonika.ogg`, `valcek.ogg`, the godba's `polka.ogg`); the village's sign at the road
-   turns to the new age, its name over it ("🏘️ Vas"); fireworks and the celebration's name. About 15–22 s; "⏭ Preskoči ·
+   turns to the new age, its name over it ("🏘️ Vas"); fireworks and the celebration's name. About 27–35 s (Jan, 2026-10-27:
+   "nice but too fast": it was 15–22 s; each beat is longer now, the camera flies to its shot in under half of it and
+   holds there for the rest, and one caption fades out before the next fades in, never two over each other); "⏭ Preskoči ·
    Skip" (or back) goes to the end. With the system's animations off, or TalkBack on, it goes to the card at once, the
    village grown and decorated behind it, and the card says what changed on the map. Then the card: the new age's name,
    the celebration and what it is, the party (now: "🎉 Praznuj z vasjo · Celebrate with the village"; later: "🌙 Zvečer od 17. ure:
-   Veselica"), **"✨ Kaj je novo · What's new"** from the game's data (`AgeUps.whatsNew`: the buildings the age opens, the
-   upgrades to its level, its village projects, the scenes that open with it, the people who can move in, its plots and
-   stores, and what the rules start with it: the calendar's feasts, the day's surprise and the events at Tabor; the
-   school, the feast under the linden and the bear at Zaselek; the smith's better tools at Vas; the market's trading and
-   prices at Trg), each a tap to where it is (the Build sheet, the projects sheet at it, the scene, the register, the
-   chest, the school), and "🗺️ Na zemljevidu · On the map" (the changes).
+   Veselica"), **"✨ Kaj je novo · What's new"**, short (Jan: the card was overloaded, four to six screens): its three most
+   important things (`AgeUps.digest`), each a tap to where it is: the buildings the age opens as one row ("🔨 Nove stavbe
+   · New buildings: čebelnjak, stražni stolp, kovačnica, lipa, hiša, cerkev, šola"), the age's own new rule (the events at
+   Tabor, the school at Zaselek, the smith's better tools at Vas, the market's trading at Trg), who can move in as one row,
+   the village projects as one row; folded under them "▸ Še 5 novosti · 5 more": the rest from the game's data
+   (`AgeUps.whatsNew`: the upgrades to its level, the scenes that open with it, the calendar's feasts, the day's surprise,
+   the feast under the linden, the bear, its plots and stores) and "🗺️ Na zemljevidu · On the map" (the changes, the new
+   plots not twice).
 2. **The party that evening**: on the evening of the day the age came (from 17:00, or at once when it came later) and
    the next evening for whoever missed it (`AgeUps.partyNow`; QA's "hour:<h>" counts), a bubble with the celebration's
    emoji by the fire, or under the linden for a party on the square, a gold line in the HUD's "Danes in kmalu", and the

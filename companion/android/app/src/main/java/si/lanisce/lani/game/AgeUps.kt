@@ -260,6 +260,9 @@ data class NewThing(val emoji: String, val text: String, val go: Go, val arg: St
     enum class Go { BUILD, PROJECTS, SCENE, PERSON, CHEST, SCHOOL, INFO, FESTIVALS, NONE }
 }
 
+/** What's new at an age, short ([AgeUps.digest]): [top] on the card, [more] folded. */
+data class WhatsNew(val top: List<NewThing>, val more: List<NewThing>)
+
 /** An age the village reached, for the chronicle ([AgeUps.milestones]): its [celebration] and the day ([on]; null: not known). */
 data class Milestone(val age: Age, val celebration: Celebration, val on: LocalDate?)
 
@@ -369,13 +372,22 @@ object AgeUps {
 
     // --- the moment --------------------------------------------------------------------------------------------------
 
-    /** How long each kind of beat lasts (s). */
-    private const val OPEN_S = 1.8
-    private const val GROW_S = 2.3
-    private const val GATHER_S = 2.6
-    private const val DECORATE_S = 3.4
-    private const val SIGN_S = 2.2
-    private const val CHEER_S = 2.8
+    /**
+     * How long each kind of beat lasts (s). Jan, 2026-10-27: "nice but too fast", so each beat breathes: the camera's flight
+     * takes under half of it ([FLIGHT]) and the shot holds for the rest, long enough to read its caption (about 25–35 s in
+     * all; "⏭ Preskoči · Skip" goes to the end). It was 1.8, 2.3, 2.6, 3.4, 2.2 and 2.8 s (15–22 s).
+     */
+    private const val OPEN_S = 3.0
+    private const val GROW_S = 3.6
+    private const val GATHER_S = 4.0
+    private const val DECORATE_S = 5.4
+    private const val SIGN_S = 3.4
+    private const val CHEER_S = 4.4
+
+    /** The share of a beat the camera flies to its shot (at most [FLIGHT_MAX_MS]); it holds there for the rest. */
+    const val FLIGHT = 0.45
+    const val FLIGHT_MIN_MS = 700
+    const val FLIGHT_MAX_MS = 1800
 
     /**
      * What reaching [to] from [from] changes on [state]'s map ([Change]), in the order the moment shows them: the forest
@@ -484,6 +496,46 @@ object AgeUps {
         newPlots(from, to).size.takeIf { it > 0 }?.let { n -> add(NewThing("📐", bi("ageUp.new.plots", "n" to n), NewThing.Go.BUILD)) }
         add(NewThing("🏚️", bi("ageUp.new.stores", "n" to Catalog.baseCap[to.ordinal]), NewThing.Go.INFO))
     }
+
+    /**
+     * What's new, short (Jan, 2026-10-27: the new age's card was overloaded): the most important things first ([WhatsNew.top],
+     * at most [TOP]), the rest folded ([WhatsNew.more]). From [whatsNew]'s things, grouped: the buildings the age opens as one
+     * ("🔨 Nove stavbe · New buildings: čebelnjak, stolp …"), who can move in as one, the village projects as one; in this
+     * order: the buildings, the age's own new rule (the events at Tabor, the school at Zaselek, the smith's tools at Vas,
+     * the market's trading at Trg), the people, the projects, then everything else as [whatsNew] has it.
+     */
+    fun digest(to: Age, scenes: List<SceneSpec> = emptyList(), cast: List<Villager> = emptyList()): WhatsNew {
+        val all = whatsNew(to, scenes, cast)
+        val types = Catalog.specs.values.filter { it.minAge == to }.map { it.type }
+        val people = cast.filter { it.since?.trim()?.equals(key(to), ignoreCase = true) == true }
+        val projects = Catalog.projects.filter { it.age == to }
+        val own = when (to) {
+            Age.TABOR -> all.firstOrNull { it.emoji == "🐺" }
+            Age.ZASELEK -> all.firstOrNull { it.go == NewThing.Go.SCHOOL }
+            Age.VAS -> all.firstOrNull { it.emoji == "⚒️" }
+            Age.TRG -> all.firstOrNull { it.emoji == "⇄" }
+            else -> null
+        }
+        val first = buildList {
+            if (types.isNotEmpty()) add(NewThing("🔨", bi("ageUp.new.buildings", "list" to si.lanisce.lani.game.culture.localized { lang -> types.joinToString(", ") { it.names.of(lang).lowercase() } }), NewThing.Go.BUILD))
+            own?.let(::add)
+            if (people.isNotEmpty()) add(NewThing(people.first().emoji, bi("ageUp.new.people", "n" to people.size, "names" to people.joinToString(", ") { it.name }), NewThing.Go.PERSON, people.first().id))
+            if (projects.isNotEmpty()) add(
+                NewThing(
+                    "🏗️", bi("ageUp.new.projects", "n" to projects.size, "list" to si.lanisce.lani.game.culture.localized { lang -> projects.joinToString(", ") { it.nameText.of(lang) } }),
+                    NewThing.Go.PROJECTS, projects.first().id,
+                ),
+            )
+        }
+        val rest = all.filter { n ->
+            n !== own && !(n.go == NewThing.Go.BUILD && n.arg != null) && n.go != NewThing.Go.PERSON && n.go != NewThing.Go.PROJECTS
+        }
+        val ordered = first + rest
+        return WhatsNew(ordered.take(TOP), ordered.drop(TOP))
+    }
+
+    /** How many things the new age's card shows before "Še … · … more". */
+    const val TOP = 3
 
     // --- when, and the decorations ---------------------------------------------------------------------------------
 

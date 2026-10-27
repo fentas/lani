@@ -622,7 +622,8 @@ fun VillageScreen(vm: AppViewModel) {
                 if (reduced) return@LaunchedEffect
                 val b = beatNow ?: run { cam.recenter(); return@LaunchedEffect }
                 val shot = si.lanisce.lani.game.render.MomentShots.of(b, run.moment, run.drawn, fit.width, fit.height)
-                val ms = ((b.to - b.from) * 1000 * 0.55).toInt().coerceIn(500, 1400)
+                // the camera flies there in under half the beat and holds the shot for the rest (AgeUps.FLIGHT)
+                val ms = ((b.to - b.from) * 1000 * si.lanisce.lani.game.AgeUps.FLIGHT).toInt().coerceIn(si.lanisce.lani.game.AgeUps.FLIGHT_MIN_MS, si.lanisce.lani.game.AgeUps.FLIGHT_MAX_MS)
                 val a = area()
                 val rect = shot.rect
                 val at = shot.at
@@ -807,7 +808,7 @@ fun VillageScreen(vm: AppViewModel) {
         // an age's moment over the map: its captions, the sign's name, then its card with what's new
         moment?.let { run ->
             val to = run.moment.to
-            val whatsNew = remember(run, vm.scenes.all, cast) { si.lanisce.lani.game.AgeUps.whatsNew(to, vm.scenes.all, cast) }
+            val whatsNew = remember(run, vm.scenes.all, cast) { si.lanisce.lani.game.AgeUps.digest(to, vm.scenes.all, cast) }
             // played again from the chronicle: its party now, whatever the hour; else tonight's
             val party = if (run.replay) si.lanisce.lani.game.AgeUps.celebration(to).takeIf { it.party } else partyNow
             AgeUpOverlay(
