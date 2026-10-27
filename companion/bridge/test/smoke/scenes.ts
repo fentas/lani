@@ -62,11 +62,14 @@ export default async function scenes() {
       JSON.stringify(POSES) === JSON.stringify([...readFileSync(join(android, 'scene/Stage.kt'), 'utf8').matchAll(/[A-Z]+\("(\w+)"\)/g)].map(m => m[1])),
     SCENE_STAGE)
   const kt = registryFromKotlin()
-  check('SceneArt.kt parsed: 21 arts, 20 sprites, effects for every art, 14 buildings, 6 ages', Object.keys(kt.objects).length === 21 && kt.people.length === 20 && Object.keys(kt.effects).length === 21 && kt.buildings.length === 14 && kt.ages.length === 6, kt)
+  check('SceneArt.kt parsed: 22 arts, 20 sprites, effects for every art, 14 buildings, 6 ages', Object.keys(kt.objects).length === 22 && kt.people.length === 20 && Object.keys(kt.effects).length === 22 && kt.buildings.length === 14 && kt.ages.length === 6, kt)
   // an app says which arts it draws (?arts=): an older one gets no room of a house and no kitchen hearth (forApp)
   const older = forApp([{ art: 'kitchen', objects: [{ slot: 'stove' }, { slot: 'hearth' }] }, { art: 'cellar', objects: [{ slot: 'barrel' }] }], 1)
   check('an older app gets the kitchen without its new slots and no cellar; a current one all', JSON.stringify(older) === '[{"art":"kitchen","objects":[{"slot":"stove"}]}]' &&
     forApp([{ art: 'cellar', objects: [] }], SCENE_ARTS_VERSION).length === 1 && SCENE_ARTS_VERSION === Number(/const val VERSION = (\d+)/.exec(readFileSync(join(android, 'scene/SceneArt.kt'), 'utf8'))?.[1]), older)
+  // the mill inside is an art of the third version: an app before it (arts 2) doesn't get the scene, this one does
+  const beforeMill = forApp([{ art: 'mill', objects: [{ slot: 'millstone' }] }, { art: 'cellar', objects: [] }], 2)
+  check('an app before the mill (arts=2) gets no mill scene; an app of arts=3 does', JSON.stringify(beforeMill) === '[{"art":"cellar","objects":[]}]' && forApp([{ art: 'mill', objects: [] }], 3).length === 1, beforeMill)
   check('the bridge registry matches SceneArt.kt and Model.kt', JSON.stringify(kt) === JSON.stringify(SCENE_ART), { kt, ts: SCENE_ART })
 
   // --- the curated content, against the repo's packs and scenarios ------------------------------
@@ -81,7 +84,7 @@ export default async function scenes() {
     projects,
   }
   const curatedFiles = readdirSync(join(repo, 'scenes')).filter(f => f.endsWith('.json'))
-  check('18 curated scenes', curatedFiles.length === 18, curatedFiles)
+  check('19 curated scenes', curatedFiles.length === 19, curatedFiles)
   const curated: LoadedScene[] = []
   for (const f of curatedFiles) {
     const v = validateScene(JSON.parse(readFileSync(join(repo, 'scenes', f), 'utf8')), refs)
@@ -134,6 +137,7 @@ export default async function scenes() {
   check('the interiors open from their buildings: the tent, the field or hayrack, the smithy, the school, the church, the bee house; the square from the linden or the well', from('v-sotoru') === '["tent"]' && from('na-njivi') === '["field","kozolec"]' && from('v-kovacnici') === '["smithy"]' && from('v-soli') === '["school"]' && from('v-cerkvi') === '["church"]' && from('pri-cebelnjaku') === '["beehive"]' && from('na-vasi') === '["lipa","well"]', curated.map(s => [s.id, s.from]))
   check('the stream and the pond open from their spots of the landscape', from('ob-potoku') === '["spot:riverbank"]' && from('pri-ribniku') === '["spot:pond"]', curated.map(s => [s.id, s.from]))
   check('the market and the watchtower open from their buildings', from('na-trznici') === '["market"]' && from('na-stolpu') === '["watchtower"]', curated.map(s => [s.id, s.from]))
+  check('the mill opens from its landmark, once the mill project grinds', from('v-mlinu') === '["project:mlin"]', curated.map(s => [s.id, s.from]))
   // the rooms of the houses (a house opens one, its own): Janez's living room, France's workshop, Marko's cellar, Vida and
   // Nejc's attic; the kitchen is the hut's and anyone's
   const rooms = curated.filter(s => s.from.includes('house')).sort((a, b) => a.id.localeCompare(b.id))

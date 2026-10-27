@@ -893,6 +893,8 @@ internal object ScenePaintersList {
         ::MarketPainter, ::WatchtowerPainter,
         // the rooms of the houses: the living room, the workshop, the wine cellar, the attic (game/scene/Homes)
         ::LivingRoomPainter, ::WorkshopPainter, ::CellarPainter, ::AtticPainter,
+        // the mill inside, open once the village's mill grinds
+        ::MillPainter,
     )
 
     fun all(): List<ScenePainter> = makers.map { it() }

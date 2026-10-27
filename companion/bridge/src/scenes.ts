@@ -69,6 +69,11 @@ export const SCENE_ART = {
       'bed', 'pillow', 'blanket', 'cradle', 'chest', 'roof', 'window', 'stairs', 'wardrobe', 'rug', 'lamp', 'ball',
       'mirror', 'toy',
     ],
+    // the mill inside (companion/SCENES.md, "Arts"), open once the mill project grinds
+    mill: [
+      'millstone', 'hopper', 'grain', 'flour', 'sack', 'shaft', 'gear', 'wheel', 'flume', 'scale', 'measure',
+      'bench', 'window', 'door', 'ladder', 'cat', 'mouse', 'lantern', 'sieve',
+    ],
   } as Record<string, string[]>,
   personSlots: {
     campfire: ['left', 'right', 'back'],
@@ -92,6 +97,7 @@ export const SCENE_ART = {
     workshop: ['bench', 'floor', 'door'],
     cellar: ['barrel', 'press', 'stairs'],
     attic: ['bed', 'chest', 'stairs'],
+    mill: ['stones', 'sacks', 'door'],
   } as Record<string, string[]>,
   people: ['grandma', 'grandpa', 'child1', 'child2', 'child3', 'shepherd', 'smith', 'teacher', 'farmer', 'beekeeper', 'innkeeper', 'winemaker', 'aunt', 'pedlar', 'pilgrim', 'woman', 'man', 'baby', 'hunter', 'burner'],
   /** What each art's painter shows when a dialog line's `fx` sets it (companion/SCENES.md, "Effects"). */
@@ -176,6 +182,9 @@ export const SCENE_ART = {
       // the gable window blown open by the burja (0: shut)
       'window',
     ],
+    // the stones grinding (0 stopped), grain poured into the hopper, the flour sack filling, a puff of flour dust, the cat
+    // pouncing at the mouse, the lantern, a sack weighed on the scale, the miller's toll in the measure
+    mill: ['grind', 'pour', 'sack', 'dust', 'cat', 'lantern', 'weigh', 'toll'],
   } as Record<string, string[]>,
   buildings: ['tent', 'field', 'well', 'hut', 'kozolec', 'beehive', 'palisade', 'watchtower', 'smithy', 'lipa', 'house', 'church', 'school', 'market'],
   ages: ['ogenj', 'tabor', 'zaselek', 'vas', 'trg', 'mesto'],
@@ -255,13 +264,14 @@ export function arrive(art: string, from: { spot: string; pose: string }, cue: {
 
 /**
  * Which arts and slots an app draws (SceneArt.VERSION in SceneArt.kt): 1 the first seventeen arts, 2 the rooms of the houses
- * and the kitchen's level slots. The app says it when it asks for its scenes (GET /scenes?arts=2); one that doesn't is an
- * older one, which gets what the first arts drew ([forApp]).
+ * and the kitchen's level slots, 3 the mill inside. The app says it when it asks for its scenes (GET /scenes?arts=3); one that
+ * doesn't is an older one, which gets what the first arts drew ([forApp]).
  */
-export const SCENE_ARTS_VERSION = 2
+export const SCENE_ARTS_VERSION = 3
 /** What each version after the first added: its new arts, and new slots of an art the version before had. */
 const ADDED: Record<number, { arts: string[]; slots: Record<string, string[]> }> = {
   2: { arts: ['livingroom', 'workshop', 'cellar', 'attic'], slots: { kitchen: ['hearth', 'bench', 'bed', 'shelf', 'curtains', 'corner'] } },
+  3: { arts: ['mill'], slots: {} },
 }
 
 /** The arts version an app asked with (`?arts=`): 1, the first, when it doesn't say (an older app). */

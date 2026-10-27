@@ -95,6 +95,7 @@ export const NOT_ALWAYS: Record<string, string[]> = {
   workshop: ['saw', 'tools', 'ladder', 'rake', 'wheelbarrow', 'horse', 'lantern'],
   cellar: ['shelf', 'bottle', 'grapes', 'wine', 'ham', 'cheese'],
   attic: ['wardrobe', 'rug', 'lamp', 'ball', 'mirror', 'toy'],
+  mill: [],
 }
 
 /** What the check of a pack's project steps reads: its language, its projects, the scenes and packs it may name. */

@@ -9,10 +9,11 @@ package si.lanisce.lani.game.scene
 object SceneArt {
     /**
      * Which arts and slots this app draws: 1 the first seventeen arts, 2 the rooms of the houses and the kitchen's level
-     * slots. The app asks for its scenes with it (GET /scenes?arts=2); the bridge gives an app that doesn't say only what
-     * the first ones drew, so an older app never gets a place it can't paint (bridge/src/scenes.ts, `forApp`).
+     * slots, 3 the mill inside. The app asks for its scenes with it (GET /scenes?arts=3); the bridge gives an app that asks
+     * for less, or doesn't say, only what its arts drew, so an older app never gets a place it can't paint
+     * (bridge/src/scenes.ts, `forApp`).
      */
-    const val VERSION = 2
+    const val VERSION = 3
 
     /** art id → object slots, back to front roughly. */
     val objects: Map<String, List<String>> = mapOf(
@@ -95,6 +96,14 @@ object SceneArt {
             "bed", "pillow", "blanket", "cradle", "chest", "roof", "window", "stairs", "wardrobe", "rug", "lamp", "ball",
             "mirror", "toy",
         ),
+        // V mlinu: inside the village's water mill (open once the mill project grinds): the millstones in their vat on a timber
+        // platform, the hopper with its grain over them, the flour running into a sack; under the platform the gear on the
+        // wheel's shaft, out on the right the waterwheel in its race under the flume; sacks, the bench with the scale and the
+        // miller's measure, the window, the door, the ladder to the grain loft, the cat after the mouse, the lantern, the sieve.
+        "mill" to listOf(
+            "millstone", "hopper", "grain", "flour", "sack", "shaft", "gear", "wheel", "flume", "scale", "measure",
+            "bench", "window", "door", "ladder", "cat", "mouse", "lantern", "sieve",
+        ),
     )
 
     /** art id → where people stand. */
@@ -120,6 +129,7 @@ object SceneArt {
         "workshop" to listOf("bench", "floor", "door"),
         "cellar" to listOf("barrel", "press", "stairs"),
         "attic" to listOf("bed", "chest", "stairs"),
+        "mill" to listOf("stones", "sacks", "door"),
     )
 
     /** People sprites. */
@@ -297,6 +307,12 @@ object SceneArt {
             // the gable window blown open by the burja, its casement banging in the wind (how far open; 0: shut)
             "window",
         ),
+        // the stones grinding (0 stopped, the water off the wheel; 1 grinding hard; not set: an easy turn); grain poured into
+        // the hopper (how full: 0 empty, 1 full; a sack tipped over it pouring while it fills); the flour sack under the spout
+        // filling (how full); a puff of flour dust (how thick); the cat pouncing at the mouse (0 crouched, ready; 1 landed at
+        // its hole, the mouse gone in); the lantern (0 dark, 1 lit; not set: lit from dusk); a sack weighed on the scale (the
+        // beam tipping and settling: how far); the miller's toll, the measure filling with grain (how full)
+        "mill" to listOf("grind", "pour", "sack", "dust", "cat", "lantern", "weigh", "toll"),
     )
 
     val arts: Set<String> get() = objects.keys

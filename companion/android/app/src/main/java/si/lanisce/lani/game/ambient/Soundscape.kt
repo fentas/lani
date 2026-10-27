@@ -117,6 +117,8 @@ object Soundscape {
         "cellar" to Spot(weather = 0.12f, indoor = true),
         // a quiet church
         "church" to Spot(weather = 0.3f, indoor = true),
+        // the mill: the water on the wheel outside heard through the plank walls, a few birds by day
+        "mill" to ROOM.copy(birds = 0.15f, crickets = 0.12f, stream = 0.55f, weather = 0.45f),
     )
 
     /**
