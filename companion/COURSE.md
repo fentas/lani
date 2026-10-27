@@ -454,7 +454,7 @@ them anyway). Until then it is greyed with its form, to read ahead, in a table t
 tables with a gap asked now) and in the word's overview ("📋 Vse oblike"). A unit's intro done also brings back within days the
 forms cards it opened rows of (at most 3 a day, its new part first, scheduled as new learning: the card's repetitions
 back to 0, its history kept), says so ("📋 Nove oblike v tabelah: delati, hiša. · New forms in your tables: …"), and
-makes the day's new cards (two a day) of learned words that had none yet. By the A1 units' pages:
+makes the day's new cards (two a day) of learned words that had none yet. By the units' pages:
 
 | unit | its pages | what the forms cards ask from then on |
 |---|---|---|
@@ -472,6 +472,14 @@ makes the day's new cards (two a day) of learned words that had none yet. By the
 | `pretekli-cas` | pretekli-cas, naslonke | the past's l-forms (on je delal, ona je delala …) |
 | `prihodnjik` | prihodnjik, naslonke | the future (bom delal, bodo delali …) |
 | `dvojina` | dvojina, stevila-samostalniki | the dual |
+| `sklanjatev-posebnosti` (B1) | sklanjatev-posebnosti, sklanjatev-moski, sklanjatev-srednji, sklanjatev-zenski | no form of a table of its own: the odd nouns' forms (očeta, psa, ljudmi) are asked with each case's page, as any noun's |
+| `dvojina-skloni` (B1) | dvojina-skloni, dvojina | the dual of every case whose page is introduced (dveh bratov, dvema sestrama, pri dveh oknih) |
+| `vid-vsi-casi` (B1) | vid-casi, glagolski-vid, velelnik | the imperative (as `velelnik`) |
+| `svoj` (B1) | svoj, pridevniki-ujemanje | an adjective's agreement (as `spol`) |
+| `dolocna-oblika` (B1) | dolocna-oblika, pridevniki-ujemanje | as `svoj`; the definite form (zeleni) isn't a form of the table |
+| `oziralni-ki` (B1) | oziralni-ki, naslonke | no form of a table |
+| `odvisni-govor` (B1) | odvisni-govor, naslonke | no form of a table |
+| `odvisniki` (B1) | odvisniki, vezniki, pogojnik, naslonke | no form of a table (the conditional isn't asked as a form) |
 
 `vprasalnice`, `kdaj-cas`, `modalni-glagoli` and `povratni-glagoli` turn on no form of a table. The genitive, dative
 and instrumental rows (`rodilnik`, `dajalnik`, `orodnik`, A2 pages) stay greyed until those pages are met in the book;
