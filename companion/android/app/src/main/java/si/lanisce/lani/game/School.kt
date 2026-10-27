@@ -178,8 +178,46 @@ object School {
         )
     }
 
-    /** The school's levels of [course] as it shows them, in order. */
+    /** The school's levels of [course], in order. */
     fun levels(s: GameState, course: Course): List<LevelState> = LEVELS.filter { l -> course.levels.any { it.level == l } }.map { level(s, course, it) }
+
+    // --- what the school's screen shows -----------------------------------------------------------------------------
+
+    /** How many units after the current one a level shows; the rest is folded (Jan, 2026-10-27: "no need to show it all directly"). */
+    const val AHEAD = 2
+
+    /**
+     * A level as the school's screen shows it ([reveal]): its [state], the units shown as rows ([rows], in the course's
+     * order), and the rest ([folded], in order: the written units further on and every planned one) behind one quiet line
+     * that lists them, read-only. A closed level has no rows.
+     */
+    data class LevelView(val state: LevelState, val rows: List<UnitRef>, val folded: List<UnitRef>) {
+        /** An open level whose written units are all done: the screen folds its rows behind a line of their own. */
+        val complete: Boolean get() = state.open && state.of > 0 && state.done >= state.of
+    }
+
+    /**
+     * The levels as the school's screen shows them (companion/COURSE.md, "What the school shows"): every open level, then
+     * the first closed one (what opens it, its units folded); the levels after it not until it opens. Of an open level the
+     * units done and begun, the current one (its first written unit not done: the one suggested next, in the level the
+     * course is at) and the [AHEAD] not done after it, and any with the tutor's homework, are rows; the rest is folded, a
+     * planned unit always.
+     */
+    fun reveal(s: GameState, course: Course): List<LevelView> {
+        val all = levels(s, course)
+        val closed = all.firstOrNull { !it.open }
+        return all.filter { it.open || it === closed }.map { view(s, course, it) }
+    }
+
+    private fun view(s: GameState, course: Course, level: LevelState): LevelView {
+        val refs = course.refs(level.level)
+        if (!level.open) return LevelView(level, emptyList(), refs)
+        val written = course.playable(level.level)
+        val p = written.associate { it.id to progress(s, course.language, it.id) }
+        val next = written.filter { p[it.id]?.done == null }.take(1 + AHEAD).map { it.id }.toSet()
+        val shown = written.filter { it.id in next || p[it.id] != null || course.units[it.id]?.homework?.isNotEmpty() == true }.map { it.id }.toSet()
+        return LevelView(level, refs.filter { it.id in shown }, refs.filter { it.id !in shown })
+    }
 
     /**
      * The class begun and the levels open now that weren't kept yet: the day the class began kept ([CourseProgress.classroom],

@@ -92,7 +92,7 @@ class MainActivity : ComponentActivity() {
     private fun openLink(intent: Intent?) {
         // what QA asks of a debug build (a release ignores it), before the link it may open
         si.lanisce.lani.app.QaHooks.handle(intent?.getStringExtra(si.lanisce.lani.app.QaHooks.EXTRA), road = vm::qaRoad, forms = vm::qaForms, step = vm::qaStep, audio = vm::qaAudio, season = vm::qaSeason, ready = vm::qaBuild,
-            chat = { vm.chat.onReply(si.lanisce.lani.data.BridgeEvent.Reply("main", it, null)) }, cheat = { vm.cheat.show(it) }, school = vm::qaSchool, schoolUnit = vm::qaSchoolUnit,
+            chat = { vm.chat.onReply(si.lanisce.lani.data.BridgeEvent.Reply("main", it, null)) }, cheat = { vm.cheat.show(it) }, school = vm::qaSchool, schoolUnit = vm::qaSchoolUnit, schoolReveal = vm::qaSchoolReveal,
             counting = { if (it == "intro") vm.qaCountingIntro() else vm.qaCounting() },
             shadow = { base -> vm.shadow.showDeveloper(true); if (base.isNotBlank()) vm.shadow.update { it.copy(debugBaseUrl = base) }; vm.shadow.panelOpen = true },
             dev = { what -> if (what == "again") vm.devUpload.forgetThrottle() else if (what == "off") vm.shadow.showDeveloper(false) },

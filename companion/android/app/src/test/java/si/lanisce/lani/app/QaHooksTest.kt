@@ -270,6 +270,42 @@ class QaHooksTest {
         assertEquals(listOf("oziralni-ki", "school"), asked)
     }
 
+    @Test fun `the school's reveal readied - the school standing, A1 done, A2's first unit done and its second begun`() {
+        val course = si.lanisce.lani.data.CourseFixture.course
+        val today = java.time.LocalDate.of(2026, 10, 27)
+        val two = course.copy(
+            levels = course.levels.map { if (it.level == "A2") it.copy(units = it.units + si.lanisce.lani.data.UnitRef("dajalnik-2", mapOf("en" to "More"))) else it },
+            units = course.units + ("dajalnik-2" to course.units.getValue("dajalnik").copy(id = "dajalnik-2", level = "A2")),
+        )
+        val s = si.lanisce.lani.game.GameState(
+            age = si.lanisce.lani.game.Age.ZASELEK,
+            course = si.lanisce.lani.game.CourseProgress(units = mapOf(
+                si.lanisce.lani.game.School.key("sl", "spol") to si.lanisce.lani.game.UnitProgress(started = "2026-10-01", done = "2026-10-03"),
+                si.lanisce.lani.game.School.key("sl", "dajalnik-2") to si.lanisce.lani.game.UnitProgress(started = "2026-10-20", done = "2026-10-21"),
+            )),
+        )
+        val r = si.lanisce.lani.game.School.opened(QaHooks.readyReveal(s, two, today, 0L), two, today, 0L)
+        assertTrue(si.lanisce.lani.game.School.indoors(r))
+        assertTrue(si.lanisce.lani.game.School.levelDone(r, two, "A1"))
+        assertEquals("2026-10-03", si.lanisce.lani.game.School.progress(r, "sl", "spol")!!.done) // done before: kept
+        assertEquals("2026-10-26", si.lanisce.lani.game.School.progress(r, "sl", "dajalnik")!!.done)
+        assertNull(si.lanisce.lani.game.School.progress(r, "sl", "dajalnik-2")!!.done) // A2 as QA wants it: begun
+        val views = si.lanisce.lani.game.School.reveal(r, two)
+        assertEquals(listOf("A1", "A2", "B1"), views.map { it.state.level })
+        assertTrue(views[0].complete)
+        assertEquals(listOf("dajalnik", "dajalnik-2"), views[1].rows.map { it.id })
+        // with one unit in A2, that one begun
+        val one = QaHooks.readyReveal(s, course, today, 0L)
+        assertEquals(2, si.lanisce.lani.game.School.progress(one, "sl", "dajalnik")!!.intro)
+        assertNull(si.lanisce.lani.game.School.progress(one, "sl", "dajalnik")!!.done)
+        // "school:reveal" is the reveal, not a unit called "reveal" ("school:<unit>")
+        var revealed = false
+        val units = mutableListOf<String>()
+        QaHooks.handle("school:reveal", schoolReveal = { revealed = true }, schoolUnit = { units += it })
+        assertTrue(revealed)
+        assertEquals(emptyList<String>(), units)
+    }
+
     @Test fun `a slower clock asked, the towns' time runs at that rate, kept in range, until let go`() {
         assertEquals(1f, TownClock.rate)
         QaHooks.handle("clock:0.4")

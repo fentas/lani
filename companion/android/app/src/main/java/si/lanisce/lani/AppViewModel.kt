@@ -1358,6 +1358,16 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     }
 
     /**
+     * QA's "school:reveal" (app/QaHooks): the dev village's copy with the school standing, A1 done and A2 begun, and the
+     * school open (its levels opened as it opens): a level a bit at a time.
+     */
+    fun qaSchoolReveal() {
+        val course = school.course ?: return
+        game.apply { si.lanisce.lani.app.QaHooks.readyReveal(it, course, java.time.LocalDate.now(), System.currentTimeMillis()) }
+        openSchool(fromVillage = false)
+    }
+
+    /**
      * QA's "build:<type>" (a debug build, app/QaHooks.kt): the village (the dev bridge's copy) ready to build one (its
      * stores full, a free plot: the next age's when its own are taken) and shown, where the plot chooser opens for it.
      */

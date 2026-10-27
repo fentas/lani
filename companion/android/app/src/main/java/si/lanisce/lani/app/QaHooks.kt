@@ -82,6 +82,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   the linden standing, the unit biti as never begun), and the school opens, its class begun (companion/GAME.md, "The
  *   school"). "school:<unit>" does the same with that unit (its id: "oziralni-ki") as never begun and its course level
  *   open ([readyUnit]: a B1 unit without A2 done and the school upgraded), for QA to play it from the school's levels.
+ *   "school:reveal" readies the village for the school's reveal ([readyReveal]: the school standing, every unit of A1 done,
+ *   A2 begun) and the school opens: a level a bit at a time (companion/COURSE.md, "What the school shows").
  * - "sheet:<unit>/<sheet>": the class readied (as "school") and that sheet of the unit played at once ("sheet:sedanjik/
  *   sedanjik-3", "sheet:biti/test": the unit's test), as its button in the unit starts it ([sheetOf]): a sheet's
  *   corrections looked at without playing the units before it.
@@ -349,7 +351,7 @@ object QaHooks {
     fun handle(
         command: String?, road: (String) -> Unit = {}, forms: () -> Unit = {}, step: (String, Int) -> Unit = { _, _ -> }, audio: (String) -> Unit = {},
         season: () -> Unit = {}, ready: () -> Unit = {}, chat: (String) -> Unit = {}, cheat: (List<String>) -> Unit = {}, school: () -> Unit = {},
-        schoolUnit: (String) -> Unit = {},
+        schoolUnit: (String) -> Unit = {}, schoolReveal: () -> Unit = {},
         shadow: (String) -> Unit = {}, counting: (String) -> Unit = {}, dev: (String) -> Unit = {}, pair: (String) -> Unit = {},
         grow: (si.lanisce.lani.game.Age) -> Unit = {}, formsCard: (String, String) -> Unit = { _, _ -> }, data: () -> Unit = {}, tutorLive: (String) -> Unit = {},
         review: () -> Unit = {}, numbers: (String) -> Unit = {}, event: (String) -> Unit = {}, hearths: (String) -> Unit = {},
@@ -432,6 +434,7 @@ object QaHooks {
             command.startsWith("cheat:") -> cheat(command.removePrefix("cheat:").split(',').map { it.trim() }.filter { it.isNotEmpty() })
             command == "school" -> school()
             command.startsWith("sheet:") -> sheetOf(command.removePrefix("sheet:"))?.let { (unit, id) -> sheet(unit, id) }
+            command == "school:reveal" -> schoolReveal()
             command.startsWith("school:") -> command.removePrefix("school:").trim().takeIf { it.isNotEmpty() }?.let(schoolUnit)
             command.startsWith("build:") -> {
                 val name = command.removePrefix("build:").trim().uppercase()
@@ -506,6 +509,40 @@ object QaHooks {
         val c = r.course ?: si.lanisce.lani.game.CourseProgress()
         val opened = si.lanisce.lani.game.School.key(language, level)
         return r.copy(course = c.copy(units = c.units - si.lanisce.lani.game.School.key(language, unit), opened = c.opened + (opened to (c.opened[opened] ?: today.toString()))))
+    }
+
+    /**
+     * [s] ready for the school's reveal ("school:reveal"; companion/COURSE.md, "What the school shows"): the school standing
+     * (on a free plot of the age, else the next age's first), undamaged; every written unit of A1 done (one done before as
+     * it was); A2 as QA wants it, whatever the copy's learner did there: its first written unit done and its second begun
+     * (with only one written, that one begun). Its level opens as the school opens ([School.opened]). A debug build's, on
+     * the dev bridge's copy.
+     */
+    fun readyReveal(s: si.lanisce.lani.game.GameState, course: si.lanisce.lani.data.Course, today: java.time.LocalDate, now: Long): si.lanisce.lani.game.GameState {
+        val schoolType = si.lanisce.lani.game.BuildingType.SCHOOL
+        var r = if (s.age < si.lanisce.lani.game.Age.ZASELEK) s.copy(age = si.lanisce.lani.game.Age.ZASELEK) else s
+        if (r.buildings.none { it.type == schoolType }) {
+            val plots = si.lanisce.lani.game.PLOTS_PER_AGE[r.age.ordinal]
+            val free = (0 until plots).firstOrNull { p -> r.buildings.none { it.type.onPlot && it.plot == p } }
+            val next = si.lanisce.lani.game.Age.entries.getOrNull(r.age.ordinal + 1)
+            if (free == null && next != null) r = r.copy(age = next)
+            r = r.copy(buildings = r.buildings + si.lanisce.lani.game.Building("school-qa", schoolType, free ?: plots, builtAt = now))
+        }
+        r = r.copy(buildings = r.buildings.map { if (it.type == schoolType) it.copy(damaged = false) else it })
+        val k = { id: String -> si.lanisce.lani.game.School.key(course.language, id) }
+        val before = today.minusDays(1).toString()
+        val doneThen = si.lanisce.lani.game.UnitProgress(started = before, introDone = true, done = before)
+        val c = r.course ?: si.lanisce.lani.game.CourseProgress()
+        val a1 = course.playable("A1").associate { k(it.id) to (c.units[k(it.id)]?.takeIf { p -> p.done != null } ?: doneThen) }
+        val a2 = course.playable("A2")
+        val begun = si.lanisce.lani.game.UnitProgress(started = today.toString(), intro = 2)
+        val a2Now = when {
+            a2.size >= 2 -> mapOf(k(a2[0].id) to doneThen, k(a2[1].id) to begun)
+            a2.size == 1 -> mapOf(k(a2[0].id) to begun)
+            else -> emptyMap()
+        }
+        val a2Keys = course.refs("A2").map { k(it.id) }.toSet()
+        return r.copy(course = c.copy(units = c.units.filterKeys { it !in a2Keys } + a1 + a2Now))
     }
 
     /**

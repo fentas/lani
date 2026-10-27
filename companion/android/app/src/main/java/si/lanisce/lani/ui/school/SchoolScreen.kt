@@ -14,7 +14,9 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -27,6 +29,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -34,8 +39,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -57,14 +64,16 @@ import si.lanisce.lani.l10n.inBase
 import si.lanisce.lani.l10n.inTarget
 import si.lanisce.lani.ui.BigButton
 import si.lanisce.lani.ui.GradientHeader
+import si.lanisce.lani.ui.LaniSheet
 import si.lanisce.lani.ui.SpeakButton
 import si.lanisce.lani.ui.backLabel
 import si.lanisce.lani.ui.game.NextAgeRow
 import si.lanisce.lani.ui.theme.AlpineGreen
 import si.lanisce.lani.ui.theme.XpGold
 
-// "🏫 Šola · School" (companion/GAME.md, "The school"): the class from the hamlet on, the course's levels and units, the
-// unit suggested next (★), what opens the next level; and the school on the linden's and the school's cards.
+// "🏫 Šola · School" (companion/GAME.md, "The school"): the class from the hamlet on, the course's levels and units a bit
+// at a time (School.reveal: the rest folded), the unit suggested next (★), what opens the next level; and the school on the
+// linden's and the school's cards.
 
 /** The school's name now, by where the class meets: "Pouk ob ognju", "Pouk pod lipo", "Šola"; "Šola" before it begins. */
 internal fun schoolTitle(s: GameState?): String = when {
@@ -144,8 +153,9 @@ fun SchoolScreen(vm: AppViewModel) {
                 }
             }
         }
-        for (level in School.levels(s, course)) {
-            item("level-${level.level}") { LevelSection(vm, s, course, level) }
+        // a level a bit at a time: the open levels and the first closed one, each with its units in view and the rest folded
+        for (view in School.reveal(s, course)) {
+            item("level-${view.state.level}") { LevelSection(vm, s, course, view) }
         }
         item { ReadSetting(vm, Modifier.padding(horizontal = 20.dp, vertical = 8.dp)) }
         if (course.machineWritten) item {
@@ -211,10 +221,17 @@ private fun NextCard(vm: AppViewModel, course: Course, ref: UnitRef) {
     }
 }
 
-/** A course level: its progress, its units (✓ done, ★ next, open, 🔒 locked, 📝 coming), what opens it. */
+/**
+ * A course level: its progress, what opens it (closed), its units as [School.reveal] shows them (✓ done, ★ next, ▶️ begun,
+ * open; a level done behind one line, "✅ 18 opravljenih enot", that shows them), the rest folded into one quiet line
+ * ("📝 Še 9 enot v A2") that lists them, and its booklet.
+ */
 @Composable
-private fun LevelSection(vm: AppViewModel, s: GameState, course: Course, level: School.LevelState) {
+private fun LevelSection(vm: AppViewModel, s: GameState, course: Course, view: School.LevelView) {
+    val level = view.state
     val next = School.next(s, course)
+    var doneShown by rememberSaveable(level.level) { mutableStateOf(false) }
+    var listing by rememberSaveable(level.level) { mutableStateOf(false) }
     Column(Modifier.padding(horizontal = 16.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Box(Modifier.size(40.dp).clip(RoundedCornerShape(12.dp)).background(if (level.open) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceVariant), contentAlignment = Alignment.Center) {
@@ -235,9 +252,81 @@ private fun LevelSection(vm: AppViewModel, s: GameState, course: Course, level: 
             progress = { level.done.toFloat() / level.of }, modifier = Modifier.fillMaxWidth().height(6.dp).clip(CircleShape), color = XpGold,
         )
         if (!level.open) GateCard(vm, s, level)
-        for (ref in course.refs(level.level)) UnitRow(vm, s, course, ref, School.status(s, course, ref, next))
+        if (view.complete) QuietLine(
+            "✅ ${bi("school.unitsAllDone", "n" to view.rows.size)}", if (doneShown) "⌃" else "⌄",
+            action = if (doneShown) bi("school.hideUnits") else bi("school.showUnits"),
+            state = if (doneShown) bi("school.unitsShown") else bi("school.unitsHidden"),
+        ) { doneShown = !doneShown }
+        if (!view.complete || doneShown) for (ref in view.rows) UnitRow(vm, s, course, ref, School.status(s, course, ref, next))
+        if (view.folded.isNotEmpty()) QuietLine(foldedLine(view), "›", action = bi("school.listUnits")) { listing = true }
         // the level's sheets on paper, a booklet (companion/COURSE.md, "Printed sheets"); a row's 🖨️ says here what went wrong
         PrintButton(vm, Prints.booklet(course, level.level), bi("school.printAll"), troubleOf = { it.level == level.level })
+    }
+    if (listing) FoldedSheet(vm, course, view) { listing = false }
+}
+
+/** "📝 Še 9 enot v A2 · 9 more units in A2" (rows above it), "📝 14 enot v A2 · 14 units in A2" (none): a level's folded units. */
+internal fun foldedLine(view: School.LevelView): String =
+    "📝 ${bi(if (view.rows.isEmpty()) "school.foldedAll" else "school.foldedMore", "n" to view.folded.size, "level" to view.state.level)}"
+
+/**
+ * A quiet line under a level's units: [text], a [mark] at its end; a tap does [onClick]. TalkBack reads it as a button
+ * with its count, [action] what the tap does, [state] (shown or hidden) when it folds something in place.
+ */
+@Composable
+internal fun QuietLine(text: String, mark: String, action: String, state: String? = null, onClick: () -> Unit) {
+    Row(
+        Modifier.fillMaxWidth().heightIn(min = 48.dp).clip(MaterialTheme.shapes.small)
+            .clickable(role = Role.Button, onClickLabel = action, onClick = onClick)
+            .semantics { if (state != null) stateDescription = state }
+            .padding(horizontal = 14.dp, vertical = 6.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(text, Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text(mark, style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(start = 8.dp).clearAndSetSemantics {})
+    }
+}
+
+/**
+ * A level's folded units ([School.LevelView.folded]), listed read-only: a written one with what it waits for (later, or
+ * locked with its level) and its 🖨️, a planned one "📝 Kmalu · Coming".
+ */
+@Composable
+private fun FoldedSheet(vm: AppViewModel, course: Course, view: School.LevelView, onDismiss: () -> Unit) {
+    LaniSheet(onDismissRequest = onDismiss) {
+        LazyColumn(Modifier.fillMaxWidth(), contentPadding = PaddingValues(start = 20.dp, end = 12.dp, bottom = 24.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            item {
+                Column(Modifier.padding(bottom = 8.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Text(foldedLine(view), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, modifier = Modifier.semantics { heading() })
+                    Text(
+                        if (view.state.open) bi("school.foldedNote") else bi("school.foldedClosedNote", "level" to view.state.level),
+                        style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            }
+            items(view.folded, key = { it.id }) { ref -> FoldedRow(vm, course, view.state.open, ref) }
+            item { TextButton(onClick = onDismiss, modifier = Modifier.heightIn(min = 48.dp)) { Text(bi("common.close")) } }
+        }
+    }
+}
+
+/** A folded unit: its picture, title and where it stands; nothing to tap but its 🖨️. */
+@Composable
+private fun FoldedRow(vm: AppViewModel, course: Course, open: Boolean, ref: UnitRef) {
+    val unit = course.units[ref.id]
+    val line = when {
+        unit == null || ref.planned -> "📝 ${bi("school.planned")}"
+        !open -> "🔒 ${bi("school.locked")}"
+        else -> "○ ${bi("school.later")}"
+    }
+    Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).alpha(if (unit == null) 0.6f else 1f), verticalAlignment = Alignment.CenterVertically) {
+        Text(unit?.emoji ?: "📘", style = MaterialTheme.typography.titleLarge, modifier = Modifier.clearAndSetSemantics {})
+        Spacer(Modifier.width(12.dp))
+        Column(Modifier.weight(1f).padding(vertical = 6.dp)) {
+            Text(ref.titleShown(L10n.pair), style = MaterialTheme.typography.titleSmall, maxLines = 2, overflow = TextOverflow.Ellipsis)
+            Text(line, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+        if (unit != null) Prints.sheet(course, ref.id)?.let { PrintIcon(vm, it) }
     }
 }
 
