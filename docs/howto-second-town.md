@@ -73,10 +73,13 @@ companion/bin/lani-town name "Borgo sul Collio" --profile luka  # optional: thei
 ```
 
 Then each app shows the other town under the village scroll's "👥 Prebivalci" → "🤝 Prijatelji · Friends",
-with "Obišči · Visit".
+with "Obišči · Visit". When the second learner is a child, `link` makes your town their guardian: you see their
+progress in detail ("📈 Napredek · Progress" on their card; companion/README.md, "Progress between towns"), and their
+app says so. For a link made before, or by an invitation: `companion/bin/lani-town guardian default --profile luka`.
 
 ## 7. Check
 
 - `companion/bin/lani-session --list` shows both learners, their villages and whether their bridges run.
-- `companion/bin/lani-town list` and `lani-town list --profile luka` show the link on both sides.
+- `companion/bin/lani-town list` and `lani-town list --profile luka` show the link on both sides, and what each town
+  shares of its learning with the other (`SHARES`, `THEY SHARE`).
 - On a visit from Jan's phone the labels switch to Italian ("🧳 In visita").

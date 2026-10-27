@@ -38,7 +38,7 @@ Android app ──HTTP/SSE──► bridge service ◄──unix socket (MCP)─
 | `bin/lani-profile` | Adds a learner (their own data, bridge port, tmux session and tokens) and shows how to publish, start and pair them. |
 | `bin/lani-pair` | Pairs a phone with a learner's tutor: prints a one-time QR code; lists and unpairs phones (see [Pair a phone](#pair-a-phone)). |
 | `bin/lani-send-app` | Sends the app (the newest APK of the release directory) to a phone over Tailscale (Taildrop), no cable (see [Android app](#android-app)). |
-| `bin/lani-town` | Links learners' towns: invitations (a one-time QR code), accepting one, linking two towns of this node, unlinking (see [Towns](#towns)). |
+| `bin/lani-town` | Links learners' towns: invitations (a one-time QR code), accepting one, linking two towns of this node, unlinking; what each town shares of its learning, a child's guardian (see [Towns](#towns), [Progress between towns](#progress-between-towns)). |
 | `bin/lani-handover` | Moves a learner's data between this node and their phone through the data repository: hands it over (the lease, then the town's key as a QR code), takes it back (`--take`), says who writes (`--status`) (see [Data: git, the handover, the backup](#data-git-the-handover-the-backup)). |
 | `bin/lani-export`, `bin/lani-import` | A learner's data as one file and back (`lani.export/v1`), to move them between this node and the app's hosted mode (see [Lani on this phone](#lani-on-this-phone-no-node)). |
 | `bin/voice-build` | Counts and prebuilds the voice clips (see [Voice](#voice)). |
@@ -354,7 +354,9 @@ Towns are linked only by invitation. There is no directory, and a town sees only
 linked with. A linked town can be visited ([Visiting](#visiting)), in its language: its people talked with, its
 requests done, a gift or a message left, its market traded at ([Things to do on a visit](#things-to-do-on-a-visit)),
 its learner asked a question, which they answer in that language ([Questions between towns](#questions-between-towns)).
-Linked towns grow a friendship that both agree on ([Friendship between towns](#friendship-between-towns)).
+Linked towns grow a friendship that both agree on ([Friendship between towns](#friendship-between-towns)). Each learner
+decides what a linked town sees of their learning: just the village, a summary or details; a child's parent sees the
+child's details ([Progress between towns](#progress-between-towns)).
 
 On one node (the family node), every learner's bridge is a town of its own, on its own port. The towns talk to each
 other over HTTP as if they were on different machines, so the same protocol works between nodes later.
@@ -383,10 +385,13 @@ invitation; `link`: the node linked two of its towns), and its address on the re
   companion/bin/lani-town link default luka                # two towns of this node, directly
   companion/bin/lani-town unlink luka [--profile mia]      # a profile, a town id or a name; both ways
   companion/bin/lani-town name "Vas pod Sabotinom"         # the village's name other towns see (--clear)
+  companion/bin/lani-town share luka details               # what this town shares of its learning with that one
+  companion/bin/lani-town guardian default --profile luka  # that town is the child's guardian's (--clear)
   ```
 
-  `invite`, `accept` and `name` take `--profile` like `lani-pair`; `invite` and `accept` also take `--url`, where
-  this town's bridge answers other towns.
+  `invite`, `accept`, `name` and `share` take `--profile` like `lani-pair`; `invite` and `accept` also take `--url`,
+  where this town's bridge answers other towns. `list` shows what each town shares with the other (`SHARES`, `THEY
+  SHARE`). `link` of an adult's and a child's town makes the adult's the child's guardian (`--no-guardian`: not).
 
 **The invitation** is `lani://town?v=1&u=<the inviting bridge's URL>&c=<code>&f=<its fingerprint>` (`fluent://town?…`
 from before the rename is read too), with `&r=<its relay address>` when the town is on a relay. The code
@@ -403,7 +408,8 @@ The inviting bridge links the other town when the code is right. So both towns k
 
 **A child's town** (a profile made with `--child`): the child's app can't invite or accept (`403`), and the
 Friends screen hides those buttons. A parent links the child's town on the node with `lani-town` (`link`, or
-`invite`/`accept` with `--profile`).
+`invite`/`accept` with `--profile`). The parent's town is the child's **guardian**: it sees the child's progress in
+detail ([Progress between towns](#progress-between-towns)).
 
 **Signed requests.** Every request between two bridges carries `x-lani-town-from` (the sender's id),
 `x-lani-town-to` (the recipient's id), `x-lani-town-time` (milliseconds), `x-lani-town-nonce` and
@@ -470,7 +476,8 @@ village's state (`game.json`):
 | `land` | the land the village stands on (GAME.md, "The land"): `kind` (its landscape: `classic`, `valley`, …) and `map` (the number its map is generated from, the land's own, not the village's seed), or `null` (a village from before generated land, drawn as the classic valley; an older bridge doesn't send it) |
 
 Nothing else leaves the town: not the resources, chest, friendships, chronicle or statistics, and nothing of the
-learner's chat, mistakes, progress, words, tokens, devices or family. A visit gets two things more, each for what it
+learner's chat, mistakes, progress, words, tokens, devices or family. The learner's progress is a route of its own,
+at the level the learner chose for each town, never more ([Progress between towns](#progress-between-towns)). A visit gets two things more, each for what it
 is for: the open requests of the town's people (without the learner's cards behind them) and the goods its market can
 spare ([Things to do on a visit](#things-to-do-on-a-visit)). The texts one town gets from another (names) are cleaned
 (one line, no `<`/`>`, at most 60 characters) and are shown as plain text only.
@@ -481,7 +488,7 @@ The app talks only to its own bridge, which asks the other towns:
 
 | Method | Path | Purpose |
 |---|---|---|
-| `GET` | `/towns` | `{self: {id, name, learner, culture, language, child, can_invite}, towns: [{id, name, learner, culture, language, linked_at, by, via, status, age?, villagers?, buildings?, date?}]}`: every linked town is asked for its public state now (3 s). `status` is `ok`, `unreachable`, `refused` (it no longer knows this town) or `bad_answer` |
+| `GET` | `/towns` | `{self: {id, name, learner, culture, language, child, can_invite}, towns: [{id, name, learner, culture, language, linked_at, by, via, status, age?, villagers?, buildings?, date?, sharing}]}`: every linked town is asked for its public state now (3 s). `status` is `ok`, `unreachable`, `refused` (it no longer knows this town) or `bad_answer`; `sharing`: what each shares of its learning with the other ([Progress between towns](#progress-between-towns)) |
 | `GET` | `/towns/:id/public` | one linked town's public state, checked and cleaned, with `fetched_at`; when the town doesn't answer, the last state had (up to a day old) with `stale: true`; `404` for a town that isn't linked, `502` with a `code` when it can't be had |
 | `GET` | `/towns/:id/villagers` | a visit: the town's people, `{town, culture, language, villagers, fetched_at, stale?}` (see [Visiting](#visiting)); `502` with a `code`: `unreachable`, `refused`, `unsupported` (its bridge is older than visits), `bad_answer` |
 | `GET` | `/towns/:id/scenes` | a visit: the town's places, `{town, culture, language, scenes, fetched_at, stale?}` (their happenings for guests too); the same answers |
@@ -496,13 +503,17 @@ The app talks only to its own bridge, which asks the other towns:
 | `POST` | `/towns/:id/questions` | `{id, text, checked?}`: a question to the town, in its language → `{ok, key, conversation, duplicate?}` |
 | `POST` | `/towns/questions/answer` | `{key, text}`: the answer to a guest's question, in this town's language → `{ok, key, sent, conversation, code?}` (`sent: false` with a `code`: kept, sent again later) |
 | `POST` | `/towns/questions/check` | `{text, town}` (a question) or `{text, key}` (an answer): the learner's tutor checks it first → `{conversation_id}` (`tq_…`; the reply comes on it) |
+| `GET` | `/towns/:id/progress` | that town's learning at the level it shares with this one ([Progress between towns](#progress-between-towns)), `?fresh=1` asked again now |
+| `PUT` | `/towns/:id/sharing` | `{share?: village\|summary\|details, weekly?}` → the link's `sharing`; `403` (`guardian`) below a guardian's floor |
+| `POST` | `/towns/:id/challenges` | `{id, type, text, hint?}`: a challenge to that town's learner → `{ok, id, at, duplicate?}` |
 | `POST` | `/towns/invite` | → `{code, link, url, fingerprint, expires_at}`; `403` (`child`) for a child |
 | `POST` | `/towns/accept` | `{invite}` (the `lani://town?…` text), or `{code, url, fingerprint}` → `{town: {id, name, learner, culture, language}}`; `400` not an invitation, `403` wrong or spent code (or a child), `409` the town isn't the one the invitation names, `410` expired, `429` too many wrong codes, `502` the town doesn't answer |
 
 Between bridges (no token; see above): `GET /town/hello` → `{v, id, public_key}`, `POST /town/join`,
 `GET /town/public`, `GET /town/villagers`, `GET /town/scenes`, `GET /town/requests` and `GET /town/market` (a visit),
 `POST /town/help`, `POST /town/gifts` and `POST /town/trade` (a visit's writes), `POST /town/questions` and
-`POST /town/answers` (a guest's question and the host's answer), and `POST /town/unlink`, with which a town lets go of
+`POST /town/answers` (a guest's question and the host's answer), `GET /town/progress` and `POST /town/challenges` (the
+learner's progress at the level shared, a challenge from the asking town's learner), and `POST /town/unlink`, with which a town lets go of
 the asking one (`lani-town unlink` sends it to a town on another node). A write's refusals are `400` (`bad_request`),
 `409` with a `code` (`not_open`, `no_deal`, `unfair`, `not_for_sale`, `too_many_open`, `not_for_a_child`, `answered`,
 `unknown_question`) and `429` (`rate_limited`); the visitor's bridge passes them on to its app as they are.
@@ -718,6 +729,69 @@ refusals are `409` with a `code` (`too_early`, `no_event`, `already_helped`, `le
 on the Friends screen: what it brings is applied once each (`GameState.guestbook`), and a friend's trouble, a move
 offered or a feast to share shows once as a notice. Help and moves also come as `town_guest` events (kind `aid`,
 `move`).
+
+### Progress between towns
+
+The sharer decides what a linked town sees of their learning (docs/plans/05-built/progress-sharing.md). Each learner
+sets it per linked town, on the friend's card in "🤝 Prijatelji · Friends" ("👁️ Kaj vidi Teo · What Teo sees"), or on
+the node with `lani-town share`:
+
+| Level | What that town sees |
+|---|---|
+| `village`: 🏡 Samo vas · Just my village | the public state only ([What a town shows](#what-a-town-shows)): nothing of the learning |
+| `summary`: 📊 Povzetek · Summary | the streak, this week's days (as dots), minutes, reviews and new words, the words known (as Napredek counts them), the level and the school's unit in progress |
+| `details`: 🔎 Podrobno · Details | the summary; the words being learned now (the 20 newest cards, with their meanings); what is hard: the error patterns with mistakes in the last four weeks (their name, how often, the trend, and the cards their mistakes name) and the cards failed in reviews lately; what is due today and this week |
+
+**The defaults:** Summary between two adults' towns and from an adult's town to a child's; Details from a child's town
+to its guardian's; Just my village from a child's town to any other. **Never shared, at any level:** the tutor chat,
+free-text answers and what was said in them (a mistake's examples: what was typed, the correction, the context; an
+error pattern's own card; its notes), the session notes, recordings, the family's messages, the raw databases. The
+answer is built field by field from read-db's output (`bridge/src/progress.ts`, `progressOf`); the asking bridge cleans
+it again (`cleanProgress`) and keeps only what the level holds.
+
+**A parent and their child.** A link of a child's town can name the other town the child's **guardian** (`guardian` in
+the child's `towns.json`): `lani-town link <adult> <child>` does (`--no-guardian`: not), `lani-town guardian <town>
+--profile <child>` too (`--clear` takes it away). The guardian's town sees Details; the child's app can't choose less
+(`403 guardian`), and the child's Friends screen says so: "👪 Tvoj starš vidi tvoj napredek · Your parent can see your
+progress". The parent can lower it on the node: `lani-town share <town> summary --profile <child>` (the level and the
+least the child's app may set, the link's `floor`). The child sees the parent's learning at what the parent shares.
+
+**Between bridges.** `GET /town/progress?base=<the asking learner's base>` (signed, linked towns only; `401` with the
+codes of [Signed requests](#link-two-towns) otherwise) answers `{v, town, level, date, child?, guardian?, base?,
+summary?, details?, challenges?}` at the level shared with the asking town. A word's `meanings` are by language: the
+card's own (in this learner's `base`), and the asking learner's base from this town's dictionary where it has one.
+`challenges` are the asking town's own challenges to this learner and how they went (answered, the tutor's score and its
+note for the sender); never another town's, never the answer. `POST /town/challenges {v, id, type, text, hint?, base?}`:
+a challenge from the asking town's learner, into the family thread as a partner challenge (once per `id`); 5 a day from
+one town and 5 waiting at once (`LANI_TOWN_CHALLENGES_PER_DAY`, `LANI_TOWN_OPEN_CHALLENGES`); a child's town takes none
+with a link or an address (`409 not_for_a_child`). The learner's databases are read at most every 30 seconds, and not at
+all for Just my village.
+
+**The app's routes** (the app token only; never the family token, never through the relay): `GET /towns`' rows have
+`sharing: {share, share_default?, guardian?, floor?, choices, theirs?, weekly?}` (what this learner shares; whether that
+town is this child's guardian and the choices the app offers; what that town said it shares with this one when asked last,
+`theirs.guardian` when this learner is its child's guardian; the weekly note). `GET /towns/:id/progress[?fresh=1]`:
+that town's progress, checked and cleaned, kept for a minute (`LANI_TOWN_PROGRESS_CACHE_MS`), the last one (up to a day
+old, `stale: true`) while the town is away, with `fetched_at` and `sharing`; `502` with a `code` (`unreachable`,
+`refused`, `unsupported`, `bad_answer`). `PUT /towns/:id/sharing {share?, weekly?}`. `POST /towns/:id/challenges {id,
+type, text, hint?}` (kept in `<data>/app/town-challenges.json`: a retry is answered the same).
+
+**In the app.** The friend's card: "👁️ Kaj vidi Teo · What Teo sees: 📊 Povzetek · Summary ▾" (a tap: the three levels and
+what each shows), "👀 Teo ti kaže · Teo shows you: …", and "📈 Napredek · Progress" (`ui/towns/TownProgressScreen.kt`):
+the summary (🔥 the streak, 📚 words known, 🆕 new this week, the week's days as dots, minutes, reviews, the level and the
+school's unit), "🌱 Besede, ki se jih uči · Words being learned" (a tap: the word's card; 🔊 in the word's language, the
+phone's text-to-speech), "🧗 Težave · Hard for Teo" (each pattern and its words, the words missed lately), what is due,
+"💌 Tvoji izzivi · Your challenges" and how they went, "💌 Pošlji izziv · Send a challenge" (prefilled from a word: its
+meaning in the other learner's base to translate, the pattern as the hint; for a child a gentle line in the child's
+base), and what this learner shares with them. **A parent's weekly note** (on the child's progress screen, "📬 Tedensko
+sporočilo · Weekly note"): each Sunday from 18:00 by the node's clock the parent's bridge sends a `town_progress` event
+("📈 Teo ta teden: 4 dnevi, 23 novih besed, težave: …"), a notification that opens the progress screen
+(`LANI_TOWN_WEEKLY_DAY`, `LANI_TOWN_WEEKLY_HOUR`, `LANI_TOWN_WEEKLY_CHECK_MS`).
+
+**The tutor** knows what is shared (`town_progress` without a town: both ways, per linked town) and says it truthfully;
+it uses another learner's shared progress (`town_progress` with the town) only when the learner asks for something with
+it, and never passes it on. Through the relay, the relay can read a progress answer as it reads the rest today
+([docs/privacy.md](../docs/privacy.md)).
 
 ## App API
 
@@ -3370,7 +3444,9 @@ The learner's family can take part in two ways:
 - **Partner challenges.** The partner writes a question, a sentence to translate, or something to
   say. Jan sees it as "💌 Od Maje · From Maja" on the home screen and as a notification, answers by
   typing or speaking, and earns wisdom in the village. The tutor gives feedback to Jan and a short
-  note that the partner sees on the family page.
+  note that the partner sees on the family page. A linked town's learner can send one too, from that
+  town's progress screen ([Progress between towns](#progress-between-towns)): it comes as "💌 Od Jana · From
+  Jan", and the tutor's note goes back to the sender's progress screen.
 
 The family page is served by the bridge at `/family`. It uses its own token,
 `<data>/app/family-token` (generated on first start, like the app token).
@@ -4005,6 +4081,8 @@ python3 tests/test_update_db.py                  # update-db.py
 python3 -m unittest discover -s tests            # update-db.py, card.py, the languages, the old names, lani.env (test_config), the data repository, lani-setup end to end
 companion/bin/qa                                 # end to end, on the lani-qa emulator
 companion/bin/qa --steps visit                   # only the visit of the second town (and setup)
+LANI_DEV_DATA=$(cd companion/bridge && bun test/fixtures/make-learner.ts /tmp/qa-parent/data) LANI_DEV_TOWN_FIXTURE=dev-town-child.json \
+  companion/bin/qa --steps friends,town-progress,town-progress-child   # a parent sees a child's progress, then the child's side
 companion/bin/qa --steps road                    # only the car's "🚗 Za pot" (and setup), a few minutes
 companion/bin/qa --steps trade                   # only a trade of food for wood (and setup), about 3 minutes
 companion/bin/qa --steps sheets-settle           # flings into the ends of Home and two sheets: each comes to rest
