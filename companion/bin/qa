@@ -10869,7 +10869,9 @@ def navigation():
     go_home()
     to_top()
     assert find(SETTINGS) and find("Prijatelji · Friends"), "Home's ⚙️ and 🤝"
-    assert scroll_to("Učenje · Learning", 1) and scroll_to("Moje besede", 1), "the learning tiles' first row within a swipe of Today"
+    # QA's swipe is a quarter of the screen (scroll_to: 600 px): the first row within three, under Today's capped calls
+    assert scroll_to("Moje besede", 3), "the learning tiles' first row within three of QA's swipes of Today"
+    assert find("Učenje · Learning"), "the learning tiles' heading"
     assert scroll_to("Slovnica", 2), "the grammar book's tile"
     shot("nav-home-tiles")
     to_top()
@@ -10889,7 +10891,8 @@ def navigation():
     # one tap each: Friends, the grammar book, My words; Back: Home
     for target, title in (("Prijatelji · Friends", "🤝 Prijatelji · Friends"), ("Slovnica", "📖 Slovnica · Grammar"), ("Moje besede", "🔤 Moje besede · My words")):
         to_top()
-        c = find(target) if target.startswith("Prijatelji") else scroll_to(target, 2, exact=True)
+        # a tile is one node (its title, its base and its status merged): found by its title within it, a few swipes down
+        c = find(target) if target.startswith("Prijatelji") else scroll_to(target, 6)
         assert c, f"Home's {target}"
         tap_at(c)
         assert wait_for(title, 8) and find("‹ Domov · Home"), f"{title}, Home under it"
