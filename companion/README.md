@@ -498,6 +498,10 @@ The app talks only to its own bridge, which asks the other towns:
 | `POST` | `/towns/:id/gift` | `{id, good?, message?}` (a good of the learner's chest, a message of at most 200 characters) → `{ok, key, kind, duplicate?}` |
 | `POST` | `/towns/:id/trade` | `{id, give: {goods, res}, get: {culture, goods}, score}`: a trade agreed in a haggle → `{ok, key, kind, duplicate?}` |
 | `POST` | `/towns/:id/talk` | `{villager}` or `{market: {give, get}}` → a role-play (`lani.scenario/v0`, id `town:<town>:<villager>` or `market:<town>:<n>`, `source: "visit"`) |
+| `POST` | `/towns/:id/voice/say` | a visit's line `{text, voice}` (a speaker of the town's cast, someone's own `@id`, or `player`) → `{url, voice, engine, from: "host" \| "node"}`, or `204` when no voice can have it now ([Voices on a visit](#voices-on-a-visit)); `400` for a text with another `lang` than the town's |
+| `GET` | `/towns/:id/voice/index` | the town's clips kept on this node: `{<normalized text>: {<voice>: <url>}}` |
+| `GET` | `/towns/:id/voice/profiles` | how the town's people are heard and the learner's own voice there: `{people: {<id>: {speaker, archetype, pitch, rate, status}}, player, language}` |
+| `GET` | `/towns/voice/file/<file>` | a visit's clip kept on this node (`audio/mpeg`) |
 | `GET` | `/towns/guests` | what guests brought this town, newest first: `{entries: [{key, id, kind, from: {id, name, learner, culture, language}, at, help?, gift?, trade?}]}` |
 | `GET` | `/towns/questions` | questions between towns ([Questions between towns](#questions-between-towns)), newest first: `{asked: [{key, id, town, at, language, text, conversation, feedback?, answer?}], received: [{key, id, from, at, language, text, answer?: {text, at, sent, conversation, feedback?}}], answered: {<town id>: n}}` |
 | `POST` | `/towns/:id/questions` | `{id, text, checked?}`: a question to the town, in its language → `{ok, key, conversation, duplicate?}` |
@@ -513,7 +517,8 @@ Between bridges (no token; see above): `GET /town/hello` → `{v, id, public_key
 `GET /town/public`, `GET /town/villagers`, `GET /town/scenes`, `GET /town/requests` and `GET /town/market` (a visit),
 `POST /town/help`, `POST /town/gifts` and `POST /town/trade` (a visit's writes), `POST /town/questions` and
 `POST /town/answers` (a guest's question and the host's answer), `GET /town/progress` and `POST /town/challenges` (the
-learner's progress at the level shared, a challenge from the asking town's learner), and `POST /town/unlink`, with which a town lets go of
+learner's progress at the level shared, a challenge from the asking town's learner), `GET /town/voice` and
+`GET /town/voice/cast` (a visit's voices: [Voices on a visit](#voices-on-a-visit)), and `POST /town/unlink`, with which a town lets go of
 the asking one (`lani-town unlink` sends it to a town on another node). A write's refusals are `400` (`bad_request`),
 `409` with a `code` (`not_open`, `no_deal`, `unfair`, `not_for_sale`, `too_many_open`, `not_for_a_child`, `answered`,
 `unknown_question`) and `429` (`rate_limited`); the visitor's bridge passes them on to its app as they are.
@@ -540,8 +545,9 @@ isn't answering (then its last state shows). The app still talks only to its own
   its last state with when it was had.
 - **The town's language.** During a visit every label, villager line and scene word is in the host town's language,
   explained in the visitor's base: Jan (Slovene from English) visiting an Italian town reads "Italian · English"; the
-  second learner (Italian from Slovene) visiting Jan's town reads "Slovene · Italian". The phone's voice speaks the town's
-  language (the node's voices speak the learner's own). The own pair and culture come back on leaving.
+  second learner (Italian from Slovene) visiting Jan's town reads "Slovene · Italian". The town speaks in its own cast's
+  voices: its own clips, else the visitor's node voices the line in them, else the phone's voice of the town's language
+  ([Voices on a visit](#voices-on-a-visit)). The own pair and culture come back on leaving.
 - **A guest.** Nothing of the host changes but through the things to do on a visit (below), and the visitor's own
   village waits (no days pass on the phone during a visit). A place's card shows its name and the ways into its scenes,
   and "🧳 Tukaj si gost · You're a guest here" instead of building, gathering, feeding the fire, the chest or projects.
@@ -549,6 +555,66 @@ isn't answering (then its last state shows). The app still talks only to its own
   the visitor's dictionary, "ask the tutor") and "💬 Pogovori se · Talk". A scene can be walked into, its things tapped
   for their words, and its people talked with: its dialogs, the ones meant for guests among them. A word of the visit
   added to the learner's words goes to their words in the town's language (`POST /words` with its `language`).
+- **Look and learn, as at home.** What only looks or teaches works on a visit as in the learner's own village, in the
+  town's language: the night sky (the moon, a star, a constellation, a planet, the Milky Way, a shooting star: its card,
+  its lines and words to tap; TalkBack's "🌌 Nebo nocoj · Tonight's sky"), over the map and over an outdoor place; a wild
+  animal at the forest's edge (its word's card); a spot its culture tells about (the charcoal pile: its history at the
+  learner's level and its words). Not a pack's run or the almanac's reading from a sky card, whose results are kept in
+  the learner's own village (docs/plans/05-built/visit-voices.md has the whole list).
+
+### Voices on a visit
+
+A visit sounds like the town (docs/plans/05-built/visit-voices.md). Teo, a child learning Italian from German on a
+Samsung tablet, visited Jan's Slovene village and heard nothing: the node's clips were his own village's, and the tablet
+has no Slovene voice. Now each line of a visit (a villager's greeting, a scene's dialog, a talk's reply, the learner's own
+line) is heard in the first of these that can say it:
+
+1. **The host's own clip.** The visitor's app asks its own bridge (`POST /towns/:id/voice/say {text, voice}`), which asks
+   the host: `GET /town/voice?v=1&text=…&voice=…[&voice=…][&gender=…]` (signed both ways, linked towns only). The host
+   answers with the clip of that text in the first of those voices its store has, as its own app would get it (a Slovene
+   narrator's in Nina's or Luka's voice, else its local one; `player` is the voice its cast says a learner's lines in for
+   that `gender`): `{v, town, language, voice, engine, bytes, audio}`, the MP3 in base64. Only a clip there: nothing is
+   made, asked for or counted on the host, and a file is only ever one of its store's own MP3s, at most 768 KB
+   (`no_clip`, `404`, otherwise). At most 900 asks an hour from a town (`LANI_TOWN_VOICE_PER_HOUR`; `429` beyond). The
+   visitor's bridge checks the answer (that town, a voice asked, an MP3 within the size) and keeps it.
+2. **The visitor's node voices it** in the host's cast voice, when the host has no clip: `GET /town/voice/cast` gives the
+   host's speakers (the ElevenLabs voice each speaks the town's language with: in a Slovene town the narrators' Nina and
+   Luka, Babica's Zlata; the local Gepard voices for a Slovene town; the filter and pace each voice has), the voice its
+   cast says a learner's lines in by gender, and how its people are heard (their own voice `@id` or their archetype, pitch
+   and pace). Kept for ten minutes, the last one for a day while the town is away; a town older than this has its culture
+   pack's cast as the visitor's copy of the pack has it. The node's engines and their rules: ElevenLabs as a live line
+   (the live lines' rate window, the reserve), in the town's language (`language_code`), a lone word of a carrier voice
+   in that language's carrier sentence; then the local Gepard worker, for a Slovene town only (it speaks nothing else).
+   Drama 3 makes batch clips only, never a live line. Someone with a voice of their own (designed in the host's
+   ElevenLabs account) is voiced in their archetype's. Each take goes through the voice's filter, pace, edges and level,
+   as the store keeps a clip.
+3. **A clip in a voice it falls back to** (their gender's narrator, the other narrator), kept or the host's; never for the
+   learner's own line.
+4. **Else `204`**: the phone speaks it: its offline voice of the town's language (Piper, [Offline on the
+   phone](#offline-on-the-phone)), then Android's text-to-speech when it has the language.
+5. **Else a note, never silence without one**: the first line of a visit nothing could say offers the town language's
+   offline voice when the node has it ("🗣️ Prenesi slovenski glas za obiske (61 MB)? · Download the Slovene voice for
+   visits?" in the visit's labels); "Ne zdaj · Not now" is remembered for that language, and later visits say "🔇 Ta
+   naprava nima glasu za slovenščino · No Slovene voice on this device" instead, once a visit, with "⬇️ Prenesi (61 MB)".
+   Without a node to download it from (the hosted mode), the note alone. The line's text stays on screen.
+
+The learner's own lines (a choice tapped, a turn typed right; not one said into the 🎤) follow the town the same way:
+asked as `player`, they are the host's clip in the voice its cast gives the visitor's gender, else voiced on the
+visitor's node in that voice, else the phone's.
+
+**What the visitor keeps.** `<voice dir>/visits/` (`index.json`, `files/<sha1>.mp3`), apart from the village's own clips:
+per town, voice and line, with the town's language, where it came from (`host`, `node`), the engine and its voice. At
+most 100 MB (`LANI_VISIT_VOICE_MB`), the least recently played going first; a town no longer linked, all its clips. No
+pass of the village's store (re-voice, level, stale clips, `voice-build`) ever sees them. A line the host had no clip of
+isn't asked again for ten minutes (`LANI_VISIT_VOICE_MISS_MS`), nor a town whose bridge is older than this.
+
+**The app.** On a visit the speaker's clips are the town's (`data/Clips.kt` with the visit's routes, `ClipRoutes.visit`):
+the index of what the node keeps of the town, in memory for the visit only; its files in the clip cache, within the
+learner's cap; the town's people's pitch and pace. No re-record (a long press says it can't), no prefetch. The phone's
+offline voice speaks the town's language when it is on the phone; the settings' "🔊 Zvok brez povezave · Offline audio"
+lists the voices for visits, each with "🗑️ Odstrani · Remove".
+
+**Through the relay** as any town's route: a town only on the relay hands its clips on through it (`test/relay.ts`).
 
 ### Things to do on a visit
 
@@ -1871,7 +1937,8 @@ ready on Wi-Fi, within the learner's cap ([Offline on the phone](#offline-on-the
 plays, in this order: a family recording, a node clip on the phone, a clip the node makes on request (`POST /voice/say`;
 a new line waits up to 8 s for it, since ElevenLabs takes a few seconds, and a node that can't make it answers at once),
 a clip on the phone in another of the speaker's voices, the phone's offline voice (Piper, when it's on the phone, in
-its own language only), then Android TTS, which is only the last fallback. 🐢 plays clips at 0.75×. The village's background sounds duck under every voice, and stop while the microphone
+its own language only), then Android TTS, which is only the last fallback. On a visit, the town's own clips and voices
+come first ([Voices on a visit](#voices-on-a-visit)). 🐢 plays clips at 0.75×. The village's background sounds duck under every voice, and stop while the microphone
 records ([GAME.md](GAME.md#background-sounds)).
 
 **The voice cast.** Who speaks is in `voice-cast.json`: each speaker has an ElevenLabs voice, a
@@ -2634,8 +2701,9 @@ computer by Fish Audio Drama 3, "Built with Fish Audio"), and with it wanted the
 it go.
 
 It speaks when no clip of the line is on the phone and the node can't make one now (offline, an error, a clip that won't
-play), before Android's TTS, and only in its own language: on a visit to a town in another language Android's TTS speaks
-as before. Normal speed, and 🐢 at 0.75 through the voice's length scale (the speech slower, not the playback), then
+play), before Android's TTS, and only in its own language: on a visit to a town in another language, the voice of that
+language when it is on the phone (offered on the visit's first line nothing could say: [Voices on a
+visit](#voices-on-a-visit)), else Android's TTS. Normal speed, and 🐢 at 0.75 through the voice's length scale (the speech slower, not the playback), then
 played at the person's pitch and pace like a clip. Its speech comes out about 3.5 dB under the clips (−21.8 LUFS), so
 it is made 1.5 times louder, its peak held under −1 dBFS (the sample below: −17.6 LUFS, the clips' level being −18).
 The model loads on the first line and is let go after 5 minutes without one; what it said is kept as WAV (the newest
@@ -4083,6 +4151,7 @@ companion/bin/qa                                 # end to end, on the lani-qa em
 companion/bin/qa --steps visit                   # only the visit of the second town (and setup)
 LANI_DEV_DATA=$(cd companion/bridge && bun test/fixtures/make-learner.ts /tmp/qa-parent/data) LANI_DEV_TOWN_FIXTURE=dev-town-child.json \
   companion/bin/qa --steps friends,town-progress,town-progress-child   # a parent sees a child's progress, then the child's side
+companion/bin/qa --steps visit-voices,visit-voices-silent,visit-sky   # a visit's voices on a tablet without Slovene (a synthetic Italian learner from German, the Slovene fixture town with its own clips, a fake ElevenLabs; LANI_DEV_TOWN_PORT of your own): the town's clip, one voiced on the node, the offer, Ne zdaj, the 🔇 note, the download, Piper; the moon's card on the visit in sl · de
 companion/bin/qa --steps road                    # only the car's "🚗 Za pot" (and setup), a few minutes
 companion/bin/qa --steps trade                   # only a trade of food for wood (and setup), about 3 minutes
 companion/bin/qa --steps sheets-settle           # flings into the ends of Home and two sheets: each comes to rest
