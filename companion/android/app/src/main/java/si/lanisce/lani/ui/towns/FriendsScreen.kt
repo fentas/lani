@@ -76,6 +76,8 @@ import si.lanisce.lani.data.GuestEntry
 import si.lanisce.lani.data.InviteLink
 import si.lanisce.lani.data.InviteParse
 import si.lanisce.lani.data.InviteProblem
+import si.lanisce.lani.data.LinkRequest
+import si.lanisce.lani.data.TownChild
 import si.lanisce.lani.data.TownInvite
 import si.lanisce.lani.data.Towns
 import si.lanisce.lani.game.Chest
@@ -90,17 +92,25 @@ import si.lanisce.lani.ui.theme.XpGold
 
 /**
  * "Prijatelji · Friends": the towns linked with this learner's (companion/README.md, "Towns"), each with its learner,
- * language, age and a picture in emojis; "Povabi · Invite" shows an invitation as a QR code, "Sprejmi · Accept" takes
- * one (scanned or pasted). A child's app shows the towns only: a parent links them on the node. "Obišči · Visit" opens
- * a linked town, read-only, in its language (VisitScreen). Each town's card shows the friendship both towns agree on
- * ("Friendship between towns"), what its next level brings, and what can be done now: help against its trouble, a feast
- * to share, a move offered or to offer, each with its button; and what each town shares of its learning with the other,
- * with "📈 Napredek · Progress" (TownShare.kt, "Progress between towns").
+ * language, age and a picture in emojis; "Povabi · Invite" shows an invitation as a QR code of its web link (first saying
+ * when only the towns of this computer can accept it), "Sprejmi · Accept" takes one (scanned, pasted, or opened from a
+ * link: then filled in). A child's app invites and accepts too, and its links wait for a parent ("⏳ Čaka na starša ·
+ * Waiting for your parent", each to take back); a parent's app shows their children ("👪 Tvoji otroci · Your children"):
+ * what waits for their yes, with the other town's village, and their own child's town of the node to link as its parent.
+ * "Obišči · Visit" opens a linked town, read-only, in its language (VisitScreen). Each town's card shows the friendship
+ * both towns agree on ("Friendship between towns"), what its next level brings, and what can be done now: help against
+ * its trouble, a feast to share, a move offered or to offer, each with its button; and what each town shares of its
+ * learning with the other, with "📈 Napredek · Progress" (TownShare.kt, "Progress between towns"). A town that waits for
+ * its own parent shows that, and nothing else yet.
  */
 @Composable
 fun FriendsScreen(vm: AppViewModel) {
     val towns = vm.towns
     var accepting by rememberSaveable { mutableStateOf(false) }
+    // the step before an invitation that only this computer's towns can accept
+    var onlyHere by rememberSaveable { mutableStateOf(false) }
+    // an invitation opened from a link: the Accept dialog, filled in
+    LaunchedEffect(towns.incoming) { if (towns.incoming != null && vm.hosted.townsAvailable) accepting = true }
     BackHandler { vm.openVillage() }
     LaunchedEffect(Unit) {
         towns.load()
@@ -123,7 +133,10 @@ fun FriendsScreen(vm: AppViewModel) {
             if (!vm.hosted.townsAvailable) item(key = "relay") { Note("🛰️ ${bi("hosted.townsNeedRelay")}") }
             if (vm.hosted.townsAvailable && FriendsLogic.canLink(list)) item(key = "actions") {
                 Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    FilledTonalButton(onClick = towns::makeInvite, enabled = !towns.inviting, modifier = Modifier.weight(1f).heightIn(min = 52.dp)) {
+                    FilledTonalButton(
+                        onClick = { if (FriendsLogic.onlyThisNode(list?.self)) onlyHere = true else towns.makeInvite() },
+                        enabled = !towns.inviting, modifier = Modifier.weight(1f).heightIn(min = 52.dp),
+                    ) {
                         Text("✉️ ${bi("towns.invite")}", textAlign = TextAlign.Center)
                     }
                     FilledTonalButton(onClick = { accepting = true }, modifier = Modifier.weight(1f).heightIn(min = 52.dp)) {
@@ -131,7 +144,24 @@ fun FriendsScreen(vm: AppViewModel) {
                     }
                 }
             }
-            if (list?.self?.child == true) item(key = "child") { Note("👨‍👩‍👦 ${bi("towns.parentLinksChild")}") }
+            when {
+                // a child's links wait for a parent: who says yes
+                list?.self?.parentApproves == true -> item(key = "child") { Note(FriendsLogic.parentLine(list.self)) }
+                // a child's bridge from before: only a parent on the node links it
+                list?.self?.child == true -> item(key = "child") { Note("👨‍👩‍👦 ${bi("towns.parentLinksChild")}") }
+            }
+            // a parent's children: what waits for their yes, and their own child's town of this node to link
+            val kids = FriendsLogic.children(towns.children?.children)
+            if (kids.isNotEmpty()) {
+                item(key = "kids-title") { SectionTitle("👪 ${bi("towns.yourChildren")}") }
+                items(kids, key = { "kid:" + it.id.ifBlank { it.profile.orEmpty() } }) { c -> ChildCard(c, towns.busy, onLink = { towns.linkChild(c) }, onDecide = { r, yes -> towns.decide(c, r, yes) }) }
+            }
+            // a child's own links that wait for the parent, and how those of this week went
+            val waiting = list?.requests.orEmpty()
+            if (waiting.isNotEmpty()) {
+                item(key = "waiting-title") { SectionTitle("⏳ ${bi("towns.waitingForParent")}") }
+                items(waiting, key = { "req:" + it.id }) { r -> WaitingRow(r, busy = r.id in towns.busy, onTakeBack = { towns.withdraw(r) }) }
+            }
             when {
                 list == null && towns.loading -> item(key = "loading") {
                     Box(Modifier.fillMaxWidth().padding(32.dp), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
@@ -159,17 +189,22 @@ fun FriendsScreen(vm: AppViewModel) {
                 }
             }
             items(rows, key = { it.id }) { row ->
-                // the friendship with this town (data/Friendship.kt): its level, what it brings next, what can be done now
-                val f = towns.friendships?.towns?.firstOrNull { it.id == row.id }
-                val state = vm.game.state
-                val child = list?.self?.child == true
-                val notices = remember(f, state, child) {
-                    f?.let { FriendsLogic.notices(it, state, state?.let { s -> Chest.feastOption(s, LocalDate.now()) }, child) }.orEmpty()
-                }
-                val town = list?.towns?.firstOrNull { it.id == row.id }
-                FriendCard(row, f, notices, busy = towns.sending, onVisit = { vm.visitTown(row.id) }, onAction = { a -> f?.let { act(vm, it, a) } }) {
-                    // what each shares of its learning with the other, and "📈 Napredek · Progress" (TownShare.kt)
-                    TownShareRow(vm, row.id, town?.learner.orEmpty(), town?.sharing)
+                if (row.pending) {
+                    // a child's town that waits for its parent: that, and nothing else yet
+                    FriendCard(row, null, emptyList(), busy = false, onVisit = {}, onAction = {})
+                } else {
+                    // the friendship with this town (data/Friendship.kt): its level, what it brings next, what can be done now
+                    val f = towns.friendships?.towns?.firstOrNull { it.id == row.id }
+                    val state = vm.game.state
+                    val child = list?.self?.child == true
+                    val notices = remember(f, state, child) {
+                        f?.let { FriendsLogic.notices(it, state, state?.let { s -> Chest.feastOption(s, LocalDate.now()) }, child) }.orEmpty()
+                    }
+                    val town = list?.towns?.firstOrNull { it.id == row.id }
+                    FriendCard(row, f, notices, busy = towns.sending, onVisit = { vm.visitTown(row.id) }, onAction = { a -> f?.let { act(vm, it, a) } }) {
+                        // what each shares of its learning with the other, and "📈 Napredek · Progress" (TownShare.kt)
+                        TownShareRow(vm, row.id, town?.learner.orEmpty(), town?.sharing)
+                    }
                 }
             }
             if (list != null && towns.problem != null) item(key = "stale") { Note(towns.problem!!) }
@@ -186,8 +221,81 @@ fun FriendsScreen(vm: AppViewModel) {
         }
         StatusBarScrim(lazy, Modifier.align(Alignment.TopCenter))
     }
+    if (onlyHere) OnlyHereDialog(onInvite = { onlyHere = false; towns.makeInvite() }, onDismiss = { onlyHere = false })
     towns.invite?.let { InviteDialog(it, onDismiss = towns::closeInvite) }
-    if (accepting) AcceptDialog(vm, onDismiss = { accepting = false })
+    if (accepting) AcceptDialog(vm, child = list?.self?.parentApproves == true, onDismiss = { accepting = false; towns.clearIncoming() })
+}
+
+@Composable
+private fun SectionTitle(text: String) {
+    Text(
+        text, style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.primary,
+        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 16.dp, bottom = 4.dp).semantics { heading() },
+    )
+}
+
+/**
+ * A child of this learner's: their town; "🔗 Poveži kot starš · Link as their parent" for their town on this node; what
+ * waits for this learner's yes, each with the other town's village and "✓ Dovoli · Allow" / "Ne dovoli · Don't allow".
+ */
+@Composable
+private fun ChildCard(c: TownChild, busy: Set<String>, onLink: () -> Unit, onDecide: (LinkRequest, Boolean) -> Unit) {
+    Card(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 6.dp), shape = MaterialTheme.shapes.large, elevation = CardDefaults.cardElevation(2.dp)) {
+        Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text(FriendsLogic.childTitle(c), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+            if (c.status != "ok") Text("📡 ${bi("towns.cantBeReached")}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error)
+            if (FriendsLogic.canLinkAsParent(c)) {
+                Text(bi("towns.linkAsParentAbout", "child" to c.learner.ifBlank { c.name }), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                FilledTonalButton(onClick = onLink, enabled = c.id !in busy, modifier = Modifier.align(Alignment.End).heightIn(min = 48.dp)) {
+                    Text("🔗 ${bi("towns.linkAsParent")}", textAlign = TextAlign.Center)
+                }
+            }
+            val open = c.requests.filter { it.open }
+            if (c.guardian && open.isEmpty() && c.status == "ok") Text("✓ ${bi("towns.nothingWaits")}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            for (r in open) Surface(color = XpGold.copy(alpha = 0.12f), shape = MaterialTheme.shapes.medium, modifier = Modifier.fillMaxWidth()) {
+                Column(Modifier.padding(10.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Text("🤝 ${bi("towns.wantsFriend", "child" to c.learner.ifBlank { c.name }, "town" to r.town.name)}", style = MaterialTheme.typography.bodyMedium)
+                    Text(FriendsLogic.requestTitle(r), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
+                    // who it is: their village as it looks now (a town that doesn't answer: that)
+                    Text(FriendsLogic.previewLine(r.preview) ?: "📡 ${bi("towns.cantBeReached")}", style = MaterialTheme.typography.titleMedium)
+                    Text(FriendsLogic.viaLine(r), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Row(Modifier.align(Alignment.End), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
+                        TextButton(onClick = { onDecide(r, false) }, enabled = r.id !in busy, modifier = Modifier.heightIn(min = 48.dp)) { Text(bi("towns.dontAllow")) }
+                        FilledTonalButton(onClick = { onDecide(r, true) }, enabled = r.id !in busy, modifier = Modifier.heightIn(min = 48.dp)) { Text("✓ ${bi("towns.allow")}") }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/** A child's link that waits for the parent (to take back), or how the parent decided this week. */
+@Composable
+private fun WaitingRow(r: LinkRequest, busy: Boolean, onTakeBack: () -> Unit) {
+    Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp)) {
+        Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
+            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Text(FriendsLogic.requestTitle(r), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
+                Text(FriendsLogic.requestLine(r), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+            if (r.open) TextButton(onClick = onTakeBack, enabled = !busy, modifier = Modifier.heightIn(min = 48.dp)) { Text("↩️ ${bi("towns.takeBack")}") }
+        }
+    }
+}
+
+/** Before an invitation only this computer's towns can accept (no tailnet address, no relay): it says so first. */
+@Composable
+private fun OnlyHereDialog(onInvite: () -> Unit, onDismiss: () -> Unit) {
+    Dialog(onDismissRequest = onDismiss) {
+        Surface(shape = RoundedCornerShape(24.dp), color = MaterialTheme.colorScheme.surface) {
+            Column(Modifier.verticalScroll(rememberScrollState()).padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Text("🖥️ ${bi("towns.onlyThisComputer")}", style = MaterialTheme.typography.titleLarge)
+                Text(bi("towns.onlyThisComputerWhy"), style = MaterialTheme.typography.bodyMedium)
+                BigButton("✉️ ${bi("towns.showCodeAnyway")}", onClick = onInvite)
+                TextButton(onClick = onDismiss, modifier = Modifier.align(Alignment.End)) { Text(bi("common.close")) }
+            }
+        }
+    }
 }
 
 /** A guest's visit: who and what they brought; a message as they wrote it, plain text in quotes. */
@@ -260,7 +368,8 @@ private fun FriendCard(r: FriendRow, f: FriendTown?, notices: List<FriendNotice>
                 }
             }
             if (r.thumbnail.isNotBlank()) Text(r.thumbnail, style = MaterialTheme.typography.titleMedium, modifier = Modifier.semantics { contentDescription = r.subtitle })
-            r.status?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error) }
+            // waiting for a child's parent is no fault: said quietly
+            r.status?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = if (r.pending) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.error) }
             // the friendship both towns agree on, what the next level brings, and what can be done now
             f?.let {
                 Spacer(Modifier.height(4.dp))
@@ -297,15 +406,23 @@ private fun InviteDialog(invite: TownInvite, onDismiss: () -> Unit) {
             ) {
                 Text("✉️ ${bi("towns.invitation")}", style = MaterialTheme.typography.titleLarge)
                 Text(bi("towns.showThisCode"), style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
+                // who can accept it: only this computer's towns (an older bridge didn't ask first), this tailnet's
+                when (invite.reachNow) {
+                    Towns.REACH_NODE -> Note("🖥️ ${bi("towns.onlyThisComputer")}")
+                    Towns.REACH_TAILNET -> Text("📡 ${bi("towns.onlyTailnet")}", style = MaterialTheme.typography.bodySmall, textAlign = TextAlign.Center)
+                }
+                if (invite.parentApproves) Note("👪 ${bi("towns.parentApproves")}")
+                // the web link: the app's own scanner reads it, and a phone's camera opens the app with it (an App Link)
                 Box(Modifier.clip(RoundedCornerShape(12.dp)).background(Color.White).padding(8.dp)) {
-                    QrImage(invite.link, 240.dp, Modifier.semantics { contentDescription = bi("towns.invitation") })
+                    QrImage(invite.shareLink, 240.dp, Modifier.semantics { contentDescription = bi("towns.invitation") })
                 }
                 Text(Towns.groupCode(invite.code), style = MaterialTheme.typography.headlineSmall, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
                 minutes?.let { Text("⏳ ${bi("towns.worksOnceFor", "minutes" to it)}", style = MaterialTheme.typography.bodySmall, textAlign = TextAlign.Center) }
                 BigButton("📤 ${bi("towns.shareInvitation")}", onClick = {
                     val send = Intent(Intent.ACTION_SEND).apply {
                         type = "text/plain"
-                        putExtra(Intent.EXTRA_TEXT, invite.link)
+                        // a line of what it is, and the web link alone on its line (a messenger makes it tappable)
+                        putExtra(Intent.EXTRA_TEXT, FriendsLogic.shareText(invite))
                     }
                     runCatching { context.startActivity(Intent.createChooser(send, null)) }
                 })
@@ -331,11 +448,16 @@ private fun QrImage(text: String, size: Dp, modifier: Modifier = Modifier) {
     }
 }
 
-/** Accepting an invitation: paste its text, or scan its QR code with the camera (asked for only then). */
+/**
+ * Accepting an invitation: paste its text, scan its QR code with the camera (asked for only then), or one opened from a
+ * link, filled in (accepted only by the learner's tap). A [child]'s says that a parent says yes first.
+ */
 @Composable
-private fun AcceptDialog(vm: AppViewModel, onDismiss: () -> Unit) {
+private fun AcceptDialog(vm: AppViewModel, child: Boolean, onDismiss: () -> Unit) {
     val context = LocalContext.current
-    var text by rememberSaveable { mutableStateOf("") }
+    var text by rememberSaveable { mutableStateOf(vm.towns.incoming.orEmpty()) }
+    // another link opened while it shows
+    LaunchedEffect(vm.towns.incoming) { vm.towns.incoming?.let { text = it } }
     var message by remember { mutableStateOf<String?>(null) }
     var scanning by remember { mutableStateOf(false) }
     val permission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { ok ->
@@ -353,7 +475,8 @@ private fun AcceptDialog(vm: AppViewModel, onDismiss: () -> Unit) {
                 verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 Text("🔗 ${bi("towns.acceptInvitation")}", style = MaterialTheme.typography.titleLarge)
-                Text(bi("towns.scanOrPaste"), style = MaterialTheme.typography.bodyMedium)
+                Text(if (vm.towns.incoming != null && text == vm.towns.incoming) "✉️ ${bi("towns.invitationFilledIn")}" else bi("towns.scanOrPaste"), style = MaterialTheme.typography.bodyMedium)
+                if (child) Note("👪 ${bi("towns.parentApproves")}")
                 if (scanning) {
                     Box(Modifier.fillMaxWidth().aspectRatio(1f).clip(RoundedCornerShape(16.dp)).background(Color.Black)) {
                         QrCamera(onCode = { code ->
@@ -377,7 +500,7 @@ private fun AcceptDialog(vm: AppViewModel, onDismiss: () -> Unit) {
                 OutlinedTextField(
                     value = text, onValueChange = { text = it; message = null },
                     label = { Text(bi("towns.invitation")) },
-                    placeholder = { Text("lani://town?…") },
+                    placeholder = { Text("https://lani.page/town/#…") },
                     minLines = 2, maxLines = 4,
                     modifier = Modifier.fillMaxWidth(),
                 )

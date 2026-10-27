@@ -9,6 +9,12 @@ import si.lanisce.lani.data.FeastNews
 import si.lanisce.lani.data.FriendTown
 import si.lanisce.lani.data.FriendTrouble
 import si.lanisce.lani.data.Friendships
+import si.lanisce.lani.data.LinkRequest
+import si.lanisce.lani.data.TownChild
+import si.lanisce.lani.data.TownInvite
+import si.lanisce.lani.data.TownPreview
+import si.lanisce.lani.data.TownRef
+import si.lanisce.lani.data.Towns
 import si.lanisce.lani.data.MoveCan
 import si.lanisce.lani.data.MoveSkill
 import si.lanisce.lani.data.Mover
@@ -177,5 +183,78 @@ class FriendsLogicTest {
         assertEquals(1L, FriendsLogic.minutesLeft("2026-09-26T16:30:01Z", now))
         assertEquals(0L, FriendsLogic.minutesLeft("2026-09-26T16:00:00Z", now))
         assertNull(FriendsLogic.minutesLeft("soon", now))
+    }
+
+    // --- a child's town without the PC (docs/plans/05-built/invitations.md) -----------------------------------------------
+
+    @Test fun `a child's app invites and accepts once its bridge says a parent approves, an older child's bridge not`() {
+        assertTrue(FriendsLogic.canLink(TownsList(self)))
+        assertTrue(FriendsLogic.canLink(TownsList(self.copy(child = true, canInvite = false, parentApproves = true))))
+        assertFalse(FriendsLogic.canLink(TownsList(self.copy(child = true, canInvite = false))))
+        assertFalse(FriendsLogic.canLink(null))
+    }
+
+    @Test fun `who says yes first - the child's parents by name, else where a parent can`() = withPair {
+        val kid = self.copy(child = true, parentApproves = true, guardians = listOf(TownRef("g", "Moja vas", "Jan"), TownRef("h", "Vas", "")))
+        assertEquals("👪 Prijatelja poveže starš, ko reče da: Jan, Vas · A parent says yes before friends are linked: Jan, Vas", FriendsLogic.parentLine(kid))
+        assertTrue(FriendsLogic.parentLine(kid.copy(guardians = emptyList())).contains("family page"))
+    }
+
+    @Test fun `a town that waits for its own parent can't be visited, and says so quietly`() = withPair {
+        val r = FriendsLogic.row(mia.copy(status = Towns.PENDING, age = null, villagers = null, buildings = emptyMap()), ageName)
+        assertTrue(r.pending)
+        assertFalse(r.canVisit)
+        assertEquals("", r.thumbnail)
+        assertEquals("⏳ Mia: najprej reče da starš · Mia's parent says yes first", r.status)
+    }
+
+    private val waiting = LinkRequest("lr_0123456789abcdef", TownRef("a", "Il mio villaggio", "Mia", "friuli", "it"), via = "accept", status = Towns.PENDING)
+
+    @Test fun `a child's link that waits, and how the parent decided, gently`() = withPair {
+        assertEquals("🇮🇹 Il mio villaggio · Mia", FriendsLogic.requestTitle(waiting))
+        assertEquals("📨 Njihovo povabilo je sprejeto · Their invitation was accepted", FriendsLogic.requestLine(waiting))
+        assertEquals("📨 Sprejeli so povabilo · They accepted the invitation", FriendsLogic.requestLine(waiting.copy(via = "invite")))
+        assertEquals("🤝 Starš se strinja: Il mio villaggio · Your parent said yes: Il mio villaggio", FriendsLogic.requestLine(waiting.copy(status = "approved")))
+        assertEquals("👋 Ne tokrat: Il mio villaggio · Not this time: Il mio villaggio", FriendsLogic.requestLine(waiting.copy(status = "declined")))
+        assertTrue(FriendsLogic.requestLine(waiting.copy(status = "withdrawn")).startsWith("↩️"))
+        assertTrue(FriendsLogic.requestLine(waiting.copy(status = "expired")).startsWith("⌛"))
+    }
+
+    @Test fun `the parent sees who it is - the other town's village as it looks now`() {
+        assertEquals("🏘️  ⛺ 🛖×2 · 👥 3", FriendsLogic.previewLine(TownPreview("VAS", 3, mapOf("HUT" to 2, "TENT" to 1))))
+        assertEquals("👥 1", FriendsLogic.previewLine(TownPreview(null, 1)))
+        assertNull(FriendsLogic.previewLine(TownPreview(null, 0)))
+        assertNull(FriendsLogic.previewLine(null))
+    }
+
+    @Test fun `a parent's children - the node's child to link as their parent, one linked as theirs, another's`() {
+        val teo = TownChild(id = "t", name = "Il villaggio di Teo", learner = "Teo", language = "it", profile = "teo", canLink = true)
+        assertEquals("🧒 Teo · 🇮🇹 Il villaggio di Teo", FriendsLogic.childTitle(teo))
+        assertTrue(FriendsLogic.canLinkAsParent(teo))
+        // linked, but not as its guardian (lani-town link --no-guardian): it may become it
+        assertTrue(FriendsLogic.canLinkAsParent(teo.copy(linked = true)))
+        assertFalse(FriendsLogic.canLinkAsParent(teo.copy(linked = true, guardian = true)))
+        // its bridge isn't running: no id to link by
+        assertFalse(FriendsLogic.canLinkAsParent(teo.copy(canLink = false, id = "")))
+        // a ward on another node: its requests, never a link of the node's
+        val far = TownChild(id = "f", learner = "Ana", linked = true, guardian = true)
+        assertFalse(FriendsLogic.canLinkAsParent(far))
+        assertEquals(listOf(teo, far), FriendsLogic.children(listOf(teo, far, TownChild(id = "x", linked = true))))
+        assertEquals(emptyList<TownChild>(), FriendsLogic.children(null))
+    }
+
+    @Test fun `sharing an invitation sends what it is, then its web link alone on a line`() = withPair {
+        val i = TownInvite("4AHFMHS7GKXM", "lani://town?v=1", webLink = "https://lani.page/town/#v=1")
+        assertEquals("✉️ Povabilo v mojo vas v aplikaciji Lani · An invitation to my village in Lani\nhttps://lani.page/town/#v=1", FriendsLogic.shareText(i))
+        assertTrue(FriendsLogic.shareText(i.copy(webLink = null)).endsWith("\nlani://town?v=1"))
+    }
+
+    @Test fun `only this computer's towns can accept - said before an invitation is made`() {
+        assertTrue(FriendsLogic.onlyThisNode(self.copy(reach = Towns.REACH_NODE)))
+        assertFalse(FriendsLogic.onlyThisNode(self.copy(reach = Towns.REACH_RELAY)))
+        assertFalse(FriendsLogic.onlyThisNode(self.copy(reach = Towns.REACH_TAILNET)))
+        // an older bridge says nothing: the invitation's dialog says it then
+        assertFalse(FriendsLogic.onlyThisNode(self))
+        assertFalse(FriendsLogic.onlyThisNode(null))
     }
 }

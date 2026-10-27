@@ -18,6 +18,13 @@ sealed interface DeepLink {
     data class TownProgress(val town: String) : DeepLink
     /** "🏫 Šola · School": a unit of the course ([unit]: the tutor's homework is in it), or the school. */
     data class School(val unit: String? = null) : DeepLink
+    /** "🤝 Prijatelji · Friends": a child's link that waits for the parent, or how it went (data/Towns.kt). */
+    data object Friends : DeepLink
+    /**
+     * An invitation opened from a link (lani://town?…, fluent://town?…, https://lani.page/town/#…: the manifest's filters):
+     * Friends' Accept dialog, filled in with [text]; accepted only by the learner's tap.
+     */
+    data class Invitation(val text: String) : DeepLink
 
     companion object {
         const val EXTRA = "si.lanisce.lani.open"
@@ -35,6 +42,8 @@ sealed interface DeepLink {
             is Question -> "question:${if (link.asked) "a" else "r"}:${link.key}"
             is School -> "school" + (link.unit?.let { ":$it" } ?: "")
             is TownProgress -> "progress:${link.town}"
+            Friends -> "friends"
+            is Invitation -> "invite:${link.text}"
         }
 
         fun parse(s: String?): DeepLink? {
@@ -52,9 +61,17 @@ sealed interface DeepLink {
                 "family" -> arg?.let(::Family)
                 "question" -> arg?.substringAfter(':', "")?.takeIf { it.isNotBlank() }?.let { Question(it, asked = arg.substringBefore(':') == "a") }
                 "progress" -> arg?.takeIf { TOWN_ID.matches(it) }?.let(::TownProgress)
+                "friends" -> Friends
+                "invite" -> arg?.takeIf { InviteLink.looksLike(it) }?.let(::Invitation)
                 else -> null
             }
         }
+
+        /**
+         * The invitation a link that opened the app carries ([uri]: its intent's data), as a [DeepLink.Invitation]; null for
+         * any other link (lani://tutor/signed-in only brings the app to the front).
+         */
+        fun ofUri(uri: String?): DeepLink? = uri?.takeIf { InviteLink.looksLike(it) }?.let(::Invitation)
 
         /** Where a notification about [ev] leads; null just opens the app. */
         fun of(ev: BridgeEvent): DeepLink? = when (ev) {
@@ -85,6 +102,8 @@ sealed interface DeepLink {
             is BridgeEvent.WorksheetPublished -> if (ev.removed) null else School(ev.unit)
             // a parent's weekly note: the town's progress screen
             is BridgeEvent.TownProgressNote -> TownProgress(ev.town)
+            // a child's link that waits for the parent, or how it went: Friends
+            is BridgeEvent.TownLink -> Friends
         }
     }
 }

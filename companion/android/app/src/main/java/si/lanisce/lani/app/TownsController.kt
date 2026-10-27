@@ -19,6 +19,9 @@ import si.lanisce.lani.data.GuestEntry
 import si.lanisce.lani.data.TownMove
 import si.lanisce.lani.data.InviteParse
 import si.lanisce.lani.data.InviteLink
+import si.lanisce.lani.data.LinkRequest
+import si.lanisce.lani.data.TownChild
+import si.lanisce.lani.data.TownChildren
 import si.lanisce.lani.data.TownInvite
 import si.lanisce.lani.data.Towns
 import si.lanisce.lani.data.TownsList
@@ -34,8 +37,10 @@ sealed interface FriendWrite {
 
 /**
  * "Prijatelji · Friends" (data/Towns.kt): the towns linked with this learner's, asked through the learner's own
- * bridge, and the invitations: one made to show as a QR code, one scanned or pasted to accept; the friendship with each
- * town (data/Friendship.kt) and what can be done for it: help sent, a move offered or answered.
+ * bridge, and the invitations: one made to show as a QR code, one scanned, pasted or opened from a link to accept; the
+ * friendship with each town (data/Friendship.kt) and what can be done for it: help sent, a move offered or answered. A
+ * child's links wait for a parent ([TownsList.requests], [withdraw]); a parent's app says yes or no to their children's
+ * ([children], [decide]) and links their own child's town of the node ([linkChild]).
  */
 class TownsController(
     private val scope: CoroutineScope,
@@ -69,6 +74,18 @@ class TownsController(
     /** A friendship's write is on its way (the buttons wait). */
     var sending by mutableStateOf(false)
         private set
+    /**
+     * A parent's children's towns (GET /towns/children): what waits for their yes, the node's children to link; null until
+     * it came, from an older bridge, and in a child's app.
+     */
+    var children by mutableStateOf<TownChildren?>(null)
+        private set
+    /** An invitation opened from a link (lani://town?…, https://lani.page/town/#…): the Accept dialog shows it filled in. */
+    var incoming by mutableStateOf<String?>(null)
+        private set
+    /** The decisions (a request's id) and links (a town's id) on their way: their buttons wait. */
+    var busy by mutableStateOf<Set<String>>(emptySet())
+        private set
     /** Told of every friendship list that came: the village applies what it brings (GameController.applyFriendships). */
     var onFriendships: (FriendshipList) -> Unit = {}
     /** The id of each friendship write not answered yet ("aid:<town>:<event>" …), so a retry sends the same. */
@@ -88,6 +105,8 @@ class TownsController(
                 list = l
                 problem = null
             }
+            // a parent's children: what waits for their yes (an older bridge has no such route: 404, none)
+            if (l?.self?.child == false) children = runCatching { b.townChildren() }.getOrNull()?.let { (code, body) -> if (code == 200) runCatching { Towns.parseChildren(body) }.getOrNull() else null }
             // what guests brought (a child's parent sees the messages here too); an older bridge has none
             guests = runCatching { b.townGuests() }.getOrNull() ?: guests
             // the friendships (an older bridge has none): shown, and what they bring applied to the village
@@ -122,6 +141,61 @@ class TownsController(
 
     fun closeInvite() {
         invite = null
+    }
+
+    /** An invitation opened from a link: Friends' Accept dialog shows it filled in (the learner accepts it, never by itself). */
+    fun receive(text: String) {
+        incoming = text.trim()
+    }
+
+    fun clearIncoming() {
+        incoming = null
+    }
+
+    // --- a child's links that wait for a parent (companion/README.md, "A child's town") ------------------------------------
+
+    /** A POST of a child's links' routes, with [key] busy meanwhile: its status and body, or null when the bridge isn't there. */
+    private suspend fun post(key: String, path: String, body: JsonObject = buildJsonObject { }): Pair<Int, String>? {
+        val b = bridge() ?: run {
+            notices.banner = "📡 ${bi("towns.cantReachTutor")}"
+            return null
+        }
+        busy = busy + key
+        return try {
+            b.townPost(path, body)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            notices.banner = "📡 ${bi("towns.cantReachTutor")}"
+            null
+        } finally {
+            busy = busy - key
+        }
+    }
+
+    /** The parent's yes ([approve]) or no to [r], a link of their [child]'s that waits for them: sent to the child's town. */
+    fun decide(child: TownChild, r: LinkRequest, approve: Boolean) = scope.launch {
+        val (status, body) = post(r.id, "/towns/children/${child.id}/requests/${r.id}", buildJsonObject { put("approve", approve); put("town", r.town.id) }) ?: return@launch
+        notices.banner = when {
+            status != 200 -> Towns.problem(status, Towns.errorCode(body))
+            approve -> "🤝 ${bi("towns.approvedLine", "child" to child.learner.ifBlank { child.name }, "town" to r.town.name)}"
+            else -> "👋 ${bi("towns.notThisTime", "town" to r.town.name)}"
+        }
+        load()
+    }
+
+    /** A parent links their own [child]'s town of this node, as its guardian (the app's `lani-town link`). */
+    fun linkChild(child: TownChild) = scope.launch {
+        val (status, body) = post(child.id, "/towns/children/${child.id}/link") ?: return@launch
+        notices.banner = if (status == 200) "👪 ${bi("towns.childLinked", "child" to child.learner.ifBlank { child.name })}" else Towns.problem(status, Towns.errorCode(body))
+        load()
+    }
+
+    /** A child takes back [r], a link of theirs that waits for the parent (the other town lets go of it). */
+    fun withdraw(r: LinkRequest) = scope.launch {
+        val (status, body) = post(r.id, "/towns/requests/${r.id}/withdraw") ?: return@launch
+        if (status != 200) notices.banner = Towns.problem(status, Towns.errorCode(body))
+        load()
     }
 
     // --- friendship between towns (data/Friendship.kt) -----------------------------------------------------------------
@@ -165,15 +239,16 @@ class TownsController(
      * inviting town. [done] gets null once linked (the list reloads, a banner says with whom), else the message.
      */
     fun accept(text: String, done: (String?) -> Unit) {
-        when (val p = InviteLink.parse(text)) {
+        val link = when (val p = InviteLink.parse(text)) {
             is InviteParse.Invalid -> return done(p.problem.message)
-            is InviteParse.Ok -> Unit
+            is InviteParse.Ok -> p.link
         }
         val b = bridge() ?: return done("📡 ${bi("towns.cantReachTutor")}")
         scope.launch {
             accepting = true
             val outcome = try {
-                val (status, body) = b.townAccept(text.trim())
+                // as lani://town?…, which every bridge reads (one older than the web links reads only that)
+                val (status, body) = b.townAccept(link.text())
                 Towns.acceptOutcome(status, body)
             } catch (e: CancellationException) {
                 throw e
@@ -184,7 +259,12 @@ class TownsController(
             }
             when (outcome) {
                 is AcceptOutcome.Linked -> {
-                    notices.banner = "🤝 ${bi("towns.linkedWith", "town" to outcome.name, "learner" to outcome.learner)}"
+                    notices.banner = when (outcome.pending) {
+                        Towns.WAIT_PARENT -> "⏳ ${bi("towns.waitsForParent", "town" to outcome.name)}"
+                        Towns.WAIT_THEIR_PARENT -> "⏳ ${bi("towns.waitsForTheirParent", "learner" to outcome.learner.ifBlank { outcome.name })}"
+                        else -> "🤝 ${bi("towns.linkedWith", "town" to outcome.name, "learner" to outcome.learner)}"
+                    }
+                    incoming = null
                     load()
                     done(null)
                 }

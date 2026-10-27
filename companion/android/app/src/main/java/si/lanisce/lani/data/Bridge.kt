@@ -390,6 +390,16 @@ class Bridge(private val config: BridgeConfig) {
     suspend fun townAccept(invite: String): Pair<Int, String> =
         exchange(request("/towns/accept").post(buildJsonObject { put("invite", invite) }.toString().toRequestBody(Http.jsonType)).build())
 
+    /** GET /towns/children as answered (data/Towns.kt [TownChildren]): a parent's children's towns; an older bridge answers 404. */
+    suspend fun townChildren(): Pair<Int, String> = exchange(request("/towns/children").build())
+
+    /**
+     * A POST to the routes of a child's links that wait for a parent ([path]: /towns/requests/<id>/withdraw,
+     * /towns/children/<town>/link, /towns/children/<town>/requests/<id>), as answered.
+     */
+    suspend fun townPost(path: String, body: JsonObject = buildJsonObject { }): Pair<Int, String> =
+        exchange(request(path).post(body.toString().toRequestBody(Http.jsonType)).build())
+
     suspend fun latestRelease(): Release? = runCatching { json.decodeFromString<Release>(get("/app/latest")) }.getOrNull()
 
     /** The village, or null when the node has none yet (404). */

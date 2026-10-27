@@ -449,6 +449,12 @@ fun buildSetting(property: String, env: String): String =
         .also { require(it.none { c -> c == '"' || c == '\\' || c.isWhitespace() }) { "$property: no quotes, backslashes or spaces" } }
 val githubClientId = buildSetting("lani.githubClientId", "LANI_GITHUB_CLIENT_ID")
 val relayUrl = buildSetting("lani.relayUrl", "LANI_RELAY_URL")
+/**
+ * Where a town's invitation's web link points (companion/README.md, "Towns"; the bridge's LANI_INVITE_URL): the app opens
+ * https://<host>/town… as an Android App Link, verified by https://<host>/.well-known/assetlinks.json. lani.page and
+ * lani.team always; lani.inviteHost or LANI_INVITE_HOST adds another (a self-hosted page), lani.page when unset.
+ */
+val inviteHost = buildSetting("lani.inviteHost", "LANI_INVITE_HOST").ifBlank { "lani.page" }
 
 /**
  * The release key, never in the repository: the keystore LANI_KEYSTORE names, with LANI_KEYSTORE_PASSWORD, LANI_KEY_ALIAS
@@ -490,6 +496,7 @@ android {
         versionName = laniVersionName
         buildConfigField("String", "GITHUB_CLIENT_ID", "\"$githubClientId\"")
         buildConfigField("String", "RELAY_URL", "\"$relayUrl\"")
+        manifestPlaceholders["inviteHost"] = inviteHost
     }
 
     signingConfigs {

@@ -35,6 +35,7 @@ import kotlinx.serialization.json.put
 import si.lanisce.lani.data.Bundle
 import si.lanisce.lani.data.TownActs
 import si.lanisce.lani.data.TownGuests
+import si.lanisce.lani.data.Towns
 import si.lanisce.lani.data.TownQuestions
 import si.lanisce.lani.data.TownRequest
 import si.lanisce.lani.data.VisitWrite
@@ -900,6 +901,11 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
             }
             // a parent's weekly note of a linked town's progress: a notice (a notification while the app is closed)
             is BridgeEvent.TownProgressNote -> notices.banner = "📈 ${ev.text()}"
+            // a child's link that waits for the parent, or how it went: a notice, and Friends shows it as it is now
+            is BridgeEvent.TownLink -> {
+                Towns.linkBanner(ev)?.let { notices.banner = it }
+                towns.load()
+            }
         }
     }
 
@@ -996,6 +1002,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         }
         pendingLink = null
         if (link == DeepLink.Chat) return chat.open() // a sheet, fine over any screen
+        // an invitation opened from a link: kept for Friends' Accept dialog (also while a run goes on: then it waits there)
+        if (link is DeepLink.Invitation) towns.receive(link.text)
         if (screen.inRun) return // leaving would lose the answers; the news shows in the app anyway
         if (VisitWorld.active) endVisit() // home first: the link leads into the learner's own village
         when (link) {
@@ -1016,6 +1024,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
                 openTownProgress(link.town)
             }
             is DeepLink.School -> link.unit?.takeIf { school.unit(it) != null }?.let { openUnit(it) } ?: openSchool(fromVillage = false)
+            DeepLink.Friends, is DeepLink.Invitation -> openFriends()
         }
     }
 

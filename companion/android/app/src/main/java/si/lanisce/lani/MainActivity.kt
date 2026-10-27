@@ -95,6 +95,12 @@ class MainActivity : ComponentActivity() {
         intent?.removeExtra(si.lanisce.lani.app.QaHooks.EXTRA)
         DeepLink.parse(intent?.getStringExtra(DeepLink.EXTRA))?.let(vm::open)
         intent?.removeExtra(DeepLink.EXTRA)
+        // a town's invitation opened from a link (lani://town?…, fluent://town?…, https://lani.page/town/#…: the manifest's
+        // filters): Friends' Accept dialog, filled in; taken once
+        if (intent?.action == Intent.ACTION_VIEW) {
+            DeepLink.ofUri(intent.dataString)?.let(vm::open)
+            intent.data = null
+        }
     }
 
     override fun onStart() {

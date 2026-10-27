@@ -65,6 +65,28 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="lani" android:host="tutor" />
             </intent-filter>
+            <!-- A town's invitation (companion/README.md, "Towns"): lani://town?… (fluent://town?… from before the rename)
+                 opens Friends' Accept dialog with it filled in; the learner accepts it, nothing links by itself. -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="lani" android:host="town" />
+                <data android:scheme="fluent" android:host="town" />
+            </intent-filter>
+            <!-- …and its web link, https://lani.page/town/#v=1&… (what a messenger makes tappable and the QR code carries): an
+                 Android App Link, verified by the site's /.well-known/assetlinks.json (site/.well-known, companion/bin/
+                 lani-assetlinks). Unverified, the browser opens the page (site/town/), whose button opens the app. -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" />
+                <data android:host="lani.page" />
+                <data android:host="lani.team" />
+                <data android:host="${inviteHost}" />
+                <data android:pathPrefix="/town" />
+            </intent-filter>
         </activity>
 
         <!-- Android Auto: Lani is a media app there ("🚗 Za pot · For the road"), companion/README.md "Im Auto · In the car". -->

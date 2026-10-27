@@ -2,8 +2,12 @@ package si.lanisce.lani.ui.towns
 
 import si.lanisce.lani.data.FriendTown
 import si.lanisce.lani.data.Friendships
+import si.lanisce.lani.data.LinkRequest
 import si.lanisce.lani.data.MoveCan
 import si.lanisce.lani.data.Mover
+import si.lanisce.lani.data.TownChild
+import si.lanisce.lani.data.TownInvite
+import si.lanisce.lani.data.TownPreview
 import si.lanisce.lani.data.TownRow
 import si.lanisce.lani.data.TownSelf
 import si.lanisce.lani.data.Towns
@@ -35,8 +39,10 @@ data class FriendRow(
     val thumbnail: String,
     /** Why its state can't be seen now ("📡 …"), or null. */
     val status: String?,
-    /** Whether "Obišči · Visit" shows: not for a town that no longer knows this one. */
+    /** Whether "Obišči · Visit" shows: not for a town that no longer knows this one, nor one that waits for its parent. */
     val canVisit: Boolean = true,
+    /** A child's town that links back once its parent says yes: no friendship, sharing or visit yet. */
+    val pending: Boolean = false,
 )
 
 /** What "Prijatelji · Friends" shows, from GET /towns (data/Towns.kt). Pure. */
@@ -58,7 +64,8 @@ object FriendsLogic {
             subtitle = subtitle,
             thumbnail = if (t.reachable) thumbnail(age, t.buildings) else "",
             status = status(t),
-            canVisit = t.status != "refused",
+            canVisit = t.status != "refused" && !t.pending,
+            pending = t.pending,
         )
     }
 
@@ -76,14 +83,69 @@ object FriendsLogic {
         "ok" -> null
         "refused" -> "🔒 ${bi("towns.noLongerKnowsYou")}"
         "unreachable" -> "📡 ${bi("towns.cantBeReached")}"
+        Towns.PENDING -> "⏳ ${bi("towns.waitsForTheirParent", "learner" to t.learner.ifBlank { t.name.ifBlank { "?" } })}"
         else -> "⚠️ ${bi("towns.answerNotUnderstood")}"
     }
 
     /** "Moja vas · Jan 🇸🇮": this learner's own town. */
     fun selfLine(s: TownSelf): String = "${s.name.ifBlank { "?" }} · ${s.learner} ${Towns.flag(s.language)}".trim()
 
-    /** Whether to offer "Povabi · Invite" and "Sprejmi · Accept": not for a child, nor before the bridge answered. */
-    fun canLink(list: TownsList?): Boolean = list?.self?.canInvite == true && list.self.child.not()
+    /**
+     * Whether to offer "Povabi · Invite" and "Sprejmi · Accept": an adult's town links at once, a child's once a parent says
+     * yes ([TownSelf.parentApproves]: a child's bridge from before that refuses both); not before the bridge answered.
+     */
+    fun canLink(list: TownsList?): Boolean = list?.self?.let { (it.canInvite && !it.child) || it.parentApproves } == true
+
+    /** Whether to say "only towns on this computer can accept this" before making an invitation (no tailnet URL, no relay). */
+    fun onlyThisNode(self: TownSelf?): Boolean = self?.reach == Towns.REACH_NODE
+
+    /**
+     * What a child's Friends says under its buttons: who says yes first ("👪 Najprej reče da starš: Jan · A parent says yes
+     * first: Jan"), its guardians by name, else where a parent can (their app, the family page).
+     */
+    fun parentLine(s: TownSelf): String {
+        val names = s.guardians.map { it.learner.ifBlank { it.name } }.filter { it.isNotBlank() }.distinct()
+        return "👪 " + if (names.isEmpty()) bi("towns.parentSaysYesFirstNone") else bi("towns.parentSaysYesFirst", "parent" to names.joinToString(", "))
+    }
+
+    /** "🇮🇹 Il mio villaggio · Mia": the other town of a link that waits for a parent. */
+    fun requestTitle(r: LinkRequest): String =
+        "${Towns.flag(r.town.language)} ${r.town.name.ifBlank { "?" }}${r.town.learner.takeIf { it.isNotBlank() }?.let { " · $it" }.orEmpty()}".trim()
+
+    /** How a link came to wait: they accepted this child's invitation, or the child accepted theirs. */
+    fun viaLine(r: LinkRequest): String = if (r.via == "accept") "📨 ${bi("towns.viaAccept")}" else "📨 ${bi("towns.viaInvite")}"
+
+    /**
+     * A child's link as their Friends shows it: still waiting (how it came), or how the parent decided ("Starš se strinja ·
+     * Your parent said yes", gently "Ne tokrat · Not this time"), taken back, run out.
+     */
+    fun requestLine(r: LinkRequest): String = when (r.status) {
+        Towns.PENDING -> viaLine(r)
+        "approved" -> "🤝 ${bi("towns.parentAgreed", "town" to r.town.name)}"
+        "declined" -> "👋 ${bi("towns.notThisTime", "town" to r.town.name)}"
+        "withdrawn" -> "↩️ ${bi("towns.takenBack", "town" to r.town.name)}"
+        else -> "⌛ ${bi("towns.ranOut", "town" to r.town.name)}"
+    }
+
+    /** "🏘️  🛖×2 🌾 · 👥 3": how a request's town looks now, for the parent to see who it is; null when it didn't answer. */
+    fun previewLine(p: TownPreview?): String? {
+        p ?: return null
+        val age = p.age?.let { a -> Age.entries.firstOrNull { it.name == a } }
+        return listOfNotNull(thumbnail(age, p.buildings).takeIf { it.isNotBlank() }, p.villagers.takeIf { it > 0 }?.let { "👥 $it" }).joinToString(" · ").ifBlank { null }
+    }
+
+    /** "🧒 Teo · 🇮🇹 Il villaggio di Teo": a child of this learner's on their Friends. */
+    fun childTitle(c: TownChild): String =
+        "🧒 ${c.learner.ifBlank { c.profile ?: "?" }} · ${Towns.flag(c.language)} ${c.name.ifBlank { "?" }}".trim()
+
+    /** Whether to offer "🔗 Poveži kot starš · Link as their parent": a child's town of this node, not linked as theirs yet. */
+    fun canLinkAsParent(c: TownChild): Boolean = c.canLink && c.profile != null && !(c.linked && c.guardian)
+
+    /** The children to show: those to link, and those whose guardian this town is. */
+    fun children(list: List<TownChild>?): List<TownChild> = list.orEmpty().filter { canLinkAsParent(it) || it.guardian || it.profile != null }
+
+    /** What sharing an invitation sends: a line saying what it is, then its web link on a line of its own (a messenger makes it tappable). */
+    fun shareText(invite: TownInvite): String = "✉️ ${bi("towns.shareText")}\n${invite.shareLink}"
 
     /** Minutes an invitation has left (a started minute counts), from its expiry (ISO) and [now]; 0 once it ran out, null when unknown. */
     fun minutesLeft(expiresAt: String, now: Instant = Instant.now()): Long? =

@@ -897,6 +897,14 @@ sealed interface BridgeEvent {
     }
 
     /**
+     * A link that waits for a child's parent, or how it went (companion/README.md, "A child's town"; data/Towns.kt): [kind]
+     * "request" (to a parent's app: their child [child] would like to be friends with town [town] of [learner]), "pending"
+     * (to the child's: it waits), "linked" (the parent said yes: the child's app and the other town's), "declined" and
+     * "withdrawn" (taken back); [request] its id.
+     */
+    data class TownLink(val kind: String, val town: String, val learner: String, val child: String = "", val request: String = "") : BridgeEvent
+
+    /**
      * A parent's weekly note of linked town [town]'s progress (companion/README.md, "Progress between towns"): its learner's
      * [days] practised and [newWords] this [week], and what is hard for them ([hard]: the patterns' names).
      */
@@ -958,6 +966,10 @@ sealed interface BridgeEvent {
                 "town_guest" -> TownGuest(s("kind") ?: return null, s("from").orEmpty(), s("learner").orEmpty())
                 "town_question" -> TownQuestion(TownQuestions.QUESTION, s("key") ?: return null, s("from").orEmpty(), s("learner").orEmpty(), s("text").orEmpty())
                 "town_answer" -> TownQuestion(TownQuestions.ANSWER, s("key") ?: return null, s("from").orEmpty(), s("learner").orEmpty(), s("text").orEmpty())
+                "town_link" -> {
+                    fun of(k: String, f: String) = ((o[k] as? JsonObject)?.get(f) as? JsonPrimitive)?.contentOrNull.orEmpty()
+                    TownLink(s("kind") ?: return null, of("town", "name"), of("town", "learner"), of("child", "learner").ifBlank { of("child", "name") }, s("request").orEmpty())
+                }
                 "town_progress" -> TownProgressNote(
                     town = s("town")?.takeIf { Regex("^[0-9a-f]{32}$").matches(it) } ?: return null,
                     learner = s("learner").orEmpty(),
