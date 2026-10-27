@@ -79,6 +79,11 @@ data class BuildOption(
      * the way to make room now, a dwelling to build or upgrade ([GameEngine.roomWay]).
      */
     val room: RoomWay? = null,
+    /**
+     * When every plot of the age is built and that is all that holds it back: the way it can still go up, a dwelling
+     * growing into it or a building the next age doesn't need making room ([Rebuild.plotWay]).
+     */
+    val plotWay: PlotWay? = null,
 ) {
     /** It can be built with the moba: nothing else stands in the way and the village can pay the rest. */
     val mobaAvailable: Boolean get() = moba?.affordable == true
@@ -372,7 +377,26 @@ object GameEngine {
         val moba = if (blocker(state, t, emptyMap(), cast) == null) Help.moba(state, spec.cost) else null
         // the way on, when what holds it back is the bed (not the age, the limit or a plot)
         val room = needsBed(state, t, cast)?.takeIf { it == reason }?.let { roomWay(state, keep = if (t.onPlot) 1 else 0, words = words) }
-        BuildOption(t, spec.cost, reason == null, reason, Catalog.effectText(spec.effect), moba, room)
+        // every plot built, and nothing else in the way: a dwelling grows into it, or a building not needed makes room
+        val count = state.buildings.count { it.type == t }
+        val plotless = t.onPlot && state.age >= spec.minAge && (spec.max == null || count < spec.max) && Placement.freePlots(state).isEmpty()
+        BuildOption(t, spec.cost, reason == null, reason, Catalog.effectText(spec.effect), moba, room, if (plotless) Rebuild.plotWay(state, t, cast) else null)
+    }
+
+    /**
+     * Whether [t] has a place to go up in [s]: the age has it, fewer than its most stand, a plot of the age is free and not
+     * kept for what the next age needs. The price and a bed for whom it brings aside.
+     */
+    fun placeable(s: GameState, t: BuildingType): Boolean {
+        val spec = Catalog.spec(t)
+        return s.age >= spec.minAge && (spec.max == null || s.buildings.count { it.type == t } < spec.max) &&
+            (!t.onPlot || Placement.freePlots(s).isNotEmpty()) && reserved(s, t) == null
+    }
+
+    /** A new building's id: its type and the first number free ("hut-7"). */
+    fun newId(state: GameState, type: BuildingType): String {
+        val ids = state.buildings.map { it.id }.toSet()
+        return generateSequence(state.buildings.size + 1) { it + 1 }.map { "${type.name.lowercase()}-$it" }.first { it !in ids }
     }
 
     /** Why [t] can't be built for [cost] (its price, or what's left after a moba), or null. */
@@ -462,6 +486,11 @@ object GameEngine {
      */
     fun build(
         state: GameState, type: BuildingType, now: Long, withMoba: Boolean = false, cast: List<Villager> = emptyList(), plot: Int? = null,
+    ): GameState = buildAt(state, type, now, withMoba, cast, plot) { used -> "🔨" to Cultures.current.chronicle.built.bi("building" to type.names) + Help.note(used) }
+
+    /** [build], its chronicle's line made by [line] from the moba it called (none: null); [Rebuild.replace] says its own. */
+    internal fun buildAt(
+        state: GameState, type: BuildingType, now: Long, withMoba: Boolean, cast: List<Villager>, plot: Int?, line: (Moba?) -> Pair<String, String>,
     ): GameState {
         val cost = Catalog.spec(type).cost
         val moba = if (withMoba) Help.moba(state, cost) else null
@@ -469,12 +498,9 @@ object GameEngine {
         if (plot != null && (!type.onPlot || plot !in Placement.freePlots(state))) return state
         val at = if (type.onPlot) plot ?: Placement.plotFor(state, type) ?: return state else NO_PLOT
         val (paid, used) = Help.pay(state, cost, withMoba) ?: return state
-        val ids = state.buildings.map { it.id }.toSet()
-        val id = generateSequence(state.buildings.size + 1) { it + 1 }.map { "${type.name.lowercase()}-$it" }.first { it !in ids }
-        val b = Building(id, type, at, builtAt = now)
+        val b = Building(newId(state, type), type, at, builtAt = now)
         val built = paid.copy(buildings = paid.buildings + b)
-        return (if (plot != null) Placement.chosen(built) else built)
-            .logged(now, "🔨" to Cultures.current.chronicle.built.bi("building" to type.names) + Help.note(used))
+        return (if (plot != null) Placement.chosen(built) else built).logged(now, line(used))
     }
 
     /**

@@ -228,6 +228,45 @@ teacher: VILLAGERS.md, "A building brings its person"), who needs a bed: while e
 card offers the way on, a dwelling to build or upgrade in one tap (or what to gather for it). Where no room can be made
 now it isn't held back, and its person moves in once a bed is free.
 
+**When every plot is built** (`game/Rebuild.kt`; Jan, 2026-10-27, while Teo played: tents in every slot, and Mesto needs
+nine buildings where the market town brings six plots, and a tent couldn't be replaced). The learner can never block their
+own way on. The last free plots of an age are kept for what the next age needs (see "Ages"), but only for the next age;
+besides them there are two ways, and a building held back only by the plots shows its way on its card in "🔨 Gradi ·
+Build" (`BuildOption.plotWay`), one tap:
+
+- **Growing up** ("🛖 Preraste v kočo · Grow into a hut"): a tent grows into a hut (from Tabor), a hut into a house (from
+  Zaselek), on its own plot. Its level stays (a level reached stays). It costs what the bigger building costs more, built
+  and upgraded to that level: (hut − tent) × 1, 3, 6, 11, 18 for levels 1 to 5, so a tent at level 1 grows for 5 🌾 25 🪵
+  10 🪨 and a hut at level 3 into a house for 180 🌾 180 🪵 240 🪨. Like building new it asks for no words; its next upgrade
+  asks for the new building's (which include the levels before). It is a new building of its kind (its own id, built that
+  day: a house that grew gets the room of whoever moved in next, as a new house does). The chronicle: "🛖 Preraslo: Šotor →
+  Koča · Grew up: Tent → Hut". Not the tent at the pond, nor the village's first tent while none stands there (the
+  shepherd moves it, "The tent moves to the pond", and "V šotoru" is in it).
+- **Replacing** ("🔁 Nadomesti · Replace"): a building comes down and another goes up on its plot, paid as a new building
+  (with a moba if the learner calls one); nothing comes back for the old one. Who lives in the village stays: the people
+  are the village's, not a building's (a house's room goes to the next house, "Houses and their rooms" in SCENES.md).
+  What can go there is what could go up on a free plot then (the plots kept for the next age, a bed for whom a workplace
+  brings, the age, the most of each kind). Only the common kinds can be replaced (tent, field, well, hut, hayrack, bee
+  house, house), and not one the next age needs (its kind counts for the next age and no more of it stand than it needs),
+  not the village's first tent while none stands at the pond, nor the last workplace of someone who lives here (the
+  beekeeper's last bee house). The village's own buildings, one of a kind (the linden, the church, the school, the market,
+  the watchtower, the smithy, the palisade), stay: every age after the one that opens them needs them. The chronicle: "🔁
+  Nadomeščeno: Šotor → Hiša · Replaced: Tent → House".
+
+The way a building held back by the plots takes (`Rebuild.plotWay`): a hut wanted, a tent grows; a house wanted, a hut
+grows (the lowest level first: the cheapest); else the building that may be replaced and is cheapest to lose (a kind the
+village has several of first, then its price and upgrades, half when damaged).
+
+`BuildOrdersTest` proves it: random build orders in every culture (Primorska, Friuli, Kärnten, Lakeland), 250 per culture
+for each of two players (one building at random among what it can, stopping now and then; one filling every plot with
+what the next age doesn't need first, as Teo did), from the campfire to the town, each age's plots filled as the order
+goes, upgrades and moves among them, and the next age's buildings then reached only the ways the app offers (what can be
+built; a bed made for whom a workplace brings; the way through the plots). Every bed is taken and the stores are full
+(the plots are the question, not the pacing). With the rules before (nothing grows, nothing is replaced), 755 of the 2,000
+orders walled themselves in, every one in the market town on its way to Mesto (76–118 per culture and player); with
+them, none of the 2,000 did (on the way about 2,500 dwellings grew and 3,400 buildings were replaced, the players' own
+choices among them).
+
 The palisade takes no plot (nor does the tent once it has moved to the pond: see "The tent moves to the pond"): it goes up round the clearing, a ring of stakes just inside the forest's edge that grows with the clearing from age to age. It opens in a gate where the road leaves the clearing (to the left too from Zaselek, across the stream: see "The crossing") and where the path goes down into the woods, a lintel over the posts where they stand level. The stream runs along the clearing's upper left rim, and where the ring runs along it, it keeps to the stream's far bank all the way, the stream inside it (the road's left gate stands on that bank): it never switches banks between two gates, and it crosses the water only where the stream comes in and where it goes out, in a water gate each time, closed by a row of shorter stakes standing in the water with gaps for the current. Every gap in the ring is a gate. A footpath of stepping stones goes down to a landing at the water on the village's bank, inside the ring (the way to Ob potoku, see [SCENES.md](SCENES.md)); a ring that runs by the stream on the village's side instead (the campfire's small clearing, with the stream outside it) opens there in a small river gate, a postern, for the footpath. From level 2 torches burn at the road and path gates. A tap anywhere on it opens it. A village from before gives the palisade's plot back on its next tick.
 
 **The crossing** (`game/render/Crossing.kt`; Jan, 2026-10-19: "the first bridge (the flat one) is not there in the beginning ... just the stones across, and we build the first bridge and leave away the second one"). From Zaselek the road goes on west from the plaza across the stream, where the road meets it (`Terrain.bridge`). At first it fords the stream there on stepping stones: a few flat stones across the water from bank to bank along the road's middle, the road coming down to the water on both banks. The village builds its bridge there, the project 🌉 Most čez potok (Zaselek, led by France, see "Village projects"), step by step: the stream measured (pegs at the deck's corners on both banks, a line over the water along the road), stones gathered on both banks, a stone pillar on each bank, the long logs from pillar to pillar, the plank deck (from then on the road goes over the bridge, and the stones are gone), and finished, a railing along each side, never across the way. The bridge is flat and low: its deck reaches from bank to bank (its ends on dry land all across its width, longer where the stream runs aslant under it) and is as wide as the road (wider from Vas, when the road is), its planks across the way, and the road goes on at both its ends. It is the only bridge on the map: no track and no gate of its own (before, 2026-10-18, the project's bridge stood on a cart track of its own with its own gate in the palisade, beside the road's bridge, which every village had from Zaselek). The trees make way round the crossing, stones or bridge alike, and people walk over the bridge, not round it. A tap on the stones is the stream's (its bank's card, the way into Ob potoku); the bridge, from its project's first step, is the project's landmark, and a tap on it opens the project. What shows comes from the village's state (`Crossing.stones`: the road goes west and the bridge has no deck yet): a saved village shows its bridge as far as its project is built, and the stones where it isn't begun; nothing is migrated. `BridgesTest` checks it on every land, age, canvas and stage (the stones until the deck, then the bridge; one bridge, where the road crosses, from bank to bank, the road on dry land off both its ends, no stake on it or on the road west of it; building it changes the map only at the crossing, by day and at night) and renders the crossing at every stage, by night and in winter (build/village-snapshots/63-bridge-…); QA's step `bridges` shows it on the map and in Ob potoku: the stones, the bridge half built and built.
@@ -489,7 +528,9 @@ clearing and palisade reach that plot.
 
 The last free plots of an age are kept for the buildings the next age needs: with no more free plots than
 required buildings still missing, only those can be built, so a village can't block its own way on. The palisade
-needs no plot, so none is kept for it, and it can go up when every plot is built.
+needs no plot, so none is kept for it, and it can go up when every plot is built. That looks one age ahead; past it (Mesto's
+nine buildings, six new plots in the market town) a dwelling grows up or a building not needed is replaced: see "When every
+plot is built" under "Buildings".
 
 "Words learned" counts the vocabulary items in spaced repetition that were answered right at least once and not failed since: `repetitions` ≥ 1 or `mastery_level` ≥ 1, or, before the first review, answered right while being learned (a word pack's session stores that answer as `last_quality` ≥ 3), and not rusty (below). So a word counts as soon as the pack is done, and a failed review takes it out, whatever its mastery, until a review gets it right again. A card added without an answer (looked up in a dialog, `source: "lookup"`) doesn't count. It links the village to real progress: the word milestone is the real gate. The app says "you know N words" with the same count (the word packs, the home road, the progress screen); "tracked" is kept only where it means the cards under review.
 
