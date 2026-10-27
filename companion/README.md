@@ -1944,6 +1944,26 @@ of, passed?, unit_done?, tested_out?}`: persisted as any session end; a unit don
 went wrong may follow. `test/smoke/course.ts` validates every course file of the repository (its outline, its units,
 the grammar pages they name).
 
+**Checked** (`ui/school/SheetExercises.kt`, `data/AnswerDiff.kt`, `ui/AnswerDiffText.kt`). "Preveri · Check" marks every
+item where it was answered: its field outlined in the verdict's colour with a small round ✓, ≈ or ✗ on its corner (it
+takes no room from what was typed), and under a field not right its correction: what was typed set against what is right
+in one line, word by word and within a near word letter by letter ("Spi~~ve~~**ta** v ~~s~~**š**otoru.": the typed
+letters that are wrong struck through in red on a red tint, orange for an almost, the right ones green and bold on a
+green tint, so a single struck letter can't read as another; case, punctuation and the kind of apostrophe don't count,
+as in the grading; mostly another answer: "~~jaz ne vem~~ → **Luka in Tine spita v šotoru.**"), then why (an almost's
+slip, "Pazi na strešice · Mind the č / š / ž"; a wrong item's own `explain`). A gap text's corrections come on a line
+under their sentence (the gap's number, the correction, the sentence said right 🔊); a table's under each cell, the row's
+whys under the row; a transform line's under its field; a word sorted into the wrong column says where it goes on its
+chip ("→ ženski"). A transform's person in brackets left out (right, COURSE.md "transform") shows quietly before the
+line's answer set against the rest ("Luka in Tine spi~~ve~~**ta** v šotoru."). Under the sheet only the count, "✏️ 3 od
+8 narobe, 2 skoraj · 3 of 8 wrong, 2 almost": a tap brings the first item not right into view (the whole line, a gap's
+sentence above its correction), as checking the sheet does once the feedback slid in. TalkBack reads each field's
+verdict ("narobe · wrong") and then its correction in words ("Prav je · Right: Luka in Tine spita v šotoru. Tvoj odgovor
+· You wrote: spive v šotoru"). The same diff stands under a typed answer near the right one in an exercise's feedback
+("Tvoj odgovor · You wrote: …"), a forms card's and a counting card's step, and a typed quick question of a unit's
+introduction. QA: `companion/bin/qa --steps sheet-corrections` (QA's hook `sheet:<unit>/<sheet>` plays a sheet
+directly).
+
 **Printed.** Each unit's sheet and each level's booklet print from the app: "🖨️ Natisni list · Print sheet" on the unit
 and its row, "🖨️ Vsi listi · All sheets" on the level. The bridge serves the page `companion/bin/school-prints` makes
 (`GET /course/sheet/<unit>`, `GET /course/booklet/<level>`: one source, `companion/prints/build.ts`), the app fits it in

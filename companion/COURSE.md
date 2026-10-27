@@ -258,9 +258,12 @@ bold stays English), give a form's meaning in brackets right after it, and keep 
 
 Four types for a page of work at once. Each names its rule like any exercise (`grammar`, a page id); an item may name its
 own (`grammar` on a gap, a cell, a line). Graded on the phone with the app's rules (`Grading`: č, š, ž forgotten is
-almost; a slip in the stem forgiven; never the ending), each item marked right, almost or wrong with its correction
-once the sheet is checked. They are worksheet exercises (in a unit, a test, homework); modules will take them once every
-phone has an app that plays them.
+almost; a slip in the stem forgiven; never the ending), each item marked right (✓), almost or wrong with its correction
+right where it was answered once the sheet is checked: what was typed set against what is right, word by word and letter
+by letter ("Spi~~ve~~**ta** v šotoru.": the typed letters that are wrong struck through, the right ones green and bold),
+and its why (`explain`; an almost's slip: a missing č). Under the sheet only the count ("3 od 8 narobe, 2 skoraj"), a
+tap on it back at the first one not right. They are worksheet exercises (in a unit, a test, homework); modules will take
+them once every phone has an app that plays them.
 
 ### gaptext: a text with gaps
 
@@ -288,7 +291,8 @@ phone has an app that plays them.
 - `bank` (default false): a word bank under the text, each gap's first answer, shuffled, plus `distractors` (0–6, only
   with a bank). A word of the bank is tapped into the gap being filled; typing works too.
 - `translation` (optional): the text's meaning in English, shown after checking.
-- Checked all at once ("Preveri · Check"): each gap right, almost or wrong, its correction under it.
+- Checked all at once ("Preveri · Check"): each gap right, almost or wrong, the corrections of a sentence's gaps on a
+  line under the sentence (its 🔊 the sentence said right).
 
 ### table: conjugate or decline
 
@@ -494,8 +498,9 @@ page turns on that page's forms too.
 
 ### Craft notes (from biti and spol)
 
-- **One gap a sentence** where it can be: the corrections show each gap in its sentence ("Babica ___ v kuhinji."), and a
-  slip is kept with that sentence on the rule's page.
+- **One gap a sentence** where it can be: a sentence's corrections come right under it (a long sentence of many gaps
+  pushes its corrections far from the first), and a slip is kept with that sentence on the rule's page ("Babica ___ v
+  kuhinji.").
 - **A cue in brackets after the gap** when the word to change is given: `"To je ___ (moj) hiša."`; a transform list's
   noun to put in: `"To je moj brat. (sestra)"`.
 - **A table's labels short** (`"jaz · midva · mi"`, `"1. kdo? kaj?"`) and its columns two-language (`"ednina · one"`):

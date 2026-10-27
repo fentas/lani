@@ -660,7 +660,10 @@ private fun IntroAsk(
                             onAnswered(v, IntroSpeech.answer(ask))
                         })
                     }
-                    verdict?.let { v -> AskResult(vm, v, ask.accept.firstOrNull().orEmpty(), ask.explain, IntroSpeech.answer(ask), reader, said, onSaid) }
+                    verdict?.let { v ->
+                        val right = Grading.check(value.text, ask.accept).expected.ifBlank { ask.accept.firstOrNull().orEmpty() }
+                        AskResult(vm, v, right, ask.explain, IntroSpeech.answer(ask), reader, said, onSaid, typed = value.text)
+                    }
                 }
                 else -> Unit
             }
@@ -669,12 +672,13 @@ private fun IntroAsk(
 }
 
 /**
- * A quick question's answer: right or not, the right one, the sentence with it (🔊) and its why; scrolled into view as it
- * appears (under the options, the stage above taking its room, it would be out of sight).
+ * A quick question's answer: right or not, the right one (a typed one's set against what was typed, [typed]: struck
+ * through, the right letters green, as a worksheet's item has it), the sentence with it (🔊) and its why; scrolled into
+ * view as it appears (under the options, the stage above taking its room, it would be out of sight).
  */
 @OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
 @Composable
-private fun AskResult(vm: AppViewModel, v: Grading.Verdict, right: String, explain: String?, sentence: String?, reader: IntroVoice.Reader, said: Boolean, onSaid: (Rect) -> Unit) {
+private fun AskResult(vm: AppViewModel, v: Grading.Verdict, right: String, explain: String?, sentence: String?, reader: IntroVoice.Reader, said: Boolean, onSaid: (Rect) -> Unit, typed: String? = null) {
     val (label, color) = when (v) {
         Grading.Verdict.CORRECT -> "${inTarget("playerScreen.correct")} ✅" to AlpineGreen
         Grading.Verdict.ALMOST -> "${inTarget("playerScreen.almost")} 🟡" to si.lanisce.lani.ui.theme.FlameOrange
@@ -687,7 +691,10 @@ private fun AskResult(vm: AppViewModel, v: Grading.Verdict, right: String, expla
     }
     Column(Modifier.bringIntoViewRequester(seen), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(label, style = MaterialTheme.typography.titleMedium, color = color)
-        if (v != Grading.Verdict.CORRECT) Text("→ $right", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+        if (v != Grading.Verdict.CORRECT) {
+            if (typed.isNullOrBlank()) Text("→ $right", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+            else si.lanisce.lani.ui.AnswerDiffText(typed, right, v, style = MaterialTheme.typography.titleMedium)
+        }
         sentence?.let { s ->
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(s, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f).onGloballyPositioned { onSaid(it.boundsInRoot()) }.background(if (said) XpGold.copy(alpha = 0.3f) else androidx.compose.ui.graphics.Color.Transparent, MaterialTheme.shapes.small))

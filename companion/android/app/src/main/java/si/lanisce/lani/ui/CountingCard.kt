@@ -235,7 +235,8 @@ private fun TypedStep(s: CountStep, answer: (String) -> Unit) {
 }
 
 /**
- * Step [i] answered ([m]): ✓ or ✗ with what was answered, the right line (bold, its 🔊), and for step 1 what the noun's
+ * Step [i] answered ([m]): ✓ or ✗ with what was answered set against it ([TypedAgainst]), the right line (bold, its 🔊),
+ * and for step 1 what the noun's
  * end says of its gender. [now]: the step just answered (said to TalkBack at once).
  */
 @Composable
@@ -251,12 +252,7 @@ private fun StepDone(vm: AppViewModel, ex: Exercise.Counting, i: Int, m: ItemMar
                 Text(if (s.n == 5) "5+" else "${s.n}", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Black, modifier = Modifier.width(36.dp))
                 Column(Modifier.weight(1f)) {
                     Text(s.line, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, color = if (m.verdict == Verdict.WRONG) AlpineGreen else MaterialTheme.colorScheme.onSurface)
-                    if (m.verdict != Verdict.CORRECT) {
-                        Text(
-                            "${if (m.verdict == Verdict.WRONG) "✗" else "≈"} ${m.answer.ifBlank { "…" }}",
-                            style = MaterialTheme.typography.bodyMedium, color = if (m.verdict == Verdict.WRONG) TriglavRed else color,
-                        )
-                    }
+                    if (m.verdict != Verdict.CORRECT) TypedAgainst(m, color)
                 }
                 Text(if (m.verdict == Verdict.WRONG) "❌" else if (m.verdict == Verdict.ALMOST) "🟡" else "✅")
                 SpeakButton(vm.speaker, s.line, Modifier.padding(start = 6.dp))

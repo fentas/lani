@@ -197,6 +197,7 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        sedanjik-3", Jan's "Kdo kaj dela?"): three lines wrong, two almost (one without its person in
                        brackets), three right; each line's correction under its field, the count under the sheet that
                        scrolls to the first wrong one; on the phone, a tablet upright (1600 × 2560) and on its side;
+                       "sheet-corrections-types" the same on sedanjik-1's table and sedanjik-2's gap text (the phone);
                        "school-print" the unit biti's sheet printed ("🖨️ Natisni list"): fit.js in the app's
                        WebView choosing as headless Chromium does, the print dialog's preview, the PDF saved through it
                        (A4, its pages as chosen), the level's booklet ("🖨️ Vsi listi") to its dialog;
@@ -5111,7 +5112,7 @@ def school():
     time.sleep(1.5)
     shot("school-gaptext")
     assert tap("Preveri · Check", 4), "check the gap text"
-    assert wait_for("Popravki", 6), "its corrections"
+    assert wait_for("od 6 narobe", 6), "its corrections: the count under the text"
     time.sleep(1)
     shot("school-gaptext-checked")
     assert tap("Naprej · Next", 4), "on"
@@ -5187,6 +5188,40 @@ def sheet_scroll(down: bool, times=1):
         time.sleep(0.8)
 
 
+def sheet_fill(label: str, text: str) -> bool:
+    """Types [text] into the sheet's field TalkBack calls [label], scrolled to when it is under the screen's last part
+    (on any display: the phone's, a tablet's); False when there is none."""
+    w, h = screen_size()
+    for _ in range(6):
+        c = find(label)
+        if c is not None and 250 < c[1] < h - 220:
+            tap_at(c)
+            # typed only with the keyboard up for it (a tap during a scroll's settling misses, and the Back that hides
+            # the keyboard would leave the sheet)
+            if keyboard_settled(4) is None:
+                continue
+            adb("shell", "input", "text", text.replace(" ", "%s"))
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")
+            time.sleep(0.8)
+            return True
+        adb("shell", "input", "swipe", str(w // 2), str(int(h * 0.7)), str(w // 2), str(int(h * 0.45)), "400")
+        time.sleep(1)
+    return False
+
+
+def sheet_tap(text: str) -> bool:
+    """Taps [text] on the sheet, scrolled to when it is under the screen's last part (any display)."""
+    w, h = screen_size()
+    for _ in range(5):
+        c = find(text)
+        if c is not None and 250 < c[1] < h - 150:
+            tap_at(c)
+            return True
+        adb("shell", "input", "swipe", str(w // 2), str(int(h * 0.7)), str(w // 2), str(int(h * 0.45)), "400")
+        time.sleep(1)
+    return False
+
+
 def sheet_corrections():
     """A checked worksheet's corrections at its items (2026-10-27, Jan: "corrections would make sense at the inputs or
     nearby — to have them all at the bottom makes it hard to compare"): Jan's sheet sedanjik-3 ("Kdo kaj dela?", QA's hook
@@ -5203,8 +5238,8 @@ def sheet_corrections():
         qa_hook("sheet:sedanjik/sedanjik-3")
         assert wait_for("Povej za osebo v oklepaju", 15), "the sheet"
         for i, answer in enumerate(SHEET_ANSWERS, 1):
-            assert fill(f"Vrstica {i} · Line {i}", answer), f"line {i}"
-        assert tap("Preveri · Check", 4), "check"
+            assert sheet_fill(f"Vrstica {i} · Line {i}", answer), f"line {i}"
+        assert sheet_tap("Preveri · Check"), "check"
         assert wait_for("Ne čisto", 8), "the sheet checked: not quite"
         time.sleep(2)  # the feedback slid in, the first wrong line brought into view
         shot(f"sheet-{tag}-checked")
@@ -5214,24 +5249,47 @@ def sheet_corrections():
             sheet_scroll(down=True)
             shot(f"sheet-{tag}-down-{k}")
 
-    def check_lines():
-        texts = [t for t, _ in nodes()]
-        # the corrections at their lines (TalkBack's text of each): the right answer, what was typed
-        for right, typed in [("Pijejo čaj", "pjie caj"), ("Bereva pismo", "bereta pismo"), ("pita v šotoru", "spive v sotoru")]:
-            assert any(right in t and typed in t for t in texts) or wait_for(right, 2), f"the correction of {typed}"
-        assert find("Popravki · Corrections") is None, "no list of corrections under the sheet"
+    def seen_down(want: list[str], swipes=8) -> set[str]:
+        """Which of [want] the sheet shows (a text or TalkBack's), scrolled from its top down."""
+        sheet_scroll(down=False, times=6)
+        found = set()
+        for _ in range(swipes):
+            texts = [t for t, _ in nodes()]
+            found |= {w for w in want if any(w in t for t in texts)}
+            if len(found) == len(want):
+                break
+            sheet_scroll(down=True)
+        return found
 
-    play("phone")
-    sheet_scroll(down=False, times=6)
-    sheet_scroll(down=True, times=1)
-    check_lines()
-    count = scroll_to("3 od 8 narobe", 4)
-    assert count is not None, "the count under the sheet"
-    shot("sheet-phone-count")
-    tap_at(count)
-    time.sleep(1.5)
-    shot("sheet-phone-first-wrong")
-    assert wait_for("Pijejo čaj", 3), "the count's tap: back at the first wrong line"
+    def phone_checks(want: list[str], problems: list[str]):
+        """The phone's sheet: every correction at its line, no list, the count's tap back at the first wrong line."""
+        play("phone")
+        found = seen_down(want)
+        if len(found) != len(want):
+            problems.append(f"the corrections at their lines, the count under them: missing {[w for w in want if w not in found]}")
+        if find("Popravki · Corrections") is not None:
+            problems.append("a list of corrections under the sheet")
+        count = find("3 od 8 narobe")
+        if count is None:
+            problems.append("no count under the sheet")
+        else:
+            shot("sheet-phone-count")
+            tap_at(count)
+            time.sleep(1.5)
+            shot("sheet-phone-first-wrong")
+            if not find("Right: Pijejo čaj"):
+                problems.append("the count's tap: not back at the first wrong line")
+
+    # the corrections at their lines (TalkBack's text of each: the right answer, what was typed), no list under the sheet;
+    # what is missing is said at the end, the tablet's screenshots taken all the same
+    want = ["Right: Pijejo čaj. Tvoj odgovor · You wrote: pjie caj", "Right: Bereva pismo. Tvoj odgovor · You wrote: bereta pismo",
+            "Right: Luka in Tine spita v šotoru. Tvoj odgovor · You wrote: spive v sotoru",
+            "Right: Gledaš ogenj. Tvoj odgovor · You wrote: Gledas ogenj", "Right: Babica peče kruh. Tvoj odgovor · You wrote: Pece kruh",
+            "3 od 8 narobe, 2 skoraj"]
+    problems = []
+    tablet_only = os.environ.get("LANI_QA_SHEET_TABLET") == "only"  # a before/after of the tablet alone: a short run
+    if not tablet_only:
+        phone_checks(want, problems)
     try:
         adb("shell", "wm", "size", "1600x2560")
         adb("shell", "wm", "density", "320")
@@ -5244,10 +5302,72 @@ def sheet_corrections():
         shot("sheet-tablet-side-top")
         sheet_scroll(down=True, times=1)
         shot("sheet-tablet-side-down")
+        if len(seen_down(want, swipes=20)) != len(want):  # on its side the sheet has a strip above the feedback
+            problems.append("the tablet on its side: not every correction at its line")
     finally:
         adb("shell", "wm", "size", "reset")
         adb("shell", "wm", "density", "reset")
         time.sleep(4 * slow())
+    assert not problems, "; ".join(problems)
+
+
+# sedanjik-1's table and sedanjik-2's gap text answered with mistakes (adb types no č, š, ž): the table's cells by their
+# row and column (TalkBack's label), three wrong, two almost; the text's gaps, two wrong, two almost
+TABLE_ANSWERS = [("jaz, govoriti · speak", "govorem"), ("jaz, piti · drink", "pijem"), ("ti, delati · work", "delas"),
+                 ("ti, piti · drink", "pijes"), ("on, ona, delati · work", "dela"), ("vi, piti · drink", "pite"),
+                 ("oni, govoriti · speak", "govorijo"), ("oni, piti · drink", "pijo")]
+GAP_ANSWERS = ["pece", "pije", "cakajo", "delamo", "delas", "Beres"]
+
+
+def sheet_corrections_types():
+    """The corrections at their items on the school's other typed sheets (2026-10-27): sedanjik-1's table (QA's hook
+    "sheet:sedanjik/sedanjik-1"): each cell's correction under it, the row's slips under the row; sedanjik-2's gap text:
+    a sentence's corrections on a line under it (the gap's number, what was typed against what is right, the sentence's
+    🔊); the count under each."""
+    if not (ROOT / "companion/course/sl/units/sedanjik.json").exists():
+        return "no course here (companion/course/sl/units/sedanjik.json)"
+    go_home()
+    qa_hook("sheet:sedanjik/sedanjik-1")
+    assert wait_for("delati · work", 15), "the table"
+    for label, answer in TABLE_ANSWERS:
+        assert sheet_fill(label, answer), f"the cell {label}"
+    assert sheet_tap("Preveri · Check"), "check the table"
+    assert wait_for("Ne čisto", 8) or wait_for("Skoraj", 2), "the table checked"
+    time.sleep(2)
+    shot("sheet-table-checked")
+    sheet_scroll(down=False, times=4)
+    shot("sheet-table-top")
+    want = ["Right: govorim. Tvoj odgovor · You wrote: govorem", "Right: pijete. Tvoj odgovor · You wrote: pite",
+            "Right: pijejo. Tvoj odgovor · You wrote: pijo", "3 od 8 narobe, 2 skoraj"]
+    texts = set()
+    for _ in range(4):
+        texts |= {t for t, _ in nodes()}
+        sheet_scroll(down=True)
+    missing = [w for w in want if not any(w in t for t in texts)]
+    go_home()
+    qa_hook("sheet:sedanjik/sedanjik-2")
+    assert wait_for("Dan v vasi", 15), "the gap text"
+    for i, answer in enumerate(GAP_ANSWERS, 1):
+        assert sheet_fill(f"Vrzel {i} · Gap {i}", answer), f"gap {i}"
+    assert sheet_tap("Preveri · Check"), "check the gap text"
+    assert wait_for("Ne čisto", 8) or wait_for("Skoraj", 2), "the gap text checked"
+    time.sleep(2)
+    shot("sheet-gaptext-checked")
+    sheet_scroll(down=False, times=4)
+    shot("sheet-gaptext-top")
+    sheet_scroll(down=True)
+    shot("sheet-gaptext-down")
+    want2 = ["Right: čakata. Tvoj odgovor · You wrote: cakajo", "Right: Berem. Tvoj odgovor · You wrote: Beres",
+             "Right: peče. Tvoj odgovor · You wrote: pece", "2 od 6 narobe, 2 skoraj"]
+    sheet_scroll(down=False, times=4)
+    texts = set()
+    for _ in range(4):
+        texts |= {t for t, _ in nodes()}
+        sheet_scroll(down=True)
+    missing += [w for w in want2 if not any(w in t for t in texts)]
+    if missing:  # what the screens said, for a look at why
+        (OUT / "sheet-texts.txt").write_text("\n".join(sorted(texts)) + "\n")
+    assert not missing, f"the corrections at their items: missing {missing}"
 
 
 def school_point(pic, x: float, y: float, z: float) -> tuple[int, int]:
@@ -10358,6 +10478,7 @@ def plan():
         ("village-hud", village_hud, v, False, ""),
         ("school", school, go_home, False, ""),
         ("sheet-corrections", sheet_corrections, go_home, False, ""),
+        ("sheet-corrections-types", sheet_corrections_types, go_home, False, ""),
         ("school-print", school_print, go_home, False, ""),
         ("school-build", school_build, go_home, False, ""),
         ("school-scene", school_scene, v, False, ""),

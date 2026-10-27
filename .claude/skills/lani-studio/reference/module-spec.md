@@ -146,7 +146,8 @@ the type doesn't have is refused.
 Each names its rule like any exercise (`grammar`, a page id); an item may name its own (`grammar` on a gap, a cell, a
 line). The app grades **each item on its own** (a gap, a cell, a line, a word sorted) with its usual rules: a forgotten
 č, š or ž is almost right, a slip in the stem is forgiven, the ending never is. Once the sheet is checked each item shows
-right, almost or wrong with its correction. In a test an almost-right item counts half. `hint` (the 💡 of an item) and
+right (✓), almost or wrong with its correction right under it (what was typed struck through, the right letters green,
+its `explain`), the count under the sheet. In a test an almost-right item counts half. `hint` (the 💡 of an item) and
 `explain` are English, short: the rule, never the answer.
 
 ### `gaptext` — a text with gaps

@@ -334,7 +334,21 @@ private fun TypedGap(g: FormsGap, answer: (String) -> Unit) {
     }
 }
 
-/** A gap answered: ✓ or ✗ with what was answered, the right form (bold, its 🔊). */
+/**
+ * Under a step's right line, what was typed ([m]): ✗ or ≈, then set against what is right ([AnswerDiffText]: struck
+ * through, the right letters green), as a worksheet's item has it; "✗ …" when nothing was typed.
+ */
+@Composable
+internal fun TypedAgainst(m: ItemMark, color: androidx.compose.ui.graphics.Color) {
+    val mark = if (m.verdict == Verdict.WRONG) "✗" else "≈"
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Text("$mark ", style = MaterialTheme.typography.bodyMedium, color = if (m.verdict == Verdict.WRONG) TriglavRed else color)
+        if (m.answer.isBlank() || m.expected.isBlank()) Text(m.answer.ifBlank { "…" }, style = MaterialTheme.typography.bodyMedium, color = if (m.verdict == Verdict.WRONG) TriglavRed else color)
+        else AnswerDiffText(m.answer, m.expected, m.verdict, style = MaterialTheme.typography.bodyMedium)
+    }
+}
+
+/** A gap answered: ✓ or ✗ with what was answered set against the right form, the right line (bold, its 🔊). */
 @Composable
 private fun GapDone(vm: AppViewModel, g: FormsGap, m: ItemMark) {
     val color = verdictColor(m.verdict)
@@ -346,9 +360,7 @@ private fun GapDone(vm: AppViewModel, g: FormsGap, m: ItemMark) {
         Row(Modifier.padding(horizontal = 14.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
                 Text(right, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, color = if (m.verdict == Verdict.WRONG) AlpineGreen else MaterialTheme.colorScheme.onSurface)
-                if (m.verdict != Verdict.CORRECT) {
-                    Text("${if (m.verdict == Verdict.WRONG) "✗" else "≈"} ${m.answer.ifBlank { "…" }}", style = MaterialTheme.typography.bodyMedium, color = if (m.verdict == Verdict.WRONG) TriglavRed else color)
-                }
+                if (m.verdict != Verdict.CORRECT) TypedAgainst(m, color)
             }
             Text(if (m.verdict == Verdict.WRONG) "❌" else if (m.verdict == Verdict.ALMOST) "🟡" else "✅")
             SpeakButton(vm.speaker, right, Modifier.padding(start = 6.dp))

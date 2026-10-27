@@ -1130,14 +1130,22 @@ private fun Feedback(vm: AppViewModel, o: Outcome, slovene: String?, onAsk: () -
                 }
                 hintText(o.hint)?.let { Markdown(ExplainFormat.format(it), block = explained) }
                 if (o.verdict != Verdict.CORRECT && o.correct != null) {
+                    // a typed answer near the right one: what was typed set against it under it, as a worksheet's item
+                    // has it (struck through, the right letters green: AnswerDiffText), the right one plain above
+                    val diff = o.marks.isNotEmpty() && !o.spoken && o.answer.isNotBlank()
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         ExText(
-                            highlighted(o.correct, o.marks, color), remember(o, look) { look?.taps?.correct(o.correct).orEmpty() },
+                            highlighted(o.correct, if (diff) emptyList() else o.marks, color), remember(o, look) { look?.taps?.correct(o.correct).orEmpty() },
                             style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f), tag = "correct",
                         )
                         SpeakButton(vm.speaker, o.correct)
                     }
-                    if (o.marks.isNotEmpty()) {
+                    if (diff) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text("${bi("playerScreen.wrote")}: ", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.clearAndSetSemantics { })
+                            AnswerDiffText(o.answer, o.correct, o.verdict, style = MaterialTheme.typography.bodyMedium)
+                        }
+                    } else if (o.marks.isNotEmpty()) {
                         Text(if (o.spoken) "${bi("talkInput.iHeard")}: ${o.answer}" else "${bi("playerScreen.wrote")}: ${o.answer}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }
@@ -1417,7 +1425,8 @@ internal fun reviewAnswer(ex: Exercise, o: Outcome, cardId: String, variant: Rev
     }
 }
 
-private fun hintText(h: Grading.Hint): String? = when (h) {
+/** Why an answer is almost or the ending to look at, for the feedback ([Grading.Hint]); a worksheet item's too. */
+internal fun hintText(h: Grading.Hint): String? = when (h) {
     Grading.Hint.NONE -> null
     Grading.Hint.DIACRITICS -> bi("playerScreen.mind")
     Grading.Hint.ACCENT -> bi("playerScreen.mindAccents")
