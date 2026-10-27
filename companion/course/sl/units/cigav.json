@@ -149,18 +149,18 @@
       "exercises": [
         {
           "type": "gaptext", "grammar": "cigav", "instruction": "Dopolni · Fill in", "title": "Nered pri Micki",
-          "text": "Zjutraj je v Mickini kuhinji velik nered. »Kje je ___ (moj) žlica?« vpraša Zala. »Pod ___ (tvoj) zvezkom!« reče babica. Na stolu je star klobuk. »___ (čigav) je ta klobuk?« »To je ___ (Luka) klobuk.« Tine najde rdečo ruto. »Je to ___ (Vida) ruta?« »Ne, to je ___ (Micka) ruta.« Muri pa ima v gobcu ___ (Janez) rokavico.",
+          "text": "Zjutraj je v Mickini kuhinji velik nered. »Kje je ___ (moj) žlica?« vpraša Zala. »Pod ___ (tvoj) zvezkom!« reče babica. Na stolu je star klobuk. »___ (čigav) je ta klobuk?« »To je ___ (France) klobuk.« Tine najde rdečo ruto. »Je to ___ (Vida) ruta?« »Ne, to je ___ (Micka) ruta.« Muri pa ima v gobcu ___ (Janez) rokavico.",
           "gaps": [
             { "accept": ["moja"], "hint": "žlica: feminine" },
             { "accept": ["tvojim"], "hint": "pod + where? zvezek: masculine", "grammar": "pridevniki-ujemanje", "explain": "pod + the instrumental, zvezek is masculine: **pod tvojim zvezkom**." },
             { "accept": ["Čigav"], "hint": "klobuk: masculine" },
-            { "accept": ["Lukov"], "hint": "a man's name: -ov" },
+            { "accept": ["Francetov"], "hint": "a name in -e: a t, then -ov" },
             { "accept": ["Vidina"], "hint": "a woman's name: -in" },
             { "accept": ["Mickina"] },
             { "accept": ["Janezovo"], "hint": "rokavica: feminine, the object", "explain": "Janez → Janezov; rokavica is the object, feminine: **Janezovo** rokavico." }
           ],
-          "bank": true, "distractors": ["moj", "Lukova", "Vidin"],
-          "translation": "In the morning there's a big mess in Micka's kitchen. \"Where's my spoon?\" asks Zala. \"Under your notebook!\" says Granny. There's an old hat on the chair. \"Whose hat is this?\" \"It's Luka's hat.\" Tine finds a red scarf. \"Is this Vida's scarf?\" \"No, it's Micka's scarf.\" And Muri has Janez's glove in his mouth."
+          "bank": true, "distractors": ["moj", "Francetova", "Vidin"],
+          "translation": "In the morning there's a big mess in Micka's kitchen. \"Where's my spoon?\" asks Zala. \"Under your notebook!\" says Granny. There's an old hat on the chair. \"Whose hat is this?\" \"It's France's hat.\" Tine finds a red scarf. \"Is this Vida's scarf?\" \"No, it's Micka's scarf.\" And Muri has Janez's glove in his mouth."
         }
       ]
     },

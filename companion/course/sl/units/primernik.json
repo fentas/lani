@@ -168,7 +168,7 @@
       "exercises": [
         {
           "type": "gaptext", "grammar": "primernik", "instruction": "Dopolni s primernikom ali presežnikom · Fill in the comparative or superlative", "title": "Tek pod lipo",
-          "text": "V nedeljo je pod lipo tek. Nejc je hiter, Tine pa je še ___ (hiter). Zala teče ___ (hitro) kot oba fanta. Luka je ___ (star) kot otroci in samo gleda. Babica Micka reče: »Zmagovalec dobi ___ (velik) kos potice!« Zmaga Zala: danes je ___ (hiter) v vasi. Tine je na koncu ___ utrujen kot Nejc: komaj še stoji. Muri je ___ (majhen) od vseh, ampak laja najglasneje.",
+          "text": "V nedeljo je pod lipo tek. Nejc je hiter, Tine pa je še ___ (hiter). Zala teče ___ (hitro) kot oba fanta. Luka je ___ (star) kot otroci in samo gleda. Babica Micka reče: »Zmagovalec dobi ___ (presežnik: velik) kos potice!« Zmaga Zala: danes je ___ (presežnik: hiter) v vasi. Tine je na koncu ___ utrujen kot Nejc: komaj še stoji. Muri je ___ (presežnik: majhen) od vseh, ampak laja najglasneje.",
           "gaps": [
             { "accept": ["hitrejši"], "hint": "Tine: masculine, -ejši" },
             { "accept": ["hitreje"], "hint": "teče kako? how", "grammar": "prislovi", "explain": "How she runs: the adverb, **hitreje**." },
@@ -176,7 +176,7 @@
             { "accept": ["največji"], "hint": "the biggest", "explain": "naj- + večji: **največji** kos (kos is masculine)." },
             { "accept": ["najhitrejša"], "hint": "Zala: feminine, the most", "explain": "naj- + hitrejši, Zala is feminine: **najhitrejša**." },
             { "accept": ["bolj"], "hint": "utrujen has no form of its own" },
-            { "accept": ["najmanjši", "manjši"], "hint": "the smallest" }
+            { "accept": ["najmanjši"], "hint": "naj- + the comparative" }
           ],
           "bank": true, "distractors": ["hitrejša", "bolje", "hitrejšo"],
           "translation": "On Sunday there's a race under the linden. Nejc is fast, but Tine is even faster. Zala runs faster than both boys. Luka is older than the children and only watches. Granny Micka says: \"The winner gets the biggest piece of potica!\" Zala wins: today she's the fastest in the village. At the end Tine is more tired than Nejc: he can hardly stand. Muri is the smallest of all, but he barks the loudest."
@@ -219,7 +219,7 @@
       },
       {
         "type": "gaptext", "grammar": "primernik", "instruction": "Dopolni s primernikom ali presežnikom · Fill in the comparative or superlative",
-        "text": "Stari Janez je ___ (star) človek v vasi. Zima je na planoti ___ (dolg) kot v dolini. Letos ima Anton ___ (veliko) čebel kot lani. Marko pravi: »Moja rebula je ___ (dober) na svetu!«",
+        "text": "Stari Janez je ___ (presežnik: star) človek v vasi. Zima je na planoti ___ (primernik: dolg) kot v dolini. Letos ima Anton ___ (veliko) čebel kot lani. Marko pravi: »Moja rebula je ___ (presežnik: dober) na svetu!«",
         "gaps": [
           { "accept": ["najstarejši"] },
           { "accept": ["daljša"] },

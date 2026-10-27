@@ -11,7 +11,7 @@
     "it": "Sai usare il plurale in ogni caso: pet krav, k sosedom, na travnikih, z ovcami, veliko ljudi."
   },
   "grammar": ["mnozina-skloni", "mnozina", "rodilnik-kolicina", "stevila-samostalniki"],
-  "words": ["stol", "hiša", "jabolko", "konj", "krava", "ovca", "čebela", "gost", "sosed", "prijatelj", "prijateljica", "travnik", "košara", "steklenica", "otrok", "otroci", "ljudje", "panj", "goba", "volk", "mačka", "hlev", "planina", "poroka", "seno", "podkovati", "pasti", "veliko", "malo", "nekaj", "koliko", "brez", "proti", "med"],
+  "words": ["stol", "hiša", "jabolko", "konj", "krava", "ovca", "čebela", "gost", "sosed", "prijatelj", "prijateljica", "travnik", "košara", "steklenica", "otrok", "otroci", "ljudje", "panj", "goba", "volk", "mačka", "hlev", "planina", "poroka", "seno", "podkovati", "pasti", "nož", "veliko", "malo", "nekaj", "koliko", "brez", "proti", "med"],
   "intro": {
     "table": {
       "head": [
@@ -43,9 +43,9 @@
       },
       {
         "say": {
-          "en": "The genitive plural (*rodilnik*) is the one you'll need most: after five and more, after **veliko** (a lot of), **malo**, **nekaj**, **koliko**, and after **brez**. A masculine noun adds **-ov**: **pet stolov**; after c, č, j, š, ž **-ev**: **pet konjev** (also **pet konj**). A feminine or neuter noun drops its ending: **veliko hiš**, **pet krav**, **malo jabolk**.",
-          "de": "Den Genitiv Plural (*rodilnik*) brauchst du am meisten: nach fünf und mehr, nach **veliko** (viel), **malo**, **nekaj**, **koliko** und nach **brez**. Ein männliches Nomen bekommt **-ov**: **pet stolov**; nach c, č, j, š, ž **-ev**: **pet konjev** (auch **pet konj**). Ein weibliches oder sächliches Nomen verliert seine Endung: **veliko hiš**, **pet krav**, **malo jabolk**.",
-          "it": "Il genitivo plurale (*rodilnik*) è quello che ti servirà di più: dopo cinque e più, dopo **veliko** (molto), **malo**, **nekaj**, **koliko**, e dopo **brez**. Un nome maschile prende **-ov**: **pet stolov**; dopo c, č, j, š, ž **-ev**: **pet konjev** (anche **pet konj**). Un nome femminile o neutro perde la desinenza: **veliko hiš**, **pet krav**, **malo jabolk**."
+          "en": "The genitive plural (*rodilnik*) is the one you'll need most: after five and more, after **veliko** (a lot of), **malo**, **nekaj**, **koliko**, and after **brez**. A masculine noun adds **-ov**: **pet stolov**; after c, č, j, š, ž **-ev**: **pet panjev** (konj is its own: **pet konj**, also konjev). A feminine or neuter noun drops its ending: **veliko hiš**, **pet krav**, **malo jabolk**.",
+          "de": "Den Genitiv Plural (*rodilnik*) brauchst du am meisten: nach fünf und mehr, nach **veliko** (viel), **malo**, **nekaj**, **koliko** und nach **brez**. Ein männliches Nomen bekommt **-ov**: **pet stolov**; nach c, č, j, š, ž **-ev**: **pet panjev** (konj hat sein eigenes: **pet konj**, auch konjev). Ein weibliches oder sächliches Nomen verliert seine Endung: **veliko hiš**, **pet krav**, **malo jabolk**.",
+          "it": "Il genitivo plurale (*rodilnik*) è quello che ti servirà di più: dopo cinque e più, dopo **veliko** (molto), **malo**, **nekaj**, **koliko**, e dopo **brez**. Un nome maschile prende **-ov**: **pet stolov**; dopo c, č, j, š, ž **-ev**: **pet panjev** (konj fa a sé: **pet konj**, anche konjev). Un nome femminile o neutro perde la desinenza: **veliko hiš**, **pet krav**, **malo jabolk**."
         },
         "examples": [
           { "sl": "V hlevu je pet krav.", "en": "There are five cows in the barn.", "de": "Im Stall sind fünf Kühe.", "it": "Nella stalla ci sono cinque mucche." },
@@ -130,12 +130,12 @@
         {
           "type": "sort", "grammar": "mnozina-skloni", "instruction": "V katerem sklonu je? Razvrsti · Which case? Sort",
           "columns": [
-            { "label": "2. koga? česa?", "words": ["konjev", "krav"] },
+            { "label": "2. koga? česa?", "words": ["panjev", "krav"] },
             { "label": "3. komu? čemu?", "words": ["konjem", "kravam"] },
             { "label": "5. pri kom? pri čem?", "words": ["konjih", "kravah"] },
             { "label": "6. s kom? s čim?", "words": ["otroki", "kravami"] }
           ],
-          "explain": "**the ending** → the case\n- 2: -ov, -ev, or no ending (konjev, krav)\n- 3: -om, -em, -am (konjem, kravam)\n- 5: -ih, -ah (konjih, kravah)\n- 6: -i, -ami (otroki, kravami)"
+          "explain": "**the ending** → the case\n- 2: -ov, -ev, or no ending (panjev, krav)\n- 3: -om, -em, -am (konjem, kravam)\n- 5: -ih, -ah (konjih, kravah)\n- 6: -i, -ami (otroki, kravami)"
         },
         {
           "type": "table", "grammar": "mnozina-skloni", "instruction": "Dopolni množino · Fill in the plural", "prompt": "krava · cow", "lemma": "krava",
@@ -151,16 +151,16 @@
           "explain": "**krava** → feminine plural: krave · krav · kravam · krave · kravah · kravami"
         },
         {
-          "type": "table", "grammar": "mnozina-skloni", "instruction": "Dopolni množino · Fill in the plural", "prompt": "konj · horse", "lemma": "konj",
+          "type": "table", "grammar": "mnozina-skloni", "instruction": "Dopolni množino · Fill in the plural", "prompt": "panj · hive", "lemma": "panj",
           "columns": ["množina · plural"],
           "rows": [
-            { "label": "1. kdo? kaj?", "cells": ["konji"] },
-            { "label": "2. koga? česa?", "cells": [{ "accept": ["konjev", "konj"], "hint": "after j: -ev", "form": "gen.pl" }] },
-            { "label": "3. komu? čemu?", "cells": [{ "accept": ["konjem"], "hint": "after j: -em", "form": "dat.pl" }] },
-            { "label": "5. pri kom? pri čem?", "cells": [{ "accept": ["konjih"], "form": "loc.pl" }] },
-            { "label": "6. s kom? s čim?", "cells": [{ "accept": ["konji"], "hint": "s + whom? masculine", "form": "ins.pl" }] }
+            { "label": "1. kdo? kaj?", "cells": ["panji"] },
+            { "label": "2. koga? česa?", "cells": [{ "accept": ["panjev"], "hint": "after j: -ev", "form": "gen.pl" }] },
+            { "label": "3. komu? čemu?", "cells": [{ "accept": ["panjem"], "hint": "after j: -em", "form": "dat.pl" }] },
+            { "label": "5. pri kom? pri čem?", "cells": [{ "accept": ["panjih"], "form": "loc.pl" }] },
+            { "label": "6. s kom? s čim?", "cells": [{ "accept": ["panji"], "hint": "s + what? masculine", "form": "ins.pl" }] }
           ],
-          "explain": "**konj** → masculine plural, after j an e: konji · konjev (also konj) · konjem · konje · konjih · konji"
+          "explain": "**panj** → masculine plural, after j an e: panji · panjev · panjem · panje · panjih · panji"
         }
       ]
     },
@@ -222,21 +222,21 @@
       },
       {
         "type": "gaptext", "grammar": "mnozina-skloni", "instruction": "Dopolni z množino · Fill in the plural",
-        "text": "Anton ima štirideset ___ (panji). Jeseni je v gozdu veliko ___ (gobe). Zala se rada igra z ___ (mačke) pri sosedih. Tine se boji ___ (volkovi).",
+        "text": "V kovačnici je veliko ___ (noži). Jeseni je v gozdu veliko ___ (gobe). Zala se rada igra z ___ (mačke) pri sosedih. Tine se boji ___ (volkovi).",
         "gaps": [
-          { "accept": ["panjev"], "explain": "From five on the genitive plural; after j **-ev**: panjev." },
+          { "accept": ["nožev"], "explain": "veliko + the genitive plural; after ž **-ev**: nožev." },
           { "accept": ["gob"] },
           { "accept": ["mačkami"] },
           { "accept": ["volkov"], "explain": "bati se + the genitive: **volkov**.", "grammar": "povratni-glagoli" }
         ],
-        "translation": "Anton has forty hives. In autumn there are a lot of mushrooms in the forest. Zala likes playing with the cats at the neighbours'. Tine is afraid of wolves."
+        "translation": "There are a lot of knives in the smithy. In autumn there are a lot of mushrooms in the forest. Zala likes playing with the cats at the neighbours'. Tine is afraid of wolves."
       },
       {
         "type": "transform", "grammar": "mnozina-skloni", "instruction": "Postavi v množino · Put it in the plural", "cue": "→ več · more",
         "items": [
           { "from": "Micka daje potico otroku.", "accept": ["Micka daje potico otrokom."], "lemma": "otrok", "form": "dat.pl" },
           { "from": "Zala govori o mački.", "accept": ["Zala govori o mačkah."], "lemma": "mačka", "form": "loc.pl" },
-          { "from": "Pred kovačnico je en konj. (pet)", "accept": ["Pred kovačnico je pet konjev.", "Pred kovačnico je pet konj."], "lemma": "konj", "form": "gen.pl", "grammar": "stevila-samostalniki" }
+          { "from": "Pred kovačnico je en konj. (pet)", "accept": ["Pred kovačnico je pet konj.", "Pred kovačnico je pet konjev."], "lemma": "konj", "form": "gen.pl", "grammar": "stevila-samostalniki" }
         ]
       },
       {

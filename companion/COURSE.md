@@ -512,12 +512,12 @@ By the A2 units' pages (machine-written, 2026-10-27):
 | `mnozina-skloni` | mnozina-skloni, mnozina, rodilnik-kolicina, stevila-samostalniki | nothing new: a case's plural row (hišah, hiš, hišam, hišami) comes with that case's page and `mnozina`, as `mestnik`'s does at A1, so the A2 case units before it open them; its tables and transforms name the forms (`gen.pl` … `ins.pl`) |
 | `primernik` | primernik, prislovi | an adjective's comparative (lepši, boljši, večji: `cmp.m.sg`) |
 | `cigav` | cigav, pridevniki-ujemanje | as `spol` (the adjective's rows); the possessives aren't in the forms book |
+| `glagolski-vid` | glagolski-vid, pretekli-cas | nothing new: the past's l-forms are on since A1 (`pretekli-cas`); a verb's aspect and its partner show in the word lookup for every learner |
 
 `vprasalnice`, `kdaj-cas`, `modalni-glagoli` and `povratni-glagoli` turn on no form of a table, nor do A2's
 `zaimki-skloni` (osebni-zaimki, naslonke: the pronouns aren't in the forms book), `namenilnik` (namenilnik,
-modalni-glagoli: the supine has no slot), `glagolski-vid` (glagolski-vid, pretekli-cas: the past's l-forms are on since
-A1; a verb's aspect and its partner show in the word lookup for every learner), `pogojnik` (pogojnik, naslonke: the
-conditional is bi and the past's l-form) and `vezniki` (vezniki, naslonke). The genitive, dative
+modalni-glagoli: the supine has no slot), `pogojnik` (pogojnik, naslonke: the conditional is bi and the past's
+l-form) and `vezniki` (vezniki, naslonke). The genitive, dative
 and instrumental rows (`rodilnik`, `dajalnik`, `orodnik`, A2 pages) stay greyed until those pages are met in the book;
 a noun's nominative singular is the word itself, never asked. A unit's `grammar` decides: a unit that lists another
 page turns on that page's forms too.
