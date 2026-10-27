@@ -1,0 +1,170 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "nel-mulino",
+  "language": "it",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in it, with sl, en and de translations, from the mill's picture as its painter's contract describes it (the colours and where each thing is drawn); not reviewed by a native speaker",
+  "things": {
+    "millstone": {
+      "clues": [
+        { "kind": "colour", "it": "È grigia.", "sl": "Je sive barve.", "en": "It's grey.", "de": "Das ist grau.", "grammar": ["aggettivi-accordo"], "adj": "grigio" },
+        { "kind": "trait", "it": "È rotonda e molto pesante.", "sl": "Je okrogel in zelo težek.", "en": "It's round and very heavy.", "de": "Das ist rund und sehr schwer.", "grammar": ["aggettivi-accordo"], "adj": "rotondo" },
+        { "kind": "material", "it": "È di pietra.", "sl": "Je iz kamna.", "en": "It's made of stone.", "de": "Das ist aus Stein.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È dentro una cassa rotonda di legno.", "sl": "Je v okrogli leseni skrinji.", "en": "It's inside a round wooden case.", "de": "Das ist in einem runden Holzkasten.", "grammar": ["dove-preposizioni"] },
+        { "kind": "does", "it": "Gira e fa la farina.", "sl": "Vrti se in dela moko.", "en": "It turns and makes flour.", "de": "Das dreht sich und macht Mehl.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "hopper": {
+      "clues": [
+        { "kind": "material", "it": "È di legno.", "sl": "Je iz lesa.", "en": "It's made of wood.", "de": "Das ist aus Holz.", "grammar": ["essere-avere"] },
+        { "kind": "trait", "it": "È larga sopra e stretta sotto.", "sl": "Zgoraj je širok, spodaj ozek.", "en": "It's wide at the top and narrow at the bottom.", "de": "Das ist oben breit und unten schmal.", "grammar": ["aggettivi-accordo"], "adj": "largo" },
+        { "kind": "where", "it": "È sopra la macina.", "sl": "Je nad mlinskim kamnom.", "en": "It's above the millstone.", "de": "Das ist über dem Mühlstein.", "grammar": ["dove-preposizioni"] },
+        { "kind": "use", "it": "Ci versiamo dentro il mais.", "sl": "Vanj stresemo koruzo.", "en": "We pour the maize into it.", "de": "Da schütten wir den Mais hinein.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "grain": {
+      "name": { "en": "maize", "de": "Mais", "sl": "koruza" },
+      "clues": [
+        { "kind": "colour", "it": "È giallo.", "sl": "Je rumena.", "en": "It's yellow.", "de": "Das ist gelb.", "grammar": ["aggettivi-accordo"], "adj": "giallo" },
+        { "kind": "size", "it": "Sono tanti chicchi piccoli.", "sl": "To je veliko majhnih zrn.", "en": "It's lots of little grains.", "de": "Das sind viele kleine Körner.", "grammar": ["aggettivi-accordo", "plurale"] },
+        { "kind": "where", "it": "È nella tramoggia.", "sl": "Je v košu.", "en": "It's in the hopper.", "de": "Das ist im Trichter.", "grammar": ["preposizioni-articolate"] },
+        { "kind": "use", "it": "Con questo facciamo la polenta.", "sl": "Iz tega skuhamo polento.", "en": "We make polenta with it.", "de": "Daraus machen wir Polenta.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "flour": {
+      "clues": [
+        { "kind": "colour", "it": "È bianca.", "sl": "Je bela.", "en": "It's white.", "de": "Das ist weiß.", "grammar": ["aggettivi-accordo"], "adj": "bianco" },
+        { "kind": "trait", "it": "È fine e morbida.", "sl": "Je fina in mehka.", "en": "It's fine and soft.", "de": "Das ist fein und weich.", "grammar": ["aggettivi-accordo"], "adj": "morbido" },
+        { "kind": "where", "it": "Scende in un sacco aperto, per terra.", "sl": "Teče v odprto vrečo na tleh.", "en": "It runs down into an open sack on the floor.", "de": "Das rieselt in einen offenen Sack am Boden.", "grammar": ["dove-preposizioni"] },
+        { "kind": "use", "it": "Con questa facciamo il pane e la polenta.", "sl": "Iz nje naredimo kruh in polento.", "en": "We make bread and polenta with it.", "de": "Daraus machen wir Brot und Polenta.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "sack": {
+      "clues": [
+        { "kind": "colour", "it": "È marrone.", "sl": "Je rjava.", "en": "It's brown.", "de": "Das ist braun.", "grammar": ["aggettivi-accordo"], "adj": "marrone" },
+        { "kind": "material", "it": "È di tela.", "sl": "Je iz blaga.", "en": "It's made of cloth.", "de": "Das ist aus Stoff.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "Sono nell'angolo, uno sopra l'altro.", "sl": "So v kotu, ena na drugi.", "en": "They're in the corner, one on top of another.", "de": "Die liegen in der Ecke, einer auf dem anderen.", "grammar": ["preposizioni-articolate"] },
+        { "kind": "use", "it": "Dentro c'è il grano.", "sl": "V njej je žito.", "en": "There's grain inside it.", "de": "Darin ist Korn.", "grammar": ["ce-ci-sono"] }
+      ]
+    },
+    "shaft": {
+      "name": { "en": "shaft", "de": "Achse", "sl": "gred" },
+      "clues": [
+        { "kind": "material", "it": "È di legno, con anelli di ferro.", "sl": "Je iz lesa, z železnimi obroči.", "en": "It's wooden, with iron rings.", "de": "Das ist aus Holz, mit Eisenringen.", "grammar": ["essere-avere"] },
+        { "kind": "size", "it": "È lungo e grosso.", "sl": "Je dolga in debela.", "en": "It's long and thick.", "de": "Das ist lang und dick.", "grammar": ["aggettivi-accordo"], "adj": "lungo" },
+        { "kind": "where", "it": "È vicino al pavimento.", "sl": "Je blizu tal.", "en": "It's close to the floor.", "de": "Das ist nah am Boden.", "grammar": ["preposizioni-articolate"] },
+        { "kind": "does", "it": "Gira insieme alla grande ruota di fuori.", "sl": "Vrti se skupaj z velikim kolesom zunaj.", "en": "It turns together with the big wheel outside.", "de": "Das dreht sich mit dem großen Rad draußen.", "grammar": ["presente-regolare", "preposizioni-articolate"] }
+      ]
+    },
+    "gear": {
+      "name": { "en": "gear wheel", "de": "Zahnrad", "sl": "zobnik" },
+      "clues": [
+        { "kind": "colour", "it": "È marrone.", "sl": "Je rjav.", "en": "It's brown.", "de": "Das ist braun.", "grammar": ["aggettivi-accordo"], "adj": "marrone" },
+        { "kind": "trait", "it": "Ha tanti denti di legno.", "sl": "Ima veliko lesenih zob.", "en": "It has lots of wooden teeth.", "de": "Das hat viele Holzzähne.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È mezza dentro un buco nel pavimento.", "sl": "Napol je v jami v tleh.", "en": "It's half inside a hole in the floor.", "de": "Das steckt halb in einem Loch im Boden.", "grammar": ["dove-preposizioni", "preposizioni-articolate"] },
+        { "kind": "where", "it": "È sotto la macina.", "sl": "Je pod mlinskim kamnom.", "en": "It's under the millstone.", "de": "Das ist unter dem Mühlstein.", "grammar": ["dove-preposizioni"] },
+        { "kind": "does", "it": "Gira quando lavora il mulino.", "sl": "Vrti se, ko mlin dela.", "en": "It turns when the mill is working.", "de": "Das dreht sich, wenn die Mühle arbeitet.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "wheel": {
+      "clues": [
+        { "kind": "size", "it": "È grande, molto grande.", "sl": "Je veliko, zelo veliko.", "en": "It's big, very big.", "de": "Das ist groß, sehr groß.", "grammar": ["aggettivi-accordo"], "adj": "grande" },
+        { "kind": "material", "it": "È di legno.", "sl": "Je iz lesa.", "en": "It's made of wood.", "de": "Das ist aus Holz.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È fuori, nell'acqua.", "sl": "Je zunaj, v vodi.", "en": "It's outside, in the water.", "de": "Das ist draußen, im Wasser.", "grammar": ["preposizioni-articolate"] },
+        { "kind": "does", "it": "L'acqua la fa girare.", "sl": "Voda ga vrti.", "en": "The water turns it.", "de": "Das Wasser dreht es.", "grammar": ["presente-regolare", "verbi-irregolari"] }
+      ]
+    },
+    "flume": {
+      "name": { "en": "flume", "de": "Rinne", "sl": "žleb" },
+      "clues": [
+        { "kind": "material", "it": "È di legno.", "sl": "Je iz lesa.", "en": "It's made of wood.", "de": "Das ist aus Holz.", "grammar": ["essere-avere"] },
+        { "kind": "trait", "it": "È lungo e stretto.", "sl": "Je dolg in ozek.", "en": "It's long and narrow.", "de": "Das ist lang und schmal.", "grammar": ["aggettivi-accordo"], "adj": "lungo" },
+        { "kind": "where", "it": "È sopra la grande ruota, fuori.", "sl": "Je nad velikim kolesom, zunaj.", "en": "It's above the big wheel, outside.", "de": "Das ist über dem großen Rad, draußen.", "grammar": ["dove-preposizioni"] },
+        { "kind": "does", "it": "Porta l'acqua.", "sl": "Prinaša vodo.", "en": "It brings the water.", "de": "Das bringt das Wasser.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "scale": {
+      "name": { "en": "scale", "de": "Waage", "sl": "tehtnica" },
+      "clues": [
+        { "kind": "colour", "it": "È dorata.", "sl": "Je zlate barve.", "en": "It's golden.", "de": "Das ist golden.", "grammar": ["aggettivi-accordo"], "adj": "dorato" },
+        { "kind": "trait", "it": "Ha due piatti.", "sl": "Ima dve skodelici.", "en": "It has two pans.", "de": "Das hat zwei Schalen.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È sulla panca.", "sl": "Je na klopi.", "en": "It's on the bench.", "de": "Das ist auf der Bank.", "grammar": ["preposizioni-articolate"] },
+        { "kind": "use", "it": "Con questa pesiamo la farina.", "sl": "S to tehtamo moko.", "en": "We weigh the flour with it.", "de": "Damit wiegen wir das Mehl.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "measure": {
+      "name": { "en": "measure", "de": "Maß", "sl": "merica" },
+      "clues": [
+        { "kind": "size", "it": "È piccola e quadrata.", "sl": "Je majhna in kvadratna.", "en": "It's small and square.", "de": "Das ist klein und eckig.", "grammar": ["aggettivi-accordo"], "adj": "piccolo" },
+        { "kind": "material", "it": "È di legno.", "sl": "Je iz lesa.", "en": "It's made of wood.", "de": "Das ist aus Holz.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È sulla panca.", "sl": "Je na klopi.", "en": "It's on the bench.", "de": "Das ist auf der Bank.", "grammar": ["preposizioni-articolate"] },
+        { "kind": "use", "it": "Il mugnaio la riempie di grano.", "sl": "Mlinar jo napolni z žitom.", "en": "The miller fills it with grain.", "de": "Der Müller füllt das mit Korn.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "bench": {
+      "clues": [
+        { "kind": "material", "it": "È di legno.", "sl": "Je iz lesa.", "en": "It's made of wood.", "de": "Das ist aus Holz.", "grammar": ["essere-avere"] },
+        { "kind": "trait", "it": "È lunga e bassa.", "sl": "Je dolga in nizka.", "en": "It's long and low.", "de": "Das ist lang und niedrig.", "grammar": ["aggettivi-accordo"], "adj": "lungo" },
+        { "kind": "where", "it": "È sotto la finestra.", "sl": "Je pod oknom.", "en": "It's under the window.", "de": "Das ist unter dem Fenster.", "grammar": ["dove-preposizioni"] },
+        { "kind": "use", "it": "Ci sediamo sopra.", "sl": "Na njej sedimo.", "en": "We sit on it.", "de": "Darauf sitzen wir.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "window": {
+      "clues": [
+        { "kind": "size", "it": "È piccola.", "sl": "Je majhno.", "en": "It's small.", "de": "Das ist klein.", "grammar": ["aggettivi-accordo"], "adj": "piccolo" },
+        { "kind": "material", "it": "È di vetro.", "sl": "Je iz stekla.", "en": "It's made of glass.", "de": "Das ist aus Glas.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È nel muro, sopra la panca.", "sl": "Je v steni, nad klopjo.", "en": "It's in the wall, above the bench.", "de": "Das ist in der Wand, über der Bank.", "grammar": ["preposizioni-articolate", "dove-preposizioni"] },
+        { "kind": "does", "it": "Di giorno fa entrare la luce.", "sl": "Podnevi spusti noter svetlobo.", "en": "By day it lets the light in.", "de": "Am Tag lässt das das Licht herein.", "grammar": ["presente-regolare", "verbi-irregolari"] }
+      ]
+    },
+    "door": {
+      "clues": [
+        { "kind": "material", "it": "È di legno.", "sl": "So iz lesa.", "en": "It's made of wood.", "de": "Das ist aus Holz.", "grammar": ["essere-avere"] },
+        { "kind": "size", "it": "È alta.", "sl": "So visoka.", "en": "It's tall.", "de": "Das ist hoch.", "grammar": ["aggettivi-accordo"], "adj": "alto" },
+        { "kind": "where", "it": "È nel muro di sinistra.", "sl": "So v levi steni.", "en": "It's in the left-hand wall.", "de": "Das ist in der linken Wand.", "grammar": ["preposizioni-articolate"] },
+        { "kind": "use", "it": "Di qui entriamo nel mulino.", "sl": "Skozi njih vstopimo v mlin.", "en": "This is where we come into the mill.", "de": "Hier kommen wir in die Mühle.", "grammar": ["presente-regolare", "preposizioni-articolate"] }
+      ]
+    },
+    "ladder": {
+      "clues": [
+        { "kind": "material", "it": "È di legno.", "sl": "Je iz lesa.", "en": "It's made of wood.", "de": "Das ist aus Holz.", "grammar": ["essere-avere"] },
+        { "kind": "trait", "it": "È alta e stretta.", "sl": "Je visoka in ozka.", "en": "It's tall and narrow.", "de": "Das ist hoch und schmal.", "grammar": ["aggettivi-accordo"], "adj": "alto" },
+        { "kind": "where", "it": "È vicino ai sacchi.", "sl": "Je pri vrečah.", "en": "It's by the sacks.", "de": "Das ist bei den Säcken.", "grammar": ["preposizioni-articolate"] },
+        { "kind": "use", "it": "Ci saliamo in soffitta.", "sl": "Po njej splezamo na podstrešje.", "en": "We climb up it to the loft.", "de": "Darauf klettern wir auf den Dachboden.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "cat": {
+      "name": { "en": "cat", "de": "Katze", "sl": "mačka" },
+      "clues": [
+        { "kind": "colour", "it": "È arancione, con le strisce.", "sl": "Je oranžna, s progami.", "en": "It's orange, with stripes.", "de": "Das ist orange, mit Streifen.", "grammar": ["aggettivi-accordo"], "adj": "arancione" },
+        { "kind": "trait", "it": "Ha i baffi e una lunga coda.", "sl": "Ima brke in dolg rep.", "en": "It has whiskers and a long tail.", "de": "Das hat Schnurrhaare und einen langen Schwanz.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È per terra, vicino ai sacchi.", "sl": "Je na tleh, pri vrečah.", "en": "It's on the floor, near the sacks.", "de": "Das ist auf dem Boden, bei den Säcken.", "grammar": ["preposizioni-articolate"] },
+        { "kind": "does", "it": "Caccia i topi.", "sl": "Lovi miši.", "en": "It hunts mice.", "de": "Das jagt Mäuse.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "mouse": {
+      "clues": [
+        { "kind": "colour", "it": "È grigio.", "sl": "Je siva.", "en": "It's grey.", "de": "Das ist grau.", "grammar": ["aggettivi-accordo"], "adj": "grigio" },
+        { "kind": "size", "it": "È piccolo piccolo.", "sl": "Je čisto majhna.", "en": "It's tiny.", "de": "Das ist winzig klein.", "grammar": ["aggettivi-accordo"], "adj": "piccolo" },
+        { "kind": "where", "it": "È vicino al suo buco.", "sl": "Je pri svoji luknji.", "en": "It's by its hole.", "de": "Das ist bei seinem Loch.", "grammar": ["preposizioni-articolate"] },
+        { "kind": "trait", "it": "Ha paura del gatto.", "sl": "Boji se mačke.", "en": "It's afraid of the cat.", "de": "Das hat Angst vor der Katze.", "grammar": ["essere-avere", "preposizioni-articolate"] }
+      ]
+    },
+    "lantern": {
+      "clues": [
+        { "kind": "colour", "it": "È nera.", "sl": "Je črna.", "en": "It's black.", "de": "Das ist schwarz.", "grammar": ["aggettivi-accordo"], "adj": "nero" },
+        { "kind": "material", "it": "È di ferro e di vetro.", "sl": "Je iz železa in stekla.", "en": "It's made of iron and glass.", "de": "Das ist aus Eisen und Glas.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È appesa a un gancio.", "sl": "Visi na kavlju.", "en": "It hangs on a hook.", "de": "Das hängt an einem Haken.", "grammar": ["dove-preposizioni", "aggettivi-accordo"] },
+        { "kind": "does", "it": "Di sera fa luce.", "sl": "Zvečer sveti.", "en": "In the evening it gives light.", "de": "Am Abend macht das Licht.", "grammar": ["presente-regolare", "verbi-irregolari"] }
+      ]
+    },
+    "sieve": {
+      "clues": [
+        { "kind": "trait", "it": "È rotondo.", "sl": "Je okroglo.", "en": "It's round.", "de": "Das ist rund.", "grammar": ["aggettivi-accordo"], "adj": "rotondo" },
+        { "kind": "trait", "it": "Ha tanti buchini.", "sl": "Ima veliko luknjic.", "en": "It has lots of little holes.", "de": "Das hat viele kleine Löcher.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È appeso al muro.", "sl": "Visi na steni.", "en": "It hangs on the wall.", "de": "Das hängt an der Wand.", "grammar": ["preposizioni-articolate", "aggettivi-accordo"] },
+        { "kind": "use", "it": "Con questo la farina diventa fine.", "sl": "S tem postane moka fina.", "en": "With it the flour turns fine.", "de": "Damit wird das Mehl fein.", "grammar": ["presente-regolare"] }
+      ]
+    }
+  }
+}

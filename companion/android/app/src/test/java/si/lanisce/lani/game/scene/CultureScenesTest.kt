@@ -49,7 +49,7 @@ class CultureScenesTest {
     /** Art → its effects that bring one of its wild animals: a culture's scene of the art may leave them to the day. */
     private val SEEN = mapOf(
         // the near cow's bell lost in the grass only where a line says so (v-gorah's planina-zvonec), not on every Alm
-        "alps" to setOf("ibex", "bell-lost"), "hills" to emptySet(), "sea" to emptySet(),
+        "alps" to setOf("ibex", "bell-lost"), "hills" to emptySet(), "sea" to emptySet(), "mill" to emptySet(),
     )
 
     @Test fun `each culture's scene opens from its place and uses only what its painter draws`() {
@@ -57,6 +57,8 @@ class CultureScenesTest {
             listOf("primorska", "v-gorah", "alps", "spot:${TownSpots.HORIZON}"),
             listOf("primorska", "na-gricih", "hills", "project:vinograd"),
             listOf("friuli", "il-mare", "sea", "spot:${TownSpots.HORIZON}"),
+            // the Friuli mill inside, once its mill project grinds
+            listOf("friuli", "nel-mulino", "mill", "project:mlin"),
             listOf("kaernten", "am-see", "alps", "spot:${TownSpots.HORIZON}"),
             listOf("lakeland", "on-the-fell", "alps", "spot:${TownSpots.HORIZON}"),
         )) {

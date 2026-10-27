@@ -103,6 +103,11 @@ class WordStickers private constructor(
             "v-cerkvi/oltar", "v-cerkvi/orgle", "v-cerkvi/kropilnik",
             "pri-cebelnjaku/koncnica", "pri-cebelnjaku/kadilnik", "pri-cebelnjaku/tocilo", "pri-cebelnjaku/vosek",
             "praznik-dan-cebel/cebelnjak", "praznik-dan-cebel/satje",
+            // the mill: the stone's 🪨 is a rock, the hopper's 🔻 a triangle, the sack's 🛍️ a shopping bag, the wheel's 🎡 a fair's,
+            // the shaft's 🪵 a log, the flume's 💦 a splash, the measure's 📦 a parcel, the sieve's ⭕ a ring; in Friuli the same
+            "v-mlinu/mlinski-kamen", "v-mlinu/kos", "v-mlinu/vreca", "v-mlinu/mlinsko-kolo", "v-mlinu/gred", "v-mlinu/zleb", "v-mlinu/merica",
+            "v-mlinu/sito",
+            "nel-mulino/macina", "nel-mulino/tramoggia", "nel-mulino/asse", "nel-mulino/canale", "nel-mulino/misura", "nel-mulino/setaccio",
         )
     }
 }

@@ -16,14 +16,20 @@ class ScenesContentTest {
     private val dir = listOf(File("../../scenes"), File("../scenes"), File("companion/scenes")).first { it.isDirectory }
     private val files = dir.listFiles { f -> f.extension == "json" }.orEmpty().sortedBy { it.name }
 
+    /** The village projects of the Slovene village's culture (companion/cultures/primorska/projects.json), whose landmarks a scene may open from. */
+    private val PROJECTS: Set<String> by lazy {
+        val f = listOf(File("../../cultures"), File("../cultures"), File("companion/cultures")).first { it.isDirectory }.resolve("primorska/projects.json")
+        Regex("\"id\": \"([a-z_]+)\",\\s*\"leader\"").findAll(f.readText()).map { it.groupValues[1] }.toSet()
+    }
+
     @Test fun `every curated scene parses, alone and as the served list`() {
-        assertEquals(18, files.size)
+        assertEquals(19, files.size)
         val scenes = files.map { f -> parseScene(f.readText()).also { assertEquals(f.nameWithoutExtension, it.id) } }
         assertEquals(scenes.map { it.id }, parseScenes(files.joinToString(",", "[", "]") { it.readText() }).map { it.id })
         assertEquals(
             listOf(
                 "kuhinja", "na-njivi", "na-stolpu", "na-trznici", "na-vasi", "ob-ognju", "ob-potoku", "pri-cebelnjaku", "pri-ribniku", "v-cerkvi",
-                "v-delavnici", "v-gozdu", "v-hisi", "v-kleti", "v-kovacnici", "v-podstresju", "v-soli", "v-sotoru",
+                "v-delavnici", "v-gozdu", "v-hisi", "v-kleti", "v-kovacnici", "v-mlinu", "v-podstresju", "v-soli", "v-sotoru",
             ),
             scenes.map { it.id },
         )
@@ -34,7 +40,8 @@ class ScenesContentTest {
             val s = parseScene(f.readText())
             val slots = SceneArt.objects.getValue(s.art)
             val spots = SceneArt.personSlots.getValue(s.art)
-            assertTrue("${s.id}: places", s.from.all { it in SceneArt.places || (it.startsWith("spot:") && it.removePrefix("spot:") in TownSpots.ids) })
+            // a place of the village, a spot of the landscape or a village project's landmark (the mill: "project:mlin")
+            assertTrue("${s.id}: places", s.from.all { it in SceneArt.places || (it.startsWith("spot:") && it.removePrefix("spot:") in TownSpots.ids) || it.startsWith("project:") && it.removePrefix("project:") in PROJECTS })
             assertEquals("${s.id}: every slot once", s.objects.size, s.objects.map { it.slot }.toSet().size)
             assertTrue("${s.id}: slots", s.objects.all { it.slot in slots })
             assertTrue("${s.id}: most slots filled", s.objects.size >= slots.size * 3 / 4)
@@ -62,6 +69,8 @@ class ScenesContentTest {
         // the market and the watchtower open from theirs
         assertEquals(listOf("market"), from["na-trznici"])
         assertEquals(listOf("watchtower"), from["na-stolpu"])
+        // the mill from its landmark, once the mill project grinds (the stream's mill leads into it too: SceneDoors)
+        assertEquals(listOf("project:mlin"), from["v-mlinu"])
         assertTrue(from.values.flatten().all { TownPlace.of(it) != TownPlace.Fire || it == "fire" })
         // the rooms of the houses: the kitchen from the hut too, the others only from a house
         assertEquals(listOf("hut", "house"), from["kuhinja"])
@@ -261,11 +270,19 @@ class ScenesContentTest {
         val ball = effects("na-vasi", "nogomet-zoga")
         assertTrue(ball.first()["ball"] == 0f && ball.last()["ball"] == 1f && ball.last()["goal"] == 1f)
         assertEquals(1f, effects("na-vasi", "nogomet").last()["goal"])
+        // the mill: France starts the stones at dawn (still, then grinding); Micka's grain into the hopper; the cat pounces; in
+        // the evening the lantern lit and the stones stopped, until midnight
+        val start = effects("v-mlinu", "zagon")
+        assertTrue(start.first()["grind"] == 0f && start.last()["grind"] == 1f)
+        assertEquals(1f, effects("v-mlinu", "micka").last()["pour"])
+        assertEquals(1f, effects("v-mlinu", "macka").last()["cat"])
+        val evening = effects("v-mlinu", "vecer")
+        assertTrue(evening.first()["grind"] == 0f && evening.last()["lantern"] == 1f && evening.last()["grind"] == 0f)
         val kept = files.map { parseScene(it.readText()) }.flatMap { s -> s.dialogs.filter { it.fxKept }.map { "${s.id}/${it.id}" } }
         // and their variants: the candles lit, the lantern left burning; what is gone or home or dressed for good, until
         // midnight: the hare, Sivko, the scarecrow (its face drawn), the pedlar in at the gate, the lamb drinking, the flocks
-        // gone home, the lost sheep found, the wooden horse mended, Marko's cart on its wheels, the attic's lamp left on; the
-        // square as it is by itself
+        // gone home, the lost sheep found, the wooden horse mended, Marko's cart on its wheels, the attic's lamp left on, the
+        // mill's evening (its lantern lit, its stones still); the square as it is by itself
         assertEquals(
             listOf(
                 "na-njivi/strasilo", "na-njivi/strasilo-klobuk", "na-njivi/konj-hlev", "na-njivi/kosnja-zajec", "na-stolpu/straza",
@@ -273,8 +290,8 @@ class ScenesContentTest {
                 "na-vasi/macka", "na-vasi/nogomet-zoga", "na-vasi/macka-sir", "ob-ognju/roke-ovce", "ob-potoku/ovce",
                 "ob-potoku/ovce-stejem", "ob-potoku/ovce-jagnje", "v-cerkvi/sveca", "v-cerkvi/sveca-stejem", "v-cerkvi/sveca-veter",
                 "v-delavnici/konjicek", "v-gozdu/ovca", "v-gozdu/ovca-megla", "v-gozdu/ovca-pikica", "v-kovacnici/kolo-steklenice",
-                "v-kovacnici/kolo-tvoj", "v-podstresju/burja", "v-sotoru/svetilka", "v-sotoru/svetilka-bom", "v-sotoru/svetilka-komu",
-                "v-sotoru/dez-svetilka",
+                "v-kovacnici/kolo-tvoj", "v-mlinu/vecer", "v-mlinu/vecer-tema", "v-podstresju/burja", "v-sotoru/svetilka",
+                "v-sotoru/svetilka-bom", "v-sotoru/svetilka-komu", "v-sotoru/dez-svetilka",
             ),
             kept,
         )

@@ -90,6 +90,21 @@ class WordStickersTest {
         "v-gorah/kozorog" to StickerSpot("alps", "ibex"),
         // the stairs down into the cellar (and up into the attic): the first room that has them
         "dom-in-hisa/stopnice" to StickerSpot("cellar", "stairs"),
+        // the mill's things, in the Slovene mill and in the Friuli one
+        "v-mlinu/mlinski-kamen" to StickerSpot("mill", "millstone"),
+        "v-mlinu/kos" to StickerSpot("mill", "hopper"),
+        "v-mlinu/vreca" to StickerSpot("mill", "sack"),
+        "v-mlinu/mlinsko-kolo" to StickerSpot("mill", "wheel"),
+        "v-mlinu/gred" to StickerSpot("mill", "shaft"),
+        "v-mlinu/zleb" to StickerSpot("mill", "flume"),
+        "v-mlinu/merica" to StickerSpot("mill", "measure"),
+        "v-mlinu/sito" to StickerSpot("mill", "sieve"),
+        "nel-mulino/macina" to StickerSpot("mill", "millstone"),
+        "nel-mulino/tramoggia" to StickerSpot("mill", "hopper"),
+        "nel-mulino/asse" to StickerSpot("mill", "shaft"),
+        "nel-mulino/canale" to StickerSpot("mill", "flume"),
+        "nel-mulino/misura" to StickerSpot("mill", "measure"),
+        "nel-mulino/setaccio" to StickerSpot("mill", "sieve"),
     )
 
     /** The audit's words no scene draws yet: candidates for drawing. */
