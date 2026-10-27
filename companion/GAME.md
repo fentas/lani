@@ -1357,8 +1357,9 @@ to level 2 needs A2's units done and opens **B1**, level 3 needs B1's and opens 
 tečaj A2 · še 3 enote" on the school's card). Only units written count: a planned unit holds nothing back, and a level
 without units is done as soon as the course reaches it. **A level the course hasn't reached isn't done**, however few
 units it has: what holds the upgrade back then is the first level before it with units to go, and the school's card says
-so ("📚 Za stopnjo 2: tečaj A1 · še 17 enot"). So today, with A2 not written yet, the school's level 2 waits for A1 (A2
-is reached only after it), and its levels 3 to 5 then for nothing. Since the school is the hamlet's (2026-10-13) this
+so ("📚 Za stopnjo 2: tečaj A1 · še 17 enot"). Until A2 had units the school's level 2 waited for A1 (A2 is reached only
+after it) and its levels 3 to 5 then for nothing; since A2's first units are written (2026-10-27: the cases, COURSE.md
+"The cases (A2)"), level 2 waits for A2's written units once A1 is done, as level 3 for B1's. Since the school is the hamlet's (2026-10-13) this
 matters: without the rule a school built in the hamlet went up to level 3 there at once (B1 and B2 "open" before A1 was
 done), and the village came to Vas with its 📜 at the cap and nothing of the school left to spend it on ("Pacing"). A
 level once open stays open (`CourseProgress.opened`), also when units are added to the one before. The school's screen says what a
