@@ -1366,11 +1366,25 @@ closed level waits for, each with its way on ("🏫 zgradiš šolo ›" to the v
 the school's card, "📚 še 3 enote ravni A2").
 
 **The course's order: recommended, free.** The unit suggested next (★: the first not done of the open levels, in the
-course's order) leads the school's screen and Home's tile; any unit of an open level can be opened, in any order. A unit
-is done when its **test** is passed (80 % of its items by default, an almost counting half). "⏩ Znam že: kar na test ·
-I know it: straight to the test" tests out of a unit at once (passed, it is done, `testedOut`; not passed, nothing is
-lost). Inside a unit: "📖 Uvod · Introduction" (resumable: its place kept; "⏭ Poznam to · I know this" skips it), the
-worksheets in order (the next one ★), the test, the tutor's homework; the main button is the next step.
+course's order) leads the school's screen and Home's tile; any unit of an open level the school shows can be opened,
+in any order (below: a level a bit at a time). A unit is done when its **test** is passed (80 % of its items by
+default, an almost counting half). "⏩ Znam že: kar na test · I know it: straight to the test" tests out of a unit at
+once (passed, it is done, `testedOut`; not passed, nothing is lost). Inside a unit: "📖 Uvod · Introduction"
+(resumable: its place kept; "⏭ Poznam to · I know this" skips it), the worksheets in order (the next one ★), the test,
+the tutor's homework; the main button is the next step.
+
+**A level a bit at a time.** Jan, 2026-10-27, as A2 (14 units) and B1 (16) were written: "no need to show it all
+directly". The school's screen (`School.reveal`) shows of each open level its units done and begun, the current one (the
+first not done: ★ in the level the course is at) and the next two after it, and folds the rest into one quiet line, "📝
+Še 9 enot v A2 · 9 more units in A2", whose tap lists them read-only (each with its 🖨️, a planned one "📝 Kmalu ·
+Coming"): a planned unit is never a row. A level whose written units are all done is one line, "✅ 18 opravljenih enot ·
+18 units done", that shows its units on a tap (to open one again) and hides them on the next. After the open levels comes
+the first closed one, with what opens it (as before: each need with its way on) and its units folded ("📝 14 enot v A2 ·
+14 units in A2"); the levels after it aren't shown until it opens. The rules that open a level stay as they are (above:
+A1 with the hamlet, A2 with the school and A1's units done, B1 and B2 with the school's levels and the level before
+done). The order stays free within what is shown: a folded unit is a tap away once it comes into view, and testing out
+of a unit ("⏩ Znam že") brings the next one in. A unit with the tutor's homework stays in view. The rules: COURSE.md,
+"What the school shows".
 
 **The introduction** (COURSE.md, "The introduction"): the new material in small steps as a teacher brings it: Mojca's
 few lines (in the learner's base, Markdown), an example or two (🔊, every word tappable), the table growing (this step's

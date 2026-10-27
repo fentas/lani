@@ -65,8 +65,9 @@ is served. `companion/bridge/test/smoke/course.ts` validates every file of the r
 - `levels`: CEFR levels in order (A1, A2, B1, B2, C1, C2; each at most once). The school opens A1 to B2 (GAME.md).
 - `units`: in the recommended order. Each has its `id` (kebab-case, 2–63 characters, unique in the course) and `title`
   (`{"sl", "en", "de", "it"}`: the language learned and every base; English always).
-- `planned: true`: a unit written later. It shows greyed in the school ("📝 Kmalu · Coming"), can't be opened, and doesn't
-  count for its level. `grammar` (optional) names the grammar pages it is to teach, for whoever writes it.
+- `planned: true`: a unit written later. It shows only in its level's folded list ("📝 Kmalu · Coming": [What the school
+  shows](#what-the-school-shows)), can't be opened, and doesn't count for its level. `grammar` (optional) names the
+  grammar pages it is to teach, for whoever writes it.
 - A unit that isn't planned has its file, `units/<id>.json`, of the same id and level. A unit file the outline doesn't
   list comes after its level's units.
 
@@ -424,6 +425,29 @@ saves it (a field left out is its default: null, 0, false, empty):
   try of the test and its `tries`; `done` the day the test was passed; `testedOut` passed straight away, without the
   worksheets.
 
+### What the school shows
+
+Jan, 2026-10-27, as A2 (14 units) and B1 (16) were outlined: "no need to show it all directly". The school's screen
+shows a level a bit at a time (`School.reveal`, pure; `game/SchoolRevealTest`):
+
+- **An open level**: its units done and begun, the current one (its first written unit not done: ★ in the level the
+  course is at) and the next two written units not done after it (`School.AHEAD`), and any unit with the tutor's
+  homework, as rows in the course's order. A learner who jumped ahead keeps every unit done or begun in view. The rest is
+  folded into one quiet line under the rows, "📝 Še 9 enot v A2 · 9 more units in A2", whose tap lists them read-only
+  (each with its picture, title and 🖨️: a written one "○ Pozneje · Later", a planned one "📝 Kmalu · Coming"). A planned
+  unit is never a row.
+- **A level done** (every written unit done): one line, "✅ 18 opravljenih enot · 18 units done", whose tap shows its
+  units (to open one again) and hides them again; its planned units, if any, folded as above.
+- **The first closed level** after the open ones: what opens it, each need with its way on (as before), and every unit
+  of it folded ("📝 14 enot v A2 · 14 units in A2", "🔒 Zaklenjeno · Locked" in the list). The levels after it aren't
+  shown until it opens.
+
+The rules that open a level are unchanged (`School.isOpen`: A1 with the hamlet; A2 with the school standing and A1's
+written units done, i.e. every A1 test passed; B1 and B2 with the school's levels 2 and 3 and the level before done; a
+level once open stays open). The order stays free: a folded unit is one tap away once it comes into view, and testing out
+of a unit ("⏩ Znam že") brings the next one in. Each level's booklet (🖨️ Vsi listi) stays under it. QA:
+`companion/bin/qa --steps school-reveal` (its hook `school:reveal`: the school standing, A1 done, A2 begun).
+
 ### What a unit turns on
 
 A unit's intro done (finished, or skipped: "⏭ Poznam to · I know this") may turn on something beyond the unit, from
@@ -615,8 +639,8 @@ without the optional table and the sixth example, tightest; the room left become
 Jan, 2026-10-14: "Can we have it in the app: for each lesson the relevant pages to print if wanted?"
 
 Each unit has **🖨️ Natisni list · Print sheet**: on its screen under "💬 Vprašaj · Ask the tutor", and as 🖨️ on its
-row in the school's levels (a locked unit's too: a sheet to learn from on the way). Each level with written units has
-**🖨️ Vsi listi · All sheets** under its units: the booklet. The bridge makes the page with the generator's own code
+row in the school's levels and in a level's folded list (a locked unit's too: a sheet to learn from on the way). Each
+level shown with written units has **🖨️ Vsi listi · All sheets** under its units: the booklet. The bridge makes the page with the generator's own code
 (`companion/prints/build.ts`, which `school-prints` uses too: the same HTML, its CSS, fonts and `fit.js` inlined):
 
 | Route | What |

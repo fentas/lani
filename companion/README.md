@@ -4397,6 +4397,7 @@ companion/bin/qa --steps school-build            # the school built in the hamle
 companion/bin/qa --steps school-scene            # the teacher in the school's scene: her requests as on the map, the lesson by her, the blackboard
 companion/bin/qa --steps school-seats            # the school's scene at 10: the pupils at their desks and the blackboard's lesson, zoomed in
 companion/bin/qa --steps school-print            # the unit biti's sheet printed: fit.js in the WebView as in Chromium, the print dialog, the PDF saved
+companion/bin/qa --no-town --steps school-reveal  # a level a bit at a time (QA's hook school:reveal; a synthetic learner: LANI_DEV_DATA): A1 done one line, A2's current and next two, the rest folded and listed, B1 closed
 companion/bin/qa --steps shadow-tutor            # the shadow tutor on QA's mock: the developer section, a fake key, a chat and a review, the panel, the export, the effort per task and within the thread
 companion/bin/qa --steps shadow-matrix           # the shadow's matrix on QA's mock: the Matrix tab on (nine lanes), a chat answered by every lane at its model and effort, the event's lane runs, today's spend per lane
 companion/bin/qa --steps dev-upload              # the developer's data on the node: a chat, the app to the background, app/dev/ in the dev bridge's copy (no key, no token), the panel's button, nothing with the setting off
@@ -4807,7 +4808,13 @@ a planned unit, a unit the outline lacks, the intro's steps and growing table, h
 school and A1's units; B1 and B2 for the school's levels, whose upgrades wait for the course: `GameEngine.upgradeOption`
 with the gate; a level once open staying open), the unit suggested next and the free order, a unit's steps, the best
 try kept, the test passed (the unit done once, its bonus) and tested out, and the progress through a save (and a save
-from before). `SimulationTest` plays the school (GAME.md, "Pacing" and "The school"). The intro read aloud
+from before). `game/SchoolRevealTest` checks what the school's screen shows of each level (COURSE.md, "What the school
+shows"): nothing done (the first unit and the next two, the rest folded, A2 closed with every unit folded and nothing
+after it), A1 done and A2 begun (A1 complete; A2's done, begun, current and next two; B1 closed, B2 not shown), a learner
+who jumped ahead (every unit done or begun in view), planned units only folded, a level closed (before the class; A1
+done without the school), all done (nothing folded), three units or fewer (nothing to fold), the tutor's homework
+keeping a unit in view, and a level kept open when units come to the one before. `SimulationTest` plays the school
+(GAME.md, "Pacing" and "The school"). The intro read aloud
 (COURSE.md, "Read aloud"): `data/IntroSpeechTest` splits a step's `say` into its runs (biti's first step: "Biti", "(to
 be) has …", "jaz sem", "(I am),", … in order, each with its language and where it is shown; quotes and italics, English in
 bold, a sentence without Slovene, a list, a table and emoji left out), the explanation's text and key as the node voices
@@ -4843,6 +4850,13 @@ the line under its row ("🏫 Pouk že poteka pod lipo …"); every bed taken, i
 Mojca's bed; what the stores then lack the moba brings; built on the plot chooser, the dev bridge's village keeps it,
 and the school's screen has the class indoors ("Šola · School", Mojca teaching in it). Screenshots: `school-build-sheet`,
 `school-build-card`, `school-build-bed`, `school-build-moba`, `school-build-plot`, `school-built`, `school-indoors`.
+`companion/bin/qa --steps school-reveal` (with `LANI_DEV_DATA`, a synthetic learner) asks for QA's hook `school:reveal`
+(the dev village's copy with the school standing, every A1 unit done, A2's first written unit done and its second
+begun) and checks the school's screen: A1 one line ("✅ 18 opravljenih enot", a tap shows its units, again hides them),
+A2's units done, begun, current and next two as rows and the rest folded into "📝 Še … enot v A2" (no planned unit a
+row), the folded list on a tap (read-only, "📝 Kmalu · Coming"), B1 closed with what opens it and its units folded, B2
+not shown; the swipes and taps it took in `school-reveal.txt`. Screenshots: `school-reveal-top`, `school-reveal-a2`,
+`school-reveal-a2-rows`, `school-reveal-folded`, `school-reveal-b1`, `school-reveal-a1-done`.
 The lesson where the class meets (GAME.md "The school", SCENES.md "What someone has here"): `game/scene/SceneOffersTest`
 checks the map's bubble over Mojca and her requests in the school agree (Jan's: her one up in the map's window, the same), the
 order of what someone has (the class's lesson, a dialog, the requests), the marker and a tap straight in or the choice,
