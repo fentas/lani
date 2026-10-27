@@ -265,8 +265,8 @@ pair switches:
 - **Labels**: the app's string tables (`android/app/src/main/resources/l10n/<code>.json`, the same keys in each),
   shown as "target · base" ("Danes · Heute"). The German and Italian tables are machine-written and not reviewed yet
   (their `_status`). A text that names the language learned ("Write it in German") selects on the target; names from
-  the culture pack (ages, buildings, skills) and dates read in each half's own language. The connection sheet (🌐
-  Jeziki · Languages) switches the pair on the phone, for testing.
+  the culture pack (ages, buildings, skills) and dates read in each half's own language. ⚙️ Nastavitve · Settings → 🌐
+  Jeziki · Languages switches the pair on the phone, for testing.
 - **Grading** (`resources/grading/<code>.json`): a missing č/š/ž, Italian accent or German umlaut (also ae/oe/ue/ss
   for ä/ö/ü/ß) is almost right, with its hint; English contractions are the same answer. Answers are lowercased in the
   target's locale; a word's stem forgives one slip from 4 letters, two from 9.
@@ -301,7 +301,7 @@ slots from the default profile's village.
   relay, and `POST /permission` answers `403`). A parent answers them in the terminal or through Remote
   Control.
 - The child's app asks no keys or accounts: the pairing tells it the profile is a child's (`learner.child`), and the
-  connection sheet's data and tutor settings (GitHub, the backup, the tutor's key or ChatGPT) say "👪 To nastavi starš ·
+  settings' data and tutor pages (GitHub, the backup, the tutor's key or ChatGPT) say "👪 To nastavi starš ·
   A parent sets this up", open after a two-second hold ("🔒 Drži za starše · Hold (for parents)"). A device set up on
   its own ("📱 Samo ta telefon / tablica", "🧒 Za otroka") is a child's the same way, and its bridge runs with
   `LANI_CHILD=1` ([docs/plans/05-built/onboarding.md](../docs/plans/05-built/onboarding.md)).
@@ -323,7 +323,8 @@ lani://pair?v=1&u=<bridge URL>&c=<code>&p=<profile>&f=<bridge key fingerprint>
 
 In the app's first launch, after the languages: "🖥️ S svojim računalnikom · With my family's computer" →
 "📷 Skeniraj kodo · Scan the code" (the URL and token, or the `lani://pair?…` text pasted, are behind "Ročno · Enter
-manually"); or, to pair again, the tutor's status dot on Home. The app asks for the camera only then,
+manually"); or, to pair again, ⚙️ Nastavitve · Settings → 🔗 Povezava · Connection → "📷 Skeniraj QR kodo" (the ⚙️ on
+Home: its dot is the tutor's status). The app asks for the camera only then,
 reads the code with CameraX and ZXing (no Google Play services), calls `POST /pair` and shows which
 learner it paired with. The phone must be on the tailnet: the Tailscale app, signed in to your tailnet,
 or with this node shared with it.
@@ -1336,7 +1337,7 @@ The tutor can answer from the app itself, on the learner's own API key (plan 5, 
 and works as before.** The app's tutor is a client of the bridge's channel: it gets the notifications Claude Code would
 get and calls the same tools, through the bridge's `/tutor/*` routes.
 
-**Turning it on.** "🔗 Povezava · Connection" (the status dot on Home) → "🧑‍🏫 Učitelj · Tutor":
+**Turning it on.** "⚙️ Nastavitve · Settings" (the ⚙️ on Home) → "🧑‍🏫 Učitelj · Tutor":
 - "Kdo odgovarja · Who answers": "🖥️ Claude Code na mojem vozlišču · Claude Code on my node" (the default), or
   "📱 V aplikaciji · In the app";
 - the provider: Anthropic with a Claude API key; OpenAI with "Nadaljuj s ChatGPT · Continue with ChatGPT" (the
@@ -1464,8 +1465,8 @@ check 6 in [05-phase-0.md](../docs/plans/05-phase-0.md)). It runs in the app on 
 the learner's real events, next to the real tutor. **It watches; it never acts:** the real tutor still answers
 everything, and the shadow's answers show only in its debug panel.
 
-**The developer setting.** Off by default, in the release app too. Open "🔗 Povezava · Connection" (the tutor's status
-dot on Home) and tap the version line at the bottom ("Lani 0.2.…") seven times: "🛠️ Razvijalec · Developer" appears
+**The developer setting.** Off by default, in the release app too. Open "⚙️ Nastavitve · Settings" (the ⚙️ on Home)
+and tap the version line at the bottom ("Lani 0.2.…") seven times: the section "🛠️ Razvijalec · Developer" appears,
 with "🕵️ Učitelj v senci · Shadow tutor", its switch, its status and "🔍 Odpri pregled · Open the panel". Turning it on
 without a key opens the panel, which asks for one.
 
@@ -1707,8 +1708,10 @@ where while it's on. The tutor knows nothing of it (no tool, no paragraph of the
 
 ## Grammar book
 
-The village's scroll has a collection "📖 Slovnica · Grammar": one page per rule of the language
-learned, filled in as the learner meets the rules. A "why" after an answer is short and gone once read; the page keeps
+"📖 Slovnica · Grammar", Home's tile (its index as a screen, `ui/grammar/GrammarBookScreen.kt`: the pages met by level,
+★ how well each sits, 🆕 this week's) and a collection of the village's scroll: one page per rule of the language
+learned, filled in as the learner meets the rules. A page opened from another's "🔗 Glej tudi · See also" has
+"‹ <the page before>" over it, and Back goes there first. A "why" after an answer is short and gone once read; the page keeps
 the rule, with a table, examples, the learner's own examples and mistakes, practice and the tutor a tap away. What the
 app does with it is in [GAME.md](GAME.md#the-grammar-book).
 
@@ -2017,10 +2020,10 @@ to the progress screen. QA's step `progress` goes through it, in the dark theme 
 
 ### Moje besede · My words
 
-"📚 Moje besede · My words" (`ui/words/MyWordsScreen.kt`; the list and the search in `data/MyWords.kt`, the
-dictionary's part in `app/MyWordsSearch.kt`): the learner's words in one list, to look one up quickly. It opens from
-Napredek's words line ("📚 Besede · Words 248 / 300 ›") and from "📚 Moje besede ›" under the head of "Nove besede · New
-words" (the word packs); back leads where it came from.
+"🔤 Moje besede · My words" (`ui/words/MyWordsScreen.kt`; the list and the search in `data/MyWords.kt`, the
+dictionary's part in `app/MyWordsSearch.kt`): the learner's words in one list, to look one up quickly. It opens from its
+tile on Home, Napredek's words line ("📚 Besede · Words 248 / 300 ›") and "🔤 Moje besede ›" under the head of "Nove besede
+· New words" (the word packs); Back leads where it came from.
 
 - **Which words.** The home language's vocabulary cards (GET /state), one row a word (the same word twice, a pack's and
   one added from a dialog, is one: its learned card): the learned ones, as Napredek counts them (`Stats.learned`:
@@ -3778,7 +3781,7 @@ companion/bin/lani-handover --take          # take it back once the phone handed
   it (an emergency only).
 - **The town's own key:** `app/town-key.pem` when there is one, else the bridge key as before; a town keeps its id
   among its friends when it moves.
-- **In the app:** 🔗 Povezava · Connection → 💾 Podatki · Data: connect git (the OAuth device flow with
+- **In the app:** ⚙️ Nastavitve · Settings → 💾 Podatki · Data: connect git (the OAuth device flow with
   `lani.githubClientId`, or a pasted fine-grained token), the repository and the last sync, who writes and the
   handover's QR code, the encrypted backup (a recovery code or a passphrase; the relay's backup API, `lani.relayUrl`).
 
@@ -3804,10 +3807,11 @@ say "☁️ Lani na tej napravi · Lani on this device". The bridge runs in the 
   companion/bin/lani export --profile luka      # another learner on this machine
   ```
 
-  Put the file on the phone, and import it in the app (the first launch, or 🔗 Povezava · Connection → "☁️ Preklopi na
-  ta telefon · Switch to this phone"). With git, `lani handover` does it through the data repository instead
+  Put the file on the phone, and import it in the app (the first launch, or ⚙️ Nastavitve · Settings → 🔗 Povezava ·
+  Connection → "☁️ Preklopi na ta telefon · Switch to this phone"). With git, `lani handover` does it through the data repository instead
   ([Data](#data-git-the-handover-the-backup)).
-- **Back to the node:** in the app 🔗 Povezava · Connection → "📤 Izvozi moje podatke · Export my data", then
+- **Back to the node:** in the app ⚙️ Nastavitve · Settings → 🔗 Povezava · Connection → "📤 Izvozi moje podatke ·
+  Export my data", then
 
   ```bash
   companion/bin/lani import lani-export-ana-2026-10-19.zip            # checks, asks, keeps what was there, commits
@@ -3818,7 +3822,7 @@ say "☁️ Lani na tej napravi · Lani on this device". The bridge runs in the 
   and "🖥️ Na svoj računalnik · To my own computer" in the app, then pair as usual. An import refuses while the phone
   holds the lease, and it keeps this node's own files (its secrets, voice clips, runtime files, `.gitignore` and lease).
 - **Towns and the family page** go through the relay in this mode: the build's `lani.relayUrl` (or `LANI_RELAY_URL`),
-  or the connection sheet's "🛰️ Posrednik (relay)". Without one, towns aren't available on the phone, and Friends
+  or Settings → 🔗 Povezava · Connection → "🛰️ Posrednik (relay)". Without one, towns aren't available on the phone, and Friends
   says so.
 - **What isn't there yet:** the tutor's settings (the tutor-live work), voices other than the phone's own
   text-to-speech, the car's clips.
@@ -4128,6 +4132,33 @@ The bridge refuses a drill that doesn't validate (and logs it); what a valid one
 a pack word, a villager) is logged, not refused. No `/` or `→` in what is voiced: the voice store splits phrases there.
 
 ## Android app
+
+### Navigation
+
+The app's screens are a back stack (`Nav.kt`; docs/plans/05-built/navigation.md): Back, the predictive back gesture
+(Android 14 and later: the screen shrinks and a pill names where letting go leads) and each screen's "‹ …" return to the
+screen below, named by it ("‹ Vas · Village", "‹ Napredek · Progress", "‹ Ob ognju · At the campfire"); a screen's own
+layers (a card, a sheet, a step, a dialog) close first. A screen of a kind already in the stack is gone back to, not
+opened again; an exercise run never stays under another screen, so Back after a run (and on its result) goes where it
+began; at Home, Back leaves the app. The stack is saved with the activity: after Android ended the app's process in the
+background, it opens on the screens it was on (not a run: where it began; not a visit). A notification or a `lani://`
+link (`lani://review`, `lani://village`, `lani://scene/<id>`, `lani://school/<unit>`, `lani://grammar/<page>`,
+`lani://friends`, `lani://settings/<section>`) opens its target over Home, on the way the app has to it (a scene over the
+village, a unit over the school, a town's question over Friends).
+
+**Home**, top to bottom: the village with the greeting, "🤝" to Friends (a count when a guest came, a question or a
+friend's offer waits), "⚙️" to the settings (its dot: the tutor's connection), the streak; "Danes · Today" (the one thing
+to do; wolves, a bear or a storm about make defending the village that thing; the village's day and at most two of who
+waits there, the rest "➕ Še 2 v vasi"); "Učenje · Learning", its tiles three to a row on a phone (🏫 Šola, 📚 Nove besede,
+🔤 Moje besede, 📖 Slovnica, ✨ Izzivi, 🗣️ Pogovor, 📋 Plonk listek, 📗 Branje, 🔢 Števila once open, 💌 Družina, 🚗 Za
+pot); the villagers who need the learner; "📊 Napredek · Progress"; the tutor's bar.
+
+**⚙️ Nastavitve · Settings** (`ui/settings/SettingsScreen.kt`): a row per section with what it holds now, each a page:
+🧑‍🏫 Učitelj · Tutor, 💾 Podatki · Data (a parent's on a child's device), 🌐 Jeziki · Languages, 🔊 Zvok in glas · Sound
+and voice, 🔗 Povezava · Connection (the node, pairing again, Lani on this phone), and 🛠️ Razvijalec · Developer once the
+version line was tapped seven times.
+
+### Getting the APK
 
 The APK comes from one of three places:
 
@@ -4717,7 +4748,7 @@ screenshots as `coast-*.png`).
 `build:<type>` gets the dev village's copy ready to build one (`build:field`): its stores full and a free plot (the next
 age's, when the age's own are all taken: Jan's Zaselek has none left), and opens the plot chooser for it over the map,
 with its ★ (`village-hud` looks at the HUD over it, its cards hidden, then goes back: nothing is built). `build:` lets it go.
-`pair:<target>-<base>` shows the app in that language pair (`pair:sl-de`), as the connection sheet's languages choose
+`pair:<target>-<base>` shows the app in that language pair (`pair:sl-de`), as Settings → 🌐 Jeziki · Languages chooses
 it; `pair:` follows the learner profile again (`village-hud`'s German).
 
 `hearths:<what>` (GAME.md "Hearths") sets the dev village's copy for the hearths' step: `hearths:tabor` … `hearths:mesto`

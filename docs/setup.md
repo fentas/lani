@@ -331,7 +331,7 @@ So the day sounds the same without the machine (on the road, on a train, on a ph
    tomorrow's while there is room. A background job does it a few times a day and when the app opens, only on Wi-Fi
    (and, if the learner wants, only while charging). What the voice store lacks, the bridge voices for it within its
    limits, so the store fills gradually;
-2. **keeps it within one number**: the app's settings (the tutor's status dot on Home, then "🔊 Zvok brez povezave ·
+2. **keeps it within one number**: the app's settings (the ⚙️ on Home, "🔊 Zvok in glas · Sound and voice", then "🔊 Zvok brez povezave ·
    Offline audio") set how much of the phone Lani's audio may take: Off, 100 MB, 250 MB (the default), 500 MB or
    Unlimited. It covers the day's clips, the clips played lately and the car's library ("🚗 Za pot"). The clips heard
    longest ago go first. Off: nothing is got ahead, the clips come as they are played. When the bridge re-voices a line

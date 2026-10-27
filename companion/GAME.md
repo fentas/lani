@@ -2384,8 +2384,8 @@ louder than its birds by day and its crickets at night ("the sea sounds are way 
 village by a lake plays no water of its own over the village; close up, the pond's brook (0.3) and the Alps' pasture brook
 (0.6) stay under the voices as the sea at the beach does.
 
-**The setting**: Home's status dot, "🔗 Povezava · Connection", then "🐦 Zvoki v ozadju · Background sounds": a switch (on
-by default) and the volume. Moving the slider plays the stream for three seconds, so the level can be heard. The phone
+**The setting**: the ⚙️ on Home, "⚙️ Nastavitve · Settings" → "🔊 Zvok in glas · Sound and voice", then "🐦 Zvoki v
+ozadju · Background sounds": a switch (on by default) and the volume. Moving the slider plays the stream for three seconds, so the level can be heard. The phone
 keeps both (`ambience` preferences).
 
 **The sounds** (`android/app/src/main/assets/ambient/`; the sources and licence of each in `CREDITS.md` there): ten loops,

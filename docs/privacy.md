@@ -151,7 +151,7 @@ app's own files (`<filesDir>/lani/data`), which only the app can read, and Andro
 
 - **The tutor's provider**, once the learner sets one up (the in-app tutor, on the learner's own key): what the tutor
   needs for a turn.
-- **The relay**, only when one is set (the build's, or the connection sheet's "🛰️ Posrednik (relay)"): the town's
+- **The relay**, only when one is set (the build's, or the one set in ⚙️ Nastavitve · Settings → 🔗 Povezava · Connection: "🛰️ Posrednik (relay)"): the town's
   public state, its mail with other towns and the family page, and the encrypted backup. Without one, nothing.
 - **GitHub**, only when git is connected in 💾 Podatki · Data (above).
 - **An export** ("📤 Izvozi moje podatke · Export my data"): a zip of the data's files, without the secrets, the recent
