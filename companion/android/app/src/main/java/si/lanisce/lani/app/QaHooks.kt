@@ -99,6 +99,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   opens it.
  * - "tutorlive:<url>": the tutor in the app's Messages API base URL set to <url> (QA's mock, http://10.0.2.2:8771);
  *   "tutorlive:" the API again (tutor/live/LiveTutor). The key is entered in the Tutor section, as the learner would.
+ * - "friends": "🤝 Prijatelji · Friends" opened (the linked towns, their visits), as the scroll's people page opens it: a busy
+ *   emulator's village map often answers uiautomator with no screen at all, and QA's visits start here.
  * - "review": a review of up to five of the learner's cards, due or not (a new learner's words are due tomorrow: the
  *   hosted mode's QA reviews them today).
  * - "request:<card id>,<card id>…": the village (the dev bridge's copy) gets Mojca's request "Napake na tabli" of those
@@ -331,7 +333,7 @@ object QaHooks {
         shadow: (String) -> Unit = {}, counting: (String) -> Unit = {}, dev: (String) -> Unit = {}, pair: (String) -> Unit = {},
         grow: (si.lanisce.lani.game.Age) -> Unit = {}, formsCard: (String, String) -> Unit = { _, _ -> }, data: () -> Unit = {}, tutorLive: (String) -> Unit = {},
         review: () -> Unit = {}, numbers: (String) -> Unit = {}, event: (String) -> Unit = {}, hearths: (String) -> Unit = {},
-        request: (List<String>) -> Unit = {}, word: (String) -> Unit = {},
+        request: (List<String>) -> Unit = {}, word: (String) -> Unit = {}, friends: () -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
@@ -349,6 +351,7 @@ object QaHooks {
             command == "shadow" -> shadow("")
             command == "data" -> data()
             command == "review" -> review()
+            command == "friends" -> friends()
             command.startsWith("request:") -> command.removePrefix("request:").split(',').map { it.trim() }.filter { it.isNotEmpty() }
                 .takeIf { it.isNotEmpty() }?.let(request)
             command.startsWith("shadow:") -> shadow(command.removePrefix("shadow:"))
