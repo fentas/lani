@@ -15,6 +15,7 @@ import { denoiseOf, denoiseVoices, elevenlabsOf, personVoice } from '../../src/c
 import { postOffice } from './fixtures'
 import { auth, base, bridgeEleven, bridgeGepard, check, client, culturesDir, dataDir, fakeEleven, fakeGepard, fam, guideOf, mp3, tempDir } from './harness'
 import { JAN } from '../learner-content'
+import { bridgeLocalClips } from './course-speech'
 
 /** The node's ffmpeg: the carrier cut. Without it the carrier checks that need a real cut are skipped. */
 const ffmpeg = ffmpegCutter()
@@ -2086,6 +2087,9 @@ export default async function voice() {
       const bad = await fetch(`${base}/voice/prepare`, { method: 'POST', headers: auth, body: JSON.stringify({ texts: [{ text: long, voice: 'teacher' }] }) })
       check('POST /voice/prepare: a line over 300 characters is a 400 as ever', bad.status === 400)
     }
+
+    // a villager's local clips, in their ElevenLabs voice as the app asks for them (course-speech.ts): while it answers
+    await bridgeLocalClips()
 
     bridgeEleven.st.fail = 500
     const s4 = await (await say('Kje je pošta?')).json()

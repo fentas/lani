@@ -2410,7 +2410,8 @@ back; a stopped batch goes on where it stopped. Jan decides when it runs on the 
 Offline audio screen), no real person's voice is imitated, and **its clips are never used to train another speech
 model** (Gepard is never fine-tuned on them). Details: [voice-drama3/README.md](voice-drama3/README.md).
 A villager line whose narrator clip exists waits for ElevenLabs (no local clip in the character's
-key): the app plays the narrator clip until then.
+key): the app plays the narrator clip until then. A villager line the local worker said (no narrator clip of it then,
+ElevenLabs couldn't) is made in their ElevenLabs voice as the app asks for it (below, "A villager's local clips").
 
 **Lone words: a carrier sentence.** Where an English library voice narrates with ElevenLabs (a village in another
 language whose cast marks a narrator `carrier`: the Kärnten village's Daniel; in a Slovene village the narrators speak
@@ -2511,6 +2512,26 @@ ahead of the lazy re-voice:
 
 `voice_status` shows today's re-records and their cap (`carrier.redos`, `carrier.redo_daily`), and the lazy re-voice's
 (`carrier.today`, `carrier.daily`).
+
+**A villager's local clips, in their ElevenLabs voice as the app asks for them** (Jan, 2026-10-27: "there are some gepard
+recordings which should be replaced"). A villager's line that the local Gepard worker said, while ElevenLabs couldn't (the
+quota, an error, a `voice-build --run` over its budget), stays a Gepard clip in the speaker's key until it is made again.
+`voice-build --elevenlabs <speaker>` makes them all at once, most played first; the 2,459 never heard in Jan's store
+(77,000 characters, October 2026) are far over a month's budget. So the bridge makes one when the app asks for it:
+
+- **When:** a download of its file (the day's clips are got ready on Wi-Fi a day ahead, [Offline on the phone](#offline-on-the-phone),
+  so the new clip is mostly there before the line is heard), and `/voice/say` or `/voice/prepare` handing it over. A
+  download is served as it is and the clip made soon (one at a time, most asked for first); `/voice/say` and
+  `/voice/prepare` make it at once when they can and hand over the new clip, the local one only when ElevenLabs can't.
+- **The cap:** the lazy re-voice's, `LANI_VOICE_REVOICE_DAILY` (40 a day by default; 0 turns it off), shared with the
+  carrier words, the narrators' Slovene voices and the stale clips, most asked for first across them. Never into the
+  reserve kept for live lines. A clip over the cap or at the reserve is served as it is and waits for the next day
+  (asked for: `hits`).
+- **How:** in the speaker's ElevenLabs voice and the model now, its filter, edges and level as every new clip, under a
+  new file name, its hits kept, the local file removed; the app is told (`voice_updated`).
+- **Not:** a narrator's local clip (their local voice is the fallback of Nina and Luka, by design: "The narrators in
+  Slovene", above), a Drama 3 clip (made on purpose, ranked above Gepard's), an explanation.
+- `voice_status` and `voice-build`'s plan show them: `local_clips` (`clips`, `asked`, and what making them all costs).
 
 **The school's introductions, read aloud** ([COURSE.md](COURSE.md#read-aloud)). Each step of a unit's guided
 introduction is read as it appears, in the teacher's voice (`data/IntroVoice.kt`). Its explanation, in the learner's

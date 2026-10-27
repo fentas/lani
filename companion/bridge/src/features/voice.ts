@@ -135,9 +135,12 @@ export const voice: FeatureFactory = ctx => {
       // the clip the app would get (a Slovene narrator's in its Slovene ElevenLabs voice or the local one; an explanation's
       // under its own key)
       const had = voice.best(voice.normOf(text, lang), v)
+      // a character's local clip: in the speaker's ElevenLabs voice now when it can be (the lazy re-voice's daily cap,
+      // never the reserve), so the day's clips got ready ahead are hers; the local clip when it can't
+      const up = had && voice.wantsElevenLabsVoice(had) ? await voice.upgradeLocal(had) : undefined
       // not live: ElevenLabs only above the reserve, then the local worker (never for an explanation); nothing new over
       // the day's cap
-      const c = had ?? (roadToday() + voice.cost(text, v, lang) <= roadDaily ? await voice.voice(text, v, 'road', { lang }) : null)
+      const c = up ?? had ?? (roadToday() + voice.cost(text, v, lang) <= roadDaily ? await voice.voice(text, v, 'road', { lang }) : null)
       if (c && !had && c.source === 'road') road.chars = roadToday() + c.chars
       clips.push(c ? { text, voice: asked, url: fileUrl(c.file), engine: c.engine } : { text, voice: asked, url: null })
     }

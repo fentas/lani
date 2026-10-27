@@ -51,6 +51,11 @@ export type BuildPlan = {
    */
   stale?: ReturnType<VoiceStore['staleStats']>
   /**
+   * The characters' local (Gepard) clips that wait for their speaker's ElevenLabs voice: all, those the app asked for (the
+   * lazy re-voice makes those, the day's cap), and what making them all would cost.
+   */
+  local_clips?: ReturnType<VoiceStore['localStats']>
+  /**
    * The course's explanations in the learners' own languages (one clip a step and a summary, a base each: [bases]):
    * counted apart, in the plan and the run only with --explanations ([included]); the app asks for them as an intro opens.
    * [credits]: what the missing ones cost with the model now.
@@ -222,7 +227,7 @@ export async function plan(items: CorpusItem[], store: VoiceStore, eleven: Eleve
   return {
     texts: sum('texts'), chars: sum('chars'), cached: sum('cached'), by_engine, missing: sum('missing'), missing_chars: sum('missing_chars'), rows, by_voice, narrator_voices, quota, local: worker, gepard_up, would,
     carrier: store.carrierStats(), ...(revoice_words ? { revoice_words } : {}), models: { now: eleven.model, by: store.modelStats() },
-    ...(eleven.configured ? { stale: store.staleStats() } : {}),
+    ...(eleven.configured ? { stale: store.staleStats(), local_clips: store.localStats() } : {}),
     explanations, ...(o.only ? { only: o.only } : {}),
   }
 }
@@ -284,6 +289,7 @@ const credits = (chars: number, p: BuildPlan) => creditsFor(chars, p.models.now)
 function formatModels(p: BuildPlan): string[] {
   const older = Object.entries(p.models.by).filter(([m]) => m !== p.models.now)
   const st = p.stale
+  const lo = p.local_clips
   return [
     `ElevenLabs model: ${p.models.now} (LANI_ELEVENLABS_MODEL); the clips by model: ${Object.entries(p.models.by).map(([m, x]) => `${m} ${n(x.clips)}`).join(', ') || 'none yet'}` +
       (older.length ? ` (voice-build --upgrade-model makes the ${n(older.reduce((k, [, x]) => k + x.clips, 0))} of an older one again)` : ''),
@@ -292,6 +298,12 @@ function formatModels(p: BuildPlan): string[] {
           `Stale clips, made again as the app asks for them (the day's cap, never the reserve): a swapped voice ${n(st.voice.clips)} / asked ${n(st.voice.asked)}; ` +
             `an older model ${n(st.model.clips)} / asked ${n(st.model.asked)}${st.model.lazy ? '' : ' (not lazily: LANI_VOICE_UPGRADE_MODEL_LAZY=off)'}; ` +
             `all of them again: ${n(st.all.chars)} characters, ≈ ${n(st.all.credits)} credits with ${st.model.now}`,
+        ]
+      : []),
+    ...(lo && lo.clips
+      ? [
+          `Characters' local clips (Gepard's) waiting for their ElevenLabs voice: ${n(lo.clips)} / asked ${n(lo.asked)}, made as the app asks for them (the day's cap, never the reserve); ` +
+            `all of them: ${n(lo.chars)} characters, ≈ ${n(lo.credits)} credits (voice-build --elevenlabs <speaker> makes them now)`,
         ]
       : []),
   ]

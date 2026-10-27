@@ -19,7 +19,7 @@ import { ProfilesTable } from './profiles-table'
 export const NO_VOICES = "no voices on this device: the app speaks with the phone's text-to-speech"
 
 /** What the features call of the voice store, answered as a store with no engine and no clips. */
-export class PhoneVoiceStore implements Pick<VoiceStore, 'dir' | 'language' | 'redoDaily' | 'explains' | 'normOf' | 'best' | 'cost' | 'index' | 'path' | 'voice' | 'say' | 'requested' | 'redosToday' | 'redo' | 'resumeRevoice' | 'watch' | 'enqueue' | 'dropVoice' | 'status'> {
+export class PhoneVoiceStore implements Pick<VoiceStore, 'dir' | 'language' | 'redoDaily' | 'explains' | 'normOf' | 'best' | 'cost' | 'index' | 'path' | 'voice' | 'say' | 'requested' | 'wantsElevenLabsVoice' | 'upgradeLocal' | 'redosToday' | 'redo' | 'resumeRevoice' | 'watch' | 'enqueue' | 'dropVoice' | 'status'> {
   readonly dir: string
   readonly redoDaily = 0
 
@@ -65,6 +65,14 @@ export class PhoneVoiceStore implements Pick<VoiceStore, 'dir' | 'language' | 'r
   }
 
   requested(_file: string) {}
+
+  wantsElevenLabsVoice(_c: Clip): boolean {
+    return false
+  }
+
+  async upgradeLocal(_c: Clip): Promise<Clip | undefined> {
+    return undefined
+  }
 
   redosToday(): number {
     return 0

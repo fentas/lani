@@ -24,7 +24,9 @@ local Gepard voice keeps its own pace.
 In the Slovene village the narrators (female, male) speak with their native Slovene ElevenLabs voices (Nina, Luka), the
 local Gepard voice as their fallback (ana for a lone word, nina for a sentence; marko), never with the English library
 voices; a narrator's local clip stays when the ElevenLabs one is made, and the ElevenLabs ones are made as the app asks
-for them, within the day's re-voice cap and above the reserve (voice_status: narrators). The villagers keep their voices.
+for them, within the day's re-voice cap and above the reserve (voice_status: narrators). The villagers keep their voices:
+a villager's line the local Gepard voice said while ElevenLabs couldn't is made in their speaker's ElevenLabs voice as the
+app asks for it, within the same cap and above the reserve (voice_status: local_clips).
 The learner has a voice too: their own lines in a dialog (a choice tapped, a turn typed right, an echo gone on from) are
 said in it before the reply comes, the "player" of companion/voice-cast.json by the profile's learner.gender (in the
 Slovene village Luka for a man, Nina for a woman, Nina while the profile says none; voice_status: player). A line the

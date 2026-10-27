@@ -1,9 +1,12 @@
-// Smoke checks: the school's course in the teacher's voice (src/course-speech.ts, companion/COURSE.md "Read aloud"):
+// Smoke checks: the school's course in the teacher's voice (src/course-speech.ts, companion/COURSE.md "Read aloud"), and
+// the characters' local clips made in their ElevenLabs voice as the app asks for them (README "Voice"):
 // - the port reads the shared cases of test/fixtures/intro-speech.json as the app does (IntroSpeechParityTest reads them too);
 // - who teaches (the school's person: Učiteljica Mojca, her own voice once it is ready), what the corpus voices of the
 //   course and of the cast's arrivals, in her voice;
 // - companion/bin/voice-build --only, --explanations and --base on a store of its own with the fake engines: the plan's
-//   course row, the explanations counted apart, ElevenLabs within the budget and never into the reserve.
+//   course row, the explanations counted apart, ElevenLabs within the budget and never into the reserve;
+// - a character's Gepard clip asked for (/voice/say, /voice/prepare, a download): made in the speaker's ElevenLabs voice,
+//   once, within the day's cap and above the reserve, the app told (voice_updated).
 import { Database } from 'bun:sqlite'
 import { createHash } from 'node:crypto'
 import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
@@ -155,6 +158,81 @@ export default async function courseSpeech() {
       [tight.would, chars, fg.st.calls.length, after.cached])
   }
 
+  // --- a character's local clip, in the speaker's ElevenLabs voice as the app asks for it -----------------------------
+  {
+    const fe = fakeEleven()
+    const fg = fakeGepard()
+    const el = new ElevenLabs({ key: 'test-key', base: fe.url })
+    const updated: number[] = []
+    const dir = tempDir('lani-cs-local-')
+    const vs = new VoiceStore({ appDir: dir, engines: [el, new Gepard({ url: fg.url })], queueDelayMs: 0, level: null, denoise: null, revoiceDaily: 2, onUpdated: n => void updated.push(n) })
+    const local = async (text: string, voice = 'teacher') => (await vs.voice(text, voice, 'scene:sola', { engines: ['gepard'] }))!
+    const a = await local('Dober dan, otroci.')
+    const b = await local('Danes beremo.')
+    const c = await local('Kdo ve odgovor?')
+    const word = await local('kruh', 'female')
+    const t0 = fe.st.tts.length
+    check('a character\'s Gepard clip (made while ElevenLabs couldn\'t) waits for the speaker\'s ElevenLabs voice: queued once the app asks for it; never a narrator\'s (their local clip is the fallback by design), nor Drama 3\'s',
+      a.engine === 'gepard' && vs.wantsElevenLabsVoice(a) && !vs.wantsElevenLabsVoice(word) && vs.localUpgradeQueue().length === 0 && vs.localUpgradeQueue(false).length === 3 &&
+        !vs.wantsElevenLabsVoice({ ...a, engine: 'drama3' }) && vs.localStats().clips === 3 && vs.localStats().asked === 0 && vs.localStats().credits === Math.round(vs.localStats().chars / 2))
+    const said = await vs.say('Dober dan, otroci.', 'teacher')
+    check('…asked for (/voice/say): made in her ElevenLabs voice now, served instead of the local clip; under a new name, the local file gone, its hits kept, counted for the day, the app told',
+      said?.engine === 'elevenlabs' && said.voice === 'teacher' && fe.st.tts.length === t0 + 1 && fe.st.tts.at(-1)?.voice === elevenlabsOf('teacher') && fe.st.tts.at(-1)?.body.text === 'Dober dan, otroci.' &&
+        said.file !== a.file && !existsSync(join(vs.filesDir, a.file)) && (vs.get(a.norm, 'teacher')?.hits ?? 0) >= 1 && vs.lazyToday() === 1 && updated.join() === '1', [said, updated])
+    check('…asked again: that clip, nothing made again', (await vs.say('Dober dan, otroci.', 'teacher'))?.file === said?.file && fe.st.tts.length === t0 + 1)
+    // a download of the local file: served as it is, made soon (the day's cap: 2)
+    vs.requested(b.file)
+    await until(() => vs.get(b.norm, 'teacher')?.engine === 'elevenlabs')
+    check('…a download of its file (the day\'s clips, a day ahead): the local clip served as it is, the ElevenLabs one made soon, the app told; the day\'s cap reached',
+      vs.get(b.norm, 'teacher')?.engine === 'elevenlabs' && fe.st.tts.length === t0 + 2 && vs.lazyToday() === 2 && updated.length === 2, [vs.get(b.norm, 'teacher'), updated])
+    const capped = await vs.say('Kdo ve odgovor?', 'teacher')
+    vs.requested(c.file)
+    await Bun.sleep(150)
+    check('…over the day\'s cap: the local clip served, nothing sent, it waits for tomorrow (asked)',
+      capped?.file === c.file && capped.engine === 'gepard' && fe.st.tts.length === t0 + 2 && vs.localUpgradeQueue().map(x => x.key).join() === c.key && vs.localStats().asked === 1)
+    vs.database.query('DELETE FROM revoices').run() // tomorrow
+    fe.st.used = fe.st.limit - 5_000 // at the reserve
+    const reserve = new VoiceStore({ appDir: dir, engines: [new ElevenLabs({ key: 'test-key', base: fe.url }), new Gepard({ url: fg.url })], queueDelayMs: 0, level: null, denoise: null, revoiceDaily: 2 })
+    const kept = await reserve.say('Kdo ve odgovor?', 'teacher')
+    await Bun.sleep(150)
+    check('…with the quota at the reserve: the local clip served, nothing sent, not counted (the reserve is for live lines)', kept?.engine === 'gepard' && fe.st.tts.length === t0 + 2 && reserve.lazyToday() === 0)
+    reserve.close()
+    vs.close()
+  }
   check('course speech: the shared fixture is in place for the app\'s test', readdirSync(resolve(import.meta.dir, '../fixtures')).includes('intro-speech.json'))
 }
 
+/**
+ * The bridge's side of a villager's local clips: /voice/prepare (the day's clips got ready ahead) and a download. Run by
+ * the voice section while the bridge's ElevenLabs answers (before it takes it down).
+ */
+export async function bridgeLocalClips() {
+  {
+    const voiceDir = join(dataDir, 'app/voice')
+    const db = new Database(join(voiceDir, 'voice.db'))
+    const row = (text: string) => {
+      const norm = normalizeText(text)
+      const file = `${createHash('sha1').update(`smoke|gepard|${norm}`).digest('hex')}.mp3`
+      writeFileSync(join(voiceDir, 'files', file), mp3(`gp:${text}`))
+      db.query('INSERT OR REPLACE INTO clips (key, norm, text, voice, engine, file, chars, created_at, source, hits) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0)').run(`teacher:${norm}`, norm, text, 'teacher', 'gepard', file, text.length, '2026-10-20T10:00:00.000Z', 'scene:sola')
+      return { norm, file }
+    }
+    const p = row('Učiteljica Mojca bere zgodbo.')
+    const d = row('Otroci, tiho, prosim.')
+    db.close()
+    const updates = async () => ((await (await fetch(`${base}/events/backlog?since=0`, { headers: auth })).json()) as any[]).filter(b => b.event.type === 'voice_updated').length
+    const u0 = await updates()
+    const n0 = bridgeEleven.st.tts.length
+    const r = await fetch(`${base}/voice/prepare`, { method: 'POST', headers: auth, body: JSON.stringify({ texts: [{ text: 'Učiteljica Mojca bere zgodbo.', voice: 'teacher' }] }) })
+    const rb = await r.json()
+    check('POST /voice/prepare of a line whose clip is the teacher\'s Gepard one: made in her ElevenLabs voice now and handed over instead, the local file gone, the app told (voice_updated)',
+      r.ok && rb.clips?.[0]?.engine === 'elevenlabs' && rb.clips[0].url !== `/voice/file/${p.file}` && bridgeEleven.st.tts.length === n0 + 1 && bridgeEleven.st.tts.at(-1)?.voice === elevenlabsOf('teacher') &&
+        (await fetch(`${base}/voice/file/${p.file}`, { headers: auth })).status === 404 && (await until(async () => (await updates()) > u0)), rb)
+    const got = await fetch(`${base}/voice/file/${d.file}`, { headers: auth })
+    const served = new TextDecoder().decode((await got.arrayBuffer()).slice(6))
+    const url = async () => (await (await fetch(`${base}/voice/index`, { headers: auth })).json())[d.norm]?.teacher as string | undefined
+    const moved = await until(async () => (await url()) !== `/voice/file/${d.file}`)
+    check('GET /voice/file of a teacher\'s Gepard clip: served as it is, then made in her ElevenLabs voice soon, the index on the new file',
+      got.ok && served === 'gp:Otroci, tiho, prosim.' && moved && bridgeEleven.st.tts.some(t => t.body.text === 'Otroci, tiho, prosim.' && t.voice === elevenlabsOf('teacher')), await url())
+  }
+}

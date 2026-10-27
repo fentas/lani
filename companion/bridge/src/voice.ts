@@ -2540,12 +2540,19 @@ export class VoiceStore {
    * rate-limited the same but is no live line: it never goes into the reserve, and nobody else's voice stands in for the
    * teacher's (the app reads it with the phone's voice and the Slovene clips meanwhile). [o].carrier: a short text made new
    * is said in its carrier sentence ([VoiceOptions].carrier); [o].alone: nobody else's clip stands in either (the
-   * learner's own line, in their voice or not at all).
+   * learner's own line, in their voice or not at all). A character's local clip there is made in the speaker's ElevenLabs
+   * voice first when it can be ([upgradeLocal]); the local clip is served when it can't.
    */
   async say(text: string, voice: VoiceName, lang?: string, o: { carrier?: boolean; alone?: boolean } = {}): Promise<Clip | null> {
     const explanation = this.explains(lang)
     const norm = this.normOf(text, lang)
     const have = this.best(norm, voice)
+    // a character's local clip: in the speaker's ElevenLabs voice now when it can be (the lazy re-voice's cap, never the
+    // reserve, within the live lines' rate limit), the local clip only when it can't
+    if (have && this.wantsElevenLabsVoice(have) && this.lazyToday() < this.revoiceDaily && this.liveSlot()) {
+      const up = await this.upgradeLocal(have)
+      if (up) return this.served(up)
+    }
     if (have) return this.served(have)
     const other = () => {
       if (explanation || o.alone) return null
@@ -2596,7 +2603,7 @@ export class VoiceStore {
         this.db.query('INSERT INTO stale_asks (key, n, first) VALUES (?, 1, ?) ON CONFLICT (key) DO UPDATE SET n = n + 1').run(c.key, new Date().toISOString())
       } catch {}
     }
-    if (stale || this.oldStyle(c) || this.wantsUpgrade(c)) this.scheduleRevoice()
+    if (stale || this.oldStyle(c) || this.wantsUpgrade(c) || this.wantsElevenLabsVoice(c)) this.scheduleRevoice()
     return c
   }
 
@@ -2623,6 +2630,57 @@ export class VoiceStore {
    */
   wantsUpgrade(c: Clip): boolean {
     return !this.o.readonly && !!this.eleven?.configured && !explanationLang(c.norm) && this.sloveneNarrator(c.voice) && this.wantsElevenLabs(c.norm, c.voice)
+  }
+
+  // --- the characters' local clips, in their speaker's ElevenLabs voice as the app asks for them ------------------------
+  //
+  // Jan (2026-10-27): "there are some gepard recordings which should be replaced". A character's line the local worker
+  // said while ElevenLabs couldn't (the quota, an error; voice-build over its budget) is made in the speaker's ElevenLabs
+  // voice when the app asks for it: a download of its file (the day's clips, got ready a day ahead, so it is mostly done
+  // before the line is heard), /voice/say and /voice/prepare handing it over. Within the lazy re-voice's daily cap
+  // ([revoiceDaily], shared with the carrier words, the narrators' Slovene voices and the stale clips) and never into the
+  // reserve; /voice/say and /voice/prepare make it at once when they can and serve the local clip only when ElevenLabs
+  // can't, a download is served as it is and the clip made soon. Never a narrator's (their local clips are the fallback
+  // of their Slovene ElevenLabs voices, by design), nor Drama 3's (made on purpose, ranked above Gepard's).
+
+  /**
+   * Whether [c] is a character's local (Gepard) clip whose speaker has an ElevenLabs voice now, with ElevenLabs set up:
+   * the lazy re-voice makes it in that voice as the app asks for it ([upgradeLocal]).
+   */
+  wantsElevenLabsVoice(c: Clip): boolean {
+    return !this.o.readonly && !!this.eleven?.configured && c.engine === 'gepard' && !isNarrator(c.voice) && !LANGUAGE_VOICE.test(c.voice) &&
+      !explanationLang(c.norm) && !!elevenlabsOf(c.voice)
+  }
+
+  /** The characters' local clips waiting for their ElevenLabs voice ([wantsElevenLabsVoice]), most asked for first; [asked]: only those the app asked for. */
+  localUpgradeQueue(asked = true): Clip[] {
+    if (!this.eleven?.configured) return []
+    return (this.db.query("SELECT * FROM clips WHERE engine = 'gepard' AND voice NOT IN ('female', 'male')").all() as Clip[])
+      .filter(c => (!asked || (c.hits ?? 0) > 0) && this.wantsElevenLabsVoice(c))
+      .sort((a, b) => (b.hits ?? 0) - (a.hits ?? 0) || a.created_at.localeCompare(b.created_at))
+  }
+
+  /** The characters' local clips waiting for their ElevenLabs voice: all, those the app asked for, and what making them all costs. */
+  localStats() {
+    const all = this.localUpgradeQueue(false)
+    const chars = all.reduce((n, c) => n + (this.eleven?.cost(c.text, c.voice) ?? c.text.length), 0)
+    return { clips: all.length, asked: all.filter(c => (c.hits ?? 0) > 0).length, chars, credits: creditsFor(chars, this.model ?? DEFAULT_ELEVENLABS_MODEL) }
+  }
+
+  /**
+   * [c], a character's local clip ([wantsElevenLabsVoice]), made in its speaker's ElevenLabs voice now when the day's cap
+   * has room and the quota is above the reserve ([remake]: its filter, edges and level, a new file name, its hits kept,
+   * the local file removed; the app is told): the new clip, else undefined (it is served as it is, and the lazy re-voice
+   * makes it when it can).
+   */
+  async upgradeLocal(c: Clip): Promise<Clip | undefined> {
+    if (!this.wantsElevenLabsVoice(c) || this.revoiceDaily <= 0 || this.lazyToday() >= this.revoiceDaily) return undefined
+    if ((await this.remake(c, true)) !== 'made') return undefined
+    const now = this.get(c.norm, c.voice)
+    if (!now || now.engine !== 'elevenlabs') return undefined
+    this.o.log?.(`voice: "${c.text}" (${c.voice}) made in its ElevenLabs voice as the app asked for it, the local clip replaced (${this.lazyToday()}/${this.revoiceDaily} today)`)
+    this.o.onUpdated?.(1)
+    return now
   }
 
   /** The Slovene narrators' clips waiting for their ElevenLabs one ([wantsUpgrade]), most asked for first; [asked]: only those the app asked for. */
@@ -2738,11 +2796,12 @@ export class VoiceStore {
   }
 
   /**
-   * What the lazy re-voice takes up: old-style words, the Slovene narrators' upgrades and the clips of a swapped voice the
-   * app asked for, most asked for first, then the oldest; after them the older model's ([lazyModel]).
+   * What the lazy re-voice takes up: old-style words, the Slovene narrators' upgrades, the clips of a swapped voice and the
+   * characters' local clips ([localUpgradeQueue]) the app asked for, most asked for first, then the oldest; after them the
+   * older model's ([lazyModel]).
    */
   lazyQueue(asked = true): Clip[] {
-    const first = [...this.revoiceQueue(asked), ...this.upgradeQueue(asked), ...this.staleQueue('voice')]
+    const first = [...this.revoiceQueue(asked), ...this.upgradeQueue(asked), ...this.staleQueue('voice'), ...this.localUpgradeQueue(asked)]
       .sort((a, b) => (b.hits ?? 0) - (a.hits ?? 0) || a.created_at.localeCompare(b.created_at))
     const seen = new Set(first.map(c => c.key))
     return [...first, ...(this.lazyModel ? this.staleQueue('model').filter(c => !seen.has(c.key)) : [])]
@@ -2950,8 +3009,9 @@ export class VoiceStore {
   /**
    * Takes up what the app asked for ([lazyQueue]), one at a time, most asked for first, up to the daily cap ([lazyToday]
    * of [revoiceDaily]; re-records on request have their own) and never into the reserve: an old-style word again in its carrier sentence, a
-   * Slovene narrator's line in its Slovene ElevenLabs voice (its local clip kept); then the app is told (voice_updated)
-   * and fetches the new files.
+   * Slovene narrator's line in its Slovene ElevenLabs voice (its local clip kept), a stale clip again, a character's local
+   * clip in its speaker's ElevenLabs voice (the local clip replaced); then the app is told (voice_updated) and fetches the
+   * new files.
    */
   private async revoiceDrain() {
     if (this.revoicing) return
@@ -2960,6 +3020,7 @@ export class VoiceStore {
     let narrators = 0
     let voices = 0
     let models = 0
+    let locals = 0
     const skipped = new Set<string>()
     try {
       while (this.lazyToday() < this.revoiceDaily) {
@@ -2968,14 +3029,17 @@ export class VoiceStore {
         if (!c) break
         // an old-style word in its carrier sentence (in the voice and model now); a Slovene narrator's line in its Slovene
         // ElevenLabs voice; a swapped voice's or an older model's clip again in the voice and model now
+        // a character's local clip in the speaker's ElevenLabs voice
         const stale = this.oldStyle(c) ? undefined : this.stale(c)
-        const r = this.oldStyle(c) ? await this.revoiceOne(c) : stale ? await this.remake(c, true) : await this.upgradeOne(c)
+        const local = !stale && this.wantsElevenLabsVoice(c)
+        const r = this.oldStyle(c) ? await this.revoiceOne(c) : stale || local ? await this.remake(c, true) : await this.upgradeOne(c)
         if (r === 'stop') break
         if (r === 'skip') skipped.add(c.key)
         if (r === 'made') {
           if (this.oldStyle(c)) words++
           else if (stale === 'voice') voices++
           else if (stale === 'model') models++
+          else if (local) locals++
           else narrators++
         }
         if (this.o.queueDelayMs !== 0) await Bun.sleep(this.o.queueDelayMs ?? 1500)
@@ -2988,7 +3052,8 @@ export class VoiceStore {
       if (narrators) this.o.log?.(`voice: ${narrators} narrator line(s) made in their Slovene ElevenLabs voice, the local clips kept (${this.lazyToday()}/${this.revoiceDaily} today)`)
       if (voices) this.o.log?.(`voice: ${voices} clip(s) of a swapped voice made again in the voice now (${this.lazyToday()}/${this.revoiceDaily} today)`)
       if (models) this.o.log?.(`voice: ${models} clip(s) of an older model made again with ${this.model} (${this.lazyToday()}/${this.revoiceDaily} today)`)
-      if (words + narrators + voices + models) this.o.onUpdated?.(words + narrators + voices + models)
+      if (locals) this.o.log?.(`voice: ${locals} character line(s) made in their ElevenLabs voice, the local clips replaced (${this.lazyToday()}/${this.revoiceDaily} today)`)
+      if (words + narrators + voices + models + locals) this.o.onUpdated?.(words + narrators + voices + models + locals)
     }
   }
 
@@ -3876,6 +3941,8 @@ export class VoiceStore {
       models: { now: this.model ?? null, by: this.modelStats() },
       // the clips of a swapped voice and of an older model: all, those the app asked for (re-voiced lazily), the cost
       ...(this.eleven?.configured ? { stale: this.staleStats() } : {}),
+      // the characters' local clips waiting for their speaker's ElevenLabs voice: all, those the app asked for, the cost
+      ...(this.eleven?.configured ? { local_clips: this.localStats() } : {}),
       engines,
       cast: castInfo(),
       // who says the learner's own lines in a dialog, by their gender (the cast's `player`)
@@ -3924,7 +3991,9 @@ local Gepard voice keeps its own pace.
 In the Slovene village the narrators (female, male) speak with their native Slovene ElevenLabs voices (Nina, Luka), the
 local Gepard voice as their fallback (ana for a lone word, nina for a sentence; marko), never with the English library
 voices; a narrator's local clip stays when the ElevenLabs one is made, and the ElevenLabs ones are made as the app asks
-for them, within the day's re-voice cap and above the reserve (voice_status: narrators). The villagers keep their voices.
+for them, within the day's re-voice cap and above the reserve (voice_status: narrators). The villagers keep their voices:
+a villager's line the local Gepard voice said while ElevenLabs couldn't is made in their speaker's ElevenLabs voice as the
+app asks for it, within the same cap and above the reserve (voice_status: local_clips).
 The learner has a voice too: their own lines in a dialog (a choice tapped, a turn typed right, an echo gone on from) are
 said in it before the reply comes, the "player" of companion/voice-cast.json by the profile's learner.gender (in the
 Slovene village Luka for a man, Nina for a woman, Nina while the profile says none; voice_status: player). A line the
