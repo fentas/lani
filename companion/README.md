@@ -1956,7 +1956,15 @@ the units done and in progress). A sheet played reaches the tutor as a `session_
 `{language, unit, level, sheet: <worksheet id> | "test" | <homework id>, kind: worksheet | test | homework, right, almost,
 of, passed?, unit_done?, tested_out?}`: persisted as any session end; a unit done is congratulated, and homework on what
 went wrong may follow. `test/smoke/course.ts` validates every course file of the repository (its outline, its units,
-the grammar pages they name).
+the grammar pages they name), and `test/smoke/course-content.ts` its content: each answer with a word in brackets is a
+form of that word in the dictionary, each named form (lemma + form) its slot's, and COURSE.md's "What a unit turns on"
+lists every unit that turns on a form.
+
+**The units.** A1's 18 (to be, gender, the present, the plural, the accusative, numbers, the locative, the tenses …),
+then A2, which opens with the cases (2026-10-27, [COURSE.md](COURSE.md#the-cases-a2)): `skloni` (the six cases by their
+questions), `rodilnik`, `kje-kam-od-kod`, `dajalnik`, `orodnik` and `pridevniki-skloni`; the rest of A2 and B1 is in
+the outline, planned. A2 opens when the school stands and every A1 unit is done (GAME.md, "The school opens the next
+levels"); a unit's "⏩ Znam že: kar na test" tests out of it at once.
 
 **Checked** (`ui/school/SheetExercises.kt`, `data/AnswerDiff.kt`, `ui/AnswerDiffText.kt`). "Preveri · Check" marks every
 item where it was answered: its field outlined in the verdict's colour with a small round ✓, ≈ or ✗ on its corner (it
@@ -1980,7 +1988,7 @@ directly).
 
 **Printed.** Each unit's sheet and each level's booklet print from the app: "🖨️ Natisni list · Print sheet" on the unit
 and its row, "🖨️ Vsi listi · All sheets" on the level; and the six cases on three pages, "🖨️ Pregled sklonov · Cases
-overview", on the unit skloni and on the grammar book's page skloni. The bridge serves the page `companion/bin/school-prints`
+overview", on the unit skloni, on the level A2 and on the grammar book's page skloni. The bridge serves the page `companion/bin/school-prints`
 makes (`GET /course/sheet/<unit>`, `GET /course/booklet/<level>`, `GET /course/overview/skloni`: one source,
 `companion/prints/build.ts`, `overview.ts`), the app fits it in a WebView off screen and opens Android's print dialog (a
 printer, "Save as PDF", sharing). See [COURSE.md](COURSE.md#printed-sheets), "Printed sheets", "In the app" and "The cases
