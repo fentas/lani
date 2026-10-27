@@ -602,6 +602,12 @@ The learner's own lines (a choice tapped, a turn typed right; not one said into 
 asked as `player`, they are the host's clip in the voice its cast gives the visitor's gender, else voiced on the
 visitor's node in that voice, else the phone's.
 
+**A town's word at home.** A word card's 🔊 says the word in its own language (`WordSpeakButton`, `Speaker.sayIn`): a
+word of a town visited, on its card at home (a review of that language's words), is never said in the home village's
+clips or voice. It is the clip of a linked town of that language through the node (its routes above: the host's clip,
+else its cast's voice on the node), else the offline voice of that language, else Android's voice for it, else the note
+for that language, once while the app runs. No re-record for it.
+
 **What the visitor keeps.** `<voice dir>/visits/` (`index.json`, `files/<sha1>.mp3`), apart from the village's own clips:
 per town, voice and line, with the town's language, where it came from (`host`, `node`), the engine and its voice. At
 most 100 MB (`LANI_VISIT_VOICE_MB`), the least recently played going first; a town no longer linked, all its clips. No

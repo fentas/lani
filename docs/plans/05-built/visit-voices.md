@@ -115,6 +115,16 @@ the voice the host's cast gives the visitor's gender.
 - `ui/towns/VisitVoiceNote.kt`: the offer as a dialog, the note as a small card under the visit's banner (a polite live
   region for TalkBack), the download's progress, "✅ Slovenski glas je na telefonu" for a moment once it came.
 - `ui/home/OfflineAudioSettings.kt`: "🧳 Glasovi za obiske · Voices for visits", each with its size and "🗑️ Odstrani".
+- **A town's word at home** (found by the progress-sharing round): a word card's 🔊 (`ui/words/WordSheet.kt`) said the
+  word with the home village's clips and voice even when the card was another language's (a word of a town visited,
+  reviewed at home: `WordQuery.lang`). `ui/Components.kt` `WordSpeakButton` and `Speaker.sayIn(text, lang)`: in the
+  labels' language as before; another language's through the same chain: a linked town of that language's clips through
+  the node (`Speaker.foreignClips`: `Clips` at its visit routes, kept by town while the app runs; `AppViewModel`), else
+  the offline voice of that language (`OfflineVoice.speaksIn`, `renderIn`: Piper speaks any of its voices on the phone),
+  else Android's voice in that language (set for the request, then back to the labels'), else
+  `VisitVoiceController.silentIn(lang)`: the offer or the note named in that language ("targetLang"), once for each
+  language while the app runs. No re-record for it. A review of another language at home still says its exercises
+  with the home voices (below, "What's left").
 
 ## Look and learn on a visit
 
@@ -160,7 +170,7 @@ offers declined forgotten, the note to come again), "audio:voice:remove:<lang>" 
 
 ## Tests
 
-- **The bridge's smoke** (`test/smoke.ts`, 2,637 checks, all passing): `test/smoke/visit-voices.ts`, 31 checks in the
+- **The bridge's smoke** (`test/smoke.ts`, 2,721 checks after the rebase onto main, all passing): `test/smoke/visit-voices.ts`, 31 checks in the
   towns section, with its three bridges (Jan's Slovene town, Mia's Italian one with a fake ElevenLabs and a fake local
   worker of her own, Luka's child's town at two clips an hour):
   - the host's side: the host's clip handed over signed, byte for byte, in the first voice asked that it has (someone
@@ -180,12 +190,13 @@ offers declined forgotten, the note to come again), "audio:voice:remove:<lang>" 
     the town language's carrier sentence;
   - the cleaning of another town's clip and cast, a town older than this (its culture pack's cast: Kärnten's carrier
     narrator, Primorska's default cast), the voices tried, the store's size and a town no longer linked.
-- **The relay's smoke** (`test/relay.ts`, 40 checks, all passing): Marta's hosted town visits Ana's, reached only
+- **The relay's smoke** (`test/relay.ts`, 43 checks, all passing; `companion/relay`'s `bun test`: 19): Marta's hosted town visits Ana's, reached only
   through the relay: Ana's clip byte for byte, her town's cast, `204` for a line she has none of.
 - `bunx tsc --noEmit -p .`: clean. The phone's bundle builds (`phone/build.ts`: 1,035.8 KB minified).
-- **The app's unit tests**: 2,970, all passing once `PhoneBridgeTest` counts the bridge's 35 features (the phone's
-  tests again: 46 of 46). New: `VisitVoicePolicyTest` (4), `VisitClipsTest` (4), `VisitSpeakerTest` (2, Robolectric),
-  `VisitTapsTest` (6); the string tables' tests (`L10nTablesTest`, `L10nParityTest`) take the new labels.
+- **The app's unit tests**: 3,068 after the rebase onto main, all passing (`PhoneBridgeTest` counts the bridge's 36
+  features). New: `VisitVoicePolicyTest` (4), `VisitClipsTest` (4), `VisitSpeakerTest` (3, Robolectric: a visit's clips,
+  a silent line told, a town's word at home said in its own language), `VisitTapsTest` (6); the string tables' tests
+  (`L10nTablesTest`, `L10nParityTest`) take the new labels.
 - **Python**: `tests` 251 and `companion/tests` 98 (10 skipped), all passing.
 - **On the emulator** (`companion/bin/qa --steps visit-voices`, the x86_64 emulator, Android's text-to-speech as missing:
   QA's "audio:tts:off"). The phone's own node is an Italian learner's from German, of the Friuli village, as Teo's (a
@@ -220,6 +231,8 @@ offers declined forgotten, the note to come again), "audio:voice:remove:<lang>" 
   host (up to 4 s) or the node.
 - **Someone's own voice** (designed in the host's ElevenLabs account) can't be made on the visitor's node: their
   archetype's voice says what the host has no clip of.
+- **A review of another language at home** (a town's words reviewed in their language) says its exercises' lines
+  through the home village's speaker: only the word card's 🔊 follows the word's language so far.
 - **The hint's 🔊** (a dialog's TL;DR) speaks its town-language pieces from the town's clips, but its base-language
   pieces with Android's voice only (no offline voice for them), as at home.
 - **Machine-written labels**: the Slovene of the new labels beyond the two the brief gave ("Prenesi slovenski glas za
