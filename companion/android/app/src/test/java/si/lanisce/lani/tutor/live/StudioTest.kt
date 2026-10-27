@@ -5,6 +5,8 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.job
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
@@ -32,6 +34,7 @@ import si.lanisce.lani.tutor.FAKE_KEY
 import si.lanisce.lani.tutor.KeyVault
 import si.lanisce.lani.tutor.MemoryStore
 import si.lanisce.lani.tutor.SoftCipher
+import si.lanisce.lani.tutor.TurnStatus
 import si.lanisce.lani.tutor.Usage
 import si.lanisce.lani.tutor.blocks
 import si.lanisce.lani.tutor.message
@@ -50,7 +53,10 @@ import java.nio.file.Files
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.Collections
+import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * The studio end to end (docs/plans/05-built/studio.md): over the real Messages API client against a scripted API and a
@@ -247,6 +253,24 @@ class StudioTest {
         t.awaitIdle()
     }
 
+    /**
+     * Waits until [cond] holds, for at most [timeoutMs]: what comes late on a slow runner (CI's two cores) is waited for,
+     * not missed; only a condition that never comes fails, and says which.
+     */
+    private suspend fun awaitUntil(what: String, timeoutMs: Long = 30_000, cond: () -> Boolean) {
+        val end = System.nanoTime() + timeoutMs * 1_000_000
+        while (!cond()) {
+            if (System.nanoTime() > end) throw AssertionError("waited $timeoutMs ms for $what")
+            delay(10)
+        }
+    }
+
+    /** The process of [scope] is gone: cancelled, and all it ran has ended (its last saves tried), before the next one starts. */
+    private suspend fun gone(scope: CoroutineScope) {
+        scope.cancel()
+        scope.coroutineContext.job.join()
+    }
+
     // --- the tests -----------------------------------------------------------------------------------------------------
 
     @Test fun `a chat asks for a module, a studio job writes it on Opus, the validator's refusal fixed, the job saved on the bridge`() = runBlocking {
@@ -307,29 +331,21 @@ class StudioTest {
         val scopeA = CoroutineScope(SupervisorJob())
         before = { _, body ->
             // the studio's call after the validator's refusal: the process is gone before it answers
-            if (isStudio(body) && body["messages"]!!.jsonArray.last().toString().contains("out of range")) {
-                scopeA.cancel()
-                Thread.sleep(200)
-            }
+            if (isStudio(body) && body["messages"]!!.jsonArray.last().toString().contains("out of range")) scopeA.cancel()
         }
         val a = ready(tutor(scopeA))
         node.push("chat", "main", "Exercises, please.")
         a.backgroundCheck()
         // A is gone: its job was saved after the refused publish
-        for (i in 0 until 100) {
-            if (node.jobs.values.singleOrNull()?.str("status") == StudioJob.QUEUED) break
-            delay(20)
-        }
+        awaitUntil("A's call after the refusal") { !scopeA.isActive }
+        gone(scopeA)
         val saved = node.jobs.values.single()
         assertEquals(StudioJob.QUEUED, saved.str("status"))
         assertEquals(1, node.calls.count { it.first == "publish_module" })
         before = { _, _ -> }
         // a new process: the same data, the job read from the bridge and run on
         val b = tutor()
-        for (i in 0 until 200) {
-            if (node.jobs.values.single().str("status") == StudioJob.DONE) break
-            delay(25)
-        }
+        awaitUntil("the job done in the new process") { node.jobs.values.single().str("status") == StudioJob.DONE }
         settle(b)
         val done = node.jobs.values.single()
         assertEquals(StudioJob.DONE, done.str("status"))
@@ -352,17 +368,13 @@ class StudioTest {
             if (name == "publish_module" && body["args"].toString().contains("\"answer\":0")) {
                 node.frozen = true
                 scopeA.cancel()
-                Thread.sleep(200)
             }
         }
         val a = ready(tutor(scopeA))
         node.push("chat", "main", "Exercises, please.")
         a.backgroundCheck()
-        for (i in 0 until 100) {
-            if (node.frozen) break
-            delay(20)
-        }
-        delay(300)
+        awaitUntil("the valid publish") { node.frozen }
+        gone(scopeA)
         assertEquals("the refused publish and the valid one", 2, node.calls.count { it.first == "publish_module" })
         val saved = node.jobs.values.single()
         val intent = saved["intents"]!!.jsonArray.map { it.jsonObject }.last()
@@ -372,10 +384,7 @@ class StudioTest {
         node.afterTool = { _, _ -> }
         // a new process: the job from the bridge's copy, run on
         val b = tutor()
-        for (i in 0 until 200) {
-            if (node.jobs.values.single().str("status") == StudioJob.DONE) break
-            delay(25)
-        }
+        awaitUntil("the job done in the new process") { node.jobs.values.single().str("status") == StudioJob.DONE }
         settle(b)
         val done = node.jobs.values.single()
         assertEquals(StudioJob.DONE, done.str("status"))
@@ -402,40 +411,83 @@ class StudioTest {
     }
 
     @Test fun `the background's run and the open app's worker never run a job at once`() = runBlocking {
-        // A queues the job and is gone before the studio's first call
+        // A queues the job and is gone at the studio's first call (its saves from then on don't reach the bridge)
         val scopeA = CoroutineScope(SupervisorJob())
         before = { _, body ->
-            if (isStudio(body)) {
+            if (isStudio(body) && !node.frozen) {
                 node.frozen = true
                 scopeA.cancel()
-                Thread.sleep(200)
             }
         }
         val a = ready(tutor(scopeA))
         node.push("chat", "main", "Exercises, please.")
         a.backgroundCheck()
-        for (i in 0 until 100) {
-            if (node.frozen) break
-            delay(20)
-        }
-        delay(300)
+        awaitUntil("A's first studio call") { node.frozen }
+        gone(scopeA)
         val studioCallsA = posts().count(::isStudio)
+        assertEquals("A's one call, not answered", 1, studioCallsA)
         node.frozen = false
-        before = { _, body -> if (isStudio(body)) Thread.sleep(150) }
-        // B: the WorkManager's run starts while the process's start-up still reads the session (the open app's worker
-        // starts after it, StudioWork's TutorRuntime.live): before the fix both ran the job, each making its calls
-        val slowSession = Interceptor { chain ->
-            if (chain.request().url.encodedPath == "/tutor/session") Thread.sleep(400)
+        // B: the WorkManager's run starts while the process's start-up still reads the session; the open app's worker
+        // starts once the session is read (StudioWork's TutorRuntime.live). The session's answer is held until the
+        // background's run is inside the job, and each call takes a moment: before the fix both ran the job, each
+        // making its calls, two at once
+        val inJob = CountDownLatch(1)
+        val inFlight = AtomicInteger()
+        val most = AtomicInteger()
+        before = { _, body ->
+            if (isStudio(body)) {
+                most.accumulateAndGet(inFlight.incrementAndGet(), ::maxOf)
+                inJob.countDown()
+                Thread.sleep(150)
+                inFlight.decrementAndGet()
+            }
+        }
+        val heldSession = Interceptor { chain ->
+            if (chain.request().url.encodedPath == "/tutor/session") inJob.await(30, TimeUnit.SECONDS)
             chain.proceed(chain.request())
         }
-        val b = tutor(pre = slowSession)
+        val b = tutor(pre = heldSession)
         b.studio.background(20_000)
         settle(b)
+        assertEquals("the start-up's session read while the background's run was in the job", 0, inJob.count)
+        assertEquals("one job", 1, node.jobs.size)
         val done = node.jobs.values.single()
         assertEquals(StudioJob.DONE, done.str("status"))
         assertEquals("learner_state, the refused publish, the fixed one, the reply, the end: once each", 5, posts().count(::isStudio) - studioCallsA)
+        assertEquals("never two of the job's calls at once", 1, most.get())
         assertEquals(2, node.calls.count { it.first == "publish_module" })
         assertEquals(1, node.calls.count { it.first == "reply" && it.second.toString().contains("Studio") })
+    }
+
+    @Test fun `a chat turn resumed after the app was killed doesn't queue its job a second time`() = runBlocking {
+        // A: the chat's request_content queues the job, saved on the bridge, and the process is gone before the app has
+        // the save's answer: the turn's step (the calls' results) isn't saved, so the next process resumes the turn and
+        // runs its request_content again
+        val scopeA = CoroutineScope(SupervisorJob())
+        node.afterPut = { _ ->
+            node.afterPut = {}
+            node.frozen = true
+            scopeA.cancel()
+        }
+        val a = ready(tutor(scopeA))
+        node.push("chat", "main", "Exercises, please.")
+        a.backgroundCheck()
+        awaitUntil("the job's first save") { node.frozen }
+        gone(scopeA)
+        assertEquals(StudioJob.QUEUED, node.jobs.values.single().str("status"))
+        assertEquals("A made no studio call", 0, posts().count(::isStudio))
+        node.frozen = false
+        // B: the turn goes on from its saved step (request_content and reply called, not answered); the job runs once
+        val b = tutor()
+        awaitUntil("the studio's jobs ended") { node.jobs.values.none { it.str("status") in setOf(StudioJob.QUEUED, StudioJob.RUNNING) } }
+        settle(b)
+        assertEquals("the resumed request_content answered from the job it had queued", 1, node.jobs.size)
+        assertEquals(StudioJob.DONE, node.jobs.values.single().str("status"))
+        assertTrue(lines.any { it.contains("not queued twice") })
+        assertEquals("learner_state, the refused publish, the fixed one, the reply, the end: once each", 5, posts().count(::isStudio))
+        assertEquals(2, node.calls.count { it.first == "publish_module" })
+        assertEquals(1, node.calls.count { it.first == "reply" && it.second.toString().contains("Studio") })
+        assertTrue("the chat's turn ended", b.today.turns.any { it.eventKind == "chat" && it.status == TurnStatus.DONE })
     }
 
     @Test fun `a sub-task runs on its own thread and its result goes back to the job`() = runBlocking {
@@ -495,24 +547,15 @@ class StudioTest {
         val id = node.push("villager_arrived", "main", "Someone moved in: Nina, the potter. [t:module]")
         t.backgroundCheck()
         // the event's job is made on the tutor's thread after the event is taken: wait for it, then for its run
-        for (i in 0 until 200) {
-            if (node.jobs.isNotEmpty()) break
-            delay(20)
-        }
+        awaitUntil("the event's job") { node.jobs.isNotEmpty() }
         settle(t)
-        for (i in 0 until 200) {
-            if (node.jobs.values.singleOrNull()?.str("status") == StudioJob.DONE) break
-            delay(20)
-        }
+        awaitUntil("the event's job done") { node.jobs.values.singleOrNull()?.str("status") == StudioJob.DONE }
         val job = node.jobs.values.single()
         assertEquals("event", job.str("origin"))
         assertEquals("villager_arrived", job.str("event_kind"))
         assertEquals(StudioJob.SOON, job.str("urgency"))
         assertEquals(StudioJob.DONE, job.str("status"))
-        for (i in 0 until 100) {
-            if (id in node.acked) break
-            delay(20)
-        }
+        awaitUntil("the event acknowledged") { id in node.acked }
         assertTrue("acknowledged once done", id in node.acked)
     }
 
@@ -585,6 +628,8 @@ class StudioTest {
         @Volatile var frozen = false
         /** A job's save that is lost on the way (answered 500, not kept). */
         var dropPut: (JsonObject) -> Boolean = { false }
+        /** After a job's save was kept, before the app has the answer. */
+        @Volatile var afterPut: (JsonObject) -> Unit = {}
         /** After a tool ran on the node (its answer kept for its client id), before the app has the answer. */
         var afterTool: (String, JsonObject) -> Unit = { _, _ -> }
         /** A tool's answer lost on the way back (it ran on the node). */
@@ -633,7 +678,12 @@ class StudioTest {
                     val id = path.removePrefix("/tutor/jobs/")
                     when (r.method) {
                         // a process gone can't save any more; a save lost on the way ([dropPut])
-                        "PUT" -> if (frozen || dropPut(body!!)) code(500) else { jobs[id] = body; puts++; ok(obj("ok" to true, "updated_at" to now).toString()) }
+                        "PUT" -> if (frozen || dropPut(body!!)) code(500) else {
+                            jobs[id] = body
+                            puts++
+                            afterPut(body)
+                            ok(obj("ok" to true, "updated_at" to now).toString())
+                        }
                         "DELETE" -> { jobs.remove(id); ok(obj("ok" to true, "deleted" to true).toString()) }
                         else -> jobs[id]?.let { ok(it.toString()) } ?: code(404)
                     }

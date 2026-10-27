@@ -1279,7 +1279,8 @@ class LiveTutor(
             // "make me exercises for X": a brief for the studio, which writes it on the content model
             put(StudioSpecs.REQUEST) { use ->
                 if (!studioReady()) "request_content: the tutor's bridge has no studio yet (it needs an update): say so, nothing queued" to true
-                else studio.request(use.input, conversation, modelFor(Task.CONTENT), effortFor(Task.CONTENT), s.batches)
+                // the turn's and the call's ids: a turn resumed after a kill runs this call again, and finds its job
+                else studio.request(use.input, conversation, modelFor(Task.CONTENT), effortFor(Task.CONTENT), s.batches, call = "${t.id}/${use.id}")
             }
             if (github) put("report_problem") { use -> report(use, conversation) }
         }

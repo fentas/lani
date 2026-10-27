@@ -70,6 +70,14 @@ bridge's `companion/bridge/src/tutor-studio.ts`, `src/overrides.ts` and `src/fea
     A write the bridge refused (a validator, the lease) is a new try with its own id.
   - Tool call ids the bridge's `once` doesn't take (it takes `[\w-]{8,64}`; a short or dotted id of another provider)
     go as their fingerprint (`LiveBridge.clientId`), so those calls are answered once too.
+- **A request is queued once** (fixed 2026-10-27; CI's 2-core runner hit it in `StudioTest`, see
+  [ci-green.md](ci-green.md)). A chat's turn runs a step's tool calls and saves their results after them. A process
+  killed in between (the job saved on the bridge, the step's results not) resumes the turn and runs its
+  `request_content` again. That made a second job of the same brief, and both ran: the Opus calls twice, the module
+  published twice. Now the job's id is made from the call (`Studio.requestId`: the turn's id, the tool call's id and
+  its input), and a request whose job is there already is answered from that job (its log line: "not queued twice").
+  When the bridge can't say whether the job is there, nothing is queued: a job saved again under its id would start
+  over what already ran.
 - At most 24 calls on the main thread and 12 on a sub-task.
 - The spend's caps are checked before each call.
 - The first message carries the notebook, the local time and the job (`<studio_job â€¦>`).
@@ -285,7 +293,7 @@ batch at half price", "waits for the night", "waits: the spending cap"), and "âœ
 ## Tests
 
 - **The app's JVM tests** (the tutor's 195, all passing):
-  - `StudioTest` (13), over the real Messages API client against a scripted API and a played bridge with the studio's
+  - `StudioTest` (14), over the real Messages API client against a scripted API and a played bridge with the studio's
     routes. The cases:
     - a chat's request_content becomes a job on Opus at medium, with the text editor by its type and the studio
       prompt; the publish is refused with the validator's message, fixed and published; the reply; the job saved on
@@ -296,7 +304,9 @@ batch at half price", "waits for the night", "waits: the spending cap"), and "âœ
       resumed without a second version, the intent recorded before the call;
     - a publish whose answer was lost, sent again by the model: the same client id, applied once;
     - the WorkManager's run and the open app's worker at the same time: the job's calls made once (eight before the
-      lock, five with it);
+      lock, five with it), never two at once. The start-up's session read is held until the background's run is in
+      the job, so the open app's worker always starts during it (no timing in what it proves; ci-green.md);
+    - a chat's turn resumed after the app was killed between the job's save and the step's: one job, run once;
     - a sub-task on its own thread;
     - a job for the night through the Message Batches API: every step a batch, no stream, no
       `eager_input_streaming`, half the price;

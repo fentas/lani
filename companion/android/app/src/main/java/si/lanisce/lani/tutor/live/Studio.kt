@@ -429,12 +429,30 @@ class Studio(
     /**
      * The chat's request_content ([input]: title, brief, kinds, urgent) on [conversation], for [model] at [effort]: a job
      * queued and started; the tool's answer. [batches]: what can wait goes through the Message Batches API.
+     *
+     * [call] is the call's own key (the chat's turn and the tool call's id), and the job's id is made from it with the
+     * input ([requestId]): the same call again finds the job it queued instead of queuing a second one. A turn runs its
+     * step's tool calls and saves their results after them, so a process killed in between (the job saved, the step's
+     * results not) resumes the turn and runs its request_content again; a second job would run the same brief once more
+     * (its model calls paid twice, a second version of what it publishes). When the bridge can't say whether the job is
+     * there, nothing is queued: a job saved again under its id would start over what already ran.
      */
-    suspend fun request(input: JsonObject, conversation: String, model: String, effort: String?, batches: Boolean): Pair<String, Boolean> = withContext(io) {
+    suspend fun request(input: JsonObject, conversation: String, model: String, effort: String?, batches: Boolean, call: String): Pair<String, Boolean> = withContext(io) {
         val title = input.str("title")?.trim().orEmpty().take(80)
         val brief = input.str("brief")?.trim().orEmpty()
         if (title.isEmpty() || brief.length < 10) return@withContext "request_content: a title and a brief (what to write, for which mistakes) are needed; nothing queued" to true
-        if (bridge() == null) return@withContext "request_content: the tutor's bridge isn't reached: nothing queued. Say the studio can't start now." to true
+        val b = bridge() ?: return@withContext "request_content: the tutor's bridge isn't reached: nothing queued. Say the studio can't start now." to true
+        val id = requestId(call, input)
+        val known = full[id] ?: try {
+            b.job(id)
+        } catch (e: LiveBridgeError) {
+            line("studio: request_content not queued: the bridge didn't say whether $id is there (${if (e.offline) "offline" else "HTTP ${e.code}"})")
+            return@withContext "request_content: the tutor's bridge isn't reached: nothing queued. Say the studio can't start now." to true
+        }
+        if (known != null) {
+            line("studio: ${known.id} was queued by this call already (its turn resumed): not queued twice")
+            return@withContext (if (known.open) taken(known) else "The studio's job ${known.id} «${known.title}» for this request is ${known.status} already: nothing queued again.") to false
+        }
         val urgent = (input["urgent"] as? JsonPrimitive)?.booleanOrNull ?: true
         val kinds = (input["kinds"] as? JsonArray).orEmpty().mapNotNull { (it as? JsonPrimitive)?.contentOrNull }
         val urgency = if (urgent) StudioJob.NOW else StudioJob.WHENEVER
@@ -442,18 +460,23 @@ class Studio(
         val open = jobs.count { it.open }
         if (open >= MAX_OPEN) return@withContext "request_content: the studio has $open jobs open already: nothing queued. Tell the learner to wait for those first." to true
         val job = StudioJob(
-            id = newId(), title = title, brief = brief.take(6_000), origin = StudioJob.REQUEST, kinds = kinds, conversationId = conversation,
+            id = id, title = title, brief = brief.take(6_000), origin = StudioJob.REQUEST, kinds = kinds, conversationId = conversation,
             urgency = urgency, createdAt = now(), updatedAt = now(), model = model, effort = effort, batched = batched,
         )
         save(job)
         line("studio: ${job.id} queued from the chat ($urgency${if (batched) ", batched" else ""}): $title")
         wake()
+        taken(job) to false
+    }
+
+    /** request_content's answer for [job], queued now or by the same call before. */
+    private fun taken(job: StudioJob): String {
         val how = when {
-            urgent -> "it starts now; the learner sees \"✍️ Pišem …\" with its progress and can cancel it"
-            batched -> "it runs overnight through the batch API, at half price"
+            job.urgency != StudioJob.WHENEVER -> "it starts now; the learner sees \"✍️ Pišem …\" with its progress and can cancel it"
+            job.batched -> "it runs overnight through the batch API, at half price"
             else -> "it runs when the phone charges on Wi-Fi"
         }
-        "The studio took the job ${job.id} «$title» on ${job.model}: $how. Tell the learner in one line that it's on its way; the studio tells them itself when it's done. Don't write the content here." to false
+        return "The studio took the job ${job.id} «${job.title}» on ${job.model}: $how. Tell the learner in one line that it's on its way; the studio tells them itself when it's done. Don't write the content here."
     }
 
     /**
@@ -958,6 +981,14 @@ class Studio(
         const val MAX_OPEN = 5
         const val STEPS_KEPT = 120
         const val DRAFT_MAX = 30_000
+
+        /**
+         * The id of the job request_content's [call] (its turn and tool call's id) with [input] queues: the same call
+         * gives the same id (j_ and 12 hex digits, as the bridge's jobs take them); the input in it keeps two calls
+         * apart whose provider gives no ids of its own.
+         */
+        fun requestId(call: String, input: JsonObject): String =
+            "j_" + java.security.MessageDigest.getInstance("SHA-256").digest("request\u0000$call\u0000$input".toByteArray()).take(6).joinToString("") { "%02x".format(it) }
 
         /** A message of the Messages API (a batch's result) as the loop's step. */
         fun stepOf(m: JsonObject): Step {
