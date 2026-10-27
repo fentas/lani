@@ -1,0 +1,15 @@
+{
+  "about": "The QA's child town (companion/bin/qa with LANI_DEV_TOWN_FIXTURE=dev-town-child.json, test/dev-town.ts): a child's town of the Friuli culture pack, Italian from German, with a learner's progress (test/fixtures/learning.ts) and the dev bridge's town as its guardian, for \"📈 Napredek · Progress\". Not a learner: it lives in a temp dir for one QA run. Its village is the QA's second town's (state_from).",
+  "profile": "qa-nino",
+  "learner": {
+    "name": "Nino",
+    "target": "it",
+    "base": "de",
+    "culture": "friuli",
+    "child": true
+  },
+  "town_name": "Borgo di Prova",
+  "state_from": "dev-town.json",
+  "learning": { "language": "it", "base": "de" },
+  "guardian": true
+}

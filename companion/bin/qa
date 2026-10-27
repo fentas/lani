@@ -17,7 +17,13 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        files with the emulator's su instead of run-as
   --apk <file>         install that APK, built nothing (a debug or qa build: a release build has neither QA's hooks
                        nor plain HTTP to the dev bridge)
-  --steps visit,packs  only these steps (and setup); "visit" is Friends and every visit step; "road" the car's
+  --steps visit,packs  only these steps (and setup); "visit" is Friends and every visit step (with "town-progress": the
+                       second town's "📈 Napredek · Progress" from its card, a hard word's challenge sent, then just the
+                       village shared with it; LANI_DEV_TOWN_FIXTURE=dev-town-child.json makes the second town a child's
+                       with a learner's progress, the dev bridge's town its guardian, and LANI_DEV_DATA a synthetic
+                       parent: bun test/fixtures/make-learner.ts <dir>); "town-progress-child" (named only, last) pairs
+                       the app with that child's town: its Friends with "👪 Tvoj starš vidi tvoj napredek", the parent's
+                       progress seen as just the village; "road" the car's
                        "🚗 Za pot" (a small library got ready, played, next, paused; "❓ Kviz": a pick by next, a
                        question again by previous; browsed as Android Auto does: two tabs, each session played);
                        "scene-building" a building's scene (the hut's kitchen, a house's room …) with the building in
@@ -287,8 +293,10 @@ BRIDGE_URL, TOKEN = f"http://10.0.2.2:{PORT}", "dev-token"
 # the setup's unreachable computer: a port nothing listens on (LANI_QA_NOBODY_PORT; never the bridges')
 SETUP_NOBODY_PORT = os.environ.get("LANI_QA_NOBODY_PORT", "19601")
 SERIAL = os.environ.get("ANDROID_SERIAL")
-# The second town (test/dev-town.ts): its own port (reserved for it in src/learners.ts) and app token.
+# The second town (test/dev-town.ts): its own port (reserved for it in src/learners.ts) and app token, and its fixture
+# (LANI_DEV_TOWN_FIXTURE: dev-town-child.json is a child's town with a learner's progress, the dev bridge's its guardian).
 TOWN_PORT = os.environ.get("LANI_DEV_TOWN_PORT", "8797")
+FIXTURE = os.environ.get("LANI_DEV_TOWN_FIXTURE") or "dev-town.json"
 TOWN_TOKEN = "dev-town-token"
 NEVER_PORTS = {"8790", "8795", "8796"}  # the real bridge, the voice and speech workers: QA never binds or stops them
 OPEN = "si.lanisce.lani.open"  # a deep link in the launch intent (data/DeepLink.kt)
@@ -356,7 +364,9 @@ def town_facts() -> dict:
     its market can spare, and the app's texts in its language. During a visit every label reads "<host> · <base>"
     ("In visita · Visiting" for Jan, Slovene from English, in an Italian town): the steps look for the host's part."""
     try:
-        f = json.loads((BRIDGE / "test/fixtures/dev-town.json").read_text())
+        f = json.loads((BRIDGE / "test/fixtures" / FIXTURE).read_text())
+        if "state" not in f and f.get("state_from"):  # the child's town: the second town's village (test/dev-town.ts)
+            f["state"] = json.loads((BRIDGE / "test/fixtures" / f["state_from"]).read_text())["state"]
         host, culture = f["learner"]["target"], ROOT / "companion/cultures" / f["learner"]["culture"]
         cast = {}
         for p in (culture / "villagers").glob("*.json"):
@@ -371,7 +381,7 @@ def town_facts() -> dict:
             "name": f["town_name"], "learner": f["learner"]["name"], "culture": f["learner"]["culture"], "language": host,
             "people": [cast[i] for i in ids if i in cast], "requests": len(s.get("quests", [])),
             "horizon": backdrop.get(host, ""), "wares": [goods[i].get(host, i) for i in spare if i in goods],
-            "t": l10n(host),
+            "t": l10n(host), "child": f["learner"].get("child") is True, "progress": bool(f.get("learning")),
         }
     except (OSError, ValueError, KeyError) as e:
         return {"error": f"the fixture town can't be read: {e}"}
@@ -633,12 +643,13 @@ def first_launch(way_key="setup.computerTitle"):
     assert tap(say(way_key, 0), 4), f"the way {way_key}"
 
 
-def setup():
-    """The first launch to the dev bridge (docs/plans/05-built/onboarding.md): the welcome (no gender), Slovene to learn
+def setup(url=None, token=None):
+    """The first launch to the dev bridge ([url], [token]: another bridge's, e.g. the second town's) (docs/plans/05-built/onboarding.md): the welcome (no gender), Slovene to learn
     from English (LANI_QA_SETUP_PAIR: another pair), "S svojim računalnikom · With my family's computer" (its "📷 Skeniraj
     kodo" the big button; the scanner opened once), "Ročno · Enter manually"; an address where nothing answers first (the
     plain error: "Can't reach your computer", "Poskusi znova", "Odpri Tailscale"), then the dev bridge's address and
     token, Home (the village founded where a synthetic learner has none). Screenshots also to $LANI_QA_SETUP_SHOTS."""
+    url, token = url or BRIDGE_URL, token or TOKEN
     if wait_for(OWN_NAMES[SETUP_PAIR[0]], 12) is None:
         return "already connected"
     first_launch()
@@ -667,12 +678,12 @@ def setup():
     nobody = f"http://10.0.2.2:{SETUP_NOBODY_PORT}"
     assert not listeners(SETUP_NOBODY_PORT), f"something listens on {SETUP_NOBODY_PORT}"
     type_into("https://", nobody)
-    type_into(say("setup.token"), TOKEN, clear=0)
+    type_into(say("setup.token"), token, clear=0)
     assert tap(say("setupAndPermission.connect")), "connect button"
     assert wait_for(say("pairing.cantReachTutorPhone", 0)[:24], 30), "the unreachable computer, in plain words"
     assert find(say("setup.openTailscale", 0)) and find(say("pairScan.tryAgain", 0)), "its ways out: try again, the Tailscale app"
     setup_shot("error")
-    type_into(nobody, BRIDGE_URL)
+    type_into(nobody, url)
     # the button's whole label: "Povezujem…" while it connects
     assert tap(say("setupAndPermission.connect")), "connect button"
     pair = os.environ.get("LANI_QA_PAIR")
@@ -5622,6 +5633,111 @@ def friends():
     time.sleep(1)
 
 
+def town_progress():
+    """"📈 Napredek · Progress" from the second town's card on Friends (companion/README.md, "Progress between towns"):
+    the card's "👁️ Kaj vidi <learner> · What <learner> sees", then what the town shares with this one: the summary (the
+    streak, the week's days as dots, the words known). With a child's town (LANI_DEV_TOWN_FIXTURE=dev-town-child.json, the
+    dev bridge's town its guardian): the parent's note, the words being learned, "Težave" (each pattern and its words), a
+    hard word's challenge prefilled (gently, in the child's German) and sent, "Tvoji izzivi" with it. Then this learner
+    shares just the village with it (the menu's three levels), and back to Friends."""
+    if (why := no_town()) is not None:
+        return why
+    if find("🤝 Prijatelji · Friends") is None:
+        return "not on Friends (the step before failed)"
+    learner = FACTS["learner"]
+    assert scroll_to(f"Kaj vidi {learner}", 3), f"the card's \"👁️ Kaj vidi {learner}\""
+    time.sleep(1)
+    shot("progress-card")
+    bs = list(boxes())
+    title = next((b for t, b in bs if t.endswith(FACTS["name"])), (0, 0, 0, 0))
+    btn = [b for t, b in bs if "Napredek · Progress" in t and b[1] >= title[1]]
+    assert btn, "the card's 📈 Napredek · Progress"
+    tap_at(centre(min(btn, key=lambda b: b[1])))
+    assert wait_for("‹ Prijatelji · Friends", 10), "the progress screen (its way back to Friends)"
+    assert wait_for(f"{learner} ti kaže", 25), "what the town shares with this one"
+    time.sleep(1.5)
+    shot("progress-summary")
+    if FACTS.get("child"):
+        assert find("Kot starš vidiš podrobnosti") is not None, "the parent's note (the dev bridge's town is the child's guardian)"
+        assert find("dni zapored") is not None, "the summary's streak"
+    if FACTS.get("progress"):
+        assert scroll_to("Besede, ki se jih uči", 3), "the words being learned"
+        shot("progress-words")
+        assert scroll_to("Težave", 5), "\"Težave\": what is hard"
+        adb("shell", "input", "swipe", "540", "1500", "540", "900", "400")
+        time.sleep(1)
+        shot("progress-hard")
+        # a hard word's 💌: the challenge prefilled (its meaning in the child's base, the pattern, gently)
+        # the word rows' 💌 (its text, or its description "Send a challenge" where the dump has no text)
+        send = next((c for t, c in nodes() if t in ("💌", "Send a challenge") and 300 < c[1] < 1850), None)
+        assert send is not None, "a hard word's 💌"
+        tap_at(send)
+        assert wait_for(f"Izziv, ki ga dobi {learner}", 8), "the challenge's dialog"
+        assert find("Keine Eile") is not None or not FACTS.get("child"), "a child's challenge, gently worded in the child's base"
+        time.sleep(1)
+        shot("progress-challenge")
+        assert tap("💌 Pošlji · Send", 5), "the challenge's Send"
+        assert wait_for("Tvoji izzivi", 15) or scroll_to("Tvoji izzivi", 4), "the challenge sent, under \"Tvoji izzivi\""
+        time.sleep(1)
+        shot("progress-sent")
+    # what this learner shares with them: just the village from now on (the other side sees less: town-progress-child)
+    # at the screen's end, below where scroll_to looks: as far down as it goes, then found where it is
+    scroll_to(f"Kaj vidi {learner}", 6)
+    assert tap(f"Kaj vidi {learner}", 5), "this learner's sharing at the end, its menu"
+    assert wait_for("Samo vas · Just my village", 5), "the three levels"
+    shot("progress-share-menu")
+    assert tap("Samo vas · Just my village", 5), "just the village"
+    assert wait_for("Zdaj vidi", 8) or find("Samo vas · Just my village"), "the level saved"
+    time.sleep(1.5)
+    shot("progress-share-village")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the header's "‹ Prijatelji · Friends" scrolled away: Back
+    time.sleep(1.5)
+    assert wait_for("🤝 Prijatelji · Friends", 8), "back to Friends"
+    time.sleep(1)
+
+
+def town_progress_child():
+    """The child's side (only with --steps town-progress-child, after town-progress; LANI_DEV_TOWN_FIXTURE=
+    dev-town-child.json): the app paired again with the second town, a child's (its data cleared first): its Friends with
+    "👪 Tvoj starš vidi tvoj napredek · Your parent can see your progress" on the parent's card and no level below
+    Details to choose; in the child's own pair (it · de) too; the parent's progress at what the parent shares now (just
+    the village, set in town-progress: the other side sees less)."""
+    if (why := no_town()) is not None:
+        return why
+    if not FACTS.get("child"):
+        return "skipped: the second town isn't a child's (LANI_DEV_TOWN_FIXTURE=dev-town-child.json)"
+    adb("shell", "pm", "clear", PKG)
+    adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity")
+    time.sleep(3)
+    os.environ["LANI_QA_PAIR"] = "sl-en"  # QA reads its labels in sl · en; the child's own pair is shown below
+    try:
+        setup(f"http://10.0.2.2:{TOWN_PORT}", TOWN_TOKEN)
+    finally:
+        os.environ.pop("LANI_QA_PAIR", None)
+    plain_village()
+    open_scroll()
+    scroll_card("Prebivalci · Villagers: ")
+    assert tap("Prijatelji · Friends", 5), "the Friends row on the people page"
+    assert wait_for("🤝 Prijatelji · Friends", 8), "the child's Friends"
+    assert wait_for("Tvoj starš vidi tvoj napredek", 20), "the parent's note on the child's card"
+    time.sleep(1.5)
+    shot("child-friends")
+    qa_hook("pair:it-de")
+    time.sleep(2 * slow())
+    shot("child-friends-it-de")
+    qa_hook("pair:sl-en")
+    time.sleep(2 * slow())
+    # the parent's progress: the parent shares just the village now
+    bs = list(boxes())
+    btn = [b for t, b in bs if "Napredek · Progress" in t]
+    assert btn, "the parent's card's 📈 Napredek · Progress"
+    tap_at(centre(btn[0]))
+    assert wait_for("deli samo svojo vas", 20), "the parent shares just the village: the child sees nothing of the learning"
+    time.sleep(1)
+    shot("child-sees-village")
+    assert tap("‹ Prijatelji · Friends", 5), "back to Friends"
+
+
 def visit_town():
     """"🚶 Obišči · Visit" on the town's card opens it: the banner "🧳 In visita · Visiting: <town> (<learner>)" and
     "⌂ Casa · Home", the bar of things to do, all in the town's language (the pair switched), the town answering."""
@@ -9507,6 +9623,7 @@ def plan():
         ("coast", coast, v, False, ""),
         ("sea-frames", sea_frames, v, False, ""),
         ("friends", friends, h, True, "visit"),
+        ("town-progress", town_progress, h, True, "visit"),
         ("visit", visit_town, h, True, "visit"),
         ("visit-villager", visit_villager, h, True, "visit"),
         ("visit-scene", visit_scene, h, True, "visit"),
@@ -9537,6 +9654,8 @@ def plan():
         ("data-sheet", data_sheet, go_home, False, ""),
         ("studio", studio, go_home, False, ""),
         ("tutor-live", tutor_live, go_home, False, ""),
+        # only with --steps town-progress-child: the app paired again with the second town (a child's)
+        ("town-progress-child", town_progress_child, None, False, ""),
         # only with --steps hosted: no node, a fresh install on the phone's own bridge
         ("hosted", hosted, None, False, ""),
     ]
@@ -9810,7 +9929,7 @@ def selected(steps):
     without setup's pairing (and without the dev bridge: main)."""
     want = arg("--steps")
     if not want:
-        return [s for s in steps if s[0] != "hosted"]
+        return [s for s in steps if s[0] not in ("hosted", "town-progress-child")]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")
@@ -9878,7 +9997,7 @@ def bridges_only() -> int:
 
 def main():
     steps = selected(plan())
-    visiting = any(s[4] == "visit" for s in steps)
+    visiting = any(s[4] == "visit" or s[0] == "town-progress-child" for s in steps)
     if "--dry" in sys.argv:
         return dry(steps, visiting)
     if "--bridges-only" in sys.argv:
@@ -9910,7 +10029,7 @@ def main():
 
     linked = False
     for name, fn, cleanup, keep, group in steps:
-        if group == "visit" and not linked:  # linked by now, while the other steps ran
+        if (group == "visit" or name == "town-progress-child") and not linked:  # linked by now, while the other steps ran
             results.append(("second-town", link_town(town)))
             linked = True
         step(name, fn, cleanup, keep)

@@ -6,6 +6,11 @@
 //      LANI_DEV_TOWN_LINK the URL of a town to link with once both answer (companion/bin/qa: the dev bridge,
 //      http://127.0.0.1:8791), as the app does it: that town's POST /towns/invite (LANI_DEV_TOWN_LINK_TOKEN, its app
 //      token, default dev-token), accepted here with POST /towns/accept. Both links go away with the temp dirs.
+//      LANI_DEV_TOWN_FIXTURE another fixture of test/fixtures (default dev-town.json): dev-town-child.json is a child's
+//      town (Italian from German) with a learner's progress (test/fixtures/learning.ts). A child's app can't accept an
+//      invitation, so it is linked as a parent links it on the node: an invitation made here (lani-town invite
+//      --profile), accepted by the other town's app; with "guardian", that town is the child's guardian (lani-town
+//      guardian): it sees the child's progress in detail.
 import '../src/env' // first: LANI_* from the FLUENT_* names of a node set up before the rename
 import { Client } from '@modelcontextprotocol/sdk/client/index.js'
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
@@ -14,12 +19,21 @@ import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { RESERVED_PORTS, initLearnerData, portFree } from '../src/learners'
 import { loadBridgeKey } from '../src/pairing'
-import { Towns, localDate } from '../src/towns'
+import { Towns, createInvite, inviteUri, localDate } from '../src/towns'
+import { writeLearning } from './fixtures/learning'
 
 const DEFAULT_PORT = 8797
 const TOKEN = 'dev-town-token'
 const projectDir = resolve(import.meta.dir, '../../..')
-const fixture = JSON.parse(readFileSync(resolve(import.meta.dir, 'fixtures/dev-town.json'), 'utf8'))
+const fixtureName = process.env.LANI_DEV_TOWN_FIXTURE || 'dev-town.json'
+if (!/^[a-z0-9-]+\.json$/.test(fixtureName)) {
+  console.error(`dev town: LANI_DEV_TOWN_FIXTURE is a file of test/fixtures, e.g. dev-town-child.json: ${fixtureName}`)
+  process.exit(1)
+}
+const readFixture = (name: string) => JSON.parse(readFileSync(resolve(import.meta.dir, 'fixtures', name), 'utf8'))
+const own = readFixture(fixtureName)
+// a fixture can take another's village ("state_from"): the child's town is the same village, a child's
+const fixture = { ...own, state: own.state ?? readFixture(own.state_from).state }
 
 const port = Number(process.env.LANI_DEV_TOWN_PORT ?? DEFAULT_PORT)
 const fail = (why: string, code = 1): never => {
@@ -42,6 +56,8 @@ for (const sig of ['SIGINT', 'SIGTERM', 'SIGHUP'] as const) process.on(sig, () =
 const l = fixture.learner
 initLearnerData(projectDir, dataDir, { name: l.name, target: l.target, base: l.base, culture: l.culture, child: l.child })
 new Towns(join(dataDir, 'app')).setName(fixture.town_name)
+// a learner's progress (cards, mistakes, sessions), for "📈 Napredek · Progress" on the linked town's phone
+if (fixture.learning) writeLearning(dataDir, { language: fixture.learning.language, base: fixture.learning.base })
 console.log(`dev town data: ${dataDir}`)
 
 /** The fixture's state with its days filled in: "@day" is today, "@day-40" forty days before (the node's dates). */
@@ -106,9 +122,23 @@ if (!put.ok) fail(`its village wasn't saved (PUT /game: ${put.status} ${await pu
 const id = loadBridgeKey(join(dataDir, 'app')).fingerprint
 console.log(`dev town up on :${port}: "${fixture.town_name}" (${l.name}, ${l.culture}, ${l.target} from ${l.base}), town id ${id}, token ${TOKEN}`)
 
-/** Links this town with the one at [url] ([token]: its app token), as two apps do: an invitation there, accepted here. */
+/**
+ * Links this town with the one at [url] ([token]: its app token), as two apps do: an invitation there, accepted here.
+ * A child's town as a parent links it on the node: an invitation made here (by the CLI), accepted by that town's app.
+ */
 async function link(url: string, token: string): Promise<string> {
   if (!(await answers(url, 60_000))) return `not linked: nothing answers on ${url}`
+  if (l.child) {
+    const { code } = createInvite(join(dataDir, 'app'), { by: 'cli' })
+    const invite = inviteUri({ url: self, code, fingerprint: id })
+    const ok = await fetch(`${url}/towns/accept`, { method: 'POST', headers: bearer(token), body: JSON.stringify({ invite }), signal: AbortSignal.timeout(15_000) })
+    const body = (await ok.json().catch(() => ({}))) as any
+    if (!ok.ok) return `not linked: ${url}/towns/accept answered ${ok.status} ${JSON.stringify(body)}`
+    const peer = ((await (await fetch(`${url}/town/hello`)).json()) as any).id as string
+    // that town is the child's guardian's: it sees the child's progress in detail (lani-town guardian)
+    if (fixture.guardian) new Towns(join(dataDir, 'app')).patch(peer, x => ({ ...x, guardian: true }))
+    return `linked with ${url} by an invitation of this child's town, both ways${fixture.guardian ? ', that town its guardian' : ''}`
+  }
   const inv = await fetch(`${url}/towns/invite`, { method: 'POST', headers: bearer(token), signal: AbortSignal.timeout(10_000) })
   if (!inv.ok) return `not linked: ${url}/towns/invite answered ${inv.status} ${await inv.text()}`
   const { link: invite } = (await inv.json()) as { link: string }
