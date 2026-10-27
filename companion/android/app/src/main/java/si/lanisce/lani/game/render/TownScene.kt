@@ -254,30 +254,6 @@ private class Inputs {
     }
 }
 
-/** One rendered picture: its canvas, the bitmap it's uploaded to, and the lens it was rendered with (the scenes'). */
-internal class Layer(val w: Int, val h: Int) {
-    val canvas = PixelCanvas(w, h)
-    val bitmap: Bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
-    val image = bitmap.asImageBitmap()
-    var lens = Lens(1, 0, 0, w, h)
-    var valid = false
-
-    fun upload() { bitmap.setPixels(canvas.pixels, 0, w, 0, 0, w, h); valid = true }
-
-    /** Takes [o]'s picture (a layer of the same size). */
-    fun copyFrom(o: Layer) {
-        if (!o.valid || o.canvas.pixels.size != canvas.pixels.size) return
-        System.arraycopy(o.canvas.pixels, 0, canvas.pixels, 0, canvas.pixels.size)
-        lens = o.lens
-        upload()
-    }
-}
-
-/** Draws the part of [layer] the camera sees, through its lens (see [drawPicture]). */
-internal fun DrawScope.drawLayer(layer: Layer, cam: Camera, alpha: Float = 1f) {
-    if (layer.valid) drawPicture(layer.image, layer.lens, 0, 0, layer.w, layer.h, cam, alpha)
-}
-
 /** Which detail level is wanted and which is on screen, and the fade from the picture before it. */
 internal class Switch {
     var wantK = 0
