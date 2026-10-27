@@ -78,6 +78,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  * - "chat:<text>": a tutor message comes into the chat on the phone (as a reply would, not sent anywhere; "\n" in [text]
  *   a new line), "chat:table" the tutor's imeti with its list ([TUTOR_TABLE]): QA pins it to the cheat sheet.
  * - "cheat" opens the cheat sheet; "cheat:<page>,<page>" as an exercise of those grammar pages would (their cards first).
+ * - "grammar:<page>": that page of the grammar book opens over the screen, as a unit's "📖 V knjigi" chip opens it (QA's
+ *   "school-print-overview": the page skloni and its "🖨️ Pregled sklonov").
  * - "school": the village (the dev bridge's copy) gets ready for the class under the linden ([readySchool]: the hamlet,
  *   the linden standing, the unit biti as never begun), and the school opens, its class begun (companion/GAME.md, "The
  *   school"). "school:<unit>" does the same with that unit (its id: "oziralni-ki") as never begun and its course level
@@ -356,7 +358,7 @@ object QaHooks {
         grow: (si.lanisce.lani.game.Age) -> Unit = {}, formsCard: (String, String) -> Unit = { _, _ -> }, data: () -> Unit = {}, tutorLive: (String) -> Unit = {},
         review: () -> Unit = {}, numbers: (String) -> Unit = {}, event: (String) -> Unit = {}, hearths: (String) -> Unit = {},
         request: (List<String>) -> Unit = {}, word: (String) -> Unit = {}, friends: () -> Unit = {},
-        sheet: (String, String) -> Unit = { _, _ -> },
+        sheet: (String, String) -> Unit = { _, _ -> }, grammar: (String) -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
@@ -430,6 +432,7 @@ object QaHooks {
             command.startsWith("word:") -> word(command.removePrefix("word:"))
             command == "chat:table" -> chat(TUTOR_TABLE)
             command.startsWith("chat:") -> command.removePrefix("chat:").replace("\\n", "\n").takeIf { it.isNotBlank() }?.let(chat)
+            command.startsWith("grammar:") -> command.removePrefix("grammar:").trim().takeIf { it.isNotEmpty() }?.let(grammar)
             command == "cheat" -> cheat(emptyList())
             command.startsWith("cheat:") -> cheat(command.removePrefix("cheat:").split(',').map { it.trim() }.filter { it.isNotEmpty() })
             command == "school" -> school()

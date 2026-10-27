@@ -74,7 +74,8 @@ internal fun masteryText(m: Mastery): String? = when (m) {
 /**
  * One rule's page (in [GrammarSheet]): who wrote it and its level, the rule, the tutor's addition, the
  * table, the examples (🔊, word lookup), the learner's own examples and mistakes on it, how well it sits, "🎯 Vadi" and
- * "💬 Vprašaj", the related pages met ([onSee]), and whether a machine wrote it.
+ * "💬 Vprašaj", its overview to print when it has one (skloni: "🖨️ Pregled sklonov"), the related pages met ([onSee]),
+ * and whether a machine wrote it.
  */
 @OptIn(ExperimentalLayoutApi::class)
 internal fun LazyListScope.rulePage(view: RuleView, vm: AppViewModel, onSee: (String) -> Unit) {
@@ -173,6 +174,10 @@ internal fun LazyListScope.rulePage(view: RuleView, vm: AppViewModel, onSee: (St
             if (!vm.runBusy) PageButton("🎯 ${bi("grammar.practise")}", Modifier.weight(1f)) { vm.practiseGrammar(p.id) }
             PageButton("💬 ${bi("grammar.ask")}", Modifier.weight(1f)) { vm.grammar.ask(p.id) }
         }
+    }
+    // the page's overview on paper (companion/COURSE.md, "The cases overview"): skloni's six cases on three pages
+    si.lanisce.lani.data.Prints.overview(p.language, p.id)?.let { job ->
+        item("rule:print") { si.lanisce.lani.ui.school.PrintButton(vm, job, bi("school.printOverview")) }
     }
     val related = p.see.mapNotNull { id -> vm.grammar.page(id) }
     if (related.isNotEmpty()) item("rule:see") {

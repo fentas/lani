@@ -172,8 +172,10 @@ fun UnitScreen(vm: AppViewModel, id: String) {
                     }
                 }
                 OutlinedButton(onClick = { vm.school.ask(unit) }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text("💬 ${bi("common.askTutor")}") }
-                // its sheet on paper (companion/COURSE.md, "Printed sheets")
+                // its sheet on paper (companion/COURSE.md, "Printed sheets"); a unit that starts from a page with an overview
+                // (skloni: the six cases) prints that too
                 PrintButton(vm, vm.school.course?.let { Prints.sheet(it, unit.id) }, bi("school.printSheet"))
+                PrintButton(vm, Prints.overview(unit.language, unit.grammar.firstOrNull()), bi("school.printOverview"))
                 if (unit.machineWritten) Text("🤖 ${bi("school.machineWritten")}", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }

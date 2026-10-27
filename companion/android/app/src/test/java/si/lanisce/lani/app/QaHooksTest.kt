@@ -445,6 +445,16 @@ class QaHooksTest {
         assertEquals(2, asked.size)
     }
 
+    @Test fun `a grammar page QA names opens over the screen, none for an empty name, and a release build hears nothing`() {
+        val asked = mutableListOf<String>()
+        QaHooks.handle("grammar:skloni", grammar = asked::add)
+        QaHooks.handle("grammar: ", grammar = asked::add)
+        assertEquals(listOf("skloni"), asked)
+        QaHooks.enabled = false
+        QaHooks.handle("grammar:biti", grammar = asked::add)
+        assertEquals(1, asked.size)
+    }
+
     @Test fun `a zoom is counted, and a release build hears nothing`() {
         val before = QaHooks.zooms
         QaHooks.handle("zoom")

@@ -24,6 +24,18 @@ class PrintsTest {
         assertNull(Prints.booklet(c, "C2"))
     }
 
+    @Test fun `the cases overview - on the page skloni of the Slovene book and a unit that starts from it, of no level`() {
+        val o = Prints.overview("sl", "skloni")
+        assertEquals(PrintJob.Overview("skloni", "Pregled sklonov"), o)
+        assertNull(o!!.level)
+        assertNull("a page without an overview", Prints.overview("sl", "biti"))
+        assertNull("another language's book", Prints.overview("it", "skloni"))
+        assertNull(Prints.overview("sl", null))
+        assertEquals("/course/overview/skloni?base=de", Prints.path(o, "de"))
+        assertEquals("/course/overview/skloni", Prints.path(o, "sl"))
+        assertEquals("Lani – Pregled sklonov", Prints.jobName(o))
+    }
+
     @Test fun `the bridge's path - in the learner's base when the sheets have it`() {
         val biti = Prints.sheet(c, "biti")!!
         assertEquals("/course/sheet/biti?base=en", Prints.path(biti, "en"))

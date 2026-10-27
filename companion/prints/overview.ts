@@ -4,7 +4,7 @@
 // course's units' tables (kje-kam-od-kod: Kje? Kam? Od kod?; pridevniki-skloni: an adjective through the cases). Nothing
 // is written for it but its headings: a page fixed or a unit added prints as it is the next time. fit.js fits it to its
 // pages as it fits a unit (tighter, then without its optional parts).
-import type { Doc } from './build'
+import { levelOfUnit, type Doc } from './build'
 import { BASES, cellHtml, documentHtml, esc, h2, HOUSE, LANGUAGE_NAMES, md, SL } from './html'
 import { condense, fillLearner, norm, plain, sentences, tr, type Content, type Options, type PCell, type PTable } from './sheet'
 
@@ -209,8 +209,8 @@ export function buildOverview(c: Content, id: string, o: Options): Overview | nu
   }
   const unit = (uid: string) => {
     const u = c.units.get(uid)
-    // a unit of the course's (written: its file), with its intro's table
-    if (!u?.intro?.table?.head) return undefined
+    // a unit of the course's (written, not planned), with its intro's table
+    if (!u?.intro?.table?.head || !levelOfUnit(c, uid)) return undefined
     sources.push(`unit:${uid}`)
     used.push(u)
     return u

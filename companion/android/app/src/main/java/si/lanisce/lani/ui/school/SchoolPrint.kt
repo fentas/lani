@@ -53,8 +53,8 @@ import si.lanisce.lani.l10n.bi
 import java.io.IOException
 import kotlin.coroutines.resume
 
-// "🖨️ Natisni list · Print sheet" on a unit and its row, "🖨️ Vsi listi · All sheets" on a level (companion/COURSE.md,
-// "Printed sheets"): the bridge's page (the generator's own, fit.js in it) loaded into a WebView off screen, fit.js let
+// "🖨️ Natisni list · Print sheet" on a unit and its row, "🖨️ Vsi listi · All sheets" on a level, "🖨️ Pregled sklonov ·
+// Cases overview" on the unit skloni and its page in the book (companion/COURSE.md, "Printed sheets"): the bridge's page (the generator's own, fit.js in it) loaded into a WebView off screen, fit.js let
 // fit each unit to its pages, then Android's print dialog: its preview, a printer, "Save as PDF", sharing.
 
 /** Why a print can't be asked for now (no tutor, or the tutor out of reach); null when it can. */
