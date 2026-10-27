@@ -448,6 +448,32 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
      * what each linked town shares with this learner, what this learner shares with each, a challenge sent from there.
      */
     val townProgress = si.lanisce.lani.app.TownProgressController(viewModelScope, node, notices)
+
+    /**
+     * At home, a word of a town visited on its card is said in its language ([Speaker.sayIn]): the clips of a linked town of
+     * that language through the node, kept by town while the app runs; the towns' list loaded once when it isn't yet.
+     */
+    private val foreignClips = mutableMapOf<String, Clips>()
+
+    private fun foreignClipsFor(lang: String): Clips? {
+        val c = connected ?: return null
+        val list = towns.list ?: run { towns.load(); return null }
+        val town = list.towns.firstOrNull { it.language == lang } ?: return null
+        return foreignClips.getOrPut(town.id) {
+            Clips(getApplication(), viewModelScope, visit = true).also { v ->
+                v.playerGender = clips.playerGender
+                v.connect(c, si.lanisce.lani.data.ClipRoutes.visit(town.id))
+                v.refresh()
+            }
+        }
+    }
+
+    init {
+        speaker.foreignClips = ::foreignClipsFor
+        // a word of another language nothing could say: that language's offline voice offered, or the note
+        speaker.onSilentIn = { _, lang -> visitVoice.silentIn(lang) }
+    }
+
     /** A linked town being visited, in its language (plan 2, §3; ui/towns/VisitScreen), and the things to do there. */
     val visits = VisitController(
         viewModelScope,

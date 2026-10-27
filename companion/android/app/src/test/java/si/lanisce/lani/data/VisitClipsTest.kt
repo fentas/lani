@@ -144,4 +144,35 @@ class VisitSpeakerTest {
         }
         assertEquals(listOf("Dober dan, kako ste?"), silent)
     }
+
+    private class FakeVoice(override val language: String?) : si.lanisce.lani.audio.OfflineVoice {
+        val asked = mutableListOf<Pair<String, Float>>()
+        override suspend fun render(text: String, speed: Float): java.io.File? {
+            asked += text to speed
+            return null
+        }
+    }
+
+    @Test fun `a word of another language at home is said in its own, never in the home one's voices`() {
+        si.lanisce.lani.l10n.L10n.pair = si.lanisce.lani.l10n.LangPair.DEFAULT
+        val italian = FakeVoice("it")
+        val s = Speaker(ctx).apply { voice = Voice(ctx); offline = italian; qaNoTts = true }
+        val silent = mutableListOf<Pair<String, String>>()
+        s.onSilentIn = { text, lang -> silent += text to lang }
+        // no linked town of Italian: its offline voice says it (the home's Slovene clips are never asked)
+        var asked = 0
+        s.foreignClips = { asked++; null }
+        s.sayIn("cane", "it")
+        val until = System.currentTimeMillis() + 5_000
+        while (italian.asked.isEmpty() && System.currentTimeMillis() < until) {
+            idle()
+            Thread.sleep(20)
+        }
+        assertEquals(listOf("cane" to 1f), italian.asked)
+        assertEquals(1, asked)
+        // the fake rendered nothing, and there is no Android voice: told, with its language; nothing for German either
+        s.sayIn("Hund", "de")
+        idle()
+        assertEquals(listOf("cane" to "it", "Hund" to "de"), silent)
+    }
 }

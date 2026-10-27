@@ -61,6 +61,9 @@ class VisitVoiceController(
     /** This visit said it once already. */
     private var told = false
 
+    /** The languages of words at home nothing could say ([silentIn]), said once each while the app runs. */
+    private val toldAt = mutableSetOf<String>()
+
     /** A visit to a town of [language] begins: nothing said yet. */
     fun start(language: String) {
         this.language = language
@@ -79,12 +82,32 @@ class VisitVoiceController(
         val lang = language ?: return
         if (told) return
         told = true
+        decide(lang)
+    }
+
+    /**
+     * A word of [lang] nothing could say (its card at home: a word of a town visited, [si.lanisce.lani.data.Speaker.sayIn]):
+     * on a visit to a town of [lang], as [silent]; at home the offer or the note for [lang], once for each language while
+     * the app runs.
+     */
+    fun silentIn(lang: String) {
+        if (language != null) {
+            if (lang == language) silent()
+            return
+        }
+        if (!toldAt.add(lang)) return
+        decide(lang)
+    }
+
+    /** The offer or the note for [lang] ([VisitVoicePolicy.prompt]), unless a visit began or ended meanwhile. */
+    private fun decide(lang: String) {
+        val at = language
         scope.launch {
             val installed = withContext(Dispatchers.IO) { audio.voices.installed(lang) != null }
             val offer = audio.offerFor(lang)
             val kind = VisitVoicePolicy.prompt(installed, offer != null, settings.visitVoiceDeclined(lang), lang in audio.visitProgress)
-            // the visit may have ended meanwhile
-            if (language == lang) prompt = kind?.let { VisitVoicePrompt(it, lang, offer?.bytes ?: 0, offer?.name.orEmpty()) }
+            // the visit may have begun or ended meanwhile
+            if (language == at) prompt = kind?.let { VisitVoicePrompt(it, lang, offer?.bytes ?: 0, offer?.name.orEmpty()) }
             android.util.Log.i(TAG, "a line of the visit couldn't be heard: ${kind ?: "the offline voice of $lang is on the phone, or on its way"}")
         }
     }
@@ -111,6 +134,7 @@ class VisitVoiceController(
     fun qaReset() {
         settings.forgetVisitVoiceDeclines()
         told = false
+        toldAt.clear()
         prompt = null
     }
 

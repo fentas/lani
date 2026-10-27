@@ -34,6 +34,12 @@ interface OfflineVoice {
      * playback), or null when it can't. Takes a moment (the model loads the first time): call it off the main thread.
      */
     suspend fun render(text: String, speed: Float): File?
+
+    /** It can speak [lang] now, whatever language the labels show: a word of another language (its card at home). */
+    fun speaksIn(lang: String): Boolean = speaks(lang)
+
+    /** [text] in [lang] ([render], in a language that may not be the labels'); null when that voice isn't on the phone. */
+    suspend fun renderIn(lang: String, text: String, speed: Float): File? = if (speaks(lang)) render(text, speed) else null
 }
 
 /**
@@ -73,8 +79,11 @@ class Piper(context: Context, private val voices: OfflineVoices = OfflineVoices(
 
     override val language: String? get() = (target ?: si.lanisce.lani.l10n.L10n.pair.target.code).takeIf { it in installed }
 
-    override suspend fun render(text: String, speed: Float): File? = withContext(Dispatchers.IO) {
-        val lang = language ?: return@withContext null
+    override fun speaksIn(lang: String): Boolean = lang in installed
+
+    override suspend fun render(text: String, speed: Float): File? = language?.let { renderIn(it, text, speed) }
+
+    override suspend fun renderIn(lang: String, text: String, speed: Float): File? = withContext(Dispatchers.IO) {
         val info = installed[lang] ?: return@withContext null
         val out = File(wavs, "${key(info.id, speed, text)}.wav")
         if (out.isFile) {

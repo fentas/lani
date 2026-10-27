@@ -39,7 +39,8 @@ import si.lanisce.lani.ui.Labels
  * offer of the town language's offline voice ("🗣️ Prenesi slovenski glas za obiske (61 MB)? · Download the Slovene voice
  * for visits?") as a dialog, or the small note "🔇 Ta naprava nima glasu za slovenščino · No Slovene voice on this
  * device" over the screen, with the download when the node has it, its progress, and the voice on the phone once it came.
- * The line's text stays on screen meanwhile: nothing covers the dialog's lines.
+ * The line's text stays on screen meanwhile: nothing covers the dialog's lines. At home, the same for a word of another
+ * language nothing could say (its card: [si.lanisce.lani.data.Speaker.sayIn]), named in that language ("targetLang").
  */
 @Composable
 fun VisitVoiceNote(vm: AppViewModel, modifier: Modifier = Modifier) {
@@ -49,8 +50,8 @@ fun VisitVoiceNote(vm: AppViewModel, modifier: Modifier = Modifier) {
     if (p.kind == VisitVoicePolicy.Kind.OFFER) {
         AlertDialog(
             onDismissRequest = v::dismiss,
-            title = { Text("🗣️ ${bi("visitVoice.offerTitle", "mb" to mb(p.bytes))}") },
-            text = { Text(bi("visitVoice.offerText", "name" to p.name.ifBlank { "Piper" })) },
+            title = { Text("🗣️ ${bi("visitVoice.offerTitle", "mb" to mb(p.bytes), "targetLang" to p.language)}") },
+            text = { Text(bi("visitVoice.offerText", "name" to p.name.ifBlank { "Piper" }, "targetLang" to p.language)) },
             confirmButton = { Button(onClick = v::download) { Text("⬇️ ${bi("offlineAudio.offerYes")}") } },
             dismissButton = { TextButton(onClick = v::decline) { Text(bi("offlineAudio.offerNo")) } },
         )
@@ -74,7 +75,7 @@ fun VisitVoiceNote(vm: AppViewModel, modifier: Modifier = Modifier) {
         Column(Modifier.padding(start = 14.dp, end = 4.dp, top = 8.dp, bottom = 10.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    if (ready) "✅ ${bi("visitVoice.ready")}" else "🔇 ${bi("visitVoice.none")}",
+                    if (ready) "✅ ${bi("visitVoice.ready", "targetLang" to p.language)}" else "🔇 ${bi("visitVoice.none", "targetLang" to p.language)}",
                     style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f),
                 )
                 IconButton(onClick = v::dismiss) { EmojiLabel("✕", Labels.CLOSE) }

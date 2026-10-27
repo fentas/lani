@@ -69,7 +69,8 @@ fun WordSheet(vm: AppViewModel, card: WordCard) {
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(q.word, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f, fill = false).semantics { heading() })
-                SpeakButton(vm.speaker, q.word, Modifier.padding(start = 8.dp))
+                // in the word's own language (a town's word on its card at home: that language's voices, not the home one's)
+                si.lanisce.lani.ui.WordSpeakButton(vm.speaker, q.word, q.lang, Modifier.padding(start = 8.dp))
             }
             if (q.line.isNotBlank()) {
                 Text("«${q.line.trim()}»", style = MaterialTheme.typography.bodyMedium, fontStyle = FontStyle.Italic, color = MaterialTheme.colorScheme.onSurfaceVariant)

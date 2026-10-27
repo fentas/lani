@@ -50,6 +50,16 @@ class Speaker(private val context: Context) {
     var onSilent: ((String) -> Unit)? = null
 
     /**
+     * A word of another language than the labels' (its card at home: a word of a town visited, reviewed in its language),
+     * said in its own language ([sayIn]): the clips of a linked town of that language through the node, when there is one
+     * ([Clips] at its visit routes; null: none), then the offline voice of that language, then Android's voice for it.
+     */
+    var foreignClips: ((String) -> Clips?)? = null
+
+    /** Told of a word of another language ([sayIn]) nothing could say, with its language: the app says so (app/VisitVoiceController). */
+    var onSilentIn: ((String, String) -> Unit)? = null
+
+    /**
      * QA's "audio:tts:off" (a debug build, app/QaHooks): Android's text-to-speech counts as having no voice for any language,
      * as a tablet without the town's language: what speaks then, and the note when nothing can. "audio:tts:" lets it be.
      */
@@ -312,6 +322,89 @@ class Speaker(private val context: Context) {
                 v?.stop()
                 if (c != null) otherwise() else withoutClip()
             }
+        }
+    }
+
+    /**
+     * [text] in [lang], its own language: as [say] when it is the language the labels show (at home the learner's, on a
+     * visit the town's), else (a word of a visited town on its card at home) through [foreignClips] (a linked town of that
+     * language: its clip, else its cast's voice on the node), then the offline voice of [lang], then Android's voice for
+     * it; else [onSilentIn]. Never in the clips or the voice of another language. No pitch and pace: a word, not a person.
+     */
+    fun sayIn(text: String, lang: String?, slow: Boolean = false, voiceName: String = Clips.FEMALE) {
+        if (lang == null || lang == L10n.pair.target.code) return say(text, slow, voiceName)
+        val t = ++turn
+        loading = false
+        hint?.stop()
+        intro?.stop()
+        if (ready) tts.stop()
+        val v = voice
+        v?.stop()
+        val c = foreignClips?.invoke(lang)
+        val voices = Clips.chain(voiceName)
+        val local = c?.onDevice(text, voices.take(1))
+        when {
+            v == null -> offlineIn(t, text, lang, slow)
+            local != null -> {
+                said(text, "clip on the phone ($lang)")
+                v.playClips(local, slow, 1f, 1f) { offlineIn(t, text, lang, slow) }
+            }
+            c != null && c.online && !c.missedRecently(text, voices) -> {
+                loading = true
+                c.prepare(text, voices) { files ->
+                    if (t != turn) return@prepare
+                    loading = false
+                    if (files != null) {
+                        said(text, "node clip (${voices.first()}, $lang)")
+                        v.playClips(files, slow, 1f, 1f) { offlineIn(t, text, lang, slow) }
+                    } else offlineIn(t, text, lang, slow)
+                }
+            }
+            else -> offlineIn(t, text, lang, slow)
+        }
+    }
+
+    /** A word of [lang] without a clip: the offline voice of [lang] when it is on the phone, else Android's ([synthesizeIn]). */
+    private fun offlineIn(t: Int, text: String, lang: String, slow: Boolean) {
+        val o = offline
+        val v = voice
+        if (o == null || v == null || !o.speaksIn(lang)) return synthesizeIn(t, text, slow, lang)
+        said(text, "offline voice ($lang)")
+        loading = true
+        scope.launch {
+            val f: File? = runCatching { o.renderIn(lang, text, if (slow) Piper.SLOW else 1f) }.getOrNull()
+            if (t != turn) return@launch
+            loading = false
+            if (f != null) v.playClips(listOf(f), false, 1f, 1f) { synthesizeIn(t, text, slow, lang) } else synthesizeIn(t, text, slow, lang)
+        }
+    }
+
+    /**
+     * [text] by Android's voice in [lang] (asked in turn [t]), the language set back to the labels' right after it is handed
+     * over (the request keeps the language it was asked in); none for it: [onSilentIn].
+     */
+    private fun synthesizeIn(t: Int, text: String, slow: Boolean, lang: String) {
+        val loc = Lang.of(lang)?.let { locale(it) }
+        val has = ready && !qaNoTts && loc != null && tts.isLanguageAvailable(loc) >= TextToSpeech.LANG_AVAILABLE
+        said(text, if (has) "tts ($lang)" else "nothing (no tts voice for $lang)")
+        if (!has) {
+            if (t == turn) onSilentIn?.invoke(text, lang)
+            return
+        }
+        tts.setSpeechRate(if (slow) 0.55f else 0.9f)
+        val id = "say-$t"
+        utterance = id
+        ttsTalking = true
+        tts.setLanguage(loc)
+        val ok = tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, id) == TextToSpeech.SUCCESS
+        tts.setLanguage(locale(L10n.pair.target))
+        if (!ok) {
+            if (utterance == id) ttsTalking = false
+            return
+        }
+        scope.launch {
+            delay(TTS_START_MS)
+            if (utterance == id && ttsStarted != id) ttsTalking = false
         }
     }
 

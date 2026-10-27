@@ -205,6 +205,26 @@ private fun ReRecordNote(r: ReRecording) {
 }
 
 /**
+ * 🔊 for a word in [lang], its own language (a word's card): in the language the labels show, [SpeakButton]; another
+ * language's (a word of a town visited, on its card at home) is said in it ([Speaker.sayIn]: a linked town's clips of that
+ * language, the offline voice of it, Android's voice for it, else the note), with no re-record (the node records the
+ * learner's own language). Shown in another language even when nothing may speak it: the note then says so.
+ */
+@Composable
+fun WordSpeakButton(speaker: Speaker, text: String, lang: String?, modifier: Modifier = Modifier) {
+    if (lang == null || lang == si.lanisce.lani.l10n.L10n.pair.target.code) return SpeakButton(speaker, text, modifier)
+    Surface(
+        onClick = { speaker.sayIn(text, lang) },
+        shape = CircleShape,
+        color = MaterialTheme.colorScheme.secondaryContainer,
+        contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+        modifier = modifier.minimumInteractiveComponentSize().size(40.dp),
+    ) {
+        Box(contentAlignment = Alignment.Center) { EmojiLabel("🔊", Labels.LISTEN) }
+    }
+}
+
+/**
  * 🔊 for a line in the learner's target language: a tap says it ([Speaker.say]). A long press has the node record it
  * again ([ReRecording]): a spinner while it does, then the new take plays, or a short note says why not.
  */
