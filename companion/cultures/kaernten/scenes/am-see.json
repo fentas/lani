@@ -167,7 +167,7 @@
             "grammar": "praesens", "why": { "de": "Die Berge ist Plural: sie glühen.", "sl": "Die Berge je množina: sie glühen.", "en": "Die Berge is plural: sie glühen.", "it": "Die Berge è plurale: sie glühen." },
             "reply": { "de": "Glüht? Was, meine Nase? Ja, es ist kalt!", "sl": "Glüht (žari)? Kaj, moj nos? Ja, mraz je!", "en": "Glüht (glows)? What, my nose? Yes, it's cold!", "it": "Glüht (brilla)? Cosa, il mio naso? Sì, fa freddo!" } }
         ] },
-        { "who": "florian", "de": "Da, halt den Kübel. Die Milch ist noch warm.", "sl": "Na, drži vedro. Mleko je še toplo.", "en": "Here, hold the pail. The milk is still warm.", "it": "Tieni, reggi il secchio. Il latte è ancora caldo.", "fx": { "glow": 0.4 } },
+        { "who": "florian", "de": "Da, halt den Kübel. Die Milch ist noch warm.", "sl": "Na, drži vedro. Mleko je še toplo.", "en": "Here, hold the pail. The milk is still warm.", "it": "Tieni, reggi il secchio. Il latte è ancora caldo.", "fx": { "glow": 0.4, "pail": 1 } },
         { "choices": [
           { "de": "Danke! Die Milch riecht nach Gras.", "sl": "Hvala! Mleko diši po travi.", "en": "Thanks! The milk smells of grass.", "it": "Grazie! Il latte sa di erba.", "ok": true,
             "reply": { "de": "Ja, weißt du? Aus dieser Milch wird Almkäse.", "sl": "Ja, veš? Iz tega mleka bo sir s planine.", "en": "Yes, you know? This milk will become Alm cheese.", "it": "Sì, sai? Da questo latte nasce il formaggio d'alpeggio." } },
@@ -207,7 +207,7 @@
       "id": "alm-zaehlen",
       "count": { "from": "dice", "min": 8, "max": 16, "gender": "f" },
       "lines": [
-        { "who": "florian", "de": "Servus! Jeden Tag zähle ich meine Herde. Heute zählst du! Wie viele sind es?", "sl": "Živjo! Vsak dan preštejem svojo čredo. Danes šteješ ti! Koliko jih je?", "en": "Hi! Every day I count my herd. Today you count! How many are there?", "it": "Ciao! Ogni giorno conto la mia mandria. Oggi conti tu! Quante sono?", "fx": { "cowbells": 0.6 } },
+        { "who": "florian", "de": "Servus! Jeden Tag zähle ich meine Herde. Heute zählst du! Wie viele sind es?", "sl": "Živjo! Vsak dan preštejem svojo čredo. Danes šteješ ti! Koliko jih je?", "en": "Hi! Every day I count my herd. Today you count! How many are there?", "it": "Ciao! Ogni giorno conto la mia mandria. Oggi conti tu! Quante sono?", "fx": { "cowbells": 0.6, "cows": 1 } },
         { "choices": [
           { "de": "Auf die Weide {ist|sind} {n} {Kuh|Kühe}.", "sl": "Na pašnik {je|sta|so|je} {n} {krava|kravi|krave|krav}.", "en": "There {is|are} {n} {cow|cows} onto the pasture.", "it": "Verso il pascolo {c'è|ci sono} {n} {mucca|mucche}.",
             "why": { "de": "Wo etwas ist: Dativ, auf der Weide. Auf die Weide sagt, wohin.", "sl": "Kje nekaj je: dajalnik, auf der Weide. Auf die Weide pove, kam.", "en": "Where something is: the dative, auf der Weide. Auf die Weide says where to.", "it": "Dove si trova qualcosa: dativo, auf der Weide. Auf die Weide dice verso dove." },
@@ -256,7 +256,7 @@
     {
       "id": "morgenrot-handschuhe",
       "lines": [
-        { "who": "florian", "de": "Guten Morgen! Hier, halt den Kübel. Hast du Handschuhe? Es ist kalt.", "sl": "Dobro jutro! Na, drži vedro. Imaš rokavice? Mraz je.", "en": "Good morning! Here, hold the pail. Have you got gloves? It's cold.", "it": "Buongiorno! Tieni, reggi il secchio. Hai i guanti? Fa freddo.", "fx": { "cowbells": 0.4 } },
+        { "who": "florian", "de": "Guten Morgen! Hier, halt den Kübel. Hast du Handschuhe? Es ist kalt.", "sl": "Dobro jutro! Na, drži vedro. Imaš rokavice? Mraz je.", "en": "Good morning! Here, hold the pail. Have you got gloves? It's cold.", "it": "Buongiorno! Tieni, reggi il secchio. Hai i guanti? Fa freddo.", "fx": { "cowbells": 0.4, "pail": 1 } },
         { "choices": [
           { "de": "Nein, ich habe keine Handschuhe.", "sl": "Ne, nimam rokavic.", "en": "No, I haven't got any gloves.", "it": "No, non ho i guanti.", "ok": true,
             "reply": { "de": "Dann nimm meine. He, die sind noch warm!", "sl": "Potem pa vzemi moje. He, še tople so!", "en": "Then take mine. Hey, they're still warm!", "it": "Allora prendi i miei. Ehi, sono ancora caldi!" } },

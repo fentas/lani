@@ -71,7 +71,7 @@
         { "who": "luka", "sl": "Hitro, rog visi na stebru!", "en": "Quick, the horn is hanging on the post!", "de": "Schnell, das Horn hängt am Pfosten!", "it": "Presto, il corno è appeso al palo!" },
         { "choices": [
           { "sl": "Prav! Zdaj trobim.", "en": "OK! I am blowing it now.", "de": "Gut! Jetzt blase ich.", "it": "Va bene! Adesso lo suono.", "ok": true,
-            "reply": { "sl": "Tuuu! Slišijo nas. Tone že stoji pri vratih s kladivom.", "en": "Toooo! They hear us. Tone is already standing at the gate with his hammer.", "de": "Tuuu! Sie hören uns. Tone steht schon mit seinem Hammer am Tor.", "it": "Tuuu! Ci sentono. Tone è già alla porta con il suo martello.", "fx": { "horn": 1 } } },
+            "reply": { "sl": "Tuuu! Slišijo nas. Tone bo takoj pri vratih s kladivom.", "en": "Toooo! They hear us. Tone will be at the gate with his hammer in no time.", "de": "Tuuu! Sie hören uns. Tone ist gleich mit seinem Hammer am Tor.", "it": "Tuuu! Ci sentono. Tone sarà subito alla porta con il suo martello.", "fx": { "horn": 1 } } },
           { "sl": "Prav! Zdaj trobiš.", "en": "OK! You are blowing it now.", "de": "Gut! Jetzt bläst du.", "it": "Va bene! Adesso lo suoni tu.",
             "grammar": "glagoli-sedanjik", "why": { "en": "You are the one blowing it: trobim (I blow). Trobiš means you blow.", "de": "Du bist {m:der, der|f:die, die} bläst: trobim (ich blase). Trobiš heißt du bläst.", "it": "Sei tu a suonarlo: trobim (suono io). Trobiš significa suoni tu." },
             "reply": { "sl": "Jaz? Ti stojiš čisto pri rogu, veš!", "en": "Me? You're standing right by the horn, you know!", "de": "Ich? Du stehst doch direkt beim Horn!", "it": "Io? Sei tu {m:quello|f:quella} vicino al corno, sai!" } }
@@ -212,7 +212,7 @@
       "id": "krosnjar-daljnogled",
       "fx_stays": true,
       "lines": [
-        { "who": "nejc", "sl": "{learner}, {learner}! Krošnjar prihaja! Daj mi daljnogled, prosim!", "en": "{learner}, {learner}! The pedlar is coming! Give me the spyglass, please!", "de": "{learner}, {learner}! Der Hausierer kommt! Gib mir das Fernrohr, bitte!", "it": "{learner}, {learner}! Arriva il venditore ambulante! Dammi il cannocchiale, per favore!" },
+        { "who": "nejc", "sl": "{learner}, {learner}! Krošnjar prihaja! Daj mi daljnogled, prosim!", "en": "{learner}, {learner}! The pedlar is coming! Give me the spyglass, please!", "de": "{learner}, {learner}! Der Hausierer kommt! Gib mir das Fernrohr, bitte!", "it": "{learner}, {learner}! Arriva il venditore ambulante! Dammi il cannocchiale, per favore!", "fx": { "pedlar": 0.08 } },
         { "choices": [
           { "sl": "Izvolite, Nejc. Ampak previdno!", "en": "Here you are (vi), Nejc. But carefully!", "de": "Bitte schön (Sie), Nejc. Aber vorsichtig!", "it": "Ecco a Lei, Nejc. Ma con attenzione!",
             "grammar": "ti-vi", "why": { "en": "Nejc is a child: ti, izvoli. Izvolite is for grown-ups you say vi to.", "de": "Nejc ist ein Kind: ti, izvoli. Izvolite sagt man zu Erwachsenen, die man siezt.", "it": "Nejc è un bambino: ti, izvoli. Izvolite è per gli adulti a cui si dà del Lei." },
@@ -270,7 +270,7 @@
       "count": { "from": "dice", "min": 3, "max": 12, "gender": "f" },
       "sky_stays": true,
       "lines": [
-        { "who": "france", "sl": "{learner}, glej čez dolino! Tam že dežuje. Nevihta gre k nam. Te je strah?", "en": "{learner}, look across the valley! It's already raining over there. The storm is coming our way. Are you scared?", "de": "{learner}, schau übers Tal! Dort regnet es schon. Das Gewitter kommt zu uns. Hast du Angst?", "it": "{learner}, guarda oltre la valle! Là piove già. Il temporale viene verso di noi. Hai paura?",
+        { "who": "france", "sl": "{learner}, glej čez dolino! Tam so črni oblaki. Nevihta gre k nam. Te je strah?", "en": "{learner}, look across the valley! There are black clouds over there. The storm is coming our way. Are you scared?", "de": "{learner}, schau übers Tal! Dort sind schwarze Wolken. Das Gewitter kommt zu uns. Hast du Angst?", "it": "{learner}, guarda oltre la valle! Laggiù ci sono nuvole nere. Il temporale viene verso di noi. Hai paura?",
           "sky": { "gloom": 0.45, "wind": 0.35 } },
         { "choices": [
           { "sl": "Ne, ne bojim nevihte.", "en": "No, I'm not afraid of the storm (without se).", "de": "Nein, ich fürchte das Gewitter nicht (ohne se).", "it": "No, non temo il temporale (senza se).",

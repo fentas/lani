@@ -69,7 +69,7 @@
           { "sl": "Vidim ga! Morje je čisto modra.", "en": "I see it! The sea is all blue.", "de": "Ich sehe es! Das Meer ist ganz blau.", "it": "Lo vedo! Il mare è tutto blu.", "grammar": "pridevniki-ujemanje", "why": { "en": "Morje is neuter, so its adjective too: modro.", "de": "Morje ist sächlich, also auch sein Adjektiv: modro.", "it": "Morje è neutro, quindi anche il suo aggettivo: modro." },
             "reply": { "sl": "Modra? Hm, allora … še enkrat?", "en": "Modra? Hm, allora … once more?", "de": "Modra? Hm, allora … noch einmal?", "it": "Modra? Mm, allora … di nuovo?" } }
         ] },
-        { "who": "marko", "sl": "O ne! Škorci so v trti. Jedo moje grozdje!", "en": "Oh no! Starlings in the vines. They are eating my grapes!", "de": "Oh nein! Stare in den Reben. Sie fressen meine Trauben!", "it": "Oh no! Gli storni nelle viti. Mi mangiano l'uva!" },
+        { "who": "marko", "sl": "O ne! Škorci so v trti. Jedo moje grozdje!", "en": "Oh no! Starlings in the vines. They are eating my grapes!", "de": "Oh nein! Stare in den Reben. Sie fressen meine Trauben!", "it": "Oh no! Gli storni nelle viti. Mi mangiano l'uva!", "fx": { "starlings": 0.05 } },
         { "choices": [
           { "sl": "Ploskajva! Ena, dva, tri!", "en": "Let us clap, the two of us! One, two, three!", "de": "Klatschen wir zwei! Eins, zwei, drei!", "it": "Battiamo le mani, noi due! Uno, due, tre!", "ok": true,
             "reply": { "sl": "Bravo! Poglej, kako letijo!", "en": "Well done! Look at them fly!", "de": "Bravo! Schau, wie sie fliegen!", "it": "{m:Bravo|f:Brava}! Guarda come volano!", "fx": { "starlings": 1 } } },
@@ -104,6 +104,7 @@
     },
     {
       "id": "traktor",
+      "fx_stays": true,
       "lines": [
         { "who": "tine", "sl": "{learner}, {learner}! Poglej, dedek pelje traktor!", "en": "{learner}, {learner}! Look, grandpa is driving the tractor!", "de": "{learner}, {learner}! Schau, Opa fährt den Traktor!", "it": "{learner}, {learner}! Guarda, il nonno guida il trattore!", "fx": { "tractor": 0.45 } },
         { "choices": [
@@ -239,6 +240,7 @@
     },
     {
       "id": "traktor-zaboji",
+      "fx_stays": true,
       "count": { "from": "dice", "min": 3, "max": 9, "gender": "m" },
       "memory": { "sl": "zaboje, ki si jih {m:preštel|f:preštela} ob cesti", "en": "the crates you counted by the road", "de": "die Kisten, die du an der Straße gezählt hast", "it": "le casse che hai contato lungo la strada" },
       "lines": [
@@ -263,11 +265,12 @@
           { "sl": "Ne vem. Vprašaj dedku!", "en": "I don't know. Ask to grandpa!", "de": "Ich weiß nicht. Frag dem Opa!", "it": "Non lo so. Chiedi al nonno (dativo)!", "grammar": "tozilnik", "why": { "en": "Vprašati takes the accusative: vprašaj dedka. Dedku is the dative (daj dedku).", "de": "Vprašati verlangt den Akkusativ: vprašaj dedka. Dedku ist der Dativ (daj dedku).", "it": "Vprašati vuole l'accusativo: vprašaj dedka. Dedku è il dativo (daj dedku)." },
             "reply": { "sl": "Dedku? Kaj naj dam dedku? Grozdje?", "en": "To grandpa? What shall I give grandpa? Grapes?", "de": "Dem Opa? Was soll ich Opa geben? Trauben?", "it": "Al nonno? Che cosa do al nonno? L'uva?" } }
         ] },
-        { "who": "tine", "sl": "Dedek pravi ja! Jaz sedim spredaj!", "en": "Grandpa says yes! I'm sitting in front!", "de": "Opa sagt ja! Ich sitze vorne!", "it": "Il nonno dice di sì! Io mi siedo davanti!" }
+        { "who": "tine", "sl": "Dedek pravi ja! Jaz sedim spredaj!", "en": "Grandpa says yes! I'm sitting in front!", "de": "Opa sagt ja! Ich sitze vorne!", "it": "Il nonno dice di sì! Io mi siedo davanti!", "fx": { "tractor": 1 } }
       ]
     },
     {
       "id": "traktor-voznik",
+      "fx_stays": true,
       "lines": [
         { "who": "tine", "sl": "{learner}! Rad bi vozil traktor. Dedek pravi: ne. Zakaj?", "en": "{learner}! I'd like to drive the tractor. Grandpa says: no. Why?", "de": "{learner}! Ich würde so gern Traktor fahren. Opa sagt: nein. Warum?", "it": "{learner}! Vorrei guidare il trattore. Il nonno dice: no. Perché?",
           "fx": { "tractor": 0.3 } },

@@ -54,6 +54,7 @@
     {
       "id": "lanterna",
       "fx_stays": true,
+      "months": [11, 12, 1, 2],
       "lines": [
         { "who": "davide", "it": "Buonasera, {learner}! Guarda, ti ho portato una lanterna. Nella tenda è buio.", "sl": "Dober večer, {learner}! Poglej, prinesel sem ti svetilko. V šotoru je tema.", "en": "Good evening, {learner}! Look, I've brought you a lantern. It's dark in the tent.", "de": "Guten Abend, {learner}! Schau, ich habe dir eine Laterne mitgebracht. Im Zelt ist es dunkel.",
           "fx": { "lantern": 0 } },
@@ -110,7 +111,7 @@
             "grammar": "aggettivi-accordo", "why": { "sl": "Giacca je ženskega spola, zato asciutta.", "en": "Giacca is feminine, so asciutta.", "de": "Giacca ist weiblich, also asciutta." },
             "reply": { "it": "Asciutto? Chi, io? Io sono bagnato fradicio!", "sl": "Suh? Kdo, jaz? Jaz sem do kože moker!", "en": "Asciutto (dry, him)? Who, me? I'm wet through!", "de": "Asciutto (trocken, er)? Wer, ich? Ich bin klatschnass!" } }
         ] },
-        { "who": "davide", "it": "Guarda, il sole! Non piove più. Torno dalle pecore.", "sl": "Poglej, sonce! Ne dežuje več. Grem nazaj k ovcam.", "en": "Look, the sun! It's stopped raining. I'm going back to the sheep.", "de": "Schau, die Sonne! Es regnet nicht mehr. Ich gehe zurück zu den Schafen.",
+        { "who": "davide", "it": "Guarda, non piove più! Torno dalle pecore.", "sl": "Poglej, ne dežuje več! Grem nazaj k ovcam.", "en": "Look, it's stopped raining! I'm going back to the sheep.", "de": "Schau, es regnet nicht mehr! Ich gehe zurück zu den Schafen.",
           "sky": { "rain": 0, "gloom": 0, "wind": 0 }, "act": { "davide": { "to": "door" } } },
         { "choices": [
           { "it": "Va bene. Ciao, Davide! Saluta le pecore.", "sl": "Prav. Adijo, Davide! Pozdravi ovce.", "en": "OK. Bye, Davide! Say hello to the sheep.", "de": "Okay. Tschüss, Davide! Grüß die Schafe.", "ok": true,

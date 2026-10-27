@@ -56,7 +56,7 @@
             "reply": { "sl": "Potem sedi k ognju.", "en": "Then sit down by the fire.", "de": "Dann setz dich ans Feuer.", "it": "Allora siediti vicino al fuoco." } },
           { "sl": "Dobro jutro! Ja, zelo sem {m:lačen|f:lačna}.", "en": "Good morning! Yes, I am very hungry.", "de": "Guten Morgen! Ja, ich habe großen Hunger.", "it": "Buongiorno! Sì, ho molta fame.",
             "why": { "en": "It is evening: the greeting is dober večer. Dobro jutro is for the morning.", "de": "Es ist Abend: Man grüßt mit dober večer. Dobro jutro sagt man am Morgen.", "it": "È sera: il saluto è dober večer. Dobro jutro è per la mattina." },
-            "reply": { "sl": "Jutro? {m:Fant|f:Dekle}, sonce je že šlo spat!", "en": "Jutro (morning)? {m:Lad|f:Lass}, the sun has already gone to bed!", "de": "Jutro (Morgen)? {m:Junge|f:Mädchen}, die Sonne ist schon schlafen gegangen!", "it": "Jutro (mattino)? {m:Ragazzo|f:Ragazza}, il sole è già andato a dormire!" } },
+            "reply": { "sl": "Jutro? {m:Fant|f:Dekle}, saj je že večer!", "en": "Jutro (morning)? {m:Lad|f:Lass}, it's already evening!", "de": "Jutro (Morgen)? {m:Junge|f:Mädchen}, es ist doch schon Abend!", "it": "Jutro (mattino)? {m:Ragazzo|f:Ragazza}, ma è già sera!" } },
           { "sl": "Dober večer! Ja, zelo sem {m:žejen|f:žejna}.", "en": "Good evening! Yes, I am very thirsty.", "de": "Guten Abend! Ja, ich habe großen Durst.", "it": "Buonasera! Sì, ho molta sete.",
             "why": { "en": "{m:Žejen|f:Žejna} means thirsty. Hungry is {m:lačen|f:lačna}.", "de": "{m:Žejen|f:Žejna} heißt durstig. Hungrig heißt {m:lačen|f:lačna}.", "it": "{m:Žejen|f:Žejna} significa {m:assetato|f:assetata}. {m:Affamato|f:Affamata} si dice {m:lačen|f:lačna}." },
             "reply": { "sl": "{m:Žejen|f:Žejna}? Na, tu je voda. Pij, pij!", "en": "{m:Žejen|f:Žejna} (thirsty)? Here, there's water. Drink, drink!", "de": "{m:Žejen|f:Žejna} (durstig)? Da, hier ist Wasser. Trink, trink!", "it": "{m:Žejen (assetato)|f:Žejna (assetata)}? Tieni, ecco l'acqua. Bevi, bevi!" } }
@@ -298,7 +298,7 @@
         { "choices": [
           { "sl": "Ne, ne! Ne tečete blizu ognja!", "en": "No, no! You aren't running near the fire!", "de": "Nein, nein! Ihr rennt nicht nah am Feuer!", "it": "No, no! Voi non correte vicino al fuoco!",
             "grammar": "velelnik", "why": { "en": "Telling them not to: the imperative, ne tecite. Ne tečete only says they aren't running.", "de": "Um es ihnen zu verbieten: der Imperativ, ne tecite. Ne tečete sagt nur, dass sie nicht rennen.", "it": "Per dire di non farlo: l'imperativo, ne tecite. Ne tečete dice solo che non corrono." },
-            "reply": { "sl": "Ne tečemo? Ha ha, poglej, že tečemo!", "en": "We aren't running? Ha ha, look, we're running already!", "de": "Wir rennen nicht? Haha, schau, wir rennen schon!", "it": "Non corriamo? Ah ah, guarda, corriamo già!" } },
+            "reply": { "sl": "Ne tečemo? Ha ha, poglej, že tečemo!", "en": "We aren't running? Ha ha, look, we're running already!", "de": "Wir rennen nicht? Haha, schau, wir rennen schon!", "it": "Non corriamo? Ah ah, guarda, corriamo già!", "act": { "otroci": { "to": "behind-stump" } } } },
           { "sl": "Ne, ne! Ne tecite blizu ognja!", "en": "No, no! Don't run near the fire!", "de": "Nein, nein! Rennt nicht so nah am Feuer!", "it": "No, no! Non correte vicino al fuoco!", "ok": true,
             "reply": { "sl": "Prav, prav. Gremo tja, na travo!", "en": "OK, OK. Let's go over there, onto the grass!", "de": "Gut, gut. Gehen wir dort hinüber, auf die Wiese!", "it": "Va bene, va bene. Andiamo là, sul prato!", "act": { "otroci": { "to": "behind-stump" } } } },
           { "sl": "Ne, ne! Ne tecite blizu ogenj!", "en": "No, no! Don't run near fire (nominative)!", "de": "Nein, nein! Rennt nicht nah Feuer (Nominativ)!", "it": "No, no! Non correte vicino fuoco (nominativo)!",
@@ -314,20 +314,21 @@
             "reply": { "sl": "Meni? Kaj si mi {m:ujel|f:ujela}? Metulja?", "en": "For me? What did you catch for me? A butterfly?", "de": "Mir? Was hast du mir gefangen? Einen Schmetterling?", "it": "Per me? Cosa mi hai preso? Una farfalla?" } },
           { "sl": "{m:Lovil|f:Lovila} sem te!", "en": "I was chasing you!", "de": "Ich war hinter dir her!", "it": "Ti stavo rincorrendo!",
             "grammar": "glagolski-vid", "why": { "en": "{m:Ujel|f:Ujela} sem te is 'I caught you' (done). {m:Lovil|f:Lovila} sem te is only 'I was chasing you'.", "de": "{m:Ujel|f:Ujela} sem te heißt ‚ich habe dich gefangen‘ (geschafft). {m:Lovil|f:Lovila} sem te heißt nur ‚ich war hinter dir her‘.", "it": "{m:Ujel|f:Ujela} sem te significa 'ti ho preso' (fatto). {m:Lovil|f:Lovila} sem te è solo 'ti stavo rincorrendo'." },
-            "reply": { "sl": "Ja, {m:lovil|f:lovila} si me. Pa kaj? Še vedno bežim!", "en": "Yes, you were chasing me. So what? I'm still running!", "de": "Ja, du warst hinter mir her. Na und? Ich renne immer noch!", "it": "Sì, mi rincorrevi. E allora? Io scappo ancora!" } }
+            "reply": { "sl": "Ja, {m:lovil|f:lovila} si me. Pa kaj? Še vedno bežim!", "en": "Yes, you were chasing me. So what? I'm still running!", "de": "Ja, du warst hinter mir her. Na und? Ich renne immer noch!", "it": "Sì, mi rincorrevi. E allora? Io scappo ancora!", "act": { "otroci": { "to": "behind-stump" } } } }
         ] },
         { "who": "otroci", "sl": "Adijo, {learner}! Jutri spet, na travi!", "en": "Bye, {learner}! Again tomorrow, on the grass!", "de": "Tschüss, {learner}! Morgen wieder, auf der Wiese!", "it": "Ciao, {learner}! Domani di nuovo, sul prato!" }
       ]
     },
     {
       "id": "roke-ovce",
+      "fx_stays": true,
       "months": [9, 10],
       "sky_stays": false,
       "count": { "from": "dice", "min": 16, "max": 24, "gender": "f" },
       "memory": { "sl": "jutro, ko sva štela ovce v megli", "en": "the morning we counted the sheep in the fog", "de": "den Morgen, an dem wir im Nebel die Schafe gezählt haben", "it": "la mattina in cui abbiamo contato le pecore nella nebbia" },
       "lines": [
         { "who": "luka", "sl": "Ej, {learner}, dobro jutro! Ovce gredo s planine. Pomagaj mi jih prešteti!", "en": "Hey, {learner}, good morning! The sheep are coming down from the pasture. Help me count them!", "de": "He, {learner}, guten Morgen! Die Schafe kommen von der Alm herunter. Hilf mir, sie zu zählen!", "it": "Ehi, {learner}, buongiorno! Le pecore scendono dal pascolo. Aiutami a contarle!",
-          "sky": { "fog": 0.45 }, "fx": { "sheepbells": 1 } },
+          "sky": { "fog": 0.45 }, "fx": { "sheepbells": 1, "flock": 0.5 } },
         { "choices": [
           { "sl": "Tu {!je|sta|so|je} {n} {!ovca|ovci|ovce|ovc}.", "en": "There {is|are} {n} sheep here.", "de": "Hier {ist|sind} {n} {Schaf|Schafe}.", "it": "Qui {c'è|ci sono} {n} {pecora|pecore}.", "wrong_form": 1, "grammar": "stevila-samostalniki",
             "why": { "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on, 21 to 24 too, the genitive plural with je}: tu {je|sta|so|je} {n} {ovca|ovci|ovce|ovc}.", "de": "{Eins: der Singular|Zwei: der Dual|Drei und vier: der Plural|Ab fünf, auch 21 bis 24: der Genitiv Plural mit je}: tu {je|sta|so|je} {n} {ovca|ovci|ovce|ovc}.", "it": "{Uno: il singolare|Due: il duale|Tre e quattro: il plurale|Da cinque in su, anche da 21 a 24: il genitivo plurale con je}: tu {je|sta|so|je} {n} {ovca|ovci|ovce|ovc}." },
@@ -347,7 +348,8 @@
             "reply": { "sl": "Potem pa k ognju, oba! Tako, lepo gori.", "en": "Then to the fire, both of us! There, it's burning nicely.", "de": "Dann ans Feuer, alle beide! So, es brennt schön.", "it": "Allora al fuoco, tutti e due! Ecco, arde bene.", "fx": { "flare": 0.7 } } }
         ] },
         { "who": "luka", "sl": "Megla gre. Hvala, {learner}! Zdaj grem z ovcami na travnik.", "en": "The fog's lifting. Thanks, {learner}! Now I'm off to the meadow with the sheep.", "de": "Der Nebel geht. Danke, {learner}! Jetzt gehe ich mit den Schafen auf die Wiese.", "it": "La nebbia se ne va. Grazie, {learner}! Ora vado al prato con le pecore.",
-          "sky": { "fog": 0.1 } }
+          "sky": { "fog": 0.1 },
+          "fx": { "flock": 1, "sheepbells": 0 } }
       ]
     },
     {
@@ -367,12 +369,12 @@
             "grammar": "pretekli-cas", "why": { "en": "Šotor is masculine: šotor je plesal. Plesala is feminine.", "de": "Šotor ist männlich: šotor je plesal. Plesala ist weiblich.", "it": "Šotor è maschile: šotor je plesal. Plesala è femminile." },
             "reply": { "sl": "Plesala? Kdo, burja? Ja, ona pleše vsako noč!", "en": "Plesala (she danced)? Who, the burja? Yes, she dances every night!", "de": "Plesala (sie tanzte)? Wer, die Bora? Ja, die tanzt jede Nacht!", "it": "Plesala (lei ballava)? Chi, la bora? Sì, lei balla ogni notte!" } }
         ] },
-        { "who": "luka", "sl": "Ampak burja je dobra. Ni megle, vidiš daleč. Poglej!", "en": "But the burja is good. No fog, you can see far. Look!", "de": "Aber die Bora ist gut. Kein Nebel, man sieht weit. Schau!", "it": "Ma la bora è buona. Niente nebbia, si vede lontano. Guarda!",
+        { "who": "luka", "sl": "Ampak burja je dobra. Odpiha vso meglo.", "en": "But the burja is good. It blows all the fog away.", "de": "Aber die Bora ist gut. Sie bläst den ganzen Nebel weg.", "it": "Ma la bora è buona. Spazza via tutta la nebbia.",
           "fx": { "flare": 0.6 } },
         { "choices": [
-          { "sl": "Res! Vidim do morja!", "en": "True! I can see as far as the sea!", "de": "Stimmt! Ich sehe bis zum Meer!", "it": "È vero! Vedo fino al mare!", "ok": true,
-            "reply": { "sl": "Ja! Tisto modro tam je morje.", "en": "Yes! That blue over there is the sea.", "de": "Ja! Das Blaue dort ist das Meer.", "it": "Sì! Quell'azzurro laggiù è il mare." } },
-          { "sl": "Res! Vidim do morje!", "en": "True! I can see as far as the sea (nominative)!", "de": "Stimmt! Ich sehe bis das Meer!", "it": "È vero! Vedo fino il mare!",
+          { "sl": "Res! Ob burji se vidi do morja!", "en": "True! In the burja you can see as far as the sea!", "de": "Stimmt! Bei Bora sieht man bis zum Meer!", "it": "È vero! Con la bora si vede fino al mare!", "ok": true,
+            "reply": { "sl": "Ja! Vse do Trsta!", "en": "Yes! All the way to Trieste!", "de": "Ja! Bis nach Triest!", "it": "Sì! Fino a Trieste!" } },
+          { "sl": "Res! Ob burji se vidi do morje!", "en": "True! In the burja you can see as far as the sea (nominative)!", "de": "Stimmt! Bei Bora sieht man bis das Meer!", "it": "È vero! Con la bora si vede fino il mare!",
             "grammar": "rodilnik-predlogi", "why": { "en": "Do (as far as) takes the genitive: do morja, do Triglava.", "de": "Do (bis) steht mit dem Genitiv: do morja, do Triglava.", "it": "Do (fino a) regge il genitivo: do morja, do Triglava." },
             "reply": { "sl": "Do … kaj? Ej, {learner}, burja ti je vzela besede!", "en": "As far as … what? Hey, {learner}, the burja blew your words away!", "de": "Bis … was? He, {learner}, die Bora hat dir die Worte weggeweht!", "it": "Fino a … cosa? Ehi, {learner}, la bora ti ha portato via le parole!" } }
         ] },

@@ -174,8 +174,10 @@
     },
     {
       "id": "strasilo",
+      "fx_stays": true,
       "lines": [
-        { "who": "tine", "sl": "{learner}, poglej! Strašilo. Dedek ga je naredil. Ptice se ga bojijo.", "en": "{learner}, look! A scarecrow. Grandpa made it. The birds are afraid of it.", "de": "{learner}, schau! Eine Vogelscheuche. Opa hat sie gemacht. Die Vögel haben Angst vor ihr.", "it": "{learner}, guarda! Uno spaventapasseri. L'ha fatto il nonno. Gli uccelli ne hanno paura." },
+        { "who": "tine", "sl": "{learner}, poglej! Strašilo. Dedek ga je naredil. Ptice se ga bojijo.", "en": "{learner}, look! A scarecrow. Grandpa made it. The birds are afraid of it.", "de": "{learner}, schau! Eine Vogelscheuche. Opa hat sie gemacht. Die Vögel haben Angst vor ihr.", "it": "{learner}, guarda! Uno spaventapasseri. L'ha fatto il nonno. Gli uccelli ne hanno paura.",
+          "fx": { "face": 0 } },
         { "choices": [
           { "sl": "Res? Jaz se ga ne bojim.", "en": "Really? I am not afraid of it.", "de": "Wirklich? Ich habe keine Angst vor ihr.", "it": "Davvero? Io non ne ho paura.", "ok": true,
             "reply": { "sl": "Jaz malo. Ponoči.", "en": "I am a little. At night.", "de": "Ich ein bisschen. In der Nacht.", "it": "Io un po'. Di notte." } },
@@ -189,7 +191,7 @@
         { "who": "tine", "sl": "Strašilo ima klobuk, ampak nima obraza. Nariši mu obraz!", "en": "The scarecrow has a hat, but it has no face. Draw it a face!", "de": "Die Vogelscheuche hat einen Hut, aber kein Gesicht. Mal ihr ein Gesicht!", "it": "Lo spaventapasseri ha un cappello, ma non ha la faccia. Disegnagli una faccia!" },
         { "choices": [
           { "sl": "Prav. Ima oči, ima nos, ima usta. Se smeje!", "en": "OK. It has eyes, it has a nose, it has a mouth. It is smiling!", "de": "Gut. Sie hat Augen, sie hat eine Nase, sie hat einen Mund. Sie lächelt!", "it": "Va bene. Ha gli occhi, ha il naso, ha la bocca. Sorride!", "ok": true,
-            "reply": { "sl": "Ha ha! Zdaj se ptice ne bojijo!", "en": "Ha ha! Now the birds are not afraid!", "de": "Ha ha! Jetzt haben die Vögel keine Angst!", "it": "Ah ah! Adesso gli uccelli non hanno paura!", "fx": { "crows": 1 } } },
+            "reply": { "sl": "Ha ha! Zdaj se ptice ne bojijo!", "en": "Ha ha! Now the birds are not afraid!", "de": "Ha ha! Jetzt haben die Vögel keine Angst!", "it": "Ah ah! Adesso gli uccelli non hanno paura!", "fx": { "crows": 1, "face": 1 } } },
           { "sl": "Prav. Ima oči, ima nos, ima usta. Se smejejo!", "en": "OK. It has eyes, it has a nose, it has a mouth. They are smiling!", "de": "Gut. Sie hat Augen, sie hat eine Nase, sie hat einen Mund. Sie lächeln!", "it": "Va bene. Ha gli occhi, ha il naso, ha la bocca. Sorridono!",
             "grammar": "glagoli-sedanjik", "why": { "en": "The scarecrow is one: se smeje. Smejejo is for several (otroci se smejejo).", "de": "Die Vogelscheuche ist eine: se smeje. Smejejo gilt für mehrere (otroci se smejejo).", "it": "Lo spaventapasseri è uno solo: se smeje. Smejejo è per più persone (otroci se smejejo)." },
             "reply": { "sl": "Smejejo? Kdo? Vrane?", "en": "Smejejo (they're smiling)? Who? The crows?", "de": "Smejejo (sie lächeln)? Wer? Die Krähen?", "it": "Smejejo (sorridono)? Chi? I corvi?", "fx": { "crows": 1 } } },
@@ -296,7 +298,7 @@
         { "choices": [
           { "sl": "{m:Videl|f:Videla} sem jo pri vozu.", "en": "I saw her (one feminine thing) by the cart.", "de": "Ich habe sie (eine, weiblich) beim Wagen gesehen.", "it": "L'ho vista (una cosa femminile) vicino al carro.",
             "grammar": "osebni-zaimki", "why": { "en": "Grablje (rake) is plural in Slovene: jih. Jo is for one feminine thing (kosa: {m:videl|f:videla} sem jo).", "de": "Grablje (Rechen) ist im Slowenischen Plural: jih. Jo steht für eine weibliche Sache (kosa: {m:videl|f:videla} sem jo).", "it": "Grablje (rastrello) in sloveno è plurale: jih. Jo è per una cosa femminile (kosa: {m:videl|f:videla} sem jo)." },
-            "reply": { "sl": "Koso? Ne, kosa je tukaj, v moji roki!", "en": "The scythe? No, the scythe is here, in my hand!", "de": "Die Sense? Nein, die Sense ist hier, in meiner Hand!", "it": "La falce? No, la falce è qui, in mano mia!" } },
+            "reply": { "sl": "Koso? Ne, kosa je tukaj, pri ograji!", "en": "The scythe? No, the scythe is here, by the fence!", "de": "Die Sense? Nein, die Sense ist hier, am Zaun!", "it": "La falce? No, la falce è qui, vicino allo steccato!" } },
           { "sl": "{m:Videl|f:Videla} sem jih pri vozu.", "en": "I saw it (them) by the cart.", "de": "Ich habe ihn (sie, Plural) beim Wagen gesehen.", "it": "L'ho visto (li ho visti) vicino al carro.", "ok": true,
             "reply": { "sl": "Pri vozu? Res je! Oh, moja stara glava.", "en": "By the cart? So it is! Oh, my old head.", "de": "Beim Wagen? Stimmt! Ach, mein alter Kopf.", "it": "Vicino al carro? È vero! Oh, la mia vecchia testa." } },
           { "sl": "{m:Videl|f:Videla} jih sem pri vozu.", "en": "I saw them by the cart (wrong word order).", "de": "Ich habe ihn beim Wagen gesehen (falsche Wortstellung).", "it": "L'ho visto vicino al carro (ordine sbagliato).",
@@ -312,22 +314,23 @@
             "grammar": "modalni-glagoli", "why": { "en": "Lahko goes with a conjugated verb: lahko se naučim. Naučiti is the infinitive.", "de": "Lahko steht mit einem konjugierten Verb: lahko se naučim. Naučiti ist der Infinitiv.", "it": "Lahko va con un verbo coniugato: lahko se naučim. Naučiti è l'infinito." },
             "reply": { "sl": "Naučiti … kdo? Povej do konca, {m:sosed|f:soseda}.", "en": "Learn … who? Finish what you're saying, neighbour.", "de": "Lernen … wer? Sag den Satz zu Ende, {m:Nachbar|f:Nachbarin}.", "it": "Imparare … chi? Finisci la frase, {m:vicino|f:vicina}." } },
           { "sl": "Ne znam, ampak se lahko naučim.", "en": "I can't, but I can learn.", "de": "Ich kann es nicht, aber ich kann es lernen.", "it": "Non lo so fare, ma posso imparare.", "ok": true,
-            "reply": { "sl": "Prav! Glej: slama okrog snopa, pa trdno zavežeš.", "en": "Right! Look: straw round the sheaf, and you tie it tight.", "de": "Gut! Schau: Stroh um die Garbe, und fest zubinden.", "it": "Bene! Guarda: la paglia intorno al covone, e leghi forte." } }
+            "reply": { "sl": "Prav! Takole: slama okrog snopa, pa trdno zavežeš.", "en": "Right! Like this: straw round the sheaf, and you tie it tight.", "de": "Gut! So: Stroh um die Garbe, und fest zubinden.", "it": "Bene! Così: la paglia intorno al covone, e leghi forte." } }
         ] },
         { "who": "france", "sl": "Tako! Ti vežeš, jaz štejem. En snop, dva snopa, trije snopi …", "en": "That's it! You tie, I count. One sheaf, two sheaves, three sheaves …", "de": "So! Du bindest, ich zähle. Eine Garbe, zwei Garben, drei Garben …", "it": "Così! Tu leghi, io conto. Un covone, due covoni, tre covoni …" }
       ]
     },
     {
       "id": "zetev-oblaki",
+      "sky_stays": false,
       "lines": [
-        { "who": "france", "sl": "Dober dan, {learner}! Žanjem, dokler je lepo. Poglej nebo: so kje oblaki?", "en": "Good day, {learner}! I'm reaping while it's fine. Look at the sky: any clouds anywhere?", "de": "Guten Tag, {learner}! Ich ernte, solange es schön ist. Schau zum Himmel: Sind irgendwo Wolken?", "it": "Buongiorno, {learner}! Mieto finché è bello. Guarda il cielo: ci sono nuvole da qualche parte?" },
+        { "who": "france", "sl": "Dober dan, {learner}! Žanjem, dokler je lepo. Poglej nebo: so kje temni oblaki?", "en": "Good day, {learner}! I'm reaping while it's fine. Look at the sky: any dark clouds anywhere?", "de": "Guten Tag, {learner}! Ich ernte, solange es schön ist. Schau zum Himmel: Sind irgendwo dunkle Wolken?", "it": "Buongiorno, {learner}! Mieto finché è bello. Guarda il cielo: ci sono nuvole scure da qualche parte?", "sky": { "rain": 0, "gloom": 0 } },
         { "choices": [
-          { "sl": "Ne, ne vidim oblakov. Nebo je modro.", "en": "No, I don't see any clouds. The sky is blue.", "de": "Nein, ich sehe keine Wolken. Der Himmel ist blau.", "it": "No, non vedo nuvole. Il cielo è azzurro.", "ok": true,
+          { "sl": "Ne, ne vidim temnih oblakov. Nebo je modro.", "en": "No, I don't see any dark clouds. The sky is blue.", "de": "Nein, ich sehe keine dunklen Wolken. Der Himmel ist blau.", "it": "No, non vedo nuvole scure. Il cielo è azzurro.", "ok": true,
             "reply": { "sl": "Dobro! Potem žanjeva do večera.", "en": "Good! Then we two reap till evening.", "de": "Gut! Dann ernten wir zwei bis zum Abend.", "it": "Bene! Allora noi due mietiamo fino a sera." } },
-          { "sl": "Ne, ne vidim oblaki. Nebo je modro.", "en": "No, I don't see clouds (nominative). The sky is blue.", "de": "Nein, ich sehe keine Wolken (Nominativ). Der Himmel ist blau.", "it": "No, non vedo nuvole (nominativo). Il cielo è azzurro.",
-            "grammar": "rodilnik-nikalnica", "why": { "en": "After a negated verb the object goes into the genitive: ne vidim oblakov.", "de": "Nach einem verneinten Verb steht das Objekt im Genitiv: ne vidim oblakov.", "it": "Dopo un verbo negato il complemento oggetto va al genitivo: ne vidim oblakov." },
+          { "sl": "Ne, ne vidim temni oblaki. Nebo je modro.", "en": "No, I don't see dark clouds (nominative). The sky is blue.", "de": "Nein, ich sehe keine dunklen Wolken (Nominativ). Der Himmel ist blau.", "it": "No, non vedo nuvole scure (nominativo). Il cielo è azzurro.",
+            "grammar": "rodilnik-nikalnica", "why": { "en": "After a negated verb the object goes into the genitive: ne vidim temnih oblakov.", "de": "Nach einem verneinten Verb steht das Objekt im Genitiv: ne vidim temnih oblakov.", "it": "Dopo un verbo negato il complemento oggetto va al genitivo: ne vidim temnih oblakov." },
             "reply": { "sl": "Hm? So oblaki ali jih ni? Povej jasno, {m:sosed|f:soseda}.", "en": "Hm? Are there clouds or not? Say it clearly, neighbour.", "de": "Hm? Gibt es Wolken oder nicht? Sag's deutlich, {m:Nachbar|f:Nachbarin}.", "it": "Mm? Ci sono nuvole o no? Dillo chiaro, {m:vicino|f:vicina}." } },
-          { "sl": "Ja, ne vidim oblakov. Nebo je modro.", "en": "Yes, I don't see any clouds. The sky is blue.", "de": "Ja, ich sehe keine Wolken. Der Himmel ist blau.", "it": "Sì, non vedo nuvole. Il cielo è azzurro.",
+          { "sl": "Ja, ne vidim temnih oblakov. Nebo je modro.", "en": "Yes, I don't see any dark clouds. The sky is blue.", "de": "Ja, ich sehe keine dunklen Wolken. Der Himmel ist blau.", "it": "Sì, non vedo nuvole scure. Il cielo è azzurro.",
             "why": { "en": "To agree with 'no clouds' you start with ne: ne, ne vidim. Ja and ne vidim say opposite things.", "de": "Um ‚keine Wolken‘ zu bestätigen, fängst du mit ne an: ne, ne vidim. Ja und ne vidim widersprechen sich.", "it": "Per confermare 'niente nuvole' si comincia con ne: ne, ne vidim. Ja e ne vidim si contraddicono." },
             "reply": { "sl": "Ja? Torej so oblaki? Ti si pa danes {m:zmeden|f:zmedena}!", "en": "Yes? So there are clouds? You're muddled today!", "de": "Ja? Also gibt es Wolken? Du bist heute aber durcheinander!", "it": "Sì? Allora ci sono nuvole? Oggi sei proprio {m:confuso|f:confusa}!" } }
         ] },
@@ -383,7 +386,7 @@
             "grammar": "zanikanje", "why": { "en": "Slovene doubles the no: nikoli + nisem. Nikoli sem is wrong.", "de": "Im Slowenischen wird doppelt verneint: nikoli + nisem. Nikoli sem ist falsch.", "it": "In sloveno la negazione è doppia: nikoli + nisem. Nikoli sem è sbagliato." },
             "reply": { "sl": "Si ali nisi? Ha, zdaj pa ne vem!", "en": "Have you or haven't you? Ha, now I don't know!", "de": "Hast du oder hast du nicht? Ha, jetzt weiß ich's nicht!", "it": "L'hai fatto o no? Ah, adesso non lo so più!" } },
           { "sl": "Ne, še nikoli nisem {m:kopal|f:kopala} krompirja.", "en": "No, I have never dug potatoes.", "de": "Nein, ich habe noch nie Kartoffeln ausgegraben.", "it": "No, non ho mai cavato le patate.", "ok": true,
-            "reply": { "sl": "Nič hudega. Glej: motika v zemljo, pa gor!", "en": "Never mind. Look: the hoe into the soil, and up!", "de": "Macht nichts. Schau: die Hacke in die Erde, und hoch!", "it": "Non fa niente. Guarda: la zappa nella terra, e su!" } },
+            "reply": { "sl": "Nič hudega. Takole: motika v zemljo, pa gor!", "en": "Never mind. Like this: the hoe into the soil, and up!", "de": "Macht nichts. So: die Hacke in die Erde, und hoch!", "it": "Non fa niente. Così: la zappa nella terra, e su!" } },
           { "sl": "Ne, še nikoli nisem {m:kopal|f:kopala} krompir.", "en": "No, I have never dug potatoes (accusative).", "de": "Nein, ich habe noch nie Kartoffeln (Akkusativ) ausgegraben.", "it": "No, non ho mai cavato patate (accusativo).",
             "grammar": "rodilnik-nikalnica", "why": { "en": "After a negated verb the object goes into the genitive: nisem {m:kopal|f:kopala} krompirja.", "de": "Nach einem verneinten Verb steht das Objekt im Genitiv: nisem {m:kopal|f:kopala} krompirja.", "it": "Dopo un verbo negato il complemento oggetto va al genitivo: nisem {m:kopal|f:kopala} krompirja." },
             "reply": { "sl": "{m:Kopal|f:Kopala}, krompir … hm, nekaj manjka, {m:sosed|f:soseda}.", "en": "Dug, potatoes … hm, something's missing, neighbour.", "de": "Gegraben, Kartoffeln … hm, da fehlt was, {m:Nachbar|f:Nachbarin}.", "it": "Cavato, patate … mm, manca qualcosa, {m:vicino|f:vicina}." } }
@@ -488,14 +491,14 @@
             "grammar": "orodnik", "why": { "en": "Z (with) takes the instrumental: z vami.", "de": "Z (mit) steht mit dem Instrumental: z vami.", "it": "Z (con) regge lo strumentale: z vami." },
             "reply": { "sl": "Z vi? Hm, kako že? Pojdi, pojdi, tema bo.", "en": "Z vi? Hm, how's that? Come on, come on, it's getting dark.", "de": "Z vi? Hm, wie bitte? Komm, komm, es wird dunkel.", "it": "Z vi? Mm, come? Dai, dai, si fa buio." } }
         ] },
-        { "who": "france", "sl": "Tam je, za hlevom! Sivko, ti stari lenuh. Hvala, {learner}.", "en": "There he is, behind the stable! Sivko, you old lazybones. Thanks, {learner}.", "de": "Da ist er, hinterm Stall! Sivko, du alter Faulpelz. Danke, {learner}.", "it": "Eccolo, dietro la stalla! Sivko, vecchio pigrone. Grazie, {learner}.", "fx": { "horse": 1 } }
+        { "who": "france", "sl": "Tam je, na travniku! Sivko, ti stari lenuh. Hvala, {learner}.", "en": "There he is, on the meadow! Sivko, you old lazybones. Thanks, {learner}.", "de": "Da ist er, auf der Wiese! Sivko, du alter Faulpelz. Danke, {learner}.", "it": "Eccolo, sul prato! Sivko, vecchio pigrone. Grazie, {learner}.", "fx": { "horse": 1 } }
       ]
     },
     {
       "id": "kosnja-vrste",
       "count": { "from": "dice", "min": 3, "max": 9, "gender": "f", "case": "acc" },
       "lines": [
-        { "who": "france", "sl": "Dobro jutro, {learner}! Sonce še spi, midva pa že kosiva. Ha, zehaš! Si {m:zaspan|f:zaspana}?", "en": "Good morning, {learner}! The sun's still asleep, but we two are mowing already. Ha, you're yawning! Sleepy?", "de": "Guten Morgen, {learner}! Die Sonne schläft noch, aber wir zwei mähen schon. Ha, du gähnst! Bist du müde?", "it": "Buongiorno, {learner}! Il sole dorme ancora, ma noi due falciamo già. Ah, sbadigli! Hai sonno?" },
+        { "who": "france", "sl": "Dobro jutro, {learner}! Vsi še spijo, midva pa že kosiva. Ha, zehaš! Si {m:zaspan|f:zaspana}?", "en": "Good morning, {learner}! Everyone's still asleep, but we two are mowing already. Ha, you're yawning! Sleepy?", "de": "Guten Morgen, {learner}! Alle schlafen noch, aber wir zwei mähen schon. Ha, du gähnst! Bist du müde?", "it": "Buongiorno, {learner}! Dormono ancora tutti, ma noi due falciamo già. Ah, sbadigli! Hai sonno?" },
         { "choices": [
           { "sl": "Ja, malo mi se še spi.", "en": "Yes, I'm still a bit sleepy (wrong word order).", "de": "Ja, ich bin noch ein bisschen müde (falsche Wortstellung).", "it": "Sì, ho ancora un po' di sonno (ordine sbagliato).",
             "grammar": "naslonke", "why": { "en": "Short words keep a fixed order: se comes before mi: se mi spi, se mi zdi.", "de": "Die kurzen Wörter haben eine feste Reihenfolge: se kommt vor mi: se mi spi, se mi zdi.", "it": "Le parole brevi hanno un ordine fisso: se viene prima di mi: se mi spi, se mi zdi." },
@@ -512,7 +515,7 @@
             "why": { "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on, the genitive plural}: {n} {vrsto|vrsti|vrste|vrst}.", "de": "{Bei eins steht der Singular|Bei zwei der Dual|Bei drei und vier der Plural|Ab fünf der Genitiv Plural}: {n} {vrsto|vrsti|vrste|vrst}.", "it": "{Con uno si usa il singolare|Con due il duale|Con tre e quattro il plurale|Da cinque in su il genitivo plurale}: {n} {vrsto|vrsti|vrste|vrst}." },
             "reply": { "sl": "Hm? Štej še enkrat. Počasi, kot mlin.", "en": "Hm? Count again. Slowly, like the mill.", "de": "Hm? Zähl noch einmal. Langsam, wie die Mühle.", "it": "Mm? Conta di nuovo. Piano, come il mulino." } },
           { "sl": "Pokosila sva že {n} {vrsto|vrsti|vrste|vrst}.", "en": "We've already mowed {n} {row|rows}.", "de": "Wir haben schon {n} {Reihe|Reihen} gemäht.", "it": "Abbiamo già falciato {n} {fila|file}.", "ok": true,
-            "reply": { "sl": "Tako je! Še malo, pa sonce vzide.", "en": "That's right! A little more and the sun comes up.", "de": "Genau! Noch ein bisschen, dann geht die Sonne auf.", "it": "Esatto! Ancora un po' e sorge il sole." } },
+            "reply": { "sl": "Tako je! Še malo, pa bo zajtrk.", "en": "That's right! A little more and it's breakfast.", "de": "Genau! Noch ein bisschen, dann gibt's Frühstück.", "it": "Esatto! Ancora un po' e poi colazione." } },
           { "sl": "Pokosila sva že {n} {!vrsto|vrsti|vrste|vrst}.", "en": "We've already mowed {n} {row|rows}.", "de": "Wir haben schon {n} {Reihe|Reihen} gemäht.", "it": "Abbiamo già falciato {n} {fila|file}.", "wrong_form": 2, "grammar": "stevila-samostalniki",
             "why": { "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on, the genitive plural}: {n} {vrsto|vrsti|vrste|vrst}.", "de": "{Bei eins steht der Singular|Bei zwei der Dual|Bei drei und vier der Plural|Ab fünf der Genitiv Plural}: {n} {vrsto|vrsti|vrste|vrst}.", "it": "{Con uno si usa il singolare|Con due il duale|Con tre e quattro il plurale|Da cinque in su il genitivo plurale}: {n} {vrsto|vrsti|vrste|vrst}." },
             "reply": { "sl": "Koliko? Kosa je glasna, nisem slišal.", "en": "How many? The scythe is loud, I didn't hear.", "de": "Wie viele? Die Sense ist laut, ich hab's nicht gehört.", "it": "Quante? La falce fa rumore, non ho sentito." } }

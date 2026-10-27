@@ -70,7 +70,7 @@
       "words": ["trata", "kamen", "pobrati"],
       "levels": {
         "A1": { "lines": [
-          { "who": "mojca", "sl": "Tukaj bo igrišče. Ampak poglejte tla!", "en": "The playground will be here. But look at the ground!", "de": "Hier kommt der Spielplatz hin. Aber schaut euch den Boden an!", "it": "Il parco giochi sarà qui. Ma guardate per terra!" },
+          { "who": "mojca", "sl": "Tukaj bo igrišče. Ampak tla niso varna!", "en": "The playground will be here. But the ground isn't safe!", "de": "Hier kommt der Spielplatz hin. Aber der Boden ist nicht sicher!", "it": "Il parco giochi sarà qui. Ma il terreno non è sicuro!" },
           { "who": "nejc", "sl": "Au! Tukaj se spotakneš na vsakem koraku!", "en": "Ouch! You trip at every step here!", "de": "Au! Hier stolpert man bei jedem Schritt!", "it": "Ahi! Qui si inciampa a ogni passo!" },
           { "who": "mojca", "sl": "{learner}, kaj leži v travi?", "en": "{learner}, what's lying in the grass?", "de": "{learner}, was liegt im Gras?", "it": "{learner}, che cosa c'è nell'erba?" },
           { "choices": [
@@ -99,14 +99,14 @@
         "A2": { "lines": [
           { "who": "mojca", "sl": "Tukaj bo igrišče. Ampak tla niso varna za otroke.", "en": "The playground will be here. But the ground isn't safe for children.", "de": "Hier kommt der Spielplatz hin. Aber der Boden ist nicht sicher für Kinder.", "it": "Il parco giochi sarà qui. Ma il terreno non è sicuro per i bambini." },
           { "who": "nejc", "sl": "Res je, včeraj se je nekdo spotaknil in padel.", "en": "That's true, yesterday somebody tripped and fell.", "de": "Stimmt, gestern ist jemand gestolpert und hingefallen.", "it": "È vero, ieri qualcuno è inciampato ed è caduto." },
-          { "who": "mojca", "sl": "{learner}, poglej okoli. Kaj vidiš v travi?", "en": "{learner}, look around. What do you see in the grass?", "de": "{learner}, schau dich um. Was siehst du im Gras?", "it": "{learner}, guardati intorno. Che cosa vedi nell'erba?" },
+          { "who": "mojca", "sl": "{learner}, kaj je v travi?", "en": "{learner}, what's in the grass?", "de": "{learner}, was ist im Gras?", "it": "{learner}, che cosa c'è nell'erba?" },
           { "choices": [
-            { "sl": "V travi vidim veliko kamnov.", "en": "I see a lot of stones in the grass.", "de": "Ich sehe viele Steine im Gras.", "it": "Vedo tanti sassi nell'erba.", "ok": true,
+            { "sl": "V travi je veliko kamnov.", "en": "There are a lot of stones in the grass.", "de": "Im Gras sind viele Steine.", "it": "Nell'erba ci sono tanti sassi.", "ok": true,
               "reply": { "sl": "Tako je. Nekateri so veliki kot hlebec kruha!", "en": "That's right. Some are as big as a loaf of bread!", "de": "Genau. Manche sind groß wie ein Laib Brot!", "it": "Esatto. Alcuni sono grandi come una pagnotta!" } },
-            { "sl": "V travi vidim veliko kamni.", "en": "I see a lot of stones in the grass.", "de": "Ich sehe viele Steine im Gras.", "it": "Vedo tanti sassi nell'erba.", "grammar": "rodilnik-kolicina",
+            { "sl": "V travi je veliko kamni.", "en": "There are a lot of stones in the grass.", "de": "Im Gras sind viele Steine.", "it": "Nell'erba ci sono tanti sassi.", "grammar": "rodilnik-kolicina",
               "why": { "en": "Veliko (a lot of) takes the genitive plural: veliko kamnov.", "de": "Veliko (viel) verlangt den Genitiv Plural: veliko kamnov.", "it": "Veliko (molto) vuole il genitivo plurale: veliko kamnov." },
               "reply": { "sl": "Veliko … kamni? Hm, povej še enkrat, prosim.", "en": "A lot of … stones? Hm, say it again, please.", "de": "Viele … Steine? Hm, sag es bitte noch einmal.", "it": "Tanti … sassi? Mm, ripetilo, per favore." } },
-            { "sl": "V travi vidim veliko polžev.", "en": "I see a lot of snails in the grass.", "de": "Ich sehe viele Schnecken im Gras.", "it": "Vedo tante lumache nell'erba.",
+            { "sl": "V travi je veliko polžev.", "en": "There are a lot of snails in the grass.", "de": "Im Gras sind viele Schnecken.", "it": "Nell'erba ci sono tante lumache.",
               "why": { "en": "Polži are snails, and they don't make anyone fall. What lies in the grass is stones: kamni.", "de": "Polži sind Schnecken, und über die fällt keiner. Im Gras liegen Steine: kamni.", "it": "Polži sono le lumache, e non fanno cadere nessuno. Nell'erba ci sono sassi: kamni." },
               "reply": { "sl": "Polžev? Ti so prijazni, ti lahko ostanejo!", "en": "Snails? They're friendly, they can stay!", "de": "Schnecken? Die sind freundlich, die dürfen bleiben!", "it": "Lumache? Sono simpatiche, possono restare!" } }
           ] },

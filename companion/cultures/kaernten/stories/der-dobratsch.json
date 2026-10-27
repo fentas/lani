@@ -15,13 +15,13 @@
     "A1": {
       "sky_stays": false,
       "lines": [
-        { "de": "Guten Abend! Schau, dort drüben ist der Dobratsch. Siehst du ihn?", "sl": "Dober večer! Poglej, tam je Dobrač. Ga vidiš?", "en": "Good evening! Look, over there is the Dobratsch. Can you see it?", "it": "Buonasera! Guarda, laggiù c'è il Dobratsch. Lo vedi?" },
+        { "de": "Guten Abend! Kennst du den Dobratsch? Das ist ein Berg bei Villach.", "sl": "Dober večer! Poznaš Dobrač? To je gora pri Beljaku.", "en": "Good evening! Do you know the Dobratsch? It's a mountain near Villach.", "it": "Buonasera! Conosci il Dobratsch? È una montagna vicino a Villach." },
         { "choices": [
-          { "de": "Ja, ich sehe ihn. Er ist sehr groß!", "sl": "Ja, vidim ga. Zelo je velik!", "en": "Yes, I can see it. It's very big!", "it": "Sì, lo vedo. È molto grande!", "ok": true,
+          { "de": "Ja, ich kenne ihn. Er ist sehr groß!", "sl": "Ja, poznam ga. Zelo je velik!", "en": "Yes, I know it. It's very big!", "it": "Sì, lo conosco. È molto grande!", "ok": true,
             "reply": { "de": "Ja. Und er hat eine alte Geschichte.", "sl": "Ja. In ima staro zgodbo.", "en": "Yes. And it has an old story.", "it": "Sì. E ha una storia antica." } },
-          { "de": "Ja, ich sehe er. Er ist sehr groß!", "sl": "Ja, vidim ga. Zelo je velik!", "en": "Yes, I can see it. It's very big!", "it": "Sì, lo vedo. È molto grande!",
-            "why": { "sl": "Za sehen pride tožilnik: ich sehe ihn (ne er).", "en": "Sehen takes the accusative: ich sehe ihn (not er).", "it": "Sehen regge l'accusativo: ich sehe ihn (non er)." },
-            "reply": { "de": "Ich sehe er? Wer ist er, {m:Bub|f:Mädel}? Mein Bello?", "sl": "Ich sehe er? Kdo pa je ta er? Moj Bello?", "en": "Ich sehe er (I see he)? Who's he, {m:lad|f:lass}? My Bello?", "it": "Ich sehe er? E chi sarebbe questo er, {m:ragazzo|f:ragazza}? Il mio Bello?" } }
+          { "de": "Ja, ich kenne er. Er ist sehr groß!", "sl": "Ja, poznam ga. Zelo je velik!", "en": "Yes, I know it. It's very big!", "it": "Sì, lo conosco. È molto grande!",
+            "why": { "sl": "Za kennen pride tožilnik: ich kenne ihn (ne er).", "en": "Kennen takes the accusative: ich kenne ihn (not er).", "it": "Kennen regge l'accusativo: ich kenne ihn (non er)." },
+            "reply": { "de": "Ich kenne er? Wer ist er, {m:Bub|f:Mädel}? Mein Bello?", "sl": "Ich kenne er? Kdo pa je ta er? Moj Bello?", "en": "Ich kenne er (I know he)? Who's he, {m:lad|f:lass}? My Bello?", "it": "Ich kenne er? E chi sarebbe questo er, {m:ragazzo|f:ragazza}? Il mio Bello?" } }
         ] },
         { "de": "Das war im Jahr 1348, vor fast siebenhundert Jahren. Es war Winter, im Jänner.", "sl": "To je bilo leta 1348, pred skoraj sedemsto leti. Bila je zima, januar.", "en": "That was in the year 1348, almost seven hundred years ago. It was winter, in January.", "it": "Era l'anno 1348, quasi settecento anni fa. Era inverno, a gennaio.", "sky": { "snow": 0.2 } },
         { "de": "Plötzlich wackelt die Erde. Ein Erdbeben! Die Glocken läuten von allein.", "sl": "Nenadoma se zemlja strese. Potres! Zvonovi zvonijo sami od sebe.", "en": "Suddenly the ground shakes. An earthquake! The bells ring all by themselves.", "it": "All'improvviso la terra trema. Un terremoto! Le campane suonano da sole.", "fx": { "bell": 1 } },
@@ -52,7 +52,7 @@
             "reply": { "de": "Richtig. Der Berg ist alt, aber der Wald ist jung. Gute Nacht!", "sl": "Tako je. Gora je stara, gozd pa mlad. Lahko noč!", "en": "Right. The mountain is old, but the forest is young. Good night!", "it": "Giusto. La montagna è vecchia, ma il bosco è giovane. Buonanotte!" } },
           { "de": "Eine Wald.", "sl": "Gozd.", "en": "A forest.", "it": "Un bosco.",
             "why": { "sl": "Wald je moškega spola (der Wald), zato ein Wald.", "en": "Wald is masculine (der Wald), so ein Wald.", "it": "Wald è maschile (der Wald), quindi ein Wald." },
-            "reply": { "de": "Eine Wald? Hm, da spitzt sogar der Bello die Ohren.", "sl": "Eine Wald? Hm, ob tem še Bello našpiči ušesa.", "en": "Eine Wald? Hm, even Bello pricks up his ears at that.", "it": "Eine Wald? Hm, persino Bello drizza le orecchie." } },
+            "reply": { "de": "Eine Wald? Hm, das klingt aber komisch.", "sl": "Eine Wald? Hm, to pa zveni čudno.", "en": "Eine Wald? Hm, that sounds funny.", "it": "Eine Wald? Hm, suona strano." } },
           { "de": "Ein Haus.", "sl": "Hiša.", "en": "A house.", "it": "Una casa.",
             "why": { "sl": "Ne: na skalah zdaj raste gozd.", "en": "No: a forest grows on the rocks now.", "it": "No: sulle rocce adesso cresce un bosco." },
             "reply": { "de": "Ein Haus? Häuser wachsen nicht, {m:Bub|f:Mädel}. Die baut man!", "sl": "Ein Haus? Hiše ne zrastejo same. Treba jih je zgraditi!", "en": "Ein Haus (a house)? Houses don't grow, {m:lad|f:lass}. You build them!", "it": "Ein Haus? Le case non crescono, {m:ragazzo|f:ragazza}. Si costruiscono!" } }

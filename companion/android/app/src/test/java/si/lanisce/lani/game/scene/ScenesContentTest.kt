@@ -205,13 +205,18 @@ class ScenesContentTest {
         // France's wheel stands, then turns; Luka's trout leaps; the frog jumps in; the ducks fly up; the carp jumps
         val wheel = effects("ob-potoku", "mlin")
         assertTrue(wheel.first()["wheel"] == 0f && wheel.last()["wheel"] == 1f)
-        assertEquals(1f, effects("ob-potoku", "ovce").last()["trout"])
+        // Luka's flock comes down to the water as he says they're thirsty and goes home at dusk, the trout leaping between
+        val ovce = effects("ob-potoku", "ovce")
+        assertTrue(ovce.first()["flock"] == 0.5f && ovce.any { it["trout"] == 1f } && ovce.last()["flock"] == 1f)
+        val stejem = effects("ob-potoku", "ovce-stejem")
+        assertTrue(stejem.first()["flock"] == 0.5f && stejem.last()["flock"] == 1f)
         assertEquals(1f, effects("pri-ribniku", "zaba").last()["frog"])
         assertEquals(1f, effects("pri-ribniku", "megla").last()["ducks"])
         assertEquals(1f, effects("pri-ribniku", "ribe").last()["fish"])
         // Micka lights the candles in the church, and they burn until midnight; Tine rings noon; Zala's honey runs; the swarm
+        // one candle as she lights hers, a second as the learner lights one more (two of the altar's four)
         val candle = effects("v-cerkvi", "sveca")
-        assertTrue(candle.first()["candles"] == 0f && candle.last()["candles"] == 1f)
+        assertTrue(candle.first()["candles"] == 0f && candle.any { it["candles"] == 0.25f } && candle.last()["candles"] == 0.5f)
         assertTrue(effects("v-cerkvi", "poldne").any { it["bell"] == 1f })
         assertEquals(1f, effects("pri-cebelnjaku", "med").first()["honey"])
         assertEquals(1f, effects("pri-cebelnjaku", "roj").last()["swarm"])
@@ -258,13 +263,18 @@ class ScenesContentTest {
         assertEquals(1f, effects("na-vasi", "nogomet").last()["goal"])
         val kept = files.map { parseScene(it.readText()) }.flatMap { s -> s.dialogs.filter { it.fxKept }.map { "${s.id}/${it.id}" } }
         // and their variants: the candles lit, the lantern left burning; what is gone or home or dressed for good, until
-        // midnight: the hare, Sivko, the scarecrow, the pedlar in at the gate, the lamb drinking; the square as it is by itself
+        // midnight: the hare, Sivko, the scarecrow (its face drawn), the pedlar in at the gate, the lamb drinking, the flocks
+        // gone home, the lost sheep found, the wooden horse mended, Marko's cart on its wheels, the attic's lamp left on; the
+        // square as it is by itself
         assertEquals(
             listOf(
-                "na-njivi/strasilo-klobuk", "na-njivi/konj-hlev", "na-njivi/kosnja-zajec", "na-stolpu/straza", "na-stolpu/krosnjar",
-                "na-stolpu/krosnjar-daljnogled", "na-stolpu/krosnjar-denar", "na-vasi/nogomet", "na-vasi/muri", "na-vasi/macka",
-                "na-vasi/nogomet-zoga", "na-vasi/macka-sir", "ob-potoku/ovce-jagnje", "v-cerkvi/sveca", "v-cerkvi/sveca-stejem",
-                "v-cerkvi/sveca-veter", "v-sotoru/svetilka", "v-sotoru/svetilka-bom", "v-sotoru/svetilka-komu", "v-sotoru/dez-svetilka",
+                "na-njivi/strasilo", "na-njivi/strasilo-klobuk", "na-njivi/konj-hlev", "na-njivi/kosnja-zajec", "na-stolpu/straza",
+                "na-stolpu/krosnjar", "na-stolpu/krosnjar-daljnogled", "na-stolpu/krosnjar-denar", "na-vasi/nogomet", "na-vasi/muri",
+                "na-vasi/macka", "na-vasi/nogomet-zoga", "na-vasi/macka-sir", "ob-ognju/roke-ovce", "ob-potoku/ovce",
+                "ob-potoku/ovce-stejem", "ob-potoku/ovce-jagnje", "v-cerkvi/sveca", "v-cerkvi/sveca-stejem", "v-cerkvi/sveca-veter",
+                "v-delavnici/konjicek", "v-gozdu/ovca", "v-gozdu/ovca-megla", "v-gozdu/ovca-pikica", "v-kovacnici/kolo-steklenice",
+                "v-kovacnici/kolo-tvoj", "v-podstresju/burja", "v-sotoru/svetilka", "v-sotoru/svetilka-bom", "v-sotoru/svetilka-komu",
+                "v-sotoru/dez-svetilka",
             ),
             kept,
         )
@@ -292,7 +302,7 @@ class ScenesContentTest {
         assertEquals(1f, effects("v-gozdu", "sova").first()["hoot"])
         // Janez fishing in the fog that lifts, a fish taking; France mowing when the bell rings six; the wheel coming to life
         assertTrue(skies("pri-ribniku", "zora").first().fog >= 0.7f && skies("pri-ribniku", "zora").last().fog == 0f)
-        assertTrue(effects("pri-ribniku", "zora").any { it["fish"] == 1f })
+        assertTrue(effects("pri-ribniku", "zora").any { it["bite"] == 1f })
         assertTrue(effects("na-njivi", "kosnja").any { it["bell"] == 1f })
         val mill = effects("ob-potoku", "zora")
         assertTrue(mill.first()["wheel"] == 0f && mill.last()["wheel"] == 1f && mill.any { it["bell"] == 1f })

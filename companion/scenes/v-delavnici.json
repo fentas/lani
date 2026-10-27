@@ -118,8 +118,10 @@
     },
     {
       "id": "konjicek",
+      "fx_stays": true,
       "lines": [
-        { "who": "tine", "sl": "{learner}! Moj konjiček Sivko nima noge. Dedek ga popravlja.", "en": "{learner}! My little horse Sivko has lost a leg. Grandpa is mending him.", "de": "{learner}! Mein Pferdchen Sivko hat ein Bein verloren. Opa repariert es.", "it": "{learner}! Il mio cavallino Sivko ha perso una zampa. Il nonno lo sta aggiustando." },
+        { "who": "tine", "sl": "{learner}! Moj konjiček Sivko nima noge. Dedek ga popravlja.", "en": "{learner}! My little horse Sivko has lost a leg. Grandpa is mending him.", "de": "{learner}! Mein Pferdchen Sivko hat ein Bein verloren. Opa repariert es.", "it": "{learner}! Il mio cavallino Sivko ha perso una zampa. Il nonno lo sta aggiustando.",
+          "fx": { "toy": 0 } },
         { "choices": [
           { "sl": "Ojoj! Kje je njegova noga?", "en": "Oh no! Where is his leg?", "de": "Oje! Wo ist sein Bein?", "it": "Oh no! Dov'è la sua zampa?", "ok": true,
             "reply": { "sl": "Tukaj! V mojem žepu. Glej!", "en": "Here! In my pocket. Look!", "de": "Hier! In meiner Tasche. Schau!", "it": "Qui! Nella mia tasca. Guarda!" } },
@@ -137,7 +139,8 @@
             "grammar": "glagoli-sedanjik", "why": { "en": "After ko (when) comes a conjugated verb: ko čakaš. Čakati is the infinitive.", "de": "Nach ko (wenn) steht ein konjugiertes Verb: ko čakaš. Čakati ist der Infinitiv.", "it": "Dopo ko (quando) viene un verbo coniugato: ko čakaš. Čakati è l'infinito." },
             "reply": { "sl": "Ko čakati? Dedek, {learner} govori kot jaz!", "en": "Ko čakati? Grandpa, {learner} talks like me!", "de": "Ko čakati? Opa, {learner} redet wie ich!", "it": "Ko čakati? Nonno, {learner} parla come me!" } }
         ] },
-        { "who": "tine", "sl": "Glej! Dedek je Sivka popravil. Spet je cel!", "en": "Look! Grandpa has mended Sivko. He's whole again!", "de": "Schau! Opa hat Sivko repariert. Er ist wieder ganz!", "it": "Guarda! Il nonno ha aggiustato Sivko. È di nuovo intero!" },
+        { "who": "tine", "sl": "Glej! Dedek je Sivka popravil. Spet je cel!", "en": "Look! Grandpa has mended Sivko. He's whole again!", "de": "Schau! Opa hat Sivko repariert. Er ist wieder ganz!", "it": "Guarda! Il nonno ha aggiustato Sivko. È di nuovo intero!",
+          "fx": { "toy": 1 } },
         { "choices": [
           { "sl": "Bravo, Tine! Sivko ima spet štiri noge.", "en": "Well done, Tine! Sivko has four legs again.", "de": "Bravo, Tine! Sivko hat wieder vier Beine.", "it": "Bravo, Tine! Sivko ha di nuovo quattro zampe.", "ok": true,
             "reply": { "sl": "Štiri! Ena, dva, tri, štiri … veliko!", "en": "Four! One, two, three, four … lots!", "de": "Vier! Eins, zwei, drei, vier … viele!", "it": "Quattro! Uno, due, tre, quattro … tante!" } },
@@ -243,12 +246,12 @@
           "fx": { "dust": 1 } },
         { "choices": [
           { "sl": "Lahko tudi jaz žagam?", "en": "Can I saw too?", "de": "Kann ich auch sägen?", "it": "Posso segare anch'io?", "ok": true,
-            "reply": { "sl": "Lahko. Ampak najprej glej mene.", "en": "You can. But first watch me.", "de": "Kannst du. Aber schau erst mir zu.", "it": "Puoi. Ma prima guarda me.", "fx": { "dust": 0 } } },
+            "reply": { "sl": "Lahko. Ampak najprej glej mene.", "en": "You can. But first watch me.", "de": "Kannst du. Aber schau erst mir zu.", "it": "Puoi. Ma prima guarda me." } },
           { "sl": "Moram tudi jaz žagati?", "en": "Do I have to saw too?", "de": "Muss ich auch sägen?", "it": "Devo segare anch'io?",
             "grammar": "modalni-glagoli", "why": { "en": "Moram is 'I must'. To ask if you may: lahko or smem.", "de": "Moram heißt ‚ich muss‘. Um zu fragen, ob du darfst: lahko oder smem.", "it": "Moram significa 'devo'. Per chiedere se puoi: lahko o smem." },
             "reply": { "sl": "Moraš? Ne, nič ne moraš. Samo če hočeš!", "en": "Have to? No, you don't have to. Only if you want!", "de": "Musst du? Nein, du musst gar nicht. Nur wenn du willst!", "it": "Devi? No, non devi niente. Solo se vuoi!" } },
           { "sl": "Smem tudi jaz žagati?", "en": "May I saw too?", "de": "Darf ich auch sägen?", "it": "Mi permette di segare anch'io?", "ok": true,
-            "reply": { "sl": "Smeš, smeš. Samo pazi na prste.", "en": "You may, you may. Just mind your fingers.", "de": "Darfst du, darfst du. Pass nur auf die Finger auf.", "it": "Certo, certo. {m:Attento|f:Attenta} solo alle dita.", "fx": { "dust": 0 } } }
+            "reply": { "sl": "Smeš, smeš. Samo pazi na prste.", "en": "You may, you may. Just mind your fingers.", "de": "Darfst du, darfst du. Pass nur auf die Finger auf.", "it": "Certo, certo. {m:Attento|f:Attenta} solo alle dita." } }
         ] },
         { "who": "france", "sl": "Primi žago z obema rokama. Tako. Zdaj počasi, naprej in nazaj.", "en": "Hold the saw with both hands. Like that. Now slowly, forward and back.", "de": "Nimm die Säge mit beiden Händen. So. Jetzt langsam, vor und zurück.", "it": "Prendi la sega con tutte e due le mani. Così. Adesso piano, avanti e indietro.",
           "fx": { "dust": 1 } },

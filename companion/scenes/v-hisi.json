@@ -105,7 +105,7 @@
             "grammar": "tozilnik", "why": { "en": "Psu is the dative (to the dog). The one you stroke is the object: psa.", "de": "Psu ist der Dativ (dem Hund). Wen du streichelst, ist das Objekt: psa.", "it": "Psu è il dativo (al cane). Chi accarezzi è il complemento oggetto: psa." },
             "reply": { "sl": "Psu? Mu boš kaj {m:dal|f:dala}? Klobaso?", "en": "Psu (to the dog)? Are you giving him something? A sausage?", "de": "Psu (dem Hund)? Gibst du ihm etwas? Eine Wurst?", "it": "Psu (al cane)? Gli dai qualcosa? Una salsiccia?" } }
         ] },
-        { "who": "zala", "sl": "Glej, lovi svoj rep! Muri, ti si pa čuden.", "en": "Look, he's chasing his tail! Muri, you're a funny one.", "de": "Schau, er jagt seinem Schwanz nach! Muri, du bist mir einer.", "it": "Guarda, si rincorre la coda! Muri, sei proprio strano.",
+        { "who": "zala", "sl": "Glej, kako miga z repom! Muri, ti si pa čuden.", "en": "Look how he's wagging his tail! Muri, you're a funny one.", "de": "Schau, wie er mit dem Schwanz wedelt! Muri, du bist mir einer.", "it": "Guarda come scodinzola! Muri, sei proprio strano.",
           "fx": { "dog": 1 } },
         { "choices": [
           { "sl": "Muri je smešen. Rad ima otroke.", "en": "Muri is funny. He likes children.", "de": "Muri ist lustig. Er mag Kinder.", "it": "Muri è buffo. Gli piacciono i bambini.", "ok": true,
@@ -285,7 +285,7 @@
       "id": "muri-klobasa",
       "memory": { "sl": "Murija, ki je pojedel klobaso", "en": "Muri eating up the sausage", "de": "Muri, der die Wurst gefressen hat", "it": "Muri che si è mangiato la salsiccia" },
       "lines": [
-        { "who": "zala", "sl": "{learner}, glej! Tukaj je bila klobasa. Zdaj je krožnik prazen! Kdo je bil?", "en": "{learner}, look! There was a sausage here. Now the plate's empty! Who was it?", "de": "{learner}, schau! Hier war eine Wurst. Jetzt ist der Teller leer! Wer war das?", "it": "{learner}, guarda! Qui c'era una salsiccia. Adesso il piatto è vuoto! Chi è stato?" },
+        { "who": "zala", "sl": "{learner}, glej! Tukaj je bila klobasa. Zdaj je ni več! Kdo je bil?", "en": "{learner}, look! There was a sausage here. Now it's gone! Who was it?", "de": "{learner}, schau! Hier war eine Wurst. Jetzt ist sie weg! Wer war das?", "it": "{learner}, guarda! Qui c'era una salsiccia. Adesso non c'è più! Chi è stato?" },
         { "choices": [
           { "sl": "Muri je jo pojedel, kajne?", "en": "Muri ate it, didn't he? (je and jo swapped)", "de": "Muri hat sie gefressen, oder? (je und jo vertauscht)", "it": "L'ha mangiata Muri, vero? (je e jo scambiati)",
             "grammar": "naslonke", "why": { "en": "Short words like jo and je have a fixed order: jo comes before je: Muri jo je pojedel.", "de": "Kurze Wörter wie jo und je haben eine feste Reihenfolge: jo kommt vor je: Muri jo je pojedel.", "it": "Parole brevi come jo e je hanno un ordine fisso: jo viene prima di je: Muri jo je pojedel." },
@@ -312,7 +312,7 @@
       "id": "fotografija-triglav",
       "memory": { "sl": "večer, ko sva gledala fotografijo s Triglava", "en": "the evening we looked at the photo from Triglav", "de": "den Abend, an dem wir das Foto vom Triglav angeschaut haben", "it": "la sera in cui abbiamo guardato la foto sul Triglav" },
       "lines": [
-        { "who": "janez", "sl": "Poglej to fotografijo. To sem jaz, na Triglavu. Takrat sem bil mlad in močan.", "en": "Look at this photo. That's me, on Triglav. Back then I was young and strong.", "de": "Schau dir dieses Foto an. Das bin ich, auf dem Triglav. Damals war ich jung und stark.", "it": "Guarda questa foto. Sono io, sul Triglav. Allora ero giovane e forte." },
+        { "who": "janez", "sl": "V knjigi imam staro fotografijo. To sem jaz, na Triglavu. Takrat sem bil mlad in močan.", "en": "I keep an old photo in my book. That's me, on Triglav. Back then I was young and strong.", "de": "In meinem Buch habe ich ein altes Foto. Das bin ich, auf dem Triglav. Damals war ich jung und stark.", "it": "Nel libro ho una vecchia foto. Sono io, sul Triglav. Allora ero giovane e forte." },
         { "choices": [
           { "sl": "Zdaj ste pa bolj modrejši.", "en": "But now you're more wiser.", "de": "Aber jetzt sind Sie mehr weiser.", "it": "Ma adesso è più più saggio.",
             "grammar": "primernik", "why": { "en": "Modrejši is already the comparative (wiser); bolj on top says 'more' twice.", "de": "Modrejši ist schon der Komparativ (weiser); bolj dazu sagt ‚mehr‘ doppelt.", "it": "Modrejši è già il comparativo (più saggio); aggiungere bolj dice 'più' due volte." },

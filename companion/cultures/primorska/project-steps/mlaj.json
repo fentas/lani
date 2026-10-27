@@ -8,6 +8,7 @@
     {
       "scene": "v-gozdu",
       "words": ["smreka", "sekira"],
+      "fx_stays": true,
       "levels": {
         "A1": { "lines": [
           { "who": "luka", "sl": "Danes gremo v gozd po smreko za mlaj!", "en": "Today we go into the forest for a spruce for the maypole!", "de": "Heute gehen wir in den Wald, eine Fichte für den Maibaum holen!", "it": "Oggi andiamo nel bosco a prendere un abete per l'albero di maggio!" },
@@ -34,7 +35,7 @@
               "why": { "en": "Vedro is a bucket. To fell a tree you need an axe: sekira.", "de": "Vedro ist ein Eimer. Um einen Baum zu fällen, braucht man eine Axt: sekira.", "it": "Vedro è un secchio. Per abbattere un albero ci vuole un'ascia: sekira." },
               "reply": { "sl": "Vedro? Saj ne gremo po vodo!", "en": "A bucket? We're not going for water!", "de": "Einen Eimer? Wir holen doch kein Wasser!", "it": "Un secchio? Mica andiamo a prendere l'acqua!" } }
           ] },
-          { "who": "marko", "sl": "Pazite! Smreka pada!", "en": "Watch out! The spruce is falling!", "de": "Achtung! Die Fichte fällt!", "it": "Attenzione! L'abete cade!", "fx": { "birds": 1 } }
+          { "who": "marko", "sl": "Pazite! Smreka pada!", "en": "Watch out! The spruce is falling!", "de": "Achtung! Die Fichte fällt!", "it": "Attenzione! L'abete cade!", "fx": { "birds": 1, "fell": 1 }, "done": true }
         ] },
         "A2": { "lines": [
           { "who": "luka", "sl": "Za mlaj potrebujemo najvišjo smreko v gozdu.", "en": "For the maypole we need the tallest spruce in the forest.", "de": "Für den Maibaum brauchen wir die höchste Fichte im Wald.", "it": "Per l'albero di maggio ci serve l'abete più alto del bosco." },
@@ -61,7 +62,7 @@
               "why": { "en": "Žlica is a spoon. To fell a tree you need an axe: sekira.", "de": "Žlica ist ein Löffel. Um einen Baum zu fällen, braucht man eine Axt: sekira.", "it": "Žlica è un cucchiaio. Per abbattere un albero ci vuole un'ascia: sekira." },
               "reply": { "sl": "Žlico? S tem bomo sekali do zime!", "en": "A spoon? We'll be chopping with that till winter!", "de": "Einen Löffel? Damit hacken wir bis zum Winter!", "it": "Un cucchiaio? Con quello tagliamo fino all'inverno!" } }
           ] },
-          { "who": "marko", "sl": "Pazite, smreka pada! … Bum!", "en": "Watch out, the spruce is falling! … Boom!", "de": "Achtung, die Fichte fällt! … Bumm!", "it": "Attenzione, l'abete cade! … Bum!", "fx": { "birds": 1 } }
+          { "who": "marko", "sl": "Pazite, smreka pada! … Bum!", "en": "Watch out, the spruce is falling! … Boom!", "de": "Achtung, die Fichte fällt! … Bumm!", "it": "Attenzione, l'abete cade! … Bum!", "fx": { "birds": 1, "fell": 1 }, "done": true }
         ] }
       }
     },
@@ -91,7 +92,7 @@
               "why": { "en": "Glave are heads. A trunk goes on the shoulders: na ramah.", "de": "Glave sind Köpfe. Ein Stamm kommt auf die Schultern: na ramah.", "it": "Glave sono le teste. Un tronco va sulle spalle: na ramah." },
               "reply": { "sl": "Na glavah? Ha ha, potem pa ti prvi!", "en": "On our heads? Ha ha, you go first then!", "de": "Auf den Köpfen? Ha ha, dann du zuerst!", "it": "Sulla testa? Ah ah, allora prima tu!" } }
           ] },
-          { "who": "marko", "sl": "Uf, počasi! Vas je še daleč.", "en": "Phew, slowly! The village is still far.", "de": "Puh, langsam! Das Dorf ist noch weit.", "it": "Uff, piano! Il paese è ancora lontano." }
+          { "who": "marko", "sl": "Uf, počasi! Vas je še daleč.", "en": "Phew, slowly! The village is still far.", "de": "Puh, langsam! Das Dorf ist noch weit.", "it": "Uff, piano! Il paese è ancora lontano.", "done": true }
         ] },
         "A2": { "lines": [
           { "who": "luka", "sl": "Smreko smo posekali. Zdaj jo moramo prinesti v vas.", "en": "We've felled the spruce. Now we have to bring it into the village.", "de": "Die Fichte ist gefällt. Jetzt müssen wir sie ins Dorf bringen.", "it": "L'abete è abbattuto. Ora dobbiamo portarlo in paese." },
@@ -118,7 +119,7 @@
               "why": { "en": "Glave are heads. A trunk goes on the shoulders: na rame.", "de": "Glave sind Köpfe. Ein Stamm kommt auf die Schultern: na rame.", "it": "Glave sono le teste. Un tronco va sulle spalle: na rame." },
               "reply": { "sl": "Na glave? Ha ha, potem pa ti prvi!", "en": "Onto our heads? Ha ha, you go first then!", "de": "Auf die Köpfe? Ha ha, dann du zuerst!", "it": "Sulla testa? Ah ah, allora prima tu!" } }
           ] },
-          { "who": "marko", "sl": "Uf, počasi, počasi! Vas je še daleč.", "en": "Phew, slowly, slowly! The village is still far.", "de": "Puh, langsam, langsam! Das Dorf ist noch weit.", "it": "Uff, piano, piano! Il paese è ancora lontano." }
+          { "who": "marko", "sl": "Uf, počasi, počasi! Vas je še daleč.", "en": "Phew, slowly, slowly! The village is still far.", "de": "Puh, langsam, langsam! Das Dorf ist noch weit.", "it": "Uff, piano, piano! Il paese è ancora lontano.", "done": true }
         ] }
       }
     },
@@ -140,7 +141,7 @@
               "why": { "en": "Krompir are potatoes: that's for Babica's kitchen. Here you peel the trunk: deblo.", "de": "Krompir sind Kartoffeln: das ist für Babicas Küche. Hier schält man den Stamm: deblo.", "it": "Krompir sono le patate: quelle sono per la cucina della Babica. Qui si scorteccia il tronco: deblo." },
               "reply": { "sl": "Krompir? Ha ha, zdaj nisem lačen!", "en": "Potatoes? Ha ha, I'm not hungry now!", "de": "Kartoffeln? Ha ha, ich habe jetzt keinen Hunger!", "it": "Patate? Ah ah, adesso non ho fame!" } }
           ] },
-          { "who": "luka", "sl": "Glej, kaj pade na tla?", "en": "Look, what falls to the ground?", "de": "Schau, was fällt auf den Boden?", "it": "Guarda, che cosa cade a terra?" },
+          { "who": "luka", "sl": "Glej, kaj pade na tla?", "en": "Look, what falls to the ground?", "de": "Schau, was fällt auf den Boden?", "it": "Guarda, che cosa cade a terra?", "done": true },
           { "choices": [
             { "sl": "Lubje pade na tla.", "en": "The bark falls to the ground.", "de": "Die Rinde fällt auf den Boden.", "it": "La corteccia cade a terra.", "ok": true,
               "reply": { "sl": "Ja. Zvečer ga damo v ogenj.", "en": "Yes. In the evening we put it in the fire.", "de": "Ja. Am Abend werfen wir sie ins Feuer.", "it": "Sì. Stasera la mettiamo nel fuoco." } },
@@ -172,7 +173,7 @@
               "why": { "en": "Listje is leaves; a spruce has needles. What comes off the trunk is the bark: lubje.", "de": "Listje sind Blätter; eine Fichte hat Nadeln. Was vom Stamm abgeht, ist die Rinde: lubje.", "it": "Listje sono le foglie; l'abete ha gli aghi. Quello che si toglie dal tronco è la corteccia: lubje." },
               "reply": { "sl": "Listje? Kje vidiš listje na smreki?", "en": "Leaves? Where do you see leaves on a spruce?", "de": "Blätter? Wo siehst du Blätter an einer Fichte?", "it": "Foglie? Dove vedi foglie su un abete?" } }
           ] },
-          { "who": "marko", "sl": "Glej, les pod lubjem je čisto bel!", "en": "Look, the wood under the bark is pure white!", "de": "Schau, das Holz unter der Rinde ist ganz weiß!", "it": "Guarda, il legno sotto la corteccia è bianchissimo!" }
+          { "who": "marko", "sl": "Glej, les pod lubjem je čisto bel!", "en": "Look, the wood under the bark is pure white!", "de": "Schau, das Holz unter der Rinde ist ganz weiß!", "it": "Guarda, il legno sotto la corteccia è bianchissimo!", "done": true }
         ] }
       }
     },
@@ -202,7 +203,7 @@
               "why": { "en": "Lačen is hungry, and ribbons don't eat. Colourful: pisane.", "de": "Lačen heißt hungrig, und Bänder essen nichts. Bunt: pisane.", "it": "Lačen vuol dire affamato, e i nastri non mangiano. Colorati: pisane." },
               "reply": { "sl": "Lačne? Trakovi ne jejo, hi hi!", "en": "Hungry? Ribbons don't eat, hee hee!", "de": "Hungrig? Bänder essen nichts, hihi!", "it": "Affamati? I nastri non mangiano, ih ih!" } }
           ] },
-          { "who": "luka", "sl": "Lepo! Venec je pripravljen.", "en": "Lovely! The wreath is ready.", "de": "Schön! Der Kranz ist fertig.", "it": "Bello! La corona è pronta." }
+          { "who": "luka", "sl": "Lepo! Venec je pripravljen.", "en": "Lovely! The wreath is ready.", "de": "Schön! Der Kranz ist fertig.", "it": "Bello! La corona è pronta.", "done": true }
         ] },
         "A2": { "lines": [
           { "who": "luka", "sl": "Brez venca mlaj ni pravi mlaj. Kdo ga bo spletel?", "en": "Without a wreath a maypole isn't a real maypole. Who will weave it?", "de": "Ohne Kranz ist ein Maibaum kein richtiger Maibaum. Wer flicht ihn?", "it": "Senza corona l'albero di maggio non è un vero albero di maggio. Chi la intreccia?" },
@@ -226,7 +227,7 @@
               "why": { "en": "Lačen is hungry, and ribbons don't eat. Colourful: pisani.", "de": "Lačen heißt hungrig, und Bänder essen nichts. Bunt: pisani.", "it": "Lačen vuol dire affamato, e i nastri non mangiano. Colorati: pisani." },
               "reply": { "sl": "Lačni? Trakovi ne jejo, hi hi!", "en": "Hungry? Ribbons don't eat, hee hee!", "de": "Hungrig? Bänder essen nichts, hihi!", "it": "Affamati? I nastri non mangiano, ih ih!" } }
           ] },
-          { "who": "luka", "sl": "Lepo! Jutri gre venec na vrh mlaja.", "en": "Lovely! Tomorrow the wreath goes on top of the maypole.", "de": "Schön! Morgen kommt der Kranz oben auf den Maibaum.", "it": "Bello! Domani la corona va in cima all'albero di maggio." }
+          { "who": "luka", "sl": "Lepo! Jutri gre venec na vrh mlaja.", "en": "Lovely! Tomorrow the wreath goes on top of the maypole.", "de": "Schön! Morgen kommt der Kranz oben auf den Maibaum.", "it": "Bello! Domani la corona va in cima all'albero di maggio.", "done": true }
         ] }
       }
     },
@@ -260,7 +261,7 @@
               "why": { "en": "Lačen is hungry, and a maypole doesn't eat. Tall: visok.", "de": "Lačen heißt hungrig, und ein Maibaum isst nichts. Hoch: visok.", "it": "Lačen vuol dire affamato, e un albero di maggio non mangia. Alto: visok." },
               "reply": { "sl": "Lačen? Mlaj? Ha ha, ti si {m:lačen|f:lačna}!", "en": "Hungry? The maypole? Ha ha, you're the hungry one!", "de": "Hungrig? Der Maibaum? Ha ha, du hast Hunger!", "it": "Affamato? L'albero di maggio? Ah ah, sei tu che hai fame!" } }
           ] },
-          { "who": "marko", "sl": "Bravo! Mlaj stoji sredi vasi!", "en": "Bravo! The maypole stands in the middle of the village!", "de": "Bravo! Der Maibaum steht mitten im Dorf!", "it": "Bravo! L'albero di maggio è in piedi in mezzo al paese!" }
+          { "who": "marko", "sl": "Bravo! Mlaj stoji sredi vasi!", "en": "Bravo! The maypole stands in the middle of the village!", "de": "Bravo! Der Maibaum steht mitten im Dorf!", "it": "Bravo! L'albero di maggio è in piedi in mezzo al paese!", "done": true }
         ] },
         "A2": { "lines": [
           { "who": "luka", "sl": "Venec je na vrhu, trakovi so privezani. Zdaj moramo mlaj postaviti.", "en": "The wreath is on the top, the ribbons are tied. Now we have to put up the maypole.", "de": "Der Kranz ist oben, die Bänder sind festgebunden. Jetzt müssen wir den Maibaum aufstellen.", "it": "La corona è in cima, i nastri sono legati. Ora dobbiamo innalzare l'albero di maggio." },
@@ -287,7 +288,7 @@
               "why": { "en": "Nižji means lower; you said yes to taller: višji.", "de": "Nižji heißt niedriger; du hast ja zu höher gesagt: višji.", "it": "Nižji vuol dire più basso; hai detto sì a più alto: višji." },
               "reply": { "sl": "Nižji? Ja ali ne? Zdaj pa ne vem več.", "en": "Lower? Yes or no? Now I'm confused.", "de": "Niedriger? Ja oder nein? Jetzt weiß ich nicht mehr.", "it": "Più basso? Sì o no? Adesso non ci capisco più niente." } }
           ] },
-          { "who": "marko", "sl": "Bravo, fantje! Zdaj pa godba in klobase!", "en": "Bravo, lads! And now the band and the sausages!", "de": "Bravo, Burschen! Und jetzt die Blaskapelle und die Würste!", "it": "Bravi, ragazzi! E ora la banda e le salsicce!", "fx": { "band": 1 } }
+          { "who": "marko", "sl": "Bravo, fantje! Zdaj pa godba in klobase!", "en": "Bravo, lads! And now the band and the sausages!", "de": "Bravo, Burschen! Und jetzt die Blaskapelle und die Würste!", "it": "Bravi, ragazzi! E ora la banda e le salsicce!", "fx": { "band": 1 }, "done": true }
         ] }
       }
     }

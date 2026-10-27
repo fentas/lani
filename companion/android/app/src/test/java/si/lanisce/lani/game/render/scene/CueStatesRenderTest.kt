@@ -35,6 +35,10 @@ class CueStatesRenderTest {
         "field" to listOf("farmer", "child3", "shepherd"), "watchtower" to listOf("shepherd", "child1", "farmer"),
         "market" to listOf("grandma", "innkeeper", "winemaker"), "pond" to listOf("beekeeper", "child1", "grandpa"),
         "stream" to listOf("farmer", "grandma", "shepherd"),
+        "smithy" to listOf("smith", "child1", "winemaker"), "campfire" to listOf("grandma", "grandpa", "shepherd"),
+        "workshop" to listOf("farmer", "child3", "grandma"),
+        "forest" to listOf("shepherd", "beekeeper", "hunter"), "alps" to listOf("grandpa", "shepherd", "child1"),
+        "hills" to listOf("winemaker", "grandpa", "child1"),
     )
 
     private fun frame(art: String, fx: Map<String, Float>, hour: Float = 10f, month: Int = 7, time: Double = 3.0, world: SceneWorld = SceneWorld.ALL) = SceneFrame(
@@ -67,6 +71,10 @@ class CueStatesRenderTest {
             Triple("pond", "dog", listOf(0f, 0.5f, 1f)), Triple("pond", "tadpoles", listOf(1f)),
             Triple("stream", "lamb", listOf(0f, 0.6f, 1f)), Triple("stream", "hose", listOf(0f, 0.5f, 1f)),
             Triple("stream", "cart", listOf(0f, 0.4f, 0.7f)),
+            Triple("smithy", "iron", listOf(1f, 0.6f, 0.3f, 0.05f)), Triple("field", "face", listOf(0f, 0.3f, 0.6f, 1f)),
+            Triple("pond", "heron", listOf(0.2f, 0.42f, 0.6f, 1f)), Triple("pond", "bite", listOf(0f, 0.5f, 0.8f, 1f)),
+            Triple("pond", "bucket", listOf(1f)), Triple("campfire", "flock", listOf(0.25f, 0.5f, 0.75f, 0.95f)),
+            Triple("workshop", "toy", listOf(0f, 0.4f, 0.7f, 1f)), Triple("smithy", "cart", listOf(0f, 0.45f, 0.7f, 1f)),
         )
         for ((art, name, levels) in states) for (v in levels) {
             val hour = when (name) { "hare", "dog" -> 6.5f; "horse", "lamb" -> 19f; else -> 10f }
@@ -74,6 +82,58 @@ class CueStatesRenderTest {
         }
         // the scarecrow as Tine leaves it: the learner's hat down on its nose, grandpa's red scarf
         write(render("field", frame("field", mapOf("hat" to 1f, "scarf" to 1f)), 2).canvas, "field-hat-scarf")
+        // as many as the dialog counts: Luka's 24 sheep, Janez's 8 fish; the shoe on the anvil with the sparks flying
+        write(render("campfire", frame("campfire", mapOf("flock" to 0.5f)).copy(count = 24), 2).canvas, "campfire-flock-24")
+        write(render("pond", frame("pond", mapOf("bucket" to 1f)).copy(count = 8), 2).canvas, "pond-bucket-8")
+        write(render("smithy", frame("smithy", mapOf("iron" to 0.85f, "sparks" to 1f)), 2).canvas, "smithy-iron-sparks")
+        // the forest's felled trees, the lost sheep, the bear's tracks and the does at dusk; the alps' lost bell, the milk pail
+        // at dawn and the cows counted; the hills' tractor going past
+        val more = listOf(
+            Triple("forest", "fell", listOf(0f, 0.15f, 0.5f, 0.8f, 0.9f, 1f)), Triple("forest", "fell-oak", listOf(0.5f, 0.9f, 1f)),
+            Triple("forest", "sheep", listOf(0f, 0.1f, 0.5f, 1f)), Triple("forest", "tracks", listOf(0.5f, 1f)),
+            Triple("forest", "does", listOf(0.5f, 1f)), Triple("alps", "bell-lost", listOf(0f, 0.5f, 1f)),
+            Triple("alps", "pail", listOf(0.5f, 1f)), Triple("alps", "cows", listOf(1f)), Triple("hills", "tractor", listOf(0.5f, 0.9f)),
+        )
+        for ((art, name, levels) in more) for (v in levels) {
+            val hour = when (name) { "does" -> 20.2f; "pail" -> 6.5f; else -> 10f }
+            write(render(art, frame(art, mapOf(name to v), hour), 2).canvas, "$art-$name-$v")
+        }
+        write(render("forest", frame("forest", mapOf("sheep" to 0f, "sheepbells" to 1f)), 2).canvas, "forest-sheep-bell")
+        write(render("forest", frame("forest", emptyMap(), world = SceneWorld(projects = mapOf("mlaj" to 0))), 2).canvas, "forest-mlaj-0")
+        write(render("forest", frame("forest", emptyMap(), world = SceneWorld(projects = mapOf("mlaj" to 1))), 2).canvas, "forest-mlaj-1")
+        write(render("forest", frame("forest", mapOf("does" to 1f), 20.2f).copy(count = 9), 2).canvas, "forest-does-9")
+        write(render("alps", frame("alps", mapOf("cows" to 0.55f)).copy(count = 16), 2).canvas, "alps-cows-16-0.55")
+        write(render("alps", frame("alps", mapOf("cows" to 1f)).copy(count = 12), 2).canvas, "alps-cows-12")
+        write(render("alps", frame("alps", mapOf("bell-lost" to 0f, "cowbells" to 0.5f)), 2).canvas, "alps-bell-lost-ringing")
+    }
+
+    @Test fun `the forest's spruce is felled for the maypole, lies by its stump and is carried off`() {
+        val standing = SceneWorld(projects = mapOf("mlaj" to 0))
+        val felled = SceneWorld(projects = mapOf("mlaj" to 1))
+        assertNotEquals("felled once the step is done", px("forest", emptyMap(), world = standing), px("forest", emptyMap(), world = felled))
+        assertEquals("a cue at 0 stands it as before the step", px("forest", emptyMap(), world = standing), px("forest", mapOf("fell" to 0f), world = felled))
+        assertEquals("a cue at 1 lays it as felled", px("forest", emptyMap(), world = felled), px("forest", mapOf("fell" to 1f), world = standing))
+        assertNotEquals("carried off: only the stump", px("forest", emptyMap(), world = felled), px("forest", emptyMap()))
+        assertNotEquals("the oak falls too", px("forest", emptyMap()), px("forest", mapOf("fell-oak" to 1f)))
+    }
+
+    @Test fun `the lost sheep is out of sight, comes home and is there at 1 as by herself`() {
+        val sheep = SceneTarget.Thing("sheep")
+        assertTrue("lost: not there to tap", render("forest", frame("forest", mapOf("sheep" to 0f))).hits.none { it.target == sheep })
+        assertTrue("peeking out: there to tap", render("forest", frame("forest", mapOf("sheep" to 0.1f))).hits.any { it.target == sheep })
+        assertNotEquals("on her way", px("forest", emptyMap()), px("forest", mapOf("sheep" to 0.5f)))
+        assertEquals("home: as without the cue (kept for the day)", px("forest", emptyMap()), px("forest", mapOf("sheep" to 1f)))
+    }
+
+    @Test fun `the cow's lost bell lies in the grass and is back on her at 1, the tractor gone at 1`() {
+        val bell = SceneTarget.Thing("cowbell")
+        val lost = render("alps", frame("alps", mapOf("bell-lost" to 0f)))
+        assertTrue("in the grass, there to tap", lost.hits.any { it.target == bell })
+        assertNotEquals("not on her", px("alps", emptyMap()), lost.canvas.pixels.toList())
+        assertEquals("back on her: as by itself (kept for the day)", px("alps", emptyMap()), px("alps", mapOf("bell-lost" to 1f)))
+        assertNotEquals("the pail", px("alps", emptyMap()), px("alps", mapOf("pail" to 1f)))
+        assertNotEquals("the tractor coming", px("hills", emptyMap()), px("hills", mapOf("tractor" to 0.5f)))
+        assertEquals("the tractor past us and gone (kept for the day)", px("hills", emptyMap()), px("hills", mapOf("tractor" to 1f)))
     }
 
     @Test fun `the hare stirs the grass, leaps out and is gone at 1, the grass left`() {

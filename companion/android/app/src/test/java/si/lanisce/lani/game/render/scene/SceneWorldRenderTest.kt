@@ -60,6 +60,8 @@ class SceneWorldRenderTest {
             listOf(2, 6, 7).map { s -> "ura $s/7" to world(projects = mapOf("mlaj" to 5, "mestna_ura" to s)) } +
             (1..6).map { s -> "vodnjak $s/6" to world(projects = mapOf("mlaj" to 5, "mestna_ura" to 7, "vodnjak_na_trgu" to s)) },
         "campfire" to listOf("no tent" to world(noTent), "tent" to world()),
+        // the maypole's spruce felled in the forest (lying by its stump), then carried off to the village (the stump)
+        "forest" to (0..2).map { s -> "mlaj $s/5" to world(projects = mapOf("mlaj" to s)) },
         // the rooms by their building's level: the kitchen of a hut (bare, then the stove and the table, then the clock and
         // the holy corner), the smithy (the bellows, then the wheel and the second anvil), the school (the map and the
         // globe, then the clock)

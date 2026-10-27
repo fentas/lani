@@ -47,7 +47,10 @@ class CultureScenesTest {
     private val second = LangPair(Lang.IT, Lang.SL)
 
     /** Art → its effects that bring one of its wild animals: a culture's scene of the art may leave them to the day. */
-    private val SEEN = mapOf("alps" to setOf("ibex"), "hills" to emptySet(), "sea" to emptySet())
+    private val SEEN = mapOf(
+        // the near cow's bell lost in the grass only where a line says so (v-gorah's planina-zvonec), not on every Alm
+        "alps" to setOf("ibex", "bell-lost"), "hills" to emptySet(), "sea" to emptySet(),
+    )
 
     @Test fun `each culture's scene opens from its place and uses only what its painter draws`() {
         for ((culture, id, art, from) in listOf(

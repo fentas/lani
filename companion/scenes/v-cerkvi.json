@@ -124,7 +124,7 @@
           "fx": { "candles": 0 } },
         { "choices": [
           { "sl": "Dober večer, babica Micka. Kaj delate?", "en": "Good evening, Grandma Micka. What are you doing?", "de": "Guten Abend, Oma Micka. Was machen Sie?", "it": "Buonasera, Nonna Micka. Che cosa fa?", "ok": true,
-            "reply": { "sl": "Svečo prižigam. Za vse, ki jih imam rada.", "en": "I'm lighting a candle. For everyone I love.", "de": "Ich zünde eine Kerze an. Für alle, die ich lieb habe.", "it": "Accendo una candela. Per tutti quelli a cui voglio bene." } },
+            "reply": { "sl": "Svečo prižigam. Za vse, ki jih imam rada.", "en": "I'm lighting a candle. For everyone I love.", "de": "Ich zünde eine Kerze an. Für alle, die ich lieb habe.", "it": "Accendo una candela. Per tutti quelli a cui voglio bene.", "fx": { "candles": 0.25 } } },
           { "sl": "Dober večer, babica Micka. Kaj delaš?", "en": "Good evening, Grandma Micka. What are you (ti) doing?", "de": "Guten Abend, Oma Micka. Was machst du (ti)?", "it": "Buonasera, Nonna Micka. Che cosa fai (ti)?",
             "grammar": "ti-vi", "why": { "en": "Micka says ti to you, but you say vi to her: kaj delate?", "de": "Micka sagt ti zu dir, aber du sagst vi zu ihr: kaj delate?", "it": "Micka ti dà del ti, ma tu a lei dai del vi: kaj delate?" },
             "reply": { "sl": "Delaš? Hm, kdo je tu otrok, ti ali jaz?", "en": "Delaš (you, ti)? Hm, who's the child here, you or me?", "de": "Delaš (du machst)? Hm, wer ist hier das Kind, du oder ich?", "it": "Delaš (fai, col tu)? Mah, chi è il bambino qui, tu o io?" } },
@@ -135,7 +135,7 @@
         { "who": "babica", "sl": "Pomagaj mi. Tukaj so vžigalice. Prižgi še eno svečo.", "en": "Help me. Here are the matches. Light one more candle.", "de": "Hilf mir. Hier sind die Streichhölzer. Zünde noch eine Kerze an.", "it": "Aiutami. Ecco i fiammiferi. Accendi un'altra candela." },
         { "choices": [
           { "sl": "Prav. Prižgem jo.", "en": "All right. I'll light it.", "de": "Gut. Ich zünde sie an.", "it": "Va bene. La accendo.", "ok": true,
-            "reply": { "sl": "Tako. Vidiš, kako lepo gori?", "en": "There. Do you see how nicely it burns?", "de": "So. Siehst du, wie schön sie brennt?", "it": "Ecco. Vedi come brucia bene?", "fx": { "candles": 1 } } },
+            "reply": { "sl": "Tako. Vidiš, kako lepo gori?", "en": "There. Do you see how nicely it burns?", "de": "So. Siehst du, wie schön sie brennt?", "it": "Ecco. Vedi come brucia bene?", "fx": { "candles": 0.5 } } },
           { "sl": "Prav. Prižgem ga.", "en": "All right. I'll light him.", "de": "Gut. Ich zünde ihn an.", "it": "Va bene. Lo accendo.",
             "grammar": "spol-samostalnikov", "why": { "en": "Sveča is feminine: jo (it, her). Ga is for a masculine or neuter word.", "de": "Sveča ist weiblich: jo (sie). Ga steht für ein männliches oder sächliches Wort.", "it": "Sveča è femminile: jo (la). Ga è per una parola maschile o neutra." },
             "reply": { "sl": "Ga? Štedilnik? Saj nismo v kuhinji!", "en": "Ga (him)? The stove? We're not in the kitchen!", "de": "Ga (ihn)? Den Herd? Wir sind doch nicht in der Küche!", "it": "Ga (lo)? Il fornello? Non siamo mica in cucina!" } },
@@ -167,7 +167,7 @@
             "grammar": "rodilnik-kolicina", "why": { "en": "After malo (a little) comes the genitive: malo vode. Voda is the nominative.", "de": "Nach malo (ein wenig) steht der Genitiv: malo vode. Voda ist der Nominativ.", "it": "Dopo malo (un po') viene il genitivo: malo vode. Voda è il nominativo." },
             "reply": { "sl": "Kaj? Voda teče? Kje? Glasneje!", "en": "What? Water's running? Where? Louder!", "de": "Was? Wasser läuft? Wo? Lauter!", "it": "Cosa? Scorre l'acqua? Dove? Più forte!" } },
           { "sl": "Prinesem malo vode.", "en": "I'll bring a little water.", "de": "Ich hole ein wenig Wasser.", "it": "Porto un po' d'acqua.", "ok": true,
-            "reply": { "sl": "{m:Priden fant|f:Pridno dekle}! Tam pri vratih je vrč.", "en": "{m:Good lad|f:Good lass}! There's a jug over there, by the door.", "de": "{m:Braver Junge|f:Braves Mädchen}! Dort bei der Tür steht ein Krug.", "it": "{m:Bravo ragazzo|f:Brava ragazza}! Là, vicino alla porta, c'è una brocca." } },
+            "reply": { "sl": "{m:Priden fant|f:Pridno dekle}! Vrč je zunaj, pri vratih.", "en": "{m:Good lad|f:Good lass}! The jug's outside, by the door.", "de": "{m:Braver Junge|f:Braves Mädchen}! Der Krug steht draußen bei der Tür.", "it": "{m:Bravo ragazzo|f:Brava ragazza}! La brocca è fuori, vicino alla porta." } },
           { "sl": "Prinesem malo vina.", "en": "I'll bring a little wine.", "de": "Ich hole ein wenig Wein.", "it": "Porto un po' di vino.",
             "why": { "en": "Vino is wine. The flowers need water: malo vode.", "de": "Vino ist Wein. Die Blumen brauchen Wasser: malo vode.", "it": "Vino è il vino. I fiori hanno bisogno d'acqua: malo vode." },
             "reply": { "sl": "Vina? Za rože? Oho, potem bodo rože vesele!", "en": "Wine? For the flowers? Oho, then they'll be merry flowers!", "de": "Wein? Für die Blumen? Oho, dann werden das lustige Blumen!", "it": "Vino? Per i fiori? Oho, allora saranno fiori allegri!" } }
@@ -325,7 +325,7 @@
             "grammar": "orodnik", "why": { "en": "Z (with) takes the instrumental: z drugo svečo.", "de": "Z (mit) verlangt den Instrumental: z drugo svečo.", "it": "Z (con) vuole lo strumentale: z drugo svečo." },
             "reply": { "sl": "Z … kaj? Počasi, stara sem.", "en": "With … what? Slowly, I'm old.", "de": "Mit … was? Langsam, ich bin alt.", "it": "Con … cosa? Piano, sono vecchia." } },
           { "sl": "Prižgem jo z drugo svečo.", "en": "I'll light it with another candle.", "de": "Ich zünde sie mit einer anderen Kerze an.", "it": "La accendo con un'altra candela.", "ok": true,
-            "reply": { "sl": "Pametno! Glej, spet gori.", "en": "Clever! Look, it's burning again.", "de": "Klug! Schau, sie brennt wieder.", "it": "{m:Furbo|f:Furba}! Guarda, brucia di nuovo.", "fx": { "candles": 1 } } },
+            "reply": { "sl": "Pametno! Glej, spet gori.", "en": "Clever! Look, it's burning again.", "de": "Klug! Schau, sie brennt wieder.", "it": "{m:Furbo|f:Furba}! Guarda, brucia di nuovo.", "fx": { "candles": 0.25 } } },
           { "sl": "Prižgem jo z vodo.", "en": "I'll light it with water.", "de": "Ich zünde sie mit Wasser an.", "it": "La accendo con l'acqua.",
             "why": { "en": "Voda (water) puts a flame out. You light it from a flame: z drugo svečo.", "de": "Voda (Wasser) löscht eine Flamme. Anzünden kannst du sie mit einer Flamme: z drugo svečo.", "it": "Voda (acqua) spegne la fiamma. Si accende con una fiamma: z drugo svečo." },
             "reply": { "sl": "Z vodo? Ojoj, voda ne gori!", "en": "With water? Oh dear, water doesn't burn!", "de": "Mit Wasser? Oje, Wasser brennt nicht!", "it": "Con l'acqua? Oddio, l'acqua non brucia!" } }

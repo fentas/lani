@@ -98,7 +98,7 @@
       "fx_stays": true,
       "lines": [
         { "who": "davide", "it": "Ciao, {learner}! Le pecore hanno sete. Guarda come bevono!", "sl": "Živjo, {learner}! Ovce so žejne. Poglej, kako pijejo!", "en": "Hi, {learner}! The sheep are thirsty. Look how they drink!", "de": "Hallo, {learner}! Die Schafe haben Durst. Schau, wie sie trinken!",
-          "fx": { "lamb": 0.2 } },
+          "fx": { "lamb": 0.2, "flock": 0.5 } },
         { "choices": [
           { "it": "Ciao, Davide! Ma l'agnellino non beve.", "sl": "Živjo, Davide! Ampak jagenjček ne pije.", "en": "Hi, Davide! But the little lamb isn't drinking.", "de": "Hallo, Davide! Aber das Lämmchen trinkt nicht.", "ok": true,
             "reply": { "it": "Hai ragione. Ha paura dell'acqua, poverino.", "sl": "Prav imaš. Boji se vode, revček.", "en": "You're right. He's scared of the water, poor thing.", "de": "Du hast recht. Es hat Angst vor dem Wasser, das Arme." } },
@@ -114,7 +114,8 @@
             "grammar": "aggettivi-accordo", "why": { "sl": "Acqua je ženskega spola: l'acqua è buona.", "en": "Acqua is feminine: l'acqua è buona.", "de": "Acqua ist weiblich: l'acqua è buona." },
             "reply": { "it": "Buono? L'agnellino è buono, sì. E l'acqua?", "sl": "Dober? Jagenjček je priden, ja. Pa voda?", "en": "Buono (good, him)? The lamb's good, yes. And the water?", "de": "Buono (gut, er)? Das Lämmchen ist brav, ja. Und das Wasser?" } }
         ] },
-        { "who": "davide", "it": "Bravo, agnellino! E grazie, {learner}. Domani ancora?", "sl": "Priden jagenjček! In hvala, {learner}. Jutri spet?", "en": "Good little lamb! And thank you, {learner}. Again tomorrow?", "de": "Braves Lämmchen! Und danke, {learner}. Morgen wieder?" }
+        { "who": "davide", "it": "Bravo, agnellino! E grazie, {learner}. Domani ancora?", "sl": "Priden jagenjček! In hvala, {learner}. Jutri spet?", "en": "Good little lamb! And thank you, {learner}. Again tomorrow?", "de": "Braves Lämmchen! Und danke, {learner}. Morgen wieder?",
+          "fx": { "flock": 1 } }
       ]
     }
   ],
@@ -143,12 +144,15 @@
     },
     {
       "id": "bucato-vento",
+      "fx_stays": true,
+      "sky_stays": false,
       "memory": { "it": "il lenzuolo che hai preso al volo", "sl": "rjuho, ki si jo {m:ujel|f:ujela} v zraku", "en": "the sheet you caught in mid-air", "de": "das Laken, das du im Flug gefangen hast" },
       "lines": [
-        { "who": "rosa", "it": "Tesoro, aiutami! Il vento porta via il lenzuolo!", "sl": "Srček, pomagaj! Veter odnaša rjuho!", "en": "Sweetheart, help! The wind is blowing the sheet away!", "de": "Schatz, hilf mir! Der Wind weht das Laken weg!" },
+        { "who": "rosa", "it": "Tesoro, aiutami! Il vento porta via il lenzuolo!", "sl": "Srček, pomagaj! Veter odnaša rjuho!", "en": "Sweetheart, help! The wind is blowing the sheet away!", "de": "Schatz, hilf mir! Der Wind weht das Laken weg!",
+          "fx": { "sheet": 0.45 }, "sky": { "wind": 0.6 } },
         { "choices": [
           { "it": "Non ti preoccupare, nonna! Lo prendo io!", "sl": "Ne skrbi, babica! Jaz jo ujamem!", "en": "Don't worry, Nonna! I'll catch it!", "de": "Keine Sorge, Oma! Ich hol es!", "ok": true,
-            "reply": { "it": "Oh, {m:bravo|f:brava}! L'hai preso al volo!", "sl": "Oh, bravo! {m:Ujel|f:Ujela} si jo v zraku!", "en": "Oh, well done! You caught it in mid-air!", "de": "Oh, super! Du hast es im Flug gefangen!" } },
+            "reply": { "it": "Oh, {m:bravo|f:brava}! L'hai preso al volo!", "sl": "Oh, bravo! {m:Ujel|f:Ujela} si jo v zraku!", "en": "Oh, well done! You caught it in mid-air!", "de": "Oh, super! Du hast es im Flug gefangen!", "fx": { "sheet": 1 } } },
           { "it": "Non ti preoccupare, nonna! Lo prendi io!", "sl": "Ne skrbi, babica! Jaz jo ujameš!", "en": "Don't worry, Nonna! I you'll catch it!", "de": "Keine Sorge, Oma! Ich holst es!",
             "grammar": "presente-regolare", "why": { "sl": "Prendi je ti vzameš. Z io: prendo (jaz vzamem).", "en": "Prendi is you take. With io: prendo (I take).", "de": "Prendi heißt du nimmst. Mit io: prendo (ich nehme)." },
             "reply": { "it": "Io? Ma io sono vecchia, corri tu!", "sl": "Jaz? Saj sem stara, teci ti!", "en": "Me? But I'm old, you run!", "de": "Ich? Ich bin doch alt, lauf du!" } }
@@ -170,7 +174,7 @@
       "fx_stays": true,
       "memory": { "it": "le pecore che abbiamo contato al ruscello", "sl": "ovce, ki sva jih preštela pri potoku", "en": "the sheep we counted at the stream", "de": "die Schafe, die wir am Bach gezählt haben" },
       "lines": [
-        { "who": "davide", "it": "{learner}, conta le pecore! Ci sono tutte?", "sl": "{learner}, preštej ovce! So vse tu?", "en": "{learner}, count the sheep! Are they all here?", "de": "{learner}, zähl die Schafe! Sind alle da?" },
+        { "who": "davide", "it": "{learner}, conta le pecore! Ci sono tutte?", "sl": "{learner}, preštej ovce! So vse tu?", "en": "{learner}, count the sheep! Are they all here?", "de": "{learner}, zähl die Schafe! Sind alle da?", "fx": { "flock": 0.5 } },
         { "choices": [
           { "it": "{C'è|Ci sono} {n} {pecora|pecore} al ruscello!", "sl": "Pri potoku {je|sta|so|je} {n} {ovca|ovci|ovce|ovc}!", "en": "There {is|are} {n} {sheep|sheep} at the stream!", "de": "Am Bach {ist|sind} {n} {Schaf|Schafe}!", "ok": true,
             "reply": { "it": "Giusto! Tutte qui. Brave pecore.", "sl": "Tako je! Vse so tu. Pridne ovce.", "en": "That's right! All here. Good sheep.", "de": "Richtig! Alle da. Brave Schafe." } },
@@ -182,7 +186,7 @@
             "reply": { "it": "C'è? Una o tante? Dillo bene!", "sl": "C'è (je)? Ena ali veliko? Povej prav!", "en": "C'è (there is)? One or lots? Say it properly!", "de": "C'è (da ist)? Eins oder viele? Sag es richtig!" } }
         ] },
         { "who": "davide", "it": "E Bianca? Bianca beve sempre per ultima!", "sl": "Pa Bianca? Bianca vedno pije zadnja!", "en": "And Bianca? Bianca always drinks last!", "de": "Und Bianca? Bianca trinkt immer als Letzte!",
-          "fx": { "lamb": 1 } }
+          "fx": { "straggler": 1 } }
       ]
     }
   ]

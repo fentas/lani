@@ -66,7 +66,7 @@
             "reply": { "sl": "Kdo? Ti, {learner}! Kdo pa drug?", "en": "Kdo, who? You, {learner}! Who else?", "de": "Kdo, wer? Du, {learner}! Wer denn sonst?", "it": "Kdo, chi? Tu, {learner}! E chi se no?" } }
         ] },
         { "who": "france", "sl": "Tako! Poglej, kolo se vrti. Mlin melje.", "en": "That's it! Look, the wheel is turning. The mill is grinding.", "de": "So! Schau, das Rad dreht sich. Die Mühle mahlt.", "it": "Ecco! Guarda, la ruota gira. Il mulino macina.", "fx": { "wheel": 1 } },
-        { "who": "france", "sl": "Zdaj pa štejva vreče. Ena vreča, dve vreči, tri vreče …", "en": "Now let's count the sacks, the two of us. One sack, two sacks, three sacks …", "de": "Jetzt zählen wir zwei die Säcke. Ein Sack, zwei Säcke, drei Säcke …", "it": "Adesso contiamo i sacchi, noi due. Un sacco, due sacchi, tre sacchi …" },
+        { "who": "france", "sl": "Zdaj pa štejva vreče. Ena vreča, dve vreči, tri vreče …", "en": "Now let's count the sacks, the two of us. One sack, two sacks, three sacks …", "de": "Jetzt zählen wir zwei die Säcke. Ein Sack, zwei Säcke, drei Säcke …", "it": "Adesso contiamo i sacchi, noi due. Un sacco, due sacchi, tre sacchi …", "fx": { "sacks": 1 } },
         { "choices": [
           { "sl": "Štiri vreče, pet vreč!", "en": "Four sacks, five sacks!", "de": "Vier Säcke, fünf Säcke!", "it": "Quattro sacchi, cinque sacchi!", "ok": true,
             "reply": { "sl": "Pet vreč moke! Dovolj za vso vas.", "en": "Five sacks of flour! Enough for the whole village.", "de": "Fünf Säcke Mehl! Genug für das ganze Dorf.", "it": "Cinque sacchi di farina! Bastano per tutto il paese." } },
@@ -105,13 +105,13 @@
             "grammar": "dajalnik", "why": { "en": "Pomagati takes the dative: vam, not vas.", "de": "Pomagati steht mit dem Dativ: vam, nicht vas.", "it": "Pomagati vuole il dativo: vam, non vas." },
             "reply": { "sl": "Vas? Mene in koga še? Potok?", "en": "Vas (you all)? Me and who else? The stream?", "de": "Vas (euch)? Mich und wen noch? Den Bach?", "it": "Vas (voi)? Me e chi altro? Il ruscello?" } }
         ] },
-        { "who": "france", "sl": "Vidiš tisto skalo? Tam bo stalo kolo. Voda ga bo vrtela.", "en": "Do you see that rock? The wheel will stand there. The water will turn it.", "de": "Siehst du den Felsen dort? Dort wird das Rad stehen. Das Wasser wird es drehen.", "it": "Vedi quella roccia? Lì ci sarà la ruota. L'acqua la farà girare." },
+        { "who": "france", "sl": "Vidiš tisto mesto pri gozdu? Tam bo stalo kolo. Voda ga bo vrtela.", "en": "Do you see that spot by the woods? The wheel will stand there. The water will turn it.", "de": "Siehst du die Stelle beim Wald? Dort wird das Rad stehen. Das Wasser wird es drehen.", "it": "Vedi quel posto vicino al bosco? Lì ci sarà la ruota. L'acqua la farà girare." },
         { "choices": [
           { "sl": "Lepo! Kdaj bo mlin gotov?", "en": "Lovely! When will the mill be ready?", "de": "Schön! Wann ist die Mühle fertig?", "it": "Bello! Quando sarà pronto il mulino?", "ok": true,
             "reply": { "sl": "Ko bomo vsi pomagali. Korak za korakom!", "en": "When we all help. Step by step!", "de": "Wenn wir alle helfen. Schritt für Schritt!", "it": "Quando aiuteremo tutti. Passo dopo passo!" } },
           { "sl": "Lepo! Kje bo mlin gotov?", "en": "Lovely! Where will the mill be ready?", "de": "Schön! Wo ist die Mühle fertig?", "it": "Bello! Dove sarà pronto il mulino?",
             "grammar": "vprasalnice", "why": { "en": "Kje asks where. To ask when: kdaj.", "de": "Kje fragt nach dem Wo. Um nach dem Wann zu fragen: kdaj.", "it": "Kje chiede dove. Per chiedere quando: kdaj." },
-            "reply": { "sl": "Kje? Tam, pri tisti skali. Saj sem že rekel!", "en": "Kje, where? There, by that rock. I told you already!", "de": "Kje, wo? Dort, bei dem Felsen. Hab ich doch schon gesagt!", "it": "Kje, dove? Là, vicino a quella roccia. L'ho già detto!" } },
+            "reply": { "sl": "Kje? Tam, pri gozdu. Saj sem že rekel!", "en": "Kje, where? There, by the woods. I told you already!", "de": "Kje, wo? Dort, beim Wald. Hab ich doch schon gesagt!", "it": "Kje, dove? Là, vicino al bosco. L'ho già detto!" } },
           { "sl": "Super! Kdaj začnemo?", "en": "Great! When do we start?", "de": "Super! Wann fangen wir an?", "it": "Fantastico! Quando cominciamo?", "ok": true,
             "reply": { "sl": "Jutri ob sedmih. Sedem, sedem, ne pozabi!", "en": "Tomorrow at seven. Seven, seven, don't forget!", "de": "Morgen um sieben. Sieben, sieben, nicht vergessen!", "it": "Domani alle sette. Sette, sette, non dimenticare!" } }
         ] },
@@ -154,8 +154,9 @@
     },
     {
       "id": "ovce",
+      "fx_stays": true,
       "lines": [
-        { "who": "luka", "sl": "Ej, {learner}! Ovce so žejne. Ves dan so bile na soncu.", "en": "Hey, {learner}! The sheep are thirsty. They were in the sun all day.", "de": "He, {learner}! Die Schafe haben Durst. Sie waren den ganzen Tag in der Sonne.", "it": "Ehi, {learner}! Le pecore hanno sete. Sono state al sole tutto il giorno." },
+        { "who": "luka", "sl": "Ej, {learner}! Ovce so žejne. Ves dan so bile na soncu.", "en": "Hey, {learner}! The sheep are thirsty. They were in the sun all day.", "de": "He, {learner}! Die Schafe haben Durst. Sie waren den ganzen Tag in der Sonne.", "it": "Ehi, {learner}! Le pecore hanno sete. Sono state al sole tutto il giorno.", "fx": { "flock": 0.5 } },
         { "choices": [
           { "sl": "Koliko ovc imaš?", "en": "How many sheep do you have?", "de": "Wie viele Schafe hast du?", "it": "Quante pecore hai?", "ok": true,
             "reply": { "sl": "Dvajset. In Bela, ki se vedno izgubi.", "en": "Twenty. And Bela, who always gets lost.", "de": "Zwanzig. Und Bela, die sich immer verläuft.", "it": "Venti. E Bela, che si perde sempre." } },
@@ -177,7 +178,7 @@
             "grammar": "rodilnik-predlogi", "why": { "en": "Iz takes the genitive: iz vode.", "de": "Iz steht mit dem Genitiv: iz vode.", "it": "Iz vuole il genitivo: iz vode." },
             "reply": { "sl": "Iz voda? Ej, kaj praviš?", "en": "Iz voda? Hey, what are you saying?", "de": "Iz voda? Ej, was sagst du?", "it": "Iz voda? Ehi, che dici?" } }
         ] },
-        { "who": "luka", "sl": "Mrak je. Greva, ovce morajo domov.", "en": "It's getting dark. Let's go, the sheep have to go home.", "de": "Es wird dunkel. Gehen wir, die Schafe müssen nach Hause.", "it": "Si fa buio. Andiamo, le pecore devono tornare a casa." },
+        { "who": "luka", "sl": "Mrak je. Greva, ovce morajo domov.", "en": "It's getting dark. Let's go, the sheep have to go home.", "de": "Es wird dunkel. Gehen wir, die Schafe müssen nach Hause.", "it": "Si fa buio. Andiamo, le pecore devono tornare a casa.", "fx": { "flock": 1, "trout": 0 } },
         { "choices": [
           { "sl": "Greva. Jaz grem {m:prvi|f:prva} čez brv.", "en": "Let's go. I'll go over the footbridge first.", "de": "Gehen wir. Ich gehe {m:als Erster|f:als Erste} über den Steg.", "it": "Andiamo. Attraverso io {m:per primo|f:per prima} la passerella.", "ok": true,
             "reply": { "sl": "Dobro. Pazi, brv je mokra!", "en": "Good. Careful, the footbridge is wet!", "de": "Gut. Pass auf, der Steg ist nass!", "it": "Bene. {m:Attento|f:Attenta}, la passerella è bagnata!" } },
@@ -251,7 +252,7 @@
             "reply": { "sl": "Ja. Zjutraj vsi iščejo zajtrk.", "en": "Yes. In the morning everyone looks for breakfast.", "de": "Ja. Am Morgen suchen alle ihr Frühstück.", "it": "Sì. La mattina tutti cercano la colazione." } },
           { "sl": "Tudi ribe je že budne.", "en": "The fish is awake already too.", "de": "Auch die Fische ist schon wach.", "it": "Anche i pesci è già sveglio.",
             "grammar": "biti", "why": { "en": "Ribe is plural: so (they are).", "de": "Ribe ist Plural: so (sie sind).", "it": "Ribe è plurale: so (sono)." },
-            "reply": { "sl": "Je? Ena sama? Jaz jih vidim sedem. Sedem!", "en": "Je, just one fish? I see seven of them. Seven!", "de": "Je, nur ein Fisch? Ich sehe sieben. Sieben!", "it": "Je, un pesce solo? Io ne vedo sette. Sette!" } },
+            "reply": { "sl": "Je? Ena sama? V potoku jih je veliko!", "en": "Je, just one fish? There are lots in the stream!", "de": "Je, nur ein Fisch? Im Bach gibt es viele!", "it": "Je, un pesce solo? Nel ruscello ce ne sono tanti!" } },
           { "sl": "Tudi ribe so že buden.", "en": "The fish are awake already too.", "de": "Auch die Fische sind schon wach.", "it": "Anche i pesci sono già svegli.",
             "grammar": "pridevniki-ujemanje", "why": { "en": "Budne agrees with ribe: feminine plural, budne.", "de": "Budne richtet sich nach ribe: weiblich Plural, budne.", "it": "Budne concorda con ribe: femminile plurale, budne." },
             "reply": { "sl": "Buden? Ja, jaz sem buden že od petih!", "en": "Buden, awake? Yes, I am, since five o'clock!", "de": "Buden, wach? Ja, ich bin wach, seit fünf Uhr!", "it": "Buden, sveglio? Sì, io lo sono, dalle cinque!" } }
@@ -267,17 +268,18 @@
             "grammar": "tozilnik", "why": { "en": "A mill is a thing: its accusative is like the nominative, mlin.", "de": "Eine Mühle ist ein Ding: Ihr Akkusativ ist wie der Nominativ, mlin.", "it": "Un mulino è una cosa: il suo accusativo è come il nominativo, mlin." },
             "reply": { "sl": "Mlina? Ja, mlina še nimam. Ampak kmalu!", "en": "Mlina (no mill)? Right, I've no mill yet. But soon!", "de": "Mlina (keine Mühle)? Ja, eine Mühle habe ich noch nicht. Aber bald!", "it": "Mlina (niente mulino)? Già, il mulino non ce l'ho ancora. Ma presto!" } }
         ] },
-        { "who": "france", "sl": "Sonce! Megla gre. Pojdiva na zajtrk.", "en": "The sun! The mist is going. Let us two go and have breakfast.", "de": "Die Sonne! Der Nebel geht. Gehen wir zwei frühstücken.", "it": "Il sole! La nebbia se ne va. Andiamo a fare colazione, noi due.", "sky": { "fog": 0 } }
+        { "who": "france", "sl": "Megla gre. Pojdiva na zajtrk.", "en": "The mist is going. Let us two go and have breakfast.", "de": "Der Nebel geht. Gehen wir zwei frühstücken.", "it": "La nebbia se ne va. Andiamo a fare colazione, noi due.", "sky": { "fog": 0 } }
       ]
     }
   ],
   "variants": [
     {
       "id": "ovce-stejem",
+      "fx_stays": true,
       "count": { "from": "dice", "min": 12, "max": 24, "gender": "f" },
       "memory": { "sl": "večer, ko sva štela ovce pri potoku", "en": "the evening we counted the sheep at the brook", "de": "den Abend, an dem wir die Schafe am Bach gezählt haben", "it": "la sera in cui abbiamo contato le pecore al ruscello" },
       "lines": [
-        { "who": "luka", "sl": "Ej, {learner}! Pomagaj mi. Preštej ovce pri vodi!", "en": "Hey, {learner}! Help me. Count the sheep at the water!", "de": "He, {learner}! Hilf mir. Zähl die Schafe am Wasser!", "it": "Ehi, {learner}! Aiutami. Conta le pecore all'acqua!" },
+        { "who": "luka", "sl": "Ej, {learner}! Pomagaj mi. Preštej ovce pri vodi!", "en": "Hey, {learner}! Help me. Count the sheep at the water!", "de": "He, {learner}! Hilf mir. Zähl die Schafe am Wasser!", "it": "Ehi, {learner}! Aiutami. Conta le pecore all'acqua!", "fx": { "flock": 0.5 } },
         { "choices": [
           { "sl": "Pri vodi {je|sta|so|je} {n} {!ovca|ovci|ovce|ovc}.", "en": "There {is|are} {n} {sheep|sheep} at the water.", "de": "Am Wasser {ist|sind} {n} {Schaf|Schafe}.", "it": "All'acqua {c'è|ci sono} {n} {pecora|pecore}.", "wrong_form": 1, "grammar": "stevila-samostalniki",
             "why": { "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on, the genitive plural}: {n} {ovca|ovci|ovce|ovc}.", "de": "{Eins steht mit dem Singular|Zwei steht mit dem Dual|Drei und vier stehen mit dem Plural|Ab fünf steht der Genitiv Plural}: {n} {ovca|ovci|ovce|ovc}.", "it": "{Uno vuole il singolare|Due vuole il duale|Tre e quattro vogliono il plurale|Da cinque in su, il genitivo plurale}: {n} {ovca|ovci|ovce|ovc}." },
@@ -299,7 +301,7 @@
           { "sl": "Ja, jutri bom spet {m:prišel|f:prišla}.", "en": "Yes, I'll come again tomorrow.", "de": "Ja, morgen komme ich wieder.", "it": "Sì, domani verrò di nuovo.", "ok": true,
             "reply": { "sl": "Super! Ovce te bodo čakale.", "en": "Great! The sheep will be waiting for you.", "de": "Super! Die Schafe werden auf dich warten.", "it": "Forte! Le pecore ti aspetteranno." } }
         ] },
-        { "who": "luka", "sl": "Čav, {learner}! Ovce, domov!", "en": "Bye, {learner}! Sheep, home!", "de": "Tschüss, {learner}! Schafe, nach Hause!", "it": "Ciao, {learner}! Pecore, a casa!" }
+        { "who": "luka", "sl": "Čav, {learner}! Ovce, domov!", "en": "Bye, {learner}! Sheep, home!", "de": "Tschüss, {learner}! Schafe, nach Hause!", "it": "Ciao, {learner}! Pecore, a casa!", "fx": { "flock": 1 } }
       ]
     },
     {
@@ -338,7 +340,7 @@
       "count": { "from": "food", "per": 20, "min": 2, "max": 15, "gender": "f" },
       "memory": { "sl": "jutro, ko sva štela vreče moke", "en": "the morning we counted the sacks of flour", "de": "den Morgen, an dem wir die Mehlsäcke gezählt haben", "it": "la mattina in cui abbiamo contato i sacchi di farina" },
       "lines": [
-        { "who": "france", "sl": "Dobro jutro, {learner}! Mlin melje. Poglej vreče in jih preštej!", "en": "Good morning, {learner}! The mill is grinding. Look at the sacks and count them!", "de": "Guten Morgen, {learner}! Die Mühle mahlt. Schau dir die Säcke an und zähl sie!", "it": "Buongiorno, {learner}! Il mulino macina. Guarda i sacchi e contali!", "fx": { "wheel": 1 } },
+        { "who": "france", "sl": "Dobro jutro, {learner}! Mlin melje. Poglej vreče in jih preštej!", "en": "Good morning, {learner}! The mill is grinding. Look at the sacks and count them!", "de": "Guten Morgen, {learner}! Die Mühle mahlt. Schau dir die Säcke an und zähl sie!", "it": "Buongiorno, {learner}! Il mulino macina. Guarda i sacchi e contali!", "fx": { "wheel": 1, "sacks": 1 } },
         { "choices": [
           { "sl": "Tu {je|sta|so|je} {n} {vreča|vreči|vreče|vreč} moke.", "en": "There {is|are} {n} {sack|sacks} of flour here.", "de": "Hier {ist|sind} {n} {Sack|Säcke} Mehl.", "it": "Qui {c'è|ci sono} {n} {sacco|sacchi} di farina.", "ok": true,
             "reply": { "sl": "Tako je. Jaz sem preštel dvakrat!", "en": "That's right. I counted twice!", "de": "Stimmt. Ich habe zweimal gezählt!", "it": "Esatto. Io ho contato due volte!" } },
@@ -367,7 +369,7 @@
       "id": "mlin-dez",
       "memory": { "sl": "jutro po dežju, ko je mlin mlel najhitreje", "en": "the morning after the rain, when the mill ground its fastest", "de": "den Morgen nach dem Regen, als die Mühle am schnellsten mahlte", "it": "la mattina dopo la pioggia, quando il mulino macinava più veloce che mai" },
       "lines": [
-        { "who": "france", "sl": "Dobro jutro, {learner}! Ponoči je deževalo. Poglej potok!", "en": "Good morning, {learner}! It rained in the night. Look at the stream!", "de": "Guten Morgen, {learner}! In der Nacht hat es geregnet. Schau dir den Bach an!", "it": "Buongiorno, {learner}! Stanotte ha piovuto. Guarda il ruscello!", "fx": { "wheel": 1 } },
+        { "who": "france", "sl": "Dobro jutro, {learner}! Ponoči je deževalo. Poglej potok!", "en": "Good morning, {learner}! It rained in the night. Look at the stream!", "de": "Guten Morgen, {learner}! In der Nacht hat es geregnet. Schau dir den Bach an!", "it": "Buongiorno, {learner}! Stanotte ha piovuto. Guarda il ruscello!", "fx": { "wheel": 1, "full": 0.8 } },
         { "choices": [
           { "sl": "Voda je danes hitrejši kot včeraj.", "en": "The water (he) is faster today than yesterday.", "de": "Das Wasser (er) ist heute schneller als gestern.", "it": "L'acqua (lui) oggi è più veloce di ieri.",
             "grammar": "pridevniki-ujemanje", "why": { "en": "Voda is feminine: hitrejša. Hitrejši goes with a masculine word (hitrejši potok).", "de": "Voda ist weiblich: hitrejša. Hitrejši gehört zu einem männlichen Wort (hitrejši potok).", "it": "Voda è femminile: hitrejša. Hitrejši va con una parola maschile (hitrejši potok)." },
@@ -558,7 +560,7 @@
           { "sl": "Poglejte, postrv!", "en": "Look, a trout!", "de": "Schauen Sie, eine Forelle!", "it": "Guardi, una trota!", "ok": true,
             "reply": { "sl": "Ja! Tudi ona je zgodaj vstala.", "en": "Yes! She got up early too.", "de": "Ja! Die ist auch früh aufgestanden.", "it": "Sì! Anche lei si è alzata presto.", "fx": { "trout": 1 } } }
         ] },
-        { "who": "france", "sl": "Sonce! Megla gre, potok je spet tu.", "en": "The sun! The fog is going, the stream is back.", "de": "Die Sonne! Der Nebel geht, der Bach ist wieder da.", "it": "Il sole! La nebbia se ne va, il ruscello è di nuovo qui.", "sky": { "fog": 0 } }
+        { "who": "france", "sl": "Megla gre, potok je spet tu.", "en": "The fog is going, the stream is back.", "de": "Der Nebel geht, der Bach ist wieder da.", "it": "La nebbia se ne va, il ruscello è di nuovo qui.", "sky": { "fog": 0 } }
       ]
     },
     {
@@ -588,7 +590,7 @@
             "grammar": "rodilnik-nikalnica", "why": { "en": "Ne bo (there won't be) takes the genitive: ne bo strahu.", "de": "Ne bo (es wird nicht geben) steht mit dem Genitiv: ne bo strahu.", "it": "Ne bo (non ci sarà) vuole il genitivo: ne bo strahu." },
             "reply": { "sl": "Strah? Ha, strah je v glavi, ne v megli.", "en": "Fear? Ha, fear lives in your head, not in the fog.", "de": "Angst? Ha, die Angst ist im Kopf, nicht im Nebel.", "it": "Paura? Ah, la paura sta nella testa, non nella nebbia." } }
         ] },
-        { "who": "france", "sl": "Glej, sonce. Megla gre. Pa povodni mož z njo!", "en": "Look, the sun. The fog is going. And the water man with it!", "de": "Schau, die Sonne. Der Nebel geht. Und der Wassermann mit ihm!", "it": "Guarda, il sole. La nebbia se ne va. E l'uomo dell'acqua con lei!", "sky": { "fog": 0 } }
+        { "who": "france", "sl": "Glej, megla gre. Pa povodni mož z njo!", "en": "Look, the fog is going. And the water man with it!", "de": "Schau, der Nebel geht. Und der Wassermann mit ihm!", "it": "Guarda, la nebbia se ne va. E l'uomo dell'acqua con lei!", "sky": { "fog": 0 } }
       ]
     }
   ]

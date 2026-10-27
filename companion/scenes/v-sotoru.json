@@ -50,11 +50,11 @@
       "id": "svetilka",
       "fx_stays": true,
       "lines": [
-        { "who": "luka", "sl": "{learner}! Dober večer. Poglej, svetilko sem ti prinesel. V šotoru je tema.", "en": "{learner}! Good evening. Look, I have brought you a lamp. It is dark in the tent.", "de": "{learner}! Guten Abend. Schau, ich habe dir eine Lampe gebracht. Im Zelt ist es dunkel.", "it": "{learner}! Buonasera. Guarda, ti ho portato una lampada. Nella tenda è buio.",
+        { "who": "luka", "sl": "{learner}! Dober večer. Poglej, svetilko sem ti prinesel. Ponoči je v šotoru tema.", "en": "{learner}! Good evening. Look, I have brought you a lamp. At night it is dark in the tent.", "de": "{learner}! Guten Abend. Schau, ich habe dir eine Lampe gebracht. Nachts ist es im Zelt dunkel.", "it": "{learner}! Buonasera. Guarda, ti ho portato una lampada. Di notte nella tenda è buio.",
           "fx": { "lantern": 0 } },
         { "choices": [
           { "sl": "Dober večer, Luka! Hvala. Obesi jo tukaj, v šotoru.", "en": "Good evening, Luka! Thanks. Hang it here, in the tent.", "de": "Guten Abend, Luka! Danke. Häng sie hier auf, im Zelt.", "it": "Buonasera, Luka! Grazie. Appendila qui, nella tenda.", "ok": true,
-            "reply": { "sl": "Tako. Zdaj vidiš.", "en": "There. Now you can see.", "de": "So. Jetzt siehst du etwas.", "it": "Ecco. Adesso ci vedi." } },
+            "reply": { "sl": "Tako, zdaj visi.", "en": "There, now it's hanging.", "de": "So, jetzt hängt sie.", "it": "Ecco, adesso è appesa." } },
           { "sl": "Dober večer, Luka! Hvala. Obesi jo tukaj, v šotor.", "en": "Good evening, Luka! Thanks. Hang it here, into the tent.", "de": "Guten Abend, Luka! Danke. Häng sie hier auf, ins Zelt.", "it": "Buonasera, Luka! Grazie. Appendila qui, verso la tenda.",
             "grammar": "kje-mestnik-orodnik", "why": { "en": "Where something hangs is a place: v + locative, v šotoru. V šotor (accusative) is a direction, into the tent.", "de": "Wo etwas hängt, ist ein Ort: v + Lokativ, v šotoru. V šotor (Akkusativ) ist eine Richtung, ins Zelt hinein.", "it": "Dove una cosa è appesa è un luogo: v + locativo, v šotoru. V šotor (accusativo) è una direzione, dentro la tenda." },
             "reply": { "sl": "V šotor? Ej, saj sva že notri!", "en": "V šotor (into the tent)? Hey, we're already inside!", "de": "V šotor (ins Zelt hinein)? He, wir sind doch schon drin!", "it": "V šotor (verso la tenda)? Ehi, ci siamo già dentro!" } },
@@ -279,7 +279,7 @@
       "id": "svetilka-komu",
       "fx_stays": true,
       "lines": [
-        { "who": "luka", "sl": "{learner}! Dober večer. Poglej, dve svetilki! Eno dam tebi.", "en": "{learner}! Good evening. Look, two lamps! I am giving one to you.", "de": "{learner}! Guten Abend. Schau, zwei Lampen! Eine gebe ich dir.", "it": "{learner}! Buonasera. Guarda, due lampade! Una la do a te.",
+        { "who": "luka", "sl": "{learner}! Dober večer. Imam dve svetilki! Eno dam tebi.", "en": "{learner}! Good evening. I have two lamps! I am giving one to you.", "de": "{learner}! Guten Abend. Ich habe zwei Lampen! Eine gebe ich dir.", "it": "{learner}! Buonasera. Ho due lampade! Una la do a te.",
           "fx": { "lantern": 1 } },
         { "choices": [
           { "sl": "Hvala! Kdo pa daš drugo?", "en": "Thanks! And who (subject) do you give the other one?", "de": "Danke! Und wer gibst du die andere?", "it": "Grazie! E chi (soggetto) dai l'altra?",
@@ -367,10 +367,10 @@
       "id": "kapa-skupaj",
       "memory": { "sl": "mojo kapo, ki sva jo iskala skupaj", "en": "my hat, which we two looked for together", "de": "meine Mütze, die wir zwei zusammen gesucht haben", "it": "il mio berretto, che abbiamo cercato insieme noi due" },
       "lines": [
-        { "who": "nejc", "sl": "{learner}! Spet iščem kapo! Aha, tukaj je! … Hm, ta je modra.", "en": "{learner}! I am looking for my hat again! Aha, here it is! … Hm, this one is blue.", "de": "{learner}! Ich suche schon wieder meine Mütze! Aha, da ist sie! … Hm, die ist blau.", "it": "{learner}! Cerco di nuovo il mio berretto! Ah, eccolo! … Mm, questo è blu." },
+        { "who": "nejc", "sl": "{learner}! Spet iščem kapo! Aha, tukaj je! … Hm, ta je rjava.", "en": "{learner}! I am looking for my hat again! Aha, here it is! … Hm, this one is brown.", "de": "{learner}! Ich suche schon wieder meine Mütze! Aha, da ist sie! … Hm, die ist braun.", "it": "{learner}! Cerco di nuovo il mio berretto! Ah, eccolo! … Mm, questo è marrone." },
         { "choices": [
           { "sl": "To ni tvoja kapa. To je moja.", "en": "That's not your hat. It's mine.", "de": "Das ist nicht deine Mütze. Das ist meine.", "it": "Non è il tuo berretto. È il mio.", "ok": true,
-            "reply": { "sl": "Aha! Tvoja je modra, moja rdeča.", "en": "Aha! Yours is blue, mine is red.", "de": "Aha! Deine ist blau, meine rot.", "it": "Ah! Il tuo è blu, il mio rosso." } },
+            "reply": { "sl": "Aha! Tvoja je rjava, moja rdeča.", "en": "Aha! Yours is brown, mine is red.", "de": "Aha! Deine ist braun, meine rot.", "it": "Ah! Il tuo è marrone, il mio rosso." } },
           { "sl": "To ni tvoj kapa. To je moja.", "en": "That's not your (masculine) hat. It's mine.", "de": "Das ist nicht dein (männlich) Mütze. Das ist meine.", "it": "Non è tuo (maschile) berretto (kapa). È il mio.",
             "grammar": "pridevniki-ujemanje", "why": { "en": "Kapa is feminine: tvoja kapa. Tvoj goes with masculine words (tvoj nahrbtnik).", "de": "Kapa ist weiblich: tvoja kapa. Tvoj gehört zu männlichen Wörtern (tvoj nahrbtnik).", "it": "Kapa è femminile: tvoja kapa. Tvoj va con le parole maschili (tvoj nahrbtnik)." },
             "reply": { "sl": "Tvoj? Moj kaj? Moj nahrbtnik?", "en": "Tvoj (your, masculine)? My what? My backpack?", "de": "Tvoj (dein, männlich)? Mein was? Mein Rucksack?", "it": "Tvoj (tuo, maschile)? Il mio cosa? Il mio zaino?" } },

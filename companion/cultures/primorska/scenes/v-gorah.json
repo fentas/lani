@@ -159,7 +159,7 @@
             "grammar": "prislovi", "why": { "en": "An exclamation about all of it takes the adverb: kako lepo.", "de": "Ein Ausruf über das Ganze nimmt das Adverb: kako lepo.", "it": "Un'esclamazione su tutto l'insieme vuole l'avverbio: kako lepo." },
             "reply": { "sl": "Lepi? Kdo, jaz in ovce? Ej, hvala!", "en": "Lepi (handsome, plural)? Who, me and the sheep? Hey, thanks!", "de": "Lepi (schön, Plural)? Wer, ich und die Schafe? He, danke!", "it": "Lepi (belli)? Chi, io e le pecore? Ehi, grazie!" } }
         ] },
-        { "who": "luka", "sl": "Na, drži vedro. Mleko je še toplo.", "en": "Here, hold the pail. The milk is still warm.", "de": "Hier, halt den Eimer. Die Milch ist noch warm.", "it": "Tieni, reggi il secchio. Il latte è ancora caldo.", "fx": { "glow": 0.4 } },
+        { "who": "luka", "sl": "Na, drži vedro. Mleko je še toplo.", "en": "Here, hold the pail. The milk is still warm.", "de": "Hier, halt den Eimer. Die Milch ist noch warm.", "it": "Tieni, reggi il secchio. Il latte è ancora caldo.", "fx": { "glow": 0.4, "pail": 1 } },
         { "choices": [
           { "sl": "Hvala! Diši po travi.", "en": "Thanks! It smells of grass.", "de": "Danke! Sie riecht nach Gras.", "it": "Grazie! Profuma di erba.", "ok": true,
             "reply": { "sl": "Ja, veš? Iz tega mleka bo sir.", "en": "Yes, you know? This milk will become cheese.", "de": "Ja, weißt du? Aus dieser Milch wird Käse.", "it": "Sì, sai? Da questo latte verrà il formaggio." } },
@@ -229,7 +229,7 @@
       "id": "planina-stejem",
       "count": { "from": "dice", "min": 8, "max": 16, "gender": "f" },
       "lines": [
-        { "who": "luka", "sl": "Ej, {learner}! Pomagaj mi. Preštej krave na planini!", "en": "Hey, {learner}! Help me. Count the cows on the pasture!", "de": "He, {learner}! Hilf mir. Zähl die Kühe auf der Alm!", "it": "Ehi, {learner}! Aiutami. Conta le mucche all'alpeggio!", "fx": { "cowbells": 1 } },
+        { "who": "luka", "sl": "Ej, {learner}! Pomagaj mi. Preštej krave na planini!", "en": "Hey, {learner}! Help me. Count the cows on the pasture!", "de": "He, {learner}! Hilf mir. Zähl die Kühe auf der Alm!", "it": "Ehi, {learner}! Aiutami. Conta le mucche all'alpeggio!", "fx": { "cowbells": 1, "cows": 1 } },
         { "choices": [
           { "sl": "Na planini {je|sta|so|je} {n} {!krava|kravi|krave|krav}.", "en": "There {is|are} {n} {cow|cows} on the pasture.", "de": "Auf der Alm {ist|sind} {n} {Kuh|Kühe}.", "it": "All'alpeggio {c'è|ci sono} {n} {mucca|mucche}.", "wrong_form": 1, "grammar": "stevila-samostalniki",
             "why": { "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on, the genitive plural}: {n} {krava|kravi|krave|krav}.", "de": "{Eins nimmt den Singular|Zwei nehmen den Dual|Drei und vier nehmen den Plural|Ab fünf steht der Genitiv Plural}: {n} {krava|kravi|krave|krav}.", "it": "{Uno vuole il singolare|Due vogliono il duale|Tre e quattro vogliono il plurale|Da cinque in su, il genitivo plurale}: {n} {krava|kravi|krave|krav}." },
@@ -254,9 +254,10 @@
     },
     {
       "id": "planina-zvonec",
+      "fx_stays": true,
       "memory": { "sl": "zvonec, ki sva ga našla v travi", "en": "the cowbell we found in the grass", "de": "die Kuhglocke, die wir im Gras gefunden haben", "it": "il campanaccio che abbiamo trovato nell'erba" },
       "lines": [
-        { "who": "luka", "sl": "Ej, {learner}! Poglej tisto kravo. Nič ne zvoni!", "en": "Hey, {learner}! Look at that cow. It isn't ringing at all!", "de": "He, {learner}! Schau die Kuh dort an. Sie bimmelt gar nicht!", "it": "Ehi, {learner}! Guarda quella mucca. Non suona per niente!", "fx": { "cowbells": 0.5 } },
+        { "who": "luka", "sl": "Ej, {learner}! Poglej tisto kravo. Nič ne zvoni!", "en": "Hey, {learner}! Look at that cow. It isn't ringing at all!", "de": "He, {learner}! Schau die Kuh dort an. Sie bimmelt gar nicht!", "it": "Ehi, {learner}! Guarda quella mucca. Non suona per niente!", "fx": { "cowbells": 0.5, "bell-lost": 0 } },
         { "choices": [
           { "sl": "Res, brez zvonca je. Kje ga je izgubila?", "en": "True, it has no bell. Where did it lose it?", "de": "Stimmt, sie hat keine Glocke. Wo hat sie sie verloren?", "it": "È vero, non ha il campanaccio. Dove l'ha perso?", "ok": true,
             "reply": { "sl": "Mogoče pri potoku. Greva pogledat!", "en": "Maybe by the stream. Let's go and look!", "de": "Vielleicht am Bach. Gehen wir nachschauen!", "it": "Forse vicino al ruscello. Andiamo a vedere!" } },
@@ -270,7 +271,7 @@
           { "sl": "Tukaj je, v travo!", "en": "Here it is, into the grass!", "de": "Hier ist sie, ins Gras!", "it": "Eccolo, dentro l'erba (moto)!", "grammar": "kje-mestnik-orodnik", "why": { "en": "Where it lies: v + locative, v travi. V travo is into the grass.", "de": "Wo sie liegt: v + Lokativ, v travi. V travo heißt ins Gras hinein.", "it": "Dove si trova: v + locativo, v travi. V travo è verso l'erba, con movimento." },
             "reply": { "sl": "V travo? Ne, ne meči ga nazaj! Ha ha!", "en": "Into the grass? No, don't throw it back! Ha ha!", "de": "Ins Gras? Nein, nein, wirf sie nicht zurück! Haha!", "it": "Dentro l'erba? No, non ributtarlo! Ah ah!" } },
           { "sl": "Tukaj je, v travi!", "en": "Here it is, in the grass!", "de": "Hier ist sie, im Gras!", "it": "Eccolo, nell'erba!", "ok": true,
-            "reply": { "sl": "Ej, bravo! Zdaj ga dam nazaj na kravo.", "en": "Hey, well done! Now I'll put it back on the cow.", "de": "He, bravo! Jetzt häng ich sie der Kuh wieder um.", "it": "Ehi, {m:bravo|f:brava}! Adesso lo rimetto alla mucca.", "fx": { "cowbells": 1 } } },
+            "reply": { "sl": "Ej, bravo! Zdaj ga dam nazaj na kravo.", "en": "Hey, well done! Now I'll put it back on the cow.", "de": "He, bravo! Jetzt häng ich sie der Kuh wieder um.", "it": "Ehi, {m:bravo|f:brava}! Adesso lo rimetto alla mucca.", "fx": { "cowbells": 1, "bell-lost": 1 } } },
           { "sl": "Tukaj je, v trava!", "en": "Here it is, in grass (wrong case)!", "de": "Hier ist sie, in Gras (falscher Fall)!", "it": "Eccolo, in erba (caso sbagliato)!", "grammar": "kje-mestnik-orodnik", "why": { "en": "V + locative: v travi. Trava is the nominative.", "de": "V + Lokativ: v travi. Trava ist der Nominativ.", "it": "V + locativo: v travi. Trava è il nominativo." },
             "reply": { "sl": "V trava? Hm? Kje, kje?", "en": "V trava? Hm? Where, where?", "de": "V trava? Hm? Wo, wo?", "it": "V trava? Mm? Dove, dove?" } }
         ] },
@@ -334,7 +335,7 @@
       "id": "molza-mleko",
       "memory": { "sl": "jutro, ko si {m:pil|f:pila} toplo mleko", "en": "the morning you drank warm milk", "de": "den Morgen, an dem du warme Milch getrunken hast", "it": "la mattina in cui hai bevuto il latte caldo" },
       "lines": [
-        { "who": "luka", "sl": "Ej, {learner}! Dobro jutro! Poglej vedro. Polno je!", "en": "Hey, {learner}! Good morning! Look at the pail. It is full!", "de": "He, {learner}! Guten Morgen! Schau in den Eimer. Er ist voll!", "it": "Ehi, {learner}! Buongiorno! Guarda il secchio. È pieno!", "fx": { "glow": 0.6, "cowbells": 0.4 } },
+        { "who": "luka", "sl": "Ej, {learner}! Dobro jutro! Poglej vedro. Polno je!", "en": "Hey, {learner}! Good morning! Look at the pail. It is full!", "de": "He, {learner}! Guten Morgen! Schau in den Eimer. Er ist voll!", "it": "Ehi, {learner}! Buongiorno! Guarda il secchio. È pieno!", "fx": { "glow": 0.6, "cowbells": 0.4, "pail": 1 } },
         { "choices": [
           { "sl": "Dobro jutro! Oho, veliko mleko!", "en": "Good morning! Oho, big milk!", "de": "Guten Morgen! Oho, große Milch!", "it": "Buongiorno! Oh, latte grande!",
             "grammar": "rodilnik-kolicina", "why": { "en": "After veliko (a lot of), the genitive: veliko mleka.", "de": "Nach veliko (viel) steht der Genitiv: veliko mleka.", "it": "Dopo veliko (molto) va il genitivo: veliko mleka." },

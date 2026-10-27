@@ -95,7 +95,7 @@
               "why": { "en": "Moker is wet. Shining like snow in the sun means white: bel.", "de": "Moker heißt nass. Wer in der Sonne wie Schnee glänzt, ist weiß: bel.", "it": "Moker vuol dire bagnato. Brillare come la neve al sole vuol dire bianco: bel." },
               "reply": { "sl": "Moker? Ne, ne, suh je kot poper!", "en": "Wet? No, no, it's bone dry!", "de": "Nass? Nein, nein, der ist staubtrocken!", "it": "Bagnata? No, no, è asciutta come un osso!" } }
           ] },
-          { "who": "tone", "sl": "Dobro. Jutri začnem klesati.", "en": "Good. Tomorrow I start carving.", "de": "Gut. Morgen fange ich an zu meißeln.", "it": "Bene. Domani comincio a scolpire." }
+          { "who": "tone", "sl": "Dobro. Jutri začnem klesati.", "en": "Good. Tomorrow I start carving.", "de": "Gut. Morgen fange ich an zu meißeln.", "it": "Bene. Domani comincio a scolpire.", "done": true }
         ] },
         "A2": { "lines": [
           { "who": "tone", "sl": "Voz je šel zjutraj po kamen. Zdaj je že poldne.", "en": "The cart left this morning for stone. It's already noon now.", "de": "Der Wagen ist heute früh nach Stein gefahren. Jetzt ist es schon Mittag.", "it": "Il carro è partito stamattina per la pietra. Ora è già mezzogiorno." },
@@ -122,7 +122,7 @@
               "why": { "en": "Comparing with od (than) needs the comparative: belejši.", "de": "Ein Vergleich mit od (als) braucht den Komparativ: belejši.", "it": "Un confronto con od (di) richiede il comparativo: belejši." },
               "reply": { "sl": "Bel od snega? Hm, saj ni snežilo.", "en": "White from the snow? Hm, but it hasn't snowed.", "de": "Weiß vom Schnee? Hm, es hat doch nicht geschneit.", "it": "Bianca di neve? Mm, ma non ha nevicato." } }
           ] },
-          { "who": "tone", "sl": "Dober kamen. Jutri začnem klesati korito.", "en": "Good stone. Tomorrow I start carving the basin.", "de": "Guter Stein. Morgen fange ich an, das Becken zu meißeln.", "it": "Bella pietra. Domani comincio a scolpire la vasca." }
+          { "who": "tone", "sl": "Dober kamen. Jutri začnem klesati korito.", "en": "Good stone. Tomorrow I start carving the basin.", "de": "Guter Stein. Morgen fange ich an, das Becken zu meißeln.", "it": "Bella pietra. Domani comincio a scolpire la vasca.", "done": true }
         ] }
       }
     },
@@ -205,7 +205,7 @@
               "why": { "en": "Krompir is potatoes. Water runs along a trench: jarek.", "de": "Krompir sind Kartoffeln. Wasser fließt in einem Graben: jarek.", "it": "Krompir sono le patate. L'acqua scorre in un fosso: jarek." },
               "reply": { "sl": "Krompir? Ta je na njivi, ne tukaj!", "en": "Potatoes? They're in the field, not here!", "de": "Kartoffeln? Die sind auf dem Acker, nicht hier!", "it": "Patate? Quelle sono nel campo, non qui!" } }
           ] },
-          { "who": "marko", "sl": "Jarek je gotov. Zdaj odpremo izvir … Glejte!", "en": "The trench is done. Now we open the spring … Look!", "de": "Der Graben ist fertig. Jetzt öffnen wir die Quelle … Schaut!", "it": "Il fosso è finito. Ora apriamo la sorgente … Guardate!", "fx": { "fountain": 1 } },
+          { "who": "marko", "sl": "Jarek je gotov. Zdaj odpremo izvir … Glejte!", "en": "The trench is done. Now we open the spring … Look!", "de": "Der Graben ist fertig. Jetzt öffnen wir die Quelle … Schaut!", "it": "Il fosso è finito. Ora apriamo la sorgente … Guardate!", "fx": { "fountain": 1 }, "done": true },
           { "choices": [
             { "sl": "Voda teče po jarku!", "en": "The water's running along the trench!", "de": "Das Wasser fließt den Graben entlang!", "it": "L'acqua scorre lungo il fosso!", "ok": true,
               "reply": { "sl": "Do trga! Samo cevi še manjkajo.", "en": "To the square! Only the spouts are missing now.", "de": "Bis zum Platz! Nur die Röhren fehlen noch.", "it": "Fino alla piazza! Mancano solo le cannelle." } },
@@ -232,7 +232,7 @@
               "why": { "en": "Krompir is potatoes. Water runs along a trench: jarek.", "de": "Krompir sind Kartoffeln. Wasser fließt in einem Graben: jarek.", "it": "Krompir sono le patate. L'acqua scorre in un fosso: jarek." },
               "reply": { "sl": "Krompir od izvira do trga? To bi bila dolga njiva.", "en": "Potatoes from the spring to the square? That'd be a long field.", "de": "Kartoffeln von der Quelle bis zum Platz? Das wäre ein langer Acker.", "it": "Patate dalla sorgente alla piazza? Sarebbe un campo bello lungo." } }
           ] },
-          { "who": "marko", "sl": "Jarek je gotov! Zdaj pa odpremo izvir … Glejte!", "en": "The trench is done! Now we open the spring … Look!", "de": "Der Graben ist fertig! Jetzt öffnen wir die Quelle … Schaut!", "it": "Il fosso è finito! Ora apriamo la sorgente … Guardate!", "fx": { "fountain": 1 } },
+          { "who": "marko", "sl": "Jarek je gotov! Zdaj pa odpremo izvir … Glejte!", "en": "The trench is done! Now we open the spring … Look!", "de": "Der Graben ist fertig! Jetzt öffnen wir die Quelle … Schaut!", "it": "Il fosso è finito! Ora apriamo la sorgente … Guardate!", "fx": { "fountain": 1 }, "done": true },
           { "choices": [
             { "sl": "Voda že teče po jarku proti trgu!", "en": "The water's already running along the trench towards the square!", "de": "Das Wasser fließt schon den Graben entlang zum Platz!", "it": "L'acqua scorre già lungo il fosso verso la piazza!", "ok": true,
               "reply": { "sl": "Bravo! Do trga je samo še streljaj.", "en": "Bravo! It's only a stone's throw to the square now.", "de": "Bravo! Bis zum Platz ist es nur noch ein Katzensprung.", "it": "Bravo! Alla piazza manca solo un tiro di schioppo." } },

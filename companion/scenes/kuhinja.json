@@ -311,7 +311,7 @@
     {
       "id": "kava-sanje",
       "lines": [
-        { "who": "babica", "sl": "Dobro jutro, {learner}! Kava je že na mizi. Kako si {m:spal|f:spala}?", "en": "Good morning, {learner}! The coffee is already on the table. How did you sleep?", "de": "Guten Morgen, {learner}! Der Kaffee steht schon auf dem Tisch. Wie hast du geschlafen?", "it": "Buongiorno, {learner}! Il caffè è già in tavola. Come hai dormito?",
+        { "who": "babica", "sl": "Dobro jutro, {learner}! Kava je že skuhana. Kako si {m:spal|f:spala}?", "en": "Good morning, {learner}! The coffee is already made. How did you sleep?", "de": "Guten Morgen, {learner}! Der Kaffee ist schon fertig. Wie hast du geschlafen?", "it": "Buongiorno, {learner}! Il caffè è già pronto. Come hai dormito?",
           "fx": { "steam": 1 } },
         { "choices": [
           { "sl": "Dobro spim, hvala.", "en": "I sleep well, thanks.", "de": "Ich schlafe gut, danke.", "it": "Dormo bene, grazie.",
@@ -421,7 +421,7 @@
             "reply": { "sl": "{m:Priden|f:Pridna}. Prt je v predalu.", "en": "{m:Good boy|f:Good girl}. The tablecloth is in the drawer.", "de": "{m:Braver Junge|f:Braves Mädchen}. Die Tischdecke ist in der Schublade.", "it": "{m:Bravo ragazzo|f:Brava ragazza}. La tovaglia è nel cassetto." } },
           { "sl": "{m:Pogrnil|f:Pogrnila} sem mizo.", "en": "I have laid the table.", "de": "Ich habe den Tisch gedeckt.", "it": "Ho apparecchiato la tavola.",
             "grammar": "prihodnjik", "why": { "en": "She asks what you will do: the future, bom {m:pogrnil|f:pogrnila}. Sem {m:pogrnil|f:pogrnila} means it's already done.", "de": "Sie fragt, was du tun wirst: die Zukunft, bom {m:pogrnil|f:pogrnila}. Sem {m:pogrnil|f:pogrnila} heißt, es ist schon erledigt.", "it": "Ti chiede che cosa farai: il futuro, bom {m:pogrnil|f:pogrnila}. Sem {m:pogrnil|f:pogrnila} vuol dire che è già fatto." },
-            "reply": { "sl": "Že? Kje? Miza je še prazna!", "en": "Already? Where? The table is still empty!", "de": "Schon? Wo? Der Tisch ist noch leer!", "it": "Già? Dove? La tavola è ancora vuota!" } },
+            "reply": { "sl": "Že? Kdaj pa? Saj si šele {m:prišel|f:prišla}!", "en": "Already? When? You've only just got here!", "de": "Schon? Wann denn? Du bist doch gerade erst gekommen!", "it": "Già? E quando? Sei appena {m:arrivato|f:arrivata}!" } },
           { "sl": "{m:Pogrnil|f:Pogrnila} bo mizo.", "en": "{m:He'll|f:She'll} lay the table.", "de": "{m:Er|f:Sie} wird den Tisch decken.", "it": "{m:Lui|f:Lei} apparecchierà la tavola.",
             "grammar": "prihodnjik", "why": { "en": "Bo is 'he or she will'. For yourself: bom {m:pogrnil|f:pogrnila}.", "de": "Bo heißt ‚er oder sie wird‘. Für dich selbst: bom {m:pogrnil|f:pogrnila}.", "it": "Bo significa 'lui o lei farà'. Per te {m:stesso|f:stessa}: bom {m:pogrnil|f:pogrnila}." },
             "reply": { "sl": "Kdo? {m:Maček|f:Mačka}? Ha, kar ti jo pogrni!", "en": "Who? The cat? Ha, you lay it yourself!", "de": "Wer? Die Katze? Ha, deck du ihn mal selbst!", "it": "Chi? {m:Il gatto|f:La gatta}? Ah, apparecchiala tu!" } }
@@ -441,11 +441,11 @@
             "reply": { "sl": "{m:Priden|f:Pridna}. Tu imaš nož.", "en": "{m:Good boy|f:Good girl}. Here's a knife for you.", "de": "{m:Braver Junge|f:Braves Mädchen}. Hier hast du ein Messer.", "it": "{m:Bravo ragazzo|f:Brava ragazza}. Ecco un coltello." } },
           { "sl": "Dobro jutro, babica! Seveda pomagam.", "en": "Good morning, grandma! Of course I'll help.", "de": "Guten Morgen, Oma! Natürlich helfe ich.", "it": "Buongiorno, nonna! Certo che ti aiuto.",
             "why": { "en": "It's evening: dober večer. Dobro jutro is for the morning.", "de": "Es ist Abend: dober večer. Dobro jutro sagt man am Morgen.", "it": "È sera: dober večer. Dobro jutro si dice al mattino." },
-            "reply": { "sl": "Jutro? Zunaj je že tema!", "en": "Morning? It's already dark outside!", "de": "Morgen? Draußen ist es schon dunkel!", "it": "Mattina? Fuori è già buio!" } },
+            "reply": { "sl": "Jutro? Saj je že večer!", "en": "Morning? It's already evening!", "de": "Morgen? Es ist doch schon Abend!", "it": "Mattina? Ma è già sera!" } },
           { "sl": "Dober večer! Z veseljem.", "en": "Good evening! With pleasure.", "de": "Guten Abend! Sehr gern.", "it": "Buonasera! Con piacere.", "ok": true,
             "reply": { "sl": "Oj, kako lepo rečeš! Tu imaš nož.", "en": "Oh, how nicely you put it! Here's a knife for you.", "de": "Oh, wie schön du das sagst! Hier hast du ein Messer.", "it": "Oh, come lo dici bene! Ecco un coltello." } }
         ] },
-        { "who": "babica", "sl": "Olupke v vedro, krompir v skledo. Zdaj pa poglej na tehtnico: koliko sva {m:olupila|f:olupili}?", "en": "Peels in the bucket, potatoes in the bowl. Now look at the scales: how much have we two peeled?", "de": "Schalen in den Eimer, Kartoffeln in die Schüssel. Jetzt schau auf die Waage: Wie viel haben wir zwei geschält?", "it": "Le bucce nel secchio, le patate nella ciotola. Adesso guarda la bilancia: quanto abbiamo pelato noi due?" },
+        { "who": "babica", "sl": "Olupke v vedro, krompir v skledo. Zdaj pa povej: koliko sva {m:olupila|f:olupili}?", "en": "Peels in the bucket, potatoes in the bowl. Now tell me: how much have we two peeled?", "de": "Schalen in den Eimer, Kartoffeln in die Schüssel. Jetzt sag mal: Wie viel haben wir zwei geschält?", "it": "Le bucce nel secchio, le patate nella ciotola. Adesso dimmi: quanto abbiamo pelato noi due?" },
         { "choices": [
           { "sl": "{m:Olupila|f:Olupili} sva že {n} {kilo|kili|kile|kil}.", "en": "We've already peeled {n} {kilo|kilos}.", "de": "Wir haben schon {n} Kilo geschält.", "it": "Abbiamo già pelato {n} {chilo|chili}.", "ok": true,
             "reply": { "sl": "Tako je! Še malo, pa sva {m:gotova|f:gotovi}.", "en": "That's right! A little more and we're done.", "de": "Genau! Noch ein bisschen, dann sind wir fertig.", "it": "Esatto! Ancora un po' e abbiamo finito." } },

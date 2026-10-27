@@ -112,7 +112,7 @@
             "why": { "en": "A ship is a big boat! The animal is a sheep, with a long ee.", "sl": "Ship je ladja! Žival je sheep, z dolgim ee.", "it": "Ship è una nave! L'animale è sheep, con la ee lunga.", "de": "Ship ist ein Schiff! Das Tier heißt sheep, mit langem ee." },
             "reply": { "en": "Ships? On a fell? Where would I put them?", "sl": "Ships (ladje)? Na hribu? Kam naj jih pa dam?", "it": "Ships (navi)? In montagna? E dove le metto?", "de": "Ships (Schiffe)? Auf dem Berg? Wo soll ich die denn hintun?" } }
         ] },
-        { "who": "jack", "en": "Here, have some milk. It's from Daisy, still warm.", "sl": "Na, malo mleka. Od Daisy je, še toplo.", "it": "Tieni, un po' di latte. È di Daisy, ancora caldo.", "de": "Hier, trink etwas Milch. Sie ist von Daisy, noch warm." },
+        { "who": "jack", "en": "Here, have some milk. It's from Daisy, still warm.", "sl": "Na, malo mleka. Od Daisy je, še toplo.", "it": "Tieni, un po' di latte. È di Daisy, ancora caldo.", "de": "Hier, trink etwas Milch. Sie ist von Daisy, noch warm.", "fx": { "pail": 1 } },
         { "choices": [
           { "en": "Thanks, Jack! I like it very much.", "sl": "Hvala, Jack! Zelo mi je všeč.", "it": "Grazie, Jack! Mi piace molto.", "de": "Danke, Jack! Die schmeckt mir sehr gut.", "ok": true,
             "reply": { "en": "Great! Come back tomorrow. You can help me with the sheep.", "sl": "Super! Pridi jutri spet. Lahko mi pomagaš pri ovcah.", "it": "Bene! Torna domani. Puoi aiutarmi con le pecore.", "de": "Super! Komm morgen wieder. Du kannst mir mit den Schafen helfen.", "fx": { "cowbells": 0.5 } } },
@@ -136,7 +136,7 @@
           { "en": "Wow! It looks like a painting!", "sl": "Uau! Kot slika!", "it": "Wow! Sembra un quadro!", "de": "Wow! Das sieht aus wie ein Gemälde!", "ok": true,
             "reply": { "en": "Aye, it does. But only for a few minutes.", "sl": "Ja, res. Ampak samo nekaj minut.", "it": "Sì, è vero. Ma solo per pochi minuti.", "de": "Ja, stimmt. Aber nur ein paar Minuten." } }
         ] },
-        { "who": "jack", "en": "And here comes Daisy, down to the hut. Listen to her bell!", "sl": "In tu prihaja Daisy, dol h koči. Poslušaj njen zvonec!", "it": "Ed ecco Daisy, che scende verso la baita. Ascolta il suo campanaccio!", "de": "Und da kommt Daisy runter zur Hütte. Hör mal, ihre Glocke!", "fx": { "cowbells": 0.6 } },
+        { "who": "jack", "en": "And there's Daisy, by the hut. Listen to her bell!", "sl": "In tam je Daisy, pri koči. Poslušaj njen zvonec!", "it": "Ed ecco Daisy, vicino alla baita. Ascolta il suo campanaccio!", "de": "Und da ist Daisy, bei der Hütte. Hör mal, ihre Glocke!", "fx": { "cowbells": 0.6 } },
         { "choices": [
           { "en": "Do you come here every evening?", "sl": "Prideš sem vsak večer?", "it": "Vieni qui ogni sera?", "de": "Kommst du jeden Abend hierher?", "ok": true,
             "reply": { "en": "Aye, when it isn't raining. So, not very often!", "sl": "Ja, kadar ne dežuje. Torej ne prav pogosto!", "it": "Sì, quando non piove. Quindi non molto spesso!", "de": "Ja, wenn es nicht regnet. Also nicht sehr oft!" } },
@@ -220,7 +220,7 @@
       "count": { "from": "dice", "min": 3, "max": 12 },
       "memory": { "en": "the day we counted the cows on the fell", "sl": "dan, ko sva štela krave na hribu", "it": "il giorno in cui abbiamo contato le mucche sul monte", "de": "den Tag, an dem wir die Kühe auf dem Berg gezählt haben" },
       "lines": [
-        { "who": "jack", "en": "Now then! Daisy's not alone today. Look, her friends from the farm below! How many can you see?", "sl": "Živjo! Daisy danes ni sama. Poglej, njene prijateljice s kmetije spodaj! Koliko jih vidiš?", "it": "Ciao! Oggi Daisy non è sola. Guarda, le sue amiche della fattoria là sotto! Quante ne vedi?", "de": "Hallo! Daisy ist heute nicht allein. Schau, ihre Freundinnen vom Hof da unten! Wie viele siehst du?", "fx": { "cowbells": 1 } },
+        { "who": "jack", "en": "Now then! Daisy's not alone today. Look, her friends from the farm below! How many can you see?", "sl": "Živjo! Daisy danes ni sama. Poglej, njene prijateljice s kmetije spodaj! Koliko jih vidiš?", "it": "Ciao! Oggi Daisy non è sola. Guarda, le sue amiche della fattoria là sotto! Quante ne vedi?", "de": "Hallo! Daisy ist heute nicht allein. Schau, ihre Freundinnen vom Hof da unten! Wie viele siehst du?", "fx": { "cowbells": 1, "cows": 1 } },
         { "choices": [
           { "en": "I can see {n} {!cow|cows}!", "sl": "Vidim {n} {!kravo|kravi|krave|krav}!", "it": "Vedo {n} {!mucca|mucche}!", "de": "Ich sehe {n} {!Kuh|Kühe}!", "wrong_form": 1, "grammar": "plurals",
             "why": { "en": "{One takes the singular|More than one takes -s}: {n} {cow|cows}.", "sl": "{Ena je v ednini|Za več dodaš -s}: {n} {cow|cows}.", "it": "{Una vuole il singolare|Per più di una si aggiunge -s}: {n} {cow|cows}.", "de": "{Eine steht im Singular|Bei mehr als einer kommt -s dazu}: {n} {cow|cows}." },
@@ -277,7 +277,7 @@
             "why": { "en": "In a sentence with not, use any: I haven't got any.", "sl": "V zanikanem stavku uporabiš any: I haven't got any.", "it": "In una frase negativa si usa any: I haven't got any.", "de": "In einem verneinten Satz nimmst du any: I haven't got any." },
             "reply": { "en": "Haven't got some? So you've got some, or not? I'm confused!", "sl": "Haven't got some? Jih imaš ali ne? Čisto sem zmeden!", "it": "Haven't got some? Allora ne hai o no? Sono confuso!", "de": "Haven't got some? Hast du jetzt welche oder nicht? Ich bin verwirrt!" } }
         ] },
-        { "who": "harry", "en": "Hey, look! Whose is that green rod on the grass?", "sl": "Hej, poglej! Čigava je tista zelena palica na travi?", "it": "Ehi, guarda! Di chi è quella canna verde sull'erba?", "de": "He, schau! Wem gehört die grüne Angel da im Gras?", "sky": { "fog": 0.3 } },
+        { "who": "harry", "en": "Hey! I found a green rod by the lake. Whose is it?", "sl": "Hej! Ob jezeru sem našel zeleno palico. Čigava je?", "it": "Ehi! Ho trovato una canna verde vicino al lago. Di chi è?", "de": "He! Ich hab am See eine grüne Angel gefunden. Wem gehört sie?", "sky": { "fog": 0.3 } },
         { "choices": [
           { "en": "It's my! I brought it from home.", "sl": "Moja! {m:Prinesel|f:Prinesla} sem jo od doma.", "it": "È mia! L'ho portata da casa.", "de": "Die gehört mir! Ich hab sie von zu Hause mitgebracht.",
             "why": { "en": "With no noun after it, say mine: it's mine. My needs a noun: my rod.", "sl": "Brez samostalnika rečeš mine: it's mine. My potrebuje samostalnik: my rod.", "it": "Senza un nome dopo si dice mine: it's mine. My vuole un nome: my rod.", "de": "Ohne Nomen danach sagst du mine: it's mine. My braucht ein Nomen: my rod." },

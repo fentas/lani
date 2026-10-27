@@ -62,7 +62,7 @@
             "reply": { "it": "Un zampa? Piano, piano… ripeti.", "sl": "Un zampa? Počasi, počasi … ponovi.", "en": "Un zampa? Slowly, slowly… say it again.", "de": "Un zampa? Langsam, langsam … sag es noch mal." } }
         ] },
         { "who": "aldo", "it": "Adesso guarda: cerca un pesce. Uno… due… e zac!", "sl": "Zdaj pa glej: išče ribo. Ena … dve … in hop!", "en": "Now watch: it's looking for a fish. One… two… and snap!", "de": "Jetzt schau: Er sucht einen Fisch. Eins … zwei … und zack!",
-          "fx": { "fish": 1 } },
+          "fx": { "heron": 1 } },
         { "choices": [
           { "it": "Che bravo! Prende un pesce!", "sl": "Kako spretna! Ujame ribo!", "en": "How clever! It catches a fish!", "de": "Wie geschickt! Er fängt einen Fisch!", "ok": true,
             "reply": { "it": "Eh sì. L'airone è il pescatore dello stagno.", "sl": "Ja, ja. Čaplja je ribič ribnika.", "en": "Oh yes. The heron is the pond's fisherman.", "de": "Oh ja. Der Reiher ist der Fischer vom Teich." } },
@@ -100,7 +100,7 @@
       "id": "pesca",
       "lines": [
         { "who": "bepi", "it": "Ciao, {learner}. Siediti qui sul pontile. Moro dorme, i pesci no.", "sl": "Živjo, {learner}. Sedi sem na pomol. Moro spi, ribe pa ne.", "en": "Hello, {learner}. Sit here on the jetty. Moro's asleep, the fish aren't.", "de": "Hallo, {learner}. Setz dich hier auf den Steg. Moro schläft, die Fische nicht.",
-          "fx": { "dog": 0.1 } },
+          "fx": { "dog": 0.1, "bite": 0 } },
         { "choices": [
           { "it": "Ciao, nonno! Ci sono tanti pesci?", "sl": "Živjo, dedek! Je veliko rib?", "en": "Hi, Nonno! Are there lots of fish?", "de": "Hallo, Opa! Gibt es viele Fische?", "ok": true,
             "reply": { "it": "Tanti, sì. Ma sono furbi, eh eh.", "sl": "Veliko, ja. Ampak zvite so, he he.", "en": "Lots, yes. But they're clever, heh heh.", "de": "Viele, ja. Aber sie sind schlau, hehe." } },
@@ -109,16 +109,16 @@
             "reply": { "it": "C'è? Uno solo? Eh eh, che pescatore triste!", "sl": "Je? Samo ena? He he, kako žalosten ribič!", "en": "C'è (one)? Just one? Heh heh, what a sad fisherman!", "de": "C'è (einer)? Nur einer? Hehe, was für ein trauriger Angler!" } }
         ] },
         { "who": "bepi", "it": "Guarda il galleggiante… si muove! Tira, tira!", "sl": "Poglej plovec … premika se! Vleci, vleci!", "en": "Look at the float… it's moving! Pull, pull!", "de": "Schau den Schwimmer an … er bewegt sich! Zieh, zieh!",
-          "fx": { "fish": 1, "dog": 0.6 } },
+          "fx": { "dog": 0.6, "bite": 0.85 } },
         { "choices": [
           { "it": "Un pesce! È piccolo!", "sl": "Riba! Majhna je!", "en": "A fish! It's small!", "de": "Ein Fisch! Der ist klein!", "ok": true,
-            "reply": { "it": "Piccolo, sì. E Moro abbaia di gioia!", "sl": "Majhna, ja. In Moro od veselja laja!", "en": "Small, yes. And Moro is barking for joy!", "de": "Klein, ja. Und Moro bellt vor Freude!", "fx": { "dog": 1 } } },
+            "reply": { "it": "Piccolo, sì. E Moro abbaia di gioia!", "sl": "Majhna, ja. In Moro od veselja laja!", "en": "Small, yes. And Moro is barking for joy!", "de": "Klein, ja. Und Moro bellt vor Freude!", "fx": { "dog": 1, "bite": 1 } } },
           { "it": "Una pesce! È piccolo!", "sl": "Riba! Majhna je!", "en": "A fish! It's small!", "de": "Ein Fisch! Der ist klein!",
             "grammar": "articoli-genere", "why": { "sl": "Pesce je moškega spola: un pesce.", "en": "Pesce is masculine: un pesce.", "de": "Pesce ist männlich: un pesce." },
             "reply": { "it": "Una pesce? Anche Moro ti guarda strano!", "sl": "Una pesce? Še Moro te čudno gleda!", "en": "Una pesce? Even Moro's giving you a funny look!", "de": "Una pesce? Sogar Moro schaut dich komisch an!" } }
         ] },
         { "who": "bepi", "it": "Lo rimettiamo nell'acqua. Il pesce piccolo deve crescere, come te.", "sl": "Vrneva jo v vodo. Mala riba mora zrasti, tako kot ti.", "en": "We'll put it back in the water. A little fish has to grow, like you.", "de": "Wir setzen ihn zurück ins Wasser. Ein kleiner Fisch muss wachsen, so wie du.",
-          "fx": { "dog": 0.3 } }
+          "fx": { "dog": 0.3, "bite": 0 } }
       ]
     }
   ],
@@ -177,7 +177,7 @@
       "memory": { "it": "Moro che abbaiava ai pesci", "sl": "Mora, ki je lajal na ribe", "en": "Moro barking at the fish", "de": "Moro, der die Fische angebellt hat" },
       "lines": [
         { "who": "bepi", "it": "{learner}, mi passi la scatola dei vermi? È lì, vicino a Moro.", "sl": "{learner}, mi podaš škatlico s črvi? Tam je, zraven Mora.", "en": "{learner}, will you pass me the box of worms? It's there, next to Moro.", "de": "{learner}, gibst du mir die Dose mit den Würmern? Sie ist da, neben Moro.",
-          "fx": { "dog": 0.1 } },
+          "fx": { "dog": 0.1, "bite": 0 } },
         { "choices": [
           { "it": "Ecco i vermi, nonno. Bleah!", "sl": "Izvoli črve, dedek. Fuj!", "en": "Here are the worms, Nonno. Yuck!", "de": "Hier sind die Würmer, Opa. Igitt!", "ok": true,
             "reply": { "it": "Eh eh! Ai pesci piacciono tanto.", "sl": "He he! Ribam so zelo všeč.", "en": "Heh heh! The fish love them.", "de": "Hehe! Die Fische mögen sie sehr." } },
@@ -195,7 +195,7 @@
             "reply": { "it": "Vai qui? Moro non capisce: deve andare o restare?", "sl": "Pojdi sem? Moro ne razume: naj gre ali ostane?", "en": "Go here? Moro doesn't get it: go or stay?", "de": "Geh her? Moro versteht nicht: gehen oder bleiben?" } }
         ] },
         { "who": "bepi", "it": "I pesci tornano. Per pescare, la pazienza è la prima cosa.", "sl": "Ribe se vračajo. Pri ribolovu je potrpljenje na prvem mestu.", "en": "The fish are coming back. When you fish, patience comes first.", "de": "Die Fische kommen zurück. Beim Angeln ist Geduld das Wichtigste.",
-          "fx": { "fish": 1 } }
+          "fx": { "fish": 1, "bite": 0.4 } }
       ]
     }
   ]

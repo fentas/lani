@@ -8,6 +8,7 @@
     {
       "scene": "v-gozdu",
       "words": ["hrast", "zaga"],
+      "fx_stays": true,
       "levels": {
         "A1": { "lines": [
           { "who": "france", "sl": "Za toplar potrebujemo močan les. Smreka je premehka.", "en": "For the toplar we need strong wood. Spruce is too soft.", "de": "Für den Toplar brauchen wir starkes Holz. Fichte ist zu weich.", "it": "Per il toplar ci serve legno robusto. L'abete è troppo tenero." },
@@ -34,7 +35,7 @@
               "why": { "en": "Žlica is a spoon! You fell a tree with a saw: žaga.", "de": "Žlica ist ein Löffel! Einen Baum fällt man mit der Säge: žaga.", "it": "Žlica è il cucchiaio! Un albero si abbatte con la sega: žaga." },
               "reply": { "sl": "Z žlico? Potem bo toplar stal čez sto let.", "en": "With a spoon? Then the toplar will be standing in a hundred years.", "de": "Mit einem Löffel? Dann steht der Toplar in hundert Jahren.", "it": "Con un cucchiaio? Allora il toplar sarà pronto fra cent'anni." } }
           ] },
-          { "who": "tone", "sl": "Pazite, pada! … Bum! Samo še pet takih.", "en": "Careful, it's falling! … Boom! Only five more like that.", "de": "Vorsicht, sie fällt! … Bumm! Nur noch fünf solche.", "it": "Attenzione, cade! … Bum! Solo altre cinque così.", "fx": { "birds": 1 } }
+          { "who": "tone", "sl": "Pazite, pada! … Bum! Samo še pet takih.", "en": "Careful, it's falling! … Boom! Only five more like that.", "de": "Vorsicht, sie fällt! … Bumm! Nur noch fünf solche.", "it": "Attenzione, cade! … Bum! Solo altre cinque così.", "fx": { "birds": 1, "fell-oak": 1 } }
         ] },
         "A2": { "lines": [
           { "who": "france", "sl": "Toplar mora stati sto let. Zato potrebujemo najtrši les v gozdu.", "en": "A toplar has to stand a hundred years. So we need the hardest wood in the forest.", "de": "Ein Toplar muss hundert Jahre stehen. Darum brauchen wir das härteste Holz im Wald.", "it": "Un toplar deve stare in piedi cent'anni. Per questo ci serve il legno più duro del bosco." },
@@ -61,7 +62,7 @@
               "why": { "en": "Z (with) takes the instrumental, the adjective too: z veliko žago.", "de": "Z (mit) verlangt den Instrumental, auch das Adjektiv: z veliko žago.", "it": "Z (con) vuole lo strumentale, anche l'aggettivo: z veliko žago." },
               "reply": { "sl": "Z velika … kaj? Hm, kako, prosim?", "en": "With big … what? Hm, pardon?", "de": "Mit groß … was? Hm, wie bitte?", "it": "Con grande … cosa? Mm, come, scusa?" } }
           ] },
-          { "who": "tone", "sl": "Žaga poje … Pazite, pada! … Bum!", "en": "The saw sings … Careful, it's falling! … Boom!", "de": "Die Säge singt … Vorsicht, sie fällt! … Bumm!", "it": "La sega canta … Attenzione, cade! … Bum!", "fx": { "birds": 1 } }
+          { "who": "tone", "sl": "Žaga poje … Pazite, pada! … Bum!", "en": "The saw sings … Careful, it's falling! … Boom!", "de": "Die Säge singt … Vorsicht, sie fällt! … Bumm!", "it": "La sega canta … Attenzione, cade! … Bum!", "fx": { "birds": 1, "fell-oak": 1 } }
         ] }
       }
     },
@@ -94,7 +95,7 @@
               "why": { "en": "Strašilo is the scarecrow. The stones came on the cart: na vozu.", "de": "Strašilo ist die Vogelscheuche. Die Steine kamen auf dem Wagen: na vozu.", "it": "Strašilo è lo spaventapasseri. Le pietre sono arrivate sul carro: na vozu." },
               "reply": { "sl": "Pri strašilu? Tam stojijo samo vrane.", "en": "By the scarecrow? Only crows stand there.", "de": "Bei der Vogelscheuche? Da stehen nur Krähen.", "it": "Vicino allo spaventapasseri? Lì ci sono solo i corvi." } }
           ] },
-          { "who": "france", "sl": "Lepo. Ti kamni bodo nosili ves toplar.", "en": "Nice. These stones will carry the whole toplar.", "de": "Schön. Diese Steine tragen den ganzen Toplar.", "it": "Bello. Queste pietre reggeranno tutto il toplar." }
+          { "who": "france", "sl": "Lepo. Ti kamni bodo nosili ves toplar.", "en": "Nice. These stones will carry the whole toplar.", "de": "Schön. Diese Steine tragen den ganzen Toplar.", "it": "Bello. Queste pietre reggeranno tutto il toplar.", "done": true }
         ] },
         "A2": { "lines": [
           { "who": "france", "sl": "Pod vsak steber pride velik kamen, da les ne bo stal v blatu.", "en": "A big stone goes under every post, so the wood doesn't stand in mud.", "de": "Unter jeden Pfosten kommt ein großer Stein, damit das Holz nicht im Schlamm steht.", "it": "Sotto ogni palo va una grossa pietra, così il legno non sta nel fango." },
@@ -121,7 +122,7 @@
               "why": { "en": "Strašilo is the scarecrow. The stones came on the cart: na vozu.", "de": "Strašilo ist die Vogelscheuche. Die Steine kamen auf dem Wagen: na vozu.", "it": "Strašilo è lo spaventapasseri. Le pietre sono arrivate sul carro: na vozu." },
               "reply": { "sl": "Pri strašilu? Tam stojijo samo vrane.", "en": "By the scarecrow? Only crows stand there.", "de": "Bei der Vogelscheuche? Da stehen nur Krähen.", "it": "Vicino allo spaventapasseri? Lì ci sono solo i corvi." } }
           ] },
-          { "who": "france", "sl": "Osem kamnov za osem stebrov. Zdaj smo pripravljeni.", "en": "Eight stones for eight posts. Now we're ready.", "de": "Acht Steine für acht Pfosten. Jetzt sind wir bereit.", "it": "Otto pietre per otto pali. Ora siamo pronti." }
+          { "who": "france", "sl": "Osem kamnov za osem stebrov. Zdaj smo pripravljeni.", "en": "Eight stones for eight posts. Now we're ready.", "de": "Acht Steine für acht Pfosten. Jetzt sind wir bereit.", "it": "Otto pietre per otto pali. Ora siamo pronti.", "done": true }
         ] }
       }
     },
@@ -213,7 +214,7 @@
               "why": { "en": "Milo is soap. To fix the poles you need nails: žeblji.", "de": "Milo ist Seife. Um die Stangen zu befestigen, braucht man Nägel: žeblji.", "it": "Milo è il sapone. Per fissare le stanghe ci vogliono chiodi: žeblji." },
               "reply": { "sl": "Milo? Toplar je že čist.", "en": "Soap? The toplar is clean already.", "de": "Seife? Der Toplar ist schon sauber.", "it": "Sapone? Il toplar è già pulito." } }
           ] },
-          { "who": "france", "sl": "Bum, bum, bum … Vse drži. Še burja ga ne podre!", "en": "Bang, bang, bang … Everything holds. Not even the bora will knock it down!", "de": "Bumm, bumm, bumm … Alles hält. Nicht einmal die Bora wirft ihn um!", "it": "Bum, bum, bum … Tiene tutto. Neanche la bora lo butta giù!" }
+          { "who": "france", "sl": "Bum, bum, bum … Vse drži. Še burja ga ne podre!", "en": "Bang, bang, bang … Everything holds. Not even the bora will knock it down!", "de": "Bumm, bumm, bumm … Alles hält. Nicht einmal die Bora wirft ihn um!", "it": "Bum, bum, bum … Tiene tutto. Neanche la bora lo butta giù!", "done": true }
         ] },
         "A2": { "lines": [
           { "who": "france", "sl": "Stebri stojijo. Zdaj jih moramo povezati, da bo toplar trden.", "en": "The posts are up. Now we have to join them, so the toplar is solid.", "de": "Die Pfosten stehen. Jetzt müssen wir sie verbinden, damit der Toplar fest steht.", "it": "I pali sono su. Ora dobbiamo collegarli, così il toplar sarà solido." },
@@ -239,7 +240,7 @@
               "why": { "en": "Z (with) takes the instrumental, the adjective too: z železnimi žeblji.", "de": "Z (mit) verlangt den Instrumental, auch das Adjektiv: z železnimi žeblji.", "it": "Z (con) vuole lo strumentale, anche l'aggettivo: z železnimi žeblji." },
               "reply": { "sl": "Z železni …? Hm. Še enkrat.", "en": "With iron …? Hm. Once more.", "de": "Mit eisern …? Hm. Noch mal.", "it": "Con di ferro …? Mm. Di nuovo." } }
           ] },
-          { "who": "france", "sl": "Bum, bum, bum … Zdaj ga ne podre niti burja!", "en": "Bang, bang, bang … Now not even the bora will knock it down!", "de": "Bumm, bumm, bumm … Jetzt wirft ihn nicht einmal die Bora um!", "it": "Bum, bum, bum … Ora non lo butta giù neanche la bora!" }
+          { "who": "france", "sl": "Bum, bum, bum … Zdaj ga ne podre niti burja!", "en": "Bang, bang, bang … Now not even the bora will knock it down!", "de": "Bumm, bumm, bumm … Jetzt wirft ihn nicht einmal die Bora um!", "it": "Bum, bum, bum … Ora non lo butta giù neanche la bora!", "done": true }
         ] }
       }
     },
@@ -272,7 +273,7 @@
               "why": { "en": "Blazine are pillows. A roof is made of planks: deske.", "de": "Blazine sind Kissen. Ein Dach macht man aus Brettern: deske.", "it": "Blazine sono i cuscini. Un tetto si fa con le assi: deske." },
               "reply": { "sl": "Blazine? Za koga, za vrane?", "en": "Pillows? For whom, the crows?", "de": "Kissen? Für wen, für die Krähen?", "it": "Cuscini? Per chi, per i corvi?" } }
           ] },
-          { "who": "france", "sl": "Zdaj ima toplar klobuk. Dež lahko pride.", "en": "Now the toplar has a hat. The rain can come.", "de": "Jetzt hat der Toplar einen Hut. Der Regen kann kommen.", "it": "Ora il toplar ha un cappello. La pioggia può arrivare." }
+          { "who": "france", "sl": "Zdaj ima toplar klobuk. Dež lahko pride.", "en": "Now the toplar has a hat. The rain can come.", "de": "Jetzt hat der Toplar einen Hut. Der Regen kann kommen.", "it": "Ora il toplar ha un cappello. La pioggia può arrivare.", "done": true }
         ] },
         "A2": { "lines": [
           { "who": "france", "sl": "Zdaj pa najpomembnejše. Seno ne sme biti nikoli mokro.", "en": "Now the most important bit. The hay must never get wet.", "de": "Jetzt das Wichtigste. Das Heu darf nie nass werden.", "it": "Ora la cosa più importante. Il fieno non deve mai bagnarsi." },
@@ -298,7 +299,7 @@
               "why": { "en": "Klobase are sausages. The roof needs planks: desk.", "de": "Klobase sind Würste. Das Dach braucht Bretter: desk.", "it": "Klobase sono le salsicce. Al tetto servono assi: desk." },
               "reply": { "sl": "Klobas? Za malico že, za streho pa ne.", "en": "Sausages? For a snack, sure, but not for the roof.", "de": "Würste? Für die Brotzeit schon, fürs Dach nicht.", "it": "Salsicce? Per merenda sì, per il tetto no." } }
           ] },
-          { "who": "france", "sl": "Glejte, oblaki! … Naj kar dežuje, toplar ima streho.", "en": "Look, clouds! … Let it rain, the toplar has a roof.", "de": "Schaut, Wolken! … Soll es ruhig regnen, der Toplar hat ein Dach.", "it": "Guardate, nuvole! … Che piova pure, il toplar ha il tetto.", "sky": { "gloom": 0.5, "wind": 0.3 } }
+          { "who": "france", "sl": "Glejte, oblaki! … Naj kar dežuje, toplar ima streho.", "en": "Look, clouds! … Let it rain, the toplar has a roof.", "de": "Schaut, Wolken! … Soll es ruhig regnen, der Toplar hat ein Dach.", "it": "Guardate, nuvole! … Che piova pure, il toplar ha il tetto.", "sky": { "gloom": 0.5, "wind": 0.3 }, "done": true }
         ] }
       }
     },
@@ -329,7 +330,7 @@
               "why": { "en": "Vilice is a table fork! Hay is lifted with a pitchfork: vile.", "de": "Vilice ist eine Essgabel! Heu hebt man mit der Heugabel: vile.", "it": "Vilice è la forchetta da tavola! Il fieno si alza col forcone: vile." },
               "reply": { "sl": "Z vilicami? Potem bomo tukaj do zime!", "en": "With forks? Then we'll be here till winter!", "de": "Mit Gabeln? Dann sind wir bis zum Winter hier!", "it": "Con le forchette? Allora stiamo qui fino all'inverno!" } }
           ] },
-          { "who": "luka", "sl": "Uf! Še zadnje … Glejte ga zdaj! Kakšen je?", "en": "Phew! The last bit … Look at it now! What's it like?", "de": "Puh! Das Letzte … Schaut ihn euch jetzt an! Wie ist er?", "it": "Uff! L'ultimo … Guardatelo adesso! Com'è?" },
+          { "who": "luka", "sl": "Uf! Še zadnje … Glejte ga zdaj! Kakšen je?", "en": "Phew! The last bit … Look at it now! What's it like?", "de": "Puh! Das Letzte … Schaut ihn euch jetzt an! Wie ist er?", "it": "Uff! L'ultimo … Guardatelo adesso! Com'è?", "done": true },
           { "choices": [
             { "sl": "Poln je, do zadnje late!", "en": "It's full, to the last pole!", "de": "Er ist voll, bis zur letzten Stange!", "it": "È pieno, fino all'ultima stanga!", "ok": true,
               "reply": { "sl": "Tako je! Najlepši toplar v deželi.", "en": "That's right! The finest toplar in the land.", "de": "Genau! Der schönste Toplar im Land.", "it": "Esatto! Il toplar più bello della regione." } },
@@ -365,7 +366,7 @@
               "why": { "en": "Z (with) takes the instrumental; vile is plural: z vilami.", "de": "Z (mit) verlangt den Instrumental; vile ist ein Pluralwort: z vilami.", "it": "Z (con) vuole lo strumentale; vile è un plurale: z vilami." },
               "reply": { "sl": "Z vile? Hm, kako, prosim?", "en": "With … pitchfork? Hm, pardon?", "de": "Mit … Heugabel? Hm, wie bitte?", "it": "Con … forcone? Mm, come, scusa?" } }
           ] },
-          { "who": "luka", "sl": "Še zadnja lata … Glejte ga zdaj!", "en": "The last pole … Look at it now!", "de": "Die letzte Stange … Schaut ihn euch jetzt an!", "it": "L'ultima stanga … Guardatelo adesso!" },
+          { "who": "luka", "sl": "Še zadnja lata … Glejte ga zdaj!", "en": "The last pole … Look at it now!", "de": "Die letzte Stange … Schaut ihn euch jetzt an!", "it": "L'ultima stanga … Guardatelo adesso!", "done": true },
           { "choices": [
             { "sl": "Bolj poln je kot vsi kozolci v vasi!", "en": "It's fuller than all the hayracks in the village!", "de": "Er ist voller als alle Heuharfen im Dorf!", "it": "È più pieno di tutti gli essiccatoi del paese!", "ok": true,
               "reply": { "sl": "Res je! Krave bodo pozimi vesele.", "en": "True! The cows will be happy this winter.", "de": "Stimmt! Die Kühe werden sich im Winter freuen.", "it": "È vero! Le mucche quest'inverno saranno contente." } },

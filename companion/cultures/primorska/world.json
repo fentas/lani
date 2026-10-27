@@ -456,7 +456,7 @@
                   "A1": {
                     "lines": [
                       { "who": "oglar", "sl": "Danes sem ves dan žagal in sekal.", "en": "Today I sawed and chopped all day.", "de": "Heute habe ich den ganzen Tag gesägt und gehackt.", "it": "Oggi ho segato e spaccato tutto il giorno." },
-                      { "who": "oglar", "sl": "To je moja sekira. Stara je, a dobra.", "en": "This is my axe. It's old, but good.", "de": "Das ist meine Axt. Sie ist alt, aber gut.", "it": "Questa è la mia ascia. È vecchia, ma buona." },
+                      { "who": "oglar", "sl": "Moja sekira je stara, a dobra.", "en": "My axe is old, but good.", "de": "Meine Axt ist alt, aber gut.", "it": "La mia ascia è vecchia, ma buona." },
                       { "choices": [
                         { "sl": "Je bila sekira vašega očeta?", "en": "Was the axe your father's?", "de": "Gehörte die Axt Ihrem Vater?", "it": "L'ascia era di suo padre?", "ok": true,
                           "reply": { "sl": "Ja. In prej mojega deda.", "en": "Yes. And before that my grandfather's.", "de": "Ja. Und davor meinem Großvater.", "it": "Sì. E prima ancora di mio nonno." } },
@@ -530,7 +530,7 @@
                           "reply": { "sl": "Ker se počasneje kuhajo. Spodaj je kopa najdlje vroča.", "en": "Because they take longer to cook. At the bottom the pile stays hot longest.", "de": "Weil sie langsamer garen. Unten bleibt der Meiler am längsten heiß.", "it": "Perché cuociono più lentamente. Sotto la carbonaia resta calda più a lungo." } },
                         { "sl": "Zakaj so debela polena zgoraj?", "en": "Why are the thick logs on top?", "de": "Warum sind die dicken Scheite oben?", "it": "Perché i ciocchi grossi sono sopra?",
                           "why": { "en": "He said the thick ones go below (spodaj) and the thin ones on top (zgoraj).", "de": "Er sagte: die dicken unten (spodaj), die dünnen oben (zgoraj).", "it": "Ha detto: quelli grossi sotto (spodaj), quelli sottili sopra (zgoraj)." },
-                          "reply": { "sl": "Zgoraj? Poglej še enkrat.", "en": "On top? Look again.", "de": "Oben? Schau noch einmal hin.", "it": "Sopra? Guarda di nuovo." } }
+                          "reply": { "sl": "Zgoraj? Premisli še enkrat.", "en": "On top? Think again.", "de": "Oben? Denk noch einmal nach.", "it": "Sopra? Pensaci bene." } }
                       ] },
                       { "who": "oglar", "sl": "Jutri jo pokrijem. Potem je ne vidiš več, samo dim.", "en": "Tomorrow I'll cover it. Then you won't see it any more, only the smoke.", "de": "Morgen decke ich ihn zu. Dann siehst du ihn nicht mehr, nur den Rauch.", "it": "Domani la copro. Poi non la vedi più, solo il fumo." }
                     ]
@@ -814,7 +814,7 @@
                   },
                   "A2": {
                     "lines": [
-                      { "who": "oglar", "sl": "Danes je kopa mirna. Dim gre lepo naravnost gor.", "en": "Today the pile is calm. The smoke goes nicely straight up.", "de": "Heute ist der Meiler ruhig. Der Rauch steigt schön gerade nach oben.", "it": "Oggi la carbonaia è tranquilla. Il fumo sale bello dritto." },
+                      { "who": "oglar", "sl": "Danes je kopa mirna. Dim se lepo dviga.", "en": "Today the pile is calm. The smoke rises nicely.", "de": "Heute ist der Meiler ruhig. Der Rauch steigt schön auf.", "it": "Oggi la carbonaia è tranquilla. Il fumo sale piano piano." },
                       { "who": "oglar", "sl": "Če gre dim postrani, piha veter. Takrat moram paziti.", "en": "If the smoke goes sideways, the wind is blowing. Then I have to be careful.", "de": "Wenn der Rauch zur Seite zieht, weht Wind. Dann muss ich aufpassen.", "it": "Se il fumo va di lato, tira vento. Allora devo stare attento." },
                       { "choices": [
                         { "sl": "Kaj naredite, ko piha veter?", "en": "What do you do when the wind blows?", "de": "Was machen Sie, wenn Wind weht?", "it": "Che cosa fa quando tira vento?", "ok": true,
@@ -960,7 +960,7 @@
                           "why": { "en": "He said na sredini: in the middle. The top was the first days.", "de": "Er sagte na sredini: in der Mitte. Oben war es die ersten Tage.", "it": "Ha detto na sredini: a metà. In cima era i primi giorni." },
                           "reply": { "sl": "Na vrhu? Tam je že oglje. Nižje!", "en": "At the top? That's charcoal already. Lower!", "de": "Ganz oben? Da ist schon Kohle. Tiefer!", "it": "In cima? Lì è già carbone. Più in basso!" } }
                       ] },
-                      { "who": "oglar", "sl": "Vidiš? Iz luknje gre rumen dim.", "en": "See? Yellow smoke is coming out of the hole.", "de": "Siehst du? Aus dem Loch kommt gelber Rauch.", "it": "Vedi? Dal buco esce fumo giallo." }
+                      { "who": "oglar", "sl": "Vidiš? Dim je rumen.", "en": "See? The smoke is yellow.", "de": "Siehst du? Der Rauch ist gelb.", "it": "Vedi? Il fumo è giallo." }
                     ]
                   },
                   "A2": {
@@ -1217,7 +1217,7 @@
                 "levels": {
                   "A1": {
                     "lines": [
-                      { "who": "oglar", "sl": "Kopa je tiha. Ni več dima.", "en": "The pile is quiet. No more smoke.", "de": "Der Meiler ist still. Kein Rauch mehr.", "it": "La carbonaia è silenziosa. Niente più fumo." },
+                      { "who": "oglar", "sl": "Kopa je tiha. Skoraj ni več dima.", "en": "The pile is quiet. Hardly any smoke now.", "de": "Der Meiler ist still. Kaum noch Rauch.", "it": "La carbonaia è silenziosa. Quasi niente più fumo." },
                       { "choices": [
                         { "sl": "Je oglje že gotovo?", "en": "Is the charcoal done already?", "de": "Ist die Kohle schon fertig?", "it": "Il carbone è già pronto?", "ok": true,
                           "reply": { "sl": "Ja. Samo še vroče je.", "en": "Yes. It's just still hot.", "de": "Ja. Sie ist nur noch heiß.", "it": "Sì. È solo ancora caldo." } },
@@ -1594,7 +1594,7 @@
                 },
                 "A2": {
                   "lines": [
-                    { "who": "oglar", "sl": "Pozimi v gozdu ne delam kope. Sneg je globok, zemlja zmrznjena.", "en": "In winter I don't make a pile in the woods. The snow is deep, the earth frozen.", "de": "Im Winter mache ich keinen Meiler im Wald. Der Schnee ist tief, die Erde gefroren.", "it": "D'inverno nel bosco non faccio carbonaie. La neve è alta, la terra gelata." },
+                    { "who": "oglar", "sl": "Pozimi v gozdu ne delam kope. Zemlja je trda in zmrznjena.", "en": "In winter I don't make a pile in the woods. The earth is hard and frozen.", "de": "Im Winter mache ich keinen Meiler im Wald. Die Erde ist hart und gefroren.", "it": "D'inverno nel bosco non faccio carbonaie. La terra è dura e gelata." },
                     { "who": "oglar", "sl": "Pozimi sekam. Bukev, posekana pozimi, je spomladi suha.", "en": "In winter I fell trees. Beech felled in winter is dry by spring.", "de": "Im Winter fälle ich. Eine im Winter gefällte Buche ist im Frühling trocken.", "it": "D'inverno abbatto. Il faggio tagliato d'inverno in primavera è secco." },
                     { "choices": [
                       { "sl": "Kdaj boste naredili prvo kopo?", "en": "When will you make the first pile?", "de": "Wann machen Sie den ersten Meiler?", "it": "Quando farà la prima carbonaia?", "ok": true,
@@ -1612,7 +1612,7 @@
               "levels": {
                 "A1": {
                   "lines": [
-                    { "who": "oglar", "sl": "Mrzlo je. Pridi k ognju.", "en": "It's cold. Come to the fire.", "de": "Es ist kalt. Komm ans Feuer.", "it": "Fa freddo. Vieni al fuoco." },
+                    { "who": "oglar", "sl": "Mrzlo je. Pridi bliže.", "en": "It's cold. Come closer.", "de": "Es ist kalt. Komm näher.", "it": "Fa freddo. Vieni più vicino." },
                     { "choices": [
                       { "sl": "Hvala. Zelo je mrzlo.", "en": "Thank you. It's very cold.", "de": "Danke. Es ist sehr kalt.", "it": "Grazie. Fa molto freddo.", "ok": true,
                         "reply": { "sl": "Pozimi je tu vedno tako.", "en": "In winter it's always like this up here.", "de": "Im Winter ist es hier immer so.", "it": "D'inverno qui è sempre così." } },

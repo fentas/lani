@@ -60,8 +60,9 @@
   "dialogs": [
     {
       "id": "pecora",
+      "fx_stays": true,
       "lines": [
-        { "who": "davide", "it": "{learner}! Hai visto Bianca? È la mia pecora più piccola!", "sl": "{learner}! Si {m:videl|f:videla} Bianco? Moja najmanjša ovca je!", "en": "{learner}! Have you seen Bianca? She's my smallest sheep!", "de": "{learner}! Hast du Bianca gesehen? Sie ist mein kleinstes Schaf!" },
+        { "who": "davide", "it": "{learner}! Hai visto Bianca? È la mia pecora più piccola!", "sl": "{learner}! Si {m:videl|f:videla} Bianco? Moja najmanjša ovca je!", "en": "{learner}! Have you seen Bianca? She's my smallest sheep!", "de": "{learner}! Hast du Bianca gesehen? Sie ist mein kleinstes Schaf!", "fx": { "sheep": 0 } },
         { "choices": [
           { "it": "No. Com'è Bianca?", "sl": "Ne. Kakšna je Bianca?", "en": "No. What does Bianca look like?", "de": "Nein. Wie sieht Bianca aus?", "ok": true,
             "reply": { "it": "È bianca, con la testa nera. E ha un campanello!", "sl": "Bela je, s črno glavo. In ima zvonček!", "en": "She's white, with a black head. And she has a little bell!", "de": "Sie ist weiß, mit schwarzem Kopf. Und sie hat ein Glöckchen!" } },
@@ -73,7 +74,7 @@
           "fx": { "sheepbells": 1 } },
         { "choices": [
           { "it": "Sì, lo sento! È vicino al sentiero.", "sl": "Ja, slišim ga! Blizu steze je.", "en": "Yes, I can hear it! It's near the path.", "de": "Ja, ich höre es! Es ist nah am Weg.", "ok": true,
-            "reply": { "it": "Bianca! Eccola! Grazie, {learner}!", "sl": "Bianca! Tukaj je! Hvala, {learner}!", "en": "Bianca! There she is! Thanks, {learner}!", "de": "Bianca! Da ist sie! Danke, {learner}!", "fx": { "sheepbells": 0 } } },
+            "reply": { "it": "Bianca! Eccola! Grazie, {learner}!", "sl": "Bianca! Tukaj je! Hvala, {learner}!", "en": "Bianca! There she is! Thanks, {learner}!", "de": "Bianca! Da ist sie! Danke, {learner}!", "fx": { "sheepbells": 0, "sheep": 1 } } },
           { "it": "Sì, lo senti! È vicino al sentiero.", "sl": "Ja, slišiš ga! Blizu steze je.", "en": "Yes, you can hear it! It's near the path.", "de": "Ja, du hörst es! Es ist nah am Weg.",
             "grammar": "presente-regolare", "why": { "sl": "Senti pomeni slišiš (ti). O sebi: sento (slišim).", "en": "Senti means you hear. About yourself: sento (I hear).", "de": "Senti heißt „du hörst“. Über dich selbst: sento (ich höre)." },
             "reply": { "it": "Io? Sì! Ma tu dove lo senti?", "sl": "Jaz? Ja! Ampak kje ga slišiš ti?", "en": "Me? Yes! But where do you hear it?", "de": "Ich? Ja! Aber wo hörst du es?" } },
@@ -141,10 +142,11 @@
       "id": "pecora-nebbia",
       "months": [10, 11, 12, 1, 2, 3],
       "sky_stays": false,
+      "fx_stays": true,
       "memory": { "it": "il giorno di nebbia che abbiamo trovato Bianca", "sl": "megleni dan, ko sva našla Bianco", "en": "the foggy day we found Bianca", "de": "den nebligen Tag, an dem wir Bianca gefunden haben" },
       "lines": [
         { "who": "davide", "it": "{learner}! Che nebbia! Non vedo le pecore. Bianca è sparita!", "sl": "{learner}! Kakšna megla! Ne vidim ovac. Bianca je izginila!", "en": "{learner}! What fog! I can't see the sheep. Bianca's gone!", "de": "{learner}! So ein Nebel! Ich sehe die Schafe nicht. Bianca ist weg!",
-          "sky": { "fog": 0.8, "gloom": 0.5 } },
+          "sky": { "fog": 0.8, "gloom": 0.5 }, "fx": { "sheep": 0 } },
         { "choices": [
           { "it": "Non ti preoccupare! La cerchiamo insieme.", "sl": "Ne skrbi! Poiščeva jo skupaj.", "en": "Don't worry! We'll look for her together.", "de": "Keine Sorge! Wir suchen sie zusammen.", "ok": true,
             "reply": { "it": "Grazie! Tu cerca a destra, io a sinistra.", "sl": "Hvala! Ti išči na desni, jaz na levi.", "en": "Thanks! You look on the right, I'll look on the left.", "de": "Danke! Du suchst rechts, ich links." } },
@@ -155,12 +157,12 @@
         { "who": "davide", "it": "Io fischio. Bianca conosce il mio fischio!", "sl": "Zažvižgam. Bianca pozna moj žvižg!", "en": "I'll whistle. Bianca knows my whistle!", "de": "Ich pfeife. Bianca kennt meinen Pfiff!" },
         { "choices": [
           { "it": "Senti! Il campanello! Viene di qua!", "sl": "Poslušaj! Zvonček! Prihaja sem!", "en": "Listen! The bell! She's coming this way!", "de": "Hör mal! Das Glöckchen! Sie kommt hierher!", "ok": true,
-            "reply": { "it": "Sì! Eccola! E la nebbia va via.", "sl": "Ja! Tukaj je! In megla se dviga.", "en": "Yes! There she is! And the fog's lifting.", "de": "Ja! Da ist sie! Und der Nebel geht weg.", "sky": { "fog": 0.2, "gloom": 0.1 }, "fx": { "sheepbells": 1 } } },
+            "reply": { "it": "Sì! Eccola! E la nebbia va via.", "sl": "Ja! Tukaj je! In megla se dviga.", "en": "Yes! There she is! And the fog's lifting.", "de": "Ja! Da ist sie! Und der Nebel geht weg.", "sky": { "fog": 0.2, "gloom": 0.1 }, "fx": { "sheepbells": 1, "sheep": 1 } } },
           { "it": "Senti! Il campanello! Va di qua!", "sl": "Poslušaj! Zvonček! Gre tod!", "en": "Listen! The bell! She's going this way!", "de": "Hör mal! Das Glöckchen! Sie geht hier lang!",
             "grammar": "verbi-irregolari", "why": { "sl": "Ko gre kdo k nam, rečeš viene (prihaja). Va je gre.", "en": "Coming towards us is viene. Va is going.", "de": "Wenn jemand zu uns kommt, sagt man viene (kommt). Va heißt geht." },
             "reply": { "it": "Va? Dove va? No, Bianca, torna qui!", "sl": "Gre? Kam gre? Ne, Bianca, vrni se!", "en": "Going? Where to? No, Bianca, come back!", "de": "Geht? Wohin denn? Nein, Bianca, komm zurück!" } }
         ] },
-        { "who": "davide", "it": "Brava Bianca! E {m:bravo|f:brava} anche tu, {learner}. Che nebbia, però!", "sl": "Pridna Bianca! Pa ti tudi, {learner}. Ampak kakšna megla!", "en": "Good girl, Bianca! And well done you, {learner}. What fog, though!", "de": "Brave Bianca! Und gut gemacht, {learner}. Aber so ein Nebel!" }
+        { "who": "davide", "it": "Brava Bianca! E {m:bravo|f:brava} anche tu, {learner}. Che nebbia, però!", "sl": "Pridna Bianca! Pa ti tudi, {learner}. Ampak kakšna megla!", "en": "Good girl, Bianca! And well done you, {learner}. What fog, though!", "de": "Brave Bianca! Und gut gemacht, {learner}. Aber so ein Nebel!", "fx": { "sheepbells": 0 } }
       ]
     },
     {

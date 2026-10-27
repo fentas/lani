@@ -48,7 +48,7 @@
       "id": "podkev",
       "lines": [
         { "who": "tone", "sl": "Dan. Kuješ? Ne? Potem drži klešče. Trdno.", "en": "Day. Do you forge? No? Then hold the tongs. Firmly.", "de": "Tag. Schmiedest du? Nein? Dann halt die Zange. Fest.", "it": "'Giorno. Forgi? No? Allora tieni le tenaglie. Forte.",
-          "fx": { "forge": 0.7 } },
+          "fx": { "forge": 0.7, "iron": 1 } },
         { "choices": [
           { "sl": "Dober dan, Tone. Držim. Kaj zdaj?", "en": "Good day, Tone. I am holding. What now?", "de": "Guten Tag, Tone. Ich halte. Was jetzt?", "it": "Buongiorno, Tone. Tengo. E adesso?", "ok": true,
             "reply": { "sl": "Zdaj udarim. Ti drži.", "en": "Now I strike. You hold.", "de": "Jetzt schlage ich. Du hältst.", "it": "Adesso batto io. Tu tieni.", "fx": { "sparks": 1 } } },
@@ -71,7 +71,7 @@
             "reply": { "sl": "Kje? Zunaj. Tu je vroče.", "en": "Kje (where)? Outside. In here it's hot.", "de": "Kje (wo)? Draußen. Hier drin ist es heiß.", "it": "Kje (dove)? Fuori. Qui dentro fa caldo." } }
         ] },
         { "who": "tone", "sl": "Štiri luknje za žeblje. Ena, dve, tri, štiri. Podkev. Vzemi jo.", "en": "Four holes for the nails. One, two, three, four. A horseshoe. Take it.", "de": "Vier Löcher für die Nägel. Eins, zwei, drei, vier. Ein Hufeisen. Nimm es.", "it": "Quattro buchi per i chiodi. Uno, due, tre, quattro. Un ferro di cavallo. Prendilo.",
-          "fx": { "sparks": 0 } },
+          "fx": { "sparks": 0, "iron": 0 } },
         { "choices": [
           { "sl": "Zame? Hvala vam! Podkev prinaša srečo.", "en": "For me? Thank you! A horseshoe brings luck.", "de": "Für mich? Ich danke Ihnen! Ein Hufeisen bringt Glück.", "it": "Per me? Grazie a Lei! Un ferro di cavallo porta fortuna.", "ok": true,
             "reply": { "sl": "Hm. Delo prinaša srečo. Pojdi.", "en": "Hm. Work brings luck. Go.", "de": "Hm. Arbeit bringt Glück. Geh.", "it": "Hm. Il lavoro porta fortuna. Va'." } },
@@ -243,13 +243,13 @@
             "grammar": "orodnik", "why": { "en": "S/z (with) takes the instrumental: s kladivom.", "de": "S/z (mit) verlangt den Instrumental: s kladivom.", "it": "S/z (con) regge lo strumentale: s kladivom." },
             "reply": { "sl": "S kladivo? Ne. Ali je prav, ali ni. Še enkrat.", "en": "S kladivo? No. Either it's right, or it isn't. Again.", "de": "S kladivo? Nein. Entweder stimmt's, oder nicht. Nochmal.", "it": "S kladivo? No. O è giusto, o non lo è. Di nuovo." } },
           { "sl": "S kladivom, na nakovalu.", "en": "With the hammer, on the anvil.", "de": "Mit dem Hammer, auf dem Amboss.", "it": "Con il martello, sull'incudine.", "ok": true,
-            "reply": { "sl": "Prav. In s kleščami držim železo.", "en": "Right. And with the tongs I hold the iron.", "de": "Richtig. Und mit der Zange halte ich das Eisen.", "it": "Giusto. E con le tenaglie tengo il ferro.", "fx": { "sparks": 1 } } },
+            "reply": { "sl": "Prav. In s kleščami držim železo.", "en": "Right. And with the tongs I hold the iron.", "de": "Richtig. Und mit der Zange halte ich das Eisen.", "it": "Giusto. E con le tenaglie tengo il ferro.", "fx": { "sparks": 1, "iron": 1 } } },
           { "sl": "S kladivi, na nakovalu.", "en": "With hammers, on the anvil.", "de": "Mit Hämmern, auf dem Amboss.", "it": "Con i martelli, sull'incudine.",
             "grammar": "orodnik", "why": { "en": "One hammer: the instrumental singular, s kladivom. S kladivi is 'with hammers'.", "de": "Ein Hammer: der Instrumental Singular, s kladivom. S kladivi heißt ‚mit Hämmern‘.", "it": "Un martello solo: lo strumentale singolare, s kladivom. S kladivi significa 'con i martelli'." },
             "reply": { "sl": "S kladivi? Imam samo eno kladivo. In dve roki.", "en": "S kladivi (hammers)? I've only got one hammer. And two hands.", "de": "S kladivi (mit Hämmern)? Ich hab nur einen Hammer. Und zwei Hände.", "it": "S kladivi (con i martelli)? Ho un martello solo. E due mani." } }
         ] },
         { "who": "tone", "sl": "Zdaj ti drži klešče, jaz udarim. Tako! Podkev je gotova.", "en": "Now you hold the tongs, I strike. There! The horseshoe is done.", "de": "Jetzt hältst du die Zange, ich schlage. So! Das Hufeisen ist fertig.", "it": "Adesso tu tieni le tenaglie, io batto. Ecco! Il ferro di cavallo è pronto.",
-          "fx": { "sparks": 1 } },
+          "fx": { "sparks": 1, "iron": 0 } },
         { "who": "tone", "sl": "Zdaj kava. Greš z mano?", "en": "Now coffee. Coming with me?", "de": "Jetzt Kaffee. Kommst du mit?", "it": "Adesso caffè. Vieni con me?",
           "fx": { "forge": 0.3, "sparks": 0 } },
         { "choices": [
@@ -290,10 +290,11 @@
     },
     {
       "id": "kolo-steklenice",
+      "fx_stays": true,
       "count": { "from": "dice", "min": 98, "max": 106, "gender": "f" },
       "lines": [
         { "who": "marko", "sl": "Ciao, {learner}! Tone popravlja moje kolo. Medtem pa preštejva, koliko vina imam v vozu!", "en": "Ciao, {learner}! Tone is fixing my wheel. Meanwhile, let's count how much wine I've got in the cart!", "de": "Ciao, {learner}! Tone repariert mein Rad. Inzwischen zählen wir zwei, wie viel Wein ich im Wagen habe!", "it": "Ciao, {learner}! Tone mi sta aggiustando la ruota. Intanto contiamo quanto vino ho nel carro!",
-          "fx": { "sparks": 0.6 } },
+          "fx": { "sparks": 0.6, "cart": 0 } },
         { "choices": [
           { "sl": "V vozu {je|sta|so|je} {n} {!steklenica|steklenici|steklenice|steklenic}.", "en": "There {is|are} {n} {!bottle|bottles} in the cart.", "de": "Im Wagen {ist|sind} {n} {!Flasche|Flaschen}.", "it": "Nel carro {c'è|ci sono} {n} {!bottiglia|bottiglie}.", "wrong_form": 2, "grammar": "stevila-samostalniki",
             "why": { "en": "{Ends in 1: singular|Ends in 2: dual|Ends in 3 or 4: plural|From 5, and round hundreds: genitive plural}: v vozu {je|sta|so|je} {n} {steklenica|steklenici|steklenice|steklenic}.", "de": "{Endet auf 1: Singular|Endet auf 2: Dual|Endet auf 3 oder 4: Plural|Ab 5, auch runde Hunderter: Genitiv Plural}: v vozu {je|sta|so|je} {n} {steklenica|steklenici|steklenice|steklenic}.", "it": "{Finisce per 1: singolare|Finisce per 2: duale|Finisce per 3 o 4: plurale|Da 5, e centinaia tonde: genitivo plurale}: v vozu {je|sta|so|je} {n} {steklenica|steklenici|steklenice|steklenic}." },
@@ -313,14 +314,15 @@
             "reply": { "sl": "Ja! V Gorici radi pijejo, ha ha.", "en": "Yes! In Gorizia they like a drink, ha ha.", "de": "Ja! In Görz trinkt man gern, haha.", "it": "Sì! A Gorizia bevono volentieri, ah ah." } }
         ] },
         { "who": "marko", "sl": "Glej, Tone je končal! Kolo je kot novo.", "en": "Look, Tone's finished! The wheel is as good as new.", "de": "Schau, Tone ist fertig! Das Rad ist wie neu.", "it": "Guarda, Tone ha finito! La ruota è come nuova.",
-          "fx": { "sparks": 0 } }
+          "fx": { "sparks": 0, "cart": 1 } }
       ]
     },
     {
       "id": "kolo-tvoj",
+      "fx_stays": true,
       "lines": [
         { "who": "marko", "sl": "Ciao, {learner}! Poglej moj voz. Star je, ampak dober. Samo kolo je zlomljeno.", "en": "Ciao, {learner}! Look at my cart. It's old, but good. Only the wheel is broken.", "de": "Ciao, {learner}! Schau dir meinen Wagen an. Er ist alt, aber gut. Nur das Rad ist kaputt.", "it": "Ciao, {learner}! Guarda il mio carro. È vecchio, ma buono. Solo la ruota è rotta.",
-          "fx": { "sparks": 0.6 } },
+          "fx": { "sparks": 0.6, "cart": 0 } },
         { "choices": [
           { "sl": "Vaš voz je lep! In Tone je dober kovač.", "en": "Your (vi) cart is nice! And Tone is a good smith.", "de": "Ihr Wagen ist schön! Und Tone ist ein guter Schmied.", "it": "Il Suo carro è bello! E Tone è un bravo fabbro.",
             "grammar": "ti-vi", "why": { "en": "Marko says ti to everyone, and you say ti back: tvoj voz. Vaš is for vi.", "de": "Marko sagt zu allen ti, und du sagst ti zurück: tvoj voz. Vaš ist für vi.", "it": "Marko dà del ti a tutti, e tu glielo ridai: tvoj voz. Vaš è per il vi." },
@@ -340,7 +342,7 @@
             "reply": { "sl": "Bravo! Pridi z njim v Brda!", "en": "Bravo! Ride it over to Brda!", "de": "Bravo! Komm damit nach Brda!", "it": "{m:Bravo|f:Brava}! Vieni in bici nel Collio!" } }
         ] },
         { "who": "marko", "sl": "Tone, grazie! Moj voz ima spet štiri kolesa.", "en": "Tone, grazie! My cart has four wheels again.", "de": "Tone, grazie! Mein Wagen hat wieder vier Räder.", "it": "Tone, grazie! Il mio carro ha di nuovo quattro ruote.",
-          "fx": { "sparks": 0 } }
+          "fx": { "sparks": 0, "cart": 1 } }
       ]
     },
     {
