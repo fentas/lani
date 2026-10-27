@@ -112,7 +112,11 @@ companion/bin/lani-bridge stop
 
 `restart` first checks that the code builds (`bun build`); if it doesn't, the running service is left alone. Add
 `--profile <id>` for another learner. `lani-session` picks the mode from `--service` or `--classic`, else
-`$LANI_BRIDGE_MODE`, else the word in `~/.config/lani/bridge-mode`, else `classic`.
+`$LANI_BRIDGE_MODE`, else the word in `~/.config/lani/bridge-mode`, else `classic`; but while the learner's bridge
+service runs, the tutor connects to it (the service mode) whatever the default says, and `--classic` is refused: a
+tutor started in the classic mode beside a running service had a bridge of its own the app never reached, so the app's
+messages waited for a tutor that never came. A tutor session already running but not connected to the service is
+named, to /exit and start again.
 
 **What still needs a tutor restart:** a change to the shim (`bridge/src/shim.ts`, `bridge/src/control.ts`,
 `bridge/src/index.ts`) or to the MCP SDK it loads; the channel's short instructions (the `channel_guide` tool is

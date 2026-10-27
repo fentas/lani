@@ -9,7 +9,8 @@
 #   lani-session --list               the learners on this machine
 #   … --service | --classic           where the bridge runs (docs/plans/04-bridge-service.md): as a service of its
 #                                     own (lani-bridge), the session with a shim; or inside the session (today's).
-#                                     Else $LANI_BRIDGE_MODE, else ~/.config/lani/bridge-mode, else classic.
+#                                     Else $LANI_BRIDGE_MODE, else ~/.config/lani/bridge-mode, else classic; but
+#                                     while the learner's bridge service runs, the service mode (--classic refused).
 #   … --print                         print the commands instead of running them
 set -euo pipefail
 cd "$(dirname "$0")/../.."
@@ -34,13 +35,26 @@ done
 # LANI_* (or their FLUENT_* names), and the config files of ~/.config/lani (or ~/.config/fluent): bin/lani-env.sh
 . companion/bin/lani-env.sh
 modefile="$(lani_config_file bridge-mode)"
+asked="$mode" # --service or --classic on the command line; else the mode is a default, from the environment or config
 if [ -z "$mode" ]; then mode="${LANI_BRIDGE_MODE:-}"; fi
 if [ -z "$mode" ] && [ -r "$modefile" ]; then mode="$(tr -d '[:space:]' < "$modefile")"; fi
-mode="${mode:-classic}"
-case "$mode" in
+case "${mode:-classic}" in
   classic|service) ;;
   *) echo "lani-session: the bridge mode is classic or service, not \"$mode\" (from --service/--classic, \$LANI_BRIDGE_MODE or $modefile)" >&2; exit 2 ;;
 esac
+# This learner's bridge service runs already: the tutor connects to it (the service mode) unless told otherwise, and never
+# starts a second bridge of its own beside it (both would serve the same learner's data, the app only reaching one).
+service_status=(companion/bin/lani-bridge status --quiet)
+[ -n "$profile" ] && [ "$profile" != default ] && service_status+=(--profile "$profile")
+if [ "$mode" != service ] && "${service_status[@]}" 2>/dev/null; then
+  if [ "$asked" = classic ]; then
+    echo "lani-session: the bridge service of ${profile:-default} runs, so its tutor connects to it: run lani-session with --service (or stop the service first: lani-bridge stop${profile:+ --profile $profile})." >&2
+    exit 2
+  fi
+  echo "lani-session: the bridge service of ${profile:-default} runs: the tutor connects to it (the service mode)." >&2
+  mode=service
+fi
+mode="${mode:-classic}"
 
 # API keys (ELEVENLABS_API_KEY for the voice store) are exported inside the tmux session, so the
 # bridge that Claude Code spawns inherits them. They never appear on a command line.
@@ -78,6 +92,9 @@ if [ "$mode" = service ]; then
   if tmux has-session -t "=$name" 2>/dev/null && ! "${bridge[0]}" status "${bridge[@]:1}" --quiet; then
     # The tutor runs, with no service: it was started in the classic mode, its bridge inside it.
     echo "lani-session: the tutor session $name runs in the classic mode (its bridge inside it). To switch: attach, /exit, and run lani-session again." >&2
+  elif tmux has-session -t "=$name" 2>/dev/null && "${bridge[0]}" status "${bridge[@]:1}" 2>/dev/null | grep -q "no tutor session is attached"; then
+    # The service runs and so does a tutor session, but it isn't the service's: started in the classic mode beside it.
+    echo "lani-session: the tutor session $name runs but isn't connected to the bridge service (it was started in the classic mode). Attach, /exit, and run lani-session again." >&2
   else
     # The bridge service first (nothing if it runs); the tutor starts anyway, and its shim connects once the service is up.
     "${bridge[0]}" start "${bridge[@]:1}" || echo "lani-session: the bridge service isn't ready yet; the tutor starts anyway and connects when it is" >&2
