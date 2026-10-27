@@ -2237,7 +2237,8 @@ and the tests (no board in the frame's world: `SceneWorld.board`, set by `AppVie
 the school's own greeting, "Dober dan! / Kako si? / Dobro." and the chalk sun.
 
 The hand: letters 3 px wide (m, w, a few capitals 4 or 5), the small ones 4 rows high, capitals and tall letters 6, a row
-below for g, j, p, y; č, š, ž and the other Latin letters with a mark are their letter and the mark over it. On the
+below for g, j, p, y; č, š, ž and the other Latin letters with a mark are their letter and the mark over it; "…" three
+dots on the line (a title's or a cell's: "Če bi deževalo, bi …", "si ga …?"). On the
 board's slant each letter's right part is a row lower (the s drawn slanted already), each letter a little up or down and
 the lines wavering, the chalk worn here and there, the title underlined, and the board hazy with the lessons wiped off
 it. Closer up the same letters stand in the same places, a chalk line a picture pixel thin from each of their pixels to
