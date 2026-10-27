@@ -54,7 +54,13 @@ const PATTERNS: Record<'it' | 'sl', { id: string; description: string; category:
  */
 export function writeLearning(dataDir: string, o: { language: 'it' | 'sl'; base: string; secret?: string; streak?: number; now?: number }) {
   const now = o.now ?? Date.now()
-  const day = (n: number) => localDate(now + n * 86_400_000)
+  // calendar days, not 24-hour steps: across a change to or from summer time a day has 23 or 25 hours, and n × 24 h from
+  // the day's last hour lands two sessions on one date (the streak one short)
+  const day = (n: number) => {
+    const d = new Date(now)
+    d.setDate(d.getDate() + n)
+    return localDate(d.getTime())
+  }
   const secret = o.secret ?? 'PRIVATE'
   const words = WORDS[o.language]
   const items: Record<string, any> = {}

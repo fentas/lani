@@ -379,8 +379,14 @@ def fixture_file() -> Path:
     return BRIDGE / "test/fixtures" / TOWN_FIXTURE
 
 
-def l10n(lang: str) -> dict:
-    """The app's texts in [lang] by key ("visit.visiting" → "In visita"), from its resources."""
+def l10n(lang: str, key: str | None = None):
+    """The app's texts in [lang] by key ("visit.visiting" → "In visita"), from its resources; with [key], that text."""
+    texts = l10n_table(lang)
+    return texts if key is None else texts[key]
+
+
+def l10n_table(lang: str) -> dict:
+    """The app's texts in [lang] by key, flattened (l10n)."""
     def flat(o, p=""):
         for k, v in o.items():
             key = f"{p}.{k}" if p else k
@@ -9896,11 +9902,6 @@ def wishlist():
 # a wild animal's word on the map of a Friuli village (the string tables' "wild.*" in Italian; GAME.md "The land")
 WILD_IT = ("scoiattolo", "lepre", "uccello", "capriolo", "volpe", "riccio", "pipistrello", "cinghiale", "tasso", "gufo", "orso", "orma")
 WILD_SL = ("veverica", "zajec", "ptica", "srna", "lisica", "jež", "netopir", "divji prašič", "jazbec", "sova", "medved", "sled")
-
-
-def l10n(lang: str, key: str) -> str:
-    """[key]'s message in the app's [lang] table (app/src/main/resources/l10n)."""
-    return json.loads((ANDROID / f"app/src/main/resources/l10n/{lang}.json").read_text())[key]
 
 
 def coast():
