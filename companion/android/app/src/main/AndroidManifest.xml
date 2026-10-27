@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- The tutors' queues wait for the network instead of failing turns (tutor/live/AndroidOnline; WorkManager adds it too). -->
@@ -161,5 +162,9 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/village_widget_info" />
         </receiver>
+        <!-- A release build can be measured on a phone or a tablet (Android 10+): its CPU profiled and traced from the
+             shell (simpleperf, Perfetto, Android Studio's profiler), as a debug build can, without being debuggable
+             (docs/plans/05-built/zoom-frames.md). The shell only: no other app can. -->
+        <profileable android:shell="true" tools:targetApi="29" />
     </application>
 </manifest>
