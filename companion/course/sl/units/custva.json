@@ -1,0 +1,239 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "custva",
+  "language": "sl",
+  "level": "B1",
+  "emoji": "🥶",
+  "title": { "sl": "Mudi se mi, boli me glava", "en": "I'm in a hurry, my head hurts: feelings", "de": "Ich habe es eilig, mir tut der Kopf weh: Gefühle", "it": "Ho fretta, mi fa male la testa: i sentimenti" },
+  "goal": {
+    "en": "You can say how you and others feel with the dative (mrzlo mi je, Janezu se mudi) and the accusative (boli me glava, Zalo je strah), also in the past (zeblo me je, glava me je bolela).",
+    "de": "Du sagst, wie du und andere sich fühlen, mit dem Dativ (mrzlo mi je, Janezu se mudi) und dem Akkusativ (boli me glava, Zalo je strah), auch in der Vergangenheit (zeblo me je, glava me je bolela).",
+    "it": "Sai dire come ti senti tu e come si sentono gli altri con il dativo (mrzlo mi je, Janezu se mudi) e l'accusativo (boli me glava, Zalo je strah), anche al passato (zeblo me je, glava me je bolela)."
+  },
+  "grammar": ["custva", "dajalnik", "tozilnik"],
+  "words": ["mrzlo", "vroče", "slabo", "dolgčas", "žal", "hudo", "vseeno", "muditi se", "zdeti se", "ljubiti se", "manjkati", "boleti", "zebsti", "skrbeti", "zanimati", "veseliti", "strah", "sram", "glava", "zob", "noga", "roka", "prehlad", "postelja", "čaj", "tema", "slovnica"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "sklon", "en": "case", "de": "Fall", "it": "caso" },
+        { "sl": "izraz", "en": "the phrase", "de": "Ausdruck", "it": "espressione" },
+        { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "You know **mrzlo mi je** (I'm cold) and **všeč mi je**: who feels it is in the dative, and the verb is just **je**. Many feelings work so: **slabo mi je** (I feel sick), **dolgčas mi je** (I'm bored), **žal mi je** (I'm sorry), **hudo mi je** (I feel bad). With a name, the name's dative: **Nejcu je dolgčas. Babici je slabo.**",
+          "de": "Du kennst **mrzlo mi je** (mir ist kalt) und **všeč mi je**: Wer es fühlt, steht im Dativ, und das Verb ist nur **je**. Viele Gefühle gehen so: **slabo mi je** (mir ist schlecht), **dolgčas mi je** (mir ist langweilig), **žal mi je** (es tut mir leid), **hudo mi je** (mir geht es schlecht). Mit einem Namen dessen Dativ: **Nejcu je dolgčas. Babici je slabo.**",
+          "it": "Conosci **mrzlo mi je** (ho freddo) e **všeč mi je**: chi lo sente va al dativo, e il verbo è solo **je**. Molti sentimenti funzionano così: **slabo mi je** (mi sento male), **dolgčas mi je** (mi annoio), **žal mi je** (mi dispiace), **hudo mi je** (sto male, sono triste). Con un nome, il dativo del nome: **Nejcu je dolgčas. Babici je slabo.**"
+        },
+        "examples": [
+          { "sl": "Nejcu je dolgčas, ker dežuje.", "en": "Nejc is bored because it's raining.", "de": "Nejc langweilt sich, weil es regnet.", "it": "Nejc si annoia perché piove." },
+          { "sl": "Žal mi je, danes ne morem priti.", "en": "I'm sorry, I can't come today.", "de": "Es tut mir leid, heute kann ich nicht kommen.", "it": "Mi dispiace, oggi non posso venire." }
+        ],
+        "rows": [
+          [{ "sl": "dajalnik: komu?", "en": "dative: to whom?", "de": "Dativ: wem?", "it": "dativo: a chi?" }, "mrzlo mi je, slabo mi je", "Babici je slabo."],
+          [{ "sl": "dajalnik", "en": "dative", "de": "Dativ", "it": "dativo" }, "dolgčas mi je, žal mi je", "Nejcu je dolgčas."]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "custva", "text": "___ je dolgčas, ker dežuje. (Nejc)", "accept": ["Nejcu"], "hint": "who feels it: the dative",
+          "explain": "**who feels it** → the dative: Nejc → **Nejcu** je dolgčas"
+        }
+      },
+      {
+        "say": {
+          "en": "Some take **se** too: **mudi se mi** (I'm in a hurry), **zdi se mi** (it seems to me, I think), **spi se mi** (I'm sleepy), **ne ljubi se mi** (I don't feel like it). **Se** comes before **mi**: **se mi, se ti, se mu**. **Janezu se mudi.** **Zali se zdi slovnica težka.** (Zala finds grammar hard.)",
+          "de": "Manche haben auch **se**: **mudi se mi** (ich habe es eilig), **zdi se mi** (mir scheint, ich glaube), **spi se mi** (ich bin schläfrig), **ne ljubi se mi** (ich habe keine Lust). **Se** steht vor **mi**: **se mi, se ti, se mu**. **Janezu se mudi.** **Zali se zdi slovnica težka.** (Zala findet Grammatik schwer.)",
+          "it": "Alcuni hanno anche **se**: **mudi se mi** (ho fretta), **zdi se mi** (mi sembra, credo), **spi se mi** (ho sonno), **ne ljubi se mi** (non ne ho voglia). **Se** viene prima di **mi**: **se mi, se ti, se mu**. **Janezu se mudi.** **Zali se zdi slovnica težka.** (A Zala la grammatica sembra difficile.)"
+        },
+        "examples": [
+          { "sl": "Janezu se mudi, gostje že čakajo.", "en": "Janez is in a hurry, the guests are already waiting.", "de": "Janez hat es eilig, die Gäste warten schon.", "it": "Janez ha fretta, gli ospiti aspettano già." },
+          { "sl": "Danes se mi ne ljubi kuhati.", "en": "I don't feel like cooking today.", "de": "Heute habe ich keine Lust zu kochen.", "it": "Oggi non ho voglia di cucinare." }
+        ],
+        "rows": [
+          [{ "sl": "dajalnik + se", "en": "dative + se", "de": "Dativ + se", "it": "dativo + se" }, "mudi se mi, zdi se mi", "Janezu se mudi."],
+          [{ "sl": "dajalnik + se", "en": "dative + se", "de": "Dativ + se", "it": "dativo + se" }, "spi se mi, ne ljubi se mi", "Danes se mi ne ljubi kuhati."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "custva", "prompt": "»Oprosti, ___, gostje že čakajo!« (I'm in a hurry)", "options": ["mudi se mi", "mudim se", "se mi mudim"], "answer": 0, "say_options": true,
+          "explain": "**who is in a hurry** → the dative, the verb **mudi** (third person): mudi se mi\n- mudim se · means 'I'm staying (somewhere)'"
+        }
+      },
+      {
+        "say": {
+          "en": "Others take the accusative: **boli me** (it hurts me), **zebe me** (I'm freezing), **skrbi me** (I'm worried), **srbi me** (it itches). What hurts is the subject: **Boli me glava.** **Bolijo me noge.** With a name: **Mamo boli glava.** (Mum has a headache.) **Toneta skrbi za babico.**",
+          "de": "Andere haben den Akkusativ, wie *mich friert*: **boli me** (es tut mir weh), **zebe me** (mich friert), **skrbi me** (ich mache mir Sorgen), **srbi me** (es juckt mich). Was wehtut, ist das Subjekt: **Boli me glava.** **Bolijo me noge.** Mit einem Namen: **Mamo boli glava.** (Mama hat Kopfweh.) **Toneta skrbi za babico.**",
+          "it": "Altri vogliono l'accusativo: **boli me** (mi fa male), **zebe me** (ho i brividi di freddo), **skrbi me** (mi preoccupo), **srbi me** (mi prude). Ciò che fa male è il soggetto: **Boli me glava.** **Bolijo me noge.** Con un nome: **Mamo boli glava.** (Alla mamma fa male la testa.) **Toneta skrbi za babico.**"
+        },
+        "examples": [
+          { "sl": "Mamo boli glava, zato je šla spat.", "en": "Mum has a headache, so she went to bed.", "de": "Mama hat Kopfweh, deshalb ist sie schlafen gegangen.", "it": "Alla mamma fa male la testa, perciò è andata a dormire." },
+          { "sl": "Toneta skrbi za babico.", "en": "Tone is worried about Granny.", "de": "Tone macht sich Sorgen um Oma.", "it": "Tone è in pensiero per la nonna." }
+        ],
+        "rows": [
+          [{ "sl": "tožilnik: koga?", "en": "accusative: whom?", "de": "Akkusativ: wen?", "it": "accusativo: chi?" }, "boli me, zebe me, skrbi me", "Mamo boli glava."]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "custva", "text": "Po trgatvi ___ bolijo roke. (Marko)", "accept": ["Marka"], "hint": "who hurts: the accusative",
+          "explain": "**who hurts** → the accusative: Marko → **Marka** bolijo roke; roke is the subject, so **bolijo**"
+        }
+      },
+      {
+        "say": {
+          "en": "With **je** and the accusative: **strah me je** (I'm afraid), **sram me je** (I'm ashamed). What you fear is in the genitive: **Zalo je strah teme.** (Zala is afraid of the dark.) And a few verbs for what moves you: **veseli me** (I'm glad), **zanima me** (I'm interested), **jezi me** (it annoys me): **Veseli me, da si {m:prišel|f:prišla}.**",
+          "de": "Mit **je** und dem Akkusativ: **strah me je** (ich habe Angst), **sram me je** (ich schäme mich). Wovor man Angst hat, steht im Genitiv: **Zalo je strah teme.** (Zala hat Angst vor der Dunkelheit.) Und ein paar Verben dafür, was dich bewegt: **veseli me** (es freut mich), **zanima me** (es interessiert mich), **jezi me** (es ärgert mich): **Veseli me, da si {m:prišel|f:prišla}.**",
+          "it": "Con **je** e l'accusativo: **strah me je** (ho paura), **sram me je** (mi vergogno). Ciò di cui hai paura va al genitivo: **Zalo je strah teme.** (Zala ha paura del buio.) E alcuni verbi per ciò che ti tocca: **veseli me** (mi fa piacere), **zanima me** (mi interessa), **jezi me** (mi fa arrabbiare): **Veseli me, da si {m:prišel|f:prišla}.**"
+        },
+        "examples": [
+          { "sl": "Zalo je strah teme.", "en": "Zala is afraid of the dark.", "de": "Zala hat Angst vor der Dunkelheit.", "it": "Zala ha paura del buio." },
+          { "sl": "Toneta zanima vse o konjih.", "en": "Tone is interested in everything about horses.", "de": "Tone interessiert sich für alles über Pferde.", "it": "A Tone interessa tutto sui cavalli." }
+        ],
+        "rows": [
+          [{ "sl": "tožilnik + je", "en": "accusative + je", "de": "Akkusativ + je", "it": "accusativo + je" }, "strah me je, sram me je", "Zalo je strah teme."],
+          [{ "sl": "tožilnik", "en": "accusative", "de": "Akkusativ", "it": "accusativo" }, "veseli me, zanima me, jezi me", "Toneta zanima vse o konjih."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "custva", "prompt": "Zalo je strah ___.", "options": ["teme", "temo", "tema"], "answer": 0, "say_options": true,
+          "explain": "**strah me je** + the genitive of what you fear: tema → **teme**"
+        }
+      },
+      {
+        "say": {
+          "en": "In the past and the future the verb is neuter when nothing is the subject: **Mrzlo mi je bilo.** **Mudilo se mi je.** **Zeblo me je.** **Strah me bo.** When something is the subject (what hurts, seems, is missed), the verb agrees with it: **Glava me je bolela.** **Noge so me bolele.** **Šola mi je manjkala.**",
+          "de": "In Vergangenheit und Futur steht das Verb im Neutrum, wenn nichts das Subjekt ist: **Mrzlo mi je bilo.** **Mudilo se mi je.** **Zeblo me je.** **Strah me bo.** Ist etwas das Subjekt (was wehtut, scheint, fehlt), richtet sich das Verb danach: **Glava me je bolela.** **Noge so me bolele.** **Šola mi je manjkala.**",
+          "it": "Nel passato e nel futuro il verbo è neutro quando niente è il soggetto: **Mrzlo mi je bilo.** **Mudilo se mi je.** **Zeblo me je.** **Strah me bo.** Se qualcosa è il soggetto (ciò che fa male, sembra, manca), il verbo si accorda con esso: **Glava me je bolela.** **Noge so me bolele.** **Šola mi je manjkala.**"
+        },
+        "examples": [
+          { "sl": "Včeraj me je zeblo v noge.", "en": "Yesterday my feet were freezing.", "de": "Gestern haben mir die Füße gefroren.", "it": "Ieri avevo freddo ai piedi." },
+          { "sl": "Po trgatvi so Marka bolele roke.", "en": "After the grape harvest Marko's arms were aching.", "de": "Nach der Weinlese taten Marko die Arme weh.", "it": "Dopo la vendemmia a Marko facevano male le braccia." }
+        ],
+        "rows": [
+          [{ "sl": "preteklik: srednji spol", "en": "past: neuter", "de": "Vergangenheit: Neutrum", "it": "passato: neutro" }, "mrzlo mi je bilo, zeblo me je", "Včeraj me je zeblo."],
+          [{ "sl": "preteklik: boli", "en": "past of boli", "de": "Vergangenheit von boli", "it": "passato di boli" }, "glava me je bolela", "Noge so me bolele."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "custva", "prompt": "Včeraj ___ glava.", "options": ["me je bolela", "me je bolelo", "sem bolel"], "answer": 0, "say_options": true,
+          "explain": "**glava** is the subject → the verb agrees: glava me je **bolela**\n- bolelo · only when nothing is the subject (zeblo me je)"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "custva-1",
+      "title": { "sl": "Mi ali me?", "en": "Mi or me?", "de": "Mi oder me?", "it": "Mi o me?" },
+      "exercises": [
+        {
+          "type": "sort", "grammar": "custva", "instruction": "Dajalnik ali tožilnik? · Dative or accusative?",
+          "columns": [
+            { "label": "mi … (dajalnik · dative)", "words": ["mrzlo", "dolgčas", "mudi se", "zdi se"] },
+            { "label": "me … (tožilnik · accusative)", "words": ["boli", "zebe", "skrbi", "strah"] }
+          ],
+          "explain": "**the dative**: mrzlo mi je, dolgčas mi je, mudi se mi, zdi se mi\n**the accusative**: boli me, zebe me, skrbi me, strah me je"
+        },
+        {
+          "type": "table", "grammar": "custva", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "kdo čuti? · who feels it?",
+          "columns": ["dajalnik · mrzlo … je", "tožilnik · zebe …"],
+          "rows": [
+            { "label": "ona", "cells": [{ "accept": ["ji"], "hint": "komu? to her" }, { "accept": ["jo"], "hint": "koga? her" }] },
+            { "label": "babica", "cells": [{ "accept": ["babici"] }, "babico"] },
+            { "label": "Nejc", "cells": [{ "accept": ["Nejcu"], "hint": "masculine: -u" }, { "accept": ["Nejca"], "hint": "a living masculine: -a" }] }
+          ],
+          "explain": "**dative** -u, -i; **accusative** -a (a living masculine), -o\n- Nejcu je mrzlo · Nejca zebe\n- babici je mrzlo · babico zebe"
+        }
+      ]
+    },
+    {
+      "id": "custva-2",
+      "title": { "sl": "Slab dan", "en": "A bad day", "de": "Ein schlechter Tag", "it": "Una brutta giornata" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "custva", "instruction": "Dopolni · Fill in", "title": "Slab dan",
+          "text": "Nejc se je zbudil in ___ je bilo slabo. »Boli ___ glava,« je rekel mami. Mama ga je pogledala: »Mrzlo ___ je? Te zebe?« »Ne, vroče ___ je.« Mamo je ___ (skrbeti), zato je poklicala babico. Babica je prinesla čaj: »Zdi se ___, da je to samo prehlad. Danes ostaneš v postelji.« Popoldne je bilo ___ (Nejc) že dolgčas. »Ne ljubi se mi spati,« je rekel. »Šola ___ manjka!« Babica se je smejala: »Zdaj vidim, da si res bolan.«",
+          "gaps": [
+            { "accept": ["mu"], "hint": "to him: the dative" },
+            { "accept": ["me"], "hint": "boli + the accusative" },
+            { "accept": ["ti"], "hint": "to you: the dative" },
+            { "accept": ["mi"], "hint": "to me: the dative" },
+            { "accept": ["skrbelo"], "hint": "the past: neuter, -lo", "explain": "**skrbi me** has no subject: in the past neuter, mamo je **skrbelo**" },
+            { "accept": ["mi"], "hint": "zdi se + the dative" },
+            { "accept": ["Nejcu"], "hint": "who is bored: the dative" },
+            { "accept": ["mi"], "hint": "who misses it: the dative", "explain": "**manjkati komu**: what you miss is the subject, you are in the dative: šola **mi** manjka" }
+          ],
+          "bank": true, "distractors": ["ga", "jo", "skrbela"],
+          "translation": "Nejc woke up and felt sick. \"My head hurts,\" he said to his mum. Mum looked at him: \"Are you cold? Are you freezing?\" \"No, I'm hot.\" Mum was worried, so she called Granny. Granny brought tea: \"I think it's just a cold. Today you stay in bed.\" In the afternoon Nejc was already bored. \"I don't feel like sleeping,\" he said. \"I miss school!\" Granny laughed: \"Now I can see you really are ill.\""
+        }
+      ]
+    },
+    {
+      "id": "custva-3",
+      "title": { "sl": "Kako se počutijo?", "en": "How do they feel?", "de": "Wie fühlen sie sich?", "it": "Come si sentono?" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "custva", "instruction": "Povej za osebo v oklepaju · Say it for the person in brackets",
+          "items": [
+            { "from": "Mrzlo mi je. (babica)", "accept": ["Babici je mrzlo.", "Mrzlo je babici."], "hint": "the dative" },
+            { "from": "Mudi se mi. (Janez)", "accept": ["Janezu se mudi.", "Mudi se Janezu."], "hint": "the dative" },
+            { "from": "Boli me glava. (mama)", "accept": ["Mamo boli glava."], "hint": "the accusative" },
+            { "from": "Strah me je. (Tine)", "accept": ["Tineta je strah."], "hint": "the accusative: Tine → Tineta" },
+            { "from": "Zdi se mi, da bo deževalo. (France)", "accept": ["Francetu se zdi, da bo deževalo."], "hint": "the dative: France → Francetu" }
+          ],
+          "explain": "**the person in the dative or the accusative**, the verb as it was\n- Janezu se mudi.\n- Mamo boli glava.\n- Tineta je strah."
+        },
+        {
+          "type": "transform", "grammar": "custva", "instruction": "V preteklik · Into the past", "cue": "včeraj",
+          "items": [
+            { "from": "Mrzlo mi je.", "accept": ["Mrzlo mi je bilo.", "Bilo mi je mrzlo.", "Včeraj mi je bilo mrzlo."], "hint": "neuter: bilo" },
+            { "from": "Zebe me.", "accept": ["Zeblo me je.", "Včeraj me je zeblo."], "hint": "neuter: -lo" },
+            { "from": "Boli me glava.", "accept": ["Glava me je bolela.", "Bolela me je glava.", "Včeraj me je bolela glava.", "Včeraj me je glava bolela."], "hint": "glava is the subject", "explain": "**glava** is the subject: the l-form agrees with it, glava me je **bolela**" }
+          ],
+          "explain": "**neuter** when nothing is the subject, **agreeing** when something hurts\n- Zeblo me je.\n- Glava me je bolela."
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "custva", "instruction": "Dopolni · Fill in", "prompt": "kdo čuti? · who feels it?",
+        "columns": ["oblika · the form"],
+        "rows": [
+          { "label": "Vida (dajalnik · dative)", "cells": [{ "accept": ["Vidi"] }] },
+          { "label": "Marko (tožilnik · accusative)", "cells": [{ "accept": ["Marka"] }] },
+          { "label": "oni (dajalnik · dative)", "cells": [{ "accept": ["jim"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "custva", "instruction": "Dopolni · Fill in",
+        "text": "Tonetu se ___ (muditi), ker mora v mesto. Zunaj je mraz in ___ (on) zebe. ___ (Ančka) je žal, da ne more z njim. »Veseli ___, da si mislila name,« ji reče Tone.",
+        "gaps": [
+          { "accept": ["mudi"] },
+          { "accept": ["ga"] },
+          { "accept": ["Ančki"] },
+          { "accept": ["me"] }
+        ],
+        "translation": "Tone is in a hurry because he has to go to town. It's cold outside and he's freezing. Ančka is sorry she can't go with him. \"I'm glad you thought of me,\" Tone says to her."
+      },
+      {
+        "type": "transform", "grammar": "custva", "instruction": "Spremeni · Change it",
+        "items": [
+          { "from": "Mrzlo mi je. (otroci)", "accept": ["Otrokom je mrzlo.", "Mrzlo je otrokom."] },
+          { "from": "Skrbi me. (babica)", "accept": ["Babico skrbi."] },
+          { "from": "Zebe me. (včeraj)", "accept": ["Včeraj me je zeblo.", "Zeblo me je včeraj."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "custva", "instruction": "Kateri stavek je prav? · Which sentence is right?", "prompt": "Jože's legs hurt after the hunt.",
+        "options": ["Po lovu Jožeta bolijo noge.", "Po lovu Jožetu bolijo noge.", "Po lovu Jože bolijo noge."], "answer": 0, "say_options": true,
+        "explain": "**boli** + the accusative of who hurts: Jože → **Jožeta** bolijo noge"
+      },
+      {
+        "type": "choice", "grammar": "custva", "instruction": "Kateri stavek je prav? · Which sentence is right?", "prompt": "Zala thinks grammar is hard.",
+        "options": ["Zali se zdi slovnica težka.", "Zalo se zdi slovnica težka.", "Zala se zdi slovnica težka."], "answer": 0, "say_options": true,
+        "explain": "**zdi se** + the dative of who thinks so: Zala → **Zali** se zdi"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: Slab dan (Mamo je skrbelo, Šola mi manjka), Toneta skrbi za babico, the past of zdi se and manjka agreeing"
+}

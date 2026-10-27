@@ -1,0 +1,245 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "naslonke-red",
+  "language": "sl",
+  "level": "B1",
+  "emoji": "🧩",
+  "title": { "sl": "Ne bom ti ga dal: vrstni red naslonk", "en": "I won't give it to you: the order of the short words", "de": "Ich gebe es dir nicht: die Reihenfolge der kurzen Wörter", "it": "Non te lo darò: l'ordine delle parole brevi" },
+  "goal": {
+    "en": "You can put several short words in their order (Smejal se mi je), also with a no (Ne bom ti ga dal), in a question (Si ga videl?), after da or ker, and with moram + an infinitive.",
+    "de": "Du stellst mehrere kurze Wörter in ihre Reihenfolge (Smejal se mi je), auch mit Nein (Ne bom ti ga dal), in einer Frage (Si ga videl?), nach da oder ker und mit moram + Infinitiv.",
+    "it": "Sai mettere più parole brevi nel loro ordine (Smejal se mi je), anche con il no (Ne bom ti ga dal), in una domanda (Si ga videl?), dopo da o ker e con moram + infinito."
+  },
+  "grammar": ["naslonke-red", "naslonke"],
+  "words": ["dati", "posoditi", "prodati", "kupiti", "pokazati", "prinesti", "vrniti", "smejati se", "bati se", "sejem", "nož", "prodajalec", "trgatev", "kapa", "z veseljem", "dokler"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "kje", "en": "where", "de": "wo", "it": "dove" },
+        { "sl": "vrstni red", "en": "the order", "de": "die Reihenfolge", "it": "l'ordine" },
+        { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "You know the short words (*naslonke*) gather after the first word or phrase. When several meet, the order is fixed: **sem, si … bi**, then **se, si**, then *to whom* (**mi, ti, mu, ji**), then *whom* (**me, te, ga, jo**), and last **je** and **bom, boš, bo**: **Dal sem ti ga.** **Smejal se mi je.** **Tone si ga je kupil.** **Dal ti ga bom.**",
+          "de": "Du weißt: Die kurzen Wörter (*naslonke*) stehen nach dem ersten Wort oder der ersten Wortgruppe. Treffen mehrere aufeinander, ist die Reihenfolge fest: **sem, si … bi**, dann **se, si**, dann *wem* (**mi, ti, mu, ji**), dann *wen* (**me, te, ga, jo**), zuletzt **je** und **bom, boš, bo**: **Dal sem ti ga.** **Smejal se mi je.** **Tone si ga je kupil.** **Dal ti ga bom.**",
+          "it": "Sai che le parole brevi (*naslonke*) si raccolgono dopo la prima parola o il primo gruppo. Quando ce ne sono diverse, l'ordine è fisso: **sem, si … bi**, poi **se, si**, poi *a chi* (**mi, ti, mu, ji**), poi *chi* (**me, te, ga, jo**), e per ultimi **je** e **bom, boš, bo**: **Dal sem ti ga.** **Smejal se mi je.** **Tone si ga je kupil.** **Dal ti ga bom.**"
+        },
+        "examples": [
+          { "sl": "Smejal se mi je.", "en": "He laughed at me.", "de": "Er hat mich ausgelacht.", "it": "Ha riso di me." },
+          { "sl": "Tone si ga je kupil na sejmu.", "en": "Tone bought it for himself at the fair.", "de": "Tone hat ihn sich auf dem Jahrmarkt gekauft.", "it": "Tone se l'è comprato alla fiera." }
+        ],
+        "rows": [
+          [{ "sl": "trditev", "en": "a statement", "de": "Aussagesatz", "it": "affermazione" }, "sem, bi – se – mi – ga – je", "Smejal se mi je."],
+          [{ "sl": "prihodnjik", "en": "the future", "de": "Futur", "it": "futuro" }, "se – mi – ga – bom", "Dal ti ga bom."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "naslonke-red", "instruction": "Kateri stavek je prav? · Which sentence is right?", "prompt": "Tone laughed at me.", "options": ["Tone se mi je smejal.", "Tone je se mi smejal.", "Tone mi se je smejal."], "answer": 0, "say_options": true,
+          "explain": "**se** – to whom – **je** last: Tone **se mi je** smejal."
+        }
+      },
+      {
+        "say": {
+          "en": "With a no, it depends on the tense. **Nisem** and **ni** are full words, the short words follow them: **Nisem ti ga {m:dal|f:dala}.** In the future **ne bom** stays together at the verb: at the start, **Ne bom ti ga {m:dal|f:dala}.** (I won't give it to you.) When something comes first, the short words follow it and **ne bom** comes after them: **Jutri ti ga ne bom {m:dal|f:dala}.** **Marko ga ni videl.**",
+          "de": "Mit Nein kommt es auf die Zeit an. **Nisem** und **ni** sind volle Wörter, die kurzen Wörter folgen ihnen: **Nisem ti ga {m:dal|f:dala}.** Im Futur bleibt **ne bom** zusammen beim Verb: am Anfang **Ne bom ti ga {m:dal|f:dala}.** (Ich gebe es dir nicht.) Steht etwas anderes vorn, folgen ihm die kurzen Wörter, und **ne bom** kommt danach: **Jutri ti ga ne bom {m:dal|f:dala}.** **Marko ga ni videl.**",
+          "it": "Con il no dipende dal tempo. **Nisem** e **ni** sono parole piene, le parole brevi le seguono: **Nisem ti ga {m:dal|f:dala}.** Nel futuro **ne bom** resta insieme vicino al verbo: all'inizio, **Ne bom ti ga {m:dal|f:dala}.** (Non te lo darò.) Se prima c'è altro, le parole brevi lo seguono e **ne bom** viene dopo di loro: **Jutri ti ga ne bom {m:dal|f:dala}.** **Marko ga ni videl.**"
+        },
+        "examples": [
+          { "sl": "Ne bom ti ga {m:posodil|f:posodila}.", "en": "I won't lend it to you.", "de": "Ich werde ihn dir nicht leihen.", "it": "Non te lo presterò." },
+          { "sl": "Marko ti ga ne bo prodal.", "en": "Marko won't sell it to you.", "de": "Marko wird ihn dir nicht verkaufen.", "it": "Marko non te lo venderà." }
+        ],
+        "rows": [
+          [{ "sl": "nikalno, preteklik", "en": "no, in the past", "de": "verneint, Vergangenheit", "it": "negativo, passato" }, "nisem + ti ga", "Nisem ti ga dal."],
+          [{ "sl": "nikalno, prihodnjik", "en": "no, in the future", "de": "verneint, Futur", "it": "negativo, futuro" }, "ne bom + ti ga", "Ne bom ti ga dal."],
+          [{ "sl": "nekaj spredaj", "en": "something first", "de": "etwas vorn", "it": "qualcosa prima" }, "ti ga + ne bom", "Jutri ti ga ne bom dal."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "naslonke-red", "instruction": "Kateri stavek je prav? · Which sentence is right?", "prompt": "Marko won't sell it to you.", "options": ["Marko ti ga ne bo prodal.", "Marko ne bo ti ga prodal.", "Marko ti ne bo ga prodal."], "answer": 0, "say_options": true,
+          "explain": "**Marko first**: the short words right after him, then **ne bo**: Marko **ti ga** ne bo prodal.\n- At the start it is Ne bo ti ga prodal."
+        }
+      },
+      {
+        "say": {
+          "en": "In a question the short words come right after the question word or **ali**: **Kdaj si mu ga {m:dal|f:dala}?** **Ali si ga {m:videl|f:videla}?** A yes/no question may also start with them, **ali** left out: **Si ga {m:videl|f:videla}?** **Se ji smeješ?** (Are you laughing at her?) The order inside stays: **Ga je videl?**, never *je ga*.",
+          "de": "In einer Frage stehen die kurzen Wörter gleich nach dem Fragewort oder **ali**: **Kdaj si mu ga {m:dal|f:dala}?** **Ali si ga {m:videl|f:videla}?** Eine Ja/Nein-Frage darf auch mit ihnen beginnen, ohne **ali**: **Si ga {m:videl|f:videla}?** **Se ji smeješ?** (Lachst du sie aus?) Die Reihenfolge bleibt: **Ga je videl?**, nie *je ga*.",
+          "it": "In una domanda le parole brevi vengono subito dopo la parola interrogativa o **ali**: **Kdaj si mu ga {m:dal|f:dala}?** **Ali si ga {m:videl|f:videla}?** Una domanda sì/no può anche cominciare con loro, senza **ali**: **Si ga {m:videl|f:videla}?** **Se ji smeješ?** (Ridi di lei?) L'ordine dentro resta: **Ga je videl?**, mai *je ga*."
+        },
+        "examples": [
+          { "sl": "Si ga videl, Nejc?", "en": "Have you seen him, Nejc?", "de": "Hast du ihn gesehen, Nejc?", "it": "L'hai visto, Nejc?" },
+          { "sl": "Zakaj se ji smeješ?", "en": "Why are you laughing at her?", "de": "Warum lachst du sie aus?", "it": "Perché ridi di lei?" }
+        ],
+        "rows": [
+          [{ "sl": "vprašanje", "en": "a yes/no question", "de": "Ja/Nein-Frage", "it": "domanda sì/no" }, "si ga …?", "Si ga videl?"],
+          [{ "sl": "vprašalnica", "en": "a question word", "de": "Fragewort", "it": "interrogativo" }, "kdaj + si mu ga", "Kdaj si mu ga dal?"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "naslonke-red", "prompt": "»___ videl Muri?« (Has Muri seen him?)", "options": ["Ga je", "Je ga", "Ji je"], "answer": 0, "say_options": true,
+          "explain": "**je** always last: **Ga je** videl Muri?\n- je ga · je never comes before ga\n- ji · to her, not him"
+        }
+      },
+      {
+        "say": {
+          "en": "In a clause the short words come right after the joining word: **da, ker, ko, če, ki, ali**. **Rekla je, da mi ga bo prinesla.** (She said she'd bring it to me.) **Ker se mi mudi, grem.** **Vprašal je, ali bi si ga kupil.** The joining word counts as the first word; nothing goes between it and them.",
+          "de": "In einem Nebensatz stehen die kurzen Wörter gleich nach dem Bindewort: **da, ker, ko, če, ki, ali**. **Rekla je, da mi ga bo prinesla.** (Sie sagte, sie bringe es mir.) **Ker se mi mudi, grem.** **Vprašal je, ali bi si ga kupil.** Das Bindewort zählt als erstes Wort; nichts steht zwischen ihm und ihnen.",
+          "it": "In una subordinata le parole brevi vengono subito dopo la congiunzione: **da, ker, ko, če, ki, ali**. **Rekla je, da mi ga bo prinesla.** (Ha detto che me lo porterà.) **Ker se mi mudi, grem.** **Vprašal je, ali bi si ga kupil.** La congiunzione conta come prima parola; tra lei e loro non va niente."
+        },
+        "examples": [
+          { "sl": "Rekla je, da mi ga bo prinesla jutri.", "en": "She said she'd bring it to me tomorrow.", "de": "Sie hat gesagt, dass sie es mir morgen bringt.", "it": "Ha detto che me lo porterà domani." },
+          { "sl": "Ker se mi mudi, grem.", "en": "I'm off, because I'm in a hurry.", "de": "Ich gehe, weil ich es eilig habe.", "it": "Vado, perché ho fretta." }
+        ],
+        "rows": [
+          [{ "sl": "odvisnik", "en": "a clause", "de": "Nebensatz", "it": "subordinata" }, "da + mi ga bo", "…, da mi ga bo prinesla."]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "naslonke-red", "text": "Mojca je rekla, da ___ ga bo prinesla jutri. (to me)", "accept": ["mi"], "hint": "right after da: to whom, then whom",
+          "explain": "**right after da**: to whom (mi), whom (ga), then bo: da **mi** ga bo prinesla"
+        }
+      },
+      {
+        "say": {
+          "en": "The twist: with **moram, hočem, smem, morem** and an infinitive, the infinitive's short words go up into the group after the first word (with **lahko** the verb is the present: **Lahko ti ga dam.**): **Moram ti ga vrniti.** (I have to give it back to you.) **Jutri ti ga moram vrniti.** **Ne morem ti ga dati.** Never at the end after the infinitive: not *moram vrniti ti ga*.",
+          "de": "Der Haken: Mit **moram, hočem, smem, morem** und einem Infinitiv wandern die kurzen Wörter des Infinitivs in die Gruppe nach dem ersten Wort (mit **lahko** steht das Präsens: **Lahko ti ga dam.**): **Moram ti ga vrniti.** (Ich muss es dir zurückgeben.) **Jutri ti ga moram vrniti.** **Ne morem ti ga dati.** Nie hinten nach dem Infinitiv: nicht *moram vrniti ti ga*.",
+          "it": "Il trucco: con **moram, hočem, smem, morem** e un infinito, le parole brevi dell'infinito salgono nel gruppo dopo la prima parola (con **lahko** il verbo è al presente: **Lahko ti ga dam.**): **Moram ti ga vrniti.** (Devo restituirtelo.) **Jutri ti ga moram vrniti.** **Ne morem ti ga dati.** Mai in fondo dopo l'infinito: non *moram vrniti ti ga*."
+        },
+        "examples": [
+          { "sl": "Jutri ti ga moram vrniti.", "en": "I have to give it back to you tomorrow.", "de": "Ich muss es dir morgen zurückgeben.", "it": "Devo restituirtelo domani." },
+          { "sl": "Ne morem ti ga dati, ni moj.", "en": "I can't give it to you, it isn't mine.", "de": "Ich kann ihn dir nicht geben, er gehört mir nicht.", "it": "Non posso dartelo, non è mio." }
+        ],
+        "rows": [
+          [{ "sl": "moram + nedoločnik", "en": "moram + infinitive", "de": "moram + Infinitiv", "it": "moram + infinito" }, "moram + ti ga", "Moram ti ga vrniti."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "naslonke-red", "instruction": "Kateri stavek je prav? · Which sentence is right?", "prompt": "I have to give it back to her today.", "options": ["Danes ji ga moram vrniti.", "Danes moram vrniti ji ga.", "Danes ga ji moram vrniti."], "answer": 0, "say_options": true,
+          "explain": "**the infinitive's short words** go up after the first word, to whom before whom: Danes **ji ga** moram vrniti."
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "naslonke-red-1",
+      "title": { "sl": "Kartice s kratkimi besedami", "en": "Cards for the short words", "de": "Karten für die kurzen Wörter", "it": "Carte per le parole brevi" },
+      "exercises": [
+        {
+          "type": "reorder", "grammar": "naslonke-red", "instruction": "Sestavi stavek · Build the sentence", "prompt": "He gave it to her.",
+          "tokens": ["Dal", "ji", "ga", "je"], "solutions": [["Dal", "ji", "ga", "je"], ["Ji", "ga", "je", "dal"]],
+          "explain": "to whom (**ji**), whom (**ga**), **je** last: Dal ji ga je."
+        },
+        {
+          "type": "reorder", "grammar": "naslonke-red", "instruction": "Sestavi stavek · Build the sentence", "prompt": "Tone laughed at me.",
+          "tokens": ["Tone", "se", "mi", "je", "smejal"], "solutions": [["Tone", "se", "mi", "je", "smejal"], ["Smejal", "se", "mi", "je", "Tone"]],
+          "explain": "**se** – to whom – **je**: Tone se mi je smejal."
+        },
+        {
+          "type": "reorder", "grammar": "naslonke-red", "instruction": "Sestavi stavek · Build the sentence", "prompt": "Marko won't sell it to you.",
+          "tokens": ["Marko", "ti", "ga", "ne", "bo", "prodal"], "solutions": [["Marko", "ti", "ga", "ne", "bo", "prodal"], ["Ne", "bo", "ti", "ga", "prodal", "Marko"]],
+          "explain": "**Marko first**: ti ga after him, then ne bo: Marko ti ga ne bo prodal."
+        },
+        {
+          "type": "reorder", "grammar": "naslonke-red", "instruction": "Sestavi stavek · Build the sentence", "prompt": "Have you seen her, Luka?",
+          "tokens": ["Ali", "si", "jo", "videl,", "Luka?"], "solutions": [["Ali", "si", "jo", "videl,", "Luka?"]],
+          "explain": "**after ali**: si, then jo: Ali si jo videl?"
+        },
+        {
+          "type": "reorder", "grammar": "naslonke-red", "instruction": "Sestavi stavek · Build the sentence", "prompt": "She said she'd bring it to me.",
+          "tokens": ["Rekla", "je,", "da", "mi", "ga", "bo", "prinesla."], "solutions": [["Rekla", "je,", "da", "mi", "ga", "bo", "prinesla."]],
+          "explain": "**right after da**: mi ga bo. Rekla je, da mi ga bo prinesla."
+        },
+        {
+          "type": "reorder", "grammar": "naslonke-red", "instruction": "Sestavi stavek · Build the sentence", "prompt": "I can't give it to you.",
+          "tokens": ["Ne", "morem", "ti", "ga", "dati."], "solutions": [["Ne", "morem", "ti", "ga", "dati."]],
+          "explain": "**dati's short words** go up after ne morem: Ne morem ti ga dati."
+        }
+      ]
+    },
+    {
+      "id": "naslonke-red-2",
+      "title": { "sl": "Nož s sejma", "en": "The knife from the fair", "de": "Das Messer vom Jahrmarkt", "it": "Il coltello della fiera" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "naslonke-red", "instruction": "Dopolni · Fill in", "title": "Nož s sejma",
+          "text": "Na sejmu je Tone videl lep nož. »Za koliko ___ ga prodate?« je vprašal. »Danes vam ___ dam za deset evrov,« je rekel prodajalec. Tone ___ ga je kupil. Doma ga ___ pokazal Marku. »Lep je! Mi ___ posodiš?« je vprašal Marko. »Ne bom ___ ga posodil,« se je smejal Tone, »ampak ti bom kupil enakega, če ___ boš pomagal pri trgatvi.« Marko je rekel, da mu ___ pomagal z veseljem.",
+          "gaps": [
+            { "accept": ["mi"], "hint": "to whom: to me" },
+            { "accept": ["ga"], "hint": "whom: the knife" },
+            { "accept": ["si"], "hint": "for himself" },
+            { "accept": ["je"], "hint": "the past: last in the group" },
+            { "accept": ["ga"], "hint": "whom: the knife" },
+            { "accept": ["ti"], "hint": "to whom: to you", "explain": "**ne bom** at the start, then to whom, whom: Ne bom **ti** ga posodil." },
+            { "accept": ["mi"], "hint": "to whom: to me" },
+            { "accept": ["bo"], "hint": "the future: last in the group", "explain": "**right after da**: mu, then **bo** last: da mu bo pomagal." }
+          ],
+          "bank": true, "distractors": ["se", "jo", "bom"],
+          "translation": "At the fair Tone saw a nice knife. \"How much will you sell it to me for?\" he asked. \"Today I'll let you have it for ten euros,\" said the seller. Tone bought it for himself. At home he showed it to Marko. \"It's nice! Will you lend it to me?\" Marko asked. \"I won't lend it to you,\" Tone laughed, \"but I'll buy you one like it if you help me with the grape harvest.\" Marko said he'd help him gladly."
+        }
+      ]
+    },
+    {
+      "id": "naslonke-red-3",
+      "title": { "sl": "Ne bom ti ga dal", "en": "I won't give it to you", "de": "Ich gebe es dir nicht", "it": "Non te lo darò" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "naslonke-red", "instruction": "Zanikaj · Say it with no", "cue": "ne",
+          "items": [
+            { "from": "Dal sem ti ga.", "accept": ["Nisem ti ga dal."], "hint": "nisem first, then ti ga" },
+            { "from": "Dal ti ga bom.", "accept": ["Ne bom ti ga dal."], "hint": "ne bom first" },
+            { "from": "Marko mi ga je prodal.", "accept": ["Marko mi ga ni prodal."], "hint": "Marko mi ga, then ni" },
+            { "from": "Jutri ji ga bomo pokazali.", "accept": ["Jutri ji ga ne bomo pokazali."], "hint": "jutri ji ga, then ne bomo" },
+            { "from": "Smejal se ji je.", "accept": ["Ni se ji smejal.", "Smejal se ji ni."], "hint": "ni first, then se ji" }
+          ],
+          "explain": "**nisem, ni** first and the short words after them; **ne bom** after what comes first\n- Nisem ti ga dal.\n- Jutri ji ga ne bomo pokazali."
+        },
+        {
+          "type": "transform", "grammar": "naslonke-red", "instruction": "V vprašanje ali odvisnik · Into a question or a clause",
+          "items": [
+            { "from": "Videl si ga. (vprašanje)", "accept": ["Si ga videl?", "Ali si ga videl?", "A si ga videl?"], "hint": "the short words may start it" },
+            { "from": "Pomagal ji bo. (vprašanje)", "accept": ["Ji bo pomagal?", "Ali ji bo pomagal?", "A ji bo pomagal?"] },
+            { "from": "Rekla je: »Prinesla ti ga bom.« (da)", "accept": ["Rekla je, da ti ga bo prinesla.", "Rekla je, da mi ga bo prinesla."], "hint": "right after da", "grammar": "odvisni-govor" }
+          ],
+          "explain": "**a question**: the short words first or after ali; **a clause**: right after da\n- Si ga videl?\n- Rekla je, da ti ga bo prinesla."
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "reorder", "grammar": "naslonke-red", "instruction": "Sestavi stavek · Build the sentence", "prompt": "She gave them to him.",
+        "tokens": ["Dala", "mu", "jih", "je"], "solutions": [["Dala", "mu", "jih", "je"], ["Mu", "jih", "je", "dala"]]
+      },
+      {
+        "type": "reorder", "grammar": "naslonke-red", "instruction": "Sestavi stavek · Build the sentence", "prompt": "Will you help her, Tine?",
+        "tokens": ["Ji", "boš", "pomagal,", "Tine?"], "solutions": [["Ji", "boš", "pomagal,", "Tine?"]]
+      },
+      {
+        "type": "gaptext", "grammar": "naslonke-red", "instruction": "Dopolni · Fill in",
+        "text": "Nejc je izgubil kapo. Babica ___ je rekla: »Ne bom ___ kupila nove, dokler ne najdeš stare.« Zvečer ___ je našel Muri. »Si ___ jo prinesel, Muri?« se je smejal Nejc.",
+        "gaps": [
+          { "accept": ["mu"] },
+          { "accept": ["ti"] },
+          { "accept": ["jo"] },
+          { "accept": ["mi"] }
+        ],
+        "translation": "Nejc lost his cap. Granny said to him: \"I won't buy you a new one until you find the old one.\" In the evening Muri found it. \"Have you brought it to me, Muri?\" Nejc laughed."
+      },
+      {
+        "type": "transform", "grammar": "naslonke-red", "instruction": "Spremeni · Change it",
+        "items": [
+          { "from": "Videl sem ga. (ne)", "accept": ["Nisem ga videl."] },
+          { "from": "Prodal ti ga bo. (ne)", "accept": ["Ne bo ti ga prodal."] },
+          { "from": "Pokazala mu ga je. (vprašanje)", "accept": ["Mu ga je pokazala?", "Ali mu ga je pokazala?", "A mu ga je pokazala?"] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "naslonke-red", "instruction": "Kateri stavek je prav? · Which sentence is right?", "prompt": "She said she'd tell him.",
+        "options": ["Rekla je, da mu bo povedala.", "Rekla je, da bo mu povedala.", "Rekla je, mu da bo povedala."], "answer": 0, "say_options": true,
+        "explain": "**right after da**: to whom, then bo: da **mu bo** povedala."
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Order after Toporišič. Native check: Nož s sejma, Ji boš pomagal?, the spoken A si ga videl? and Ji ga je dal accepted"
+}

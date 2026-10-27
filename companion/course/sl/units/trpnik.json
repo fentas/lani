@@ -1,0 +1,227 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "trpnik",
+  "language": "sl",
+  "level": "B1",
+  "emoji": "🏚️",
+  "title": { "sl": "Hiša je bila sezidana: trpnik", "en": "The house was built: the passive", "de": "Das Haus wurde gebaut: das Passiv", "it": "La casa è stata costruita: il passivo" },
+  "goal": {
+    "en": "You recognise and understand the passive: the participle in -n/-t (zaprta vrata, Hiša je bila sezidana) and se for what is done (Seno se suši na kozolcu), and can say how something is after it was done (Okno je odprto).",
+    "de": "Du erkennst und verstehst das Passiv: das Partizip auf -n/-t (zaprta vrata, Hiša je bila sezidana) und se für das, was man tut (Seno se suši na kozolcu), und sagst, wie etwas ist, nachdem es getan wurde (Okno je odprto).",
+    "it": "Riconosci e capisci il passivo: il participio in -n/-t (zaprta vrata, Hiša je bila sezidana) e se per ciò che si fa (Seno se suši na kozolcu), e sai dire com'è qualcosa dopo che è stato fatto (Okno je odprto)."
+  },
+  "grammar": ["trpnik", "pridevniki-ujemanje"],
+  "words": ["sezidati", "zgraditi", "odpreti", "zapreti", "zakleniti", "pogrniti", "skuhati", "speči", "popraviti", "pripraviti", "natočiti", "pokositi", "zmleti", "razbiti", "umiti", "posoda", "klet", "trgovina", "stoletje", "praded", "zdravilo", "kozolec", "seno", "praznik", "listek", "bolezen"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "nedoločnik", "en": "infinitive", "de": "Infinitiv", "it": "infinito" },
+        { "sl": "oblika", "en": "the form", "de": "die Form", "it": "la forma" },
+        { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "Many verbs make an adjective of what was done to something, the participle (*deležnik na -n, -t*): **odpreti → odprt** (opened, open), **zapreti → zaprt**, **peči → pečen** (baked). It agrees like any adjective: **odprto okno, zaprta vrata, pečen krompir**. **Odprto, zaprto** are everyday words; the passive of a past event (**je bila sezidana**) is mostly written.",
+          "de": "Viele Verben bilden ein Adjektiv dessen, was mit etwas getan wurde, das Partizip (*deležnik na -n, -t*): **odpreti → odprt** (geöffnet, offen), **zapreti → zaprt**, **peči → pečen** (gebacken). Es richtet sich wie jedes Adjektiv nach dem Nomen: **odprto okno, zaprta vrata, pečen krompir**. **Odprto, zaprto** sind Alltagswörter; das Passiv eines vergangenen Ereignisses (**je bila sezidana**) liest man vor allem.",
+          "it": "Molti verbi formano un aggettivo di ciò che è stato fatto a qualcosa, il participio (*deležnik na -n, -t*): **odpreti → odprt** (aperto), **zapreti → zaprt**, **peči → pečen** (cotto al forno). Si accorda come ogni aggettivo: **odprto okno, zaprta vrata, pečen krompir**. **Odprto, zaprto** sono parole di tutti i giorni; il passivo di un fatto passato (**je bila sezidana**) è soprattutto scritto."
+        },
+        "examples": [
+          { "sl": "Na mizi je pečen krompir.", "en": "There are roast potatoes on the table.", "de": "Auf dem Tisch sind Ofenkartoffeln.", "it": "Sul tavolo ci sono patate al forno." },
+          { "sl": "Na vratih piše: Zaprto zaradi bolezni.", "en": "The sign on the door says: Closed due to illness.", "de": "An der Tür steht: Wegen Krankheit geschlossen.", "it": "Sulla porta c'è scritto: Chiuso per malattia." }
+        ],
+        "rows": [
+          ["odpreti", "odprt, odprta, odprto", "odprto okno"],
+          ["peči", "pečen, pečena, pečeno", "pečen krompir"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "trpnik", "instruction": "Kaj pomeni? · What does it mean?", "prompt": "zaprta vrata", "say": "zaprta vrata", "options": ["a closed door", "close the door!", "the door is closing"], "answer": 0,
+          "explain": "**zaprt** (closed) is an adjective from zapreti: zaprta vrata, a door that was closed"
+        }
+      },
+      {
+        "say": {
+          "en": "To recognise one, look for the verb inside it. From **-ati**: **-an** (**napisati → napisan**, **skuhati → skuhan**). From **-iti**: **-en**, often with a change (**narediti → narejen**, **popraviti → popravljen**, **zakleniti → zaklenjen**). Some in **-t** (**odpreti → odprt**, **umiti → umit**).",
+          "de": "Um eines zu erkennen, such das Verb darin. Von **-ati**: **-an** (**napisati → napisan**, **skuhati → skuhan**). Von **-iti**: **-en**, oft mit einer Änderung (**narediti → narejen**, **popraviti → popravljen**, **zakleniti → zaklenjen**). Manche auf **-t** (**odpreti → odprt**, **umiti → umit**).",
+          "it": "Per riconoscerne uno, cerca il verbo dentro. Da **-ati**: **-an** (**napisati → napisan**, **skuhati → skuhan**). Da **-iti**: **-en**, spesso con un cambiamento (**narediti → narejen**, **popraviti → popravljen**, **zakleniti → zaklenjen**). Alcuni in **-t** (**odpreti → odprt**, **umiti → umit**)."
+        },
+        "examples": [
+          { "sl": "Pismo je že napisano.", "en": "The letter is already written.", "de": "Der Brief ist schon geschrieben.", "it": "La lettera è già scritta." },
+          { "sl": "Klet je zaklenjena, ključ ima Marko.", "en": "The cellar is locked; Marko has the key.", "de": "Der Keller ist abgeschlossen, den Schlüssel hat Marko.", "it": "La cantina è chiusa a chiave, la chiave ce l'ha Marko." }
+        ],
+        "rows": [
+          ["napisati", "napisan, napisana, napisano", "Pismo je napisano."],
+          ["popraviti", "popravljen, popravljena, popravljeno", "Plug je popravljen."],
+          ["umiti", "umit, umita, umito", "Posoda je umita."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "trpnik", "instruction": "Iz katerega glagola? · Which verb is it from?", "prompt": "popravljen", "say": "popravljen", "options": ["popraviti", "pripraviti", "praviti"], "answer": 0, "say_options": true,
+          "explain": "**popravljen** ← popraviti (to repair): -iti → -en, v → vlj"
+        }
+      },
+      {
+        "say": {
+          "en": "With **biti** it says how something is after it was done: **Trgovina je zaprta.** **Kosilo je skuhano.** In the past: **Hiša je bila sezidana v šestnajstem stoletju.** (The house was built in the sixteenth century.) Who did it is mostly left out. To say so, Slovene prefers an active sentence: **Kovačnico je sezidal Tonetov praded.**",
+          "de": "Mit **biti** sagt es, wie etwas ist, nachdem es getan wurde: **Trgovina je zaprta.** **Kosilo je skuhano.** In der Vergangenheit: **Hiša je bila sezidana v šestnajstem stoletju.** (Das Haus wurde im sechzehnten Jahrhundert gebaut.) Wer es tat, bleibt meist weg. Will man es sagen, nimmt man lieber einen Aktivsatz: **Kovačnico je sezidal Tonetov praded.**",
+          "it": "Con **biti** dice com'è qualcosa dopo che è stato fatto: **Trgovina je zaprta.** **Kosilo je skuhano.** Al passato: **Hiša je bila sezidana v šestnajstem stoletju.** (La casa fu costruita nel sedicesimo secolo.) Chi l'ha fatto di solito non si dice. Per dirlo, lo sloveno preferisce una frase attiva: **Kovačnico je sezidal Tonetov praded.**"
+        },
+        "examples": [
+          { "sl": "Hiša je bila sezidana v šestnajstem stoletju.", "en": "The house was built in the sixteenth century.", "de": "Das Haus wurde im sechzehnten Jahrhundert gebaut.", "it": "La casa fu costruita nel sedicesimo secolo." },
+          { "sl": "Kovačnico je sezidal Tonetov praded.", "en": "The smithy was built by Tone's great-grandfather.", "de": "Die Schmiede hat Tones Urgroßvater gebaut.", "it": "La fucina l'ha costruita il bisnonno di Tone." }
+        ],
+        "rows": [
+          ["sezidati", "sezidan, sezidana, sezidano", "Hiša je bila sezidana."]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "trpnik", "text": "Ob nedeljah je trgovina ___. (zapreti)", "accept": ["zaprta"], "hint": "trgovina is feminine: -a",
+          "explain": "**biti + the participle**, agreeing: trgovina je **zaprta**"
+        }
+      },
+      {
+        "say": {
+          "en": "**Se** says what is done in general, or how it is done: **Seno se suši na kozolcu.** (Hay is dried on the hayrack.) **Zdravilo se jemlje po jedi.** **Tukaj se govori slovensko.** You know it already from **Kako se reče …?** The verb agrees with the thing: **Jabolka se pobirajo jeseni.**",
+          "de": "**Se** sagt, was man allgemein tut, oder wie man es tut: **Seno se suši na kozolcu.** (Heu trocknet man auf der Harfe.) **Zdravilo se jemlje po jedi.** **Tukaj se govori slovensko.** Du kennst es schon von **Kako se reče …?** Das Verb richtet sich nach der Sache: **Jabolka se pobirajo jeseni.**",
+          "it": "**Se** dice che cosa si fa in generale, o come si fa: **Seno se suši na kozolcu.** (Il fieno si secca sulla rastrelliera.) **Zdravilo se jemlje po jedi.** **Tukaj se govori slovensko.** Lo conosci già da **Kako se reče …?** Il verbo si accorda con la cosa: **Jabolka se pobirajo jeseni.**"
+        },
+        "examples": [
+          { "sl": "Seno se suši na kozolcu.", "en": "Hay is dried on the hayrack.", "de": "Heu wird auf der Harfe getrocknet.", "it": "Il fieno si secca sulla rastrelliera." },
+          { "sl": "Tukaj se govori slovensko in italijansko.", "en": "Slovene and Italian are spoken here.", "de": "Hier spricht man Slowenisch und Italienisch.", "it": "Qui si parla sloveno e italiano." }
+        ],
+        "rows": [
+          [{ "sl": "se", "en": "se: done in general", "de": "se: allgemein", "it": "se: in generale" }, "se suši, se govori", "Seno se suši na kozolcu."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "trpnik", "instruction": "Kaj pomeni? · What does it mean?", "prompt": "Kruh se peče v krušni peči.", "say": "Kruh se peče v krušni peči.", "options": ["Bread is baked in the bread oven.", "The bread is baking itself.", "Baked bread is in the oven."], "answer": 0,
+          "explain": "**se** for how something is done: kruh se peče, bread is baked"
+        }
+      },
+      {
+        "say": {
+          "en": "Three sentences, three meanings: **Okno je odprto.** (It is open: a state.) **Okno se je odprlo.** (It opened: it happened, maybe by itself.) **Luka je odprl okno.** (Luka opened it.) The participle tells how things are; the l-form tells what someone did.",
+          "de": "Drei Sätze, drei Bedeutungen: **Okno je odprto.** (Es ist offen: ein Zustand.) **Okno se je odprlo.** (Es ging auf: es geschah, vielleicht von selbst.) **Luka je odprl okno.** (Luka hat es geöffnet.) Das Partizip sagt, wie es ist; die l-Form, was jemand getan hat.",
+          "it": "Tre frasi, tre significati: **Okno je odprto.** (È aperta: uno stato.) **Okno se je odprlo.** (Si è aperta: è successo, forse da sola.) **Luka je odprl okno.** (Luka l'ha aperta.) Il participio dice come stanno le cose; la forma in -l che cosa ha fatto qualcuno."
+        },
+        "examples": [
+          { "sl": "Okno je odprto, zato je mrzlo.", "en": "The window is open, that's why it's cold.", "de": "Das Fenster ist offen, deshalb ist es kalt.", "it": "La finestra è aperta, per questo fa freddo." },
+          { "sl": "Ponoči se je okno samo odprlo.", "en": "In the night the window opened by itself.", "de": "In der Nacht ist das Fenster von selbst aufgegangen.", "it": "Di notte la finestra si è aperta da sola." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "trpnik", "instruction": "Kateri stavek? · Which sentence?", "prompt": "The window is open (now).", "options": ["Okno je odprto.", "Okno se je odprlo.", "Luka je odprl okno."], "answer": 0, "say_options": true,
+          "explain": "**a state** → biti + the participle: okno je **odprto**\n- se je odprlo · it opened\n- je odprl · Luka opened it"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "trpnik-1",
+      "title": { "sl": "Kaj je narejeno?", "en": "What has been done?", "de": "Was ist getan?", "it": "Che cosa è stato fatto?" },
+      "exercises": [
+        {
+          "type": "sort", "grammar": "trpnik", "instruction": "Razvrsti po končnici · Sort by the ending",
+          "columns": [
+            { "label": "-an (-ati)", "words": ["napisan", "skuhan", "prodan", "sezidan"] },
+            { "label": "-en (-iti, -či)", "words": ["narejen", "popravljen", "pečen", "zaklenjen"] },
+            { "label": "-t", "words": ["odprt", "zaprt", "umit", "razbit"] }
+          ],
+          "explain": "**-ati → -an**, **-iti, -či → -en**, some **-t**\n- napisati → napisan · narediti → narejen · odpreti → odprt"
+        },
+        {
+          "type": "multi", "grammar": "trpnik", "instruction": "Izberi vse · Choose all", "prompt": "Which sentences say what is done or was done to something, not who did it?",
+          "options": ["Trgovina je zaprta.", "Tone je zaprl trgovino.", "Seno se suši na kozolcu.", "France suši seno.", "Hiša je bila sezidana leta 1820.", "Marko je prodal konja."], "answers": [0, 2, 4], "say_options": true,
+          "explain": "**the passive**: biti + the participle, or se\n- Trgovina je zaprta. Seno se suši. Hiša je bila sezidana.\n- the others say who did it"
+        }
+      ]
+    },
+    {
+      "id": "trpnik-2",
+      "title": { "sl": "Pred praznikom", "en": "Before the feast", "de": "Vor dem Fest", "it": "Prima della festa" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "trpnik", "instruction": "Dopolni z deležnikom · Fill in with the participle", "title": "Pred praznikom",
+          "text": "Jutri je vaški praznik in vse je že ___ (pripraviti). Miza pod lipo je ___ (pogrniti), kruh je ___ (speči), vino je ___ (natočiti) v vrče. Klet je ___ (zakleniti), ključ ima Marko. Trava na travniku je ___ (pokositi). Na vratih gostilne visi listek: »Jutri se ___ (plesati) pod lipo!«",
+          "gaps": [
+            { "accept": ["pripravljeno"], "hint": "vse: neuter, -o" },
+            { "accept": ["pogrnjena"], "hint": "miza: feminine, -a" },
+            { "accept": ["spečen"], "hint": "kruh: masculine" },
+            { "accept": ["natočeno"], "hint": "vino: neuter, -o" },
+            { "accept": ["zaklenjena"], "hint": "klet: feminine, -a" },
+            { "accept": ["pokošena"], "hint": "trava: feminine, -a" },
+            { "accept": ["pleše"], "hint": "se + what is done: the third person", "explain": "**se** for what is done: jutri se **pleše**, there will be dancing" }
+          ],
+          "bank": true, "distractors": ["pripravil", "pogrnila", "zaklenil"],
+          "translation": "Tomorrow is the village feast and everything is ready. The table under the linden is laid, the bread is baked, the wine is poured into jugs. The cellar is locked; Marko has the key. The grass in the meadow is mown. On the inn's door hangs a note: \"Tomorrow there's dancing under the linden!\""
+        },
+        {
+          "type": "choice", "grammar": "trpnik", "instruction": "Kaj pomeni? · What does it mean?", "prompt": "Prepovedano kajenje.", "say": "Prepovedano kajenje.",
+          "options": ["No smoking.", "Smoking is allowed.", "He forbids smoking."], "answer": 0,
+          "explain": "**prepovedan** (forbidden) ← prepovedati: a sign, prepovedano kajenje"
+        }
+      ]
+    },
+    {
+      "id": "trpnik-3",
+      "title": { "sl": "Kako je zdaj?", "en": "How is it now?", "de": "Wie ist es jetzt?", "it": "Com'è adesso?" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "trpnik", "instruction": "Povej, kako je zdaj · Say how it is now",
+          "items": [
+            { "from": "Nekdo je odprl okno.", "accept": ["Okno je odprto."], "hint": "odpreti → odprt" },
+            { "from": "Babica je skuhala kosilo.", "accept": ["Kosilo je skuhano."], "hint": "skuhati → skuhan" },
+            { "from": "Tone je popravil plug.", "accept": ["Plug je popravljen."], "hint": "popraviti → popravljen" },
+            { "from": "Nekdo je zaprl vrata.", "accept": ["Vrata so zaprta."], "hint": "vrata is plural: so … -a" },
+            { "from": "Marko je prodal vino.", "accept": ["Vino je prodano."], "hint": "prodati → prodan" }
+          ],
+          "explain": "**biti + the participle**, agreeing with the thing\n- Okno je odprto. Plug je popravljen.\n- Vrata so zaprta."
+        },
+        {
+          "type": "choice", "grammar": "trpnik", "instruction": "Kateri stavek? · Which sentence?", "prompt": "The door opened (by itself).",
+          "options": ["Vrata so se odprla.", "Vrata so odprta.", "Nejc je odprl vrata."], "answer": 0, "say_options": true,
+          "explain": "**it happened**, nobody named → se + the l-form: vrata so se **odprla**\n- so odprta · it is open"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "choice", "grammar": "trpnik", "instruction": "Kaj pomeni? · What does it mean?", "prompt": "Mlin je bil sezidan leta 1890.", "say": "Mlin je bil sezidan leta 1890.",
+        "options": ["The mill was built in 1890.", "The mill is being built in 1890.", "He built the mill in 1890."], "answer": 0,
+        "explain": "**biti + the participle** in the past: mlin je bil sezidan, it was built"
+      },
+      {
+        "type": "choice", "grammar": "trpnik", "instruction": "Kaj pomeni? · What does it mean?", "prompt": "Zdravilo se jemlje po jedi.", "say": "Zdravilo se jemlje po jedi.",
+        "options": ["The medicine is taken after meals.", "He takes the medicine after meals.", "The medicine was taken after the meal."], "answer": 0,
+        "explain": "**se** for how it is done: zdravilo se jemlje, the medicine is taken"
+      },
+      {
+        "type": "gaptext", "grammar": "trpnik", "instruction": "Dopolni z deležnikom · Fill in with the participle",
+        "text": "Gostilna je ___ (odpreti) od torka do nedelje, ob ponedeljkih je ___ (zapreti). Danes je kosilo že ___ (skuhati) in mize so ___ (pogrniti).",
+        "gaps": [
+          { "accept": ["odprta"] },
+          { "accept": ["zaprta"] },
+          { "accept": ["skuhano"] },
+          { "accept": ["pogrnjene"] }
+        ],
+        "bank": true, "distractors": ["odprla", "skuhala"],
+        "translation": "The inn is open from Tuesday to Sunday; on Mondays it is closed. Today lunch is already cooked and the tables are laid."
+      },
+      {
+        "type": "transform", "grammar": "trpnik", "instruction": "Povej, kako je zdaj · Say how it is now",
+        "items": [
+          { "from": "Nekdo je razbil okno.", "accept": ["Okno je razbito."], "hint": "razbiti → razbit" },
+          { "from": "France je zmlel žito.", "accept": ["Žito je zmleto."], "hint": "zmleti → zmlet" }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "trpnik", "instruction": "Kateri stavek? · Which sentence?", "prompt": "The cellar is locked.",
+        "options": ["Klet je zaklenjena.", "Klet se je zaklenila.", "Marko je zaklenil klet."], "answer": 0, "say_options": true,
+        "explain": "**a state** → biti + the participle: klet je **zaklenjena**"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. A know item: recognition first. Native check: Pred praznikom (jutri se pleše, natočeno v vrče), Prepovedano kajenje or Kajenje prepovedano"
+}

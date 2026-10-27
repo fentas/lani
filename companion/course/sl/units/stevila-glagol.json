@@ -1,0 +1,230 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "stevila-glagol",
+  "language": "sl",
+  "level": "B1",
+  "emoji": "🔢",
+  "title": { "sl": "Pet hiš se je podrlo", "en": "Five houses fell down: numbers and the verb", "de": "Fünf Häuser sind eingestürzt: Zahlen und das Verb", "it": "Cinque case sono crollate: i numeri e il verbo" },
+  "goal": {
+    "en": "You can make the verb agree with a number in every tense: two guests sta prišla, three so prišli, and from five, or after veliko, malo, nekaj, the singular neuter (pet gostov je prišlo).",
+    "de": "Du passt das Verb in jeder Zeit an eine Zahl an: zwei Gäste sta prišla, drei so prišli, und ab fünf oder nach veliko, malo, nekaj den Singular Neutrum (pet gostov je prišlo).",
+    "it": "Sai accordare il verbo con un numero in ogni tempo: due ospiti sta prišla, tre so prišli, e da cinque, o dopo veliko, malo, nekaj, il singolare neutro (pet gostov je prišlo)."
+  },
+  "grammar": ["stevila-glagol", "stevila-samostalniki", "rodilnik-kolicina"],
+  "words": ["gost", "krava", "tele", "kozolec", "neurje", "streha", "opeka", "drevo", "ovca", "ljudje", "sosed", "sejem", "trgatev", "veliko", "malo", "nekaj", "koliko", "oba", "pasti", "podreti se", "uiti", "zbežati", "manjkati", "zboleti", "pobegniti", "pasti se"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "število", "en": "number", "de": "Zahl", "it": "numero" },
+        { "sl": "ženski", "en": "feminine", "de": "weiblich", "it": "femminile" },
+        { "sl": "moški", "en": "masculine", "de": "männlich", "it": "maschile" },
+        { "sl": "srednji", "en": "neuter", "de": "sächlich", "it": "neutro" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "You know the noun after a number. Now the verb: it goes with the number too. **1** takes the singular, **2** the dual, and the l-form agrees with the gender: **En gost je prišel.** **Dva gosta sta prišla.** **Dve kravi sta zboleli.** The dual l-form ends in **-a** for masculine nouns, in **-i** for feminine and neuter ones: **sta prišla, sta zboleli, sta pobegnili**.",
+          "de": "Das Nomen nach einer Zahl kennst du. Jetzt das Verb: Es geht auch mit der Zahl. **1** verlangt den Singular, **2** den Dual, und die l-Form richtet sich nach dem Geschlecht: **En gost je prišel.** **Dva gosta sta prišla.** **Dve kravi sta zboleli.** Die l-Form des Duals endet auf **-a** für männliche Nomen, auf **-i** für weibliche und sächliche: **sta prišla, sta zboleli, sta pobegnili**.",
+          "it": "Il nome dopo un numero lo conosci. Ora il verbo: va anche lui con il numero. **1** vuole il singolare, **2** il duale, e la forma in -l si accorda con il genere: **En gost je prišel.** **Dva gosta sta prišla.** **Dve kravi sta zboleli.** La forma in -l del duale finisce in **-a** per i nomi maschili, in **-i** per i femminili e i neutri: **sta prišla, sta zboleli, sta pobegnili**."
+        },
+        "examples": [
+          { "sl": "Dva gosta sta prišla iz Gorice.", "en": "Two guests came from Gorica.", "de": "Zwei Gäste sind aus Gorica gekommen.", "it": "Sono arrivati due ospiti da Gorizia." },
+          { "sl": "Francetu sta zboleli dve kravi.", "en": "Two of France's cows have fallen ill.", "de": "France sind zwei Kühe krank geworden.", "it": "A France si sono ammalate due mucche." }
+        ],
+        "rows": [
+          ["1", "ena krava je zbolela", "en gost je prišel", "eno tele je pobegnilo"],
+          ["2", "dve kravi sta zboleli", "dva gosta sta prišla", "dve teleti sta pobegnili"]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "stevila-glagol", "text": "Dva brata sta ___ iz Trsta. (priti)", "accept": ["prišla"], "hint": "two men: the dual, -a",
+          "explain": "**two men** → the dual: sta **prišla**\n- dve sestri · sta prišli"
+        }
+      },
+      {
+        "say": {
+          "en": "**3** and **4** take the plural, its l-form by the gender as always: **-i** masculine, **-e** feminine, **-a** neuter: **Trije gostje so prišli.** **Tri krave so zbolele.** **Štiri teleta so pobegnila.** Mind the number's own form: **trije, štirje** for masculine nouns, **tri, štiri** for the others.",
+          "de": "**3** und **4** verlangen den Plural, seine l-Form wie immer nach dem Geschlecht: **-i** männlich, **-e** weiblich, **-a** sächlich: **Trije gostje so prišli.** **Tri krave so zbolele.** **Štiri teleta so pobegnila.** Achte auf die Form der Zahl: **trije, štirje** für männliche Nomen, **tri, štiri** für die anderen.",
+          "it": "**3** e **4** vogliono il plurale, con la forma in -l secondo il genere come sempre: **-i** al maschile, **-e** al femminile, **-a** al neutro: **Trije gostje so prišli.** **Tri krave so zbolele.** **Štiri teleta so pobegnila.** Attento alla forma del numero: **trije, štirje** per i nomi maschili, **tri, štiri** per gli altri."
+        },
+        "examples": [
+          { "sl": "Trije gostje so prišli iz Trsta.", "en": "Three guests came from Trieste.", "de": "Drei Gäste sind aus Triest gekommen.", "it": "Sono arrivati tre ospiti da Trieste." },
+          { "sl": "Štiri teleta so pobegnila čez potok.", "en": "Four calves ran off across the stream.", "de": "Vier Kälber sind über den Bach davongelaufen.", "it": "Quattro vitelli sono scappati oltre il ruscello." }
+        ],
+        "rows": [
+          ["3, 4", "tri krave so zbolele", "trije gostje so prišli", "tri teleta so pobegnila"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "stevila-glagol", "prompt": "Tri krave ___ zbolele.", "options": ["so", "sta", "je"], "answer": 0, "say_options": true,
+          "explain": "**3 and 4** → the plural: tri krave **so** zbolele\n- sta · for two\n- je · for one, or from five"
+        }
+      },
+      {
+        "say": {
+          "en": "From **5** on the noun is in the genitive plural, and the verb is singular and neuter, as if the subject were *it*: **Pet gostov je prišlo.** **Šest krav je zbolelo.** **Pozimi se je pod snegom podrlo pet kozolcev.** So in every tense: **Pet krav je na pašniku.** **Deset gostov bo prišlo.**",
+          "de": "Ab **5** steht das Nomen im Genitiv Plural, und das Verb steht im Singular Neutrum, als wäre das Subjekt *es*: **Pet gostov je prišlo.** **Šest krav je zbolelo.** **Pozimi se je pod snegom podrlo pet kozolcev.** So in jeder Zeit: **Pet krav je na pašniku.** **Deset gostov bo prišlo.**",
+          "it": "Da **5** in su il nome va al genitivo plurale, e il verbo è singolare e neutro, come se il soggetto fosse *esso*: **Pet gostov je prišlo.** **Šest krav je zbolelo.** **Pozimi se je pod snegom podrlo pet kozolcev.** Così in ogni tempo: **Pet krav je na pašniku.** **Deset gostov bo prišlo.**"
+        },
+        "examples": [
+          { "sl": "Pozimi se je pod snegom podrlo pet kozolcev.", "en": "In winter five hayracks collapsed under the snow.", "de": "Im Winter sind unter dem Schnee fünf Heuharfen eingestürzt.", "it": "D'inverno sotto la neve sono crollate cinque rastrelliere per il fieno." },
+          { "sl": "Deset gostov bo prišlo na poroko.", "en": "Ten guests will come to the wedding.", "de": "Zehn Gäste werden zur Hochzeit kommen.", "it": "Al matrimonio verranno dieci ospiti." }
+        ],
+        "rows": [
+          ["5 +", "pet krav je zbolelo", "pet gostov je prišlo", "pet telet je pobegnilo"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "stevila-glagol", "prompt": "Pet gostov ___ iz Gorice.", "options": ["je prišlo", "so prišli", "sta prišla"], "answer": 0, "say_options": true,
+          "explain": "**from five** → singular, neuter: pet gostov **je prišlo**\n- so prišli · for three or four\n- sta prišla · for two"
+        }
+      },
+      {
+        "say": {
+          "en": "Quantity words work like five: **veliko, malo, nekaj, koliko, dosti, več** + the genitive, and the verb singular and neuter: **Veliko ljudi je prišlo na sejem.** **Koliko ovc je ušlo?** **Nekaj jabolk je padlo z drevesa.** In speech you may hear *veliko ljudi so prišli*; the standard is **je prišlo**.",
+          "de": "Mengenwörter funktionieren wie fünf: **veliko, malo, nekaj, koliko, dosti, več** + Genitiv, und das Verb im Singular Neutrum: **Veliko ljudi je prišlo na sejem.** **Koliko ovc je ušlo?** **Nekaj jabolk je padlo z drevesa.** Gesprochen hört man auch *veliko ljudi so prišli*; standardsprachlich ist **je prišlo**.",
+          "it": "Le parole di quantità funzionano come cinque: **veliko, malo, nekaj, koliko, dosti, več** + il genitivo, e il verbo singolare neutro: **Veliko ljudi je prišlo na sejem.** **Koliko ovc je ušlo?** **Nekaj jabolk je padlo z drevesa.** Nel parlato si sente anche *veliko ljudi so prišli*; nella lingua standard è **je prišlo**."
+        },
+        "examples": [
+          { "sl": "Veliko ljudi je prišlo na sejem.", "en": "A lot of people came to the fair.", "de": "Viele Leute sind zum Jahrmarkt gekommen.", "it": "Alla fiera è venuta molta gente." },
+          { "sl": "Koliko ovc je ušlo?", "en": "How many sheep got away?", "de": "Wie viele Schafe sind entwischt?", "it": "Quante pecore sono scappate?" }
+        ],
+        "rows": [
+          ["veliko, nekaj", "veliko krav je zbolelo", "nekaj gostov je prišlo", "malo telet je pobegnilo"]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "stevila-glagol", "text": "Na Markovo trgatev je ___ veliko sosedov. (priti)", "accept": ["prišlo"], "hint": "veliko works like five",
+          "explain": "**veliko** + the genitive → singular, neuter: je **prišlo**"
+        }
+      },
+      {
+        "say": {
+          "en": "Two last things. An adjective with five or more is in the genitive plural too: **pet starih kozolcev**, **deset novih gostov**. And **oba, obe** (both) are dual: **Oba brata sta prišla.** **Obe sestri sta prišli.** For the verb, look at the number first, then at the noun.",
+          "de": "Zwei letzte Dinge. Ein Adjektiv bei fünf oder mehr steht auch im Genitiv Plural: **pet starih kozolcev**, **deset novih gostov**. Und **oba, obe** (beide) sind Dual: **Oba brata sta prišla.** **Obe sestri sta prišli.** Fürs Verb schau zuerst auf die Zahl, dann aufs Nomen.",
+          "it": "Due ultime cose. Un aggettivo con cinque o più va anch'esso al genitivo plurale: **pet starih kozolcev**, **deset novih gostov**. E **oba, obe** (entrambi) sono duali: **Oba brata sta prišla.** **Obe sestri sta prišli.** Per il verbo guarda prima il numero, poi il nome."
+        },
+        "examples": [
+          { "sl": "Na sejmu je bilo deset novih stojnic.", "en": "There were ten new stalls at the fair.", "de": "Auf dem Jahrmarkt gab es zehn neue Stände.", "it": "Alla fiera c'erano dieci bancarelle nuove." },
+          { "sl": "Obe sestri sta prišli na kosilo.", "en": "Both sisters came for lunch.", "de": "Beide Schwestern sind zum Mittagessen gekommen.", "it": "Tutte e due le sorelle sono venute a pranzo." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "stevila-glagol", "prompt": "Pod snegom se je podrlo pet ___ kozolcev.", "options": ["starih", "stari", "starega"], "answer": 0, "say_options": true,
+          "explain": "**from five** the adjective is in the genitive plural too: pet **starih** kozolcev"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "stevila-glagol-1",
+      "title": { "sl": "Je, sta ali so?", "en": "Je, sta or so?", "de": "Je, sta oder so?", "it": "Je, sta o so?" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "stevila-glagol", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "priti v pretekliku · priti in the past", "lemma": "priti",
+          "columns": ["gost · guest (m)", "krava · cow (f)", "tele · calf (n)"],
+          "rows": [
+            { "label": "2 (dva, dve)", "cells": [{ "accept": ["sta prišla"], "hint": "two men: -a" }, { "accept": ["sta prišli"], "hint": "two women or things: -i" }, "sta prišli"] },
+            { "label": "3, 4 (trije, tri)", "cells": [{ "accept": ["so prišli"] }, "so prišle", { "accept": ["so prišla"], "hint": "neuter plural: -a" }] },
+            { "label": "5 + (pet)", "cells": [{ "accept": ["je prišlo"], "hint": "from five: it" }, { "accept": ["je prišlo"] }, "je prišlo"] }
+          ],
+          "explain": "**2** dual, **3–4** plural, **5+** singular neuter\n- dva gosta sta prišla\n- tri krave so prišle\n- pet telet je prišlo"
+        },
+        {
+          "type": "sort", "grammar": "stevila-glagol", "instruction": "Kateri glagol? · Which verb?",
+          "columns": [
+            { "label": "je … (ena, pet, veliko)", "words": ["ena ovca", "pet ovc", "veliko ljudi", "nekaj otrok"] },
+            { "label": "sta … (dva, dve, oba)", "words": ["dve sestri", "dva brata", "obe kravi"] },
+            { "label": "so … (tri, štiri)", "words": ["tri hiše", "štirje konji"] }
+          ],
+          "explain": "**the number decides**: one and five or more **je**, two **sta**, three and four **so**\n- pet ovc je, dve sestri sta, tri hiše so"
+        }
+      ]
+    },
+    {
+      "id": "stevila-glagol-2",
+      "title": { "sl": "Po neurju", "en": "After the storm", "de": "Nach dem Unwetter", "it": "Dopo il temporale" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "stevila-glagol", "instruction": "Dopolni · Fill in", "title": "Po neurju",
+          "text": "Ponoči je divjalo neurje. Zjutraj je France štel škodo. Dve drevesi sta ___ (pasti) na cesto. Tri strehe ___ ostale brez opeke. Pet kozolcev se je ___ (podreti). »Koliko ovc je ___ (uiti)?« je vprašal pastirja. »Sedem ovc je ___ (zbežati) v gozd, dve pa še ___ (manjkati),« je rekel pastir. Popoldne je prišlo veliko ___ (ljudje) pomagat. Štirje sosedje ___ popravljali strehe do večera.",
+          "gaps": [
+            { "accept": ["padli"], "hint": "two trees: the dual, -i" },
+            { "accept": ["so"], "hint": "three: the plural" },
+            { "accept": ["podrlo"], "hint": "from five: neuter -lo" },
+            { "accept": ["ušlo"], "hint": "koliko works like five" },
+            { "accept": ["zbežalo"], "hint": "seven: neuter -lo" },
+            { "accept": ["manjkata"], "hint": "two: the dual present", "explain": "**dve** (ovci) → the dual: še **manjkata**" },
+            { "accept": ["ljudi"], "hint": "veliko + the genitive plural", "explain": "**veliko** + the genitive plural: ljudje → **ljudi**" },
+            { "accept": ["so"], "hint": "four: the plural" }
+          ],
+          "bank": true, "distractors": ["je", "sta", "podrli"],
+          "translation": "A storm raged in the night. In the morning France counted the damage. Two trees had fallen onto the road. Three roofs were left without tiles. Five hayracks had collapsed. \"How many sheep got away?\" he asked the shepherd. \"Seven sheep ran off into the forest, and two are still missing,\" said the shepherd. In the afternoon a lot of people came to help. Four neighbours mended roofs until evening."
+        },
+        {
+          "type": "choice", "grammar": "stevila-glagol", "instruction": "Kateri stavek je prav? · Which sentence is right?", "prompt": "A lot of people came to the fair.",
+          "options": ["Na sejem je prišlo veliko ljudi.", "Na sejem so prišli veliko ljudi.", "Na sejem je prišel veliko ljudi."], "answer": 0, "say_options": true,
+          "explain": "**veliko** → singular, neuter: je **prišlo** veliko ljudi"
+        }
+      ]
+    },
+    {
+      "id": "stevila-glagol-3",
+      "title": { "sl": "En, dva, pet", "en": "One, two, five", "de": "Eins, zwei, fünf", "it": "Uno, due, cinque" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "stevila-glagol", "instruction": "Spremeni število · Change the number",
+          "items": [
+            { "from": "Ena ovca je ušla. (pet)", "accept": ["Pet ovc je ušlo."], "hint": "pet + the genitive plural, -lo" },
+            { "from": "En gost je prišel. (dva)", "accept": ["Dva gosta sta prišla."], "hint": "the dual" },
+            { "from": "Ena hiša se je podrla. (tri)", "accept": ["Tri hiše so se podrle."], "hint": "so se: the plural" },
+            { "from": "En otrok se igra na travniku. (veliko)", "accept": ["Veliko otrok se igra na travniku.", "Na travniku se igra veliko otrok."], "hint": "veliko + the genitive, the verb as for one" },
+            { "from": "Eno jabolko je padlo z drevesa. (deset)", "accept": ["Deset jabolk je padlo z drevesa."] },
+            { "from": "En sosed bo pomagal. (šest)", "accept": ["Šest sosedov bo pomagalo."], "hint": "the future too: -lo" }
+          ],
+          "explain": "**the number decides the verb**\n- Dva gosta sta prišla.\n- Tri hiše so se podrle.\n- Pet ovc je ušlo. Šest sosedov bo pomagalo."
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "stevila-glagol", "instruction": "Dopolni · Fill in", "prompt": "v pretekliku · in the past",
+        "columns": ["glagol · the verb"],
+        "rows": [
+          { "label": "dva brata (priti)", "cells": [{ "accept": ["sta prišla"] }] },
+          { "label": "pet sester (priti)", "cells": [{ "accept": ["je prišlo"] }] },
+          { "label": "štiri teleta (pobegniti)", "cells": [{ "accept": ["so pobegnila"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "stevila-glagol", "instruction": "Dopolni · Fill in",
+        "text": "Na Markovo trgatev je prišlo dvanajst ___ (sosed). Dve sosedi sta ___ (prinesti) košare. Trije fantje ___ nosili grozdje v klet. Zvečer je ___ (ostati) še veliko vina.",
+        "gaps": [
+          { "accept": ["sosedov"] },
+          { "accept": ["prinesli"] },
+          { "accept": ["so"] },
+          { "accept": ["ostalo"] }
+        ],
+        "translation": "Twelve neighbours came to Marko's grape harvest. Two women neighbours brought baskets. Three lads carried the grapes into the cellar. In the evening there was still a lot of wine left."
+      },
+      {
+        "type": "transform", "grammar": "stevila-glagol", "instruction": "Spremeni število · Change the number",
+        "items": [
+          { "from": "Ena ovca se pase na bregu. (sedem)", "accept": ["Sedem ovc se pase na bregu.", "Na bregu se pase sedem ovc."] },
+          { "from": "En voz je stal pred mlinom. (dva)", "accept": ["Dva voza sta stala pred mlinom."] },
+          { "from": "En gost bo prišel. (osem)", "accept": ["Osem gostov bo prišlo."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "stevila-glagol", "instruction": "Izberi · Choose", "prompt": "Koliko ljudi ___ na sestanku?", "options": ["je bilo", "so bili", "sta bila"], "answer": 0, "say_options": true,
+        "explain": "**koliko** works like five: koliko ljudi **je bilo**"
+      },
+      {
+        "type": "choice", "grammar": "stevila-glagol", "instruction": "Izberi · Choose", "prompt": "Obe sestri ___ prišli.", "options": ["sta", "so", "je"], "answer": 0, "say_options": true,
+        "explain": "**obe** (both) is two: the dual, obe sestri **sta** prišli"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: Francetu sta zboleli dve kravi, Po neurju (brez opeke or brez strešnikov), sosedje/sosedi"
+}

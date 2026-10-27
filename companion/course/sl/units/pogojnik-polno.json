@@ -1,0 +1,245 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "pogojnik-polno",
+  "language": "sl",
+  "level": "B1",
+  "emoji": "🌦️",
+  "title": { "sl": "Če bi deževalo, bi …", "en": "If it rained, we would …: the conditional in full", "de": "Wenn es regnen würde, …: der Konditional ganz", "it": "Se piovesse, …: il condizionale completo" },
+  "goal": {
+    "en": "You can say what would happen if things were otherwise (če bi …, bi …), also about the past, wish for it (ko bi le …) and say what for or what someone wants (da bi …).",
+    "de": "Du sagst, was wäre, wenn es anders wäre (če bi …, bi …), auch für die Vergangenheit, wünschst es dir (ko bi le …) und sagst, wozu oder was jemand will (da bi …).",
+    "it": "Sai dire che cosa succederebbe se le cose fossero diverse (če bi …, bi …), anche nel passato, desiderarlo (ko bi le …) e dire a che scopo o che cosa uno vuole (da bi …)."
+  },
+  "grammar": ["pogojnik-ce-bi", "pogojnik"],
+  "words": ["če", "ko bi le", "da bi", "deževati", "kositi", "seno", "izlet", "sanjati", "mlin", "mlinski kamen", "pomočnik", "žito", "trgatev", "plug", "zaklad", "potica", "sneg", "sani", "pridno", "pomagati", "obiskati", "poiskati", "ujeti", "zajec"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "če …", "en": "if …", "de": "wenn …", "it": "se …" },
+        { "sl": "potem …", "en": "then …", "de": "dann …", "it": "allora …" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "You know **če bo** for a real chance, with the future in both halves: **Če bo jutri lepo, bomo kosili.** When the condition is only imagined or unlikely, both halves take the conditional (*pogojnik*), **bi** and the l-form: **Če bi jutri deževalo, ne bi kosili.** (If it rained tomorrow, we wouldn't mow.) Ask yourself: do I expect it, or only imagine it?",
+          "de": "Du kennst **če bo** für eine echte Möglichkeit, mit dem Futur in beiden Hälften: **Če bo jutri lepo, bomo kosili.** Ist die Bedingung nur gedacht oder unwahrscheinlich, stehen beide Hälften im Konditional (*pogojnik*), **bi** und die l-Form: **Če bi jutri deževalo, ne bi kosili.** (Wenn es morgen regnen würde, würden wir nicht mähen.) Frag dich: Erwarte ich es, oder stelle ich es mir nur vor?",
+          "it": "Conosci **če bo** per una possibilità reale, con il futuro in tutte e due le metà: **Če bo jutri lepo, bomo kosili.** Se la condizione è solo immaginata o improbabile, tutte e due le metà vogliono il condizionale (*pogojnik*), **bi** e la forma in -l: **Če bi jutri deževalo, ne bi kosili.** (Se domani piovesse, non falceremmo.) Chiediti: me lo aspetto, o lo immagino soltanto?"
+        },
+        "examples": [
+          { "sl": "Če bo jutri lepo, bomo kosili.", "en": "If it's fine tomorrow, we'll mow.", "de": "Wenn es morgen schön ist, mähen wir.", "it": "Se domani è bello, falceremo." },
+          { "sl": "Če bi jutri deževalo, ne bi kosili.", "en": "If it rained tomorrow, we wouldn't mow.", "de": "Wenn es morgen regnen würde, würden wir nicht mähen.", "it": "Se domani piovesse, non falceremmo." }
+        ],
+        "rows": [
+          ["Če bo lepo,", "bomo kosili."],
+          ["Če bi deževalo,", "ne bi kosili."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "pogojnik-ce-bi", "prompt": "Če bi jutri deževalo, ___ doma. (we'd stay)", "options": ["bi ostali", "bomo ostali", "ostanemo"], "answer": 0, "say_options": true,
+          "explain": "**če bi** … → the other half takes **bi** too: bi ostali\n- bomo ostali · goes with če bo, a real chance\n- ostanemo · the present"
+        }
+      },
+      {
+        "say": {
+          "en": "**Bi** never changes; the l-form agrees with who does it, as in the past: **Če bi Vida imela čas, bi nam pomagala.** **Če bi otroci imeli psa, bi se igrali z njim.** For yourself: **Če bi {m:imel|f:imela} čas, bi ti {m:pomagal|f:pomagala}.** The second half starts with **bi**, the other short words after it: **bi nam**, **bi se**, **bi ti**.",
+          "de": "**Bi** ändert sich nie; die l-Form richtet sich danach, wer es tut, wie in der Vergangenheit: **Če bi Vida imela čas, bi nam pomagala.** **Če bi otroci imeli psa, bi se igrali z njim.** Für dich selbst: **Če bi {m:imel|f:imela} čas, bi ti {m:pomagal|f:pomagala}.** Die zweite Hälfte beginnt mit **bi**, die anderen kurzen Wörter danach: **bi nam**, **bi se**, **bi ti**.",
+          "it": "**Bi** non cambia mai; la forma in -l si accorda con chi fa l'azione, come nel passato: **Če bi Vida imela čas, bi nam pomagala.** **Če bi otroci imeli psa, bi se igrali z njim.** Per te: **Če bi {m:imel|f:imela} čas, bi ti {m:pomagal|f:pomagala}.** La seconda metà comincia con **bi**, le altre parole brevi dopo: **bi nam**, **bi se**, **bi ti**."
+        },
+        "examples": [
+          { "sl": "Če bi Vida imela čas, bi nam pomagala.", "en": "If Vida had time, she'd help us.", "de": "Wenn Vida Zeit hätte, würde sie uns helfen.", "it": "Se Vida avesse tempo, ci aiuterebbe." },
+          { "sl": "Če bi otroci imeli psa, bi se igrali z njim.", "en": "If the children had a dog, they'd play with it.", "de": "Wenn die Kinder einen Hund hätten, würden sie mit ihm spielen.", "it": "Se i bambini avessero un cane, giocherebbero con lui." }
+        ],
+        "rows": [
+          ["Če bi Vida imela čas,", "bi nam pomagala."],
+          ["Če bi otroci imeli psa,", "bi se igrali z njim."]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "pogojnik-ce-bi", "text": "Če bi Marko ___ (imeti) več sodov, bi naredil več vina.", "accept": ["imel"], "hint": "Marko: the l-form, -l",
+          "explain": "**bi** stays, the l-form agrees: Marko → bi **imel**\n- Vida → bi imela\n- otroci → bi imeli"
+        }
+      },
+      {
+        "say": {
+          "en": "Slovene has one conditional for now and for the past. What would have happened yesterday has the same **bi** + l-form; a time word tells which: **Če bi včeraj {m:prišel|f:prišla}, bi {m:videl|f:videla} Markovo trgatev.** (If I had come yesterday, I'd have seen it.) **Če bi Luka včeraj bolje pazil, jagnje ne bi ušlo.** Books also have *bi bil prišel*: you only need to recognise it.",
+          "de": "Das Slowenische hat einen Konditional für jetzt und für die Vergangenheit. Was gestern gewesen wäre, hat dasselbe **bi** + l-Form; ein Zeitwort sagt, was gemeint ist: **Če bi včeraj {m:prišel|f:prišla}, bi {m:videl|f:videla} Markovo trgatev.** (Wäre ich gestern gekommen, hätte ich sie gesehen.) **Če bi Luka včeraj bolje pazil, jagnje ne bi ušlo.** In Büchern steht auch *bi bil prišel*: das musst du nur erkennen.",
+          "it": "Lo sloveno ha un solo condizionale per adesso e per il passato. Ciò che sarebbe successo ieri ha lo stesso **bi** + forma in -l; una parola di tempo dice quale: **Če bi včeraj {m:prišel|f:prišla}, bi {m:videl|f:videla} Markovo trgatev.** (Se fossi {m:venuto|f:venuta} ieri, l'avrei vista.) **Če bi Luka včeraj bolje pazil, jagnje ne bi ušlo.** Nei libri c'è anche *bi bil prišel*: basta riconoscerlo."
+        },
+        "examples": [
+          { "sl": "Če bi včeraj {m:prišel|f:prišla}, bi {m:videl|f:videla} Markovo trgatev.", "en": "If I had come yesterday, I'd have seen Marko's grape harvest.", "de": "Wenn ich gestern gekommen wäre, hätte ich Markos Weinlese gesehen.", "it": "Se fossi {m:venuto|f:venuta} ieri, avrei visto la vendemmia di Marko." },
+          { "sl": "Če bi Luka včeraj bolje pazil, jagnje ne bi ušlo.", "en": "If Luka had watched more carefully yesterday, the lamb wouldn't have run off.", "de": "Hätte Luka gestern besser aufgepasst, wäre das Lamm nicht weggelaufen.", "it": "Se ieri Luka fosse stato più attento, l'agnello non sarebbe scappato." }
+        ],
+        "rows": [
+          ["Če bi včeraj prišel,", "bi videl trgatev."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "pogojnik-ce-bi", "prompt": "Tine včeraj ni šel na trgatev. Če bi ___, bi pomagal Marku.", "options": ["šel", "gre", "bo šel"], "answer": 0, "say_options": true,
+          "explain": "**če bi** + the l-form, for the past too: če bi **šel**\n- gre · the present\n- bo šel · the future"
+        }
+      },
+      {
+        "say": {
+          "en": "The no is **ne bi**, the two together: **Če ne bi bilo dežja, bi šli na izlet.** (If it weren't for the rain …) What isn't there goes into the genitive, as after any no: **Če ne bi bilo Toneta, ne bi imeli novega pluga.** A wish, often one you can't make happen yourself, starts with **Ko bi le …!** (if only): **Ko bi le nehalo deževati!**",
+          "de": "Verneint heißt es **ne bi**, beide zusammen: **Če ne bi bilo dežja, bi šli na izlet.** (Wenn der Regen nicht wäre …) Was nicht da ist, steht im Genitiv, wie nach jedem Nein: **Če ne bi bilo Toneta, ne bi imeli novega pluga.** Ein Wunsch, oft einer, den man selbst nicht erfüllen kann, beginnt mit **Ko bi le …!** (wenn doch nur): **Ko bi le nehalo deževati!**",
+          "it": "Al negativo è **ne bi**, insieme: **Če ne bi bilo dežja, bi šli na izlet.** (Se non fosse per la pioggia …) Ciò che non c'è va al genitivo, come dopo ogni no: **Če ne bi bilo Toneta, ne bi imeli novega pluga.** Un desiderio, spesso uno che non dipende da te, comincia con **Ko bi le …!** (se solo): **Ko bi le nehalo deževati!**"
+        },
+        "examples": [
+          { "sl": "Če ne bi bilo Toneta, ne bi imeli novega pluga.", "en": "If it weren't for Tone, we wouldn't have a new plough.", "de": "Wenn Tone nicht wäre, hätten wir keinen neuen Pflug.", "it": "Se non fosse per Tone, non avremmo un aratro nuovo." },
+          { "sl": "Ko bi le nehalo deževati!", "en": "If only it would stop raining!", "de": "Wenn es doch nur aufhören würde zu regnen!", "it": "Se solo smettesse di piovere!" }
+        ],
+        "rows": [
+          ["Če ne bi bilo dežja,", "bi šli na izlet."],
+          ["Ko bi le nehalo deževati!", "—"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "pogojnik-ce-bi", "prompt": "»___ le nehalo deževati!« (If only it would stop raining!)", "options": ["Ko bi", "Ko bo", "Če bo"], "answer": 0, "say_options": true,
+          "explain": "**ko bi le** … = if only (a wish)\n- ko bo · when it will\n- če bo · if it will (a real chance)"
+        }
+      },
+      {
+        "say": {
+          "en": "**Da bi** joins what someone wants others to do: **Babica bi rada, da bi jo večkrat {m:obiskal|f:obiskala}.** (Granny would like you to visit her more often.) It also says what something is for: **Luka je šel v gozd, da bi poiskal jagnje.** (… to look for the lamb.) The short words come right after **da bi**: **da bi jo**, **da bi se**, **da bi mi**.",
+          "de": "**Da bi** verbindet, was jemand von anderen will: **Babica bi rada, da bi jo večkrat {m:obiskal|f:obiskala}.** (Oma hätte gern, dass du sie öfter besuchst.) Es sagt auch, wozu etwas ist: **Luka je šel v gozd, da bi poiskal jagnje.** (… um das Lamm zu suchen.) Die kurzen Wörter folgen gleich auf **da bi**: **da bi jo**, **da bi se**, **da bi mi**.",
+          "it": "**Da bi** unisce ciò che qualcuno vuole dagli altri: **Babica bi rada, da bi jo večkrat {m:obiskal|f:obiskala}.** (La nonna vorrebbe che tu andassi a trovarla più spesso.) Dice anche a che cosa serve qualcosa: **Luka je šel v gozd, da bi poiskal jagnje.** (… a cercare l'agnello.) Le parole brevi vengono subito dopo **da bi**: **da bi jo**, **da bi se**, **da bi mi**."
+        },
+        "examples": [
+          { "sl": "Babica bi rada, da bi jo večkrat {m:obiskal|f:obiskala}.", "en": "Granny would like you to visit her more often.", "de": "Oma hätte gern, dass du sie öfter besuchst.", "it": "La nonna vorrebbe che tu andassi a trovarla più spesso." },
+          { "sl": "Luka je šel v gozd, da bi poiskal jagnje.", "en": "Luka went into the forest to look for the lamb.", "de": "Luka ging in den Wald, um das Lamm zu suchen.", "it": "Luka è andato nel bosco a cercare l'agnello." }
+        ],
+        "rows": [
+          ["Babica bi rada,", "da bi jo obiskali."],
+          ["Luka je šel v gozd,", "da bi poiskal jagnje."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "pogojnik-ce-bi", "prompt": "Mojca piše velike črke, ___ jih otroci dobro videli.", "options": ["da bi", "če bi", "ko bi"], "answer": 0, "say_options": true,
+          "explain": "**da bi** = so that (what it's for)\n- če bi · if\n- ko bi · if only"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "pogojnik-polno-1",
+      "title": { "sl": "Bi imel, bi imela, bi imeli", "en": "Bi imel, bi imela, bi imeli", "de": "Bi imel, bi imela, bi imeli", "it": "Bi imel, bi imela, bi imeli" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "pogojnik-ce-bi", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "Če bi … · bi + the l-form",
+          "columns": ["on · he", "ona · she", "oni · they"],
+          "rows": [
+            { "label": "imeti", "cells": ["bi imel", { "accept": ["bi imela", "imela bi"], "hint": "she: -la" }, { "accept": ["bi imeli", "imeli bi"], "hint": "they: -li" }] },
+            { "label": "iti", "cells": [{ "accept": ["bi šel", "šel bi"], "hint": "the l-form of iti is its own" }, "bi šla", { "accept": ["bi šli", "šli bi"] }] },
+            { "label": "priti", "cells": [{ "accept": ["bi prišel", "prišel bi"] }, { "accept": ["bi prišla", "prišla bi"] }, "bi prišli"] },
+            { "label": "reči", "cells": [{ "accept": ["bi rekel", "rekel bi"], "hint": "as in the past: rekel" }, { "accept": ["bi rekla", "rekla bi"] }, "bi rekli"] },
+            { "label": "biti", "cells": [{ "accept": ["bi bil", "bil bi"] }, "bi bila", { "accept": ["bi bili", "bili bi"] }] }
+          ],
+          "explain": "**bi** never changes, the l-form agrees with who\n- bi imel, bi imela, bi imeli\n- bi šel, bi šla, bi šli"
+        },
+        {
+          "type": "choice", "grammar": "pogojnik-ce-bi", "instruction": "Izberi · Choose", "prompt": "Napoved pravi, da bo jutri lepo. Če bo lepo, ___ seno.", "options": ["bomo sušili", "bi sušili", "smo sušili"], "answer": 0, "say_options": true,
+          "explain": "**a real chance** (the forecast says so): če bo … **bomo** sušili\n- bi sušili · only with če bi, an imagined one"
+        },
+        {
+          "type": "choice", "grammar": "pogojnik-ce-bi", "instruction": "Izberi · Choose", "prompt": "Vida ne pozna tujca s harmoniko. Če bi ga poznala, bi ___ za pomoč.", "options": ["ga prosila", "ga prosi", "ga bo prosila"], "answer": 0, "say_options": true,
+          "explain": "**če bi** … → **bi** + the l-form, agreeing with Vida: bi ga **prosila**"
+        }
+      ]
+    },
+    {
+      "id": "pogojnik-polno-2",
+      "title": { "sl": "Francetove sanje", "en": "France's dreams", "de": "Frances Träume", "it": "I sogni di France" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "pogojnik-ce-bi", "instruction": "Dopolni · Fill in", "title": "Francetove sanje",
+          "text": "Mlinar France sedi pred mlinom in sanja. »Če ___ imel več denarja, bi kupil nov mlinski kamen. Z novim kamnom bi ___ (mleti) dvakrat hitreje. Če bi mlel hitreje, ___ ljudje prinašali več žita. Ko bi le ___ (imeti) pomočnika!« Teta Ančka ga posluša. »Če ___ manj sanjal in več delal, bi kamen že imel. In če bi ___ (iti) k Tonetu, bi ti pomagal.« »Ti bi rada, ___ bi ves dan delal,« se smeje France. »Seveda. Potem ___ bil mlin najboljši v dolini.«",
+          "gaps": [
+            { "accept": ["bi"], "hint": "imagined: če …" },
+            { "accept": ["mlel"], "hint": "France: the l-form of mleti" },
+            { "accept": ["bi"], "hint": "the second half" },
+            { "accept": ["imel"], "hint": "ko bi le + the l-form" },
+            { "accept": ["bi"], "hint": "imagined: če …" },
+            { "accept": ["šel"], "hint": "the l-form of iti", "explain": "**iti** has its own l-form: če bi **šel**, šla, šli" },
+            { "accept": ["da"], "hint": "what she wants him to do", "explain": "What someone wants others to do: **da bi**. Ti bi rada, **da** bi ves dan delal." },
+            { "accept": ["bi"], "hint": "would be" }
+          ],
+          "bank": true, "distractors": ["bo", "če", "imam"],
+          "translation": "France the miller sits in front of the mill and dreams. \"If I had more money, I'd buy a new millstone. With a new stone I'd grind twice as fast. If I ground faster, people would bring more grain. If only I had a helper!\" Aunt Ančka listens to him. \"If you dreamed less and worked more, you'd have the stone already. And if you went to Tone, he'd help you.\" \"You'd like me to work all day,\" France laughs. \"Of course. Then the mill would be the best in the valley.\""
+        },
+        {
+          "type": "choice", "grammar": "pogojnik-ce-bi", "instruction": "Kaj pomeni? · What does it mean?", "prompt": "Če bi Luka včeraj bolje pazil, jagnje ne bi ušlo.", "say": "Če bi Luka včeraj bolje pazil, jagnje ne bi ušlo.",
+          "options": ["Luka didn't watch carefully, and the lamb ran off.", "Luka will watch carefully, so the lamb won't run off.", "Luka watched carefully, and the lamb didn't run off."], "answer": 0,
+          "explain": "**če bi** for the past: what didn't happen. Luka didn't watch (ne bi ušlo: but it did run off)."
+        }
+      ]
+    },
+    {
+      "id": "pogojnik-polno-3",
+      "title": { "sl": "Kaj bi bilo, če …", "en": "What would it be like if …", "de": "Was wäre, wenn …", "it": "Che cosa sarebbe se …" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "pogojnik-ce-bi", "instruction": "Iz resničnega v zamišljeno · From a real chance to an imagined one", "cue": "če bi",
+          "items": [
+            { "from": "Če bo lepo, bomo šli na izlet.", "accept": ["Če bi bilo lepo, bi šli na izlet."], "hint": "bo → bi bilo" },
+            { "from": "Če bo Luka našel jagnje, bo vesel.", "accept": ["Če bi Luka našel jagnje, bi bil vesel."], "hint": "bo vesel → bi bil vesel" },
+            { "from": "Če bo Vida imela čas, nam bo pomagala.", "accept": ["Če bi Vida imela čas, bi nam pomagala."], "hint": "bi first, then nam" },
+            { "from": "Če bodo otroci pridni, bodo dobili potico.", "accept": ["Če bi bili otroci pridni, bi dobili potico.", "Če bi otroci bili pridni, bi dobili potico."] },
+            { "from": "Če ne bo deževalo, bo France kosil.", "accept": ["Če ne bi deževalo, bi France kosil."], "hint": "ne bo → ne bi" },
+            { "from": "Če Tone ne bo utrujen, bo popravil plug.", "accept": ["Če Tone ne bi bil utrujen, bi popravil plug.", "Če Tone ne bi bil utrujen, bi plug popravil."] }
+          ],
+          "explain": "**če bi** + the l-form, **bi** + the l-form in the other half\n- Če bi bilo lepo, bi šli na izlet.\n- Če ne bi deževalo, bi France kosil."
+        },
+        {
+          "type": "transform", "grammar": "pogojnik-ce-bi", "instruction": "Poveži z da bi · Join with da bi",
+          "items": [
+            { "from": "Luka gre v gozd. Poišče jagnje.", "accept": ["Luka gre v gozd, da bi poiskal jagnje."], "hint": "da bi + the l-form" },
+            { "from": "Mojca govori počasi. Otroci jo razumejo.", "accept": ["Mojca govori počasi, da bi jo otroci razumeli."], "hint": "jo right after da bi" },
+            { "from": "Babica peče potico. Otroci bodo veseli.", "accept": ["Babica peče potico, da bi bili otroci veseli.", "Babica peče potico, da bi otroci bili veseli."] }
+          ],
+          "explain": "**da bi** says what it is for; the short words come right after it\n- …, da bi poiskal jagnje.\n- …, da bi jo otroci razumeli."
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "pogojnik-ce-bi", "instruction": "Dopolni · Fill in", "prompt": "Če bi … · bi + the l-form",
+        "columns": ["oblika · the form"],
+        "rows": [
+          { "label": "Zala (biti)", "cells": [{ "accept": ["bi bila", "bila bi"] }] },
+          { "label": "Tone (vedeti)", "cells": [{ "accept": ["bi vedel", "vedel bi"] }] },
+          { "label": "otroci (priti)", "cells": [{ "accept": ["bi prišli", "prišli bi"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "pogojnik-ce-bi", "instruction": "Dopolni · Fill in",
+        "text": "Če bi jutri ___ (padati) sneg, ne bi šli v mesto. Ko ___ le imeli sani! Marko bi rad, ___ bi jih naredil Tone. Če bi Tone imel čas, ___ jih naredil do zime.",
+        "gaps": [
+          { "accept": ["padal"] },
+          { "accept": ["bi"] },
+          { "accept": ["da"] },
+          { "accept": ["bi"] }
+        ],
+        "translation": "If it snowed tomorrow, we wouldn't go to town. If only we had a sledge! Marko would like Tone to make one. If Tone had time, he'd make it by winter."
+      },
+      {
+        "type": "transform", "grammar": "pogojnik-ce-bi", "instruction": "Iz resničnega v zamišljeno · From a real chance to an imagined one", "cue": "če bi",
+        "items": [
+          { "from": "Če bo Jože ujel zajca, bo Vida skuhala golaž.", "accept": ["Če bi Jože ujel zajca, bi Vida skuhala golaž."] },
+          { "from": "Če ne bo vetra, bomo sušili seno.", "accept": ["Če ne bi bilo vetra, bi sušili seno."], "hint": "ne bo → ne bi bilo" },
+          { "from": "Nejc se uči. Rad bi znal brati. (da bi)", "accept": ["Nejc se uči, da bi znal brati."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "pogojnik-ce-bi", "instruction": "Kateri stavek je prav? · Which sentence is right?", "prompt": "If Ančka knew, she'd tell us.",
+        "options": ["Če bi Ančka vedela, bi nam povedala.", "Če bo Ančka vedela, bi nam povedala.", "Če bi Ančka vedela, nam bo povedala."], "answer": 0, "say_options": true,
+        "explain": "**imagined**: bi in both halves. Če bi Ančka vedela, **bi** nam povedala."
+      },
+      {
+        "type": "choice", "grammar": "pogojnik-ce-bi", "instruction": "Izberi · Choose", "prompt": "»___ le imeli več časa!«", "options": ["Ko bi", "Ko bomo", "Da smo"], "answer": 0, "say_options": true,
+        "explain": "**ko bi le** … = if only: Ko bi le imeli več časa!"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: the past unreal as če bi + l-form; Če ne bi bilo vetra; da bi or da bodo (Babica peče potico); Francetove sanje"
+}

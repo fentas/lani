@@ -1,0 +1,230 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "glagolniki",
+  "language": "sl",
+  "level": "B1",
+  "emoji": "📖",
+  "title": { "sl": "Branje, pisanje, odkritje", "en": "Reading, writing, a discovery: verbal nouns", "de": "Lesen, Schreiben, eine Entdeckung: Verbalnomen", "it": "La lettura, la scrittura, una scoperta: i nomi verbali" },
+  "goal": {
+    "en": "You recognise and understand verbal nouns (branje, kajenje, odkritje) and the village year's (košnja, trgatev), and can make the easy ones yourself (plavati → plavanje, pečenje kruha).",
+    "de": "Du erkennst und verstehst Verbalnomen (branje, kajenje, odkritje) und die des Dorfjahrs (košnja, trgatev) und bildest die einfachen selbst (plavati → plavanje, pečenje kruha).",
+    "it": "Riconosci e capisci i nomi verbali (branje, kajenje, odkritje) e quelli dell'anno del paese (košnja, trgatev), e sai formare da te quelli facili (plavati → plavanje, pečenje kruha)."
+  },
+  "grammar": ["glagolniki", "sklanjatev-srednji"],
+  "words": ["branje", "pisanje", "kuhanje", "plavanje", "učenje", "kajenje", "pečenje", "pitje", "petje", "odkritje", "pletenje", "pripovedovanje", "setev", "košnja", "žetev", "trgatev", "hoja", "življenje", "vprašanje", "znanje", "konjiček", "zdravje", "kvas", "kovanec", "škoditi", "prepovedan"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "glagol", "en": "verb", "de": "Verb", "it": "verbo" },
+        { "sl": "glagolnik", "en": "verbal noun", "de": "Verbalnomen", "it": "nome verbale" },
+        { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "A verbal noun (*glagolnik*) names the action of a verb, as English *-ing* does: **brati → branje** (reading), **pisati → pisanje** (writing), **kuhati → kuhanje** (cooking). It is a noun, neuter, and can be the subject: **Branje je moj najljubši konjiček.** You will mostly read them: in writing, in the news and on signs.",
+          "de": "Ein Verbalnomen (*glagolnik*) benennt die Handlung eines Verbs, wie *das Lesen*: **brati → branje** (das Lesen), **pisati → pisanje** (das Schreiben), **kuhati → kuhanje** (das Kochen). Es ist ein Nomen, sächlich, und kann Subjekt sein: **Branje je moj najljubši konjiček.** Du wirst sie vor allem lesen: in Texten, in den Nachrichten und auf Schildern.",
+          "it": "Un nome verbale (*glagolnik*) dà il nome all'azione di un verbo, come *la lettura* da leggere: **brati → branje** (la lettura), **pisati → pisanje** (la scrittura), **kuhati → kuhanje** (il cucinare). È un nome, neutro, e può essere il soggetto: **Branje je moj najljubši konjiček.** Li leggerai soprattutto: nei testi, nelle notizie e sui cartelli."
+        },
+        "examples": [
+          { "sl": "Branje je moj najljubši konjiček.", "en": "Reading is my favourite hobby.", "de": "Lesen ist mein liebstes Hobby.", "it": "La lettura è il mio passatempo preferito." },
+          { "sl": "Kuhanje je Vidino veselje.", "en": "Cooking is Vida's joy.", "de": "Kochen ist Vidas Freude.", "it": "Cucinare è la gioia di Vida." }
+        ],
+        "rows": [
+          ["brati", "branje", "Branje je zabavno."],
+          ["kuhati", "kuhanje", "Kuhanje je Vidino veselje."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "glagolniki", "instruction": "Kaj pomeni? · What does it mean?", "prompt": "Branje je moj najljubši konjiček.", "say": "Branje je moj najljubši konjiček.",
+          "options": ["Reading is my favourite hobby.", "I'm reading my favourite book.", "My hobby is writing."], "answer": 0,
+          "explain": "**branje** ← brati: reading, the action as a noun"
+        }
+      },
+      {
+        "say": {
+          "en": "Most end in **-nje**. From **-ati**: **-anje** (**plavati → plavanje**). From **-iti**: **-enje**, sometimes with a change (**učiti → učenje**, **kaditi → kajenje**). Verbs whose participle ends in -t (**pit, odkrit**) make **-tje**: **piti → pitje**, **peti → petje** (singing), **odkriti → odkritje** (a discovery). To read one, look for the verb inside it.",
+          "de": "Die meisten enden auf **-nje**. Von **-ati**: **-anje** (**plavati → plavanje**). Von **-iti**: **-enje**, manchmal mit einer Änderung (**učiti → učenje**, **kaditi → kajenje**). Verben mit einem Partizip auf -t (**pit, odkrit**) bilden **-tje**: **piti → pitje**, **peti → petje** (das Singen), **odkriti → odkritje** (eine Entdeckung). Um eines zu lesen, such das Verb darin.",
+          "it": "I più finiscono in **-nje**. Da **-ati**: **-anje** (**plavati → plavanje**). Da **-iti**: **-enje**, a volte con un cambiamento (**učiti → učenje**, **kaditi → kajenje**). I verbi con un participio in -t (**pit, odkrit**) fanno **-tje**: **piti → pitje**, **peti → petje** (il canto), **odkriti → odkritje** (una scoperta). Per leggerne uno, cerca il verbo dentro."
+        },
+        "examples": [
+          { "sl": "Kajenje škodi zdravju.", "en": "Smoking harms your health.", "de": "Rauchen schadet der Gesundheit.", "it": "Il fumo nuoce alla salute." },
+          { "sl": "Odkritje starih kovancev na njivi je razveselilo vso vas.", "en": "The discovery of old coins in the field delighted the whole village.", "de": "Der Fund alter Münzen auf dem Acker hat das ganze Dorf gefreut.", "it": "La scoperta di vecchie monete nel campo ha rallegrato tutto il paese." }
+        ],
+        "rows": [
+          ["plavati", "plavanje", "Plavanje v jezeru je prijetno."],
+          ["kaditi", "kajenje", "Kajenje škodi zdravju."],
+          ["odkriti", "odkritje", "Odkritje je razveselilo vas."]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "glagolniki", "text": "Poleti je ___ v jezeru najlepše. (plavati)", "accept": ["plavanje"], "hint": "-ati → -anje",
+          "explain": "**-ati → -anje**: **plavati → plavanje**"
+        }
+      },
+      {
+        "say": {
+          "en": "Verbal nouns decline like **morje**: **pri branju** (while reading), **med kuhanjem** (during cooking), **za pečenje** (for baking). What is done goes into the genitive: **pečenje kruha** (baking bread), **pisanje pisem**, **učenje slovenščine**. **Za pečenje kruha potrebuješ moko, vodo in kvas.**",
+          "de": "Verbalnomen gehen wie **morje**: **pri branju** (beim Lesen), **med kuhanjem** (während des Kochens), **za pečenje** (zum Backen). Was getan wird, steht im Genitiv: **pečenje kruha** (das Brotbacken), **pisanje pisem**, **učenje slovenščine**. **Za pečenje kruha potrebuješ moko, vodo in kvas.**",
+          "it": "I nomi verbali si declinano come **morje**: **pri branju** (leggendo), **med kuhanjem** (durante la cottura), **za pečenje** (per cuocere). Ciò che si fa va al genitivo: **pečenje kruha** (la cottura del pane), **pisanje pisem**, **učenje slovenščine**. **Za pečenje kruha potrebuješ moko, vodo in kvas.**"
+        },
+        "examples": [
+          { "sl": "Med kuhanjem babica Micka poje.", "en": "Granny Micka sings while she cooks.", "de": "Beim Kochen singt Oma Micka.", "it": "Mentre cucina, nonna Micka canta." },
+          { "sl": "Za pečenje kruha potrebuješ moko, vodo in kvas.", "en": "To bake bread you need flour, water and yeast.", "de": "Zum Brotbacken brauchst du Mehl, Wasser und Hefe.", "it": "Per fare il pane ti servono farina, acqua e lievito." }
+        ],
+        "rows": [
+          ["peči", "pečenje", "Za pečenje kruha potrebuješ moko."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "glagolniki", "prompt": "Za ___ potrebuješ moko, vodo in kvas.", "options": ["pečenje kruha", "pečenje kruh", "peči kruh"], "answer": 0, "say_options": true,
+          "explain": "**za** + the verbal noun, what is baked in the genitive: za pečenje **kruha**"
+        }
+      },
+      {
+        "say": {
+          "en": "The village year has its own action nouns, not in -nje: **setev** (sowing), **košnja** (mowing, from **kositi**), **žetev** (the harvest), **trgatev** (the grape harvest, from **trgati**, to pick), **hoja** (walking, from **hoditi**). They are feminine: **Trgatev je bila letos zgodnja.** **Košnja se začne junija.**",
+          "de": "Das Dorfjahr hat eigene Handlungswörter, nicht auf -nje: **setev** (die Aussaat), **košnja** (das Mähen, von **kositi**), **žetev** (die Ernte), **trgatev** (die Weinlese, von **trgati**, pflücken), **hoja** (das Gehen, von **hoditi**). Sie sind weiblich: **Trgatev je bila letos zgodnja.** **Košnja se začne junija.**",
+          "it": "L'anno del paese ha i suoi nomi d'azione, non in -nje: **setev** (la semina), **košnja** (la falciatura, da **kositi**), **žetev** (la mietitura), **trgatev** (la vendemmia, da **trgati**, cogliere), **hoja** (il camminare, da **hoditi**). Sono femminili: **Trgatev je bila letos zgodnja.** **Košnja se začne junija.**"
+        },
+        "examples": [
+          { "sl": "Trgatev je bila letos zgodnja.", "en": "The grape harvest was early this year.", "de": "Die Weinlese war dieses Jahr früh.", "it": "Quest'anno la vendemmia è stata precoce." },
+          { "sl": "Košnja se začne junija.", "en": "The mowing starts in June.", "de": "Das Mähen beginnt im Juni.", "it": "La falciatura comincia a giugno." }
+        ],
+        "rows": [
+          ["kositi", "košnja", "Košnja se začne junija."],
+          ["trgati", "trgatev", "Trgatev je bila zgodnja."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "glagolniki", "instruction": "Kaj pomeni? · What does it mean?", "prompt": "trgatev", "say": "trgatev", "options": ["the grape harvest", "a tear in the cloth", "the market"], "answer": 0,
+          "explain": "**trgatev** ← trgati (to pick): picking the grapes, the grape harvest"
+        }
+      },
+      {
+        "say": {
+          "en": "Two last things. Some verbal nouns have a meaning of their own: **življenje** (life, from **živeti**), **vprašanje** (a question), **znanje** (knowledge), **stanovanje** (a flat). And in talk the verb is often more natural: **Rad berem.** rather than *Rad imam branje*. Signs and writing love the noun: **Kopanje prepovedano.**",
+          "de": "Zwei letzte Dinge. Manche Verbalnomen haben eine eigene Bedeutung: **življenje** (das Leben, von **živeti**), **vprašanje** (eine Frage), **znanje** (das Wissen), **stanovanje** (eine Wohnung). Und im Gespräch ist das Verb oft natürlicher: **Rad berem.** statt *Rad imam branje*. Schilder und Texte lieben das Nomen: **Kopanje prepovedano.**",
+          "it": "Due ultime cose. Alcuni nomi verbali hanno un significato proprio: **življenje** (la vita, da **živeti**), **vprašanje** (una domanda), **znanje** (il sapere), **stanovanje** (un appartamento). E nel parlato il verbo è spesso più naturale: **Rad berem.** piuttosto che *Rad imam branje*. I cartelli e i testi amano il nome: **Kopanje prepovedano.**"
+        },
+        "examples": [
+          { "sl": "Življenje na vasi je mirno.", "en": "Life in the village is quiet.", "de": "Das Leben auf dem Dorf ist ruhig.", "it": "La vita in paese è tranquilla." },
+          { "sl": "Kopanje v ribniku je prepovedano.", "en": "Bathing in the pond is not allowed.", "de": "Baden im Teich ist verboten.", "it": "È vietato fare il bagno nello stagno." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "glagolniki", "instruction": "Kaj pomeni? · What does it mean?", "prompt": "življenje", "say": "življenje", "options": ["life", "a living room", "an animal"], "answer": 0,
+          "explain": "**življenje** ← živeti: living, life"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "glagolniki-1",
+      "title": { "sl": "Branje, učenje, pitje", "en": "Reading, learning, drinking", "de": "Lesen, Lernen, Trinken", "it": "Leggere, imparare, bere" },
+      "exercises": [
+        {
+          "type": "sort", "grammar": "glagolniki", "instruction": "Razvrsti po končnici · Sort by the ending",
+          "columns": [
+            { "label": "-anje (-ati)", "words": ["branje", "pisanje", "kuhanje", "čakanje"] },
+            { "label": "-enje (-iti, -či)", "words": ["učenje", "sušenje", "kajenje", "pečenje"] },
+            { "label": "-tje", "words": ["pitje", "petje", "odkritje"] }
+          ],
+          "explain": "**-ati → -anje**, **-iti, -či → -enje**, a participle in -t: **-tje**\n- brati → branje · učiti → učenje · piti → pitje"
+        },
+        {
+          "type": "table", "grammar": "glagolniki", "instruction": "Dopolni · Fill in", "prompt": "glagol → glagolnik · verb → verbal noun",
+          "columns": ["glagolnik · verbal noun"],
+          "rows": [
+            { "label": "plavati", "cells": [{ "accept": ["plavanje"], "hint": "-ati → -anje" }] },
+            { "label": "poslušati", "cells": [{ "accept": ["poslušanje"] }] },
+            { "label": "prati", "cells": [{ "accept": ["pranje"], "hint": "-ati → -anje" }] },
+            { "label": "nositi", "cells": [{ "accept": ["nošenje"], "hint": "-iti → -enje, s → š" }] },
+            { "label": "odpreti", "cells": [{ "accept": ["odprtje"], "hint": "a participle in -t (odprt): -tje" }] }
+          ],
+          "explain": "**-ati → -anje**, **-iti → -enje** (s → š), **-tje**\n- plavanje, pranje · nošenje · odprtje"
+        }
+      ]
+    },
+    {
+      "id": "glagolniki-2",
+      "title": { "sl": "Vaško leto", "en": "The village year", "de": "Das Dorfjahr", "it": "L'anno del paese" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "glagolniki", "instruction": "Dopolni z glagolnikom · Fill in with the verbal noun", "title": "Vaško leto",
+          "text": "V vasi ima vsak letni čas svoje delo. Spomladi je čas za ___ (sejati). Junija se začne ___ (kositi), julija ___ (žeti). Jeseni je pri Marku ___ (trgati), pri babici pa ___ (peči) kostanja. Pozimi je več časa za ___ (brati) in ___ (plesti). Stari Janez pravi: »Najlepše delo je ___ (pripovedovati) zgodb!«",
+          "gaps": [
+            { "accept": ["setev"], "hint": "sowing" },
+            { "accept": ["košnja"], "hint": "mowing" },
+            { "accept": ["žetev"], "hint": "the harvest" },
+            { "accept": ["trgatev"], "hint": "the grape harvest" },
+            { "accept": ["pečenje", "peka"], "hint": "-či → -enje" },
+            { "accept": ["branje"], "hint": "-ati → -anje" },
+            { "accept": ["pletenje"], "hint": "plesti, pletem → -enje" },
+            { "accept": ["pripovedovanje"], "hint": "-ati → -anje", "explain": "**pripovedovati → pripovedovanje**; what is told in the genitive: pripovedovanje **zgodb**" }
+          ],
+          "bank": true, "distractors": ["sejati", "kositi", "pisanje"],
+          "translation": "In the village every season has its work. In spring it's time for sowing. In June the mowing starts, in July the harvest. In autumn there's the grape harvest at Marko's, and chestnut roasting at Granny's. In winter there's more time for reading and knitting. Old Janez says: \"The finest work is telling stories!\""
+        }
+      ]
+    },
+    {
+      "id": "glagolniki-3",
+      "title": { "sl": "Z eno besedo", "en": "In one word", "de": "Mit einem Wort", "it": "In una parola" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "glagolniki", "instruction": "Povej z glagolnikom · Say it with a verbal noun",
+          "items": [
+            { "from": "Brati je zabavno.", "accept": ["Branje je zabavno."], "hint": "brati → branje" },
+            { "from": "Kaditi je nezdravo.", "accept": ["Kajenje je nezdravo."], "hint": "kaditi → kajenje: d → j" },
+            { "from": "Kuhati je Vidino veselje.", "accept": ["Kuhanje je Vidino veselje."] },
+            { "from": "Plavati v jezeru je prepovedano.", "accept": ["Plavanje v jezeru je prepovedano."] },
+            { "from": "Za to, da pečeš kruh, potrebuješ moko.", "accept": ["Za pečenje kruha potrebuješ moko.", "Za peko kruha potrebuješ moko."], "hint": "what is baked: the genitive" },
+            { "from": "Ko babica kuha, poje.", "accept": ["Med kuhanjem babica poje.", "Babica med kuhanjem poje.", "Babica poje med kuhanjem."], "hint": "med + the instrumental: kuhanjem" }
+          ],
+          "explain": "**the verb's action as a noun**, neuter, its object in the genitive\n- Branje je zabavno. Kajenje je nezdravo.\n- Za pečenje kruha … Med kuhanjem …"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "choice", "grammar": "glagolniki", "instruction": "Kaj pomeni? · What does it mean?", "prompt": "Kajenje škodi zdravju.", "say": "Kajenje škodi zdravju.",
+        "options": ["Smoking harms your health.", "Smoke is good for your health.", "He smokes for his health."], "answer": 0,
+        "explain": "**kajenje** ← kaditi: smoking"
+      },
+      {
+        "type": "choice", "grammar": "glagolniki", "instruction": "Kaj pomeni? · What does it mean?", "prompt": "odkritje", "say": "odkritje",
+        "options": ["a discovery", "an opening hour", "a lid"], "answer": 0,
+        "explain": "**odkritje** ← odkriti (to discover): a discovery"
+      },
+      {
+        "type": "table", "grammar": "glagolniki", "instruction": "Dopolni · Fill in", "prompt": "glagol → glagolnik · verb → verbal noun",
+        "columns": ["glagolnik · verbal noun"],
+        "rows": [
+          { "label": "pisati", "cells": [{ "accept": ["pisanje"] }] },
+          { "label": "čakati", "cells": [{ "accept": ["čakanje"] }] },
+          { "label": "peti", "cells": [{ "accept": ["petje"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "glagolniki", "instruction": "Dopolni · Fill in",
+        "text": "Pri ___ (branje) Nejc vedno zaspi. Za ___ (pečenje) potice potrebuješ orehe. ___ (učiti se) slovnice je včasih težko.",
+        "gaps": [
+          { "accept": ["branju"] },
+          { "accept": ["pečenje"] },
+          { "accept": ["Učenje"] }
+        ],
+        "translation": "Nejc always falls asleep while reading. To bake potica you need walnuts. Learning grammar is sometimes hard."
+      },
+      {
+        "type": "transform", "grammar": "glagolniki", "instruction": "Povej z glagolnikom · Say it with a verbal noun",
+        "items": [
+          { "from": "Plesti je babičino veselje.", "accept": ["Pletenje je babičino veselje."] },
+          { "from": "Za to, da pišeš pisma, potrebuješ čas.", "accept": ["Za pisanje pisem potrebuješ čas."] }
+        ]
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. A know item: recognition first. Native check: Vaško leto (pečenje or peka kostanja: both accepted), pletenje, odprtje"
+}
