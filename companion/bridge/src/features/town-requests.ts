@@ -10,6 +10,7 @@
 //   its parent) and POST /towns/children/:id/requests/:request (yes or no, sent to the child's town, signed);
 // - the family page (the family token only for a decision: the child holds the app token): GET /family/api/towns and
 //   POST /family/api/towns/requests/:id.
+import { join } from 'node:path'
 import { z } from 'zod'
 import type { FeatureFactory } from '../feature'
 import { json, readText, type RouteCtx } from '../http'
@@ -256,16 +257,18 @@ export const townRequests: FeatureFactory = ({ cfg, townKey: key, profile, cultu
           const out = new Map<string, Child>()
           // this node's children, when this town is its owner's: linked or not
           if (owner) {
-            for (const c of localChildren(cfg.projectDir)) {
-              const hello = await localHello(c)
+            const kids = localChildren(cfg.projectDir)
+            const hellos = await Promise.all(kids.map(c => localHello(c)))
+            kids.forEach((c, i) => {
+              const hello = hellos[i]
               const d = localDisplay(c, culture.dir)
               const l = hello ? store.get(hello.id) : undefined
-              const theirs = hello ? new Towns(`${c.dataDir}/app`).get(self) : undefined
+              const theirs = hello ? new Towns(join(c.dataDir, 'app')).get(self) : undefined
               out.set(hello?.id ?? `profile:${c.profile}`, {
                 id: hello?.id ?? '', ...d, profile: c.profile, linked: !!l && !l.pending, guardian: theirs?.guardian === true,
                 can_link: !!hello, status: hello ? 'ok' : 'unreachable', requests: [],
               })
-            }
+            })
           }
           // the children whose guardian this town is (or says it is): what waits for their parent
           const wards = store.links().filter(l => !l.pending && (l.ward || l.theirs?.guardian || out.get(l.id)?.guardian))

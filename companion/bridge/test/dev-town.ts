@@ -18,13 +18,17 @@
 //      guardian): it sees the child's progress in detail.
 //      dev-town-sl.json is a Slovene village of the Primorska culture pack (companion/bin/qa --steps visit-voices: an
 //      Italian learner visits a Slovene town, as Teo visits Jan's village).
+//      LANI_DEV_TOWN_REGISTRY a directory: this town is written there as a learner profile of a node (its profiles.json,
+//      as lani-profile add writes it: its id, whether a child's, its port and data), so a dev bridge whose LANI_PROFILES_DIR
+//      it is sees it as a town of its node: the parent's app links its own child's town (companion/README.md, "A child's
+//      town"). Without LANI_DEV_TOWN_LINK the town links with nobody: the invitation steps link it in the app.
 import '../src/env' // first: LANI_* from the FLUENT_* names of a node set up before the rename
 import { Client } from '@modelcontextprotocol/sdk/client/index.js'
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
 import { mkdtempSync, readFileSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
-import { RESERVED_PORTS, initLearnerData, portFree } from '../src/learners'
+import { RESERVED_PORTS, initLearnerData, portFree, readRegistry, writeRegistry } from '../src/learners'
 import { loadBridgeKey } from '../src/pairing'
 import { Towns, createInvite, inviteUri, localDate } from '../src/towns'
 import { fakeEleven } from './fakes/eleven'
@@ -67,6 +71,13 @@ new Towns(join(dataDir, 'app')).setName(fixture.town_name)
 // a learner's progress (cards, mistakes, sessions), for "📈 Napredek · Progress" on the linked town's phone
 if (fixture.learning) writeLearning(dataDir, { language: fixture.learning.language, base: fixture.learning.base })
 console.log(`dev town data: ${dataDir}`)
+const registry = process.env.LANI_DEV_TOWN_REGISTRY
+if (registry) {
+  const r = readRegistry(registry)
+  const entry = { id: fixture.profile, name: l.name, target: l.target, base: l.base, culture: l.culture, child: l.child === true, port, https_port: 0, tmux: '', remote_control: '', data_dir: dataDir, created: new Date().toISOString() }
+  writeRegistry(registry, { ...r, profiles: [...r.profiles.filter(p => p.id !== fixture.profile), entry] })
+  console.log(`dev town: a learner profile of the node in ${join(registry, 'profiles.json')}`)
+}
 
 /** The fixture's state with its days filled in: "@day" is today, "@day-40" forty days before (the node's dates). */
 function withDays(v: unknown): unknown {
