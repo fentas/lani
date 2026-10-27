@@ -132,6 +132,12 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        Teo's tablet on its side (2560 × 1600): at rest, closer, closest and panned, the ground kept and
                        drawn whole (QA's hook "render:full"): the map's render time (tag TownScene) and the frames'
                        (dumpsys gfxinfo), a table, also frames.tsv in $LANI_QA_COAST_SHOTS;
+                       "zoom-frames" (only when named) what the map's frames cost on Teo's tablet's screen (2560 × 1600):
+                       at night and by day, at the home view, at 1.5 ×, 2.5 × and 3 × the fitted zoom (QA's hook
+                       "cam:zoom:<f>"), each at rest and panned, and pinched ("cam:pinch:<s>"): every frame's time and the
+                       main thread's (dumpsys gfxinfo framestats), the map's render time (tag TownScene), a table, also
+                       frames.tsv and screenshots in $LANI_QA_ZOOM_SHOTS (LANI_QA_FRAMES_S seconds each, 8;
+                       LANI_QA_FRAMES_HOURS, "22,11");
                        "bubbles-follow" the village's bubbles with their people (QA's hook "hour:11"): at home, dragged
                        so some are off screen, zoomed in and dragged, the edge chip ("‹ 🐑 2") tapped and its bubble on
                        screen then;
@@ -10851,6 +10857,141 @@ def sea_frames():
     return None
 
 
+def zoom_frames():
+    """What the village's map costs on Teo's tablet's screen, at rest, closer up, panned and pinched (2026-10-27, Jan:
+    "zoomed in it's still quite laggy"; docs/plans/05-built/zoom-frames.md). The emulator's display as the tablet on its
+    side (2560 × 1600 px at 320 dpi: the town's 320 × 200 canvas), at night (QA's hook "hour:22": the fire's light, the
+    lit windows) and by day ("hour:11"): the village at its home view, then at 1.5 × (the closer detail), 2.5 × and 3 × the
+    fitted zoom (QA's hook "cam:zoom:<f>"), each at rest and panned (adb's swipes, back and forth), then pinched between
+    the fitted zoom and 3 × it ("cam:pinch:<s>": the gesture's own path, a step each frame). Each for 8 s (LANI_QA_FRAMES_S):
+    the frames' times (dumpsys gfxinfo framestats, every frame: its whole time from the vsync it was meant for, and the
+    main thread's part, input to sync), the summary's percentiles and janky share, and the map's own render time (the
+    debug build's log, tag TownScene). Printed as a table, also as frames.tsv in $LANI_QA_ZOOM_SHOTS with screenshots."""
+    go_home()
+    found_village()
+    go_home()
+    village()
+    seconds = float(os.environ.get("LANI_QA_FRAMES_S", "8"))
+    rows = []
+    out_dir = Path(os.environ["LANI_QA_ZOOM_SHOTS"]) if os.environ.get("LANI_QA_ZOOM_SHOTS") else None
+    if out_dir:
+        out_dir.mkdir(parents=True, exist_ok=True)
+
+    def framestats() -> list[tuple[int, float, float]]:
+        """The frames gfxinfo still holds (its last 120): (intended vsync ns, whole ms, main thread ms)."""
+        out = adb("shell", "dumpsys", "gfxinfo", PKG, "framestats", check=False)
+        frames = []
+        cols = None
+        for line in out.splitlines():
+            line = line.strip().rstrip(",")
+            if line.startswith("Flags,"):
+                cols = line.split(",")
+                continue
+            if cols is None or not line or not line[0].isdigit():
+                continue
+            v = line.split(",")
+            if len(v) < len(cols):
+                continue
+            row = dict(zip(cols, v))
+            try:
+                if int(row["Flags"]) != 0:
+                    continue
+                vs, done = int(row["IntendedVsync"]), int(row["FrameCompleted"])
+                ui0, sync = int(row["HandleInputStart"]), int(row["SyncStart"])
+            except (KeyError, ValueError):
+                continue
+            if vs <= 0 or done <= vs:
+                continue
+            frames.append((vs, (done - vs) / 1e6, max(0, sync - ui0) / 1e6))
+        return frames
+
+    def summary() -> dict:
+        out = adb("shell", "dumpsys", "gfxinfo", PKG, check=False)
+        got = {}
+        for key, pat in (("frames", r"Total frames rendered: (\d+)"), ("janky", r"Janky frames: \d+ \(([\d.]+)%\)"),
+                         ("p50", r"50th percentile: (\d+)ms"), ("p90", r"90th percentile: (\d+)ms"), ("p99", r"99th percentile: (\d+)ms")):
+            m = re.search(pat, out)
+            got[key] = m.group(1) if m else "?"
+        return got
+
+    def renders() -> str:
+        """The map's render times logged since the log was cleared: their middle (ms), and the detail."""
+        times = []
+        for line in adb("logcat", "-d", "-s", "TownScene:D", check=False).splitlines():
+            if m := re.search(r"at detail (\d): ([\d.]+) ms per frame", line):
+                times.append((float(m.group(2)), m.group(1)))
+        if not times:
+            return "?\t?"
+        times.sort()
+        return f"{times[len(times) // 2][0]:.1f}\t{times[len(times) // 2][1]}"
+
+    def pct(xs, p):
+        return xs[min(len(xs) - 1, int(len(xs) * p))] if xs else float("nan")
+
+    def look(name: str, act=None):
+        adb("logcat", "-c")
+        adb("shell", "dumpsys", "gfxinfo", PKG, "reset", check=False)
+        seen = {}
+        end = time.time() + seconds
+        if act == "pinch":
+            qa_hook(f"cam:pinch:{seconds:.0f}")
+        while time.time() < end:
+            if act == "pan":  # back and forth over the village
+                adb("shell", "input", "swipe", "900", "800", "1700", "900", "600")
+                adb("shell", "input", "swipe", "1700", "900", "900", "800", "600")
+            else:
+                time.sleep(1.2)
+            for f in framestats():
+                seen[f[0]] = f
+        for f in framestats():
+            seen[f[0]] = f
+        if act == "pinch":
+            qa_hook("cam:")
+        frames = [seen[k] for k in sorted(seen)]
+        whole = sorted(f[1] for f in frames); main = sorted(f[2] for f in frames)
+        g = summary()
+        over = sum(1 for x in whole if x > 33.4)
+        row = (f"{name}\t{renders()}\t{len(frames)}\t{pct(whole, 0.5):.1f}\t{pct(whole, 0.9):.1f}\t{pct(whole, 0.99):.1f}\t"
+               f"{(whole[-1] if whole else float('nan')):.1f}\t{over}\t{pct(main, 0.5):.1f}\t{pct(main, 0.9):.1f}\t"
+               f"{g['p50']}\t{g['p90']}\t{g['janky']}")
+        rows.append(row)
+        print(f"    {row}")
+        if out_dir:
+            shot(f"zoom-frames-{name.replace(' ', '-')}")
+            shutil.copy(shots[-1], out_dir / f"{name.replace(' ', '-')}.png")
+
+    try:
+        adb("shell", "wm", "size", "2560x1600")
+        adb("shell", "wm", "density", "320")
+        time.sleep(6 * slow())
+        for hour in os.environ.get("LANI_QA_FRAMES_HOURS", "22,11").split(","):
+            qa_hook(f"hour:{hour}")
+            plain_village()
+            time.sleep(2 * slow())
+            look(f"{hour}h rest")
+            for f in ("1.5", "2.5", "3"):
+                qa_hook(f"cam:zoom:{f}")
+                time.sleep(3 * slow())
+                look(f"{hour}h {f}x rest")
+                look(f"{hour}h {f}x pan", "pan")
+            plain_village()
+            time.sleep(2 * slow())
+            look(f"{hour}h pinch", "pinch")
+            plain_village()
+    finally:
+        qa_hook("cam:")
+        qa_hook("hour:")
+        adb("shell", "wm", "size", "reset")
+        adb("shell", "wm", "density", "reset")
+        time.sleep(6 * slow())
+    head = ("look\trender ms\tdetail\tframes\tp50 ms\tp90 ms\tp99 ms\tmax ms\tover 33 ms\tmain p50 ms\tmain p90 ms\t"
+            "gfx p50\tgfx p90\tjanky %")
+    print(f"    {head}")
+    if out_dir:
+        (out_dir / "frames.tsv").write_text("\n".join([head] + rows) + "\n")
+    return None
+
+
 # --- main -----------------------------------------------------------------------------------
 
 def back_key(why: str = ""):
@@ -11046,6 +11187,8 @@ def plan():
         ("storm", storm, v, False, ""),
         ("coast", coast, v, False, ""),
         ("sea-frames", sea_frames, v, False, ""),
+        # only with --steps zoom-frames: the map's frames on the tablet's screen, zoomed, panned and pinched
+        ("zoom-frames", zoom_frames, v, False, ""),
         ("friends", friends, h, True, "visit"),
         ("town-progress", town_progress, h, True, "visit"),
         ("visit", visit_town, h, True, "visit"),
@@ -11360,7 +11503,7 @@ def selected(steps):
     want = arg("--steps")
     if not want:
         # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
-        return [s for s in steps if s[0] not in ("hosted", "town-progress-child") and s[4] != VOICES_GROUP]
+        return [s for s in steps if s[0] not in ("hosted", "town-progress-child", "zoom-frames") and s[4] != VOICES_GROUP]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")

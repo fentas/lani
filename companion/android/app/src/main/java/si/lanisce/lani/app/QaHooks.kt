@@ -17,6 +17,10 @@ import si.lanisce.lani.game.scene.SceneSpec
  *
  * - "zoom": the camera on screen (the village's, a scene's) zooms in, as its "Približaj · Zoom in" action does: a double
  *   tap sent through adb comes too slow on a busy machine, and adb can't reach a TalkBack action.
+ * - "cam:<move>": the village's camera moves as QA measures it ([camera]; docs/plans/05-built/zoom-frames.md): "cam:zoom:<f>"
+ *   flies to f × the fitted zoom around the view's middle and rests there (1.5: the closer detail, 2.5: the closest);
+ *   "cam:pinch:<s>" pinches out and in between the fitted zoom and 3 × it for s seconds, a step every frame through the
+ *   gesture's own path, as two fingers would (adb has none); "cam:" stops a pinch.
  * - "happening:<scene>/<happening>": that happening counts as on ([withForced]), so its deep link ("scene:<scene>@<key>")
  *   opens its dialog whatever the hour, the day's dice or who has been met; "happening:<scene>/<happening>/<dialog>" with
  *   that variant of its dialogs, whatever was heard lately; "happening:" alone lets it go again.
@@ -151,6 +155,10 @@ object QaHooks {
 
     /** How many zooms QA asked for: a camera on screen zooms in once for each one asked while it shows. */
     var zooms by mutableIntStateOf(0)
+        private set
+
+    /** QA's camera move ("zoom:1.5", "pinch:8", "" to stop) and how many were asked, so the same move asked again moves again. */
+    var camera by mutableStateOf("" to 0)
         private set
 
     /** Every word card with a form reached asks one in the next reviews ([FormsController.questions]). */
@@ -364,6 +372,7 @@ object QaHooks {
             command.startsWith("tutorlive:") -> tutorLive(command.removePrefix("tutorlive:"))
             command.startsWith("audio:") -> audio(command.removePrefix("audio:"))
             command == "zoom" -> zooms++
+            command.startsWith("cam:") -> camera = command.removePrefix("cam:").trim() to camera.second + 1
             command.startsWith("happening:") -> happening = command.removePrefix("happening:").takeIf { '/' in it }
             command.startsWith("road:") -> command.removePrefix("road:").takeIf { it.isNotBlank() }?.let(road)
             command == "forms" -> {

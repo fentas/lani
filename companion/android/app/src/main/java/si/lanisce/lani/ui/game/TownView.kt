@@ -179,6 +179,10 @@ fun TownView(
     val qaZooms = si.lanisce.lani.app.QaHooks.zooms
     var qaSeen by remember { mutableStateOf(qaZooms) }
     LaunchedEffect(qaZooms) { if (qaZooms > qaSeen && cam.rig != null) { qaSeen = qaZooms; cam.zoomBy(2f) } }
+    // QA's camera moves ("cam:zoom:<f>", "cam:pinch:<s>"; ui/game/QaCamera): only those asked while the map shows
+    val qaCam = si.lanisce.lani.app.QaHooks.camera
+    val qaCamSeen = remember { intArrayOf(qaCam.second) }
+    LaunchedEffect(qaCam) { if (qaCam.second > qaCamSeen[0] && cam.rig != null) { qaCamSeen[0] = qaCam.second; cam.qaMove(qaCam.first) } }
     BoxWithConstraints(modifier.fillMaxSize()) {
         val w = constraints.maxWidth; val h = constraints.maxHeight
         val rig = remember(fit, w, h) { CameraRig.town(fit, w, h) }
