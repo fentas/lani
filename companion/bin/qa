@@ -6252,7 +6252,7 @@ def school_a2():
     school standing, A1 done, A2 begun) and the unit cigav ("Čigav je? Moj, tvoj, njen", one of the next two after the
     unit begun) from the school's levels: its intro step by step (a quick question each: two taps, three typed; the table
     growing to the possessives and the names', the summary card: the page cigav), its first worksheet (the possessives'
-    table, the choice), its second (the gap text "Nered pri Micki", one gap wrong: its correction), then its test straight
+    table, the choice), its second (the gap text "Nered pri Micki", the fourth gap wrong: Lukova for Francetov, its correction), then its test straight
     away ("⏩ Znam že"), passed: the unit done in the dev bridge's village. adb types no č, š, ž: such an answer is almost
     right, half an item (the test passes with three of them, 10½ of 12)."""
     if not (ROOT / "companion/course/sl/units/cigav.json").exists():
@@ -6293,7 +6293,15 @@ def school_a2():
             assert c is not None, f"step {i}'s gap"
             tap_at(c)
             type_text(answer)
-            assert tap("Preveri · Check", 4), f"step {i}'s check"
+            # Check under the question (and its letter chips), below the fold once the table has grown: one swipe
+            # brings it up, above the bottom bar's "Naprej" (the end of the page, so clear of the band scroll_to wants)
+            c = find("Preveri · Check")
+            if c is None or c[1] > 2250:
+                adb("shell", "input", "swipe", "540", "1600", "540", "1000", "400")
+                time.sleep(1)
+                c = find("Preveri · Check")
+            assert c is not None and c[1] <= 2250, f"step {i}'s check"
+            tap_at(c)
         assert wait_for("Pravilno", 6) or find("Skoraj"), f"step {i} answered right (or almost: no š)"
         if i in (3, 5):
             shot(f"school-a2-intro-{i}")
@@ -6321,7 +6329,7 @@ def school_a2():
     assert tap("Naprej · Next", 6), "on"
     assert wait_for("Naprej · Continue", 10), "the worksheet's end"
     assert tap("Naprej · Continue", 4), "back to the unit"
-    # the second worksheet: the gap text, the fourth gap wrong (Lukova for Lukov: its correction)
+    # the second worksheet: the gap text, the fourth gap wrong (Lukova for Francetov: its correction)
     assert tap("Naprej: Nered pri Micki", 8), "the second worksheet"
     assert wait_for("Vrzel 1 · Gap 1", 10), "the gap text"
     for i, answer in enumerate(["moja", "tvojim", "Cigav", "Lukova", "Vidina", "Mickina", "Janezovo"], 1):
