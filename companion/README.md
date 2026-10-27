@@ -4278,6 +4278,23 @@ gunzip -k ~/.local/share/lani/releases/lani-1180-mapping.txt.gz
 
 `retrace` comes with the SDK's command-line tools (in the build image too: `lani-build-app --exec retrace …`).
 
+### Measure the map on a phone or a tablet
+
+A release build is profileable from the shell (Android 10 and later: `<profileable android:shell="true">`), so its
+frames can be traced as it runs, on a learner's own device, without a debug build
+(docs/plans/05-built/zoom-frames.md):
+
+```bash
+adb shell dumpsys gfxinfo si.lanisce.lani reset      # then use the map: pan, pinch, zoom in
+adb shell dumpsys gfxinfo si.lanisce.lani framestats # every frame of the last two seconds, and the percentiles
+adb shell perfetto -o /data/misc/perfetto-traces/map.pftrace -t 10s sched freq gfx view am   # a system trace of 10 s
+adb pull /data/misc/perfetto-traces/map.pftrace      # open it in ui.perfetto.dev: the main thread, RenderThread, TownRender
+```
+
+The map renders on a thread of its own (`TownRender`; a scene's `SceneRender`, the Home header's `VillageRender`): the
+main thread's part of a frame is laying the pictures through the camera. The debug and qa builds also log the map's own
+render time every 24 pictures (tag `TownScene`); `companion/bin/qa --steps zoom-frames` measures it all on the emulator.
+
 ### Install and pair
 
 On first launch, choose the language to learn and the explanations' language, then "🖥️ S svojim računalnikom · With my
@@ -4361,6 +4378,7 @@ companion/bin/qa --steps bubbles-follow          # the village's bubbles with th
 companion/bin/qa --steps village-life            # the village's day on the map at 8, 11, 15, 19 o'clock, walkers by the field
 companion/bin/qa --steps reactions               # the people reacting: wolves coming and there, a villager's card then, at night, the cheer, the bear, a storm, the merchant, a feast
 companion/bin/qa --steps storm                   # the storm: the map in the rain, a soft flash, a house's room with its people at home and rain on its window, the field, the wolves by the fire (a synthetic learner: LANI_DEV_DATA)
+LANI_DEV_DATA=<a synthetic learner> LANI_CULTURE=friuli LANI_QA_PAIR=sl-en LANI_QA_ZOOM_SHOTS=<dir> companion/bin/qa --minified --steps zoom-frames   # the map's frames on Teo's tablet's screen (2560 × 1600): at home, at 1.5, 2.5 and 3 × the fitted zoom, at rest and panned, and pinched; every frame's time and the main thread's (gfxinfo framestats), the map's render time; a table, frames.tsv and screenshots (docs/plans/05-built/zoom-frames.md)
 companion/bin/qa --steps coast                   # Teo's coast: the founding's preview, the sea and the beach after founding, dragged to the beach, an animal's Italian word, a villager talk's goals in it · de, a village and a town (a synthetic Friuli learner: LANI_DEV_DATA, LANI_CULTURE=friuli, LANI_LANDSCAPE=coast, LANI_QA_PAIR=sl-en, LANI_QA_FOUND_SEED=551323397)
 companion/bin/qa --steps quests-threat           # the requests during wolves (none on the map, waiting in the Scroll, Home's strip) and back after; a drill whose task is passed under Later (a synthetic learner: LANI_DEV_DATA)
 companion/bin/qa --steps age-up                  # Zaselek to Vas and Vas to Trg: each moment beat by beat, its card, the veselica at A1 to its end, the chronicle's Watch again (recorded)

@@ -424,14 +424,22 @@ on it opens it; every project's landmark placed; the wild animals outside the pa
 small one behind it; a lake or the sea leaving room for all 28 plots, in view on every canvas of the town (above); a town
 of every landscape within the frame budget.
 
-**The ground is drawn once** (`game/render/GroundCache.kt`, `GroundCacheTest`). The village's map is drawn by the phone's
-processor about 12 times a second, and its ground (the grass, the forest floor, the paths, the water) was most of each
-frame's cost, the same on every land: the sea costs no more than the land it covers. Now the ground is drawn once and
-kept: the next frames take its picture back and draw only the water that moves (the sea's surf and glints, the twinkle of
-the stream, the pond and a lake, a torrent's white water), until the land, the canvas, the camera's window, the age, the
-paths, the season, the weather or the sky's colour at the horizon change. The frames are the same pixels as before, and
-a frame at rest costs about a quarter of what it did (docs/plans/05-built/coast-horizon.md). QA's hook "render:full"
-draws the ground whole every frame again, to compare.
+**The map is drawn beside the screen** (`game/render/TownPictures.kt`, `TownFrames.kt`, `GroundCache.kt`; `TownWindowTest`,
+`TownPicturesTest`, `GroundCacheTest`; docs/plans/05-built/zoom-frames.md). The village's map is drawn by the phone's
+processor about 12 times a second, on a thread of its own: the screen's frames only lay the newest picture through the
+camera, on the graphics chip, so a pan, a pinch or a fling stays smooth however long a picture takes, and the bubbles, taps
+and TalkBack's nodes read the newest picture's people and places. Closer up (from 1.5 × the fitted zoom, see "The
+layout") the finer picture is a window of the whole village drawn at twice or three times the detail, covering the screen
+and a few pixels round it, a little more while the camera moves; before 2026-10-27 it was a canvas of the fitted view's
+size, which left the screen's edges coarse between 1.5 × and 2 × and between 2.5 × and 3 ×. Its pixels are where the
+village's are, so the grass, the trees and the water keep their grain as the camera moves (it used to stay on the screen
+while the land moved under it). The ground (the grass, the forest floor, the paths, the water) is drawn once and kept, in
+cells of 64 pixels of the whole picture at each detail: the next frames copy the cells back and draw only the water that
+moves (the sea's surf and glints, the twinkle of the stream, the pond and a lake, a torrent's white water); a pan draws only
+the cells newly in view, a zoom within a detail none, and everything is drawn anew when the land, the age, the paths, the
+season, the weather or the sky's colour at the horizon change. The cells keep under 24 MB (those not shown for longest go
+first). Every frame is the same pixels the whole picture drawn at once has there. QA's hook "render:full" draws the ground
+whole every frame again, to compare.
 
 **The choice at setup** (`Founding`, `ui/game/FoundingScreen.kt`). A village is founded at the app's first start, once
 the node has no village and the phone none either (offline too: it goes to the node when it answers): "🏡 Kje bo tvoja

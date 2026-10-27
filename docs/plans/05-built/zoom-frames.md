@@ -1,0 +1,133 @@
+# Built: the village map smooth closer up, panned and pinched
+
+Jan, 2026-10-27, about Teo's tablet (Samsung Galaxy Tab S6: Snapdragon 855, Android 12, 2560 × 1600): "performance on
+the tablet improved overall, but zoomed in it's still quite laggy, surprising, as I'd think it doesn't have to render as
+much".
+
+This note says why it was so, what changed, how it is measured and tested, and what is left. The rules as built are in
+companion/GAME.md ("The land": "The map is drawn beside the screen"). The village's numbers before this round are in
+docs/plans/05-built/coast-horizon.md ("The frame's cost").
+
+## Why closer up was slower
+
+Three things, all in `game/render/TownScene.kt` as it was:
+
+- **The map was drawn on the main thread.** Its pictures were rendered in the draw phase of the screen's frame, about 12
+  times a second, by the processor (the graphics chip only scales the finished bitmap). On Teo's tablet a picture took
+  hundreds of milliseconds (about 400 ms before the ground was kept, 2026-10-26), and while it did, nothing else on the
+  screen moved: the fingers' pan and pinch waited, then jumped.
+- **Panning closer up drew the ground whole every frame.** From 1.5 × the fitted zoom the map shows a second picture at
+  twice the detail (three times from 2.5 ×) of just what the camera sees: its lens moves with the camera by whole pixels,
+  and the ground's kept picture (`GroundCache`) was the canvas's, so it was drawn whole again for every frame of a pan, the
+  biggest part of a frame (the doc's 115 to 136 ms a frame on the emulator, panned at detail 3, against 22 at rest).
+- **The closer picture was a canvas of the fitted view's size**, which covers the screen only at 2 × and 3 ×: at 1.5 × to
+  2 × and 2.5 × to 3 × the screen's edges showed the coarser picture under it. And its noise (the grass's speckle, the
+  trees' leaves) was in the canvas's pixels, not the land's, so it stayed on the screen while the land moved under it.
+
+So a closer look didn't draw less: it drew as many pixels, with finer detail per pixel (roof tiles, faces, tufts), and a
+gesture made every frame start again.
+
+## Before: what a frame cost
+
+<!-- BEFORE -->
+
+## What
+
+- **A thread of its own** (`game/render/RenderThread.kt`, `TownPictures.kt`). The draw phase only asks for what the
+  screen needs (the nominal picture every tick while it shows, else when what it shows changed; the closer look every tick,
+  and at once when the camera moved past what was asked for) and lays the newest pictures through the camera with
+  `drawImage` (nearest-neighbour, on the GPU). The render thread draws them into canvases of its own and hands each over
+  in one of three bitmaps a layer (`PictureSlots`): never the one the screen drew last nor the one it draws next, so a
+  frame never shows a picture half drawn over; its texture is made ahead (`prepareToDraw`). Asks that come while it renders
+  wait as one (the newest frame, every layer asked for), so it never falls behind. The thread runs at the screen's own
+  priority (a background one could keep it to the little cores). The first picture is drawn at once, so the village never
+  opens empty. A failed picture is logged; a debug or qa build crashes then, as before, which QA looks for.
+- **The renderer read from two threads** (`VillageRenderer`). A frame is drawn holding its lock, and what reads the last
+  frame's pixels takes it too (a tap's `hitTest`, the sky's taps and TalkBack's list, `hitRects`): a tap waits for the
+  picture being drawn, at most one. What the main thread reads every frame (the people's anchors for the bubbles and
+  TalkBack's nodes, the wild animals, the lens, the sky's colour, the sign) is a copy made when a frame is done, read
+  without waiting.
+- **The closer look is a window of the whole picture** (`TownFrames.kt`). Its lens has no offset: the whole village at
+  2 or 3 canvas pixels a nominal one, of which the canvas holds a window (`PixelCanvas.originX`, as the scenes' closer
+  looks do) covering the screen, `k + 2` px more round it so its edges are drawn as the whole picture has them (the
+  outline's pixel, a tuft or a stone from beyond), and `8 × k` more while the camera moves (the frames until the next
+  picture). Its size is a multiple of 32 px; a canvas kept up to 64 px bigger serves, so a pinch doesn't make a canvas each
+  frame. Everything the renderer draws pixel by pixel keeps to the canvas's window (the sky, the hills, the sea, the
+  treeline, the ground and its detail, a damaged building's char, the light, the trees', the animals' and the palisade's
+  culling); what falls over the screen rather than the land (the rain, the falling leaves, the fireworks, a bolt of
+  lightning) falls over the screen's part of it (`Frame.screen`). Every window's pixels are the whole picture's there.
+- **The ground in cells of the picture** (`GroundCache.kt`). The ground's kept picture is in cells of 64 × 64 canvas
+  pixels of each lens's picture: a frame copies the cells it shows and draws their moving water anew; a cell not kept yet is
+  drawn (the ground pass draws any rectangle: each pixel by its own place alone) and kept. A pan draws only the cells
+  newly in view, a zoom within a detail level none. The cells are kept for the land, the age, the paths, the season, the
+  weather and the sky's colour at the horizon where the ground shows it (the key, as before); a change draws them anew as
+  they are shown. They keep under 24 MB (a phone's closest look holds every cell of its picture in about 13), the ones
+  shown longest ago going first.
+- **The trees' stamps** (`Stamps.kt`, `TreePainter`). A tree, a bush or a linden's crown is the same pixels every frame
+  (each written, never read or blended): its first painting goes into a scratch canvas and what it wrote, row by row, is
+  kept; the frames after write those pixels (with the frame's object id, clipped as each write would be). They are kept by
+  what they are, where, at which detail and in which season, month and snow, under 1.6 million pixels (about 8 MB).
+- **The Home header's village and the scenes** render on threads of their own the same way (`VillageScene`'s
+  `StripPictures`; `ui/scene/ScenePictures.kt`: a scene's painters keep their last frame to hit-test, read holding the
+  pictures' lock). A scene's closer look was drawn on the main thread as often as its cost allowed (at most a third of it);
+  it is drawn every tick now, on its own thread.
+- **A release build can be measured** (`<profileable android:shell="true">` in the manifest: Perfetto, simpleperf and the
+  profiler from the shell, on Android 10 and later), and it carries a **Baseline Profile** (`app/src/main/baseline-prof.txt`:
+  the village's and the scenes' rendering, the sky, the villagers' day, the village's screens), which R8 rewrites for its
+  names: a phone compiles those ahead of time when the app is installed from a store, or once ProfileInstaller's profile is
+  compiled in the background (a sideloaded APK).
+- **QA measures it** (`companion/bin/qa --steps zoom-frames`; QA's hook "cam:zoom:<f>" and "cam:pinch:<s>",
+  `ui/game/QaCamera.kt`): the display as Teo's tablet, at night (and by day), at home, at 1.5, 2.5 and 3 × the fitted zoom,
+  each at rest and panned, then pinched; every frame's time and the main thread's part (gfxinfo framestats), the map's own
+  render time (tag TownScene). `TownFrameProfileTest` (LANI_PROFILE=1) times the renderer's passes on the JVM, and samples
+  where its time goes.
+
+## After
+
+<!-- AFTER -->
+
+## How to measure
+
+- **On the emulator, as Teo's tablet** (the steps' numbers below): a synthetic learner of the Friuli culture
+  (`bun companion/bridge/test/fixtures/make-learner.ts <dir> --name Teo --target it --base de`, its village, a Vas of 11
+  buildings, moved onto Teo's coast: `"land": {"kind": "coast", "seed": 551323397}`), the emulator pinned to two host
+  cores, four threads (`taskset -a -p -c 2,3,14,15 <qemu pid>`) for its four CPUs, its display as the tablet on its side:
+
+  ```bash
+  LANI_DEV_DATA=<the learner's dir> LANI_CULTURE=friuli LANI_QA_PAIR=sl-en LANI_QA_ZOOM_SHOTS=<dir> \
+    LANI_QA_FRAMES_S=6 LANI_QA_FRAMES_HOURS=22 LANI_QA_FRAMES_ZOOMS=1.5,2.5 \
+    companion/bin/qa --minified --no-town --steps place-card,scene,zoom-frames
+  ```
+
+  `--minified` is the qa build: the release build's R8 with QA's hooks, not debuggable (a debuggable build's code runs
+  slower, and the tablet runs a release build).
+- **On the tablet itself**: a release build since this round is profileable (companion/README.md, "Measure the map on a
+  phone or a tablet": gfxinfo's framestats, a Perfetto trace with the threads TownRender, RenderThread and the main thread).
+- **On the JVM**: `LANI_PROFILE=1 ./gradlew :app:testDebugUnitTest --tests '*TownFrameProfileTest'`: each pass's time on
+  the tablet's canvas at rest, closer, closest, panned and pinched, the closer look as it was (a canvas through a moving
+  lens) and as it is (a window of the picture), by day and at night; and where a frame's time goes, by method (a
+  sampler of the test's own thread).
+
+## Tests
+
+- `TownWindowTest`: 100 windows of the closer picture (corners, the middle, small and big, at odd places, on the tablet's
+  and a phone's canvases, at details 2 and 3: the coast's camp at noon, its village at night, the storm's rain, the
+  classic land at an autumn dusk, a lake in the snow) the same pixels as the whole picture drawn at once, inside their
+  apron; the window always covers the screen and its apron, inside the picture, its size on the grid, a few pixels more
+  than the screen; 336 frames of a pan and a pinch at details 2 and 3 on four lands, the day turning, a building more,
+  a new month, the cells the same as the ground drawn whole; a pan draws only the cells newly in view, coming back none,
+  a building placed or a new month all of them, a building's upgrade none; a 2 MB cap kept, the same pixels; a phone's
+  closest look's every cell in 10.8 MB of the 24; a pan costs about what a frame at rest does; 270 frames the same with
+  the trees stamped and painted (every season, every detail, panning); the anchors, the animals and taps read while
+  another thread draws.
+- `TownPicturesTest` (Robolectric, native graphics): the first picture there at once, the nominal canvas's pixels; the
+  closer look from the render thread covering the screen and its apron, its pixels a render of its window; the picture
+  on the screen never drawn into while 38 asks come in a row, merged while it renders.
+- Unchanged and green: `ClassicLandTest`'s digests (the classic land's pictures pixel for pixel, at details 2 and 3
+  through a lens too), `GroundCacheTest` (1,302 frames the same kept and whole, now through the cells), `LodTest`,
+  `LandmarksTest`, `CoastHorizonTest`, `SceneDetailTest` (every scene's window the whole picture's, the frame budget) and
+  the other render and scene tests; `QaHooksTest`.
+
+## What's left
+
+<!-- LEFT -->
