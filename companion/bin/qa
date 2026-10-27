@@ -225,6 +225,10 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        "school-print" the unit biti's sheet printed ("🖨️ Natisni list"): fit.js in the app's
                        WebView choosing as headless Chromium does, the print dialog's preview, the PDF saved through it
                        (A4, its pages as chosen), the level's booklet ("🖨️ Vsi listi") to its dialog;
+                       "school-reveal" a level shown a bit at a time (QA's hook "school:reveal": the school standing,
+                       A1 done, A2 begun): A1 one line of its done units (a tap shows them), A2's done, begun, current
+                       and next two units, the rest folded ("📝 Še … enot v A2", a tap lists them read-only, the
+                       planned "Kmalu"), B1 closed with what opens it, B2 not shown; the swipes in school-reveal.txt;
                        "school-build" the school, the hamlet's: the dev village's copy as it is (Jan's hamlet), the
                        Build sheet's tenth plot and the Šola on it (nothing of Vas), the line under it ("Pouk že
                        poteka …"), the teacher's bed when every bed is taken (the card's way on), built on the plot
@@ -6148,6 +6152,97 @@ def school_print():
     assert chrome is None or same_fit(app, chrome), "fit.js chose otherwise for the booklet in the WebView than in Chromium (school-print-fit.txt)"
 
 
+FOLDED_A2 = re.compile(r"^📝 Še \d+ enot[aie]? v A2 · ")  # A2's units further on, folded (l10n school.foldedMore)
+FOLDED_ALL = re.compile(r"^📝 \d+ enot[aie]? v B1 · ")  # a closed level's units, folded (l10n school.foldedAll)
+
+
+def swipes_to(match, most=14) -> int | None:
+    """Swipes down (as [scroll_to]) until a label [match]es (a function of its text) clear of the header and the tutor bar;
+    how many it took, or None."""
+    for n in range(most + 1):
+        if any(match(t) and 300 < c[1] < 1850 for t, c in nodes()):
+            return n
+        adb("shell", "input", "swipe", "540", "1600", "540", "1000", "400")
+        time.sleep(1)
+    return None
+
+
+def school_reveal():
+    """The school shows a level a bit at a time (Jan, 2026-10-27: "no need to show it all directly"; COURSE.md, "What the
+    school shows"; QA's hook "school:reveal": the dev village's copy with the school standing, every A1 unit done, A2
+    begun: its first written unit done and the second begun). A1 done is one line ("✅ 18 opravljenih enot", a tap shows
+    its units, again hides them); A2 shows its units done and begun, the current one and the next two, the rest folded
+    into one quiet line ("📝 Še … enot v A2"), a tap listing them read-only (a planned one "📝 Kmalu"); B1 closed, with
+    what opens it and its units folded; B2 not shown. The swipes and taps to A2 and to a planned unit's title go to
+    school-reveal.txt. A build from before the reveal (--apk) takes the same shots with every unit a row (the copy as
+    LANI_DEV_DATA has it, no hook) and fails where the reveal is looked for."""
+    if not (ROOT / "companion/course/sl/course.json").exists():
+        return "no course here (companion/course/sl/course.json)"
+    wait_for("Danes · Today", 30)  # an app connected before still loading its village
+    go_home()
+    for _ in range(3):  # the hook again while the village isn't there yet (the school says it has no course then)
+        qa_hook("school:reveal")
+        if wait_for("Raven A1", 10):
+            break
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(3)
+    if not find("Raven A1"):  # a build without the hook: from Home's tile
+        go_home()
+        tile = scroll_to("Šola", 8, exact=True)
+        assert tile, "the school's tile on Home"
+        tap_at(tile)
+    assert wait_for("Raven A1", 10), "the school's levels"
+    time.sleep(1)
+    shot("school-reveal-top")
+    counts = [f"★ the unit next: {'on top, one tap' if find('★ ') else 'none'}"]
+    to_a2 = swipes_to(lambda t: t.startswith("Raven A2"))
+    counts.append(f"swipes to level A2: {to_a2}")
+    (OUT / "school-reveal.txt").write_text("\n".join(counts) + "\n")
+    assert to_a2 is not None, "level A2"
+    shot("school-reveal-a2")
+    to_fold = swipes_to(lambda t: bool(FOLDED_A2.search(t)), most=4)
+    counts.append(f"swipes from A2 to its folded line: {to_fold}")
+    (OUT / "school-reveal.txt").write_text("\n".join(counts) + "\n")
+    shot("school-reveal-a2-rows")
+    assert to_fold is not None, "A2's units further on folded into one line"
+    assert not any(t.startswith("📝 Kmalu") or t.endswith("· Coming") for t, _ in nodes()), "no planned unit as a row"
+    line = next(c for t, c in nodes() if FOLDED_A2.search(t))
+    tap_at(line)
+    assert wait_for("Kmalu · Coming", 6), "the folded units listed, the planned ones coming"
+    time.sleep(1)
+    shot("school-reveal-folded")
+    counts.append("a planned unit's title: one tap on the folded line")
+    (OUT / "school-reveal.txt").write_text("\n".join(counts) + "\n")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the list closed
+    time.sleep(1.5)
+    assert find("Kmalu · Coming") is None and any(FOLDED_A2.search(t) for t, _ in nodes()), "back on the school's screen"
+    to_b1 = swipes_to(lambda t: t.startswith("Raven B1"), most=6)
+    assert to_b1 is not None, "level B1, closed"
+    swipes_to(lambda t: bool(FOLDED_ALL.search(t)), most=3)
+    shot("school-reveal-b1")
+    assert find("se odpre, ko"), "what opens B1"
+    assert any(FOLDED_ALL.search(t) for t, _ in nodes()), "B1's units folded, none a row"
+    for _ in range(3):
+        adb("shell", "input", "swipe", "540", "1600", "540", "1000", "400")
+        time.sleep(0.8)
+    assert not find("Raven B2"), "B2 isn't shown before B1 is reached"
+    # A1's units, done: one line, a tap shows them
+    for _ in range(14):
+        if (c := find("opravljenih enot")) and 300 < c[1] < 1850:
+            break
+        adb("shell", "input", "swipe", "540", "1000", "540", "1600", "400")
+        time.sleep(0.8)
+    c = find("opravljenih enot")
+    assert c, "A1 done: one line"
+    assert not find("Biti: sem, si, je"), "A1's done units folded"
+    tap_at(c)
+    assert wait_for("Biti: sem, si, je", 4), "A1's done units shown"
+    shot("school-reveal-a1-done")
+    tap_at(find("opravljenih enot"))
+    time.sleep(1)
+    assert not find("Biti: sem, si, je"), "A1's done units folded again"
+
+
 def school_build():
     """The school, the hamlet's (GAME.md "The school"; Jan, 2026-10-13: "I go to Build and Šola is still with 'needs
     Village'"): the dev village's copy as it is (Jan's hamlet, its nine plots built), the Build sheet with the hamlet's
@@ -11269,6 +11364,7 @@ def plan():
         ("school-b1", school_b1, go_home, False, ""),
         ("school-unit", school_unit, go_home, False, ""),
         ("school-print", school_print, go_home, False, ""),
+        ("school-reveal", school_reveal, go_home, False, ""),
         ("school-build", school_build, go_home, False, ""),
         ("school-scene", school_scene, v, False, ""),
         ("school-seats", school_seats, v, False, ""),
