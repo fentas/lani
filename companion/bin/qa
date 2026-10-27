@@ -82,7 +82,10 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        card on a delivery's day; "bridges" the crossing on the map at the stream bank (QA's hook
                        "show:riverbank") and closer up: the stepping stones before the bridge (QA's hook "step:most/1"),
                        the bridge half built ("step:most/4") and in the stream's scene, the bridge built
-                       ("step:most/7": the project finished) by day, by night, the whole village and the scene; "trade" food for wood ("⇄ Zamenjaj · Trade"): the sheet, its run to the end,
+                       ("step:most/7": the project finished) by day, by night, the whole village and the scene; "mill" the mill
+                       inside: no way in before it grinds ("step:mlin/6"), then its card's "🚪 Vstopi" on the map
+                       ("step:mlin/7"), the stream's mill's bubble with it, inside by day and at night, a dialog with the
+                       stones grinding (Friuli's Nel mulino with LANI_CULTURE=friuli, an Italian learner, the phone in sl · en: LANI_QA_PAIR=sl-en); "trade" food for wood ("⇄ Zamenjaj · Trade"): the sheet, its run to the end,
                        the result, the HUD's stocks moved and the dev bridge's village keeping the day's trade;
                        "village-life" the village's day on the map (QA's hook "hour:<h>", which the map follows too):
                        zoomed in at 8, 11, 15 and 19 o'clock (the people at their chores and work about the village,
@@ -3621,6 +3624,146 @@ def bridges():
         qa_hook("hour:")
         stream("built")
     finally:
+        qa_hook("hour:")
+        qa_hook("step:")
+        qa_hook("bubbles:")
+    return None
+
+
+def mill_texts() -> dict:
+    """The mill's names on screen in the pair QA reads the village in (LANI_QA_PAIR, else Slovene from English), and its
+    scenes: the Slovene village's (the project mlin, ob-potoku, v-mlinu) or, on the dev bridge of a Friuli learner
+    (LANI_CULTURE=friuli), the Friuli village's (al-ruscello, nel-mulino), each read in that pair as the app reads it."""
+    pair = (os.environ.get("LANI_QA_PAIR") or "sl-en").split("-")
+    table = lambda lang: json.loads((ANDROID / f"app/src/main/resources/l10n/{lang}.json").read_text())
+    friuli = os.environ.get("LANI_CULTURE") == "friuli"
+    culture = "friuli" if friuli else "primorska"
+    project = next(p for p in json.loads((ROOT / f"companion/cultures/{culture}/projects.json").read_text())["projects"] if p["id"] == "mlin")
+    scene_file = ROOT / ("companion/cultures/friuli/scenes/nel-mulino.json" if friuli else "companion/scenes/v-mlinu.json")
+    scene = json.loads(scene_file.read_text())
+    stream = json.loads((ROOT / ("companion/cultures/friuli/scenes/al-ruscello.json" if friuli else "companion/scenes/ob-potoku.json")).read_text())
+
+    def label(by: dict) -> str:
+        """A title as the app shows it in the pair (Villager.kt's Label.shown): the target's, then the base's when it differs."""
+        t = by.get(pair[0]) or by.get("en") or next(iter(by.values()))
+        b = by.get(pair[1]) if pair[1] in by and by.get(pair[1]) != t else (by.get("en") if pair[0] in by and by.get("en") != t else None)
+        return f"{t} · {b}" if b else t
+    return {
+        "back": "‹ " + " · ".join(table(l)["common.village"] for l in pair),
+        # Back from the mill gone into from the stream: the stream, named (ui/Back.kt)
+        "back_stream": "‹ " + label(stream["title"]),
+        "target": project["name"][pair[0]],
+        "inside": scene["title"][pair[0]],
+        "close": " · ".join(table(l)["common.close"] for l in pair),
+        "next": " · ".join(table(l)["common.next"] for l in pair),
+        "stream": "al-ruscello" if friuli else "ob-potoku",
+        "scene": scene, "lang": scene.get("language", "sl"),
+    }
+
+
+def mill_oks(scene: dict, dialog: str, lang: str) -> set:
+    """The right choices of [dialog] of [scene] in [lang], as a man and as a woman reads them ({m:…|f:…}), the learner Jan."""
+    d = next(x for x in scene["dialogs"] + scene.get("variants", []) if x["id"] == dialog)
+    oks = [c[lang].replace("{learner}", "Jan") for l in d["lines"] for c in l.get("choices", []) if c.get("ok")]
+    return {re.sub(r"\{m:([^|}]*)\|f:[^}]*\}", r"\1", t) for t in oks} | {re.sub(r"\{m:[^|}]*\|f:([^}]*)\}", r"\1", t) for t in oks}
+
+
+def mill():
+    """The mill inside (SCENES.md "The mill inside: from the stream and from the map"; docs/plans/05-built/mill-scene.md).
+    Before the mill grinds (QA's hook "step:mlin/6": its last step still to do) a tap on it on the map has no way in; once it
+    grinds ("step:mlin/7") its card says "🚪 Vstopi · Go in: 🌾 V mlinu", which goes in; the stream's mill's bubble (the deep
+    link "scene:ob-potoku@mill": its word open) has the way in too, and Back from the mill entered there is the stream
+    ("‹ Ob potoku · By the stream"), then the village; inside by day ("hour:11") and at night ("hour:22.5"),
+    and closer up; a dialog with the stones grinding and the flour running (QA's hook "happening:v-mlinu/melje/melje-zobnik"
+    at 10 o'clock), played to its end. With an Italian learner of the Friuli culture (LANI_DEV_DATA, LANI_CULTURE=friuli; the
+    phone in sl · en as for the coast: LANI_QA_PAIR=sl-en) the same in Nel mulino, Mugnaio Franco's (its grinding dialog "macina"). Also as
+    mill-*.png in $LANI_QA_MILL_SHOTS."""
+    T = mill_texts()
+    sid = T["scene"]["id"]
+    out = Path(os.environ["LANI_QA_MILL_SHOTS"]) if os.environ.get("LANI_QA_MILL_SHOTS") else None
+
+    def snap(name: str):
+        shot(name)
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"{name}.png")
+
+    def at_mill(name: str):
+        plain_village()
+        qa_hook("show:riverbank")
+        time.sleep(3)
+        snap(name)
+
+    plain_village()
+    try:
+        qa_hook("bubbles:0")
+        # before it grinds: the mill on the map, its tap a way to the projects, never into it
+        qa_hook("step:mlin/6")
+        at_mill("mill-before")
+        if find(T["target"]) is None:
+            return "skipped: the village's map has no mill (no project mlin, or no site by the stream)"
+        tap(T["target"], 4)
+        time.sleep(2)
+        snap("mill-before-tap")
+        assert find(T["inside"]) is None, "no way into the mill before it grinds"
+        # it grinds: the map's card has the way in
+        qa_hook("step:mlin/7")
+        at_mill("mill-village")
+        assert tap(T["target"], 5), "the mill on the map"
+        assert wait_for(T["inside"], 8), "the mill's card: its way in"
+        time.sleep(1)
+        snap("mill-card")
+        assert tap(T["inside"], 4), "into the mill from its card"
+        assert wait_for(T["back"], 10), "the mill opens"
+        qa_hook("hour:11")
+        time.sleep(3)
+        snap("mill-inside-day")
+        qa_hook("zoom")
+        time.sleep(3)
+        snap("mill-inside-day-closer")
+        qa_hook("hour:22.5")
+        time.sleep(3)
+        snap("mill-inside-night")
+        qa_hook("hour:")
+        assert tap(T["back"], 3), "back from the mill"
+        # from the stream: the mill's word, and under it the way in
+        plain_village()
+        qa_hook("hour:11", f"scene:{T['stream']}@mill")
+        assert wait_for(T["back"], 10), "the stream opens"
+        assert wait_for(T["inside"], 8), "the stream's mill's bubble: its way in"
+        time.sleep(1.5)
+        snap("mill-stream-bubble")
+        assert tap(T["inside"], 4), "into the mill from the stream"
+        # the mill lies on the stream: its way back names the stream and returns there, then to the village
+        assert wait_for(T["back_stream"], 10), f"the mill opens from the stream, its way back to it: {T['back_stream']}"
+        time.sleep(2)
+        snap("mill-from-stream")
+        assert tap(T["back_stream"], 3), "back from the mill"
+        assert wait_for(T["back"], 10), "Back from the mill is the stream again, the village below it"
+        assert find(T["back_stream"]) is None, "the stream on view, not the mill"
+        snap("mill-back-stream")
+        assert tap(T["back"], 3), "back from the stream"
+        # a dialog: the stones grinding, the flour running
+        hid, did = ("macina", "macina") if sid == "nel-mulino" else ("melje", "melje-zobnik")
+        plain_village()
+        qa_hook("hour:10")
+        qa_hook(f"happening:{sid}/{hid}/{did}", f"scene:{sid}@{sid}/{hid}")
+        assert wait_for(T["back"], 10), "the mill opens at its happening"
+        assert wait_for(T["close"], 10), "its dialog opens"
+        time.sleep(4)
+        snap("mill-dialog-grinding")
+        oks = mill_oks(T["scene"], did, T["lang"])
+        for k in range(8):
+            if not answer_choice(oks):
+                tap(T["next"], 2)
+            time.sleep(2)
+            if k == 1:
+                snap("mill-dialog-turn")
+        time.sleep(2)
+        snap("mill-dialog-end")
+        tap(T["close"], 3)
+    finally:
+        qa_hook("happening:")
         qa_hook("hour:")
         qa_hook("step:")
         qa_hook("bubbles:")
@@ -11503,6 +11646,7 @@ def plan():
         ("maypole-season", maypole_season, v, False, ""),
         ("kopa", kopa, v, False, ""),
         ("bridges", bridges, v, False, ""),
+        ("mill", mill, v, False, ""),
         ("projects", projects, v, False, ""),
         ("project-step", project_step, v, False, ""),
         ("scene-coherence", scene_coherence, v, False, ""),

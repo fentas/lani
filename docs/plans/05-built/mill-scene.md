@@ -81,7 +81,9 @@ used in each scene, and every visible action a line describes is cued on that li
   SoundscapeTest …); `ScenesContentTest` (19 curated scenes, the mill from `project:mlin`, a project's landmark a place),
   `CultureScenesTest` (Nel mulino, every effect used), `DialogReactionsTest` (19 + 16 scene files), `WordStickersTest`;
   the bridge smoke (22 arts, 19 curated scenes, the mill from its landmark, an app before the mill gets no mill).
-- QA: `companion/bin/qa --steps mill`.
+- QA: `companion/bin/qa --steps mill` (Slovene); the Friuli village's with an Italian learner on the dev bridge, the phone
+  in sl · en as for the coast: `LANI_DEV_DATA=<the learner> LANI_CULTURE=friuli LANI_QA_PAIR=sl-en companion/bin/qa --steps mill`.
+  `LANI_QA_MILL_SHOTS=<dir>` keeps the shots as mill-*.png.
 - companion/SCENES.md, companion/GAME.md ("Landmarks to step into"), .claude/skills/lani-studio/reference/module-spec.md.
 
 ## How to use
