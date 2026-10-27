@@ -95,6 +95,15 @@ class SoundscapeTest {
         assertTrue(scene("campfire", 1f, 8, fx = mapOf("flare" to 1f)).of(Layer.FIRE) > day)
     }
 
+    @Test fun `the fire's scene crackles as its fire burns, silent when it is out until a dialog lights it`() {
+        val burning = Soundscape.mix(Place.Scene("campfire", fire = 1f), 20f, 8, Sky.CLEAR).of(Layer.FIRE)
+        val coals = Soundscape.mix(Place.Scene("campfire", fire = 0.22f), 10f, 8, Sky.CLEAR).of(Layer.FIRE)
+        assertTrue("the coals a murmur under the burning fire", coals in 0.01f..burning * 0.5f)
+        assertEquals("out: silent", 0f, Soundscape.mix(Place.Scene("campfire", fire = 0f), 14f, 7, Sky.CLEAR).of(Layer.FIRE), 0.001f)
+        assertTrue("lit by a dialog", Soundscape.mix(Place.Scene("campfire", mapOf("flare" to 1f), fire = 0f), 14f, 7, Sky.CLEAR).of(Layer.FIRE) > 0f)
+        assertTrue("the kres louder", Soundscape.mix(Place.Scene("campfire", fire = 1.3f), 21f, 8, Sky.CLEAR).of(Layer.FIRE) > burning)
+    }
+
     @Test fun `the water scenes have the stream, the mountains their brook and wind, the coast its sea`() {
         for (art in listOf("stream", "pond", "alps")) assertTrue(art, scene(art, 12f, 6).of(Layer.STREAM) > 0.2f)
         assertTrue(scene("stream", 12f, 6).of(Layer.STREAM) > scene("pond", 12f, 6).of(Layer.STREAM))

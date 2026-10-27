@@ -119,7 +119,8 @@ private fun VisitPlace(vm: AppViewModel, v: TownVisit, spec: SceneSpec) {
     val waiting = remember(active, talk?.happening) { (active.map { it.happening } + listOfNotNull(talk?.happening)).filter { it.act.isNotEmpty() }.distinctBy { it.id } }
     val cues = rememberSceneCues(state, scene, talk?.run, LocalDate.now(), waiting)
     val sceneClock = si.lanisce.lani.game.render.rememberTownClock()
-    si.lanisce.lani.ui.AmbientSound(vm.ambience, si.lanisce.lani.game.ambient.Place.Scene(scene.art, cues.fx.target), cues.sky.target, sceneClock)
+    val fireSound = remember(scene.art, world, now, people) { si.lanisce.lani.ui.scene.fireSound(scene.art, world, now, people) }
+    si.lanisce.lani.ui.AmbientSound(vm.ambience, si.lanisce.lani.game.ambient.Place.Scene(scene.art, cues.fx.target, fireSound), cues.sky.target, sceneClock)
     fun voiceOf(p: ScenePerson) = SceneWords.voiceOf(p.art, p.villager?.let { v.villager(it) })
     // a person's new line is said aloud, the learner's own first in their voice (as at home: DialogVoice); the dialog
     // played to its end: the learner met them

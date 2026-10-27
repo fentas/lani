@@ -47,8 +47,12 @@ sealed interface Place {
      */
     data class Village(val sea: Boolean = false, val storm: Boolean = false, val beach: Boolean = false, val beachView: Float = 0f) : Place
 
-    /** A close-up scene of [art] (SCENES.md, "Arts"); [fx]: the effects its dialog has set (the fire flaring, the forge roaring). */
-    data class Scene(val art: String, val fx: Map<String, Float> = emptyMap()) : Place
+    /**
+     * A close-up scene of [art] (SCENES.md, "Arts"); [fx]: the effects its dialog has set (the fire flaring, the forge
+     * roaring); [fire]: how the campfire's scene's fire burns now, of its crackle (SCENES.md "Ob ognju by the age": the
+     * village's coals by day a murmur, out in a summer's noon silent, the kres louder; null: as it always burns).
+     */
+    data class Scene(val art: String, val fx: Map<String, Float> = emptyMap(), val fire: Float? = null) : Place
 }
 
 object Soundscape {
@@ -183,7 +187,7 @@ object Soundscape {
         val stream = spot.stream * (1f + 0.2f * sky.rain)
         val fire = when {
             place !is Place.Scene -> spot.fire
-            place.art == "campfire" -> spot.fire + 0.2f * (fx["flare"] ?: 0f)
+            place.art == "campfire" -> spot.fire * (place.fire ?: 1f) + 0.2f * (fx["flare"] ?: 0f)
             place.art == "kitchen" -> max(spot.fire, 0.45f * (fx["oven"] ?: 0f))
             place.art == "livingroom" -> max(spot.fire, 0.35f * (fx["stove"] ?: 0f))
             place.art == "smithy" -> max(spot.fire, 0.75f * (fx["forge"] ?: 0f))

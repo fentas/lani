@@ -380,7 +380,9 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
     // its background sounds: the place's, with the weather and the effects its dialog brings (the rain, the fire flaring),
     // and on the picture's clock what it shows making a sound (the thunder after a flash, a bell's peal, what a tap sets off)
     val sceneClock = si.lanisce.lani.game.render.rememberTownClock()
-    si.lanisce.lani.ui.AmbientSound(vm.ambience, si.lanisce.lani.game.ambient.Place.Scene(scene.art, cues.fx.target), cues.sky.target, sceneClock)
+    // the fire's crackle as it burns now (the village's coals by day, out in a summer's noon: SCENES.md "Ob ognju by the age")
+    val fireSound = remember(scene.art, world, now, about) { fireSound(scene.art, world, now, about) }
+    si.lanisce.lani.ui.AmbientSound(vm.ambience, si.lanisce.lani.game.ambient.Place.Scene(scene.art, cues.fx.target, fireSound), cues.sky.target, sceneClock)
 
     // Back closes what's open over the picture first, one at a time; then the screen below (Nav: its predictive gesture)
     val ispyHere = vm.ispy.play?.sceneId == scene.id
@@ -1180,4 +1182,15 @@ private fun OffersSheet(
             Spacer(Modifier.height(8.dp))
         }
     }
+}
+
+/**
+ * How loud the campfire's scene's fire crackles at [now] in [world] with [people] by it ([si.lanisce.lani.game.render.scene.FireBurn]),
+ * as its picture shows it burn; null for another art.
+ */
+internal fun fireSound(art: String, world: si.lanisce.lani.game.scene.SceneWorld, now: LocalDateTime, people: List<si.lanisce.lani.game.scene.PersonInScene>): Float? {
+    if (art != "campfire") return null
+    val hour = now.hour + now.minute / 60f
+    val dark = si.lanisce.lani.game.render.Env(hour, now.monthValue, false).dark
+    return si.lanisce.lani.game.render.scene.FireBurn.of(world, hour, now.monthValue, dark, si.lanisce.lani.game.render.scene.FireBurn.tended(people)).sound
 }
