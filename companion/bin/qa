@@ -5653,6 +5653,27 @@ def unit_text(s: str) -> str:
     return s.replace("{learner}", os.environ.get("LANI_QA_LEARNER", "Ana"))
 
 
+def option_at(text: str, swipes=6):
+    """A choice's option [text] (the exact label, the last of that text on screen: the table above may show it too)
+    scrolled into view, clear of the bottom bar's "Naprej" (under 2150 px); None when it never shows."""
+    for _ in range(swipes + 1):
+        c = ([c for t, c in nodes() if t == text and 300 < c[1] < 2150] or [None])[-1]
+        if c is not None:
+            return c
+        adb("shell", "input", "swipe", "540", "1600", "540", "900", "400")
+        time.sleep(1)
+    return None
+
+
+def check_here(where: str):
+    """"Preveri · Check" scrolled to (under a long table or a question's field it lies below the screen) and tapped: at
+    the content's end it may stay low (an intro's button over the bottom bar's "Naprej", y ≈ 2040 px), out of
+    [scroll_to]'s window, and is tapped where it is."""
+    c = scroll_to("Preveri · Check", 4) or find("Preveri · Check")
+    assert c is not None, f"{where}: check"
+    tap_at(c)
+
+
 def sheet_exercise(e: dict, where: str):
     """One exercise of a worksheet or the test, answered right from the unit's file (typed without č, š, ž), checked,
     and on to the next: a table's cells ("<row>, <column>"), a gap text's gaps ("Vrzel n · Gap n"), a transform's lines
@@ -5674,7 +5695,7 @@ def sheet_exercise(e: dict, where: str):
     elif kind in ("choice", "multi"):
         picks = [e["options"][e["answer"]]] if kind == "choice" else [e["options"][a] for a in e["answers"]]
         for p in picks:
-            c = scroll_to(unit_text(p), 3, exact=True)
+            c = option_at(unit_text(p))
             assert c is not None, f"{where}: the option «{p}»"
             tap_at(c)
         if kind == "choice":  # a tap answers it
@@ -5691,7 +5712,7 @@ def sheet_exercise(e: dict, where: str):
                 assert tap(col["label"], 4), f"{where}: the column «{col['label']}»"
     else:
         raise AssertionError(f"{where}: QA doesn't play a {kind} yet")
-    assert tap("Preveri · Check", 4), f"{where}: check"
+    check_here(where)
 
 
 def school_unit():
@@ -5722,12 +5743,9 @@ def school_unit():
             assert tap("Naprej · Next", 4), f"step {i}'s next"
             continue
         if a["type"] == "choice":
-            # the question under the lines and the table: scrolled to, the option the last of its words on screen (the
-            # table above may show them too), clear of the bottom bar's "Naprej"
-            adb("shell", "input", "swipe", "540", "1600", "540", "900", "400")
-            time.sleep(1)
+            # the question under the lines and the table (longer step by step): scrolled to its option
             option = unit_text(a["options"][a["answer"]])
-            c = ([c for t, c in nodes() if t == option and c[1] < 2100] or [None])[-1]
+            c = option_at(option)
             assert c is not None, f"step {i}'s option «{option}»"
             tap_at(c)
         else:
@@ -5735,7 +5753,7 @@ def school_unit():
             assert c is not None, f"step {i}'s gap"
             tap_at(c)
             type_text(unit_text(a["accept"][0]).translate(ASCII))
-            assert tap("Preveri · Check", 4), f"step {i}'s check"
+            check_here(f"step {i}")
         assert wait_for("Pravilno", 6) or wait_for("Skoraj", 2), f"step {i} answered right"
         if i in (1, len(steps)):
             shot(f"school-unit-intro-{i}")
