@@ -644,8 +644,8 @@ private fun Settings(shadow: ShadowTutor) {
         item {
             Card {
                 Small("🔑 Claude API key", bold = true)
-                // the learner's own place for it is the connection sheet's Tutor section: one vault for both tutors
-                Small("The same key as \"🧑‍🏫 Učitelj · Tutor\" in the connection sheet (one vault, one ChatGPT sign-in); here for the shadow's tests.")
+                // the learner's own place for it is the settings' tutor page: one vault for both tutors
+                Small("The same key as \"🧑‍🏫 Učitelj · Tutor\" in the settings (one vault, one ChatGPT sign-in); here for the shadow's tests.")
                 if (shadow.hasKey) {
                     Small(if (s.keyRefused) "⚠️ The key was refused (401): enter a new one." else "Kept, encrypted with a key in the Android Keystore. ${s.listed.size} model(s) listed.")
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {

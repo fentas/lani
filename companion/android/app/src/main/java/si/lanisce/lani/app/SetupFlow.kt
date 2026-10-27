@@ -118,7 +118,7 @@ data class SetupFlow(
 }
 
 /**
- * The tutor's step with a key or an account (the hosted mode's onboarding, the connection sheet's tutor and data): a
+ * The tutor's step with a key or an account (the hosted mode's onboarding, the settings' tutor and data pages): a
  * child doesn't get asked (docs/plans/05-built/onboarding.md, "A child's device"). It says a parent sets this up, and
  * opens after a hold of [HOLD_MS] ([held]); a grown-up's is open. Pure.
  */

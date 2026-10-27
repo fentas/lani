@@ -275,7 +275,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         appVersion = "${si.lanisce.lani.BuildConfig.APPLICATION_ID} ${si.lanisce.lani.BuildConfig.VERSION_NAME}",
         log = { android.util.Log.i("DataSync", it) },
     )
-    /** Whether the Data sheet is open (the connection sheet's "Odpri", the hosted mode's setup, QA's "data"). */
+    /** Whether the Data sheet is open (QA's "data"; the learner opens the same as the settings' page "💾 Podatki · Data"). */
     var dataOpen by mutableStateOf(false)
 
     /**
@@ -961,7 +961,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         else -> "the app"
     } + if (chat.isOpen) ", the tutor chat open" else ""
 
-    /** Shows the app in [p] from now on (the connection sheet); null follows the learner profile again. */
+    /** Shows the app in [p] from now on (the settings' languages page); null follows the learner profile again. */
     fun chooseLangPair(p: LangPair?) {
         languages.choose(p)
         langPairChosen = p

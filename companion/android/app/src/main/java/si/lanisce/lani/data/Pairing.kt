@@ -128,7 +128,7 @@ data class PairTrouble(val message: String, val out: PairFailure.Out, val failur
     }
 }
 
-/** Who a phone paired with: kept next to the connection, shown in the connection sheet. */
+/** Who a phone paired with: kept next to the connection, shown on the settings' connection page. */
 data class PairedInfo(
     val profile: String,
     val learner: String,

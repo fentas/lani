@@ -128,7 +128,7 @@ fun FriendsScreen(vm: AppViewModel) {
                     vm::back,
                 )
             }
-            // Lani on this phone without a relay: no town of its own to link yet (the setting is in the connection sheet)
+            // Lani on this phone without a relay: no town of its own to link yet (the setting is on the settings' connection page)
             if (!vm.hosted.townsAvailable) item(key = "relay") { Note("🛰️ ${bi("hosted.townsNeedRelay")}") }
             if (vm.hosted.townsAvailable && FriendsLogic.canLink(list)) item(key = "actions") {
                 Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {

@@ -5,7 +5,7 @@ import android.util.Log
 import si.lanisce.lani.BuildConfig
 
 /**
- * Which pair the phone shows ([L10n.pair]): one chosen on the phone (the connection sheet; for testing, and for the
+ * Which pair the phone shows ([L10n.pair]): one chosen on the phone (the settings' languages page; for testing, and for the
  * second learner), else the learner profile's (learner-profile.json, served by the bridge's /state), else sl · en.
  *
  * SharedPreferences rather than the DataStore (data/Prefs.kt): the pair is read before the first frame, and by the

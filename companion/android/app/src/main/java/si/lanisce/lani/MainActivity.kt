@@ -232,7 +232,8 @@ private fun App(vm: AppViewModel) {
     if (vm.shadow.panelOpen) si.lanisce.lani.ui.tutor.ShadowPanel(vm.shadow, vm.devUpload) { vm.shadow.panelOpen = false }
     // "🧑‍🏫 Učitelj · Tutor" on its own (ui/hosted/TutorSheet): the hosted onboarding's tutor step opens it
     if (vm.tutorSheetOpen) si.lanisce.lani.ui.hosted.TutorSheet(vm) { vm.tutorSheetOpen = false }
-    // "💾 Podatki · Data" (ui/data/DataSheet): opened from the connection sheet, or by the hosted mode's setup (vm.dataOpen)
+    // "💾 Podatki · Data" as a sheet (ui/data/DataSheet) over any screen: QA's hook "data" (vm.dataOpen); the learner has the
+    // same as the settings' page (Nastavitve › Podatki, ui/settings/SettingsScreen)
     if (vm.dataOpen) si.lanisce.lani.ui.data.DataSheet(vm.data, onDismiss = { vm.dataOpen = false }, banner = { vm.notices.banner = it })
     // no village yet, anywhere: the learner chooses where it will be before anything else of the game
     val founding = vm.game.placeNeeded && vm.game.state == null && (screen == Screen.Home || screen == Screen.Village)
@@ -241,7 +242,7 @@ private fun App(vm: AppViewModel) {
         NewsSheet(vm.game.news, onDismiss = vm.game::dismissNews)
     }
     vm.permission?.let { PermissionDialog(it, vm::answerPermission) }
-    // just paired: the offline voice is offered once (the connection sheet's settings have it too)
+    // just paired: the offline voice is offered once (the settings' "Zvok in glas · Sound and voice" page has it too)
     if (vm.permission == null) si.lanisce.lani.ui.home.OfflineVoiceOffer(vm.offlineAudio)
 }
 

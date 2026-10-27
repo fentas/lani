@@ -99,8 +99,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  * - "shadow": the developer settings shown and the shadow tutor's debug panel open (tutor/ShadowTutor);
  *   "shadow:<url>" with the Messages API's base URL set to <url> first (QA's mock, http://10.0.2.2:8771). The key is
  *   entered in the panel, as the learner would.
- * - "data": the "💾 Podatki · Data" sheet open (ui/data/DataSheet, sync/DataSync), as the connection sheet's "Odpri"
- *   opens it.
+ * - "data": the "💾 Podatki · Data" sheet open (ui/data/DataSheet, sync/DataSync), the same as the settings' page
+ *   "💾 Podatki · Data".
  * - "tutorlive:<url>": the tutor in the app's Messages API base URL set to <url> (QA's mock, http://10.0.2.2:8771);
  *   "tutorlive:" the API again (tutor/live/LiveTutor). The key is entered in the Tutor section, as the learner would.
  * - "friends": "🤝 Prijatelji · Friends" opened (the linked towns, their visits), as the scroll's people page opens it: a busy
@@ -110,8 +110,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  * - "request:<card id>,<card id>…": the village (the dev bridge's copy) gets Mojca's request "Napake na tabli" of those
  *   cards of the learner's ([withRequest]: the cards a request was made from, a grammar card among them) and its challenge
  *   starts, as from its bubble: what the challenge asks of each card (companion/GAME.md, "Cards in a challenge").
- * - "pair:<target>-<base>": the app shown in that language pair ("pair:sl-de"), as the connection sheet's languages
- *   choose it; "pair:" follows the learner profile again.
+ * - "pair:<target>-<base>": the app shown in that language pair ("pair:sl-de"), as the settings' languages page
+ *   chooses it; "pair:" follows the learner profile again.
  * - "kopa:<day>": the spots' cycles (the charcoal pile's rounds, game/scene/SpotCycles) are as on that day ("2026-07-14",
  *   "07-14": the next 14 July from today), or on the first day of a stage ("kopa:rumen-dim": of the next round that has it,
  *   not its breakout night), of its next breakout night ("kopa:breakout"; "kopa:breakout:2" the one after), of its next

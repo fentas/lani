@@ -357,7 +357,7 @@ fun shareExport(context: Context, f: File) {
 private enum class Ask { NONE, IMPORT, RELAY, LEAVE }
 
 /**
- * The connection sheet's top in the hosted mode (ui/home/ConnectionSheet): "☁️ Lani na tem telefonu", the learner, the
+ * The settings' "🔗 Povezava · Connection" page in the hosted mode (ui/settings/SettingsScreen): "☁️ Lani na tem telefonu", the learner, the
  * export (📤, to the share sheet) and the import (📥, after asking: the data now on the phone is kept aside), the relay
  * (towns and the family page in this mode), and the way to a computer, with how the data moves (git's handover, or an
  * export and `lani import`): never silently.
@@ -445,7 +445,7 @@ fun HostedSection(vm: AppViewModel, modifier: Modifier = Modifier) {
 }
 
 /**
- * In the self-hosted mode's connection sheet: "☁️ Lani na tem telefonu", the way to run Lani on the phone alone, after
+ * On the self-hosted mode's "🔗 Povezava · Connection" settings page: "☁️ Lani na tem telefonu", the way to run Lani on the phone alone, after
  * saying how the data comes along (git's handover in 💾 Data, or `lani export` on the computer and the import here) and
  * what waits for the computer still. The setup's hosted steps follow.
  */
@@ -477,7 +477,7 @@ fun MoveToPhoneSection(vm: AppViewModel, modifier: Modifier = Modifier) {
 }
 
 /**
- * "🧑‍🏫 Učitelj · Tutor" on its own, over whatever is on screen: the connection sheet's section (ui/tutor/TutorSettings),
+ * "🧑‍🏫 Učitelj · Tutor" on its own, over whatever is on screen: the settings' tutor page (ui/tutor/TutorSettings),
  * opened by the hosted onboarding's tutor step.
  */
 @Composable

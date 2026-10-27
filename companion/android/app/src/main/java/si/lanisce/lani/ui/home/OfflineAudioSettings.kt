@@ -36,7 +36,7 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 /**
- * "🔊 Zvok brez povezave · Offline audio", in the connection sheet with the phone's other settings (companion/README.md,
+ * "🔊 Zvok brez povezave · Offline audio", on the settings' "Zvok in glas · Sound and voice" page (companion/README.md,
  * "Voice": "Offline on the phone"): the cap (one number for the day's clips, the clips heard lately and the car's library),
  * "only while charging", the offline voice (its download, size and removal, its credit), what's on the phone now and
  * "⬇️ Prenesi zdaj · Download now", and the clips' credit (Fish Audio Drama 3 on the node, "Built with Fish Audio").
