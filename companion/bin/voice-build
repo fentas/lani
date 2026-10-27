@@ -1,5 +1,7 @@
 #!/usr/bin/env bun
-// Voice prebuild: counts the texts in villagers, packs, modules, scenarios, scenes, «Vidim, vidim» (what a child says
+// Voice prebuild: counts the texts in villagers, packs, modules, scenarios, the school's course (what the teacher reads
+// of each unit's introduction: its examples, quick questions and their answers, the Slovene of its explanations; the
+// explanations themselves in the learner's own language apart, --explanations), scenes, the cast's arrivals, «Vidim, vidim» (what a child says
 // playing I spy in the scenes: companion/ispy), the keepers' talks (the culture's spots: the charcoal burner's meeting and
 // his story), the village projects' steps (the culture's project-steps/) and its ages' parties (celebrations/), the storyteller's
 // stories and the car's drills (Slovene, or the
@@ -21,7 +23,7 @@
 // inside a carrier sentence, which is cut out, and the plan shows how many narrator words are still old-style (said
 // plainly) and what re-voicing them costs.
 //
-// Usage: companion/bin/voice-build [--run] [--upgrade] [--revoice speaker[,speaker]] [--max-chars N] [--json] [--data DIR]
+// Usage: companion/bin/voice-build [--run] [--upgrade] [--revoice speaker[,speaker]] [--only voice[,voice]] [--explanations] [--base xx[,yy]] [--max-chars N] [--json] [--data DIR]
 //        companion/bin/voice-build --revoice-words [--max N] [--max-chars N] [--run] [--json] [--data DIR]
 //        companion/bin/voice-build --denoise [--max N] [--run] [--json] [--data DIR]
 //        companion/bin/voice-build --level [--max N] [--run] [--json] [--data DIR]
@@ -33,6 +35,14 @@
 //   --upgrade        also replace local (Gepard) clips with ElevenLabs ones while the quota lasts
 //   --revoice S      make every clip of speaker S again with ElevenLabs (after swapping its voice in companion/voice-cast.json)
 //   --max-chars N    spend at most N ElevenLabs characters in this run
+//   --only V         plan and make only the texts of these voices (speaker[,speaker]: --only teacher, Učiteljica Mojca's
+//                    lines, her course, her arrival; someone's own voice counts as their speaker's, and "@mojca" names it)
+//   --explanations   also the course's explanations in the learner's own language (one clip a step and a summary: the
+//                    teacher's lines in English with the Slovene forms inside: ~29,000 characters for the 18 units and
+//                    their summaries), made by ElevenLabs only; without it the plan counts them apart and what they would
+//                    cost (the app asks for them as an intro opens)
+//   --base xx[,yy]   the learner's own languages the course's explanations and their runs are read in (en, de, it);
+//                    default: the learner profile's base_language
 //   --revoice-words  only the old-style short narrator words again, in their carrier sentence, most asked for first,
 //                    at most --max N of them, within the reserve (the bridge does this lazily, a few a day)
 //   --denoise        the clips of the voices the cast marks "denoise" (a voice that hisses) through their filter, those
@@ -108,9 +118,13 @@
 // Without --run, a dry run. The key comes from ELEVENLABS_API_KEY, else ~/.config/lani/keys.env (LANI_KEYS_FILE).
 import '../bridge/src/env' // first: LANI_* from the FLUENT_* names of a node set up before the rename
 import { existsSync, readFileSync, statSync } from 'node:fs'
-import { join, resolve } from 'node:path'
+import { dirname, join, resolve } from 'node:path'
 import { addresseeOf } from '../bridge/src/addressee'
-import { cast, castVoiced, denoiseVoices, isSpeaker, personVoice, tempoVoices, useCastFile, usePersonVoices } from '../bridge/src/cast'
+import { ArrivalStore, cultureArrivals } from '../bridge/src/arrivals'
+import { cast, castVoiced, denoiseVoices, isSpeaker, PERSON_VOICE, personVoice, tempoVoices, useCastFile, usePersonVoices } from '../bridge/src/cast'
+import { CourseStore, courseDir } from '../bridge/src/course'
+import { familyHas, indexHas } from '../bridge/src/course-speech'
+import { learnerLangs } from '../bridge/src/learners'
 import { ownVoicesIn } from '../bridge/src/profiles'
 import { cultureDir, cultureKeepers, keeperTellings, resolveCulture } from '../bridge/src/cultures'
 import { cultureStepFiles, stepTellings } from '../bridge/src/project-steps'
@@ -186,9 +200,21 @@ const badMax = max !== undefined && !(Number.isInteger(max) && max >= 0)
 const dataAt = args.indexOf('--data')
 const data = dataAt >= 0 ? args[dataAt + 1] : undefined
 const badData = dataAt >= 0 && !(data && existsSync(data) && statSync(data).isDirectory())
+// --only: the texts of these voices only (a speaker of the cast, or someone's own voice "@mojca", checked once the voice
+// profiles are read)
+const onlyAt = args.indexOf('--only')
+const only = onlyAt >= 0 ? (args[onlyAt + 1] ?? '').split(',').filter(Boolean) : []
+const onlyUnknown = only.filter(s => !isSpeaker(s) && !PERSON_VOICE.test(s))
+const explanations = flag('--explanations')
+const baseAt = args.indexOf('--base')
+const bases = baseAt >= 0 ? (args[baseAt + 1] ?? '').split(',').filter(Boolean) : []
+const badBase = baseAt >= 0 && (!bases.length || bases.some(b => !/^[a-z]{2}$/.test(b) || b === language))
 const modes = [revoiceWords, denoise, level, tempo, edges, restore, narrators, upgradeModel, toEleven, toDrama3, revAt >= 0 || flag('--upgrade')].filter(Boolean).length
 const ffmpegOnly = denoise || level || tempo || edges || restore || narrators
-if (flag('--help') || flag('-h') || (maxChars !== undefined && !(maxChars >= 0)) || (revAt >= 0 && !revoice.length) || unknown.length || badMax || badData || badSnapshot || (maxAt2 >= 0 && !revoiceWords && !upgradeModel && !toEleven && !toDrama3 && !ffmpegOnly) || modes > 1 || (ffmpegOnly && maxAt >= 0) || (toEleven && (!elevenSpeakers.length || elevenUnknown.length || elevenNarrators.length)) || (toDrama3 && (!d3Speakers.length || d3Unknown.length || d3Narrators.length || maxAt >= 0)) || (flag('--retry-failed') && !toDrama3)) {
+// --only, --explanations and --base shape the corpus's plan and run: not another mode's
+const corpusFlags = onlyAt >= 0 || explanations || baseAt >= 0
+const otherMode = revoiceWords || denoise || level || tempo || edges || restore || narrators || upgradeModel || toEleven || toDrama3
+if (flag('--help') || flag('-h') || (onlyAt >= 0 && (!only.length || onlyUnknown.length)) || badBase || (corpusFlags && otherMode) || (maxChars !== undefined && !(maxChars >= 0)) || (revAt >= 0 && !revoice.length) || unknown.length || badMax || badData || badSnapshot || (maxAt2 >= 0 && !revoiceWords && !upgradeModel && !toEleven && !toDrama3 && !ffmpegOnly) || modes > 1 || (ffmpegOnly && maxAt >= 0) || (toEleven && (!elevenSpeakers.length || elevenUnknown.length || elevenNarrators.length)) || (toDrama3 && (!d3Speakers.length || d3Unknown.length || d3Narrators.length || maxAt >= 0)) || (flag('--retry-failed') && !toDrama3)) {
   if (unknown.length) console.error(`not in the voice cast: ${unknown.join(', ')} (the cast: ${Object.keys(cast()).join(', ')})`)
   if (elevenUnknown.length) console.error(`--elevenlabs: not in the voice cast: ${elevenUnknown.join(', ')} (the cast: ${Object.keys(cast()).join(', ')})`)
   if (elevenNarrators.length) console.error(`--elevenlabs: not the narrators (${elevenNarrators.join(', ')}): their local clips stay beside their Slovene ElevenLabs ones (--narrators)`)
@@ -196,8 +222,12 @@ if (flag('--help') || flag('-h') || (maxChars !== undefined && !(maxChars >= 0))
   if (d3Narrators.length) console.error(`--drama3: not the narrators (${d3Narrators.join(', ')}): their local voices stay Gepard's, the fallback of their Slovene ElevenLabs voices`)
   if (toDrama3 && !d3Speakers.length) console.error('--drama3: which speakers? speaker[,speaker] or all')
   if (badData) console.error(`--data: no directory ${data ?? ''}`)
+  if (onlyAt >= 0 && !only.length) console.error('--only: which voices? speaker[,speaker] (--only teacher)')
+  if (onlyUnknown.length) console.error(`--only: not in the voice cast: ${onlyUnknown.join(', ')} (the cast: ${Object.keys(cast()).join(', ')}, or someone's own voice: @mojca)`)
+  if (badBase) console.error(`--base: the learner's own languages, two letters each, not the village's (${language}): en, de, it`)
+  if (corpusFlags && otherMode) console.error('--only, --explanations and --base go with the plan and --run (--upgrade, --revoice), not another mode')
   if (badSnapshot) console.error(`--restore-gepard: no voice store (voice.db and files/) in ${snapshotArg ?? '(none given)'} or its voice/`)
-  console.log('Usage: companion/bin/voice-build [--run] [--upgrade] [--revoice speaker[,speaker]] [--max-chars N] [--json] [--data DIR]')
+  console.log('Usage: companion/bin/voice-build [--run] [--upgrade] [--revoice speaker[,speaker]] [--only voice[,voice]] [--explanations] [--base xx[,yy]] [--max-chars N] [--json] [--data DIR]')
   console.log('       companion/bin/voice-build --revoice-words [--max N] [--max-chars N] [--run] [--json] [--data DIR]')
   console.log('       companion/bin/voice-build --denoise [--max N] [--run] [--json] [--data DIR]')
   console.log('       companion/bin/voice-build --level [--max N] [--run] [--json] [--data DIR]')
@@ -571,6 +601,14 @@ const stories = new StoryStore(storiesDirs(cultures, culture), join(appDir, 'sto
 const drills = new DrillStore(drillsDir(process.env.LANI_DRILLS_DIR ?? join(root, 'companion/drills'), language), language, () => ({ packs: packs.all(), villagers: villagers.all() }), log)
 // the grammar book of the village's language and the tutor's pages: their examples, as the bridge has them
 const grammar = new GrammarStore(grammarDir(process.env.LANI_GRAMMAR_DIR ?? join(root, 'companion/grammar'), language), language, join(appDir, 'grammar'), log)
+// the school's course of the village's language (companion/course/<language>), as the bridge serves it (GET /course)
+const course = new CourseStore(courseDir(process.env.LANI_COURSE_DIR ?? join(root, 'companion/course'), language), language, join(appDir, 'course'), log)
+// how the cast are introduced as they arrive: the culture pack's (arrivals.json), the tutor's for one of them replacing it
+const arrivals = (() => {
+  const byId = new Map(Object.entries(cultureArrivals(cultures, culture, language).file?.cast ?? {}).map(([id, a]) => [id, { id, levels: a.levels }]))
+  for (const a of new ArrivalStore(join(appDir, 'arrivals'), log).all()) if (a.language === language) byId.set(a.id, { id: a.id, levels: a.levels })
+  return [...byId.values()]
+})()
 
 const { eleven, gepard } = enginesFromEnv(process.env, log, language)
 // the local worker speaks only Slovene; a culture's cast without voices yet voices nothing (the phone's TTS speaks)
@@ -579,6 +617,11 @@ const store = new VoiceStore({ appDir, dir: voiceDir(appDir), engines: language 
 // in it ("@janez", as the app asks for it by the fire), and ElevenLabs makes those clips in it
 const own = ownVoicesIn(store.database)
 usePersonVoices(id => own.get(id))
+const noVoice = only.filter(s => PERSON_VOICE.test(s) && !personVoice(s))
+if (noVoice.length) {
+  console.error(`--only: no voice of their own (yet): ${noVoice.join(', ')}`)
+  process.exit(2)
+}
 
 if (toEleven) {
   // a speaker's local (Gepard) clips again in their ElevenLabs voice: the store and ElevenLabs, no corpus
@@ -781,7 +824,19 @@ if (upgradeModel) {
   store.close()
   process.exit(r.stopped && !r.made ? 1 : 0)
 }
-const items = corpus({
+// the app's check for the language learned (Speaker.isSlovene) besides how a text reads: a clip of it on the node in any
+// voice (its /voice/index), or a family recording of it
+const clipIndex = store.index()
+const familyIndex = (() => {
+  try {
+    return JSON.parse(readFileSync(join(appDir, 'audio', 'index.json'), 'utf8')) as Record<string, unknown[]>
+  } catch {
+    return {}
+  }
+})()
+// the learner's own languages the course's explanations are read in: --base, else the learner profile's
+const courseBases = bases.length ? bases : [learnerLangs(dirname(appDir), language).base]
+const everything = corpus({
   packs: packs.all(),
   modules: modules.list().filter(m => !m.tags.includes('retired')).flatMap(m => modules.get(m.id) ?? []),
   scenarios: scenarios.all(),
@@ -798,6 +853,9 @@ const items = corpus({
   stories: stories.all(),
   drills: drills.all(),
   grammar: grammar.all(),
+  // the school's course, read in the teacher's voice (the explanations in the learner's own language apart: --explanations)
+  course: { units: course.served()?.units ?? [], pages: grammar.all(), bases: courseBases, has: t => indexHas(clipIndex, t) || familyHas(familyIndex, t) },
+  arrivals,
   // «Vidim, vidim»: what a child says playing I spy in the scenes (companion/ispy, the app bundles it)
   ispy: readISpy(process.env.LANI_ISPY_DIR ?? join(root, 'companion/ispy')),
   ownVoice: id => !!personVoice(`@${id}`),
@@ -809,6 +867,11 @@ const items = corpus({
   // rendered for the learner ({learner}, {m:…|f:…}: addressee.ts), as the app says it
   learner: addresseeOf(join(appDir, '..'), language),
 })
+// --only: the texts of those voices (someone's own voice counts as their speaker's: "@mojca" as the teacher's)
+const ofOnly = (v: string) => !only.length || only.includes(v) || (!!personVoice(v) && only.includes(personVoice(v)!.archetype))
+// the course's explanations: in the plan and the run with --explanations, else counted apart
+const items = everything.filter(i => ofOnly(i.voice) && (explanations || !i.lang))
+const leftOut = explanations ? [] : everything.filter(i => ofOnly(i.voice) && !!i.lang)
 
 if (narrators) {
   // the narrators' Slovene clips in their local voice: the corpus tells which are Slovene, no ElevenLabs
@@ -867,7 +930,7 @@ if (narrators) {
   process.exit(r.failed || r.stopped ? 1 : 0)
 }
 
-const opts = { maxChars, upgrade: flag('--upgrade'), revoice, revoiceWords, max }
+const opts = { maxChars, upgrade: flag('--upgrade'), revoice, revoiceWords, max, leftOut, ...(only.length ? { only } : {}) }
 
 const before = await plan(items, store, eleven, gepard, opts)
 if (flag('--json') && !flag('--run')) {
@@ -876,7 +939,8 @@ if (flag('--json') && !flag('--run')) {
 }
 console.log(formatPlan(before, store.dir))
 if (!flag('--run')) {
-  console.log(`\nDry run. ${revoiceWords ? `Re-voice with: companion/bin/voice-build --revoice-words --run${max !== undefined ? ` --max ${max}` : ''}` : 'Generate with: companion/bin/voice-build --run'}`)
+  const tail = `${only.length ? ` --only ${only.join(',')}` : ''}${explanations ? ' --explanations' : ''}${bases.length ? ` --base ${bases.join(',')}` : ''}${maxChars !== undefined ? ` --max-chars ${maxChars}` : ''}${data ? ` --data ${data}` : ''}`
+  console.log(`\nDry run. ${revoiceWords ? `Re-voice with: companion/bin/voice-build --revoice-words --run${max !== undefined ? ` --max ${max}` : ''}` : `Generate with: companion/bin/voice-build --run${tail}`}`)
   process.exit(0)
 }
 

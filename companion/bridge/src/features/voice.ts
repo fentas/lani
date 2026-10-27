@@ -8,7 +8,10 @@ import { json, readJson } from '../http'
 import { cardExamples } from '../cards'
 import { voicedGender } from '../addressee'
 import { baseVoice, cast, isVoice, PERSON_VOICE, personVoice, PLAYER, SPEAKER_ID, voiceFor } from '../cast'
+import { cultureArrivals } from '../arrivals'
+import { familyHas, indexHas } from '../course-speech'
 import { cultureKeepers, keeperTellings } from '../cultures'
+import { learnerLangs } from '../learners'
 import { cultureStepFiles, stepTellings } from '../project-steps'
 import { cultureCelebrationFiles, partyTellings } from '../celebrations'
 import { readISpy } from '../ispy'
@@ -73,12 +76,27 @@ const profilesIn = z.object({
 })
 const redesignIn = z.object({ person: personId, description: z.string().trim().min(10).max(900).optional(), like: z.string().trim().min(2).max(64).optional() })
 
-/** Every text to voice (in the village's language) from the review cards and the current packs, modules, scenarios, scenes, villagers, grammar pages (and the cheat sheet's cards' examples), stories and the car's drills. */
-function voiceCorpus({ cfg, modules, packs, scenarios, scenes, villagers, learner, culture, grammar, cards, stories, drills, addressee }: Ctx): CorpusItem[] {
+/**
+ * Every text to voice (in the village's language) from the review cards and the current packs, modules, scenarios, the
+ * school's course (in the teacher's voice; its explanations in the learner's own language are counted apart: voice_status
+ * explanations), scenes, the cast's arrivals, villagers, grammar pages (and the cheat sheet's cards' examples), stories
+ * and the car's drills.
+ */
+function voiceCorpus({ cfg, modules, packs, scenarios, scenes, villagers, learner, culture, grammar, cards, stories, drills, addressee, course, arrivals, voice, family }: Ctx): CorpusItem[] {
   const current = modules.list().filter(m => !m.tags.includes('retired')).flatMap(m => modules.get(m.id) ?? [])
   // «Vidim, vidim»: the content the app bundles (companion/ispy), read here for its voices only
   const ispy = readISpy(join(cfg.projectDir, 'companion/ispy'))
-  return corpus({ packs: packs.all(), modules: current, scenarios: scenarios.all(), scenes: scenes.resolved(), keepers: cultureKeepers(culture.dir, culture.id).map(k => ({ ...k, tellings: keeperTellings(k, k.cycle) })), steps: [...cultureStepFiles(culture.dir, culture.id).map(f => ({ project: f.project, tellings: stepTellings(f) })), ...cultureCelebrationFiles(culture.dir, culture.id).map(f => ({ project: `party:${f.age}`, tellings: partyTellings(f) }))], villagers: villagers.all(), cards: learner.reviewCards(), grammar: [...grammar.all(), ...cardExamples(grammar.all(), cards.all())], stories: stories.all(), drills: drills.all(), ispy, ownVoice: id => !!personVoice(`@${id}`), language: culture.manifest?.language, learner: addressee() })
+  const language = culture.manifest?.language ?? 'sl'
+  // the cast's arrivals: the culture pack's, the tutor's for one of them replacing it
+  const met = new Map(Object.entries(cultureArrivals(culture.dir, culture.id, language).file?.cast ?? {}).map(([id, a]) => [id, { id, levels: a.levels }]))
+  for (const a of arrivals.all()) if (a.language === language) met.set(a.id, { id: a.id, levels: a.levels })
+  // the app's check for the language learned: a clip of the text in any voice, a family recording of it (looked at once)
+  let clips: ReturnType<VoiceStore['index']> | undefined
+  const has = (t: string) => indexHas((clips ??= voice.index()), t) || familyHas(family.index(), t)
+  const school = { units: course.served()?.units ?? [], pages: grammar.all(), bases: [learnerLangs(cfg.dataDir, language).base], has }
+  return corpus({ packs: packs.all(), modules: current, scenarios: scenarios.all(), scenes: scenes.resolved(), keepers: cultureKeepers(culture.dir, culture.id).map(k => ({ ...k, tellings: keeperTellings(k, k.cycle) })), steps: [...cultureStepFiles(culture.dir, culture.id).map(f => ({ project: f.project, tellings: stepTellings(f) })), ...cultureCelebrationFiles(culture.dir, culture.id).map(f => ({ project: `party:${f.age}`, tellings: partyTellings(f) }))], villagers: villagers.all(), cards: learner.reviewCards(), grammar: [...grammar.all(), ...cardExamples(grammar.all(), cards.all())], stories: stories.all(), drills: drills.all(), ispy, course: school, arrivals: [...met.values()], ownVoice: id => !!personVoice(`@${id}`), language: culture.manifest?.language, learner: addressee() })
+    // the explanations: apart (voice_status explanations), as the app asks for them
+    .filter(i => !i.lang)
 }
 
 export const voice: FeatureFactory = ctx => {

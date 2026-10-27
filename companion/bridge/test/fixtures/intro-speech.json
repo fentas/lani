@@ -1,0 +1,3053 @@
+{
+ "about": "How a step of a school unit's introduction is read aloud (companion/COURSE.md, \"Read aloud\"): inputs (an intro as a unit has it, rendered for the learner; the learner's pair; the texts the voice store has a clip of, with their voice) and what is read, in the teacher's voice (slovene) or the phone's. The app (data/IntroSpeech.kt: IntroSpeechParityTest) and the bridge's port (src/course-speech.ts: the smoke's course-speech section) read these same cases, so voice-build voices ahead exactly what the app reads. A mark: whole, part:<line>:<from>-<to>, example:<i>, question, answer. Regenerate the expected values only from a change made on both sides.",
+ "looks": [
+  {
+   "text": "Dober dan",
+   "target": "sl",
+   "base": "en",
+   "looks": true
+  },
+  {
+   "text": "Biti",
+   "target": "sl",
+   "base": "en",
+   "looks": false
+  },
+  {
+   "text": "jaz sem",
+   "target": "sl",
+   "base": "en",
+   "looks": true
+  },
+  {
+   "text": "on, ona, ono je",
+   "target": "sl",
+   "base": "en",
+   "looks": true
+  },
+  {
+   "text": "hello",
+   "target": "sl",
+   "base": "en",
+   "looks": false
+  },
+  {
+   "text": "the day is good",
+   "target": "sl",
+   "base": "en",
+   "looks": false
+  },
+  {
+   "text": "to je",
+   "target": "sl",
+   "base": "en",
+   "looks": false
+  },
+  {
+   "text": "in on",
+   "target": "sl",
+   "base": "en",
+   "looks": false
+  },
+  {
+   "text": "čaj",
+   "target": "sl",
+   "base": "en",
+   "looks": true
+  },
+  {
+   "text": "Mädchen",
+   "target": "sl",
+   "base": "de",
+   "looks": false
+  },
+  {
+   "text": "perché",
+   "target": "it",
+   "base": "sl",
+   "looks": true
+  },
+  {
+   "text": "io sono",
+   "target": "it",
+   "base": "de",
+   "looks": true
+  },
+  {
+   "text": "ich bin",
+   "target": "it",
+   "base": "de",
+   "looks": false
+  },
+  {
+   "text": "danke schön",
+   "target": "de",
+   "base": "en",
+   "looks": true
+  },
+  {
+   "text": "",
+   "target": "sl",
+   "base": "en",
+   "looks": false
+  },
+  {
+   "text": "1, 2, 3",
+   "target": "sl",
+   "base": "en",
+   "looks": false
+  },
+  {
+   "text": "kruh in kava",
+   "target": "sl",
+   "base": "en",
+   "looks": true
+  },
+  {
+   "text": "ste iz Ljubljane",
+   "target": "sl",
+   "base": "en",
+   "looks": true
+  },
+  {
+   "text": "Ma no",
+   "target": "it",
+   "base": "en",
+   "looks": true
+  },
+  {
+   "text": "ŽIVJO",
+   "target": "sl",
+   "base": "en",
+   "looks": true
+  }
+ ],
+ "intros": [
+  {
+   "name": "biti in English: the forms in bold, the intro's own words (\"Biti\"), a tap choice with its options said, a gap, the grammar page's rule as the summary (paragraphs)",
+   "language": "sl",
+   "base": "en",
+   "title": "Biti: sem, si, je",
+   "clips": [],
+   "intro": {
+    "table": {
+     "head": [
+      {
+       "sl": "kdo",
+       "en": "who",
+       "de": "wer",
+       "it": "chi"
+      },
+      {
+       "sl": "biti",
+       "en": "to be",
+       "de": "sein",
+       "it": "essere"
+      }
+     ]
+    },
+    "steps": [
+     {
+      "say": {
+       "en": "**Biti** (to be) has a short form for each person, and Slovene never leaves it out. One person first: **jaz sem** (I am), **ti si** (you are), **on, ona, ono je** (he, she, it is). The pronoun is usually dropped: the form already says who.",
+       "de": "**Biti** (sein) hat für jede Person eine kurze Form, und das Slowenische lässt es nie weg. Zuerst eine Person: **jaz sem** (ich bin), **ti si** (du bist), **on, ona, ono je** (er, sie, es ist). Das Pronomen fällt meist weg: Die Form sagt schon, wer.",
+       "it": "**Biti** (essere) ha una forma breve per ogni persona, e lo sloveno non lo omette mai. Prima una persona: **jaz sem** (io sono), **ti si** (tu sei), **on, ona, ono je** (lui, lei, esso è). Il pronome di solito cade: la forma dice già chi."
+      },
+      "examples": [
+       {
+        "sl": "Jaz sem Jan.",
+        "en": "I am Jan.",
+        "de": "Ich bin Jan.",
+        "it": "Io sono Jan."
+       },
+       {
+        "sl": "Babica Micka je v kuhinji.",
+        "en": "Granny Micka is in the kitchen.",
+        "de": "Oma Micka ist in der Küche.",
+        "it": "Nonna Micka è in cucina."
+       }
+      ],
+      "rows": [
+       [
+        "jaz",
+        "sem"
+       ],
+       [
+        "ti",
+        "si"
+       ],
+       [
+        "on, ona, ono",
+        "je"
+       ]
+      ],
+      "ask": {
+       "type": "choice",
+       "grammar": "biti",
+       "prompt": "Luka ___ na pašniku.",
+       "options": [
+        "sem",
+        "si",
+        "je"
+       ],
+       "answer": 2,
+       "say_options": true,
+       "explain": "Luka is one person, on (he): **je**. Luka je na pašniku: Luka is on the pasture."
+      }
+     },
+     {
+      "say": {
+       "en": "Three or more: **mi smo** (we are), **vi ste** (you are: several of you, or one person you say vi to), **oni so** (they are). Three words to learn: **smo, ste, so**.",
+       "de": "Drei oder mehr: **mi smo** (wir sind), **vi ste** (ihr seid, oder eine Person, die man siezt), **oni so** (sie sind). Drei Wörter zum Lernen: **smo, ste, so**.",
+       "it": "Tre o più: **mi smo** (noi siamo), **vi ste** (voi siete, o una persona a cui si dà del Lei), **oni so** (loro sono). Tre parole da imparare: **smo, ste, so**."
+      },
+      "examples": [
+       {
+        "sl": "Otroci so na vrtu.",
+        "en": "The children are in the garden.",
+        "de": "Die Kinder sind im Garten.",
+        "it": "I bambini sono in giardino."
+       },
+       {
+        "sl": "Ste iz Ljubljane?",
+        "en": "Are you from Ljubljana? (polite)",
+        "de": "Sind Sie aus Ljubljana?",
+        "it": "Lei è di Lubiana?"
+       }
+      ],
+      "rows": [
+       [
+        "mi",
+        "smo"
+       ],
+       [
+        "vi",
+        "ste"
+       ],
+       [
+        "oni, one, ona",
+        "so"
+       ]
+      ],
+      "ask": {
+       "type": "cloze",
+       "grammar": "biti",
+       "text": "Otroci ___ v šoli.",
+       "accept": [
+        "so"
+       ],
+       "hint": "otroci = oni",
+       "explain": "Otroci (the children) are three or more, oni: **so**."
+      }
+     },
+     {
+      "say": {
+       "en": "Slovene has a form for exactly **two**, the dual (dvojina): **midva sva** (we two are), **vidva sta** (you two are), **onadva sta** (the two of them are). Two people with *in* (and) take it too: **Luka in Tine sta …**",
+       "de": "Das Slowenische hat eine Form für genau **zwei**, den Dual (dvojina): **midva sva** (wir zwei sind), **vidva sta** (ihr zwei seid), **onadva sta** (die zwei sind). Zwei Personen mit *in* (und) nehmen sie auch: **Luka in Tine sta …**",
+       "it": "Lo sloveno ha una forma per esattamente **due**, il duale (dvojina): **midva sva** (noi due siamo), **vidva sta** (voi due siete), **onadva sta** (loro due sono). Anche due persone con *in* (e) la prendono: **Luka in Tine sta …**"
+      },
+      "examples": [
+       {
+        "sl": "Midva sva doma.",
+        "en": "We two are at home.",
+        "de": "Wir zwei sind zu Hause.",
+        "it": "Noi due siamo a casa."
+       },
+       {
+        "sl": "Luka in Tine sta pri ribniku.",
+        "en": "Luka and Tine are by the pond.",
+        "de": "Luka und Tine sind am Teich.",
+        "it": "Luka e Tine sono allo stagno."
+       }
+      ],
+      "rows": [
+       [
+        "midva",
+        "sva"
+       ],
+       [
+        "vidva",
+        "sta"
+       ],
+       [
+        "onadva",
+        "sta"
+       ]
+      ],
+      "ask": {
+       "type": "choice",
+       "grammar": "dvojina",
+       "prompt": "Micka in France ___ na njivi.",
+       "options": [
+        "so",
+        "sta",
+        "sva"
+       ],
+       "answer": 1,
+       "say_options": true,
+       "explain": "Micka and France are two: **sta**. Three or more would be *so*."
+      }
+     },
+     {
+      "say": {
+       "en": "To say **no**, *ne* and the form melt into one word: **nisem, nisi, ni**; **nismo, niste, niso**; for two **nisva, nista**. Never *ne sem*.",
+       "de": "Für **nein** verschmelzen *ne* und die Form zu einem Wort: **nisem, nisi, ni**; **nismo, niste, niso**; für zwei **nisva, nista**. Nie *ne sem*.",
+       "it": "Per dire **no**, *ne* e la forma si fondono in una parola: **nisem, nisi, ni**; **nismo, niste, niso**; per due **nisva, nista**. Mai *ne sem*."
+      },
+      "examples": [
+       {
+        "sl": "Nisem utrujen.",
+        "en": "I'm not tired.",
+        "de": "Ich bin nicht müde.",
+        "it": "Non sono stanco."
+       },
+       {
+        "sl": "Kruh ni svež.",
+        "en": "The bread isn't fresh.",
+        "de": "Das Brot ist nicht frisch.",
+        "it": "Il pane non è fresco."
+       }
+      ],
+      "rows": [
+       [
+        "jaz",
+        "nisem"
+       ],
+       [
+        "ti",
+        "nisi"
+       ],
+       [
+        "on, ona, ono",
+        "ni"
+       ],
+       [
+        "mi",
+        "nismo"
+       ],
+       [
+        "vi",
+        "niste"
+       ],
+       [
+        "oni, one, ona",
+        "niso"
+       ]
+      ],
+      "ask": {
+       "type": "cloze",
+       "grammar": "zanikanje",
+       "text": "Babica ___ doma, je na vrtu.",
+       "accept": [
+        "ni"
+       ],
+       "hint": "je → ?",
+       "explain": "je → **ni**: Babica ni doma, je na vrtu (Granny isn't at home, she's in the garden)."
+      }
+     }
+    ]
+   },
+   "summary": {
+    "rule": {
+     "en": "**Biti** (to be) is the verb you need most, and Slovene never leaves it out: **Moja partnerka je iz Gorice.**\n\nIts present: **sem, si, je**; **smo, ste, so**; for two: **sva, sta, sta**. The pronoun is usually dropped, because the ending already tells who: **Sem Jan.**\n\nThe negative fuses **ne** with the verb into one word: **nisem, nisi, ni, nismo, niste, niso** (for two: **nisva, nista**).\n\nThe short forms lean on the word before them (see the page on clitics): **Jan je doma.** A sentence may also start with them: **Sem Jan.**",
+     "de": "**Biti** (sein) ist das wichtigste Verb, und das Slowenische lässt es nie weg: **Moja partnerka je iz Gorice.** (Meine Partnerin ist aus Gorizia.)\n\nSein Präsens: **sem, si, je**; **smo, ste, so**; für zwei: **sva, sta, sta**. Das Pronomen fällt meist weg, weil die Endung schon sagt, wer: **Sem Jan.**\n\nDie Verneinung verschmilzt **ne** mit dem Verb zu einem Wort: **nisem, nisi, ni, nismo, niste, niso** (für zwei: **nisva, nista**).\n\nDie kurzen Formen lehnen sich an das Wort davor (siehe die Seite über Klitika): **Jan je doma.** Ein Satz darf auch mit ihnen beginnen: **Sem Jan.**",
+     "it": "**Biti** (essere) è il verbo che serve di più, e lo sloveno non lo omette mai: **Moja partnerka je iz Gorice.** (La mia compagna è di Gorizia.)\n\nIl presente: **sem, si, je**; **smo, ste, so**; per due: **sva, sta, sta**. Il pronome di solito cade, perché la desinenza dice già chi: **Sem Jan.**\n\nLa negazione fonde **ne** con il verbo in una sola parola: **nisem, nisi, ni, nismo, niste, niso** (per due: **nisva, nista**).\n\nLe forme brevi si appoggiano alla parola precedente (vedi la pagina sui clitici): **Jan je doma.** Una frase può anche cominciare con loro: **Sem Jan.**"
+    },
+    "goal": {
+     "en": "You can say who you are, where people are, and that they aren't.",
+     "de": "Du kannst sagen, wer du bist, wo Leute sind und dass sie es nicht sind.",
+     "it": "Sai dire chi sei, dove sono le persone e che non ci sono."
+    }
+   },
+   "expected": {
+    "vocabulary": [
+     "babica",
+     "biti",
+     "doma",
+     "in",
+     "iz",
+     "jan",
+     "jaz",
+     "je",
+     "kruh",
+     "kuhinji",
+     "ljubljane",
+     "luka",
+     "mi",
+     "micka",
+     "midva",
+     "na",
+     "ni",
+     "nisem",
+     "nisi",
+     "nismo",
+     "niso",
+     "niste",
+     "on",
+     "ona",
+     "onadva",
+     "one",
+     "oni",
+     "ono",
+     "otroci",
+     "pašniku",
+     "pri",
+     "ribniku",
+     "sem",
+     "si",
+     "smo",
+     "so",
+     "sta",
+     "ste",
+     "sva",
+     "svež",
+     "ti",
+     "tine",
+     "utrujen",
+     "v",
+     "vi",
+     "vidva",
+     "vrtu",
+     "šoli"
+    ],
+    "steps": [
+     {
+      "explanation": {
+       "plain": "Biti (to be) has a short form for each person, and Slovene never leaves it out. One person first: jaz sem (I am), ti si (you are), on, ona, ono je (he, she, it is). The pronoun is usually dropped: the form already says who.",
+       "lang": "en",
+       "key": "en|biti to be has a short form for each person and slovene never leaves it out one person first jaz sem i am ti si you are on ona ono je he she it is the pronoun is usually dropped the form already says who",
+       "runs": [
+        {
+         "text": "Biti",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        },
+        {
+         "text": "(to be) has a short form for each person, and Slovene never leaves it out. One person first:",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          1,
+          1
+         ]
+        },
+        {
+         "text": "jaz sem",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          2,
+          2
+         ]
+        },
+        {
+         "text": "(I am),",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          3,
+          3
+         ]
+        },
+        {
+         "text": "ti si",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          4,
+          4
+         ]
+        },
+        {
+         "text": "(you are),",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          5,
+          5
+         ]
+        },
+        {
+         "text": "on, ona, ono je",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          6,
+          6
+         ]
+        },
+        {
+         "text": "(he, she, it is). The pronoun is usually dropped: the form already says who.",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          7,
+          7
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "Jaz sem Jan.",
+        "slovene": true,
+        "mark": "example:0"
+       },
+       {
+        "text": "Babica Micka je v kuhinji.",
+        "slovene": true,
+        "mark": "example:1"
+       },
+       {
+        "text": "Luka … na pašniku.",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "Luka je na pašniku."
+     },
+     {
+      "explanation": {
+       "plain": "Three or more: mi smo (we are), vi ste (you are: several of you, or one person you say vi to), oni so (they are). Three words to learn: smo, ste, so.",
+       "lang": "en",
+       "key": "en|three or more mi smo we are vi ste you are several of you or one person you say vi to oni so they are three words to learn smo ste so",
+       "runs": [
+        {
+         "text": "Three or more:",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        },
+        {
+         "text": "mi smo",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          1,
+          1
+         ]
+        },
+        {
+         "text": "(we are),",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          2,
+          2
+         ]
+        },
+        {
+         "text": "vi ste",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          3,
+          3
+         ]
+        },
+        {
+         "text": "(you are: several of you, or one person you say vi to),",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          4,
+          4
+         ]
+        },
+        {
+         "text": "oni so",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          5,
+          5
+         ]
+        },
+        {
+         "text": "(they are). Three words to learn:",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          6,
+          6
+         ]
+        },
+        {
+         "text": "smo, ste, so",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          7,
+          7
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "Otroci so na vrtu.",
+        "slovene": true,
+        "mark": "example:0"
+       },
+       {
+        "text": "Ste iz Ljubljane?",
+        "slovene": true,
+        "mark": "example:1"
+       },
+       {
+        "text": "Otroci … v šoli.",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "Otroci so v šoli."
+     },
+     {
+      "explanation": {
+       "plain": "Slovene has a form for exactly two, the dual (dvojina): midva sva (we two are), vidva sta (you two are), onadva sta (the two of them are). Two people with in (and) take it too: Luka in Tine sta …",
+       "lang": "en",
+       "key": "en|slovene has a form for exactly two the dual dvojina midva sva we two are vidva sta you two are onadva sta the two of them are two people with in and take it too luka in tine sta",
+       "runs": [
+        {
+         "text": "Slovene has a form for exactly two, the dual (dvojina):",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          0,
+          2
+         ]
+        },
+        {
+         "text": "midva sva",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          3,
+          3
+         ]
+        },
+        {
+         "text": "(we two are),",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          4,
+          4
+         ]
+        },
+        {
+         "text": "vidva sta",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          5,
+          5
+         ]
+        },
+        {
+         "text": "(you two are),",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          6,
+          6
+         ]
+        },
+        {
+         "text": "onadva sta",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          7,
+          7
+         ]
+        },
+        {
+         "text": "(the two of them are). Two people with",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          8,
+          8
+         ]
+        },
+        {
+         "text": "in",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          9,
+          9
+         ]
+        },
+        {
+         "text": "(and) take it too:",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          10,
+          10
+         ]
+        },
+        {
+         "text": "Luka in Tine sta …",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          11,
+          11
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "Midva sva doma.",
+        "slovene": true,
+        "mark": "example:0"
+       },
+       {
+        "text": "Luka in Tine sta pri ribniku.",
+        "slovene": true,
+        "mark": "example:1"
+       },
+       {
+        "text": "Micka in France … na njivi.",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "Micka in France sta na njivi."
+     },
+     {
+      "explanation": {
+       "plain": "To say no, ne and the form melt into one word: nisem, nisi, ni; nismo, niste, niso; for two nisva, nista. Never ne sem.",
+       "lang": "en",
+       "key": "en|to say no ne and the form melt into one word nisem nisi ni nismo niste niso for two nisva nista never ne sem",
+       "runs": [
+        {
+         "text": "To say no,",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          0,
+          2
+         ]
+        },
+        {
+         "text": "ne",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          3,
+          3
+         ]
+        },
+        {
+         "text": "and the form melt into one word:",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          4,
+          4
+         ]
+        },
+        {
+         "text": "nisem, nisi, ni",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          5,
+          5
+         ]
+        },
+        {
+         "text": "nismo, niste, niso",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          7,
+          7
+         ]
+        },
+        {
+         "text": "; for two nisva, nista. Never",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          8,
+          10
+         ]
+        },
+        {
+         "text": "ne sem",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          11,
+          11
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "Nisem utrujen.",
+        "slovene": true,
+        "mark": "example:0"
+       },
+       {
+        "text": "Kruh ni svež.",
+        "slovene": true,
+        "mark": "example:1"
+       },
+       {
+        "text": "Babica … doma, je na vrtu.",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "Babica ni doma, je na vrtu."
+     }
+    ],
+    "summary": {
+     "say": "**Biti** (to be) is the verb you need most, and Slovene never leaves it out: **Moja partnerka je iz Gorice.**\n\nIts present: **sem, si, je**; **smo, ste, so**; for two: **sva, sta, sta**. The pronoun is usually dropped, because the ending already tells who: **Sem Jan.**\n\nThe negative fuses **ne** with the verb into one word: **nisem, nisi, ni, nismo, niste, niso** (for two: **nisva, nista**).\n\nThe short forms lean on the word before them (see the page on clitics): **Jan je doma.** A sentence may also start with them: **Sem Jan.**",
+     "explanation": {
+      "plain": "Biti (to be) is the verb you need most, and Slovene never leaves it out: Moja partnerka je iz Gorice.\nIts present: sem, si, je; smo, ste, so; for two: sva, sta, sta. The pronoun is usually dropped, because the ending already tells who: Sem Jan.\nThe negative fuses ne with the verb into one word: nisem, nisi, ni, nismo, niste, niso (for two: nisva, nista).\nThe short forms lean on the word before them (see the page on clitics): Jan je doma. A sentence may also start with them: Sem Jan.",
+      "lang": "en",
+      "key": "en|biti to be is the verb you need most and slovene never leaves it out moja partnerka je iz gorice its present sem si je smo ste so for two sva sta sta the pronoun is usually dropped because the ending already tells who sem jan the negative fuses ne with the verb into one word nisem nisi ni nismo niste niso for two nisva nista the short forms lean on the word before them see the page on clitics jan je doma a sentence may also start with them sem jan",
+      "runs": [
+       {
+        "text": "Biti",
+        "slovene": true,
+        "line": 0,
+        "segments": [
+         0,
+         0
+        ]
+       },
+       {
+        "text": "(to be) is the verb you need most, and Slovene never leaves it out:",
+        "slovene": false,
+        "line": 0,
+        "segments": [
+         1,
+         1
+        ]
+       },
+       {
+        "text": "Moja partnerka je iz Gorice.",
+        "slovene": true,
+        "line": 0,
+        "segments": [
+         2,
+         2
+        ]
+       },
+       {
+        "text": "Its present:",
+        "slovene": false,
+        "line": 2,
+        "segments": [
+         0,
+         0
+        ]
+       },
+       {
+        "text": "sem, si, je",
+        "slovene": true,
+        "line": 2,
+        "segments": [
+         1,
+         1
+        ]
+       },
+       {
+        "text": "smo, ste, so",
+        "slovene": true,
+        "line": 2,
+        "segments": [
+         3,
+         3
+        ]
+       },
+       {
+        "text": "; for two:",
+        "slovene": false,
+        "line": 2,
+        "segments": [
+         4,
+         4
+        ]
+       },
+       {
+        "text": "sva, sta, sta",
+        "slovene": true,
+        "line": 2,
+        "segments": [
+         5,
+         5
+        ]
+       },
+       {
+        "text": ". The pronoun is usually dropped, because the ending already tells who:",
+        "slovene": false,
+        "line": 2,
+        "segments": [
+         6,
+         6
+        ]
+       },
+       {
+        "text": "Sem Jan.",
+        "slovene": true,
+        "line": 2,
+        "segments": [
+         7,
+         7
+        ]
+       },
+       {
+        "text": "The negative fuses",
+        "slovene": false,
+        "line": 4,
+        "segments": [
+         0,
+         0
+        ]
+       },
+       {
+        "text": "ne",
+        "slovene": true,
+        "line": 4,
+        "segments": [
+         1,
+         1
+        ]
+       },
+       {
+        "text": "with the verb into one word:",
+        "slovene": false,
+        "line": 4,
+        "segments": [
+         2,
+         2
+        ]
+       },
+       {
+        "text": "nisem, nisi, ni, nismo, niste, niso",
+        "slovene": true,
+        "line": 4,
+        "segments": [
+         3,
+         3
+        ]
+       },
+       {
+        "text": "(for two: nisva, nista).",
+        "slovene": false,
+        "line": 4,
+        "segments": [
+         4,
+         6
+        ]
+       },
+       {
+        "text": "The short forms lean on the word before them (see the page on clitics):",
+        "slovene": false,
+        "line": 6,
+        "segments": [
+         0,
+         0
+        ]
+       },
+       {
+        "text": "Jan je doma.",
+        "slovene": true,
+        "line": 6,
+        "segments": [
+         1,
+         1
+        ]
+       },
+       {
+        "text": "A sentence may also start with them:",
+        "slovene": false,
+        "line": 6,
+        "segments": [
+         2,
+         2
+        ]
+       },
+       {
+        "text": "Sem Jan.",
+        "slovene": true,
+        "line": 6,
+        "segments": [
+         3,
+         3
+        ]
+       }
+      ]
+     },
+     "lines": []
+    }
+   }
+  },
+  {
+   "name": "biti in German: the German explanation, keyed de",
+   "language": "sl",
+   "base": "de",
+   "title": "Biti: sem, si, je",
+   "clips": [],
+   "intro": {
+    "table": {
+     "head": [
+      {
+       "sl": "kdo",
+       "en": "who",
+       "de": "wer",
+       "it": "chi"
+      },
+      {
+       "sl": "biti",
+       "en": "to be",
+       "de": "sein",
+       "it": "essere"
+      }
+     ]
+    },
+    "steps": [
+     {
+      "say": {
+       "en": "**Biti** (to be) has a short form for each person, and Slovene never leaves it out. One person first: **jaz sem** (I am), **ti si** (you are), **on, ona, ono je** (he, she, it is). The pronoun is usually dropped: the form already says who.",
+       "de": "**Biti** (sein) hat für jede Person eine kurze Form, und das Slowenische lässt es nie weg. Zuerst eine Person: **jaz sem** (ich bin), **ti si** (du bist), **on, ona, ono je** (er, sie, es ist). Das Pronomen fällt meist weg: Die Form sagt schon, wer.",
+       "it": "**Biti** (essere) ha una forma breve per ogni persona, e lo sloveno non lo omette mai. Prima una persona: **jaz sem** (io sono), **ti si** (tu sei), **on, ona, ono je** (lui, lei, esso è). Il pronome di solito cade: la forma dice già chi."
+      },
+      "examples": [
+       {
+        "sl": "Jaz sem Jan.",
+        "en": "I am Jan.",
+        "de": "Ich bin Jan.",
+        "it": "Io sono Jan."
+       },
+       {
+        "sl": "Babica Micka je v kuhinji.",
+        "en": "Granny Micka is in the kitchen.",
+        "de": "Oma Micka ist in der Küche.",
+        "it": "Nonna Micka è in cucina."
+       }
+      ],
+      "rows": [
+       [
+        "jaz",
+        "sem"
+       ],
+       [
+        "ti",
+        "si"
+       ],
+       [
+        "on, ona, ono",
+        "je"
+       ]
+      ],
+      "ask": {
+       "type": "choice",
+       "grammar": "biti",
+       "prompt": "Luka ___ na pašniku.",
+       "options": [
+        "sem",
+        "si",
+        "je"
+       ],
+       "answer": 2,
+       "say_options": true,
+       "explain": "Luka is one person, on (he): **je**. Luka je na pašniku: Luka is on the pasture."
+      }
+     },
+     {
+      "say": {
+       "en": "Three or more: **mi smo** (we are), **vi ste** (you are: several of you, or one person you say vi to), **oni so** (they are). Three words to learn: **smo, ste, so**.",
+       "de": "Drei oder mehr: **mi smo** (wir sind), **vi ste** (ihr seid, oder eine Person, die man siezt), **oni so** (sie sind). Drei Wörter zum Lernen: **smo, ste, so**.",
+       "it": "Tre o più: **mi smo** (noi siamo), **vi ste** (voi siete, o una persona a cui si dà del Lei), **oni so** (loro sono). Tre parole da imparare: **smo, ste, so**."
+      },
+      "examples": [
+       {
+        "sl": "Otroci so na vrtu.",
+        "en": "The children are in the garden.",
+        "de": "Die Kinder sind im Garten.",
+        "it": "I bambini sono in giardino."
+       },
+       {
+        "sl": "Ste iz Ljubljane?",
+        "en": "Are you from Ljubljana? (polite)",
+        "de": "Sind Sie aus Ljubljana?",
+        "it": "Lei è di Lubiana?"
+       }
+      ],
+      "rows": [
+       [
+        "mi",
+        "smo"
+       ],
+       [
+        "vi",
+        "ste"
+       ],
+       [
+        "oni, one, ona",
+        "so"
+       ]
+      ],
+      "ask": {
+       "type": "cloze",
+       "grammar": "biti",
+       "text": "Otroci ___ v šoli.",
+       "accept": [
+        "so"
+       ],
+       "hint": "otroci = oni",
+       "explain": "Otroci (the children) are three or more, oni: **so**."
+      }
+     }
+    ]
+   },
+   "summary": {
+    "rule": {
+     "en": "**Biti** (to be) is the verb you need most, and Slovene never leaves it out: **Moja partnerka je iz Gorice.**\n\nIts present: **sem, si, je**; **smo, ste, so**; for two: **sva, sta, sta**. The pronoun is usually dropped, because the ending already tells who: **Sem Jan.**\n\nThe negative fuses **ne** with the verb into one word: **nisem, nisi, ni, nismo, niste, niso** (for two: **nisva, nista**).\n\nThe short forms lean on the word before them (see the page on clitics): **Jan je doma.** A sentence may also start with them: **Sem Jan.**",
+     "de": "**Biti** (sein) ist das wichtigste Verb, und das Slowenische lässt es nie weg: **Moja partnerka je iz Gorice.** (Meine Partnerin ist aus Gorizia.)\n\nSein Präsens: **sem, si, je**; **smo, ste, so**; für zwei: **sva, sta, sta**. Das Pronomen fällt meist weg, weil die Endung schon sagt, wer: **Sem Jan.**\n\nDie Verneinung verschmilzt **ne** mit dem Verb zu einem Wort: **nisem, nisi, ni, nismo, niste, niso** (für zwei: **nisva, nista**).\n\nDie kurzen Formen lehnen sich an das Wort davor (siehe die Seite über Klitika): **Jan je doma.** Ein Satz darf auch mit ihnen beginnen: **Sem Jan.**",
+     "it": "**Biti** (essere) è il verbo che serve di più, e lo sloveno non lo omette mai: **Moja partnerka je iz Gorice.** (La mia compagna è di Gorizia.)\n\nIl presente: **sem, si, je**; **smo, ste, so**; per due: **sva, sta, sta**. Il pronome di solito cade, perché la desinenza dice già chi: **Sem Jan.**\n\nLa negazione fonde **ne** con il verbo in una sola parola: **nisem, nisi, ni, nismo, niste, niso** (per due: **nisva, nista**).\n\nLe forme brevi si appoggiano alla parola precedente (vedi la pagina sui clitici): **Jan je doma.** Una frase può anche cominciare con loro: **Sem Jan.**"
+    },
+    "goal": {
+     "en": "You can say who you are, where people are, and that they aren't.",
+     "de": "Du kannst sagen, wer du bist, wo Leute sind und dass sie es nicht sind.",
+     "it": "Sai dire chi sei, dove sono le persone e che non ci sono."
+    }
+   },
+   "expected": {
+    "vocabulary": [
+     "babica",
+     "biti",
+     "iz",
+     "jan",
+     "jaz",
+     "je",
+     "kuhinji",
+     "ljubljane",
+     "luka",
+     "mi",
+     "micka",
+     "na",
+     "on",
+     "ona",
+     "one",
+     "oni",
+     "ono",
+     "otroci",
+     "pašniku",
+     "sem",
+     "si",
+     "smo",
+     "so",
+     "ste",
+     "ti",
+     "v",
+     "vi",
+     "vrtu",
+     "šoli"
+    ],
+    "steps": [
+     {
+      "explanation": {
+       "plain": "Biti (sein) hat für jede Person eine kurze Form, und das Slowenische lässt es nie weg. Zuerst eine Person: jaz sem (ich bin), ti si (du bist), on, ona, ono je (er, sie, es ist). Das Pronomen fällt meist weg: Die Form sagt schon, wer.",
+       "lang": "de",
+       "key": "de|biti sein hat für jede person eine kurze form und das slowenische lässt es nie weg zuerst eine person jaz sem ich bin ti si du bist on ona ono je er sie es ist das pronomen fällt meist weg die form sagt schon wer",
+       "runs": [
+        {
+         "text": "Biti",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        },
+        {
+         "text": "(sein) hat für jede Person eine kurze Form, und das Slowenische lässt es nie weg. Zuerst eine Person:",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          1,
+          1
+         ]
+        },
+        {
+         "text": "jaz sem",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          2,
+          2
+         ]
+        },
+        {
+         "text": "(ich bin),",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          3,
+          3
+         ]
+        },
+        {
+         "text": "ti si",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          4,
+          4
+         ]
+        },
+        {
+         "text": "(du bist),",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          5,
+          5
+         ]
+        },
+        {
+         "text": "on, ona, ono je",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          6,
+          6
+         ]
+        },
+        {
+         "text": "(er, sie, es ist). Das Pronomen fällt meist weg: Die Form sagt schon, wer.",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          7,
+          7
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "Jaz sem Jan.",
+        "slovene": true,
+        "mark": "example:0"
+       },
+       {
+        "text": "Babica Micka je v kuhinji.",
+        "slovene": true,
+        "mark": "example:1"
+       },
+       {
+        "text": "Luka … na pašniku.",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "Luka je na pašniku."
+     },
+     {
+      "explanation": {
+       "plain": "Drei oder mehr: mi smo (wir sind), vi ste (ihr seid, oder eine Person, die man siezt), oni so (sie sind). Drei Wörter zum Lernen: smo, ste, so.",
+       "lang": "de",
+       "key": "de|drei oder mehr mi smo wir sind vi ste ihr seid oder eine person die man siezt oni so sie sind drei wörter zum lernen smo ste so",
+       "runs": [
+        {
+         "text": "Drei oder mehr:",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        },
+        {
+         "text": "mi smo",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          1,
+          1
+         ]
+        },
+        {
+         "text": "(wir sind),",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          2,
+          2
+         ]
+        },
+        {
+         "text": "vi ste",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          3,
+          3
+         ]
+        },
+        {
+         "text": "(ihr seid, oder eine Person, die man siezt),",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          4,
+          4
+         ]
+        },
+        {
+         "text": "oni so",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          5,
+          5
+         ]
+        },
+        {
+         "text": "(sie sind). Drei Wörter zum Lernen:",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          6,
+          6
+         ]
+        },
+        {
+         "text": "smo, ste, so",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          7,
+          7
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "Otroci so na vrtu.",
+        "slovene": true,
+        "mark": "example:0"
+       },
+       {
+        "text": "Ste iz Ljubljane?",
+        "slovene": true,
+        "mark": "example:1"
+       },
+       {
+        "text": "Otroci … v šoli.",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "Otroci so v šoli."
+     }
+    ],
+    "summary": {
+     "say": "**Biti** (sein) ist das wichtigste Verb, und das Slowenische lässt es nie weg: **Moja partnerka je iz Gorice.** (Meine Partnerin ist aus Gorizia.)\n\nSein Präsens: **sem, si, je**; **smo, ste, so**; für zwei: **sva, sta, sta**. Das Pronomen fällt meist weg, weil die Endung schon sagt, wer: **Sem Jan.**\n\nDie Verneinung verschmilzt **ne** mit dem Verb zu einem Wort: **nisem, nisi, ni, nismo, niste, niso** (für zwei: **nisva, nista**).\n\nDie kurzen Formen lehnen sich an das Wort davor (siehe die Seite über Klitika): **Jan je doma.** Ein Satz darf auch mit ihnen beginnen: **Sem Jan.**",
+     "explanation": {
+      "plain": "Biti (sein) ist das wichtigste Verb, und das Slowenische lässt es nie weg: Moja partnerka je iz Gorice. (Meine Partnerin ist aus Gorizia.)\nSein Präsens: sem, si, je; smo, ste, so; für zwei: sva, sta, sta. Das Pronomen fällt meist weg, weil die Endung schon sagt, wer: Sem Jan.\nDie Verneinung verschmilzt ne mit dem Verb zu einem Wort: nisem, nisi, ni, nismo, niste, niso (für zwei: nisva, nista).\nDie kurzen Formen lehnen sich an das Wort davor (siehe die Seite über Klitika): Jan je doma. Ein Satz darf auch mit ihnen beginnen: Sem Jan.",
+      "lang": "de",
+      "key": "de|biti sein ist das wichtigste verb und das slowenische lässt es nie weg moja partnerka je iz gorice meine partnerin ist aus gorizia sein präsens sem si je smo ste so für zwei sva sta sta das pronomen fällt meist weg weil die endung schon sagt wer sem jan die verneinung verschmilzt ne mit dem verb zu einem wort nisem nisi ni nismo niste niso für zwei nisva nista die kurzen formen lehnen sich an das wort davor siehe die seite über klitika jan je doma ein satz darf auch mit ihnen beginnen sem jan",
+      "runs": [
+       {
+        "text": "Biti",
+        "slovene": true,
+        "line": 0,
+        "segments": [
+         0,
+         0
+        ]
+       },
+       {
+        "text": "(sein) ist das wichtigste Verb, und das Slowenische lässt es nie weg:",
+        "slovene": false,
+        "line": 0,
+        "segments": [
+         1,
+         1
+        ]
+       },
+       {
+        "text": "Moja partnerka je iz Gorice.",
+        "slovene": true,
+        "line": 0,
+        "segments": [
+         2,
+         2
+        ]
+       },
+       {
+        "text": "(Meine Partnerin ist aus Gorizia.)",
+        "slovene": false,
+        "line": 0,
+        "segments": [
+         3,
+         3
+        ]
+       },
+       {
+        "text": "Sein Präsens:",
+        "slovene": false,
+        "line": 2,
+        "segments": [
+         0,
+         0
+        ]
+       },
+       {
+        "text": "sem, si, je",
+        "slovene": true,
+        "line": 2,
+        "segments": [
+         1,
+         1
+        ]
+       },
+       {
+        "text": "smo, ste, so",
+        "slovene": true,
+        "line": 2,
+        "segments": [
+         3,
+         3
+        ]
+       },
+       {
+        "text": "; für zwei:",
+        "slovene": false,
+        "line": 2,
+        "segments": [
+         4,
+         4
+        ]
+       },
+       {
+        "text": "sva, sta, sta",
+        "slovene": true,
+        "line": 2,
+        "segments": [
+         5,
+         5
+        ]
+       },
+       {
+        "text": ". Das Pronomen fällt meist weg, weil die Endung schon sagt, wer:",
+        "slovene": false,
+        "line": 2,
+        "segments": [
+         6,
+         6
+        ]
+       },
+       {
+        "text": "Sem Jan.",
+        "slovene": true,
+        "line": 2,
+        "segments": [
+         7,
+         7
+        ]
+       },
+       {
+        "text": "Die Verneinung verschmilzt",
+        "slovene": false,
+        "line": 4,
+        "segments": [
+         0,
+         0
+        ]
+       },
+       {
+        "text": "ne",
+        "slovene": true,
+        "line": 4,
+        "segments": [
+         1,
+         1
+        ]
+       },
+       {
+        "text": "mit dem Verb zu einem Wort:",
+        "slovene": false,
+        "line": 4,
+        "segments": [
+         2,
+         2
+        ]
+       },
+       {
+        "text": "nisem, nisi, ni, nismo, niste, niso",
+        "slovene": true,
+        "line": 4,
+        "segments": [
+         3,
+         3
+        ]
+       },
+       {
+        "text": "(für zwei: nisva, nista).",
+        "slovene": false,
+        "line": 4,
+        "segments": [
+         4,
+         6
+        ]
+       },
+       {
+        "text": "Die kurzen Formen lehnen sich an das Wort davor (siehe die Seite über Klitika):",
+        "slovene": false,
+        "line": 6,
+        "segments": [
+         0,
+         0
+        ]
+       },
+       {
+        "text": "Jan je doma.",
+        "slovene": true,
+        "line": 6,
+        "segments": [
+         1,
+         1
+        ]
+       },
+       {
+        "text": "Ein Satz darf auch mit ihnen beginnen:",
+        "slovene": false,
+        "line": 6,
+        "segments": [
+         2,
+         2
+        ]
+       },
+       {
+        "text": "Sem Jan.",
+        "slovene": true,
+        "line": 6,
+        "segments": [
+         3,
+         3
+        ]
+       }
+      ]
+     },
+     "lines": []
+    }
+   }
+  },
+  {
+   "name": "spol: bilingual options make their English words the intro's own (\"**masculine**\" read in the teacher's voice), a Slovene instruction with its English, a prompt in quotes and brackets",
+   "language": "sl",
+   "base": "en",
+   "title": "Moški, ženski, srednji spol",
+   "clips": [],
+   "intro": {
+    "table": {
+     "head": [
+      {
+       "sl": "spol",
+       "en": "gender",
+       "de": "Geschlecht",
+       "it": "genere"
+      },
+      {
+       "sl": "končnica",
+       "en": "ends in",
+       "de": "endet auf",
+       "it": "finisce in"
+      },
+      {
+       "sl": "primer",
+       "en": "example",
+       "de": "Beispiel",
+       "it": "esempio"
+      }
+     ]
+    },
+    "steps": [
+     {
+      "say": {
+       "en": "Every Slovene noun is **masculine**, **feminine** or **neuter** (spol). You can hear it at the end of the word. Words in **-a** are feminine: **miza** (table), **hiša** (house), **kava** (coffee).",
+       "de": "Jedes slowenische Nomen ist **männlich**, **weiblich** oder **sächlich** (spol). Man hört es am Ende des Wortes. Wörter auf **-a** sind weiblich: **miza** (Tisch), **hiša** (Haus), **kava** (Kaffee).",
+       "it": "Ogni nome sloveno è **maschile**, **femminile** o **neutro** (spol). Lo senti alla fine della parola. Le parole in **-a** sono femminili: **miza** (tavolo), **hiša** (casa), **kava** (caffè)."
+      },
+      "examples": [
+       {
+        "sl": "To je moja hiša.",
+        "en": "This is my house.",
+        "de": "Das ist mein Haus.",
+        "it": "Questa è la mia casa."
+       }
+      ],
+      "rows": [
+       [
+        {
+         "sl": "ženski",
+         "en": "feminine",
+         "de": "weiblich",
+         "it": "femminile"
+        },
+        "-a",
+        "miza, hiša, kava"
+       ]
+      ],
+      "ask": {
+       "type": "choice",
+       "grammar": "spol-samostalnikov",
+       "prompt": "»smreka« (a spruce)",
+       "instruction": "Kakšnega spola? · Which gender?",
+       "options": [
+        "moški · masculine",
+        "ženski · feminine",
+        "srednji · neuter"
+       ],
+       "answer": 1,
+       "explain": "smreka ends in **-a**: feminine (ženski spol)."
+      }
+     },
+     {
+      "say": {
+       "en": "Words that end in a **consonant** are masculine: **kruh** (bread), **stol** (chair), **šotor** (tent).",
+       "de": "Wörter, die auf einen **Konsonanten** enden, sind männlich: **kruh** (Brot), **stol** (Stuhl), **šotor** (Zelt).",
+       "it": "Le parole che finiscono in **consonante** sono maschili: **kruh** (pane), **stol** (sedia), **šotor** (tenda)."
+      },
+      "examples": [
+       {
+        "sl": "Kruh je svež.",
+        "en": "The bread is fresh.",
+        "de": "Das Brot ist frisch.",
+        "it": "Il pane è fresco."
+       }
+      ],
+      "rows": [
+       [
+        {
+         "sl": "moški",
+         "en": "masculine",
+         "de": "männlich",
+         "it": "maschile"
+        },
+        {
+         "en": "a consonant",
+         "de": "Konsonant",
+         "it": "consonante"
+        },
+        "kruh, stol, šotor"
+       ]
+      ],
+      "ask": {
+       "type": "choice",
+       "grammar": "spol-samostalnikov",
+       "prompt": "»kozolec« (a hayrack)",
+       "instruction": "Kakšnega spola? · Which gender?",
+       "options": [
+        "moški · masculine",
+        "ženski · feminine",
+        "srednji · neuter"
+       ],
+       "answer": 0,
+       "explain": "kozolec ends in a consonant (c): masculine (moški spol)."
+      }
+     }
+    ]
+   },
+   "expected": {
+    "vocabulary": [
+     "a",
+     "feminine",
+     "hiša",
+     "je",
+     "kava",
+     "kruh",
+     "masculine",
+     "miza",
+     "moja",
+     "moški",
+     "spol",
+     "srednji",
+     "stol",
+     "svež",
+     "to",
+     "šotor",
+     "ženski"
+    ],
+    "steps": [
+     {
+      "explanation": {
+       "plain": "Every Slovene noun is masculine, feminine or neuter (spol). You can hear it at the end of the word. Words in -a are feminine: miza (table), hiša (house), kava (coffee).",
+       "lang": "en",
+       "key": "en|every slovene noun is masculine feminine or neuter spol you can hear it at the end of the word words in a are feminine miza table hiša house kava coffee",
+       "runs": [
+        {
+         "text": "Every Slovene noun is",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        },
+        {
+         "text": "masculine",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          1,
+          1
+         ]
+        },
+        {
+         "text": "feminine",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          3,
+          3
+         ]
+        },
+        {
+         "text": "or neuter (spol). You can hear it at the end of the word. Words in",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          4,
+          6
+         ]
+        },
+        {
+         "text": "-a",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          7,
+          7
+         ]
+        },
+        {
+         "text": "are feminine:",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          8,
+          8
+         ]
+        },
+        {
+         "text": "miza",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          9,
+          9
+         ]
+        },
+        {
+         "text": "(table),",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          10,
+          10
+         ]
+        },
+        {
+         "text": "hiša",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          11,
+          11
+         ]
+        },
+        {
+         "text": "(house),",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          12,
+          12
+         ]
+        },
+        {
+         "text": "kava",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          13,
+          13
+         ]
+        },
+        {
+         "text": "(coffee).",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          14,
+          14
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "To je moja hiša.",
+        "slovene": true,
+        "mark": "example:0"
+       },
+       {
+        "text": "Kakšnega spola?",
+        "slovene": true,
+        "mark": "question"
+       },
+       {
+        "text": "Which gender?",
+        "slovene": false,
+        "mark": "question"
+       },
+       {
+        "text": "»smreka«",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": null
+     },
+     {
+      "explanation": {
+       "plain": "Words that end in a consonant are masculine: kruh (bread), stol (chair), šotor (tent).",
+       "lang": "en",
+       "key": "en|words that end in a consonant are masculine kruh bread stol chair šotor tent",
+       "runs": [
+        {
+         "text": "Words that end in a consonant are masculine:",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          0,
+          2
+         ]
+        },
+        {
+         "text": "kruh",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          3,
+          3
+         ]
+        },
+        {
+         "text": "(bread),",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          4,
+          4
+         ]
+        },
+        {
+         "text": "stol",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          5,
+          5
+         ]
+        },
+        {
+         "text": "(chair),",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          6,
+          6
+         ]
+        },
+        {
+         "text": "šotor",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          7,
+          7
+         ]
+        },
+        {
+         "text": "(tent).",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          8,
+          8
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "Kruh je svež.",
+        "slovene": true,
+        "mark": "example:0"
+       },
+       {
+        "text": "Kakšnega spola?",
+        "slovene": true,
+        "mark": "question"
+       },
+       {
+        "text": "Which gender?",
+        "slovene": false,
+        "mark": "question"
+       },
+       {
+        "text": "»kozolec«",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": null
+     }
+    ],
+    "summary": null
+   }
+  },
+  {
+   "name": "the Markdown the app draws: headings, quotes, lists, numbers, rules, tables, emoji, arrows, code, nesting, spaces",
+   "language": "sl",
+   "base": "en",
+   "title": "Pozdravi",
+   "clips": [],
+   "intro": {
+    "table": {
+     "head": [
+      "beseda",
+      {
+       "en": "meaning",
+       "sl": "pomen"
+      }
+     ]
+    },
+    "steps": [
+     {
+      "say": {
+       "en": "# 🐝 **Pozdravi** today\n\n> Say „Dober dan“ in the day, *dober večer* at night.\n- **Živjo** to a friend ✨\n• **Zdravo** too\n* *Adijo* when you go\n1. First **jutro**\n2) Then **večer**\n---\n| a | b |\n|---|---|\n   \n**Nemčija** → **iz Nemčije**, see `-ija`, **bold *in* it**, and **hello** stays English.\tTabs and  spaces.",
+       "de": "nur Deutsch"
+      },
+      "examples": [
+       {
+        "sl": "Dober dan! 👋",
+        "en": "Good day!"
+       },
+       {
+        "sl": "Nemčija → iz Nemčije",
+        "en": "Germany → from Germany"
+       },
+       {
+        "sl": "🙂",
+        "en": "a smile"
+       },
+       {
+        "en": "only English"
+       }
+      ],
+      "rows": [
+       [
+        "živjo",
+        {
+         "en": "hi",
+         "sl": "živjo"
+        }
+       ],
+       [
+        "dober dan",
+        {
+         "en": "good day"
+        }
+       ]
+      ],
+      "ask": {
+       "type": "choice",
+       "prompt": "Zvečer rečeš: „___ večer“. (in the evening)",
+       "options": [
+        "Dober",
+        "Dobro"
+       ],
+       "answer": 0,
+       "instruction": "Izberi · *Pick* the word: **dober** or **dobro**?"
+      }
+     },
+     {
+      "say": {
+       "en": "A gap you type: **Kako ste?** to someone you say *vi* to. 1) **Kako si?** to a friend."
+      },
+      "examples": [],
+      "ask": {
+       "type": "cloze",
+       "text": "Kako ___? (to a friend)",
+       "accept": [
+        "si",
+        "si?"
+       ],
+       "instruction": "Type the word."
+      },
+      "rows": []
+     },
+     {
+      "say": {
+       "en": "🙂 ✨"
+      },
+      "ask": {
+       "type": "cloze",
+       "text": "Dober ___",
+       "accept": [
+        "dan"
+       ]
+      },
+      "examples": [],
+      "rows": []
+     }
+    ]
+   },
+   "summary": {
+    "goal": {
+     "en": "You can greet: **dober dan**, **živjo**."
+    }
+   },
+   "expected": {
+    "vocabulary": [
+     "dan",
+     "dober",
+     "dobro",
+     "evening",
+     "in",
+     "iz",
+     "nemčija",
+     "nemčije",
+     "pozdravi",
+     "rečeš",
+     "si",
+     "the",
+     "večer",
+     "zvečer",
+     "živjo"
+    ],
+    "steps": [
+     {
+      "explanation": {
+       "plain": "Pozdravi today\nSay Dober dan in the day, dober večer at night.\nŽivjo to a friend\nZdravo too\nAdijo when you go\nFirst jutro\nThen večer\nNemčija , iz Nemčije, see -ija, bold in it, and hello stays English. Tabs and spaces.",
+       "lang": "en",
+       "key": "en|pozdravi today say dober dan in the day dober večer at night živjo to a friend zdravo too adijo when you go first jutro then večer nemčija iz nemčije see ija bold in it and hello stays english tabs and spaces",
+       "runs": [
+        {
+         "text": "Pozdravi",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          1,
+          1
+         ]
+        },
+        {
+         "text": "today",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          2,
+          2
+         ]
+        },
+        {
+         "text": "Say",
+         "slovene": false,
+         "line": 2,
+         "segments": [
+          0,
+          0
+         ]
+        },
+        {
+         "text": "Dober dan",
+         "slovene": true,
+         "line": 2,
+         "segments": [
+          1,
+          1
+         ]
+        },
+        {
+         "text": "in the day,",
+         "slovene": false,
+         "line": 2,
+         "segments": [
+          2,
+          2
+         ]
+        },
+        {
+         "text": "dober večer",
+         "slovene": true,
+         "line": 2,
+         "segments": [
+          3,
+          3
+         ]
+        },
+        {
+         "text": "at night.",
+         "slovene": false,
+         "line": 2,
+         "segments": [
+          4,
+          4
+         ]
+        },
+        {
+         "text": "Živjo",
+         "slovene": true,
+         "line": 3,
+         "segments": [
+          0,
+          0
+         ]
+        },
+        {
+         "text": "to a friend",
+         "slovene": false,
+         "line": 3,
+         "segments": [
+          1,
+          1
+         ]
+        },
+        {
+         "text": "Zdravo too",
+         "slovene": false,
+         "line": 4,
+         "segments": [
+          0,
+          1
+         ]
+        },
+        {
+         "text": "Adijo when you go",
+         "slovene": false,
+         "line": 5,
+         "segments": [
+          0,
+          1
+         ]
+        },
+        {
+         "text": "First",
+         "slovene": false,
+         "line": 6,
+         "segments": [
+          0,
+          0
+         ]
+        },
+        {
+         "text": "jutro",
+         "slovene": true,
+         "line": 6,
+         "segments": [
+          1,
+          1
+         ]
+        },
+        {
+         "text": "Then",
+         "slovene": false,
+         "line": 7,
+         "segments": [
+          0,
+          0
+         ]
+        },
+        {
+         "text": "večer",
+         "slovene": true,
+         "line": 7,
+         "segments": [
+          1,
+          1
+         ]
+        },
+        {
+         "text": "Nemčija",
+         "slovene": true,
+         "line": 12,
+         "segments": [
+          0,
+          0
+         ]
+        },
+        {
+         "text": "iz Nemčije",
+         "slovene": true,
+         "line": 12,
+         "segments": [
+          2,
+          2
+         ]
+        },
+        {
+         "text": ", see -ija, bold in it, and hello stays English. Tabs and spaces.",
+         "slovene": false,
+         "line": 12,
+         "segments": [
+          3,
+          9
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "Dober dan!",
+        "slovene": true,
+        "mark": "example:0"
+       },
+       {
+        "text": "Nemčija , iz Nemčije",
+        "slovene": true,
+        "mark": "example:1"
+       },
+       {
+        "text": "Izberi · Pick the word:",
+        "slovene": false,
+        "mark": "question"
+       },
+       {
+        "text": "dober",
+        "slovene": true,
+        "mark": "question"
+       },
+       {
+        "text": "or",
+        "slovene": false,
+        "mark": "question"
+       },
+       {
+        "text": "dobro",
+        "slovene": true,
+        "mark": "question"
+       },
+       {
+        "text": "Zvečer rečeš: „… večer“.",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "Zvečer rečeš: „Dober večer“."
+     },
+     {
+      "explanation": {
+       "plain": "A gap you type: Kako ste? to someone you say vi to. 1) Kako si? to a friend.",
+       "lang": "en",
+       "key": "en|a gap you type kako ste to someone you say vi to 1 kako si to a friend",
+       "runs": [
+        {
+         "text": "A gap you type:",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        },
+        {
+         "text": "Kako ste?",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          1,
+          1
+         ]
+        },
+        {
+         "text": "to someone you say",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          2,
+          2
+         ]
+        },
+        {
+         "text": "vi",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          3,
+          3
+         ]
+        },
+        {
+         "text": "to. 1)",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          4,
+          4
+         ]
+        },
+        {
+         "text": "Kako si?",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          5,
+          5
+         ]
+        },
+        {
+         "text": "to a friend.",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          6,
+          6
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "Type the word.",
+        "slovene": false,
+        "mark": "question"
+       },
+       {
+        "text": "Kako …?",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "Kako si?"
+     },
+     {
+      "explanation": null,
+      "lines": [
+       {
+        "text": "Dober …",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "Dober dan"
+     }
+    ],
+    "summary": {
+     "say": "You can greet: **dober dan**, **živjo**.",
+     "explanation": {
+      "plain": "You can greet: dober dan, živjo.",
+      "lang": "en",
+      "key": "en|you can greet dober dan živjo",
+      "runs": [
+       {
+        "text": "You can greet:",
+        "slovene": false,
+        "line": 0,
+        "segments": [
+         0,
+         0
+        ]
+       },
+       {
+        "text": "dober dan",
+        "slovene": true,
+        "line": 0,
+        "segments": [
+         1,
+         1
+        ]
+       },
+       {
+        "text": "živjo",
+        "slovene": true,
+        "line": 0,
+        "segments": [
+         3,
+         3
+        ]
+       }
+      ]
+     },
+     "lines": []
+    }
+   }
+  },
+  {
+   "name": "quick questions: a sentence with a gap is the language learned, a word named in »quotes« too, a label instruction in its two voices, a prompt in the base in its runs",
+   "language": "sl",
+   "base": "en",
+   "title": "Vprašanja",
+   "clips": [],
+   "intro": {
+    "steps": [
+     {
+      "say": {
+       "en": "A gap: the sentence is Slovene."
+      },
+      "ask": {
+       "type": "choice",
+       "prompt": "Micka in France ___ na njivi.",
+       "options": [
+        "sta",
+        "so"
+       ],
+       "answer": 0
+      },
+      "examples": [],
+      "rows": []
+     },
+     {
+      "say": {
+       "en": "A cloze is Slovene, its brackets left out."
+      },
+      "ask": {
+       "type": "cloze",
+       "text": "Zala ___ pismo. (pisati)",
+       "accept": [
+        "piše"
+       ],
+       "instruction": "Vpiši · Type it"
+      },
+      "examples": [],
+      "rows": []
+     },
+     {
+      "say": {
+       "en": "A named word."
+      },
+      "ask": {
+       "type": "choice",
+       "prompt": "»smreka« (a spruce)",
+       "options": [
+        "moški · masculine",
+        "ženski · feminine"
+       ],
+       "answer": 1,
+       "instruction": "Kakšnega spola? · Which gender?"
+      },
+      "examples": [],
+      "rows": []
+     },
+     {
+      "say": {
+       "en": "A prompt in English."
+      },
+      "ask": {
+       "type": "choice",
+       "prompt": "Granny wakes up early.",
+       "options": [
+        "Babica se zbudi zgodaj.",
+        "Babica zbudi zgodaj."
+       ],
+       "answer": 0,
+       "instruction": "Kateri stavek je prav? · Which sentence is right?"
+      },
+      "examples": [],
+      "rows": []
+     },
+     {
+      "say": {
+       "en": "Not a label: two dots, or Markdown."
+      },
+      "ask": {
+       "type": "choice",
+       "prompt": "What is **kruh**?",
+       "options": [
+        "bread",
+        "milk"
+       ],
+       "answer": 0,
+       "instruction": "Izberi · Pick · Choose"
+      },
+      "examples": [],
+      "rows": []
+     },
+     {
+      "say": {
+       "en": "A label with Markdown."
+      },
+      "ask": {
+       "type": "cloze",
+       "text": "___ dan!",
+       "accept": [
+        "Dober"
+       ],
+       "instruction": "**Dopolni** · Fill in"
+      },
+      "examples": [],
+      "rows": []
+     },
+     {
+      "say": {
+       "en": "A question in English with a gap marks its Slovene."
+      },
+      "ask": {
+       "type": "choice",
+       "prompt": "Which form goes with **mi**? ___",
+       "options": [
+        "smo",
+        "ste"
+       ],
+       "answer": 0
+      },
+      "examples": [],
+      "rows": []
+     }
+    ]
+   },
+   "expected": {
+    "vocabulary": [
+     "dan",
+     "dober",
+     "feminine",
+     "masculine",
+     "moški",
+     "piše",
+     "smo",
+     "so",
+     "sta",
+     "ste",
+     "vprašanja",
+     "ženski"
+    ],
+    "steps": [
+     {
+      "explanation": {
+       "plain": "A gap: the sentence is Slovene.",
+       "lang": "en",
+       "key": "en|a gap the sentence is slovene",
+       "runs": [
+        {
+         "text": "A gap: the sentence is Slovene.",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "Micka in France … na njivi.",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "Micka in France sta na njivi."
+     },
+     {
+      "explanation": {
+       "plain": "A cloze is Slovene, its brackets left out.",
+       "lang": "en",
+       "key": "en|a cloze is slovene its brackets left out",
+       "runs": [
+        {
+         "text": "A cloze is Slovene, its brackets left out.",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "Vpiši",
+        "slovene": true,
+        "mark": "question"
+       },
+       {
+        "text": "Type it",
+        "slovene": false,
+        "mark": "question"
+       },
+       {
+        "text": "Zala … pismo.",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "Zala piše pismo."
+     },
+     {
+      "explanation": {
+       "plain": "A named word.",
+       "lang": "en",
+       "key": "en|a named word",
+       "runs": [
+        {
+         "text": "A named word.",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "Kakšnega spola?",
+        "slovene": true,
+        "mark": "question"
+       },
+       {
+        "text": "Which gender?",
+        "slovene": false,
+        "mark": "question"
+       },
+       {
+        "text": "»smreka«",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": null
+     },
+     {
+      "explanation": {
+       "plain": "A prompt in English.",
+       "lang": "en",
+       "key": "en|a prompt in english",
+       "runs": [
+        {
+         "text": "A prompt in English.",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "Kateri stavek je prav?",
+        "slovene": true,
+        "mark": "question"
+       },
+       {
+        "text": "Which sentence is right?",
+        "slovene": false,
+        "mark": "question"
+       },
+       {
+        "text": "Granny wakes up early.",
+        "slovene": false,
+        "mark": "question"
+       }
+      ],
+      "answer": null
+     },
+     {
+      "explanation": {
+       "plain": "Not a label: two dots, or Markdown.",
+       "lang": "en",
+       "key": "en|not a label two dots or markdown",
+       "runs": [
+        {
+         "text": "Not a label: two dots, or Markdown.",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "Izberi · Pick · Choose",
+        "slovene": false,
+        "mark": "question"
+       },
+       {
+        "text": "What is",
+        "slovene": false,
+        "mark": "question"
+       },
+       {
+        "text": "kruh",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": null
+     },
+     {
+      "explanation": {
+       "plain": "A label with Markdown.",
+       "lang": "en",
+       "key": "en|a label with markdown",
+       "runs": [
+        {
+         "text": "A label with Markdown.",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "Dopolni · Fill in",
+        "slovene": false,
+        "mark": "question"
+       },
+       {
+        "text": "… dan!",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "Dober dan!"
+     },
+     {
+      "explanation": {
+       "plain": "A question in English with a gap marks its Slovene.",
+       "lang": "en",
+       "key": "en|a question in english with a gap marks its slovene",
+       "runs": [
+        {
+         "text": "A question in English with a gap marks its Slovene.",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "Which form goes with mi? …",
+        "slovene": false,
+        "mark": "question"
+       }
+      ],
+      "answer": "Which form goes with **mi**? smo"
+     }
+    ],
+    "summary": null
+   }
+  },
+  {
+   "name": "a clip on the node makes a text Slovene: a name, a phrase pair in the narrator's voice; an Italian learner of Slovene",
+   "language": "sl",
+   "base": "it",
+   "title": "Ljudje",
+   "clips": [
+    [
+     "Micka",
+     "grandma"
+    ],
+    [
+     "Kako ste?",
+     "female"
+    ],
+    [
+     "Kako si?",
+     "female"
+    ],
+    [
+     "Tine",
+     "male"
+    ]
+   ],
+   "intro": {
+    "steps": [
+     {
+      "say": {
+       "en": "**Micka** and **Tine** live here. Ask **Kako ste? / Kako si?** and **Mario** answers.",
+       "it": "**Micka** e **Tine** abitano qui. Chiedi **Kako ste? / Kako si?** e **Mario** risponde: **grazie**, *molto bene*."
+      },
+      "examples": [
+       {
+        "sl": "Micka je doma.",
+        "en": "Micka is at home.",
+        "it": "Micka è a casa."
+       }
+      ],
+      "ask": {
+       "type": "choice",
+       "prompt": "**Micka** ___ doma.",
+       "options": [
+        "je",
+        "so"
+       ],
+       "answer": 0
+      },
+      "rows": []
+     }
+    ]
+   },
+   "expected": {
+    "vocabulary": [
+     "doma",
+     "je",
+     "ljudje",
+     "micka",
+     "so"
+    ],
+    "steps": [
+     {
+      "explanation": {
+       "plain": "Micka e Tine abitano qui. Chiedi Kako ste? / Kako si? e Mario risponde: grazie, molto bene.",
+       "lang": "it",
+       "key": "it|micka e tine abitano qui chiedi kako ste kako si e mario risponde grazie molto bene",
+       "runs": [
+        {
+         "text": "Micka",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        },
+        {
+         "text": "e",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          1,
+          1
+         ]
+        },
+        {
+         "text": "Tine",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          2,
+          2
+         ]
+        },
+        {
+         "text": "abitano qui. Chiedi",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          3,
+          3
+         ]
+        },
+        {
+         "text": "Kako ste? / Kako si?",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          4,
+          4
+         ]
+        },
+        {
+         "text": "e Mario risponde: grazie, molto bene.",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          5,
+          11
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "Micka je doma.",
+        "slovene": true,
+        "mark": "example:0"
+       },
+       {
+        "text": "**Micka** … doma.",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "**Micka** je doma."
+     }
+    ],
+    "summary": null
+   }
+  },
+  {
+   "name": "an Italian course for a learner of German: the language learned is the course's",
+   "language": "it",
+   "base": "de",
+   "title": "Essere",
+   "clips": [],
+   "intro": {
+    "steps": [
+     {
+      "say": {
+       "en": "**essere** (to be): **io sono**, **tu sei**. **Ich bin** is German.",
+       "de": "**essere** (sein): **io sono**, **tu sei**, **lui è**. **Ich bin** ist Deutsch, **perché** Italienisch."
+      },
+      "examples": [
+       {
+        "it": "Io sono Jan.",
+        "en": "I am Jan.",
+        "de": "Ich bin Jan."
+       }
+      ],
+      "ask": {
+       "type": "cloze",
+       "text": "Tu ___ qui.",
+       "accept": [
+        "sei"
+       ]
+      },
+      "rows": []
+     }
+    ]
+   },
+   "expected": {
+    "vocabulary": [
+     "essere",
+     "io",
+     "jan",
+     "qui",
+     "sei",
+     "sono",
+     "tu"
+    ],
+    "steps": [
+     {
+      "explanation": {
+       "plain": "essere (sein): io sono, tu sei, lui è. Ich bin ist Deutsch, perché Italienisch.",
+       "lang": "de",
+       "key": "de|essere sein io sono tu sei lui è ich bin ist deutsch perché italienisch",
+       "runs": [
+        {
+         "text": "essere",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        },
+        {
+         "text": "(sein):",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          1,
+          1
+         ]
+        },
+        {
+         "text": "io sono",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          2,
+          2
+         ]
+        },
+        {
+         "text": "tu sei",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          4,
+          4
+         ]
+        },
+        {
+         "text": "lui è",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          6,
+          6
+         ]
+        },
+        {
+         "text": ". Ich bin ist Deutsch,",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          7,
+          9
+         ]
+        },
+        {
+         "text": "perché",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          10,
+          10
+         ]
+        },
+        {
+         "text": "Italienisch.",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          11,
+          11
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "Io sono Jan.",
+        "slovene": true,
+        "mark": "example:0"
+       },
+       {
+        "text": "Tu … qui.",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "Tu sei qui."
+     }
+    ],
+    "summary": null
+   }
+  }
+ ]
+}

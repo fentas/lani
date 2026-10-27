@@ -233,7 +233,7 @@ export default async function voice() {
     cpSync(join(culturesDir, 'primorska/culture.json'), join(vbCultures, 'primorska/culture.json'))
     // the narrators speak Slovene with the local voice first here (LANI_VOICE_NARRATOR_SL=gepard, as from 10 October 2026);
     // with their Slovene ElevenLabs voices first (the default) further below
-    const vbEnv = { ...process.env, LANI_CULTURES_DIR: vbCultures, LANI_DATA_DIR: vbData, LANI_PACKS_DIR: vbPacks, LANI_MODULES_DIR: vbModules, LANI_SCENARIOS_DIR: vbScenarios, LANI_SCENES_DIR: mkdtempSync(join(tmpdir(), 'lani-vb-scenes-')), LANI_DRILLS_DIR: mkdtempSync(join(tmpdir(), 'lani-vb-drills-')), LANI_GRAMMAR_DIR: mkdtempSync(join(tmpdir(), 'lani-vb-grammar-')), LANI_VILLAGERS_DIR: vbVillagers, LANI_KEYS_FILE: '/nonexistent', ELEVENLABS_API_KEY: 'test-key', ELEVENLABS_BASE_URL: fe.url, LANI_GEPARD_URL: fg.url, LANI_VOICE_NARRATOR_SL: 'gepard' } as Record<string, string>
+    const vbEnv = { ...process.env, LANI_CULTURES_DIR: vbCultures, LANI_DATA_DIR: vbData, LANI_PACKS_DIR: vbPacks, LANI_MODULES_DIR: vbModules, LANI_SCENARIOS_DIR: vbScenarios, LANI_SCENES_DIR: mkdtempSync(join(tmpdir(), 'lani-vb-scenes-')), LANI_DRILLS_DIR: mkdtempSync(join(tmpdir(), 'lani-vb-drills-')), LANI_GRAMMAR_DIR: mkdtempSync(join(tmpdir(), 'lani-vb-grammar-')), LANI_COURSE_DIR: mkdtempSync(join(tmpdir(), 'lani-vb-course-')), LANI_VILLAGERS_DIR: vbVillagers, LANI_KEYS_FILE: '/nonexistent', ELEVENLABS_API_KEY: 'test-key', ELEVENLABS_BASE_URL: fe.url, LANI_GEPARD_URL: fg.url, LANI_VOICE_NARRATOR_SL: 'gepard' } as Record<string, string>
     // Async: the fake engines run in this process and must keep answering.
     const voiceBuildIn = async (env: Record<string, string>, ...args: string[]) => {
       const p = Bun.spawn(['bun', resolve(import.meta.dir, '../../../bin/voice-build'), ...args], { env, stdout: 'pipe', stderr: 'pipe' })
@@ -245,7 +245,7 @@ export default async function voice() {
     const gpBefore = fg.st.calls.length
     const dry = await voiceBuild('--json')
     const plan = JSON.parse(dry.stdout || '{}')
-    check('voice-build dry run counts the corpus, the villager first, in his speaker', dry.exitCode === 0 && plan.texts === 38 && plan.missing === 38 && plan.cached === 0 && JSON.stringify(plan.rows?.map((r: any) => r.texts)) === '[14,9,2,11,2,0,0,0,0,0,0,0]' && plan.rows[0].label === 'villagers' && plan.by_voice?.grandpa?.texts === 14, plan)
+    check('voice-build dry run counts the corpus, the villager first, in his speaker', dry.exitCode === 0 && plan.texts === 38 && plan.missing === 38 && plan.cached === 0 && JSON.stringify(plan.rows?.map((r: any) => r.texts)) === '[14,9,2,11,2,0,0,0,0,0,0,0,0,0]' && plan.rows[0].label === 'villagers' && plan.by_voice?.grandpa?.texts === 14, plan)
     check('voice-build dry run reads the quota and the worker', plan.quota?.remaining === 5_030 && plan.quota.reserve === 5_000 && plan.gepard_up === true, plan.quota)
     check('voice-build plans ElevenLabs within the budget, the worker for the rest', plan.would?.elevenlabs.chars > 0 && plan.would.elevenlabs.chars <= 30 && plan.would.elevenlabs.texts + plan.would.gepard.texts === 38 && plan.would.later.texts === 0, plan.would)
     check('voice-build dry run synthesizes nothing and writes no DB', fe.st.tts.length === ttsBefore && fg.st.calls.length === gpBefore && !existsSync(join(vbData, 'app/voice/voice.db')))

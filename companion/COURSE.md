@@ -178,6 +178,21 @@ of her voices' clip on the phone, else the phone's offline voice (Piper), else t
 step reads it again (⏹ while it reads), 🐢 slower; a tap on the text stops it, so does leaving the step, any other 🔊 or
 the 🎤 (one voice at a time).
 
+**Voiced ahead.** So that Mojca is heard in her own voice and never stands in another's (the narrator's clip of the same
+words, the local Gepard voice, the phone's), `companion/bin/voice-build` makes her clips of the course ahead, as any
+content's (README "Voice", "Prebuild"): its `course` source reads every unit as the app does, a port of
+`data/IntroSpeech.kt` in `companion/bridge/src/course-speech.ts`: each step's examples, its quick question and the
+sentence of its answer, the Slovene runs of its explanation and of the summary (read when the explanation's one clip
+can't be had), for the learner's base language (the profile's; `--base` names others). The app's check for the language
+learned is ported too (`Spoken.looks`, a clip of the text on the node in any voice, a family recording), and so is who
+teaches (the school's person, `Residents.brings(SCHOOL)`: Mojca in Primorska, in her speaker `teacher`, or `@mojca` once
+she has her own voice). `bridge/test/fixtures/intro-speech.json` holds inputs and what is read from them; the app's
+`IntroSpeechParityTest` and the bridge's smoke (`course-speech`) both check it, so the two can't drift: a change to how a
+step is read goes into both and the fixture. The explanations themselves (in the learner's own language, ~29,000
+characters for the 18 units in English with their summaries) stay on demand, as the app asks for them when an intro
+opens (above); `voice-build --explanations` makes them ahead too, ElevenLabs only. `voice-build --only teacher` plans and
+makes her texts alone: the course, her villager lines, her arrival and scene lines.
+
 **The stage.** Jan: Mojca "seems not animated, looks like just a picture"; she "points at what she explains, not a walk
 across the screen", and he chose a small hand at the target over a long pointer (a kazalka). Each step is her stage:
 Mojca at the top as big as the dialogs' stage portraits, beside her the step and its 🔊 🐢 and her speech bubble with the

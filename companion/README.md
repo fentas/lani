@@ -2530,7 +2530,11 @@ phone's own text-to-speech in that language (rendered to files as the car's prom
 teacher's voice as any line (asked for while the clip is waited for), the run read marked in her bubble. An explanation
 the node couldn't make just now (a 204) is asked again after a minute, not ten as a line. The app asks only a bridge
 whose `GET /state` lists `explanations` in its `features` (an older one would voice the English as a Slovene line): the
-bridge must be restarted after updating for it.
+bridge must be restarted after updating for it. The Slovene a step reads (its examples, its quick question and answer,
+the forms of its explanation) is made ahead in her voice as the rest of the content (`voice-build`'s `course` row, below:
+a port of the app's reading, `bridge/src/course-speech.ts`, kept identical by a shared fixture; COURSE.md, "Read aloud").
+The explanations stay on demand; `voice-build --explanations` makes them ahead too, and without it the plan counts them
+and what they would cost.
 
 **Costs.** The quota guard reads the subscription at most every 10 minutes. Prebuilds and background jobs stop
 when fewer than 5,000 characters would be left (`LANI_VOICE_RESERVE`); that reserve is for live lines (the tutor's
@@ -2553,13 +2557,19 @@ early rather than late. New content and a month that runs short go
 in the order below, and the next month goes on where one stopped.
 
 **Prebuild**, in priority order: villager lines in their speakers' voices, review cards and pack
-words, examples, modules, scenarios, the storyteller's stories told at A1 (`stories A1`), the car's drills at A1
-(`drills A1`), scene dialogs and the keepers' talks (the culture's spots: the charcoal burner's meeting and his story,
+words, examples, modules, scenarios, the school's course in the teacher's voice (`course`: what the app reads of each
+unit's introduction, its examples, quick questions and answers, the Slovene of its explanations; COURSE.md "Read aloud"),
+the storyteller's stories told at A1 (`stories A1`), the car's drills at A1
+(`drills A1`), scene dialogs, the cast's arrivals (each level's lines in their speakers' voices) and the keepers' talks (the culture's spots: the charcoal burner's meeting and his story,
 every telling at every level, and with his pile's cycle every stage's talks, the night watch's race, what he tells of the
 days the learner missed and his own story's parts, in his speaker's voice), what a child says playing I spy in the scenes (`ispy`: the lines,
 the clues and each thing's find and reveal of companion/ispy, in the voice of each child who may play in the scene;
 companion/SCENES.md, "I spy"), then the stories at A2 (`stories A2`), the drills above A1
-(`drills A2+`) and the stories at B1 and up (`stories B1+`). A story's teller speaks their lines and replies in their own designed voice once the voice
+(`drills A2+`) and the stories at B1 and up (`stories B1+`); last, only with `--explanations`, the course's explanations
+in the learner's own language (`explanations`: one clip a step and a summary, ElevenLabs only; the plan counts them apart
+otherwise). `--only <speaker[,speaker]>` plans and makes the texts of those voices alone (someone's own voice counts as
+their speaker's): `--only teacher` is Učiteljica Mojca's lines everywhere, the course, her villager lines, her arrival and
+her scene lines, within the budget like any run. A story's teller speaks their lines and replies in their own designed voice once the voice
 profiles have it ready (`@janez`), else in their speaker; the right choices are in the default voice. A riddle is in
 its teller's voice the same way; a drill's other texts (a transformation's sentence and answer, a rapid answer and the
 numbers generated, a build's steps) are in the female narrator's. A voice of one's own is ElevenLabs only: the local
@@ -2577,6 +2587,9 @@ companion/bin/voice-build --elevenlabs teacher       # dry run: a speaker's loca
 companion/bin/voice-build --drama3 all               # dry run: the speakers' Gepard clips Drama 3 would make again, the time it takes, the worker
 LANI_HEAVY_LOCK=<the host's heavy lock> companion/bin/voice-build --drama3 grandma,girl --run --max 50   # start the worker, make them, stop it
 companion/bin/voice-build --run --max-chars 2000
+companion/bin/voice-build --only teacher            # dry run: Mojca's texts alone (her course, villager, arrival and scene lines), the explanations counted apart
+companion/bin/voice-build --only teacher --run      # make those missing in her voice, ElevenLabs within the budget (never the reserve)
+companion/bin/voice-build --only teacher --explanations --base en,de   # with the course's explanations in English and German too
 companion/bin/voice-build --revoice-words --max 100        # dry run: old-style narrator words, the cost
 companion/bin/voice-build --revoice-words --max 100 --run  # 100 of them again, most asked for first
 companion/bin/voice-build --denoise        # dry run: the clips of a voice that hisses, not filtered yet

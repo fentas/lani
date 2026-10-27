@@ -20,6 +20,8 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { renderDeep, type Addressee } from './addressee'
 import { archetypeOf, carrierVoice, cast, castInfo, playerVoices, denoiseOf, denoiseVoices, elevenlabsOf, fallbacks, genderOf, GENDERS, isNarrator, isVoice, LANGUAGE_VOICE, languageVoice, languageVoiceName, personVoice, speakerFor, tempoOf, tempoVoices, voiceSince, type DenoisePreset, type Gender } from './cast'
+import { courseTexts, teacherVoice, type CourseInput } from './course-speech'
+import type { ArrivalBody } from './arrivals'
 import { drillTexts, type Drill } from './drills'
 import { normalizeText, phrases } from './family'
 import { ispyTexts, type ISpyBook, type ISpyLines } from './ispy'
@@ -93,8 +95,11 @@ export type Clip = {
 /** The model of an ElevenLabs clip ([Clip.model]; one from before it was recorded: eleven_v3); undefined for another engine's. */
 export const modelOf = (c: Pick<Clip, 'engine' | 'model'>): string | undefined => (c.engine === 'elevenlabs' ? (c.model ?? OLD_MODEL) : undefined)
 
-/** A text to voice ahead of time; lower [priority] goes first. */
-export type CorpusItem = { text: string; voice: VoiceName; source: string; priority: number }
+/**
+ * A text to voice ahead of time; lower [priority] goes first. [lang]: an explanation in the learner's own language (a
+ * school intro's step: the base's code), kept under its own key ([explanationNorm]) and made by ElevenLabs only, plainly.
+ */
+export type CorpusItem = { text: string; voice: VoiceName; source: string; priority: number; lang?: string }
 
 export const FILE = /^[a-f0-9]{40}\.mp3$/
 /** An ElevenLabs voice id, as the cast writes them. */
@@ -1562,7 +1567,15 @@ export function cardTexts(items: Record<string, { type?: string; content?: strin
 }
 
 /** The corpus priorities, in prebuild order (CorpusItem.priority is the index). */
-export const PRIORITY_LABELS = ['villagers', 'pack words', 'examples', 'modules', 'scenarios', 'stories A1', 'drills A1', 'scenes', 'ispy', 'stories A2', 'drills A2+', 'stories B1+']
+export const PRIORITY_LABELS = ['villagers', 'pack words', 'examples', 'modules', 'scenarios', 'course', 'stories A1', 'drills A1', 'scenes', 'ispy', 'stories A2', 'drills A2+', 'stories B1+', 'explanations']
+
+/** The school's course in the teacher's voice (course-speech.ts): what the app reads aloud in the language learned. */
+const COURSE = PRIORITY_LABELS.indexOf('course')
+/**
+ * The course's explanations in the learner's own language (one clip a step, a base each): last, and voice-build makes
+ * them only when asked to (--explanations); the app asks for them as an intro opens.
+ */
+export const EXPLANATIONS = PRIORITY_LABELS.indexOf('explanations')
 
 /** The scenes' dialogs. */
 const SCENES = PRIORITY_LABELS.indexOf('scenes')
@@ -1587,12 +1600,14 @@ const drillPriority = (level: (typeof LEVELS)[number]) => PRIORITY_LABELS.indexO
  * in prebuild order: the villagers' lines in their speaker's voice (remember lines carry a memory
  * and are voiced live), the review cards and pack words (and scene objects), examples (the packs', the scenes',
  * the grammar book's), modules,
- * scenarios, the storyteller's stories told at A1 ([storyTexts]), the car's drills at A1 ([drillTexts]: in the
+ * scenarios, the school's course in the teacher's voice ([courseTexts]: its examples, quick questions and answers, the
+ * Slovene of its explanations), the storyteller's stories told at A1 ([storyTexts]), the car's drills at A1 ([drillTexts]: in the
  * narrator's voice, a riddle in its teller's), then the scenes' dialogs (each person's lines in their villager's speaker,
- * else their sprite's voice; the learner's choices in the default voice) and the keepers' talks (the charcoal burner's
+ * else their sprite's voice; the learner's choices in the default voice), the cast's arrivals and the keepers' talks (the charcoal burner's
  * at his pile: his meeting and his story, every telling at every level, as a scene's dialog in his speaker's voice) and
  * the village projects' steps (every telling, each line in its speaker's voice), then
- * the stories told at A2, the drills above A1, the stories at B1 and up.
+ * the stories told at A2, the drills above A1, the stories at B1 and up; last the course's explanations in the learners'
+ * own languages ([EXPLANATIONS], with their [CorpusItem.lang]).
  */
 export function corpus(input: {
   packs: (Pick<Pack, 'id' | 'words'> & { language?: Pack['language'] })[]
@@ -1609,7 +1624,19 @@ export function corpus(input: {
    * said by the project's leader and helpers (each in their villager's speaker voice), as a scene's dialog.
    */
   steps?: { project: string; tellings: { lines: ResolvedScene['dialogs'][number]['lines'] }[] }[]
-  villagers?: (Pick<Villager, 'id' | 'voice' | 'speaker' | 'lines'> & { art?: string })[]
+  villagers?: (Pick<Villager, 'id' | 'voice' | 'speaker' | 'lines'> & Partial<Pick<Villager, 'home' | 'since' | 'extra' | 'order'>> & { art?: string })[]
+  /**
+   * The school's course as the app reads it aloud (course-speech.ts): its units, the grammar pages for their summaries,
+   * the learners' bases and the app's check for the language learned; read in the teacher's voice (the school's person
+   * of [villagers]: her own voice when it is ready, else her speaker).
+   */
+  course?: CourseInput
+  /**
+   * How the cast are introduced as they arrive (arrivals.ts: the culture pack's, the tutor's for one of them): every
+   * level's late line and lines as a scene's dialog, each line in its speaker's voice (a reply in the voice of whoever
+   * spoke last, the learner's choices in the default one).
+   */
+  arrivals?: { id: string; levels: ArrivalBody['levels'] }[]
   cards?: string[]
   /**
    * «Vidim, vidim» (ispy.ts, companion/ispy): the child's lines by language and the scenes' clues; a scene's are voiced in
@@ -1651,6 +1678,13 @@ export function corpus(input: {
       seen.add(key)
       out.push({ text: p, voice, source, priority })
     }
+  }
+  // an explanation in [lang]: one clip, under its own key, never cut into phrases (the app asks for it whole)
+  const explain = (text: string, lang: string, source: string, voice: VoiceName) => {
+    const key = clipKey(explanationNorm(lang, text), voice)
+    if (!normalizeText(text) || seen.has(key)) return
+    seen.add(key)
+    out.push({ text, voice, source, priority: EXPLANATIONS, lang })
   }
   // The villagers first: their own voices are what a new speaker changes most.
   for (const v of c.villagers ?? []) {
@@ -1705,6 +1739,12 @@ export function corpus(input: {
     add(s.opener_sl, `scenario:${s.id}`, 4, speakerFor({ voice: s.voice ?? 'female', speaker: s.speaker }))
     for (const h of s.vocabulary_hints ?? []) add(h.sl, `scenario:${s.id}`, 4)
   }
+  // the school's course in the teacher's voice, as the app reads it (course-speech.ts): every step's examples, its quick
+  // question and the sentence of its answer, the Slovene of its explanation and of the summary (read without their one
+  // clip); the explanations themselves come last ([EXPLANATIONS])
+  const teacher = teacherVoice(c.villagers ?? [], v => speakerFor(v as { voice: Gender; speaker?: string }), id => !!c.ownVoice?.(id))
+  const course = c.course ? courseTexts(c.course, language) : undefined
+  for (const t of course?.lines ?? []) add(t.text, t.source, COURSE, teacher)
   // the stories: the A1 tellings before the scenes' dialogs (a text of both is the A1 telling's), the others after them
   const tellerVoice = (id: string) => (c.ownVoice?.(id) ? `@${id}` : villagerVoice.get(id))
   const stories = storyTexts(c.stories ?? [], language, tellerVoice)
@@ -1776,6 +1816,30 @@ export function corpus(input: {
       }
     }
   }
+  // the cast's arrivals, as a scene's dialog: each line (the late one too, said instead of the first) in its speaker's
+  // voice, a reply in the voice of whoever spoke last, the learner's choices in the default one; a line of someone not in
+  // the cast (a resident in a tutor's arrival) is voiced when played
+  for (const a of c.arrivals ?? []) {
+    const src = `arrival:${a.id}`
+    const say = (t: Partial<Record<string, unknown>> | undefined) => {
+      const x = t?.[language]
+      return typeof x === 'string' && x && !x.includes('{') ? x : undefined
+    }
+    for (const v of Object.values(a.levels)) {
+      if (!v) continue
+      let speaker: VoiceName | undefined = villagerVoice.get(a.id)
+      for (const l of [...(v.late ? [v.late] : []), ...v.lines]) {
+        if (l.who) {
+          speaker = villagerVoice.get(l.who)
+          if (speaker) add(say(l), src, SCENES, speaker)
+        }
+        for (const ch of l.choices ?? []) {
+          add(say(ch), src, SCENES)
+          if (speaker) add(say(ch.reply), src, SCENES, speaker)
+        }
+      }
+    }
+  }
   // the projects' steps, as a scene's dialog: each line in its speaker's voice (the leader's, a helper's), a reply in the
   // voice of whoever spoke last, the learner's choices in the default one
   for (const p of c.steps ?? []) {
@@ -1802,6 +1866,7 @@ export function corpus(input: {
   for (const t of stories) if (t.priority > SCENES && t.priority < later) add(t.text, t.source, t.priority, t.voice)
   for (const t of drills) if (t.priority > SCENES) add(t.text, t.source, t.priority, t.voice)
   for (const t of stories) if (t.priority > later) add(t.text, t.source, t.priority, t.voice)
+  for (const t of course?.explanations ?? []) explain(t.text, t.lang!, t.source, teacher)
   return out.sort((a, b) => a.priority - b.priority)
 }
 
@@ -3708,9 +3773,9 @@ export class VoiceStore {
     this.watching.unref?.()
   }
 
-  /** The texts of [items] without a clip the app would get ([best]: a Slovene narrator's in either voice). */
+  /** The texts of [items] without a clip the app would get ([best]: a Slovene narrator's in either voice; an explanation under its own key). */
   missing(items: CorpusItem[]): CorpusItem[] {
-    return items.filter(i => !this.best(normalizeText(i.text), i.voice))
+    return items.filter(i => !this.best(this.normOf(i.text, i.lang), i.voice))
   }
 
   /** How much of [items] is voiced, and by which engine. */
@@ -3722,7 +3787,7 @@ export class VoiceStore {
       const b = (by[kind] ??= { texts: 0, chars: 0, cached: 0, missing: 0, missing_chars: 0 })
       b.texts++
       b.chars += i.text.length
-      const c = this.best(normalizeText(i.text), i.voice)
+      const c = this.best(this.normOf(i.text, i.lang), i.voice)
       if (c) {
         b.cached++
         engines[c.engine] = (engines[c.engine] ?? 0) + 1
@@ -3737,9 +3802,9 @@ export class VoiceStore {
 
   /** Voices [items] in the background, one at a time (new content after a publish). */
   enqueue(items: CorpusItem[]) {
-    const queued = new Set(this.queue.map(i => clipKey(normalizeText(i.text), i.voice)))
+    const queued = new Set(this.queue.map(i => clipKey(this.normOf(i.text, i.lang), i.voice)))
     for (const i of this.missing(items)) {
-      const k = clipKey(normalizeText(i.text), i.voice)
+      const k = clipKey(this.normOf(i.text, i.lang), i.voice)
       if (!queued.has(k)) {
         queued.add(k)
         this.queue.push(i)
@@ -3758,8 +3823,8 @@ export class VoiceStore {
     try {
       while (this.queue.length) {
         const i = this.queue.shift()!
-        const before = this.get(normalizeText(i.text), i.voice)
-        const c = await this.voice(i.text, i.voice, i.source)
+        const before = this.get(this.normOf(i.text, i.lang), i.voice)
+        const c = await this.voice(i.text, i.voice, i.source, { lang: i.lang })
         if (!c) {
           this.o.log?.(`voice: no engine available; ${this.queue.length + 1} text(s) left unvoiced`)
           this.queue = []
@@ -3864,7 +3929,8 @@ The learner has a voice too: their own lines in a dialog (a choice tapped, a tur
 said in it before the reply comes, the "player" of companion/voice-cast.json by the profile's learner.gender (in the
 Slovene village Luka for a man, Nina for a woman, Nina while the profile says none; voice_status: player). A line the
 learner said into the microphone isn't said again; their line's 🔊 plays it in their voice.
-The school's guided introductions are read out too: each step's explanation in the learner's own language, the Slovene forms
-in it, one clip in the teacher's voice made by ElevenLabs as the app first asks for it (never from the reserve; the app
-reads the step with the phone's voice and the Slovene clips meanwhile); voice_status counts them apart (explanations).
+The school's guided introductions are read out too, in the teacher's voice: each step's explanation in the learner's own
+language, the Slovene forms in it, one clip made by ElevenLabs as the app first asks for it (never from the reserve; the app
+reads the step with the phone's voice and the Slovene clips meanwhile); voice_status counts them apart (explanations). The
+Slovene the steps read (examples, quick questions and their answers, the forms) is voiced ahead like the other content.
 `.trim()

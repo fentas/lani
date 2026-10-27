@@ -1,9 +1,10 @@
 // Voice prebuild (companion/bin/voice-build): what is voiced, what is missing, and generating the
 // missing clips in priority order within the ElevenLabs quota guard, with the local worker for the rest. A Slovene
 // narrator's line wants its clip in the narrator's Slovene ElevenLabs voice (Nina, Luka) where that comes first, also
-// when its local clip is there (which stays, as the fallback).
+// when its local clip is there (which stays, as the fallback). The school's course is read in the teacher's voice
+// (course-speech.ts); its explanations in the learners' own languages are counted apart and made only when asked for
+// (--explanations: the app asks for them as an intro opens).
 import { isNarrator, languageVoiceName } from './cast'
-import { normalizeText } from './family'
 import { creditsFor, PRIORITY_LABELS, type CorpusItem, type ElevenLabs, type EngineName, type Gepard, type VoiceStore } from './voice'
 
 export { PRIORITY_LABELS }
@@ -49,6 +50,14 @@ export type BuildPlan = {
    * (the lazy re-voice makes those again, the day's cap), and what making them all again would cost.
    */
   stale?: ReturnType<VoiceStore['staleStats']>
+  /**
+   * The course's explanations in the learners' own languages (one clip a step and a summary, a base each: [bases]):
+   * counted apart, in the plan and the run only with --explanations ([included]); the app asks for them as an intro opens.
+   * [credits]: what the missing ones cost with the model now.
+   */
+  explanations: { included: boolean; bases: string[]; texts: number; chars: number; cached: number; missing: number; missing_chars: number; credits: number }
+  /** --only: the voices planned (the texts of the others left out); someone's own voice counts as their speaker's. */
+  only?: string[]
 }
 
 export type BuildOptions = {
@@ -60,6 +69,10 @@ export type BuildOptions = {
   /** --revoice-words: the old-style short narrator words again in their carrier sentence, at most [max]. */
   revoiceWords?: boolean
   max?: number
+  /** The course's explanations not in [items] (without --explanations): counted apart in the plan. */
+  leftOut?: CorpusItem[]
+  /** --only: the voices [items] were filtered to, for the plan to say. */
+  only?: string[]
 }
 
 /** The ElevenLabs budget for a prebuild: what is left above the reserve, capped by --max-chars. */
@@ -75,7 +88,7 @@ export function budget(q: BuildPlan['quota'], maxChars?: number): number {
  */
 export function todo(items: CorpusItem[], store: VoiceStore, upgrade = false, revoice: string[] = []): CorpusItem[] {
   return items.filter(i => {
-    const norm = normalizeText(i.text)
+    const norm = store.normOf(i.text, i.lang)
     if (store.sloveneNarrator(i.voice)) return !store.best(norm, i.voice) || store.wantsElevenLabs(norm, i.voice) || revoice.includes(i.voice)
     const c = store.get(norm, i.voice)
     return !c || (upgrade && c.engine !== 'elevenlabs') || revoice.includes(i.voice)
@@ -90,8 +103,19 @@ export async function plan(items: CorpusItem[], store: VoiceStore, eleven: Eleve
     const r = rows[i.priority]
     r.texts++
     r.chars += i.text.length
-    const norm = normalizeText(i.text)
+    const norm = store.normOf(i.text, i.lang)
     const c = store.best(norm, i.voice)
+    if (i.lang) {
+      // an explanation: counted in its row and apart ([BuildPlan.explanations]), not in its voice's lines
+      if (c) {
+        r.cached++
+        by_engine[c.engine] = (by_engine[c.engine] ?? 0) + 1
+      } else {
+        r.missing++
+        r.missing_chars += i.text.length
+      }
+      continue
+    }
     const v = (by_voice[i.voice] ??= { texts: 0, chars: 0, elevenlabs: 0 })
     v.texts++
     v.chars += i.text.length
@@ -138,10 +162,10 @@ export async function plan(items: CorpusItem[], store: VoiceStore, eleven: Eleve
     // clip there stays), else the worker for a line without a clip; or ('gepard') the worker first, else its Slovene
     // ElevenLabs voice
     if (store.sloveneNarrator(i.voice)) {
-      const norm = normalizeText(i.text)
+      const norm = store.normOf(i.text, i.lang)
       const had = store.best(norm, i.voice)
       const sl = store.slVoiceOf(i.voice)
-      const cost = sl && uses('elevenlabs') ? eleven.cost(i.text, sl) : Infinity
+      const cost = sl && uses('elevenlabs') ? eleven.cost(i.text, sl, i.lang) : Infinity
       const first = store.elevenlabsFirst(i.voice)
       const to = first ? (cost <= left ? 'elevenlabs' : !had && gepard_up ? 'gepard' : 'later') : gepard_up ? 'gepard' : cost <= left ? 'elevenlabs' : 'later'
       if (to === 'elevenlabs') {
@@ -158,10 +182,11 @@ export async function plan(items: CorpusItem[], store: VoiceStore, eleven: Eleve
       would[to].chars += to === 'elevenlabs' ? cost : n
       continue
     }
-    const cost = eleven.cost(i.text, i.voice) // a short narrator word: its carrier sentence
-    const norm = normalizeText(i.text)
+    const cost = eleven.cost(i.text, i.voice, i.lang) // a short narrator word: its carrier sentence; an explanation: as it is
+    const norm = store.normOf(i.text, i.lang)
     const had = store.get(norm, i.voice) // a replacement: it has a clip already
-    const local = !had && gepard_up && !store.waitsForElevenLabs(norm, i.voice)
+    // the local worker speaks only Slovene: never an explanation
+    const local = !had && !i.lang && gepard_up && !store.waitsForElevenLabs(norm, i.voice)
     const to = cost <= left ? 'elevenlabs' : local ? 'gepard' : 'later'
     const spent = to === 'elevenlabs' ? cost : n
     if (to === 'elevenlabs') {
@@ -180,10 +205,25 @@ export async function plan(items: CorpusItem[], store: VoiceStore, eleven: Eleve
     const sl = store.elevenlabsFirst(v) ? store.slVoiceOf(v) : undefined
     if (sl) narrator_voices[v] = languageVoiceName(sl) ?? sl
   }
+  // the explanations: those in the plan (--explanations), else those left out of it
+  const included = items.some(i => !!i.lang)
+  const xs = included ? items.filter(i => i.lang) : (o.leftOut ?? [])
+  const explanations: BuildPlan['explanations'] = { included, bases: [...new Set(xs.map(i => i.lang!))], texts: 0, chars: 0, cached: 0, missing: 0, missing_chars: 0, credits: 0 }
+  for (const i of xs) {
+    explanations.texts++
+    explanations.chars += i.text.length
+    if (store.best(store.normOf(i.text, i.lang), i.voice)) explanations.cached++
+    else {
+      explanations.missing++
+      explanations.missing_chars += store.cost(i.text, i.voice, i.lang)
+    }
+  }
+  explanations.credits = creditsFor(explanations.missing_chars, eleven.model)
   return {
     texts: sum('texts'), chars: sum('chars'), cached: sum('cached'), by_engine, missing: sum('missing'), missing_chars: sum('missing_chars'), rows, by_voice, narrator_voices, quota, local: worker, gepard_up, would,
     carrier: store.carrierStats(), ...(revoice_words ? { revoice_words } : {}), models: { now: eleven.model, by: store.modelStats() },
     ...(eleven.configured ? { stale: store.staleStats() } : {}),
+    explanations, ...(o.only ? { only: o.only } : {}),
   }
 }
 
@@ -192,12 +232,15 @@ const n = (x: number) => x.toLocaleString('en-US')
 export function formatPlan(p: BuildPlan, dir: string): string {
   const pad = (s: string | number, w: number) => String(s).padStart(w)
   const characters = Object.entries(p.by_voice).filter(([v]) => !isNarrator(v))
+  const x = p.explanations
+  // the explanations' row only when they are planned (--explanations): else counted apart below
+  const rows = p.rows.filter(r => r.label !== 'explanations' || x.included)
   const lines = [
     `Voice store: ${dir}`,
-    `Corpus: ${n(p.texts)} texts, ${n(p.chars)} characters`,
+    `Corpus: ${n(p.texts)} texts, ${n(p.chars)} characters${p.only ? ` (--only ${p.only.join(',')}: only their texts)` : ''}`,
     '',
-    `  ${'source'.padEnd(11)}${pad('texts', 7)}${pad('chars', 8)}${pad('cached', 8)}${pad('missing', 9)}${pad('missing chars', 15)}`,
-    ...p.rows.map(r => `  ${r.label.padEnd(11)}${pad(n(r.texts), 7)}${pad(n(r.chars), 8)}${pad(n(r.cached), 8)}${pad(n(r.missing), 9)}${pad(n(r.missing_chars), 15)}`),
+    `  ${'source'.padEnd(12)}${pad('texts', 7)}${pad('chars', 8)}${pad('cached', 8)}${pad('missing', 9)}${pad('missing chars', 15)}`,
+    ...rows.map(r => `  ${r.label.padEnd(12)}${pad(n(r.texts), 7)}${pad(n(r.chars), 8)}${pad(n(r.cached), 8)}${pad(n(r.missing), 9)}${pad(n(r.missing_chars), 15)}`),
     '',
     `Cached: ${n(p.cached)}${Object.keys(p.by_engine).length ? ` (${Object.entries(p.by_engine).map(([e, c]) => `${e} ${n(c)}`).join(', ')})` : ''}`,
     `Missing: ${n(p.missing)} texts, ${n(p.missing_chars)} characters`,
@@ -216,10 +259,22 @@ export function formatPlan(p: BuildPlan, dir: string): string {
       (p.would.elevenlabs.replace ? `; ${n(p.would.elevenlabs.replace)} of them replace a clip, ${n(p.would.elevenlabs.replace_chars)} chars` : '') +
       (p.would.elevenlabs.narrators.texts ? `; the narrators in Slovene ${n(p.would.elevenlabs.narrators.texts)}, ${n(p.would.elevenlabs.narrators.chars)} chars, ${n(p.would.elevenlabs.over_local)} of them next to a local clip, which stays` : '') +
       `), Gepard ${n(p.would.gepard.texts)} (${n(p.would.gepard.chars)} chars), later ${n(p.would.later.texts)} (${n(p.would.later.chars)} chars)`,
+    ...formatExplanations(p),
     ...formatCarrier(p),
     ...formatModels(p),
   ]
   return lines.join('\n')
+}
+
+/** The course's explanations: planned (--explanations), or counted apart with what making them would cost. */
+function formatExplanations(p: BuildPlan): string[] {
+  const x = p.explanations
+  if (!x.texts) return []
+  const langs = x.bases.length ? ` (${x.bases.join(', ')})` : ''
+  return x.included
+    ? [`Course explanations${langs}: ${n(x.texts)} in this plan, ${n(x.cached)} voiced, ${n(x.missing)} missing (${n(x.missing_chars)} characters, ≈ ${n(x.credits)} credits)`]
+    : [`Course explanations${langs}, not in this plan: ${n(x.texts)} (${n(x.chars)} characters), ${n(x.cached)} voiced, ${n(x.missing)} missing (${n(x.missing_chars)} characters, ≈ ${n(x.credits)} credits); ` +
+      'the app asks for them as an intro opens, --explanations makes them now']
 }
 
 /** The credits [chars] characters cost on the subscription with the model new clips are made with (MODEL_CREDITS; README, "Costs"). */
@@ -277,10 +332,12 @@ export async function run(
   let spent = 0
   const list = todo(items, store, o.upgrade, o.revoice)
   for (const it of list) {
-    const norm = normalizeText(it.text)
+    const norm = store.normOf(it.text, it.lang)
     const narrator = store.sloveneNarrator(it.voice)
     const had = narrator ? store.best(norm, it.voice) : store.get(norm, it.voice)
-    const overCap = o.maxChars !== undefined && spent + store.cost(it.text, it.voice) > o.maxChars
+    const overCap = o.maxChars !== undefined && spent + store.cost(it.text, it.voice, it.lang) > o.maxChars
+    // an explanation is ElevenLabs' only: over the cap it waits
+    if (it.lang && overCap) continue
     const revoiced = !!had && !!o.revoice?.includes(it.voice)
     let engines: EngineName[] | undefined
     if (narrator) {
@@ -298,7 +355,7 @@ export async function run(
       if (store.waitsForElevenLabs(norm, it.voice)) continue
       engines = ['gepard']
     }
-    const c = await store.voice(it.text, it.voice, it.source, { engines, replace: !!had, force: revoiced })
+    const c = await store.voice(it.text, it.voice, it.source, { engines, replace: !!had, force: revoiced, lang: it.lang })
     if (!c || c.file === had?.file && c.created_at === had.created_at) {
       // Nothing took this one; a shorter text may still fit the quota.
       if (!(await anyReady())) break
