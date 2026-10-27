@@ -937,7 +937,9 @@ function chooseWatch(unit: Json, pages: Json[], steps: Json[], base: string, cor
       const prompt = fillLearner(e.prompt ?? '', o)
       const answer = e.options?.[e.answer]
       if (!answer || !/_{3,}/.test(prompt) || wordsOf(prompt).length < 2 || prompt.includes('\u0000')) return null
-      const wrongs = (e.options as string[]).filter((_, i) => i !== e.answer)
+      // an almost-right option (a spoken form, a near form) is never shown as a mistake
+      const wrongs = (e.options as string[]).filter((_, i) => i !== e.answer && !(e.almost ?? []).includes(i))
+      if (!wrongs.length) return null
       const byName = wrongs.find(x => named(e, x))
       const wrong = byName ?? [...wrongs].sort((a, b) => alike(b, answer) - alike(a, answer))[0]
       const sentence = (x: string) => {
