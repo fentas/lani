@@ -108,6 +108,7 @@ import si.lanisce.lani.ui.theme.XpGold
 import si.lanisce.lani.ui.stage.rememberReducedMotion
 import si.lanisce.lani.ui.villagers.VillagerCard
 import si.lanisce.lani.l10n.bi
+import si.lanisce.lani.ui.backLabel
 import java.time.LocalDateTime
 import androidx.compose.ui.draw.alpha
 import kotlin.math.roundToInt
@@ -139,7 +140,8 @@ sealed interface VillageSheet {
  */
 @Composable
 fun VillageScreen(vm: AppViewModel) {
-    BackHandler(onBack = vm::home)
+    // Back: what's open over the map closes first (a card, the HUD's sheet, the plot chooser), then the screen below (Nav)
+    val back = si.lanisce.lani.ui.systemBack()
     if (!vm.game.introSeen) {
         // read aloud as the school's explanations are (their "🔊 Beri razlago" setting), not over a screen reader
         GameIntro(onDone = vm.game::finishIntro, voice = vm.hintVoice, speaker = vm.speaker, auto = vm.introVoice.auto && !vm.introVoice.screenReader)
@@ -147,7 +149,7 @@ fun VillageScreen(vm: AppViewModel) {
     }
     val s = vm.game.state
     if (s == null) {
-        VillageLoading(vm::home)
+        VillageLoading(vm::back)
         return
     }
     val townClock = si.lanisce.lani.game.render.rememberTownClock()
@@ -663,6 +665,8 @@ fun VillageScreen(vm: AppViewModel) {
                 soon = soon,
                 soonSeen = hudPrefs.soonSeen,
                 stepsSeen = hudPrefs.stepsSeen,
+                friendsNews = vm.friendsNews,
+                backLabel = vm.backLabel,
             )
             val section = hudState.section
             // a section seen: its news no longer dotted (today's lines and tonight's story; the goal's steps)
@@ -673,7 +677,7 @@ fun VillageScreen(vm: AppViewModel) {
             VillageHud(
                 hud, cards = hudCards(), section = section,
                 actions = HudActions(
-                    back = vm::home,
+                    back = back,
                     resource = { r -> sheet = VillageSheet.Resource(r) },
                     // the ring: what the next age needs, one tap (while choosing a plot it shows the cards, for that chooser)
                     age = { if (choosing != null) hudState.toggleCards(chooserRun) else sheet = VillageSheet.Ages },
@@ -705,6 +709,8 @@ fun VillageScreen(vm: AppViewModel) {
                     sheet = { sec -> hudState.section = sec },
                     // an age's party: now, its dialog; later tonight, its time (the line says when)
                     party = { a -> if (partyNow != null) { hudState.section = null; vm.startParty(a) } },
+                    // "🤝 Prijatelji · Friends", one tap from the map (its badge: what waits there)
+                    friends = { vm.openFriends() },
                 ),
                 moved = cam.moved, onRecenter = cam::recenter, reduced = rememberReducedMotion(),
                 // its sheet lies over the bottom bar
@@ -716,7 +722,8 @@ fun VillageScreen(vm: AppViewModel) {
             vm.game.justBuilt?.let { id -> si.lanisce.lani.ui.Confetti(key = "built-$id-${s.buildings.firstOrNull { it.id == id }?.level}") }
             ChronicleToast(
                 s.log.lastOrNull(),
-                Modifier.align(Alignment.TopCenter).offset { IntOffset(0, hudInset() + (if (cam.moved) 56.dp else 8.dp).roundToPx()) },
+                // under the row the HUD keeps under its bar (🤝 Friends on the left, the recenter on the right once moved)
+                Modifier.align(Alignment.TopCenter).offset { IntOffset(0, hudInset() + 60.dp.roundToPx()) },
             )
 
             val plotting = choosing

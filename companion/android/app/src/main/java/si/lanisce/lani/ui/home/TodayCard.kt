@@ -45,6 +45,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import si.lanisce.lani.ui.BigButton
+import si.lanisce.lani.ui.game.action
 import si.lanisce.lani.ui.Markdown
 import si.lanisce.lani.ui.theme.AlpineGreen
 import si.lanisce.lani.ui.theme.XpGold
@@ -93,6 +94,11 @@ private fun look(a: HomeAction): ActionLook = when (a) {
         "🏫 ${bi("school.title")} · ${a.level}" + if (a.started) " · ${bi("school.started")}" else " · ★ ${bi("school.next")}",
         "▶  ${bi("common.learn")}",
     )
+    is HomeAction.Defend -> ActionLook(
+        a.kind.emoji, a.title,
+        listOf(a.what, "⏳ ${a.left}").filter { it.isNotBlank() }.joinToString(" · "),
+        a.kind.action(),
+    )
 }
 
 /**
@@ -122,7 +128,7 @@ fun TodayCard(
                 modifier = Modifier.semantics { heading() },
             )
             DayProgress(t)
-            Primary(t.primary, onAction)
+            Primary(t.primary, onAction, alarm = t.primary is HomeAction.Defend)
             if (t.more.isNotEmpty()) Column {
                 Text(
                     bi("todayCard.also"),
@@ -143,7 +149,8 @@ fun TodayCard(
 
 /**
  * "🏡 V vasi · In the village": today's festival, surprise or project step, and what's coming (opens the village); then
- * who waits on the map now, each opened with a tap (their introduction, his talk).
+ * who waits on the map now, each opened with a tap (their introduction, his talk): at most [HomeLogic.MAX_CALLS], the rest
+ * one line, "➕ Še 2 v vasi · 2 more in the village ›" (the village, where their bubbles are).
  */
 @Composable
 private fun VillageDay(lines: List<String>, onClick: () -> Unit, calls: List<VillageCall>, onCall: (VillageCall) -> Unit) {
@@ -159,7 +166,7 @@ private fun VillageDay(lines: List<String>, onClick: () -> Unit, calls: List<Vil
             )
             for (l in lines) Text(l, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onPrimaryContainer, maxLines = 2, overflow = TextOverflow.Ellipsis)
         }
-        for (c in calls) {
+        for (c in calls.take(HomeLogic.MAX_CALLS)) {
             val action = when (c) {
                 is VillageCall.Arrival -> "👋 ${bi("arrivals.meet")}"
                 is VillageCall.Keeper -> "💬 ${bi("common.talk")}"
@@ -178,6 +185,17 @@ private fun VillageDay(lines: List<String>, onClick: () -> Unit, calls: List<Vil
                 }
                 Text("›", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.6f), modifier = Modifier.padding(start = 8.dp).clearAndSetSemantics {})
             }
+        }
+        val more = calls.size - HomeLogic.MAX_CALLS
+        if (more > 0) Row(
+            Modifier.fillMaxWidth().heightIn(min = 48.dp).clip(MaterialTheme.shapes.small).clickable(onClickLabel = bi("common.openVillage"), onClick = onClick)
+                .semantics(mergeDescendants = true) {}.padding(vertical = 4.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text("➕", style = MaterialTheme.typography.titleMedium, modifier = Modifier.clearAndSetSemantics {})
+            Spacer(Modifier.width(10.dp))
+            Text(bi("nav.moreInVillage", "n" to more), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onPrimaryContainer, modifier = Modifier.weight(1f))
+            Text("›", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.6f), modifier = Modifier.padding(start = 8.dp).clearAndSetSemantics {})
         }
     }
 }
@@ -227,8 +245,9 @@ private fun MinutesRing(minutes: Int, progress: Float, hasGoal: Boolean) {
     }
 }
 
+/** The one thing to do, with its big button; [alarm]: the village's threat (its button red, as the village's). */
 @Composable
-private fun Primary(a: HomeAction, onAction: (HomeAction) -> Unit) {
+private fun Primary(a: HomeAction, onAction: (HomeAction) -> Unit, alarm: Boolean = false) {
     val l = look(a)
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.semantics(mergeDescendants = true) {}) {
@@ -239,7 +258,7 @@ private fun Primary(a: HomeAction, onAction: (HomeAction) -> Unit) {
                 Text(l.about, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f), maxLines = 2, overflow = TextOverflow.Ellipsis)
             }
         }
-        BigButton(l.button, onClick = { onAction(a) }, color = AlpineGreen)
+        BigButton(l.button, onClick = { onAction(a) }, color = if (alarm) si.lanisce.lani.ui.theme.TriglavRed else AlpineGreen)
     }
 }
 

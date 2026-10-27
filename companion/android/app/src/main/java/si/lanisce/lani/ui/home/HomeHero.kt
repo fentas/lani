@@ -59,11 +59,12 @@ import si.lanisce.lani.l10n.bi
 import java.time.LocalTime
 
 /**
- * The top of Home: the village edge to edge behind the greeting and the streak, XP and achievements
- * (they open Progress), and at the bottom a chip that opens the village and says what's up there.
+ * The top of Home: the village edge to edge behind the greeting, "🤝" to the friends (its badge: what waits there) and
+ * "⚙️" to the settings (its dot: the tutor's connection), the streak, XP and achievements (they open Progress), and at the
+ * bottom a chip that opens the village and says what's up there.
  */
 @Composable
-fun HomeHero(vm: AppViewModel, d: Dashboard?, onLink: () -> Unit = {}) {
+fun HomeHero(vm: AppViewModel, d: Dashboard?, onLink: () -> Unit = { vm.openSettings("connection") }) {
     val village = vm.game.state
     Box(Modifier.fillMaxWidth().background(Brush.verticalGradient(listOf(SloBlueDeep, SloBlue)))) {
         if (village != null) HeaderVillage(village, vm.game.celebrate, onOpen = vm::openVillage, modifier = Modifier.matchParentSize())
@@ -76,7 +77,13 @@ fun HomeHero(vm: AppViewModel, d: Dashboard?, onLink: () -> Unit = {}) {
                     color = Color.White,
                     modifier = Modifier.weight(1f),
                 )
-                LinkDot(vm.link, vm.unpaired, vm.hosted.active, onClick = onLink)
+                HeroButton("🤝", bi("towns.friends") + vm.friendsNews.takeIf { it > 0 }?.let { ", ${bi("nav.friendsNews", "n" to it)}" }.orEmpty(), onClick = vm::openFriends) {
+                    if (vm.friendsNews > 0) Badge(vm.friendsNews, Modifier.align(Alignment.TopEnd))
+                }
+                Spacer(Modifier.width(6.dp))
+                HeroButton("⚙️", "${bi("common.settings")}, ${linkLabel(vm.link, vm.unpaired, vm.hosted.active)}", onClick = { vm.openSettings() }) {
+                    LinkDot(vm.link, Modifier.align(Alignment.BottomEnd).padding(4.dp))
+                }
             }
             if (vm.unpaired) UnpairedChip(onLink)
             Spacer(Modifier.height(12.dp))
@@ -105,7 +112,7 @@ private fun VillageChip(hint: VillageHint, onClick: () -> Unit) {
         is VillageHint.Event -> {
             val k = hint.event.kind
             val left = timeLeft(hint.event.deadline, System.currentTimeMillis())
-            (if (HomeLogic.threat(k)) TriglavRed else XpGold.copy(alpha = 0.95f)) to "${k.emoji} ${k.sl} · ${k.en} · ⏳ $left"
+            (if (HomeLogic.threat(k)) TriglavRed else XpGold.copy(alpha = 0.95f)) to "${k.emoji} ${k.names.bi()} · ⏳ $left"
         }
         VillageHint.FireLow -> FlameOrange to "🔥 ${bi("hearths.goingOut")}"
         is VillageHint.NeedsRoom -> SloBlueDeep.copy(alpha = 0.85f) to HomeLogic.roomText(hint.arrival)
@@ -205,20 +212,37 @@ private fun Triglav(modifier: Modifier) {
     }
 }
 
-/** The tutor's status as a dot; a tap opens the connection (who this phone is paired with, pairing again). */
+/** A round button over the hero's picture: [emoji], [description] for TalkBack, [mark] in its corner (a badge, the dot). */
 @Composable
-private fun LinkDot(link: Link, unpaired: Boolean, hosted: Boolean, onClick: () -> Unit) {
+private fun HeroButton(emoji: String, description: String, onClick: () -> Unit, mark: @Composable androidx.compose.foundation.layout.BoxScope.() -> Unit = {}) {
+    Box(Modifier.size(48.dp)) {
+        Surface(
+            onClick = onClick, color = Color.Black.copy(alpha = 0.3f), shape = CircleShape,
+            modifier = Modifier.size(48.dp).semantics { contentDescription = description },
+        ) {
+            Box(contentAlignment = Alignment.Center) { Text(emoji, style = MaterialTheme.typography.titleLarge, modifier = Modifier.clearAndSetSemantics { }) }
+        }
+        mark()
+    }
+}
+
+/** What waits in Friends, on its button: a red count. */
+@Composable
+private fun Badge(n: Int, modifier: Modifier) {
+    Surface(color = TriglavRed, shape = CircleShape, modifier = modifier.clearAndSetSemantics { }) {
+        Text(if (n > 9) "9+" else "$n", color = Color.White, style = MaterialTheme.typography.labelSmall, fontWeight = FontWeight.Black, modifier = Modifier.padding(horizontal = 6.dp, vertical = 1.dp))
+    }
+}
+
+/** The tutor's connection as a dot on the settings' button: green online, gold connecting, red offline. */
+@Composable
+private fun LinkDot(link: Link, modifier: Modifier) {
     val color = when (link) {
         Link.ONLINE -> AlpineGreen
         Link.CONNECTING -> XpGold
         Link.OFFLINE -> TriglavRed
     }
-    Box(
-        Modifier.size(48.dp).clip(CircleShape).clickable(onClick = onClick).semantics { contentDescription = linkLabel(link, unpaired, hosted) },
-        contentAlignment = Alignment.Center,
-    ) {
-        Box(Modifier.size(12.dp).clip(CircleShape).background(color))
-    }
+    Box(modifier.size(12.dp).clip(CircleShape).background(Color.White).padding(2.dp).clip(CircleShape).background(color).clearAndSetSemantics { })
 }
 
 /** The connection in a line; [hosted]: Lani on this phone (its own bridge, nothing to be online for). */

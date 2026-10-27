@@ -50,6 +50,7 @@ import si.lanisce.lani.ui.home.HomeAction
 import si.lanisce.lani.ui.home.HomeHero
 import si.lanisce.lani.ui.home.HomeLogic
 import si.lanisce.lani.ui.home.LearningSection
+import si.lanisce.lani.ui.home.ProgressSection
 import si.lanisce.lani.ui.home.NeedTarget
 import si.lanisce.lani.ui.home.Tile
 import si.lanisce.lani.ui.home.TodayCard
@@ -61,8 +62,9 @@ import si.lanisce.lani.l10n.inTarget
 import si.lanisce.lani.l10n.inBase
 
 /**
- * Home, top to bottom: the village header (greeting, streak; it opens the village), "Danes · Today" (the one
- * thing to do next), the villagers who need Jan, "Učenje · Learning" (tiles and the road to the target level),
+ * Home, top to bottom (docs/plans/05-built/navigation.md, "Tidy Home"): the village header (greeting, 🤝 Friends, ⚙️
+ * Settings, the streak; it opens the village), "Danes · Today" (the one thing to do next; the village's threat when one
+ * is on), "Učenje · Learning" (the tiles, right under it), the villagers who need the learner, "📊 Napredek · Progress",
  * and the tutor's bar, which never covers any of it.
  */
 @Composable
@@ -85,7 +87,7 @@ private fun HomeContent(vm: AppViewModel, list: LazyListState, bottom: Dp) {
     var sheet by rememberSaveable { mutableStateOf(Sheet.NONE) }
     val talking = vm.talk.state?.takeIf { it.phase == TalkPhase.CHAT }?.scenario?.title
     LazyColumn(Modifier.fillMaxSize(), state = list, contentPadding = PaddingValues(bottom = bottom)) {
-        item("hero") { HomeHero(vm, d, onLink = { vm.openSettings("connection") }) }
+        item("hero") { HomeHero(vm, d) }
         if (d == null) {
             item("loading") { Text(bi("common.loading"), Modifier.padding(24.dp)) }
             return@LazyColumn
@@ -96,9 +98,13 @@ private fun HomeContent(vm: AppViewModel, list: LazyListState, bottom: Dp) {
         val packs = vm.packs.list.map { vm.villagers.shown(it, state) }
         val festival = si.lanisce.lani.game.Calendar.soon(state, java.time.LocalDate.now())?.id
         val numbers = HomeLogic.numbersIdea(vm.numbers.open, vm.numbers.progress, java.time.LocalDate.now())
-        val today = HomeLogic.today(d, modules, vm.content.newModules, packs, vm.packs.newIds, talking, vm.family.challenges, festival, si.lanisce.lani.ui.school.lessonIdea(vm), numbers)
+        // wolves, a bear or a storm about: defending the village is today's one thing (it is lost at its deadline)
+        val defend = HomeLogic.defend(state)
+        val today = HomeLogic.today(d, modules, vm.content.newModules, packs, vm.packs.newIds, talking, vm.family.challenges, festival, si.lanisce.lani.ui.school.lessonIdea(vm), numbers, defend)
         val offered = (listOf(today.primary) + today.more).filterIsInstance<HomeAction.Module>().map { it.info.id }.toSet()
+        // the threat once only: Today's button, not the strip's red row too
         val needs = vm.game.state?.let { HomeLogic.needs(it, vm.scenes.active(it), vm.villagers.people(it), vm.scenes.all, offered) }.orEmpty()
+            .filterNot { it.alarm && today.primary is HomeAction.Defend }
 
         item("today") {
             TodayCard(
@@ -109,8 +115,8 @@ private fun HomeContent(vm: AppViewModel, list: LazyListState, bottom: Dp) {
                 modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp),
                 village = HomeLogic.village(vm.game.state, story = vm.game.state?.let { vm.scenes.storyTeaser(it) }),
                 onVillage = vm::openVillage,
-                // who waits on the map now: someone to meet, the burner at his pile; a tap opens them over Home
-                // the treasure map first (Stari Janez's map waiting, the path so far), then who waits on the map now
+                // the treasure map first (Stari Janez's map waiting, the path so far), then who waits on the map now (someone to
+                // meet, the burner at his pile): a tap opens them over Home; two at most, the rest one line to the village
                 calls = listOfNotNull(
                     vm.treasure.let { t -> HomeLogic.treasure(t.status(), t.hunt(), t.tellerName(), t.required(), t.waiting) },
                 ) + state?.let { HomeLogic.calls(it, vm.villagers.all, si.lanisce.lani.game.scene.Keepers.here(it, java.time.LocalDateTime.now())) }.orEmpty(),
@@ -123,34 +129,19 @@ private fun HomeContent(vm: AppViewModel, list: LazyListState, bottom: Dp) {
                 },
             )
         }
+        // the ways into learning right under Today (0 or 1 swipe), then the village's people, then the progress
+        item("learning") {
+            Column(Modifier.padding(top = 24.dp)) {
+                LearningSection(learningTiles(vm, d, talking) { sheet = it }) { if (!vm.speaker.canSay) VoiceHint(vm) }
+            }
+        }
         if (needs.isNotEmpty()) item("villagers") {
             Column(Modifier.padding(top = 24.dp)) {
                 VillagersStrip(needs, onOpen = { open(vm, it) }, onAll = if (vm.villagers.all.isNotEmpty()) vm::openVillagers else null)
             }
         }
-        item("learning") {
-            Column(Modifier.padding(top = 24.dp)) {
-                LearningSection(
-                    tiles = listOfNotNull(
-                        // the school's course first (companion/GAME.md, "The school"), where the village's language has one: its
-                        // screen at once, also before the class begins (it says what begins it)
-                        si.lanisce.lani.ui.school.schoolTile(vm)?.let { st -> Tile("🏫", inTarget("school.title"), inBase("school.title"), st) { vm.openSchool() } },
-                        Tile("📚", inTarget("homeScreen.newWords"), inBase("homeScreen.newWords"), HomeLogic.words(vm.packs.list, vm.packs.newIds)) { vm.openPacks() },
-                        Tile("✨", inTarget("homeScreen.challenges"), inBase("homeScreen.challenges"), HomeLogic.challenges(vm.content.modules, vm.content.newModules)) { sheet = Sheet.CHALLENGES },
-                        Tile("🗣️", inTarget("homeScreen.talk"), inBase("homeScreen.talk"), HomeLogic.talk(talking)) { vm.openTalk() },
-                        Tile("💌", inTarget("homeScreen.family"), inBase("homeScreen.family"), HomeLogic.family(vm.family.challenges)) {
-                            if (vm.family.challenges.isEmpty()) vm.openFamily() else sheet = Sheet.FAMILY
-                        },
-                        Tile("📖", inTarget("readings.title"), inBase("readings.title"), readingStatus(vm, d.level)) { vm.openReadings() },
-                        // the basics at a glance, unlocked as the rules are met (companion/README.md "Cheat sheet")
-                        Tile("📋", inTarget("cheatSheet.title"), inBase("cheatSheet.title"), HomeLogic.cheatSheet(vm.cheat.unlockedCount(), vm.cheat.newCount())) { vm.cheat.show() },
-                        // audio for the car: got ready here, played in Android Auto or over Bluetooth (companion/README.md, "Im Auto · In the car")
-                        Tile("🚗", inTarget("road.title"), inBase("road.title"), vm.road.time?.let { si.lanisce.lani.ui.home.TileStatus(bi("road.tile", "time" to it)) } ?: si.lanisce.lani.ui.home.TileStatus(bi("road.prepare"))) { sheet = Sheet.ROAD },
-                    ),
-                    road = HomeLogic.road(d),
-                    onProgress = { vm.openProgress() },
-                ) { if (!vm.speaker.canSay) VoiceHint(vm) }
-            }
+        item("progress") {
+            Column(Modifier.padding(top = 24.dp)) { ProgressSection(HomeLogic.road(d), onProgress = vm::openProgress) }
         }
     }
     when (sheet) {
@@ -167,6 +158,40 @@ private fun HomeContent(vm: AppViewModel, list: LazyListState, bottom: Dp) {
         Sheet.FAMILY -> FamilySheet(vm, onDismiss = { sheet = Sheet.NONE })
         Sheet.ROAD -> si.lanisce.lani.ui.road.RoadSheet(vm, onDismiss = { sheet = Sheet.NONE })
     }
+}
+
+/**
+ * "Učenje · Learning"'s tiles (docs/plans/05-built/navigation.md, "Tidy Home"), each with its live status: 🏫 Šola, 📚 Nove
+ * besede, 🔤 Moje besede, 📖 Slovnica, ✨ Izzivi, 🗣️ Pogovor, 📋 Plonk listek, 📗 Branje, 🔢 Števila (once open), 💌 Družina,
+ * 🚗 Za pot. [sheet] opens one of Home's sheets (the challenges, the family, the road).
+ */
+@Composable
+private fun learningTiles(vm: AppViewModel, d: si.lanisce.lani.data.Dashboard, talking: String?, sheet: (Sheet) -> Unit): List<Tile> {
+    val words = remember(d.pool, d.learned) { si.lanisce.lani.data.MyWords.of(d.pool, d.learned) }
+    val book = remember(vm.game.state, vm.grammar.pages, vm.langPair) { si.lanisce.lani.ui.grammar.bookIndex(vm) }
+    val numbers = if (vm.numbers.open) HomeLogic.numbersIdea(true, vm.numbers.progress, java.time.LocalDate.now()) else null
+    val newest = if (vm.numbers.open) si.lanisce.lani.data.NumbersPractice.newest(vm.numbers.progress, true)?.label else null
+    fun tile(emoji: String, key: String, status: si.lanisce.lani.ui.home.TileStatus, onClick: () -> Unit) = Tile(emoji, inTarget(key), inBase(key), status, onClick)
+    return listOfNotNull(
+        // the school's course first (companion/GAME.md, "The school"), where the village's language has one: its screen at
+        // once, also before the class begins (it says what begins it)
+        si.lanisce.lani.ui.school.schoolTile(vm)?.let { st -> tile("🏫", "school.title", st, vm::openSchool) },
+        tile("📚", "homeScreen.newWords", HomeLogic.words(vm.packs.list, vm.packs.newIds), vm::openPacks),
+        tile("🔤", "myWords.title", HomeLogic.myWords(words.count { it.learned }, words.count { !it.learned }), vm::openMyWords),
+        tile("📖", "townScroll.grammar", HomeLogic.grammarBook(book.rows.size, book.new), vm::openGrammarBook),
+        tile("✨", "homeScreen.challenges", HomeLogic.challenges(vm.content.modules, vm.content.newModules)) { sheet(Sheet.CHALLENGES) },
+        tile("🗣️", "homeScreen.talk", HomeLogic.talk(talking)) { vm.openTalk() },
+        // the basics at a glance, unlocked as the rules are met (companion/README.md "Cheat sheet")
+        tile("📋", "cheatSheet.title", HomeLogic.cheatSheet(vm.cheat.unlockedCount(), vm.cheat.newCount())) { vm.cheat.show() },
+        tile("📗", "readings.title", readingStatus(vm, d.level), vm::openReadings),
+        // the numbers, once the unit stevila's intro opened them (companion/README.md "Numbers")
+        if (vm.numbers.open) tile("🔢", "numbers.title", HomeLogic.numbers(numbers, newest), vm::openNumbers) else null,
+        tile("💌", "homeScreen.family", HomeLogic.family(vm.family.challenges)) {
+            if (vm.family.challenges.isEmpty()) vm.openFamily() else sheet(Sheet.FAMILY)
+        },
+        // audio for the car: got ready here, played in Android Auto or over Bluetooth (companion/README.md, "Im Auto · In the car")
+        tile("🚗", "road.title", vm.road.time?.let { si.lanisce.lani.ui.home.TileStatus(bi("road.tile", "time" to it)) } ?: si.lanisce.lani.ui.home.TileStatus(bi("road.prepare"))) { sheet(Sheet.ROAD) },
+    )
 }
 
 /** "Branje": the readings at the learner's [level] and a step up not read yet, the tutor's among them. */
@@ -190,6 +215,7 @@ private fun act(vm: AppViewModel, a: HomeAction) {
         is HomeAction.Family -> vm.openFamily(a.challenge.id)
         is HomeAction.Lesson -> vm.openUnit(a.unit)
         is HomeAction.Numbers -> vm.openNumbers()
+        is HomeAction.Defend -> vm.startEvent()
     }
 }
 

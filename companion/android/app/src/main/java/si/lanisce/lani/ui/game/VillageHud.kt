@@ -365,6 +365,10 @@ data class HudView(
     val soonSeen: Set<String> = emptySet(),
     /** The goal's steps seen ([HudPrefs.stepsSeen]). */
     val stepsSeen: Set<String> = emptySet(),
+    /** What waits in "🤝 Prijatelji · Friends" (ui/towns/FriendsNews): its button's badge. */
+    val friendsNews: Int = 0,
+    /** Where the bar's "‹" leads, for TalkBack ("‹ Domov · Home"): the screen below the village. */
+    val backLabel: String = "",
 ) {
     val status: HudStatus get() = VillageHudLogic.status(state, check, festival)
     val dots: HudDots get() = VillageHudLogic.dots(this)
@@ -397,6 +401,8 @@ class HudActions(
     val sheet: (HudSection?) -> Unit,
     /** An age's party: now, its dialog. */
     val party: (si.lanisce.lani.game.Age) -> Unit = {},
+    /** "🤝 Prijatelji · Friends": the linked towns. */
+    val friends: () -> Unit = {},
 )
 
 /**
@@ -421,6 +427,7 @@ fun VillageHud(
             progress = then(actions.progress), goal = then(actions.goal), festival = { id -> actions.sheet(null); actions.festival(id) },
             arrival = { id -> actions.sheet(null); actions.arrival(id) }, surprise = then(actions.surprise),
             step = { st -> actions.sheet(null); actions.step(st) }, cards = actions.cards, sheet = actions.sheet,
+            party = { a -> actions.sheet(null); actions.party(a) }, friends = then(actions.friends),
         )
     }
     var barPx by remember { mutableStateOf(0) }
@@ -438,9 +445,11 @@ fun VillageHud(
                     Box(Modifier.onSizeChanged { rowPx = it.height }) { CardRow(view, dots, leads) }
                 }
             }
-            if (moved) Row(Modifier.fillMaxWidth().padding(horizontal = 10.dp)) {
+            // under the bar: "🤝" to the friends on the left (its badge: what waits there), the recenter on the right once moved
+            Row(Modifier.fillMaxWidth().padding(horizontal = 10.dp)) {
+                FriendsButton(view.friendsNews, leads.friends, Modifier.onGloballyPositioned { onInside("friends", it.boundsInWindow()) })
                 Spacer(Modifier.weight(1f))
-                RecenterButton(onRecenter)
+                if (moved) RecenterButton(onRecenter)
             }
         }
         // the sheet keeps its section while it slides away
@@ -467,7 +476,8 @@ private fun Bar(view: HudView, actions: HudActions, cards: Boolean, ringDot: Boo
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(4.dp),
     ) {
-        HudButton("←", Labels.BACK, actions.back)
+        // the way back: what's open over the map first, then the screen below ("‹ Domov · Home" to TalkBack)
+        HudButton("‹", view.backLabel.ifBlank { Labels.BACK }, actions.back)
         for (r in Res.entries) ResourceChip(r, s.res(r), view.attrs.caps[r], onClick = { actions.resource(r) }, modifier = Modifier.weight(1f))
         SettlementRing(view, cards, ringDot, dots, reduced, onTap = actions.age, onToggle = actions.cards)
     }
@@ -793,7 +803,7 @@ private fun SettlementSection(view: HudView, actions: HudActions) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         SectionHeader("villageHud.settlement") {
             Surface(onClick = actions.progress, color = PanelChip, shape = RoundedCornerShape(50), modifier = Modifier.hudSemantics(Labels.PROGRESS, actions.progress)) {
-                Text("📊 ${inTarget("common.progress")} ›", color = Color.White, style = MaterialTheme.typography.labelMedium, modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp))
+                Text("📊 ${bi("common.progress")} ›", color = Color.White, style = MaterialTheme.typography.labelMedium, modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp))
             }
         }
         Surface(
@@ -966,6 +976,27 @@ fun Modifier.outsideCloses(active: () -> Boolean, inside: (Offset) -> Boolean, o
             val change = awaitPointerEvent(PointerEventPass.Initial).changes.firstOrNull { it.id == down.id } ?: break
             if ((change.position - down.position).getDistance() > slop) break // a drag: the map's
             if (!change.pressed) { change.consume(); break } // a tap's up: taken, so nothing under it opens
+        }
+    }
+}
+
+/**
+ * "🤝" over the map, under the bar on the left: "Prijatelji · Friends" (the linked towns, their visits and questions) one
+ * tap away; [news]: what waits there (a guest who came, a question, a friend's trouble or offer), its count on the badge.
+ */
+@Composable
+private fun FriendsButton(news: Int, onClick: () -> Unit, modifier: Modifier = Modifier) {
+    val said = bi("towns.friends") + if (news > 0) ", ${bi("nav.friendsNews", "n" to news)}" else ""
+    Box(modifier.padding(top = 4.dp)) {
+        HudButton("🤝", said, onClick)
+        if (news > 0) Surface(
+            color = TriglavRed, shape = CircleShape,
+            modifier = Modifier.align(Alignment.TopEnd).offset(x = 4.dp, y = (-4).dp).clearAndSetSemantics { },
+        ) {
+            Text(
+                if (news > 9) "9+" else "$news", color = Color.White, fontSize = 11.sp, lineHeight = 13.sp, fontWeight = FontWeight.Black,
+                modifier = Modifier.padding(horizontal = 6.dp, vertical = 1.dp),
+            )
         }
     }
 }

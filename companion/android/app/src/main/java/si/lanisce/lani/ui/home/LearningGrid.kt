@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
@@ -62,46 +63,64 @@ fun homeCardColors() = CardDefaults.cardColors(containerColor = MaterialTheme.co
 data class Tile(val emoji: String, val sl: String, val en: String, val status: TileStatus, val onClick: () -> Unit)
 
 /**
- * "Učenje · Learning": tiles two by two ([tiles]), then the road to the target level as one slim line
- * (it opens Progress), then [extra] (the voice hint).
+ * "Učenje · Learning", right under "Danes · Today": compact tiles, three to a row on a phone, four on a small tablet, six on
+ * a wide screen ([tiles]: every way into learning, each with its live status), then [extra] (the voice hint).
  */
 @Composable
-fun LearningSection(tiles: List<Tile>, road: Road, onProgress: () -> Unit, extra: @Composable () -> Unit = {}) {
+fun LearningSection(tiles: List<Tile>, extra: @Composable () -> Unit = {}) {
     Column {
         SectionTitle(bi("learningGrid.learning"))
-        Column(Modifier.padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            for (row in tiles.chunked(2)) {
-                Row(Modifier.height(IntrinsicSize.Max), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    for (t in row) TileCard(t, Modifier.weight(1f).fillMaxHeight())
-                    if (row.size == 1) Spacer(Modifier.weight(1f))
+        BoxWithConstraints(Modifier.padding(horizontal = 16.dp)) {
+            val columns = learningColumns(maxWidth)
+            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                for (row in tiles.chunked(columns)) {
+                    Row(Modifier.height(IntrinsicSize.Max), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        for (t in row) TileCard(t, Modifier.weight(1f).fillMaxHeight())
+                        repeat(columns - row.size) { Spacer(Modifier.weight(1f)) }
+                    }
                 }
+                extra()
             }
-            RoadCard(road, onProgress)
-            extra()
         }
     }
 }
 
+/** How many learning tiles go in a row in [width]: 3 on a phone, 4 from a small tablet's 600 dp, 6 from 840 dp. */
+fun learningColumns(width: androidx.compose.ui.unit.Dp): Int = when {
+    width >= 840.dp -> 6
+    width >= 600.dp -> 4
+    else -> 3
+}
+
+/** "📊 Napredek · Progress" at the end of Home: the road to the target level, a tap its screen. */
+@Composable
+fun ProgressSection(road: Road, onProgress: () -> Unit) {
+    Box(Modifier.padding(horizontal = 16.dp)) { RoadCard(road, onProgress) }
+}
+
 @Composable
 private fun TileCard(t: Tile, modifier: Modifier) {
-    Card(onClick = t.onClick, modifier = modifier, shape = MaterialTheme.shapes.medium, colors = homeCardColors(), elevation = CardDefaults.cardElevation(2.dp)) {
-        Column(Modifier.fillMaxHeight().padding(16.dp)) {
+    Card(
+        onClick = t.onClick, modifier = modifier, shape = MaterialTheme.shapes.medium, colors = homeCardColors(),
+        elevation = CardDefaults.cardElevation(2.dp),
+    ) {
+        Column(Modifier.fillMaxHeight().padding(horizontal = 12.dp, vertical = 12.dp)) {
             Row(verticalAlignment = Alignment.Top) {
-                Text(t.emoji, style = MaterialTheme.typography.headlineSmall, modifier = Modifier.clearAndSetSemantics {})
+                Text(t.emoji, style = MaterialTheme.typography.titleLarge, modifier = Modifier.clearAndSetSemantics {})
                 Spacer(Modifier.weight(1f))
-                if (t.status.attention) Box(Modifier.padding(top = 4.dp).size(10.dp).clip(CircleShape).background(TriglavRed).clearAndSetSemantics {})
+                if (t.status.attention) Box(Modifier.padding(top = 4.dp).size(9.dp).clip(CircleShape).background(TriglavRed).clearAndSetSemantics {})
             }
-            Spacer(Modifier.height(10.dp))
-            Text(t.sl, style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
-            Text(t.en, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            Spacer(Modifier.height(8.dp))
+            Spacer(Modifier.height(6.dp))
+            Text(t.sl, style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold, maxLines = 2, overflow = TextOverflow.Ellipsis)
+            Text(t.en, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            Spacer(Modifier.height(6.dp))
             Spacer(Modifier.weight(1f))
             Text(
                 t.status.text,
-                style = MaterialTheme.typography.bodySmall,
+                style = MaterialTheme.typography.labelSmall,
                 color = if (t.status.attention) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
                 fontWeight = if (t.status.attention) FontWeight.SemiBold else FontWeight.Normal,
-                maxLines = 3,
+                maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
             )
         }

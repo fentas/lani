@@ -76,6 +76,14 @@ sealed interface HomeAction {
     data class Lesson(val unit: String, val title: String, val emoji: String, val level: String, val started: Boolean) : HomeAction {
         override val key get() = "school"
     }
+
+    /**
+     * The village's threat (wolves, a bear, a storm: companion/GAME.md "Events"), to defend it before its deadline: the
+     * culture's call ([title], "🐺 Branimo vas! · Defend the village!"), the event's own name ([what]), the time [left].
+     */
+    data class Defend(val kind: EventKind, val title: String, val what: String, val left: String) : HomeAction {
+        override val key get() = "defend"
+    }
 }
 
 /** "Danes · Today": the one thing to do, at most [MAX_MORE] other ideas, and today's progress. */
@@ -178,6 +186,21 @@ object HomeLogic {
     /** At most this many people in the strip. */
     const val MAX_NEEDS = 6
 
+    /** At most this many of the village's calls in "Danes · Today" (who to meet, the burner …); the rest: "še N v vasi ›". */
+    const val MAX_CALLS = 2
+
+    /**
+     * The village's threat as "Danes · Today"'s one thing to do ([today]'s primary): wolves, a bear or a storm on now
+     * ([threat]), with the culture's call to defend it and the time left; null when there is none.
+     */
+    fun defend(state: GameState?, now: Long = System.currentTimeMillis()): HomeAction.Defend? {
+        val e = state?.event?.takeIf { threat(it.kind) } ?: return null
+        val call = Reactions.call(Stir(e.kind, Stir.Phase.ON, 0.0, e.strength))?.bi()
+        // the badge shows the event's emoji: not again before its name
+        val title = Events.title(state, e).removePrefix("${e.kind.emoji} ")
+        return HomeAction.Defend(e.kind, call ?: title, if (call != null) title else "", si.lanisce.lani.ui.game.timeLeft(e.deadline, now))
+    }
+
     /**
      * Today's plan. The primary action: due reviews first (the daily habit), then a module for a weak spot,
      * then a module the tutor just published, then new words, then talking. The other ideas are of other
@@ -201,6 +224,11 @@ object HomeLogic {
          * missed are due again, else after a pack (light: only where there is room).
          */
         numbers: HomeAction.Numbers? = null,
+        /**
+         * The village's threat ([defend]): the one thing to do while it's on (it is lost at its deadline), the reviews then
+         * the first idea.
+         */
+        threat: HomeAction.Defend? = null,
     ): Today {
         val due = d.dueCards.size
         val weak = modules.filter { m -> m.targets.any { it in d.weakPatterns } }.sortedByDescending { it.id in newModules }
@@ -211,6 +239,7 @@ object HomeLogic {
         val answer = family.firstOrNull { it.answer == null }?.let { HomeAction.Family(it) }
 
         val primary = listOfNotNull(
+            threat,
             HomeAction.Review(due).takeIf { due > 0 },
             weak,
             fresh,
@@ -219,7 +248,10 @@ object HomeLogic {
         ).first()
         val numbersDue = numbers?.takeIf { it.due > 0 }
         val numbersLater = numbers?.takeIf { it.due == 0 }
-        val ideas = listOfNotNull(talking?.let { HomeAction.Talk(it) }, answer, weak, fresh, numbersDue, lesson, pack, numbersLater, HomeAction.Talk(null))
+        val ideas = listOfNotNull(
+            HomeAction.Review(due).takeIf { due > 0 && threat != null },
+            talking?.let { HomeAction.Talk(it) }, answer, weak, fresh, numbersDue, lesson, pack, numbersLater, HomeAction.Talk(null),
+        )
         val more = ArrayList<HomeAction>()
         for (a in ideas) {
             if (more.size >= Today.MAX_MORE) break
@@ -381,6 +413,26 @@ object HomeLogic {
         val left = packs.sumOf { it.left }
         return if (left == 0) TileStatus("✅ ${bi("homeLogic.allLearned")}")
         else TileStatus(bi("homeLogic.leftLearn", "left" to left))
+    }
+
+    /** "🔤 Moje besede": how many of the learner's words they know, and how many they are still learning. */
+    fun myWords(known: Int, learning: Int): TileStatus = when {
+        known + learning == 0 -> TileStatus(bi("nav.myWordsNone"))
+        learning > 0 -> TileStatus("${bi("myWords.known", "n" to known)} · ${bi("myWords.learning", "n" to learning)}")
+        else -> TileStatus(bi("myWords.known", "n" to known))
+    }
+
+    /** "📖 Slovnica": the pages met ([new] of them this week), else that the book fills as rules are met. */
+    fun grammarBook(pages: Int, new: Int): TileStatus = when {
+        new > 0 -> TileStatus("✨ ${bi("nav.grammarNew", "n" to new)}", attention = true)
+        pages > 0 -> TileStatus(bi("nav.grammarPages", "n" to pages))
+        else -> TileStatus(bi("nav.grammarEmpty"))
+    }
+
+    /** "🔢 Števila", once open: the numbers missed due again, else the newest range open. */
+    fun numbers(idea: HomeAction.Numbers?, range: String?): TileStatus = when {
+        idea != null && idea.due > 0 -> TileStatus("🔁 ${bi("numbers.dueAgain", "n" to idea.due)}", attention = true)
+        else -> TileStatus(range ?: bi("numbers.title"))
     }
 
     /** "Plonk listek": how many cards are new (unlocked, never opened), else how many are on it. */

@@ -57,6 +57,23 @@ class HomeLogicTest {
         assertEquals(12, t.due)
     }
 
+    @Test fun `the village's threat is today's one thing, the reviews then the first idea`() {
+        val now = 1_000_000L
+        val wolves = GameState(age = Age.TABOR, event = GameEvent("e", EventKind.WOLVES, 2, now, now + 35 * 3_600_000L))
+        val d = HomeLogic.defend(wolves, now)!!
+        assertEquals(EventKind.WOLVES, d.kind)
+        assertTrue(d.title.isNotBlank())
+        assertEquals("35 h", d.left)
+        val t = HomeLogic.today(dash(due = 12), listOf(clitic), emptySet(), listOf(kitchen), emptySet(), threat = d)
+        assertEquals(d, t.primary)
+        assertEquals(HomeAction.Review(12), t.more.first())
+        assertEquals(2, t.more.size)
+        // the merchant and a festival are visits, not threats; no event, nothing
+        assertEquals(null, HomeLogic.defend(GameState(event = GameEvent("m", EventKind.MERCHANT, 1, now, now + 1000)), now))
+        assertEquals(null, HomeLogic.defend(GameState(), now))
+        assertEquals(null, HomeLogic.defend(null, now))
+    }
+
     @Test fun `the numbers are an idea of today once open and not played today, early while numbers are due again`() {
         val today = java.time.LocalDate.of(2026, 10, 19)
         val lesson = HomeAction.Lesson("biti", "Biti: sem, si, je", "🟰", "A1", started = false)
@@ -248,6 +265,18 @@ class HomeLogicTest {
         assertEquals("⏳ Učitelj pregleduje · Tutor is reviewing", HomeLogic.family(listOf(answered)).text)
         assertEquals("🧑‍🏫 Povratna informacija · Feedback", HomeLogic.family(listOf(answered.copy(feedback = FamilyFeedback("Lepo!")))).text)
         assertEquals("Posnemite besede · Record words", HomeLogic.family(emptyList()).text)
+    }
+
+    @Test fun `my words, the grammar book and the numbers tiles`() {
+        assertEquals("12 znanih · 12 known", HomeLogic.myWords(12, 0).text)
+        assertEquals("12 znanih · 12 known · 3 v učenju · 3 still being learned", HomeLogic.myWords(12, 3).text)
+        assertEquals("Še nobene · None yet", HomeLogic.myWords(0, 0).text)
+        assertEquals(TileStatus("✨ 2 novi strani · 2 new pages", attention = true), HomeLogic.grammarBook(9, 2))
+        assertEquals(TileStatus("9 strani · 9 pages"), HomeLogic.grammarBook(9, 0))
+        assertEquals(TileStatus("Še prazna · Still empty"), HomeLogic.grammarBook(0, 0))
+        assertTrue(HomeLogic.numbers(HomeAction.Numbers(3, "1–10", 4, 10), "1–10").attention)
+        assertEquals(TileStatus("1–20"), HomeLogic.numbers(HomeAction.Numbers(0, "1–20", 8, 10), "1–20"))
+        assertEquals(2, HomeLogic.MAX_CALLS)
     }
 
     @Test fun `the road runs from the level now to the target`() {
