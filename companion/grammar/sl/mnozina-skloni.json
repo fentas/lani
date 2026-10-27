@@ -1,0 +1,103 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "mnozina-skloni",
+  "language": "sl",
+  "level": "A2",
+  "emoji": "🏘️",
+  "title": {
+    "sl": "Množina v sklonih: veliko ljudi",
+    "en": "The plural through the cases: veliko ljudi",
+    "de": "Der Plural in den Fällen: veliko ljudi",
+    "it": "Il plurale nei casi: veliko ljudi"
+  },
+  "rule": {
+    "en": "In the plural every case has its own endings (*množina*). Two you know: who or what (**konji, ovce, jabolka**) and the object (**vidim konje, ovce, jabolka**).\n\n**Genitive** (koga? česa?), after five and more, **veliko, malo, koliko, brez**: masculine **-ov** (**pet stolov**; after c, č, j, š, ž **-ev**: **konjev**, also **konj**), feminine and neuter no ending (**veliko krav, jabolk**). Sometimes an e comes in: okno → **oken**.\n\n**Dative** (komu? čemu?), also after **k, proti**: **-om** (**-em** after c, č, j, š, ž), feminine **-am**: **sosedom, konjem, kravam**.\n\n**Locative** (pri kom? pri čem?), after **v, na, pri, o, po**: **-ih**, feminine **-ah**: **na travnikih, v hišah**.\n\n**Instrumental** (s kom? s čim?), after **z/s, pod, nad, pred, za, med**: **-i**, feminine **-ami**: **s prijatelji, z ovcami**.\n\nTwo go their own way: **ljudje** (veliko **ljudi**, **ljudem**, o **ljudeh**, z **ljudmi**) and **otroci** (pet **otrok**, **otrokom**, o **otrocih**, z **otroki**).",
+    "de": "Im Plural hat jeder Fall seine eigenen Endungen (*množina*). Zwei kennst du: wer oder was (**konji, ovce, jabolka**) und das Objekt (**vidim konje, ovce, jabolka**).\n\n**Genitiv** (koga? česa?), nach fünf und mehr, **veliko, malo, koliko, brez**: männlich **-ov** (**pet stolov**; nach c, č, j, š, ž **-ev**: **konjev**, auch **konj**), weiblich und sächlich ohne Endung (**veliko krav, jabolk**). Manchmal kommt ein e dazu: okno → **oken**.\n\n**Dativ** (komu? čemu?), auch nach **k, proti**: **-om** (**-em** nach c, č, j, š, ž), weiblich **-am**: **sosedom, konjem, kravam**.\n\n**Lokativ** (pri kom? pri čem?), nach **v, na, pri, o, po**: **-ih**, weiblich **-ah**: **na travnikih, v hišah**.\n\n**Instrumental** (s kom? s čim?), nach **z/s, pod, nad, pred, za, med**: **-i**, weiblich **-ami**: **s prijatelji, z ovcami**.\n\nZwei gehen eigene Wege: **ljudje** (veliko **ljudi**, **ljudem**, o **ljudeh**, z **ljudmi**) und **otroci** (pet **otrok**, **otrokom**, o **otrocih**, z **otroki**).",
+    "it": "Al plurale ogni caso ha le sue desinenze (*množina*). Due le conosci: chi o che cosa (**konji, ovce, jabolka**) e l'oggetto (**vidim konje, ovce, jabolka**).\n\n**Genitivo** (koga? česa?), dopo cinque e più, **veliko, malo, koliko, brez**: maschile **-ov** (**pet stolov**; dopo c, č, j, š, ž **-ev**: **konjev**, anche **konj**), femminile e neutro senza desinenza (**veliko krav, jabolk**). A volte entra una e: okno → **oken**.\n\n**Dativo** (komu? čemu?), anche dopo **k, proti**: **-om** (**-em** dopo c, č, j, š, ž), femminile **-am**: **sosedom, konjem, kravam**.\n\n**Locativo** (pri kom? pri čem?), dopo **v, na, pri, o, po**: **-ih**, femminile **-ah**: **na travnikih, v hišah**.\n\n**Strumentale** (s kom? s čim?), dopo **z/s, pod, nad, pred, za, med**: **-i**, femminile **-ami**: **s prijatelji, z ovcami**.\n\nDue vanno per conto loro: **ljudje** (veliko **ljudi**, **ljudem**, o **ljudeh**, z **ljudmi**) e **otroci** (pet **otrok**, **otrokom**, o **otrocih**, z **otroki**)."
+  },
+  "table": {
+    "head": [
+      { "sl": "sklon", "en": "case", "de": "Fall", "it": "caso" },
+      { "sl": "moški", "en": "masculine", "de": "männlich", "it": "maschile" },
+      { "sl": "ženski", "en": "feminine", "de": "weiblich", "it": "femminile" },
+      { "sl": "srednji", "en": "neuter", "de": "sächlich", "it": "neutro" }
+    ],
+    "rows": [
+      ["1. kdo? kaj?", "stoli, konji", "hiše, krave", "jabolka"],
+      ["2. koga? česa?", "stolov, konjev", "hiš, krav", "jabolk, oken"],
+      ["3. komu? čemu?", "stolom, konjem", "hišam, kravam", "jabolkom"],
+      ["4. koga? kaj?", "stole, konje", "hiše, krave", "jabolka"],
+      ["5. pri kom? pri čem?", "pri stolih", "pri hišah", "pri jabolkih"],
+      ["6. s kom? s čim?", "s stoli", "s hišami", "z jabolki"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "V hlevu je pet krav.",
+      "en": "There are five cows in the barn.",
+      "de": "Im Stall sind fünf Kühe.",
+      "it": "Nella stalla ci sono cinque mucche.",
+      "note": {
+        "en": "From five on: the genitive plural. Krava is feminine: no ending, krav.",
+        "de": "Ab fünf: der Genitiv Plural. Krava ist weiblich: ohne Endung, krav.",
+        "it": "Da cinque in su: il genitivo plurale. Krava è femminile: senza desinenza, krav."
+      }
+    },
+    {
+      "sl": "Pri Vidi je danes veliko gostov.",
+      "en": "There are a lot of guests at Vida's today.",
+      "de": "Bei Vida sind heute viele Gäste.",
+      "it": "Oggi da Vida ci sono molti ospiti.",
+      "note": {
+        "en": "Veliko takes the genitive plural: gost → gostov (the plural itself is gostje).",
+        "de": "Veliko verlangt den Genitiv Plural: gost → gostov (der Plural selbst ist gostje).",
+        "it": "Veliko vuole il genitivo plurale: gost → gostov (il plurale è gostje)."
+      }
+    },
+    {
+      "sl": "Micka nese potico sosedom.",
+      "en": "Micka is taking a potica to the neighbours.",
+      "de": "Micka bringt den Nachbarn eine Potica.",
+      "it": "Micka porta una potica ai vicini."
+    },
+    {
+      "sl": "Luka pase ovce na travnikih pod gozdom.",
+      "en": "Luka grazes the sheep in the meadows below the forest.",
+      "de": "Luka hütet die Schafe auf den Wiesen unter dem Wald.",
+      "it": "Luka pascola le pecore sui prati sotto il bosco."
+    },
+    {
+      "sl": "Zala gre v gozd s prijateljicami.",
+      "en": "Zala is going into the forest with her friends.",
+      "de": "Zala geht mit ihren Freundinnen in den Wald.",
+      "it": "Zala va nel bosco con le sue amiche.",
+      "note": {
+        "en": "s + the instrumental plural: feminine -ami.",
+        "de": "s + Instrumental Plural: weiblich -ami.",
+        "it": "s + lo strumentale plurale: femminile -ami."
+      }
+    },
+    {
+      "sl": "Pri ognju je zvečer veliko ljudi.",
+      "en": "In the evening there are a lot of people at the fire.",
+      "de": "Am Abend sind viele Leute am Feuer.",
+      "it": "La sera intorno al fuoco c'è tanta gente."
+    },
+    {
+      "sl": "Mojca rada dela z otroki.",
+      "en": "Mojca likes working with children.",
+      "de": "Mojca arbeitet gern mit Kindern.",
+      "it": "A Mojca piace lavorare con i bambini.",
+      "note": {
+        "en": "otroci → z otroki, o otrocih, pet otrok.",
+        "de": "otroci → z otroki, o otrocih, pet otrok.",
+        "it": "otroci → z otroki, o otrocih, pet otrok."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["plural_case", "genitive_plural", "dative_plural", "locative_plural", "instrumental_plural"],
+  "see": ["mnozina", "rodilnik-kolicina", "stevila-samostalniki", "skloni", "sklanjatev-moski", "sklanjatev-zenski", "sklanjatev-srednji"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

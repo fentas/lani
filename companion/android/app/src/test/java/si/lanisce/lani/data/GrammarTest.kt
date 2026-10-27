@@ -23,8 +23,11 @@ class GrammarTest {
 
     // --- the bundled pages -------------------------------------------------------------------------------------------
 
-    @Test fun `the app bundles the 57 Slovene pages, in the book's order, and none of a language without them`() {
-        assertEquals(57, pages.size)
+    @Test fun `the app bundles every Slovene page, in the book's order, and none of a language without them`() {
+        // every file of companion/grammar/sl (59 on 2026-10-28: B1's thirteen and A2's mnozina-skloni and cigav came with the school's units)
+        val files = File("../../grammar/sl").listFiles { f -> f.name.endsWith(".json") }!!.size
+        assertTrue("$files pages", files >= 59)
+        assertEquals(files, pages.size)
         // the files' order, as the bridge reads them: rodilnik-predlogi.json before rodilnik.json
         assertEquals(pages.map { it.id }.sortedBy { "$it.json" }, pages.map { it.id })
         assertTrue(pages.all { it.language == "sl" && it.source == Grammar.CURATED && it.machineWritten && !it.byTutor })

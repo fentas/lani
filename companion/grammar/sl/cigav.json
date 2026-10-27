@@ -1,0 +1,109 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "cigav",
+  "language": "sl",
+  "level": "A2",
+  "emoji": "🏷️",
+  "title": {
+    "sl": "Čigav? Moj, njegov, Lukov",
+    "en": "Whose? Possessives: moj, njegov, Lukov",
+    "de": "Wessen? Possessiva: moj, njegov, Lukov",
+    "it": "Di chi? I possessivi: moj, njegov, Lukov"
+  },
+  "rule": {
+    "en": "**Čigav?** (whose?) asks for the owner, and agrees with the thing owned, as an adjective does: **Čigav je ta klobuk?** **Čigava je ta košara?** **Čigavo je to jagnje?**\n\nThe answer is a possessive (*svojilni zaimek*). It agrees with the thing too, never with the owner: **moj, tvoj, njegov** (his), **njen** (her), **naš, vaš, njihov** (their); for two owners **najin, vajin, njun**. **To je njen pes.** (her dog) **To je njegova hiša.** (his house)\n\nFrom a person's name or a noun: a masculine one adds **-ov** (**-ev** after c, č, j, š, ž), a feminine one **-in**: **Lukov klobuk**, **Mickina kuhinja**, **babičin vrt** (c → č), **Nejčevo kolo**. A name in -e grows a t, as in its cases (Tone, Toneta): **Tonetova kovačnica**, **Francetov**, **Jožetov**.\n\nThey all go through the cases as adjectives do: **v moji hiši**, **z njegovim bratom**, **pri Mickini peči**.\n\nWhen the owner is the subject of the sentence, standard Slovene says **svoj** (one's own): **Luka išče svoje jagnje.**",
+    "de": "**Čigav?** (wessen?) fragt nach dem Besitzer und richtet sich nach dem Besitz, wie ein Adjektiv: **Čigav je ta klobuk?** **Čigava je ta košara?** **Čigavo je to jagnje?**\n\nDie Antwort ist ein Possessivpronomen (*svojilni zaimek*). Auch es richtet sich nach dem Ding, nie nach dem Besitzer: **moj, tvoj, njegov** (sein), **njen** (ihr), **naš, vaš, njihov** (ihr, von dreien und mehr); für zwei Besitzer **najin, vajin, njun**. **To je njen pes.** (ihr Hund) **To je njegova hiša.** (sein Haus)\n\nVon einem Namen oder Nomen: ein männliches bekommt **-ov** (**-ev** nach c, č, j, š, ž), ein weibliches **-in**: **Lukov klobuk**, **Mickina kuhinja**, **babičin vrt** (c → č), **Nejčevo kolo**. Ein Name auf -e bekommt ein t, wie in seinen Fällen (Tone, Toneta): **Tonetova kovačnica**, **Francetov**, **Jožetov**.\n\nAlle gehen wie Adjektive durch die Fälle: **v moji hiši**, **z njegovim bratom**, **pri Mickini peči**.\n\nIst der Besitzer das Subjekt des Satzes, sagt das Standardslowenische **svoj** (eigen): **Luka išče svoje jagnje.**",
+    "it": "**Čigav?** (di chi?) chiede il possessore e concorda con la cosa posseduta, come un aggettivo: **Čigav je ta klobuk?** **Čigava je ta košara?** **Čigavo je to jagnje?**\n\nLa risposta è un possessivo (*svojilni zaimek*). Anche lui concorda con la cosa, mai con il possessore: **moj, tvoj, njegov** (suo, di lui), **njen** (suo, di lei), **naš, vaš, njihov** (loro); per due possessori **najin, vajin, njun**. **To je njen pes.** (il suo cane, di lei) **To je njegova hiša.** (la sua casa, di lui)\n\nDa un nome di persona o un nome: uno maschile prende **-ov** (**-ev** dopo c, č, j, š, ž), uno femminile **-in**: **Lukov klobuk**, **Mickina kuhinja**, **babičin vrt** (c → č), **Nejčevo kolo**. Un nome in -e prende una t, come nei suoi casi (Tone, Toneta): **Tonetova kovačnica**, **Francetov**, **Jožetov**.\n\nTutti passano per i casi come gli aggettivi: **v moji hiši**, **z njegovim bratom**, **pri Mickini peči**.\n\nQuando il possessore è il soggetto della frase, lo sloveno standard dice **svoj** (proprio): **Luka išče svoje jagnje.**"
+  },
+  "table": {
+    "head": [
+      { "sl": "čigav?", "en": "whose", "de": "wessen", "it": "di chi" },
+      { "sl": "moški", "en": "masculine", "de": "männlich", "it": "maschile" },
+      { "sl": "ženski", "en": "feminine", "de": "weiblich", "it": "femminile" },
+      { "sl": "srednji", "en": "neuter", "de": "sächlich", "it": "neutro" }
+    ],
+    "rows": [
+      ["jaz", "moj", "moja", "moje"],
+      ["ti", "tvoj", "tvoja", "tvoje"],
+      ["on", "njegov", "njegova", "njegovo"],
+      ["ona", "njen", "njena", "njeno"],
+      ["mi", "naš", "naša", "naše"],
+      ["vi", "vaš", "vaša", "vaše"],
+      ["oni, one", "njihov", "njihova", "njihovo"],
+      ["midva, medve", "najin", "najina", "najino"],
+      ["onadva, onidve", "njun", "njuna", "njuno"],
+      ["Luka", "Lukov", "Lukova", "Lukovo"],
+      ["Micka", "Mickin", "Mickina", "Mickino"],
+      ["čigav?", "čigav", "čigava", "čigavo"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Čigav je ta klobuk? Lukov.",
+      "en": "Whose hat is this? Luka's.",
+      "de": "Wessen Hut ist das? Lukas.",
+      "it": "Di chi è questo cappello? Di Luka.",
+      "note": {
+        "en": "Klobuk is masculine: čigav, Lukov.",
+        "de": "Klobuk ist männlich: čigav, Lukov.",
+        "it": "Klobuk è maschile: čigav, Lukov."
+      }
+    },
+    {
+      "sl": "Čigava je ta košara? Moja.",
+      "en": "Whose basket is this? Mine.",
+      "de": "Wessen Korb ist das? Meiner.",
+      "it": "Di chi è questo cesto? Mio."
+    },
+    {
+      "sl": "To je Francetov konj Sivko.",
+      "en": "This is France's horse Sivko.",
+      "de": "Das ist Frances Pferd Sivko.",
+      "it": "Questo è Sivko, il cavallo di France."
+    },
+    {
+      "sl": "Zala ima mačko. Njena mačka spi na peči.",
+      "en": "Zala has a cat. Her cat is asleep on the stove.",
+      "de": "Zala hat eine Katze. Ihre Katze schläft auf dem Ofen.",
+      "it": "Zala ha una gatta. La sua gatta dorme sulla stufa.",
+      "note": {
+        "en": "njen- for her, -a for mačka: njena.",
+        "de": "njen- für sie, -a für mačka: njena.",
+        "it": "njen- per lei, -a per mačka: njena."
+      }
+    },
+    {
+      "sl": "V babičini kuhinji vedno lepo diši.",
+      "en": "It always smells lovely in Granny's kitchen.",
+      "de": "In Omas Küche duftet es immer gut.",
+      "it": "Nella cucina della nonna c'è sempre un buon profumo.",
+      "note": {
+        "en": "babica → babičin (c → č), in the locative: v babičini kuhinji.",
+        "de": "babica → babičin (c → č), im Lokativ: v babičini kuhinji.",
+        "it": "babica → babičin (c → č), al locativo: v babičini kuhinji."
+      }
+    },
+    {
+      "sl": "Konj stoji pred Tonetovo kovačnico.",
+      "en": "The horse is standing in front of Tone's smithy.",
+      "de": "Das Pferd steht vor Tones Schmiede.",
+      "it": "Il cavallo è davanti alla fucina di Tone."
+    },
+    {
+      "sl": "Nejc in Tine iščeta žogo. Njuna žoga je v ribniku.",
+      "en": "Nejc and Tine are looking for the ball. Their ball is in the pond.",
+      "de": "Nejc und Tine suchen den Ball. Ihr Ball ist im Teich.",
+      "it": "Nejc e Tine cercano la palla. La loro palla è nello stagno.",
+      "note": {
+        "en": "Two owners: njun, here njuna (žoga is feminine).",
+        "de": "Zwei Besitzer: njun, hier njuna (žoga ist weiblich).",
+        "it": "Due possessori: njun, qui njuna (žoga è femminile)."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["possessive_pronoun", "possessive_adjective", "cigav", "whose"],
+  "see": ["pridevniki-ujemanje", "svoj", "vprasalnice", "osebni-zaimki"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

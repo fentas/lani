@@ -98,7 +98,7 @@ Write a pack when the learner asks for words on a topic ("teach me words for the
 
 The rules you explain in passing (a "why", a chat) stay in the app's grammar book: one page per rule (`lani.grammar/v0`,
 [reference/grammar-spec.md](reference/grammar-spec.md)), with the rule in the learner's base language, a table, examples
-with 🔊, the modules that practise it, and the learner's own mistakes on it. 57 curated Slovene pages ship in
+with 🔊, the modules that practise it, and the learner's own mistakes on it. 59 curated Slovene pages ship in
 `companion/grammar/sl/` (the six cases, each case's page and the declension tables among them); a page unlocks when the
 learner meets its rule in an exercise that names it (`"grammar": "<id>"`).
 
