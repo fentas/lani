@@ -63,7 +63,10 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        "your-words" a dialog that tests the learner's own words answered right, its end listing them;
                        "word-missed" one got wrong first, its card after the turn; "project-step" the maypole's first
                        step as its scene (QA's hook "step:mlaj/1"): the sheet, the forest, the tap turn, the step done;
-                       then one over the village (the chapel's first, else the maypole's third); "age-up" an age's
+                       then one over the village (the chapel's first, else the maypole's third); "scene-coherence"
+                       what a dialog says happens shows: the mill's last step (QA's hook "step:mlin/6": the wheel dry,
+                       then turning as Tine says the water runs, the mill grinding), Luka's flock at the water (QA's hook
+                       "happening:ob-potoku/ovce/ovce-stejem": coming, counted, going home); "age-up" an age's
                        moment (QA's hook "ageup:vas", then "ageup:trg"), held beat by beat ("ageup:at:<s>"), its card with
                        what's new, the party at A1 ("level:A1", "hour:19") to its end, the chronicle's "🎉 Poglej spet ·
                        Watch again"; "maypole-season"
@@ -4563,6 +4566,109 @@ def project_step():
     finally:
         qa_hook("step:")
     return None
+
+
+def scene_coherence():
+    """What a dialog says happens shows in its scene (docs/plans/05-built/scene-coherence.md). The mill's last step (QA's
+    hook "step:mlin/6": the wheel and the flume in place, nothing ground yet) played by the stream at A1 ("level:A1"):
+    France's "Danes spustimo vodo na kolo!" with the wheel still and dry, Tine's "Voda teče … Glejte, kolo se vrti!" with the
+    water pouring onto the wheel and the wheel turning (two shots half a second apart), Micka's "Prva moka!" with the mill
+    grinding and its sack of flour by the door, the step done. Then Luka's flock at dusk (QA's hooks "hour:19.5",
+    "happening:ob-potoku/ovce/ovce-stejem"): coming in over the meadow as he asks to count them, at the water to be
+    counted, the count, and going home at "Ovce, domov!"."""
+    steps = json.loads((ROOT / "companion/cultures/primorska/project-steps/mlin.json").read_text())
+    ok = {c["sl"] for lv in steps["steps"][5]["levels"].values() for l in lv["lines"] for c in l.get("choices", []) if c.get("ok")}
+    notes = []
+    try:
+        qa_hook("level:A1")
+        qa_hook("hour:11")
+        qa_hook("step:mlin/6")
+        plain_village()
+        if hud_find("Skupni projekti · Village projects", 8) is None:
+            return "no village projects yet (they come with Zaselek)"
+        assert hud_tap("Skupni projekti · Village projects"), "projects chip"
+        assert wait_for("En korak na dan", 8), "projects sheet"
+        time.sleep(1.5)
+        assert wait_for("Mlin na potoku · The mill on the stream", 5), "the sheet at the mill (QA's hook)"
+        btn = None
+        for _ in range(6):
+            title = find("Mlin na potoku · The mill on the stream")
+            below = sorted((c for t, c in nodes() if "Današnji korak" in t and (title is None or c[1] > title[1])), key=lambda c: c[1])
+            if below and below[0][1] < 2280:
+                btn = below[0]
+                break
+            adb("shell", "input", "swipe", "540", "1500", "540", "1100", "400")
+            time.sleep(1)
+        assert btn is not None, "the mill's 🔨 Današnji korak · Today's step"
+        tap_at(btn)
+        assert wait_for("‹ Vas · Village", 10), "the stream opens for the step"
+        assert wait_for("Mlin na potoku 6/6", 8), "the step's dialog: Mlin na potoku 6/6 with France"
+        time.sleep(2)
+        shot("coherence-mill-dry")
+        assert play_to("kolo se vrti", ok), "Tine's line: the water on the wheel"
+        time.sleep(4.5)  # the cue eases in over four seconds
+        shot("coherence-mill-turning-a")
+        time.sleep(0.5)
+        shot("coherence-mill-turning-b")
+        assert play_to("Prva moka", ok), "Micka's line: the first flour"
+        time.sleep(1.5)
+        shot("coherence-mill-grinding")
+        for _ in range(10):
+            labels = [t for t, _ in nodes()]
+            if any(t.strip() == "⚙️ Mlin na potoku 6/6" for t in labels):
+                break
+            if any(any(m in t for m in TURN_UP) for t in labels):
+                assert answer_right(ok), "the right choice on screen"
+                time.sleep(1.5)
+                continue
+            if not tap("Naprej · Next", 3):
+                time.sleep(1)
+        assert step_done("⚙️ Mlin na potoku 6/6"), "the step done: ⚙️ Mlin na potoku 6/6"
+        shot("coherence-mill-done")
+        back = end_button("Nazaj v prizor")
+        if back is not None:
+            tap_at(back)
+            time.sleep(2)
+            shot("coherence-mill-after")
+        tap("‹ Vas · Village", 3)
+    finally:
+        qa_hook("step:")
+        qa_hook("hour:")
+    plain_village()
+    # Luka's flock at the water at dusk, counted, and home again
+    ovce = json.loads((ROOT / "companion/scenes/ob-potoku.json").read_text())
+    count_ok = set()
+    for d in ovce["variants"] + ovce["dialogs"]:
+        if d["id"] == "ovce-stejem":
+            count_ok = {c["sl"] for l in d["lines"] for c in l.get("choices", []) if c.get("ok")}
+    try:
+        qa_hook("hour:19.5")
+        qa_hook("happening:ob-potoku/ovce/ovce-stejem", "scene:ob-potoku@ob-potoku/ovce")
+        if wait_for("‹ Vas · Village", 10) is None or wait_for("Zapri · Close", 8) is None:
+            return "the stream's flock: its dialog didn't open"
+        assert wait_for("Preštej ovce pri vodi", 10), "Luka's first line"
+        burst("coherence-flock-coming", n=3, gap=0.8)
+        time.sleep(2.5)
+        shot("coherence-flock-at-the-water")
+        # the count's choices are rendered with today's number (12 to 24 sheep): the right one takes the genitive plural
+        words = ["dvanajst", "trinajst", "štirinajst", "petnajst", "šestnajst", "sedemnajst", "osemnajst", "devetnajst", "dvajset",
+                 "enaindvajset", "dvaindvajset", "triindvajset", "štiriindvajset"]
+        right = {f"Pri vodi je {w} ovc." for w in words}
+        shown = next((t for t, _ in nodes() if t in right), None)
+        notes.append(f"counted: {shown or '?'} ({len(count_ok)} right in the file)")
+        assert play_to("Dobro si", right), "the count answered"
+        assert play_to("Ovce, domov", {"Ja, jutri bom spet prišel.", "Ja, jutri bom spet prišla."}), "Luka's Ovce, domov!"
+        time.sleep(1.5)
+        shot("coherence-flock-home-a")
+        time.sleep(1.5)
+        shot("coherence-flock-home-b")
+        tap("Zapri · Close", 3)
+    finally:
+        qa_hook("happening:")
+        qa_hook("hour:")
+        qa_hook("level:")
+    plain_village()
+    return "; ".join(notes) or None
 
 
 def over_the_village():
@@ -10473,6 +10579,7 @@ def plan():
         ("bridges", bridges, v, False, ""),
         ("projects", projects, v, False, ""),
         ("project-step", project_step, v, False, ""),
+        ("scene-coherence", scene_coherence, v, False, ""),
         ("age-up", age_up, v, False, ""),
         ("build-sheet", build_sheet, v, True, ""),
         ("ages", ages, v, False, ""),
