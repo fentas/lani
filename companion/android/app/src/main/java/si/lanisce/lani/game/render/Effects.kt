@@ -1736,7 +1736,10 @@ internal class Effects(private val s: SceneCtx) {
      */
     fun rain(horizon: Int, density: Float = 1f) {
         if (density <= 0.01f) return
-        val w = c.width; val h = c.height
+        // over the screen (a canvas may hold more of the picture or less): its corner, and its size
+        val sc = s.screenRect()
+        val sx = sc.x0; val sy = sc.y0
+        val w = sc.w; val h = sc.h
         // what of the nominal canvas this canvas shows, in nominal px
         val vw = w / k.toFloat(); val vh = h / k.toFloat()
         val col = Col.hex(0xC0CEE4)
@@ -1759,11 +1762,11 @@ internal class Effects(private val s: SceneCtx) {
                 val px = x - (q * slant).toInt(); val py = y - q
                 if (py < 0 || py >= h) continue
                 val f = a * (1f - 0.65f * q / pxLen)
-                for (o in 0 until thick) if (px + o in 0 until w) c.blend(px + o, py, col, f)
+                for (o in 0 until thick) if (px + o in 0 until w) c.blend(sx + px + o, sy + py, col, f)
             }
         }
         // on the ground (what isn't a building, a person or a tree: the canvas's background), the drops splash and ring out
-        val ground = (horizon + 4 * k).coerceAtLeast(0)
+        val ground = (horizon - sy + 4 * k).coerceAtLeast(0)
         if (ground >= h) return
         val gh = (h - ground) / k.toFloat()
         val m = (vw * gh / 260f * density).toInt()
@@ -1774,8 +1777,8 @@ internal class Effects(private val s: SceneCtx) {
             if (ph > 0.55f) continue
             val round = cycle.toInt()
             val bx = Noise.rnd(j, 35, round) * vw; val by = Noise.rnd(j, 36, round) * gh
-            val cx = (bx * k).toInt(); val cy = ground + (by * k).toInt()
-            if (cx !in 0 until w || cy !in 0 until h || c.ids[cy * w + cx] != 0) continue
+            val cx = sx + (bx * k).toInt(); val cy = sy + ground + (by * k).toInt()
+            if (cx !in sx until sx + w || cy !in sy until sy + h || !c.inside(cx, cy) || c.ids[c.index(cx, cy)] != 0) continue
             if (ph < 0.12f) {
                 // the drop's crown
                 s.sprite(cx, cy) {
@@ -1790,7 +1793,7 @@ internal class Effects(private val s: SceneCtx) {
                 for (i in 0 until steps) {
                     val ang = i * (2.0 * PI / steps)
                     val px = (cx + cos(ang) * rx).toInt(); val py = (cy + sin(ang) * ry).toInt()
-                    if (px in 0 until w && py in 0 until h && c.ids[py * w + px] == 0) c.blend(px, py, ring, fa)
+                    if (px in sx until sx + w && py in sy until sy + h && c.inside(px, py) && c.ids[c.index(px, py)] == 0) c.blend(px, py, ring, fa)
                 }
             }
         }
@@ -1799,8 +1802,9 @@ internal class Effects(private val s: SceneCtx) {
     /** A bolt of lightning from the top of the sky down to [horizon], crooked, seeded by [seed] (a new one each flash). */
     fun lightning(horizon: Int, seed: Int) {
         c.penEmissive = true
-        var x = c.width * (0.25f + Noise.rnd(seed, 41) * 0.5f)
-        var y = 0f
+        val sc = s.screenRect()
+        var x = sc.x0 + sc.w * (0.25f + Noise.rnd(seed, 41) * 0.5f)
+        var y = sc.y0.toFloat()
         val bolt = Col.hex(0xF4F6FF)
         while (y < horizon - 4) {
             val nx = x + (Noise.rnd(seed, y.toInt(), 42) - 0.5f) * 8f * k
@@ -1813,7 +1817,10 @@ internal class Effects(private val s: SceneCtx) {
     }
 
     fun leaves(season: Season, month: Int) {
-        val w = c.width; val h = c.height
+        // over the screen (a canvas may hold more of the picture or less, a close-up's window of a bigger one, see
+        // PixelCanvas.originX)
+        val sc = s.screenRect()
+        val w = sc.w; val h = sc.h
         val (n, cols) = when (season) {
             Season.AUTUMN -> (if (month == 11) 10 else 22) to intArrayOf(Col.hex(0xF08C2C), Col.hex(0xD6452C), Col.hex(0xECC23E), Col.hex(0xC9651F))
             Season.WINTER -> 80 to intArrayOf(Pal.SNOW_L, Col.hex(0xFFFFFF), Pal.SNOW_M)
@@ -1824,8 +1831,7 @@ internal class Effects(private val s: SceneCtx) {
             val sp = (if (season == Season.WINTER) 7f + Noise.rnd(j, 51) * 8f else 9f + Noise.rnd(j, 51) * 7f) * k
             val y = ((Noise.rnd(j, 52) * (h + 10) + t * sp) % (h + 10)).toFloat() - 5
             val x = Noise.rnd(j, 53) * w + sin(t * (1.1 + Noise.rnd(j, 54)) + j).toFloat() * 4f * k + (t * 3 % w).toFloat() * (if (season == Season.WINTER) 0f else 0.3f)
-            // over what the canvas shows (a close-up's window of a bigger picture, see PixelCanvas.originX)
-            val xi = floor(x % w).toInt() + c.left; val yi = y.toInt() + c.top
+            val xi = floor(x % w).toInt() + sc.x0; val yi = y.toInt() + sc.y0
             c.block(xi, yi, k, cols[j % cols.size])
             if (season == Season.AUTUMN && ((t * 4).toInt() + j) % 2 == 0) c.block(xi + k, yi, k, cols[(j + 1) % cols.size])
         }
@@ -1833,7 +1839,9 @@ internal class Effects(private val s: SceneCtx) {
 
     fun fireworks(p: Float, horizon: Int) {
         if (p < 0f || p > 1f) return
-        val w = c.width
+        // over the screen (a canvas may hold more of the picture or less)
+        val sc = s.screenRect()
+        val w = sc.w; val left = sc.x0; val bottom = sc.y0 + sc.h
         c.penEmissive = true
         val palettes = arrayOf(
             intArrayOf(Pal.GOLD_L, Pal.GOLD, Col.hex(0xFF8A1A)),
@@ -1844,10 +1852,10 @@ internal class Effects(private val s: SceneCtx) {
         for (j in 0..3) {
             val u = (p - j * 0.14f) / 0.55f
             if (u < 0f || u > 1f) continue
-            val cx = w * (0.22f + 0.56f * Noise.rnd(j, 61)); val cy = 8f * k + horizon * 0.55f * Noise.rnd(j, 62)
+            val cx = left + w * (0.22f + 0.56f * Noise.rnd(j, 61)); val cy = 8f * k + horizon * 0.55f * Noise.rnd(j, 62)
             val pal = palettes[j % palettes.size]
             if (u < 0.25f) {
-                val ry = c.height - (c.height - cy) * (u / 0.25f)
+                val ry = bottom - (bottom - cy) * (u / 0.25f)
                 c.block(cx.toInt(), ry.toInt(), k, pal[0]); c.block(cx.toInt(), ry.toInt() + k, k, pal[1]); c.block(cx.toInt(), ry.toInt() + 2 * k, k, pal[2])
             } else {
                 val e = (u - 0.25f) / 0.75f
@@ -1871,8 +1879,8 @@ internal class Effects(private val s: SceneCtx) {
             val start = Noise.rnd(j, 71) * 0.35f
             val u = (p - start) / 0.65f
             if (u < 0f || u > 1f) continue
-            val x = Noise.rnd(j, 72) * w + sin(u * 9 + j).toFloat() * 3f * k
-            val y = -4 + u * (c.height + 8)
+            val x = left + Noise.rnd(j, 72) * w + sin(u * 9 + j).toFloat() * 3f * k
+            val y = sc.y0 - 4 + u * (sc.h + 8)
             val col = Pal.PAINTED[j % Pal.PAINTED.size]
             c.block(x.toInt(), y.toInt(), k, col)
             if (((t * 10).toInt() + j) % 2 == 0) c.block(x.toInt() + k, y.toInt(), k, col) else c.block(x.toInt(), y.toInt() + k, k, col)

@@ -408,14 +408,16 @@ internal class PalisadePainter(private val s: SceneCtx, private val buildings: B
     ) {
         val stakes = ring.stakes
         if (stakes.isEmpty()) return
-        // what shows: on the canvas, below the horizon (the ring of a big clearing runs on behind the far treeline, the
-        // stakes getting lower towards it), off the landmarks
+        // what shows: below the horizon (the ring of a big clearing runs on behind the far treeline, the stakes getting
+        // lower towards it), off the landmarks; and of it what reaches the canvas ([near]: a stake, or its gate's lintel from
+        // the stake beyond, so a window of the picture closer up has what the whole picture has there, see TownFrames)
         val shown = BooleanArray(stakes.size)
+        val near = BooleanArray(stakes.size)
         val low = FloatArray(stakes.size)
-        val x0 = -12f * k; val x1 = c.width + 12f * k
+        val x0 = c.left - 12f * k; val x1 = c.right + 12f * k
         for ((n, st) in stakes.withIndex()) {
             val bx = i.sx(st.x, st.y); val by = i.sy(st.x, st.y, 0f)
-            if (bx < x0 || bx > x1 || by - (st.h + Palisade.POINT) * k > c.height) continue
+            near[n] = !(bx < x0 || bx > x1 || by - (st.h + Palisade.POINT) * k > c.bottom)
             low[n] = (((by - horizon) / k - 2f) / TAPER).coerceIn(0f, 1f)
             if (low[n] < 0.3f) continue
             if (landmarks.isNotEmpty() && landmarks.any { hides(st, it) }) continue
@@ -429,12 +431,14 @@ internal class PalisadePainter(private val s: SceneCtx, private val buildings: B
         val flag = if (b.level >= 3) ring.main?.a ?: -1 else -1
         for ((n, st) in stakes.withIndex()) {
             if (!shown[n]) continue
+            val gate = gates[n]
+            // off the canvas, and its gate's lintel too
+            if (!near[n] && (gate == null || !near[gate.a])) continue
             val f = ((grow - st.u * 0.7f) / 0.3f).coerceIn(0f, 1f) * low[n]
             if (f <= 0f) continue
             // whole: standing, built and not tapering towards the horizon (a gate's beam and its torches want that)
             val whole = f >= 1f
             val off = if (breach < 0) 99 else abs(n - breach).let { min(it, stakes.size - it) }
-            val gate = gates[n]
             val tappable = landmarks.none { behind(st, it) }
             add(st.depth) {
                 val id = s.newObject(Pal.OUTLINE)
@@ -456,7 +460,7 @@ internal class PalisadePainter(private val s: SceneCtx, private val buildings: B
         // the water gates' stakes in the stream, each in its own order, going up with the posts beside them
         for (st in ring.wet) {
             val bx = i.sx(st.x, st.y); val by = i.sy(st.x, st.y, 0f)
-            if (bx < x0 || bx > x1 || by - (st.h + WET_POINT) * k > c.height) continue
+            if (bx < x0 || bx > x1 || by - (st.h + WET_POINT) * k > c.bottom) continue
             val lo = (((by - horizon) / k - 2f) / TAPER).coerceIn(0f, 1f)
             if (lo < 0.3f || (landmarks.isNotEmpty() && landmarks.any { hides(st, it) })) continue
             val f = ((grow - st.u * 0.7f) / 0.3f).coerceIn(0f, 1f) * lo

@@ -3,6 +3,7 @@ package si.lanisce.lani.game.render
 import android.graphics.Bitmap
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
@@ -12,6 +13,7 @@ import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.FilterQuality
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.unit.IntOffset
@@ -19,7 +21,6 @@ import androidx.compose.ui.unit.IntSize
 import si.lanisce.lani.game.GameState
 import si.lanisce.lani.game.scene.TownPlace
 import si.lanisce.lani.game.villagers.Villager
-import java.time.LocalDate
 import java.time.LocalDateTime
 import kotlin.math.ceil
 import kotlin.math.floor
@@ -82,15 +83,17 @@ fun rememberTownClock(): TownClock {
 
 /**
  * The full-screen village: the nominal canvas of [fit] rendered at ~12 fps and drawn through [camera] with
- * nearest-neighbour scaling (pixels stay crisp at any zoom), plus, at a closer look ([detail] 2 or 3), a second
- * canvas of the same size showing just what the camera sees at k × k pixels per nominal pixel (see [Lens]): the
- * geometry scales, the detail passes fill in, villagers get faces. The nominal picture stays underneath, so a
- * pan between frames never shows a hole; a detail switch crossfades over the picture that showed before.
+ * nearest-neighbour scaling (pixels stay crisp at any zoom), plus, at a closer look ([detail] 2 or 3), a window of the
+ * picture at k × k pixels per nominal pixel covering what the camera sees (see [Lens], [TownFrames]): the geometry
+ * scales, the detail passes fill in, villagers get faces. The nominal picture stays underneath, so a pan between frames
+ * never shows a hole; a detail switch crossfades over the picture that showed before.
  *
- * Moving the camera just redraws the bitmaps, so pinching stays smooth. The caller owns [renderer] to hit-test
- * taps (in the last frame's pixels, through its [VillageRenderer.lens]) and to anchor bubbles on the people. [at]: the
- * time to show instead of the clock's (QA's "hour:<h>"), or null. [growth] and [festive]: an age-up's moment and a
- * celebration's decorations ([si.lanisce.lani.game.AgeUps]), read each frame, or null.
+ * The pictures are rendered on a thread of their own ([TownPictures]): the screen's frames only draw the newest ones
+ * through the camera, so pinching and panning stay smooth however long a picture takes, and the closer look's ground is
+ * kept in cells of its picture ([GroundCache]), so a pan draws only the ground newly in view. The caller owns
+ * [renderer] to hit-test taps (in the last frame's pixels, through its [VillageRenderer.lens]) and to anchor bubbles on
+ * the people. [at]: the time to show instead of the clock's (QA's "hour:<h>"), or null. [growth] and [festive]: an
+ * age-up's moment and a celebration's decorations ([si.lanisce.lani.game.AgeUps]), read each frame, or null.
  */
 @Composable
 fun TownScene(
@@ -116,24 +119,23 @@ fun TownScene(
 ) {
     val anim = remember { AnimMarks(celebrateSeen = celebrate) }
     val iw = fit.width; val ih = fit.height
-    val base = remember(iw, ih) { Layer(iw, ih) }
-    val fine = remember(iw, ih) { Layer(iw, ih) }
-    val prev = remember(iw, ih) { Layer(iw, ih) }
-    val drawnBase = remember(iw, ih) { Drawn() }
-    val timing = remember { Timing() }
-    val drawnFine = remember(iw, ih) { Drawn() }
+    val pics = remember(iw, ih, renderer) { TownPictures(iw, ih, renderer) }
+    DisposableEffect(pics) { onDispose { pics.close() } }
+    val inputs = remember(iw, ih) { Inputs() }
+    val prev = remember(iw, ih) { Held() }
     val switch = remember(iw, ih) { Switch() }
 
     // the system's animations off: no flash of lightning over the village
     val calm = si.lanisce.lani.ui.stage.rememberReducedMotion()
     Canvas(modifier) {
         val tick = clock.tick // reading the clock here re-runs only the draw phase
+        pics.version // and so does a picture the render thread hands over
         val t = tick / 1e9
         val cam = camera()
         val k = detail.coerceIn(1, Lens.MAX_DETAIL)
         // a detail switch: keep what shows now, to fade the new picture in over it once it's rendered
         if (k != switch.wantK) {
-            if (switch.shownK > 0) prev.copyFrom(if (switch.shownK > 1) fine else base)
+            if (switch.shownK > 0) prev.take(if (switch.shownK > 1) pics.fine else pics.base)
             switch.wantK = k
         }
         // the clock's time, or the time QA asks the map to be seen at (its "hour:<h>", app/QaHooks), without the real sky
@@ -170,25 +172,17 @@ fun TownScene(
             festive = festive(),
             calm = calm,
         )
-        // the nominal canvas: every tick while it is the picture, else only when its inputs change
-        if (drawnBase.stale(if (k == 1) tick else 0L, state, highlightPlot, justBuilt, celebrate, visitors, people, today, standing, skyMark, plots, day, frame.kopa, frame.growth, frame.festive)) {
-            val t0 = System.nanoTime()
-            renderer.render(base.canvas, state, frame)
-            if (si.lanisce.lani.BuildConfig.QA) timing.add(state, 1, iw, ih, System.nanoTime() - t0)
-            base.lens = Lens(1, 0, 0, iw, ih)
-            base.upload()
-        }
-        // the closer look: every tick, at the window the camera sees now
-        if (k > 1 && drawnFine.stale(tick, k, state, highlightPlot, justBuilt, celebrate, visitors, people, today, standing, skyMark, plots, day, frame.kopa, frame.growth, frame.festive)) {
-            val lens = Lens.of(k, cam, size.width.roundToInt(), size.height.roundToInt(), iw, ih, iw, ih)
-            val t0 = System.nanoTime()
-            renderer.render(fine.canvas, state, frame.copy(lens = lens))
-            if (si.lanisce.lani.BuildConfig.QA) timing.add(state, k, iw, ih, System.nanoTime() - t0)
-            fine.lens = lens
-            fine.upload()
-        }
+        // what the pictures show besides the clock's time: both rendered anew when it changes
+        val changed = inputs.stale(state, highlightPlot, justBuilt, celebrate, visitors, people, today, standing, skyMark, plots, day, frame.kopa, frame.growth, frame.festive)
+        pics.ask(tick, k, cam, size.width.roundToInt(), size.height.roundToInt(), state, frame, changed)
+
+        val base = pics.base
+        val latest = pics.fine
+        // what the screen draws now (and its sync uploads): the render thread draws into neither
+        pics.drew(base, latest)
+        val fine = latest?.takeIf { k > 1 && it.lens.k == k }
         // the new picture is there: it is what shows, fading in over the one before
-        val ready = if (k > 1) fine.valid && fine.lens.k == k else base.valid
+        val ready = if (k > 1) fine != null else base != null
         if (ready && switch.shownK != k) {
             if (switch.shownK > 0 && prev.valid) { switch.fadeFrom = tick; clock.frames = true }
             switch.shownK = k
@@ -201,17 +195,66 @@ fun TownScene(
         val fading = switch.fadeFrom >= 0 && prev.valid
 
         drawRect(Color(renderer.skyColor))
-        drawLayer(base, cam)
+        base?.let { drawPicture(it.image, it.lens, it.ox, it.oy, it.w, it.h, cam) }
         when {
-            !ready -> if (prev.valid) drawLayer(prev, cam) // the picture before, until the new detail is rendered
-            k > 1 && fading -> { drawLayer(prev, cam); drawLayer(fine, cam, alpha) }
-            k > 1 -> drawLayer(fine, cam)
-            fading -> drawLayer(prev, cam, 1f - alpha)
+            !ready -> if (prev.valid) prev.draw(this, cam) // the picture before, until the new detail is rendered
+            fine != null && fading -> { prev.draw(this, cam); drawPicture(fine.image, fine.lens, fine.ox, fine.oy, fine.w, fine.h, cam, alpha) }
+            fine != null -> drawPicture(fine.image, fine.lens, fine.ox, fine.oy, fine.w, fine.h, cam)
+            fading -> prev.draw(this, cam, 1f - alpha)
         }
     }
 }
 
-/** One rendered picture: its canvas, the bitmap it's uploaded to, and the lens it was rendered with. */
+/**
+ * The picture shown before a detail switch, to fade from: a copy of it (the render thread reuses its bitmaps), with
+ * where it lay in its lens's picture.
+ */
+internal class Held {
+    private var bitmap: Bitmap? = null
+    private var image: ImageBitmap? = null
+    private var lens = Lens()
+    private var ox = 0
+    private var oy = 0
+    private var w = 0
+    private var h = 0
+    var valid = false
+        private set
+
+    /** Keeps a copy of [p] (none: the one before stays). */
+    fun take(p: Picture?) {
+        if (p == null) return
+        val b = bitmap?.takeIf { it.width >= p.w && it.height >= p.h }
+            ?: Bitmap.createBitmap(maxOf(p.w, bitmap?.width ?: 0), maxOf(p.h, bitmap?.height ?: 0), Bitmap.Config.ARGB_8888).also { bitmap = it; image = it.asImageBitmap() }
+        val r = android.graphics.Rect(0, 0, p.w, p.h)
+        android.graphics.Canvas(b).drawBitmap(p.bitmap, r, r, COPY)
+        lens = p.lens; ox = p.ox; oy = p.oy; w = p.w; h = p.h
+        valid = true
+    }
+
+    fun draw(scope: DrawScope, cam: Camera, alpha: Float = 1f) {
+        val img = image ?: return
+        if (valid) scope.drawPicture(img, lens, ox, oy, w, h, cam, alpha)
+    }
+
+    private companion object {
+        /** A copy, pixel for pixel. */
+        val COPY = android.graphics.Paint().apply { xfermode = android.graphics.PorterDuffXfermode(android.graphics.PorterDuff.Mode.SRC) }
+    }
+}
+
+/** What the town's pictures show besides the clock: rendered anew only for a change (compared by identity, cheaply). */
+private class Inputs {
+    private var inputs: Array<Any?> = emptyArray()
+
+    fun stale(vararg now: Any?): Boolean {
+        val same = now.size == inputs.size && now.indices.all { now[it] === inputs[it] || now[it] == inputs[it] && now[it] !is GameState }
+        if (same) return false
+        inputs = arrayOf(*now)
+        return true
+    }
+}
+
+/** One rendered picture: its canvas, the bitmap it's uploaded to, and the lens it was rendered with (the scenes'). */
 internal class Layer(val w: Int, val h: Int) {
     val canvas = PixelCanvas(w, h)
     val bitmap: Bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
@@ -230,27 +273,9 @@ internal class Layer(val w: Int, val h: Int) {
     }
 }
 
-/**
- * Debug and qa builds: the village's render time, logged every 24 frames, about 2 s (tag TownScene; QA reads it): its land,
- * the detail, the canvas, and whether the ground's still picture is kept ([VillageRenderer.groundKept]).
- */
-private class Timing {
-    private var nanos = 0L
-    private var frames = 0
-    private var k = 0
-
-    fun add(state: GameState, k: Int, w: Int, h: Int, took: Long) {
-        if (k != this.k) { this.k = k; nanos = 0L; frames = 0 }
-        nanos += took
-        if (++frames < 24) return
-        android.util.Log.d(
-            "TownScene",
-            "%s at detail %d: %.1f ms per frame (%d × %d, ground %s)".format(
-                Terrain.of(state).key, k, nanos / 1e6 / frames, w, h, if (VillageRenderer.groundKept) "kept" else "whole",
-            ),
-        )
-        nanos = 0L; frames = 0
-    }
+/** Draws the part of [layer] the camera sees, through its lens (see [drawPicture]). */
+internal fun DrawScope.drawLayer(layer: Layer, cam: Camera, alpha: Float = 1f) {
+    if (layer.valid) drawPicture(layer.image, layer.lens, 0, 0, layer.w, layer.h, cam, alpha)
 }
 
 /** Which detail level is wanted and which is on screen, and the fade from the picture before it. */
@@ -260,23 +285,25 @@ internal class Switch {
     var fadeFrom = -1L
 }
 
-/** Draws the part of [layer] the camera sees, through its lens: nominal point b shows at b × scale + t; canvas pixel i at ((i + x0) / k) × scale + t. */
-internal fun DrawScope.drawLayer(layer: Layer, cam: Camera, alpha: Float = 1f) {
-    if (!layer.valid || alpha <= 0f) return
-    val lens = layer.lens
+/**
+ * Draws the part of a picture the camera sees: [image]'s [w] × [h] px are the canvas pixels of [lens]'s picture from
+ * ([ox], [oy]) (a window of it, see [PixelCanvas.originX]), so its pixel i shows nominal point (i + ox + x0) / k, which
+ * the camera puts at that × scale + t. Only the part that shows, in whole canvas pixels, nearest-neighbour.
+ */
+internal fun DrawScope.drawPicture(image: ImageBitmap, lens: Lens, ox: Int, oy: Int, w: Int, h: Int, cam: Camera, alpha: Float = 1f) {
+    if (alpha <= 0f || w <= 0 || h <= 0) return
     val s = cam.scale / lens.k
-    // canvas pixel i shows nominal (i + x0) / k, which the camera puts at ((i + x0) / k) × scale + t = i × s + x0 × s + t
-    val tx = cam.tx + lens.x0 * s; val ty = cam.ty + lens.y0 * s
-    // only the part of the canvas that shows, in whole canvas pixels
-    val x0 = floor((0f - tx) / s).toInt().coerceIn(0, layer.w)
-    val y0 = floor((0f - ty) / s).toInt().coerceIn(0, layer.h)
-    val x1 = ceil((size.width - tx) / s).toInt().coerceIn(x0, layer.w)
-    val y1 = ceil((size.height - ty) / s).toInt().coerceIn(y0, layer.h)
+    // pixel i shows nominal (i + ox + x0) / k, which the camera puts at ((i + ox + x0) / k) × scale + t = i × s + (ox + x0) × s + t
+    val tx = cam.tx + (lens.x0 + ox) * s; val ty = cam.ty + (lens.y0 + oy) * s
+    val x0 = floor((0f - tx) / s).toInt().coerceIn(0, w)
+    val y0 = floor((0f - ty) / s).toInt().coerceIn(0, h)
+    val x1 = ceil((size.width - tx) / s).toInt().coerceIn(x0, w)
+    val y1 = ceil((size.height - ty) / s).toInt().coerceIn(y0, h)
     if (x1 <= x0 || y1 <= y0) return
     val dx0 = (x0 * s + tx).roundToInt(); val dy0 = (y0 * s + ty).roundToInt()
     val dx1 = (x1 * s + tx).roundToInt(); val dy1 = (y1 * s + ty).roundToInt()
     drawImage(
-        layer.image,
+        image,
         srcOffset = IntOffset(x0, y0),
         srcSize = IntSize(x1 - x0, y1 - y0),
         dstOffset = IntOffset(dx0, dy0),
@@ -284,18 +311,4 @@ internal fun DrawScope.drawLayer(layer: Layer, cam: Camera, alpha: Float = 1f) {
         alpha = alpha,
         filterQuality = FilterQuality.None,
     )
-}
-
-/** What the bitmap shows: re-render only for a new clock tick or new inputs (compared by identity, cheaply). */
-private class Drawn {
-    private var tick = -1L
-    private var inputs: Array<Any?> = emptyArray()
-
-    fun stale(tick: Long, vararg now: Any?): Boolean {
-        val same = tick == this.tick && now.size == inputs.size && now.indices.all { now[it] === inputs[it] || now[it] == inputs[it] && now[it] !is GameState }
-        if (same) return false
-        this.tick = tick
-        inputs = arrayOf(*now)
-        return true
-    }
 }

@@ -137,7 +137,7 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        "cam:zoom:<f>"), each at rest and panned, and pinched ("cam:pinch:<s>"): every frame's time and the
                        main thread's (dumpsys gfxinfo framestats), the map's render time (tag TownScene), a table, also
                        frames.tsv and screenshots in $LANI_QA_ZOOM_SHOTS (LANI_QA_FRAMES_S seconds each, 8;
-                       LANI_QA_FRAMES_HOURS, "22,11");
+                       LANI_QA_FRAMES_HOURS, "22,11"; LANI_QA_FRAMES_ZOOMS, "1.5,2.5,3");
                        "bubbles-follow" the village's bubbles with their people (QA's hook "hour:11"): at home, dragged
                        so some are off screen, zoomed in and dragged, the edge chip ("‹ 🐑 2") tapped and its bubble on
                        screen then;
@@ -10866,7 +10866,8 @@ def zoom_frames():
     the fitted zoom and 3 × it ("cam:pinch:<s>": the gesture's own path, a step each frame). Each for 8 s (LANI_QA_FRAMES_S):
     the frames' times (dumpsys gfxinfo framestats, every frame: its whole time from the vsync it was meant for, and the
     main thread's part, input to sync), the summary's percentiles and janky share, and the map's own render time (the
-    debug build's log, tag TownScene). Printed as a table, also as frames.tsv in $LANI_QA_ZOOM_SHOTS with screenshots."""
+    debug build's log, tag TownScene). Printed as a table, also as frames.tsv in $LANI_QA_ZOOM_SHOTS with screenshots;
+    LANI_QA_FRAMES_HOURS ("22,11") and LANI_QA_FRAMES_ZOOMS ("1.5,2.5,3") choose fewer, for a short run."""
     go_home()
     found_village()
     go_home()
@@ -10969,7 +10970,7 @@ def zoom_frames():
             plain_village()
             time.sleep(2 * slow())
             look(f"{hour}h rest")
-            for f in ("1.5", "2.5", "3"):
+            for f in os.environ.get("LANI_QA_FRAMES_ZOOMS", "1.5,2.5,3").split(","):
                 qa_hook(f"cam:zoom:{f}")
                 time.sleep(3 * slow())
                 look(f"{hour}h {f}x rest")

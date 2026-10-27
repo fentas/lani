@@ -93,6 +93,12 @@ data class Frame(
     val festive: si.lanisce.lani.game.Festive? = null,
     /** The system's animations are off ("remove animations"): no flash of lightning (the rain still falls, the thunder rolls). */
     val calm: Boolean = false,
+    /**
+     * The part of the picture the screen shows, in the lens's canvas pixels, when the canvas holds more of it or less (the
+     * town's closer look, a window of the whole picture: [TownFrames]): the rain, the falling leaves, the fireworks and the
+     * lightning fall over it, where the screen is; null: over the canvas.
+     */
+    val screen: PixelRect? = null,
 ) {
     /** The frame's date ([today]), or the tests' day when it has none. */
     val date: java.time.LocalDate get() = runCatching { java.time.LocalDate.parse(today) }.getOrNull() ?: TownPeople.DEFAULT_DATE
@@ -236,10 +242,19 @@ internal class SceneCtx(val canvas: PixelCanvas) {
     val wildlife = WildPainter(this)
     val people = PeoplePainter()
     val lightBuf = FloatArray(canvas.width * canvas.height)
-    /** Ground kinds by pixel (see [Ground]), written by the ground pass. */
+    /** Ground kinds by pixel of the canvas (see [Ground]), written by the ground pass. */
     val ground = ByteArray(canvas.width * canvas.height)
-    /** The ground's still picture, kept for the next frames: only its water is drawn anew (see [GroundCache]). */
-    val groundCache = GroundCache()
+    /** The outline pass's colours by pixel of the canvas. */
+    val outlineBuf = IntArray(canvas.width * canvas.height)
+    /**
+     * The part of the picture the screen shows (see [Frame.screen]), when the canvas holds more of it or less; null: the
+     * canvas. What is drawn over the screen rather than on the land (the rain, the falling leaves, the fireworks, a bolt of
+     * lightning) is drawn over it ([screenRect]).
+     */
+    var screen: PixelRect? = null
+
+    /** The part of the picture the screen shows: [screen], else the canvas (a scene's window of its picture too). */
+    fun screenRect(): PixelRect = screen ?: PixelRect(canvas.left, canvas.top, canvas.width, canvas.height)
 
     /** Nominal canvas x → this canvas's x. */
     fun cx(bx: Float): Float = lens.cx(bx)
@@ -303,7 +318,6 @@ class VillageRenderer {
     private var choppable = IntArray(0)
     private var fgKey = ""
     private var fgCache: Foreground? = null
-    private var pathXs = FloatArray(0)
     private val stages = HashMap<Int, Regrowth>()
     private var lmState: GameState? = null
     private var lmSize = 0L
@@ -321,16 +335,26 @@ class VillageRenderer {
     private val night = NightSky()
     private var skyDrawn = false
 
+    /**
+     * Held while a frame is drawn, and by what reads the last frame's pixels ([hitTest], the sky's taps): the town renders
+     * on a thread of its own ([TownScene]) while the main thread taps. What the main thread reads every frame (the
+     * anchors, the animals, the lens, the sky's colour) is a copy made when a frame is done, read without waiting.
+     */
+    private val lock = Any()
+
     /** Sky colour at the top of the last frame (for letterboxing). */
-    var skyColor: Int = Col.hex(0x4D93DC)
+    @Volatile var skyColor: Int = Col.hex(0x4D93DC)
         private set
 
     /** The lens of the last frame: taps in nominal pixels map through it to the frame's pixels. */
-    var lens: Lens = Lens()
+    @Volatile var lens: Lens = Lens()
         private set
 
+    @Volatile private var anchorsShown: Map<String, CanvasPoint> = emptyMap()
+    @Volatile private var seenShown: List<WildSeen> = emptyList()
+
     /** Where the people who live here were drawn in the last frame: villager id → the point above their head, in nominal canvas pixels. */
-    val villagerAnchors: Map<String, CanvasPoint> get() = anchors
+    val villagerAnchors: Map<String, CanvasPoint> get() = anchorsShown
 
     /**
      * Who of the last frame's people calls out, and what (companion/GAME.md "People react": "Volkovi!", "Hitro noter!"),
@@ -340,7 +364,7 @@ class VillageRenderer {
         private set
 
     /** The wild animals drawn in the last frame (see [Wildlife]). */
-    val wildlife: List<WildSeen> get() = seen
+    val wildlife: List<WildSeen> get() = seenShown
 
     /** Where the wild animals of the last frame's village could be (see [Wildlife.places]); null before any came out. */
     internal val wildPlacesShown: WildPlaces? get() = wildPlaces
@@ -356,9 +380,13 @@ class VillageRenderer {
 
     private fun ctxFor(canvas: PixelCanvas): SceneCtx {
         ctxs[canvas]?.let { return it }
-        if (ctxs.size >= 2) ctxs.remove(ctxs.keys.first())
+        // the town's nominal canvas and a few of its closer look's (a canvas a window size: TownScene)
+        if (ctxs.size >= MAX_CANVASES) ctxs.remove(ctxs.keys.first())
         return SceneCtx(canvas).also { ctxs[canvas] = it }
     }
+
+    /** The ground's still picture, kept in cells of each picture from frame to frame: only its water is drawn anew. */
+    internal val groundCells = GroundCache()
 
     /** How the charcoal pile looks this frame ([Frame.kopa]). */
     private var kopaLook: si.lanisce.lani.game.scene.SpotLook? = null
@@ -373,10 +401,31 @@ class VillageRenderer {
      * Where the village's sign at the road was drawn in the last frame (a celebration's, [Frame.festive]): the point over its
      * board, in nominal canvas pixels; null when there was none.
      */
-    var signAnchor: CanvasPoint? = null
+    @Volatile var signAnchor: CanvasPoint? = null
         private set
+    private var signAt: CanvasPoint? = null
 
+    /**
+     * Draws [frame] of [state]'s village into [canvas], through the frame's lens; the canvas may hold just a window of the
+     * lens's picture ([PixelCanvas.originX], [PixelCanvas.originY]: what the town shows closer up, see [TownFrames]), whose
+     * pixels are then the ones the whole picture has there (but at its edges, by [TownFrames.apron]). Its tappable things,
+     * its people's anchors and its animals are the last frame's for [hitTest] and the readers once it is done.
+     */
     fun render(canvas: PixelCanvas, state: GameState, frame: Frame) {
+        synchronized(lock) {
+            draw(canvas, state, frame)
+            // the copies the main thread reads without waiting
+            lens = drawingLens
+            anchorsShown = HashMap(anchors)
+            seenShown = ArrayList(seen)
+            signAnchor = signAt
+        }
+    }
+
+    /** The lens of the frame being drawn (published as [lens] when it is done). */
+    private var drawingLens = Lens()
+
+    private fun draw(canvas: PixelCanvas, state: GameState, frame: Frame) {
         val s = ctxFor(canvas)
         kopaLook = frame.kopa
         mark(0)
@@ -391,8 +440,9 @@ class VillageRenderer {
         lastCanvas = canvas
         val w = canvas.width; val h = canvas.height
         val lens = frame.lens.let { if (it.baseW <= 0 || it.baseH <= 0) Lens(1, 0, 0, w, h) else it }
-        this.lens = lens
+        drawingLens = lens
         s.lens = lens; s.iso.k = lens.k
+        s.screen = frame.screen
         val k = lens.k
         val bw = lens.baseW; val bh = lens.baseH
         val event = state.event?.kind
@@ -508,7 +558,7 @@ class VillageRenderer {
         val calm = event != EventKind.WOLVES && event != EventKind.BEAR && event != EventKind.STORM && event != EventKind.FESTIVAL
         if (!frame.compact && calm) addWildlife(s, state, frame, comp, fg, trees, landmarks, camp, palisade, buildings, objs, sky.rain)
         // only the trees whose base is on this canvas (their crowns rise from it, their shadows hang a little below)
-        val cullX0 = -30f * k; val cullX1 = w + 30f * k; val cullY0 = -4f * k; val cullY1 = h + 30f * k
+        val cullX0 = canvas.left - 30f * k; val cullX1 = canvas.right + 30f * k; val cullY0 = canvas.top - 4f * k; val cullY1 = canvas.bottom + 30f * k
         // where the road crosses the stream the trees make way, for the stones as for the bridge
         val crossing = if (roadLeft) Crossing.box(land, roadHalf) else null
         for ((ti, tr) in trees.withIndex()) {
@@ -760,9 +810,9 @@ class VillageRenderer {
             else -> Unit
         }
         // a celebration's decorations (an age's: AgeUps), the sign at the road, the procession
-        signAnchor = null
+        signAt = null
         frame.festive?.let { f ->
-            signAnchor = festive.add(s, state, f, comp, buildings, roadHalf, plazaR, ringAge, frame.compact) { depth, draw -> objs.add(Obj(depth, draw)) }
+            signAt = festive.add(s, state, f, comp, buildings, roadHalf, plazaR, ringAge, frame.compact) { depth, draw -> objs.add(Obj(depth, draw)) }
         }
 
         mark(3)
@@ -813,9 +863,12 @@ class VillageRenderer {
      * right on it, or one nothing else is within reach of. So do the wild animals, small and out at the edges: a tap
      * right on one, or within half the reach of one where nothing else (not even an area) is.
      */
-    fun hitTest(x: Int, y: Int, slop: Int = 4): VillageHit? {
+    fun hitTest(x: Int, y: Int, slop: Int = 4): VillageHit? = synchronized(lock) { hit(x, y, slop) }
+
+    private fun hit(x: Int, y: Int, slop: Int): VillageHit? {
         val c = lastCanvas ?: return null
-        val exact = if (x in 0 until c.width && y in 0 until c.height) owner[c.ids[y * c.width + x]] else 0
+        // the canvas may hold a window of the picture (the town's closer look): its pixels where it lies
+        val exact = if (c.inside(x, y)) owner[c.ids[c.index(x, y)]] else 0
         if (exact != 0 && wild[exact]) return hits[exact - 1].first
         // the fire, the village's heart and the easiest to tap: anywhere within its flames, stones and smoke that isn't
         // right on someone or something drawn there is the fire's, before whoever stands beside it
@@ -831,8 +884,8 @@ class VillageRenderer {
         val reach = max(1, slop / 2)
         for (dy in -slop..slop) for (dx in -slop..slop) {
             val px = x + dx; val py = y + dy
-            if (px < 0 || py < 0 || px >= c.width || py >= c.height) continue
-            val slot = owner[c.ids[py * c.width + px]]
+            if (!c.inside(px, py)) continue
+            val slot = owner[c.ids[c.index(px, py)]]
             val d = dx * dx + dy * dy
             if (slot != 0 && slot == ringSlot) { if (d <= slop * slop) ringD = min(ringD, d); continue }
             if (slot != 0 && wild[slot]) { if (d <= reach * reach && d < wildD) { wildD = d; wildSlot = slot }; continue }
@@ -853,17 +906,18 @@ class VillageRenderer {
      * planet, a constellation's line, the Milky Way or a shooting star, within [slop] nominal px, at [wall] epoch ms; null
      * for none, or a frame without the real sky.
      */
-    fun skyAt(x: Float, y: Float, slop: Float, wall: Long): SkyTap? = if (skyDrawn) night.targets.at(x, y, slop, wall) else null
+    fun skyAt(x: Float, y: Float, slop: Float, wall: Long): SkyTap? = synchronized(lock) { if (skyDrawn) night.targets.at(x, y, slop, wall) else null }
 
     /** What of the real sky the last frame shows, to open from a list (TalkBack's "Tonight's sky", [SkyTargets.up]). */
-    fun skyUp(): List<SkyTap> = if (skyDrawn) night.targets.up() else emptyList()
+    fun skyUp(): List<SkyTap> = synchronized(lock) { if (skyDrawn) night.targets.up() else emptyList() }
 
     /** The real sky's tappable things of the last frame (tests). */
     val skyTargets: si.lanisce.lani.game.sky.SkyTargets get() = night.targets
 
     /** Last frame's building rectangles in internal pixels: (building or null for the fire) -> [x0, y0, x1, y1]. */
-    fun hitRects(): List<Pair<Building?, IntArray>> =
+    fun hitRects(): List<Pair<Building?, IntArray>> = synchronized(lock) {
         hits.filter { it.first is VillageHit.OnBuilding || it.first == VillageHit.OnFire }.map { (it.first as? VillageHit.OnBuilding)?.building to it.second }
+    }
 
     // ------------------------------------------------------------------ ground
 
@@ -887,50 +941,58 @@ class VillageRenderer {
     }
 
     /**
-     * What the ground's picture is drawn for (see [GroundCache]): everything the ground pass reads but the water's tick.
-     * [fg] is the woods' layout, kept while it is the same ([foregroundFor]); [sky] the sky's colour at the horizon where the
-     * ground shows it (puddles in the rain, the sea's haze), else 0.
+     * What the ground's picture is drawn for (see [GroundCache]): everything the ground pass reads but the water's tick and
+     * the lens (whose picture the cells are of). [fg] is the woods' layout, kept while it is the same ([foregroundFor]);
+     * [sky] the sky's colour at the horizon where the ground shows it (puddles in the rain, the sea's haze), else 0.
      */
     private data class GroundKey(
-        val land: String, val w: Int, val h: Int, val lens: Lens, val horizon: Int, val ox: Float, val oy: Float,
+        val land: String, val horizon: Int, val ox: Float, val oy: Float,
         val age: Age, val shrink: Float, val roadLeft: Boolean, val roadHalf: Float, val plazaR: Float, val cobbled: Boolean,
         val paths: Long, val fg: Foreground?, val month: Int, val sky: Int, val wet: Float,
     )
 
     /**
-     * The ground below the [horizon] (see [groundPass]): the picture kept from the frame before when nothing it shows has
-     * changed, its water drawn anew ([GroundCache]); else drawn, and kept.
+     * The ground below the [horizon] on the canvas (see [groundPass]): the cells of the lens's picture kept from the frames
+     * before when nothing they show has changed, their water drawn anew ([GroundCache]); the others drawn, and kept.
      */
     private fun ground(
         s: SceneCtx, horizon: Int, clearR: Float, roadLeft: Boolean, roadHalf: Float, plazaR: Float, age: Age, paths: PathGrid, fg: Foreground?,
         cobbled: Boolean, wet: Float,
     ) {
-        val c = s.canvas; val g = s.groundCache
+        val c = s.canvas
+        val top = max(horizon, c.top)
+        if (top >= c.bottom) return
+        c.penId = 0; c.penEmissive = false
+        fun pass(x0: Int, y0: Int, x1: Int, y1: Int, cell: GroundCache.Cell?) {
+            if (x1 > x0 && y1 > y0) groundPass(s, horizon, clearR, roadLeft, roadHalf, plazaR, age, paths, fg, cobbled, wet, x0, y0, x1, y1, cell)
+        }
+        if (!groundKept) { pass(c.left, top, c.right, c.bottom, null); return }
         val key = GroundKey(
-            s.land.key, c.width, c.height, s.lens, horizon, s.iso.ox, s.iso.oy, age, edgeShrink, roadLeft, roadHalf, plazaR, cobbled,
+            s.land.key, horizon, s.iso.ox, s.iso.oy, age, edgeShrink, roadLeft, roadHalf, plazaR, cobbled,
             paths.marks, fg, s.env.month, if (wet > 0f || s.land.sea != null) s.env.skyHorizon else 0, wet,
         )
-        if (groundKept && g.key == key) {
-            g.restore(c, s.ground)
-            c.penId = 0; c.penEmissive = false
-            g.animate(c, (s.time * 3).toInt())
-            return
+        val lens = s.lens
+        // the lens's picture (the nominal canvas at its detail): the cells are of it; what of a canvas lies past it is drawn as it is
+        val extent = intArrayOf(-lens.x0, -lens.y0, lens.baseW * lens.k - lens.x0, lens.baseH * lens.k - lens.y0)
+        val ax = max(c.left, extent[0]); val bx = min(c.right, extent[2]); val by = min(c.bottom, extent[3])
+        pass(c.left, top, min(ax, c.right), c.bottom, null)
+        pass(max(bx, c.left), top, c.right, c.bottom, null)
+        pass(ax, max(by, top), bx, c.bottom, null)
+        groundCells.fill(lens, key, c, s.ground, ax, top, bx, by, (s.time * 3).toInt(), extent, horizon) { cell ->
+            pass(cell.x0, cell.y0, cell.x0 + cell.w, cell.y0 + cell.h, cell)
         }
-        g.begin(groundKept)
-        groundPass(s, horizon, clearR, roadLeft, roadHalf, plazaR, age, paths, fg, cobbled, wet)
-        if (groundKept) g.store(c, s.ground, max(horizon, 0), key)
     }
 
     /**
-     * The ground below the [horizon]: grass, the forest floor, the paths, the road, the square, the water. [wet] (0..1): in
-     * the rain, the ground darker and puddles on the paths, the road and the cobbles, catching the grey sky. The water that
-     * moves goes into the ground's kept picture as it is drawn ([SceneCtx.groundCache], [GroundCache.shade]).
+     * The ground below the [horizon] in canvas pixels [x0] until [x1], [y0] until [y1]: grass, the forest floor, the paths,
+     * the road, the square, the water; into [cell] (its pixels, kinds and the water that moves, [GroundCache.Cell.add]),
+     * else onto the canvas. [wet] (0..1): in the rain, the ground darker and puddles on the paths, the road and the cobbles,
+     * catching the grey sky. Every pixel by its own place alone, so a cell is the same as the whole drawn at once.
      */
     private fun groundPass(
         s: SceneCtx, horizon: Int, clearR: Float, roadLeft: Boolean, roadHalf: Float, plazaR: Float, age: Age, paths: PathGrid, fg: Foreground?,
-        cobbled: Boolean = age.ordinal >= Age.TRG.ordinal, wet: Float = 0f,
+        cobbled: Boolean, wet: Float, x0: Int, y0: Int, x1: Int, y1: Int, cell: GroundCache.Cell?,
     ) {
-        val kept = s.groundCache
         val c = s.canvas; val env = s.env; val iso = s.iso; val lens = s.lens; val k = s.k
         val land = s.land
         // a generated land's water, rises, vineyards and torrent (the classic land has none of them)
@@ -951,18 +1013,13 @@ class VillageRenderer {
         // a puddle: the grey sky in it, a little of the water's blue
         val puddle = Col.mix(env.skyHorizon, Pal.WATER_D, 0.3f)
         val kinds = s.ground
-        // the path south: its centre column per row
-        val fgTop = if (fg == null) c.height else max(horizon, lens.cy(fg.pathTop).toInt())
-        if (fg != null) {
-            if (pathXs.size != c.height) pathXs = FloatArray(c.height)
-            for (y in max(fgTop, 0) until c.height) pathXs[y] = lens.cx(fg.pathX(lens.by(y + 0.5f)))
-        }
-        c.penId = 0; c.penEmissive = false
+        // where the woods below begin (the path south through them)
+        val fgTop = if (fg == null) Int.MAX_VALUE else max(horizon, lens.cy(fg.pathTop).toInt())
         val nominal = lens.nominal
         val ux = 4f * k; val uy = 2f * k
         // the horizon's nominal row: toward it the sea takes on the sky's haze, into the far sea beyond (see [Sea])
         val hb = lens.by(horizon.toFloat())
-        for (y in max(horizon, 0) until c.height) {
+        for (y in max(horizon, y0) until y1) {
             val dy = (y + 0.5f - iso.oy) / k
             val b = (y + 0.5f - iso.oy) / uy
             // the sea's shore on this row
@@ -971,7 +1028,9 @@ class VillageRenderer {
             val far = byf - hb
             val byi = if (nominal) y else floor(byf).toInt()
             val woods = y >= fgTop
-            for (x in 0 until c.width) {
+            // the path south: its centre column on this row
+            val pathX = if (woods) lens.cx(fg!!.pathX(lens.by(y + 0.5f))) else 0f
+            for (x in x0 until x1) {
                 val dx = (x + 0.5f - iso.ox) / k
                 val bxf = if (nominal) x + 0.5f else lens.bx(x + 0.5f)
                 val bxi = if (nominal) x else floor(bxf).toInt()
@@ -991,7 +1050,7 @@ class VillageRenderer {
                 var meadow = 2f
                 if (woods) {
                     pond = fg!!.pondD(bxf, byf)
-                    path = pond >= 1f && abs(x + 0.5f - pathXs[y]) < (fg.pathHalf + jag * 4f) * k
+                    path = pond >= 1f && abs(x + 0.5f - pathX) < (fg.pathHalf + jag * 4f) * k
                     if (!path && pond >= 1f) meadow = fg.meadowD(bxf, byf)
                 }
                 // the lake and the sea
@@ -1013,7 +1072,7 @@ class VillageRenderer {
                         on = Col.mix(on, env.skyHorizon, haze); off = Col.mix(off, env.skyHorizon, haze)
                     }
                     col = GroundCache.shade(moves, bxi, byi, on, off, waterT)
-                    if (moves != GroundCache.STILL) kept.add(y * c.width + x, moves, bxi, byi, on, off)
+                    if (moves != GroundCache.STILL) cell?.add(x, y, moves, on, off)
                     kind = Ground.SEA
                 } else if (streamD < sHalf + jag * 0.5f || pond < 1f || lakeD < 1f) {
                     val deep = if (pond < 1f) pond < 0.82f else if (lakeD < 1f) lakeD < 0.88f else streamD <= sDeep
@@ -1023,7 +1082,7 @@ class VillageRenderer {
                         val moves = if (torrent && pond >= 1f && lakeD >= 1f) GroundCache.TORRENT else if (deep) GroundCache.TWINKLE else GroundCache.STILL
                         val on = if (deep) Pal.WATER_L else Pal.WATER_D; val off = if (deep) Pal.WATER_M else Pal.WATER_D
                         col = GroundCache.shade(moves, bxi, byi, on, off, waterT)
-                        if (moves != GroundCache.STILL) kept.add(y * c.width + x, moves, bxi, byi, on, off)
+                        if (moves != GroundCache.STILL) cell?.add(x, y, moves, on, off)
                     }
                     kind = Ground.WATER
                 } else if (plaza && cobbled) {
@@ -1076,9 +1135,14 @@ class VillageRenderer {
                     else if (autumnFloor && forest > 0.5f && Noise.rnd(bxi, byi, 9) < 0.035f) col = LEAF_LITTER[(bxi + byi).mod(3)]
                 }
                 if (wet > 0f) col = wetted(col, kind, wx, wy, wet, puddle)
-                val i = y * c.width + x
-                c.pixels[i] = col; c.ids[i] = 0; c.emissive[i] = false
-                kinds[i] = kind
+                if (cell != null) {
+                    val i = (y - cell.y0) * cell.w + (x - cell.x0)
+                    cell.pixels[i] = col; cell.kinds[i] = kind
+                } else {
+                    val i = c.index(x, y)
+                    c.pixels[i] = col; c.ids[i] = 0; c.emissive[i] = false
+                    kinds[i] = kind
+                }
             }
         }
     }
@@ -1145,19 +1209,20 @@ class VillageRenderer {
      */
     private fun groundDetail(s: SceneCtx, horizon: Int) {
         val c = s.canvas; val lens = s.lens; val k = s.k; val env = s.env
-        val kinds = s.ground; val w = c.width; val h = c.height
+        val kinds = s.ground
         val grassD = Col.scale(env.grass[2], 0.85f); val grassL = env.grass[3]
         val floorD = Col.scale(env.forestFloor[2], 0.8f)
         val ripple = if (env.snow) Pal.ICE_L else Pal.WATER_L
         val waterT = (s.time * 2).toInt()
         val hb = lens.by(horizon.toFloat())
-        val by0 = lens.by(max(horizon, 0).toFloat()).toInt(); val by1 = lens.by(h.toFloat()).toInt() + 1
-        val bx0 = lens.bx(0f).toInt(); val bx1 = lens.bx(w.toFloat()).toInt() + 1
+        // over the canvas (a window of the picture, closer up: its own part of it)
+        val by0 = lens.by(max(horizon, c.top).toFloat()).toInt(); val by1 = lens.by(c.bottom.toFloat()).toInt() + 1
+        val bx0 = lens.bx(c.left.toFloat()).toInt(); val bx1 = lens.bx(c.right.toFloat()).toInt() + 1
         c.penId = 0; c.penEmissive = false
         for (by in by0..by1) for (bx in bx0..bx1) {
             val x = lens.cx(bx.toFloat()).toInt(); val y = lens.cy(by.toFloat()).toInt()
-            if (x < 0 || y < 0 || x >= w || y >= h) continue
-            when (kinds[y * w + x]) {
+            if (!c.inside(x, y)) continue
+            when (kinds[c.index(x, y)]) {
                 Ground.GRASS -> if (!env.snow && Noise.rnd(bx, by, 41) < 0.05f) {
                     // a tuft: two or three blades leaning apart, a lighter one in the middle
                     val tall = k + (Noise.hash(bx, by, 43) ushr 5) % 2
@@ -1678,12 +1743,12 @@ class VillageRenderer {
         }
         val places = wildPlaces ?: return
         val k = s.k; val fireY = comp.fireY.toFloat(); val paint = s.wildlife; val t = s.time
-        val cw = s.canvas.width; val ch = s.canvas.height
+        val cl = s.canvas.left; val cr = s.canvas.right; val ct = s.canvas.top; val cb = s.canvas.bottom
         fun depth(y: Float) = (y - fireY) / 2f
         fun shown(x: Float, y: Float): Boolean {
             if (k == 1) return true
             val ax = s.cx(x); val ay = s.cy(y)
-            return ax > -24f * k && ax < cw + 24f * k && ay > -8f * k && ay < ch + 32f * k
+            return ax > cl - 24f * k && ax < cr + 24f * k && ay > ct - 8f * k && ay < cb + 32f * k
         }
         fun tag(slot: Int) { if (slot < wild.size) wild[slot] = true }
         /** An animal (or a family) with its feet at nominal ([x], [y]), in painter's order at [d]: one tappable object. */
@@ -1699,10 +1764,13 @@ class VillageRenderer {
                 tag(slot)
             })
         }
-        /** Something in the air or the dark over everything, at nominal ([x], [y]): drawn with the effects, no outline, tappable. */
-        fun above(kind: Wild, x: Float, y: Float, draw: () -> Unit) {
+        /**
+         * Something in the air or the dark over everything, at nominal ([x], [y]): drawn with the effects, no outline,
+         * tappable; drawn when any of [xs], [ys] (a flock's) is on the canvas.
+         */
+        fun above(kind: Wild, x: Float, y: Float, xs: FloatArray = floatArrayOf(x), ys: FloatArray = floatArrayOf(y), draw: () -> Unit) {
             seen += WildSeen(kind, CanvasPoint(x, y))
-            if (!shown(x, y)) return
+            if (xs.indices.none { shown(xs[it], ys[it]) }) return
             s.fx {
                 val slot = hits.size + 1
                 owner[s.newObject(0)] = slot
@@ -1828,7 +1896,7 @@ class VillageRenderer {
                     val a = t * 0.3 + ph
                     val xs = FloatArray(sg.n) { j -> cx + cos(a + j * 0.4).toFloat() * 18f + (j - sg.n / 2f) * 3f }
                     val ys = FloatArray(sg.n) { j -> cy + sin(a + j * 0.4).toFloat() * 5f + (j % 2) * 2f }
-                    above(Wild.BIRDS, xs[0], ys[0]) {
+                    above(Wild.BIRDS, xs[0], ys[0], xs, ys) {
                         for (j in 0 until sg.n) paint.bird(s.cx(xs[j]).roundToInt(), s.cy(ys[j]).roundToInt(), ((t * 5).toInt() + j) and 1)
                     }
                 }
@@ -1846,7 +1914,7 @@ class VillageRenderer {
                         xs[j] = p[0] + sin(a).toFloat() * 10f + (j - 1) * 4f
                         ys[j] = p[1] - 8f + sin(2 * a).toFloat() * 3f - j * 2f
                     }
-                    above(Wild.BATS, xs[0], ys[0]) {
+                    above(Wild.BATS, xs[0], ys[0], xs, ys) {
                         for (j in 0 until sg.n) {
                             val ax = s.cx(xs[j]).roundToInt(); val ay = s.cy(ys[j]).roundToInt()
                             s.sprite(ax, ay) { paint.bat(ax, ay, ((t * 9).toInt() + j) and 1) }
@@ -1867,11 +1935,12 @@ class VillageRenderer {
                     if (!s.env.snow) continue
                     val p = spot(places.edge, sg.pick) ?: continue
                     seen += WildSeen(Wild.TRACKS, CanvasPoint(p[0], p[1]))
-                    if (!shown(p[0], p[1])) continue
+                    val dir = if (left) -1f else 1f
+                    // drawn when either end of them is on the canvas (five hops of 4.5 px)
+                    if (!shown(p[0], p[1]) && !shown(p[0] + p[2] * dir * TRACKS_REACH, p[1] + p[3] * dir * TRACKS_REACH)) continue
                     // on the ground, under everything: drawn now
                     val slot = hits.size + 1
                     owner[s.newObject(0)] = slot
-                    val dir = if (left) -1f else 1f
                     paint.tracks(s.cx(p[0]), s.cy(p[1]), p[2] * dir, p[3] * dir, 5)
                     s.canvas.penId = 0
                     val ax = s.cx(p[0]).roundToInt(); val ay = s.cy(p[1]).roundToInt()
@@ -2106,7 +2175,7 @@ class VillageRenderer {
     private fun outlinePass(s: SceneCtx) {
         val c = s.canvas; val w = c.width; val h = c.height
         val ids = c.ids; val px = c.pixels
-        val tmp = IntArray(w * h)
+        val tmp = s.outlineBuf
         for (y in 0 until h) for (x in 0 until w) {
             val i = y * w + x
             val me = ids[i]
@@ -2133,17 +2202,20 @@ class VillageRenderer {
         val L = s.lightBuf
         L.fill(0f)
         if (ls > 0.02f) {
+            // the lights are where they are in the picture; the canvas may hold a window of it
+            val ox = c.originX; val oy = c.originY
             for (k in 0 until s.nLights) {
                 val cx = s.lx[k]; val cy = s.ly[k]; val r = s.lr[k]; val inten = s.li[k]
                 val ry = r / 1.7f
-                for (y in max(0, (cy - ry).toInt())..min(h - 1, (cy + ry).toInt())) {
+                for (y in max(oy, (cy - ry).toInt())..min(oy + h - 1, (cy + ry).toInt())) {
                     val dy = (y + 0.5f - cy) * 1.7f
-                    for (x in max(0, (cx - r).toInt())..min(w - 1, (cx + r).toInt())) {
+                    val row = (y - oy) * w - ox
+                    for (x in max(ox, (cx - r).toInt())..min(ox + w - 1, (cx + r).toInt())) {
                         val dx = x + 0.5f - cx
                         val d2 = dx * dx + dy * dy
                         if (d2 >= r * r) continue
                         val v = 1f - sqrt(d2) / r
-                        L[y * w + x] += inten * v * v
+                        L[row + x] += inten * v * v
                     }
                 }
             }
@@ -2173,6 +2245,9 @@ class VillageRenderer {
     private fun smooth(t: Float) = t * t * (3 - 2 * t)
 
     internal companion object {
+        /** The canvases a renderer keeps its drawing state for: the town's nominal one and a few of its closer look's. */
+        const val MAX_CANVASES = 4
+
         /**
          * Whether the renderers keep the ground's still picture from frame to frame ([GroundCache]); off, every frame draws
          * it whole, as before 2026-10-26 (the tests compare the two, QA's hook "render:full" measures it on a phone).
@@ -2207,6 +2282,9 @@ class VillageRenderer {
             listOf(-3 to -1, 1 to 3),
             listOf(-3 to -2, 2 to 3),
         )
+
+        /** How far the tracks in the snow run from where they start (nominal px along their way: [WildPainter.tracks]). */
+        const val TRACKS_REACH = 20f
 
         /** Bats flit over the roofs at least this far from the fire (the clearing's metric, see [VillageLayout.screenMetric]). */
         const val BAT_ROOM = 90f

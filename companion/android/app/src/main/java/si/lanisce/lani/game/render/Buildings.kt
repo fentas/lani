@@ -808,8 +808,8 @@ internal class BuildingPainter(private val s: SceneCtx) {
         val id = c.penId
         val x0 = i.sx(x, y + 3f).toInt(); val x1 = i.sx(x + 3f, y).toInt()
         val y0 = i.sy(x, y, height(b.type)).toInt(); val y1 = i.sy(x + 3f, y + 3f, 0f).toInt()
-        for (yy in maxOf(0, y0)..minOf(c.height - 1, y1)) for (xx in maxOf(0, x0)..minOf(c.width - 1, x1)) {
-            val j = yy * c.width + xx
+        for (yy in maxOf(c.top, y0)..minOf(c.bottom - 1, y1)) for (xx in maxOf(c.left, x0)..minOf(c.right - 1, x1)) {
+            val j = c.index(xx, yy)
             if (c.ids[j] != id) continue
             val n = Noise.v2(xx * 0.3f / k, yy * 0.3f / k, b.plot)
             if (n > 0.45f) c.pixels[j] = Col.scale(Col.mix(c.pixels[j], Col.hex(0x3A3230), 0.35f), 0.78f)

@@ -128,16 +128,39 @@ class TownFrameProfileTest {
                 "pan k3" to { i -> lensOf(cam(rig.minScale * 3f, (i % 40 - 20) * 1.5f)) },
                 "pinch 1..3x" to { i -> lensOf(cam(rig.minScale * (1f + (i % 40) / 20f))) },
             )
-            for ((sc, lensAt) in scenarios) {
+            // as the town draws its closer look since 2026-10-27: a window of the picture of no offset (TownFrames)
+            val windowed = listOf<Pair<String, (Int) -> Camera>>(
+                "win rest k2 (1.5x)" to { _ -> cam(rig.crisp(rig.minScale * 1.5f)) },
+                "win rest k2 (2x)" to { _ -> cam(rig.minScale * 2f) },
+                "win rest k3 (2.5x)" to { _ -> cam(rig.crisp(rig.minScale * 2.5f)) },
+                "win rest k3 (3x)" to { _ -> cam(rig.minScale * 3f) },
+                "win pan k2" to { i -> cam(rig.minScale * 2f, (i % 40 - 20) * 1.5f) },
+                "win pan k3" to { i -> cam(rig.minScale * 3f, (i % 40 - 20) * 1.5f) },
+                "win pinch k2" to { i -> cam(rig.minScale * (1.5f + (i % 20) / 40f)) },
+                "win pinch k3" to { i -> cam(rig.minScale * (2.5f + (i % 20) / 20f)) },
+            )
+            // a canvas of each size, as the town keeps them (its drawing state with it)
+            val pool = HashMap<Long, PixelCanvas>()
+            fun canvas(w: Int, h: Int) = pool.getOrPut((w.toLong() shl 32) or h.toLong()) { PixelCanvas(w, h) }
+            val all = scenarios.map { (sc, lensAt) -> sc to { i: Int -> canvas(fit.width, fit.height) to lensAt(i) } } +
+                windowed.map { (sc, camAt) ->
+                    sc to { i: Int ->
+                        val c = camAt(i); val k = rig.detail(c.scale)
+                        val scr = TownFrames.screen(k, c, vw, vh, fit.width, fit.height)
+                        val w = TownFrames.window(k, scr, sc.contains("pan") || sc.contains("pinch"), fit.width, fit.height)
+                        canvas(w.w, w.h).apply { originX = w.x0; originY = w.y0 } to TownFrames.lens(k, fit.width, fit.height)
+                    }
+                }
+            for ((sc, at) in all) {
                 val r = VillageRenderer()
-                val c = PixelCanvas(fit.width, fit.height)
                 val frame = Frame(hour = hour, month = 8, people = cast, today = "2026-08-20", sea = true)
-                repeat(20) { r.render(c, s, frame.copy(time = it / 12.0, lens = lensAt(it))) }
+                repeat(20) { val (c, l) = at(it); r.render(c, s, frame.copy(time = it / 12.0, lens = l)) }
                 r.profile = true
                 val acc = Acc()
                 for (i in 0 until 40) {
+                    val (c, l) = at(i + 20)
                     val t0 = System.nanoTime()
-                    r.render(c, s, frame.copy(time = 2 + i / 12.0, lens = lensAt(i + 20)))
+                    r.render(c, s, frame.copy(time = 2 + i / 12.0, lens = l))
                     acc.all += (System.nanoTime() - t0) / 1e6
                     for (part in r.lastProfile.split(" ").chunked(2)) if (part.size == 2) acc.pass.getOrPut(part[0]) { ArrayList() } += part[1].replace(',', '.').toDouble()
                 }

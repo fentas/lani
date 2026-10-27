@@ -209,15 +209,15 @@ internal class Backdrop(private val s: SceneCtx) {
      */
     fun draw(horizon: Int, storm: Boolean, shift: Float = 0f, sea: Boolean = false, skyline: Skyline = Skyline.CLASSIC, seaTo: Float = Float.NEGATIVE_INFINITY) {
         val env = s.env
-        val w = c.width
         c.penEmissive = true
         c.penId = 0
-        // sky: banded gradient with ordered dithering between bands, by nominal row
+        // sky: banded gradient with ordered dithering between bands, by nominal row (over the canvas: a window of the
+        // picture, closer up, its own part of it)
         val bands = 9f
         val hb = lens.by(horizon.toFloat()) + 2f
-        for (y in 0 until min(horizon + 2 * k, c.height)) {
+        for (y in c.top until min(horizon + 2 * k, c.bottom)) {
             val t = (lens.by(y.toFloat()) / hb).coerceIn(0f, 1f)
-            for (x in 0 until w) {
+            for (x in c.left until c.right) {
                 val q = floor(t * bands + Dither.at(x, y) - 0.5f) / bands
                 c.set(x, y, skyAt(q.coerceIn(0f, 1f)))
             }
@@ -249,7 +249,7 @@ internal class Backdrop(private val s: SceneCtx) {
         // down to the horizon where the land's sea comes up to it, and behind the treeline's low end beside it
         val down = seaTo + Sea.TREELINE_TAPER
         val waterT = (s.time * 3).toInt()
-        for (x in 0 until c.width) {
+        for (x in c.left until c.right) {
             val u = ux(x) / bw
             val m = ((reach - u) / 0.12f).coerceIn(0f, 1f)
             if (m <= 0f) continue
@@ -261,7 +261,7 @@ internal class Backdrop(private val s: SceneCtx) {
             val bottom = if (bxf < down) horizon else max(foot, horizon - ((bxf - down) * k).toInt())
             // as the land's sea is in the column below: deeper further out from the shore (see VillageRenderer's ground)
             val base = if (bxf - shore < -40f) VillageRenderer.SEA_DEEP else Pal.WATER_M
-            for (y in max(top, 0) until min(bottom, c.height)) {
+            for (y in max(top, c.top) until min(bottom, c.bottom)) {
                 if (y < top + k) { c.set(x, y, line); continue }
                 val byf = lens.by(y + 0.5f)
                 val col = if (Sea.glint(bxi, floor(byf).toInt(), waterT)) Pal.WATER_L else base
@@ -282,7 +282,7 @@ internal class Backdrop(private val s: SceneCtx) {
         val deep = env.lit(Col.mix(Col.hex(0x2B5F96), sky, 0.3f))
         val line = Col.mix(sky, Col.hex(0xFFFFFF), 0.35f)
         val bw = lens.baseW.toFloat()
-        for (x in 0 until c.width) {
+        for (x in c.left until c.right) {
             // how much of the band this column has: all of it on the left, tapering off toward the middle
             val u = ux(x) / bw
             val m = ((reach - u) / 0.12f).coerceIn(0f, 1f)
@@ -291,7 +291,7 @@ internal class Backdrop(private val s: SceneCtx) {
             val rows = (2f + 2.5f * m) * k
             val foot = horizon - 6 * k
             val top = (foot - rows).toInt()
-            for (y in max(top, 0) until min(foot, c.height)) {
+            for (y in max(top, c.top) until min(foot, c.bottom)) {
                 val down = (y - top) / rows
                 var col = if (y < top + k) line else if (down > 0.6f + (Dither.at(x, y) - 0.5f) * 0.3f) deep else body
                 // glints: short bright dashes drifting slowly along the water
@@ -422,7 +422,6 @@ internal class Backdrop(private val s: SceneCtx) {
 
     private fun mountains(horizon: Int, shift: Float, skyline: Skyline) {
         val env = s.env
-        val w = c.width
         val hb = lens.by(horizon.toFloat())
         // Capped, so a tall canvas gets more sky instead of needle-thin peaks.
         val mh0 = min(hb - 3f, MAX_MOUNTAIN_PX) * k
@@ -434,10 +433,10 @@ internal class Backdrop(private val s: SceneCtx) {
         // far range
         val farRock = env.lit(Col.mix(Col.hex(0x8C9CBA), sky, 0.5f))
         val farSnow = env.lit(Col.mix(Col.hex(0xEEF2FA), sky, 0.45f))
-        for (x in 0 until w) {
+        for (x in c.left until c.right) {
             val u = ux(x) / bw - shift
             val top = horizon - mh * (0.42f + 0.2f * Noise.v1(u * 7f, 3) + 0.1f * Noise.v1(u * 19f, 4))
-            for (y in max(top.toInt(), 0) until min(horizon, c.height)) {
+            for (y in max(top.toInt(), c.top) until min(horizon, c.bottom)) {
                 val hgt = (horizon - y) / mh
                 c.set(x, y, if (hgt > snowF + 0.06f) farSnow else farRock)
             }
@@ -447,7 +446,7 @@ internal class Backdrop(private val s: SceneCtx) {
         val rockL = env.lit(Col.mix(Col.hex(0xA3A7B4), sky, 0.22f)); val rockD = env.lit(Col.mix(Col.hex(0x6C7084), sky, 0.22f))
         val snowL = env.lit(Col.mix(Col.hex(0xF7F9FF), sky, 0.12f)); val snowD = env.lit(Col.mix(Col.hex(0xBCC6DC), sky, 0.18f))
         val gully = env.lit(Col.mix(Col.hex(0x575B6E), sky, 0.2f))
-        for (x in 0 until w) {
+        for (x in c.left until c.right) {
             val xu = ux(x)
             val u = xu / bw - shift
             val uw = u - floor(u) // the range wraps around when shifted
@@ -464,7 +463,7 @@ internal class Backdrop(private val s: SceneCtx) {
             var pu = peaks[bp][0] + shift; pu -= floor(pu)
             val px = lens.cx(pu * bw)
             val peakTop = horizon - mh * peaks[bp][1]
-            for (y in max(top.toInt(), 0) until min(horizon, c.height)) {
+            for (y in max(top.toInt(), c.top) until min(horizon, c.bottom)) {
                 val hgt = (horizon - y) / mh
                 val litSide = x < px + (y - peakTop) * 0.45f
                 // noise in units of the range's height, so the texture looks the same at every canvas size
@@ -495,13 +494,13 @@ internal class Backdrop(private val s: SceneCtx) {
         val nearRidge = env.lit(Col.mix(Col.scale(hill, 1.15f), sky, 0.28f))
         val haze = env.lit(sky)
         val bw = lens.baseW.toFloat()
-        for (x in 0 until c.width) {
+        for (x in c.left until c.right) {
             val u = ux(x) / bw - shift
             val farTop = (horizon - mh * (0.19f + 0.12f * Noise.v1(u * 3.1f + 3f, 31))).toInt()
             val nearTop = (horizon - mh * (0.12f + 0.09f * Noise.v1(u * 4.3f + 1f, 11))).toInt()
             // haze at the foot of the mountains, then the far hills (hazy where the near hills rise in front)
             for (y in farTop - 3 * k until farTop) c.blend(x, y, haze, if (y >= farTop - k) 0.45f else 0.25f)
-            for (y in max(farTop, 0) until min(nearTop, c.height)) {
+            for (y in max(farTop, c.top) until min(nearTop, c.bottom)) {
                 val low = nearTop - y
                 c.set(x, y, when {
                     y < farTop + k -> farRidge
@@ -510,7 +509,7 @@ internal class Backdrop(private val s: SceneCtx) {
                     else -> farBody
                 })
             }
-            for (y in max(nearTop, 0)..min(horizon, c.height - 1)) c.set(x, y, if (y < nearTop + k) nearRidge else nearBody)
+            for (y in max(nearTop, c.top)..min(horizon, c.bottom - 1)) c.set(x, y, if (y < nearTop + k) nearRidge else nearBody)
         }
     }
 
@@ -524,14 +523,14 @@ internal class Backdrop(private val s: SceneCtx) {
         val base = if (env.snow) Col.hex(0x6E8494) else Col.hex(0x2B4A3A)
         val col = env.lit(Col.mix(base, env.skyHorizon, 0.18f))
         val colL = env.lit(Col.mix(Col.scale(base, 1.25f), env.skyHorizon, 0.2f))
-        for (x in 0 until c.width) {
+        for (x in c.left until c.right) {
             val bx = floor(lens.bx(x + 0.5f)).toInt()
             if (bx < from) continue
             val tip = abs(((bx + (Noise.rnd(bx / 5, 1) * 3).toInt()) % 5) - 2).toFloat()
             val rise = (bx + 1 - from) / Sea.TREELINE_TAPER
             val top = if (rise >= 1f) horizon - 2 * k - (3 - tip) * k - Noise.v1(bx * 0.15f, 21) * 3 * k
             else horizon - (2 * k + (3 - tip) * k + Noise.v1(bx * 0.15f, 21) * 3 * k) * rise
-            for (y in max(top.toInt(), 0)..min(horizon + 3 * k, c.height - 1)) c.set(x, y, if (y < top + 2 * k && tip < 1.5f) colL else col)
+            for (y in max(top.toInt(), c.top)..min(horizon + 3 * k, c.bottom - 1)) c.set(x, y, if (y < top + 2 * k && tip < 1.5f) colL else col)
         }
         c.penEmissive = false
     }
