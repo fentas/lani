@@ -854,7 +854,9 @@ def add_items_only(report: dict):
 
 def main():
     try:
-        session = json.load(sys.stdin)
+        # the bytes, decoded as strict UTF-8 in any locale (under the C locale sys.stdin escapes a bad byte instead of
+        # refusing it, and the report would read differently than on a UTF-8 desktop or in the TypeScript port)
+        session = json.loads(sys.stdin.buffer.read().decode("utf-8"))
     except json.JSONDecodeError as e:
         print(f"[Lani] Error: Invalid JSON input: {e}", file=sys.stderr)
         sys.exit(1)
