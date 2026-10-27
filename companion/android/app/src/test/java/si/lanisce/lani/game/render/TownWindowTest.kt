@@ -30,7 +30,7 @@ import java.util.concurrent.atomic.AtomicReference
 class TownWindowTest {
     private val teo = Founding("friuli", Landscape.COAST, 551323397L).village(1_000L).copy(morale = 70, fire = 70)
 
-    @After fun kept() { VillageRenderer.groundKept = true }
+    @After fun kept() { VillageRenderer.groundKept = true; Stamps.on = true }
 
     private fun grown(s: GameState, age: Age): GameState {
         val n = PLOTS_PER_AGE[age.ordinal]
@@ -163,6 +163,39 @@ class TownWindowTest {
             }
         }
         println("$frames frames the same")
+    }
+
+    @Test fun `the trees' stamps draw the same frames as the trees painted`() {
+        var frames = 0
+        for ((vw, vh) in listOf(2560 to 1600, 1080 to 2400)) {
+            val fit = SceneFit.town(vw, vh)
+            val rig = CameraRig.town(fit, vw, vh)
+            for (land in listOf(Land.of(Landscape.COAST, 551323397L), Land.of(Landscape.HILLS, 7L), Land.CLASSIC)) {
+                val s = grown(teo.copy(land = land), Age.TRG)
+                val stamped = VillageRenderer(); val painted = VillageRenderer()
+                var i = 0
+                // every season (the crowns' colours, the snow, June's linden, November's bare beeches), at every detail, panning
+                for (month in listOf(4, 6, 9, 11, 1)) for (k in 1..3) for (step in 0 until 3) {
+                    val f = Frame(time = 2.0 + i * 0.083, hour = 11f, month = month, people = cast, sea = true, calm = true, today = "2026-%02d-12".format(month))
+                    val (c1, c2, frame) = if (k == 1) Triple(PixelCanvas(fit.width, fit.height), PixelCanvas(fit.width, fit.height), f)
+                    else {
+                        val cam = rig.lookAt(fit.width * (0.3f + step * 0.2f), fit.height * 0.6f, rig.minScale * (k + 0.2f))
+                        val screen = TownFrames.screen(k, cam, vw, vh, fit.width, fit.height)
+                        val w = TownFrames.window(k, screen, step > 0, fit.width, fit.height)
+                        Triple(PixelCanvas(w.w, w.h).apply { originX = w.x0; originY = w.y0 }, PixelCanvas(w.w, w.h).apply { originX = w.x0; originY = w.y0 },
+                            f.copy(lens = TownFrames.lens(k, fit.width, fit.height), screen = screen))
+                    }
+                    Stamps.on = true
+                    stamped.render(c1, s, frame)
+                    Stamps.on = false
+                    painted.render(c2, s, frame)
+                    assertTrue("${land.kind} month $month k=$k step $step", c1.pixels.contentEquals(c2.pixels))
+                    i++; frames++
+                }
+                assertTrue("stamps kept: ${stamped.stamps.size}", stamped.stamps.size > 50)
+            }
+        }
+        println("$frames frames the same with the trees stamped")
     }
 
     @Test fun `a pan draws only the ground newly in view, a building or a new month all of it`() {

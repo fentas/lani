@@ -14,10 +14,35 @@ import kotlin.math.sin
  * extra pixels of a closer look go into needle rows, bark, leaf highlights and cracks.
  */
 internal class TreePainter(private val s: SceneCtx) {
-    private val c get() = s.canvas
+    /** Where the painting goes: the canvas, or the scratch canvas of a stamp being made ([stamped]). */
+    private var into: PixelCanvas? = null
+    private val c get() = into ?: s.canvas
     private val k get() = s.k
 
+    /**
+     * Paints [paint] onto the canvas, or its stamp kept from an earlier frame ([Stamps]; [s]'s, the renderer's): the same
+     * pixels, cheaper. A stamp is of [what] at [a], [b] (raw bits), [size], [seed], at this detail in this season, month
+     * and snow, painted in canvas pixels [x0] until [x1], [y0] until [y1]; one that won't keep in them, or a zoomed sprite's,
+     * is painted as ever.
+     */
+    private inline fun stamped(what: Int, a: Int, b: Int, size: Int, seed: Int, x0: Int, y0: Int, x1: Int, y1: Int, crossinline paint: () -> Unit) {
+        val canvas = s.canvas
+        if (into != null || canvas.zoom > 1 || !Stamps.on) { paint(); return }
+        val env = s.env
+        val look = env.season.ordinal or (env.month shl 3) or ((if (env.snow) 1 else 0) shl 8) or (s.k shl 9)
+        val key = Stamps.Key(what, a, b, size, seed, look)
+        val st = s.stamps[key] ?: s.stamps.make(key, x0, y0, x1, y1) { sc -> into = sc; try { paint() } finally { into = null } }
+        if (st == null) paint() else st.put(canvas)
+    }
+
     fun pine(bx: Int, by: Int, size: Float, seed: Int) {
+        val k = this.k
+        val h = (13 + (seed ushr 3) % 5) * size * k
+        val half = (h * 0.31f).toInt() + 2 * k + 2
+        stamped(PINE, bx, by, size.toRawBits(), seed, bx - half, (by - h * 1.1f).toInt() - 2 * k - 2, bx + half + 1, by + 2) { pine0(bx, by, size, seed) }
+    }
+
+    private fun pine0(bx: Int, by: Int, size: Float, seed: Int) {
         val env = s.env
         val k = this.k
         val h = (13 + (seed ushr 3) % 5) * size * k
@@ -56,6 +81,15 @@ internal class TreePainter(private val s: SceneCtx) {
     }
 
     fun broadleaf(bx: Int, by: Int, size: Float, seed: Int) {
+        val k = this.k
+        val trunkH = (4 * size).toInt() * k + k
+        val sc = size * k
+        val cy = by - trunkH - 4f * size * k
+        val half = (15f * sc).toInt() + 3 * k + 2
+        stamped(BROADLEAF, bx, by, size.toRawBits(), seed, bx - half, (cy - 14f * sc).toInt() - 3 * k - 2, bx + half + 1, by + 2) { broadleaf0(bx, by, size, seed) }
+    }
+
+    private fun broadleaf0(bx: Int, by: Int, size: Float, seed: Int) {
         val trunkH = (4 * size).toInt() * k + k
         c.fillRect(bx - k, by - trunkH, 2 * k, trunkH, Pal.LOG_M)
         c.fillRect(bx - k, by - trunkH, k, trunkH, Pal.LOG_L)
@@ -66,6 +100,14 @@ internal class TreePainter(private val s: SceneCtx) {
 
     /** Round leafy canopy, shaded from the upper left; seasonal. [scale] includes the lens's detail. */
     fun canopy(cx: Float, cy: Float, scale: Float, season: Season, seed: Int, big: Boolean) {
+        val half = (15f * scale).toInt() + 3 * k + 2
+        val what = CANOPY or (season.ordinal shl 4) or (if (big) 1 shl 8 else 0)
+        stamped(what, cx.toRawBits(), cy.toRawBits(), scale.toRawBits(), seed, cx.toInt() - half, (cy - 14f * scale).toInt() - 3 * k - 2, cx.toInt() + half + 1, (cy + 11f * scale).toInt() + 2) {
+            canopy0(cx, cy, scale, season, seed, big)
+        }
+    }
+
+    private fun canopy0(cx: Float, cy: Float, scale: Float, season: Season, seed: Int, big: Boolean) {
         val blobs = if (big) BIG else SMALL
         val cols = foliage(season, seed, big)
         if (cols == null) { bare(cx, cy, scale, seed, big); return }
@@ -146,6 +188,11 @@ internal class TreePainter(private val s: SceneCtx) {
     }
 
     fun bush(bx: Int, by: Int, seed: Int) {
+        val k = this.k
+        stamped(BUSH, bx, by, 0, seed, bx - 3 * k - 2, by - 6 * k - 2, bx + 3 * k + 3, by + 2) { bush0(bx, by, seed) }
+    }
+
+    private fun bush0(bx: Int, by: Int, seed: Int) {
         val cols = foliage(s.env.season, seed + 3, false) ?: intArrayOf(Col.hex(0x7A6A5A), Col.hex(0x6A5A4A), Col.hex(0x5A4A3A), Col.hex(0x4A3A2A))
         val k = this.k
         for (y in -4 * k..0) for (x in -3 * k..3 * k) {
@@ -172,6 +219,12 @@ internal class TreePainter(private val s: SceneCtx) {
     }
 
     companion object {
+        /** What a stamp is of ([stamped]). */
+        private const val PINE = 1
+        private const val BROADLEAF = 2
+        private const val BUSH = 3
+        private const val CANOPY = 4
+
         private val SMALL = arrayOf(
             floatArrayOf(0f, 0f, 4.2f), floatArrayOf(-3f, 1.5f, 3f), floatArrayOf(3f, 1.2f, 3.2f), floatArrayOf(-1f, -2.8f, 3f),
         )

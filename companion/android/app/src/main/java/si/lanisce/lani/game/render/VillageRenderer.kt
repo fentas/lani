@@ -206,7 +206,7 @@ internal object Ground {
 }
 
 /** Shared per-frame drawing context. */
-internal class SceneCtx(val canvas: PixelCanvas) {
+internal class SceneCtx(val canvas: PixelCanvas, val stamps: Stamps = Stamps()) {
     val iso = Iso(canvas)
     var env = Env(12f, 6, false)
     /** The land the frame's village stands on (see [Terrain]). */
@@ -382,8 +382,11 @@ class VillageRenderer {
         ctxs[canvas]?.let { return it }
         // the town's nominal canvas and a few of its closer look's (a canvas a window size: TownScene)
         if (ctxs.size >= MAX_CANVASES) ctxs.remove(ctxs.keys.first())
-        return SceneCtx(canvas).also { ctxs[canvas] = it }
+        return SceneCtx(canvas, stamps).also { ctxs[canvas] = it }
     }
+
+    /** The trees', the bushes' and the lindens' paintings, kept for every canvas this renderer draws ([Stamps]). */
+    internal val stamps = Stamps()
 
     /** The ground's still picture, kept in cells of each picture from frame to frame: only its water is drawn anew. */
     internal val groundCells = GroundCache()

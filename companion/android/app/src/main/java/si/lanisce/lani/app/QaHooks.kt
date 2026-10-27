@@ -52,8 +52,9 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   🔇 note after a "Ne zdaj"); "audio:voice:remove:<lang>" takes that language's offline voice
  *   off the phone, as the settings' 🗑️ does.
  * - "render:full": the village's map draws its ground whole every frame, as it did before 2026-10-26, instead of keeping its
- *   still picture and drawing only its water anew ([si.lanisce.lani.game.render.VillageRenderer.groundKept]): QA measures
- *   the two (the frames' times, and the map's own: logged every 24 frames, tag TownScene); "render:" keeps it again.
+ *   still picture and drawing only its water anew ([si.lanisce.lani.game.render.VillageRenderer.groundKept]), and paints its
+ *   trees every frame instead of keeping their stamps ([si.lanisce.lani.game.render.Stamps.on]): QA measures the two (the
+ *   frames' times, and the map's own: logged every 24 frames, tag TownScene); "render:" keeps them again.
  * - "clock:<f>": the towns' and scenes' time runs at f of the wall's (0.05 to 1; [TownClock.rate]), so a slow emulator
  *   renders every frame of a recording that is sped up again afterwards (with the animator duration scale at 1/f for
  *   the camera's flights and the bubbles' bob); "clock:" lets it run at its pace again.
@@ -399,7 +400,10 @@ object QaHooks {
             command.startsWith("bubbles:") -> bubbles = command.removePrefix("bubbles:").toIntOrNull()?.coerceAtLeast(0)
             command.startsWith("hour:") -> sceneHour = command.removePrefix("hour:").toFloatOrNull()?.takeIf { it in 0f..24f }
             command.startsWith("clock:") -> TownClock.rate = command.removePrefix("clock:").toFloatOrNull()?.coerceIn(0.05f, 1f) ?: 1f
-            command.startsWith("render:") -> si.lanisce.lani.game.render.VillageRenderer.groundKept = command != "render:full"
+            command.startsWith("render:") -> {
+                si.lanisce.lani.game.render.VillageRenderer.groundKept = command != "render:full"
+                si.lanisce.lani.game.render.Stamps.on = command != "render:full"
+            }
             command.startsWith("show:") -> show = command.removePrefix("show:").trim().takeIf { it.isNotEmpty() }?.let { it to (show?.second ?: 0) + 1 }
             command.startsWith("kopa:") -> {
                 kopa = kopaDay(command.removePrefix("kopa:"), java.time.LocalDate.now())
