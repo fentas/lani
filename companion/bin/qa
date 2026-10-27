@@ -34,6 +34,10 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        the pedlar on the road, the hen on the cart (a tap turn), Muri barking by the jetty, each dialog
                        opened through the hook and played to its cue; "sheets-settle" flings into the end of Home, the
                        tutor chat's sheet and the challenges' sheet, each still a second later (no endless bounce);
+                       "navigation" the back stack (docs/plans/05-built/navigation.md): Home's ⚙️ and 🤝, the settings'
+                       tutor in two taps, Friends, the grammar book and My words in one, Back from each to Home, a run's
+                       result's Back where it began, lani://scene/ob-ognju over the village, the village's 🤝, the app
+                       killed in the background and opened again on Napredek;
                        "cheat-sheet" the cheat sheet ("📋 Plonk listek") from Home, from an exercise
                        of imeti-in-iti (its card first) and a tutor message with a list pinned in the chat (QA's
                        hook "chat:table"), the dev bridge's village keeping it; "chat-swipe" a tutor message
@@ -255,7 +259,7 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        then written, a slow job with the app killed mid-way and started again, the job resumed from the
                        dev bridge's copy (LANI_QA_STUDIO_SHOTS: also copied there as studio-*.png);
                        "tutor-live" the tutor in the app answering for real against the mock and the dev bridge's tutor
-                       session: the connection sheet's "🧑‍🏫 Učitelj · Tutor", "In the app", a fake key, attached; a chat
+                       session: the settings' "🧑‍🏫 Učitelj · Tutor", "In the app", a fake key, attached; a chat
                        whose reply streams into the chat (a screenshot mid-way) and stays, the dev tutor hearing nothing;
                        a session's end with its reaction and record_session in the dev data; "Claude Code on my node"
                        again, the dev tutor answering (LANI_QA_TUTOR_SHOTS: also copied there as tutor-live-*.png);
@@ -758,7 +762,7 @@ def setup(url=None, token=None):
     pair = os.environ.get("LANI_QA_PAIR")
     if pair:
         # a learner of another language (the Friuli culture's Italian from German): the phone shows the pair QA reads its
-        # labels in ("sl-en"), as the connection sheet's languages would choose it; the village keeps its culture
+        # labels in ("sl-en"), as the settings' languages would choose it; the village keeps its culture
         qa_hook(f"pair:{pair}")
     # the learner's own pair from here (the profile's, or LANI_QA_PAIR's): Home's and the founding's labels in it
     today, where, here = (f"{say(k, 0)}" for k in ("common.today", "founding.title", "founding.here"))
@@ -915,13 +919,16 @@ def to_top():
 
 
 def home():
-    """Home: the village header, "Danes · Today" with one thing to do, the villagers, the learning tiles."""
+    """Home: the village header (🤝 Friends, ⚙️ Settings), "Danes · Today" with one thing to do (the village's threat when
+    one is on), the learning tiles right under it, the villagers, the progress."""
     assert wait_for("Danes · Today", 10), "today card"
     assert find("Moja vas"), "the header's way into the village"
-    assert find("Igraj · Play") or find("Ponovi · Review") or find("Uči se · Learn") or find("Govori · Talk") or find("Odgovori · Answer"), "today's one action"
+    assert find("Nastavitve · Settings") and find("Prijatelji · Friends"), "the header's ⚙️ and 🤝"
+    assert (find("Igraj · Play") or find("Ponovi · Review") or find("Uči se · Learn") or find("Govori · Talk") or find("Odgovori · Answer")
+            or find("Brani · Defend") or find("Zavaruj")), "today's one action"
     assert scroll_to("Učenje · Learning"), "learning section"
     shot("home-learning")
-    for tile in ("Nove besede", "Izzivi", "Pogovor", "Družina"):
+    for tile in ("Nove besede", "Moje besede", "Slovnica", "Izzivi", "Pogovor", "Družina"):
         assert scroll_to(tile, 2), f"{tile} tile"
     assert scroll_to("Napredek · Progress", 3), "progress line"
     to_top()
@@ -2225,7 +2232,7 @@ def pills_clear(back: str) -> str:
 
 
 def choose_base(lang: str):
-    """The connection sheet's "🌐 Jeziki · Languages": [lang] (its own name) as the base, the second row's chip; "" goes
+    """The settings' "🌐 Jeziki · Languages" (Home's ⚙️): [lang] (its own name) as the base, the second row's chip; "" goes
     back to the learner profile's pair ("Kot v profilu …"). Found by the labels' Slovene half, whatever the base is now."""
     for _ in range(6):  # Home ("Danes · Today", "Danes · Heute" …)
         if find("Danes · "):
@@ -2236,12 +2243,8 @@ def choose_base(lang: str):
             adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity")
             time.sleep(3)
     to_top()
-    for label in ("Učitelj je povezan", "Brez povezave", "Povezujem"):  # the tutor's status dot
-        if tap(label, 3):
-            break
-    else:
-        raise AssertionError("the tutor's status dot")
-    assert wait_for("Povezava · ", 8), "the connection sheet"
+    assert tap("Nastavitve · ", 4), "Home's ⚙️"  # its label's Slovene half, whatever the base is now
+    assert tap("Jeziki · ", 4), "the settings' languages"
     for _ in range(6):
         if lang:
             chips = sorted((b for t, b in boxes() if t == lang), key=lambda b: b[1])
@@ -2256,8 +2259,7 @@ def choose_base(lang: str):
     else:
         raise AssertionError(f"the languages' chip {lang or 'Kot v profilu'}")
     time.sleep(1.5)
-    adb("shell", "input", "keyevent", "KEYCODE_BACK")
-    time.sleep(1)
+    go_home()
 
 
 def scene_people():
@@ -4107,13 +4109,15 @@ def quests_threat():
         assert tap("Zapri · Close", 3), "the scroll's ✕"
         time.sleep(1.2)
 
-        # Home's strip: the threat first, the requests dim and waiting
+        # Home: the threat is Today's one thing ("Branimo vas!", ⚔️ Brani); the strip has the requests, dim and waiting
         go_home()
+        to_top()
+        if not wait_for("Branimo vas", 4):
+            notes.append("no «Branimo vas» as Today's one thing")
+        snap("home-wolves-today")
         if scroll_to("Vaščani te čakajo", 4):
             adb("shell", "input", "swipe", "540", "1300", "540", "900", "400")  # the strip's cards whole on screen
             time.sleep(1)
-            if not find("Branimo vas"):
-                notes.append("no «Branimo vas» on Home's strip")
             snap("home-wolves")
         else:
             notes.append("no «Vaščani te čakajo» on Home")
@@ -8776,22 +8780,30 @@ def pull(path: str, to: Path) -> bool:
     return True
 
 
-def open_connection_sheet():
-    """Home's tutor status dot opens the connection sheet (the phone's settings)."""
+SETTINGS = "Nastavitve · Settings"  # Home's ⚙️ (its TalkBack label starts with l10n common.settings)
+# "⚙️ Nastavitve · Settings"'s sections, by their ids (ui/settings/SettingsScreen.kt SettingsSection): their rows' names
+SETTINGS_SECTIONS = {
+    "tutor": "Učitelj · Tutor", "data": "Podatki · Data", "languages": "Jeziki · Languages",
+    "sound": "Zvok in glas · Sound and voice", "connection": "Povezava · Connection", "developer": "Razvijalec · Developer",
+}
+
+
+def open_settings(section: str | None = None):
+    """Home's ⚙️ opens "⚙️ Nastavitve · Settings" (the phone's settings, ui/settings/SettingsScreen), then the page of
+    [section] (an id of SETTINGS_SECTIONS), if given: its row tapped."""
     go_home()
     to_top()
-    for label in ("Tutor online", "Offline", "Connecting"):
-        if tap(label, 3):
-            break
-    else:
-        raise AssertionError("the tutor's status dot")
-    assert wait_for("Povezava · Connection", 8), "the connection sheet"
+    assert tap(SETTINGS, 4), "Home's ⚙️"
+    assert wait_for("⚙️ Nastavitve · Settings", 8), "the settings"
+    if section:
+        assert tap(SETTINGS_SECTIONS[section], 4), f"the settings' {section}"
+        assert wait_for("‹ Nastavitve · Settings", 6), f"the settings' {section} page"
 
 
 def offline_audio():
-    """The connection sheet's "🔊 Zvok brez povezave · Offline audio": the cap's chips (Off, 100, 250, 500 MB, Unlimited),
+    """The settings' "🔊 Zvok in glas · Sound and voice" → "🔊 Zvok brez povezave · Offline audio": the cap's chips (Off, 100, 250, 500 MB, Unlimited),
     "only while charging", what's on the phone, "⬇️ Prenesi zdaj · Download now", and the offline voice the node offers."""
-    open_connection_sheet()
+    open_settings("sound")
     assert scroll_to("Zvok brez povezave · Offline audio", 10), "the offline audio section"
     for chip in ("Izklopljeno · Off", "100 MB", "250 MB", "500 MB", "Brez omejitve · Unlimited"):
         assert scroll_to(chip, 2), f"the cap's chip {chip}"
@@ -8847,7 +8859,7 @@ def prefetch():
     assert not status.get("problem"), f"the prefetch failed: {status.get('problem')}"
     assert status.get("wants", 0) > 0, "the day's plan has no lines"
     assert status.get("wanted", 0) + status.get("other", 0) > 0, "none of the day's lines is on the phone"
-    open_connection_sheet()
+    open_settings("sound")
     assert scroll_to("Na telefonu", 10), "what's on the phone"
     shot("offline-audio-on-phone")
     adb("shell", "input", "keyevent", "KEYCODE_BACK")
@@ -9545,7 +9557,7 @@ MORE_LEVELS = "more… (xhigh, max)"  # the effort picker's toggle
 FROM_TEXT = "✍️ as text, no reply tool"  # a reply the shadow took from the text of a turn that never called reply
 SHADOW_KEY = "sk-ant-qa-fake-0000000000000000"  # QA's mock takes any key; never a real one (none exists yet)
 SHADOW_MOCK = f"http://10.0.2.2:{SHADOW_MOCK_PORT}"
-DEVELOPER = "🛠️ Razvijalec · Developer"  # the connection sheet's developer section (l10n developer.title)
+DEVELOPER = "Razvijalec · Developer"  # the settings' developer section, its row (l10n developer.title)
 SHADOW = "🕵️ Učitelj v senci · Shadow tutor"  # its row (developer.shadowTutor)
 OPEN_PANEL = "🔍 Odpri pregled · Open the panel"  # (developer.openPanel)
 MOCK_TUTOR = "Mock tutor"  # in each of the mock's replies: only ever in the shadow's panel
@@ -9604,7 +9616,7 @@ def start_tutor_mock():
 
 def shadow_tutor():
     """The in-app tutor in shadow mode (companion/README.md "The in-app tutor in shadow mode"), against QA's mock of the
-    Messages API on 127.0.0.1:8771 (started here): the developer section shown by tapping the connection sheet's version
+    Messages API on 127.0.0.1:8771 (started here): the developer section shown by tapping the settings' version
     line seven times, the shadow tutor turned on, which opens its panel for a key; the mock's base URL (a QA build's), a
     fake key checked (GET /v1/models) and kept; a chat sent from the tutor chat (the real tutor, the dev bridge's canned
     one, answers it there; the shadow's reply only in the panel), a review finished (its digest runs when the chat
@@ -9620,20 +9632,17 @@ def shadow_tutor():
     order, the per-message effort's beta only with an effort message; the chat never shows the shadow's reply."""
     mock = start_tutor_mock()
     try:
-        # the developer section: hidden until the version line is tapped seven times
-        open_connection_sheet()
-        for _ in range(12):  # to the sheet's end: the version line is its last (below scroll_to's band)
-            adb("shell", "input", "swipe", "540", "1600", "540", "900", "300")
-        time.sleep(1)
+        # the developer section: hidden until the settings' version line is tapped seven times
+        open_settings()
         version = find("Lani 0.")
-        assert version, "the version line at the bottom of the connection sheet"
-        assert find(DEVELOPER) is None or find(SHADOW), "the developer section shown before the taps"
-        if find(SHADOW) is None:
+        assert version, "the version line at the bottom of the settings"
+        if find(DEVELOPER) is None:
             for _ in range(7):
                 adb("shell", "input", "tap", str(version[0]), str(version[1]))
                 time.sleep(0.25)
             time.sleep(1.5)
-        assert scroll_to(SHADOW, 3), "the developer section after seven taps"
+        assert tap(DEVELOPER, 4), "the developer section's row after seven taps"
+        assert wait_for(SHADOW, 6), "the developer's page"
         shot("shadow-developer")
         scroll_to(OPEN_PANEL, 3)  # below the section's lines; at the sheet's end it may stay low on the screen
         assert tap(OPEN_PANEL, 4), "the panel's button"
@@ -9659,10 +9668,7 @@ def shadow_tutor():
         shot("shadow-on")
         adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the panel
         time.sleep(1)
-        if find("Povezava · Connection"):
-            adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the connection sheet under it
-            time.sleep(1)
-        go_home()
+        go_home()  # the developer's page and the settings under it
 
         # a chat: the real tutor (the dev bridge's) answers it in the chat; the shadow's answer is the panel's
         assert tap("Tvoj učitelj · Your tutor", 6), "the tutor bar"
@@ -9884,7 +9890,7 @@ def tutor_live():
         qa_hook(f"tutorlive:{SHADOW_MOCK}")
         session = dev_bridge("/tutor/session")
         assert session.get("protocol") == 1 and session.get("attached") is None, f"the dev bridge's tutor session: {session.get('protocol')}"
-        open_connection_sheet()
+        open_settings("tutor")
         assert scroll_to(TUTOR_SECTION, 12), "the Tutor section"
         assert find(ON_THE_NODE), "who answers: Claude Code on the node at first"
         keep("settings-node")
@@ -9958,7 +9964,7 @@ def tutor_live():
         go_home()
 
         # off: Claude Code on the node answers again
-        open_connection_sheet()
+        open_settings("tutor")
         assert scroll_to(TUTOR_SECTION, 12), "the Tutor section"
         assert tap(ON_THE_NODE, 4), "Claude Code on my node"
         assert wait_for("Odgovarja Claude Code na vozlišču", 15), "detached"
@@ -9995,7 +10001,7 @@ ON_ITS_WAY = "vaje so na poti"  # the mock tutor's reply in the chat to [mock:re
 def live_tutor_on():
     """The tutor in the app on against QA's mock (as the tutor-live step turns it on); the key entered when none is kept."""
     qa_hook(f"tutorlive:{SHADOW_MOCK}")
-    open_connection_sheet()
+    open_settings("tutor")
     assert scroll_to(TUTOR_SECTION, 12), "the Tutor section"
     assert tap(IN_THE_APP, 4), "In the app"
     if not wait_for(LIVE_READY, 6):
@@ -10139,8 +10145,8 @@ def studio():
 
         # the Tutor section's studio list
         go_home()
-        open_connection_sheet()
-        # at the sheet's end it stays low, below scroll_to's band: found as it is then
+        open_settings("tutor")
+        # at the page's end it stays low, below scroll_to's band: found as it is then
         assert scroll_to("Studio: kar napiše učitelj", 14) or find("Studio: kar napiše učitelj"), "the studio's list in the Tutor section"
         keep("settings")
         (OUT / "studio-mock-requests.json").write_text(json.dumps(mock_api("/mock/requests"), indent=1, ensure_ascii=False))
@@ -10151,7 +10157,7 @@ def studio():
         # Claude Code on the node again (the sheet opened afresh: the Tutor section is above where the list was)
         adb("shell", "input", "keyevent", "KEYCODE_BACK")
         time.sleep(1)
-        open_connection_sheet()
+        open_settings("tutor")
         assert scroll_to(TUTOR_SECTION, 12), "the Tutor section"
         assert tap(ON_THE_NODE, 4), "Claude Code on my node"
         assert wait_for("Odgovarja Claude Code na vozlišču", 15), "detached"
@@ -10847,6 +10853,97 @@ def sea_frames():
 
 # --- main -----------------------------------------------------------------------------------
 
+def back_key(why: str = ""):
+    """The system's Back, once (a key press: the gesture's end without its animation)."""
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(1.2)
+
+
+def navigation():
+    """The back stack and the tidy Home (docs/plans/05-built/navigation.md): Home's ⚙️ and 🤝 in its header and the
+    learning tiles right under Today; the settings in two taps (⚙️ → "Učitelj · Tutor", its page under "‹ Nastavitve ·
+    Settings"), Friends, the grammar book and My words in one, each Back to Home; a run's result: Back goes where the run
+    began, never out of the app; a scene's link (lani://scene/ob-ognju): Home › the village › the scene, Back that way; the
+    village's 🤝 (Friends under "‹ Vas · Village"); the process killed in the background: the app opens on the screen it
+    was on (Napredek)."""
+    go_home()
+    to_top()
+    assert find(SETTINGS) and find("Prijatelji · Friends"), "Home's ⚙️ and 🤝"
+    assert scroll_to("Učenje · Learning", 1) and scroll_to("Moje besede", 1), "the learning tiles' first row within a swipe of Today"
+    assert scroll_to("Slovnica", 2), "the grammar book's tile"
+    shot("nav-home-tiles")
+    to_top()
+
+    # the settings: ⚙️ → Učitelj · Tutor (2 taps), Back twice to Home
+    assert tap(SETTINGS, 4), "Home's ⚙️"
+    assert wait_for("⚙️ Nastavitve · Settings", 8) and find("‹ Domov · Home"), "the settings, Home under them"
+    shot("nav-settings")
+    assert tap(SETTINGS_SECTIONS["tutor"], 4), "the tutor's row"
+    assert wait_for("‹ Nastavitve · Settings", 6) and scroll_to(TUTOR_SECTION, 6), "the tutor's page, the settings under it"
+    shot("nav-settings-tutor")
+    back_key()
+    assert wait_for("⚙️ Nastavitve · Settings", 6), "Back: the settings"
+    back_key()
+    assert wait_for("Danes · Today", 6), "Back: Home"
+
+    # one tap each: Friends, the grammar book, My words; Back: Home
+    for target, title in (("Prijatelji · Friends", "🤝 Prijatelji · Friends"), ("Slovnica", "📖 Slovnica · Grammar"), ("Moje besede", "🔤 Moje besede · My words")):
+        to_top()
+        c = find(target) if target.startswith("Prijatelji") else scroll_to(target, 2, exact=True)
+        assert c, f"Home's {target}"
+        tap_at(c)
+        assert wait_for(title, 8) and find("‹ Domov · Home"), f"{title}, Home under it"
+        shot(f"nav-{title.split(' ')[1].lower()}")
+        back_key()
+        assert wait_for("Danes · Today", 6), f"Back from {title}: Home"
+
+    # a run's result: Back goes where the run began (Home), not out of the app
+    qa_hook("review")
+    time.sleep(2 * slow())  # the review's first card (no intro: the companion greets with it)
+    answer_any()
+    tap("Naprej · Next", 4)
+    back_key()  # the run ends, what was answered kept: its result
+    assert wait_for("Naprej · Continue", 10), "the review's result"
+    shot("nav-result")
+    back_key()
+    assert in_front(), "Back on a run's result left the app"
+    assert wait_for("Danes · Today", 6), "Back on the result: where the run began (Home)"
+
+    # the village's 🤝: Friends with the village under it (the village's first intro and news out of the way first)
+    village()
+    assert tap("Prijatelji · Friends", 6), "the HUD's 🤝"
+    assert wait_for("🤝 Prijatelji · Friends", 8) and find("‹ Vas · Village"), "Friends, the village under it"
+    shot("nav-village-friends")
+    back_key()
+    assert wait_for("Hrana · Food", 8), "Back: the village"
+    back_key()
+    assert wait_for("Danes · Today", 8), "Back: Home"
+
+    # a scene's link: Home › Vas › the scene; Back that way
+    adb("shell", "am", "start", "-a", "android.intent.action.VIEW", "-d", "lani://scene/ob-ognju")
+    if wait_for("‹ Vas · Village", 12):
+        shot("nav-link-scene")
+        back_key()
+        assert wait_for("Hrana · Food", 10), "Back from the linked scene: the village"
+        back_key()
+        assert wait_for("Danes · Today", 8), "then Home"
+
+    # the process's death in the background: the app opens on the screen it was on
+    to_top()
+    assert tap("Napredek · Progress", 4) or (scroll_to("Napredek · Progress", 6) and tap("Napredek · Progress", 4)), "Napredek"
+    assert wait_for("📊 Napredek · Progress", 8), "Napredek"
+    adb("shell", "input", "keyevent", "KEYCODE_HOME")
+    time.sleep(2)
+    adb("shell", "am", "kill", PKG)
+    time.sleep(2)
+    assert not adb("shell", "pidof", PKG, check=False).strip(), "the process killed"
+    adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity")
+    assert wait_for("📊 Napredek · Progress", 20) and find("‹ Domov · Home"), "after the process's death: Napredek again, Home under it"
+    shot("nav-restored")
+    back_key()
+    assert wait_for("Danes · Today", 8), "Back: Home"
+
+
 def plan():
     """Every step in order: (name, flow, cleanup, keep, group)."""
     # In the village every step ends on the plain village (camera at home), failed or not; a step whose next one
@@ -10858,6 +10955,8 @@ def plan():
         # the first visit to the village, on the fresh install: its first words read aloud (before "village" skips them)
         ("intro-voice", intro_voice, None, False, ""),
         ("home", home, None, False, ""),
+        # the back stack, the settings, Friends, the grammar book, a run's result, a link, the process's death
+        ("navigation", navigation, go_home, False, ""),
         ("challenges", challenges, None, False, ""),
         ("sheets-settle", sheets_settle, go_home, False, ""),
         # chat-swipe first: the first chat with a tutor message in it, where the swipe's tip shows once
@@ -10970,7 +11069,7 @@ def plan():
     ]
 
 
-HOSTED_TITLE = "Lani na tej napravi"  # l10n hosted.title: the onboarding, the splash, the connection sheet
+HOSTED_TITLE = "Lani na tej napravi"  # l10n hosted.title: the onboarding, the splash, the settings' connection
 HOSTED_NAME = "Ana"
 
 
@@ -11024,7 +11123,7 @@ def hosted():
     tutor's step (a child's closed until a parent's hold), Home on the phone's own bridge and the village founded; a word looked
     up in a pack, the pack learned (its words saved by the phone's update-db), a review (QA's hook "review") saved; the
     app killed and started again: the splash, Home in N ms (the log's timing), the review still there (the phone's
-    spaced-repetition.json, the streak); the packs screen; the export made (the connection sheet's 📤, the share sheet),
+    spaced-repetition.json, the streak); the packs screen; the export made (Settings → Connection's 📤, the share sheet),
     pulled and checked by the node's `lani import --verify`. Screenshots also to $LANI_QA_HOSTED_SHOTS."""
     assert not listeners(PORT), f"something listens on {PORT}: the hosted step runs with no node"
     # the first launch: the welcome, Slovene from English, "📱 Samo ta telefon / tablica · Just this device"
@@ -11183,11 +11282,10 @@ def hosted():
     assert wait_for("Znaš ", 10), "packs screen after the restart"
     go_home()
 
-    # the export: the connection sheet's 📤, the share sheet; the zip checked by the node's lani import --verify
+    # the export: Settings → Connection's 📤, the share sheet; the zip checked by the node's lani import --verify
     to_top()
-    dot = find(f"☁️ {HOSTED_TITLE}")
-    assert dot, "the status dot"
-    tap_at(dot)
+    assert find(f"☁️ {HOSTED_TITLE}"), "Home's ⚙️ says Lani is on this device"
+    open_settings("connection")
     assert wait_for("Izvozi moje podatke", 8) or scroll_to("Izvozi moje podatke", 3), "the export button"
     hosted_shot("settings")
     assert tap("Izvozi moje podatke", 4), "export"
@@ -11204,6 +11302,7 @@ def hosted():
     adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the share sheet
     time.sleep(1)
     # the Tutor section on the phone: the tutor in the app only (no "Claude Code on my node"), its provider to choose
+    open_settings("tutor")
     for _ in range(8):
         if find("odgovarja učitelj v aplikaciji"):
             break
@@ -11214,13 +11313,12 @@ def hosted():
             adb("shell", "input", "swipe", str(gate[0]), str(gate[1]), str(gate[0]), str(gate[1]), "2800")
             time.sleep(1.5)
             continue
-        adb("shell", "input", "swipe", "540", "1800", "540", "900", "400")  # up only: a drag down closes the sheet
+        adb("shell", "input", "swipe", "540", "1800", "540", "900", "400")
         time.sleep(1)
     assert find("odgovarja učitelj v aplikaciji"), "the Tutor section's line for the phone"
     assert not find("Claude Code"), "no node to choose on the phone"
     hosted_shot("tutor-section")
-    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the connection sheet
-    time.sleep(1)
+    go_home()
     assert not listeners(PORT), f"something listened on {PORT} during the hosted step"
     HOSTED["first"], HOSTED["again"] = first, again
 
