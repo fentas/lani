@@ -124,12 +124,12 @@ object BuildSheetLogic {
 
     /**
      * Of [options] (the village's [GameEngine.buildOptions], or what can go up in a building's place), only what can be
-     * built now or has a way on: the age has it, it isn't at its most, and no plot kept for the next age holds it out (that
-     * says one line, [BuildList.kept]); with every plot built, what has its way through the plots ([BuildOption.plotWay])
-     * and what takes none (the palisade). What the next age opens is one quiet line ([BuildList.later]), not a card each.
+     * built now or has a way on, what the next age needs ([check]) first: the age has it, it isn't at its most, and no plot
+     * kept for the next age holds it out (that says one line, [BuildList.kept]); with every plot built, what has its way
+     * through the plots ([BuildOption.plotWay]) and what takes none (the palisade). What the next age opens is one quiet line ([BuildList.later]), not a card each.
      * [replacing]: the options for a building's place (its sheet says so; no "later" line).
      */
-    fun of(s: GameState, options: List<BuildOption>, replacing: Boolean = false): BuildList {
+    fun of(s: GameState, options: List<BuildOption>, replacing: Boolean = false, check: AdvanceCheck? = null): BuildList {
         val full = !replacing && si.lanisce.lani.game.Placement.freePlots(s).isEmpty()
         fun open(o: BuildOption): Boolean {
             val spec = Catalog.spec(o.type)
@@ -137,7 +137,8 @@ object BuildSheetLogic {
         }
         val kept = options.filter { open(it) && it.type.onPlot && !full && !GameEngine.placeable(s, it.type) && it.room == null }
         val cards = options.filter { o -> open(o) && o !in kept && (!o.type.onPlot || !full || o.plotWay != null) }
-            .sortedWith(compareBy({ !(it.available || it.mobaAvailable) }, { it.room == null && it.plotWay == null }, { it.cost.values.sum() }))
+            // what the next age needs first (its "🎯 Potrebno za …"), then what can be built now, then what has a way on
+            .sortedWith(compareBy({ check == null || !needed(s, check, it.type) }, { !(it.available || it.mobaAvailable) }, { it.room == null && it.plotWay == null }, { it.cost.values.sum() }))
         val next = Age.entries.getOrNull(s.age.ordinal + 1)
         val later = next?.takeIf { !replacing }?.let { a ->
             val types = Catalog.specs.values.filter { it.minAge == a }.map { it.type }
@@ -179,8 +180,8 @@ fun BuildSheet(
 ) {
     val plots = PLOTS_PER_AGE[s.age.ordinal]
     // replacing: what can go up on its plot, as if it stood free
-    val list = remember(s, options, replacing) {
-        BuildSheetLogic.of(replacing?.let { r -> s.copy(buildings = s.buildings.filter { it.id != r.id }) } ?: s, options, replacing != null)
+    val list = remember(s, options, replacing, check) {
+        BuildSheetLogic.of(replacing?.let { r -> s.copy(buildings = s.buildings.filter { it.id != r.id }) } ?: s, options, replacing != null, check)
     }
     // the neighbours' help, once the learner has 🤝 and a building could use it
     var moba by remember { mutableStateOf(false) }

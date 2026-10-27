@@ -177,7 +177,8 @@ object Rebuild {
      * The way [type] can go up while every plot of the age is built (null when a plot is free, or there is no way): a tent
      * that can grow into the hut wanted, a hut into the house (the lowest level first: the cheapest), else a building that
      * may be replaced ([keeps]) where [type] could stand (the plot kept for the next age, the age, the most of it: as on a
-     * free plot), a kind the village has several of first, then the one cheapest to lose (its price and upgrades).
+     * free plot), the one cheapest to lose (its price and upgrades), a kind the village has several of first among equals;
+     * a building is replaced this way only for what the next age still needs ([wanted]).
      */
     fun plotWay(s: GameState, type: BuildingType, cast: List<Villager> = emptyList()): PlotWay? {
         if (!type.onPlot || Placement.freePlots(s).isNotEmpty()) return null
@@ -186,9 +187,12 @@ object Rebuild {
                 .minWithOrNull(compareBy({ it.level }, { it.plot }))
                 ?.let { return PlotWay.Grow(it.id, from, type) }
         }
+        // a building comes down only for what the next age still needs: never a house for a tent (the replace sheet of a
+        // building's own card can still put anything in its place)
+        if (!wanted(s, type)) return null
         val c = s.buildings
             .filter { it.type != type && keeps(s, it, cast) == null && bedsShort(s, it, type) == null && without(s, it).let { rest -> open(rest, type) && GameEngine.placeable(rest, type) } }
-            .minWithOrNull(compareBy({ s.buildings.count { o -> o.type == it.type } <= 1 }, { worth(it) }, { it.plot }))
+            .minWithOrNull(compareBy({ worth(it) }, { s.buildings.count { o -> o.type == it.type } <= 1 }, { it.plot }))
             ?: return null
         return PlotWay.Replace(c.id, c.type)
     }
@@ -228,6 +232,12 @@ object Rebuild {
         val back = salvage(b).mapValues { (r, n) -> n.coerceAtMost((caps.getValue(r) - rest.res(r)).coerceAtLeast(0)) }.filterValues { it > 0 }
         return rest.copy(resources = rest.resources.sumWith(back)).let(Placement::chosen)
             .logged(now, "🔨" to bi("engine.tookDown", "building" to b.type.names))
+    }
+
+    /** Whether the next age still needs more of [type] than stand (undamaged). */
+    fun wanted(s: GameState, type: BuildingType): Boolean {
+        val next = Age.entries.getOrNull(s.age.ordinal + 1) ?: return false
+        return Catalog.ageRules[next]?.needs?.any { (types, n) -> type in types && s.buildings.count { it.type in types && !it.damaged } < n } == true
     }
 
     /** What a building is worth to keep: its price and upgrades, half when damaged. */

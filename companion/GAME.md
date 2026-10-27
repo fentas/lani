@@ -281,8 +281,10 @@ the new building drawn in the old one's place, "Namesto: Šotor ⛺ · Instead o
 (nothing happens before; "←" goes back to the sheet).
 
 The way a building held back by the plots takes (`Rebuild.plotWay`): a hut wanted, a tent grows; a house wanted, a hut
-grows (the lowest level first: the cheapest); else the building that may be replaced and is cheapest to lose (a kind the
-village has several of first, then its price and upgrades, half when damaged).
+grows (the lowest level first: the cheapest); else, only for what the next age still needs, the building that may be
+replaced and is cheapest to lose (its price and upgrades, half when damaged; a kind the village has several of first
+among equals). Nothing comes down for a building the next age doesn't need (the first after-QA showed a level-2 house
+offered to make room for a tent); the building's own card can still replace anything with anything.
 
 Teo's village is a named case (`BuildOrdersTest`, "Teo's camp of three huts reaches the town"): Friuli, a camp whose five
 plots hold the first tent, three huts and a field, played on at random 200 times, reaches the town every time, and in the
@@ -309,7 +311,7 @@ The palisade takes no plot (nor does the tent once it has moved to the pond: see
 
 **The build sheet** ("🔨 Gradi · Build", `BuildSheet`; Jan, 2026-10-27): only what can be built now or has a way on, each
 card its name in both languages, how many stand, what it gives in one line and its price (red where the stores are short),
-"🎯 Potrebno za Vas · Needed for Village" on what the next age needs, and when it can't go up yet, why and its way on, one
+"🎯 Potrebno za Vas · Needed for Village" on what the next age needs (those cards first), and when it can't go up yet, why and its way on, one
 tap: "🌾 Naberi še 12 🌾 · Gather 12 more 🌾 ›" (what it lacks most: a gathering run), a bed for whom it brings ("🏠 Postavi
 hišo · Build a house ›"), or with every plot built, its way through the plots ("⬆️ Prezidaj: Koča → Hiša ›", "🔁
 Namesto: Šotor ⛺ ›"; see "When every plot is built"). What the age doesn't have yet is one quiet line at the end, "🔒

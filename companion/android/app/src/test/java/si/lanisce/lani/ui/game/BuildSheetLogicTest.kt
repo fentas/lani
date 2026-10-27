@@ -72,6 +72,19 @@ class BuildSheetLogicTest {
         assertTrue(list.cards.any { it.type == BuildingType.PALISADE && it.available })
         // every card shown has a way on, or takes no plot
         assertTrue(list.cards.all { !it.type.onPlot || it.plotWay != null })
+        // nothing comes down for what the next age doesn't need (a house for a tent): no tent card here
+        assertTrue(list.cards.none { it.type == BuildingType.TENT })
+    }
+
+    @Test fun `what the next age needs comes first`() {
+        val hamlet = GameState(age = Age.ZASELEK, resources = plenty(), buildings = listOf(b("t", BuildingType.TENT, 0), b("f", BuildingType.FIELD, 1)))
+        val check = GameEngine.advanceCheck(hamlet, 0)
+        val list = BuildSheetLogic.of(hamlet, GameEngine.buildOptions(hamlet), check = check)
+        // Vas needs the church, the linden and two huts or houses: those cards lead
+        assertEquals(
+            setOf(BuildingType.CHURCH, BuildingType.LIPA, BuildingType.HUT, BuildingType.HOUSE),
+            list.cards.take(4).map { it.type }.toSet(),
+        )
     }
 
     @Test fun `replacing a building, what can go up on its plot as if it stood free`() {

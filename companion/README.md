@@ -4298,19 +4298,35 @@ tonight's story as news and the pedlar's day not; the days' words, "Nocoj · Ton
 In 9 days"; each step's action; the dots, gone once their sheet showed what they marked; what TalkBack reads).
 `ui/game/VillageHudTest` puts the HUD on a phone's screen under Robolectric with Compose's test rule (`ui-test-junit4`,
 test only; `ui-test-manifest`'s empty activity in debug builds): the bar and the three cards (the settlement's swiped
-to), the goal's card with its next step and its button, the bar and the cards under 140 dp; the ring hiding and showing
-the cards (a tap, a long press), kept in `HudPrefs` for the next village screen; each card's section in the sheet, what
+to), the goal's card with its next step and its button, the bar and the cards under 140 dp; a tap on the ring opening
+what the next age needs (TalkBack: "Kaj potrebuje naslednja doba · What the next age needs"), its long press hiding and
+showing the cards, kept in `HudPrefs` for the next village screen; each card's section in the sheet, what
 leads on from it closing it (a step's button, a tile, the ages, progress, a festival's line), its ✕; the timeline
 without a doubled day; the dots in the ring's label; the plot chooser hiding the cards and giving them back, the
 learner's choice untouched; and a tap outside the open sheet closing it without reaching the map, a drag closing it and
 panning on. On the emulator, `companion/bin/qa --steps village-hud` (also after `ages` in a whole run; with
 `--minified` on the qa build too) checks the bar and the cards (their bottom under 600 px, where the old HUD's panel
-reached about 1550 on the 1080 × 2400 emulator), hides them by the ring, goes home and into the village again (still
-hidden), shows them, opens each card's section (a tap on the map above the goal's closes it and opens nothing), the
+reached about 1550 on the 1080 × 2400 emulator), opens the ages' sheet by a tap on the ring, hides the cards by its long
+press, goes home and into the village again (still hidden), shows them, opens each card's section (a tap on the map above the goal's closes it and opens nothing), the
 settlement's in sl · de (QA's hook `pair:sl-de`), then opens the plot chooser through QA's hook `build:field` and checks
 the cards are hidden, the ★ lies between the bar and the chooser's bar, and the cards are back once the chooser is
-left. Screenshots: `hud-cards`, `hud-bar`, `hud-goal`, `hud-soon`, `hud-settlement`, `hud-settlement-de`,
+left. Screenshots: `hud-cards`, `hud-ring-ages`, `hud-bar`, `hud-goal`, `hud-soon`, `hud-settlement`, `hud-settlement-de`,
 `hud-plot-chooser`.
+
+**The building's card and the build sheet** (GAME.md, "The building's card", "The build sheet", "When every plot is
+built"). `ui/game/BuildingCardTest` puts a tent's card on a phone's screen under Robolectric: one card, "🚪 Vstopi" first
+(none for a culture without the scene), what it gives once, the next level's chips ("🔤 0 / 14", "…" while the words'
+packs come), the ONE button for the next step ("🎯 Nauči se 8 besed", "🌾 Naberi še 65 🌾", "⬆️ Nadgradi", "🔒 Najprej:
+Zaselek ›"), the words and the moba folded, growing up, moving at its foot, replacing and taking down folded and taking
+down confirmed first, the repair when damaged; no build date, no "V dobrem stanju". `ui/game/BuildSheetLogicTest` checks
+the build sheet shows only what can be built now (the next age's in one line, the plots kept for it in one line, with
+every plot built only the cards with a way through the plots) and the card's steps in their order. `game/RebuildTest`
+checks growing up (the price of the difference, the level kept, the first tent and the tent at the pond never),
+replacing and taking down (which may be, the beds, half the materials back), and each building's way through the plots;
+`game/BuildOrdersTest` plays 2,000 random build orders in the four cultures from the campfire to the town (0 dead ends;
+760 with the rules before), Teo's camp of three huts, and the tent at the pond surviving every order. On the emulator
+`companion/bin/qa --steps scene-building` opens a building's card from inside its scene and its words' run from there
+("🎯 Nauči se …").
 
 **The village's scroll** (GAME.md, "The scroll"). `ui/game/VillageScrollTest` checks what's new in it (who joined and the
 grammar pages met in the last 7 days, not seen in it yet: the bottom bar's count; the chronicle's lines since it was
