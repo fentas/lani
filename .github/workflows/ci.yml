@@ -2,6 +2,10 @@
 # Android app (unit tests, the debug APK and the release APK with R8, built in the build image as
 # companion/bin/lani-build-app builds it).
 # What each runs locally: companion/README.md "Test".
+#
+# Every step that downloads something has a time limit of its own, well above its usual time and under its job's: a
+# mirror or a service that hangs fails that step in minutes and says which, instead of taking the job's whole time
+# (docs/plans/05-built/ci-green.md). Only ffmpeg, which the smoke can do without, is allowed to fail and go on.
 name: CI
 
 on:
@@ -27,20 +31,63 @@ jobs:
         working-directory: companion/bridge
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        timeout-minutes: 5
         with:
           persist-credentials: false
       - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        timeout-minutes: 5
         with:
           bun-version: 1.3.13
-      # ffmpeg and ffprobe: the voice checks (without them the smoke skips 30 of them with a warning)
+      # ffmpeg and ffprobe: the voice checks (without them the smoke skips 30 of them with a warning). Ubuntu's
+      # packages, kept between runs; a run downloads only what the cache lacks, in bounded tries. On 2026-10-27 the
+      # runner's mirror sent them at 50 kB/s and apt took the job's 20 minutes: now a slow mirror costs at most about
+      # five minutes and the voice checks (the job's summary says so), never the run (.github/scripts/ffmpeg.sh).
+      - name: ffmpeg's packages (cache key)
+        id: debs
+        run: |
+          echo "prefix=apt-ffmpeg-${ImageOS:-$RUNNER_OS}-" >> "$GITHUB_OUTPUT"
+          echo "image=${ImageVersion:-unknown}" >> "$GITHUB_OUTPUT"
+      # the newest cache of this runner image, else of an older one (apt takes the packages that are still current);
+      # a run saves under its own key, so one that fetched only some of them leaves them for the next
+      - name: ffmpeg's packages (from the cache)
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        timeout-minutes: 4
+        continue-on-error: true
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: "2"
+        with:
+          path: ~/.cache/lani/apt-ffmpeg
+          key: ${{ steps.debs.outputs.prefix }}${{ steps.debs.outputs.image }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            ${{ steps.debs.outputs.prefix }}${{ steps.debs.outputs.image }}-
+            ${{ steps.debs.outputs.prefix }}
+      # the script bounds its own downloads (2 × 45 s for the lists, 2 × 90 s for the packages) and never fails the
+      # job; the step's limit is the backstop, and the next step then says what happened
       - name: ffmpeg
-        run: sudo apt-get update -q && sudo apt-get install -y -q --no-install-recommends ffmpeg
+        id: ffmpeg
+        timeout-minutes: 7
+        continue-on-error: true
+        run: ../../.github/scripts/ffmpeg.sh "$HOME/.cache/lani/apt-ffmpeg"
+      - name: ffmpeg (stopped at its limit)
+        if: steps.ffmpeg.outcome != 'success'
+        run: ../../.github/scripts/ffmpeg.sh --cut-off
+      - name: ffmpeg's packages (into the cache)
+        if: steps.ffmpeg.outputs.fetched != '' && steps.ffmpeg.outputs.fetched != '0'
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        timeout-minutes: 4
+        continue-on-error: true
+        with:
+          path: ~/.cache/lani/apt-ffmpeg
+          key: ${{ steps.debs.outputs.prefix }}${{ steps.debs.outputs.image }}-${{ github.run_id }}-${{ github.run_attempt }}
       - run: bun install --frozen-lockfile
+        timeout-minutes: 5
       - name: Typecheck
+        timeout-minutes: 5
         run: bunx tsc --noEmit -p .
-      # The whole smoke, about a minute: its bridges on 18800 and the ports after it, fake voice and speech servers,
+      # The whole smoke, about two minutes: its bridges on 18800 and the ports after it, fake voice and speech servers,
       # no local workers, no network, no tmux. It needs python3 (the hooks), bash and git, which the runner has.
       - name: Smoke
+        timeout-minutes: 10
         run: bun test/smoke.ts
 
   python:
@@ -49,19 +96,23 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        timeout-minutes: 5
         with:
           persist-credentials: false
       # the node's Python (the scripts run there): the db port's differential test (tests/test_db_port.py) compares
       # the TypeScript twin with Python's own messages, which differ between versions (a date out of range, a bad UTF-8 byte)
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        timeout-minutes: 5
         with:
           python-version: "3.14"
       # Bun and the bridge's packages: the setup wizard (companion/bin/lani-setup) and lani.env's TypeScript reader,
       # which the tests run end to end
       - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        timeout-minutes: 5
         with:
           bun-version: 1.3.13
       - run: bun install --frozen-lockfile
+        timeout-minutes: 5
         working-directory: companion/bridge
       # the standard library only: the Whisper worker's models are faked
       - run: python -m unittest discover -s companion/tests
@@ -73,12 +124,19 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        timeout-minutes: 5
         with:
           fetch-depth: 0 # the version is the commit count (app/build.gradle.kts)
           persist-credentials: false
 
-      # lani-build-app's cache (the build container's home): the Gradle caches and wrapper, Robolectric's jars (~/.m2)
+      # lani-build-app's cache (the build container's home): the Gradle caches and wrapper, Robolectric's jars (~/.m2).
+      # It took 16-74 s (October 2026); one that hangs is given up (the build then downloads what it needs: slower, not
+      # failed), and the cache is saved again at the end.
       - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        timeout-minutes: 8
+        continue-on-error: true
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: "5"
         with:
           path: |
             ~/.cache/lani/android-build/.gradle/caches
@@ -87,13 +145,17 @@ jobs:
           key: android-gradle-${{ runner.os }}-${{ hashFiles('companion/android/gradle/libs.versions.toml', 'companion/android/gradle/wrapper/gradle-wrapper.properties', 'companion/android/**/*.gradle.kts', 'companion/android/docker/Dockerfile') }}
           restore-keys: android-gradle-${{ runner.os }}-
 
+      # The build image (the JDK image's pull, its apt packages, the SDK and bun, pinned by their SHA-256: about 35 s),
+      # then the tests and the APK: 13-23 minutes (October 2026)
       - name: Unit tests and the debug APK (companion/bin/lani-build-app)
+        timeout-minutes: 32
         # a shared runner is several times slower than a desktop: the renderers' time budgets scale (FrameBudget)
         env:
           LANI_PERF_SCALE: "4"
         run: companion/bin/lani-build-app --test --out "$RUNNER_TEMP/apk/"
 
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        timeout-minutes: 5
         with:
           name: lani-debug-apk
           path: ${{ runner.temp }}/apk/
@@ -108,10 +170,12 @@ jobs:
       # the Kotlin daemon beside it, that fits the container's 8 GB (LANI_BUILD_MEMORY) of the runner's 16. The image
       # and the Gradle cache are the ones above.
       - name: The release APK with R8 (companion/bin/lani-build-app --release)
+        timeout-minutes: 20 # 6-11 minutes (October 2026)
         run: companion/bin/lani-build-app --release
 
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: failure()
+        timeout-minutes: 5
         with:
           name: android-test-reports
           path: companion/android/app/build/reports/tests/
