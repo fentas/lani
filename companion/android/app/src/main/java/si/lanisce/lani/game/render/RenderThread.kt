@@ -88,8 +88,9 @@ internal class RenderThread<A : Any>(private val name: String, private val tag: 
     }
 
     private fun loop() {
-        // as the screen's own drawing does (a background thread's priority could keep it to the little cores)
-        Process.setThreadPriority(Process.THREAD_PRIORITY_DISPLAY)
+        // as the screen's own drawing does (a background thread's priority could keep it to the little cores); a system
+        // that refuses it renders at the default
+        runCatching { Process.setThreadPriority(Process.THREAD_PRIORITY_DISPLAY) }
         while (true) {
             val a = synchronized(lock) {
                 while (pending == null && running) lock.wait()
