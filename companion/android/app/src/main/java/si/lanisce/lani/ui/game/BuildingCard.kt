@@ -195,9 +195,9 @@ class BuildingCardActions(
  * 2. "🚪 Vstopi · Go in" into each of its scenes ([scenes]; none where the culture has no scene for it, and nothing takes
  *    its place), the school's course, who is here now ([here]) and who lives there (a house's household);
  * 3. the upgrade: what the next level gives and needs (the price's chips, "🔤 5 / 14" words, "…" while their packs come),
- *    and ONE button for its next step ([UpgradeStep]); folded: which words, and the neighbours' moba;
- * 4. growing up, for a tent or a hut ([Rebuild.growOption]);
- * 5. at its foot: the repair when damaged, "↔ Premakni (brezplačno) · Move (free)", "🔁 Nadomesti · Replace".
+ *    and ONE button for its next step ([UpgradeStep]); right under it growing up, for a tent or a hut
+ *    ([Rebuild.growOption]); folded: which words, and the neighbours' moba;
+ * 4. at its foot: the repair when damaged, "↔ Premakni (brezplačno) · Move (free)", folded "🔁 Nadomesti ali podri".
  *
  * The packs of its words are fetched as it opens; until they are on the phone the words' count shows "…" ([UpgradeStep.Loading]).
  */
@@ -349,10 +349,11 @@ internal fun BuildingCardBody(
                     modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
                 )
             }
-            up != null -> UpgradeSection(v, up, actions, run)
+            // growing up right under the upgrade's button, before what is folded: a hut's "Prezidaj" is one of its main ways
+            up != null -> UpgradeSection(v, up, actions, run) { v.grow?.let { g -> GrowRow(s, b, g, run.grow) } }
         }
         // 4. growing up: a tent into a hut, a hut into a house
-        v.grow?.let { g -> GrowRow(s, b, g, run.grow) }
+        if (up == null || b.damaged || v.step == UpgradeStep.Top) v.grow?.let { g -> GrowRow(s, b, g, run.grow) }
         // 5. at its foot: the repair, moving, replacing
         if (b.damaged) {
             val cost = GameEngine.repairCost(s, b.id)
@@ -396,7 +397,7 @@ internal fun BuildingCardBody(
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun UpgradeSection(v: BuildingView, up: UpgradeOption, actions: BuildingCardActions, run: BuildingRun) {
+private fun UpgradeSection(v: BuildingView, up: UpgradeOption, actions: BuildingCardActions, run: BuildingRun, then: @Composable () -> Unit = {}) {
     val s = v.s
     val step = v.step
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -426,6 +427,7 @@ private fun UpgradeSection(v: BuildingView, up: UpgradeOption, actions: Building
             }
             BigButton(label, onClick = onClick, enabled = step != UpgradeStep.Loading, color = color)
         }
+        then()
         // folded: which words exactly (and their run), the neighbours' help
         up.words?.takeIf { !it.done && step != UpgradeStep.Loading }?.let { w -> Fold(bi("buildingCard.whichWords"), wordsPeek(w)) { UpgradeWordsList(w) } }
         up.moba?.let { m ->

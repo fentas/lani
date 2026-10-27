@@ -28,7 +28,9 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -407,6 +409,8 @@ fun AgeSheet(
     next: Pair<String, () -> Unit>? = null, cards: Boolean? = null, onCards: (Boolean) -> Unit = {},
 ) {
     Sheet(onDismiss) {
+      // it scrolls: a tablet held on its side has room for fewer steps than a phone
+      Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         // the age by name, the track shows where it is among them (no second "4 / 6" beside the ring's steps)
         SheetHeader(s.age.emoji, s.age.label())
         AgeTrack(s.age)
@@ -454,6 +458,7 @@ fun AgeSheet(
                 Switch(checked = on, onCheckedChange = onCards)
             }
         }
+      }
     }
 }
 

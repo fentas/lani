@@ -492,9 +492,10 @@ building kept in view above it (at most 600 dp wide, scrolling within itself on 
    the missing ones as chips, the rust line) and "▸ 🤝 Moba: sosedje pomagajo  −22 🪵 · 3 🤝" (what the neighbours
    bring and "🤝 Nadgradi z mobo · Upgrade with a moba", which waits for the words too). At the top level "⭐ Najvišja
    stopnja · Top level"; damaged, "⚠️ Ne daje ničesar, dokler je ne popraviš · Gives no effect until repaired".
-4. A tent or a hut that can grow up: "🛖 Postane: Koča · Becomes: Hut" or "🏠 Prezidaj v: Hiša · Rebuild as: House", its
-   level kept, what it gives then and its price, "Naj zraste · Let it grow" / "Prezidaj · Rebuild" (see "When every plot
-   is built").
+4. Right under the upgrade's button, before what is folded, a tent or a hut that can grow up: "🛖 Postane: Koča ·
+   Becomes: Hut" or "🏠 Prezidaj v: Hiša · Rebuild as: House", its level kept, what it gives then and its price, "Naj
+   zraste · Let it grow" / "Prezidaj · Rebuild" (see "When every plot is built"; on Teo's tablet held on its side the
+   first after-QA had it below the folds, a scroll away).
 5. At its foot: the repair when it is damaged (its price, "🛠️ Popravi · Repair", "🤝 Popravi z mobo"), "↔ Premakni
    (brezplačno) · Move (free)", and folded, "▸ 🔁 Nadomesti ali podri · Replace or take down" for a building that may be
    (both can't be undone, so they are a tap further, and taking down asks first).
