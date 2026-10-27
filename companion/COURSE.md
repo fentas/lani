@@ -736,5 +736,6 @@ companion/bin/school-prints --overview skloni --base de --explain   # in German,
 The bridge serves it as `GET /course/overview/skloni` (`x-lani-print-name: pregled-sklonov`; `?base=`, `?learner=`,
 `?gender=` as a sheet's; a page without an overview is a `404`), kept as the sheets are. The app offers it as
 "🖨️ Pregled sklonov · Cases overview" under "🖨️ Natisni list" on a unit whose first grammar page is `skloni` (the unit
-`skloni`), and on the grammar book's page `skloni` under "🎯 Vadi · 💬 Vprašaj" (`Prints.overview`); the print job and
+`skloni`), on the grammar book's page `skloni` under "🎯 Vadi · 💬 Vprašaj" (`Prints.overview`), and on the school's
+level of that unit (A2) under "🖨️ Vsi listi", also while the level is closed (`Prints.overviewOf`); the print job and
 the PDF saved are "Lani – Pregled sklonov".

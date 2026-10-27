@@ -39,6 +39,13 @@ object Prints {
     fun overview(language: String, page: String?): PrintJob.Overview? =
         page?.let { OVERVIEWS["$language/$it"] }?.let { PrintJob.Overview(page, it) }
 
+    /**
+     * The overview of course level [level]: the one its first written unit with an overview starts from (A2's skloni: the
+     * cases), offered on the level beside its booklet, also while the level is closed (a sheet to learn from on the way).
+     */
+    fun overviewOf(course: Course, level: String): PrintJob.Overview? =
+        course.refs(level).firstNotNullOfOrNull { ref -> course.units[ref.id]?.let { overview(course.language, it.grammar.firstOrNull()) } }
+
     /** Unit [id] of [course] as a sheet to print: numbered among its level's written units; null for a planned or unknown one. */
     fun sheet(course: Course, id: String): PrintJob.Sheet? {
         val level = course.levelOf(id) ?: course.units[id]?.level ?: return null

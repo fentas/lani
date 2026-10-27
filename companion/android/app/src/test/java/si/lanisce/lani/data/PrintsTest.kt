@@ -36,6 +36,17 @@ class PrintsTest {
         assertEquals("Lani – Pregled sklonov", Prints.jobName(o))
     }
 
+    @Test fun `a level's overview - of its first written unit that starts from a page with one, none on a level without`() {
+        // the fixture's units all start from biti: no overview anywhere
+        assertNull(Prints.overviewOf(c, "A1"))
+        assertNull(Prints.overviewOf(c, "A2"))
+        assertNull(Prints.overviewOf(c, "B1"))
+        // a unit of A2 starting from skloni: A2's overview, whatever level the learner has open
+        val skloni = c.copy(units = c.units + ("dajalnik" to c.units.getValue("dajalnik").copy(grammar = listOf("skloni", "imenovalnik"))))
+        assertEquals(PrintJob.Overview("skloni", "Pregled sklonov"), Prints.overviewOf(skloni, "A2"))
+        assertNull(Prints.overviewOf(skloni, "A1"))
+    }
+
     @Test fun `the bridge's path - in the learner's base when the sheets have it`() {
         val biti = Prints.sheet(c, "biti")!!
         assertEquals("/course/sheet/biti?base=en", Prints.path(biti, "en"))

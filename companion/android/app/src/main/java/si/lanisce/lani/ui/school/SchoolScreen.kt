@@ -261,6 +261,8 @@ private fun LevelSection(vm: AppViewModel, s: GameState, course: Course, view: S
         if (view.folded.isNotEmpty()) QuietLine(foldedLine(view), "›", action = bi("school.listUnits")) { listing = true }
         // the level's sheets on paper, a booklet (companion/COURSE.md, "Printed sheets"); a row's 🖨️ says here what went wrong
         PrintButton(vm, Prints.booklet(course, level.level), bi("school.printAll"), troubleOf = { it.level == level.level })
+        // the overview a unit of the level starts from (the cases: A2's skloni), on paper also while the level is closed
+        Prints.overviewOf(course, level.level)?.let { PrintButton(vm, it, bi("school.printOverview")) }
     }
     if (listing) FoldedSheet(vm, course, view) { listing = false }
 }
