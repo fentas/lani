@@ -2,7 +2,8 @@
 // Chromium for the generator and in the app's WebView for Android's print dialog, the same in both: its one-page
 // layout if that fits (as it is, with the table beside the rule, then tighter, without the optional parts, tightest), else
 // its two-page one the same way. A unit that fits on neither gets a third page saying so, which the generator's page
-// count catches. Then the pages get their numbers and the contents its page numbers. What was chosen is written into
+// count catches. An overview (the cases overview: overview.ts) keeps its pages, tighter as needed, its optional parts left
+// out last. Then the pages get their numbers and the contents its page numbers. What was chosen is written into
 // #fit-report (the generator reads it with --dump-dom; the app waits for data-fitted before it prints).
 ;(async function () {
   if (document.fonts) {
@@ -95,6 +96,32 @@
       if (pn) pn.textContent = `${i + 1}/${sheets.length}`
     })
     report.push({ unit: unit.dataset.unit, pages: sheets.length, fits: !!chosen, ...(chosen ?? {}), ...(over ? { over: Math.round(over) } : {}) })
+  }
+
+  // an overview (overview.ts): its pages as they are, tighter, then without its optional parts, tightest; one that still
+  // runs over gets a page more saying so (the generator's page count catches it)
+  for (const ov of document.querySelectorAll('.overview')) {
+    let chosen = null
+    let over = 0
+    for (let d = 0; d <= 3 && !chosen; d++) {
+      ov.classList.toggle('d1', d >= 1)
+      ov.classList.toggle('d2', d >= 2)
+      ov.classList.toggle('d3', d >= 3)
+      if (!overflows(ov)) chosen = { layout: 'overview', density: d }
+      else if (d === 3) over = Math.max(...[...ov.querySelectorAll('.sheet > .body')].map(b => b.scrollHeight - b.clientHeight)) / boxMM
+    }
+    if (!chosen) {
+      const sheet = document.createElement('div')
+      sheet.className = 'sheet overflow'
+      sheet.innerHTML = `<div class="body">⚠ ${ov.dataset.unit}: more than ${ov.querySelectorAll('.sheet').length} pages</div>`
+      ov.appendChild(sheet)
+    }
+    const sheets = ov.querySelectorAll('.sheet')
+    sheets.forEach((s, i) => {
+      const pn = s.querySelector('.pn')
+      if (pn) pn.textContent = `${i + 1}/${sheets.length}`
+    })
+    report.push({ unit: ov.dataset.unit, pages: sheets.length, fits: !!chosen, ...(chosen ?? {}), ...(over ? { over: Math.round(over) } : {}) })
   }
 
   if (booklet) {

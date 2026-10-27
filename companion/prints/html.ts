@@ -5,7 +5,7 @@ import { join } from 'node:path'
 import type { PCell, PTable, Sheet } from './sheet'
 
 /** The headings: Slovene first (the language learned), then the base. */
-const SL = {
+export const SL = {
   rule: 'Pravilo',
   table: 'Tabela',
   tables: 'Tabeli',
@@ -24,7 +24,7 @@ const SL = {
   units: (n: number) => (n === 1 ? '1 enota' : n === 2 ? '2 enoti' : n <= 4 ? `${n} enote` : `${n} enot`),
 }
 
-type Base = typeof EN
+export type Base = typeof EN
 const EN = {
   rule: 'The rule',
   table: 'The table',
@@ -100,7 +100,7 @@ export const LANGUAGE_NAMES: Record<string, string> = { sl: 'Slovenščina', it:
 
 // --- text --------------------------------------------------------------------------------------------------------
 
-const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+export const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
 /** The content's Markdown as HTML: **bold**, *italic*, ⟦an ending⟧; the rest as text. */
 export function md(s: string): string {
@@ -121,7 +121,7 @@ export const HOUSE = `<svg class="house" viewBox="0 0 16 16" shape-rendering="cr
 
 type Ctx = { s: Sheet; b: Base; level: string; language: string }
 
-const h2 = (kind: string, sl: string, tr: string) => `<h2 class="h-${kind}"><i class="dot"></i><span class="sl">${esc(sl)}</span><span class="tr">${esc(tr)}</span></h2>`
+export const h2 = (kind: string, sl: string, tr: string) => `<h2 class="h-${kind}"><i class="dot"></i><span class="sl">${esc(sl)}</span><span class="tr">${esc(tr)}</span></h2>`
 
 function header({ s, b, level, language }: Ctx, mini = false): string {
   const mark = `<div class="mark">${HOUSE}<div><span class="lani">Lani</span><span class="school">${esc(SL.school)} · ${esc(LANGUAGE_NAMES[language] ?? language)}</span></div><span class="level">${esc(level)}</span></div>`
@@ -135,7 +135,7 @@ function header({ s, b, level, language }: Ctx, mini = false): string {
 
 const rule = ({ s, b }: Ctx) => (s.rule.length ? `<section class="sec rule">${h2('rule', SL.rule, b.rule)}<ol>${s.rule.map(r => `<li>${md(r)}</li>`).join('')}</ol></section>` : '')
 
-function cellHtml(c: PCell, kind: 'head' | 'label' | 'cell'): string {
+export function cellHtml(c: PCell, kind: 'head' | 'label' | 'cell'): string {
   if (kind === 'head') {
     if (c.sl && c.tr) return `<span class="h-sl">${md(c.sl)}</span><span class="h-tr">${md(c.tr)}</span>`
     return `<span class="h-sl">${md(c.sl ?? c.tr ?? '')}</span>`
@@ -308,7 +308,7 @@ function fontFaces(): string {
 }
 
 /** A whole page: the CSS, the fonts and fit.js inlined, so it prints as it is from a file, Chromium's or a WebView's. */
-export function documentHtml(o: { title: string; lang: string; mode: 'unit' | 'booklet'; body: string }): string {
+export function documentHtml(o: { title: string; lang: string; mode: 'unit' | 'booklet' | 'overview'; body: string }): string {
   const css = readFileSync(join(HERE, 'sheet.css'), 'utf8')
   const js = readFileSync(join(HERE, 'fit.js'), 'utf8')
   return `<!doctype html>

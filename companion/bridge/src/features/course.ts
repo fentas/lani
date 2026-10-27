@@ -55,7 +55,7 @@ export const course: FeatureFactory = ({ course: store, prints, grammar, game, e
   const own = store.language
 
   /**
-   * A printed sheet or booklet (companion/COURSE.md, "Printed sheets") for this bridge's learner: in their base language
+   * A printed sheet, booklet or overview (companion/COURSE.md, "Printed sheets") for this bridge's learner: in their base language
    * (English where the sheets have none), with their name and their gender's forms; ?base=en|de|it, ?learner=<name> and
    * ?gender=m|f|both say otherwise (both: "utrujen/utrujena", as the generator's default).
    */
@@ -70,7 +70,10 @@ export const course: FeatureFactory = ({ course: store, prints, grammar, game, e
     if (!['m', 'f', 'both'].includes(gender)) throw new HttpError(400, 'gender: m, f or both')
     const learner = (q.get('learner') ?? who.name).trim().slice(0, 40) || who.name
     const doc = prints.doc(what, { base, learner, gender })
-    if (!doc) return json({ error: what.kind === 'sheet' ? `no unit "${what.unit}" of the course to print` : `no units of level ${what.level} to print` }, 404)
+    if (!doc) {
+      const error = what.kind === 'sheet' ? `no unit "${what.unit}" of the course to print` : what.kind === 'booklet' ? `no units of level ${what.level} to print` : `no overview "${what.id}" to print`
+      return json({ error }, 404)
+    }
     return new Response(doc.html, {
       headers: {
         'content-type': 'text/html; charset=utf-8',
@@ -84,6 +87,8 @@ export const course: FeatureFactory = ({ course: store, prints, grammar, game, e
   const printRoutes: Route[] = [
     { method: 'GET', path: /^\/course\/sheet\/([a-z0-9][a-z0-9-]{0,63})$/, handle: ({ url, params }) => printed({ kind: 'sheet', unit: params[0] }, url) },
     { method: 'GET', path: /^\/course\/booklet\/([A-C][12])$/, handle: ({ url, params }) => printed({ kind: 'booklet', level: params[0] }, url) },
+    // the cases overview (companion/prints/overview.ts), by its grammar page: /course/overview/skloni
+    { method: 'GET', path: /^\/course\/overview\/([a-z0-9][a-z0-9-]{0,63})$/, handle: ({ url, params }) => printed({ kind: 'overview', id: params[0] }, url) },
   ]
 
   /**
