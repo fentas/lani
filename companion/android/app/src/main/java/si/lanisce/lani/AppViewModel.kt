@@ -1268,6 +1268,17 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     /**
+     * QA's "sheet:<unit>/<sheet>" (app/QaHooks): the dev village ready for the class (as "school"), and sheet [sheet] of unit
+     * [unit] played at once ("test": the unit's test), as its button in the unit starts it.
+     */
+    fun qaSheet(unit: String, sheet: String) {
+        if (school.unit(unit) == null) return
+        game.apply { si.lanisce.lani.app.QaHooks.readySchool(it, System.currentTimeMillis()) }
+        val kind = if (sheet == "test") si.lanisce.lani.app.SheetKind.TEST else si.lanisce.lani.app.SheetKind.WORKSHEET
+        startSheet(unit, kind, sheet)
+    }
+
+    /**
      * QA's "build:<type>" (a debug build, app/QaHooks.kt): the village (the dev bridge's copy) ready to build one (its
      * stores full, a free plot: the next age's when its own are taken) and shown, where the plot chooser opens for it.
      */

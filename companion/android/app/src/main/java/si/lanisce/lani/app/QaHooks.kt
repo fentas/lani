@@ -76,6 +76,9 @@ import si.lanisce.lani.game.scene.SceneSpec
  * - "school": the village (the dev bridge's copy) gets ready for the class under the linden ([readySchool]: the hamlet,
  *   the linden standing, the unit biti as never begun), and the school opens, its class begun (companion/GAME.md, "The
  *   school").
+ * - "sheet:<unit>/<sheet>": the class readied (as "school") and that sheet of the unit played at once ("sheet:sedanjik/
+ *   sedanjik-3", "sheet:biti/test": the unit's test), as its button in the unit starts it ([sheetOf]): a sheet's
+ *   corrections looked at without playing the units before it.
  * - "counting": counting cards (data/Counting.kt): today's asked of the dev bridge now, then a review of a few of them, due
  *   or not; "counting:type" types their steps from then on, as if each card were secure ([countingTyped]), "counting:off"
  *   lets the cards' own reviews decide again; "counting:intro" readies the class (as "school") with the unit stevila as
@@ -334,6 +337,7 @@ object QaHooks {
         grow: (si.lanisce.lani.game.Age) -> Unit = {}, formsCard: (String, String) -> Unit = { _, _ -> }, data: () -> Unit = {}, tutorLive: (String) -> Unit = {},
         review: () -> Unit = {}, numbers: (String) -> Unit = {}, event: (String) -> Unit = {}, hearths: (String) -> Unit = {},
         request: (List<String>) -> Unit = {}, word: (String) -> Unit = {}, friends: () -> Unit = {},
+        sheet: (String, String) -> Unit = { _, _ -> },
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
@@ -406,6 +410,7 @@ object QaHooks {
             command == "cheat" -> cheat(emptyList())
             command.startsWith("cheat:") -> cheat(command.removePrefix("cheat:").split(',').map { it.trim() }.filter { it.isNotEmpty() })
             command == "school" -> school()
+            command.startsWith("sheet:") -> sheetOf(command.removePrefix("sheet:"))?.let { (unit, id) -> sheet(unit, id) }
             command.startsWith("build:") -> {
                 val name = command.removePrefix("build:").trim().uppercase()
                 build = si.lanisce.lani.game.BuildingType.entries.firstOrNull { it.name == name && it.onPlot }
@@ -441,6 +446,13 @@ object QaHooks {
             reward = mapOf(stone to 30), cardIds = cardIds, expiresAt = now + 7L * 24 * 3600 * 1000, since = today.toString(),
         )
         return s.copy(quests = s.quests.filter { it.id != REQUEST } + q)
+    }
+
+    /** "sedanjik/sedanjik-3" ("sheet:<unit>/<sheet>") as its unit and sheet; null without both. */
+    fun sheetOf(arg: String): Pair<String, String>? {
+        val unit = arg.substringBefore('/').trim()
+        val id = arg.substringAfter('/', "").trim()
+        return if (unit.isEmpty() || id.isEmpty()) null else unit to id
     }
 
     /**

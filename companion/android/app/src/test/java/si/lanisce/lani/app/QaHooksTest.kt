@@ -225,6 +225,22 @@ class QaHooksTest {
         assertTrue(r.buildings.any { it.type == si.lanisce.lani.game.BuildingType.LIPA })
     }
 
+    @Test fun `a sheet asked by its unit and id, the test by its name, none without both`() {
+        assertEquals("sedanjik" to "sedanjik-3", QaHooks.sheetOf("sedanjik/sedanjik-3"))
+        assertEquals("biti" to "test", QaHooks.sheetOf(" biti / test "))
+        assertNull(QaHooks.sheetOf("sedanjik"))
+        assertNull(QaHooks.sheetOf("/sedanjik-3"))
+        assertNull(QaHooks.sheetOf("sedanjik/"))
+        var asked: Pair<String, String>? = null
+        QaHooks.handle("sheet:sedanjik/sedanjik-3", sheet = { u, id -> asked = u to id })
+        assertEquals("sedanjik" to "sedanjik-3", asked)
+        // a release build plays nothing
+        asked = null
+        QaHooks.enabled = false
+        QaHooks.handle("sheet:biti/test", sheet = { u, id -> asked = u to id })
+        assertNull(asked)
+    }
+
     @Test fun `a slower clock asked, the towns' time runs at that rate, kept in range, until let go`() {
         assertEquals(1f, TownClock.rate)
         QaHooks.handle("clock:0.4")
