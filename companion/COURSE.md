@@ -626,6 +626,7 @@ companion/bin/school-prints                      # A1, English: ~/.local/share/l
 companion/bin/school-prints --base de --png      # explained in German, with PNG previews of every page
 companion/bin/school-prints --level all --out /tmp/prints
 companion/bin/school-prints --units biti,spol --explain   # only these, and what each sheet took from where
+companion/bin/school-prints --overview skloni --png       # the cases overview ("The cases overview" below)
 ```
 
 Options: `--level` (A1 by default; `all`: every level that has units), `--base` (`en`, `de`, `it`: the language the
@@ -702,3 +703,38 @@ Every unit of A1 then fits alike in Chromium at 1, 2, 2.625, 2.75, 3 and 3.5 dev
 emulator's WebView (QA's `school-print` compares them); what is left is the phone's text, a fraction of a millimetre
 (kdaj-cas's one page 15 mm too long there, 16 mm in Chromium, rounded). The WebView's minimum font sizes are 1 px, as
 Chromium's (it raises text under 8 px; the sheet's smallest is 6.4 pt, 8.5 px).
+
+### The cases overview
+
+Jan, 2026-10-27: "so there are no school lessons for cases? (one for each case + maybe a PDF, this PDF, as a compact
+overview)". The six cases on three A4 pages, "Šest sklonov · The six cases" (`companion/prints/overview.ts`), made by
+the same generator from the grammar book's pages as they are, and from two units' tables where they hold what no page
+has; nothing is written for it but its headings (Slovene and the base), so a page a native speaker fixed prints as it is
+the next time:
+
+| Part | From |
+|---|---|
+| **Šest sklonov · The cases at a glance** | the page `skloni`: a row per case from its table (the case, its question, its prepositions) and its card (the endings m · ž · s), what the case does (the first sentence of its example's note) and that example with the case's form bold |
+| **Kako najdeš sklon · How to find the case** | `skloni`'s rule, a paragraph in a line or two (not the one on which level learns what), and its card's tip (left out first to fit) |
+| **Števila · Numbers** | `stevila-samostalniki`'s table and what it says of the verb |
+| **Kje? Kam? Od kod?** | the unit `kje-kam-od-kod`'s table once the course has it; before, the page `kam-tozilnik`'s |
+| **Končnice · The endings** | `sklanjatev-moski`, `-zenski` and `-srednji`'s tables, the endings marked against the words (stol⟦om⟧, vas⟦jo⟧; oken and knjig as they are), each with what its page says beside it |
+| **Pridevniki · Adjectives through the cases** | the unit `pridevniki-skloni`'s table once written (the endings marked against the base form) |
+| **Osebni zaimki · Personal pronouns** | `osebni-zaimki`'s table, and when the short form is used |
+| **Rodilnik, dajalnik, orodnik** | the tables of `rodilnik`, `dajalnik` and `orodnik`, in two columns |
+
+Each table says where it comes from ("📖 Sklanjatve: moški spol · from the grammar book", "🏫 Kje? Kam? Od kod? · from the
+school's unit"), the footer that it is machine-written while a page it draws on is unreviewed. `fit.js` fits it as it
+fits a unit's sheet (tighter, then without its optional parts) and reports it (`{"unit": "skloni", "pages": 3, "layout":
+"overview", "density": …}`); one that runs over gets a page saying so, which the generator's page count catches.
+
+```
+companion/bin/school-prints --overview skloni --png             # ~/.local/share/lani/prints/sl-skloni-en/pregled-sklonov.pdf
+companion/bin/school-prints --overview skloni --base de --explain   # in German, and what each case's row took
+```
+
+The bridge serves it as `GET /course/overview/skloni` (`x-lani-print-name: pregled-sklonov`; `?base=`, `?learner=`,
+`?gender=` as a sheet's; a page without an overview is a `404`), kept as the sheets are. The app offers it as
+"🖨️ Pregled sklonov · Cases overview" under "🖨️ Natisni list" on a unit whose first grammar page is `skloni` (the unit
+`skloni`), and on the grammar book's page `skloni` under "🎯 Vadi · 💬 Vprašaj" (`Prints.overview`); the print job and
+the PDF saved are "Lani – Pregled sklonov".

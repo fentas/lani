@@ -238,6 +238,9 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        passed: the unit done in the dev bridge's village;
                        "school-cases" A2's cases (QA's hook "school:skloni": A2 open): the unit skloni end to end, its
                        intro's six steps, the six cases of knjiga and brat, the sort by case, its test passed;
+                       "school-print-overview" the cases overview printed from the grammar book's page skloni (QA's hook
+                       "grammar:skloni", "🖨️ Pregled sklonov"): fit.js in the WebView choosing as Chromium does, the
+                       dialog's preview, the PDF saved through it (A4, three pages at most, as chosen), its pages as shots;
                        "school-build" the school, the hamlet's: the dev village's copy as it is (Jan's hamlet), the
                        Build sheet's tenth plot and the Šola on it (nothing of Vas), the line under it ("Pouk že
                        poteka …"), the teacher's bed when every bed is taken (the card's way on), built on the plot
@@ -6202,9 +6205,9 @@ def same_fit(a, b) -> bool:
         [x.get(k) for k in keys] == [y.get(k) for k in keys] and abs((x.get("over") or 0) - (y.get("over") or 0)) <= 1 for x, y in zip(a, b))
 
 
-def save_pdf(job: str):
+def save_pdf(job: str, name="school-print-biti.pdf"):
     """The print dialog's "Save to PDF" (its round button), then the file picker's Save (Downloads): the PDF pulled into
-    the run's folder, or None when it wasn't saved."""
+    the run's folder as [name], or None when it wasn't saved."""
     remote = f"/sdcard/Download/{job}.pdf"
     adb("shell", f"find /sdcard -name '{job}*.pdf' -delete 2>/dev/null", check=False)  # an earlier run's, so none is "(1)"
     if find("Save as PDF") is None:  # no destination chosen yet ("Select a printer"): the PDF one
@@ -6227,7 +6230,7 @@ def save_pdf(job: str):
             adb("shell", f"find /sdcard -name '{job}*.pdf' -size +0 2>/dev/null | head -1", check=False).strip()
         if found.startswith("/"):
             time.sleep(1)
-            local = OUT / "school-print-biti.pdf"
+            local = OUT / name
             adb("pull", found, str(local), check=False)
             return local if local.exists() else None
         time.sleep(1)
@@ -6646,6 +6649,51 @@ def school_cases():
     assert tap("Naprej · Continue", 4), "back to the unit"
     assert wait_for("Enota je opravljena", 8), "the unit done"
     shot("cases-unit-done")
+
+
+def school_print_overview():
+    """"🖨️ Pregled sklonov · Cases overview" (companion/COURSE.md, "Printed sheets", "The cases overview"): the grammar
+    book's page skloni opened over Home (QA's hook "grammar:skloni"), its print button under "🎯 Vadi / 💬 Vprašaj", the
+    dev bridge's page (GET /course/overview/skloni) fitted by fit.js in the app's WebView off screen, its choice (the log,
+    tag LaniPrint) the same as headless Chromium's for the same page; Android's print dialog with its preview, the PDF
+    saved through it (school-print-overview.pdf): A4, three pages at most, its page count fit.js's, each page a shot. What
+    fit.js chose in each: school-print-overview-fit.txt."""
+    if not (ROOT / "companion/grammar/sl/skloni.json").exists():
+        return "no page skloni here (companion/grammar/sl/skloni.json)"
+    wait_for("Danes · Today", 30)
+    go_home()
+    adb("logcat", "-c")
+    qa_hook("grammar:skloni")
+    assert wait_for("Skloni", 10), "the grammar book's page skloni"
+    c = scroll_to("Pregled sklonov", 12) or find("Pregled sklonov")
+    assert c is not None, "🖨️ Pregled sklonov · Cases overview on the page skloni"
+    shot("school-print-overview-button")
+    job = "Lani – Pregled sklonov"
+    tap_at(c)
+    assert print_dialog(), "the print dialog"
+    time.sleep(4 * slow())  # its preview drawn
+    shot("school-print-overview-preview")
+    app, chrome = webview_fit(job), chromium_fit("/course/overview/skloni?base=en", "school-print-overview")
+    lines = [f"{job}\n  WebView:  {json.dumps(app)}\n  Chromium: {json.dumps(chrome)}"]
+    assert app is not None, "fit.js's choice in the log (LaniPrint)"
+    assert app[0].get("fits"), f"the overview doesn't fit its pages in the WebView ({app})"
+    assert chrome is None or same_fit(app, chrome), f"fit.js chose otherwise in the WebView ({app}) than in Chromium ({chrome})"
+    pdf = save_pdf(job, "school-print-overview.pdf")
+    assert pdf is not None, "the PDF saved through the print dialog"
+    info = sh("pdfinfo", str(pdf), check=False) if shutil.which("pdfinfo") else ""
+    pages = int(m.group(1)) if (m := re.search(r"^Pages:\s+(\d+)", info, re.M)) else None
+    lines.append(f"  the PDF: {pages} page(s); {(re.search(r'^Page size:.*$', info, re.M) or [''])[0]}")
+    (OUT / "school-print-overview-fit.txt").write_text("\n".join(lines) + "\n")
+    assert pages is None or (pages == app[0]["pages"] and pages <= 3), f"the PDF has {pages} pages, fit.js chose {app[0]['pages']} (three at most)"
+    assert not info or "A4" in info, "the PDF is A4"
+    if shutil.which("pdftoppm"):
+        for i in range(1, (pages or 1) + 1):
+            png = OUT / f"{len(shots) + 1:02d}-school-print-overview-{i}.png"
+            sh("pdftoppm", "-png", "-r", "60", "-f", str(i), "-l", str(i), "-singlefile", str(pdf), str(png.with_suffix("")), check=False)
+            if png.exists():
+                shots.append(png)
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the page closed
+    time.sleep(1)
 
 
 def school_build():
@@ -11773,6 +11821,7 @@ def plan():
         ("school-reveal", school_reveal, go_home, False, ""),
         ("school-a2", school_a2, go_home, False, ""),
         ("school-cases", school_cases, go_home, False, ""),
+        ("school-print-overview", school_print_overview, go_home, False, ""),
         ("school-build", school_build, go_home, False, ""),
         ("school-scene", school_scene, v, False, ""),
         ("school-seats", school_seats, v, False, ""),

@@ -1979,10 +1979,12 @@ introduction. QA: `companion/bin/qa --steps sheet-corrections` (QA's hook `sheet
 directly).
 
 **Printed.** Each unit's sheet and each level's booklet print from the app: "🖨️ Natisni list · Print sheet" on the unit
-and its row, "🖨️ Vsi listi · All sheets" on the level. The bridge serves the page `companion/bin/school-prints` makes
-(`GET /course/sheet/<unit>`, `GET /course/booklet/<level>`: one source, `companion/prints/build.ts`), the app fits it in
-a WebView off screen and opens Android's print dialog (a printer, "Save as PDF", sharing). See
-[COURSE.md](COURSE.md#printed-sheets), "Printed sheets" and "In the app".
+and its row, "🖨️ Vsi listi · All sheets" on the level; and the six cases on three pages, "🖨️ Pregled sklonov · Cases
+overview", on the unit skloni and on the grammar book's page skloni. The bridge serves the page `companion/bin/school-prints`
+makes (`GET /course/sheet/<unit>`, `GET /course/booklet/<level>`, `GET /course/overview/skloni`: one source,
+`companion/prints/build.ts`, `overview.ts`), the app fits it in a WebView off screen and opens Android's print dialog (a
+printer, "Save as PDF", sharing). See [COURSE.md](COURSE.md#printed-sheets), "Printed sheets", "In the app" and "The cases
+overview".
 
 ## Napredek · Progress
 
@@ -4892,3 +4894,17 @@ same page from the dev bridge, saves the PDF through the dialog ("Save to PDF", 
 A4, its pages as fit.js chose), then does the same for A1's "🖨️ Vsi listi" up to its dialog; both choices side by side in
 `school-print-fit.txt`. Screenshots: `school-print-button`, `school-print-preview`, `school-print-save`,
 `school-print-pdf` (the PDF's first page), `school-print-all`, `school-print-booklet`.
+
+**The cases overview** ([COURSE.md](COURSE.md#the-cases-overview)). `data/PrintsTest` checks the job: on the Slovene
+book's page skloni (none for another page or another language's book), of no level, its path (`/course/overview/skloni`,
+`?base=` as a sheet's) and name ("Lani – Pregled sklonov"); `app/QaHooksTest` QA's hook `grammar:<page>`, which opens a
+page of the book over the screen. `test/smoke/prints.ts` checks the route (named `pregled-sklonov`, its three pages, the
+six cases with their questions, endings and examples, the declension tables' endings marked, the pronouns, the uses; in
+German with `?base=de`), byte for byte the generator's, the units' tables taken once the course has them (kje-kam-od-kod,
+pridevniki-skloni; before, the page kam-tozilnik's), the endings marked against the words, and its 404s (a page without an
+overview) and 400s. `companion/bin/school-prints --overview skloni --png` writes the PDF (three pages at most, as fit.js
+chose). On the emulator, `companion/bin/qa --steps school-print-overview` opens the page skloni over Home (QA's hook
+`grammar:skloni`), taps "🖨️ Pregled sklonov", waits for the print dialog, compares fit.js's choice in the WebView with
+headless Chromium's for the dev bridge's page, saves the PDF through the dialog (`school-print-overview.pdf`: A4, three
+pages at most, as chosen) and keeps each page as a shot; both choices in `school-print-overview-fit.txt`. Screenshots:
+`school-print-overview-button`, `school-print-overview-preview`, `school-print-save`, `school-print-overview-1` to `-3`.
