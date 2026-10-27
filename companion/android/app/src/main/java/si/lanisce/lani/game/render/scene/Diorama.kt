@@ -286,14 +286,17 @@ internal abstract class DioramaPainter : ArtPainter() {
      * ([PersonInScene.from]): out of hiding first with a hop and a puff where they hid ([POP_S]), then a walk from spot to
      * spot ([walkS], round what is [around], the walking look, turned the way they go; drawn at the first spot's layer for the first half, the
      * second's after), or a dash into hiding (a puff where they stood, [SLIP_S]: nobody sees where they went), the hiding
-     * place showing its clue once they are gone. Someone asleep in a bed is the painter's (a bed is no spot of the stage), and
+     * place showing its clue once they are gone. Those sharing a layer are drawn back to front. Someone asleep in a bed is the painter's (a bed is no spot of the stage), and
      * so is anyone at a spot the stage lacks: not drawn here.
      */
     protected fun cast(layer: String) {
-        for (p in frame.people) {
-            val to = marks[p.slot] ?: continue
+        // those sharing a layer back to front (the bench's sitters side by side, the crowd round the fire)
+        val ms = marks
+        val people = if (frame.people.size < 2) frame.people else frame.people.sortedBy { p -> ms[p.slot]?.let { it.x + it.y } ?: 0f }
+        for (p in people) {
+            val to = ms[p.slot] ?: continue
             val a = p.from
-            val from = a?.let { marks[it] }
+            val from = a?.let { ms[it] }
             if (a == null || from == null) { if (layerOf(p.slot, p.stance) == layer) settle(p, p.slot, to, p.stance); continue }
             move(p, a, from, to, layer)
         }
@@ -384,11 +387,15 @@ internal abstract class DioramaPainter : ArtPainter() {
         prop(Pal.OUTLINE) { sprite(bx, by) { people.draw(c, p.art, bx, by, t, Noise.hash(p.id.hashCode(), 7) ushr 1, false, flip, false, false, p.pose, crouch = crouch) } }
     }
 
+    /** Whether a tap turn can name the spot [name] (all of the stage's; the campfire's crowd round it can't be one). */
+    protected open fun tapSpot(name: String): Boolean = true
+
     override fun spotAt(x: Float, y: Float, slop: Float): String? {
-        if (marks.isEmpty() || !rendered) return null
+        if (!rendered || marks.isEmpty()) return null
         val d = detail.toFloat()
         var best: String? = null; var bestD = Float.MAX_VALUE
         for ((name, m) in marks) {
+            if (!tapSpot(name)) continue
             // where someone stands there, as tall as a grown-up: its lower middle at the mark; the nearest middle wins
             val cx = iso.sx(m.x, m.y) / d; val by = iso.sy(m.x, m.y, m.z) / d
             val dx = abs(x - cx); val top = by - 30f
@@ -402,7 +409,7 @@ internal abstract class DioramaPainter : ArtPainter() {
     // ------------------------------------------------------------------ the room it floats in
 
     /** The vignette's middle and edge: warm by day, deep blue at night, a cold grey under a grey sky ([gloom]). */
-    private fun roomColors(e: Env, gloom: Float): Pair<Int, Int> {
+    protected fun roomColors(e: Env, gloom: Float): Pair<Int, Int> {
         val day = 1f - e.dark
         var center = Col.mix(Col.hex(0x1C2135), Col.hex(0x3A2F26), day)
         var edge = Col.mix(Col.hex(0x07080F), Col.hex(0x140F0B), day)
@@ -418,6 +425,9 @@ internal abstract class DioramaPainter : ArtPainter() {
 
     /** A room keeps some of its light under a grey sky. */
     override val gloomShare: Float = 0.5f
+
+    /** This frame's room round the diorama: the vignette's middle and edge ([vignette]). */
+    protected fun roomColors(): Pair<Int, Int> = roomColors(env, frame.sky.gloom)
 
     /** A radial vignette in dithered bands behind everything, warm by day and deep blue at night; the light pass leaves it. */
     protected fun vignette() {

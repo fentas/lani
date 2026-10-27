@@ -33,6 +33,12 @@ class PixelCanvas(val width: Int, val height: Int) {
     var clipTop = 0
 
     /**
+     * Drawing behind what is there: while set, a pixel is drawn (set or blended) only where nothing is yet (id 0, the
+     * background), as if it had been drawn first. A scene's sky behind its kept still picture (ArtPainter.still).
+     */
+    var behind = false
+
+    /**
      * The picture's point at this canvas's pixel (0, 0): every drawing call takes the picture's coordinates (x, y)
      * and lands at canvas pixel (x − originX, y − originY), if that's inside. [pixels], [ids] and [emissive] are
      * the canvas's own, row by row from its top-left corner ([index]). 0, 0 (the default): the canvas is the picture.
@@ -67,7 +73,7 @@ class PixelCanvas(val width: Int, val height: Int) {
 
     fun reset(color: Int) {
         pixels.fill(color); ids.fill(0); emissive.fill(false)
-        penId = 0; penEmissive = false; clipTop = 0; zoom = 1
+        penId = 0; penEmissive = false; clipTop = 0; zoom = 1; behind = false
     }
 
     fun set(x: Int, y: Int, c: Int) {
@@ -75,6 +81,7 @@ class PixelCanvas(val width: Int, val height: Int) {
         val cx = x - originX; val cy = y - originY
         if (cx < 0 || cy < 0 || y < clipTop || cx >= width || cy >= height) return
         val i = cy * width + cx
+        if (behind && ids[i] != 0) return
         pixels[i] = c; ids[i] = penId; emissive[i] = penEmissive
     }
 
@@ -82,6 +89,7 @@ class PixelCanvas(val width: Int, val height: Int) {
     fun block(x: Int, y: Int, n: Int, c: Int) {
         for (yy in max(max(y, clipTop), originY) until min(y + n, originY + height)) for (xx in max(x, originX) until min(x + n, originX + width)) {
             val i = (yy - originY) * width + (xx - originX)
+            if (behind && ids[i] != 0) continue
             pixels[i] = c; ids[i] = penId; emissive[i] = penEmissive
         }
     }
@@ -102,6 +110,7 @@ class PixelCanvas(val width: Int, val height: Int) {
     private fun blendOne(x: Int, y: Int, c: Int, a: Float) {
         if (!inside(x, y) || y < clipTop || a <= 0f) return
         val i = index(x, y)
+        if (behind && ids[i] != 0) return
         pixels[i] = Col.mix(pixels[i], c, min(1f, a))
         if (penEmissive) emissive[i] = true
     }

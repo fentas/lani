@@ -293,6 +293,18 @@ internal class SceneCtx(val canvas: PixelCanvas, val stamps: Stamps = Stamps()) 
 
     fun reset() { fxList.clear(); nLights = 0; nextId = 1; outline.fill(0) }
 
+    /** How many objects the frame has drawn so far ([newObject]): the next one's id is one more. */
+    val objects: Int get() = nextId - 1
+
+    /**
+     * The frame's first [n] objects as a kept picture had them ([outlines]: each id's outline colour), put back instead of
+     * drawn again (a scene's still picture, ArtPainter.still): the next [newObject] goes on after them.
+     */
+    fun restoreObjects(outlines: IntArray, n: Int) {
+        System.arraycopy(outlines, 1, outline, 1, n)
+        nextId = n + 1
+    }
+
     companion object { const val MAX_LIGHTS = 192; const val MAX_IDS = 8192 }
 }
 

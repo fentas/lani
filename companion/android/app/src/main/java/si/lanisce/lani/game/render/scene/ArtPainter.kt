@@ -180,6 +180,76 @@ internal abstract class ArtPainter : ScenePainter {
         return view
     }
 
+    // ------------------------------------------------------------------ the still picture
+
+    /** What [still] kept: the canvas after it (pixels, ids, glow), its objects' outlines, and what it was drawn for. */
+    private class Kept {
+        var key: Any? = null
+        var canvas: PixelCanvas? = null
+        var originX = 0; var originY = 0; var detail = 0; var w = 0; var h = 0
+        /** The objects there were when it began, and when it ended (ids 1 … [objects]). */
+        var from = 0; var objects = 0
+        var pixels = IntArray(0); var ids = IntArray(0); var glow = BooleanArray(0)
+        var outlines = IntArray(0)
+    }
+
+    private val kept = Kept()
+
+    /** Whether the last frame's [still] was put back rather than drawn (tests). */
+    internal var stillKept = false
+        private set
+
+    /** False: [still] draws its picture every frame and keeps nothing (tests: the frame as if nothing were kept). */
+    internal var keepStill = true
+
+    /**
+     * The picture's still part, drawn by [draw] once and kept while [key] (with the canvas and its window of the picture) stays
+     * the same: the next frames put it back as it was, its objects with it, instead of drawing it again (a diorama's room, its
+     * ground and what stands still at its back: the cost of a frame is then what moves; companion/SCENES.md "Ob ognju by the
+     * age", as the village keeps its ground, game/render/GroundCache.kt). [key] must hold all that the still part depends on
+     * (the world, the season, the light's colours …); nothing in it may move, light up the night, play an effect or be tapped
+     * (those are the frame's, drawn after it): a still part that adds a light or an effect is drawn every frame, not kept.
+     * What the frame then draws behind it (the sky) goes through [PixelCanvas.behind].
+     */
+    protected inline fun still(key: Any, draw: () -> Unit) {
+        if (stillBack(key)) return
+        val from = s.objects; val lights = s.nLights; val effects = s.fxList.size
+        draw()
+        stillKeep(key, from, lights, effects)
+    }
+
+    /** Puts the kept still picture back when it was drawn for [key] on this canvas, at this window and detail. */
+    @PublishedApi internal fun stillBack(key: Any): Boolean {
+        stillKept = false
+        val k = kept
+        if (!keepStill || solo != null || k.key == null || k.canvas !== c || k.key != key || k.from != s.objects) return false
+        if (k.originX != c.originX || k.originY != c.originY || k.detail != detail || k.w != w || k.h != h) return false
+        System.arraycopy(k.pixels, 0, c.pixels, 0, k.pixels.size)
+        System.arraycopy(k.ids, 0, c.ids, 0, k.ids.size)
+        System.arraycopy(k.glow, 0, c.emissive, 0, k.glow.size)
+        s.restoreObjects(k.outlines, k.objects)
+        c.penId = 0; c.penEmissive = false
+        stillKept = true
+        return true
+    }
+
+    /** Keeps the still picture just drawn for [key] (it began with [from] objects, [lights] lights and [effects] effects). */
+    @PublishedApi internal fun stillKeep(key: Any, from: Int, lights: Int, effects: Int) {
+        c.penId = 0; c.penEmissive = false
+        val k = kept
+        if (!keepStill || solo != null || s.nLights != lights || s.fxList.size != effects) { k.key = null; return }
+        val n = c.pixels.size
+        if (k.pixels.size != n) { k.pixels = IntArray(n); k.ids = IntArray(n); k.glow = BooleanArray(n) }
+        System.arraycopy(c.pixels, 0, k.pixels, 0, n)
+        System.arraycopy(c.ids, 0, k.ids, 0, n)
+        System.arraycopy(c.emissive, 0, k.glow, 0, n)
+        k.objects = s.objects
+        if (k.outlines.size < k.objects + 1) k.outlines = IntArray(k.objects + 1)
+        System.arraycopy(s.outline, 0, k.outlines, 0, k.objects + 1)
+        k.key = key; k.canvas = c; k.from = from
+        k.originX = c.originX; k.originY = c.originY; k.detail = detail; k.w = w; k.h = h
+    }
+
     /** Ambient light multipliers (r, g, b) for the light pass; the outdoor default follows the sky. */
     protected open fun ambient(): FloatArray = floatArrayOf(env.ambR, env.ambG, env.ambB)
 
@@ -272,6 +342,26 @@ internal abstract class ArtPainter : ScenePainter {
     }
 
     @PublishedApi internal fun soloOff(alone: Boolean) { if (alone) c.clipTop = HIDDEN }
+
+    /**
+     * An object id taken now for a thing drawn later ([thingAt]): what is drawn in between is outlined against it as if it
+     * had been drawn over it (the sky's moon, drawn behind a kept still picture: [still], [PixelCanvas.behind]).
+     */
+    protected fun reserve(outline: Int): Int {
+        val id = s.newObject(outline)
+        c.penId = 0
+        return id
+    }
+
+    /** [thing], drawn under the object id [id] taken before ([reserve]): one object, no [part]s. */
+    protected inline fun thingAt(id: Int, slot: String, slop: Int = 0, visible: Boolean = true, draw: () -> Unit) {
+        c.penId = id
+        val alone = soloOn(slot)
+        draw()
+        soloOff(alone)
+        c.penId = id
+        end(SceneTarget.Thing(slot), id, visible && slot in frame.objects, slop)
+    }
 
     /** A slot whose picture is not made of id pixels (smoke, sparks, the stars): a fixed rectangle, in the picture's pixels. */
     protected fun thingRect(slot: String, left: Int, top: Int, right: Int, bottom: Int, visible: Boolean = true) {
