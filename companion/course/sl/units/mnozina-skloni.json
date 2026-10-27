@@ -1,0 +1,250 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "mnozina-skloni",
+  "language": "sl",
+  "level": "A2",
+  "emoji": "🏘️",
+  "title": { "sl": "Množina v vseh sklonih: veliko ljudi", "en": "The plural in every case: a lot of people", "de": "Der Plural in allen Fällen: viele Leute", "it": "Il plurale in tutti i casi: tanta gente" },
+  "goal": {
+    "en": "You can use the plural in every case: pet krav, k sosedom, na travnikih, z ovcami, veliko ljudi.",
+    "de": "Du benutzt den Plural in jedem Fall: pet krav, k sosedom, na travnikih, z ovcami, veliko ljudi.",
+    "it": "Sai usare il plurale in ogni caso: pet krav, k sosedom, na travnikih, z ovcami, veliko ljudi."
+  },
+  "grammar": ["mnozina-skloni", "mnozina", "rodilnik-kolicina", "stevila-samostalniki"],
+  "words": ["stol", "hiša", "jabolko", "konj", "krava", "ovca", "čebela", "gost", "sosed", "prijatelj", "prijateljica", "travnik", "košara", "steklenica", "otrok", "otroci", "ljudje", "panj", "goba", "volk", "mačka", "hlev", "planina", "poroka", "seno", "podkovati", "pasti", "veliko", "malo", "nekaj", "koliko", "brez", "proti", "med"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "sklon", "en": "case", "de": "Fall", "it": "caso" },
+        { "sl": "moški: stol", "en": "masculine: stol", "de": "männlich: stol", "it": "maschile: stol" },
+        { "sl": "ženski: hiša", "en": "feminine: hiša", "de": "weiblich: hiša", "it": "femminile: hiša" },
+        { "sl": "srednji: jabolko", "en": "neuter: jabolko", "de": "sächlich: jabolko", "it": "neutro: jabolko" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "In the plural a noun changes with its case, as in the singular. Two plural cases you know from A1: who or what (**stoli, hiše, jabolka**) and the object, where only the masculine changes: **Vidim stole, hiše, jabolka.** The other four come one at a time.",
+          "de": "Im Plural ändert sich ein Nomen mit seinem Fall, wie im Singular. Zwei Pluralfälle kennst du aus A1: wer oder was (**stoli, hiše, jabolka**) und das Objekt, bei dem sich nur das Männliche ändert: **Vidim stole, hiše, jabolka.** Die anderen vier kommen einer nach dem anderen.",
+          "it": "Al plurale il nome cambia con il caso, come al singolare. Due casi del plurale li conosci dall'A1: chi o che cosa (**stoli, hiše, jabolka**) e l'oggetto, dove cambia solo il maschile: **Vidim stole, hiše, jabolka.** Gli altri quattro arrivano uno alla volta."
+        },
+        "examples": [
+          { "sl": "Na mizi so jabolka.", "en": "There are apples on the table.", "de": "Auf dem Tisch sind Äpfel.", "it": "Sul tavolo ci sono delle mele." },
+          { "sl": "Zala vidi krave na travniku.", "en": "Zala sees cows in the meadow.", "de": "Zala sieht Kühe auf der Wiese.", "it": "Zala vede delle mucche sul prato." }
+        ],
+        "rows": [
+          [{ "sl": "1. kdo? kaj?", "en": "1. who? what? (kdo? kaj?)", "de": "1. wer? was? (kdo? kaj?)", "it": "1. chi? che cosa? (kdo? kaj?)" }, "stoli", "hiše", "jabolka"],
+          [{ "sl": "4. koga? kaj?", "en": "4. the object (koga? kaj?)", "de": "4. das Objekt (koga? kaj?)", "it": "4. l'oggetto (koga? kaj?)" }, "vidim stole", "vidim hiše", "vidim jabolka"]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "mnozina", "text": "Kovač Tone danes podkuje ___. (konji)", "accept": ["konje"], "hint": "the object, masculine plural",
+          "explain": "**podkuje koga?** → the object: masculine plural **-e**\n- konji so v hlevu · who\n- Tone danes podkuje konje · whom"
+        }
+      },
+      {
+        "say": {
+          "en": "The genitive plural (*rodilnik*) is the one you'll need most: after five and more, after **veliko** (a lot of), **malo**, **nekaj**, **koliko**, and after **brez**. A masculine noun adds **-ov**: **pet stolov**; after c, č, j, š, ž **-ev**: **pet konjev** (also **pet konj**). A feminine or neuter noun drops its ending: **veliko hiš**, **pet krav**, **malo jabolk**.",
+          "de": "Den Genitiv Plural (*rodilnik*) brauchst du am meisten: nach fünf und mehr, nach **veliko** (viel), **malo**, **nekaj**, **koliko** und nach **brez**. Ein männliches Nomen bekommt **-ov**: **pet stolov**; nach c, č, j, š, ž **-ev**: **pet konjev** (auch **pet konj**). Ein weibliches oder sächliches Nomen verliert seine Endung: **veliko hiš**, **pet krav**, **malo jabolk**.",
+          "it": "Il genitivo plurale (*rodilnik*) è quello che ti servirà di più: dopo cinque e più, dopo **veliko** (molto), **malo**, **nekaj**, **koliko**, e dopo **brez**. Un nome maschile prende **-ov**: **pet stolov**; dopo c, č, j, š, ž **-ev**: **pet konjev** (anche **pet konj**). Un nome femminile o neutro perde la desinenza: **veliko hiš**, **pet krav**, **malo jabolk**."
+        },
+        "examples": [
+          { "sl": "V hlevu je pet krav.", "en": "There are five cows in the barn.", "de": "Im Stall sind fünf Kühe.", "it": "Nella stalla ci sono cinque mucche." },
+          { "sl": "Anton ima veliko čebel.", "en": "Anton has a lot of bees.", "de": "Anton hat viele Bienen.", "it": "Anton ha tante api." }
+        ],
+        "rows": [[{ "sl": "2. koga? česa?", "en": "2. genitive (koga? česa?)", "de": "2. Genitiv (koga? česa?)", "it": "2. genitivo (koga? česa?)" }, "pet stolov", "veliko hiš", "malo jabolk"]],
+        "ask": {
+          "type": "choice", "grammar": "mnozina-skloni", "prompt": "Pri Vidi je danes veliko ___. (gost)", "options": ["gosti", "gostov", "gostom"], "answer": 1, "say_options": true,
+          "explain": "**veliko** → the genitive plural; gost is masculine → **-ov**: veliko gostov\n- veliko krav · feminine, no ending\n- veliko jabolk · neuter, no ending"
+        }
+      },
+      {
+        "say": {
+          "en": "The locative plural (*mestnik*), after **v, na, pri, o, po**: masculine and neuter **-ih**, feminine **-ah**. **na travnikih** (in the meadows), **v hišah** (in the houses), **o jabolkih** (about apples), **pri sosedih** (at the neighbours').",
+          "de": "Der Lokativ Plural (*mestnik*), nach **v, na, pri, o, po**: männlich und sächlich **-ih**, weiblich **-ah**. **na travnikih** (auf den Wiesen), **v hišah** (in den Häusern), **o jabolkih** (über Äpfel), **pri sosedih** (bei den Nachbarn).",
+          "it": "Il locativo plurale (*mestnik*), dopo **v, na, pri, o, po**: maschile e neutro **-ih**, femminile **-ah**. **na travnikih** (sui prati), **v hišah** (nelle case), **o jabolkih** (sulle mele), **pri sosedih** (dai vicini)."
+        },
+        "examples": [
+          { "sl": "Luka pase ovce na travnikih pod gozdom.", "en": "Luka grazes the sheep in the meadows below the forest.", "de": "Luka hütet die Schafe auf den Wiesen unter dem Wald.", "it": "Luka pascola le pecore sui prati sotto il bosco." },
+          { "sl": "Zala rada bere o konjih.", "en": "Zala likes reading about horses.", "de": "Zala liest gern über Pferde.", "it": "A Zala piace leggere dei cavalli." }
+        ],
+        "rows": [[{ "sl": "5. pri kom? pri čem?", "en": "5. locative (pri kom? pri čem?)", "de": "5. Lokativ (pri kom? pri čem?)", "it": "5. locativo (pri kom? pri čem?)" }, "na stolih", "v hišah", "o jabolkih"]],
+        "ask": {
+          "type": "cloze", "grammar": "mnozina-skloni", "text": "Babica Micka ima jajca v ___. (košare)", "accept": ["košarah"], "hint": "v + where? feminine plural",
+          "explain": "**v** + where? → the locative plural; košara is feminine → **-ah**: v košarah\n- na travnikih · masculine -ih\n- o jabolkih · neuter -ih"
+        }
+      },
+      {
+        "say": {
+          "en": "The dative plural (*dajalnik*), to whom, and after **k** and **proti**: masculine and neuter **-om**, after c, č, j, š, ž **-em** (**konjem**), feminine **-am**. **Micka nese potico sosedom.** (to the neighbours) **Luka gre k ovcam.** (to the sheep)",
+          "de": "Der Dativ Plural (*dajalnik*), wem, und nach **k** und **proti**: männlich und sächlich **-om**, nach c, č, j, š, ž **-em** (**konjem**), weiblich **-am**. **Micka nese potico sosedom.** (den Nachbarn) **Luka gre k ovcam.** (zu den Schafen)",
+          "it": "Il dativo plurale (*dajalnik*), a chi, e dopo **k** e **proti**: maschile e neutro **-om**, dopo c, č, j, š, ž **-em** (**konjem**), femminile **-am**. **Micka nese potico sosedom.** (ai vicini) **Luka gre k ovcam.** (dalle pecore)"
+        },
+        "examples": [
+          { "sl": "Micka nese potico sosedom.", "en": "Micka is taking a potica to the neighbours.", "de": "Micka bringt den Nachbarn eine Potica.", "it": "Micka porta una potica ai vicini." },
+          { "sl": "Vida nese gostom juho.", "en": "Vida brings the guests soup.", "de": "Vida bringt den Gästen Suppe.", "it": "Vida porta la minestra agli ospiti." }
+        ],
+        "rows": [[{ "sl": "3. komu? čemu?", "en": "3. dative (komu? čemu?)", "de": "3. Dativ (komu? čemu?)", "it": "3. dativo (komu? čemu?)" }, "stolom", "hišam", "jabolkom"]],
+        "ask": {
+          "type": "choice", "grammar": "mnozina-skloni", "prompt": "France daje seno ___. (krava)", "options": ["kravam", "kravah", "krave"], "answer": 0, "say_options": true,
+          "explain": "**komu?** → the dative plural: feminine **-am**: kravam\n- kravah · the locative (v, na, pri, o)\n- krave · who, or the object"
+        }
+      },
+      {
+        "say": {
+          "en": "The instrumental plural (*orodnik*), with whom or what, and after **z/s, pod, nad, pred, za, med**: masculine and neuter **-i**, which looks like a masculine plural (**s prijatelji**, **z jabolki**), feminine **-ami**: **z ovcami**, **med hišami** (between the houses).",
+          "de": "Der Instrumental Plural (*orodnik*), mit wem oder womit, und nach **z/s, pod, nad, pred, za, med**: männlich und sächlich **-i**, das wie ein männlicher Plural aussieht (**s prijatelji**, **z jabolki**), weiblich **-ami**: **z ovcami**, **med hišami** (zwischen den Häusern).",
+          "it": "Lo strumentale plurale (*orodnik*), con chi o con che cosa, e dopo **z/s, pod, nad, pred, za, med**: maschile e neutro **-i**, che sembra un plurale maschile (**s prijatelji**, **z jabolki**), femminile **-ami**: **z ovcami**, **med hišami** (tra le case)."
+        },
+        "examples": [
+          { "sl": "Tine se igra s prijatelji.", "en": "Tine is playing with his friends.", "de": "Tine spielt mit seinen Freunden.", "it": "Tine gioca con i suoi amici." },
+          { "sl": "Luka gre z ovcami na planino.", "en": "Luka takes the sheep up to the mountain pasture.", "de": "Luka geht mit den Schafen auf die Alm.", "it": "Luka sale all'alpeggio con le pecore." }
+        ],
+        "rows": [[{ "sl": "6. s kom? s čim?", "en": "6. instrumental (s kom? s čim?)", "de": "6. Instrumental (s kom? s čim?)", "it": "6. strumentale (s kom? s čim?)" }, "pod stoli", "med hišami", "z jabolki"]],
+        "ask": {
+          "type": "cloze", "grammar": "mnozina-skloni", "text": "Zala gre v gozd s ___. (prijateljice)", "accept": ["prijateljicami"], "hint": "s + whom? feminine plural",
+          "explain": "**s** + whom? → the instrumental plural; prijateljica is feminine → **-ami**: s prijateljicami\n- s prijatelji · masculine -i"
+        }
+      },
+      {
+        "say": {
+          "en": "Two words you'll hear every day go their own way. **ljudje** (people): **veliko ljudi**, **ljudem**, **o ljudeh**, **z ljudmi**. **otroci** (children): **pet otrok**, **otrokom**, **o otrocih**, **z otroki**. And from five on, as in A1, the genitive plural: **pet ovc**, **šest otrok**.",
+          "de": "Zwei Wörter, die du jeden Tag hörst, gehen eigene Wege. **ljudje** (Leute): **veliko ljudi**, **ljudem**, **o ljudeh**, **z ljudmi**. **otroci** (Kinder): **pet otrok**, **otrokom**, **o otrocih**, **z otroki**. Und ab fünf, wie in A1, der Genitiv Plural: **pet ovc**, **šest otrok**.",
+          "it": "Due parole che sentirai ogni giorno vanno per conto loro. **ljudje** (la gente): **veliko ljudi**, **ljudem**, **o ljudeh**, **z ljudmi**. **otroci** (i bambini): **pet otrok**, **otrokom**, **o otrocih**, **z otroki**. E da cinque in su, come nell'A1, il genitivo plurale: **pet ovc**, **šest otrok**."
+        },
+        "examples": [
+          { "sl": "Pri ognju je zvečer veliko ljudi.", "en": "In the evening there are a lot of people at the fire.", "de": "Am Abend sind viele Leute am Feuer.", "it": "La sera intorno al fuoco c'è tanta gente." },
+          { "sl": "Mojca rada dela z otroki.", "en": "Mojca likes working with children.", "de": "Mojca arbeitet gern mit Kindern.", "it": "A Mojca piace lavorare con i bambini." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "mnozina-skloni", "prompt": "Na poroki je veliko ___.", "options": ["ljudje", "ljudi", "ljudeh"], "answer": 1, "say_options": true,
+          "explain": "**veliko** → the genitive plural: ljudje → **ljudi**\n- ljudje so na poroki · who\n- o ljudeh · the locative"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "mnozina-skloni-1",
+      "title": { "sl": "Krav, kravam, kravah", "en": "Krav, kravam, kravah", "de": "Krav, kravam, kravah", "it": "Krav, kravam, kravah" },
+      "exercises": [
+        {
+          "type": "sort", "grammar": "mnozina-skloni", "instruction": "V katerem sklonu je? Razvrsti · Which case? Sort",
+          "columns": [
+            { "label": "2. koga? česa?", "words": ["konjev", "krav"] },
+            { "label": "3. komu? čemu?", "words": ["konjem", "kravam"] },
+            { "label": "5. pri kom? pri čem?", "words": ["konjih", "kravah"] },
+            { "label": "6. s kom? s čim?", "words": ["otroki", "kravami"] }
+          ],
+          "explain": "**the ending** → the case\n- 2: -ov, -ev, or no ending (konjev, krav)\n- 3: -om, -em, -am (konjem, kravam)\n- 5: -ih, -ah (konjih, kravah)\n- 6: -i, -ami (otroki, kravami)"
+        },
+        {
+          "type": "table", "grammar": "mnozina-skloni", "instruction": "Dopolni množino · Fill in the plural", "prompt": "krava · cow", "lemma": "krava",
+          "columns": ["množina · plural"],
+          "rows": [
+            { "label": "1. kdo? kaj?", "cells": ["krave"] },
+            { "label": "2. koga? česa?", "cells": [{ "accept": ["krav"], "hint": "pet …: no ending", "form": "gen.pl" }] },
+            { "label": "3. komu? čemu?", "cells": [{ "accept": ["kravam"], "hint": "to whom? feminine", "form": "dat.pl" }] },
+            { "label": "4. koga? kaj?", "cells": [{ "accept": ["krave"], "hint": "the object", "form": "acc.pl" }] },
+            { "label": "5. pri kom? pri čem?", "cells": [{ "accept": ["kravah"], "hint": "where? feminine", "form": "loc.pl" }] },
+            { "label": "6. s kom? s čim?", "cells": [{ "accept": ["kravami"], "hint": "with whom? feminine", "form": "ins.pl" }] }
+          ],
+          "explain": "**krava** → feminine plural: krave · krav · kravam · krave · kravah · kravami"
+        },
+        {
+          "type": "table", "grammar": "mnozina-skloni", "instruction": "Dopolni množino · Fill in the plural", "prompt": "konj · horse", "lemma": "konj",
+          "columns": ["množina · plural"],
+          "rows": [
+            { "label": "1. kdo? kaj?", "cells": ["konji"] },
+            { "label": "2. koga? česa?", "cells": [{ "accept": ["konjev", "konj"], "hint": "after j: -ev", "form": "gen.pl" }] },
+            { "label": "3. komu? čemu?", "cells": [{ "accept": ["konjem"], "hint": "after j: -em", "form": "dat.pl" }] },
+            { "label": "5. pri kom? pri čem?", "cells": [{ "accept": ["konjih"], "form": "loc.pl" }] },
+            { "label": "6. s kom? s čim?", "cells": [{ "accept": ["konji"], "hint": "s + whom? masculine", "form": "ins.pl" }] }
+          ],
+          "explain": "**konj** → masculine plural, after j an e: konji · konjev (also konj) · konjem · konje · konjih · konji"
+        }
+      ]
+    },
+    {
+      "id": "mnozina-skloni-2",
+      "title": { "sl": "Sobota pri Vidi", "en": "Saturday at Vida's", "de": "Samstag bei Vida", "it": "Sabato da Vida" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "mnozina-skloni", "instruction": "Dopolni z množino · Fill in the plural", "title": "Sobota pri Vidi",
+          "text": "V soboto je v gostilni veliko ___ (ljudje). Vida nese juho ___ (gostje). Na mizah je pet ___ (steklenice) vina. France govori o ___ (konji). Anton govori o ___ (čebele). Nejc se igra pred gostilno s ___ (prijatelji). Babica Micka sedi med ___ (otroci).",
+          "gaps": [
+            { "accept": ["ljudi"], "hint": "veliko + ?", "explain": "veliko + the genitive plural: ljudje → **ljudi**." },
+            { "accept": ["gostom"], "hint": "to whom? masculine", "explain": "Vida brings it to whom? The dative plural: **gostom**." },
+            { "accept": ["steklenic"], "hint": "pet + ?: feminine", "explain": "From five on the genitive plural; feminine, no ending: **steklenic**." },
+            { "accept": ["konjih"], "hint": "o + ?: masculine", "explain": "o + the locative plural: **konjih**." },
+            { "accept": ["čebelah"], "hint": "o + ?: feminine" },
+            { "accept": ["prijatelji"], "hint": "s + whom? masculine", "explain": "s + the instrumental plural, masculine **-i**: s prijatelji." },
+            { "accept": ["otroki"], "hint": "med + ?", "explain": "med (among) + the instrumental plural: otroci → **otroki**." }
+          ],
+          "bank": true, "distractors": ["gostov", "steklenice", "otroci"],
+          "translation": "On Saturday there are a lot of people at the inn. Vida brings soup to the guests. There are five bottles of wine on the tables. France talks about horses. Anton talks about bees. Nejc plays with his friends in front of the inn. Granny Micka sits among the children."
+        }
+      ]
+    },
+    {
+      "id": "mnozina-skloni-3",
+      "title": { "sl": "V množino", "en": "Into the plural", "de": "In den Plural", "it": "Al plurale" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "mnozina-skloni", "instruction": "Postavi v množino · Put it in the plural", "cue": "→ več · more",
+          "items": [
+            { "from": "Grem k sosedu.", "accept": ["Grem k sosedom."], "hint": "k + the dative: -om", "lemma": "sosed", "form": "dat.pl" },
+            { "from": "Ovce so na travniku.", "accept": ["Ovce so na travnikih."], "hint": "na + where?: -ih", "lemma": "travnik", "form": "loc.pl" },
+            { "from": "Nejc se igra s prijateljem.", "accept": ["Nejc se igra s prijatelji."], "hint": "masculine: -i", "lemma": "prijatelj", "form": "ins.pl" },
+            { "from": "V hlevu ni krave.", "accept": ["V hlevu ni krav."], "hint": "ni + the genitive", "lemma": "krava", "form": "gen.pl" },
+            { "from": "Mojca govori o otroku.", "accept": ["Mojca govori o otrocih."], "hint": "otrok → otroci → o …", "lemma": "otrok", "form": "loc.pl" },
+            { "from": "Imam eno jabolko. (pet)", "accept": ["Imam pet jabolk."], "hint": "from five: the genitive plural", "lemma": "jabolko", "form": "gen.pl", "grammar": "stevila-samostalniki" },
+            { "from": "Vida nese juho gostu.", "accept": ["Vida nese juho gostom."], "hint": "to whom? -om", "lemma": "gost", "form": "dat.pl" },
+            { "from": "Rože so na oknu.", "accept": ["Rože so na oknih."], "hint": "neuter: -ih", "lemma": "okno", "form": "loc.pl" }
+          ],
+          "explain": "**the same case, in the plural** → that case's plural ending\n- k sosedom · na travnikih · s prijatelji\n- ni krav · pet jabolk · o otrocih"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "mnozina-skloni", "instruction": "Dopolni množino · Fill in the plural", "prompt": "hiša · house", "lemma": "hiša",
+        "columns": ["množina · plural"],
+        "rows": [
+          { "label": "1. kdo? kaj?", "cells": ["hiše"] },
+          { "label": "2. koga? česa?", "cells": [{ "accept": ["hiš"], "form": "gen.pl" }] },
+          { "label": "3. komu? čemu?", "cells": [{ "accept": ["hišam"], "form": "dat.pl" }] },
+          { "label": "5. pri kom? pri čem?", "cells": [{ "accept": ["hišah"], "form": "loc.pl" }] },
+          { "label": "6. s kom? s čim?", "cells": [{ "accept": ["hišami"], "form": "ins.pl" }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "mnozina-skloni", "instruction": "Dopolni z množino · Fill in the plural",
+        "text": "Anton ima štirideset ___ (panji). Jeseni je v gozdu veliko ___ (gobe). Zala se rada igra z ___ (mačke) pri sosedih. Tine se boji ___ (volkovi).",
+        "gaps": [
+          { "accept": ["panjev"], "explain": "From five on the genitive plural; after j **-ev**: panjev." },
+          { "accept": ["gob"] },
+          { "accept": ["mačkami"] },
+          { "accept": ["volkov"], "explain": "bati se + the genitive: **volkov**.", "grammar": "povratni-glagoli" }
+        ],
+        "translation": "Anton has forty hives. In autumn there are a lot of mushrooms in the forest. Zala likes playing with the cats at the neighbours'. Tine is afraid of wolves."
+      },
+      {
+        "type": "transform", "grammar": "mnozina-skloni", "instruction": "Postavi v množino · Put it in the plural", "cue": "→ več · more",
+        "items": [
+          { "from": "Micka daje potico otroku.", "accept": ["Micka daje potico otrokom."], "lemma": "otrok", "form": "dat.pl" },
+          { "from": "Zala govori o mački.", "accept": ["Zala govori o mačkah."], "lemma": "mačka", "form": "loc.pl" },
+          { "from": "Pred kovačnico je en konj. (pet)", "accept": ["Pred kovačnico je pet konjev.", "Pred kovačnico je pet konj."], "lemma": "konj", "form": "gen.pl", "grammar": "stevila-samostalniki" }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "mnozina-skloni", "prompt": "Babica Micka peče piškote z ___.", "options": ["otroci", "otroki", "otrokih"], "answer": 1, "say_options": true,
+        "explain": "**z** + whom? → the instrumental plural: otroci → **z otroki**\n- Micka peče piškote z otroki · with the children"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Fran: gost (gostje), otrok (pet otrok, z otroki), človek (ljudi, ljudmi), podkovati (dov.). Native check: Sobota pri Vidi, Tone danes podkuje konje"
+}

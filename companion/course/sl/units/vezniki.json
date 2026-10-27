@@ -1,0 +1,229 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "vezniki",
+  "language": "sl",
+  "level": "A2",
+  "emoji": "🪢",
+  "title": { "sl": "Ko, kadar, čeprav, zato", "en": "When, whenever, although, so", "de": "Als, wenn, obwohl, deshalb", "it": "Quando, ogni volta che, anche se, quindi" },
+  "goal": {
+    "en": "You can join two sentences by time, reason, result and contrast: ko, kadar, ker, zato, čeprav, vendar, kjer, oziroma.",
+    "de": "Du verbindest zwei Sätze nach Zeit, Grund, Folge und Gegensatz: ko, kadar, ker, zato, čeprav, vendar, kjer, oziroma.",
+    "it": "Sai unire due frasi per tempo, causa, conseguenza e contrasto: ko, kadar, ker, zato, čeprav, vendar, kjer, oziroma."
+  },
+  "grammar": ["vezniki", "naslonke"],
+  "words": ["ko", "kadar", "ker", "zato", "čeprav", "vendar", "ampak", "kjer", "oziroma", "mraz", "dežuje", "sneži", "zima", "planina", "trava", "šotor", "kovač", "bolan", "utrujen", "izgubiti se", "najti", "ostati", "utihniti", "sankati se", "prodajati", "sejem", "pojutrišnjem"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "veznik", "en": "joining word", "de": "Bindewort", "it": "congiunzione" },
+        { "sl": "pomen", "en": "meaning", "de": "Bedeutung", "it": "significato" },
+        { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**Ko** (when) you know: **Ko se zbudim, pijem kavo.** Two things to mind. In the future both halves are in the future, unlike English: **Ko bom velik, bom kovač.** (When I grow up, I'll be a smith.) And the short words come right after **ko**: **ko se zbudim**, **ko sem ga {m:videl|f:videla}**. A comma goes between the halves.",
+          "de": "**Ko** (wenn, als) kennst du: **Ko se zbudim, pijem kavo.** Zwei Dinge merken. In der Zukunft stehen beide Hälften im Futur, anders als im Deutschen: **Ko bom velik, bom kovač.** (Wenn ich groß bin, werde ich Schmied.) Und die kurzen Wörter kommen gleich nach **ko**: **ko se zbudim**, **ko sem ga {m:videl|f:videla}**. Zwischen den Hälften steht ein Komma.",
+          "it": "**Ko** (quando) lo conosci: **Ko se zbudim, pijem kavo.** Due cose da ricordare. Nel futuro tutte e due le metà sono al futuro, come in italiano: **Ko bom velik, bom kovač.** (Quando sarò grande, farò il fabbro.) E le paroline vengono subito dopo **ko**: **ko se zbudim**, **ko sem ga {m:videl|f:videla}**. Tra le due metà va la virgola."
+        },
+        "examples": [
+          { "sl": "Ko se zbudim, pijem kavo.", "en": "When I wake up, I drink coffee.", "de": "Wenn ich aufwache, trinke ich Kaffee.", "it": "Quando mi sveglio, bevo il caffè." },
+          { "sl": "Tine pravi: »Ko bom velik, bom kovač.«", "en": "Tine says: \"When I grow up, I'll be a smith.\"", "de": "Tine sagt: „Wenn ich groß bin, werde ich Schmied.“", "it": "Tine dice: «Quando sarò grande, farò il fabbro.»" }
+        ],
+        "rows": [["ko", { "en": "when", "de": "wenn, als", "it": "quando" }, "Ko bom velik, bom kovač."]],
+        "ask": {
+          "type": "cloze", "grammar": "vezniki", "text": "Ko ___ Nejc velik, bo šel na Triglav. (biti)", "accept": ["bo"], "hint": "the future, in both halves",
+          "explain": "**later** → the future in both halves: Ko **bo** Nejc velik, **bo** šel na Triglav."
+        }
+      },
+      {
+        "say": {
+          "en": "**Kadar** is *whenever*: every time it happens. **Kadar dežuje, Luka spi v šotoru.** (Whenever it rains, Luka sleeps in the tent.) **Kadar pride Marko, prinese vino.** In everyday speech **ko** often says this too; **kadar** makes it clear that it is every time.",
+          "de": "**Kadar** heißt *immer wenn*: jedes Mal, wenn es geschieht. **Kadar dežuje, Luka spi v šotoru.** (Immer wenn es regnet, schläft Luka im Zelt.) **Kadar pride Marko, prinese vino.** Im Alltag sagt **ko** das oft auch; **kadar** macht klar, dass es jedes Mal ist.",
+          "it": "**Kadar** vuol dire *ogni volta che*. **Kadar dežuje, Luka spi v šotoru.** (Ogni volta che piove, Luka dorme nella tenda.) **Kadar pride Marko, prinese vino.** Nel parlato di tutti i giorni lo dice spesso anche **ko**; **kadar** chiarisce che è ogni volta."
+        },
+        "examples": [
+          { "sl": "Kadar dežuje, Luka spi v šotoru.", "en": "Whenever it rains, Luka sleeps in the tent.", "de": "Immer wenn es regnet, schläft Luka im Zelt.", "it": "Ogni volta che piove, Luka dorme nella tenda." },
+          { "sl": "Kadar pride Marko, prinese steklenico rebule.", "en": "Whenever Marko comes, he brings a bottle of rebula.", "de": "Immer wenn Marko kommt, bringt er eine Flasche Rebula mit.", "it": "Ogni volta che viene Marko, porta una bottiglia di ribolla." }
+        ],
+        "rows": [["kadar", { "en": "whenever, every time", "de": "immer wenn, jedes Mal", "it": "ogni volta che" }, "Kadar dežuje, Luka spi v šotoru."]],
+        "ask": {
+          "type": "choice", "grammar": "vezniki", "instruction": "Kaj pomeni? · What does it mean?", "prompt": "»Kadar pride Marko, prinese vino.«", "options": ["Every time Marko comes, he brings wine.", "Marko brings wine because he comes.", "Marko comes, although he brings wine."], "answer": 0,
+          "explain": "**kadar** → every time: whenever Marko comes, he brings wine\n- ker · because\n- čeprav · although"
+        }
+      },
+      {
+        "say": {
+          "en": "**Čeprav** is *although*: **Čeprav je mraz, Luka spi v šotoru.** (Although it's cold, Luka sleeps in the tent.) **Vendar** (but, however) says the same from the other side, in the second half: **Mraz je, vendar Luka spi v šotoru.** It is a little more formal than **ampak**.",
+          "de": "**Čeprav** heißt *obwohl*: **Čeprav je mraz, Luka spi v šotoru.** (Obwohl es kalt ist, schläft Luka im Zelt.) **Vendar** (aber, jedoch) sagt dasselbe von der anderen Seite, in der zweiten Hälfte: **Mraz je, vendar Luka spi v šotoru.** Es ist etwas förmlicher als **ampak**.",
+          "it": "**Čeprav** vuol dire *anche se, benché*: **Čeprav je mraz, Luka spi v šotoru.** (Anche se fa freddo, Luka dorme nella tenda.) **Vendar** (ma, però) dice lo stesso dall'altra parte, nella seconda metà: **Mraz je, vendar Luka spi v šotoru.** È un po' più formale di **ampak**."
+        },
+        "examples": [
+          { "sl": "Čeprav je mraz, Luka spi v šotoru.", "en": "Although it's cold, Luka sleeps in the tent.", "de": "Obwohl es kalt ist, schläft Luka im Zelt.", "it": "Anche se fa freddo, Luka dorme nella tenda." },
+          { "sl": "Tone je utrujen, vendar še dela.", "en": "Tone is tired, but he's still working.", "de": "Tone ist müde, arbeitet aber noch.", "it": "Tone è stanco, però lavora ancora." }
+        ],
+        "rows": [
+          ["čeprav", { "en": "although", "de": "obwohl", "it": "anche se" }, "Čeprav je mraz, Luka spi v šotoru."],
+          ["vendar", { "en": "but, however", "de": "aber, jedoch", "it": "ma, però" }, "Mraz je, vendar Luka spi v šotoru."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "vezniki", "prompt": "___ je utrujen, Tone še dela.", "options": ["Ker", "Čeprav", "Zato"], "answer": 1, "say_options": true,
+          "explain": "**tired, and still working** → a contrast: **čeprav** (although)\n- ker · because\n- zato · so"
+        }
+      },
+      {
+        "say": {
+          "en": "**Ker** gives the reason, **zato** the result: **Grem spat, ker sem {m:utrujen|f:utrujena}.** (because I'm tired) **{m:Utrujen|f:Utrujena} sem, zato grem spat.** (so I'm going to bed) After **zato** the short words come right after it, as after any first word: **Deževalo je, zato sem {m:ostal|f:ostala} doma.**",
+          "de": "**Ker** nennt den Grund, **zato** die Folge: **Grem spat, ker sem {m:utrujen|f:utrujena}.** (weil ich müde bin) **{m:Utrujen|f:Utrujena} sem, zato grem spat.** (darum gehe ich schlafen) Nach **zato** kommen die kurzen Wörter gleich danach, wie nach jedem ersten Wort: **Deževalo je, zato sem {m:ostal|f:ostala} doma.**",
+          "it": "**Ker** dà la causa, **zato** la conseguenza: **Grem spat, ker sem {m:utrujen|f:utrujena}.** (perché sono {m:stanco|f:stanca}) **{m:Utrujen|f:Utrujena} sem, zato grem spat.** (quindi vado a dormire) Dopo **zato** le paroline vengono subito, come dopo ogni prima parola: **Deževalo je, zato sem {m:ostal|f:ostala} doma.**"
+        },
+        "examples": [
+          { "sl": "{m:Utrujen|f:Utrujena} sem, zato grem spat.", "en": "I'm tired, so I'm going to bed.", "de": "Ich bin müde, darum gehe ich schlafen.", "it": "Sono {m:stanco|f:stanca}, quindi vado a dormire." },
+          { "sl": "Zala danes ne gre ven, ker je bolna.", "en": "Zala isn't going out today because she's ill.", "de": "Zala geht heute nicht hinaus, weil sie krank ist.", "it": "Oggi Zala non esce perché è malata." }
+        ],
+        "rows": [
+          ["ker", { "en": "because", "de": "weil", "it": "perché" }, "Grem spat, ker sem utrujen."],
+          ["zato", { "en": "so, that's why", "de": "darum, deshalb", "it": "quindi, per questo" }, "Utrujen sem, zato grem spat."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "vezniki", "prompt": "Dežuje, ___ ostanemo doma.", "options": ["ker", "zato", "čeprav"], "answer": 1, "say_options": true,
+          "explain": "**it rains → we stay at home**: the result → **zato** (so)\n- ostanemo doma, ker dežuje · the reason, with ker"
+        }
+      },
+      {
+        "say": {
+          "en": "Two more. **Kjer** (where) joins a place to what happens there: **To je travnik, kjer se pasejo ovce.** **Oziroma** is *or rather*, to say it more exactly: **Pridem jutri oziroma pojutrišnjem.** A comma goes before ko, kadar, čeprav, ker and kjer, and before zato and vendar when they begin the second half.",
+          "de": "Noch zwei. **Kjer** (wo) verbindet einen Ort mit dem, was dort geschieht: **To je travnik, kjer se pasejo ovce.** **Oziroma** heißt *beziehungsweise, genauer gesagt*: **Pridem jutri oziroma pojutrišnjem.** Ein Komma steht vor ko, kadar, čeprav, ker und kjer, und vor zato und vendar, wenn sie die zweite Hälfte beginnen.",
+          "it": "Altre due. **Kjer** (dove) unisce un luogo a ciò che vi succede: **To je travnik, kjer se pasejo ovce.** **Oziroma** vuol dire *ovvero, o meglio*: **Pridem jutri oziroma pojutrišnjem.** La virgola va prima di ko, kadar, čeprav, ker e kjer, e prima di zato e vendar quando aprono la seconda metà."
+        },
+        "examples": [
+          { "sl": "To je travnik, kjer se pasejo ovce.", "en": "This is the meadow where the sheep graze.", "de": "Das ist die Wiese, wo die Schafe weiden.", "it": "Questo è il prato dove pascolano le pecore." },
+          { "sl": "Vidiva se jutri oziroma v soboto.", "en": "See you tomorrow, or rather on Saturday.", "de": "Wir sehen uns morgen, genauer gesagt am Samstag.", "it": "Ci vediamo domani, o meglio sabato." }
+        ],
+        "rows": [
+          ["kjer", { "en": "where", "de": "wo", "it": "dove" }, "To je travnik, kjer se pasejo ovce."],
+          ["oziroma", { "en": "or rather, that is", "de": "beziehungsweise, genauer", "it": "ovvero, o meglio" }, "Pridem jutri oziroma pojutrišnjem."]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "vezniki", "text": "To je ribnik, ___ se poleti kopamo.", "accept": ["kjer"], "hint": "a place: where",
+          "explain": "**a place, and what happens there** → **kjer**: To je ribnik, kjer se poleti kopamo."
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "vezniki-1",
+      "title": { "sl": "Kaj pomeni?", "en": "What does it mean?", "de": "Was heißt das?", "it": "Che cosa vuol dire?" },
+      "exercises": [
+        {
+          "type": "sort", "grammar": "vezniki", "instruction": "Razvrsti veznike · Sort the joining words",
+          "columns": [
+            { "label": "kdaj? · when?", "words": ["ko", "kadar"] },
+            { "label": "vzrok, posledica · reason, result", "words": ["ker", "zato"] },
+            { "label": "kljub temu · even so", "words": ["čeprav", "vendar"] },
+            { "label": "kje? · where?", "words": ["kjer"] }
+          ],
+          "explain": "**when** ko, kadar · **reason, result** ker, zato · **even so** čeprav, vendar · **where** kjer"
+        },
+        {
+          "type": "table", "grammar": "vezniki", "instruction": "Napiši veznik · Write the joining word", "prompt": "pomen → veznik · meaning → joining word",
+          "columns": ["veznik · joining word"],
+          "rows": [
+            { "label": "when (once)", "cells": [{ "accept": ["ko"] }] },
+            { "label": "whenever", "cells": [{ "accept": ["kadar"] }] },
+            { "label": "although", "cells": [{ "accept": ["čeprav"] }] },
+            { "label": "because", "cells": [{ "accept": ["ker"] }] },
+            { "label": "so, that's why", "cells": [{ "accept": ["zato"] }] },
+            { "label": "where", "cells": [{ "accept": ["kjer"] }] },
+            { "label": "but, however", "cells": [{ "accept": ["vendar", "ampak"] }] },
+            { "label": "or rather", "cells": [{ "accept": ["oziroma"] }] }
+          ],
+          "explain": "ko · kadar · čeprav · ker · zato · kjer · vendar (ampak) · oziroma"
+        }
+      ]
+    },
+    {
+      "id": "vezniki-2",
+      "title": { "sl": "Lukov dan", "en": "Luka's day", "de": "Lukas Tag", "it": "La giornata di Luka" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "vezniki", "instruction": "Dopolni z veznikom · Fill in a joining word", "title": "Lukov dan",
+          "text": "Včeraj je Luka vstal zgodaj, ___ je imel veliko dela. Bilo je lepo vreme, ___ je šel z ovcami visoko na planino. Tam je travnik, ___ raste najboljša trava. Bela se je spet izgubila, ___ jo je Luka hitro našel. ___ je prišel zvečer domov, je bil zelo utrujen. ___ je bil utrujen, je še pomagal babici Micki. ___ pa dežuje, Luka spi v šotoru.",
+          "gaps": [
+            { "accept": ["ker"], "hint": "the reason" },
+            { "accept": ["zato"], "hint": "the result" },
+            { "accept": ["kjer"], "hint": "a place" },
+            { "accept": ["vendar", "ampak"], "hint": "but" },
+            { "accept": ["Ko"], "hint": "when, that one evening", "explain": "One evening, one time → **ko**. Kadar is every time." },
+            { "accept": ["Čeprav"], "hint": "tired, and still helping" },
+            { "accept": ["Kadar", "Ko", "Če"], "hint": "every time", "explain": "Every time it rains → **kadar** (ko and če say it too)." }
+          ],
+          "bank": true, "distractors": ["oziroma", "da"],
+          "translation": "Yesterday Luka got up early because he had a lot of work. The weather was nice, so he took the sheep high up to the mountain pasture. There's a meadow there where the best grass grows. Bela got lost again, but Luka soon found her. When he came home in the evening, he was very tired. Although he was tired, he still helped Granny Micka. But whenever it rains, Luka sleeps in the tent."
+        }
+      ]
+    },
+    {
+      "id": "vezniki-3",
+      "title": { "sl": "Poveži", "en": "Join them", "de": "Verbinde", "it": "Unisci" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "vezniki", "instruction": "Poveži stavka z veznikom · Join the two sentences with the word given",
+          "items": [
+            { "from": "{m:Utrujen|f:Utrujena} sem. Grem spat. (zato)", "accept": ["{m:Utrujen|f:Utrujena} sem, zato grem spat."], "hint": "the result after zato" },
+            { "from": "Grem spat. {m:Utrujen|f:Utrujena} sem. (ker)", "accept": ["Grem spat, ker sem {m:utrujen|f:utrujena}.", "Ker sem {m:utrujen|f:utrujena}, grem spat."], "hint": "ker sem …: the short word right after ker" },
+            { "from": "Mraz je. Luka spi v šotoru. (čeprav)", "accept": ["Čeprav je mraz, Luka spi v šotoru.", "Čeprav je mraz, spi Luka v šotoru.", "Luka spi v šotoru, čeprav je mraz."] },
+            { "from": "Dežuje. Otroci se igrajo v hiši. (kadar)", "accept": ["Kadar dežuje, se otroci igrajo v hiši.", "Kadar dežuje, se igrajo otroci v hiši.", "Otroci se igrajo v hiši, kadar dežuje."], "hint": "after the first half, se comes first", "grammar": "naslonke", "explain": "The first half counts as the first word, so **se** comes right after it: Kadar dežuje, **se** otroci igrajo v hiši." },
+            { "from": "Tine pride domov. Gre spat. (ko)", "accept": ["Ko Tine pride domov, gre spat.", "Ko pride Tine domov, gre spat.", "Ko pride domov, gre Tine spat.", "Ko pride domov, Tine gre spat.", "Tine gre spat, ko pride domov."] },
+            { "from": "To je gozd. Tam Zala nabira borovnice. (kjer)", "accept": ["To je gozd, kjer Zala nabira borovnice.", "To je gozd, kjer nabira Zala borovnice."], "hint": "kjer instead of tam" },
+            { "from": "Luka je lačen. Najprej nahrani ovce. (vendar)", "accept": ["Luka je lačen, vendar najprej nahrani ovce.", "Luka je lačen, vendar ovce najprej nahrani."] },
+            { "from": "Tine bo velik. Bo kovač. (ko)", "accept": ["Ko bo Tine velik, bo kovač.", "Ko bo velik, bo Tine kovač.", "Tine bo kovač, ko bo velik."], "hint": "the future in both halves" }
+          ],
+          "explain": "**joining word** → a comma, and the short words right after it\n- …, zato grem spat · …, ker sem {m:utrujen|f:utrujena}\n- Kadar dežuje, se otroci igrajo v hiši."
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "vezniki", "instruction": "Napiši veznik · Write the joining word", "prompt": "pomen → veznik · meaning → joining word",
+        "columns": ["veznik · joining word"],
+        "rows": [
+          { "label": "although", "cells": [{ "accept": ["čeprav"] }] },
+          { "label": "whenever", "cells": [{ "accept": ["kadar"] }] },
+          { "label": "so, that's why", "cells": [{ "accept": ["zato"] }] },
+          { "label": "where", "cells": [{ "accept": ["kjer"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "vezniki", "instruction": "Dopolni z veznikom · Fill in a joining word",
+        "text": "Nejc ne gre v šolo, ___ je bolan. ___ je Mojca včeraj prišla v razred, so otroci utihnili. Anton ima veliko medu, ___ ga prodaja na sejmu. ___ je zima, Tone dela pri odprtih vratih.",
+        "gaps": [
+          { "accept": ["ker"] },
+          { "accept": ["Ko"] },
+          { "accept": ["zato"] },
+          { "accept": ["Čeprav"] }
+        ],
+        "translation": "Nejc isn't going to school because he's ill. When Mojca came into the classroom yesterday, the children went quiet. Anton has a lot of honey, so he sells it at the fair. Although it's winter, Tone works with the door open."
+      },
+      {
+        "type": "transform", "grammar": "vezniki", "instruction": "Poveži stavka z veznikom · Join the two sentences with the word given",
+        "items": [
+          { "from": "Sneži. Gremo se sankat. (ko)", "accept": ["Ko sneži, se gremo sankat.", "Gremo se sankat, ko sneži."], "grammar": "naslonke" },
+          { "from": "Zala je lačna. Gre k babici. (zato)", "accept": ["Zala je lačna, zato gre k babici."] },
+          { "from": "To je hiša. Tam živi Micka. (kjer)", "accept": ["To je hiša, kjer živi Micka.", "To je hiša, kjer Micka živi."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "vezniki", "prompt": "Vida je bila utrujena, ___ je še pekla potico.", "options": ["ker", "vendar", "kjer"], "answer": 1, "say_options": true,
+        "explain": "**tired, and still baking** → a contrast: **vendar** (but)\n- ker · because"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Fran: oziroma (a correction of what was said), sankati se. Native check: Lukov dan (ko or kadar), Pridem jutri oziroma pojutrišnjem"
+}

@@ -1,0 +1,247 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "primernik",
+  "language": "sl",
+  "level": "A2",
+  "emoji": "📈",
+  "title": { "sl": "Večji, boljši, najlepši", "en": "Bigger, better, the most beautiful", "de": "Größer, besser, am schönsten", "it": "Più grande, migliore, il più bello" },
+  "goal": {
+    "en": "You can compare people and things: Luka je starejši kot Nejc, Mickina potica je najboljša, Muri teče hitreje.",
+    "de": "Du vergleichst Menschen und Dinge: Luka je starejši kot Nejc, Mickina potica je najboljša, Muri teče hitreje.",
+    "it": "Sai fare paragoni tra persone e cose: Luka je starejši kot Nejc, Mickina potica je najboljša, Muri teče hitreje."
+  },
+  "grammar": ["primernik", "prislovi"],
+  "words": ["lep", "star", "mlad", "hiter", "visok", "nizek", "drag", "težek", "lahek", "tih", "dober", "slab", "velik", "majhen", "dolg", "sladek", "utrujen", "zanimiv", "hitro", "dobro", "slabo", "lepo", "veliko", "malo", "več", "manj", "kot", "bolj", "najbolj", "tek", "zmagati", "kozolec", "rebula", "gora", "planota", "dolina", "cesta", "pot"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "osnovnik", "en": "adjective", "de": "Grundform", "it": "grado positivo" },
+        { "sl": "primernik", "en": "comparative (primernik)", "de": "Komparativ (primernik)", "it": "comparativo (primernik)" },
+        { "sl": "presežnik", "en": "superlative (presežnik)", "de": "Superlativ (presežnik)", "it": "superlativo (presežnik)" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "To compare, an adjective takes the comparative (*primernik*). Most add **-ši** or **-ejši**: lep → **lepši** (more beautiful), mlad → **mlajši** (younger), star → **starejši** (older), hiter → **hitrejši** (faster); learn which with the word. *Than* is **kot**, or **od** with the genitive: **Luka je starejši kot Nejc.** **Luka je starejši od Nejca.**",
+          "de": "Zum Vergleichen nimmt ein Adjektiv den Komparativ (*primernik*). Die meisten bekommen **-ši** oder **-ejši**: lep → **lepši** (schöner), mlad → **mlajši** (jünger), star → **starejši** (älter), hiter → **hitrejši** (schneller); welches, lernst du mit dem Wort. *Als* heißt **kot**, oder **od** mit dem Genitiv: **Luka je starejši kot Nejc.** **Luka je starejši od Nejca.**",
+          "it": "Per fare un paragone l'aggettivo prende il comparativo (*primernik*). Quasi tutti aggiungono **-ši** o **-ejši**: lep → **lepši** (più bello), mlad → **mlajši** (più giovane), star → **starejši** (più vecchio), hiter → **hitrejši** (più veloce); quale, lo impari con la parola. Il secondo termine vuole **kot**, o **od** con il genitivo: **Luka je starejši kot Nejc.** **Luka je starejši od Nejca.**"
+        },
+        "examples": [
+          { "sl": "Luka je starejši kot Nejc.", "en": "Luka is older than Nejc.", "de": "Luka ist älter als Nejc.", "it": "Luka è più grande di Nejc." },
+          { "sl": "Danes je vreme lepše kot včeraj.", "en": "The weather is nicer today than yesterday.", "de": "Heute ist das Wetter schöner als gestern.", "it": "Oggi il tempo è più bello di ieri." }
+        ],
+        "rows": [
+          ["lep", "lepši", "najlepši"],
+          ["mlad", "mlajši", "najmlajši"],
+          ["star", "starejši", "najstarejši"],
+          ["hiter", "hitrejši", "najhitrejši"]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "primernik", "text": "Nejc je ___ kot Luka. (mlad)", "accept": ["mlajši"], "hint": "-ši, d → j",
+          "explain": "**mlad** → **mlajši** (younger)\n- Nejc je mlajši kot Luka\n- Luka je starejši kot Nejc"
+        }
+      },
+      {
+        "say": {
+          "en": "Some take **-ji**, and the sound before it changes: visok → **višji** (taller), nizek → **nižji** (lower), drag → **dražji** (dearer), težek → **težji** (heavier), lahek → **lažji** (lighter), tih → **tišji** (quieter).",
+          "de": "Manche bekommen **-ji**, und der Laut davor ändert sich: visok → **višji** (größer, höher), nizek → **nižji** (niedriger), drag → **dražji** (teurer), težek → **težji** (schwerer), lahek → **lažji** (leichter), tih → **tišji** (leiser).",
+          "it": "Alcuni prendono **-ji**, e il suono prima cambia: visok → **višji** (più alto), nizek → **nižji** (più basso), drag → **dražji** (più caro), težek → **težji** (più pesante), lahek → **lažji** (più leggero), tih → **tišji** (più silenzioso)."
+        },
+        "examples": [
+          { "sl": "Tone je višji kot France.", "en": "Tone is taller than France.", "de": "Tone ist größer als France.", "it": "Tone è più alto di France." },
+          { "sl": "Sir je dražji kot kruh.", "en": "Cheese is dearer than bread.", "de": "Käse ist teurer als Brot.", "it": "Il formaggio costa più del pane." }
+        ],
+        "rows": [
+          ["visok", "višji", "najvišji"],
+          ["drag", "dražji", "najdražji"],
+          ["težek", "težji", "najtežji"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "primernik", "prompt": "Lonec je ___ kot žlica. (težek)", "options": ["težkejši", "težji", "težek"], "answer": 1, "say_options": true,
+          "explain": "**težek** → **-ji**: težji (heavier)\n- visok → višji · drag → dražji"
+        }
+      },
+      {
+        "say": {
+          "en": "A few have a form of their own, as good and better in English: dober → **boljši** (better), velik → **večji** (bigger), majhen → **manjši** (smaller), dolg → **daljši** (longer), sladek → **slajši** (sweeter). They agree as any adjective: **boljši kruh**, **boljša kava**, **boljše vino**.",
+          "de": "Ein paar haben eine eigene Form, wie gut und besser: dober → **boljši** (besser), velik → **večji** (größer), majhen → **manjši** (kleiner), dolg → **daljši** (länger), sladek → **slajši** (süßer). Sie richten sich wie jedes Adjektiv nach ihrem Nomen: **boljši kruh**, **boljša kava**, **boljše vino**.",
+          "it": "Alcuni hanno una forma propria, come buono e migliore: dober → **boljši** (migliore), velik → **večji** (più grande), majhen → **manjši** (più piccolo), dolg → **daljši** (più lungo), sladek → **slajši** (più dolce). Concordano come ogni aggettivo: **boljši kruh**, **boljša kava**, **boljše vino**."
+        },
+        "examples": [
+          { "sl": "Med je slajši kot sladkor.", "en": "Honey is sweeter than sugar.", "de": "Honig ist süßer als Zucker.", "it": "Il miele è più dolce dello zucchero." },
+          { "sl": "Francetov kozolec je večji kot naš.", "en": "France's hayrack is bigger than ours.", "de": "Frances Heuharfe ist größer als unsere.", "it": "L'essiccatoio per il fieno di France è più grande del nostro." }
+        ],
+        "rows": [
+          ["dober", "boljši", "najboljši"],
+          ["velik", "večji", "največji"],
+          ["majhen", "manjši", "najmanjši"],
+          ["dolg", "daljši", "najdaljši"]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "primernik", "text": "Mickina potica je ___ kot moja. (dober)", "accept": ["boljša"], "hint": "dober has its own; potica: feminine",
+          "explain": "**dober** → **boljši**; potica is feminine → **boljša**\n- boljši kruh · boljša potica · boljše vino"
+        }
+      },
+      {
+        "say": {
+          "en": "The most, the best: **naj-** + the comparative, the superlative (*presežnik*): **najlepši** (the most beautiful), **najstarejši** (the oldest), **najboljši** (the best), **največji** (the biggest). Often with **v** or **na** for where: **Mickina potica je najboljša v vasi.**",
+          "de": "Am meisten, am besten: **naj-** + Komparativ, der Superlativ (*presežnik*): **najlepši** (der schönste), **najstarejši** (der älteste), **najboljši** (der beste), **največji** (der größte). Oft mit **v** oder **na** für wo: **Mickina potica je najboljša v vasi.**",
+          "it": "Il più, il migliore: **naj-** + il comparativo, il superlativo (*presežnik*): **najlepši** (il più bello), **najstarejši** (il più vecchio), **najboljši** (il migliore), **največji** (il più grande). Spesso con **v** o **na** per dove: **Mickina potica je najboljša v vasi.**"
+        },
+        "examples": [
+          { "sl": "Mickina potica je najboljša v vasi.", "en": "Micka's potica is the best in the village.", "de": "Mickas Potica ist die beste im Dorf.", "it": "La potica di Micka è la migliore del paese." },
+          { "sl": "Sivko je najstarejši konj na planoti.", "en": "Sivko is the oldest horse on the plateau.", "de": "Sivko ist das älteste Pferd auf der Hochebene.", "it": "Sivko è il cavallo più vecchio dell'altopiano." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "primernik", "prompt": "Triglav je ___ gora v Sloveniji. (visok)", "options": ["višja", "najvišja", "najvišji"], "answer": 1, "say_options": true,
+          "explain": "**naj-** + the comparative: najvišji; gora is feminine → **najvišja**\n- višja · higher (than something)"
+        }
+      },
+      {
+        "say": {
+          "en": "Some adjectives, mostly those made from verbs, have no form of their own: then **bolj** (more) and **najbolj** (most): **bolj utrujen** (more tired), **najbolj znan** (the best known). The others never take both: **lepši**, not *bolj lepši*.",
+          "de": "Manche Adjektive, meist die von Verben, haben keine eigene Form: dann **bolj** (mehr) und **najbolj** (am meisten): **bolj utrujen** (müder), **najbolj znan** (am bekanntesten). Die anderen nehmen nie beides: **lepši**, nicht *bolj lepši*.",
+          "it": "Alcuni aggettivi, soprattutto quelli che vengono dai verbi, non hanno una forma propria: allora **bolj** (più) e **najbolj** (il più): **bolj utrujen** (più stanco), **najbolj znan** (il più noto). Gli altri non prendono mai tutti e due: **lepši**, non *bolj lepši*."
+        },
+        "examples": [
+          { "sl": "Zvečer je Tine bolj utrujen kot Zala.", "en": "In the evening Tine is more tired than Zala.", "de": "Am Abend ist Tine müder als Zala.", "it": "La sera Tine è più stanco di Zala." },
+          { "sl": "Janezova zgodba o Zlatorogu je najbolj znana.", "en": "Janez's story of Zlatorog is the best known.", "de": "Janez' Geschichte von Zlatorog ist die bekannteste.", "it": "La storia di Zlatorog raccontata da Janez è la più nota." }
+        ],
+        "rows": [["utrujen", "bolj utrujen", "najbolj utrujen"]],
+        "ask": {
+          "type": "cloze", "grammar": "primernik", "text": "Po delu na njivi je France ___ utrujen kot Tine.", "accept": ["bolj"], "hint": "more + utrujen",
+          "explain": "**utrujen** has no form of its own → **bolj utrujen** (more tired)"
+        }
+      },
+      {
+        "say": {
+          "en": "How something is done has its own forms: hitro → **hitreje** (faster), dobro → **bolje** (better), slabo → **slabše** (worse), lepo → **lepše**. Amounts too: veliko → **več** (more), malo → **manj** (less), with the genitive: **več kruha**. **Zala bere bolje kot Nejc.**",
+          "de": "Wie man etwas tut, hat eigene Formen: hitro → **hitreje** (schneller), dobro → **bolje** (besser), slabo → **slabše** (schlechter), lepo → **lepše**. Mengen auch: veliko → **več** (mehr), malo → **manj** (weniger), mit dem Genitiv: **več kruha**. **Zala bere bolje kot Nejc.**",
+          "it": "Il modo in cui si fa qualcosa ha forme proprie: hitro → **hitreje** (più veloce), dobro → **bolje** (meglio), slabo → **slabše** (peggio), lepo → **lepše**. Anche le quantità: veliko → **več** (di più), malo → **manj** (di meno), con il genitivo: **več kruha**. **Zala bere bolje kot Nejc.**"
+        },
+        "examples": [
+          { "sl": "Muri teče hitreje kot Sivko.", "en": "Muri runs faster than Sivko.", "de": "Muri läuft schneller als Sivko.", "it": "Muri corre più veloce di Sivko." },
+          { "sl": "Zala bere bolje kot Nejc.", "en": "Zala reads better than Nejc.", "de": "Zala liest besser als Nejc.", "it": "Zala legge meglio di Nejc." }
+        ],
+        "rows": [
+          ["hitro", "hitreje", "najhitreje"],
+          ["dobro", "bolje", "najbolje"],
+          ["veliko, malo", "več, manj", "največ, najmanj"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "prislovi", "prompt": "Zala teče ___ kot Nejc.", "options": ["hitrejša", "hitreje", "hitro"], "answer": 1, "say_options": true,
+          "explain": "**teče kako?** → how she runs: **hitreje**\n- hitrejša · an adjective: Zala je hitrejša"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "primernik-1",
+      "title": { "sl": "Lep, lepši, najlepši", "en": "Lep, lepši, najlepši", "de": "Lep, lepši, najlepši", "it": "Lep, lepši, najlepši" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "primernik", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "primernik in presežnik · comparative and superlative",
+          "columns": ["primernik · comparative", "presežnik · superlative"],
+          "rows": [
+            { "label": "lep", "cells": [{ "accept": ["lepši"], "hint": "+ -ši" }, "najlepši"] },
+            { "label": "star", "cells": ["starejši", { "accept": ["najstarejši"], "hint": "naj- + …" }] },
+            { "label": "visok", "cells": [{ "accept": ["višji"], "hint": "-ji, s → š" }, { "accept": ["najvišji"] }] },
+            { "label": "dober", "cells": [{ "accept": ["boljši"], "hint": "a form of its own" }, "najboljši"] },
+            { "label": "velik", "cells": [{ "accept": ["večji"] }, { "accept": ["največji"] }] },
+            { "label": "majhen", "cells": [{ "accept": ["manjši"] }, "najmanjši"] },
+            { "label": "drag", "cells": [{ "accept": ["dražji"], "hint": "g → ž" }, "najdražji"] },
+            { "label": "hitro", "cells": [{ "accept": ["hitreje"], "hint": "how: -eje" }, "najhitreje"] }
+          ],
+          "explain": "**the comparative** -ši, -ejši, -ji or its own · **the superlative** naj- + the comparative\n- lepši, višji, boljši, večji · najlepši, največji\n- hitro → hitreje"
+        },
+        {
+          "type": "choice", "grammar": "primernik", "instruction": "Izberi · Choose", "prompt": "Ta hruška je ___ kot jabolko. (sladek)", "options": ["sladki", "slajši", "slajša"], "answer": 2, "say_options": true,
+          "explain": "**sladek** has a form of its own → slajši; hruška is feminine → **slajša**\n- slajši · with a masculine noun: slajši med"
+        }
+      ]
+    },
+    {
+      "id": "primernik-2",
+      "title": { "sl": "Tek pod lipo", "en": "The race under the linden", "de": "Der Lauf unter der Linde", "it": "La corsa sotto il tiglio" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "primernik", "instruction": "Dopolni s primernikom ali presežnikom · Fill in the comparative or superlative", "title": "Tek pod lipo",
+          "text": "V nedeljo je pod lipo tek. Nejc je hiter, Tine pa je še ___ (hiter). Zala teče ___ (hitro) kot oba fanta. Luka je ___ (star) kot otroci in samo gleda. Babica Micka reče: »Zmagovalec dobi ___ (velik) kos potice!« Zmaga Zala: danes je ___ (hiter) v vasi. Tine je na koncu ___ utrujen kot Nejc: komaj še stoji. Muri je ___ (majhen) od vseh, ampak laja najglasneje.",
+          "gaps": [
+            { "accept": ["hitrejši"], "hint": "Tine: masculine, -ejši" },
+            { "accept": ["hitreje"], "hint": "teče kako? how", "grammar": "prislovi", "explain": "How she runs: the adverb, **hitreje**." },
+            { "accept": ["starejši"] },
+            { "accept": ["največji"], "hint": "the biggest", "explain": "naj- + večji: **največji** kos (kos is masculine)." },
+            { "accept": ["najhitrejša"], "hint": "Zala: feminine, the most", "explain": "naj- + hitrejši, Zala is feminine: **najhitrejša**." },
+            { "accept": ["bolj"], "hint": "utrujen has no form of its own" },
+            { "accept": ["najmanjši", "manjši"], "hint": "the smallest" }
+          ],
+          "bank": true, "distractors": ["hitrejša", "bolje", "hitrejšo"],
+          "translation": "On Sunday there's a race under the linden. Nejc is fast, but Tine is even faster. Zala runs faster than both boys. Luka is older than the children and only watches. Granny Micka says: \"The winner gets the biggest piece of potica!\" Zala wins: today she's the fastest in the village. At the end Tine is more tired than Nejc: he can hardly stand. Muri is the smallest of all, but he barks the loudest."
+        }
+      ]
+    },
+    {
+      "id": "primernik-3",
+      "title": { "sl": "Primerjaj", "en": "Compare", "de": "Vergleiche", "it": "Fai il paragone" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "primernik", "instruction": "Primerjaj s kot · Compare, with kot", "cue": "→ … kot …",
+          "items": [
+            { "from": "Sivko je star. (Muri)", "accept": ["Sivko je starejši kot Muri.", "Sivko je starejši od Murija."], "lemma": "star", "form": "cmp.m.sg" },
+            { "from": "Ta kava je dobra. (čaj)", "accept": ["Ta kava je boljša kot čaj.", "Ta kava je boljša od čaja."], "hint": "kava: feminine" },
+            { "from": "Luka je visok. (Tine)", "accept": ["Luka je višji kot Tine.", "Luka je višji od Tineta."], "lemma": "visok", "form": "cmp.m.sg" },
+            { "from": "Moj čaj je sladek. (tvoj)", "accept": ["Moj čaj je slajši kot tvoj.", "Moj čaj je slajši od tvojega."], "lemma": "sladek", "form": "cmp.m.sg" },
+            { "from": "Mickina hiša je majhna. (gostilna)", "accept": ["Mickina hiša je manjša kot gostilna.", "Mickina hiša je manjša od gostilne."] },
+            { "from": "Konj je drag. (osel)", "accept": ["Konj je dražji kot osel.", "Konj je dražji od osla."], "lemma": "drag", "form": "cmp.m.sg" },
+            { "from": "Tine riše dobro. (Nejc)", "accept": ["Tine riše bolje kot Nejc.", "Tine riše bolje od Nejca."], "hint": "riše kako? how", "grammar": "prislovi" },
+            { "from": "Ta pot je dolga. (cesta)", "accept": ["Ta pot je daljša kot cesta.", "Ta pot je daljša od ceste."], "hint": "pot is feminine" }
+          ],
+          "explain": "**the comparative** + **kot** (or **od** + the genitive)\n- Sivko je starejši kot Muri · od Murija\n- Tine riše bolje kot Nejc"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "primernik", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "primernik in presežnik · comparative and superlative",
+        "columns": ["primernik · comparative", "presežnik · superlative"],
+        "rows": [
+          { "label": "mlad", "cells": [{ "accept": ["mlajši"] }, "najmlajši"] },
+          { "label": "majhen", "cells": ["manjši", { "accept": ["najmanjši"] }] },
+          { "label": "lahek", "cells": [{ "accept": ["lažji"] }, "najlažji"] },
+          { "label": "slabo", "cells": [{ "accept": ["slabše"], "grammar": "prislovi" }, "najslabše"] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "primernik", "instruction": "Dopolni s primernikom ali presežnikom · Fill in the comparative or superlative",
+        "text": "Stari Janez je ___ (star) človek v vasi. Zima je na planoti ___ (dolg) kot v dolini. Letos ima Anton ___ (veliko) čebel kot lani. Marko pravi: »Moja rebula je ___ (dober) na svetu!«",
+        "gaps": [
+          { "accept": ["najstarejši"] },
+          { "accept": ["daljša"] },
+          { "accept": ["več"], "grammar": "rodilnik-kolicina" },
+          { "accept": ["najboljša"] }
+        ],
+        "translation": "Old Janez is the oldest person in the village. Winter on the plateau is longer than in the valley. This year Anton has more bees than last year. Marko says: \"My rebula is the best in the world!\""
+      },
+      {
+        "type": "transform", "grammar": "primernik", "instruction": "Primerjaj s kot · Compare, with kot", "cue": "→ … kot …",
+        "items": [
+          { "from": "Nejc je majhen. (Zala)", "accept": ["Nejc je manjši kot Zala.", "Nejc je manjši od Zale."], "lemma": "majhen", "form": "cmp.m.sg" },
+          { "from": "Konj je hiter. (krava)", "accept": ["Konj je hitrejši kot krava.", "Konj je hitrejši od krave."], "lemma": "hiter", "form": "cmp.m.sg" },
+          { "from": "Babica poje lepo. (Tine)", "accept": ["Babica poje lepše kot Tine.", "Babica poje lepše od Tineta."], "grammar": "prislovi" }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "primernik", "prompt": "Ta juha je ___ kot včeraj.", "options": ["boljša", "bolje", "boljši"], "answer": 0, "say_options": true,
+        "explain": "**juha** is feminine, and the word says what it is like → **boljša** juha\n- bolje · how something is done: Zala bere bolje"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Fran: tih (tišji), lahek (lažji), sladek (slajši, also sladkejši). Native check: Tek pod lipo, kot or od, slabše (adv.), najglasneje"
+}

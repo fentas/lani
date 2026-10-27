@@ -1,0 +1,226 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "zaimki-skloni",
+  "language": "sl",
+  "level": "A2",
+  "emoji": "👉",
+  "title": { "sl": "Zaimki: dal sem ti ga", "en": "Pronouns: I gave it to you", "de": "Pronomen: ich habe es dir gegeben", "it": "I pronomi: te l'ho dato" },
+  "goal": {
+    "en": "You can say me, him, to her, with them in every case, short (mu, ga) or long (njemu, njega), and two together: Dal sem ti ga.",
+    "de": "Du sagst mich, ihn, ihr, mit ihnen in jedem Fall, kurz (mu, ga) oder lang (njemu, njega), und zwei zusammen: Dal sem ti ga.",
+    "it": "Sai dire me, lui, a lei, con loro in ogni caso, corti (mu, ga) o lunghi (njemu, njega), e due insieme: Dal sem ti ga."
+  },
+  "grammar": ["osebni-zaimki", "naslonke"],
+  "words": ["me", "mene", "mi", "meni", "te", "tebe", "tebi", "ga", "njega", "mu", "njemu", "jo", "njo", "ji", "njej", "nas", "nam", "vas", "vam", "jih", "jim", "z mano", "s tabo", "z njim", "z njo", "zame", "zate", "zanj", "pomagati", "videti", "slišati", "poklicati", "pokazati", "dati", "razbiti", "skleda", "kost", "zvezek", "žoga"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "kdo?", "en": "who (kdo?)", "de": "wer (kdo?)", "it": "chi (kdo?)" },
+        { "sl": "komu?", "en": "to whom (komu?)", "de": "wem (komu?)", "it": "a chi (komu?)" },
+        { "sl": "koga?", "en": "whom (koga?)", "de": "wen (koga?)", "it": "chi (koga?)" },
+        { "sl": "s kom?", "en": "with whom (s kom?)", "de": "mit wem (s kom?)", "it": "con chi (s kom?)" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "Pronouns change with the case, as nouns do. Most have a short form, the usual one, and a long one for weight. For jaz: **mi** (to me) and **me** (me): **Všeč mi je.** **Vidiš me?** For ti: **ti** and **te**: **Slišim te.** (I hear you.) With whom: **z mano**, **s tabo**.",
+          "de": "Pronomen ändern sich mit dem Fall, wie Nomen. Die meisten haben eine kurze Form, die übliche, und eine lange für Gewicht. Für jaz: **mi** (mir) und **me** (mich): **Všeč mi je.** **Vidiš me?** Für ti: **ti** und **te**: **Slišim te.** (Ich höre dich.) Mit wem: **z mano**, **s tabo**.",
+          "it": "I pronomi cambiano con il caso, come i nomi. Quasi tutti hanno una forma corta, quella solita, e una lunga per dare peso. Per jaz: **mi** (a me) e **me** (me): **Všeč mi je.** **Vidiš me?** Per ti: **ti** e **te**: **Slišim te.** (Ti sento.) Con chi: **z mano**, **s tabo**."
+        },
+        "examples": [
+          { "sl": "Ta potica mi je zelo všeč.", "en": "I really like this potica.", "de": "Diese Potica schmeckt mir sehr.", "it": "Questa potica mi piace molto." },
+          { "sl": "Zala, greš z mano na travnik?", "en": "Zala, are you coming to the meadow with me?", "de": "Zala, kommst du mit mir auf die Wiese?", "it": "Zala, vieni con me al prato?" }
+        ],
+        "rows": [
+          ["jaz", "mi, meni", "me, mene", "z mano"],
+          ["ti", "ti, tebi", "te, tebe", "s tabo"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "osebni-zaimki", "prompt": "»Zala, me slišiš?« »Ja, slišim ___!«", "options": ["te", "ti", "tebi"], "answer": 0, "say_options": true,
+          "explain": "**slišati koga?** → whom, short: **te**\n- ti · to you (komu?)\n- tebi · to you, with weight"
+        }
+      },
+      {
+        "say": {
+          "en": "He and she: **mu** and **ga** for him, and for a masculine or neuter thing, **ji** and **jo** for her, and for a feminine thing. **Dam mu kruh.** (I give him bread.) **Vidim ga.** (I see him, or it.) **Pomagam ji.** (I help her.) The verb decides the case: **pomagati komu** (to whom), **videti koga** (whom).",
+          "de": "Er und sie: **mu** und **ga** für ihn, und für ein männliches oder sächliches Ding, **ji** und **jo** für sie, und für ein weibliches Ding. **Dam mu kruh.** (Ich gebe ihm Brot.) **Vidim ga.** (Ich sehe ihn, oder es.) **Pomagam ji.** (Ich helfe ihr.) Das Verb bestimmt den Fall: **pomagati komu** (wem), **videti koga** (wen).",
+          "it": "Lui e lei: **mu** e **ga** per lui, e per una cosa maschile o neutra, **ji** e **jo** per lei, e per una cosa femminile. **Dam mu kruh.** (Gli do il pane.) **Vidim ga.** (Lo vedo.) **Pomagam ji.** (La aiuto.) È il verbo a decidere il caso: **pomagati komu** (a chi), **videti koga** (chi)."
+        },
+        "examples": [
+          { "sl": "Muri je lačen. Janez mu da kost.", "en": "Muri is hungry. Janez gives him a bone.", "de": "Muri hat Hunger. Janez gibt ihm einen Knochen.", "it": "Muri ha fame. Janez gli dà un osso." },
+          { "sl": "Kje je Bela? Luka jo išče.", "en": "Where is Bela? Luka is looking for her.", "de": "Wo ist Bela? Luka sucht sie.", "it": "Dov'è Bela? Luka la sta cercando." }
+        ],
+        "rows": [
+          ["on, ono", "mu, njemu", "ga, njega", "z njim"],
+          ["ona", "ji, njej", "jo, njo", "z njo"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "osebni-zaimki", "prompt": "Babica je utrujena. Pomagam ___.", "options": ["jo", "ji", "ga"], "answer": 1, "say_options": true,
+          "explain": "**pomagati komu?** → to whom: babica → **ji**\n- jo · her, whom (vidim jo)\n- ga · him, or a masculine thing"
+        }
+      },
+      {
+        "say": {
+          "en": "Several people: **nam, vam, jim** (to us, to you, to them) and **nas, vas, jih** (us, you, them). **jih** is for things too: **Jabolka? Imam jih.** Two have their own: **nama, vama, jima** and **naju, vaju, ju**. With whom: **z nami, z vami, z njimi**.",
+          "de": "Mehrere Leute: **nam, vam, jim** (uns, euch, ihnen) und **nas, vas, jih** (uns, euch, sie). **jih** gilt auch für Dinge: **Jabolka? Imam jih.** Zwei haben eigene: **nama, vama, jima** und **naju, vaju, ju**. Mit wem: **z nami, z vami, z njimi**.",
+          "it": "Più persone: **nam, vam, jim** (a noi, a voi, a loro) e **nas, vas, jih** (noi, voi, loro). **jih** vale anche per le cose: **Jabolka? Imam jih.** Due hanno forme proprie: **nama, vama, jima** e **naju, vaju, ju**. Con chi: **z nami, z vami, z njimi**."
+        },
+        "examples": [
+          { "sl": "Otroci so lačni. Babica jim speče palačinke.", "en": "The children are hungry. Granny makes them pancakes.", "de": "Die Kinder haben Hunger. Oma backt ihnen Palatschinken.", "it": "I bambini hanno fame. La nonna fa loro le crêpe." },
+          { "sl": "Pridi k nam, čakamo te!", "en": "Come over to us, we're waiting for you!", "de": "Komm zu uns, wir warten auf dich!", "it": "Vieni da noi, ti aspettiamo!" }
+        ],
+        "rows": [
+          ["mi", "nam", "nas", "z nami"],
+          ["vi", "vam", "vas", "z vami"],
+          ["oni, one", "jim, njim", "jih, njih", "z njimi"],
+          ["midva, medve", "nama", "naju", "z nama"],
+          ["onadva, onidve", "jima, njima", "ju, njiju", "z njima"]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "osebni-zaimki", "text": "Luka išče ovce. Išče ___ na travniku.", "accept": ["jih"], "hint": "ovce: several",
+          "explain": "**ovce** → several → whom: **jih**\n- ga · one, masculine or neuter\n- jo · one, feminine"
+        }
+      },
+      {
+        "say": {
+          "en": "The long forms are for weight: a contrast (**Meni je mrzlo, tebi pa ne.**), a word alone (**Komu? Meni.**) and after a preposition: **k meni** (to my place), **brez tebe** (without you), **o njem** (about him), **pri njej** (at her place). With **za** (for) they join: **zame, zate, zanj** (for me, for you, for him).",
+          "de": "Die langen Formen geben Gewicht: ein Gegensatz (**Meni je mrzlo, tebi pa ne.**), ein Wort allein (**Komu? Meni.**) und nach einer Präposition: **k meni** (zu mir), **brez tebe** (ohne dich), **o njem** (über ihn), **pri njej** (bei ihr). Mit **za** (für) verschmelzen sie: **zame, zate, zanj** (für mich, für dich, für ihn).",
+          "it": "Le forme lunghe danno peso: un contrasto (**Meni je mrzlo, tebi pa ne.**), una parola da sola (**Komu? Meni.**) e dopo una preposizione: **k meni** (da me), **brez tebe** (senza di te), **o njem** (di lui), **pri njej** (da lei). Con **za** (per) si uniscono: **zame, zate, zanj** (per me, per te, per lui)."
+        },
+        "examples": [
+          { "sl": "Meni je mrzlo, tebi pa ne?", "en": "I'm cold, and you aren't?", "de": "Mir ist kalt, dir nicht?", "it": "Io ho freddo, e tu no?" },
+          { "sl": "Ta potica je zate.", "en": "This potica is for you.", "de": "Diese Potica ist für dich.", "it": "Questa potica è per te." }
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "osebni-zaimki", "text": "Pridi zvečer k ___! (jaz)", "accept": ["meni"], "hint": "after k: the long form",
+          "explain": "**k** + a pronoun → the long form: **k meni**\n- Pridi k meni! · Come to my place!"
+        }
+      },
+      {
+        "say": {
+          "en": "When two short pronouns meet, to whom comes before whom: **Dam ti ga.** (I'll give it to you.) **Pokaži mi jo!** (Show it to me!) In the past **sem, si, smo** … stand before them, **je** after them, and so do the future's **bom, bo**: **Dal sem ti ga.** **Dala mu ga je.** (She gave it to him.) **Jutri ti ga bom {m:dal|f:dala}.**",
+          "de": "Treffen sich zwei kurze Pronomen, kommt wem vor wen: **Dam ti ga.** (Ich gebe es dir.) **Pokaži mi jo!** (Zeig sie mir!) In der Vergangenheit stehen **sem, si, smo** … vor ihnen, **je** nach ihnen, und ebenso das **bom, bo** der Zukunft: **Dal sem ti ga.** **Dala mu ga je.** (Sie hat es ihm gegeben.) **Jutri ti ga bom {m:dal|f:dala}.**",
+          "it": "Quando si incontrano due pronomi corti, a chi viene prima di chi: **Dam ti ga.** (Te lo do.) **Pokaži mi jo!** (Mostramela!) Al passato **sem, si, smo** … stanno prima di loro, **je** dopo, e così il **bom, bo** del futuro: **Dal sem ti ga.** **Dala mu ga je.** (Glielo ha dato.) **Jutri ti ga bom {m:dal|f:dala}.**"
+        },
+        "examples": [
+          { "sl": "Knjiga? {m:Dal|f:Dala} sem ti jo včeraj.", "en": "The book? I gave it to you yesterday.", "de": "Das Buch? Ich habe es dir gestern gegeben.", "it": "Il libro? Te l'ho dato ieri." },
+          { "sl": "Zala je imela žogo. Nejc ji jo je vzel.", "en": "Zala had a ball. Nejc took it from her.", "de": "Zala hatte einen Ball. Nejc hat ihn ihr weggenommen.", "it": "Zala aveva una palla. Nejc gliel'ha presa." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "naslonke", "instruction": "Kateri stavek je prav? · Which sentence is right?", "prompt": "I gave it to him. (the bread)", "options": ["{m:Dal|f:Dala} sem ga mu.", "{m:Dal|f:Dala} sem mu ga.", "{m:Dal|f:Dala} mu sem ga."], "answer": 1, "say_options": true,
+          "explain": "**sem** first, then to whom (**mu**), then whom (**ga**): {m:Dal|f:Dala} sem mu ga."
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "zaimki-skloni-1",
+      "title": { "sl": "Mi ali me?", "en": "Mi or me?", "de": "Mi oder me?", "it": "Mi o me?" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "osebni-zaimki", "instruction": "Dopolni kratke oblike · Fill in the short forms", "prompt": "komu? koga? · to whom? whom?",
+          "columns": ["komu? · to whom", "koga? · whom"],
+          "rows": [
+            { "label": "jaz", "cells": ["mi", { "accept": ["me"], "hint": "vidiš …?" }] },
+            { "label": "ti", "cells": [{ "accept": ["ti"], "hint": "to you, short" }, "te"] },
+            { "label": "on", "cells": [{ "accept": ["mu"] }, { "accept": ["ga"] }] },
+            { "label": "ona", "cells": [{ "accept": ["ji"] }, { "accept": ["jo"] }] },
+            { "label": "mi", "cells": [{ "accept": ["nam"] }, "nas"] },
+            { "label": "vi", "cells": ["vam", { "accept": ["vas"] }] },
+            { "label": "oni", "cells": [{ "accept": ["jim"] }, { "accept": ["jih"] }] }
+          ],
+          "explain": "**komu?** mi, ti, mu, ji, nam, vam, jim · **koga?** me, te, ga, jo, nas, vas, jih"
+        },
+        {
+          "type": "sort", "grammar": "osebni-zaimki", "instruction": "Kratka ali dolga oblika? · Short or long form?",
+          "columns": [
+            { "label": "kratka · short", "words": ["mi", "ga", "ji", "jih"] },
+            { "label": "dolga · long", "words": ["meni", "njega", "njej", "njih"] }
+          ],
+          "explain": "**long forms** start with nj- or are longer: meni, njega, njej, njih\n- the short ones are the usual: mi, ga, ji, jih"
+        }
+      ]
+    },
+    {
+      "id": "zaimki-skloni-2",
+      "title": { "sl": "Potica za vse", "en": "Potica for everyone", "de": "Potica für alle", "it": "Potica per tutti" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "osebni-zaimki", "instruction": "Namesto besede v oklepaju povej zaimek · A pronoun for the word in brackets", "title": "Potica za vse",
+          "text": "Babica Micka peče potico. Zala ___ (babica) pomaga. Luka prinese jajca in babica ___ (jajca) razbije v skledo. Potem pride Nejc: »Babica, ali ___ (jaz) daste kos potice?« Ko je potica pečena, ___ (potica) babica nese na mizo. Prvi kos da ___ (Nejc), drugi pa ___ (Zala). Tretji kos dobi Luka in ___ (kos) poje v eni minuti.",
+          "gaps": [
+            { "accept": ["ji"], "hint": "pomagati komu?", "explain": "pomagati komu? babica → **ji**." },
+            { "accept": ["jih"], "hint": "jajca: several" },
+            { "accept": ["mi"], "hint": "to me, short" },
+            { "accept": ["jo"], "hint": "potica: feminine, whom?" },
+            { "accept": ["njemu"], "hint": "to him, set beside her: long", "explain": "Two people set side by side: the long forms, **njemu** … **njej**." },
+            { "accept": ["njej"], "hint": "to her, long" },
+            { "accept": ["ga"], "hint": "kos: masculine, whom?" }
+          ],
+          "bank": true, "distractors": ["mu", "me", "jim"],
+          "translation": "Granny Micka is baking a potica. Zala helps her. Luka brings eggs and Granny breaks them into the bowl. Then Nejc comes: \"Granny, will you give me a piece of potica?\" When the potica is baked, Granny carries it to the table. She gives the first piece to him and the second to her. Luka gets the third piece and eats it in a minute."
+        }
+      ]
+    },
+    {
+      "id": "zaimki-skloni-3",
+      "title": { "sl": "Dal sem ti ga", "en": "I gave it to you", "de": "Ich habe es dir gegeben", "it": "Te l'ho dato" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "naslonke", "instruction": "Namesto samostalnikov povej zaimke · Pronouns for the nouns", "cue": "→ zaimka · two pronouns",
+          "items": [
+            { "from": "Dam Zali knjigo.", "accept": ["Dam ji jo.", "Ji jo dam.", "Jaz ji jo dam."], "hint": "to whom, then whom" },
+            { "from": "Luka da Muriju kost.", "accept": ["Luka mu jo da."], "hint": "both after Luka, before da", "explain": "The short words go in second place, after **Luka**: Luka **mu jo** da." },
+            { "from": "Pokaži mi pismo!", "accept": ["Pokaži mi ga!"], "hint": "pismo: neuter" },
+            { "from": "{m:Dal|f:Dala} sem Nejcu žogo.", "accept": ["{m:Dal|f:Dala} sem mu jo.", "{m:Dala|f:Dal} sem mu jo.", "Sem mu jo {m:dal|f:dala}.", "Sem mu jo {m:dala|f:dal}.", "Jaz sem mu jo {m:dal|f:dala}.", "Jaz sem mu jo {m:dala|f:dal}."], "hint": "sem, then mu, then jo" },
+            { "from": "Mojca je dala otrokom zvezke.", "accept": ["Mojca jim jih je dala."], "hint": "je comes last", "explain": "to whom (**jim**), whom (**jih**), and **je** last: Mojca jim jih je dala." },
+            { "from": "Vida bo prinesla gostom juho.", "accept": ["Vida jim jo bo prinesla."], "hint": "bo comes last" },
+            { "from": "Ali mi daš sol?", "accept": ["Ali mi jo daš?", "A mi jo daš?", "Mi jo daš?"], "hint": "sol: feminine" },
+            { "from": "Babica je pokazala Zali potico.", "accept": ["Babica ji jo je pokazala."], "hint": "ji, jo, je" }
+          ],
+          "explain": "**two short pronouns** → to whom before whom, sem before them, je and bo after them\n- Dam ji jo. · {m:Dal|f:Dala} sem mu jo.\n- Mojca jim jih je dala. · Vida jim jo bo prinesla."
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "osebni-zaimki", "instruction": "Dopolni kratke oblike · Fill in the short forms", "prompt": "komu? koga? · to whom? whom?",
+        "columns": ["komu? · to whom", "koga? · whom"],
+        "rows": [
+          { "label": "on", "cells": [{ "accept": ["mu"] }, { "accept": ["ga"] }] },
+          { "label": "oni", "cells": [{ "accept": ["jim"] }, { "accept": ["jih"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "osebni-zaimki", "instruction": "Namesto besede v oklepaju povej zaimek · A pronoun for the word in brackets",
+        "text": "»Zala, ali ___ (jaz) vidiš?« »Ja, vidim ___ (ti), za lipo si!« Mojca ___ (otroci) pokaže nove zvezke. »Brez ___ (ti) ne grem domov!«",
+        "gaps": [
+          { "accept": ["me"] },
+          { "accept": ["te"] },
+          { "accept": ["jim"] },
+          { "accept": ["tebe"], "explain": "After a preposition the long form: **brez tebe**." }
+        ],
+        "translation": "\"Zala, can you see me?\" \"Yes, I can see you, you're behind the linden!\" Mojca shows them the new notebooks. \"I'm not going home without you!\""
+      },
+      {
+        "type": "transform", "grammar": "naslonke", "instruction": "Namesto samostalnikov povej zaimke · Pronouns for the nouns", "cue": "→ zaimka · two pronouns",
+        "items": [
+          { "from": "Daj Luki ključ!", "accept": ["Daj mu ga!"] },
+          { "from": "Zala je dala Mojci rože.", "accept": ["Zala ji jih je dala."] },
+          { "from": "{m:Kupil|f:Kupila} bom babici kruh.", "accept": ["{m:Kupil|f:Kupila} ji ga bom.", "{m:Kupila|f:Kupil} ji ga bom.", "Ji ga bom {m:kupil|f:kupila}.", "Ji ga bom {m:kupila|f:kupil}.", "Jaz ji ga bom {m:kupil|f:kupila}.", "Jaz ji ga bom {m:kupila|f:kupil}.", "Bom ji ga {m:kupil|f:kupila}.", "Bom ji ga {m:kupila|f:kupil}."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "osebni-zaimki", "prompt": "»Komu je Zala dala rožo?« »___!«", "options": ["Mi", "Meni", "Mene"], "answer": 1, "say_options": true,
+        "explain": "**a word alone** → the long form, to whom: **Meni!**"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Fran: zanj (za njega). Native check: Potica za vse, Nejc ji jo je vzel, Ji ga bom kupil (clitic-first), njiju, Mi jo daš?"
+}

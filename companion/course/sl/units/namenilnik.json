@@ -1,0 +1,226 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "namenilnik",
+  "language": "sl",
+  "level": "A2",
+  "emoji": "🛏️",
+  "title": { "sl": "Grem spat, grem kupit", "en": "Going to sleep, going to buy", "de": "Ich gehe schlafen, ich gehe kaufen", "it": "Vado a dormire, vado a comprare" },
+  "goal": {
+    "en": "You can say who is off to do what: Grem spat. Pridi jest! Luka gre past ovce. And after moram, hočem the full infinitive.",
+    "de": "Du sagst, wer losgeht, um etwas zu tun: Grem spat. Pridi jest! Luka gre past ovce. Und nach moram, hočem den ganzen Infinitiv.",
+    "it": "Sai dire chi va a fare che cosa: Grem spat. Pridi jest! Luka gre past ovce. E dopo moram, hočem l'infinito intero."
+  },
+  "grammar": ["namenilnik", "modalni-glagoli"],
+  "words": ["spati", "spat", "jesti", "jest", "piti", "pit", "delati", "delat", "iskati", "iskat", "kupiti", "kupit", "kopati se", "igrati se", "pasti", "nabirati", "loviti", "brati", "peči", "teči", "plavati", "pogledati", "prinesti", "vstati", "iti", "priti", "poslati", "peljati", "hoteti", "gobe", "borovnice", "žaba", "med"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "nedoločnik", "en": "infinitive", "de": "Infinitiv", "it": "infinito" },
+        { "sl": "namenilnik", "en": "supine (namenilnik)", "de": "Supinum (namenilnik)", "it": "supino (namenilnik)" },
+        { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "After a verb of going, what you go to do isn't the infinitive but the supine (*namenilnik*): the infinitive without its last **-i**. spati → **spat**: **Grem spat.** (I'm off to sleep.) delati → **delat**: **Tone gre delat.** (Tone is going to work.)",
+          "de": "Nach einem Verb des Gehens steht, was man tun geht, nicht im Infinitiv, sondern im Supinum (*namenilnik*): der Infinitiv ohne sein letztes **-i**. spati → **spat**: **Grem spat.** (Ich gehe schlafen.) delati → **delat**: **Tone gre delat.** (Tone geht arbeiten.)",
+          "it": "Dopo un verbo di movimento, quello che si va a fare non è l'infinito ma il supino (*namenilnik*): l'infinito senza l'ultima **-i**. spati → **spat**: **Grem spat.** (Vado a dormire.) delati → **delat**: **Tone gre delat.** (Tone va a lavorare.)"
+        },
+        "examples": [
+          { "sl": "{m:Utrujen|f:Utrujena} sem, grem spat.", "en": "I'm tired, I'm off to sleep.", "de": "Ich bin müde, ich gehe schlafen.", "it": "Sono {m:stanco|f:stanca}, vado a dormire." },
+          { "sl": "Tone gre zjutraj delat v kovačnico.", "en": "In the morning Tone goes to work in the smithy.", "de": "Morgens geht Tone in der Schmiede arbeiten.", "it": "La mattina Tone va a lavorare nella fucina." }
+        ],
+        "rows": [
+          ["spati", "spat", "Grem spat."],
+          ["delati", "delat", "Tone gre delat."]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "namenilnik", "text": "Pozno je. Otroci gredo ___. (spati)", "accept": ["spat"], "hint": "after gredo: drop the -i",
+          "explain": "**gredo** (going) → the supine: spati → **spat**\n- Otroci gredo spat. · The children are off to sleep."
+        }
+      },
+      {
+        "say": {
+          "en": "The verbs of going are **iti** (go), **priti** (come), **oditi** (leave), **hoditi** (go regularly), and **poslati** or **peljati** someone: **Pridi jest!** (Come and eat!) **Luka pelje ovce pit.** (Luka takes the sheep to drink.) **Vida pošlje Nejca kupit kruh.**",
+          "de": "Die Verben des Gehens sind **iti** (gehen), **priti** (kommen), **oditi** (weggehen), **hoditi** (regelmäßig gehen), und jemanden **poslati** (schicken) oder **peljati** (bringen): **Pridi jest!** (Komm essen!) **Luka pelje ovce pit.** (Luka bringt die Schafe zum Trinken.) **Vida pošlje Nejca kupit kruh.**",
+          "it": "I verbi di movimento sono **iti** (andare), **priti** (venire), **oditi** (andarsene), **hoditi** (andare di solito), e **poslati** (mandare) o **peljati** (portare) qualcuno: **Pridi jest!** (Vieni a mangiare!) **Luka pelje ovce pit.** (Luka porta le pecore a bere.) **Vida pošlje Nejca kupit kruh.**"
+        },
+        "examples": [
+          { "sl": "Zala, pridi jest!", "en": "Zala, come and eat!", "de": "Zala, komm essen!", "it": "Zala, vieni a mangiare!" },
+          { "sl": "Luka pelje ovce pit k potoku.", "en": "Luka takes the sheep to the stream to drink.", "de": "Luka bringt die Schafe zum Bach zum Trinken.", "it": "Luka porta le pecore a bere al ruscello." }
+        ],
+        "rows": [
+          ["jesti", "jest", "Pridi jest!"],
+          ["piti", "pit", "Konj gre pit."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "namenilnik", "prompt": "»Nejc, juha je na mizi! Pridi ___!«", "options": ["jesti", "jest", "ješ"], "answer": 1, "say_options": true,
+          "explain": "**pridi** (come) → the supine: jesti → **jest**\n- jesti · the infinitive, after moram, hočem"
+        }
+      },
+      {
+        "say": {
+          "en": "The supine never changes: the verb of going says who and when. **Greva spat.** (We two are off to sleep.) **Luka je šel iskat Belo.** (Luka went to look for Bela.) **Jutri bom {m:šel|f:šla} kupit kruh.** What it does to comes after it, as after any verb: **kupit kruh**, **iskat Belo**.",
+          "de": "Das Supinum ändert sich nie: das Verb des Gehens sagt, wer und wann. **Greva spat.** (Wir zwei gehen schlafen.) **Luka je šel iskat Belo.** (Luka ist Bela suchen gegangen.) **Jutri bom {m:šel|f:šla} kupit kruh.** Was es betrifft, folgt danach wie nach jedem Verb: **kupit kruh**, **iskat Belo**.",
+          "it": "Il supino non cambia mai: il verbo di movimento dice chi e quando. **Greva spat.** (Noi due andiamo a dormire.) **Luka je šel iskat Belo.** (Luka è andato a cercare Bela.) **Jutri bom {m:šel|f:šla} kupit kruh.** L'oggetto viene dopo, come dopo ogni verbo: **kupit kruh**, **iskat Belo**."
+        },
+        "examples": [
+          { "sl": "Luka je šel iskat Belo.", "en": "Luka went to look for Bela.", "de": "Luka ist Bela suchen gegangen.", "it": "Luka è andato a cercare Bela." },
+          { "sl": "Jutri gremo kupit novo kladivo.", "en": "Tomorrow we're going to buy a new hammer.", "de": "Morgen gehen wir einen neuen Hammer kaufen.", "it": "Domani andiamo a comprare un martello nuovo." }
+        ],
+        "rows": [
+          ["iskati", "iskat", "Šel je iskat Belo."],
+          ["kupiti", "kupit", "Grem kupit kruh."]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "namenilnik", "text": "Včeraj sta Nejc in Tine šla ___ žabe. (loviti)", "accept": ["lovit"], "hint": "šla: going; the supine never changes",
+          "explain": "**sta šla** says who and when; the supine stays: loviti → **lovit**\n- sta šla lovit žabe · they went to catch frogs"
+        }
+      },
+      {
+        "say": {
+          "en": "A verb with **se** keeps its **se**, and **se** goes to second place as always: **Gremo se kopat.** (Let's go for a swim.) **Otroci se gredo igrat.** (The children are going to play.)",
+          "de": "Ein Verb mit **se** behält sein **se**, und **se** steht wie immer an zweiter Stelle: **Gremo se kopat.** (Gehen wir schwimmen.) **Otroci se gredo igrat.** (Die Kinder gehen spielen.)",
+          "it": "Un verbo con **se** tiene il suo **se**, e **se** va al secondo posto come sempre: **Gremo se kopat.** (Andiamo a fare il bagno.) **Otroci se gredo igrat.** (I bambini vanno a giocare.)"
+        },
+        "examples": [
+          { "sl": "Vroče je. Gremo se kopat!", "en": "It's hot. Let's go for a swim!", "de": "Es ist heiß. Gehen wir schwimmen!", "it": "Fa caldo. Andiamo a fare il bagno!" },
+          { "sl": "Otroci se gredo igrat pod lipo.", "en": "The children are going to play under the linden.", "de": "Die Kinder gehen unter der Linde spielen.", "it": "I bambini vanno a giocare sotto il tiglio." }
+        ],
+        "rows": [
+          ["kopati se", "kopat se", "Gremo se kopat."],
+          ["igrati se", "igrat se", "Otroci se gredo igrat."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "naslonke", "instruction": "Kateri stavek je prav? · Which sentence is right?", "prompt": "The children are going to play.", "options": ["Otroci gredo se igrat.", "Otroci se gredo igrat.", "Otroci gredo igrat se."], "answer": 1, "say_options": true,
+          "explain": "**se** → second place, right after otroci: Otroci **se** gredo igrat."
+        }
+      },
+      {
+        "say": {
+          "en": "Only after going. After other verbs it is the full infinitive: **moram spati**, **hočem jesti**, **začnem delati**. In speech you'll hear the short form there too (*moram delat*), and that's fine; written, and in careful speech, it is **moram delati**. And **Grem spat** is going to sleep, **Grem v posteljo** going to bed: a place.",
+          "de": "Nur nach dem Gehen. Nach anderen Verben steht der ganze Infinitiv: **moram spati**, **hočem jesti**, **začnem delati**. Gesprochen hörst du auch dort die kurze Form (*moram delat*), und das ist in Ordnung; geschrieben und sorgfältig gesprochen heißt es **moram delati**. Und **Grem spat** ist schlafen gehen, **Grem v posteljo** ins Bett gehen: ein Ort.",
+          "it": "Solo dopo il movimento. Dopo gli altri verbi c'è l'infinito intero: **moram spati**, **hočem jesti**, **začnem delati**. Nel parlato senti anche lì la forma corta (*moram delat*), e va bene; per iscritto e nel parlato curato è **moram delati**. E **Grem spat** è andare a dormire, **Grem v posteljo** andare a letto: un luogo."
+        },
+        "examples": [
+          { "sl": "Jutri moram zgodaj vstati.", "en": "Tomorrow I have to get up early.", "de": "Morgen muss ich früh aufstehen.", "it": "Domani devo alzarmi presto." },
+          { "sl": "Tine hoče spati pri dedku.", "en": "Tine wants to sleep at his grandpa's.", "de": "Tine will bei seinem Opa schlafen.", "it": "Tine vuole dormire dal nonno." }
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "modalni-glagoli", "text": "Danes moram dolgo ___. (delati)", "accept": ["delati", "delat"], "hint": "after moram",
+          "explain": "**moram** isn't going → the infinitive: **delati**\n- in speech also moram delat\n- Grem delat. · after going: the supine"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "namenilnik-1",
+      "title": { "sl": "Spati → spat", "en": "Spati → spat", "de": "Spati → spat", "it": "Spati → spat" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "namenilnik", "instruction": "Dopolni namenilnik · Fill in the supine", "prompt": "grem … · I'm off to …",
+          "columns": ["namenilnik · supine"],
+          "rows": [
+            { "label": "spati", "cells": ["spat"] },
+            { "label": "jesti", "cells": [{ "accept": ["jest"], "hint": "drop the -i" }] },
+            { "label": "piti", "cells": [{ "accept": ["pit"] }] },
+            { "label": "kupiti", "cells": [{ "accept": ["kupit"] }] },
+            { "label": "iskati", "cells": [{ "accept": ["iskat"] }] },
+            { "label": "plavati", "cells": [{ "accept": ["plavat"] }] },
+            { "label": "brati", "cells": [{ "accept": ["brat"], "hint": "drop the -i" }] },
+            { "label": "peči", "cells": [{ "accept": ["peč", "pečt"], "hint": "-či: the same rule", "explain": "peči → **peč** (in speech also pečt)." }] },
+            { "label": "kopati se", "cells": [{ "accept": ["kopat se", "se kopat"], "hint": "se stays" }] }
+          ],
+          "explain": "**the supine** → the infinitive without its last -i\n- spati → spat · jesti → jest · brati → brat\n- peči → peč · kopati se → kopat se"
+        },
+        {
+          "type": "choice", "grammar": "namenilnik", "instruction": "Izberi · Choose", "prompt": "Luka gre ___ ovce. (pasti)", "options": ["pasti", "past", "pase"], "answer": 1, "say_options": true,
+          "explain": "**gre** → the supine: pasti → **past**: Luka gre past ovce."
+        }
+      ]
+    },
+    {
+      "id": "namenilnik-2",
+      "title": { "sl": "Zjutraj v vasi", "en": "Morning in the village", "de": "Morgens im Dorf", "it": "La mattina in paese" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "namenilnik", "instruction": "Dopolni z namenilnikom ali nedoločnikom · Fill in the supine or the infinitive", "title": "Zjutraj v vasi",
+          "text": "Zjutraj vsi nekam gredo. Zala gre z Luko na pašnik ___ (pasti) ovce. Babica Micka gre v gozd ___ (nabirati) gobe. Tone gre v kovačnico ___ (delati). Vida pošlje Nejca k Antonu ___ (kupiti) med. Nejc pa teče k ribniku ___ (loviti) žabe. Stari Janez je utrujen in gre ___ (spati). Jutri bo moral spet zgodaj ___ (vstati).",
+          "gaps": [
+            { "accept": ["past"], "hint": "gre + ?" },
+            { "accept": ["nabirat"] },
+            { "accept": ["delat"] },
+            { "accept": ["kupit"], "hint": "pošlje: sends someone off" },
+            { "accept": ["lovit"], "hint": "teče: running there" },
+            { "accept": ["spat"] },
+            { "accept": ["vstati", "vstat"], "hint": "after moral: not going", "grammar": "modalni-glagoli", "explain": "After **moral** (must) the infinitive: **vstati** (in speech also vstat)." }
+          ],
+          "bank": true, "distractors": ["delati", "spati", "kupi"],
+          "translation": "In the morning everyone is off somewhere. Zala goes with Luka to the pasture to graze the sheep. Granny Micka goes into the forest to pick mushrooms. Tone goes to the smithy to work. Vida sends Nejc to Anton's to buy honey. But Nejc runs to the pond to catch frogs. Old Janez is tired and goes off to sleep. Tomorrow he'll have to get up early again."
+        }
+      ]
+    },
+    {
+      "id": "namenilnik-3",
+      "title": { "sl": "Hoče … gre …", "en": "Wants to … goes to …", "de": "Will … geht …", "it": "Vuole … va a …" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "namenilnik", "instruction": "Namesto hoče povej gre · Say goes instead of wants", "cue": "hoče → gre",
+          "items": [
+            { "from": "Luka hoče spati.", "accept": ["Luka gre spat."], "hint": "gre + the supine" },
+            { "from": "Hočem jesti.", "accept": ["Grem jest.", "Jaz grem jest."] },
+            { "from": "Otroci hočejo plavati.", "accept": ["Otroci gredo plavat."] },
+            { "from": "Zala hoče nabirati borovnice.", "accept": ["Zala gre nabirat borovnice.", "Zala gre nabirat borovnic."] },
+            { "from": "Hočeva kupiti kruh.", "accept": ["Greva kupit kruh.", "Greva kupit kruha.", "Midva greva kupit kruh.", "Midva greva kupit kruha.", "Medve greva kupit kruh.", "Medve greva kupit kruha."], "hint": "we two", "grammar": "dvojina" },
+            { "from": "Nejc se hoče igrati.", "accept": ["Nejc se gre igrat."], "hint": "se stays in second place" },
+            { "from": "Hočemo se kopati.", "accept": ["Gremo se kopat.", "Se gremo kopat.", "Mi se gremo kopat."], "hint": "se stays" },
+            { "from": "Tone hoče pogledati konja.", "accept": ["Tone gre pogledat konja.", "Tone gre konja pogledat."] }
+          ],
+          "explain": "**hoče** + the infinitive → **gre** + the supine\n- Luka hoče spati. → Luka gre spat.\n- Nejc se hoče igrati. → Nejc se gre igrat."
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "namenilnik", "instruction": "Dopolni namenilnik · Fill in the supine", "prompt": "grem … · I'm off to …",
+        "columns": ["namenilnik · supine"],
+        "rows": [
+          { "label": "gledati", "cells": [{ "accept": ["gledat"] }] },
+          { "label": "pomagati", "cells": [{ "accept": ["pomagat"] }] },
+          { "label": "teči", "cells": [{ "accept": ["teč", "tečt"], "explain": "teči → **teč** (in speech also tečt)." }] },
+          { "label": "prinesti", "cells": [{ "accept": ["prinest"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "namenilnik", "instruction": "Dopolni z namenilnikom ali nedoločnikom · Fill in the supine or the infinitive",
+        "text": "»Babica, greš z mano ___ (iskati) jajca?« »Zala, pridi ___ (piti) čaj, še je topel!« Danes ne morem ___ (priti) k tebi. Nejc in Tine sta šla ___ (gledati) konje.",
+        "gaps": [
+          { "accept": ["iskat"] },
+          { "accept": ["pit"] },
+          { "accept": ["priti", "prit"], "grammar": "modalni-glagoli" },
+          { "accept": ["gledat"] }
+        ],
+        "translation": "\"Granny, are you coming with me to look for eggs?\" \"Zala, come and drink your tea, it's still warm!\" Today I can't come over to you. Nejc and Tine went to look at the horses."
+      },
+      {
+        "type": "transform", "grammar": "namenilnik", "instruction": "Namesto hoče povej gre · Say goes instead of wants", "cue": "hoče → gre",
+        "items": [
+          { "from": "Hočem pomagati Mojci.", "accept": ["Grem pomagat Mojci.", "Jaz grem pomagat Mojci."] },
+          { "from": "Muri hoče piti.", "accept": ["Muri gre pit."] },
+          { "from": "Hočeta se igrati.", "accept": ["Gresta se igrat.", "Se gresta igrat."], "grammar": "dvojina" }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "namenilnik", "prompt": "»Tine, kam greš?« »Grem ___, zaspan sem.«", "options": ["spati", "spat", "spim"], "answer": 1, "say_options": true,
+        "explain": "**grem** → the supine: spati → **spat**"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Fran: pasti (pasem). Native check: past, peč, teč (tečt, pečt accepted), prinest; Grem spati graded wrong; kupit kruh or kruha"
+}

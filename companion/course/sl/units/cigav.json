@@ -1,0 +1,226 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "cigav",
+  "language": "sl",
+  "level": "A2",
+  "emoji": "🏷️",
+  "title": { "sl": "Čigav je? Moj, tvoj, njen", "en": "Whose is it? Mine, yours, hers", "de": "Wem gehört es? Mein, dein, ihr", "it": "Di chi è? Mio, tuo, suo" },
+  "goal": {
+    "en": "You can ask whose something is and say it: moj, njegov, njen, njihov, Lukov klobuk, Mickina kuhinja.",
+    "de": "Du fragst, wem etwas gehört, und sagst es: moj, njegov, njen, njihov, Lukov klobuk, Mickina kuhinja.",
+    "it": "Sai chiedere di chi è una cosa e dirlo: moj, njegov, njen, njihov, Lukov klobuk, Mickina kuhinja."
+  },
+  "grammar": ["cigav", "pridevniki-ujemanje"],
+  "words": ["čigav", "moj", "tvoj", "njegov", "njen", "naš", "vaš", "njihov", "najin", "vajin", "njun", "klobuk", "košara", "jagnje", "žlica", "zvezek", "ruta", "rokavica", "kolo", "žoga", "vrt", "kovačnica", "gostilna", "preža", "vinograd", "nered", "najti", "iskati", "gobec"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "čigav?", "en": "whose", "de": "wessen", "it": "di chi" },
+        { "sl": "moški", "en": "masculine", "de": "männlich", "it": "maschile" },
+        { "sl": "ženski", "en": "feminine", "de": "weiblich", "it": "femminile" },
+        { "sl": "srednji", "en": "neuter", "de": "sächlich", "it": "neutro" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**Čigav?** means whose. It agrees with the thing you ask about, as an adjective does: **Čigav je ta klobuk?** (masculine) **Čigava je ta košara?** (feminine) **Čigavo je to jagnje?** (neuter)",
+          "de": "**Čigav?** heißt wessen. Es richtet sich nach dem Ding, nach dem du fragst, wie ein Adjektiv: **Čigav je ta klobuk?** (männlich) **Čigava je ta košara?** (weiblich) **Čigavo je to jagnje?** (sächlich)",
+          "it": "**Čigav?** vuol dire di chi. Concorda con la cosa di cui chiedi, come un aggettivo: **Čigav je ta klobuk?** (maschile) **Čigava je ta košara?** (femminile) **Čigavo je to jagnje?** (neutro)"
+        },
+        "examples": [
+          { "sl": "Čigav je ta klobuk?", "en": "Whose hat is this?", "de": "Wessen Hut ist das?", "it": "Di chi è questo cappello?" },
+          { "sl": "Čigavo je to jagnje? Lukovo.", "en": "Whose lamb is this? Luka's.", "de": "Wessen Lamm ist das? Lukas.", "it": "Di chi è questo agnello? Di Luka." }
+        ],
+        "rows": [["čigav?", "čigav", "čigava", "čigavo"]],
+        "ask": {
+          "type": "choice", "grammar": "cigav", "prompt": "___ je ta košara?", "options": ["Čigav", "Čigava", "Čigavo"], "answer": 1, "say_options": true,
+          "explain": "**košara** → feminine → **čigava**\n- čigav klobuk · masculine\n- čigavo jagnje · neuter"
+        }
+      },
+      {
+        "say": {
+          "en": "You know **moj** (my) from A1: **moj brat, moja sestra, moje vino**. **tvoj** (your), **naš** (our) and **vaš** (your, of several or polite) work the same. They agree with the thing, not with the owner: Zala says **moj brat**, Luka says **moja sestra**. For two owners: **najin** (ours, of two), **vajin** (yours, of two).",
+          "de": "**moj** (mein) kennst du aus A1: **moj brat, moja sestra, moje vino**. **tvoj** (dein), **naš** (unser) und **vaš** (euer, Ihr) gehen genauso. Sie richten sich nach dem Ding, nicht nach dem Besitzer: Zala sagt **moj brat**, Luka sagt **moja sestra**. Für zwei Besitzer: **najin** (unser, von zweien), **vajin** (euer, von zweien).",
+          "it": "**moj** (mio) lo conosci dall'A1: **moj brat, moja sestra, moje vino**. **tvoj** (tuo), **naš** (nostro) e **vaš** (vostro, Suo) funzionano allo stesso modo. Concordano con la cosa, non con il possessore: Zala dice **moj brat**, Luka dice **moja sestra**. Per due possessori: **najin** (nostro, di due), **vajin** (vostro, di due)."
+        },
+        "examples": [
+          { "sl": "Zala: »To je moja babica Micka.«", "en": "Zala: \"This is my granny Micka.\"", "de": "Zala: „Das ist meine Oma Micka.“", "it": "Zala: «Questa è mia nonna Micka.»" },
+          { "sl": "Je to vaš pes, Janez?", "en": "Is this your dog, Janez?", "de": "Ist das Ihr Hund, Janez?", "it": "È il Suo cane, Janez?" }
+        ],
+        "rows": [
+          ["jaz", "moj", "moja", "moje"],
+          ["ti", "tvoj", "tvoja", "tvoje"],
+          ["mi", "naš", "naša", "naše"],
+          ["vi", "vaš", "vaša", "vaše"],
+          ["midva, medve", "najin", "najina", "najino"],
+          ["vidva, vedve", "vajin", "vajina", "vajino"]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "cigav", "text": "Luka pokaže Belo: »To je ___ ovca.« (moj)", "accept": ["moja"], "hint": "ovca: feminine",
+          "explain": "**ovca** is feminine → **moja**, whoever owns it\n- moj brat · moja ovca · moje jagnje"
+        }
+      },
+      {
+        "say": {
+          "en": "His, her and their: **njegov** (his), **njen** (her), **njihov** (their, of three or more), **njun** (their, of two). The owner picks the word, the thing its ending: **njegova hiša** (his house), **njen pes** (her dog), **njihovo jagnje** (their lamb).",
+          "de": "Sein, ihr und ihr (Plural): **njegov** (sein), **njen** (ihr), **njihov** (ihr, von dreien und mehr), **njun** (ihr, von zweien). Der Besitzer wählt das Wort, das Ding seine Endung: **njegova hiša** (sein Haus), **njen pes** (ihr Hund), **njihovo jagnje** (ihr Lamm).",
+          "it": "Suo (di lui), suo (di lei) e loro: **njegov** (di lui), **njen** (di lei), **njihov** (loro, di tre o più), **njun** (loro, di due). Il possessore sceglie la parola, la cosa la desinenza: **njegova hiša** (la sua casa, di lui), **njen pes** (il suo cane, di lei), **njihovo jagnje** (il loro agnello)."
+        },
+        "examples": [
+          { "sl": "Zala ima mačko. Njena mačka spi na peči.", "en": "Zala has a cat. Her cat is asleep on the stove.", "de": "Zala hat eine Katze. Ihre Katze schläft auf dem Ofen.", "it": "Zala ha una gatta. La sua gatta dorme sulla stufa." },
+          { "sl": "To je Tone. Njegova kovačnica je na koncu vasi.", "en": "This is Tone. His smithy is at the end of the village.", "de": "Das ist Tone. Seine Schmiede ist am Ende des Dorfes.", "it": "Questo è Tone. La sua fucina è in fondo al paese." }
+        ],
+        "rows": [
+          ["on", "njegov", "njegova", "njegovo"],
+          ["ona", "njen", "njena", "njeno"],
+          ["oni, one", "njihov", "njihova", "njihovo"],
+          ["onadva, onidve", "njun", "njuna", "njuno"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "cigav", "prompt": "Teta Ančka ima psa. To je ___ pes.", "options": ["njegov", "njen", "njena"], "answer": 1, "say_options": true,
+          "explain": "**Ančka** → her → njen-; **pes** is masculine → **njen**\n- njegov · his\n- njena · her, with a feminine thing"
+        }
+      },
+      {
+        "say": {
+          "en": "From a name: a man's name adds **-ov** (**-ev** after c, č, j, š, ž), a woman's **-in**. **Lukov klobuk** (Luka's hat), **Mickina kuhinja** (Micka's kitchen), **Nejčevo kolo** (Nejc's bike). A name in -e grows a t, as in its cases (Tone, Toneta): **Tonetova kovačnica**, **Francetov konj**. Nouns do it too, c becoming č: **babičin vrt** (Granny's garden).",
+          "de": "Von einem Namen: ein Männername bekommt **-ov** (**-ev** nach c, č, j, š, ž), ein Frauenname **-in**. **Lukov klobuk** (Lukas Hut), **Mickina kuhinja** (Mickas Küche), **Nejčevo kolo** (Nejcs Fahrrad). Ein Name auf -e bekommt ein t, wie in seinen Fällen (Tone, Toneta): **Tonetova kovačnica**, **Francetov konj**. Nomen tun es auch, c wird zu č: **babičin vrt** (Omas Garten).",
+          "it": "Da un nome: un nome maschile prende **-ov** (**-ev** dopo c, č, j, š, ž), uno femminile **-in**. **Lukov klobuk** (il cappello di Luka), **Mickina kuhinja** (la cucina di Micka), **Nejčevo kolo** (la bici di Nejc). Un nome in -e prende una t, come nei suoi casi (Tone, Toneta): **Tonetova kovačnica**, **Francetov konj**. Lo fanno anche i nomi comuni, con c che diventa č: **babičin vrt** (l'orto della nonna)."
+        },
+        "examples": [
+          { "sl": "To je Francetov konj Sivko.", "en": "This is France's horse Sivko.", "de": "Das ist Frances Pferd Sivko.", "it": "Questo è Sivko, il cavallo di France." },
+          { "sl": "Mickina potica je še topla.", "en": "Micka's potica is still warm.", "de": "Mickas Potica ist noch warm.", "it": "La potica di Micka è ancora calda." }
+        ],
+        "rows": [
+          ["Luka", "Lukov", "Lukova", "Lukovo"],
+          ["Micka", "Mickin", "Mickina", "Mickino"]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "cigav", "text": "Tukaj vedno diši. To je ___ kuhinja. (Micka)", "accept": ["Mickina"], "hint": "a woman's name: -in, then -a for kuhinja",
+          "explain": "**Micka** → **Mickin**; kuhinja is feminine → **Mickina** kuhinja\n- Lukov klobuk · a man's name, -ov"
+        }
+      },
+      {
+        "say": {
+          "en": "Possessives go through the cases as any adjective: **v moji hiši** (in my house), **z njegovim bratom** (with his brother), **pri Mickini peči** (at Micka's stove). One thing to watch: when the owner is the subject, Slovene says **svoj** (one's own), which comes at B1: **Luka išče svoje jagnje.** (his own lamb)",
+          "de": "Possessiva gehen wie jedes Adjektiv durch die Fälle: **v moji hiši** (in meinem Haus), **z njegovim bratom** (mit seinem Bruder), **pri Mickini peči** (an Mickas Ofen). Eins merken: Ist der Besitzer das Subjekt, sagt man **svoj** (eigen), das in B1 kommt: **Luka išče svoje jagnje.** (sein eigenes Lamm)",
+          "it": "I possessivi passano per i casi come ogni aggettivo: **v moji hiši** (nella mia casa), **z njegovim bratom** (con suo fratello), **pri Mickini peči** (alla stufa di Micka). Attenzione: quando il possessore è il soggetto, si dice **svoj** (proprio), che arriva al B1: **Luka išče svoje jagnje.** (il suo agnello)"
+        },
+        "examples": [
+          { "sl": "Nejc je danes v moji hiši.", "en": "Nejc is at my house today.", "de": "Nejc ist heute in meinem Haus.", "it": "Oggi Nejc è a casa mia." },
+          { "sl": "Tine se igra z Janezovim psom.", "en": "Tine is playing with Janez's dog.", "de": "Tine spielt mit Janez' Hund.", "it": "Tine gioca con il cane di Janez." }
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "cigav", "text": "Muri spi pod ___ mizo. (naš)", "accept": ["našo"], "hint": "pod + where? miza: feminine",
+          "explain": "**pod** + where? → the instrumental; miza is feminine → **pod našo mizo**\n- naša miza · pod našo mizo"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "cigav-1",
+      "title": { "sl": "Moj, moja, moje", "en": "Moj, moja, moje", "de": "Moj, moja, moje", "it": "Moj, moja, moje" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "cigav", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "čigav? · whose?",
+          "columns": ["moški · masculine", "ženski · feminine", "srednji · neuter"],
+          "rows": [
+            { "label": "jaz", "cells": ["moj", { "accept": ["moja"] }, "moje"] },
+            { "label": "ti", "cells": [{ "accept": ["tvoj"] }, "tvoja", "tvoje"] },
+            { "label": "on", "cells": ["njegov", { "accept": ["njegova"] }, { "accept": ["njegovo"] }] },
+            { "label": "ona", "cells": [{ "accept": ["njen"] }, "njena", { "accept": ["njeno"] }] },
+            { "label": "oni", "cells": ["njihov", { "accept": ["njihova"] }, "njihovo"] },
+            { "label": "Luka", "cells": [{ "accept": ["Lukov"], "hint": "a man's name: -ov" }, { "accept": ["Lukova"] }, "Lukovo"] },
+            { "label": "Micka", "cells": ["Mickin", { "accept": ["Mickina"] }, { "accept": ["Mickino"] }] }
+          ],
+          "explain": "**the owner** picks the word, **the thing** its ending\n- njegov, njegova, njegovo · his\n- njen, njena, njeno · her\n- Lukov · Mickin"
+        },
+        {
+          "type": "choice", "grammar": "cigav", "instruction": "Izberi · Choose", "prompt": "___ je to kolo? Nejčevo.", "options": ["Čigav", "Čigava", "Čigavo"], "answer": 2, "say_options": true,
+          "explain": "**kolo** → neuter → **čigavo**, and the answer Nejčev**o**"
+        }
+      ]
+    },
+    {
+      "id": "cigav-2",
+      "title": { "sl": "Nered pri Micki", "en": "A mess at Micka's", "de": "Durcheinander bei Micka", "it": "Confusione da Micka" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "cigav", "instruction": "Dopolni · Fill in", "title": "Nered pri Micki",
+          "text": "Zjutraj je v Mickini kuhinji velik nered. »Kje je ___ (moj) žlica?« vpraša Zala. »Pod ___ (tvoj) zvezkom!« reče babica. Na stolu je star klobuk. »___ (čigav) je ta klobuk?« »To je ___ (Luka) klobuk.« Tine najde rdečo ruto. »Je to ___ (Vida) ruta?« »Ne, to je ___ (Micka) ruta.« Muri pa ima v gobcu ___ (Janez) rokavico.",
+          "gaps": [
+            { "accept": ["moja"], "hint": "žlica: feminine" },
+            { "accept": ["tvojim"], "hint": "pod + where? zvezek: masculine", "grammar": "pridevniki-ujemanje", "explain": "pod + the instrumental, zvezek is masculine: **pod tvojim zvezkom**." },
+            { "accept": ["Čigav"], "hint": "klobuk: masculine" },
+            { "accept": ["Lukov"], "hint": "a man's name: -ov" },
+            { "accept": ["Vidina"], "hint": "a woman's name: -in" },
+            { "accept": ["Mickina"] },
+            { "accept": ["Janezovo"], "hint": "rokavica: feminine, the object", "explain": "Janez → Janezov; rokavica is the object, feminine: **Janezovo** rokavico." }
+          ],
+          "bank": true, "distractors": ["moj", "Lukova", "Vidin"],
+          "translation": "In the morning there's a big mess in Micka's kitchen. \"Where's my spoon?\" asks Zala. \"Under your notebook!\" says Granny. There's an old hat on the chair. \"Whose hat is this?\" \"It's Luka's hat.\" Tine finds a red scarf. \"Is this Vida's scarf?\" \"No, it's Micka's scarf.\" And Muri has Janez's glove in his mouth."
+        }
+      ]
+    },
+    {
+      "id": "cigav-3",
+      "title": { "sl": "Čigavo je?", "en": "Whose is it?", "de": "Wem gehört es?", "it": "Di chi è?" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "cigav", "instruction": "Povej, čigavo je · Say whose it is", "cue": "→ To je …",
+          "items": [
+            { "from": "Luka ima klobuk.", "accept": ["To je Lukov klobuk."], "hint": "a man's name: -ov" },
+            { "from": "Micka ima kuhinjo.", "accept": ["To je Mickina kuhinja."], "hint": "a woman's name: -in, + -a" },
+            { "from": "Tone ima kovačnico.", "accept": ["To je Tonetova kovačnica."], "hint": "Tone → Toneta → …", "explain": "**Tone** grows a t in its cases (Toneta), so **Tonetov**: To je Tonetova kovačnica." },
+            { "from": "Zala ima mačko.", "accept": ["To je Zalina mačka."] },
+            { "from": "Babica ima vrt.", "accept": ["To je babičin vrt."], "hint": "c → č" },
+            { "from": "Nejc ima kolo.", "accept": ["To je Nejčevo kolo."], "hint": "c → č, then -ev", "explain": "After c, č, j, š, ž a man's name takes **-ev**, and c turns into č: Nejc → **Nejčev**; kolo is neuter: Nejčevo." },
+            { "from": "Anton ima čebele.", "accept": ["To so Antonove čebele."], "hint": "to so …: plural" },
+            { "from": "Mojca ima knjige.", "accept": ["To so Mojčine knjige."], "hint": "c → č, -in, plural" }
+          ],
+          "explain": "**a man's name** → -ov (-ev after c, č, j, š, ž) · **a woman's name** → -in\n- Lukov, Tonetov, Nejčev\n- Mickina, Zalina, Mojčine, babičin"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "cigav", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "čigav? · whose?",
+        "columns": ["moški · masculine", "ženski · feminine", "srednji · neuter"],
+        "rows": [
+          { "label": "ona", "cells": [{ "accept": ["njen"] }, { "accept": ["njena"] }, "njeno"] },
+          { "label": "France", "cells": [{ "accept": ["Francetov"] }, "Francetova", { "accept": ["Francetovo"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "cigav", "instruction": "Dopolni · Fill in",
+        "text": "»___ (čigav) je ta pes?« »To je Muri, ___ (Janez) pes.« Danes smo pri ___ (vaš) babici. Zala gre v gozd z ___ (moj) sestro.",
+        "gaps": [
+          { "accept": ["Čigav"] },
+          { "accept": ["Janezov"] },
+          { "accept": ["vaši"], "grammar": "pridevniki-ujemanje" },
+          { "accept": ["mojo"], "grammar": "pridevniki-ujemanje" }
+        ],
+        "translation": "\"Whose dog is this?\" \"That's Muri, Janez's dog.\" Today we're at your granny's. Zala is going into the forest with my sister."
+      },
+      {
+        "type": "transform", "grammar": "cigav", "instruction": "Povej, čigavo je · Say whose it is", "cue": "→ To je …",
+        "items": [
+          { "from": "Vida ima gostilno.", "accept": ["To je Vidina gostilna."] },
+          { "from": "Jože ima prežo.", "accept": ["To je Jožetova preža."] },
+          { "from": "Marko ima vinograd.", "accept": ["To je Markov vinograd."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "cigav", "prompt": "Nejc in Tine imata žogo. To je ___ žoga.", "options": ["njuna", "njihova", "njegova"], "answer": 0, "say_options": true,
+        "explain": "**two owners** → njun-; **žoga** is feminine → **njuna**\n- njihova · three owners or more\n- njegova · his"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Fran: gobec. Native check: Nered pri Micki, Tonetov, Jožetov, Nejčev, babičin, njun; svoj kept out where the owner is the subject"
+}

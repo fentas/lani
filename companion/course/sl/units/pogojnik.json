@@ -1,0 +1,215 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "pogojnik",
+  "language": "sl",
+  "level": "A2",
+  "emoji": "💭",
+  "title": { "sl": "Rad bi …: pogojnik", "en": "I'd like …: the conditional", "de": "Ich hätte gern …: der Konditional", "it": "Vorrei …: il condizionale" },
+  "goal": {
+    "en": "You can say what you'd like and what would happen, and ask politely: Rad bi kavo. Bi mi pomagali? Če bi imel čas, bi prišel.",
+    "de": "Du sagst, was du gern hättest und was wäre, und bittest höflich: Rad bi kavo. Bi mi pomagali? Če bi imel čas, bi prišel.",
+    "it": "Sai dire che cosa vorresti e che cosa succederebbe, e chiedere con gentilezza: Rad bi kavo. Bi mi pomagali? Če bi imel čas, bi prišel."
+  },
+  "grammar": ["pogojnik", "naslonke"],
+  "words": ["bi", "rad", "kupiti", "spati", "poskusiti", "prinesti", "pomagati", "odpreti", "pokazati", "leteti", "peljati", "lesen", "žlica", "kozarec", "terasa", "jota", "rebula", "račun", "dežnik", "plašč", "sprehod", "krilo", "gospa", "seveda", "če"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "kdo?", "en": "who", "de": "wer", "it": "chi" },
+        { "sl": "moški", "en": "men, masculine", "de": "Männer, männlich", "it": "uomini, maschile" },
+        { "sl": "ženski", "en": "women, feminine", "de": "Frauen, weiblich", "it": "donne, femminile" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "The conditional (*pogojnik*) says what would happen: **bi** and the l-form, as in the past. **Bi** never changes; the l-form shows who: **kupil bi** (a man would buy), **kupila bi** (a woman), **kupili bi** (several). Two, as in the past: **kupila bi** (two men), **kupili bi** (two women).",
+          "de": "Der Konditional (*pogojnik*) sagt, was wäre: **bi** und die l-Form, wie in der Vergangenheit. **Bi** ändert sich nie; die l-Form zeigt, wer: **kupil bi** (ein Mann würde kaufen), **kupila bi** (eine Frau), **kupili bi** (mehrere). Zwei, wie in der Vergangenheit: **kupila bi** (zwei Männer), **kupili bi** (zwei Frauen).",
+          "it": "Il condizionale (*pogojnik*) dice che cosa succederebbe: **bi** e la forma in -l, come al passato. **Bi** non cambia mai; la forma in -l dice chi: **kupil bi** (un uomo comprerebbe), **kupila bi** (una donna), **kupili bi** (più persone). Due, come al passato: **kupila bi** (due uomini), **kupili bi** (due donne)."
+        },
+        "examples": [
+          { "sl": "Zala bi kupila leseno žlico.", "en": "Zala would buy a wooden spoon.", "de": "Zala würde einen Holzlöffel kaufen.", "it": "Zala comprerebbe un cucchiaio di legno." },
+          { "sl": "Otroci bi se igrali ves dan.", "en": "The children would play all day.", "de": "Die Kinder würden den ganzen Tag spielen.", "it": "I bambini giocherebbero tutto il giorno." }
+        ],
+        "rows": [
+          [{ "sl": "jaz, ti, on / ona", "en": "I, you, he / she", "de": "ich, du, er / sie", "it": "io, tu, lui / lei" }, "kupil bi", "kupila bi"],
+          [{ "sl": "midva, vidva / medve, vedve", "en": "the two of us, you two", "de": "wir zwei, ihr zwei", "it": "noi due, voi due" }, "kupila bi", "kupili bi"],
+          [{ "sl": "mi, vi, oni / me, ve, one", "en": "we, you, they", "de": "wir, ihr, sie", "it": "noi, voi, loro" }, "kupili bi", "kupile bi"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "pogojnik", "prompt": "Vida bi ___ nov lonec. (kupiti)", "options": ["kupil", "kupila", "kupi"], "answer": 1, "say_options": true,
+          "explain": "**Vida** → a woman → **-la**: bi kupila\n- kupi · the present, never with bi"
+        }
+      },
+      {
+        "say": {
+          "en": "**Rad bi** is *I'd like*, with a noun or with the l-form of a verb: **Rad bi kavo.** **Rad bi spal.** (I'd like to sleep.) A woman says **rada bi**, several people **radi bi**. It's the polite way to ask for something: **Rada bi kilogram jabolk, prosim.**",
+          "de": "**Rad bi** heißt *ich möchte*, mit einem Nomen oder mit der l-Form eines Verbs: **Rad bi kavo.** **Rad bi spal.** (Ich möchte schlafen.) Eine Frau sagt **rada bi**, mehrere Leute **radi bi**. So bittet man höflich um etwas: **Rada bi kilogram jabolk, prosim.**",
+          "it": "**Rad bi** vuol dire *vorrei*, con un nome o con la forma in -l di un verbo: **Rad bi kavo.** **Rad bi spal.** (Vorrei dormire.) Una donna dice **rada bi**, più persone **radi bi**. È il modo gentile di chiedere qualcosa: **Rada bi kilogram jabolk, prosim.**"
+        },
+        "examples": [
+          { "sl": "{m:Rad|f:Rada} bi kavo, prosim.", "en": "I'd like a coffee, please.", "de": "Ich hätte gern einen Kaffee, bitte.", "it": "Vorrei un caffè, per favore." },
+          { "sl": "Zala bi rada videla konjička.", "en": "Zala would like to see the little horse.", "de": "Zala würde gern das Pferdchen sehen.", "it": "Zala vorrebbe vedere il cavallino." }
+        ],
+        "rows": [
+          [{ "sl": "jaz, ti, on / ona", "en": "I'd like, you'd like …", "de": "ich möchte, du möchtest …", "it": "vorrei, vorresti …" }, "rad bi", "rada bi"],
+          [{ "sl": "mi, vi, oni / me, ve, one", "en": "we'd like, they'd like …", "de": "wir möchten, sie möchten …", "it": "vorremmo, vorrebbero …" }, "radi bi", "rade bi"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "pogojnik", "prompt": "Zala: »___ bi še kos potice.«", "options": ["Rad", "Rada", "Radi"], "answer": 1, "say_options": true,
+          "explain": "**Zala** → a girl → **rada bi**\n- rad bi · a man or a boy\n- radi bi · several"
+        }
+      },
+      {
+        "say": {
+          "en": "**Bi** is a short word in second place, after the first word or phrase: **Jaz bi kupil leseno žlico.** or **Kupil bi leseno žlico.** With other short words it comes first, as sem does: **Rad bi se kopal.** **Dal bi ti ga.** It takes the l-form, never the present: not *kupim bi*.",
+          "de": "**Bi** ist ein kurzes Wort an zweiter Stelle, nach dem ersten Wort oder der ersten Wortgruppe: **Jaz bi kupil leseno žlico.** oder **Kupil bi leseno žlico.** Mit anderen kurzen Wörtern steht es vorn, wie sem: **Rad bi se kopal.** **Dal bi ti ga.** Es nimmt die l-Form, nie das Präsens: nicht *kupim bi*.",
+          "it": "**Bi** è una parolina al secondo posto, dopo la prima parola o il primo gruppo: **Jaz bi kupil leseno žlico.** o **Kupil bi leseno žlico.** Con le altre paroline viene prima, come sem: **Rad bi se kopal.** **Dal bi ti ga.** Vuole la forma in -l, mai il presente: non *kupim bi*."
+        },
+        "examples": [
+          { "sl": "Danes bi {m:šel|f:šla} na izlet.", "en": "Today I'd go on a trip.", "de": "Heute würde ich einen Ausflug machen.", "it": "Oggi andrei in gita." },
+          { "sl": "Tine bi se rad naučil plavati.", "en": "Tine would like to learn to swim.", "de": "Tine würde gern schwimmen lernen.", "it": "Tine vorrebbe imparare a nuotare." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "naslonke", "instruction": "Kateri stavek je prav? · Which sentence is right?", "prompt": "I'd like to go for a swim.", "options": ["{m:Rad|f:Rada} bi se {m:kopal|f:kopala}.", "{m:Rad|f:Rada} se bi {m:kopal|f:kopala}.", "{m:Rad|f:Rada} {m:kopal|f:kopala} bi se."], "answer": 0, "say_options": true,
+          "explain": "**bi** before **se**, both in second place: {m:Rad|f:Rada} **bi se** {m:kopal|f:kopala}."
+        }
+      },
+      {
+        "say": {
+          "en": "The conditional makes a request polite: **Bi mi pomagali?** (Would you help me?) **Bi lahko {m:dobil|f:dobila} kozarec vode?** (Could I have a glass of water?) To someone you say vi to, the l-form ends in **-li**, as in the past: **Gospa Vida, bi mi prinesli juho?**",
+          "de": "Der Konditional macht eine Bitte höflich: **Bi mi pomagali?** (Würden Sie mir helfen?) **Bi lahko {m:dobil|f:dobila} kozarec vode?** (Könnte ich ein Glas Wasser haben?) Zu jemandem, den man siezt, endet die l-Form auf **-li**, wie in der Vergangenheit: **Gospa Vida, bi mi prinesli juho?**",
+          "it": "Il condizionale rende gentile una richiesta: **Bi mi pomagali?** (Mi aiuterebbe?) **Bi lahko {m:dobil|f:dobila} kozarec vode?** (Potrei avere un bicchiere d'acqua?) A chi dai del vi, la forma in -l finisce in **-li**, come al passato: **Gospa Vida, bi mi prinesli juho?**"
+        },
+        "examples": [
+          { "sl": "Bi mi pomagali, gospa Vida?", "en": "Would you help me, Mrs Vida?", "de": "Würden Sie mir helfen, Frau Vida?", "it": "Mi aiuterebbe, signora Vida?" },
+          { "sl": "Bi lahko {m:dobil|f:dobila} kozarec vode?", "en": "Could I have a glass of water?", "de": "Könnte ich ein Glas Wasser haben?", "it": "Potrei avere un bicchiere d'acqua?" }
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "pogojnik", "text": "Gospa Vida, bi mi ___ kozarec vode? (prinesti)", "accept": ["prinesli"], "hint": "vi, polite: -li", "explain": "**vi** to one person, polite → **-li**: bi mi prinesli\n- Bi mi prinesli kozarec vode? · Would you bring me a glass of water?"
+        }
+      },
+      {
+        "say": {
+          "en": "No is **ne bi**: **Brez dežnika ne bi {m:šel|f:šla} ven.** (I wouldn't go out without an umbrella.) And with **če** (if), for what isn't so, both halves take **bi**: **Če bi {m:imel|f:imela} psa, bi ga vsak dan {m:peljal|f:peljala} na sprehod.** (If I had a dog, I'd take it for a walk every day.)",
+          "de": "Nein heißt **ne bi**: **Brez dežnika ne bi {m:šel|f:šla} ven.** (Ohne Schirm würde ich nicht hinausgehen.) Und mit **če** (wenn), für das, was nicht so ist, nehmen beide Hälften **bi**: **Če bi {m:imel|f:imela} psa, bi ga vsak dan {m:peljal|f:peljala} na sprehod.** (Wenn ich einen Hund hätte, würde ich ihn jeden Tag ausführen.)",
+          "it": "No si dice **ne bi**: **Brez dežnika ne bi {m:šel|f:šla} ven.** (Senza ombrello non uscirei.) E con **če** (se), per ciò che non è, tutte e due le metà vogliono **bi**: **Če bi {m:imel|f:imela} psa, bi ga vsak dan {m:peljal|f:peljala} na sprehod.** (Se avessi un cane, lo porterei a passeggio ogni giorno.)"
+        },
+        "examples": [
+          { "sl": "Brez dežnika ne bi {m:šel|f:šla} ven.", "en": "I wouldn't go out without an umbrella.", "de": "Ohne Schirm würde ich nicht hinausgehen.", "it": "Senza ombrello non uscirei." },
+          { "sl": "Če bi Zala imela psa, bi ga vsak dan peljala na sprehod.", "en": "If Zala had a dog, she'd take it for a walk every day.", "de": "Wenn Zala einen Hund hätte, würde sie ihn jeden Tag ausführen.", "it": "Se Zala avesse un cane, lo porterebbe a passeggio ogni giorno." }
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "pogojnik", "text": "Če bi Luka imel čas, bi ___ k nam. (priti)", "accept": ["prišel"], "hint": "priti: its l-form, as in the past",
+          "explain": "**če bi …, bi …**: both halves the l-form: Če bi Luka imel čas, bi **prišel** k nam."
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "pogojnik-1",
+      "title": { "sl": "Kupil bi, kupila bi", "en": "Kupil bi, kupila bi", "de": "Kupil bi, kupila bi", "it": "Kupil bi, kupila bi" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "pogojnik", "instruction": "Dopolni pogojnik · Fill in the conditional", "prompt": "bi + deležnik na -l · bi + the l-form",
+          "columns": ["moški · men", "ženski · women"],
+          "rows": [
+            { "label": "kupiti · jaz", "cells": ["kupil bi", { "accept": ["kupila bi", "bi kupila"], "hint": "-la" }] },
+            { "label": "spati · jaz", "cells": [{ "accept": ["spal bi", "bi spal"] }, "spala bi"] },
+            { "label": "iti · ti", "cells": [{ "accept": ["šel bi", "bi šel"], "hint": "as the past" }, { "accept": ["šla bi", "bi šla"] }] },
+            { "label": "jesti · on / ona", "cells": [{ "accept": ["jedel bi", "bi jedel"] }, "jedla bi"] },
+            { "label": "imeti · mi / me", "cells": [{ "accept": ["imeli bi", "bi imeli"] }, { "accept": ["imele bi", "bi imele"] }] },
+            { "label": "rad · jaz", "cells": ["rad bi", { "accept": ["rada bi", "bi rada"] }] },
+            { "label": "rad · oni / one", "cells": [{ "accept": ["radi bi", "bi radi"] }, "rade bi"] }
+          ],
+          "explain": "**bi + the l-form**, as in the past\n- kupil bi, kupila bi · šel bi, šla bi\n- imeli bi, imele bi · rad bi, rada bi, radi bi"
+        },
+        {
+          "type": "choice", "grammar": "dvojina", "instruction": "Izberi · Choose", "prompt": "Nejc in Tine bi ___ šla k ribniku.", "options": ["rad", "rada", "radi"], "answer": 1, "say_options": true,
+          "explain": "**two boys** → the dual: **rada** bi šla, as in the past: sta šla"
+        }
+      ]
+    },
+    {
+      "id": "pogojnik-2",
+      "title": { "sl": "Gost na terasi", "en": "A guest on the terrace", "de": "Ein Gast auf der Terrasse", "it": "Un ospite sulla terrazza" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "pogojnik", "instruction": "Dopolni s pogojnikom · Fill in the conditional", "title": "Gost na terasi",
+          "text": "Na teraso pride gost iz Nemčije. »Dober dan! ___ (rad) bi sedel v senci.« Vida reče: »Seveda. Kaj ___ pili?« »Kozarec rebule, prosim. In rad bi ___ (poskusiti) joto.« Nejc vpraša: »Bi ___ (vi) prinesel še kruha?« »Ja, hvala. Brez kruha ___ jedel jote.« Zvečer gost reče: »Jutri bi ___ (iti) na Triglav. Bi šli z mano?« Vida se smeje: »Jaz ne, Nejc pa bi ___ (rad) šel!«",
+          "gaps": [
+            { "accept": ["Rad"], "hint": "the guest is a man" },
+            { "accept": ["bi"], "hint": "would you drink?" },
+            { "accept": ["poskusil"], "hint": "rad bi + the l-form" },
+            { "accept": ["vam"], "hint": "to you, polite", "grammar": "osebni-zaimki" },
+            { "accept": ["ne bi"], "hint": "the negative of bi", "explain": "The negative: **ne bi** jedel (and after a no, the genitive: jote)." },
+            { "accept": ["šel"], "hint": "iti: as the past" },
+            { "accept": ["rad"] }
+          ],
+          "bank": true, "distractors": ["rada", "bo", "vas"],
+          "translation": "A guest from Germany comes onto the terrace. \"Good day! I'd like to sit in the shade.\" Vida says: \"Of course. What would you like to drink?\" \"A glass of rebula, please. And I'd like to try the jota.\" Nejc asks: \"Shall I bring you some bread too?\" \"Yes, thank you. I wouldn't eat jota without bread.\" In the evening the guest says: \"Tomorrow I'd go up Triglav. Would you come with me?\" Vida laughs: \"Not me, but Nejc would love to go!\""
+        }
+      ]
+    },
+    {
+      "id": "pogojnik-3",
+      "title": { "sl": "Vljudno, prosim", "en": "Politely, please", "de": "Höflich, bitte", "it": "Con gentilezza, per favore" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "pogojnik", "instruction": "Povej vljudno · Say it politely", "cue": "→ bi …",
+          "items": [
+            { "from": "Pomagajte mi!", "accept": ["Bi mi pomagali?", "Ali bi mi pomagali?", "A bi mi pomagali?", "Bi mi lahko pomagali?", "Ali bi mi lahko pomagali?"], "hint": "vi: -li" },
+            { "from": "Prinesite mi vodo!", "accept": ["Bi mi prinesli vodo?", "Ali bi mi prinesli vodo?", "A bi mi prinesli vodo?", "Bi mi lahko prinesli vodo?", "Ali bi mi lahko prinesli vodo?"] },
+            { "from": "Hočem kavo.", "accept": ["{m:Rad|f:Rada} bi kavo.", "{m:Rada|f:Rad} bi kavo.", "Jaz bi {m:rad|f:rada} kavo.", "Jaz bi {m:rada|f:rad} kavo.", "Kavo bi {m:rad|f:rada}.", "Kavo bi {m:rada|f:rad}."], "hint": "hočem → rad bi" },
+            { "from": "Hočem spati.", "accept": ["{m:Rad bi spal|f:Rada bi spala}.", "{m:Rada bi spala|f:Rad bi spal}.", "Jaz bi {m:rad spal|f:rada spala}.", "Jaz bi {m:rada spala|f:rad spal}."], "hint": "rad bi + the l-form", "explain": "**hočem spati** → **rad bi** + the l-form: {m:Rad bi spal|f:Rada bi spala}. (never rad bi spati)" },
+            { "from": "Zala hoče psa.", "accept": ["Zala bi rada psa.", "Zala bi rada imela psa."] },
+            { "from": "Odprite okno!", "accept": ["Bi odprli okno?", "Ali bi odprli okno?", "A bi odprli okno?", "Bi lahko odprli okno?", "Ali bi lahko odprli okno?"] },
+            { "from": "Daj mi kruh!", "accept": ["Bi mi dal kruh?", "Bi mi dala kruh?", "Ali bi mi dal kruh?", "Ali bi mi dala kruh?", "A bi mi dal kruh?", "A bi mi dala kruh?", "Bi mi lahko dal kruh?", "Bi mi lahko dala kruh?", "Ali bi mi lahko dal kruh?", "Ali bi mi lahko dala kruh?"], "hint": "ti: -l for a man, -la for a woman" },
+            { "from": "Otroci hočejo iti k ribniku.", "accept": ["Otroci bi radi šli k ribniku."], "hint": "radi bi + the l-form" }
+          ],
+          "explain": "**a request** → bi + the l-form: Bi mi pomagali?\n- **hočem** → **rad bi**: {m:Rad|f:Rada} bi kavo. · {m:Rad bi spal|f:Rada bi spala}."
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "pogojnik", "instruction": "Dopolni pogojnik · Fill in the conditional", "prompt": "bi + deležnik na -l · bi + the l-form",
+        "columns": ["moški · men", "ženski · women"],
+        "rows": [
+          { "label": "brati · jaz", "cells": [{ "accept": ["bral bi", "bi bral"] }, "brala bi"] },
+          { "label": "priti · vi / ve", "cells": [{ "accept": ["prišli bi", "bi prišli"] }, { "accept": ["prišle bi", "bi prišle"] }] },
+          { "label": "rad · mi / me", "cells": ["radi bi", { "accept": ["rade bi", "bi rade"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "pogojnik", "instruction": "Dopolni s pogojnikom · Fill in the conditional",
+        "text": "»Kaj bi ___ (rad), Tine?« »Rad bi ___ (videti) medveda, ampak se ga bojim.« »Babica, ___ mi pomagali?« Če bi Tine imel krila, bi ___ (leteti) nad vasjo.",
+        "gaps": [
+          { "accept": ["rad"] },
+          { "accept": ["videl"] },
+          { "accept": ["bi"] },
+          { "accept": ["letel"] }
+        ],
+        "translation": "\"What would you like, Tine?\" \"I'd like to see a bear, but I'm afraid of it.\" \"Granny, would you help me?\" If Tine had wings, he would fly over the village."
+      },
+      {
+        "type": "transform", "grammar": "pogojnik", "instruction": "Povej vljudno · Say it politely", "cue": "→ bi …",
+        "items": [
+          { "from": "Pokažite mi pot!", "accept": ["Bi mi pokazali pot?", "Ali bi mi pokazali pot?", "A bi mi pokazali pot?", "Bi mi lahko pokazali pot?", "Ali bi mi lahko pokazali pot?"] },
+          { "from": "Hočem jesti.", "accept": ["{m:Rad bi jedel|f:Rada bi jedla}.", "{m:Rada bi jedla|f:Rad bi jedel}.", "Jaz bi {m:rad jedel|f:rada jedla}.", "Jaz bi {m:rada jedla|f:rad jedel}."] },
+          { "from": "Prinesite mi račun!", "accept": ["Bi mi prinesli račun?", "Ali bi mi prinesli račun?", "A bi mi prinesli račun?", "Bi mi lahko prinesli račun?", "Ali bi mi lahko prinesli račun?"] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "pogojnik", "prompt": "Zala: »Brez plašča ___ šla ven.« (I wouldn't go out without a coat.)", "options": ["ne bi", "bi ne", "ni bi"], "answer": 0, "say_options": true,
+        "explain": "**the negative** → **ne bi**: Brez plašča ne bi šla ven."
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: Gost na terasi, Bi vam prinesel, Zala bi rada psa, Kaj bi pili, krilo (wing)"
+}
