@@ -931,14 +931,17 @@ function chooseWatch(unit: Json, pages: Json[], steps: Json[], base: string, cor
     ...steps.filter(s => s.ask?.type === 'choice').map(s => ({ e: s.ask, from: 'intro' })),
     ...(unit.worksheets ?? []).flatMap((w: Json) => (w.exercises ?? []).filter((e: Json) => e.type === 'choice').map((e: Json) => ({ e, from: `sheet:${w.id}` }))),
   ]
-  const named = (e: Json, opt: string) => new RegExp(`(?<![\\p{L}])\\*?${opt}\\*?(?![\\p{L}])`, 'iu').test((e.explain ?? '').replace(/\*\*[^*]+\*\*/g, ''))
+  // an option is the learner's (its {m:…|f:…} filled) and plain text in the regex: "{m:pil|f:pila}" → "pil/pila"
+  const esc = (x: string) => x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const named = (e: Json, opt: string) => new RegExp(`(?<![\\p{L}])\\*?${esc(opt)}\\*?(?![\\p{L}])`, 'iu').test(fillLearner(e.explain ?? '', o).replace(/\*\*[^*]+\*\*/g, ''))
   const scored = choices
     .map(({ e, from }) => {
       const prompt = fillLearner(e.prompt ?? '', o)
-      const answer = e.options?.[e.answer]
-      if (!answer || !/_{3,}/.test(prompt) || wordsOf(prompt).length < 2 || prompt.includes('\u0000')) return null
+      const options = ((e.options ?? []) as string[]).map(x => fillLearner(x, o))
+      const answer = options[e.answer]
+      if (!answer || !/_{3,}/.test(prompt) || wordsOf(prompt).length < 2 || prompt.includes('\u0000') || answer.includes('\u0000')) return null
       // an almost-right option (a spoken form, a near form) is never shown as a mistake
-      const wrongs = (e.options as string[]).filter((_, i) => i !== e.answer && !(e.almost ?? []).includes(i))
+      const wrongs = options.filter((x, i) => i !== e.answer && !(e.almost ?? []).includes(i) && !x.includes('\u0000'))
       if (!wrongs.length) return null
       const byName = wrongs.find(x => named(e, x))
       const wrong = byName ?? [...wrongs].sort((a, b) => alike(b, answer) - alike(a, answer))[0]
