@@ -1,0 +1,114 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "dolocna-oblika",
+  "language": "sl",
+  "level": "B1",
+  "emoji": "🔪",
+  "title": {
+    "sl": "Določna oblika pridevnika: zeleni nož",
+    "en": "The definite adjective: zeleni nož",
+    "de": "Die bestimmte Form des Adjektivs: zeleni nož",
+    "it": "La forma determinata dell'aggettivo: zeleni nož"
+  },
+  "rule": {
+    "en": "A masculine adjective has two base forms, in the nominative singular and in the accusative of a thing:\n\n- **Indefinite** (*nedoločna*), the answer to **kakšen?** (what kind?): **zelen nož** (a green knife). **Tone ima zelen nož.**\n- **Definite** (*določna*), the answer to **kateri?** (which one?), one you both know: **zeleni nož** (the green knife). **Daj mi zeleni nož!**\n\nIt adds **-i**, and an e between the last consonants drops: dober → **dobri**, topel → **topli**. Every other form is the same for both: zelena, zeleno, zelenega, z zelenim.\n\nThe definite comes after **ta, tisti** and the possessives (**ta stari kozolec, moj novi avto, svoj novi kombi**), and in names and kinds (**Stari Janez, beli kruh, zeleni čaj**). After **biti**, saying what kind, the indefinite: **Nož je zelen.** Some have only the definite form: those in **-ski, -ški, -čki** (slovenski, kmečki), the comparative and the superlative (**večji, najlepši**), and **prvi, drugi, zadnji**.\n\nIn speech the definite often has **ta** in front: **ta zeleni** (the green one).",
+    "de": "Ein männliches Adjektiv hat zwei Grundformen, im Nominativ Singular und im Akkusativ eines Dings:\n\n- **Unbestimmt** (*nedoločna*), die Antwort auf **kakšen?** (was für ein?): **zelen nož** (ein grünes Messer). **Tone ima zelen nož.**\n- **Bestimmt** (*določna*), die Antwort auf **kateri?** (welcher?), eines, das ihr beide kennt: **zeleni nož** (das grüne Messer). **Daj mi zeleni nož!**\n\nSie bekommt **-i**, und ein e zwischen den letzten Konsonanten fällt weg: dober → **dobri**, topel → **topli**. Alle anderen Formen sind für beide gleich: zelena, zeleno, zelenega, z zelenim.\n\nDie bestimmte Form steht nach **ta, tisti** und den Possessiva (**ta stari kozolec, moj novi avto, svoj novi kombi**) und in Namen und Sorten (**Stari Janez, beli kruh, zeleni čaj**). Nach **biti**, wenn man sagt, wie etwas ist, die unbestimmte: **Nož je zelen.** Manche haben nur die bestimmte Form: die auf **-ski, -ški, -čki** (slovenski, kmečki), Komparativ und Superlativ (**večji, najlepši**) und **prvi, drugi, zadnji**.\n\nIn der Umgangssprache steht vor der bestimmten Form oft **ta**: **ta zeleni** (der grüne).",
+    "it": "Un aggettivo maschile ha due forme base, al nominativo singolare e all'accusativo di una cosa:\n\n- **Indeterminata** (*nedoločna*), la risposta a **kakšen?** (di che tipo?): **zelen nož** (un coltello verde). **Tone ima zelen nož.**\n- **Determinata** (*določna*), la risposta a **kateri?** (quale?), uno che conoscete tutti e due: **zeleni nož** (il coltello verde). **Daj mi zeleni nož!**\n\nAggiunge **-i**, e una e tra le ultime consonanti cade: dober → **dobri**, topel → **topli**. Tutte le altre forme sono uguali per le due: zelena, zeleno, zelenega, z zelenim.\n\nLa determinata viene dopo **ta, tisti** e i possessivi (**ta stari kozolec, moj novi avto, svoj novi kombi**), e nei nomi e nei tipi (**Stari Janez, beli kruh, zeleni čaj**). Dopo **biti**, dicendo com'è, l'indeterminata: **Nož je zelen.** Alcuni hanno solo la forma determinata: quelli in **-ski, -ški, -čki** (slovenski, kmečki), il comparativo e il superlativo (**večji, najlepši**), e **prvi, drugi, zadnji**.\n\nNel parlato la determinata ha spesso **ta** davanti: **ta zeleni** (quello verde)."
+  },
+  "table": {
+    "head": [
+      { "sl": "kdaj", "en": "when", "de": "wann", "it": "quando" },
+      { "sl": "kakšen? · nedoločna", "en": "kakšen? what kind (a …)", "de": "kakšen? was für ein (ein …)", "it": "kakšen? di che tipo (un …)" },
+      { "sl": "kateri? · določna", "en": "kateri? which one (the …)", "de": "kateri? welcher (der …)", "it": "kateri? quale (il …)" }
+    ],
+    "rows": [
+      [{ "sl": "osnova", "en": "the base", "de": "die Grundform", "it": "la forma base" }, "zelen nož", "zeleni nož"],
+      [{ "sl": "e izpade", "en": "an e drops", "de": "ein e fällt weg", "it": "una e cade" }, "dober mož, topel čaj", "dobri mož, topli čaj"],
+      [{ "sl": "za ta, tisti, moj, svoj", "en": "after ta, tisti, moj, svoj", "de": "nach ta, tisti, moj, svoj", "it": "dopo ta, tisti, moj, svoj" }, "—", "ta stari kozolec"],
+      [{ "sl": "imena, vrste", "en": "names, kinds", "de": "Namen, Sorten", "it": "nomi, tipi" }, "—", "Stari Janez, beli kruh"],
+      [{ "sl": "za biti", "en": "after biti", "de": "nach biti", "it": "dopo biti" }, "Nož je zelen.", "—"],
+      [{ "sl": "samo -i", "en": "only -i", "de": "nur -i", "it": "solo -i" }, "—", "slovenski, večji, prvi"],
+      [{ "sl": "druge oblike", "en": "all other forms", "de": "alle anderen Formen", "it": "tutte le altre forme" }, "zelena, zeleno, zelenega", { "sl": "enako", "en": "the same", "de": "gleich", "it": "uguali" }]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Daj mi zeleni nož!",
+      "en": "Give me the green knife!",
+      "de": "Gib mir das grüne Messer!",
+      "it": "Dammi il coltello verde!",
+      "note": {
+        "en": "The green one you both know: kateri? → zeleni.",
+        "de": "Das grüne, das ihr beide kennt: kateri? → zeleni.",
+        "it": "Quello verde che conoscete tutti e due: kateri? → zeleni."
+      }
+    },
+    {
+      "sl": "Tone ima zelen nož.",
+      "en": "Tone has a green knife.",
+      "de": "Tone hat ein grünes Messer.",
+      "it": "Tone ha un coltello verde.",
+      "note": {
+        "en": "What kind of knife: kakšen? → zelen.",
+        "de": "Was für ein Messer: kakšen? → zelen.",
+        "it": "Che tipo di coltello: kakšen? → zelen."
+      }
+    },
+    {
+      "sl": "Moj novi klobuk je zelen.",
+      "en": "My new hat is green.",
+      "de": "Mein neuer Hut ist grün.",
+      "it": "Il mio cappello nuovo è verde.",
+      "note": {
+        "en": "After moj the definite, novi; after je the indefinite, zelen.",
+        "de": "Nach moj die bestimmte Form, novi; nach je die unbestimmte, zelen.",
+        "it": "Dopo moj la determinata, novi; dopo je l'indeterminata, zelen."
+      }
+    },
+    {
+      "sl": "Marko mi je posodil svoj novi kombi.",
+      "en": "Marko lent me his new van.",
+      "de": "Marko hat mir seinen neuen Lieferwagen geliehen.",
+      "it": "Marko mi ha prestato il suo furgone nuovo."
+    },
+    {
+      "sl": "Stari Janez sedi pod lipo.",
+      "en": "Old Janez is sitting under the linden.",
+      "de": "Der alte Janez sitzt unter der Linde.",
+      "it": "Il vecchio Janez è seduto sotto il tiglio.",
+      "note": {
+        "en": "A name: Stari Janez, always the definite.",
+        "de": "Ein Name: Stari Janez, immer die bestimmte Form.",
+        "it": "Un nome: Stari Janez, sempre la determinata."
+      }
+    },
+    {
+      "sl": "Za zajtrk je beli kruh.",
+      "en": "There's white bread for breakfast.",
+      "de": "Zum Frühstück gibt es Weißbrot.",
+      "it": "A colazione c'è il pane bianco."
+    },
+    {
+      "sl": "Luka je najboljši pastir na planoti.",
+      "en": "Luka is the best shepherd on the plateau.",
+      "de": "Luka ist der beste Hirte auf der Hochebene.",
+      "it": "Luka è il miglior pastore dell'altopiano.",
+      "note": {
+        "en": "The superlative has only the definite form, -i.",
+        "de": "Der Superlativ hat nur die bestimmte Form, -i.",
+        "it": "Il superlativo ha solo la forma determinata, -i."
+      }
+    },
+    {
+      "sl": "Čaj je še topel.",
+      "en": "The tea is still warm.",
+      "de": "Der Tee ist noch warm.",
+      "it": "Il tè è ancora caldo."
+    }
+  ],
+  "modules": [],
+  "tags": ["definite_adjective", "definite_form", "adjective_definite"],
+  "see": ["pridevniki-ujemanje", "primernik", "datumi", "svoj"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

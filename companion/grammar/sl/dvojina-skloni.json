@@ -1,0 +1,121 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "dvojina-skloni",
+  "language": "sl",
+  "level": "B1",
+  "emoji": "✌️",
+  "title": {
+    "sl": "Dvojina v sklonih: z dvema družinama",
+    "en": "The dual through the cases",
+    "de": "Der Dual in den Fällen",
+    "it": "Il duale nei casi"
+  },
+  "rule": {
+    "en": "For exactly two, every case has its dual form, and there are few of them: one ending for the dative and the instrumental (**-ma**), one for the genitive, one for the locative, and the accusative is the nominative.\n\n- **dva, dve** (and **oba, obe**, both): **dveh** in the genitive and the locative, **dvema** in the dative and the instrumental: **brez dveh kozarcev**, **pri dveh sosedih**, **z dvema družinama**, **obema otrokoma**.\n- **Nouns:** masculine **-ov, -oma, -ih** (dveh bratov, dvema bratoma, pri dveh bratih); feminine **no ending, -ama, -ah** (dveh sester, z dvema sestrama, v dveh hišah); neuter **no ending, -oma, -ih** (dveh oken, z dvema oknoma, v dveh oknih). The object is as the subject: **Vidim dva brata, dve sestri.**\n- **Adjectives:** **-ih** with dveh, **-ima** with dvema: **v dveh starih hišah**, **z dvema velikima konjema**.\n- **Pronouns:** **naju, nama** (us two), **vaju, vama** (you two), **njiju** or **ju**, **njima** or **jima** (the two of them): **Pridita k nama!** **Videl sem ju.**\n\nWhat comes in pairs (hands, eyes, legs) takes the plural: **Umij si roke.** The dual stresses that it is two: **z obema rokama**.",
+    "de": "Für genau zwei hat jeder Fall seine Dualform, und es sind wenige: eine Endung für Dativ und Instrumental (**-ma**), eine für den Genitiv, eine für den Lokativ, und der Akkusativ ist wie der Nominativ.\n\n- **dva, dve** (und **oba, obe**, beide): **dveh** im Genitiv und Lokativ, **dvema** im Dativ und Instrumental: **brez dveh kozarcev**, **pri dveh sosedih**, **z dvema družinama**, **obema otrokoma**.\n- **Nomen:** männlich **-ov, -oma, -ih** (dveh bratov, dvema bratoma, pri dveh bratih); weiblich **ohne Endung, -ama, -ah** (dveh sester, z dvema sestrama, v dveh hišah); sächlich **ohne Endung, -oma, -ih** (dveh oken, z dvema oknoma, v dveh oknih). Das Objekt ist wie das Subjekt: **Vidim dva brata, dve sestri.**\n- **Adjektive:** **-ih** mit dveh, **-ima** mit dvema: **v dveh starih hišah**, **z dvema velikima konjema**.\n- **Pronomen:** **naju, nama** (uns zwei), **vaju, vama** (euch zwei), **njiju** oder **ju**, **njima** oder **jima** (die zwei): **Pridita k nama!** **Videl sem ju.**\n\nWas paarweise vorkommt (Hände, Augen, Beine), steht im Plural: **Umij si roke.** Der Dual betont, dass es zwei sind: **z obema rokama**.",
+    "it": "Per esattamente due, ogni caso ha la sua forma duale, e sono poche: una desinenza per il dativo e lo strumentale (**-ma**), una per il genitivo, una per il locativo, e l'accusativo è uguale al nominativo.\n\n- **dva, dve** (e **oba, obe**, entrambi): **dveh** al genitivo e al locativo, **dvema** al dativo e allo strumentale: **brez dveh kozarcev**, **pri dveh sosedih**, **z dvema družinama**, **obema otrokoma**.\n- **Nomi:** maschili **-ov, -oma, -ih** (dveh bratov, dvema bratoma, pri dveh bratih); femminili **senza desinenza, -ama, -ah** (dveh sester, z dvema sestrama, v dveh hišah); neutri **senza desinenza, -oma, -ih** (dveh oken, z dvema oknoma, v dveh oknih). L'oggetto è come il soggetto: **Vidim dva brata, dve sestri.**\n- **Aggettivi:** **-ih** con dveh, **-ima** con dvema: **v dveh starih hišah**, **z dvema velikima konjema**.\n- **Pronomi:** **naju, nama** (noi due), **vaju, vama** (voi due), **njiju** o **ju**, **njima** o **jima** (loro due): **Pridita k nama!** **Videl sem ju.**\n\nCiò che va in coppia (mani, occhi, gambe) va al plurale: **Umij si roke.** Il duale sottolinea che sono due: **z obema rokama**."
+  },
+  "table": {
+    "head": [
+      { "sl": "sklon", "en": "case", "de": "Fall", "it": "caso" },
+      { "sl": "moški", "en": "masculine", "de": "männlich", "it": "maschile" },
+      { "sl": "ženski", "en": "feminine", "de": "weiblich", "it": "femminile" },
+      { "sl": "srednji", "en": "neuter", "de": "sächlich", "it": "neutro" }
+    ],
+    "rows": [
+      [{ "sl": "imenovalnik (kdo? kaj?)", "en": "nominative (kdo? kaj?)", "de": "Nominativ (kdo? kaj?)", "it": "nominativo (kdo? kaj?)" }, "dva brata", "dve sestri", "dve okni"],
+      [{ "sl": "rodilnik (koga? česa?)", "en": "genitive (koga? česa?)", "de": "Genitiv (koga? česa?)", "it": "genitivo (koga? česa?)" }, "dveh bratov", "dveh sester", "dveh oken"],
+      [{ "sl": "dajalnik (komu? čemu?)", "en": "dative (komu? čemu?)", "de": "Dativ (komu? čemu?)", "it": "dativo (komu? čemu?)" }, "dvema bratoma", "dvema sestrama", "dvema oknoma"],
+      [{ "sl": "tožilnik (koga? kaj?)", "en": "accusative (koga? kaj?)", "de": "Akkusativ (koga? kaj?)", "it": "accusativo (koga? kaj?)" }, "dva brata", "dve sestri", "dve okni"],
+      [{ "sl": "mestnik (pri kom? pri čem?)", "en": "locative (pri kom? pri čem?)", "de": "Lokativ (pri kom? pri čem?)", "it": "locativo (pri kom? pri čem?)" }, "pri dveh bratih", "pri dveh sestrah", "v dveh oknih"],
+      [{ "sl": "orodnik (s kom? s čim?)", "en": "instrumental (s kom? s čim?)", "de": "Instrumental (s kom? s čim?)", "it": "strumentale (s kom? s čim?)" }, "z dvema bratoma", "z dvema sestrama", "z dvema oknoma"],
+      [{ "sl": "s pridevnikom", "en": "with an adjective", "de": "mit Adjektiv", "it": "con un aggettivo" }, "z dvema velikima konjema", "v dveh starih hišah", "dveh odprtih oken"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Na izlet gremo z dvema družinama.",
+      "en": "We're going on a trip with two families.",
+      "de": "Wir machen mit zwei Familien einen Ausflug.",
+      "it": "Andiamo in gita con due famiglie.",
+      "note": {
+        "en": "z + the instrumental of two: dvema, and the feminine noun in -ama.",
+        "de": "z + Instrumental von zwei: dvema, und das weibliche Nomen auf -ama.",
+        "it": "z + lo strumentale di due: dvema, e il nome femminile in -ama."
+      }
+    },
+    {
+      "sl": "Mojca uči otroke iz dveh vasi.",
+      "en": "Mojca teaches children from two villages.",
+      "de": "Mojca unterrichtet Kinder aus zwei Dörfern.",
+      "it": "Mojca insegna a bambini di due paesi."
+    },
+    {
+      "sl": "Zala piše pismo dvema prijateljicama.",
+      "en": "Zala is writing a letter to two friends.",
+      "de": "Zala schreibt zwei Freundinnen einen Brief.",
+      "it": "Zala scrive una lettera a due amiche."
+    },
+    {
+      "sl": "Marko ima vinograde v dveh vaseh.",
+      "en": "Marko has vineyards in two villages.",
+      "de": "Marko hat Weinberge in zwei Dörfern.",
+      "it": "Marko ha vigne in due paesi.",
+      "note": {
+        "en": "The locative of two: dveh, and the noun in -ah or -eh (vaseh) for a feminine, -ih for the others.",
+        "de": "Der Lokativ von zwei: dveh, und das Nomen auf -ah oder -eh (vaseh) bei weiblichen, -ih bei den anderen.",
+        "it": "Il locativo di due: dveh, e il nome in -ah o -eh (vaseh) per un femminile, -ih per gli altri."
+      }
+    },
+    {
+      "sl": "Ančka ve vse o obeh sosedih.",
+      "en": "Ančka knows everything about both neighbours.",
+      "de": "Ančka weiß alles über die beiden Nachbarn.",
+      "it": "Ančka sa tutto di entrambi i vicini."
+    },
+    {
+      "sl": "Micka je prišla z dvema polnima košarama.",
+      "en": "Micka came with two full baskets.",
+      "de": "Micka ist mit zwei vollen Körben gekommen.",
+      "it": "Micka è arrivata con due cesti pieni.",
+      "note": {
+        "en": "The adjective with dvema ends in -ima, whatever the gender.",
+        "de": "Das Adjektiv mit dvema endet auf -ima, in jedem Geschlecht.",
+        "it": "L'aggettivo con dvema finisce in -ima, in ogni genere."
+      }
+    },
+    {
+      "sl": "Pridita k nama na kosilo!",
+      "en": "Come to ours for lunch, you two!",
+      "de": "Kommt zu uns zum Mittagessen, ihr zwei!",
+      "it": "Venite da noi a pranzo, voi due!",
+      "note": {
+        "en": "k nama: to us two. Pridita: the imperative to two.",
+        "de": "k nama: zu uns zweien. Pridita: der Imperativ an zwei.",
+        "it": "k nama: da noi due. Pridita: l'imperativo a due persone."
+      }
+    },
+    {
+      "sl": "{m:Videl|f:Videla} sem ju na trgu.",
+      "en": "I saw the two of them on the square.",
+      "de": "Ich habe die beiden auf dem Platz gesehen.",
+      "it": "Li ho visti tutti e due in piazza."
+    },
+    {
+      "sl": "Nesi skledo z obema rokama.",
+      "en": "Carry the bowl with both hands.",
+      "de": "Trag die Schüssel mit beiden Händen.",
+      "it": "Porta la ciotola con tutte e due le mani.",
+      "note": {
+        "en": "Hands come in pairs and mostly take the plural (Umij si roke); the dual stresses both: z obema rokama.",
+        "de": "Hände kommen paarweise und stehen meist im Plural (Umij si roke); der Dual betont beide: z obema rokama.",
+        "it": "Le mani vanno in coppia e di solito sono al plurale (Umij si roke); il duale sottolinea tutte e due: z obema rokama."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["dual_cases", "dual_declension", "dual_pronoun_case"],
+  "see": ["dvojina", "stevila-samostalniki", "sklanjatev-moski", "sklanjatev-zenski", "sklanjatev-srednji", "osebni-zaimki"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

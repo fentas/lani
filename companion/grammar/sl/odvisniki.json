@@ -1,0 +1,105 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "odvisniki",
+  "language": "sl",
+  "level": "B1",
+  "emoji": "🧷",
+  "title": {
+    "sl": "Odvisniki: ker, če, da bi, tako da, čeprav",
+    "en": "Clauses: because, if, so that, although",
+    "de": "Nebensätze: weil, wenn, damit, obwohl",
+    "it": "Le subordinate: perché, se, affinché, benché"
+  },
+  "rule": {
+    "en": "A clause (*odvisnik*) joins the main sentence with a word that says how the two go together:\n\n- **ker** (because), the cause: **Ostal sem doma, ker je deževalo.** Its other side is **zato** (so): **Deževalo je, zato sem ostal doma.**\n- **če** (if), what can happen, in the tense it means: **Če bo lepo, gremo na planoto.** What would happen is the conditional, **če bi … bi**.\n- **da bi** (so that, in order to) + the l-form, the aim: **Prišel sem, da bi ti pomagal.** The l-form goes with the clause's own subject: **Piše velike črke, da bi jih vsi videli.**\n- **tako da** (so), what came of it: **Deževalo je, tako da smo ostali doma.**\n- **čeprav** (although), it happened all the same: **Čeprav je bil utrujen, je pomagal.**\n- **ko** (when), **preden** (before): **Preden greš, zapri okno.**\n\nA comma goes before the joining word, and after the clause when it comes first. The short words come right after the joining word: **ker sem ga videl**. A clause in front takes the first place, so the main sentence goes on with its short words: **Ker je deževalo, sem ostal doma.**",
+    "de": "Ein Nebensatz (*odvisnik*) schließt sich mit einem Wort an den Hauptsatz an, das sagt, wie die beiden zusammengehören:\n\n- **ker** (weil), der Grund: **Ostal sem doma, ker je deževalo.** Die andere Seite ist **zato** (deshalb): **Deževalo je, zato sem ostal doma.**\n- **če** (wenn, falls), was geschehen kann, in der gemeinten Zeit: **Če bo lepo, gremo na planoto.** Was geschähe, ist der Konditional, **če bi … bi**.\n- **da bi** (damit, um zu) + l-Form, das Ziel: **Prišel sem, da bi ti pomagal.** Die l-Form richtet sich nach dem Subjekt des Nebensatzes: **Piše velike črke, da bi jih vsi videli.**\n- **tako da** (sodass), was daraus wurde: **Deževalo je, tako da smo ostali doma.**\n- **čeprav** (obwohl), es geschah trotzdem: **Čeprav je bil utrujen, je pomagal.**\n- **ko** (als, wenn), **preden** (bevor): **Preden greš, zapri okno.**\n\nVor dem Bindewort steht ein Komma, und nach dem Nebensatz, wenn er vorne steht. Die kurzen Wörter kommen gleich nach dem Bindewort: **ker sem ga videl**. Ein vorangestellter Nebensatz besetzt die erste Stelle, also geht der Hauptsatz mit seinen kurzen Wörtern weiter: **Ker je deževalo, sem ostal doma.**",
+    "it": "Una subordinata (*odvisnik*) si unisce alla principale con una parola che dice come stanno insieme:\n\n- **ker** (perché), la causa: **Ostal sem doma, ker je deževalo.** L'altra faccia è **zato** (perciò): **Deževalo je, zato sem ostal doma.**\n- **če** (se), ciò che può succedere, nel tempo che intendi: **Če bo lepo, gremo na planoto.** Ciò che succederebbe è il condizionale, **če bi … bi**.\n- **da bi** (affinché, per) + la forma in -l, lo scopo: **Prišel sem, da bi ti pomagal.** La forma in -l va con il soggetto della subordinata: **Piše velike črke, da bi jih vsi videli.**\n- **tako da** (così che), ciò che ne è venuto: **Deževalo je, tako da smo ostali doma.**\n- **čeprav** (benché), è successo lo stesso: **Čeprav je bil utrujen, je pomagal.**\n- **ko** (quando), **preden** (prima che): **Preden greš, zapri okno.**\n\nPrima della congiunzione va una virgola, e dopo la subordinata quando sta davanti. Le parole brevi vengono subito dopo la congiunzione: **ker sem ga videl**. Una subordinata davanti occupa il primo posto, quindi la principale continua con le sue parole brevi: **Ker je deževalo, sem ostal doma.**"
+  },
+  "table": {
+    "head": [
+      { "sl": "veznik", "en": "joining word", "de": "Bindewort", "it": "congiunzione" },
+      { "sl": "pomen", "en": "meaning", "de": "Bedeutung", "it": "significato" },
+      { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+    ],
+    "rows": [
+      ["ker", { "en": "because: the cause", "de": "weil: der Grund", "it": "perché: la causa" }, "Doma sem, ker dežuje."],
+      ["zato", { "en": "so: the result", "de": "deshalb: die Folge", "it": "perciò: la conseguenza" }, "Dežuje, zato sem doma."],
+      ["če", { "en": "if: it can happen", "de": "wenn: es kann geschehen", "it": "se: può succedere" }, "Če bo lepo, gremo ven."],
+      ["da bi", { "en": "so that: the aim (+ the l-form)", "de": "damit: das Ziel (+ l-Form)", "it": "affinché: lo scopo (+ forma in -l)" }, "Prišel sem, da bi pomagal."],
+      ["tako da", { "en": "so: what came of it", "de": "sodass: was daraus wurde", "it": "così che: ciò che ne è venuto" }, "Deževalo je, tako da smo ostali doma."],
+      ["čeprav", { "en": "although", "de": "obwohl", "it": "benché" }, "Čeprav je mraz, gre ven."],
+      ["ko", { "en": "when", "de": "als, wenn", "it": "quando" }, "Ko pridem domov, pojem."],
+      ["preden", { "en": "before", "de": "bevor", "it": "prima che" }, "Preden greš, zapri okno."]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Luka danes ne gre na planoto, ker je megla.",
+      "en": "Luka isn't going up to the plateau today because it's foggy.",
+      "de": "Luka geht heute nicht auf die Hochebene, weil es neblig ist.",
+      "it": "Oggi Luka non sale sull'altopiano perché c'è nebbia."
+    },
+    {
+      "sl": "Ker je deževalo, smo ostali doma.",
+      "en": "Because it was raining, we stayed at home.",
+      "de": "Weil es regnete, sind wir zu Hause geblieben.",
+      "it": "Siccome pioveva, siamo rimasti a casa.",
+      "note": {
+        "en": "The clause in front takes the first place: smo comes right after it.",
+        "de": "Der vorangestellte Nebensatz besetzt die erste Stelle: smo kommt gleich danach.",
+        "it": "La subordinata davanti occupa il primo posto: smo viene subito dopo."
+      }
+    },
+    {
+      "sl": "Če bo jutri lepo, gremo na planoto.",
+      "en": "If it's nice tomorrow, we'll go up to the plateau.",
+      "de": "Wenn es morgen schön ist, gehen wir auf die Hochebene.",
+      "it": "Se domani è bello, saliamo sull'altopiano.",
+      "note": {
+        "en": "It's about tomorrow, so the future: če bo.",
+        "de": "Es geht um morgen, also das Futur: če bo.",
+        "it": "Si parla di domani, quindi il futuro: če bo."
+      }
+    },
+    {
+      "sl": "{m:Prišel|f:Prišla} sem, da bi ti {m:pomagal|f:pomagala}.",
+      "en": "I came to help you.",
+      "de": "Ich bin gekommen, um dir zu helfen.",
+      "it": "Sono venuto per aiutarti."
+    },
+    {
+      "sl": "Mojca piše velike črke, da bi jih vsi videli.",
+      "en": "Mojca writes big letters so that everyone can see them.",
+      "de": "Mojca schreibt große Buchstaben, damit alle sie sehen.",
+      "it": "Mojca scrive lettere grandi perché tutti le vedano.",
+      "note": {
+        "en": "da bi + the l-form of the clause's own subject: vsi → videli.",
+        "de": "da bi + l-Form des eigenen Subjekts: vsi → videli.",
+        "it": "da bi + la forma in -l del soggetto della subordinata: vsi → videli."
+      }
+    },
+    {
+      "sl": "Ves dan je deževalo, tako da smo ostali doma.",
+      "en": "It rained all day, so we stayed at home.",
+      "de": "Es hat den ganzen Tag geregnet, sodass wir zu Hause geblieben sind.",
+      "it": "È piovuto tutto il giorno, così siamo rimasti a casa."
+    },
+    {
+      "sl": "Čeprav je bil utrujen, je France pomagal pri mostu.",
+      "en": "Although he was tired, France helped with the bridge.",
+      "de": "Obwohl er müde war, hat France beim Brückenbau geholfen.",
+      "it": "Benché fosse stanco, France ha aiutato a costruire il ponte."
+    },
+    {
+      "sl": "Preden greš, zapri okno.",
+      "en": "Before you go, close the window.",
+      "de": "Bevor du gehst, mach das Fenster zu.",
+      "it": "Prima di andare, chiudi la finestra."
+    }
+  ],
+  "modules": [],
+  "tags": ["subordinate_clause", "clauses", "da_bi", "purpose_clause", "tako_da", "ker_zato"],
+  "see": ["vezniki", "pogojnik", "naslonke", "odvisni-govor", "oziralni-ki"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

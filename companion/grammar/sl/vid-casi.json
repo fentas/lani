@@ -1,0 +1,107 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "vid-casi",
+  "language": "sl",
+  "level": "B1",
+  "emoji": "⏳",
+  "title": {
+    "sl": "Vid v vseh časih: ne hodi tja!",
+    "en": "Aspect in every tense and the imperative",
+    "de": "Der Aspekt in allen Zeiten und im Imperativ",
+    "it": "L'aspetto in tutti i tempi e all'imperativo"
+  },
+  "rule": {
+    "en": "The aspects (*glagolski vid*) work alike in every tense: the imperfective (*nedovršni*) is what goes on, for a while or again and again; the perfective (*dovršni*) is what gets done, with its result.\n\n- **The past:** **Janez je jedel kosilo** (he was eating), **Janez je pojedel kosilo** (it's eaten). In a story the imperfective is the scene, the perfective what happened: **Ko smo sedeli pri ognju, je prišel Luka.**\n- **The future:** **Ves dan bom pisal** (for a while), **Do večera bom napisal pismo** (done by then); **Jutri napišem** is a future too.\n- **Signal words:** ves dan, dolgo, vsak dan, medtem ko → the imperfective; nenadoma, takoj, do večera → the perfective.\n- **The imperative:** one thing to get done is perfective, **Zapri okno!**; going on, or how to do it, imperfective: **Piši počasi. Jej, jej!**\n- **Don't** is imperfective, its object in the genitive: **Ne odpiraj okna!** A mishap to avoid is perfective: **Ne pozabi ključa!**\n- **Iti and hoditi:** going once, and going again and again. Go! is **pojdi**, don't go! is **ne hodi**.",
+    "de": "Die Aspekte (*glagolski vid*) wirken in jeder Zeit gleich: Der imperfektive (*nedovršni*) ist, was abläuft, eine Weile oder immer wieder; der perfektive (*dovršni*) ist, was erledigt wird, mit seinem Ergebnis.\n\n- **Vergangenheit:** **Janez je jedel kosilo** (er war beim Essen), **Janez je pojedel kosilo** (es ist aufgegessen). In einer Geschichte ist der imperfektive die Szene, der perfektive, was geschah: **Ko smo sedeli pri ognju, je prišel Luka.**\n- **Futur:** **Ves dan bom pisal** (eine Weile), **Do večera bom napisal pismo** (bis dahin fertig); **Jutri napišem** ist auch Zukunft.\n- **Signalwörter:** ves dan, dolgo, vsak dan, medtem ko → imperfektiv; nenadoma, takoj, do večera → perfektiv.\n- **Imperativ:** Eine Sache, die erledigt werden soll, ist perfektiv, **Zapri okno!**; was andauert oder wie man es tut, imperfektiv: **Piši počasi. Jej, jej!**\n- **Verbote** sind imperfektiv, ihr Objekt im Genitiv: **Ne odpiraj okna!** Ein Missgeschick, vor dem man warnt, ist perfektiv: **Ne pozabi ključa!**\n- **Iti und hoditi:** einmal gehen, und immer wieder gehen. Geh! heißt **pojdi**, geh nicht! **ne hodi**.",
+    "it": "Gli aspetti (*glagolski vid*) funzionano allo stesso modo in ogni tempo: l'imperfettivo (*nedovršni*) è ciò che si svolge, per un po' o più volte; il perfettivo (*dovršni*) è ciò che si porta a termine, con il suo risultato.\n\n- **Passato:** **Janez je jedel kosilo** (stava mangiando), **Janez je pojedel kosilo** (l'ha finito). In una storia l'imperfettivo è lo sfondo, il perfettivo ciò che accade: **Ko smo sedeli pri ognju, je prišel Luka.**\n- **Futuro:** **Ves dan bom pisal** (per un po'), **Do večera bom napisal pismo** (finito per allora); anche **Jutri napišem** è un futuro.\n- **Parole segnale:** ves dan, dolgo, vsak dan, medtem ko → l'imperfettivo; nenadoma, takoj, do večera → il perfettivo.\n- **Imperativo:** una cosa da fare e finire è perfettiva, **Zapri okno!**; ciò che dura, o come farlo, imperfettivo: **Piši počasi. Jej, jej!**\n- **I divieti** sono imperfettivi, con l'oggetto al genitivo: **Ne odpiraj okna!** Un incidente da evitare è perfettivo: **Ne pozabi ključa!**\n- **Iti e hoditi:** andare una volta, e andare più volte. Va'! è **pojdi**, non andare! è **ne hodi**."
+  },
+  "table": {
+    "head": [
+      { "sl": "čas", "en": "tense", "de": "Zeit", "it": "tempo" },
+      { "sl": "nedovršni", "en": "imperfective: going on", "de": "imperfektiv: läuft ab", "it": "imperfettivo: in corso" },
+      { "sl": "dovršni", "en": "perfective: done", "de": "perfektiv: erledigt", "it": "perfettivo: compiuto" }
+    ],
+    "rows": [
+      [{ "sl": "sedanjik", "en": "present", "de": "Präsens", "it": "presente" }, "Zdaj pišem pismo.", "Jutri ga napišem."],
+      [{ "sl": "preteklik", "en": "past", "de": "Vergangenheit", "it": "passato" }, "Janez je jedel.", "Janez je pojedel."],
+      [{ "sl": "prihodnjik", "en": "future", "de": "Futur", "it": "futuro" }, "Ves dan bom pisal.", "Do večera bom napisal."],
+      [{ "sl": "velelnik", "en": "imperative", "de": "Imperativ", "it": "imperativo" }, "Piši počasi! Jej!", "Napiši! Zapri okno!"],
+      [{ "sl": "ne + velelnik", "en": "don't!", "de": "Verbot", "it": "divieto" }, "Ne odpiraj okna!", "Ne pozabi ključa!"],
+      [{ "sl": "signalne besede", "en": "signal words", "de": "Signalwörter", "it": "parole segnale" }, "ves dan, vsak dan, medtem ko", "takoj, nenadoma, do večera"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Ko smo sedeli pri ognju, je prišel Luka.",
+      "en": "We were sitting by the fire when Luka came.",
+      "de": "Wir saßen am Feuer, als Luka kam.",
+      "it": "Eravamo seduti vicino al fuoco quando è arrivato Luka.",
+      "note": {
+        "en": "sedeli sets the scene (going on), prišel is what happened in it (done).",
+        "de": "sedeli malt die Szene (läuft ab), prišel ist, was darin geschah (erledigt).",
+        "it": "sedeli fa da sfondo (in corso), prišel è ciò che accade (compiuto)."
+      }
+    },
+    {
+      "sl": "Tine je pojedel vso juho.",
+      "en": "Tine has eaten up all the soup.",
+      "de": "Tine hat die ganze Suppe aufgegessen.",
+      "it": "Tine ha mangiato tutta la minestra."
+    },
+    {
+      "sl": "Ves dan bom {m:delal|f:delala} na vrtu.",
+      "en": "I'll be working in the garden all day.",
+      "de": "Ich werde den ganzen Tag im Garten arbeiten.",
+      "it": "Lavorerò in giardino tutto il giorno.",
+      "note": { "en": "ves dan, how long: the imperfective.", "de": "ves dan, wie lange: imperfektiv.", "it": "ves dan, quanto dura: l'imperfettivo." }
+    },
+    {
+      "sl": "Do večera bom {m:napisal|f:napisala} pismo.",
+      "en": "I'll have the letter written by the evening.",
+      "de": "Bis zum Abend werde ich den Brief geschrieben haben.",
+      "it": "Entro sera avrò scritto la lettera.",
+      "note": { "en": "do večera, done by then: the perfective.", "de": "do večera, bis dahin fertig: perfektiv.", "it": "do večera, finito per allora: il perfettivo." }
+    },
+    { "sl": "Zapri okno, prosim!", "en": "Close the window, please!", "de": "Mach bitte das Fenster zu!", "it": "Chiudi la finestra, per favore!" },
+    {
+      "sl": "Ne odpiraj okna, zunaj piha burja!",
+      "en": "Don't open the window, the bora is blowing outside!",
+      "de": "Mach das Fenster nicht auf, draußen weht die Bora!",
+      "it": "Non aprire la finestra, fuori soffia la bora!",
+      "note": {
+        "en": "Don't: ne + the imperfective (odpirati, not odpreti), and the object in the genitive, okna.",
+        "de": "Verbot: ne + imperfektiv (odpirati, nicht odpreti), und das Objekt im Genitiv, okna.",
+        "it": "Divieto: ne + l'imperfettivo (odpirati, non odpreti), e l'oggetto al genitivo, okna."
+      }
+    },
+    {
+      "sl": "Ne pozabi ključa!",
+      "en": "Don't forget the key!",
+      "de": "Vergiss den Schlüssel nicht!",
+      "it": "Non dimenticare la chiave!",
+      "note": {
+        "en": "A mishap to avoid: the perfective, pozabiti.",
+        "de": "Ein Missgeschick, vor dem man warnt: perfektiv, pozabiti.",
+        "it": "Un incidente da evitare: il perfettivo, pozabiti."
+      }
+    },
+    {
+      "sl": "Ne hodi tja, tam je medved!",
+      "en": "Don't go there, there's a bear!",
+      "de": "Geh nicht dorthin, da ist ein Bär!",
+      "it": "Non andare là, c'è un orso!",
+      "note": { "en": "Go! is pojdi, don't go! is ne hodi.", "de": "Geh! heißt pojdi, geh nicht! heißt ne hodi.", "it": "Va'! è pojdi, non andare! è ne hodi." }
+    },
+    {
+      "sl": "Jej, jej, saj si {m:lačen|f:lačna}!",
+      "en": "Eat, eat, you're hungry, aren't you!",
+      "de": "Iss, iss, du hast doch Hunger!",
+      "it": "Mangia, mangia, che hai fame!"
+    }
+  ],
+  "modules": [],
+  "tags": ["aspect_tense", "aspect_past", "aspect_future", "aspect_imperative", "negative_imperative"],
+  "see": ["glagolski-vid", "velelnik", "pretekli-cas", "prihodnjik", "rodilnik-nikalnica"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

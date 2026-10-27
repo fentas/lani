@@ -1,0 +1,125 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "sklanjatev-posebnosti",
+  "language": "sl",
+  "level": "B1",
+  "emoji": "🧩",
+  "title": {
+    "sl": "Posebni samostalniki: oče – očeta",
+    "en": "Odd nouns: stems that grow",
+    "de": "Besondere Nomen: Stämme, die wachsen",
+    "it": "Nomi particolari: temi che crescono"
+  },
+  "rule": {
+    "en": "Most nouns keep their stem and change only the ending. Some change the stem as soon as an ending comes, and keep the change in every form but the base form:\n\n- **+ t:** oče and the names in -e: **oče → očeta**, **Tone → Toneta**, **France → Franceta**.\n- **+ j:** many nouns in -ar and -ir, and names in -i: **mlinar → mlinarja**, **pastir → pastirja**, **krompir → krompirja**, **Muri → Murija**. After the j an ending's o is e: **z mlinarjem**. Not all: **sir → sira**.\n- **The e drops:** **pes → psa**, **ogenj → ognja**, **teden → tedna**, **konec → konca**; and **dan → dneva**.\n- **Neuters grow:** **ime → imena**, **tele → teleta**, **dekle → dekleta**, **drevo → drevesa**, **kolo → kolesa**.\n- **+ er:** **mati → matere**, **hči → hčere** (the accusative **mater, hčer**; **z materjo, s hčerjo**).\n- **The plural:** **človek → ljudje** (pet ljudi, z ljudmi), **otrok → otroci** (brez otrok, z otroki), and **-ov-** in short masculines: **sin → sinovi**, **most → mostovi**.\n\nA dictionary gives the genitive beside the noun (**pes, psa**): learn them together.",
+    "de": "Die meisten Nomen behalten ihren Stamm und ändern nur die Endung. Manche ändern den Stamm, sobald eine Endung kommt, und behalten die Änderung in jeder Form außer der Grundform:\n\n- **+ t:** oče und die Namen auf -e: **oče → očeta**, **Tone → Toneta**, **France → Franceta**.\n- **+ j:** viele Nomen auf -ar und -ir und Namen auf -i: **mlinar → mlinarja**, **pastir → pastirja**, **krompir → krompirja**, **Muri → Murija**. Nach dem j wird das o einer Endung zu e: **z mlinarjem**. Nicht alle: **sir → sira**.\n- **Das e fällt weg:** **pes → psa**, **ogenj → ognja**, **teden → tedna**, **konec → konca**; und **dan → dneva**.\n- **Neutra wachsen:** **ime → imena**, **tele → teleta**, **dekle → dekleta**, **drevo → drevesa**, **kolo → kolesa**.\n- **+ er:** **mati → matere**, **hči → hčere** (der Akkusativ **mater, hčer**; **z materjo, s hčerjo**).\n- **Der Plural:** **človek → ljudje** (pet ljudi, z ljudmi), **otrok → otroci** (brez otrok, z otroki) und **-ov-** bei kurzen Maskulina: **sin → sinovi**, **most → mostovi**.\n\nEin Wörterbuch gibt den Genitiv neben dem Nomen an (**pes, psa**): Lern sie zusammen.",
+    "it": "La maggior parte dei nomi tiene il suo tema e cambia solo la desinenza. Alcuni cambiano il tema appena arriva una desinenza, e tengono il cambiamento in ogni forma tranne quella base:\n\n- **+ t:** oče e i nomi propri in -e: **oče → očeta**, **Tone → Toneta**, **France → Franceta**.\n- **+ j:** molti nomi in -ar e -ir, e i nomi propri in -i: **mlinar → mlinarja**, **pastir → pastirja**, **krompir → krompirja**, **Muri → Murija**. Dopo la j la o di una desinenza diventa e: **z mlinarjem**. Non tutti: **sir → sira**.\n- **La e cade:** **pes → psa**, **ogenj → ognja**, **teden → tedna**, **konec → konca**; e **dan → dneva**.\n- **I neutri crescono:** **ime → imena**, **tele → teleta**, **dekle → dekleta**, **drevo → drevesa**, **kolo → kolesa**.\n- **+ er:** **mati → matere**, **hči → hčere** (l'accusativo **mater, hčer**; **z materjo, s hčerjo**).\n- **Il plurale:** **človek → ljudje** (pet ljudi, z ljudmi), **otrok → otroci** (brez otrok, z otroki), e **-ov-** nei maschili brevi: **sin → sinovi**, **most → mostovi**.\n\nIl dizionario dà il genitivo accanto al nome (**pes, psa**): imparali insieme."
+  },
+  "table": {
+    "head": [
+      { "sl": "imenovalnik (kdo? kaj?)", "en": "nominative (kdo? kaj?)", "de": "Nominativ (kdo? kaj?)", "it": "nominativo (kdo? kaj?)" },
+      { "sl": "rodilnik (koga? česa?)", "en": "genitive (koga? česa?)", "de": "Genitiv (koga? česa?)", "it": "genitivo (koga? česa?)" },
+      { "sl": "orodnik (s kom? s čim?)", "en": "instrumental (s kom? s čim?)", "de": "Instrumental (s kom? s čim?)", "it": "strumentale (s kom? s čim?)" },
+      { "sl": "množina", "en": "plural (množina)", "de": "Plural (množina)", "it": "plurale (množina)" }
+    ],
+    "rows": [
+      ["oče", "očeta", "z očetom", "očetje"],
+      ["Tone", "Toneta", "s Tonetom", "—"],
+      ["mlinar", "mlinarja", "z mlinarjem", "mlinarji"],
+      ["pes", "psa", "s psom", "psi"],
+      ["dan", "dneva", "z dnevom", "dnevi"],
+      ["človek", "človeka", "s človekom", "ljudje"],
+      ["otrok", "otroka", "z otrokom", "otroci"],
+      ["sin", "sina", "s sinom", "sinovi"],
+      ["ime", "imena", "z imenom", "imena"],
+      ["drevo", "drevesa", "z drevesom", "drevesa"],
+      ["mati", "matere", "z materjo", "matere"],
+      ["hči", "hčere", "s hčerjo", "hčere"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Jutri grem k Tonetu po nove žeblje.",
+      "en": "Tomorrow I'm going to Tone's for new nails.",
+      "de": "Morgen gehe ich zu Tone, neue Nägel holen.",
+      "it": "Domani vado da Tone a prendere chiodi nuovi.",
+      "note": {
+        "en": "Tone is a name in -e: it grows a t, Toneta, Tonetu, s Tonetom.",
+        "de": "Tone ist ein Name auf -e: Er bekommt ein t, Toneta, Tonetu, s Tonetom.",
+        "it": "Tone è un nome in -e: prende una t, Toneta, Tonetu, s Tonetom."
+      }
+    },
+    {
+      "sl": "Zala je šla s pastirjem Luko na pašnik.",
+      "en": "Zala went to the pasture with Luka the shepherd.",
+      "de": "Zala ist mit dem Hirten Luka auf die Weide gegangen.",
+      "it": "Zala è andata al pascolo con il pastore Luka.",
+      "note": {
+        "en": "pastir grows a j, and after the j the ending is -em: s pastirjem.",
+        "de": "pastir bekommt ein j, und nach dem j heißt die Endung -em: s pastirjem.",
+        "it": "pastir prende una j, e dopo la j la desinenza è -em: s pastirjem."
+      }
+    },
+    {
+      "sl": "Muri spi pri ognju.",
+      "en": "Muri is asleep by the fire.",
+      "de": "Muri schläft am Feuer.",
+      "it": "Muri dorme vicino al fuoco.",
+      "note": {
+        "en": "ogenj loses its e as soon as an ending comes: ognja, pri ognju.",
+        "de": "ogenj verliert sein e, sobald eine Endung kommt: ognja, pri ognju.",
+        "it": "ogenj perde la e appena arriva una desinenza: ognja, pri ognju."
+      }
+    },
+    {
+      "sl": "Do konca tedna bo deževalo.",
+      "en": "It will rain until the end of the week.",
+      "de": "Bis Ende der Woche wird es regnen.",
+      "it": "Pioverà fino alla fine della settimana."
+    },
+    {
+      "sl": "Na sejmu je bilo veliko ljudi.",
+      "en": "There were a lot of people at the fair.",
+      "de": "Auf dem Jahrmarkt waren viele Leute.",
+      "it": "Alla fiera c'era tanta gente.",
+      "note": {
+        "en": "ljudje is the plural of človek; after veliko its genitive, ljudi.",
+        "de": "ljudje ist der Plural von človek; nach veliko sein Genitiv, ljudi.",
+        "it": "ljudje è il plurale di človek; dopo veliko il suo genitivo, ljudi."
+      }
+    },
+    {
+      "sl": "Mojca se rada pogovarja z otroki.",
+      "en": "Mojca likes talking with the children.",
+      "de": "Mojca unterhält sich gern mit den Kindern.",
+      "it": "A Mojca piace parlare con i bambini."
+    },
+    {
+      "sl": "Luka sedi pod starim drevesom.",
+      "en": "Luka is sitting under the old tree.",
+      "de": "Luka sitzt unter dem alten Baum.",
+      "it": "Luka è seduto sotto il vecchio albero.",
+      "note": {
+        "en": "drevo grows -es- in every form but the base: drevesa, pod drevesom.",
+        "de": "drevo bekommt -es- in jeder Form außer der Grundform: drevesa, pod drevesom.",
+        "it": "drevo prende -es- in ogni forma tranne quella base: drevesa, pod drevesom."
+      }
+    },
+    {
+      "sl": "Micka govori s hčerjo po telefonu.",
+      "en": "Micka is talking to her daughter on the phone.",
+      "de": "Micka telefoniert mit ihrer Tochter.",
+      "it": "Micka parla al telefono con sua figlia.",
+      "note": {
+        "en": "hči grows -er-: hčere, s hčerjo. In everyday speech: s hčerko, of hčerka.",
+        "de": "hči bekommt -er-: hčere, s hčerjo. In der Umgangssprache: s hčerko, von hčerka.",
+        "it": "hči prende -er-: hčere, s hčerjo. Nel parlato: s hčerko, da hčerka."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["irregular_noun", "stem_change", "fleeting_e", "noun_stem"],
+  "see": ["sklanjatev-moski", "sklanjatev-zenski", "sklanjatev-srednji", "mnozina", "skloni"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

@@ -24,7 +24,7 @@ Android app ──HTTP/SSE──► bridge service ◄──unix socket (MCP)─
 |---|---|
 | `bridge/` | Claude Code channel server (Bun/TS). Forwards app messages into the session, exposes `reply`, `publish_module`, `publish_pack`, `publish_grammar`, `publish_worksheet`, `publish_scenario`, `publish_scene`, `publish_reading` and `publish_gloss` tools, relays permission prompts, serves the app API. |
 | `lexicon/` | Word lookup's dictionaries (see [Word lookup](#word-lookup)): `sl.json`, built from Wiktionary, with its meanings in Italian and German, `sl.extra.json`, a hand-written supplement, and `sl.forms.json`, the forms book: hand-checked tables of the irregular verbs and the verb pairs (see [Word forms](#word-forms)). The larger ones (Italian, German, English) are downloads (`LANI_LEXICON_URL`). |
-| `grammar/` | The grammar book's curated pages (`lani.grammar/v0`, one rule each, see [Grammar book](#grammar-book)): `grammar/<language>/`, 44 in `grammar/sl/`, 16 each in `grammar/it/`, `grammar/de/` and `grammar/en/`. |
+| `grammar/` | The grammar book's curated pages (`lani.grammar/v0`, one rule each, see [Grammar book](#grammar-book)): `grammar/<language>/`, 49 in `grammar/sl/`, 16 each in `grammar/it/`, `grammar/de/` and `grammar/en/`. |
 | `cards/` | The cheat sheet's curated cards no grammar page fits (`lani.card/v0`, see [Cheat sheet](#cheat-sheet)): `cards/<language>/<id>.json`. |
 | `course/` | The school's course (see [The school's course](#the-schools-course) and [COURSE.md](COURSE.md)): `course/<language>/course.json`, the outline of its levels and units (`lani.course/v0`), and `course/<language>/units/<id>.json`, a unit each (`lani.unit/v0`). |
 | `drills/` | The car's audio drills (`lani.drill/v0`, see [The drills](#the-drills)): `drills/<language>/`, four in `drills/sl/` (transformations, rapid fire, sentence building, riddles). |
@@ -1722,7 +1722,7 @@ categories and ids, a tag's words in a row: `accusative` matches `accusative_fem
 `vocab_iz_genitive_fem`), related pages (`see`), `machine_written` and `review`. English is always there: it is every
 base's fallback. The tutor's `more` is a clearer or longer explanation, shown as the tutor's.
 
-**Curated pages** are `companion/grammar/<language>/<id>.json`. Slovene has 44, each explained in English, German and
+**Curated pages** are `companion/grammar/<language>/<id>.json`. Slovene has 49, each explained in English, German and
 Italian (machine-written, not reviewed by a native speaker): `kje-mestnik-orodnik` (Kje? v, na, ob, pri + locative, v or
 na; pod, za … and blizu point on to their A2 pages), `kam-tozilnik` (Kam? the accusative, k + dative, domov),
 `rodilnik-predlogi` (iz, z/s, od, do, blizu, brez), `rodilnik-nikalnica` (nimam časa; ne berem knjigo, ampak revijo),
@@ -1747,7 +1747,10 @@ uro) and `zanikanje` (ne vidim nič, nikoli nisem). And what docs/grammar-syllab
 drugi; petega maja, katerega smo danes), `mnozina` (konji, ovce, okna; ljudje, otroci), `vezniki` (in, ampak, ker, ko,
 če; kadar, čeprav, zato), `namenilnik` (grem spat, pridi jest), `glagolski-vid` (delati or narediti, pisati or
 napisati), and at B1 `oziralni-ki` (človek, ki ga poznam; vas, v kateri živim) and `odvisni-govor` (rekel je, da pride;
-naj pridem). Their levels follow when each is learnt (the cases' in `skloni`; the rest as docs/grammar-syllabus.md has
+naj pridem), and the B1 units' own: `sklanjatev-posebnosti` (oče – očeta, mlinar – mlinarja, pes – psa, ljudje),
+`dvojina-skloni` (z dvema družinama, pri dveh bratih; naju, jima), `vid-casi` (je jedel or je pojedel, bom napisal,
+ne odpiraj okna, ne hodi tja), `dolocna-oblika` (zelen nož or zeleni nož, Stari Janez) and `odvisniki` (ker, če, da bi,
+tako da, čeprav; a clause in front). Their levels follow when each is learnt (the cases' in `skloni`; the rest as docs/grammar-syllabus.md has
 them).
 
 Italian, German and English have 16 each, A1 and A2, explained in the bases their learners have (Italian in Slovene,
