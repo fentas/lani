@@ -229,8 +229,7 @@ class Clips(context: Context, private val scope: CoroutineScope, private val vis
     }
 
     /** The node has a clip for [text] (any voice), which also proves the text is Slovene. */
-    fun has(text: String): Boolean =
-        index[Voice.normalize(text)]?.isNotEmpty() == true || resolve(index, text, FEMALE) != null || resolve(index, text, MALE) != null
+    fun has(text: String): Boolean = has(index, text)
 
     /**
      * The node has a voice store with clips, so buttons can speak even without a TTS voice; on a visit, the node can be
@@ -698,6 +697,13 @@ class Clips(context: Context, private val scope: CoroutineScope, private val vis
             ask()?.let { return it }
             return voices.drop(1).firstNotNullOfOrNull { v -> index[key]?.get(v)?.let { it to v } }
         }
+
+        /**
+         * [index] has a clip for [text] in any voice, or one for each of its phrases in a narrator's ([Clips.has]; the node's
+         * port, companion/bridge/src/course-speech.ts indexHas, reads the same: IntroSpeechParityTest).
+         */
+        fun has(index: ClipIndex, text: String): Boolean =
+            index[Voice.normalize(text)]?.isNotEmpty() == true || resolve(index, text, FEMALE) != null || resolve(index, text, MALE) != null
 
         /** The first of [voices] with clips for [text], and those clip URLs. */
         fun resolveFirst(index: ClipIndex, text: String, voices: List<String>, lang: String? = null): Pair<String, List<String>>? =

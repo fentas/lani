@@ -378,17 +378,14 @@ internal fun introReader(vm: AppViewModel): IntroVoice.Reader {
 internal fun summaryScript(vm: AppViewModel, unit: CourseUnit, intro: Intro): IntroSpeech.Script? {
     val base = L10n.pair.base.code
     val page = unit.grammar.firstNotNullOfOrNull { vm.grammar.page(it) }
-    val say = page?.ruleIn(base)?.takeIf { it.isNotBlank() } ?: unit.goal?.let { Grammar.text(it, base) }?.takeIf { it.isNotBlank() } ?: return null
-    val known = IntroSpeech.vocabulary(intro, unit.language, unit.title[unit.language], vm.speaker::isSlovene)
-    return IntroSpeech.step("${unit.id}/summary/${say.hashCode()}", say, base, emptyList(), null) { t -> vm.speaker.isSlovene(t) || IntroSpeech.within(t, known) }
+    val say = IntroSpeech.summarySay(page?.rule, unit.goal, base) ?: return null
+    return IntroSpeech.summary("${unit.id}/summary/${say.hashCode()}", say, base, intro, unit.language, unit.title[unit.language], vm.speaker::isSlovene)
 }
 
 internal fun introScript(vm: AppViewModel, unit: CourseUnit, intro: Intro, i: Int): IntroSpeech.Script {
-    val s = intro.steps[i]
     val base = L10n.pair.base.code
-    val say = Grammar.text(s.say, base)
-    val known = IntroSpeech.vocabulary(intro, unit.language, unit.title[unit.language], vm.speaker::isSlovene)
-    return IntroSpeech.step("${unit.id}/$i/${say.hashCode()}", say, base, s.examples.map { it.target(unit.language) }, s.ask) { t -> vm.speaker.isSlovene(t) || IntroSpeech.within(t, known) }
+    val say = Grammar.text(intro.steps[i].say, base)
+    return IntroSpeech.introStep("${unit.id}/$i/${say.hashCode()}", intro, i, unit.language, base, unit.title[unit.language], vm.speaker::isSlovene)
 }
 
 /** What she says now, for the stage's bubble: the run, the example, the question, the answer; null between. */
@@ -636,13 +633,13 @@ private fun IntroAsk(
                                     picked = o
                                     val v = ask.verdict(o)
                                     verdict = v
-                                    onAnswered(v, gapFilled(ask.prompt, ask.options.getOrNull(ask.answer)))
+                                    onAnswered(v, IntroSpeech.answer(ask))
                                 }
                             },
                             colors = color, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
                         ) { Text(opt, Modifier.padding(14.dp), style = MaterialTheme.typography.titleMedium) }
                     }
-                    verdict?.let { v -> AskResult(vm, v, ask.options.getOrNull(ask.answer).orEmpty(), ask.explain, gapFilled(ask.prompt, ask.options.getOrNull(ask.answer)), reader, said, onSaid) }
+                    verdict?.let { v -> AskResult(vm, v, ask.options.getOrNull(ask.answer).orEmpty(), ask.explain, IntroSpeech.answer(ask), reader, said, onSaid) }
                 }
                 is Exercise.Cloze -> {
                     var value by remember { mutableStateOf(TextFieldValue("")) }
@@ -660,21 +657,15 @@ private fun IntroAsk(
                         BigButton(bi("playerScreen.check"), enabled = value.text.isNotBlank(), onClick = {
                             val v = Grading.check(value.text, ask.accept).verdict
                             verdict = v
-                            onAnswered(v, gapFilled(ask.text, ask.accept.firstOrNull()))
+                            onAnswered(v, IntroSpeech.answer(ask))
                         })
                     }
-                    verdict?.let { v -> AskResult(vm, v, ask.accept.firstOrNull().orEmpty(), ask.explain, gapFilled(ask.text, ask.accept.firstOrNull()), reader, said, onSaid) }
+                    verdict?.let { v -> AskResult(vm, v, ask.accept.firstOrNull().orEmpty(), ask.explain, IntroSpeech.answer(ask), reader, said, onSaid) }
                 }
                 else -> Unit
             }
         }
     }
-}
-
-/** A sentence with its gap filled with [answer], without a translation in brackets at its end; null when there's no gap. */
-private fun gapFilled(text: String, answer: String?): String? {
-    if (answer == null || !Sheets.GAP.containsMatchIn(text)) return null
-    return text.replace(Sheets.GAP, answer).replace(Regex("""\s*\([^()]*\)\s*$"""), "").trim()
 }
 
 /**

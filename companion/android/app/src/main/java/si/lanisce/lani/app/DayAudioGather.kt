@@ -8,7 +8,6 @@ import si.lanisce.lani.audio.DayPlan
 import si.lanisce.lani.audio.DayWant
 import si.lanisce.lani.data.Clips
 import si.lanisce.lani.data.Course
-import si.lanisce.lani.data.Grammar
 import si.lanisce.lani.data.GrammarPage
 import si.lanisce.lani.data.IntroSpeech
 import si.lanisce.lani.data.Pack
@@ -216,10 +215,8 @@ class DayAudioGather(
         return after.mapNotNull { c.units[it] }.filter { School.progress(s, c.language, it.id)?.introDone != true }.flatMap { u ->
             val intro = u.intro ?: return@flatMap emptyList()
             // as the step reads it (ui/school/IntroScreen): the app's check and the words the intro shows
-            val known = IntroSpeech.vocabulary(intro, u.language, u.title[u.language], isSlovene)
-            intro.steps.flatMapIndexed { i, step ->
-                val say = Grammar.text(step.say, base)
-                val script = IntroSpeech.step("${u.id}/$i", say, base, step.examples.map { it.target(u.language) }, step.ask) { t -> isSlovene(t) || IntroSpeech.within(t, known) }
+            intro.steps.indices.flatMap { i ->
+                val script = IntroSpeech.introStep("${u.id}/$i", intro, i, u.language, base, u.title[u.language], isSlovene)
                 val slovene = (script.stitched + script.lines).filter { it.slovene }.map { it.text }
                 DayAudio.intro(listOfNotNull(script.explanation?.plain?.takeIf { explains }), slovene, base, voices, "school:${u.id}")
             }

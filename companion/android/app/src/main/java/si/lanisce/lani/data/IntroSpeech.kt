@@ -6,7 +6,10 @@ package si.lanisce.lani.data
  * when the node made it ([plain], [key]: the explanation voiced in one go, in the teacher's voice), else in runs ([runs]):
  * the base-language parts by the phone's voice, the Slovene parts (in bold, italics or „quotes“ that [Speaker.isSlovene]
  * says are Slovene, as the chat's Markdown taps them) in the teacher's voice, at their place; then the step's examples;
- * then the quick question as far as it gives nothing away ([question]). Pure.
+ * then the quick question as far as it gives nothing away ([question]), and once it is answered the sentence with the gap
+ * filled ([answer]). Pure. The node reads the same to voice it ahead in the teacher's voice (companion/bridge/src/
+ * course-speech.ts, a port of this): bridge/test/fixtures/intro-speech.json holds what both read, checked here by
+ * IntroSpeechParityTest and there by the smoke, so the two can't drift.
  *
  * Where a run is shown: the line of the Markdown it is on (its index in `text.trim().lines()`, as [si.lanisce.lani.ui.Markdown]
  * walks them) and its segments there ([segments]: the plain text and the spans of the line's inline Markdown, in order), so
@@ -219,20 +222,75 @@ object IntroSpeech {
     }
 
     /**
-     * A quick question as read before it's answered: its instruction in the base, then its prompt with the gap a pause
-     * ([question]), in the teacher's voice when it is Slovene, else in its runs (a question in the base with its Slovene
-     * marked). Nothing for another kind of question.
+     * What step [i] of [intro] reads (ui/school/IntroScreen, the day's audio): its explanation in [base] ([Grammar.text]: the
+     * base's, else the English), its examples in [language], its quick question; Slovene what [isSlovene] (the app's check,
+     * [Speaker.isSlovene]) says is, and the words the intro itself shows ([vocabulary], [within]: "**Biti**"). [id]: whose.
+     */
+    fun introStep(id: String, intro: Intro, i: Int, language: String, base: String, title: String?, isSlovene: (String) -> Boolean): Script {
+        val s = intro.steps[i]
+        val known = vocabulary(intro, language, title, isSlovene)
+        return step(id, Grammar.text(s.say, base), base, s.examples.map { it.target(language) }, s.ask) { t -> isSlovene(t) || within(t, known) }
+    }
+
+    /**
+     * What the summary at an intro's end reads: the unit's grammar page's [rule] in [base] (its table is to look at), else
+     * the unit's [goal]; null with neither.
+     */
+    fun summarySay(rule: Map<String, String>?, goal: Map<String, String>?, base: String): String? =
+        rule?.let { Grammar.text(it, base) }?.takeIf { it.isNotBlank() } ?: goal?.let { Grammar.text(it, base) }?.takeIf { it.isNotBlank() }
+
+    /** The summary read as a step is ([summarySay]: its explanation, nothing else), the intro's words Slovene as in its steps. */
+    fun summary(id: String, say: String, base: String, intro: Intro, language: String, title: String?, isSlovene: (String) -> Boolean): Script {
+        val known = vocabulary(intro, language, title, isSlovene)
+        return step(id, say, base, emptyList(), null) { t -> isSlovene(t) || within(t, known) }
+    }
+
+    /** The sentence of a quick question's answer, read once it is answered: its prompt with the gap filled with the right answer. */
+    fun answer(ask: Exercise?): String? = when (ask) {
+        is Exercise.Choice -> gapFilled(ask.prompt, ask.options.getOrNull(ask.answer))
+        is Exercise.Cloze -> gapFilled(ask.text, ask.accept.firstOrNull())
+        else -> null
+    }
+
+    /** A sentence with its gap filled with [answer], without a translation in brackets at its end; null when there's no gap. */
+    fun gapFilled(text: String, answer: String?): String? {
+        if (answer == null || !Sheets.GAP.containsMatchIn(text)) return null
+        return text.replace(Sheets.GAP, answer).replace(TRAILING_BRACKETS, "").trim()
+    }
+
+    /**
+     * A quick question as read before it's answered: its instruction ([instructionLines]), then its prompt with the gap a
+     * pause ([question]), in the teacher's voice when it is in the language learned (a sentence with a gap to fill and no
+     * Markdown, a word named in »quotes«, or what [isSlovene] says is), else in its runs (a question in the base marks its
+     * Slovene: "Which form goes with **mi**? ___"). Nothing for another kind of question.
      */
     fun questionLines(ask: Exercise?, isSlovene: (String) -> Boolean): List<Line> {
         val q = ask?.let(::question) ?: return emptyList()
-        val instruction = when (ask) {
-            is Exercise.Choice -> ask.instruction
-            is Exercise.Cloze -> ask.instruction
-            else -> null
+        val (instruction, gapped) = when (ask) {
+            is Exercise.Choice -> ask.instruction to Sheets.GAP.containsMatchIn(ask.prompt)
+            is Exercise.Cloze -> ask.instruction to true
+            else -> null to false
         }
-        val first = instruction?.let { runs(it, isSlovene) }.orEmpty().map { Line(it.text, it.slovene, Mark.Question) }
-        val prompt = if (isSlovene(q)) listOf(Line(q, true, Mark.Question)) else runs(q, isSlovene).map { Line(it.text, it.slovene, Mark.Question) }
+        val first = instruction?.let { instructionLines(it, isSlovene) }.orEmpty()
+        val learned = (gapped && !INLINE.containsMatchIn(q)) || NAMED.matches(q) || isSlovene(q)
+        val prompt = if (learned) listOf(Line(q, true, Mark.Question)) else runs(q, isSlovene).map { Line(it.text, it.slovene, Mark.Question) }
         return first + prompt
+    }
+
+    /**
+     * A quick question's instruction as read: a label as the app writes them, the language learned and then the base
+     * ("Kakšnega spola? · Which gender?", no Markdown), its first part in the teacher's voice and its second in the base;
+     * else in its runs.
+     */
+    fun instructionLines(text: String, isSlovene: (String) -> Boolean): List<Line> {
+        val label = LABEL.matchEntire(text)?.takeIf { !INLINE.containsMatchIn(text) }
+        if (label != null) {
+            return listOfNotNull(
+                said(label.groupValues[1])?.let { Line(it, true, Mark.Question) },
+                said(label.groupValues[2])?.let { Line(it, false, Mark.Question) },
+            )
+        }
+        return runs(text, isSlovene).map { Line(it.text, it.slovene, Mark.Question) }
     }
 
     /** A Markdown body without the marks of the spans inside it. */
@@ -257,4 +315,10 @@ object IntroSpeech {
     private val NUMBERED = Regex("""^(\d+)[.)]\s+(.*)""")
     private val SPACE = Regex("""\s+""")
     private val TRAILING_BRACKETS = Regex("""\s*\([^()]*\)\s*$""")
+
+    /** A label: the language learned, then the base ("Izberi · Pick"). */
+    private val LABEL = Regex("""([^·]+) · ([^·]+)""")
+
+    /** A word or phrase named in »quotes« (»smreka«, the prompt of "which gender?"). */
+    private val NAMED = Regex("""»[^»«]+«""")
 }

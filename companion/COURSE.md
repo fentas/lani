@@ -165,7 +165,13 @@ goes (`data/IntroVoice.kt`, what is read: `data/IntroSpeech.kt`):
 2. **The examples**, one after the other in Mojca's voice (their translations not read), each card marked.
 3. **The quick question**, as far as it gives nothing away: a gap read as a pause ("Luka … na pašniku."), a choice's
    options never, a translation in brackets at its end left out. Once answered, the sentence with the answer is read
-   (as an exercise's feedback), and Mojca reacts (a smile, a shrug).
+   (as an exercise's feedback), and Mojca reacts (a smile, a shrug). In Mojca's voice: a sentence with a gap to fill
+   (a cloze's, a choice's without Markdown: "Micka in France … na njivi."), a word named in »quotes« ("»smreka«"), and
+   the first half of an instruction written as a label ("Kakšnega spola? · Which gender?": the language learned, then
+   the base, no Markdown; the second half in the base). Anything else as the explanation is read: what the app's check
+   says is Slovene in her voice, a question in the base in its runs ("Which form goes with **mi**? ___"). Until
+   2026-10-27 the app's check alone decided, and 18 of the 82 quick questions had their Slovene read by the phone's
+   English voice.
 
 The Slovene of the reading comes as a line's 🔊 does: her clip on the phone, else the node voices it now, else another
 of her voices' clip on the phone, else the phone's offline voice (Piper), else the phone's voice for Slovene. 🔊 on the
