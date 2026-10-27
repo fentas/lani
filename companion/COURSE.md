@@ -335,6 +335,15 @@ phone has an app that plays them.
 - `items`: 2–12, each `from` (what is given), `accept` (the whole answer: a sentence or a word), `hint`, `explain`,
   `grammar`, and `lemma`/`form` as in a table.
 - Each line typed whole, graded on its own.
+- **The person in brackets may be left out** (Slovene and Italian drop the subject; the language's grading table,
+  `drop_subject`): when a line has no subject of its own and its answer begins with the person in brackets
+  (`"Pečem kruh. (babica)"` → `"Babica peče kruh."`), the answer without it is right too (`"Peče kruh."`), and with the
+  line's own word order (`"Učim se brati. (Tine)"` → `"Uči se brati."`, as `"Se uči brati."`). Not when the bracket is
+  what the line is to take in (`"Pomagam. (lahko)"` → `"Lahko pomagam."`) or replaces a word of the line
+  (`"Kruh je svež. (mleko)"` → `"Mleko je sveže."`): the answer must have it. `"whole": true` on the list asks for every
+  word whatever the line (an instruction that says so: "Napiši cel stavek · Write the whole sentence"), and is what a
+  list needs whose bracket goes in front but isn't the person while the verb changes (`"Grem domov. (jutri)"` →
+  `"Jutri pojdem domov."`: the app can't tell it from a person).
 
 ### sort: words into columns
 
@@ -496,7 +505,9 @@ page turns on that page's forms too.
   the forms book's: `pres.1sg` … `pres.3du`, `neg.*`, `fut.*`, `past.m.sg` … `past.f.du`, `imp.2sg` …, the cases
   `nom|gen|dat|acc|loc|ins` `.sg|.pl|.du`, `adj.m.sg` ….
 - **Several right answers**: list every one in `accept` (with and without the pronoun: `"Nisi lačen."`, `"Ti nisi
-  lačen."`); case and the final full stop don't matter, č/š/ž forgotten is almost.
+  lačen."`); case and the final full stop don't matter, č/š/ž forgotten is almost. A transform's person in brackets
+  added in front of a line without a subject may be left out without listing it (above); one that replaces the line's
+  subject (`"One so kuhale. (onidve)"`) needs both listed (`"Onidve sta kuhali."`, `"Kuhali sta."`).
 - **The word bank** for the first gap text of a unit (easier), none for the second and the test.
 - **The intro's table** is the rule's table built row by row: give the head once (`intro.table.head`) and each step's
   new rows; a step without rows (an agreement step) only talks and asks. The last step is the exception or the twist.

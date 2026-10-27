@@ -217,6 +217,12 @@ right, almost or wrong with its correction. In a test an almost-right item count
 - `items`: 2-12, each `from` (what is given), `accept` (the whole answer: a sentence or a word), `hint`, `explain`,
   `grammar`, and `lemma`/`form` as in a table.
 - Each line typed whole, graded on its own.
+- A person in brackets put in front of a line that has no subject (`"Pečem kruh. (babica)"` → `"Babica peče kruh."`)
+  may be left out of the answer (`"Peče kruh."`; with a clitic, the line's order too: `"Uči se brati."`): the app
+  accepts it without listing it (Slovene and Italian drop the subject). Not a bracket that replaces a word of the line
+  (`"Kruh je svež. (mleko)"`) or that the line is to take in (`"Pomagam. (lahko)"`): list what is right. `"whole": true`
+  (optional) asks for every word, the person too, when the instruction says so ("Napiši cel stavek · Write the whole
+  sentence").
 
 ### `sort` — words into columns
 ```json

@@ -252,7 +252,10 @@ sealed interface Exercise {
         override val grammar: String? = null,
     ) : Exercise
 
-    /** A list to change ("sem → nisem"), one [instruction] for all, each line typed whole. */
+    /**
+     * A list to change ("sem → nisem"), one [instruction] for all, each line typed whole; [whole]: every word of its
+     * answers asked for, the person in brackets too (else it may be left out: [Sheets.withoutPerson]).
+     */
     @Serializable @SerialName("transform")
     data class Transform(
         val instruction: String,
@@ -260,6 +263,7 @@ sealed interface Exercise {
         val cue: String? = null,
         val explain: String? = null,
         override val grammar: String? = null,
+        val whole: Boolean = false,
     ) : Exercise
 
     /** Words into 2–4 [columns] (moški, ženski, srednji spol), by tap: a word, then its column. */

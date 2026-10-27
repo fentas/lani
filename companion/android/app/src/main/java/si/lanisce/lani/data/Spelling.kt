@@ -3,6 +3,7 @@ package si.lanisce.lani.data
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.booleanOrNull
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
@@ -19,6 +20,8 @@ import java.util.concurrent.ConcurrentHashMap
  *   almost right, with [foldHint];
  * - [loose]: after [fold], what is almost right too, with [looseHint] (Italian: "un amica" for "un'amica", "la acqua"
  *   for "l'acqua").
+ * [dropSubject]: the language leaves its subject out where the verb's ending says the person (Slovene "Spita v šotoru.",
+ * Italian "Dormono in tenda."): a worksheet's person in brackets may be left out of the answer ([Sheets.withoutPerson]).
  * A language without a table compares letters as they are.
  */
 class Spelling(
@@ -28,6 +31,7 @@ class Spelling(
     val foldHint: Grading.Hint = Grading.Hint.NONE,
     val loose: List<Rule> = emptyList(),
     val looseHint: Grading.Hint = Grading.Hint.NONE,
+    val dropSubject: Boolean = false,
 ) {
     class Rule(val pattern: Regex, val replacement: String) {
         fun apply(s: String): String = pattern.replace(s, replacement)
@@ -53,6 +57,7 @@ class Spelling(
                 foldHint = hint(o, "fold_hint"),
                 loose = rules(o, "loose"),
                 looseHint = hint(o, "loose_hint"),
+                dropSubject = o["drop_subject"]?.jsonPrimitive?.booleanOrNull ?: false,
             )
         }
 

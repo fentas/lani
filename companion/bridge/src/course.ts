@@ -112,6 +112,12 @@ const transform = z.strictObject({
   instruction: text,
   /** Shown between each line and its answer: "(preteklik)". */
   cue: opt,
+  /**
+   * Every word of `accept` asked for. Without it, the person in brackets after a line ("Pečem kruh. (babica)") may be
+   * left out of the answer as the line leaves its own subject out ("Peče kruh.": the verb's ending says the person; the
+   * app's grading, in a language that drops its subject); with it, the instruction asks for the whole sentence.
+   */
+  whole: z.boolean().optional(),
   items: z
     .array(z.strictObject({ from: text, accept: z.array(text).min(1), hint: opt, explain: opt, grammar, lemma: opt, form: form.optional() }))
     .min(2)

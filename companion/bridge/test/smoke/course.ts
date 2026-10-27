@@ -52,6 +52,9 @@ export default async function course() {
   const fixture = validateUnit(unit)
   check('the fixture unit validates: all four sheet types, an intro with rows and questions, two worksheets, a test', fixture.ok, errors(fixture))
   check('the fixture outline validates', validateCourse(outline).ok, errors(validateCourse(outline)))
+  // a list that asks for the whole sentence: its person in brackets written too (the app's grading, COURSE.md "transform")
+  const whole = validateUnit(withSheet({ ...transform, whole: true }))
+  check('a transform that asks for every word ("whole": true) validates', whole.ok, errors(whole))
   const refused: [string, unknown, string?][] = [
     ['a gap text whose gaps are fewer than its ___', withSheet({ ...gaptext, gaps: gaptext.gaps.slice(0, 2) }), '2 gaps for the 3 ___'],
     ['distractors without a word bank', withSheet({ ...gaptext, bank: false }), 'only with a word bank'],
@@ -64,6 +67,7 @@ export default async function course() {
     ['a sort with 3 words', withSheet({ ...sort, columns: [{ label: 'a', words: ['sem', 'si'] }, { label: 'b', words: ['smo'] }] }), '3 words'],
     ['a transform without its instruction', withSheet({ ...transform, instruction: undefined })],
     ['an unknown key (strict)', withSheet({ ...transform, colour: 'red' }), 'Unrecognized key'],
+    ["a transform's whole that isn't true or false", withSheet({ ...transform, whole: 'yes' })],
     ['an intro row longer than the head', { ...unit, intro: { ...unit.intro, steps: [{ ...unit.intro.steps[0], rows: [['jaz', 'sem', 'extra']] }] } }, '3 cells, the head has 2'],
     ['intro rows without a table', { ...unit, intro: { steps: unit.intro.steps } }, 'rows need the table'],
     ["an intro example without the course's language", { ...unit, intro: { ...unit.intro, steps: [{ ...unit.intro.steps[0], examples: [{ en: 'I am.' }] }] } }, 'course\'s language ("sl")'],

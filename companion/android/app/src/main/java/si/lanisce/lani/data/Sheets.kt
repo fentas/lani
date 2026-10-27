@@ -1,13 +1,18 @@
 package si.lanisce.lani.data
 
 import si.lanisce.lani.data.Grading.Verdict
+import si.lanisce.lani.l10n.L10n
+import si.lanisce.lani.l10n.Lang
 import kotlin.random.Random
 
 /**
  * One item of a worksheet exercise (companion/COURSE.md, "The school's exercise types"): a gap, a cell to fill, a line of
- * a transform list, a word to sort. [accept]: what is right (a sorted word's: its column's label); [grammar]: its rule
- * (its own, else the exercise's); [frame]: the sentence it stands in with `___` where the answer goes ("Babica ___ v
- * kuhinji."), what a slip on its rule keeps; [lemma] and [form]: the word's form it practises (the forms book's key).
+ * a transform list, a word to sort. [accept]: what is right (a sorted word's: its column's label; a transform line's,
+ * the answers written and those without the person in brackets, [Sheets.withoutPerson]); [grammar]: its rule (its own,
+ * else the exercise's); [frame]: the sentence it stands in with `___` where the answer goes ("Babica ___ v kuhinji."),
+ * what a slip on its rule keeps; [lemma] and [form]: the word's form it practises (the forms book's key); [person]: the
+ * person in brackets the answer may leave out ("Luka in Tine"), and [left] each answer without it that is the whole one
+ * with only the person left out ("spita v šotoru" → "Luka in Tine spita v šotoru.", compared as [Grading.normalize]s).
  */
 data class SheetItem(
     val accept: List<String>,
@@ -17,6 +22,8 @@ data class SheetItem(
     val frame: String = Sheets.BLANK,
     val lemma: String? = null,
     val form: String? = null,
+    val person: String? = null,
+    val left: Map<String, String> = emptyMap(),
 ) {
     /** [frame] with [answer] in its gap. */
     fun said(answer: String): String = frame.replaceFirst(Sheets.BLANK, answer.trim())
@@ -84,8 +91,8 @@ object Sheets {
         return text.substring(start, end).trim()
     }
 
-    /** The items of [ex] in order; none for an exercise that isn't one of the four. */
-    fun items(ex: Exercise): List<SheetItem> = when (ex) {
+    /** The items of [ex] in order (in [lang], the language learned); none for an exercise that isn't one of the four. */
+    fun items(ex: Exercise, lang: Lang = L10n.pair.target): List<SheetItem> = when (ex) {
         is Exercise.GapText -> {
             val p = parts(ex.text)
             ex.gaps.mapIndexed { i, g ->
@@ -105,12 +112,121 @@ object Sheets {
                 SheetItem(cell.accept, cell.grammar ?: ex.grammar, cell.hint, cell.explain, frame, ex.lemma, cell.form)
             }
         }
-        is Exercise.Transform -> ex.items.map { SheetItem(it.accept, it.grammar ?: ex.grammar, it.hint, it.explain, BLANK, it.lemma, it.form) }
+        is Exercise.Transform -> ex.items.map { line ->
+            val without = if (ex.whole) emptyList() else withoutPerson(line.from, line.accept, lang)
+            SheetItem(
+                line.accept + without.map { it.answer }, line.grammar ?: ex.grammar, line.hint, line.explain, BLANK, line.lemma, line.form,
+                person = without.firstOrNull()?.let { person(line.from) },
+                left = without.filter { it.dropped }.associate { Grading.normalize(it.answer, lang) to it.whole },
+            )
+        }
         is Exercise.Sort -> ex.columns.flatMap { col -> col.words.map { w -> SheetItem(listOf(col.label), ex.grammar, frame = "$w → $BLANK") } }
         else -> emptyList()
     }
 
     private const val MARK = "\u0000"
+
+    /** Brackets at the end of a line: what they hold. */
+    private val bracketsAtEnd = Regex("""\s*\(([^()]+)\)\s*$""")
+
+    /**
+     * The person in brackets at the end of a transform's line ("Spim v šotoru. (Luka in Tine)" → "Luka in Tine"): words
+     * of letters only; null when there are no brackets or they hold something else (a number, a question, a note: "(2)",
+     * "(where?)", "(ne moči: can't)").
+     */
+    fun person(from: String): String? = bracketsAtEnd.find(from)?.groupValues?.get(1)?.trim()
+        ?.takeIf { b -> b.isNotEmpty() && b.any { it.isLetter() } && b.all { it.isLetter() || it == ' ' || it == '\'' || it == '-' } }
+
+    /** A transform's line without its brackets at the end ("Spim v šotoru."). */
+    fun given(from: String): String = from.replace(bracketsAtEnd, "").trim()
+
+    /**
+     * An answer right without the person in brackets ([answer]), from accepted answer [whole]; [dropped]: it is [whole]
+     * with only the person left out, in its order ("Spita v šotoru."), else with the line's own order too ("Uči se
+     * brati." from "Tine se uči brati.").
+     */
+    data class Without(val answer: String, val whole: String, val dropped: Boolean)
+
+    /**
+     * What else is right for a transform's line [from] whose accepted answers [accept] begin with the person in brackets
+     * (companion/COURSE.md, "transform"): in a language that leaves its subject out ([Spelling.dropSubject]: the verb's
+     * ending says the person), when the line itself has none, the answer may too: "Pečem kruh. (babica)" → "Babica peče
+     * kruh." and "Peče kruh."; and with the line's own order of its words where only the person put them elsewhere: "Učim
+     * se brati. (Tine)" → "Tine se uči brati.", "Se uči brati." and "Uči se brati.". Only when the line has as many words
+     * as the answer without the person (the person was put in front, not in place of a word of the line: "Kruh je svež.
+     * (mleko)" → "Mleko je sveže." needs its noun), and a word of the line changed, not only their order (else the bracket
+     * is what the line is to take in: "Pomagam. (lahko)" → "Lahko pomagam.", "Prideš jutri? (lahko)" → "Lahko jutri
+     * prideš?"). None already accepted. A word in brackets that isn't the person but goes in front while the verb changes
+     * ("Grem domov. (jutri)" → "Jutri pojdem domov.") can't be told from one: such a list says `whole`.
+     */
+    fun withoutPerson(from: String, accept: List<String>, lang: Lang = L10n.pair.target): List<Without> {
+        if (!Spelling.of(lang).dropSubject) return emptyList()
+        val who = person(from) ?: return emptyList()
+        val whoWords = Grading.normalize(who, lang).split(' ')
+        val line = Grading.normalize(given(from), lang).split(' ').filter { it.isNotEmpty() }
+        val known = accept.map { Grading.canonical(it, lang) }.toMutableSet()
+        val out = mutableListOf<Without>()
+        for (a in accept) {
+            val words = a.trim().split(Regex("\\s+"))
+            if (words.size <= whoWords.size) continue
+            if (words.take(whoWords.size).map { Grading.normalize(it, lang) } != whoWords) continue
+            val rest = words.drop(whoWords.size)
+            val restKey = rest.map { Grading.normalize(it, lang) }
+            // a word of the line changed (the verb's person), not only their order: else the bracket is what it takes in
+            if (restKey.size != line.size || restKey.sorted() == line.sorted()) continue
+            val capital = a.trim().firstOrNull()?.isUpperCase() == true
+            fun add(ws: List<String>, dropped: Boolean) {
+                val text = sentence(ws, capital)
+                if (known.add(Grading.canonical(text, lang))) out += Without(text, a.trim(), dropped)
+            }
+            add(rest, dropped = true)
+            mirrored(rest, line, lang)?.let { add(it, dropped = false) }
+        }
+        return out
+    }
+
+    /**
+     * [rest] (an answer's words without its person) in the order of the [line]'s words: the words both have where the
+     * line has them, the answer's others in the places left, in their order ("se uči brati." by "učim se brati" → "uči se
+     * brati."); null when it is the same order, or they share no word.
+     */
+    private fun mirrored(rest: List<String>, line: List<String>, lang: Lang): List<String>? {
+        val trail = rest.last().takeLastWhile { !it.isLetterOrDigit() }
+        val bare = rest.mapIndexed { i, w -> if (i == rest.size - 1) w.dropLast(trail.length) else w }
+        val keys = bare.map { Grading.normalize(it, lang) }
+        val used = BooleanArray(bare.size)
+        val placed = arrayOfNulls<String>(line.size)
+        line.forEachIndexed { k, w ->
+            val i = keys.indices.firstOrNull { !used[it] && keys[it] == w } ?: return@forEachIndexed
+            used[i] = true
+            placed[k] = bare[i]
+        }
+        if (used.none { it }) return null
+        val others = bare.indices.filter { !used[it] }.map { bare[it] }.iterator()
+        val order = placed.map { it ?: others.next() }
+        if (order == bare) return null
+        return order.mapIndexed { i, w -> if (i == order.size - 1) w + trail else w }
+    }
+
+    /** [words] as a sentence: its first letter a capital when the answer's was ([capital]). */
+    private fun sentence(words: List<String>, capital: Boolean): String {
+        val s = words.joinToString(" ")
+        return if (capital) s.replaceFirstChar { it.uppercaseChar() } else s
+    }
+
+    /**
+     * What item [item]'s correction is set against once checked ([mark]): its right answer, and how many of its first
+     * words may be left out (the person in brackets). An answer without the person picked by the grading ([SheetItem.left])
+     * shows as the whole one, the person quiet before it ("Luka in Tine sp~~ive~~**ita** v šotoru."); a whole one picked
+     * as it is, its person likewise free to be left out.
+     */
+    fun shown(item: SheetItem, mark: ItemMark, lang: Lang = L10n.pair.target): Pair<String, Int> {
+        val who = item.person ?: return mark.expected to 0
+        val n = who.split(' ').count { it.isNotBlank() }
+        item.left[Grading.normalize(mark.expected, lang)]?.let { return it to n }
+        val starts = mark.expected.trim().split(Regex("\\s+")).take(n).map { Grading.normalize(it, lang) } == Grading.normalize(who, lang).split(' ')
+        return mark.expected to if (starts) n else 0
+    }
 
     /** The words of a sort, shuffled the same way each time it is shown ([seed]). */
     fun sortWords(ex: Exercise.Sort, seed: Long = ex.columns.hashCode().toLong()): List<String> =
