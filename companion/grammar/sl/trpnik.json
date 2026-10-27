@@ -1,0 +1,149 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "trpnik",
+  "language": "sl",
+  "level": "B1",
+  "emoji": "🏚️",
+  "title": {
+    "sl": "Hiša je bila sezidana: trpnik",
+    "en": "The house was built: the passive",
+    "de": "Das Haus wurde gebaut: das Passiv",
+    "it": "La casa è stata costruita: il passivo"
+  },
+  "rule": {
+    "en": "The passive (*trpnik*) says what is done to something, not who does it. Slovene has three ways for it, and uses it less than English or German. At B1 you mostly need to recognise them.\n\n**The participle in -n or -t** (*deležnik na -n/-t*) is an adjective of what was done: **odprto okno, zaprta vrata, pečen krompir**. It agrees like any adjective. From **-ati**: **-an** (**napisati → napisan**); from **-iti**: **-en**, often with a change (**narediti → narejen**, **popraviti → popravljen**); some in **-t** (**odpreti → odprt**, **umiti → umit**).\n\nWith **biti** it says how something is after it was done: **Trgovina je zaprta. Kosilo je skuhano. Hiša je bila sezidana v šestnajstem stoletju.** Who did it is mostly left out.\n\n**Se** says what is done in general, or how: **Seno se suši na kozolcu. Zdravilo se jemlje po jedi. Tukaj se govori slovensko.** The verb agrees with the thing: **Jabolka se pobirajo jeseni.**\n\nOften an active sentence does the job, the object first or with *they*: **Kovačnico je sezidal Tonetov praded. Mlin so zgradili leta 1890.**",
+    "de": "Das Passiv (*trpnik*) sagt, was mit etwas geschieht, nicht wer es tut. Das Slowenische hat drei Wege dafür und braucht es seltener als Deutsch oder Englisch. Auf B1 musst du sie vor allem erkennen.\n\n**Das Partizip auf -n oder -t** (*deležnik na -n/-t*) ist ein Adjektiv dessen, was getan wurde: **odprto okno, zaprta vrata, pečen krompir**. Es richtet sich wie jedes Adjektiv nach dem Nomen. Von **-ati**: **-an** (**napisati → napisan**); von **-iti**: **-en**, oft mit einer Änderung (**narediti → narejen**, **popraviti → popravljen**); manche auf **-t** (**odpreti → odprt**, **umiti → umit**).\n\nMit **biti** sagt es, wie etwas ist, nachdem es getan wurde: **Trgovina je zaprta. Kosilo je skuhano. Hiša je bila sezidana v šestnajstem stoletju.** Wer es getan hat, bleibt meist weg.\n\n**Se** sagt, was allgemein getan wird, oder wie: **Seno se suši na kozolcu. Zdravilo se jemlje po jedi. Tukaj se govori slovensko.** Das Verb richtet sich nach der Sache: **Jabolka se pobirajo jeseni.**\n\nOft tut es ein Aktivsatz, das Objekt vorn oder mit *sie*: **Kovačnico je sezidal Tonetov praded. Mlin so zgradili leta 1890.**",
+    "it": "Il passivo (*trpnik*) dice che cosa si fa a qualcosa, non chi lo fa. Lo sloveno ha tre modi per farlo, e lo usa meno dell'italiano o dell'inglese. Al livello B1 basta soprattutto riconoscerli.\n\n**Il participio in -n o -t** (*deležnik na -n/-t*) è un aggettivo di ciò che è stato fatto: **odprto okno, zaprta vrata, pečen krompir**. Si accorda come ogni aggettivo. Da **-ati**: **-an** (**napisati → napisan**); da **-iti**: **-en**, spesso con un cambiamento (**narediti → narejen**, **popraviti → popravljen**); alcuni in **-t** (**odpreti → odprt**, **umiti → umit**).\n\nCon **biti** dice com'è qualcosa dopo che è stato fatto: **Trgovina je zaprta. Kosilo je skuhano. Hiša je bila sezidana v šestnajstem stoletju.** Chi l'ha fatto di solito non si dice.\n\n**Se** dice che cosa si fa in generale, o come: **Seno se suši na kozolcu. Zdravilo se jemlje po jedi. Tukaj se govori slovensko.** Il verbo si accorda con la cosa: **Jabolka se pobirajo jeseni.**\n\nSpesso basta una frase attiva, con l'oggetto davanti o con *loro*: **Kovačnico je sezidal Tonetov praded. Mlin so zgradili leta 1890.**"
+  },
+  "table": {
+    "head": [
+      { "sl": "nedoločnik", "en": "infinitive", "de": "Infinitiv", "it": "infinito" },
+      { "sl": "deležnik na -n, -t", "en": "participle", "de": "Partizip", "it": "participio" },
+      { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+    ],
+    "rows": [
+      ["napisati", "napisan, napisana, napisano", "Pismo je napisano."],
+      ["skuhati", "skuhan, skuhana, skuhano", "Kosilo je skuhano."],
+      ["sezidati", "sezidan, sezidana, sezidano", "Hiša je bila sezidana."],
+      ["narediti", "narejen, narejena, narejeno", "Vse je narejeno."],
+      ["popraviti", "popravljen, popravljena, popravljeno", "Plug je popravljen."],
+      ["pogrniti", "pogrnjen, pogrnjena, pogrnjeno", "Miza je pogrnjena."],
+      ["zakleniti", "zaklenjen, zaklenjena, zaklenjeno", "Klet je zaklenjena."],
+      ["peči", "pečen, pečena, pečeno", "Kruh je že pečen."],
+      ["odpreti", "odprt, odprta, odprto", "Gostilna je odprta."],
+      ["zapreti", "zaprt, zaprta, zaprto", "Trgovina je zaprta."],
+      ["umiti", "umit, umita, umito", "Posoda je umita."],
+      [{ "sl": "se", "en": "se: done in general", "de": "se: allgemein", "it": "se: in generale" }, "se suši, se govori", "Seno se suši na kozolcu."]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Hiša je bila sezidana v šestnajstem stoletju.",
+      "en": "The house was built in the sixteenth century.",
+      "de": "Das Haus wurde im sechzehnten Jahrhundert gebaut.",
+      "it": "La casa fu costruita nel sedicesimo secolo."
+    },
+    {
+      "sl": "Trgovina je ob nedeljah zaprta.",
+      "en": "The shop is closed on Sundays.",
+      "de": "Der Laden ist sonntags geschlossen.",
+      "it": "Il negozio è chiuso la domenica."
+    },
+    {
+      "sl": "Klet je zaklenjena, ključ ima Marko.",
+      "en": "The cellar is locked; Marko has the key.",
+      "de": "Der Keller ist abgeschlossen, den Schlüssel hat Marko.",
+      "it": "La cantina è chiusa a chiave, la chiave ce l'ha Marko."
+    },
+    {
+      "sl": "Kosilo je skuhano, miza je pogrnjena.",
+      "en": "Lunch is cooked, the table is laid.",
+      "de": "Das Mittagessen ist gekocht, der Tisch ist gedeckt.",
+      "it": "Il pranzo è cotto, la tavola è apparecchiata."
+    },
+    {
+      "sl": "Seno se suši na kozolcu.",
+      "en": "Hay is dried on the hayrack.",
+      "de": "Heu wird auf der Harfe getrocknet.",
+      "it": "Il fieno si secca sulla rastrelliera.",
+      "note": {
+        "en": "The kozolec, the Slovene hayrack: se for how it is done.",
+        "de": "Der kozolec, die slowenische Heuharfe: se dafür, wie man es macht.",
+        "it": "Il kozolec, la rastrelliera slovena: se per come si fa."
+      }
+    },
+    {
+      "sl": "Zdravilo se jemlje po jedi.",
+      "en": "The medicine is taken after meals.",
+      "de": "Das Medikament wird nach dem Essen eingenommen.",
+      "it": "La medicina si prende dopo i pasti."
+    },
+    {
+      "sl": "Tukaj se govori slovensko in italijansko.",
+      "en": "Slovene and Italian are spoken here.",
+      "de": "Hier spricht man Slowenisch und Italienisch.",
+      "it": "Qui si parla sloveno e italiano."
+    },
+    {
+      "sl": "Kovačnico je sezidal Tonetov praded.",
+      "en": "The smithy was built by Tone's great-grandfather.",
+      "de": "Die Schmiede hat Tones Urgroßvater gebaut.",
+      "it": "La fucina l'ha costruita il bisnonno di Tone.",
+      "note": {
+        "en": "Slovene likes the active, the object first.",
+        "de": "Das Slowenische mag das Aktiv, das Objekt vorn.",
+        "it": "Lo sloveno preferisce l'attivo, con l'oggetto davanti."
+      }
+    },
+    {
+      "sl": "Na vratih piše: Zaprto zaradi bolezni.",
+      "en": "The sign on the door says: Closed due to illness.",
+      "de": "An der Tür steht: Wegen Krankheit geschlossen.",
+      "it": "Sulla porta c'è scritto: Chiuso per malattia."
+    }
+  ],
+  "modules": [],
+  "tags": ["passive", "passive_participle", "participle_n_t", "se_passive", "trpnik"],
+  "see": ["pridevniki-ujemanje", "povratni-glagoli", "pretekli-cas", "glagolski-vid", "glagolniki"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker. Participles checked on Fran (SSKJ²): sezidan, pogrnjen, zaklenjen, pokošen, zmlet",
+  "card": {
+    "title": { "sl": "Trpnik", "en": "Trpnik · the passive", "de": "Trpnik · das Passiv", "it": "Trpnik · il passivo" },
+    "rule": {
+      "en": "**biti + -n/-t** for how it is after it was done: **Trgovina je zaprta. Hiša je bila sezidana.** **se** for what is done in general: **Seno se suši na kozolcu.**",
+      "de": "**biti + -n/-t** dafür, wie es ist, nachdem es getan wurde: **Trgovina je zaprta. Hiša je bila sezidana.** **se** für das, was man allgemein tut: **Seno se suši na kozolcu.**",
+      "it": "**biti + -n/-t** per com'è dopo che è stato fatto: **Trgovina je zaprta. Hiša je bila sezidana.** **se** per ciò che si fa in generale: **Seno se suši na kozolcu.**"
+    },
+    "table": {
+      "head": [
+        { "sl": "glagol", "en": "verb", "de": "Verb", "it": "verbo" },
+        { "sl": "deležnik", "en": "participle", "de": "Partizip", "it": "participio" }
+      ],
+      "rows": [
+        ["-ati: napisati", "napisan"],
+        ["-iti: narediti, popraviti", "narejen, popravljen"],
+        ["-eti, -iti: odpreti, umiti", "odprt, umit"],
+        ["-či: peči", "pečen"]
+      ]
+    },
+    "examples": [
+      {
+        "sl": "Klet je zaklenjena, ključ ima Marko.",
+        "en": "The cellar is locked; Marko has the key.",
+        "de": "Der Keller ist abgeschlossen, den Schlüssel hat Marko.",
+        "it": "La cantina è chiusa a chiave, la chiave ce l'ha Marko."
+      },
+      {
+        "sl": "Zdravilo se jemlje po jedi.",
+        "en": "The medicine is taken after meals.",
+        "de": "Das Medikament wird nach dem Essen eingenommen.",
+        "it": "La medicina si prende dopo i pasti."
+      }
+    ],
+    "tip": {
+      "en": "💡 **Okno je odprto** (it is open), **okno se je odprlo** (it opened), **Luka je odprl okno** (Luka opened it).",
+      "de": "💡 **Okno je odprto** (es ist offen), **okno se je odprlo** (es ging auf), **Luka je odprl okno** (Luka hat es geöffnet).",
+      "it": "💡 **Okno je odprto** (è aperta), **okno se je odprlo** (si è aperta), **Luka je odprl okno** (Luka l'ha aperta)."
+    }
+  }
+}

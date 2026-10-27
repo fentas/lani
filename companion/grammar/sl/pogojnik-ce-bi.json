@@ -1,0 +1,145 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "pogojnik-ce-bi",
+  "language": "sl",
+  "level": "B1",
+  "emoji": "🌦️",
+  "title": {
+    "sl": "Če bi …, bi …: pogojnik v celoti",
+    "en": "If it rained, we would …: the conditional in full",
+    "de": "Wenn es regnen würde, …: der Konditional ganz",
+    "it": "Se piovesse, …: il condizionale completo"
+  },
+  "rule": {
+    "en": "A condition that is real or likely takes the future: **Če bo deževalo, bomo ostali doma.** One that is only imagined, unlikely or contrary to the facts takes the conditional (*pogojnik*) in both halves, **bi** and the l-form: **Če bi deževalo, bi ostali doma.** (If it rained, we'd stay at home.)\n\n**Bi** never changes; the l-form agrees with its subject: **Če bi Vida imela čas, bi nam pomagala.** **Bi** is a clitic: right after **če** (with a no the subject may come first: **Če Tone ne bi bil utrujen, …**), and at the start of the main clause that follows: **…, bi ti pomagal.** The no is **ne bi**: **Če ne bi bilo dežja, bi šli na izlet.**\n\nThe same form says what would have happened: **Če bi včeraj prišel, bi videl trgatev.** A time word tells the past from now. (Books also have *bi bil prišel*: only to recognise.)\n\n**Ko bi le …!** is a wish: if only. **Da bi** joins what someone wants others to do, and a purpose: **Babica bi rada, da bi jo obiskali.** **Luka je šel v gozd, da bi poiskal jagnje.**",
+    "de": "Eine echte oder wahrscheinliche Bedingung steht im Futur: **Če bo deževalo, bomo ostali doma.** Eine nur gedachte, unwahrscheinliche oder irreale steht in beiden Hälften im Konditional (*pogojnik*), **bi** und die l-Form: **Če bi deževalo, bi ostali doma.** (Wenn es regnen würde, blieben wir zu Hause.)\n\n**Bi** ändert sich nie; die l-Form richtet sich nach dem Subjekt: **Če bi Vida imela čas, bi nam pomagala.** **Bi** ist ein Klitikon: gleich nach **če** (mit Nein darf das Subjekt vorn stehen: **Če Tone ne bi bil utrujen, …**) und am Anfang des Hauptsatzes, der folgt: **…, bi ti pomagal.** Verneint: **ne bi**: **Če ne bi bilo dežja, bi šli na izlet.**\n\nDieselbe Form sagt, was geschehen wäre: **Če bi včeraj prišel, bi videl trgatev.** Ein Zeitwort unterscheidet Vergangenheit und Jetzt. (In Büchern auch *bi bil prišel*: nur zum Erkennen.)\n\n**Ko bi le …!** ist ein Wunsch: wenn doch nur. **Da bi** verbindet, was jemand von anderen will, und einen Zweck: **Babica bi rada, da bi jo obiskali.** **Luka je šel v gozd, da bi poiskal jagnje.**",
+    "it": "Una condizione reale o probabile vuole il futuro: **Če bo deževalo, bomo ostali doma.** Una condizione solo immaginata, improbabile o contraria ai fatti vuole il condizionale (*pogojnik*) in tutte e due le metà, **bi** e la forma in -l: **Če bi deževalo, bi ostali doma.** (Se piovesse, resteremmo a casa.)\n\n**Bi** non cambia mai; la forma in -l si accorda con il soggetto: **Če bi Vida imela čas, bi nam pomagala.** **Bi** è un clitico: subito dopo **če** (con il no il soggetto può venire prima: **Če Tone ne bi bil utrujen, …**) e all'inizio della principale che segue: **…, bi ti pomagal.** Al negativo: **ne bi**: **Če ne bi bilo dežja, bi šli na izlet.**\n\nLa stessa forma dice che cosa sarebbe successo: **Če bi včeraj prišel, bi videl trgatev.** Una parola di tempo distingue il passato dall'adesso. (Nei libri anche *bi bil prišel*: solo da riconoscere.)\n\n**Ko bi le …!** è un desiderio: se solo. **Da bi** unisce ciò che qualcuno vuole dagli altri, e uno scopo: **Babica bi rada, da bi jo obiskali.** **Luka je šel v gozd, da bi poiskal jagnje.**"
+  },
+  "table": {
+    "head": [
+      { "sl": "kakšen pogoj", "en": "which condition", "de": "welche Bedingung", "it": "quale condizione" },
+      { "sl": "če …", "en": "if …", "de": "wenn …", "it": "se …" },
+      { "sl": "potem …", "en": "then …", "de": "dann …", "it": "allora …" }
+    ],
+    "rows": [
+      [{ "sl": "resničen", "en": "real, likely", "de": "echt, wahrscheinlich", "it": "reale, probabile" }, "Če bo deževalo,", "bomo ostali doma."],
+      [{ "sl": "zamišljen", "en": "imagined, unlikely", "de": "gedacht, unwahrscheinlich", "it": "immaginata, improbabile" }, "Če bi deževalo,", "bi ostali doma."],
+      [{ "sl": "pretekli", "en": "it didn't happen", "de": "ist nicht geschehen", "it": "non è successo" }, "Če bi včeraj deževalo,", "bi ostali doma."],
+      [{ "sl": "nikalni", "en": "with no", "de": "verneint", "it": "negativa" }, "Če ne bi bilo dežja,", "bi šli na izlet."],
+      [{ "sl": "želja", "en": "a wish: if only", "de": "Wunsch: wenn doch", "it": "desiderio: se solo" }, "Ko bi le nehalo deževati!", "—"],
+      [{ "sl": "kaj kdo želi", "en": "what someone wants", "de": "was jemand will", "it": "che cosa uno vuole" }, "Babica bi rada,", "da bi jo obiskali."],
+      [{ "sl": "namen", "en": "what for", "de": "wozu", "it": "a che scopo" }, "Luka je šel v gozd,", "da bi poiskal jagnje."]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Če bi jutri deževalo, ne bi kosili.",
+      "en": "If it rained tomorrow, we wouldn't mow.",
+      "de": "Wenn es morgen regnen würde, würden wir nicht mähen.",
+      "it": "Se domani piovesse, non falceremmo."
+    },
+    {
+      "sl": "Če bo jutri lepo, bomo kosili.",
+      "en": "If it's fine tomorrow, we'll mow.",
+      "de": "Wenn es morgen schön ist, mähen wir.",
+      "it": "Se domani è bello, falceremo.",
+      "note": {
+        "en": "A real chance: the future in both halves.",
+        "de": "Eine echte Möglichkeit: Futur in beiden Hälften.",
+        "it": "Una possibilità reale: il futuro in tutte e due le metà."
+      }
+    },
+    {
+      "sl": "Če bi Vida imela večjo kuhinjo, bi kuhala za vso vas.",
+      "en": "If Vida had a bigger kitchen, she'd cook for the whole village.",
+      "de": "Wenn Vida eine größere Küche hätte, würde sie für das ganze Dorf kochen.",
+      "it": "Se Vida avesse una cucina più grande, cucinerebbe per tutto il paese."
+    },
+    {
+      "sl": "Če bi včeraj {m:prišel|f:prišla}, bi {m:videl|f:videla} Markovo trgatev.",
+      "en": "If I had come yesterday, I'd have seen Marko's grape harvest.",
+      "de": "Wenn ich gestern gekommen wäre, hätte ich Markos Weinlese gesehen.",
+      "it": "Se fossi {m:venuto|f:venuta} ieri, avrei visto la vendemmia di Marko.",
+      "note": {
+        "en": "Včeraj tells it's the past; the form is the same.",
+        "de": "Včeraj zeigt die Vergangenheit; die Form ist dieselbe.",
+        "it": "Včeraj indica il passato; la forma è la stessa."
+      }
+    },
+    {
+      "sl": "Če ne bi bilo Toneta, ne bi imeli novega pluga.",
+      "en": "If it weren't for Tone, we wouldn't have a new plough.",
+      "de": "Wenn Tone nicht wäre, hätten wir keinen neuen Pflug.",
+      "it": "Se non fosse per Tone, non avremmo un aratro nuovo."
+    },
+    {
+      "sl": "Ko bi le nehalo deževati!",
+      "en": "If only it would stop raining!",
+      "de": "Wenn es doch nur aufhören würde zu regnen!",
+      "it": "Se solo smettesse di piovere!"
+    },
+    {
+      "sl": "Babica bi rada, da bi jo večkrat {m:obiskal|f:obiskala}.",
+      "en": "Granny would like you to visit her more often.",
+      "de": "Oma hätte gern, dass du sie öfter besuchst.",
+      "it": "La nonna vorrebbe che tu andassi a trovarla più spesso."
+    },
+    {
+      "sl": "Luka je šel v gozd, da bi poiskal jagnje.",
+      "en": "Luka went into the forest to look for the lamb.",
+      "de": "Luka ging in den Wald, um das Lamm zu suchen.",
+      "it": "Luka è andato nel bosco a cercare l'agnello."
+    },
+    {
+      "sl": "Kaj bi {m:naredil|f:naredila}, če bi {m:našel|f:našla} zaklad?",
+      "en": "What would you do if you found a treasure?",
+      "de": "Was würdest du tun, wenn du einen Schatz finden würdest?",
+      "it": "Che cosa faresti se trovassi un tesoro?"
+    }
+  ],
+  "modules": [],
+  "tags": ["conditional_unreal", "unreal_condition", "ce_bi", "da_bi", "ko_bi_le", "conditional"],
+  "see": ["pogojnik", "prihodnjik", "vezniki", "naslonke-red"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker",
+  "card": {
+    "title": { "sl": "Če bi …, bi …", "en": "Če bi …, bi … · if it were so", "de": "Če bi …, bi … · wenn es so wäre", "it": "Če bi …, bi … · se fosse così" },
+    "rule": {
+      "en": "**Imagined, unlikely or past:** **bi** + the l-form in both halves: **Če bi deževalo, bi ostali doma.** A real chance: the future, **Če bo deževalo, bomo …**",
+      "de": "**Gedacht, unwahrscheinlich oder vergangen:** **bi** + l-Form in beiden Hälften: **Če bi deževalo, bi ostali doma.** Eine echte Möglichkeit: Futur, **Če bo deževalo, bomo …**",
+      "it": "**Immaginato, improbabile o passato:** **bi** + forma in -l in tutte e due le metà: **Če bi deževalo, bi ostali doma.** Una possibilità reale: il futuro, **Če bo deževalo, bomo …**"
+    },
+    "table": {
+      "head": [
+        { "sl": "če …", "en": "if …", "de": "wenn …", "it": "se …" },
+        { "sl": "potem …", "en": "then …", "de": "dann …", "it": "allora …" }
+      ],
+      "rows": [
+        ["Če bo deževalo,", "bomo ostali doma."],
+        ["Če bi deževalo,", "bi ostali doma."],
+        ["Če ne bi bilo dežja,", "bi šli na izlet."],
+        ["Ko bi le …!", "—"],
+        ["…, da bi", "poiskal jagnje."]
+      ]
+    },
+    "examples": [
+      {
+        "sl": "Če bi Vida imela čas, bi nam pomagala.",
+        "en": "If Vida had time, she'd help us.",
+        "de": "Wenn Vida Zeit hätte, würde sie uns helfen.",
+        "it": "Se Vida avesse tempo, ci aiuterebbe."
+      },
+      {
+        "sl": "Luka je šel v gozd, da bi poiskal jagnje.",
+        "en": "Luka went into the forest to look for the lamb.",
+        "de": "Luka ging in den Wald, um das Lamm zu suchen.",
+        "it": "Luka è andato nel bosco a cercare l'agnello."
+      }
+    ],
+    "tip": {
+      "en": "💡 **Bi** never changes: **bi imel, bi imela, bi imeli**. What would have happened yesterday is the same form: **Če bi včeraj prišel, …**",
+      "de": "💡 **Bi** ändert sich nie: **bi imel, bi imela, bi imeli**. Was gestern gewesen wäre, hat dieselbe Form: **Če bi včeraj prišel, …**",
+      "it": "💡 **Bi** non cambia mai: **bi imel, bi imela, bi imeli**. Ciò che sarebbe stato ieri ha la stessa forma: **Če bi včeraj prišel, …**"
+    }
+  }
+}

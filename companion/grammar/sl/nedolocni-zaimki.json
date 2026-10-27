@@ -1,0 +1,152 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "nedolocni-zaimki",
+  "language": "sl",
+  "level": "B1",
+  "emoji": "🤷",
+  "title": {
+    "sl": "Nekdo, nihče, vsakdo: nedoločni zaimki",
+    "en": "Someone, nobody, everyone: indefinite pronouns",
+    "de": "Jemand, niemand, jeder: Indefinitpronomen",
+    "it": "Qualcuno, nessuno, ognuno: i pronomi indefiniti"
+  },
+  "rule": {
+    "en": "Put **ne-** before a question word for *some-*, **ni-** for *no-*, and **vsak-** or **vse** for *every-*: **kdo → nekdo, nihče, vsakdo**; **kaj → nekaj, nič, vse**; **kje → nekje, nikjer, povsod**; **kam → nekam, nikamor**; **kdaj → nekoč, nikoli, vedno**. **Noben** (no, not one) and **vsak** (every) go with a noun and agree with it: **noben otrok, vsako jutro**.\n\nA no-word keeps the verb's **ne**, and several may meet: **Nihče ni prišel.** **Babica nikoli nikamor ne gre.**\n\nThey have cases: **nekoga, nekomu, z nekom**; **nikogar, nikomur, z nikomer**; **nečesa, nečemu, z nečim**; **ničesar, ničemur, z ničimer**. After a no comes the genitive: **Nikogar ne poznam.** **Ne vidim ničesar** (*nič* is said too). **Nikogar ni doma** and **Nihče ni doma** both mean nobody's home.\n\nIn a question or after **če**, plain **kdo, kaj, kje, kdaj** mean *anyone, anything, anywhere, ever*: **Je kdo doma?** **Ste bili kdaj na Triglavu?** And **-koli** is *any … at all*: **kdorkoli, karkoli, kadarkoli**.",
+    "de": "**ne-** vor einem Fragewort gibt *irgend-, jemand*, **ni-** gibt *kein-, nie-*, **vsak-** oder **vse** gibt *jeder, alles*: **kdo → nekdo, nihče, vsakdo**; **kaj → nekaj, nič, vse**; **kje → nekje, nikjer, povsod**; **kam → nekam, nikamor**; **kdaj → nekoč, nikoli, vedno**. **Noben** (kein) und **vsak** (jeder) stehen bei einem Nomen und richten sich nach ihm: **noben otrok, vsako jutro**.\n\nEin Nein-Wort behält das **ne** des Verbs, auch mehrere zusammen: **Nihče ni prišel.** **Babica nikoli nikamor ne gre.**\n\nSie haben Fälle: **nekoga, nekomu, z nekom**; **nikogar, nikomur, z nikomer**; **nečesa, nečemu, z nečim**; **ničesar, ničemur, z ničimer**. Nach einem Nein steht der Genitiv: **Nikogar ne poznam.** **Ne vidim ničesar** (man sagt auch *nič*). **Nikogar ni doma** und **Nihče ni doma** heißen beide: niemand ist zu Hause.\n\nIn einer Frage oder nach **če** heißen einfache **kdo, kaj, kje, kdaj** *jemand, etwas, irgendwo, je*: **Je kdo doma?** **Ste bili kdaj na Triglavu?** Und **-koli** ist *wer auch immer, egal*: **kdorkoli, karkoli, kadarkoli**.",
+    "it": "**ne-** davanti a una parola interrogativa dà *qualche-, qualcuno*, **ni-** dà *nessuno, niente*, **vsak-** o **vse** dà *ognuno, tutto*: **kdo → nekdo, nihče, vsakdo**; **kaj → nekaj, nič, vse**; **kje → nekje, nikjer, povsod**; **kam → nekam, nikamor**; **kdaj → nekoč, nikoli, vedno**. **Noben** (nessun) e **vsak** (ogni) stanno con un nome e si accordano: **noben otrok, vsako jutro**.\n\nUna parola negativa tiene il **ne** del verbo, anche più d'una insieme: **Nihče ni prišel.** **Babica nikoli nikamor ne gre.**\n\nHanno i casi: **nekoga, nekomu, z nekom**; **nikogar, nikomur, z nikomer**; **nečesa, nečemu, z nečim**; **ničesar, ničemur, z ničimer**. Dopo un no viene il genitivo: **Nikogar ne poznam.** **Ne vidim ničesar** (si dice anche *nič*). **Nikogar ni doma** e **Nihče ni doma** vogliono dire tutti e due: non c'è nessuno a casa.\n\nIn una domanda o dopo **če**, i semplici **kdo, kaj, kje, kdaj** vogliono dire *qualcuno, qualcosa, da qualche parte, mai*: **Je kdo doma?** **Ste bili kdaj na Triglavu?** E **-koli** è *chiunque, qualunque*: **kdorkoli, karkoli, kadarkoli**."
+  },
+  "table": {
+    "head": [
+      { "sl": "vprašalnica", "en": "question word", "de": "Fragewort", "it": "interrogativo" },
+      { "sl": "ne-", "en": "some-", "de": "irgend-", "it": "qualche-" },
+      { "sl": "ni-", "en": "no-", "de": "kein-, nie-", "it": "nessun-" },
+      { "sl": "vsak-, vse", "en": "every-", "de": "jeder, alles", "it": "ogni, tutto" }
+    ],
+    "rows": [
+      ["kdo", "nekdo", "nihče", "vsakdo"],
+      ["koga?", "nekoga", "nikogar", "vsakogar"],
+      ["komu?", "nekomu", "nikomur", "vsakomur"],
+      ["s kom?", "z nekom", "z nikomer", "z vsakomer"],
+      ["kaj", "nekaj", "nič", "vse"],
+      ["česa?", "nečesa", "ničesar", "vsega"],
+      ["kje", "nekje", "nikjer", "povsod"],
+      ["kam", "nekam", "nikamor", "povsod"],
+      ["kdaj", "nekoč", "nikoli", "vedno"],
+      ["kako", "nekako", "nikakor", "—"],
+      ["kateri, kakšen", "neki", "noben", "vsak"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Nekdo trka na vrata.",
+      "en": "Someone is knocking at the door.",
+      "de": "Jemand klopft an die Tür.",
+      "it": "Qualcuno bussa alla porta."
+    },
+    {
+      "sl": "Nihče ni prišel na vaški sestanek.",
+      "en": "Nobody came to the village meeting.",
+      "de": "Niemand ist zur Dorfversammlung gekommen.",
+      "it": "Nessuno è venuto alla riunione del paese."
+    },
+    {
+      "sl": "Ključe sem nekam {m:dal|f:dala}, zdaj jih nikjer ne najdem.",
+      "en": "I put the keys somewhere, now I can't find them anywhere.",
+      "de": "Ich habe die Schlüssel irgendwohin gelegt, jetzt finde ich sie nirgends.",
+      "it": "Ho messo le chiavi da qualche parte, ora non le trovo da nessuna parte."
+    },
+    {
+      "sl": "Babica nikoli nikamor ne gre brez košare.",
+      "en": "Granny never goes anywhere without her basket.",
+      "de": "Oma geht nie irgendwohin ohne ihren Korb.",
+      "it": "La nonna non va mai da nessuna parte senza il cestino.",
+      "note": {
+        "en": "Two no-words and the verb's ne: all three stay.",
+        "de": "Zwei Nein-Wörter und das ne des Verbs: alle drei bleiben.",
+        "it": "Due parole negative e il ne del verbo: restano tutti e tre."
+      }
+    },
+    {
+      "sl": "V vasi še nikogar ne poznam.",
+      "en": "I don't know anybody in the village yet.",
+      "de": "Ich kenne im Dorf noch niemanden.",
+      "it": "In paese non conosco ancora nessuno."
+    },
+    {
+      "sl": "Z nikomer nisem {m:govoril|f:govorila} o tem.",
+      "en": "I haven't talked to anybody about it.",
+      "de": "Ich habe mit niemandem darüber gesprochen.",
+      "it": "Non ne ho parlato con nessuno."
+    },
+    {
+      "sl": "Noben otrok ni ostal doma.",
+      "en": "Not one child stayed at home.",
+      "de": "Kein Kind ist zu Hause geblieben.",
+      "it": "Nessun bambino è rimasto a casa."
+    },
+    {
+      "sl": "Je kdo doma?",
+      "en": "Is anybody home?",
+      "de": "Ist jemand zu Hause?",
+      "it": "C'è qualcuno in casa?"
+    },
+    {
+      "sl": "Če kaj potrebuješ, pridi kadarkoli.",
+      "en": "If you need anything, come any time.",
+      "de": "Wenn du etwas brauchst, komm jederzeit.",
+      "it": "Se ti serve qualcosa, vieni quando vuoi."
+    },
+    {
+      "sl": "Vida ve vse o vseh.",
+      "en": "Vida knows everything about everybody.",
+      "de": "Vida weiß alles über alle.",
+      "it": "Vida sa tutto di tutti."
+    }
+  ],
+  "modules": [],
+  "tags": ["indefinite_pronouns", "negative_pronouns", "indefinite", "nihce", "nekdo"],
+  "see": ["zanikanje", "vprasalnice", "rodilnik-nikalnica", "pridevniki-ujemanje"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker",
+  "card": {
+    "title": { "sl": "Nekdo, nihče, vsakdo", "en": "Nekdo, nihče · some-, no-", "de": "Nekdo, nihče · irgend-, kein-", "it": "Nekdo, nihče · qualche-, nessun-" },
+    "rule": {
+      "en": "**ne-** some-, **ni-** no-, **vsak-/vse** every-: **nekdo, nihče, vsakdo**; **nekaj, nič, vse**; **nekje, nikjer, povsod**. A no-word keeps the verb's **ne**: **Nihče ni prišel.**",
+      "de": "**ne-** irgend-, **ni-** kein-, **vsak-/vse** jeder: **nekdo, nihče, vsakdo**; **nekaj, nič, vse**; **nekje, nikjer, povsod**. Ein Nein-Wort behält das **ne** des Verbs: **Nihče ni prišel.**",
+      "it": "**ne-** qualche-, **ni-** nessun-, **vsak-/vse** ogni: **nekdo, nihče, vsakdo**; **nekaj, nič, vse**; **nekje, nikjer, povsod**. Una parola negativa tiene il **ne** del verbo: **Nihče ni prišel.**"
+    },
+    "table": {
+      "head": [
+        { "sl": "ne-", "en": "some-", "de": "irgend-", "it": "qualche-" },
+        { "sl": "ni-", "en": "no-", "de": "kein-, nie-", "it": "nessun-" },
+        { "sl": "vsak-, vse", "en": "every-", "de": "jeder, alles", "it": "ogni, tutto" }
+      ],
+      "rows": [
+        ["nekdo · nekoga", "nihče · nikogar", "vsakdo · vsakogar"],
+        ["nekaj · nečesa", "nič · ničesar", "vse · vsega"],
+        ["nekje, nekam", "nikjer, nikamor", "povsod"],
+        ["nekoč", "nikoli", "vedno"],
+        ["neki", "noben", "vsak"]
+      ]
+    },
+    "examples": [
+      {
+        "sl": "V vasi še nikogar ne poznam.",
+        "en": "I don't know anybody in the village yet.",
+        "de": "Ich kenne im Dorf noch niemanden.",
+        "it": "In paese non conosco ancora nessuno."
+      },
+      {
+        "sl": "Je kdo doma?",
+        "en": "Is anybody home?",
+        "de": "Ist jemand zu Hause?",
+        "it": "C'è qualcuno in casa?"
+      }
+    ],
+    "tip": {
+      "en": "💡 In a question plain **kdo, kaj, kdaj** mean anyone, anything, ever: **Imate kaj kruha?**",
+      "de": "💡 In einer Frage heißen einfache **kdo, kaj, kdaj** jemand, etwas, je: **Imate kaj kruha?**",
+      "it": "💡 In una domanda i semplici **kdo, kaj, kdaj** vogliono dire qualcuno, qualcosa, mai: **Imate kaj kruha?**"
+    }
+  }
+}

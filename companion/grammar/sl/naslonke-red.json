@@ -1,0 +1,141 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "naslonke-red",
+  "language": "sl",
+  "level": "B1",
+  "emoji": "🧩",
+  "title": {
+    "sl": "Ne bom ti ga dal: vrstni red naslonk",
+    "en": "I won't give it to you: the order of the short words",
+    "de": "Ich gebe es dir nicht: die Reihenfolge der kurzen Wörter",
+    "it": "Non te lo darò: l'ordine delle parole brevi"
+  },
+  "rule": {
+    "en": "The short words (*naslonke*) stand together after the first word or phrase of the clause, always in one order: **sem, si, smo … bi** – **se, si** – to whom (**mi, ti, mu, ji, nam, jim**) – whom (**me, te, ga, jo, nas, jih**) – **je** and **bom, boš, bo …** last: **Dal sem ti ga. Smejal se mi je. Dal ti ga bom.**\n\nWith a no: **nisem, ni** are full words, the short words follow them: **Nisem ti ga dal.** In the future and the conditional **ne bom, ne bi** stay together at the verb: **Ne bom ti ga dal.** When something comes first, the short words follow it and **ne bom** comes after them: **Jutri ti ga ne bom dal. Marko ga ni videl.**\n\nA question: after the question word or **ali**: **Kdaj si mu ga dal? Ali si ga videl?** A yes/no question may start with the short words: **Si ga videl? Se ji smeješ?**\n\nA clause: right after **da, ker, ko, če, ki, ali**: **Rekla je, da mi ga bo prinesla.**\n\nWith **moram, hočem, smem, morem** + an infinitive, the infinitive's short words join the group: **Moram ti ga vrniti.** (not *moram vrniti ti ga*). **Lahko** takes the present: **Lahko ti ga dam.**",
+    "de": "Die kurzen Wörter (*naslonke*) stehen zusammen nach dem ersten Wort oder der ersten Wortgruppe des Satzes, immer in einer Reihenfolge: **sem, si, smo … bi** – **se, si** – wem (**mi, ti, mu, ji, nam, jim**) – wen (**me, te, ga, jo, nas, jih**) – zuletzt **je** und **bom, boš, bo …**: **Dal sem ti ga. Smejal se mi je. Dal ti ga bom.**\n\nMit Nein: **nisem, ni** sind volle Wörter, die kurzen Wörter folgen ihnen: **Nisem ti ga dal.** Im Futur und im Konditional bleiben **ne bom, ne bi** zusammen beim Verb: **Ne bom ti ga dal.** Steht etwas anderes vorn, folgen ihm die kurzen Wörter, und **ne bom** kommt danach: **Jutri ti ga ne bom dal. Marko ga ni videl.**\n\nEine Frage: nach dem Fragewort oder **ali**: **Kdaj si mu ga dal? Ali si ga videl?** Eine Ja/Nein-Frage darf mit den kurzen Wörtern beginnen: **Si ga videl? Se ji smeješ?**\n\nEin Nebensatz: gleich nach **da, ker, ko, če, ki, ali**: **Rekla je, da mi ga bo prinesla.**\n\nMit **moram, hočem, smem, morem** + Infinitiv kommen die kurzen Wörter des Infinitivs in die Gruppe: **Moram ti ga vrniti.** (nicht *moram vrniti ti ga*). **Lahko** steht mit dem Präsens: **Lahko ti ga dam.**",
+    "it": "Le parole brevi (*naslonke*) stanno insieme dopo la prima parola o il primo gruppo della frase, sempre in un ordine: **sem, si, smo … bi** – **se, si** – a chi (**mi, ti, mu, ji, nam, jim**) – chi (**me, te, ga, jo, nas, jih**) – per ultimi **je** e **bom, boš, bo …**: **Dal sem ti ga. Smejal se mi je. Dal ti ga bom.**\n\nCon il no: **nisem, ni** sono parole piene, le parole brevi le seguono: **Nisem ti ga dal.** Nel futuro e nel condizionale **ne bom, ne bi** restano insieme vicino al verbo: **Ne bom ti ga dal.** Se prima c'è altro, le parole brevi lo seguono e **ne bom** viene dopo di loro: **Jutri ti ga ne bom dal. Marko ga ni videl.**\n\nUna domanda: dopo la parola interrogativa o **ali**: **Kdaj si mu ga dal? Ali si ga videl?** Una domanda sì/no può cominciare con le parole brevi: **Si ga videl? Se ji smeješ?**\n\nUna subordinata: subito dopo **da, ker, ko, če, ki, ali**: **Rekla je, da mi ga bo prinesla.**\n\nCon **moram, hočem, smem, morem** + infinito, le parole brevi dell'infinito entrano nel gruppo: **Moram ti ga vrniti.** (non *moram vrniti ti ga*). **Lahko** vuole il presente: **Lahko ti ga dam.**"
+  },
+  "table": {
+    "head": [
+      { "sl": "kje", "en": "where", "de": "wo", "it": "dove" },
+      { "sl": "vrstni red", "en": "the order", "de": "die Reihenfolge", "it": "l'ordine" },
+      { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+    ],
+    "rows": [
+      [{ "sl": "trditev", "en": "a statement", "de": "Aussagesatz", "it": "affermazione" }, "sem, bi – se – mi – ga – je", "Smejal se mi je."],
+      [{ "sl": "prihodnjik", "en": "the future", "de": "Futur", "it": "futuro" }, "se – mi – ga – bom", "Dal ti ga bom."],
+      [{ "sl": "nikalno, preteklik", "en": "no, in the past", "de": "verneint, Vergangenheit", "it": "negativo, passato" }, "nisem + ti ga", "Nisem ti ga dal."],
+      [{ "sl": "nikalno, prihodnjik", "en": "no, in the future", "de": "verneint, Futur", "it": "negativo, futuro" }, "ne bom + ti ga", "Ne bom ti ga dal."],
+      [{ "sl": "nekaj spredaj", "en": "something first", "de": "etwas vorn", "it": "qualcosa prima" }, "ti ga + ne bom", "Jutri ti ga ne bom dal."],
+      [{ "sl": "vprašanje", "en": "a yes/no question", "de": "Ja/Nein-Frage", "it": "domanda sì/no" }, "si ga …?", "Si ga videl?"],
+      [{ "sl": "vprašalnica", "en": "a question word", "de": "Fragewort", "it": "interrogativo" }, "kdaj + si mu ga", "Kdaj si mu ga dal?"],
+      [{ "sl": "odvisnik", "en": "a clause", "de": "Nebensatz", "it": "subordinata" }, "da + mi ga bo", "…, da mi ga bo prinesla."],
+      [{ "sl": "moram + nedoločnik", "en": "moram + infinitive", "de": "moram + Infinitiv", "it": "moram + infinito" }, "moram + ti ga", "Moram ti ga vrniti."]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Smejal se mi je.",
+      "en": "He laughed at me.",
+      "de": "Er hat mich ausgelacht.",
+      "it": "Ha riso di me."
+    },
+    {
+      "sl": "Tone si ga je kupil na sejmu.",
+      "en": "Tone bought it for himself at the fair.",
+      "de": "Tone hat ihn sich auf dem Jahrmarkt gekauft.",
+      "it": "Tone se l'è comprato alla fiera."
+    },
+    {
+      "sl": "Ne bom ti ga posodil.",
+      "en": "I won't lend it to you.",
+      "de": "Ich werde ihn dir nicht leihen.",
+      "it": "Non te lo presterò.",
+      "note": {
+        "en": "Ne bom stays together at the verb when it starts the sentence.",
+        "de": "Ne bom bleibt zusammen beim Verb, wenn es den Satz beginnt.",
+        "it": "Ne bom resta insieme vicino al verbo quando apre la frase."
+      }
+    },
+    {
+      "sl": "Marko ti ga ne bo prodal.",
+      "en": "Marko won't sell it to you.",
+      "de": "Marko wird ihn dir nicht verkaufen.",
+      "it": "Marko non te lo venderà.",
+      "note": {
+        "en": "Marko first: ti ga right after it, then ne bo.",
+        "de": "Marko vorn: ti ga gleich danach, dann ne bo.",
+        "it": "Prima Marko: subito dopo ti ga, poi ne bo."
+      }
+    },
+    {
+      "sl": "Si ga videl, Nejc?",
+      "en": "Have you seen him, Nejc?",
+      "de": "Hast du ihn gesehen, Nejc?",
+      "it": "L'hai visto, Nejc?"
+    },
+    {
+      "sl": "Zakaj se ji smeješ?",
+      "en": "Why are you laughing at her?",
+      "de": "Warum lachst du sie aus?",
+      "it": "Perché ridi di lei?"
+    },
+    {
+      "sl": "Rekla je, da mi ga bo prinesla jutri.",
+      "en": "She said she'd bring it to me tomorrow.",
+      "de": "Sie hat gesagt, dass sie es mir morgen bringt.",
+      "it": "Ha detto che me lo porterà domani."
+    },
+    {
+      "sl": "Jutri ti ga moram vrniti.",
+      "en": "I have to give it back to you tomorrow.",
+      "de": "Ich muss es dir morgen zurückgeben.",
+      "it": "Devo restituirtelo domani."
+    }
+  ],
+  "modules": [],
+  "tags": ["clitic_order", "clitic_cluster", "naslonski_niz", "word_order_clitics"],
+  "see": ["naslonke", "osebni-zaimki", "prihodnjik", "zanikanje", "odvisni-govor", "pogojnik-ce-bi"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker. The order after Toporišič (Slovenska slovnica 2004) as summed up by Sever Torkar",
+  "card": {
+    "title": { "sl": "Vrstni red naslonk", "en": "The short words' order", "de": "Die kurzen Wörter: Reihenfolge", "it": "L'ordine delle parole brevi" },
+    "rule": {
+      "en": "**sem, bi – se – mi – ga – je, bom**, after the first word: **Smejal se mi je. Dal ti ga bom.** With a no: **Nisem ti ga dal. Ne bom ti ga dal. Jutri ti ga ne bom dal.**",
+      "de": "**sem, bi – se – mi – ga – je, bom**, nach dem ersten Wort: **Smejal se mi je. Dal ti ga bom.** Mit Nein: **Nisem ti ga dal. Ne bom ti ga dal. Jutri ti ga ne bom dal.**",
+      "it": "**sem, bi – se – mi – ga – je, bom**, dopo la prima parola: **Smejal se mi je. Dal ti ga bom.** Con il no: **Nisem ti ga dal. Ne bom ti ga dal. Jutri ti ga ne bom dal.**"
+    },
+    "table": {
+      "head": [
+        { "sl": "kje", "en": "where", "de": "wo", "it": "dove" },
+        { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+      ],
+      "rows": [
+        [{ "sl": "trditev", "en": "a statement", "de": "Aussagesatz", "it": "affermazione" }, "Smejal se mi je."],
+        [{ "sl": "nikalno", "en": "with no", "de": "verneint", "it": "negativo" }, "Ne bom ti ga dal."],
+        [{ "sl": "vprašanje", "en": "a question", "de": "Frage", "it": "domanda" }, "Si ga videl?"],
+        [{ "sl": "odvisnik", "en": "a clause", "de": "Nebensatz", "it": "subordinata" }, "…, da mi ga bo prinesla."],
+        [{ "sl": "moram + …", "en": "moram + infinitive", "de": "moram + Infinitiv", "it": "moram + infinito" }, "Moram ti ga vrniti."]
+      ]
+    },
+    "examples": [
+      {
+        "sl": "Marko ti ga ne bo prodal.",
+        "en": "Marko won't sell it to you.",
+        "de": "Marko wird ihn dir nicht verkaufen.",
+        "it": "Marko non te lo venderà."
+      },
+      {
+        "sl": "Rekla je, da mi ga bo prinesla jutri.",
+        "en": "She said she'd bring it to me tomorrow.",
+        "de": "Sie hat gesagt, dass sie es mir morgen bringt.",
+        "it": "Ha detto che me lo porterà domani."
+      }
+    ],
+    "tip": {
+      "en": "💡 Without a no, **je** and **bom** come last: **Dal mu ga je**, never *dal je mu ga*.",
+      "de": "💡 Ohne Nein kommen **je** und **bom** zuletzt: **Dal mu ga je**, nie *dal je mu ga*.",
+      "it": "💡 Senza il no, **je** e **bom** vengono per ultimi: **Dal mu ga je**, mai *dal je mu ga*."
+    }
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "stevila-glagol",
+  "language": "sl",
+  "level": "B1",
+  "emoji": "🔢",
+  "title": {
+    "sl": "Pet hiš se je podrlo: števnik in glagol",
+    "en": "Five houses fell down: numbers and the verb",
+    "de": "Fünf Häuser sind eingestürzt: Zahl und Verb",
+    "it": "Cinque case sono crollate: numeri e verbo"
+  },
+  "rule": {
+    "en": "The verb goes with the number before the noun.\n\n**1** takes the singular, **2** the dual, **3** and **4** the plural, and the l-form agrees with the noun's gender: **Ena krava je zbolela. Dve kravi sta zboleli. Tri krave so zbolele.** **Dva gosta sta prišla. Trije gostje so prišli.** **Oba, obe** (both) are dual: **Obe sestri sta prišli.**\n\nFrom **5** on the noun is in the genitive plural and the verb is singular and neuter, as if the subject were *it*: **Pet krav je zbolelo. Šest gostov je prišlo. Pet hiš se je podrlo.** So in every tense: **Pet krav je na pašniku. Deset gostov bo prišlo.**\n\nQuantity words do the same: **veliko, malo, nekaj, koliko, dosti, več**: **Veliko ljudi je prišlo na sejem. Koliko ovc je ušlo?** An adjective with them is in the genitive plural too: **Podrlo se je pet starih kozolcev.**\n\nIn speech you may hear *pet ljudi so prišli*; the standard is **je prišlo**.",
+    "de": "Das Verb richtet sich nach der Zahl vor dem Nomen.\n\n**1** verlangt den Singular, **2** den Dual, **3** und **4** den Plural, und die l-Form richtet sich nach dem Geschlecht des Nomens: **Ena krava je zbolela. Dve kravi sta zboleli. Tri krave so zbolele.** **Dva gosta sta prišla. Trije gostje so prišli.** **Oba, obe** (beide) sind Dual: **Obe sestri sta prišli.**\n\nAb **5** steht das Nomen im Genitiv Plural und das Verb im Singular Neutrum, als wäre das Subjekt *es*: **Pet krav je zbolelo. Šest gostov je prišlo. Pet hiš se je podrlo.** So in jeder Zeit: **Pet krav je na pašniku. Deset gostov bo prišlo.**\n\nMengenwörter ebenso: **veliko, malo, nekaj, koliko, dosti, več**: **Veliko ljudi je prišlo na sejem. Koliko ovc je ušlo?** Ein Adjektiv dabei steht auch im Genitiv Plural: **Podrlo se je pet starih kozolcev.**\n\nGesprochen hört man auch *pet ljudi so prišli*; standardsprachlich ist **je prišlo**.",
+    "it": "Il verbo va con il numero davanti al nome.\n\n**1** vuole il singolare, **2** il duale, **3** e **4** il plurale, e la forma in -l si accorda con il genere del nome: **Ena krava je zbolela. Dve kravi sta zboleli. Tri krave so zbolele.** **Dva gosta sta prišla. Trije gostje so prišli.** **Oba, obe** (entrambi) sono duali: **Obe sestri sta prišli.**\n\nDa **5** in su il nome va al genitivo plurale e il verbo al singolare neutro, come se il soggetto fosse *esso*: **Pet krav je zbolelo. Šest gostov je prišlo. Pet hiš se je podrlo.** Così in ogni tempo: **Pet krav je na pašniku. Deset gostov bo prišlo.**\n\nLe parole di quantità fanno lo stesso: **veliko, malo, nekaj, koliko, dosti, več**: **Veliko ljudi je prišlo na sejem. Koliko ovc je ušlo?** Un aggettivo con loro va anch'esso al genitivo plurale: **Podrlo se je pet starih kozolcev.**\n\nNel parlato si sente anche *pet ljudi so prišli*; nella lingua standard è **je prišlo**."
+  },
+  "table": {
+    "head": [
+      { "sl": "število", "en": "number", "de": "Zahl", "it": "numero" },
+      { "sl": "ženski", "en": "feminine", "de": "weiblich", "it": "femminile" },
+      { "sl": "moški", "en": "masculine", "de": "männlich", "it": "maschile" },
+      { "sl": "srednji", "en": "neuter", "de": "sächlich", "it": "neutro" }
+    ],
+    "rows": [
+      ["1", "ena krava je zbolela", "en gost je prišel", "eno tele je pobegnilo"],
+      ["2", "dve kravi sta zboleli", "dva gosta sta prišla", "dve teleti sta pobegnili"],
+      ["3, 4", "tri krave so zbolele", "trije gostje so prišli", "tri teleta so pobegnila"],
+      ["5 +", "pet krav je zbolelo", "pet gostov je prišlo", "pet telet je pobegnilo"],
+      ["veliko, nekaj", "veliko krav je zbolelo", "nekaj gostov je prišlo", "malo telet je pobegnilo"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Pozimi se je pod snegom podrlo pet kozolcev.",
+      "en": "In winter five hayracks collapsed under the snow.",
+      "de": "Im Winter sind unter dem Schnee fünf Heuharfen eingestürzt.",
+      "it": "D'inverno sotto la neve sono crollate cinque rastrelliere per il fieno.",
+      "note": {
+        "en": "pet + the genitive plural, the verb neuter: se je podrlo.",
+        "de": "pet + Genitiv Plural, das Verb neutrum: se je podrlo.",
+        "it": "pet + genitivo plurale, il verbo neutro: se je podrlo."
+      }
+    },
+    {
+      "sl": "Dva gosta sta prišla iz Gorice.",
+      "en": "Two guests came from Gorica.",
+      "de": "Zwei Gäste sind aus Gorica gekommen.",
+      "it": "Sono arrivati due ospiti da Gorizia."
+    },
+    {
+      "sl": "Trije gostje so prišli iz Trsta.",
+      "en": "Three guests came from Trieste.",
+      "de": "Drei Gäste sind aus Triest gekommen.",
+      "it": "Sono arrivati tre ospiti da Trieste."
+    },
+    {
+      "sl": "Na trgatev je prišlo dvanajst sosedov.",
+      "en": "Twelve neighbours came to the grape harvest.",
+      "de": "Zwölf Nachbarn sind zur Weinlese gekommen.",
+      "it": "Alla vendemmia sono venuti dodici vicini."
+    },
+    {
+      "sl": "Veliko ljudi je prišlo na sejem.",
+      "en": "A lot of people came to the fair.",
+      "de": "Viele Leute sind zum Jahrmarkt gekommen.",
+      "it": "Alla fiera è venuta molta gente."
+    },
+    {
+      "sl": "Koliko ovc je ušlo?",
+      "en": "How many sheep got away?",
+      "de": "Wie viele Schafe sind entwischt?",
+      "it": "Quante pecore sono scappate?"
+    },
+    {
+      "sl": "Deset gostov bo prišlo na poroko.",
+      "en": "Ten guests will come to the wedding.",
+      "de": "Zehn Gäste werden zur Hochzeit kommen.",
+      "it": "Al matrimonio verranno dieci ospiti."
+    },
+    {
+      "sl": "Obe sestri sta prišli na kosilo.",
+      "en": "Both sisters came for lunch.",
+      "de": "Beide Schwestern sind zum Mittagessen gekommen.",
+      "it": "Tutte e due le sorelle sono venute a pranzo."
+    }
+  ],
+  "modules": [],
+  "tags": ["number_verb_agreement", "numeral_verb", "five_and_more_verb", "quantity_verb"],
+  "see": ["stevila-samostalniki", "rodilnik-kolicina", "dvojina", "pretekli-cas"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker",
+  "card": {
+    "title": { "sl": "Števnik in glagol", "en": "Numbers and the verb", "de": "Zahl und Verb", "it": "Numeri e verbo" },
+    "rule": {
+      "en": "**1** singular, **2** dual, **3–4** plural; from **5** and after **veliko, malo, nekaj** the verb is singular and neuter: **Pet gostov je prišlo. Veliko ljudi je prišlo.**",
+      "de": "**1** Singular, **2** Dual, **3–4** Plural; ab **5** und nach **veliko, malo, nekaj** steht das Verb im Singular Neutrum: **Pet gostov je prišlo. Veliko ljudi je prišlo.**",
+      "it": "**1** singolare, **2** duale, **3–4** plurale; da **5** e dopo **veliko, malo, nekaj** il verbo è singolare neutro: **Pet gostov je prišlo. Veliko ljudi je prišlo.**"
+    },
+    "table": {
+      "head": [
+        { "sl": "število", "en": "number", "de": "Zahl", "it": "numero" },
+        { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+      ],
+      "rows": [
+        ["1", "en gost je prišel"],
+        ["2", "dva gosta sta prišla"],
+        ["3, 4", "trije gostje so prišli"],
+        ["5 +", "pet gostov je prišlo"],
+        ["veliko, nekaj", "veliko ljudi je prišlo"]
+      ]
+    },
+    "examples": [
+      {
+        "sl": "Pozimi se je pod snegom podrlo pet kozolcev.",
+        "en": "In winter five hayracks collapsed under the snow.",
+        "de": "Im Winter sind unter dem Schnee fünf Heuharfen eingestürzt.",
+        "it": "D'inverno sotto la neve sono crollate cinque rastrelliere per il fieno."
+      },
+      {
+        "sl": "Koliko ovc je ušlo?",
+        "en": "How many sheep got away?",
+        "de": "Wie viele Schafe sind entwischt?",
+        "it": "Quante pecore sono scappate?"
+      }
+    ],
+    "tip": {
+      "en": "💡 From five on think *it*: **pet krav je zbolelo**, as **vse je zbolelo**.",
+      "de": "💡 Ab fünf denk an *es*: **pet krav je zbolelo**, wie **vse je zbolelo**.",
+      "it": "💡 Da cinque in su pensa a *esso*: **pet krav je zbolelo**, come **vse je zbolelo**."
+    }
+  }
+}
