@@ -125,14 +125,16 @@ class NavStack(start: Screen = Screen.Loading) {
 
 /**
  * Where [this] leads, for [NavStack.go]: the same destination in the stack is gone back to rather than opened again. A
- * scene is one destination with every other scene (they lie side by side, the village under them), a visited town's
- * places too, and every run (a run is only ever on top); any other screen is its own (a unit and another unit, two
- * villagers, a settings page and the sections' list are different destinations).
+ * scene is one destination with every other scene (they lie side by side, the village under them), but one gone into
+ * through a thing of another's picture ([Screen.Scene.from]: the mill from the stream's mill) lies on that one; a visited
+ * town's places are one too, and every run (a run is only ever on top); any other screen is its own (a unit and another
+ * unit, two villagers, a settings page and the sections' list are different destinations).
  */
 val Screen.destination: Any
     get() = when {
         inRun -> "run"
-        this is Screen.Scene -> "scene"
+        // a scene gone into from another's picture (the mill from the stream) lies on that one: Back returns to it
+        this is Screen.Scene -> if (from != null) "scene-inside" else "scene"
         this is Screen.VisitScene -> "visit-scene"
         else -> this
     }
@@ -193,7 +195,7 @@ object NavRoutes {
         Screen.MyWords -> listOf("mywords")
         is Screen.Family -> listOf("family", s.challengeId.orEmpty())
         // a focus opens straight into a dialog: not again after a restart, the scene as it is
-        is Screen.Scene -> listOf("scene", s.id, s.building.orEmpty())
+        is Screen.Scene -> listOfNotNull("scene", s.id, s.building.orEmpty(), s.from)
         Screen.Villagers -> listOf("villagers")
         is Screen.Villager -> listOf("villager", s.id)
         Screen.Friends -> listOf("friends")
@@ -222,7 +224,7 @@ object NavRoutes {
             "progress" -> Screen.Progress
             "mywords" -> Screen.MyWords
             "family" -> Screen.Family(arg(1))
-            "scene" -> arg(1)?.let { Screen.Scene(it, null, arg(2)) }
+            "scene" -> arg(1)?.let { Screen.Scene(it, null, arg(2), arg(3)) }
             "villagers" -> Screen.Villagers
             "villager" -> arg(1)?.let { Screen.Villager(it) }
             "friends" -> Screen.Friends

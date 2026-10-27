@@ -2189,11 +2189,14 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     /**
      * Steps into a scene of the village; [focus] is a happening key or an object slot; [building] the one the learner
      * tapped (the hut or house whose room it is, at its level). Back into the same scene from a word run or a talk, it is
-     * the building it was last opened from.
+     * the building it was last opened from. [from]: the scene on view, whose picture it is gone into from (the mill from
+     * the stream, [si.lanisce.lani.game.scene.SceneDoors]): it opens on that one, Back returns there; the same scene opened
+     * again where it lies keeps it.
      */
-    fun openScene(id: String, focus: String? = null, building: String? = null) {
+    fun openScene(id: String, focus: String? = null, building: String? = null, from: String? = null) {
         if (building != null) sceneBuilding = id to building
-        nav.go(Screen.Scene(id, focus, building ?: sceneBuilding?.takeIf { it.first == id }?.second))
+        val inside = from ?: (nav.top as? Screen.Scene)?.takeIf { it.id == id }?.from
+        nav.go(Screen.Scene(id, focus, building ?: sceneBuilding?.takeIf { it.first == id }?.second, inside))
     }
 
     /** The scene last opened from a building, and that building's id (see [openScene]). */

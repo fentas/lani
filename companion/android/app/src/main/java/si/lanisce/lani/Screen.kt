@@ -47,9 +47,11 @@ sealed interface Screen {
     data class Family(val challengeId: String? = null) : Screen
     /**
      * A close-up scene of the village; [focus] is a happening key or an object slot to start with; [building] the one it
-     * was opened from (the hut or the house tapped: its room, at its level), null for its place's.
+     * was opened from (the hut or the house tapped: its room, at its level), null for its place's; [from] the scene it was
+     * gone into from through a thing of its picture ([si.lanisce.lani.game.scene.SceneDoors]: the mill from the stream),
+     * which it lies on and Back returns to, null when the village opened it (beside the other scenes, [destination]).
      */
-    data class Scene(val id: String, val focus: String? = null, val building: String? = null) : Screen
+    data class Scene(val id: String, val focus: String? = null, val building: String? = null, val from: String? = null) : Screen
     /** "Prebivalci · Villagers": the register of the village's people. */
     data object Villagers : Screen
     /** One villager: their story, the friendship, their memories, talking to them. */

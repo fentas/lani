@@ -654,11 +654,18 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
                 val sticker = SceneWords.packOf(scene, sel)?.let { scenes.stickers.picture(it, sel.word, sel.emoji) }?.let { StickerSpot(scene.art, sel.slot) }
                 // the blackboard where the class meets: its word, and the class's lesson and units a tap away
                 val school = SceneOffers.opensSchool(sel.slot, classHere)
+                // a thing that is a place with scenes of its own (the stream's mill, once it grinds): a way into each
+                val doors = state?.let { s -> si.lanisce.lani.game.scene.SceneDoors.into(scene, sel.slot) { place -> scenes.at(place, s) } }.orEmpty()
                 val bubble = @Composable {
                     WordBubble(
                         sel, SceneWords.learned(scene, sel, scenes.packs), fresh = fresh == sel.slot, speaker = speaker, color = bubbleColor,
                         sticker = sticker, note = WordChips.noteOf(sel.slot, groups),
-                        action = if (school) { { SchoolEntries(vm, lesson, onLesson = { take(Offer.Lesson(it)) }, onSchool = { selected = null; vm.openSchool() }) } } else null,
+                        action = when {
+                            school -> { { SchoolEntries(vm, lesson, onLesson = { take(Offer.Lesson(it)) }, onSchool = { selected = null; vm.openSchool() }) } }
+                            // into the mill over the stream: Back returns to the stream ("‹ Ob potoku")
+                            doors.isNotEmpty() -> { { DoorEntries(doors) { sc -> selected = null; vm.openScene(sc.id, from = spec.id) } } }
+                            else -> null
+                        },
                     )
                 }
                 if (anchors.drawn(selTarget)) Anchored({ anchors.shown(selTarget) }, topLimit, bubbleColor, keepOff = keepOff) { bubble() }
@@ -1116,6 +1123,19 @@ internal fun SchoolEntries(vm: AppViewModel, lesson: School.Lesson?, onLesson: (
             ) { Text(lessonGo(vm, lesson)) }
         }
         TextButton(onClick = onSchool, modifier = Modifier.heightIn(min = 48.dp)) { Text("🏫 ${bi("school.allUnits")} ›") }
+    }
+}
+
+/**
+ * The ways into the scenes a thing of the picture leads to ([si.lanisce.lani.game.scene.SceneDoors]: the mill from the stream),
+ * under its word: "🚪 Vstopi · Go in: 🌾 V mlinu · In the mill ›", each one tap in, as a place's card on the map has them.
+ */
+@Composable
+internal fun DoorEntries(into: List<SceneSpec>, onScene: (SceneSpec) -> Unit) {
+    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        for (sc in into) androidx.compose.material3.FilledTonalButton(onClick = { onScene(sc) }, modifier = Modifier.padding(top = 2.dp).heightIn(min = 48.dp)) {
+            Text("🚪 ${bi("placeCard.go")}: ${sc.emoji} ${si.lanisce.lani.game.Hearths.sceneTitle(sc)} ›", fontWeight = FontWeight.SemiBold, maxLines = 2, overflow = TextOverflow.Ellipsis)
+        }
     }
 }
 

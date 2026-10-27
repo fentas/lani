@@ -161,6 +161,40 @@ class NavStackTest {
     }
 
     @Test
+    fun `a scene gone into from another's picture lies on it, and Back returns there`() {
+        val nav = home()
+        nav.go(Screen.Village)
+        nav.go(Screen.Scene("ob-potoku", focus = "mill"))
+        // the stream's mill's "Vstopi": the mill over the stream
+        nav.go(Screen.Scene("v-mlinu", from = "ob-potoku"))
+        assertEquals(Screen.Scene("ob-potoku", focus = "mill"), nav.below)
+        nav.go(run(1))
+        nav.back()
+        assertEquals("a run from the mill goes back into the mill", Screen.Scene("v-mlinu", from = "ob-potoku"), nav.top)
+        nav.go(Screen.Scene("v-mlinu", focus = "v-mlinu/melje", from = "ob-potoku"))
+        assertEquals("the mill again at a happening, where it lies", 4, nav.entries.size)
+        assertTrue(nav.back())
+        assertEquals("Back from the mill: the stream", "ob-potoku", (nav.top as Screen.Scene).id)
+        assertTrue(nav.back())
+        assertEquals(Screen.Village, nav.top)
+        // from the map's card it is a scene beside the others, the village under it
+        nav.go(Screen.Scene("ob-potoku"))
+        nav.go(Screen.Scene("v-mlinu"))
+        assertEquals(listOf(Screen.Home, Screen.Village, Screen.Scene("v-mlinu")), nav.screens())
+        // another scene opened from the mill gone into from the stream takes both their places
+        nav.go(Screen.Scene("ob-potoku"))
+        nav.go(Screen.Scene("v-mlinu", from = "ob-potoku"))
+        nav.go(Screen.Scene("na-vasi"))
+        assertEquals(listOf(Screen.Home, Screen.Village, Screen.Scene("na-vasi")), nav.screens())
+        // and after the process's death the mill lies on the stream again
+        nav.go(Screen.Scene("ob-potoku"))
+        nav.go(Screen.Scene("v-mlinu", from = "ob-potoku"))
+        val again = NavStack()
+        assertTrue(again.restore(nav.saved()))
+        assertEquals(listOf(Screen.Home, Screen.Village, Screen.Scene("ob-potoku"), Screen.Scene("v-mlinu", from = "ob-potoku")), again.screens())
+    }
+
+    @Test
     fun `the stack is saved up to its first run or visit, and comes back under the same ids`() {
         val nav = home()
         nav.go(Screen.Village)
@@ -209,6 +243,7 @@ class NavStackTest {
         val screens = listOf(
             Screen.Home, Screen.Village, Screen.Packs, Screen.Readings, Screen.ReadAloud("r1"), Screen.Talk, Screen.Progress,
             Screen.MyWords, Screen.Family("c1"), Screen.Family(null), Screen.Scene("s1", null, "b1"), Screen.Scene("s2"),
+            Screen.Scene("v-mlinu", from = "ob-potoku"),
             Screen.Villagers, Screen.Villager("v1"), Screen.Friends, Screen.TownProgress("t1"), Screen.TownQuestion("k1", asked = true),
             Screen.TownQuestion("k2", asked = false), Screen.Treasure, Screen.School, Screen.CourseUnit("u1"), Screen.UnitIntro("u1"),
             Screen.Numbers, Screen.Settings(), Screen.Settings("data"), Screen.GrammarBook,
