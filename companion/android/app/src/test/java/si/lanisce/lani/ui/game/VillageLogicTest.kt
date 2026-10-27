@@ -1,8 +1,10 @@
 package si.lanisce.lani.ui.game
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import si.lanisce.lani.game.villagers.parseVillagers
 import si.lanisce.lani.data.Exercise
 import si.lanisce.lani.data.Grading.Verdict
 import si.lanisce.lani.game.AdvanceCheck
@@ -64,7 +66,7 @@ class VillageLogicTest {
     private fun option(t: BuildingType, cost: Map<Res, Int>, available: Boolean = true) =
         BuildOption(t, cost, available, if (available) null else "locked", "+1")
 
-    @Test fun `next goal prefers hearths going out, then advancing, then a new affordable building`() {
+    @Test fun `next goal prefers hearths going out, then advancing, then a building the next age needs`() {
         val rich = GameState(resources = mapOf(Res.FOOD to 50, Res.WOOD to 50, Res.STONE to 50, Res.WISDOM to 50))
         val opts = listOf(
             option(BuildingType.TENT, mapOf(Res.WOOD to 5)),
@@ -78,8 +80,66 @@ class VillageLogicTest {
         // blown out by the storm: nothing to gather for, it burns again tomorrow
         assertEquals(NextGoal.Advance(Age.TABOR), nextGoal(cold.copy(hearths = cold.hearths!!.copy(blown = listOf(si.lanisce.lani.game.Hearths.CENTRE))), opts, AdvanceCheck(Age.TABOR, true, emptyList()), emptyMap()))
         assertEquals(NextGoal.Advance(Age.TABOR), nextGoal(rich, opts, AdvanceCheck(Age.TABOR, true, emptyList()), emptyMap()))
+        // the camp needs a tent: that one
+        assertEquals(BuildingType.TENT, (nextGoal(rich, opts, AdvanceCheck(Age.TABOR, false, listOf("x")), emptyMap()) as NextGoal.Build).option.type)
+        // the tent stands: a field would only fill a plot (food isn't short), so the goal is the camp's own next step
         val withTent = rich.copy(buildings = listOf(Building("b1", BuildingType.TENT, 0)))
-        assertEquals(BuildingType.FIELD, (nextGoal(withTent, opts, noAdvance, emptyMap()) as NextGoal.Build).option.type)
+        assertTrue(nextGoal(withTent, opts, noAdvance, emptyMap()) is NextGoal.Grow)
+        // food running short: a field
+        val hungry = withTent.copy(resources = rich.resources + (Res.FOOD to 1), villagers = 4)
+        assertEquals(BuildingType.FIELD, (nextGoal(hungry, opts.map { it.copy(cost = mapOf(Res.WOOD to 10)) }, noAdvance, emptyMap()) as NextGoal.Build).option.type)
+    }
+
+    /**
+     * Jan, 2026-10-27, at Vas: "why do I get suggested (as the aim) to build a tent?" Every building Trg needs stands, every
+     * kind is built, the stores are full enough for a tent: the goal is the age's real next step, never a tent.
+     */
+    @Test fun `a village that has what the next age needs is never told to build a tent`() {
+        val cast = parseVillagers(
+            java.io.File("../../cultures/primorska/villagers").listFiles { f -> f.extension == "json" }.orEmpty().sortedBy { it.name }
+                .joinToString(",", "[", "]") { it.readText() },
+        )
+        fun b(id: String, t: BuildingType, plot: Int) = Building(id, t, plot)
+        val jan = GameState(
+            age = Age.VAS, villagers = 12, resources = mapOf(Res.FOOD to 400, Res.WOOD to 300, Res.STONE to 200, Res.WISDOM to 150),
+            buildings = listOf(
+                b("f1", BuildingType.FIELD, 0), b("f2", BuildingType.FIELD, 1), b("pond", BuildingType.TENT, si.lanisce.lani.game.NO_PLOT), b("h", BuildingType.HUT, 2),
+                b("house", BuildingType.HOUSE, 3), b("w", BuildingType.WELL, 4), b("p", BuildingType.PALISADE, si.lanisce.lani.game.NO_PLOT), b("k", BuildingType.KOZOLEC, 5),
+                b("bee", BuildingType.BEEHIVE, 6), b("ch", BuildingType.CHURCH, 7), b("sm", BuildingType.SMITHY, 8), b("li", BuildingType.LIPA, 9),
+                b("sc", BuildingType.SCHOOL, 10), b("wt", BuildingType.WATCHTOWER, 11), b("m", BuildingType.MARKET, 12),
+            ),
+        )
+        val opts = si.lanisce.lani.game.GameEngine.buildOptions(jan, cast)
+        assertTrue("a tent could go up", opts.single { it.type == BuildingType.TENT }.available)
+        val check = si.lanisce.lani.game.GameEngine.advanceCheck(jan, 400, "B2")
+        val goal = nextGoal(jan, opts, check, si.lanisce.lani.game.GameEngine.attributes(jan).caps)
+        assertFalse("$goal", goal is NextGoal.Build)
+        // Trg needs resources, words and friends: the goal gathers what it lacks most
+        assertTrue("$goal", goal is NextGoal.Grow)
+    }
+
+    /** In every culture and age, the goal builds only what the next age needs (or a field while food is short): no tent from the camp on, no hut once houses can go up. */
+    @Test fun `the goal's building is always one the next age needs, in every culture`() {
+        for (culture in listOf("primorska", "friuli", "kaernten", "lakeland")) {
+            si.lanisce.lani.game.culture.Cultures.use(culture)
+            try {
+                for (age in Age.entries.dropLast(1)) {
+                    val s = GameState(age = age, villagers = 2, resources = Res.entries.associateWith { 5000 }, buildings = listOf(Building("t", BuildingType.TENT, 0)))
+                    val opts = si.lanisce.lani.game.GameEngine.buildOptions(s)
+                    val check = si.lanisce.lani.game.GameEngine.advanceCheck(s, 0)
+                    val goal = nextGoal(s, opts, check, si.lanisce.lani.game.GameEngine.attributes(s).caps)
+                    val next = Age.entries[age.ordinal + 1]
+                    val needs = si.lanisce.lani.game.Catalog.ageRules.getValue(next).needs.flatMap { it.first }
+                    if (goal is NextGoal.Build) {
+                        assertTrue("$culture $age: ${goal.option.type}", goal.option.type in needs)
+                        assertFalse("$culture $age: a tent", age >= Age.TABOR && goal.option.type == BuildingType.TENT)
+                        assertFalse("$culture $age: a hut", age >= Age.ZASELEK && goal.option.type == BuildingType.HUT)
+                    }
+                }
+            } finally {
+                si.lanisce.lani.game.culture.Cultures.use(si.lanisce.lani.game.culture.Cultures.DEFAULT)
+            }
+        }
     }
 
     @Test fun `growing gathers what the next age is shortest of, else the scarcest resource`() {

@@ -214,33 +214,56 @@ fun stepAction(step: AgeStep): StepAction? = when {
 }
 
 /**
- * Hearths going out for want of wood first, then advancing, then polishing rusty words when only they (and words or friends) are missing, then
- * friends when only friends (and words) are missing, then (with every plot taken) learning towards the next age, then
- * the cheapest affordable new building, then gathering for the next age.
+ * Hearths going out for want of wood first, then advancing, then polishing rusty words when only they (and words or friends)
+ * are missing, then friends when only friends (and words) are missing, then learning when only words are, then a building
+ * that moves the village on ([usefulBuild]), then gathering for the next age.
  */
 fun nextGoal(state: GameState, options: List<BuildOption>, check: AdvanceCheck, caps: Map<Res, Int>): NextGoal {
     // a hearth out for want of wood (companion/GAME.md "Hearths")
     if (si.lanisce.lani.game.Hearths.short(state)) return NextGoal.FeedFire
     if (check.ok && check.next != null) return NextGoal.Advance(check.next)
-    val plotsFull = state.plotsTaken >= PLOTS_PER_AGE[state.age.ordinal]
     val open = check.steps.filterNot { it.done }
     // Rusty words are a minute away, and polishing them counts them again: first, once nothing else but words and
     // friends is missing.
     val rusty = open.firstOrNull { it.kind == AgeStep.Kind.RUSTY }
     val learning = setOf(AgeStep.Kind.WORDS, AgeStep.Kind.RUSTY, AgeStep.Kind.FRIENDS)
     if (check.next != null && rusty != null && open.all { it.kind in learning }) return NextGoal.Polish(check.next, check.missing, rusty.need - rusty.have)
-    // Only words and friends missing: people first (helping them is practice too), then words once every plot is
-    // built. (Buildings or resources missing go on to Grow, which says what.) Without steps, the checklist's words.
+    // Only words and friends missing: people first (helping them is practice too), then words. (Buildings or resources
+    // missing go on to Grow, which says what.) Without steps, the checklist's words.
     val onlyPeople = open.isNotEmpty() && open.all { it.kind == AgeStep.Kind.WORDS || it.kind == AgeStep.Kind.FRIENDS }
     if (check.next != null && onlyPeople && open.any { it.kind == AgeStep.Kind.FRIENDS }) return NextGoal.Friends(check.next, check.missing)
-    val onlyWords = if (check.steps.isEmpty()) check.missing.all { "besed" in it } else open.all { it.kind == AgeStep.Kind.WORDS }
-    if (plotsFull && check.next != null && onlyWords) return NextGoal.Learn(check.next, check.missing)
-    val built = state.buildings.map { it.type }.toSet()
-    val affordable = options.filter { o -> o.available && o.cost.all { (r, n) -> state.res(r) >= n } }
-    val pick = affordable.sortedWith(compareBy({ it.type in built }, { it.cost.values.sum() })).firstOrNull()
-    if (pick != null) return NextGoal.Build(pick)
+    val onlyWords = if (check.steps.isEmpty()) check.missing.isNotEmpty() && check.missing.all { "besed" in it } else open.isNotEmpty() && open.all { it.kind == AgeStep.Kind.WORDS }
+    if (check.next != null && onlyWords) return NextGoal.Learn(check.next, check.missing)
+    usefulBuild(state, options, check)?.let { return NextGoal.Build(it) }
     val scarce = scarcest(state, caps)
     return if (check.next != null) NextGoal.Grow(check.next, check.missing, goalGather(state, check.next) ?: scarce) else NextGoal.Gather(scarce)
+}
+
+/**
+ * A building worth suggesting now, one that can go up and be paid for (Jan, 2026-10-27, at Vas: "why do I get suggested to
+ * build a tent?": the goal was the cheapest building that could go up, whatever it was for). Only what moves the village
+ * on: what the next age needs (its cheapest kind; never a lower kind where the bigger one can go up: no tent from the camp
+ * on, no hut once houses can be built), a home for whom such a workplace brings (its card's way, a dwelling to build), a
+ * field while the stores hold less than three days of food. Never one that would only fill a plot. Null: none.
+ */
+fun usefulBuild(state: GameState, options: List<BuildOption>, check: AdvanceCheck): BuildOption? {
+    fun affordable(o: BuildOption) = o.available && o.cost.all { (r, n) -> state.res(r) >= n }
+    fun lower(t: BuildingType): Boolean {
+        val grown = si.lanisce.lani.game.Rebuild.GROWS[t] ?: return false
+        return state.age >= Catalog.spec(grown).minAge
+    }
+    val needs = check.next?.let { next ->
+        Catalog.ageRules.getValue(next).needs.filter { (types, n) -> state.buildings.count { it.type in types && !it.damaged } < n }.flatMap { it.first }
+    }.orEmpty().toSet()
+    options.filter { it.type in needs && !lower(it.type) && affordable(it) }.minByOrNull { it.cost.values.sum() }?.let { return it }
+    // a needed workplace waits for a bed: the dwelling its card offers to build
+    options.firstOrNull { it.type in needs && it.room?.upgrade == null && it.room != null }?.room?.let { w ->
+        options.firstOrNull { it.type == w.type && !lower(it.type) && affordable(it) }?.let { return it }
+    }
+    // food running short: a field (the stores hold less than three days of what the village eats)
+    val eats = si.lanisce.lani.game.GameEngine.attributes(state).foodUpkeep
+    if (state.res(Res.FOOD) < eats * 3) options.firstOrNull { it.type == BuildingType.FIELD && affordable(it) }?.let { return it }
+    return null
 }
 
 /**
