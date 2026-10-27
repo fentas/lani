@@ -829,21 +829,92 @@ at levels 1, 2 and 3, empty, side by side and one by one (`app/build/scene-snaps
 
 ### Ob ognju by the age
 
-The village's centre changes with its ages (GAME.md "Hearths"): the open campfire to Zaselek, the stone fire ring with its
-benches at Vas, the cobbled square's fire basket from Trg. Everything that happens "by the fire" keeps its place there
-(the place key `fire`: the evening by the fire, Stari Janez's stories, the class before the linden, the people's
-reactions, an age's party, «Vidim, vidim», the treasure's riddles), and so does the scene `ob-ognju` (art `campfire`,
-`from` the fire). It follows the age where it's cheap:
+The village's centre changes with its ages (GAME.md "Hearths"), and the scene `ob-ognju` (art `campfire`, `from` the fire)
+grows with it (Jan, 2026-10-27: "the fireplace scene — I think it should change over time"). Everything that happens "by
+the fire" keeps its place there (the place key `fire`: the evening by the fire, Stari Janez's stories, the class before the
+linden, the people's reactions, an age's party, «Vidim, vidim», the treasure's riddles), and so do the scene's things, its
+words and its stage: the fire, the stones, the kettle, the woodpile (`logs`), the axe in its block, the bucket, the stump,
+the smoke, the sparks, the moon and the stars at every age, the tent while one stands by the fire; the stage's spots
+(`left`, `right`, `back`, `behind-stump`, `behind-logs`) where they always were (`FireAgesTest` checks each at every age,
+with and without the tent, in every culture: someone there is drawn, person-sized, nothing over their head).
 
 - **Its name** (`Hearths.sceneTitle`, wherever a scene is named: its top bar, a card's 🚪, the scroll's places): its own,
   "Ob ognju · At the campfire", to Zaselek; "Ob ognjišču · At the fire ring" at Vas; "Na trgu ob ognju · By the fire on the
   square" from Trg. Every culture's campfire scene alike (Al fuoco, Am Feuer, By the fire), in the learner's pair.
-- **Its picture** (`CampfirePainter`, by the village's age, `SceneWorld.age`): from Vas the two logs to sit on are the
-  fire ring's plank benches (the stage's `left` and `right` sit on them as before); from Trg the ground round the fire is
-  cobbled out to the benches. The fire in its stones, the tripod and the kettle, the woodpile, the stump and the spruces
-  round it stay: a corner of the square under the trees.
-- **What stays**: its objects and words, its people, dialogs and stage, the woods at its back (the camp's tent while one
-  stands in the village). A scene of the square with its houses round the fire is left for later.
+- **Its picture** (`CampfirePainter` over `FireVillagePainter`, game/render/scene/FireVillage.kt), from what the village
+  has (`SceneWorld`: its age, its buildings, its huts and houses by their plots, the nearest the centre first, `homes`; the
+  day the linden was planted, `lindenDay`; its projects; today's `Centre`: a feast, the age's party and decorations, the
+  centre's fire out for want of wood, the homes whose hearths are cold, the unnamed people of a bigger village):
+  - **The camp** (Ogenj, Tabor): the campfire in its ring of field stones in a clearing among the spruces, the tripod and
+    the kettle, two logs to sit on, the woodpile, the stump, the bucket, the axe in its chopping block, the camp's tent.
+  - **The hamlet** (Zaselek): the ground trodden bare round the fire and out to the huts' doors, the logs split into log
+    benches on blocks, the first huts (and a house) on the lots round the back where the spruces made way, the young
+    linden where it is planted, the church once built; the rest of the woods round them.
+  - **The village** (Vas): the fire ring of big flat stones, wider, and plank benches; packed gravel with grass along the
+    edges; the linden over the ring in the square's back corner; the well at the square's front right (a curb of stones
+    under a wooden frame, the winch with its crank, the bucket on the rim); the house fronts round the place, their gables
+    to the square (a door, windows with their
+    shutters, from the second level a balcony with geraniums in summer, a chimney smoking while its hearth burns); the
+    church along the back with its bell tower, the door at the tower's foot, the bells in the belfry; a lantern on its
+    post at the square's right; a low dry-stone wall behind the woodpile.
+  - **The market town** (Trg): cobbles over the square (earth round the linden's foot), the fire basket on its three legs
+    inside a kerb of dressed stones (its fire in the basket's bowl, the kettle hung higher), the well of stone (a well-head
+    of dressed blocks under an iron arch with its pulley), or in its place the fountain as far as its steps have come
+    (`vodnjak_na_trgu`: pegs and a string, the block, the trough with its pillar, its pipes, its water), the market's
+    stalls with striped awnings before the houses, a second lantern by the church's tower.
+  - **The town** (Mesto): paving of cut stone in rows with a ring of wedges round the fire basket, lanterns along the
+    square's back and right, the clock in the church's tower as far as its steps have come (`mestna_ura`: the slit window, the round window
+    made for it, the face lifted in, going and lit at night), benches on iron legs.
+
+  The homes are the village's own, the nearest its centre first, on the lots round the square's back (two along the
+  right-back edge, one at the left corner; the church's lot holds two more without a church; the two on the right are the
+  tent's while it stands by the fire): a hut or a house as built, each a little different (its walls' colour, its level),
+  its windows lit in the evening unless its hearth is out. The linden grows with the days since it was planted
+  (`FireLayout.growth`: a young tree the first year, full-grown after a few), in the season's leaves, blossom in June and
+  July, bare in winter. Nothing of the camp's woods is left from the village on, nor of its ferns.
+- **In its culture's way** (`FireStyle`): Primorska's white and ochre plaster, green shutters, red tiles and wooden
+  balconies, a spire on the tower; Friuli's ochre, terracotta and rosy plaster under coppi, the campanile in brick with its
+  low cap, on Teo's coast (land `coast`) sand in the square and the lagoon's thatched casoni for the huts, blue shutters;
+  Carinthia's white walls with a timbered upper storey and balconies under dark shingles, an onion dome on the tower; the
+  Lake District's grey stone cottages under slate, white window frames, a square tower with its battlements, and an oak
+  for the linden (its "Oak tree").
+- **Over the day and the year** (the fire before a dialog's cues, `Burn`): the campfire (to the hamlet) burns all day and
+  never quite goes out: low in the morning (embers, ash, a thin smoke), let die down to its embers in a summer's noon
+  unless someone sits by it, built up for the evening, burning down in the night. From the village it burns for the
+  evening's gathering (17:30 to 23:30), the lunch by the fire and whenever someone sits by it, higher for the age's party
+  and a feast; else its coals glow under a thread of smoke, and in a summer's noon it is out; out too (grey ash, no glow,
+  no smoke, the kettle cold) when the village had no wood for it today (`Hearths`), until a dialog's `flare` lights it.
+  On a feast evening (a festival's day, the village's feast, an age's party) the market town burns its kres: a tall cone
+  of logs ablaze in the basket's place, the kettle set aside on a flat stone. A dialog's `flare` and `embers` work on top
+  of it as before. Snow on the roofs, the benches and the stones in winter, the square swept round the fire; the rain,
+  the fog and the drifting leaves, snow and blossom as everywhere outdoors.
+- **The feasts**, as the map has them (GAME.md "Ages and their celebrations", `AgeUps.decorOn`): the first camp's torches
+  round the clearing, the likof's little spruce with its ribbons on the newest roof round the square, garlands of flags
+  round the square (from the linden to the church's tower and the houses and the lantern) with little lanterns in them
+  after dusk, the town's banners on their poles; garlands on every feast day from the village on.
+- **Who is there** (VILLAGERS.md "Round the fire", `FireCrowd`, `Whereabouts.inScene`): the scene's own people at the
+  stage's spots as before, and the village's others whom their day has at the fire now at the crowd's spots round it, the
+  cast first, each as themselves (a tap on them is their card): two at the camp, three at the hamlet, five at the village,
+  six at the market town and the town (four while the tent stands by the square's fire: the spots before the homes on the
+  right are its); on the benches beside the stage's sitters, then standing beside the fire, never in front of it nor just
+  behind it; those sharing a bench or a place drawn back to front. On an evening by the fire the village's unnamed people take the spots nobody took, as the map
+  has them (a few in the dark evening, fewer after nine, all who are up at a feast or the age's party), as figures not to
+  tap. The crowd's spots are no part of the stage: a dialog's `act` can't send anyone there, and a tap turn's place is
+  never one (`DioramaPainter.tapSpot`). While the village reacts (wolves, a bear) those gathered at the fire fill them too.
+- **Its frame**: what stands still (the room round the diorama, the Milky Way, the ground, the woods and the houses at the
+  back, the linden, the stalls) is drawn once and kept while the world, the season and the light stay the same
+  (`ArtPainter.still`); the sky is drawn behind it (`PixelCanvas.behind`), its moon kept above the roofs, the church's
+  tower and the linden while the sky has room (`FireVillagePainter.skyline`; on a short canvas along its way to the nearest
+  stretch of sky that has), and the rest each frame
+  ([docs/plans/05-built/fire-ages.md](../docs/plans/05-built/fire-ages.md): what it costs).
+
+`FireAgesTest` renders every age of every culture by day, in the evening with the village round its fire, on a winter's
+night and an autumn morning (`app/build/scene-snapshots/fire-ages/00-<culture>-ages.png`, each age and view on its own,
+the tablet's canvas, every age at every detail, the feasts and the fire by the hour), and checks each age differs from the
+one before, every thing is there to tap at every age, the stage's and the crowd's spots, the fire left to tap with the
+village round it, the kept still picture against a frame drawn whole, the moon in the sky while it is up on every canvas,
+the fire by the hour, every culture's own village, the linden's growth, and a frame's time. `FireCrowdTest` checks who of
+the village stands round the fire on its evenings. QA's `fire-ages` shows each age on the emulator (README "QA").
 
 ### Project steps: a village project's step as a short scene
 
@@ -2123,7 +2194,7 @@ stand, sit, lie or hide (see [Stage directions](#stage-directions-people-move-on
 
 | Art | Object slots | Person spots | Effects (`fx`) |
 |---|---|---|---|
-| `campfire` | fire, logs, kettle, stones, smoke, sparks, moon, stars, tent, axe, bucket, stump (from Vas plank benches for the logs to sit on, from Trg cobbles round the fire: [Ob ognju by the age](#ob-ognju-by-the-age)) | left, right, back (a stage: [Stage directions](#stage-directions-people-move-on-cue)) | `flare` (the fire burns higher, sparks fly), `embers` (the fire burns down: the flames lower and fewer, no sparks, a thread of smoke and a smaller light; 1: only the embers glowing red in the ash; Rosa's and Resi's "the fire is small now"), `steam` (the kettle steams), `bell` (a distant bell: its rings go out in the sky over the woods, opposite the moon), `sheepbells` (the sheep's bells up on the pasture, out of sight: small clinks going out here and there among the crowns of the trees at the back on the right, below the top bar's 🔍, and their sound: Luka's "Slišiš zvonce?"), `flock` (Luka's sheep, as many as the dialog counts: up to 0.5 they come out of the trees at the back on the right, past the tent and the chopping block, and mill along the camp's edge on the right and in front, grazing, to be counted; from 0.5 they go one after another along the front edge and down the path out of the clearing on the left, 1 gone; a few wear bells, clinking over them, and while they're here the far `sheepbells` ring on them; Luka's "Ovce gredo s planine. Pomagaj mi jih prešteti!") |
+| `campfire` | fire, logs, kettle, stones, smoke, sparks, moon, stars, tent, axe, bucket, stump (the place grows with the village, from the camp's clearing to the town's square with its homes, church, linden, well and lanterns: [Ob ognju by the age](#ob-ognju-by-the-age)) | left, right, back (a stage: [Stage directions](#stage-directions-people-move-on-cue)); the crowd's spots round the fire | `flare` (the fire burns higher, sparks fly), `embers` (the fire burns down: the flames lower and fewer, no sparks, a thread of smoke and a smaller light; 1: only the embers glowing red in the ash; Rosa's and Resi's "the fire is small now"), `steam` (the kettle steams), `bell` (a distant bell: its rings go out in the sky over the woods, opposite the moon), `sheepbells` (the sheep's bells up on the pasture, out of sight: small clinks going out here and there among the crowns of the trees at the back on the right, below the top bar's 🔍, and their sound: Luka's "Slišiš zvonce?"), `flock` (Luka's sheep, as many as the dialog counts: up to 0.5 they come out of the trees at the back on the right, past the tent and the chopping block, and mill along the camp's edge on the right and in front, grazing, to be counted; from 0.5 they go one after another along the front edge and down the path out of the clearing on the left, 1 gone; a few wear bells, clinking over them, and while they're here the far `sheepbells` ring on them; Luka's "Ovce gredo s planine. Pomagaj mi jih prešteti!") |
 | `kitchen` | stove, pot, bowl, table, chair, bread, plate, glass, cup, spoon, fork, knife, window, door, cupboard, clock, milk, eggs, water, salt, potatoes, hearth, bench, bed, shelf, curtains, corner (by the level: see [What the village has built](#what-the-village-has-built)) | stove, table, door | `oven` (the stove fired up, smoke from the chimney; at level 1 the hearth's fire burns higher), `steam` (off the cup and the bowl) |
 | `forest` | tree, spruce, mushroom, berries, stream, stone, path, bird, deer, squirrel, owl, leaves, sheep, highseat (the hunter's preža), flowers; the wild: hare, butterfly, fox, stag, hedgehog, boar, badger, dormouse, bat | path, clearing, highseat (sitting up in it) | `birds` (a flock flies up out of the trees and away), `herd` (a stag and two hinds step out of the trees at the far edge: how far out), `fox` (the fox trots along the edge to her place: how far she has come), `hoot` (the owl turns its head aside and hoots again and again, as far as the level up to 0.9; above it now and then she turns it right round, the back of it to us for a moment: Luka's "Glej! Glavo obrne čisto nazaj."), `bats` (bats over the clearing: how many), `sheepbells` (the brass bell under the lost sheep's chin swings and rings, its clinks going out, each at an end of its swing: `Sfx.SHEEP_BELL_SWING`; Luka's "Slišiš? Zvonec!"), `owl-flies` (the owl spreads her wings and flies off her branch, up and away across the clearing into the far trees, how far she has flown; at 1 she is gone, the branch bare, and her word with her, as the market's pigeons: [The words panel](#the-words-panel-here-now-seen-before-still-hidden); "Huu … odletela je"), `fell` (the tallest spruce at the clearing's far side, right of the path, felled: 0 standing among the edge trees; to 0.2 it shivers as the last cut goes in, chips flying; then it falls to the right, faster and faster, crashing down by 0.85 with a puff of dust and twigs flying; 1 lying along the ground by its stump; not set: as the maypole's project `mlaj` has it, standing until it is felled, lying there once it is, only the stump once it is carried off: Marko's "Pazite! Smreka pada!"), `fell-oak` (the oak beside it felled the same way, falling to the left: Tone's "Pazite, pada! … Bum!"), `sheep` (the lost sheep: 0 out of sight behind the big spruce across the brook, only her bell's clinks while `sheepbells` rings, not the word to tap, as the square's Muri away; rising, she peeks out past its lowest branches and walks home through the brook; 1 at her place as by herself: "Bianca è sparita!" … "Eccola!", Luka's "Tam, za smreko!"), `tracks` (a bear's prints in the mud of the brook's bank by the path, pad and five toes, on over the grass toward the boulder: how many and how clear; Anton's "Poglej tja, v blato. Velike sledi."), `does` (roe deer stepping out of the trees onto the far meadow at dusk one after another and grazing: as many as the dialog counts, else five; how many are out, 1 all of them: Jože's "Zdaj pridejo srne na travnik") |
 | `square` | linden, bench, ball, well, dog, cat, house, tower, bicycle, flowers, sun, fence | bench, well, play1, play2, play3 | `bell` (the tower's bell swings and rings), `cat` (the cat up the linden: 0 stuck on its lowest limb just out from the fork, mewing; down the limb, down the trunk tail first and a hop onto the bench; 1 curled up there again, as by herself: how far down she has come), `dog` (Muri, Janez's dog: 0 away, nothing of him on the square; up from behind the flower bed, out to its end, 0.5 sniffing at the flowers there; running back to his place, 1 as by himself), `wag` (Muri wagging hard, his tongue out, hopping for joy: how hard), `ball` (0 lost under the bench, its red and white showing in the shade between the legs: the `bench`'s to tap, not a word of its own while it's lost; rolling out to the game; 1 in play), `goal` (a shot in a high arc between two satchels at the back of the game, the children jumping for joy, then the ball kicked back into play: how far it has gone; 1 the game as ever), `cart-pump` and `cart-stone` (a horse and cart coming toward us out of the lane by the church, trotting, and stopping in the middle of the square: how far it has come; on it the fire pump from Gorica, red with its brass cylinders and long handles, or blocks of white stone glinting in the sun, unloaded once the fountain's stone lies on the square), `band` (the village band under the linden in blue coats and caps, a helicon, two trumpets and the big drum, bobbing to the beat, notes going up: how loud), `dance` (couples dancing a polka on the square, turning hand in hand, her skirt flying out: how many, up to four), `maypole` (the maypole raised: its top hauled up on two ropes while its foot slides from its trestles into its hole, the wreath and the ribbons on it: how far up; only where it lies ready, its wreath woven, or stands, never out of its season), `fountain` (the fountain's water: down the open ditch from the garden while the ditch is dug and until the pipes are in, how far it has come; from its four pipes into the trough once they are fitted, how much; not set: dry until it is finished, then running) |
