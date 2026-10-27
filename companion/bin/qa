@@ -229,6 +229,10 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        A1 done, A2 begun): A1 one line of its done units (a tap shows them), A2's done, begun, current
                        and next two units, the rest folded ("📝 Še … enot v A2", a tap lists them read-only, the
                        planned "Kmalu"), B1 closed with what opens it, B2 not shown; the swipes in school-reveal.txt;
+                       "school-a2" an A2 unit end to end (QA's hook "school:reveal"): cigav from the school's levels,
+                       its intro step by step (the summary card: the page cigav), its possessives' table and choice,
+                       the gap text "Nered pri Micki" with one gap wrong (its correction), then its test straight away,
+                       passed: the unit done in the dev bridge's village;
                        "school-build" the school, the hamlet's: the dev village's copy as it is (Jan's hamlet), the
                        Build sheet's tenth plot and the Šola on it (nothing of Vas), the line under it ("Pouk že
                        poteka …"), the teacher's bed when every bed is taken (the card's way on), built on the plot
@@ -6243,6 +6247,130 @@ def school_reveal():
     assert not find("Biti: sem, si, je"), "A1's done units folded again"
 
 
+def school_a2():
+    """An A2 unit end to end (companion/COURSE.md; docs/plans/05-built/course-a2.md): QA's hook "school:reveal" (the
+    school standing, A1 done, A2 begun) and the unit cigav ("Čigav je? Moj, tvoj, njen", one of the next two after the
+    unit begun) from the school's levels: its intro step by step (a quick question each: two taps, three typed; the table
+    growing to the possessives and the names', the summary card: the page cigav), its first worksheet (the possessives'
+    table, the choice), its second (the gap text "Nered pri Micki", one gap wrong: its correction), then its test straight
+    away ("⏩ Znam že"), passed: the unit done in the dev bridge's village. adb types no č, š, ž: such an answer is almost
+    right, half an item (the test passes with three of them, 10½ of 12)."""
+    if not (ROOT / "companion/course/sl/units/cigav.json").exists():
+        return "no A2 unit here (companion/course/sl/units/cigav.json)"
+    wait_for("Danes · Today", 30)
+    go_home()
+    for _ in range(3):
+        qa_hook("school:reveal")
+        if wait_for("Raven A1", 10):
+            break
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(3)
+    assert find("Raven A1"), "the school's levels (QA's hook school:reveal)"
+    c = scroll_to("Čigav je? Moj, tvoj, njen", 14)
+    assert c is not None, "the A2 unit cigav on the school's screen (one of the next two)"
+    shot("school-a2-levels")
+    tap_at(c)
+    assert wait_for("Delovni listi", 8), "the unit's page"
+    shot("school-a2-unit")
+    c = find("Naprej: Uvod") or find("Uvod · Introduction")
+    assert c is not None, "the intro"
+    tap_at(c)
+    assert wait_for("Korak 1/5", 10), "the intro's first step"
+    steps = [("tap", "Čigava"), ("ovca: feminine", "moja"), ("tap", "njen"), ("a woman's name: -in, then -a for kuhinja", "Mickina"),
+             ("pod + where? miza: feminine", "naso")]  # našo: adb types no š, almost right
+    for i, (kind, answer) in enumerate(steps, 1):
+        assert wait_for(f"Korak {i}/5", 8), f"step {i}"
+        if kind == "tap":
+            # the question under the lines and the table: scrolled to, the option the last of its word on screen (the
+            # table above may show it too)
+            adb("shell", "input", "swipe", "540", "1600", "540", "900", "400")
+            time.sleep(1)
+            c = ([c for t, c in nodes() if t == answer and c[1] < 2100] or [None])[-1]
+            assert c is not None, f"step {i}'s option {answer}"
+            tap_at(c)
+        else:
+            c = scroll_to(kind, 3)  # the field, its hint as the placeholder
+            assert c is not None, f"step {i}'s gap"
+            tap_at(c)
+            type_text(answer)
+            assert tap("Preveri · Check", 4), f"step {i}'s check"
+        assert wait_for("Pravilno", 6) or find("Skoraj"), f"step {i} answered right (or almost: no š)"
+        if i in (3, 5):
+            shot(f"school-a2-intro-{i}")
+        assert tap("Naprej · Next", 4), f"step {i}'s next"
+    assert wait_for("Povzetek", 8), "the intro's summary card (the page cigav)"
+    shot("school-a2-summary")
+    assert tap("Na delovne liste", 5), "on to the worksheets"
+    # the first worksheet: the possessives' table, then a choice
+    assert tap("Naprej: Moj, moja, moje", 8), "the first worksheet"
+    assert wait_for("Dopolni tabelo", 10), "the table"
+    cells = [("jaz, ženski · feminine", "moja"), ("ti, moški · masculine", "tvoj"), ("on, ženski · feminine", "njegova"),
+             ("on, srednji · neuter", "njegovo"), ("ona, moški · masculine", "njen"), ("ona, srednji · neuter", "njeno"),
+             ("oni, ženski · feminine", "njihova"), ("Luka, moški · masculine", "Lukov"), ("Luka, ženski · feminine", "Lukova"),
+             ("Micka, ženski · feminine", "Mickina"), ("Micka, srednji · neuter", "Mickino")]
+    for label, answer in cells:
+        assert fill(label, answer), f"the cell {label}"
+    shot("school-a2-table")
+    assert tap("Preveri · Check", 4), "check the table"
+    assert wait_for("Pravilno", 6), "the table right"
+    shot("school-a2-table-checked")
+    assert tap("Naprej · Next", 4), "on to the choice"
+    c = ([c for t, c in nodes() if t == "Čigavo"] or [None])[-1]
+    assert c is not None, "the choice's option Čigavo"
+    tap_at(c)
+    assert tap("Naprej · Next", 6), "on"
+    assert wait_for("Naprej · Continue", 10), "the worksheet's end"
+    assert tap("Naprej · Continue", 4), "back to the unit"
+    # the second worksheet: the gap text, the fourth gap wrong (Lukova for Lukov: its correction)
+    assert tap("Naprej: Nered pri Micki", 8), "the second worksheet"
+    assert wait_for("Vrzel 1 · Gap 1", 10), "the gap text"
+    for i, answer in enumerate(["moja", "tvojim", "Cigav", "Lukova", "Vidina", "Mickina", "Janezovo"], 1):
+        assert fill(f"Vrzel {i} · Gap {i}", answer), f"gap {i}"
+    shot("school-a2-gaptext")
+    assert tap("Preveri · Check", 4), "check the gap text"
+    assert wait_for("Popravki", 6), "its corrections"
+    time.sleep(1)
+    shot("school-a2-gaptext-checked")
+    assert tap("Naprej · Next", 6), "on"
+    assert tap("Naprej · Continue", 10), "back to the unit"
+    # the test straight away: passed, the unit done
+    assert tap("Znam že: kar na test", 8), "⏩ the test"
+    assert wait_for("Dopolni tabelo", 10), "the test's table"
+    for label, answer in [("ona, moški · masculine", "njen"), ("ona, ženski · feminine", "njena"),
+                          ("France, moški · masculine", "Francetov"), ("France, srednji · neuter", "Francetovo")]:
+        assert fill(label, answer), f"the test's cell {label}"
+    assert tap("Preveri · Check", 4), "check"
+    assert tap("Naprej · Next", 6), "on"
+    for i, answer in enumerate(["Cigav", "Janezov", "vasi", "mojo"], 1):
+        assert fill(f"Vrzel {i} · Gap {i}", answer), f"the test's gap {i}"
+    assert tap("Preveri · Check", 4), "check"
+    assert tap("Naprej · Next", 6), "on"
+    for i, answer in enumerate(["To je Vidina gostilna.", "To je Jozetova preza.", "To je Markov vinograd."], 1):
+        assert fill(f"Vrstica {i} · Line {i}", answer), f"the test's line {i}"
+    shot("school-a2-test-lines")
+    assert tap("Preveri · Check", 4), "check"
+    assert tap("Naprej · Next", 6), "on"
+    c = ([c for t, c in nodes() if t == "njuna"] or [None])[-1]
+    assert c is not None, "the test's choice"
+    tap_at(c)
+    assert wait_for("Naprej · Next", 6), "on"
+    tap("Naprej · Next", 4)
+    assert wait_for("Enota opravljena", 12), "the test passed: the unit done"
+    shot("school-a2-test-passed")
+    assert tap("Naprej · Continue", 4), "back to the unit"
+    assert wait_for("Enota je opravljena", 8), "the unit done"
+    end, unit = time.time() + 20 * slow(), None
+    while time.time() < end:  # the app pushes the village to the node
+        try:
+            unit = (((api("/game").get("state") or {}).get("course") or {}).get("units") or {}).get("sl/cigav")
+        except (OSError, RuntimeError, ValueError):
+            unit = None
+        if unit and unit.get("done"):
+            break
+        time.sleep(2)
+    assert unit and unit.get("done"), f"the dev bridge's village keeps the unit done ({unit})"
+
+
 def school_build():
     """The school, the hamlet's (GAME.md "The school"; Jan, 2026-10-13: "I go to Build and Šola is still with 'needs
     Village'"): the dev village's copy as it is (Jan's hamlet, its nine plots built), the Build sheet with the hamlet's
@@ -11365,6 +11493,7 @@ def plan():
         ("school-unit", school_unit, go_home, False, ""),
         ("school-print", school_print, go_home, False, ""),
         ("school-reveal", school_reveal, go_home, False, ""),
+        ("school-a2", school_a2, go_home, False, ""),
         ("school-build", school_build, go_home, False, ""),
         ("school-scene", school_scene, v, False, ""),
         ("school-seats", school_seats, v, False, ""),
