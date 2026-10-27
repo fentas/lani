@@ -1,0 +1,19 @@
+/* The invitation's page (site/town/index.html): the 404 page's pixel village, a button or two. */
+:root { --bg: #fbf4e4; --ink: #2a1e14; --soft: #6b5643; --link: #0b4ea2; --accent: #b4492f; --card: #fffaf0; color-scheme: light dark; }
+@media (prefers-color-scheme: dark) { :root { --bg: #0d1526; --ink: #f3e9d2; --soft: #c9bb9e; --link: #8eb6f5; --accent: #d4502f; --card: #16213a; } }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: var(--bg); color: var(--ink);
+  font: 18px/1.55 system-ui, sans-serif; text-align: center; padding: 16px; }
+main { max-width: 34rem; width: 100%; }
+h1 { font: 700 1.9rem/1.2 ui-monospace, monospace; margin: 8px 0 12px; }
+h1 i, h2 i { display: block; font: italic 400 1rem/1.4 system-ui, sans-serif; color: var(--soft); }
+h2 { font: 700 1.15rem/1.3 ui-monospace, monospace; margin: 28px 0 6px; }
+p { margin: 0 0 12px; }
+i { color: var(--soft); }
+a { color: var(--link); font-weight: 700; }
+svg { width: 88px; height: 88px; image-rendering: pixelated; }
+.small { font-size: .9rem; }
+.button, button { display: inline-block; min-height: 48px; padding: 12px 22px; border-radius: 14px; border: 2px solid var(--accent);
+  background: var(--accent); color: #fff; text-decoration: none; font: 700 1.05rem/1.3 system-ui, sans-serif; cursor: pointer; }
+.button.ghost, button.ghost { background: transparent; color: var(--ink); }
+code { display: block; padding: 10px; border-radius: 10px; background: var(--card); word-break: break-all; font-size: .8rem; text-align: left; }

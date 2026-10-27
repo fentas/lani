@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+# The verified-link file of the invitations' web links (companion/README.md, "Towns"): site/.well-known/assetlinks.json
+# says that https://lani.page/town… is the app's (an Android App Link), by the SHA-256 of the certificate the released
+# APK is signed with. Android checks it at https://<host>/.well-known/assetlinks.json for every host of the manifest's
+# filter (lani.page, lani.team, lani.inviteHost). The certificate is public (it is in every APK): no key is read here.
+#
+# Usage: companion/bin/lani-assetlinks [--apk <file>] [--print | --check]
+#
+#   --apk     the APK to read the certificate from (default: the newest GitHub release's, with gh)
+#   --print   print the file instead of writing it
+#   --check   exit 1 when the committed file doesn't name that certificate
+#
+# A new release key (lani-keystore) needs a new file before its first release: run this on that release's APK, commit,
+# and let the Pages workflow publish it (and copy it to every other host the links use).
+set -euo pipefail
+root="$(cd "$(dirname "$0")/../.." && pwd)"
+out="$root/site/.well-known/assetlinks.json"
+die() { echo "lani-assetlinks: $*" >&2; exit 1; }
+usage() { sed -n '2,/^set -euo/{/^set -euo/d;s/^# \{0,1\}//;p}' "$0"; }
+
+apk="" mode=write
+while (($#)); do
+  case "$1" in
+    --apk) [ $# -ge 2 ] || die "--apk needs a file"; apk="$2"; shift ;;
+    --print) mode=print ;;
+    --check) mode=check ;;
+    -h|--help) usage; exit 0 ;;
+    *) usage >&2; exit 2 ;;
+  esac
+  shift
+done
+
+tmp="$(mktemp -d)"
+trap 'rm -rf "$tmp"' EXIT
+if [ -z "$apk" ]; then
+  command -v gh >/dev/null || die "no --apk and no gh to get the newest release's"
+  gh release download -R fentas/lani -p 'lani-*.apk' -D "$tmp" >/dev/null || die "the newest release's APK couldn't be downloaded"
+  apk="$(ls "$tmp"/lani-*.apk | head -1)"
+fi
+[ -f "$apk" ] || die "no such APK: $apk"
+
+# apksigner (the SDK's build-tools) reads any signature scheme; keytool only v1
+sdk="${ANDROID_HOME:-$(sed -n 's/^sdk.dir=//p' "$root/companion/android/local.properties" 2>/dev/null)}"
+signer="$(ls -d "$sdk"/build-tools/*/apksigner 2>/dev/null | sort -V | tail -1 || true)"
+java="${JAVA_HOME:-$(mise where java 2>/dev/null || true)}"
+[ -n "$java" ] && export JAVA_HOME="$java" PATH="$java/bin:$PATH"
+if [ -n "$signer" ]; then
+  hex="$("$signer" verify --print-certs "$apk" | sed -n 's/^Signer #1 certificate SHA-256 digest: //p')"
+else
+  hex="$(keytool -printcert -jarfile "$apk" | sed -n 's/^[[:space:]]*SHA256: //p' | tr -d ':' | tr 'A-F' 'a-f')"
+fi
+[[ "$hex" =~ ^[0-9a-f]{64}$ ]] || die "no certificate in $apk (apksigner: build-tools in the Android SDK)"
+fingerprint="$(echo "$hex" | tr 'a-f' 'A-F' | sed 's/../&:/g; s/:$//')"
+
+file="$(cat <<EOF
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "si.lanisce.lani",
+      "sha256_cert_fingerprints": ["$fingerprint"]
+    }
+  }
+]
+EOF
+)"
+case "$mode" in
+  print) echo "$file" ;;
+  check)
+    grep -q "$fingerprint" "$out" 2>/dev/null || die "$out doesn't name $fingerprint (the certificate of $(basename "$apk")): run lani-assetlinks"
+    echo "lani-assetlinks: $out names the certificate of $(basename "$apk")" ;;
+  write)
+    mkdir -p "$(dirname "$out")"
+    echo "$file" > "$out"
+    echo "lani-assetlinks: wrote $out ($fingerprint, from $(basename "$apk")); commit it, the Pages workflow publishes it" ;;
+esac

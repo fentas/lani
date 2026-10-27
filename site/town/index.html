@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Lani · Povabilo · Invitation</title>
+<meta property="og:title" content="Lani · Povabilo v vas · An invitation to a village">
+<meta property="og:description" content="Odpri v aplikaciji Lani · Open it in the Lani app">
+<meta property="og:image" content="https://lani.page/og.jpg">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/town/town.css">
+<script src="/town/town.js" defer></script>
+</head>
+<body>
+<!-- A town's invitation (companion/README.md, "Towns"): the app opens https://lani.page/town/#… itself (an Android App
+     Link, verified by /.well-known/assetlinks.json); without the app, or before the link is verified, this page says
+     how. The invitation is in the fragment: it never reaches this server, and nothing here sends it anywhere. -->
+<main>
+  <svg viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect x="7" y="1" width="2" height="1" fill="#7a2a1c"/><rect x="5" y="2" width="6" height="1" fill="#b83a26"/><rect x="3" y="3" width="10" height="1" fill="#b83a26"/><rect x="1" y="4" width="14" height="2" fill="#d4502f"/><rect x="2" y="6" width="12" height="8" fill="#f6e7c8"/><rect x="7" y="9" width="3" height="5" fill="#7b4a26"/><rect x="3" y="8" width="3" height="3" fill="#ffc94a"/><rect x="11" y="8" width="2" height="2" fill="#ffc94a"/><rect x="0" y="14" width="16" height="2" fill="#5f8f3a"/></svg>
+  <h1><span lang="sl">✉️ Povabilo v vas</span> <i id="t-title">An invitation to a village</i></h1>
+
+  <section id="ok" hidden>
+    <p><span lang="sl">Prijatelj te vabi, da povežeta vasi v Lani.</span> <i id="t-intro">A friend invites you to link your villages in Lani.</i></p>
+    <p><a id="open" class="button" href="#"><span lang="sl">Odpri v Lani</span> · <span id="t-open">Open in Lani</span></a></p>
+    <p class="small"><span lang="sl">Velja enkrat, 30 minut.</span> <i id="t-once">It works once, for 30 minutes.</i></p>
+
+    <h2><span lang="sl">Nimaš še Lani?</span> <i id="t-none">Don't have Lani yet?</i></h2>
+    <p><a class="button ghost" href="https://github.com/fentas/lani/releases/latest"><span lang="sl">Namesti Lani (Android)</span> · <span id="t-install">Install Lani (Android)</span></a></p>
+    <p class="small"><span lang="sl">Potem se vrni sem in tapni »Odpri v Lani«.</span> <i id="t-back">Then come back here and tap “Open in Lani”.</i></p>
+
+    <h2><span lang="sl">Ali v aplikaciji</span> <i id="t-inapp">Or in the app</i></h2>
+    <p class="small"><span lang="sl">🤝 Prijatelji → 🔗 Sprejmi, nato prilepi:</span> <i id="t-paste">🤝 Friends → 🔗 Accept, then paste:</i></p>
+    <p><code id="code"></code></p>
+    <p><button id="copy" type="button" class="ghost"><span lang="sl">Kopiraj</span> · <span id="t-copy">Copy</span></button> <span id="copied" class="small" hidden>✓</span></p>
+  </section>
+
+  <section id="bad" hidden>
+    <p><span lang="sl">To povabilo ni celo: prosi za novo.</span> <i id="t-bad">This invitation is incomplete: ask for a new one.</i></p>
+  </section>
+
+  <p class="small"><a href="/">Lani</a></p>
+</main>
+</body>
+</html>
