@@ -5588,18 +5588,21 @@ def school_scene():
     hers = [q["title"] for q in state.get("quests") or [] if q.get("giver") == "Učiteljica Mojca" and not q.get("done")]
     qa_hook("hour:10")
     try:
-        # the map: Mojca's bubble (one for all her requests up, their titles in its label), or her place's when zoomed out
+        # the map: Mojca's bubble (her request up, its title its label: the map's window shows one of a villager's at a time,
+        # GAME.md "A window of requests"), or her place's when zoomed out; none when the window has none of hers now
+        def her_bubble():
+            return next((t for t in request_bubbles() if any(h.split(" · ")[0] in t for h in hers)), None)
         plain_village()
         time.sleep(2)
-        label = next((t for t, _ in nodes() if "Učiteljica Mojca:" in t), None)
+        label = her_bubble()
         if label is None:
             qa_hook("zoom")
             time.sleep(2)
-            label = next((t for t, _ in nodes() if "Učiteljica Mojca:" in t), None)
+            label = her_bubble() or next((t for t, _ in nodes() if "Učiteljica Mojca:" in t), None)
         shot("school-scene-map")
         on_map = [t for t in hers if t.split(" · ")[0] in (label or "")]
         print(f"    the map: {label!r}: {len(on_map)} of her {len(hers)} open requests")
-        assert label is not None or not hers, "Mojca's bubble on the map (her requests)"
+        assert len(on_map) <= 1, f"one of a villager's requests on the map at most: {on_map}"
         # the school's scene, as the village opens it
         adb("logcat", "-c")
         adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "scene:v-soli")

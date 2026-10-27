@@ -18,30 +18,34 @@ import si.lanisce.lani.game.scene.TownMarker
 import si.lanisce.lani.game.scene.TownMarkers
 import si.lanisce.lani.game.villagers.Residents
 
-/** Requests up and waiting (companion/GAME.md "Quests": one bubble each, two at most, the drill before its task). */
+/** Requests up and waiting (companion/GAME.md "Quests": one bubble each, one up per villager, the drill before its task). */
 class QuestQueueTest {
     private fun ids(qs: List<Quest>) = qs.map { it.moduleId ?: it.id }
     private fun queue(s: GameState, day: java.time.LocalDate = today) = Residents.queue(s, cast, day)
 
     @Test fun `the Primorska village shows one bubble per villager, never the same one stacked`() {
         val quests = TownMarkers.of(JanRequests.linked, emptyList(), cast, today).filter { it.kind == TownMarker.Kind.QUEST && it.id.startsWith("quest:") }
-        // Mojca asked for three, Tone four, Janez one (in the order they first asked): three bubbles, each with how many are up
-        assertEquals(listOf("👩‍🏫" to 2, "⚒️" to 2, "👴" to 1), quests.map { it.emoji to it.count })
-        // Tone's own request is his bubble's first (a tap opens his card, which lists both)
-        assertEquals("quest:${podkev.id}", quests[1].id)
-        assertEquals("Kovač Tone: Podkev za konja, Kam? Na tržnico! (-a → -o)", quests[1].label)
+        // Tone asked for four, Mojca three, Janez one: three bubbles, one request each, the best for the learner first
+        assertEquals(listOf("⚒️" to 1, "👩‍🏫" to 1, "👴" to 1), quests.map { it.emoji to it.count })
+        // Tone's: the tutor's short drill for the task he keeps failing (a tap opens his card, which lists all of his)
+        assertEquals("quest:${naTrznico.id}", quests[0].id)
+        assertEquals(naTrznico.title, quests[0].label)
         assertEquals("quest:${zgodbe.id}", quests[2].id)
         assertEquals(zgodbe.title, quests[2].label)
     }
 
-    @Test fun `a villager shows two requests at most, their own first, then the tutor's newest`() {
+    @Test fun `a villager shows one request at a time, their best by the window's order`() {
         val q = queue(JanRequests.linked)
-        assertEquals(listOf(podkev.id, "kam-na-trznico"), ids(q.upOf("Kovač Tone")))
-        assertEquals(listOf("dvojina-osnove", "tozilnik-osnove"), ids(q.upOf("Učiteljica Mojca")))
+        // the drill (weak items) before the tutor's newest before the villager's own
+        assertEquals(listOf("kam-na-trznico"), ids(q.upOf("Kovač Tone")))
+        assertEquals(listOf("dvojina-osnove"), ids(q.upOf("Učiteljica Mojca")))
         assertEquals(listOf(zgodbe.id), ids(q.upOf("Stari Janez")))
         // the rest wait in "Later", in the order they come up, each saying why
         assertEquals(
-            listOf("imeti-in-iti" to "Queued", "rodilnik-po-nikalnici" to "Queued", "predlogi-kraja" to "After:kam-na-trznico"),
+            listOf(
+                "tozilnik-osnove" to "Queued", "rodilnik-po-nikalnici" to "Queued", "imeti-in-iti" to "Queued", podkev.id to "Queued",
+                "predlogi-kraja" to "After:kam-na-trznico",
+            ),
             q.later.map { w ->
                 (w.quest.moduleId ?: w.quest.id) to when (val why = w.why) {
                     is QuestQueue.Why.After -> "After:${why.drill.moduleId}"
@@ -54,10 +58,10 @@ class QuestQueueTest {
         assertEquals(8, q.up.size + q.later.size)
     }
 
-    @Test fun `without a local request two of the tutor's are up, the newest first`() {
+    @Test fun `without a local request the drill is up, the task behind it, the other waiting its turn`() {
         val q = queue(JanRequests.linked.copy(quests = JanRequests.linked.quests.filter { it.id != podkev.id }))
-        assertEquals(listOf("kam-na-trznico", "rodilnik-po-nikalnici"), ids(q.upOf("Kovač Tone")))
-        assertTrue(q.laterOf("Kovač Tone").single().why is QuestQueue.Why.After)
+        assertEquals(listOf("kam-na-trznico"), ids(q.upOf("Kovač Tone")))
+        assertEquals(listOf("Queued", "After"), q.laterOf("Kovač Tone").map { it.why::class.simpleName })
     }
 
     @Test fun `the short drill is found for the task it shares a page with, and parks it`() {
@@ -76,12 +80,12 @@ class QuestQueueTest {
         val (s, r) = GameEngine.completeQuest(JanRequests.linked, naTrznico.id, 9, 11, JanRequests.noonOf(today))
         assertTrue(r.won)
         val q = queue(s)
-        assertEquals(listOf(podkev.id, "predlogi-kraja"), ids(q.upOf("Kovač Tone")))
-        assertEquals(listOf("rodilnik-po-nikalnici"), ids(q.laterOf("Kovač Tone").map { it.quest }))
+        assertEquals(listOf("predlogi-kraja"), ids(q.upOf("Kovač Tone")))
+        assertEquals(listOf("rodilnik-po-nikalnici", podkev.id), ids(q.laterOf("Kovač Tone").map { it.quest }))
         assertTrue(QuestQueue.returning(s.quests.single { it.moduleId == "predlogi-kraja" }, s.quests))
-        // failing the drill keeps it up and the task behind it
+        // failing the drill keeps it his and the task behind it
         val (f, _) = GameEngine.completeQuest(JanRequests.linked, naTrznico.id, 3, 11, JanRequests.noonOf(today))
-        assertEquals(listOf(podkev.id, "kam-na-trznico"), ids(queue(f).upOf("Kovač Tone")))
+        assertEquals(listOf("kam-na-trznico"), ids(queue(f).upOf("Kovač Tone")))
         assertTrue(queue(f).why(vAliNa.id) is QuestQueue.Why.After)
     }
 
@@ -89,18 +93,18 @@ class QuestQueueTest {
         val tomorrow = today.plusDays(1)
         // asked on the 29th (as the app now keeps it)
         val asked = JanRequests.linked.copy(quests = JanRequests.linked.quests.map { if (it.id == podkev.id) it.copy(since = "2026-09-29") else it })
-        assertNull(queue(asked, today).why(podkev.id)) // the day after: up
+        assertEquals(QuestQueue.Why.Queued, queue(asked, today).why(podkev.id)) // the day after: his, behind his drill
         val q = queue(asked, tomorrow)
         assertEquals(QuestQueue.Why.Stale, q.why(podkev.id))
-        // Tone's two slots go to the tutor's; Janez's request of today stays up
-        assertEquals(listOf("kam-na-trznico", "rodilnik-po-nikalnici"), ids(q.upOf("Kovač Tone")))
+        // Tone's turn goes to the tutor's; Janez's request stays up
+        assertEquals(listOf("kam-na-trznico"), ids(q.upOf("Kovač Tone")))
         assertEquals(listOf(zgodbe.id), ids(q.upOf("Stari Janez")))
-        // started once, it stays up
+        // started once, it never waits by age
         val tried = asked.copy(quests = asked.quests.map { if (it.id == podkev.id) QuestQueue.tried(it, 2, 5) else it })
-        assertNull(queue(tried, tomorrow).why(podkev.id))
+        assertEquals(QuestQueue.Why.Queued, queue(tried, tomorrow).why(podkev.id))
         // one asked before the app counted tries (Jan's "Podkev" as it is) may have been started: it never waits by age
         assertNull(QuestQueue.since(podkev))
-        assertNull(queue(JanRequests.linked, tomorrow).why(podkev.id))
+        assertEquals(QuestQueue.Why.Queued, queue(JanRequests.linked, tomorrow).why(podkev.id))
         // it expires on its third day as before
         val (pruned, expired) = Quests.prune(asked, JanRequests.noonOf(java.time.LocalDate.of(2026, 10, 2)).plus(1))
         assertTrue(expired.any { it.id == podkev.id } && pruned.quests.none { it.id == podkev.id })
@@ -171,8 +175,8 @@ class QuestQueueTest {
         val a = naTrznico.copy(helps = "predlogi-kraja")
         val b = vAliNa.copy(helps = "kam-na-trznico")
         val q = QuestQueue.of(listOf(a, b), listOf(a, b), today)
-        assertEquals(2, q.up.size)
-        assertTrue(q.later.isEmpty())
+        assertEquals(1, q.up.size)
+        assertEquals(listOf(QuestQueue.Why.Queued), q.later.map { it.why })
     }
 
     // --- a drill whose task is passed (Jan, 2026-10-20: "I did it for Vinar Marko, but it's still there with the exclamation") ---
@@ -190,7 +194,7 @@ class QuestQueueTest {
     private fun markoQueue(quests: List<Quest>) =
         Residents.queue(JanRequests.state.copy(buildings = JanRequests.state.buildings + Building("b6", BuildingType.MARKET, 5), quests = quests), markoCast, today)
 
-    @Test fun `a drill whose task is passed is practice under Later, no bubble, not one of the two up`() {
+    @Test fun `a drill whose task is passed is practice under Later, no bubble, never up`() {
         val q = markoQueue(listOf(wine, mehkiE))
         assertTrue(q.upOf("Vinar Marko").isEmpty())
         val w = q.laterOf("Vinar Marko").single()
@@ -199,13 +203,13 @@ class QuestQueueTest {
         // no "!" over him on the map
         val s = JanRequests.state.copy(buildings = JanRequests.state.buildings + Building("b6", BuildingType.MARKET, 5), quests = listOf(wine, mehkiE))
         assertTrue(TownMarkers.of(s, emptyList(), markoCast, today).none { it.id.startsWith("quest:") })
-        // with two more of his, both are up: the drill isn't counted
+        // with two more of his, the tutor's newest is up, his own waits its turn: the drill is never up
         val local = podkev.copy(id = "q-marko", giver = "Vinar Marko", emoji = "🍇", since = today.toString())
         val busy = markoQueue(listOf(wine, local, trgatev, mehkiE))
-        assertEquals(listOf("q-marko", trgatev.id), busy.upOf("Vinar Marko").map { it.id })
-        assertEquals(listOf(mehkiE.id to QuestQueue.Why.Spent(wine)), busy.laterOf("Vinar Marko").map { it.quest.id to it.why })
+        assertEquals(listOf(trgatev.id), busy.upOf("Vinar Marko").map { it.id })
+        assertEquals(listOf("q-marko" to QuestQueue.Why.Queued, mehkiE.id to QuestQueue.Why.Spent(wine)), busy.laterOf("Vinar Marko").map { it.quest.id to it.why })
         val bubble = TownMarkers.of(s.copy(quests = listOf(wine, local, trgatev, mehkiE)), emptyList(), markoCast, today).single { it.id.startsWith("quest:") }
-        assertEquals("quest:q-marko" to 2, bubble.id to bubble.count)
+        assertEquals("quest:${trgatev.id}" to 1, bubble.id to bubble.count)
         assertFalse(bubble.label, mehkiE.title in bubble.label)
         // still playable: passed after all, it's done as any request, and nowhere then
         val (played, r) = GameEngine.completeQuest(s, mehkiE.id, 5, 6, JanRequests.noonOf(today))

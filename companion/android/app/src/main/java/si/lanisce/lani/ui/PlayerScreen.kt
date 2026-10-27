@@ -561,7 +561,12 @@ fun PlayerScreen(vm: AppViewModel, module: Module) {
         ) { outs ->
             result = outs
             vm.game.rewardModule(module, outs.map { it.paid })
-            vm.chat.sessionEnd(summary(module, outs), sessionData(module, outs, started))
+            // a request of the tutor's: passed or not, and what was missed (the tutor puts it into the reviews)
+            val request = quest?.let { q ->
+                val won = vm.game.lastReward?.result?.won == true
+                si.lanisce.lani.ui.game.questEnd(q, vm.game.state?.quests?.firstOrNull { it.id == q.id }, won, module.exercises.size, outs.map { it.verdict })
+            }
+            vm.chat.sessionEnd(summary(module, outs), sessionData(module, outs, started, request))
         }
         return
     }
@@ -1438,7 +1443,7 @@ private fun summary(m: Module, outcomes: List<Outcome>): String {
     return "Finished module \"${m.title}\" (${m.id} v${m.version}) in the app: $c/${outcomes.size} correct.$early"
 }
 
-private fun sessionData(m: Module, outcomes: List<Outcome>, started: Long): JsonObject = buildJsonObject {
+private fun sessionData(m: Module, outcomes: List<Outcome>, started: Long, quest: JsonObject? = null): JsonObject = buildJsonObject {
     put("module_id", m.id)
     put("module_version", m.version)
     put("targets", buildJsonArray { m.targets.forEach { add(JsonPrimitive(it)) } })
@@ -1456,4 +1461,5 @@ private fun sessionData(m: Module, outcomes: List<Outcome>, started: Long): Json
             })
         }
     })
+    quest?.let { put("quest", it) }
 }

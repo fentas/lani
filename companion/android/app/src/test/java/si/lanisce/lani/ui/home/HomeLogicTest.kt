@@ -161,7 +161,8 @@ class HomeLogicTest {
         ))
         val needs = HomeLogic.needs(s, listOf(on("potica")), people = emptyList(), scenes = listOf(kitchenScene))
         assertEquals(listOf("Kovač Tone", "Učiteljica Mojca", "Babica Micka"), needs.map { it.name })
-        assertEquals(1, needs[0].more)
+        // one of a villager's requests at a time, as on the map (GAME.md "A window of requests"): Tone's other waits
+        assertEquals(0, needs[0].more)
         assertEquals(NeedTarget.Quest("l1"), needs[0].target)
         assertFalse(needs[0].now)
         val micka = needs[2]
@@ -200,8 +201,11 @@ class HomeLogicTest {
 
     @Test fun `no village means nobody, and at most a strip full`() {
         assertTrue(HomeLogic.needs(null, emptyList(), emptyList(), emptyList()).isEmpty())
+        // nine requests of nine people: the map's window of them (GAME.md "A window of requests"), the rest in the Scroll
         val s = GameState(quests = List(9) { quest("q$it", "Person $it") })
-        assertEquals(HomeLogic.MAX_NEEDS, HomeLogic.needs(s, emptyList(), emptyList(), emptyList()).size)
+        assertEquals(si.lanisce.lani.game.RequestWindow.PHONE, HomeLogic.needs(s, emptyList(), emptyList(), emptyList()).size)
+        // with what's on, a strip full at most
+        assertEquals(2, HomeLogic.needs(s, emptyList(), emptyList(), emptyList(), max = 2).size)
     }
 
     // --- header, tiles, road, plan ---------------------------------------------------------------

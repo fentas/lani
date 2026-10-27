@@ -4356,6 +4356,18 @@ zoomed in and dragged, prints the bubbles on screen in each, then taps the edge 
 screen then. Screenshots: `bubbles-home`, `bubbles-dragged-right`, `bubbles-dragged-left`, `bubbles-zoomed`,
 `bubbles-zoomed-dragged`, `bubbles-chip-tapped`.
 
+**The map's window of requests** (GAME.md "A window of requests"; Jan, 2026-10-27: "all the bubbles is a bit
+overloading + if I do one it is right back"). `game/RequestWindowTest` checks a busy village shaped like Jan's (thirteen
+open requests, twelve of them the tutor's: `BusyVillage`): three up on a phone, four on a tablet, one per villager, the
+rest behind the quiet chip ("📜 +10"), nothing lost; the order (the next age's needs, the weak and due items, the closest
+to its mark, the tutor's newest, the oldest of the villagers', a tie by the view's centre); a pass and a run below the mark
+both clearing the "!" (the giver rests three hours and into the next part of the day, the one below the mark back the
+next morning, a fifth paid, what was missed into the reviews and told to the tutor: `questEnd`); the window growing on a
+roll and back at its start four hours later; what is up kept up for the day; the requests folded away under wolves and
+back as they were. `game/RequestWindowSimulationTest` plays a week of it three times a day (the tutor answering every run
+with a new task, half for the villager just helped) on a phone and a tablet: never more on the map than the window, one
+per villager, nobody asking again right after their run, nothing lost; and left alone, the start window all week.
+
 **Swipes in the chat** ("Tutor chat", "Swipes"). `ui/ChatSwipeTest` checks the swipe's decisions (sideways past the
 touch slop and within 30°, the list's past it any other way, too short to tell; the resistance; the threshold both
 ways) and `ChatController`'s toggle and undo (the bookmark back with its note). It puts bubbles on a phone's screen
@@ -4659,7 +4671,7 @@ Mojca's bed; what the stores then lack the moba brings; built on the plot choose
 and the school's screen has the class indoors ("Šola · School", Mojca teaching in it). Screenshots: `school-build-sheet`,
 `school-build-card`, `school-build-bed`, `school-build-moba`, `school-build-plot`, `school-built`, `school-indoors`.
 The lesson where the class meets (GAME.md "The school", SCENES.md "What someone has here"): `game/scene/SceneOffersTest`
-checks the map's bubble over Mojca and her requests in the school agree (Jan's: her two up, the same, as many), the
+checks the map's bubble over Mojca and her requests in the school agree (Jan's: her one up in the map's window, the same), the
 order of what someone has (the class's lesson, a dialog, the requests), the marker and a tap straight in or the choice,
 where the class meets (by the fire, under the linden, in the school; nowhere before the hamlet or without a course), the
 blackboard, and the lesson (`School.lesson`, `School.lessonStep`: a unit begun goes on at its intro, its next worksheet,

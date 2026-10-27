@@ -33,10 +33,11 @@ class QuestRowsTest {
     @Test fun `the Scroll lists the requests up and, later, the ones waiting in order`() {
         val o = TownOverview.of(JanRequests.linked, emptyList(), JanRequests.today.atTime(15, 0), JanRequests.cast)
         val up = o.today.filterIsInstance<TodayItem.Task>().map { it.quest.moduleId ?: it.quest.id }
-        assertEquals(listOf("dvojina-osnove", "tozilnik-osnove", JanRequests.podkev.id, "kam-na-trznico", JanRequests.zgodbe.id), up)
-        assertEquals(listOf("imeti-in-iti", "rodilnik-po-nikalnici", "predlogi-kraja"), o.later.map { it.quest.moduleId })
+        // the map's window: one of each villager's, the best for the learner first (GAME.md "A window of requests")
+        assertEquals(listOf("kam-na-trznico", "dvojina-osnove", JanRequests.zgodbe.id), up)
+        assertEquals(listOf("tozilnik-osnove", "rodilnik-po-nikalnici", "imeti-in-iti", null, "predlogi-kraja"), o.later.map { it.quest.moduleId })
         // who asks is listed once per request up, not for those waiting
-        assertEquals(2, o.residents.single { it.name == "Kovač Tone" }.doing.count { it is si.lanisce.lani.ui.game.Doing.Asks })
+        assertEquals(1, o.residents.single { it.name == "Kovač Tone" }.doing.count { it is si.lanisce.lani.ui.game.Doing.Asks })
     }
 
     @Test fun `a bubble counts someone's requests, zoomed out a place counts them all`() {

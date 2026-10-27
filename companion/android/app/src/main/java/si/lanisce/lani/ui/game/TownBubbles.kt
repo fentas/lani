@@ -109,6 +109,34 @@ const val BUBBLE_NUDGE = 22f
 /** How far the bubbles push each other from where they'd be at most (dp): a bubble and a half, so the pointers stay short. */
 const val BUBBLE_REACH = 1.5f * APART
 
+/**
+ * A quiet marker (companion/SCENES.md "Bubbles in the village"): what's on at a place (a happening, today's visitor, the
+ * burner by his pile, a festival, the day's surprise, a project's step, the treasure map) shows as a small icon, full size
+ * only near the view's centre ([QUIET_NEAR]); the event, who joined the village, an age's party and the requests of the
+ * map's window are bubbles always.
+ */
+fun TownMarker.quiet(): Boolean = when {
+    kind == TownMarker.Kind.EVENT -> false
+    id.startsWith("arrival:") || id.startsWith(si.lanisce.lani.game.scene.TownMarkers.PARTY) -> false
+    id.startsWith("quest:") || id.startsWith("cluster:") || id.startsWith("more:") -> false
+    else -> true
+}
+
+/** A quiet marker is full size within this share of the screen's shorter side from its centre, an icon from [QUIET_FAR]. */
+const val QUIET_NEAR = 0.2f
+const val QUIET_FAR = 0.35f
+
+/** How small a quiet marker's bubble is, and how faint, away from the view's centre. */
+private const val QUIET_SCALE = 0.6f
+private const val QUIET_ALPHA = 0.8f
+
+/** How quiet a marker at [dx], [dy] (px) from the view's centre is on a screen whose shorter side is [short] px: 0 near, 1 far. */
+fun quietness(dx: Float, dy: Float, short: Float): Float {
+    if (short <= 0f) return 0f
+    val d = kotlin.math.hypot(dx, dy) / short
+    return ((d - QUIET_NEAR) / (QUIET_FAR - QUIET_NEAR)).coerceIn(0f, 1f)
+}
+
 /** How a marker's bubble looks. */
 private fun TownMarker.fill(threat: Boolean): Color = when {
     kind == TownMarker.Kind.EVENT && threat -> TriglavRed
@@ -201,6 +229,8 @@ fun TownBubbles(
                 val a = laid.anchor(g, cam) ?: continue
                 val presence = laid.presence(g, cam)
                 if (presence <= 0f) continue
+                // a quiet marker away from the centre is an icon: no pointer
+                val pointer = presence * (1f - laid.quiet(g, cam))
                 for (i in group.second.indices) {
                     val c = laid.center(g, i, cam, clock, now())
                     val half = 5.dp.toPx()
@@ -209,8 +239,9 @@ fun TownBubbles(
                     val path = Path().apply {
                         moveTo(root.x - half, root.y); lineTo(tip.x, tip.y); lineTo(root.x + half, root.y); close()
                     }
-                    drawPath(path, group.second[i].fill(threat), alpha = presence)
-                    drawPath(path, BubbleInk, style = stroke, alpha = presence)
+                    if (pointer <= 0f) continue
+                    drawPath(path, group.second[i].fill(threat), alpha = pointer)
+                    drawPath(path, BubbleInk, style = stroke, alpha = pointer)
                 }
                 // where it is: a small ring on the ground, pulsing for a threat
                 val m = group.second.first()
@@ -225,6 +256,7 @@ fun TownBubbles(
                     m, badge(m), threat, face(m),
                     onTap = { if (laid.presence(g, camera()) >= 0.5f) onTap(m) },
                     presence = { laid.presence(g, camera()) },
+                    quiet = { laid.quiet(g, camera()) },
                     // where it's drawn, gliding or not: a tap hits what's seen; stacked with others where there's no room
                     // near, the nearer person's (lower on screen) over the farther one's, as the village is drawn
                     modifier = Modifier.layout { measurable, c ->
@@ -264,8 +296,42 @@ fun TownBubbles(
     }
 }
 
-/** The edge chip's height. */
+/** The edge chip's height, and the waiting chip's ([WaitingChip]). */
 private val EDGE_CHIP = 30.dp
+
+/** What the waiting chip takes above the bottom bar (its height and air): the edge chips keep above it. */
+val WAITING_CHIP_ROOM = EDGE_CHIP + 10.dp
+
+/**
+ * The map's one quiet chip for the requests waiting in the Scroll's "Later" (companion/SCENES.md "Bubbles in the village"):
+ * "📜 +5", small and dark like the edge chips, over the bottom bar's scroll; a tap opens the Scroll at the villagers'
+ * requests ([onTap]). It fades in and out as [n] (the requests waiting: [si.lanisce.lani.game.scene.TownMarkers.waiting])
+ * comes and goes; TalkBack: "Še 5 prošenj čaka v zvitku · 5 more requests wait in the scroll".
+ */
+@Composable
+fun WaitingChip(n: Int, onTap: () -> Unit, modifier: Modifier = Modifier) {
+    val last = remember { intArrayOf(0) }
+    if (n > 0) last[0] = n
+    AnimatedVisibility(n > 0, modifier, enter = fadeIn(), exit = fadeOut()) {
+        val count = last[0]
+        val what = bi("townBubbles.waiting", "n" to count)
+        Row(
+            Modifier
+                .height(EDGE_CHIP)
+                .background(Color.Black.copy(alpha = 0.5f), RoundedCornerShape(15.dp))
+                .clickable(onClick = onTap)
+                .clearAndSetSemantics {
+                    role = Role.Button
+                    contentDescription = what
+                    onClick { onTap(); true }
+                }
+                .padding(horizontal = 10.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text("📜 +$count", style = TextStyle(color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.Bold))
+        }
+    }
+}
 
 /** Drawing order: the bubbles over their pointers, by their places' height on screen (px) above this; the edge chips over all. */
 private const val BUBBLES_Z = 10_000f
@@ -355,6 +421,13 @@ private class BubbleLayout(
         return Offset(cam.toScreenX(p.x), cam.toScreenY(p.y))
     }
 
+    /** How quiet the group's bubbles are now (0: full; a quiet marker away from the view's centre: 1, see [quietness]). */
+    fun quiet(g: Int, cam: Camera): Float {
+        if (g !in groups.indices || groups[g].second.any { !it.quiet() }) return 0f
+        val a = anchor(g, cam) ?: return 0f
+        return quietness(a.x - viewW / 2f, a.y - viewH / 2f, minOf(viewW, viewH))
+    }
+
     /** How much the group's bubbles show (they fade as their place goes under the HUD). */
     fun presence(g: Int, cam: Camera): Float {
         val a = anchor(g, cam) ?: return 0f
@@ -419,7 +492,10 @@ private class BubbleLayout(
  * up and fades in where it is ([BubbleGlide] starts it at its spot).
  */
 @Composable
-private fun Bubble(m: TownMarker, badge: String?, threat: Boolean, face: Villager?, onTap: () -> Unit, presence: () -> Float, modifier: Modifier) {
+private fun Bubble(
+    m: TownMarker, badge: String?, threat: Boolean, face: Villager?, onTap: () -> Unit, presence: () -> Float, modifier: Modifier,
+    quiet: () -> Float = { 0f },
+) {
     val pop = remember { Animatable(0f) }
     val fade = remember { Animatable(0f) }
     LaunchedEffect(Unit) {
@@ -447,18 +523,25 @@ private fun Bubble(m: TownMarker, badge: String?, threat: Boolean, face: Village
                 onClick { onTap(); true }
             },
     ) {
+        // a quiet marker away from the view's centre: smaller and fainter, its tap target as big
+        val small = Modifier.graphicsLayer {
+            val k = quiet()
+            val scale = 1f - (1f - QUIET_SCALE) * k
+            scaleX = scale; scaleY = scale; alpha = 1f - (1f - QUIET_ALPHA) * k
+            transformOrigin = TransformOrigin(0.5f, 1f)
+        }
         if (face != null) {
             // someone far off: a small bubble with their face, a little lower (it points at a far place)
             Box(
-                Modifier.align(Alignment.BottomCenter).size(FACE).shadow(3.dp, PixelShape).background(m.fill(threat), PixelShape).border(2.dp, BubbleInk, PixelShape),
+                Modifier.align(Alignment.BottomCenter).then(small).size(FACE).shadow(3.dp, PixelShape).background(m.fill(threat), PixelShape).border(2.dp, BubbleInk, PixelShape),
                 contentAlignment = Alignment.Center,
             ) { Portrait(face.art, modifier = Modifier.size(FACE - 6.dp), px = 32, animate = false, seed = face.id.hashCode()) }
         } else Box(
-            Modifier.align(Alignment.Center).size(BUBBLE).shadow(4.dp, PixelShape).background(m.fill(threat), PixelShape).border(2.dp, BubbleInk, PixelShape),
+            Modifier.align(Alignment.Center).then(small).size(BUBBLE).shadow(4.dp, PixelShape).background(m.fill(threat), PixelShape).border(2.dp, BubbleInk, PixelShape),
             contentAlignment = Alignment.Center,
         ) { Text(m.emoji, style = fixed(22f)) }
         if (m.kind == TownMarker.Kind.QUEST) {
-            Box(Modifier.align(Alignment.TopEnd).size(18.dp).background(XpGold, CircleShape).border(1.5.dp, BubbleInk, CircleShape), contentAlignment = Alignment.Center) {
+            Box(Modifier.align(Alignment.TopEnd).graphicsLayer { alpha = 1f - quiet() }.size(18.dp).background(XpGold, CircleShape).border(1.5.dp, BubbleInk, CircleShape), contentAlignment = Alignment.Center) {
                 Text("!", color = BubbleInk, fontWeight = FontWeight.Black, style = fixed(12f))
             }
         }
@@ -466,7 +549,7 @@ private fun Bubble(m: TownMarker, badge: String?, threat: Boolean, face: Village
             // a number counts what a zoomed-out bubble stands for; an emoji says what a happening is about
             val count = badge.all { it.isDigit() }
             Box(
-                Modifier.align(Alignment.BottomEnd).size(20.dp).background(if (count) BubbleInk else Color.White, CircleShape).border(1.5.dp, if (count) Color.White else BubbleInk, CircleShape),
+                Modifier.align(Alignment.BottomEnd).graphicsLayer { alpha = 1f - quiet() }.size(20.dp).background(if (count) BubbleInk else Color.White, CircleShape).border(1.5.dp, if (count) Color.White else BubbleInk, CircleShape),
                 contentAlignment = Alignment.Center,
             ) {
                 Text(badge, color = if (count) Color.White else Color.Unspecified, fontWeight = if (count) FontWeight.Black else null, style = fixed(11f))

@@ -150,8 +150,9 @@ fun VillagersScreen(vm: AppViewModel) {
     val scenes = vm.scenes.all
     val reg = remember(s, cast, scenes) {
         val busy = s?.let { st -> vm.scenes.active(st).mapNotNull { a -> cast.firstOrNull { VillagerLogic.isVillager(a.person, it) }?.id }.toSet() }.orEmpty()
-        // their "!" as the map's bubbles: the requests up (not a drill whose task is passed, none while wolves are about)
-        val up = s?.let { st -> QuestQueue.of(st.quests, st.quests.filter { !it.done }, LocalDate.now(), st.event?.kind).up }.orEmpty()
+        // their "!" as the map's bubbles: the requests up in its window (not a drill whose task is passed, none while wolves
+        // are about)
+        val up = s?.let { st -> Residents.queue(st, cast, LocalDate.now()).up }.orEmpty()
         VillagerLogic.register(cast, s, VillagerLogic.needing(cast, up, busy), LocalDate.now())
     }
     val coming = remember(s, cast) { VillagerLogic.coming(vm.villagers.outlook(s), cast) }

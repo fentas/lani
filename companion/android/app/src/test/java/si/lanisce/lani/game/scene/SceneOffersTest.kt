@@ -45,19 +45,20 @@ class SceneOffersTest {
 
     @Test fun `her bubble on the map and what she has in the school are the same requests, counted alike`() {
         val s = JanRequests.linked
-        // the map: one bubble over Mojca, her two requests up ("!", "2"); the third waits in "Later"
+        // the map: one bubble over Mojca, her one request up (the map's window shows one of a villager's at a time:
+        // GAME.md "A window of requests"); the other two wait in "Later"
         val bubble = TownMarkers.of(s, emptyList(), cast, today).single { it.kind == TownMarker.Kind.QUEST && it.emoji == "👩‍🏫" }
-        assertEquals(2, bubble.count)
-        // the school's scene: the same two by her, from the same queue, the bubble's first first
+        assertEquals(1, bubble.count)
+        // the school's scene: the same one by her, from the same queue
         val offers = SceneOffers.of(person(school, "mojca"), emptyList(), { it.talks }, requests(s), lesson = null, teacher = "mojca")
         val asks = offers.map { (it as Offer.Request).quest }
-        assertEquals(listOf("dvojina-osnove", "tozilnik-osnove"), asks.map { it.moduleId })
+        assertEquals(listOf("dvojina-osnove"), asks.map { it.moduleId })
         assertEquals(bubble.id, "quest:${asks.first().id}")
         assertEquals(bubble.count, SceneOffers.requests(offers))
-        // her marker in the scene says requests (📋) and counts them as the bubble does; a tap with two opens the choice
+        // her marker in the scene says requests (📋) as the bubble does; a tap with the one goes straight into it
         assertEquals("📋", SceneOffers.marker(offers))
-        assertNull(SceneOffers.direct(offers))
-        // every villager's requests are theirs alone: Tone's two by him, none of them by Mojca
+        assertEquals(asks.single(), (SceneOffers.direct(offers) as Offer.Request).quest)
+        // every villager's requests are theirs alone: Tone's by him, none of them by Mojca
         val all = requests(s)
         assertEquals(TownMarkers.of(s, emptyList(), cast, today).filter { it.kind == TownMarker.Kind.QUEST && it.id.startsWith("quest:") }.map { it.count }, all.values.map { it.size })
         assertTrue(all.getValue("tone").none { it.giver == "Učiteljica Mojca" })
@@ -77,11 +78,11 @@ class SceneOffersTest {
         assertNull(SceneOffers.lesson(square, s, course))
         val tabla = ActiveHappening(school, school.happenings.first { it.id == "tabla" }, person(school, "mojca"), dialog = "tabla")
         val offers = SceneOffers.of(person(school, "mojca"), listOf(tabla), { it.talks }, requests(s), lesson, teacher = "mojca")
-        assertEquals(listOf("Lesson", "Talk", "Request", "Request"), offers.map { it::class.simpleName })
+        assertEquals(listOf("Lesson", "Talk", "Request"), offers.map { it::class.simpleName })
         assertEquals(Offer.Lesson(lesson!!), offers.first())
-        // her marker is 📚 while a unit waits, with her two requests counted; a tap shows the choice (the units besides)
+        // her marker is 📚 while a unit waits, with her request counted; a tap shows the choice (the units besides)
         assertEquals("📚", SceneOffers.marker(offers))
-        assertEquals(2, SceneOffers.requests(offers))
+        assertEquals(1, SceneOffers.requests(offers))
         assertNull(SceneOffers.direct(listOf(Offer.Lesson(lesson))))
         // the lesson is the teacher's alone; someone else's one dialog opens straight away, as before
         val zala = person(school, "zala")

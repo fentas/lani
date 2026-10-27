@@ -185,7 +185,7 @@ sheet: `LaniSheet`, the theme's surfaces and chips), readable in the light and t
   - "👥 Prebivalci · Villagers": "📖 Vsi prebivalci · Everyone in the village" (the register), "🤝 Prijatelji · Friends"
     (the linked towns), each villager with their hearts (♥♥♡♡) and what they're up to (a tap: their card over the map),
     who joined this week first, marked new; then the villagers' requests up now and "📜 Kasneje · Later", the ones waiting
-    (see "At most two at once"), each opening its run.
+    (see "A window of requests"), each opening its run.
   - "📖 Slovnica · Grammar": "📖 Branje · Reading", "🏫 Šola · School", and the pages met (see "The grammar book"), each its
     title in both languages, its level and its stars, the ones met this week first, marked new; greyed, the rules met in
     the dialogs only and how many pages are still to come. A page opens on a sheet over the scroll.
@@ -1016,26 +1016,63 @@ kitchen 6 and 19 ms; snapshots in build/scene-snapshots/storm). QA: the step `st
   - With at least 4 fitting cards, the quest uses them (weakest first), fills up from the other cards, and records the category. Villagers with a fitting story come first. With fewer fitting cards, the quest takes the weakest cards of all.
   - Reward: 30 of the quest skill + 10 of the village's scarcest other resource (lowest share of its cap when the quest opens), multiplied by (1 + 0.3 × age index). The side reward is a way out when one resource is stuck.
 - **Tutor quests.** Each module with a `quest` block becomes a tutor quest. See the next section.
-- **Pass mark.** To pass a quest, at least 60 % of the answers must be correct (almost-right answers do not count). A pass gives the full reward and marks the quest as done. A fail gives one fifth of the reward, and the quest stays open.
+- **Pass mark.** To pass a quest, at least 60 % of the answers must be correct (almost-right answers do not count). A pass gives the full reward and marks the quest as done. A fail gives one fifth of the reward, and the quest stays open: the villager thanks ("Hvala! Jutri še enkrat?") and it comes back the next morning (see "A window of requests": either way the run clears its "!").
 - **Helping.** A pass also earns 3 🤝 and the giver's thank-you good (see "Helping people" and "The chest"), and +10 ♥ with the giver (VILLAGERS.md). Mojca's chalk makes every quest reward bigger.
 - **The tent moves to the pond.** A special request, below.
 
-### At most two at once
+### A window of requests
 
 A villager can have more requests than Jan can take in: their own, and the tutor's tasks that pile up at the same giver
-(the tutor adds a drill for a task Jan keeps failing, and publishes new modules). What shows is decided in one place,
-`game/QuestQueue.kt`, and the map, the villager's card, the Scroll and Home all read it.
+(the tutor adds a drill for a task Jan keeps failing, and publishes new modules). Jan, 2026-10-27: "all the bubbles is a bit
+overloading + if I do one it is right back (e.g. Luka right now)": thirteen open requests, twelve of them the tutor's, two
+of each villager's on the map, and the next one up over the same person as soon as one was done. What shows is decided in
+one place, `game/QuestQueue.kt` with `game/RequestWindow.kt`, and the map, the villager's card, the Scroll, Home and the
+scenes all read it.
 
-- **One bubble per person.** All the requests a villager has up now are one bubble over them (the first request's look),
-  with a count badge when there are more ("⚒️ 2"). A tap opens their card, which lists them (also for someone away from
-  the clearing). Requests of someone the cast doesn't know are one bubble per place; a tap on one with more opens the
-  scroll at its villagers, where the requests are listed. Zoomed out, a place's cluster counts every request.
-- **Two up at most.** A villager shows at most two open requests (`QuestQueue.UP`): their own (the local one) first, then a
-  task of the tutor's that comes back from its drill, then the tutor's newest. The rest wait in the scroll's villagers
-  under "📜 Kasneje · Later", after the requests that are up, each villager's together and in the order they come up, with why
-  ("🕰️ Čaka na vrsto · Waits its turn"). They come up as those are done. Any request opens from "Later" and from the
-  villager's card, where they are listed dim under the ones up. While wolves, a bear or a storm are about none is up: they
-  all wait, "🐺 Po volkovih · After the wolves" (see "People react").
+- **A small window.** The map shows a few requests at a time (`RequestWindow.size`): 3 on a phone, 4 on a tablet (the
+  screen's shorter side 600 dp or more), one per villager (`QuestQueue.UP`), each one bubble over its person. The event and
+  who joined the village always show on top; what's on at a place is a quiet icon (SCENES.md, "Bubbles in the village").
+  The rest wait in the scroll's villagers under "📜 Kasneje · Later", and the map has one quiet chip for them over the
+  bottom bar's scroll, "📜 +10" (the drills for practice not counted; a tap opens the scroll there). No daily cap: nothing is
+  hidden for good, any request opens from "Later" and from the villager's card, where it is listed dim under the one up.
+- **The order**, best first (`RequestWindow.order`): each villager's best request of theirs, and of those the window's best:
+  1. what the next age needs: a request whose pass completes one of its steps (its reward covers what is still short of a
+     resource, its giver becomes the friend the age needs, it has a rusty word that holds the age back);
+  2. what practises the learner's weak or due items: a drill of the tutor's (`helps`), a task back from its drill, a
+     request with cards due or rusty on the phone (the dashboard's), a module that targets one of the mistakes' weak
+     patterns, a villager's request on such a topic;
+  3. one the learner started and almost passed, the closest to its pass mark (best try over the mark) first;
+  4. the tutor's newest task;
+  5. the oldest of the villagers' own requests.
+
+  A tie goes to the giver nearer the map's view centre (`RequestWindow.near`, kept as the camera moves), then to the one
+  asked first. "Later" lists them in the order they come up, each with why: the next for the window first ("🕰️ Čaka na vrsto
+  · Waits its turn"), then the villagers' other requests, those resting, those back tomorrow, behind a drill, asking another
+  day, and the drills for practice.
+- **It stays.** What the window shows stays up while it is open, for the day it came up (`GameState.pace`, written with
+  every change of the village: `RequestWindow.settle`): a newer or better request (the tutor's new task, a review that
+  changed what is due) waits its turn instead of pushing one off the map. The next day the window chooses afresh.
+- **A run clears its "!".** Whatever its result, a run takes its request's bubble away (`RequestWindow.finished`, after
+  `GameEngine.completeQuest`). Passed, it is done (the full reward, 3 🤝, the thank-you good, +10 ♥). Below the pass mark it
+  pays a fifth, counts the try and comes back the next morning, from 5:00: "🌙 Jutri še enkrat · Again tomorrow"
+  (`Why.Again`, `RequestWindow.backAt`); what was missed goes into the reviews (a villager's request is the learner's cards,
+  saved as failed reviews; the tutor is told a task's in its session_end, `data.quest`: passed, right of total against the
+  pass mark, the results missed and their pages, `comes_back`, and puts them into the reviews). Either way the giver thanks,
+  in the run's result ("Hvala lepa!", below the mark "Hvala! Jutri še enkrat?": the culture's `thanked` and `try_again`) and
+  on the map, a short call over them when the learner comes back to it (once, within ten minutes of the run), and rests:
+  their other requests wait at least three hours and into the next part of the day (morning 5–11, afternoon 11–17, evening
+  17–22, night), "☕ Počiva do 14:30 · Resting until 14:30" (`Why.Resting`, `RequestWindow.restUntil`). So the place a run
+  freed goes at once to another villager's request, never back to the same person.
+- **On a roll.** Each time the learner clears as many requests as the window shows in a roll (no four hours without a run),
+  it grows by one: 3, 4, 5, 6 on a phone, three more at most. Four hours without a run, and it is back at its start.
+- While wolves, a bear or a storm are about none is up: they all wait, "🐺 Po volkovih · After the wolves" (see "People
+  react"), and the same come back after. Requests of someone the cast doesn't know are one bubble per place, with a count
+  badge when there are more ("⚒️ 2"); a tap on one with more opens the scroll at its villagers. Zoomed out, a place's cluster
+  counts every request. A tap on a villager's bubble opens their card, which lists all of theirs.
+- `RequestWindowTest` checks the busy village (3 up on a phone, 4 on a tablet, one each, the rest behind the chip), the
+  order, a pass, a run below the mark, the rest, the reviews, the roll and the window kept; `RequestWindowSimulationTest`
+  plays a week of it (three sessions a day, the tutor answering each run with a new task, half of them for the villager
+  just helped): never more on the map than the window, one per villager, nobody asking again right after, nothing lost.
 - **A drill before its task.** When the tutor adds a smaller drill for a task Jan keeps failing (same villager: the drill's
   quest block names the task's module, `helps`), the task waits in "Later" behind the drill: "⏸️ Najprej · First: Kam? Na
   tržnico!". Once the drill is passed, the task comes back, first among the tutor's. Without `helps` (an older bridge drops
@@ -1047,7 +1084,7 @@ A villager can have more requests than Jan can take in: their own, and the tutor
   exclamation": the wine request passed 7/11 while the drill published that morning for it, "Rdeč teran, sveže mleko",
   kept its "!"). Once the task its `helps` names is passed, the drill waits in "Later" with "✓ Naloga je opravljena: za
   vajo · The task is done: for practice" (`QuestQueue.spentFor`, `Why.Spent`): no bubble on the map, no marker in a scene,
-  not one of the two up; still played from "Later" and the villager's card, it counts its tries, and passed all the same
+  never up; still played from "Later" and the villager's card, it counts its tries, and passed all the same
   it's done as any request. The task is the request `helps` names by its module, its id, or the module of a tutor's
   request id of another version (`tutor-<module>-v<n>`, `QuestQueue.names`); passed means one of them done and none open
   (a new version of the task published, open, puts the drill first again). A passed request is the village's quest with
@@ -1067,7 +1104,7 @@ A villager can have more requests than Jan can take in: their own, and the tutor
 - **Old requests of the villagers.** A villager's own request that Jan never started waits in "Later" two days after it
   was asked (`QuestQueue.STALE_DAYS`): "💤 Vpraša te kdaj drugič · Asks you another day". The map shows it on the day it
   is asked and the next; it still expires three days after it was asked, and the villager asks something new on a later
-  day. Started once, it stays up. The tent's move never waits by age, nor does a request asked before the app counted
+  day. Started once, it never waits by age. The tent's move never waits by age, nor does a request asked before the app counted
   tries (it may have been started).
 - **For the tutor**, `get_village` lists each open request's module, tries, best try, pass mark, the pages missed, the
   task a drill helps, and `task_passed` on a drill whose task is passed already (practice now). `publish_module` says so
@@ -2428,5 +2465,5 @@ Add a top-level `quest` block to a module (lani.module/v0):
 - Reward ranges: about 50–80 in total for a short drill (6–8 exercises), 80–150 for a long or hard module, and up to 200 for a milestone module. Pay mostly in the quest skill: 🪨 for grammar, 📜 for conversation and writing. Add 10–20 of a second resource at most. For scale: the module's own answers pay about 55, one gathering run about 35, and an upgrade at Zaselek costs 100–400. A tutor quest should be worth one or two gathering runs. The reward is not halved after the day's first 40 answers, so keep it in these ranges.
 - The quest id is `tutor-<moduleId>-v<version>`. Publish a new version to offer the quest again. When a module is removed, its quest is removed too. A done tutor quest stays done.
 - A passed tutor quest helps like a local one: 3 🤝, +10 ♥ and the giver's thank-you good (a giver the catalog doesn't know gives apples). It waits for its giver to live in the village (or visit): pick a giver who is there, or who comes soon.
-- A villager shows at most two open requests at once, their own first, then your newest (see "At most two at once"): the rest wait in the Scroll's "Later". Spread your quests over the cast; don't pile modules on one villager.
+- The map shows a few requests at a time, one per villager, the best for Jan first (see "A window of requests"): the rest wait in the Scroll's "Later", and a villager just helped rests a few hours. Keep about four open tasks of yours, spread over the cast; don't give a villager a new task right after one of theirs was finished, and rather extend an open task (a new version of its module) than add another.
 - `helps` (optional): for a task Jan keeps failing (`get_village`: its `tries`, `best` and `missed`), write a short drill (tagged `short`) at the same giver whose quest block names that task's module: `"helps": "predlogi-kraja"`. The task waits behind the drill ("⏸️ Najprej · First: …") and comes back once the drill is passed. The bridge refuses a module that names itself and says when the task isn't published or is another villager's.

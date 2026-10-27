@@ -151,12 +151,16 @@ object Residents {
     }
 
     /**
-     * The [openQuests] as they show today ([si.lanisce.lani.game.QuestQueue]): at most two of each villager up (the map's
-     * bubbles, their card, the Scroll's requests), the rest waiting in the Scroll's "Later"; while wolves, a bear or a storm
-     * are about none up, all of them waiting until it's over ([Reactions.quiet]).
+     * The [openQuests] as they show today ([si.lanisce.lani.game.QuestQueue]) in the map's [window] (the app's of the moment:
+     * [si.lanisce.lani.game.RequestWindow.window]): a few up, one per villager (the map's bubbles, their card, the Scroll's
+     * requests, Home), the rest waiting in the Scroll's "Later"; while wolves, a bear or a storm are about none up, all of
+     * them waiting until it's over ([Reactions.quiet]).
      */
-    fun queue(state: GameState, cast: List<Villager>, today: LocalDate): si.lanisce.lani.game.QuestQueue.Queue =
-        si.lanisce.lani.game.QuestQueue.of(state.quests, openQuests(state, cast, today), today, state.event?.kind)
+    fun queue(
+        state: GameState, cast: List<Villager>, today: LocalDate,
+        window: si.lanisce.lani.game.QuestQueue.Window = si.lanisce.lani.game.RequestWindow.window(state, cast, today),
+    ): si.lanisce.lani.game.QuestQueue.Queue =
+        si.lanisce.lani.game.QuestQueue.of(state.quests, openQuests(state, cast, today), today, state.event?.kind, window)
 
     fun stage(r: Resident, today: LocalDate): Stage? {
         val born = r.born?.let { runCatching { LocalDate.parse(it) }.getOrNull() } ?: return null

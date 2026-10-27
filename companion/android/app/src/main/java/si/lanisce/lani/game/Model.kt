@@ -455,6 +455,12 @@ data class GameState(
      * wood until the next day's tick decides. An older app drops it (and derives it again here), an older bridge keeps it.
      */
     val hearths: HearthDay? = null,
+    /**
+     * How the requests come and go on the map (see [RequestPace], companion/GAME.md "Quests": "A window of requests"): what
+     * the window shows now, who rests after a run, what comes back the next day, the learner's roll. An older app drops it
+     * (the window starts afresh), an older bridge keeps it as it is.
+     */
+    val pace: RequestPace = RequestPace(),
 ) {
     fun res(r: Res): Int = resources[r] ?: 0
 

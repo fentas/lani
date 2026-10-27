@@ -469,6 +469,16 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     init {
+        // what the learner has to practise now orders the map's window of requests (companion/GAME.md "Quests"): the
+        // dashboard's due and rusty cards, the mistakes' weak patterns and the modules that target them; made again only
+        // when the dashboard or the module list changes
+        var practiced: Triple<Any?, Any?, si.lanisce.lani.game.Practice>? = null
+        si.lanisce.lani.game.RequestWindow.practice = {
+            val d = content.dashboard
+            val m = content.modules
+            practiced?.takeIf { it.first === d && it.second === m }?.third
+                ?: si.lanisce.lani.game.Practice.of(d, m).also { practiced = Triple(d, m, it) }
+        }
         speaker.foreignClips = ::foreignClipsFor
         // a word of another language nothing could say: that language's offline voice offered, or the note
         speaker.onSilentIn = { _, lang -> visitVoice.silentIn(lang) }

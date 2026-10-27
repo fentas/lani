@@ -197,8 +197,8 @@ object TownMarkers {
         val out = ArrayList<TownMarker>()
         state.event?.let { e -> out += TownMarker("event:${e.id}", TownMarker.Kind.EVENT, e.kind.emoji, "${e.kind.sl} · ${e.kind.en}", eventPlace(e.kind, state)) }
         out += arrivals(state, cast, today)
-        // a request from someone of the cast who isn't in the village today waits for them; at most two of each are up (none
-        // while wolves, a bear or a storm are about: they wait in the scroll, QuestQueue.Why.Danger)
+        // a request from someone of the cast who isn't in the village today waits for them; the map's window shows a few, one
+        // of each villager (none while wolves, a bear or a storm are about: they wait in the scroll, QuestQueue.Why.Danger)
         out += questMarkers(si.lanisce.lani.game.villagers.Residents.queue(state, cast, today).up, state, cast)
         // wolves, a bear or a storm about: only the event (companion/GAME.md "People react"); the rest waits
         if (si.lanisce.lani.game.villagers.Reactions.quiet(state)) return out
@@ -217,6 +217,14 @@ object TownMarkers {
         party?.let { c -> out += TownMarker("$PARTY${si.lanisce.lani.game.AgeUps.key(c.age)}", TownMarker.Kind.HAPPENING, c.emoji, c.name, partyPlace(c, state)) }
         return out
     }
+
+    /**
+     * How many requests wait in the Scroll's "Later" ([si.lanisce.lani.game.QuestQueue.Queue.waiting]: not the drills for
+     * practice), for the map's one quiet chip ("📜 +5") instead of a bubble each; none while wolves, a bear or a storm are
+     * about (only the event shows then).
+     */
+    fun waiting(state: GameState, cast: List<Villager>, today: java.time.LocalDate = java.time.LocalDate.now()): Int =
+        if (si.lanisce.lani.game.villagers.Reactions.quiet(state)) 0 else si.lanisce.lani.game.villagers.Residents.queue(state, cast, today).waiting
 
     /** An age's party's bubble ("party:<age>"; [si.lanisce.lani.game.AgeUps]): a tap starts it. */
     const val PARTY = "party:"

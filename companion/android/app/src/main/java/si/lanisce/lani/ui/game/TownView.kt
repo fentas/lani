@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -15,6 +16,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.pointer.pointerInput
@@ -117,6 +120,8 @@ private sealed interface Tapped {
  * @param growth an age-up's moment as it is now (the village growing, [si.lanisce.lani.game.AgeUps]), read each frame
  * @param festive a celebration's decorations as they are now (the moment's, or the days after an age came), read each frame
  * @param renderer the picture's renderer: the caller's, to read where the sign at the road was drawn ([VillageRenderer.signAnchor])
+ * @param waiting how many requests wait in the Scroll's "Later" ([si.lanisce.lani.game.scene.TownMarkers.waiting]): one quiet
+ *   chip over the bottom bar says it ("📜 +5", [WaitingChip]); a tap on it [onWaiting]
  */
 @Composable
 fun TownView(
@@ -157,6 +162,8 @@ fun TownView(
     growth: () -> si.lanisce.lani.game.Growth? = { null },
     festive: () -> si.lanisce.lani.game.Festive? = { null },
     renderer: VillageRenderer = remember { VillageRenderer() },
+    waiting: Int = 0,
+    onWaiting: () -> Unit = {},
 ) {
     val density = LocalDensity.current
     val latestState by rememberUpdatedState(state)
@@ -287,15 +294,34 @@ fun TownView(
             // off the fire's flames and its target: a tap on the fire is the fire's, whoever stands beside it with a bubble
             val fireArea = remember(state.fire, state.age, fit) { TownAnchors.fireArea(state, fit.width, fit.height) }
             val fireBody = remember(state.fire, state.age, fit) { TownAnchors.fireBody(state, fit.width, fit.height) }
+            // the requests' order breaks a tie by the giver nearer the view's centre (companion/GAME.md "Quests"): as the
+            // camera moves, where each giver is from it
+            LaunchedEffect(state, people, anchors, w, h) {
+                snapshotFlow { cam.camera }.collect { c ->
+                    si.lanisce.lani.game.RequestWindow.near = { q ->
+                        val p = people.firstOrNull { it.name == q.giver }?.let { renderer.villagerAnchors[it.id] }
+                            ?: anchors[si.lanisce.lani.game.scene.TownMarkers.questPlace(q.giver, q.source, state, people)]
+                        p?.let { kotlin.math.hypot(c.toScreenX(it.x) - w / 2f, c.toScreenY(it.y) - h / 2f) }
+                    }
+                }
+            }
+            val chipRoom = if (waiting > 0 && plots == null) with(density) { WAITING_CHIP_ROOM.roundToPx() } else 0
             TownBubbles(
                 markers, anchors, { cam.camera }, threat, badge, onMarker, topInset = bubbleInset, hudInset = topInset,
                 followId = followId, anchorOf = { id -> renderer.villagerAnchors[id] }, tick = { clock.tick }, face = face,
-                fireArea = fireArea, fireBody = fireBody, bottomInset = bottomInset,
+                fireArea = fireArea, fireBody = fireBody, bottomInset = bottomInset + chipRoom,
                 // the edge chip's tap: the camera pans to the bubble's place, into the part of the screen the HUD and the bar leave
                 onReveal = { p -> cam.reveal(p, freeArea(w.toFloat(), h.toFloat(), bubbleInset.toFloat(), bottomInset.toFloat(), margin)) },
             )
-            // the people's calls while the village reacts to its event (companion/GAME.md "People react")
-            TownShouts({ renderer.shouts }, { id -> renderer.villagerAnchors[id] }, { cam.camera }, { clock.tick }, topInset = bubbleInset)
+            // the people's calls while the village reacts to its event (companion/GAME.md "People react"), and the thanks of
+            // someone just helped (companion/GAME.md "Quests": a short moment over them, once)
+            val thanks = rememberThanks(state, people)
+            TownShouts({ renderer.shouts + thanks() }, { id -> renderer.villagerAnchors[id] }, { cam.camera }, { clock.tick }, topInset = bubbleInset)
+            // the requests waiting in the Scroll: one quiet chip over the bottom bar's scroll, not a bubble each
+            if (plots == null) WaitingChip(
+                waiting, onWaiting,
+                Modifier.align(Alignment.BottomStart).padding(start = 12.dp, bottom = with(density) { bottomInset.toDp() } + 6.dp),
+            )
         }
     }
 }
@@ -450,3 +476,36 @@ private fun AnimalTargets(renderer: VillageRenderer, camera: () -> si.lanisce.la
 @Composable
 fun townAnchors(state: GameState, fit: SceneFit): Map<TownPlace, CanvasPoint> =
     remember(state.land, state.buildings, state.age, state.fire, state.projects, state.landmarksDown, fit) { TownAnchors.withSpots(state, fit.width, fit.height) }
+
+/** How long a thanks shows over someone just helped, from when the map first shows it. */
+private const val THANKS_SHOW_MS = 4_000L
+
+/** When each thanks ("giver@ended") was first shown while the app runs: once is enough. */
+private val thanksShown = java.util.concurrent.ConcurrentHashMap<String, Long>()
+
+/**
+ * The thanks of who was just helped (a run of theirs ended less than [si.lanisce.lani.game.RequestWindow.THANKS_MS] ago),
+ * as a short call over them on the map: the culture's "Hvala lepa!" for a pass, "Hvala! Jutri še enkrat?" below the mark
+ * (quests.json `lines`, in the village's language), for [THANKS_SHOW_MS] from when the map first shows it, once. Read each
+ * frame (it is the people's calls' list: [TownShouts]).
+ */
+@Composable
+private fun rememberThanks(state: GameState, people: List<Villager>): () -> List<Pair<String, si.lanisce.lani.game.culture.Text>> {
+    val due = remember(state.pace, people) {
+        val now = System.currentTimeMillis()
+        val lines = runCatching { si.lanisce.lani.game.culture.Cultures.current.quests.lines }.getOrNull()
+        si.lanisce.lani.game.RequestWindow.thanking(state.pace, now).mapNotNull { (giver, rest) ->
+            val v = people.firstOrNull { it.name == giver } ?: return@mapNotNull null
+            val line = (if (rest.passed) lines?.thanked else lines?.tryAgain) ?: return@mapNotNull null
+            val target = si.lanisce.lani.l10n.L10n.pair.target
+            val said = line.of(target, mapOf("giver" to giver)).removePrefix("$giver: ").removePrefix("$giver:").trim()
+            Triple("$giver@${rest.at}", v.id, si.lanisce.lani.game.culture.Text(mapOf(target.code to said)))
+        }
+    }
+    return {
+        if (due.isEmpty()) emptyList() else {
+            val now = System.currentTimeMillis()
+            due.filter { (key, _, _) -> now - thanksShown.getOrPut(key) { now } < THANKS_SHOW_MS }.map { (_, id, text) -> id to text }
+        }
+    }
+}

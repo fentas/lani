@@ -208,7 +208,10 @@ fun VillageScreen(vm: AppViewModel) {
     val qaKopa = si.lanisce.lani.app.QaHooks.kopa
     val keepers = remember(s, minute, qaHour, qaKopa) { Keepers.here(s, si.lanisce.lani.app.QaHooks.sceneNow(LocalDateTime.now())) }
     val cast = vm.villagers.all
-    val markers = remember(s, active, cast, keepers, partyNow) { TownMarkers.of(s, active, cast, keepers = keepers, party = partyNow) }
+    // the map's window of requests goes by the clock too (a rest over, a request back): every minute (companion/GAME.md "Quests")
+    val markers = remember(s, active, cast, keepers, partyNow, minute) { TownMarkers.of(s, active, cast, keepers = keepers, party = partyNow) }
+    /** The requests waiting in the Scroll's "Later": one quiet chip on the map ("📜 +5"), not a bubble each. */
+    val waiting = remember(s, cast, minute) { TownMarkers.waiting(s, cast) }
     /**
      * The people who live here, drawn about their homes, today's visitor (on the road, or at their building), the
      * stranger of the day's surprise at the road (the pedlar, the pilgrim), and who sits at a spot now (the burner).
@@ -575,6 +578,9 @@ fun VillageScreen(vm: AppViewModel) {
                 growth = { moment?.frame?.growth },
                 festive = { moment?.frame?.festive ?: mapFestive },
                 renderer = townRenderer,
+                // the requests waiting: the scroll's villagers, where they are listed
+                waiting = if (choice != null || moment != null) 0 else waiting,
+                onWaiting = { card = null; villager = null; hudState.section = null; scrollAt = Collection.PEOPLE; scrollOpen = true },
             )
             // A new building goes up where the learner can see it.
             LaunchedEffect(vm.game.justBuilt) {

@@ -619,7 +619,8 @@ class TownLogicTest {
         val o = TownOverview.of(calm, scenes, afternoon)
         assertEquals(TimeOfDay.AFTERNOON, o.time)
         assertEquals(
-            listOf("event:Fire", "now:ob-ognju/igra@AFTERNOON", "later:ob-ognju/juha@EVENING", "quest:q1@Forest", "quest:t1@Fire"),
+            // the requests in the map's window's order: the tutor's newest before a villager's own (GAME.md "A window of requests")
+            listOf("event:Fire", "now:ob-ognju/igra@AFTERNOON", "later:ob-ognju/juha@EVENING", "quest:t1@Fire", "quest:q1@Forest"),
             kinds(o),
         )
         assertEquals(4, o.todayCount) // later happenings don't count as "going on"
@@ -628,7 +629,7 @@ class TownLogicTest {
         // while the wolves are about the happenings wait (GAME.md "People react"): the event only, the requests in "Later"
         val wolves = TownOverview.of(camp, scenes, afternoon)
         assertEquals(listOf("event:Forest"), kinds(wolves))
-        assertEquals(listOf("q1", "t1"), wolves.later.map { it.quest.id })
+        assertEquals(listOf("t1", "q1"), wolves.later.map { it.quest.id })
         assertTrue(wolves.later.all { it.why == si.lanisce.lani.game.QuestQueue.Why.Danger(EventKind.WOLVES) })
     }
 
@@ -660,8 +661,8 @@ class TownLogicTest {
 
     @Test fun `residents are the requesters and the people of open scenes, once each`() {
         val o = TownOverview.of(calm, scenes, afternoon)
-        assertEquals(listOf("Pastir Luka", "Gostilničarka Vida", "Otroci", "Babica Micka"), o.residents.map { it.name })
-        val luka = o.residents[0]
+        assertEquals(listOf("Gostilničarka Vida", "Pastir Luka", "Otroci", "Babica Micka"), o.residents.map { it.name })
+        val luka = o.residents[1]
         assertTrue(luka.doing[0] is Doing.Asks)
         assertTrue("and he's in the forest scene", luka.doing.any { it is Doing.Lives && it.scene.id == "v-gozdu" })
         val otroci = o.residents[2]
@@ -676,7 +677,7 @@ class TownLogicTest {
         assertEquals(3, o.today.size)
         assertTrue(o.places.all { it.scenes.isEmpty() })
         assertTrue(o.locked.isEmpty())
-        assertEquals(listOf("Pastir Luka", "Gostilničarka Vida"), o.residents.map { it.name })
+        assertEquals(listOf("Gostilničarka Vida", "Pastir Luka"), o.residents.map { it.name })
         assertEquals(listOf(2L, 1L), o.chronicle.map { it.at })
     }
 

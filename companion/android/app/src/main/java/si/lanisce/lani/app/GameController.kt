@@ -45,6 +45,7 @@ import si.lanisce.lani.game.Guests
 import si.lanisce.lani.game.LogEntry
 import si.lanisce.lani.game.Quest
 import si.lanisce.lani.game.QuestSource
+import si.lanisce.lani.game.RequestWindow
 import si.lanisce.lani.game.Res
 import si.lanisce.lani.game.TownFriendship
 import si.lanisce.lani.game.scene.DayAct
@@ -254,7 +255,8 @@ class GameController(
         val (s2v, visit) = visitToday(s2)
         val people = residents + visit
         val (s3, gifts) = giftsDue(s2v.logged(now, *people.toTypedArray()), now)
-        if (s3 != s0) commit(s3)
+        // the map's window as it shows now: a rest over, a request back, the tutor's new tasks waiting their turn (settled)
+        if (settled(s3) != s0) commit(s3)
         announce(s1, s2)
         // Named arrivals and departures replace the upkeep's plain "+1 villager" lines.
         val plain = if (residents.isEmpty()) r.news else r.news.filterNot { it.emoji == "🧑" || it.emoji == "😢" }
@@ -364,10 +366,21 @@ class GameController(
         if (h != s) commit(h)
     }
 
-    /** A local change: cache it and send it to the node. */
+    /** A local change: cache it and send it to the node, the map's window of requests kept with it ([settled]). */
     private fun commit(s: GameState) {
-        setGame(s, rev, dirty = true)
+        setGame(settled(s), rev, dirty = true)
         schedulePush()
+    }
+
+    /**
+     * [s] with the map's window of requests as it shows now kept with it ([RequestWindow.settle]: the requests up stay up
+     * while they're open, the rests and ways back over are forgotten); as it is without the cast (who is here isn't known).
+     */
+    private fun settled(s: GameState): GameState {
+        val cast = cast()
+        if (cast.isEmpty()) return s
+        val today = LocalDate.now()
+        return runCatching { RequestWindow.settle(s, Residents.queue(s, cast, today), RequestWindow.clock(today)) }.getOrDefault(s)
     }
 
     private fun schedulePush() {
@@ -755,10 +768,12 @@ class GameController(
         if (quest != null) {
             // the pages of the rules it missed: what "🎯 Vadi, kar ti ne gre" practises
             val missed = si.lanisce.lani.game.Treasure.missed(module.exercises, verdicts.map { it == Verdict.CORRECT })
+            val now = System.currentTimeMillis()
             val (n, r) = GameEngine.completeQuest(
-                state!!, quest.id, correctCount(verdicts), module.exercises.size, System.currentTimeMillis(), giverId(quest), LocalDate.now(), missed,
+                state!!, quest.id, correctCount(verdicts), module.exercises.size, now, giverId(quest), LocalDate.now(), missed,
             )
-            commit(n)
+            // its "!" goes either way: passed it's done, below the mark it comes back tomorrow; the giver thanks and rests
+            commit(RequestWindow.finished(n, quest, r.won, now))
             result = r
             if (r.won) {
                 celebrate++
@@ -1001,7 +1016,9 @@ class GameController(
                 // the pages of the rules it missed (the request's own when its questions name none)
                 val rights = verdicts.map { v -> v == Verdict.CORRECT }
                 val missed = si.lanisce.lani.game.Treasure.missed(c.exercises, rights).ifEmpty { if (rights.all { r -> r }) emptyList() else c.pages }
+                // its "!" goes either way: passed it's done, below the mark it comes back tomorrow; the giver thanks and rests
                 GameEngine.completeQuest(it, origin.questId, correct, total, now, quest?.let(::giverId), today, missed)
+                    .let { (n, r) -> (quest?.let { q -> RequestWindow.finished(n, q, r.won, now) } ?: n) to r }
             }
             is ChallengeOrigin.Project -> state?.let { si.lanisce.lani.game.Projects.finishStep(it, origin.id, correct, total, today, now) }
             is ChallengeOrigin.Festival -> state?.let { si.lanisce.lani.game.Calendar.celebrate(it, origin.id, correct, total, today, now) }

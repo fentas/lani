@@ -123,7 +123,8 @@ class ReactionTalksTest {
     @Test fun `the requests fold away while wolves, a bear or a storm are about, wait in the scroll and on the cards, and come back as they were`() {
         L10n.pair = LangPair(Lang.SL, Lang.EN)
         val before = Residents.queue(asking, cast, october)
-        assertEquals(listOf("q1", "tutor-marko-kaksno-vino-v1"), before.up.map { it.id })
+        // the map's window: the tutor's newest before a villager's own (GAME.md "A window of requests")
+        assertEquals(listOf("tutor-marko-kaksno-vino-v1", "q1"), before.up.map { it.id })
         assertTrue(before.later.isEmpty())
         val marko = cast.first { it.id == "marko" }
         val markoInScene = si.lanisce.lani.game.scene.ScenePerson("marko", "Vinar Marko", "🍇", "winemaker", "stand", villager = "marko")

@@ -1647,9 +1647,23 @@ at card size).
 `TownMarkers.of` lists what the village shows: the event (wolves and the bear in the forest, the
 merchant at the market, the festival under the linden tree; while wolves, a bear or a storm are about only the event, the
 requests waiting in the Scroll: GAME.md "People react"), who joined the village and waits to be met at their home
-(🧳, 👶 a baby: VILLAGERS.md, "Arrivals"), each open quest at its giver's place
+(🧳, 👶 a baby: VILLAGERS.md, "Arrivals"), the requests of the map's window at their givers' places
 (Babica Micka at a house or hut, Pastir Luka in the forest, Kovač Tone at the smithy, … else by the
 fire), and each happening at its scene's place.
+
+Not all at once (Jan, 2026-10-27: "all the bubbles is a bit overloading"): the map shows a small window of requests, 3 on
+a phone and 4 on a tablet, one per villager, the best for the learner first (GAME.md, "A window of requests"); the event
+and who joined the village are bubbles on top of them always, and an age's party tonight too. The rest wait in the Scroll:
+one quiet chip says how many, "📜 +10", small and dark like the edge chips, over the bottom bar's scroll (`WaitingChip`,
+`TownMarkers.waiting`; a tap opens the scroll at the villagers' requests; TalkBack: "Še 10 prošenj čaka v zvitku · 10 more
+requests wait in the scroll"), not a bubble each; none while wolves, a bear or a storm are about. What's on at a place (a
+happening, today's visitor, the burner by his pile, a festival, the day's surprise, a project's step, the treasure map) is
+a quiet marker (`TownMarker.quiet`): its bubble a small faint icon without its pointer and its "!" away from the view's
+centre, growing to a full bubble as it comes within a fifth of the screen's shorter side of it (`quietness`: full within
+0.2 of it, an icon from 0.35; its tap target always a bubble's). Someone just helped says thanks over their head when the
+learner comes back to the map, a short call like the event's, in the village's language ("Hvala lepa!", below the pass
+mark "Hvala! Jutri še enkrat?": the culture's lines), once, for four seconds, within ten minutes of the run
+(`rememberThanks` in `ui/game/TownView.kt`); then they rest, and the place goes to another villager's request.
 
 A bubble stays with its person or place (`ui/game/TownBubbles.kt`, `layoutBubbles`): over them, its pointer short.
 Panned or zoomed so they're off the screen, it's off the screen with them, not lined up at its edge with its pointer
@@ -1738,8 +1752,9 @@ fire. A tap on the water beside it is still the pond's.
 ### What someone has here
 
 Jan, 2026-10-14: "Outside, the teacher has 2 exercises, but if I go into the school she has none." Her bubble on the map
-was her two requests up (the tutor's "Dvojina: dva brata, dve sestri" and "Tožilnik: vidim brata, pijem kavo", at most
-`QuestQueue.UP` of a villager's up at once; the third, "Imeti in iti", waits in "Kasneje · Later"), and a scene knew only
+was her two requests up (the tutor's "Dvojina: dva brata, dve sestri" and "Tožilnik: vidim brata, pijem kavo", two of a
+villager's up at once then, one since the map's window: GAME.md "A window of requests"; the third, "Imeti in iti", waits
+in "Kasneje · Later"), and a scene knew only
 happenings: she stood in the school (by daylight a request's giver waits at its place, above), without a marker, nothing
 of hers under "Danes tukaj", a tap on her only a hello. Now a scene shows by each of its people what the village's bubbles
 over them promise, from the same sources (`game/scene/SceneOffers`):

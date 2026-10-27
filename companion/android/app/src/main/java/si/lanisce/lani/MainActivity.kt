@@ -65,6 +65,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         // Session durations count the time on screen, not a pack left open while the phone sleeps.
         ScreenClock.app.install()
+        // the map's window of requests starts at 3 on a phone, 4 on a tablet (companion/GAME.md "Quests")
+        si.lanisce.lani.game.RequestWindow.base = si.lanisce.lani.game.RequestWindow.baseFor(resources.configuration.smallestScreenWidthDp)
         enableEdgeToEdge()
         // A tapped notification's link; not again when the activity is recreated from saved state.
         if (savedInstanceState == null) openLink(intent)
