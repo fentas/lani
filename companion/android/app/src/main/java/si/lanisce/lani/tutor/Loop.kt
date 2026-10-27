@@ -62,9 +62,15 @@ class Owed(val replied: () -> Boolean, val required: Boolean) {
         /** The kinds whose turn must reply: the learner waits for it, or the app takes its data. */
         val REQUIRED = setOf("chat", "answer", "session_end", "roleplay", "roleplay_end", "town_check")
 
-        /** What a turn for an event of [eventKind] owes, with [replied] its replies so far; null: nothing (a closing). */
+        /**
+         * The kinds whose turn owes no reply at all: the dictionary's notes (a word the learner asked to add from its card,
+         * the gaps), answered with publish_gloss alone; the card shows the gloss, and a text in the chat would be noise.
+         */
+        val NONE = setOf("gloss_request", "gloss_gaps")
+
+        /** What a turn for an event of [eventKind] owes, with [replied] its replies so far; null: nothing (a closing, [NONE]). */
         fun of(eventKind: String, kind: TurnKind, replied: () -> Boolean): Owed? =
-            if (kind == TurnKind.CLOSING) null else Owed(replied, eventKind in REQUIRED)
+            if (kind == TurnKind.CLOSING || eventKind in NONE) null else Owed(replied, eventKind in REQUIRED)
     }
 }
 

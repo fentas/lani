@@ -1,11 +1,13 @@
 package si.lanisce.lani.tutor
 
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOf
 
 /**
  * Whether the phone can reach the internet, for the tutors' queues (the live tutor's, the shadow's and the matrix's
- * lanes'). The matrix (2026-10-19 to 10-22): every failed turn was a network failure while the app was in the
+ * lanes') and the app's outbox (app/NetworkBack: sent at once when the network is back). The matrix (2026-10-19 to 10-22): every failed turn was a network failure while the app was in the
  * background ("Unable to resolve host" for api.anthropic.com and auth.openai.com while Android held the app's network),
  * and each burned about 20 retried calls (the loop's 4 attempts a call × the queue's 5 tries). Now a network error while
  * the phone is offline isn't retried: the turn goes back to the queue with its try not counted, and the queue waits for
@@ -17,6 +19,9 @@ interface Online {
 
     /** Suspends until [now] is true (at once when it is). */
     suspend fun await()
+
+    /** [now] as it changes: the value now first, then each change (conflated); one value where nothing watches. */
+    val changes: Flow<Boolean> get() = flowOf(now())
 
     companion object {
         /** Always online: where no network callback is known (the tests that don't play the network, the QA hooks). */
@@ -39,6 +44,8 @@ class OnlineState(initial: Boolean = true) : Online {
     override suspend fun await() {
         state.first { it }
     }
+
+    override val changes: Flow<Boolean> get() = state
 
     fun set(on: Boolean) {
         state.value = on

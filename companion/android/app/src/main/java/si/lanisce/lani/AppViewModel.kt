@@ -456,11 +456,9 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
      * The network back after it was lost, while the app is on screen: the outbox sent at once and the live events
      * reconnected (a word asked for offline reaches the tutor then, not at the outbox's next retry).
      */
-    private val networkBack = si.lanisce.lani.app.NetworkBack(app) {
-        viewModelScope.launch {
-            if (foreground && bridge != null) events.restart()
-            flushOutbox()
-        }
+    private val networkBack = si.lanisce.lani.app.NetworkBack(viewModelScope, si.lanisce.lani.tutor.live.AndroidOnline.of(app)) {
+        if (foreground && bridge != null) events.restart()
+        flushOutbox()
     }
     /** The app is on screen; the event stream only runs then. */
     private var foreground = false

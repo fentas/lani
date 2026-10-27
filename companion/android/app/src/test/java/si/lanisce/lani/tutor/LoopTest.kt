@@ -324,6 +324,9 @@ class LoopTest {
         assertTrue(Owed.of("session_end", TurnKind.STATELESS) { false }!!.required)
         assertTrue(!Owed.of("digest", TurnKind.STATELESS) { false }!!.required)
         assertEquals(null, Owed.of("closing", TurnKind.CLOSING) { false })
+        // the dictionary's notes owe nothing: no last-call note, no tools-off call, their text no reply
+        assertEquals(null, Owed.of("gloss_request", TurnKind.STATELESS) { false })
+        assertEquals(null, Owed.of("gloss_gaps", TurnKind.DAY) { false })
     }
 
     @Test fun `a network error while offline isn't retried - the queue waits for the network`() = runBlocking {

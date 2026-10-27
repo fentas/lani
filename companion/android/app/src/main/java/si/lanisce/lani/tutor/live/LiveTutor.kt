@@ -1181,9 +1181,6 @@ class LiveTutor(
     /** Whether the learner waits for [t]'s answer (a chat, an answer, a role-play's line). */
     private fun waits(t: TurnRecord) = t.eventKind == "chat" || t.eventKind == "answer" || t.kind == TurnKind.ROLEPLAY
 
-    /** The kinds whose notes say no reply is needed: the dictionary's words (a word asked for from its card, the gaps). */
-    private val QUIET = setOf("gloss_request", "gloss_gaps")
-
     private fun priority(t: TurnRecord): Int = when {
         t.kind == TurnKind.CLOSING -> 0
         t.kind == TurnKind.ROLEPLAY -> 1
@@ -1416,7 +1413,8 @@ class LiveTutor(
                     line("call ${call.model}${call.effort?.let { " $it" } ?: ""} ${call.eventKind}: ${call.stopReason ?: call.error} in:${call.usage.input} w:${call.usage.cacheWrite} r:${call.usage.cacheRead} out:${call.usage.output} \$${call.cost}")
                 },
                 onTool = { rec -> t = t.copy(toolCalls = t.toolCalls + rec); replace(t) },
-                // never a silent turn: the loop asks for the reply as the calls run out, and for a last word in text
+                // never a silent turn: the loop asks for the reply as the calls run out, and for a last word in text (not
+                // the dictionary's notes: they owe none)
                 owed = Owed.of(t.eventKind, t.kind) { replied },
             )
         } finally {
@@ -1424,8 +1422,8 @@ class LiveTutor(
         }
         t = t.copy(text = Threads.text(messages.drop(before)).take(2000))
         // no reply tool called, the answer written as text: that text is the reply, sent as the reply tool would; not for
-        // the dictionary's words, whose notes need no reply (a "done" there isn't a message for the chat)
-        ReplyFallback.of(r, t.kind, t.replies.isNotEmpty() || t.eventKind in QUIET, conversation, now())?.let { reply ->
+        // the dictionary's notes, which owe none (Owed.NONE: a "done" there isn't a message for the chat)
+        ReplyFallback.of(r, t.kind, t.replies.isNotEmpty() || t.eventKind in Owed.NONE, conversation, now())?.let { reply ->
             val sent = b?.let { runCatching { it.tool("reply", buildJsonObject { put("conversation_id", reply.conversationId); put("text", reply.text) }, "text-${t.id}") }.getOrNull() }
             if (sent != null && !sent.isError) t = t.copy(replies = listOf(reply), replyFromText = true)
             line("turn ${t.id} ${t.eventKind}: no reply tool called, its text sent as the reply")

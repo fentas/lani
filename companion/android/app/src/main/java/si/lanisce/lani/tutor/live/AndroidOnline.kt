@@ -8,7 +8,8 @@ import si.lanisce.lani.tutor.Online
 import si.lanisce.lani.tutor.OnlineState
 
 /**
- * The phone's network for the tutors' queues ([Online]), from ConnectivityManager's default-network callback: online
+ * The phone's network for the tutors' queues and the app's outbox ([Online]; app/NetworkBack sends the outbox when it comes
+ * back), from ConnectivityManager's default-network callback, the process's only one: online
  * while there is a default network with internet that isn't blocked for the app. Android blocks a background app's
  * network (Doze, app standby, data saver): `getActiveNetwork()` is null for it then, and the callback says so
  * (`onBlockedStatusChanged`, API 29+; on older ones the network is lost and found again). Not "validated" too: a VPN

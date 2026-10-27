@@ -35,7 +35,8 @@ With the card closed meanwhile, a quiet notice when the word is in: "📚 Zdaj m
 **Back online.** The outbox waited for its next retry once the network came back (minutes after a long time offline:
 5 s, 10 s, 20 s … between attempts), and the live events might not notice the network go and come back. Now, while the
 app is on screen, the network back after it was lost sends the outbox at once and reconnects the events
-(`app/NetworkBack.kt`, a default-network callback): a word asked for offline, and every other write, goes as soon as the
+(`app/NetworkBack.kt`, on the process's one network watcher, `tutor/live/AndroidOnline`, which the tutors' queues wait
+on too): a word asked for offline, and every other write, goes as soon as the
 phone is online.
 
 **"📚 Moje besede".** A search the dictionary doesn't know offers "➕ Dodaj «…» med moje besede · Add «…» to my words",
@@ -66,8 +67,10 @@ the node's and the outbox's (offline: "📶 …"), each opening its card.
 paragraph as the guide's `word-lookup` topic, and the core prompt names `gloss_request` among the kinds. The in-app tutor
 answers it at once on the routine model, before routine events (`LiveTutor.priority`; never in the night's batch, which
 only `gloss_gaps` goes to), with the provider's model, through the same `publish_gloss`; the card flags its meaning
-machine-written as every tutor gloss. A turn for the dictionary's notes (`gloss_request`, `gloss_gaps`) that ends in
-text without `reply` sends nothing to the chat (the text-as-reply fallback is for the learner's own messages). The lani-fix skill names `word-requests.json` and the words added that way.
+machine-written as every tutor gloss. The dictionary's notes (`gloss_request`, `gloss_gaps`) owe no reply
+(`Owed.NONE` in tutor/Loop.kt): the "never silent" loop neither tells such a turn to reply at its last call nor asks
+for a last word with the tools off, and a text it ends with goes nowhere (the text-as-reply fallback is for what the
+learner waits on). The lani-fix skill names `word-requests.json` and the words added that way.
 
 **Both learners.** Jan (Slovene from English) and Teo (a child, Italian from German): the request carries the word's
 language (a visit's: the town's) and the pair's base, the note asks for meanings in that base, and the word joins the

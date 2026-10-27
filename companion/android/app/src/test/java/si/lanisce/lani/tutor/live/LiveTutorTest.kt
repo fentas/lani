@@ -337,6 +337,20 @@ class LiveTutorTest {
         assertEquals(TurnStatus.DONE, turn.status)
     }
 
+    @Test fun `a word asked for owes no reply - at the call limit no last-call note, no tools-off call, nothing in the chat`() = runBlocking {
+        val t = ready()
+        // a model that keeps publishing and never ends: the turn runs to its limit
+        script = { _, n -> message("tool_use", toolUse("g$n", "publish_gloss", obj("form" to "vretenom", "lemma" to "vreteno", "gloss" to JsonArray(listOf(JsonPrimitive("spindle")))))) }
+        node.push("gloss_request", "main", "App: Jan tapped \"Add to my words\" on a word the dictionary doesn't know: «vretenom». …")
+        t.backgroundCheck()
+        val bodies = posts()
+        assertEquals("the turn's calls, and no extra tools-off call", 8, bodies.size)
+        assertTrue("never told to reply now", bodies.none { it.toString().contains("[Lani] One call is left") })
+        assertTrue("never asked with the tools off", bodies.none { (it["tool_choice"] as? JsonObject)?.get("type")?.jsonPrimitive?.content == "none" })
+        assertTrue("nothing in the chat", node.tools.none { it.first == "reply" })
+        assertEquals(TurnStatus.LIMIT, t.today.turns.single().status)
+    }
+
     @Test fun `the digest, nothing worth saying is acknowledged without a call, a wrong answer is a turn`() = runBlocking {
         val t = ready()
         val quiet = node.push("review_done", "main", "App review finished (already persisted as session-010): 5/5 recalled in 2 min.")

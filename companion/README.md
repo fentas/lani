@@ -1139,7 +1139,8 @@ Once the credential is kept, the app attaches to the paired bridge. From then on
 - **Content is the studio's** (below): "make me exercises for X" becomes a job, and so do an arrival, dialog variants,
   stories running low and the dictionary's gaps. A word the learner asked to add from its card (`gloss_request`) is
   answered at once on the routine model, never in the night's batch: its card waits for it. The dictionary's notes need
-  no reply: a turn of theirs that ends in text (a "done") sends nothing to the chat.
+  no reply (`Owed.NONE`): the loop doesn't ask such a turn for one as its calls run out, and a turn of theirs that ends in
+  text (a "done") sends nothing to the chat.
 - **What goes wrong is said in the chat, briefly:** the cap spent (today's or the month's: "Vseeno odgovarjaj na moja
   sporočila ta mesec · Answer my messages anyway this month"), the key refused, the credit out, no connection.
 - **The shadow tutor is off** meanwhile (it would shadow itself).
@@ -2725,7 +2726,7 @@ ask to add"; built in [docs/plans/05-built/missing-word.md](../docs/plans/05-bui
 
 **`POST /words/requests`** `{word, line?, en?, from?, language?, base?, client_id}` (through the outbox: queued offline,
 never lost, sent in order when the node is back; the app sends its outbox as soon as the phone's network is back while
-it is on screen, `app/NetworkBack.kt`, not at the outbox's next retry) → `{state: "waiting", word, id}`: the word waits in the learner's data
+it is on screen, `app/NetworkBack.kt` on the network watcher the tutors' queues use, not at the outbox's next retry) → `{state: "waiting", word, id}`: the word waits in the learner's data
 (`<data>/app/word-requests.json`, so a restart or a handover keeps it) and the tutor hears a `gloss_request`, gathered a
 moment (`LANI_WORD_REQUEST_MS`, 1.5 s): the words, what to call (`publish_gloss` with the form as listed, its lemma, part
 of speech, a noun's gender, 1-3 meanings in the learner's base, the grammar of the form; `language` on a visit; the line
