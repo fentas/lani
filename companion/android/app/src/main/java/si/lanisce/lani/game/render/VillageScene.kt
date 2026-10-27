@@ -1,9 +1,9 @@
 package si.lanisce.lani.game.render
 
-import android.graphics.Bitmap
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
@@ -15,7 +15,6 @@ import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.FilterQuality
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.IntOffset
@@ -59,9 +58,9 @@ fun VillageScene(
     val scale = fit.scale
     val iw = fit.width
     val ih = fit.height
-    val canvas = remember(iw, ih) { PixelCanvas(iw, ih) }
-    val bitmap = remember(iw, ih) { Bitmap.createBitmap(iw, ih, Bitmap.Config.ARGB_8888) }
-    val image = remember(bitmap) { bitmap.asImageBitmap() }
+    // rendered on a thread of its own (as the town's, see TownPictures): the screen's frames only draw the newest picture
+    val pics = remember(iw, ih) { StripPictures(iw, ih, renderer) }
+    DisposableEffect(pics) { onDispose { pics.close() } }
     val offX = fit.offX
     val offY = fit.offY
 
@@ -94,6 +93,7 @@ fun VillageScene(
     Canvas(modifier.onSizeChanged { size = it }.then(tapModifier)) {
         if (size.width == 0 || size.height == 0) return@Canvas
         val t = clock.longValue / 1e9 // reading the clock here re-runs only the draw phase
+        pics.version // and so does a picture the render thread hands over
         if (justBuilt != anim.builtId) { anim.builtId = justBuilt; anim.builtAt = t }
         if (celebrate != anim.celebrateSeen) { anim.celebrateSeen = celebrate; anim.celebrateAt = t }
         val now = LocalDateTime.now()
@@ -113,17 +113,53 @@ fun VillageScene(
             wall = System.currentTimeMillis(),
             calm = calm,
         )
-        renderer.render(canvas, state, frame)
-        bitmap.setPixels(canvas.pixels, 0, iw, 0, 0, iw, ih)
+        pics.ask(clock.longValue, state, frame)
+        val p = pics.picture
+        pics.drew(p)
         drawRect(Color(renderer.skyColor))
-        drawImage(
-            image,
+        if (p != null) drawImage(
+            p.image,
             srcOffset = IntOffset.Zero,
-            srcSize = IntSize(iw, ih),
+            srcSize = IntSize(p.w, p.h),
             dstOffset = IntOffset(offX, offY),
-            dstSize = IntSize(iw * scale, ih * scale),
+            dstSize = IntSize(p.w * scale, p.h * scale),
             filterQuality = FilterQuality.None,
         )
+    }
+}
+
+/**
+ * The Home header's village, rendered on a thread of its own ([RenderThread]): asked for each tick ([ask]), the first
+ * picture at once on the main thread; handed over in three bitmaps ([PictureSlots]), never the one the screen draws.
+ */
+private class StripPictures(val w: Int, val h: Int, private val renderer: VillageRenderer) {
+    private class Ask(val state: GameState, val frame: Frame)
+
+    private val thread = RenderThread<Ask>("VillageRender", "VillageScene", merge = { _, a -> a }) { draw(it) }
+    private val canvas = PixelCanvas(w, h)
+    private val slots = PictureSlots()
+    private var tick = -1L
+    private var state: GameState? = null
+
+    val version: Long get() = thread.version
+    @Volatile var picture: Picture? = null
+        private set
+    @Volatile private var drawn: Picture? = null
+
+    fun ask(tick: Long, state: GameState, frame: Frame) {
+        if (tick == this.tick && state === this.state) return
+        this.tick = tick; this.state = state
+        val a = Ask(state, frame)
+        if (picture == null) draw(a) else thread.post(a)
+    }
+
+    fun drew(p: Picture?) { drawn = p }
+
+    fun close() = thread.close()
+
+    private fun draw(a: Ask) {
+        renderer.render(canvas, a.state, a.frame)
+        picture = slots.upload(canvas, Lens(1, 0, 0, w, h), drawn, picture)
     }
 }
 
