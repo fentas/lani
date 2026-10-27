@@ -1,0 +1,232 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "odvisni-govor",
+  "language": "sl",
+  "level": "B1",
+  "emoji": "🗣️",
+  "title": { "sl": "Rekel je, da …", "en": "He said that …: reported speech", "de": "Er sagte, dass …: die indirekte Rede", "it": "Ha detto che …: il discorso indiretto" },
+  "goal": {
+    "en": "You can pass on what someone said, asked or wanted: with da and the tense as it was said (rekla je, da je utrujena), ali or a question word (vprašal je, kje je Luka), and naj for a request (rekla je, naj pridem).",
+    "de": "Du gibst weiter, was jemand gesagt, gefragt oder gewollt hat: mit da und der Zeit, wie sie gesagt wurde (rekla je, da je utrujena), mit ali oder einem Fragewort (vprašal je, kje je Luka) und mit naj für eine Bitte (rekla je, naj pridem).",
+    "it": "Sai riferire ciò che qualcuno ha detto, chiesto o voluto: con da e il tempo com'è stato detto (rekla je, da je utrujena), con ali o una parola interrogativa (vprašal je, kje je Luka), e con naj per una richiesta (rekla je, naj pridem)."
+  },
+  "grammar": ["odvisni-govor", "naslonke"],
+  "words": ["reči", "povedati", "vprašati", "prositi", "misliti", "vedeti", "praviti", "da", "ali", "če", "naj", "novica", "burja", "drva", "žoga"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "rečeno", "en": "said", "de": "gesagt", "it": "detto" },
+        { "sl": "povedano naprej", "en": "passed on: Rekel je, …", "de": "weitergegeben: Rekel je, …", "it": "riferito: Rekel je, …" },
+        { "sl": "veznik", "en": "joined with", "de": "verbunden mit", "it": "unito con" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "To pass on what someone said, Slovene joins it with **da** (that), and the person changes as in English: Luka says **Pridem zvečer.** (I'll come in the evening) → **Luka je rekel, da pride zvečer.** A comma always goes before da.",
+          "de": "Um weiterzugeben, was jemand gesagt hat, verbindet das Slowenische es mit **da** (dass), und die Person ändert sich wie im Deutschen: Luka sagt **Pridem zvečer.** (ich komme am Abend) → **Luka je rekel, da pride zvečer.** Vor da steht immer ein Komma.",
+          "it": "Per riferire ciò che qualcuno ha detto, lo sloveno lo unisce con **da** (che), e la persona cambia come in italiano: Luka dice **Pridem zvečer.** (vengo stasera) → **Luka je rekel, da pride zvečer.** Prima di da va sempre una virgola."
+        },
+        "examples": [
+          { "sl": "Luka je rekel, da pride zvečer.", "en": "Luka said he'd come in the evening.", "de": "Luka hat gesagt, dass er am Abend kommt.", "it": "Luka ha detto che viene stasera." },
+          { "sl": "Mojca pravi, da je Zala najboljša bralka.", "en": "Mojca says Zala is the best reader.", "de": "Mojca sagt, dass Zala die beste Leserin ist.", "it": "Mojca dice che Zala è la migliore lettrice." }
+        ],
+        "rows": [["Pridem.", "da pride", "da"]],
+        "ask": {
+          "type": "choice", "grammar": "odvisni-govor", "prompt": "Luka: Imam veliko ovc. → Luka pravi, da ___ veliko ovc.", "options": ["imam", "ima", "imel"], "answer": 1, "say_options": true,
+          "explain": "**Luka** says it of himself: I → he → **da ima**\n- imam · what he said, word for word"
+        }
+      },
+      {
+        "say": {
+          "en": "**The tense stays as it was said**, unlike English. Micka says **Utrujena sem.** → **Micka je rekla, da je utrujena.** (She said she was tired: then.) **Da je bila utrujena** would be tired before that. The past and the future stay too: **Rekel je, da je bil doma.** **Rekel je, da bo jutri deževalo.**",
+          "de": "**Die Zeit bleibt, wie sie gesagt wurde.** Micka sagt **Utrujena sem.** → **Micka je rekla, da je utrujena.** (Sie sagte, sie sei müde: damals.) **Da je bila utrujena** hieße, müde schon davor. Auch Vergangenheit und Futur bleiben: **Rekel je, da je bil doma.** **Rekel je, da bo jutri deževalo.**",
+          "it": "**Il tempo resta com'è stato detto**, diversamente dall'italiano. Micka dice **Utrujena sem.** → **Micka je rekla, da je utrujena.** (Ha detto che era stanca: allora.) **Da je bila utrujena** sarebbe stanca già prima. Anche il passato e il futuro restano: **Rekel je, da je bil doma.** **Rekel je, da bo jutri deževalo.**"
+        },
+        "examples": [
+          { "sl": "Micka je rekla, da je utrujena.", "en": "Micka said she was tired.", "de": "Micka hat gesagt, sie sei müde.", "it": "Micka ha detto che era stanca." },
+          { "sl": "Tine je rekel, da je v gozdu videl medveda.", "en": "Tine said he had seen a bear in the forest.", "de": "Tine hat gesagt, er habe im Wald einen Bären gesehen.", "it": "Tine ha detto che aveva visto un orso nel bosco." }
+        ],
+        "rows": [["Utrujena sem.", "da je utrujena", "da"], ["Bil sem doma.", "da je bil doma", "da"], ["Jutri bo deževalo.", "da bo jutri deževalo", "da"]],
+        "ask": {
+          "type": "choice", "grammar": "odvisni-govor", "prompt": "Nejc: Lačen sem. → Nejc je rekel, da ___ lačen.", "options": ["je", "je bil", "bo"], "answer": 0, "say_options": true,
+          "explain": "**the tense stays**: he said sem, now → **da je lačen**\n- da je bil lačen · hungry before he said it"
+        }
+      },
+      {
+        "say": {
+          "en": "A yes-or-no question is passed on with **ali** or **če** (whether): **Si {m:lačen|f:lačna}?** → **Vprašala je, ali sem {m:lačen|f:lačna}.** Any other question keeps its question word: **Kje je Luka?** → **Vprašal je, kje je Luka.** **Kdaj prideš?** → **Vprašala me je, kdaj pridem.** In speech you also hear **a**: **Vprašal je, a pridem.**",
+          "de": "Eine Ja-Nein-Frage wird mit **ali** oder **če** (ob) weitergegeben: **Si {m:lačen|f:lačna}?** → **Vprašala je, ali sem {m:lačen|f:lačna}.** Jede andere Frage behält ihr Fragewort: **Kje je Luka?** → **Vprašal je, kje je Luka.** **Kdaj prideš?** → **Vprašala me je, kdaj pridem.** In der Umgangssprache hörst du auch **a**: **Vprašal je, a pridem.**",
+          "it": "Una domanda sì o no si riferisce con **ali** o **če** (se): **Si {m:lačen|f:lačna}?** → **Vprašala je, ali sem {m:lačen|f:lačna}.** Ogni altra domanda tiene la sua parola interrogativa: **Kje je Luka?** → **Vprašal je, kje je Luka.** **Kdaj prideš?** → **Vprašala me je, kdaj pridem.** Nel parlato senti anche **a**: **Vprašal je, a pridem.**"
+        },
+        "examples": [
+          { "sl": "Vprašal me je, ali sem {m:lačen|f:lačna}.", "en": "He asked me whether I was hungry.", "de": "Er hat mich gefragt, ob ich Hunger habe.", "it": "Mi ha chiesto se avevo fame." },
+          { "sl": "Ne vem, kje je Luka.", "en": "I don't know where Luka is.", "de": "Ich weiß nicht, wo Luka ist.", "it": "Non so dov'è Luka." }
+        ],
+        "rows": [["Si lačen?", "ali sem lačen", "ali, če"], ["Kje je Luka?", "kje je Luka", "kje, kdaj …"]],
+        "ask": {
+          "type": "choice", "grammar": "odvisni-govor", "prompt": "Zala: Greš z nami? → Zala me je vprašala, ___ grem z njimi.", "options": ["ali", "da", "naj"], "answer": 0, "say_options": true,
+          "explain": "**a yes-or-no question** → **ali** (or če)\n- da · a statement\n- naj · a request"
+        }
+      },
+      {
+        "say": {
+          "en": "A request or an order is passed on with **naj** and the present: **Pridi!** → **Rekla je, naj pridem.** (She told me to come.) **Pomagaj mi!** → **Prosil jo je, naj mu pomaga.** Naj never takes the imperative: not naj pridi.",
+          "de": "Eine Bitte oder ein Befehl wird mit **naj** und dem Präsens weitergegeben: **Pridi!** → **Rekla je, naj pridem.** (Sie sagte, ich solle kommen.) **Pomagaj mi!** → **Prosil jo je, naj mu pomaga.** Naj steht nie mit dem Imperativ: nicht naj pridi.",
+          "it": "Una richiesta o un ordine si riferisce con **naj** e il presente: **Pridi!** → **Rekla je, naj pridem.** (Mi ha detto di venire.) **Pomagaj mi!** → **Prosil jo je, naj mu pomaga.** Naj non vuole mai l'imperativo: non naj pridi."
+        },
+        "examples": [
+          { "sl": "Micka je rekla, naj prideš na kosilo.", "en": "Micka said you should come for lunch.", "de": "Micka hat gesagt, du sollst zum Mittagessen kommen.", "it": "Micka ha detto di venire a pranzo." },
+          { "sl": "France je prosil Tineta, naj mu prinese vode.", "en": "France asked Tine to bring him some water.", "de": "France hat Tine gebeten, ihm Wasser zu bringen.", "it": "France ha chiesto a Tine di portargli dell'acqua." }
+        ],
+        "rows": [["Pridi jutri!", "naj jutri pridem", "naj"]],
+        "ask": {
+          "type": "cloze", "grammar": "odvisni-govor", "text": "Micka: Prinesi drva! → Micka je rekla, naj ___ drva. (jaz)", "accept": ["prinesem"], "hint": "naj + the present, I",
+          "explain": "**a request** → **naj** + the present → **naj prinesem**\n- not naj prinesi"
+        }
+      },
+      {
+        "say": {
+          "en": "The short words come right after **da, ali** and **naj**: **Rekel je, da ga jutri ne bo.** (He said he wouldn't be here tomorrow.) **Rekla je, naj ji ga prinesem.** And what is whose changes with the person: Luka's **moj pes** becomes **njegov pes**: **Luka pravi, da je njegov pes lačen.**",
+          "de": "Die kurzen Wörter kommen gleich nach **da, ali** und **naj**: **Rekel je, da ga jutri ne bo.** (Er sagte, er sei morgen nicht da.) **Rekla je, naj ji ga prinesem.** Und was wem gehört, ändert sich mit der Person: Lukas **moj pes** wird **njegov pes**: **Luka pravi, da je njegov pes lačen.**",
+          "it": "Le parole brevi vengono subito dopo **da, ali** e **naj**: **Rekel je, da ga jutri ne bo.** (Ha detto che domani non ci sarà.) **Rekla je, naj ji ga prinesem.** E di chi è una cosa cambia con la persona: il **moj pes** di Luka diventa **njegov pes**: **Luka pravi, da je njegov pes lačen.**"
+        },
+        "examples": [
+          { "sl": "Rekel je, da ga jutri ne bo.", "en": "He said he wouldn't be here tomorrow.", "de": "Er hat gesagt, dass er morgen nicht da ist.", "it": "Ha detto che domani non ci sarà." },
+          { "sl": "Luka pravi, da je njegov pes lačen.", "en": "Luka says his dog is hungry.", "de": "Luka sagt, dass sein Hund Hunger hat.", "it": "Luka dice che il suo cane ha fame." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "naslonke", "prompt": "Marko: Jutri ti ga prinesem. → Marko je rekel, ___ prinese.", "options": ["da mi ga jutri", "da jutri mi ga", "da mi jutri ga"], "answer": 0, "say_options": true,
+          "explain": "**right after da** come the short words: **mi ga**, then the rest → **da mi ga jutri prinese**"
+        }
+      },
+      {
+        "say": {
+          "en": "**Da** also follows thinking and knowing, and **ali** not knowing: **Mislim, da bo deževalo.** (I think it'll rain.) **Vem, da je doma.** **Ne vem, ali pride.** Here too the tense is the one you mean, and a comma goes before da, ali, če and naj.",
+          "de": "**Da** steht auch nach Denken und Wissen, und **ali** nach Nichtwissen: **Mislim, da bo deževalo.** (Ich glaube, es wird regnen.) **Vem, da je doma.** **Ne vem, ali pride.** Auch hier steht die Zeit, die du meinst, und vor da, ali, če und naj ein Komma.",
+          "it": "**Da** viene anche dopo pensare e sapere, e **ali** dopo non sapere: **Mislim, da bo deževalo.** (Penso che pioverà.) **Vem, da je doma.** **Ne vem, ali pride.** Anche qui il tempo è quello che intendi, e prima di da, ali, če e naj va una virgola."
+        },
+        "examples": [
+          { "sl": "Mislim, da bo jutri deževalo.", "en": "I think it'll rain tomorrow.", "de": "Ich glaube, dass es morgen regnet.", "it": "Penso che domani pioverà." },
+          { "sl": "Ne vem, ali Marko pride v soboto.", "en": "I don't know whether Marko is coming on Saturday.", "de": "Ich weiß nicht, ob Marko am Samstag kommt.", "it": "Non so se Marko viene sabato." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "odvisni-govor", "prompt": "Mislim, ___ je Luka na pašniku.", "options": ["da", "naj", "ali"], "answer": 0, "say_options": true,
+          "explain": "**mislim** + a statement → **da**"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "odvisni-govor-1",
+      "title": { "sl": "Da, ali, naj?", "en": "Da, ali, naj?", "de": "Da, ali, naj?", "it": "Da, ali, naj?" },
+      "exercises": [
+        {
+          "type": "sort", "grammar": "odvisni-govor", "instruction": "S čim to poveš naprej? · What passes it on?",
+          "columns": [
+            { "label": "da", "words": ["Pridem.", "Jutri bo lepo.", "Utrujena sem."] },
+            { "label": "ali, če", "words": ["Si lačen?", "Imaš čas?", "Greš z nami?"] },
+            { "label": "naj", "words": ["Pridi!", "Pomagaj mi!", "Počakaj me!"] },
+            { "label": "kje, kdaj, zakaj …", "words": ["Kje je Luka?", "Kdaj pride Marko?", "Zakaj jočeš?"] }
+          ],
+          "explain": "**a statement** → da · **a yes-or-no question** → ali, če · **a request** → naj · **another question** → its question word"
+        },
+        {
+          "type": "table", "grammar": "odvisni-govor", "instruction": "Dopolni · Fill in", "prompt": "Rekel je, da … · He said that …",
+          "columns": ["… je rekel/rekla, da …"],
+          "rows": [
+            { "label": "Luka: »Pridem zvečer.«", "cells": [{ "accept": ["pride zvečer"], "hint": "I → he" }] },
+            { "label": "Zala: »Utrujena sem.«", "cells": [{ "accept": ["je utrujena"], "hint": "the tense stays" }] },
+            { "label": "Tine: »Videl sem srno.«", "cells": [{ "accept": ["je videl srno"] }] },
+            { "label": "Micka: »Jutri bom pekla.«", "cells": [{ "accept": ["bo jutri pekla"], "hint": "bo right after da" }] },
+            { "label": "Nejc: »Lačen sem.«", "cells": [{ "accept": ["je lačen"] }] }
+          ],
+          "explain": "**the tense stays as it was said**, the person changes\n- sem → je · bom → bo · pridem → pride"
+        }
+      ]
+    },
+    {
+      "id": "odvisni-govor-2",
+      "title": { "sl": "Novice tete Ančke", "en": "Aunt Ančka's news", "de": "Tante Ančkas Neuigkeiten", "it": "Le notizie di zia Ančka" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "odvisni-govor", "instruction": "Dopolni · Fill in", "title": "Novice tete Ančke",
+          "text": "Teta Ančka ve vse. Zjutraj je rekla, ___ bo popoldne burja. Micki je rekla, ___ zapre okna. Mene je vprašala, ___ imam dovolj drv. Povedala je, da Marko ___ (priti) v soboto in ___ (prinesti) novo vino. Vida jo je vprašala, ___ vina bo pripeljal. »Ne vem,« je rekla Ančka, »rekel je samo, da ___ (imeti) veliko dela.« Na koncu je rekla, naj ji ___ (jaz: pomagati) nesti košaro.",
+          "gaps": [
+            { "accept": ["da"], "hint": "a statement" },
+            { "accept": ["naj"], "hint": "a request: close the windows!" },
+            { "accept": ["ali", "če", "a"], "hint": "a yes-or-no question" },
+            { "accept": ["pride"], "hint": "he said: pridem" },
+            { "accept": ["prinese"], "hint": "he said: prinesem" },
+            { "accept": ["koliko"], "hint": "how much?" },
+            { "accept": ["ima"], "hint": "he said: imam" },
+            { "accept": ["pomagam"], "hint": "naj + the present, I" }
+          ],
+          "bank": true, "distractors": ["je prišel", "imel", "kje"],
+          "translation": "Aunt Ančka knows everything. In the morning she said there'd be a bora in the afternoon. She told Micka to close the windows. She asked me whether I had enough firewood. She said Marko was coming on Saturday and bringing the new wine. Vida asked her how much wine he'd bring. \"I don't know,\" said Ančka, \"he only said he had a lot of work.\" At the end she asked me to help her carry the basket."
+        }
+      ]
+    },
+    {
+      "id": "odvisni-govor-3",
+      "title": { "sl": "Povej naprej", "en": "Pass it on", "de": "Sag es weiter", "it": "Riferiscilo" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "odvisni-govor", "instruction": "Povej naprej · Pass it on",
+          "items": [
+            { "from": "Luka: »Danes pridem pozno.«", "accept": ["Luka je rekel, da danes pride pozno.", "Luka pravi, da danes pride pozno."], "hint": "da; I → he" },
+            { "from": "Zala: »Lačna sem.«", "accept": ["Zala je rekla, da je lačna.", "Zala pravi, da je lačna."], "hint": "the tense stays" },
+            { "from": "Tine: »V gozdu sem videl medveda.«", "accept": ["Tine je rekel, da je v gozdu videl medveda.", "Tine pravi, da je v gozdu videl medveda."] },
+            { "from": "Mojca: »Jutri bo test.«", "accept": ["Mojca je rekla, da bo jutri test.", "Mojca pravi, da bo jutri test."], "hint": "bo right after da" },
+            { "from": "Micka (to you): »Si {m:lačen|f:lačna}?«", "accept": ["Micka me je vprašala, ali sem {m:lačen|f:lačna}.", "Micka me je vprašala, če sem {m:lačen|f:lačna}.", "Micka me je vprašala, a sem {m:lačen|f:lačna}."], "hint": "a yes-or-no question; you → I" },
+            { "from": "Nejc: »Kje je moja žoga?«", "accept": ["Nejc je vprašal, kje je njegova žoga."], "hint": "my → his" },
+            { "from": "France (to you): »Pomagaj mi!«", "accept": ["France je rekel, naj mu pomagam.", "France me je prosil, naj mu pomagam."], "hint": "naj + the present; me → him" },
+            { "from": "Vida (to Nejc): »Prinesi drva!«", "accept": ["Vida je rekla Nejcu, naj prinese drva.", "Vida je rekla, naj Nejc prinese drva."], "hint": "naj + the present, he" }
+          ],
+          "explain": "**da** a statement · **ali, če** yes or no · **a question word** · **naj** + the present for a request\n- the tense stays, the person changes"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "odvisni-govor", "instruction": "Dopolni · Fill in", "prompt": "s čim povem naprej? · what passes it on?",
+        "columns": ["veznik · joined with"],
+        "rows": [
+          { "label": "»Kdaj prideš?«", "cells": [{ "accept": ["kdaj"] }] },
+          { "label": "»Sedi!«", "cells": [{ "accept": ["naj"] }] },
+          { "label": "»Imaš psa?«", "cells": [{ "accept": ["ali", "če", "a"] }] },
+          { "label": "»Doma sem.«", "cells": [{ "accept": ["da"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "odvisni-govor", "instruction": "Dopolni · Fill in",
+        "text": "»Utrujen sem,« je rekel Luka. Rekel je, da ___ (biti) utrujen. Vprašal me je, ___ imam čas. Rekel je, naj mu ___ (jaz: pomagati). Mislim, ___ bo jutri lepo.",
+        "gaps": [
+          { "accept": ["je"] },
+          { "accept": ["ali", "če", "a"] },
+          { "accept": ["pomagam"] },
+          { "accept": ["da"] }
+        ],
+        "translation": "\"I'm tired,\" said Luka. He said he was tired. He asked me whether I had time. He asked me to help him. I think it'll be nice tomorrow."
+      },
+      {
+        "type": "transform", "grammar": "odvisni-govor", "instruction": "Povej naprej · Pass it on",
+        "items": [
+          { "from": "Marko: »Jutri pridem.«", "accept": ["Marko je rekel, da jutri pride.", "Marko pravi, da jutri pride."] },
+          { "from": "Zala (to you): »Greš z mano?«", "accept": ["Zala me je vprašala, ali grem z njo.", "Zala me je vprašala, če grem z njo.", "Zala me je vprašala, a grem z njo."] },
+          { "from": "Micka (to you): »Jej!«", "accept": ["Micka je rekla, naj jem.", "Micka mi je rekla, naj jem."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "odvisni-govor", "prompt": "Vida: Bila sem na trgu. → Vida je rekla, da ___ na trgu.", "options": ["je", "je bila", "bo"], "answer": 1, "say_options": true,
+        "explain": "**the tense stays**: she said bila sem → **da je bila**"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: a for ali in speech (accepted), Vida je rekla Nejcu, naj prinese, Novice tete Ančke, the tense kept"
+}

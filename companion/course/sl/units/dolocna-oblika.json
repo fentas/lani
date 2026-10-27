@@ -1,0 +1,224 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "dolocna-oblika",
+  "language": "sl",
+  "level": "B1",
+  "emoji": "🔪",
+  "title": { "sl": "Daj mi zeleni nož!", "en": "Give me the green knife! The definite adjective", "de": "Gib mir das grüne Messer! Die bestimmte Form", "it": "Dammi il coltello verde! La forma determinata" },
+  "goal": {
+    "en": "You can tell a green knife from the green knife (zelen nož, zeleni nož), use the definite form after ta, moj and svoj and in names (Stari Janez, beli kruh), and the indefinite after biti (nož je zelen).",
+    "de": "Du unterscheidest ein grünes Messer vom grünen Messer (zelen nož, zeleni nož), verwendest die bestimmte Form nach ta, moj und svoj und in Namen (Stari Janez, beli kruh) und die unbestimmte nach biti (nož je zelen).",
+    "it": "Sai distinguere un coltello verde dal coltello verde (zelen nož, zeleni nož), usare la forma determinata dopo ta, moj e svoj e nei nomi (Stari Janez, beli kruh), e l'indeterminata dopo biti (nož je zelen)."
+  },
+  "grammar": ["dolocna-oblika", "pridevniki-ujemanje"],
+  "words": ["zelen", "nož", "star", "dober", "topel", "velik", "nov", "bel", "rdeč", "svež", "domač", "poln", "lesen", "kruh", "čaj", "plašč", "kozarec", "lonec", "kozolec", "klobuk", "svinčnik", "trgovec", "slovenski", "kmečki", "najboljši"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "kdaj", "en": "when", "de": "wann", "it": "quando" },
+        { "sl": "kakšen?", "en": "kakšen? what kind (a …)", "de": "kakšen? was für ein (ein …)", "it": "kakšen? di che tipo (un …)" },
+        { "sl": "kateri?", "en": "kateri? which one (the …)", "de": "kateri? welcher (der …)", "it": "kateri? quale (il …)" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "A masculine adjective has two base forms. **Zelen** answers **kakšen?** (what kind?): **Tone ima zelen nož.** (a green knife) **Zeleni** answers **kateri?** (which one?), a knife you both know: **Daj mi zeleni nož!** (the green knife) It is the definite form (*določna oblika*), much like English the.",
+          "de": "Ein männliches Adjektiv hat zwei Grundformen. **Zelen** antwortet auf **kakšen?** (was für ein?): **Tone ima zelen nož.** (ein grünes Messer) **Zeleni** antwortet auf **kateri?** (welches?), ein Messer, das ihr beide kennt: **Daj mi zeleni nož!** (das grüne Messer) Das ist die bestimmte Form (*določna oblika*), wie der bestimmte Artikel.",
+          "it": "Un aggettivo maschile ha due forme base. **Zelen** risponde a **kakšen?** (di che tipo?): **Tone ima zelen nož.** (un coltello verde) **Zeleni** risponde a **kateri?** (quale?), un coltello che conoscete tutti e due: **Daj mi zeleni nož!** (il coltello verde) È la forma determinata (*določna oblika*), come l'articolo il."
+        },
+        "examples": [
+          { "sl": "Tone ima zelen nož.", "en": "Tone has a green knife.", "de": "Tone hat ein grünes Messer.", "it": "Tone ha un coltello verde." },
+          { "sl": "Daj mi zeleni nož!", "en": "Give me the green knife!", "de": "Gib mir das grüne Messer!", "it": "Dammi il coltello verde!" }
+        ],
+        "rows": [[{ "sl": "osnova", "en": "the base", "de": "die Grundform", "it": "la forma base" }, "zelen nož", "zeleni nož"]],
+        "ask": {
+          "type": "choice", "grammar": "dolocna-oblika", "prompt": "Na mizi sta dva noža, zelen in črn. Daj mi ___ nož!", "options": ["zelen", "zeleni"], "answer": 1, "say_options": true,
+          "explain": "**which of the two** → kateri? → the definite **zeleni**\n- zelen nož · a green knife, any"
+        }
+      },
+      {
+        "say": {
+          "en": "The definite adds **-i**, and an e between the last consonants drops, as in the cases: **dober → dobri**, **topel → topli**; but **star → stari**, **velik → veliki**. Only the masculine has it: **zelena, zeleno** and every case, **zelenega, z zelenim**, are the same for both.",
+          "de": "Die bestimmte Form bekommt **-i**, und ein e zwischen den letzten Konsonanten fällt weg, wie in den Fällen: **dober → dobri**, **topel → topli**; aber **star → stari**, **velik → veliki**. Nur das Maskulinum hat sie: **zelena, zeleno** und alle Fälle, **zelenega, z zelenim**, sind für beide gleich.",
+          "it": "La determinata aggiunge **-i**, e una e tra le ultime consonanti cade, come nei casi: **dober → dobri**, **topel → topli**; ma **star → stari**, **velik → veliki**. Ce l'ha solo il maschile: **zelena, zeleno** e tutti i casi, **zelenega, z zelenim**, sono uguali per le due."
+        },
+        "examples": [
+          { "sl": "Prinesi mi topli plašč iz omare.", "en": "Bring me the warm coat from the wardrobe.", "de": "Bring mir den warmen Mantel aus dem Schrank.", "it": "Portami il cappotto caldo dall'armadio." },
+          { "sl": "Micka ima dober kruh.", "en": "Micka has good bread.", "de": "Micka hat gutes Brot.", "it": "Micka ha del pane buono." }
+        ],
+        "rows": [[{ "sl": "e izpade", "en": "an e drops", "de": "ein e fällt weg", "it": "una e cade" }, "dober mož", "dobri mož"], [{ "sl": "e izpade", "en": "an e drops", "de": "ein e fällt weg", "it": "una e cade" }, "topel čaj", "topli čaj"]],
+        "ask": {
+          "type": "cloze", "grammar": "dolocna-oblika", "text": "Kje je ___ nož za kruh, tisti z lesenim ročajem? (dober)", "accept": ["dobri"], "hint": "kateri? an e drops",
+          "explain": "**tisti z lesenim ročajem**: the one we know → **dobri**\n- dober → dobri, as topel → topli"
+        }
+      },
+      {
+        "say": {
+          "en": "The definite comes after **ta, tisti** and the possessives: **ta stari kozolec**, **moj novi klobuk**, **svoj novi kombi**. And in names and kinds of things: **Stari Janez**, **beli kruh** (white bread), **zeleni čaj** (green tea).",
+          "de": "Die bestimmte Form steht nach **ta, tisti** und den Possessiva: **ta stari kozolec**, **moj novi klobuk**, **svoj novi kombi**. Und in Namen und Sorten: **Stari Janez**, **beli kruh** (Weißbrot), **zeleni čaj** (grüner Tee).",
+          "it": "La determinata viene dopo **ta, tisti** e i possessivi: **ta stari kozolec**, **moj novi klobuk**, **svoj novi kombi**. E nei nomi e nei tipi di cose: **Stari Janez**, **beli kruh** (pane bianco), **zeleni čaj** (tè verde)."
+        },
+        "examples": [
+          { "sl": "Marko mi je posodil svoj novi kombi.", "en": "Marko lent me his new van.", "de": "Marko hat mir seinen neuen Lieferwagen geliehen.", "it": "Marko mi ha prestato il suo furgone nuovo." },
+          { "sl": "Stari Janez sedi pod lipo.", "en": "Old Janez is sitting under the linden.", "de": "Der alte Janez sitzt unter der Linde.", "it": "Il vecchio Janez è seduto sotto il tiglio." }
+        ],
+        "rows": [[{ "sl": "za ta, moj, svoj", "en": "after ta, tisti, moj, svoj", "de": "nach ta, tisti, moj, svoj", "it": "dopo ta, tisti, moj, svoj" }, "—", "ta stari kozolec"], [{ "sl": "imena, vrste", "en": "names, kinds", "de": "Namen, Sorten", "it": "nomi, tipi" }, "—", "Stari Janez, beli kruh"]],
+        "ask": {
+          "type": "choice", "grammar": "dolocna-oblika", "prompt": "Ta ___ kozolec je Francetov.", "options": ["star", "stari"], "answer": 1, "say_options": true,
+          "explain": "**after ta** → the definite **stari**"
+        }
+      },
+      {
+        "say": {
+          "en": "After **biti**, saying what something is like, the indefinite: **Nož je zelen.** **Čaj je še topel.** So one sentence can have both: **Moj novi klobuk je zelen.** (my new hat: which one; zelen: what it's like)",
+          "de": "Nach **biti**, wenn man sagt, wie etwas ist, die unbestimmte Form: **Nož je zelen.** **Čaj je še topel.** So kann ein Satz beide haben: **Moj novi klobuk je zelen.** (mein neuer Hut: welcher; zelen: wie er ist)",
+          "it": "Dopo **biti**, dicendo com'è una cosa, l'indeterminata: **Nož je zelen.** **Čaj je še topel.** Così una frase può averle tutte e due: **Moj novi klobuk je zelen.** (il mio cappello nuovo: quale; zelen: com'è)"
+        },
+        "examples": [
+          { "sl": "Čaj je še topel.", "en": "The tea is still warm.", "de": "Der Tee ist noch warm.", "it": "Il tè è ancora caldo." },
+          { "sl": "Moj novi klobuk je zelen.", "en": "My new hat is green.", "de": "Mein neuer Hut ist grün.", "it": "Il mio cappello nuovo è verde." }
+        ],
+        "rows": [[{ "sl": "za biti", "en": "after biti", "de": "nach biti", "it": "dopo biti" }, "Nož je zelen.", "—"]],
+        "ask": {
+          "type": "choice", "grammar": "dolocna-oblika", "prompt": "Kruh je še ___.", "options": ["topel", "topli"], "answer": 0, "say_options": true,
+          "explain": "**after je**: what it's like → the indefinite **topel**"
+        }
+      },
+      {
+        "say": {
+          "en": "Some adjectives have only the definite form: those in **-ski, -ški, -čki** (**slovenski, kmečki**), the comparative and the superlative (**večji, najboljši**), and **prvi, drugi, zadnji**: **Luka je najboljši pastir.** In speech the definite often has **ta** in front: **ta zeleni** (the green one), **ta mali** (the little one); the standard says it without ta.",
+          "de": "Manche Adjektive haben nur die bestimmte Form: die auf **-ski, -ški, -čki** (**slovenski, kmečki**), Komparativ und Superlativ (**večji, najboljši**) und **prvi, drugi, zadnji**: **Luka je najboljši pastir.** In der Umgangssprache steht vor der bestimmten Form oft **ta**: **ta zeleni** (der grüne), **ta mali** (der kleine); die Standardsprache sagt es ohne ta.",
+          "it": "Alcuni aggettivi hanno solo la forma determinata: quelli in **-ski, -ški, -čki** (**slovenski, kmečki**), il comparativo e il superlativo (**večji, najboljši**), e **prvi, drugi, zadnji**: **Luka je najboljši pastir.** Nel parlato la determinata ha spesso **ta** davanti: **ta zeleni** (quello verde), **ta mali** (il piccolo); lo standard la dice senza ta."
+        },
+        "examples": [
+          { "sl": "Luka je najboljši pastir na planoti.", "en": "Luka is the best shepherd on the plateau.", "de": "Luka ist der beste Hirte auf der Hochebene.", "it": "Luka è il miglior pastore dell'altopiano." },
+          { "sl": "To je kmečki kruh.", "en": "This is farmhouse bread.", "de": "Das ist Bauernbrot.", "it": "Questo è pane contadino." }
+        ],
+        "rows": [[{ "sl": "samo -i", "en": "only -i", "de": "nur -i", "it": "solo -i" }, "—", "slovenski, večji, prvi"]],
+        "ask": {
+          "type": "cloze", "grammar": "dolocna-oblika", "text": "Anton ima ___ med v vasi. (dober: the best)", "accept": ["najboljši"], "hint": "the best: naj- + the comparative",
+          "explain": "**the superlative** has only the definite form → **najboljši**\n- dober, boljši, najboljši"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "dolocna-oblika-1",
+      "title": { "sl": "Zelen ali zeleni?", "en": "Zelen or zeleni?", "de": "Zelen oder zeleni?", "it": "Zelen o zeleni?" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "dolocna-oblika", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "nedoločna in določna oblika · the indefinite and the definite",
+          "columns": ["kakšen? · a …", "kateri? · the …"],
+          "rows": [
+            { "label": "zelen", "cells": ["zelen nož", "zeleni nož"] },
+            { "label": "star", "cells": ["star kozolec", { "accept": ["stari kozolec"] }] },
+            { "label": "dober", "cells": ["dober mož", { "accept": ["dobri mož"], "hint": "an e drops" }] },
+            { "label": "topel", "cells": ["topel plašč", { "accept": ["topli plašč"], "hint": "an e drops" }] },
+            { "label": "velik", "cells": ["velik lonec", { "accept": ["veliki lonec"] }] },
+            { "label": "nov", "cells": ["nov kombi", { "accept": ["novi kombi"] }] },
+            { "label": "bel", "cells": ["bel kruh", { "accept": ["beli kruh"] }] }
+          ],
+          "explain": "**the definite** → **-i**, an e between the last consonants drops\n- stari · dobri · topli · veliki · novi · beli"
+        },
+        {
+          "type": "sort", "grammar": "dolocna-oblika", "instruction": "Dve obliki ali samo -i? · Two forms or only -i?",
+          "columns": [
+            { "label": "dve obliki · zelen, zeleni", "words": ["star", "dober", "velik", "lep"] },
+            { "label": "samo -i · only the definite", "words": ["slovenski", "kmečki", "večji", "najlepši", "prvi", "zadnji"] }
+          ],
+          "explain": "**-ski, -ški, -čki**, the comparative and the superlative, **prvi, drugi, zadnji** → only **-i**"
+        }
+      ]
+    },
+    {
+      "id": "dolocna-oblika-2",
+      "title": { "sl": "Sejem", "en": "The fair", "de": "Der Jahrmarkt", "it": "La fiera" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "dolocna-oblika", "instruction": "Kakšen ali kateri? Dopolni · What kind or which one? Fill in", "title": "Sejem",
+          "text": "Na trgu je sejem. Vida potrebuje ___ (nov) lonec. »Kateri vam je všeč?« vpraša trgovec. »Tisti ___ (rdeč) lonec na vrhu.« »Ta lonec je zelo ___ (dober),« reče trgovec. Potem Vida kupi še ___ (bel) kruh. Marko vsem pokaže svoj ___ (nov) kombi. Na klopi sedi ___ (star) Janez in se smeje. »Moj ___ (lesen) voz je bil boljši,« pravi. Anton pa ima ___ (dober: the best) med v vasi.",
+          "gaps": [
+            { "accept": ["nov"], "hint": "kakšen? a new one" },
+            { "accept": ["rdeči"], "hint": "after tisti" },
+            { "accept": ["dober"], "hint": "after je" },
+            { "accept": ["beli", "bel"], "hint": "a kind of bread", "explain": "**beli kruh** is the name of a kind of bread, so the definite; bel kruh, some white bread, is heard too." },
+            { "accept": ["novi"], "hint": "after svoj" },
+            { "accept": ["Stari"], "hint": "a name" },
+            { "accept": ["leseni"], "hint": "after moj" },
+            { "accept": ["najboljši"], "hint": "the best" }
+          ],
+          "bank": true, "distractors": ["rdeč", "dobri", "lesen"],
+          "translation": "There's a fair on the square. Vida needs a new pot. \"Which one do you like?\" asks the merchant. \"That red pot on the top.\" \"This pot is very good,\" says the merchant. Then Vida also buys white bread. Marko shows everyone his new van. Old Janez sits on the bench and laughs. \"My wooden cart was better,\" he says. And Anton has the best honey in the village."
+        }
+      ]
+    },
+    {
+      "id": "dolocna-oblika-3",
+      "title": { "sl": "Kateri? Zeleni!", "en": "Which one? The green one!", "de": "Welches? Das grüne!", "it": "Quale? Quello verde!" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "dolocna-oblika", "instruction": "Prosi zanj · Ask for it", "cue": "Daj mi …",
+          "items": [
+            { "from": "Nož je zelen.", "accept": ["Daj mi zeleni nož.", "Daj mi zeleni nož, prosim."] },
+            { "from": "Kozarec je velik.", "accept": ["Daj mi veliki kozarec.", "Daj mi veliki kozarec, prosim."] },
+            { "from": "Kruh je svež.", "accept": ["Daj mi sveži kruh.", "Daj mi sveži kruh, prosim."] },
+            { "from": "Klobuk je star.", "accept": ["Daj mi stari klobuk.", "Daj mi stari klobuk, prosim."] },
+            { "from": "Čaj je topel.", "accept": ["Daj mi topli čaj.", "Daj mi topli čaj, prosim."], "hint": "an e drops" },
+            { "from": "Svinčnik je rdeč.", "accept": ["Daj mi rdeči svinčnik.", "Daj mi rdeči svinčnik, prosim."] },
+            { "from": "Sir je domač.", "accept": ["Daj mi domači sir.", "Daj mi domači sir, prosim."] }
+          ],
+          "explain": "**is green** (kakšen?) → **give me the green one** (kateri?) → **-i**\n- nož je zelen → daj mi zeleni nož"
+        },
+        {
+          "type": "choice", "grammar": "dolocna-oblika", "instruction": "Izberi · Choose", "prompt": "Moj ___ plašč je pretopel za pomlad.", "options": ["nov", "novi"], "answer": 1, "say_options": true,
+          "explain": "**after moj** → the definite **novi**\n- pretopel: what it's like, after je"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "dolocna-oblika", "instruction": "Dopolni · Fill in", "prompt": "kateri? · the definite",
+        "columns": ["kateri? · the …"],
+        "rows": [
+          { "label": "dober mož", "cells": [{ "accept": ["dobri mož"] }] },
+          { "label": "topel čaj", "cells": [{ "accept": ["topli čaj"] }] },
+          { "label": "bel kruh", "cells": [{ "accept": ["beli kruh"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "dolocna-oblika", "instruction": "Kakšen ali kateri? Dopolni · What kind or which one? Fill in",
+        "text": "Zala ima ___ (nov) svinčnik. ___ (star) Janez ji ga je prinesel s sejma. Svinčnik je ___ (rdeč). To je njen ___ (lep: the most beautiful) svinčnik.",
+        "gaps": [
+          { "accept": ["nov"] },
+          { "accept": ["Stari"] },
+          { "accept": ["rdeč"] },
+          { "accept": ["najlepši"] }
+        ],
+        "translation": "Zala has a new pencil. Old Janez brought it to her from the fair. The pencil is red. It's her most beautiful pencil."
+      },
+      {
+        "type": "transform", "grammar": "dolocna-oblika", "instruction": "Prosi zanj · Ask for it", "cue": "Daj mi …",
+        "items": [
+          { "from": "Lonec je velik.", "accept": ["Daj mi veliki lonec.", "Daj mi veliki lonec, prosim."] },
+          { "from": "Plašč je topel.", "accept": ["Daj mi topli plašč.", "Daj mi topli plašč, prosim."] },
+          { "from": "Kozarec je poln.", "accept": ["Daj mi polni kozarec.", "Daj mi polni kozarec, prosim."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "dolocna-oblika", "prompt": "Ta ___ kombi je Markov.", "options": ["bel", "beli"], "answer": 1, "say_options": true,
+        "explain": "**after ta** → the definite **beli**"
+      },
+      {
+        "type": "choice", "grammar": "dolocna-oblika", "prompt": "Ta kombi je ___ kot sneg.", "options": ["bel", "beli"], "answer": 0, "say_options": true,
+        "explain": "**after je**: what it's like → the indefinite **bel**"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: ta as a spoken article (ta zeleni), Daj mi sveži kruh, Moj leseni voz, Daj mi domači sir"
+}

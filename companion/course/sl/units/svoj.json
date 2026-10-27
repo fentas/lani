@@ -1,0 +1,217 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "svoj",
+  "language": "sl",
+  "level": "B1",
+  "emoji": "🔑",
+  "title": { "sl": "Svoj: posodil mi je svoj avto", "en": "Svoj: he lent me his own car", "de": "Svoj: er hat mir sein eigenes Auto geliehen", "it": "Svoj: mi ha prestato la sua macchina" },
+  "goal": {
+    "en": "You can say whose something is when the owner is the subject (Luka išče svoje jagnje, s svojim psom, v svoji kuhinji), tell it from someone else's (njegovo, njeno), and keep svoj out of the subject.",
+    "de": "Du sagst, wem etwas gehört, wenn der Besitzer das Subjekt ist (Luka išče svoje jagnje, s svojim psom, v svoji kuhinji), unterscheidest es von dem eines anderen (njegovo, njeno) und lässt svoj aus dem Subjekt heraus.",
+    "it": "Sai dire di chi è qualcosa quando il possessore è il soggetto (Luka išče svoje jagnje, s svojim psom, v svoji kuhinji), lo distingui da quello di un altro (njegovo, njeno), e tieni svoj fuori dal soggetto."
+  },
+  "grammar": ["svoj", "pridevniki-ujemanje"],
+  "words": ["svoj", "njegov", "njen", "njihov", "moj", "tvoj", "posoditi", "kombi", "jagnje", "košara", "kuhinja", "kovačnica", "dežnik", "ključ", "očala", "torba", "stojnica", "blago", "panj", "pladenj", "vsak", "koča", "planota"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "lastnik", "en": "the owner", "de": "der Besitzer", "it": "il possessore" },
+        { "sl": "ni osebek", "en": "isn't the subject", "de": "ist nicht das Subjekt", "it": "non è il soggetto" },
+        { "sl": "je osebek", "en": "is the subject", "de": "ist das Subjekt", "it": "è il soggetto" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**Svoj** (one's own) points back to the subject of its sentence: **Luka išče svoje jagnje** (Luka is looking for his own lamb). With he, she and they it changes the meaning: **Luka išče njegovo jagnje** is another man's lamb, say Janez's. So when the owner is the subject, say **svoj**; when not, **njegov, njen, njihov**.",
+          "de": "**Svoj** (eigen) zeigt zurück auf das Subjekt seines Satzes: **Luka išče svoje jagnje** (Luka sucht sein eigenes Lamm). Bei er, sie und sie (Plural) ändert es die Bedeutung: **Luka išče njegovo jagnje** ist das Lamm eines anderen, etwa von Janez. Ist der Besitzer das Subjekt, sag **svoj**; sonst **njegov, njen, njihov**.",
+          "it": "**Svoj** (proprio) rimanda al soggetto della sua frase: **Luka išče svoje jagnje** (Luka cerca il suo agnello). Con lui, lei e loro cambia il senso: **Luka išče njegovo jagnje** è l'agnello di un altro, per esempio di Janez. Quindi, se il possessore è il soggetto, di' **svoj**; se no, **njegov, njen, njihov**."
+        },
+        "examples": [
+          { "sl": "Luka išče svoje jagnje.", "en": "Luka is looking for his (own) lamb.", "de": "Luka sucht sein (eigenes) Lamm.", "it": "Luka cerca il suo agnello." },
+          { "sl": "Janez je bolan, zato Luka pase njegove ovce.", "en": "Janez is ill, so Luka is grazing his (Janez's) sheep.", "de": "Janez ist krank, deshalb hütet Luka seine (Janez') Schafe.", "it": "Janez è malato, perciò Luka pascola le sue pecore (di Janez)." }
+        ],
+        "rows": [["on", "njegov", "svoj"], ["ona", "njen", "svoj"], ["oni", "njihov", "svoj"]],
+        "ask": {
+          "type": "choice", "grammar": "svoj", "prompt": "Zala nese ___ košaro. (Zala's own)", "options": ["svojo", "njeno", "njegovo"], "answer": 0, "say_options": true,
+          "explain": "**Zala** carries her own: the owner is the subject → **svojo**\n- njeno košaro · another woman's basket"
+        }
+      },
+      {
+        "say": {
+          "en": "**Svoj** goes like moj and agrees with what is owned, never with the owner: **svoj klobuk, svojo košaro, svoje jagnje**; in the cases **svojega psa**, **svoji sestri**, **v svoji hiši**, **s svojim psom**, **svoje otroke**. It is the same word for every owner: **Mi imamo svojo vas, oni svojo.**",
+          "de": "**Svoj** geht wie moj und richtet sich nach dem Besessenen, nie nach dem Besitzer: **svoj klobuk, svojo košaro, svoje jagnje**; in den Fällen **svojega psa**, **svoji sestri**, **v svoji hiši**, **s svojim psom**, **svoje otroke**. Es ist dasselbe Wort für jeden Besitzer: **Mi imamo svojo vas, oni svojo.**",
+          "it": "**Svoj** va come moj e concorda con ciò che si possiede, mai con il possessore: **svoj klobuk, svojo košaro, svoje jagnje**; nei casi **svojega psa**, **svoji sestri**, **v svoji hiši**, **s svojim psom**, **svoje otroke**. È la stessa parola per ogni possessore: **Mi imamo svojo vas, oni svojo.**"
+        },
+        "examples": [
+          { "sl": "Tone dela v svoji kovačnici.", "en": "Tone works in his smithy.", "de": "Tone arbeitet in seiner Schmiede.", "it": "Tone lavora nella sua fucina." },
+          { "sl": "Stari Janez gre na sprehod s svojim psom.", "en": "Old Janez goes for a walk with his dog.", "de": "Der alte Janez geht mit seinem Hund spazieren.", "it": "Il vecchio Janez va a passeggio con il suo cane." }
+        ],
+        "rows": [["mi", "naš", "svoj"], ["vi", "vaš", "svoj"]],
+        "ask": {
+          "type": "cloze", "grammar": "svoj", "text": "Vida govori s ___ gosti. (svoj)", "accept": ["svojimi"], "hint": "s kom? gosti: plural",
+          "explain": "**svoj** agrees with **gosti** → with them → **s svojimi gosti**\n- as z mojimi gosti"
+        }
+      },
+      {
+        "say": {
+          "en": "With I, you and we, the standard says **svoj** too: **{m:Pozabil|f:Pozabila} sem svoj dežnik.** (I forgot my umbrella.) **Vzemi svojo košaro, Nejc.** In everyday speech you also hear **moj** there, **{m:Pozabil|f:Pozabila} sem moj dežnik**: not wrong, but svoj is the standard. **Tvoj** would be the umbrella of the one you talk to.",
+          "de": "Bei ich, du und wir sagt die Standardsprache auch **svoj**: **{m:Pozabil|f:Pozabila} sem svoj dežnik.** (Ich habe meinen Schirm vergessen.) **Vzemi svojo košaro, Nejc.** In der Umgangssprache hörst du dort auch **moj**, **{m:Pozabil|f:Pozabila} sem moj dežnik**: nicht falsch, aber svoj ist der Standard. **Tvoj** wäre der Schirm dessen, mit dem du sprichst.",
+          "it": "Con io, tu e noi, lo standard dice **svoj** anche lì: **{m:Pozabil|f:Pozabila} sem svoj dežnik.** (Ho dimenticato l'ombrello.) **Vzemi svojo košaro, Nejc.** Nel parlato senti anche **moj**, **{m:Pozabil|f:Pozabila} sem moj dežnik**: non è sbagliato, ma lo standard è svoj. **Tvoj** sarebbe l'ombrello di chi ti ascolta."
+        },
+        "examples": [
+          { "sl": "{m:Pozabil|f:Pozabila} sem svoj dežnik.", "en": "I forgot my umbrella.", "de": "Ich habe meinen Schirm vergessen.", "it": "Ho dimenticato l'ombrello." },
+          { "sl": "Vzemi svojo košaro, Nejc.", "en": "Take your basket, Nejc.", "de": "Nimm deinen Korb, Nejc.", "it": "Prendi il tuo cesto, Nejc." }
+        ],
+        "rows": [["jaz", "moj", "svoj"], ["ti", "tvoj", "svoj"]],
+        "ask": {
+          "type": "choice", "grammar": "svoj", "prompt": "Nejc, pospravi ___ sobo!", "options": ["svojo", "tvojo", "njegovo"], "answer": 0, "almost": [1], "say_options": true,
+          "explain": "**you** tidy **your own** room → **svojo**\n- tvojo · heard in speech, the standard is svojo\n- njegovo · someone else's"
+        }
+      },
+      {
+        "say": {
+          "en": "**Svoj** is never the subject, nor part of it: **Moj brat je doma.** (never svoj brat) **Luka in njegov pes sta na pašniku.** (his dog is part of the subject: njegov) It belongs to the rest of the sentence: **Luka gre na pašnik s svojim psom.**",
+          "de": "**Svoj** ist nie das Subjekt und nie ein Teil davon: **Moj brat je doma.** (nie svoj brat) **Luka in njegov pes sta na pašniku.** (sein Hund ist Teil des Subjekts: njegov) Es gehört in den Rest des Satzes: **Luka gre na pašnik s svojim psom.**",
+          "it": "**Svoj** non è mai il soggetto, né una sua parte: **Moj brat je doma.** (mai svoj brat) **Luka in njegov pes sta na pašniku.** (il suo cane fa parte del soggetto: njegov) Sta nel resto della frase: **Luka gre na pašnik s svojim psom.**"
+        },
+        "examples": [
+          { "sl": "Luka in njegov pes sta na pašniku.", "en": "Luka and his dog are on the pasture.", "de": "Luka und sein Hund sind auf der Weide.", "it": "Luka e il suo cane sono al pascolo." },
+          { "sl": "Luka gre na pašnik s svojim psom.", "en": "Luka goes to the pasture with his dog.", "de": "Luka geht mit seinem Hund auf die Weide.", "it": "Luka va al pascolo con il suo cane." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "svoj", "prompt": "Micka in ___ vnukinja pečeta potico.", "options": ["svoja", "njena", "njegova"], "answer": 1, "say_options": true,
+          "explain": "**part of the subject** → never svoj → **njena vnukinja**\n- Micka peče potico s svojo vnukinjo · not the subject: svoj"
+        }
+      },
+      {
+        "say": {
+          "en": "Where no one is named, **svoj** still points to whoever does it: **Vsak ima svoj kozarec.** (Everyone has their own glass.) **Lepo je imeti svoj vrt.** (It's nice to have a garden of your own.) That is Luka's dream: **Luka bi rad imel svojo kočo na planoti.**",
+          "de": "Wo niemand genannt ist, zeigt **svoj** trotzdem auf den, der es tut: **Vsak ima svoj kozarec.** (Jeder hat sein eigenes Glas.) **Lepo je imeti svoj vrt.** (Es ist schön, einen eigenen Garten zu haben.) Das ist Lukas Traum: **Luka bi rad imel svojo kočo na planoti.**",
+          "it": "Dove nessuno è nominato, **svoj** indica comunque chi lo fa: **Vsak ima svoj kozarec.** (Ognuno ha il suo bicchiere.) **Lepo je imeti svoj vrt.** (È bello avere un orto proprio.) È il sogno di Luka: **Luka bi rad imel svojo kočo na planoti.**"
+        },
+        "examples": [
+          { "sl": "Vsak ima svoj kozarec.", "en": "Everyone has their own glass.", "de": "Jeder hat sein eigenes Glas.", "it": "Ognuno ha il suo bicchiere." },
+          { "sl": "Luka bi rad imel svojo kočo na planoti.", "en": "Luka would like a hut of his own on the plateau.", "de": "Luka hätte gern eine eigene Hütte auf der Hochebene.", "it": "Luka vorrebbe una baita sua sull'altopiano." }
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "svoj", "text": "V šoli vsak sedi na ___ stolu. (svoj)", "accept": ["svojem"], "hint": "na + kje? stol: masculine",
+          "explain": "**vsak**, everyone, his own → **na svojem stolu**\n- as na mojem stolu"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "svoj-1",
+      "title": { "sl": "Svoj ali njegov?", "en": "Svoj or njegov?", "de": "Svoj oder njegov?", "it": "Svoj o njegov?" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "svoj", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "svoj v sklonih · svoj through the cases",
+          "columns": ["svoj pes · masculine", "svoja košara · feminine"],
+          "rows": [
+            { "label": "2. koga? česa?", "cells": ["svojega psa", { "accept": ["svoje košare"] }] },
+            { "label": "3. komu? čemu?", "cells": [{ "accept": ["svojemu psu"] }, { "accept": ["svoji košari"], "hint": "as moji" }] },
+            { "label": "4. koga? kaj?", "cells": [{ "accept": ["svojega psa"], "hint": "alive: as the genitive" }, { "accept": ["svojo košaro"] }] },
+            { "label": "5. pri kom? pri čem?", "cells": [{ "accept": ["pri svojem psu", "svojem psu"] }, "v svoji košari"] },
+            { "label": "6. s kom? s čim?", "cells": [{ "accept": ["s svojim psom", "svojim psom"] }, { "accept": ["s svojo košaro", "svojo košaro"] }] }
+          ],
+          "explain": "**svoj** goes as **moj**: svojega, svojemu, svojem, svojim · svoje, svoji, svojo"
+        },
+        {
+          "type": "choice", "grammar": "svoj", "instruction": "Izberi · Choose", "prompt": "Tone popravlja ___ voz, ne Francetovega. (his own)", "options": ["svoj", "njegov", "moj"], "answer": 0, "say_options": true,
+          "explain": "**Tone** mends his own cart: the owner is the subject → **svoj**"
+        },
+        {
+          "type": "choice", "grammar": "svoj", "instruction": "Izberi · Choose", "prompt": "France je bolan, zato Tine pase ___ krave. (France's cows)", "options": ["svoje", "njegove", "njene"], "answer": 1, "say_options": true,
+          "explain": "**Tine** is the subject, the cows are **France's** → **njegove**\n- svoje · Tine's own cows"
+        },
+        {
+          "type": "choice", "grammar": "svoj", "instruction": "Izberi · Choose", "prompt": "Micka da Zali ___ predpasnik. (Micka gives Zala her own apron.)", "options": ["svoj", "njen", "njegov"], "answer": 0, "say_options": true,
+          "explain": "the apron is **Micka's**, and Micka is the subject → **svoj**\n- njen predpasnik · Zala's apron"
+        }
+      ]
+    },
+    {
+      "id": "svoj-2",
+      "title": { "sl": "Sejem na trgu", "en": "The fair on the square", "de": "Der Markt auf dem Platz", "it": "La fiera in piazza" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "svoj", "instruction": "Svoj ali njegov, njen? Čigavo je, piše v oklepaju · Svoj or njegov, njen? The brackets say whose", "title": "Sejem na trgu",
+          "text": "V soboto je na trgu sejem. Vsak prodaja ___ (vsak) blago. Anton prodaja med iz ___ (Anton) panjev. Marko je pripeljal vino s ___ (Marko) kombijem. Micka nima ognja, zato peče potico pri Vidi, v ___ (Vida) kuhinji. Zala nosi ___ (Zala) košaro, Nejc pa nosi ___ (Vida) pladenj. Kovač Tone prodaja ___ (Tone) nože. Ančka pa samo sedi na ___ (Ančka) klopi in posluša radio.",
+          "gaps": [
+            { "accept": ["svoje"], "hint": "blago: neuter, the object" },
+            { "accept": ["svojih"], "hint": "iz + the genitive, plural" },
+            { "accept": ["svojim"], "hint": "s + the instrumental" },
+            { "accept": ["njeni"], "hint": "Micka is the subject, the kitchen is Vida's", "explain": "**Micka** bakes, the kitchen is **Vida's**: not svoj, **v njeni kuhinji**." },
+            { "accept": ["svojo"], "hint": "the object, feminine" },
+            { "accept": ["njen"], "hint": "Nejc is the subject, the tray is Vida's" },
+            { "accept": ["svoje"], "hint": "noži: the object, plural" },
+            { "accept": ["svoji"], "hint": "na + kje? klop: feminine" }
+          ],
+          "bank": true, "distractors": ["njegovim", "svojem", "njegovih"],
+          "translation": "On Saturday there's a fair on the square. Everyone sells their own goods. Anton sells honey from his hives. Marko has brought wine in his van. Micka has no fire, so she bakes potica at Vida's, in her kitchen. Zala carries her basket, and Nejc carries Vida's tray. Tone the smith sells his knives. And Ančka just sits on her bench and listens to the radio."
+        }
+      ]
+    },
+    {
+      "id": "svoj-3",
+      "title": { "sl": "Moj ali svoj?", "en": "Moj or svoj?", "de": "Moj oder svoj?", "it": "Moj o svoj?" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "svoj", "instruction": "Povej s svoj · Say it with svoj",
+          "items": [
+            { "from": "Tone popravlja voz. (his own)", "accept": ["Tone popravlja svoj voz."] },
+            { "from": "Micka išče očala. (her own)", "accept": ["Micka išče svoja očala."], "hint": "očala: neuter plural" },
+            { "from": "Zala piše babici. (her own)", "accept": ["Zala piše svoji babici."], "hint": "komu? feminine" },
+            { "from": "Luka se pogovarja s psom. (his own)", "accept": ["Luka se pogovarja s svojim psom."] },
+            { "from": "Vida govori o sinu. (her own)", "accept": ["Vida govori o svojem sinu."], "hint": "o + the locative" },
+            { "from": "{m:Pozabil|f:Pozabila} sem moj dežnik.", "accept": ["{m:Pozabil|f:Pozabila} sem svoj dežnik."], "hint": "the standard: svoj" },
+            { "from": "Ali imaš tvoj ključ?", "accept": ["Ali imaš svoj ključ?", "A imaš svoj ključ?", "Imaš svoj ključ?"], "hint": "the owner is the subject" },
+            { "from": "Otroci nesejo torbe. (their own)", "accept": ["Otroci nesejo svoje torbe."] }
+          ],
+          "explain": "**the owner is the subject** → **svoj**, in the case and number of what is owned\n- svoj voz · svoja očala · svoji babici · s svojim psom"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "svoj", "instruction": "Dopolni · Fill in", "prompt": "svoj · one's own",
+        "columns": ["svoj …"],
+        "rows": [
+          { "label": "koga? kaj? · košara", "cells": [{ "accept": ["svojo košaro"] }] },
+          { "label": "s kom? · pes", "cells": [{ "accept": ["s svojim psom", "svojim psom"] }] },
+          { "label": "kje? · v + hiša", "cells": [{ "accept": ["v svoji hiši", "svoji hiši"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "svoj", "instruction": "Svoj ali njegov, njen? · Svoj or njegov, njen?",
+        "text": "Stari Janez sedi pod ___ (Janez) lipo. Muri leži ob ___ (Janez) nogah. Zala posodi Tinetu ___ (Zala) svinčnik. Tine ga potem vrne v ___ (Zala) peresnico.",
+        "gaps": [
+          { "accept": ["svojo"] },
+          { "accept": ["njegovih"] },
+          { "accept": ["svoj"] },
+          { "accept": ["njeno"] }
+        ],
+        "translation": "Old Janez sits under his linden. Muri lies at his feet. Zala lends Tine her pencil. Tine then puts it back in her pencil case."
+      },
+      {
+        "type": "transform", "grammar": "svoj", "instruction": "Povej, čigavo je · Say whose it is",
+        "items": [
+          { "from": "Marko prodaja vino. (his own)", "accept": ["Marko prodaja svoje vino."] },
+          { "from": "Soseda išče hčer. (her own)", "accept": ["Soseda išče svojo hčer."] },
+          { "from": "Luka in pes sta na pašniku. (Luka's dog)", "accept": ["Luka in njegov pes sta na pašniku."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "svoj", "prompt": "Pri kosilu ima vsak ___ krožnik.", "options": ["svoj", "njegov", "moj"], "answer": 0, "say_options": true,
+        "explain": "**vsak**, everyone, his own → **svoj**"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: moj/tvoj with jaz/ti in speech (almost), Micka in njena vnukinja, v njeni kuhinji, vrne v njeno peresnico"
+}

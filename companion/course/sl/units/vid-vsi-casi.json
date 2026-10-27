@@ -1,0 +1,238 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "vid-vsi-casi",
+  "language": "sl",
+  "level": "B1",
+  "emoji": "⏳",
+  "title": { "sl": "Vid v vseh časih: ne hodi tja!", "en": "Aspect in every tense: don't go there!", "de": "Der Aspekt in allen Zeiten: geh nicht hin!", "it": "L'aspetto in tutti i tempi: non andarci!" },
+  "goal": {
+    "en": "You can choose the aspect in the past, the future and the imperative: tell a story's scene and what happened in it (smo sedeli, je prišel), say what will get done (bom napisal), and tell someone not to (ne odpiraj okna, ne hodi tja).",
+    "de": "Du wählst den Aspekt in der Vergangenheit, im Futur und im Imperativ: Du erzählst die Szene einer Geschichte und was darin geschah (smo sedeli, je prišel), sagst, was erledigt sein wird (bom napisal), und verbietest etwas (ne odpiraj okna, ne hodi tja).",
+    "it": "Sai scegliere l'aspetto al passato, al futuro e all'imperativo: racconti lo sfondo di una storia e ciò che vi accade (smo sedeli, je prišel), dici che cosa sarà fatto (bom napisal), e vieti qualcosa (ne odpiraj okna, ne hodi tja)."
+  },
+  "grammar": ["vid-casi", "glagolski-vid", "velelnik"],
+  "words": ["jesti", "pojesti", "pisati", "napisati", "sedeti", "sesti", "priti", "peči", "speči", "delati", "narediti", "zapirati", "zapreti", "odpirati", "odpreti", "jemati", "vzeti", "prinašati", "prinesti", "klicati", "poklicati", "pozabiti", "hoditi", "iti", "nenadoma", "medtem ko", "burja"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "čas", "en": "tense", "de": "Zeit", "it": "tempo" },
+        { "sl": "nedovršni", "en": "imperfective: going on", "de": "imperfektiv: läuft ab", "it": "imperfettivo: in corso" },
+        { "sl": "dovršni", "en": "perfective: done", "de": "perfektiv: erledigt", "it": "perfettivo: compiuto" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "You know the pairs from the present: the imperfective is what goes on, the perfective what gets done. In the past it's the same: **Janez je jedel kosilo** (he was having lunch), **Janez je pojedel kosilo** (he ate it up, the plate is empty). Ask: **Kaj je delal?** (what was he doing?) or **Kaj je naredil?** (what did he get done?)",
+          "de": "Du kennst die Paare aus dem Präsens: Der imperfektive ist, was abläuft, der perfektive, was erledigt wird. In der Vergangenheit ist es genauso: **Janez je jedel kosilo** (er war beim Mittagessen), **Janez je pojedel kosilo** (er hat es aufgegessen, der Teller ist leer). Frag: **Kaj je delal?** (was tat er gerade?) oder **Kaj je naredil?** (was hat er erledigt?)",
+          "it": "Conosci le coppie dal presente: l'imperfettivo è ciò che si svolge, il perfettivo ciò che si porta a termine. Al passato è lo stesso: **Janez je jedel kosilo** (stava pranzando), **Janez je pojedel kosilo** (l'ha mangiato tutto, il piatto è vuoto). Chiediti: **Kaj je delal?** (che cosa stava facendo?) o **Kaj je naredil?** (che cosa ha fatto e finito?)"
+        },
+        "examples": [
+          { "sl": "Tine je pojedel vso juho.", "en": "Tine has eaten up all the soup.", "de": "Tine hat die ganze Suppe aufgegessen.", "it": "Tine ha mangiato tutta la minestra." },
+          { "sl": "Včeraj sem dve uri {m:pisal|f:pisala} pismo.", "en": "Yesterday I spent two hours writing a letter.", "de": "Gestern habe ich zwei Stunden an einem Brief geschrieben.", "it": "Ieri ho passato due ore a scrivere una lettera." }
+        ],
+        "rows": [[{ "sl": "preteklik", "en": "past", "de": "Vergangenheit", "it": "passato" }, "je jedel", "je pojedel"]],
+        "ask": {
+          "type": "choice", "grammar": "vid-casi", "prompt": "Muri je ___ vse meso, skleda je prazna.", "options": ["jedel", "pojedel"], "answer": 1, "say_options": true,
+          "explain": "**the bowl is empty**: the result → the perfective **pojedel**\n- jedel · he was eating, going on"
+        }
+      },
+      {
+        "say": {
+          "en": "In a story the imperfective sets the scene, what was going on, and the perfective is what happened in it: **Ko smo sedeli pri ognju, je prišel Luka.** Signal words help: **ves dan, dolgo, vsak dan, medtem ko** (while) go with the imperfective; **nenadoma** (suddenly), **takoj** (at once) with the perfective.",
+          "de": "In einer Geschichte malt der imperfektive die Szene, was gerade ablief, und der perfektive ist, was darin geschah: **Ko smo sedeli pri ognju, je prišel Luka.** Signalwörter helfen: **ves dan, dolgo, vsak dan, medtem ko** (während) gehen mit dem imperfektiven; **nenadoma** (plötzlich), **takoj** (sofort) mit dem perfektiven.",
+          "it": "In una storia l'imperfettivo fa da sfondo, ciò che si stava svolgendo, e il perfettivo è ciò che accade: **Ko smo sedeli pri ognju, je prišel Luka.** Le parole segnale aiutano: **ves dan, dolgo, vsak dan, medtem ko** (mentre) vanno con l'imperfettivo; **nenadoma** (all'improvviso), **takoj** (subito) con il perfettivo."
+        },
+        "examples": [
+          { "sl": "Ko smo sedeli pri ognju, je prišel Luka.", "en": "We were sitting by the fire when Luka came.", "de": "Wir saßen am Feuer, als Luka kam.", "it": "Eravamo seduti vicino al fuoco quando è arrivato Luka." },
+          { "sl": "Medtem ko je Vida kuhala, je Nejc pojedel ves kruh.", "en": "While Vida was cooking, Nejc ate up all the bread.", "de": "Während Vida kochte, hat Nejc das ganze Brot aufgegessen.", "it": "Mentre Vida cucinava, Nejc ha mangiato tutto il pane." }
+        ],
+        "rows": [[{ "sl": "zgodba", "en": "a story: the scene · what happened", "de": "Geschichte: Szene · was geschah", "it": "storia: sfondo · ciò che accade" }, "smo sedeli", "je prišel"]],
+        "ask": {
+          "type": "choice", "grammar": "vid-casi", "prompt": "Medtem ko je Micka ___ potico, je zazvonil telefon.", "options": ["pekla", "spekla"], "answer": 0, "say_options": true,
+          "explain": "**medtem ko** + what was going on → the imperfective **pekla**\n- what happened in it: **je zazvonil**, perfective"
+        }
+      },
+      {
+        "say": {
+          "en": "The future has the pair too: **bom pisal** (I'll be writing, for a while) and **bom napisal** (I'll get it written). How long, **ves dan, dve uri**, goes with the imperfective; a result by a time, **do večera, v eni uri**, with the perfective: **Do večera bom napisal pismo.** And a perfective present is a future: **Jutri napišem.**",
+          "de": "Auch das Futur hat das Paar: **bom pisal** (ich werde schreiben, eine Weile) und **bom napisal** (ich werde es fertig schreiben). Wie lange, **ves dan, dve uri**, geht mit dem imperfektiven; ein Ergebnis bis zu einer Zeit, **do večera, v eni uri**, mit dem perfektiven: **Do večera bom napisal pismo.** Und ein perfektives Präsens ist Zukunft: **Jutri napišem.**",
+          "it": "Anche il futuro ha la coppia: **bom pisal** (scriverò, per un po') e **bom napisal** (lo scriverò fino in fondo). Quanto dura, **ves dan, dve uri**, va con l'imperfettivo; un risultato entro un tempo, **do večera, v eni uri**, con il perfettivo: **Do večera bom napisal pismo.** E un presente perfettivo è un futuro: **Jutri napišem.**"
+        },
+        "examples": [
+          { "sl": "Ves dan bom {m:delal|f:delala} na vrtu.", "en": "I'll be working in the garden all day.", "de": "Ich werde den ganzen Tag im Garten arbeiten.", "it": "Lavorerò in giardino tutto il giorno." },
+          { "sl": "Do večera bom {m:napisal|f:napisala} pismo.", "en": "I'll have the letter written by the evening.", "de": "Bis zum Abend werde ich den Brief geschrieben haben.", "it": "Entro sera avrò scritto la lettera." }
+        ],
+        "rows": [[{ "sl": "prihodnjik", "en": "future", "de": "Futur", "it": "futuro" }, "bom pisal", "bom napisal"]],
+        "ask": {
+          "type": "cloze", "grammar": "vid-casi", "text": "Tone bo ves dan ___ v kovačnici. (delati, narediti)", "accept": ["delal"], "hint": "ves dan: how long",
+          "explain": "**ves dan**, how long → the imperfective **bo delal**\n- do večera bo naredil · done by then"
+        }
+      },
+      {
+        "say": {
+          "en": "In the imperative, one thing to get done is perfective: **Zapri okno!** (close the window) **Prinesi drva!** (bring the wood) **Pokliči Luko!** The imperfective is for going on, or for how to do it: **Piši počasi.** (write slowly) And Micka's **Jej, jej!** (do eat!) is the imperfective too.",
+          "de": "Im Imperativ ist eine Sache, die erledigt werden soll, perfektiv: **Zapri okno!** (mach das Fenster zu) **Prinesi drva!** (bring das Holz) **Pokliči Luko!** Der imperfektive ist für das, was andauert, oder wie man es tut: **Piši počasi.** (schreib langsam) Und Mickas **Jej, jej!** (iss doch!) ist auch imperfektiv.",
+          "it": "All'imperativo, una cosa da fare e finire è perfettiva: **Zapri okno!** (chiudi la finestra) **Prinesi drva!** (porta la legna) **Pokliči Luko!** L'imperfettivo è per ciò che dura, o per come farlo: **Piši počasi.** (scrivi piano) E il **Jej, jej!** (mangia, mangia!) di Micka è imperfettivo anche lui."
+        },
+        "examples": [
+          { "sl": "Zapri okno, prosim!", "en": "Close the window, please!", "de": "Mach bitte das Fenster zu!", "it": "Chiudi la finestra, per favore!" },
+          { "sl": "Jej, jej, saj si {m:lačen|f:lačna}!", "en": "Eat, eat, you're hungry, aren't you!", "de": "Iss, iss, du hast doch Hunger!", "it": "Mangia, mangia, che hai fame!" }
+        ],
+        "rows": [[{ "sl": "velelnik", "en": "imperative", "de": "Imperativ", "it": "imperativo" }, "piši! jej!", "zapri! prinesi!"]],
+        "ask": {
+          "type": "choice", "grammar": "vid-casi", "prompt": "Mraz je. ___ okno, prosim!", "options": ["Zapri", "Zapiraj", "Zaprem"], "answer": 0, "say_options": true,
+          "explain": "**one thing to get done** → the perfective **Zapri!**\n- zapiraj · going on, again and again\n- zaprem · the present, I close"
+        }
+      },
+      {
+        "say": {
+          "en": "**Don't** is almost always imperfective: **Ne odpiraj okna!** (not ne odpri), **Ne jemlji kruha!**, and after ne the object is in the genitive: okno → **okna**. A mishap to avoid, something that would happen by itself, takes the perfective: **Ne pozabi ključa!** (don't forget the key) **Ne padi!** (don't fall)",
+          "de": "**Verbote** sind fast immer imperfektiv: **Ne odpiraj okna!** (nicht ne odpri), **Ne jemlji kruha!**, und nach ne steht das Objekt im Genitiv: okno → **okna**. Ein Missgeschick, vor dem man warnt, etwas, das von selbst geschähe, nimmt den perfektiven: **Ne pozabi ključa!** (vergiss den Schlüssel nicht) **Ne padi!** (fall nicht)",
+          "it": "**I divieti** sono quasi sempre imperfettivi: **Ne odpiraj okna!** (non ne odpri), **Ne jemlji kruha!**, e dopo ne l'oggetto va al genitivo: okno → **okna**. Un incidente da evitare, qualcosa che succederebbe da sé, vuole il perfettivo: **Ne pozabi ključa!** (non dimenticare la chiave) **Ne padi!** (non cadere)"
+        },
+        "examples": [
+          { "sl": "Ne odpiraj okna, zunaj piha burja!", "en": "Don't open the window, the bora is blowing outside!", "de": "Mach das Fenster nicht auf, draußen weht die Bora!", "it": "Non aprire la finestra, fuori soffia la bora!" },
+          { "sl": "Ne pozabi ključa!", "en": "Don't forget the key!", "de": "Vergiss den Schlüssel nicht!", "it": "Non dimenticare la chiave!" }
+        ],
+        "rows": [[{ "sl": "ne + velelnik", "en": "don't! · a mishap", "de": "Verbot · Missgeschick", "it": "divieto · incidente" }, "ne odpiraj!", "ne pozabi!"]],
+        "ask": {
+          "type": "choice", "grammar": "vid-casi", "prompt": "Nejc, ne ___ jabolk, so za zavitek!", "options": ["vzemi", "jemlji", "vzameš"], "answer": 1, "say_options": true,
+          "explain": "**don't** → ne + the imperfective → **ne jemlji**\n- vzemi! · take! (do it)\n- vzameš · the present"
+        }
+      },
+      {
+        "say": {
+          "en": "Going has a pair of its own: **iti** is going somewhere, once, now; **hoditi** is going again and again, or walking about: **Danes grem v Gorico.** **Vsak dan hodim v šolo.** So go! is **pojdi**, and don't go! is **ne hodi**: **Ne hodi tja!**",
+          "de": "Gehen hat ein eigenes Paar: **iti** ist irgendwohin gehen, einmal, jetzt; **hoditi** ist immer wieder gehen oder herumlaufen: **Danes grem v Gorico.** **Vsak dan hodim v šolo.** Also heißt geh! **pojdi**, und geh nicht! **ne hodi**: **Ne hodi tja!**",
+          "it": "Andare ha una coppia sua: **iti** è andare da qualche parte, una volta, ora; **hoditi** è andare più volte, o camminare: **Danes grem v Gorico.** **Vsak dan hodim v šolo.** Quindi va'! è **pojdi**, e non andare! è **ne hodi**: **Ne hodi tja!**"
+        },
+        "examples": [
+          { "sl": "Vsak dan hodim v šolo.", "en": "I go to school every day.", "de": "Ich gehe jeden Tag zur Schule.", "it": "Vado a scuola ogni giorno." },
+          { "sl": "Ne hodi tja, tam je medved!", "en": "Don't go there, there's a bear!", "de": "Geh nicht dorthin, da ist ein Bär!", "it": "Non andare là, c'è un orso!" }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "vid-casi", "prompt": "Ne ___ sam v gozd, Tine!", "options": ["pojdi", "hodi", "greš"], "answer": 1, "say_options": true,
+          "explain": "**don't go** → **ne hodi**\n- pojdi · go! (do it)\n- greš · the present, you go"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "vid-vsi-casi-1",
+      "title": { "sl": "Naredi! Ne delaj!", "en": "Do it! Don't!", "de": "Mach es! Lass es!", "it": "Fallo! Non farlo!" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "vid-casi", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "naredi! in ne delaj! · do it! and don't!",
+          "columns": ["velelnik · do it! (ti)", "ne + velelnik · don't! (ti)"],
+          "rows": [
+            { "label": "zapreti · zapirati (close)", "cells": ["Zapri!", "Ne zapiraj!"] },
+            { "label": "odpreti · odpirati (open)", "cells": [{ "accept": ["Odpri!"], "hint": "one thing: the perfective" }, { "accept": ["Ne odpiraj!"], "hint": "don't: the imperfective" }] },
+            { "label": "vzeti · jemati (take)", "cells": [{ "accept": ["Vzemi!"] }, { "accept": ["Ne jemlji!"], "hint": "jemati → jemljem" }] },
+            { "label": "prinesti · prinašati (bring)", "cells": [{ "accept": ["Prinesi!"] }, { "accept": ["Ne prinašaj!"] }] },
+            { "label": "kupiti · kupovati (buy)", "cells": [{ "accept": ["Kupi!"] }, { "accept": ["Ne kupuj!"], "hint": "kupovati → kupujem" }] }
+          ],
+          "explain": "**do it!** → the perfective: odpri, vzemi, prinesi · **don't!** → ne + the imperfective: ne odpiraj, ne jemlji, ne prinašaj"
+        },
+        {
+          "type": "sort", "grammar": "vid-casi", "instruction": "Kateri vid? · Which aspect goes with it?",
+          "columns": [
+            { "label": "nedovršni · going on, again", "words": ["ves dan", "vsak dan", "dolgo", "medtem ko"] },
+            { "label": "dovršni · done", "words": ["takoj", "nenadoma", "do večera", "v eni uri"] }
+          ],
+          "explain": "**how long, how often, while** → the imperfective · **at once, suddenly, done by a time** → the perfective"
+        }
+      ]
+    },
+    {
+      "id": "vid-vsi-casi-2",
+      "title": { "sl": "Zgodba pri ognju", "en": "A story by the fire", "de": "Eine Geschichte am Feuer", "it": "Una storia vicino al fuoco" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "vid-casi", "instruction": "Izberi glagol in ga dopolni · Choose the verb and fill it in", "title": "Zgodba pri ognju",
+          "text": "Včeraj zvečer smo dolgo ___ (sedeti, sesti) pri ognju. Stari Janez je ves večer ___ (pripovedovati, povedati) o volkovih, Micka pa je znova in znova ___ (nalivati, naliti) čaj. Nenadoma je v gozdu nekaj ___ (pokati, počiti). Tine je takoj ___ (skakati, skočiti) k dedku. »Ne ___ (kričati, zakričati),« je rekel France, »to je samo srna.« V trenutku je srna ___ (izginjati, izginiti) v gozdu. Potem je Janez zgodbo ___ (končevati, končati). »Jutri ___ (pripovedovati, povedati) še eno!« je prosila Zala.",
+          "gaps": [
+            { "accept": ["sedeli"], "hint": "dolgo: going on" },
+            { "accept": ["pripovedoval"], "hint": "ves večer: going on" },
+            { "accept": ["nalivala"], "hint": "again and again" },
+            { "accept": ["počilo"], "hint": "nenadoma; nekaj: -o", "explain": "**nenadoma**, one event → the perfective; **nekaj** takes the neuter: je počilo." },
+            { "accept": ["skočil"], "hint": "what happened" },
+            { "accept": ["kriči"], "hint": "don't!", "explain": "**don't** → ne + the imperfective: **ne kriči**." },
+            { "accept": ["izginila"], "hint": "v trenutku: done" },
+            { "accept": ["končal"], "hint": "done" },
+            { "accept": ["povej"], "hint": "one thing to do (ti)", "explain": "**one story to tell** → the perfective imperative of povedati: **povej**." }
+          ],
+          "bank": true, "distractors": ["sedli", "povedal", "skakal"],
+          "translation": "Last night we sat by the fire for a long time. Old Janez was telling about wolves all evening, and Micka kept pouring tea. Suddenly something cracked in the forest. Tine jumped to his grandpa at once. \"Don't shout,\" said France, \"it's only a deer.\" In a moment the deer vanished into the forest. Then Janez finished the story. \"Tell another one tomorrow!\" Zala begged."
+        }
+      ]
+    },
+    {
+      "id": "vid-vsi-casi-3",
+      "title": { "sl": "Ne hodi tja!", "en": "Don't go there!", "de": "Geh nicht hin!", "it": "Non andarci!" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "vid-casi", "instruction": "Prepovej · Tell them not to", "cue": "ne",
+          "items": [
+            { "from": "Odpri okno!", "accept": ["Ne odpiraj okna!"], "hint": "the imperfective; after ne the genitive", "lemma": "odpirati", "form": "imp.2sg" },
+            { "from": "Vzemi kruh!", "accept": ["Ne jemlji kruha!"], "hint": "jemati; kruh → ?", "lemma": "jemati", "form": "imp.2sg" },
+            { "from": "Pojdi tja!", "accept": ["Ne hodi tja!"], "hint": "don't go: hoditi", "lemma": "hoditi", "form": "imp.2sg" },
+            { "from": "Pokliči Luko!", "accept": ["Ne kliči Luke!"], "hint": "klicati; Luka → ?", "lemma": "klicati", "form": "imp.2sg" },
+            { "from": "Zaprite vrata!", "accept": ["Ne zapirajte vrat!"], "hint": "vi; vrata → vrat", "lemma": "zapirati", "form": "imp.2pl" },
+            { "from": "Kupi novo kolo!", "accept": ["Ne kupuj novega kolesa!"], "hint": "kolo grows: kolesa", "lemma": "kupovati", "form": "imp.2sg" },
+            { "from": "Prinesi drva!", "accept": ["Ne prinašaj drv!"], "hint": "drva → drv", "lemma": "prinašati", "form": "imp.2sg" }
+          ],
+          "explain": "**don't!** → ne + the imperfective, the object in the genitive\n- ne odpiraj okna · ne jemlji kruha · ne hodi tja"
+        },
+        {
+          "type": "choice", "grammar": "vid-casi", "instruction": "Izberi · Choose", "prompt": "Do petka bomo ___ most čez potok.", "options": ["gradili", "zgradili"], "answer": 1, "say_options": true,
+          "explain": "**do petka**: done by then → the perfective **zgradili**\n- ves teden bomo gradili · how long"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "vid-casi", "instruction": "Dopolni · Fill in", "prompt": "ne + velelnik · don't! (ti)",
+        "columns": ["ne + velelnik · don't!"],
+        "rows": [
+          { "label": "zapreti · zapirati", "cells": [{ "accept": ["Ne zapiraj!"] }] },
+          { "label": "dati · dajati", "cells": [{ "accept": ["Ne dajaj!"] }] },
+          { "label": "pojesti · jesti", "cells": [{ "accept": ["Ne jej!"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "vid-casi", "instruction": "Izberi glagol in ga dopolni · Choose the verb and fill it in",
+        "text": "Medtem ko je Vida ___ (kuhati, skuhati) joto, je Nejc ___ (jesti, pojesti) ves kruh. Do večera bomo ___ (končevati, končati) delo. Nejc, takoj ___ (zapirati, zapreti) vrata!",
+        "gaps": [
+          { "accept": ["kuhala"] },
+          { "accept": ["pojedel"] },
+          { "accept": ["končali"] },
+          { "accept": ["zapri"] }
+        ],
+        "translation": "While Vida was cooking jota, Nejc ate up all the bread. We'll have the work finished by the evening. Nejc, close the door at once!"
+      },
+      {
+        "type": "transform", "grammar": "vid-casi", "instruction": "Prepovej · Tell them not to", "cue": "ne",
+        "items": [
+          { "from": "Odprite okno!", "accept": ["Ne odpirajte okna!"], "lemma": "odpirati", "form": "imp.2pl" },
+          { "from": "Vzemi sir!", "accept": ["Ne jemlji sira!"], "lemma": "jemati", "form": "imp.2sg" },
+          { "from": "Pojdite v gozd!", "accept": ["Ne hodite v gozd!"], "lemma": "hoditi", "form": "imp.2pl" }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "vid-casi", "prompt": "Ves dan bomo ___ na polju.", "options": ["delali", "naredili"], "answer": 0, "say_options": true,
+        "explain": "**ves dan**, how long → the imperfective **delali**"
+      },
+      {
+        "type": "choice", "grammar": "vid-casi", "prompt": "Ne ___ ključa, ko greš od doma!", "options": ["pozabi", "pozabljaj", "pozabiš"], "answer": 0, "almost": [1], "say_options": true,
+        "explain": "**a mishap to avoid** → the perfective **ne pozabi**\n- ne pozabljaj · don't keep forgetting"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: je počilo, ne kriči, ne pozabi vs ne pozabljaj, ne jemlji, ne dajaj, the genitive after a negative imperative"
+}

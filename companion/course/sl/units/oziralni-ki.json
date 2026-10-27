@@ -1,0 +1,232 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "oziralni-ki",
+  "language": "sl",
+  "level": "B1",
+  "emoji": "🔗",
+  "title": { "sl": "Ki in kateri: prijatelj, ki sem ga srečal", "en": "Ki and kateri: the friend I met", "de": "Ki und kateri: der Freund, den ich getroffen habe", "it": "Ki e kateri: l'amico che ho incontrato" },
+  "goal": {
+    "en": "You can say more about a person or a thing in a clause of its own: with ki (ovca, ki se je izgubila), ki and a short pronoun (ki ga poznam, ki mi jo je dala), kateri after a preposition (vas, v kateri živim) and kar (vse, kar vem).",
+    "de": "Du sagst in einem eigenen Satz mehr über eine Person oder eine Sache: mit ki (ovca, ki se je izgubila), ki und einem kurzen Pronomen (ki ga poznam, ki mi jo je dala), kateri nach einer Präposition (vas, v kateri živim) und kar (vse, kar vem).",
+    "it": "Sai dire di più su una persona o una cosa in una frase sua: con ki (ovca, ki se je izgubila), ki e un pronome breve (ki ga poznam, ki mi jo je dala), kateri dopo una preposizione (vas, v kateri živim) e kar (vse, kar vem)."
+  },
+  "grammar": ["oziralni-ki", "naslonke"],
+  "words": ["ki", "kateri", "kar", "kjer", "vodnjak", "lipa", "klop", "gostilna", "travnik", "kozolec", "posaditi", "postaviti", "skovati", "srečati", "poznati", "pomagati", "smejati se"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "samostalnik v stavku", "en": "the noun in the clause", "de": "das Nomen im Nebensatz", "it": "il nome nella frase" },
+        { "sl": "oblika", "en": "form", "de": "Form", "it": "forma" },
+        { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**Ki** starts a clause about a noun, like *who, which, that*: **Človek, ki stoji pri vodnjaku, je Luka.** (The man who is standing by the well is Luka.) A comma goes before ki, and another after the clause when the sentence goes on. Ki never changes: **ovca, ki …**, **otroci, ki …**.",
+          "de": "**Ki** beginnt einen Satz über ein Nomen, wie *der, die, das* oder *welcher*: **Človek, ki stoji pri vodnjaku, je Luka.** (Der Mann, der am Brunnen steht, ist Luka.) Vor ki steht ein Komma, und ein zweites nach dem Nebensatz, wenn der Satz weitergeht. Ki ändert sich nie: **ovca, ki …**, **otroci, ki …**.",
+          "it": "**Ki** apre una frase su un nome, come *che*: **Človek, ki stoji pri vodnjaku, je Luka.** (L'uomo che sta vicino al pozzo è Luka.) Prima di ki va una virgola, e un'altra dopo la frase quando il periodo continua. Ki non cambia mai: **ovca, ki …**, **otroci, ki …**."
+        },
+        "examples": [
+          { "sl": "Človek, ki stoji pri vodnjaku, je Luka.", "en": "The man who is standing by the well is Luka.", "de": "Der Mann, der am Brunnen steht, ist Luka.", "it": "L'uomo che sta vicino al pozzo è Luka." },
+          { "sl": "Ovca, ki se je izgubila, je Bela.", "en": "The sheep that got lost is Bela.", "de": "Das Schaf, das sich verlaufen hat, ist Bela.", "it": "La pecora che si è persa è Bela." }
+        ],
+        "rows": [[{ "sl": "osebek", "en": "the subject", "de": "das Subjekt", "it": "il soggetto" }, "ki", "človek, ki stoji tam"]],
+        "ask": {
+          "type": "choice", "grammar": "oziralni-ki", "prompt": "Otroci, ___ se igrajo pod lipo, so Mojčini učenci.", "options": ["ki", "ko", "kar"], "answer": 0, "say_options": true,
+          "explain": "**about the children** → **ki**\n- ko · when\n- kar · what, a whole thing"
+        }
+      },
+      {
+        "say": {
+          "en": "When the noun isn't the clause's subject, a short pronoun after ki shows its case, its gender and number: **človek, ki ga poznam** (whom I know), **potica, ki jo peče Micka**, **otroci, ki jih učim**. **Ga** for a masculine or neuter, **jo** for a feminine, **jih** for the plural.",
+          "de": "Wenn das Nomen nicht das Subjekt des Nebensatzes ist, zeigt ein kurzes Pronomen nach ki seinen Fall, sein Geschlecht und seine Zahl: **človek, ki ga poznam** (den ich kenne), **potica, ki jo peče Micka**, **otroci, ki jih učim**. **Ga** für männlich oder sächlich, **jo** für weiblich, **jih** für den Plural.",
+          "it": "Quando il nome non è il soggetto della frase, un pronome breve dopo ki ne mostra il caso, il genere e il numero: **človek, ki ga poznam** (che conosco), **potica, ki jo peče Micka**, **otroci, ki jih učim**. **Ga** per un maschile o neutro, **jo** per un femminile, **jih** per il plurale."
+        },
+        "examples": [
+          { "sl": "To je Nejc, ki ga poznaš iz šole.", "en": "This is Nejc, whom you know from school.", "de": "Das ist Nejc, den du aus der Schule kennst.", "it": "Questo è Nejc, che conosci da scuola." },
+          { "sl": "Potica, ki jo peče Micka, je najboljša.", "en": "The potica Micka bakes is the best.", "de": "Die Potica, die Micka backt, ist die beste.", "it": "La potica che fa Micka è la migliore." }
+        ],
+        "rows": [[{ "sl": "predmet (koga? kaj?)", "en": "whom, which (the object)", "de": "wen, was (das Objekt)", "it": "chi, che cosa (l'oggetto)" }, "ki ga, ki jo, ki jih", "človek, ki ga poznam"]],
+        "ask": {
+          "type": "choice", "grammar": "oziralni-ki", "prompt": "Pes, ___ vidiš na dvorišču, je Muri.", "options": ["ki ga", "ki jo", "ki"], "answer": 0, "say_options": true,
+          "explain": "**pes** is the object of vidiš, masculine → **ki ga**\n- ki alone · when pes would do the seeing"
+        }
+      },
+      {
+        "say": {
+          "en": "The other cases go the same way: to whom, **ki mu, ki ji, ki jim**: **babica, ki ji pomagam** (whom I help). And after a no, the genitive: **stvar, ki je nimam** (a thing I don't have).",
+          "de": "Die anderen Fälle gehen genauso: wem, **ki mu, ki ji, ki jim**: **babica, ki ji pomagam** (der ich helfe). Und nach einer Verneinung der Genitiv: **stvar, ki je nimam** (eine Sache, die ich nicht habe).",
+          "it": "Gli altri casi vanno allo stesso modo: a chi, **ki mu, ki ji, ki jim**: **babica, ki ji pomagam** (che aiuto). E dopo una negazione, il genitivo: **stvar, ki je nimam** (una cosa che non ho)."
+        },
+        "examples": [
+          { "sl": "Babica, ki ji pomagam, peče potico.", "en": "Granny, whom I'm helping, is baking potica.", "de": "Die Oma, der ich helfe, backt Potica.", "it": "La nonna che aiuto fa la potica." },
+          { "sl": "Gostje, ki jim Vida prinese kosilo, sedijo na terasi.", "en": "The guests Vida brings lunch to are sitting on the terrace.", "de": "Die Gäste, denen Vida das Mittagessen bringt, sitzen auf der Terrasse.", "it": "Gli ospiti a cui Vida porta il pranzo sono seduti in terrazza." }
+        ],
+        "rows": [[{ "sl": "komu? čemu?", "en": "to whom (the dative)", "de": "wem (der Dativ)", "it": "a chi (il dativo)" }, "ki mu, ki ji, ki jim", "babica, ki ji pomagam"]],
+        "ask": {
+          "type": "cloze", "grammar": "oziralni-ki", "text": "Sosed, ki ___ nesem mleko, živi za vogalom. (on: to him)", "accept": ["mu"], "hint": "komu? masculine",
+          "explain": "**nesti komu?** → to him → **ki mu**\n- ki ji · to her · ki jim · to them"
+        }
+      },
+      {
+        "say": {
+          "en": "After **ki** the short words keep their order: **sem, si, smo** first, then to whom, then whom, and **je** last: **prijatelj, ki sem ga {m:srečal|f:srečala}** (the friend I met), **knjiga, ki mi jo je dala Micka**, **fant, ki se mu vsi smejijo**.",
+          "de": "Nach **ki** behalten die kurzen Wörter ihre Reihenfolge: **sem, si, smo** zuerst, dann wem, dann wen, und **je** zuletzt: **prijatelj, ki sem ga {m:srečal|f:srečala}** (der Freund, den ich getroffen habe), **knjiga, ki mi jo je dala Micka**, **fant, ki se mu vsi smejijo**.",
+          "it": "Dopo **ki** le parole brevi tengono il loro ordine: prima **sem, si, smo**, poi a chi, poi chi, e **je** per ultimo: **prijatelj, ki sem ga {m:srečal|f:srečala}** (l'amico che ho incontrato), **knjiga, ki mi jo je dala Micka**, **fant, ki se mu vsi smejijo**."
+        },
+        "examples": [
+          { "sl": "Prijatelj, ki sem ga {m:srečal|f:srečala} včeraj, pride jutri.", "en": "The friend I met yesterday is coming tomorrow.", "de": "Der Freund, den ich gestern getroffen habe, kommt morgen.", "it": "L'amico che ho incontrato ieri viene domani." },
+          { "sl": "Knjiga, ki mi jo je dala Micka, je stara.", "en": "The book Micka gave me is old.", "de": "Das Buch, das Micka mir gegeben hat, ist alt.", "it": "Il libro che mi ha dato Micka è vecchio." }
+        ],
+        "rows": [[{ "sl": "s sem, je", "en": "with sem, je", "de": "mit sem, je", "it": "con sem, je" }, "ki sem ga, ki mi jo je", "prijatelj, ki sem ga srečal"]],
+        "ask": {
+          "type": "choice", "grammar": "naslonke", "prompt": "Pismo, ___ napisala Zala, je na mizi.", "options": ["ki ga je", "ki je ga", "ki ga"], "answer": 0, "say_options": true,
+          "explain": "**pismo**, the object → **ga**; **je** goes last → **ki ga je**"
+        }
+      },
+      {
+        "say": {
+          "en": "After a preposition, **kateri** instead of ki. It takes the noun's gender and number, and the preposition's case, like an adjective: **vas, v kateri živim** (the village I live in), **fant, s katerim sem {m:govoril|f:govorila}**, **hiša, pred katero stoji lipa**.",
+          "de": "Nach einer Präposition steht **kateri** statt ki. Es nimmt Geschlecht und Zahl des Nomens und den Fall der Präposition, wie ein Adjektiv: **vas, v kateri živim** (das Dorf, in dem ich wohne), **fant, s katerim sem {m:govoril|f:govorila}**, **hiša, pred katero stoji lipa**.",
+          "it": "Dopo una preposizione, **kateri** invece di ki. Prende genere e numero del nome, e il caso della preposizione, come un aggettivo: **vas, v kateri živim** (il paese in cui vivo), **fant, s katerim sem {m:govoril|f:govorila}**, **hiša, pred katero stoji lipa**."
+        },
+        "examples": [
+          { "sl": "Trnovo je vas, v kateri živim.", "en": "Trnovo is the village I live in.", "de": "Trnovo ist das Dorf, in dem ich wohne.", "it": "Trnovo è il paese in cui vivo." },
+          { "sl": "Prijatelj, s katerim sem {m:govoril|f:govorila}, pride jutri.", "en": "The friend I talked to is coming tomorrow.", "de": "Der Freund, mit dem ich gesprochen habe, kommt morgen.", "it": "L'amico con cui ho parlato viene domani." }
+        ],
+        "rows": [[{ "sl": "za predlogom", "en": "after a preposition", "de": "nach einer Präposition", "it": "dopo una preposizione" }, "v kateri, s katerim …", "vas, v kateri živim"]],
+        "ask": {
+          "type": "choice", "grammar": "oziralni-ki", "prompt": "Klop, na ___ sedi Janez, je stara.", "options": ["kateri", "katerem", "katero"], "answer": 0, "say_options": true,
+          "explain": "**klop** is feminine, **na** + kje? the locative → **na kateri**\n- na katerem · masculine or neuter"
+        }
+      },
+      {
+        "say": {
+          "en": "**Kar** (what) is for a whole thing, after **vse**, **nekaj**, **nič** or nothing at all: **To je vse, kar vem.** (That's all I know.) **Vzemi, kar hočeš.** And for a place, **kjer** (where) can stand for v kateri: **vas, kjer živim**.",
+          "de": "**Kar** (was) steht für eine ganze Sache, nach **vse**, **nekaj**, **nič** oder ganz allein: **To je vse, kar vem.** (Das ist alles, was ich weiß.) **Vzemi, kar hočeš.** Und für einen Ort kann **kjer** (wo) für v kateri stehen: **vas, kjer živim**.",
+          "it": "**Kar** (ciò che) vale per una cosa intera, dopo **vse**, **nekaj**, **nič** o da solo: **To je vse, kar vem.** (È tutto ciò che so.) **Vzemi, kar hočeš.** E per un luogo **kjer** (dove) può stare al posto di v kateri: **vas, kjer živim**."
+        },
+        "examples": [
+          { "sl": "To je vse, kar vem.", "en": "That's all I know.", "de": "Das ist alles, was ich weiß.", "it": "È tutto ciò che so." },
+          { "sl": "Luka mi je pokazal travnik, kjer pase ovce.", "en": "Luka showed me the meadow where he grazes the sheep.", "de": "Luka hat mir die Wiese gezeigt, wo er die Schafe hütet.", "it": "Luka mi ha mostrato il prato dove pascola le pecore." }
+        ],
+        "rows": [[{ "sl": "cela stvar", "en": "a whole thing", "de": "eine ganze Sache", "it": "una cosa intera" }, "kar", "vse, kar vem"], [{ "sl": "kraj", "en": "a place", "de": "ein Ort", "it": "un luogo" }, "kjer", "vas, kjer živim"]],
+        "ask": {
+          "type": "choice", "grammar": "oziralni-ki", "prompt": "Povej mi vse, ___ veš o burji.", "options": ["kar", "ki", "kateri"], "answer": 0, "say_options": true,
+          "explain": "**after vse**, a whole thing → **kar**"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "oziralni-ki-1",
+      "title": { "sl": "Ki ga, ki jo, ki jih", "en": "Ki ga, ki jo, ki jih", "de": "Ki ga, ki jo, ki jih", "it": "Ki ga, ki jo, ki jih" },
+      "exercises": [
+        {
+          "type": "sort", "grammar": "oziralni-ki", "instruction": "Kateri zaimek? · Which pronoun?",
+          "columns": [
+            { "label": "ki ga vidim", "words": ["pes", "kruh", "pismo"] },
+            { "label": "ki jo vidim", "words": ["knjiga", "potica", "ovca"] },
+            { "label": "ki jih vidim", "words": ["otroci", "ovce", "jajca"] }
+          ],
+          "explain": "**ga**: masculine and neuter · **jo**: feminine · **jih**: the plural, every gender"
+        },
+        {
+          "type": "table", "grammar": "oziralni-ki", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "ki + kratki zaimek · ki + a short pronoun",
+          "columns": ["koga? · ki … poznam", "komu? · ki … pomagam"],
+          "rows": [
+            { "label": "Luka", "cells": ["ki ga", "ki mu"] },
+            { "label": "Zala", "cells": [{ "accept": ["ki jo"] }, { "accept": ["ki ji"] }] },
+            { "label": "otroci", "cells": [{ "accept": ["ki jih"] }, { "accept": ["ki jim"] }] },
+            { "label": "jagnje", "cells": [{ "accept": ["ki ga"], "hint": "neuter" }, { "accept": ["ki mu"] }] }
+          ],
+          "explain": "**koga?** ga, jo, jih · **komu?** mu, ji, jim\n- a neuter goes as a masculine: jagnje, ki ga poznam"
+        }
+      ]
+    },
+    {
+      "id": "oziralni-ki-2",
+      "title": { "sl": "Vas, v kateri živim", "en": "The village I live in", "de": "Das Dorf, in dem ich wohne", "it": "Il paese in cui vivo" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "oziralni-ki", "instruction": "Dopolni s ki, kateri, kar · Fill in with ki, kateri, kar", "title": "Vas, v kateri živim",
+          "text": "Trnovo je vas, ___ živim. Na trgu stoji stara lipa, ___ je posadil Janezov ded. Pod lipo je klop, na ___ sedi Stari Janez. Zraven je vodnjak, iz ___ pijejo ovce. Gostilna, ___ ima Vida, je na koncu vasi. Nejc je fant, ___ vsi poznajo. Otroci, ___ Mojca uči, so pridni. Ljudje, ___ pomagamo, nam prinesejo jajca. To je vse, ___ vem o naši vasi.",
+          "gaps": [
+            { "accept": ["v kateri", "kjer"], "hint": "v + kje? vas: feminine" },
+            { "accept": ["ki jo"], "hint": "lipa, the object" },
+            { "accept": ["kateri"], "hint": "na + kje? klop: feminine" },
+            { "accept": ["katerega"], "hint": "iz + the genitive; vodnjak: masculine" },
+            { "accept": ["ki jo"], "hint": "gostilna, the object" },
+            { "accept": ["ki ga"], "hint": "fant, the object" },
+            { "accept": ["ki jih"], "hint": "otroci, the object" },
+            { "accept": ["ki jim"], "hint": "pomagati komu?" },
+            { "accept": ["kar"], "hint": "after vse" }
+          ],
+          "bank": true, "distractors": ["ki ji", "v katerem", "ki"],
+          "translation": "Trnovo is the village I live in. On the square stands an old linden that Janez's grandfather planted. Under the linden there's a bench Old Janez sits on. Beside it there's a well the sheep drink from. The inn that Vida has is at the end of the village. Nejc is a boy everyone knows. The children Mojca teaches are good. The people we help bring us eggs. That's all I know about our village."
+        }
+      ]
+    },
+    {
+      "id": "oziralni-ki-3",
+      "title": { "sl": "Dva stavka v enega", "en": "Two sentences into one", "de": "Zwei Sätze zu einem", "it": "Due frasi in una" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "oziralni-ki", "instruction": "Združi s ki ali kateri · Join them with ki or kateri",
+          "items": [
+            { "from": "To je Luka. Luka pase ovce.", "accept": ["To je Luka, ki pase ovce."], "hint": "Luka is the subject" },
+            { "from": "To je Bela. Luka jo išče.", "accept": ["To je Bela, ki jo Luka išče.", "To je Bela, ki jo išče Luka."], "hint": "Bela, the object" },
+            { "from": "Tam je Micka. Zala ji pomaga.", "accept": ["Tam je Micka, ki ji Zala pomaga.", "Tam je Micka, ki ji pomaga Zala."], "hint": "pomagati komu?" },
+            { "from": "To je nož. Tone ga je skoval.", "accept": ["To je nož, ki ga je skoval Tone.", "To je nož, ki ga je Tone skoval."], "hint": "ga, then je", "grammar": "naslonke" },
+            { "from": "To je hiša. V hiši živi Ančka.", "accept": ["To je hiša, v kateri živi Ančka.", "To je hiša, kjer živi Ančka."], "hint": "v + kje? hiša: feminine" },
+            { "from": "To je Marko. Z Markom sem {m:govoril|f:govorila}.", "accept": ["To je Marko, s katerim sem {m:govoril|f:govorila}."], "hint": "z + s kom? masculine" },
+            { "from": "To so otroci. Mojca jih uči.", "accept": ["To so otroci, ki jih Mojca uči.", "To so otroci, ki jih uči Mojca."] },
+            { "from": "To je travnik. Na travniku se pasejo ovce.", "accept": ["To je travnik, na katerem se pasejo ovce.", "To je travnik, kjer se pasejo ovce."], "hint": "na + kje? masculine" }
+          ],
+          "explain": "**the subject** → ki · **the object** → ki ga, ki jo, ki jih · **komu?** → ki mu, ki ji, ki jim · **after a preposition** → kateri"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "oziralni-ki", "instruction": "Dopolni · Fill in", "prompt": "ki ali kateri · ki or kateri",
+        "columns": ["… ki / kateri"],
+        "rows": [
+          { "label": "otroci · koga?", "cells": [{ "accept": ["ki jih"] }] },
+          { "label": "babica · komu?", "cells": [{ "accept": ["ki ji"] }] },
+          { "label": "vas · v + kje?", "cells": [{ "accept": ["v kateri", "kjer"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "oziralni-ki", "instruction": "Dopolni s ki, kateri, kar · Fill in with ki, kateri, kar",
+        "text": "To je kozolec, ___ je postavil France. Fant, ___ sem {m:govoril|f:govorila}, je Tine. Ovce, ___ Luka pase, so na planoti. Daj mi vse, ___ imaš.",
+        "gaps": [
+          { "accept": ["ki ga"] },
+          { "accept": ["s katerim"] },
+          { "accept": ["ki jih"] },
+          { "accept": ["kar"] }
+        ],
+        "translation": "This is the hayrack France put up. The boy I talked to is Tine. The sheep Luka grazes are on the plateau. Give me everything you have."
+      },
+      {
+        "type": "transform", "grammar": "oziralni-ki", "instruction": "Združi s ki ali kateri · Join them with ki or kateri",
+        "items": [
+          { "from": "To je Zala. Zala bere knjigo.", "accept": ["To je Zala, ki bere knjigo."] },
+          { "from": "To je pismo. Marko ga je napisal.", "accept": ["To je pismo, ki ga je napisal Marko.", "To je pismo, ki ga je Marko napisal."] },
+          { "from": "To je klop. Na klopi sedi Janez.", "accept": ["To je klop, na kateri sedi Janez.", "To je klop, kjer sedi Janez."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "naslonke", "prompt": "Fant, ___ vsi smejijo, je Nejc.", "options": ["ki se mu", "ki mu se", "ki se"], "answer": 0, "say_options": true,
+        "explain": "**smejati se komu?** → se, then to whom → **ki se mu**"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: iz katerega pijejo ovce, the word order after ki (ki jo Luka išče / ki jo išče Luka), Mojčini učenci"
+}

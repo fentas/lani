@@ -1,0 +1,243 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "odvisniki",
+  "language": "sl",
+  "level": "B1",
+  "emoji": "🧷",
+  "title": { "sl": "Ker, če, da bi, tako da", "en": "Because, if, so that: clauses", "de": "Weil, wenn, damit: Nebensätze", "it": "Perché, se, affinché: le subordinate" },
+  "goal": {
+    "en": "You can join two sentences by why, if, what for, what came of it and although (ker, zato, če, da bi, tako da, čeprav), and put the short words right when the clause comes first (Ker je deževalo, sem ostal doma).",
+    "de": "Du verbindest zwei Sätze nach warum, wenn, wozu, was daraus wurde und obwohl (ker, zato, če, da bi, tako da, čeprav) und stellst die kurzen Wörter richtig, wenn der Nebensatz vorne steht (Ker je deževalo, sem ostal doma).",
+    "it": "Sai unire due frasi per perché, se, a che scopo, che cosa ne è venuto e benché (ker, zato, če, da bi, tako da, čeprav), e mettere a posto le parole brevi quando la subordinata sta davanti (Ker je deževalo, sem ostal doma)."
+  },
+  "grammar": ["odvisniki", "vezniki", "pogojnik", "naslonke"],
+  "words": ["ker", "zato", "če", "da bi", "tako da", "čeprav", "ko", "preden", "megla", "planota", "zakuriti", "peč", "most", "gradnja", "deska", "žebelj", "izkušnja", "praznovati", "test"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "veznik", "en": "joining word", "de": "Bindewort", "it": "congiunzione" },
+        { "sl": "pomen", "en": "meaning", "de": "Bedeutung", "it": "significato" },
+        { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "You know **ker** (because) and **zato** (so): two sides of one thing. Ker gives the cause, zato the result: **Luka ostane v vasi, ker je megla.** **Megla je, zato Luka ostane v vasi.** A comma goes before both, and the short words come right after ker: **ker sem bil utrujen**.",
+          "de": "Du kennst **ker** (weil) und **zato** (deshalb): zwei Seiten einer Sache. Ker nennt den Grund, zato die Folge: **Luka ostane v vasi, ker je megla.** **Megla je, zato Luka ostane v vasi.** Vor beiden steht ein Komma, und die kurzen Wörter kommen gleich nach ker: **ker sem bil utrujen**.",
+          "it": "Conosci **ker** (perché) e **zato** (perciò): due facce di una cosa. Ker dà la causa, zato la conseguenza: **Luka ostane v vasi, ker je megla.** **Megla je, zato Luka ostane v vasi.** Prima di tutti e due va una virgola, e le parole brevi vengono subito dopo ker: **ker sem bil utrujen**."
+        },
+        "examples": [
+          { "sl": "Luka danes ne gre na planoto, ker je megla.", "en": "Luka isn't going up to the plateau today because it's foggy.", "de": "Luka geht heute nicht auf die Hochebene, weil es neblig ist.", "it": "Oggi Luka non sale sull'altopiano perché c'è nebbia." },
+          { "sl": "Megla je, zato Luka ostane v vasi.", "en": "It's foggy, so Luka stays in the village.", "de": "Es ist neblig, deshalb bleibt Luka im Dorf.", "it": "C'è nebbia, perciò Luka resta in paese." }
+        ],
+        "rows": [["ker", { "en": "because: the cause", "de": "weil: der Grund", "it": "perché: la causa" }, "ker je megla"], ["zato", { "en": "so: the result", "de": "deshalb: die Folge", "it": "perciò: la conseguenza" }, "zato ostane doma"]],
+        "ask": {
+          "type": "choice", "grammar": "odvisniki", "prompt": "Tine je zaspal pri ognju, ___ je bil utrujen.", "options": ["ker", "zato", "čeprav"], "answer": 0, "say_options": true,
+          "explain": "**the cause**: he was tired → **ker**\n- zato · the result: utrujen je bil, zato je zaspal"
+        }
+      },
+      {
+        "say": {
+          "en": "A clause can come first. Then it takes the first place, and the main sentence goes on with its short words: **Ker je deževalo, smo ostali doma.** **Ko je Marko prišel, smo odprli vino.** A comma goes after the clause in front.",
+          "de": "Ein Nebensatz kann vorne stehen. Dann besetzt er die erste Stelle, und der Hauptsatz geht mit seinen kurzen Wörtern weiter: **Ker je deževalo, smo ostali doma.** **Ko je Marko prišel, smo odprli vino.** Nach dem vorangestellten Nebensatz steht ein Komma.",
+          "it": "Una subordinata può stare davanti. Allora occupa il primo posto, e la principale continua con le sue parole brevi: **Ker je deževalo, smo ostali doma.** **Ko je Marko prišel, smo odprli vino.** Dopo la subordinata davanti va una virgola."
+        },
+        "examples": [
+          { "sl": "Ker je deževalo, smo ostali doma.", "en": "Because it was raining, we stayed at home.", "de": "Weil es regnete, sind wir zu Hause geblieben.", "it": "Siccome pioveva, siamo rimasti a casa." },
+          { "sl": "Ko je Marko prišel, smo odprli vino.", "en": "When Marko came, we opened the wine.", "de": "Als Marko kam, haben wir den Wein geöffnet.", "it": "Quando è arrivato Marko, abbiamo aperto il vino." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "naslonke", "prompt": "Ker je bil utrujen, ___ šel spat.", "options": ["je zgodaj", "zgodaj je", "zgodaj"], "answer": 0, "almost": [1], "say_options": true,
+          "explain": "**the clause in front** is the first place → **je** comes right after it: je zgodaj šel spat"
+        }
+      },
+      {
+        "say": {
+          "en": "**Če** (if) is for what can happen, in the tense it means: **Če bo jutri lepo, gremo na planoto.** **Če imaš čas, pridi k nam.** About later, the future or a perfective present: **Če dobim pismo, ti povem.** What would happen if is the conditional, **če bi … bi**: it has its own unit.",
+          "de": "**Če** (wenn, falls) ist für das, was geschehen kann, in der gemeinten Zeit: **Če bo jutri lepo, gremo na planoto.** **Če imaš čas, pridi k nam.** Für später das Futur oder ein perfektives Präsens: **Če dobim pismo, ti povem.** Was geschähe, wenn, ist der Konditional, **če bi … bi**: Er hat eine eigene Einheit.",
+          "it": "**Če** (se) è per ciò che può succedere, nel tempo che intendi: **Če bo jutri lepo, gremo na planoto.** **Če imaš čas, pridi k nam.** Per dopo, il futuro o un presente perfettivo: **Če dobim pismo, ti povem.** Ciò che succederebbe se è il condizionale, **če bi … bi**: ha un'unità sua."
+        },
+        "examples": [
+          { "sl": "Če bo jutri lepo, gremo na planoto.", "en": "If it's nice tomorrow, we'll go up to the plateau.", "de": "Wenn es morgen schön ist, gehen wir auf die Hochebene.", "it": "Se domani è bello, saliamo sull'altopiano." },
+          { "sl": "Če imaš čas, pridi k nam.", "en": "If you have time, come to our place.", "de": "Wenn du Zeit hast, komm zu uns.", "it": "Se hai tempo, vieni da noi." }
+        ],
+        "rows": [["če", { "en": "if: it can happen", "de": "wenn: es kann geschehen", "it": "se: può succedere" }, "če bo lepo"]],
+        "ask": {
+          "type": "cloze", "grammar": "odvisniki", "text": "Če ___ jutri deževalo, ostanemo doma. (biti)", "accept": ["bo"], "hint": "tomorrow: the future",
+          "explain": "**jutri**, later → the future → **če bo deževalo**"
+        }
+      },
+      {
+        "say": {
+          "en": "**Da bi** and the l-form says what for, the aim: **{m:Prišel|f:Prišla} sem, da bi ti {m:pomagal|f:pomagala}.** (I came to help you.) The l-form goes with the clause's own subject: **Mojca piše velike črke, da bi jih vsi videli.** (so that everyone sees them: vsi → videli) It is bi, the conditional's word, so the l-form, never the present.",
+          "de": "**Da bi** und die l-Form sagen, wozu, das Ziel: **{m:Prišel|f:Prišla} sem, da bi ti {m:pomagal|f:pomagala}.** (Ich bin gekommen, um dir zu helfen.) Die l-Form richtet sich nach dem eigenen Subjekt des Nebensatzes: **Mojca piše velike črke, da bi jih vsi videli.** (damit alle sie sehen: vsi → videli) Es ist bi, das Wort des Konditionals, also die l-Form, nie das Präsens.",
+          "it": "**Da bi** e la forma in -l dicono a che scopo: **{m:Prišel|f:Prišla} sem, da bi ti {m:pomagal|f:pomagala}.** (Sono venuto per aiutarti.) La forma in -l va con il soggetto della subordinata: **Mojca piše velike črke, da bi jih vsi videli.** (perché tutti le vedano: vsi → videli) È bi, la parola del condizionale, quindi la forma in -l, mai il presente."
+        },
+        "examples": [
+          { "sl": "{m:Prišel|f:Prišla} sem, da bi ti {m:pomagal|f:pomagala}.", "en": "I came to help you.", "de": "Ich bin gekommen, um dir zu helfen.", "it": "Sono venuto per aiutarti." },
+          { "sl": "Mojca piše velike črke, da bi jih vsi videli.", "en": "Mojca writes big letters so that everyone can see them.", "de": "Mojca schreibt große Buchstaben, damit alle sie sehen.", "it": "Mojca scrive lettere grandi perché tutti le vedano." }
+        ],
+        "rows": [["da bi", { "en": "so that: the aim (+ the l-form)", "de": "damit: das Ziel (+ l-Form)", "it": "affinché: lo scopo (+ forma in -l)" }, "da bi ti pomagal"]],
+        "ask": {
+          "type": "choice", "grammar": "odvisniki", "prompt": "Micka vstane ob petih, ___ zakurila peč.", "options": ["da bi", "ker", "tako da"], "answer": 0, "say_options": true,
+          "explain": "**what for**: to light the stove, and **zakurila** is the l-form → **da bi**"
+        }
+      },
+      {
+        "say": {
+          "en": "**Tako da** (so) says what came of it, as it was: **Ves dan je deževalo, tako da smo ostali doma.** Set it beside da bi: **Govoril je glasno, da bi ga vsi slišali.** (his aim) **Govoril je glasno, tako da so ga vsi slišali.** (and they did)",
+          "de": "**Tako da** (sodass) sagt, was daraus wurde, wie es war: **Ves dan je deževalo, tako da smo ostali doma.** Neben da bi gestellt: **Govoril je glasno, da bi ga vsi slišali.** (sein Ziel) **Govoril je glasno, tako da so ga vsi slišali.** (und alle hörten ihn)",
+          "it": "**Tako da** (così che) dice che cosa ne è venuto, com'è andata: **Ves dan je deževalo, tako da smo ostali doma.** Messo accanto a da bi: **Govoril je glasno, da bi ga vsi slišali.** (il suo scopo) **Govoril je glasno, tako da so ga vsi slišali.** (e tutti l'hanno sentito)"
+        },
+        "examples": [
+          { "sl": "Ves dan je deževalo, tako da smo ostali doma.", "en": "It rained all day, so we stayed at home.", "de": "Es hat den ganzen Tag geregnet, sodass wir zu Hause geblieben sind.", "it": "È piovuto tutto il giorno, così siamo rimasti a casa." },
+          { "sl": "Govoril je glasno, tako da so ga vsi slišali.", "en": "He spoke loudly, so everyone heard him.", "de": "Er sprach laut, sodass alle ihn hörten.", "it": "Ha parlato forte, così tutti l'hanno sentito." }
+        ],
+        "rows": [["tako da", { "en": "so: what came of it", "de": "sodass: was daraus wurde", "it": "così che: ciò che ne è venuto" }, "tako da smo ostali doma"]],
+        "ask": {
+          "type": "choice", "grammar": "odvisniki", "prompt": "Burja je podrla drevo, ___ je bila cesta zaprta.", "options": ["tako da", "da bi", "čeprav"], "answer": 0, "say_options": true,
+          "explain": "**what came of it**: the road was closed → **tako da**\n- da bi · an aim, with the l-form"
+        }
+      },
+      {
+        "say": {
+          "en": "**Čeprav** (although) says it happened all the same: **Čeprav je bil utrujen, je France pomagal pri mostu.** **Luka spi v šotoru, čeprav je mraz.** And **preden** (before): **Preden greš, zapri okno.**",
+          "de": "**Čeprav** (obwohl) sagt, dass es trotzdem geschah: **Čeprav je bil utrujen, je France pomagal pri mostu.** **Luka spi v šotoru, čeprav je mraz.** Und **preden** (bevor): **Preden greš, zapri okno.**",
+          "it": "**Čeprav** (benché) dice che è successo lo stesso: **Čeprav je bil utrujen, je France pomagal pri mostu.** **Luka spi v šotoru, čeprav je mraz.** E **preden** (prima che): **Preden greš, zapri okno.**"
+        },
+        "examples": [
+          { "sl": "Čeprav je bil utrujen, je France pomagal pri mostu.", "en": "Although he was tired, France helped with the bridge.", "de": "Obwohl er müde war, hat France beim Brückenbau geholfen.", "it": "Benché fosse stanco, France ha aiutato a costruire il ponte." },
+          { "sl": "Luka spi v šotoru, čeprav je mraz.", "en": "Luka sleeps in the tent although it's cold.", "de": "Luka schläft im Zelt, obwohl es kalt ist.", "it": "Luka dorme in tenda anche se fa freddo." }
+        ],
+        "rows": [["čeprav", { "en": "although", "de": "obwohl", "it": "benché" }, "čeprav je mraz"], ["preden", { "en": "before", "de": "bevor", "it": "prima che" }, "preden greš"]],
+        "ask": {
+          "type": "choice", "grammar": "odvisniki", "prompt": "___ je deževalo, smo šli na sprehod.", "options": ["Čeprav", "Ker", "Če"], "answer": 0, "say_options": true,
+          "explain": "**it rained, and we went all the same** → **Čeprav**\n- Ker · because: it doesn't fit going out"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "odvisniki-1",
+      "title": { "sl": "Kateri veznik?", "en": "Which joining word?", "de": "Welches Bindewort?", "it": "Quale congiunzione?" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "odvisniki", "instruction": "Dopolni z veznikom · Fill in the joining word", "title": "Kateri veznik?",
+          "text": "Luka ostane v vasi, ___ je megla. Megla je, ___ Luka ostane v vasi. ___ bo jutri lepo, gremo na planoto. Mojca piše velike črke, ___ jih vsi videli. Ves dan je deževalo, ___ smo ostali doma. ___ je bil utrujen, je France pomagal. Tine je zaspal, ___ je bil utrujen. Micka vstane zgodaj, ___ zakurila peč.",
+          "gaps": [
+            { "accept": ["ker"], "hint": "the cause" },
+            { "accept": ["zato", "tako da"], "hint": "the result" },
+            { "accept": ["Če", "Ko"], "hint": "it can happen" },
+            { "accept": ["da bi"], "hint": "the aim; videli is the l-form" },
+            { "accept": ["tako da", "zato"], "hint": "what came of it" },
+            { "accept": ["Čeprav"], "hint": "all the same" },
+            { "accept": ["ker"], "hint": "the cause" },
+            { "accept": ["da bi"], "hint": "what for" }
+          ],
+          "bank": true, "distractors": ["kar", "naj"],
+          "translation": "Luka stays in the village because it's foggy. It's foggy, so Luka stays in the village. If it's nice tomorrow, we'll go up to the plateau. Mojca writes big letters so that everyone can see them. It rained all day, so we stayed at home. Although he was tired, France helped. Tine fell asleep because he was tired. Micka gets up early to light the stove."
+        },
+        {
+          "type": "table", "grammar": "odvisniki", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "da bi + l-oblika · da bi + the l-form",
+          "columns": ["da bi …"],
+          "rows": [
+            { "label": "jaz (moški) · pomagati", "cells": [{ "accept": ["da bi pomagal"] }] },
+            { "label": "ona · videti", "cells": [{ "accept": ["da bi videla"] }] },
+            { "label": "mi · iti", "cells": [{ "accept": ["da bi šli"], "hint": "iti: šel, šla, šli" }] },
+            { "label": "otroci · slišati", "cells": [{ "accept": ["da bi slišali"] }] }
+          ],
+          "explain": "**da bi** + the l-form of the clause's subject\n- da bi pomagal · da bi videla · da bi šli · da bi slišali"
+        }
+      ]
+    },
+    {
+      "id": "odvisniki-2",
+      "title": { "sl": "Most čez potok", "en": "The bridge over the stream", "de": "Die Brücke über den Bach", "it": "Il ponte sul ruscello" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "odvisniki", "instruction": "Dopolni z veznikom · Fill in the joining word", "title": "Most čez potok",
+          "text": "France vodi gradnjo mostu, ___ ima največ izkušenj. Vsak dan pride zgodaj, ___ bi delo končali pred zimo. ___ je bil včeraj utrujen, je delal do večera. Tone je skoval žeblje, ___ so lahko pribili deske. Popoldne je začelo deževati, ___ so delo prekinili. ___ bo jutri suho, bodo položili zadnje deske. ___ bo most gotov, bomo praznovali!",
+          "gaps": [
+            { "accept": ["ker"], "hint": "the cause" },
+            { "accept": ["da"], "hint": "the aim: ___ bi" },
+            { "accept": ["Čeprav"], "hint": "all the same", "explain": "**Čeprav** in front: the main sentence goes on with **je**." },
+            { "accept": ["tako da"], "hint": "what came of it" },
+            { "accept": ["zato", "tako da"], "hint": "the result" },
+            { "accept": ["Če", "Ko"], "hint": "it can happen" },
+            { "accept": ["Ko", "Če"], "hint": "when" }
+          ],
+          "translation": "France leads the building of the bridge because he has the most experience. He comes early every day so they can finish the work before winter. Although he was tired yesterday, he worked till the evening. Tone forged nails, so they could nail down the boards. In the afternoon it started to rain, so they stopped work. If it's dry tomorrow, they'll lay the last boards. When the bridge is finished, we'll celebrate!"
+        },
+        {
+          "type": "choice", "grammar": "naslonke", "instruction": "Izberi · Choose", "prompt": "Ko je Marko prišel, ___ odprli vino.", "options": ["smo", "mi smo", "smo mi"], "answer": 0, "almost": [1], "say_options": true,
+          "explain": "**the clause in front** is the first place → **smo** right after it"
+        }
+      ]
+    },
+    {
+      "id": "odvisniki-3",
+      "title": { "sl": "Zakaj? Čemu?", "en": "Why? What for?", "de": "Warum? Wozu?", "it": "Perché? A che scopo?" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "odvisniki", "instruction": "Združi z veznikom v oklepaju · Join them with the word in brackets",
+          "items": [
+            { "from": "{m:Ostal|f:Ostala} sem doma. Deževalo je. (ker)", "accept": ["{m:Ostal|f:Ostala} sem doma, ker je deževalo.", "Ker je deževalo, sem {m:ostal|f:ostala} doma."] },
+            { "from": "Luka je utrujen. Gre spat. (zato)", "accept": ["Luka je utrujen, zato gre spat."] },
+            { "from": "{m:Prišel|f:Prišla} sem. {m:Rad|f:Rada} bi ti {m:pomagal|f:pomagala}. (da bi)", "accept": ["{m:Prišel|f:Prišla} sem, da bi ti {m:pomagal|f:pomagala}."], "hint": "da bi + the l-form" },
+            { "from": "Micka peče potico. Gostje bodo imeli kaj jesti. (da bi)", "accept": ["Micka peče potico, da bi gostje imeli kaj jesti."], "hint": "the l-form of gostje" },
+            { "from": "Bilo je mrzlo. Šli smo na sprehod. (čeprav)", "accept": ["Čeprav je bilo mrzlo, smo šli na sprehod.", "Šli smo na sprehod, čeprav je bilo mrzlo."] },
+            { "from": "Burja je pihala vso noč. Vsi smo bili budni. (tako da)", "accept": ["Burja je pihala vso noč, tako da smo bili vsi budni.", "Burja je pihala vso noč, tako da smo vsi bili budni."], "hint": "smo right after tako da" },
+            { "from": "Lepo bo. Gremo na planoto. (če)", "accept": ["Če bo lepo, gremo na planoto.", "Gremo na planoto, če bo lepo."] },
+            { "from": "Bil je utrujen. Pomagal je. (čeprav, the clause first)", "accept": ["Čeprav je bil utrujen, je pomagal."], "hint": "after the clause: je", "grammar": "naslonke" }
+          ],
+          "explain": "**ker** the cause · **zato, tako da** the result · **če** if · **da bi** + the l-form, the aim · **čeprav** all the same\n- a clause in front: the short words next"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "odvisniki", "instruction": "Dopolni · Fill in", "prompt": "da bi + l-oblika · da bi + the l-form",
+        "columns": ["da bi …"],
+        "rows": [
+          { "label": "ti (moški) · videti", "cells": [{ "accept": ["da bi videl"] }] },
+          { "label": "midva · iti", "cells": [{ "accept": ["da bi šla"] }] },
+          { "label": "Zala · slišati", "cells": [{ "accept": ["da bi slišala"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "odvisniki", "instruction": "Dopolni z veznikom · Fill in the joining word",
+        "text": "Zala se uči, ___ bi postala učiteljica. ___ je bila utrujena, je brala do polnoči. Jutri bo test, ___ se mora učiti. ___ bo test dobro pisala, bo vesela.",
+        "gaps": [
+          { "accept": ["da"] },
+          { "accept": ["Čeprav"] },
+          { "accept": ["zato", "tako da"] },
+          { "accept": ["Če", "Ko"] }
+        ],
+        "translation": "Zala studies so that she can become a teacher. Although she was tired, she read till midnight. Tomorrow there's a test, so she has to study. If she does well in the test, she'll be happy."
+      },
+      {
+        "type": "transform", "grammar": "odvisniki", "instruction": "Združi z veznikom v oklepaju · Join them with the word in brackets",
+        "items": [
+          { "from": "Tine je jokal. Bal se je teme. (ker)", "accept": ["Tine je jokal, ker se je bal teme.", "Ker se je bal teme, je Tine jokal."], "grammar": "naslonke" },
+          { "from": "Mojca govori počasi. Vsi jo razumejo. (tako da)", "accept": ["Mojca govori počasi, tako da jo vsi razumejo."] },
+          { "from": "Deževalo je. Šli smo ven. (čeprav, the clause first)", "accept": ["Čeprav je deževalo, smo šli ven."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "naslonke", "prompt": "Ker je zbolel, ___ ostal doma.", "options": ["je Luka", "Luka je", "Luka"], "answer": 0, "almost": [1], "say_options": true,
+        "explain": "**the clause in front** is the first place → **je** right after it, then Luka"
+      },
+      {
+        "type": "choice", "grammar": "odvisniki", "prompt": "Prišla je, ___ bi nam pomagala.", "options": ["da", "ker", "če"], "answer": 0, "say_options": true,
+        "explain": "**the aim** → **da bi** + the l-form"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: Ker je bil utrujen, je zgodaj šel spat (not zgodaj je), tako da so lahko pribili deske, da bi gostje imeli kaj jesti"
+}

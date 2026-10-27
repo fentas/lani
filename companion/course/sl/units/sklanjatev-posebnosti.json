@@ -1,0 +1,236 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "sklanjatev-posebnosti",
+  "language": "sl",
+  "level": "B1",
+  "emoji": "🧩",
+  "title": { "sl": "Oče – očeta, dan – dneva", "en": "Odd nouns: oče – očeta, dan – dneva", "de": "Besondere Nomen: oče – očeta, dan – dneva", "it": "Nomi particolari: oče – očeta, dan – dneva" },
+  "goal": {
+    "en": "You can use the nouns that change as they go, in every case: Tone – Toneta, mlinar – mlinarja, pes – psa, dan – dneva, ime – imena, mati – matere, and the people: pet ljudi, z otroki.",
+    "de": "Du verwendest die Nomen, die sich beim Beugen verändern, in jedem Fall: Tone – Toneta, mlinar – mlinarja, pes – psa, dan – dneva, ime – imena, mati – matere, und die Leute: pet ljudi, z otroki.",
+    "it": "Sai usare in ogni caso i nomi che cambiano declinandosi: Tone – Toneta, mlinar – mlinarja, pes – psa, dan – dneva, ime – imena, mati – matere, e la gente: pet ljudi, z otroki."
+  },
+  "grammar": ["sklanjatev-posebnosti", "sklanjatev-moski", "sklanjatev-srednji", "sklanjatev-zenski"],
+  "words": ["oče", "mlinar", "pastir", "čebelar", "krompir", "sir", "pes", "ogenj", "dan", "teden", "konec", "sin", "človek", "ljudje", "otrok", "ime", "tele", "drevo", "kolo", "mati", "hči", "hčerka", "žebelj"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "ednina", "en": "one (kdo? kaj?)", "de": "eins (kdo? kaj?)", "it": "uno (kdo? kaj?)" },
+        { "sl": "rodilnik", "en": "genitive (koga? česa?)", "de": "Genitiv (koga? česa?)", "it": "genitivo (koga? česa?)" },
+        { "sl": "množina", "en": "three or more", "de": "drei und mehr", "it": "tre o più" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "Some nouns grow a sound as soon as an ending comes, and keep it in every form but the base. **Oče** (father) and the names in -e add **-t-**: **oče → očeta**, **Tone → Toneta**, **France → Franceta**; so **pri Tonetu**, **s Francetom**, and the plural **očetje** (fathers).",
+          "de": "Manche Nomen bekommen einen Laut dazu, sobald eine Endung kommt, und behalten ihn in jeder Form außer der Grundform. **Oče** (Vater) und die Namen auf -e bekommen **-t-**: **oče → očeta**, **Tone → Toneta**, **France → Franceta**; also **pri Tonetu**, **s Francetom** und der Plural **očetje** (Väter).",
+          "it": "Alcuni nomi prendono un suono in più appena arriva una desinenza, e lo tengono in ogni forma tranne quella base. **Oče** (padre) e i nomi propri in -e aggiungono **-t-**: **oče → očeta**, **Tone → Toneta**, **France → Franceta**; quindi **pri Tonetu**, **s Francetom**, e il plurale **očetje** (padri)."
+        },
+        "examples": [
+          { "sl": "Jutri grem k Tonetu po nove žeblje.", "en": "Tomorrow I'm going to Tone's for new nails.", "de": "Morgen gehe ich zu Tone, neue Nägel holen.", "it": "Domani vado da Tone a prendere chiodi nuovi." },
+          { "sl": "Tine je ves dan z dedkom Francetom na polju.", "en": "Tine spends the whole day in the field with his grandpa France.", "de": "Tine ist den ganzen Tag mit seinem Opa France auf dem Feld.", "it": "Tine passa tutto il giorno nel campo con il nonno France." }
+        ],
+        "rows": [["oče", "očeta", "očetje"], ["Tone", "Toneta", "—"], ["France", "Franceta", "—"]],
+        "ask": {
+          "type": "choice", "grammar": "sklanjatev-posebnosti", "prompt": "Tine gre s ___ na polje. (France)", "options": ["France", "Francem", "Francetom"], "answer": 2, "say_options": true,
+          "explain": "**France** → a name in -e grows a **t** → **s Francetom**\n- France, Franceta, Francetu, s Francetom"
+        }
+      },
+      {
+        "say": {
+          "en": "Many nouns in **-ar** and **-ir**, often people, add **-j-**: **mlinar → mlinarja** (miller), **pastir → pastirja** (shepherd), **čebelar → čebelarja** (beekeeper), and **krompir → krompirja**. After the j an ending's o is e: **z mlinarjem**. Names in -i do the same: **Muri → Murija**, **z Murijem**. Not every -r: **sir → sira** (cheese).",
+          "de": "Viele Nomen auf **-ar** und **-ir**, oft Menschen, bekommen **-j-**: **mlinar → mlinarja** (Müller), **pastir → pastirja** (Hirte), **čebelar → čebelarja** (Imker) und **krompir → krompirja**. Nach dem j wird das o einer Endung zu e: **z mlinarjem**. Namen auf -i machen es auch so: **Muri → Murija**, **z Murijem**. Nicht jedes -r: **sir → sira** (Käse).",
+          "it": "Molti nomi in **-ar** e **-ir**, spesso persone, aggiungono **-j-**: **mlinar → mlinarja** (mugnaio), **pastir → pastirja** (pastore), **čebelar → čebelarja** (apicoltore), e **krompir → krompirja**. Dopo la j la o di una desinenza diventa e: **z mlinarjem**. I nomi propri in -i fanno lo stesso: **Muri → Murija**, **z Murijem**. Non ogni -r: **sir → sira** (formaggio)."
+        },
+        "examples": [
+          { "sl": "Zala je šla s pastirjem Luko na pašnik.", "en": "Zala went to the pasture with Luka the shepherd.", "de": "Zala ist mit dem Hirten Luka auf die Weide gegangen.", "it": "Zala è andata al pascolo con il pastore Luka." },
+          { "sl": "Stari Janez gre na sprehod z Murijem.", "en": "Old Janez goes for a walk with Muri.", "de": "Der alte Janez geht mit Muri spazieren.", "it": "Il vecchio Janez va a passeggio con Muri." }
+        ],
+        "rows": [["mlinar", "mlinarja", "mlinarji"], ["pastir", "pastirja", "pastirji"], ["Muri", "Murija", "—"]],
+        "ask": {
+          "type": "cloze", "grammar": "sklanjatev-posebnosti", "text": "Med kupimo pri ___. (čebelar)", "accept": ["čebelarju"], "hint": "-ar: + j, then pri + -u",
+          "explain": "**čebelar** → + **j** → **pri čebelarju**\n- čebelar, čebelarja, čebelarju, s čebelarjem"
+        }
+      },
+      {
+        "say": {
+          "en": "In others an **e** drops out once an ending comes: **pes → psa** (dog), **ogenj → ognja** (fire), **teden → tedna** (week), **konec → konca** (end). **Dan** (day) loses its e and gains a v: **dan → dneva**, **dnevi**. A dictionary gives the genitive beside the noun, **pes, psa**: learn them together.",
+          "de": "Bei anderen fällt ein **e** weg, sobald eine Endung kommt: **pes → psa** (Hund), **ogenj → ognja** (Feuer), **teden → tedna** (Woche), **konec → konca** (Ende). **Dan** (Tag) verliert sein e und bekommt ein v: **dan → dneva**, **dnevi**. Ein Wörterbuch gibt den Genitiv neben dem Nomen an, **pes, psa**: Lern sie zusammen.",
+          "it": "In altri una **e** cade appena arriva una desinenza: **pes → psa** (cane), **ogenj → ognja** (fuoco), **teden → tedna** (settimana), **konec → konca** (fine). **Dan** (giorno) perde la e e prende una v: **dan → dneva**, **dnevi**. Il dizionario dà il genitivo accanto al nome, **pes, psa**: imparali insieme."
+        },
+        "examples": [
+          { "sl": "Muri spi pri ognju.", "en": "Muri is asleep by the fire.", "de": "Muri schläft am Feuer.", "it": "Muri dorme vicino al fuoco." },
+          { "sl": "Do konca tedna bo deževalo.", "en": "It will rain until the end of the week.", "de": "Bis Ende der Woche wird es regnen.", "it": "Pioverà fino alla fine della settimana." }
+        ],
+        "rows": [["pes", "psa", "psi"], ["ogenj", "ognja", "ognji"], ["dan", "dneva", "dnevi"]],
+        "ask": {
+          "type": "choice", "grammar": "sklanjatev-posebnosti", "prompt": "Tine se boji velikega ___.", "options": ["pesa", "psa", "psu"], "answer": 1, "say_options": true,
+          "explain": "**bati se** + the genitive; **pes** drops its e → **psa**\n- pes, psa, psu, s psom"
+        }
+      },
+      {
+        "say": {
+          "en": "Two words for people change most in the plural. **Človek** (person) has the plural **ljudje**: **pet ljudi**, **z ljudmi**, **o ljudeh**. **Otrok** (child) turns k into c, **otroci**, but **brez otrok**, **z otroki**. And short words like **sin**, **most**, **gozd** take **-ov-**: **sinovi**, **brez sinov**, **s sinovi**.",
+          "de": "Zwei Wörter für Menschen ändern sich im Plural am meisten. **Človek** (Mensch) hat den Plural **ljudje**: **pet ljudi**, **z ljudmi**, **o ljudeh**. **Otrok** (Kind) macht aus k ein c, **otroci**, aber **brez otrok**, **z otroki**. Und kurze Wörter wie **sin**, **most**, **gozd** nehmen **-ov-**: **sinovi**, **brez sinov**, **s sinovi**.",
+          "it": "Due parole per le persone cambiano di più al plurale. **Človek** (persona) ha il plurale **ljudje**: **pet ljudi**, **z ljudmi**, **o ljudeh**. **Otrok** (bambino) cambia la k in c, **otroci**, ma **brez otrok**, **z otroki**. E parole brevi come **sin**, **most**, **gozd** prendono **-ov-**: **sinovi**, **brez sinov**, **s sinovi**."
+        },
+        "examples": [
+          { "sl": "Na sejmu je bilo veliko ljudi.", "en": "There were a lot of people at the fair.", "de": "Auf dem Jahrmarkt waren viele Leute.", "it": "Alla fiera c'era tanta gente." },
+          { "sl": "Mojca se rada pogovarja z otroki.", "en": "Mojca likes talking with the children.", "de": "Mojca unterhält sich gern mit den Kindern.", "it": "A Mojca piace parlare con i bambini." }
+        ],
+        "rows": [["človek", "človeka", "ljudje"], ["otrok", "otroka", "otroci"], ["sin", "sina", "sinovi"]],
+        "ask": {
+          "type": "cloze", "grammar": "sklanjatev-posebnosti", "text": "Na terasi Vida govori z ___. (ljudje)", "accept": ["ljudmi"], "hint": "s kom? the plural of človek",
+          "explain": "**ljudje** → with them → **z ljudmi**\n- pet ljudi · o ljudeh · z ljudmi"
+        }
+      },
+      {
+        "say": {
+          "en": "Neuter nouns can grow too: **ime → imena** (name), **tele → teleta** (calf), **dekle → dekleta** (girl), and with **-es-**: **drevo → drevesa** (tree), **kolo → kolesa** (wheel, bike). The growth stays in every form but the base: **z imenom**, **pod drevesom**. **Dekle** is neuter, so its adjective is too: **lepo dekle**.",
+          "de": "Auch Neutra können wachsen: **ime → imena** (Name), **tele → teleta** (Kalb), **dekle → dekleta** (Mädchen), und mit **-es-**: **drevo → drevesa** (Baum), **kolo → kolesa** (Rad, Fahrrad). Der Zuwachs bleibt in jeder Form außer der Grundform: **z imenom**, **pod drevesom**. **Dekle** ist sächlich, also auch sein Adjektiv: **lepo dekle**.",
+          "it": "Anche i neutri possono crescere: **ime → imena** (nome), **tele → teleta** (vitello), **dekle → dekleta** (ragazza), e con **-es-**: **drevo → drevesa** (albero), **kolo → kolesa** (ruota, bicicletta). La crescita resta in ogni forma tranne quella base: **z imenom**, **pod drevesom**. **Dekle** è neutro, e così il suo aggettivo: **lepo dekle**."
+        },
+        "examples": [
+          { "sl": "Zala se igra s teletom.", "en": "Zala is playing with the calf.", "de": "Zala spielt mit dem Kalb.", "it": "Zala gioca con il vitello." },
+          { "sl": "Pod starim drevesom je klop.", "en": "There's a bench under the old tree.", "de": "Unter dem alten Baum steht eine Bank.", "it": "Sotto il vecchio albero c'è una panchina." }
+        ],
+        "rows": [["ime", "imena", "imena"], ["tele", "teleta", "teleta"], ["drevo", "drevesa", "drevesa"]],
+        "ask": {
+          "type": "choice", "grammar": "sklanjatev-posebnosti", "prompt": "Luka sedi pod ___ in poje.", "options": ["drevom", "drevesom", "drevesu"], "answer": 1, "say_options": true,
+          "explain": "**drevo** grows **-es-** → **pod drevesom** (s čim?)\n- drevo, drevesa, drevesu, pod drevesom"
+        }
+      },
+      {
+        "say": {
+          "en": "Two feminine nouns grow **-er-**: **mati → matere** (mother) and **hči → hčere** (daughter): **pri materi**, **z materjo**, **s hčerjo**, and the accusative **mater**, **hčer**. In everyday speech you mostly hear **mama** and **hčerka**, which go like knjiga: **z mamo**, **s hčerko**. Both are right; **mati** and **hči** are the standard, in writing and in stories.",
+          "de": "Zwei weibliche Nomen bekommen **-er-**: **mati → matere** (Mutter) und **hči → hčere** (Tochter): **pri materi**, **z materjo**, **s hčerjo**, und der Akkusativ **mater**, **hčer**. In der Umgangssprache hörst du meist **mama** und **hčerka**, die wie knjiga gehen: **z mamo**, **s hčerko**. Beides ist richtig; **mati** und **hči** sind die Standardformen, in Texten und Geschichten.",
+          "it": "Due nomi femminili prendono **-er-**: **mati → matere** (madre) e **hči → hčere** (figlia): **pri materi**, **z materjo**, **s hčerjo**, e l'accusativo **mater**, **hčer**. Nel parlato senti soprattutto **mama** e **hčerka**, che vanno come knjiga: **z mamo**, **s hčerko**. Sono giuste tutte e due; **mati** e **hči** sono lo standard, nello scritto e nelle storie."
+        },
+        "examples": [
+          { "sl": "Micka govori s hčerjo po telefonu.", "en": "Micka is talking to her daughter on the phone.", "de": "Micka telefoniert mit ihrer Tochter.", "it": "Micka parla al telefono con sua figlia." },
+          { "sl": "Zala piše pismo materi.", "en": "Zala is writing a letter to her mother.", "de": "Zala schreibt ihrer Mutter einen Brief.", "it": "Zala scrive una lettera a sua madre." }
+        ],
+        "rows": [["mati", "matere", "matere"], ["hči", "hčere", "hčere"]],
+        "ask": {
+          "type": "cloze", "grammar": "sklanjatev-posebnosti", "text": "Bolan otrok je ves dan pri ___. (mati)", "accept": ["materi"], "hint": "+ er, then pri + -i",
+          "explain": "**mati** → **mater-** → **pri materi**\n- mati, matere, materi, mater, z materjo\n- in speech: pri mami"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "sklanjatev-posebnosti-1",
+      "title": { "sl": "Kaj zraste?", "en": "What grows?", "de": "Was wächst dazu?", "it": "Che cosa cresce?" },
+      "exercises": [
+        {
+          "type": "sort", "grammar": "sklanjatev-posebnosti", "instruction": "Razvrsti po rodilniku · Sort by the genitive",
+          "columns": [
+            { "label": "+ t · oče → očeta", "words": ["Tone", "France", "Jože"] },
+            { "label": "+ j · mlinar → mlinarja", "words": ["pastir", "čebelar", "krompir"] },
+            { "label": "e izpade · pes → psa", "words": ["ogenj", "teden", "konec"] },
+            { "label": "ostane · brat → brata", "words": ["sir", "kruh", "stol"] }
+          ],
+          "explain": "**names in -e** + t: Toneta · **-ar, -ir** + j: pastirja · **the e drops**: ognja, tedna, konca · **sir, kruh, stol** stay: sira, kruha, stola"
+        },
+        {
+          "type": "choice", "grammar": "sklanjatev-posebnosti", "instruction": "Izberi · Choose", "prompt": "Na mizi je skleda ___. (krompir)", "options": ["krompira", "krompirja", "krompirju"], "answer": 1, "say_options": true,
+          "explain": "**skleda** + the genitive; **krompir** grows a **j** → **krompirja**\n- a bowl of potatoes"
+        }
+      ]
+    },
+    {
+      "id": "sklanjatev-posebnosti-2",
+      "title": { "sl": "Pri ognju", "en": "By the fire", "de": "Am Feuer", "it": "Vicino al fuoco" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "sklanjatev-posebnosti", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "rodilnik in orodnik · the genitive and the instrumental",
+          "columns": ["rodilnik · koga? česa?", "orodnik · s kom? s čim?"],
+          "rows": [
+            { "label": "oče", "cells": ["očeta", "z očetom"] },
+            { "label": "Tone", "cells": [{ "accept": ["Toneta"], "hint": "a name in -e" }, { "accept": ["s Tonetom", "Tonetom"] }] },
+            { "label": "mlinar", "cells": [{ "accept": ["mlinarja"], "hint": "-ar" }, { "accept": ["z mlinarjem", "mlinarjem"], "hint": "after j: -em" }] },
+            { "label": "pes", "cells": [{ "accept": ["psa"] }, { "accept": ["s psom", "psom"], "hint": "the e drops" }] }
+          ],
+          "explain": "**Tone** + t · **mlinar** + j · **pes**: the e drops\n- Toneta, s Tonetom · mlinarja, z mlinarjem · psa, s psom"
+        },
+        {
+          "type": "gaptext", "grammar": "sklanjatev-posebnosti", "instruction": "Dopolni z besedo v oklepaju · Fill in the word in brackets", "title": "Pri ognju",
+          "text": "Zvečer je vsa vas pri ___ (ogenj). Stari Janez sedi na klopi s ___ (pes) Murijem, mali Tine se stisne k ___ (France). Janez pripoveduje o starem ___ (pastir). Pastir je imel tri ___ (sin). Najmlajši je vsak dan hodil z ___ (oče) v gozd. Nekega dne je pod starim ___ (drevo) zagledal belo ovco. Ni vedel, čigava je, zato je tekel k ___ (mati).",
+          "gaps": [
+            { "accept": ["ognju"], "hint": "pri + the locative; the e drops" },
+            { "accept": ["psom"], "hint": "s + the instrumental; the e drops" },
+            { "accept": ["Francetu"], "hint": "k + the dative; a name in -e" },
+            { "accept": ["pastirju"], "hint": "o + the locative; -ir" },
+            { "accept": ["sinove"], "hint": "tri + the object, plural with -ov-", "explain": "**imeti** + the object: tri sinove (trije sinovi is the subject form)." },
+            { "accept": ["očetom"], "hint": "z + the instrumental" },
+            { "accept": ["drevesom"], "hint": "pod + the instrumental; drevo grows" },
+            { "accept": ["materi"], "hint": "k + the dative; mati grows" }
+          ],
+          "bank": true, "distractors": ["pesom", "Francu", "drevom"],
+          "translation": "In the evening the whole village is by the fire. Old Janez sits on the bench with his dog Muri, little Tine snuggles up to France. Janez tells of an old shepherd. The shepherd had three sons. The youngest went into the forest with his father every day. One day, under an old tree, he saw a white sheep. He didn't know whose it was, so he ran to his mother."
+        }
+      ]
+    },
+    {
+      "id": "sklanjatev-posebnosti-3",
+      "title": { "sl": "Ljudje in otroci", "en": "People and children", "de": "Leute und Kinder", "it": "La gente e i bambini" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "sklanjatev-posebnosti", "instruction": "V množino · Into the plural (three or more)",
+          "items": [
+            { "from": "Na vrtu se igra otrok.", "accept": ["Na vrtu se igrajo otroci."], "hint": "otrok: k → c", "lemma": "otrok", "form": "nom.pl" },
+            { "from": "Na trgu stoji človek.", "accept": ["Na trgu stojijo ljudje.", "Na trgu stoje ljudje."], "hint": "človek → a word of its own", "lemma": "človek", "form": "nom.pl" },
+            { "from": "Mojca govori z otrokom.", "accept": ["Mojca govori z otroki."], "hint": "z + -i", "lemma": "otrok", "form": "ins.pl" },
+            { "from": "Vida pomaga človeku.", "accept": ["Vida pomaga ljudem."], "hint": "komu? the plural of človek", "lemma": "človek", "form": "dat.pl" },
+            { "from": "Pes laja na dvorišču.", "accept": ["Psi lajajo na dvorišču."], "hint": "the e drops", "lemma": "pes", "form": "nom.pl" },
+            { "from": "Za hišo raste drevo.", "accept": ["Za hišo rastejo drevesa."], "hint": "drevo grows", "lemma": "drevo", "form": "nom.pl" },
+            { "from": "Zala se igra s teletom.", "accept": ["Zala se igra s teleti."], "hint": "s + -i; tele grows", "lemma": "tele", "form": "ins.pl" }
+          ],
+          "explain": "**the plural keeps the growth**\n- otroci, z otroki · ljudje, ljudem · psi · drevesa · s teleti"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "sklanjatev-posebnosti", "instruction": "Dopolni · Fill in", "prompt": "rodilnik · the genitive (koga? česa?)",
+        "columns": ["rodilnik · koga? česa?"],
+        "rows": [
+          { "label": "France", "cells": [{ "accept": ["Franceta"] }] },
+          { "label": "pastir", "cells": [{ "accept": ["pastirja"] }] },
+          { "label": "teden", "cells": [{ "accept": ["tedna"] }] },
+          { "label": "drevo", "cells": [{ "accept": ["drevesa"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "sklanjatev-posebnosti", "instruction": "Dopolni z besedo v oklepaju · Fill in the word in brackets",
+        "text": "Jutri grem k ___ (Tone) po nove žeblje. Ob ___ (ogenj) je bilo včeraj veliko ___ (človek). Micka se je dolgo pogovarjala s ___ (hči).",
+        "gaps": [
+          { "accept": ["Tonetu"] },
+          { "accept": ["ognju"] },
+          { "accept": ["ljudi"] },
+          { "accept": ["hčerjo"] }
+        ],
+        "translation": "Tomorrow I'm going to Tone's for new nails. There were a lot of people by the fire yesterday. Micka talked with her daughter for a long time."
+      },
+      {
+        "type": "transform", "grammar": "sklanjatev-posebnosti", "instruction": "V množino · Into the plural (three or more)",
+        "items": [
+          { "from": "V gostilni sedi človek.", "accept": ["V gostilni sedijo ljudje.", "V gostilni sede ljudje."], "lemma": "človek", "form": "nom.pl" },
+          { "from": "Luka išče psa.", "accept": ["Luka išče pse."], "lemma": "pes", "form": "acc.pl" },
+          { "from": "Mojca piše otroku.", "accept": ["Mojca piše otrokom."], "lemma": "otrok", "form": "dat.pl" }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "sklanjatev-posebnosti", "prompt": "Nejc gre v šolo z ___. (dekle, three or more)", "options": ["dekleti", "deklami", "dekle"], "answer": 0, "say_options": true,
+        "explain": "**dekle** grows **-t-** and is neuter → with them: **z dekleti** (as z okni)"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: sinove after tri, z dnevom, stojijo/stoje, mati vs mama and hčerka in speech, ob ognju"
+}
