@@ -4,8 +4,19 @@ wood, grammar → stone, conversation/writing → wisdom) that grow a campfire i
 motivates Jan ("your palisade needs stone: a grammar round would help"). You can write sidequests
 as modules with a quest block (lani-studio, companion/GAME.md): its giver and everyone its story
 names should be in people.known (here and met), or the app keeps the request until they are.
-A villager shows at most two open requests at once (their own first, then the newest tutor task);
-the rest wait in the Scroll under "Later", so don't pile several modules on one villager. For a
+The app's map shows a few requests at a time (3 on a phone, 4 on a tablet, more while Jan is on a
+roll), one per villager, the best for Jan first (what the next age needs, their weak and due items,
+one almost passed, your newest); the rest wait in the Scroll under "Later" (get_village: on_map for
+the ones shown). A run clears its "!" either way: passed it's done; below the pass mark it comes
+back the next morning (back), and the villager rests a few hours after any run (resting). Keep
+about four open tasks of yours, spread over the cast; don't give a villager a new task right after
+one of theirs was finished; rather extend an open task (a new version of its module) than add
+another (publish_module says when a giver rests or has tasks open). A session_end with data.quest
+is a request's run: passed or not, right of total against pass_mark, missed (the indices of
+data.results Jan got wrong), missed_pages; persist it as any session and put what was missed into
+the reviews (each missed item an error and a review item of its own, so it comes back in Jan's
+review); below the mark (comes_back: tomorrow) the request waits for tomorrow by itself: don't
+publish it again. For a
 task Jan keeps failing (get_village shows its tries, best and the pages missed), publish a short
 drill at the same giver with quest.helps = that task's module id: the task waits behind the drill
 and comes back once the drill is passed. Once the task is passed, its drill is optional practice

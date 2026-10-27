@@ -98,5 +98,24 @@ export default async function game() {
     open,
   )
   check("get_village says when the task a drill helps is passed already (task_passed: the drill is practice now)", salt?.task_passed === true && pepper?.task_passed === true, open)
+  // the app's window of requests (GAME.md "A window of requests"): the ones the map shows today (on_map), one tried below the
+  // mark coming back the next morning (back), who rests after a run of theirs (resting); what is over is left out
+  const now = Date.now()
+  const pace = {
+    up: [{ id: 'q-task', at: now }, { id: 'q-drill', at: now - 2 * 86_400_000 }],
+    rests: { 'Kovač Tone': { at: now - 600_000, until: now + 3 * 3_600_000, passed: false }, 'Babica Micka': { at: now - 9 * 3_600_000, until: now - 3_600_000 } },
+    back: { 'q-2026-09-30-1': now + 12 * 3_600_000, 'q-task': now - 1000 },
+    roll: 1,
+    rollAt: now - 600_000,
+  }
+  const paced = await put(rev + 8, { age: 'ZASELEK', buildings: [], quests, pace })
+  const v2 = JSON.parse(text(await client.callTool({ name: 'get_village', arguments: {} })))
+  const [t2, d2, l2] = v2.open_quests ?? []
+  check(
+    'get_village says which requests the map shows today (on_map), when one tried below the mark comes back (back), and who rests (resting)',
+    paced.ok && t2?.on_map === true && d2?.on_map === undefined && /^\d{4}-\d\d-\d\d \d\d:\d\d$/.test(l2?.back) && t2?.back === undefined &&
+      Object.keys(v2.resting ?? {}).join() === 'Kovač Tone' && /^\d\d:\d\d$/.test(v2.resting?.['Kovač Tone']),
+    v2,
+  )
   writeFileSync(gamePath, saved)
 }

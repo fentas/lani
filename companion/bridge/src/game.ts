@@ -17,22 +17,85 @@ function names(helps: string, q: any): boolean {
 /**
  * Whether the task [helps] names (a drill's quest.helps) is passed among the village's requests [all]: one it names is done
  * and none is open (the app's QuestQueue.spentFor); [self]: the drill's own request id, never its own task. The app then
- * shows the drill as practice ("📜 Kasneje · Later", no "!", not one of the two up).
+ * shows the drill as practice ("📜 Kasneje · Later", no "!", never up).
  */
 export function taskPassed(helps: string, all: any[], self?: string): boolean {
   const named = (Array.isArray(all) ? all : []).filter(q => q?.id !== self && names(helps, q))
   return named.some(q => q.done === true) && !named.some(q => q.done !== true)
 }
 
+/** A time of the day on this machine's clock (the learner's): "14:30"; with [day], "2026-10-28 05:00". */
+function clock(ms: number, day = false): string {
+  const d = new Date(ms)
+  const hm = `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`
+  return day ? `${localDay(d)} ${hm}` : hm
+}
+
+const localDay = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+
+/**
+ * The app's window of requests as the village keeps it (state.pace, companion/GAME.md "Quests", "A window of requests"): the
+ * requests the map showed today (on_map), who rests after a run of theirs and until when, the requests tried below the pass
+ * mark and when each comes back. An older app's state has none.
+ */
+export function paceOf(state: any, now = Date.now()) {
+  const pace = state?.pace && typeof state.pace === 'object' ? state.pace : {}
+  const today = localDay(new Date(now))
+  const onMap = new Set<string>(
+    (Array.isArray(pace.up) ? pace.up : []).flatMap((u: any) => (typeof u?.id === 'string' && Number.isFinite(u?.at) && localDay(new Date(u.at)) === today ? [u.id] : [])),
+  )
+  const rests = Object.entries(pace.rests && typeof pace.rests === 'object' ? pace.rests : {}).flatMap(([giver, r]: [string, any]) =>
+    Number.isFinite(r?.until) && r.until > now ? [{ giver, at: Number(r.at) || 0, until: Number(r.until), passed: r.passed !== false }] : [],
+  )
+  const back = new Map<string, number>(
+    Object.entries(pace.back && typeof pace.back === 'object' ? pace.back : {}).flatMap(([id, at]) => (Number.isFinite(at) && (at as number) > now ? [[id, at as number]] : [])),
+  )
+  return { onMap, rests, back }
+}
+
+/**
+ * What publish_module tells the tutor of a new request for [giver] (soft guidance, never a refusal; companion/GAME.md
+ * "Quests", "A window of requests"): the villager rests after a run that just ended (this one waits till then), how many
+ * of the tutor's tasks are open at that villager already (one shows at a time: extend one rather than add another), and
+ * when the village holds more than [KEEP_TASKS] of them. [module]: the module published (its own older versions don't count).
+ */
+export function pacingNote(state: any, giver: string, module: string, now = Date.now()): string {
+  const quests: any[] = Array.isArray(state?.quests) ? state.quests : []
+  const open = quests.filter(q => q?.done !== true && q?.source === 'TUTOR' && q?.moduleId !== module)
+  const notes: string[] = []
+  const rest = paceOf(state, now).rests.find(r => r.giver === giver)
+  if (rest) {
+    notes.push(
+      `Note: Jan finished a request of ${giver}'s at ${clock(rest.at)}; ${giver} rests until ${clock(rest.until)} and this one waits in "Later" till then. Next time give a new task to another villager.`,
+    )
+  }
+  const theirs = open.filter(q => q?.giver === giver).length
+  if (theirs > 0) {
+    notes.push(
+      `Note: ${giver} has ${theirs} open task${theirs === 1 ? '' : 's'} of yours; the map shows one of a villager's at a time, the rest wait in "Later". Rather extend an open one (a new version of its module) than add another.`,
+    )
+  }
+  if (open.length >= KEEP_TASKS) {
+    notes.push(`Note: ${open.length} of your tasks are open in the village (keep about ${KEEP_TASKS}); the app's map shows a few at a time, the best for Jan first.`)
+  }
+  return notes.length ? `\n${notes.join('\n')}` : ''
+}
+
+/** About this many open tasks of the tutor's in the village at once: past it publish_module says so (pacingNote). */
+export const KEEP_TASKS = 4
+
 /**
  * An open request as the tutor sees it: its module, how often Jan played it and their best try against its pass mark (60 % of
  * that try's questions, at least 1: the app's Quests.passMark), the grammar pages its wrong answers named (most missed
  * first: what a drill for it would practise), the task it is a drill for (quest.helps), and whether that task is passed
- * already (task_passed: the drill is optional practice now, under "Later" without a "!"). [all]: the village's requests.
+ * already (task_passed: the drill is optional practice now, under "Later" without a "!"). [all]: the village's requests;
+ * [pace]: the app's window ([paceOf]): on_map when the map shows it today, back when it was tried below the pass mark (it
+ * comes back then, the next morning).
  */
-function openQuest(q: any, all: any[] = []) {
+function openQuest(q: any, all: any[] = [], pace?: ReturnType<typeof paceOf>) {
   const count = (v: unknown) => (Number.isInteger(v) && (v as number) > 0 ? (v as number) : 0)
   const bestOf = count(q.bestOf)
+  const back = typeof q.id === 'string' ? pace?.back.get(q.id) : undefined
   return {
     giver: q.giver,
     title: q.title,
@@ -45,6 +108,8 @@ function openQuest(q: any, all: any[] = []) {
     missed: Array.isArray(q.missed) && q.missed.some((p: unknown) => typeof p === 'string') ? q.missed.filter((p: unknown) => typeof p === 'string') : undefined,
     helps: typeof q.helps === 'string' ? q.helps : undefined,
     task_passed: (typeof q.helps === 'string' && q.source === 'TUTOR' && taskPassed(q.helps, all, q.id)) || undefined,
+    on_map: (typeof q.id === 'string' && pace?.onMap.has(q.id)) || undefined,
+    back: back !== undefined ? clock(back, true) : undefined,
   }
 }
 
@@ -203,6 +268,7 @@ export class GameStore {
     const named = (id: string) => nameOf(id) ?? (s.residents ?? []).find((r: any) => r?.id === id)?.name ?? id
     const people = known ? { known: [...known].map(named), to_meet: living.filter(id => !known.has(id)).map(named) } : undefined
     const looked = lookedUp?.(s.sheet) ?? []
+    const pace = paceOf(s)
     return JSON.stringify(
       {
         age: s.age,
@@ -219,8 +285,11 @@ export class GameStore {
         buildings: count,
         damaged: (s.buildings ?? []).filter((b: any) => b.damaged).map((b: any) => b.type),
         event: s.event,
-        // while wolves, a bear or a storm are about (event) the app folds the requests up away until it's over (GAME.md "People react")
-        open_quests: (s.quests ?? []).filter((q: any) => !q.done).map((q: any) => openQuest(q, s.quests ?? [])),
+        // while wolves, a bear or a storm are about (event) the app folds the requests up away until it's over (GAME.md "People react");
+        // the map shows a few at a time (on_map), one tried below the mark comes back the next morning (back)
+        open_quests: (s.quests ?? []).filter((q: any) => !q.done).map((q: any) => openQuest(q, s.quests ?? [], pace)),
+        // who rests after a run of theirs, until when: their requests wait in "Later" meanwhile (GAME.md "A window of requests")
+        resting: pace.rests.length ? Object.fromEntries(pace.rests.map(r => [r.giver, clock(r.until)])) : undefined,
         // 🤝 earned by helping people (requests, talks, scenes, family), spent on a moba (companion/GAME.md)
         help: s.help ?? 0,
         friends,

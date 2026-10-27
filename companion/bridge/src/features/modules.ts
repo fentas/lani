@@ -1,7 +1,7 @@
 // Practice modules (lani.module/v0): published by the tutor, served to the app.
 import { badNote, fail, noteIn, ok } from '../tool'
 import type { FeatureFactory } from '../feature'
-import { taskPassed } from '../game'
+import { pacingNote, taskPassed } from '../game'
 import { json } from '../http'
 import { validateModule } from '../spec'
 import { corpus } from '../voice'
@@ -66,7 +66,10 @@ export const modules: FeatureFactory = ({ modules: store, events, voice, grammar
               : taskPassed(q.helps, quests, `tutor-${v.spec.id}-v${version}`)
                 ? `\nNote: the learner passed "${q.helps}" already: the app shows this drill as optional practice (under "Later", no "!"), not before the task`
                 : ''
-        return ok(`published ${v.spec.id} v${version} (${v.spec.exercises.length} exercises)${note_}${helps}`)
+        // the app's map shows a few requests at a time and a villager just helped rests (GAME.md "A window of requests"): said
+        // back as soft guidance, never refused
+        const pacing = q ? pacingNote(game.read()?.state, q.giver, v.spec.id) : ''
+        return ok(`published ${v.spec.id} v${version} (${v.spec.exercises.length} exercises)${note_}${helps}${pacing}`)
       },
     },
     {

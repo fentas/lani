@@ -147,6 +147,21 @@ export default async function modules() {
   writeFileSync(gamePath, JSON.stringify({ rev: 1, state: { quests: [{ ...kitchen, done: false }] } }))
   const open = await client.callTool({ name: 'publish_module', arguments: { spec: { ...spec, id: 'micka-pans', quest: { ...micka, helps: 'micka-kitchen' } } } })
   check('… and without it while the task is open', !open.isError && !text(open).includes('already'), open)
+  // soft pacing, never a refusal (GAME.md "A window of requests"): a villager just helped rests, has a task of the tutor's
+  // open already (one shows at a time), and the village holds four of them
+  const t = Date.now()
+  const tasks = ['a', 'b', 'c'].map(x => ({ id: `tutor-t-${x}-v1`, giver: 'Kovač Tone', moduleId: `t-${x}`, source: 'TUTOR' }))
+  writeFileSync(gamePath, JSON.stringify({ rev: 1, state: { quests: [{ ...kitchen, done: false }, ...tasks], pace: { rests: { 'Babica Micka': { at: t - 600_000, until: t + 7_200_000, passed: true } } } } }))
+  const paced = await client.callTool({ name: 'publish_module', arguments: { spec: { ...spec, id: 'micka-spoons', quest: micka } } })
+  check(
+    'publish_module says a villager just helped rests, has a task open already, and the village holds four: published all the same',
+    !paced.isError && text(paced).includes('published micka-spoons') && text(paced).includes('Babica Micka rests until') &&
+      text(paced).includes('has 1 open task of yours;') && text(paced).includes('4 of your tasks are open'),
+    paced,
+  )
+  writeFileSync(gamePath, JSON.stringify({ rev: 1, state: { quests: [], pace: { rests: { 'Babica Micka': { at: t - 9 * 3_600_000, until: t - 3_600_000 } } } } }))
+  const calm = await client.callTool({ name: 'publish_module', arguments: { spec: { ...spec, id: 'micka-forks', quest: micka } } })
+  check('… and nothing of it in a calm village (her rest over)', !calm.isError && !text(calm).includes('Note:'), calm)
   if (savedGame === undefined) rmSync(gamePath, { force: true })
   else writeFileSync(gamePath, savedGame)
 

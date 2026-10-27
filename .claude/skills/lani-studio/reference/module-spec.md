@@ -251,7 +251,7 @@ With a `quest` block, the module appears in the game *Moja vas* as a villager's 
 { "giver": "Kovač Tone", "emoji": "⚒️", "story": "Tone gre na tržnico, v Gorico in zvečer v gostilno. Povej mu, kam gre. · Tone is going to the market, to Gorizia and to the inn. Tell him where he's going.", "skill": "stone", "reward": { "stone": 70, "wisdom": 10 }, "helps": "predlogi-kraja" }
 ```
 
-A villager shows at most two open requests at once: their own first, then the tutor's newest; the rest wait in the app's Scroll under "Kasneje · Later". Spread quests over the cast rather than piling them on one villager.
+The app's map shows a few requests at a time, one per villager, the best for the learner first; the rest wait in the app's Scroll under "Kasneje · Later", and a villager rests a few hours after a run of theirs. Keep about four open tasks, spread over the cast rather than piled on one villager, and rather extend an open task (a new version of its module) than add another.
 
 ## Word packs (`lani.pack/v0`)
 

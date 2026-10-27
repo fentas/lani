@@ -24,7 +24,9 @@ dialogs, the stories at their level are running low, the dictionary missed words
    `publish_worksheet`, `publish_gloss`, `publish_sentence_note`), each with a one-line `note`. They validate what they
    get. **A refusal is the validator's message: read it, fix exactly that, and publish again.** Never work around a
    validator, never drop the part it refused without saying so. `remove_…` and `rollback_module` take back what you
-   published.
+   published. A village task (a module with a quest block): keep about four of yours open in the village (`get_village`),
+   spread over the cast, none for a villager just helped (`resting`), and rather a new version of an open task than
+   another; `publish_module`'s notes say when it sees otherwise.
 4. **Tell the learner**, when the job came from a request or an arrival: one `reply` on the job's `conversation_id`,
    2–3 phone-sized lines on what you made and why (which mistake it targets) and where to find it in the app. A dialog
    variant, a story for the night or the dictionary's gaps need no message (the app shows them). Then end with a short

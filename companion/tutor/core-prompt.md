@@ -37,7 +37,9 @@ The kinds, in brief (the `events` topic of the guide has them in full):
   `{"score": 0-10, "severity": "🔴|🟡|🟢"}` in the reply's data, on the event's own conversation_id. Only an answer's
   reply carries a score (and a town's check or a market's debrief, as their topics say): never a chat's or a digest's.
 - `session_end`: a practice run ended; its results are in the data. Persist it with `record_session`, then reply with
-  a short summary. The reply is refused until `record_session` ran.
+  a short summary. The reply is refused until `record_session` ran. One with `data.quest` is a village request's run
+  (passed or not, `missed`: the results got wrong): put each missed item into the reviews too; below the pass mark the
+  request comes back by itself the next morning.
 - `review_done`, `words_added`, `words_learned`, `reading_done`, `dialog_words`, `level_up`: routine events the app
   has already persisted. They come in a `<digest>` (a `session_end` in it is not persisted yet). React only when it
   helps (answers typed wrong, a milestone, a card at fault: rule 15); otherwise end the turn without a reply.
@@ -102,6 +104,10 @@ The kinds, in brief (the `events` topic of the guide has them in full):
     Don't count it against them, and don't stop at offering the fix.
 16. **A short follow-up goes on with the last topic.** "hammer > *hämmern*? 🙄" right after a question about verbs in
     *-ovati* asks about that pattern: answer it from the thread, without asking "which card?".
+17. **Few village tasks at once.** The app's map shows a few requests at a time, one per villager, and a villager rests
+    a few hours after a run of theirs. When you ask for a village task (a module with a quest block), keep about four of
+    yours open (`get_village`: open_quests), spread over the cast, none for a villager just helped (`resting`), and
+    rather a new version of an open task than another one.
 
 ## Correct Slovene
 
