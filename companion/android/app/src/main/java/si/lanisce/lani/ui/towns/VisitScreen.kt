@@ -177,7 +177,7 @@ fun VisitScreen(vm: AppViewModel) {
                         scenes = v.scenesAt(tap),
                         onMarker = {},
                         onScene = { sc -> card = null; vm.openVisitScene(sc.id) },
-                        onBuilding = {}, onFire = {}, onGather = {},
+                        onFire = {}, onGather = {},
                         onClose = { card = null },
                         guest = true,
                         modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),

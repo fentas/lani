@@ -22,6 +22,7 @@ import si.lanisce.lani.game.BuildingType.SMITHY
 import si.lanisce.lani.game.BuildingType.TENT
 import si.lanisce.lani.game.BuildingType.WATCHTOWER
 import si.lanisce.lani.game.BuildingType.WELL
+import si.lanisce.lani.game.BuildingType
 import si.lanisce.lani.game.culture.Culture
 import si.lanisce.lani.game.culture.Cultures
 import si.lanisce.lani.game.villagers.Resident
@@ -115,6 +116,43 @@ class RebuildTest {
         val poor = walled.copy(resources = emptyMap())
         assertTrue(Rebuild.growOption(poor, "t2")!!.reason!!.contains("🪵"))
         assertSame(poor, Rebuild.grow(poor, "t2", 1L))
+    }
+
+    @Test fun `a hut rebuilt as a house says so, and keeps who lives in the village`() {
+        val s = Rebuild.grow(walled, "h2", 5L)
+        assertEquals("Prezidano: Koča → Hiša · Rebuilt: Hut → House", s.log.last().text)
+        assertEquals(walled.villagers, s.villagers)
+        assertEquals(walled.residents, s.residents)
+        assertTrue(GameEngine.attributes(s).populationCap > GameEngine.attributes(walled).populationCap)
+    }
+
+    // --- taking down --------------------------------------------------------------------------------------------------
+
+    @Test fun `taking a building down frees its plot, gives half its materials back, and never leaves anyone without a bed`() {
+        val s = walled.copy(resources = mapOf(Res.FOOD to 10))
+        assertEquals(mapOf(Res.FOOD to 15, Res.WOOD to 10), Rebuild.salvage(s.buildings.single { it.id == "f1" }))
+        val down = Rebuild.takeDown(s, "f1", 3L, cast)
+        assertNull(down.buildings.firstOrNull { it.id == "f1" })
+        assertEquals(listOf(3), Placement.freePlots(down))
+        assertEquals(25, down.res(Res.FOOD))
+        assertEquals(10, down.res(Res.WOOD))
+        assertEquals("🔨", down.log.last().emoji)
+        assertEquals("Podrto: Njiva · Taken down: Field", down.log.last().text)
+        // what may not be replaced may not be taken down either: the village's own buildings, one the next age needs
+        assertSame(s, Rebuild.takeDown(s, "church", 3L, cast))
+        assertSame(s, Rebuild.takeDown(s, "k1", 3L, cast))
+        // every bed taken: a hut can't come down until there is room for its people
+        val full = s.copy(villagers = GameEngine.attributes(s).populationCap)
+        assertEquals(GameEngine.attributes(full).populationCap - 3 to full.villagers, Rebuild.bedsShort(full, full.buildings.single { it.id == "h2" }))
+        assertFalse(Rebuild.canTakeDown(full, "h2", cast))
+        assertSame(full, Rebuild.takeDown(full, "h2", 3L, cast))
+        // nor be replaced by fewer beds, though by a house it can
+        val rich = full.copy(resources = plenty())
+        assertFalse(Rebuild.replaceOptions(rich, "h2", cast).single { it.type == BuildingType.SMITHY }.available)
+        assertTrue(Rebuild.replaceOptions(rich, "h2", cast).single { it.type == HOUSE }.available)
+        assertSame(rich, Rebuild.replace(rich, "h2", BuildingType.SMITHY, 3L, cast = cast))
+        // a field has no beds: it comes down whatever
+        assertTrue(Rebuild.canTakeDown(full, "f2", cast))
     }
 
     // --- replacing ----------------------------------------------------------------------------------------------------

@@ -234,14 +234,19 @@ own way on. The last free plots of an age are kept for what the next age needs (
 besides them there are two ways, and a building held back only by the plots shows its way on its card in "🔨 Gradi ·
 Build" (`BuildOption.plotWay`), one tap:
 
-- **Growing up** ("🛖 Preraste v kočo · Grow into a hut"): a tent grows into a hut (from Tabor), a hut into a house (from
-  Zaselek), on its own plot. Its level stays (a level reached stays). It costs what the bigger building costs more, built
+- **Growing up** ("🛖 Postane: Koča · Becomes: Hut" for a tent; "🏠 Prezidaj v: Hiša · Rebuild as: House" for a hut, Jan:
+  "Teo built 3 huts ;D — is there later a way … to upgrade to houses?"): a tent grows into a hut (from Tabor), a hut into
+  a house (from Zaselek), on its own plot. Its level stays (a level reached stays). It costs what the bigger building costs more, built
   and upgraded to that level: (hut − tent) × 1, 3, 6, 11, 18 for levels 1 to 5, so a tent at level 1 grows for 5 🌾 25 🪵
   10 🪨 and a hut at level 3 into a house for 180 🌾 180 🪵 240 🪨. Like building new it asks for no words; its next upgrade
-  asks for the new building's (which include the levels before). It is a new building of its kind (its own id, built that
-  day: a house that grew gets the room of whoever moved in next, as a new house does). The chronicle: "🛖 Preraslo: Šotor →
-  Koča · Grew up: Tent → Hut". Not the tent at the pond, nor the village's first tent while none stands there (the
-  shepherd moves it, "The tent moves to the pond", and "V šotoru" is in it).
+  asks for the new building's (which include the levels before). Nothing is lost: the level, the beds (more of them), the
+  people, the words learned; a hut's kitchen goes on in the house (the kitchen is a house's room too, "Houses and their
+  rooms" in SCENES.md). For a child it is one button on the hut's card, "🏠 Prezidaj · Rebuild", for the house's price less
+  the hut's: 30 🌾 30 🪵 40 🪨 at level 1. It is a new building of its kind (its own id, built that day: a house that grew
+  gets the room of whoever moved in next, as a new house does). The chronicle: "🛖 Preraslo: Šotor → Koča · Grew up: Tent
+  → Hut", "🏠 Prezidano: Koča → Hiša · Rebuilt: Hut → House". Not the tent at the pond (it stays a tent there for good),
+  nor the village's first tent while none stands there (the shepherd moves it, "The tent moves to the pond", and "V
+  šotoru" is in it).
 - **Replacing** ("🔁 Nadomesti · Replace"): a building comes down and another goes up on its plot, paid as a new building
   (with a moba if the learner calls one); nothing comes back for the old one. Who lives in the village stays: the people
   are the village's, not a building's (a house's room goes to the next house, "Houses and their rooms" in SCENES.md).
@@ -250,22 +255,41 @@ Build" (`BuildOption.plotWay`), one tap:
   house, house), and not one the next age needs (its kind counts for the next age and no more of it stand than it needs),
   not the village's first tent while none stands at the pond, nor the last workplace of someone who lives here (the
   beekeeper's last bee house). The village's own buildings, one of a kind (the linden, the church, the school, the market,
-  the watchtower, the smithy, the palisade), stay: every age after the one that opens them needs them. The chronicle: "🔁
-  Nadomeščeno: Šotor → Hiša · Replaced: Tent → House".
+  the watchtower, the smithy, the palisade), stay: every age after the one that opens them needs them. Nobody is left
+  without a bed: a dwelling is replaced only by enough beds for everyone who lives here ("🛏️ Postelj bi bilo 10 za 12
+  ljudi: najprej naredi prostor zanje · There would be 10 beds for 12 people: make room for them first"). The chronicle:
+  "🔁 Nadomeščeno: Šotor → Hiša · Replaced: Tent → House".
+- **Taking down** ("🔨 Podri · Take down"): what may be replaced may be taken down, its plot left free. The card asks first
+  and says what that means: "🔨 Podreš: Koča? · Take down: Hut?", "Stavba in njena stopnja 2 izgineta · The building and its
+  level 2 are gone", "↩️ Nazaj dobiš · You get back: 15 🌾, 20 🪵, 5 🪨" (half the materials of building it, as far as the
+  stores hold them), "🛏️ Vsi prebivalci ostanejo v vasi: postelj bo 9 za 8 · Everyone who lives here stays in the village:
+  9 beds for 8"; with too few beds left it says so and can't be confirmed. "Pusti · Keep it" closes it. The chronicle: "🔨
+  Podrto: Koča · Taken down: Hut".
+
+Replacing and taking down are folded on the card ("▸ 🔁 Nadomesti ali podri · Replace or take down"): they can't be undone.
+"🔁 Nadomesti" opens the build sheet for that plot ("🔁 Nadomesti: Šotor ⛺ · Replace: Tent", "Kaj zgradiš na tem mestu?
+Stara stavba se podre, vsi prebivalci ostanejo v vasi."), only what could go up there; a card opens the plot chooser with
+the new building drawn in the old one's place, "Namesto: Šotor ⛺ · Instead of: Tent", and "✓ Nadomesti · Replace" there
+(nothing happens before; "←" goes back to the sheet).
 
 The way a building held back by the plots takes (`Rebuild.plotWay`): a hut wanted, a tent grows; a house wanted, a hut
 grows (the lowest level first: the cheapest); else the building that may be replaced and is cheapest to lose (a kind the
 village has several of first, then its price and upgrades, half when damaged).
+
+Teo's village is a named case (`BuildOrdersTest`, "Teo's camp of three huts reaches the town"): Friuli, a camp whose five
+plots hold the first tent, three huts and a field, played on at random 200 times, reaches the town every time, and in the
+hamlet each hut is rebuilt as a house for 30 🌾 30 🪵 40 🪨.
 
 `BuildOrdersTest` proves it: random build orders in every culture (Primorska, Friuli, Kärnten, Lakeland), 250 per culture
 for each of two players (one building at random among what it can, stopping now and then; one filling every plot with
 what the next age doesn't need first, as Teo did), from the campfire to the town, each age's plots filled as the order
 goes, upgrades and moves among them, and the next age's buildings then reached only the ways the app offers (what can be
 built; a bed made for whom a workplace brings; the way through the plots). Every bed is taken and the stores are full
-(the plots are the question, not the pacing). With the rules before (nothing grows, nothing is replaced), 755 of the 2,000
-orders walled themselves in, every one in the market town on its way to Mesto (76–118 per culture and player); with
-them, none of the 2,000 did (on the way about 2,500 dwellings grew and 3,400 buildings were replaced, the players' own
-choices among them).
+(the plots are the question, not the pacing). With the rules before (nothing grows, nothing is replaced), 760 of the 2,000
+orders walled themselves in, every one in the market town on its way to Mesto (71–123 per culture and player); with
+them, none of the 2,000 did (on the way about 2,700 dwellings grew and 2,800 buildings were replaced, the players' own
+choices among them, and some taken down). The tent at the pond (moved there in about 1,930 of the orders) was still a
+tent there at the end of every one.
 
 The palisade takes no plot (nor does the tent once it has moved to the pond: see "The tent moves to the pond"): it goes up round the clearing, a ring of stakes just inside the forest's edge that grows with the clearing from age to age. It opens in a gate where the road leaves the clearing (to the left too from Zaselek, across the stream: see "The crossing") and where the path goes down into the woods, a lintel over the posts where they stand level. The stream runs along the clearing's upper left rim, and where the ring runs along it, it keeps to the stream's far bank all the way, the stream inside it (the road's left gate stands on that bank): it never switches banks between two gates, and it crosses the water only where the stream comes in and where it goes out, in a water gate each time, closed by a row of shorter stakes standing in the water with gaps for the current. Every gap in the ring is a gate. A footpath of stepping stones goes down to a landing at the water on the village's bank, inside the ring (the way to Ob potoku, see [SCENES.md](SCENES.md)); a ring that runs by the stream on the village's side instead (the campfire's small clearing, with the stream outside it) opens there in a small river gate, a postern, for the footpath. From level 2 torches burn at the road and path gates. A tap anywhere on it opens it. A village from before gives the palisade's plot back on its next tick.
 
@@ -274,6 +298,20 @@ The palisade takes no plot (nor does the tent once it has moved to the pond: see
 **The layout.** The plots stand in rows along the road, 5.5 cells apart in a row and 7 from row to row, every other row shifted along, each plot a little off the line; plot 0 is the nearest the fire, and an age's plots are the first ones (`VillageLayout`). The rows lie that far apart so that a building in front doesn't hide the one behind it: wherever two plots stand one in front of the other, a house, a hayrack, a smithy, a school, a hut or the church on the front one hides less than half of a beehive, a tent, a well, a market stall or a hut behind it. No plot stands in the stream, on its banks or where people sit by the water. The clearing (and the palisade round it) is the outermost plot of the age plus a margin. The village screen shows the whole village of the current age at first, and zooming in brings its details closer: on a 1080 px wide phone the canvas is 360 px across at 3 screen pixels a pixel (`SceneFit.town`, 320 px at least), zooming in to 15 (`CameraRig.town`); the Home header's strip shows the whole village too. A saved village keeps its buildings' plots (a lone kozolec aside, see below); only where each plot lies on the map changed.
 
 **Beside what it belongs with** (`Placement`: the plot the game suggests, the ★ of the plot chooser below). A field, a hut, a house and a bee house go beside one of their own kind first (`Placement.KIN`: the fields make one big field, the huts and the houses a street, the bee houses a row). Buildings that a scene shows together stand together on the map: the kozolec by a field and a field by a kozolec (the field's scene has the hayrack in the field; a field goes beside another field before it goes beside a kozolec), and the linden, the well, the church and the market by each other (the village square). The suggestion is the free plot of the age nearest such a building, if that plot is its neighbour (plot centres at most 8.5 cells apart: the next plot in a row, the nearest ones in the rows in front, behind and across the road). Otherwise, and for every other building, it is the next free plot, as before (so the first of the square's buildings goes nearest the fire). An older village moves its kozolec once: a kozolec farther than a neighbour from every field goes to the free plot beside a field nearest it, on the next tick, or when the next age brings a free plot there. Only its plot changes, and no other building moves (`GameState.migrated`). Once the learner has chosen a plot themselves (built where they chose, or moved a building), that move counts as done: the game never moves a building on its own after that.
+
+**The build sheet** ("🔨 Gradi · Build", `BuildSheet`; Jan, 2026-10-27): only what can be built now or has a way on, each
+card its name in both languages, how many stand, what it gives in one line and its price (red where the stores are short),
+"🎯 Potrebno za Vas · Needed for Village" on what the next age needs, and when it can't go up yet, why and its way on, one
+tap: "🌾 Naberi še 12 🌾 · Gather 12 more 🌾 ›" (what it lacks most: a gathering run), a bed for whom it brings ("🏠 Postavi
+hišo · Build a house ›"), or with every plot built, its way through the plots ("⬆️ Prezidaj: Koča → Hiša ›", "🔁
+Namesto: Šotor ⛺ ›"; see "When every plot is built"). What the age doesn't have yet is one quiet line at the end, "🔒
+Pozneje (Zaselek): čebelnjak, stražni stolp, kovačnica … 🛖 · Later (Hamlet): bee house, watchtower, smithy … 🛖", not a
+greyed card each, and what stands at its most is gone (the palisade and the linden "Že stoji · Already built" were cards).
+The last plots kept for the next age are one quiet line too ("🅿️ Prostor ostane za: Cerkev, Lipa (Vas)"), with every
+plot built one orange line ("🧱 Vse parcele so zazidane: šotor lahko preraste v kočo, stavbo lahko nadomestiš"). The
+moba's switch shows only when a card could use one; the next age's row is the ring's now. The cards flow two across on a
+phone and three on a tablet. Then the plot chooser below; when a building goes up the camera turns to it, it rises (the
+construction animation), the chronicle's line slides in at the top and a burst of confetti goes off.
 
 **The learner chooses the plot** (`PlotChoice`, `ui/game/PlotChooser.kt`). The rows of plots stay (their spacing keeps the buildings from hiding each other); the choice is which free plot of the age.
 
@@ -422,6 +460,40 @@ The building's card opens from the village (a tap on it) and from inside its sce
 the scene is in ("🛖 3", ⬆️ when the upgrade can be done now), and upgraded from there the room redraws at its new level
 ([SCENES.md](SCENES.md), "What the village has built").
 
+### The building's card
+
+One card (`ui/game/BuildingCard.kt`; Jan, 2026-10-27, while Teo played: "the tent overview is a bit overloaded"). Before it
+was two layers: a place card over the map (going in, who's here, "🔨 Stavba · Building ›") and over it the building's sheet
+of eleven blocks (its build date, "✅ V dobrem stanju", what it gives twice, three full-width buttons, two of them grey and
+disabled, the words' count jumping from 2 to 14 as the packs came). Now a tap on a building opens one card over the map, the
+building kept in view above it (at most 600 dp wide, scrolling within itself on a small screen), the next step first:
+
+1. Its name, "Stopnja · Level 2 · +2 👥" (what it gives now, once), ✕; "⚠️ Poškodovano · Damaged" when it is.
+2. "🚪 Vstopi · Go in: ⛺ V šotoru ›" for each scene it opens (none where the culture has no scene for it, Friuli's tent:
+   nothing takes its place), the school's course ("📚 Šola"), "🏠 Živijo tu · Living here: Vida, Nejc" (a house's
+   household), and who is here now ("Zdaj tukaj · Here now", at most two rows, then the requests as chips).
+3. The next level: "⬆️ Za stopnjo 3 · For level 3: +4 👥", what it needs as chips (the price, red where short; the words
+   "🔤 0 / 14"; the school's course "📚 A2"), and ONE button for the next step (`UpgradeStep`), in the order the upgrade
+   waits for them: "🔒 Najprej: Zaselek · First: Hamlet 🛖 ›" while the age hasn't come (the ages' sheet), "🎯 Nauči se 8 besed ·
+   Learn 8 words" while words are missing (their run, as many as one run takes: at most 8 new and 12 to review), "📚 še 2
+   enoti ravni A2 ›" for the school's course, "🌾 Naberi še 30 🌾 · Gather 30 more 🌾" (what the price lacks most), then
+   "⬆️ Nadgradi · Upgrade". Until the words' packs are on the phone the chip and the button say "🔤 …" (fetched as the card
+   opens), so nothing jumps. Folded: "▸ Katere besede · Which words  svetilka, spalna vreča … +12" (where they are from,
+   the missing ones as chips, the rust line) and "▸ 🤝 Moba: sosedje pomagajo  −22 🪵 · 3 🤝" (what the neighbours
+   bring and "🤝 Nadgradi z mobo · Upgrade with a moba", which waits for the words too). At the top level "⭐ Najvišja
+   stopnja · Top level"; damaged, "⚠️ Ne daje ničesar, dokler je ne popraviš · Gives no effect until repaired".
+4. A tent or a hut that can grow up: "🛖 Postane: Koča · Becomes: Hut" or "🏠 Prezidaj v: Hiša · Rebuild as: House", its
+   level kept, what it gives then and its price, "Naj zraste · Let it grow" / "Prezidaj · Rebuild" (see "When every plot
+   is built").
+5. At its foot: the repair when it is damaged (its price, "🛠️ Popravi · Repair", "🤝 Popravi z mobo"), "↔ Premakni
+   (brezplačno) · Move (free)", and folded, "▸ 🔁 Nadomesti ali podri · Replace or take down" for a building that may be
+   (both can't be undone, so they are a tap further, and taking down asks first).
+
+From inside its scene the card is the same, over the scene, without going in, moving, replacing or growing (they would
+change the scene the learner stands in). Gone: the build date, "✅ V dobrem stanju", the disabled buttons, the hard-coded
+"pride po …" line, the second "what it gives". A tap count: from the map to a tent's upgrade (its words missing) 2 taps
+before (the tent, "Stavba"), 1 now; to the ages' sheet from there, one more.
+
 ### Znanje gradi · Knowledge builds
 
 An upgrade asks for the building's words besides the resources (`game/BuildingWords.kt`): the words of what is in it. Jan
@@ -446,12 +518,12 @@ word among the building's words holds the upgrade back until it's polished, howe
 level asks for the words before it and 6 to 8 more, one run. A new word takes about half a minute (met, then asked twice),
 a rusty or half-learned one about ten seconds; eight new words are about four minutes.
 
-**On the building's card**, under the upgrade's price and its moba (`UpgradeWordsCard`): "🧱 Za stopnjo 2: besede · For
-level 2: words 5 / 8" with a bar, where the words are from ("🍳 V kuhinji · In the kitchen", or the pack), the missing
-words as chips (🔩 on a rusty one; eight shown, then "+n"), a line when rust holds it back ("🔩 Od stopnje 3 naprej nobena
-ne sme biti zarjavela · From level 3 on, none of them may be rusty"), and "🎯 Vadi jih zdaj · Practise them now". Known:
-"✅ … 8 / 8". The upgrade's buttons wait for the words, the moba's too: the neighbours bring timber and stone, never the
-words. The resources part is as before, with its own ways on.
+**On the building's card** (see "The building's card"): the words are a chip of the next level's needs, "🔤 5 / 8" ("…"
+while their packs come; "✓" when known), and while some are missing the card's one button is "🎯 Nauči se 3 besede · Learn
+3 words", their run. Folded under it, "▸ Katere besede · Which words": where they are from ("🍳 V kuhinji · In the
+kitchen", or the pack), the missing words as chips (🔩 on a rusty one; eight shown, then "+n"), and a line when rust holds
+it back ("🔩 Od stopnje 3 naprej nobena ne sme biti zarjavela · From level 3 on, none of them may be rusty"). The upgrade
+waits for the words, the moba's too: the neighbours bring timber and stone, never the words.
 
 **"🎯 Vadi jih zdaj"** (`UpgradeWordsScreen`) is a short run of exactly the missing words: the rusty ones first (every one
 of them from level 3), then those met but never answered right, then new ones, in the building's order, as many as are
@@ -1003,7 +1075,7 @@ A villager can have more requests than Jan can take in: their own, and the tutor
   | Kje bo ognjišče? · Where will the fire ring be? | pred šotorom, za šotorom, v šotoru, med drevesi | pred + orodnik; za šotorom is where the firewood goes |
 
   The options show their place with a picture where one shows it (all of a question's options or none, so a picture never gives the answer away); a 🔊 says only the words. Each question names the grammar book's page of its rule (`grammar` in `quests.json`: `kje-mestnik-orodnik` for ob ribniku, `orodnik` for pod veliko smreko and pred šotorom, `rodilnik-predlogi` for blizu pomola), so the first answer unlocks it, and the intro and every "why" lead there (see "The grammar book").
-- **Passed**, the tent (the first on a plot, the one the places and V šotoru call the tent) leaves its plot for the pond: its plot is `NO_PLOT`, like the palisade's, and free for a building. The chronicle: "⛺ Luka je šotor prestavil k ribniku, pod veliko smreko. · Luka moved the tent to the pond, under the big spruce." It stays a tent for every rule: Tabor's "a tent", the population cap, the limit of four, upgrades, repairs and damage, the tent's place and its scene. A village with more tents keeps the others where they are. The palisade's migration (a building of a type that takes no plot gives its plot back) leaves it at the pond.
+- **Passed**, the tent (the first on a plot, the one the places and V šotoru call the tent) leaves its plot for the pond: its plot is `NO_PLOT`, like the palisade's, and free for a building. The chronicle: "⛺ Luka je šotor prestavil k ribniku, pod veliko smreko. · Luka moved the tent to the pond, under the big spruce." It stays a tent for every rule: Tabor's "a tent", the population cap, the limit of four, upgrades, repairs and damage, the tent's place and its scene. It stays a tent there for good (Jan, 2026-10-27: "we should keep the first tent move to pond"): it never grows into a hut, and it can't be replaced or taken down (it stands on no plot); only tents on plots grow up, and the first tent on a plot stays one until the shepherd has moved it ("When every plot is built"; `BuildOrdersTest` checks that the tent at the pond survives every build order). A village with more tents keeps the others where they are. The palisade's migration (a building of a type that takes no plot gives its plot back) leaves it at the pond.
 - **On the map** (a phone held upright: the woods below the village, see [SCENES.md](SCENES.md)), it stands as Luka described it, a small campsite on the pond's right bank (`render/Campsite.kt`): the tent under a big spruce, a plank jetty into the pond, a ring of stones in front of its door with a small fire (higher at night, lighting the tent), a stump to sit on, the firewood stacked behind it; the trees there make way. Every part is depth-sorted with the woods, and a tap on any of it is a tap on the tent: its card, "Vstopi · Go in" to V šotoru. The tent's bubbles point at it and who waits at the tent waits by its fire. A canvas without the woods (the Home header's strip) doesn't draw it; there the tent's place is the forest's.
 - **In the friuli village** Pastore Davide asks, in Italian (machine-written like the rest of the pack): "Mettiamo la tenda vicino allo stagno, sotto il grande abete, accanto al pontile. Davanti alla tenda facciamo il fuoco, e dietro la tenda mettiamo la legna." Its questions practise the articulated prepositions (vicino allo stagno, accanto al pontile, davanti alla tenda; sotto il, with no a), and name their pages: `dove-preposizioni`, and `preposizioni-articolate` for accanto al pontile.
 - **In the kaernten village** Hirte Florian asks, in German: "Das Zelt steht dann neben dem Teich, unter der großen Fichte, beim Steg. Vor dem Zelt machen wir das Feuer, und hinter dem Zelt liegt das Holz." Its questions practise the dative after the two-way prepositions when they say where (Wo? neben dem Teich, unter der Fichte, vor dem Zelt; bei dem: beim Steg), and name their pages: `wechselpraepositionen`, and `dativ` for beim Steg.

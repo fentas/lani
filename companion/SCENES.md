@@ -725,7 +725,9 @@ only in a kitchen with a stove.
 **Its card from inside** (`SceneScreen`'s top bar): beside "‹ Vas · Village" the building the scene is seen in, its emoji
 and level ("🛖 3"), with ⬆️ in gold when its next level can be built now and ⚠️ while it is damaged (TalkBack: "Koča ·
 Hut, stopnja 3: kartica in nadgradnja", and that it can be upgraded or is damaged). A tap opens the village's card for it
-(`BuildingSheet`): the repair, the next level's cost and the words it asks for. Upgraded there, the learner stays: the card
+(`BuildingCard`, GAME.md "The building's card"), over the scene: the next level with its one button (its words, the
+price, "⬆️ Nadgradi · Upgrade"), the words and the moba folded, the repair when damaged; not going in, moving, replacing
+or growing up (they would change the scene the learner stands in). Upgraded there, the learner stays: the card
 closes and the room redraws at its new level, with confetti and a banner ("⬆️ 🛖 Koča · Hut · Stopnja 4"), its new things
 to find; back in the village the building goes up as after an upgrade there. "🎯 Vadi jih zdaj · Practise them now" runs
 the words and comes back into the scene with the card open again, the upgrade one tap away, as the village's card comes

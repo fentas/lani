@@ -71,52 +71,34 @@ import kotlin.math.min
 private const val SHOWN = 8
 
 /**
- * "🧱 Za stopnjo 2: besede · For level 2: words  5 / 8" on a building's card (companion/GAME.md, "Upgrades"): how many of
- * the building's words its upgrade asks for are known, where they are from, the ones still missing (🔩 a rusty one), and
- * "🎯 Vadi jih zdaj · Practise them now" ([onPractise]): a short run of exactly those, after which the upgrade is one tap.
+ * Which words building's upgrade still asks for, in the fold "Katere besede · Which words" of its card (companion/GAME.md,
+ * "Upgrades", "The building's card"): where they are from ("🍳 V kuhinji · In the kitchen"), the missing ones as chips (🔩 a
+ * rusty one; [SHOWN], then "+n"), and when rust holds it back, that from level 3 none may be rusty. The card's own button
+ * runs them ("🎯 Nauči se 6 besed").
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun UpgradeWordsCard(w: UpgradeWords, onPractise: () -> Unit) {
-    val done = w.done
-    val color = if (done) AlpineGreen else XpGold
-    Surface(color = color.copy(alpha = 0.14f), shape = MaterialTheme.shapes.medium, modifier = Modifier.fillMaxWidth()) {
-        Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(if (done) "✅" else "🧱", Modifier.width(32.dp), style = MaterialTheme.typography.titleMedium)
-                Text(
-                    bi("upgradeWords.title", "level" to w.toLevel), style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f),
-                )
-                Text(
-                    "${min(w.have, w.need)} / ${w.need}", style = MaterialTheme.typography.labelLarge,
-                    color = if (done) AlpineGreen else MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-            FillBar(if (w.need <= 0) 1f else (w.have.toFloat() / w.need).coerceIn(0f, 1f), color, Modifier.height(6.dp))
-            w.from?.let { Text(it, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-            if (!done) {
-                val missing = w.missing
-                FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                    for (m in missing.take(SHOWN)) WordChip(m)
-                    if (missing.size > SHOWN) {
-                        Text("+${missing.size - SHOWN}", style = MaterialTheme.typography.labelLarge, modifier = Modifier.padding(vertical = 6.dp))
-                    }
-                }
-                if (w.rustBlocks) Text(
-                    "🔩 ${bi("upgradeWords.noRust", "level" to BuildingWords.NO_RUST_FROM)}",
-                    style = MaterialTheme.typography.labelSmall, color = FlameOrange,
-                )
-                BigButton("🎯 ${bi("upgradeWords.practise")}", onClick = onPractise, color = AlpineGreen)
+fun UpgradeWordsList(w: UpgradeWords) {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        w.from?.let { Text(it, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+        val missing = w.missing
+        FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            for (m in missing.take(SHOWN)) WordChip(m)
+            if (missing.size > SHOWN) {
+                Text("+${missing.size - SHOWN}", style = MaterialTheme.typography.labelLarge, modifier = Modifier.padding(vertical = 6.dp))
             }
         }
+        if (w.rustBlocks) Text(
+            "🔩 ${bi("upgradeWords.noRust", "level" to BuildingWords.NO_RUST_FROM)}",
+            style = MaterialTheme.typography.labelSmall, color = FlameOrange,
+        )
     }
 }
 
 /** A missing word: its picture and the word; a rusty one with 🔩. */
 @Composable
 private fun WordChip(m: NeedWord) {
-    Surface(color = MaterialTheme.colorScheme.surface, shape = RoundedCornerShape(50)) {
+    Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = RoundedCornerShape(50)) {
         Text(
             listOfNotNull(if (m.state == WordState.RUSTY) "🔩" else m.emoji, m.word).joinToString(" "),
             style = MaterialTheme.typography.labelLarge,

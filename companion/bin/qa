@@ -1820,8 +1820,8 @@ def building_scenes() -> list:
 
 
 def building_card() -> bool:
-    """A building's card is open (its state: in good shape, the repair, the top level)."""
-    return any(find(t) is not None for t in ("V dobrem stanju", "Popravi", "Najvišja stopnja"))
+    """A building's card is open (its next level, the repair, the top level: companion/GAME.md "The building's card")."""
+    return any(find(t) is not None for t in ("Za stopnjo", "Popravi", "Najvišja stopnja"))
 
 
 def scene_building():
@@ -1851,7 +1851,7 @@ def scene_building():
     time.sleep(1)
     shot("scene-building-card")
     # its words' run from the scene's card: back into the scene, the card open again
-    practise = scroll_to("Vadi jih zdaj", 3)
+    practise = scroll_to("Nauči se", 3)  # the card's one button while its words are missing
     if practise is None:
         print("    no words to practise for its next level (the top level, or all known): the run is left out")
     else:

@@ -483,6 +483,33 @@ class GameController(
         return true
     }
 
+    /**
+     * A tent grows into a hut, a hut into a house, on its plot, its level kept (companion/GAME.md "When every plot is
+     * built", [si.lanisce.lani.game.Rebuild.grow]); returns the new building's id (it goes up on the map), or null.
+     */
+    fun grow(buildingId: String): String? {
+        val s = state ?: return null
+        val n = si.lanisce.lani.game.Rebuild.grow(s, buildingId, System.currentTimeMillis())
+        if (n === s) return null
+        val id = n.buildings.firstOrNull { b -> s.buildings.none { it.id == b.id } }?.id ?: return null
+        commit(n)
+        onBuilt()
+        justBuilt = id
+        return id
+    }
+
+    /**
+     * Takes a building down ("🔨 Podri · Take down", [si.lanisce.lani.game.Rebuild.takeDown]): its plot free, half its
+     * materials back, the people staying. Whether it was.
+     */
+    fun takeDown(buildingId: String): Boolean {
+        val s = state ?: return false
+        val n = si.lanisce.lani.game.Rebuild.takeDown(s, buildingId, System.currentTimeMillis(), cast())
+        if (n === s) return false
+        commit(n)
+        return true
+    }
+
     fun repair(buildingId: String, withMoba: Boolean = false): Boolean {
         val s = state ?: return false
         val n = GameEngine.repair(s, buildingId, System.currentTimeMillis(), withMoba)

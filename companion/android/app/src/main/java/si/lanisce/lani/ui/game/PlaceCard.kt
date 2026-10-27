@@ -98,9 +98,10 @@ internal fun household(scenes: List<SceneSpec>): String {
 
 /**
  * A small card for a place tapped in the village: its name, who's there now, a way into each scene that
- * opens there, and the building itself (upgrade, repair), the fire's strength, or what the forest and the
- * landscape's spots are for (the practice they open). In a visited town ([guest]) it shows the place and the ways into
- * its scenes only, and that the learner is a guest there: nothing of the host's changes.
+ * opens there, and the fire's strength, or what the forest and the landscape's spots are for (the practice they open).
+ * A building of the village has a card of its own ([BuildingCard]: going in, who is there, the upgrade). In a visited town
+ * ([guest]) it shows the place, its buildings too, and the ways into its scenes only, and that the learner is a guest
+ * there: nothing of the host's changes.
  *
  * A spot its culture tells about ([story]: the charcoal pile) shows its history at the learner's level, in the village's
  * language with its meaning below, every word of it to look up ([onWord]: the word, its sentence and what that means), and
@@ -114,7 +115,6 @@ fun PlaceCard(
     scenes: List<SceneSpec>,
     onMarker: (TownMarker) -> Unit,
     onScene: (SceneSpec) -> Unit,
-    onBuilding: () -> Unit,
     onFire: () -> Unit,
     onGather: (Res) -> Unit,
     onClose: () -> Unit,
@@ -158,40 +158,7 @@ fun PlaceCard(
                     Row(horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) { EmojiLabel("✕", Labels.CLOSE) }
                 }
             }
-            // who's there now (the event, happenings), then the requests waiting here as one row of chips
-            val now = here.filter { it.kind != TownMarker.Kind.QUEST }
-            val asks = here.filter { it.kind == TownMarker.Kind.QUEST }
-            if (now.isNotEmpty()) {
-                Text(bi("placeCard.hereNow"), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
-                for (m in now.take(3)) {
-                    Surface(onClick = { onMarker(m) }, shape = MaterialTheme.shapes.small, color = MaterialTheme.colorScheme.surfaceVariant, modifier = Modifier.fillMaxWidth().padding(end = 8.dp)) {
-                        Row(Modifier.heightIn(min = 44.dp).padding(horizontal = 12.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
-                            Text(m.emoji, style = MaterialTheme.typography.titleMedium)
-                            Spacer(Modifier.width(10.dp))
-                            Text(m.label, style = MaterialTheme.typography.bodyMedium, maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
-                            Text("›", style = MaterialTheme.typography.titleMedium)
-                        }
-                    }
-                }
-            }
-            if (asks.isNotEmpty()) {
-                // someone's requests are one chip (their bubble): counted each
-                Text("📋 ${bi("placeCard.requests", "asksSize" to asks.sumOf { it.count })}", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
-                LazyRow(horizontalArrangement = Arrangement.spacedBy(6.dp), contentPadding = PaddingValues(end = 8.dp)) {
-                    items(asks + now.drop(3), key = { it.id }) { m ->
-                        Surface(
-                            onClick = { onMarker(m) }, shape = RoundedCornerShape(50), color = MaterialTheme.colorScheme.tertiaryContainer,
-                            modifier = Modifier.heightIn(min = 44.dp).widthIn(max = 200.dp),
-                        ) {
-                            Row(Modifier.padding(horizontal = 12.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-                                Text(m.emoji)
-                                Spacer(Modifier.width(6.dp))
-                                Text(m.label.substringBefore(" · "), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onTertiaryContainer, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                            }
-                        }
-                    }
-                }
-            }
+            HereNow(here, onMarker, Modifier.padding(end = 8.dp))
             if (story != null && (story.lore != null || story.words.isNotEmpty())) SpotStorySection(story, onWord, if (guest) null else onLearn, speaker)
             for (sc in scenes) {
                 FilledTonalButton(onClick = { onScene(sc) }, modifier = Modifier.fillMaxWidth().padding(end = 8.dp).heightIn(min = 48.dp), shape = MaterialTheme.shapes.small) {
@@ -204,9 +171,8 @@ fun PlaceCard(
                     modifier = Modifier.padding(end = 8.dp),
                 )
             } else when (tap) {
-                is PlaceTap.Built -> OutlinedButton(onClick = onBuilding, modifier = Modifier.fillMaxWidth().padding(end = 8.dp).heightIn(min = 48.dp), shape = MaterialTheme.shapes.small) {
-                    Text("🔨 ${bi("placeCard.building")} ›")
-                }
+                // a building of the village has a card of its own (BuildingCard); this one is a visited town's
+                is PlaceTap.Built -> Unit
                 PlaceTap.Fire -> OutlinedButton(onClick = onFire, modifier = Modifier.fillMaxWidth().padding(end = 8.dp).heightIn(min = 48.dp), shape = MaterialTheme.shapes.small) {
                     Text("🪵 ${bi("placeCard.feedFire")} ›")
                 }
@@ -221,6 +187,50 @@ fun PlaceCard(
                 // the project it is the landmark of
                 is PlaceTap.Landmark -> OutlinedButton(onClick = onProject, modifier = Modifier.fillMaxWidth().padding(end = 8.dp).heightIn(min = 48.dp), shape = MaterialTheme.shapes.small) {
                     Text("🏗️ ${bi("common.villageProjects")} ›")
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Who's there now at a place (the event, happenings: [rows] of them as a row each), then the requests waiting there as one
+ * row of chips (someone's requests are one chip, their bubble, counted each), each leading on ([onMarker]). Nothing when
+ * nobody is.
+ */
+@Composable
+internal fun HereNow(here: List<TownMarker>, onMarker: (TownMarker) -> Unit, modifier: Modifier = Modifier, rows: Int = 3) {
+    val now = here.filter { it.kind != TownMarker.Kind.QUEST }
+    val asks = here.filter { it.kind == TownMarker.Kind.QUEST }
+    if (now.isEmpty() && asks.isEmpty()) return
+    Column(modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        if (now.isNotEmpty()) {
+            Text(bi("placeCard.hereNow"), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
+            for (m in now.take(rows)) {
+                Surface(onClick = { onMarker(m) }, shape = MaterialTheme.shapes.small, color = MaterialTheme.colorScheme.surfaceVariant, modifier = Modifier.fillMaxWidth()) {
+                    Row(Modifier.heightIn(min = 44.dp).padding(horizontal = 12.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
+                        Text(m.emoji, style = MaterialTheme.typography.titleMedium)
+                        Spacer(Modifier.width(10.dp))
+                        Text(m.label, style = MaterialTheme.typography.bodyMedium, maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
+                        Text("›", style = MaterialTheme.typography.titleMedium)
+                    }
+                }
+            }
+        }
+        if (asks.isNotEmpty() || now.size > rows) {
+            if (asks.isNotEmpty()) Text("📋 ${bi("placeCard.requests", "asksSize" to asks.sumOf { it.count })}", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
+            LazyRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                items(asks + now.drop(rows), key = { it.id }) { m ->
+                    Surface(
+                        onClick = { onMarker(m) }, shape = RoundedCornerShape(50), color = MaterialTheme.colorScheme.tertiaryContainer,
+                        modifier = Modifier.heightIn(min = 44.dp).widthIn(max = 200.dp),
+                    ) {
+                        Row(Modifier.padding(horizontal = 12.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                            Text(m.emoji)
+                            Spacer(Modifier.width(6.dp))
+                            Text(m.label.substringBefore(" · "), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onTertiaryContainer, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                        }
+                    }
                 }
             }
         }

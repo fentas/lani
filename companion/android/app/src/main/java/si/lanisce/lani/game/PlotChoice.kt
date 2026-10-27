@@ -17,9 +17,18 @@ data class PlotChoice(
     /** The id of the building that moves; null for a new one. */
     val moving: String? = null,
     val withMoba: Boolean = false,
+    /**
+     * The id of the building that comes down for it ("🔁 Nadomesti · Replace", [Rebuild.replace]): the new building goes up on
+     * that building's plot, the only one to choose; null for a free plot.
+     */
+    val replacing: String? = null,
 ) {
-    /** The free plots of the age it can go on. */
-    fun free(s: GameState): List<Int> = if (type.onPlot) Placement.freePlots(s) else emptyList()
+    /** The free plots of the age it can go on; replacing, the plot of the building that comes down. */
+    fun free(s: GameState): List<Int> = when {
+        !type.onPlot -> emptyList()
+        replacing != null -> listOfNotNull(s.buildings.firstOrNull { it.id == replacing && it.plot >= 0 }?.plot)
+        else -> Placement.freePlots(s)
+    }
 
     /** Moving: the plots of the age with another building on them, which would swap places with it. None for a new building. */
     fun swaps(s: GameState): List<Int> = others(s).values.distinct().sorted()
@@ -32,7 +41,11 @@ data class PlotChoice(
     }
 
     /** The plot the game suggests (★): a new building's is [Placement.plotFor]; moving, [Placement.moveTo] (maybe none). */
-    fun suggested(s: GameState): Int? = if (moving == null) Placement.plotFor(s, type) else building(s)?.let { Placement.moveTo(s, it) }
+    fun suggested(s: GameState): Int? = when {
+        replacing != null -> free(s).firstOrNull()
+        moving == null -> Placement.plotFor(s, type)
+        else -> building(s)?.let { Placement.moveTo(s, it) }
+    }
 
     /** Whether it can go on [plot]: a free plot of the age, or (moving) another building's. */
     fun takes(s: GameState, plot: Int): Boolean = plot in free(s) || plot in swaps(s)
@@ -59,8 +72,12 @@ data class PlotChoice(
      */
     fun preview(s: GameState): GameState {
         val p = chosen?.takeIf { takes(s, it) } ?: return s
-        return if (moving == null) s.copy(buildings = s.buildings + Building(PREVIEW, type, p))
-        else Placement.moved(s, moving, p) ?: s
+        return when {
+            // the old building gone, the new one where it stood
+            replacing != null -> s.copy(buildings = s.buildings.filter { it.id != replacing } + Building(PREVIEW, type, p))
+            moving == null -> s.copy(buildings = s.buildings + Building(PREVIEW, type, p))
+            else -> Placement.moved(s, moving, p) ?: s
+        }
     }
 
     /** The id of the building the map shows on the chosen plot ([preview]). */
@@ -76,7 +93,11 @@ data class PlotChoice(
      */
     fun confirm(s: GameState, now: Long, cast: List<Villager> = emptyList(), plot: Int? = chosen): GameState? {
         val p = plot?.takeIf { takes(s, it) } ?: return null
-        val n = if (moving == null) GameEngine.build(s, type, now, withMoba, cast, plot = p) else GameEngine.move(s, moving, p, now)
+        val n = when {
+            replacing != null -> Rebuild.replace(s, replacing, type, now, withMoba, cast)
+            moving == null -> GameEngine.build(s, type, now, withMoba, cast, plot = p)
+            else -> GameEngine.move(s, moving, p, now)
+        }
         return n.takeIf { it !== s }
     }
 
@@ -90,5 +111,9 @@ data class PlotChoice(
 
         /** Choosing a new plot for [b], starting at the suggestion if there is one. */
         fun move(s: GameState, b: Building): PlotChoice = PlotChoice(b.type, Placement.moveTo(s, b), moving = b.id)
+
+        /** A new [type] in place of [b] ([Rebuild.replace]): its plot, chosen already, the map showing it there. */
+        fun replace(b: Building, type: BuildingType, withMoba: Boolean = false): PlotChoice =
+            PlotChoice(type, b.plot.takeIf { it >= 0 }, withMoba = withMoba, replacing = b.id)
     }
 }

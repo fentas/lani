@@ -43,12 +43,15 @@ class BuildOrdersTest {
     private enum class Rules { BEFORE, AFTER }
     private enum class Player { RANDOM, FILLER }
 
-    private data class Run(val reached: Age, val dead: String?, val grown: Int, val replaced: Int)
+    /** One order's end: the age reached, why it stopped short (a dead end) or null, what grew and was replaced; [pond]: the tent at the pond still a tent there (null: none moved). */
+    private data class Run(val reached: Age, val dead: String?, val grown: Int, val replaced: Int, val pond: Boolean? = null)
 
     private class Village(var s: GameState, val cast: List<Villager>, val r: Random) {
         var now = 1_000L
         var grown = 0
         var replaced = 0
+        /** The tent the shepherd moved to the pond, once he did. */
+        var pond: String? = null
 
         /** Full stores, every bed taken, and whom a standing building brings living here. */
         fun settle() {
@@ -140,6 +143,10 @@ class BuildOrdersTest {
                         if (v.did(Rebuild.replace(v.s, b.id, o.type, v.now, cast = v.cast))) v.replaced++
                     }
                 }
+                // and takes one down now and then (its beds the village can do without)
+                rules == Rules.AFTER && r < 0.26f -> v.s.buildings.filter { Rebuild.canTakeDown(v.s, it.id, v.cast) }.randomOrNull(v.r)?.let {
+                    v.did(Rebuild.takeDown(v.s, it.id, v.now, v.cast))
+                }
                 opts.isEmpty() -> return
                 else -> {
                     val o = when (player) {
@@ -156,23 +163,28 @@ class BuildOrdersTest {
         }
     }
 
-    /** One order, from the campfire on: each age played, then the next age's buildings reached, until the town or a dead end. */
-    private fun order(culture: String, cast: List<Villager>, seed: Long, rules: Rules, player: Player): Run {
-        val v = Village(GameEngine.newGame(seed, 0L), cast, Random(seed * 31 + culture.hashCode() + player.ordinal))
+    /**
+     * One order, from the campfire on (or from [start]): each age played, then the next age's buildings reached, until the
+     * town or a dead end. The tent the shepherd moved to the pond must stay a tent there, whatever is built.
+     */
+    private fun order(culture: String, cast: List<Villager>, seed: Long, rules: Rules, player: Player, start: GameState? = null): Run {
+        val v = Village(start ?: GameEngine.newGame(seed, 0L), cast, Random(seed * 31 + culture.hashCode() + player.ordinal))
         v.settle()
+        fun pondKept() = v.pond?.let { id -> v.s.buildings.any { it.id == id && it.type == BuildingType.TENT && it.plot == NO_PLOT } }
         while (v.s.age < Age.MESTO) {
             play(v, rules, player)
-            reach(v, rules)?.let { return Run(v.s.age, it, v.grown, v.replaced) }
+            reach(v, rules)?.let { return Run(v.s.age, it, v.grown, v.replaced, pondKept()) }
             v.did(v.s.copy(age = Age.entries[v.s.age.ordinal + 1]))
             // the shepherd moves the first tent to the pond (most learners do it, some never)
-            if (v.s.age >= Age.ZASELEK && v.r.nextFloat() < 0.6f && v.s.buildings.any { it.type == BuildingType.HUT || it.type == BuildingType.HOUSE }) {
-                v.did(TentMove.move(v.s, v.now))
+            if (v.pond == null && v.s.age >= Age.ZASELEK && v.r.nextFloat() < 0.6f && v.s.buildings.any { it.type == BuildingType.HUT || it.type == BuildingType.HOUSE }) {
+                val tent = TentMove.tent(v.s)
+                if (tent != null && v.did(TentMove.move(v.s, v.now))) v.pond = tent.id
             }
         }
-        return Run(v.s.age, null, v.grown, v.replaced)
+        return Run(v.s.age, null, v.grown, v.replaced, pondKept())
     }
 
-    private data class Tally(val orders: Int, val dead: Int, val byAge: Map<Age, Int>, val grown: Int, val replaced: Int, val example: String?)
+    private data class Tally(val orders: Int, val dead: Int, val byAge: Map<Age, Int>, val grown: Int, val replaced: Int, val example: String?, val pondLost: Int = 0, val ponds: Int = 0)
 
     private fun tally(rules: Rules, perCulture: Int): Map<Pair<String, Player>, Tally> {
         val out = LinkedHashMap<Pair<String, Player>, Tally>()
@@ -182,14 +194,18 @@ class BuildOrdersTest {
             for (p in Player.entries) {
                 val runs = (1..perCulture).map { order(c, cast, it.toLong(), rules, p) }
                 val dead = runs.filter { it.dead != null }
-                out[c to p] = Tally(runs.size, dead.size, dead.groupingBy { it.reached }.eachCount(), runs.sumOf { it.grown }, runs.sumOf { it.replaced }, dead.firstOrNull()?.dead)
+                out[c to p] = Tally(
+                    runs.size, dead.size, dead.groupingBy { it.reached }.eachCount(), runs.sumOf { it.grown }, runs.sumOf { it.replaced },
+                    dead.firstOrNull()?.dead, pondLost = runs.count { it.pond == false }, ponds = runs.count { it.pond != null },
+                )
             }
         }
         return out
     }
 
     private fun report(title: String, t: Map<Pair<String, Player>, Tally>): String = "$title\n" + t.entries.joinToString("\n") { (k, v) ->
-        "  ${k.first} ${k.second}: ${v.orders} orders, ${v.dead} dead ends ${v.byAge}, grown ${v.grown}, replaced ${v.replaced}" + (v.example?.let { "\n    e.g. $it" } ?: "")
+        "  ${k.first} ${k.second}: ${v.orders} orders, ${v.dead} dead ends ${v.byAge}, grown ${v.grown}, replaced ${v.replaced}, pond tents ${v.ponds} (lost ${v.pondLost})" +
+            (v.example?.let { "\n    e.g. $it" } ?: "")
     }
 
     @Test fun `no build order in any culture walls the village in`() {
@@ -204,6 +220,34 @@ class BuildOrdersTest {
         val dead = after.filterValues { it.dead > 0 }
         assertTrue(report("dead ends:", dead), dead.isEmpty())
         assertEquals(cultures.size * Player.entries.size * PER_CULTURE, after.values.sumOf { it.orders })
+        // the tent at the pond stays a tent there through every order, whatever grows, is replaced or taken down
+        assertTrue("some tents moved to the pond", after.values.sumOf { it.ponds } > 0)
+        assertEquals(0, after.values.sumOf { it.pondLost })
+    }
+
+    /**
+     * Teo's village (Jan, 2026-10-27: "Teo built 3 huts ;D"): Friuli, a camp whose five plots hold the first tent, three huts
+     * and a field. Played on at random from there by both players, every order reaches the town, and once houses come
+     * (the hamlet) each hut can be rebuilt as a house on its plot, its level kept, for the difference.
+     */
+    @Test fun `Teo's camp of three huts reaches the town`() {
+        Cultures.use("friuli")
+        val cast = cast("friuli")
+        fun b(id: String, type: BuildingType, plot: Int) = Building(id, type, plot)
+        val camp = GameState(
+            seed = 11, age = Age.TABOR, villagers = 9,
+            buildings = listOf(b("tent", BuildingType.TENT, 0), b("hut-1", BuildingType.HUT, 1), b("hut-2", BuildingType.HUT, 2), b("hut-3", BuildingType.HUT, 3), b("field", BuildingType.FIELD, 4)),
+        )
+        assertTrue(Placement.freePlots(camp).isEmpty())
+        val runs = Player.entries.flatMap { p -> (1..100).map { order("friuli", cast, it.toLong(), Rules.AFTER, p, camp.copy(seed = it.toLong())) } }
+        assertEquals(runs.filter { it.dead != null }.map { it.dead }.take(3).toString(), 0, runs.count { it.dead != null })
+        // in the hamlet a hut is rebuilt as a house for the difference: 30 🌾 30 🪵 40 🪨 at level 1
+        val hamlet = camp.copy(age = Age.ZASELEK, resources = Res.entries.associateWith { 500 })
+        val o = Rebuild.growOption(hamlet, "hut-1")!!
+        assertEquals(BuildingType.HOUSE, o.to)
+        assertEquals(mapOf(Res.FOOD to 30, Res.WOOD to 30, Res.STONE to 40), o.cost)
+        val house = Rebuild.grow(hamlet, "hut-1", 1L).buildings.single { it.plot == 1 }
+        assertEquals(BuildingType.HOUSE to 1, house.type to house.level)
     }
 
     private companion object {

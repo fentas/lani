@@ -42,11 +42,14 @@ internal data class Choosing(val choice: PlotChoice, val cancel: VillageSheet? =
 /** "Parcela 5 · Plot 5": the plots count from 1, the nearest the fire first. */
 internal fun plotName(plot: Int): String = bi("plotChooser.plot", "n" to plot + 1)
 
-/** TalkBack's name of [plot] while choosing: the plot, its ★, what stands there to swap with, and whether it's the chosen one. */
+/**
+ * TalkBack's name of [plot] while choosing: the plot, its ★, what stands there to swap with (or comes down, replacing), and
+ * whether it's the chosen one.
+ */
 internal fun plotLabel(s: GameState, choice: PlotChoice, plot: Int): String {
     val parts = mutableListOf(plotName(plot))
-    if (plot == choice.suggested(s)) parts += "★ ${bi("plotChooser.suggested")}"
-    s.buildings.firstOrNull { it.type.onPlot && it.plot == plot && it.id != choice.moving }?.let { parts += "⇄ ${it.type.label()}" }
+    if (choice.replacing == null && plot == choice.suggested(s)) parts += "★ ${bi("plotChooser.suggested")}"
+    s.buildings.firstOrNull { it.type.onPlot && it.plot == plot && it.id != choice.moving }?.let { parts += "${if (choice.replacing == it.id) "🔁" else "⇄"} ${it.type.label()}" }
     if (plot == choice.chosen) parts += "✓"
     return parts.joinToString(", ")
 }
@@ -64,6 +67,8 @@ internal fun PlotBar(
     val chosen = choice.chosen?.takeIf { choice.takes(s, it) }
     val swap = choice.swapWith(s)
     val moving = choice.moving != null
+    // replacing: the building that comes down, on the one plot there is
+    val old = choice.replacing?.let { id -> s.buildings.firstOrNull { it.id == id } }
     Column(
         modifier.fillMaxWidth().navigationBarsPadding().padding(horizontal = 12.dp, vertical = 10.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -76,7 +81,11 @@ internal fun PlotBar(
                     Column(Modifier.weight(1f)) {
                         Text(choice.type.label(), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
                         Text(
-                            bi(if (moving) "plotChooser.chooseNew" else "plotChooser.choose"),
+                            when {
+                                old != null -> "🔁 ${bi("rebuild.instead", "building" to old.type.names)} ${old.type.emoji}"
+                                moving -> bi("plotChooser.chooseNew")
+                                else -> bi("plotChooser.choose")
+                            },
                             style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     }
@@ -84,13 +93,13 @@ internal fun PlotBar(
                 // where it goes now: read out as it changes
                 Text(
                     chosen?.let { p ->
-                        "📍 ${plotName(p)}" + (if (p == suggested) " ★" else "") + (swap?.let { " ⇄ ${it.type.emoji} ${it.type.label()}" } ?: "")
+                        "📍 ${plotName(p)}" + (if (p == suggested && old == null) " ★" else "") + (swap?.let { " ⇄ ${it.type.emoji} ${it.type.label()}" } ?: "")
                     } ?: "👆 ${bi("plotChooser.tapPlot")}",
                     style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite },
                 )
                 Text(
-                    bi(if (moving) "plotChooser.hintMove" else "plotChooser.hint"),
+                    bi(if (old != null) "plotChooser.hintReplace" else if (moving) "plotChooser.hintMove" else "plotChooser.hint"),
                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
                 if (moving) Text("🆓 ${bi("plotChooser.moveFree")}", style = MaterialTheme.typography.labelMedium, color = AlpineGreen, fontWeight = FontWeight.SemiBold)
@@ -102,12 +111,13 @@ internal fun PlotBar(
         }
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.Bottom) {
             BarButton("←", Labels.BACK, color = Color(0xFFF1DDB0), ink = Color(0xFF3A2A16), onClick = onBack, modifier = Modifier.weight(1f))
-            BarButton(
+            // replacing has one plot: no suggestion to choose
+            if (old == null) BarButton(
                 "★", bi("plotChooser.suggested"), color = XpGold, ink = Color(0xFF2B2118), onClick = onSuggested,
                 modifier = Modifier.weight(1f), enabled = suggested != null,
             )
             BarButton(
-                "✓", bi("plotChooser.here"), color = AlpineGreen, ink = Color.White, onClick = onHere,
+                "✓", bi(if (old != null) "buildingCard.replace" else "plotChooser.here"), color = AlpineGreen, ink = Color.White, onClick = onHere,
                 modifier = Modifier.weight(1f), enabled = chosen != null,
             )
         }

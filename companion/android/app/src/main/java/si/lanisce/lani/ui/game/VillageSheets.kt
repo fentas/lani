@@ -29,6 +29,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -104,54 +105,126 @@ internal fun SheetHeader(emoji: String, title: String, sub: String? = null) {
     }
 }
 
+/** What the build sheet shows of what the village could build ([BuildSheetLogic.of]). */
+data class BuildList(
+    /** The cards, what can be built now first: available (or with the neighbours), then with a way on, then short of something. */
+    val cards: List<BuildOption>,
+    /** What the next age opens: "🔒 Pozneje (🛖 Zaselek): čebelnjak, stolp, kovačnica …", the sheet's quiet last line; null at the last age. */
+    val later: String?,
+    /** The last free plots are kept for what the next age needs: "🅿️ Prostor ostane za: Cerkev, Lipa", or null. */
+    val kept: String?,
+    /** Every plot of the age built: a tent can grow, a building can be replaced (each on its card). */
+    val full: Boolean,
+)
+
+/** What the build sheet shows (companion/GAME.md, "Buildings", "The build sheet"), pure: the tests read it without a screen. */
+object BuildSheetLogic {
+    /** How many names the "later" line shows before "…". */
+    const val LATER_SHOWN = 3
+
+    /**
+     * Of [options] (the village's [GameEngine.buildOptions], or what can go up in a building's place), only what can be
+     * built now or has a way on: the age has it, it isn't at its most, and no plot kept for the next age holds it out (that
+     * says one line, [BuildList.kept]); with every plot built, what has its way through the plots ([BuildOption.plotWay])
+     * and what takes none (the palisade). What the next age opens is one quiet line ([BuildList.later]), not a card each.
+     * [replacing]: the options for a building's place (its sheet says so; no "later" line).
+     */
+    fun of(s: GameState, options: List<BuildOption>, replacing: Boolean = false): BuildList {
+        val full = !replacing && si.lanisce.lani.game.Placement.freePlots(s).isEmpty()
+        fun open(o: BuildOption): Boolean {
+            val spec = Catalog.spec(o.type)
+            return s.age >= spec.minAge && (spec.max == null || s.buildings.count { it.type == o.type } < spec.max)
+        }
+        val kept = options.filter { open(it) && it.type.onPlot && !full && !GameEngine.placeable(s, it.type) && it.room == null }
+        val cards = options.filter { o -> open(o) && o !in kept && (!o.type.onPlot || !full || o.plotWay != null) }
+            .sortedWith(compareBy({ !(it.available || it.mobaAvailable) }, { it.room == null && it.plotWay == null }, { it.cost.values.sum() }))
+        val next = Age.entries.getOrNull(s.age.ordinal + 1)
+        val later = next?.takeIf { !replacing }?.let { a ->
+            val types = Catalog.specs.values.filter { it.minAge == a }.map { it.type }
+            if (types.isEmpty()) null
+            else {
+                val names = si.lanisce.lani.game.culture.localized { lang ->
+                    types.take(LATER_SHOWN).joinToString(", ") { it.names.of(lang).lowercase() } + if (types.size > LATER_SHOWN) " …" else ""
+                }
+                "🔒 ${bi("buildSheet.later", "age" to a.names, "list" to names)} ${a.emoji}"
+            }
+        }
+        return BuildList(cards, later, kept.firstNotNullOfOrNull { it.reason }?.let { "🅿️ $it" }, full)
+    }
+
+    /** Whether the next age counts [type] and needs more of it than stand: its card says "🎯 Potrebno za Vas". */
+    fun needed(s: GameState, check: AdvanceCheck, type: BuildingType): Boolean {
+        val next = check.next ?: return false
+        return Catalog.ageRules.getValue(next).needs.any { (types, n) -> type in types && s.buildings.count { it.type in types && !it.damaged } < n }
+    }
+}
+
 /**
- * What can be built. [onRoom]: the way on of a card whose person has nowhere to live ([BuildOption.room]: build or upgrade a
- * dwelling, or gather for it), one tap. [course]: the school's course of the village's language; while no school stands,
- * a line under the school's card says where the class meets already and what the school brings ([School.buildNote]).
+ * "🔨 Gradi · Build": only what can be built now or has a way on ([BuildSheetLogic]), each card what it gives and costs,
+ * "🎯 Potrebno za Vas" on what the next age needs, then one quiet line for what comes later. [onRoom]: the way on of a card
+ * whose person has nowhere to live ([BuildOption.room]: build or upgrade a dwelling, or gather for it), one tap;
+ * [onPlotWay]: with every plot built, a card's way through the plots (a dwelling grows, a building not needed is replaced);
+ * [onGather]: a card short of something, gathering it. [course]: the school's course of the village's language; while no
+ * school stands, a line under the school's card says where the class meets already and what the school brings
+ * ([School.buildNote]). [replacing]: the sheet of what goes up in that building's place ("🔁 Nadomesti · Replace").
  */
 @Composable
 fun BuildSheet(
-    s: GameState, options: List<BuildOption>, check: AdvanceCheck, onBuild: (BuildOption, Boolean) -> Unit, onAges: () -> Unit, onDismiss: () -> Unit,
+    s: GameState, options: List<BuildOption>, check: AdvanceCheck, onBuild: (BuildOption, Boolean) -> Unit, onDismiss: () -> Unit,
     onRoom: (si.lanisce.lani.game.RoomWay) -> Unit = {},
+    onPlotWay: (BuildOption, si.lanisce.lani.game.PlotWay) -> Unit = { _, _ -> },
+    onGather: (Res) -> Unit = {},
     course: si.lanisce.lani.data.Course? = null,
+    replacing: Building? = null,
 ) {
     val plots = PLOTS_PER_AGE[s.age.ordinal]
+    // replacing: what can go up on its plot, as if it stood free
+    val list = remember(s, options, replacing) {
+        BuildSheetLogic.of(replacing?.let { r -> s.copy(buildings = s.buildings.filter { it.id != r.id }) } ?: s, options, replacing != null)
+    }
     // the neighbours' help, once the learner has 🤝 and a building could use it
     var moba by remember { mutableStateOf(false) }
-    val canMoba = options.any { it.moba != null }
+    val canMoba = list.cards.any { it.moba != null }
     Sheet(onDismiss) {
-        SheetHeader("🔨", bi("common.build"), "${bi("villageSheets.plots")}: ${s.plotsTaken} / $plots")
-        val next = check.next
-        if (s.plotsTaken >= plots && next != null) {
-            Text(
-                bi("villageSheets.allPlotsTaken", "nextEmoji" to next.emoji, "nextSl" to next.names, "lowercase" to next.names.map { it.lowercase() }),
-                style = MaterialTheme.typography.bodyMedium, color = FlameOrange,
-            )
+        if (replacing == null) SheetHeader("🔨", bi("common.build"), "${bi("villageSheets.plots")}: ${s.plotsTaken} / $plots")
+        else SheetHeader("🔁", "${bi("replace.title", "building" to replacing.type.names)} ${replacing.type.emoji}", bi("replace.note"))
+        if (list.full && replacing == null) Text("🧱 ${bi("buildSheet.full")}", style = MaterialTheme.typography.bodyMedium, color = FlameOrange)
+        if (canMoba) MobaSwitch(s, on = moba, enabled = true) { moba = it }
+        // the class meets already (by the fire, under the linden): said across the sheet after the cards, when the school is one
+        val note = if (replacing == null && list.cards.any { it.type == BuildingType.SCHOOL }) School.buildNote(s, course) else null
+        val card: @Composable (BuildOption) -> Unit = { o ->
+            BuildCard(
+                s, o, moba && canMoba, needed = BuildSheetLogic.needed(s, check, o.type), next = check.next, onRoom = onRoom,
+                onPlotWay = { w -> onPlotWay(o, w) }, onGather = onGather,
+            ) { onBuild(o, moba && o.mobaAvailable) }
         }
-        if (next != null) NextAgeRow(check, onAges)
-        MobaSwitch(s, on = moba && canMoba, enabled = canMoba) { moba = it }
-        val sorted = options.sortedWith(compareBy({ !(it.available || (moba && it.mobaAvailable)) }, { it.cost.values.sum() }))
-        // the class meets already (by the fire, under the linden): said across the sheet under the school's row
-        val note = School.buildNote(s, course)
-        val at = sorted.indexOfFirst { it.type == BuildingType.SCHOOL }
-        val split = if (note == null || at < 0) sorted.size else minOf(sorted.size, at - at % 2 + 2)
-        LazyVerticalGrid(
-            GridCells.Fixed(2),
-            Modifier.fillMaxWidth().heightIn(max = 560.dp),
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp),
-            contentPadding = PaddingValues(bottom = 8.dp),
-        ) {
-            items(sorted.take(split), key = { it.type }) { o -> BuildCard(s, o, moba && canMoba, onRoom) { onBuild(o, moba && o.mobaAvailable) } }
-            if (note != null && at >= 0) item(key = "school-note", span = { GridItemSpan(maxLineSpan) }) {
-                Surface(color = AlpineGreen.copy(alpha = 0.12f), shape = MaterialTheme.shapes.medium, modifier = Modifier.fillMaxWidth()) {
-                    Text(
-                        "${BuildingType.SCHOOL.emoji} $note", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurface,
-                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
-                    )
+        // two cards across on a phone, three on a tablet's wider sheet; the school's line under the school's row
+        androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxWidth()) {
+            val cols = if (maxWidth >= 520.dp) 3 else 2
+            val at = list.cards.indexOfFirst { it.type == BuildingType.SCHOOL }
+            val split = if (note == null || at < 0) list.cards.size else minOf(list.cards.size, at - at % cols + cols)
+            LazyVerticalGrid(
+                GridCells.Fixed(cols),
+                Modifier.fillMaxWidth().heightIn(max = 600.dp),
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp),
+                contentPadding = PaddingValues(bottom = 8.dp),
+            ) {
+                items(list.cards.take(split), key = { it.type }) { o -> card(o) }
+                if (note != null) item(key = "school-note", span = { GridItemSpan(maxLineSpan) }) {
+                    Surface(color = AlpineGreen.copy(alpha = 0.12f), shape = MaterialTheme.shapes.medium, modifier = Modifier.fillMaxWidth()) {
+                        Text(
+                            "${BuildingType.SCHOOL.emoji} $note", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurface,
+                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+                        )
+                    }
+                }
+                items(list.cards.drop(split), key = { it.type }) { o -> card(o) }
+                // the plots kept for the next age, then what comes later: quiet lines, no cards
+                for ((k, line) in listOfNotNull(list.kept?.let { "kept" to it }, list.later?.let { "later" to it })) item(key = k, span = { GridItemSpan(maxLineSpan) }) {
+                    Text(line, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(vertical = 4.dp))
                 }
             }
-            items(sorted.drop(split), key = { it.type }) { o -> BuildCard(s, o, moba && canMoba, onRoom) { onBuild(o, moba && o.mobaAvailable) } }
         }
     }
 }
@@ -184,8 +257,17 @@ private fun MobaLine(m: Moba) {
     Text("🤝 ${m.text}", style = MaterialTheme.typography.labelMedium, color = XpGold, fontWeight = FontWeight.Bold)
 }
 
+/**
+ * One card of the build sheet: its emoji (how many stand), its name in both languages, "🎯 Potrebno za Vas" when the next age
+ * needs it ([needed]), what it gives, its price (with the neighbours: what's left, and their 🤝), and, when it can't be
+ * built now, why and its way on, one tap: a bed made for whom it brings ([onRoom]), its way through the plots
+ * ([onPlotWay]), or what to gather ([onGather]).
+ */
 @Composable
-private fun BuildCard(s: GameState, o: BuildOption, moba: Boolean, onRoom: (si.lanisce.lani.game.RoomWay) -> Unit, onClick: () -> Unit) {
+private fun BuildCard(
+    s: GameState, o: BuildOption, moba: Boolean, needed: Boolean, next: Age?, onRoom: (si.lanisce.lani.game.RoomWay) -> Unit,
+    onPlotWay: (si.lanisce.lani.game.PlotWay) -> Unit, onGather: (Res) -> Unit, onClick: () -> Unit,
+) {
     val count = s.buildings.count { it.type == o.type }
     val withMoba = moba && o.mobaAvailable
     val enabled = o.available || withMoba
@@ -194,117 +276,59 @@ private fun BuildCard(s: GameState, o: BuildOption, moba: Boolean, onRoom: (si.l
         enabled = enabled,
         shape = MaterialTheme.shapes.medium,
         colors = CardDefaults.cardColors(
-            containerColor = if (enabled) MaterialTheme.colorScheme.surfaceVariant else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-            disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-            // A locked building must stay readable: what it does and what's missing are the point.
+            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+            disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f),
+            // what can't be built yet must stay readable: what it does and what's missing are the point
             disabledContentColor = MaterialTheme.colorScheme.onSurface,
         ),
         modifier = Modifier.fillMaxWidth(),
     ) {
         Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(o.type.emoji, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.alpha(if (enabled) 1f else 0.45f))
+                Text(o.type.emoji, style = MaterialTheme.typography.headlineMedium)
                 Spacer(Modifier.weight(1f))
                 if (count > 0) Text("×$count", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
             Text(o.type.sl, style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurface, maxLines = 1, overflow = TextOverflow.Ellipsis)
             Text(o.type.en, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            if (needed && next != null) Surface(color = XpGold.copy(alpha = 0.22f), shape = RoundedCornerShape(50)) {
+                Text(
+                    "🎯 ${bi("buildSheet.needed", "age" to next.names)}", style = MaterialTheme.typography.labelSmall, fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp), maxLines = 2,
+                )
+            }
             Text(o.effect, style = MaterialTheme.typography.bodySmall, color = AlpineGreen, fontWeight = FontWeight.SemiBold)
             val m = o.moba.takeIf { moba }
             CostChips(m?.rest ?: o.cost) { s.res(it) }
             m?.let { MobaLine(it) }
-            // with the neighbours the price is the rest: its chips (red where short) say what's missing
-            o.reason?.takeIf { m == null }?.let { Text("🔒 $it", style = MaterialTheme.typography.labelSmall, color = TriglavRed) }
-            // its person has nowhere to live: the way on, one tap (build or upgrade a dwelling, or gather for it)
-            o.room?.let { w ->
-                Surface(onClick = { onRoom(w) }, color = XpGold.copy(alpha = 0.18f), shape = MaterialTheme.shapes.small, modifier = Modifier.fillMaxWidth()) {
-                    Text(
-                        roomLabel(w), style = MaterialTheme.typography.labelMedium, fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface, modifier = Modifier.padding(horizontal = 8.dp, vertical = 6.dp),
-                    )
+            // its way on, one tap: a bed for whom it brings, its way through the plots, else what to gather
+            val way: Pair<String, () -> Unit>? = when {
+                o.room != null -> roomLabel(o.room) to { onRoom(o.room) }
+                o.plotWay != null -> plotWayLabel(o.plotWay) to { onPlotWay(o.plotWay) }
+                !enabled -> (m?.rest ?: o.cost).mapValues { (r, n) -> n - s.res(r) }.filterValues { it > 0 }.maxByOrNull { it.value }
+                    ?.let { (r, n) -> "${r.emoji} ${bi("buildingCard.gatherMore", "n" to n, "res" to r.emoji)} ›" to { onGather(r) } }
+                else -> null
+            }
+            // why not, when nothing else says it (the chips say what the price lacks)
+            if (way == null || o.room != null) o.reason?.takeIf { m == null && !enabled }?.let { Text("🔒 $it", style = MaterialTheme.typography.labelSmall, color = TriglavRed) }
+            way?.let { (label, go) ->
+                Surface(onClick = go, color = XpGold.copy(alpha = 0.18f), shape = MaterialTheme.shapes.small, modifier = Modifier.fillMaxWidth().heightIn(min = 40.dp)) {
+                    Box(contentAlignment = Alignment.CenterStart) {
+                        Text(
+                            label, style = MaterialTheme.typography.labelMedium, fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface, modifier = Modifier.padding(horizontal = 8.dp, vertical = 6.dp),
+                        )
+                    }
                 }
             }
         }
     }
 }
 
-/**
- * A building's card: its effect, its repair and its next level: the resources (with the neighbours' help) and the
- * building's words it asks for ([words], companion/GAME.md "Upgrades": [UpgradeWordsCard], its "🎯 Vadi jih zdaj ·
- * Practise them now" [onPractise]); [onMove]: "↔ Premakni · Move" to another plot (the plot chooser, free of charge), null
- * for a building on no plot (the palisade, the tent at the pond) or with nowhere to go.
- */
-@Composable
-fun BuildingSheet(
-    s: GameState, b: Building, option: BuildOption?, check: AdvanceCheck,
-    onRepair: (withMoba: Boolean) -> Unit, onUpgrade: (withMoba: Boolean) -> Unit, onAges: () -> Unit, onDismiss: () -> Unit,
-    onMove: (() -> Unit)? = null,
-    words: si.lanisce.lani.game.UpgradeWords? = null, onPractise: () -> Unit = {},
-    course: si.lanisce.lani.game.CourseGate? = null,
-    extra: @Composable () -> Unit = {},
-) {
-    val cost = if (b.damaged) GameEngine.repairCost(s, b.id) else emptyMap()
-    val canPay = cost.all { (r, n) -> s.res(r) >= n }
-    val repairMoba = if (b.damaged) GameEngine.repairMoba(s, b.id) else null
-    Sheet(onDismiss) {
-        SheetHeader(b.type.emoji, b.type.label(), "${bi("common.level")} ${b.level}" +(if (b.builtAt > 0) " · ${date(b.builtAt)}" else ""))
-        option?.let { Text("✨ ${it.effect}", style = MaterialTheme.typography.titleMedium, color = if (b.damaged) MaterialTheme.colorScheme.onSurfaceVariant else AlpineGreen) }
-        // the classroom under the linden, the school's course (ui/school)
-        extra()
-        if (b.damaged) {
-            Surface(color = TriglavRed.copy(alpha = 0.12f), shape = MaterialTheme.shapes.medium) {
-                Column(Modifier.fillMaxWidth().padding(14.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text("⚠️ ${bi("villageSheets.damaged")}", color = TriglavRed, fontWeight = FontWeight.Bold)
-                    Text(bi("villageSheets.givesNoEffectUntil"), style = MaterialTheme.typography.bodyMedium)
-                    CostChips(cost) { s.res(it) }
-                    repairMoba?.let { MobaLine(it) }
-                }
-            }
-            BigButton(if (canPay) "🛠️ ${bi("villageSheets.repair")}" else "🛠️ ${bi("villageSheets.notEnoughYet")}", onClick = { onRepair(false) }, enabled = canPay, color = AlpineGreen)
-            repairMoba?.let { m ->
-                BigButton("🤝 ${bi("villageSheets.repairMobaHelp", "help" to m.help)}", onClick = { onRepair(true) }, enabled = m.affordable, color = XpGold)
-            }
-        } else {
-            Text("✅ ${bi("villageSheets.goodShape")}", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-        }
-        val up = GameEngine.upgradeOption(s, b.id, words, course)
-        if (up == null) {
-            if (!b.damaged) Text("⭐ ${bi("villageSheets.topLevel")}", style = MaterialTheme.typography.bodyMedium, color = XpGold)
-        } else if (!b.damaged) {
-            Surface(color = MaterialTheme.colorScheme.primaryContainer, shape = MaterialTheme.shapes.medium) {
-                Column(Modifier.fillMaxWidth().padding(14.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text("⬆️ ${bi("villageSheets.levelTo", "toLevel" to up.toLevel)}: ${up.effect}", fontWeight = FontWeight.Bold)
-                    CostChips(up.cost) { s.res(it) }
-                    up.moba?.let { MobaLine(it) }
-                    up.reason?.let { Text("🔒 $it", style = MaterialTheme.typography.labelSmall, color = TriglavRed) }
-                }
-            }
-            // knowledge builds: the building's words it asks for, and the run of the missing ones, one tap
-            up.words?.let { UpgradeWordsCard(it, onPractise) }
-            // the school's next level waits for a course level's units (companion/GAME.md, "The school")
-            up.course?.let { si.lanisce.lani.ui.school.CourseGateCard(it) }
-            // locked by the age: show the way there, one tap from its steps
-            val needs = Catalog.upgradeAge(up.toLevel)
-            if (s.age < needs) {
-                if (needs == check.next) NextAgeRow(check, onAges)
-                else Surface(onClick = onAges, color = Color.Transparent, shape = MaterialTheme.shapes.small) {
-                    Text(
-                        "${needs.emoji} ${needs.sl} pride po ${check.next?.let { "${it.emoji} ${it.sl}" } ?: ""} · ${needs.en} comes after the ${check.next?.en?.lowercase() ?: ""} ›",
-                        style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(vertical = 6.dp),
-                    )
-                }
-            }
-            BigButton("⬆️ ${bi("villageSheets.upgrade")}", onClick = { onUpgrade(false) }, enabled = up.available)
-            up.moba?.let { m ->
-                // the neighbours bring timber and stone, not the words
-                BigButton("🤝 ${bi("villageSheets.upgradeMobaHelp", "help" to m.help)}", onClick = { onUpgrade(true) }, enabled = up.mobaAvailable, color = XpGold)
-            }
-        }
-        onMove?.let { move ->
-            BigButton("↔ ${bi("villageSheets.move")}", onClick = move, color = MaterialTheme.colorScheme.secondaryContainer)
-            Text("🆓 ${bi("plotChooser.moveFree")}", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-        }
-    }
+/** A build card's way through the plots: "⬆️ Preraste: Šotor → Koča ›", or "🔁 Namesto: Šotor ⛺ ›". */
+fun plotWayLabel(w: si.lanisce.lani.game.PlotWay): String = when (w) {
+    is si.lanisce.lani.game.PlotWay.Grow -> "⬆️ ${bi("buildSheet.growWay", "from" to w.from.name.lowercase(), "a" to w.from.names, "b" to w.to.names)} ›"
+    is si.lanisce.lani.game.PlotWay.Replace -> "🔁 ${bi("rebuild.instead", "building" to w.what.names)} ${w.what.emoji} ›"
 }
 
 /**

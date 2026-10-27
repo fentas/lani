@@ -127,7 +127,10 @@ sealed interface VillageSheet {
     data class Resource(val res: Res) : VillageSheet
     /** "⇄ Zamenjaj · Trade", from resource [from]'s sheet: one resource for another after a short run (game/Trade). */
     data class Trade(val from: Res) : VillageSheet
+    /** A building's card ([BuildingCard]): over the map, not a sheet of its own (companion/GAME.md "The building's card"). */
     data class Building(val id: String) : VillageSheet
+    /** "🔁 Nadomesti · Replace": what can go up in place of building [id] ([si.lanisce.lani.game.Rebuild.replace]). */
+    data class Replace(val id: String) : VillageSheet
 }
 
 /**
@@ -298,6 +301,43 @@ fun VillageScreen(vm: AppViewModel) {
             sheet = if (placed) c.done else c.cancel
         }
     }
+    /**
+     * Makes room for whom a workplace brings ([si.lanisce.lani.game.RoomWay]): gather for the dwelling, or build or upgrade
+     * it (the sheet [back] stays open, the workplace can go up next; a dwelling to build goes to the plot chooser, and back).
+     */
+    fun makeRoom(w: si.lanisce.lani.game.RoomWay, back: VillageSheet) {
+        val short = w.short
+        when {
+            // the dwelling's upgrade asks for its words first: their run, then its card
+            w.upgrade != null && w.words != null -> { sheet = null; vm.practiseUpgrade(w.upgrade) }
+            short != null -> { sheet = null; vm.startGather(short) }
+            w.upgrade != null -> if (vm.game.upgrade(w.upgrade, false)) haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+            else -> choose(Choosing(PlotChoice.build(s, w.type), cancel = back, done = back))
+        }
+    }
+    /**
+     * A build card's way through the plots (companion/GAME.md "When every plot is built"): the dwelling grows into what is
+     * wanted (the map shows it going up; short of something, gather it), or the building not needed comes down for it: the
+     * map with the new one in its place when it can go up there now, else that building's replace sheet, which says why.
+     */
+    fun plotWay(o: BuildOption, w: si.lanisce.lani.game.PlotWay) {
+        when (w) {
+            is si.lanisce.lani.game.PlotWay.Grow -> {
+                val g = si.lanisce.lani.game.Rebuild.growOption(s, w.building)
+                val short = g?.cost?.mapValues { (r, n) -> n - s.res(r) }?.filterValues { it > 0 }?.maxByOrNull { it.value }?.key
+                when {
+                    short != null -> { sheet = null; vm.startGather(short) }
+                    vm.game.grow(w.building) != null -> { haptic.performHapticFeedback(HapticFeedbackType.LongPress); sheet = null }
+                }
+            }
+            is si.lanisce.lani.game.PlotWay.Replace -> {
+                val old = s.buildings.firstOrNull { it.id == w.building } ?: return
+                val there = si.lanisce.lani.game.Rebuild.replaceOptions(s, old.id, cast).firstOrNull { it.type == o.type }
+                if (there?.available == true) choose(Choosing(PlotChoice.replace(old, o.type), cancel = VillageSheet.Build))
+                else sheet = VillageSheet.Replace(old.id)
+            }
+        }
+    }
     val advance: () -> Unit = {
         val from = s.age
         vm.game.advance()?.let { to ->
@@ -362,14 +402,19 @@ fun VillageScreen(vm: AppViewModel) {
         fun area(extra: Int = 0) = freeArea(w.toFloat(), h.toFloat(), hudInset().toFloat(), (barH + extra).toFloat(), margin)
         fun anchorOf(p: TownPlace) = anchors[p] ?: anchors.getValue(TownPlace.Fire)
 
-        /** A tap on a place: its card, or (no scenes there) straight to the building's or the fire's sheet, as before. */
+        /**
+         * A tap on a place: a building's card (one card: going in, who's there, the upgrade, companion/GAME.md "The
+         * building's card"), else its card, or (no scenes there) straight to the fire's sheet, as before.
+         */
         fun tapPlace(tap: PlaceTap?, force: Boolean = false) {
             villager = null
             if (tap == null) { card = null; return }
+            if (tap is PlaceTap.Built) { card = null; sheet = VillageSheet.Building(tap.building.id); return }
+            // one card over the map at a time: another place's closes a building's
+            if (sheet is VillageSheet.Building) sheet = null
             val none = vm.scenes.at(tap, s).isEmpty()
             when {
                 force -> card = tap
-                none && tap is PlaceTap.Built -> { card = null; sheet = VillageSheet.Building(tap.building.id) }
                 none && tap == PlaceTap.Fire -> { card = null; sheet = VillageSheet.Fire }
                 // nothing to go to at the horizon: a tap on the far hills is a tap on nothing, as it always was
                 none && tap == PlaceTap.Spot(TownSpots.HORIZON) -> card = null
@@ -501,7 +546,7 @@ fun VillageScreen(vm: AppViewModel) {
                         id == si.lanisce.lani.game.Surprises.PILGRIM -> { villager = null; vm.startSurprise() }
                         // the burner by his pile: his talk (he has no card: he doesn't live here)
                         keeper != null -> { villager = null; vm.scenes.startKeeper(keeper) }
-                        else -> { villagerAt = at; villager = id }
+                        else -> { villagerAt = at; villager = id; if (sheet is VillageSheet.Building) sheet = null }
                     }
                 },
                 followId = ::villagerOf,
@@ -556,6 +601,12 @@ fun VillageScreen(vm: AppViewModel) {
             LaunchedEffect(card, cardH) {
                 val c = card ?: return@LaunchedEffect
                 if (cardH > 0) cam.reveal(anchorOf(c.place), area(cardH + with(density) { 64.dp.roundToPx() }))
+            }
+            // Nor does a building's card cover the building.
+            val cardOf = (sheet as? VillageSheet.Building)?.id
+            LaunchedEffect(cardOf, cardH) {
+                val b = cardOf?.let { id -> s.buildings.firstOrNull { it.id == id } } ?: return@LaunchedEffect
+                if (cardH > 0) cam.reveal(anchorOf(TownPlace.of(b, s)), area(cardH + with(density) { 64.dp.roundToPx() }))
             }
             // Nor does a villager's card cover them.
             LaunchedEffect(villager, cardH) {
@@ -653,6 +704,8 @@ fun VillageScreen(vm: AppViewModel) {
                 onTop = { bar, row -> hudBarH = bar; hudRowH = row },
                 onInside = { name, r -> if (r == null) hudRects.remove(name) else hudRects[name] = r },
             )
+            // a building going up (built, grown, a replacement, an upgrade): a burst of confetti with its chronicle line
+            vm.game.justBuilt?.let { id -> si.lanisce.lani.ui.Confetti(key = "built-$id-${s.buildings.firstOrNull { it.id == id }?.level}") }
             ChronicleToast(
                 s.log.lastOrNull(),
                 Modifier.align(Alignment.TopCenter).offset { IntOffset(0, hudInset() + (if (cam.moved) 56.dp else 8.dp).roundToPx()) },
@@ -687,7 +740,6 @@ fun VillageScreen(vm: AppViewModel) {
                             onMarker = act,
                             // a building's room is seen in the one tapped, at its level
                             onScene = { sc -> card = null; vm.openScene(sc.id, building = (tap as? PlaceTap.Built)?.building?.id) },
-                            onBuilding = { (tap as? PlaceTap.Built)?.let { sheet = VillageSheet.Building(it.building.id) } },
                             onFire = { sheet = VillageSheet.Fire },
                             onGather = { r -> card = null; vm.startGather(r) },
                             onClose = { card = null },
@@ -701,12 +753,49 @@ fun VillageScreen(vm: AppViewModel) {
                         )
                     }
                 }
+                // a building's card: one card over the map, the building kept in view above it
+                val open = (sheet as? VillageSheet.Building)?.let { sh -> s.buildings.firstOrNull { it.id == sh.id } }
+                AnimatedVisibility(
+                    open != null, Modifier.align(Alignment.CenterHorizontally),
+                    enter = slideInVertically { it / 2 } + fadeIn(), exit = slideOutVertically { it / 2 } + fadeOut(),
+                ) {
+                    val b = open ?: return@AnimatedVisibility
+                    BackHandler { sheet = null }
+                    val tap = PlaceTap.Built(b, TownPlace.of(b, s))
+                    val sh = VillageSheet.Building(b.id)
+                    // "↔ Premakni · Move": to the plot chooser, and back to this card when cancelled
+                    val move = PlotChoice.move(s, b).takeIf { it.building(s) != null && it.open(s) }
+                    val maxCard = with(density) { (h - hudInset() - barH).toDp() } - 72.dp
+                    BuildingCard(
+                        vm, s, b, check,
+                        BuildingCardActions(
+                            onClose = { sheet = null },
+                            onScene = { sc -> sheet = null; vm.openScene(sc.id, building = b.id) },
+                            onMarker = act,
+                            onUpgraded = { sheet = null },
+                            onPractise = { sheet = null },
+                            onAges = { sheet = VillageSheet.Ages },
+                            onGather = { r -> sheet = null; vm.startGather(r) },
+                            onSchool = { sheet = null; vm.openSchool(fromVillage = true) },
+                            onMove = move?.let { m -> { choose(Choosing(m, cancel = sh)) } },
+                            onReplace = if (si.lanisce.lani.game.Rebuild.replaceable(s, b.id, cast)) { { sheet = VillageSheet.Replace(b.id) } } else null,
+                            // taken down: its plot free, half its materials back, the people staying (the card asked first)
+                            onTakeDown = if (si.lanisce.lani.game.Rebuild.replaceable(s, b.id, cast)) { {
+                                if (vm.game.takeDown(b.id)) { haptic.performHapticFeedback(HapticFeedbackType.LongPress); sheet = null }
+                            } } else null,
+                        ),
+                        scenes = vm.scenes.at(tap, s),
+                        here = markers.filter { it.place == tap.place }.sortedBy { BUBBLE_ORDER.indexOf(it.kind) },
+                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp).onSizeChanged { cardH = it.height },
+                        maxHeight = maxCard.coerceAtLeast(240.dp),
+                    )
+                }
                 TownBar(
                     // only what's new and worth opening: who joined, the grammar pages met this week
                     new = scrollData.badge,
                     event = s.event,
                     canBuild = options.any { it.available },
-                    onScroll = { card = null; villager = null; hudState.section = null; scrollAt = null; scrollOpen = true },
+                    onScroll = { card = null; villager = null; hudState.section = null; scrollAt = null; scrollOpen = true; if (sheet is VillageSheet.Building) sheet = null },
                     onBuild = { card = null; sheet = VillageSheet.Build },
                     onEvent = vm::startEvent,
                     modifier = Modifier.onSizeChanged { barH = it.height },
@@ -756,21 +845,23 @@ fun VillageScreen(vm: AppViewModel) {
     when (val sh = sheet) {
         null -> Unit
         VillageSheet.Build -> BuildSheet(
-            s, options, check, onBuild = build, onAges = { sheet = VillageSheet.Ages }, onDismiss = { sheet = null },
-            // make room for whom a workplace brings: gather for the dwelling, or build or upgrade it (the sheet stays open,
-            // the workplace can go up next; a dwelling to build goes to the plot chooser, and back to the sheet)
-            onRoom = { w ->
-                val short = w.short
-                when {
-                    // the dwelling's upgrade asks for its words first: their run, then its card
-                    w.upgrade != null && w.words != null -> { sheet = null; vm.practiseUpgrade(w.upgrade) }
-                    short != null -> { sheet = null; vm.startGather(short) }
-                    w.upgrade != null -> if (vm.game.upgrade(w.upgrade, false)) haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                    else -> choose(Choosing(PlotChoice.build(s, w.type), cancel = VillageSheet.Build, done = VillageSheet.Build))
-                }
-            },
+            s, options, check, onBuild = build, onDismiss = { sheet = null },
+            onRoom = { w -> makeRoom(w, VillageSheet.Build) },
+            // every plot built: the dwelling grows (the map shows it), or the building not needed makes room on its plot
+            onPlotWay = { o, w -> plotWay(o, w) },
+            onGather = { r -> sheet = null; vm.startGather(r) },
             course = vm.school.course,
         )
+        is VillageSheet.Replace -> s.buildings.firstOrNull { it.id == sh.id }?.let { old ->
+            val choices = remember(s, cast, vm.content.dashboard) { si.lanisce.lani.game.Rebuild.replaceOptions(s, old.id, cast) { id -> vm.upgradeWords(s, id) } }
+            BuildSheet(
+                s, choices, check, replacing = old, onDismiss = { sheet = VillageSheet.Building(old.id) },
+                // the map with the new building where the old one stands, "✓ Nadomesti · Replace" there
+                onBuild = { o, withMoba -> choose(Choosing(PlotChoice.replace(old, o.type, withMoba), cancel = sh)) },
+                onRoom = { w -> makeRoom(w, sh) },
+                onGather = { r -> sheet = null; vm.startGather(r) },
+            )
+        }
         VillageSheet.Info -> InfoSheet(s, attrs, onDismiss = { sheet = null })
         VillageSheet.Fire -> HearthsSheet(s, java.time.LocalDate.now(), onGather = { sheet = null; card = null; vm.startGather(Res.WOOD) }, onDismiss = { sheet = null })
         VillageSheet.Ages -> AgeSheet(
@@ -840,18 +931,8 @@ fun VillageScreen(vm: AppViewModel) {
                 onLearn = { pack -> sheet = null; scrollOpen = false; vm.startPack(pack, fromVillage = true) },
             )
         }
-        is VillageSheet.Building -> s.buildings.firstOrNull { it.id == sh.id }?.let { b ->
-            // "↔ Premakni · Move": to the plot chooser, and back to this card when cancelled
-            val move = PlotChoice.move(s, b).takeIf { it.building(s) != null && it.open(s) }
-            BuildingCard(
-                vm, s, b, options, check,
-                onUpgraded = { sheet = null; card = null },
-                onPractise = { sheet = null; card = null },
-                onAges = { sheet = VillageSheet.Ages },
-                onDismiss = { sheet = null },
-                onMove = move?.let { m -> { choose(Choosing(m, cancel = sh)) } },
-            )
-        }
+        // over the map, by the bottom bar (above)
+        is VillageSheet.Building -> Unit
     }
     skyList?.let { up -> si.lanisce.lani.ui.sky.SkyTonightSheet(vm, up, onOpen = { skyList = null; skyCard = it }, onDismiss = { skyList = null }) }
     skyCard?.let { t -> si.lanisce.lani.ui.sky.SkySheet(vm, t, onDismiss = { skyCard = null }) }

@@ -111,7 +111,7 @@ object Rebuild {
         val (paid, _) = debit(s, o.cost)
         val grown = b.copy(id = GameEngine.newId(s, o.to), type = o.to, builtAt = now)
         return paid.copy(buildings = paid.buildings.map { if (it.id == b.id) grown else it })
-            .logged(now, o.to.emoji to bi("engine.grew", "a" to b.type.names, "b" to o.to.names))
+            .logged(now, o.to.emoji to bi("engine.grew", "from" to b.type.name.lowercase(), "a" to b.type.names, "b" to o.to.names))
     }
 
     /**
@@ -152,7 +152,10 @@ object Rebuild {
         val b = s.buildings.firstOrNull { it.id == id } ?: return emptyList()
         if (keeps(s, b, cast) != null) return emptyList()
         val rest = without(s, b)
-        return GameEngine.buildOptions(rest, cast, words).filter { o -> o.type != b.type && open(rest, o.type) }
+        return GameEngine.buildOptions(rest, cast, words).filter { o -> o.type != b.type && open(rest, o.type) }.map { o ->
+            // nobody is left without a bed: a dwelling replaced by fewer beds than people waits for room elsewhere
+            bedsShort(s, b, o.type)?.let { (beds, people) -> o.copy(available = false, reason = "🛏️ ${bi("rebuild.noBeds", "beds" to beds, "people" to people)}", moba = null) } ?: o
+        }
     }
 
     /**
@@ -162,7 +165,7 @@ object Rebuild {
      */
     fun replace(s: GameState, id: String, type: BuildingType, now: Long, withMoba: Boolean = false, cast: List<Villager> = emptyList()): GameState {
         val b = s.buildings.firstOrNull { it.id == id } ?: return s
-        if (keeps(s, b, cast) != null || type == b.type || !type.onPlot) return s
+        if (keeps(s, b, cast) != null || type == b.type || !type.onPlot || bedsShort(s, b, type) != null) return s
         val rest = without(s, b)
         val built = GameEngine.buildAt(rest, type, now, withMoba, cast, b.plot) { used ->
             "🔁" to bi("engine.replaced", "a" to b.type.names, "b" to type.names) + Help.note(used)
@@ -184,10 +187,47 @@ object Rebuild {
                 ?.let { return PlotWay.Grow(it.id, from, type) }
         }
         val c = s.buildings
-            .filter { it.type != type && keeps(s, it, cast) == null && without(s, it).let { rest -> open(rest, type) && GameEngine.placeable(rest, type) } }
+            .filter { it.type != type && keeps(s, it, cast) == null && bedsShort(s, it, type) == null && without(s, it).let { rest -> open(rest, type) && GameEngine.placeable(rest, type) } }
             .minWithOrNull(compareBy({ s.buildings.count { o -> o.type == it.type } <= 1 }, { worth(it) }, { it.plot }))
             ?: return null
         return PlotWay.Replace(c.id, c.type)
+    }
+
+    /**
+     * The beds the village would have without [b] (and with a new [instead] at level 1 on its plot), against the people who
+     * live here, when they wouldn't be enough: (beds, people); null when everyone still has a bed, or [b] gives no beds
+     * (a dwelling's room is the village's: its people move to the others, never out).
+     */
+    fun bedsShort(s: GameState, b: Building, instead: BuildingType? = null): Pair<Int, Int>? {
+        if (Catalog.spec(b.type).effect.pop <= 0) return null
+        val after = without(s, b).let { r -> if (instead == null) r else r.copy(buildings = r.buildings + Building("instead", instead, b.plot)) }
+        val beds = GameEngine.attributes(after).populationCap
+        val people = maxOf(s.villagers, s.residents.size)
+        return if (beds < people) beds to people else null
+    }
+
+    /** What taking [b] down gives back: half the materials of building it, rounded down (its upgrades stay in it). */
+    fun salvage(b: Building): Map<Res, Int> = Catalog.spec(b.type).cost.mapValues { (_, n) -> n / 2 }.filterValues { it > 0 }
+
+    /**
+     * Whether building [id] can be taken down ("🔨 Podri · Take down"): one that may be replaced ([keeps]) and whose beds,
+     * if it has any, the village can do without ([bedsShort]).
+     */
+    fun canTakeDown(s: GameState, id: String, cast: List<Villager> = emptyList()): Boolean =
+        s.buildings.firstOrNull { it.id == id }?.let { keeps(s, it, cast) == null && bedsShort(s, it) == null } == true
+
+    /**
+     * Takes building [id] down ([canTakeDown]): its plot is free, half its building materials come back ([salvage], within
+     * the stores' room), the people stay; the chronicle says "🔨 Podrto: Koča · Taken down: Hut". [s] unchanged when it can't.
+     */
+    fun takeDown(s: GameState, id: String, now: Long, cast: List<Villager> = emptyList()): GameState {
+        if (!canTakeDown(s, id, cast)) return s
+        val b = s.buildings.first { it.id == id }
+        val rest = without(s, b)
+        val caps = GameEngine.attributes(rest).caps
+        val back = salvage(b).mapValues { (r, n) -> n.coerceAtMost((caps.getValue(r) - rest.res(r)).coerceAtLeast(0)) }.filterValues { it > 0 }
+        return rest.copy(resources = rest.resources.sumWith(back)).let(Placement::chosen)
+            .logged(now, "🔨" to bi("engine.tookDown", "building" to b.type.names))
     }
 
     /** What a building is worth to keep: its price and upgrades, half when damaged. */

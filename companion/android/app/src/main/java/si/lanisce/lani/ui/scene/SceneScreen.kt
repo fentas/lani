@@ -675,17 +675,24 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
     }
     val s = state
     if (homeOpen && home != null && s != null) {
+        // the village's card for it (ui/game/BuildingCard), over the scene: without going in, moving, replacing or growing
         si.lanisce.lani.ui.game.BuildingCard(
-            vm, s, home, si.lanisce.lani.ui.game.rememberBuildOptions(vm, s), si.lanisce.lani.ui.game.rememberAdvanceCheck(vm, s),
-            onUpgraded = {
-                // done here: the card closes and the room shows its new level; the village shows it going up on the way back
-                homeOpen = false
-                upgradedTo = home.level + 1
-                vm.notices.banner = "⬆️ ${home.type.emoji} ${home.type.label()} · ${bi("common.level")} ${home.level + 1}"
-            },
-            onPractise = { homeOpen = false },
-            onAges = { homeOpen = false; vm.openVillageAges() },
-            onDismiss = { homeOpen = false },
+            vm, s, home, si.lanisce.lani.ui.game.rememberAdvanceCheck(vm, s),
+            si.lanisce.lani.ui.game.BuildingCardActions(
+                onClose = { homeOpen = false },
+                onUpgraded = {
+                    // done here: the card closes and the room shows its new level; the village shows it going up on the way back
+                    homeOpen = false
+                    upgradedTo = home.level + 1
+                    vm.notices.banner = "⬆️ ${home.type.emoji} ${home.type.label()} · ${bi("common.level")} ${home.level + 1}"
+                },
+                onPractise = { homeOpen = false },
+                onAges = { homeOpen = false; vm.openVillageAges() },
+                onGather = { r -> homeOpen = false; vm.startGather(r) },
+                onSchool = { homeOpen = false; vm.openSchool(fromVillage = true) },
+                grows = false,
+            ),
+            sheet = true,
         )
     }
     // someone with several things tapped: the choice of them (the class's lesson first, the class's units, their dialogs,
