@@ -1,11 +1,14 @@
 package si.lanisce.lani.game.render.scene
 
+import si.lanisce.lani.game.Decor
+import si.lanisce.lani.game.render.CentreLook
 import si.lanisce.lani.game.render.Col
 import si.lanisce.lani.game.render.Dither
 import si.lanisce.lani.game.render.Moon
 import si.lanisce.lani.game.render.Noise
 import si.lanisce.lani.game.render.Pal
 import si.lanisce.lani.game.render.Season
+import si.lanisce.lani.game.scene.FireCrowd
 import si.lanisce.lani.game.scene.PersonInScene
 import si.lanisce.lani.game.scene.Pose
 import si.lanisce.lani.game.scene.Poke
@@ -48,18 +51,34 @@ import kotlin.math.sqrt
  * Its stage (companion/SCENES.md, "Stage directions", [marks]): the logs by the fire, sitting ("left", "right"); between
  * the fire and the tent, where the children play ("back"); and two places to hide, each with where one stands when out of
  * it: behind the stump in front, crouched, the top of a head and a shoulder over it; behind the woodpile at the back,
- * between it and the trees, the top of a head over the logs.
+ * between it and the trees, the top of a head over the logs. Round it the crowd's spots ([FireCrowd]): more of the village
+ * on the benches and standing beside the fire as it grows, the unnamed people of a bigger village on its evenings.
+ *
+ * The place grows with the village (companion/SCENES.md "Ob ognju by the age", [FireVillagePainter]): the camp in its
+ * clearing to Tabor; the hamlet's trodden ground, its log benches and its first huts among the spruces; the village's fire
+ * ring of big flat stones and its plank benches under the young linden, the well and the house fronts round the place, a
+ * lantern; the market town's cobbled square, the fire basket on its kerb, the market's stalls and the church; the town's
+ * paved square with its lanterns and the clock in the church's tower. Each in its culture's way. Over the day the fire is
+ * low in the morning, built up for the evening, let die down in a summer's noon; from the village on it burns for the
+ * evening's gathering, its coals glowing by day; out when the village had no wood for it; on a feast evening the market
+ * town's kres.
+ *
+ * What stands still (the room, the ground, the woods and the houses at the back) is drawn once and kept ([still]); the sky
+ * is drawn behind it, the rest each frame.
  */
-internal class CampfirePainter : DioramaPainter() {
+internal class CampfirePainter : FireVillagePainter() {
     override val art = "campfire"
     override val pokes = listOf(Poke("fire", listOf(1.6, 2.4), rest = 3.0))
     override val plotW = 12f
     override val plotD = 12f
-    override val rise = 26f
+
+    /** The village's houses and its church's tower stand taller than the camp's spruces: more room over the plot then. */
+    override val rise: Float get() = if (layout.square || layout.church) RISE_VILLAGE else RISE_CAMP
 
     // the fire in its ring of stones, the tripod's top high over it
-    private val fireX = 5.8f; private val fireY = 7.2f; private val fireR = 0.95f
-    private val apexZ = 24f
+    private val fireX = 5.8f; private val fireY = 7.2f
+    /** The tripod's top: higher over the market town's fire basket, the kettle hanging over its rim. */
+    private val apexZ: Float get() = 24f + lift
     // the pup tent at the back on the right: its ridge along y over tentR, the door in the near gable toward the fire
     private val tentX0 = 7.4f; private val tentX1 = 11.1f; private val tentY0 = 0.5f; private val tentY1 = 4.3f
     private val tentR = (tentX0 + tentX1) / 2f
@@ -82,8 +101,33 @@ internal class CampfirePainter : DioramaPainter() {
      * is drawn before it, standing there too; behind the woodpile before it, standing in front of it after the children's.
      * Who peeks out from behind the woodpile is drawn after it, at its near end: in full view, and a tap on them is on
      * them, not on the logs; behind the stump, before it, its left edge over their shoulder (their middle still theirs).
+     * Then the crowd's spots of the age ([FireLayout.crowd]): on the benches, drawn with the stage's sitter beside them, and
+     * standing round the fire, drawn after the children's place.
      */
-    override val marks = mapOf(
+    override val marks: Map<String, Mark> get() {
+        if (!rendered) return stageMarks
+        val l = layout
+        if (marksFor === l) return marksKept
+        val all = LinkedHashMap<String, Mark>()
+        // made anew with each layout: the walks between the spots go round what stands there at that age ([around])
+        for ((name, m) in stageMarks) all[name] = Mark(m.x, m.y, m.z, m.flip, m.layer, m.hidden, m.peek)
+        for ((i, sp) in l.crowd.withIndex()) {
+            val layer = when {
+                sp.sit && sp.x - sp.y < -1.4f -> "left"
+                sp.sit -> "right"
+                else -> "crowd"
+            }
+            all["${FireCrowd.PREFIX}${i + 1}"] = Mark(sp.x, sp.y, flip = sp.flip, layer = layer)
+        }
+        marksFor = l; marksKept = all
+        return all
+    }
+
+    private var marksFor: FireLayout? = null
+    private var marksKept: Map<String, Mark> = emptyMap()
+
+    /** The stage's own spots, the same at every age. */
+    private val stageMarks = mapOf(
         "left" to Mark(leftX, leftY),
         "right" to Mark(rightX, rightY, flip = true),
         "back" to Mark(backX, backY, flip = true),
@@ -91,17 +135,71 @@ internal class CampfirePainter : DioramaPainter() {
         "behind-logs" to Mark(LOGS_OUT_X, LOGS_OUT_Y, layer = "logs-front", hidden = "logs", peek = "logs-front"),
     )
 
+    /** A tap turn's place is a spot of the stage, never one of the crowd's. */
+    override fun tapSpot(name: String): Boolean = !FireCrowd.isCrowd(name)
+
     /** A shadow at the feet of whoever stands on the grass. */
     override fun footprint(x: Float, y: Float) = footShadow(x, y)
 
-    /** Nobody walks through the fire: round the hearth and the tripod's legs. */
-    override val around = listOf(floatArrayOf(fireX, fireY, 1.75f))
+    /** Nobody walks through the fire (round the hearth and the tripod's legs), nor through the well or the fountain. */
+    override val around: List<FloatArray> get() =
+        if (rendered && (layout.well || layout.fountain > 0)) listOf(floatArrayOf(fireX, fireY, 1.75f), floatArrayOf(WELL_X, WELL_Y, 1.0f))
+        else listOf(floatArrayOf(fireX, fireY, 1.75f))
 
-    /** On a log by the fire one sits, whatever the stance says (someone placed without the stage), its shadow at the feet too. */
+    /** On a log or a bench by the fire one sits, whatever the stance says (someone placed without the stage), its shadow at the feet too. */
     override fun settle(p: PersonInScene, spot: String, m: Mark, stance: Stance, lift: Int) {
-        val seat = spot == "left" || spot == "right"
+        val seat = spot == "left" || spot == "right" || crowdSits(spot)
         if (seat) footShadow(m.x, m.y)
-        super.settle(p, spot, m, if (seat) Stance.SIT else stance, lift)
+        super.settle(p, spot, m, if (seat && stance != Stance.HIDE && stance != Stance.PEEK) Stance.SIT else stance, lift)
+    }
+
+    /** Whether the crowd's spot [spot] is a seat on a bench. */
+    private fun crowdSits(spot: String): Boolean {
+        if (!FireCrowd.isCrowd(spot)) return false
+        val i = spot.removePrefix(FireCrowd.PREFIX).toIntOrNull()?.minus(1) ?: return false
+        return layout.crowd.getOrNull(i)?.sit == true
+    }
+
+    /**
+     * The unnamed people of a bigger village by the fire at the crowd's spots of [layer] ("left", "right": on the benches;
+     * "crowd": standing round the fire) that none of the village's own took (they are [cast] at their spots' layers): on an
+     * evening by the fire ([unnamedHere]), as figures, not to tap.
+     */
+    private fun crowdAt(layer: String) {
+        val l = layout
+        if (l.crowd.isEmpty()) return
+        val taken = frame.people.map { it.slot }.toSet()
+        var n = unnamedHere()
+        for ((i, sp) in l.crowd.withIndex()) {
+            val name = "${FireCrowd.PREFIX}${i + 1}"
+            if (name in taken) continue
+            if (n <= 0) break
+            n--
+            val m = marks[name] ?: continue
+            if (m.layer != layer) continue
+            val art = if (i % 2 == 0) "woman" else "man"
+            val bx = sx(sp.x, sp.y); val by = sy(sp.x, sp.y) + detail
+            footShadow(sp.x, sp.y)
+            prop(Pal.OUTLINE) { sprite(bx, by) { people.draw(c, art, bx, by, t, Noise.hash(frame.village.toInt(), i, 17) ushr 1, false, sp.flip, false, sp.sit, Pose.IDLE) } }
+        }
+    }
+
+    /**
+     * How many of the village's unnamed people ([SceneWorld.Centre.unnamed]) are by the fire now, as the map has them: a
+     * few in the dark evening (fewer after nine, none from ten), all who are up at a feast or the age's party.
+     */
+    private fun unnamedHere(): Int {
+        val ce = frame.world.centre
+        val n = ce.unnamed
+        if (n <= 0) return 0
+        val h = s.hour
+        val evening = h >= CentreLook.EVENING && h < 22f
+        return when {
+            (ce.party || ce.feast) && evening -> n
+            env.dark > 0.55f && h >= 12f && h < 21f -> min(n, 4)
+            env.dark > 0.55f && h >= 21f && h < 22f -> min(n, 2)
+            else -> 0
+        }
     }
 
     /**
@@ -128,17 +226,37 @@ internal class CampfirePainter : DioramaPainter() {
     }
 
     /**
-     * The village's centre by its age (companion/GAME.md "Hearths"): from Vas the fire ring, its logs to sit on plank benches;
-     * from Trg the square, cobbles round the fire. The camp in the woods it always was before.
+     * What the still picture ([still]) is drawn for: the centre's layout (the world, the day), the season, the room's light
+     * round the diorama and the Milky Way's, the windows lit or not and the church's evening mass.
      */
-    private val ring get() = frame.world.age >= si.lanisce.lani.game.Age.VAS
-    private val square get() = frame.world.age >= si.lanisce.lani.game.Age.TRG
+    private data class Still(val layout: FireLayout, val month: Int, val room: Int, val edge: Int, val milky: Int, val lit: Boolean, val mass: Boolean, val festive: Boolean)
 
     override fun paint() {
         fit()
-        vignette()
+        val l = layout
         val lit = env.windows > 0.35f
-        nightSky()
+        // the moon's object first: what stands at the back is drawn over it, outlined against it, as if the sky came first
+        val moonId = reserve(0)
+        val (room, edge) = roomColors()
+        val festive = Decor.STALLS in frame.world.centre.decor || frame.world.centre.feast
+        still(Still(l, frame.month, room, edge, milkyLevel(), lit, lit && s.hour < 21.5f, festive)) {
+            vignette()
+            milkyWay(skyBottom())
+            plot { x, y, px, py -> ground(x, y, px, py) }
+            // tufts first: they lie flat, and whatever stands in front of them covers them
+            tufts(96, 13) { x, y -> bare(x, y) }
+            groundShadows()
+            // the woods along the back edges, back to front (what the village left of them), the homes, the church and the
+            // linden; the market's stalls (the hazels in the corners are the frame's: Luka's flock comes out behind them)
+            for (t in l.trees) prop(Pal.OUTLINE_TREE) { if (style.coast) pine(t[0], t[1], t[2], t[3].toInt()) else spruce(t[0], t[1], t[2], t[3].toInt()) }
+            undergrowth()
+            villageBack()
+            if (l.stalls) stalls(festive)
+        }
+        // the sky, behind what stands
+        c.behind = true
+        nightSky(moonId)
+        c.behind = false
         distantBell()
         // Luka's flock at the camp ("flock"): where each sheep is, drawn in three passes as they pass behind and in front
         flockPlan(fx("flock"))
@@ -148,23 +266,18 @@ internal class CampfirePainter : DioramaPainter() {
         val q = detail
         thingRect("smoke", cx - 8 * q, cy - 100 * q, cx + 26 * q, cy - 50 * q)
         thingRect("sparks", cx - 16 * q, cy - 50 * q, cx + 20 * q, cy - 16 * q)
-        plot { x, y, px, py -> ground(x, y, px, py) }
-        // tufts first: they lie flat, and whatever stands in front of them covers them
-        tufts(96, 13) { x, y -> bare(x, y) }
-        groundShadows()
-
-        // the woods along the back edges, back to front
-        for (t in TREES) prop(Pal.OUTLINE_TREE) { spruce(t[0], t[1], t[2], t[3].toInt()) }
+        // Luka's flock still among the trees at the back (the camp's), then the hazels in the side corners in front of them
         flockPass(0)
-        for (b in BACK_BUSHES) prop(Pal.OUTLINE_TREE) { bush(b[0], b[1], b[2], b[3].toInt()) }
-        undergrowth()
+        for (b in BACK_BUSHES) if (garden(b[0], b[1])) prop(Pal.OUTLINE_TREE) { bush(b[0], b[1], b[2], b[3].toInt()) }
 
         // the woodpile, and whoever hides behind it
         cast("logs")
         thing("logs") { woodpile() }
+        // the square's lanterns at its back, lit from dusk (behind the tent and whoever stands in front of them)
+        for ((k, p) in l.lanterns.withIndex()) if (p[0] + p[1] < BACK_LANTERN) prop { lantern(p[0], p[1], lit, k) }
 
         // the tent (once the village has pitched it: TENT), its guy ropes and stakes; the chopping block and its axe by its corner
-        val tent = there("tent")
+        val tent = l.tent
         if (tent) {
             thing("tent") { tent(lit) }
             prop(outline = 0) {
@@ -177,29 +290,46 @@ internal class CampfirePainter : DioramaPainter() {
         prop { choppingBlock() }
         thing("axe", slop = 1) { axe() }
 
-        // behind the fire, near the tent; out of the woodpile, in front of it
+        // behind the fire, near the tent; out of the woodpile, in front of it; the crowd standing round the fire
         cast("back"); dozing("back")
         cast("logs-front")
+        cast("crowd"); crowdAt("crowd")
+        // the lanterns along its sides and front
+        for ((k, p) in l.lanterns.withIndex()) if (p[0] + p[1] >= BACK_LANTERN) prop { lantern(p[0], p[1], lit, k) }
 
-        // the hearth: the tripod's back leg, the stones behind, the fire, the kettle, the stones in front, the front legs
-        prop { tripodLeg(-1.14f, -1.14f) }
+        // the hearth: the tripod's back leg, the stones behind, the fire, the kettle, the stones in front, the front legs;
+        // the market town's fire basket on its kerb, the kres of a feast evening in its place (the kettle set aside then)
+        val burn = burn()
+        val tripod = !burn.kres
+        if (tripod) prop { tripodLeg(-1.14f, -1.14f) }
         thing("stones") { hearth(front = false) }
-        thing("fire") { blaze() }
-        prop(outline = 0) { chain() }
-        thing("kettle", slop = 1) { kettle(lit) }
+        thing("fire") { blaze(burn) }
+        if (tripod) prop(outline = 0) { chain() }
+        thing("kettle", slop = 1) { kettle(lit, burn) }
         thing("stones") { hearth(front = true) }
-        prop { tripodLeg(-0.42f, 1.57f); tripodLeg(1.57f, -0.42f); lashing() }
+        if (tripod) prop { tripodLeg(-0.42f, 1.57f); tripodLeg(1.57f, -0.42f); lashing() }
 
-        // the bucket, the logs by the fire and the people on them (from Vas the fire ring's plank benches), the stump in front
+        // the bucket, the seats by the fire and the people on them, the crowd beside them; the stump in front
         thing("bucket", slop = 1) { bucket(lit) }
-        prop { if (ring) bench(leftX, leftY, 0.45f) else seat(leftX, leftY, 0.45f, 71) }
+        val (l0, l1) = leftReach()
+        prop { seat(leftX, leftY, 0.45f, l0, l1, 71) }
         cast("left"); dozing("left")
-        prop { if (ring) bench(rightX, rightY, 0.55f) else seat(rightX, rightY, 0.55f, 73) }
+        crowdAt("left")
+        val (r0, r1) = rightReach()
+        prop { seat(rightX, rightY, 0.55f, r0, r1, 73) }
         cast("right"); dozing("right")
+        crowdAt("right")
         cast("stump")
         thing("stump") { stump() }
+        // the square's well at its front right, the market town's fountain in its place as far as it has come; the flock along
+        // the edges in front of everything
+        if (l.fountain > 0) prop { fountain(l.fountain, l.fountainSteps) }
+        else if (l.well) prop { well(l.age >= FireAge.MARKET) }
         flockPass(2)
 
+        // the decorations of the day's feast, the homes' smoke and their windows' light
+        decorations(fireX, fireY)
+        homesAlive()
         fireflies(iso.ix(0f, 9f), iso.iy(0f, 3f, 20f), iso.ix(12f, 3f), iso.iy(12f, 9f, 0f), 14, 21)
         drift()
         if (lit && tent) {
@@ -208,6 +338,19 @@ internal class CampfirePainter : DioramaPainter() {
             s.light(iso.sx(tentR + 0.5f, (tentY0 + tentY1) / 2f), iso.sy(tentR + 0.5f, (tentY0 + tentY1) / 2f, 8f), 24f, 0.3f * env.windows)
         }
     }
+
+    /** How far the left seat reaches along it (cells from its middle behind the stage's sitter): the first campfire's log, then past the crowd's seat beside the stage's. */
+    private fun leftReach(): Pair<Float, Float> = if (layout.crowd.isEmpty()) -1.3f to 1.3f else -1.3f to 2.3f
+
+    /** How far the right seat reaches: the first campfire's log, then past the crowd's seat before it, from the village behind it too. */
+    private fun rightReach(): Pair<Float, Float> = when {
+        layout.crowd.isEmpty() -> -1.3f to 1.3f
+        layout.age >= FireAge.VILLAGE -> -2.3f to 2.0f
+        else -> -2.3f to 1.3f
+    }
+
+    /** Whether a garden's bush can stand at world ([x], [y]): where no home stands on its lot. */
+    private fun garden(x: Float, y: Float): Boolean = layout.homes.none { h -> x in h.lot.x0 - 0.8f..h.lot.x1 + 0.8f && y in h.lot.y0 - 0.8f..h.lot.y1 + 0.8f }
 
     /** A touch lighter at night, so the woods at the back don't sink into black. */
     override fun ambient(): FloatArray {
@@ -222,22 +365,42 @@ internal class CampfirePainter : DioramaPainter() {
     // ------------------------------------------------------------------ the sky over the diorama
 
     /**
-     * The dark room above the diorama is the night sky: the Milky Way and the stars come out after dusk; the moon, while
-     * it is up, crosses it from the left to the right (lower as it rises and sets, behind the trees), by day a pale ghost.
+     * The dark room above the diorama is the night sky: the stars come out after dusk (the Milky Way with them, kept in the
+     * still picture: [milkyWay]); the moon, while it is up, crosses it from the left to the right (lower as it rises and sets,
+     * behind the trees), by day a pale ghost; where the village's roofs, its church's tower or the linden stand in its way
+     * it keeps above them while the sky has room ([skyline]). Drawn behind what stands ([PixelCanvas.behind]), under the
+     * moon's object [moonId] taken before the still picture.
      */
-    private fun nightSky() {
+    private fun nightSky(moonId: Int) {
         val q = detail
-        val bottom = iso.oy.toInt() + (plotW * 2f * K).toInt()
-        milkyWay(bottom)
+        val bottom = skyBottom()
         // the same stars at every detail (their count and places are the scene canvas's); closer up, fainter ones between
         stars(0, bottom, max(40, (w / q) * (bottom / q) / 320), 3)
         if (q >= 2) faintStars(bottom)
         // only tappable when they show (SceneSights: the words panel's chips go by it too)
         thingRect("stars", 0, 0, w, max(16 * q, iso.oy.toInt() - 8 * q), visible = SceneSights.starsOut(env))
         val top = max(14 * q, (iso.oy.toInt() - (rise * K).toInt()) / 2 + 20 * q)
-        val mx = iso.ox.toInt() + ((env.moonArc - 0.5f) * MOON_SPAN).roundToInt() * q
-        thing("moon", outline = 0) { moon(mx, moonRow(top, top + MOON_DROP * q)) }
+        var mx = iso.ox.toInt() + ((env.moonArc - 0.5f) * MOON_SPAN).roundToInt() * q
+        var my = moonRow(top, top + MOON_DROP * q)
+        // above what stands in its way, as far as the sky goes (a scene canvas's px of air between); where a short canvas
+        // has no sky over the roofs and the tower there, along its way to the nearest stretch that has
+        val r = 8 * q; val air = 2 * q
+        fun lowest(x: Int): Int = (skyline((x - r - air).toFloat(), (x + r + air).toFloat()) - r - air).toInt()
+        if (lowest(mx) < r + air) {
+            for (d in q..MOON_SHIFT * q step q) {
+                if (mx - d >= r && lowest(mx - d) >= r + air) { mx -= d; break }
+                if (mx + d <= w - r && lowest(mx + d) >= r + air) { mx += d; break }
+            }
+        }
+        my = min(my, lowest(mx)).coerceAtLeast(r + air)
+        thingAt(moonId, "moon") { moon(mx, my) }
     }
+
+    /** The sky's bottom row over the diorama (picture px): its left and right corners'. */
+    private fun skyBottom(): Int = iso.oy.toInt() + (plotW * 2f * K).toInt()
+
+    /** How bright the Milky Way is now, in sixteenths: it comes out with the dark, a step at a time (the still picture keeps it). */
+    private fun milkyLevel(): Int = (((env.dark - 0.4f) / 0.4f).coerceIn(0f, 1f) * 16f).roundToInt()
 
     /**
      * A distant bell (a story's "bell": the wishing bell of Bled, a church far off): no bell to see, only its rings going
@@ -300,8 +463,9 @@ internal class CampfirePainter : DioramaPainter() {
     /**
      * Luka's flock at the camp ("flock", [level]; his "Ovce gredo s planine. Pomagaj mi jih prešteti!" and "Zdaj grem z
      * ovcami na travnik"): as many sheep as the dialog counts ([si.lanisce.lani.game.scene.SceneFrame.count], else [FLOCK]).
-     * Up to 0.5 they come out of the trees at the back on the right one after another, down past the tent and the chopping
-     * block, and spread along the camp's edge on the right and in front ([FLOCK_AT], the farthest first), where they mill,
+     * Up to 0.5 they come out of the trees at the back on the right one after another (from the village on, round the
+     * corner of the house there), down past the tent and the chopping block, and spread along the camp's edge on the right
+     * and in front ([flockAt], the farthest first; from the village on clear of the well and the crowd's seat), where they mill,
      * grazing, a head up now and then, to be counted; from 0.5 they go one after another along the front edge and down the
      * path out of the clearing on the left, the nearest to it first, and at 1 they are gone. Not set, none. Plans where each
      * is this frame; [flockPass] draws them.
@@ -404,25 +568,43 @@ internal class CampfirePainter : DioramaPainter() {
         if (q > 1 && up) px(5, by - 6, Col.hex(0x5A5450)) // its eye's glint
     }
 
-    /** The way the [k]th of the flock comes in to its place ([FLOCK_AT]): out of the trees in the corner, past the tent and the block, along the edge. */
+    /**
+     * Where the [k]th of the flock mills ([FLOCK_AT]); from the village on, the places by the well (the fountain) and the
+     * crowd's seat at the right end of the bench go to the open ground before the stump and the right bench instead
+     * ([FLOCK_SQUARE]), so the dialog's count still all stand to be counted.
+     */
+    private fun flockAt(k: Int): FloatArray =
+        if (layout.age >= FireAge.VILLAGE) FLOCK_SQUARE[k] ?: FLOCK_AT[k] else FLOCK_AT[k]
+
+    /**
+     * The way the [k]th of the flock comes in to its place ([flockAt]): out of the trees in the corner (from the village on
+     * round the corner of the house on the right, in front of the homes' lots), past the tent and the block, along the edge.
+     */
     private fun flockIn(k: Int): FloatArray {
-        val sx = FLOCK_AT[k][0]; val sy = FLOCK_AT[k][1]
-        val head = floatArrayOf(11.65f, 0.1f, 11.6f, 4.6f, 10.75f, 5.75f)
+        val at = flockAt(k); val sx = at[0]; val sy = at[1]
+        val head = if (layout.age >= FireAge.VILLAGE) floatArrayOf(11.95f, 2.45f, 11.6f, 4.6f, 10.75f, 5.75f)
+        else floatArrayOf(11.65f, 0.1f, 11.6f, 4.6f, 10.75f, 5.75f)
+        // from the village on, past the stump on the well's near side (the camp's way passes where the well stands)
+        val mid = if (layout.age >= FireAge.VILLAGE) FLOCK_BY_WELL else 10.8f
         return when {
+            layout.age >= FireAge.VILLAGE && k in FLOCK_SQUARE -> head + floatArrayOf(10.6f, 8.2f, sx, sy)
             sx > 10.9f && sy < 8.8f -> head + floatArrayOf(sx, sy)
             sy < 9.5f -> head + floatArrayOf(10.6f, 8.2f, sx, sy)
-            sx > 10.3f -> head + floatArrayOf(10.6f, 8.2f, 10.8f, 11.35f, sx, sy)
-            else -> head + floatArrayOf(10.6f, 8.2f, 10.8f, 11.35f, 9.6f, 11.8f, sx, sy)
+            sx > 10.3f -> head + floatArrayOf(10.6f, 8.2f, mid, 11.35f, sx, sy)
+            else -> head + floatArrayOf(10.6f, 8.2f, mid, 11.35f, 9.6f, 11.8f, sx, sy)
         }
     }
 
     /** The way the [k]th of the flock goes from its place down the path out of the clearing on the left, past the plot's edge. */
     private fun flockOut(k: Int): FloatArray {
-        val sx = FLOCK_AT[k][0]; val sy = FLOCK_AT[k][1]
+        val at = flockAt(k); val sx = at[0]; val sy = at[1]
         val tail = floatArrayOf(2.7f, 11.85f, 2.1f, 13.4f)
+        val mid = if (layout.age >= FireAge.VILLAGE) FLOCK_BY_WELL else 10.8f
         return when {
-            sx > 10.5f && sy < 11f -> floatArrayOf(sx, sy, 10.6f, 9.0f, 10.8f, 11.4f, 9.6f, 11.85f) + tail
+            sx > 10.5f && sy < 11f -> floatArrayOf(sx, sy, 10.6f, 9.0f, mid, 11.4f, 9.6f, 11.85f) + tail
             sx > 10.5f -> floatArrayOf(sx, sy, 10.6f, 11.85f) + tail
+            // from the village on, the places before the stump go out past it on the well's near side
+            layout.age >= FireAge.VILLAGE && k in FLOCK_SQUARE -> floatArrayOf(sx, sy, mid, 11.35f, 9.6f, 11.85f) + tail
             else -> floatArrayOf(sx, sy, sx, 11.85f) + tail
         }
     }
@@ -464,9 +646,9 @@ internal class CampfirePainter : DioramaPainter() {
         c.penEmissive = false
     }
 
-    /** A faint band of light across the sky, thick with small stars, from the upper left down to the right. */
+    /** A faint band of light across the sky, thick with small stars, from the upper left down to the right ([milkyLevel]). */
     private fun milkyWay(bottom: Int) {
-        val a = ((env.dark - 0.4f) / 0.4f).coerceIn(0f, 1f)
+        val a = milkyLevel() / 16f
         if (a <= 0f) return
         val haze = Col.hex(0x7A86BC)
         val nx = -0.34f; val ny = 0.94f   // the band's normal: it runs down to the right at a shallow slope
@@ -585,51 +767,65 @@ internal class CampfirePainter : DioramaPainter() {
 
     // ------------------------------------------------------------------ ground
 
+    /**
+     * The plot's ground: grass, needles and moss under the spruces, trampled earth round the fire and on the ways to the tent
+     * and out of the clearing; from the hamlet on the centre's own ([squareGround]: its trodden earth, the village's gravel,
+     * the market town's cobbles, the town's paving); ash blown past the stones, in winter a ring of wet earth the fire melted
+     * round the camp's; chips round the chopping block.
+     */
     private fun ground(x: Float, y: Float, px: Int, py: Int): Int {
+        val l = layout
         var col = grassAt(x, y, px, py)
-        // needles and moss under the spruces along the back edges
-        val under = min(x, y) - (Noise.v1((x - y) * 1.7f, 41) - 0.5f) * 0.6f
-        if (under < 0.95f) {
-            val ff = env.forestFloor
-            val n = Noise.rnd(px, py, 43)
-            col = if (n < 0.1f) ff[2] else if (Noise.v2(x * 3f, y * 3f, 45) < 0.5f) ff[0] else ff[1]
+        // needles and moss under the spruces along the back edges (where the village left them)
+        if (l.trees.isNotEmpty()) {
+            val under = min(x, y) - (Noise.v1((x - y) * 1.7f, 41) - 0.5f) * 0.6f
+            if (under < 0.95f && (l.age == FireAge.CAMP || l.trees.any { abs(it[0] - x) + abs(it[1] - y) < 1.6f })) {
+                val ff = env.forestFloor
+                val n = Noise.rnd(px, py, 43)
+                col = if (n < 0.1f) ff[2] else if (Noise.v2(x * 3f, y * 3f, 45) < 0.5f) ff[0] else ff[1]
+            }
         }
-        // trampled round the fire, on the way to the tent and out of the clearing
         val dFire = hypot(x - fireX, y - fireY) - fireR
-        val path = min(segDist(x, y, fireX + 0.7f, fireY - 0.7f, tentR - 0.2f, tentY1 + 0.5f), segDist(x, y, fireX - 0.3f, fireY + 1.2f, 2.4f, 12.2f))
-        val near = max(1f - dFire / 1.2f, 1f - path / 0.5f)
-        if (near > 0f) col = dirtAt(px, py, (near * (0.7f + Noise.v2(x * 2f, y * 2f, 3) * 0.6f)).coerceIn(0f, 1f), col)
-        // ash blown just past the stones; in winter the fire has melted a ring of wet earth
-        if (winter && dFire < 0.6f + Noise.v2(x * 3f, y * 3f, 8) * 0.35f) {
-            val n = Noise.rnd(px, py, 49)
-            col = if (n < 0.3f) Pal.SOIL_D else if (n < 0.85f) Pal.SOIL_M else Pal.DIRT_D
+        if (l.age == FireAge.CAMP) {
+            // trampled round the fire, on the way to the tent and out of the clearing
+            val path = min(segDist(x, y, fireX + 0.7f, fireY - 0.7f, tentR - 0.2f, tentY1 + 0.5f), segDist(x, y, fireX - 0.3f, fireY + 1.2f, 2.4f, 12.2f))
+            val near = max(1f - dFire / 1.2f, 1f - path / 0.5f)
+            if (near > 0f) col = dirtAt(px, py, (near * (0.7f + Noise.v2(x * 2f, y * 2f, 3) * 0.6f)).coerceIn(0f, 1f), col)
         }
-        if (dFire < 0.45f && Noise.rnd(px, py, 51) < 0.3f) col = if (Noise.rnd(px, py, 52) < 0.5f) Col.hex(0x5A5450) else Col.hex(0x7A726A)
-        // on the town's square: cobbles round the fire, out to the benches
-        if (square && dFire in 0.35f..3.6f + (Noise.v1((x + y) * 1.3f, 61) - 0.5f) * 0.5f) col = cobble(x, y, px, py)
+        col = squareGround(x, y, px, py, col, fireX, fireY)
+        if (l.age <= FireAge.HAMLET) {
+            // ash blown just past the stones; in winter the fire has melted a ring of wet earth
+            if (winter && dFire < 0.6f + Noise.v2(x * 3f, y * 3f, 8) * 0.35f) {
+                val n = Noise.rnd(px, py, 49)
+                col = if (n < 0.3f) Pal.SOIL_D else if (n < 0.85f) Pal.SOIL_M else Pal.DIRT_D
+            }
+            if (dFire < 0.45f && Noise.rnd(px, py, 51) < 0.3f) col = if (Noise.rnd(px, py, 52) < 0.5f) Col.hex(0x5A5450) else Col.hex(0x7A726A)
+        } else if (l.age == FireAge.VILLAGE && dFire < 0.55f && Noise.rnd(px, py, 51) < 0.25f) col = Col.hex(0x6A645E)
         // chips round the chopping block
         if (hypot(x - blockX, y - blockY) < 1.05f && Noise.rnd(px, py, 47) < 0.07f) col = if (Noise.rnd(px, py, 48) < 0.5f) Col.hex(0xE8C890) else Col.hex(0xC89A62)
         return col
     }
 
-    private fun segDist(x: Float, y: Float, ax: Float, ay: Float, bx: Float, by: Float): Float {
-        val dx = bx - ax; val dy = by - ay
-        val u = (((x - ax) * dx + (y - ay) * dy) / (dx * dx + dy * dy)).coerceIn(0f, 1f)
-        return hypot(x - ax - dx * u, y - ay - dy * u)
+    /** The hearth's reach round the fire: the camp's ring, the village's wider ring of big flat stones, the square's kerb. */
+    private val fireR: Float get() = when (layout.age) {
+        FireAge.CAMP, FireAge.HAMLET -> 0.95f
+        FireAge.VILLAGE -> 1.18f
+        else -> 1.12f
     }
 
-    /** No tufts in the fire, on the paths or under what stands on the ground. */
+    /** No tufts in the fire, on the paths or under what stands on the ground, nor on the village's square. */
     private fun bare(x: Float, y: Float): Boolean =
-        hypot(x - fireX, y - fireY) < fireR + 1.3f ||
-            (x in tentX0 - 0.2f..tentX1 + 0.3f && y in tentY0 - 0.2f..tentY1 + 0.3f) ||
+        !grassy(x, y) ||
+            hypot(x - fireX, y - fireY) < (if (layout.age == FireAge.HAMLET) 3.8f else fireR + 1.3f) ||
+            (layout.tent && x in tentX0 - 0.2f..tentX1 + 0.3f && y in tentY0 - 0.2f..tentY1 + 0.3f) ||
             (x < pileX + 1.6f && y in pileY0 - 0.3f..pileY1 + 0.3f) ||
             hypot(x - blockX, y - blockY) < 0.9f || hypot(x - stumpX, y - stumpY) < 1.1f || hypot(x - bucketX, y - bucketY) < 0.7f ||
             segDist(x, y, fireX - 0.3f, fireY + 1.2f, 2.4f, 12.2f) < 0.45f
 
     /** Soft shadows on the grass: at the foot of the spruces and the woodpile, along the tent's eave. */
     private fun groundShadows() {
-        for (t in TREES) shade(iso.sx(t[0] + 0.25f, t[1] + 0.25f), iso.sy(t[0] + 0.25f, t[1] + 0.25f, 0f), t[2] * 0.55f * K, t[2] * 0.2f * K, 0.78f, groundId)
-        if (there("tent")) for (k in 0..3) {
+        for (t in layout.trees) shade(iso.sx(t[0] + 0.25f, t[1] + 0.25f), iso.sy(t[0] + 0.25f, t[1] + 0.25f, 0f), t[2] * 0.55f * K, t[2] * 0.2f * K, 0.78f, groundId)
+        if (layout.tent) for (k in 0..3) {
             val yy = tentY0 + 0.3f + k * (tentY1 - tentY0 - 0.6f) / 3f
             shade(iso.sx(tentX1 + 0.35f, yy), iso.sy(tentX1 + 0.35f, yy, 0f), 3.2f * K, 1.4f * K, 0.8f, groundId)
         }
@@ -692,6 +888,46 @@ internal class CampfirePainter : DioramaPainter() {
         }
     }
 
+    /**
+     * An umbrella pine of the coast (Teo's Friuli by the sea) with its foot at world ([x], [y]), [hgt] px tall: a bare trunk
+     * leaning a little, forking under a broad flat crown in clumps, lit from the upper left; snow along its top in winter.
+     */
+    private fun pine(x: Float, y: Float, hgt: Float, seed: Int) {
+        val bx = iso.sx(x, y); val by = iso.sy(x, y, 0f)
+        val q = detail
+        val lean = (Noise.rnd(seed, 71) - 0.5f) * 0.25f
+        val top = by - hgt * K * 0.72f
+        // the trunk, its bark lit on the left
+        val tw = 1.1f * K
+        for (py in max(c.top, floor(top).toInt())..min(c.bottom - 1, floor(by).toInt())) {
+            val f = (by - py) / (by - top)
+            val cx = bx + lean * f * hgt * K * 0.5f
+            for (px in floor(cx - tw).toInt()..floor(cx + tw).toInt()) {
+                val u = (px + 0.5f - cx) / tw
+                var col = if (u < -0.4f) Col.hex(0xA0705A) else if (u < 0.4f) Col.hex(0x7E5444) else Col.hex(0x5A3A2E)
+                if (q >= 2 && Noise.rnd(px / q, py / (2 * q), seed) < 0.18f) col = Col.scale(col, 0.82f)
+                c.set(px, py, col)
+            }
+        }
+        // the crown: a broad flat dome of clumps
+        val p = env.pine
+        val rx = hgt * K * 0.55f; val ry = hgt * K * 0.2f
+        val cx = bx + lean * hgt * K * 0.5f; val cy = top - ry * 0.4f
+        val clumpS = 3f * K
+        for (py in max(c.top, floor(cy - ry * 1.4f).toInt())..min(c.bottom - 1, floor(cy + ry).toInt())) {
+            for (px in max(c.left, floor(cx - rx * 1.1f).toInt())..min(c.right - 1, floor(cx + rx * 1.1f).toInt())) {
+                val dx = (px + 0.5f - cx) / rx; val dy = (py + 0.5f - cy) / ry
+                val clump = Noise.v2(px / clumpS, py / clumpS, seed + 72)
+                val d = dx * dx + (if (dy < 0f) dy * dy * 0.7f else dy * dy * 1.6f) + (clump - 0.5f) * 0.6f
+                if (d > 1f) continue
+                val light = -dx * 0.5f - dy * 0.9f + (clump - 0.5f)
+                var col = if (light > 0.45f) p[3] else if (light > -0.1f) p[0] else if (light > -0.6f) p[1] else p[2]
+                if (winter && dy < -0.3f && clump > 0.45f) col = Pal.SNOW_L
+                c.set(px, py, col)
+            }
+        }
+    }
+
     /** One pixel of a spruce tier: [rel] -1 (left, lit) .. 1, [f] 0 at the tier's top .. 1 at its bottom (past 1 the hanging tips). */
     private fun needle(rel: Float, f: Float, px: Int, py: Int, seed: Int, p: IntArray): Int {
         var col = when {
@@ -726,11 +962,16 @@ internal class CampfirePainter : DioramaPainter() {
         return col
     }
 
-    /** Ferns at the foot of the woods (rusty in autumn, gone under the snow in winter), a few stones, fly agarics in autumn. */
+    /**
+     * Ferns at the foot of the woods (rusty in autumn, gone under the snow in winter), a few stones, fly agarics in autumn:
+     * round the camp, and in the hamlet where no hut stands.
+     */
     private fun undergrowth() {
-        if (!winter) for (f in FERNS) prop(outline = 0) { fern(f[0], f[1], f[2].toInt()) }
-        for (r in ROCKS) prop { stone(r[0], r[1], r[2], r[3].toInt()) }
-        if (env.season == Season.AUTUMN) for (m in AGARICS) prop { agaric(m[0], m[1], m[2]) }
+        val l = layout
+        val woods = l.age <= FireAge.HAMLET
+        if (woods && !winter) for (f in FERNS) if (garden(f[0], f[1])) prop(outline = 0) { fern(f[0], f[1], f[2].toInt()) }
+        if (woods) for (r in ROCKS) if (garden(r[0], r[1])) prop { stone(r[0], r[1], r[2], r[3].toInt()) }
+        if (woods && env.season == Season.AUTUMN) for (m in AGARICS) if (garden(m[0], m[1])) prop { agaric(m[0], m[1], m[2]) }
     }
 
     /** A fern at world ([x], [y]): a fan of fronds arching out and drooping at their tips, leaflets along them. */
@@ -1061,50 +1302,90 @@ internal class CampfirePainter : DioramaPainter() {
         for (r in 0 until q) c.hline(hx - 5 * q, hx + 5 * q - 1, hy + 2 * q + r, if (r == 0) Col.hex(0x2A1E14) else Col.hex(0x3A2A1C))
     }
 
-    /** A cobble of the square at world ([x], [y]): rounded stones in rows, dark joints between them. */
-    private fun cobble(x: Float, y: Float, px: Int, py: Int): Int {
-        val u = x * 2.6f; val v = y * 2.6f + if (floor(x * 2.6f).toInt() % 2 == 0) 0.5f else 0f
-        val fu = u - floor(u); val fv = v - floor(v)
-        if (fu < 0.12f || fv < 0.12f) return Pal.COBBLE_D
-        val n = Noise.rnd(floor(u).toInt(), floor(v).toInt(), 63)
-        val base = if (n < 0.33f) Pal.COBBLE_L else if (n < 0.8f) Pal.COBBLE_M else Col.mix(Pal.COBBLE_M, Pal.DIRT_M, 0.4f)
-        return if (fu + fv < 0.55f && Noise.rnd(px, py, 64) < 0.5f) Col.mix(base, Col.hex(0xFFFFFF), 0.12f) else base
-    }
-
     /**
-     * A plank bench behind the person at world ([x], [y]), along where the log lies ([skew]): the seat a pixel row lit on top,
-     * its front edge darker, a leg at each end (the fire ring's, from Vas).
+     * The seat behind the stage's sitter at world ([x], [y]), lying along [skew], reaching [s0]..[s1] cells along it from its
+     * middle (the crowd's seats on it too), as the age has it: the camp's log, the hamlet's log bench (a split log on two
+     * blocks), the village's and the market town's plank bench, the town's on iron legs.
      */
-    private fun bench(x: Float, y: Float, skew: Float) {
+    private fun seat(x: Float, y: Float, skew: Float, s0: Float, s1: Float, seed: Int) {
         val cx = x - 0.3f; val cy = y - 0.3f
         val len = sqrt(1f + skew * skew)
-        val dx = 1.3f / len; val dy = -1.3f * skew / len
-        shade(iso.sx(cx + 0.2f, cy + 0.2f), iso.sy(cx + 0.2f, cy + 0.2f, 0f), 13f * K, 2.6f * K, 0.78f, groundId)
-        val q = detail
-        val z = 2.4f
-        val x0 = iso.sx(cx - dx, cy - dy); val y0 = iso.sy(cx - dx, cy - dy, z)
-        val x1 = iso.sx(cx + dx, cy + dy); val y1 = iso.sy(cx + dx, cy + dy, z)
-        val legs = (z * K).toInt()
-        for ((lx, ly) in listOf(x0 + 2f * q to y0, x1 - 2f * q to y1 + (y0 - y1) * (2f * q / max(1f, abs(x1 - x0))))) {
-            c.fillRect(floor(lx).toInt(), floor(ly).toInt(), 2 * q, legs, Pal.WOOD_X)
+        val ux = 1f / len; val uy = -skew / len
+        val ax = cx + ux * s0; val ay = cy + uy * s0; val bx = cx + ux * s1; val by = cy + uy * s1
+        val mx = (ax + bx) / 2f; val my = (ay + by) / 2f
+        shade(iso.sx(mx + 0.2f, my + 0.2f), iso.sy(mx + 0.2f, my + 0.2f, 0f), 5f * (s1 - s0) * K, 2.6f * K, 0.78f, groundId)
+        when (layout.age) {
+            FireAge.CAMP -> log(ax, ay, bx, by, 1.45f, 1.45f, 0.55f, seed)
+            FireAge.HAMLET -> logBench(ax, ay, bx, by, seed)
+            FireAge.VILLAGE, FireAge.MARKET -> bench(ax, ay, bx, by, iron = false)
+            FireAge.TOWN -> bench(ax, ay, bx, by, iron = true)
         }
+    }
+
+    /** The hamlet's log bench from world ([ax], [ay]) to ([bx], [by]): a log split in half, its flat face up, on two round blocks. */
+    private fun logBench(ax: Float, ay: Float, bx: Float, by: Float, seed: Int) {
+        val q = detail
+        for (f in floatArrayOf(0.18f, 0.82f)) {
+            val x = ax + (bx - ax) * f; val y = ay + (by - ay) * f
+            val px = iso.sx(x, y); val py = iso.sy(x, y, 0f)
+            val r = 0.24f * 4f * K
+            c.fillRect(floor(px - r).toInt(), floor(py - 1.8f * K).toInt(), floor(2 * r).toInt(), floor(1.8f * K).toInt(), Pal.LOG_M)
+            c.fillRect(floor(px - r).toInt(), floor(py - 1.8f * K).toInt(), q, floor(1.8f * K).toInt(), Pal.LOG_L)
+            c.fillRect(floor(px + r * 0.4f).toInt(), floor(py - 1.8f * K).toInt(), floor(r * 0.6f).toInt(), floor(1.8f * K).toInt(), Pal.LOG_D)
+        }
+        // the half log: its round underside, then its split face along the top, pale and grained, its cut end on the right
+        log(ax, ay, bx, by, 2.6f, 1.1f, 0f, seed, snowTop = false)
+        val x0 = iso.sx(ax, ay); val y0 = iso.sy(ax, ay, 3.5f)
+        val x1 = iso.sx(bx, by); val y1 = iso.sy(bx, by, 3.5f)
         val n = max(1, abs(x1 - x0).toInt())
         for (i in 0..n) {
             val u = i / n.toFloat()
             val px = floor(x0 + (x1 - x0) * u).toInt(); val py = floor(y0 + (y1 - y0) * u).toInt()
-            c.fillRect(px, py - 2 * q, 1, q, if (winter) Pal.SNOW_L else Pal.WOOD_L)
-            c.fillRect(px, py - q, 1, 2 * q, Pal.WOOD_M)
-            c.fillRect(px, py + q, 1, q, Pal.WOOD_D)
+            for (r in 0 until q + 1) {
+                var col = if (r == 0) Col.hex(0xE8C890) else Col.hex(0xD8B07A)
+                if (q >= 2 && Noise.rnd(i / q, r, seed) < 0.15f) col = Col.hex(0xC89A62)
+                if (winter) col = Pal.SNOW_L
+                c.set(px, py + r, col)
+            }
         }
+        c.fillEllipse(x1, y1 + 2f * q, 1.1f * K * 0.55f + 0.5f * q, 1.1f * K, Pal.LOG_D)
+        c.fillEllipse(x1 - 0.3f * q, y1 + 1.7f * q, 1.1f * K * 0.45f, 1.1f * K - q, Col.hex(0xE0BC86))
     }
 
-    /** A log to sit on, lying behind the person at world ([x], [y]), a little askew ([skew]); its cut end toward us on the right. */
-    private fun seat(x: Float, y: Float, skew: Float, seed: Int) {
-        val cx = x - 0.3f; val cy = y - 0.3f
-        val len = sqrt(1f + skew * skew)
-        val dx = 1.3f / len; val dy = -1.3f * skew / len
-        shade(iso.sx(cx + 0.2f, cy + 0.2f), iso.sy(cx + 0.2f, cy + 0.2f, 0f), 13f * K, 2.6f * K, 0.78f, groundId)
-        log(cx - dx, cy - dy, cx + dx, cy + dy, 1.45f, 1.45f, 0.55f, seed)
+    /**
+     * A bench from world ([ax], [ay]) to ([bx], [by]): its seat of planks a pixel row lit on top, legs at its ends (a third in
+     * the middle of a long one); [iron] the town's legs, dark and scrolled.
+     */
+    private fun bench(ax: Float, ay: Float, bx: Float, by: Float, iron: Boolean) {
+        val q = detail
+        val z = 2.6f
+        val legC = if (iron) Col.hex(0x3A3A40) else Pal.WOOD_X
+        val legs = if (hypot(bx - ax, by - ay) > 3f) floatArrayOf(0.06f, 0.5f, 0.94f) else floatArrayOf(0.08f, 0.92f)
+        for (f in legs) {
+            val x = ax + (bx - ax) * f; val y = ay + (by - ay) * f
+            val px = iso.ix(x, y); val top = iso.iy(x, y, z); val bot = iso.iy(x, y, 0f)
+            c.fillRect(px - q, top, 2 * q, bot - top, legC)
+            // the iron leg's foot splayed, a scroll under the seat closer up
+            if (iron) { c.fillRect(px - 2 * q, bot - q, 4 * q, q, legC); if (q >= 2) c.fillRect(px + q, top + q, q, q, Col.hex(0x5C5C66)) }
+        }
+        plankLine(ax, ay, bx, by, z, Pal.WOOD_L, Pal.WOOD_M)
+    }
+
+    /** A plank along world ([ax], [ay]) .. ([bx], [by]) at [z]: lit along its top (snow in winter), its front edge darker. */
+    private fun plankLine(ax: Float, ay: Float, bx: Float, by: Float, z: Float, lit: Int, mid: Int) {
+        val q = detail
+        val x0 = iso.sx(ax, ay); val y0 = iso.sy(ax, ay, z)
+        val x1 = iso.sx(bx, by); val y1 = iso.sy(bx, by, z)
+        val n = max(1, abs(x1 - x0).toInt())
+        for (i in 0..n) {
+            val u = i / n.toFloat()
+            val px = floor(x0 + (x1 - x0) * u).toInt(); val py = floor(y0 + (y1 - y0) * u).toInt()
+            c.fillRect(px, py - 2 * q, 1, q, if (winter) Pal.SNOW_L else lit)
+            c.fillRect(px, py - q, 1, 2 * q, mid)
+            c.fillRect(px, py + q, 1, q, Pal.WOOD_D)
+            // closer up, the gaps between the seat's boards
+            if (q >= 2 && i % (6 * q) == 0) c.fillRect(px, py - 2 * q, 1, 3 * q, Pal.WOOD_D)
+        }
     }
 
     // ------------------------------------------------------------------ the tent
@@ -1273,6 +1554,13 @@ internal class CampfirePainter : DioramaPainter() {
 
     // ------------------------------------------------------------------ the hearth
 
+    /** How much higher the kettle hangs and the fire burns: in the market town's fire basket, over its rim. */
+    private val lift: Float get() = if (layout.age >= FireAge.MARKET) BASKET_Z else 0f
+
+    /** How the fire burns now by the age, the hour and the season, before a dialog's cues ([FireBurn]): someone sitting by it tends it. */
+    private fun burn(): FireBurn =
+        FireBurn.of(frame.world, s.hour, env.month, env.dark, FireBurn.tended(frame.people))
+
     /** One leg of the tripod, from its foot at ([dx], [dy]) off the fire up past the top, where the legs cross. */
     private fun tripodLeg(dx: Float, dy: Float) {
         val ax = iso.sx(fireX, fireY); val ay = iso.sy(fireX, fireY, apexZ)
@@ -1290,7 +1578,7 @@ internal class CampfirePainter : DioramaPainter() {
 
     /** The chain from the top of the tripod down to the kettle's bail: alternating pixels, closer up its links. */
     private fun chain() {
-        val ax = iso.ix(fireX, fireY); val top = iso.iy(fireX, fireY, apexZ) + 2 * detail; val bot = iso.iy(fireX, fireY, 17.5f)
+        val ax = iso.ix(fireX, fireY); val top = iso.iy(fireX, fireY, apexZ) + 2 * detail; val bot = iso.iy(fireX, fireY, 17.5f + lift)
         if (detail == 1) { for (y in top..bot) c.set(ax, y, if (y % 2 == 0) Pal.STONE_D else Pal.STONE_L); return }
         val q = detail
         var y = top
@@ -1319,20 +1607,30 @@ internal class CampfirePainter : DioramaPainter() {
     /** A dot of the picture: one pixel on the scene's canvas, [detail] × [detail] closer up. */
     private fun dot(x: Int, y: Int, col: Int) = c.fillRect(x, y, detail, detail, col)
 
-    /** The ring of stones round the fire: its back half, or its front half; each stone sooty on the side toward the flames. */
+    /**
+     * The stones round the fire, their back half or their front half, each sooty on the side toward the flames: the camp's
+     * ring of field stones, the village's wider ring of big flat stones, the square's kerb of dressed stone round its fire
+     * basket.
+     */
     private fun hearth(front: Boolean) {
-        val n = 12
+        val age = layout.age
+        val n = when (age) { FireAge.CAMP, FireAge.HAMLET -> 12; FireAge.VILLAGE -> 15; else -> 18 }
         for (i in 0 until n) {
             val a = (i + 0.5f) / n * 2f * PI.toFloat()
             if ((sin(a) + cos(a) > 0f) != front) continue
             part()
-            hearthStone(fireX + cos(a) * fireR, fireY + sin(a) * fireR, 0.4f + Noise.rnd(i, 61) * 0.16f, 61 + i, cos(a), sin(a))
+            val x = fireX + cos(a) * fireR; val y = fireY + sin(a) * fireR
+            when (age) {
+                FireAge.CAMP, FireAge.HAMLET -> hearthStone(x, y, 0.4f + Noise.rnd(i, 61) * 0.16f, 61 + i, cos(a), sin(a))
+                FireAge.VILLAGE -> hearthStone(x, y, 0.5f + Noise.rnd(i, 62) * 0.12f, 62 + i, cos(a), sin(a), flat = 0.62f)
+                else -> kerbStone(x, y, a, 63 + i)
+            }
         }
     }
 
-    private fun hearthStone(x: Float, y: Float, r: Float, seed: Int, ox: Float, oy: Float) {
+    private fun hearthStone(x: Float, y: Float, r: Float, seed: Int, ox: Float, oy: Float, flat: Float = 1f) {
         val cx = iso.sx(x, y); val cy = iso.sy(x, y, 0f)
-        val rx = r * 4f * K; val ry = r * 2.8f * K
+        val rx = r * 4f * K; val ry = r * 2.8f * K * flat
         val warm = Noise.rnd(seed, 1) < 0.5f
         val l = if (warm) Pal.STONE_L else Col.hex(0xA8A296)
         val m = if (warm) Pal.STONE_M else Col.hex(0x88826F)
@@ -1345,6 +1643,7 @@ internal class CampfirePainter : DioramaPainter() {
         val sl = max(0.01f, hypot(sx, sy))
         val scx = cx + sx / sl * rx * 0.5f; val scy = cy - ry * 0.55f + sy / sl * ry * 0.45f
         c.fillEllipse(scx, scy, rx * 0.5f, ry * 0.45f, Col.scale(d, 0.62f))
+        if (winter && flat < 1f) c.fillEllipse(cx - rx * 0.2f, cy - ry * 0.95f, rx * 0.45f, ry * 0.25f, Pal.SNOW_L)
         if (detail >= 2) {
             // closer up: grit and flecks over the stone, a crack, the soot feathering out
             val gx = cx - rx * 0.12f; val gy = cy - ry * 0.6f
@@ -1365,29 +1664,60 @@ internal class CampfirePainter : DioramaPainter() {
     }
 
     /**
+     * A dressed kerbstone of the square's hearth at world ([x], [y]), [a] round the fire: a low block, its top lit, its face
+     * toward us in the shade, the joint to the next one; soot on its inner edge, snow on it in winter.
+     */
+    private fun kerbStone(x: Float, y: Float, a: Float, seed: Int) {
+        val cx = iso.sx(x, y); val cy = iso.sy(x, y, 0f)
+        val rx = 0.36f * 4f * K; val ry = 0.36f * 2f * K
+        val hgt = 1.8f * K
+        val tone = Noise.rnd(seed, 2)
+        val top = if (tone < 0.5f) Col.hex(0xC8C2B2) else Col.hex(0xB8B2A2)
+        val face = Col.scale(top, 0.78f)
+        c.fillEllipse(cx, cy - hgt * 0.5f, rx, ry + hgt * 0.5f, face)
+        c.fillEllipse(cx, cy - hgt, rx, ry, if (winter) Pal.SNOW_L else top)
+        // soot on its inner edge, toward the fire
+        c.fillEllipse(cx - cos(a) * rx * 0.35f + sin(a) * rx * 0.35f, cy - hgt - (cos(a) + sin(a)) * ry * 0.3f, rx * 0.45f, ry * 0.4f, Col.hex(0x6A645A))
+        if (detail >= 2) {
+            c.vline(floor(cx + rx).toInt(), floor(cy - hgt).toInt(), floor(cy).toInt(), Col.hex(0x7E786C))
+            for (k in 0 until 4) c.set(floor(cx - rx * 0.5f + Noise.rnd(seed, k) * rx).toInt(), floor(cy - hgt - ry * 0.3f + Noise.rnd(seed, k, 3) * ry * 0.6f).toInt(), Col.hex(0x9C968A))
+        }
+    }
+
+    /**
      * The fire: ashes and crossed logs, flames licking up round the kettle's belly, embers winking, sparks and smoke
      * rising, and its light; flaring up (a dialog's "flare"), taller and wider, more sparks, a wider light; burning down
      * (a dialog's "embers": how far), the flames lower and fewer, the sparks gone, a thread of smoke and a smaller light,
-     * at 1 only the embers glowing red in the ash.
+     * at 1 only the embers glowing red in the ash. As [b] has it by the hour and the age ([burn]): in the market town's
+     * fire basket (its back bars behind the flames, its front bars across them), the kres's cone of logs ablaze on a feast
+     * evening, out (grey ash) until a dialog lights it.
      */
-    private fun blaze() {
-        logs(fireX, fireY, fireR)
-        if (detail >= 2) coals()
-        part(0)
-        val cx = iso.sx(fireX, fireY); val cy = iso.sy(fireX, fireY, 0f)
-        val flick = sin(t * 11).toFloat() * 0.5f + sin(t * 7.3 + 2).toFloat() * 0.5f
+    private fun blaze(b: FireBurn) {
+        val l = layout
+        val basket = l.age >= FireAge.MARKET && !b.kres
+        val z0 = if (basket) BASKET_Z else 0f
+        if (basket) basketPart(back = true)
+        if (b.kres) kresLogs() else fireBed(z0, if (basket) 0.5f else fireR)
         // tapped ([pokes]): it leaps up at once and settles again, a burst of sparks flying
         val pk = poked("fire"); val a = pk?.age(t) ?: 0f
         val d = if (pk?.step == 1) 2.4f else 1.6f
         val leap = if (pk == null) 0f else (if (pk.step == 1) 1f else 0.7f) * PokeArt.ease(a, 0f, 0.12f) * (1f - PokeArt.ease(a, d * 0.35f, d))
-        val flare = max(fxOn("flare"), leap)
+        val cue = max(fxOn("flare"), leap)
+        val flare = max(cue, b.built)
+        // out: nothing burns until a dialog (or a tap) lights it again
+        val cold = b.cold && cue < 0.05f
         // burning down: the flames shrink away to nothing over the embers
-        val low = (fxOn("embers") * (1f - flare)).coerceIn(0f, 1f)
-        val tall = 1f - 0.92f * low
-        glow {
+        val low = if (cold) 1f else (max(fxOn("embers"), if (b.cold) 0.45f else b.low) * (1f - flare)).coerceIn(0f, 1f)
+        val tall = (1f - 0.92f * low) * (if (b.kres) 2.1f else 1f)
+        if (detail >= 2 && !cold) coals(z0, if (basket) 0.5f else fireR)
+        part(0)
+        val cx = iso.sx(fireX, fireY); val cy = iso.sy(fireX, fireY, z0 + if (b.kres) 4f else 0f)
+        val flick = sin(t * 11).toFloat() * 0.5f + sin(t * 7.3 + 2).toFloat() * 0.5f
+        val rr = if (basket) 0.5f else fireR
+        if (!cold) glow {
             val base = cy - 2f * K
             val hgt = (10.5f + flick * 1.6f) * K * (1f + 0.6f * flare) * tall
-            val wide = (1f + 0.3f * flare) * (1f - 0.35f * low)
+            val wide = (1f + 0.3f * flare) * (1f - 0.35f * low) * (if (b.kres) 1.5f else if (basket) 0.8f else 1f)
             if (low < 0.97f) for (tongue in 0..4) {
                 val off = (tongue - 2) * 1.9f * K * wide
                 val th = hgt * (1f - abs(tongue - 2) * 0.16f) * (0.78f + 0.22f * sin(t * (9 + tongue) + tongue * 1.7).toFloat())
@@ -1401,34 +1731,105 @@ internal class CampfirePainter : DioramaPainter() {
                 if (detail >= 2) licks(cx, base, hgt)
             }
             for (e in 0 until 7) {
-                val ex = (cx + (Noise.rnd(e, 35) - 0.5f) * fireR * 5f * K).toInt(); val ey = (cy - Noise.rnd(e, 36) * K * 1.5f).toInt()
+                val ex = (cx + (Noise.rnd(e, 35) - 0.5f) * rr * 5f * K).toInt(); val ey = (cy - Noise.rnd(e, 36) * K * 1.5f).toInt()
                 if (sin(t * 3 + e) > -0.3) dot(ex, ey, Pal.FLAME[if (e % 2 == 0) 2 else 3])
             }
             // burnt down: the embers along the logs glow and dim in turn
             if (low > 0.3f) for (e in 0 until 9) {
-                val ex = (cx + (Noise.rnd(e, 37) - 0.5f) * fireR * 3.6f * K).toInt(); val ey = (cy - K - Noise.rnd(e, 38) * K * 2.2f).toInt()
+                val ex = (cx + (Noise.rnd(e, 37) - 0.5f) * rr * 3.6f * K).toInt(); val ey = (cy - K - Noise.rnd(e, 38) * K * 2.2f).toInt()
                 val glowNow = sin(t * (1.3 + Noise.rnd(e, 39)) + e * 1.7) * 0.5 + 0.5
                 if (glowNow > 0.25) dot(ex, ey, if (glowNow > 0.75) Pal.FLAME[2] else Pal.FLAME[3])
             }
         }
+        if (basket) { part(); basketPart(back = false) }
         val q = detail
-        if (low < 0.6f) {
+        if (!cold && low < 0.6f) {
             s.sparks(cx - 5f * q, cy - 16f * q, 3, 1)
             s.sparks(cx + 8f * q, cy - 18f * q, 2, 2)
         }
-        if (flare > 0.05f) s.sparks(cx + 1f * q, cy - 22f * q, (3 + 7 * flare).toInt(), 4)
+        if (!cold && flare > 0.05f) s.sparks(cx + 1f * q, cy - 22f * q * (if (b.kres) 1.8f else 1f), (3 + 7 * flare).toInt(), 4)
         if (pk != null) s.fx {
             val big = pk.step == 1
             PokeArt.sparks(c, cx, cy - 5f * K, a / (d * 0.8f), if (big) 30 else 16, 17 + pk.step, if (big) 34f * K else 24f * K, if (big) 40f * K else 28f * K, detail + 1, fall = 1.1f)
         }
-        s.smoke(cx + 2f * q, cy - 48f * q * tall, 1.1f * (1f - 0.6f * low), 3)
-        s.light(cx, cy - 7f * K * tall, (44f + 26f * flare) * (1f - 0.55f * low), (0.92f + flick * 0.06f + 0.3f * flare) * (1f - 0.5f * low))
+        if (cold) return
+        s.smoke(cx + 2f * q, cy - 48f * q * min(tall, 1.4f), 1.1f * (1f - 0.6f * low) * (if (b.kres) 1.5f else 1f), 3)
+        s.light(cx, cy - 7f * K * tall, (44f + 26f * flare) * (1f - 0.55f * low) * (if (b.kres) 1.3f else 1f), (0.92f + flick * 0.06f + 0.3f * flare) * (1f - 0.5f * low))
     }
 
-    /** Closer up, the embers in the ash bed under the logs: coals glowing and dimming in turn, grey ash between. */
-    private fun coals() {
-        val cx = iso.sx(fireX, fireY); val cy = iso.sy(fireX, fireY, 0f) - K
-        val rx = fireR * 2.2f * K; val ry = fireR * 1f * K
+    /** Ashes and three crossed logs at [z0] (the basket's floor), [r] cells round: what the fire burns on. */
+    private fun fireBed(z0: Float, r: Float) {
+        val cx = iso.sx(fireX, fireY); val cy = iso.sy(fireX, fireY, z0)
+        c.fillEllipse(cx, cy - K, r * 3.2f * K, r * 1.5f * K, Col.hex(0x3A2E28))
+        c.fillEllipse(cx, cy - K, r * 2.2f * K, r * 1f * K, Col.hex(0x5A4438))
+        for (j in 0 until 3) {
+            val a = j * 2.1f + 0.4f
+            val ex = cos(a) * r * 3f * K; val ey = sin(a) * r * 1.4f * K
+            for (tk in 0..K) c.line((cx - ex * 0.9f).toInt(), (cy - ey * 0.9f).toInt() - tk, (cx + ex * 0.2f).toInt(), (cy + ey * 0.2f).toInt() - K * 3 - tk, if (tk == 0) Pal.LOG_D else Pal.LOG_M)
+            c.set((cx - ex * 0.9f).toInt(), (cy - ey * 0.9f).toInt() - 1, Pal.LOG_L)
+        }
+    }
+
+    /**
+     * The square's fire basket: a shallow iron bowl of bars on a ring, on three thin splayed legs, [BASKET_Z] up; its legs
+     * and back bars ([back]) behind the fire, its front bars and its rim, catching the light, across it.
+     */
+    private fun basketPart(back: Boolean) {
+        val q = detail
+        val iron = Col.hex(0x4A4A52); val ironD = Col.hex(0x2E2E34); val ironL = Col.hex(0x8A8A94)
+        val rb = 0.66f
+        val n = 10
+        val barH = 3.2f
+        for (i in 0 until n) {
+            val a = (i + 0.5f) / n * 2f * PI.toFloat()
+            if ((sin(a) + cos(a) > 0f) == back) continue
+            val x = fireX + cos(a) * rb; val y = fireY + sin(a) * rb
+            val px = iso.ix(x, y)
+            // each bar curving out from the bowl's foot to the rim
+            val top = iso.iy(x, y, BASKET_Z + barH); val bot = iso.iy(fireX + cos(a) * rb * 0.6f, fireY + sin(a) * rb * 0.6f, BASKET_Z)
+            c.line(iso.ix(fireX + cos(a) * rb * 0.6f, fireY + sin(a) * rb * 0.6f), bot, px, top, if (back) ironD else iron)
+        }
+        if (back) {
+            // the legs, thin, splayed out from under the bowl to the kerb's foot
+            for (k in 0 until 3) {
+                val a = k * 2.094f + 0.9f
+                val tx = fireX + cos(a) * rb * 0.5f; val ty = fireY + sin(a) * rb * 0.5f
+                val fx = fireX + cos(a) * rb * 1.15f; val fy = fireY + sin(a) * rb * 1.15f
+                c.line(iso.ix(tx, ty), iso.iy(tx, ty, BASKET_Z), iso.ix(fx, fy), iso.iy(fx, fy, 0f), if (k == 1) iron else ironD)
+            }
+            // the bowl's foot: a ring of iron under the fire
+            for (i in 0..24 * q) {
+                val a = i / (24f * q) * 2f * PI.toFloat()
+                val x = fireX + cos(a) * rb * 0.6f; val y = fireY + sin(a) * rb * 0.6f
+                c.fillRect(iso.ix(x, y), iso.iy(x, y, BASKET_Z), q, q, ironD)
+            }
+            return
+        }
+        // the rim: a ring of iron over the bars' tops, its near half lit along its top
+        for (i in 0..48 * q) {
+            val a = i / (48f * q) * 2f * PI.toFloat()
+            if (sin(a) + cos(a) < -0.6f) continue
+            val x = fireX + cos(a) * rb; val y = fireY + sin(a) * rb
+            c.fillRect(iso.ix(x, y), iso.iy(x, y, BASKET_Z + barH), q, q, if (sin(a) - cos(a) < 0.2f) ironL else iron)
+        }
+    }
+
+    /** The kres of a feast evening: a tall cone of logs leaning together on the square's kerb, ablaze. */
+    private fun kresLogs() {
+        val q = detail
+        val cx = iso.sx(fireX, fireY); val cy = iso.sy(fireX, fireY, 0f)
+        val h = 15f * K; val half = 0.95f * 4f * K
+        for (j in -6..6) {
+            val bx = cx + j / 6f * half; val tx = cx + j / 18f * half
+            val col = if (Math.floorMod(j, 3) == 0) Pal.LOG_D else if (Math.floorMod(j, 3) == 1) Pal.LOG_M else Pal.LOG_L
+            for (o in 0 until q * 2) c.line(floor(bx).toInt() + o, floor(cy - K).toInt(), floor(tx).toInt() + o, floor(cy - h).toInt(), col)
+        }
+    }
+
+    /** Closer up, the embers in the ash bed under the logs at [z0], [r] cells round: coals glowing and dimming in turn, grey ash between. */
+    private fun coals(z0: Float, r: Float) {
+        val cx = iso.sx(fireX, fireY); val cy = iso.sy(fireX, fireY, z0) - K
+        val rx = r * 2.2f * K; val ry = r * 1f * K
         glow {
             for (py in max(c.top, floor(cy - ry).toInt())..min(c.bottom - 1, floor(cy + ry).toInt())) {
                 for (px in max(c.left, floor(cx - rx).toInt())..min(c.right - 1, floor(cx + rx).toInt())) {
@@ -1465,17 +1866,29 @@ internal class CampfirePainter : DioramaPainter() {
         c.fillEllipse(cx, base - hgt * 0.06f, 0.6f * K, hgt * 0.06f, Col.hex(0xFFFDF0))
     }
 
-    /** The kettle on its chain: a round iron belly with a lid and a bail, a spout, the fire's glow on its underside; steam in the morning and evening, and when a dialog says it's hot. */
-    private fun kettle(lit: Boolean) {
-        val cx = iso.sx(fireX, fireY)
-        val top = iso.sy(fireX, fireY, 14.5f); val bot = iso.sy(fireX, fireY, 8f)
+    /**
+     * The kettle on its chain: a round iron belly with a lid and a bail, a spout, the fire's glow on its underside; steam in
+     * the morning and evening, and when a dialog says it's hot. On the kres's evening set aside on a flat stone by the fire.
+     */
+    private fun kettle(lit: Boolean, b: FireBurn) {
+        val aside = b.kres
+        val kx = if (aside) KETTLE_ASIDE_X else fireX; val ky = if (aside) KETTLE_ASIDE_Y else fireY
+        val z0 = if (aside) 1.4f else 8f + lift
+        if (aside) {
+            val sx = iso.sx(kx, ky); val sy = iso.sy(kx, ky, 0f)
+            c.fillEllipse(sx, sy - 0.6f * K, 4.6f * K, 2f * K, Pal.STONE_D)
+            c.fillEllipse(sx - 0.4f * K, sy - 0.9f * K, 4f * K, 1.6f * K, Pal.STONE_L)
+        }
+        val cx = iso.sx(kx, ky)
+        val top = iso.sy(kx, ky, z0 + 6.5f); val bot = iso.sy(kx, ky, z0)
         val tones = intArrayOf(Col.hex(0x1A181E), Col.hex(0x2E2B34), Col.hex(0x4A4652), Col.hex(0x6E6A78), Col.hex(0xB4B0BE))
         val h = bot - top
         val k = detail
-        // the bail, arching up to the chain: a wire a picture px thin
+        // the bail, arching up to the chain (lying back over the lid when set aside): a wire a picture px thin
         for (i in 0..24 * k) {
             val a = i / (24f * k) * PI.toFloat()
-            c.set(floor(cx + cos(a) * 6.5f * k).toInt(), floor(top + 1f * k - sin(a) * 7f * k).toInt(), if (i > 12 * k) tones[3] else tones[2])
+            val bh = if (aside) 3f else 7f
+            c.set(floor(cx + cos(a) * 6.5f * k).toInt(), floor(top + 1f * k - sin(a) * bh * k).toInt(), if (i > 12 * k) tones[3] else tones[2])
         }
         // the spout, out to the right: three bands, [detail] rows each
         for (r in 0 until 3 * k) {
@@ -1486,7 +1899,8 @@ internal class CampfirePainter : DioramaPainter() {
             val endY = if (band == 2) k + r else r
             c.line(floor(cx + 5f * k).toInt(), floor(top + (5 * k + r)).toInt(), floor(cx + endX).toInt(), floor(top + endY).toInt(), col)
         }
-        // the belly: round, lit from the upper left, the fire glowing on its underside
+        // the belly: round, lit from the upper left, the fire glowing on its underside (not set aside, nor over a cold fire)
+        val warm = !aside && !(b.cold && fxOn("flare") < 0.05f)
         val hw = 7.4f * k
         for (py in max(c.top, floor(top).toInt())..min(c.bottom - 1, floor(bot).toInt())) {
             val v = (py + 0.5f - top) / h
@@ -1495,12 +1909,12 @@ internal class CampfirePainter : DioramaPainter() {
             for (px in floor(cx - half).toInt()..floor(cx + half - 0.01f).toInt()) {
                 val nx = (px + 0.5f - cx) / hw; val ny = (v - 0.48f) / 0.56f
                 val nz = sqrt(max(0f, 1f - nx * nx - ny * ny))
-                val b = -0.55f * nx - 0.55f * ny + 0.62f * nz + (Dither.at(px, py) - 0.5f) * 0.12f
+                val bl = -0.55f * nx - 0.55f * ny + 0.62f * nz + (Dither.at(px, py) - 0.5f) * 0.12f
                 var col = when {
-                    b > 0.86f -> tones[4]
-                    b > 0.6f -> tones[3]
-                    b > 0.28f -> tones[2]
-                    b > -0.05f -> tones[1]
+                    bl > 0.86f -> tones[4]
+                    bl > 0.6f -> tones[3]
+                    bl > 0.28f -> tones[2]
+                    bl > -0.05f -> tones[1]
                     else -> tones[0]
                 }
                 if (k >= 2) {
@@ -1509,7 +1923,7 @@ internal class CampfirePainter : DioramaPainter() {
                     if (seam) col = if (Math.floorMod(px - floor(cx).toInt(), 2 * k + 1) == 0) tones[4] else tones[0]
                     else if (ny > 0.25f && Noise.rnd(px / 2, py / 2, 67) < 0.3f) col = Col.scale(col, 0.75f)
                 }
-                val glowing = ny > 0.45f
+                val glowing = warm && ny > 0.45f
                 if (glowing) col = Col.mix(col, Pal.FLAME[3], ((ny - 0.45f) * 1.3f).coerceIn(0f, 0.65f))
                 c.penEmissive = glowing
                 c.set(px, py, col)
@@ -1529,7 +1943,7 @@ internal class CampfirePainter : DioramaPainter() {
             c.fillRect(floor(cx + 6.1f * k).toInt(), floor(top + 0.4f * k).toInt(), k, 2 * k, tones[1])
         }
         val steam = fxOn("steam")
-        if (s.hour in 6f..10f || lit || steam > 0.05f) s.smoke(cx + 10.5f * k, top - 1f * k, 0.35f + 0.45f * steam, 9)
+        if ((warm && (s.hour in 6f..10f || lit)) || steam > 0.05f) s.smoke(cx + 10.5f * k, top - 1f * k, 0.35f + 0.45f * steam, 9)
         wisps(cx, top - 3f * k, steam, 17)
     }
 
@@ -1672,13 +2086,8 @@ internal class CampfirePainter : DioramaPainter() {
         private const val MOON_SPAN = 190f
         private const val MOON_DROP = 30
 
-        /** The spruces along the back edges: x, y, height (px), seed; back to front. */
-        private val TREES = arrayOf(
-            floatArrayOf(0.4f, 0.45f, 24f, 3f), floatArrayOf(0.35f, 2.0f, 27f, 8f), floatArrayOf(1.8f, 0.35f, 28f, 5f),
-            floatArrayOf(0.4f, 3.8f, 26f, 12f), floatArrayOf(3.6f, 0.4f, 30f, 7f), floatArrayOf(5.4f, 0.35f, 27f, 10f),
-            floatArrayOf(0.35f, 5.9f, 24f, 15f), floatArrayOf(7.2f, 0.3f, 25f, 4f), floatArrayOf(0.4f, 7.9f, 22f, 9f),
-            floatArrayOf(9.9f, 0.3f, 22f, 14f), floatArrayOf(0.5f, 10.1f, 24f, 11f),
-        ).sortedBy { it[0] + it[1] }
+        /** How far (scene canvas px) the moon may go along its way to keep in the sky over the village's roofs. */
+        private const val MOON_SHIFT = 90
 
         /** Ferns (x, y, seed), stones (x, y, size, seed) and fly agarics (x, y, size) at the foot of the woods. */
         private val FERNS = arrayOf(
@@ -1700,6 +2109,18 @@ internal class CampfirePainter : DioramaPainter() {
          * the front edge toward the path, with two short rows behind it between the stump and the left log. As many as a
          * dialog may count (Luka's 16 to 24).
          */
+        /**
+         * From the village on, the places of [FLOCK_AT] the square has something on: by the well (the fountain) at its front
+         * right and at the crowd's seat at the right end of the right bench; each on the open ground before the stump and
+         * the right bench instead (by index; the rest as [FLOCK_AT]).
+         */
+        /** From the village on, where the flock's way passes between the stump and the well (x; the camp's goes at 10.8). */
+        private const val FLOCK_BY_WELL = 10.35f
+
+        private val FLOCK_SQUARE: Map<Int, FloatArray> = mapOf(
+            0 to floatArrayOf(10.6f, 8.35f), 1 to floatArrayOf(11.35f, 8.95f), 2 to floatArrayOf(9.9f, 9.55f), 7 to floatArrayOf(10.2f, 10.05f),
+        )
+
         private val FLOCK_AT = arrayOf(
             floatArrayOf(11.0f, 6.95f), floatArrayOf(11.7f, 6.3f), floatArrayOf(11.7f, 7.05f), floatArrayOf(11.7f, 7.8f),
             floatArrayOf(11.7f, 8.55f), floatArrayOf(10.3f, 9.0f), floatArrayOf(10.4f, 10.9f), floatArrayOf(11.7f, 11.1f),
@@ -1716,5 +2137,22 @@ internal class CampfirePainter : DioramaPainter() {
         const val LOGS_HIDE_X = 0.3f; const val LOGS_HIDE_Y = 6.2f
         const val LOGS_PEEK_X = 1.45f; const val LOGS_PEEK_Y = 8.85f
         const val LOGS_OUT_X = 2.75f; const val LOGS_OUT_Y = 6.5f
+
+        /** Room over the plot (nominal px): the camp's spruces, the village's roofs and its church's tower. */
+        const val RISE_CAMP = 26f
+        const val RISE_VILLAGE = 34f
+
+        /** A lantern nearer the back than this (x + y) stands behind the people round the fire. */
+        const val BACK_LANTERN = 11f
+
+        /** The square's fire basket: its bowl's floor over the kerb (nominal px). */
+        const val BASKET_Z = 5f
+
+        /** Where the kettle is set aside on the kres's evening, on a flat stone by the fire. */
+        const val KETTLE_ASIDE_X = 7.3f; const val KETTLE_ASIDE_Y = 5.6f
+
+
+        /** The well at the square's front right (the fountain in its place). */
+        const val WELL_X = FireLayout.WELL_X; const val WELL_Y = FireLayout.WELL_Y
     }
 }
