@@ -64,7 +64,8 @@ code in the app.
 
 ## 6. Link the two towns
 
-As the parent, on the node (a child's app can't invite or accept):
+As the parent, in your app (the node's own learner's: "🤝 Prijatelji · Friends" → "👪 Tvoji otroci · Your children" →
+"🔗 Poveži kot starš · Link as their parent"), or on the node:
 
 ```bash
 companion/bin/lani-town link default luka
@@ -75,7 +76,10 @@ companion/bin/lani-town name "Borgo sul Collio" --profile luka  # optional: thei
 Then each app shows the other town under the village scroll's "👥 Prebivalci" → "🤝 Prijatelji · Friends",
 with "Obišči · Visit". When the second learner is a child, `link` makes your town their guardian: you see their
 progress in detail ("📈 Napredek · Progress" on their card; companion/README.md, "Progress between towns"), and their
-app says so. For a link made before, or by an invitation: `companion/bin/lani-town guardian default --profile luka`.
+app says so. For a link made before, or by an invitation: `companion/bin/lani-town guardian default --profile luka`
+(or "🔗 Poveži kot starš" in your app). From then on a child links friends in their own app, and each link waits for your
+yes in yours, on their family page, or with `lani-town requests | approve | decline --profile luka`
+(companion/README.md, "A child's town").
 
 ## 7. Check
 

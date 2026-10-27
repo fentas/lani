@@ -88,6 +88,7 @@ trades, questions, guests, the join of an invitation) unchanged.
 | any | `/v1/family/{id}/…` | Its API, `Authorization: Bearer <family token>`: only what the family token does on a node (below). Tunnelled to the town as `scope: "family"`, with the token, which the town checks again. |
 
 The family's routes: `GET`/`PUT family/api/settings`, `GET family/api/words`, `GET`/`POST family/api/challenges`,
+`GET family/api/towns` and `POST family/api/towns/requests/<id>` (a child's links that wait for the parent: never queued),
 `POST audio` (a recording, at most 2 MB + 64 KB), `GET audio/index`, `GET`/`DELETE audio/file/<file>`. The learner's
 answer (`POST family/api/challenges/:id/answer`) is the app's: `403`. JSON bodies at most 16 KB. `401` for a wrong token,
 `404 no_family` for a town whose page isn't on the relay. 60 requests a minute per town (`RELAY_FAMILY_RATE_PER_MIN`).

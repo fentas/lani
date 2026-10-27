@@ -70,7 +70,13 @@ the passphrase nobody can open a backup, not even us. See [plans/05-built/git-sy
 - **Linked towns** (by invitation only): a linked town's bridge gets this town's public state (the village's name, its
   buildings and people, the learner's first name, today's visitor) and what you do there (help, gifts, trades,
   questions, challenges). Of the learning, only what the learner chose to share with that town (below). Never the chat.
-  See [companion/README.md, "Towns"](../companion/README.md#towns).
+  See [companion/README.md, "Towns"](../companion/README.md#towns). An invitation's web link
+  (`https://lani.page/town/#…`) carries the invitation in its fragment, which a browser never sends to that server: the
+  site gets a page view at most, never the code or the town's address.
+- **A child's town links only once a parent says yes** ([companion/README.md, "A child's
+  town"](../companion/README.md#a-childs-town)). Until then it gives the other town nothing. The parent's town (the
+  child's guardian) and the child's family page see each town that waits: its village's name, its learner's first name,
+  its language, and how its village looks (its age, buildings and people, as a linked town sees them).
 - **Your progress, to the linked towns you choose** ([companion/README.md, "Progress between
   towns"](../companion/README.md#progress-between-towns)). Each learner sets, per linked town, what it sees: "Just my
   village" (nothing of the learning), "Summary" or "Details".
@@ -82,7 +88,8 @@ the passphrase nobody can open a backup, not even us. See [plans/05-built/git-sy
   | Details | the summary, plus the 20 newest words being learned with their meanings; the error patterns with mistakes in the last four weeks (their name, how often, which way) and the review cards their mistakes name; the words missed in reviews lately; how many reviews are due |
 
   Who gets what, unless the learner changes it: Summary between two adults' towns, and from an adult's town to a
-  child's; **Details from a child's town to their parent's** (the guardian's town, set by the parent on the node; the
+  child's; **Details from a child's town to their parent's** (the guardian's town, set by the parent: on the node, in
+  the parent's app for their own child's town on their node, or on the family page; the
   child's app can't lower it, the parent can, and the child's app says plainly that the parent can see it); "Just my
   village" from a child's town to anyone else. **Never, at any level:** the tutor chat, what the learner typed or said
   in an answer (nor its correction or context), recordings, the family's messages and challenges, session notes, the
@@ -90,7 +97,8 @@ the passphrase nobody can open a backup, not even us. See [plans/05-built/git-sy
   "answered", the tutor's score and its short note for the sender, never the answer itself. The tutor may use what a
   linked learner shares only when the learner asks for it (a quiz with a friend's words), and never passes it on.
 - **The family page:** the partner's browser reaches the bridge over your tailnet (a node share) and sees the family
-  page only: the word list, recordings, challenges.
+  page only: the word list, recordings, challenges; on a child's town also its linked towns and those that wait for a
+  parent's yes.
 - **The relay** (only with `LANI_RELAY_URL` set; plan 5's phase D, [docs/plans/05-built/relay.md](plans/05-built/relay.md)):
   the relay gets this town's public state (as linked towns get it) and passes on what towns and the family page send
   each other, so it can read it (its TLS ends there). That includes a progress answer to a linked town, at the level

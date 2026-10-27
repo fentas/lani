@@ -378,8 +378,19 @@ invitation; `link`: the node linked two of its towns), and its address on the re
 ### Link two towns
 
 - **In the app:** the village's scroll, its "👥 Prebivalci · Villagers" → "🤝 Prijatelji · Friends".
-  "✉️ Povabi · Invite" shows an invitation as a QR code, its code and a share button. On the other phone,
-  "🔗 Sprejmi · Accept" scans the QR code, or takes the invitation's text pasted.
+  "✉️ Povabi · Invite" shows an invitation as a QR code of its web link, its code and a share button (a line saying what
+  it is, and the web link on a line of its own, which a messenger makes tappable). On the other phone, "🔗 Sprejmi ·
+  Accept" scans the QR code, or takes the invitation pasted; a tapped web link (or `lani://town?…`) opens the app on
+  Friends with Accept filled in ("✉️ Povabilo iz povezave je vpisano … · The invitation from the link is filled in. Accept
+  it if you know who sent it."): it links only on that tap. The phone's own camera opens the web link too.
+- **Who can accept it.** A town whose bridge answers only on `http://127.0.0.1:<port>` (no `LANI_TOWN_URL`, no relay) can
+  be reached by the towns of its own computer only. Its app says so before it makes an invitation ("🖥️ Samo vasi na tem
+  računalniku lahko sprejmejo to povabilo · Only towns on this computer can accept this invitation", with why and "✉️
+  Pokaži kodo · Show the code"), and `lani-town invite` warns, with the tailnet address to give the town (`--url`, or
+  `LANI_TOWN_URL`) and the relay. A tailnet URL: "📡 Sprejmejo ga lahko vasi v tvojem tailnetu · Towns in your tailnet can
+  accept it" under the QR code. With a relay, anyone (its address is in the invitation, `r=`).
+- **A child's town** invites and accepts in its app too, and its links wait for a parent: see [A child's
+  town](#a-childs-town).
 - **On the node:**
 
   ```bash
@@ -391,14 +402,27 @@ invitation; `link`: the node linked two of its towns), and its address on the re
   companion/bin/lani-town name "Vas pod Sabotinom"         # the village's name other towns see (--clear)
   companion/bin/lani-town share luka details               # what this town shares of its learning with that one
   companion/bin/lani-town guardian default --profile luka  # that town is the child's guardian's (--clear)
+  companion/bin/lani-town requests --profile luka          # the child's links that wait for the parent
+  companion/bin/lani-town approve <request> [--guardian] --profile luka
+  companion/bin/lani-town decline <request> --profile luka
   ```
 
   `invite`, `accept`, `name` and `share` take `--profile` like `lani-pair`; `invite` and `accept` also take `--url`,
   where this town's bridge answers other towns. `list` shows what each town shares with the other (`SHARES`, `THEY
-  SHARE`). `link` of an adult's and a child's town makes the adult's the child's guardian (`--no-guardian`: not).
+  SHARE`), and a link that waits for a child's parent. `link` of an adult's and a child's town makes the adult's the
+  child's guardian (`--no-guardian`: not). What a parent does on the node links at once, a child's town too.
 
 **The invitation** is `lani://town?v=1&u=<the inviting bridge's URL>&c=<code>&f=<its fingerprint>` (`fluent://town?…`
-from before the rename is read too), with `&r=<its relay address>` when the town is on a relay. The code
+from before the rename is read too), with `&r=<its relay address>` when the town is on a relay. Its **web link** carries
+the same parameters in the fragment: `https://lani.page/town/#v=1&u=…&c=…&f=…[&r=…]` (`web_link` beside `link`;
+`LANI_INVITE_URL` sets the base, `off` none). A fragment never reaches the server, so the code stays between the two
+towns. The app opens the link itself, as an Android App Link (the manifest's `https` filter for `lani.page`, `lani.team`
+and the Gradle property `lani.inviteHost`, `autoVerify`), verified by `site/.well-known/assetlinks.json` (the release
+certificate's SHA-256: `companion/bin/lani-assetlinks` writes it from a release's APK, `--check` compares). Without the app,
+or while the link isn't verified, the browser opens the page (`site/town/`): "✉️ Povabilo v vas · An invitation to a
+village", "Odpri v Lani · Open in Lani" (an `intent://` link: the app, else the install page), "Namesti Lani (Android) ·
+Install Lani", and the `lani://town?…` text to paste under Friends → Accept. The bridges and the app read every form
+(`parseInvite`, `InviteLink.parse`: any host, the path `/town`); the app sends its bridge the `lani://` form. The code
 works once, for 30 minutes. The bridge keeps only its SHA-256 (in `<data>/app/town-invites/`), as it does for
 pairing codes. After 10 wrong or expired codes in 10 minutes, the bridge answers `429` until the oldest leaves
 the window. To accept, the other bridge:
@@ -410,10 +434,9 @@ the window. To accept, the other bridge:
 
 The inviting bridge links the other town when the code is right. So both towns know each other's key.
 
-**A child's town** (a profile made with `--child`): the child's app can't invite or accept (`403`), and the
-Friends screen hides those buttons. A parent links the child's town on the node with `lani-town` (`link`, or
-`invite`/`accept` with `--profile`). The parent's town is the child's **guardian**: it sees the child's progress in
-detail ([Progress between towns](#progress-between-towns)).
+**A child's town** (a profile made with `--child`) links nothing without a parent ([A child's town](#a-childs-town)).
+The parent's town is the child's **guardian**: it sees the child's progress in detail ([Progress between
+towns](#progress-between-towns)) and says yes or no to the child's new links.
 
 **Signed requests.** Every request between two bridges carries `x-lani-town-from` (the sender's id),
 `x-lani-town-to` (the recipient's id), `x-lani-town-time` (milliseconds), `x-lani-town-nonce` and
@@ -440,6 +463,61 @@ Before the project was renamed from Fluent, these were `x-fluent-town-*`, `fluen
 `fluent-town-response/1`. A bridge reads and checks those too, and signs every request and answer under both names
 (the `x-fluent-town-*` headers alongside), so a town that still runs the old code and this one understand each
 other.
+
+### A child's town
+
+A child's app invites and accepts like any other (docs/plans/05-built/invitations.md), but **nothing links without a
+parent**: the parent says yes in their own app, on the family page, or on the node.
+
+- **The child asks.** The child's invitation accepted by another town, or another town's invitation accepted by the
+  child (its join says `pending: "guardian"`): the other town links the child's as waiting (`pending: "guardian"` in its
+  `towns.json`; its Friends: "⏳ Teo: najprej reče da starš · Teo's parent says yes first", no visit), and the child's town
+  keeps a **request** in `<data>/app/town-requests.json` (the other town's id, key, URL and display; how it came; 14 days,
+  `LANI_TOWN_REQUEST_DAYS`; at most 20 wait at once, `LANI_TOWN_OPEN_REQUESTS`) and links nothing: it answers that town's
+  signed requests `401` until then. The child's Friends: "👪 Prijatelja poveže starš, ko reče da: Jan · A parent says yes
+  before friends are linked: Jan" under the buttons, and "⏳ Čaka na starša · Waiting for your parent" with each request
+  ("↩️ Prekliči · Take back") and how those of this week went ("🤝 Starš se strinja · Your parent said yes", "👋 Ne
+  tokrat · Not this time"). An invitation made by a parent on the node (`lani-town invite --profile <child>`), or
+  accepted there, links at once.
+- **The parent hears of it.** The child's town tells its guardians' towns (`POST /town/guardian/notify`, signed; 12 an
+  hour, `LANI_TOWN_NOTIFY_PER_HOUR`): their app gets a `town_link` event (a notification: "👪 Teo: nov prijatelj? · Teo: a
+  new friend?"), which opens Friends.
+- **The parent's app** ("👪 Tvoji otroci · Your children" in Friends): each child's town, what waits for the parent's
+  yes, with the other town's village as it looks now (its age, buildings and people: the child's town asks it, as that
+  town linked it already), how it came, and "✓ Dovoli · Allow" / "Ne dovoli · Don't allow". Their bridge sends the
+  decision to the child's (`POST /town/guardian/decide`), signed with the parent's town key.
+- **How the child's bridge knows it is the parent.** It takes the list (`GET /town/guardian/requests`) and a decision only
+  as a request signed by a town it is linked with whose link says `guardian` (the parent's: `lani-town link`, `lani-town
+  guardian`, the app's direct link, or a yes on the family page that says so): `401` for anyone unlinked or unsigned,
+  `403 not_guardian` for a linked town that isn't the child's guardian. Every signed request is taken once (its nonce, 5
+  minutes); a decision is final (a request decided can't be decided again: `409 decided`, so a replay can't turn it, also
+  after a restart), and names the request's town (`409 mismatch` for another). The child's own app can't decide: its
+  routes take back a request at most.
+- **On the family page** (the child's, with the family token, never the app token: `403 family_only`): "🤝 Prijatelji ·
+  Friends" with each request, its town's village, "✓ Dovoli · Allow" / "✕ Ne · Decline", and "👪 To je vas starša (vidi
+  napredek) · This is a parent's town (sees the progress)": the town becomes the child's guardian. That is the way for a
+  parent whose town isn't on the child's node.
+- **Then.** A yes: the child's town links the other (as its guardian when the family page said so) and tells it (`POST
+  /town/approved`); it links whole (its app: "🤝 Zdaj prijatelji · Friends now"). A no, or the child taking it back: the
+  child's town tells the other to let go (`POST /town/unlink`). A town that wasn't there to be told finds out when it asks:
+  linked back, its link is whole; still refused a day after the request's 14 days, it lets go. A town whose link waits can
+  take it back itself (`POST /town/unlink` with the request's key).
+- **Two children's towns** link once both parents said yes, in either order: the first yes links one side as waiting for
+  the other parent (`theirs_pending`), the second makes both whole.
+- **A parent's own child on this node.** The node owner's app (the default learner's town) lists this node's children's
+  towns in "👪 Tvoji otroci", each not linked as theirs with "🔗 Poveži kot starš · Link as their parent": both towns'
+  links written, as `lani-town link` writes them (the child's to the parent's as its guardian, the parent's as its
+  `ward`), a request of the child's for the parent's town approved by it. The child's town must answer (its key comes from
+  its `GET /town/hello`; no key is read from its files). Another adult's town of the node is refused (`403 not_owner`) and
+  asks the child's parent like any other town.
+
+The routes (the app token): `GET /towns` (a child's: `self.parent_approves`, `self.guardians`, and `requests`: those
+waiting and decided this week); `POST /towns/requests/:id/withdraw`; `GET /towns/children` → `{children: [{id, name,
+learner, culture, language, profile?, linked, guardian, can_link, status, requests: [{id, town, via, at, expires_at,
+preview: {age, villagers, buildings} | null}]}], can_link_local}`; `POST /towns/children/:id/link`; `POST
+/towns/children/:id/requests/:request {approve, town?}`. The family page's: `GET /family/api/towns`, `POST
+/family/api/towns/requests/:id {approve, guardian?, town?}`, through the relay too. The CLI's: `lani-town requests`,
+`approve [--guardian]`, `decline`.
 
 ### Through the relay
 
@@ -492,7 +570,7 @@ The app talks only to its own bridge, which asks the other towns:
 
 | Method | Path | Purpose |
 |---|---|---|
-| `GET` | `/towns` | `{self: {id, name, learner, culture, language, child, can_invite}, towns: [{id, name, learner, culture, language, linked_at, by, via, status, age?, villagers?, buildings?, date?, sharing}]}`: every linked town is asked for its public state now (3 s). `status` is `ok`, `unreachable`, `refused` (it no longer knows this town) or `bad_answer`; `sharing`: what each shares of its learning with the other ([Progress between towns](#progress-between-towns)) |
+| `GET` | `/towns` | `{self: {id, name, learner, culture, language, child, can_invite, parent_approves?, guardians?, reach, relay?}, towns: [{id, name, learner, culture, language, linked_at, by, via, status, age?, villagers?, buildings?, date?, sharing}], requests?}`: every linked town is asked for its public state now (3 s). `status` is `ok`, `unreachable`, `refused` (it no longer knows this town), `bad_answer`, or `pending` (a child's town that links back once its parent says yes); `sharing`: what each shares of its learning with the other ([Progress between towns](#progress-between-towns)); `reach`: who can accept this town's invitations (`node`, `tailnet`, `network`, `relay`); a child's: `parent_approves`, its `guardians` and its `requests` ([A child's town](#a-childs-town)) |
 | `GET` | `/towns/:id/public` | one linked town's public state, checked and cleaned, with `fetched_at`; when the town doesn't answer, the last state had (up to a day old) with `stale: true`; `404` for a town that isn't linked, `502` with a `code` when it can't be had |
 | `GET` | `/towns/:id/villagers` | a visit: the town's people, `{town, culture, language, villagers, fetched_at, stale?}` (see [Visiting](#visiting)); `502` with a `code`: `unreachable`, `refused`, `unsupported` (its bridge is older than visits), `bad_answer` |
 | `GET` | `/towns/:id/scenes` | a visit: the town's places, `{town, culture, language, scenes, fetched_at, stale?}` (their happenings for guests too); the same answers |
@@ -514,14 +592,21 @@ The app talks only to its own bridge, which asks the other towns:
 | `GET` | `/towns/:id/progress` | that town's learning at the level it shares with this one ([Progress between towns](#progress-between-towns)), `?fresh=1` asked again now |
 | `PUT` | `/towns/:id/sharing` | `{share?: village\|summary\|details, weekly?}` → the link's `sharing`; `403` (`guardian`) below a guardian's floor |
 | `POST` | `/towns/:id/challenges` | `{id, type, text, hint?}`: a challenge to that town's learner → `{ok, id, at, duplicate?}` |
-| `POST` | `/towns/invite` | → `{code, link, url, fingerprint, expires_at}`; `403` (`child`) for a child |
-| `POST` | `/towns/accept` | `{invite}` (the `lani://town?…` text), or `{code, url, fingerprint}` → `{town: {id, name, learner, culture, language}}`; `400` not an invitation, `403` wrong or spent code (or a child), `409` the town isn't the one the invitation names, `410` expired, `429` too many wrong codes, `502` the town doesn't answer |
+| `POST` | `/towns/invite` | → `{code, link, web_link?, url, fingerprint, expires_at, reach, relay?, parent_approves?}` (a child's too: the town that accepts it links once the child's parent says yes) |
+| `POST` | `/towns/accept` | `{invite}` (its `lani://town?…` text or its web link), or `{code, url, fingerprint}` → `{town: {id, name, learner, culture, language}, pending?, request?}` (`pending: "parent"`: this child's parent says yes first, `request` its id; `"their_parent"`: that town is a child's, and links back once its parent says yes); `400` not an invitation, `403` wrong or spent code, `409` the town isn't the one the invitation names, `410` expired, `429` too many wrong codes (or `too_many_requests`: a child's links waiting), `502` the town doesn't answer |
+| `GET` | `/towns/requests` | a child's links that wait for the parent, and those decided lately: `{requests: [{id, town, via, at, expires_at, status, decided_at?, by?}]}` |
+| `POST` | `/towns/requests/:id/withdraw` | the child takes one back → `{ok, status}` |
+| `GET` | `/towns/children` | a parent's children's towns and what waits for their yes ([A child's town](#a-childs-town)) |
+| `POST` | `/towns/children/:id/link` | the node owner links their child's town of this node as its parent → `{ok, town, guardian}`; `403` (`not_owner`, `child`), `404` (`not_local`), `502` the child's bridge doesn't answer |
+| `POST` | `/towns/children/:id/requests/:request` | `{approve, town?}`: the parent's yes or no, sent to the child's town → `{ok, status, town}`; its refusals passed on (`403 not_guardian`, `404`, `409 decided`/`mismatch`, `410 expired`) |
 
 Between bridges (no token; see above): `GET /town/hello` → `{v, id, public_key}`, `POST /town/join`,
 `GET /town/public`, `GET /town/villagers`, `GET /town/scenes`, `GET /town/requests` and `GET /town/market` (a visit),
 `POST /town/help`, `POST /town/gifts` and `POST /town/trade` (a visit's writes), `POST /town/questions` and
 `POST /town/answers` (a guest's question and the host's answer), `GET /town/progress` and `POST /town/challenges` (the
-learner's progress at the level shared, a challenge from the asking town's learner), `GET /town/voice` and
+learner's progress at the level shared, a challenge from the asking town's learner), `GET /town/guardian/requests`,
+`POST /town/guardian/decide`, `POST /town/guardian/notify` and `POST /town/approved` (a child's links that wait for the
+parent: [A child's town](#a-childs-town)), `GET /town/voice` and
 `GET /town/voice/cast` (a visit's voices: [Voices on a visit](#voices-on-a-visit)), and `POST /town/unlink`, with which a town lets go of
 the asking one (`lani-town unlink` sends it to a town on another node). A write's refusals are `400` (`bad_request`),
 `409` with a `code` (`not_open`, `no_deal`, `unfair`, `not_for_sale`, `too_many_open`, `not_for_a_child`, `answered`,
@@ -793,7 +878,8 @@ one to share it, with "🎪 Priredi veselico · Hold a feast" (or why the villag
 - **A child's town.** A child's town offers moves itself, and its app shows what may happen. It never says yes to one
   (`403 child`), and it refuses offers from other towns (`409 child`). So a move with a child's town happens only when
   the grown-up on the other side says yes; in the family, that is the parent's own town. The parent also decides which
-  towns the child's town is linked with (only on the node, see [Link two towns](#link-two-towns)) and can let a town
+  towns the child's town is linked with (in their app, on the family page or on the node: [A child's
+  town](#a-childs-town)) and can let a town
   go (`lani-town unlink <town> --profile <child>`). Two children's towns can't move anyone.
 
 **The app's routes** (the app token): `GET /towns/friendship` gives `{self, levels, points, towns: [{id, name, learner,
@@ -3582,7 +3668,9 @@ The family page is served by the bridge at `/family`. It uses its own token,
 ### What the family token can do
 
 - It reaches only `/family/api/*`, the `/audio` routes and the voice clips (`GET /voice/index`,
-  `/voice/file/*`; it cannot make new clips). Every other route (`/state`, `/message`,
+  `/voice/file/*`; it cannot make new clips). On a child's town it says yes or no to the child's links that wait for a
+  parent (`/family/api/towns`, the page's "🤝 Prijatelji · Friends"; [A child's town](#a-childs-town)): only this token
+  does, never the app's. Every other route (`/state`, `/message`,
   `/events`, `/packs`, `/game`, …) answers `403`. It cannot post Jan's answers.
 - The page itself (`/family`, `app.js`, `style.css`) holds no data and needs no token. It is sent
   with a strict Content-Security-Policy.
