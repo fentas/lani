@@ -2048,6 +2048,10 @@ export class VoiceStore {
       if (!o.readonly) mkdirSync(this.filesDir, { recursive: true })
       this.db = new Database(path, o.readonly ? { readonly: true } : { create: true })
     }
+    // before anything else: the bridge and voice-build open this store at once (a bridge starting while voice-build
+    // runs, two voice-builds), and the one that makes the file, turns it to WAL or recovers its WAL holds it alone for a
+    // moment; without the timeout the other failed at once with "database is locked" (SQLITE_BUSY, CI's smoke 2026-10-12)
+    this.db.exec('PRAGMA busy_timeout = 5000')
     if (!o.readonly || !existsSync(path)) {
       this.db.exec('PRAGMA journal_mode = WAL')
       this.db.exec(`CREATE TABLE IF NOT EXISTS clips (
@@ -2092,7 +2096,6 @@ export class VoiceStore {
       // leaves them for the next run only with --retry-failed; a line whose text changed has another key
       this.db.exec('CREATE TABLE IF NOT EXISTS drama3_failed (key TEXT PRIMARY KEY, voice TEXT NOT NULL, text TEXT NOT NULL, reasons TEXT NOT NULL, at TEXT NOT NULL, tries INTEGER NOT NULL DEFAULT 1)')
     }
-    this.db.exec('PRAGMA busy_timeout = 5000')
   }
 
   get engines() { return this.o.engines }

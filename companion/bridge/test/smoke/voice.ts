@@ -44,6 +44,27 @@ export default async function voice() {
     check('… so they run: live c, redo d, then re-voice a, b, e; the gate empty after', order.join() === 'live c,redo d,re-voice a,re-voice b,re-voice e' && gate.running === 0 && gate.queued === 0, { order, running: gate.running, queued: gate.queued })
   }
 
+  // --- the store opened while another process holds its database alone (it makes the file, turns it to WAL or
+  // recovers its WAL: a bridge starting while voice-build runs): it waits for it (CI's smoke, 2026-10-12: voice-build
+  // failed with "database is locked") ---------------------------------------------------------------------------------
+  {
+    const appDir = tempDir('lani-voice-lock-')
+    const file = join(appDir, 'voice', 'voice.db')
+    mkdirSync(join(appDir, 'voice', 'files'), { recursive: true })
+    const holder = Bun.spawn([process.execPath, '-e', `const { Database } = require('bun:sqlite'); const d = new Database(${JSON.stringify(file)}, { create: true }); d.exec('BEGIN EXCLUSIVE'); d.exec('CREATE TABLE held (x)'); console.log('held'); Bun.sleepSync(1500); d.exec('COMMIT'); d.close()`], { stdout: 'pipe' })
+    const said = new TextDecoder().decode((await holder.stdout.getReader().read()).value ?? new Uint8Array())
+    const t0 = performance.now()
+    let error = ''
+    try {
+      new VoiceStore({ appDir, engines: [] }).close()
+    } catch (e) {
+      error = `${(e as Error).message} (${(e as { code?: string }).code ?? ''})`
+    }
+    const waited = Math.round(performance.now() - t0)
+    await holder.exited
+    check('the voice store opened while another process holds its database alone (it makes it, turns it to WAL): waits for it, no "database is locked"', said.includes('held') && !error, { said, error, waited })
+  }
+
   // --- voice store: engines, quota guard, order (in-process against the fakes) -------------------
   {
     const fe = fakeEleven()
