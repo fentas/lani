@@ -16,9 +16,9 @@
     "table": {
       "head": [
         { "sl": "število", "en": "number", "de": "Zahl", "it": "numero" },
+        { "sl": "glagol", "en": "the verb", "de": "das Verb", "it": "il verbo" },
         { "sl": "ženski", "en": "feminine", "de": "weiblich", "it": "femminile" },
-        { "sl": "moški", "en": "masculine", "de": "männlich", "it": "maschile" },
-        { "sl": "srednji", "en": "neuter", "de": "sächlich", "it": "neutro" }
+        { "sl": "moški", "en": "masculine", "de": "männlich", "it": "maschile" }
       ]
     },
     "steps": [
@@ -33,8 +33,8 @@
           { "sl": "Francetu sta zboleli dve kravi.", "en": "Two of France's cows have fallen ill.", "de": "France sind zwei Kühe krank geworden.", "it": "A France si sono ammalate due mucche." }
         ],
         "rows": [
-          ["1", "ena krava je zbolela", "en gost je prišel", "eno tele je pobegnilo"],
-          ["2", "dve kravi sta zboleli", "dva gosta sta prišla", "dve teleti sta pobegnili"]
+          ["1", "je", "ena krava je zbolela", "en gost je prišel"],
+          ["2", "sta", "dve kravi sta zboleli", "dva gosta sta prišla"]
         ],
         "ask": {
           "type": "cloze", "grammar": "stevila-glagol", "text": "Dva brata sta ___ iz Trsta. (priti)", "accept": ["prišla"], "hint": "two men: the dual, -a",
@@ -52,7 +52,7 @@
           { "sl": "Štiri teleta so pobegnila čez potok.", "en": "Four calves ran off across the stream.", "de": "Vier Kälber sind über den Bach davongelaufen.", "it": "Quattro vitelli sono scappati oltre il ruscello." }
         ],
         "rows": [
-          ["3, 4", "tri krave so zbolele", "trije gostje so prišli", "tri teleta so pobegnila"]
+          ["3, 4", "so", "tri krave so zbolele", "trije gostje so prišli"]
         ],
         "ask": {
           "type": "choice", "grammar": "stevila-glagol", "prompt": "Tri krave ___ zbolele.", "options": ["so", "sta", "je"], "answer": 0, "say_options": true,
@@ -70,7 +70,7 @@
           { "sl": "Deset gostov bo prišlo na poroko.", "en": "Ten guests will come to the wedding.", "de": "Zehn Gäste werden zur Hochzeit kommen.", "it": "Al matrimonio verranno dieci ospiti." }
         ],
         "rows": [
-          ["5 +", "pet krav je zbolelo", "pet gostov je prišlo", "pet telet je pobegnilo"]
+          ["5 +", "je (-lo)", "pet krav je zbolelo", "pet gostov je prišlo"]
         ],
         "ask": {
           "type": "choice", "grammar": "stevila-glagol", "prompt": "Pet gostov ___ iz Gorice.", "options": ["je prišlo", "so prišli", "sta prišla"], "answer": 0, "say_options": true,
@@ -88,7 +88,7 @@
           { "sl": "Koliko ovc je ušlo?", "en": "How many sheep got away?", "de": "Wie viele Schafe sind entwischt?", "it": "Quante pecore sono scappate?" }
         ],
         "rows": [
-          ["veliko, nekaj", "veliko krav je zbolelo", "nekaj gostov je prišlo", "malo telet je pobegnilo"]
+          ["veliko, nekaj", "je (-lo)", "veliko krav je zbolelo", "nekaj gostov je prišlo"]
         ],
         "ask": {
           "type": "cloze", "grammar": "stevila-glagol", "text": "Na Markovo trgatev je ___ veliko sosedov. (priti)", "accept": ["prišlo"], "hint": "veliko works like five",

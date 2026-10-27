@@ -17,7 +17,7 @@
       "head": [
         { "sl": "kdaj?", "en": "when?", "de": "wann?", "it": "quando?" },
         { "sl": "kako", "en": "how to say it", "de": "so sagt man es", "it": "come si dice" },
-        { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+        { "sl": "pomen", "en": "meaning", "de": "Bedeutung", "it": "significato" }
       ]
     },
     "steps": [
@@ -32,9 +32,9 @@
           { "sl": "Mlin so zgradili leta 1890.", "en": "The mill was built in 1890.", "de": "Die Mühle wurde 1890 gebaut.", "it": "Il mulino fu costruito nel 1890." }
         ],
         "rows": [
-          [{ "sl": "datum", "en": "on a date: genitive", "de": "Datum: Genitiv", "it": "data: genitivo" }, "enajstega junija", "Rodil se je enajstega junija."],
-          [{ "sl": "tisti dan", "en": "one day, that evening: genitive", "de": "eines Tages: Genitiv", "it": "un giorno: genitivo" }, "nekega dne, tistega večera", "Nekega dne je prišel tujec."],
-          [{ "sl": "leto", "en": "in a year: genitive", "de": "im Jahr: Genitiv", "it": "nell'anno: genitivo" }, "leta 1890", "Mlin so zgradili leta 1890."]
+          [{ "sl": "datum", "en": "on a date: genitive", "de": "Datum: Genitiv", "it": "data: genitivo" }, "enajstega junija", { "en": "on 11 June", "de": "am 11. Juni", "it": "l'11 giugno" }],
+          [{ "sl": "tisti dan", "en": "one day, that evening: genitive", "de": "eines Tages: Genitiv", "it": "un giorno: genitivo" }, "nekega dne, tistega večera", { "en": "one day, that evening", "de": "eines Tages, an jenem Abend", "it": "un giorno, quella sera" }],
+          [{ "sl": "leto", "en": "in a year: genitive", "de": "im Jahr: Genitiv", "it": "nell'anno: genitivo" }, "leta 1890", { "en": "in 1890", "de": "im Jahr 1890", "it": "nel 1890" }]
         ],
         "ask": {
           "type": "cloze", "grammar": "cas-izrazi", "text": "Trgatev bo ___ septembra. (15.)", "accept": ["petnajstega"], "hint": "a date: the genitive, no preposition",
@@ -52,7 +52,7 @@
           { "sl": "Prejšnji teden je France kosil.", "en": "Last week France was mowing.", "de": "Letzte Woche hat France gemäht.", "it": "La settimana scorsa France falciava." }
         ],
         "rows": [
-          [{ "sl": "kateri", "en": "this, last, next, every: accusative", "de": "dieser, letzter, nächster, jeder: Akkusativ", "it": "questo, scorso, prossimo, ogni: accusativo" }, "to soboto, prejšnji teden, vsak dan", "To soboto gremo na sejem."]
+          [{ "sl": "kateri", "en": "this, last, next, every: accusative", "de": "dieser, letzter, nächster, jeder: Akkusativ", "it": "questo, scorso, prossimo, ogni: accusativo" }, "to soboto, prejšnji teden, vsak dan", { "en": "this Saturday, last week, every day", "de": "diesen Samstag, letzte Woche, jeden Tag", "it": "questo sabato, la settimana scorsa, ogni giorno" }]
         ],
         "ask": {
           "type": "choice", "grammar": "cas-izrazi", "prompt": "___ gremo na sejem v Gorico. (this Saturday)", "options": ["To soboto", "Ta sobota", "Te sobote"], "answer": 0, "say_options": true,
@@ -70,8 +70,8 @@
           { "sl": "Tukaj živim že dve leti.", "en": "I've been living here for two years.", "de": "Ich wohne seit zwei Jahren hier.", "it": "Abito qui da due anni." }
         ],
         "rows": [
-          [{ "sl": "kako dolgo", "en": "how long: accusative", "de": "wie lange: Akkusativ", "it": "per quanto: accusativo" }, "dve uri, tri dni, ves dan", "Kosili smo dve uri."],
-          [{ "sl": "že", "en": "for … now: the present", "de": "seit: Präsens", "it": "da: presente" }, "že dve leti", "Tukaj živim že dve leti."]
+          [{ "sl": "kako dolgo", "en": "how long: accusative", "de": "wie lange: Akkusativ", "it": "per quanto: accusativo" }, "dve uri, tri dni, ves dan", { "en": "for two hours, three days, all day", "de": "zwei Stunden, drei Tage, den ganzen Tag", "it": "per due ore, tre giorni, tutto il giorno" }],
+          [{ "sl": "že", "en": "for … now: the present", "de": "seit: Präsens", "it": "da: presente" }, "že dve leti", { "en": "for two years now", "de": "seit zwei Jahren", "it": "da due anni" }]
         ],
         "ask": {
           "type": "choice", "grammar": "cas-izrazi", "prompt": "Tukaj ___ že dve leti. (I've been living here for two years.)", "options": ["živim", "sem živel", "bom živel"], "answer": 0, "say_options": true,
@@ -89,9 +89,9 @@
           { "sl": "Gostilna je odprta od torka do nedelje.", "en": "The inn is open from Tuesday to Sunday.", "de": "Das Gasthaus hat von Dienstag bis Sonntag geöffnet.", "it": "L'osteria è aperta dal martedì alla domenica." }
         ],
         "rows": [
-          [{ "sl": "pred", "en": "ago: instrumental", "de": "vor: Instrumental", "it": "fa: strumentale" }, "pred tremi dnevi", "Prišel je pred tremi dnevi."],
-          [{ "sl": "čez", "en": "in (later): accusative", "de": "in (später): Akkusativ", "it": "fra: accusativo" }, "čez dva tedna", "Vrnem se čez dva tedna."],
-          [{ "sl": "od … do", "en": "from … to: genitive", "de": "von … bis: Genitiv", "it": "da … a: genitivo" }, "od torka do nedelje", "Gostilna je odprta od torka do nedelje."]
+          [{ "sl": "pred", "en": "ago: instrumental", "de": "vor: Instrumental", "it": "fa: strumentale" }, "pred tremi dnevi", { "en": "three days ago", "de": "vor drei Tagen", "it": "tre giorni fa" }],
+          [{ "sl": "čez", "en": "in (later): accusative", "de": "in (später): Akkusativ", "it": "fra: accusativo" }, "čez dva tedna", { "en": "in two weeks", "de": "in zwei Wochen", "it": "fra due settimane" }],
+          [{ "sl": "od … do", "en": "from … to: genitive", "de": "von … bis: Genitiv", "it": "da … a: genitivo" }, "od torka do nedelje", { "en": "from Tuesday to Sunday", "de": "von Dienstag bis Sonntag", "it": "dal martedì alla domenica" }]
         ],
         "ask": {
           "type": "cloze", "grammar": "cas-izrazi", "text": "Marko je odšel v mesto pred tremi ___. (dan)", "accept": ["dnevi"], "hint": "pred + the instrumental plural",
@@ -109,8 +109,8 @@
           { "sl": "Med kosilom ne govorimo o delu.", "en": "We don't talk about work during lunch.", "de": "Beim Mittagessen reden wir nicht über die Arbeit.", "it": "Durante il pranzo non parliamo di lavoro." }
         ],
         "rows": [
-          [{ "sl": "med, okoli", "en": "during, around", "de": "während, gegen", "it": "durante, verso" }, "med kosilom, okoli treh", "Pridem okoli treh."],
-          [{ "sl": "ena beseda", "en": "one word", "de": "ein Wort", "it": "una parola" }, "lani, letos, sinoči, nocoj", "Sinoči je zmrznilo."]
+          [{ "sl": "med, okoli", "en": "during, around", "de": "während, gegen", "it": "durante, verso" }, "med kosilom, okoli treh", { "en": "during lunch, around three", "de": "beim Mittagessen, gegen drei", "it": "durante il pranzo, verso le tre" }],
+          [{ "sl": "ena beseda", "en": "one word", "de": "ein Wort", "it": "una parola" }, "lani, letos, sinoči, nocoj", { "en": "last year, this year, last night, tonight", "de": "letztes Jahr, dieses Jahr, gestern Abend, heute Abend", "it": "l'anno scorso, quest'anno, ieri sera, stasera" }]
         ],
         "ask": {
           "type": "choice", "grammar": "cas-izrazi", "prompt": "___ je zmrznilo. (last night)", "options": ["Sinoči", "Nocoj", "Lani"], "answer": 0, "say_options": true,

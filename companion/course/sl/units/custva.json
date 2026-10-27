@@ -17,7 +17,7 @@
       "head": [
         { "sl": "sklon", "en": "case", "de": "Fall", "it": "caso" },
         { "sl": "izraz", "en": "the phrase", "de": "Ausdruck", "it": "espressione" },
-        { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+        { "sl": "pomen", "en": "meaning", "de": "Bedeutung", "it": "significato" }
       ]
     },
     "steps": [
@@ -32,8 +32,8 @@
           { "sl": "Žal mi je, danes ne morem priti.", "en": "I'm sorry, I can't come today.", "de": "Es tut mir leid, heute kann ich nicht kommen.", "it": "Mi dispiace, oggi non posso venire." }
         ],
         "rows": [
-          [{ "sl": "dajalnik: komu?", "en": "dative: to whom?", "de": "Dativ: wem?", "it": "dativo: a chi?" }, "mrzlo mi je, slabo mi je", "Babici je slabo."],
-          [{ "sl": "dajalnik", "en": "dative", "de": "Dativ", "it": "dativo" }, "dolgčas mi je, žal mi je", "Nejcu je dolgčas."]
+          [{ "sl": "dajalnik: komu?", "en": "dative: to whom?", "de": "Dativ: wem?", "it": "dativo: a chi?" }, "mrzlo mi je, slabo mi je", { "en": "I'm cold, I feel sick", "de": "mir ist kalt, mir ist schlecht", "it": "ho freddo, mi sento male" }],
+          [{ "sl": "dajalnik", "en": "dative", "de": "Dativ", "it": "dativo" }, "dolgčas mi je, žal mi je", { "en": "I'm bored, I'm sorry", "de": "mir ist langweilig, es tut mir leid", "it": "mi annoio, mi dispiace" }]
         ],
         "ask": {
           "type": "cloze", "grammar": "custva", "text": "___ je dolgčas, ker dežuje. (Nejc)", "accept": ["Nejcu"], "hint": "who feels it: the dative",
@@ -51,8 +51,8 @@
           { "sl": "Danes se mi ne ljubi kuhati.", "en": "I don't feel like cooking today.", "de": "Heute habe ich keine Lust zu kochen.", "it": "Oggi non ho voglia di cucinare." }
         ],
         "rows": [
-          [{ "sl": "dajalnik + se", "en": "dative + se", "de": "Dativ + se", "it": "dativo + se" }, "mudi se mi, zdi se mi", "Janezu se mudi."],
-          [{ "sl": "dajalnik + se", "en": "dative + se", "de": "Dativ + se", "it": "dativo + se" }, "spi se mi, ne ljubi se mi", "Danes se mi ne ljubi kuhati."]
+          [{ "sl": "dajalnik + se", "en": "dative + se", "de": "Dativ + se", "it": "dativo + se" }, "mudi se mi, zdi se mi", { "en": "I'm in a hurry, it seems to me", "de": "ich habe es eilig, mir scheint", "it": "ho fretta, mi sembra" }],
+          [{ "sl": "dajalnik + se", "en": "dative + se", "de": "Dativ + se", "it": "dativo + se" }, "spi se mi, ne ljubi se mi", { "en": "I'm sleepy, I don't feel like it", "de": "ich bin müde, ich habe keine Lust", "it": "ho sonno, non ne ho voglia" }]
         ],
         "ask": {
           "type": "choice", "grammar": "custva", "prompt": "»Oprosti, ___, gostje že čakajo!« (I'm in a hurry)", "options": ["mudi se mi", "mudim se", "se mi mudim"], "answer": 0, "say_options": true,
@@ -70,7 +70,7 @@
           { "sl": "Toneta skrbi za babico.", "en": "Tone is worried about Granny.", "de": "Tone macht sich Sorgen um Oma.", "it": "Tone è in pensiero per la nonna." }
         ],
         "rows": [
-          [{ "sl": "tožilnik: koga?", "en": "accusative: whom?", "de": "Akkusativ: wen?", "it": "accusativo: chi?" }, "boli me, zebe me, skrbi me", "Mamo boli glava."]
+          [{ "sl": "tožilnik: koga?", "en": "accusative: whom?", "de": "Akkusativ: wen?", "it": "accusativo: chi?" }, "boli me, zebe me, skrbi me", { "en": "it hurts me, I'm freezing, I'm worried", "de": "es tut mir weh, mich friert, ich sorge mich", "it": "mi fa male, ho freddo, mi preoccupo" }]
         ],
         "ask": {
           "type": "cloze", "grammar": "custva", "text": "Po trgatvi ___ bolijo roke. (Marko)", "accept": ["Marka"], "hint": "who hurts: the accusative",
@@ -88,8 +88,8 @@
           { "sl": "Toneta zanima vse o konjih.", "en": "Tone is interested in everything about horses.", "de": "Tone interessiert sich für alles über Pferde.", "it": "A Tone interessa tutto sui cavalli." }
         ],
         "rows": [
-          [{ "sl": "tožilnik + je", "en": "accusative + je", "de": "Akkusativ + je", "it": "accusativo + je" }, "strah me je, sram me je", "Zalo je strah teme."],
-          [{ "sl": "tožilnik", "en": "accusative", "de": "Akkusativ", "it": "accusativo" }, "veseli me, zanima me, jezi me", "Toneta zanima vse o konjih."]
+          [{ "sl": "tožilnik + je", "en": "accusative + je", "de": "Akkusativ + je", "it": "accusativo + je" }, "strah me je, sram me je", { "en": "I'm afraid, I'm ashamed", "de": "ich habe Angst, ich schäme mich", "it": "ho paura, mi vergogno" }],
+          [{ "sl": "tožilnik", "en": "accusative", "de": "Akkusativ", "it": "accusativo" }, "veseli me, zanima me, jezi me", { "en": "I'm glad, I'm interested, it annoys me", "de": "es freut mich, es interessiert mich, es ärgert mich", "it": "mi fa piacere, mi interessa, mi fa arrabbiare" }]
         ],
         "ask": {
           "type": "choice", "grammar": "custva", "prompt": "Zalo je strah ___.", "options": ["teme", "temo", "tema"], "answer": 0, "say_options": true,
@@ -107,8 +107,8 @@
           { "sl": "Po trgatvi so Marka bolele roke.", "en": "After the grape harvest Marko's arms were aching.", "de": "Nach der Weinlese taten Marko die Arme weh.", "it": "Dopo la vendemmia a Marko facevano male le braccia." }
         ],
         "rows": [
-          [{ "sl": "preteklik: srednji spol", "en": "past: neuter", "de": "Vergangenheit: Neutrum", "it": "passato: neutro" }, "mrzlo mi je bilo, zeblo me je", "Včeraj me je zeblo."],
-          [{ "sl": "preteklik: boli", "en": "past of boli", "de": "Vergangenheit von boli", "it": "passato di boli" }, "glava me je bolela", "Noge so me bolele."]
+          [{ "sl": "preteklik: srednji spol", "en": "past: neuter", "de": "Vergangenheit: Neutrum", "it": "passato: neutro" }, "mrzlo mi je bilo, zeblo me je", { "en": "I was cold, I was freezing", "de": "mir war kalt, mich fror", "it": "avevo freddo, avevo i brividi" }],
+          [{ "sl": "preteklik z osebkom", "en": "past: a subject agrees", "de": "Vergangenheit: mit Subjekt", "it": "passato: con soggetto" }, "glava me je bolela", { "en": "my head hurt", "de": "mir tat der Kopf weh", "it": "mi faceva male la testa" }]
         ],
         "ask": {
           "type": "choice", "grammar": "custva", "prompt": "Včeraj ___ glava.", "options": ["me je bolela", "me je bolelo", "sem bolel"], "answer": 0, "say_options": true,
