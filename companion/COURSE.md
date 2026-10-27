@@ -486,6 +486,27 @@ and instrumental rows (`rodilnik`, `dajalnik`, `orodnik`, A2 pages) stay greyed 
 a noun's nominative singular is the word itself, never asked. A unit's `grammar` decides: a unit that lists another
 page turns on that page's forms too.
 
+B1's second half (`pogojnik-polno` to `glagolniki`) teaches pages of its own, written with it (each a B1 page with
+its cheat-sheet card): `pogojnik-ce-bi`, `nedolocni-zaimki`, `naslonke-red`, `stevila-glagol`, `cas-izrazi`, `custva`,
+`trpnik`, `glagolniki`. None of them is a row of a word's table (a clause's bi, the order of the short words, the verb
+after a number, a case of time, a feeling's dative, a participle or a verbal noun are not one word's forms); what the
+units turn on comes from the earlier pages they list:
+
+| unit | its pages | what the forms cards ask from then on |
+|---|---|---|
+| `pogojnik-polno` | pogojnik-ce-bi, pogojnik | no form of a table |
+| `nedolocni-zaimki` | nedolocni-zaimki, zanikanje | the negative present (nisem, nimam, ne delam), as `nikalnica-rodilnik` |
+| `naslonke-red` | naslonke-red, naslonke | no form of a table |
+| `stevila-glagol` | stevila-glagol, stevila-samostalniki, rodilnik-kolicina | no form of a table |
+| `cas-izrazi` | cas-izrazi, datumi, kdaj-cas | no form of a table |
+| `custva` | custva, dajalnik, tozilnik | a noun's dative and accusative rows (bratu, hiši; brata, hišo), their plural with `mnozina`, their dual with `dvojina`; the adjective's dative and accusative |
+| `trpnik` | trpnik, pridevniki-ujemanje | an adjective's nominative (dobra, dobro), as `spol` |
+| `glagolniki` | glagolniki, sklanjatev-srednji | no form of a table |
+
+`trpnik` and `glagolniki` are B1's "know" items (docs/grammar-syllabus.md: recognise and understand, produce a
+little): their sheets ask mostly what a form means, which verb it comes from and which ending it has (a choice, a
+multi, a sort, a word bank), and only the easy ones are made (Okno je odprto, plavanje, pečenje kruha).
+
 ## Writing a unit
 
 - **Natural Slovene at the level**: short sentences of everyday words the learner meets in the village (the kitchen, the
