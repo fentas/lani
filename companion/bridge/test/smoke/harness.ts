@@ -79,6 +79,9 @@ export const piper = { source: join(piperDir, 'source'), cache: join(piperDir, '
 export const port = Number(process.env.LANI_SMOKE_PORT ?? 18800)
 export const token = 'smoke-token'
 export const familyToken = 'family-smoke-token'
+// The node's other learners (lani-profile add): Jan's bridge reads this registry to find the children's towns of the node
+// it may link as their parent (test/smoke/towns.ts adds a child's and an adult's profile to it).
+export const profilesDir = tempDir('lani-smoke-profiles-')
 export const base = `http://127.0.0.1:${port}`
 export const auth = { authorization: `Bearer ${token}`, 'content-type': 'application/json' }
 
@@ -197,7 +200,7 @@ await client.connect(
   new StdioClientTransport({
     command: 'bun',
     args: [resolve(import.meta.dir, '../../src/index.ts')],
-    env: { ...process.env, LANI_DATA_DIR: dataDir, LANI_BRIDGE_PORT: String(port), LANI_BRIDGE_TOKEN: token, LANI_PACKS_DIR: curatedDir, LANI_MODULES_DIR: modulesDir, LANI_RHYTHM: 'off', LANI_SCENARIOS_DIR: resolve(import.meta.dir, '../../../scenarios'), LANI_GRAMMAR_DIR: resolve(import.meta.dir, '../../../grammar'), LANI_COURSE_DIR: courseRoot, LANI_DRILLS_DIR: resolve(import.meta.dir, '../../../drills'), LANI_SCENES_DIR: scenesDir, LANI_CULTURES_DIR: culturesDir, LANI_FAMILY_TOKEN: familyToken, ELEVENLABS_API_KEY: 'test-key', ELEVENLABS_BASE_URL: bridgeEleven.url, LANI_GEPARD_URL: bridgeGepard.url, LANI_VOICE_QUEUE_DELAY_MS: '0', LANI_STT_URL: bridgeWhisper.url, LANI_STT_TIMEOUT_MS: '800', LANI_WORDS_NOTE_MS: '1000', LANI_GLOSS_GAP_MS: '300', LANI_WORD_REQUEST_MS: '300', LANI_WORD_REQUEST_RETELL_MS: '4000', LANI_TOWN_FRIEND_CACHE_MS: '0', LANI_PIPER_URL: piper.source, LANI_PIPER_CACHE: piper.cache, LANI_PIPER_CATALOG: piper.catalog } as Record<string, string>,
+    env: { ...process.env, LANI_DATA_DIR: dataDir, LANI_BRIDGE_PORT: String(port), LANI_BRIDGE_TOKEN: token, LANI_PACKS_DIR: curatedDir, LANI_MODULES_DIR: modulesDir, LANI_RHYTHM: 'off', LANI_SCENARIOS_DIR: resolve(import.meta.dir, '../../../scenarios'), LANI_GRAMMAR_DIR: resolve(import.meta.dir, '../../../grammar'), LANI_COURSE_DIR: courseRoot, LANI_DRILLS_DIR: resolve(import.meta.dir, '../../../drills'), LANI_SCENES_DIR: scenesDir, LANI_CULTURES_DIR: culturesDir, LANI_FAMILY_TOKEN: familyToken, LANI_PROFILES_DIR: profilesDir, ELEVENLABS_API_KEY: 'test-key', ELEVENLABS_BASE_URL: bridgeEleven.url, LANI_GEPARD_URL: bridgeGepard.url, LANI_VOICE_QUEUE_DELAY_MS: '0', LANI_STT_URL: bridgeWhisper.url, LANI_STT_TIMEOUT_MS: '800', LANI_WORDS_NOTE_MS: '1000', LANI_GLOSS_GAP_MS: '300', LANI_WORD_REQUEST_MS: '300', LANI_WORD_REQUEST_RETELL_MS: '4000', LANI_TOWN_FRIEND_CACHE_MS: '0', LANI_PIPER_URL: piper.source, LANI_PIPER_CACHE: piper.cache, LANI_PIPER_CATALOG: piper.catalog } as Record<string, string>,
     stderr: 'inherit',
   }),
 )

@@ -71,7 +71,7 @@ const sendJson = (path, method, body) =>
   api(path, { method, headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) }).then(r => r.json())
 
 function lock() {
-  for (const id of ['settings', 'compose', 'thread-wrap', 'record', 'open-settings']) $(id).hidden = true
+  for (const id of ['settings', 'compose', 'thread-wrap', 'record', 'open-settings', 'towns']) $(id).hidden = true
   $('locked').hidden = false
 }
 
@@ -431,6 +431,66 @@ $('rec-save').addEventListener('click', async () => {
   }
 })
 
+// --- a child's friends: the links that wait for the parent ----------------------------------------------------------
+// A child's app can invite and accept, but its town links nothing until a parent says yes: here (the family's key), in
+// the parent's own app, or on the node. "👪 This is a parent's town": that town becomes the child's guardian (it sees
+// the child's progress in detail).
+const FLAGS = { sl: '🇸🇮', it: '🇮🇹', de: '🇩🇪', en: '🇬🇧', hr: '🇭🇷', fr: '🇫🇷', es: '🇪🇸' }
+const AGES = { OGENJ: '🔥', TABOR: '⛺', ZASELEK: '🛖', VAS: '🏘️', TRG: '🏛️', MESTO: '🏰' }
+const BUILDINGS = { TENT: '⛺', FIELD: '🌾', WELL: '🪣', HUT: '🛖', KOZOLEC: '🪜', BEEHIVE: '🐝', PALISADE: '🪵', WATCHTOWER: '🗼', SMITHY: '⚒️', LIPA: '🌳', HOUSE: '🏠', CHURCH: '⛪', SCHOOL: '🏫', MARKET: '🏪' }
+const flag = l => FLAGS[l] || (l || '').toUpperCase()
+
+/** "🏘️ · 👥 3 · 🛖×2 🌾": how a town looks now, from its preview; '' when it didn't answer. */
+function previewLine(p) {
+  if (!p) return ''
+  const parts = Object.entries(p.buildings || {}).slice(0, 6).map(([t, n]) => (BUILDINGS[t] || '🏠') + (n > 1 ? `×${n}` : ''))
+  return [p.age ? AGES[p.age] || '' : '', p.villagers ? `👥 ${p.villagers}` : '', parts.join(' ')].filter(Boolean).join(' · ')
+}
+
+async function loadTowns() {
+  let t
+  try {
+    t = await getJson('/family/api/towns')
+  } catch (err) {
+    // an older tutor has no such route: no card
+    return
+  }
+  if (!t.child) return ($('towns').hidden = true)
+  const who = t.learner || 'Teo'
+  $('towns').hidden = false
+  $('towns-intro').textContent = t.requests.length
+    ? `${who} si želi prijateljev: vasi se povežejo šele, ko starš reče da. · ${who} would like to be friends: the towns link only once a parent says yes.`
+    : `Nič ne čaka nate. · Nothing waits for you. ${who} lahko povabi prijatelje v aplikaciji; tukaj rečeš da ali ne. · ${who} can invite friends in the app; you say yes or no here.`
+  const list = $('towns-requests')
+  list.replaceChildren(...t.requests.map(r => {
+    const how = r.via === 'invite' ? `📨 Sprejeli so povabilo · They accepted ${who}'s invitation` : `📨 Njihovo povabilo je sprejeto · ${who} accepted their invitation`
+    const guardian = el('input', { type: 'checkbox' })
+    const allow = el('button', { class: 'primary', type: 'button' }, '✓ Dovoli · Allow')
+    const no = el('button', { type: 'button' }, '✕ Ne · Decline')
+    const decide = async approve => {
+      allow.disabled = no.disabled = true
+      try {
+        const res = await sendJson(`/family/api/towns/requests/${r.id}`, 'POST', { approve, guardian: approve && guardian.checked, town: r.town.id })
+        toast(approve ? `🤝 Povezano · Linked: ${r.town.name}${res.guardian ? ' (👪)' : ''}` : `👋 Ne tokrat · Not this time: ${r.town.name}`)
+      } catch (err) {
+        toast(`⚠️ ${err.message}`)
+      }
+      await loadTowns()
+    }
+    allow.addEventListener('click', () => decide(true))
+    no.addEventListener('click', () => decide(false))
+    return el('li', { class: 'request' },
+      el('div', { class: 'req-title' }, `${flag(r.town.language)} ${r.town.name} · ${r.town.learner}`),
+      el('div', { class: 'small' }, previewLine(r.preview) || '📡 Vas se ta hip ne oglasi · The town doesn\'t answer right now'),
+      el('div', { class: 'small' }, `${how} · ${when(r.at)}`),
+      el('label', { class: 'check' }, guardian, ' 👪 To je vas starša (vidi napredek) · This is a parent\'s town (sees the progress)'),
+      el('div', { class: 'req-actions' }, no, allow),
+    )
+  }))
+  $('towns-linked-wrap').hidden = !t.towns.length
+  $('towns-linked').replaceChildren(...t.towns.map(l => el('li', {}, `${flag(l.language)} ${l.name} · ${l.learner}${l.guardian ? ' 👪' : ''}`)))
+}
+
 // --- start ---------------------------------------------------------------------------------------------------
 async function start() {
   if (!token) return lock()
@@ -446,8 +506,11 @@ async function start() {
     loadThread().catch(err => toast(`⚠️ ${err.message}`))
     loadWords().catch(err => toast(`⚠️ ${err.message}`))
   }
+  // a child's links that wait for the parent: even before the name is set (that is what the parent came for)
+  loadTowns()
   setInterval(() => {
     if (document.visibilityState === 'visible' && settings?.partner_name) loadThread().catch(() => {})
+    if (document.visibilityState === 'visible') loadTowns()
   }, 20000)
 }
 start()

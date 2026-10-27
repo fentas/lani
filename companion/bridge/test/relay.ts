@@ -151,6 +151,7 @@ try {
   const inv = await post(ana, '/towns/invite')
   const parsed = parseInvite(inv.body?.link ?? '')
   check("relay: Ana's invitation carries her own URL and her relay address (r=)", parsed.ok && parsed.invite.url === 'http://127.0.0.1:9' && parsed.invite.relay === `${relayUrl}/v1/towns/${ana.id}` && inv.body.relay === parsed.invite.relay, inv.body)
+  check("relay: … anyone can accept it (reach: relay), and its web link carries the relay address too", inv.body.reach === 'relay' && parseInvite(inv.body.web_link ?? '').ok && (parseInvite(inv.body.web_link) as any).invite.relay === parsed.invite.relay, inv.body)
   const acc = await post(marta, '/towns/accept', { invite: inv.body.link })
   check("relay: Marta's town accepts it: Ana's URL doesn't answer, so her relay address does (hello, then the join through the tunnel)", acc.status === 200 && acc.body.town?.id === ana.id && acc.body.town.learner === 'Ana', acc)
   const mToA = linksOf(marta).find(l => l.id === ana.id)
@@ -254,6 +255,10 @@ try {
   const sBody = (await settings.json()) as any
   check("relay: the family page's settings through the relay (Marta's bridge answers: \"Maje\")", settings.status === 200 && sBody.partner_name === 'Maja' && sBody.from_label === 'Maje', sBody)
   check('relay: … a wrong family token is a 401 at the relay; the learner\'s answer route is not the family\'s (403)', (await fapi('/family/api/settings', { headers: fam('nope') })).status === 401 && (await fapi('/family/api/challenges/abc/answer', { method: 'POST', headers: fam(marta.family), body: '{}' })).status === 403)
+  // a child's links that wait for the parent: the family page's routes go through the relay too (Marta's is an adult's town)
+  const famTowns = await fapi('/family/api/towns', { headers: fam(marta.family) })
+  const famDecide = await fapi('/family/api/towns/requests/lr_0123456789abcdef', { method: 'POST', headers: fam(marta.family, { 'content-type': 'application/json' }), body: JSON.stringify({ approve: true }) })
+  check("relay: … the family page's friends (GET /family/api/towns, a decision) reach Marta's bridge through the relay, which answers (an adult's town: nothing waits, 403 not_a_child)", famTowns.status === 200 && ((await famTowns.json()) as any).child === false && famDecide.status === 403 && ((await famDecide.json()) as any).code === 'not_a_child', famDecide.status)
   const ch = await fapi('/family/api/challenges', { method: 'POST', headers: fam(marta.family, { 'content-type': 'application/json' }), body: JSON.stringify({ type: 'question', text: 'Kaj si danes jedla?' }) })
   const chBody = (await ch.json()) as any
   const mine = await get(marta, '/family/api/challenges')

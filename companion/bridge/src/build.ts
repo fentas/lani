@@ -48,6 +48,7 @@ import { sentences } from './features/sentences'
 import { stories } from './features/stories'
 import { stt } from './features/stt'
 import { towns } from './features/towns'
+import { townRequests } from './features/town-requests'
 import { tutorSession } from './features/tutor'
 import { villagers } from './features/villagers'
 import { visitVoices } from './features/visit-voices'
@@ -116,6 +117,8 @@ export const FEATURES: readonly { name: string; factory: FeatureFactory }[] = [
   { name: 'releases', factory: releases },
   { name: 'pairing', factory: pairing },
   { name: 'towns', factory: towns },
+  // a child's links that wait for the parent (features/town-requests.ts): routes only
+  { name: 'town-requests', factory: townRequests },
   { name: 'friendship', factory: friendship },
   { name: 'questions', factory: townQuestions },
   { name: 'progress', factory: progress },

@@ -114,7 +114,7 @@ export async function publishedState(key: BridgeKey, l: { id: string; public_key
 /** A town's own routes through the relay: other towns' signed requests, and the family page's. */
 const TOWN_PATH = /^\/town\/[A-Za-z0-9_/-]{1,80}(\?.*)?$/
 /** The family page's, exactly as the relay lets them through (companion/relay/src/family.ts): no dots, no escapes. */
-const FAMILY_PATH = /^\/(family\/api\/(settings|words|challenges)|audio(\/index|\/file\/[a-f0-9]{24}\.(m4a|ogg|webm))?)(\?[^#]*)?$/
+const FAMILY_PATH = /^\/(family\/api\/(settings|words|challenges|towns|towns\/requests\/lr_[0-9a-f]{16})|audio(\/index|\/file\/[a-f0-9]{24}\.(m4a|ogg|webm))?)(\?[^#]*)?$/
 const MAIL_ID = /^m_[A-Za-z0-9_-]{16,40}$/
 
 /** A body the relay couldn't hand over now: the message isn't answered, so it comes again once its lease runs out. */

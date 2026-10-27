@@ -11,7 +11,8 @@
 //   and cleaned, kept for a while: the app only ever talks to its own), POST /towns/:id/help, /gift and /trade (a visit's
 //   writes, passed on and logged, so a retry is answered the same), POST /towns/:id/talk (a role-play on a visit, played
 //   by this learner's tutor), GET /towns/guests (what guests brought this town), POST /towns/invite and
-//   POST /towns/accept (not for a child: a parent links a child's town on the node, with companion/bin/lani-town).
+//   POST /towns/accept. A child's town invites and accepts too, but links nothing until its parent says yes: the other
+//   town links it as waiting, and the child's keeps a request (../town-requests.ts, features/town-requests.ts).
 // With a relay (LANI_RELAY_URL, ../relay.ts): this town publishes its public state there for its linked towns, its
 // invitations carry its relay address, a town that joins through the relay is reached through it, and a linked town
 // that doesn't answer shows the state it last published there.
@@ -69,7 +70,10 @@ import {
   cleanPublicState,
   cleanText,
   createInvite,
+  inviteReach,
   inviteUri,
+  inviteWebBase,
+  inviteWebUri,
   localDate,
   parseInvite,
   publicState,
@@ -83,6 +87,7 @@ import {
   type Invite,
   type TownLink,
 } from '../towns'
+import { LinkRequests, MAX_OPEN_REQUESTS, REQUEST_TTL_MS, notifyGuardians, requestView, statusOf } from '../town-requests'
 import { readsWhen, withoutWhen } from '../villagers'
 import {
   PeerCache,
@@ -131,6 +136,8 @@ const joinIn = z.object({
   v: z.number().int().min(1),
   code: z.string().min(1).max(64),
   town: z.object({ id: z.string().regex(TOWN_ID), public_key: z.string().min(40).max(400), url: z.string().max(300), display: z.unknown().optional(), relay: z.string().max(300).optional() }),
+  // the joining town is a child's: it links this one once its parent says yes (this one links it as waiting)
+  pending: z.literal('guardian').optional(),
 })
 
 const acceptIn = z.object({
@@ -149,7 +156,7 @@ const tradeIn = z.object({ id: actId, give: z.unknown(), get: z.unknown(), score
 // time: the part of the day on the visitor's phone, for the greeting that opens the talk (this node's without it)
 const talkIn = z.object({ villager: z.string().regex(/^[a-z0-9][a-z0-9-]{0,62}$/).optional(), market: z.object({ give: z.unknown(), get: z.unknown() }).optional(), time: z.enum(PARTS).optional() })
 
-const CHILD = "a child's town is linked by a parent on the node (companion/bin/lani-town)"
+const TOO_MANY_REQUESTS = "too many links wait for this child's parent: they decide those first"
 
 const instructions = `
 Visits (companion/README.md, "Visiting"): the learner may visit a town linked with theirs. Everything there is in that
@@ -193,7 +200,23 @@ export const towns: FeatureFactory = ({ cfg, townKey: bridgeKey, profile, game, 
   const limits = new WriteLimits(limitsFromEnv())
   /** The friendships (friendship.ts): what towns did for each other is counted as it happens; the market's rates follow. */
   const friends = friendsOf(cfg.appDir, bridgeKey)
+  /** A child's town: the links that wait for its parent (town-requests.ts). */
+  const requests = new LinkRequests(cfg.appDir)
+  /** Who can accept this town's invitations (its URL and relay address): the app says so before it shows one. */
+  const reach = inviteReach(url, relayAddr)
+  /** The invitations' web link (an App Link, else a page that says "open in Lani"): LANI_INVITE_URL, "off" for none. */
+  const webBase = inviteWebBase()
   let notes = 0
+
+  /** This child's guardians' towns, as the child's app names them ("Your parent says yes first: Jan"). */
+  const guardians = () => store.links().filter(l => l.guardian === true).map(l => ({ id: l.id, name: l.display?.name ?? '', learner: l.display?.learner ?? '' }))
+
+  /** A request of this child's that waits for the parent: the guardians' towns told, the child's app too. */
+  function waiting(r: NonNullable<ReturnType<LinkRequests['add']>>) {
+    notifyGuardians(bridgeKey, store, r, log)
+    events.emit({ type: 'town_link', kind: 'pending', request: r.id, town: { id: r.town.id, name: r.town.display.name, learner: r.town.display.learner } })
+    log(`towns: ${r.town.display.name} (${r.town.display.learner}) waits for the parent to link it (${r.via === 'invite' ? "it accepted the child's invitation" : "the child accepted its invitation"})`)
+  }
 
   let festivals: FestivalRule[] | undefined
   /** The festivals of the village's culture pack (festivals.json), read once. */
@@ -514,16 +537,27 @@ export const towns: FeatureFactory = ({ cfg, townKey: bridgeKey, profile, game, 
           const peerUrl = c.url.hostname === RELAYED_HOST && peerRelay ? peerRelay : townUrl(town.url)
           if (!peerUrl) return json({ error: "the town's URL isn't valid", code: 'bad_request' }, 400)
           if (town.id === self) return json({ error: 'a town does not link itself', code: 'self' }, 400)
+          // a child's town links nothing until its parent says yes (one made on the node, by a parent, links at once)
+          const asksParent = profile.child && !store.get(town.id)
+          if (asksParent && requests.open().length >= MAX_OPEN_REQUESTS) return json({ error: TOO_MANY_REQUESTS, code: 'too_many_requests' }, 429)
           const spent = spendInvite(cfg.appDir, r.data.code)
           if (spent.status !== 'ok') {
             attempts.fail()
             return spent.status === 'expired' ? json({ error: 'invitation expired', code: 'expired_code' }, 410) : json({ error: 'invalid invitation', code: 'invalid_code' }, 403)
           }
           const shown = cleanDisplay(town.display)
-          store.upsert({ id: town.id, public_key: town.public_key, url: peerUrl, linked_at: new Date().toISOString(), by: spent.by ?? 'app', via: 'invite', display: shown, ...(peerRelay && peerRelay !== peerUrl ? { relay: peerRelay } : {}) })
-          log(`towns: linked ${shown.name} (${shown.learner}, ${town.id}) at ${peerUrl}`)
+          const answer = { v: TOWN_VERSION, town: { id: self, public_key: publicKey, url, display: display(), ...(relayAddr ? { relay: relayAddr } : {}) } }
+          if (asksParent && spent.by !== 'cli') {
+            const req = requests.add({ id: town.id, public_key: town.public_key, url: peerUrl, ...(peerRelay && peerRelay !== peerUrl ? { relay: peerRelay } : {}), display: shown }, 'invite', { theirsPending: r.data.pending === 'guardian' })
+            if (!req) return json({ error: TOO_MANY_REQUESTS, code: 'too_many_requests' }, 429)
+            waiting(req)
+            // the joining town links this one as waiting for the child's parent
+            return signedJson(bridgeKey, check.nonce, { ...answer, pending: 'guardian' })
+          }
+          store.upsert({ id: town.id, public_key: town.public_key, url: peerUrl, linked_at: new Date().toISOString(), by: spent.by ?? 'app', via: 'invite', display: shown, ...(peerRelay && peerRelay !== peerUrl ? { relay: peerRelay } : {}), ...(r.data.pending === 'guardian' ? { pending: 'guardian' as const } : {}) })
+          log(`towns: linked ${shown.name} (${shown.learner}, ${town.id}) at ${peerUrl}${r.data.pending ? ", which links back once its parent says yes" : ''}`)
           relay?.nudge() // a new reader of this town's state there
-          return signedJson(bridgeKey, check.nonce, { v: TOWN_VERSION, town: { id: self, public_key: publicKey, url, display: display(), ...(relayAddr ? { relay: relayAddr } : {}) } })
+          return signedJson(bridgeKey, check.nonce, answer)
         },
       },
       {
@@ -681,12 +715,18 @@ export const towns: FeatureFactory = ({ cfg, townKey: bridgeKey, profile, game, 
         path: '/town/unlink',
         access: 'public',
         handle: async c => {
-          const { r, refused } = await signed(c, linkedKey)
+          // a linked town, or (to a child's town) one whose link waits for the parent here: it takes its request back
+          const { r, refused } = await signed(c, id => linkedKey(id) ?? requests.openFor(id)?.town.public_key)
           if (!r.ok) return refused!
           cache.drop(r.from)
           const gone = store.remove(r.from)
+          const asked = requests.openFor(r.from)
+          if (asked) {
+            requests.decide(asked.id, 'withdrawn', 'them')
+            events.emit({ type: 'town_link', kind: 'withdrawn', request: asked.id, town: { id: r.from, name: asked.town.display.name, learner: asked.town.display.learner } })
+          }
           relay?.nudge()
-          log(`towns: ${gone?.display?.name ?? r.from} unlinked this town`)
+          log(`towns: ${gone?.display?.name ?? asked?.town.display.name ?? r.from} ${asked ? 'took back its link that waited for the parent' : 'unlinked this town'}`)
           return signedJson(bridgeKey, r.nonce, { ok: true })
         },
       },
@@ -699,6 +739,18 @@ export const towns: FeatureFactory = ({ cfg, townKey: bridgeKey, profile, game, 
           const rows = await Promise.all(
             store.links().map(async l => {
               const got = await peerState(l, 3_000)
+              let waits = l.pending === 'guardian'
+              if (waits && got.state) {
+                // the child's town linked back (its parent said yes; the notice may not have come)
+                store.patch(l.id, ({ pending: _, ...x }) => x)
+                waits = false
+              } else if (waits && !got.state && got.error === 'refused' && Date.parse(l.linked_at) < Date.now() - REQUEST_TTL_MS - 86_400_000) {
+                // still not linked back long after its request ran out: its parent said no, or never answered
+                store.remove(l.id)
+                relay?.nudge()
+                log(`towns: let go of ${l.display?.name ?? l.id}: its parent didn't link it back`)
+                return undefined
+              }
               const shown = got.state ? got.state.town : { id: l.id, ...(l.display ?? cleanDisplay({})) }
               const s = got.state
               const buildings: Record<string, number> = {}
@@ -708,14 +760,31 @@ export const towns: FeatureFactory = ({ cfg, townKey: bridgeKey, profile, game, 
                 linked_at: l.linked_at,
                 by: l.by,
                 via: l.via,
-                status: s ? 'ok' : got.error,
+                // `pending`: that town (a child's) links back once its parent says yes
+                status: waits ? 'pending' : s ? 'ok' : got.error,
                 ...(s ? { age: s.age, villagers: s.villagers, buildings, date: s.date } : {}),
                 // what this learner shares of their learning with it, and it with them (progress.ts)
                 sharing: sharingRow(l, profile.child),
               }
             }),
           )
-          return json({ self: { id: self, ...display(), child: profile.child, can_invite: !profile.child, ...(relayAddr ? { relay: relayAddr } : {}) }, towns: rows })
+          // a child's links that wait for the parent, and those decided this week (the child's app says how they went)
+          const week = Date.now() - 7 * 86_400_000
+          const asked = profile.child ? requests.all().filter(r => statusOf(r) === 'pending' || Date.parse(r.decided_at ?? r.expires_at) > week).map(r => requestView(r)) : []
+          return json({
+            self: {
+              id: self,
+              ...display(),
+              child: profile.child,
+              // links at once (an adult's town); a child's town links once its parent says yes (`parent_approves`)
+              can_invite: !profile.child,
+              ...(profile.child ? { parent_approves: true, guardians: guardians() } : {}),
+              reach,
+              ...(relayAddr ? { relay: relayAddr } : {}),
+            },
+            towns: rows.filter(r => r !== undefined),
+            ...(profile.child ? { requests: asked } : {}),
+          })
         },
       },
       {
@@ -820,17 +889,29 @@ export const towns: FeatureFactory = ({ cfg, townKey: bridgeKey, profile, game, 
         method: 'POST',
         path: '/towns/invite',
         handle: () => {
-          if (profile.child) return json({ error: CHILD, code: 'child' }, 403)
+          // a child's invitation works too: the town that accepts it links once the child's parent says yes
           const { code, expiresAt } = createInvite(cfg.appDir, { by: 'app' })
-          log('towns: the app made an invitation')
-          return json({ code, link: inviteUri({ url, code, fingerprint: self, relay: relayAddr }), url, fingerprint: self, expires_at: new Date(expiresAt).toISOString(), ...(relayAddr ? { relay: relayAddr } : {}) })
+          log(`towns: the app made an invitation${profile.child ? " (a child's: its parent approves the link)" : ''}`)
+          const o = { url, code, fingerprint: self, relay: relayAddr }
+          return json({
+            code,
+            link: inviteUri(o),
+            // what a messenger makes tappable and the QR code carries: the app opens it (an App Link), else its page says how
+            ...(webBase ? { web_link: inviteWebUri(webBase, o) } : {}),
+            url,
+            fingerprint: self,
+            expires_at: new Date(expiresAt).toISOString(),
+            // who can accept it: `node` only the towns of this computer (no LANI_TOWN_URL, no relay)
+            reach,
+            ...(profile.child ? { parent_approves: true } : {}),
+            ...(relayAddr ? { relay: relayAddr } : {}),
+          })
         },
       },
       {
         method: 'POST',
         path: '/towns/accept',
         handle: async ({ req }) => {
-          if (profile.child) return json({ error: CHILD, code: 'child' }, 403)
           let parsed: unknown = null
           try {
             parsed = JSON.parse(await readText(req, 4 * 1024))
@@ -850,11 +931,24 @@ export const towns: FeatureFactory = ({ cfg, townKey: bridgeKey, profile, game, 
             if (u && /^[A-Z0-9]{6,32}$/.test(code) && TOWN_ID.test(fingerprint)) invite = { url: u, code, fingerprint, ...(viaRelay ? { relay: viaRelay } : {}) }
           }
           if (!invite) return json({ error: 'expected {invite} or {code, url, fingerprint}', code: 'bad_invite' }, 400)
-          const done = await acceptInvite({ key: bridgeKey, towns: store, invite, self: { url, display: display(), relay: relayAddr }, by: 'app' })
+          // a child's town asks its parent first (a town it is linked with already is linked again at once)
+          const asksParent = profile.child && !store.get(invite.fingerprint)
+          if (asksParent && requests.open().length >= MAX_OPEN_REQUESTS) return json({ error: TOO_MANY_REQUESTS, code: 'too_many_requests' }, 429)
+          const done = await acceptInvite({ key: bridgeKey, towns: store, invite, self: { url, display: display(), relay: relayAddr }, by: 'app', pending: asksParent })
           if (!done.ok) return json({ error: done.error, code: done.code }, done.status)
+          const shown = { id: done.link.id, ...done.link.display }
+          if (done.pending) {
+            const l = done.link
+            const req = requests.add({ id: l.id, public_key: l.public_key, url: l.url, ...(l.relay ? { relay: l.relay } : {}), display: l.display ?? cleanDisplay({}) }, 'accept', { theirsPending: done.theirsPending })
+            if (!req) return json({ error: TOO_MANY_REQUESTS, code: 'too_many_requests' }, 429)
+            waiting(req)
+            // `pending: parent`: this child's parent says yes first
+            return json({ town: shown, pending: 'parent', request: req.id })
+          }
           relay?.nudge()
-          log(`towns: linked ${done.link.display?.name} (${done.link.id}) by accepting its invitation`)
-          return json({ town: { id: done.link.id, ...done.link.display } })
+          log(`towns: linked ${done.link.display?.name} (${done.link.id}) by accepting its invitation${done.theirsPending ? "; it links back once its parent says yes" : ''}`)
+          // `pending: their_parent`: that town is a child's, and links back once its parent says yes
+          return json({ town: shown, ...(done.theirsPending ? { pending: 'their_parent' } : {}) })
         },
       },
     ],

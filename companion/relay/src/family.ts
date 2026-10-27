@@ -1,7 +1,7 @@
 // The family page without a node (companion/README.md, "Family"): the page itself is static and served here at
 // /family/<town id>/; its API (/v1/family/<town id>/…) goes to the town's bridge through its mailbox, for a family
 // token the town registered (its SHA-256 only). What the token may do is what it may do on a node: the settings, the
-// words to record, the challenges, the recordings. A challenge or a recording sent while the town is away waits in
+// words to record, the challenges, the recordings, a child's links that wait for the parent. A challenge or a recording sent while the town is away waits in
 // its mailbox (14 days) and reaches the town when it is back.
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
@@ -15,6 +15,9 @@ export const FAMILY_ROUTES: FamilyRoute[] = [
   { method: 'GET', path: /^family\/api\/words$/, max: 'none' },
   { method: 'GET', path: /^family\/api\/challenges$/, max: 'none' },
   { method: 'POST', path: /^family\/api\/challenges$/, max: 'json', queue: true },
+  // a child's links that wait for the parent: the parent's yes or no (never queued: it is said while the town is there)
+  { method: 'GET', path: /^family\/api\/towns$/, max: 'none' },
+  { method: 'POST', path: /^family\/api\/towns\/requests\/lr_[0-9a-f]{16}$/, max: 'json' },
   { method: 'POST', path: /^audio$/, max: 'audio', queue: true },
   { method: 'GET', path: /^audio\/index$/, max: 'none' },
   { method: 'GET', path: /^audio\/file\/[a-f0-9]{24}\.(m4a|ogg|webm)$/, max: 'none' },

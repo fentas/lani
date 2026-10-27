@@ -65,6 +65,18 @@ export type TownLink = {
   /** This learner wants a weekly note of that town's progress (a parent's setting), and the ISO week of the last one sent. */
   weekly?: true
   weekly_sent?: string
+  /**
+   * That town is a child's, and links back once its parent says yes (town-requests.ts): this side is linked, that side
+   * holds a request its guardian approves or declines. Its signed routes refuse this town until then; it tells this town
+   * when it is linked (POST /town/approved), or lets go of it (POST /town/unlink).
+   */
+  pending?: 'guardian'
+  /**
+   * That town is a child's whose guardian this town is (its link to this one says `guardian`): this town asks it for the
+   * links that wait for the parent (GET /town/guardian/requests). Set when this town links the child as its parent, and
+   * when the child's town tells it of a request (POST /town/guardian/notify).
+   */
+  ward?: true
 }
 
 /** How much of its learning a town shares with a linked one: just the village (the public state), a summary, or details. */
@@ -224,12 +236,13 @@ export class Towns {
 
   /**
    * Adds [link], or replaces the one with its id (linked again: a new URL or key). Linked again with the same key, what
-   * was set for it stays unless [link] says otherwise: what this town shares with it, a guardian's floor, a weekly note.
+   * was set for it stays unless [link] says otherwise: what this town shares with it, a guardian's floor, a weekly note,
+   * that it is this town's ward. Whether it waits for a child's parent ([TownLink.pending]) is what [link] says.
    */
   upsert(link: TownLink) {
     this.change(d => {
       const had = d.links.find(l => l.id === link.id && l.public_key === link.public_key)
-      const kept = had ? Object.fromEntries((['share', 'guardian', 'floor', 'weekly'] as const).filter(k => had[k] !== undefined).map(k => [k, had[k]])) : {}
+      const kept = had ? Object.fromEntries((['share', 'guardian', 'floor', 'weekly', 'ward'] as const).filter(k => had[k] !== undefined).map(k => [k, had[k]])) : {}
       return { ...d, links: [...d.links.filter(l => l.id !== link.id), { ...kept, ...link }] }
     })
   }
@@ -275,19 +288,51 @@ export function spendInvite(appDir: string, code: string, now = Date.now()): { s
   return r.status === 'ok' ? { status: 'ok', by: r.data?.by === 'cli' ? 'cli' : 'app' } : { status: r.status }
 }
 
+/** The invitation's parameters: `v=1&u=<the inviter's URL>&c=<code>&f=<its fingerprint>[&r=<its relay address>]`. */
+const inviteParams = (o: { url: string; code: string; fingerprint: string; relay?: string }) =>
+  `v=${TOWN_VERSION}&u=${encodeURIComponent(o.url)}&c=${o.code}&f=${o.fingerprint}${o.relay && o.relay !== o.url ? `&r=${encodeURIComponent(o.relay)}` : ''}`
+
 /**
- * The invitation's text and QR code: `lani://town?v=1&u=<the inviter's URL>&c=<code>&f=<its fingerprint>`, and
+ * The invitation's text for the app: `lani://town?v=1&u=<the inviter's URL>&c=<code>&f=<its fingerprint>`, and
  * `&r=<its relay address>` when it has one besides (a bridge from before the relay reads past it).
  */
-export const inviteUri = (o: { url: string; code: string; fingerprint: string; relay?: string }) =>
-  `lani://town?v=${TOWN_VERSION}&u=${encodeURIComponent(o.url)}&c=${o.code}&f=${o.fingerprint}${o.relay && o.relay !== o.url ? `&r=${encodeURIComponent(o.relay)}` : ''}`
+export const inviteUri = (o: { url: string; code: string; fingerprint: string; relay?: string }) => `lani://town?${inviteParams(o)}`
+
+/**
+ * Where an invitation's web link points ($LANI_INVITE_URL; "off": no web link): an https page that the app opens as an
+ * Android App Link (the manifest's hosts, assetlinks.json on the site), and that otherwise says "open in Lani / install
+ * Lani" (site/town/index.html). The invitation is in its fragment, so it never reaches that server or its logs.
+ */
+export const INVITE_WEB_DEFAULT = 'https://lani.page/town/'
+
+/** The web link's base: $LANI_INVITE_URL (an https URL without query or fragment), else [INVITE_WEB_DEFAULT]; undefined for "off". */
+export function inviteWebBase(env: Record<string, string | undefined> = process.env): string | undefined {
+  const v = setting('LANI_INVITE_URL', env)?.trim()
+  if (v === 'off') return undefined
+  if (!v) return INVITE_WEB_DEFAULT
+  try {
+    const u = new URL(v)
+    if (u.protocol !== 'https:' || u.username || u.password || u.search || u.hash) return INVITE_WEB_DEFAULT
+    return u.toString()
+  } catch {
+    return INVITE_WEB_DEFAULT
+  }
+}
+
+/** The invitation as a web link: `<base>#v=1&u=…&c=…&f=…[&r=…]` (what a messenger makes tappable, and the QR code carries). */
+export const inviteWebUri = (base: string, o: { url: string; code: string; fingerprint: string; relay?: string }) => `${base}#${inviteParams(o)}`
 
 /** The schemes of an invitation: lani:, and fluent: as the bridges wrote it before the project was renamed. */
 const INVITE_PROTOCOLS = ['lani:', 'fluent:']
+/** A web link's path: …/town or …/town/ (any host: the invitation's fingerprint says which town it is). */
+const WEB_INVITE_PATH = /\/town\/?$/
 
 export type Invite = { url: string; code: string; fingerprint: string; relay?: string }
 
-/** An invitation link, read back; why not when it isn't one this bridge can use. */
+/**
+ * An invitation, read back: `lani://town?…` (or `fluent://town?…`), or its web link (`https://<host>/town/#…`, the
+ * parameters in the fragment or the query); why not when it isn't one this bridge can use.
+ */
 export function parseInvite(text: string): { ok: true; invite: Invite } | { ok: false; error: string } {
   let u: URL
   try {
@@ -295,18 +340,43 @@ export function parseInvite(text: string): { ok: true; invite: Invite } | { ok: 
   } catch {
     return { ok: false, error: 'not an invitation (lani://town?…)' }
   }
-  if (!INVITE_PROTOCOLS.includes(u.protocol) || u.host !== 'town') return { ok: false, error: 'not an invitation (lani://town?…)' }
-  const v = Number(u.searchParams.get('v'))
+  let q: URLSearchParams
+  if (INVITE_PROTOCOLS.includes(u.protocol) && u.host === 'town') q = u.searchParams
+  else if (u.protocol === 'https:' && WEB_INVITE_PATH.test(u.pathname) && !u.username && !u.password) q = new URLSearchParams(u.hash.length > 1 ? u.hash.slice(1) : u.search)
+  else return { ok: false, error: 'not an invitation (lani://town?…)' }
+  const v = Number(q.get('v'))
   if (!Number.isInteger(v) || v < 1) return { ok: false, error: 'the invitation is incomplete' }
   if (v > TOWN_VERSION) return { ok: false, error: 'the invitation needs a newer bridge' }
-  const url = townUrl(u.searchParams.get('u'))
-  const code = (u.searchParams.get('c') ?? '').toUpperCase().replace(/[\s-]/g, '')
-  const fingerprint = (u.searchParams.get('f') ?? '').toLowerCase()
+  const url = townUrl(q.get('u'))
+  const code = (q.get('c') ?? '').toUpperCase().replace(/[\s-]/g, '')
+  const fingerprint = (q.get('f') ?? '').toLowerCase()
   if (!url) return { ok: false, error: "the invitation's address isn't valid" }
   if (!/^[A-Z0-9]{6,32}$/.test(code) || !TOWN_ID.test(fingerprint)) return { ok: false, error: 'the invitation is incomplete' }
   // its relay address: only one of the invited town's own
-  const relay = relayTownOf(u.searchParams.get('r'), fingerprint)
+  const relay = relayTownOf(q.get('r'), fingerprint)
   return { ok: true, invite: { url, code, fingerprint, ...(relay ? { relay } : {}) } }
+}
+
+/**
+ * Who can accept an invitation to a town at [url] (with [relay], its address on a relay): `relay` anyone (the relay
+ * reaches every town); `node` only the towns of this computer (a loopback URL: no other machine reaches it); `tailnet`
+ * the towns of this tailnet (a *.ts.net name, a 100.64.0.0/10 or fd7a:115c:a1e0::/48 address), or a node shared with it;
+ * `network` those who reach that address (a LAN name, a reverse proxy).
+ */
+export type InviteReach = 'node' | 'tailnet' | 'network' | 'relay'
+
+export function inviteReach(url: string, relay?: string): InviteReach {
+  if (relay || isRelayTownUrl(url)) return 'relay'
+  let host = ''
+  try {
+    host = new URL(url).hostname.toLowerCase().replace(/^\[|\]$/g, '')
+  } catch {
+    return 'node'
+  }
+  if (host === 'localhost' || host.endsWith('.localhost') || host === '::1' || /^127\./.test(host) || host === '0.0.0.0') return 'node'
+  const v4 = /^(\d+)\.(\d+)\.\d+\.\d+$/.exec(host)
+  if (host.endsWith('.ts.net') || (v4 && Number(v4[1]) === 100 && Number(v4[2]) >= 64 && Number(v4[2]) <= 127) || host.startsWith('fd7a:115c:a1e0:')) return 'tailnet'
+  return 'network'
 }
 
 // --- signatures --------------------------------------------------------------------------------------------
@@ -532,7 +602,12 @@ async function townRequestAt(
   return { status: res.status, body: parsed }
 }
 
-export type AcceptResult = { ok: true; link: TownLink } | { ok: false; status: number; code: string; error: string }
+/**
+ * [link]: the other town as accepted. [theirsPending]: it is a child's town, and links back once its parent says yes (the
+ * link is kept with [TownLink.pending]). [pending]: this town (a child's) asked to wait for its parent: nothing is linked
+ * here; the caller keeps the request (town-requests.ts).
+ */
+export type AcceptResult = { ok: true; link: TownLink; pending: boolean; theirsPending: boolean } | { ok: false; status: number; code: string; error: string }
 
 /**
  * Accepts an invitation for the town of [key]: asks the inviter who it is and checks its key against the
@@ -540,6 +615,9 @@ export type AcceptResult = { ok: true; link: TownLink } | { ok: false; status: n
  * inviter links this town, answers with its own, signed, and this town links it: both ways. An invitation with a relay
  * address ([Invite.relay]) is taken there when the inviter's URL doesn't answer, or answers as another town (a URL of a
  * network this town isn't on): the link's way is then the relay. [self.relay]: this town's own relay address, sent along.
+ * A child's town joins with [pending] (`pending: "guardian"`: the inviter links it as waiting for the child's parent) and
+ * links nothing itself: its parent approves the request first. An inviter that is a child's town answers `pending` too:
+ * its side links once its own parent says yes.
  */
 export async function acceptInvite(o: {
   key: BridgeKey
@@ -548,6 +626,7 @@ export async function acceptInvite(o: {
   self: { url: string; display: TownDisplay; relay?: string }
   by: 'app' | 'cli'
   timeoutMs?: number
+  pending?: boolean
 }): Promise<AcceptResult> {
   const { invite, key } = o
   const fail = (status: number, code: string, error: string): AcceptResult => ({ ok: false, status, code, error })
@@ -590,6 +669,7 @@ export async function acceptInvite(o: {
       v: TOWN_VERSION,
       code: invite.code,
       town: { id: key.fingerprint, public_key: key.spki.toString('base64'), url: o.self.url, display: o.self.display, ...(o.self.relay ? { relay: o.self.relay } : {}) },
+      ...(o.pending ? { pending: 'guardian' } : {}),
     }, { timeoutMs: o.timeoutMs })
   } catch (e) {
     const te = e as TownError
@@ -601,6 +681,7 @@ export async function acceptInvite(o: {
   }
   if (r.body?.town?.id !== peer.id || r.body.town.public_key !== publicKey) return fail(502, 'bad_answer', "the town's answer names another town")
   const relay = invite.relay ?? relayTownOf(r.body.town.relay, peer.id)
+  const theirsPending = r.body.pending === 'guardian'
   const link: TownLink = {
     id: peer.id,
     public_key: publicKey,
@@ -610,9 +691,10 @@ export async function acceptInvite(o: {
     via: 'accept',
     display: cleanDisplay(r.body.town.display),
     ...(relay && relay !== base ? { relay } : {}),
+    ...(theirsPending ? { pending: 'guardian' as const } : {}),
   }
-  o.towns.upsert(link)
-  return { ok: true, link }
+  if (!o.pending) o.towns.upsert(link)
+  return { ok: true, link, pending: o.pending === true, theirsPending }
 }
 
 // --- a town's public state ----------------------------------------------------------------------------------

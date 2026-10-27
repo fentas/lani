@@ -8,8 +8,9 @@ import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
 import { readFileSync, readdirSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { loadBridgeKey } from '../../src/pairing'
-import { H, createInvite, festivalDay, localDate, parseInvite, publicState, responseMessage, signRequest, verifySigned, type FestivalRule } from '../../src/towns'
-import { auth, base, bridgeWhisper, channelEvents, check, client as janClient, culturesDir, curatedDir, dataDir, fam, modulesDir, port, scenesDir, tempDir } from './harness'
+import { H, createInvite, festivalDay, inviteReach, localDate, parseInvite, publicState, responseMessage, signRequest, verifySigned, type FestivalRule } from '../../src/towns'
+import { auth, base, bridgeWhisper, channelEvents, check, client as janClient, culturesDir, curatedDir, dataDir, fam, modulesDir, port, profilesDir, scenesDir, tempDir } from './harness'
+import { townRequestChecks } from './town-requests'
 import { friendship } from './friendship'
 import { visitActs } from './guests'
 import { progress } from './progress'
@@ -50,7 +51,7 @@ async function startBridge(o: { profile: string; data: string; port: number; tok
 
 export default async function towns() {
   // --- three learners on one node --------------------------------------------------------------------
-  const profilesDir = tempDir('lani-smoke-towns-')
+  // the node's registry, which Jan's bridge reads too (the children's towns of the node it may link as their parent)
   const env = { LANI_DATA_DIR: dataDir, LANI_BRIDGE_PORT: String(port), LANI_PROFILES_DIR: profilesDir, LANI_TAILNET_HOST: 'node.test.ts.net' }
   // never this machine's keys file (lani-profile add looks there for LANI_LEXICON_URL)
   const add = (args: string[]) => cli(['bun', join(cliDir, 'profile.ts'), 'add', ...args], { ...env, LANI_KEYS_FILE: '/nonexistent' })
@@ -79,6 +80,13 @@ export default async function towns() {
     const inv = await (await fetch(`${base}/towns/invite`, { method: 'POST', headers: auth })).json()
     const parsed = parseInvite(inv.link)
     check("towns: POST /towns/invite makes a one-time invitation: the town's URL, a code and its fingerprint", parsed.ok && parsed.invite.url === base && parsed.invite.code === inv.code && parsed.invite.fingerprint === janKey.fingerprint && /^[A-Z2-9]{12}$/.test(inv.code) && Date.parse(inv.expires_at) > Date.now() + 25 * 60_000, inv)
+    const web = parseInvite(inv.web_link ?? '')
+    check("towns: … and its web link: https://lani.page/town/ with the invitation in the fragment (never sent to that server), read back the same", typeof inv.web_link === 'string' && inv.web_link.startsWith('https://lani.page/town/#v=1&') && !inv.web_link.split('#')[0].includes(inv.code) && web.ok && JSON.stringify(web.invite) === JSON.stringify(parsed.ok && parsed.invite), inv.web_link)
+    check("towns: … who can accept it: a 127.0.0.1 address (no LANI_TOWN_URL, no relay) only the towns of this computer (reach: node), as GET /towns says too", inv.reach === 'node' && (await (await fetch(`${base}/towns`, { headers: auth })).json()).self?.reach === 'node', inv.reach)
+    const reaches = ['http://127.0.0.1:8790', 'http://localhost:8792', 'https://node.tail1234.ts.net:8443', 'http://100.101.2.3:8790', 'https://lani.home.example'].map(u => inviteReach(u))
+    check('towns: … reach: loopback is this node, *.ts.net and 100.64/10 the tailnet, another name the network, a relay address anyone', JSON.stringify(reaches) === '["node","node","tailnet","tailnet","network"]' && inviteReach('http://127.0.0.1:8790', 'https://relay.example/v1/towns/' + 'a'.repeat(32)) === 'relay', reaches)
+    const other = [`fluent://town?v=1&u=${encodeURIComponent(base)}&c=${inv.code}&f=${janKey.fingerprint}`, `https://lani.team/town?v=1&u=${encodeURIComponent(base)}&c=${inv.code}&f=${janKey.fingerprint}`].map(t => parseInvite(t).ok)
+    check('towns: … the old fluent:// form and a web link on another host (its query) are read too; a web page that isn\'t an invitation is not', other.every(Boolean) && !parseInvite(`https://lani.page/#v=1&u=${encodeURIComponent(base)}&c=${inv.code}&f=${janKey.fingerprint}`).ok && !parseInvite(`http://lani.page/town/#v=1&u=x`).ok, other)
     check('towns: no invitation is stored in the clear', readdirSync(join(dataDir, 'app/town-invites')).every(f => !f.includes(inv.code) && !readFileSync(join(dataDir, 'app/town-invites', f), 'utf8').includes(inv.code)))
     const accept = (b: { base: string; auth: Record<string, string> }, body: unknown) => fetch(`${b.base}/towns/accept`, { method: 'POST', headers: b.auth, body: JSON.stringify(body) })
 
@@ -105,11 +113,33 @@ export default async function towns() {
     const expired = await accept(mia, { code: late.code, url: base, fingerprint: janKey.fingerprint })
     check('towns: an expired invitation is a 410 (accepted as code, URL and fingerprint)', expired.status === 410 && (await expired.json()).code === 'expired_code')
 
-    // --- a child's app neither invites nor accepts ------------------------------------------------------------
+    // --- a child's app invites and accepts, but nothing links without the parent --------------------------------------
     const childInvite = await fetch(`${luka.base}/towns/invite`, { method: 'POST', headers: luka.auth })
+    const childInv = await childInvite.json()
+    check("towns: a child's app makes an invitation too: its town links once a parent says yes (parent_approves)", childInvite.status === 200 && childInv.parent_approves === true && parseInvite(childInv.link).ok, childInv)
     const childAccept = await accept(luka, { invite: (await (await fetch(`${base}/towns/invite`, { method: 'POST', headers: auth })).json()).link })
-    check("towns: a child's app can't invite or accept (403): a parent links their town on the node", childInvite.status === 403 && (await childInvite.json()).code === 'child' && childAccept.status === 403, childInvite.status)
+    const childAccepted = await childAccept.json()
+    check("towns: … and accepts one (Jan's): the answer says it waits for the parent (pending: parent, its request)", childAccept.status === 200 && childAccepted.pending === 'parent' && /^lr_[0-9a-f]{16}$/.test(childAccepted.request) && childAccepted.town?.id === janKey.fingerprint, childAccepted)
     check("towns: … and nothing was linked for the child", !(await (await fetch(`${luka.base}/towns`, { headers: luka.auth })).json()).towns.length)
+    check("towns: … Jan's town linked the child's as waiting for its parent (pending: guardian)", town(dataDir).links.find((l: any) => l.id === lukaKey.fingerprint)?.pending === 'guardian')
+
+    // --- the parent's app links their own child's town of this node (the app's lani-town link) ----------------------------
+    const kids = await (await fetch(`${base}/towns/children`, { headers: auth })).json()
+    const lukaKid = kids.children?.find((c: any) => c.profile === 'luka')
+    check("towns: GET /towns/children: the node owner's app (the default learner's) sees this node's children, Luka's town not linked yet", kids.can_link_local === true && lukaKid?.id === lukaKey.fingerprint && lukaKid.linked === false && lukaKid.guardian === false && lukaKid.can_link === true && lukaKid.learner === 'Luka' && lukaKid.language === 'it', kids)
+    const notOwner = await fetch(`${mia.base}/towns/children/${lukaKey.fingerprint}/link`, { method: 'POST', headers: mia.auth })
+    const miaKids = await (await fetch(`${mia.base}/towns/children`, { headers: mia.auth })).json()
+    const childLinks = await fetch(`${luka.base}/towns/children/${janKey.fingerprint}/link`, { method: 'POST', headers: luka.auth })
+    check("towns: … another adult's town of the node may not (403 not_owner), and sees none to link; a child's may not (403 child)", notOwner.status === 403 && (await notOwner.json()).code === 'not_owner' && miaKids.children?.length === 0 && miaKids.can_link_local === false && childLinks.status === 403 && (await childLinks.json()).code === 'child', miaKids)
+    const linkKid = await fetch(`${base}/towns/children/${lukaKey.fingerprint}/link`, { method: 'POST', headers: auth })
+    const linkedKid = await linkKid.json()
+    const janToLuka = town(dataDir).links.find((l: any) => l.id === lukaKey.fingerprint)
+    const lukaToJan = town(lukaData).links.find((l: any) => l.id === janKey.fingerprint)
+    const settled = JSON.parse(readFileSync(join(lukaData, 'app/town-requests.json'), 'utf8')).requests.find((r: any) => r.id === childAccepted.request)
+    check("towns: POST /towns/children/:id/link links the child's town both ways, Jan's the child's guardian (Jan's side: its ward, no longer waiting)", linkKid.status === 200 && linkedKid.guardian === true && lukaToJan?.guardian === true && lukaToJan.url === base && janToLuka?.ward === true && !janToLuka.pending && janToLuka.url === luka.base && janToLuka.public_key === lukaKey.spki.toString('base64'), { linkedKid, janToLuka, lukaToJan })
+    check("towns: … the child's request that waited for Jan is approved by it (by the node)", settled?.status === 'approved' && settled.by === 'node', settled)
+    const kids2 = await (await fetch(`${base}/towns/children`, { headers: auth })).json()
+    check("towns: … then GET /towns/children has Luka linked, Jan the guardian, nothing waiting", kids2.children?.length === 1 && kids2.children[0].linked === true && kids2.children[0].guardian === true && kids2.children[0].status === 'ok' && kids2.children[0].requests.length === 0, kids2)
 
     // --- the parent's shortcut: two towns of this node -----------------------------------------------------------
     const linked = cli(['bun', join(cliDir, 'town.ts'), 'link', 'default', 'luka'], env)
@@ -207,12 +237,16 @@ export default async function towns() {
     // --- voices on a visit: the host's clips, else the visitor's node in the host's cast voice (./visit-voices.ts) -------
     await visitVoiceChecks(janTown, { ...mia, key: miaKey, data: miaData }, lukaTown)
 
+    // --- a child's links that wait for the parent: the parent's app, the family page, the node (./town-requests.ts) --------
+    await townRequestChecks(janPeer, { ...mia, key: miaKey, data: miaData }, { ...luka, key: lukaKey, data: lukaData }, env)
+
     // --- the CLI on the node: an invitation to the child's town, accepted for Mia ------------------------------------
     const made = cli(['bun', join(cliDir, 'town.ts'), 'invite', '--profile', 'luka', '--no-qr'], env)
     const link = /lani:\/\/town\?\S+/.exec(made.out)?.[0] ?? ''
     const took = cli(['bun', join(cliDir, 'town.ts'), 'accept', link, '--profile', 'mia'], env)
     check("towns: a parent invites to the child's town (lani-town invite --profile luka), and another town accepts on the node", made.code === 0 && link.includes(lukaKey.fingerprint) && took.code === 0 && town(miaData).links.some((l: any) => l.id === lukaKey.fingerprint && l.by === 'cli' && l.via === 'accept') && town(lukaData).links.some((l: any) => l.id === miaKey.fingerprint && l.by === 'cli' && l.via === 'invite'), made.out + made.err + took.out + took.err)
     check('towns: … the invitation works once from the CLI too', cli(['bun', join(cliDir, 'town.ts'), 'accept', link, '--profile', 'default'], env).code !== 0)
+    check("towns: … lani-town invite says only the towns of this computer can accept it (a 127.0.0.1 address), with the tailnet address to give it and the relay", made.out.includes('Only towns on this computer can accept this invitation') && made.out.includes('--url https://node.test.ts.net') && made.out.includes('LANI_RELAY_URL') && /https:\/\/lani\.page\/town\/#v=1&/.test(made.out), made.out)
 
     // --- letting go ------------------------------------------------------------------------------------------------------
     const unl = cli(['bun', join(cliDir, 'town.ts'), 'unlink', 'luka', '--profile', 'mia'], env)
