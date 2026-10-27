@@ -71,7 +71,7 @@ internal object Events {
             EventKind.WOLVES, EventKind.BEAR -> GameEngine.attributes(s).defence.let { d -> if (d > 0) " 🛡️ $d" else "" }
             else -> ""
         } + if (e.aid > 0) " 🤝 ${e.helpers.joinToString(", ").ifBlank { "×${e.aid}" }}" else ""
-        // the clock is announced plainly on the intro ("⏱ Izziv na čas · A timed challenge: …", IntroInfo.event)
+        // the clock is announced plainly on the intro ("⏱ Na čas · Against the clock: …", IntroInfo.event)
         val goal = "$mark/$total ✔"
         return listOfNotNull(what, goal, note).joinToString("\n")
     }

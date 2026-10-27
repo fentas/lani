@@ -120,7 +120,7 @@ class TimedRunTest {
 
     @Test fun `the intro says it plainly`() {
         L10n.pair = LangPair(Lang.SL, Lang.EN)
-        assertEquals("⏱ Izziv na čas: 8 vprašanj, 2 minuti · A timed challenge: 8 questions, 2 minutes", Intros.timed(8, 120).line)
+        assertEquals("⏱ Na čas: 8 vprašanj, 2 minuti · Against the clock: 8 questions, 2 minutes", Intros.timed(8, 120).line)
         assertEquals("1 minuta in pol", Intros.duration(Lang.SL, 90))
         assertEquals("2 minuti in pol", Intros.duration(Lang.SL, 150))
         assertEquals("5 minut", Intros.duration(Lang.SL, 300))

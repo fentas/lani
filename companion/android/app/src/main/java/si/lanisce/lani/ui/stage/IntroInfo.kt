@@ -90,7 +90,7 @@ data class IntroInfo(
     val note: String? = null,
     val start: String = "▶  ${bi("introInfo.start")}",
     /**
-     * A run against the clock, said plainly before Start: "⏱ Izziv na čas: 8 vprašanj, 2 minuti · A timed challenge: 8
+     * A run against the clock, said plainly before Start: "⏱ Na čas: 8 vprašanj, 2 minuti · Against the clock: 8
      * questions, 2 minutes", and how the clock goes ([Intros.timed]).
      */
     val timed: Timed? = null,
@@ -100,7 +100,7 @@ data class IntroInfo(
     val waits: String? = null,
 )
 
-/** A timed run, announced: the [line] ("⏱ Izziv na čas: …"), and [how] the clock goes. */
+/** A timed run, announced: the [line] ("⏱ Na čas: …"), and [how] the clock goes. */
 data class Timed(val line: String, val how: String)
 
 /** Builds [IntroInfo] for each kind of launch. Pure. */
@@ -164,7 +164,7 @@ object Intros {
     }
 
     /**
-     * A timed run announced: "⏱ Izziv na čas: 8 vprašanj, 2 minuti · A timed challenge: 8 questions, 2 minutes" (the
+     * A timed run announced: "⏱ Na čas: 8 vprašanj, 2 minuti · Against the clock: 8 questions, 2 minutes" (the
      * time in half minutes, as [si.lanisce.lani.game.RunTime.limit] gives it), and under it how the clock goes: it starts
      * after 3, 2, 1 and waits while a sound loads or plays.
      */

@@ -867,8 +867,8 @@ a round not built).
   25 s, word chips by ear 30 s …), when that is more than the old flat time of 50 s and 4 s a question; a run that
   doesn't listen keeps the flat time. Either way up to the next half minute, so no event's clock is harsher than before.
   A storm of 6, 8 and 10 questions (a third of them written by ear) gets 1½, 2 and 2½ minutes (it had 74, 82 and 90 s).
-- **Said before it starts.** The intro says it plainly above what the run practises: "⏱ Izziv na čas: 8 vprašanj, 2
-  minuti · A timed challenge: 8 questions, 2 minutes", and "Ura začne teči po 3, 2, 1 in počaka, ko se zvok nalaga ali
+- **Said before it starts.** The intro says it plainly above what the run practises: "⏱ Na čas: 8 vprašanj, 2 minuti ·
+  Against the clock: 8 questions, 2 minutes", and "Ura začne teči po 3, 2, 1 in počaka, ko se zvok nalaga ali
   predvaja · The clock starts after 3, 2, 1, and waits while a sound loads or plays". After ⚔️ Start: its sounds are
   got onto the phone first ("🔊 Pripravljam zvoke … · Getting the sounds ready …" when that takes a moment: they are
   fetched from the node while the intro is read already, three at a time, `Speaker.preload`; at most 20 s, then it
