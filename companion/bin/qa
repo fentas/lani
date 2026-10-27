@@ -112,6 +112,10 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        forge cold, Oglar Miha waiting for the village's wood (his talk, the sheet's line of the
                        pile's wood); also as hearths-*.png in
                        $LANI_QA_HEARTHS_SHOTS;
+                       "fire-ages" the fire's scene as the village grows (QA's hooks "hearths:<age>:pond", "hour:<h>",
+                       "hearths:feast", "zoom"): each age on its evening with the village round its fire, the village by
+                       day, the town closer up, the market town's kres, the scene's frame times; also as fire-*.png in
+                       $LANI_QA_FIRE_SHOTS;
                        "storm" the storm and who is where (QA's hooks "event:storm", "event:wolves/2", "hour:11",
                        "show:fire"; a synthetic learner with the whole cast moved in, LANI_DEV_DATA): the map in the rain
                        (streaks, wet paths, puddles), a flash caught (the brightest sky of screenshots over 25 s of the
@@ -4356,6 +4360,82 @@ def hearths():
             notes.append(f"the sheet with the pile's wood: {e}")
     finally:
         qa_hook("kopa:")
+        qa_hook("hearths:lit")
+        qa_hook("hour:")
+        plain_village()
+    return "; ".join(notes) or None
+
+
+def fire_ages():
+    """The fire's scene as the village grows (companion/SCENES.md "Ob ognju by the age"; Jan, 2026-10-27: "the fireplace
+    scene — I think it should change over time"). On the dev bridge's copy QA's hook "hearths:<age>:pond" builds a village
+    of each age with its tent moved to the pond, every hearth lit (the camp's tent stays: a second one by the fire); the
+    scene ("scene:ob-ognju") at each age on its evening ("hour:20.5": the fire built up, the village's people round it at
+    the crowd's spots, the windows lit), the village by day too ("hour:11": its coals under a thread of smoke), who stands
+    where read from the debug build's log (tag SceneAt); the town's evening closer up (QA's hook "zoom"); the market town's
+    kres on a feast evening ("hearths:feast"). The scene's frame times from its log (tag SceneView: the still picture kept,
+    only what moves drawn). Each also as fire-<name>.png in $LANI_QA_FIRE_SHOTS when it's set. Nothing after: the village
+    lit, the clock's hour."""
+    notes = []
+    times = []
+
+    def snap(name: str):
+        shot(f"fire-{name}")
+        if d := os.environ.get("LANI_QA_FIRE_SHOTS"):
+            Path(d).mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], Path(d) / f"fire-{name}.png")
+
+    def settle():
+        """The village plain again: the news of who moved into the new homes first ("Naprej · Continue"), then home."""
+        for _ in range(12):
+            c = find("Naprej · Continue")
+            if c is None:
+                break
+            tap_at(c)
+            time.sleep(1.5)
+        plain_village()
+
+    def fire(name: str, hour: str, closer: bool = False):
+        """The fire's scene at [hour], shot as [name] (closer up too when asked), who is there and its frame times logged."""
+        qa_hook(f"hour:{hour}")
+        adb("logcat", "-c")
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "scene:ob-ognju")
+        time.sleep(4 * slow())  # the scene opens, the camera rests, the debug build logs where its people stand
+        if not any(t.startswith("Prizor · Scene") for t, _ in nodes()):
+            notes.append(f"{name}: the fire's scene didn't open")
+        snap(name)
+        if closer:
+            qa_hook("zoom")
+            time.sleep(3 * slow())  # the closer look renders and fades in
+            snap(f"{name}-closer")
+        log = adb("logcat", "-d", "-s", "SceneAt:D", "SceneView:D", check=False).splitlines()
+        at = [l.split("people ")[-1] for l in log if "scene ob-ognju " in l]
+        print(f"    {name}: people {at[-1] if at else '?'}")
+        for l in log:
+            if "SceneView" in l and "campfire at detail" in l:
+                times.append(f"{name}: " + l.split("SceneView: ")[-1].strip())
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(2)
+        plain_village()
+
+    try:
+        qa_hook("event:")
+        # each age on its evening with the village round its fire; the village by day too (its coals under a thread of
+        # smoke), the town closer up; kept short: one scene a shot, the emulator shared
+        for age in ("tabor", "zaselek", "vas", "trg", "mesto"):
+            qa_hook(f"hearths:{age}" + ("" if age == "tabor" else ":pond"))
+            settle()
+            if age == "vas":
+                fire("vas-day", "11")
+            fire(f"{age}-evening", "20.5", closer=age == "mesto")
+        # the market town's kres on a feast evening
+        qa_hook("hearths:trg:pond")
+        settle()
+        qa_hook("hearths:feast")
+        fire("trg-kres", "21")
+        for t in times:
+            print("    " + t)
+    finally:
         qa_hook("hearths:lit")
         qa_hook("hour:")
         plain_village()
@@ -11197,6 +11277,7 @@ def plan():
         ("quests-threat", quests_threat, v, False, ""),
         ("wishlist", wishlist, go_home, False, ""),
         ("hearths", hearths, v, False, ""),
+        ("fire-ages", fire_ages, v, False, ""),
         ("storm", storm, v, False, ""),
         ("coast", coast, v, False, ""),
         ("sea-frames", sea_frames, v, False, ""),

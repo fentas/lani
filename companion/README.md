@@ -4772,13 +4772,17 @@ it; `pair:` follows the learner profile again (`village-hud`'s German).
 
 `hearths:<what>` (GAME.md "Hearths") sets the dev village's copy for the hearths' step: `hearths:tabor` … `hearths:mesto`
 a village of that age as the step builds it (its buildings on plots 0, 1, …, the palisade, every hearth lit, wood for
-days), `hearths:short` the store short of wood with the outlying hearths out as the day's tick leaves them,
+days; `hearths:vas:pond` with its tent moved to the pond, the fire's square without it), `hearths:short` the store short of wood with the outlying hearths out as the day's tick leaves them,
 `hearths:lit` every one lit again, `hearths:feast` a feast today (the square's kres in the evening), `hearths:cold` the
 forge without charcoal. `companion/bin/qa --steps hearths` shoots the camp's campfire, the hamlet's smoke by day, the fire
 ring by day and in the evening, the warm windows and the forge at night, the shortage at night (dark windows) with the HUD's
 🔥 tile red and its sheet, the sheet all lit, the square's basket and its kres, the town's lanterns, the forge cold, and
 Oglar Miha waiting for the village's wood at his pile (`kopa:sekanje`, `show:kopa`) with the sheet's line of it
-(`LANI_QA_HEARTHS_SHOTS`: a folder for its screenshots as `hearths-*.png`).
+(`LANI_QA_HEARTHS_SHOTS`: a folder for its screenshots as `hearths-*.png`). `companion/bin/qa --steps fire-ages` opens the
+fire's scene in a village of each age (`hearths:<age>:pond`; SCENES.md "Ob ognju by the age"): on its evening with the
+village round its fire (who stands where read from the debug build's log, tag `SceneAt`), the village by day, the town
+closer up, the market town's kres on a feast evening, and logs the scene's frame times (tag `SceneView`;
+`LANI_QA_FIRE_SHOTS`: a folder for its screenshots as `fire-*.png`).
 
 **The hearths** (GAME.md "Hearths"). `game/HearthsTest` checks the table (which buildings have a hearth, what each burns,
 the order they're paid), the wood a day at every age before (2 + age index) and after, the order they go out when wood

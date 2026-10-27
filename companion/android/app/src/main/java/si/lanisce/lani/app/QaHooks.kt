@@ -141,9 +141,10 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   without a trace (nor the reactions after it).
  * - "hearths:<what>" (companion/GAME.md "Hearths"): the village (the dev bridge's copy) as [hearthsState] makes it, and the
  *   village shown: "hearths:tabor" (… "zaselek", "vas", "trg", "mesto") a village of that age built as QA's step needs it,
- *   every hearth lit and wood for days; "hearths:short" the store short of wood, the outlying hearths out as the day's tick
- *   leaves them; "hearths:lit" every one lit again; "hearths:feast" a feast today (the square's kres in the evening);
- *   "hearths:cold" the forge without charcoal.
+ *   every hearth lit and wood for days ("hearths:vas:pond": its tent moved to the pond, the fire's square without it);
+ *   "hearths:short" the store short of wood, the outlying hearths out as the day's tick leaves them; "hearths:lit" every
+ *   one lit again; "hearths:feast" a feast today (the square's kres in the evening); "hearths:cold" the forge without
+ *   charcoal.
  * - "seed:<n>": the founding's place ("Kje bo tvoja vas?", ui/game/FoundingScreen) is the one of that seed for the dice and
  *   the land ([foundingSeed]; 551323397: Teo's coast, whose land seed it is too), a reroll going on from it; "seed:" rolls
  *   one at random again.
@@ -300,9 +301,14 @@ object QaHooks {
         // kept from today: the piles whose wood was due before count as given (the forge on their charcoal)
         val lit = si.lanisce.lani.game.HearthDay(on = day, since = s.hearths?.since?.ifEmpty { null } ?: day)
         fun wood(st: si.lanisce.lani.game.GameState, n: Int) = st.copy(resources = st.resources + (si.lanisce.lani.game.Res.WOOD to n))
-        si.lanisce.lani.game.Age.entries.firstOrNull { it.name == what.uppercase() }?.let { age ->
+        si.lanisce.lani.game.Age.entries.firstOrNull { it.name == what.substringBefore(':').uppercase() }?.let { age ->
             val types = HEARTH_VILLAGES[age] ?: return s
-            val built = types.mapIndexed { i, t -> si.lanisce.lani.game.Building("${t.name.lowercase()}-${i + 1}", t, i, level = 2, builtAt = now - 200L * 86_400_000L) } +
+            // "<age>:pond": the tent moved to the pond (companion/GAME.md "The tent moves to the pond"), its plot free by the fire
+            val pond = what.endsWith(":pond")
+            val built = types.mapIndexed { i, t ->
+                val plot = if (pond && t == si.lanisce.lani.game.BuildingType.TENT && i == 0) si.lanisce.lani.game.NO_PLOT else i
+                si.lanisce.lani.game.Building("${t.name.lowercase()}-${i + 1}", t, plot, level = 2, builtAt = now - 200L * 86_400_000L)
+            } +
                 si.lanisce.lani.game.Building("palisade-qa", si.lanisce.lani.game.BuildingType.PALISADE, si.lanisce.lani.game.NO_PLOT, builtAt = now - 200L * 86_400_000L)
             val v = s.copy(age = age, buildings = built, hearths = lit.copy(since = day), grown = s.grown - si.lanisce.lani.game.AgeUps.key(age), lastFeast = "", event = null, ended = null)
             return wood(v, maxOf(v.res(si.lanisce.lani.game.Res.WOOD), 300)).copy(fire = 100)
