@@ -51,6 +51,31 @@ class SceneWorldTest {
         assertEquals(0, SceneWorld.NONE.stage("most"))
     }
 
+    @Test fun `the centre of a game state - its homes, its linden, its day`() {
+        val today = java.time.LocalDate.of(2026, 10, 20)
+        val built = java.time.LocalDate.of(2026, 9, 1).atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()
+        val vas = GameState(
+            seed = 4, age = Age.VAS, villagers = 12,
+            buildings = listOf(
+                Building("h3", BuildingType.HOUSE, 3, level = 2), Building("u1", BuildingType.HUT, 1), Building("l", BuildingType.LIPA, 2, builtAt = built),
+                Building("h0", BuildingType.HOUSE, 0), Building("w", BuildingType.WELL, 4), Building("t", BuildingType.TENT, si.lanisce.lani.game.NO_PLOT),
+            ),
+            residents = listOf(si.lanisce.lani.game.villagers.Resident("micka", "2026-09-01"), si.lanisce.lani.game.villagers.Resident("luka", "2026-09-01")),
+            lastFeast = today.toString(),
+        )
+        val w = SceneWorld.of(vas, today = today)
+        assertEquals("the homes, the nearest the centre first", listOf("h0", "u1", "h3"), w.homes!!.map { it.id })
+        assertEquals("the linden's day", java.time.LocalDate.of(2026, 9, 1).toEpochDay(), w.lindenDay)
+        assertTrue("a feast today", w.centre.feast)
+        assertEquals("the unnamed people", 10, w.centre.unnamed)
+        assertFalse("the tent at the pond isn't by the fire", w.has(BuildingType.TENT))
+        assertEquals(si.lanisce.lani.game.culture.Cultures.current.manifest.id, w.culture)
+        assertFalse("no feast the day after", SceneWorld.of(vas.copy(lastFeast = ""), today = today.plusDays(1)).centre.feast)
+        // the world of everything built: no homes told, the painters go by its buildings
+        assertNull(SceneWorld.ALL.homes)
+        assertEquals(SceneWorld.Centre(), SceneWorld.ALL.centre)
+    }
+
     @Test fun `needs a building, a project's steps, the time before, the age`() {
         val w = SceneWorld.of(village)
         assertTrue(SceneNeeds(building = "KOZOLEC").met(w))

@@ -133,9 +133,10 @@ class StormIndoorsTest {
         val fire = shown(scene("ob-ognju"), wolves, morning, d)
         assertTrue("$fire", fire.size >= 3)
         assertTrue("$fire", fire.all { Reactions.byFire(st.getValue(it)) })
-        // more than the fire's own people when more gather (by the stump and the woodpile too)
+        // more than the fire's own people when more gather (by the stump and the woodpile too, and at the crowd's spots
+        // round the fire: FireCrowd)
         val gathered = cast.filter { v -> Reactions.byFire(st.getValue(v.id)) && Routine.now(v, wolves, morning, d).let { it.where == si.lanisce.lani.game.villagers.Where.OUT && it.doing != si.lanisce.lani.game.villagers.Doing.INSIDE } }
-        assertEquals(minOf(gathered.size, 5), fire.size)
+        assertEquals(minOf(gathered.size, 5 + FireCrowd.spots(wolves).size), fire.size)
         assertEquals(listOf("joze"), shown(scene("na-stolpu"), wolves, morning, d))
         // the farmer, the winemaker and the beekeeper went home: in their rooms
         assertTrue("france" in shown(scene("v-delavnici"), wolves, morning, d))

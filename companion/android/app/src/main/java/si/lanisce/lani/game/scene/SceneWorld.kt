@@ -61,7 +61,53 @@ data class SceneWorld(
      * blown out by a lost storm, the forge without charcoal): its stove or forge is drawn cold, unless a dialog fires it up.
      */
     val cold: Boolean = false,
+    /**
+     * The huts and houses of the village, the nearest the centre first (by their plots): the homes round the fire's square
+     * (companion/SCENES.md "Ob ognju by the age"); null: as [buildings] has them ([ALL]: a town's houses at the top level).
+     */
+    val homes: List<Building>? = null,
+    /** The day the linden was planted (epoch day): it grows over the years; null: long ago (and when none stands). */
+    val lindenDay: Long? = null,
+    /** What goes on at the village's centre today ([Centre]): a feast, the age's party and its decorations, its fire out. */
+    val centre: Centre = Centre(),
+    /** The culture whose village it is ([si.lanisce.lani.game.culture.Cultures], "primorska", "friuli" …): its houses' style. */
+    val culture: String = si.lanisce.lani.game.culture.Cultures.DEFAULT,
+    /** The land the village stands on ([si.lanisce.lani.game.Landscape] id: "coast", "lake" …): the coast's sandy square. */
+    val landscape: String = si.lanisce.lani.game.Landscape.CLASSIC.id,
 ) {
+    /**
+     * What goes on at the village's centre today, as the fire's scene shows it (companion/SCENES.md "Ob ognju by the age"):
+     * a [feast] (a festival's day, the village's feast, the festival's event: from Trg the kres on its evening), the age's
+     * [party] evenings (the village gathers round the fire) and its [decor] (up the day the age came and the next, as on the
+     * map: [si.lanisce.lani.game.AgeUps.decorOn]), the centre's fire [out] for want of wood, the [cold] homes (no smoke from
+     * their chimneys, dark windows), and the [unnamed] people of a bigger village (a few by the fire in the evening).
+     */
+    data class Centre(
+        val feast: Boolean = false,
+        val party: Boolean = false,
+        val decor: List<si.lanisce.lani.game.Decor> = emptyList(),
+        val out: Boolean = false,
+        val cold: Set<String> = emptySet(),
+        val unnamed: Int = 0,
+    ) {
+        companion object {
+            /** [state]'s centre on [today]. */
+            fun of(state: GameState, today: java.time.LocalDate): Centre {
+                val lit = runCatching { si.lanisce.lani.game.Hearths.lit(state, today) }.getOrNull()
+                return Centre(
+                    feast = state.lastFeast == today.toString() || state.event?.kind == si.lanisce.lani.game.EventKind.FESTIVAL ||
+                        runCatching { si.lanisce.lani.game.Calendar.on(state, today).any { it.late == 0 && !it.festival.quiet } }.getOrDefault(false),
+                    party = si.lanisce.lani.game.AgeUps.gathering(state, today.atTime(si.lanisce.lani.game.AgeUps.EVENING + 3, 0)),
+                    decor = runCatching { si.lanisce.lani.game.AgeUps.decorOn(state, today)?.decor }.getOrNull().orEmpty(),
+                    out = lit != null && state.age >= Age.VAS && si.lanisce.lani.game.Hearths.CENTRE !in lit,
+                    cold = if (lit == null) emptySet() else state.buildings.filter { it.type == BuildingType.HUT || it.type == BuildingType.HOUSE }
+                        .filter { it.damaged || it.id !in lit }.map { it.id }.toSet(),
+                    unnamed = (state.villagers - state.residents.size).coerceAtLeast(0),
+                )
+            }
+        }
+    }
+
     /** Whether a building of [type] stands. */
     fun has(type: BuildingType): Boolean = buildings?.containsKey(type) ?: true
 
@@ -123,7 +169,7 @@ data class SceneWorld(
          * [si.lanisce.lani.game.TentMove]) stands there, not by the campfire: the campfire's tent is there only while a
          * tent stands in the village.
          */
-        fun of(state: GameState, here: Building? = null): SceneWorld = SceneWorld(
+        fun of(state: GameState, here: Building? = null, today: java.time.LocalDate = java.time.LocalDate.now()): SceneWorld = SceneWorld(
             age = state.age,
             buildings = state.buildings.filterNot { it.type == BuildingType.TENT && it.plot == si.lanisce.lani.game.NO_PLOT }
                 .groupBy { it.type }.mapValues { (_, bs) -> bs.maxOf { it.level } },
@@ -132,6 +178,13 @@ data class SceneWorld(
             here = here,
             down = state.landmarksDown,
             cold = here != null && si.lanisce.lani.game.Hearths.cold(state, here),
+            homes = state.buildings.filter { it.type == BuildingType.HUT || it.type == BuildingType.HOUSE }
+                .sortedWith(compareBy({ if (it.plot >= 0) it.plot else Int.MAX_VALUE }, { it.id })),
+            lindenDay = state.buildings.filter { it.type == BuildingType.LIPA && it.builtAt > 0 }.minOfOrNull { it.builtAt }
+                ?.let { java.time.Instant.ofEpochMilli(it).atZone(java.time.ZoneId.systemDefault()).toLocalDate().toEpochDay() },
+            centre = Centre.of(state, today),
+            culture = si.lanisce.lani.game.culture.Cultures.current.manifest.id,
+            landscape = state.land?.kind ?: si.lanisce.lani.game.Landscape.CLASSIC.id,
         )
 
         /** Everything built, seen in a room at [level]: what a tool shows of a room's stages (and a sticker of a thing that goes as the room grows). */

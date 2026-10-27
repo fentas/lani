@@ -78,6 +78,9 @@ object Whereabouts {
      *
      * While wolves, a bear or a storm are about, who is where the reaction has them ([reacting]): by the fire, up the
      * watchtower, at home in their room.
+     *
+     * By the fire (the campfire's scene), the village's others whom their day has there too: at the crowd's spots round it
+     * ([FireCrowd], more as the village grows), the cast first, each as themselves (a tap on them is on their card).
      */
     fun inScene(
         scene: SceneSpec, state: GameState, people: List<Villager>, at: LocalDateTime, day: Routine.Day, scenes: List<SceneSpec> = emptyList(),
@@ -85,14 +88,25 @@ object Whereabouts {
     ): List<PersonInScene> {
         val place = placeOf(scene, state, scenes, seenIn)
         state.event?.takeIf { Reactions.quieting(it.kind) }?.let { e -> return reacting(scene, state, people, at, day, place, e) }
-        return scene.people.mapNotNull { p ->
-            val v = p.villager?.let { id -> people.firstOrNull { it.id == id } } ?: return@mapNotNull null
+        fun there(v: Villager): Boolean {
             val now = Routine.now(v, state, at, day)
-            val there = now.where == Where.OUT && now.doing != Doing.CARRY && now.errand == null && (now.from == null || now.since >= Routine.WALK_S) &&
+            return now.where == Where.OUT && now.doing != Doing.CARRY && now.errand == null && (now.from == null || now.since >= Routine.WALK_S) &&
                 now.place != null && (now.place == place || (!Homes.isRoom(scene) && now.place.general() == place.general()))
-            if (there) PersonInScene(p.id, p.art, p.slot) else null
         }
+        val own = scene.people.mapNotNull { p ->
+            val v = p.villager?.let { id -> people.firstOrNull { it.id == id } } ?: return@mapNotNull null
+            if (there(v)) PersonInScene(p.id, p.art, p.slot) else null
+        }
+        val crowd = if (scene.art == CAMPFIRE && place.general() == TownPlace.Fire) FireCrowd.spots(state) else emptyList()
+        if (crowd.isEmpty()) return own
+        val listed = scene.people.mapNotNull { it.villager }.toSet()
+        val others = people.filter { it.id !in listed && it.art != "baby" }.distinctBy { it.id }
+            .sortedWith(compareBy({ it.source == "village" }, { it.order })).filter(::there)
+        return own + others.take(crowd.size).mapIndexed { i, v -> PersonInScene(v.id, v.art, crowd[i]) }
     }
+
+    /** The fire's scene's art: its crowd round the fire ([FireCrowd]). */
+    private const val CAMPFIRE = "campfire"
 
     /**
      * Where [scene] is in [state]'s village: the building it is seen in ([seenIn]), else a house's room the house it is
@@ -127,7 +141,8 @@ object Whereabouts {
 
     /**
      * The spots where more of the village than [scene]'s own people can be while the village reacts, after the art's person
-     * spots: by the fire beside the stump and in front of the woodpile, standing. Each with its stance.
+     * spots: by the fire beside the stump and in front of the woodpile, standing (then the crowd's spots round it, [FireCrowd]).
+     * Each with its stance.
      */
     private val GATHER: Map<String, List<Pair<String, Stance>>> = mapOf(
         "campfire" to listOf("behind-stump" to Stance.STAND, "behind-logs" to Stance.STAND),
@@ -148,7 +163,8 @@ object Whereabouts {
         if (here.isEmpty()) return emptyList()
         val out = ArrayList<PersonInScene>()
         val taken = HashSet<String>()
-        val spots = SceneArt.personSlots[scene.art].orEmpty().map { it to Stance.STAND } + GATHER[scene.art].orEmpty()
+        val spots = SceneArt.personSlots[scene.art].orEmpty().map { it to Stance.STAND } + GATHER[scene.art].orEmpty() +
+            (if (scene.art == CAMPFIRE) FireCrowd.spots(state).map { it to Stance.STAND } else emptyList())
         fun free(): Pair<String, Stance>? = spots.firstOrNull { it.first !in taken }
         // the scene's own people at their spots (one at each: a second for the same spot takes a free one)
         val placed = HashSet<String>()
