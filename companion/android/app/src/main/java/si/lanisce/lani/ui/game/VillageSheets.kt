@@ -393,23 +393,43 @@ private fun InfoRow(emoji: String, label: String, value: String) {
     }
 }
 
+/**
+ * The next age's sheet, the ring's (companion/GAME.md "The village's HUD"): the age and the track of all of them, how far
+ * the way to the next one is, ONE action for its next step at the top ([next]: the goal card's, "✨ Napreduj · Advance"
+ * once it can), then every step with its count, a bar and its own button, and at its foot the switch for the row of cards
+ * under the HUD's bar ([cards], null: none; the ring's long press does the same).
+ */
 @Composable
 fun AgeSheet(
     s: GameState, check: AdvanceCheck, onAdvance: () -> Unit, onGather: (Res) -> Unit, onBuild: () -> Unit, onLearn: () -> Unit,
     onPolish: () -> Unit, onFriends: () -> Unit, onDismiss: () -> Unit,
+    next: Pair<String, () -> Unit>? = null, cards: Boolean? = null, onCards: (Boolean) -> Unit = {},
 ) {
     Sheet(onDismiss) {
-        SheetHeader(s.age.emoji, s.age.label(), bi("villageSheets.ageOf", "ordinal" to (s.age.ordinal + 1), "entriesSize" to Age.entries.size))
+        // the age by name, the track shows where it is among them (no second "4 / 6" beside the ring's steps)
+        SheetHeader(s.age.emoji, s.age.label())
         AgeTrack(s.age)
-        val next = check.next
-        if (next == null) {
+        val to = check.next
+        if (to == null) {
             Text("🏰 ${bi("villageSheets.villageBecameTown")}", style = MaterialTheme.typography.titleMedium)
         } else {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Do ${next.emoji} ${next.label()}", style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
-                Text("${(check.progress * 100).roundToInt()} %", style = MaterialTheme.typography.titleMedium, color = XpGold, fontWeight = FontWeight.Bold)
+                Text(bi("villageSheets.nextAgeIs", "nextEmoji" to to.emoji, "nextSl" to to.names), style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
+                // the steps done of all, as the ring says them ("4/9"); the bar is how far each has come
+                VillageHudLogic.steps(check)?.let { (done, all) ->
+                    Text("$done/$all", style = MaterialTheme.typography.titleMedium, color = XpGold, fontWeight = FontWeight.Bold)
+                }
             }
             FillBar(check.progress, XpGold)
+            // the one thing to do now: advancing once it can, else the next step's own
+            if (check.ok) BigButton("✨ ${bi("villageSheets.advanceTo", "nextSl" to to.names)}", onClick = onAdvance, color = XpGold)
+            else next?.let { (label, go) ->
+                BigButton(label, onClick = go, color = AlpineGreen)
+                Text(
+                    "${stepsLeft(check.missing.size).replaceFirstChar { it.uppercase() }}:", style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
             for (step in check.steps) {
                 val act: Pair<String, () -> Unit>? = when (stepAction(step)) {
                     StepAction.GATHER -> bi("villageSheets.gather", "stepEmoji" to step.emoji) to { if (step.res != null) onGather(step.res) }
@@ -425,12 +445,29 @@ fun AgeSheet(
                     style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(start = 32.dp),
                 )
             }
-            BigButton(
-                if (check.ok) "✨ ${bi("villageSheets.advanceTo", "nextSl" to next.names)}" else "🔒 ${stepsLeft(check.missing.size).replaceFirstChar { it.uppercase() }}",
-                onClick = onAdvance, enabled = check.ok, color = XpGold,
-            )
+        }
+        // the row of cards under the HUD's bar, shown or hidden (the learner's choice on this phone)
+        cards?.let { on ->
+            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth().padding(top = 4.dp)) {
+                Text("🗂️ ${bi("villageSheets.cardsUnderBar")}", style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
+                Switch(checked = on, onCheckedChange = onCards)
+            }
         }
     }
+}
+
+/**
+ * The one action for a step of the next age, as the ages' sheet says it at its top: "🌾 Naberi hrano · Gather food", "🔨
+ * Gradi · Build ⛪ ›", "📚 Uči se novih besed · Learn new words", "🔩 Očisti jih zdaj · Polish them now", "💬 Pomagaj
+ * vaščanom … · Help the villagers …".
+ */
+fun primaryLabel(step: AgeStep): String = when (stepAction(step)) {
+    StepAction.GATHER -> step.res?.let { r -> bi("villageScreen.gatherFor", "gatherEmoji" to r.emoji, "lowercase" to r.names.map { it.lowercase() }) } ?: step.label
+    StepAction.BUILD -> "🔨 ${bi("common.build")} ${step.emoji} ›"
+    StepAction.LEARN -> "📚 ${bi("villageScreen.learnNewWords")}"
+    StepAction.POLISH -> "🔩 ${bi("reviewScreen.polishNow", "n" to (step.need - step.have))}"
+    StepAction.HELP -> "💬 ${bi("villageSheets.helpAndTalk")}"
+    null -> step.label
 }
 
 /**

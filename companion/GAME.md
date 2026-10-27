@@ -112,9 +112,17 @@ three designs on 2026-10-16: a sheet from the bar, a row of cards, a side panel)
   settlement's ring: the next age's emoji in a ring that fills with its steps, "7/9" under it (the one place the count
   shows), gold and glowing when the village can advance ("✨"), gold with the festival's emoji and "Danes" on a feast's
   day (a quiet day's plain).
-- **The ring** shows and hides the row of cards (a tap, or a long press), animated; the choice is the phone's
-  (`HudPrefs.cardsShown`, not the village's): the village opens as it was left. While the cards are hidden, a red dot
-  on the ring says one of them has something new.
+- **The ring** opens the next age's sheet with a tap (Jan, 2026-10-27: it took the ring, a swipe of the cards to their
+  end, the settlement's card and its age row, four or five taps, to see what the next age needs): the age and the track of
+  all of them, "🏛️ Naslednja doba · Next age: Trg" with the steps done of all as the ring says them ("4/9"; no "Doba 4 / 6"
+  and no percentage beside it any more) and a bar, ONE button for the next step at the top (the goal card's: its first
+  open step's action, "🌾 Nabiraj · Gather food", "🔨 Gradi · Build ⛪ ›", "📚 Uči se novih besed · Learn new words" …, else
+  the goal's own; "✨ Napreduj · Advance" once it can), then every step with its count, its bar and its own button, and at
+  its foot "🗂️ Kartice pod vrstico · Cards under the bar", a switch. A long press on the ring shows or hides the row of
+  cards as before (TalkBack: its action "Kaj potrebuje naslednja doba · What the next age needs", the long press "Skrij
+  kartice · Hide the cards"), animated; the choice is the phone's (`HudPrefs.cardsShown`, not the village's): the village
+  opens as it was left. While the cards are hidden, a red dot on the ring says one of them has something new. While the
+  plot chooser is on, a tap on the ring shows the cards for that chooser only, as before.
 - **The cards** (one row under the bar, two lines each, swiped sideways; the next one peeks in):
   - the goal: "🎯 🏘️ Vas: še 2 koraka" over the next open step and how far ("Les · Wood 198/320"), and that step's own
     button ("🪵 Nabiraj · Gather"); a goal that isn't a step of the next age (hearths going out, a building to build,

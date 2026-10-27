@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.click
@@ -96,7 +97,8 @@ class VillageHudTest {
         VillageHud(
             v, cards = hud.cards(chooser), section = hud.section,
             actions = HudActions(
-                back = { did += "back" }, resource = { did += "res:$it" }, age = { did += "age" }, info = { did += "info" },
+                // the ring: the ages' sheet; while a plot chooser is on, the cards for it (as the village screen wires it)
+                back = { did += "back" }, resource = { did += "res:$it" }, age = { if (chooser != null) hud.toggleCards(chooser) else did += "age" }, info = { did += "info" },
                 fire = { did += "fire" }, chest = { did += "chest" }, projects = { did += "projects:$it" }, progress = { did += "progress" },
                 goal = { did += "goal" }, festival = { did += "festival:$it" }, arrival = { did += "arrival:$it" }, surprise = { did += "surprise" },
                 step = { did += "step:${it.kind}" }, cards = { hud.toggleCards(chooser) }, sheet = { hud.section = it },
@@ -138,9 +140,16 @@ class VillageHudTest {
         assertEquals(listOf("step:RESOURCE", "res:FOOD"), did)
     }
 
-    @Test fun `the ring hides and shows the cards, and the phone remembers`() {
+    @Test fun `a tap on the ring opens what the next age needs, a long press hides and shows the cards, and the phone remembers`() {
         show()
+        // TalkBack says what the tap does, and what the long press does
+        val actions = node(ring).fetchSemanticsNode().config
+        assertEquals("Kaj potrebuje naslednja doba · What the next age needs", actions[SemanticsActions.OnClick].label)
+        assertEquals("Skrij kartice · Hide the cards", actions[SemanticsActions.OnLongClick].label)
         node(ring).performClick()
+        assertEquals(listOf("age"), did)
+        node(goalCard).assertExists()
+        node(ring).performTouchInput { longClick() }
         gone(goalCard)
         assertFalse("kept on the phone", HudPrefs(context).cardsShown)
         assertFalse("a new village screen starts without them", HudState(HudPrefs(context)).cards(null))
@@ -148,6 +157,7 @@ class VillageHudTest {
         node(ring).performTouchInput { longClick() }
         node(goalCard).assertExists()
         assertTrue(HudPrefs(context).cardsShown)
+        assertEquals(listOf("age"), did)
     }
 
     @Test fun `the goal card opens every open step with its button, and what leads on closes the sheet`() {

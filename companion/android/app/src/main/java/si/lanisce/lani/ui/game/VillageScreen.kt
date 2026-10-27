@@ -668,7 +668,8 @@ fun VillageScreen(vm: AppViewModel) {
                 actions = HudActions(
                     back = vm::home,
                     resource = { r -> sheet = VillageSheet.Resource(r) },
-                    age = { sheet = VillageSheet.Ages },
+                    // the ring: what the next age needs, one tap (while choosing a plot it shows the cards, for that chooser)
+                    age = { if (choosing != null) hudState.toggleCards(chooserRun) else sheet = VillageSheet.Ages },
                     info = { sheet = VillageSheet.Info },
                     fire = { sheet = VillageSheet.Fire },
                     chest = { sheet = VillageSheet.Chest },
@@ -866,6 +867,25 @@ fun VillageScreen(vm: AppViewModel) {
         VillageSheet.Fire -> HearthsSheet(s, java.time.LocalDate.now(), onGather = { sheet = null; card = null; vm.startGather(Res.WOOD) }, onDismiss = { sheet = null })
         VillageSheet.Ages -> AgeSheet(
             s, check, onAdvance = advance,
+            // the one action for the next step: the goal card's (its first open step's, else the goal's own)
+            next = remember(goal, check) { VillageHudLogic.openSteps(goal, check).firstOrNull { stepAction(it) != null } }?.let { st ->
+                val go: () -> Unit = {
+                    when (stepAction(st)) {
+                        StepAction.GATHER -> st.res?.let { r -> sheet = null; vm.startGather(r) }
+                        StepAction.BUILD -> sheet = VillageSheet.Build
+                        StepAction.LEARN -> { sheet = null; vm.openPacks(fromVillage = true) }
+                        StepAction.POLISH -> { sheet = null; vm.startPolish() }
+                        StepAction.HELP -> { sheet = null; vm.openVillagers() }
+                        null -> Unit
+                    }
+                }
+                primaryLabel(st) to go
+            } ?: goal.action(
+                onGather = { r -> sheet = null; vm.startGather(r) }, onAdvance = advance, onBuild = { sheet = null; build(it, false) },
+                onPacks = { sheet = null; vm.openPacks(fromVillage = true) }, onVillagers = { sheet = null; vm.openVillagers() },
+                onPolish = { sheet = null; vm.startPolish() },
+            ).let { a -> a.label to a.run },
+            cards = hudState.cards(null), onCards = { hudState.toggleCards(null) },
             onGather = { r -> sheet = null; scrollOpen = false; vm.startGather(r) },
             onBuild = { sheet = VillageSheet.Build },
             onLearn = { sheet = null; vm.openPacks(fromVillage = true) },

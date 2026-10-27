@@ -1604,7 +1604,7 @@ def plain_village():
         labels = [t for t, _ in ns]
         if any(t in VILLAGE_HUD for t in labels) and not any(t in OVER_VILLAGE for t in labels):
             if not any(t.startswith(HUD_GOAL) for t in labels) and (c := hud_ring(ns)) is not None:
-                tap_at(c)  # the HUD's cards hidden: back, as the steps read them (they slide in)
+                long_press(c)  # the HUD's cards hidden: back, as the steps read them (a long press on the ring; they slide in)
                 hud_cards(True)
                 continue
             if (c := next((c for t, c in ns if t == "Na sredino · Recenter"), None)) is not None:
@@ -3410,7 +3410,7 @@ def hud_card(label: str):
     """The HUD's card whose label starts with [label], swiped to while it's off the screen (the settlement's is third);
     its bounds, or None. The ring shows the cards first when they're hidden."""
     if box_starting(HUD_GOAL) is None and box_starting(HUD_SOON) is None and box_starting(HUD_SETTLEMENT) is None and (c := hud_ring()) is not None:
-        tap_at(c)
+        long_press(c)  # the ring's tap opens the ages' sheet; its long press shows the cards
         hud_cards(True)
     for _ in range(4):
         b = box_starting(label)
@@ -4778,11 +4778,20 @@ def build_sheet():
 
 
 def ages():
-    """From the build sheet, the next age's row opens its steps, each with a bar."""
-    if not tap("Naslednja doba", 5):
+    """A tap on the HUD's ring opens the next age's sheet (companion/GAME.md "The village's HUD"): its steps done of all as
+    the ring says them ("4/9"), its one action for the next step, every step with a bar, the cards' switch."""
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the build sheet this step comes after
+    time.sleep(1)
+    plain_village()
+    ring = hud_ring()
+    assert ring is not None, "the settlement's ring"
+    count = next((t for t, _ in nodes() if re.fullmatch(r"\d+/\d+", t)), None)
+    tap_at(ring)
+    if not wait_for("Naslednja doba", 8):
         return "no next age (the town is complete)"
-    assert wait_for("Doba · Age", 8), "ages sheet"
-    assert find(" %"), "progress in percent"
+    assert count is None or find(count) is not None, f"the sheet's count as the ring's ({count})"
+    assert find("Kartice pod vrstico") is not None or scroll_to("Kartice pod vrstico", 3), "the cards' switch at its foot"
+    shot("ages-sheet")
 
 
 def box_starting(label: str):
@@ -4792,8 +4801,9 @@ def box_starting(label: str):
 
 def village_hud():
     """The village's HUD (companion/GAME.md, "The village's HUD"): a slim bar over the map (back, the four resources, the
-    settlement's ring) and a row of cards under it (the goal, today and what's coming, the settlement); the ring hides
-    the cards (still hidden when the village is opened again) and shows them; each card opens its section in the sheet
+    settlement's ring) and a row of cards under it (the goal, today and what's coming, the settlement); a tap on the ring
+    opens what the next age needs, its long press hides the cards (still hidden when the village is opened again) and
+    shows them; each card opens its section in the sheet
     (the goal's steps with their buttons, the timeline, the settlement's labelled tiles), a tap on the map above it closes
     it and opens nothing; the settlement's in German too (QA's hook "pair:sl-de"). Then QA's hook "build:field" opens the
     plot chooser (the dev village's copy readied: its stores full, the next age's plots when its own are all taken): the
@@ -4809,15 +4819,22 @@ def village_hud():
     assert box_starting("Skrinja · The chest") is None, "no tile while no sheet is open"
     shot("hud-cards")
 
+    # a tap on the ring: what the next age needs, at once; back closes it, the cards as they were
     tap_at(ring)
-    assert hud_cards(False) and box_starting("Hrana · Food: "), "the ring hides the cards, the bar stays"
+    if wait_for("Naslednja doba", 6):
+        shot("hud-ring-ages")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+    assert box_starting(HUD_GOAL) is not None, "the cards still shown after the ring's sheet"
+    long_press(ring)
+    assert hud_cards(False) and box_starting("Hrana · Food: "), "the ring's long press hides the cards, the bar stays"
     shot("hud-bar")
     adb("shell", "input", "keyevent", "KEYCODE_BACK")  # to Home, and into the village again: still hidden
     assert wait_for("Danes · Today", 8), "home"
     village()
     assert box_starting(HUD_GOAL) is None and box_starting(HUD_SOON) is None, "hidden still, the village opened again"
-    tap_at(hud_ring())
-    assert hud_cards(True), "the ring shows the cards again"
+    long_press(hud_ring())
+    assert hud_cards(True), "the ring's long press shows the cards again"
 
     def section(card: str, heading: str, name: str):
         b = hud_card(card)

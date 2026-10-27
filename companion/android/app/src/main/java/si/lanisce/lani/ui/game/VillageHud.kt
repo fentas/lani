@@ -469,18 +469,19 @@ private fun Bar(view: HudView, actions: HudActions, cards: Boolean, ringDot: Boo
     ) {
         HudButton("←", Labels.BACK, actions.back)
         for (r in Res.entries) ResourceChip(r, s.res(r), view.attrs.caps[r], onClick = { actions.resource(r) }, modifier = Modifier.weight(1f))
-        SettlementRing(view, cards, ringDot, dots, reduced, actions.cards)
+        SettlementRing(view, cards, ringDot, dots, reduced, onTap = actions.age, onToggle = actions.cards)
     }
 }
 
 /**
  * The settlement's ring: the next age's emoji in a ring that fills with its steps, "7/9" under it (the one place it
- * shows), gold when the village can advance (glowing) or a feast is on. A tap, or a long press, shows or hides the row
- * of cards; [dot]: the row is hidden and something in it is new.
+ * shows), gold when the village can advance (glowing) or a feast is on. A tap opens what the next age needs ([onTap]: the
+ * ages' sheet, its progress and the one action for its next step); a long press shows or hides the row of cards
+ * ([onToggle]; the ages' sheet has the switch too); [dot]: the row is hidden and something in it is new.
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun SettlementRing(view: HudView, cards: Boolean, dot: Boolean, dots: HudDots, reduced: Boolean, onToggle: () -> Unit) {
+private fun SettlementRing(view: HudView, cards: Boolean, dot: Boolean, dots: HudDots, reduced: Boolean, onTap: () -> Unit, onToggle: () -> Unit) {
     val status = view.status
     val haptic = LocalHapticFeedback.current
     val gold = status.tone == HudStatus.Tone.READY || status.tone == HudStatus.Tone.FESTIVAL
@@ -492,11 +493,11 @@ private fun SettlementRing(view: HudView, cards: Boolean, dot: Boolean, dots: Hu
     Box(Modifier.size(width = 54.dp, height = 58.dp)) {
         Box(
             Modifier.align(Alignment.TopCenter).size(48.dp).clip(CircleShape).background(if (gold) XpGold.copy(alpha = 0.92f * pulse) else HudPlate)
-                .combinedClickable(onClick = onToggle, onLongClick = long)
+                .combinedClickable(onClick = onTap, onLongClick = long)
                 .clearAndSetSemantics {
                     role = Role.Button
                     contentDescription = said
-                    onClick(toggle) { onToggle(); true }
+                    onClick(bi("villageHud.openAge")) { onTap(); true }
                     onLongClick(toggle) { long(); true }
                 },
             contentAlignment = Alignment.Center,
