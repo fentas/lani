@@ -18,7 +18,7 @@ Village (full screen, pinch zoom, pan)         Scene (close-up)
 
 | Part | Code |
 |---|---|
-| Format, registry, daily logic (the contract) | `android/.../game/scene/`: `SceneSpec.kt` (format), `SceneArt.kt` (arts, slots, sprites, effects, stages), `Stage.kt` (stage directions and tap turns, see [Stage directions](#stage-directions-people-move-on-cue)), `Happenings.kt` (what's on), `Story.kt` and `Stories.kt` (the storyteller's evening story, see [Stories](#stories-the-evening-story)), `Notebook.kt`, `StoryBooks.kt` and `Vignettes.kt` (the learner's story notebook: every story heard written down, its questions, and its pictures' library, see [The story notebook](#the-story-notebook); the ink painters and the pencil sketch in `game/render/book/`, the notebook's pages in `ui/notebook/`), `Wildlife.kt` (the wild animals out, see [Wild animals](#wild-animals)), `SceneSights.kt` (which things a picture shows now and when the others come, see [The words panel](#the-words-panel-here-now-seen-before-still-hidden)), `ISpy.kt` (I spy with a child of the village, see [I spy](#i-spy-vidim-vidim-nekaj-česar-ti-ne-vidiš)), `SceneWorld.kt` (what the village has built, as the scenes show it: `needs`, the fixtures, see [What the village has built](#what-the-village-has-built)), `TownMarkers.kt` (bubbles in the village), `ScenePainter.kt` (painter interface), `Sky.kt` and `SceneFx.kt` (a dialog's weather and effects, what stays for the day), `Pokes.kt` (what a tap sets off, see [Pokes](#pokes-small-gotchas)) |
+| Format, registry, daily logic (the contract) | `android/.../game/scene/`: `SceneSpec.kt` (format), `SceneArt.kt` (arts, slots, sprites, effects, stages), `Stage.kt` (stage directions and tap turns, see [Stage directions](#stage-directions-people-move-on-cue)), `Happenings.kt` (what's on), `Story.kt` and `Stories.kt` (the storyteller's evening story, see [Stories](#stories-the-evening-story)), `Notebook.kt`, `StoryBooks.kt` and `Vignettes.kt` (the learner's story notebook: every story heard written down, its questions, and its pictures' library, see [The story notebook](#the-story-notebook); the ink painters and the pencil sketch in `game/render/book/`, the notebook's pages in `ui/notebook/`), `Wildlife.kt` (the wild animals out, see [Wild animals](#wild-animals)), `SceneSights.kt` (which things a picture shows now and when the others come, see [The words panel](#the-words-panel-here-now-seen-before-still-hidden)), `ISpy.kt` (I spy with a child of the village, see [I spy](#i-spy-vidim-vidim-nekaj-česar-ti-ne-vidiš)), `SceneWorld.kt` (what the village has built, as the scenes show it: `needs`, the fixtures, see [What the village has built](#what-the-village-has-built)), `TownMarkers.kt` (bubbles in the village), `SceneDoors.kt` (a thing of a picture that is a place with scenes of its own: the stream's mill into the mill, see [The mill inside](#the-mill-inside-from-the-stream-and-from-the-map)), `ScenePainter.kt` (painter interface), `Sky.kt` and `SceneFx.kt` (a dialog's weather and effects, what stays for the day), `Pokes.kt` (what a tap sets off, see [Pokes](#pokes-small-gotchas)) |
 | Village view: full screen, camera, bubbles, the HUD, the scroll | `ui/game/VillageScreen.kt` and friends (`VillageHud.kt`, `VillageScroll.kt`), `game/render/` (the village renderer) |
 | Scene art: one painter per art, people sprites, the wild animals (`Wild.kt`) | `game/render/scene/` |
 | Scene screen: words, learning, dialogs, rewards | `ui/scene/` (the words panel's chips: `WordGroups.kt`), `app/SceneController.kt`; the learner's words a dialog tests (see [Your words in the dialogs](#your-words-in-the-dialogs)): `game/DialogWords.kt`, `game/DialogReviews.kt` (on `game/PlayReviews.kt`), `app/DialogWordsController.kt` |
@@ -81,7 +81,7 @@ published by the tutor with `publish_scene`.
 | `language` | the language its lines are in: the village's, `sl` unless it says otherwise (`it` in the Italian village's scenes); see [In another language](#in-another-language) |
 | `title` | "target · English" as above, or per language: `{"it": "Il mare", "sl": "Morje", "en": "The sea"}` (a happening's `title` too) |
 | `art` | one of the arts below; decides what is drawn |
-| `from` | where the village opens it, a list: `fire`, `forest`, `spot:<id>` (a spot of the landscape: meadow, pond, highseat, path, woodpile, rocks, riverbank, road, kopa: the charcoal pile deep in the woods, horizon: the land at the village's horizon; they always exist, so a scene there is open from the start), building types in lower case (`tent`, `field`, `well`, `hut`, `kozolec`, `beehive`, `palisade`, `watchtower`, `smithy`, `lipa`, `house`, `church`, `school`, `market`) or `project:<id>`: a village project's landmark, there once the project is finished (its id one of the culture's projects; the vineyard's terraces lead into the vineyard). Several scenes may share a place; the village offers a choice then. The first place that exists is where its bubbles show (a kitchen: `["hut", "house"]`). |
+| `from` | where the village opens it, a list: `fire`, `forest`, `spot:<id>` (a spot of the landscape: meadow, pond, highseat, path, woodpile, rocks, riverbank, road, kopa: the charcoal pile deep in the woods, horizon: the land at the village's horizon; they always exist, so a scene there is open from the start), building types in lower case (`tent`, `field`, `well`, `hut`, `kozolec`, `beehive`, `palisade`, `watchtower`, `smithy`, `lipa`, `house`, `church`, `school`, `market`) or `project:<id>`: a village project's landmark, there once the project is finished (its id one of the culture's projects; the vineyard's terraces lead into the vineyard, the mill into the mill). Several scenes may share a place; the village offers a choice then. The first place that exists is where its bubbles show (a kitchen: `["hut", "house"]`). |
 | `needs` | optional earliest age: `ogenj`, `tabor`, `zaselek`, `vas`, `trg`, `mesto` |
 | `household` | only a room of a house (it opens from `house`): who lives in the house whose room it is, villager ids of the cast (`["france", "tine"]`); a house opens one room, its own, dealt by who has moved in (see [Houses and their rooms](#houses-and-their-rooms)). None: the room is anyone's (the kitchen). An older bridge ignores it. |
 | `pack` | the word pack the objects teach. Every object's `word` is a word id in that pack (or in the object's own `pack`), so learning a scene's words is learning pack words: they count, get reviewed and pay the village like any pack word. |
@@ -595,10 +595,11 @@ where before it opened the project straight away.
 
 A pack whose language has no curated scenes (no `companion/scenes/<language>/`) brings its village's everyday places
 too, the same arts as the Slovene scenes and so the same slots, `needs` and stages: the Friuli pack has its tent, its
-kitchen, its field, its wood, its stream, its pond and its smithy in Italian (below; docs/plans/05-built/friuli-scenes.md),
-so its tent, hut, field and smithy have "Vstopi · Go in" and the wood, the stream bank and the pond open their scene
-from the first day. Their words are the pack's own packs (`nella-tenda`, `in-cucina`, `nel-campo`, `animali-del-bosco`,
-`nel-bosco`, `al-ruscello`, `allo-stagno`, `nella-fucina`) and the Italian starter packs, and each has its I spy clues
+kitchen, its field, its wood, its stream, its pond, its smithy and its mill in Italian (below; docs/plans/05-built/friuli-scenes.md,
+docs/plans/05-built/mill-scene.md), so its tent, hut, field and smithy have "Vstopi · Go in", the wood, the stream bank
+and the pond open their scene from the first day, and the mill once its project grinds. Their words are the pack's own
+packs (`nella-tenda`, `in-cucina`, `nel-campo`, `animali-del-bosco`, `nel-bosco`, `al-ruscello`, `allo-stagno`,
+`nella-fucina`, `nel-mulino`) and the Italian starter packs, and each has its I spy clues
 in `companion/ispy/scenes/` (the app bundles those, so the clues come with the next app build; the scenes themselves go
 out with the bridge).
 
@@ -615,6 +616,7 @@ out with the bridge).
 | `friuli` | `al-ruscello`, Al ruscello · By the stream (`stream`) | the stream bank | Mugnaio Franco (the mill he dreams of, until the mill project grinds), Nonna Rosa (the laundry, a sheet in the wind), Pastore Davide (the sheep drinking, the lamb that won't; counted) |
 | `friuli` | `allo-stagno`, Allo stagno · At the pond (`pond`) | the pond | Apicoltore Aldo (the heron in the mist, the ducks), Tommaso (a frog caught and let go, the tadpoles in spring), Nonno Bepi fishing with his dog Moro in the afternoon |
 | `friuli` | `nella-fucina`, Nella fucina · In the smithy (`smithy`) | the smithy | Fabbro Bruno's smithy, growing with its level; Bruno (a horseshoe in the morning, counted in the bucket; an order from Gorizia written in his black notebook, Lei to signor Bruno), Tommaso (the bellows from level 2) |
+| `friuli` | `nel-mulino`, Nel mulino · In the mill (`mill`) | the mill project's landmark, and the stream's mill | Mugnaio Franco's mill once it grinds ([The mill inside](#the-mill-inside-from-the-stream-and-from-the-map)): Franco (the morning start, the wheel iced in winter; grinding, the sacks counted; the harvest weeks; the evening, the lantern), Lorenzo (a sack too heavy, flour over everyone; the cat and the mouse, found with a tap), Nonna Rosa (maize for her polenta, poured into the hopper), Pastore Davide (the miller's toll, la molenda, weighed and measured) |
 | `kaernten` | `am-feuer`, Am Feuer · At the campfire (`campfire`) | the fire | the village's campfire, in German: Oma Resi's tea in the evening, Maxi gathering wood in the afternoon, and Opa Sepp's evening story ([Stories](#stories-the-evening-story)). |
 | `kaernten` | `am-see`, Am See · By the lake (`alps`) | the horizon | the Faaker See under the Mittagskogel in the Karawanken: the turquoise lake, the peak and the mountains, the little church on the shore, the wooden bridge, the Alm with its hut, cows and cowbells, larches and spruces, a waterfall; Opa Sepp (a guest's first time, a storm over the Mittagskogel), Florian (the cowbells on the Alm; milking at dawn while the peaks glow), Maxi (fishing in the morning fog); chamois and an ibex |
 | `lakeland` | `by-the-fire`, By the fire (`campfire`) | the fire | the village's campfire, in English: Granny Maggie's hot chocolate in the evening, Harry bringing wood in the afternoon, and Old Wilf's evening story ([Stories](#stories-the-evening-story)) |
@@ -707,6 +709,7 @@ something on in every month):
 | `am-see`, `il-mare` | the Alm, the milking 6–9; a swim in the sea 5–9 | |
 | `al-fuoco`, `am-feuer` | | "are you cold?" by the fire 9–5 |
 | `nella-tenda`, `nel-campo`, `nel-bosco`, `allo-stagno` (friuli) | the wheat harvest 6–8, the mushrooms 8–11, the frog 3–9 | the thunderstorm in the tent 4–10, the scarecrow's scarf 10–3, Bianca in the fog 10–3, the tadpoles 3–6 |
+| `v-mlinu`, `nel-mulino` (friuli) | the harvest weeks at the mill 7–9 | the wheel iced at the morning start 12–2 |
 
 ### What the village has built
 
@@ -808,7 +811,8 @@ another place, not the village) have nothing that waits for the village; the kit
 and the school grow with their building's level (above). The watchtower's view does follow what is going on: `SceneWorld.wolves` is on while the village's wolves event
 is, and then the wolves' eyes shine in the forest below at night (off by default, so tools and tests see the plain view).
 The vineyard waits whole: it opens only once its terraces
-are finished (`from: ["project:vinograd"]`, see [Scenes of a culture pack](#scenes-of-a-culture-pack)). The other projects
+are finished (`from: ["project:vinograd"]`, see [Scenes of a culture pack](#scenes-of-a-culture-pack)), and so does the
+mill inside, once the mill grinds (`v-mlinu`, `nel-mulino`: `from: ["project:mlin"]`, see [The mill inside](#the-mill-inside-from-the-stream-and-from-the-map)). The other projects
 have no picture in a scene yet (the bocce court, the chapel, the bee meadow, the fire station, the playground, the lookout
 tower): they stand on the village map (GAME.md, "Village projects"). Their steps are played in the scenes all
 the same, where they happen ([Project steps](#project-steps-a-village-projects-step-as-a-short-scene)).
@@ -826,6 +830,42 @@ third level is its top one), that the arts without fixtures look the same whatev
 isn't there has no hit. `RoomLevelsRenderTest` renders every room (the kitchen, the houses' rooms, the smithy, the school)
 at levels 1, 2 and 3, empty, side by side and one by one (`app/build/scene-snapshots/rooms/<art>-levels.png`,
 `<art>-L1.png` …), and checks that each level differs from the one before and that what can be tapped is what the level has.
+
+### The mill inside: from the stream and from the map
+
+Jan, 2026-10-27, the village's mill just finished: "why can't I go into the mill? ;)". The mill (the village project `mlin`,
+France's: its landmark on the map by the stream, and the mill the stream scene draws as it is built) has its inside now,
+`v-mlinu` «V mlinu · In the mill» (art `mill`, [Arts](#arts)), and in the Friuli village `nel-mulino` «Nel mulino», Mugnaio
+Franco's (the same art, [Scenes of a culture pack](#scenes-of-a-culture-pack)). Both open from the landmark,
+`from: ["project:mlin"]`: once the mill grinds (all its steps done), never before.
+
+- **From the map**: a tap on the mill by the stream opens its place card, as a landmark with a scene does (the vineyard's
+  terraces): "🚪 Vstopi · Go in: 🌾 V mlinu · In the mill ›", and "🏗️ Skupni projekti · Village projects ›" under it. Before
+  the mill grinds the tap opens the projects sheet at the mill, as it always did: there is no door to show.
+- **From the stream** (`ob-potoku`, `al-ruscello`): the stream's mill is a word of the scene once it grinds (`mill`: mlin,
+  mulino); tapped, its bubble has its word and under it "🚪 Vstopi · Go in: 🌾 V mlinu ›" (`game/scene/SceneDoors.kt`: a
+  thing of a picture that is a place of the village, `stream/mill` → `project:mlin`, the scenes open there now and never the
+  scene itself; `DoorEntries` in `ui/scene/SceneScreen.kt`). Before the mill grinds the stream draws it as far as it is
+  built, scenery not to tap: no bubble, no door.
+- **Back**: from the map's card "‹ Vas · Village", as from any scene; from the stream the mill lies on the stream in the
+  back stack (`Screen.Scene.from`, Nav.kt's `destination`), so Back, the gesture and its "‹ Ob potoku · By the stream"
+  return to the stream, and Back again to the village. Another scene opened from the mill takes both their places.
+
+Taps into the mill: from the village 2 (the mill, "Vstopi"), from the stream 2 (the mill, "Vstopi"); before there was no way in.
+
+**Inside** (`MillPainter`): the millstones in their vat on a timber platform by the right wall, the runner's grooved top
+turning in the vat's opening, the hopper over them with its grain and the shoe shaking it into the runner's eye, the spout
+running the flour into a sack on the floor; under the platform the cog wheel on the shaft, half in its pit, and the pinion on
+the stones' spindle; the shaft out through the front-right wall to the overshot waterwheel in its race under the flume, all
+of them turning together; the bench under the window with the scale and the miller's measure (merica), the sieve, the mouse
+at its hole, the sacks under the loft's gallery and on it, the ladder, the lantern, the door, the cat. Its people are the
+miller at the stones, his grandson by the flour sack and whoever comes with grain at the door: France, Tine, Micka with wheat
+for her potica and Luka paying the miller's toll in corn (`merica`); in Friuli Franco, Lorenzo, Nonna Rosa with maize for her
+polenta and Davide paying `la molenda`. Their happenings go through the day and the year: the morning start (the sluice
+opened, the stones going; in the cold months the wheel iced), the grinding (how it works, a counting variant), the harvest
+weeks (July to September), a sack too heavy and flour over everyone, the cat and the mouse (a tap turn: where is the
+mouse?), the toll, the grain brought, the evening (the lantern lit, the stones stopped). Every effect of the art is used and
+every action a line describes is cued.
 
 ### Ob ognju by the age
 
@@ -2224,6 +2264,7 @@ stand, sit, lie or hide (see [Stage directions](#stage-directions-people-move-on
 | `apiary` | beehouse, hive, panel, bee, honey, comb, flowers, tree, smoker, extractor, wax, bench | hives, table, bench | `swarm` (a cloud of bees rises off the hives and circles up by the linden: how many, how far), `smoke` (the smoker puffs, the smoke drifting to the hives; not set: a thin thread), `honey` (honey runs from the extractor's tap into the jar, the crank turning, the jar filling) |
 | `market` | stall, scale, weights, eggs, bread, cheese, honey, apples, vegetables, basket, crate, hen, cart, wine, pigeon, bell | stall, buyer, cart | `bustle` (a busy market day: shoppers crowd the lane and the square, how busy), `bell` (the market bell on its post swings and rings), `pigeons` (the pigeons fly up off the cobbles and wheel away: how far they have flown), `hen` (Micka's hen out of her wicker coop, which stays the `hen` to tap: on her way she flutters up over the lane, and at 1 she stands pecking on Marko's cart between the bottles and the barrel, drawn with the cart, so a tap on her there is a tap on the `cart`; falling, she flies back; 0: in her coop) |
 | `watchtower` | tower, railing, torch, horn, spyglass, flag, crow, roofs, palisade, gate, road, forest, river, valley, mountains, horizon | watch, rail, hatch | `torch` (the watch's torch: 0 out, 1 lit; not set: lit from dusk), `horn` (the horn blown, its call going out over the land: how loud), `birds` (a flock rises off the forest and wheels away: how far), `wolves` (eyes shining in the dark forest at night, grey wolves slinking over the fields by day: how many), `pedlar` (the krošnjar coming down the road from where it passes the forest's edge to the gate: how far, 1 in at the gate; a little man in a black hat and a white shirt under his krošnja, its frame higher than his hat with a sieve on top, bigger than his size so the eye finds him from up there) |
+| `mill` | millstone, hopper, grain, flour, sack, shaft, gear, wheel, flume, scale, measure, bench, window, door, ladder, cat, mouse, lantern, sieve | stones, sacks, door | `grind` (the stones grinding: below 0.12 stopped, the water off the flume and the waterwheel, the cog wheel, the pinion and the runner still, no flour running; below 0.6 an easy turn; from 0.6 hard, the shoe shaking, the flour running thick; not set: an easy turn), `pour` (grain poured into the hopper: how full it is, 0 empty, 1 full; while it fills a sack tipped over its rim pours a golden stream into it; not set: half full), `sack` (the flour sack under the spout filling: 0 empty and slack, 1 full and round, flour heaped in its mouth; not set: half full), `dust` (a puff of flour dust, how thick: a white cloud billowing up off the sack over whoever stands by it, drifting into the window's light, more motes in its beam), `cat` (the cat after the mouse: to 0.35 crouched and wiggling, the tail twitching; then the leap; from 0.75 landed by the hole, sitting, the mouse gone in, its tail last; not set: crouched, watching, the mouse peeping out now and then), `lantern` (0 dark, 1 lit; not set: lit from dusk), `weigh` (a bag of flour weighed on the scale: to 0.5 on its left pan, the beam tipping down to it; then the weights on the right pan, the beam swinging back level), `toll` (the miller's toll, merica: grain heaped in the measure, how full) |
 
 People sprites: `grandma` (headscarf, apron), `grandpa` (hat, walking stick), `child1`, `child2`,
 `child3`, `shepherd` (crook), `smith` (leather apron, hammer), `teacher`, `farmer` (straw hat),

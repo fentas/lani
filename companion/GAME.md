@@ -1782,6 +1782,8 @@ The feast, forging, the project steps and buying goods are the uses for full sto
 
 Each step's task and story line, in Slovene and English, are in the culture pack (`projects.json`); the step lines name only the leader and groups ("fantje", "sosedje", "otroci", "vsa vas"), so they fit whoever lives here.
 
+**Landmarks to step into.** Two finished landmarks lead into scenes of their own (their scenes open `from: ["project:<id>"]`): the vineyard's terraces into the vineyard (Na gričih) and, once it grinds, the mill into the mill (V mlinu, in the Friuli village Nel mulino; [SCENES.md](SCENES.md#the-mill-inside-from-the-stream-and-from-the-map)). A tap on such a landmark opens its card with "🚪 Vstopi · Go in" and the project under it; the stream's mill leads in from the stream's scene too. Before the project is finished the tap opens the project, as for every other landmark.
+
 **For the map.** The state the landmarks are drawn from:
 
 - `GameState.projects: Map<String, Int>`: project id → steps done (missing: 0).
