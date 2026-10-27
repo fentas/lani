@@ -1,5 +1,6 @@
 package si.lanisce.lani.ui
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -119,14 +120,15 @@ fun ReviewScreen(vm: AppViewModel, cards: List<ReviewCard>, polish: Boolean = fa
     // Only the home language's: the village waits for its own words, not for a visit's.
     val rusty = if (!home) emptyList() else tasks.zip(done).filter { (t, q) -> t.card.rustsAt(q) }.map { it.first.card }
     Finish(
-        title = "${inTarget("reviewScreen.excellent")} 🎉",
+        // "Odlično!" for a good review, not for 0 of 1 (the audit's nav-101): else a cheer for the work
+        title = if (correct >= done.size * 0.7) "${inTarget("reviewScreen.excellent")} 🎉" else "${inTarget("playerScreen.goodWork")} 💪",
         lines = listOfNotNull(
             inBase("reviewScreen.recalled", "correct" to correct, "total" to done.size),
             if (perfect > 0) "⚡ ${inBase("reviewScreen.onHardestLevel", "perfect" to perfect)}" else null,
             "+${correct * 10 + 25} XP",
             if (rusty.isNotEmpty()) "🔩 ${bi("reviewScreen.gotRusty", "n" to rusty.size)}" else null,
         ),
-        onDone = if (polish) vm::leaveRun else vm::home,
+        onDone = vm::leaveRun,
         stage = stage,
     ) {
         RewardSummary(vm.game.lastReward, onVillage = vm::openVillage)
@@ -190,6 +192,8 @@ private fun DeckSwitch(vm: AppViewModel, current: String?) {
  */
 @Composable
 fun Finish(title: String, lines: List<String>, onDone: () -> Unit, stage: StageState? = null, hero: (@Composable () -> Unit)? = null, extra: @Composable () -> Unit = {}) {
+    // Back here does what "Naprej · Continue" does: on, where the run began (never out of the app)
+    BackHandler(onBack = onDone)
     Box(Modifier.fillMaxSize()) {
         // Centred, and scrollable when a small screen or a large font doesn't fit it.
         BoxWithConstraints(Modifier.fillMaxSize().safeDrawingPadding()) {

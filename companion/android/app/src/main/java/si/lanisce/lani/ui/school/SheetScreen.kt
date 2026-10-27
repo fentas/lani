@@ -51,7 +51,7 @@ import si.lanisce.lani.ui.theme.XpGold
  * cards first; its words tappable; 💡 per item; 💬 the tutor); then what it brought, and the next step.
  */
 @Composable
-fun SheetScreen(vm: AppViewModel, unitId: String, kind: SheetKind, sheetId: String, fromVillage: Boolean) {
+fun SheetScreen(vm: AppViewModel, unitId: String, kind: SheetKind, sheetId: String) {
     val unit = vm.school.unit(unitId)
     val ws = if (kind == SheetKind.TEST) null else unit?.sheet(sheetId)
     if (unit == null || (kind != SheetKind.TEST && ws == null)) {

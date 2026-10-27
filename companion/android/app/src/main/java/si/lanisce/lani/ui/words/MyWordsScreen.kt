@@ -1,6 +1,5 @@
 package si.lanisce.lani.ui.words
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -42,7 +41,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import si.lanisce.lani.AppViewModel
-import si.lanisce.lani.Screen
 import si.lanisce.lani.app.DictionaryLook
 import si.lanisce.lani.app.MyWordsSearch
 import si.lanisce.lani.app.WordQuery
@@ -55,10 +53,11 @@ import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.bi
 import si.lanisce.lani.l10n.inBase
 import si.lanisce.lani.ui.GradientHeader
+import si.lanisce.lani.ui.backLabel
 import si.lanisce.lani.ui.theme.AlpineGreen
 import java.time.LocalDate
 
-// "📚 Moje besede · My words" (data/MyWords.kt; companion/README.md "My words"): the learner's words, the newest few on
+// "🔤 Moje besede · My words" (data/MyWords.kt; companion/README.md "My words"): the learner's words, the newest few on
 // top, then all of them by letter; a search that filters them as it is typed and looks the word up in the dictionary
 // (GET /lookup) when it isn't one of theirs. A word opens its card (WordSheet: its meanings, its forms, "📋 Vse oblike").
 // A word asked for that waits for the tutor's meaning (GET /words/requests, or the outbox offline) is on top ("✍️ Čakajo na
@@ -67,8 +66,7 @@ import java.time.LocalDate
 // navigationBarsPadding), the search field at its top, the list taking the room left.
 
 @Composable
-fun MyWordsScreen(vm: AppViewModel, at: Screen.MyWords) {
-    BackHandler { vm.leaveMyWords(at) }
+fun MyWordsScreen(vm: AppViewModel) {
     val d = vm.content.dashboard
     val words = remember(d?.pool, d?.learned) { MyWords.of(d?.pool.orEmpty(), d?.learned.orEmpty()) }
     val scope = rememberCoroutineScope()
@@ -91,13 +89,13 @@ fun MyWordsScreen(vm: AppViewModel, at: Screen.MyWords) {
     Column(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).navigationBarsPadding().imePadding()) {
         val learning = words.size - known
         GradientHeader(
-            "📚 ${bi("myWords.title")}",
+            "🔤 ${bi("myWords.title")}",
             listOfNotNull(
                 bi("myWords.known", "n" to known),
                 bi("myWords.learning", "n" to learning).takeIf { learning > 0 },
             ).joinToString(" · "),
-            if (at.fromPacks) "← ${bi("homeScreen.newWords")}" else "← ${bi("common.progress")}",
-            onBack = { vm.leaveMyWords(at) },
+            vm.backLabel,
+            onBack = vm::back,
             bottom = 16.dp,
         )
         SearchField(search.query, onChange = { search.type(it, words) }, onClear = search::clear)
@@ -118,7 +116,7 @@ fun MyWordsScreen(vm: AppViewModel, at: Screen.MyWords) {
                     items(g.words, key = { "${g.key}-${it.id}" }) { w -> WordRow(w) { open(w.word) } }
                 }
             } else {
-                if (found.isNotEmpty()) item("h-mine") { GroupHead("📚 ${bi("myWords.yours", "n" to found.size)}") }
+                if (found.isNotEmpty()) item("h-mine") { GroupHead("🔤 ${bi("myWords.yours", "n" to found.size)}") }
                 items(found, key = { "f-${it.id}" }) { w -> WordRow(w) { open(w.word) } }
                 item("dictionary") { Dictionary(search.look, mine = found.isNotEmpty(), open = open) }
             }

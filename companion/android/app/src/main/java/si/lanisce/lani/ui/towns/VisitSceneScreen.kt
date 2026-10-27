@@ -1,5 +1,6 @@
 package si.lanisce.lani.ui.towns
 
+import si.lanisce.lani.ui.backLabel
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -92,9 +93,8 @@ import java.time.LocalDateTime
 fun VisitSceneScreen(vm: AppViewModel, id: String) {
     val v = vm.visits.visit
     val spec = v?.scene(id)
-    BackHandler { vm.openVisit() }
     if (v == null || spec == null) {
-        LaunchedEffect(Unit) { vm.openVisit() }
+        LaunchedEffect(Unit) { vm.back() }
         return
     }
     VisitPlace(vm, v, spec)
@@ -254,8 +254,8 @@ private fun VisitPlace(vm: AppViewModel, v: TownVisit, spec: SceneSpec) {
         AnimatedVisibility(!lifted, enter = fadeIn(), exit = fadeOut()) {
             Row(Modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = 8.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
                 OverlayPill {
-                    TextButton(onClick = vm::openVisit) {
-                        Text("‹ ${v.name.ifBlank { bi("common.village") }}", color = Color.White, style = MaterialTheme.typography.labelLarge)
+                    TextButton(onClick = vm::back) {
+                        Text(vm.backLabel, color = Color.White, style = MaterialTheme.typography.labelLarge)
                     }
                 }
             }

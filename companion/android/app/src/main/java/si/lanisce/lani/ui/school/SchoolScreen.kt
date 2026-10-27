@@ -1,6 +1,5 @@
 package si.lanisce.lani.ui.school
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -64,7 +63,7 @@ import si.lanisce.lani.ui.game.NextAgeRow
 import si.lanisce.lani.ui.theme.AlpineGreen
 import si.lanisce.lani.ui.theme.XpGold
 
-// "📚 Šola · School" (companion/GAME.md, "The school"): the class from the hamlet on, the course's levels and units, the
+// "🏫 Šola · School" (companion/GAME.md, "The school"): the class from the hamlet on, the course's levels and units, the
 // unit suggested next (★), what opens the next level; and the school on the linden's and the school's cards.
 
 /** The school's name now, by where the class meets: "Pouk ob ognju", "Pouk pod lipo", "Šola"; "Šola" before it begins. */
@@ -109,21 +108,19 @@ internal fun WhoTeaches(vm: AppViewModel, s: GameState) {
     else Text("👩‍🏫 ${bi("school.teacherComes", "teacher" to name)}", style = MaterialTheme.typography.bodyMedium)
 }
 
-/** "📚 Šola · School": the course of the village's language, level by level. */
+/** "🏫 Šola · School": the course of the village's language, level by level. Back: where it was opened (a scene, Napredek, Home). */
 @Composable
-fun SchoolScreen(vm: AppViewModel, fromVillage: Boolean) {
-    BackHandler { vm.leaveSchool(fromVillage) }
+fun SchoolScreen(vm: AppViewModel) {
     val s = vm.game.state
     val course = vm.school.course
     LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 32.dp)) {
         item {
             GradientHeader(
-                "📚 ${schoolTitle(s)}",
+                "🏫 ${schoolTitle(s)}",
                 if (s == null || School.open(s)) bi("school.about") else beginsIn(),
-                // entered from the class's scene: back there ("← V šoli · At school"); from the progress screen, back to it
-                vm.schoolScene?.let { vm.scenes.byId(it.id) }?.let { "← ${it.title}" }
-                    ?: vm.schoolProgress?.let { "← ${bi("common.progress")}" } ?: backLabel(fromVillage),
-                onBack = { vm.leaveSchool(fromVillage) },
+                // where it was opened: the class's scene ("‹ V šoli · At school"), Napredek, the village, Home
+                vm.backLabel,
+                onBack = vm::back,
             )
         }
         if (s == null || course == null) {
@@ -143,12 +140,12 @@ fun SchoolScreen(vm: AppViewModel, fromVillage: Boolean) {
                         },
                     )
                     WhoTeaches(vm, s)
-                    School.next(s, course)?.let { NextCard(vm, course, it, fromVillage) }
+                    School.next(s, course)?.let { NextCard(vm, course, it) }
                 }
             }
         }
         for (level in School.levels(s, course)) {
-            item("level-${level.level}") { LevelSection(vm, s, course, level, fromVillage) }
+            item("level-${level.level}") { LevelSection(vm, s, course, level) }
         }
         item { ReadSetting(vm, Modifier.padding(horizontal = 20.dp, vertical = 8.dp)) }
         if (course.machineWritten) item {
@@ -189,7 +186,7 @@ internal fun BeginsCard(vm: AppViewModel, s: GameState) {
     val check = GameEngine.advanceCheck(s, vm.content.wordsKnown, vm.content.targetLevel, vm.content.wordsRusty)
     Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.tertiaryContainer), modifier = Modifier.fillMaxWidth()) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text("${Age.ZASELEK.emoji}📚 ${beginsIn()}", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+            Text("${Age.ZASELEK.emoji}🏫 ${beginsIn()}", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
             Text(bi("school.beginsAbout", "teacher" to (vm.school.teacher()?.name ?: inTarget("school.teacher"))), style = MaterialTheme.typography.bodyMedium)
             // never a wall: the way to the hamlet, one tap away
             NextAgeRow(check) { vm.openVillageAges() }
@@ -199,9 +196,9 @@ internal fun BeginsCard(vm: AppViewModel, s: GameState) {
 
 /** The unit suggested next (★), one tap into it. */
 @Composable
-private fun NextCard(vm: AppViewModel, course: Course, ref: UnitRef, fromVillage: Boolean) {
+private fun NextCard(vm: AppViewModel, course: Course, ref: UnitRef) {
     val unit = course.units[ref.id] ?: return
-    Card(onClick = { vm.openUnit(ref.id, fromVillage) }, colors = CardDefaults.cardColors(containerColor = XpGold.copy(alpha = 0.22f)), modifier = Modifier.fillMaxWidth()) {
+    Card(onClick = { vm.openUnit(ref.id) }, colors = CardDefaults.cardColors(containerColor = XpGold.copy(alpha = 0.22f)), modifier = Modifier.fillMaxWidth()) {
         Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
             Text(unit.emoji, style = MaterialTheme.typography.headlineMedium)
             Spacer(Modifier.width(12.dp))
@@ -216,7 +213,7 @@ private fun NextCard(vm: AppViewModel, course: Course, ref: UnitRef, fromVillage
 
 /** A course level: its progress, its units (✓ done, ★ next, open, 🔒 locked, 📝 coming), what opens it. */
 @Composable
-private fun LevelSection(vm: AppViewModel, s: GameState, course: Course, level: School.LevelState, fromVillage: Boolean) {
+private fun LevelSection(vm: AppViewModel, s: GameState, course: Course, level: School.LevelState) {
     val next = School.next(s, course)
     Column(Modifier.padding(horizontal = 16.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -238,7 +235,7 @@ private fun LevelSection(vm: AppViewModel, s: GameState, course: Course, level: 
             progress = { level.done.toFloat() / level.of }, modifier = Modifier.fillMaxWidth().height(6.dp).clip(CircleShape), color = XpGold,
         )
         if (!level.open) GateCard(vm, s, level)
-        for (ref in course.refs(level.level)) UnitRow(vm, s, course, ref, School.status(s, course, ref, next), fromVillage)
+        for (ref in course.refs(level.level)) UnitRow(vm, s, course, ref, School.status(s, course, ref, next))
         // the level's sheets on paper, a booklet (companion/COURSE.md, "Printed sheets"); a row's 🖨️ says here what went wrong
         PrintButton(vm, Prints.booklet(course, level.level), bi("school.printAll"), troubleOf = { it.level == level.level })
     }
@@ -257,7 +254,7 @@ private fun GateCard(vm: AppViewModel, s: GameState, level: School.LevelState) {
                     is School.Need.SchoolLevel -> "⬆️ ${bi("school.needSchoolLevel", "level" to n.level)}" to {
                         School.schoolBuilding(s)?.let { vm.openBuildingCard(it.id) } ?: vm.village()
                     }
-                    is School.Need.Units -> "📚 ${bi("school.unitsToGo", "n" to n.left, "level" to n.level)}" to null
+                    is School.Need.Units -> "🏫 ${bi("school.unitsToGo", "n" to n.left, "level" to n.level)}" to null
                 }
                 if (action == null) Text(text, style = MaterialTheme.typography.bodyMedium)
                 else TextButton(onClick = action, modifier = Modifier.heightIn(min = 48.dp)) { Text("$text ›") }
@@ -268,7 +265,7 @@ private fun GateCard(vm: AppViewModel, s: GameState, level: School.LevelState) {
 
 /** A unit's row: its picture, title and where it stands; a tap opens it (not a planned or locked one). */
 @Composable
-private fun UnitRow(vm: AppViewModel, s: GameState, course: Course, ref: UnitRef, status: School.Status, fromVillage: Boolean) {
+private fun UnitRow(vm: AppViewModel, s: GameState, course: Course, ref: UnitRef, status: School.Status) {
     val unit = course.units[ref.id]
     val p = School.progress(s, course.language, ref.id)
     val (mark, line) = when (status) {
@@ -280,7 +277,7 @@ private fun UnitRow(vm: AppViewModel, s: GameState, course: Course, ref: UnitRef
     }
     val enabled = status != School.Status.PLANNED && status != School.Status.LOCKED && unit != null
     Card(
-        onClick = { vm.openUnit(ref.id, fromVillage) }, enabled = enabled,
+        onClick = { vm.openUnit(ref.id) }, enabled = enabled,
         colors = CardDefaults.cardColors(containerColor = if (status == School.Status.NEXT) XpGold.copy(alpha = 0.16f) else MaterialTheme.colorScheme.surface),
         modifier = Modifier.fillMaxWidth().alpha(if (status == School.Status.PLANNED) 0.55f else 1f),
     ) {
@@ -299,25 +296,25 @@ private fun UnitRow(vm: AppViewModel, s: GameState, course: Course, ref: UnitRef
 }
 
 /**
- * The school on a building's card (ui/game/BuildingCard): on the linden's while the class meets under it, "📚 Pouk pod
- * lipo"; on the school's, "📚 Šola · School". [onOpen] as the school opens (the card closes).
+ * The school on a building's card (ui/game/BuildingCard): on the linden's while the class meets under it, "🏫 Pouk pod
+ * lipo"; on the school's, "🏫 Šola · School". [onOpen] as the school opens (the card closes).
  */
 @Composable
 fun SchoolOnCard(vm: AppViewModel, s: GameState, b: Building, onOpen: () -> Unit) {
     if (vm.school.course == null) return
     val goes = (b.type == BuildingType.LIPA && School.open(s) && School.place(s) == School.Place.LINDEN) || b.type == BuildingType.SCHOOL
-    if (goes) BigButton("📚 ${if (b.type == BuildingType.SCHOOL) bi("school.title") else bi("school.classroom")}", color = AlpineGreen, onClick = {
+    if (goes) BigButton("🏫 ${if (b.type == BuildingType.SCHOOL) bi("school.title") else bi("school.classroom")}", color = AlpineGreen, onClick = {
         onOpen()
-        vm.openSchool(fromVillage = true)
+        vm.openSchool()
     })
 }
 
-/** What the school's next level asks of the course: "📚 Za stopnjo 2: tečaj A2 · 3 enote še" or done. */
+/** What the school's next level asks of the course: "🏫 Za stopnjo 2: tečaj A2 · 3 enote še" or done. */
 @Composable
 fun CourseGateCard(g: CourseGate) {
     Surface(color = if (g.done) AlpineGreen.copy(alpha = 0.14f) else MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.medium, modifier = Modifier.fillMaxWidth()) {
         Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Text("${if (g.done) "✅" else "📚"} ${bi("school.gateTitle", "toLevel" to g.toLevel, "level" to g.level)}", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
+            Text("${if (g.done) "✅" else "🏫"} ${bi("school.gateTitle", "toLevel" to g.toLevel, "level" to g.level)}", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
             if (!g.done) Text(bi("school.unitsToGo", "n" to g.left, "level" to g.level), style = MaterialTheme.typography.bodySmall)
         }
     }

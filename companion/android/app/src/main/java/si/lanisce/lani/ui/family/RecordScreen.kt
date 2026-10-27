@@ -93,7 +93,7 @@ fun RecordScreen(vm: AppViewModel) {
 
     Column(Modifier.fillMaxSize().safeDrawingPadding().padding(horizontal = 16.dp, vertical = 8.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            TextButton(onClick = vm::home) { EmojiLabel("✕", Labels.CLOSE) }
+            TextButton(onClick = vm::back) { EmojiLabel("✕", Labels.CLOSE) }
             Text("⏺ ${bi("common.familyRecords")}", style = MaterialTheme.typography.titleMedium)
         }
         LazyColumn(Modifier.weight(1f), contentPadding = PaddingValues(bottom = 24.dp)) {

@@ -82,10 +82,10 @@ class VillageWidget : AppWidgetProvider() {
             val info = WidgetInfo.of(state, prefs.getInt("streak", 0), prefs.getInt("due", -1), System.currentTimeMillis())
             val density = context.resources.displayMetrics.density
             val radius = context.resources.getDimension(R.dimen.widget_radius)
-            val open = PendingIntent.getActivity(
-                context, 10, Intent(context, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),
-                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
-            )
+            // a tap: today's reviews while cards are due (Back from them: Home), else the app as it was
+            val launch = Intent(context, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            if (prefs.getInt("due", 0) > 0) launch.putExtra(si.lanisce.lani.data.DeepLink.EXTRA, si.lanisce.lani.data.DeepLink.encode(si.lanisce.lani.data.DeepLink.Review))
+            val open = PendingIntent.getActivity(context, 10, launch, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
             for (id in ids) {
                 val o = manager.getAppWidgetOptions(id)
                 // Portrait size: min width, max height (dp). Fall back to the 4×2 default.

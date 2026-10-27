@@ -336,9 +336,6 @@ fun BigButton(
 /** Whole minutes on screen since [started] (ScreenClock.app.now()), rounded up: a session's duration_minutes (at least 1). */
 fun minutesSince(started: Long, now: Long = ScreenClock.app.now()): Int = ((now - started) / 60_000).toInt().coerceAtLeast(0) + 1
 
-/** Where back leads from a screen that opens from both Home and the village. */
-fun backLabel(fromVillage: Boolean): String = if (fromVillage) "← ${bi("common.village")}" else "← ${bi("common.home")}"
-
 /** The blue gradient header of the list screens: a back link, then [content], below the status bar. */
 @Composable
 fun GradientHeader(back: String, onBack: () -> Unit, bottom: Dp = 24.dp, content: @Composable ColumnScope.() -> Unit) {

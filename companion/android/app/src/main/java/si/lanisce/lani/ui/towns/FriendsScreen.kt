@@ -1,8 +1,8 @@
 package si.lanisce.lani.ui.towns
 
+import si.lanisce.lani.ui.backLabel
 import android.Manifest
 import android.content.Intent
-import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Canvas
@@ -111,7 +111,6 @@ fun FriendsScreen(vm: AppViewModel) {
     var onlyHere by rememberSaveable { mutableStateOf(false) }
     // an invitation opened from a link: the Accept dialog, filled in
     LaunchedEffect(towns.incoming) { if (towns.incoming != null && vm.hosted.townsAvailable) accepting = true }
-    BackHandler { vm.openVillage() }
     LaunchedEffect(Unit) {
         towns.load()
         vm.questions.load()
@@ -125,8 +124,8 @@ fun FriendsScreen(vm: AppViewModel) {
                 GradientHeader(
                     "🤝 ${bi("towns.friends")}",
                     list?.self?.let { "${bi("towns.yourTown")}: ${FriendsLogic.selfLine(it)}" } ?: bi("towns.friendsAbout"),
-                    "‹ ${bi("common.village")}",
-                    vm::openVillage,
+                    vm.backLabel,
+                    vm::back,
                 )
             }
             // Lani on this phone without a relay: no town of its own to link yet (the setting is in the connection sheet)

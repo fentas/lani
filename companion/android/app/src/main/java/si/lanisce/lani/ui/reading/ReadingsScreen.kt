@@ -1,6 +1,5 @@
 package si.lanisce.lani.ui.reading
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -45,10 +44,10 @@ import si.lanisce.lani.game.Readings
 import si.lanisce.lani.game.culture.ReadingFile
 import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.bi
+import si.lanisce.lani.ui.backLabel
 import si.lanisce.lani.l10n.inTarget
 import si.lanisce.lani.ui.BigButton
 import si.lanisce.lani.ui.GradientHeader
-import si.lanisce.lani.ui.backLabel
 import si.lanisce.lani.game.scene.StoryBooks
 import si.lanisce.lani.ui.game.ReadingLogic
 import si.lanisce.lani.ui.game.ReadingSheet
@@ -62,11 +61,9 @@ import si.lanisce.lani.ui.theme.AlpineGreen
  * its level, length and whether it was read. One opens in the reading view ([ReadingSheet]): its lines, questions, new
  * words, and "🎤 Beri na glas · Read aloud". On top, one row for the story notebook ("📓 Moj zvezek zgodb · My story
  * notebook", ui/notebook: the stories heard by the fire, written down; its own thing, listed here as one item).
- * [fromVillage]: opened from the village book or the chest; back leads there.
  */
 @Composable
-fun ReadingsScreen(vm: AppViewModel, fromVillage: Boolean) {
-    BackHandler { vm.leaveReadings(fromVillage) }
+fun ReadingsScreen(vm: AppViewModel) {
     val lang = L10n.pair.target
     val level = vm.levelIn(lang.code)
     val read = vm.readings.read()
@@ -79,10 +76,10 @@ fun ReadingsScreen(vm: AppViewModel, fromVillage: Boolean) {
     LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 32.dp)) {
         item("header") {
             GradientHeader(
-                "📖 ${bi("readings.title")}",
+                "📗 ${bi("readings.title")}",
                 "${bi("readings.yourLevel", "level" to level)}. ${bi("readings.about")}",
-                backLabel(fromVillage),
-                onBack = { vm.leaveReadings(fromVillage) },
+                vm.backLabel,
+                onBack = vm::back,
             )
         }
         if (tells) item("notebook") {
@@ -118,7 +115,7 @@ fun ReadingsScreen(vm: AppViewModel, fromVillage: Boolean) {
             onDismiss = { open = null },
             onReadAloud = {
                 open = null
-                vm.openReadAloud(r.id, fromVillage, fromCorner = true)
+                vm.openReadAloud(r.id)
             },
         )
     }

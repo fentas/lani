@@ -1,7 +1,6 @@
 package si.lanisce.lani.ui.game
 
 import android.graphics.Bitmap
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -71,8 +70,8 @@ import kotlin.random.Random
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun FoundingScreen(vm: AppViewModel) {
-    // the choice is the step: back doesn't skip it
-    BackHandler {}
+    // the choice is the step: Back doesn't skip it, it leaves the app as at Home (never a gesture that does nothing), and
+    // the choice waits for the next start
     val culture = vm.culture
     // QA's "seed:<n>" (a debug build): that place, as the learner would have rolled it
     val qaSeed = si.lanisce.lani.app.QaHooks.foundingSeed

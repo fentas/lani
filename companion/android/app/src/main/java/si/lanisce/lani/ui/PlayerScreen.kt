@@ -53,6 +53,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
@@ -254,8 +255,9 @@ fun ExerciseRun(
         vm.grammar.announceRest() // pages met in quick answers without a feedback box
         onComplete(outs)
     }
+    // nothing answered yet: back where the run began (its intro, or the screen under it)
     val stop = {
-        if (outcomes.isEmpty() && (timeLimitSeconds == null || remaining > 0)) (onExit ?: vm::home)()
+        if (outcomes.isEmpty() && (timeLimitSeconds == null || remaining > 0)) (onExit ?: vm::leaveRun)()
         else if (!stopped) {
             stopped = true
             complete(outcomes.toList())
@@ -311,6 +313,26 @@ fun ExerciseRun(
         watch = if (outcome == null && index < exercises.size && clock == Clock.RUNNING && !stopped) vm.cheat.watch() else null
     }
     DisposableEffect(Unit) { onDispose { watch?.let(vm.cheat::unwatch) } }
+    // answers given and the run not over: what would open elsewhere from a sheet over it waits (AppViewModel.runBusy)
+    val busy = outcomes.isNotEmpty() && !stopped
+    LaunchedEffect(busy) { vm.runBusy = busy }
+    // and should the run go from the screen all the same (a notification's target, the screens built anew in another
+    // language), what was answered is kept as its end would keep it, never lost; still on top (built anew), it doesn't
+    // start over: back where it began. Not while the activity is only recreated (its configuration: the run goes on)
+    val latestComplete by rememberUpdatedState(complete)
+    val activity = androidx.activity.compose.LocalActivity.current
+    val entry = remember { vm.nav.entries.last().id }
+    DisposableEffect(Unit) {
+        onDispose {
+            vm.runBusy = false
+            if (activity?.isChangingConfigurations == true) return@onDispose
+            if (!stopped && outcomes.isNotEmpty()) {
+                stopped = true
+                latestComplete(outcomes.toList())
+                if (vm.nav.entries.last().id == entry) vm.leaveRun()
+            }
+        }
+    }
     BackHandler(onBack = stop)
     // back hides the text shown again first
     BackHandler(enabled = peeking) { peeking = false }
@@ -575,7 +597,7 @@ fun PlayerScreen(vm: AppViewModel, module: Module) {
     Finish(
         title = if (correct + almost >= done.size * 0.7) "${inTarget("playerScreen.bravo")} 🎉" else "${inTarget("playerScreen.goodWork")} 💪",
         lines = listOf("✅ $correct   🟡 $almost   ❌ ${done.size - correct - almost}", "+${correct * 10 + almost * 5 + 25} XP"),
-        onDone = vm::home,
+        onDone = vm::leaveRun,
         stage = stage,
     ) {
         // a tutor's request passed: their thank-you good is a present to open

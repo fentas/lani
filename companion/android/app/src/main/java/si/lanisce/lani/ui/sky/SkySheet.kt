@@ -61,7 +61,7 @@ import java.time.ZoneId
  * learner's own village (as a place's story on a visit has no "📚 Learn the words": ui/game/PlaceCard).
  */
 @Composable
-fun SkySheet(vm: AppViewModel, tap: SkyTap, onDismiss: () -> Unit, fromVillage: Boolean = true, guest: Boolean = false) {
+fun SkySheet(vm: AppViewModel, tap: SkyTap, onDismiss: () -> Unit, guest: Boolean = false) {
     val culture = Cultures.current
     val sky = remember(culture.id) { Cultures.sky(culture.id) }
     val pair = L10n.pair
@@ -95,7 +95,7 @@ fun SkySheet(vm: AppViewModel, tap: SkyTap, onDismiss: () -> Unit, fromVillage: 
         }
         Column(Modifier.heightIn(max = 620.dp).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Body(vm, card)
-            if (!guest) Actions(vm, card, readable?.let { { reading = true } }, fromVillage, onDismiss)
+            if (!guest) Actions(vm, card, readable?.let { { reading = true } }, onDismiss)
         }
     }
 }
@@ -193,7 +193,7 @@ private fun Line(vm: AppViewModel, s: Said, bold: Boolean) {
 }
 
 @Composable
-private fun Actions(vm: AppViewModel, card: SkyCard, onRead: (() -> Unit)?, fromVillage: Boolean, onDismiss: () -> Unit) {
+private fun Actions(vm: AppViewModel, card: SkyCard, onRead: (() -> Unit)?, onDismiss: () -> Unit) {
     if (onRead != null) {
         val title = remember(card.reading) { card.reading?.let { id -> Cultures.library(Cultures.current.id).firstOrNull { it.id == id }?.title } }
         OutlinedButton(onClick = onRead, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
@@ -203,7 +203,7 @@ private fun Actions(vm: AppViewModel, card: SkyCard, onRead: (() -> Unit)?, from
     // the sky's word pack, when the app has it: learn its words not learned yet
     val pack = card.pack?.takeIf { card.words.isNotEmpty() && FestivalPacks.pack(it) != null }
     if (pack != null) FilledTonalButton(
-        onClick = { onDismiss(); vm.startPack(pack, fromVillage = fromVillage) },
+        onClick = { onDismiss(); vm.startPack(pack) },
         modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
     ) { Text("📚 ${bi("sky.learn")}") }
 }

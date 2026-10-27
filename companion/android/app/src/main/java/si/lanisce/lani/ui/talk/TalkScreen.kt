@@ -1,5 +1,6 @@
 package si.lanisce.lani.ui.talk
 
+import si.lanisce.lani.ui.backLabel
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -137,13 +138,12 @@ private fun Header(title: String, subtitle: String?, back: String, onBack: () ->
 @Composable
 private fun ScenarioList(vm: AppViewModel) {
     val t = vm.talk
-    BackHandler(onBack = vm::leaveTalk)
     LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 32.dp)) {
         item {
             Header(
                 "🗣️ ${bi("common.talk")}",
                 bi("talkScreen.tutorPlaysOtherPerson"),
-                vm.talkBackLabel ?: "← ${bi("common.home")}",
+                vm.backLabel,
                 vm::leaveTalk,
             )
         }
@@ -270,7 +270,7 @@ private fun Conversation(vm: AppViewModel, st: TalkState) {
         Surface(color = SloBlueDeep) {
             Column(Modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = 8.dp, vertical = 6.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    TextButton(onClick = leave) { EmojiLabel("←", Labels.BACK, color = Color.White) }
+                    TextButton(onClick = leave) { EmojiLabel("‹", Labels.BACK, color = Color.White) }
                     Column(Modifier.weight(1f)) {
                         Text("${st.scenario.emoji} ${st.scenario.character}", color = Color.White, style = MaterialTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
                         Text(st.scenario.title, color = Color.White.copy(alpha = 0.75f), style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
@@ -492,7 +492,7 @@ private fun TalkEnd(vm: AppViewModel, st: TalkState) {
     val back = { t.abandon(); t.pick(null) }
     val leave = { t.abandon(); t.pick(null); vm.leaveTalk() }
     // A talk with a villager goes back to them; other scenes to the list of scenes.
-    val withVillager = VillagerLogic.villagerOfScenario(st.scenario.id) != null && vm.talkBackLabel != null
+    val withVillager = VillagerLogic.villagerOfScenario(st.scenario.id) != null && vm.talkOpenedFrom
     BackHandler(onBack = if (withVillager) leave else back)
     // The question under the debrief, kept while its row scrolls out of sight.
     val ask = rememberTalkVoice(vm, remember { TalkDraft() })
@@ -506,7 +506,7 @@ private fun TalkEnd(vm: AppViewModel, st: TalkState) {
             Header(
                 "🎉 ${inTarget("playerScreen.bravo")}",
                 "${st.scenario.emoji} ${st.scenario.title}",
-                if (withVillager) vm.talkBackLabel!! else "← ${bi("talkScreen.scenes")}",
+                if (withVillager) vm.backLabel else "‹ ${bi("talkScreen.scenes")}",
                 if (withVillager) leave else back,
             )
         }
@@ -561,13 +561,8 @@ private fun TalkEnd(vm: AppViewModel, st: TalkState) {
                 BigButton("🔁 ${bi("talkScreen.again")}", onClick = t::again, color = AlpineGreen)
                 BigButton("🗣️ ${bi("talkScreen.anotherScene")}", onClick = back)
                 TextButton(onClick = leave, modifier = Modifier.fillMaxWidth()) {
-                    Text(
-                        when {
-                            vm.talkFromScene -> "‹ ${bi("common.backScene")}"
-                            vm.talkBackLabel != null -> vm.talkBackLabel!!
-                            else -> "🏠 ${bi("common.home")}"
-                        },
-                    )
+                    // where it was opened: "‹ Ob ognju · At the campfire", "‹ Luka", "‹ Domov · Home"
+                    Text(vm.backLabel)
                 }
             }
         }

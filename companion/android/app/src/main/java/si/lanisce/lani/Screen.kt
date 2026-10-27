@@ -23,17 +23,14 @@ sealed interface Screen {
     data object Village : Screen
     /** A village challenge: intro, timed run and result. */
     data class Challenge(val origin: ChallengeOrigin, val challenge: GameChallenge) : Screen
-    /** Word packs ("Nove besede"); back leads to the village when opened from there. */
-    data class Packs(val fromVillage: Boolean = false) : Screen
-    /** "📖 Branje · Reading", the reading corner (ui/reading); back leads to the village when opened from there (its book, its chest). */
-    data class Readings(val fromVillage: Boolean = false) : Screen
-    /**
-     * Reading [id] read aloud ("🎤 Beri na glas · Read aloud", ui/reading/ReadAloudScreen); back leads to the reading
-     * corner ([fromCorner]), else to the village (a chest's reading) or Home.
-     */
-    data class ReadAloud(val id: String, val fromVillage: Boolean = false, val fromCorner: Boolean = true) : Screen
-    /** Introduce [words] of [pack], practise them, save them; back leads to [scene] when learning a scene's words. */
-    data class PackLearn(val pack: Pack, val words: List<PackWord>, val fromVillage: Boolean = false, val scene: String? = null) : Screen
+    /** Word packs ("📚 Nove besede · New words"). */
+    data object Packs : Screen
+    /** "📗 Branje · Reading", the reading corner (ui/reading). */
+    data object Readings : Screen
+    /** Reading [id] read aloud ("🎤 Beri na glas · Read aloud", ui/reading/ReadAloudScreen). */
+    data class ReadAloud(val id: String) : Screen
+    /** Introduce [words] of [pack], practise them, save them; [scene]: the scene whose words they are ("📚 Nauči se teh besed"). */
+    data class PackLearn(val pack: Pack, val words: List<PackWord>, val scene: String? = null) : Screen
     /**
      * "🎯 Vadi jih zdaj · Practise them now": the words building [building]'s upgrade to [toLevel] still asks for, learned
      * and polished in one short run ([run]; companion/GAME.md, "Upgrades"); back leads to the building's card. [n] tells
@@ -42,13 +39,10 @@ sealed interface Screen {
     data class UpgradeWords(val building: String, val toLevel: Int, val run: si.lanisce.lani.game.UpgradeRun, val n: Int = 0) : Screen
     /** "Pogovor · Talk": role-play scenes; which part shows is up to [AppViewModel.talk]. */
     data object Talk : Screen
-    /** "Napredek · Progress"; back leads to the village when opened from there. */
-    data class Progress(val fromVillage: Boolean = false) : Screen
-    /**
-     * "📚 Moje besede · My words" (ui/words/MyWordsScreen): the learner's words and a dictionary lookup; opened from
-     * Napredek's words ([fromPacks] false) or the packs' "Nove besede" ([fromPacks]), where back leads ([fromVillage]: theirs).
-     */
-    data class MyWords(val fromPacks: Boolean = false, val fromVillage: Boolean = false) : Screen
+    /** "📊 Napredek · Progress". */
+    data object Progress : Screen
+    /** "🔤 Moje besede · My words" (ui/words/MyWordsScreen): the learner's words and a dictionary lookup. */
+    data object MyWords : Screen
     /** A family challenge to answer, or (null) the family's recording mode. */
     data class Family(val challengeId: String? = null) : Screen
     /**
@@ -77,27 +71,31 @@ sealed interface Screen {
     data class TownQuestion(val key: String, val asked: Boolean) : Screen
     /**
      * "🗺️ Zemljevid zaklada · The treasure map" (ui/game/TreasureScreen, companion/GAME.md "The treasure map"): the
-     * storyteller's offer, the path and its stations, the treasure; back leads to the village when opened from there.
+     * storyteller's offer, the path and its stations, the treasure.
      */
-    data class Treasure(val fromVillage: Boolean = false) : Screen
-    /**
-     * "📚 Šola · School" (ui/school, companion/GAME.md "The school"): the course's levels and units, the classroom under the
-     * linden; back leads to the village when opened from there.
-     */
-    data class School(val fromVillage: Boolean = false) : Screen
+    data object Treasure : Screen
+    /** "🏫 Šola · School" (ui/school, companion/GAME.md "The school"): the course's levels and units, the classroom under the linden. */
+    data object School : Screen
     /** Unit [id] of the school's course (ui/school/UnitScreen): its intro, worksheets, test and homework. */
-    data class CourseUnit(val id: String, val fromVillage: Boolean = false) : Screen
+    data class CourseUnit(val id: String) : Screen
     /** Unit [id]'s guided introduction (ui/school/IntroScreen): steps with a quick question each, resumable. */
-    data class UnitIntro(val id: String, val fromVillage: Boolean = false) : Screen
+    data class UnitIntro(val id: String) : Screen
     /** A sheet of unit [unit]: a worksheet, its test or homework ([kind], [sheet]); [run] tells one run from the next. */
-    data class Sheet(val unit: String, val kind: si.lanisce.lani.app.SheetKind, val sheet: String, val fromVillage: Boolean = false, val run: Int = 0) : Screen
+    data class Sheet(val unit: String, val kind: si.lanisce.lani.app.SheetKind, val sheet: String, val run: Int = 0) : Screen
     /**
      * "🔢 Števila · Numbers" (ui/numbers/NumbersScreen, data/NumbersPractice): the ranges, the ways of asking, a run to start;
-     * closed, what opens it and the way there. Back leads to the unit stevila ([fromUnit]) or Home.
+     * closed, what opens it and the way there.
      */
-    data class Numbers(val fromUnit: Boolean = false, val fromVillage: Boolean = false) : Screen
+    data object Numbers : Screen
     /** A run of the numbers module: its [tasks]; [run] tells one run from the next. */
-    data class NumbersRun(val tasks: List<si.lanisce.lani.data.NumberTask>, val fromUnit: Boolean = false, val fromVillage: Boolean = false, val run: Int = 0) : Screen
+    data class NumbersRun(val tasks: List<si.lanisce.lani.data.NumberTask>, val run: Int = 0) : Screen
+    /**
+     * "⚙️ Nastavitve · Settings" (ui/settings/SettingsScreen): its sections ([section] null), or one of them as a page of its
+     * own ([SettingsSection]'s ids: "tutor", "data", "languages", "sound", "connection", "developer").
+     */
+    data class Settings(val section: String? = null) : Screen
+    /** "📖 Slovnica · Grammar": the grammar book's index (ui/grammar/GrammarBookScreen), its pages opened over it. */
+    data object GrammarBook : Screen
 }
 
 /** An exercise run: leaving it now would lose the answers so far. */

@@ -62,20 +62,13 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 /**
- * "💾 Podatki · Data" in the connection sheet (ui/home/ConnectionSheet): one line on git and the backup, and the button
- * to the [DataSheet]. The hosted mode's setup opens the sheet too.
+ * "💾 Podatki · Data" in a line, for its row in "⚙️ Nastavitve · Settings" (ui/settings/SettingsScreen): git on or off, the
+ * last backup.
  */
-@Composable
-fun DataSection(d: DataSync, onOpen: () -> Unit, modifier: Modifier = Modifier) {
-    val muted = MaterialTheme.colorScheme.onSurfaceVariant
-    Column(modifier, verticalArrangement = Arrangement.spacedBy(4.dp)) {
-        Text("💾 ${bi("dataSync.title")}", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
-        Text(d.settings.repo?.let { "🔗 ${bi("dataSync.gitOn", "repo" to it)}" } ?: "🔗 ${bi("dataSync.gitOff")}", style = MaterialTheme.typography.bodyMedium)
-        if (d.connected) Text(leaseLine(d), style = MaterialTheme.typography.bodySmall, color = muted)
-        d.settings.lastBackup?.let { Text("🔐 ${bi("dataSync.lastBackup")}: ${whenText(Instant.parse(it))}", style = MaterialTheme.typography.bodySmall, color = muted) }
-        OutlinedButton(onClick = onOpen) { Text("💾 ${bi("dataSync.open")}") }
-    }
-}
+fun dataSummary(d: DataSync): String = listOfNotNull(
+    d.settings.repo?.let { "🔗 ${bi("dataSync.gitOn", "repo" to it)}" } ?: "🔗 ${bi("dataSync.gitOff")}",
+    d.settings.lastBackup?.let { "🔐 ${whenText(Instant.parse(it))}" },
+).joinToString(" · ")
 
 private enum class Dialog { NONE, CONNECT, REPOS, CODE, PASSPHRASE, RESTORE, SCAN, TAKE_ANYWAY, KEEP_PHONE, HAND_OVER, DISCONNECT }
 
@@ -86,6 +79,18 @@ private enum class Dialog { NONE, CONNECT, REPOS, CODE, PASSPHRASE, RESTORE, SCA
  */
 @Composable
 fun DataSheet(d: DataSync, onDismiss: () -> Unit, banner: (String) -> Unit) {
+    LaniSheet(onDismissRequest = onDismiss) {
+        DataContent(d, banner, Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 24.dp).padding(bottom = 24.dp).navigationBarsPadding())
+    }
+}
+
+/**
+ * What [DataSheet] shows, and "⚙️ Nastavitve · Settings" → "💾 Podatki · Data" as a page (ui/settings/SettingsScreen): git,
+ * who writes, the backup, and their dialogs. [modifier]: where it lies (its scroll, its padding); [title] off where a
+ * header names it.
+ */
+@Composable
+fun DataContent(d: DataSync, banner: (String) -> Unit, modifier: Modifier = Modifier, title: Boolean = true) {
     val scope = rememberCoroutineScope()
     var dialog by remember { mutableStateOf(Dialog.NONE) }
     var shownCode by remember { mutableStateOf<String?>(null) }
@@ -94,73 +99,69 @@ fun DataSheet(d: DataSync, onDismiss: () -> Unit, banner: (String) -> Unit) {
     fun act(block: suspend CoroutineScope.() -> String?): Job = scope.launch { block()?.let { message = it } }
     LaunchedEffect(Unit) { d.keep() } // this phone's id, shown below, stays the same from now on
 
-    LaniSheet(onDismissRequest = onDismiss) {
-        Column(
-            Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 24.dp).padding(bottom = 24.dp).navigationBarsPadding(),
-            verticalArrangement = Arrangement.spacedBy(10.dp),
-        ) {
-            Text("💾 ${bi("dataSync.title")}", style = MaterialTheme.typography.titleLarge)
-            Text(bi("dataSync.what"), style = MaterialTheme.typography.bodySmall, color = muted)
-            if (d.busy) Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                CircularProgressIndicator(Modifier.padding(2.dp), strokeWidth = 2.dp)
-                Text(bi("dataSync.working"), style = MaterialTheme.typography.bodySmall)
-            }
-            message?.let { Text(it, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.primary) }
-
-            // --- git ------------------------------------------------------------------------------------
-            Heading("🔗 ${bi("dataSync.git")}")
-            if (!d.connected) {
-                Text(bi("dataSync.gitWhat"), style = MaterialTheme.typography.bodySmall, color = muted)
-                BigButton("🔗 ${bi("dataSync.connect")}", onClick = { dialog = Dialog.CONNECT }, color = TriglavRed)
-            } else {
-                Info("📦", bi("dataSync.repo"), "${d.settings.repo} · " + if (d.settings.repoPrivate) "🔒 ${bi("dataSync.private")}" else "⚠️ ${bi("dataSync.public")}")
-                d.settings.login?.let { Info("👤", bi("dataSync.account"), it) }
-                Info("🔄", bi("dataSync.lastSync"), d.lastAt?.let { whenText(it) + (d.last?.let { o -> " · " + outcomeText(o) } ?: "") } ?: bi("dataSync.never"))
-                d.diverged?.let { dv ->
-                    Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.errorContainer, RoundedCornerShape(12.dp)).padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                        Text("⚠️ ${bi("dataSync.diverged", "files" to dv.files.take(4).joinToString(", ").ifBlank { "…" }, "branch" to (dv.branch ?: "—"))}", style = MaterialTheme.typography.bodyMedium)
-                        OutlinedButton(onClick = { act { outcomeText(d.useRepository()) } }, enabled = !d.busy) { Text("⬇️ ${bi("dataSync.useRepo")}") }
-                        OutlinedButton(onClick = { dialog = Dialog.KEEP_PHONE }, enabled = !d.busy) { Text("📱 ${bi("dataSync.keepPhone")}") }
-                    }
-                }
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Button(onClick = { act { d.syncNow().join(); d.last?.let(::outcomeText) } }, enabled = !d.busy) { Text("🔄 ${bi("dataSync.syncNow")}") }
-                    TextButton(onClick = { dialog = Dialog.DISCONNECT }) { Text(bi("dataSync.disconnect")) }
-                }
-            }
-
-            // --- who writes -----------------------------------------------------------------------------
-            Heading("📍 ${bi("dataSync.whoWrites")}")
-            if (d.connected) Text(leaseLine(d), style = MaterialTheme.typography.bodyMedium)
-            Text(bi("dataSync.thisPhone", "name" to d.me.name, "id" to d.me.device), style = MaterialTheme.typography.bodySmall, color = muted)
-            when (d.leaseState.takeIf { d.connected }) {
-                LeaseState.OFFERED, LeaseState.FREE, LeaseState.EXPIRED -> {
-                    BigButton("📥 ${bi("dataSync.take")}", onClick = { act { leaseText(d.take(), d) } }, enabled = !d.busy, color = TriglavRed)
-                    Text(bi("dataSync.takeNote"), style = MaterialTheme.typography.bodySmall, color = muted)
-                }
-                LeaseState.MINE -> OutlinedButton(onClick = { dialog = Dialog.HAND_OVER }, enabled = !d.busy) { Text("🖥️ ${bi("dataSync.handOver")}") }
-                LeaseState.OTHER, LeaseState.UNCLAIMED -> TextButton(onClick = { dialog = Dialog.TAKE_ANYWAY }, enabled = !d.busy) { Text(bi("dataSync.takeAnyway")) }
-                else -> Unit
-            }
-            OutlinedButton(onClick = { dialog = Dialog.SCAN }) { Text("📷 ${bi("dataSync.scanHandover")}") }
-            Text(bi("dataSync.scanWhat"), style = MaterialTheme.typography.bodySmall, color = muted)
-
-            // --- the backup ---------------------------------------------------------------------------
-            Heading("🔐 ${bi("dataSync.backup")}")
-            Text(bi("dataSync.backupWhat"), style = MaterialTheme.typography.bodySmall, color = muted)
-            when {
-                d.relay.isBlank() -> Text("⏳ ${bi("dataSync.noRelay")}", style = MaterialTheme.typography.bodyMedium)
-                d.settings.backup == null -> Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Button(onClick = { act { shownCode = d.setUpCode(); dialog = Dialog.CODE; null } }) { Text("🔑 ${bi("dataSync.setUpCode")}") }
-                    OutlinedButton(onClick = { dialog = Dialog.PASSPHRASE }) { Text(bi("dataSync.setUpPassphrase")) }
-                }
-                else -> {
-                    Info("🕒", bi("dataSync.lastBackup"), d.settings.lastBackup?.let { whenText(Instant.parse(it)) } ?: bi("dataSync.never"))
-                    Button(onClick = { act { backupText { d.backupNow().let { bi("dataSync.backedUp", "size" to mb(it.size)) } } } }, enabled = !d.busy) { Text("💾 ${bi("dataSync.backupNow")}") }
-                }
-            }
-            if (d.relay.isNotBlank()) OutlinedButton(onClick = { dialog = Dialog.RESTORE }, enabled = !d.busy) { Text("♻️ ${bi("dataSync.restore")}") }
+    Column(modifier, verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        // its page in the settings has the title in its header
+        if (title) Text("💾 ${bi("dataSync.title")}", style = MaterialTheme.typography.titleLarge)
+        Text(bi("dataSync.what"), style = MaterialTheme.typography.bodySmall, color = muted)
+        if (d.busy) Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            CircularProgressIndicator(Modifier.padding(2.dp), strokeWidth = 2.dp)
+            Text(bi("dataSync.working"), style = MaterialTheme.typography.bodySmall)
         }
+        message?.let { Text(it, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.primary) }
+
+        // --- git ------------------------------------------------------------------------------------
+        Heading("🔗 ${bi("dataSync.git")}")
+        if (!d.connected) {
+            Text(bi("dataSync.gitWhat"), style = MaterialTheme.typography.bodySmall, color = muted)
+            BigButton("🔗 ${bi("dataSync.connect")}", onClick = { dialog = Dialog.CONNECT }, color = TriglavRed)
+        } else {
+            Info("📦", bi("dataSync.repo"), "${d.settings.repo} · " + if (d.settings.repoPrivate) "🔒 ${bi("dataSync.private")}" else "⚠️ ${bi("dataSync.public")}")
+            d.settings.login?.let { Info("👤", bi("dataSync.account"), it) }
+            Info("🔄", bi("dataSync.lastSync"), d.lastAt?.let { whenText(it) + (d.last?.let { o -> " · " + outcomeText(o) } ?: "") } ?: bi("dataSync.never"))
+            d.diverged?.let { dv ->
+                Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.errorContainer, RoundedCornerShape(12.dp)).padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    Text("⚠️ ${bi("dataSync.diverged", "files" to dv.files.take(4).joinToString(", ").ifBlank { "…" }, "branch" to (dv.branch ?: "—"))}", style = MaterialTheme.typography.bodyMedium)
+                    OutlinedButton(onClick = { act { outcomeText(d.useRepository()) } }, enabled = !d.busy) { Text("⬇️ ${bi("dataSync.useRepo")}") }
+                    OutlinedButton(onClick = { dialog = Dialog.KEEP_PHONE }, enabled = !d.busy) { Text("📱 ${bi("dataSync.keepPhone")}") }
+                }
+            }
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
+                Button(onClick = { act { d.syncNow().join(); d.last?.let(::outcomeText) } }, enabled = !d.busy) { Text("🔄 ${bi("dataSync.syncNow")}") }
+                TextButton(onClick = { dialog = Dialog.DISCONNECT }) { Text(bi("dataSync.disconnect")) }
+            }
+        }
+
+        // --- who writes -----------------------------------------------------------------------------
+        Heading("📍 ${bi("dataSync.whoWrites")}")
+        if (d.connected) Text(leaseLine(d), style = MaterialTheme.typography.bodyMedium)
+        Text(bi("dataSync.thisPhone", "name" to d.me.name, "id" to d.me.device), style = MaterialTheme.typography.bodySmall, color = muted)
+        when (d.leaseState.takeIf { d.connected }) {
+            LeaseState.OFFERED, LeaseState.FREE, LeaseState.EXPIRED -> {
+                BigButton("📥 ${bi("dataSync.take")}", onClick = { act { leaseText(d.take(), d) } }, enabled = !d.busy, color = TriglavRed)
+                Text(bi("dataSync.takeNote"), style = MaterialTheme.typography.bodySmall, color = muted)
+            }
+            LeaseState.MINE -> OutlinedButton(onClick = { dialog = Dialog.HAND_OVER }, enabled = !d.busy) { Text("🖥️ ${bi("dataSync.handOver")}") }
+            LeaseState.OTHER, LeaseState.UNCLAIMED -> TextButton(onClick = { dialog = Dialog.TAKE_ANYWAY }, enabled = !d.busy) { Text(bi("dataSync.takeAnyway")) }
+            else -> Unit
+        }
+        OutlinedButton(onClick = { dialog = Dialog.SCAN }) { Text("📷 ${bi("dataSync.scanHandover")}") }
+        Text(bi("dataSync.scanWhat"), style = MaterialTheme.typography.bodySmall, color = muted)
+
+        // --- the backup ---------------------------------------------------------------------------
+        Heading("🔐 ${bi("dataSync.backup")}")
+        Text(bi("dataSync.backupWhat"), style = MaterialTheme.typography.bodySmall, color = muted)
+        when {
+            d.relay.isBlank() -> Text("⏳ ${bi("dataSync.noRelay")}", style = MaterialTheme.typography.bodyMedium)
+            d.settings.backup == null -> Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Button(onClick = { act { shownCode = d.setUpCode(); dialog = Dialog.CODE; null } }) { Text("🔑 ${bi("dataSync.setUpCode")}") }
+                OutlinedButton(onClick = { dialog = Dialog.PASSPHRASE }) { Text(bi("dataSync.setUpPassphrase")) }
+            }
+            else -> {
+                Info("🕒", bi("dataSync.lastBackup"), d.settings.lastBackup?.let { whenText(Instant.parse(it)) } ?: bi("dataSync.never"))
+                Button(onClick = { act { backupText { d.backupNow().let { bi("dataSync.backedUp", "size" to mb(it.size)) } } } }, enabled = !d.busy) { Text("💾 ${bi("dataSync.backupNow")}") }
+            }
+        }
+        if (d.relay.isNotBlank()) OutlinedButton(onClick = { dialog = Dialog.RESTORE }, enabled = !d.busy) { Text("♻️ ${bi("dataSync.restore")}") }
     }
 
     when (dialog) {

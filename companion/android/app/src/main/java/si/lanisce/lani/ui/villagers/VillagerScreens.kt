@@ -1,5 +1,6 @@
 package si.lanisce.lani.ui.villagers
 
+import si.lanisce.lani.ui.backLabel
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -144,7 +145,8 @@ private fun whereOf(v: Villager, s: GameState?): String = s?.let { TownMarkers.h
 @Composable
 fun VillagersScreen(vm: AppViewModel) {
     var card by rememberSaveable { mutableStateOf<String?>(null) }
-    BackHandler { if (card != null) card = null else vm.openVillage() }
+    // Back closes the card first, then the screen below (Nav)
+    BackHandler(enabled = card != null) { card = null }
     val s = vm.game.state
     val cast = vm.villagers.all
     val scenes = vm.scenes.all
@@ -163,8 +165,8 @@ fun VillagersScreen(vm: AppViewModel) {
                 GradientHeader(
                     "👥 ${bi("common.villagers")}",
                     bi("villagerScreens.whoLivesVillageHow"),
-                    "‹ ${bi("common.village")}",
-                    vm::openVillage,
+                    vm.backLabel,
+                    vm::back,
                 )
             }
             if (reg.here.isEmpty() && reg.notYet.isEmpty()) item {
@@ -325,12 +327,13 @@ private fun SilhouetteCard(e: RegisterEntry) {
 /** One villager: who they are, the friendship, what they remember, their requests, and talking to them. */
 @Composable
 fun VillagerScreen(vm: AppViewModel, id: String) {
-    BackHandler { vm.openVillagers() }
     val v = vm.villagers.byId(id)
     if (v == null) {
         Column(Modifier.fillMaxSize().statusBarsPadding().padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            TextButton(onClick = vm::openVillagers) { Text("‹ ${bi("common.villagers")}") }
-            Text(bi("villagerScreens.weDontKnowVillager"), style = MaterialTheme.typography.titleMedium)
+            si.lanisce.lani.ui.BackButton(vm)
+            // the cast still on its way (the app started again here): a moment
+            if (vm.villagers.all.isEmpty()) androidx.compose.material3.CircularProgressIndicator(Modifier.padding(24.dp))
+            else Text(bi("villagerScreens.weDontKnowVillager"), style = MaterialTheme.typography.titleMedium)
         }
         return
     }
@@ -385,7 +388,7 @@ private fun Hero(vm: AppViewModel, v: Villager, s: GameState?, bond: Bond, pose:
     val level = Bonds.level(bond.points)
     Box(Modifier.fillMaxWidth().background(Brush.verticalGradient(listOf(SloBlueDeep, SloBlue)))) {
         Column(Modifier.statusBarsPadding().padding(start = 8.dp, end = 16.dp, top = 8.dp, bottom = 20.dp)) {
-            TextButton(onClick = vm::openVillagers) { Text("‹ ${bi("common.villagers")}", color = Color.White) }
+            si.lanisce.lani.ui.BackButton(vm, color = Color.White)
             Row(Modifier.padding(start = 8.dp, top = 4.dp), verticalAlignment = Alignment.CenterVertically) {
                 Box(contentAlignment = Alignment.Center) {
                     VillagerPortrait(v, 128.dp, pose = pose)

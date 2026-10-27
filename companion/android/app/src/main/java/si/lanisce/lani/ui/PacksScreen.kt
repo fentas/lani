@@ -1,6 +1,5 @@
 package si.lanisce.lani.ui
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
@@ -52,10 +51,9 @@ import si.lanisce.lani.ui.theme.XpGold
 import si.lanisce.lani.l10n.bi
 import si.lanisce.lani.l10n.inTarget
 
-/** "Nove besede · New words": every word pack with its progress. */
+/** "Nove besede · New words": every word pack with its progress, and the learner's words a tap away. */
 @Composable
-fun PacksScreen(vm: AppViewModel, fromVillage: Boolean) {
-    BackHandler { vm.leavePacks(fromVillage) }
+fun PacksScreen(vm: AppViewModel) {
     val all = vm.packs.list.map { vm.villagers.shown(it, vm.game.state) }
     val packs = PackSession.order(all) { it.id in vm.packs.newIds }
     // the festivals' packs in a section of their own, the next festival first: learn them early, or celebrate to learn
@@ -68,14 +66,15 @@ fun PacksScreen(vm: AppViewModel, fromVillage: Boolean) {
             GradientHeader(
                 "📚 ${bi("homeScreen.newWords")}",
                 vm.content.wordsKnown.let { n -> "${bi("packsScreen.youKnowWords", "n" to n)}. ${bi("packsScreen.eachNewGrows")}." },
-                backLabel(fromVillage),
-                onBack = { vm.leavePacks(fromVillage) },
+                vm.backLabel,
+                onBack = vm::back,
             )
         }
-        // the words the learner has, a tap away: "📚 Moje besede · My words" (ui/words/MyWordsScreen)
-        if (vm.content.dashboard?.pool?.any { it.kind == "vocabulary" } == true) item("my-words") {
-            TextButton(onClick = { vm.openMyWords(fromPacks = true, fromVillage) }, modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp).heightIn(min = 48.dp)) {
-                Text("📚 ${bi("myWords.title")} ›")
+        // the words the learner has, a tap away: "🔤 Moje besede · My words" (ui/words/MyWordsScreen), always (its own
+        // empty state says how words come)
+        item("my-words") {
+            TextButton(onClick = vm::openMyWords, modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp).heightIn(min = 48.dp)) {
+                Text("🔤 ${bi("myWords.title")} ›")
             }
         }
         if (packs.isEmpty() && feasts.isEmpty() && projects.isEmpty()) item {
@@ -86,7 +85,7 @@ fun PacksScreen(vm: AppViewModel, fromVillage: Boolean) {
             }
         }
         items(packs, key = { it.id }) { p ->
-            PackCard(p, isNew = p.id in vm.packs.newIds, modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)) { vm.startPack(p.id, fromVillage) }
+            PackCard(p, isNew = p.id in vm.packs.newIds, modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)) { vm.startPack(p.id) }
         }
         if (feasts.isNotEmpty()) item("feasts") {
             Column(Modifier.padding(start = 20.dp, end = 20.dp, top = 18.dp, bottom = 4.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
@@ -99,7 +98,7 @@ fun PacksScreen(vm: AppViewModel, fromVillage: Boolean) {
         }
         items(feasts, key = { it.id }) { p ->
             val day = p.festival?.let(Calendar::byId)?.let { Calendar.whenText(it, today) }
-            PackCard(p, isNew = false, feast = day, modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)) { vm.startPack(p.id, fromVillage) }
+            PackCard(p, isNew = false, feast = day, modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)) { vm.startPack(p.id) }
         }
         if (projects.isNotEmpty()) item("projects") {
             Column(Modifier.padding(start = 20.dp, end = 20.dp, top = 18.dp, bottom = 4.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
@@ -111,7 +110,7 @@ fun PacksScreen(vm: AppViewModel, fromVillage: Boolean) {
             }
         }
         items(projects, key = { it.id }) { p ->
-            PackCard(p, isNew = false, modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)) { vm.startPack(p.id, fromVillage) }
+            PackCard(p, isNew = false, modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)) { vm.startPack(p.id) }
         }
         if (packs.isNotEmpty() || feasts.isNotEmpty() || projects.isNotEmpty()) item {
             TextButton(onClick = vm.chat::open, modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
@@ -197,12 +196,12 @@ fun ProgressRing(learned: Int, total: Int, size: Int = 56) {
 
 /** Home and village: the next suggested pack and how many words it has left. */
 @Composable
-fun NewWordsCard(vm: AppViewModel, modifier: Modifier = Modifier, fromVillage: Boolean = false) {
+fun NewWordsCard(vm: AppViewModel, modifier: Modifier = Modifier) {
     if (vm.packs.list.isEmpty()) return
     val festival = Calendar.soon(vm.game.state, LocalDate.now())?.id
     val next = PackSession.suggest(vm.packs.list.map { vm.villagers.shown(it, vm.game.state) }, vm.content.dashboard?.level ?: "A1", festival) { it.id in vm.packs.newIds }
     Card(
-        onClick = { vm.openPacks(fromVillage) },
+        onClick = vm::openPacks,
         modifier = modifier.fillMaxWidth(),
         shape = MaterialTheme.shapes.large,
         elevation = CardDefaults.cardElevation(3.dp),
@@ -236,7 +235,7 @@ fun NewWordsCard(vm: AppViewModel, modifier: Modifier = Modifier, fromVillage: B
                 }
                 ProgressRing(next.learned, next.total, size = 48)
             }
-            BigButton("▶  ${bi("common.learn")}", onClick = { vm.startPack(next.id, fromVillage) }, color = AlpineGreen)
+            BigButton("▶  ${bi("common.learn")}", onClick = { vm.startPack(next.id) }, color = AlpineGreen)
         }
     }
 }

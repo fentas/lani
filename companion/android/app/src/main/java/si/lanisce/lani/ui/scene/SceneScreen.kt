@@ -110,6 +110,8 @@ import si.lanisce.lani.ui.game.TownCameraState
 import si.lanisce.lani.ui.theme.AlpineGreen
 import si.lanisce.lani.ui.theme.XpGold
 import si.lanisce.lani.l10n.bi
+import si.lanisce.lani.ui.backLabel
+import si.lanisce.lani.ui.backShort
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -130,9 +132,8 @@ fun SceneScreen(vm: AppViewModel, id: String, focus: String?, building: String? 
 
 @Composable
 private fun Missing(vm: AppViewModel, id: String) {
-    BackHandler { vm.openVillage() }
     Column(Modifier.fillMaxSize().statusBarsPadding().padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        TextButton(onClick = vm::openVillage) { Text("‹ ${bi("common.village")}") }
+        si.lanisce.lani.ui.BackButton(vm)
         if (vm.scenes.all.isEmpty()) {
             CircularProgressIndicator(Modifier.align(Alignment.CenterHorizontally))
         } else {
@@ -381,14 +382,21 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
     val sceneClock = si.lanisce.lani.game.render.rememberTownClock()
     si.lanisce.lani.ui.AmbientSound(vm.ambience, si.lanisce.lani.game.ambient.Place.Scene(scene.art, cues.fx.target), cues.sky.target, sceneClock)
 
-    BackHandler {
+    // Back closes what's open over the picture first, one at a time; then the screen below (Nav: its predictive gesture)
+    val ispyHere = vm.ispy.play?.sceneId == scene.id
+    BackHandler(enabled = scenes.talk != null || ispyHere || choosing != null || selected != null || greeted != null) {
         when {
             scenes.talk != null -> scenes.closeTalk()
-            vm.ispy.play?.sceneId == scene.id -> { vm.ispy.close(scene); selected = null }
+            ispyHere -> { vm.ispy.close(scene); selected = null }
             choosing != null -> choosing = null
-            selected != null || greeted != null -> { selected = null; greeted = null }
-            else -> vm.openVillage()
+            else -> { selected = null; greeted = null }
         }
+    }
+    // the top bar's "‹ Vas": out of the scene at once, its dialog and its game of I spy ended first (none waits for later)
+    val leave = {
+        if (scenes.talk?.sceneId == scene.id) scenes.closeTalk()
+        if (vm.ispy.play?.sceneId == scene.id) vm.ispy.close(scene)
+        vm.back()
     }
 
     val present = remember(state) { state?.let { Residents.present(it, LocalDate.now()) } }
@@ -584,7 +592,7 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
                     WordsPanel(
                         vm, scene, groups, here, later, doneToday, found, selected, asleep, onWord = ::select, onTalk = ::talkTo, onLearn = { vm.learnScene(scene.id) }, opens = ::opens,
                         ispy = { ISpyOfferCard(offer, offer == null && vm.ispy.doneToday(scene, state, now.toLocalDate()), vm.dialogPrefs.translations) { offer?.let(::startISpy) } },
-                        cards = cards, onTake = ::take, onSchool = { vm.openSchool(fromVillage = true) },
+                        cards = cards, onTake = ::take, onSchool = { vm.openSchool() },
                         reaction = reacting?.kind, reacted = reacted, onGreet = ::approach,
                     )
                 }
@@ -648,7 +656,7 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
                     WordBubble(
                         sel, SceneWords.learned(scene, sel, scenes.packs), fresh = fresh == sel.slot, speaker = speaker, color = bubbleColor,
                         sticker = sticker, note = WordChips.noteOf(sel.slot, groups),
-                        action = if (school) { { SchoolEntries(vm, lesson, onLesson = { take(Offer.Lesson(it)) }, onSchool = { selected = null; vm.openSchool(fromVillage = true) }) } } else null,
+                        action = if (school) { { SchoolEntries(vm, lesson, onLesson = { take(Offer.Lesson(it)) }, onSchool = { selected = null; vm.openSchool() }) } } else null,
                     )
                 }
                 if (anchors.drawn(selTarget)) Anchored({ anchors.shown(selTarget) }, topLimit, bubbleColor, keepOff = keepOff) { bubble() }
@@ -670,10 +678,11 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
         }
         if (!lifted) Recenter(anchors.camera, Modifier.fillMaxWidth().height(sceneHeight).padding(10.dp))
         TopBar(
-            scene, found.size, onBack = vm::openVillage, shown = !lifted, home = home, homeReady = homeReady, onHome = { homeOpen = true }, pills = pills,
+            scene, found.size, onBack = leave, shown = !lifted, home = home, homeReady = homeReady, onHome = { homeOpen = true }, pills = pills,
             // in the school, and wherever the class meets (by the fire, under the linden): "📚" to its course (companion/GAME.md,
             // "The school")
-            onSchool = if ((home?.type == si.lanisce.lani.game.BuildingType.SCHOOL || classHere) && course != null) { { vm.openSchool(fromVillage = true) } } else null,
+            onSchool = if ((home?.type == si.lanisce.lani.game.BuildingType.SCHOOL || classHere) && course != null) { { vm.openSchool() } } else null,
+            back = vm.backLabel, backShort = vm.backShort,
         )
         if (allFound > 0) Confetti(key = "found-${scene.id}-$allFound")
         if (talk?.settled == true) Confetti(key = "talk-${talk.key}")
@@ -709,7 +718,7 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
         LaunchedEffect(offers.isEmpty()) { if (offers.isEmpty()) choosing = null }
         if (offers.isNotEmpty()) OffersSheet(
             vm, p, offers, school = classHere && p.villager != null && p.villager == teacher?.id, opens = ::opens, onTake = ::take,
-            onSchool = { choosing = null; vm.openSchool(fromVillage = true) }, onDismiss = { choosing = null },
+            onSchool = { choosing = null; vm.openSchool() }, onDismiss = { choosing = null },
         )
     }
     skyList?.let { up -> si.lanisce.lani.ui.sky.SkyTonightSheet(vm, up, onOpen = { skyList = null; skyCard = it }, onDismiss = { skyList = null }) }
@@ -753,10 +762,11 @@ private fun TopBar(
     scene: SceneSpec, found: Int, onBack: () -> Unit, shown: Boolean = true,
     home: si.lanisce.lani.game.Building? = null, homeReady: Boolean = false, onHome: () -> Unit = {},
     pills: MutableMap<String, IntRect> = HashMap(), onSchool: (() -> Unit)? = null,
+    back: String = "‹ ${bi("common.village")}", backShort: String = "‹ ${si.lanisce.lani.l10n.inTarget("common.village")}",
 ) {
     LightStatusIcons()
     // out of the way while a dialog's panel has risen over the picture (the keyboard up): it would lie on the panel's header
-    AnimatedVisibility(shown, enter = fadeIn(), exit = fadeOut()) { TopBarRow(scene, found, onBack, home, homeReady, onHome, pills, onSchool) }
+    AnimatedVisibility(shown, enter = fadeIn(), exit = fadeOut()) { TopBarRow(scene, found, onBack, home, homeReady, onHome, pills, onSchool, back, backShort) }
 }
 
 /** Where this pill is on the screen, in [pills] under [key] while it shows: what the bubbles over the picture keep off. */
@@ -774,7 +784,8 @@ private fun Modifier.pill(pills: MutableMap<String, IntRect>, key: String): Modi
 private val PILL_GAP = 10.dp
 
 /**
- * Back to the village; the building the scene is in ([home]: its emoji and level, ⬆️ when its upgrade can be done now
+ * Back ([back]: "‹ " and the screen below's name, "‹ Vas · Village" as a rule; [backShort] its target language alone); the
+ * building the scene is in ([home]: its emoji and level, ⬆️ when its upgrade can be done now
  * ([homeReady]), ⚠️ while it is damaged), whose card [onHome] opens; the school ([onSchool]); what's found of the scene's
  * words. Where each pill is goes into [pills].
  *
@@ -788,18 +799,15 @@ private val PILL_GAP = 10.dp
 internal fun TopBarRow(
     scene: SceneSpec, found: Int, onBack: () -> Unit, home: si.lanisce.lani.game.Building?, homeReady: Boolean, onHome: () -> Unit,
     pills: MutableMap<String, IntRect>, onSchool: (() -> Unit)? = null,
+    back: String = "‹ ${bi("common.village")}", backShort: String = "‹ ${si.lanisce.lani.l10n.inTarget("common.village")}",
 ) {
     val gap = Arrangement.spacedBy(PILL_GAP)
     Row(Modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = 8.dp, vertical = 6.dp), horizontalArrangement = gap, verticalAlignment = Alignment.CenterVertically) {
         // the left ones, in what the found pill leaves: the building and the school first, the way back in the rest
         Row(Modifier.weight(1f), horizontalArrangement = gap, verticalAlignment = Alignment.CenterVertically) {
-            val back = "‹ ${bi("common.village")}"
             OverlayPill(Modifier.weight(1f, fill = false).pill(pills, "back")) {
                 TextButton(onClick = onBack, modifier = Modifier.semantics { contentDescription = back }) {
-                    FitLabel(
-                        back, "‹ ${si.lanisce.lani.l10n.inTarget("common.village")}", Color.White, MaterialTheme.typography.labelLarge,
-                        Modifier.clearAndSetSemantics { },
-                    )
+                    FitLabel(back, backShort, Color.White, MaterialTheme.typography.labelLarge, Modifier.clearAndSetSemantics { })
                 }
             }
             home?.let { b ->
@@ -817,10 +825,14 @@ internal fun TopBarRow(
                     }
                 }
             }
+            // "🏫 Šola · School" (the school's emoji everywhere) on a tablet; on a phone its target's word alone, the way back
+            // keeping the room (TalkBack says both)
             onSchool?.let { open ->
+                val school = "🏫 ${bi("school.title")}"
+                val shown = if (androidx.compose.ui.platform.LocalConfiguration.current.screenWidthDp >= 600) school else "🏫 ${si.lanisce.lani.l10n.inTarget("school.title")}"
                 OverlayPill(Modifier.pill(pills, "school")) {
-                    TextButton(onClick = open) {
-                        Text("📚 ${si.lanisce.lani.l10n.inTarget("school.title")}", color = Color.White, style = MaterialTheme.typography.labelLarge, maxLines = 1, softWrap = false)
+                    TextButton(onClick = open, modifier = Modifier.semantics { contentDescription = school }) {
+                        Text(shown, color = Color.White, style = MaterialTheme.typography.labelLarge, maxLines = 1, softWrap = false, modifier = Modifier.clearAndSetSemantics { })
                     }
                 }
             }

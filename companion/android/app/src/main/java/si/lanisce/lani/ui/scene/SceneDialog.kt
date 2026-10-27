@@ -256,7 +256,7 @@ fun DialogPanel(
                     onNotebook = { s -> vm.openNotebook(s.id) },
                     yourWords = { YourWords(vm, talk) },
                     // an age's party: its words to learn (its pack's run), from the village
-                    onLearnPack = { pack -> vm.scenes.closeTalk(); vm.startPack(pack, fromVillage = true) },
+                    onLearnPack = { pack -> vm.scenes.closeTalk(); vm.startPack(pack) },
                 )
             } else {
                 if (!prefs.wordHintSeen) WordHint(prefs::sawWordHint)

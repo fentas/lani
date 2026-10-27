@@ -47,9 +47,6 @@ class TreasureController(
     var dug by mutableStateOf<Dug?>(null)
         private set
 
-    /** The map was opened from the village (its "‹" leads back there), else from Home. */
-    var fromVillage = false
-
     /** The village's language: the book's, the hunt's. */
     val language: String get() = grammar.language
 

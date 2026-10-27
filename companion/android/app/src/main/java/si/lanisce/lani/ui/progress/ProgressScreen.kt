@@ -1,6 +1,5 @@
 package si.lanisce.lani.ui.progress
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -66,6 +65,7 @@ import si.lanisce.lani.data.Trend
 import si.lanisce.lani.game.LevelReadiness
 import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.ui.GradientHeader
+import si.lanisce.lani.ui.BigButton
 import si.lanisce.lani.ui.backLabel
 import si.lanisce.lani.ui.StatusBarScrim
 import si.lanisce.lani.ui.theme.AlpineGreen
@@ -95,8 +95,7 @@ private fun LocalDate.short() = "$dayOfMonth. $monthValue."
  * counting), streak calendar, accuracy, skills, mistakes and upcoming reviews.
  */
 @Composable
-fun ProgressScreen(vm: AppViewModel, fromVillage: Boolean) {
-    BackHandler { vm.leaveProgress(fromVillage) }
+fun ProgressScreen(vm: AppViewModel) {
     val p = vm.progress.stats
     val list = rememberLazyListState()
     val t = vm.treasure
@@ -117,7 +116,7 @@ fun ProgressScreen(vm: AppViewModel, fromVillage: Boolean) {
     }
     Box(Modifier.fillMaxSize()) {
         LazyColumn(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background), state = list, contentPadding = PaddingValues(bottom = 32.dp)) {
-            item { Hero(p, fromVillage) { vm.leaveProgress(fromVillage) } }
+            item { Hero(p, vm.backLabel, vm::back) }
             if (p == null) {
                 item {
                     Box(Modifier.fillMaxWidth().padding(32.dp), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
@@ -126,18 +125,19 @@ fun ProgressScreen(vm: AppViewModel, fromVillage: Boolean) {
             }
             path?.let {
                 item("path") {
-                    PathCard(it, page = vm.grammar::page, onPage = vm.grammar::show, onMap = { vm.openTreasure(fromVillage) }, onWords = { vm.openMyWords(fromPacks = false, fromVillage) })
+                    PathCard(it, page = vm.grammar::page, onPage = vm.grammar::show, onMap = vm::openTreasure, onWords = vm::openMyWords)
                 }
             }
             if (!grammar.empty) item("grammar") {
-                GrammarCard(grammar, onSchool = { vm.openSchool(fromVillage) }, onUnit = { vm.openUnit(it, fromVillage) }, onPage = vm.grammar::show)
+                GrammarCard(grammar, onSchool = vm::openSchool, onUnit = vm::openUnit, onPage = vm.grammar::show)
             }
             item { StreakCard(p) }
             item { AccuracyCard(p) }
             item { WeeklyCard(p) }
             item { SkillsCard(p.skills) }
             item { MistakesCard(p.mistakes, p.today) { m -> vm.chat.askAbout(mistakeContext(m)) } }
-            item { DueCard(p.due, p.overdue) }
+            // today's cards due: "▶ Ponovi · Review" right there
+            item { DueCard(p.due, p.overdue, dueNow = vm.content.dashboard?.dueCards?.size ?: 0, onReview = { vm.startReview() }) }
             // Everything above is the home language's; the languages practised on visits have their own line each.
             if (p.otherLanguages.isNotEmpty()) item { LanguagesCard(p.otherLanguages, due = { vm.content.decks[it]?.dueCards?.size ?: 0 }, onReview = vm::startReview) }
         }
@@ -171,8 +171,8 @@ private fun chartColors(): ChartColors {
 }
 
 @Composable
-private fun Hero(p: ProgressStats?, fromVillage: Boolean, onBack: () -> Unit) {
-    GradientHeader(backLabel(fromVillage), onBack) {
+private fun Hero(p: ProgressStats?, back: String, onBack: () -> Unit) {
+    GradientHeader(back, onBack) {
         Text("📊 ${bi("common.progress")}", style = MaterialTheme.typography.headlineMedium, color = Color.White)
         if (p == null) return@GradientHeader
         Spacer(Modifier.height(18.dp))
@@ -380,7 +380,7 @@ private fun PathRow(line: PathLine, onClick: (() -> Unit)? = null) {
             if (onClick != null) Text(" ›", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
         }
         line.caption?.let { Caption(it, Modifier.padding(start = SIGN_WIDTH)) }
-        if (onClick != null) Caption("📚 ${bi("myWords.open")}", Modifier.padding(start = SIGN_WIDTH))
+        if (onClick != null) Caption("🔤 ${bi("myWords.open")}", Modifier.padding(start = SIGN_WIDTH))
     }
 }
 
@@ -739,7 +739,7 @@ private val weekdays = listOf(
 )
 
 @Composable
-private fun DueCard(due: List<DueDay>, overdue: Int) {
+private fun DueCard(due: List<DueDay>, overdue: Int, dueNow: Int = 0, onReview: () -> Unit = {}) {
     var selected by remember(due) { mutableStateOf<Int?>(null) }
     val total = due.sumOf { it.count }
     Section("📅 ${bi("progressScreen.reviewsDue")}", "${bi("progressScreen.next7Days")}: $total ${bi("progressScreen.cards")}") {
@@ -753,5 +753,9 @@ private fun DueCard(due: List<DueDay>, overdue: Int) {
             if (i == 0) "${bi("common.today")}: ${d.count} ${bi("progressScreen.cards")}" + (if (overdue > 0) " (${bi("progressScreen.overdue", "overdue" to overdue)})" else "")
             else "${inTarget(weekdays[d.date.dayOfWeek.value - 1])} ${d.date.short()}: ${d.count} ${bi("progressScreen.cards")}",
         )
+        if (dueNow > 0) {
+            Spacer(Modifier.height(10.dp))
+            BigButton("▶  ${bi("todayCard.review")} · $dueNow", onClick = onReview, color = AlpineGreen)
+        }
     }
 }

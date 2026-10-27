@@ -7,7 +7,6 @@ import android.os.SystemClock
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
-import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.core.animateFloatAsState
@@ -72,6 +71,9 @@ import si.lanisce.lani.data.SttResult
 import si.lanisce.lani.game.culture.ReadingFile
 import si.lanisce.lani.l10n.bi
 import si.lanisce.lani.ui.GradientHeader
+import si.lanisce.lani.ui.BackButton
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.foundation.layout.statusBarsPadding
 import si.lanisce.lani.ui.NodeMic
 import si.lanisce.lani.ui.SpeakButton
 import si.lanisce.lani.ui.backLabel
@@ -95,14 +97,17 @@ fun readAloudLines(r: ReadingFile): List<String> =
  * twice (with the text as its prompt and without), else by the phone's recognizer; its words show read right, misread
  * (what was heard) or skipped, with the accuracy and the words a minute, and 🔊 on each sentence with a mistake. The
  * last take of each part counts: finishing (or leaving after a take) reports the reading aloud as reading and speaking
- * practice. Back leads to the reading corner ([fromCorner]; opened from the village, [fromVillage]), else to the village
- * (a chest's reading).
+ * practice. Back leads where it was opened (the reading corner, the village's chest).
  */
 @Composable
-fun ReadAloudScreen(vm: AppViewModel, readingId: String, fromVillage: Boolean, fromCorner: Boolean) {
+fun ReadAloudScreen(vm: AppViewModel, readingId: String) {
     val r = vm.readings.byId(readingId)
     if (r == null) {
-        LaunchedEffect(Unit) { vm.leaveReadAloud(fromVillage, fromCorner) }
+        // the tutor's readings still on their way (the app started again here): a moment; gone: back
+        if (vm.readings.all.isEmpty()) Column(Modifier.fillMaxSize().statusBarsPadding().padding(16.dp)) {
+            BackButton(vm)
+            CircularProgressIndicator(Modifier.padding(24.dp))
+        } else LaunchedEffect(Unit) { vm.back() }
         return
     }
     val passages = remember(r) { ReadAloud.passages(readAloudLines(r)) }
@@ -120,10 +125,9 @@ fun ReadAloudScreen(vm: AppViewModel, readingId: String, fromVillage: Boolean, f
     }
     fun leave() {
         report()
-        vm.leaveReadAloud(fromVillage, fromCorner)
+        vm.back()
     }
-    BackHandler { leave() }
-    // leaving the screen any other way (a notification's link) still counts what was read
+    // leaving the screen any way (Back, a notification's link) still counts what was read
     val latest by rememberUpdatedState { report() }
     DisposableEffect(Unit) { onDispose { latest() } }
 
@@ -139,7 +143,7 @@ fun ReadAloudScreen(vm: AppViewModel, readingId: String, fromVillage: Boolean, f
         GradientHeader(
             "🎤 ${bi("readAloud.title")}",
             "${r.title.target} · ${bi("readAloud.part", "n" to at + 1, "of" to passages.size)}",
-            if (fromCorner) "← ${bi("readings.title")}" else backLabel(fromVillage),
+            vm.backLabel,
             onBack = ::leave,
         )
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {

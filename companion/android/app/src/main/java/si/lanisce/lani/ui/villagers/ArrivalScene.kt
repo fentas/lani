@@ -89,7 +89,8 @@ fun ArrivalScene(vm: AppViewModel, m: MeetingTalk) {
                     modifier = Modifier.weight(1f),
                     onListening = { micOn = it },
                     speakers = speakers,
-                    closeLabel = "✓ ${bi("arrivals.backVillage")}",
+                    // over the village "✓ Nazaj v vas"; over Home (its call in "Danes · Today") it stays there: "✓ Naprej"
+                    closeLabel = "✓ ${bi(if (vm.screen == si.lanisce.lani.Screen.Village) "arrivals.backVillage" else "common.continue")}",
                 )
             }
             if (talk.settled && talk.run.step == DialogRun.Step.END) Confetti(key = "arrival-${talk.key}")

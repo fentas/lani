@@ -120,16 +120,36 @@ class GrammarController(
 
     fun page(id: String?): GrammarPage? = id?.let { i -> pages.firstOrNull { it.id == i } }
 
-    /** Shows page [id] over the screen, meeting it (a page opened from an intro is met there). */
+    /**
+     * The pages the open one was opened from, in its sheet ("🔗 Glej tudi · See also"), the last the one before it: Back
+     * and "‹ <its title>" go back to it; closing the sheet forgets them.
+     */
+    var before by mutableStateOf<List<String>>(emptyList())
+        private set
+
+    /**
+     * Shows page [id] over the screen, meeting it (a page opened from an intro is met there); over a page open already
+     * (its "Glej tudi"), that one waits under it ([before]).
+     */
     fun show(id: String) {
         if (page(id) == null) return
         meet(listOf(id), announce = false)
         fresh.remove(id)
+        open?.takeIf { it != id }?.let { before = before + it }
         open = id
+    }
+
+    /** Back to the page this one was opened from in the sheet; false when there is none. */
+    fun back(): Boolean {
+        val prev = before.lastOrNull() ?: return false
+        before = before.dropLast(1)
+        open = prev
+        return true
     }
 
     fun close() {
         open = null
+        before = emptyList()
     }
 
     /** The chapter in the village book: the pages met, the rules only met in the dialogs so far, and how many are still to come. */

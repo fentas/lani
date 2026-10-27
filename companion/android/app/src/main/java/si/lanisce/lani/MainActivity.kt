@@ -4,6 +4,8 @@ import android.Manifest
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.BackEventCompat
+import androidx.activity.compose.PredictiveBackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.ComponentActivity
@@ -24,11 +26,17 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveableStateHolder
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import si.lanisce.lani.ui.BackPeek
 import si.lanisce.lani.ui.ChatSheet
 import si.lanisce.lani.ui.HomeScreen
 import si.lanisce.lani.ui.PackLearnScreen
@@ -90,15 +98,16 @@ class MainActivity : ComponentActivity() {
             dev = { what -> if (what == "again") vm.devUpload.forgetThrottle() else if (what == "off") vm.shadow.showDeveloper(false) },
             pair = { code -> vm.chooseLangPair(si.lanisce.lani.l10n.LangPair.parse(code)) }, grow = vm::qaAgeUp, formsCard = vm::qaFormsCard,
             data = { vm.dataOpen = true }, review = vm::qaReview, numbers = vm::qaNumbers, event = vm::qaEvent, hearths = vm::qaHearths,
-            request = vm::qaRequest, word = vm::qaWord, friends = vm::openFriends, sheet = vm::qaSheet,
+            request = vm::qaRequest, word = vm::qaWord, friends = { vm.openFriends() }, sheet = vm::qaSheet,
             tutorLive = { base -> vm.live.update { it.copy(debugBaseUrl = base.ifBlank { null }) } })
         intent?.removeExtra(si.lanisce.lani.app.QaHooks.EXTRA)
         DeepLink.parse(intent?.getStringExtra(DeepLink.EXTRA))?.let(vm::open)
         intent?.removeExtra(DeepLink.EXTRA)
-        // a town's invitation opened from a link (lani://town?…, fluent://town?…, https://lani.page/town/#…: the manifest's
-        // filters): Friends' Accept dialog, filled in; taken once
+        // a link that opened the app, taken once: a town's invitation (lani://town?…, fluent://town?…,
+        // https://lani.page/town/#…: the manifest's filters) opens Friends' Accept dialog, filled in; any other lani:// link
+        // (lani://review, lani://scene/<id>, lani://tutor …: data/DeepLink.fromUri) its screen
         if (intent?.action == Intent.ACTION_VIEW) {
-            DeepLink.ofUri(intent.dataString)?.let(vm::open)
+            (DeepLink.ofUri(intent.dataString) ?: DeepLink.fromUri(intent.dataString))?.let(vm::open)
             intent.data = null
         }
     }
@@ -153,48 +162,46 @@ private fun App(vm: AppViewModel) {
         if (vm.screen == Screen.Home && Build.VERSION.SDK_INT >= 33) notifications.launch(Manifest.permission.POST_NOTIFICATIONS)
     }
 
-    val screen = vm.screen
+    val entry = vm.nav.entries.last()
+    val screen = entry.screen
+    // each screen's remembered state (a list's scroll, a section open) kept under its entry while another is on top, and
+    // across the process's death (the stack is saved with it: AppViewModel); a screen gone from the stack drops it
+    val states = rememberSaveableStateHolder()
+    val ids = vm.nav.entries.map { it.id }
+    val held = remember { HashSet<Long>() }
+    LaunchedEffect(ids) {
+        for (gone in held - ids.toSet()) states.removeState(gone)
+        held.retainAll(ids.toSet())
+        held.addAll(ids)
+    }
+    // Back to the screen below, as a predictive gesture (Android 14 and later): the screen shrinks towards the finger's
+    // side while the way back's name shows behind it; let go, it's there; cancelled, the screen comes back. The screens'
+    // own Back (a card, a step, a dialog) comes first; at the root nothing takes it, and the system leaves the app.
+    var backProgress by remember { mutableFloatStateOf(0f) }
+    var backEdge by remember { mutableIntStateOf(BackEventCompat.EDGE_LEFT) }
+    PredictiveBackHandler(enabled = vm.nav.canGoBack) { events ->
+        try {
+            events.collect { e ->
+                backProgress = e.progress
+                backEdge = e.swipeEdge
+            }
+            backProgress = 0f
+            vm.back()
+        } catch (e: kotlinx.coroutines.CancellationException) {
+            backProgress = 0f
+            throw e
+        }
+    }
     Scaffold(
         snackbarHost = { SnackbarHost(snackbar) },
         contentWindowInsets = androidx.compose.foundation.layout.WindowInsets(0.dp),
     ) { pad ->
         Box(Modifier.fillMaxSize().padding(pad)) {
-            when (screen) {
-                // the hosted mode's splash while the phone's bridge boots (ui/hosted), else a spinner until the connection is read
-                Screen.Loading -> if (vm.hosted.active) si.lanisce.lani.ui.hosted.HostedSplash(vm) else CircularProgressIndicator(Modifier.align(Alignment.Center))
-                Screen.Setup -> SetupScreen(vm)
-                Screen.Home -> HomeScreen(vm)
-                is Screen.Review -> key(screen) { ReviewScreen(vm, screen.cards, screen.polish, screen.language) }
-                is Screen.Player -> PlayerScreen(vm, screen.module)
-                is Screen.GrammarPractice -> key(screen) { GrammarPracticeScreen(vm, screen.page, screen.practice) }
-                Screen.Village -> VillageScreen(vm)
-                is Screen.Challenge -> ChallengeScreen(vm, screen.origin, screen.challenge)
-                is Screen.Packs -> PacksScreen(vm, screen.fromVillage)
-                is Screen.Readings -> si.lanisce.lani.ui.reading.ReadingsScreen(vm, screen.fromVillage)
-                is Screen.ReadAloud -> key(screen) { si.lanisce.lani.ui.reading.ReadAloudScreen(vm, screen.id, screen.fromVillage, screen.fromCorner) }
-                is Screen.PackLearn -> PackLearnScreen(vm, screen.pack, screen.words, screen.fromVillage, screen.scene)
-                is Screen.UpgradeWords -> key(screen) { si.lanisce.lani.ui.game.UpgradeWordsScreen(vm, screen.building, screen.toLevel, screen.run) }
-                Screen.Talk -> TalkScreen(vm)
-                is Screen.Progress -> ProgressScreen(vm, screen.fromVillage)
-                is Screen.MyWords -> si.lanisce.lani.ui.words.MyWordsScreen(vm, screen)
-                is Screen.Family -> FamilyScreen(vm, screen.challengeId)
-                is Screen.Scene -> SceneScreen(vm, screen.id, screen.focus, screen.building)
-                Screen.Villagers -> VillagersScreen(vm)
-                is Screen.Villager -> VillagerScreen(vm, screen.id)
-                Screen.Friends -> FriendsScreen(vm)
-                is Screen.TownProgress -> key(screen) { si.lanisce.lani.ui.towns.TownProgressScreen(vm, screen.id) }
-                is Screen.Visit -> VisitScreen(vm)
-                is Screen.VisitScene -> VisitSceneScreen(vm, screen.scene)
-                is Screen.VisitRequest -> key(screen) { VisitRequestScreen(vm, screen.request) }
-                is Screen.TownQuestion -> key(screen) { TownQuestionScreen(vm, screen.key, screen.asked) }
-                is Screen.Treasure -> si.lanisce.lani.ui.game.TreasureScreen(vm)
-                is Screen.School -> si.lanisce.lani.ui.school.SchoolScreen(vm, screen.fromVillage)
-                is Screen.CourseUnit -> key(screen) { si.lanisce.lani.ui.school.UnitScreen(vm, screen.id, screen.fromVillage) }
-                is Screen.UnitIntro -> key(screen) { si.lanisce.lani.ui.school.IntroScreen(vm, screen.id, screen.fromVillage) }
-                is Screen.Sheet -> key(screen) { si.lanisce.lani.ui.school.SheetScreen(vm, screen.unit, screen.kind, screen.sheet, screen.fromVillage) }
-                is Screen.Numbers -> si.lanisce.lani.ui.numbers.NumbersScreen(vm, screen)
-                is Screen.NumbersRun -> key(screen) { si.lanisce.lani.ui.numbers.NumbersRunScreen(vm, screen) }
+            if (backProgress > 0f) si.lanisce.lani.ui.BackScrim(backProgress)
+            Box(Modifier.fillMaxSize().then(si.lanisce.lani.ui.predictiveBack(backProgress, backEdge))) {
+                states.SaveableStateProvider(entry.id) { key(entry.id) { ScreenOf(vm, screen) } }
             }
+            if (backProgress > 0f) BackPeek(vm, backProgress, backEdge)
             VoiceBadge(vm.family.voice, Modifier.align(Alignment.TopCenter))
             // on a visit, once, when a line can't be heard (at home, a word of another language): that language's offline voice
             // offered, or a note that nothing speaks it (ui/towns/VisitVoiceNote); nothing while there is none
@@ -236,4 +243,47 @@ private fun App(vm: AppViewModel) {
     vm.permission?.let { PermissionDialog(it, vm::answerPermission) }
     // just paired: the offline voice is offered once (the connection sheet's settings have it too)
     if (vm.permission == null) si.lanisce.lani.ui.home.OfflineVoiceOffer(vm.offlineAudio)
+}
+
+/** The screen on view ([Screen]), each in its own composable; its entry in the back stack keys it (AppViewModel.nav). */
+@Composable
+private fun androidx.compose.foundation.layout.BoxScope.ScreenOf(vm: AppViewModel, screen: Screen) {
+    when (screen) {
+        // the hosted mode's splash while the phone's bridge boots (ui/hosted), else a spinner until the connection is read
+        Screen.Loading -> if (vm.hosted.active) si.lanisce.lani.ui.hosted.HostedSplash(vm) else CircularProgressIndicator(Modifier.align(Alignment.Center))
+        Screen.Setup -> SetupScreen(vm)
+        Screen.Home -> HomeScreen(vm)
+        is Screen.Review -> ReviewScreen(vm, screen.cards, screen.polish, screen.language)
+        is Screen.Player -> PlayerScreen(vm, screen.module)
+        is Screen.GrammarPractice -> GrammarPracticeScreen(vm, screen.page, screen.practice)
+        Screen.Village -> VillageScreen(vm)
+        is Screen.Challenge -> ChallengeScreen(vm, screen.origin, screen.challenge)
+        Screen.Packs -> PacksScreen(vm)
+        Screen.Readings -> si.lanisce.lani.ui.reading.ReadingsScreen(vm)
+        is Screen.ReadAloud -> si.lanisce.lani.ui.reading.ReadAloudScreen(vm, screen.id)
+        is Screen.PackLearn -> PackLearnScreen(vm, screen.pack, screen.words, screen.scene)
+        is Screen.UpgradeWords -> si.lanisce.lani.ui.game.UpgradeWordsScreen(vm, screen.building, screen.toLevel, screen.run)
+        Screen.Talk -> TalkScreen(vm)
+        Screen.Progress -> ProgressScreen(vm)
+        Screen.MyWords -> si.lanisce.lani.ui.words.MyWordsScreen(vm)
+        is Screen.Family -> FamilyScreen(vm, screen.challengeId)
+        is Screen.Scene -> SceneScreen(vm, screen.id, screen.focus, screen.building)
+        Screen.Villagers -> VillagersScreen(vm)
+        is Screen.Villager -> VillagerScreen(vm, screen.id)
+        Screen.Friends -> FriendsScreen(vm)
+        is Screen.TownProgress -> si.lanisce.lani.ui.towns.TownProgressScreen(vm, screen.id)
+        is Screen.Visit -> VisitScreen(vm)
+        is Screen.VisitScene -> VisitSceneScreen(vm, screen.scene)
+        is Screen.VisitRequest -> VisitRequestScreen(vm, screen.request)
+        is Screen.TownQuestion -> TownQuestionScreen(vm, screen.key, screen.asked)
+        Screen.Treasure -> si.lanisce.lani.ui.game.TreasureScreen(vm)
+        Screen.School -> si.lanisce.lani.ui.school.SchoolScreen(vm)
+        is Screen.CourseUnit -> si.lanisce.lani.ui.school.UnitScreen(vm, screen.id)
+        is Screen.UnitIntro -> si.lanisce.lani.ui.school.IntroScreen(vm, screen.id)
+        is Screen.Sheet -> si.lanisce.lani.ui.school.SheetScreen(vm, screen.unit, screen.kind, screen.sheet)
+        Screen.Numbers -> si.lanisce.lani.ui.numbers.NumbersScreen(vm)
+        is Screen.NumbersRun -> si.lanisce.lani.ui.numbers.NumbersRunScreen(vm, screen)
+        is Screen.Settings -> si.lanisce.lani.ui.settings.SettingsScreen(vm, screen.section)
+        Screen.GrammarBook -> si.lanisce.lani.ui.grammar.GrammarBookScreen(vm)
+    }
 }

@@ -1,6 +1,6 @@
 package si.lanisce.lani.ui.numbers
 
-import androidx.activity.compose.BackHandler
+import si.lanisce.lani.ui.backLabel
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -69,27 +69,23 @@ import java.time.LocalDate
  * asking and what opens those not on yet, the rule's tip, and that its Slovene is machine-written.
  */
 @Composable
-fun NumbersScreen(vm: AppViewModel, at: Screen.Numbers) {
-    val leave = { vm.leaveNumbers(at.fromUnit, at.fromVillage) }
-    BackHandler(onBack = leave)
+fun NumbersScreen(vm: AppViewModel) {
     val s = vm.game.state
     val lock = NumbersPractice.lock(s)
     val unit = vm.school.unit(NumbersPractice.UNIT)
-    val unitTitle = unit?.titleShown(L10n.pair) ?: NumbersPractice.UNIT
     val p = s?.numbers
     val introDone = lock == null
     val open = NumbersPractice.ranges(p, introDone)
     val passed = NumbersPractice.passed(p, introDone)
     val due = NumbersPractice.due(p, LocalDate.now()).size
-    val back = if (at.fromUnit && unit != null) "← $unitTitle" else "← ${bi("common.home")}"
     LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 32.dp)) {
-        item { GradientHeader("🔢 ${bi("numbers.title")}", bi("numbers.about"), back, onBack = leave) }
+        item { GradientHeader("🔢 ${bi("numbers.title")}", bi("numbers.about"), vm.backLabel, onBack = vm::back) }
         if (lock != null) {
             item { Locked(vm, lock, unitNamed(unit, NumbersPractice.UNIT)) }
         } else {
             item {
                 Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    BigButton("▶️ ${bi("numbers.start")}", onClick = { vm.startNumbers(at.fromUnit, at.fromVillage) }, color = AlpineGreen)
+                    BigButton("▶️ ${bi("numbers.start")}", onClick = { vm.startNumbers() }, color = AlpineGreen)
                     if (due > 0) Text("🔁 ${bi("numbers.dueAgain", "n" to due)}", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
                 }
             }
@@ -134,7 +130,7 @@ private fun Locked(vm: AppViewModel, lock: NumbersPractice.Lock, unitTitle: si.l
             )
             when (lock) {
                 NumbersPractice.Lock.INTRO -> BigButton("📖 ${bi("numbers.openIntro")}", onClick = { vm.startIntro(NumbersPractice.UNIT) }, color = XpGold)
-                NumbersPractice.Lock.CLASS -> BigButton("🏫 ${bi("numbers.toSchool")}", onClick = { vm.openSchool(fromVillage = false) }, color = XpGold)
+                NumbersPractice.Lock.CLASS -> BigButton("🏫 ${bi("numbers.toSchool")}", onClick = { vm.openSchool() }, color = XpGold)
             }
         }
     }
@@ -263,6 +259,6 @@ fun NumbersRunScreen(vm: AppViewModel, at: Screen.NumbersRun) {
             Text("🔁 ${bi("numbers.comingBack")}: ${d.missed.joinToString(" · ")}", style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
         }
         Spacer(Modifier.height(12.dp))
-        OutlinedButton(onClick = { vm.startNumbers(at.fromUnit, at.fromVillage, again = true) }) { Text("▶️ ${bi("numbers.startAgain")}") }
+        OutlinedButton(onClick = { vm.startNumbers(again = true) }) { Text("▶️ ${bi("numbers.startAgain")}") }
     }
 }

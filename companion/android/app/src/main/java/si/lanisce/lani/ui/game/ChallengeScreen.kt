@@ -66,6 +66,8 @@ import si.lanisce.lani.game.Surprises
 import si.lanisce.lani.game.culture.Cultures
 import si.lanisce.lani.game.villagers.Villager
 import si.lanisce.lani.l10n.bi
+import si.lanisce.lani.ui.backLabel
+import si.lanisce.lani.ui.backTo
 import si.lanisce.lani.ui.BigButton
 import si.lanisce.lani.ui.Confetti
 import si.lanisce.lani.ui.ExerciseRun
@@ -260,9 +262,9 @@ private fun ChallengeResultView(vm: AppViewModel, origin: ChallengeOrigin, c: Ch
     val won = result?.won ?: false
     val haptic = LocalHapticFeedback.current
     LaunchedEffect(Unit) { if (won) haptic.performHapticFeedback(HapticFeedbackType.LongPress) }
-    // a station of the treasure hunt leads back to the map
+    // back where the run began (the village, the map of the treasure hunt, a scene, a villager, Home), as Back does
     val treasure = origin is ChallengeOrigin.Treasure
-    val back: () -> Unit = if (treasure) ({ vm.openTreasure(vm.treasure.fromVillage) }) else vm::village
+    val back: () -> Unit = vm::leaveRun
     BackHandler(onBack = back)
     val trade = r.trade.takeIf { origin is ChallengeOrigin.Trade }
     val quiet = quietDay(origin)
@@ -344,7 +346,10 @@ private fun ChallengeResultView(vm: AppViewModel, origin: ChallengeOrigin, c: Ch
             }
             Spacer(Modifier.height(8.dp))
             if (treasure) BigButton("🗺️  ${bi("treasure.toMap")}", onClick = back, color = if (won) XpGold else AlpineGreen)
-            else BigButton("🏡  ${bi("challengeScreen.village")}", onClick = vm::village, color = if (won) XpGold else AlpineGreen)
+            else BigButton(
+                if (vm.backTo == si.lanisce.lani.Screen.Village) "🏡  ${bi("challengeScreen.village")}" else vm.backLabel,
+                onClick = back, color = if (won) XpGold else AlpineGreen,
+            )
             if (origin is ChallengeOrigin.Gather) {
                 TextButton(onClick = { vm.startGather(origin.res, again = true) }) { Text("🔁 ${bi("challengeScreen.onceMore")}", color = Color.White) }
             }

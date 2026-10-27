@@ -74,7 +74,8 @@ fun FormsOverviewSheet(vm: AppViewModel, v: FormsView) {
                 }
                 is FormsLook.Ready -> Overview(vm, look)
             }
-            if (!v.inRun && v.look !is FormsLook.None) PractiseForms(vm, v.lemma, v.itemId)
+            // not from a run's own forms card, nor over a run with answers (practising now would cut it short)
+            if (!v.inRun && !vm.runBusy && v.look !is FormsLook.None) PractiseForms(vm, v.lemma, v.itemId)
         }
     }
 }

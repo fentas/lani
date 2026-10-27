@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -89,11 +90,12 @@ import si.lanisce.lani.l10n.inTarget
 import java.io.File
 
 /**
- * Wires the feature controllers together and owns navigation ([screen]). The state lives in the
- * controllers: [content] (dashboard, modules), [packs], [game] (the village), [chat], [talk],
- * [update], [progress] and [sync] (the offline outbox). They share [notices] for the snackbar.
+ * Wires the feature controllers together and owns navigation ([nav]: the back stack, [screen] its top). The state lives
+ * in the controllers: [content] (dashboard, modules), [packs], [game] (the village), [chat], [talk], [update], [progress]
+ * and [sync] (the offline outbox). They share [notices] for the snackbar. [savedState] keeps the back stack across the
+ * process's death.
  */
-class AppViewModel(app: Application) : AndroidViewModel(app) {
+class AppViewModel(app: Application, private val savedState: SavedStateHandle) : AndroidViewModel(app) {
     private val prefs = Prefs(app)
     /** The learner's languages (l10n/LangSetting.kt), applied before anything below builds a label. */
     private val languages = LangSetting(app)
@@ -518,8 +520,14 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     /** A notification link that arrived before the connection. */
     private var pendingLink: DeepLink? = null
 
-    var screen by mutableStateOf<Screen>(Screen.Loading)
-        private set
+    /** The back stack (Nav.kt, docs/plans/05-built/navigation.md): Back returns to the screen below the one on view. */
+    val nav = NavStack()
+
+    /** The screen on view: the back stack's top. */
+    val screen: Screen get() = nav.top
+
+    /** The back stack saved before the process died, to open again once connected; null when there is none (or it was). */
+    private var restoring: String? = savedState.get<String>(NAV_KEY)
     val link: Link get() = events.link
     /** The node refused this phone's token (unpaired with lani-pair --revoke): time to scan a new code. */
     val unpaired: Boolean get() = events.unpaired
@@ -557,7 +565,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
             val c = prefs.config()
             paired = prefs.pairing()
             when {
-                c == null -> screen = Screen.Setup
+                c == null -> nav.reset(Screen.Setup)
                 // Lani on this phone: its bridge boots first (the splash, Screen.Loading, meanwhile; ~0.5 s)
                 hosted.isHosted(c) -> if (hosted.boot(c)) connect(c)
                 else -> connect(c)
@@ -661,8 +669,20 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         family.connect(c)
         clips.connect(c)
         stt.connect(c)
-        screen = Screen.Home
-        refresh()
+        // Home, or the screens the learner was on before the process died (the stack saved, Nav.kt)
+        val back = restoring
+        restoring = null
+        if (back == null || !nav.restore(back)) nav.reset(Screen.Home)
+        // everything read anew (Home's own [shown] doesn't again while it runs); a notification tapped before the app ran
+        // opens once it's read (its scene, its page, the cards due are there then)
+        val loading = refresh()
+        pendingLink?.let { l ->
+            pendingLink = null
+            viewModelScope.launch {
+                loading.join()
+                open(l)
+            }
+        }
         game.sync()
         update.check()
         BackgroundCheck.schedule(getApplication())
@@ -670,7 +690,6 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         offlineAudio.onPhone = hosted.isHosted(c)
         if (hosted.isHosted(c)) si.lanisce.lani.hosted.HostedWork.schedule(getApplication())
         if (foreground) events.restart()
-        pendingLink?.let(::open)
     }
 
     // --- "☁️ Lani na tem telefonu" (hosted/HostedController) --------------------------------------------------------
@@ -723,7 +742,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
             setupHosted = false
             // to the computer's code, in the learner's languages
             setupFlow = SetupFlow(step = SetupFlow.Step.COMPUTER, target = L10n.ownPair.target, base = L10n.ownPair.base, way = SetupFlow.Way.COMPUTER)
-            screen = Screen.Setup
+            nav.reset(Screen.Setup)
         }
     }
 
@@ -731,13 +750,13 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     fun switchToHosted() {
         events.stop()
         setupHosted = true
-        screen = Screen.Setup
+        nav.reset(Screen.Setup)
     }
 
     /** Back from the hosted steps to the node this phone was paired with. */
     fun cancelSwitch() {
         setupHosted = false
-        viewModelScope.launch { prefs.config()?.let(::connect) ?: run { screen = Screen.Setup } }
+        viewModelScope.launch { prefs.config()?.let(::connect) ?: nav.reset(Screen.Setup) }
     }
 
     /** The hosted mode's boot to Home, once: from the view model's start to the first dashboard (the log, tag LaniHosted). */
@@ -748,7 +767,10 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         si.lanisce.lani.hosted.HostedRuntime.say("home: ${"%.0f".format((System.nanoTime() - startedAt) / 1e6)} ms after the app started or the onboarding ended (the bridge: $boot)")
     }
 
-    fun refresh(): Job = launchSafely { reload() }
+    fun refresh(): Job = launchSafely { reload() }.also { reloading = it }
+
+    /** The reload running now, if any ([shown] doesn't start another beside it). */
+    private var reloading: Job? = null
 
     private suspend fun reload() {
         val b = bridge ?: return
@@ -759,6 +781,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         reloadCulture(b)
         family.refresh()
         questions.load() // guests' questions, and the answers to the learner's (their ties with each town)
+        towns.load() // the linked towns, their guests and friendships: Friends' badge on Home and the village (FriendsNews)
         clips.refresh()
         content.reload(b)
         grammar.reload(b)
@@ -892,7 +915,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
                 // a guest's visit: the village applies it (not during a visit of one's own: then when home again)
                 notices.banner = "🧳 ${TownGuests.title(ev)}"
                 game.sync()
-                if (screen == Screen.Friends) towns.load()
+                towns.load() // Friends' badge on Home and the village (FriendsNews), and Friends itself
             }
             is BridgeEvent.TownQuestion -> {
                 // a guest's question to answer, or the answer to the learner's: in Friends, and on its own screen
@@ -928,6 +951,13 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         is Screen.TownProgress -> "a linked town's progress"
         is Screen.School, is Screen.CourseUnit, is Screen.UnitIntro, is Screen.Sheet -> "the school"
         is Screen.Numbers, is Screen.NumbersRun -> "the numbers module (🔢 Števila)"
+        is Screen.Progress -> "the progress screen (📊 Napredek)"
+        is Screen.MyWords -> "the learner's words (🔤 Moje besede)"
+        is Screen.GrammarBook -> "the grammar book's index (📖 Slovnica)"
+        is Screen.Settings -> "the settings"
+        is Screen.Villagers, is Screen.Villager -> "the village's people"
+        is Screen.Friends -> "the linked towns (🤝 Prijatelji)"
+        is Screen.Treasure -> "the treasure map"
         else -> "the app"
     } + if (chat.isOpen) ", the tutor chat open" else ""
 
@@ -994,8 +1024,17 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         data.onBackground() // the phone's writes pushed, the day's backup (each only when set up)
     }
 
-    /** A notification was tapped: go where it points, once connected, without interrupting a run. */
+    /**
+     * A notification (or the widget, a lani:// link) was tapped: its target opens on the way the app has to it from Home
+     * (docs/plans/05-built/navigation.md, "Notifications and links"): Home, the place it is in (the village for a scene, the
+     * school for a unit, Friends for a town's question or progress), the target; Back walks that way home. Once connected;
+     * never over a run with answers (the news shows in the app anyway); a visit ends first, the link leads into the
+     * learner's own village.
+     */
     fun open(link: DeepLink) {
+        // back from a sign-in in the browser (lani://tutor): where it began is on screen already (the tutor's settings, the
+        // hosted onboarding's tutor step, the developer's panel), or the app starts over and is where it was (Nav's restore)
+        if (link is DeepLink.Settings && (tutorSheetOpen || shadow.panelOpen || screen == Screen.Settings(link.section) || (bridge == null && link.section == "tutor"))) return
         if (bridge == null) {
             pendingLink = link
             return
@@ -1004,28 +1043,59 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         if (link == DeepLink.Chat) return chat.open() // a sheet, fine over any screen
         // an invitation opened from a link: kept for Friends' Accept dialog (also while a run goes on: then it waits there)
         if (link is DeepLink.Invitation) towns.receive(link.text)
-        if (screen.inRun) return // leaving would lose the answers; the news shows in the app anyway
-        if (VisitWorld.active) endVisit() // home first: the link leads into the learner's own village
+        if (runBusy) return // leaving would lose the answers; the news shows in the app anyway
+        // the reviews asked for (the widget's count of a while ago), none due now: the learner stays where they are
+        if (link == DeepLink.Review && content.dashboard != null && content.deck(null)?.dueCards.isNullOrEmpty()) return
+        closeSheets()
+        nav.reset(Screen.Home) // a visit in the stack ends with it (onLeft): the link leads into the learner's own village
         when (link) {
-            DeepLink.Chat -> Unit
+            DeepLink.Chat, DeepLink.Home -> Unit
             DeepLink.Talk -> openTalk()
             DeepLink.Village -> openVillage()
             DeepLink.Packs -> openPacks()
             DeepLink.Readings -> openReadings()
-            is DeepLink.Scene -> openScene(link.id, link.focus)
+            DeepLink.Review -> startReview()
+            is DeepLink.Scene -> {
+                openVillage()
+                openScene(link.id, link.focus)
+            }
             is DeepLink.Module -> openModule(link.id)
             is DeepLink.Family -> {
                 family.refresh() // the challenge may be newer than the list
                 openFamily(link.challengeId)
             }
-            is DeepLink.Question -> openQuestion(link.key, link.asked)
+            is DeepLink.Question -> {
+                openFriends()
+                openQuestion(link.key, link.asked)
+            }
             is DeepLink.TownProgress -> {
                 towns.load() // the town's row (its name, its sharing) for the screen
+                openFriends()
                 openTownProgress(link.town)
             }
-            is DeepLink.School -> link.unit?.takeIf { school.unit(it) != null }?.let { openUnit(it) } ?: openSchool(fromVillage = false)
+            is DeepLink.School -> {
+                openSchool()
+                link.unit?.takeIf { school.unit(it) != null }?.let { openUnit(it) }
+            }
             DeepLink.Friends, is DeepLink.Invitation -> openFriends()
+            // the tutor's new grammar page: the book open at it (the page over the book's index)
+            is DeepLink.Grammar -> {
+                openGrammarBook()
+                if (grammar.page(link.id) != null) grammar.show(link.id)
+            }
+            is DeepLink.Settings -> openSettings(link.section)
         }
+    }
+
+    /** Every sheet over the screens (the chat, the cheat sheet, a grammar page, a word's card …) closed: a link leads elsewhere. */
+    private fun closeSheets() {
+        chat.close()
+        cheat.close()
+        grammar.close()
+        sentences.close()
+        words.close()
+        formsCards.closeView()
+        notebook = null
     }
 
     /**
@@ -1154,8 +1224,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     fun upgradeNow(id: String): Boolean {
         if (!game.upgrade(id)) return false
         buildingCard = null
-        screen = Screen.Village // not village(): the construction animation plays
-        game.sync()
+        nav.go(Screen.Village) // where the run began, or the village under the building's scene: it goes up there
         return true
     }
 
@@ -1264,7 +1333,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     /** QA's "school" (app/QaHooks): the dev village ready for the classroom under the linden, and the school open. */
     fun qaSchool() {
         game.apply { si.lanisce.lani.app.QaHooks.readySchool(it, System.currentTimeMillis()) }
-        openSchool(fromVillage = false)
+        openSchool()
     }
 
     /**
@@ -1381,6 +1450,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
 
     /** A word's forms card reviewed now ("▶ Vadi zdaj · Practise now" in the word's overview, after "🃏 Vadi oblike"). */
     fun playFormsCard(cardId: String) {
+        if (busyRun()) return
         val card = content.dashboard?.formsCards?.firstOrNull { it.id == cardId } ?: return
         formsCards.closeView()
         words.close()
@@ -1505,21 +1575,99 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    // --- navigation ---------------------------------------------------------------------------
-
-    /** Where "Later" on a run's intro leads: the screen the run was started from. */
-    private var runFrom: Screen = Screen.Home
+    // --- navigation (Nav.kt, docs/plans/05-built/navigation.md) ------------------------------------------------------
 
     /** The run on screen was started again from its own finish screen ("once more"): it skips its intro. */
     var again by mutableStateOf(false)
         private set
 
-    /** Opens a practice run; the last run's reward no longer shows. */
+    /**
+     * A run on screen has answers that leaving it now would cut short (ui/PlayerScreen's ExerciseRun says so): what would
+     * open elsewhere from a sheet over it (a link, the chat's role-play, a grammar page's practice) waits until it's done.
+     */
+    var runBusy by mutableStateOf(false)
+
+    /** [runBusy], and the learner told why nothing opens: the exercise first. */
+    private fun busyRun(): Boolean {
+        if (runBusy) notices.banner = "🏁 ${bi("nav.finishRunFirst")}"
+        return runBusy
+    }
+
+    /**
+     * Back: the screen below the one on view (the stack's, Nav.kt), as the system's Back does when nothing on the screen
+     * takes it first; nothing at the root (the system's Back leaves the app there).
+     */
+    fun back() {
+        nav.back()
+    }
+
+    init {
+        nav.onRemoved = ::left
+        // the stack saved for after the process's death (the screens that can be opened again from their ids)
+        viewModelScope.launch {
+            snapshotFlow { nav.entries }.collect {
+                when (it.first().screen) {
+                    Screen.Home -> savedState[NAV_KEY] = nav.saved()
+                    // the setup again (another node, the phone's own): what was open belongs to the data before
+                    Screen.Setup -> savedState.remove<String>(NAV_KEY)
+                    else -> Unit
+                }
+            }
+        }
+        // a screen on view again (opened, or Back to it): what it shows read anew
+        viewModelScope.launch {
+            var before: Screen? = null
+            snapshotFlow { nav.entries.last() }.distinctUntilChanged().collect { e ->
+                // the village left: its construction plays once, not again when Back leads there later
+                if (before == Screen.Village && e.screen != Screen.Village) game.clearJustBuilt()
+                before = e.screen
+                shown(e.screen)
+            }
+        }
+    }
+
+    /** What a screen reads anew when it comes on view (opened, or Back to it). */
+    private fun shown(s: Screen) {
+        when (s) {
+            Screen.Home, Screen.Packs -> if (reloading?.isActive != true) refresh()
+            // the role-plays (also when the app opens again on Talk after the process ended)
+            Screen.Talk -> talk.load()
+            Screen.Village -> game.sync()
+            Screen.Progress -> progress.load()
+            Screen.Readings -> launchSafely { bridge?.let { readings.reload(it) } } // the tutor may have written something new
+            Screen.Villagers -> launchSafely { bridge?.let { villagers.reload(it) } } // the tutor may have brought someone new
+            Screen.School -> school.touch()
+            Screen.Friends -> friendsSeen()
+            else -> Unit
+        }
+    }
+
+    /** What a screen leaving the stack takes with it. */
+    private fun left(s: Screen) {
+        when (s) {
+            // the visit is over: the learner's own pair, culture and voices again
+            is Screen.Visit -> if (visits.visit != null) endVisit()
+            is Screen.Treasure -> treasure.seen()
+            is Screen.TownProgress -> townProgress.close()
+            // what Friends showed is seen (its guests: not on the badge again)
+            Screen.Friends -> friendsSeen()
+            // a word's card and its forms opened from the list go with it
+            Screen.MyWords -> {
+                words.close()
+                formsCards.closeView()
+            }
+            // a dialog left open doesn't wait for a later visit of another scene
+            is Screen.Scene -> if (scenes.talk?.sceneId == s.id && scenes.talk?.step?.over != true) scenes.closeTalk()
+            else -> Unit
+        }
+    }
+
+    /** Opens a practice run over the screen on view (Back after it leads there); the last run's reward no longer shows. */
     private fun startRun(s: Screen, again: Boolean = false) {
         game.clearReward()
-        if (!screen.inRun) runFrom = screen
+        closeSheets() // a grammar page's "🎯 Vadi" over the chat: the run on top, not under them
         this.again = again
-        screen = s
+        nav.go(s)
     }
 
     /**
@@ -1528,139 +1676,72 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
      * else it is dropped, so it doesn't open on a later visit.
      */
     fun leaveRun() {
-        if (runFrom != Screen.Village && runFrom !is Screen.Scene) buildingCard = null
-        when (val from = runFrom) {
-            Screen.Village -> village()
-            is Screen.Packs -> openPacks(from.fromVillage)
-            is Screen.Scene -> openScene(from.id, from.focus, from.building)
-            is Screen.Villager -> openVillager(from.id)
-            Screen.Villagers -> openVillagers()
-            is Screen.Visit, is Screen.VisitScene -> if (visits.visit != null) openVisit() else home()
-            is Screen.Treasure -> openTreasure(from.fromVillage)
-            is Screen.School -> openSchool(from.fromVillage)
-            is Screen.CourseUnit -> openUnit(from.id, from.fromVillage)
-            is Screen.UnitIntro -> openUnit(from.id, from.fromVillage)
-            // a grammar page's "🎯 Vadi" over the progress screen (its weakest pages, those still to secure)
-            is Screen.Progress -> openProgress(from.fromVillage)
-            is Screen.Numbers -> openNumbers(from.fromUnit, from.fromVillage)
-            else -> home()
-        }
+        back()
+        if (screen != Screen.Village && screen !is Screen.Scene) buildingCard = null
     }
 
     // --- the school (companion/GAME.md, "The school") ---------------------------------------------------------------
 
-    /** "📚 Šola · School": the course's levels and units; the levels opened since are kept first. */
-    fun openSchool(fromVillage: Boolean = screen is Screen.Village || screen is Screen.Scene) {
-        enterSchool()
-        school.touch()
-        screen = Screen.School(fromVillage)
+    /** "🏫 Šola · School": the course's levels and units; the levels opened since are kept first. */
+    fun openSchool() {
+        nav.go(Screen.School)
     }
 
-    /**
-     * The scene the school was entered from (the class's place: a tap on the teacher, the blackboard, "📚" in its top bar),
-     * where leaving the school goes back to; null when it was entered from anywhere else.
-     */
-    var schoolScene by mutableStateOf<Screen.Scene?>(null)
-        private set
-
-    /** The progress screen the school was entered from (its school row, its next unit), where leaving the school goes back to. */
-    var schoolProgress by mutableStateOf<Screen.Progress?>(null)
-        private set
-
-    /**
-     * The school is entered from the screen on now: a scene or the progress screen is kept to go back to, a school's screen
-     * keeps the one kept.
-     */
-    private fun enterSchool() {
-        when (val s = screen) {
-            is Screen.Scene -> { schoolScene = s.copy(focus = null); schoolProgress = null }
-            is Screen.Progress -> { schoolScene = null; schoolProgress = s }
-            is Screen.School, is Screen.CourseUnit, is Screen.UnitIntro, is Screen.Sheet -> Unit
-            else -> { schoolScene = null; schoolProgress = null }
-        }
-    }
-
-    /**
-     * Back from the school: to the scene or the progress screen it was entered from, else to the village or home, wherever
-     * it was opened.
-     */
-    fun leaveSchool(fromVillage: Boolean) {
-        val back = schoolScene
-        val progress = schoolProgress
-        schoolScene = null
-        schoolProgress = null
-        when {
-            back != null -> openScene(back.id, null, back.building)
-            progress != null -> openProgress(progress.fromVillage)
-            fromVillage -> village()
-            else -> home()
-        }
-    }
-
-    /** Unit [id] of the course: its intro, its worksheets, its test. */
-    fun openUnit(id: String, fromVillage: Boolean = false) {
+    /** Unit [id] of the course: its intro, its worksheets, its test; Back leads where it was opened (Today, Napredek, the school). */
+    fun openUnit(id: String) {
         if (school.unit(id) == null) return
-        enterSchool()
-        screen = Screen.CourseUnit(id, fromVillage)
+        nav.go(Screen.CourseUnit(id))
     }
 
     /** Unit [id]'s guided introduction, where the learner left it. */
-    fun startIntro(id: String, fromVillage: Boolean = false) {
+    fun startIntro(id: String) {
         if (school.unit(id)?.intro == null) return
-        enterSchool()
-        screen = Screen.UnitIntro(id, fromVillage)
+        nav.go(Screen.UnitIntro(id))
     }
 
     /** Each sheet's run is a screen of its own ([Screen.Sheet.run]). */
     private var sheetRuns = 0
 
     /** Sheet [sheet] of unit [unit] ([kind]: a worksheet, the test, homework): its run, back to the unit after. */
-    fun startSheet(unit: String, kind: si.lanisce.lani.app.SheetKind, sheet: String, fromVillage: Boolean = false) {
-        if (screen.inRun) return
-        enterSchool()
-        startRun(Screen.Sheet(unit, kind, sheet, fromVillage, ++sheetRuns))
+    fun startSheet(unit: String, kind: si.lanisce.lani.app.SheetKind, sheet: String) {
+        if (busyRun()) return
+        startRun(Screen.Sheet(unit, kind, sheet, ++sheetRuns))
     }
 
     /**
      * "📚 Pouk · Lesson" in the class's scene (companion/GAME.md "The school"; [si.lanisce.lani.game.scene.SceneOffers]): a
      * unit begun goes on at its next step, as its main button does (its intro where it was left, the next worksheet, the
-     * test: [School.lessonStep]); the unit suggested next opens at its page. Leaving the school comes back to the scene.
+     * test: [School.lessonStep]); the unit suggested next opens at its page. Back comes to the scene.
      */
     fun startLesson(lesson: si.lanisce.lani.game.School.Lesson) {
         val unit = school.unit(lesson.unit) ?: return
         school.touch()
         val p = game.state?.let { si.lanisce.lani.game.School.progress(it, unit.language, unit.id) }
         when (val step = si.lanisce.lani.game.School.lessonStep(lesson, unit, p)) {
-            si.lanisce.lani.game.School.Step.Intro -> startIntro(unit.id, fromVillage = true)
-            is si.lanisce.lani.game.School.Step.Sheet -> startSheet(unit.id, si.lanisce.lani.app.SheetKind.WORKSHEET, step.id, fromVillage = true)
-            si.lanisce.lani.game.School.Step.Test -> startSheet(unit.id, si.lanisce.lani.app.SheetKind.TEST, "test", fromVillage = true)
-            si.lanisce.lani.game.School.Step.Done, null -> openUnit(unit.id, fromVillage = true)
+            si.lanisce.lani.game.School.Step.Intro -> startIntro(unit.id)
+            is si.lanisce.lani.game.School.Step.Sheet -> startSheet(unit.id, si.lanisce.lani.app.SheetKind.WORKSHEET, step.id)
+            si.lanisce.lani.game.School.Step.Test -> startSheet(unit.id, si.lanisce.lani.app.SheetKind.TEST, "test")
+            si.lanisce.lani.game.School.Step.Done, null -> openUnit(unit.id)
         }
     }
 
     // --- the numbers (data/NumbersPractice.kt; companion/README.md "Numbers") -------------------------------------------
 
-    /**
-     * "🔢 Števila · Numbers": its screen, open or closed (what opens it, one tap to the unit's intro); [fromUnit] when opened
-     * from the unit stevila, back leading there.
-     */
-    fun openNumbers(fromUnit: Boolean = screen is Screen.CourseUnit, fromVillage: Boolean = (screen as? Screen.CourseUnit)?.fromVillage == true) {
-        screen = Screen.Numbers(fromUnit, fromVillage)
+    /** "🔢 Števila · Numbers": its screen, open or closed (what opens it, one tap to the unit's intro). */
+    fun openNumbers() {
+        nav.go(Screen.Numbers)
     }
 
     /** Each numbers run is a screen of its own ([Screen.NumbersRun.run]). */
     private var numberRuns = 0
 
     /** A run of the numbers now ([si.lanisce.lani.app.NumbersController.plan]); none while closed. [again]: "▶ Še enkrat" from its end. */
-    fun startNumbers(fromUnit: Boolean, fromVillage: Boolean = false, again: Boolean = false) {
-        if (screen.inRun && !again) return
+    fun startNumbers(again: Boolean = false) {
+        if (!again && busyRun()) return
         val tasks = numbers.plan()
         if (tasks.isEmpty()) return
-        startRun(Screen.NumbersRun(tasks, fromUnit, fromVillage, ++numberRuns), again)
+        startRun(Screen.NumbersRun(tasks, ++numberRuns), again)
     }
-
-    /** Back from the numbers: to the unit stevila when opened from it, else Home. */
-    fun leaveNumbers(fromUnit: Boolean, fromVillage: Boolean = false) = if (fromUnit && school.unit(si.lanisce.lani.data.NumbersPractice.UNIT) != null) openUnit(si.lanisce.lani.data.NumbersPractice.UNIT, fromVillage) else home()
 
     /**
      * QA's numbers hooks (app/QaHooks, "numbers…"): "locked" the class ready with the unit stevila as never begun, "ready"
@@ -1682,18 +1763,18 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
             what == "again" -> game.apply { si.lanisce.lani.app.QaHooks.numbersAgain(it, today) }
             what == "near" -> game.apply { si.lanisce.lani.app.QaHooks.numbersNear(it) }
         }
-        openNumbers(fromUnit = false, fromVillage = false)
+        openNumbers()
     }
 
     /** The village with building [id]'s card open (the school's level a course level waits for: its upgrade). */
     fun openBuildingCard(id: String) {
         buildingCard = id
-        screen = Screen.Village
+        nav.go(Screen.Village)
     }
 
+    /** Home: everything over it closed (Back from it leaves the app). */
     fun home() {
-        screen = Screen.Home
-        refresh()
+        nav.go(Screen.Home)
     }
 
     /** Each review run is a screen of its own, also the same cards polished again ([Screen.Review.run]). */
@@ -1730,7 +1811,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
      * asked for a drill.
      */
     fun practiseGrammar(id: String) = launchSafely {
-        if (screen.inRun) return@launchSafely
+        if (busyRun()) return@launchSafely
         val page = grammar.page(id) ?: return@launchSafely
         content.loadModuleExercises()
         val seed = System.currentTimeMillis()
@@ -1744,34 +1825,44 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    fun openPacks(fromVillage: Boolean = false) {
-        screen = Screen.Packs(fromVillage)
-        refresh()
+    /** "📚 Nove besede · New words": the word packs. */
+    fun openPacks() {
+        nav.go(Screen.Packs)
     }
 
-    /** Back from the packs: to the village or home, wherever they were opened. */
-    fun leavePacks(fromVillage: Boolean) = if (fromVillage) village() else home()
-
-    /** "📖 Branje · Reading", the reading corner; [fromVillage]: opened from the village book or the chest. */
-    fun openReadings(fromVillage: Boolean = false) {
-        screen = Screen.Readings(fromVillage)
-        launchSafely { bridge?.let { readings.reload(it) } } // the tutor may have written something new
+    /** "📗 Branje · Reading", the reading corner. */
+    fun openReadings() {
+        nav.go(Screen.Readings)
     }
 
-    /** Back from the reading corner: to the village or home. */
-    fun leaveReadings(fromVillage: Boolean) = if (fromVillage) village() else home()
-
-    /** Reads reading [id] aloud ("🎤 Beri na glas"); [fromCorner]: back leads to the reading corner, else to the village or home. */
-    fun openReadAloud(id: String, fromVillage: Boolean, fromCorner: Boolean = true) {
+    /** Reads reading [id] aloud ("🎤 Beri na glas"). */
+    fun openReadAloud(id: String) {
         if (VisitWorld.active) return // a visited town's readings aren't the learner's
-        screen = Screen.ReadAloud(id, fromVillage, fromCorner)
+        nav.go(Screen.ReadAloud(id))
     }
 
-    fun leaveReadAloud(fromVillage: Boolean, fromCorner: Boolean) = when {
-        fromCorner -> openReadings(fromVillage)
-        fromVillage -> village()
-        else -> home()
-    }
+    // The village's callers before the back stack, which knows where a screen was opened from: what they said of it is
+    // read no more (docs/plans/05-built/navigation.md, "What's left").
+    @Deprecated("The back stack knows where it was opened from", ReplaceWith("openPacks()"))
+    fun openPacks(@Suppress("UNUSED_PARAMETER") fromVillage: Boolean) = openPacks()
+
+    @Deprecated("The back stack knows where it was opened from", ReplaceWith("openReadings()"))
+    fun openReadings(@Suppress("UNUSED_PARAMETER") fromVillage: Boolean) = openReadings()
+
+    @Deprecated("The back stack knows where it was opened from", ReplaceWith("openReadAloud(id)"))
+    fun openReadAloud(id: String, @Suppress("UNUSED_PARAMETER") fromVillage: Boolean, @Suppress("UNUSED_PARAMETER") fromCorner: Boolean = true) = openReadAloud(id)
+
+    @Deprecated("The back stack knows where it was opened from", ReplaceWith("openSchool()"))
+    fun openSchool(@Suppress("UNUSED_PARAMETER") fromVillage: Boolean) = openSchool()
+
+    @Deprecated("The back stack knows where it was opened from", ReplaceWith("openTreasure()"))
+    fun openTreasure(@Suppress("UNUSED_PARAMETER") fromVillage: Boolean) = openTreasure()
+
+    @Deprecated("The back stack knows where it was opened from", ReplaceWith("openProgress()"))
+    fun openProgress(@Suppress("UNUSED_PARAMETER") fromVillage: Boolean) = openProgress()
+
+    @Deprecated("The back stack knows where it was opened from", ReplaceWith("startPack(id)"))
+    fun startPack(id: String, @Suppress("UNUSED_PARAMETER") fromVillage: Boolean, again: Boolean = false) = startPack(id, again)
 
     /**
      * The learner's level in [language] ("sl" → "A2"; A1 before the dashboard is loaded): the storyteller tells at it. The
@@ -1782,38 +1873,14 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
 
     // --- the treasure map (companion/GAME.md, "The treasure map") ------------------------------------------------------
 
-    /**
-     * The progress screen the treasure map was opened from (its way to the next level), where leaving the map goes back
-     * to, also after a station's run (which comes back to the map).
-     */
-    private var treasureProgress: Screen.Progress? = null
-
-    /**
-     * Opens the treasure map; [fromVillage]: its "‹" leads back to the village, else Home, or the progress screen it was
-     * opened from.
-     */
-    fun openTreasure(fromVillage: Boolean = screen is Screen.Village) {
+    /** "🗺️ Zemljevid zaklada · The treasure map": the storyteller's offer, the path, the treasure. */
+    fun openTreasure() {
         grammar.close()
-        treasure.fromVillage = fromVillage
-        treasureProgress = when (val s = screen) {
-            is Screen.Progress -> s
-            is Screen.Treasure, is Screen.Challenge -> treasureProgress
-            else -> null
-        }
-        screen = Screen.Treasure(fromVillage)
+        nav.go(Screen.Treasure)
     }
 
-    /** Back from the treasure map: where it was opened from. */
-    fun leaveTreasure() {
-        treasure.seen()
-        val progress = treasureProgress
-        treasureProgress = null
-        when {
-            progress != null -> openProgress(progress.fromVillage)
-            treasure.fromVillage -> village()
-            else -> home()
-        }
-    }
+    /** Back from the treasure map, where it was opened from (the map seen: Nav's [left]). */
+    fun leaveTreasure() = back()
 
     /** Takes the map (the storyteller's, or from the grammar book) and shows the path. */
     fun takeMap() {
@@ -1825,8 +1892,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     fun startStation(station: si.lanisce.lani.game.Station) = startChallenge(ChallengeOrigin.Treasure(station.id))
 
     /** Learns the next words of pack [id]; [again] (more words right after a session) skips the intro. */
-    fun startPack(id: String, fromVillage: Boolean = false, again: Boolean = false) = launchSafely {
-        packs.next(id)?.let { (p, words) -> startRun(Screen.PackLearn(p, words, fromVillage), again) }
+    fun startPack(id: String, again: Boolean = false) = launchSafely {
+        packs.next(id)?.let { (p, words) -> startRun(Screen.PackLearn(p, words), again) }
     }
 
     /** Learns scene [id]'s words not learned yet (a pack run of them), of the things the village has there; back leads to the scene. */
@@ -1838,7 +1905,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
             else "📡 ${bi("appViewModel.theseWordsCantLoaded")}"
             return@launchSafely
         }
-        startRun(Screen.PackLearn(p, words, fromVillage = true, scene = id), again)
+        startRun(Screen.PackLearn(p, words, scene = id), again)
     }
 
     /** Learns the words of [story], just told in scene [scene] (a pack run of those not learned yet); back leads to the scene. */
@@ -1850,49 +1917,48 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
             return@launchSafely
         }
         scenes.closeTalk()
-        startRun(Screen.PackLearn(p, words, fromVillage = true, scene = scene))
+        startRun(Screen.PackLearn(p, words, scene = scene))
     }
 
-    fun openFamily(challengeId: String? = null) = startRun(Screen.Family(challengeId))
+    fun openFamily(challengeId: String? = null) {
+        game.clearReward()
+        nav.go(Screen.Family(challengeId))
+    }
 
+    /** "🏘️ Moja vas · My village": the map. */
     fun openVillage() {
-        screen = Screen.Village
-        game.sync()
+        nav.go(Screen.Village)
     }
 
     /** The register of the village's people. */
     fun openVillagers() {
-        screen = Screen.Villagers
-        launchSafely { bridge?.let { villagers.reload(it) } } // the tutor may have brought someone new
+        nav.go(Screen.Villagers)
     }
 
     /** One villager's page. */
     fun openVillager(id: String) {
-        screen = Screen.Villager(id)
+        nav.go(Screen.Villager(id))
     }
 
-    /** "Prijatelji · Friends": the towns linked with this one (the screen loads them). */
+    /** "🤝 Prijatelji · Friends": the towns linked with this one (the screen loads them). */
     fun openFriends() {
-        screen = Screen.Friends
+        nav.go(Screen.Friends)
     }
 
     /** "📈 Napredek · Progress" of linked town [id]: what its learner shares with this one (ui/towns/TownProgressScreen). */
     fun openTownProgress(id: String) {
-        if (screen.inRun) return
-        screen = Screen.TownProgress(id)
+        if (busyRun()) return
+        nav.go(Screen.TownProgress(id))
     }
 
-    /** Back from a town's progress to Friends. */
-    fun closeTownProgress() {
-        townProgress.close()
-        openFriends()
-    }
+    /** Back from a town's progress (to Friends, or wherever it was opened). */
+    fun closeTownProgress() = back()
 
-    /** A question between towns ([key]): a guest's to answer, or ([asked]) the learner's with the answer; back to Friends. */
+    /** A question between towns ([key]): a guest's to answer, or ([asked]) the learner's with the answer. */
     fun openQuestion(key: String, asked: Boolean) {
         game.clearReward()
         questions.clearCheck()
-        screen = Screen.TownQuestion(key, asked)
+        nav.go(Screen.TownQuestion(key, asked))
         questions.load()
     }
 
@@ -1903,7 +1969,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
      */
     fun visitTown(id: String) {
         val t = towns.list?.towns?.firstOrNull { it.id == id } ?: return
-        if (screen.inRun) return
+        if (busyRun()) return
         game.paused = true
         VisitWorld.enter(t.language, t.culture)
         // the town's own voices (companion/README.md, "Voices on a visit"): its clips through the node, else the node voices
@@ -1918,7 +1984,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         speaker.refresh()
         showWorld()
         visits.start(t.id, t.name, t.learner, t.culture, t.language)
-        screen = Screen.Visit(t.id)
+        nav.go(Screen.Visit(t.id))
     }
 
     // --- friendship between towns (companion/README.md, "Friendship between towns") ----------------------------------
@@ -1970,12 +2036,12 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
 
     /** Back in the visited town from one of its places. */
     fun openVisit() {
-        visits.visit?.let { screen = Screen.Visit(it.id) }
+        visits.visit?.let { nav.go(Screen.Visit(it.id)) }
     }
 
     /** Walks into place [scene] of the visited town (its words to tap, a guest's dialog). */
     fun openVisitScene(scene: String) {
-        visits.visit?.let { screen = Screen.VisitScene(it.id, scene) }
+        visits.visit?.let { nav.go(Screen.VisitScene(it.id, scene)) }
     }
 
     // --- things to do on a visit (companion/README.md, "Things to do on a visit") ------------------------------
@@ -2042,11 +2108,9 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         openVisitTalk(s)
     }
 
-    /** Opens Talk at role-play [s] of a visit; leaving it leads back to the visit. */
+    /** Opens Talk at role-play [s] of a visit; Back leads to the visit. */
     private fun openVisitTalk(s: si.lanisce.lani.data.Scenario) {
-        val from = screen.takeIf { it is Screen.Visit || it is Screen.VisitScene } ?: visits.visit?.let { Screen.Visit(it.id) }
-        openTalk()
-        talkReturn = from
+        openTalkFor()
         if (talk.state?.phase != TalkPhase.CHAT) {
             talk.pick(s)
             talk.start()
@@ -2083,10 +2147,13 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    /** Home from a visit: to the learner's own village, or ([friends]) back to the Friends list it started from. */
-    fun leaveVisit(friends: Boolean = false) {
-        endVisit()
-        if (friends) openFriends() else openVillage()
+    /**
+     * Home from a visit ("⌂ Domov · Home", or Back on the visited town): the visit ends (Nav: [left]), and the screen it was
+     * started from shows (Friends, or what opened it).
+     */
+    fun leaveVisit() {
+        nav.backTo { it is Screen.Visit }
+        back()
     }
 
     /** The visit is over: the learner's own pair, culture and voices again, and their village's days go on. */
@@ -2124,8 +2191,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
             return@launch
         }
         if (screen != from) return@launch // Jan went elsewhere meanwhile
-        openTalk()
-        talkReturn = from
+        openTalkFor()
         if (talk.state?.phase != TalkPhase.CHAT) {
             talk.pick(s)
             talk.start()
@@ -2139,7 +2205,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
      */
     fun openScene(id: String, focus: String? = null, building: String? = null) {
         if (building != null) sceneBuilding = id to building
-        screen = Screen.Scene(id, focus, building ?: sceneBuilding?.takeIf { it.first == id }?.second)
+        nav.go(Screen.Scene(id, focus, building ?: sceneBuilding?.takeIf { it.first == id }?.second))
     }
 
     /** The scene last opened from a building, and that building's id (see [openScene]). */
@@ -2155,12 +2221,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
             if (scene.art == "school") world.copy(board = si.lanisce.lani.game.scene.Blackboard.of(s, school.course)) else world
         } ?: SceneWorld.ALL
 
-    /** Back to the village from a run or a sheet; the construction animation doesn't replay. */
-    fun village() {
-        game.clearJustBuilt()
-        screen = Screen.Village
-        game.sync()
-    }
+    /** To the village (Back to it, when it is below). */
+    fun village() = openVillage()
 
     /** A gathering run; [again] (once more, from its result) skips the intro. */
     fun startGather(res: Res, again: Boolean = false) = startChallenge(ChallengeOrigin.Gather(res), again)
@@ -2274,71 +2336,90 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         game.challenge(origin)?.let { startRun(Screen.Challenge(origin, it), again) }
     }
 
-    /** Where leaving Talk goes: the scene it was opened from, else Home. */
-    private var talkReturn by mutableStateOf<Screen?>(null)
-
+    /** "🗣️ Pogovor · Talk": role-play, its list of scenes; Back leads where it was opened (Home, the chat's screen …). */
     fun openTalk() {
+        if (busyRun()) return
         chat.close()
-        talkReturn = null
-        screen = Screen.Talk
-        talk.load()
+        talkForOne = false
+        nav.go(Screen.Talk) // its scenes load as it shows ([shown])
+    }
+
+    /** Talk opened for one role-play (a scene's dialog, a villager, a visit's talk or market), not its list ([talkOpenedFrom]). */
+    private var talkForOne by mutableStateOf(false)
+
+    /** Talk for one role-play from where it was opened ([openTalk] with a scenario, a villager's, a visit's). */
+    private fun openTalkFor() {
+        openTalk()
+        talkForOne = true
     }
 
     /** Leaves Talk for where it was opened from. */
-    fun leaveTalk() {
-        val back = talkReturn
-        talkReturn = null
-        if (back != null) screen = back else home()
-    }
+    fun leaveTalk() = back()
 
-    /** Talk was opened from a scene's dialog; leaving it goes back there. */
-    val talkFromScene: Boolean get() = talkReturn is Screen.Scene
-
-    /** Talk was opened for one role-play from somewhere else (a scene): its intro's "Later" leads back there. */
-    val talkOpenedFrom: Boolean get() = talkReturn != null
-
-    /** Where leaving Talk goes, for its back links: "‹ Prizor · Scene", "‹ Luka", or null (Home). */
-    val talkBackLabel: String?
-        get() = when (val r = talkReturn) {
-            is Screen.Scene -> "‹ ${bi("sceneView.scene")}"
-            is Screen.Villager -> "‹ " + (villagers.byId(r.id)?.name?.let(VillagerLogic::shortName) ?: r.id)
-            Screen.Villagers -> "‹ ${bi("common.villagers")}"
-            Screen.Village -> "‹ ${bi("common.village")}"
-            is Screen.Visit, is Screen.VisitScene -> "‹ " + (visits.visit?.name?.takeIf { it.isNotBlank() } ?: bi("common.village"))
-            else -> null
-        }
+    /**
+     * Talk was opened for one role-play from somewhere else (a scene, a villager, a visit): its intro's "Later", and the
+     * end of a villager's talk, lead back there, not to the list of scenes.
+     */
+    val talkOpenedFrom: Boolean get() = screen == Screen.Talk && talkForOne
 
     /** Opens the Talk screen at role-play [scenario] (e.g. after a scene's dialog), unless a conversation is running. */
     fun openTalk(scenario: String) {
-        val from = screen.takeIf { it is Screen.Scene }
-        openTalk()
-        talkReturn = from
+        openTalkFor()
         launchSafely {
             val s = bridge?.scenarios()?.firstOrNull { it.id == scenario } ?: return@launchSafely
             if (talk.state == null) talk.pick(s)
         }
     }
 
-    fun openProgress(fromVillage: Boolean = false) {
-        screen = Screen.Progress(fromVillage)
-        progress.load()
+    /** "📊 Napredek · Progress". */
+    fun openProgress() {
+        nav.go(Screen.Progress)
     }
 
-    fun leaveProgress(fromVillage: Boolean) = if (fromVillage) village() else home()
-
-    /** "📚 Moje besede · My words": from Napredek's words, or the packs' screen ([fromPacks]); back leads there. */
-    fun openMyWords(fromPacks: Boolean, fromVillage: Boolean) {
-        screen = Screen.MyWords(fromPacks, fromVillage)
+    /** "🔤 Moje besede · My words": the learner's words, a dictionary lookup. */
+    fun openMyWords() {
+        nav.go(Screen.MyWords)
     }
 
-    /** Back from "📚 Moje besede": where it was opened from. */
-    fun leaveMyWords(s: Screen.MyWords) {
-        words.close()
-        formsCards.closeView()
-        if (s.fromPacks) openPacks(s.fromVillage) else openProgress(s.fromVillage)
+    /** "📖 Slovnica · Grammar": the grammar book's index, its pages opened over it. */
+    fun openGrammarBook() {
+        nav.go(Screen.GrammarBook)
+    }
+
+    /** "⚙️ Nastavitve · Settings", at [section] ([Screen.Settings]) or its sections. */
+    fun openSettings(section: String? = null) {
+        // a section has the sections' list under it (Back leads there), wherever it was opened from
+        if (section != null) nav.go(Screen.Settings())
+        nav.go(Screen.Settings(section))
+    }
+
+    // --- "🤝 Prijatelji · Friends" one tap away (Home, the village's HUD): what's new there -------------------------------
+
+    private val friendsPrefs = app.getSharedPreferences("friends_news", android.content.Context.MODE_PRIVATE)
+
+    /** When Friends was last seen: guests who came after it are news ([si.lanisce.lani.ui.towns.FriendsNews]). */
+    var friendsSeenAt by mutableStateOf(friendsPrefs.getString("seen", null).orEmpty())
+        private set
+
+    /** What waits in Friends: the badge on its entries on Home and the village's HUD. */
+    val friendsNews: Int
+        get() = si.lanisce.lani.ui.towns.FriendsNews.count(towns.friendships, towns.guests, questions.list, friendsSeenAt)
+
+    /** Friends shown: the guests so far are seen. */
+    private fun friendsSeen() {
+        val newest = si.lanisce.lani.ui.towns.FriendsNews.newest(towns.guests)
+        if (newest > friendsSeenAt) {
+            friendsSeenAt = newest
+            friendsPrefs.edit().putString("seen", newest).apply()
+        }
     }
 
     private fun launchSafely(block: suspend CoroutineScope.() -> Unit): Job = viewModelScope.launchSafely(notices::fail, block)
+
+    private companion object {
+        /** The back stack in the saved state ([NavStack.saved]). */
+        const val NAV_KEY = "nav"
+    }
 
     override fun onCleared() {
         hintVoice.release()

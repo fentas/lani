@@ -145,7 +145,7 @@ class BackgroundCheck(context: Context, params: WorkerParameters) : CoroutineWor
         if (LocalTime.now().hour !in 17..21 || prefs.lastReminderDay() == today) return
         val d = bridge.dashboard()
         if (d.dueCards.isNotEmpty() && d.daysSinceLastSession >= 1) {
-            post(3, "🔥 ${inTarget("backgroundCheck.cardsWaiting", "n" to d.dueCards.size)}", bi("backgroundCheck.fiveMinutesKeepStreak"))
+            post(3, "🔥 ${inTarget("backgroundCheck.cardsWaiting", "n" to d.dueCards.size)}", bi("backgroundCheck.fiveMinutesKeepStreak"), DeepLink.Review)
             prefs.saveLastReminderDay(today)
         }
     }

@@ -46,7 +46,6 @@ import si.lanisce.lani.data.TalkPhase
 import si.lanisce.lani.data.previewLine
 import si.lanisce.lani.ui.family.FamilySheet
 import si.lanisce.lani.ui.home.ChallengesSheet
-import si.lanisce.lani.ui.home.ConnectionSheet
 import si.lanisce.lani.ui.home.HomeAction
 import si.lanisce.lani.ui.home.HomeHero
 import si.lanisce.lani.ui.home.HomeLogic
@@ -78,7 +77,7 @@ fun HomeScreen(vm: AppViewModel) {
     }
 }
 
-private enum class Sheet { NONE, CHALLENGES, FAMILY, CONNECTION, PAIR, ROAD }
+private enum class Sheet { NONE, CHALLENGES, FAMILY, ROAD }
 
 @Composable
 private fun HomeContent(vm: AppViewModel, list: LazyListState, bottom: Dp) {
@@ -86,7 +85,7 @@ private fun HomeContent(vm: AppViewModel, list: LazyListState, bottom: Dp) {
     var sheet by rememberSaveable { mutableStateOf(Sheet.NONE) }
     val talking = vm.talk.state?.takeIf { it.phase == TalkPhase.CHAT }?.scenario?.title
     LazyColumn(Modifier.fillMaxSize(), state = list, contentPadding = PaddingValues(bottom = bottom)) {
-        item("hero") { HomeHero(vm, d, onLink = { sheet = Sheet.CONNECTION }) }
+        item("hero") { HomeHero(vm, d, onLink = { vm.openSettings("connection") }) }
         if (d == null) {
             item("loading") { Text(bi("common.loading"), Modifier.padding(24.dp)) }
             return@LazyColumn
@@ -119,7 +118,7 @@ private fun HomeContent(vm: AppViewModel, list: LazyListState, bottom: Dp) {
                     when (c) {
                         is si.lanisce.lani.ui.home.VillageCall.Arrival -> vm.villagers.meet(c.id)
                         is si.lanisce.lani.ui.home.VillageCall.Keeper -> vm.scenes.startKeeper(c.keeper)
-                        is si.lanisce.lani.ui.home.VillageCall.Treasure -> vm.openTreasure(fromVillage = false)
+                        is si.lanisce.lani.ui.home.VillageCall.Treasure -> vm.openTreasure()
                     }
                 },
             )
@@ -135,7 +134,7 @@ private fun HomeContent(vm: AppViewModel, list: LazyListState, bottom: Dp) {
                     tiles = listOfNotNull(
                         // the school's course first (companion/GAME.md, "The school"), where the village's language has one: its
                         // screen at once, also before the class begins (it says what begins it)
-                        si.lanisce.lani.ui.school.schoolTile(vm)?.let { st -> Tile("🏫", inTarget("school.title"), inBase("school.title"), st) { vm.openSchool(fromVillage = false) } },
+                        si.lanisce.lani.ui.school.schoolTile(vm)?.let { st -> Tile("🏫", inTarget("school.title"), inBase("school.title"), st) { vm.openSchool() } },
                         Tile("📚", inTarget("homeScreen.newWords"), inBase("homeScreen.newWords"), HomeLogic.words(vm.packs.list, vm.packs.newIds)) { vm.openPacks() },
                         Tile("✨", inTarget("homeScreen.challenges"), inBase("homeScreen.challenges"), HomeLogic.challenges(vm.content.modules, vm.content.newModules)) { sheet = Sheet.CHALLENGES },
                         Tile("🗣️", inTarget("homeScreen.talk"), inBase("homeScreen.talk"), HomeLogic.talk(talking)) { vm.openTalk() },
@@ -166,8 +165,6 @@ private fun HomeContent(vm: AppViewModel, list: LazyListState, bottom: Dp) {
             onDismiss = { sheet = Sheet.NONE },
         )
         Sheet.FAMILY -> FamilySheet(vm, onDismiss = { sheet = Sheet.NONE })
-        Sheet.CONNECTION -> ConnectionSheet(vm, onScan = { sheet = Sheet.PAIR }, onDismiss = { sheet = Sheet.NONE })
-        Sheet.PAIR -> PairDialog(vm, onDismiss = { sheet = Sheet.NONE })
         Sheet.ROAD -> si.lanisce.lani.ui.road.RoadSheet(vm, onDismiss = { sheet = Sheet.NONE })
     }
 }
@@ -192,7 +189,7 @@ private fun act(vm: AppViewModel, a: HomeAction) {
         is HomeAction.Talk -> vm.openTalk()
         is HomeAction.Family -> vm.openFamily(a.challenge.id)
         is HomeAction.Lesson -> vm.openUnit(a.unit)
-        is HomeAction.Numbers -> vm.openNumbers(fromUnit = false, fromVillage = false)
+        is HomeAction.Numbers -> vm.openNumbers()
     }
 }
 

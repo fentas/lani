@@ -1,6 +1,5 @@
 package si.lanisce.lani.ui.game
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
@@ -70,6 +69,7 @@ import si.lanisce.lani.game.TreasureHunt
 import si.lanisce.lani.game.villagers.Villager
 import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.bi
+import si.lanisce.lani.ui.backLabel
 import si.lanisce.lani.l10n.inBase
 import si.lanisce.lani.l10n.inTarget
 import si.lanisce.lani.ui.BigButton
@@ -105,13 +105,12 @@ fun TreasureScreen(vm: AppViewModel) {
     val teller = remember(vm.villagers.all, vm.scenes.all) { t.teller() }
     val readiness = remember(s, vm.content.dashboard, vm.grammar.pages, vm.scenes.all) { t.readiness() }
     val dug = t.dug
-    BackHandler(onBack = vm::leaveTreasure)
     Box(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(MapPaper, MapPaperDark)))) {
         Column(
             Modifier.fillMaxSize().safeDrawingPadding().verticalScroll(rememberScrollState()).padding(horizontal = 18.dp, vertical = 12.dp),
             verticalArrangement = Arrangement.spacedBy(14.dp),
         ) {
-            Header(level, onBack = vm::leaveTreasure)
+            Header(level, back = vm.backLabel, onBack = vm::leaveTreasure)
             when {
                 // just dug up, or found and the node doesn't have the level yet
                 dug != null || (status == HuntStatus.FOUND && t.waiting) -> Found(vm, hunt, teller)
@@ -132,11 +131,11 @@ fun TreasureScreen(vm: AppViewModel) {
 }
 
 @Composable
-private fun Header(level: String, onBack: () -> Unit) {
+private fun Header(level: String, back: String, onBack: () -> Unit) {
     Row(Modifier.fillMaxWidth().semantics(mergeDescendants = true) { heading() }, verticalAlignment = Alignment.CenterVertically) {
         Surface(
             onClick = onBack, shape = CircleShape, color = Color.Transparent,
-            modifier = Modifier.size(44.dp).clearAndSetSemantics { role = Role.Button; contentDescription = bi("common.close"); onClick { onBack(); true } },
+            modifier = Modifier.size(44.dp).clearAndSetSemantics { role = Role.Button; contentDescription = back; onClick { onBack(); true } },
         ) { Box(contentAlignment = Alignment.Center) { Text("‹", color = MapMuted, style = MaterialTheme.typography.headlineMedium) } }
         Text("🗺️", style = MaterialTheme.typography.headlineMedium)
         Spacer(Modifier.width(8.dp))
@@ -391,7 +390,7 @@ private fun Blocked(vm: AppViewModel, st: Station, weak: List<String>) {
             Action("📖 ${p.target}") { vm.grammar.show(p.id) }
         }
         if (pages.isEmpty()) when (st) {
-            Station.LETTER -> Action("📖 ${bi("treasure.practiceReading")}") { vm.openReadings() }
+            Station.LETTER -> Action("📗 ${bi("treasure.practiceReading")}") { vm.openReadings() }
             Station.LISTENING -> Action("🪵 ${bi("engine.intoForest")}") { vm.startGather(Res.WOOD) }
             Station.RIDDLE -> Action("📚 ${bi("homeScreen.newWords")}") { vm.openPacks() }
             Station.GRAMMAR -> Action("🪨 ${bi("engine.toQuarry")}") { vm.startGather(Res.STONE) }

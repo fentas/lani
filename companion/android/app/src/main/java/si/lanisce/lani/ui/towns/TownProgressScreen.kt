@@ -1,6 +1,6 @@
 package si.lanisce.lani.ui.towns
 
-import androidx.activity.compose.BackHandler
+import si.lanisce.lani.ui.backLabel
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -89,7 +89,6 @@ private val WEEKDAYS = listOf(
 fun TownProgressScreen(vm: AppViewModel, id: String) {
     val c = vm.townProgress
     val row = vm.towns.list?.towns?.firstOrNull { it.id == id }
-    BackHandler { vm.closeTownProgress() }
     LaunchedEffect(id) { c.load(id) }
     val p = c.progress?.takeIf { it.town.id == id }
     val learner = p?.town?.learner?.ifBlank { null } ?: row?.learner.orEmpty()
@@ -104,8 +103,8 @@ fun TownProgressScreen(vm: AppViewModel, id: String) {
                 GradientHeader(
                     "📈 ${bi("townProgress.title")}",
                     "${learner.ifBlank { "?" }} · ${Towns.flag(language)} ${name.ifBlank { "?" }}",
-                    "‹ ${bi("towns.friends")}",
-                    vm::closeTownProgress,
+                    vm.backLabel,
+                    vm::back,
                 )
             }
             when {

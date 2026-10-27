@@ -47,7 +47,6 @@ import si.lanisce.lani.data.GrammarPage
 import si.lanisce.lani.data.Words
 import si.lanisce.lani.game.GrammarBook
 import si.lanisce.lani.game.Mastery
-import si.lanisce.lani.inRun
 import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.bi
 import si.lanisce.lani.ui.Labels
@@ -170,7 +169,8 @@ internal fun LazyListScope.rulePage(view: RuleView, vm: AppViewModel, onSee: (St
     item("rule:actions") {
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth().padding(top = 4.dp)) {
             // not in a run: leaving it would lose the answers
-            if (!vm.screen.inRun) PageButton("🎯 ${bi("grammar.practise")}", Modifier.weight(1f)) { vm.practiseGrammar(p.id) }
+            // not over a run with answers (it would cut it short); on its intro or its end it takes the run's place
+            if (!vm.runBusy) PageButton("🎯 ${bi("grammar.practise")}", Modifier.weight(1f)) { vm.practiseGrammar(p.id) }
             PageButton("💬 ${bi("grammar.ask")}", Modifier.weight(1f)) { vm.grammar.ask(p.id) }
         }
     }
@@ -264,7 +264,13 @@ fun GrammarSheet(vm: AppViewModel, id: String) {
     val view = vm.grammar.view(id) ?: return
     val p = view.page
     LaniSheet(onDismissRequest = vm.grammar::close) {
+        // a page opened from another's "Glej tudi": Back (and "‹ <its title>") to that one first, then the sheet closes
+        val prev = vm.grammar.before.lastOrNull()?.let(vm.grammar::page)
+        androidx.activity.compose.BackHandler(enabled = prev != null) { vm.grammar.back() }
         Column(Modifier.fillMaxWidth().fillMaxHeight(0.95f).padding(horizontal = 16.dp)) {
+            prev?.let { pp ->
+                androidx.compose.material3.TextButton(onClick = { vm.grammar.back() }) { Text("‹ ${pp.emoji} ${pp.target}", maxLines = 1) }
+            }
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(p.emoji, style = MaterialTheme.typography.headlineSmall, modifier = Modifier.clearAndSetSemantics { })
                 Spacer(Modifier.width(10.dp))

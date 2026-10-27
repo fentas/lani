@@ -54,7 +54,8 @@ import si.lanisce.lani.tutor.live.LiveState
 import si.lanisce.lani.tutor.live.LiveTutor
 
 /**
- * "🧑‍🏫 Učitelj · Tutor" (docs/plans/05-built/tutor-live.md), in the connection sheet: who answers, Claude Code on the
+ * "🧑‍🏫 Učitelj · Tutor" (docs/plans/05-built/tutor-live.md), its page in the settings ([heading] off there: the page's
+ * header names it) and the hosted onboarding's sheet: who answers, Claude Code on the
  * node (as before, the default) or the tutor in the app; then, for the app, the provider and its credential (a Claude
  * API key, an OpenAI API key or "Continue with ChatGPT", a Gemini key from Google AI Studio, "Continue with
  * OpenRouter"), the preset with "advanced" per task, the daily cap and
@@ -63,7 +64,7 @@ import si.lanisce.lani.tutor.live.LiveTutor
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun TutorSettings(vm: AppViewModel, modifier: Modifier = Modifier) {
+fun TutorSettings(vm: AppViewModel, modifier: Modifier = Modifier, heading: Boolean = true) {
     val live = vm.live
     val s = live.settings
     val scope = rememberCoroutineScope()
@@ -89,7 +90,8 @@ fun TutorSettings(vm: AppViewModel, modifier: Modifier = Modifier) {
     }
 
     Column(modifier, verticalArrangement = Arrangement.spacedBy(6.dp)) {
-        Text("🧑‍🏫 ${bi("tutorLive.title")}", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
+        // its page in the settings has the title in its header
+        if (heading) Text("🧑‍🏫 ${bi("tutorLive.title")}", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
         if (hosted) Text(bi("hosted.tutorOnly"), style = MaterialTheme.typography.bodySmall, color = muted)
         else Text(bi("tutorLive.who"), style = MaterialTheme.typography.bodySmall, color = muted)
         if (!hosted) FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {

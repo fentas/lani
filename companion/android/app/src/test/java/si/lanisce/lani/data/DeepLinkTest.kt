@@ -11,6 +11,8 @@ class DeepLinkTest {
         val all = listOf(
             DeepLink.Chat, DeepLink.Talk, DeepLink.Village, DeepLink.Packs, DeepLink.Readings, DeepLink.Module("m_clitics"), DeepLink.Family("abc123"),
             DeepLink.Scene("kuhinja"), DeepLink.Scene("kuhinja", "kuhinja/juha"), DeepLink.Scene("ob-ognju", "kettle"),
+            DeepLink.Home, DeepLink.Review, DeepLink.Friends, DeepLink.Grammar("sklanjatev"), DeepLink.Settings(), DeepLink.Settings("tutor"),
+            DeepLink.School(), DeepLink.School("biti"), DeepLink.Question("k1", asked = true),
         )
         for (l in all) assertEquals(l, DeepLink.parse(DeepLink.encode(l)))
     }
@@ -20,7 +22,8 @@ class DeepLinkTest {
         assertNull(DeepLink.parse(""))
         assertNull(DeepLink.parse("module:"))
         assertNull(DeepLink.parse("family"))
-        assertNull(DeepLink.parse("settings"))
+        assertNull(DeepLink.parse("elsewhere"))
+        assertNull(DeepLink.parse("grammar"))
         assertNull(DeepLink.parse("scene:"))
         assertEquals(DeepLink.Scene("kuhinja"), DeepLink.parse("scene:kuhinja@"))
     }
@@ -50,5 +53,30 @@ class DeepLinkTest {
         assertEquals(BridgeEvent.ReadingPublished("jutro", "Jutro · Morning", "A1", "Micka wrote you something"), reading)
         assertEquals(DeepLink.Readings, DeepLink.of(reading!!))
         assertEquals(BridgeEvent.ReadingPublished("jutro", null, null, null, removed = true), BridgeEvent.parse("""{"type":"reading_removed","id":"jutro"}"""))
+    }
+
+    @Test fun `the tutor's new grammar page opens the book at it, the evening's reminder the review`() {
+        assertEquals(DeepLink.Grammar("dvojina"), DeepLink.of(BridgeEvent.GrammarPublished("dvojina", "Dvojina", null)))
+    }
+
+    @Test fun `a lani link leads where a notification's would`() {
+        assertEquals(DeepLink.Review, DeepLink.fromUri("lani://review"))
+        assertEquals(DeepLink.Village, DeepLink.fromUri("lani://village/"))
+        assertEquals(DeepLink.Scene("ob-ognju"), DeepLink.fromUri("lani://scene/ob-ognju"))
+        assertEquals(DeepLink.Scene("ob-ognju", "ob-ognju/zgodba"), DeepLink.fromUri("lani://scene/ob-ognju/zgodba"))
+        assertEquals(DeepLink.School("biti"), DeepLink.fromUri("lani://school/biti"))
+        assertEquals(DeepLink.School(), DeepLink.fromUri("lani://school"))
+        assertEquals(DeepLink.Grammar("dvojina"), DeepLink.fromUri("lani://grammar/dvojina"))
+        assertEquals(DeepLink.Settings("data"), DeepLink.fromUri("lani://settings/data"))
+        assertEquals(DeepLink.Friends, DeepLink.fromUri("lani://friends"))
+        // back from "Sign in with ChatGPT" in the browser: the tutor's settings
+        assertEquals(DeepLink.Settings("tutor"), DeepLink.fromUri("lani://tutor/signed-in"))
+        assertEquals(DeepLink.Settings("tutor"), DeepLink.fromUri("lani://tutor"))
+    }
+
+    @Test fun `what isn't a lani link to a known place opens nothing`() {
+        for (u in listOf(null, "", "https://lani.si/review", "lani://", "lani://nowhere", "lani://module", "lani://question/k1", "fluent://review", "not a uri at all")) {
+            assertNull(u.toString(), DeepLink.fromUri(u))
+        }
     }
 }

@@ -3,6 +3,7 @@ package si.lanisce.lani.ui.hosted
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
@@ -97,6 +98,14 @@ fun HostedSetup(vm: AppViewModel, onBack: () -> Unit, chosenTarget: String? = nu
     fun done(r: Result<si.lanisce.lani.data.BridgeConfig>) {
         r.onSuccess { config = it; error = null; step = Step.TUTOR }
             .onFailure { error = it.message ?: it.toString(); step = if (step == Step.WORKING && name.isNotBlank()) Step.LEARNER else if (onPhone != null) Step.START else Step.LEARNER }
+    }
+    // Back does what each step's "‹ Nazaj" does (the start, the step before the setup's); a moment's work isn't left
+    BackHandler(enabled = step != Step.TUTOR) {
+        when (step) {
+            Step.START -> onBack()
+            Step.LEARNER -> if (onPhone != null) step = Step.START else onBack()
+            Step.WORKING, Step.TUTOR -> Unit
+        }
     }
     val pick = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri: Uri? ->
         if (uri == null) return@rememberLauncherForActivityResult
@@ -235,6 +244,8 @@ private fun TutorStep(vm: AppViewModel, child: Boolean, onDone: () -> Unit) {
     var problem by remember { mutableStateOf<String?>(null) }
     var welcome by remember { mutableStateOf(false) }
     fun browse(url: String) = runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }
+    // Back from a way chosen: the ways again, as its "‹ Nazaj"
+    BackHandler(enabled = way != null) { way = null; problem = null }
 
     Text("🧑‍🏫 ${bi("hosted.tutorTitle")}", style = MaterialTheme.typography.titleLarge, color = white, fontWeight = FontWeight.SemiBold)
     // a child's: the way on without a tutor, while a parent hasn't opened it

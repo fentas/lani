@@ -1,6 +1,6 @@
 package si.lanisce.lani.ui.school
 
-import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.animation.core.Animatable
 import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.relocation.BringIntoViewRequester
@@ -109,17 +109,20 @@ import si.lanisce.lani.ui.words.WordText
 // shown with its why, nothing lost on a miss; the table grows as the steps go; at the end the rule's page as a summary.
 // Resumable, and skippable ("⏭ Poznam to · I know this").
 
-/** Unit [id]'s intro, where the learner left it. */
+/** Unit [id]'s intro, where the learner left it; ✕, its end and Back lead where it was opened (the unit, the class's scene). */
 @Composable
-fun IntroScreen(vm: AppViewModel, id: String, fromVillage: Boolean) {
+fun IntroScreen(vm: AppViewModel, id: String) {
     val unit = vm.school.unit(id)
     val intro = unit?.intro
     if (unit == null || intro == null) {
-        LaunchedEffect(id) { vm.openSchool(fromVillage) }
+        // the course still on its way (the app started again here): a moment; gone: back
+        if (vm.school.course == null) Column(Modifier.fillMaxSize().statusBarsPadding().padding(16.dp)) {
+            si.lanisce.lani.ui.BackButton(vm)
+            androidx.compose.material3.CircularProgressIndicator(Modifier.padding(24.dp))
+        } else LaunchedEffect(id) { vm.back() }
         return
     }
-    val back = { vm.openUnit(unit.id, fromVillage) }
-    BackHandler(onBack = back)
+    val back = vm::back
     val p = vm.game.state?.let { School.progress(it, unit.language, unit.id) }
     // resumed where it was left (from the start again once it was done)
     var step by remember { mutableIntStateOf(if (p?.introDone == true) 0 else (p?.intro ?: 0).coerceIn(0, intro.steps.size)) }

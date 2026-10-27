@@ -38,8 +38,11 @@
         </intent>
     </queries>
 
+    <!-- enableOnBackInvokedCallback: the predictive back gesture (Android 14 and later): the screen shrinks towards the screen
+         below before Back takes it there, and Back at Home shows the way out (MainActivity's PredictiveBackHandler). -->
     <application
         android:allowBackup="false"
+        android:enableOnBackInvokedCallback="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -48,10 +51,11 @@
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
-            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboard|keyboardHidden|navigation|uiMode|fontScale|density|locale|layoutDirection"
             android:windowSoftInputMode="adjustResize">
-            <!-- Compose handles rotation and resizing itself: recreating the activity would drop a running
-                 exercise's remembered answers (index, outcomes, typed text) and restart it. -->
+            <!-- Compose handles rotation and resizing itself, the dark theme at dusk, a font size, a display size and the
+                 phone's language too: recreating the activity would drop a running exercise's remembered answers (index,
+                 outcomes, typed text) and restart it. -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -86,6 +90,15 @@
                 <data android:host="lani.team" />
                 <data android:host="${inviteHost}" />
                 <data android:pathPrefix="/town" />
+            </intent-filter>
+            <!-- lani://<target>[/<id>]: a screen of the app over Home, as a notification's tap opens it (data/DeepLink.fromUri:
+                 lani://review, lani://village, lani://scene/<id>, lani://school/<unit>, lani://grammar/<page>,
+                 lani://friends, lani://settings/<section> …). It only opens a screen: nothing is done from a link. -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="lani" />
             </intent-filter>
         </activity>
 

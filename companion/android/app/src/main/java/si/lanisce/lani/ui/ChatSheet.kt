@@ -208,6 +208,8 @@ fun ChatSheet(vm: AppViewModel) {
     DisposableEffect(Unit) { onDispose { if (tipFor != null) prefs.sawSwipeHint() } }
 
     LaniSheet(onDismissRequest = { chat.close() }) {
+        // Back from the bookmarks: the messages again (as their "‹ Nazaj"), then the chat closes
+        androidx.activity.compose.BackHandler(enabled = showBookmarks) { showBookmarks = false }
         // the snackbar over the input, not over the messages: the one just swiped is often the newest, at the bottom
         Box(Modifier.fillMaxWidth().fillMaxHeight(0.9f).imePadding()) {
             Column(Modifier.fillMaxSize().padding(horizontal = 16.dp)) {
@@ -225,7 +227,8 @@ fun ChatSheet(vm: AppViewModel) {
                         if (marked.isNotEmpty()) Text(" ${marked.size}")
                     }
                     IconButton(onClick = { vm.cheat.show(chatCheatContext(vm)) }) { EmojiLabel("📋", bi("cheatSheet.title")) }
-                    TextButton(onClick = vm::openTalk) { Text("🗣️ ${bi("common.talk")}") }
+                    // role-play leaves the screen on view: not over a run with answers (it would cut it short)
+                    if (!vm.runBusy) TextButton(onClick = vm::openTalk) { Text("🗣️ ${bi("common.talk")}") }
                 }
                 // the in-app tutor is an AI, and says so (the Usage Policy's disclosure for consumer chatbots; plan 5)
                 if (vm.live.settings.on) si.lanisce.lani.ui.tutor.AiDisclosure(vm.live)
@@ -462,7 +465,7 @@ private fun Bookmarks(
 ) {
     Column(modifier) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            TextButton(onClick = onBack) { Text("← ${Labels.BACK}") }
+            TextButton(onClick = onBack) { Text("‹ ${Labels.BACK}") }
             Text("🔖 ${bi("chatSheet.bookmarks")}", style = MaterialTheme.typography.titleMedium)
         }
         LazyColumn(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(8.dp)) {

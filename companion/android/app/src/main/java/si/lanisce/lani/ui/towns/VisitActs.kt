@@ -1,5 +1,6 @@
 package si.lanisce.lani.ui.towns
 
+import si.lanisce.lani.ui.backLabel
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -245,7 +246,7 @@ fun VisitRequestScreen(vm: AppViewModel, request: String) {
     val v = vm.visits.visit
     val r = vm.visits.requests?.firstOrNull { it.id == request }
     if (v == null || r == null) {
-        LaunchedEffect(Unit) { vm.openVisit() }
+        LaunchedEffect(Unit) { vm.leaveRun() }
         return
     }
     val exercises = remember(r) { TownActs.exercises(r, L10n.pair, Visits.seedOf(v.id)) }
@@ -253,7 +254,6 @@ fun VisitRequestScreen(vm: AppViewModel, request: String) {
     var result by remember { mutableStateOf<VisitHelp?>(null) }
     var waiting by remember { mutableStateOf(false) }
     var started by remember { mutableLongStateOf(ScreenClock.app.now()) }
-    BackHandler { if (!playing) vm.openVisit() }
     when {
         playing -> ExerciseRun(
             vm, "${r.emoji} ${TownActs.label(r.title, L10n.pair)}", exercises, moduleId = null, onExit = { playing = false },
@@ -266,13 +266,13 @@ fun VisitRequestScreen(vm: AppViewModel, request: String) {
         else -> RequestCard(r, v, exercises.size, result, waiting,
             onStart = { started = ScreenClock.app.now(); result = null; playing = true },
             onSendAgain = { waiting = true; vm.sendHelp(r) { result = it; waiting = false } },
-            onBack = vm::openVisit,
+            onBack = vm::leaveRun, back = vm.backLabel,
         )
     }
 }
 
 @Composable
-private fun RequestCard(r: TownRequest, v: TownVisit, total: Int, result: VisitHelp?, waiting: Boolean, onStart: () -> Unit, onSendAgain: () -> Unit, onBack: () -> Unit) {
+private fun RequestCard(r: TownRequest, v: TownVisit, total: Int, result: VisitHelp?, waiting: Boolean, onStart: () -> Unit, onSendAgain: () -> Unit, onBack: () -> Unit, back: String) {
     Box(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(SloBlueDeep, Color(0xFF1F3F72))))) {
         Column(
             Modifier.align(Alignment.Center).statusBarsPadding().navigationBarsPadding().padding(24.dp).widthIn(max = 480.dp).verticalScroll(rememberScrollState()),
@@ -305,7 +305,7 @@ private fun RequestCard(r: TownRequest, v: TownVisit, total: Int, result: VisitH
                 }
             }
             Spacer(Modifier.heightIn(min = 4.dp))
-            OutlinedButton(onClick = onBack, modifier = Modifier.heightIn(min = 48.dp)) { Text("‹ ${v.name.ifBlank { bi("common.village") }}", color = Color.White) }
+            OutlinedButton(onClick = onBack, modifier = Modifier.heightIn(min = 48.dp)) { Text(back, color = Color.White) }
         }
     }
 }

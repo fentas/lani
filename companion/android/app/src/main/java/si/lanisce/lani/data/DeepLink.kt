@@ -1,7 +1,13 @@
 package si.lanisce.lani.data
 
-/** Where a notification tap leads. It travels in the launch intent as the string extra [EXTRA]. */
+/**
+ * Where a notification tap leads (docs/plans/05-built/navigation.md, "Notifications and links"): its target opens over
+ * Home, Back leading Home from it. It travels in the launch intent as the string extra [EXTRA], or as a lani:// link
+ * ([fromUri]: the widget's, a sign-in's way back).
+ */
 sealed interface DeepLink {
+    /** Home, nothing over it. */
+    data object Home : DeepLink
     data object Chat : DeepLink
     data object Talk : DeepLink
     data object Village : DeepLink
@@ -18,19 +24,30 @@ sealed interface DeepLink {
     data class TownProgress(val town: String) : DeepLink
     /** "🏫 Šola · School": a unit of the course ([unit]: the tutor's homework is in it), or the school. */
     data class School(val unit: String? = null) : DeepLink
-    /** "🤝 Prijatelji · Friends": a child's link that waits for the parent, or how it went (data/Towns.kt). */
+    /** "🤝 Prijatelji · Friends": the linked towns; a child's link that waits for the parent, or how it went (data/Towns.kt). */
     data object Friends : DeepLink
     /**
      * An invitation opened from a link (lani://town?…, fluent://town?…, https://lani.page/town/#…: the manifest's filters):
      * Friends' Accept dialog, filled in with [text]; accepted only by the learner's tap.
      */
     data class Invitation(val text: String) : DeepLink
+    /** Today's reviews (the evening's "🔥 N kartic čaka", the widget's cards due); Home when none are due. */
+    data object Review : DeepLink
+    /** "📖 Slovnica · Grammar": the book open at page [id] (the tutor's new page). */
+    data class Grammar(val id: String) : DeepLink
+    /** "⚙️ Nastavitve · Settings", at [section] (lani://tutor: back from a sign-in in the browser, at the tutor's settings). */
+    data class Settings(val section: String? = null) : DeepLink
 
     companion object {
         const val EXTRA = "si.lanisce.lani.open"
         private val TOWN_ID = Regex("^[0-9a-f]{32}$")
 
         fun encode(link: DeepLink): String = when (link) {
+            Home -> "home"
+            Review -> "review"
+            Friends -> "friends"
+            is Grammar -> "grammar:${link.id}"
+            is Settings -> "settings" + (link.section?.let { ":$it" } ?: "")
             Chat -> "chat"
             Talk -> "talk"
             Village -> "village"
@@ -42,7 +59,6 @@ sealed interface DeepLink {
             is Question -> "question:${if (link.asked) "a" else "r"}:${link.key}"
             is School -> "school" + (link.unit?.let { ":$it" } ?: "")
             is TownProgress -> "progress:${link.town}"
-            Friends -> "friends"
             is Invitation -> "invite:${link.text}"
         }
 
@@ -50,6 +66,11 @@ sealed interface DeepLink {
             val kind = s?.substringBefore(':') ?: return null
             val arg = s.substringAfter(':', "").takeIf { it.isNotBlank() }
             return when (kind) {
+                "home" -> Home
+                "review" -> Review
+                "friends" -> Friends
+                "grammar" -> arg?.let(::Grammar)
+                "settings" -> Settings(arg)
                 "chat" -> Chat
                 "talk" -> Talk
                 "village" -> Village
@@ -61,7 +82,6 @@ sealed interface DeepLink {
                 "family" -> arg?.let(::Family)
                 "question" -> arg?.substringAfter(':', "")?.takeIf { it.isNotBlank() }?.let { Question(it, asked = arg.substringBefore(':') == "a") }
                 "progress" -> arg?.takeIf { TOWN_ID.matches(it) }?.let(::TownProgress)
-                "friends" -> Friends
                 "invite" -> arg?.takeIf { InviteLink.looksLike(it) }?.let(::Invitation)
                 else -> null
             }
@@ -83,8 +103,8 @@ sealed interface DeepLink {
             is BridgeEvent.ModulePublished -> Module(ev.id)
             is BridgeEvent.PackPublished -> Packs
             is BridgeEvent.ReadingPublished -> Readings
-            // the tutor's grammar page: in the village's book
-            is BridgeEvent.GrammarPublished -> Village
+            // the tutor's grammar page: the book open at it
+            is BridgeEvent.GrammarPublished -> Grammar(ev.id)
             is BridgeEvent.PartnerChallenge -> Family(ev.id)
             is BridgeEvent.ScenePublished -> if (ev.removed || ev.id.isEmpty()) Village else Scene(ev.id)
             // A permission prompt shows as a dialog once the app is open; an update as the Home banner.
@@ -104,6 +124,25 @@ sealed interface DeepLink {
             is BridgeEvent.TownProgressNote -> TownProgress(ev.town)
             // a child's link that waits for the parent, or how it went: Friends
             is BridgeEvent.TownLink -> Friends
+        }
+
+        /**
+         * A lani:// link's target ("lani://scene/ob-ognju", "lani://school/biti", "lani://review"): the same as [parse]'s,
+         * its path's first part the argument; "lani://tutor" (and lani://tutor/signed-in, back from "Sign in with ChatGPT"
+         * in the browser) is the tutor's settings. Null for anything else (another scheme, a target this app doesn't know).
+         */
+        fun fromUri(uri: String?): DeepLink? {
+            val u = runCatching { java.net.URI(uri ?: return null) }.getOrNull() ?: return null
+            if (u.scheme != "lani") return null
+            val host = u.host ?: return null
+            if (host == "tutor") return Settings("tutor")
+            val arg = u.path.orEmpty().trim('/').substringBefore('/').takeIf { it.isNotBlank() }
+            return when (host) {
+                // a scene's happening is its own "scene/happening": all of it the focus
+                "scene" -> arg?.let { Scene(it, u.path.trim('/').substringAfter('/', "").ifBlank { null }?.let { f -> "$it/$f" }) }
+                "question" -> null // a question's key is the bridge's: only from a notification
+                else -> parse(if (arg != null) "$host:$arg" else host)
+            }
         }
     }
 }

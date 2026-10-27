@@ -2,7 +2,6 @@ package si.lanisce.lani.ui.family
 
 import android.app.Activity
 import android.speech.RecognizerIntent
-import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
@@ -60,7 +59,6 @@ import si.lanisce.lani.l10n.inTarget
 /** Family mode: a partner challenge to answer, or (no id) recording words for Jan. */
 @Composable
 fun FamilyScreen(vm: AppViewModel, challengeId: String?) {
-    BackHandler { vm.home() }
     if (challengeId == null) {
         RecordScreen(vm)
         return
@@ -68,7 +66,7 @@ fun FamilyScreen(vm: AppViewModel, challengeId: String?) {
     val c = vm.family.challenge(challengeId)
     Column(Modifier.fillMaxSize().safeDrawingPadding().imePadding().padding(horizontal = 20.dp, vertical = 8.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            TextButton(onClick = vm::home) { EmojiLabel("✕", Labels.CLOSE) }
+            TextButton(onClick = vm::back) { EmojiLabel("✕", Labels.CLOSE) }
             Text(c?.title ?: "💌 ${bi("familyScreen.fromFamily")}", style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
         }
         if (c == null) {
@@ -80,7 +78,7 @@ fun FamilyScreen(vm: AppViewModel, challengeId: String?) {
             if (c.answer == null) AnswerBox(vm, c) else Thread(vm, c)
         }
         if (c.answer != null) {
-            BigButton(bi("common.continue"), onClick = vm::home)
+            BigButton(bi("common.continue"), onClick = vm::back)
             Spacer(Modifier.height(8.dp))
         }
     }

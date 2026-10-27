@@ -86,11 +86,11 @@ import si.lanisce.lani.ui.words.lookUpIn
 /**
  * Learn a few words of a pack: the pack's giver asks (the intro), then meet each word, practise them all
  * with the giver on the stage, and they're saved for review. With [scene] they are a village scene's
- * words, and leaving leads back to that scene.
+ * words. Leaving leads back where the run began (the packs, Today, the scene, the village).
  */
 @Composable
-fun PackLearnScreen(vm: AppViewModel, pack: Pack, words: List<PackWord>, fromVillage: Boolean, scene: String? = null) {
-    val leave = { if (scene != null) vm.openScene(scene) else vm.openPacks(fromVillage) }
+fun PackLearnScreen(vm: AppViewModel, pack: Pack, words: List<PackWord>, scene: String? = null) {
+    val leave = vm::leaveRun
     var started by remember { mutableLongStateOf(ScreenClock.app.now()) }
     val tasks = remember(pack.id, words) { PackSession.plan(pack, words, vm.content.dashboard?.pool.orEmpty(), vm.speaker.canSay) }
     // -1: the intro (skipped when these are more words right after a session of the same pack).
@@ -105,7 +105,7 @@ fun PackLearnScreen(vm: AppViewModel, pack: Pack, words: List<PackWord>, fromVil
     }
     val done = saved
     when {
-        done != null -> PackFinish(vm, pack, words, done, fromVillage, scene, leave, stage)
+        done != null -> PackFinish(vm, pack, words, done, scene, leave, stage)
         step < 0 -> {
             val info = remember(pack.id, words) {
                 Intros.pack(pack, words, tasks.map { it.exercise }, stage.who, Cast.trainingLeft(vm.game.state, stage.who.id, LocalDate.now()))
@@ -246,7 +246,7 @@ private fun genderColor(g: String?): Color = when (g) {
 
 @Composable
 private fun PackFinish(
-    vm: AppViewModel, pack: Pack, words: List<PackWord>, qualities: List<Pair<String, Int>>, fromVillage: Boolean,
+    vm: AppViewModel, pack: Pack, words: List<PackWord>, qualities: List<Pair<String, Int>>,
     scene: String?, leave: () -> Unit, stage: StageState,
 ) {
     BackHandler(onBack = leave)
@@ -276,7 +276,7 @@ private fun PackFinish(
             RewardSummary(vm.game.lastReward, onVillage = vm::openVillage)
             if (left > 0) {
                 OutlinedButton(
-                    onClick = { if (scene != null) vm.learnScene(scene, again = true) else vm.startPack(pack.id, fromVillage, again = true) },
+                    onClick = { if (scene != null) vm.learnScene(scene, again = true) else vm.startPack(pack.id, again = true) },
                     modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp),
                     shape = MaterialTheme.shapes.medium,
                 ) {

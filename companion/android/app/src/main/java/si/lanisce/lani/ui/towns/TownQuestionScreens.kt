@@ -1,6 +1,5 @@
 package si.lanisce.lani.ui.towns
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -229,17 +228,16 @@ internal fun LazyListScope.questionItems(vm: AppViewModel) {
 /**
  * A question between towns: a guest's ([asked] false), answered here in the learner's own town's language (their tutor
  * checks it first if they like, and grades it once sent), or the learner's own ([asked]) with the tutor's feedback and
- * the answer. Back leads to Friends.
+ * the answer. Back leads where it was opened (Friends, a notification: Home).
  */
 @Composable
 fun TownQuestionScreen(vm: AppViewModel, key: String, asked: Boolean) {
-    BackHandler { vm.openFriends() }
     val l = vm.questions.list
     val a = l?.asked?.firstOrNull { it.key == key }
     val r = l?.received?.firstOrNull { it.key == key }
     Column(Modifier.fillMaxSize().safeDrawingPadding().imePadding().padding(horizontal = 20.dp, vertical = 8.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            TextButton(onClick = vm::openFriends) { EmojiLabel("✕", Labels.CLOSE) }
+            TextButton(onClick = vm::back) { EmojiLabel("✕", Labels.CLOSE) }
             val title = when {
                 asked && a != null -> bi("questions.questionTo", *TownQuestions.whoArgs(a.who))
                 !asked && r != null -> bi("questions.from", *TownQuestions.whoArgs(r.who))
@@ -259,7 +257,7 @@ fun TownQuestionScreen(vm: AppViewModel, key: String, asked: Boolean) {
             }
         }
         if (asked || r?.answer != null) {
-            BigButton(bi("common.continue"), onClick = vm::openFriends)
+            BigButton(bi("common.continue"), onClick = vm::back)
             Spacer(Modifier.height(8.dp))
         }
     }

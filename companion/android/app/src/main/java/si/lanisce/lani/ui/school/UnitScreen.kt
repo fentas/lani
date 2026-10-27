@@ -1,6 +1,11 @@
 package si.lanisce.lani.ui.school
 
-import androidx.activity.compose.BackHandler
+import si.lanisce.lani.ui.backTo
+import si.lanisce.lani.ui.backLabel
+import si.lanisce.lani.ui.BackButton
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -52,15 +57,18 @@ internal fun bestText(b: SheetBest): String {
 /**
  * A unit of the course: what it teaches and where the learner is in it: its intro, its worksheets, its test (and "⏩ I
  * know it: straight to the test"), the tutor's homework; the next step one tap away; its pages in the book and the
- * tutor, one tap away too.
+ * tutor, one tap away too. Back leads where it was opened (the school, Today, Napredek, a notification: Home); opened
+ * elsewhere than the school, "🏫 Šola ›" leads to its other units.
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun UnitScreen(vm: AppViewModel, id: String, fromVillage: Boolean) {
-    BackHandler { vm.openSchool(fromVillage) }
+fun UnitScreen(vm: AppViewModel, id: String) {
     val unit = vm.school.unit(id) ?: run {
-        // gone (the course changed): back to the school
-        androidx.compose.runtime.LaunchedEffect(id) { vm.openSchool(fromVillage) }
+        // the course still on its way (the app started again here): a moment; the unit gone (the course changed): back
+        if (vm.school.course == null) Column(Modifier.fillMaxSize().statusBarsPadding().padding(16.dp)) {
+            BackButton(vm)
+            CircularProgressIndicator(Modifier.padding(24.dp))
+        } else androidx.compose.runtime.LaunchedEffect(id) { vm.back() }
         return
     }
     val s = vm.game.state
@@ -72,25 +80,29 @@ fun UnitScreen(vm: AppViewModel, id: String, fromVillage: Boolean) {
             GradientHeader(
                 "${unit.emoji} ${unit.titleShown(L10n.pair)}",
                 listOfNotNull(unit.level, unit.goal?.let { Grammar.text(it, base) }).joinToString(" · "),
-                "← ${schoolTitle(s)}",
-                onBack = { vm.openSchool(fromVillage) },
+                vm.backLabel,
+                onBack = vm::back,
             )
         }
         item {
             Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 TeacherSays(vm, vm.school.teacher(), if (p?.done != null) "school.unitDoneSays" else "school.today", "unit" to si.lanisce.lani.l10n.Localized { l -> Grammar.text(unit.title, l.code) })
                 when (step) {
-                    School.Step.Intro -> BigButton("▶️ ${bi("school.continueStep", "step" to bi("school.intro"))}", color = XpGold, onClick = { vm.startIntro(unit.id, fromVillage) })
+                    School.Step.Intro -> BigButton("▶️ ${bi("school.continueStep", "step" to bi("school.intro"))}", color = XpGold, onClick = { vm.startIntro(unit.id) })
                     is School.Step.Sheet -> unit.sheet(step.id)?.let { ws ->
-                        BigButton("▶️ ${bi("school.continueStep", "step" to ws.titleShown(L10n.pair))}", color = XpGold, onClick = { vm.startSheet(unit.id, SheetKind.WORKSHEET, ws.id, fromVillage) })
+                        BigButton("▶️ ${bi("school.continueStep", "step" to ws.titleShown(L10n.pair))}", color = XpGold, onClick = { vm.startSheet(unit.id, SheetKind.WORKSHEET, ws.id) })
                     }
-                    School.Step.Test -> BigButton("🎓 ${bi("school.continueStep", "step" to bi("school.test"))}", color = XpGold, onClick = { vm.startSheet(unit.id, SheetKind.TEST, "test", fromVillage) })
+                    School.Step.Test -> BigButton("🎓 ${bi("school.continueStep", "step" to bi("school.test"))}", color = XpGold, onClick = { vm.startSheet(unit.id, SheetKind.TEST, "test") })
                     School.Step.Done -> Text("✅ ${bi("school.unitIsDone")}", style = MaterialTheme.typography.titleMedium, color = AlpineGreen)
                 }
                 // knows it already: the test straight away; passed, the unit is done (tested out)
                 if (step != School.Step.Done && step != School.Step.Test) OutlinedButton(
-                    onClick = { vm.startSheet(unit.id, SheetKind.TEST, "test", fromVillage) }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+                    onClick = { vm.startSheet(unit.id, SheetKind.TEST, "test") }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
                 ) { Text("⏩ ${bi("school.testOut")}") }
+                // opened from Today, Napredek or a notification: the school's other units one tap away
+                if (vm.backTo != si.lanisce.lani.Screen.School) TextButton(onClick = vm::openSchool, modifier = Modifier.heightIn(min = 48.dp)) {
+                    Text("🏫 ${bi("school.title")} ›")
+                }
             }
         }
         unit.intro?.let { intro ->
@@ -104,7 +116,7 @@ fun UnitScreen(vm: AppViewModel, id: String, fromVillage: Boolean) {
                         else -> bi("school.introAbout", "n" to intro.steps.size)
                     },
                     done = p?.introDone == true,
-                ) { vm.startIntro(unit.id, fromVillage) }
+                ) { vm.startIntro(unit.id) }
             }
         }
         // the unit stevila's own practice (companion/README.md, "Numbers"): opened by its intro, closed before it, one tap
@@ -123,12 +135,12 @@ fun UnitScreen(vm: AppViewModel, id: String, fromVillage: Boolean) {
                         else -> si.lanisce.lani.data.NumbersPractice.ranges(np, true).joinToString(" · ") { it.label }
                     },
                     done = false,
-                ) { vm.openNumbers(fromUnit = true, fromVillage = fromVillage) }
+                ) { vm.openNumbers() }
             }
         }
         item { SectionTitle("📝 ${bi("school.worksheets")}") }
         for ((i, ws) in unit.worksheets.withIndex()) item("ws-${ws.id}") {
-            SheetCard(vm, unit, ws, i + 1, p?.sheets?.get(ws.id), SheetKind.WORKSHEET, fromVillage)
+            SheetCard(vm, unit, ws, i + 1, p?.sheets?.get(ws.id), SheetKind.WORKSHEET)
         }
         item { SectionTitle("🎓 ${bi("school.test")}") }
         item {
@@ -141,12 +153,12 @@ fun UnitScreen(vm: AppViewModel, id: String, fromVillage: Boolean) {
                     t?.let { bi("school.tries", "n" to it.tries) },
                 ).joinToString(" · "),
                 done = p?.done != null,
-            ) { vm.startSheet(unit.id, SheetKind.TEST, "test", fromVillage) }
+            ) { vm.startSheet(unit.id, SheetKind.TEST, "test") }
         }
         if (unit.homework.isNotEmpty()) {
             item { SectionTitle("🧑‍🏫 ${bi("school.homework")}") }
             for ((i, ws) in unit.homework.withIndex()) item("hw-${ws.id}") {
-                SheetCard(vm, unit, ws, i + 1, p?.sheets?.get(ws.id), SheetKind.HOMEWORK, fromVillage)
+                SheetCard(vm, unit, ws, i + 1, p?.sheets?.get(ws.id), SheetKind.HOMEWORK)
             }
         }
         item {
@@ -191,11 +203,11 @@ private fun StepCard(emoji: String, title: String, line: String, done: Boolean, 
 
 /** A worksheet (or homework) of the unit: its number and title, its best try. */
 @Composable
-private fun SheetCard(vm: AppViewModel, unit: CourseUnit, ws: Worksheet, n: Int, best: SheetBest?, kind: SheetKind, fromVillage: Boolean) {
+private fun SheetCard(vm: AppViewModel, unit: CourseUnit, ws: Worksheet, n: Int, best: SheetBest?, kind: SheetKind) {
     StepCard(
         if (kind == SheetKind.HOMEWORK) "🧑‍🏫" else "📝",
         "$n. ${ws.titleShown(L10n.pair)}",
         best?.let { bi("school.best", "score" to bestText(it)) } ?: bi("school.exercises", "n" to ws.exercises.size),
         done = best != null,
-    ) { vm.startSheet(unit.id, kind, ws.id, fromVillage) }
+    ) { vm.startSheet(unit.id, kind, ws.id) }
 }

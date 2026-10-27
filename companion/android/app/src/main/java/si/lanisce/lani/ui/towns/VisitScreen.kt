@@ -82,14 +82,13 @@ import java.time.LocalDate
  * card, its story and words, and the ways into its scenes ("Tukaj si gost · You're a guest here": nothing to build), a tap
  * on someone who they are, their greeting and a talk with them, on a wild animal its word's card, on the night sky its
  * card (the moon, a star, a planet …): what only looks or teaches works as at home ([VisitTaps]). The bar below holds the things to do here (VisitActs.kt): a request of its
- * people, a gift or a message, the market, a question for its learner (TownQuestionScreens.kt). "⌂ Domov · Home" leads
- * back to the learner's own village, back to Friends. A
+ * people, a gift or a message, the market, a question for its learner (TownQuestionScreens.kt). "⌂ Domov · Home" and Back
+ * both end the visit, back where it began (Friends). A
  * town that isn't answering shows what was had of it last, marked, or says so with a retry.
  */
 @Composable
 fun VisitScreen(vm: AppViewModel) {
     val v = vm.visits.visit
-    BackHandler { vm.leaveVisit(friends = true) }
     if (v == null) {
         // the visit ended under this screen: home
         LaunchedEffect(Unit) { vm.leaveVisit() }
