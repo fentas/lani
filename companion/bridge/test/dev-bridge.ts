@@ -110,6 +110,9 @@ const DEV_GLOSSES: Record<string, { lemma: string; pos: string; gender?: string;
 // text, a quota of its own), so the whole path of a clip made on demand runs without the real API; as the real service it
 // takes LANI_DEV_FAKE_ELEVENLABS_MS a take plus LANI_DEV_FAKE_ELEVENLABS_MS_PER_CHAR a character (default 600 and 15) and
 // refuses what goes over LANI_DEV_FAKE_ELEVENLABS_CONCURRENCY at once (default 5, a Creator plan's; 0: no limit).
+// LANI_DEV_FAKE_ELEVENLABS_DOWN=<file>: while that file is there, the fake answers every take with a 503, as the service
+// down (companion/bin/qa's visit-voices: a line the node can't voice); the bridge then pauses ElevenLabs for a while, as it
+// does for the real one.
 const fake = process.env.LANI_DEV_FAKE_ELEVENLABS === '1' ? fakeEleven({ tones: true }) : undefined
 if (fake) {
   const num = (name: string, d: number) => (process.env[name] ? Number(process.env[name]) : d)
@@ -120,6 +123,15 @@ if (fake) {
     voiceLimit: 0,
   })
   console.log(`fake ElevenLabs on ${fake.url} (concurrency ${fake.st.concurrency}, ${fake.st.delayMs} ms + ${fake.st.msPerChar} ms a character)`)
+  const down = process.env.LANI_DEV_FAKE_ELEVENLABS_DOWN
+  if (down) {
+    setInterval(() => {
+      const off = existsSync(down)
+      if (off === (fake.st.fail === 503)) return
+      fake.st.fail = off ? 503 : 0
+      console.log(`fake ElevenLabs: ${off ? 'down (every take a 503)' : 'up again'}`)
+    }, 300)
+  }
   // what it was asked, as it goes: QA's log shows the takes, what went over the concurrency and the most at once
   let told = 0
   let refused = 0

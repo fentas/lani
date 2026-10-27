@@ -128,6 +128,24 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        "bubbles-follow" the village's bubbles with their people (QA's hook "hour:11"): at home, dragged
                        so some are off screen, zoomed in and dragged, the edge chip ("‹ 🐑 2") tapped and its bubble on
                        screen then;
+                       "visit-sky" on a visit by the clock's night (never under QA's hook "hour:<h>": the real sky is
+                       drawn by the clock only), the moon tapped where the picture has it (the largest round bright spot
+                       of the sky in a screenshot), else its brightest stars: the sky card in the town's language explained
+                       in the visitor's base, neither "📚" nor "📖" on it (a visit of its own when none goes on; in
+                       LANI_QA_VISIT_PAIR when set); skipped by day;
+                       "visit-voices" (only when named, with "visit-voices-silent" after it) a visit's voices as on Teo's
+                       tablet: the second town the Slovene fixture (test/fixtures/dev-town-sl.json) with its people's
+                       greetings in its own store (LANI_DEV_TOWN_VOICES), the dev bridge an Italian learner's (LANI_DEV_DATA,
+                       else a synthetic one from German, Friuli, made in the run's folder; setup in sl · en) with a fake
+                       ElevenLabs and no local voice worker, the phone without a Slovene voice (QA's hooks "audio:tts:off",
+                       "audio:voice:remove:sl", "audio:visitvoice:reset"), the visit in it · de (LANI_QA_VISIT_PAIR): a
+                       greeting the town has a clip of plays it (tag Speaker "node clip", the dev bridge "the town's own
+                       clip"), a line it has none of is voiced on the dev bridge ("voiced here (elevenlabs)", the fake's take
+                       in Slovene); "visit-voices-silent" the dev bridge's ElevenLabs down (its fake's 503s): a line nothing
+                       says (Speaker "nothing (no tts voice)") offers the offline voice ("🗣️ Prenesi slovenski glas za
+                       obiske (61 MB)?"), "Ne zdaj", the town again: "🔇 Ta naprava nima glasu za slovenščino" with "⬇️
+                       Prenesi", downloaded, the next line said by it (Speaker "offline voice", Piper's WAV); the lines in
+                       visit-voices.log;
                        "village-hud" the village's HUD: its slim bar and its row of cards, the ring hiding them (still
                        hidden in the village opened again) and showing them, each card's section in the sheet (a tap
                        on the map closes it, opening nothing), the settlement's in German (QA's hook "pair:sl-de"),
@@ -247,9 +265,12 @@ Output: companion/qa-shots/<timestamp>/  (NN-step.png, contact-sheet.png, report
 Env: ANDROID_SERIAL picks the device when several run; LANI_DEV_PORT the dev bridge's port (default 8791);
 LANI_PIPER_CACHE the dev bridge's offline voices (default ~/.cache/lani-qa/piper, kept between runs: the voice is fetched
 from Hugging Face once), LANI_PIPER_URL where it fetches them (default Hugging Face; a local mirror of its layout);
-LANI_DEV_TOWN_PORT the second town's (default 8797); LANI_DEV_DATA the data the dev bridge copies (default: the default
-learner's, LANI_DATA_DIR in lani.env, else data/); LANI_DEV_FAKE_ELEVENLABS=1 a fake ElevenLabs for the dev bridge (clips
-made on demand end to end: test/dev-bridge.ts).
+LANI_DEV_TOWN_PORT the second town's (default 8797); LANI_DEV_TOWN_FIXTURE its fixture (a file of
+companion/bridge/test/fixtures; default dev-town.json, with visit-voices dev-town-sl.json); LANI_DEV_DATA the data
+the dev bridge copies (default: the default learner's, LANI_DATA_DIR in lani.env, else data/; with visit-voices a synthetic
+Italian learner); LANI_DEV_FAKE_ELEVENLABS=1 a fake ElevenLabs for the dev bridge (clips made on demand end to end:
+test/dev-bridge.ts); LANI_QA_VISIT_PAIR the phone's pair on a visit (QA's hook "pair:<t>-<b>", asked on Friends;
+visit-voices: it-de unless set).
 """
 import atexit
 import html
@@ -296,7 +317,6 @@ SERIAL = os.environ.get("ANDROID_SERIAL")
 # The second town (test/dev-town.ts): its own port (reserved for it in src/learners.ts) and app token, and its fixture
 # (LANI_DEV_TOWN_FIXTURE: dev-town-child.json is a child's town with a learner's progress, the dev bridge's its guardian).
 TOWN_PORT = os.environ.get("LANI_DEV_TOWN_PORT", "8797")
-FIXTURE = os.environ.get("LANI_DEV_TOWN_FIXTURE") or "dev-town.json"
 TOWN_TOKEN = "dev-town-token"
 NEVER_PORTS = {"8790", "8795", "8796"}  # the real bridge, the voice and speech workers: QA never binds or stops them
 OPEN = "si.lanisce.lani.open"  # a deep link in the launch intent (data/DeepLink.kt)
@@ -343,6 +363,22 @@ def tail(path: Path, n=4) -> str:
 
 # --- the town visited (the fixture of test/dev-town.ts, its culture pack, the app's texts) -----------------------
 
+# The steps of a visit's voices (companion/README.md, "Voices on a visit"), only when --steps names them: the second town is
+# then the Slovene fixture (test/fixtures/dev-town-sl.json) with its own clips of its people's greetings
+# (LANI_DEV_TOWN_VOICES), and the dev bridge an Italian learner's with a fake ElevenLabs (start_bridge).
+VOICES_GROUP = "visit-voices"
+VOICES = any(w.strip() in (VOICES_GROUP, "visit-voices-silent") for w in (arg("--steps") or "").split(","))
+# the second town: a fixture of test/fixtures (LANI_DEV_TOWN_FIXTURE, as test/dev-town.ts takes it; dev-town-child.json a
+# child's town), the Slovene one for the visit's voices
+TOWN_FIXTURE = os.environ.get("LANI_DEV_TOWN_FIXTURE") or ("dev-town-sl.json" if VOICES else "dev-town.json")
+VISIT_GROUPS = ("visit", VOICES_GROUP)  # the steps that need the second town
+
+
+def fixture_file() -> Path:
+    """The second town's fixture (TOWN_FIXTURE): a file of companion/bridge/test/fixtures, as test/dev-town.ts reads it."""
+    return BRIDGE / "test/fixtures" / TOWN_FIXTURE
+
+
 def l10n(lang: str) -> dict:
     """The app's texts in [lang] by key ("visit.visiting" → "In visita"), from its resources."""
     def flat(o, p=""):
@@ -364,14 +400,15 @@ def town_facts() -> dict:
     its market can spare, and the app's texts in its language. During a visit every label reads "<host> · <base>"
     ("In visita · Visiting" for Jan, Slovene from English, in an Italian town): the steps look for the host's part."""
     try:
-        f = json.loads((BRIDGE / "test/fixtures" / FIXTURE).read_text())
+        f = json.loads(fixture_file().read_text())
         if "state" not in f and f.get("state_from"):  # the child's town: the second town's village (test/dev-town.ts)
             f["state"] = json.loads((BRIDGE / "test/fixtures" / f["state_from"]).read_text())["state"]
         host, culture = f["learner"]["target"], ROOT / "companion/cultures" / f["learner"]["culture"]
-        cast = {}
+        cast, folk = {}, {}
         for p in (culture / "villagers").glob("*.json"):
             v = json.loads(p.read_text())
             cast[v.get("id", p.stem)] = v.get("name", p.stem)
+            folk[v.get("id", p.stem)] = v
         s = f["state"]
         ids = [r["id"] for r in s.get("residents", [])] + ([s["visitor"]["id"]] if s.get("visitor") else [])
         goods = {g["id"]: g.get("name", {}) for g in json.loads((culture / "chest.json").read_text()).get("goods", [])}
@@ -382,6 +419,9 @@ def town_facts() -> dict:
             "people": [cast[i] for i in ids if i in cast], "requests": len(s.get("quests", [])),
             "horizon": backdrop.get(host, ""), "wares": [goods[i].get(host, i) for i in spare if i in goods],
             "t": l10n(host), "child": f["learner"].get("child") is True, "progress": bool(f.get("learning")),
+            "fixture": fixture_file().name,
+            # its people as their culture pack has them (their speaker, their lines), for the visit's voices
+            "folk": {i: folk[i] for i in ids if i in folk},
         }
     except (OSError, ValueError, KeyError) as e:
         return {"error": f"the fixture town can't be read: {e}"}
@@ -429,9 +469,18 @@ def ensure_emulator():
     sys.exit("emulator did not boot")
 
 
+def screen_xml() -> str:
+    """The screen's hierarchy (uiautomator dump), dumped again a few times when the dump fails ("ERROR: null root node
+    returned by UiTestAutomationBridge" on a busy emulator): a failed dump left the previous screen's file to be read."""
+    for _ in range(3):
+        if "dumped" in adb("shell", "uiautomator", "dump", "/sdcard/ui.xml", check=False):
+            break
+        time.sleep(0.7)
+    return adb("shell", "cat", "/sdcard/ui.xml", check=False)
+
+
 def nodes():
-    adb("shell", "uiautomator", "dump", "/sdcard/ui.xml", check=False)
-    xml = adb("shell", "cat", "/sdcard/ui.xml", check=False)
+    xml = screen_xml()
     for n in re.findall(r"<node [^>]*?>", xml):
         def attr(k):
             m = re.search(k + r'="([^"]*)"', n)
@@ -442,8 +491,7 @@ def nodes():
 
 def boxes():
     """Every labelled node's bounds: (text, (x0, y0, x1, y1))."""
-    adb("shell", "uiautomator", "dump", "/sdcard/ui.xml", check=False)
-    xml = adb("shell", "cat", "/sdcard/ui.xml", check=False)
+    xml = screen_xml()
     for n in re.findall(r"<node [^>]*?>", xml):
         def attr(k):
             m = re.search(k + r'="([^"]*)"', n)
@@ -5933,6 +5981,562 @@ def leave_visit():
         time.sleep(1.2)
     plain_village()
 
+# --- a visit's voices and its sky (companion/README.md, "Voices on a visit"; docs/plans/05-built/visit-voices.md) ------
+
+VISIT_PAIR = os.environ.get("LANI_QA_VISIT_PAIR")  # the phone's pair while it visits (QA's hook "pair:<t>-<b>"); None: as it is
+VOICES_PAIR = VISIT_PAIR or "it-de"  # the visit's voices: Teo's pair, Italian from German (the visit's labels: sl · de)
+VOICES_LOG = "visit-voices.log"  # what each phase of the visit's voices said: the app's lines and the dev bridge's
+
+
+def icu_branch(msg: str, key: str) -> str:
+    """The [key] branch of a "{x, select, it {…} other {…}}" message ("other" when it has none for [key]); a plain message
+    as it is. Its own {placeholders} stay."""
+    m = re.fullmatch(r"\{\w+, select, (.*)\}", msg.strip(), re.S)
+    if not m:
+        return msg
+    body, branches, i = m.group(1), {}, 0
+    while (b := re.compile(r"\s*(\w+)\s*\{").match(body, i)) is not None:
+        depth, j = 1, b.end()
+        while j < len(body) and depth:
+            depth += {"{": 1, "}": -1}.get(body[j], 0)
+            j += 1
+        branches[b.group(1)] = body[b.end():j - 1]
+        i = j
+    return branches.get(key, branches.get("other", msg))
+
+
+def head(msg: str) -> str:
+    """A label up to its first placeholder or bracket ("Prenesi ({mb} MB)" → "Prenesi"): what shows whatever fills it."""
+    return re.split(r"\s*[({]", msg, maxsplit=1)[0].strip()
+
+
+def town_label(key: str) -> str:
+    """[key] in the visited town's language, its branch for that language: the first half of a visit's label."""
+    return icu_branch(host(key), FACTS.get("language", "sl"))
+
+
+def own_pair() -> str:
+    """The pair the steps read the own village's labels in: setup's (LANI_QA_PAIR), else the profile's ("")."""
+    return os.environ.get("LANI_QA_PAIR", "")
+
+
+FRIENDS = "🤝 Prijatelji · Friends"  # the Friends screen's title (in the own pair the steps read)
+
+
+def friends_from_visit() -> bool:
+    """Back from the visited town to Friends (its Back leads there: a card or a panel over it closes first), the own pair
+    asked first so Friends comes in the labels the steps read (the visit's own stay the town's). True once Friends shows
+    with the second town on it."""
+    qa_hook(f"pair:{own_pair()}")
+    for _ in range(4):
+        if find(FRIENDS) is not None or not on_visit():
+            break
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1.5 * slow())
+    return wait_for(FRIENDS, 8) is not None and wait_for(FACTS["name"], 15) is not None and scroll_to(FACTS["name"], 3) is not None
+
+
+def dump_says() -> str:
+    """What a uiautomator dump answers now ("UI hierchary dumped to …", or why it couldn't): when a label isn't found."""
+    out = subprocess.run(["adb", *(("-s", SERIAL) if SERIAL else ()), "shell", "uiautomator", "dump", "/sdcard/qa-probe.xml"],
+                         capture_output=True, text=True, timeout=60)
+    return " ".join((out.stdout + " " + out.stderr).split())[:200]
+
+
+def visit_again(pair=None):
+    """The second town visited from wherever the app is: from a visit going on, Back to Friends (the own pair asked first,
+    so Friends comes in the labels the steps read); else Friends by QA's hook "friends" (a busy emulator's dump of the
+    village fails: "null root node"), else the own village, its scroll's villagers and Friends (again a while later when
+    the screen's dump failed); then the town's "🚶 Obišči · Visit"; with [pair] ("it-de":
+    QA's hook "pair:<t>-<b>", asked on Friends) the visit's labels are the town's language explained in that pair's base.
+    Ends on the visited town."""
+    if on_visit():
+        reached = friends_from_visit()
+    else:  # Friends showing already (a step before came back to it), else opened by QA's hook "friends"
+        if find(FRIENDS) is None:
+            qa_hook(f"pair:{own_pair()}")
+            qa_hook("friends")
+        reached = wait_for(FRIENDS, 10) is not None and wait_for(FACTS["name"], 15) is not None and scroll_to(FACTS["name"], 3) is not None
+    if not reached:
+        for attempt in (1, 2, 3):
+            try:
+                if on_visit():
+                    qa_hook(f"pair:{own_pair()}")
+                    leave_visit()
+                why = friends()
+                break
+            except AssertionError as e:  # a busy emulator (the screen's dump failing): a while later, again
+                print(f"    Friends again ({e}; the screen's dump: {dump_says()})")
+                if attempt == 3:
+                    raise
+                time.sleep(5 * attempt * slow())
+        if why is not None:
+            raise AssertionError(why)
+    label = "Obišči · Visit"
+    if pair:
+        qa_hook(f"pair:{pair}")
+        t, b = pair.split("-")
+        label = f"{l10n(t, 'towns.visit')} · {l10n(b, 'towns.visit')}"
+        assert wait_for(label, 10), f"the visit's button in {pair} ({label})"
+    bs = list(boxes())
+    title = next((bx for tx, bx in bs if tx.endswith(FACTS["name"])), None)
+    assert title is not None, f"the card of {FACTS['name']!r}"
+    below = [bx for tx, bx in bs if label in tx and bx[1] >= title[1]]
+    assert below, f"the card's visit button ({label})"
+    tap_at(centre(min(below, key=lambda bx: bx[1])))
+    banner = f"{host('visit.visiting')} · "
+    assert wait_for(banner, 10), f"the visit's banner ({banner.strip()} …)"
+    assert wait_for(f"📜 {host('visit.requests')} · ", 25), "the visited town (its bar of things to do)"
+    time.sleep(2)
+
+
+def town_voices() -> list[dict]:
+    """The second town's own clips of its people's greetings (test/dev-town.ts with LANI_DEV_TOWN_VOICES: its
+    "dev town voice: {…}" lines): person, voice, text, the store's answer."""
+    out = []
+    for l in (OUT / "town.log").read_text(errors="replace").splitlines() if (OUT / "town.log").exists() else []:
+        if l.startswith("dev town voice: "):
+            try:
+                out.append(json.loads(l.split(": ", 1)[1]))
+            except ValueError:
+                pass
+    return out
+
+
+def spare_lines(seeded: list[dict]) -> list[tuple[str, str, str]]:
+    """Lines the town's people say that its store has no clip of: (person, voice, text), their idle, thanks and goodbye
+    lines in the town's language that name nobody (no placeholder) and that the device's shell can quote."""
+    have = {norm(g["text"]) for g in seeded}
+    lang, out = FACTS["language"], []
+    for kind in ("idle", "bye", "thanks", "cheer", "comfort"):
+        for pid, v in FACTS.get("folk", {}).items():
+            for line in v.get("lines", {}).get(kind, []):
+                text = line.get(lang) if isinstance(line, dict) else None
+                if not text or re.search(r"[{}'\"`$\\|]", text) or norm(text) in have or any(norm(text) == norm(t) for _, _, t in out):
+                    continue
+                out.append((pid, str(v.get("speaker") or v.get("voice") or "female"), text))
+    return out
+
+
+def app_lines() -> list[str]:
+    """The app's lines of the visit's voices since the log was cleared (a debug build: tags Speaker, VisitVoice, Clips,
+    Piper), with their times."""
+    log = adb("logcat", "-d", "-v", "time", "-s", "Speaker:*", "VisitVoice:*", "Clips:*", "Piper:*", check=False)
+    return [l for l in log.splitlines() if l.strip() and not l.startswith("-")]
+
+
+def bridge_mark() -> int:
+    """Where the dev bridge's log is now: [bridge_lines] reads on from it."""
+    try:
+        return (OUT / "bridge.log").stat().st_size
+    except OSError:
+        return 0
+
+
+def bridge_lines(mark: int) -> list[str]:
+    """The dev bridge's lines of a visit's voices since [mark]: what it kept and where from, the fake ElevenLabs' takes."""
+    try:
+        raw = (OUT / "bridge.log").read_bytes()[mark:].decode(errors="replace")
+    except OSError:
+        return []
+    return [l for l in raw.splitlines() if "visit voice" in l or "fake ElevenLabs" in l or "elevenlabs:" in l]
+
+
+def voices_log(title: str, lines: list[str]):
+    """A phase of the visit's voices in the run's visit-voices.log."""
+    with open(OUT / VOICES_LOG, "a") as f:
+        f.write(f"## {title}\n" + "".join(f"  {l}\n" for l in lines) + "\n")
+
+
+def said_how(text: str, wait=30.0) -> list[str]:
+    """How the app said [text] since the log was cleared (tag Speaker: "node clip (grandma)", "offline voice", "nothing (no
+    tts voice)" …), once it came to a last word (the offline voice may still fall back: a moment more for it)."""
+    key = f"«{norm(text)}»: "
+    end, hows = time.time() + wait * slow(), []
+    while time.time() < end:
+        hows = [l.split(key, 1)[1].strip() for l in adb("logcat", "-d", "-s", "Speaker:I", check=False).splitlines() if key in l]
+        if hows and hows[-1] != "offline voice":
+            break
+        if hows and time.time() > end - wait * slow() / 2:
+            break
+        time.sleep(1)
+    return hows
+
+
+def say_as(person: str, voice: str, text: str, wait=30.0) -> list[str]:
+    """[text] said as [person]'s 🔊 says it, in [voice] (QA's hook "audio:say:<text>|<voice>|<person>"): how it was said."""
+    adb("logcat", "-c")
+    qa_hook(f"'audio:say:{text}|{voice}|{person}'")  # quoted: the device's shell would split it
+    return said_how(text, wait)
+
+
+def voices_hooks():
+    """The phone as Teo's tablet for the town's language: Android's voice as none ("audio:tts:off"), no offline voice of
+    it ("audio:voice:remove:<lang>"), the offers declined before forgotten ("audio:visitvoice:reset")."""
+    qa_hook("audio:tts:off")
+    qa_hook(f"audio:voice:remove:{FACTS['language']}")
+    qa_hook("audio:visitvoice:reset")
+    time.sleep(1.5)
+
+
+def visit_voices():
+    """A visit sounds like the town (companion/README.md, "Voices on a visit"), as for Teo, a child learning Italian from
+    German on a tablet without a Slovene voice, in Jan's Slovene village: the dev bridge an Italian learner's (LANI_DEV_DATA,
+    else a synthetic one of the Friuli culture made in the run's folder) with a fake ElevenLabs, the second town the Slovene
+    fixture (test/fixtures/dev-town-sl.json) whose own store has its people's greetings (LANI_DEV_TOWN_VOICES), the phone
+    without a Slovene voice ([voices_hooks]); the town visited in it · de (LANI_QA_VISIT_PAIR, default it-de: its labels
+    sl · de). (a) Someone of the town out on its map tapped and their greeting's 🔊 (nobody out, or a greeting the town has
+    no clip of: a greeting it has, said as its 🔊 says it, QA's hook "audio:say:<text>|<voice>|<person>"): the town's own
+    clip plays (tag Speaker "said «…»: node clip (<voice>)"; the dev bridge "visit voices: <town>: "…" (<voice>): the
+    town's own clip"). (b) A line of theirs the town has no clip of: voiced on the dev bridge in the town's cast voice and
+    language (the fake's take with language_code sl; "voiced here (elevenlabs)"), its clip played. The lines in
+    visit-voices.log. The visit stays for visit-voices-silent."""
+    if (why := no_town()) is not None:
+        return why
+    seeded = [g for g in town_voices() if g.get("status") == 200]
+    if not seeded:
+        return "the town has no clips of its own (town.log: no greeting voiced; LANI_DEV_TOWN_VOICES)"
+    print(f"    the town's own clips: {len(seeded)} greetings of {len({g['person'] for g in seeded})} people")
+    visit_again(VOICES_PAIR)
+    voices_hooks()
+    labels = " ".join(t for t, _ in nodes())
+    want = f"⌂ {host('common.home')} · {l10n(VOICES_PAIR.split('-')[1], 'common.home')}"
+    assert want in labels, f"the visit's labels in {FACTS['language']} · {VOICES_PAIR.split('-')[1]} ({want})"
+    names = {v.get("name"): (pid, str(v.get("speaker") or v.get("voice") or "female")) for pid, v in FACTS["folk"].items()}
+    have = {norm(g["text"]): g for g in seeded}
+
+    # (a) the town's own clip of a greeting: someone out on the map tapped, their greeting's 🔊
+    mark = bridge_mark()
+    adb("logcat", "-c")
+    who = how = None
+    listen = f"{host('common.listen')} · "
+    people = [(t, b) for t, b in boxes() if t in names and b[2] > b[0] and b[3] > b[1] and b[1] > 0]
+    for t, b in people:
+        tap_at(centre(b))
+        if not wait_for(f"💬 {host('visit.talk')} · ", 5):
+            if find(f"{host('common.close')} · "):  # a place's card opened instead
+                adb("shell", "input", "keyevent", "KEYCODE_BACK")
+                time.sleep(1.2)
+            continue
+        greeting = next((m.group(1) for tx, _ in nodes() if (m := re.match(r"[^:]{1,40}: (.+?) · ", tx))), None)
+        if greeting and norm(greeting) in have and tap(listen, 3):
+            who, text = t, greeting
+            how = said_how(greeting)
+            shot("visit-voices-greeting")
+            break
+        print(f"    {t}'s greeting «{greeting}»: {'the town has no clip of it' if greeting else 'not read'}")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1.2)
+    if who is None:
+        g = seeded[0]
+        who, text = f"{FACTS['folk'][g['person']]['name']} (QA's audio:say: nobody out with a greeting the town has)", g["text"]
+        how = say_as(g["person"], g["voice"], g["text"])
+        shot("visit-voices-greeting")
+    time.sleep(2)
+    a_app, a_bridge = app_lines(), bridge_lines(mark)
+    voices_log(f"(a) the town's own clip: {who}: «{text}»", ["app:"] + a_app + ["dev bridge:"] + a_bridge)
+    print(f"    (a) {who}: «{text}» said by {' → '.join(how) or 'nothing'}")
+    for l in a_bridge:
+        print(f"        bridge: {l.strip()}")
+    assert how and how[-1].startswith("node clip ("), f"(a) the greeting «{text}» wasn't its clip: {how}"
+    assert any("the town's own clip" in l and norm(text)[:20] in norm(l) for l in a_bridge), \
+        f"(a) the dev bridge didn't get the town's own clip of «{text}»: {a_bridge}"
+    if find(f"💬 {host('visit.talk')} · "):
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the card closed
+        time.sleep(1.2)
+
+    # (b) a line the town has no clip of: voiced on the dev bridge in the town's cast voice, in its language
+    spare = spare_lines(seeded)
+    assert spare, "a line of the town's people that its store has no clip of"
+    pid, voice, line = spare[0]
+    mark = bridge_mark()
+    how = say_as(pid, voice, line)
+    time.sleep(2)
+    shot("visit-voices-node")
+    b_app, b_bridge = app_lines(), bridge_lines(mark)
+    voices_log(f"(b) voiced on the node: {FACTS['folk'][pid]['name']} ({voice}): «{line}»", ["app:"] + b_app + ["dev bridge:"] + b_bridge)
+    print(f"    (b) {FACTS['folk'][pid]['name']} ({voice}): «{line}» said by {' → '.join(how) or 'nothing'}")
+    for l in b_bridge:
+        print(f"        bridge: {l.strip()}")
+    assert how and how[-1] == f"node clip ({voice})", f"(b) «{line}» wasn't the node's clip in {voice}: {how}"
+    assert any("voiced here (elevenlabs)" in l for l in b_bridge), f"(b) the dev bridge didn't voice «{line}»: {b_bridge}"
+    take = next((l for l in b_bridge if l.startswith("fake ElevenLabs: ") and " chars " in l and norm(line)[:20] in norm(l)), None)
+    assert take and f" {FACTS['language']} " in take, f"(b) the fake's take of «{line}» in {FACTS['language']}: {take}"
+
+
+def visit_voices_silent():
+    """(c) Nothing can say a line of the visit (companion/README.md, "Voices on a visit"): the dev bridge's ElevenLabs down
+    (its fake answers every take with a 503, test/dev-bridge.ts LANI_DEV_FAKE_ELEVENLABS_DOWN; no local voice worker), a
+    line the town has no clip of: nothing speaks (tag Speaker "nothing (no tts voice)"), and the visit's first such line
+    offers the town language's offline voice ("🗣️ Prenesi slovenski glas za obiske (61 MB)? · …", a screenshot); "Ne zdaj";
+    home and the town visited again: its first silent line brings "🔇 Ta naprava nima glasu za slovenščino · …" with
+    "⬇️ Prenesi (61 MB)" (a screenshot). (d) ⬇️: the voice comes from the dev bridge (its Piper cache, LANI_PIPER_CACHE),
+    "✅ Slovenski glas je na telefonu", and the next line is said by it (Speaker "offline voice", Piper's WAV). Then home, the
+    phone's voice and the dev bridge's ElevenLabs back, the own pair again. The lines in visit-voices.log."""
+    if (why := no_town()) is not None:
+        return why
+    seeded = [g for g in town_voices() if g.get("status") == 200]
+    spare = spare_lines(seeded)[1:]
+    if len(spare) < 3:
+        return "fewer than three more lines its people say that the town has no clip of"
+    lang = FACTS["language"]
+    offer = f"🗣️ {head(town_label('visitVoice.offerTitle'))}"
+    not_now = f"{host('offlineAudio.offerNo')} · "
+    note = f"🔇 {town_label('visitVoice.none')}"
+    download = f"⬇️ {head(town_label('visitVoice.download'))}"
+    ready = f"✅ {town_label('visitVoice.ready')}"
+    coming = head(town_label("visitVoice.downloading"))
+    try:
+        if not on_visit():
+            visit_again(VOICES_PAIR)
+        voices_hooks()
+        ELEVEN_DOWN.touch()
+        time.sleep(1.5)
+
+        # (c) the visit's first silent line: the offer
+        pid, voice, line = spare[0]
+        mark = bridge_mark()
+        how = say_as(pid, voice, line)
+        dialog = wait_for(offer, 10)
+        time.sleep(1)
+        shot("visit-voices-offer")
+        c_app, c_bridge = app_lines(), bridge_lines(mark)
+        voices_log(f"(c) nothing can say it: {FACTS['folk'][pid]['name']} ({voice}): «{line}»", ["app:"] + c_app + ["dev bridge:"] + c_bridge)
+        print(f"    (c) «{line}» said by {' → '.join(how) or 'nothing'}; the offer: {next((t for t, _ in nodes() if t.startswith(offer)), None)}")
+        for l in c_bridge:
+            print(f"        bridge: {l.strip()}")
+        assert how and how[-1] == "nothing (no tts voice)", f"(c) «{line}» was said after all: {how}"
+        assert dialog is not None, f"(c) the offer ({offer} …)"
+        assert tap(not_now, 4), f"(c) the offer's {not_now.strip()}"
+        end = time.time() + 8 * slow()
+        while find(offer) is not None and time.time() < end:  # the dialog fades out
+            time.sleep(1)
+        assert find(offer) is None, "(c) the offer still open after Ne zdaj"
+
+        # home, and the town again: the note with the download
+        visit_again(VOICES_PAIR)
+        pid, voice, line = spare[1]
+        mark = bridge_mark()
+        how = say_as(pid, voice, line)
+        card = wait_for(note, 10)
+        time.sleep(1)
+        shot("visit-voices-note")
+        n_app, n_bridge = app_lines(), bridge_lines(mark)
+        voices_log(f"(c) the next visit, a silent line: {FACTS['folk'][pid]['name']} ({voice}): «{line}»", ["app:"] + n_app + ["dev bridge:"] + n_bridge)
+        print(f"    (c) the next visit: «{line}» said by {' → '.join(how) or 'nothing'}; the note: "
+              f"{next((t for t, _ in nodes() if t.startswith(note)), None)}; {next((t for t, _ in nodes() if t.startswith(download)), None)}")
+        assert how and how[-1] == "nothing (no tts voice)", f"(c) «{line}» was said after all: {how}"
+        assert card is not None, f"(c) the note ({note} …)"
+        assert find(offer) is None, "(c) the offer again after Ne zdaj"
+        assert find(download), f"(c) the note's {download} …"
+
+        # (d) the download: the voice from the dev bridge, then a line said by it
+        adb("logcat", "-c")
+        assert tap(download, 3), f"(d) {download} …"
+        started, seen_coming, came = time.time(), False, False
+        while time.time() - started < 900 * slow():
+            labels = [t for t, _ in nodes()]
+            if not seen_coming and any(t.startswith(coming) for t in labels):
+                seen_coming = True
+                shot("visit-voices-downloading")
+            if any(t.startswith(ready) for t in labels):
+                came = True
+                shot("visit-voices-ready")
+                break
+            if run_as("ls", f"files/piper/{lang}/voice.json").strip().endswith("voice.json"):
+                time.sleep(1)
+                came = any(t.startswith(ready) for t, _ in nodes())
+                if came:
+                    shot("visit-voices-ready")
+                break
+            time.sleep(2)
+        on_phone = run_as("ls", f"files/piper/{lang}/voice.json").strip().endswith("voice.json")
+        print(f"    (d) the voice on the phone after {round(time.time() - started)} s: {on_phone} "
+              f"({run_as('du', '-sk', f'files/piper/{lang}').split()[0] if on_phone else '-'} kB); \"{ready}\" {'shown' if came else 'not seen'}")
+        assert on_phone, f"(d) the offline voice of {lang} isn't on the phone after the download"
+        time.sleep(5)  # its note goes; Piper loads it on its first line
+        run_as("sh", "-c", "rm -f cache/piper-wav/*.wav")
+        pid, voice, line = spare[2]
+        mark = bridge_mark()
+        how = say_as(pid, voice, line, wait=60)
+        wavs = []
+        end = time.time() + 60 * slow()
+        while time.time() < end and not wavs:
+            wavs = [w for w in run_as("ls", "cache/piper-wav").split() if w.endswith(".wav")]
+            time.sleep(1)
+        time.sleep(3)
+        shot("visit-voices-offline")
+        d_app, d_bridge = app_lines(), bridge_lines(mark)
+        voices_log(f"(d) the offline voice: {FACTS['folk'][pid]['name']} ({voice}): «{line}»", ["app:"] + d_app + ["dev bridge:"] + d_bridge)
+        if wavs:
+            pull(f"cache/piper-wav/{wavs[0]}", OUT / "visit-voices-piper.wav")
+        print(f"    (d) «{line}» said by {' → '.join(how) or 'nothing'}; Piper's WAV: {wavs[:1]}")
+        assert how and how[-1] == "offline voice", f"(d) «{line}» wasn't said by the offline voice: {how}"
+        assert wavs, "(d) Piper said nothing (no WAV in its cache)"
+
+        # out of the visit by Back (to Friends) with the own pair as the visit found it, no QA hook: Friends in that pair
+        t, b = VOICES_PAIR.split("-")
+        mine = f"🤝 {l10n(t, 'towns.friends')} · {l10n(b, 'towns.friends')}"
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        end, seen = time.time() + 20 * slow(), None
+        while time.time() < end and seen is None:
+            labels = [t for t, _ in nodes()]
+            seen = next((x for x in (mine, FRIENDS) if any(l.startswith(x) for l in labels)), None)
+            time.sleep(1)
+        shot("visit-voices-friends")
+        print(f"    out of the visit (no pair hook): Friends reads {seen or '(not read: the dump failed)'}")
+        assert seen != FRIENDS or mine == FRIENDS, f"out of the visit: Friends in sl · en ({FRIENDS}), not in {VOICES_PAIR} ({mine})"
+    finally:
+        ELEVEN_DOWN.unlink(missing_ok=True)
+        qa_hook("audio:tts:")
+        qa_hook(f"pair:{own_pair()}")
+
+
+def voices_done():
+    """After the visit's voices (or a failure in them): the dev bridge's ElevenLabs up again, the phone's voice and the own
+    pair back; on Friends (from a visit by Back), else the plain village."""
+    ELEVEN_DOWN.unlink(missing_ok=True)
+    qa_hook("audio:tts:")
+    if on_visit() and friends_from_visit():
+        return
+    qa_hook(f"pair:{own_pair()}")
+    time.sleep(1.5)
+    if wait_for(FRIENDS, 5) is None:  # not on Friends (where the step leaves off): out of the visit, Friends by QA's hook
+        if on_visit():
+            leave_visit()
+        qa_hook("friends")
+
+
+def sky_titles() -> set[str]:
+    """What a sky card of the visited town's culture is called in its language (its sky.json: the moon, the things and their
+    folk names, a shooting star): a card's title is one of them."""
+    try:
+        sky = json.loads((ROOT / "companion/cultures" / FACTS["culture"] / "sky.json").read_text())
+    except (OSError, ValueError, KeyError):
+        return set()
+    lang = FACTS["language"]
+    names = [sky.get("moon", {}).get("name", {}), sky.get("meteors", {}).get("name", {})]
+    names += [t.get(k, {}) for t in sky.get("things", []) for k in ("name", "folk")]
+    return {n.get(lang) for n in names if isinstance(n, dict) and n.get(lang)}
+
+
+def bright_spots(png: Path, top: int, bottom: int, threshold="35%") -> list[tuple[int, int, int]]:
+    """The bright spots of the screenshot [png] between rows [top] and [bottom] (the sky): (x, y, area), the roundest and
+    largest first (the moon, a planet, then the stars: a star is a dot of a few pixels, at 35 % of white in the night's
+    sky)."""
+    w = int(sh("magick", "identify", "-format", "%w", str(png), check=False).strip() or 1080)
+    if bottom - top < 4:
+        return []
+    out = sh("magick", str(png), "-crop", f"{w}x{bottom - top}+0+{top}", "+repage", "-colorspace", "gray", "-threshold", threshold,
+             "-define", "connected-components:verbose=true", "-define", "connected-components:area-threshold=4",
+             "-connected-components", "8", "null:", check=False)
+    spots = []
+    for l in out.splitlines():
+        m = re.match(r"\s*\d+: (\d+)x(\d+)\+\d+\+\d+ ([\d.]+),([\d.]+) ([\d.e+]+) (\S+)", l)
+        if not m or not re.search(r"\(255|white|#FFFF", m.group(6), re.I):
+            continue
+        bw, bh, area = int(m.group(1)), int(m.group(2)), round(float(m.group(5)))
+        if bw > w * 0.25 or bh > (bottom - top) * 0.5:  # not a band of light, a hillside, a text's line
+            continue
+        spots.append((round(float(m.group(3))), top + round(float(m.group(4))), area, min(bw, bh) / max(bw, bh)))
+    spots.sort(key=lambda s: -(s[2] * (0.5 + s[3])))
+    return [(x, y, a) for x, y, a, _ in spots]
+
+
+def visit_sky():
+    """The night sky over a visited town (docs/plans/05-built/visit-voices.md, "Look and learn on a visit"; ui/towns/VisitTaps.kt):
+    by the clock's night (the real sky is drawn only by the clock, never under QA's hook "hour:<h>"), the town's map, dragged
+    down so the top of its sky comes out from under the banner; what of the sky shows (the moon, a planet, the stars: the
+    bright spots of a screenshot between the banner and the hills, never on a button or a label) tapped until one opens its
+    card, else the sky in a grid: a sky card ("Luna", a constellation, a star …) in the town's language explained in the
+    visitor's base, its lines and its words to tap, and neither "📚" nor "📖" (a guest's runs and readings stay in the
+    visitor's own village); a screenshot, and where the moon was drawn. TalkBack's "🌌 Nebo nocoj" and "🌙 Luna" are
+    custom actions adb can't reach: not tapped here. Visits the second town itself when the step before left none (in
+    LANI_QA_VISIT_PAIR when set)."""
+    if (why := no_town()) is not None:
+        return why
+    hour = time.localtime().tm_hour
+    if 6 <= hour < 18:
+        return f"by day ({hour} o'clock): the real night sky is drawn by the clock's night only (not under QA's hour hook)"
+    qa_hook("hour:")
+    switched, notes = False, []
+    home_button = f"⌂ {host('common.home')} · "
+    close, listen, talk = f"{host('common.close')} · ", f"{host('common.listen')} · ", f"💬 {host('visit.talk')} · "
+    try:
+        if not on_visit():
+            visit_again(VISIT_PAIR)
+            switched = bool(VISIT_PAIR)
+        size = adb("shell", "wm", "size", check=False)
+        height = int(m.group(1)) if (m := re.search(r"x(\d+)", size.split("Override")[-1])) else 2400
+        # the map dragged down: the canvas's top (its sky) out from under the banner, as far as the camera lets it
+        for _ in range(2):
+            adb("shell", "input", "swipe", "540", str(height * 40 // 100), "540", str(height * 70 // 100), "500")
+            time.sleep(1)
+        time.sleep(3 * slow())  # the sky settles in the picture: what the hills hide isn't there to tap
+        titles = sky_titles()
+        bs = [b for t, b in boxes()]
+        top = max((b[3] for b in bs if b[1] < height * 0.25 and b[3] < height * 0.3 and b[1] > 0), default=height // 8) + 12
+        bottom = int(height * 0.34)  # above the hills' tops, the village's lights and fire below them
+        shot("visit-sky-night")
+        # the moon above the banner (under the status bar): seen, not to be tapped there
+        above = min((b[1] for b in bs if b[1] < height * 0.25 and b[3] < height * 0.3), default=0)
+        moon = next(((x, y) for x, y, a in bright_spots(shots[-1], 0, above, "60%") if a >= 200), None)
+        # its lower edge in the strip of the map between the status bar and the banner, when there is one
+        under_moon = [(moon[0], y, 0) for y in (moon[1] + 14, moon[1] + 22) if y < above - 4] if moon else []
+        if moon:
+            notes.append(f"the moon drawn at {moon}, above the banner (from row {above}): "
+                         f"{'tapped on its lower edge ' + str([y for _, y, _ in under_moon]) if under_moon else 'not to be tapped there'}")
+        # on a button or a label (not the map: its own node covers the screen)
+        small = [b for b in bs if (b[2] - b[0]) * (b[3] - b[1]) < 1080 * height * 0.25]
+        inside = lambda x, y: any(b[0] - 8 <= x <= b[2] + 8 and b[1] - 8 <= y <= b[3] + 8 for b in small)  # noqa: E731
+        spots = [(x, y, a) for x, y, a in bright_spots(shots[-1], top, bottom) if not inside(x, y)]
+        grid = [(x, y, 0) for y in range(top + 40, bottom, 110) for x in range(90, 1000, 150) if not inside(x, y)]
+        print(f"    the sky between rows {top} and {bottom}: bright spots {spots[:8]}; {len(grid)} grid points after them")
+
+        def opened() -> str | None:
+            """What the tap opened: a sky card's title, "" for something else (closed again), None for nothing."""
+            labels = [t for t, _ in nodes()]
+            if card := next((t for t in labels if t in titles), None):
+                return card
+            if any(t.startswith(listen) for t in labels) and not any(t.startswith((talk, close)) for t in labels) and not any(t.startswith(home_button) for t in labels):
+                # a sheet over the visit with its 🔊 by the title: a sky card its culture's sky.json doesn't name
+                return next((t for t in labels if t and not t.startswith(listen) and len(t) < 40), "?")
+            if any(t.startswith((talk, close)) for t in labels) or not any(t.startswith(home_button) for t in labels):
+                return ""
+            return None
+
+        card, tried = None, 0
+        for x, y, _ in under_moon + spots[:12] + grid:
+            if not on_visit() and find(home_button) is None:
+                raise AssertionError("the visit left while tapping the sky")
+            tap_at((x, y))
+            tried += 1
+            time.sleep(0.8)
+            what = opened()
+            if what:
+                card = what
+                notes.append(f"a sky card from a tap at ({x}, {y}) (tap {tried})")
+                break
+            if what == "":  # a place's card, a person's: closed, the visit stays
+                adb("shell", "input", "keyevent", "KEYCODE_BACK")
+                time.sleep(1.2)
+        if card is None:
+            return f"no sky card from {tried} taps of the sky ({len(spots)} bright spots, the rest a grid); " + "; ".join(notes)
+        time.sleep(1.5)
+        shot("visit-sky-card")
+        labels = [t for t, _ in nodes()]
+        print(f"    the card: {card}; on it: {' | '.join(t for t in labels if len(t) < 90)[:500]}")
+        for n in notes:
+            print(f"    {n}")
+        assert not any(t.startswith("📚 ") for t in labels), "a guest's sky card with 📚 (the sky's pack: the own village's)"
+        assert not any(t.startswith("📖 ") for t in labels), "a guest's sky card with 📖 (the almanac: the own village's)"
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the card closed
+        time.sleep(1.5)
+        assert on_visit(), "back closed more than the sky's card"
+    finally:
+        if switched:
+            qa_hook(f"pair:{own_pair()}")  # the visit's labels stay the town's; home comes in the pair the steps read
+
 
 def in_front() -> bool:
     """The app is the resumed activity ("topResumedActivity=…" on newer Androids, "mResumedActivity: …" on older)."""
@@ -8124,14 +8728,40 @@ def optional_screen(label: str, marker: str, exact: bool = False):
 
 # --- the bridges ----------------------------------------------------------------------------
 
+# The visit's voices (VOICES): what the dev bridge voices, until QA takes its ElevenLabs down (this file there: every take a
+# 503, test/dev-bridge.ts LANI_DEV_FAKE_ELEVENLABS_DOWN)
+ELEVEN_DOWN = OUT / "eleven-down"
+
+
+def synthetic_visitor() -> Path:
+    """A synthetic learner for the visit's voices when LANI_DEV_DATA names none: Italian from German, of the Friuli culture,
+    without a village (as Teo: setup founds it), made in the run's folder as `lani-profile add` makes one
+    (src/learners.ts initLearnerData). Never the real learner's data."""
+    d = OUT / "visitor-data"
+    if not (d / "learner-profile.json").exists():
+        code = ("import { initLearnerData } from './src/learners'; "
+                "initLearnerData(process.env.QA_PROJECT, process.env.QA_VISITOR, { name: 'Leo', target: 'it', base: 'de', culture: 'friuli', child: false })")
+        subprocess.run(["bun", "-e", code], cwd=BRIDGE, check=True, env={**os.environ, "QA_PROJECT": str(ROOT), "QA_VISITOR": str(d)})
+    return d
+
+
 def start_bridge():
     """The dev bridge on PORT, on a copy of the learner data (test/dev-bridge.ts); whatever listened there is stopped. Its
-    offline voices in QA's own cache (never the machine's), kept between runs."""
+    offline voices in QA's own cache (never the machine's), kept between runs. For the visit's voices (VOICES): a fake
+    ElevenLabs that QA can take down (ELEVEN_DOWN), no local voice worker (so what ElevenLabs can't voice nobody voices),
+    and a synthetic Italian learner (Friuli) when LANI_DEV_DATA names no data."""
     for pid in listeners(PORT):
         subprocess.run(["kill", pid])
     piper = os.environ.get("LANI_PIPER_CACHE") or str(Path.home() / ".cache/lani-qa/piper")
+    extra = {}
+    if VOICES:
+        extra = {"LANI_DEV_FAKE_ELEVENLABS": "1", "LANI_DEV_FAKE_ELEVENLABS_DOWN": str(ELEVEN_DOWN), "LANI_GEPARD_URL": "http://127.0.0.1:9"}
+        if not os.environ.get("LANI_DEV_DATA"):
+            extra |= {"LANI_DEV_DATA": str(synthetic_visitor()), "LANI_CULTURE": os.environ.get("LANI_CULTURE") or "friuli"}
+            os.environ.setdefault("LANI_QA_PAIR", "sl-en")  # setup reads the labels in sl · en (as coast does)
+    ELEVEN_DOWN.unlink(missing_ok=True)
     bridge = subprocess.Popen(["bun", "test/dev-bridge.ts"], cwd=BRIDGE, stdout=open(OUT / "bridge.log", "w"), stderr=subprocess.STDOUT,
-                              env={**os.environ, "LANI_DEV_PORT": PORT, "LANI_PIPER_CACHE": piper})
+                              env={**os.environ, "LANI_DEV_PORT": PORT, "LANI_PIPER_CACHE": piper, **extra})
     if "--keep-bridge" not in sys.argv:
         atexit.register(bridge.terminate)  # also when a step raises past the end, or QA is interrupted
     return bridge
@@ -8171,7 +8801,8 @@ def start_town():
         return None
     town = subprocess.Popen(["bun", "test/dev-town.ts"], cwd=BRIDGE, stdout=open(OUT / "town.log", "w"), stderr=subprocess.STDOUT,
                             env={**os.environ, "LANI_DEV_TOWN_PORT": TOWN_PORT, "LANI_DEV_TOWN_LINK": f"http://127.0.0.1:{PORT}",
-                                 "LANI_DEV_TOWN_LINK_TOKEN": TOKEN})
+                                 "LANI_DEV_TOWN_LINK_TOKEN": TOKEN, "LANI_DEV_TOWN_FIXTURE": TOWN_FIXTURE,
+                                 **({"LANI_DEV_TOWN_VOICES": "1"} if VOICES else {})})
     if "--keep-bridge" not in sys.argv:
         atexit.register(town.terminate)
     TOWN["why"] = "not linked yet"
@@ -9630,6 +10261,13 @@ def plan():
         ("visit-requests", visit_requests, h, True, "visit"),
         ("visit-market", visit_market, h, True, "visit"),
         ("visit-gift", visit_gift, h, True, "visit"),
+        # only with --steps visit-voices: the Slovene fixture town with clips of its own, the dev bridge an Italian
+        # learner's with a fake ElevenLabs (VOICES); the second goes on from the first's visit, and back to Friends at its end
+        ("visit-voices", visit_voices, h, True, VOICES_GROUP),
+        ("visit-voices-silent", visit_voices_silent, voices_done, False, VOICES_GROUP),
+        # the night sky on a visit (by the clock's night): a visit of its own when none goes on (from Friends when the
+        # step before left it there); the visit stays open
+        ("visit-sky", visit_sky, h, True, "visit"),
         ("visit-home", visit_home, h, False, "visit"),
         ("packs", packs, None, False, ""),
         ("word-forms", word_forms, go_home, False, ""),
@@ -9929,7 +10567,8 @@ def selected(steps):
     without setup's pairing (and without the dev bridge: main)."""
     want = arg("--steps")
     if not want:
-        return [s for s in steps if s[0] not in ("hosted", "town-progress-child")]
+        # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
+        return [s for s in steps if s[0] not in ("hosted", "town-progress-child") and s[4] != VOICES_GROUP]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")
@@ -9952,20 +10591,25 @@ def building() -> bool:
 
 def dry(steps, visiting: bool):
     """--dry: what a run would do, with the ports as they are now; nothing is built, started or tapped."""
+    if VOICES:
+        data = os.environ.get("LANI_DEV_DATA") or f"a synthetic Italian learner (Friuli, from German) made in {OUT / 'visitor-data'}"
+        print(f"visit voices the dev bridge on {data}, a fake ElevenLabs (down while {ELEVEN_DOWN} is there), no local "
+              f"voice worker; the second town {TOWN_FIXTURE} with its people's greetings voiced; the visit in {VOICES_PAIR}\n")
     def port(p):
         pids = listeners(p)
         return "free" if not pids else f"in use now (pid {', '.join(pids)})"
     print("QA plan (--dry: nothing is built, started or tapped)\n")
     built = "" if not building() else f"build ({BUILD_TASK}), "
     print(f"app          {built}install {app_apk()} and start {PKG} on {SERIAL or f'the emulator (AVD {avd()})'}")
+    data = os.environ.get("LANI_DEV_DATA") or (OUT / "visitor-data" if VOICES else dev_data())
     print(f"dev bridge   127.0.0.1:{PORT} (the app: {BRIDGE_URL}, token {TOKEN}): test/dev-bridge.ts on a copy of "
-          f"{os.environ.get('LANI_DEV_DATA') or dev_data()}, its town links left out; port {port(PORT)} (stopped first)")
+          f"{data}, its town links left out; port {port(PORT)} (stopped first)")
     why = "--no-town" if "--no-town" in sys.argv else FACTS.get("error") or (None if visiting else "no visit step chosen")
     if why:
         print(f"second town  none: {why}")
     else:
         f = FACTS
-        print(f"second town  127.0.0.1:{TOWN_PORT} (token {TOWN_TOKEN}): test/dev-town.ts, \"{f['name']}\" ({f['learner']}, {f['culture']}, "
+        print(f"second town  127.0.0.1:{TOWN_PORT} (token {TOWN_TOKEN}): test/dev-town.ts {f['fixture']}, \"{f['name']}\" ({f['learner']}, {f['culture']}, "
               f"{f['language']}), a temp data dir; linked with the dev bridge's town; port {port(TOWN_PORT)} "
               "(a second town left there is stopped, anything else skips the visit)")
         print(f"             its people {', '.join(f['people'])}; {f['requests']} requests; market {', '.join(f['wares'])}; "
@@ -9997,7 +10641,7 @@ def bridges_only() -> int:
 
 def main():
     steps = selected(plan())
-    visiting = any(s[4] == "visit" or s[0] == "town-progress-child" for s in steps)
+    visiting = any(s[4] in VISIT_GROUPS or s[0] == "town-progress-child" for s in steps)
     if "--dry" in sys.argv:
         return dry(steps, visiting)
     if "--bridges-only" in sys.argv:
@@ -10029,7 +10673,7 @@ def main():
 
     linked = False
     for name, fn, cleanup, keep, group in steps:
-        if (group == "visit" or name == "town-progress-child") and not linked:  # linked by now, while the other steps ran
+        if (group in VISIT_GROUPS or name == "town-progress-child") and not linked:  # linked by now, while the other steps ran
             results.append(("second-town", link_town(town)))
             linked = True
         step(name, fn, cleanup, keep)
