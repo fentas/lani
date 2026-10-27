@@ -44,13 +44,10 @@ fun TownShareRow(vm: AppViewModel, id: String, learner: String, listed: Sharing?
             }
         }
         Box {
-            TextButton(
-                onClick = { if (choices.size > 1) picking = true },
-                enabled = !vm.townProgress.saving,
-                modifier = Modifier.heightIn(min = 44.dp),
-            ) {
-                Text(TownProgressLogic.shareLine(s, learner) + if (choices.size > 1) " ▾" else "", style = MaterialTheme.typography.bodyMedium)
-            }
+            // one level to choose (a child's on a parent's link): a line, not a button
+            if (choices.size > 1) TextButton(onClick = { picking = true }, enabled = !vm.townProgress.saving, modifier = Modifier.heightIn(min = 44.dp)) {
+                Text(TownProgressLogic.shareLine(s, learner) + " ▾", style = MaterialTheme.typography.bodyMedium)
+            } else Text(TownProgressLogic.shareLine(s, learner), Modifier.padding(horizontal = 12.dp, vertical = 8.dp), style = MaterialTheme.typography.bodyMedium)
             DropdownMenu(expanded = picking, onDismissRequest = { picking = false }) {
                 for (level in choices) DropdownMenuItem(
                     text = {

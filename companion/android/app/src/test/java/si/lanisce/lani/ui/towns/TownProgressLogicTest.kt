@@ -6,7 +6,9 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import si.lanisce.lani.data.HardItem
 import si.lanisce.lani.data.HardPattern
+import si.lanisce.lani.data.ProgressSummary
 import si.lanisce.lani.data.ProgressTown
+import si.lanisce.lani.data.ProgressWeek
 import si.lanisce.lani.data.ShareLevels
 import si.lanisce.lani.data.Sharing
 import si.lanisce.lani.data.TheirShare
@@ -35,6 +37,8 @@ class TownProgressLogicTest {
     @Test fun `a child's card on its parent's link - the note, and no choice below the floor`() = withPair {
         val s = Sharing(share = ShareLevels.DETAILS, guardian = true, floor = ShareLevels.DETAILS, choices = listOf(ShareLevels.DETAILS))
         assertEquals("👪 Tvoj starš vidi tvoj napredek · Your parent can see your progress", TownProgressLogic.guardianNote(s))
+        // the parent's link, not a default the child could change: no "(privzeto · default)"
+        assertEquals("👁️ Kaj vidi Ana · What Ana sees: 🔎 Podrobno · Details", TownProgressLogic.shareLine(s.copy(shareDefault = true), "Ana"))
         assertEquals(listOf(ShareLevels.DETAILS), TownProgressLogic.choices(s))
         // a parent lowered it on the node to a summary: the child may share more again, never less
         assertEquals(listOf(ShareLevels.SUMMARY, ShareLevels.DETAILS), TownProgressLogic.choices(s.copy(floor = ShareLevels.SUMMARY, choices = listOf(ShareLevels.SUMMARY, ShareLevels.DETAILS))))
@@ -51,6 +55,15 @@ class TownProgressLogicTest {
         assertEquals("🔁", TownProgressLogic.stateMark("rusty"))
         assertEquals("🌱", TownProgressLogic.stateMark("learning"))
         assertEquals("↗", TownProgressLogic.trendMark("worse"))
+    }
+
+    @Test fun `the week in one line, with the Slovene dual and plural`() = withPair {
+        val p = child.copy(summary = ProgressSummary(week = ProgressWeek(daysPractised = 2, minutes = 20, reviews = 3, newWords = 5)))
+        assertEquals(
+            "Ta teden: 2 dneva vaje, 5 novih besed, 20 min, 3 ponovitve · This week: 2 days of practice, 5 new words, 20 min, 3 reviews",
+            TownProgressLogic.weekLine(p),
+        )
+        assertNull(TownProgressLogic.weekLine(child))
     }
 
     @Test fun `a challenge from a hard word, gently for a child in the child's base`() = withPair {

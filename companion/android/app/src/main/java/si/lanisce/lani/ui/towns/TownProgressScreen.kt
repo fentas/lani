@@ -214,10 +214,7 @@ private fun SummaryCard(p: TownProgress, s: si.lanisce.lani.data.ProgressSummary
                     }
                 }
             }
-            Text(
-                "${bi("townProgress.thisWeek")}: ${TownProgressLogic.weekLine(p).orEmpty()} · ${bi("townProgress.reviews", "n" to s.week.reviews)}",
-                style = MaterialTheme.typography.bodyMedium,
-            )
+            TownProgressLogic.weekLine(p)?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
             val level = s.course?.let { course ->
                 val unit = course.current?.title?.let { t -> t[L10n.pair.target.code] ?: t[L10n.pair.base.code] ?: t["en"] ?: t.values.firstOrNull() }
                 "📝 ${bi("townProgress.school", "done" to course.done, "of" to course.of)}" + unit?.let { " · $it" }.orEmpty()

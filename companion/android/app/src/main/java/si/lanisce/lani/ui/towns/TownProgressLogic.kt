@@ -29,9 +29,9 @@ object TownProgressLogic {
         else -> bi("townProgress.aboutVillage")
     }
 
-    /** "👁️ Kaj vidi Teo · What Teo sees: 📊 Povzetek · Summary" (the link's default marked). */
+    /** "👁️ Kaj vidi Teo · What Teo sees: 📊 Povzetek · Summary" (the link's default marked, but a parent's link: the parent's). */
     fun shareLine(s: Sharing, learner: String): String =
-        "👁️ ${bi("townProgress.whatTheySee", "name" to learner.ifBlank { "?" })}: ${levelName(s.share)}" + if (s.shareDefault) " (${bi("townProgress.default")})" else ""
+        "👁️ ${bi("townProgress.whatTheySee", "name" to learner.ifBlank { "?" })}: ${levelName(s.share)}" + if (s.shareDefault && !s.guardian) " (${bi("townProgress.default")})" else ""
 
     /** What the other town shares with this one, when it said: "👀 Teo ti kaže: 🔎 Podrobno · Teo shows you: 🔎 Details". */
     fun theirLine(s: Sharing, learner: String): String? =
@@ -73,14 +73,10 @@ object TownProgressLogic {
         else -> "→"
     }
 
-    /** "4 dni · 23 novih besed · 35 min": the week of a summary, in a line. */
+    /** "Ta teden: 4 dnevi vaje, 23 novih besed, 35 min, 18 ponovitev · This week: …": the week of a summary, in a line. */
     fun weekLine(p: TownProgress): String? {
         val w = p.summary?.week ?: return null
-        return listOf(
-            bi("townProgress.days", "n" to w.daysPractised),
-            bi("townProgress.newWords", "n" to w.newWords),
-            "${w.minutes} min",
-        ).joinToString(" · ")
+        return bi("townProgress.weekSummary", "days" to w.daysPractised, "words" to w.newWords, "minutes" to w.minutes, "reviews" to w.reviews)
     }
 
     /**
