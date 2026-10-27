@@ -75,7 +75,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  * - "cheat" opens the cheat sheet; "cheat:<page>,<page>" as an exercise of those grammar pages would (their cards first).
  * - "school": the village (the dev bridge's copy) gets ready for the class under the linden ([readySchool]: the hamlet,
  *   the linden standing, the unit biti as never begun), and the school opens, its class begun (companion/GAME.md, "The
- *   school").
+ *   school"). "school:<unit>" does the same with that unit (its id: "oziralni-ki") as never begun and its course level
+ *   open ([readyUnit]: a B1 unit without A2 done and the school upgraded), for QA to play it from the school's levels.
  * - "sheet:<unit>/<sheet>": the class readied (as "school") and that sheet of the unit played at once ("sheet:sedanjik/
  *   sedanjik-3", "sheet:biti/test": the unit's test), as its button in the unit starts it ([sheetOf]): a sheet's
  *   corrections looked at without playing the units before it.
@@ -333,6 +334,7 @@ object QaHooks {
     fun handle(
         command: String?, road: (String) -> Unit = {}, forms: () -> Unit = {}, step: (String, Int) -> Unit = { _, _ -> }, audio: (String) -> Unit = {},
         season: () -> Unit = {}, ready: () -> Unit = {}, chat: (String) -> Unit = {}, cheat: (List<String>) -> Unit = {}, school: () -> Unit = {},
+        schoolUnit: (String) -> Unit = {},
         shadow: (String) -> Unit = {}, counting: (String) -> Unit = {}, dev: (String) -> Unit = {}, pair: (String) -> Unit = {},
         grow: (si.lanisce.lani.game.Age) -> Unit = {}, formsCard: (String, String) -> Unit = { _, _ -> }, data: () -> Unit = {}, tutorLive: (String) -> Unit = {},
         review: () -> Unit = {}, numbers: (String) -> Unit = {}, event: (String) -> Unit = {}, hearths: (String) -> Unit = {},
@@ -411,6 +413,7 @@ object QaHooks {
             command.startsWith("cheat:") -> cheat(command.removePrefix("cheat:").split(',').map { it.trim() }.filter { it.isNotEmpty() })
             command == "school" -> school()
             command.startsWith("sheet:") -> sheetOf(command.removePrefix("sheet:"))?.let { (unit, id) -> sheet(unit, id) }
+            command.startsWith("school:") -> command.removePrefix("school:").trim().takeIf { it.isNotEmpty() }?.let(schoolUnit)
             command.startsWith("build:") -> {
                 val name = command.removePrefix("build:").trim().uppercase()
                 build = si.lanisce.lani.game.BuildingType.entries.firstOrNull { it.name == name && it.onPlot }
@@ -471,6 +474,19 @@ object QaHooks {
         // the unit biti as never begun, whatever the copy's learner did with it: QA plays its intro from its first step
         val course = r.course?.let { c -> c.copy(units = c.units - si.lanisce.lani.game.School.key("sl", "biti")) }
         return r.copy(buildings = r.buildings.map { if (it.type == si.lanisce.lani.game.BuildingType.LIPA) it.copy(damaged = false) else it }, course = course)
+    }
+
+    /**
+     * [s] ready for the class of unit [unit] of [language] ("school:<unit>"): as "school" ([readySchool]), the unit as never
+     * begun and its course [level] open ([today], or the day it opened before), whatever holds the level back (the levels
+     * before it, the school's upgrade): QA plays a later level's unit from its first step. A debug build's, on the dev
+     * bridge's copy.
+     */
+    fun readyUnit(s: si.lanisce.lani.game.GameState, language: String, unit: String, level: String, today: java.time.LocalDate, now: Long): si.lanisce.lani.game.GameState {
+        val r = readySchool(s, now)
+        val c = r.course ?: si.lanisce.lani.game.CourseProgress()
+        val opened = si.lanisce.lani.game.School.key(language, level)
+        return r.copy(course = c.copy(units = c.units - si.lanisce.lani.game.School.key(language, unit), opened = c.opened + (opened to (c.opened[opened] ?: today.toString()))))
     }
 
     /**

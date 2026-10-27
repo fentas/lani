@@ -241,6 +241,35 @@ class QaHooksTest {
         assertNull(asked)
     }
 
+    @Test fun `a unit of a later level readied, never begun, its level open, the day it opened kept, the others' progress kept`() {
+        val today = java.time.LocalDate.of(2026, 10, 27)
+        val key = si.lanisce.lani.game.School::key
+        val s = si.lanisce.lani.game.GameState(
+            age = si.lanisce.lani.game.Age.ZASELEK,
+            course = si.lanisce.lani.game.CourseProgress(
+                opened = mapOf(key("sl", "A1") to "2026-10-13"),
+                units = mapOf(
+                    key("sl", "oziralni-ki") to si.lanisce.lani.game.UnitProgress(started = "2026-10-20", intro = 3),
+                    key("sl", "spol") to si.lanisce.lani.game.UnitProgress(started = "2026-10-12", introDone = true),
+                ),
+            ),
+        )
+        val r = QaHooks.readyUnit(s, "sl", "oziralni-ki", "B1", today, 0L)
+        assertNull(si.lanisce.lani.game.School.progress(r, "sl", "oziralni-ki"))
+        assertEquals(true, si.lanisce.lani.game.School.progress(r, "sl", "spol")?.introDone)
+        assertEquals(mapOf(key("sl", "A1") to "2026-10-13", key("sl", "B1") to "2026-10-27"), r.course?.opened)
+        assertTrue(r.buildings.any { it.type == si.lanisce.lani.game.BuildingType.LIPA })
+        // asked again later: the level keeps the day it opened; a village without a course yet gets one
+        assertEquals("2026-10-27", QaHooks.readyUnit(r, "sl", "oziralni-ki", "B1", today.plusDays(1), 0L).course?.opened?.get(key("sl", "B1")))
+        assertEquals("2026-10-27", QaHooks.readyUnit(si.lanisce.lani.game.GameState(), "sl", "svoj", "B1", today, 0L).course?.opened?.get(key("sl", "B1")))
+        // "school:<unit>" names the unit, "school" alone the classic school
+        val asked = mutableListOf<String>()
+        QaHooks.handle("school:oziralni-ki", school = { asked += "school" }, schoolUnit = { asked += it })
+        QaHooks.handle("school", school = { asked += "school" }, schoolUnit = { asked += it })
+        QaHooks.handle("school:", school = { asked += "school" }, schoolUnit = { asked += it })
+        assertEquals(listOf("oziralni-ki", "school"), asked)
+    }
+
     @Test fun `a slower clock asked, the towns' time runs at that rate, kept in range, until let go`() {
         assertEquals(1f, TownClock.rate)
         QaHooks.handle("clock:0.4")

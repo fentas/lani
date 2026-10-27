@@ -1279,6 +1279,16 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     /**
+     * QA's "school:<unit>" (app/QaHooks): the dev village ready for the class (as "school"), unit [id] as never begun and
+     * its level open, and the school open, where QA goes to the unit through its level.
+     */
+    fun qaSchoolUnit(id: String) {
+        val u = school.unit(id) ?: return
+        game.apply { si.lanisce.lani.app.QaHooks.readyUnit(it, u.language, u.id, u.level, java.time.LocalDate.now(), System.currentTimeMillis()) }
+        openSchool(fromVillage = false)
+    }
+
+    /**
      * QA's "build:<type>" (a debug build, app/QaHooks.kt): the village (the dev bridge's copy) ready to build one (its
      * stores full, a free plot: the next age's when its own are taken) and shown, where the plot chooser opens for it.
      */

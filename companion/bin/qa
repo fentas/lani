@@ -201,6 +201,10 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        brackets), three right; each line's correction under its field, the count under the sheet that
                        scrolls to the first wrong one; on the phone, a tablet upright (1600 × 2560) and on its side;
                        "sheet-corrections-types" the same on sedanjik-1's table and sedanjik-2's gap text (the phone);
+                       "school-b1" a B1 unit end to end (QA's hook "school:oziralni-ki", its level opened; a synthetic
+                       learner, LANI_DEV_DATA): "Raven B1" in the school, the unit oziralni-ki from its level, its six
+                       intro steps and their quick questions, the summary, the sort, the table, the gap text, the
+                       transform list, its test passed, the dev bridge's village keeping the unit done;
                        "school-print" the unit biti's sheet printed ("🖨️ Natisni list"): fit.js in the app's
                        WebView choosing as headless Chromium does, the print dialog's preview, the PDF saved through it
                        (A4, its pages as chosen), the level's booklet ("🖨️ Vsi listi") to its dialog;
@@ -5479,6 +5483,141 @@ def sheet_corrections_types():
     assert not missing, f"the corrections at their items: missing {missing}"
 
 
+B1_UNIT = "Ki in kateri: prijatelj, ki sem ga srečal"  # the unit oziralni-ki (companion/course/sl/units/oziralni-ki.json)
+
+
+def school_b1():
+    """A B1 unit end to end (companion/COURSE.md; QA's hook "school:oziralni-ki": the dev village's copy ready for the
+    class as "school" does, the unit as never begun and B1 open): "Raven B1" in the school, the unit from its level, its
+    intro's six steps (a quick question each: five taps and a gap), the summary, the first worksheet (the sort by a tap on
+    a word and one on its column, then the table), the gap text, the transform list (adb types no č, š, ž: three lines
+    almost right), and the test straight after, passed: the unit done, kept by the dev bridge's village. Every answer is
+    the unit's own (ASCII where adb types it)."""
+    if not (ROOT / "companion/course/sl/units/oziralni-ki.json").exists():
+        return "no unit oziralni-ki here (companion/course/sl/units/oziralni-ki.json)"
+    go_home()
+    qa_hook("school:oziralni-ki")
+    assert wait_for("Raven A1", 10), "the school's levels"
+    c = scroll_to("Raven B1", 8)
+    assert c is not None, "the level B1"
+    c = scroll_to(B1_UNIT, 4)
+    assert c is not None, "the unit oziralni-ki in B1, open"
+    shot("school-b1-level")
+    tap_at(c)
+    assert wait_for("Delovni listi", 8), "the unit"
+    shot("school-b1-unit")
+    c = find("Naprej: Uvod") or find("Uvod · Introduction")
+    assert c is not None, "the intro"
+    tap_at(c)
+    asks = [("Otroci, ", "ki"), ("Pes, ", "ki ga"), ("komu? masculine", "mu"), ("Pismo, ", "ki ga je"), ("Klop, na", "kateri"), ("Povej mi vse", "kar")]
+    for i, (prompt, answer) in enumerate(asks, 1):
+        assert wait_for(f"Korak {i}/6", 12), f"step {i}"
+        if answer != "mu":
+            # the question under the lines and the table: scrolled to, the option the first of its text below the
+            # question's prompt (the table above may show it too: "ki", "kar"), clear of the bottom bar's "Naprej"
+            adb("shell", "input", "swipe", "540", "1600", "540", "900", "400")
+            time.sleep(1)
+            q = scroll_to(prompt, 2)
+            assert q is not None, f"step {i}'s question"
+            c = next((c for t, c in nodes() if t == answer and q[1] < c[1] < 2100), None)
+            assert c is not None, f"step {i}'s option {answer}"
+            tap_at(c)
+        else:
+            c = scroll_to(prompt, 3)  # the gap's field, its hint as the placeholder
+            assert c is not None, f"step {i}'s gap"
+            tap_at(c)
+            type_text(answer)
+            assert tap("Preveri · Check", 4), f"step {i}'s check"
+        assert wait_for("Pravilno", 6), f"step {i} answered right ({answer})"
+        if i in (1, 4, 6):
+            shot(f"school-b1-intro-{i}")
+        assert tap("Naprej · Next", 4), f"step {i}'s next"
+    assert wait_for("Povzetek", 8), "the intro's summary card"
+    shot("school-b1-summary")
+    assert tap("Na delovne liste", 5), "on to the worksheets"
+    # the first worksheet: the sort (a word, then its column), then the table
+    assert tap("Naprej: Ki ga, ki jo, ki jih", 6), "the first worksheet"
+    assert wait_for("Kateri zaimek", 10), "the sort"
+    for col, words in [("ki ga vidim", ["pes", "kruh", "pismo"]), ("ki jo vidim", ["knjiga", "potica", "ovca"]), ("ki jih vidim", ["otroci", "ovce", "jajca"])]:
+        for w in words:
+            c = next((c for t, c in nodes() if t == w), None) or (scroll_to(w, 2, exact=True))
+            assert c is not None, f"the word {w}"
+            tap_at(c)
+            c = next((c for t, c in nodes() if t == col), None) or scroll_to(col, 2, exact=True)
+            assert c is not None, f"the column {col}"
+            tap_at(c)
+    shot("school-b1-sort")
+    assert tap("Preveri · Check", 4), "check the sort"
+    assert wait_for("Pravilno", 6), "the sort right"
+    shot("school-b1-sort-checked")
+    assert tap("Naprej · Next", 4), "on to the table"
+    for label, answer in [("Zala, koga? · ki … poznam", "ki jo"), ("Zala, komu? · ki … pomagam", "ki ji"), ("otroci, koga? · ki … poznam", "ki jih"),
+                          ("otroci, komu? · ki … pomagam", "ki jim"), ("jagnje, koga? · ki … poznam", "ki ga"), ("jagnje, komu? · ki … pomagam", "ki mu")]:
+        assert fill(label, answer), f"the cell {label}"
+    assert tap("Preveri · Check", 4), "check the table"
+    assert wait_for("Pravilno", 6), "the table right"
+    shot("school-b1-table-checked")
+    assert tap("Naprej · Next", 6), "on"
+    assert tap("Naprej · Continue", 10), "back to the unit"
+    # the second worksheet: the gap text, typed (its bank there too)
+    assert tap("Naprej: Vas, v kateri živim", 8), "the second worksheet"
+    assert wait_for("Vas, v kateri", 10), "the gap text"
+    shot("school-b1-gaptext")
+    for i, answer in enumerate(["v kateri", "ki jo", "kateri", "katerega", "ki jo", "ki ga", "ki jih", "ki jim", "kar"], 1):
+        assert fill(f"Vrzel {i} · Gap {i}", answer), f"gap {i}"
+    assert tap("Preveri · Check", 4), "check the gap text"
+    time.sleep(1)
+    shot("school-b1-gaptext-checked")
+    assert tap("Naprej · Next", 6), "on"
+    assert tap("Naprej · Continue", 10), "back to the unit"
+    # the third worksheet: the transform list (č, š, ž left out by adb: almost right, half an item each)
+    assert tap("Naprej: Dva stavka v enega", 8), "the third worksheet"
+    assert wait_for("Združi s ki ali kateri", 10), "the transform list"
+    lines = ["To je Luka, ki pase ovce.", "To je Bela, ki jo Luka isce.", "Tam je Micka, ki ji Zala pomaga.", "To je noz, ki ga je skoval Tone.",
+             "To je hisa, v kateri zivi Ancka.", "To je Marko, s katerim sem govoril.", "To so otroci, ki jih Mojca uci.", "To je travnik, na katerem se pasejo ovce."]
+    for i, answer in enumerate(lines, 1):
+        assert fill(f"Vrstica {i} · Line {i}", answer), f"line {i}"
+    assert tap("Preveri · Check", 4), "check the lines"
+    time.sleep(1)
+    shot("school-b1-transform-checked")
+    assert tap("Naprej · Next", 6), "on"
+    assert tap("Naprej · Continue", 10), "back to the unit"
+    # the test: its table, gap text, lines and choice, passed
+    assert tap("Naprej: Test", 8) or tap("Test · Test", 4), "the test"
+    assert wait_for("ki ali kateri", 10), "the test's first sheet"
+    for label, answer in [("otroci · koga?, … ki / kateri", "ki jih"), ("babica · komu?, … ki / kateri", "ki ji"), ("vas · v + kje?, … ki / kateri", "v kateri")]:
+        assert fill(label, answer), f"the test's cell {label}"
+    assert tap("Preveri · Check", 4), "check"
+    assert tap("Naprej · Next", 6), "on"
+    for i, answer in enumerate(["ki ga", "s katerim", "ki jih", "kar"], 1):
+        assert fill(f"Vrzel {i} · Gap {i}", answer), f"the test's gap {i}"
+    assert tap("Preveri · Check", 4), "check"
+    assert tap("Naprej · Next", 6), "on"
+    for i, answer in enumerate(["To je Zala, ki bere knjigo.", "To je pismo, ki ga je napisal Marko.", "To je klop, na kateri sedi Janez."], 1):
+        assert fill(f"Vrstica {i} · Line {i}", answer), f"the test's line {i}"
+    assert tap("Preveri · Check", 4), "check"
+    assert tap("Naprej · Next", 6), "on"
+    c = ([c for t, c in nodes() if t == "ki se mu"] or [None])[-1]
+    assert c is not None, "the test's choice"
+    tap_at(c)
+    assert wait_for("Naprej · Next", 6), "on"
+    assert tap("Naprej · Next", 4), "the test's end"
+    assert wait_for("Enota opravljena", 12), "the test passed: the unit done"
+    shot("school-b1-test-passed")
+    assert tap("Naprej · Continue", 4), "back to the unit"
+    assert wait_for("Enota je opravljena", 8), "the unit done"
+    end, unit = time.time() + 20 * slow(), None
+    while time.time() < end:  # the app pushes the village to the node
+        try:
+            unit = (((api("/game").get("state") or {}).get("course") or {}).get("units") or {}).get("sl/oziralni-ki")
+        except (OSError, RuntimeError, ValueError):
+            unit = None
+        if unit and unit.get("done"):
+            break
+        time.sleep(2)
+    assert unit and unit.get("done"), f"the dev bridge's village keeps the unit done ({unit})"
+
+
 def school_point(pic, x: float, y: float, z: float) -> tuple[int, int]:
     """Where world point ([x], [y], [z]) of the school's diorama (SchoolPainter: its plot 13 × 11 cells, 26 px high, 7 deep)
     lies on screen in the scene's picture [pic] (its bounds), the camera fitted: the scene's canvas as SceneFit lays it
@@ -10589,6 +10728,7 @@ def plan():
         ("school", school, go_home, False, ""),
         ("sheet-corrections", sheet_corrections, go_home, False, ""),
         ("sheet-corrections-types", sheet_corrections_types, go_home, False, ""),
+        ("school-b1", school_b1, go_home, False, ""),
         ("school-print", school_print, go_home, False, ""),
         ("school-build", school_build, go_home, False, ""),
         ("school-scene", school_scene, v, False, ""),
