@@ -25,8 +25,46 @@
         { "id": "dvojina", "title": { "sl": "Dvojina: midva, dva brata", "en": "The dual: exactly two", "de": "Der Dual: genau zwei", "it": "Il duale: esattamente due" }, "grammar": ["dvojina", "stevila-samostalniki"] }
       ]
     },
-    { "level": "A2", "units": [] },
-    { "level": "B1", "units": [] },
+    {
+      "level": "A2",
+      "units": [
+        { "id": "skloni", "title": { "sl": "Šest sklonov: vprašaj!", "en": "The six cases: ask the question", "de": "Die sechs Fälle: frag!", "it": "I sei casi: fai la domanda" }, "grammar": ["skloni", "imenovalnik"], "planned": true },
+        { "id": "rodilnik", "title": { "sl": "Rodilnik: brez mleka, iz Gorice", "en": "The genitive: without milk, from Gorica", "de": "Der Genitiv: ohne Milch, aus Gorica", "it": "Il genitivo: senza latte, da Gorizia" }, "grammar": ["rodilnik", "rodilnik-predlogi", "rodilnik-kolicina"], "planned": true },
+        { "id": "kje-kam-od-kod", "title": { "sl": "Kje? Kam? Od kod?", "en": "Where? Where to? From where?", "de": "Wo? Wohin? Woher?", "it": "Dove? Verso dove? Da dove?" }, "grammar": ["kje-mestnik-orodnik", "kam-tozilnik", "rodilnik-predlogi"], "planned": true },
+        { "id": "dajalnik", "title": { "sl": "Dajalnik: babici, k babici", "en": "The dative: to Granny, to Granny's", "de": "Der Dativ: der Oma, zur Oma", "it": "Il dativo: alla nonna, dalla nonna" }, "grammar": ["dajalnik"], "planned": true },
+        { "id": "orodnik", "title": { "sl": "Orodnik: s kruhom, pod mizo", "en": "The instrumental: with bread, under the table", "de": "Der Instrumental: mit Brot, unter dem Tisch", "it": "Lo strumentale: con il pane, sotto il tavolo" }, "grammar": ["orodnik"], "planned": true },
+        { "id": "mnozina-skloni", "title": { "sl": "Množina v vseh sklonih: veliko ljudi", "en": "The plural in every case: a lot of people", "de": "Der Plural in allen Fällen: viele Leute", "it": "Il plurale in tutti i casi: tanta gente" }, "grammar": ["mnozina", "rodilnik-kolicina", "stevila-samostalniki"], "planned": true },
+        { "id": "pridevniki-skloni", "title": { "sl": "Pridevniki v sklonih: v veliki hiši", "en": "Adjectives through the cases: in the big house", "de": "Adjektive in den Fällen: im großen Haus", "it": "Gli aggettivi nei casi: nella grande casa" }, "grammar": ["pridevniki-ujemanje"], "planned": true },
+        { "id": "zaimki-skloni", "title": { "sl": "Zaimki: dal sem ti ga", "en": "Pronouns: I gave it to you", "de": "Pronomen: ich habe es dir gegeben", "it": "I pronomi: te l'ho dato" }, "grammar": ["osebni-zaimki", "naslonke"], "planned": true },
+        { "id": "cigav", "title": { "sl": "Čigav je? Moj, tvoj, njen", "en": "Whose is it? Mine, yours, hers", "de": "Wem gehört es? Mein, dein, ihr", "it": "Di chi è? Mio, tuo, suo" }, "grammar": ["pridevniki-ujemanje"], "planned": true },
+        { "id": "primernik", "title": { "sl": "Večji, boljši, najlepši", "en": "Bigger, better, the most beautiful", "de": "Größer, besser, am schönsten", "it": "Più grande, migliore, il più bello" }, "grammar": ["primernik"], "planned": true },
+        { "id": "namenilnik", "title": { "sl": "Grem spat, grem kupit", "en": "Going to sleep, going to buy", "de": "Ich gehe schlafen, ich gehe kaufen", "it": "Vado a dormire, vado a comprare" }, "grammar": ["namenilnik"], "planned": true },
+        { "id": "glagolski-vid", "title": { "sl": "Pišem in napišem: glagolski vid", "en": "Pišem and napišem: aspect", "de": "Pišem und napišem: der Aspekt", "it": "Pišem e napišem: l'aspetto" }, "grammar": ["glagolski-vid"], "planned": true },
+        { "id": "pogojnik", "title": { "sl": "Rad bi …: pogojnik", "en": "I'd like …: the conditional", "de": "Ich hätte gern …: der Konditional", "it": "Vorrei …: il condizionale" }, "grammar": ["pogojnik"], "planned": true },
+        { "id": "vezniki", "title": { "sl": "Ko, kadar, čeprav, zato", "en": "When, whenever, although, so", "de": "Als, wenn, obwohl, deshalb", "it": "Quando, ogni volta che, anche se, quindi" }, "grammar": ["vezniki"], "planned": true }
+      ]
+    },
+    {
+      "level": "B1",
+      "units": [
+        { "id": "sklanjatev-posebnosti", "title": { "sl": "Oče – očeta, dan – dneva", "en": "Odd nouns: oče – očeta, dan – dneva", "de": "Besondere Nomen: oče – očeta, dan – dneva", "it": "Nomi particolari: oče – očeta, dan – dneva" }, "grammar": ["sklanjatev-moski", "sklanjatev-zenski", "sklanjatev-srednji"], "planned": true },
+        { "id": "dvojina-skloni", "title": { "sl": "Z dvema družinama: dvojina v sklonih", "en": "With two families: the dual through the cases", "de": "Mit zwei Familien: der Dual in den Fällen", "it": "Con due famiglie: il duale nei casi" }, "grammar": ["dvojina"], "planned": true },
+        { "id": "vid-vsi-casi", "title": { "sl": "Vid v vseh časih: ne hodi tja!", "en": "Aspect in every tense: don't go there!", "de": "Der Aspekt in allen Zeiten: geh nicht hin!", "it": "L'aspetto in tutti i tempi: non andarci!" }, "grammar": ["glagolski-vid", "velelnik"], "planned": true },
+        { "id": "svoj", "title": { "sl": "Svoj: posodil mi je svoj avto", "en": "Svoj: he lent me his own car", "de": "Svoj: er hat mir sein eigenes Auto geliehen", "it": "Svoj: mi ha prestato la sua macchina" }, "grammar": ["svoj"], "planned": true },
+        { "id": "dolocna-oblika", "title": { "sl": "Daj mi zeleni nož!", "en": "Give me the green knife! The definite adjective", "de": "Gib mir das grüne Messer! Die bestimmte Form", "it": "Dammi il coltello verde! La forma determinata" }, "grammar": ["pridevniki-ujemanje"], "planned": true },
+        { "id": "oziralni-ki", "title": { "sl": "Ki in kateri: prijatelj, ki sem ga srečal", "en": "Ki and kateri: the friend I met", "de": "Ki und kateri: der Freund, den ich getroffen habe", "it": "Ki e kateri: l'amico che ho incontrato" }, "grammar": ["oziralni-ki", "naslonke"], "planned": true },
+        { "id": "odvisni-govor", "title": { "sl": "Rekel je, da …", "en": "He said that …: reported speech", "de": "Er sagte, dass …: die indirekte Rede", "it": "Ha detto che …: il discorso indiretto" }, "grammar": ["odvisni-govor"], "planned": true },
+        { "id": "odvisniki", "title": { "sl": "Ker, če, da bi, tako da", "en": "Because, if, so that: clauses", "de": "Weil, wenn, damit: Nebensätze", "it": "Perché, se, affinché: le subordinate" }, "grammar": ["vezniki"], "planned": true },
+        { "id": "pogojnik-polno", "title": { "sl": "Če bi deževalo, bi …", "en": "If it rained, we would …: the conditional in full", "de": "Wenn es regnen würde, …: der Konditional ganz", "it": "Se piovesse, …: il condizionale completo" }, "grammar": ["pogojnik"], "planned": true },
+        { "id": "nedolocni-zaimki", "title": { "sl": "Nihče ni prišel: nekdo, nič, nikjer", "en": "Nobody came: someone, nothing, nowhere", "de": "Niemand ist gekommen: jemand, nichts, nirgends", "it": "Non è venuto nessuno: qualcuno, niente, da nessuna parte" }, "grammar": ["zanikanje"], "planned": true },
+        { "id": "naslonke-red", "title": { "sl": "Ne bom ti ga dal: vrstni red naslonk", "en": "I won't give it to you: the order of the short words", "de": "Ich gebe es dir nicht: die Reihenfolge der kurzen Wörter", "it": "Non te lo darò: l'ordine delle parole brevi" }, "grammar": ["naslonke"], "planned": true },
+        { "id": "stevila-glagol", "title": { "sl": "Pet hiš se je podrlo", "en": "Five houses fell down: numbers and the verb", "de": "Fünf Häuser sind eingestürzt: Zahlen und das Verb", "it": "Cinque case sono crollate: i numeri e il verbo" }, "grammar": ["stevila-samostalniki"], "planned": true },
+        { "id": "cas-izrazi", "title": { "sl": "Enajstega junija, to soboto, dve uri", "en": "On 11 June, this Saturday, for two hours", "de": "Am 11. Juni, diesen Samstag, zwei Stunden", "it": "L'11 giugno, questo sabato, per due ore" }, "grammar": ["datumi", "kdaj-cas"], "planned": true },
+        { "id": "custva", "title": { "sl": "Mudi se mi, boli me glava", "en": "I'm in a hurry, my head hurts: feelings", "de": "Ich habe es eilig, mir tut der Kopf weh: Gefühle", "it": "Ho fretta, mi fa male la testa: i sentimenti" }, "grammar": ["dajalnik", "tozilnik"], "planned": true },
+        { "id": "trpnik", "title": { "sl": "Hiša je bila sezidana: trpnik", "en": "The house was built: the passive", "de": "Das Haus wurde gebaut: das Passiv", "it": "La casa è stata costruita: il passivo" }, "planned": true },
+        { "id": "glagolniki", "title": { "sl": "Branje, pisanje, odkritje", "en": "Reading, writing, a discovery: verbal nouns", "de": "Lesen, Schreiben, eine Entdeckung: Verbalnomen", "it": "La lettura, la scrittura, una scoperta: i nomi verbali" }, "planned": true }
+      ]
+    },
     { "level": "B2", "units": [] }
   ],
   "machine_written": true,
