@@ -38,7 +38,19 @@ private const val RAIL_H = 3.9f
  *
  * Tapped ([pokes]), the squirrel scurries up the trunk, peeks back down and comes down again, and the next time
  * ducks into its hollow and peeks out of it; the owl opens its eyes wide (or blinks, at night), then spreads its wings. A
- * dialog's "owl-flies" sends her off her branch and away over the trees.
+ * dialog's "owl-flies" sends her off her branch and away over the trees; its "hoot" above 0.9 has her turn her head right
+ * round now and then (Luka's "Glavo obrne čisto nazaj").
+ *
+ * At the clearing's far side, right of the path, the tallest spruce stands until the village fells it for the maypole (the
+ * project "mlaj": once felled it lies along the ground by its stump, and from the next step, carried off, only the stump is
+ * left); a dialog's "fell" fells it (0 standing; to 0.2 it shivers as the last cut goes in; then it falls to the right,
+ * faster and faster, crashing down by 0.85 with a puff of dust and twigs flying; 1 lying by its stump: Marko's "Pazite!
+ * Smreka pada!"), its "fell-oak" the oak beside it, falling to the left (Tone's "Pazite, pada! … Bum!"). Its "sheep" has
+ * the lost sheep out of sight behind the big spruce (0: only her bell heard while "sheepbells" rings, nothing to tap),
+ * peeking out and coming home over the brook as it rises, 1 at her place as by herself ("Bianca è sparita!" … "Eccola!",
+ * Luka's "Tam, za smreko!"); its "tracks" a bear's prints in the mud of the bank by the path (how many, how clear:
+ * Anton's "Poglej tja, v blato. Velike sledi."); its "does" roe deer stepping out of the trees onto the far meadow at dusk,
+ * as many as the dialog counts, else five (how many are out, 1 all of them grazing: Jože's "Zdaj pridejo srne na travnik").
  */
 internal class ForestPainter : WildPainter() {
     override val art = "forest"
@@ -74,8 +86,23 @@ internal class ForestPainter : WildPainter() {
 
         thing("stream") { brookPixels() }
         thing("path") { pathPixels() }
+        // a dialog's bear tracks in the mud of the bank by the path ("tracks")
+        fx("tracks")?.let { v -> if (v > 0.02f) prop(outline = 0) { bearTracks(v) } }
 
         items.clear()
+        // the trees felled at the clearing's far side: the maypole's spruce (the project "mlaj", or a dialog's "fell") and
+        // an oak for the hayrack's posts ("fell-oak")
+        val fell = fx("fell")
+        val mlaj = stage(MLAJ)
+        when {
+            fell != null -> items.add(FELL_D to { prop(Pal.OUTLINE_TREE) { felled(FELL_X, FELL_D, FELL_H, oak = false, dir = 1f, level = fell) } })
+            mlaj == 0 -> items.add(FELL_D to { prop(Pal.OUTLINE_TREE) { felled(FELL_X, FELL_D, FELL_H, oak = false, dir = 1f, level = 0f) } })
+            mlaj == 1 -> items.add(FELL_D to { prop(Pal.OUTLINE_TREE) { felled(FELL_X, FELL_D, FELL_H, oak = false, dir = 1f, level = 1f) } })
+            else -> items.add(FELL_D to { prop(Pal.OUTLINE_TREE) { stump(FELL_X, FELL_D, FELL_R) } })
+        }
+        val oak = fxOn("fell-oak")
+        items.add(OAK_D to { prop(Pal.OUTLINE_TREE) { felled(OAK_X, OAK_D, OAK_H, oak = true, dir = -1f, level = oak) } })
+        fx("does")?.let { v -> does(v) }
         // trees along the clearing's edges, then the two big ones
         for (k in 0 until 14) {
             val side = if (k % 2 == 0) -1f else 1f
@@ -101,7 +128,10 @@ internal class ForestPainter : WildPainter() {
         })
         items.add(beechD - 1.5f to { thing("leaves") { fallenLeaves(gx(beechX + 1.4f, beechD - 1.5f).toInt(), gy(beechD - 1.5f).toInt()) } })
         items.add(15.6f to { thing("stone") { boulder(gx(-2.9f, 15.6f).toInt(), gy(15.6f).toInt()) } })
-        items.add(13f to { groundShadow(2.6f, 13f, 0.7f); thing("sheep", slop = 1) { sheep(gx(2.6f, 13f).toInt(), gy(13f).toInt()) }; sheepBell(gx(2.6f, 13f), gy(13f)) })
+        // the lost sheep at her place; a dialog's "sheep" has her out of sight behind the big spruce and coming home
+        val lost = fx("sheep")
+        if (lost == null || lost >= SHEEP_HOME) items.add(SHEEP_D to { groundShadow(SHEEP_X, SHEEP_D, 0.7f); thing("sheep", slop = 1) { sheep(gx(SHEEP_X, SHEEP_D).toInt(), gy(SHEEP_D).toInt()) }; sheepBell(gx(SHEEP_X, SHEEP_D), gy(SHEEP_D)) })
+        else lostSheep(lost)
         items.add(11.2f to { thing("berries", slop = 1) { blueberries(gx(-4.6f, 11.2f).toInt(), gy(11.2f).toInt()) } })
         items.add(10.8f to { thing("flowers", slop = 2) { flowers(gx(5.4f, 10.8f).toInt(), gy(10.8f).toInt()) } })
         items.add(10.4f to { thing("mushroom", slop = 2) { mushrooms(gx(-2.4f, 10.4f).toInt(), gy(10.4f).toInt()) } })
@@ -1047,6 +1077,237 @@ internal class ForestPainter : WildPainter() {
         }
     }
 
+    // ------------------------------------------------------------------ what a dialog brings: felled trees, tracks, does
+
+    /**
+     * A tree at the clearing's far side, [hgt] m tall at ([x], [d]), just in front of the forest's wall: a tall spruce, or a
+     * broadleaf ([oak]: an oak, bare in winter), felled as [level] rises ("fell", "fell-oak"; Marko's "Pazite! Smreka
+     * pada!", Tone's "Pazite, pada! … Bum!"). 0 standing among the edge trees; to 0.2 it shivers as the last cut goes in,
+     * chips flying from its foot; then it falls toward [dir] (1 right, -1 left), faster and faster, crashing down by 0.85 with
+     * a puff of dust (of snow in winter) and twigs flying, bouncing a little; from there it lies along the ground, its stump
+     * standing. Scenery, drawn behind every animal that comes out at the edge.
+     */
+    private fun felled(x: Float, d: Float, hgt: Float, oak: Boolean, dir: Float, level: Float) {
+        val z = z
+        val p = pm(d)
+        val bx = gx(x, d); val by = gy(d)
+        val fall = ((level - 0.2f) / 0.65f).coerceIn(0f, 1f)
+        val shiver = if (level in 0.03f..0.2f) sin(t * 31.0).toFloat() * 0.02f * PokeArt.ease(level, 0.03f, 0.1f) else 0f
+        val bounce = if (level in 0.85f..0.95f) sin((level - 0.85f) / 0.1f * PI.toFloat()) * 0.06f else 0f
+        val th = fall * fall * (PI.toFloat() / 2f) + shiver - bounce
+        val down = sin(th) * sin(th)
+        val r = if (oak) OAK_R else FELL_R
+        // the hinge at the cut, the stump's top; landed, the trunk lies on the ground beside the stump
+        val land = PokeArt.ease(level, 0.82f, 0.9f)
+        val ox0 = bx + dir * 1.6f * r * p * land
+        val oy0 = by - (STUMP_H * (1f - land) + r * land) * p
+        val phi = dir * th
+        val ux = sin(phi); val uy = -cos(phi)   // up the trunk
+        val vx0 = cos(phi); val vy0 = sin(phi)  // across it, to the right as it stood
+        // the side it falls to lies on the ground, squashed under it
+        val squash = 1f - 0.75f * down
+        val floorY = gy(d - 2.5f)
+        fun sx(v: Float, u: Float): Float { val vv = if (v * dir > 0f) v * squash else v; return ox0 + (vv * vx0 + u * ux) * p }
+        fun sy(v: Float, u: Float): Float { val vv = if (v * dir > 0f) v * squash else v; return oy0 + (vv * vy0 + u * uy) * p }
+        val sunLeft = (sunAt()?.first ?: vx) < bx
+        stump(x, d, r)
+        val bark = Col.hex(0x4A3428); val barkL = Col.hex(0x6A4C38)
+        val snow = env.snow
+        if (!oak) {
+            beam(sx(0f, 0f), sy(0f, 0f), sx(0f, hgt * 0.97f), sy(0f, hgt * 0.97f), max(1f, 2f * r * p), bark)
+            val dark = Col.hex(0x1E452C); val mid = Col.hex(0x2C5E3A); val light = Col.hex(0x3E7A4A)
+            val n = (hgt * p / (5f * z)).toInt().coerceIn(4, 9)
+            for (i in 0 until n) {
+                val f = (i + 1f) / n
+                val apexU = hgt * (0.14f + 0.86f * (1f - i.toFloat() / n))
+                val tierH = hgt * 0.86f / n * 1.6f
+                val baseU = max(hgt * 0.1f, apexU - tierH)
+                val half = hgt * 0.21f * (0.22f + 0.78f * f)
+                val droop = tierH * 0.15f
+                c.polyBegin()
+                c.polyAdd(sx(0f, apexU), sy(0f, apexU)); c.polyAdd(sx(half, baseU - droop), sy(half, baseU - droop)); c.polyAdd(sx(-half, baseU - droop), sy(-half, baseU - droop))
+                c.polyScan { px, py ->
+                    if (py <= floorY) {
+                        val ddx = px + 0.5f - ox0; val ddy = py + 0.5f - oy0
+                        val v = (ddx * vx0 + ddy * vy0) / p; val u = (ddx * ux + ddy * uy) / p
+                        val lit = (if (sunLeft) -v else v) / half * 0.55f + (u - baseU) / tierH * 0.6f - 0.25f + (Noise.rnd(px, py, 911) - 0.5f) * 0.3f
+                        c.set(px, py, when {
+                            snow && u > apexU - tierH * 0.4f && Noise.rnd(px, py, 912) < 0.7f -> Pal.SNOW_L
+                            lit > 0.3f -> light
+                            lit > -0.2f -> mid
+                            else -> dark
+                        })
+                    }
+                }
+            }
+            c.set(sx(0f, hgt).toInt(), sy(0f, hgt).toInt(), mid)
+        } else {
+            // the oak: a stout trunk, limbs into a broad crown of clumps; bare in winter
+            val trunkU = hgt * 0.45f
+            beam(sx(0f, 0f), sy(0f, 0f), sx(0f, trunkU), sy(0f, trunkU), max(1f, 2f * r * p), bark)
+            if (2f * r * p >= 2f) beam(sx(-r * 0.5f, 0f), sy(-r * 0.5f, 0f), sx(-r * 0.4f, trunkU), sy(-r * 0.4f, trunkU), max(1f, 0.5f * r * p), barkL)
+            val cr = hgt * 0.33f
+            for (a in floatArrayOf(-0.7f, 0.1f, 0.8f)) {
+                val ev = sin(a) * cr * 0.7f; val eu = trunkU + cos(a) * cr * 0.8f
+                beam(sx(0f, trunkU * 0.95f), sy(0f, trunkU * 0.95f), sx(ev, eu), sy(ev, eu), max(1f, 0.9f * r * p), bark)
+                if (env.season == Season.WINTER) {
+                    // twigs off the bare limbs, snow along them
+                    for (s2 in floatArrayOf(-0.5f, 0.45f)) {
+                        val tv = ev + sin(a + s2) * cr * 0.45f; val tu = eu + cos(a + s2) * cr * 0.45f
+                        c.line(sx(ev, eu).toInt(), sy(ev, eu).toInt(), sx(tv, tu).toInt(), sy(tv, tu).toInt(), bark)
+                    }
+                    if (snow) c.set(sx(ev * 0.6f, (trunkU + eu) / 2f).toInt(), sy(ev * 0.6f, (trunkU + eu) / 2f).toInt() - 1, Pal.SNOW_L)
+                }
+            }
+            if (env.season != Season.WINTER) {
+                val (dark, mid, light) = when (env.season) {
+                    Season.AUTUMN -> Triple(Col.hex(0x7A4A1A), Col.hex(0xA8702A), Col.hex(0xD09A40))
+                    Season.SPRING -> Triple(Col.hex(0x3E7A34), Col.hex(0x62A248), Col.hex(0x9ACC66))
+                    else -> Triple(Col.hex(0x2A5A2C), Col.hex(0x3C7836), Col.hex(0x5E9A46))
+                }
+                val lx = if (sunLeft) -1f else 1f
+                for (k in 0 until 7) {
+                    val a = k * 2.4f + 0.7f
+                    val cv = sin(a) * cr * 0.55f; val cu = trunkU + cr * 0.5f + cos(a) * cr * 0.4f + (if (k == 6) cr * 0.35f else 0f)
+                    val rr = cr * (0.42f + Noise.rnd(k, 913) * 0.16f) * p
+                    val qx = sx(cv, cu); val qy = sy(cv, cu)
+                    for (yy in max((qy - rr).toInt(), c.top)..min(min((qy + rr).toInt(), floorY.toInt()), c.bottom - 1)) for (xx in max((qx - rr).toInt(), c.left)..min((qx + rr).toInt(), c.right - 1)) {
+                        val dx = (xx + 0.5f - qx) / rr; val dy = (yy + 0.5f - qy) / (rr * 0.9f)
+                        val q = dx * dx + dy * dy
+                        if (q > 1f || (q > 0.8f && Dither.at(xx, yy) < 0.35f)) continue
+                        val lit = -dx * lx * 0.55f - dy * 0.75f + (Noise.rnd(xx, yy, 914) - 0.5f) * 0.35f
+                        c.set(xx, yy, if (lit > 0.42f) light else if (lit > -0.2f) mid else dark)
+                    }
+                }
+            }
+        }
+        // chips flying off the foot as the last cut goes in
+        if (level in 0.03f..0.2f) {
+            val cut = Col.hex(0xE8D4A8)
+            s.fx {
+                for (j in 0 until 5) {
+                    val ph = ((t * 1.7 + j * 0.37) % 1.0).toFloat()
+                    val cx = bx + (if (j % 2 == 0) -1f else 1f) * (0.4f + ph * 1.4f) * p
+                    val cy = by - (STUMP_H + sin(ph * PI.toFloat()) * 0.9f) * p
+                    c.blend(floor(cx).toInt(), floor(cy).toInt(), cut, 0.9f * (1f - ph))
+                }
+            }
+        }
+        // the crash: dust rising along the trunk, twigs flying up and falling back
+        if (level in 0.84f..0.995f) {
+            val u = ((level - 0.84f) / 0.155f).coerceIn(0f, 1f)
+            val dust = if (snow) Pal.SNOW_L else Col.hex(0xC8B898)
+            val twig = if (oak && env.season == Season.AUTUMN) Col.hex(0xA8702A) else Col.hex(0x3A5A2E)
+            val tip = if (oak) hgt * 0.8f else hgt
+            s.fx {
+                for (k in 0 until 4) {
+                    val along = tip * (0.2f + 0.24f * k)
+                    PokeArt.puff(c, sx(0f, along), by - 0.3f * p, u, 2.2f * p, 6, dust, 915 + k, 0.75f)
+                }
+                for (j in 0 until 8) {
+                    val along = tip * (0.25f + 0.09f * j)
+                    val x0 = sx(0f, along); val y0 = by - 0.6f * p
+                    val px = x0 + (Noise.rnd(j, 916) - 0.5f) * 3f * p * u
+                    val py = y0 - (2.4f + Noise.rnd(j, 917) * 1.6f) * p * u + 4.6f * p * u * u
+                    if (py < by) c.blend(floor(px).toInt(), floor(py).toInt(), twig, 0.95f * (1f - u * 0.6f))
+                }
+            }
+        }
+    }
+
+    /** The stump of a felled tree at ([x], [d]), [r] m round: bark round it, the pale cut face on top, snow on it in winter. */
+    private fun stump(x: Float, d: Float, r: Float) {
+        val z = z
+        val p = pm(d); val bx = gx(x, d); val by = gy(d)
+        val w = max(z, (2f * r * p + 0.5f).toInt()); val hh = max(z, (STUMP_H * p + 0.5f).toInt())
+        val x0 = (bx - w / 2f).toInt(); val y0 = by.toInt() - hh
+        c.fillRect(x0, y0, w, hh, Col.hex(0x4A3428))
+        if (w > z) c.vline(x0, y0, y0 + hh - 1, Col.hex(0x6A4C38))
+        c.hline(x0, x0 + w - 1, y0, if (env.snow) Pal.SNOW_L else Col.hex(0xD8BC88))
+        if (z > 1) c.set(x0 + w / 2, y0, Col.hex(0xB8945C)) // the rings' heart
+    }
+
+    /**
+     * Bear tracks in the mud of the brook's near bank by the path ("tracks", [level]; Anton's "Poglej tja, v blato. Velike
+     * sledi."): a patch of wet mud where the bear came out of the water, the wetter the nearer the water, and a line of big
+     * prints from it over the grass toward the boulder, each a broad pad with five toes in front of it, pressed dark into
+     * the mud and muddy on the grass (blue-grey hollows in the snow). The level is how many show and how clear: from 0.3 the
+     * mud, then print after print, at 1 all of them deep.
+     */
+    private fun bearTracks(level: Float) {
+        val z = z
+        val snow = env.snow
+        val mud = if (snow) Pal.SNOW_M else Col.hex(0x5E4A34); val mudD = if (snow) Col.hex(0x9AA8C0) else Col.hex(0x46362A)
+        val wet = if (snow) Pal.SNOW_L else Col.hex(0x7E6A52)
+        val mudA = PokeArt.ease(level, 0f, 0.3f)
+        val r0 = gy(MUD_D + MUD_RD + 0.2f).toInt(); val r1 = gy(MUD_D - MUD_RD - 0.2f).toInt() + 1
+        for (py in max(r0, c.top) until min(r1, c.bottom)) {
+            val d = depthAt(py)
+            for (px in max(gx(MUD_X - MUD_RX - 0.4f, d).toInt(), c.left)..min(gx(MUD_X + MUD_RX + 0.4f, d).toInt(), c.right - 1)) {
+                val x = sideAt(px, d)
+                val ex = (x - MUD_X) / MUD_RX; val ed = (d - MUD_D) / MUD_RD
+                val q = ex * ex + ed * ed + (Noise.v2(x * 2.1f, d * 2.6f, 951) - 0.5f) * 0.6f
+                if (q > 1f) continue
+                val col = if (ed > 0.3f + (Dither.at(px, py) - 0.5f) * 0.4f) mudD else if (Noise.rnd(px / z, py / z, 952) < 0.1f) wet else mud
+                c.set(px, py, if (mudA >= 0.99f) col else Col.mix(c.get(px, py), col, mudA))
+            }
+        }
+        val n = TRACKS.size
+        for (k in 0 until n) {
+            val show = ((level - 0.2f - k * 0.5f / n) / 0.3f).coerceIn(0f, 1f)
+            if (show <= 0f) continue
+            val (x, d) = TRACKS[k]
+            val ex = (x - MUD_X) / MUD_RX; val ed = (d - MUD_D) / MUD_RD
+            val inMud = ex * ex + ed * ed < 0.85f
+            val deep = if (inMud) Col.hex(0x2A2018) else Col.hex(0x5A4430)
+            pawPrint(x, d, if (snow) Col.hex(0x7A8AA8) else deep, show)
+        }
+    }
+
+    /** One bear print centred at ([x], [d]) on the ground, its toes toward us and a little left: a pad and five toes, as clear as [a]. */
+    private fun pawPrint(x: Float, d: Float, col: Int, a: Float) {
+        val p = pm(d); val rows = F * EYE / (d * d)
+        fun dab(cx: Float, cy: Float, rx: Float, ry: Float) {
+            for (yy in max(floor(cy - ry).toInt(), c.top)..min(floor(cy + ry).toInt(), c.bottom - 1)) for (xx in max(floor(cx - rx).toInt(), c.left)..min(floor(cx + rx).toInt(), c.right - 1)) {
+                val dx = (xx + 0.5f - cx) / max(0.6f, rx); val dy = (yy + 0.5f - cy) / max(0.6f, ry)
+                if (dx * dx + dy * dy > 1.15f) continue
+                c.set(xx, yy, if (a >= 0.99f) col else Col.mix(c.get(xx, yy), col, a))
+            }
+        }
+        val cx = gx(x, d); val cy = gy(d)
+        dab(cx, cy, PAD_W / 2f * p, PAD_L / 2f * rows)
+        for (j in 0 until 5) {
+            val off = (j - 2) * 0.085f
+            val td = d - PAD_L * 0.62f - (2 - abs(j - 2)) * 0.03f
+            dab(gx(x + off - 0.04f, td), gy(td), max(0.5f, 0.035f * p), max(0.5f, 0.04f * rows))
+        }
+    }
+
+    /**
+     * Roe deer stepping out of the trees onto the meadow at dusk ("does", [level]; Jože's "Zdaj pridejo srne na travnik",
+     * "Danes pa ti preštej srne na travniku"): as many as the dialog counts ([SceneFrame.count]), else [DOES]; one after
+     * another each steps out of the forest's far edge and walks to her place on the far meadow ([DOES_AT]), then grazes, her
+     * head up now and then. The level is how many are out: 1 all of them grazing. Scenery: the scene's word is the roe
+     * across the brook.
+     */
+    private fun does(level: Float) {
+        if (level <= 0.01f) return
+        val n = (frame.count ?: DOES).coerceIn(1, DOES_AT.size)
+        for (k in 0 until n) {
+            val (x, d) = DOES_AT[k]
+            val start = if (n == 1) 0f else 0.6f * k / (n - 1f)
+            val out = PokeArt.ease(level, start, start + 0.4f)
+            if (out <= 0f) continue
+            val fromD = 59.5f; val fromX = x * 1.2f + (Noise.rnd(k, 931) - 0.5f) * 4f
+            val px = fromX + (x - fromX) * out; val pd = fromD + (d - fromD) * out
+            val walking = out < 1f
+            val left = if (walking) x < fromX else Noise.rnd(k, 933) < 0.5f
+            val graze = !walking && Noise.rnd(k, floor(t / 3.1 + k * 0.41).toInt(), 932) > 0.25f
+            val walk = if (walking) ((t * 1.3 + k * 0.3) % 1.0).toFloat() else 0f
+            items.add(pd to { groundShadow(px, pd, 0.5f); prop { roe(gx(px, pd), gy(pd), DOE_SIZE / pd, left = left, graze = graze, walk = walk) } })
+        }
+    }
+
     /**
      * The forest's wild animals of the frame ([out], or brought by a dialog's cue): the stag (and two hinds with a "herd")
      * at the far edge, the fox, the hare in the meadow, the hedgehog by the mushrooms, butterflies over the flowers, the
@@ -1158,7 +1419,10 @@ internal class ForestPainter : WildPainter() {
     private var ax = 0
     private var ay = 0
 
-    private fun fx(sx: Float): Float = ax + sx * z
+    /** -1 while a motif is drawn mirrored, facing left (the sheep on her way home); else 1. */
+    private var mir = 1f
+
+    private fun fx(sx: Float): Float = ax + mir * sx * z
     private fun fy(sy: Float): Float = ay + sy * z
 
     /** An ellipse [rx] × [ry] round ([cx], [cy]). */
@@ -1166,8 +1430,8 @@ internal class ForestPainter : WildPainter() {
 
     /** The rectangle from ([x], [y]), [w] × [h]. */
     private fun fr(x: Float, y: Float, w: Float, h: Float, col: Int) {
-        val x0 = floor(fx(x)).toInt(); val y0 = floor(fy(y)).toInt()
-        c.fillRect(x0, y0, floor(fx(x + w)).toInt() - x0, floor(fy(y + h)).toInt() - y0, col)
+        val xa = floor(fx(x)).toInt(); val xb = floor(fx(x + w)).toInt(); val y0 = floor(fy(y)).toInt()
+        c.fillRect(min(xa, xb), y0, abs(xb - xa), floor(fy(y + h)).toInt() - y0, col)
     }
 
     /** One picture pixel at ([x], [y]). */
@@ -1349,8 +1613,10 @@ internal class ForestPainter : WildPainter() {
     /**
      * The owl on its branch in the spruce: eyes shining at night, shut by day. Tapped ([pokes]) it opens them wide by day,
      * blinking (at night it blinks slowly); the next time it spreads its wings and folds them again; the third it turns its
-     * head and hoots, huu-huu, the calls going out. A dialog's "hoot" has it hoot again and again, its head turned; by
-     * itself it hoots now and then in the night. A dialog's "owl-flies" ([flown], how far) has it fly off its branch, its
+     * head and hoots, huu-huu, the calls going out. A dialog's "hoot" has it hoot again and again, its head turned aside as
+     * far as the level (up to 0.9); above 0.9 every [ROUND_S] s it turns its head right round, the back of it to us for a
+     * moment, and back from the other side (Luka's "Glej! Glavo obrne čisto nazaj."); by itself it hoots now and then in
+     * the night. A dialog's "owl-flies" ([flown], how far) has it fly off its branch, its
      * wings beating, up and away across the clearing into the far trees (the branch is drawn on its own then, [owlBranch]).
      */
     private fun owl(bx0: Int, by0: Int, flown: Float = 0f) {
@@ -1369,13 +1635,28 @@ internal class ForestPainter : WildPainter() {
             else -> a in 0.15f..1.6f && !(a in 0.55f..0.68f || a in 0.95f..1.08f)
         }
         val spread = if (flying) 0.55f + 0.45f * abs(sin(t * 9).toFloat()) else if (pk?.step == 1) PokeArt.ease(a, 0.1f, 0.45f) * (1f - PokeArt.ease(a, 1.6f, 2.2f)) else 0f
-        // the head turned (0..1) and the hoot's calls going out (0..1 through a call, or none)
+        // the head turned (0..1, -1..0 coming back round from the other side) and the hoot's calls going out (0..1 through a
+        // call, or none); from a "hoot" of 0.9 she now and then turns it right round, the back of her head to us ([back])
         val cue = fxOn("hoot")
-        val turn: Float
+        var turn: Float
         val call: Float
+        var back = false
         when {
             pk?.step == 2 -> { turn = PokeArt.ease(a, 0.1f, 0.5f) * (1f - PokeArt.ease(a, 2.1f, 2.5f)); call = if (a in 0.6f..2.2f) (a - 0.6f) / 1.6f else -1f }
-            cue > 0.05f -> { turn = cue; call = ((t * 0.5) % 1.0).toFloat() }
+            cue > 0.05f -> {
+                turn = min(cue, 0.9f) / 0.9f
+                val ph = ((t / ROUND_S) % 1.0).toFloat()
+                if (cue > 0.9f && ph < ROUND_SHARE) {
+                    // round: the face slides off to the side, the back of the head shows, the face comes back from the other side
+                    val r = ph / ROUND_SHARE
+                    when {
+                        r < 0.3f -> turn = turn + (1f - turn) * (r / 0.3f)
+                        r < 0.7f -> { turn = 0f; back = true }
+                        else -> turn = -(1f - (r - 0.7f) / 0.3f)
+                    }
+                    call = -1f
+                } else call = ((t * 0.5) % 1.0).toFloat()
+            }
             env.dark > 0.5f -> { turn = 0f; val ph = ((t / 9.0) % 1.0).toFloat(); call = if (ph < 0.18f) ph / 0.18f else -1f }
             else -> { turn = 0f; call = -1f }
         }
@@ -1385,15 +1666,23 @@ internal class ForestPainter : WildPainter() {
             s.fx { PokeArt.rings(c, bxf, byf, call, 16f * z, Col.hex(0xF4ECD8), z, 0.55f, n = 3) }
         }
         if (spread > 0.05f) owlWings(bx, by + bob * z, spread, brown, dark)
-        if (z > 1) { owlCloser(bx, by + bob * z, brown, belly, dark, open, turn, branch = !flying); return }
+        if (z > 1) { owlCloser(bx, by + bob * z, brown, belly, dark, open, turn, branch = !flying, back = back); return }
         val y = by + bob
-        val f = (turn * 2f + 0.3f).toInt() // the face turned aside, px
+        val f = if (turn >= 0f) (turn * 2f + 0.3f).toInt() else (turn * 2f - 0.3f).toInt() // the face turned aside, px
         // a plump egg of a body, ear tufts, a pale face disc and a speckled belly
         c.fillEllipse(bx + 0.5f, y - 5.5f, 5f, 6f, brown)
         c.fillEllipse(bx + 0.5f, y - 8f, 4.6f, 3.2f, brown)
         c.set(bx - 4 + f, y - 12, dark); c.set(bx - 3 + f, y - 11, dark); c.set(bx + 4 + f, y - 12, dark); c.set(bx + 3 + f, y - 11, dark)
         c.fillEllipse(bx + 0.5f, y - 3.5f, 3f, 3.5f, belly)
         for (yy in y - 5..y - 1 step 2) for (xx in bx - 2..bx + 2 step 2) c.set(xx, yy, Col.scale(belly, 0.8f))
+        if (back) {
+            // turned right round: the back of her head, brown with dark streaks down the nape
+            c.fillRect(bx - 3, y - 11, 7, 4, brown)
+            c.set(bx - 1, y - 10, dark); c.set(bx - 1, y - 9, dark); c.set(bx + 2, y - 10, dark); c.set(bx + 2, y - 9, dark); c.set(bx, y - 8, dark)
+            c.set(bx - 2, y, Pal.GOLD); c.set(bx + 2, y, Pal.GOLD)
+            if (!flying) c.hline(bx - 7, bx + 7, y + 1, Col.hex(0x5E4A30))
+            return
+        }
         c.fillRect(bx - 3 + f, y - 10, 3, 3, Col.hex(0xD8B890)); c.fillRect(bx + 1 + f, y - 10, 3, 3, Col.hex(0xD8B890))
         // eyes: wide open and glowing at night, shut by day
         if (open) glow { c.fillRect(bx - 3 + f, y - 10, 2, 2, Pal.GOLD_L); c.fillRect(bx + 2 + f, y - 10, 2, 2, Pal.GOLD_L); c.set(bx - 2 + f, y - 9, Pal.OUTLINE); c.set(bx + 2 + f, y - 9, Pal.OUTLINE) }
@@ -1416,7 +1705,7 @@ internal class ForestPainter : WildPainter() {
      * The owl closer up: folded wings with pale spots, rimmed face discs, round eyes, a hooked beak, a barred belly, talons;
      * its face turned aside by [turn] (0..1).
      */
-    private fun owlCloser(bx: Int, y: Int, brown: Int, belly: Int, dark: Int, open: Boolean, turn: Float = 0f, branch: Boolean = true) {
+    private fun owlCloser(bx: Int, y: Int, brown: Int, belly: Int, dark: Int, open: Boolean, turn: Float = 0f, branch: Boolean = true, back: Boolean = false) {
         ax = bx; ay = y
         val brownD = Col.hex(0x6E5238); val disc = Col.hex(0xD8B890); val discD = Col.hex(0xA88A62)
         // the branch it sits on (on the wing, none: [owlBranch] stays behind)
@@ -1436,6 +1725,16 @@ internal class ForestPainter : WildPainter() {
         ax = bx + (turn * 1.6f * z).toInt()
         // ear tufts
         fl(-2.4f, -10f, -3.6f, -12.3f, 0.7f, dark); fl(3.4f, -10f, 4.6f, -12.3f, 0.7f, dark)
+        if (back) {
+            // turned right round: the back of her head, brown feathers streaked dark down the nape, no face
+            fe(0.5f, -8.6f, 3.9f, 2.1f, brownD)
+            fe(0.5f, -8.9f, 3.6f, 1.8f, brown)
+            for (k in 0..3) fl(-1.6f + k * 1.4f, -10.2f, -1.4f + k * 1.4f, -7.2f, 0.3f, brownD)
+            fd(-0.8f, -9.6f, belly); fd(1.8f, -9.4f, belly)
+            ax = bx
+            for (tx in floatArrayOf(-1.5f, 2.5f)) { fe(tx, if (branch) 0.45f else -0.4f, 0.85f, 0.5f, Pal.GOLD); if (branch) { fd(tx - 0.6f, 0.8f, dark); fd(tx + 0.5f, 0.8f, dark) } }
+            return
+        }
         // the face discs, rimmed, a brow between them
         fe(-1.5f, -8.5f, 1.85f, 1.75f, discD); fe(2.5f, -8.5f, 1.85f, 1.75f, discD)
         fe(-1.5f, -8.5f, 1.55f, 1.45f, disc); fe(2.5f, -8.5f, 1.55f, 1.45f, disc)
@@ -1586,45 +1885,97 @@ internal class ForestPainter : WildPainter() {
      * The bell round the lost sheep's neck ringing ("sheepbells": Luka's "Slišiš? Zvonec!"): its clinks going out from under
      * its head, again and again while the cue is on.
      */
-    private fun sheepBell(cx: Float, by: Float) {
+    private fun sheepBell(cx: Float, by: Float, left: Boolean = false) {
         val on = fxOn("sheepbells")
         val z = z
         // the bell under its chin, brass, swinging while it rings: its sound strikes at the swing's ends (Sfx.sheepBells)
         val swing = if (on > 0.05f) (sin(t * Sfx.SHEEP_BELL_SWING) * 0.9).toFloat() * z else 0f
         val bs = max(1, z) * 2
+        val bx = if (left) cx - 7.6f * z - bs + swing else cx + 7.6f * z + swing
         prop(outline = 0) {
-            c.fillRect(floor(cx + 7.6f * z + swing).toInt(), floor(by - 6.2f * z).toInt(), bs, bs, Col.hex(0xC8962E))
-            c.set(floor(cx + 7.6f * z + swing).toInt(), floor(by - 6.2f * z).toInt(), Col.hex(0xF0CC6A))
+            c.fillRect(floor(bx).toInt(), floor(by - 6.2f * z).toInt(), bs, bs, Col.hex(0xC8962E))
+            c.set(floor(bx).toInt() + (if (left) bs - 1 else 0), floor(by - 6.2f * z).toInt(), Col.hex(0xF0CC6A))
         }
         if (on <= 0.05f) return
         val call = ((t * 0.9) % 1.0).toFloat()
-        s.fx { PokeArt.rings(c, cx + 8.5f * z, by - 5.5f * z, call, 13f * z, Col.hex(0xFFF2C8), z, 0.95f * on, n = 3) }
+        val rx = if (left) cx - 8.5f * z else cx + 8.5f * z
+        s.fx { PokeArt.rings(c, rx, by - 5.5f * z, call, 13f * z, Col.hex(0xFFF2C8), z, 0.95f * on, n = 3) }
     }
 
-    private fun sheep(cx: Int, by: Int) {
+    /**
+     * The lost sheep ("sheep", [level]; Davide's "Bianca è sparita!", Luka's "Ena ovca manjka" … "Tam, za smreko!"): below
+     * [SceneSights.LOST] out of sight behind the big spruce, across the brook, nothing of her to see or tap but her bell's
+     * clinks going out from behind it while "sheepbells" rings; rising, she peeks out past its lowest branches and walks home,
+     * through the brook, facing her way; from [SHEEP_HOME] at her place as by herself.
+     */
+    private fun lostSheep(level: Float) {
+        val z = z
+        if (SceneSights.lostAt(level)) {
+            val on = fxOn("sheepbells")
+            if (on > 0.05f) {
+                val bx = gx(HIDE_X - 0.6f, HIDE_D); val by = gy(HIDE_D) - 5.5f * z
+                val call = ((t * 0.9) % 1.0).toFloat()
+                s.fx { PokeArt.rings(c, bx, by, call, 13f * z, Col.hex(0xFFF2C8), z, 0.95f * on, n = 3) }
+            }
+            return
+        }
+        val u = ((level - SceneSights.LOST) / (SHEEP_HOME - SceneSights.LOST)).coerceIn(0f, 1f)
+        val x = HIDE_X + (SHEEP_X - HIDE_X) * u; val d = HIDE_D + (SHEEP_D - HIDE_D) * u
+        val wading = abs(d - brook(x)) < brookHalf
+        items.add(d to {
+            if (!wading) groundShadow(x, d, 0.7f)
+            thing("sheep", slop = 1) { sheep(gx(x, d).toInt(), gy(d).toInt(), left = true, walk = true) }
+            sheepBell(gx(x, d), gy(d), left = true)
+            // wading through the brook: rings round her legs
+            if (wading && !env.snow) {
+                val ph = ((t * 1.3) % 1.0).toFloat()
+                val rx = gx(x, d); val ry = gy(d)
+                s.fx { PokeArt.rings(c, rx, ry, ph, 9f * z, Col.hex(0xE8F2FA), z, 0.5f, n = 2) }
+            }
+        })
+    }
+
+    /** The sheep with her feet at ([cx], [by]), facing right, or [left] (on her way home); [walk]: stepping, bobbing as she goes. */
+    private fun sheep(cx: Int, by: Int, left: Boolean = false, walk: Boolean = false) {
         val wool = if (env.snow) Col.hex(0xECE6DA) else Col.hex(0xF4F0E4); val woolD = Col.hex(0xCFC8B8); val face = Col.hex(0x2E2A2C)
-        val bob = if (sin(t * 1.9) > 0.3) 0 else 1
-        if (z > 1) { sheepCloser(cx, by, bob.toFloat(), wool, woolD, face); return }
+        val bob = if (walk) (if (sin(t * 7.0) > 0) 0 else 1) else if (sin(t * 1.9) > 0.3) 0 else 1
+        if (z > 1) {
+            mir = if (left) -1f else 1f
+            sheepCloser(cx, by, bob.toFloat(), wool, woolD, face, step = if (walk) sin(t * 7.0).toFloat() else 0f)
+            mir = 1f
+            return
+        }
+        // mirrored when she faces left: a column [dx] off her middle, a run of [w] columns from [dx]
+        fun mx(dx: Int) = if (left) cx - dx else cx + dx
+        fun rx(dx: Int, w: Int) = if (left) cx - dx - w + 1 else cx + dx
         c.fillRect(cx - 7, by - 10, 15, 8, wool)
-        for (x in cx - 7..cx + 7 step 3) { c.set(x, by - 11, wool); c.set(x, by - 2, woolD) }
-        for (y in by - 9..by - 4 step 3) { c.set(cx - 8, y, wool); c.set(cx + 8, y, woolD) }
-        c.hline(cx - 6, cx + 6, by - 3, woolD); c.vline(cx + 7, by - 9, by - 4, woolD)
-        c.fillRect(cx - 5, by - 2, 2, 2, face); c.fillRect(cx - 1, by - 2, 2, 2, face); c.fillRect(cx + 4, by - 2, 2, 2, face)
+        for (x in -7..7 step 3) { c.set(mx(x), by - 11, wool); c.set(mx(x), by - 2, woolD) }
+        for (y in by - 9..by - 4 step 3) { c.set(mx(-8), y, wool); c.set(mx(8), y, woolD) }
+        c.hline(cx - 6, cx + 6, by - 3, woolD); c.vline(mx(7), by - 9, by - 4, woolD)
+        val lift = if (walk && bob == 1) 1 else 0
+        c.fillRect(rx(-5, 2), by - 2 - lift, 2, 2, face); c.fillRect(rx(-1, 2), by - 2, 2, 2, face); c.fillRect(rx(4, 2), by - 2 - lift, 2, 2, face)
         // head
-        c.fillRect(cx + 7, by - 12 + bob, 5, 6, face); c.set(cx + 8, by - 13 + bob, wool); c.set(cx + 11, by - 13 + bob, wool)
-        c.set(cx + 10, by - 10 + bob, Col.hex(0xFFFFFF)); c.set(cx + 11, by - 8 + bob, Col.hex(0xE0A0A0))
+        c.fillRect(rx(7, 5), by - 12 + bob, 5, 6, face); c.set(mx(8), by - 13 + bob, wool); c.set(mx(11), by - 13 + bob, wool)
+        c.set(mx(10), by - 10 + bob, Col.hex(0xFFFFFF)); c.set(mx(11), by - 8 + bob, Col.hex(0xE0A0A0))
     }
 
-    /** The sheep closer up: a fleece of curls with a scalloped edge, thin black legs, a black face with ears and a woolly top-knot. */
-    private fun sheepCloser(cx: Int, by: Int, bob: Float, wool: Int, woolD: Int, face: Int) {
+    /**
+     * The sheep closer up: a fleece of curls with a scalloped edge, thin black legs, a black face with ears and a woolly
+     * top-knot; mirrored while [mir] is -1 (facing left), her legs stepping by [step] as she walks.
+     */
+    private fun sheepCloser(cx: Int, by: Int, bob: Float, wool: Int, woolD: Int, face: Int, step: Float = 0f) {
         val z = z
         ax = cx; ay = by
         val woolX = Col.mix(woolD, Col.hex(0x9A9080), 0.4f)
         // legs, hooves
-        for (lx in floatArrayOf(-4f, 0f, 5f)) { fr(lx - 0.8f, -2.5f, 1.4f, 2.5f, face); fr(lx - 0.8f, -0.5f, 1.4f, 0.5f, Col.hex(0x18161A)) }
+        for ((k, lx) in floatArrayOf(-4f, 0f, 5f).withIndex()) {
+            val up = if (step != 0f && (k % 2 == 0) == (step > 0f)) 0.6f else 0f
+            fr(lx - 0.8f, -2.5f - up, 1.4f, 2.5f, face); fr(lx - 0.8f, -0.5f - up, 1.4f, 0.5f, Col.hex(0x18161A))
+        }
         // the fleece: curls, lighter on top, a scalloped edge
         val ex = fx(0.5f); val ey = fy(-6f)
-        for (y in max(floor(fy(-11.6f)).toInt(), c.top)..min(floor(fy(-1.4f)).toInt(), c.bottom - 1)) for (x in max(floor(fx(-8.6f)).toInt(), c.left)..min(floor(fx(9.4f)).toInt(), c.right - 1)) {
+        val fl0 = floor(min(fx(-8.6f), fx(9.4f))).toInt(); val fl1 = floor(max(fx(-8.6f), fx(9.4f))).toInt()
+        for (y in max(floor(fy(-11.6f)).toInt(), c.top)..min(floor(fy(-1.4f)).toInt(), c.bottom - 1)) for (x in max(fl0, c.left)..min(fl1, c.right - 1)) {
             val dx = (x + 0.5f - ex) / (8.2f * z); val dy = (y + 0.5f - ey) / (4.9f * z)
             val q = dx * dx + dy * dy
             val ang = kotlin.math.atan2(dy, dx)
@@ -1828,5 +2179,55 @@ internal class ForestPainter : WildPainter() {
     private fun ear(x0: Float, y0: Float, x1: Float, y1: Float, col: Int, inner: Int) {
         fp(col, x0 - 0.55f, y0, x0 + 0.55f, y0, x1 + 0.2f, y1, x1 - 0.2f, y1)
         fl(x0, y0 - 0.2f, (x0 + x1) / 2f, (y0 + y1) / 2f, 0.2f, inner)
+    }
+
+    companion object {
+        /** The lost sheep's place on the meadow (m). */
+        private const val SHEEP_X = 2.6f
+        private const val SHEEP_D = 13f
+        /** Where she is out of sight ("sheep" 0): behind the big spruce, across the brook. */
+        private const val HIDE_X = 6.4f
+        private const val HIDE_D = 20.6f
+        /** From this "sheep" level on she is at her place, as by herself. */
+        private const val SHEEP_HOME = 0.97f
+
+        /** The maypole's spruce (the project "mlaj", "fell"): at the far side, right of the path, falling to the right. */
+        private const val MLAJ = "mlaj"
+        private const val FELL_X = 3f
+        private const val FELL_D = 60.6f
+        private const val FELL_H = 15f
+        private const val FELL_R = 0.24f
+        /** The oak felled for the hayrack's posts ("fell-oak"): at the far side, right of the spruce, falling to the left. */
+        private const val OAK_X = 8f
+        private const val OAK_D = 60.3f
+        private const val OAK_H = 11f
+        private const val OAK_R = 0.32f
+        /** How high a felled tree's stump stands (m). */
+        private const val STUMP_H = 0.45f
+
+        /** The mud on the brook's near bank by the path ("tracks"): its middle and half its width and depth (m). */
+        private const val MUD_X = -0.2f
+        private const val MUD_D = 17.95f
+        private const val MUD_RX = 1.3f
+        private const val MUD_RD = 0.6f
+        /** A bear's print, drawn big (m): the pad's width and length. */
+        private const val PAD_W = 0.44f
+        private const val PAD_L = 0.36f
+        /** The prints from the bank toward the boulder, left and right in turn (x, d). */
+        private val TRACKS: List<Pair<Float, Float>> = (0 until 7).map { k -> val s = k / 6f; (-1.6f * s + (if (k % 2 == 0) 0.14f else -0.14f)) to (18.3f - 3.2f * s) }
+
+        /** How many roe deer come out ("does") when the dialog counts none: Jože's five ("Pet srn"). */
+        private const val DOES = 5
+        /** The roe deer's size: scene px per unit at 1 m, over the depth. */
+        private const val DOE_SIZE = 36f
+        /** Where the does graze on the far meadow, in the order they come out (x, d): left of the path and right of it. */
+        private val DOES_AT: List<Pair<Float, Float>> = listOf(
+            -11.5f to 38f, 1.8f to 44f, -7.8f to 43f, -14.2f to 46f, 2.9f to 39.5f, -9.8f to 34.5f,
+            -0.6f to 49.5f, -13f to 51f, 3f to 53f, -5.8f to 48.5f, -9.4f to 53f, 0.6f to 36.8f,
+        )
+
+        /** With a "hoot" above 0.9 the owl turns her head right round every this many seconds, for this share of them. */
+        private const val ROUND_S = 6.0
+        private const val ROUND_SHARE = 0.45f
     }
 }

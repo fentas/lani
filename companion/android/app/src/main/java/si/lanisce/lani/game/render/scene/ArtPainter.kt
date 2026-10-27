@@ -141,7 +141,7 @@ internal abstract class ArtPainter : ScenePainter {
         canvas.penId = 0; canvas.penEmissive = false
         val amb = ambient()
         lightingPass(amb[0], amb[1], amb[2])
-        if (!frame.sky.clear) weather()
+        if (!frame.sky.clear || weatherAnyway()) weather()
         canvas.penId = 0; canvas.penEmissive = false
         // what of the real sky is still to be seen (not behind the hills, the clouds, the rain)
         if (skyDrawn) night.settle()
@@ -191,6 +191,9 @@ internal abstract class ArtPainter : ScenePainter {
 
     /** The weather of the frame ([SceneFrame.sky], not clear), drawn over the lit picture (see [Weather]). */
     protected open fun weather() {}
+
+    /** Whether [weather] runs under a clear sky too: an effect of the weather's kind (the stream running high after the rain). */
+    protected open fun weatherAnyway(): Boolean = false
 
     /** Swaying things sway this much more in the wind: 1 when still, up to 2.5 in a gale. */
     protected val gust: Float get() = 1f + 1.5f * frame.sky.wind

@@ -13,6 +13,7 @@ import si.lanisce.lani.game.scene.ISpy
 import si.lanisce.lani.game.scene.SceneArt
 import si.lanisce.lani.game.scene.ScenePerson
 import si.lanisce.lani.game.scene.SceneSpec
+import si.lanisce.lani.game.scene.SceneWorld
 import si.lanisce.lani.game.scene.inPair
 import si.lanisce.lani.game.villagers.Arrivals
 import si.lanisce.lani.game.villagers.Bonds
@@ -239,6 +240,18 @@ internal object Projects {
         val d = (inPair(scene, pair)["dialogs"] as? JsonArray)?.firstOrNull() ?: return null
         return runCatching { json.decodeFromJsonElement(Dialog.serializer(), d) }.getOrNull()?.takeIf { it.lines.isNotEmpty() }
     }
+
+    /**
+     * Whether step dialog [d]'s work is done in its picture once the dialog has come to line [at] (the next line to play, as
+     * DialogRun has it): from the line that says so ([si.lanisce.lani.game.scene.DialogLine.done]) once it is said, else once
+     * the dialog is played to its end ([ended]). Its scene shows the project one stage on from then ([SceneWorld.stepping]).
+     */
+    fun shown(d: Dialog, at: Int, ended: Boolean): Boolean =
+        ended || d.lines.withIndex().any { (i, l) -> l.done && l.choices.isEmpty() && i < at }
+
+    /** The steps of [project] [world] shows while its step [index] is played: [index], one more once its work is [shown]. */
+    fun stepWorld(world: SceneWorld, project: String, index: Int, shown: Boolean): SceneWorld =
+        world.stepping(project, index + if (shown) 1 else 0)
 
     /** Who speaks in [d], in the order they first do; the leader first. */
     fun speakers(spec: ProjectSpec, d: Dialog): List<String> = (listOf(spec.leader) + d.lines.mapNotNull { it.who }).distinct()

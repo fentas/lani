@@ -282,6 +282,12 @@ data class DialogLine(
      * a form typed wrong); null: the app's "Hm? Kako, prosim?" (companion/SCENES.md, "Own traps").
      */
     val puzzled: DialogReply? = null,
+    /**
+     * A village project's step (companion/SCENES.md "Project steps"): its work is done in the picture from this line on, so
+     * its scene shows the project one stage on as the line is said (the walls up with Tone's "Prva stena stoji!"); a step
+     * without one shows it once played. Someone's line only; elsewhere it means nothing.
+     */
+    val done: Boolean = false,
 )
 
 @Serializable

@@ -136,6 +136,19 @@ object SceneArt {
         "burner",
     )
 
+    /**
+     * art id → the village projects its painter draws as far as their steps have come ([SceneWorld.stage]): France's mill and
+     * the cart bridge by the stream, the double hayrack beyond the field, the town clock, the maypole and the fountain on the
+     * square, and the maypole's spruce in the forest (felled, then carried off to the village). A step of one of them played in a scene of that art shows its work done from its `done` line on
+     * ([DialogLine.done], companion/SCENES.md "Project steps"); the bridge checks the same (project-steps.ts, DRAWN_PROJECTS).
+     */
+    val projects: Map<String, Set<String>> = mapOf(
+        "stream" to setOf("mlin", "most"),
+        "field" to setOf("toplar"),
+        "square" to setOf("mestna_ura", "mlaj", "vodnjak_na_trgu"),
+        "forest" to setOf("mlaj"),
+    )
+
     /** art id → the effects its painter shows when a dialog's cue sets them (a line's `fx`, levels 0..1). */
     val effects: Map<String, List<String>> = mapOf(
         // the fire burning higher, sparks flying; the kettle steaming; a distant bell (a story's), its rings going out over
@@ -145,18 +158,29 @@ object SceneArt {
             "flare", "steam", "bell", "sheepbells",
             // the fire burning down to its embers, the flames lower and lower (1: only the embers glowing, a thread of smoke)
             "embers",
+            // Luka's flock out of the trees at the back on the right, milling along the camp's edge to be counted (to 0.5, as
+            // many as the dialog counts), then down the path out of the clearing (1: gone), their bells clinking
+            "flock",
         ),
         // the stove fired up, smoke from the chimney; steam off the cup and the bowl on the table
         "kitchen" to listOf("oven", "steam"),
         // a flock flying up out of the trees and away (the level is how far they have flown); deer stepping out of the trees
         // at the far edge, a stag and two hinds (how far out: 0 back in the trees); the fox trotting out along the edge
-        // (how far it has come); the owl turning its head and hooting, its calls going out; bats flitting over the
+        // (how far it has come); the owl turning its head and hooting, its calls going out (above 0.9 now and then right
+        // round, the back of her head to us); bats flitting over the
         // clearing (how many); the lost sheep's bell ringing, its clinks going out. Not set, the animals out are the day's
         // (Wildlife); the fox, the stag and the bats set by a cue that the day hasn't brought are scenery, not words to tap.
         "forest" to listOf(
             "birds", "herd", "fox", "hoot", "bats", "sheepbells",
             // the owl flying off her branch and away over the trees (how far she has flown; 1: gone, the branch bare)
             "owl-flies",
+            // the tallest spruce at the clearing's far side felled (0 standing; to 0.2 a shiver; falling faster and faster,
+            // crashing down by 0.85, dust and twigs flying; 1 lying by its stump; not set: as the maypole's project has it),
+            // the oak beside it felled the same way; the lost sheep (0 out of sight behind the big spruce, nothing to tap; rising,
+            // coming home over the brook; 1 at her place as by herself); a bear's tracks in the mud of the bank by the path
+            // (how many, how clear); roe deer stepping out onto the far meadow at dusk (as many as the dialog counts, else
+            // five: how many are out)
+            "fell", "fell-oak", "sheep", "tracks", "does",
         ),
         // the bell swinging in the tower, its ringing; the cat up the linden, coming down (0 stuck on its lowest limb,
         // mewing, 1 asleep on the bench again: how far down); Muri the dog coming back (0 away, 0.5 sniffing at the flower
@@ -187,13 +211,17 @@ object SceneArt {
         // a hare in the grass by the fence (up to 0.4 the grass stirs, then it leaps out and bounds off: how far, 1 gone);
         // Sivko the horse coming back to the cart from beyond the picture's left edge (0 away, the shafts down; 1 back in
         // them; not set: there); the scarecrow's hat (0 none; then a big felt hat drops onto its head and, at 1, slips down
-        // onto its nose; not set: its straw hat); a red scarf round its neck
-        "field" to listOf("crows", "bell", "bats", "hare", "horse", "hat", "scarf"),
-        // the forge roaring as if the bellows blew; sparks off the anvil under the hammer
-        "smithy" to listOf("forge", "sparks"),
+        // onto its nose; not set: its straw hat); a red scarf round its neck; a face drawn on its sack head in charcoal (0 a
+        // blank sack, the crow off its arm below 0.5; rising, the eyes, the nose, a wide smile; not set: its stitched face)
+        "field" to listOf("crows", "bell", "bats", "hare", "horse", "hat", "scarf", "face"),
+        // the forge roaring as if the bellows blew; sparks off the anvil under the hammer; a shoe being forged on the anvil,
+        // held in the tongs (1 the blank white-hot, bent into a U as it cools through red to grey toward 0; 0: taken); Marko's
+        // cart in the yard with crates of bottles (0 a corner propped on a block, its wheel off; rising, the wheel goes on; 1 on
+        // four wheels)
+        "smithy" to listOf("forge", "sparks", "iron", "cart"),
         "school" to listOf(),
         // the church bell swinging and ringing; a tractor with crates driving along the road (the level is how far it
-        // has come); a flock of starlings rising off the vines and wheeling away (how far they have flown)
+        // has come; 1 past us and gone); a flock of starlings rising off the vines and wheeling away (how far they have flown)
         "hills" to listOf("bell", "tractor", "starlings"),
         // the sea rising, breakers rolling in and bursting white on the beach; the gulls off the posts and away (how
         // far they have flown); the boat's sail hoisted (how far up), filling with the wind
@@ -206,19 +234,32 @@ object SceneArt {
             // the ibex climbing onto his crag at the brow, against the lake (how far up; 1: on top), whether or not the day
             // has him out
             "ibex",
+            // the near cow's bell lost in the grass by the stream (0, her neck bare, silent; rising, back on her neck; 1 as by
+            // itself); the milk pail by the milker's feet (how full); as many cows on the pasture as the dialog counts, a calf
+            // with them (those beyond the art's four coming up over the brow: how far; 1 all of them there)
+            "bell-lost", "pail", "cows",
         ),
         // a trout leaping out of the current again and again, rings where it falls back; the mill wheel's water:
         // 0 the flume dry and the wheel still, 1 a full gush and the wheel turning fast (not set: an easy turn); bats over the
         // water (how many); the church bell from the village, its rings coming down to the water (not set: at the ave);
         // a lamb by the drinking ewe (0 its head up, turned from the water; 1 drinking); the fire brigade's pump on the bank,
         // its hose in the stream (0 still; then pumping, a jet over the water; at 1 the hose loose and spraying everyone);
-        // a horse and cart over the new bridge (how far: 0 waiting at its near end, 1 gone into the woods; once its deck is laid)
-        "stream" to listOf("trout", "wheel", "bats", "bell", "lamb", "hose", "cart"),
+        // a horse and cart over the new bridge (how far: 0 waiting at its near end, 1 gone into the woods; once its deck is laid);
+        // the flock down to the water and home again (to 0.5 coming in from the right and drinking along the bank, as many as
+        // the dialog counts, the ewe among them; from 0.5 going home toward us, 1 gone) and the one who always comes last (how
+        // far she has trotted in, from 0.8 drinking; home with them, last). The wheel turns from the step that lets the water in.
+        // The stream running high and brown after the night's rain, the sky clear (how high); the sacks of flour by the mill's
+        // door to count (as many as the dialog counts, else five); the sheet the wind takes off the washing stone (to 0.6
+        // flying over the water, caught, from 0.8 folded on the basket)
+        "stream" to listOf("trout", "wheel", "bats", "bell", "lamb", "hose", "cart", "flock", "straggler", "full", "sacks", "sheet"),
         // wild ducks flying up out of the reeds and away (the level is how far they have flown); the frog jumping off its
         // lily pad into the water (1: in the water, just its eyes out); a fish jumping again and again, rings on the water;
         // bats hunting over the water (how many); Muri at the jetty's foot (0 curled up asleep, 0.5 sitting up wagging, 1
-        // barking at the fish; not set: at home); tadpoles wriggling in the shallows by the reeds (how many)
-        "pond" to listOf("ducks", "frog", "fish", "bats", "dog", "tadpoles"),
+        // barking at the fish; not set: at home); tadpoles wriggling in the shallows by the reeds (how many); the heron striking
+        // (it draws its neck back, its bill darts into the water; 1: standing with a fish across its bill); whoever stands at
+        // the jetty's end fishing (a rod, its float: 0 still, rising bobbing and dipping, from 0.7 a carp on the line, 1 lifted
+        // out); the day's catch in a bucket by them (as many fish as the dialog counts, their tails over the rim)
+        "pond" to listOf("ducks", "frog", "fish", "bats", "dog", "tadpoles", "heron", "bite", "bucket"),
         // the candles on the altar: 1 all of them lit, 0 all out (not set: two burn); the bell in the gable swinging and
         // ringing, the rope going up and down; the organ playing, notes rising from its pipes
         "church" to listOf(
@@ -245,6 +286,8 @@ object SceneArt {
             "dust",
             // a nail hammered into a board on the bench, the hammer rising and coming down, a knock each time (how hard)
             "hammer",
+            // Sivko, the wooden horse on the bench, mended (0 on his side, a leg off; from 0.3 glued; 1 standing whole, as ever)
+            "toy",
         ),
         // wine running from the barrel's tap into the jug; the candle: 0 out, 1 lit (not set: lit, the cellar is dark)
         "cellar" to listOf("tap", "candle"),

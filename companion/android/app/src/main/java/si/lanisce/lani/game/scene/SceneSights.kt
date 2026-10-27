@@ -122,10 +122,14 @@ object SceneSights {
 
     /**
      * What an effect a dialog sets keeps out of the picture while it is at 0 (art → object slot → the effect): Muri away from
-     * the square ("dog"), its ball lost under the bench ("ball": the bench's to tap then, not a word of its own). Unlike
-     * [comesBack]'s, their way back is in the picture from its start: Muri gets up behind the flower bed, the ball rolls out.
+     * the square ("dog"), its ball lost under the bench ("ball": the bench's to tap then, not a word of its own), the forest's
+     * lost sheep out of sight behind the big spruce ("sheep"). Unlike [comesBack]'s, their way back is in the picture from its
+     * start: Muri gets up behind the flower bed, the ball rolls out, the sheep peeks out past the spruce's lowest branches.
      */
-    val lost: Map<String, Map<String, String>> = mapOf("square" to mapOf("dog" to "dog", "ball" to "ball"))
+    val lost: Map<String, Map<String, String>> = mapOf(
+        "square" to mapOf("dog" to "dog", "ball" to "ball"),
+        "forest" to mapOf("sheep" to "sheep"),
+    )
 
     /** A [lost] effect under this keeps its thing out of the picture: Muri not back yet, the ball still lost ([lostAt]). */
     const val LOST = 0.04f

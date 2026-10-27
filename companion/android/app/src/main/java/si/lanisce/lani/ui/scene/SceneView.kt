@@ -138,6 +138,7 @@ fun rememberSceneAnchors(key: Any?): SceneAnchors {
  * @param anchors the camera, and where things are through it, for overlays
  * @param cues the weather and the effects over it, easing as a dialog's lines bring rain or light the lantern (see [SceneCues])
  * @param world what the village has built ([SceneWorld]): the kozolec, the mill, the maypole show only once they're there
+ * @param count the number the dialog on counts ([SceneFrame.count]): the painter draws that many of what is counted
  * @param onPoke a reaction began: its poke's id, and its step and start on [clock] (a sleeper's, [Sleep.pokeId]: step 0
  *   they turn over, 1 they mumble)
  * @param village the village's seed: its wild animals of the day ([si.lanisce.lani.game.scene.Wildlife])
@@ -160,6 +161,7 @@ fun SceneView(
     anchors: SceneAnchors = rememberSceneAnchors(scene.id),
     cues: SceneCues = SceneCues.NONE,
     world: SceneWorld = SceneWorld.ALL,
+    count: Int? = null,
     onPoke: (String, Poked) -> Unit = { _, _ -> },
     village: Long = 0L,
     onSky: ((SkyTap) -> Unit)? = null,
@@ -297,6 +299,7 @@ fun SceneView(
             skyNow = if (si.lanisce.lani.app.QaHooks.sceneHour != null) null else SkyCards.now(),
             wall = System.currentTimeMillis(),
             skyMark = skyMark,
+            count = count,
         )
         // the scene's canvas: every tick while it is the picture, closer up now and then (the anchors, the edges mid-pan)
         if (ps.drawnBase.stale(if (k == 1) tick else tick / BASE_EVERY_NANOS, cast, highlight, objects)) {

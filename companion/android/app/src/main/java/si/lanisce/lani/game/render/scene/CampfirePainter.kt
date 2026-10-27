@@ -40,6 +40,11 @@ import kotlin.math.sqrt
  *
  * Tapped ([pokes]), the fire leaps up in a burst of sparks; tapped again, higher, a shower of them.
  *
+ * Luka's flock can come by ("flock": up to 0.5 the sheep come out of the trees at the back on the right and mill along the
+ * camp's edge on the right and in front, as many as the dialog counts, to be counted; from 0.5 they go down the path out of
+ * the clearing, 1 gone; their bells clinking over them, and the far "sheepbells" with them while they're here; Luka's "Ovce
+ * gredo s planine. Pomagaj mi jih prešteti!").
+ *
  * Its stage (companion/SCENES.md, "Stage directions", [marks]): the logs by the fire, sitting ("left", "right"); between
  * the fire and the tent, where the children play ("back"); and two places to hide, each with where one stands when out of
  * it: behind the stump in front, crouched, the top of a head and a shoulder over it; behind the woodpile at the back,
@@ -135,6 +140,8 @@ internal class CampfirePainter : DioramaPainter() {
         val lit = env.windows > 0.35f
         nightSky()
         distantBell()
+        // Luka's flock at the camp ("flock"): where each sheep is, drawn in three passes as they pass behind and in front
+        flockPlan(fx("flock"))
         sheepBells()
         // the smoke and the sparks over the fire: whatever is drawn in front of them answers first
         val cx = iso.ix(fireX, fireY); val cy = iso.iy(fireX, fireY, 0f)
@@ -148,6 +155,7 @@ internal class CampfirePainter : DioramaPainter() {
 
         // the woods along the back edges, back to front
         for (t in TREES) prop(Pal.OUTLINE_TREE) { spruce(t[0], t[1], t[2], t[3].toInt()) }
+        flockPass(0)
         for (b in BACK_BUSHES) prop(Pal.OUTLINE_TREE) { bush(b[0], b[1], b[2], b[3].toInt()) }
         undergrowth()
 
@@ -165,6 +173,7 @@ internal class CampfirePainter : DioramaPainter() {
             }
             prop { stake(8.3f, 5.9f); for (gy in floatArrayOf(tentY0 + 0.45f, tentY1 - 0.45f)) stake(tentX1 + 0.55f, gy) }
         }
+        flockPass(1)
         prop { choppingBlock() }
         thing("axe", slop = 1) { axe() }
 
@@ -189,6 +198,7 @@ internal class CampfirePainter : DioramaPainter() {
         cast("right"); dozing("right")
         cast("stump")
         thing("stump") { stump() }
+        flockPass(2)
 
         fireflies(iso.ix(0f, 9f), iso.iy(0f, 3f, 20f), iso.ix(12f, 3f), iso.iy(12f, 9f, 0f), 14, 21)
         drift()
@@ -260,11 +270,12 @@ internal class CampfirePainter : DioramaPainter() {
     /**
      * The sheep's bells up on the pasture beyond the woods ("sheepbells": Luka's "Slišiš zvonce?"), out of sight: only their
      * clinks going out among the crowns of the trees at the back on the right, small rings here and there, each coming
-     * and going on its own. Down among the crowns, not over them: the sky above is under the scene's top bar (its 🔍).
+     * and going on its own. Down among the crowns, not over them: the sky above is under the scene's top bar (its 🔍). While
+     * the flock is here ("flock"), its bells ring on the sheep that wear them instead ([flockPass]).
      */
     private fun sheepBells() {
         val on = fxOn("sheepbells")
-        if (on <= 0.02f) return
+        if (on <= 0.02f || flockN > 0) return
         val q = detail
         s.fx {
             for (j in 0 until 5) {
@@ -276,6 +287,166 @@ internal class CampfirePainter : DioramaPainter() {
                 PokeArt.rings(c, x, y, u, 7f * q, Col.hex(0xF4E2A8), q, 0.7f * on, n = 2)
             }
         }
+    }
+
+    // ------------------------------------------------------------------ Luka's flock ("flock")
+
+    /** How many of the flock are in the picture this frame, and where each is ([flockPlan]): x, y, z, facing right, walking, head up, bell. */
+    private var flockN = 0
+    private val flX = FloatArray(FLOCK_AT.size); private val flY = FloatArray(FLOCK_AT.size); private val flZ = FloatArray(FLOCK_AT.size)
+    private val flRight = BooleanArray(FLOCK_AT.size); private val flWalk = BooleanArray(FLOCK_AT.size)
+    private val flUp = BooleanArray(FLOCK_AT.size); private val flBell = BooleanArray(FLOCK_AT.size); private val flSeed = IntArray(FLOCK_AT.size)
+
+    /**
+     * Luka's flock at the camp ("flock", [level]; his "Ovce gredo s planine. Pomagaj mi jih prešteti!" and "Zdaj grem z
+     * ovcami na travnik"): as many sheep as the dialog counts ([si.lanisce.lani.game.scene.SceneFrame.count], else [FLOCK]).
+     * Up to 0.5 they come out of the trees at the back on the right one after another, down past the tent and the chopping
+     * block, and spread along the camp's edge on the right and in front ([FLOCK_AT], the farthest first), where they mill,
+     * grazing, a head up now and then, to be counted; from 0.5 they go one after another along the front edge and down the
+     * path out of the clearing on the left, the nearest to it first, and at 1 they are gone. Not set, none. Plans where each
+     * is this frame; [flockPass] draws them.
+     */
+    private fun flockPlan(level: Float?) {
+        flockN = 0
+        if (level == null || level <= 0f || level >= 1f) return
+        val n = (frame.count ?: FLOCK).coerceIn(1, FLOCK_AT.size)
+        // the paths in and out of each, and the longest of them, so each walks at about the same pace
+        var maxIn = 1f; var maxOut = 1f
+        for (k in 0 until n) { maxIn = max(maxIn, pathLen(flockIn(k))); maxOut = max(maxOut, pathLen(flockOut(k))) }
+        for (k in 0 until n) {
+            // the farthest of them (the last of the places taken) comes first and goes first
+            val o = if (n == 1) 0f else (n - 1 - k) / (n - 1f)
+            val pin = flockIn(k); val pout = flockOut(k)
+            val wi = 0.12f + 0.3f * pathLen(pin) / maxIn; val wo = 0.12f + 0.3f * pathLen(pout) / maxOut
+            val ai = o * (0.5f - wi); val ao = 0.5f + o * (0.5f - wo)
+            val come = PokeArt.ease(level, ai, ai + wi)
+            val go = PokeArt.ease(level, ao, ao + wo)
+            if (come <= 0f || go >= 1f) continue
+            val i = flockN++
+            val walking = come < 1f || go > 0f
+            val path = if (go > 0f) pout else pin
+            val u = if (go > 0f) go else come
+            val (x, y, dir) = along(path, u)
+            flX[i] = x; flY[i] = y
+            // down the path past the plot's edge they go downhill, out of sight under its edge
+            flZ[i] = if (y > 12f) -(y - 12f) * 7f else 0f
+            flWalk[i] = walking
+            flRight[i] = if (walking) dir > 0f else Noise.rnd(k, 701) < 0.5f
+            flUp[i] = walking || Noise.rnd(k, floor(t / 2.6 + k * 0.41).toInt(), 702) < 0.25f
+            flBell[i] = k % 7 == 0
+            flSeed[i] = k
+        }
+    }
+
+    /**
+     * Draws the flock's sheep of [pass] (see [flockPlan]): 0 those still among the trees at the back (behind the hazel in
+     * the corner), 1 those coming down beside the tent (behind the chopping block), 2 the rest, along the edges in front of
+     * everything. The ones that wear bells ring them: a clink going out over them as they walk, and with the far bells
+     * ("sheepbells", Luka's "Slišiš zvonce?") as they graze.
+     */
+    private fun flockPass(pass: Int) {
+        if (flockN == 0) return
+        val q = detail
+        val bells = fxOn("sheepbells")
+        for (i in 0 until flockN) {
+            val x = flX[i]; val y = flY[i]
+            val p = if (y < 1.4f) 0 else if (x + y < blockX + blockY) 1 else 2
+            if (p != pass) continue
+            val ax = iso.ix(x, y); val ay = iso.iy(x, y, flZ[i]) + q
+            // past the plot's front edge only what is above it shows: it goes down the path out of sight
+            val clip = if (y > 11.9f) 0 else Int.MAX_VALUE
+            prop { campSheep(ax, ay, flRight[i], flWalk[i], flUp[i], flSeed[i], clip) }
+            if (flBell[i] && !winter) {
+                val a = if (flWalk[i]) 0.55f else 0.6f * bells
+                if (a > 0.02f) {
+                    val ph = (((t + flSeed[i] * 0.37) / 1.1) % 1.0).toFloat()
+                    s.fx { PokeArt.rings(c, ax + (if (flRight[i]) 3f else -3f) * q, ay - 6f * q, ph, 6f * q, Col.hex(0xF4E2A8), q, a, n = 2) }
+                }
+            }
+        }
+    }
+
+    /**
+     * One of Luka's sheep with its feet at ([ax], [ay]) (the picture's px), each of its pixels [detail] × [detail]: a round
+     * white fleece, darker underneath, the dark face and legs; facing [right] or left, its head up or down at the grass,
+     * stepping while [walk]ing. With [clip] 0 it is going down the path past the plot's front edge: only what is above the
+     * edge is drawn.
+     */
+    private fun campSheep(ax: Int, ay: Int, right: Boolean, walk: Boolean, up: Boolean, seed: Int, clip: Int) {
+        val q = detail
+        val f = if (right) 1 else -1
+        val tint = 0.94f + 0.06f * Noise.rnd(seed, 703)
+        val wool = Col.scale(if (winter) Col.hex(0xE6E0D4) else Col.hex(0xF4F0E4), tint); val woolD = Col.scale(Col.hex(0xCFC8B8), tint)
+        val woolL = Col.mix(wool, Col.hex(0xFFFFFF), 0.4f); val face = Col.hex(0x2E2A2C)
+        val step = if (walk) ((t * 8 + seed).toInt() and 1) else -1
+        val bob = if (walk && step == 0) 1 else 0
+        fun px(dx: Int, dy: Int, col: Int) {
+            val x0 = ax + f * dx * q - (if (f < 0) q - 1 else 0); val y0 = ay + dy * q
+            for (yy in y0 until y0 + q) {
+                if (clip == 0 && yy > iso.sy(12f + ua(x0), 12f, 0f)) continue
+                for (xx in x0 until x0 + q) c.set(xx, yy, col)
+            }
+        }
+        // the legs, two pairs stepping in turn
+        for ((j, lx) in intArrayOf(-3, -1, 1, 2).withIndex()) {
+            val lift = if (step >= 0 && (j % 2 == 0) == (step == 0)) 1 else 0
+            px(lx, -1 - lift, face); px(lx, -2 - lift, face)
+        }
+        // the fleece: rounded, lit along its top, darker underneath
+        val by = -bob
+        for (dx in -3..2) px(dx, by - 6, if (dx < 1) woolL else wool)
+        for (dx in -4..3) { px(dx, by - 5, wool); px(dx, by - 4, wool) }
+        for (dx in -3..2) px(dx, by - 3, woolD)
+        if (q > 1) { px(-2, by - 5, woolL); px(1, by - 4, woolD) }
+        // the head: up and forward, or down at the grass
+        if (up) { px(4, by - 6, face); px(5, by - 6, face); px(4, by - 5, face); px(5, by - 5, face); px(3, by - 7, face) }
+        else { px(4, by - 3, face); px(5, by - 2, face); px(4, by - 2, face); px(3, by - 4, face) }
+        if (q > 1 && up) px(5, by - 6, Col.hex(0x5A5450)) // its eye's glint
+    }
+
+    /** The way the [k]th of the flock comes in to its place ([FLOCK_AT]): out of the trees in the corner, past the tent and the block, along the edge. */
+    private fun flockIn(k: Int): FloatArray {
+        val sx = FLOCK_AT[k][0]; val sy = FLOCK_AT[k][1]
+        val head = floatArrayOf(11.65f, 0.1f, 11.6f, 4.6f, 10.75f, 5.75f)
+        return when {
+            sx > 10.9f && sy < 8.8f -> head + floatArrayOf(sx, sy)
+            sy < 9.5f -> head + floatArrayOf(10.6f, 8.2f, sx, sy)
+            sx > 10.3f -> head + floatArrayOf(10.6f, 8.2f, 10.8f, 11.35f, sx, sy)
+            else -> head + floatArrayOf(10.6f, 8.2f, 10.8f, 11.35f, 9.6f, 11.8f, sx, sy)
+        }
+    }
+
+    /** The way the [k]th of the flock goes from its place down the path out of the clearing on the left, past the plot's edge. */
+    private fun flockOut(k: Int): FloatArray {
+        val sx = FLOCK_AT[k][0]; val sy = FLOCK_AT[k][1]
+        val tail = floatArrayOf(2.7f, 11.85f, 2.1f, 13.4f)
+        return when {
+            sx > 10.5f && sy < 11f -> floatArrayOf(sx, sy, 10.6f, 9.0f, 10.8f, 11.4f, 9.6f, 11.85f) + tail
+            sx > 10.5f -> floatArrayOf(sx, sy, 10.6f, 11.85f) + tail
+            else -> floatArrayOf(sx, sy, sx, 11.85f) + tail
+        }
+    }
+
+    /** The length of the path of points [p] (x, y, x, y, …). */
+    private fun pathLen(p: FloatArray): Float {
+        var len = 0f
+        for (i in 2 until p.size step 2) len += hypot(p[i] - p[i - 2], p[i + 1] - p[i - 1])
+        return len
+    }
+
+    /** The point [u] of the way along the path [p] (by its length), and which way it heads on the screen there (> 0: right). */
+    private fun along(p: FloatArray, u: Float): Triple<Float, Float, Float> {
+        var left = u.coerceIn(0f, 1f) * pathLen(p)
+        for (i in 2 until p.size step 2) {
+            val dx = p[i] - p[i - 2]; val dy = p[i + 1] - p[i - 1]
+            val seg = hypot(dx, dy)
+            if (left <= seg || i == p.size - 2) {
+                val f = if (seg > 0f) (left / seg).coerceIn(0f, 1f) else 1f
+                return Triple(p[i - 2] + dx * f, p[i - 1] + dy * f, dx - dy)
+            }
+            left -= seg
+        }
+        return Triple(p[p.size - 2], p[p.size - 1], 0f)
     }
 
     /** Closer up, the fainter stars the eye finds between the bright ones: single dim pixels, twinkling. */
@@ -1519,6 +1690,24 @@ internal class CampfirePainter : DioramaPainter() {
 
         /** Hazel bushes in the two side corners: x, y, size, seed. */
         private val BACK_BUSHES = arrayOf(floatArrayOf(11.4f, 0.7f, 0.9f, 3f), floatArrayOf(0.7f, 11.3f, 0.9f, 7f))
+
+        /** How many sheep Luka's flock ("flock") brings when the dialog counts none. */
+        const val FLOCK = 20
+
+        /**
+         * Where the flock's sheep mill to be counted ("flock"), in the order they are taken (the first nearest the trees they
+         * come out of): along the camp's edge on the right, past the right log, between the rocks and the stump, then along
+         * the front edge toward the path, with two short rows behind it between the stump and the left log. As many as a
+         * dialog may count (Luka's 16 to 24).
+         */
+        private val FLOCK_AT = arrayOf(
+            floatArrayOf(11.0f, 6.95f), floatArrayOf(11.7f, 6.3f), floatArrayOf(11.7f, 7.05f), floatArrayOf(11.7f, 7.8f),
+            floatArrayOf(11.7f, 8.55f), floatArrayOf(10.3f, 9.0f), floatArrayOf(10.4f, 10.9f), floatArrayOf(11.7f, 11.1f),
+            floatArrayOf(11.8f, 11.85f), floatArrayOf(10.95f, 11.75f), floatArrayOf(10.2f, 11.75f), floatArrayOf(9.45f, 11.75f),
+            floatArrayOf(8.2f, 11.05f), floatArrayOf(8.7f, 11.75f), floatArrayOf(7.95f, 11.75f), floatArrayOf(7.6f, 10.35f),
+            floatArrayOf(7.4f, 11.05f), floatArrayOf(7.2f, 11.75f), floatArrayOf(6.8f, 10.35f), floatArrayOf(6.6f, 11.05f),
+            floatArrayOf(6.45f, 11.75f), floatArrayOf(5.7f, 11.75f), floatArrayOf(4.95f, 11.75f), floatArrayOf(4.2f, 11.75f),
+        )
 
         // the hiding places: where one crouches hidden, peeks out, stands when out of it
         const val STUMP_HIDE_X = 9.0f; const val STUMP_HIDE_Y = 10.15f

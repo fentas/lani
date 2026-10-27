@@ -68,6 +68,8 @@ data class SceneTalk(
     val started: Long = 0L,
     /** A village project's step played as its short scene (companion/SCENES.md "Project steps"); null for any other dialog. */
     val step: StepTalk? = null,
+    /** The number its dialog counts, as its texts have it ([DialogVariants.counted]): the picture draws that many; null for none. */
+    val counted: Int? = null,
 )
 
 /**
@@ -306,10 +308,12 @@ class SceneController(
         }
         // today's variant, with the village's number of today in it, as this learner meets it; its tap turns answered in
         // the picture above it
-        val (h, file) = DialogVariants.play(a, village() ?: GameState(), LocalDate.now()) ?: return false
+        val now = village() ?: GameState()
+        val today = LocalDate.now()
+        val (h, file) = DialogVariants.play(a, now, today) ?: return false
         val (d, modes, notYet) = adapt(file, a.scene.language)
         val run = DialogRun.start(d, p.id, seed = kotlin.random.Random.nextLong(), modes = DialogRun.tapModes(d) + modes, notYet = notYet, words = words(d, a.scene.language, a.scene))
-        talk = SceneTalk(a.scene.id, a.key, p, h, d, run)
+        talk = SceneTalk(a.scene.id, a.key, p, h, d, run, counted = DialogVariants.counted(a, now, today))
         settle()
         return true
     }

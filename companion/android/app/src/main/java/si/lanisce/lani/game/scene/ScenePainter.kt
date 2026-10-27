@@ -29,6 +29,8 @@ import si.lanisce.lani.game.render.PixelCanvas
  *   shooting stars, and the real moon; null (tests, previews, stickers): the painted stars and the moon of [moon]
  * @param wall the clock's epoch ms, for the shooting stars
  * @param skyMark what of the sky to show brighter, its card being open ([si.lanisce.lani.game.sky.SkyTap.mark])
+ * @param count the number the dialog on counts ([Dialog.count], as [Counts.of] has it today: the sheep Luka asks to count at
+ *   the water), null for none: a painter that draws what is counted draws that many (the stream's flock, "flock")
  */
 data class SceneFrame(
     val time: Double = 0.0,
@@ -49,6 +51,7 @@ data class SceneFrame(
     val skyNow: si.lanisce.lani.game.sky.SkyNow? = null,
     val wall: Long = 0L,
     val skyMark: String? = null,
+    val count: Int? = null,
 ) {
     /** The wild animals of [art] out in this frame: [wild], or the day's ([Wildlife.out]). */
     fun wildOf(art: String): Set<String> = wild ?: Wildlife.out(art, village, day, hour, month)

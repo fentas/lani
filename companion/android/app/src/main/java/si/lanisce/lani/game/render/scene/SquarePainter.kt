@@ -892,7 +892,8 @@ internal class SquarePainter : VistaPainter() {
 
     /**
      * The maypole before it stands: a peg with a red ribbon where it will stand; the spruce lying on two trestles, in its
-     * bark with its branches; peeled but for the green top; the wreath and a heap of ribbons ready on the cobbles beside it.
+     * bark with its branches; peeled but for the green top, its bark in strips on the cobbles under it; the wreath and a heap
+     * of ribbons ready on the cobbles beside it.
      */
     private fun mlajLying(st: Int) {
         val k = detail
@@ -929,6 +930,18 @@ internal class SquarePainter : VistaPainter() {
             val tier = (u * 4f) - floor(u * 4f)
             val hw = (1f - u * 0.8f) * 0.7f * lp * (0.55f + 0.45f * (1f - tier))
             for (y in (ly - hw).toInt()..(ly + hw).toInt()) c.set(x, y, if (env.snow && y < ly - hw * 0.4f) Pal.SNOW_L else if (y < ly - hw * 0.3f) pine[3] else pine[1])
+        }
+        // peeled, its bark lies in curled strips on the cobbles under it ("Lubje pade na tla"), until it goes into the fire
+        if (st == 3) for (j in 0 until 9) {
+            val sd = d - 0.4f - Noise.rnd(j, 912) * 0.7f
+            val sx = gx(-5.4f + j * 1.15f + (Noise.rnd(j, 911) - 0.5f) * 0.5f, sd); val sy = gy(sd)
+            val len = max(2, ((0.5f + Noise.rnd(j, 913) * 0.4f) * lp).toInt())
+            val tilt = if (j % 2 == 0) 1 else -1
+            for (q in 0 until len) {
+                val yy = (sy - k - (if (q < len / 3) tilt * q * 0.3f else 0f)).toInt()
+                c.set(sx.toInt() + q, yy, if (q % 3 == 0) Col.hex(0x4A382C) else Col.hex(0x6A5040))
+                if (k > 1) c.set(sx.toInt() + q, yy - 1, Col.hex(0x8A6A52))
+            }
         }
         if (st < 4) return
         // the wreath and the ribbons ready on the cobbles beside it

@@ -39,6 +39,12 @@ import kotlin.math.sqrt
  * the forge; the big bellows and the chain come with the second; the cart wheel, the axe on its pegs and a second,
  * smaller anvil on its stump in front of the wheel with the third.
  *
+ * A dialog can have the forge roar ("forge"), throw sparks off the anvil at every blow ("sparks") and lay a shoe being
+ * forged on the anvil, held in the tongs ("iron": 1 the straight blank white-hot, cooling through orange and red as it is
+ * bent into a U, grey toward 0, gone at 0; Tone's "Železo je vroče. Rdeče. Vidiš?"). It can bring Marko's cart into the yard
+ * with four crates of bottles on it ("cart": 0 a corner propped on a block, its wheel off and leaning against its side;
+ * rising, the wheel goes back on; 1 on four wheels; Marko's "Poglej moj voz … Samo kolo je zlomljeno").
+ *
  * At night ([beds]: "cot") Kovač Tone sleeps in the smithy, as smiths did, on a cot of planks along the left wall under the
  * window, its head against the forge's warm bricks, on a straw mattress under a charcoal-grey horse blanket with a rust
  * stripe; the cot is there only while he is on it. He banked the fire before he lay down (his ritual at 21:45): the
@@ -169,10 +175,14 @@ internal class SmithyPainter : DioramaPainter() {
         if (there("wheel")) prop { smallAnvil() }
         thing("nails", slop = 1) { nails() }
         thing("anvil") { anvil() }
+        // a dialog's shoe being forged on the anvil ("iron"), held in the tongs
+        val iron = fxOn("iron")
+        val forging = iron > 0.02f
+        if (forging) prop { ironShoe(iron) }
         anvilSparks(fxOn("sparks"))
         anvilRing()
         thing("hammer", slop = 2) { hammer() }
-        thing("tongs", slop = 2) { tongs() }
+        thing("tongs", slop = 2) { if (forging) tongsOnShoe() else tongs() }
         cast("anvil")
         thing("bucket", slop = 1) { bucket() }
 
@@ -180,6 +190,8 @@ internal class SmithyPainter : DioramaPainter() {
         prop { trough() }
         tether()
         if (!winter) prop { lostShoe() }
+        // a dialog's cart in the yard, Marko's, a wheel off ("cart")
+        fx("cart")?.let { cart(it) }
         woodpile()
         prop { grindstone() }
 
@@ -436,6 +448,83 @@ internal class SmithyPainter : DioramaPainter() {
     private fun lostHole(u: Float, v: Float): Boolean =
         if (u <= 0f) hyp(u, v) in 0.66f..0.84f && abs(abs(atan2(v, -u)) - 0.95f) < 0.2f
         else abs(abs(v) - 0.75f) < 0.09f && abs(((u + 0.1f) / 0.35f) % 1f - 0.5f) < 0.16f && u < 0.75f
+
+    /**
+     * Marko's cart in the yard ("cart", [level]; his "Poglej moj voz. Star je, ampak dober. Samo kolo je zlomljeno." and
+     * "Moj voz ima spet štiri kolesa"), on the cobbles by the tethering post, its shafts down on either side of it: a plank
+     * bed on four wheels with four crates of bottles on it, his rebula. At 0 its front corner on the right is propped on a
+     * block of wood, that wheel off and leaning against its side; rising, the wheel is rolled to its axle (by 0.55), the
+     * corner lifted onto it off the block (by 0.85) and the block put aside; 1 on four wheels. Scenery.
+     */
+    private fun cart(level: Float) {
+        val on = PokeArt.ease(level, 0.2f, 0.55f)
+        val drop = CART_DROP * (1f - PokeArt.ease(level, 0.55f, 0.85f))
+        val xa = CART_XA; val xb = CART_XB; val ya = CART_YA; val yb = CART_YB
+        val r = CART_R
+        val zb0 = r + 0.4f; val zt = zb0 + 1.6f
+        // the bed's corners: only the front one on the right lower, propped
+        fun dz(x: Float, y: Float): Float = drop * ((x - xa) / (xb - xa)).coerceIn(0f, 1f) * ((y - ya) / (yb - ya)).coerceIn(0f, 1f)
+        val wy0 = ya + 0.5f; val wy1 = yb - 0.5f
+        // the wheels on the far side, behind the bed; the shafts down to the cobbles by the post
+        prop {
+            cartWheel(xa - 0.05f, wy0, r, r)
+            cartWheel(xa - 0.05f, wy1, r, r)
+            for (sx in floatArrayOf(xa + 0.25f, xb - 0.25f)) rodIso(sx, ya + 0.1f, zb0 + 0.3f, sx + (10.3f - sx) * 0.25f, ya - 1.7f, 0.3f, Pal.WOOD_M, Pal.WOOD_L, Pal.WOOD_D, max(1, detail))
+        }
+        // the block under the propped corner, or put aside once the wheel bears it
+        prop {
+            val bh = zb0 - drop
+            if (level < 0.85f) iso.box(xb - 0.55f, yb - 0.6f, 0f, 0.45f, 0.45f, bh, Pal.LOG_L, Pal.LOG_M, Pal.LOG_D)
+            else iso.box(xb + 0.15f, yb + 0.35f, 0f, 0.45f, 0.45f, 1.6f, Pal.LOG_L, Pal.LOG_M, Pal.LOG_D)
+        }
+        prop {
+            // the bed: its side toward us on the right, its front end, its top of planks
+            iso.quad(xb, ya, zb0, xb, yb, zb0 - dz(xb, yb), xb, yb, zt - dz(xb, yb), xb, ya, zt, Pal.WOOD_M)
+            iso.quad(xa, yb, zb0, xb, yb, zb0 - dz(xb, yb), xb, yb, zt - dz(xb, yb), xa, yb, zt, Pal.WOOD_D)
+            iso.quad(xa, ya, zt, xb, ya, zt, xb, yb, zt - dz(xb, yb), xa, yb, zt, Pal.WOOD_L)
+            iso.line(xb, ya, zt, xb, yb, zt - dz(xb, yb), Col.mix(Pal.WOOD_L, Col.hex(0xFFFFFF), 0.25f))
+            iso.line(xb, ya, (zb0 + zt) / 2f, xb, yb, (zb0 + zt) / 2f - dz(xb, yb), Pal.WOOD_X)
+            // four crates of bottles, two by two, the bottles' green necks and their caps in rows
+            for (cy in 0..1) for (cx in 0..1) {
+                val x0 = xa + 0.08f + cx * 0.7f; val y0 = ya + 0.15f + cy * 1.35f
+                val zc = zt - dz(x0 + 0.33f, y0 + 0.6f)
+                iso.box(x0, y0, zc, 0.62f, 1.2f, 1.7f, Col.hex(0xC89A62), Col.hex(0xA87A48), Col.hex(0x7A5634))
+                iso.top(x0 + 0.06f, y0 + 0.06f, zc + 1.7f, 0.5f, 1.08f, Col.hex(0x3A2A1E))
+                for (bx in 0..1) for (by in 0..3) {
+                    val px = iso.ix(x0 + 0.17f + bx * 0.28f, y0 + 0.2f + by * 0.27f); val py = iso.iy(x0 + 0.17f + bx * 0.28f, y0 + 0.2f + by * 0.27f, zc + 2.3f)
+                    c.fillRect(px, py, detail, 2 * detail, Col.hex(0x2E5A3A))
+                    c.fillRect(px, py, detail, max(1, detail / 2), Col.hex(0xE8D8A0))
+                }
+            }
+        }
+        // the near wheels: the back one on its axle; the front one leaning on the side, then rolled onto its axle
+        prop {
+            cartWheel(xb + 0.05f, wy0, r, r)
+            val wx = xb + 0.4f - 0.35f * on; val wy = wy1 - 0.75f * (1f - on)
+            cartWheel(wx, wy, r, r)
+        }
+    }
+
+    /** One of the cart's wheels ("cart") standing in the plane x = [xw] round ([yc], [zc]), [r] high: an iron tyre, the felloes, six spokes, the hub. */
+    private fun cartWheel(xw: Float, yc: Float, zc: Float, r: Float) {
+        val ry = r / 4.5f
+        val tau = 2f * PI.toFloat()
+        quadPlot(xw, yc - ry, zc - r, xw, yc + ry, zc - r, xw, yc + ry, zc + r, xw, yc - ry, zc + r) { px, py ->
+            val u = (wallXy(px, xw) - yc) / ry; val v = (wallXz(px, py, xw) - zc) / r
+            val d = hyp(u, v)
+            val ang = atan2(v, u)
+            when {
+                d > 1f -> 0
+                d > 0.88f -> if (u + v > 0f) ironL else ironM
+                d > 0.72f -> if (u + v > 0.2f) Pal.WOOD_L else Pal.WOOD_M
+                d < 0.16f -> if (fine && d < 0.07f) ironD else Pal.WOOD_D
+                else -> {
+                    val sp = (((ang / tau * 6f + 6.5f) % 1f) - 0.5f) * (tau / 6f) * d * r
+                    if (abs(sp) < 0.45f) (if (sp < 0f) Pal.WOOD_L else Pal.WOOD_M) else 0
+                }
+            }
+        }
+    }
 
     /** The grindstone in the yard: a round stone on its axle, sunk in a wooden trough on legs, the crank at its front. */
     private fun grindstone() {
@@ -1952,6 +2041,90 @@ internal class SmithyPainter : DioramaPainter() {
         iso.line(bx + 0.2f, by - 0.3f, pz, bx + 0.3f, by - 0.38f, pz + 2.2f, ironL)
     }
 
+    /** Where the shoe being forged ("iron") lies on the anvil's face: its toe's middle, by the heel of the anvil. */
+    private val shoeX get() = ax + 0.78f
+    private val shoeY get() = ay
+
+    /**
+     * The shoe being forged on the anvil ("iron", [level]; Tone's "Železo je vroče. Rdeče. Vidiš? Zdaj ga lahko upognem."):
+     * an iron bar on the anvil's face beside the hammer, held in the tongs ([tongsOnShoe]). Its colour is the level: 1
+     * yellow-white hot, through orange and red to a dull red and the grey of cold iron toward 0, glowing and lighting the
+     * anvil while it is hot. From 0.75 up it is the straight blank laid across the face; below it is bent round, a U by
+     * 0.45, its toe toward the anvil's heel and its arms along the face toward the hammer: the shoe done. At 0 it is
+     * gone, taken ("Vzemi jo").
+     */
+    private fun ironShoe(level: Float) {
+        val fz = anvilTop + 0.15f
+        val bend = 1f - PokeArt.ease(level, 0.45f, 0.75f)
+        val col = ironHeat(level)
+        val hot = ((level - 0.15f) / 0.85f).coerceIn(0f, 1f)
+        val core = Col.mix(col, Col.hex(0xFFFFFF), 0.35f * hot)
+        val shade = Col.scale(col, 0.72f)
+        // its centreline from the toe out along each arm: the middle bends round a circle of [SHOE_R] by up to 90° a side
+        val half = PI.toFloat() * SHOE_R / 2f + SHOE_ARM
+        val n = 14
+        val ds = half / n
+        val rr = max(1f, 0.5f * K)
+        c.penEmissive = level > 0.15f
+        for (pass in 0..2) for (side in intArrayOf(-1, 1)) {
+            var x = shoeX; var y = shoeY
+            for (i in 0..n) {
+                if (i > 0) {
+                    val along = (i - 0.5f) * ds
+                    val th = (min(along, PI.toFloat() * SHOE_R / 2f) / SHOE_R) * bend
+                    x -= sin(th) * ds; y += side * cos(th) * ds
+                }
+                val px = iso.sx(x, y); val py = iso.sy(x, y, fz)
+                // the dark underside, the bar, then a lit (or white-hot) top along it
+                when (pass) {
+                    0 -> c.fillCircle(px, py + 0.4f * rr, rr, shade)
+                    1 -> c.fillCircle(px, py, rr, col)
+                    else -> if (fine) c.fillCircle(px - 0.2f * rr, py - 0.35f * rr, 0.45f * rr, core)
+                }
+            }
+        }
+        c.penEmissive = false
+        if (hot <= 0f) return
+        // its glow: a soft halo, and the light on the anvil, the floor and whoever stands by it
+        val gx = iso.sx(shoeX - 0.3f, shoeY); val gy = iso.sy(shoeX - 0.3f, shoeY, fz)
+        val flick = 0.92f + 0.08f * sin(t * 7.3).toFloat()
+        s.fx {
+            c.penEmissive = true
+            c.ditherCircle(gx, gy, (3.5f + 2f * hot) * K, Pal.FLAME[1], 0.16f * hot * flick)
+            c.penEmissive = false
+        }
+        s.light(gx, gy - K, 10f + 10f * hot, 0.75f * hot * flick)
+    }
+
+    /** Iron at [heat] (1 white-hot … 0 cold): yellow-white, yellow, orange, red, a dull red, then grey. */
+    private fun ironHeat(heat: Float): Int = when {
+        heat >= 0.85f -> Col.mix(Col.hex(0xFFC850), Col.hex(0xFFF2B8), (heat - 0.85f) / 0.15f)
+        heat >= 0.6f -> Col.mix(Col.hex(0xF07A28), Col.hex(0xFFC850), (heat - 0.6f) / 0.25f)
+        heat >= 0.35f -> Col.mix(Col.hex(0xC0301C), Col.hex(0xF07A28), (heat - 0.35f) / 0.25f)
+        heat >= 0.15f -> Col.mix(Col.hex(0x6E2A22), Col.hex(0xC0301C), (heat - 0.15f) / 0.2f)
+        else -> Col.mix(Col.hex(0x56525A), Col.hex(0x6E2A22), (heat / 0.15f).coerceIn(0f, 1f))
+    }
+
+    /**
+     * The tongs holding the shoe being forged ("iron"): their jaws on its toe, the reins out over the anvil's front edge and
+     * down toward us, held by the one helping (the learner: "Drži klešče. Trdno."), clear of whoever stands at the anvil.
+     */
+    private fun tongsOnShoe() {
+        val fz = anvilTop + 0.3f
+        val jx = shoeX + 0.02f; val jy = shoeY + 0.04f
+        val pvx = shoeX + 0.1f; val pvy = shoeY + 0.38f; val pvz = fz + 0.15f
+        val ex = shoeX + 0.3f; val ey = shoeY + 1.25f; val ez = anvilTop - 2.6f
+        val w = max(1, (3 * detail) / 2)
+        // the jaws, on the shoe's toe; the pivot's rivet; the two reins apart, down toward us
+        rodIso(jx - 0.05f, jy, fz, pvx - 0.03f, pvy, pvz, ironM, ironHi, iron, w)
+        rodIso(jx + 0.05f, jy, fz, pvx + 0.03f, pvy, pvz, iron, ironL, ironD, w)
+        rodIso(pvx - 0.03f, pvy, pvz, ex - 0.1f, ey, ez, ironM, ironHi, iron, w)
+        rodIso(pvx + 0.03f, pvy, pvz, ex + 0.08f, ey - 0.04f, ez - 0.2f, iron, ironL, ironD, w)
+        val rx = iso.sx(pvx, pvy); val ry = iso.sy(pvx, pvy, pvz)
+        c.fillCircle(rx, ry, max(1f, K * 0.4f), ironD)
+        if (fine) c.fillCircle(rx - detail * 0.3f, ry - detail * 0.3f, K * 0.18f, ironL)
+    }
+
     /** The quenching bucket: staves, two iron hoops, dark water with a glint; it steams now and then. */
     private fun bucket() {
         val bx = 7.35f; val by = 7.1f; val r = 0.44f; val hh = 3.6f
@@ -2049,5 +2222,21 @@ internal class SmithyPainter : DioramaPainter() {
 
         /** The ash over the banked coals. */
         val ASH = Col.hex(0x5E5854)
+
+        /** The shoe being forged ("iron"): the radius its toe is bent round, and its arms' length beyond (plot cells). */
+        const val SHOE_R = 0.26f
+        const val SHOE_ARM = 0.3f
+
+        /**
+         * Marko's cart in the yard ("cart"): its bed from [CART_XA] to [CART_XB] across and from [CART_YA] (its back, by the
+         * tethering post) to [CART_YB] along (plot cells), its wheels [CART_R] high round their axles; how far its propped
+         * corner is down while that wheel is off.
+         */
+        const val CART_XA = 9.65f
+        const val CART_XB = 11.15f
+        const val CART_YA = 7.4f
+        const val CART_YB = 10.2f
+        const val CART_R = 3.2f
+        const val CART_DROP = 1.4f
     }
 }

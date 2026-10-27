@@ -125,7 +125,7 @@ object Sfx {
      * What a dialog's effects sound like as they come on (SCENES.md, "Effects"): each effect of [after] that rose by at
      * least [RISE] since [before] (the same scene's, the cue before), at [now]. A bell rings a peal of a few seconds, a
      * strike at each end of its swing as the painter swings it (far off over the field, the stream, the hills, the lake and
-     * the woods); the cows' bells clank; the oven, the stove and the forge catch with a whoosh, the campfire as it flares
+     * the woods); the cows' bells clank, the sheep's clink (the stream's flock as it comes down to the water and goes home, Luka's past the camp); the oven, the stove and the forge catch with a whoosh, the campfire as it flares
      * up; the smith strikes the anvil a few times with the sparks; on the square the cat up the linden mews, Muri barks as he
      * comes back and as he wags, a cart's horse clops up the cobbles, the band plays its polka and the fountain's water
      * gushes. Only the cue's first seconds: the picture may go on swinging, the sound doesn't. They don't duck under the
@@ -147,6 +147,10 @@ object Sfx {
                     "campfire" -> out += sheepBells(now, l, bells = 3, gain = 0.32f)
                     "forest" -> out += sheepBells(now, l, bells = 1, gain = 0.55f)
                 }
+                // the stream: the flock's bells clink as they come down to the water and as they go home (the campfire: as Luka's
+                // come out of the trees and go down the path); the last one's alone
+                "flock" -> if (art == "stream" || art == "campfire") out += sheepBells(now, 1f, bells = 3, gain = 0.4f)
+                "straggler" -> if (art == "stream") out += sheepBells(now, 1f, bells = 1, gain = 0.45f)
                 "oven", "stove", "forge" -> out += Cue(Sound.WHOOSH, now, 0.45f + 0.4f * l)
                 "flare" -> if (art == "campfire") out += Cue(Sound.WHOOSH, now, (0.3f + 0.6f * (level - was)).coerceAtMost(0.85f))
                 "sparks" -> if (art == "smithy") out += blows(now, l)
@@ -212,6 +216,7 @@ object Sfx {
                 "kitchen", "livingroom" -> out += Sound.WHOOSH
                 "campfire" -> { out += Sound.WHOOSH; out += Sound.COWBELL }
                 "forest" -> out += Sound.COWBELL
+                "stream" -> out += Sound.COWBELL
                 "smithy" -> { out += Sound.WHOOSH; out += Sound.ANVIL }
                 "workshop" -> out += Sound.ANVIL
                 "square" -> out += SQUARE_SOUNDS

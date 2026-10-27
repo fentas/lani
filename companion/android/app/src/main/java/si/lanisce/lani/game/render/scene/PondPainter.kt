@@ -5,6 +5,7 @@ import si.lanisce.lani.game.render.Dither
 import si.lanisce.lani.game.render.Noise
 import si.lanisce.lani.game.render.Pal
 import si.lanisce.lani.game.render.Season
+import si.lanisce.lani.game.scene.PersonInScene
 import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.cos
@@ -25,7 +26,13 @@ import kotlin.math.sqrt
  * A dialog can send wild ducks up out of the reeds and away over the trees ("ducks", the level is how far they have
  * flown), the frog off its pad into the water ("frog", 1: in the water, just its eyes out) and a fish jumping again and
  * again ("fish"); it can bring Muri to the jetty's foot ("dog": 0 asleep, 0.5 sitting up, 1 barking at the fish)
- * and tadpoles into the shallows ("tadpoles": how many). Rain rings the whole pond; fog lies thick on the water.
+ * and tadpoles into the shallows ("tadpoles": how many). The heron strikes ("heron": it draws its neck back, its bill darts
+ * into the water with a splash, and at 1 it stands with a silver fish across its bill; Anton's "Glejte čapljo. Zdaj!").
+ * Whoever stands at the jetty's end fishes ("bite": a rod in their hands, its line down to a red and white float; 0 the
+ * float still, rising it bobs and dips with rings, from 0.7 the rod bends and a carp splashes on the line, at 1 it hangs
+ * lifted out on the line; Janez's "Plovec se premika. Riba je prijela!"), and the day's catch can stand in a bucket by them
+ * ("bucket": as many fish as the dialog counts, their tails over its rim; "Poglej v vedro in preštej"). Rain rings the
+ * whole pond; fog lies thick on the water.
  *
  * Its wild animals ([WildPainter]): butterflies over the reeds by day, a roe deer drinking at the far shore at dawn and
  * dusk, a fox at dawn, bats hunting low over the water at dusk and in the night ("bats" brings them, how many).
@@ -90,7 +97,7 @@ internal class PondPainter : WildPainter() {
             val hgt = if (spruce) 13f + Noise.rnd(k, 514) * 5f else 10f + Noise.rnd(k, 514) * 4f
             items.add(d to { prop(Pal.OUTLINE_TREE) { if (spruce) spruce(x, d, hgt, k + 20) else leafyTree(x, d, hgt, k * 3 + 11) } })
         }
-        items.add(heronD to { thing("heron", slop = 2) { heron(heronX, heronD) } })
+        items.add(heronD to { thing("heron", slop = 2) { heron(heronX, heronD, fx("heron")) } })
         items.add(20.8f to { thing("ducks", slop = 2) { ducks() } })
         items.add(17.5f to { thing("lilies", outline = PAD_D) { lilies() } })
         items.add(boatD + 1.6f to { thing("boat") { boat() } })
@@ -100,7 +107,16 @@ internal class PondPainter : WildPainter() {
         items.add(12.6f to { thing("reeds", outline = Pal.OUTLINE_TREE) { reeds(-7f, 13.4f, 2.4f, 1.6f, 36, big = true) } })
         items.add(28f to { prop(Pal.OUTLINE_TREE) { reeds(10.5f, 28f, 3f, 1.2f, 14, big = false) } })
         items.add(26f to { prop(Pal.OUTLINE_TREE) { reeds(-11.5f, 25.5f, 2.2f, 1.4f, 12, big = false) } })
-        for (p in peopleAt("jetty")) items.add(16.9f to { person(p, gx(jettyX, 16.9f).toInt(), (gy(16.9f) - deckH * pm(16.9f)).toInt(), flip = true) })
+        // whoever stands at the jetty's end fishes while a dialog has a fish bite ("bite"): the rod in the far hand, out over
+        // the water, its line down to the float; the day's catch in a bucket by them ("bucket")
+        val bite = fx("bite")
+        for (p in peopleAt("jetty")) {
+            val bx = gx(jettyX, JETTY_AT).toInt(); val by = (gy(JETTY_AT) - deckH * pm(JETTY_AT)).toInt()
+            val reach = bite?.let { rodReach(p, bx, by) }
+            if (bite != null && reach != null) items.add(JETTY_AT + 0.05f to { prop(0) { rod(bite, reach) } })
+            items.add(JETTY_AT to { person(p, bx, by, flip = true, reach = reach) })
+            if (fxOn("bucket") > 0.02f) items.add(BUCKET_D to { prop { bucket(frame.count ?: BUCKET_FISH) } })
+        }
         // Muri with Janez on the jetty ("dog"), the tadpoles in the shallows ("tadpoles")
         fx("dog")?.let { v -> items.add(MURI_D to { groundShadow(MURI_X, MURI_D, 0.35f); prop { muri(v) } }) }
         fx("tadpoles")?.let { v -> if (v > 0.02f && env.season != Season.WINTER) items.add(13.5f to { prop(0) { tadpoles(v) } }) }
@@ -170,6 +186,179 @@ internal class PondPainter : WildPainter() {
         if (bark && ph < 0.45f) {
             val z = z
             s.fx { PokeArt.rings(c, hx - 9f * z, hy - 10f * z, ph / 0.45f, 8f * z, Col.hex(0xFFFFFF), max(1, z / 2 + 1), 0.75f, n = 2) }
+        }
+    }
+
+    /**
+     * Where the one fishing at the jetty's end ([p], feet at [bx], [by], facing the water on the left) holds the rod ("bite"):
+     * the near hand hanging at their side as ever (the old man's stick in it), the far one across the body in front of the
+     * chest, on the rod's butt; as [person]'s reach (the sprite's own px round its feet).
+     */
+    private fun rodReach(p: PersonInScene, bx: Int, by: Int): IntArray {
+        val b = people.body(p.art, Noise.hash(p.id.hashCode(), 7) ushr 1)
+        return intArrayOf(bx - (b.tw + 1), by + b.hand, bx - (b.tw + 3), by + b.armTop + 2)
+    }
+
+    /**
+     * The fishing rod ("bite", [level]; Janez's "Tiho … Plovec se premika. Riba je prijela!"), its butt in the far hand of
+     * whoever stands at the jetty's end ([reach], see [rodReach]), out over the water on the left, its line down to a red and
+     * white float. Up to 0.7 the float bobs, and the higher the level the more often it dips and the deeper, rings going out:
+     * the fish nibbling (0: still). From 0.7 the float is pulled under, the rod bends and a carp thrashes at the line's end,
+     * splashing; from 0.9 it is lifted out, and at 1 it hangs on the line over the water, wriggling, drops falling off it.
+     * Let go (the level falling), it goes back into the water and the float comes up again.
+     */
+    private fun rod(level: Float, reach: IntArray) {
+        val z = z
+        val anchorX = gx(jettyX, JETTY_AT).toInt(); val anchorY = (gy(JETTY_AT) - deckH * pm(JETTY_AT)).toInt()
+        // the butt in the far hand (its middle), the tip up and out over the water
+        val hx = anchorX + (reach[2] - anchorX) * z + z.toFloat(); val hy = anchorY + (reach[3] - anchorY) * z + z.toFloat()
+        val tx0 = hx - 22f * z; val ty0 = hy - 15f * z
+        val fight = PokeArt.ease(level, 0.7f, 0.78f) * (1f - PokeArt.ease(level, 0.92f, 1f) * 0.5f)
+        val lift = PokeArt.ease(level, 0.9f, 1f)
+        // the tip pulled down toward the fish, jerking; lifted, it rises again a little
+        val pull = fight * (5f + 2f * sin(t * 7.0).toFloat()) * z - lift * 2f * z
+        val tx = tx0 + fight * 2f * z; val ty = ty0 + pull
+        // the water under the tip, where the float lies
+        val wy = gy(FLOAT_D); val fxp = tx0 - 2f * z
+        val fwx = sideAt(fxp.toInt(), FLOAT_D)
+        // the rod: a quadratic curve from the butt, bending as the tip is pulled
+        val cx = hx + (tx0 - hx) * 0.55f; val cy = hy + (ty0 - hy) * 0.55f
+        val cane = Col.hex(0x6A4A2A); val caneL = Col.hex(0xA07A48)
+        val n = 12
+        var px = hx; var py = hy
+        for (i in 1..n) {
+            val u = i / n.toFloat()
+            val qx = (1 - u) * (1 - u) * hx + 2 * (1 - u) * u * cx + u * u * tx
+            val qy = (1 - u) * (1 - u) * hy + 2 * (1 - u) * u * cy + u * u * ty
+            val th = if (z > 1 && u < 0.5f) 2 else 1
+            for (o in 0 until th) c.line(floor(px).toInt(), floor(py).toInt() + o, floor(qx).toInt(), floor(qy).toInt() + o, if (o == 0 && z > 1) caneL else cane)
+            px = qx; py = qy
+        }
+        val line = Col.hex(0xE4E2D8)
+        if (lift > 0f) {
+            // the carp lifted out on the line, hanging head up under the tip, wriggling; drops falling off it
+            val fy = wy - lift * 9f * z
+            val fx0 = fxp - 4f * z * (1f - lift)
+            thinLine(tx, ty, fx0, fy - 3f * z, line)
+            hangingFish(fx0, fy, z)
+            for (j in 0 until 3) {
+                val ph = ((t * 1.7 + j * 0.33) % 1.0).toFloat()
+                val dy = fy + 2.5f * z + ph * (wy - fy - 2.5f * z)
+                if (dy < wy) c.fillRect(floor(fx0 + (j - 1) * z).toInt(), floor(dy).toInt(), max(1, z / 2), max(1, z / 2), Col.hex(0xE8F2FA))
+            }
+            if (!env.snow && lift < 1f) s.fx { ring(fwx - 4f * z / pm(FLOAT_D), FLOAT_D, 0.1f + lift * 0.5f, 0.6f * (1f - lift)) }
+            return
+        }
+        if (fight > 0f) {
+            // the float under, the line taut into the water where the fish pulls; its back and tail breaking the surface
+            val wx = fxp - (2f + 2f * sin(t * 3.1).toFloat()) * z * fight
+            thinLine(tx, ty, wx, wy, line)
+            val beat = ((t * 2.2) % 1.0).toFloat()
+            if (beat < 0.6f) {
+                val up = sin(beat / 0.6f * PI.toFloat())
+                val bronze = Col.hex(0xB08A3A); val bronzeL = Col.hex(0xE8C870)
+                c.fillEllipse(wx - 1.5f * z, wy - up * 1.2f * z, 2f * z, max(1f, 0.9f * z * up), bronze)
+                c.fillEllipse(wx - 1.8f * z, wy - up * 1.6f * z, 1.2f * z, max(1f, 0.4f * z * up), bronzeL)
+                // the tail flipping up, the splash's drops
+                c.fillRect(floor(wx + 0.8f * z).toInt(), floor(wy - up * 2.4f * z).toInt(), max(1, z), max(1, (z * 1.5f).toInt()), bronze)
+                for (j in 0 until 5) {
+                    val sx = wx + (j - 2) * (1f + up) * z; val sy = wy - up * (1.5f + (j % 3)) * z
+                    c.fillRect(floor(sx).toInt(), floor(sy).toInt(), max(1, z / 2 + 1), max(1, z / 2 + 1), Col.hex(0xF2F6FA))
+                }
+            }
+            if (!env.snow) s.fx {
+                val ph = ((t * 1.4) % 1.0).toFloat()
+                val rx = sideAt(wx.toInt(), FLOAT_D)
+                ring(rx, FLOAT_D, 0.1f + ph * 0.5f, 0.65f * (1f - ph) * fight)
+                ring(rx, FLOAT_D, 0.06f + ((ph + 0.5f) % 1f) * 0.45f, 0.4f * (1f - (ph + 0.5f) % 1f) * fight)
+            }
+            return
+        }
+        // the float: still at 0, nibbled at more often and deeper the higher the level
+        val nib = (level / 0.7f).coerceIn(0f, 1f)
+        val period = 2.2 - 1.2 * nib
+        val ph = ((t / period) % 1.0).toFloat()
+        val dip = if (nib > 0.05f && ph < 0.35f) sin(ph / 0.35f * PI.toFloat()) * (1f + 2f * nib) * z else 0f
+        val bob = (0.5f + 0.5f * sin(t * 2.1).toFloat()) * 0.6f * z
+        val top = wy - 3f * z + dip + bob
+        thinLine(tx, ty, fxp + 0.5f * z, top, line)
+        val fx0 = floor(fxp).toInt(); val fw = max(1, z) * 2
+        for (row in floor(top).toInt() until floor(wy).toInt()) {
+            val k = (row - top) / z
+            when {
+                k < 1f -> c.fillRect(fx0 + fw / 4, row, max(1, fw / 2), 1, Col.hex(0xE0302A))
+                k < 2f -> c.fillRect(fx0, row, fw, 1, Col.hex(0xE0302A))
+                else -> c.fillRect(fx0, row, fw, 1, Col.hex(0xF4F2EC))
+            }
+        }
+        if (!env.snow) s.fx {
+            ring(fwx, FLOAT_D, 0.07f + 0.02f * sin(t * 2.1).toFloat(), 0.25f)
+            if (nib > 0.05f && ph < 0.6f) ring(fwx, FLOAT_D, 0.06f + ph * 0.45f, 0.55f * nib * (1f - ph / 0.6f))
+        }
+    }
+
+    /** A fishing line from ([x0], [y0]) to ([x1], [y1]): a thin pale thread, a pixel wide at every detail. */
+    private fun thinLine(x0: Float, y0: Float, x1: Float, y1: Float, col: Int) {
+        val n = max(abs(x1 - x0), abs(y1 - y0)).toInt() + 1
+        for (i in 0..n) {
+            val u = i / n.toFloat()
+            c.blend(floor(x0 + (x1 - x0) * u).toInt(), floor(y0 + (y1 - y0) * u).toInt(), col, 0.85f)
+        }
+    }
+
+    /** The carp on the line, hanging head up with its mouth at ([x], [y] − 3 [z]), its tail swinging. */
+    private fun hangingFish(x: Float, y: Float, z: Int) {
+        val bronze = Col.hex(0xB08A3A); val bronzeL = Col.hex(0xE8C870); val dark = Col.hex(0x6A4E1E)
+        val sway = sin(t * 9.0).toFloat() * 0.8f * z
+        c.fillEllipse(x, y, 1.3f * z, 2.6f * z, bronze)
+        c.fillEllipse(x - 0.4f * z, y - 0.3f * z, 0.6f * z, 1.8f * z, bronzeL)
+        // the tail, forked, swinging under it; the eye up by the mouth
+        c.fillRect(floor(x + sway - z).toInt(), floor(y + 2.4f * z).toInt(), max(1, z), max(1, (1.4f * z).toInt()), dark)
+        c.fillRect(floor(x + sway + 0.2f * z).toInt(), floor(y + 2.4f * z).toInt(), max(1, z), max(1, (1.4f * z).toInt()), dark)
+        c.fillRect(floor(x - 0.4f * z).toInt(), floor(y - 1.7f * z).toInt(), max(1, z / 2 + 1), max(1, z / 2 + 1), Pal.OUTLINE)
+    }
+
+    /**
+     * The day's catch in a wooden bucket on the jetty by whoever fishes at its end ("bucket"; Janez's "Danes so prijele.
+     * Poglej v vedro in preštej."): [n] fish in it (as many as the dialog counts, else [BUCKET_FISH]), their tails sticking up
+     * over the rim in two staggered rows, bigger than their size so they can be counted.
+     */
+    private fun bucket(n: Int) {
+        val z = z
+        val count = n.coerceIn(1, BUCKET_MAX)
+        val p = pm(BUCKET_D)
+        val bx = gx(BUCKET_X, BUCKET_D); val by = gy(BUCKET_D) - deckH * p
+        val hw = 0.42f * p; val hh = 0.5f * p
+        val top = by - hh
+        // the staves, lit on the left, an iron hoop round them
+        for (xx in floor(bx - hw).toInt()..floor(bx + hw).toInt()) {
+            val u = (xx + 0.5f - bx) / hw
+            val col = when {
+                ((u + 1f) * 3.5f) % 1f < 0.16f -> Pal.WOOD_X
+                u < -0.5f -> Pal.WOOD_L
+                u > 0.5f -> Pal.WOOD_D
+                else -> Pal.WOOD_M
+            }
+            c.vline(xx, floor(top).toInt(), floor(by).toInt() - 1, col)
+        }
+        val hoop = floor(by - hh * 0.3f).toInt()
+        for (j in 0 until max(1, z / 2 + 1)) c.hline(floor(bx - hw).toInt(), floor(bx + hw).toInt(), hoop + j, Col.hex(0x5A565E))
+        // its mouth, dark water inside
+        c.fillEllipse(bx, top, hw, max(1f, 0.3f * hw), Pal.WOOD_D)
+        c.fillEllipse(bx, top + 0.05f * hw, hw * 0.82f, max(1f, 0.22f * hw), Col.hex(0x1E3034))
+        // the tails over the rim: a back row, then a front row between them
+        val back = (count + 1) / 2; val front = count - back
+        val tail = Col.hex(0x8A9AA4); val tailL = Col.hex(0xC8D4DC)
+        for ((row, m) in listOf(0 to back, 1 to front)) for (i in 0 until m) {
+            val u = if (m == 1) 0f else (i / (m - 1f) - 0.5f) * (if (row == 0) 1.2f else 0.9f)
+            val sx = floor(bx + u * hw).toInt()
+            val base = floor(top - (if (row == 0) 0.6f else -0.6f) * z).toInt()
+            val stem = 2 * z + (if (row == 0) z else 0)
+            val wag = if (sin(t * 3.0 + i * 1.7 + row) > 0.85) 1 else 0
+            c.fillRect(sx - z / 2, base - stem, max(1, z), stem, tail)
+            // the fork of the tail
+            c.fillRect(sx - z / 2 - z, base - stem - z - wag, max(1, z), max(1, z), tailL)
+            c.fillRect(sx - z / 2 + z, base - stem - z, max(1, z), max(1, z), tailL)
         }
     }
 
@@ -928,8 +1117,14 @@ internal class PondPainter : WildPainter() {
         }
     }
 
-    /** The grey heron standing in the shallows on one leg, its neck folded, now and then stretching to look. */
-    private fun heron(x: Float, d: Float) {
+    /**
+     * The grey heron standing in the shallows on one leg, its neck folded, now and then stretching to look. A dialog's strike
+     * ([strike], "heron"; Anton's "Pst. … Glejte čapljo. Zdaj!"): up to 0.3 it leans forward and draws its neck back; then its
+     * bill darts down into the water in front of it, a splash and rings at 0.42; it comes up with a silver fish across its
+     * bill, and from 0.7 stands tall holding it, the fish flapping (1). At 0, or not set, it waits as by itself.
+     */
+    private fun heron(x: Float, d: Float, strike: Float?) {
+        if (strike != null && strike > 0.02f) { heronStrike(x, d, strike); return }
         val z = z
         val bx = gx(x, d).toInt(); val by = gy(d).toInt()
         val grey = Col.hex(0x9AA0A8); val greyL = Col.hex(0xC8CCD0); val dark = Col.hex(0x3A3E48); val bill = Col.hex(0xE0B040)
@@ -949,6 +1144,70 @@ internal class PondPainter : WildPainter() {
             }
         }
         if (!env.snow) s.fx { ring(x, d, 0.18f + 0.05f * sin(t * 0.8).toFloat(), 0.3f) }
+    }
+
+    /**
+     * The heron striking ("heron", [level]): its neck from the shoulder through a bend to the head, along the keyframes of
+     * [HERON_KEYS] (the neck's bend, the head, the bill's way); leaning in while it aims, the splash and the rings where the
+     * bill goes in, then the fish across its bill (see [heron]).
+     */
+    private fun heronStrike(x: Float, d: Float, level: Float) {
+        val z = z
+        val bx = gx(x, d).toInt(); val by = gy(d).toInt()
+        val grey = Col.hex(0x9AA0A8); val greyL = Col.hex(0xC8CCD0); val dark = Col.hex(0x3A3E48); val bill = Col.hex(0xE0B040)
+        // where along the keyframes, and the pose there
+        var k = 0
+        while (k < HERON_KEYS.size - 2 && level > HERON_KEYS[k + 1][0]) k++
+        val a = HERON_KEYS[k]; val b = HERON_KEYS[k + 1]
+        val u = PokeArt.ease(level, a[0], b[0])
+        fun lerp(i: Int) = a[i] + (b[i] - a[i]) * u
+        val mx = lerp(1); val my = lerp(2); val hx = lerp(3); val hy = lerp(4)
+        var dx = lerp(5); var dy = lerp(6)
+        val dl = sqrt(dx * dx + dy * dy); dx /= dl; dy /= dl
+        val lean = if (level in 0.12f..0.62f) 1 else 0
+        val holding = level >= 0.5f
+        sprite(bx, by) {
+            // the leg; the body, its front dipping as it leans in, the dark tail up
+            c.vline(bx, by - 4, by, Col.hex(0x8A7A5A))
+            for (i in -2..3) c.set(bx + i, by - 6 + (if (i <= 0) lean else if (i == 3) -lean else 0), if (i > 1) dark else grey)
+            for (i in -1..2) c.set(bx + i, by - 7 + (if (i <= 0) lean else 0), greyL)
+            c.set(bx - 2, by - 5 + lean, grey); c.set(bx + 3, by - 5 - lean, dark); c.set(bx + 4, by - 5 - lean, dark)
+            // the neck from the shoulder through its bend to the head, the crest behind it, the bill
+            val sx = bx - 1; val sy = by - 8 + lean
+            val ex = bx + floor(mx + 0.5f).toInt(); val ey = by + floor(my + 0.5f).toInt()
+            val qx = bx + floor(hx + 0.5f).toInt(); val qy = by + floor(hy + 0.5f).toInt()
+            c.line(sx, sy, ex, ey, greyL); c.line(ex, ey, qx, qy, greyL)
+            c.set(qx + (if (dx < 0f) 1 else -1), qy, dark)
+            for (j in 1..2) c.set(qx + floor(dx * j + 0.5f).toInt(), qy + floor(dy * j + 0.5f).toInt(), bill)
+            if (holding) {
+                // a silver fish across the bill's tip, its tail flapping
+                val tx = qx + floor(dx * 2.5f + 0.5f).toInt(); val ty = qy + floor(dy * 2.5f + 0.5f).toInt()
+                val silver = Col.hex(0xDCE4EC); val back = Col.hex(0x7E8C9C)
+                val flap = if (sin(t * 11.0) > 0) 1 else -1
+                c.set(tx, ty - 2, back); c.set(tx, ty - 1, silver); c.set(tx, ty, silver); c.set(tx + 1, ty, back); c.set(tx, ty + 1, silver)
+                c.set(tx - 1, ty - 2, Pal.OUTLINE) // its eye, up by the head
+                c.set(tx + flap, ty + 2, silver); c.set(tx - flap, ty + 3, back)
+            }
+            // the splash where the bill goes in: drops thrown up and falling back
+            if (level in 0.36f..0.62f) {
+                val sp = (level - 0.36f) / 0.26f
+                for (j in 0 until 5) {
+                    val ox = bx - 6 + floor((j - 2) * (0.6f + 1.4f * sp) + 0.5f).toInt()
+                    val oy = by - 1 - floor(sin(sp * PI.toFloat()) * (2f + (j % 3)) + 0.5f).toInt()
+                    c.set(ox, oy, Col.hex(0xF2F6FA))
+                }
+            }
+        }
+        if (env.snow) return
+        val at = x - 6f * z / pm(d)
+        s.fx {
+            ring(x, d, 0.18f + 0.05f * sin(t * 0.8).toFloat(), 0.3f)
+            if (level >= 0.38f) {
+                val r = ((level - 0.38f) / 0.62f).coerceIn(0f, 1f)
+                ring(at, d, 0.1f + r * 0.6f, 0.6f * (1f - r) + 0.1f)
+                if (r > 0.15f) ring(at, d, 0.06f + (r - 0.15f) * 0.5f, 0.45f * (1f - r))
+            }
+        }
     }
 
     /** The dragonfly: darting over the lilies by day, resting on a reed by night (and in winter). */
@@ -1019,6 +1278,30 @@ internal class PondPainter : WildPainter() {
          */
         private const val MURI_X = 5.3f
         private const val MURI_D = 11.6f
+
+        /** Where whoever stands at the jetty's end stands (its depth, m), and the float of their line ("bite") lies. */
+        private const val JETTY_AT = 16.9f
+        private const val FLOAT_D = 18.2f
+
+        /** The bucket of the day's fish ("bucket") on the jetty by them, toward us: side and depth (m); how many fish when the dialog counts none, and at most. */
+        private const val BUCKET_X = 4.55f
+        private const val BUCKET_D = 16.0f
+        private const val BUCKET_FISH = 5
+        private const val BUCKET_MAX = 10
+
+        /**
+         * The heron's strike ("heron"), keyframe by keyframe: the level, the bend of its neck (x, y), its head (x, y) and the
+         * way its bill points (x, y), in the sprite's px from its foot: waiting with the neck folded; drawn back, aiming down;
+         * the bill in the water; coming up with the fish; standing tall with it.
+         */
+        private val HERON_KEYS = arrayOf(
+            floatArrayOf(0f, -2f, -9f, -1f, -11f, -1f, 0f),
+            floatArrayOf(0.3f, -1f, -9f, 1f, -10f, -1f, 0.6f),
+            floatArrayOf(0.42f, -4f, -5f, -6f, -2f, -0.4f, 1f),
+            floatArrayOf(0.55f, -3f, -6f, -4f, -4f, -1f, 0.3f),
+            floatArrayOf(0.7f, -1f, -11f, -2f, -13f, -1f, 0f),
+            floatArrayOf(1f, -1f, -11f, -2f, -13f, -1f, 0f),
+        )
         private const val SKY_STEPS = 24
         private const val HOLE_X = 2f
         private const val HOLE_D = 20.6f

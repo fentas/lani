@@ -148,7 +148,11 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
     val state = vm.game.state
     // What the village has built: a thing it hasn't (the mill before it's built) isn't drawn, nor a word to find here; a
     // room is seen in the building it was opened from, at its level (the kitchen of a hut at level 1 is bare).
-    val world = remember(state, spec, building) { vm.sceneWorld(spec, building) }
+    // A village project's step played here: the project as the step makes it, its work done in the picture from the line
+    // that says so (the mill's wheel turning as the water is let in), not as it stood before the step (SCENES.md "Project steps").
+    val stepHere = scenes.talk?.takeIf { it.sceneId == spec.id }?.let { t -> t.step?.takeIf { !it.over && it.party == null }?.let { it to t.run } }
+    val stepAt = stepHere?.let { (st, run) -> st.project to (st.index + if (si.lanisce.lani.game.Projects.shown(run.dialog, run.at, run.step == DialogRun.Step.END)) 1 else 0) }
+    val world = remember(state, spec, building, stepAt) { vm.sceneWorld(spec, building).let { w -> stepAt?.let { (p, n) -> w.stepping(p, n) } ?: w } }
     val scene = remember(spec, world) { spec.inWorld(world) }
     // What's on changes with the time of day: look again every minute.
     var minute by remember { mutableIntStateOf(0) }
@@ -485,6 +489,8 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
                 anchors = anchors,
                 cues = cues,
                 world = world,
+                // the number the dialog counts: the picture draws that many (the sheep at the water)
+                count = talk?.counted,
                 onPoke = { id, poked ->
                     vm.ambience.poke(scene.art, id, poked, sceneClock)
                     // a sleeper of the scene, or one of the household it doesn't list (Zala in the kitchen): themselves

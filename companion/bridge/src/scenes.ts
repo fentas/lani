@@ -100,12 +100,17 @@ export const SCENE_ART = {
       'flare', 'steam', 'bell', 'sheepbells',
       // the fire burning down to its embers
       'embers',
+      // Luka's flock out of the trees, milling along the camp's edge to be counted, then down the path (1: gone)
+      'flock',
     ],
     kitchen: ['oven', 'steam'],
     forest: [
       'birds', 'herd', 'fox', 'hoot', 'bats', 'sheepbells',
       // the owl flying off her branch and away (1: gone)
       'owl-flies',
+      // the far side's tallest spruce and the oak beside it felled (1 lying by the stump); the lost sheep (0 out of sight
+      // behind the big spruce, 1 home); a bear's tracks in the mud by the path; roe deer out on the far meadow at dusk
+      'fell', 'fell-oak', 'sheep', 'tracks', 'does',
     ],
     square: [
       'bell',
@@ -114,8 +119,17 @@ export const SCENE_ART = {
       'band', 'dance', 'maypole', 'fountain',
     ],
     tent: ['lantern'],
-    field: ['crows', 'bell', 'bats', 'hare', 'horse', 'hat', 'scarf'],
-    smithy: ['forge', 'sparks'],
+    field: [
+      'crows', 'bell', 'bats', 'hare', 'horse', 'hat', 'scarf',
+      // a face drawn on the scarecrow's sack head in charcoal (0 a blank sack)
+      'face',
+    ],
+    smithy: [
+      'forge', 'sparks',
+      // a shoe being forged on the anvil, held in the tongs (1 white-hot, cooling to grey toward 0; 0 taken); Marko's cart in
+      // the yard (0 propped on a block, a wheel off; 1 on four wheels)
+      'iron', 'cart',
+    ],
     school: [],
     hills: ['bell', 'tractor', 'starlings'],
     sea: ['waves', 'gulls', 'sail'],
@@ -123,9 +137,23 @@ export const SCENE_ART = {
       'cowbells', 'bell', 'fish', 'birds', 'glow',
       // the ibex climbing onto his crag (1: on top)
       'ibex',
+      // the near cow's bell lost in the grass by the stream (0) and back on her neck (1); the milk pail (how full); as many
+      // cows on the pasture as the dialog counts, a calf with them (how far the others have come up over the brow)
+      'bell-lost', 'pail', 'cows',
     ],
-    stream: ['trout', 'wheel', 'bats', 'bell', 'lamb', 'hose', 'cart'],
-    pond: ['ducks', 'frog', 'fish', 'bats', 'dog', 'tadpoles'],
+    stream: [
+      'trout', 'wheel', 'bats', 'bell', 'lamb', 'hose', 'cart',
+      // the flock down to the water and home again (as many as the dialog counts), and the one who always comes last
+      'flock', 'straggler',
+      // the stream high after the night's rain, the sacks of flour by the mill's door to count, the sheet the wind takes
+      'full', 'sacks', 'sheet',
+    ],
+    pond: [
+      'ducks', 'frog', 'fish', 'bats', 'dog', 'tadpoles',
+      // the heron striking (1: a fish across its bill); fishing at the jetty's end (the float: 0 still, from 0.7 a carp on
+      // the line, 1 lifted out); the day's catch in a bucket by them (as many as the dialog counts)
+      'heron', 'bite', 'bucket',
+    ],
     church: [
       'candles', 'bell', 'organ',
       // the door blown open (1: wide)
@@ -139,6 +167,8 @@ export const SCENE_ART = {
       'dust',
       // a nail hammered into a board on the bench (how hard)
       'hammer',
+      // the wooden horse Sivko on the bench (0 on his side, a leg off; 1 standing whole)
+      'toy',
     ],
     cellar: ['tap', 'candle'],
     attic: [
@@ -377,6 +407,11 @@ export const dialogLine = z.object({
    * typed wrong); without it the app's "Hm? Kako, prosim?" (companion/SCENES.md, "Own traps").
    */
   puzzled: reply.optional(),
+  /**
+   * A village project's step only (project-steps.ts): its work is done in the picture from this line on, so its scene shows
+   * the project one stage on as the line is said (companion/SCENES.md, "Project steps"). A scene's dialog has none.
+   */
+  done: z.literal(true).optional(),
 })
 export const dialog = z.object({
   id,
@@ -665,6 +700,7 @@ export function crossCheck(s: Scene, refs?: SceneRefs): string[] {
       const here = `${at}.lines[${li}]`
       effectsOf(l.fx, here)
       l.choices.forEach((c, ci) => effectsOf(c.reply?.fx, `${here}.choices[${ci}].reply`))
+      if (l.done) errs.push(`${here}: done is a village project's step's (project-steps), not a scene dialog's`)
       if (l.choices.length) {
         if (l.who || SCENE_LANGUAGES.some(k => l[k])) errs.push(`${here}: a choice turn has no who/${lang}/en`)
         if (l.choices.length < 2) errs.push(`${here}: a choice turn needs 2-3 choices`)

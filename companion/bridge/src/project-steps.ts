@@ -214,6 +214,20 @@ export function speakerGendered(text: string): boolean {
 }
 
 /**
+ * The village projects each art's painter draws as far as their steps have come (the app's SceneArt.projects): France's
+ * mill and the cart bridge by the stream, the double hayrack beyond the field, the town clock, the maypole and the fountain
+ * on the square, the maypole's spruce in the forest. Only there does a step's `done` line show its work done in the picture
+ * (companion/SCENES.md, "Project steps").
+ */
+export const DRAWN_PROJECTS: Record<string, string[]> = {
+  stream: ['mlin', 'most'],
+  field: ['toplar'],
+  square: ['mestna_ura', 'mlaj', 'vodnjak_na_trgu'],
+  // the maypole's spruce felled in the forest, then carried off to the village
+  forest: ['mlaj'],
+}
+
+/**
  * The effects a step without a scene may have (companion/SCENES.md, "Project steps"): played over the village, its bell rings
  * (the chapel's little bell as it is hung, "Cin, cin, cin!"), a bell swinging over the backdrop with its rings going out.
  */
@@ -254,9 +268,13 @@ export function projectStepsErrors(f: ProjectSteps, r: StepRefs): string[] {
       const here = `${at}.levels.${lv}`
       errs.push(...linesErrors(t.lines, r.lang, speakers, here))
       if (!t.lines.some(l => l.who === p.leader)) errs.push(`${here}: the leader (${p.leader}) says nothing`)
+      if (t.lines.filter(l => l.done).length > 1) errs.push(`${here}: done on more than one line (the step's work is done once)`)
       t.lines.forEach((l, li) => {
         const ln = `${here}.lines[${li}]`
         if (l.act || l.choices.some(c => c.reply?.act)) errs.push(`${ln}: a step's people are who is here today: no act cue`)
+        // where the step's work is done in its picture: someone's line, with the step's scene (over the village nothing shows it)
+        if (l.done && l.choices.length) errs.push(`${ln}: done goes on someone's line (the one that says the work is done), not on the learner's turn`)
+        if (l.done && !s.scene) errs.push(`${ln}: done needs the step's scene (its picture shows the project one stage on); over the village nothing shows it`)
         if (l.who && helpers.has(l.who) && r.lang === 'sl') {
           const said = render(String((l as Record<string, unknown>).sl ?? ''), MAN)
           if (speakerGendered(said)) errs.push(`${ln}: a helper's line says the speaker's gender ("${said}"): another may say it when they're away; say it in the plural or the present`)
@@ -274,6 +292,8 @@ export function projectStepsErrors(f: ProjectSteps, r: StepRefs): string[] {
         } else if (l.choices.length > 3) errs.push(`${ln}: a turn needs 2-3 choices (a tap turn, 2-4)`)
         if (!scene) return
         const art = scene.art
+        if (l.done && !DRAWN_PROJECTS[art]?.includes(f.project))
+          errs.push(`${ln}: done, but the art "${art}" doesn't draw the project "${f.project}" (it draws ${DRAWN_PROJECTS[art]?.join(', ') || 'none'}): nothing would show it`)
         const effects = SCENE_ART.effects[art] ?? []
         const fx = [l.fx, ...l.choices.map(c => c.reply?.fx)].flatMap(x => Object.keys(x ?? {}))
         for (const e of fx) if (!effects.includes(e)) errs.push(`${ln}: the art "${art}" has no effect "${e}" (effects: ${effects.join(', ') || 'none'})`)

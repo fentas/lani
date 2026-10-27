@@ -24,7 +24,9 @@ import kotlin.math.sin
  * boards, the axe in its block and the broom on a beaten earth floor; at level 2 a plank floor with shavings, the tool
  * board, the saw, the ladder and the rake; at level 3 the wheelbarrow, the wooden horse France carves for Tine on the
  * bench, and the lantern. Its effects: `dust` (sawdust flying off the vice as a board is sawn), `hammer` (a board laid on
- * the bench and a nail hammered into it, whoever stands at the bench swinging the hammer, a knock at each blow).
+ * the bench and a nail hammered into it, whoever stands at the bench swinging the hammer, a knock at each blow), `toy` (the
+ * wooden horse Sivko on the bench: 0 lying on his side with a front leg off, from 0.3 the leg glued back on, from 0.65 stood
+ * up again, 1 whole as by himself; Tine's "Moj konjiček Sivko nima noge" and "Spet je cel!").
  *
  * At night ([beds]) France sleeps on a straw mattress on the floor before the bench ("mattress"), under a grey horse
  * blanket with a red stripe; Tine on his apprentice's cot by the door ("cot", a child's: a low frame on legs, a headboard,
@@ -127,7 +129,8 @@ internal class WorkshopPainter : RoomPainter() {
         if (hammering) prop { plank() }
         val grip = if (hammering) swingHammer() else null
         if (!hammering) thing("hammer", slop = 2) { hammer(2.65f, 1.65f, wz) }
-        if (there("horse")) thing("horse", slop = 2) { horse(3.95f, 1.5f, wz) }
+        // Sivko being mended ("toy"): on his side, a leg off, then glued and stood up again
+        if (there("horse")) thing("horse", slop = 2) { fx("toy")?.let { toy(3.95f, 1.5f, wz, it) } ?: horse(3.95f, 1.5f, wz) }
         dust(fxOn("dust"))
         if (hammering) chips(knock)
         if (there("lantern")) thing("lantern", slop = 1) { lantern(lit, low) }
@@ -192,6 +195,9 @@ internal class WorkshopPainter : RoomPainter() {
 
         /** A blow of the hammer every this many seconds ([si.lanisce.lani.game.ambient.Sfx.HAMMER_BLOW]: the knocks with them). */
         const val BLOW_S = si.lanisce.lani.game.ambient.Sfx.HAMMER_BLOW
+
+        /** Fresh glue round the wooden horse's mended leg ("toy"). */
+        val GLUE = Col.hex(0xF4E8C8)
     }
 
     // ------------------------------------------------------------------ the bench and what is on it
@@ -286,12 +292,16 @@ internal class WorkshopPainter : RoomPainter() {
         }
     }
 
-    /** The little wooden horse France carves for Tine (level 3): on the bench, a round body, a curved neck, a painted red saddle. */
-    private fun horse(x: Float, y: Float, z: Float) {
-        val cx = iso.sx(x, y); val by = iso.sy(x, y, z)
+    /**
+     * The little wooden horse France carves for Tine (level 3): on the bench, a round body, a curved neck, a painted red saddle;
+     * [lift] (scene px) over the bench as it is set down, [glue] a pale ring of fresh glue round the mended leg's top.
+     */
+    private fun horse(x: Float, y: Float, z: Float, lift: Float = 0f, glue: Boolean = false) {
+        val cx = iso.sx(x, y); val by = iso.sy(x, y, z) - lift * P
         val p = P.toFloat()
         val w = Col.hex(0xE0B880); val wd = Col.hex(0xB8884E)
         for (lx in floatArrayOf(-1.8f, -0.8f, 0.9f, 1.9f)) c.fillRect(floor(cx + lx * p).toInt(), floor(by - 2.4f * p).toInt(), max(1, P), floor(2.4f * p).toInt(), wd)
+        if (glue) c.fillRect(floor(cx + 0.9f * p).toInt(), floor(by - 2.4f * p).toInt() + P, max(1, P), max(1, P / 2 + 1), GLUE)
         c.fillEllipse(cx, by - 3.2f * p, 2.8f * p, 1.3f * p, wd)
         c.fillEllipse(cx - 0.3f, by - 3.4f * p, 2.6f * p, 1.1f * p, w)
         c.line(floor(cx + 2f * p).toInt(), floor(by - 3.5f * p).toInt(), floor(cx + 3f * p).toInt(), floor(by - 5.6f * p).toInt(), w)
@@ -299,6 +309,37 @@ internal class WorkshopPainter : RoomPainter() {
         c.set(floor(cx + 3.6f * p).toInt(), floor(by - 6.1f * p).toInt(), Pal.OUTLINE)
         c.fillRect(floor(cx - 0.7f * p).toInt(), floor(by - 4.4f * p).toInt(), floor(1.4f * p).toInt(), max(1, P), red)
         c.line(floor(cx - 2.6f * p).toInt(), floor(by - 3.4f * p).toInt(), floor(cx - 3.4f * p).toInt(), floor(by - 2.2f * p).toInt(), Col.hex(0x5E3A20))
+    }
+
+    /**
+     * Sivko, Tine's wooden horse, being mended on the bench ("toy", [level]; Tine's "Moj konjiček Sivko nima noge. Dedek ga
+     * popravlja." and "Glej! Dedek je Sivka popravil. Spet je cel!"): 0 lying on his side, his back away from us and his
+     * legs sticking out toward us, a front one off (it's in Tine's pocket) and the hole of its dowel showing; from 0.3 the leg
+     * glued back on; from 0.65 stood up, set down on his four legs by 0.75, the glue still fresh; 1 whole, as by himself.
+     */
+    private fun toy(x: Float, y: Float, z: Float, level: Float) {
+        if (level >= 0.65f) { horse(x, y, z, lift = 2.5f * (1f - PokeArt.ease(level, 0.65f, 0.75f)), glue = level < 0.95f); return }
+        val cx = iso.sx(x, y); val by = iso.sy(x, y, z)
+        val p = P.toFloat()
+        val w = Col.hex(0xE0B880); val wd = Col.hex(0xB8884E); val dark = Col.hex(0x5E3A20)
+        // the legs first, sticking out toward us from his belly, short and slanting down over the bench; the mended one's
+        // dowel hole until it is glued back on, then a pale ring of glue at its top
+        for (lx in floatArrayOf(-1.8f, -0.8f, 0.9f, 1.9f)) {
+            val x0 = cx + lx * p; val y0 = by - 0.9f * p
+            if (lx == 0.9f && level < 0.3f) continue
+            for (o in 0 until max(1, P)) c.line(floor(x0).toInt() + o, floor(y0).toInt(), floor(x0 + 0.7f * p).toInt() + o, floor(by + 0.6f * p).toInt(), wd)
+            if (lx == 0.9f) c.fillRect(floor(x0).toInt(), floor(y0).toInt(), max(1, P), max(1, P / 2 + 1), GLUE)
+        }
+        // his body along the bench on its side, his back (and the red saddle's edge) away from us
+        c.fillEllipse(cx, by - 1.3f * p, 2.9f * p, 1.25f * p, wd)
+        c.fillEllipse(cx - 0.2f * p, by - 1.45f * p, 2.6f * p, 0.95f * p, w)
+        c.fillRect(floor(cx - 0.8f * p).toInt(), floor(by - 2.55f * p).toInt(), floor(1.6f * p).toInt(), max(1, P), red)
+        if (level < 0.3f) c.fillRect(floor(cx + 0.9f * p).toInt(), floor(by - 0.9f * p).toInt(), max(1, P), max(1, P), dark)
+        // his neck and head lying on the bench, the eye up; the tail
+        c.line(floor(cx + 2.3f * p).toInt(), floor(by - 1.5f * p).toInt(), floor(cx + 3.2f * p).toInt(), floor(by - 1.1f * p).toInt(), w)
+        c.fillEllipse(cx + 3.7f * p, by - 1.0f * p, 1.2f * p, 0.65f * p, w)
+        c.set(floor(cx + 3.9f * p).toInt(), floor(by - 1.3f * p).toInt(), Pal.OUTLINE)
+        c.line(floor(cx - 2.7f * p).toInt(), floor(by - 1.5f * p).toInt(), floor(cx - 3.6f * p).toInt(), floor(by - 0.6f * p).toInt(), dark)
     }
 
     /** Sawdust flying off the vice as a board is sawn there ([level]: how much), falling to the floor. */

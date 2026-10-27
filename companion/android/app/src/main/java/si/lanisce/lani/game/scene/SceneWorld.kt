@@ -92,6 +92,17 @@ data class SceneWorld(
 
     fun finished(project: String): Boolean = stage(project) >= stages(project)
 
+    /**
+     * This world while a step of [project] is played in its scene ([steps]: the steps done as the picture has it now, the
+     * step's own work done or not: [si.lanisce.lani.game.Projects.shown]): the mill standing with its wheel as the water is let
+     * in, not as it was before the step (companion/SCENES.md "Project steps"). In a world that has everything ([ALL]) the other
+     * projects stay finished.
+     */
+    fun stepping(project: String, steps: Int): SceneWorld {
+        val all = projects ?: STAGES
+        return copy(projects = all + (project to steps.coerceIn(0, stages(project))))
+    }
+
     /** Whether [project]'s landmark stands: finished, and not down for the season ([down]). */
     fun standing(project: String): Boolean = finished(project) && project !in down
 

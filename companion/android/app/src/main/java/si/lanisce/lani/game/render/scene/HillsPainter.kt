@@ -26,7 +26,8 @@ import kotlin.math.sin
  * The year shows in the vines: bare and pruned in winter (a few dry bunches left), leaves in spring, green grapes in
  * summer, the grape harvest (trgatev) in September and October with ripe bunches and full crates, gold and red leaves
  * in autumn; the kaki keeps its orange fruit on bare branches into November. A dialog can ring the church bell, send a
- * tractor with crates down the track and startle the starlings off the vines; rain veils the far hills before it reaches us.
+ * tractor with crates down the track ("tractor": how far it has come, 1 past us and gone) and startle the starlings off
+ * the vines; rain veils the far hills before it reaches us.
  *
  * Closer up ([detail] 2 and 3) the same view is drawn finer: leaves in clusters with shade between them on the vines,
  * the rows on the far hills, the farmstead's shutters, tiles and portal, the church's roof in courses of tiles, the
@@ -104,8 +105,9 @@ internal class HillsPainter : VistaPainter() {
         items.add(rowFar + 1f to { prop(Col.hex(0x1E3A1E)) { vineyard(outer = true) } })
         items.add(rowFar to { thing("vineyard", outline = Col.hex(0x1E3A1E)) { vineyard(outer = false) } })
         items.add(kakiD to { groundShadow(kakiX, kakiD, 2.2f); thing("persimmon", outline = Pal.OUTLINE_TREE) { kaki(kakiX, kakiD) } })
+        // a dialog's tractor down the track ("tractor"); from 0.97 it has gone past us, out of the picture
         val tractor = fxOn("tractor")
-        if (tractor > 0.01f) { val d = 58f - 50f * tractor; items.add(d to { prop { tractor(d) } }) }
+        if (tractor > 0.01f && tractor < 0.97f) { val d = 58f - 50f * tractor; items.add(d to { prop { tractor(d) } }) }
         items.add(wallD to { thing("wall") { dryWall(wallA, wallB, wallD, 0.85f, 91) } })
         for (p in peopleAt("wall")) items.add(10.6f to { groundShadow(3.3f, 10.6f, 0.5f); person(p, gx(3.3f, 10.6f).toInt(), gy(10.6f).toInt(), flip = true) })
         for (p in peopleAt("road")) items.add(15.6f to { val x = road(15.6f) + 0.5f; groundShadow(x, 15.6f, 0.5f); person(p, gx(x, 15.6f).toInt(), gy(15.6f).toInt(), flip = false) })
@@ -934,7 +936,8 @@ internal class HillsPainter : VistaPainter() {
 
     /**
      * A small vineyard tractor coming down the road with a trailer of crates ([fx] "tractor": how far it has come, from the
-     * bend by the hill to past us); red, big rear wheels turning, smoke from its pipe.
+     * bend by the hill to past us; from 0.97 gone, nothing of it left, so a dialog can end with it at 1 and keep it there);
+     * red, big rear wheels turning, smoke from its pipe.
      */
     private fun tractor(d: Float) {
         val z = z

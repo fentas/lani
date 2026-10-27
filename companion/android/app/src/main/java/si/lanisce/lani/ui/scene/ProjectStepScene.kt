@@ -207,6 +207,9 @@ private fun PartyStage(
     val back = cast.filter { people[it.id] != null }.drop(FRONT)
     Box(Modifier.fillMaxWidth().height(176.dp).padding(horizontal = 16.dp).clip(RoundedCornerShape(20.dp))) {
         Backdrop(place, Modifier.matchParentSize(), dim = 0.3f)
+        // what the village put up for it, at the stage's sides behind its people: the lines speak of it ("Glej, kako lepo
+        // gorijo", "Poglej stojnice", "Glej jih, kako plešejo!", "Kaj je zdaj na strehi?")
+        PartyDecor(c.decor, night = place.hour?.let { it >= 19f } == true, modifier = Modifier.matchParentSize())
         Garlands(night = place.hour?.let { it >= 19f } == true, modifier = Modifier.matchParentSize())
         Column(Modifier.matchParentSize().padding(horizontal = 10.dp, vertical = 6.dp), verticalArrangement = Arrangement.Bottom) {
             // everyone else of the village behind, smaller
@@ -239,6 +242,113 @@ private fun PartyStage(
             "${c.emoji} ${c.nameText.target}", color = Color.White, style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.Bold,
             modifier = Modifier.align(Alignment.TopStart).padding(10.dp).clearAndSetSemantics { },
         )
+    }
+}
+
+/**
+ * A party's decorations on its stage (the map's are drawn by FestivePainter): torches on poles at both sides, flames
+ * flickering, glowing at [night] (the first camp's evening); the newest roof's gable with the likof's little spruce and its
+ * ribbons on the ridge; a plank dance floor along the bottom, a couple turning in a polka at each side; two market stalls
+ * under striped awnings, honey hearts and whistles on their counters; tall banners waving on their poles. The bunting is
+ * the [Garlands]. Still, with the system's animations off.
+ */
+@Composable
+private fun PartyDecor(decor: List<si.lanisce.lani.game.Decor>, night: Boolean, modifier: Modifier) {
+    if (decor.none { it != si.lanisce.lani.game.Decor.BUNTING }) return
+    val still = rememberReducedMotion()
+    var t by remember { mutableFloatStateOf(0f) }
+    LaunchedEffect(still) {
+        if (still) return@LaunchedEffect
+        val start = System.currentTimeMillis()
+        while (true) {
+            withInfiniteAnimationFrameMillis { }
+            t = (System.currentTimeMillis() - start) / 1000f
+        }
+    }
+    Canvas(modifier) {
+        val w = size.width; val h = size.height
+        val u = w / 100f
+        val wood = Color(0xFF6A4A2E); val woodD = Color(0xFF4A3220)
+        for (d in decor) when (d) {
+            si.lanisce.lani.game.Decor.TORCHES -> for (x in listOf(5f * u, w - 5f * u)) {
+                drawLine(woodD, Offset(x, h), Offset(x, h * 0.32f), strokeWidth = 1.4f * u)
+                val flick = if (still) 0f else kotlin.math.sin(t * 9f + x).toFloat()
+                if (night) drawCircle(Color(0x55FFB347), radius = 9f * u, center = Offset(x, h * 0.28f))
+                val flame = androidx.compose.ui.graphics.Path().apply {
+                    moveTo(x - 2.2f * u, h * 0.33f); quadraticTo(x - 2.4f * u, h * 0.24f, x + flick * 0.8f * u, h * 0.17f - flick * u)
+                    quadraticTo(x + 2.4f * u, h * 0.24f, x + 2.2f * u, h * 0.33f); close()
+                }
+                drawPath(flame, Color(0xFFFF8A2A))
+                drawCircle(Color(0xFFFFE08A), radius = 1.1f * u, center = Offset(x, h * 0.29f))
+            }
+            si.lanisce.lani.game.Decor.SPRUCE -> {
+                // the newest roof's gable at the right, its rafters, the little spruce with ribbons on the ridge
+                val x0 = w * 0.64f; val x1 = w * 0.99f; val apex = Offset((x0 + x1) / 2f, h * 0.2f); val eave = h * 0.5f
+                val roof = androidx.compose.ui.graphics.Path().apply { moveTo(x0, eave); lineTo(apex.x, apex.y); lineTo(x1, eave); close() }
+                drawPath(roof, Color(0xFF8A4A36))
+                for (k in 1..4) {
+                    val f = k / 5f
+                    drawLine(woodD, Offset(x0 + (apex.x - x0) * f, eave + (apex.y - eave) * f), Offset(x1 - (x1 - apex.x) * f, eave + (apex.y - eave) * f), strokeWidth = 0.5f * u)
+                }
+                drawLine(woodD, Offset(x0, eave), Offset(x1, eave), strokeWidth = 1f * u)
+                val sway = if (still) 0f else kotlin.math.sin(t * 1.6f).toFloat() * 0.6f * u
+                for (k in 0 until 3) {
+                    val tw = (3.2f - k * 0.9f) * u; val ty = apex.y - (k * 2.4f + 1f) * u
+                    val tier = androidx.compose.ui.graphics.Path().apply { moveTo(apex.x - tw + sway, ty + 2.6f * u); lineTo(apex.x + sway * 1.4f, ty - 1.8f * u); lineTo(apex.x + tw + sway, ty + 2.6f * u); close() }
+                    drawPath(tier, Color(0xFF2E6B3A))
+                }
+                for ((k, col) in listOf(Color(0xFFE4002B), Color(0xFF0B4EA2), Color(0xFFFFB300)).withIndex()) {
+                    val ry = apex.y - (1.2f + k * 1.6f) * u
+                    drawLine(col, Offset(apex.x + sway, ry), Offset(apex.x + 4.5f * u + sway * 2f, ry + 3f * u + k * 0.6f * u), strokeWidth = 0.7f * u)
+                }
+            }
+            si.lanisce.lani.game.Decor.FLOOR -> {
+                val top = h * 0.9f
+                drawRect(wood, topLeft = Offset(0f, top), size = androidx.compose.ui.geometry.Size(w, h - top))
+                for (k in 0..20) drawLine(woodD, Offset(w * k / 20f, top), Offset(w * k / 20f, h), strokeWidth = 0.3f * u)
+                // a couple turning at each side, her skirt flying out
+                for ((i, cx) in listOf(13f * u, w - 13f * u).withIndex()) {
+                    val a = if (still) 0f else t * 2.6f + i * 1.7f
+                    val bob = if (still) 0f else kotlin.math.abs(kotlin.math.sin(t * 5.2f + i)) * 0.8f * u
+                    val r = 2.6f * u
+                    val him = Offset(cx + kotlin.math.cos(a) * r, top - 6f * u - bob); val her = Offset(cx - kotlin.math.cos(a) * r, top - 6f * u - bob)
+                    drawLine(Color(0xFF2A2A34), Offset(him.x, him.y + 1f * u), Offset(him.x, top), strokeWidth = 1.8f * u)
+                    drawCircle(Color(0xFFE8B896), radius = 1.3f * u, center = Offset(him.x, him.y - 1.6f * u))
+                    val skirt = androidx.compose.ui.graphics.Path().apply {
+                        moveTo(her.x, her.y); lineTo(her.x - (2.4f + kotlin.math.abs(kotlin.math.sin(a)) * 1.6f) * u, top); lineTo(her.x + (2.4f + kotlin.math.abs(kotlin.math.cos(a)) * 1.6f) * u, top); close()
+                    }
+                    drawPath(skirt, Color(0xFFC8303A))
+                    drawCircle(Color(0xFFE8B896), radius = 1.3f * u, center = Offset(her.x, her.y - 1.6f * u))
+                    drawLine(Color(0xFFE8B896), him, her, strokeWidth = 0.6f * u)
+                }
+            }
+            si.lanisce.lani.game.Decor.STALLS -> for ((i, x0) in listOf(1.5f * u, w - 21.5f * u).withIndex()) {
+                val sw = 20f * u; val awn = h * 0.42f; val counter = h * 0.74f
+                drawLine(woodD, Offset(x0 + 0.6f * u, awn), Offset(x0 + 0.6f * u, h), strokeWidth = 0.9f * u)
+                drawLine(woodD, Offset(x0 + sw - 0.6f * u, awn), Offset(x0 + sw - 0.6f * u, h), strokeWidth = 0.9f * u)
+                for (k in 0 until 6) drawRect(if (k % 2 == 0) Color(0xFFC8303A) else Color(0xFFF2EEE4), topLeft = Offset(x0 + k * sw / 6f, awn - 4f * u), size = androidx.compose.ui.geometry.Size(sw / 6f, 4f * u))
+                drawRect(wood, topLeft = Offset(x0, counter), size = androidx.compose.ui.geometry.Size(sw, 2.4f * u))
+                // honey hearts on one, whistles on the other
+                for (k in 0 until 5) {
+                    val gx = x0 + 2.5f * u + k * 3.6f * u
+                    if (i == 0) drawCircle(Color(0xFFB02A2A), radius = 1.2f * u, center = Offset(gx, counter - 1.2f * u))
+                    else drawLine(listOf(Color(0xFF3EA05A), Color(0xFFFFB300), Color(0xFF0B4EA2))[k % 3], Offset(gx - 1f * u, counter - 0.6f * u), Offset(gx + 1.2f * u, counter - 2.2f * u), strokeWidth = 0.9f * u)
+                }
+            }
+            si.lanisce.lani.game.Decor.BANNERS -> for ((i, x) in listOf(4f * u, w - 4f * u).withIndex()) {
+                drawLine(woodD, Offset(x, h), Offset(x, h * 0.08f), strokeWidth = 0.9f * u)
+                val wave = if (still) 0f else kotlin.math.sin(t * 2.2f + i).toFloat() * 1.2f * u
+                val dir = if (i == 0) 1f else -1f
+                for ((k, col) in listOf(Color(0xFFF7F9FD), Color(0xFF0B4EA2), Color(0xFFE4002B)).withIndex()) {
+                    val y0 = h * (0.1f + k * 0.12f)
+                    val band = androidx.compose.ui.graphics.Path().apply {
+                        moveTo(x, y0); lineTo(x + dir * 7f * u + wave, y0 + 1f * u); lineTo(x + dir * 7f * u + wave * 1.2f, y0 + h * 0.12f + 1f * u); lineTo(x, y0 + h * 0.12f); close()
+                    }
+                    drawPath(band, col)
+                }
+            }
+            si.lanisce.lani.game.Decor.BUNTING -> {}
+        }
     }
 }
 

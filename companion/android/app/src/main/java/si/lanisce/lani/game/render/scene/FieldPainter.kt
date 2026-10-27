@@ -37,8 +37,10 @@ import kotlin.math.sqrt
  * A dialog can bring the crows to the scarecrow ("crows"), ring the church bell on the hill ("bell"), send bats over the
  * field ("bats"), startle a hare out of the grass by the fence ("hare": the grass stirs, then it leaps out and bounds off),
  * send Sivko away from the cart and bring him back over the meadow ("horse": 0 away, the shafts down; 1 home), take the
- * scarecrow's straw hat off or give it the learner's felt one ("hat": 0 none; it drops on and slips down onto its nose)
- * and wind a red scarf round its neck ("scarf").
+ * scarecrow's straw hat off or give it the learner's felt one ("hat": 0 none; it drops on and slips down onto its nose),
+ * wind a red scarf round its neck ("scarf") and have a face drawn on its sack head ("face": 0 a blank sack, the crow off its
+ * arm below 0.5; rising, two round eyes, a nose and a wide smile in charcoal; not set: its stitched face; Tine's "Strašilo
+ * ima klobuk, ampak nima obraza. Nariši mu obraz!").
  *
  * Its wild animals ([WildPainter]): a hare in the potatoes, butterflies over the cabbages by day; a roe deer grazing at
  * the wheat's edge and a fox by the kozolec at dawn and dusk; the wild boar and her piglets digging up the potatoes at
@@ -1659,7 +1661,10 @@ internal class FieldPainter : WildPainter() {
             }
         }
         c.fillCircle(bx, by - 2.0f * p, 0.2f * p, Col.hex(0xC9AE7A))
-        if (k == 1) { c.set((bx - 0.07f * p).toInt(), (by - 2.03f * p).toInt(), Pal.OUTLINE); c.set((bx + 0.07f * p).toInt(), (by - 2.03f * p).toInt(), Pal.OUTLINE) }
+        // a dialog's face drawn on in charcoal ("face"), else its stitched one
+        val face = fx("face")
+        if (face != null) charcoalFace(bx, by, p, face)
+        else if (k == 1) { c.set((bx - 0.07f * p).toInt(), (by - 2.03f * p).toInt(), Pal.OUTLINE); c.set((bx + 0.07f * p).toInt(), (by - 2.03f * p).toInt(), Pal.OUTLINE) }
         else {
             // stitched eyes and mouth, the sack's weave
             for (xx in (bx - 0.18f * p).toInt()..(bx + 0.18f * p).toInt()) for (yy in (by - 2.18f * p).toInt()..(by - 1.82f * p).toInt()) if (((xx + yy) and 3) == 0 && c.inside(xx, yy) && c.ids[c.index(xx, yy)] == c.penId) c.set(xx, yy, Col.hex(0xB09868))
@@ -1679,9 +1684,61 @@ internal class FieldPainter : WildPainter() {
             else -> feltHat(bx, by, p, hat)
         }
         fx("scarf")?.let { if (it > 0.02f) scarf(bx, by, p, it) }
-        // the crow on the right arm, hopping now and then; startled off it by a tap it flies (see [crows])
+        // the crow on the right arm, hopping now and then; startled off it by a tap it flies (see [crows]); not while the
+        // birds are afraid of it, its face still blank ("face" below 0.5)
         val hop = if (sin(t * 2.3) > 0.7) 1 else 0
-        if (!crowUp(0, (bx + 0.55f * p).toInt(), (by - 1.8f * p).toInt())) perchedCrow((bx + 0.55f * p).toInt(), (by - 1.8f * p).toInt() - hop * k, flip = false)
+        if (crowOnArm() && !crowUp(0, (bx + 0.55f * p).toInt(), (by - 1.8f * p).toInt())) perchedCrow((bx + 0.55f * p).toInt(), (by - 1.8f * p).toInt() - hop * k, flip = false)
+    }
+
+    /** Whether the crow sits on the scarecrow's arm: always, but while a dialog's face ("face") is still blank or half drawn. */
+    private fun crowOnArm(): Boolean = (fx("face") ?: 1f) >= 0.5f
+
+    /**
+     * The face drawn on the scarecrow's sack head in charcoal ("face", [level]; Tine's "Strašilo ima klobuk, ampak nima
+     * obraza. Nariši mu obraz!"): 0 a blank sack; rising, a big face drawn on, the two round eyes first, then the nose, then
+     * a wide smile from one corner to the other, done by 0.65 and as it stays to 1. The sack's weave and the straw sticking
+     * out at its sides as ever; its head at ([bx], [by]) − 2 m ([p] px a metre).
+     */
+    private fun charcoalFace(bx: Float, by: Float, p: Float, level: Float) {
+        val k = detail
+        val hy = by - 2.0f * p
+        val coal = Col.hex(0x2A2624)
+        if (k > 1) {
+            // the sack's weave, the straw at its sides
+            for (xx in (bx - 0.18f * p).toInt()..(bx + 0.18f * p).toInt()) for (yy in (by - 2.18f * p).toInt()..(by - 1.82f * p).toInt()) if (((xx + yy) and 3) == 0 && c.inside(xx, yy) && c.ids[c.index(xx, yy)] == c.penId) c.set(xx, yy, Col.hex(0xB09868))
+            for (side in intArrayOf(-1, 1)) c.line((bx + side * 0.17f * p).toInt(), (by - 2.12f * p).toInt(), (bx + side * 0.27f * p).toInt(), (by - 2.0f * p).toInt(), Pal.HAY_L)
+        }
+        // the eyes, round: the left, then the right
+        val er = max(0.6f, 0.05f * p)
+        for ((j, side) in intArrayOf(-1, 1).withIndex()) {
+            if (level < 0.08f + j * 0.1f) continue
+            val ex = bx + side * 0.085f * p; val ey = hy - 0.05f * p
+            if (k == 1) c.set(ex.toInt(), ey.toInt(), coal)
+            else {
+                c.fillCircle(ex, ey, er, coal)
+                if (er >= 1.5f) c.fillCircle(ex, ey, er - 1f, Col.hex(0xC9AE7A)) // drawn round, the sack inside
+            }
+        }
+        // the nose
+        if (level >= 0.28f) {
+            val nx = bx; val ny = hy + 0.02f * p
+            if (k == 1) c.set(nx.toInt(), ny.toInt(), coal)
+            else { c.fillRect((nx - k / 2).toInt(), ny.toInt(), max(1, k - 1), k, coal); c.set((nx - k / 2).toInt() - 1, ny.toInt() + k - 1, coal) }
+        }
+        // the smile, wide, drawn from its left corner to its right
+        val s = ((level - 0.35f) / 0.3f).coerceIn(0f, 1f)
+        if (s <= 0f) return
+        val x0 = bx - 0.13f * p; val x1 = x0 + 0.26f * p * s
+        val th = max(1, k - 1)
+        var xx = x0
+        while (xx <= x1) {
+            val u = (xx - bx) / (0.13f * p)
+            val yy = hy + 0.07f * p + 0.05f * p * (1f - u * u)
+            for (o in 0 until th) c.set(xx.toInt(), yy.toInt() + o, coal)
+            xx += 1f
+        }
+        // its corners turned up
+        if (s >= 1f && k > 1) for (side in intArrayOf(-1, 1)) c.set((bx + side * 0.14f * p).toInt(), (hy + 0.06f * p).toInt(), coal)
     }
 
     /** The scarecrow's own straw hat over its sack head at ([bx], [by]) (its feet; [p] px a metre), snow on it in winter. */
@@ -1827,7 +1884,7 @@ internal class FieldPainter : WildPainter() {
         val k = detail
         val d = 17f; val p = pm(d); val bx = gx(6.4f, d); val by = gy(d)
         // the one off the scarecrow's arm, startled by a tap
-        if (crowUp(0, (bx + 0.55f * p).toInt(), (by - 1.8f * p).toInt())) flyingCrow(flyX, flyY, 0)
+        if (crowOnArm() && crowUp(0, (bx + 0.55f * p).toInt(), (by - 1.8f * p).toInt())) flyingCrow(flyX, flyY, 0)
         if (level <= 0.01f) return
         // where each one lands, and which way it faces: the left arm, the hat, the ground on either side
         val perches = arrayOf(

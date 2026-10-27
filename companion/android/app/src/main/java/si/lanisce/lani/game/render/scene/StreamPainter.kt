@@ -25,10 +25,18 @@ import kotlin.math.sqrt
  * window glows and the moon shimmers on the water; in winter ice grows out from the banks and snow lies on the stones.
  *
  * A dialog can send a trout leaping out of the current ("trout") and set the mill wheel's water ("wheel": 0 the flume
- * dry and the wheel still, 1 a full gush); bring a lamb by the ewe ("lamb": 0 turned from the water, 1 drinking), the
- * fire brigade's pump with its hose in the stream ("hose": 0 still, then a jet over the water, at 1 the hose loose and
- * spraying everyone) and, once the new bridge has its deck, a horse and cart over it ("cart": how far, 1 gone up the
- * far road). In the rain the stream runs fuller and greyer, spilling over its banks; fog lies thickest on the water.
+ * dry and the wheel still, 1 a full gush; from the step that lets the water in, once the wheel and the flume are in place);
+ * bring a lamb by the ewe ("lamb": 0 turned from the water, 1 drinking), the flock down to the water and home again
+ * ("flock": up to 0.5 they come in over the meadow from the right one after another and drink along the bank, from 0.5
+ * they go home toward us one after another, 1 gone; as many as the dialog counts, [SceneFrame.count], the ewe among them,
+ * else twenty) and the one who always comes last ("straggler": how far she has trotted in from the right, from 0.8 drinking
+ * at the water in front of us; she goes home with them, last), the fire brigade's pump with its hose in the stream
+ * ("hose": 0 still, then a jet over the water, at 1 the hose loose and spraying everyone) and, once the new bridge has its
+ * deck, a horse and cart over it ("cart": how far, 1 gone up the far road). In the rain the stream runs fuller and greyer,
+ * spilling over its banks, and the morning after the night's rain too, the sky clear ("full": how high); fog lies thickest on
+ * the water. Once the mill grinds, the day's sacks of flour stand stacked by its door to count ("sacks": as many as the
+ * dialog counts, else five). The wind can take the sheet off Micka's washing stone ("sheet": to 0.6 it flies up over the
+ * water, caught it is brought back, from 0.8 folded on the basket).
  *
  * Its wild animals ([WildPainter]): butterflies over the cress and the bank by day, a fox beyond the mill at dawn and
  * dusk, a hedgehog nosing along the near bank and bats low over the water at dusk and in the night ("bats" brings them).
@@ -72,6 +80,9 @@ internal class StreamPainter : WildPainter() {
     /** Whether France's mill grinds (the village project "mlin" finished): its water runs, its window glows. */
     private var millDone = true
 
+    /** Whether the mill's wheel and flume are in place (its last step, which lets the water in, on or done): a dialog's "wheel" turns it. */
+    private var wheelIn = true
+
     /** Whether the cart bridge has its deck (the village project "most", [DECKED]): the cart road runs over it. */
     private var roadDone = true
 
@@ -88,6 +99,7 @@ internal class StreamPainter : WildPainter() {
     override fun paint() {
         setup()
         millDone = stage(MILL) >= stages(MILL)
+        wheelIn = stage(MILL) >= stages(MILL) - 1
         roadDone = stage(BRIDGE) >= DECKED
         val z = z
         vistaSky(4, 21, moonX = ox + MOON_X * z, moonY = oy + 12 * z)
@@ -115,6 +127,10 @@ internal class StreamPainter : WildPainter() {
         items.add(17.3f to { groundShadow(2.25f, 17.3f, 0.6f); thing("sheep", slop = 1) { sheep(2.25f, 17.3f) } })
         // a dialog's lamb by the ewe ("lamb"), the fire brigade's pump ("hose"), a cart over the new bridge ("cart")
         fx("lamb")?.let { v -> items.add(LAMB_D to { groundShadow(LAMB_X, LAMB_D, 0.4f); prop { lamb(LAMB_X, LAMB_D, v) } }) }
+        // a dialog's flock at the water ("flock") and the one who comes last ("straggler"): only while they're here
+        val flock = fx("flock")
+        if (flock != null && flock < 1f) flock(flock)
+        fx("straggler")?.let { v -> straggler(v, flock) }
         fx("hose")?.let { v -> items.add(PUMP_D to { pump(v) }) }
         fx("cart")?.let { v -> if (stage(BRIDGE) >= DECKED) bridgeCart(v) }
         items.add(stonesD to { thing("stones") { steppingStones() } })
@@ -414,8 +430,11 @@ internal class StreamPainter : WildPainter() {
         return a * 0.45f + b * 0.3f + (Noise.v2(x * 2.2f, f * 2.4f, 77) - 0.5f) * 1.1f
     }
 
-    /** How much water pours onto the mill wheel: set by a dialog ("wheel"), else a steady run; none before the mill grinds. */
-    private fun gushOf(): Float = if (!millDone) 0f else fx("wheel") ?: 0.45f
+    /**
+     * How much water pours onto the mill wheel: set by a dialog ("wheel", from the step that lets the water in: Tine's
+     * "Voda teče … Glejte, kolo se vrti!"), else a steady run once the mill grinds; none before.
+     */
+    private fun gushOf(): Float = if (!wheelIn) 0f else fx("wheel") ?: if (millDone) 0.45f else 0f
 
     // ------------------------------------------------------------------ the mill
 
@@ -530,16 +549,32 @@ internal class StreamPainter : WildPainter() {
         c.hline(wx - z, wx + ww, wy + wh, Pal.WOOD_L)
         if (z > 1) { c.vline(wx + ww / 2, wy, wy + wh - 1, Pal.WOOD_D); c.hline(wx, wx + ww - 1, wy + wh / 2, Pal.WOOD_D) }
         if (st < 5) return
-        // a sack of flour by the door
+        // a sack of flour by the door; the day's sacks stacked there to be counted ("sacks": as many as the dialog counts, else
+        // five), a row of up to five on the ground and fewer on each row above
         if (millDone) {
-            val sx = gx(6.85f, d0 - 0.3f); val sy = gy(d0 - 0.3f); val sp = pm(d0 - 0.3f)
-            c.fillEllipse(sx, sy - 0.3f * sp, 0.24f * sp, 0.32f * sp, Col.hex(0xE8E0CC))
-            c.fillEllipse(sx - 0.06f * sp, sy - 0.38f * sp, 0.13f * sp, 0.16f * sp, Col.hex(0xF8F4EA))
-            c.fillRect((sx - 0.08f * sp).toInt(), (sy - 0.68f * sp).toInt(), max(1, (0.16f * sp).toInt()), max(1, (0.1f * sp).toInt()), Col.hex(0xC8BCA0))
+            val n = if (fx("sacks") != null) (frame.count ?: SACKS).coerceIn(1, SACKS_MAX) else 1
+            var k = 0
+            var row = 0
+            while (k < n) {
+                val inRow = min(5 - row, n - k)
+                for (j in 0 until inRow) {
+                    val sx = gx(6.85f + (j + row * 0.5f) * 0.5f, d0 - 0.3f); val sp = pm(d0 - 0.3f); val sy = gy(d0 - 0.3f) - row * 0.42f * sp
+                    sack(sx, sy, sp)
+                }
+                k += inRow; row++
+            }
         }
 
         flume()
         wheel()
+    }
+
+    /** A sack of flour standing at ([sx], [sy]) ([sp] px per metre): tied at the top, its lit side toward the light. */
+    private fun sack(sx: Float, sy: Float, sp: Float) {
+        c.fillEllipse(sx, sy - 0.3f * sp, 0.24f * sp, 0.32f * sp, Col.hex(0xE8E0CC))
+        c.fillEllipse(sx - 0.06f * sp, sy - 0.38f * sp, 0.13f * sp, 0.16f * sp, Col.hex(0xF8F4EA))
+        c.fillRect((sx - 0.08f * sp).toInt(), (sy - 0.68f * sp).toInt(), max(1, (0.16f * sp).toInt()), max(1, (0.1f * sp).toInt()), Col.hex(0xC8BCA0))
+        if (detail > 1) c.hline((sx - 0.2f * sp).toInt(), (sx + 0.2f * sp).toInt(), (sy - 0.02f * sp).toInt(), Col.hex(0xB8AC90))
     }
 
     /** The walls' top and the roof's bare rafters from the eaves up to the ridge beam, before the shingles go on. */
@@ -615,8 +650,8 @@ internal class StreamPainter : WildPainter() {
         val z = z
         val lv = fx("wheel")
         val spin = when {
-            !millDone -> 0.0 // new, and no water on it yet
-            lv == null -> 0.8
+            !wheelIn -> 0.0 // not there yet
+            lv == null -> if (millDone) 0.8 else 0.0 // new, and no water on it yet until the step lets it in
             lv < 0.12f -> 0.0
             lv < 0.5f -> 0.8
             else -> 1.9
@@ -744,7 +779,8 @@ internal class StreamPainter : WildPainter() {
     /**
      * The cart bridge upstream, as far as the village has built it (the project "most", [stage]): pegs on both banks and
      * a line over the water (measured), heaps of stones on the banks (gathered), the two stone piers (built), long logs
-     * from pier to pier (brought), a deck of thick planks across them (laid); finished, a railing along both sides (the
+     * from pier to pier with the deck's ten planks stacked on the bank (brought), a deck of thick planks across them (laid);
+     * finished, a railing along both sides (the
      * near one low). From the piers on, the cart road's ramps are heaped up to them off both banks (up to the deck once it
      * is laid), and once the deck is laid the cart road runs up the ramps and over it, from the village into the woods.
      * Scenery: the scene's bridge word is the footbridge (brv).
@@ -787,7 +823,13 @@ internal class StreamPainter : WildPainter() {
             c.fillEllipse(x0, y, max(1f, th * 0.5f), max(1f, th * 0.5f), Col.hex(0xC8A070))
             if (snow) c.hline(x0.toInt(), x1.toInt(), (y - th / 2f).toInt() - 1, Pal.SNOW_L)
         }
-        if (st == 4) { ramp(cartR, cartR + StreamPlan.RAMP, rampTop, 0f); return }
+        if (st == 4) {
+            ramp(cartR, cartR + StreamPlan.RAMP, rampTop, 0f)
+            // the deck's planks waiting on the bank beside the ramp, ten in two stacks ("Poglej kup. Koliko desk je še tam?")
+            plankStack(cartR + StreamPlan.RAMP + 0.9f, cartD - 1.6f)
+            plankStack(cartR + StreamPlan.RAMP + 3.3f, cartD - 1.6f)
+            return
+        }
         // the deck: thick planks across the logs, dark seams between them
         val lift = pierH + 0.3f
         val yTop = (hz + F * (EYE - lift) / cartD1).toInt(); val yBot = (hz + F * (EYE - lift) / cartD0).toInt()
@@ -890,6 +932,22 @@ internal class StreamPainter : WildPainter() {
     }
 
     /** A heap of gathered stones on the bank around ([x], [d]). */
+    /** Five thick planks stacked on the bank at ([x], [d]), along the stream, each a row of its own with its dark edge under it. */
+    private fun plankStack(x: Float, d: Float) {
+        val z = z
+        val p = pm(d)
+        val x0 = gx(x - 1.1f, d).toInt(); val x1 = gx(x + 1.1f, d).toInt()
+        val th = max(2 * z, (0.07f * p).toInt())
+        // the two bearers under the stack
+        for (bx in floatArrayOf(x - 0.8f, x + 0.8f)) c.fillRect(gx(bx, d).toInt() - z, (gy(d) - 0.08f * p).toInt() - z, 2 * z, z + 1, Pal.WOOD_X)
+        for (k in 0 until 5) {
+            val top = (gy(d) - 0.08f * p).toInt() - z - (k + 1) * th
+            val shift = ((Noise.rnd(k, 451) - 0.5f) * 0.12f * p).toInt()
+            for (j in 0 until th) c.hline(x0 + shift, x1 + shift, top + j, when { j == th - 1 -> Pal.WOOD_D; env.snow && k == 4 && j == 0 -> Pal.SNOW_L; j == 0 -> Pal.WOOD_L; else -> Pal.WOOD_M })
+            c.vline(x1 + shift, top, top + th - 1, Col.hex(0xC8A070)) // the cut end
+        }
+    }
+
     private fun stoneHeap(x: Float, d: Float, seed: Int) {
         val p = pm(d)
         for (k in 0 until 9) {
@@ -1066,6 +1124,104 @@ internal class StreamPainter : WildPainter() {
         c.set((hx + f * 0.12f * p).toInt(), (hy - 0.1f * p).toInt(), face) // an ear
         // drinking: rings where its muzzle is in the water
         if (level >= 0.9f && !env.snow) s.fx { ring(x - 0.75f, d - 0.05f, 0.08f + 0.14f * ((t * 1.1) % 1.0).toFloat(), 0.4f * (1f - ((t * 1.1) % 1.0).toFloat())) }
+    }
+
+    /**
+     * The flock at the water ("flock", [level]; Luka's "Ovce so žejne", "Preštej ovce pri vodi!", "Ovce, domov!"): as many
+     * as the dialog counts ([SceneFrame.count]), the ewe that always drinks here among them, else [FLOCK]. Up to 0.5 they
+     * come in over the meadow from beyond the picture's right edge one after another, each to her place along the right
+     * bank ([FLOCK_AT]: the front row at the water's edge drinking, the rows behind grazing, a head up now and then); from
+     * 0.5 they go home toward us down the bank one after another, out of the picture at its bottom, and at 1 they're gone.
+     * Scenery: the scene's word is the ewe.
+     */
+    private fun flock(level: Float) {
+        val n = ((frame.count ?: FLOCK) - 1).coerceIn(0, FLOCK_AT.size)
+        if (n == 0) return
+        val z = z
+        for (k in 0 until n) {
+            val (sx, sd) = FLOCK_AT[k]
+            val x = sx + (Noise.rnd(k, 471) - 0.5f) * 0.3f; val d = sd + (Noise.rnd(k, 472) - 0.5f) * 0.2f
+            val order = if (n == 1) 0f else k / (n - 1f)
+            val come = PokeArt.ease(level, 0.28f * order, 0.28f * order + FLOCK_WALK)
+            val go = PokeArt.ease(level, 0.5f + 0.28f * order, 0.5f + 0.28f * order + FLOCK_WALK)
+            if (come <= 0f || go >= 1f) continue
+            // from beyond the right edge over the meadow; home toward us, past the bottom of the picture
+            val fromD = d + (Noise.rnd(k, 473) - 0.5f) * 0.8f
+            val fromX = sideAt(w + 6 * z, fromD) + Noise.rnd(k, 474) * 1.5f
+            val homeD = depthAt(h + 10 * z); val homeX = x + 1.4f + Noise.rnd(k, 475) * 1.6f
+            val (px, pd) = when {
+                come < 1f -> (fromX + (x - fromX) * come) to (fromD + (d - fromD) * come)
+                go > 0f -> (x + (homeX - x) * go) to (d + (homeD - d) * go)
+                else -> x to d
+            }
+            val walking = come < 1f || go > 0f
+            val atWater = k < FRONT_ROW
+            // grazing behind the front row, a head up now and then; walking, it looks ahead
+            val up = walking || (!atWater && Noise.rnd(k, floor(t / 2.7 + k * 0.37).toInt(), 476) < 0.22f)
+            items.add(pd to { groundShadow(px, pd, 0.42f); prop { flockSheep(px, pd, left = go <= 0f, headUp = up, walk = if (walking) (t * 7.5 + k * 1.3).toFloat() else null, k) } })
+            if (!walking && atWater && !env.snow) {
+                val ph = ((t * 0.8 + Noise.rnd(k, 477)) % 1.0).toFloat()
+                s.fx { ring(px - 0.95f, pd - 0.05f, 0.1f + 0.16f * ph, 0.35f * (1f - ph)) }
+            }
+        }
+    }
+
+    /**
+     * The one who always comes last ("straggler", [level]; Davide's "Bianca vedno pije zadnja!"): she trots in alone from
+     * beyond the picture's right edge, in front of the others, to the water's edge near us ([STRAGGLER_X], [STRAGGLER_D]),
+     * there at 0.8; from there her head goes down and from 0.9 she drinks. When the flock goes home ([flock] past 0.8) she goes
+     * with them, last.
+     */
+    private fun straggler(level: Float, flock: Float?) {
+        val z = z
+        val x = STRAGGLER_X; val d = STRAGGLER_D
+        val come = PokeArt.ease(level, 0f, 0.8f)
+        val go = flock?.let { PokeArt.ease(it, 0.8f, 1f) } ?: 0f
+        if (come <= 0f || go >= 1f) return
+        val fromX = sideAt(w + 6 * z, d)
+        val homeD = depthAt(h + 10 * z); val homeX = x + 2.2f
+        val (px, pd) = if (go > 0f) (x + (homeX - x) * go) to (d + (homeD - d) * go) else (fromX + (x - fromX) * come) to d
+        val walking = come < 1f || go > 0f
+        val drinking = !walking && level >= 0.9f
+        items.add(pd to { groundShadow(px, pd, 0.42f); prop { flockSheep(px, pd, left = go <= 0f, headUp = walking || level < 0.85f, walk = if (walking) (t * 9.0).toFloat() else null, 7) } })
+        if (drinking && !env.snow) {
+            val ph = ((t * 0.9) % 1.0).toFloat()
+            s.fx { ring(px - 0.95f, pd - 0.05f, 0.1f + 0.16f * ph, 0.4f * (1f - ph)) }
+        }
+    }
+
+    /**
+     * One of the flock at ([x], [d]): as the ewe ([sheep]) draws her, facing [left] (the water) or right (home), her head down
+     * at the water or the grass, or [headUp]; walking, her legs stepping with [walk] (a phase) and her body bobbing. [k]
+     * varies her fleece a little.
+     */
+    private fun flockSheep(x: Float, d: Float, left: Boolean, headUp: Boolean, walk: Float?, k: Int) {
+        val z = z
+        val p = pm(d); val bx = gx(x, d); val by = gy(d)
+        val tint = 0.94f + 0.06f * Noise.rnd(k, 478)
+        val wool = Col.scale(if (env.snow) Col.hex(0xECE6DA) else Col.hex(0xF4F0E4), tint); val woolD = Col.scale(Col.hex(0xCFC8B8), tint); val face = Col.hex(0x2E2A2C)
+        val f = if (left) 1f else -1f
+        val bob = if (walk != null) abs(sin(walk)) * 0.05f * p else (sin(t * 1.4 + k) * 0.03f * p).toFloat()
+        for ((i, lx) in floatArrayOf(-0.32f, -0.12f, 0.2f, 0.38f).withIndex()) {
+            val lift = if (walk != null && (i % 2 == 0) == (sin(walk) > 0f)) 0.07f * p else 0f
+            val lxp = bx - f * lx * p + (if (walk != null) f * sin(walk + i).toFloat() * 0.04f * p else 0f)
+            for (j in 0 until max(1, (0.07f * p).toInt())) c.vline(lxp.toInt() + j, (by - 0.42f * p - bob).toInt(), (by - 1 - lift).toInt(), face)
+        }
+        val ex = bx - f * 0.05f * p; val ey = by - 0.62f * p - bob; val rx = 0.5f * p; val ry = 0.3f * p
+        for (y in max((ey - ry).toInt() - 1, c.top)..min((ey + ry).toInt() + 1, c.bottom - 1)) for (xx in max((ex - rx).toInt() - 1, c.left)..min((ex + rx).toInt() + 1, c.right - 1)) {
+            val dx = (xx + 0.5f - ex) / rx; val dy = (y + 0.5f - ey) / ry
+            val curl = Noise.v2(xx * 0.9f / z, y * 0.9f / z, 391 + k)
+            if (dx * dx + dy * dy > 1f + (curl - 0.5f) * 0.3f) continue
+            c.set(xx, y, if (dy > 0.35f || (z > 1 && curl > 0.72f)) woolD else wool)
+        }
+        // the head: down to the water or the grass, or up and ahead
+        val hx = bx - f * (if (headUp) 0.62f else 0.55f) * p; val hy = by - (if (headUp) 0.86f else 0.32f) * p - bob
+        val nx = bx - f * 0.4f * p; val ny = by - 0.62f * p - bob
+        if (headUp) for (i in 0..3) { val q = i / 3f; c.fillCircle(nx + (hx - nx) * q, ny + (hy - ny) * q, max(1f, 0.1f * p), face) }
+        else c.fillEllipse(bx - f * 0.4f * p, by - 0.5f * p - bob / 2f, max(1f, 0.13f * p), max(1f, 0.14f * p), face)
+        c.fillEllipse(hx, hy, max(1.5f, 0.14f * p), max(1.2f, 0.12f * p), face)
+        c.set((hx + f * 0.1f * p).toInt(), (hy - 0.12f * p).toInt(), face) // an ear
+        c.fillEllipse(nx - f * 0.02f * p, ny, max(1f, 0.12f * p), max(1f, 0.09f * p), wool) // the woolly top-knot
     }
 
     /**
@@ -1370,7 +1526,9 @@ internal class StreamPainter : WildPainter() {
         c.fillEllipse(bx, by - top / 2f, rx, ry + top / 2f, Pal.STONE_X)
         c.fillEllipse(bx, by - top, rx * 0.96f, ry, if (env.snow) Pal.SNOW_L else Pal.STONE_M)
         c.fillEllipse(bx - rx * 0.3f, by - top - ry * 0.2f, rx * 0.4f, ry * 0.5f, if (env.snow) Col.hex(0xFFFFFF) else Pal.STONE_L)
-        if (!env.snow) {
+        // a dialog's wind took the sheet off it ("sheet"): flying, or caught and folded on the basket
+        val blown = fx("sheet")?.takeIf { it > 0.02f && !env.snow }
+        if (blown == null && !env.snow) {
             // the wet sheet over its right half, trailing into the water
             val sheet = Col.hex(0xF2F0E8); val fold = Col.hex(0xC8CCD0)
             c.polyBegin()
@@ -1400,6 +1558,33 @@ internal class StreamPainter : WildPainter() {
         c.fillEllipse(kbx + krx * 0.35f, kby - kh - 0.1f * kp, krx * 0.4f, max(1f, 0.09f * kp), Col.hex(0x6A8CC8))
         c.fillEllipse(kbx - krx * 0.4f, kby - kh - 0.11f * kp, krx * 0.3f, max(1f, 0.07f * kp), Col.hex(0xC84A3A))
         if (z > 1) c.hline((kbx - krx * 0.6f).toInt(), (kbx + krx * 0.1f).toInt(), (kby - kh - 0.02f * kp).toInt(), Col.hex(0xC8CCD0))
+        blown?.let { blownSheet(it, bx, by - top - ry, p, kbx, kby - kh - 0.14f * kp, kp) }
+    }
+
+    /**
+     * The sheet the wind takes off the washing stone ("sheet", [level]; Rosa's "Il vento porta via il lenzuolo!"): rising to
+     * 0.6 it lifts off the stone at ([sx], [sy]) and flies up over the water toward the far bank, flapping; caught there, it
+     * is brought back down to the basket by 0.8, and from there lies folded on its heap at ([kx], [ky]), 1 as it stays.
+     */
+    private fun blownSheet(level: Float, sx: Float, sy: Float, p: Float, kx: Float, ky: Float, kp: Float) {
+        val z = z
+        val white = Col.hex(0xF2F0E8); val fold = Col.hex(0xC8CCD0)
+        fun at(u: Float) = (sx + u * 2.6f * p) to (sy - (sin(u * PI.toFloat()) * 1.5f + u * 0.4f) * p)
+        if (level < 0.8f) {
+            val (fx0, fy0) = at((level / 0.6f).coerceAtMost(1f))
+            val back = PokeArt.ease(level, 0.6f, 0.8f)
+            val mx = fx0 + (kx - fx0) * back; val my = fy0 + (ky - fy0) * back
+            val wv = (0.45f - 0.15f * back) * p; val hv = (0.3f - 0.1f * back) * p
+            val flap = sin(t * 9.0).toFloat() * (1f - back)
+            c.polyBegin()
+            c.polyAdd(mx - wv, my - hv * (1f + 0.3f * flap)); c.polyAdd(mx + wv, my - hv * (1f - 0.4f * flap))
+            c.polyAdd(mx + wv * 0.9f, my + hv * (0.8f + 0.3f * flap)); c.polyAdd(mx - wv * 1.05f, my + hv * (1f - 0.2f * flap))
+            c.polyFill { x, y -> if (((x + y) / max(1, 2 * z)) % 4 == 0) fold else white }
+            return
+        }
+        // folded on the heap
+        c.fillEllipse(kx, ky, 0.3f * kp, max(1.5f, 0.1f * kp), white)
+        c.hline((kx - 0.25f * kp).toInt(), (kx + 0.25f * kp).toInt(), (ky + 0.04f * kp).toInt(), fold)
     }
 
     /** Rushes along the left bank near us, brown heads on them. */
@@ -1456,9 +1641,13 @@ internal class StreamPainter : WildPainter() {
 
     // ------------------------------------------------------------------ weather on the water
 
+    /** The stream running high and brown after the night's rain ("full", France's "Ponoči je deževalo. Poglej potok!"), the sky clear. */
+    override fun weatherAnyway(): Boolean = fxOn("full") > 0.02f
+
     override fun weather() {
         val sky = frame.sky
-        if (sky.rain > 0.02f) swollen(sky.rain)
+        val high = max(sky.rain, fxOn("full"))
+        if (high > 0.02f) swollen(high)
         if (sky.fog > 0.02f) {
             // mist lying on the water, thicker than over the meadow
             Weather(c, w, h, detail, t, env, sky) { id -> id == waterId }.fog(sky.fog * 0.7f) { 1f }
@@ -1501,6 +1690,37 @@ internal class StreamPainter : WildPainter() {
         /** The lamb by the ewe ("lamb"), in front of her at the water's edge. */
         private const val LAMB_X = 1.7f
         private const val LAMB_D = 15.9f
+
+        /** The sacks of flour by the mill's door to count ("sacks"): five when the dialog counts none, at most fifteen. */
+        private const val SACKS = 5
+        private const val SACKS_MAX = 15
+
+        /** How many sheep the flock ("flock") brings when the dialog counts none: Luka's twenty ("Dvajset."), the ewe among them. */
+        const val FLOCK = 20
+        /** How much of the flock's level each sheep takes to walk to the water or away. */
+        private const val FLOCK_WALK = 0.22f
+        /** The first places of [FLOCK_AT]: the front row, at the water's edge, drinking. */
+        private const val FRONT_ROW = 5
+
+        /**
+         * Where the flock's sheep stand at the water, in the order they come (x, d): along the right bank, the front row at
+         * the water's edge (its sheep as far from it as the ewe, [sheep]), three rows behind it grazing, clear of the ewe and
+         * of the footbridge's end. As many places as a dialog may count, less the ewe.
+         */
+        internal val FLOCK_AT: List<Pair<Float, Float>> by lazy {
+            fun edge(d: Float) = StreamPlan.course(d) + StreamPlan.half(d)
+            val rows = listOf(
+                0.77f to floatArrayOf(13.9f, 14.7f, 15.5f, 16.45f, 18.2f),
+                2.0f to floatArrayOf(14.2f, 15.0f, 15.8f, 16.6f, 17.4f, 18.2f, 19.0f, 19.8f),
+                3.3f to floatArrayOf(13.9f, 14.7f, 15.5f, 16.3f, 17.1f, 17.9f, 18.7f, 19.5f, 20.3f),
+                4.6f to floatArrayOf(14.4f, 15.6f, 16.8f, 18.0f),
+            )
+            rows.flatMap { (off, ds) -> ds.map { d -> edge(d) + off to d } }
+        }
+
+        /** Where the one who comes last ("straggler") drinks: at the water's edge in front of us, before the ford and its people. */
+        private const val STRAGGLER_D = 12.0f
+        private val STRAGGLER_X = StreamPlan.course(STRAGGLER_D) + StreamPlan.half(STRAGGLER_D) + 0.75f
         /** The fire brigade's pump ("hose") on the right bank, a step from the water. */
         private const val PUMP_X = 1.9f
         private const val PUMP_D = 12.4f

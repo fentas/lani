@@ -52,10 +52,21 @@ object DialogVariants {
      * variant's own [Dialog.memory]). Null: no such dialog in the scene.
      */
     fun play(a: ActiveHappening, state: GameState, today: LocalDate): Pair<Happening, Dialog>? {
-        val id = a.dialog ?: a.happening.dialog ?: return null
-        val d = a.scene.dialogs.firstOrNull { it.id == id } ?: return null
-        val said = d.count?.let { c -> Counts.render(d, Counts.of(c, state, today, "${a.key}/${d.id}"), a.scene.language) } ?: d
+        val d = dialogOf(a) ?: return null
+        val said = counted(a, state, today)?.let { n -> Counts.render(d, n, a.scene.language) } ?: d
         return (d.memory?.let { a.happening.copy(memory = it) } ?: a.happening) to said
+    }
+
+    /**
+     * The number happening [a]'s dialog of [today] counts in [state]'s village ([Counts.of], as [play] puts it into its
+     * texts), null when it counts nothing: the picture draws that many of what is counted (the sheep at the water).
+     */
+    fun counted(a: ActiveHappening, state: GameState, today: LocalDate): Int? =
+        dialogOf(a)?.let { d -> d.count?.let { c -> Counts.of(c, state, today, "${a.key}/${d.id}") } }
+
+    private fun dialogOf(a: ActiveHappening): Dialog? {
+        val id = a.dialog ?: a.happening.dialog ?: return null
+        return a.scene.dialogs.firstOrNull { it.id == id }
     }
 
     /** [state] with [dialog] of happening [key] ("scene/happening") heard to its end [today]: the last one heard. */

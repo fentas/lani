@@ -6,6 +6,7 @@ import si.lanisce.lani.game.render.Noise
 import si.lanisce.lani.game.render.Pal
 import si.lanisce.lani.game.render.Season
 import si.lanisce.lani.game.scene.Poke
+import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.exp
@@ -30,7 +31,11 @@ import kotlin.math.sqrt
  * roses; the larches turn gold in October. The peaks glow pink at sunrise and sunset (alpenglow); at night the hut's
  * window and the church are lit and the moon lies on the lake. A dialog can ring the cows' bells ("cowbells"), the
  * church bell ("bell"), make a fish jump in the lake ("fish"), send the alpine choughs off the crags ("birds") and bring
- * the ibex up onto a crag at the brow ("ibex"). Fog
+ * the ibex up onto a crag at the brow ("ibex"); it can have the near cow lose her bell ("bell-lost": 0 lying in the grass
+ * by the stream, silent, her neck bare; rising, back up onto her neck; 1 as by itself: Luka's "Nič ne zvoni!" … "Tukaj je,
+ * v travi!"), set the milk pail by the milker's feet ("pail": how full, 1 to the brim: "Poglej vedro. Polno je!") and
+ * bring as many cows onto the pasture as it counts, a calf with them ("cows": the ones beyond the art's own four coming up
+ * over the brow, how far; 1 all of them grazing: "Preštej krave na planini!" … "Pa še tele."). Fog
  * lies in the valley over the lake; rain veils the peaks first. Taps: the cow lifts its head and lows, then shakes its
  * head so its bell clangs; the marmot stands up and whistles, then dives into its burrow and peeks out again.
  *
@@ -70,6 +75,11 @@ internal class AlpsPainter : WildPainter() {
     /** The far cows on the pasture: side, depth, facing left. */
     private val herd = listOf(Triple(-8.3f, 20.6f, true), Triple(-2.9f, 24f, false), Triple(1.3f, 20.8f, true))
 
+    /** A far cow of the frame ([herdNow]): side and depth (m), facing left, how far (m) below the brow she still is, her seed. */
+    private class FarCow(val x: Float, val d: Float, val left: Boolean, val sink: Float, val seed: Int)
+
+    private val farCows = ArrayList<FarCow>()
+
     /** The lake lies this far (m) below the pasture: its rows are those of a plane seen from EYE + DROP. */
     private val drop = 22f
 
@@ -106,6 +116,7 @@ internal class AlpsPainter : WildPainter() {
         alpenglow = fx("glow") ?: if (env.dark < 0.6f && frame.sky.gloom < 0.5f) (1f - abs(env.sun - 0.07f) / 0.2f).coerceIn(0f, 1f) else 0f
         bareMonths = env.month == 12 || env.month <= 2
         layers()
+        herdNow()
         for (i in 0..SKY_STEPS) skyLut[i] = skyAt(i / SKY_STEPS.toFloat())
         vistaSky(4, 61, moonX = ox + 96 * z, moonY = oy + 13 * z)
 
@@ -135,14 +146,27 @@ internal class AlpsPainter : WildPainter() {
             items.add(d to { prop(Pal.OUTLINE_TREE) { if (larch) larchTree(x, d, hgt, k) else spruceTree(x, d, hgt, k) } })
         }
         items.add(hutD to { thing("hut") { hut() } })
-        for ((k, cw) in herd.withIndex()) items.add(cw.second to { prop { cow(cw.first, cw.second, cw.third, k + 1, near = false) } })
+        for (cw in farCows) items.add(cw.d to {
+            if (cw.sink > 0.01f) overBrow(cw.x, cw.d) { prop { cow(cw.x, cw.d, cw.left, cw.seed, near = false, sink = cw.sink) } }
+            else prop { cow(cw.x, cw.d, cw.left, cw.seed, near = false) }
+        })
+        // the calf a dialog's herd has with it ("cows": Luka's "Pa še tele."), by the last of the art's own cows
+        if (fx("cows") != null) farCows.lastOrNull { it.seed <= herd.size }?.let { m ->
+            val x = m.x + (if (m.left) 1.1f else -1.1f); val d = m.d - 0.5f
+            items.add(d to { groundShadow(x, d, 0.6f); prop { cow(x, d, m.left, 9, near = false, calf = true) } })
+        }
         items.add(marmotD to { pokeable("marmot") { marmot() } })
         items.add(spruceD to { thing("spruce", outline = Pal.OUTLINE_TREE) { spruceTree(spruceX, spruceD, 17f, 0, big = true) } })
         items.add(larchD to { thing("larch", outline = Pal.OUTLINE_TREE) { larchTree(larchX, larchD, 16f, 0, big = true) } })
+        // the near cow and her bell; a dialog's "bell-lost" has it lying in the grass by the stream until it goes back on her
+        val lostBell = fx("bell-lost")?.takeIf { it < BELL_BACK }
         items.add(cowD to {
-            thing("cow") { cow(cowX, cowD, false, 0, near = true) }
-            thing("cowbell", slop = 1) { bell(cowBell[0], cowBell[1], pm(cowD), cowBell[2]) }
+            thing("cow") { cow(cowX, cowD, false, 0, near = true, bare = lostBell != null) }
+            if (lostBell == null) thing("cowbell", slop = 1) { bell(cowBell[0], cowBell[1], pm(cowD), cowBell[2]) }
         })
+        lostBell?.let { lostCowbell(it) }
+        // a dialog's milk pail by the milker's feet ("pail")
+        fx("pail")?.let { v -> if (v > 0.02f) items.add(PAIL_D to { groundShadow(PAIL_X, PAIL_D, 0.22f); prop { pail(PAIL_X, PAIL_D, v) } }) }
         items.add(fallD + 0.05f to { prop { ledge() }; thing("waterfall", outline = 0, slop = 1) { fall() } })
         items.add(wallD to { thing("wall") { dryWall(wallA, wallB, wallD, wallH, 71, stile = stileX) } })
         items.add(stoneD to { groundShadow(stoneX, stoneD - 0.2f, 0.8f); thing("stone") { boulder(stoneX, stoneD, 1.5f, 1.0f, 72, mossy = true) } })
@@ -691,7 +715,63 @@ internal class AlpsPainter : WildPainter() {
         c.penId = id
     }
 
-    private fun cowSpots(): List<Pair<Float, Float>> = listOf(cowX to cowD) + herd.map { it.first to it.second }
+    /**
+     * The far cows of the frame: the art's own three ([herd]); with a dialog's "cows" (Luka's "Preštej krave na planini!",
+     * Florian's "Heute zählst du!", Jack's "Daisy's not alone today"), as many cows on the pasture as the dialog counts
+     * ([SceneFrame.count], the near one among them; else the art's four): those beyond the art's own come up over the
+     * pasture's brow from the slope behind it one after another, each to her place ([MORE_COWS]), the level how far they
+     * have come, 1 all of them grazing there; fewer than four, the last of the art's own aren't there.
+     */
+    private fun herdNow() {
+        farCows.clear()
+        moreCows()
+        // where they all stand, worked out once a frame: the pasture's shadows look them up for every pixel
+        spotsNow = listOf(cowX to cowD) + farCows.filter { it.sink <= 0.01f }.map { it.x to it.d }
+    }
+
+    /** The cows of the frame's [farCows]: the art's own, and those a dialog's "cows" brings ([herdNow]). */
+    private fun moreCows() {
+        val cue = fx("cows")
+        val n = if (cue == null) herd.size + 1 else (frame.count ?: (herd.size + 1)).coerceIn(1, herd.size + 1 + MORE_COWS.size)
+        for (k in 0 until min(herd.size, n - 1)) { val (x, d, left) = herd[k]; farCows.add(FarCow(x, d, left, 0f, k + 1)) }
+        val more = n - 1 - herd.size
+        if (cue == null || more <= 0) return
+        for (k in 0 until more) {
+            val (x, d) = MORE_COWS[k]
+            val s0 = if (more == 1) 0f else 0.5f * k / (more - 1f)
+            val u = PokeArt.ease(cue, s0, s0 + 0.5f)
+            val from = brow(x) + 2.6f
+            val dd = from + (d - from) * u
+            farCows.add(FarCow(x, dd, Noise.rnd(k, 791) < 0.5f, max(0f, dd - brow(x)) * 0.9f, herd.size + 2 + k))
+        }
+    }
+
+    private var browKeep = IntArray(0)
+    private var browKeepIds = IntArray(0)
+
+    /**
+     * Draws [draw], a cow at side [x] coming up the slope beyond the brow at depth [d], with what of her falls below the
+     * brow's edge hidden behind the pasture: the pasture's pixels there are kept and put back over her.
+     */
+    private inline fun overBrow(x: Float, d: Float, draw: () -> Unit) {
+        val p = pm(d)
+        val x0 = max((gx(x, d) - 2.2f * p).toInt(), c.left); val x1 = min((gx(x, d) + 2.2f * p).toInt(), c.right - 1)
+        val y0 = max((gy(d) - 2.2f * p).toInt(), c.top); val y1 = min((gy(d) + 2.6f * p).toInt() + 2, c.bottom - 1)
+        if (x1 < x0 || y1 < y0) { draw(); return }
+        val bw = x1 - x0 + 1; val n = bw * (y1 - y0 + 1)
+        if (browKeep.size < n) { browKeep = IntArray(n); browKeepIds = IntArray(n) }
+        for (yy in y0..y1) for (xx in x0..x1) { val i = c.index(xx, yy); val k = (yy - y0) * bw + (xx - x0); browKeep[k] = c.pixels[i]; browKeepIds[k] = c.ids[i] }
+        draw()
+        for (xx in x0..x1) {
+            val edge = browRow[xx].coerceAtLeast(y0)
+            for (yy in edge..y1) { val i = c.index(xx, yy); val k = (yy - y0) * bw + (xx - x0); c.pixels[i] = browKeep[k]; c.ids[i] = browKeepIds[k] }
+        }
+    }
+
+    private var spotsNow: List<Pair<Float, Float>> = emptyList()
+
+    /** Where the cows on the pasture stand this frame, the near one first ([herdNow]). */
+    private fun cowSpots(): List<Pair<Float, Float>> = spotsNow
 
     /** The path: bare earth and stones worn into the pasture, grass along its middle, winding over the brow. */
     private fun pathPixels() {
@@ -944,18 +1024,19 @@ internal class AlpsPainter : WildPainter() {
     /**
      * A cika cow (the red-brown Bohinj breed with a white stripe along its back): legs, a deep body, its head down grazing
      * (or up, lowing, when poked), small horns, ears, a tail with a tuft swishing, the udder; the bell on a leather strap
-     * under its neck. [near]: the cow in front, whose bell is its own thing and which reacts to a tap.
+     * under its neck. [near]: the cow in front, whose bell is its own thing and which reacts to a tap; [bare]: her neck bare,
+     * the strap and the bell lost ("bell-lost"); [sink]: m below the pasture, still on the slope beyond the brow ("cows");
+     * [calf]: a calf, smaller, no horns, no udder, no bell.
      */
-    private fun cow(x: Float, d: Float, flip: Boolean, seed: Int, near: Boolean) {
+    private fun cow(x: Float, d: Float, flip: Boolean, seed: Int, near: Boolean, bare: Boolean = false, sink: Float = 0f, calf: Boolean = false) {
         val z = z
-        val p = pm(d); val bx = gx(x, d); val by = gy(d)
+        val p = pm(d) * (if (calf) 0.6f else 1f); val bx = gx(x, d); val by = gy(d) + sink * pm(d)
         val dir = if (flip) -1f else 1f
         val red = Col.hex(0x9A4A2A); val redL = Col.hex(0xBE6A3E); val redD = Col.hex(0x6A3020); val white = Col.hex(0xF2EADC); val horn = Col.hex(0xE8DCC0)
         // what it does: grazing, the head swinging a little; poked (near cow): head up lowing, then shaking its head
         val pk = if (near) poked("cow") else null
         val a = pk?.age(t) ?: 0f
-        val bells = fxOn("cowbells")
-        var headUp = if (bells > 0.02f) 0.5f + 0.3f * sin(t.toFloat() * 2f + seed) else 0.12f + 0.08f * sin(t.toFloat() * 0.7f + seed)
+        var headUp = headUpOf(seed)
         var shake = 0f
         if (pk != null) {
             if (pk.step == 0) headUp = PokeArt.ease(a, 0f, 0.35f) * (1f - PokeArt.ease(a, 1.8f, 2.2f)) * 0.9f + headUp * (1f - PokeArt.ease(a, 0f, 0.35f))
@@ -991,7 +1072,7 @@ internal class AlpsPainter : WildPainter() {
             }
         }
         // the udder
-        c.fillEllipse(cx - 0.45f * dir * p, cy + ry * 0.95f, 0.17f * p, 0.1f * p + 0.5f, Col.hex(0xE8A8A0))
+        if (!calf) c.fillEllipse(cx - 0.45f * dir * p, cy + ry * 0.95f, 0.17f * p, 0.1f * p + 0.5f, Col.hex(0xE8A8A0))
         // the tail, swishing, its tuft
         val sw = sin(t.toFloat() * 1.7f + seed * 2f) * 0.12f * p * (if (pk?.step == 1) 2.5f else 1f)
         val tx = cx - dir * rx * 0.98f; val ty = cy - ry * 0.6f
@@ -1014,18 +1095,21 @@ internal class AlpsPainter : WildPainter() {
         if (p > 8f) c.fillEllipse(hx + dir * 0.02f * p, hy2 - hh * 0.2f, 0.035f * p + 0.3f, 0.08f * p, white)
         // ears and horns
         c.fillEllipse(hx - dir * 0.2f * p, hy2 - hh * 0.45f, 0.1f * p, 0.05f * p + 0.5f, redD)
-        c.line((hx - 0.06f * p).toInt(), (hy2 - hh * 0.8f).toInt(), (hx - 0.14f * p).toInt(), (hy2 - hh * 1.2f).toInt(), horn)
-        c.line((hx + 0.06f * p).toInt(), (hy2 - hh * 0.8f).toInt(), (hx + 0.14f * p).toInt(), (hy2 - hh * 1.2f).toInt(), horn)
+        if (!calf) {
+            c.line((hx - 0.06f * p).toInt(), (hy2 - hh * 0.8f).toInt(), (hx - 0.14f * p).toInt(), (hy2 - hh * 1.2f).toInt(), horn)
+            c.line((hx + 0.06f * p).toInt(), (hy2 - hh * 0.8f).toInt(), (hx + 0.14f * p).toInt(), (hy2 - hh * 1.2f).toInt(), horn)
+        }
         if (p > 8f) {
             c.set((hx + dir * 0.06f * p).toInt(), (hy2 - hh * 0.2f).toInt(), Col.hex(0x1E1A18))
             if (z > 1) c.set((hx + dir * 0.06f * p).toInt() - 1, (hy2 - hh * 0.2f).toInt() - 1, Col.hex(0xFFFFFF))
         }
         // the strap round the neck; the bell hangs from it (the near cow's is a thing of its own)
         val sx = nx + (hx - nx) * 0.45f; val sy = neckTop + (hy2 - neckTop) * 0.45f
-        c.line((sx - 0.12f * p).toInt(), (sy - 0.18f * p).toInt(), (sx + 0.05f * p).toInt(), (sy + 0.2f * p).toInt(), Col.hex(0x3A2418))
+        if (!bare && !calf) c.line((sx - 0.12f * p).toInt(), (sy - 0.18f * p).toInt(), (sx + 0.05f * p).toInt(), (sy + 0.2f * p).toInt(), Col.hex(0x3A2418))
+        val bells = fxOn("cowbells")
         val swing = sin(t.toFloat() * (if (bells > 0.02f) 7f else 1.5f) + seed) * (if (bells > 0.02f) 0.5f else 0.12f) + shake * 0.6f
         if (near) { cowBell[0] = sx + 0.05f * p; cowBell[1] = sy + 0.22f * p; cowBell[2] = swing }
-        else bell(sx + 0.05f * p, sy + 0.22f * p, p, swing)
+        else if (!calf) bell(sx + 0.05f * p, sy + 0.22f * p, p, swing)
         // lowing: its breath, and the sound going out
         if (pk != null && pk.step == 0 && a in 0.35f..1.9f) {
             val mx = hx + dir * hw; val my = hy2 + hh * 0.7f
@@ -1050,17 +1134,134 @@ internal class AlpsPainter : WildPainter() {
         }
     }
 
-    /** The bells ringing ([fx] "cowbells"): rings going out from every cow's bell, louder the higher the level. */
+    /** How far up a cow's head is (0 down at the grass), grazing or with the bells ringing ("cowbells"), before a poke. */
+    private fun headUpOf(seed: Int): Float =
+        if (fxOn("cowbells") > 0.02f) 0.5f + 0.3f * sin(t.toFloat() * 2f + seed) else 0.12f + 0.08f * sin(t.toFloat() * 0.7f + seed)
+
+    /** Where the near cow's bell hangs from her strap (picture px), her head as it is ([headUpOf]): as [cow] works it out. */
+    private fun neckBell(): Pair<Float, Float> {
+        val p = pm(cowD); val bx = gx(cowX, cowD); val by = gy(cowD)
+        val headUp = headUpOf(0)
+        val cy = by - 1.02f * p; val rx = 1.02f * p; val ry = 0.36f * p
+        val nx = bx + rx * 0.82f
+        val hx = nx + (0.38f + 0.1f * headUp) * p; val hy2 = by - (0.25f + 0.95f * headUp) * p
+        val neckTop = cy - ry * 0.55f
+        val sx = nx + (hx - nx) * 0.45f; val sy = neckTop + (hy2 - neckTop) * 0.45f
+        return (sx + 0.05f * p) to (sy + 0.22f * p)
+    }
+
+    /**
+     * The near cow's lost bell ("bell-lost", [level]; Luka's "Poglej tisto kravo. Nič ne zvoni!" … "Tukaj je, v travi!"): at 0
+     * it lies on its side in the grass by the stream ([BELL_X], [BELL_D]), its strap beside it, silent, the cowbell to tap
+     * there, her neck bare; rising, it goes back up onto her neck in an arc, swinging; from [BELL_BACK] it hangs there as
+     * by itself.
+     */
+    private fun lostCowbell(level: Float) {
+        val u = (level / BELL_BACK).coerceIn(0f, 1f)
+        if (u <= 0.02f) {
+            items.add(BELL_D to { groundShadow(BELL_X, BELL_D, 0.28f); thing("cowbell", slop = 1) { lyingBell(gx(BELL_X, BELL_D), gy(BELL_D), pm(BELL_D)) } })
+            return
+        }
+        val e = PokeArt.ease(u)
+        val d = BELL_D + (cowD - BELL_D) * e
+        items.add(d to {
+            thing("cowbell", slop = 1) {
+                val (nx, ny) = neckBell()
+                val x0 = gx(BELL_X, BELL_D); val y0 = gy(BELL_D) - 0.05f * pm(BELL_D)
+                val x = x0 + (nx - x0) * e; val y = y0 + (ny - y0) * e - sin(e * PI.toFloat()) * 2.4f * pm(d)
+                bell(x, y, pm(d), sin(t.toFloat() * 6f) * 0.4f)
+            }
+        })
+    }
+
+    /** The cowbell lying on its side in the grass at ([x], [y]) ([p] px per metre), its mouth toward us, the strap beside it. */
+    private fun lyingBell(x: Float, y: Float, p: Float) {
+        val dark = Col.hex(0x5A4A2A); val mid = Col.hex(0xA88A3A); val lit = Col.hex(0xE8C868)
+        val len = max(3f, 0.36f * p); val hi = max(2f, 0.24f * p)
+        // the body, wider at its mouth (on the right), lit on top
+        for (j in 0 until max(2, len.toInt())) {
+            val f = j / max(1f, len - 1f)
+            val half = hi * (0.32f + 0.22f * f)
+            val xx = (x - len / 2f + j).toInt()
+            for (yy in (y - hi * 0.5f - half).toInt()..(y - hi * 0.5f + half).toInt()) {
+                val v = (yy + 0.5f - (y - hi * 0.5f)) / max(1f, half)
+                c.set(xx, yy, if (v < -0.35f) lit else if (v > 0.45f || j == len.toInt() - 1) dark else mid)
+            }
+        }
+        // the mouth, dark inside, and the clapper showing
+        c.vline((x + len / 2f).toInt(), (y - hi * 0.85f).toInt(), (y - hi * 0.15f).toInt(), Col.hex(0x2A2218))
+        // the leather strap lying in a loop beside it
+        val strap = Col.hex(0x3A2418)
+        c.line((x - len / 2f).toInt(), (y - hi * 0.4f).toInt(), (x - len * 1.1f).toInt(), (y - hi * 0.1f).toInt(), strap)
+        c.line((x - len * 1.1f).toInt(), (y - hi * 0.1f).toInt(), (x - len * 0.4f).toInt(), (y + max(1f, hi * 0.15f)).toInt(), strap)
+    }
+
+    /**
+     * The milk pail on the grass by the milker's feet ("pail", [level]; Luka's "Poglej vedro. Polno je!", "Na, drži vedro"):
+     * a wooden pail of staves with two iron hoops and a handle, milk in it to the level, at 1 white to the brim with a little
+     * foam; none at 0 (not set: none).
+     */
+    private fun pail(x: Float, d: Float, level: Float) {
+        val z = z
+        val p = pm(d); val bx = gx(x, d); val by = gy(d)
+        val rows = F * EYE / (d * d)
+        val top = 0.3f * p; val rt = 0.17f * p; val rb = 0.14f * p; val ry = max(1f, 0.17f * rows)
+        val wood = Col.hex(0xB08A58); val woodL = Col.hex(0xD0AC74); val woodD = Col.hex(0x7A5A36); val hoop = Col.hex(0x4A4A50)
+        // the staves, round at the bottom, lit on the sun's side
+        val sunLeft = (sunAt()?.first ?: vx) < bx
+        for (py in max((by - top).toInt(), c.top)..min(by.toInt(), c.bottom - 1)) {
+            val f = (by - py) / max(1f, top)
+            val half = rb + (rt - rb) * f
+            for (px in max((bx - half).toInt(), c.left)..min((bx + half).toInt(), c.right - 1)) {
+                val u = (px + 0.5f - bx) / max(1f, half)
+                val stave = z > 1 && Math.floorMod(px - (bx - half).toInt(), 2 * z) == 0
+                c.set(px, py, when {
+                    (if (sunLeft) u < -0.45f else u > 0.45f) -> woodL
+                    (if (sunLeft) u > 0.6f else u < -0.6f) || stave -> woodD
+                    else -> wood
+                })
+            }
+        }
+        for (hf in floatArrayOf(0.22f, 0.78f)) {
+            val hy = (by - top * hf).toInt(); val half = rb + (rt - rb) * hf
+            c.hline((bx - half).toInt(), (bx + half).toInt(), hy, hoop)
+        }
+        // the rim seen from above, the inside, the milk in it
+        val ry0 = by - top
+        c.fillEllipse(bx, ry0, rt, ry, woodD)
+        c.fillEllipse(bx, ry0 + ry * 0.15f, rt * 0.82f, ry * 0.75f, Col.hex(0x5A4028))
+        val fill = level.coerceIn(0f, 1f)
+        val milk = Col.mix(Col.hex(0xC8C4B8), Col.hex(0xFAF8F0), fill)
+        c.fillEllipse(bx, ry0 + ry * 0.15f + (1f - fill) * ry * 0.4f, rt * (0.5f + 0.32f * fill), max(0.6f, ry * (0.4f + 0.35f * fill)), milk)
+        if (fill > 0.85f) for (k in 0 until 3 + 2 * z) {
+            // a little foam
+            val fx0 = bx + (Noise.rnd(k, 781) - 0.5f) * rt * 1.2f; val fy0 = ry0 + ry * 0.15f + (Noise.rnd(k, 782) - 0.5f) * ry * 0.8f
+            c.set(fx0.toInt(), fy0.toInt(), Col.hex(0xFFFFFF))
+        }
+        // the handle, a hoop of iron over it, lying back
+        c.line((bx - rt).toInt(), ry0.toInt(), (bx - rt * 0.4f).toInt(), (ry0 - ry * 1.6f - 0.04f * p).toInt(), hoop)
+        c.line((bx - rt * 0.4f).toInt(), (ry0 - ry * 1.6f - 0.04f * p).toInt(), (bx + rt * 0.4f).toInt(), (ry0 - ry * 1.6f - 0.04f * p).toInt(), hoop)
+        c.line((bx + rt * 0.4f).toInt(), (ry0 - ry * 1.6f - 0.04f * p).toInt(), (bx + rt).toInt(), ry0.toInt(), hoop)
+    }
+
+    /**
+     * The bells ringing ([fx] "cowbells"): rings going out from every cow's bell, louder the higher the level; none from the
+     * near cow's while it is lost ("bell-lost").
+     */
     private fun cowbellRings() {
         val lvl = fxOn("cowbells")
         if (lvl <= 0.02f) return
         val z = z
+        val silent = (fx("bell-lost") ?: 1f) < BELL_BACK
+        // the near cow, then the far ones on the pasture (not those still coming up over the brow)
+        val ringing = listOf(Triple(cowX, cowD, false)) + farCows.filter { it.sink <= 0.01f }.map { Triple(it.x, it.d, it.left) }
         s.fx {
-            for ((k, spot) in cowSpots().withIndex()) {
-                val (x, d) = spot
+            for ((k, spot) in ringing.withIndex()) {
+                if (k == 0 && silent) continue
+                val (x, d, left) = spot
                 val p = pm(d)
                 val u = ((t * (0.9 + k * 0.13) + k * 0.37) % 1.0).toFloat()
-                val bx = gx(x + (if (k == 0 || !herd[k - 1].third) 1f else -1f) * 1.25f, d); val by = gy(d) - 0.7f * p
+                val bx = gx(x + (if (!left) 1f else -1f) * 1.25f, d); val by = gy(d) - 0.7f * p
                 PokeArt.rings(c, bx, by, u, (0.9f + 0.3f * lvl) * p, Col.hex(0xFFE08A), max(1, z), 0.85f * lvl, n = 2)
             }
         }
@@ -1347,6 +1548,24 @@ internal class AlpsPainter : WildPainter() {
         /** Where a dialog's "ibex" brings him: a crag up at the pasture's brow between the stream and the larch, in the open. */
         const val IBEX_X = 9.9f
         const val IBEX_D = 23f
+
+        /**
+         * Where the cows a dialog's "cows" brings beyond the art's own four graze (x, d), in the order they come up over the
+         * brow: between the hut and the stream, clear of the near cow, the people and the chamois' places.
+         */
+        private val MORE_COWS: List<Pair<Float, Float>> = listOf(
+            4.2f to 22.4f, -1f to 26f, 0.2f to 18.6f, 5.2f to 25.6f, -4.4f to 21.2f, 2.6f to 25f,
+            -2.2f to 22f, 4.6f to 20f, 0f to 23.8f, 1.6f to 26.4f, -2.6f to 19.6f, 3f to 27f,
+        )
+
+        /** Where the near cow's lost bell lies ("bell-lost" 0): in the grass by the stream, beside the stream's spot (m). */
+        private const val BELL_X = 3f
+        private const val BELL_D = 11.7f
+        /** From this "bell-lost" level on the bell hangs on her neck again, as by itself. */
+        private const val BELL_BACK = 0.97f
+        /** The milk pail ("pail") on the grass by the feet of whoever stands at the wall (m). */
+        private const val PAIL_X = -2.05f
+        private const val PAIL_D = 11.2f
 
         private const val SKY_STEPS = 48
         private const val FAR = 1

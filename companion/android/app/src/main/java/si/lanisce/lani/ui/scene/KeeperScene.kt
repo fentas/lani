@@ -57,15 +57,24 @@ fun KeeperScene(vm: AppViewModel, k: KeeperTalk) {
                 // folded away while the keyboard is up (a typed turn), so the panel has the room (DialogRoom)
                 DialogStage {
                     Box(Modifier.fillMaxWidth().height(150.dp).padding(horizontal = 16.dp).clip(RoundedCornerShape(20.dp))) {
-                        // his spot as its cycle has it today (the charcoal pile close up, smoking …), else the woods behind him
+                        // his spot as its cycle has it today (the charcoal pile close up, smoking …); the charcoal burner of a
+                        // culture without the pile's rounds at his pile as the map draws it (his "This is my pile" with it in
+                        // view); else the woods behind him
                         val state = vm.game.state
                         val config = androidx.compose.ui.platform.LocalConfiguration.current
                         val density = androidx.compose.ui.platform.LocalDensity.current.density
-                        val pile = k.keeper.day != null && state != null &&
+                        val pile = (k.keeper.day != null || k.keeper.cycle == null && k.keeper.spot == si.lanisce.lani.game.scene.TownSpots.KOPA) && state != null &&
                             pileSpot(state, (config.screenWidthDp * density).toInt(), (config.screenHeightDp * density).toInt()) != null
                         if (pile && state != null) {
                             Backdrop(StagePlace.home(v.art), Modifier.matchParentSize(), dim = 0.1f)
-                            PilePicture(state, k.keeper, k.keeper.day?.look, Modifier.matchParentSize())
+                            // the night watch's breakout: the pile's crown ablaze until it is saved, all of it when it is lost
+                            val fire = when {
+                                k.race == null -> 0f
+                                k.raced == true -> 0f
+                                k.raced == false -> 1f
+                                else -> 0.5f
+                            }
+                            PilePicture(state, k.keeper, k.keeper.day?.look, Modifier.matchParentSize(), fire = fire)
                         } else Backdrop(StagePlace.home(v.art), Modifier.matchParentSize(), dim = 0.35f)
                         Column(
                             Modifier.align(if (pile) Alignment.BottomStart else Alignment.BottomCenter).padding(bottom = 8.dp, start = if (pile) 8.dp else 0.dp),
