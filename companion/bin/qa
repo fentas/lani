@@ -6255,6 +6255,22 @@ def school_a2():
     table, the choice), its second (the gap text "Nered pri Micki", the fourth gap wrong: Lukova for Francetov, its correction), then its test straight
     away ("⏩ Znam že"), passed: the unit done in the dev bridge's village. adb types no č, š, ž: such an answer is almost
     right, half an item (the test passes with three of them, 10½ of 12)."""
+    def press(label: str, wait=4.0) -> bool:
+        """Taps [label]: under a sheet or a quick question, below the fold when the content above it is long; swiped up
+        to it, above the bottom bar (the page's end, so not in the band scroll_to wants)."""
+        wait_for(label, wait)
+        for _ in range(4):
+            c = find(label)
+            if c is not None and c[1] <= 2300:  # the screen 2400 px, the gesture bar under 2330
+                tap_at(c)
+                return True
+            adb("shell", "input", "swipe", "540", "1600", "540", "1000", "400")
+            time.sleep(1)
+        return False
+
+    def check() -> bool:
+        return press("Preveri · Check")
+
     if not (ROOT / "companion/course/sl/units/cigav.json").exists():
         return "no A2 unit here (companion/course/sl/units/cigav.json)"
     wait_for("Danes · Today", 30)
@@ -6299,19 +6315,11 @@ def school_a2():
             assert c is not None, f"step {i}'s gap"
             tap_at(c)
             type_text(answer)
-            # Check under the question (and its letter chips), below the fold once the table has grown: one swipe
-            # brings it up, above the bottom bar's "Naprej" (the end of the page, so clear of the band scroll_to wants)
-            c = find("Preveri · Check")
-            if c is None or c[1] > 2250:
-                adb("shell", "input", "swipe", "540", "1600", "540", "1000", "400")
-                time.sleep(1)
-                c = find("Preveri · Check")
-            assert c is not None and c[1] <= 2250, f"step {i}'s check"
-            tap_at(c)
+            assert check(), f"step {i}'s check"
         assert wait_for("Pravilno", 6) or find("Skoraj"), f"step {i} answered right (or almost: no š)"
         if i in (3, 5):
             shot(f"school-a2-intro-{i}")
-        assert tap("Naprej · Next", 4), f"step {i}'s next"
+        assert press("Naprej · Next", 4), f"step {i}'s next"
     assert wait_for("Povzetek", 8), "the intro's summary card (the page cigav)"
     shot("school-a2-summary")
     assert tap("Na delovne liste", 5), "on to the worksheets"
@@ -6325,53 +6333,53 @@ def school_a2():
     for label, answer in cells:
         assert fill(label, answer), f"the cell {label}"
     shot("school-a2-table")
-    assert tap("Preveri · Check", 4), "check the table"
+    assert check(), "check the table"
     assert wait_for("Pravilno", 6), "the table right"
     shot("school-a2-table-checked")
-    assert tap("Naprej · Next", 4), "on to the choice"
+    assert press("Naprej · Next", 4), "on to the choice"
     c = ([c for t, c in nodes() if t == "Čigavo"] or [None])[-1]
     assert c is not None, "the choice's option Čigavo"
     tap_at(c)
-    assert tap("Naprej · Next", 6), "on"
+    assert press("Naprej · Next", 6), "on"
     assert wait_for("Naprej · Continue", 10), "the worksheet's end"
-    assert tap("Naprej · Continue", 4), "back to the unit"
+    assert press("Naprej · Continue", 4), "back to the unit"
     # the second worksheet: the gap text, the fourth gap wrong (Lukova for Francetov: its correction)
     assert tap("Naprej: Nered pri Micki", 8), "the second worksheet"
     assert wait_for("Vrzel 1 · Gap 1", 10), "the gap text"
     for i, answer in enumerate(["moja", "tvojim", "Cigav", "Lukova", "Vidina", "Mickina", "Janezovo"], 1):
         assert fill(f"Vrzel {i} · Gap {i}", answer), f"gap {i}"
     shot("school-a2-gaptext")
-    assert tap("Preveri · Check", 4), "check the gap text"
+    assert check(), "check the gap text"
     assert wait_for("Popravki", 6), "its corrections"
     time.sleep(1)
     shot("school-a2-gaptext-checked")
-    assert tap("Naprej · Next", 6), "on"
-    assert tap("Naprej · Continue", 10), "back to the unit"
+    assert press("Naprej · Next", 6), "on"
+    assert press("Naprej · Continue", 10), "back to the unit"
     # the test straight away: passed, the unit done
     assert tap("Znam že: kar na test", 8), "⏩ the test"
     assert wait_for("Dopolni tabelo", 10), "the test's table"
     for label, answer in [("ona, moški · masculine", "njen"), ("ona, ženski · feminine", "njena"),
                           ("France, moški · masculine", "Francetov"), ("France, srednji · neuter", "Francetovo")]:
         assert fill(label, answer), f"the test's cell {label}"
-    assert tap("Preveri · Check", 4), "check"
-    assert tap("Naprej · Next", 6), "on"
+    assert check(), "check"
+    assert press("Naprej · Next", 6), "on"
     for i, answer in enumerate(["Cigav", "Janezov", "vasi", "mojo"], 1):
         assert fill(f"Vrzel {i} · Gap {i}", answer), f"the test's gap {i}"
-    assert tap("Preveri · Check", 4), "check"
-    assert tap("Naprej · Next", 6), "on"
+    assert check(), "check"
+    assert press("Naprej · Next", 6), "on"
     for i, answer in enumerate(["To je Vidina gostilna.", "To je Jozetova preza.", "To je Markov vinograd."], 1):
         assert fill(f"Vrstica {i} · Line {i}", answer), f"the test's line {i}"
     shot("school-a2-test-lines")
-    assert tap("Preveri · Check", 4), "check"
-    assert tap("Naprej · Next", 6), "on"
+    assert check(), "check"
+    assert press("Naprej · Next", 6), "on"
     c = ([c for t, c in nodes() if t == "njuna"] or [None])[-1]
     assert c is not None, "the test's choice"
     tap_at(c)
     assert wait_for("Naprej · Next", 6), "on"
-    tap("Naprej · Next", 4)
+    press("Naprej · Next", 4)
     assert wait_for("Enota opravljena", 12), "the test passed: the unit done"
     shot("school-a2-test-passed")
-    assert tap("Naprej · Continue", 4), "back to the unit"
+    assert press("Naprej · Continue", 4), "back to the unit"
     assert wait_for("Enota je opravljena", 8), "the unit done"
     end, unit = time.time() + 20 * slow(), None
     while time.time() < end:  # the app pushes the village to the node
