@@ -70,6 +70,18 @@ villager lines and scenes besides: 33 and 192 texts, as before). Their explanati
 (or ahead with `--explanations`): 42 clips, 9,631 characters in English (~4,800 credits); en, de and it: 126 clips,
 29,199 characters (~14,600 credits). The whole course now: 935 texts, 15,903 characters.
 
+## Tests
+
+- Bridge: `bunx tsc --noEmit -p .` green; the smoke 2,816 ✅, 0 ❌ (on main after the rebase), with the course's content
+  checks (327 answers against the dictionary, COURSE.md's 20 rows) and the overview's route.
+- Android: 3,138 unit tests; `PhoneBridgeNodeTest` (25) failed once with another agent's bridge on its fixed port 19110
+  and passes alone. New: `PrintsTest` (the overview, a level's overview), `QaHooksTest` (`school:<level>`).
+- Python: 251 + 98 (`tests`, `companion/tests`).
+- Emulator (`companion/bin/qa --steps school-cases`, then `school-print-overview`): the unit skloni end to end (its six
+  intro steps, the table of the six cases, the sort by case, its test passed 11 of 12, the unit done) and the overview
+  printed from the book's page Skloni (fit.js the same in the WebView as in Chromium: 3 pages, density 0; the PDF A4).
+  Screenshots: the scratchpad's `ux-course-cases/qa-shots/`.
+
 ## What's left
 
 - **A native speaker's check** of the six units (each `review` names its sentences).

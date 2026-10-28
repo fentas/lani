@@ -6551,17 +6551,21 @@ def school_cases():
     card), its first worksheet (knjiga and brat through the six cases, then each phrase sorted into its case), its test
     straight away (č typed as c by adb: two items almost, 11 of 12, passed), the unit done."""
     def press(label: str) -> bool:
-        """Taps [label], the keyboard down first (it covers a long step's Check), scrolled into view when under the
-        fold."""
-        if ime_top() is not None:
-            adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the keyboard down; the field keeps its text
+        """Taps [label] once it is on screen (in the content, or a sheet's bottom bar): waited for, as tap()
+        does (a busy emulator's dump is empty now and then), and scrolled up to when under the fold (a long step's
+        Check). type_text has put the keyboard down."""
+        end, swipes = time.time() + 30 * slow(), 0
+        while time.time() < end:
+            c = find(label)
+            if c is not None and 300 < c[1] < 2320:  # in the content, or a sheet's bottom bar (~2200 px)
+                tap_at(c)
+                return True
+            if swipes < 6:  # under the fold (not in the dump at all) or behind the bottom bar: the content up
+                adb("shell", "input", "swipe", "540", "1600", "540", "1100", "400")
+                swipes += 1
             time.sleep(1)
-        c = find(label)  # on screen above the run's bottom bar (its Naprej at ~2240 px), else scrolled to
-        c = c if c is not None and 300 < c[1] < 2150 else scroll_to(label, 6)
-        if c is None:
-            return False
-        tap_at(c)
-        return True
+        (OUT / "cases-press.xml").write_text(screen_xml())  # what the dump had instead
+        return False
 
     if not (ROOT / "companion/course/sl/units/skloni.json").exists():
         return "no cases here (companion/course/sl/units/skloni.json)"
