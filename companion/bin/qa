@@ -10951,8 +10951,14 @@ def navigation():
     assert wait_for("📊 Napredek · Progress", 8), "Napredek"
     adb("shell", "input", "keyevent", "KEYCODE_HOME")
     time.sleep(2)
-    adb("shell", "am", "kill", PKG)
+    adb("shell", "am", "kill", PKG)  # as Android ends a cached process
     time.sleep(2)
+    # a process Android keeps (its media session, the events' stream) ends as the low-memory killer ends it: SIGKILL, the
+    # activity's saved state kept by the system
+    pid = adb("shell", "pidof", PKG, check=False).strip()
+    if pid:
+        run_as("kill", "-9", pid)
+        time.sleep(2)
     assert not adb("shell", "pidof", PKG, check=False).strip(), "the process killed"
     adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity")
     assert wait_for("📊 Napredek · Progress", 20) and find("‹ Domov · Home"), "after the process's death: Napredek again, Home under it"
