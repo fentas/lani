@@ -1,0 +1,34 @@
+{
+  "schema": "lani.course/v0",
+  "language": "it",
+  "levels": [
+    {
+      "level": "A1",
+      "units": [
+        { "id": "ciao", "title": { "it": "Ciao! Mi chiamo …", "de": "Hallo! Ich heiße …", "sl": "Živjo! Ime mi je …", "en": "Hi! My name is …" }, "grammar": ["tu-lei"], "planned": true },
+        { "id": "essere", "title": { "it": "Essere: sono, sei, è", "de": "Sein: sono, sei, è", "sl": "Biti: sono, sei, è", "en": "To be: sono, sei, è" }, "grammar": ["essere-avere"], "planned": true },
+        { "id": "articoli", "title": { "it": "Il, la, lo, l', un, una", "de": "Die Artikel: il, la, lo, un, una", "sl": "Členi: il, la, lo, un, una", "en": "The articles: il, la, lo, un, una" }, "grammar": ["articoli-genere"], "planned": true },
+        { "id": "plurale", "title": { "it": "Un gatto, due gatti", "de": "Ein Kater, zwei Kater: der Plural", "sl": "En maček, dva mačka: množina", "en": "One cat, two cats: the plural" }, "grammar": ["plurale", "articoli-genere"], "planned": true },
+        { "id": "avere", "title": { "it": "Avere: ho sette anni", "de": "Haben: ho sette anni", "sl": "Imeti: ho sette anni", "en": "To have: ho sette anni" }, "grammar": ["essere-avere"], "planned": true },
+        { "id": "numeri", "title": { "it": "I numeri: uno, due, tre …", "de": "Die Zahlen: uno, due, tre …", "sl": "Števila: uno, due, tre …", "en": "Numbers: uno, due, tre …" }, "grammar": ["numeri"], "planned": true },
+        { "id": "presente-are", "title": { "it": "Parlo, mangio, gioco", "de": "Präsens auf -are: parlo, mangio, gioco", "sl": "Sedanjik na -are: parlo, mangio, gioco", "en": "The present in -are: parlo, mangio, gioco" }, "grammar": ["presente-regolare"], "planned": true },
+        { "id": "presente-ere-ire", "title": { "it": "Leggo, dormo, capisco", "de": "Präsens auf -ere und -ire: leggo, dormo, capisco", "sl": "Sedanjik na -ere in -ire: leggo, dormo, capisco", "en": "The present in -ere and -ire: leggo, dormo, capisco" }, "grammar": ["presente-regolare"], "planned": true },
+        { "id": "aggettivi", "title": { "it": "Grande, piccola, rossa", "de": "Adjektive: grande, piccola, rossa", "sl": "Pridevniki: grande, piccola, rossa", "en": "Adjectives: grande, piccola, rossa" }, "grammar": ["aggettivi-accordo"], "planned": true },
+        { "id": "ce-ci-sono", "title": { "it": "C'è, ci sono: dov'è?", "de": "C'è, ci sono: wo ist …?", "sl": "C'è, ci sono: kje je?", "en": "C'è, ci sono: where is it?" }, "grammar": ["ce-ci-sono"], "planned": true },
+        { "id": "preposizioni", "title": { "it": "A, in, di, da: nel bosco, al mare", "de": "A, in, di, da: im Wald, am Meer", "sl": "A, in, di, da: v gozdu, na morju", "en": "A, in, di, da: in the wood, at the sea" }, "grammar": ["dove-preposizioni", "preposizioni-articolate"], "planned": true },
+        { "id": "possessivi", "title": { "it": "Il mio, la mia: mia nonna", "de": "Mein, meine: mia nonna", "sl": "Moj, moja: mia nonna", "en": "My: il mio, la mia, mia nonna" }, "grammar": ["possessivi"], "planned": true },
+        { "id": "verbi-irregolari", "title": { "it": "Vado, faccio, vengo, voglio", "de": "Unregelmäßige Verben: vado, faccio, vengo", "sl": "Nepravilni glagoli: vado, faccio, vengo", "en": "Irregular verbs: vado, faccio, vengo" }, "grammar": ["verbi-irregolari"], "planned": true },
+        { "id": "domande", "title": { "it": "Chi? Che cosa? Dove? Perché?", "de": "Wer? Was? Wo? Warum?", "sl": "Kdo? Kaj? Kje? Zakaj?", "en": "Who? What? Where? Why?" }, "grammar": ["domande"], "planned": true },
+        { "id": "ore-giorni", "title": { "it": "Che ore sono? I giorni, i mesi", "de": "Wie spät ist es? Tage und Monate", "sl": "Koliko je ura? Dnevi in meseci", "en": "What time is it? Days and months" }, "grammar": ["numeri"], "planned": true },
+        { "id": "piacere", "title": { "it": "Mi piace, mi piacciono", "de": "Mi piace: was ich mag", "sl": "Mi piace: kaj mi je všeč", "en": "Mi piace: what I like" }, "grammar": ["piacere"], "planned": true },
+        { "id": "imperativo", "title": { "it": "Vieni! Guarda! Ascolta!", "de": "Komm! Schau! Hör zu! Der Imperativ", "sl": "Pridi! Poglej! Poslušaj! Velelnik", "en": "Come! Look! Listen! The imperative" }, "planned": true },
+        { "id": "passato-prossimo", "title": { "it": "Ho mangiato, sono andato", "de": "Das Perfekt: ho mangiato, sono andato", "sl": "Preteklik: ho mangiato, sono andato", "en": "The past: ho mangiato, sono andato" }, "grammar": ["passato-prossimo"], "planned": true }
+      ]
+    },
+    { "level": "A2", "units": [] },
+    { "level": "B1", "units": [] },
+    { "level": "B2", "units": [] }
+  ],
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker"
+}
