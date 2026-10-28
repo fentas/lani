@@ -317,22 +317,30 @@ object SceneFixtures {
         "stream" to mapOf("mill" to SceneNeeds(project = "mlin")),
     )
 
-    /** What [slot] of [art] needs, or null when it's always there. */
-    fun of(art: String, slot: String): SceneNeeds? = slots[art]?.get(slot)
+    /**
+     * What [slot] of [art] needs in [culture]'s village, or null when it's always there: the art's own, unless the culture's
+     * look draws it otherwise ([CultureLook.fixes]: Friuli's fogolâr, the kitchen's hearth, stands at every level).
+     */
+    fun of(art: String, slot: String, culture: String = si.lanisce.lani.game.culture.Cultures.DEFAULT): SceneNeeds? {
+        val look = if (culture == si.lanisce.lani.game.culture.Cultures.DEFAULT) null else CultureLooks.of(culture)
+        return if (look != null && look.fixes(art, slot)) look.fixture(art, slot) else slots[art]?.get(slot)
+    }
 
-    /** Whether [slot] of [art] is there in [world]. */
-    fun there(art: String, slot: String, world: SceneWorld): Boolean = of(art, slot)?.met(world) ?: true
+    /** Whether [slot] of [art] is there in [world] (its village's culture's picture). */
+    fun there(art: String, slot: String, world: SceneWorld): Boolean = of(art, slot, world.culture)?.met(world) ?: true
 
     /** Whether object [o] of a scene of [art] is there in [world]: its slot and its own [SceneObject.needs]. */
     fun there(art: String, o: SceneObject, world: SceneWorld): Boolean = there(art, o.slot, world) && (o.needs?.met(world) ?: true)
 
     /**
-     * A world in which [slot] of [art] is drawn, for its sticker: everything built ([SceneWorld.ALL]), else a room at the
-     * first level that has it (the kitchen's straw bed, gone once the room is upgraded).
+     * A world of [culture]'s in which [slot] of [art] is drawn, for its sticker: everything built ([SceneWorld.ALL]), else a
+     * room at the first level that has it (the kitchen's straw bed, gone once the room is upgraded).
      */
-    fun showing(art: String, slot: String): SceneWorld =
-        if (there(art, slot, SceneWorld.ALL)) SceneWorld.ALL
-        else (1..Catalog.MAX_LEVEL).map { SceneWorld.room(it) }.firstOrNull { there(art, slot, it) } ?: SceneWorld.ALL
+    fun showing(art: String, slot: String, culture: String = si.lanisce.lani.game.culture.Cultures.DEFAULT): SceneWorld {
+        val all = if (culture == SceneWorld.ALL.culture) SceneWorld.ALL else SceneWorld.ALL.copy(culture = culture)
+        return if (there(art, slot, all)) all
+        else (1..Catalog.MAX_LEVEL).map { SceneWorld.room(it).copy(culture = culture) }.firstOrNull { there(art, slot, it) } ?: all
+    }
 }
 
 /** [this] scene as [world] has it: only the objects that are there (drawn, tappable, words to learn). */

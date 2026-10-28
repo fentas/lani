@@ -202,7 +202,7 @@ object SceneSights {
      */
     fun whenShown(art: String, o: SceneObject, world: SceneWorld = SceneWorld.ALL, fx: Map<String, Float> = emptyMap()): List<SceneHint> {
         val out = ArrayList<SceneHint>()
-        for (need in listOfNotNull(SceneFixtures.of(art, o.slot), o.needs)) if (!need.met(world)) out += hints(need, world)
+        for (need in listOfNotNull(SceneFixtures.of(art, o.slot, world.culture), o.needs)) if (!need.met(world)) out += hints(need, world)
         if (byEffect(art, o.slot, fx)) out += SceneHint.LATER
         when (sky[art]?.get(o.slot)) {
             SkyThing.STARS -> out += SceneHint.NIGHT
@@ -220,7 +220,7 @@ object SceneSights {
 
     /** Whether [o] can still come into the picture of a scene of [art] in [world]: not a thing gone with an upgrade. */
     fun canCome(art: String, o: SceneObject, world: SceneWorld): Boolean =
-        listOfNotNull(SceneFixtures.of(art, o.slot), o.needs).none { it.before && !it.met(world) }
+        listOfNotNull(SceneFixtures.of(art, o.slot, world.culture), o.needs).none { it.before && !it.met(world) }
 
     /**
      * A scene's words as the words panel groups them: what the picture shows [now] (found or not), what was [seen]

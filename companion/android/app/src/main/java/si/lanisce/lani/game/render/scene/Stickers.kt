@@ -55,7 +55,7 @@ object Stickers {
         val painter = ScenePainters.create(art) as? ArtPainter ?: return null
         painter.solo = slot
         // in a world where it is there (a thing that goes as its room is upgraded: the level that has it)
-        val frame = FRAME.copy(objects = setOf(slot), world = SceneFixtures.showing(art, slot).copy(culture = culture))
+        val frame = FRAME.copy(objects = setOf(slot), world = SceneFixtures.showing(art, slot, culture))
         // the widest and tallest view a scene has: a thing at the stage's edge (the mill by the stream) is there whole
         val bw = ArtPainter.STAGE_W * 3 / 2; val bh = ArtPainter.STAGE_H * 2
         // where it is: its hit, drawn alone
