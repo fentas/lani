@@ -1,0 +1,340 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "presente-ere-ire",
+  "language": "it",
+  "level": "A1",
+  "emoji": "📖",
+  "title": { "it": "Leggo, dormo, capisco", "de": "Präsens auf -ere und -ire: leggo, dormo, capisco", "sl": "Sedanjik na -ere in -ire: leggo, dormo, capisco", "en": "The present in -ere and -ire: leggo, dormo, capisco" },
+  "goal": {
+    "de": "Du sagst, was du und die anderen tun, mit den Verben auf -ere und -ire: leggo, scrivi, dorme, apriamo, capiscono.",
+    "sl": "Poveš, kaj delaš ti in kaj delajo drugi, z glagoli na -ere in -ire: leggo, scrivi, dorme, apriamo, capiscono.",
+    "en": "You can say what you and the others do, with the verbs in -ere and -ire: leggo, scrivi, dorme, apriamo, capiscono."
+  },
+  "grammar": ["presente-regolare"],
+  "words": ["leggere", "scrivere", "prendere", "vedere", "correre", "vendere", "battere", "chiudere", "dormire", "aprire", "sentire", "partire", "capire", "finire", "pulire", "preferire", "il libro", "la storia", "la lettera", "il giornale", "il miele", "la porta", "la finestra", "la tisana", "il rumore"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "persona", "de": "wer", "sl": "oseba", "en": "who" },
+        { "it": "desinenza", "de": "Endung", "sl": "končnica", "en": "ending" },
+        { "it": "esempio", "de": "Beispiel", "sl": "primer", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Jetzt die Verben auf **-ere**: **leggere** (lesen), **scrivere** (schreiben), **prendere** (nehmen). Nimm **-ere** weg und hänge an: **-o** (ich), **-i** (du), **-e** (er, sie): **leggo, leggi, legge**. Hör hin: In **leggo** ist das g hart, in **leggi** und **legge** weich, wie dsch.",
+          "sl": "Zdaj glagoli na **-ere**: **leggere** (brati), **scrivere** (pisati), **prendere** (vzeti). Odreži **-ere** in dodaj: **-o** (jaz), **-i** (ti), **-e** (on, ona): **leggo, leggi, legge**. Poslušaj: v **leggo** je g trd, v **leggi** in **legge** mehek, kot dž.",
+          "en": "Now the verbs in **-ere**: **leggere** (to read), **scrivere** (to write), **prendere** (to take). Take off **-ere** and add **-o** (I), **-i** (you), **-e** (he, she): **leggo, leggi, legge**. Listen: in **leggo** the g is hard, in **leggi** and **legge** it is soft, as in jungle."
+        },
+        "examples": [
+          { "it": "Giulia legge una storia a Lorenzo.", "de": "Giulia liest Lorenzo eine Geschichte vor.", "sl": "Giulia bere Lorenzu zgodbo.", "en": "Giulia is reading Lorenzo a story." },
+          { "it": "Scrivo una lettera a Nonna Rosa.", "de": "Ich schreibe Nonna Rosa einen Brief.", "sl": "Pišem pismo babici Rosi.", "en": "I'm writing a letter to Nonna Rosa." }
+        ],
+        "rows": [["io", "-o", "leggo"], ["tu", "-i", "leggi"], ["lui, lei", "-e", "legge"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "presente-regolare",
+          "prompt": "Nonno Bepi ___ il giornale. (leggere)",
+          "options": ["leggo", "leggi", "legge"],
+          "answer": 2,
+          "say_options": true,
+          "explain": {
+            "de": "**Nonno Bepi** ist lui (er) → **-e**: legge\n- leggo · ich\n- leggi · du\n- legge · er, sie",
+            "sl": "**Nonno Bepi** je lui (on) → **-e**: legge\n- leggo · jaz\n- leggi · ti\n- legge · on, ona",
+            "en": "**Nonno Bepi** is lui (he) → **-e**: legge\n- leggo · I\n- leggi · you\n- legge · he, she"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Für mehrere: **-iamo** (wir), **-ete** (ihr), **-ono** (sie): **leggiamo, leggete, leggono**. Wie bei **parlano** liegt die Betonung bei **leggono** vorn. Vergleiche: **loro parlano**, aber **loro leggono**.",
+          "sl": "Za več oseb: **-iamo** (mi), **-ete** (vi), **-ono** (oni): **leggiamo, leggete, leggono**. Kot pri **parlano** je naglas pri **leggono** spredaj. Primerjaj: **loro parlano**, ampak **loro leggono**.",
+          "en": "For more than one: **-iamo** (we), **-ete** (you all), **-ono** (they): **leggiamo, leggete, leggono**. As in **parlano**, **leggono** is stressed at the front. Compare: **loro parlano**, but **loro leggono**."
+        },
+        "examples": [
+          { "it": "Vediamo la luna!", "de": "Wir sehen den Mond!", "sl": "Vidimo luno!", "en": "We can see the moon!" },
+          { "it": "I bambini scrivono una lettera.", "de": "Die Kinder schreiben einen Brief.", "sl": "Otroci pišejo pismo.", "en": "The children are writing a letter." }
+        ],
+        "rows": [["noi", "-iamo", "leggiamo"], ["voi", "-ete", "leggete"], ["loro", "-ono", "leggono"]],
+        "ask": {
+          "type": "cloze",
+          "grammar": "presente-regolare",
+          "text": "Tommaso e Giulia ___ in piazza. (correre)",
+          "accept": ["corrono"],
+          "hint": "loro …",
+          "explain": {
+            "de": "**Tommaso e Giulia** sind loro (sie) → **-ono**: corrono\n- corriamo · wir\n- correte · ihr\n- corrono · sie",
+            "sl": "**Tommaso e Giulia** sta loro (italijanščina nima dvojine) → **-ono**: corrono\n- corriamo · mi\n- correte · vi\n- corrono · oni",
+            "en": "**Tommaso e Giulia** are loro (they) → **-ono**: corrono\n- corriamo · we\n- correte · you all\n- corrono · they"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Die Verben auf **-ire** gehen fast wie die auf **-ere**: **dormo, dormi, dorme, dormiamo, dormono**. Nur bei **voi** heißt es **-ite**: **dormite**. So gehen auch **aprire** (öffnen), **sentire** (hören) und **partire** (abfahren).",
+          "sl": "Glagoli na **-ire** gredo skoraj tako kot tisti na **-ere**: **dormo, dormi, dorme, dormiamo, dormono**. Samo pri **voi** je **-ite**: **dormite**. Tako gredo tudi **aprire** (odpreti), **sentire** (slišati) in **partire** (oditi).",
+          "en": "The verbs in **-ire** go almost like the ones in **-ere**: **dormo, dormi, dorme, dormiamo, dormono**. Only **voi** has **-ite**: **dormite**. **aprire** (to open), **sentire** (to hear) and **partire** (to leave) go the same way."
+        },
+        "examples": [
+          { "it": "Apro la finestra e sento il mare.", "de": "Ich mache das Fenster auf und höre das Meer.", "sl": "Odprem okno in slišim morje.", "en": "I open the window and hear the sea." },
+          { "it": "Bambini, dormite?", "de": "Kinder, schlaft ihr?", "sl": "Otroci, ali spite?", "en": "Children, are you asleep?" }
+        ],
+        "rows": [["voi (-ire)", "-ite", "dormite"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "presente-regolare",
+          "prompt": "Voi ___ la porta. (aprire)",
+          "options": ["aprite", "aprete", "aprono"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**aprire** endet auf -ire → voi **-ite**: aprite\n- leggete · -ere\n- aprite · -ire",
+            "sl": "**aprire** se konča na -ire → voi **-ite**: aprite\n- leggete · -ere\n- aprite · -ire",
+            "en": "**aprire** ends in -ire → voi **-ite**: aprite\n- leggete · -ere\n- aprite · -ire"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Manche Verben auf **-ire** schieben **-isc-** ein: **capisco, capisci, capisce, capiscono**. Nur bei **noi** und **voi** nicht: **capiamo, capite**. Hör hin: **capisco** klingt mit sk, **capisci** und **capisce** mit sch. So gehen auch **finire** (fertig machen) und **pulire** (putzen).",
+          "sl": "Nekateri glagoli na **-ire** vrinejo **-isc-**: **capisco, capisci, capisce, capiscono**. Le pri **noi** in **voi** ne: **capiamo, capite**. Poslušaj: **capisco** zveni s sk, **capisci** in **capisce** s š. Tako gresta tudi **finire** (končati) in **pulire** (čistiti).",
+          "en": "Some verbs in **-ire** slip in **-isc-**: **capisco, capisci, capisce, capiscono**. Only **noi** and **voi** don't: **capiamo, capite**. Listen: **capisco** sounds with sk, **capisci** and **capisce** with sh. **finire** (to finish) and **pulire** (to clean) go the same way."
+        },
+        "examples": [
+          { "it": "Lorenzo, capisci? No, non capisco!", "de": "Lorenzo, verstehst du? Nein, ich verstehe nicht!", "sl": "Lorenzo, razumeš? Ne, ne razumem!", "en": "Lorenzo, do you understand? No, I don't!" },
+          { "it": "Bambini, capite? Sì, capiamo!", "de": "Kinder, versteht ihr? Ja, wir verstehen!", "sl": "Otroci, razumete? Ja, razumemo!", "en": "Children, do you understand? Yes, we do!" },
+          { "it": "Finisco la tisana e dormo.", "de": "Ich trinke meinen Tee aus und schlafe.", "sl": "Popijem čaj in grem spat.", "en": "I finish my tea and go to sleep." }
+        ],
+        "rows": [["io (capire)", "-isco", "capisco"], ["noi (capire)", "-iamo", "capiamo"], ["loro (capire)", "-iscono", "capiscono"]],
+        "ask": {
+          "type": "cloze",
+          "grammar": "presente-regolare",
+          "text": "Lorenzo non ___ la domanda. (capire)",
+          "accept": ["capisce"],
+          "hint": "-isc- + -e",
+          "explain": {
+            "de": "**capire** schiebt -isc- ein → lui **capisce**\n- capisco · ich\n- capisce · er, sie\n- capiamo · wir (ohne -isc-)",
+            "sl": "**capire** vrine -isc- → lui **capisce**\n- capisco · jaz\n- capisce · on, ona\n- capiamo · mi (brez -isc-)",
+            "en": "**capire** slips in -isc- → lui **capisce**\n- capisco · I\n- capisce · he, she\n- capiamo · we (no -isc-)"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Achte auf das Ende des Verbs. Bei **-are** sagst du **lui parla, loro parlano**. Bei **-ere** und **-ire** sagst du **lui legge, lui dorme, loro leggono, loro dormono**. Bei **io**, **tu** und **noi** sind alle drei gleich: **parlo, leggo, dormo**.",
+          "sl": "Pazi na konec glagola. Pri **-are** rečeš **lui parla, loro parlano**. Pri **-ere** in **-ire** pa **lui legge, lui dorme, loro leggono, loro dormono**. Pri **io**, **tu** in **noi** so vsi trije enaki: **parlo, leggo, dormo**.",
+          "en": "Watch the end of the verb. With **-are** you say **lui parla, loro parlano**. With **-ere** and **-ire**: **lui legge, lui dorme, loro leggono, loro dormono**. For **io**, **tu** and **noi** all three are the same: **parlo, leggo, dormo**."
+        },
+        "examples": [
+          { "it": "Bruno batte il ferro e Lorenzo guarda.", "de": "Bruno schlägt das Eisen, und Lorenzo schaut zu.", "sl": "Bruno kuje železo, Lorenzo pa gleda.", "en": "Bruno hammers the iron and Lorenzo watches." },
+          { "it": "Aldo vende il miele e Zia Nives compra un vasetto.", "de": "Aldo verkauft Honig, und Zia Nives kauft ein Glas.", "sl": "Aldo prodaja med, teta Nives pa kupi kozarček.", "en": "Aldo sells honey and Zia Nives buys a jar." }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "presente-regolare",
+          "prompt": "Nonna Rosa ___ la porta. (aprire)",
+          "options": ["apra", "apre", "apri"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**aprire** (-ire) mit lei → **-e**: apre\n- lei parla · -are\n- lei apre · -ire",
+            "sl": "**aprire** (-ire) z lei → **-e**: apre\n- lei parla · -are\n- lei apre · -ire",
+            "en": "**aprire** (-ire) with lei → **-e**: apre\n- lei parla · -are\n- lei apre · -ire"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "presente-ere-ire-1",
+      "title": { "it": "Leggo, dormo, capisco", "de": "Leggo, dormo, capisco", "sl": "Leggo, dormo, capisco", "en": "Leggo, dormo, capisco" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "presente-regolare",
+          "prompt": { "de": "leggere (lesen), dormire (schlafen), capire (verstehen)", "sl": "leggere (brati), dormire (spati), capire (razumeti)", "en": "leggere (read), dormire (sleep), capire (understand)" },
+          "columns": [
+            { "de": "leggere · lesen", "sl": "leggere · brati", "en": "leggere · read" },
+            { "de": "dormire · schlafen", "sl": "dormire · spati", "en": "dormire · sleep" },
+            { "de": "capire · verstehen", "sl": "capire · razumeti", "en": "capire · understand" }
+          ],
+          "rows": [
+            { "label": "io", "cells": ["leggo", { "accept": ["dormo"], "hint": "-o" }, "capisco"]},
+            { "label": "tu", "cells": [{ "accept": ["leggi"], "hint": "-i" }, "dormi", { "accept": ["capisci"], "hint": "-isc- + -i" }]},
+            { "label": "lui, lei", "cells": ["legge", "dorme", { "accept": ["capisce"], "hint": "-isc- + -e" }]},
+            {
+              "label": "noi",
+              "cells": [
+                { "accept": ["leggiamo"], "hint": "-iamo" },
+                "dormiamo",
+                { "accept": ["capiamo"], "hint": { "de": "noi: ohne -isc-", "sl": "noi: brez -isc-", "en": "noi: no -isc-" } }
+              ]
+            },
+            { "label": "voi", "cells": [{ "accept": ["leggete"], "hint": "-ere → -ete" }, { "accept": ["dormite"], "hint": "-ire → -ite" }, "capite"]},
+            { "label": "loro", "cells": ["leggono", "dormono", { "accept": ["capiscono"], "hint": "-isc- + -ono" }]}
+          ],
+          "explain": {
+            "de": "**-o, -i, -e, -iamo, -ete / -ite, -ono**\n- leggo, dormo, capisco\n- leggete, dormite, capite",
+            "sl": "**-o, -i, -e, -iamo, -ete / -ite, -ono**\n- leggo, dormo, capisco\n- leggete, dormite, capite",
+            "en": "**-o, -i, -e, -iamo, -ete / -ite, -ono**\n- leggo, dormo, capisco\n- leggete, dormite, capite"
+          },
+          "instruction": { "de": "Completa · Ergänze die Tabelle", "sl": "Completa · Dopolni tabelo", "en": "Completa · Fill in the table" }
+        },
+        {
+          "type": "sort",
+          "grammar": "presente-regolare",
+          "instruction": { "de": "Chi? · Wer? Sortiere die Verben", "sl": "Chi? · Kdo? Razvrsti glagole", "en": "Chi? · Who? Sort the verbs" },
+          "columns": [
+            { "label": "noi", "words": ["leggiamo", "dormiamo", "capiamo"]},
+            { "label": "voi", "words": ["leggete", "dormite", "capite"]},
+            { "label": "loro", "words": ["leggono", "dormono", "capiscono"]}
+          ],
+          "explain": {
+            "de": "**Die Endung** sagt, wer\n- -iamo · noi\n- -ete, -ite · voi\n- -ono · loro",
+            "sl": "**Končnica** pove, kdo\n- -iamo · noi\n- -ete, -ite · voi\n- -ono · loro",
+            "en": "**The ending** says who\n- -iamo · noi\n- -ete, -ite · voi\n- -ono · loro"
+          }
+        }
+      ]
+    },
+    {
+      "id": "presente-ere-ire-2",
+      "title": { "it": "È sera", "de": "Es ist Abend", "sl": "Večer je", "en": "It's evening" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "presente-regolare",
+          "title": "È sera",
+          "text": "È sera. Nonno Bepi ___ (leggere) una storia. Lorenzo ___ (dormire) già. Giulia e Tommaso ___ (sentire) un rumore. Io ___ (aprire) la porta: è Moro, il cane di Nonno Bepi! Tu ___ (capire) la storia? Noi ___ (finire) la tisana.",
+          "gaps": [
+            { "accept": ["legge"], "hint": "lui → -e" },
+            { "accept": ["dorme"], "hint": "lui → -e" },
+            { "accept": ["sentono"], "hint": "loro → -ono" },
+            { "accept": ["apro"], "hint": "io → -o" },
+            {
+              "accept": ["capisci"],
+              "hint": "tu → -isc- + -i",
+              "explain": { "de": "capire schiebt -isc- ein: tu **capisci**.", "sl": "capire vrine -isc-: tu **capisci**.", "en": "capire slips in -isc-: tu **capisci**." }
+            },
+            {
+              "accept": ["finiamo"],
+              "hint": "noi → -iamo",
+              "explain": { "de": "noi hat nie -isc-: **finiamo**.", "sl": "noi nikoli nima -isc-: **finiamo**.", "en": "noi never takes -isc-: **finiamo**." }
+            }
+          ],
+          "bank": true,
+          "distractors": ["leggono", "dormite"],
+          "translation": {
+            "de": "Es ist Abend. Nonno Bepi liest eine Geschichte vor. Lorenzo schläft schon. Giulia und Tommaso hören ein Geräusch. Ich mache die Tür auf: Es ist Moro, der Hund von Nonno Bepi! Verstehst du die Geschichte? Wir trinken unseren Tee aus.",
+            "sl": "Večer je. Nonno Bepi bere zgodbo. Lorenzo že spi. Giulia in Tommaso slišita šum. Odprem vrata: to je Moro, pes nonna Bepija! Razumeš zgodbo? Popijemo čaj.",
+            "en": "It's evening. Nonno Bepi is reading a story. Lorenzo is already asleep. Giulia and Tommaso hear a noise. I open the door: it's Moro, Nonno Bepi's dog! Do you understand the story? We finish our herbal tea."
+          },
+          "instruction": { "de": "Completa · Ergänze das Verb", "sl": "Completa · Dopolni glagol", "en": "Completa · Fill in the verb" }
+        },
+        {
+          "type": "choice",
+          "grammar": "presente-regolare",
+          "prompt": "Maestra, io non ___ questa parola. (capire)",
+          "options": ["capisco", "capisci", "capiamo"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**io** → -isc- + **-o**: capisco\n- capisco · ich\n- capisci · du\n- capiamo · wir",
+            "sl": "**io** → -isc- + **-o**: capisco\n- capisco · jaz\n- capisci · ti\n- capiamo · mi",
+            "en": "**io** → -isc- + **-o**: capisco\n- capisco · I\n- capisci · you\n- capiamo · we"
+          }
+        }
+      ]
+    },
+    {
+      "id": "presente-ere-ire-3",
+      "title": { "it": "Cambia la persona", "de": "Ändere die Person", "sl": "Spremeni osebo", "en": "Change the person" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "presente-regolare",
+          "instruction": { "de": "Cambia la persona · Schreib es für die Person in Klammern", "sl": "Cambia la persona · Napiši za osebo v oklepaju", "en": "Cambia la persona · Write it for the person in brackets" },
+          "items": [
+            { "from": "Leggo un libro. (tu)", "accept": ["Leggi un libro.", "Tu leggi un libro."]},
+            { "from": "Scrivo una lettera. (Giulia)", "accept": ["Giulia scrive una lettera."]},
+            { "from": "Prendo il pane. (noi)", "accept": ["Prendiamo il pane.", "Noi prendiamo il pane."]},
+            { "from": "Dormo in tenda. (voi)", "accept": ["Dormite in tenda.", "Voi dormite in tenda."], "hint": "-ire: voi -ite" },
+            { "from": "Apro lo zaino. (loro)", "accept": ["Aprono lo zaino.", "Loro aprono lo zaino."]},
+            { "from": "Pulisco la cucina. (Nonna Rosa)", "accept": ["Nonna Rosa pulisce la cucina."], "hint": "-isc- + -e" },
+            {
+              "from": "Capisco l'italiano. (voi)",
+              "accept": ["Capite l'italiano.", "Voi capite l'italiano."],
+              "hint": { "de": "voi: ohne -isc-", "sl": "voi: brez -isc-", "en": "voi: no -isc-" }
+            }
+          ],
+          "explain": {
+            "de": "**Die Person** ändert die Endung; noi und voi ohne -isc-\n- leggo → leggi · dormo → dormite\n- pulisco → pulisce · capisco → capite",
+            "sl": "**Oseba** spremeni končnico; noi in voi brez -isc-\n- leggo → leggi · dormo → dormite\n- pulisco → pulisce · capisco → capite",
+            "en": "**The person** changes the ending; no -isc- with noi, voi\n- leggo → leggi · dormo → dormite\n- pulisco → pulisce · capisco → capite"
+          },
+          "cue": "→"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table",
+        "grammar": "presente-regolare",
+        "prompt": { "de": "vedere (sehen), finire (fertig machen)", "sl": "vedere (videti), finire (končati)", "en": "vedere (see), finire (finish)" },
+        "columns": [
+          { "de": "vedere · sehen", "sl": "vedere · videti", "en": "vedere · see" },
+          { "de": "finire · fertig machen", "sl": "finire · končati", "en": "finire · finish" }
+        ],
+        "rows": [
+          { "label": "io", "cells": [{ "accept": ["vedo"]}, { "accept": ["finisco"]}]},
+          { "label": "lui, lei", "cells": [{ "accept": ["vede"]}, "finisce"]},
+          { "label": "voi", "cells": ["vedete", { "accept": ["finite"]}]},
+          { "label": "loro", "cells": [{ "accept": ["vedono"]}, { "accept": ["finiscono"]}]}
+        ],
+        "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" }
+      },
+      {
+        "type": "gaptext",
+        "grammar": "presente-regolare",
+        "text": "Aldo ___ (vendere) il miele. Lorenzo e Giulia ___ (leggere) un libro. Voi ___ (partire) domani? Io ___ (preferire) il frico!",
+        "gaps": [{ "accept": ["vende"]}, { "accept": ["leggono"]}, { "accept": ["partite"]}, { "accept": ["preferisco"]}],
+        "translation": {
+          "de": "Aldo verkauft Honig. Lorenzo und Giulia lesen ein Buch. Fahrt ihr morgen ab? Ich mag Frico lieber!",
+          "sl": "Aldo prodaja med. Lorenzo in Giulia bereta knjigo. Ali jutri odpotujete? Jaz imam raje frico!",
+          "en": "Aldo sells honey. Lorenzo and Giulia are reading a book. Are you leaving tomorrow? I prefer frico!"
+        },
+        "instruction": { "de": "Completa · Ergänze das Verb", "sl": "Completa · Dopolni glagol", "en": "Completa · Fill in the verb" }
+      },
+      {
+        "type": "transform",
+        "grammar": "presente-regolare",
+        "instruction": { "de": "Cambia la persona · Schreib es für die Person in Klammern", "sl": "Cambia la persona · Napiši za osebo v oklepaju", "en": "Cambia la persona · Write it for the person in brackets" },
+        "items": [
+          { "from": "Corro in piazza. (noi)", "accept": ["Corriamo in piazza.", "Noi corriamo in piazza."]},
+          { "from": "Pulisco la tenda. (tu)", "accept": ["Pulisci la tenda.", "Tu pulisci la tenda."]}
+        ],
+        "cue": "→"
+      },
+      {
+        "type": "choice",
+        "grammar": "presente-regolare",
+        "prompt": "Bambini, ___ la finestra? (chiudere)",
+        "options": ["chiudete", "chiudite", "chiudono"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**chiudere** (-ere) mit voi → **-ete**: chiudete\n- chiudete · -ere\n- aprite · -ire",
+          "sl": "**chiudere** (-ere) z voi → **-ete**: chiudete\n- chiudete · -ere\n- aprite · -ire",
+          "en": "**chiudere** (-ere) with voi → **-ete**: chiudete\n- chiudete · -ere\n- aprite · -ire"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (it, de, sl). Native check: È sera; the sound tips for a German child (leggi as dsch, capisce as sch); aprete, chiudite as wrong options."
+}
