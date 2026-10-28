@@ -1,0 +1,386 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "possessivi",
+  "language": "it",
+  "level": "A1",
+  "emoji": "👪",
+  "title": { "it": "Il mio, la mia: mia nonna", "de": "Mein, meine: mia nonna", "sl": "Moj, moja: mia nonna", "en": "My: il mio, la mia, mia nonna" },
+  "goal": {
+    "de": "Du sagst, wem etwas gehört, und stellst deine Familie vor: il mio cane, la tua palla, la sua casa, i nostri amici, mia nonna.",
+    "sl": "Poveš, čigavo je nekaj, in predstaviš svojo družino: il mio cane, la tua palla, la sua casa, i nostri amici, mia nonna.",
+    "en": "You can say whose things are and introduce your family: il mio cane, la tua palla, la sua casa, i nostri amici, mia nonna."
+  },
+  "grammar": ["possessivi"],
+  "words": ["mio", "tuo", "suo", "nostro", "vostro", "loro", "la nonna", "il nonno", "la mamma", "il papà", "il fratello", "la sorella", "lo zio", "la zia", "il cugino", "la cugina", "l'amico", "la famiglia", "il cane", "il gatto", "lo zaino", "la palla", "la casa", "la tenda", "il libro", "la tazza", "la borsa", "il quaderno"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "di chi?", "de": "wem?", "sl": "čigav?", "en": "whose?" },
+        { "it": "il … (maschile)", "de": "il … (männlich)", "sl": "il … (moški)", "en": "il … (masculine)" },
+        { "it": "la … (femminile)", "de": "la … (weiblich)", "sl": "la … (ženski)", "en": "la … (feminine)" },
+        { "it": "i … / le … (plurale)", "de": "i … / le … (Plural)", "sl": "i … / le … (množina)", "en": "i … / le … (plural)" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Was gehört mir? Mit **mio** sagst du mein. Es passt zu dem, was dir gehört, und hat den Artikel davor: **il mio cane** (mein Hund), **la mia casa** (mein Haus). Bei mehreren: **i miei libri**, **le mie pecore**.",
+          "sl": "Kaj je moje? Z **mio** rečeš moj. Ujema se s stvarjo, ki jo imaš, in ima člen spredaj: **il mio cane** (moj pes), **la mia casa** (moja hiša). Pri več: **i miei libri**, **le mie pecore**.",
+          "en": "What's mine? With **mio** you say my. It matches the thing you have, with the article in front: **il mio cane** (my dog), **la mia casa** (my house). For more: **i miei libri**, **le mie pecore**."
+        },
+        "examples": [
+          { "it": "Questo è il mio zaino.", "de": "Das ist mein Rucksack.", "sl": "To je moj nahrbtnik.", "en": "This is my rucksack." },
+          { "it": "Le mie pecore sono bianche.", "de": "Meine Schafe sind weiß.", "sl": "Moje ovce so bele.", "en": "My sheep are white." }
+        ],
+        "rows": [["io", "il mio", "la mia", "i miei / le mie"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "possessivi",
+          "prompt": "Questa è ___ tenda.",
+          "options": ["il mio", "la mia", "i miei"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**la tenda** ist weiblich → **la mia**\n- il mio zaino · männlich\n- la mia tenda · weiblich\n- i miei libri · mehrere",
+            "sl": "**la tenda** je ženskega spola → **la mia**\n- il mio zaino · moški\n- la mia tenda · ženski\n- i miei libri · več",
+            "en": "**la tenda** is feminine → **la mia**\n- il mio zaino · masculine\n- la mia tenda · feminine\n- i miei libri · more"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Was gehört dir? **il tuo, la tua, i tuoi, le tue**: **Lorenzo, è il tuo libro?** Auch hier zählt nur das Ding: **la tua palla**, **i tuoi amici**.",
+          "sl": "Kaj je tvoje? **il tuo, la tua, i tuoi, le tue**: **Lorenzo, è il tuo libro?** Tudi tu šteje samo stvar: **la tua palla**, **i tuoi amici**.",
+          "en": "What's yours? **il tuo, la tua, i tuoi, le tue**: **Lorenzo, è il tuo libro?** Again only the thing counts: **la tua palla**, **i tuoi amici**."
+        },
+        "examples": [
+          { "it": "Lorenzo, è il tuo libro?", "de": "Lorenzo, ist das dein Buch?", "sl": "Lorenzo, je to tvoja knjiga?", "en": "Lorenzo, is this your book?" },
+          { "it": "Tommaso, la tua palla è nello stagno!", "de": "Tommaso, dein Ball ist im Teich!", "sl": "Tommaso, tvoja žoga je v ribniku!", "en": "Tommaso, your ball is in the pond!" }
+        ],
+        "rows": [["tu", "il tuo", "la tua", "i tuoi / le tue"]],
+        "ask": {
+          "type": "cloze",
+          "grammar": "possessivi",
+          "text": "Giulia, è la ___ tazza? (tuo)",
+          "accept": ["tua"],
+          "hint": "la tazza → ?",
+          "explain": {
+            "de": "**la tazza** ist weiblich → **tua**\n- il tuo libro · männlich\n- la tua tazza · weiblich",
+            "sl": "**la tazza** je ženskega spola → **tua**\n- il tuo libro · moški\n- la tua tazza · ženski",
+            "en": "**la tazza** is feminine → **tua**\n- il tuo libro · masculine\n- la tua tazza · feminine"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Jetzt aufgepasst: **suo** heißt sein und ihr. Es passt nur zum Ding, nicht zur Person: **Giulia cerca il suo zaino** (ihren Rucksack), **Lorenzo cerca la sua palla** (seinen Ball). Bei mehreren: **i suoi, le sue**.",
+          "sl": "Zdaj pozor: **suo** pomeni njegov in njen. Ujema se samo s stvarjo, ne z osebo: **Giulia cerca il suo zaino** (svoj nahrbtnik), **Lorenzo cerca la sua palla** (svojo žogo). Pri več: **i suoi, le sue**.",
+          "en": "Now watch out: **suo** means his and her. It matches only the thing, not the person: **Giulia cerca il suo zaino** (her rucksack), **Lorenzo cerca la sua palla** (his ball). For more: **i suoi, le sue**."
+        },
+        "examples": [
+          { "it": "Giulia cerca il suo zaino.", "de": "Giulia sucht ihren Rucksack.", "sl": "Giulia išče svoj nahrbtnik.", "en": "Giulia is looking for her rucksack." },
+          { "it": "Davide chiama le sue pecore.", "de": "Davide ruft seine Schafe.", "sl": "Davide kliče svoje ovce.", "en": "Davide is calling his sheep." }
+        ],
+        "rows": [["lui, lei", "il suo", "la sua", "i suoi / le sue"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "possessivi",
+          "prompt": "Lorenzo gioca con ___ palla.",
+          "options": ["il suo", "la sua", "le sue"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**la palla** ist weiblich → **la sua**, auch bei Lorenzo\n- il suo zaino · sein, ihr Rucksack\n- la sua palla · sein, ihr Ball",
+            "sl": "**la palla** je ženskega spola → **la sua**, tudi pri Lorenzu\n- il suo zaino · njegov, njen nahrbtnik\n- la sua palla · njegova, njena žoga",
+            "en": "**la palla** is feminine → **la sua**, for Lorenzo too\n- il suo zaino · his, her rucksack\n- la sua palla · his, her ball"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Bei der Familie ist es anders: Eine Person allein hat keinen Artikel: **mia nonna**, **mio nonno**, **tua sorella**, **suo fratello**. Bei mehreren kommt der Artikel zurück: **i miei nonni**, **le mie sorelle**. Bei **mamma** und **papà** hörst du beides: **mia mamma** und **la mia mamma**.",
+          "sl": "Pri družini je drugače: en sam član je brez člena: **mia nonna**, **mio nonno**, **tua sorella**, **suo fratello**. Pri več se člen vrne: **i miei nonni**, **le mie sorelle**. Pri **mamma** in **papà** slišiš oboje: **mia mamma** in **la mia mamma**.",
+          "en": "Family is different: one person on their own has no article: **mia nonna**, **mio nonno**, **tua sorella**, **suo fratello**. For more the article comes back: **i miei nonni**, **le mie sorelle**. With **mamma** and **papà** you hear both: **mia mamma** and **la mia mamma**."
+        },
+        "examples": [
+          { "it": "Mia nonna si chiama Rosa.", "de": "Meine Oma heißt Rosa.", "sl": "Moji babici je ime Rosa.", "en": "My grandma's name is Rosa." },
+          { "it": "I miei nonni abitano a Cormòns.", "de": "Meine Großeltern wohnen in Cormòns.", "sl": "Moji stari starši živijo v Krminu.", "en": "My grandparents live in Cormòns." }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "possessivi",
+          "prompt": "___ nonna si chiama Rosa.",
+          "options": ["Mia", "La mia", "Le mie"],
+          "answer": 0,
+          "almost": [1],
+          "say_options": true,
+          "explain": {
+            "de": "**eine Person der Familie** → kein Artikel: **Mia nonna**\n- mia nonna · i miei nonni\n- gesprochen hörst du auch: la mia nonna",
+            "sl": "**en družinski član** → brez člena: **Mia nonna**\n- mia nonna · i miei nonni\n- v govoru slišiš tudi: la mia nonna",
+            "en": "**one family member** → no article: **Mia nonna**\n- mia nonna · i miei nonni\n- in speech you also hear: la mia nonna"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Für uns, euch und sie: **il nostro, la nostra** (unser), **il vostro, la vostra** (euer), **il loro, la loro** (ihr). **loro** bleibt immer gleich und hat immer den Artikel: **la loro casa**, **i loro cani**.",
+          "sl": "Za nas, vas in njih: **il nostro, la nostra** (naš), **il vostro, la vostra** (vaš), **il loro, la loro** (njihov). **loro** ostane vedno enak in ima vedno člen: **la loro casa**, **i loro cani**.",
+          "en": "For us, you all and them: **il nostro, la nostra** (our), **il vostro, la vostra** (your), **il loro, la loro** (their). **loro** never changes and always keeps its article: **la loro casa**, **i loro cani**."
+        },
+        "examples": [
+          { "it": "La nostra tenda è vicino al ruscello.", "de": "Unser Zelt steht nahe am Bach.", "sl": "Naš šotor je blizu potoka.", "en": "Our tent is near the stream." },
+          { "it": "I bambini cercano il loro pallone.", "de": "Die Kinder suchen ihren Ball.", "sl": "Otroci iščejo svojo žogo.", "en": "The children are looking for their ball." }
+        ],
+        "rows": [
+          ["noi", "il nostro", "la nostra", "i nostri / le nostre"],
+          ["voi", "il vostro", "la vostra", "i vostri / le vostre"],
+          ["loro", "il loro", "la loro", "i loro / le loro"]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "possessivi",
+          "text": "Questa è la ___ casa. (nostro)",
+          "accept": ["nostra"],
+          "hint": "la casa → ?",
+          "explain": {
+            "de": "**la casa** ist weiblich → **nostra**\n- il nostro zaino · männlich\n- la nostra casa · weiblich",
+            "sl": "**la casa** je ženskega spola → **nostra**\n- il nostro zaino · moški\n- la nostra casa · ženski",
+            "en": "**la casa** is feminine → **nostra**\n- il nostro zaino · masculine\n- la nostra casa · feminine"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Zu mir sagst du **Lei**, also sagst du auch **Suo**, oft mit großem S: **Maestra, è il Suo libro?** (Ist das Ihr Buch?) Zu Freunden sagst du **tuo**: **Giulia, è il tuo libro?**",
+          "sl": "Meni rečeš **Lei**, zato rečeš tudi **Suo**, pogosto z veliko začetnico: **Maestra, è il Suo libro?** (Je to vaša knjiga?) Prijateljem rečeš **tuo**: **Giulia, è il tuo libro?**",
+          "en": "You say **Lei** to me, so you also say **Suo**, often with a capital S: **Maestra, è il Suo libro?** (Is this your book?) To friends you say **tuo**: **Giulia, è il tuo libro?**"
+        },
+        "examples": [
+          { "it": "Maestra, è il Suo libro?", "de": "Maestra, ist das Ihr Buch?", "sl": "Učiteljica, je to vaša knjiga?", "en": "Maestra, is this your book?" },
+          { "it": "Signora Marisa, è la Sua borsa?", "de": "Signora Marisa, ist das Ihre Tasche?", "sl": "Gospa Marisa, je to vaša torba?", "en": "Signora Marisa, is this your bag?" }
+        ],
+        "rows": [["Lei", "il Suo", "la Sua", "i Suoi / le Sue"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "possessivi",
+          "prompt": "Maestra, è ___ borsa?",
+          "options": ["la tua", "la Sua"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**Lei** (höflich) → **la Sua** borsa\n- Giulia, è la tua borsa? · zu einer Freundin\n- Maestra, è la Sua borsa? · höflich",
+            "sl": "**Lei** (vikanje) → **la Sua** borsa\n- Giulia, è la tua borsa? · prijateljici\n- Maestra, è la Sua borsa? · vljudno",
+            "en": "**Lei** (polite) → **la Sua** borsa\n- Giulia, è la tua borsa? · to a friend\n- Maestra, è la Sua borsa? · polite"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "possessivi-1",
+      "title": { "it": "Il mio, la mia", "de": "Il mio, la mia", "sl": "Il mio, la mia", "en": "Il mio, la mia" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "possessivi",
+          "instruction": { "de": "Completa · Ergänze die Tabelle", "sl": "Completa · Dopolni tabelo", "en": "Completa · Fill in the table" },
+          "prompt": { "de": "il cane (der Hund), la casa (das Haus)", "sl": "il cane (pes), la casa (hiša)", "en": "il cane (the dog), la casa (the house)" },
+          "columns": ["il … cane", "la … casa", "i … cani", "le … case"],
+          "rows": [
+            { "label": "io", "cells": ["mio", { "accept": ["mia"]}, { "accept": ["miei"], "hint": "mi…i" }, "mie"]},
+            { "label": "tu", "cells": [{ "accept": ["tuo"]}, "tua", { "accept": ["tuoi"]}, "tue"]},
+            { "label": "lui, lei", "cells": ["suo", { "accept": ["sua"]}, "suoi", { "accept": ["sue"]}]},
+            { "label": "noi", "cells": ["nostro", "nostra", { "accept": ["nostri"]}, { "accept": ["nostre"]}]},
+            {
+              "label": "loro",
+              "cells": [
+                "loro",
+                { "accept": ["loro"], "hint": { "de": "loro bleibt gleich", "sl": "loro ostane enak", "en": "loro never changes" } },
+                "loro",
+                "loro"
+              ]
+            }
+          ],
+          "explain": {
+            "de": "**Das Ding** entscheidet; loro bleibt gleich\n- il mio cane · la mia casa\n- i miei cani · le mie case",
+            "sl": "**Stvar** odloči; loro ostane enak\n- il mio cane · la mia casa\n- i miei cani · le mie case",
+            "en": "**The thing** decides; loro never changes\n- il mio cane · la mia casa\n- i miei cani · le mie case"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "possessivi",
+          "instruction": { "de": "Il mio, la mia, i miei o le mie? · Sortiere", "sl": "Il mio, la mia, i miei o le mie? · Razvrsti", "en": "Il mio, la mia, i miei o le mie? · Sort" },
+          "columns": [
+            { "label": "il mio …", "words": ["cane", "zaino"]},
+            { "label": "la mia …", "words": ["casa", "tenda"]},
+            { "label": "i miei …", "words": ["amici", "nonni"]},
+            { "label": "le mie …", "words": ["pecore", "scarpe"]}
+          ],
+          "explain": {
+            "de": "**Das Ding** entscheidet: mio, mia, miei, mie\n- il mio zaino (nicht lo!) · la mia tenda\n- i miei amici · le mie pecore",
+            "sl": "**Stvar** odloči: mio, mia, miei, mie\n- il mio zaino (ne lo!) · la mia tenda\n- i miei amici · le mie pecore",
+            "en": "**The thing** decides: mio, mia, miei, mie\n- il mio zaino (not lo!) · la mia tenda\n- i miei amici · le mie pecore"
+          }
+        }
+      ]
+    },
+    {
+      "id": "possessivi-2",
+      "title": { "it": "La mia famiglia", "de": "Meine Familie", "sl": "Moja družina", "en": "My family" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "possessivi",
+          "instruction": { "de": "Completa · Ergänze mio, tuo, suo", "sl": "Completa · Dopolni mio, tuo, suo", "en": "Completa · Fill in mio, tuo, suo" },
+          "title": "La mia famiglia",
+          "text": "Mi chiamo Giulia. Abito con ___ (mio) nonna, Nonna Rosa. Zia Nives è ___ (suo) sorella. Il ___ (mio) gatto si chiama Micio. Lorenzo è il ___ (mio) amico. ___ (suo) nonno è Franco, il mugnaio. E tu, come si chiama la ___ (tuo) maestra?",
+          "gaps": [
+            {
+              "accept": ["mia", "la mia"],
+              "hint": { "de": "Familie, eine Person: kein Artikel", "sl": "družina, ena oseba: brez člena", "en": "family, one person: no article" }
+            },
+            {
+              "accept": ["sua", "la sua"],
+              "hint": "la sorella → ?",
+              "explain": { "de": "Nives ist Rosas Schwester: **sua** sorella, ohne Artikel.", "sl": "Nives je Rosina sestra: **sua** sorella, brez člena.", "en": "Nives is Rosa's sister: **sua** sorella, no article." }
+            },
+            { "accept": ["mio"], "hint": "il gatto → ?" },
+            { "accept": ["mio"], "hint": "il … amico" },
+            {
+              "accept": ["Suo", "Il suo"],
+              "hint": "il nonno → ?",
+              "explain": { "de": "Lorenzos Opa: **suo** nonno (il nonno ist männlich).", "sl": "Lorenzov dedek: **suo** nonno (il nonno je moškega spola).", "en": "Lorenzo's grandpa: **suo** nonno (il nonno is masculine)." }
+            },
+            { "accept": ["tua"], "hint": "la maestra → ?" }
+          ],
+          "bank": true,
+          "distractors": ["mie", "tue"],
+          "translation": {
+            "de": "Ich heiße Giulia. Ich wohne bei meiner Oma, Nonna Rosa. Zia Nives ist ihre Schwester. Meine Katze heißt Micio. Lorenzo ist mein Freund. Sein Opa ist Franco, der Müller. Und du, wie heißt deine Lehrerin?",
+            "sl": "Ime mi je Giulia. Živim s svojo babico, babico Roso. Teta Nives je njena sestra. Moj muc se imenuje Micio. Lorenzo je moj prijatelj. Njegov dedek je Franco, mlinar. Pa ti, kako je ime tvoji učiteljici?",
+            "en": "My name is Giulia. I live with my grandma, Nonna Rosa. Zia Nives is her sister. My cat is called Micio. Lorenzo is my friend. His grandpa is Franco, the miller. And you, what's your teacher called?"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "possessivi",
+          "prompt": "Davide chiama ___ cane.",
+          "options": ["il suo", "la sua", "i suoi"],
+          "answer": 0,
+          "say_options": true,
+          "explain": { "de": "**il cane** ist männlich, einer → **il suo**", "sl": "**il cane** je moškega spola, eden → **il suo**", "en": "**il cane** is masculine, one → **il suo**" }
+        }
+      ]
+    },
+    {
+      "id": "possessivi-3",
+      "title": { "it": "Di chi è?", "de": "Wem gehört das?", "sl": "Čigavo je?", "en": "Whose is it?" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "possessivi",
+          "instruction": { "de": "Di chi è? · Schreib es für die Person in Klammern", "sl": "Di chi è? · Napiši za osebo v oklepaju", "en": "Di chi è? · Write it for the person in brackets" },
+          "cue": "→",
+          "items": [
+            { "from": "È il mio cane. (tu)", "accept": ["È il tuo cane."]},
+            { "from": "È la mia tenda. (noi)", "accept": ["È la nostra tenda."]},
+            { "from": "Sono i miei libri. (Lorenzo)", "accept": ["Sono i suoi libri."], "hint": "Lorenzo → suo" },
+            {
+              "from": "È la mia casa. (loro)",
+              "accept": ["È la loro casa."],
+              "hint": { "de": "loro bleibt gleich", "sl": "loro ostane enak", "en": "loro never changes" }
+            }
+          ],
+          "explain": {
+            "de": "**Die Person** ändert das Wort, das Ding die Endung\n- il mio → il tuo, il suo\n- la mia → la nostra, la loro",
+            "sl": "**Oseba** spremeni besedo, stvar končnico\n- il mio → il tuo, il suo\n- la mia → la nostra, la loro",
+            "en": "**The person** changes the word, the thing its ending\n- il mio → il tuo, il suo\n- la mia → la nostra, la loro"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "possessivi",
+          "instruction": { "de": "Al plurale · In den Plural", "sl": "Al plurale · V množino", "en": "Al plurale · Into the plural" },
+          "cue": "→",
+          "items": [
+            { "from": "il mio cane", "accept": ["i miei cani"]},
+            { "from": "la tua pecora", "accept": ["le tue pecore"]},
+            {
+              "from": "mia sorella",
+              "accept": ["le mie sorelle"],
+              "hint": { "de": "Familie im Plural: mit Artikel", "sl": "družina v množini: s členom", "en": "family in the plural: with the article" }
+            },
+            {
+              "from": "suo nonno",
+              "accept": ["i suoi nonni"],
+              "hint": { "de": "Familie im Plural: mit Artikel", "sl": "družina v množini: s členom", "en": "family in the plural: with the article" }
+            }
+          ],
+          "explain": {
+            "de": "**mehrere** → i miei, le mie …; die Familie bekommt den Artikel zurück\n- mia sorella → le mie sorelle\n- suo nonno → i suoi nonni",
+            "sl": "**več** → i miei, le mie …; družina dobi člen nazaj\n- mia sorella → le mie sorelle\n- suo nonno → i suoi nonni",
+            "en": "**more** → i miei, le mie …; family gets its article back\n- mia sorella → le mie sorelle\n- suo nonno → i suoi nonni"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table",
+        "grammar": "possessivi",
+        "instruction": { "de": "Completa · Ergänze die Tabelle", "sl": "Completa · Dopolni tabelo", "en": "Completa · Fill in the table" },
+        "prompt": { "de": "il libro (das Buch), la palla (der Ball)", "sl": "il libro (knjiga), la palla (žoga)", "en": "il libro (the book), la palla (the ball)" },
+        "columns": ["il … libro", "la … palla"],
+        "rows": [
+          { "label": "tu", "cells": [{ "accept": ["tuo"]}, { "accept": ["tua"]}]},
+          { "label": "noi", "cells": [{ "accept": ["nostro"]}, "nostra"]},
+          { "label": "lui, lei", "cells": ["suo", { "accept": ["sua"]}]}
+        ]
+      },
+      {
+        "type": "gaptext",
+        "grammar": "possessivi",
+        "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "text": "Questo è il ___ (mio) zaino. ___ (mio) nonno si chiama Franco. Giulia e Nonna Rosa mangiano la ___ (loro) gubana. Davide, sono le ___ (tuo) pecore?",
+        "gaps": [{ "accept": ["mio"]}, { "accept": ["Mio", "Il mio"]}, { "accept": ["loro"]}, { "accept": ["tue"]}],
+        "translation": {
+          "de": "Das ist mein Rucksack. Mein Opa heißt Franco. Giulia und Nonna Rosa essen ihre Gubana. Davide, sind das deine Schafe?",
+          "sl": "To je moj nahrbtnik. Moj dedek se imenuje Franco. Giulia in babica Rosa jesta svojo gubano. Davide, so to tvoje ovce?",
+          "en": "This is my rucksack. My grandpa is called Franco. Giulia and Nonna Rosa are eating their gubana. Davide, are these your sheep?"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "possessivi",
+        "instruction": { "de": "Al plurale · In den Plural", "sl": "Al plurale · V množino", "en": "Al plurale · Into the plural" },
+        "cue": "→",
+        "items": [{ "from": "la mia tenda", "accept": ["le mie tende"]}, { "from": "tuo fratello", "accept": ["i tuoi fratelli"]}]
+      },
+      {
+        "type": "choice",
+        "grammar": "possessivi",
+        "prompt": "Maestra, è ___ quaderno?",
+        "options": ["il tuo", "il Suo", "la Sua"],
+        "answer": 1,
+        "say_options": true,
+        "explain": { "de": "**Lei** (höflich) und **il quaderno** (männlich) → **il Suo**", "sl": "**Lei** (vikanje) in **il quaderno** (moški) → **il Suo**", "en": "**Lei** (polite) and **il quaderno** (masculine) → **il Suo**" }
+      },
+      {
+        "type": "choice",
+        "grammar": "possessivi",
+        "prompt": "Giulia cerca ___ gatto.",
+        "options": ["il suo", "la sua"],
+        "answer": 0,
+        "say_options": true,
+        "explain": { "de": "**il gatto** ist männlich → **il suo**, auch bei Giulia", "sl": "**il gatto** je moškega spola → **il suo**, tudi pri Giulii", "en": "**il gatto** is masculine → **il suo**, for Giulia too" }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (it, de, sl). Native check: la mia nonna, la sua sorella, il mio nonno accepted as spoken; capital Suo; La mia famiglia."
+}
