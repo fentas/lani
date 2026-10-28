@@ -441,6 +441,14 @@ season, the weather or the sky's colour at the horizon change. The cells keep un
 first). Every frame is the same pixels the whole picture drawn at once has there. QA's hook "render:full" draws the ground
 whole every frame again, to compare.
 
+**Nothing is drawn on the main thread, the first picture neither** (`game/render/RenderThread.kt`, `Retained.kt`,
+`StripPictures.kt`; `TownPicturesTest`; docs/plans/05-built/home-return.md). The village's map, Home's header village and
+a scene's picture each have a render thread of their own, which draws the first picture too: until it comes the canvas
+is the hour's sky, and the picture fades in over it (220 ms). Home's header village and the learner's own village's map
+are kept while their screen is away, with their renderers' kept ground and trees and their last pictures: coming back
+(Back to Home, the village opened again) shows the last picture at once, and the next is drawn beside it. When memory is
+short (the system's onTrimMemory) the views not on the screen go, and those on it let their kept ground and trees go.
+
 **The choice at setup** (`Founding`, `ui/game/FoundingScreen.kt`). A village is founded at the app's first start, once
 the node has no village and the phone none either (offline too: it goes to the node when it answers): "🏡 Kje bo tvoja
 vas? · Where will your village be?" shows the region (the culture packs of the village's language; the node plays one of

@@ -79,10 +79,10 @@ class Bridge(private val config: BridgeConfig) {
      * GET [path] read by [parse] (its text said to the learner first, as [get]); an answer the same as the last one read
      * of [path] (the same text, learner, pair and day) is not read again: the value read then comes back, the same
      * instance (2026-10-28, docs/plans/05-built/home-return.md). Home reads everything anew each time it comes back
-     * (AppViewModel.shown) and mostly nothing changed since: reading the learner's state and the scenes again made tens
-     * of MB for the collector, which the main thread then waited for while it drew Home, and a new value, equal to the
-     * last, was compared field by field on the main thread before the screen's state kept the one it had. A status other
-     * than 2xx is an [IOException] naming it, as [get] has it.
+     * (AppViewModel.shown) and mostly nothing changed since: reading the learner's state and the scenes again took the
+     * processor and made tens of MB for the collector while Home was drawn, and a new value, equal to the last, was
+     * compared field by field on the main thread before the screen's state kept the one it had. A status other than 2xx
+     * is an [IOException] naming it, as [get] has it.
      */
     @Suppress("UNCHECKED_CAST")
     private suspend fun <T> remembered(path: String, parse: (String) -> T): T = answer(path, notFound = false, parse) as T
