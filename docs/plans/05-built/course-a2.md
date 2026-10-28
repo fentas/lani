@@ -77,8 +77,12 @@ sentence still to come, hints that gave the answer, and practice sentences repea
 ## Smaller changes on the way
 
 - **The board's ellipsis**: the school's blackboard (`BoardFont`) had no "…", and `pogojnik`'s title is "Rad bi …:
-  pogojnik" (SchoolBoardTest checks every letter of the course); a three-dot glyph added (B1's "Rekel je, da …" needs it
-  too).
+  pogojnik" (SchoolBoardTest checks every letter of the course); course-b1a added the same glyph first, so the rebase
+  kept main's.
+- **QA's "school:<unit>"** (course-b1a's hook for its step school-b1) readied a later unit as never begun, the units
+  before it in its level untouched: with the school showing a level a bit at a time, B1's sixth unit lay in the folded,
+  read-only list. The hook now marks the written units before it done, so it is the current row; "school:reveal" is
+  matched before it (QaHooksTest).
 - **The printed sheets** (`companion/prints/sheet.ts`, "Pazi · Watch out"): a choice whose options carry the learner's
   gender (`{m:pil|f:pila}`) broke the sheet (an option was put into a regular expression as it was). Options are filled
   for the learner and escaped now: "✗ Kavo sem pil/pila, zdaj grem. → ✓ Kavo sem popil/popila". A2's eight sheets and the
@@ -130,8 +134,8 @@ podkovati (perfective), tih (tišji), lahek (lažji), sladek (slajši, also slad
 - `bunx tsc --noEmit -p .` in the bridge: clean.
 - The app: `SchoolBoardTest` (every unit's title and forms on the board, the ellipsis), `GrammarTest` (the bundled pages),
   `CourseTest`, `SheetsTest`, `PrintsTest`, `IntroSpeechTest`, `IntroSpeechParityTest`: 50 tests, none failed; the full
-  unit suite with the reveal (school-reveal.md), rebased on main: 403 classes, 3,175 tests, none failed
-  but a frame-time check of the alps scene at 25 ms on the loaded shared machine (`SceneDetailTest`, 4 of 4 alone).
+  unit suite with the reveal (school-reveal.md), rebased on main (course-b1a in): 403 classes, 3,176 tests, none failed (an earlier run had a frame-time check of
+  the alps scene at 25 ms on the loaded machine, `SceneDetailTest`, 4 of 4 alone).
 - `school-prints --level A2`: the eight sheets and the booklet; A1's HTML byte for byte as before the print fix.
 - Emulator QA, `companion/bin/qa --steps school-a2` (a synthetic learner, QA's hook "school:reveal", the rebased debug
   build): the unit cigav from the school's levels (one of the next two after the unit begun), its intro's five steps
@@ -142,3 +146,14 @@ podkovati (perfective), tih (tišji), lahek (lažji), sladek (slajši, also slad
   or a sheet: one swipe up). On the final build (main's corrections at their items) the step passed again, the gap's
   ✗ and the verdict's Francetov looked for instead of a "Popravki" list; the run's twelve-minute cap fell during the
   crash check after it. Screenshots in the scratchpad's `ux-course-a2/final/`, the reveal's in `ux-course-a2/reveal-final/`.
+  After the last rebase (course-b1a in), one run of main's school-b1 and school-reveal on the final build: school-b1
+  passed (its unit the current row now), the reveal to its last screenshot (B1 closed, its units folded; the run's cap
+  fell during its final tap): `ux-course-a2/b1-and-reveal-final/`.
+
+## For the lead
+
+- course-cases' content check (test/smoke/course-content.ts) reads COURSE.md's rows as "| `unit` |"; course-b1a's
+  rows are "| `dvojina-skloni` (B1) |", so after both merge the check will ask for rows of dolocna-oblika,
+  dvojina-skloni, svoj and vid-vsi-casi (the A2 units of this branch pass it: 326 answers, 18 rows).
+- The plural rows of the forms cards open with each case's page (`pageOf`: gen.pl needs rodilnik and mnozina), so at
+  the case units, before mnozina-skloni teaches them; to make them wait for it, `pageOf` would name mnozina-skloni.
