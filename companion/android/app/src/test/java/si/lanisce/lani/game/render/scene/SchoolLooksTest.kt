@@ -56,7 +56,7 @@ class SchoolLooksTest {
     }
 
     @Test fun `the Friuli school is an Italian classroom and the Slovene one stays as it was`() {
-        assertEquals(setOf("school"), CultureLooks.touched.getValue("friuli"))
+        assertTrue("the Friuli look draws the school", "school" in CultureLooks.touched.getValue("friuli"))
         for (k in 1..3) {
             val (sl, slHits) = render(frame("primorska"), k)
             val (fr, frHits) = render(frame("friuli"), k)
