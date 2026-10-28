@@ -32,6 +32,11 @@ data class MyWordsGroup(val key: String, val words: List<MyWord>) {
  * of theirs ([lookupFor]). Pure.
  */
 object MyWords {
+    /** Compiled once: accents (combining marks), runs of spaces, what splits a word or a meaning into its words. */
+    private val MARKS = Regex("\\p{Mn}+")
+    private val SPACES = Regex("\\s+")
+    private val PARTS = Regex("[^\\p{L}\\p{N}']+")
+
     /** The key of the newest words' group. */
     const val RECENT = "recent"
     /** The newest words shown on top at most ... */
@@ -52,11 +57,21 @@ object MyWords {
             .map { MyWord(it.id, it.front.trim(), it.back.trim(), it.id in learned, it.created, it.category) }
             .sortedWith(compareBy<MyWord> { !it.learned }.thenByDescending { it.added })
             .distinctBy { fold(it.word) }
-            .sortedWith(ORDER)
             .toList()
+            .let(::ordered)
 
     /** Slovene's alphabetical order: c before č, s before š, z before ž, each its own letter; an accent elsewhere after its letter. */
     val ORDER: Comparator<MyWord> = compareBy<MyWord> { sortKey(it.word) }.thenBy { it.word }
+
+    /**
+     * [words] in [ORDER], each word's [sortKey] made once (2026-10-28: sorting compared by keys made anew in every
+     * comparison, a regular expression compiled for each letter of them: for a learner's 1,800 words seconds on Home's
+     * first frame, an ANR in a debug build; docs/plans/05-built/home-return.md).
+     */
+    fun ordered(words: List<MyWord>): List<MyWord> =
+        words.map { sortKey(it.word) to it }
+            .sortedWith(compareBy<Pair<String, MyWord>> { it.first }.thenBy { it.second.word })
+            .map { it.second }
 
     /** [w] as [ORDER] compares it: each letter its base, then č, š, ž as letters of their own after c, s, z. */
     fun sortKey(w: String): String = buildString {
@@ -90,9 +105,11 @@ object MyWords {
     fun groups(words: List<MyWord>, today: LocalDate): List<MyWordsGroup> {
         val recent = if (words.size <= RECENT_MAX) emptyList() else words
             .filter { w -> w.added?.let { !it.isAfter(today) && !it.isBefore(today.minusDays(RECENT_DAYS)) } == true }
-            .sortedWith(compareByDescending<MyWord> { it.added }.thenBy { sortKey(it.word) })
+            .map { sortKey(it.word) to it }
+            .sortedWith(compareByDescending<Pair<String, MyWord>> { it.second.added }.thenBy { it.first })
+            .map { it.second }
             .take(RECENT_MAX)
-        val letters = words.sortedWith(ORDER).groupBy { letter(it.word) }.toList()
+        val letters = ordered(words).groupBy { letter(it.word) }.toList()
             .sortedWith(compareBy<Pair<String, List<MyWord>>> { it.first == "#" }.thenBy { sortKey(it.first) })
             .map { (k, v) -> MyWordsGroup(k, v) }
         return listOfNotNull(recent.takeIf { it.isNotEmpty() }?.let { MyWordsGroup(RECENT, it) }) + letters
@@ -105,9 +122,9 @@ object MyWords {
      * of them for an empty query.
      */
     fun filter(words: List<MyWord>, query: String): List<MyWord> {
-        val q = fold(query.trim().replace(Regex("\\s+"), " "))
+        val q = fold(query.trim().replace(SPACES, " "))
         if (q.isEmpty()) return words
-        val parts = Regex("[^\\p{L}\\p{N}']+")
+        val parts = PARTS
         fun rank(w: MyWord): Int? {
             val f = fold(w.word)
             val m = fold(w.meaning)
@@ -121,9 +138,9 @@ object MyWords {
                 else -> null
             }
         }
-        return words.mapNotNull { w -> rank(w)?.let { it to w } }
-            .sortedWith(compareBy<Pair<Int, MyWord>> { it.first }.thenBy { sortKey(it.second.word) })
-            .map { it.second }
+        return words.mapNotNull { w -> rank(w)?.let { Triple(it, sortKey(w.word), w) } }
+            .sortedWith(compareBy<Triple<Int, String, MyWord>> { it.first }.thenBy { it.second })
+            .map { it.third }
     }
 
     /**
@@ -132,7 +149,7 @@ object MyWords {
      * card shows it in the list already). A form of one of theirs ("hiše") is looked up: the dictionary names its word.
      */
     fun lookupFor(query: String, words: List<MyWord>): String? {
-        val q = query.trim().replace(Regex("\\s+"), " ")
+        val q = query.trim().replace(SPACES, " ")
         if (q.length < LOOKUP_MIN || q.length > LOOKUP_MAX) return null
         if (!q.all { it.isLetter() || it == ' ' || it == '\'' || it == '’' || it == '-' }) return null
         val f = fold(q)
@@ -142,5 +159,5 @@ object MyWords {
 
     /** [s] to compare as typed: lower case, without accents (č is c, é is e), one apostrophe. */
     fun fold(s: String): String =
-        Normalizer.normalize(s.lowercase().replace('’', '\''), Normalizer.Form.NFD).replace(Regex("\\p{Mn}+"), "")
+        Normalizer.normalize(s.lowercase().replace('’', '\''), Normalizer.Form.NFD).replace(MARKS, "")
 }

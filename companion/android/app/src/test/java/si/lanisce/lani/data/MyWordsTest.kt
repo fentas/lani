@@ -104,4 +104,28 @@ class MyWordsTest {
         assertNull(MyWords.lookupFor("pes?", words))
         assertEquals("rock'n'roll", MyWords.lookupFor("rock'n'roll", words))
     }
+
+    /**
+     * A learner of some months, 2,000 words (Jan's Home froze on its first frame: the sort compiled a regular expression
+     * for every letter of every comparison, seconds on a phone; docs/plans/05-built/home-return.md): the list in a few
+     * milliseconds, in the same order as [MyWords.ORDER] gives it.
+     */
+    @Test fun `two thousand words are listed in a few milliseconds, in Slovene's order`() {
+        val rnd = java.util.Random(7)
+        val letters = "abcčdefghijklmnoprsštuvzž"
+        val big = List(2000) { i ->
+            val w = String(CharArray(3 + rnd.nextInt(7)) { letters[rnd.nextInt(letters.length)] })
+            card("v_$i", w, "meaning $i", today.minusDays(rnd.nextInt(90).toLong()))
+        }
+        val learnedBig = big.filter { rnd.nextBoolean() }.map { it.id }.toSet()
+        repeat(3) { MyWords.of(big, learnedBig) }
+        val t0 = System.nanoTime()
+        val listed = MyWords.of(big, learnedBig)
+        val ms = (System.nanoTime() - t0) / 1e6
+        assertEquals(listed.sortedWith(MyWords.ORDER), listed)
+        val groups = MyWords.groups(listed, today)
+        assertEquals(listed.size, groups.filterNot { it.recent }.sumOf { it.words.size })
+        println("2,000 words listed in %.1f ms".format(ms))
+        assertTrue("$ms ms", ms < si.lanisce.lani.FrameBudget.scaled(60.0))
+    }
 }
