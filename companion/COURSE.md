@@ -685,6 +685,28 @@ A1's first six units, the greetings to the numbers (the next twelve are written 
 | `avere` 🎒 | ho, hai, ha … hanno; the h never said; age with avere; ho fame, ho freddo | essere-avere |
 | `numeri` 🔢 | 0–20, the tens to 100, ventuno, ventotto; un, una before a noun; quanti, quante | numeri |
 
+### The Italian course: units 7–12
+
+A1's middle six units go on from the greetings, essere, the articles, the plural, avere and the numbers (units 1–6) to
+what a child says about the day, in the Friuli village's life (Nonna Rosa's frico, Davide's sheep, Bruno's hammer,
+Franco's old red tractor, Aldo's honey, Nonno Bepi's stories and his dog Moro, the pond, the sea, the square):
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `presente-are` 🗣️ | parlo, parli, parla … parlano (the stress at the front); cantiamo as let's; Lei with the lui form (Elena, the adults); the question and non; giochi, peschi with h; mangi, mangiamo with one i | presente-regolare |
+| `presente-ere-ire` 📖 | leggo, leggi, legge (the g hard, then soft) … leggono; -ire as -ere but voi -ite; capisco, capisce with -isc-, not for noi and voi; lui parla but lui legge | presente-regolare |
+| `aggettivi` 🎨 | nero, nera, neri, nere; verde, verdi; after è and sono; una piccola barca, un vecchio trattore rosso (colours after); a boy and a girl: stanchi; bianche, stanchi with h | aggettivi-accordo |
+| `ce-ci-sono` 🌟 | c'è for one, ci sono for more (tante too); Ci sei? Sì, ci sono!; non c'è (pane: no article); c'è or è; dov'è, dove sono | ce-ci-sono |
+| `preposizioni` 🧭 | a Gorizia, a casa, in Italia, in cucina; nel, al, dal, del, sul and their rows; vicino allo stagno; sotto, sopra, dietro, con that don't melt | dove-preposizioni, preposizioni-articolate |
+| `possessivi` 👪 | il mio, la mia, i miei, le mie (il mio zaino); suo for his and her by the thing; mia nonna without the article, i miei nonni with it; loro never changes; Suo with Elena | possessivi |
+
+- **Only earlier grammar around a gap**: units 7–10 say "in cucina", "in piazza", "a casa", "con il cane", never a fused
+  preposition (nel, al) around a gap; possessivi, after preposizioni, may.
+- **A hint of forms stays a string** ("loro …", "c + i → ch + i", "-iamo"); a hint in words is per base.
+- **Spoken forms are right**: "la mia nonna" is a choice's `almost` and a gap's second answer, never wrong.
+- **A gap has one answer in its sentence**: where c'è and dov'è could both answer ("«___ Moro?» «È qui.»"), the sentence
+  is rewritten so only one fits.
+
 ## Printed sheets
 
 Jan, 2026-10-14: "Could you design A4 prints for each school topic? So one can use them as a reference in the future
