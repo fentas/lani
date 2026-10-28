@@ -6281,11 +6281,17 @@ def school_a2():
     for i, (kind, answer) in enumerate(steps, 1):
         assert wait_for(f"Korak {i}/5", 8), f"step {i}"
         if kind == "tap":
-            # the question under the lines and the table: scrolled to, the option the last of its word on screen (the
-            # table above may show it too)
-            adb("shell", "input", "swipe", "540", "1600", "540", "900", "400")
-            time.sleep(1)
-            c = ([c for t, c in nodes() if t == answer and c[1] < 2100] or [None])[-1]
+            # the quick question under the lines and the table (which grows, and may show the same word): scrolled up
+            # until its header is in the upper part, the option the first of its word under the header
+            for _ in range(5):
+                q = find("Hitro vprašanje")
+                if q is not None and q[1] < 1300:
+                    break
+                adb("shell", "input", "swipe", "540", "1600", "540", "900", "400")
+                time.sleep(1)
+            q = find("Hitro vprašanje")
+            assert q is not None, f"step {i}'s quick question"
+            c = ([c for t, c in nodes() if t == answer and q[1] < c[1] < 2250] or [None])[0]
             assert c is not None, f"step {i}'s option {answer}"
             tap_at(c)
         else:
