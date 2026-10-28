@@ -363,6 +363,44 @@ class FireAgesTest {
         assertTrue(FireLayout.growth(10) < FireLayout.growth(400) && FireLayout.growth(400) < FireLayout.growth(2000))
     }
 
+    @Test fun `Luka's flock comes, stands to be counted and goes at every age`() {
+        // his "Ovce gredo s planine. Pomagaj mi jih prešteti!" (roke-ovce, 16 to 24 of them) plays at every age: the flock
+        // comes past the homes from the village on, and each of them stands where it shows, to be counted
+        val failed = ArrayList<String>()
+        val strips = ArrayList<PixelCanvas>()
+        val cases = Age.entries.flatMap { age -> listOf(false, true).filter { !it || age != Age.OGENJ }.map { Triple(age, it, world(age, tent = it)) } } +
+            // the market town's well of stone before the fountain is begun
+            Triple(Age.TRG, false, world(Age.TRG).copy(projects = emptyMap()))
+        for ((i, case) in cases.withIndex()) {
+            val (age, tent, world) = case
+            val people = listOf(PersonInScene("luka", "shepherd", "right", talking = true))
+            fun at(level: Float?, count: Int, time: Double = 3.0) =
+                render(frame(world, 8.5f, date = autumn, people = people, time = time, fx = level?.let { mapOf("flock" to it) } ?: emptyMap()).copy(count = count)).first
+            val plain = at(null, 24).pixels
+            val what = "${age.name}${if (tent) " (tent)" else ""}${if (i == cases.lastIndex) " (well)" else ""}"
+            // each of them, one more than the ones before, shows where it stands
+            var before = at(0.5f, 1).pixels
+            if (before.indices.count { before[it] != plain[it] } < 25) failed += "$what: the first sheep hidden"
+            for (n in 2..24) {
+                val now = at(0.5f, n).pixels
+                val own = now.indices.count { now[it] != before[it] }
+                if (own < 25) failed += "$what: sheep $n shows $own px"
+                before = now
+            }
+            // not here before they come, gone once they have gone
+            if (!at(0f, 24).pixels.contentEquals(plain)) failed += "$what: here at 0"
+            if (!at(1f, 24).pixels.contentEquals(plain)) failed += "$what: still here at 1"
+            if (!tent && i != cases.lastIndex) for (v in listOf(0.08f, 0.2f, 0.35f, 0.5f, 0.65f, 0.8f, 0.92f)) strips += at(v, 24, time = 3.0 + v)
+        }
+        assertTrue(failed.joinToString("\n", prefix = "\n"), failed.isEmpty())
+        // for review: each age's flock coming, standing and going (a row each)
+        val cols = 7; val w = strips[0].width; val h = strips[0].height
+        val img = BufferedImage(w * cols * 2, h * (strips.size / cols) * 2, BufferedImage.TYPE_INT_RGB)
+        for ((i, c) in strips.withIndex()) for (y in 0 until h * 2) for (x in 0 until w * 2)
+            img.setRGB((i % cols) * w * 2 + x, (i / cols) * h * 2 + y, c.pixels[(y / 2) * w + x / 2])
+        ImageIO.write(img, "png", File(dir, "00-flock-ages.png"))
+    }
+
     private fun write(c: PixelCanvas, f: File, scale: Int) {
         val img = BufferedImage(c.width * scale, c.height * scale, BufferedImage.TYPE_INT_RGB)
         for (y in 0 until c.height * scale) for (x in 0 until c.width * scale) img.setRGB(x, y, c.pixels[(y / scale) * c.width + x / scale])

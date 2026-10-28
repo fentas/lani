@@ -321,11 +321,12 @@ internal class CampfirePainter : FireVillagePainter() {
         crowdAt("right")
         cast("stump")
         thing("stump") { stump() }
-        // the square's well at its front right, the market town's fountain in its place as far as it has come; the flock along
-        // the edges in front of everything
+        // the square's well at its front right, the market town's fountain in its place as far as it has come (the flock behind
+        // it first); the flock along the edges in front of everything
+        flockPass(2)
         if (l.fountain > 0) prop { fountain(l.fountain, l.fountainSteps) }
         else if (l.well) prop { well(l.age >= FireAge.MARKET) }
-        flockPass(2)
+        flockPass(3)
 
         // the decorations of the day's feast, the homes' smoke and their windows' light
         decorations(fireX, fireY)
@@ -459,16 +460,18 @@ internal class CampfirePainter : FireVillagePainter() {
     private val flX = FloatArray(FLOCK_AT.size); private val flY = FloatArray(FLOCK_AT.size); private val flZ = FloatArray(FLOCK_AT.size)
     private val flRight = BooleanArray(FLOCK_AT.size); private val flWalk = BooleanArray(FLOCK_AT.size)
     private val flUp = BooleanArray(FLOCK_AT.size); private val flBell = BooleanArray(FLOCK_AT.size); private val flSeed = IntArray(FLOCK_AT.size)
+    private val flOrder = IntArray(FLOCK_AT.size)
 
     /**
      * Luka's flock at the camp ("flock", [level]; his "Ovce gredo s planine. Pomagaj mi jih prešteti!" and "Zdaj grem z
      * ovcami na travnik"): as many sheep as the dialog counts ([si.lanisce.lani.game.scene.SceneFrame.count], else [FLOCK]).
-     * Up to 0.5 they come out of the trees at the back on the right one after another (from the village on, round the
-     * corner of the house there), down past the tent and the chopping block, and spread along the camp's edge on the right
-     * and in front ([flockAt], the farthest first; from the village on clear of the well and the crowd's seat), where they mill,
+     * Up to 0.5 they come out of the trees at the back on the right one after another, down past the tent and the chopping
+     * block, and spread along the camp's edge on the right and in front ([flockAt], the farthest first), where they mill,
      * grazing, a head up now and then, to be counted; from 0.5 they go one after another along the front edge and down the
-     * path out of the clearing on the left, the nearest to it first, and at 1 they are gone. Not set, none. Plans where each
-     * is this frame; [flockPass] draws them.
+     * path out of the clearing on the left, the nearest to it first, and at 1 they are gone. From the village on the homes
+     * stand where the trees were and the bench reaches the edge, so they come up that path from the meadow and go back down
+     * it ([flockIn]), the farthest along it first, to places clear of the well and the crowd's seat. Not set, none. Plans
+     * where each is this frame; [flockPass] draws them.
      */
     private fun flockPlan(level: Float?) {
         flockN = 0
@@ -477,12 +480,15 @@ internal class CampfirePainter : FireVillagePainter() {
         // the paths in and out of each, and the longest of them, so each walks at about the same pace
         var maxIn = 1f; var maxOut = 1f
         for (k in 0 until n) { maxIn = max(maxIn, pathLen(flockIn(k))); maxOut = max(maxOut, pathLen(flockOut(k))) }
+        val up = layout.age >= FireAge.VILLAGE
         for (k in 0 until n) {
-            // the farthest of them (the last of the places taken) comes first and goes first
+            // the farthest of them (the last of the places taken) comes first and goes first; up the path from the meadow,
+            // the first of the places (the farthest along it) comes first
             val o = if (n == 1) 0f else (n - 1 - k) / (n - 1f)
+            val oi = if (up) 1f - o else o
             val pin = flockIn(k); val pout = flockOut(k)
             val wi = 0.12f + 0.3f * pathLen(pin) / maxIn; val wo = 0.12f + 0.3f * pathLen(pout) / maxOut
-            val ai = o * (0.5f - wi); val ao = 0.5f + o * (0.5f - wo)
+            val ai = oi * (0.5f - wi); val ao = 0.5f + o * (0.5f - wo)
             val come = PokeArt.ease(level, ai, ai + wi)
             val go = PokeArt.ease(level, ao, ao + wo)
             if (come <= 0f || go >= 1f) continue
@@ -504,17 +510,33 @@ internal class CampfirePainter : FireVillagePainter() {
 
     /**
      * Draws the flock's sheep of [pass] (see [flockPlan]): 0 those still among the trees at the back (behind the hazel in
-     * the corner), 1 those coming down beside the tent (behind the chopping block), 2 the rest, along the edges in front of
-     * everything. The ones that wear bells ring them: a clink going out over them as they walk, and with the far bells
-     * ("sheepbells", Luka's "Slišiš zvonce?") as they graze.
+     * the corner), 1 those coming down beside the tent (behind the chopping block), 2 the rest that are behind the square's
+     * well (the fountain), 3 the rest, along the edges in front of everything; in each pass the farthest first. The ones that
+     * wear bells ring them: a clink going out over them as they walk, and with the far bells ("sheepbells", Luka's "Slišiš
+     * zvonce?") as they graze.
      */
     private fun flockPass(pass: Int) {
         if (flockN == 0) return
         val q = detail
         val bells = fxOn("sheepbells")
-        for (i in 0 until flockN) {
+        // the farthest first ([flockN] is at most [FLOCK_AT]'s size: a few swaps)
+        for (i in 0 until flockN) flOrder[i] = i
+        for (i in 1 until flockN) {
+            val o = flOrder[i]; val d = flX[o] + flY[o]
+            var j = i - 1
+            while (j >= 0 && flX[flOrder[j]] + flY[flOrder[j]] > d) { flOrder[j + 1] = flOrder[j]; j-- }
+            flOrder[j + 1] = o
+        }
+        val well = layout.fountain > 0 || layout.well
+        for (n in 0 until flockN) {
+            val i = flOrder[n]
             val x = flX[i]; val y = flY[i]
-            val p = if (y < 1.4f) 0 else if (x + y < blockX + blockY) 1 else 2
+            val p = when {
+                y < 1.4f -> 0
+                x + y < blockX + blockY && y < blockY + 1f -> 1
+                well && x + y < WELL_X + WELL_Y -> 2
+                else -> 3
+            }
             if (p != pass) continue
             val ax = iso.ix(x, y); val ay = iso.iy(x, y, flZ[i]) + q
             // past the plot's front edge only what is above it shows: it goes down the path out of sight
@@ -569,29 +591,30 @@ internal class CampfirePainter : FireVillagePainter() {
     }
 
     /**
-     * Where the [k]th of the flock mills ([FLOCK_AT]); from the village on, the places by the well (the fountain) and the
-     * crowd's seat at the right end of the bench go to the open ground before the stump and the right bench instead
-     * ([FLOCK_SQUARE]), so the dialog's count still all stand to be counted.
+     * Where the [k]th of the flock mills ([FLOCK_AT]); from the village on, the places behind the right bench and those the
+     * well (the fountain) would hide go to the open ground before the bench, beside the stump and in front of the well
+     * instead ([FLOCK_SQUARE]), so the dialog's count all stand in view to be counted.
      */
     private fun flockAt(k: Int): FloatArray =
         if (layout.age >= FireAge.VILLAGE) FLOCK_SQUARE[k] ?: FLOCK_AT[k] else FLOCK_AT[k]
 
     /**
-     * The way the [k]th of the flock comes in to its place ([flockAt]): out of the trees in the corner (from the village on
-     * round the corner of the house on the right, in front of the homes' lots), past the tent and the block, along the edge.
+     * The way the [k]th of the flock comes in to its place ([flockAt]): out of the trees in the corner, past the tent and the
+     * block, along the edge. From the village on a house stands in that corner and the right bench reaches the edge: up the
+     * path from the meadow instead, the way they go out again ([flockOut]), along the front edge to their places.
      */
     private fun flockIn(k: Int): FloatArray {
+        if (layout.age >= FireAge.VILLAGE) {
+            val out = flockOut(k)
+            return FloatArray(out.size) { i -> out[out.size - 2 - (i and 1.inv()) + (i and 1)] }
+        }
         val at = flockAt(k); val sx = at[0]; val sy = at[1]
-        val head = if (layout.age >= FireAge.VILLAGE) floatArrayOf(11.95f, 2.45f, 11.6f, 4.6f, 10.75f, 5.75f)
-        else floatArrayOf(11.65f, 0.1f, 11.6f, 4.6f, 10.75f, 5.75f)
-        // from the village on, past the stump on the well's near side (the camp's way passes where the well stands)
-        val mid = if (layout.age >= FireAge.VILLAGE) FLOCK_BY_WELL else 10.8f
+        val head = floatArrayOf(11.65f, 0.1f, 11.6f, 4.6f, 10.75f, 5.75f)
         return when {
-            layout.age >= FireAge.VILLAGE && k in FLOCK_SQUARE -> head + floatArrayOf(10.6f, 8.2f, sx, sy)
             sx > 10.9f && sy < 8.8f -> head + floatArrayOf(sx, sy)
             sy < 9.5f -> head + floatArrayOf(10.6f, 8.2f, sx, sy)
-            sx > 10.3f -> head + floatArrayOf(10.6f, 8.2f, mid, 11.35f, sx, sy)
-            else -> head + floatArrayOf(10.6f, 8.2f, mid, 11.35f, 9.6f, 11.8f, sx, sy)
+            sx > 10.3f -> head + floatArrayOf(10.6f, 8.2f, 10.8f, 11.35f, sx, sy)
+            else -> head + floatArrayOf(10.6f, 8.2f, 10.8f, 11.35f, 9.6f, 11.8f, sx, sy)
         }
     }
 
@@ -603,8 +626,6 @@ internal class CampfirePainter : FireVillagePainter() {
         return when {
             sx > 10.5f && sy < 11f -> floatArrayOf(sx, sy, 10.6f, 9.0f, mid, 11.4f, 9.6f, 11.85f) + tail
             sx > 10.5f -> floatArrayOf(sx, sy, 10.6f, 11.85f) + tail
-            // from the village on, the places before the stump go out past it on the well's near side
-            layout.age >= FireAge.VILLAGE && k in FLOCK_SQUARE -> floatArrayOf(sx, sy, mid, 11.35f, 9.6f, 11.85f) + tail
             else -> floatArrayOf(sx, sy, sx, 11.85f) + tail
         }
     }
@@ -2103,24 +2124,26 @@ internal class CampfirePainter : FireVillagePainter() {
         /** How many sheep Luka's flock ("flock") brings when the dialog counts none. */
         const val FLOCK = 20
 
+        /** From the village on, where the flock's way passes between the stump and the well (x; the camp's goes at 10.8). */
+        private const val FLOCK_BY_WELL = 10.35f
+
+        /**
+         * From the village on, the places of [FLOCK_AT] the square has something on: behind the right bench, which reaches the
+         * edge there with the crowd's seat at its end, and by the well (the fountain) at its front right or behind it, where it
+         * would hide them; each on the open ground before the bench, beside the stump or in front of the well instead (by
+         * index; the rest as [FLOCK_AT]).
+         */
+        private val FLOCK_SQUARE: Map<Int, FloatArray> = mapOf(
+            0 to floatArrayOf(10.6f, 8.35f), 1 to floatArrayOf(11.35f, 8.95f), 2 to floatArrayOf(8.75f, 9.5f),
+            5 to floatArrayOf(8.1f, 9.85f), 7 to floatArrayOf(11.8f, 11.2f),
+        )
+
         /**
          * Where the flock's sheep mill to be counted ("flock"), in the order they are taken (the first nearest the trees they
          * come out of): along the camp's edge on the right, past the right log, between the rocks and the stump, then along
          * the front edge toward the path, with two short rows behind it between the stump and the left log. As many as a
          * dialog may count (Luka's 16 to 24).
          */
-        /**
-         * From the village on, the places of [FLOCK_AT] the square has something on: by the well (the fountain) at its front
-         * right and at the crowd's seat at the right end of the right bench; each on the open ground before the stump and
-         * the right bench instead (by index; the rest as [FLOCK_AT]).
-         */
-        /** From the village on, where the flock's way passes between the stump and the well (x; the camp's goes at 10.8). */
-        private const val FLOCK_BY_WELL = 10.35f
-
-        private val FLOCK_SQUARE: Map<Int, FloatArray> = mapOf(
-            0 to floatArrayOf(10.6f, 8.35f), 1 to floatArrayOf(11.35f, 8.95f), 2 to floatArrayOf(9.9f, 9.55f), 7 to floatArrayOf(10.2f, 10.05f),
-        )
-
         private val FLOCK_AT = arrayOf(
             floatArrayOf(11.0f, 6.95f), floatArrayOf(11.7f, 6.3f), floatArrayOf(11.7f, 7.05f), floatArrayOf(11.7f, 7.8f),
             floatArrayOf(11.7f, 8.55f), floatArrayOf(10.3f, 9.0f), floatArrayOf(10.4f, 10.9f), floatArrayOf(11.7f, 11.1f),

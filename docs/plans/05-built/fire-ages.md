@@ -58,6 +58,17 @@ bigger village (`SceneWorld.Centre.unnamed`) take the spots nobody took on an ev
 map has them, as figures not to tap. The crowd's spots are no part of the stage (`DioramaPainter.tapSpot`): no `act` can
 send anyone there and no tap turn names one, so every dialog keeps working at every age.
 
+The dialogs' effects play at every age too, Luka's flock among them (scene-coherence's `flock`: roke-ovce, "Ovce gredo s
+planine. Pomagaj mi jih prešteti!", counts 16 to 24 sheep and has no age of its own). To the hamlet they come out of the
+trees at the back on the right as scene-coherence drew them. From the village on a house stands in that corner and the
+right bench reaches the plot's edge with the crowd's seat at its end, so the flock comes up the path from the meadow on the
+left, along the front edge to its places, the farthest along it first, and goes back down it; the places behind the
+bench and those the well (the fountain) would hide are on the open ground before the bench, beside the stump and in front
+of the well instead. Leaving the flock out from
+the village on (as first planned) would have had Luka ask to count sheep nobody can see. Each sheep is drawn among what
+stands by its depth: those behind the well before it, the rest after (before, a sheep walking the front edge was drawn
+under the left bench's sitters).
+
 ## The frame
 
 What stands still (the room round the diorama, the Milky Way, the ground, the woods and the houses at the back, the
@@ -96,7 +107,10 @@ settles).
   canvas and hour; the stage's spots and the crowd's (someone there drawn, person-sized, nothing over their head; behind the
   stump by design); the village round the fire leaves the fire to tap and everyone in view; the crowd's count; the kept
   still picture is the picture; the moon in the sky while it is up; the fire by the hour; every culture its own; the
-  linden's growth; a frame's time.
+  linden's growth; Luka's flock at every age, with and without the tent (each of 24 in view where it stands, none before
+  it comes nor after it has gone; `00-flock-ages.png`: each age's flock coming, standing and going); a frame's time.
+- scene-coherence's `StepScenesRenderTest`, `CueStatesRenderTest`, `SceneCoherenceTest` and `SceneEffectsTest` pass with
+  the kept still picture and the flock's ways by the age.
 - `FireCrowdTest`: who of the village stands round the fire on its evenings, at the age's spots; none round the first
   campfire, none in another scene.
 - `SceneWorldTest`: the centre of a game state (its homes by their plots, the linden's day, a feast, the unnamed).
