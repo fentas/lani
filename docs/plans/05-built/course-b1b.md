@@ -61,7 +61,7 @@ examples, a tip), so a unit's summary card is its own rule and not an A1/A2 page
 `nedolocni-zaimki`, `naslonke-red`, `stevila-glagol`, `cas-izrazi`, `custva`, `trpnik`, `glagolniki`. The A1/A2 pages
 the outline named stay in each unit's `grammar` (pogojnik, zanikanje, naslonke, stevila-samostalniki, datumi, kdaj-cas,
 dajalnik, tozilnik) and keep turning on their forms (COURSE.md, "What a unit turns on": the rows for these units). The
-book has 52 Slovene pages now (GrammarTest).
+book has 57 Slovene pages now with course-b1a's five (GrammarTest).
 
 ## Tests
 
@@ -73,14 +73,15 @@ book has 52 Slovene pages now (GrammarTest).
   intro step, example, row and quick question survives the app's parse; every right answer of a sheet, a test and an
   intro's question is graded right by the app's own Grading, and a word bank's distractors are wrong for every gap; a
   choice's answer, a multi's answers and a reorder's solutions fit; every page a unit names is in the bundled book.
-- `GrammarTest` (52 pages), `QaHooksTest` (the new hook), SchoolBoardTest (every letter of the titles and the tables'
+- `GrammarTest` (57 pages), SchoolBoardTest (every letter of the titles and the tables'
   forms in chalk), CourseTest, PrintsTest, IntroSpeechParityTest, CheatSheetTest, GrammarBookTest, FormsCardTest, SchoolTest:
   pass; the full unit suite: 3,076 tests in 390 classes, none failed. Two fixes came out of them: the new content test found mestnik's distractor
   «ogenju» almost right for its gap (a stem slip, as Grading forgives: listed, A1's, left as it is), and SchoolBoardTest
   found cas-izrazi, custva and stevila-glagol's titles filling the blackboard with no form under them: their intro
   tables' third column is a meaning now, as A1's are, and the chalk font writes "…".
-- **Emulator QA**, new step `school-unit` (QA's new hook `school:<unit>`: the class ready, the unit's level open, the
-  unit as never begun, its page open): a unit end to end from its own file, `pogojnik-polno` by default
+- **Emulator QA**, new step `school-unit`, a unit end to end from its own file (course-b1a's hook `school:<unit>`,
+  which merged first: the class ready, the unit's level open, the unit as never begun; the unit from its level in the
+  school, as b1a's `school-b1` goes to oziralni-ki, with its `tap_above` and `check_sheet`), `pogojnik-polno` by default
   (`LANI_QA_UNIT=<id>` another): passed on the emulator with a synthetic learner (`LANI_DEV_DATA`, Ana), in one run of
   about ten minutes: the unit's page, its five intro steps (choices tapped, clozes typed), the summary card, the first
   worksheet's table and choices, the test straight away, passed 10/12 (8 right, 4 almost: adb types no č, š, ž), Mojca's
@@ -88,7 +89,9 @@ book has 52 Slovene pages now (GrammarTest).
   intro's first and last step, the summary, the sheet before and after checking, the test, the cheer, the unit done).
   Two QA fixes came out of it: the step scrolls to "Preveri · Check" and to a choice's option however long the intro's
   table has grown, and `bin/qa` had two `l10n` helpers (the second hid the first, so setup crashed: main fixed it too,
-  988cb6fc, and this branch takes main's).
+  988cb6fc, and this branch takes main's). The run was before the rebase onto course-b1a; since, the step goes through
+  the school instead of the unit's page, not run again on the emulator (its queue was long; the content test covers
+  every unit).
 - **Prints** (`school-prints --level B1 --units …`, English, Chromium): every unit fits, pogojnik-polno, naslonke-red,
   cas-izrazi and custva on two pages, the other four on one; the B1 booklet of them 14 pages. Each sheet leaves out 3–6
   of its words the dictionary has no meaning for (pripovedovanje, hoja, prepovedan …), as the generator does.
