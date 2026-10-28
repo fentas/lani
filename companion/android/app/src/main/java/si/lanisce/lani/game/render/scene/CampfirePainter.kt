@@ -1553,17 +1553,24 @@ internal class CampfirePainter : FireVillagePainter() {
         return col
     }
 
-    /** A little pennant in the flag's colours at the top of the front pole, fluttering. */
+    /**
+     * A little pennant in the flag's colours at the top of the front pole, fluttering: Slovenia's white, blue and red, or in
+     * a culture's look ([variant] "flag") Austria's red, white and red (Carinthia's camp) or England's St George's cross,
+     * red on white (the Lake District's).
+     */
     private fun pennant(x: Int, y: Int) {
         val flap = sin(t * 4.0).toFloat()
         val q = detail
+        val flag = variant("flag")
         // a column of the picture at a time: closer up the same pennant, its wave and its three stripes finer
         for (i in 0 until 8 * q) {
             val fi = i / q.toFloat()
             val half = (3.5f * q * (1f - fi / 8f)).toInt()
             val yy = y + q + ((sin(t * 4.0 - fi * 0.7).toFloat() * 0.8f * fi / 8f + flap * 0.3f) * q).toInt()
             val third = (half * 2 + 1) / 3f
-            for (j in -half..half) c.set(x + i, yy + j, if (q == 1) {
+            if (flag == "austria") for (j in -half..half) c.set(x + i, yy + j, if (if (q == 1) abs(j) <= half / 3 else j + half >= third && j + half < 2 * third) Pal.FLAG_WHITE else Pal.FLAG_RED)
+            else if (flag == "england") for (j in -half..half) c.set(x + i, yy + j, if (abs(j) <= q / 2 || i in 2 * q until 3 * q) Pal.FLAG_RED else Pal.FLAG_WHITE)
+            else for (j in -half..half) c.set(x + i, yy + j, if (q == 1) {
                 when { j < -half / 3 -> Pal.FLAG_WHITE; j <= half / 3 -> Pal.FLAG_BLUE; else -> Pal.FLAG_RED }
             } else when {
                 j + half < third -> Pal.FLAG_WHITE

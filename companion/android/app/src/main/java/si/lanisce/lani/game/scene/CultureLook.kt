@@ -96,10 +96,17 @@ object CultureLooks {
         ),
     )
 
+    /**
+     * Carinthia's and the Lake District's campfire (Am Feuer, By the fire): the village round the fire is FireStyle's
+     * already; the camp's tent flies Austria's red, white and red, and England's St George's cross.
+     */
+    val KAERNTEN_CAMPFIRE = Table.of("campfire", variants = mapOf("flag" to "austria"))
+    val LAKELAND_CAMPFIRE = Table.of("campfire", variants = mapOf("flag" to "england"))
+
     /** Each culture's look: its arts' tables added up. A culture not here draws every art as the default culture does. */
     private val tables: Map<String, Table> = mapOf(
-        "kaernten" to KAERNTEN_ALPS,
-        "lakeland" to LAKELAND_ALPS,
+        "kaernten" to KAERNTEN_ALPS + KAERNTEN_CAMPFIRE,
+        "lakeland" to LAKELAND_ALPS + LAKELAND_CAMPFIRE,
     )
 
     private val looks = ConcurrentHashMap<String, CultureLook>()
