@@ -86,6 +86,8 @@ the child, the child Lei to her; tu everywhere else among the children and the f
   friuli-school's `course.ts`: the course section passes for `course/it` (the outline, every unit, their levels, the
   pages they name, machine-written); all 2,835 checks pass (4 min 25 s). A first run under load had one failure outside
   the course (lexicon, "the tutor hears the words added, gathered in one line": a channel note's timing), not again.
+- **The app's full unit suite** on the branch (main's code, the Italian units bundled): 3,259 tests in 416 classes, none
+  failed (2 skipped).
 - **The read-aloud's fallback** (a port of `IntroSpeech.runs`, `vocabulary`, `within` and `Spoken.looks`): which bold
   Italian of each step's explanation the teacher's voice reads when the explanation's one clip can't be had; the forms
   each step names are in its examples, rows or question, so they are hers, except a few lists and infinitives (below).
