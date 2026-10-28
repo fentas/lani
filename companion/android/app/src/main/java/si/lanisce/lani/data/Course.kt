@@ -104,10 +104,44 @@ object Courses {
     private fun JsonElement?.objects(): List<JsonObject> = (this as? JsonArray).orEmpty().mapNotNull { it as? JsonObject }
     private fun cell(e: JsonElement): GrammarCell? = e.str()?.let { GrammarCell(words = it) } ?: e.texts()?.let { GrammarCell(text = it) }
 
-    /** An exercise as a module's: a type this app doesn't know is [Exercise.Unsupported], never the whole unit lost. */
-    fun exercise(o: JsonObject): Exercise =
-        runCatching { json.decodeFromJsonElement(Exercise.serializer(), o) }
+    /**
+     * An exercise as a module's: a type this app doesn't know is [Exercise.Unsupported], never the whole unit lost. Its
+     * texts per base in [base] ([inBase]: the learner's own language).
+     */
+    fun exercise(o: JsonObject, base: String = si.lanisce.lani.l10n.L10n.pair.base.code): Exercise =
+        runCatching { json.decodeFromJsonElement(Exercise.serializer(), inBase(o, base)) }
             .getOrElse { Exercise.Unsupported(o["type"]?.jsonPrimitive?.contentOrNull ?: "?") }
+
+    /**
+     * The keys of an exercise whose text the learner reads in their own language (companion/COURSE.md, "Texts in the
+     * learner's language"): a string, or a text per base ({"de": …, "sl": …, "en": …}); a table's `columns` too. As the
+     * bridge's course.ts BASED_KEYS.
+     */
+    val BASED = setOf("explain", "hint", "instruction", "translation", "cue", "label", "prompt")
+    private val LANG = Regex("^[a-z]{2,3}$")
+
+    /** [e] as a text per base: an object of language codes, each a string; null for anything else. */
+    private fun based(e: JsonElement?): Map<String, String>? =
+        (e as? JsonObject)?.takeIf { o -> o.isNotEmpty() && o.all { (k, v) -> LANG.matches(k) && (v as? JsonPrimitive)?.isString == true } }
+            ?.mapValues { it.value.jsonPrimitive.content }
+
+    private fun pick(t: Map<String, String>, base: String): String = t[base] ?: t["en"] ?: t.values.first()
+
+    /**
+     * [e] as the learner of [base] reads it: every text per base under one of [BASED] (and in a table's `columns`) the
+     * base's, else the English (the bridge serves it so already; the app's bundled copy is read so). The rest as it is.
+     */
+    fun inBase(e: JsonElement, base: String, key: String? = null): JsonElement {
+        if (key != null && key in BASED) based(e)?.let { return JsonPrimitive(pick(it, base)) }
+        return when (e) {
+            is JsonArray -> JsonArray(e.map { c -> if (key == "columns") based(c)?.let { JsonPrimitive(pick(it, base)) } ?: inBase(c, base) else inBase(c, base) })
+            is JsonObject -> JsonObject(e.mapValues { (k, v) -> inBase(v, base, k) })
+            else -> e
+        }
+    }
+
+    /** [o] as [inBase] reads it. */
+    fun inBase(o: JsonObject, base: String): JsonObject = inBase(o as JsonElement, base) as JsonObject
 
     private fun example(o: JsonObject): GrammarExample? {
         val texts = o.filterKeys { it != "note" && it != "by" }.mapNotNull { (k, v) -> v.str()?.let { k to it } }.toMap()

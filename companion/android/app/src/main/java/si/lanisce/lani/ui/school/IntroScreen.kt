@@ -382,13 +382,13 @@ internal fun summaryScript(vm: AppViewModel, unit: CourseUnit, intro: Intro): In
     val base = L10n.pair.base.code
     val page = unit.grammar.firstNotNullOfOrNull { vm.grammar.page(it) }
     val say = IntroSpeech.summarySay(page?.rule, unit.goal, base) ?: return null
-    return IntroSpeech.summary("${unit.id}/summary/${say.hashCode()}", say, base, intro, unit.language, unit.title[unit.language], vm.speaker::isSlovene)
+    return IntroSpeech.summary("${unit.id}/summary/${say.hashCode()}", say, base, intro, unit.language, unit.title[unit.language], vm.speaker::isSlovene, unit.words)
 }
 
 internal fun introScript(vm: AppViewModel, unit: CourseUnit, intro: Intro, i: Int): IntroSpeech.Script {
     val base = L10n.pair.base.code
     val say = Grammar.text(intro.steps[i].say, base)
-    return IntroSpeech.introStep("${unit.id}/$i/${say.hashCode()}", intro, i, unit.language, base, unit.title[unit.language], vm.speaker::isSlovene)
+    return IntroSpeech.introStep("${unit.id}/$i/${say.hashCode()}", intro, i, unit.language, base, unit.title[unit.language], vm.speaker::isSlovene, unit.words)
 }
 
 /** What she says now, for the stage's bubble: the run, the example, the question, the answer; null between. */

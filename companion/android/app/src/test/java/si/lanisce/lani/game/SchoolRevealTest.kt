@@ -187,4 +187,24 @@ class SchoolRevealTest {
         assertEquals((1..9).map { "a$it" }, a1.rows.ids())
         assertEquals(listOf("b1", "b2", "b3"), views.of("A2").rows.ids())
     }
+
+    @Test fun `the teacher is preparing the next lessons while every unit written is done and more are planned`() {
+        // A1 under way: something to do, nothing to prepare
+        assertFalse(School.preparing(village(linden), course))
+        // an outline with every unit planned (the Italian course on 2026-10-28): the class meets, nothing to open, preparing
+        val outline = Course("it", listOf(CourseLevel("A1", (1..18).map { ref("u$it", planned = true) }), CourseLevel("A2", emptyList())), emptyMap())
+        assertTrue(School.preparing(village(linden), outline))
+        assertEquals(null, School.next(village(linden), outline))
+        // six written and done, twelve planned: preparing; one of the six not done: not
+        val six = Course(
+            "sl", listOf(CourseLevel("A1", (1..6).map { ref("a$it") } + (7..18).map { ref("p$it", planned = true) })),
+            (1..6).map { unit("a$it", "A1") }.associateBy { it.id },
+        )
+        assertTrue(School.preparing(done(village(linden), *(1..6).map { "a$it" }.toTypedArray()), six))
+        assertFalse(School.preparing(done(village(linden), *(1..5).map { "a$it" }.toTypedArray()), six))
+        // before the class begins: nothing to say yet
+        assertFalse(School.preparing(village(age = Age.TABOR), outline))
+        // every unit written and done, none planned: all done, not preparing
+        assertFalse(School.preparing(done(village(linden), *(1..8).map { "a$it" }.toTypedArray()), Course("sl", listOf(CourseLevel("A1", (1..8).map { ref("a$it") })), course.units)))
+    }
 }

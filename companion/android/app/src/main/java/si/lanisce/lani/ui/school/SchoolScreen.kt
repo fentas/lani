@@ -150,6 +150,8 @@ fun SchoolScreen(vm: AppViewModel) {
                     )
                     WhoTeaches(vm, s)
                     School.next(s, course)?.let { NextCard(vm, course, it) }
+                    // every unit written so far done (or none written yet), more planned: the teacher is preparing them
+                    if (School.preparing(s, course)) TeacherSays(vm, vm.school.teacher(), "school.preparing")
                 }
             }
         }
@@ -428,6 +430,7 @@ fun schoolTile(vm: AppViewModel): si.lanisce.lani.ui.home.TileStatus? {
     val course = vm.school.course ?: return null
     val s = vm.game.state ?: return si.lanisce.lani.ui.home.TileStatus(bi("school.about"))
     if (!School.open(s)) return si.lanisce.lani.ui.home.TileStatus("🔒 ${beginsIn()}")
-    val next = School.next(s, course) ?: return si.lanisce.lani.ui.home.TileStatus("✅ ${bi("school.allDone")}")
+    val next = School.next(s, course)
+        ?: return si.lanisce.lani.ui.home.TileStatus(if (School.preparing(s, course)) "📝 ${bi("school.preparingShort")}" else "✅ ${bi("school.allDone")}")
     return si.lanisce.lani.ui.home.TileStatus("★ ${next.titleShown(L10n.pair)}", attention = School.progress(s, course.language, next.id) == null)
 }

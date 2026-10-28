@@ -216,7 +216,7 @@ class DayAudioGather(
             val intro = u.intro ?: return@flatMap emptyList()
             // as the step reads it (ui/school/IntroScreen): the app's check and the words the intro shows
             intro.steps.indices.flatMap { i ->
-                val script = IntroSpeech.introStep("${u.id}/$i", intro, i, u.language, base, u.title[u.language], isSlovene)
+                val script = IntroSpeech.introStep("${u.id}/$i", intro, i, u.language, base, u.title[u.language], isSlovene, u.words)
                 val slovene = (script.stitched + script.lines).filter { it.slovene }.map { it.text }
                 DayAudio.intro(listOfNotNull(script.explanation?.plain?.takeIf { explains }), slovene, base, voices, "school:${u.id}")
             }

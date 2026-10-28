@@ -250,6 +250,14 @@ object School {
             course.playable(l).firstOrNull { progress(s, course.language, it.id)?.done == null }
         }
 
+    /**
+     * The teacher is preparing the next lessons (companion/COURSE.md, "What the school shows"): the class meets, nothing
+     * written of the open levels is left to do (no [next]: none written yet, or every one done), and some of their units are
+     * still planned (written later). The school says so, kindly, rather than ending in nothing.
+     */
+    fun preparing(s: GameState, course: Course): Boolean =
+        open(s) && next(s, course) == null && LEVELS.filter { isOpen(s, course, it) }.any { l -> course.refs(l).any { it.planned || it.id !in course.units } }
+
     fun status(s: GameState, course: Course, ref: UnitRef, next: UnitRef? = next(s, course)): Status = when {
         ref.planned || ref.id !in course.units -> Status.PLANNED
         progress(s, course.language, ref.id)?.done != null -> Status.DONE

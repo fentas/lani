@@ -76,6 +76,27 @@ class CourseTest {
         assertEquals("\"sem\"", json.encodeToString(TableCell.serializer(), cells[0]))
     }
 
+    @Test fun `texts per base read in the learner's base, else English, everything else as it is`() {
+        val o = json.parseToJsonElement(
+            """{"type":"table","instruction":{"de":"Completa · Ergänze","sl":"Completa · Dopolni","en":"Completa · Fill in"},
+               "columns":[{"de":"singolare · Singular","en":"singolare · singular"},"plurale · plural"],
+               "rows":[{"label":"io","cells":["sono",{"accept":["siamo"],"hint":{"de":"wir …","en":"we …"}}]}],
+               "explain":{"en":"One person: sono."}}""",
+        ) as kotlinx.serialization.json.JsonObject
+        val de = Courses.exercise(o, "de") as Exercise.Table
+        assertEquals("Completa · Ergänze", de.instruction)
+        assertEquals(listOf("singolare · Singular", "plurale · plural"), de.columns)
+        assertEquals("wir …", de.rows[0].cells[1].hint)
+        assertEquals("One person: sono.", de.explain)
+        val sl = Courses.exercise(o, "sl") as Exercise.Table
+        assertEquals("Completa · Dopolni", sl.instruction)
+        assertEquals("singolare · singular", sl.columns[0])
+        assertEquals("we …", sl.rows[0].cells[1].hint)
+        // an intro's say, an example and a cell per language stay per language
+        val step = json.parseToJsonElement("""{"say":{"de":"Hallo","en":"Hi"},"examples":[{"it":"Ciao!","de":"Hallo!","en":"Hi!"}]}""")
+        assertEquals(step, Courses.inBase(step, "de"))
+    }
+
     @Test fun `no levels is no course`() {
         assertNull(Courses.parse("""{"schema":"lani.course/v0","language":"sl","levels":[]}"""))
         assertNull(Courses.parse("not json"))

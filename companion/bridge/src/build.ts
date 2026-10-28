@@ -259,15 +259,18 @@ export function buildBridge<C extends ChannelPort>(platform: Platform<C>, o: Bui
     // The cheat sheet's cards no grammar page fits (companion/cards/<language>), then the tutor's (publish_card).
     cards: new CardStore(cardsDir(env.LANI_CARDS_DIR ?? join(projectDir, 'companion/cards'), language), language, join(appDir, 'cards'), log),
     // The school's course of the village's language (companion/course/<language>: sl, it, de, en), then the tutor's
-    // homework for its units (<data>/app/course).
-    course: new CourseStore(courseDir(env.LANI_COURSE_DIR ?? join(projectDir, 'companion/course'), language), language, join(appDir, 'course'), log),
+    // homework for its units (<data>/app/course), their texts per base in the learner's (COURSE.md "Texts in the learner's
+    // language").
+    course: new CourseStore(courseDir(env.LANI_COURSE_DIR ?? join(projectDir, 'companion/course'), language), language, join(appDir, 'course'), log, () => learnerLangs(dataDir, language).base),
     // Its printed sheets (companion/prints, the generator's own code): from the same course, grammar book, packs and
     // dictionary the bridge serves.
     prints: new Prints(language, {
       root: projectDir,
       course: courseDir(env.LANI_COURSE_DIR ?? join(projectDir, 'companion/course'), language),
       grammar: grammarDir(env.LANI_GRAMMAR_DIR ?? join(projectDir, 'companion/grammar'), language),
-      packs: env.LANI_PACKS_DIR ?? join(projectDir, 'companion/packs'),
+      // the words' meanings: the village's language's packs (an Italian village's in their subdirectory), then the culture's
+      packs: ofLanguage(env.LANI_PACKS_DIR ?? join(projectDir, 'companion/packs')),
+      morePacks: language === 'sl' ? [] : [join(cultureDir(culturesDir, culture.id), 'packs')],
       lexicon: lexiconDir,
     }, log),
     // The car's audio drills of the village's language (companion/drills/<language>): what they name checked against the

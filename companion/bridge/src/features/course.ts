@@ -11,14 +11,21 @@ import { learnerLangs } from '../learners'
 import { isPrintBase, type PrintGender, type PrintWhat } from '../prints'
 import { localDate } from '../rhythm'
 import type { ModuleSpec } from '../spec'
+import { schoolTeacher } from '../course-speech'
 import { corpus } from '../voice'
 
-const instructions = `
+/**
+ * The school's paragraph of the guide, for the village's teacher (the culture's: Učiteljica Mojca in Primorska, Maestra
+ * Elena in Friuli: course-speech.ts schoolTeacher) and its course's language.
+ */
+const instructionsFor = (teacher: string, language: string) => `
 The school (companion/COURSE.md; GAME.md "The school"): the class begins with Zaselek (right after the camp), nothing
-to build or pay: Mojca comes over from the next village to teach, by the fire and under the linden once it stands,
-until the school (built from Zaselek on) brings her to live here. The course goes level by level: A1, then A2 once A1's units are done (the school opens it), and each upgrade of the school
+to build or pay: ${teacher} comes over from the next village to teach, by the fire and under the linden once it stands,
+until the school (built from Zaselek on) brings her to live here. The course is in the village's language (${language}:
+companion/course/${language}), its exercises' texts in Jan's own language. The course goes level by level: A1, then A2 once A1's units are done (the school opens it), and each upgrade of the school
 needs the course level before it done. A unit is a guided intro (a quick question after each step), 2–4 worksheets
-(the module types and the school's own gaptext, table, transform and sort) and a test. get_course shows where Jan is.
+(the module types and the school's own gaptext, table, transform and sort) and a test. get_course shows where Jan is;
+a planned unit isn't written yet (${teacher} is preparing it, the app says): don't send Jan to one, and don't promise when.
 A session_end whose data has course is a sheet of the school ({language, unit, level, sheet: a worksheet id, "test" or a
 homework id, kind: worksheet | test | homework, right, almost, of, passed?, unit_done?, tested_out?}): persist it as any
 session_end (lani-db-updater). When course.unit_done is true, congratulate in one short line and consider homework on
@@ -50,9 +57,10 @@ function voiced(ws: Homework): { modules: ModuleSpec[]; grammar: Pick<GrammarPag
   }
 }
 
-export const course: FeatureFactory = ({ course: store, prints, grammar, game, events, voice, cfg, culture, addressee }) => {
+export const course: FeatureFactory = ({ course: store, prints, grammar, game, events, voice, cfg, culture, addressee, villagers }) => {
   const langs = () => learnerLangs(cfg.dataDir, culture.manifest?.language ?? 'sl')
   const own = store.language
+  const instructions = instructionsFor(schoolTeacher(villagers.all())?.name ?? 'the teacher', own)
 
   /**
    * A printed sheet, booklet or overview (companion/COURSE.md, "Printed sheets") for this bridge's learner: in their base language
@@ -63,9 +71,10 @@ export const course: FeatureFactory = ({ course: store, prints, grammar, game, e
     const q = url.searchParams
     const who = addressee()
     const asked = q.get('base')
-    if (asked !== null && !isPrintBase(asked)) throw new HttpError(400, 'base: en, de or it')
+    if (asked !== null && !isPrintBase(asked)) throw new HttpError(400, 'base: en, de, it or sl')
     const theirs = langs().base
-    const base = asked ?? (isPrintBase(theirs) ? theirs : 'en')
+    // the learner's base, never the course's own language (a Slovene course isn't explained in Slovene)
+    const base = asked ?? (isPrintBase(theirs) && theirs !== own ? theirs : 'en')
     const gender = (q.get('gender') ?? (who.gender === 'female' ? 'f' : 'm')) as PrintGender
     if (!['m', 'f', 'both'].includes(gender)) throw new HttpError(400, 'gender: m, f or both')
     const learner = (q.get('learner') ?? who.name).trim().slice(0, 40) || who.name

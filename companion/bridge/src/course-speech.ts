@@ -79,7 +79,7 @@ export type Ask =
 /** A cell of the intro's table: words of the language learned (a string), or a text per base. */
 type Cell = string | Record<string, string>
 export type IntroStep = { say: Record<string, string>; examples?: Record<string, unknown>[]; rows?: Cell[][]; ask?: Ask }
-export type Intro = { steps: IntroStep[] }
+export type Intro = { table?: { head: Cell[] }; steps: IntroStep[] }
 
 /** [s]'s inline Markdown in its segments, in order: the plain text between the spans (when not empty) and each span. */
 export function segments(s: string): Segment[] {
@@ -210,12 +210,18 @@ export function answer(ask: Ask | undefined): string | undefined {
 const wordsOf = (t: string) => [...t.toLowerCase().matchAll(WORD)].map(m => m[0])
 
 /**
- * The words of the language learned that [intro] shows, lower case: its examples in [language], its table's words, its
- * questions' Slovene, and the unit's [title] in [language]. A span of only these is Slovene ([within]).
+ * The words of the language learned that [intro] shows, lower case: its examples in [language], its table's words (its
+ * head's in [language] too), its questions' Slovene, the unit's [title] in [language] and its [words] (the unit's
+ * `words`). A span of only these is Slovene ([within]).
  */
-export function vocabulary(intro: Intro, language: string, title: string | undefined, isSlovene: (text: string) => boolean = () => false): Set<string> {
+export function vocabulary(intro: Intro, language: string, title: string | undefined, isSlovene: (text: string) => boolean = () => false, words: string[] = []): Set<string> {
   const texts: string[] = []
   if (title !== undefined) texts.push(title)
+  texts.push(...words)
+  for (const c of intro.table?.head ?? []) {
+    const t = typeof c === 'string' ? c : c[language]
+    if (typeof t === 'string') texts.push(t)
+  }
   for (const s of intro.steps) {
     for (const e of s.examples ?? []) texts.push(typeof e[language] === 'string' ? (e[language] as string) : '')
     for (const c of (s.rows ?? []).flat()) if (typeof c === 'string') texts.push(c)
@@ -298,9 +304,9 @@ export const stitched = (s: Script): Line[] =>
  * What step [i] of [intro] reads (ui/school/IntroScreen, the day's audio): its explanation in [base], its examples in
  * [language], its quick question; Slovene what [isSlovene] (the app's check) says is, and the words the intro itself shows.
  */
-export function introStep(id: string, intro: Intro, i: number, language: string, base: string, title: string | undefined, isSlovene: (text: string) => boolean): Script {
+export function introStep(id: string, intro: Intro, i: number, language: string, base: string, title: string | undefined, isSlovene: (text: string) => boolean, words: string[] = []): Script {
   const s = intro.steps[i]
-  const known = vocabulary(intro, language, title, isSlovene)
+  const known = vocabulary(intro, language, title, isSlovene, words)
   return step(id, textIn(s.say, base), base, (s.examples ?? []).map(e => (typeof e[language] === 'string' ? (e[language] as string) : '')), s.ask, t => isSlovene(t) || within(t, known))
 }
 
@@ -313,8 +319,8 @@ export function summarySay(rule: Record<string, string> | undefined, goal: Recor
 }
 
 /** The summary read as a step: [say] ([summarySay]) its explanation, nothing else; the intro's words count as Slovene as in its steps. */
-export function summary(id: string, say: string, base: string, intro: Intro, language: string, title: string | undefined, isSlovene: (text: string) => boolean): Script {
-  const known = vocabulary(intro, language, title, isSlovene)
+export function summary(id: string, say: string, base: string, intro: Intro, language: string, title: string | undefined, isSlovene: (text: string) => boolean, words: string[] = []): Script {
+  const known = vocabulary(intro, language, title, isSlovene, words)
   return step(id, say, base, [], undefined, t => isSlovene(t) || within(t, known))
 }
 
@@ -432,7 +438,7 @@ export function teacherVoice(cast: CastMember[], speakerOf: (v: CastMember) => s
 export type CourseText = { text: string; source: string; lang?: string }
 
 export type CourseInput = {
-  units: Pick<Unit, 'id' | 'language' | 'title' | 'goal' | 'grammar' | 'intro'>[]
+  units: (Pick<Unit, 'id' | 'language' | 'title' | 'goal' | 'grammar' | 'intro'> & { words?: string[] })[]
   /** The grammar book's pages: a unit's first page's rule is its summary. */
   pages?: Pick<GrammarPage, 'id' | 'rule'>[]
   /** The learners' base languages: each explanation in each, and the runs read without it. */
@@ -465,10 +471,10 @@ export function courseTexts(c: CourseInput, language: string): { lines: CourseTe
         const a = answer(ask)
         if (a !== undefined) lines.push({ text: bare(a), source })
       }
-      intro.steps.forEach((s, i) => read(introStep(`${u.id}/${i}`, intro, i, language, base, title, isSlovene), s.ask))
+      intro.steps.forEach((s, i) => read(introStep(`${u.id}/${i}`, intro, i, language, base, title, isSlovene, u.words ?? []), s.ask))
       const page = u.grammar.map(g => pages.get(g)).find(Boolean)
       const say = summarySay(page?.rule, u.goal, base)
-      if (say !== undefined) read(summary(`${u.id}/summary`, say, base, intro, language, title, isSlovene))
+      if (say !== undefined) read(summary(`${u.id}/summary`, say, base, intro, language, title, isSlovene, u.words ?? []))
     }
   }
   return { lines, explanations }

@@ -142,7 +142,8 @@ pages are met (`CheatSheetController.met`), their cards unlocked.
 ### Read aloud
 
 Jan, 2026-10-13: "Can we have the introduction also read (in school lessons)?" Each step is read aloud as it appears,
-in the teacher's voice (Mojca's: her voice of the cast, `@mojca` once she has her own), with what is read marked as it
+in the teacher's voice (the school's person of the culture: Mojca's voice of the cast, `@mojca` once she has her own;
+Maestra Elena's in the Friuli village), with what is read marked as it
 goes (`data/IntroVoice.kt`, what is read: `data/IntroSpeech.kt`):
 
 1. **The explanation** (`say` in the learner's base). Its text without the Markdown marks, the Slovene forms left inside
@@ -160,7 +161,8 @@ goes (`data/IntroVoice.kt`, what is read: `data/IntroSpeech.kt`):
      to files as the car's prompts are), a translation in brackets right after a form ("(I am)") among them;
    - the Slovene parts in Mojca's voice, at their place: a span in **bold**, *italics* or „quotes" that the app's
      check says is Slovene (as the chat's Markdown taps it), or whose words the intro itself shows (its examples, its
-     table, its questions, the unit's title: "**Biti**");
+     table and its head, its questions, the unit's title: "**Biti**", and the unit's `words`: an infinitive only its
+     explanation names, "**cantare**");
    - each run marked in the explanation as it is read, a short pause between them.
    The phone without a voice for the base language: only the Slovene is read, and a small note says why, once.
 2. **The examples**, one after the other in Mojca's voice (their translations not read), each card marked.
@@ -254,6 +256,27 @@ bold stays English), give a form's meaning in brackets right after it, and keep 
   looked up as an exercise's (never what it tests while it's open: a sort's words, what brackets add, only once
   checked), a 💡 hint per gap, cell and line, and 💬 the tutor with the sheet attached. An item's `explain` shows in
   shape as an exercise's (module-spec.md, "Explanations": one bold rule line, the examples as a list).
+
+## Texts in the learner's language
+
+A course is for every base its learners read (Jan's Slovene from English; Teo's Italian from German, and the Italian
+course for a learner from Slovene). What an exercise says in the learner's own language may be one string, as the
+Slovene units write it (English), or a text per base, `{"de": …, "sl": …, "en": …}` (English always), as the Italian
+units do:
+
+| Key | What |
+|---|---|
+| `explain`, `hint` | an exercise's, a gap's, a cell's, a line's why and hint |
+| `instruction` | the label "target · base": `{"de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in"}` |
+| `translation`, `cue`, `prompt` | a gap text's meaning, a transform's cue, a prompt in the base (a choice's "Am Morgen, zur Lehrerin:") |
+| `label` | a table row's label, a sort column's (`"con tu · zu einem Kind"`) |
+| `columns` | a table's column headings, each a string or a text per base |
+
+The bridge gives the learner each text in their base (`CourseStore`'s base, the profile's: `GET /course`; else in
+English), and so does the app reading its bundled copy (`Courses.inBase`); the prints take the sheet's base. The intro's
+`say`, the titles, the goals and the examples are per language as before and stay so. A text per base without its
+English is refused (`validateUnit`, `basedErrors`). A unit whose texts are per base prints its hints, whys and
+instructions on a sheet of any base (a Slovene unit's English ones only on an English sheet).
 
 ## The school's exercise types
 
@@ -441,6 +464,11 @@ shows a level a bit at a time (`School.reveal`, pure; `game/SchoolRevealTest`):
 - **The first closed level** after the open ones: what opens it, each need with its way on (as before), and every unit
   of it folded ("📝 14 enot v A2 · 14 units in A2", "🔒 Zaklenjeno · Locked" in the list). The levels after it aren't
   shown until it opens.
+
+- **Nothing written left to do, more planned** (every written unit of the open levels done, or none written yet: the
+  Italian course's first days): the teacher says she is preparing the next lessons, kindly, under her welcome
+  (`School.preparing`; "Pripravljam naslednje ure. Kmalu se spet vidiva!", Maestra Elena's "Sto preparando le prossime
+  lezioni. Torna presto!"), and Home's tile says "📝 Nove ure kmalu" instead of "✅ vse opravljeno".
 
 The rules that open a level are unchanged (`School.isOpen`: A1 with the hamlet; A2 with the school standing and A1's
 written units done, i.e. every A1 test passed; B1 and B2 with the school's levels 2 and 3 and the level before done; a

@@ -369,6 +369,7 @@
      "jan",
      "jaz",
      "je",
+     "kdo",
      "kruh",
      "kuhinji",
      "ljubljane",
@@ -1140,6 +1141,7 @@
      "jan",
      "jaz",
      "je",
+     "kdo",
      "kuhinji",
      "ljubljane",
      "luka",
@@ -1680,11 +1682,13 @@
      "hiša",
      "je",
      "kava",
+     "končnica",
      "kruh",
      "masculine",
      "miza",
      "moja",
      "moški",
+     "primer",
      "spol",
      "srednji",
      "stol",
@@ -2037,6 +2041,7 @@
    },
    "expected": {
     "vocabulary": [
+     "beseda",
      "dan",
      "dober",
      "dobro",
@@ -2045,6 +2050,7 @@
      "iz",
      "nemčija",
      "nemčije",
+     "pomen",
      "pozdravi",
      "rečeš",
      "si",
@@ -3044,6 +3050,153 @@
        }
       ],
       "answer": "Tu sei qui."
+     }
+    ],
+    "summary": null
+   }
+  },
+  {
+   "name": "an Italian unit's own words: its table's head and its words read in the teacher's voice for a learner of German (cantare only in say)",
+   "language": "it",
+   "base": "de",
+   "title": "Parlo, mangio, gioco",
+   "words": [
+    "cantare",
+    "canzone"
+   ],
+   "clips": [],
+   "intro": {
+    "table": {
+     "head": [
+      {
+       "it": "persona",
+       "de": "Person",
+       "en": "who"
+      },
+      {
+       "it": "cantare",
+       "de": "singen",
+       "en": "to sing"
+      }
+     ]
+    },
+    "steps": [
+     {
+      "say": {
+       "en": "**Cantare** (to sing): **io canto** (I sing). The **persona** column says who.",
+       "de": "**Cantare** (singen): **io canto** (ich singe). Die Spalte **persona** sagt, wer singt."
+      },
+      "examples": [
+       {
+        "it": "Io canto.",
+        "de": "Ich singe.",
+        "en": "I sing."
+       }
+      ],
+      "rows": [
+       [
+        "io",
+        "canto"
+       ]
+      ],
+      "ask": {
+       "type": "cloze",
+       "text": "Io ___ una canzone.",
+       "accept": [
+        "canto"
+       ]
+      }
+     }
+    ]
+   },
+   "expected": {
+    "vocabulary": [
+     "cantare",
+     "canto",
+     "canzone",
+     "gioco",
+     "io",
+     "mangio",
+     "parlo",
+     "persona",
+     "una"
+    ],
+    "steps": [
+     {
+      "explanation": {
+       "plain": "Cantare (singen): io canto (ich singe). Die Spalte persona sagt, wer singt.",
+       "lang": "de",
+       "key": "de|cantare singen io canto ich singe die spalte persona sagt wer singt",
+       "runs": [
+        {
+         "text": "Cantare",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          0,
+          0
+         ]
+        },
+        {
+         "text": "(singen):",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          1,
+          1
+         ]
+        },
+        {
+         "text": "io canto",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          2,
+          2
+         ]
+        },
+        {
+         "text": "(ich singe). Die Spalte",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          3,
+          3
+         ]
+        },
+        {
+         "text": "persona",
+         "slovene": true,
+         "line": 0,
+         "segments": [
+          4,
+          4
+         ]
+        },
+        {
+         "text": "sagt, wer singt.",
+         "slovene": false,
+         "line": 0,
+         "segments": [
+          5,
+          5
+         ]
+        }
+       ]
+      },
+      "lines": [
+       {
+        "text": "Io canto.",
+        "slovene": true,
+        "mark": "example:0"
+       },
+       {
+        "text": "Io … una canzone.",
+        "slovene": true,
+        "mark": "question"
+       }
+      ],
+      "answer": "Io canto una canzone."
      }
     ],
     "summary": null

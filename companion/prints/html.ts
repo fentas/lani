@@ -4,7 +4,8 @@ import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import type { PCell, PTable, Sheet } from './sheet'
 
-/** The headings: Slovene first (the language learned), then the base. */
+/** The headings in the language learned (Slovene for Jan's course: "Pravilo · The rule"), then in the base. */
+export type Heads = typeof SL
 export const SL = {
   rule: 'Pravilo',
   table: 'Tabela',
@@ -23,6 +24,27 @@ export const SL = {
   school: 'Šola',
   units: (n: number) => (n === 1 ? '1 enota' : n === 2 ? '2 enoti' : n <= 4 ? `${n} enote` : `${n} enot`),
 }
+/** An Italian course's headings ("Regola · Die Regel"). */
+const IT_HEADS: Heads = {
+  rule: 'Regola',
+  table: 'Tabella',
+  tables: 'Tabelle',
+  examples: 'Esempi',
+  watch: 'Attenzione',
+  words: 'Parole',
+  check: 'Mettiti alla prova',
+  answers: 'Soluzioni',
+  notes: 'Appunti',
+  unit: 'Unità',
+  contents: 'Indice',
+  continued: 'continua',
+  machine: 'Scritto a macchina, da far controllare a un madrelingua',
+  sheets: 'Schede',
+  school: 'Scuola',
+  units: (n: number) => `${n} unità`,
+}
+/** The headings in the course's [language] (the language learned); Slovene for a language without its own. */
+export const headsOf = (language: string): Heads => (language === 'it' ? IT_HEADS : SL)
 
 export type Base = typeof EN
 const EN = {
@@ -47,6 +69,7 @@ const EN = {
   wiktionary: 'Some meanings: Wiktionary (CC BY-SA 4.0) via kaikki.org',
   genders: 'm masculine · f feminine · n neuter',
   page: 'Page',
+  school: 'The school',
 }
 const DE: Base = {
   rule: 'Die Regel',
@@ -70,6 +93,7 @@ const DE: Base = {
   wiktionary: 'Einige Bedeutungen: Wiktionary (CC BY-SA 4.0) via kaikki.org',
   genders: 'm männlich · f weiblich · n sächlich',
   page: 'Seite',
+  school: 'Die Schule',
 }
 const IT: Base = {
   rule: 'La regola',
@@ -93,8 +117,34 @@ const IT: Base = {
   wiktionary: 'Alcuni significati: Wiktionary (CC BY-SA 4.0) via kaikki.org',
   genders: 'm maschile · f femminile · n neutro',
   page: 'Pagina',
+  school: 'La scuola',
 }
-export const BASES: Record<string, Base> = { en: EN, de: DE, it: IT }
+/** Slovene as the base (an Italian course for a learner from Slovene). */
+const SLB: Base = {
+  rule: 'Pravilo',
+  table: 'Tabela',
+  tables: 'Tabeli',
+  examples: 'Primeri',
+  watch: 'Pazi',
+  words: 'Besede',
+  check: 'Preveri se',
+  answers: 'Rešitve',
+  notes: 'Zapiski',
+  unit: 'Enota',
+  contents: 'Vsebina',
+  continued: 'nadaljevanje',
+  machine: 'strojno napisano, preveri z naravnim govorcem',
+  sheets: 'Učni listi',
+  units: (n: number) => (n === 1 ? '1 enota' : n === 2 ? '2 enoti' : n <= 4 ? `${n} enote` : `${n} enot`),
+  from: 'iz slovnice',
+  how: 'En list za vsako enoto šole, v vrstnem redu tečaja: pravilo, kot ga razloži učiteljica, njegova tabela z označenimi končnicami, primeri iz vasi, tipične napake, besede enote in pet vprašanj za preverjanje. Rešitve so na dnu strani, obrnjene na glavo.',
+  howTitle: 'Kako delujejo listi',
+  wiktionary: 'Nekateri pomeni: Wiktionary (CC BY-SA 4.0) prek kaikki.org',
+  genders: 'm moški · ž ženski · s srednji',
+  page: 'Stran',
+  school: 'Šola',
+}
+export const BASES: Record<string, Base> = { en: EN, de: DE, it: IT, sl: SLB }
 
 export const LANGUAGE_NAMES: Record<string, string> = { sl: 'Slovenščina', it: 'Italiano', de: 'Deutsch', en: 'English' }
 
@@ -119,21 +169,22 @@ export const HOUSE = `<svg class="house" viewBox="0 0 16 16" shape-rendering="cr
 
 // --- the parts of a sheet ----------------------------------------------------------------------------------------
 
-type Ctx = { s: Sheet; b: Base; level: string; language: string }
+/** A unit's sheet as it is laid out: its [T]itles in the course's language, the base's [b]. */
+type Ctx = { s: Sheet; b: Base; level: string; language: string; T: Heads }
 
 export const h2 = (kind: string, sl: string, tr: string) => `<h2 class="h-${kind}"><i class="dot"></i><span class="sl">${esc(sl)}</span><span class="tr">${esc(tr)}</span></h2>`
 
-function header({ s, b, level, language }: Ctx, mini = false): string {
-  const mark = `<div class="mark">${HOUSE}<div><span class="lani">Lani</span><span class="school">${esc(SL.school)} · ${esc(LANGUAGE_NAMES[language] ?? language)}</span></div><span class="level">${esc(level)}</span></div>`
+function header({ s, b, level, language, T }: Ctx, mini = false): string {
+  const mark = `<div class="mark">${HOUSE}<div><span class="lani">Lani</span><span class="school">${esc(T.school)} · ${esc(LANGUAGE_NAMES[language] ?? language)}</span></div><span class="level">${esc(level)}</span></div>`
   if (mini) {
-    return `<header class="head mini"><div class="num">${s.n}</div><div class="titles"><h1><span class="emoji">${s.emoji}</span>${md(s.title.sl)}</h1><div class="sub">${esc(SL.continued)} · ${esc(b.continued)}</div></div>${mark}</header>`
+    return `<header class="head mini"><div class="num">${s.n}</div><div class="titles"><h1><span class="emoji">${s.emoji}</span>${md(s.title.sl)}</h1><div class="sub">${esc(T.continued)} · ${esc(b.continued)}</div></div>${mark}</header>`
   }
   const sub = s.title.tr && s.title.tr !== s.title.sl ? `<div class="sub">${md(s.title.tr)}</div>` : ''
   const goal = s.goal ? `<div class="goal">${md(s.goal)}</div>` : ''
-  return `<header class="head"><div class="num"><small>${esc(SL.unit)}</small>${s.n}</div><div class="titles"><h1><span class="emoji">${s.emoji}</span>${md(s.title.sl)}</h1>${sub}${goal}</div>${mark}</header>`
+  return `<header class="head"><div class="num"><small>${esc(T.unit)}</small>${s.n}</div><div class="titles"><h1><span class="emoji">${s.emoji}</span>${md(s.title.sl)}</h1>${sub}${goal}</div>${mark}</header>`
 }
 
-const rule = ({ s, b }: Ctx) => (s.rule.length ? `<section class="sec rule">${h2('rule', SL.rule, b.rule)}<ol>${s.rule.map(r => `<li>${md(r)}</li>`).join('')}</ol></section>` : '')
+const rule = ({ s, b, T }: Ctx) => (s.rule.length ? `<section class="sec rule">${h2('rule', T.rule, b.rule)}<ol>${s.rule.map(r => `<li>${md(r)}</li>`).join('')}</ol></section>` : '')
 
 export function cellHtml(c: PCell, kind: 'head' | 'label' | 'cell'): string {
   if (kind === 'head') {
@@ -164,21 +215,21 @@ function tables(c: Ctx, titles: Map<string, { sl: string; tr: string }>): string
   // "Tabeli" for two, "Tabela" once the optional one is left out to fit
   const heading =
     ts.length > 1
-      ? (ts.some(t => t.optional) ? `<div class="when-opt">${h2('table', SL.tables, c.b.tables)}</div><div class="when-no-opt">${h2('table', SL.table, c.b.table)}</div>` : h2('table', SL.tables, c.b.tables))
-      : h2('table', SL.table, c.b.table)
+      ? (ts.some(t => t.optional) ? `<div class="when-opt">${h2('table', c.T.tables, c.b.tables)}</div><div class="when-no-opt">${h2('table', c.T.table, c.b.table)}</div>` : h2('table', c.T.tables, c.b.tables))
+      : h2('table', c.T.table, c.b.table)
   return `<section class="sec tables">${heading}<div class="tbls">${ts.map(t => table(t, c.b, titles)).join('')}</div></section>`
 }
 
-const examples = ({ s, b }: Ctx, grid = false) =>
+const examples = ({ s, b, T }: Ctx, grid = false) =>
   s.examples.length
-    ? `<section class="sec examples">${h2('examples', SL.examples, b.examples)}<ul class="ex${grid ? ' grid' : ''}">${s.examples
+    ? `<section class="sec examples">${h2('examples', T.examples, b.examples)}<ul class="ex${grid ? ' grid' : ''}">${s.examples
         .map((e, i) => `<li${i >= 5 ? ' class="opt"' : ''}><span class="ex-sl">${md(e.sl)}</span><span class="ex-tr">${md(e.tr)}</span></li>`)
         .join('')}</ul></section>`
     : ''
 
-const watch = ({ s, b }: Ctx, grid = false) =>
+const watch = ({ s, b, T }: Ctx, grid = false) =>
   s.watch.length
-    ? `<section class="sec watch">${h2('watch', SL.watch, b.watch)}<ul class="wo${grid ? ' grid' : ''}">${s.watch
+    ? `<section class="sec watch">${h2('watch', T.watch, b.watch)}<ul class="wo${grid ? ' grid' : ''}">${s.watch
         .map(
           w =>
             `<li><span class="wrong"><b class="sym">✗</b><s>${md(w.wrong)}</s></span><span class="right"><b class="sym">✓</b>${md(w.right)}</span>${w.why ? `<span class="why">${md(w.why)}</span>` : ''}</li>`,
@@ -186,7 +237,7 @@ const watch = ({ s, b }: Ctx, grid = false) =>
         .join('')}</ul></section>`
     : ''
 
-function words({ s, b }: Ctx, wide = false): string {
+function words({ s, b, T }: Ctx, wide = false): string {
   if (!s.words.length) return ''
   const items = s.words
     .map(w => {
@@ -196,10 +247,10 @@ function words({ s, b }: Ctx, wide = false): string {
     })
     .join('')
   const legend = s.words.some(w => w.gender) ? `<div class="legend">${esc(b.genders)}</div>` : ''
-  return `<section class="sec words">${h2('words', SL.words, b.words)}<ul class="wl${wide ? ' wide' : ''}">${items}</ul>${legend}</section>`
+  return `<section class="sec words">${h2('words', T.words, b.words)}<ul class="wl${wide ? ' wide' : ''}">${items}</ul>${legend}</section>`
 }
 
-function check({ s, b }: Ctx, max: number): string {
+function check({ s, b, T }: Ctx, max: number): string {
   const list = s.check.slice(0, max)
   if (!list.length) return ''
   const items = list
@@ -211,31 +262,31 @@ function check({ s, b }: Ctx, max: number): string {
       return `${task}<li><span class="q">${q}${hint}</span></li>`
     })
     .join('')
-  return `<section class="sec check">${h2('check', SL.check, b.check)}<ol class="ck">${items}</ol></section>`
+  return `<section class="sec check">${h2('check', T.check, b.check)}<ol class="ck">${items}</ol></section>`
 }
 
-const answers = ({ s, b }: Ctx, max: number) =>
+const answers = ({ s, b, T }: Ctx, max: number) =>
   s.check.length
-    ? `<div class="answers" aria-label="${esc(b.answers)}"><span class="a-t">${esc(SL.answers)} · ${esc(b.answers)}:</span> ${s.check
+    ? `<div class="answers" aria-label="${esc(b.answers)}"><span class="a-t">${esc(T.answers)} · ${esc(b.answers)}:</span> ${s.check
         .slice(0, max)
         .map((x, i) => `<span class="a"><b>${i + 1}</b> ${md(x.a)}</span>`)
         .join(' ')}</div>`
     : ''
 
-const notes = (b: Base) => `<div class="notes"><span class="n-t">${esc(SL.notes)} · ${esc(b.notes)}</span></div>`
+const notes = ({ b, T }: Ctx) => `<div class="notes"><span class="n-t">${esc(T.notes)} · ${esc(b.notes)}</span></div>`
 
-function footer({ s, b, level, language }: Ctx): string {
-  const left = `Lani · ${esc(SL.school)} · ${esc(LANGUAGE_NAMES[language] ?? language)} ${esc(level)} · ${esc(SL.unit)} ${s.n}/${s.of}`
-  const mid = [s.unreviewed ? `${esc(SL.machine)} · ${esc(b.machine)}` : '', s.wiktionary ? esc(b.wiktionary) : ''].filter(Boolean).join('<br>')
+function footer({ s, b, level, language, T }: Ctx): string {
+  const left = `Lani · ${esc(T.school)} · ${esc(LANGUAGE_NAMES[language] ?? language)} ${esc(level)} · ${esc(T.unit)} ${s.n}/${s.of}`
+  const mid = [s.unreviewed ? `${esc(T.machine)} · ${esc(b.machine)}` : '', s.wiktionary ? esc(b.wiktionary) : ''].filter(Boolean).join('<br>')
   return `<footer class="foot"><span class="f-l">${left}</span><span class="f-m">${mid}</span><span class="pn"></span></footer>`
 }
 
 /** A unit: its one-page layout and its two-page one; fit.js keeps the first that fits and drops the other. */
 export function unitHtml(s: Sheet, base: string, level: string, language: string, titles: Map<string, { sl: string; tr: string }>): string {
   const b = BASES[base] ?? EN
-  const c: Ctx = { s, b, level, language }
-  const one = `<div class="layout one"><div class="sheet"><div class="body">${header(c)}<div class="top">${rule(c)}${tables(c, titles)}</div><div class="duo"><div class="col">${examples(c)}${check(c, 5)}${notes(b)}</div><div class="col">${watch(c)}${words(c)}${notes(b)}</div></div>${answers(c, 5)}</div>${footer(c)}</div></div>`
-  const two = `<div class="layout two" hidden><div class="sheet"><div class="body">${header(c)}<div class="top">${rule(c)}${tables(c, titles)}</div>${examples(c, true)}${notes(b)}</div>${footer(c)}</div><div class="sheet"><div class="body">${header(c, true)}${watch(c, true)}${words(c, true)}${check(c, 10)}${notes(b)}${answers(c, 10)}</div>${footer(c)}</div></div>`
+  const c: Ctx = { s, b, level, language, T: headsOf(language) }
+  const one = `<div class="layout one"><div class="sheet"><div class="body">${header(c)}<div class="top">${rule(c)}${tables(c, titles)}</div><div class="duo"><div class="col">${examples(c)}${check(c, 5)}${notes(c)}</div><div class="col">${watch(c)}${words(c)}${notes(c)}</div></div>${answers(c, 5)}</div>${footer(c)}</div></div>`
+  const two = `<div class="layout two" hidden><div class="sheet"><div class="body">${header(c)}<div class="top">${rule(c)}${tables(c, titles)}</div>${examples(c, true)}${notes(c)}</div>${footer(c)}</div><div class="sheet"><div class="body">${header(c, true)}${watch(c, true)}${words(c, true)}${check(c, 10)}${notes(c)}${answers(c, 10)}</div>${footer(c)}</div></div>`
   return `<section class="unit" data-unit="${esc(s.id)}" data-n="${s.n}">${one}${two}</section>`
 }
 
@@ -243,19 +294,21 @@ export function unitHtml(s: Sheet, base: string, level: string, language: string
 
 export function coverHtml(sheets: Sheet[], base: string, level: string, language: string, date: string): string {
   const b = BASES[base] ?? EN
+  const T = headsOf(language)
   const name = LANGUAGE_NAMES[language] ?? language
   const unreviewed = sheets.some(s => s.unreviewed)
   return `<section class="cover"><div class="sheet"><div class="body">
-<div class="c-top">${HOUSE}<div class="c-lani">Lani</div><div class="c-school">${esc(SL.school)} · ${esc(b === EN ? 'The school' : b === DE ? 'Die Schule' : 'La scuola')}</div></div>
-<div class="c-mid"><div class="c-level">${esc(level)}</div><h1 class="c-title">${esc(name)} ${esc(level)}</h1><div class="c-sub">${esc(SL.sheets)} · ${esc(b.sheets)}</div><div class="c-count">${esc(SL.units(sheets.length))} · ${esc(b.units(sheets.length))}</div></div>
+<div class="c-top">${HOUSE}<div class="c-lani">Lani</div><div class="c-school">${esc(T.school)} · ${esc(b.school)}</div></div>
+<div class="c-mid"><div class="c-level">${esc(level)}</div><h1 class="c-title">${esc(name)} ${esc(level)}</h1><div class="c-sub">${esc(T.sheets)} · ${esc(b.sheets)}</div><div class="c-count">${esc(T.units(sheets.length))} · ${esc(b.units(sheets.length))}</div></div>
 <div class="c-emoji">${sheets.map(s => `<span>${s.emoji}</span>`).join('')}</div>
-<div class="c-foot">${unreviewed ? `<div class="c-machine">${esc(SL.machine)}<br><span>${esc(b.machine)}</span></div>` : ''}<div class="c-date">${esc(date)}</div></div>
+<div class="c-foot">${unreviewed ? `<div class="c-machine">${esc(T.machine)}<br><span>${esc(b.machine)}</span></div>` : ''}<div class="c-date">${esc(date)}</div></div>
 <div class="ground"></div>
 </div></div></section>`
 }
 
 export function contentsHtml(sheets: Sheet[], base: string, level: string, language: string): string {
   const b = BASES[base] ?? EN
+  const T = headsOf(language)
   const rows = sheets
     .map(
       s =>
@@ -263,18 +316,18 @@ export function contentsHtml(sheets: Sheet[], base: string, level: string, langu
     )
     .join('')
   const parts: [string, string, string][] = [
-    ['rule', SL.rule, b.rule],
-    ['table', SL.table, b.table],
-    ['examples', SL.examples, b.examples],
-    ['watch', SL.watch, b.watch],
-    ['words', SL.words, b.words],
-    ['check', SL.check, b.check],
+    ['rule', T.rule, b.rule],
+    ['table', T.table, b.table],
+    ['examples', T.examples, b.examples],
+    ['watch', T.watch, b.watch],
+    ['words', T.words, b.words],
+    ['check', T.check, b.check],
   ]
   return `<section class="contents"><div class="sheet"><div class="body">
-<header class="head toc-head"><div class="titles"><h1>${esc(SL.contents)}</h1><div class="sub">${esc(b.contents)} · ${esc(LANGUAGE_NAMES[language] ?? language)} ${esc(level)}</div></div><div class="mark">${HOUSE}<div><span class="lani">Lani</span><span class="school">${esc(SL.school)}</span></div><span class="level">${esc(level)}</span></div></header>
+<header class="head toc-head"><div class="titles"><h1>${esc(T.contents)}</h1><div class="sub">${esc(b.contents)} · ${esc(LANGUAGE_NAMES[language] ?? language)} ${esc(level)}</div></div><div class="mark">${HOUSE}<div><span class="lani">Lani</span><span class="school">${esc(T.school)}</span></div><span class="level">${esc(level)}</span></div></header>
 <ol class="toc">${rows}</ol>
 <div class="how"><h2 class="h-rule"><i class="dot"></i><span class="sl">${esc(b.howTitle)}</span></h2><p>${esc(b.how)}</p><ul>${parts.map(([k, sl, tr]) => `<li>${h2(k, sl, tr)}</li>`).join('')}</ul></div>
-</div><footer class="foot"><span class="f-l">Lani · ${esc(SL.school)} · ${esc(LANGUAGE_NAMES[language] ?? language)} ${esc(level)}</span><span class="f-m"></span><span class="pn"></span></footer></div></section>`
+</div><footer class="foot"><span class="f-l">Lani · ${esc(T.school)} · ${esc(LANGUAGE_NAMES[language] ?? language)} ${esc(level)}</span><span class="f-m"></span><span class="pn"></span></footer></div></section>`
 }
 
 // --- the document --------------------------------------------------------------------------------------------------

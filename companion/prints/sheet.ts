@@ -66,6 +66,32 @@ export function tr(t: Text | undefined, base: string): string {
   return t[base] ?? t.en ?? t.sl ?? Object.values(t)[0] ?? ''
 }
 
+/**
+ * The keys of an exercise whose text the learner reads in their own language, a string or a text per base: as the
+ * bridge's course.ts (BASED_KEYS, inBase; companion/COURSE.md "Texts in the learner's language").
+ */
+const BASED_KEYS = new Set(['explain', 'hint', 'instruction', 'translation', 'cue', 'label', 'prompt'])
+const isBased = (v: unknown): v is L10n =>
+  !!v && typeof v === 'object' && !Array.isArray(v) && Object.keys(v).length > 0 && Object.entries(v as object).every(([k, x]) => /^[a-z]{2,3}$/.test(k) && typeof x === 'string')
+
+/** [v] with its texts per base in [base] (else English): what the learner of that base reads. */
+export function inBase<T>(v: T, base: string): T {
+  const walk = (x: unknown, key?: string): unknown => {
+    if (key !== undefined && BASED_KEYS.has(key) && isBased(x)) return tr(x, base)
+    if (Array.isArray(x)) return key === 'columns' ? x.map(c => (isBased(c) ? tr(c, base) : walk(c))) : x.map(y => walk(y))
+    if (!x || typeof x !== 'object') return x
+    return Object.fromEntries(Object.entries(x).map(([k, y]) => [k, walk(y, k)]))
+  }
+  return walk(v) as T
+}
+
+/** Whether [v] has texts per base: then its hints, whys and instructions are in the base's language, not only English. */
+export function hasBased(v: unknown): boolean {
+  if (Array.isArray(v)) return v.some(hasBased)
+  if (!v || typeof v !== 'object') return false
+  return Object.entries(v).some(([k, x]) => (BASED_KEYS.has(k) && isBased(x)) || (k === 'columns' && Array.isArray(x) && x.some(isBased)) || hasBased(x))
+}
+
 function lev(a: string, b: string): number {
   if (a === b) return 0
   const m = a.length
@@ -199,14 +225,25 @@ export type Content = {
  * Where the content is: the language's course (its course.json and units/), its grammar book, the word packs and the
  * dictionary (companion/lexicon). The repository's by default; the bridge passes its own (LANI_COURSE_DIR …).
  */
-export type ContentDirs = { course: string; grammar: string; packs: string; lexicon: string }
+export type ContentDirs = {
+  course: string
+  grammar: string
+  /** The word packs of the language: companion/packs (Slovene), companion/packs/<language> (another). */
+  packs: string
+  lexicon: string
+  /** More word packs of the language, after [packs]: the culture packs' own (companion/cultures/<id>/packs) for another language. */
+  morePacks?: string[]
+}
 
 export function contentDirs(root: string, language: string, over: Partial<ContentDirs> = {}): ContentDirs {
+  const cultures = join(root, 'companion/cultures')
+  const culturePacks = () => (existsSync(cultures) ? readdirSync(cultures).sort().map(d => join(cultures, d, 'packs')).filter(d => existsSync(d)) : [])
   return {
     course: over.course ?? join(root, 'companion/course', language),
     grammar: over.grammar ?? join(root, 'companion/grammar', language),
-    packs: over.packs ?? join(root, 'companion/packs'),
+    packs: over.packs ?? join(root, language === 'sl' ? 'companion/packs' : `companion/packs/${language}`),
     lexicon: over.lexicon ?? join(root, 'companion/lexicon'),
+    morePacks: over.morePacks ?? (language === 'sl' ? [] : culturePacks()),
   }
 }
 
@@ -265,24 +302,36 @@ export class Dictionary {
   private loaded = false
 
   constructor(
-    private readonly dirs: Pick<ContentDirs, 'packs' | 'lexicon'>,
+    private readonly dirs: Pick<ContentDirs, 'packs' | 'lexicon' | 'morePacks'>,
     private readonly language: string,
   ) {}
+
+  /** A pack's word without its article ("la casa" → casa, "l'ape" → ape): an Italian unit lists its words bare. */
+  private bare(w: string): string | null {
+    if (this.language !== 'it') return null
+    const m = w.match(/^(?:(?:il|lo|la|i|gli|le|un|uno|una)\s+|(?:l|un)['’])(.+)$/i)
+    return m ? m[1] : null
+  }
 
   private load() {
     if (this.loaded) return
     this.loaded = true
-    const packsDir = this.dirs.packs
-    for (const f of existsSync(packsDir) ? readdirSync(packsDir) : []) {
-      if (!f.endsWith('.json')) continue
-      try {
-        const p = JSON.parse(readFileSync(join(packsDir, f), 'utf8'))
-        for (const w of p.words ?? []) {
-          const key = w[this.language] ? norm(w[this.language]) : null
-          if (key && !this.packs.has(key)) this.packs.set(key, w)
+    for (const packsDir of [this.dirs.packs, ...(this.dirs.morePacks ?? [])]) {
+      for (const f of existsSync(packsDir) ? readdirSync(packsDir).sort() : []) {
+        if (!f.endsWith('.json')) continue
+        try {
+          const p = JSON.parse(readFileSync(join(packsDir, f), 'utf8'))
+          for (const w of p.words ?? []) {
+            const word = w[this.language]
+            if (typeof word !== 'string') continue
+            for (const k of [word, this.bare(word)]) {
+              const key = k ? norm(k) : null
+              if (key && !this.packs.has(key)) this.packs.set(key, w)
+            }
+          }
+        } catch {
+          // a pack that doesn't parse is the bridge's to report
         }
-      } catch {
-        // a pack that doesn't parse is the bridge's to report
       }
     }
     const dir = this.dirs.lexicon
@@ -381,8 +430,12 @@ function shortGloss(g: string): string {
 
 // --- one unit's sheet --------------------------------------------------------------------------------------------
 
-export function buildSheet(c: Content, unit: Json, n: number, of: number, o: Options): Sheet {
+export function buildSheet(c: Content, raw: Json, n: number, of: number, o: Options): Sheet {
   const base = o.base
+  // the language learned (an Italian course's examples are "it"), and the unit's texts per base in the sheet's base
+  const L: string = raw.language ?? c.language
+  const based = hasBased(raw)
+  const unit = inBase(raw, base)
   const notes: string[] = []
   const fill = (s: string) => fillLearner(s, o)
   const pages = (unit.grammar ?? []).map((id: string) => c.pages.get(id)).filter(Boolean) as Json[]
@@ -401,7 +454,7 @@ export function buildSheet(c: Content, unit: Json, n: number, of: number, o: Opt
     addCorpus(tr(s.say, 'en'))
     addEnglish(tr(s.say, base))
     for (const e of s.examples ?? []) {
-      addCorpus(e.sl)
+      addCorpus(e[L])
       addEnglish(tr(e, base))
     }
     for (const r of s.rows ?? []) for (const cell of r) if (typeof cell === 'string') addCorpus(cell)
@@ -417,7 +470,7 @@ export function buildSheet(c: Content, unit: Json, n: number, of: number, o: Opt
   }
 
   // --- the tables ---
-  const tables = chooseTables(unit, pages, o, corpus)
+  const tables = chooseTables(unit, pages, o, corpus, L)
 
   // the forms the tables show, bold in the examples: the endings marked, and the forms that are a cell of one word
   const rowsWith = new Map<string, number>()
@@ -447,20 +500,20 @@ export function buildSheet(c: Content, unit: Json, n: number, of: number, o: Opt
   const all = steps.flatMap((s, i) => (s.examples ?? []).map((e: Json, k: number) => ({ e, at: i * 10 + k, k })))
   for (const { e, at } of [...all.filter(x => x.k === 0), ...all.filter(x => x.k > 0)]) {
     if (exampleList.length >= 6) break
-    const sl = fill(e.sl)
+    const sl = fill(e[L] ?? '')
     if (!sl || sl.includes('\u0000') || exampleList.some(x => plain(x.sl) === sl)) continue
     const t = tr(e, base)
-    exampleList.push({ sl: boldForms(sl), tr: fill(t === e.sl ? (e.en ?? '') : t), at })
+    exampleList.push({ sl: boldForms(sl), tr: fill(t === e[L] ? (e.en ?? '') : t), at })
   }
   exampleList.sort((a, b) => a.at - b.at)
   const examples: PExample[] = exampleList.map(({ sl, tr }) => ({ sl, tr }))
 
   // --- check yourself: from the worksheets (the test stays the app's), else the test ---
-  const check = chooseCheck(unit, base, o)
+  const check = chooseCheck(unit, base, o, based)
   const used = new Set(check.map(x => norm(plain(x.q.replace(/_+/g, '')))))
 
   // --- watch out ---
-  const watch = chooseWatch(unit, pages, steps, base, corpus, used, o)
+  const watch = chooseWatch(unit, pages, steps, base, corpus, used, o, L, based)
 
   // --- the words ---
   // the unit's own glosses: "**miza** (table)" in its intro
@@ -522,9 +575,9 @@ export function buildSheet(c: Content, unit: Json, n: number, of: number, o: Opt
     n,
     of,
     level: unit.level,
-    language: unit.language ?? c.language,
+    language: L,
     emoji: unit.emoji ?? '📘',
-    title: { sl: tr(unit.title, unit.language ?? c.language), tr: tr(unit.title, base) },
+    title: { sl: tr(unit.title, L), tr: tr(unit.title, base) },
     goal: unit.goal ? fill(tr(unit.goal, base)) : undefined,
     rule,
     tables,
@@ -540,21 +593,21 @@ export function buildSheet(c: Content, unit: Json, n: number, of: number, o: Opt
 
 // --- tables ------------------------------------------------------------------------------------------------------
 
-function cellOf(cell: Text, o: Options): PCell {
+function cellOf(cell: Text, o: Options, L: string): PCell {
   if (typeof cell === 'string') return { sl: fillLearner(cell, o) }
-  const sl = cell.sl
+  const sl = cell[L]
   const t = cell[o.base] ?? cell.en
   if (sl && t && norm(sl) !== norm(t)) return { sl, tr: t }
   if (sl) return { sl }
   return { tr: t ?? '' }
 }
 
-function tableOf(t: Json, o: Options, from: string): PTable | null {
+function tableOf(t: Json, o: Options, from: string, L: string): PTable | null {
   if (!t?.head?.length || !t?.rows?.length) return null
   // rows about later levels ("orodnik (A2)") belong on their level's sheet
   const rows = (t.rows as Text[][]).filter(r => !r.some(cell => /\b(A2|B1|B2|C1)\b/.test(typeof cell === 'string' ? cell : JSON.stringify(cell))))
   if (!rows.length) return null
-  return { head: t.head.map((h: Text) => cellOf(h, o)), rows: rows.map(r => r.map(cell => cellOf(cell, o))), from }
+  return { head: t.head.map((h: Text) => cellOf(h, o, L)), rows: rows.map(r => r.map(cell => cellOf(cell, o, L))), from }
 }
 
 /** The Slovene words of a table's cells, normalized. */
@@ -571,15 +624,15 @@ const covered = (a: Set<string>, b: Set<string>) => (a.size ? [...a].filter(x =>
  * (biti: the page's persons × yes/no instead of the intro's list); and one more of the unit's pages when it adds forms
  * the unit uses (spol: the adjectives; stevila: the ordinals), marked optional (the first thing left out to fit).
  */
-function chooseTables(unit: Json, pages: Json[], o: Options, corpus: Set<string>): PTable[] {
+function chooseTables(unit: Json, pages: Json[], o: Options, corpus: Set<string>, L: string): PTable[] {
   const steps: Json[] = unit.intro?.steps ?? []
-  const intro = unit.intro?.table?.head ? tableOf({ head: unit.intro.table.head, rows: steps.flatMap(s => s.rows ?? []) }, o, 'intro') : null
+  const intro = unit.intro?.table?.head ? tableOf({ head: unit.intro.table.head, rows: steps.flatMap(s => s.rows ?? []) }, o, 'intro', L) : null
   const pageTables: PTable[] = []
   for (const p of pages) {
     if ((p.level ?? 'A1') > unit.level) continue
-    const t = tableOf(p.table, o, `grammar:${p.id}`)
+    const t = tableOf(p.table, o, `grammar:${p.id}`, L)
     if (t) pageTables.push(t)
-    const ct = tableOf(p.card?.table, o, `card:${p.id}`)
+    const ct = tableOf(p.card?.table, o, `card:${p.id}`, L)
     if (ct) pageTables.push(ct)
   }
   let primary = intro
@@ -740,11 +793,14 @@ export function markEndings(t: PTable) {
 
 // --- check yourself ----------------------------------------------------------------------------------------------
 
-/** "Dopolni · Fill in" → its English half for an English sheet, else its Slovene one (the content has no other). */
-function taskOf(instruction: string | undefined, base: string): string | undefined {
+/**
+ * "Dopolni · Fill in" → its half in the base: the English one for an English sheet, and the base's of a unit with its
+ * texts per base ([based]: "Completa · Ergänze"); else the half in the language learned (the content has no other).
+ */
+function taskOf(instruction: string | undefined, base: string, based = false): string | undefined {
   if (!instruction) return undefined
   const parts = instruction.split(' · ')
-  return base === 'en' ? (parts[1] ?? parts[0]) : parts[0]
+  return base === 'en' || based ? (parts[1] ?? parts[0]) : parts[0]
 }
 
 /** One gap a sentence: each gap of a gap text in its sentence, the sentence's other gaps filled (their cue dropped). */
@@ -769,14 +825,15 @@ function gapItems(e: Json, o: Options): { q: string; a: string; hint?: string }[
   return out
 }
 
-function chooseCheck(unit: Json, base: string, o: Options): PCheck[] {
+function chooseCheck(unit: Json, base: string, o: Options, based = false): PCheck[] {
   type Cand = PCheck & { len: number }
   const lists: Cand[][] = []
-  // the hints are English (COURSE.md): on another base's sheet the question stands without them
-  const hintOf = (h: string | undefined) => (h && h.length <= 26 && base === 'en' ? h : undefined)
+  // the hints are English (COURSE.md), unless the unit gives them per base: on another base's sheet the question stands
+  // without them
+  const hintOf = (h: string | undefined) => (h && h.length <= 26 && (base === 'en' || based) ? h : undefined)
   const fromExercises = (exercises: Json[], where: string) => {
     for (const e of exercises) {
-      const task = taskOf(e.instruction, base)
+      const task = taskOf(e.instruction, base, based)
       const list: Cand[] = []
       if (e.type === 'gaptext') {
         for (const x of gapItems(e, o)) list.push({ task, q: x.q, hint: hintOf(x.hint), a: x.a, line: false, from: where, len: x.q.length })
@@ -821,7 +878,9 @@ function chooseCheck(unit: Json, base: string, o: Options): PCheck[] {
 
 // --- watch out ---------------------------------------------------------------------------------------------------
 
-function chooseWatch(unit: Json, pages: Json[], steps: Json[], base: string, corpus: Set<string>, used: Set<string>, o: Options): PWatch[] {
+function chooseWatch(unit: Json, pages: Json[], steps: Json[], base: string, corpus: Set<string>, used: Set<string>, o: Options, L = 'sl', based = false): PWatch[] {
+  // a why is English (COURSE.md), or in the base when the unit gives its texts per base
+  const whyIn = base === 'en' || based
   const out: PWatch[] = []
   const add = (w: PWatch) => {
     if (out.length >= 3) return
@@ -837,8 +896,8 @@ function chooseWatch(unit: Json, pages: Json[], steps: Json[], base: string, cor
   }
   // the unit's sentences, to show a lone form in one ("ne sem" → "Ne sem utrujen.")
   const sentencesOfUnit: string[] = [
-    ...steps.flatMap(s => (s.examples ?? []).map((e: Json) => fillLearner(e.sl, o))),
-    ...pages.flatMap(p => (p.examples ?? []).map((e: Json) => fillLearner(e.sl, o))),
+    ...steps.flatMap(s => (s.examples ?? []).map((e: Json) => fillLearner(e[L] ?? '', o))),
+    ...pages.flatMap(p => (p.examples ?? []).map((e: Json) => fillLearner(e[L] ?? '', o))),
   ].filter(s => s && !s.includes('\u0000'))
 
   /** The bold spans of a text: a list ("**nisem, nisi, ni**") split into its items, sentences into sentences. */
@@ -949,7 +1008,7 @@ function chooseWatch(unit: Json, pages: Json[], steps: Json[], base: string, cor
         const s = prompt.replace(/\s*\((?![^)]*___)[^)]*\)\s*$/, '').replace(/_{3,}/, x)
         return prompt.trimStart().startsWith('___') ? s[0].toUpperCase() + s.slice(1) : s
       }
-      const why = base === 'en' ? plain((e.explain ?? '').split('\n')[0]) : undefined
+      const why = whyIn ? plain((e.explain ?? '').split('\n')[0]) : undefined
       return { w: { wrong: sentence(wrong), right: sentence(answer), why, from }, rank: byName ? 0 : 1 }
     })
     .filter(Boolean) as { w: PWatch; rank: number }[]
@@ -964,7 +1023,7 @@ function chooseWatch(unit: Json, pages: Json[], steps: Json[], base: string, cor
         const cue = m?.[1]?.trim()
         if (!m || !cue || /\s/.test(cue) || norm(cue) === norm(x.a) || alike(cue, x.a) < 0.4) return
         const gap = (e.gaps ?? [])[k]
-        const why = base === 'en' ? plain(gap?.explain ?? gap?.hint ?? '') || undefined : undefined
+        const why = whyIn ? plain(gap?.explain ?? gap?.hint ?? '') || undefined : undefined
         // a gap that opens the sentence opens it with a capital, the wrong form too
         const first = /^[»„"]?\s*_{3,}/.test(x.q)
         const cap = (w: string) => (first ? w[0].toUpperCase() + w.slice(1) : w)

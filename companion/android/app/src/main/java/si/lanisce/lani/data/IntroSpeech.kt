@@ -138,14 +138,17 @@ object IntroSpeech {
     }
 
     /**
-     * The words of the language learned that [intro] shows, lower case: its examples in [language], its table's words, its
-     * questions' Slovene ([isSlovene]: a prompt in the base adds nothing), and the unit's [title] in [language]. A span of
-     * only these is Slovene ([within]) though the app's check alone wouldn't say so ("**Biti**" of the unit "Biti: sem, si,
-     * je").
+     * The words of the language learned that [intro] shows, lower case: its examples in [language], its table's words (its
+     * head's in [language] too), its questions' Slovene ([isSlovene]: a prompt in the base adds nothing), the unit's [title]
+     * in [language] and its [words] (the unit's `words`: an infinitive or an ending its explanation names, "**cantare**"). A
+     * span of only these is Slovene ([within]) though the app's check alone wouldn't say so ("**Biti**" of the unit "Biti:
+     * sem, si, je").
      */
-    fun vocabulary(intro: Intro, language: String, title: String? = null, isSlovene: (String) -> Boolean = { false }): Set<String> {
+    fun vocabulary(intro: Intro, language: String, title: String? = null, isSlovene: (String) -> Boolean = { false }, words: List<String> = emptyList()): Set<String> {
         val texts = buildList {
             title?.let(::add)
+            addAll(words)
+            intro.head.forEach { c -> (c.words ?: c.text?.get(language))?.let(::add) }
             for (s in intro.steps) {
                 s.examples.forEach { add(it.target(language)) }
                 s.rows.flatten().filter { it.isWords }.forEach { add(it.words!!) }
@@ -226,9 +229,9 @@ object IntroSpeech {
      * base's, else the English), its examples in [language], its quick question; Slovene what [isSlovene] (the app's check,
      * [Speaker.isSlovene]) says is, and the words the intro itself shows ([vocabulary], [within]: "**Biti**"). [id]: whose.
      */
-    fun introStep(id: String, intro: Intro, i: Int, language: String, base: String, title: String?, isSlovene: (String) -> Boolean): Script {
+    fun introStep(id: String, intro: Intro, i: Int, language: String, base: String, title: String?, isSlovene: (String) -> Boolean, words: List<String> = emptyList()): Script {
         val s = intro.steps[i]
-        val known = vocabulary(intro, language, title, isSlovene)
+        val known = vocabulary(intro, language, title, isSlovene, words)
         return step(id, Grammar.text(s.say, base), base, s.examples.map { it.target(language) }, s.ask) { t -> isSlovene(t) || within(t, known) }
     }
 
@@ -240,8 +243,8 @@ object IntroSpeech {
         rule?.let { Grammar.text(it, base) }?.takeIf { it.isNotBlank() } ?: goal?.let { Grammar.text(it, base) }?.takeIf { it.isNotBlank() }
 
     /** The summary read as a step is ([summarySay]: its explanation, nothing else), the intro's words Slovene as in its steps. */
-    fun summary(id: String, say: String, base: String, intro: Intro, language: String, title: String?, isSlovene: (String) -> Boolean): Script {
-        val known = vocabulary(intro, language, title, isSlovene)
+    fun summary(id: String, say: String, base: String, intro: Intro, language: String, title: String?, isSlovene: (String) -> Boolean, words: List<String> = emptyList()): Script {
+        val known = vocabulary(intro, language, title, isSlovene, words)
         return step(id, say, base, emptyList(), null) { t -> isSlovene(t) || within(t, known) }
     }
 

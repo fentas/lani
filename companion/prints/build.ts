@@ -7,8 +7,11 @@ import { join } from 'node:path'
 import { ASSETS, coverHtml, contentsHtml, documentHtml, LANGUAGE_NAMES, unitHtml } from './html'
 import { buildSheet, plain, tr, unitsOf, type Content, type ContentDirs, type Options, type Sheet } from './sheet'
 
-/** The languages a sheet explains in (html.ts has their headings); another base prints in English. */
-export const PRINT_BASES = ['en', 'de', 'it'] as const
+/**
+ * The languages a sheet explains in (html.ts has their headings); another base prints in English. Slovene explains an
+ * Italian course (a learner of Italian from Slovene); a course is never explained in its own language.
+ */
+export const PRINT_BASES = ['en', 'de', 'it', 'sl'] as const
 
 /** A document to print: its file name without the extension, its title, the page, and the sheets in it. */
 export type Doc = { name: string; title: string; html: string; sheets: Sheet[] }
@@ -72,6 +75,7 @@ export function contentStamp(d: ContentDirs, language: string): string {
   json(join(d.course, 'units'))
   json(d.grammar)
   json(d.packs)
+  for (const dir of d.morePacks ?? []) json(dir)
   add(join(d.lexicon, `${language}.json`))
   add(join(d.lexicon, `${language}.extra.json`))
   for (const f of ASSETS()) add(f)

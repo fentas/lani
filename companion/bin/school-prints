@@ -5,13 +5,14 @@
 // dictionary), so a unit fixed or added prints as it is. Writes print-ready HTML, renders it to PDF with headless
 // Chromium, and fails when a unit doesn't fit on two pages or a PDF's page count isn't what the layout chose.
 //
-// Usage: companion/bin/school-prints [--level A1|all] [--base en|de|it] [--out <dir>] [--units <id,id>]
+// Usage: companion/bin/school-prints [--level A1|all] [--base en|de|it|sl] [--out <dir>] [--units <id,id>]
 //                                    [--learner <name>] [--gender m|f|both] [--png] [--html-only] [--explain]
 //        companion/bin/school-prints --overview skloni [--base en|de|it] [--out <dir>] [--png] [--html-only] [--explain]
 //   --level     the course level (default A1); "all": every level that has units
 //   --overview  an overview instead of a level's sheets: "skloni", the six cases on three pages (prints/overview.ts),
 //               out by default to ${XDG_DATA_HOME:-~/.local/share}/lani/prints/<language>-skloni-<base>; fails over 3 pages
-//   --base      the language the sheets explain in (default en; de, it from the content, English where it has none)
+//   --base      the language the sheets explain in (default en; de, it, sl from the content, English where it has none;
+//               never the course's own: an Italian course in en, de or sl)
 //   --out       where the PDFs go (default ${XDG_DATA_HOME:-~/.local/share}/lani/prints/<language>-<level>-<base>);
 //               never inside the repository
 //   --units     only these units (the booklet then has only them)
@@ -34,7 +35,7 @@ const root = resolve(import.meta.dir, '../..')
 const args = process.argv.slice(2)
 const opt = (name: string) => (args.includes(name) ? args[args.indexOf(name) + 1] : undefined)
 const flag = (name: string) => args.includes(name)
-const help = `Usage: companion/bin/school-prints [--level A1|all] [--base en|de|it] [--out <dir>] [--units <id,id>]
+const help = `Usage: companion/bin/school-prints [--level A1|all] [--base en|de|it|sl] [--language sl|it] [--out <dir>] [--units <id,id>]
                                    [--learner <name>] [--gender m|f|both] [--png] [--html-only] [--explain]
        companion/bin/school-prints --overview skloni [--base en|de|it] [--out <dir>] [--png] [--html-only] [--explain]
 See companion/COURSE.md, "Printed sheets".`
@@ -49,7 +50,7 @@ const gender = (opt('--gender') ?? 'both') as 'm' | 'f' | 'both'
 const levelArg = opt('--level') ?? 'A1'
 const only = opt('--units')?.split(',').map(s => s.trim()).filter(Boolean)
 const overview = opt('--overview')
-if (!['en', 'de', 'it'].includes(base) || !['m', 'f', 'both'].includes(gender) || (overview !== undefined && !OVERVIEWS[overview])) {
+if (!['en', 'de', 'it', 'sl'].includes(base) || base === language || !['m', 'f', 'both'].includes(gender) || (overview !== undefined && !OVERVIEWS[overview])) {
   console.error(help)
   process.exit(2)
 }

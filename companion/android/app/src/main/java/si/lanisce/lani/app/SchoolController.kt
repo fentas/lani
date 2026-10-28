@@ -79,13 +79,17 @@ class SchoolController(
         refreshBundled()
     }
 
+    /** The bundled course of the village's language, read again when the language or the learner's base changes (its texts per base). */
     private fun refreshBundled() {
         val l = language
-        if (l == bundledFor) return
-        bundledFor = l
+        val key = "$l|${L10n.pair.base.code}"
+        if (key == bundledFor) return
+        val sameLanguage = bundledFor?.substringBefore('|') == l
+        bundledFor = key
         bundled = Courses.bundled(l)
-        fromBridge = null
-        course = bundled
+        // the bridge's course of the same language stays (it is in the learner's base already, the bridge's own)
+        if (!sameLanguage) fromBridge = null
+        course = fromBridge ?: bundled
     }
 
     /** The bridge's course (the tutor's homework in it); an older bridge, a language without one, or none now keeps the app's. */

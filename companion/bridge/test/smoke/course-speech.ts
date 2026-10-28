@@ -43,10 +43,12 @@ export default async function courseSpeech() {
       c.clips.forEach(([t, v]: [string, string], i: number) => ((index[normalizeText(t)] ??= {})[v] = `/voice/file/${i}.mp3`))
       const isSlovene = S.looksLearned(c.language, c.base, t => S.indexHas(index, t))
       const say = c.summary ? S.summarySay(c.summary.rule, c.summary.goal, c.base) : undefined
+      // the unit's words (its `words`), which the intro's reading counts as the language learned too
+      const words: string[] = c.words ?? []
       const got = {
-        vocabulary: [...S.vocabulary(c.intro, c.language, c.title, isSlovene)].sort(),
-        steps: c.intro.steps.map((st: S.IntroStep, i: number) => ({ ...scriptOut(S.introStep(`x/${i}`, c.intro, i, c.language, c.base, c.title, isSlovene)), answer: S.answer(st.ask) ?? null })),
-        summary: say === undefined ? null : { say, ...scriptOut(S.summary('x/summary', say, c.base, c.intro, c.language, c.title, isSlovene)) },
+        vocabulary: [...S.vocabulary(c.intro, c.language, c.title, isSlovene, words)].sort(),
+        steps: c.intro.steps.map((st: S.IntroStep, i: number) => ({ ...scriptOut(S.introStep(`x/${i}`, c.intro, i, c.language, c.base, c.title, isSlovene, words)), answer: S.answer(st.ask) ?? null })),
+        summary: say === undefined ? null : { say, ...scriptOut(S.summary('x/summary', say, c.base, c.intro, c.language, c.title, isSlovene, words)) },
       }
       const diff = got.steps.flatMap((s: any, i: number) => (JSON.stringify(s) === JSON.stringify(c.expected.steps[i]) ? [] : [{ step: i, got: s, want: c.expected.steps[i] }]))
       check(`intro speech, as the app reads it: ${c.name}`, JSON.stringify(got) === JSON.stringify(c.expected), diff.length ? diff : [got.vocabulary, got.summary])

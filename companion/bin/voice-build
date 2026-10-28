@@ -601,8 +601,9 @@ const stories = new StoryStore(storiesDirs(cultures, culture), join(appDir, 'sto
 const drills = new DrillStore(drillsDir(process.env.LANI_DRILLS_DIR ?? join(root, 'companion/drills'), language), language, () => ({ packs: packs.all(), villagers: villagers.all() }), log)
 // the grammar book of the village's language and the tutor's pages: their examples, as the bridge has them
 const grammar = new GrammarStore(grammarDir(process.env.LANI_GRAMMAR_DIR ?? join(root, 'companion/grammar'), language), language, join(appDir, 'grammar'), log)
-// the school's course of the village's language (companion/course/<language>), as the bridge serves it (GET /course)
-const course = new CourseStore(courseDir(process.env.LANI_COURSE_DIR ?? join(root, 'companion/course'), language), language, join(appDir, 'course'), log)
+// the school's course of the village's language (companion/course/<language>), as the bridge serves it (GET /course): its
+// exercises' texts per base in the learner's own language (the profile's)
+const course = new CourseStore(courseDir(process.env.LANI_COURSE_DIR ?? join(root, 'companion/course'), language), language, join(appDir, 'course'), log, () => learnerLangs(dirname(appDir), language).base)
 // how the cast are introduced as they arrive: the culture pack's (arrivals.json), the tutor's for one of them replacing it
 const arrivals = (() => {
   const byId = new Map(Object.entries(cultureArrivals(cultures, culture, language).file?.cast ?? {}).map(([id, a]) => [id, { id, levels: a.levels }]))

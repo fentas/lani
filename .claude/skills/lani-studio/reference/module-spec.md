@@ -148,7 +148,11 @@ line). The app grades **each item on its own** (a gap, a cell, a line, a word so
 č, š or ž is almost right, a slip in the stem is forgiven, the ending never is. Once the sheet is checked each item shows
 right (✓), almost or wrong with its correction right under it (what was typed struck through, the right letters green,
 its `explain`), the count under the sheet. In a test an almost-right item counts half. `hint` (the 💡 of an item) and
-`explain` are English, short: the rule, never the answer.
+`explain` are English, short: the rule, never the answer. In the school (units, tests, homework) every text the learner
+reads in their own language — `explain`, `hint`, `instruction`, `translation`, `cue`, `label`, `prompt` and a table's
+`columns` — may instead be a text per base, `{"de": "…", "sl": "…", "en": "…"}` (English always): the learner gets it in
+their base (companion/COURSE.md "Texts in the learner's language"; the Italian units write them so, for a learner from
+German). Modules keep plain strings.
 
 ### `gaptext` — a text with gaps
 ```json

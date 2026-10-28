@@ -92,6 +92,36 @@ export default async function course() {
     const v = validateUnit(input)
     check(`the format refuses ${what}`, !v.ok && (!says || errors(v).includes(says)), v.ok ? 'accepted' : errors(v))
   }
+  // texts in the learner's language (COURSE.md): an exercise's instruction, hint, why, translation, cue, labels, prompt and
+  // a table's columns per base, given in the learner's base (else English); the intro's say, titles and examples untouched
+  {
+    const t = (sl: string, en: string, de: string) => ({ sl, en, de })
+    const based = withSheet(
+      { ...sort, instruction: t('Razvrsti · Razvrsti', 'Razvrsti · Sort', 'Razvrsti · Ordne'), columns: [{ ...sort.columns[0], label: t('ednina · ednina', 'ednina · singular', 'ednina · Singular') }, sort.columns[1]], explain: t('Ena oseba …', 'One person …', 'Eine Person …') },
+      { ...table, columns: [t('ednina · ednina', 'ednina · singular', 'ednina · Singular'), 'množina · plural'], rows: [{ label: '1. oseba', cells: ['sem', { accept: ['smo'], hint: t('mi …', 'we …', 'wir …') }] }] },
+      { ...gaptext, translation: t('Danes …', 'Today …', 'Heute …'), gaps: gaptext.gaps.map(g => ({ ...g, explain: t('zakaj', 'why', 'warum') })) },
+      { ...transform, cue: t('ne', 'no', 'nein'), items: transform.items.map(i => ({ ...i, hint: t('namig', 'hint', 'Hinweis') })) },
+    )
+    const de = validateUnit(based, 'de')
+    const en = validateUnit(based)
+    const ex = (v: typeof de) => (v.ok ? (v.unit.worksheets[1].exercises as any[]) : [])
+    check("texts per base: a unit's exercises read in the learner's base (de), English by default; plain strings as they are",
+      de.ok && ex(de)[0].instruction === 'Razvrsti · Ordne' && ex(de)[0].columns[0].label === 'ednina · Singular' && ex(de)[0].columns[1].label === 'množina · plural' && ex(de)[0].explain === 'Eine Person …' &&
+        ex(de)[1].columns.join() === 'ednina · Singular,množina · plural' && ex(de)[1].rows[0].cells[1].hint === 'wir …' && ex(de)[2].translation === 'Heute …' && ex(de)[2].gaps[2].explain === 'warum' &&
+        ex(de)[3].cue === 'nein' && ex(de)[3].items[0].hint === 'Hinweis' && en.ok && ex(en)[0].instruction === 'Razvrsti · Sort' && ex(en)[3].cue === 'no' &&
+        validateUnit(based, 'it').ok && ex(validateUnit(based, 'it'))[3].cue === 'no' && de.unit.intro.steps[0].say.en !== undefined && de.unit.intro.steps[0].examples[0].sl === 'Jaz sem {learner}.',
+      [errors(de), ex(de)])
+    const noEn = validateUnit(withSheet({ ...transform, cue: { de: 'nein', sl: 'ne' } }))
+    check('texts per base: one without the English is refused, saying where', !noEn.ok && errors(noEn).includes('worksheets.1.exercises.0.cue') && errors(noEn).includes('"en"'), errors(noEn))
+    const unknown = validateUnit(withSheet({ ...transform, cue: { de: 'nein', en: 'no', deutsch: 'nein' } }))
+    check('texts per base: an object that is not one (a key not a language code) is checked as the format checks it', !unknown.ok, errors(unknown))
+    const tmp = tempDir('lani-smoke-course-based-')
+    mkdirSync(join(tmp, 'sl/units'), { recursive: true })
+    writeFileSync(join(tmp, 'sl/course.json'), JSON.stringify(outline))
+    writeFileSync(join(tmp, 'sl/units/biti.json'), JSON.stringify(based))
+    const served = (base: string) => (new CourseStore(join(tmp, 'sl'), 'sl', join(tmp, `tutor-${base}`), () => {}, () => base).served()?.units[0].worksheets[1].exercises as any[]) ?? []
+    check("the store serves a unit's texts per base in the learner's base (CourseStore's base)", served('de')[3].cue === 'nein' && served('en')[3].cue === 'no' && served('sl')[3].cue === 'ne', [served('de')[3]?.cue, served('sl')[3]?.cue])
+  }
   check('an outline with its levels out of order is refused', !validateCourse({ ...outline, levels: [outline.levels[1], outline.levels[0]] }).ok)
   check('an outline with a unit twice is refused', !validateCourse({ ...outline, levels: [outline.levels[0], { level: 'A2', units: [outline.levels[0].units[0]] }] }).ok)
 

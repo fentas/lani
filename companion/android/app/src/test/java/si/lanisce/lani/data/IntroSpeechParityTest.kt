@@ -95,13 +95,15 @@ class IntroSpeechParityTest {
             }
             val isSlovene: (String) -> Boolean = { t -> Clips.has(index, t) || Spoken.looks(t, lang(language), lang(base)) }
             val intro = Courses.intro(c.getValue("intro").jsonObject)
+            // the unit's words (its `words`), which the intro's reading counts as the language learned too
+            val words = (c["words"] as? kotlinx.serialization.json.JsonArray)?.map { it.jsonPrimitive.content }.orEmpty()
             assertNotNull(name, intro)
             val expected = c.getValue("expected").jsonObject
-            assertEquals("$name: the intro's own words", expected.getValue("vocabulary").jsonArray.map { it.jsonPrimitive.content }, IntroSpeech.vocabulary(intro!!, language, title, isSlovene).sorted())
+            assertEquals("$name: the intro's own words", expected.getValue("vocabulary").jsonArray.map { it.jsonPrimitive.content }, IntroSpeech.vocabulary(intro!!, language, title, isSlovene, words).sorted())
             val steps = expected.getValue("steps").jsonArray.map { it.jsonObject }
             assertEquals("$name: the steps", steps.size, intro.steps.size)
             steps.forEachIndexed { i, want ->
-                val got = script(IntroSpeech.introStep("x/$i", intro, i, language, base, title, isSlovene))
+                val got = script(IntroSpeech.introStep("x/$i", intro, i, language, base, title, isSlovene, words))
                 assertEquals("$name, step $i: the explanation", want["explanation"], got["explanation"])
                 assertEquals("$name, step $i: the lines", want["lines"], got["lines"])
                 assertEquals("$name, step $i: the answer", want.str("answer"), IntroSpeech.answer(intro.steps[i].ask))
@@ -111,7 +113,7 @@ class IntroSpeechParityTest {
             val want = expected["summary"] as? JsonObject
             assertEquals("$name: the summary's text", want?.str("say"), say)
             if (want != null && say != null) {
-                val got = script(IntroSpeech.summary("x/summary", say, base, intro, language, title, isSlovene))
+                val got = script(IntroSpeech.summary("x/summary", say, base, intro, language, title, isSlovene, words))
                 assertEquals("$name: the summary's explanation", want["explanation"], got["explanation"])
                 assertEquals("$name: the summary's lines", want["lines"], got["lines"])
             }

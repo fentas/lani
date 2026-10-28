@@ -340,11 +340,66 @@ function validate<K extends string, S extends z.ZodType>(schema: S, key: K, inpu
   return learner.length ? { ok: false, errors: learner.map(e => `✖ ${e}`).join('\n') } : ({ ok: true, [key]: r.data } as Result<K, z.infer<S>>)
 }
 
+// --- texts in the learner's base ---------------------------------------------------------------------------------
+
+/**
+ * The keys of a sheet's exercises whose text the learner reads in their own language (companion/COURSE.md, "Texts in the
+ * learner's language"): a string as it is, or a text per base ({"de": …, "sl": …, "en": …}, English always), which the
+ * bridge and the app give the learner in their base (else in English). A table's `columns` may hold such texts too. The
+ * intro's `say`, the titles and the examples are per language anyway and stay as they are.
+ */
+export const BASED_KEYS: ReadonlySet<string> = new Set(['explain', 'hint', 'instruction', 'translation', 'cue', 'label', 'prompt'])
+
+/** A text per base: an object of language codes, each a string. */
+const isBased = (v: unknown): v is Record<string, string> =>
+  !!v && typeof v === 'object' && !Array.isArray(v) && Object.keys(v).length > 0 && Object.entries(v).every(([k, x]) => LANG.test(k) && typeof x === 'string')
+
+/** [t]'s text in [base], else its English, else its first. */
+const pick = (t: Record<string, string>, base: string) => t[base] ?? t.en ?? Object.values(t)[0]
+
+/**
+ * [v] as the learner reads it in [base]: every text per base under one of [BASED_KEYS] (and in a table's `columns`) the
+ * base's, else the English. Everything else is kept as it is; a string stays a string.
+ */
+export function inBase<T>(v: T, base: string): T {
+  const walk = (x: unknown, key?: string): unknown => {
+    if (key !== undefined && BASED_KEYS.has(key) && isBased(x)) return pick(x, base)
+    if (Array.isArray(x)) return key === 'columns' ? x.map(c => (isBased(c) ? pick(c, base) : walk(c))) : x.map(y => walk(y))
+    if (!x || typeof x !== 'object') return x
+    return Object.fromEntries(Object.entries(x).map(([k, y]) => [k, walk(y, k)]))
+  }
+  return walk(v) as T
+}
+
+/** The texts per base of [v] (as [inBase] reads them) that lack the English, by where they are. */
+export function basedErrors(v: unknown): string[] {
+  const out: string[] = []
+  const walk = (x: unknown, path: string, key?: string) => {
+    const based = (y: unknown, at: string) => {
+      if (isBased(y) && typeof y.en !== 'string') out.push(`✖ ${at}: a text per base without the English ("en")`)
+    }
+    if (key !== undefined && BASED_KEYS.has(key)) based(x, path)
+    if (Array.isArray(x)) return x.forEach((y, i) => (key === 'columns' ? based(y, `${path}.${i}`) : walk(y, `${path}.${i}`)))
+    if (!x || typeof x !== 'object' || (key !== undefined && BASED_KEYS.has(key) && isBased(x))) return
+    for (const [k, y] of Object.entries(x)) walk(y, path ? `${path}.${k}` : k, k)
+  }
+  walk(v, '')
+  return out
+}
+
+/** [schema]'s check of [input] as the learner reads it in [base] ([inBase]), its texts per base each with the English. */
+function validateIn<K extends string, S extends z.ZodType>(schema: S, key: K, input: unknown, base: string): Result<K, z.infer<S>> {
+  const missing = basedErrors(input)
+  if (missing.length) return { ok: false, errors: missing.join('\n') }
+  return validate(schema, key, inBase(input, base))
+}
+
 export const validateCourse = (input: unknown) => validate(courseSpec, 'course', input)
-export const validateUnit = (input: unknown) => validate(unitSpec, 'unit', input)
-export function validateWorksheet(input: unknown) {
+/** A unit, as the learner of [base] gets it (English by default): its texts per base in that base. */
+export const validateUnit = (input: unknown, base = 'en') => validateIn(unitSpec, 'unit', input, base)
+export function validateWorksheet(input: unknown, base = 'en') {
   const raw = input && typeof input === 'object' && !Array.isArray(input) ? Object.fromEntries(Object.entries(input).filter(([k]) => !(SERVED as readonly string[]).includes(k))) : input
-  return validate(homeworkSpec, 'worksheet', raw)
+  return validateIn(homeworkSpec, 'worksheet', raw, base)
 }
 
 /**
@@ -400,6 +455,8 @@ export class CourseStore {
     readonly language: string,
     private tutorDir: string,
     private log: (...a: unknown[]) => void = () => {},
+    /** The learner's base language: the texts per base of the units and the homework in it ([inBase]); English by default. */
+    private base: () => string = () => 'en',
   ) {
     mkdirSync(tutorDir, { recursive: true })
   }
@@ -439,7 +496,7 @@ export class CourseStore {
       .flatMap(f => {
         const path = join(dir, f)
         try {
-          const v = validateUnit(JSON.parse(readFileSync(path, 'utf8')))
+          const v = validateUnit(JSON.parse(readFileSync(path, 'utf8')), this.base())
           if (!v.ok) throw new Error(v.errors)
           if (v.unit.language !== this.language) throw new Error(`a unit of "${v.unit.language}", this course is "${this.language}"`)
           if (`${v.unit.id}.json` !== f) throw new Error(`the unit "${v.unit.id}" belongs in ${v.unit.id}.json`)
@@ -461,7 +518,7 @@ export class CourseStore {
       .flatMap(f => {
         const path = join(dir, f)
         try {
-          const v = validateWorksheet(JSON.parse(readFileSync(path, 'utf8')))
+          const v = validateWorksheet(JSON.parse(readFileSync(path, 'utf8')), this.base())
           if (!v.ok) throw new Error(v.errors)
           if (v.worksheet.unit !== unit || `${v.worksheet.id}.json` !== f) throw new Error(`homework "${v.worksheet.unit}/${v.worksheet.id}" belongs in ${v.worksheet.unit}/${v.worksheet.id}.json`)
           if (v.worksheet.language !== this.language) throw new Error(`homework of "${v.worksheet.language}", this course is "${this.language}"`)
