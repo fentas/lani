@@ -26,8 +26,13 @@ import si.lanisce.lani.game.scene.ScenePainter
 internal class ScenePictures(val w: Int, val h: Int, private val painter: ScenePainter, private val closer: ScenePainter, private val art: String) {
     private class Ask(val frame: SceneFrame, val base: Boolean, val k: Int, val fine: Lens?)
 
-    /** Held while a painter draws, and by what reads a painter's last frame (a tap, the sky's list). */
-    val lock = Any()
+    /**
+     * Held while a painter draws, and by what reads a painter's last frame (a tap, the sky's list): the painter itself, so
+     * the pictures of one painter never draw on two threads. The view resized (a tablet turned, the window's size
+     * changed) makes new pictures of the same painters while the old ones' thread may still be drawing, and a painter
+     * keeps what it draws on in itself (a frame drawn on two canvases at once read past one's end, QA 2026-10-28).
+     */
+    val lock: Any = painter
 
     private val thread = RenderThread<Ask>("SceneRender", "SceneView", merge = { p, a ->
         Ask(a.frame, a.base || p.base, a.k, a.fine ?: p.fine?.takeIf { it.k == a.k })

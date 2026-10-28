@@ -136,6 +136,34 @@ class TownPicturesTest {
         }
     }
 
+    @Test fun `a scene resized draws its painters on one thread at a time, the old pictures' and the new`() {
+        // the view resized (a tablet turned): new pictures of the same painters while the old ones may still be drawing
+        val art = "school"
+        val painter = si.lanisce.lani.game.scene.ScenePainters.create(art)
+        val closer = si.lanisce.lani.game.scene.ScenePainters.create(art)
+        val wide = SceneFit.of(2560, 1600, compact = false)
+        val tall = SceneFit.of(1600, 2560, compact = false)
+        val old = si.lanisce.lani.ui.scene.ScenePictures(wide.width, wide.height, painter, closer, art)
+        val now = si.lanisce.lani.ui.scene.ScenePictures(tall.width, tall.height, painter, closer, art)
+        try {
+            assertSame("one lock for the pictures of one painter", old.lock, now.lock)
+            val f = si.lanisce.lani.game.scene.SceneFrame(time = 0.0, hour = 10f, month = 10)
+            val wr = CameraRig.scene(wide, 2560, 1600)
+            val tr = CameraRig.scene(tall, 1600, 2560)
+            for (t in 0L until 40L) {
+                val k = 1 + (t % 3).toInt()
+                old.ask(t * 600_000_000L, k, wr.fitted(), 2560, 1600, f, changed = true)
+                now.ask(t * 600_000_000L, k, tr.fitted(), 1600, 2560, f, changed = true)
+                Thread.sleep(2)
+            }
+            // a picture that failed is thrown on the main thread in a debug build: idling it would throw
+            waitFor("both pictures drawn") { old.base != null && now.base != null }
+            assertFalse(old.fineFailed); assertFalse(now.fineFailed)
+        } finally {
+            old.close(); now.close()
+        }
+    }
+
     @Test fun `the village's pictures are kept for when it comes back, and let go under memory pressure`() {
         Retained.clear()
         try {
