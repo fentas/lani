@@ -4144,7 +4144,8 @@ began; at Home, Back leaves the app. The stack is saved with the activity: after
 background, it opens on the screens it was on (not a run: where it began; not a visit). A notification or a `lani://`
 link (`lani://review`, `lani://village`, `lani://scene/<id>`, `lani://school/<unit>`, `lani://grammar/<page>`,
 `lani://friends`, `lani://settings/<section>`) opens its target over Home, on the way the app has to it (a scene over the
-village, a unit over the school, a town's question over Friends).
+village, a unit over the school, a town's question over Friends); a town's invitation (`lani://town?…` or its web link)
+opens Friends with its Accept dialog filled in.
 
 **Home**, top to bottom: the village with the greeting, "🤝" to Friends (a count when a guest came, a question or a
 friend's offer waits), "⚙️" to the settings (its dot: the tutor's connection), the streak; "Danes · Today" (the one thing

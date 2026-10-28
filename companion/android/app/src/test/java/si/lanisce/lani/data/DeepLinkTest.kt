@@ -79,4 +79,13 @@ class DeepLinkTest {
             assertNull(u.toString(), DeepLink.fromUri(u))
         }
     }
+
+    @Test fun `a town's invitation is the invitations' link, not a screen of the lani links`() {
+        // MainActivity asks ofUri first, then fromUri: an invitation never opens a screen without its Accept dialog
+        val invite = "lani://town?v=1&u=http%3A%2F%2F10.0.2.2%3A8791&c=ABCD-EFGH&f=0123456789abcdef"
+        assertNull(DeepLink.fromUri(invite))
+        assertEquals(DeepLink.Invitation(invite), DeepLink.ofUri(invite))
+        assertNull(DeepLink.ofUri("lani://review"))
+        assertNull("lani://pair is scanned or pasted, no link to open", DeepLink.fromUri("lani://pair?v=1&u=x&c=y"))
+    }
 }

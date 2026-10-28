@@ -46,7 +46,9 @@ Home · Tidy Home", over a real back stack, with its 20 quick wins. This is that
   cards due) open the review, the tutor's new grammar page opens the book at it. `lani://` links open the same targets
   (`DeepLink.fromUri`: `lani://review`, `lani://village`, `lani://scene/<id>[/<happening>]`, `lani://school/<unit>`,
   `lani://grammar/<page>`, `lani://friends`, `lani://settings/<section>`), and `lani://tutor` (back from "Sign in with
-  ChatGPT" in the browser) the tutor's settings, unless the sign-in began where the learner still is.
+  ChatGPT" in the browser) the tutor's settings, unless the sign-in began where the learner still is. A town's invitation
+  (`lani://town?…`, `fluent://town?…`, its web link: `DeepLink.ofUri`, the invitations round) opens Friends over Home with
+  its Accept dialog filled in; it is kept even while a run goes on, and waits under Friends then.
 
 ### Tidy Home (plan A)
 
