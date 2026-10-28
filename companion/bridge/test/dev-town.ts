@@ -17,7 +17,8 @@
 //      --profile), accepted by the other town's app; with "guardian", that town is the child's guardian (lani-town
 //      guardian): it sees the child's progress in detail.
 //      dev-town-sl.json is a Slovene village of the Primorska culture pack (companion/bin/qa --steps visit-voices: an
-//      Italian learner visits a Slovene town, as Teo visits Jan's village).
+//      Italian learner visits a Slovene town, as Teo visits Jan's village). dev-town-kaernten.json is a Carinthian village
+//      in German (the Kärnten culture pack): its horizon, Am See, in Carinthia's look (companion/SCENES.md "Culture looks").
 //      LANI_DEV_TOWN_REGISTRY a directory: this town is written there as a learner profile of a node (its profiles.json,
 //      as lani-profile add writes it: its id, whether a child's, its port and data), so a dev bridge whose LANI_PROFILES_DIR
 //      it is sees it as a town of its node: the parent's app links its own child's town (companion/README.md, "A child's

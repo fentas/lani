@@ -630,7 +630,9 @@ isn't answering (then its last state shows). The app still talks only to its own
   comes with `stale: true`; what was never had is a `502` with `code: unreachable`.
 - **The app** draws the town from its public state: a read-only village state (buildings on their plots, the age,
   the projects' landmarks, who lives there, today's visitor, the sky, the festival celebrated) that is never saved or
-  sent anywhere, in the host culture's look and with its people walking about. A banner says "🧳 Na obisku ·
+  sent anywhere, in the host culture's look and with its people walking about; its scenes are drawn in that look too
+  (companion/SCENES.md "Culture looks": a Carinthian town's Am See under the Mittagskogel with its onion-domed church,
+  a Lake District town's fells with their walls and Herdwicks). A banner says "🧳 Na obisku ·
   Visiting: <village> (<learner>)", with "⌂ Domov · Home"; a town that isn't answering says so, with a retry, or shows
   its last state with when it was had.
 - **The town's language.** During a visit every label, villager line and scene word is in the host town's language,
@@ -4693,7 +4695,8 @@ Visiting": the labels in Italian), to a villager's card, the sea at the horizon 
 market (opened, not played: no tutor needed), the gift's message field with the keyboard up (it and "🎁 Invia · Send"
 above the keyboard; nothing sent), and back with "⌂ Casa · Home". Both bridges stop with QA, and on their own
 when QA is gone; a program other than a second town on 8797 is left alone (the visit steps skip). `--no-town` leaves
-the second town out. `LANI_DEV_FAKE_ELEVENLABS=1` gives the dev bridge a fake ElevenLabs (`test/fakes/eleven.ts`, the
+the second town out. `LANI_DEV_TOWN_FIXTURE=dev-town-kaernten.json` makes it a Carinthian village in German ("Probedorf",
+the Kärnten pack): the visit's horizon is then Am See in Carinthia's look. `LANI_DEV_FAKE_ELEVENLABS=1` gives the dev bridge a fake ElevenLabs (`test/fakes/eleven.ts`, the
 smoke's: tones for clips, a take's time, a plan's concurrency, no voice slots; `LANI_DEV_FAKE_ELEVENLABS_MS`,
 `…_MS_PER_CHAR`, `…_CONCURRENCY`), so a clip made on demand runs end to end without the real one: with it, `--steps
 school` plays biti's first explanation as its clip (`intro-voice.txt`: `explanation:en`), and the dev bridge's log lists
