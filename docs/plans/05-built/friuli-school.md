@@ -41,9 +41,10 @@ colours, materials and variants of an art, named for the art, read by the painte
 culture draws exactly as before (`CultureLooksTest` holds every art's digests from before the hook). Visits draw the
 host's culture, words' stickers the learner's.
 
-The school was the first art drawn on it (the kitchen, the smithy, the tent and the mill of Friuli followed on the same
-hook, [culture-looks-friuli-indoors.md](culture-looks-friuli-indoors.md), and Carinthia's and the Lake District's mountains
-and fire, [looks-alps-lakes.md](looks-alps-lakes.md)). In the Friuli village it is an old Italian classroom
+The school was the first art drawn on it (Friuli's kitchen, smithy, tent and mill followed on the same hook,
+[culture-looks-friuli-indoors.md](culture-looks-friuli-indoors.md), its field, wood, stream, pond and sea,
+[looks-friuli-out.md](looks-friuli-out.md), and Carinthia's and the Lake District's mountains and fire,
+[looks-alps-lakes.md](looks-alps-lakes.md)). In the Friuli village it is an old Italian classroom
 (`CultureLooks.FRIULI_SCHOOL`):
 pale yellow walls over a lower wall painted in a sea-green enamel instead of the oak wainscot, a vine with bunches of
 grapes in the frieze instead of the tulips, the map of Friuli Venezia Giulia (the Alps, Udine, the Tagliamento, the Isonzo,
@@ -101,7 +102,7 @@ threads (`TownPicturesTest`: a scene resized, its old and new pictures drawn tog
   answer is graded right by the app's Italian grading and no word-bank decoy is right or almost (`ItalianCourseContentTest`,
   and a port of the grading over all six); the culture validates with the new scene, pack and clues (`validateCulture`);
   the learner content audit (no Jan, no malformed placeholder, no turn the same for one gender).
-- **Bridge**: `bunx tsc --noEmit -p .` clean; the smoke's course section (texts per base: read in de, in English by
+- **Bridge**: `bunx tsc --noEmit -p .` clean; the full smoke (2849 checks) passed; its course section (texts per base: read in de, in English by
   default, without English refused, served in the store's base), its Friuli section (the scene served from the school,
   `GET /course` Italian with six units written in order and twelve planned, a unit's exercises in the child's Slovene,
   the sheet printed headed "Regola · Pravilo", the guide naming Maestra Elena), its course-speech section (Elena the
@@ -110,8 +111,11 @@ threads (`TownPicturesTest`: a scene resized, its old and new pictures drawn tog
 - **App**: `CultureLooksTest`, `SchoolLooksTest` (the Friuli classroom at detail 1–3, the same things to tap, the greeting
   clear of the board's sun, as fast as the Slovene), `SchoolBoardTest` (the Italian course's every letter, its lessons,
   "Benvenuti!"), `CourseTest` (texts per base), `ItalianCourseContentTest`, `SchoolRevealTest` (preparing),
-  `CultureScenesTest` (A scuola from the school, every slot once), `DialogReactionsTest` (19 + 17 scene files); the full
-  suite (see the report).
+  `CultureScenesTest` (A scuola from the school, every slot once), `DialogReactionsTest` (19 + 17 scene files),
+  `TownPicturesTest` (a scene resized); the full suite on main with the other looks: 3301 tests, 2 skipped, none
+  failed (a run before, under a load of 85, one timing check of another art, `SceneDetailTest`'s alps at detail 3, was
+  slow once and passed run again alone).
+- **Python**: `python3 -m unittest discover -s tests` (251) and `-s companion/tests` (98, 10 skipped).
 - **Prints**: `companion/bin/school-prints --language it --base de` makes A1's six sheets and the booklet (4 units on one
   page, 2 on two).
 - **Emulator** (a synthetic Teo, below; each step a run of its own, about 8 minutes with the setup):
