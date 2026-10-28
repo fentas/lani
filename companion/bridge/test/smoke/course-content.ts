@@ -3,8 +3,9 @@
 // - unitAnswers: a sheet's answers are the dictionary's forms. A table cell's or a transform line's named form (lemma +
 //   form, which the learner's forms card then practises) is that slot's; a gap's, a cloze's or a choice's answer with
 //   one word in brackets after its gap ("Zala pomaga ___ (babica).") is a form of that word. What the dictionary and the
-//   forms book don't know (a name, an adverb made of the word: zjutraj from jutro, an adjective with too few forms in
-//   the dictionary) isn't judged.
+//   forms book don't know (a name, an adjective with too few forms in the dictionary) isn't judged, nor a word made of
+//   the one in brackets rather than one of its forms: another part of speech (zjutraj from jutro, branje from brati,
+//   zaprta from zapreti), or a verb's derivative the dictionary lacks (pokošena from pokositi).
 // - turnsOn: COURSE.md's "What a unit turns on" table lists every unit whose pages turn on a form of the forms cards,
 //   with its pages as the unit names them.
 import { mkdtempSync } from 'node:fs'
@@ -62,7 +63,14 @@ export function unitAnswers(units: Unit[], language: string, pages: Set<string>,
     known.set(k, out)
     return out
   }
-  const isAdverb = (w: string) => dict.lemmasOf(w).some(l => l.pos === 'adv')
+  /** The parts of speech of [w]'s readings in the dictionary (the lemmas it is a form of). */
+  const posOf = (w: string) => new Set(dict.readings(norm(w)).map(r => r.pos).concat(dict.lemmasOf(w).map(l => l.pos)))
+  /** [answer] is a word made of [cue], not one of its forms: another part of speech, or unknown beside a verb. */
+  const derived = (cue: string, answer: string) => {
+    const want = new Set(formsOf(c, cue).map(e => e.pos as string))
+    const got = posOf(answer)
+    return got.size ? ![...got].some(p => want.has(p)) : want.size > 0 && [...want].every(p => p === 'verb')
+  }
   let checked = 0
   const problems: string[] = []
   for (const u of units) {
@@ -95,7 +103,9 @@ export function unitAnswers(units: Unit[], language: string, pages: Set<string>,
         if (!fs.size) return
         checked++
         const last = words(answer).at(-1) ?? ''
-        if (!fs.has(last) && !isAdverb(last)) problems.push(`${at} ${label}: "${answer}" isn't a form of "${cue}" (${[...fs].slice(0, 12).join(' ')} …)`)
+        // a form the slots don't hold but the dictionary reads as the word's (a verbal noun: pečenje of peči) counts too
+        const ofCue = dict.readings(norm(last)).some(r => norm(r.lemma) === norm(cue))
+        if (!fs.has(last) && !ofCue && !derived(cue, last)) problems.push(`${at} ${label}: "${answer}" isn't a form of "${cue}" (${[...fs].slice(0, 12).join(' ')} …)`)
       }
       if (e.type === 'gaptext') {
         const parts = e.text.split(/_{3,}/)
