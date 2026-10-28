@@ -6550,17 +6550,31 @@ def school_cases():
     Its intro, six steps (a quick question each: four taps, two typed; the table of the six cases growing; the summary
     card), its first worksheet (knjiga and brat through the six cases, then each phrase sorted into its case), its test
     straight away (č typed as c by adb: two items almost, 11 of 12, passed), the unit done."""
+    def press(label: str) -> bool:
+        """Taps [label], the keyboard down first (it covers a long step's Check), scrolled into view when under the
+        fold."""
+        if ime_top() is not None:
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the keyboard down; the field keeps its text
+            time.sleep(1)
+        c = find(label)  # on screen above the run's bottom bar (its Naprej at ~2240 px), else scrolled to
+        c = c if c is not None and 300 < c[1] < 2150 else scroll_to(label, 6)
+        if c is None:
+            return False
+        tap_at(c)
+        return True
+
     if not (ROOT / "companion/course/sl/units/skloni.json").exists():
         return "no cases here (companion/course/sl/units/skloni.json)"
     wait_for("Danes · Today", 30)
     go_home()
     for _ in range(3):  # the hook again while the village isn't there yet
         qa_hook("school:skloni")
-        if wait_for("Raven A2", 10):
+        if wait_for("Raven A1", 10):  # the school's top; A2 below A1's units
             break
         adb("shell", "input", "keyevent", "KEYCODE_BACK")
         time.sleep(3)
-    c = scroll_to("Šest sklonov: vprašaj!", 12)
+    assert find("Raven A1"), "the school's levels"
+    c = scroll_to("Šest sklonov: vprašaj!", 30)
     assert c is not None, "the unit skloni on A2"
     shot("cases-levels")
     tap_at(c)
@@ -6584,7 +6598,7 @@ def school_cases():
             assert c is not None, f"step {i}'s gap"
             tap_at(c)
             type_text(answer)
-            assert tap("Preveri · Check", 4), f"step {i}'s check"
+            assert press("Preveri · Check"), f"step {i}'s check"
         assert wait_for("Pravilno", 6), f"step {i} answered right"
         if i in (1, 3, 6):
             shot(f"cases-intro-{i}")
@@ -6601,7 +6615,7 @@ def school_cases():
         assert fill(f"{row}, {fem}", f), f"the cell {row}, knjiga"
         assert fill(f"{row}, {masc}", m), f"the cell {row}, brat"
     shot("cases-table")
-    assert tap("Preveri · Check", 4), "check the table"
+    assert press("Preveri · Check"), "check the table"
     assert wait_for("Pravilno", 6), "the table right"
     shot("cases-table-checked")
     assert tap("Naprej · Next", 4), "on to the sort"
@@ -6615,7 +6629,7 @@ def school_cases():
         tap_at(c)
         time.sleep(0.5)
     shot("cases-sort")
-    assert tap("Preveri · Check", 4), "check the sort"
+    assert press("Preveri · Check"), "check the sort"
     assert wait_for("Pravilno", 6), "the sort right"
     shot("cases-sort-checked")
     assert tap("Naprej · Next", 6), "on"
@@ -6626,7 +6640,7 @@ def school_cases():
     assert wait_for("Dopolni sklone", 10), "the test's table"
     for row, answer in [("2. koga? česa?", "mame"), ("3. komu? čemu?", "mami"), ("4. koga? kaj?", "mamo"), ("6. z …", "mamo")]:
         assert fill(f"{row}, mama · mum", answer), f"the test's cell {row}"
-    assert tap("Preveri · Check", 4), "check"
+    assert press("Preveri · Check"), "check"
     assert tap("Naprej · Next", 6), "on"
     c = ([c for t, c in nodes() if t == "S kom"] or [None])[-1]
     assert c is not None, "the test's choice"
@@ -6636,12 +6650,12 @@ def school_cases():
     for i, answer in enumerate(["kovacnici", "kladivom", "casa", "sinu"], 1):
         assert fill(f"Vrzel {i} · Gap {i}", answer), f"the test's gap {i}"
     shot("cases-test-gaptext")
-    assert tap("Preveri · Check", 4), "check"
+    assert press("Preveri · Check"), "check"
     assert wait_for("Popravki", 6) or True
     assert tap("Naprej · Next", 6), "on"
     for i, answer in enumerate(["Juho.", "Muriju.", "Nejca."], 1):
         assert fill(f"Vrstica {i} · Line {i}", answer), f"the test's line {i}"
-    assert tap("Preveri · Check", 4), "check"
+    assert press("Preveri · Check"), "check"
     assert wait_for("Naprej · Next", 6), "on"
     tap("Naprej · Next", 4)
     assert wait_for("Enota opravljena", 12), "the test passed: the unit done"
