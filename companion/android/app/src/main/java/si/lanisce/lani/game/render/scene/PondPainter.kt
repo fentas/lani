@@ -40,6 +40,10 @@ import kotlin.math.sqrt
  * Closer up ([detail] 2 and 3) the same view is drawn finer: blades and plumes on the reeds, veins and a notch on
  * every pad, petals on the lilies, planks, nails and posts on the jetty, the boat's ribs and seats, feathers on the
  * ducks and the heron, the carp's scales.
+ *
+ * In Friuli's look (companion/SCENES.md "Culture looks") the wood round the pond is the coast's lowland wood, Lombardy
+ * poplars and oaks where the spruces and the beeches stand, mirrored in the water; and Nonno Bepi's tin of worms lies on
+ * the grass by Moro while he is there or someone fishes ([baitTin]).
  */
 internal class PondPainter : WildPainter() {
     override val art = "pond"
@@ -78,8 +82,18 @@ internal class PondPainter : WildPainter() {
     /** Picture pixels per scene canvas pixel: every size and offset in pixels is multiplied by it. */
     private val z: Int get() = detail
 
+    /**
+     * The culture's look (companion/SCENES.md "Culture looks"), read once a frame: Friuli's lowland wood round the pond, its
+     * Lombardy poplars and oaks where the spruces and the beeches stand ([pioppi]); and the poplars' shade and middle colour this
+     * season, for their picture in the water.
+     */
+    private var pioppi = false
+    private var poplarD = 0
+    private var poplarM = 0
+
     override fun paint() {
         setup()
+        pioppi = variant("trees") != null
         val z = z
         for (i in 0..SKY_STEPS) skyLut[i] = skyAt(i / SKY_STEPS.toFloat())
         vistaSky(3, 41, moonX = ox + MOON_X * z, moonY = oy + 10 * z)
@@ -95,7 +109,7 @@ internal class PondPainter : WildPainter() {
             val x = side * (15.5f + Noise.rnd(k, 512) * 4f + (d - 16f) * 0.25f)
             val spruce = Noise.rnd(k, 513) < 0.6f
             val hgt = if (spruce) 13f + Noise.rnd(k, 514) * 5f else 10f + Noise.rnd(k, 514) * 4f
-            items.add(d to { prop(Pal.OUTLINE_TREE) { if (spruce) spruce(x, d, hgt, k + 20) else leafyTree(x, d, hgt, k * 3 + 11) } })
+            items.add(d to { prop(Pal.OUTLINE_TREE) { if (spruce && pioppi) poplar(x, d, hgt + 1f, k + 20) else if (spruce) spruce(x, d, hgt, k + 20) else leafyTree(x, d, hgt, k * 3 + 11) } })
         }
         items.add(heronD to { thing("heron", slop = 2) { heron(heronX, heronD, fx("heron")) } })
         items.add(20.8f to { thing("ducks", slop = 2) { ducks() } })
@@ -119,6 +133,8 @@ internal class PondPainter : WildPainter() {
         }
         // Muri with Janez on the jetty ("dog"), the tadpoles in the shallows ("tadpoles")
         fx("dog")?.let { v -> items.add(MURI_D to { groundShadow(MURI_X, MURI_D, 0.35f); prop { muri(v) } }) }
+        // the culture's look: in Friuli Nonno Bepi's tin of worms on the grass by Moro while he is there or someone fishes
+        if (variant("bait") != null && (fx("dog") != null || (fx("bite") != null && peopleAt("jetty").isNotEmpty()))) items.add(BAIT_D to { prop { baitTin() } })
         fx("tadpoles")?.let { v -> if (v > 0.02f && env.season != Season.WINTER) items.add(13.5f to { prop(0) { tadpoles(v) } }) }
         for (p in peopleAt("reeds")) items.add(11.2f to { groundShadow(-4.6f, 11.2f, 0.5f); person(p, gx(-4.6f, 11.2f).toInt(), gy(11.2f).toInt(), flip = false) })
         for (p in peopleAt("shore")) items.add(10.6f to { groundShadow(1.8f, 10.6f, 0.5f); person(p, gx(1.8f, 10.6f).toInt(), gy(10.6f).toInt(), flip = false) })
@@ -430,42 +446,127 @@ internal class PondPainter : WildPainter() {
         val sunLeft = (sunAt()?.first ?: vx) < vx
         val sD = env.lit(Col.mix(SPRUCE_D, env.skyHorizon, 0.1f)); val sM = env.lit(Col.mix(SPRUCE_M, env.skyHorizon, 0.08f))
         val sL = env.lit(Col.mix(Col.hex(0x38684A), env.skyHorizon, 0.06f))
-        val beeches = beech()
+        val beeches = if (pioppi) oak() else beech()
         beechD = beeches.first; beechM = beeches.second
         val (bD, bM, bL) = beeches.let { (a, b, c2) -> Triple(env.lit(a), env.lit(b), env.lit(c2)) }
+        val poplars = poplarTones()
+        poplarD = poplars.first; poplarM = poplars.second
+        val (pD, pM, pL) = poplars.let { (a, b, c2) -> Triple(env.lit(Col.mix(a, env.skyHorizon, 0.1f)), env.lit(Col.mix(b, env.skyHorizon, 0.08f)), env.lit(Col.mix(c2, env.skyHorizon, 0.06f))) }
         c.penEmissive = true
         for (px in max(0, c.left) until min(w, c.right)) {
             val top = wallTop[px]
             val xb = (px + 0.5f) / z
             val spruce = Noise.rnd(floor(xb / 8f).toInt(), 503) < 0.62f
+            val column = pioppi && spruce && poplarColumn(xb)
+            val oakHere = pioppi && spruce && !column
+            // under its crown the poplar stands among the oaks: only its column over their canopy shows as the poplar
+            val canopy = if (column) canopyOf(xb, base) else 0
             val slope = wallTop[min(w - 1, px + z)] - wallTop[max(0, px - z)]
             val lit = if (sunLeft) slope > 0 else slope < 0
             for (py in max(max(0, top), c.top) until min(min(h, base + z), c.bottom)) {
                 val down = (py - top).toFloat() / max(1f, (base - top).toFloat())
                 val n = Noise.v2(px * 0.45f / z, py * 0.55f / z, 504)
-                val col = if (spruce) {
+                if (column && season == Season.WINTER && down < 0.55f && Noise.rnd(px / z, py / z, 509) < 0.4f) continue // the bare broom
+                val col = if (column && py >= canopy) {
+                    if (down > 0.5f + (Dither.at(px, py) - 0.5f) * 0.4f || n < 0.32f) bD else if (n > 0.66f) bL else bM
+                } else if (column) {
+                    if (py - top < z && lit) pL else if (down > 0.6f + (Dither.at(px, py) - 0.5f) * 0.4f || n < 0.22f) pD else if (n > 0.7f) pL else pM
+                } else if (oakHere) {
+                    if (py - top < 2 * z && lit) bL else if (down > 0.5f + (Dither.at(px, py) - 0.5f) * 0.4f || n < 0.32f) bD else if (n > 0.66f) bL else bM
+                } else if (spruce) {
                     // tiers of branches: a shade band under each
                     val band = ((py - top) / (4f * z) + Noise.rnd(floor(xb / 8f).toInt(), 506)) % 1f
                     if (py - top < z && lit) sL else if (down > 0.55f + (Dither.at(px, py) - 0.5f) * 0.4f || band > 0.75f || n < 0.2f) sD else sM
                 } else {
                     if (py - top < 2 * z && lit) bL else if (down > 0.5f + (Dither.at(px, py) - 0.5f) * 0.4f || n < 0.32f) bD else if (n > 0.66f) bL else bM
                 }
-                val snowy = season == Season.WINTER && Noise.v2(px * 0.5f / z, py * 0.9f / z, 99) > 0.55f && Dither.at(px, py) < 0.7f
+                val snowy = season == Season.WINTER && !column && Noise.v2(px * 0.5f / z, py * 0.9f / z, 99) > 0.55f && Dither.at(px, py) < 0.7f
                 c.set(px, py, if (snowy) env.lit(if (lit) Pal.SNOW_L else Pal.SNOW_M) else col)
             }
         }
         c.penEmissive = false
     }
 
-    /** The woods' top row over scene column [xb]: a spire or a crown every 8 columns, a little lower in the middle. */
+    /** The woods' top row over scene column [xb]: a spire or a crown every 8 columns, a little lower in the middle; in Friuli a poplar's column instead of the spire. */
     private fun topOf(xb: Float, base: Int): Int {
         val cell = floor(xb / 8f).toInt(); val u = xb / 8f - cell
         val spruce = Noise.rnd(cell, 503) < 0.62f
         val mid = (abs(xb - vx / detail) / 110f).coerceIn(0.7f, 1f)
         val tall = 22f + 16f * Noise.v1(xb * 0.035f, 501) + 12f * Noise.rnd(cell, 502)
-        val crown = if (spruce) (1f - abs(u - 0.5f) * 2f) * (9f + 6f * Noise.rnd(cell, 507)) else sqrt(max(0f, 1f - (u * 2f - 1f) * (u * 2f - 1f))) * 7f
+        val crown = if (spruce && pioppi) {
+            // the poplar's narrow column, rounded at its tip, over a low crown either side of it; an oak's crown where none stands
+            val q = abs(u - 0.5f) / poplarHalf(cell)
+            if (poplarCell(cell) && q < 1f) sqrt(sqrt(1f - q * q)) * (16f + 12f * Noise.rnd(cell, 507)) else sqrt(max(0f, 1f - (u * 2f - 1f) * (u * 2f - 1f))) * 6f
+        } else if (spruce) (1f - abs(u - 0.5f) * 2f) * (9f + 6f * Noise.rnd(cell, 507)) else sqrt(max(0f, 1f - (u * 2f - 1f) * (u * 2f - 1f))) * 7f
         return base - ((tall * mid + crown) * detail).toInt()
     }
+
+    /** The oaks' canopy top over scene column [xb] where a poplar stands ([pioppi]): the crown its cell would have without it. */
+    private fun canopyOf(xb: Float, base: Int): Int {
+        val cell = floor(xb / 8f).toInt(); val u = xb / 8f - cell
+        val mid = (abs(xb - vx / detail) / 110f).coerceIn(0.7f, 1f)
+        val tall = 22f + 16f * Noise.v1(xb * 0.035f, 501) + 12f * Noise.rnd(cell, 502)
+        return base - ((tall * mid + sqrt(max(0f, 1f - (u * 2f - 1f) * (u * 2f - 1f))) * 6f) * detail).toInt()
+    }
+
+    /** Whether scene column [xb] is in the column of its cell's poplar (Friuli's, [pioppi]), the cell one of a spruce's. */
+    private fun poplarColumn(xb: Float): Boolean {
+        val cell = floor(xb / 8f).toInt()
+        return poplarCell(cell) && abs(xb / 8f - cell - 0.5f) < poplarHalf(cell)
+    }
+
+    /** Whether a spruce's cell of the woods has a poplar in Friuli ([pioppi]), about half of them; an oak in the others. */
+    private fun poplarCell(cell: Int): Boolean = Noise.rnd(cell, 508) < 0.5f
+
+    /** Half a poplar's column in its cell ([pioppi]), a share of the cell: some slimmer than others. */
+    private fun poplarHalf(cell: Int): Float = POPLAR_HALF + 0.1f * Noise.rnd(cell, 509)
+
+    /** The oaks' colours by the season (Friuli's lowland wood, [pioppi]): dark and leathery, russet in autumn, the dead leaves kept into winter. */
+    private fun oak(): Triple<Int, Int, Int> = when (env.season) {
+        Season.AUTUMN -> Triple(Col.hex(0x5E3A1A), Col.hex(0x8A5A28), Col.hex(0xB8843E))
+        Season.WINTER -> Triple(Col.hex(0x5A4A3A), Col.hex(0x7A6650), Col.hex(0x968066))
+        Season.SPRING -> Triple(Col.hex(0x3E6A2A), Col.hex(0x5E8E3A), Col.hex(0x8AB654))
+        else -> Triple(Col.hex(0x24482A), Col.hex(0x36663A), Col.hex(0x56864A))
+    }
+
+    /** The poplars' colours by the season ([pioppi]): green, a lighter flicker, gold in October, bare grey twigs in winter. */
+    private fun poplarTones(): Triple<Int, Int, Int> = VistaPainter.POPLAR_TONES.getValue(env.season)
+
+    /**
+     * Nonno Bepi's tin of worms on the grass at the jetty's foot, beside Moro ([variant] "bait", Friuli's "mi passi la scatola
+     * dei vermi? È lì, vicino a Moro"): a little wooden box, its lid propped open, dark earth in it and the pink worms
+     * wriggling over its rim.
+     */
+    private fun baitTin() {
+        val k = z
+        val p = pm(BAIT_D); val bx = gx(BAIT_X, BAIT_D); val by = gy(BAIT_D)
+        val hw = 0.21f * p; val hh = 0.13f * p
+        val x0 = (bx - hw).toInt(); val x1 = (bx + hw).toInt()
+        val front = (by - hh).toInt()
+        // the open top seen from above: from the back edge to the front, the dark earth in it
+        val back = hy(BAIT_D + 0.24f, 0.13f).toInt()
+        // the lid, propped open against the back edge, leaning away
+        val lidTop = back - max(1, (0.16f * p).toInt())
+        for (y in lidTop until back) c.hline(x0 + (back - y) / 3, x1 - (back - y) / 3, y, if (y == lidTop) Pal.WOOD_L else Pal.WOOD_M)
+        for (y in back until front) c.hline(x0, x1, y, if (y == back) Pal.WOOD_D else Col.hex(0x3A2618))
+        // the worms over the earth and the rim, pink, wriggling
+        val n = 3 + k
+        for (i in 0 until n) {
+            val wx = x0 + (i + 0.5f) * (x1 - x0) / n
+            val wy = back + (front - back) * (0.3f + 0.5f * Noise.rnd(i, 611))
+            val wig = sin(t * 4.0 + i * 1.9).toFloat() * 0.6f * k
+            c.set((wx + wig).toInt(), wy.toInt(), Col.hex(0xF0A0A0))
+            c.set((wx - wig).toInt() + 1, wy.toInt() - max(1, k / 2), Col.hex(0xD8787C))
+            if (k > 1) c.set((wx + 2 * wig).toInt() - 1, wy.toInt() + 1, Col.hex(0xE88C90))
+        }
+        // the box's front: boards lit on the left, a dark joint between them
+        for (py in max(front, c.top)..min(by.toInt(), c.bottom - 1)) for (px in max(x0, c.left)..min(x1, c.right - 1)) {
+            val u = (px - x0) / max(1f, (x1 - x0).toFloat())
+            c.set(px, py, if (py == front) Pal.WOOD_L else if (u < 0.2f) Pal.WOOD_L else if (u > 0.8f) Pal.WOOD_D else Pal.WOOD_M)
+        }
+        if (k > 1) c.hline(x0, x1, (front + by.toInt()) / 2, Pal.WOOD_D)
+    }
+
 
     /** The beeches' colours by the season. */
     private fun beech(): Triple<Int, Int, Int> = when (env.season) {
@@ -630,7 +731,11 @@ internal class PondPainter : WildPainter() {
             skyTone(tt, px, py)
         } else {
             val n = Noise.v2(sx * 0.45f / z, sr * 0.55f / z, 504)
-            if (Noise.rnd(floor((sx + 0.5f) / z / 8f).toInt(), 503) < 0.62f) (if (n < 0.3f) SPRUCE_D else SPRUCE_M) else (if (n < 0.4f) beechD else beechM)
+            val sxb = (sx + 0.5f) / z
+            if (Noise.rnd(floor(sxb / 8f).toInt(), 503) < 0.62f) {
+                if (!pioppi) (if (n < 0.3f) SPRUCE_D else SPRUCE_M)
+                else if (poplarColumn(sxb) && sr < canopyOf(sxb, mirror / 2)) (if (n < 0.3f) poplarD else poplarM) else (if (n < 0.4f) beechD else beechM)
+            } else (if (n < 0.4f) beechD else beechM)
         }
         // near us the water is dark and clear, farther off it mirrors more
         val far = ((pondD + pondRd - d) / (2f * pondRd)).coerceIn(0f, 1f)
@@ -1308,6 +1413,11 @@ internal class PondPainter : WildPainter() {
         private val POND_DEEP = Col.hex(0x1E3A34)
         private val SPRUCE_D = Col.hex(0x183626)
         private val SPRUCE_M = Col.hex(0x224C36)
+        /** Friuli's poplars in the woods round the pond ([pioppi]): half a column's width, a share of its cell. */
+        private const val POPLAR_HALF = 0.2f
+        /** Nonno Bepi's tin of worms ([baitTin]): on the grass right of Moro, at the jetty's foot (m). */
+        private const val BAIT_X = 6.15f
+        private const val BAIT_D = 11.3f
         private val PAD_D = Col.hex(0x1E3A1A)
         private val FLY_OUTLINE = Col.hex(0x3A1A1A)
     }

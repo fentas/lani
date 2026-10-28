@@ -45,6 +45,9 @@ import kotlin.math.sqrt
  * Closer up ([detail] 2 and 3) the same view is drawn finer: thin ripple lines and the pebbles of the bed in the
  * shallows, blades of grass on the banks, planks and nails on the footbridge, logs, shingles and the wheel's paddles at
  * the mill, the willow's leaves along its strands, the trout's spots.
+ *
+ * In Friuli's look (companion/SCENES.md "Culture looks") Lombardy poplars stand along the banks and in the woods' edge
+ * where the spruces do, and the hill over the valley has its vine rows and a hamlet with its campanile ([hamlet]).
  */
 internal class StreamPainter : WildPainter() {
     override val art = "stream"
@@ -96,8 +99,15 @@ internal class StreamPainter : WildPainter() {
     /** Picture pixels per scene canvas pixel: every size and offset in pixels is multiplied by it. */
     private val z: Int get() = detail
 
+    // the culture's look (companion/SCENES.md "Culture looks"), read once a frame: Friuli's poplars along the banks and the
+    // woods' edge, the Collio's vines and a campanile on the hill
+    private var pioppi = false
+    private var collio = false
+
     override fun paint() {
         setup()
+        pioppi = variant("trees") != null
+        collio = variant("hills") != null
         millDone = stage(MILL) >= stages(MILL)
         wheelIn = stage(MILL) >= stages(MILL) - 1
         roadDone = stage(BRIDGE) >= DECKED
@@ -116,9 +126,10 @@ internal class StreamPainter : WildPainter() {
             val x = course(d) + side * (half(d) + 2.5f + Noise.rnd(k, 312) * 9f)
             if (side > 0 && d < millBack + 3f && x < millR + 2f) continue
             if (abs(d - cartD) < 2.6f) continue // the cart road's way over the stream
-            val spruce = Noise.rnd(k, 313) < 0.3f
+            // (in Friuli more of them tall: Lombardy poplars, as along the plain's streams)
+            val spruce = Noise.rnd(k, 313) < (if (pioppi) 0.55f else 0.3f)
             val hgt = if (spruce) 10f + Noise.rnd(k, 314) * 5f else 7f + Noise.rnd(k, 314) * 4f
-            items.add(d to { prop(Pal.OUTLINE_TREE) { if (spruce) spruce(x, d, hgt, k) else leafyTree(x, d, hgt, k * 5 + 3) } })
+            items.add(d to { prop(Pal.OUTLINE_TREE) { if (spruce && pioppi) poplar(x, d, hgt + 2f, k * 3 + 1) else if (spruce) spruce(x, d, hgt, k) else leafyTree(x, d, hgt, k * 5 + 3) } })
         }
         millSite()
         cartBridge()
@@ -191,8 +202,31 @@ internal class StreamPainter : WildPainter() {
         val rock = if (season == Season.WINTER) Col.hex(0xB8C6DA) else Col.hex(0x7684A8)
         ridge(hz - 13f * z, 24f * z, 0.012f, 321, rock, 0.36f, snowLine = if (season == Season.SUMMER) 0.8f else 0.45f, sharp = true)
         val midCol = when (season) { Season.WINTER -> Col.hex(0xC6D2E2); Season.AUTUMN -> Col.hex(0x7E7A42); else -> Col.hex(0x4E7A48) }
-        val mid = ridge(hz - 4f * z, 10f * z, 0.017f, 323, midCol, 0.22f)
-        treeline(mid, 6 * z, 2.4f * z, if (season == Season.WINTER) Col.hex(0x6A7A8A) else Col.hex(0x2E5A36), 0.26f, 327)
+        val mid = ridge(hz - 4f * z, 10f * z, 0.017f, 323, midCol, 0.22f, texture = if (collio) ({ x, y, b -> collioSlope(x, y, b, 333) }) else null)
+        treeline(mid, (if (collio) 11 else 6) * z, 2.4f * z, if (season == Season.WINTER) Col.hex(0x6A7A8A) else Col.hex(0x2E5A36), 0.26f, 327)
+        if (collio) hamlet(mid)
+    }
+
+    /**
+     * Friuli's hamlet on the hill over the stream's valley ([collio]): a few houses under their coppi and the campanile among
+     * them ([farCampanile]), where the hill shows over the woods; its colours the village's ([FireStyle]).
+     */
+    private fun hamlet(crest: IntArray) {
+        val z = z
+        val st = FireStyle.of(frame.world.culture, frame.world.landscape)
+        // the hill's highest point a little right of the valley, where the woods are lowest
+        val from = (vx + 8 * z).toInt().coerceIn(0, w - 1); val to = (vx + 46 * z).toInt().coerceIn(0, w - 1)
+        var top = from
+        for (x in from..to) if (crest[x] < crest[top]) top = x
+        val lit = env.windows > 0.35f
+        c.penEmissive = true
+        val base = crest[top] + 2 * z
+        for ((i, off) in intArrayOf(-13, -7, 6, 12).withIndex()) {
+            val hx = top + off * z; if (hx !in 0 until w - 5 * z) continue
+            farCoppiHouse(hx, min(base + z, crest[hx.coerceIn(0, w - 1)] + 3 * z), 5 * z, 3 * z, st, i + 2, lit, 0.24f)
+        }
+        farCampanile(top - 2 * z, base, st, lit, 0.24f, tall = 15)
+        c.penEmissive = false
     }
 
     /**
@@ -214,38 +248,72 @@ internal class StreamPainter : WildPainter() {
             Season.SPRING -> Triple(Col.hex(0x3E6E30), Col.hex(0x5E9A44), Col.hex(0x8CC25A))
             else -> Triple(Col.hex(0x2E5A2E), Col.hex(0x44803E), Col.hex(0x68A450))
         }.let { (a, b, c2) -> Triple(env.lit(Col.mix(a, env.skyHorizon, 0.16f)), env.lit(Col.mix(b, env.skyHorizon, 0.14f)), env.lit(Col.mix(c2, env.skyHorizon, 0.12f))) }
+        // Friuli's poplars ([pioppi]): their columns over the crowns, gold in October, bare grey twigs in winter
+        val (pD, pM, pL) = VistaPainter.POPLAR_TONES.getValue(season).let { (a, b, c2) -> Triple(env.lit(Col.mix(a, env.skyHorizon, 0.16f)), env.lit(Col.mix(b, env.skyHorizon, 0.14f)), env.lit(Col.mix(c2, env.skyHorizon, 0.12f))) }
         c.penEmissive = true
         for (px in max(0, c.left) until min(w, c.right)) {
             val xb = (px + 0.5f) / z
             val top = woodsTop(xb, valley, base)
             val cell = floor(xb / 7f).toInt()
             val spruce = Noise.rnd(cell, 303) < 0.55f
+            val column = pioppi && spruce && poplarCell(cell) && abs(xb / 7f - cell - 0.5f) < poplarHalf(cell)
+            // under its crown the poplar stands among the alders: only its column over their canopy shows as the poplar
+            val canopy = if (column) canopyOf(xb, valley, base) else 0
             val slope = woodsTop(xb + 1f, valley, base) - woodsTop(xb - 1f, valley, base)
             val lit = if (sunLeft) slope > 0 else slope < 0
             for (py in max(max(0, top), c.top) until min(min(h, base), c.bottom)) {
                 val down = (py - top).toFloat() / max(1f, (base - top).toFloat())
                 val n = Noise.v2(px * 0.5f / z, py * 0.6f / z, 304)
-                val col = if (spruce) {
+                if (column && season == Season.WINTER && down < 0.6f && Noise.rnd(px / z, py / z, 307) < 0.4f) continue // the bare broom
+                val col = if (column && py >= canopy) {
+                    if (down > 0.55f + (Dither.at(px, py) - 0.5f) * 0.4f || n < 0.3f) bD else if (n > 0.66f) bL else bM
+                } else if (column) {
+                    if (py - top < z && lit) pL else if (down > 0.6f + (Dither.at(px, py) - 0.5f) * 0.4f || n < 0.22f) pD else if (n > 0.7f) pL else pM
+                } else if (pioppi && spruce) {
+                    // a poplar's cell beside its column, or an alder's crown where no poplar stands
+                    if (py - top < 2 * z && lit) bL else if (down > 0.55f + (Dither.at(px, py) - 0.5f) * 0.4f || n < 0.3f) bD else if (n > 0.66f) bL else bM
+                } else if (spruce) {
                     if (py - top < z && lit) sL else if (down > 0.5f + (Dither.at(px, py) - 0.5f) * 0.4f || n < 0.25f) sD else sM
                 } else {
                     if (py - top < 2 * z && lit) bL else if (down > 0.55f + (Dither.at(px, py) - 0.5f) * 0.4f || n < 0.3f) bD else if (n > 0.66f) bL else bM
                 }
-                val snowy = season == Season.WINTER && Noise.v2(px * 0.5f / z, py * 0.9f / z, 99) > 0.55f && Dither.at(px, py) < 0.7f
+                val snowy = season == Season.WINTER && !column && Noise.v2(px * 0.5f / z, py * 0.9f / z, 99) > 0.55f && Dither.at(px, py) < 0.7f
                 c.set(px, py, if (snowy) env.lit(if (lit) Pal.SNOW_L else Pal.SNOW_M) else col)
             }
         }
         c.penEmissive = false
     }
 
-    /** The woods' top row over scene column [xb]: a spire or a crown per cell of 7, lower over the valley. */
+    /** The woods' top row over scene column [xb]: a spire or a crown per cell of 7, lower over the valley; in Friuli a poplar's column instead of the spire. */
     private fun woodsTop(xb: Float, valley: Float, base: Int): Int {
         val gap = (abs(xb - valley) / 70f).coerceIn(0.62f, 1f)
         val cell = floor(xb / 7f).toInt(); val u = xb / 7f - cell
         val spruce = Noise.rnd(cell, 303) < 0.55f
         val tall = 18f + 12f * Noise.v1(xb * 0.05f, 301) + 6f * Noise.rnd(cell, 302)
-        val crown = if (spruce) (1f - abs(u - 0.5f) * 2f) * 9f else sqrt(max(0f, 1f - (u * 2f - 1f) * (u * 2f - 1f))) * 5f
+        val crown = if (spruce && pioppi) (if (poplarCell(cell)) poplarTop(u, cell) else sqrt(max(0f, 1f - (u * 2f - 1f) * (u * 2f - 1f))) * 6f)
+        else if (spruce) (1f - abs(u - 0.5f) * 2f) * 9f else sqrt(max(0f, 1f - (u * 2f - 1f) * (u * 2f - 1f))) * 5f
         return base - ((tall + crown) * gap * detail).toInt()
     }
+
+    /** Over a poplar's cell of the woods ([pioppi]): its narrow column, rounded at its tip, well over the crowns; a low crown either side. */
+    private fun poplarTop(u: Float, cell: Int): Float {
+        val q = abs(u - 0.5f) / poplarHalf(cell)
+        return if (q < 1f) sqrt(sqrt(1f - q * q)) * (14f + 10f * Noise.rnd(cell, 306)) else sqrt(max(0f, 1f - (u * 2f - 1f) * (u * 2f - 1f))) * 4f
+    }
+
+    /** The alders' canopy top over scene column [xb] where a poplar stands ([pioppi]): the crown its cell would have without it. */
+    private fun canopyOf(xb: Float, valley: Float, base: Int): Int {
+        val gap = (abs(xb - valley) / 70f).coerceIn(0.62f, 1f)
+        val cell = floor(xb / 7f).toInt(); val u = xb / 7f - cell
+        val tall = 18f + 12f * Noise.v1(xb * 0.05f, 301) + 6f * Noise.rnd(cell, 302)
+        return base - ((tall + sqrt(max(0f, 1f - (u * 2f - 1f) * (u * 2f - 1f))) * 6f) * gap * detail).toInt()
+    }
+
+    /** Whether a cell of the woods' edge where a spruce would stand has a poplar in Friuli ([pioppi]): about half of them. */
+    private fun poplarCell(cell: Int): Boolean = Noise.rnd(cell, 308) < 0.5f
+
+    /** Half a poplar's column in its cell ([pioppi]), a share of the cell: some slimmer than others. */
+    private fun poplarHalf(cell: Int): Float = POPLAR_HALF + 0.1f * Noise.rnd(cell, 309)
 
     // ------------------------------------------------------------------ the meadow and the banks
 
@@ -1683,6 +1751,9 @@ internal class StreamPainter : WildPainter() {
 
     companion object {
         /** The village projects this scene shows as they're built: France's mill, the cart bridge. */
+        /** Friuli's poplars in the woods' edge ([pioppi]): half the slimmest column's width, a share of its cell. */
+        private const val POPLAR_HALF = 0.22f
+
         private const val MILL = "mlin"
         private const val BRIDGE = "most"
         /** Steps of the bridge done when its deck is laid: a cart ("cart") can go over it. */

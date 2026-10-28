@@ -169,11 +169,44 @@ object CultureLooks {
         variants = mapOf("grain" to "maize", "view" to "collio"),
     )
 
+    // ------------------------------------------------------------------ Friuli outdoors (Teo's village, companion/SCENES.md "Culture looks")
+
+    /**
+     * Friuli's field (Nel campo): the fienile of the plain instead of the kozolec (river cobbles laid in courses with brick
+     * bands and quoins, two brick arches below, the hay loft above behind brick lattices, a coppi roof), the village on
+     * the hill as Friuli builds it (ochre and terracotta plaster, coppi, the free-standing brick campanile), vine rows
+     * on the Collio's slopes, and the plain's trees: a row of pollarded mulberries with the vines strung between them
+     * (the piantata) and Lombardy poplars along the far ditches.
+     */
+    val FRIULI_FIELD = Table.of(
+        "field",
+        variants = mapOf("kozolec" to "fienile", "village" to "friuli", "hills" to "collio", "trees" to "piantata"),
+    )
+
+    /**
+     * Friuli's wood (Nel bosco): an ancona by the path (a wayside shrine on its pillar, the Madonna in its niche, flowers
+     * at its foot, a candle at night), and Aldo's basket of mushrooms by whoever stands at the clearing while a dialog
+     * counts them ("guarda nel mio cesto").
+     */
+    val FRIULI_FOREST = Table.of("forest", variants = mapOf("shrine" to "ancona", "basket" to "funghi"))
+
+    /** Friuli's stream (Al ruscello): Lombardy poplars along the banks and the woods' edge, vine rows and a campanile on the hill. */
+    val FRIULI_STREAM = Table.of("stream", variants = mapOf("trees" to "pioppi", "hills" to "collio"))
+
+    /**
+     * Friuli's pond (Allo stagno): the lowland wood round it (Lombardy poplars and oaks, as by the lagoon's woods), and Nonno
+     * Bepi's tin of worms on the grass at the jetty's foot by Moro while someone fishes ("la scatola dei vermi … vicino a Moro").
+     */
+    val FRIULI_POND = Table.of("pond", variants = mapOf("trees" to "pioppi", "bait" to "vermi"))
+
+    /** Friuli's sea (Il mare, its own art): the batela's halyard from the masthead to its cleat ("Vedi la corda lì?"). */
+    val FRIULI_SEA = Table.of("sea", variants = mapOf("halyard" to "drizza"))
+
     /** Each culture's look: its arts' tables added up. A culture not here draws every art as the default culture does. */
     private val tables: Map<String, Table> = mapOf(
         "kaernten" to KAERNTEN_ALPS + KAERNTEN_CAMPFIRE,
         "lakeland" to LAKELAND_ALPS + LAKELAND_CAMPFIRE,
-        "friuli" to FRIULI_KITCHEN + FRIULI_SMITHY + FRIULI_TENT + FRIULI_MILL,
+        "friuli" to FRIULI_KITCHEN + FRIULI_SMITHY + FRIULI_TENT + FRIULI_MILL + FRIULI_FIELD + FRIULI_FOREST + FRIULI_STREAM + FRIULI_POND + FRIULI_SEA,
     )
 
     private val looks = ConcurrentHashMap<String, CultureLook>()

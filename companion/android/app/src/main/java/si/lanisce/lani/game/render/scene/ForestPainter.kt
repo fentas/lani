@@ -51,6 +51,10 @@ private const val RAIL_H = 3.9f
  * Luka's "Tam, za smreko!"); its "tracks" a bear's prints in the mud of the bank by the path (how many, how clear:
  * Anton's "Poglej tja, v blato. Velike sledi."); its "does" roe deer stepping out of the trees onto the far meadow at dusk,
  * as many as the dialog counts, else five (how many are out, 1 all of them grazing: Jože's "Zdaj pridejo srne na travnik").
+ *
+ * In Friuli's look (companion/SCENES.md "Culture looks") an ancona stands right of the path ([ancona]: the Madonna in her
+ * niche on a plastered pillar, flowers at its foot, a lumino at night), and while a dialog counts Aldo's mushrooms his
+ * basket stands by whoever is at the clearing with that many in it ([mushroomBasket]).
  */
 internal class ForestPainter : WildPainter() {
     override val art = "forest"
@@ -149,6 +153,16 @@ internal class ForestPainter : WildPainter() {
             }
             thing("highseat", slop = 1) { highSeat(seatX, seatD, back = false) }
         })
+        // the culture's look (companion/SCENES.md "Culture looks"): Friuli's ancona by the path, and Aldo's basket by whoever
+        // stands at the clearing while a dialog counts its mushrooms
+        if (variant("shrine") != null) {
+            items.add(SHRINE_D to { prop { ancona(SHRINE_X, SHRINE_D) } })
+            anconaLight(SHRINE_X, SHRINE_D)
+        }
+        val counted = frame.count
+        if (variant("basket") != null && counted != null && peopleAt("clearing").isNotEmpty()) {
+            items.add(BASKET_D to { prop { mushroomBasket(BASKET_X, BASKET_D, counted.coerceIn(1, BASKET_MAX)) } })
+        }
         wildlife()
         items.sortByDescending { it.first }
         for ((_, draw) in items) draw()
@@ -174,6 +188,168 @@ internal class ForestPainter : WildPainter() {
             }
         }
     }
+
+    // ------------------------------------------------------------------ Friuli's ancona and Aldo's basket
+
+    /**
+     * Friuli's ancona by the path ([variant] "shrine": a maina, the wayside shrine of the Friulian roads and woods; companion/
+     * SCENES.md "Culture looks"): a plastered pillar on a stone foot, a niche at its top under a little coppi roof, the
+     * Madonna painted in it on the blue of the niche (her blue mantle, her white veil, a gold halo closer up), a jar of the
+     * season's flowers on the foot (a fir sprig in winter); from dusk a red lumino burns before her. Scenery. Its light:
+     * [anconaLight].
+     */
+    private fun ancona(x: Float, d: Float) {
+        val p = pm(d); val bx = gx(x, d); val by = gy(d)
+        val k = detail
+        val snow = env.snow
+        val plaster = Col.hex(0xEDE2CA); val plasterD = Col.hex(0xC4B69A); val plasterL = Col.hex(0xFAF4E4)
+        val footH = 0.24f * p
+        val pw = 0.5f * p; val ph = 1.45f * p
+        // the stone foot, a little wider
+        val fx0 = (bx - pw * 0.66f).toInt(); val fw = (pw * 1.32f).toInt().coerceAtLeast(2)
+        c.fillRect(fx0, (by - footH).toInt(), fw, footH.toInt() + 1, Pal.STONE_M)
+        c.hline(fx0, fx0 + fw - 1, (by - footH).toInt(), if (snow) Pal.SNOW_L else Pal.STONE_L)
+        if (k > 1) c.hline(fx0, fx0 + fw - 1, by.toInt(), Pal.STONE_D)
+        // the pillar, lit on its left; closer up, a patch where the plaster has fallen and the brick shows
+        val px0 = (bx - pw / 2f).toInt(); val px1 = (bx + pw / 2f).toInt()
+        val top = by - ph
+        for (py in max(top.toInt(), c.top)..min((by - footH).toInt() - 1, c.bottom - 1)) for (px in max(px0, c.left)..min(px1, c.right - 1)) {
+            val u = (px - px0) / max(1f, (px1 - px0).toFloat())
+            var col = if (u < 0.22f) plasterL else if (u > 0.76f) plasterD else plaster
+            if (k > 1 && u > 0.3f && Noise.v2(px * 0.3f / k, py * 0.3f / k, 141) > 0.86f) col = if (((py / k) % 2) == 0) Col.hex(0xC07050) else Col.hex(0xA86044)
+            c.set(px, py, col)
+        }
+        // the niche's box over the pillar
+        val nw = 0.76f * p; val nh = 0.72f * p
+        val nx0 = (bx - nw / 2f).toInt(); val nx1 = (bx + nw / 2f).toInt()
+        val ny0 = (top - nh).toInt(); val ny1 = top.toInt()
+        for (py in max(ny0, c.top)..min(ny1, c.bottom - 1)) for (px in max(nx0, c.left)..min(nx1, c.right - 1)) {
+            val u = (px - nx0) / max(1f, (nx1 - nx0).toFloat())
+            c.set(px, py, if (u < 0.2f) plasterL else if (u > 0.8f) plasterD else plaster)
+        }
+        c.hline(nx0, nx1, ny1, plasterD)
+        // the niche: a round-topped blue hollow, the Madonna in it
+        val inset = max(1f, 0.1f * p)
+        val ix0 = nx0 + inset; val ix1 = nx1 - inset; val iy0 = ny0 + inset; val iy1 = ny1 - inset * 0.8f
+        val icx = (ix0 + ix1) / 2f; val ir = (ix1 - ix0) / 2f
+        val blue = Col.hex(0x3E5E9E); val blueD = Col.hex(0x2A4278)
+        for (py in max(iy0.toInt(), c.top)..min(iy1.toInt(), c.bottom - 1)) for (px in max(ix0.toInt(), c.left)..min(ix1.toInt(), c.right - 1)) {
+            val dx = (px + 0.5f - icx) / max(0.5f, ir); val dy = (py + 0.5f - (iy0 + ir)) / max(0.5f, ir)
+            if (py + 0.5f < iy0 + ir && dx * dx + dy * dy > 1f) continue
+            c.set(px, py, if (dx > 0.55f) blueD else blue)
+        }
+        // the Madonna: her mantle down to her feet, her veil and face, a halo closer up
+        val mh = (iy1 - iy0) * 0.8f
+        val mTop = iy1 - mh
+        if (k == 1) {
+            c.set(icx.toInt(), mTop.toInt(), Col.hex(0xF4F2EC))
+            c.vline(icx.toInt(), mTop.toInt() + 1, iy1.toInt() - 1, Col.hex(0x2E4A9A))
+            if (ix1 - ix0 >= 3f) c.set(icx.toInt() + 1, iy1.toInt() - 1, Col.hex(0x2E4A9A))
+        } else {
+            val head = max(1f, mh * 0.16f)
+            c.fillCircle(icx, mTop + head * 1.2f, head * 1.9f, Pal.GOLD_L)
+            c.fillCircle(icx, mTop + head * 1.2f, head * 1.15f, Col.hex(0xF4F2EC))
+            c.fillCircle(icx, mTop + head * 1.35f, head * 0.7f, Pal.SKIN)
+            c.polyBegin(); c.polyAdd(icx - head * 0.9f, mTop + head * 2f); c.polyAdd(icx + head * 0.9f, mTop + head * 2f)
+            c.polyAdd(icx + head * 2.1f, iy1); c.polyAdd(icx - head * 2.1f, iy1)
+            c.polyFill { px, _ -> if (px + 0.5f > icx + head * 0.6f) Col.hex(0x243E86) else Col.hex(0x3456AE) }
+            // her hands together, her red dress under the mantle
+            c.fillRect((icx - head * 0.35f).toInt(), (mTop + head * 3f).toInt(), max(1, (head * 0.7f).toInt()), max(1, (head * 0.6f).toInt()), Pal.SKIN)
+            c.vline(icx.toInt(), (mTop + head * 3.8f).toInt(), iy1.toInt() - 1, Col.hex(0xB8302A))
+        }
+        // the little roof: coppi on two slopes out over the box, snow on it in winter
+        val rh = 0.3f * p; val over = 0.13f * p
+        val rows = max(2, rh.toInt())
+        for (j in 0 until rows) {
+            val f = j / rows.toFloat()
+            val a = (bx - nw / 2f - over + f * (nw / 2f + over)).toInt(); val b = (bx + nw / 2f + over - f * (nw / 2f + over)).toInt()
+            for (px in max(a, c.left)..min(b, c.right - 1)) {
+                val ch = ((px - a) / max(1f, k * 1.5f)).toInt()
+                c.set(px, ny0 - 1 - j, if (snow) (if (j == 0) Pal.SNOW_M else Pal.SNOW_L) else if (j == 0) Col.hex(0x804028) else if (ch % 2 == 0) Col.hex(0xD07A4A) else Col.hex(0xB0603A))
+            }
+        }
+        // a jar of the season's flowers on the foot, at its right; a fir sprig in winter
+        val jx = bx + pw * 0.38f; val jy = by - footH
+        val jw = max(1f, 0.1f * p)
+        c.fillRect(jx.toInt(), (jy - 0.16f * p).toInt(), max(1, (jw * 1.4f).toInt()), max(1, (0.16f * p).toInt()), Col.hex(0x8AA0B0))
+        val bloom = if (snow) Col.hex(0x2C5E3A) else when (env.month) { in 3..5 -> Col.hex(0xF4E87A); in 6..8 -> Col.hex(0xE8303A); else -> Col.hex(0xE8E0F0) }
+        for (i in 0 until 2 + k) {
+            val fxp = jx + (Noise.rnd(i, 143) - 0.3f) * 0.22f * p; val fyp = jy - (0.2f + Noise.rnd(i, 144) * 0.12f) * p
+            c.line((jx + jw * 0.7f).toInt(), (jy - 0.15f * p).toInt(), fxp.toInt(), fyp.toInt(), Col.hex(0x3E7A34))
+            c.fillRect(fxp.toInt(), fyp.toInt(), max(1, k), max(1, k), bloom)
+        }
+        // the lumino, from dusk: a red glass cup on the foot at the left, its flame
+        if (anconaLit()) {
+            val lx = bx - pw * 0.45f; val ly = by - footH
+            glow {
+                c.fillRect(lx.toInt(), (ly - 0.11f * p).toInt(), max(1, (0.08f * p).toInt()), max(1, (0.11f * p).toInt()), Col.hex(0xE0402E))
+                c.set(lx.toInt() + max(0, (0.04f * p).toInt()), (ly - 0.11f * p).toInt() - 1, Col.hex(0xFFE08A))
+            }
+        }
+    }
+
+    /** Whether the ancona's lumino burns: from dusk to dawn. */
+    private fun anconaLit(): Boolean = env.dark > 0.25f || env.windows > 0.35f
+
+    /** The lumino's warm light on the pillar and the ground round it, while it burns (in the light pass). */
+    private fun anconaLight(x: Float, d: Float) {
+        if (!anconaLit()) return
+        val p = pm(d)
+        val flicker = 0.85f + 0.15f * sin(t * 7.3).toFloat() * sin(t * 3.1).toFloat()
+        s.light(gx(x, d) - 0.2f * p, gy(d) - 0.35f * p, 16f, 0.55f * flicker)
+    }
+
+    /**
+     * Aldo's basket of mushrooms ([variant] "basket", Friuli's "guarda nel mio cesto. Quanti funghi ci sono?"): a willow
+     * basket on the grass by whoever stands at the clearing, as many mushrooms heaped in it as the dialog counts
+     * ([SceneFrame.count]), each cap its own so they can be counted (porcini brown, a few chanterelles), in rows over its rim.
+     */
+    private fun mushroomBasket(x: Float, d: Float, n: Int) {
+        val p = pm(d); val cx = gx(x, d); val by = gy(d)
+        val k = detail
+        val hw = 0.56f * p; val hh = 0.24f * p
+        val wick = Col.hex(0xC8A060); val wickL = Col.hex(0xE0BE7C); val wickD = Col.hex(0x8A6430)
+        // the basket: the weave of withies over the stakes, its rim
+        for (y in (by - hh).toInt() until by.toInt()) {
+            val f = (y - (by - hh)) / hh
+            val half = hw * (1f - f * 0.18f)
+            val row = (y - (by - hh).toInt()) / max(1, k)
+            for (xx in max((cx - half).toInt(), c.left)..min((cx + half).toInt(), c.right - 1)) {
+                val st = (xx - (cx - hw).toInt()) / max(1, 2 * k)
+                c.set(xx, y, if (k > 1 && (xx - (cx - hw).toInt()) % (2 * k) == 0) wickD else if ((row + st) % 2 == 0) wickL else wick)
+            }
+        }
+        c.hline((cx - hw).toInt(), (cx + hw).toInt(), (by - hh).toInt(), wickD)
+        // the mushrooms heaped over its rim in rows, each its own (its own outline), so they can be counted: brown porcini,
+        // a golden chanterelle here and there
+        // two rows at most, a cap's width apart: the back one over the rim, the front one along it
+        val rows = if (n > 7) 2 else 1
+        val r = max(1f, 0.055f * p)
+        var left = n
+        for (row in 0 until rows) {
+            val m = (left + (rows - row) - 1) / (rows - row)
+            left -= m
+            for (i in 0 until m) {
+                val u = if (m == 1) 0f else (i / (m - 1f) - 0.5f) * (1.62f - 0.12f * row)
+                val mx = cx + u * hw + (if (row == 1 && m > 1) 0.5f * (1.62f * hw / (m - 1f)) * 0.5f else 0f)
+                val my = by - hh - (if (rows == 2 && row == 0) 0.12f else 0.03f) * p
+                val chanterelle = Noise.rnd(i, row, 151) < 0.25f
+                part()
+                c.vline(mx.toInt(), (my + r * 0.4f).toInt(), (my + r * 1.3f).toInt(), Col.hex(0xEADFC4))
+                c.fillEllipse(mx, my, r * 1.2f, r * 0.75f, if (chanterelle) Col.hex(0xE8A028) else Col.hex(0x6A3A1E))
+                if (k > 1) c.fillEllipse(mx - r * 0.35f, my - r * 0.25f, r * 0.5f, r * 0.28f, if (chanterelle) Col.hex(0xF8CC5C) else Col.hex(0x9A5E30))
+                else c.set(mx.toInt(), my.toInt() - 1, if (chanterelle) Col.hex(0xF8CC5C) else Col.hex(0x9A5E30))
+            }
+        }
+        // its handle, arching over them
+        part()
+        val steps = 14 * k
+        for (a in 0..steps) {
+            val ang = PI * a / steps
+            c.set((cx + cos(ang) * hw * 0.85f).toInt(), (by - hh - sin(ang) * hh * 1.9f).toInt(), wickD)
+        }
+    }
+
 
     // ------------------------------------------------------------------ far away
 
@@ -2225,6 +2401,14 @@ internal class ForestPainter : WildPainter() {
             -11.5f to 38f, 1.8f to 44f, -7.8f to 43f, -14.2f to 46f, 2.9f to 39.5f, -9.8f to 34.5f,
             -0.6f to 49.5f, -13f to 51f, 3f to 53f, -5.8f to 48.5f, -9.4f to 53f, 0.6f to 36.8f,
         )
+
+        /** Friuli's ancona ([ancona]): where it stands, right of the path before the big spruce (m). */
+        private const val SHRINE_X = 5.3f
+        private const val SHRINE_D = 15.6f
+        /** Aldo's basket of mushrooms ([mushroomBasket]): on the grass right of whoever stands at the clearing (m); at most so many in it. */
+        private const val BASKET_X = -2.4f
+        private const val BASKET_D = 12.6f
+        private const val BASKET_MAX = 14
 
         /** With a "hoot" above 0.9 the owl turns her head right round every this many seconds, for this share of them. */
         private const val ROUND_S = 6.0

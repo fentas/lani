@@ -5,6 +5,7 @@ import si.lanisce.lani.game.render.Dither
 import si.lanisce.lani.game.render.Noise
 import si.lanisce.lani.game.render.Pal
 import si.lanisce.lani.game.render.Season
+import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.exp
@@ -28,6 +29,9 @@ import kotlin.math.sin
  *
  * Closer up ([detail] 2 and 3) the same view is drawn finer: strands in the thatch, the salt grass in tufts, a finer
  * mesh in the net, the fishes' eyes and gleam, grains in the sand, a sparkle on the water.
+ *
+ * In Friuli's look (companion/SCENES.md "Culture looks"; the sea is Friuli's own place) the batela has its halyard from
+ * the masthead down to its cleat, the rest of it coiled by the stern: Nonno Bepi's "Vedi la corda lì?".
  */
 internal class SeaPainter : VistaPainter() {
     override val art = "sea"
@@ -52,6 +56,9 @@ internal class SeaPainter : VistaPainter() {
 
     private val z: Int get() = detail
 
+    /** The culture's look (companion/SCENES.md "Culture looks"), read once a frame: the batela's halyard ([boat]), Friuli's. */
+    private var halyard = false
+
     /**
      * The waves' height: a breeze's by itself, higher when a dialog raises them ("waves"). What can be tapped (the breakers,
      * the beach's edge, the boat) moves with this alone; the wind roughens the water's face ([rough]) and blows spray.
@@ -64,6 +71,7 @@ internal class SeaPainter : VistaPainter() {
     override fun paint() {
         setup()
         val z = z
+        halyard = variant("halyard") != null
         surge = sin(t * 0.9).toFloat() * (0.25f + 0.35f * swell)
         vistaSky(4, 41, moonX = ox + 190 * z, moonY = oy + 12 * z)
         farLand()
@@ -528,6 +536,28 @@ internal class SeaPainter : VistaPainter() {
         if (fxOn("sail") < 0.1f) {
             val yy = hy(boatD + 0.65f, 1.3f) + bob
             for (j in 0 until max(1, z)) c.line((mx - 1.2f * p).toInt(), yy.toInt() + j, (mx + 1.1f * p).toInt(), (yy - 0.12f * p).toInt() + j, if (j == 0) Col.hex(0xE0923A) else Col.hex(0xB06A24))
+        }
+        // the halyard (Friuli's look: Nonno Bepi's "Vedi la corda lì?"): from the masthead, sagging a little, down aft to its
+        // cleat on the gunwale; the rest of it coiled on the boards by the stern
+        if (halyard) {
+            val rope = Col.hex(0xE0CC90); val ropeD = Col.hex(0xA8925A)
+            val headX = mx + max(z, (0.1f * p).toInt()) - 1; val headY = hy(boatD + 0.65f, 4.3f) + bob
+            val cleatX = xl + len * 0.8f; val cleatY = gun - 1f
+            val n = 24 * z
+            for (i in 0..n) {
+                val f = i / n.toFloat()
+                val x = headX + (cleatX - headX) * f
+                val y = headY + (cleatY - headY) * f + sin(f * PI.toFloat()) * 0.12f * p
+                c.set(x.toInt(), y.toInt(), rope)
+                if (z > 1) c.set(x.toInt() + 1, y.toInt(), ropeD)
+            }
+            c.fillRect(cleatX.toInt() - z, cleatY.toInt(), 2 * z + 1, max(1, z), Col.hex(0x3A2E24))
+            val coilX = xl + len * 0.86f; val coilY = (far + gun) / 2f
+            val r = max(1.2f, 0.16f * p)
+            for (a in 0 until 16 * z) {
+                val ang = a * 2.0 * PI / (16 * z)
+                c.set((coilX + cos(ang) * r).toInt(), (coilY + sin(ang) * r * 0.45f).toInt(), if (a % 3 == 0) ropeD else rope)
+            }
         }
         // its reflection, wavering
         for (j in 1..max(1, (0.5f * p).toInt())) {

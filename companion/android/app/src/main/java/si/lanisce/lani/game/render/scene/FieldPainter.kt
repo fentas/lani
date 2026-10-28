@@ -47,6 +47,12 @@ import kotlin.math.sqrt
  * night, bats over the field. Tapped,
  * the hare hops off and back, the piglets scatter. Dew glints on the grass at dawn; the evening bell (the ave) rings from
  * the church on the hill round sunset, its rings coming over the fields.
+ *
+ * In Friuli's look (companion/SCENES.md "Culture looks") the fienile of the Friulian plain stands where the kozolec does
+ * ([fienile]: river cobbles and brick, two arches, the hay loft behind its brick lattices, a coppi roof; its hay,
+ * [fienileHay]), the village on the hill is Friuli's (ochre and terracotta under coppi, the brick campanile), vines run in
+ * rows along the Collio's slopes, and the plain has its mulberries with the vines strung between them and its Lombardy
+ * poplars ([plainTrees]).
  */
 internal class FieldPainter : WildPainter() {
     override val art = "field"
@@ -67,6 +73,36 @@ internal class FieldPainter : WildPainter() {
     private companion object {
         /** The village project this field shows as it's built: the double hayrack. */
         const val TOPLAR = "toplar"
+
+        /** Friuli's piantata ([plainTrees]): its mulberries' row beyond the wheat (m), how many, the first one's side and the step. */
+        const val PIANTATA_D = 48f
+        const val GELSI = 7
+        const val GELSO_X0 = 13f
+        const val GELSO_STEP = 5f
+        /** Friuli's Lombardy poplars along a far ditch ([plainTrees]). */
+        const val POPLARS = 9
+
+        /**
+         * Friuli's fienile ([fienile]), in metres: how deep it is, its walls' and its ridge's height, how far its roof reaches
+         * out over them; its arches' half width, where they spring and their brick ring; the string course and the loft's
+         * floor over them; a band of brick through the cobbles every so often.
+         */
+        const val FIEN_DEPTH = 4.8f
+        const val FIEN_EAVE = 4.6f
+        const val FIEN_RIDGE = 5.55f
+        const val FIEN_OVER = 0.55f
+        const val FIEN_ARCH = 0.9f
+        const val FIEN_SPRING = 1.6f
+        const val FIEN_RING = 0.2f
+        const val FIEN_STRING = 2.78f
+        const val FIEN_LOFT = 3.1f
+        const val FIEN_BAND = 1.05f
+        /** The bricks' tones, the mortar's, and the river cobbles' (grey, buff, ochre, a brown one). */
+        val BRICK_L = Col.hex(0xD08050)
+        val BRICK_M = Col.hex(0xB4643C)
+        val BRICK_D = Col.hex(0x8C4A2C)
+        val MORTAR = Col.hex(0xD2C6B0)
+        val COBBLES = intArrayOf(Col.hex(0xB2ACA0), Col.hex(0x9C978C), Col.hex(0xC2B49C), Col.hex(0xA89880), Col.hex(0x8C8880), Col.hex(0xBCB8AE))
 
         /** Sivko on his way back ("horse") is home from this level on: in the shafts, grazing. */
         const val HOME = 0.985f
@@ -91,6 +127,13 @@ internal class FieldPainter : WildPainter() {
 
     private val items = ArrayList<Pair<Float, () -> Unit>>()
 
+    // the culture's look (companion/SCENES.md "Culture looks"), read once a frame: Friuli's fienile, its village on the hill,
+    // the Collio's vines on the near hills, the plain's mulberries and poplars
+    private var fienile = false
+    private var collio = false
+    private var piantata = false
+    private var villageStyle: FireStyle? = null
+
     /** Fruit trees about the fields: side, depth, height (m). */
     private val orchard = listOf(
         Triple(-17f, 44f, 6f), Triple(-13f, 47f, 5.5f), Triple(-21f, 49f, 6f), Triple(14f, 46f, 5.5f), Triple(18f, 50f, 6f),
@@ -101,6 +144,10 @@ internal class FieldPainter : WildPainter() {
         setup()
         val season = env.season
         val k = detail
+        fienile = variant("kozolec") != null
+        collio = variant("hills") != null
+        piantata = variant("trees") != null
+        villageStyle = if (variant("village") != null) FireStyle.of(frame.world.culture, frame.world.landscape) else null
         vistaSky(5, 13, moonX = ox + 196 * k, moonY = oy + 12 * k)
         farHills()
         ground { x, d, px, py -> land(x, d, px, py) }
@@ -109,7 +156,12 @@ internal class FieldPainter : WildPainter() {
         // the track, then everything standing, far to near
         thing("path") { trackPixels() }
         items.clear()
-        for ((x, d, hgt) in orchard) items.add(d to { prop(Col.hex(0x1E3A22)) { leafyTree(x, d, hgt, (x * 7 + d).toInt(), blossom = true, fruit = Col.hex(0xD83A2E)) } })
+        for ((x, d, hgt) in orchard) {
+            // the piantata's row stands where two apple trees on the right do
+            if (piantata && x > 0f && abs(d - PIANTATA_D) < 3f) continue
+            items.add(d to { prop(Col.hex(0x1E3A22)) { leafyTree(x, d, hgt, (x * 7 + d).toInt(), blossom = true, fruit = Col.hex(0xD83A2E)) } })
+        }
+        if (piantata) plainTrees()
         items.add(40f to { thing("fence") { fenceRun(24f, 40f) } })
         cornPlants()
         items.add(wheat.first to { thing("wheat", outline = Col.hex(0x6A5220), slop = 1) { wheatEdge() } })
@@ -118,8 +170,8 @@ internal class FieldPainter : WildPainter() {
         // the kozolec and its hay once the village has built one (KOZOLEC); without it the rake leans on the fence
         val kozolec = there("kozolec")
         if (kozolec) items.add(kozolecD to {
-            thing("kozolec") { kozolec(kozolecA, kozolecB, kozolecD) }
-            if (there("hay")) thing("hay") { hay(kozolecA, kozolecB, kozolecD) }
+            thing("kozolec") { if (fienile) fienile(kozolecA, kozolecB, kozolecD) else kozolec(kozolecA, kozolecB, kozolecD) }
+            if (there("hay")) thing("hay") { if (fienile) fienileHay(kozolecA, kozolecB, kozolecD) else hay(kozolecA, kozolecB, kozolecD) }
         })
         if (kozolec) items.add(kozolecD - 0.3f to { thing("rake", slop = 1) { rake(kozolecB + 0.35f, kozolecD - 0.3f) } })
         else items.add(12.6f to { thing("rake", slop = 1) { rake(fenceX + 0.4f, 12.6f) } })
@@ -204,18 +256,21 @@ internal class FieldPainter : WildPainter() {
         val season = env.season
         val k = detail
         val nearCol = when (season) { Season.WINTER -> Col.hex(0xDCE6F2); Season.AUTUMN -> Col.hex(0x9A9448); else -> Col.hex(0x6A9A4E) }
-        val near = ridge(hz + 2f * k, 11f * k, 0.02f, 59, nearCol, 0.08f, bottom = hz + 9 * k) { x, y, below -> slopeFields(x, y, below) }
+        val slopes: (Int, Int, Int) -> Int = if (collio) ({ x, y, below -> collioSlope(x, y, below, 77) }) else ({ x, y, below -> slopeFields(x, y, below) })
+        val near = ridge(hz + 2f * k, 11f * k, 0.02f, 59, nearCol, 0.08f, bottom = hz + 9 * k, texture = slopes)
         treeline(near, 5 * k, 2.8f * k, if (season == Season.WINTER) Col.hex(0x5A6A5A) else Col.hex(0x2E5A2E), 0.1f, 61, from = 0, to = (vx - 10 * k).toInt())
         treeline(near, 6 * k, 2.6f * k, if (season == Season.WINTER) Col.hex(0x5A6A5A) else Col.hex(0x2E5A2E), 0.1f, 62, from = (vx + 90 * k).toInt(), to = w)
         // the village where the hill is highest, right of the track's end
         var top = (vx + 30 * k).toInt().coerceIn(0, w - 1)
         for (x in (vx + 10 * k).toInt()..(vx + 70 * k).toInt()) if (x in 0 until w && near[x] < near[top]) top = x
-        village(near, top)
+        val st = villageStyle
+        if (st != null) villageFriuli(near, top, st) else village(near, top)
         // farmsteads here and there on the slopes
         for (i in 0 until 5) {
             val fx = (ox + Noise.rnd(i, 63) * STAGE_W * k).toInt()
             if (fx !in 4 * k until w - 6 * k || abs(fx - top) < 40 * k) continue
-            farmstead(fx, near[fx] + (3 + (Noise.rnd(i, 64) * 3).toInt()) * k, i)
+            if (st != null) farmsteadFriuli(fx, near[fx] + (3 + (Noise.rnd(i, 64) * 3).toInt()) * k, i, st)
+            else farmstead(fx, near[fx] + (3 + (Noise.rnd(i, 64) * 3).toInt()) * k, i)
         }
     }
 
@@ -372,6 +427,63 @@ internal class FieldPainter : WildPainter() {
             belfryX = cx - 5.5f * k; belfryY = base - 11f * k
         }
         c.penEmissive = false
+    }
+
+    /**
+     * The village on the near hill as Friuli builds it ([villageStyle]: the fire's village's colours, [FireStyle]): its houses
+     * of ochre, terracotta and cream plaster under low coppi roofs, shutters by their windows, lit at night, smoke from a
+     * chimney or two; in the middle the church's gable and beside it the free-standing campanile of brick with its belfry
+     * and pyramid cap ([farCampanile]), where the evening bell rings from.
+     */
+    private fun villageFriuli(crest: IntArray, cx: Int, st: FireStyle) {
+        val lit = env.windows > 0.35f
+        val k = detail
+        c.penEmissive = true
+        val base = crest[cx.coerceIn(0, w - 1)] + 3 * k
+        for ((i, off) in intArrayOf(-28, -19, -11, 14, 22, 30).withIndex()) {
+            val hx = cx + off * k; if (hx !in 2 * k until w - 8 * k) continue
+            val hw = (6 + (i % 2)) * k; val hh = (if (i % 3 == 1) 5 else 4) * k
+            val hb = min(base + k, crest[hx.coerceIn(0, w - 1)] + 4 * k)
+            farCoppiHouse(hx, hb, hw, hh, st, i, lit, 0.15f)
+            if (i % 3 == 0 && env.dark < 0.8f) s.smoke(hx + hw - 1.5f * k, hb - hh - 4f * k, 0.35f, i + 5)
+        }
+        val bell = farCampanile(cx - 4 * k, base, st, lit, 0.15f)
+        belfryX = bell[0]; belfryY = bell[1]
+        c.penEmissive = false
+    }
+
+    /** A Friulian farmstead far off ([st]'s colours): the house under its coppi, and every other one its brick barn with an arch. */
+    private fun farmsteadFriuli(x: Int, base: Int, seed: Int, st: FireStyle) {
+        val k = detail
+        val lit = env.windows > 0.35f
+        c.penEmissive = true
+        if (seed % 2 == 0) {
+            val bx = x + 5 * k
+            c.fillRect(bx, base - 2 * k, 3 * k, 2 * k, far(st.towerWall[1], 0.12f))
+            c.fillRect(bx + k, base - k - k / 2, k, k + k / 2, far(Col.hex(0x2A2220), 0.12f))
+            for (j in 0 until k) c.hline(bx - 1 + j, bx + 3 * k - j, base - 2 * k - 1 - j, far(if (env.snow) Pal.SNOW_M else st.roof[if (j == 0) 2 else 1], 0.1f))
+        }
+        farCoppiHouse(x, base, 4 * k, 3 * k, st, seed + 1, lit, 0.12f)
+        c.penEmissive = false
+    }
+
+    /**
+     * Friuli's plain about the fields ([piantata]): beyond the wheat on the right a row of pollarded mulberries with the vines
+     * strung from tree to tree (the piantata), and far off on the left a row of Lombardy poplars along a ditch, running away
+     * toward the hills.
+     */
+    private fun plainTrees() {
+        for (i in 0 until GELSI) {
+            val x = GELSO_X0 + i * GELSO_STEP
+            val hgt = 4.4f + Noise.rnd(i, 72) * 0.8f
+            items.add(PIANTATA_D to { prop(Col.hex(0x1E3A22)) { mulberry(x, PIANTATA_D, hgt, i * 13 + 5) } })
+            if (i < GELSI - 1) items.add(PIANTATA_D + 0.05f to { prop(0) { vineGarland(x, x + GELSO_STEP, PIANTATA_D, 2.3f, i * 7 + 1) } })
+        }
+        for (i in 0 until POPLARS) {
+            val x = -27f - 4.8f * i; val d = 70f + 2.7f * i
+            val hgt = 11f + Noise.rnd(i, 73) * 4f
+            items.add(d to { prop(Col.hex(0x1E3A22)) { poplar(x, d, hgt, i * 7 + 3) } })
+        }
     }
 
     /** Where the church's bell hangs on the hill (picture px), for the evening bell's rings. */
@@ -1199,6 +1311,284 @@ internal class FieldPainter : WildPainter() {
 
     /** The kozolec's rails, heights in metres. */
     private val rails = floatArrayOf(0.85f, 1.5f, 2.15f, 2.8f, 3.45f, 4.05f)
+
+    // ------------------------------------------------------------------ Friuli's fienile
+
+    // the fienile's plan (m): its front from kozolecA to kozolecB at kozolecD, FIEN_DEPTH deep, the walls FIEN_EAVE high, the
+    // ridge FIEN_RIDGE over its middle, the roof out over the walls by FIEN_OVER
+
+    /**
+     * Friuli's fienile in the kozolec's place ([variant] "kozolec": "fienile"; companion/SCENES.md "Culture looks"): the hay
+     * barn of the Friulian plain, its long side to us from [xa] to [xb] m at [d] m. Its walls of river cobbles laid in
+     * courses, a band of brick every few courses and brick quoins at the corners; two round brick arches below, dark under
+     * them (the hay heaped in the left one, [fienileHay]); a brick string course; the hay loft above, open in the middle
+     * behind a pole, a brick lattice (gelosia) either side of it to let the air through; the gable end toward the track with
+     * its own lattice; the low roof of coppi out over the walls on rafters, snow on it in winter. Laid out in metres, so
+     * closer up the same barn shows its cobbles, the mortar between them and the brick joints finer.
+     */
+    private fun fienile(xa: Float, xb: Float, d: Float) {
+        val p = pm(d); val by = gy(d)
+        val snow = env.snow
+        val gap = max(0.025f, 0.6f / p)
+        // the gable end toward the track (we look along it from the right), in its shade
+        val dBack = d + FIEN_DEPTH
+        val sx0 = gx(xb, d); val sx1 = gx(xb, dBack)
+        if (sx1 > sx0 + 0.5f) for (px in max(sx0.toInt(), c.left)..min(sx1.toInt(), c.right - 1)) {
+            val dd = F * xb / (px + 0.5f - vx)
+            if (dd < d || dd > dBack) continue
+            val pp = pm(dd); val fy = gy(dd)
+            val mid = d + FIEN_DEPTH / 2f
+            val topH = FIEN_EAVE + (FIEN_RIDGE - FIEN_EAVE) * (1f - abs(dd - mid) / (FIEN_DEPTH / 2f))
+            val ty = hy(dd, topH)
+            for (py in max(ty.toInt(), c.top)..min(fy.toInt(), c.bottom - 1)) {
+                val hm = (fy - (py + 0.5f)) / pp
+                if (hm < 0f) continue
+                val v = dd - d // along the gable end, from its front corner
+                var col = fienileWall(v, hm, FIEN_DEPTH, max(0.025f, 0.6f / pp), px, py)
+                // a lattice high in the gable, to air the loft
+                if (abs(v - FIEN_DEPTH / 2f) < 0.45f && hm in FIEN_EAVE - 0.55f..FIEN_EAVE + 0.35f) col = lattice(v - (FIEN_DEPTH / 2f - 0.45f), hm - (FIEN_EAVE - 0.55f), pp)
+                c.set(px, py, Col.scale(col, 0.8f))
+            }
+        }
+        // the front
+        val x0 = gx(xa, d); val x1 = gx(xb, d)
+        val wallTop = hy(d, FIEN_EAVE)
+        val width = xb - xa
+        for (py in max(wallTop.toInt(), c.top)..min(by.toInt(), c.bottom - 1)) {
+            val hm = (by - (py + 0.5f)) / p
+            if (hm < 0f) continue
+            for (px in max(x0.toInt(), c.left)..min(x1.toInt(), c.right - 1)) {
+                val u = sideAt(px, d) - xa
+                c.set(px, py, fienileFront(u, hm, width, gap, px, py, p))
+            }
+        }
+        // the eaves' shadow on the wall's top, the rafters' ends under the roof
+        val shade = max(1, (0.28f * p).toInt())
+        for (py in wallTop.toInt() until wallTop.toInt() + shade) for (px in max(x0.toInt(), c.left)..min(x1.toInt(), c.right - 1)) {
+            if (!c.inside(px, py)) continue
+            c.set(px, py, Col.scale(c.get(px, py), 0.62f))
+        }
+        var rx = xa + 0.25f
+        while (rx < xb) {
+            val rpx = gx(rx, d - 0.2f)
+            c.fillRect(rpx.toInt(), (hy(d - 0.3f, FIEN_EAVE - 0.05f)).toInt(), max(1, (0.1f * p).toInt()), max(1, (0.12f * p).toInt()), Pal.WOOD_X)
+            rx += 0.6f
+        }
+        fienileRoof(xa, xb, d, p)
+    }
+
+    /** The coppi roof's front slope over the fienile: from the eaves out over the front up to the ridge; the gable's verge. */
+    private fun fienileRoof(xa: Float, xb: Float, d: Float, p: Float) {
+        val snow = env.snow
+        val k = detail
+        val dE = d - FIEN_OVER; val dR = d + FIEN_DEPTH / 2f
+        val slope = (FIEN_RIDGE - FIEN_EAVE) / (FIEN_DEPTH / 2f)
+        val hE = FIEN_EAVE - slope * FIEN_OVER
+        val xl = xa - FIEN_OVER; val xr = xb + FIEN_OVER
+        val yE = hy(dE, hE); val yR = hy(dR, FIEN_RIDGE)
+        val tones = intArrayOf(Col.hex(0xD07A4A), Col.hex(0xB0603A), Col.hex(0x804028))
+        for (py in max(yR.toInt(), c.top)..min(yE.toInt(), c.bottom - 1)) {
+            // the depth on the slope this row looks at
+            val dd = (F * (EYE - hE + slope * dE) / ((py + 0.5f - hz) + F * slope)).coerceIn(dE, dR)
+            val down = (dR - dd) / (dR - dE) // 0 at the ridge, 1 at the eaves
+            val a = gx(xl, dd); val b = gx(xr, dd)
+            for (px in max(a.toInt(), c.left)..min(b.toInt(), c.right - 1)) {
+                val x = sideAt(px, dd)
+                // the coppi in channels running down the slope, lit on one flank, a course every 0.42 m
+                val ch = (x - xl) / 0.22f
+                val f = ch - floor(ch)
+                val course = down * (dR - dE) / 0.42f
+                val fc = course - floor(course)
+                var col = if (f < 0.32f) tones[0] else if (f < 0.72f) tones[1] else tones[2]
+                if (fc > 0.86f && k > 1) col = Col.mix(col, tones[2], 0.55f)
+                if (Noise.rnd(floor(ch).toInt(), floor(course).toInt(), 59) < 0.14f) col = Col.mix(col, Col.hex(0x8A7A5A), 0.35f)
+                if (down < 0.05f) col = tones[2] // the ridge's capping
+                if (snow && down < 0.85f) col = if (f > 0.72f) Pal.SNOW_M else Pal.SNOW_L
+                c.set(px, py, col)
+            }
+        }
+        // the eaves' edge: the coppi's round ends in a row
+        val ey = yE.toInt()
+        for (px in max(gx(xl, dE).toInt(), c.left)..min(gx(xr, dE).toInt(), c.right - 1)) {
+            val ch = (sideAt(px, dE) - xl) / 0.22f
+            c.set(px, ey, if (ch - floor(ch) < 0.5f) tones[1] else tones[2])
+            if (k > 1) c.set(px, ey + 1, Col.hex(0x3A2418))
+        }
+        // the verge along the gable, down the back slope from the ridge; under it, beyond the gable, the overhang's dark soffit
+        val dBk = d + FIEN_DEPTH + FIEN_OVER
+        val vx0 = gx(xr, dR); val vy0 = hy(dR, FIEN_RIDGE)
+        val vx1 = gx(xr, dBk); val vy1 = hy(dBk, hE)
+        c.polyBegin()
+        c.polyAdd(gx(xb, dR), hy(dR, FIEN_RIDGE)); c.polyAdd(vx0, vy0); c.polyAdd(vx1, vy1)
+        c.polyAdd(gx(xb, d + FIEN_DEPTH), hy(d + FIEN_DEPTH, FIEN_EAVE))
+        c.polyFill(Col.hex(0x4A3022))
+        val th = max(1, (0.14f * p).toInt())
+        for (j in 0 until th) c.line(vx0.toInt(), vy0.toInt() + j, vx1.toInt(), vy1.toInt() + j, if (snow) Pal.SNOW_M else tones[2])
+        val fx0 = gx(xr, dE); val fy0 = hy(dE, hE)
+        for (j in 0 until th) c.line(fx0.toInt() + j, fy0.toInt(), vx0.toInt() + j, vy0.toInt(), if (snow) Pal.SNOW_L else tones[1])
+    }
+
+    /**
+     * The fienile's front at [u] m from its left corner and [hm] m up (picture pixel [px], [py], [p] px a metre): the arches,
+     * the string course, the loft's opening and its lattices, the quoins, else the cobbled wall.
+     */
+    private fun fienileFront(u: Float, hm: Float, width: Float, gap: Float, px: Int, py: Int, p: Float): Int {
+        // the two arches below, their brick rings
+        for (cxu in floatArrayOf(width * 0.28f, width * 0.72f)) {
+            val dx = u - cxu
+            if (abs(dx) > FIEN_ARCH + FIEN_RING) continue
+            val r = if (hm > FIEN_SPRING) sqrt(dx * dx + (hm - FIEN_SPRING) * (hm - FIEN_SPRING)) else abs(dx)
+            if (r < FIEN_ARCH) {
+                // under the arch: the dark inside, the floor a little lighter toward us
+                val f = (hm / (FIEN_SPRING + FIEN_ARCH)).coerceIn(0f, 1f)
+                return Col.mix(Col.hex(0x3A3028), Col.hex(0x1E1816), f)
+            }
+            if (r < FIEN_ARCH + FIEN_RING) {
+                if (hm < FIEN_SPRING) {
+                    // the jambs: courses of brick up to the springing
+                    val row = floor(hm / 0.066f).toInt()
+                    val joint = (hm / 0.066f - row) < gap / 0.066f
+                    return if (joint) MORTAR else brickTone(row * 3 + (if (dx < 0f) 0 else 1), 4)
+                }
+                // the voussoirs: bricks set round the arch, joints toward its middle
+                val a = kotlin.math.atan2(hm - FIEN_SPRING, dx)
+                val n = floor(a / 0.16f).toInt()
+                val joint = (a / 0.16f - n) < gap * 2.2f / FIEN_RING
+                return if (joint) MORTAR else brickTone(n, 3)
+            }
+        }
+        // the string course over the arches
+        if (hm in FIEN_STRING..FIEN_STRING + 0.16f) {
+            val b = floor(u / 0.26f).toInt()
+            return if (hm > FIEN_STRING + 0.13f) Col.mix(BRICK_L, Col.hex(0xFFF0D8), 0.25f) else if ((u / 0.26f - b) < gap / 0.26f * 1.2f) MORTAR else brickTone(b, 5)
+        }
+        // the loft above: open in the middle, its pole across; a lattice either side
+        val lo = width * 0.36f; val hi = width * 0.64f
+        if (hm in FIEN_LOFT..FIEN_EAVE - 0.18f && u in lo..hi) {
+            if (abs(hm - (FIEN_LOFT + 0.42f)) < 0.05f) return if (hm > FIEN_LOFT + 0.42f) Pal.WOOD_L else Pal.WOOD_D
+            return Col.hex(0x2A2220)
+        }
+        if (hm in FIEN_LOFT - 0.08f..FIEN_LOFT && u in lo - 0.08f..hi + 0.08f) return Pal.STONE_L // its sill
+        for (cxu in floatArrayOf(width * 0.15f, width * 0.85f)) if (abs(u - cxu) < 0.45f && hm in FIEN_LOFT + 0.05f..FIEN_LOFT + 1.0f) return lattice(u - (cxu - 0.45f), hm - (FIEN_LOFT + 0.05f), p)
+        return fienileWall(u, hm, width, gap, px, py)
+    }
+
+    /**
+     * The fienile's wall at [u] m along it and [hm] m up ([span] m long): brick quoins at both ends, a band of three courses of
+     * brick every [FIEN_BAND] m, and between them river cobbles in courses, each its own size, tone and roundness, set in
+     * pale mortar.
+     */
+    private fun fienileWall(u: Float, hm: Float, span: Float, gap: Float, px: Int, py: Int): Int {
+        // the quoins: long and short bricks in turn up both corners
+        val row = floor(hm / 0.2f).toInt()
+        val quoin = if (row % 2 == 0) 0.46f else 0.26f
+        if (u < quoin || u > span - quoin) {
+            val fr = hm / 0.2f - row
+            return if (fr < gap / 0.2f) MORTAR else brickTone(row, if (u < quoin) 1 else 2)
+        }
+        // the brick bands
+        val band = hm % FIEN_BAND
+        if (band < 0.2f) {
+            val c3 = floor(band / 0.066f).toInt()
+            val b = floor(u / 0.25f + (c3 % 2) * 0.5f).toInt()
+            val joint = (band / 0.066f - c3) < gap / 0.066f || (u / 0.25f + (c3 % 2) * 0.5f - b) < gap / 0.25f
+            return if (joint) MORTAR else brickTone(b, c3 + 7)
+        }
+        // the cobbles: courses 0.17 m high, stones along them
+        val cr = floor((band - 0.2f) / 0.17f).toInt() + floor(hm / FIEN_BAND).toInt() * 7
+        val cb = 0.2f + (cr % 7) * 0.17f
+        val vy = (band - cb) / 0.17f // 0..1 up the course
+        val len = 0.24f + 0.08f * Noise.rnd(cr, 0, 61)
+        val off = Noise.rnd(cr, 1, 61) * len
+        val sx = (u + off) / len
+        var i = floor(sx).toInt()
+        val l0 = (sx - i)
+        // each stone a rounded oval within its cell, the mortar round it
+        val jx = (l0 - 0.5f) * 2f; val jy = (vy - 0.5f) * 2f
+        val round = jx * jx * (0.75f + 0.3f * Noise.rnd(i, cr, 62)) + jy * jy
+        if (round > 1f - gap * 4f) return MORTAR
+        val tone = COBBLES[Math.floorMod(Noise.hash(i, cr, 63), COBBLES.size)]
+        // lit along their tops, a little shade under them
+        return when {
+            jy > 0.45f -> Col.mix(tone, Col.hex(0xFFF6E4), 0.25f)
+            jy < -0.5f -> Col.scale(tone, 0.82f)
+            Noise.rnd(px, py, 64) < 0.06f -> Col.scale(tone, 0.9f)
+            else -> tone
+        }
+    }
+
+    /** A brick lattice (gelosia) [u] m from its left edge and [v] m up from its foot, [p] px a metre: bricks laid with gaps between them in a chequer, the dark loft through the gaps. */
+    private fun lattice(u: Float, v: Float, p: Float): Int {
+        if (u < 0.06f || u > 0.84f || v < 0.06f || v > 0.89f) return brickTone(floor(v / 0.13f).toInt(), 11)
+        val col = floor((u - 0.06f) / 0.13f).toInt(); val row = floor((v - 0.06f) / 0.0825f).toInt()
+        return if ((col + row) % 2 == 0) Col.hex(0x2A2220) else if (p > 30f && ((v - 0.06f) / 0.0825f - row) > 0.75f) BRICK_D else brickTone(col * 7 + row, 13)
+    }
+
+    /** A brick's colour: one of the kiln's tones, by [i] and [seed]. */
+    private fun brickTone(i: Int, seed: Int): Int {
+        val r = Noise.rnd(i, seed, 65)
+        return if (r < 0.3f) BRICK_L else if (r < 0.82f) BRICK_M else BRICK_D
+    }
+
+    /**
+     * The hay in Friuli's fienile ("hay" there): heaped in its loft and bulging out of the opening over the pole, wisps
+     * hanging down the wall; a heap on the floor under the left arch, in its shade; some fallen on the grass before it. The
+     * loft full from the haymaking on, the heap low in spring, before the first cut.
+     */
+    private fun fienileHay(xa: Float, xb: Float, d: Float) {
+        val p = pm(d); val by = gy(d)
+        val k = detail
+        val width = xb - xa
+        val full = when (env.season) { Season.SPRING -> 0.45f; Season.WINTER -> 0.8f; else -> 1f }
+        val hl = if (env.snow) Col.mix(Pal.HAY_L, Pal.SNOW_M, 0.2f) else Pal.HAY_L
+        // in the loft: from the sill up as full as it is, bulging out a little at its bottom and over the pole
+        val lo = width * 0.36f; val hi = width * 0.64f
+        val hayTop = FIEN_LOFT + 0.05f + (FIEN_EAVE - 0.3f - FIEN_LOFT) * full
+        for (py in max(hy(d, hayTop + 0.12f).toInt(), c.top)..min(hy(d, FIEN_LOFT - 0.25f).toInt(), c.bottom - 1)) {
+            val hm = (by - (py + 0.5f)) / p
+            for (px in max(gx(xa + lo - 0.12f, d).toInt(), c.left)..min(gx(xa + hi + 0.12f, d).toInt(), c.right - 1)) {
+                val u = sideAt(px, d) - xa
+                val bulge = if (hm < FIEN_LOFT + 0.15f) 0.1f else 0.03f
+                val edge = hayTop + 0.08f * Noise.v1(u * 9f, 66) - 0.06f
+                if (u < lo - bulge || u > hi + bulge || hm > edge) continue
+                // wisps hanging over the sill down the wall
+                if (hm < FIEN_LOFT && Noise.rnd(px / k, 0, 67) < 0.55f + (FIEN_LOFT - hm) * 2f) continue
+                val r = Noise.rnd(px / k, (py + (px and 1)) / (2 * k), 68)
+                c.set(px, py, when {
+                    hm > edge - 0.07f -> hl
+                    r < 0.3f -> hl
+                    r > 0.84f -> Pal.HAY_D
+                    else -> Pal.HAY_M
+                })
+            }
+        }
+        // the heap under the left arch, in the shade there, lit at its front
+        val cxu = width * 0.28f
+        val heapH = 0.6f + 0.7f * full
+        for (py in max(hy(d, heapH).toInt(), c.top)..min(by.toInt(), c.bottom - 1)) {
+            val hm = (by - (py + 0.5f)) / p
+            for (px in max(gx(xa + cxu - FIEN_ARCH, d).toInt(), c.left)..min(gx(xa + cxu + FIEN_ARCH, d).toInt(), c.right - 1)) {
+                val dx = (sideAt(px, d) - xa - cxu) / (FIEN_ARCH * 0.98f)
+                val top = heapH * (1f - dx * dx * 0.85f) + 0.06f * Noise.v1(dx * 11f, 69)
+                if (abs(dx) > 1f || hm > top) continue
+                val r = Noise.rnd(px / k, py / (2 * k), 70)
+                val shade = 0.62f + 0.3f * (1f - hm / heapH)
+                c.set(px, py, Col.scale(if (r < 0.3f) hl else if (r > 0.85f) Pal.HAY_D else Pal.HAY_M, shade))
+            }
+        }
+        // a little fallen on the grass before it (none under the snow)
+        if (env.snow) return
+        val byi = by.toInt()
+        var x = gx(xa + 0.4f, d).toInt()
+        val xEnd = gx(xb - 0.4f, d).toInt()
+        while (x <= xEnd) {
+            if (Noise.rnd(x / k, 54) < 0.4f) {
+                c.line(x, byi, x + k, byi - k, Pal.HAY_M)
+                c.set(x + k / 2, byi, hl)
+            }
+            x += 2 * k
+        }
+    }
 
     // ------------------------------------------------------------------ the toplar
 

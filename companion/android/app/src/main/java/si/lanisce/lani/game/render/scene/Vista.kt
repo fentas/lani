@@ -9,11 +9,13 @@ import si.lanisce.lani.game.render.Season
 import si.lanisce.lani.game.render.SkyView
 import si.lanisce.lani.game.scene.SceneFrame
 import kotlin.math.abs
+import kotlin.math.cos
 import kotlin.math.exp
 import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sin
+import kotlin.math.sqrt
 
 /**
  * An outdoor close-up as a painted vista: a wide sky in dithered bands, layers of hills fading into the haze,
@@ -559,6 +561,322 @@ internal abstract class VistaPainter : ArtPainter() {
         return col
     }
 
+    // ------------------------------------------------------------------ Friuli's trees and villages (companion/SCENES.md "Culture looks")
+
+    /**
+     * A Lombardy poplar (pioppo cipressino, along the ditches, the roads and the banks of the Friulian plain) [d] m away at
+     * side [x] m, [height] m tall: a short grey trunk under a tall narrow column of leaves, pointed at the top and fullest
+     * two thirds of the way down, lit on the sun's side, its leaves flickering silver in the wind; fresh green in spring,
+     * gold in October, in winter a bare broom of upright twigs with the sky between them. Drawn in the haze of its depth.
+     */
+    protected fun poplar(x: Float, d: Float, height: Float, seed: Int) {
+        val p = pm(d); val bx = gx(x, d); val by = gy(d)
+        val hh = height * p
+        if (hh < 3f) return
+        val k = detail
+        val season = env.season
+        val trunkH = max(1f, hh * 0.09f)
+        val tw = max(1f, 0.32f * p)
+        val half = max(0.75f, height * 0.08f * p)
+        val sunLeft = (sunAt()?.first ?: vx) < bx
+        c.fillRect((bx - tw / 2f).toInt(), (by - trunkH).toInt(), max(1, tw.toInt()), trunkH.toInt() + 1, hazy(POPLAR_BARK, d))
+        val (dark, mid, light) = POPLAR_TONES.getValue(season)
+        val silver = Col.hex(0xC4D4B8)
+        val top = by - hh; val foot = by - trunkH
+        val wind = gust
+        if (season == Season.WINTER) {
+            // its trunk up the middle of the bare broom
+            c.vline(bx.toInt(), top.toInt() + (hh * 0.25f).toInt(), foot.toInt(), hazy(dark, d))
+        }
+        for (py in max(top.toInt(), c.top) until min(foot.toInt() + 1, c.bottom)) {
+            val f = ((py + 0.5f - top) / max(1f, foot - top)).coerceIn(0f, 1f)
+            // the column's outline: a rounded tip, fullest two thirds down, drawn in a little at its foot; its edge ragged
+            val tip = 0.2f
+            val prof = (if (f < tip) sqrt(max(0f, 1f - ((tip - f) / tip).let { it * it })) * 0.78f else 0.78f + 0.22f * min(1f, (f - tip) / 0.46f)) *
+                (1f - 0.25f * max(0f, (f - 0.72f) / 0.28f)) * (0.86f + 0.28f * Noise.rnd((py - top.toInt()) / max(1, 2 * k), seed, 11))
+            val sway = sin(t * 1.1 + seed * 1.7 + f * 1.3).toFloat() * (1f - f) * 0.05f * hh / 6f * wind
+            val cx = bx + sway
+            val hw = half * prof
+            for (px in max((cx - hw - 0.5f).toInt(), c.left)..min((cx + hw + 0.5f).toInt(), c.right - 1)) {
+                val u = (px + 0.5f - cx) / max(0.5f, hw)
+                if (abs(u) > 1f) continue
+                if (abs(u) > 0.7f && Dither.at(px, py) < 0.45f) continue
+                if (season == Season.WINTER) {
+                    // the bare broom: short upright twigs, the sky between them
+                    if (Noise.rnd(px, (py - top.toInt()) / (3 * k), seed + 5) > 0.4f) continue
+                    c.set(px, py, hazy(if (Noise.rnd(px, py / k, seed) < 0.5f) mid else light, d))
+                    continue
+                }
+                val n = Noise.rnd(px / k, py / k, seed)
+                val lit = (if (sunLeft) -u else u) * 0.6f + (n - 0.5f) * 0.55f
+                var col = if (lit > 0.32f) light else if (lit > -0.28f) mid else dark
+                // in the wind the leaves turn their silver undersides, a flicker running up the column
+                if (wind > 1.05f || season == Season.SUMMER) {
+                    val flick = sin(t * 3.0 + py * 0.9 / k + seed).toFloat()
+                    if (flick > 0.93f - 0.1f * (wind - 1f) && n > 0.6f) col = Col.mix(col, silver, 0.6f)
+                }
+                c.set(px, py, hazy(col, d))
+            }
+        }
+    }
+
+    /**
+     * A pollarded mulberry (gelso capitozzato, the piantata's tree) [d] m away at side [x] m, [height] m tall: a stout,
+     * gnarled trunk up to the knob where it is cut back each winter, and from the knob a round head of straight young shoots
+     * in leaf; yellow in October; in winter the bare knob with its stubby shoots. The vines strung between such trees:
+     * [vineGarland].
+     */
+    protected fun mulberry(x: Float, d: Float, height: Float, seed: Int) {
+        val p = pm(d); val bx = gx(x, d); val by = gy(d)
+        val k = detail
+        val season = env.season
+        val trunkH = height * 0.5f * p
+        val tw = max(2f, 0.42f * p)
+        val bark = Col.hex(0x5A4A3A); val barkL = Col.hex(0x86725A); val barkD = Col.hex(0x3E3228)
+        val knobY = by - trunkH
+        // the trunk, a little bent, lit on its left, a gnarl or two
+        for (py in max(knobY.toInt(), c.top) until min(by.toInt() + 1, c.bottom)) {
+            val f = (by - py) / max(1f, trunkH)
+            val lean = sin(f * 2.2f + seed).toFloat() * 0.08f * p
+            val x0 = (bx - tw / 2f + lean).toInt(); val x1 = (bx + tw / 2f + lean).toInt()
+            for (px in max(x0, c.left)..min(x1, c.right - 1)) {
+                val u = (px - x0) / max(1f, (x1 - x0).toFloat())
+                c.set(px, py, hazy(if (u < 0.3f) barkL else if (u > 0.75f || Noise.rnd(px / k, py / (2 * k), seed) < 0.12f) barkD else bark, d))
+            }
+        }
+        // the knob where it is cut back
+        c.fillEllipse(bx, knobY, tw * 0.85f, max(1f, 0.22f * p), hazy(bark, d))
+        if (k > 1) c.fillEllipse(bx - tw * 0.25f, knobY - 0.06f * p, tw * 0.35f, max(1f, 0.08f * p), hazy(barkL, d))
+        if (season == Season.WINTER) {
+            // stubby shoots fanning up from the knob, snow on the knob
+            val n = 7 + 2 * k
+            for (i in 0 until n) {
+                val a = (i / (n - 1f) - 0.5f) * 1.6f + (Noise.rnd(i, seed) - 0.5f) * 0.2f
+                val len = (0.6f + Noise.rnd(i, seed + 1) * 0.5f) * p
+                c.line(bx.toInt(), knobY.toInt(), (bx + sin(a) * len).toInt(), (knobY - cos(a) * len).toInt(), hazy(barkD, d))
+            }
+            c.hline((bx - tw * 0.6f).toInt(), (bx + tw * 0.6f).toInt(), knobY.toInt() - 1, Pal.SNOW_L)
+            return
+        }
+        val (dark, mid, light) = when (season) {
+            Season.AUTUMN -> Triple(Col.hex(0x9A7A1E), Col.hex(0xC8A436), Col.hex(0xE8CE64))
+            Season.SPRING -> Triple(Col.hex(0x3E7E30), Col.hex(0x64A846), Col.hex(0x9AD068))
+            else -> Triple(Col.hex(0x2E6428), Col.hex(0x46863A), Col.hex(0x70AE52))
+        }
+        val sunLeft = (sunAt()?.first ?: vx) < bx
+        val cr = height * 0.36f * p
+        val cy = knobY - cr * 0.75f
+        for (py in max((cy - cr).toInt(), c.top)..min((cy + cr * 0.9f).toInt(), c.bottom - 1)) for (px in max((bx - cr).toInt(), c.left)..min((bx + cr).toInt(), c.right - 1)) {
+            val dx = (px + 0.5f - bx) / cr; val dy = (py + 0.5f - cy) / (cr * 0.9f)
+            // a round head, lumpy at its edge
+            val edge = 1f + (Noise.v2(px * 0.5f / k, py * 0.5f / k, seed) - 0.5f) * 0.3f
+            val q = dx * dx + dy * dy
+            if (q > edge) continue
+            if (q > edge * 0.82f && Dither.at(px, py) < 0.35f) continue
+            val lit = (if (sunLeft) -dx else dx) * 0.5f - dy * 0.7f + (Noise.rnd(px / k, py / k, seed + 3) - 0.5f) * 0.4f
+            c.set(px, py, hazy(if (lit > 0.35f) light else if (lit > -0.25f) mid else dark, d))
+        }
+    }
+
+    /**
+     * Vines strung from tree to tree in the piantata, between sides [x0] and [x1] m at [d] m, [h] m up, sagging between
+     * them: a band of leaves in summer, gold and red in October with dark bunches under it in the vintage weeks, bare canes
+     * in winter.
+     */
+    protected fun vineGarland(x0: Float, x1: Float, d: Float, h: Float, seed: Int) {
+        val p = pm(d)
+        val k = detail
+        val season = env.season
+        val sag = 0.45f
+        val band = max(1f, 0.32f * p)
+        val (dark, mid, light) = when (season) {
+            Season.AUTUMN -> Triple(Col.hex(0x8A3A1E), Col.hex(0xC0602A), Col.hex(0xE0A040))
+            Season.SPRING -> Triple(Col.hex(0x4E8A34), Col.hex(0x78B44E), Col.hex(0xA8D872))
+            Season.WINTER -> Triple(Col.hex(0x4A3A2C), Col.hex(0x5E4A36), Col.hex(0x6E5A44))
+            else -> Triple(Col.hex(0x2E5E26), Col.hex(0x4A8A36), Col.hex(0x74AE4E))
+        }
+        val xa = gx(x0, d); val xb = gx(x1, d)
+        for (px in max(xa.toInt(), c.left)..min(xb.toInt(), c.right - 1)) {
+            val u = (px + 0.5f - xa) / max(1f, xb - xa)
+            val y = hy(d, h - sag * 4f * u * (1f - u))
+            if (season == Season.WINTER) {
+                c.set(px, y.toInt(), hazy(mid, d))
+                if (k > 1) c.set(px, y.toInt() + 1, hazy(dark, d))
+                continue
+            }
+            val thick = band * (0.7f + 0.6f * Noise.rnd(px / max(1, k), seed, 5))
+            for (j in 0 until max(1, thick.toInt())) {
+                val py = (y - thick * 0.4f).toInt() + j
+                val n = Noise.rnd(px / k, py / k, seed)
+                c.set(px, py, hazy(if (j == 0 && n > 0.4f) light else if (n < 0.3f || j == thick.toInt() - 1) dark else mid, d))
+            }
+            // the bunches hanging under it at the vintage
+            if (env.month in 8..10 && Noise.rnd(px / max(1, k * 2), seed, 9) < 0.18f) {
+                val gy0 = (y + thick * 0.6f).toInt()
+                c.set(px, gy0, hazy(Col.hex(0x3A2448), d)); if (p > 6f) c.set(px, gy0 + 1, hazy(Col.hex(0x4E3060), d))
+            }
+        }
+    }
+
+    /**
+     * The Collio's slopes far off, as a hill's [ridge] texture: vine rows along the contours of the hill (dark green in
+     * summer over the grass between them, gold and red in October, fresh green in spring, the stakes' rows dotting the
+     * snow in winter), a wood on a steeper part here and there, a meadow. Laid out in the scene canvas's pixels, so every
+     * detail shows the same rows, finer.
+     */
+    protected fun collioSlope(x: Int, y: Int, below: Int, seed: Int): Int {
+        val season = env.season
+        val k = detail
+        val sx = (x - ox) / k.toFloat(); val sy = y / k.toFloat(); val sb = below / k.toFloat()
+        // the hill's parcels: vineyards mostly, a wood or a meadow between them
+        val u = (sx + sb * 1.3f) / 34f + Noise.v1(sy * 0.11f, seed) * 0.3f
+        val v = sb / 5.5f + Noise.v1(sx * 0.035f, seed + 1) * 1.1f
+        val i = floor(u).toInt(); val j = floor(v).toInt()
+        val kind = Math.floorMod(Noise.hash(i, j, seed + 2), 7)
+        val dither = Dither.at(x, y) < 0.5f
+        if (kind == 6) {
+            // a wood
+            val n = Noise.v2(sx * 0.4f, sy * 0.6f, seed + 3)
+            return when (season) {
+                Season.WINTER -> if (n > 0.55f) Col.hex(0x8A8278) else Pal.SNOW_M
+                Season.AUTUMN -> if (n > 0.55f) Col.hex(0xB07A30) else Col.hex(0x7A5A28)
+                else -> if (n > 0.55f) Col.hex(0x4A7A40) else Col.hex(0x2E5A30)
+            }
+        }
+        if (kind == 5) return when (season) {
+            Season.WINTER -> Pal.SNOW_L
+            Season.AUTUMN -> Col.hex(0xA8A058)
+            else -> env.grass[if (dither) 0 else 1]
+        }
+        // the rows: a row of vines every 1.6 canvas rows down the hill, following its curve
+        val row = sb * 0.62f + Noise.v1(sx * 0.05f, seed + 4) * 1.4f
+        val inRow = (row - floor(row)) < (if (k == 1) 0.5f else 0.42f)
+        return when (season) {
+            Season.WINTER -> if (inRow && dither) Col.hex(0x7A6A58) else Pal.SNOW_L
+            Season.SPRING -> if (inRow) Col.hex(0x6AA448) else if (dither) Col.hex(0x9A7A50) else env.grass[1]
+            Season.AUTUMN -> if (inRow) (if (Math.floorMod(i + j, 3) == 0) Col.hex(0xA8402A) else Col.hex(0xD09A30)) else Col.hex(0xB0A468)
+            else -> if (inRow) Col.hex(0x2E6230) else env.grass[if (dither) 0 else 1]
+        }
+    }
+
+    /**
+     * A village's house far off as Friuli builds it ([style]'s colours, the fire's village's: [FireStyle]): a plastered
+     * block [ww] × [hh] picture px with its foot at row [base] from column [x], its right side in shade, a low coppi roof
+     * running in channels down from its ridge, shutters by its windows (lit at night), a chimney.
+     */
+    protected fun farCoppiHouse(x: Int, base: Int, ww: Int, hh: Int, style: FireStyle, i: Int, lit: Boolean, haze: Float) {
+        val k = detail
+        val wallT = style.walls[Math.floorMod(i, style.walls.size)]
+        val wall = env.lit(Col.mix(wallT[0], env.skyHorizon, haze)); val wallD = env.lit(Col.mix(wallT[2], env.skyHorizon, haze))
+        val roofL = env.lit(Col.mix(if (env.snow) Pal.SNOW_L else style.roof[0], env.skyHorizon, haze))
+        val roof = env.lit(Col.mix(if (env.snow) Pal.SNOW_M else style.roof[1], env.skyHorizon, haze))
+        val roofD = env.lit(Col.mix(if (env.snow) Pal.SNOW_D else style.roof[2], env.skyHorizon, haze))
+        val shutter = env.lit(Col.mix(style.shutter, env.skyHorizon, haze))
+        c.fillRect(x, base - hh, ww, hh, wall)
+        c.fillRect(x + ww - max(1, k), base - hh, max(1, k), hh, wallD)
+        // the roof: low, wide eaves, the coppi in channels down it
+        val rows = max(2, k + k / 2 + 1)
+        for (j in 0 until rows) {
+            val a = x - k + j; val b = x + ww + k - 1 - j
+            if (a > b) break
+            for (xx in a..b) c.set(xx, base - hh - 1 - j, when {
+                j == 0 -> roofD
+                env.snow -> roof
+                k > 1 && Math.floorMod(xx - x, 2) == 1 -> roofD
+                (xx - x) % 3 == 0 -> roofL
+                else -> roof
+            })
+        }
+        // a window or two with their shutters, lit at night
+        val glass = if (lit) Pal.WINDOW_LIT else env.lit(Pal.GLASS)
+        val nWin = max(1, (ww / k - 1) / 3)
+        for (wi in 0 until nWin) {
+            val wx = x + k + wi * 3 * k
+            if (wx + k > x + ww - k) break
+            c.fillRect(wx, base - hh + k, k, k, if (lit && (i + wi) % 2 == 0) Pal.WINDOW_LIT else glass)
+            if (k > 1) { c.vline(wx - 1, base - hh + k, base - hh + 2 * k - 1, shutter); c.vline(wx + k, base - hh + k, base - hh + 2 * k - 1, shutter) }
+        }
+        if (k > 1) c.fillRect(x + ww / 2, base - k - k / 2, max(1, k - 1), k + k / 2, env.lit(Col.mix(Pal.DOOR, env.skyHorizon, haze)))
+        // the chimney
+        val chx = x + ww - 2 * k
+        c.fillRect(chx, base - hh - rows - k, max(1, k), k + 1, wallD)
+    }
+
+    /**
+     * A Friulian church far off ([style]'s colours, as the fire's village has them): the nave's gable front to us, a round
+     * window over the arched door, its coppi roof; beside it the free-standing campanile of brick, a stone cornice under the
+     * belfry with its two round arches and the bell in each, the cornice at its top and the pyramid cap with the cross.
+     * [cx] is the tower's middle column, [base] its foot's row; [tall] its height in scene px. Returns where its bell hangs
+     * (picture px), for the evening bell's rings.
+     */
+    protected fun farCampanile(cx: Int, base: Int, style: FireStyle, lit: Boolean, haze: Float, tall: Int = 21): FloatArray {
+        val k = detail
+        fun far(col: Int, more: Float = 0f) = env.lit(Col.mix(col, env.skyHorizon, haze + more))
+        val brick = far(style.towerWall[1]); val brickL = far(style.towerWall[0]); val brickD = far(style.towerWall[2])
+        val stone = far(Pal.STONE_L)
+        val wall = far(style.churchWall[0]); val wallD = far(style.churchWall[2])
+        val roof = far(if (env.snow) Pal.SNOW_M else style.roof[1]); val roofD = far(if (env.snow) Pal.SNOW_D else style.roof[2])
+        val capC = far(if (env.snow) Pal.SNOW_L else style.towerTop[1]); val capD = far(if (env.snow) Pal.SNOW_M else style.towerTop[2])
+        val glass = if (lit) Pal.WINDOW_LIT else env.lit(Pal.GLASS)
+        // the church: its gable front beside the tower, to the right
+        val nx = cx + 2 * k; val nw = 9 * k; val nh = 6 * k
+        c.fillRect(nx, base - nh, nw, nh, wall)
+        c.fillRect(nx + nw - k, base - nh, k, nh, wallD)
+        val gable = 3 * k
+        for (j in 0 until gable) {
+            val a = nx - k / 2 + j * (nw / 2) / gable; val b = nx + nw - 1 + k / 2 - j * (nw / 2) / gable
+            c.hline(a, b, base - nh - 1 - j, if (j == 0) roofD else roof)
+            if (j > 0) c.hline(a + k, b - k, base - nh - 1 - j, if (j < gable - 1) wall else roof)
+        }
+        // the door, the round window over it
+        val dx = nx + nw / 2 - k / 2
+        if (k == 1) { c.set(dx, base - 1, far(Pal.DOOR)); c.set(dx, base - 2, far(Pal.DOOR)); c.set(dx, base - 4, glass) }
+        else {
+            c.fillRect(dx - k / 2, base - 2 * k, 2 * k - k / 2, 2 * k, far(Pal.DOOR))
+            c.hline(dx - k / 2, dx + k, base - 2 * k - 1, stone)
+            c.fillCircle(dx + k / 2f, base - 4f * k, 0.7f * k, glass)
+        }
+        // the campanile
+        val tw = 3 * k + (if (k > 1) k / 2 else 0)
+        val tl = cx - tw / 2
+        val top = base - tall * k
+        for (y in max(top, c.top) until min(base, c.bottom)) for (x in max(tl, c.left) until min(tl + tw, c.right)) {
+            val u = x - tl
+            val row = (base - y) / max(1, k)
+            var col = if (u >= tw - k) brickD else if (u < k / 2 + 1 && k > 1) brickL else brick
+            // closer up the courses of brick
+            if (k > 1 && (base - y) % k == 0 && Noise.rnd(x / 2, row, 41) < 0.6f) col = Col.mix(col, brickD, 0.5f)
+            c.set(x, y, col)
+        }
+        // the belfry: under the top cornice, two round arches (one far off), the bell in the dark
+        val bt = top + 2 * k; val bb = top + 5 * k
+        if (k == 1) { c.set(cx, bt + 1, far(Col.hex(0x241E1C))); c.set(cx, bt + 2, far(Col.hex(0x241E1C))); c.set(cx, bt + 2, Pal.GOLD) }
+        else for (a in 0..1) {
+            val ax = tl + k / 2 + a * (tw / 2); val aw = max(2, tw / 2 - k / 2 - 1)
+            for (y in bt..bb) for (x in ax until ax + aw) {
+                val arch = y - bt < k / 2 && (x == ax || x == ax + aw - 1)
+                if (arch) continue
+                c.set(x, y, far(Col.hex(0x241E1C)))
+            }
+            c.fillRect(ax + aw / 2 - k / 4, bt + k, max(1, k / 2), k, Pal.GOLD)
+        }
+        // the cornices: under the belfry and at the top
+        c.hline(tl - k / 2, tl + tw - 1 + k / 2, bb + 1, stone)
+        c.hline(tl - k / 2, tl + tw - 1 + k / 2, top, stone)
+        if (k > 1) c.hline(tl - k / 2, tl + tw - 1 + k / 2, top + 1, stone)
+        // the pyramid cap and the cross
+        val capH = 3 * k
+        for (j in 0 until capH) {
+            val half = tw / 2f * (1f - j / capH.toFloat()) + 0.5f
+            c.hline((cx - half).toInt(), (cx + half).toInt() - 1, top - 1 - j, capC)
+            c.hline(cx, (cx + half).toInt() - 1, top - 1 - j, capD)
+        }
+        val tip = top - 1 - capH
+        c.vline(cx, tip - 2 * k + 1, tip, Pal.GOLD)
+        c.hline(cx - k / 2, cx + k / 2, tip - k - k / 2 + 1, Pal.GOLD)
+        return floatArrayOf(cx + 0.5f, (bt + bb) / 2f)
+    }
+
     // ------------------------------------------------------------------ weather
 
     override fun weather() {
@@ -601,6 +919,17 @@ internal abstract class VistaPainter : ArtPainter() {
 
     companion object {
         private val SPLASH = Col.hex(0xC4D2E6)
+
+        /** A Lombardy poplar's grey bark ([poplar]). */
+        private val POPLAR_BARK = Col.hex(0x7A7468)
+
+        /** A Lombardy poplar's leaves by the season, dark, middle and lit ([poplar]); in winter its bare twigs. */
+        val POPLAR_TONES: Map<Season, Triple<Int, Int, Int>> = mapOf(
+            Season.SPRING to Triple(Col.hex(0x46823A), Col.hex(0x6AAA4C), Col.hex(0x9ED472)),
+            Season.SUMMER to Triple(Col.hex(0x34602E), Col.hex(0x4C8840), Col.hex(0x76AC58)),
+            Season.AUTUMN to Triple(Col.hex(0x8A5E16), Col.hex(0xC8922A), Col.hex(0xEEC456)),
+            Season.WINTER to Triple(Col.hex(0x5E574E), Col.hex(0x8A8174), Col.hex(0xA89E90)),
+        )
 
         /** The limestone of a dry-stone wall: warm grey, grey, blue-grey, a rusty one. */
         private val STONES = intArrayOf(Col.hex(0xC2BAA8), Col.hex(0xA8A294), Col.hex(0x9EA0A4), Col.hex(0xB49E7C))
