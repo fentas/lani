@@ -10859,6 +10859,20 @@ def back_key(why: str = ""):
     time.sleep(1.2)
 
 
+def on_home(timeout=8.0) -> bool:
+    """Whether Home is on screen within [timeout] s, wherever it is scrolled (Back gives it back as it was left: its
+    header, Today or its tiles in view), and nothing over it (no "‹ Domov · Home" of a screen above it)."""
+    end = time.time() + timeout * slow()
+    while time.time() < end:
+        ts = [t for t, _ in nodes()]
+        if not any("‹ Domov · Home" in t for t in ts) and any(
+            t.startswith("Danes · Today") or t == "Učenje · Learning" or t.startswith(SETTINGS) for t in ts
+        ):
+            return True
+        time.sleep(0.5)
+    return False
+
+
 def navigation():
     """The back stack and the tidy Home (docs/plans/05-built/navigation.md): Home's ⚙️ and 🤝 in its header and the
     learning tiles right under Today; the settings in two taps (⚙️ → "Učitelj · Tutor", its page under "‹ Nastavitve ·
@@ -10886,7 +10900,7 @@ def navigation():
     back_key()
     assert wait_for("⚙️ Nastavitve · Settings", 6), "Back: the settings"
     back_key()
-    assert wait_for("Danes · Today", 6), "Back: Home"
+    assert on_home(6), "Back: Home"
 
     # one tap each: Friends, the grammar book, My words; Back: Home
     for target, title in (("Prijatelji · Friends", "🤝 Prijatelji · Friends"), ("Slovnica", "📖 Slovnica · Grammar"), ("Moje besede", "🔤 Moje besede · My words")):
@@ -10898,7 +10912,7 @@ def navigation():
         assert wait_for(title, 8) and find("‹ Domov · Home"), f"{title}, Home under it"
         shot(f"nav-{title.split(' ')[1].lower()}")
         back_key()
-        assert wait_for("Danes · Today", 6), f"Back from {title}: Home"
+        assert on_home(6), f"Back from {title}: Home"
 
     # a run's result: Back goes where the run began (Home), not out of the app
     qa_hook("review")
@@ -10910,7 +10924,7 @@ def navigation():
     shot("nav-result")
     back_key()
     assert in_front(), "Back on a run's result left the app"
-    assert wait_for("Danes · Today", 6), "Back on the result: where the run began (Home)"
+    assert on_home(6), "Back on the result: where the run began (Home)"
 
     # the village's 🤝: Friends with the village under it (the village's first intro and news out of the way first)
     village()
@@ -10920,7 +10934,7 @@ def navigation():
     back_key()
     assert wait_for("Hrana · Food", 8), "Back: the village"
     back_key()
-    assert wait_for("Danes · Today", 8), "Back: Home"
+    assert on_home(8), "Back: Home"
 
     # a scene's link: Home › Vas › the scene; Back that way
     adb("shell", "am", "start", "-a", "android.intent.action.VIEW", "-d", "lani://scene/ob-ognju")
@@ -10929,7 +10943,7 @@ def navigation():
         back_key()
         assert wait_for("Hrana · Food", 10), "Back from the linked scene: the village"
         back_key()
-        assert wait_for("Danes · Today", 8), "then Home"
+        assert on_home(8), "then Home"
 
     # the process's death in the background: the app opens on the screen it was on
     to_top()
@@ -10944,7 +10958,7 @@ def navigation():
     assert wait_for("📊 Napredek · Progress", 20) and find("‹ Domov · Home"), "after the process's death: Napredek again, Home under it"
     shot("nav-restored")
     back_key()
-    assert wait_for("Danes · Today", 8), "Back: Home"
+    assert on_home(8), "Back: Home"
 
 
 def plan():
