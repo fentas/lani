@@ -6350,7 +6350,9 @@ def school_a2():
         assert fill(f"Vrzel {i} · Gap {i}", answer), f"gap {i}"
     shot("school-a2-gaptext")
     assert check(), "check the gap text"
-    assert wait_for("Popravki", 6), "its corrections"
+    # corrected at the gaps (the fourth crossed out, the third almost: Čigav), the whole text right in the verdict
+    assert wait_for("Francetov", 6), "the verdict's text with the fourth gap right: Francetov"
+    assert find("Lukova"), "the fourth gap, wrong, at its place"
     time.sleep(1)
     shot("school-a2-gaptext-checked")
     assert press("Naprej · Next", 6), "on"
