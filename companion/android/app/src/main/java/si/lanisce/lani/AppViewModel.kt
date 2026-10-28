@@ -1353,7 +1353,8 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
      */
     fun qaSchoolUnit(id: String) {
         val u = school.unit(id) ?: return
-        game.apply { si.lanisce.lani.app.QaHooks.readyUnit(it, u.language, u.id, u.level, java.time.LocalDate.now(), System.currentTimeMillis()) }
+        val before = school.course?.playable(u.level)?.map { it.id }?.takeWhile { it != u.id }.orEmpty()
+        game.apply { si.lanisce.lani.app.QaHooks.readyUnit(it, u.language, u.id, u.level, java.time.LocalDate.now(), System.currentTimeMillis(), before) }
         openSchool()
     }
 
@@ -1364,7 +1365,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     fun qaSchoolReveal() {
         val course = school.course ?: return
         game.apply { si.lanisce.lani.app.QaHooks.readyReveal(it, course, java.time.LocalDate.now(), System.currentTimeMillis()) }
-        openSchool(fromVillage = false)
+        openSchool()
     }
 
     /**

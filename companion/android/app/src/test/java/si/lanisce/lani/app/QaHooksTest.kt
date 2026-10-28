@@ -298,6 +298,12 @@ class QaHooksTest {
         val one = QaHooks.readyReveal(s, course, today, 0L)
         assertEquals(2, si.lanisce.lani.game.School.progress(one, "sl", "dajalnik")!!.intro)
         assertNull(si.lanisce.lani.game.School.progress(one, "sl", "dajalnik")!!.done)
+        // "school:<unit>" with the units before it in its level done: the reveal has it as the current one, a row
+        val units2 = two.playable("A2").map { it.id }
+        val at = QaHooks.readyUnit(s, "sl", "dajalnik-2", "A2", today, 0L, before = units2.takeWhile { it != "dajalnik-2" })
+        assertEquals("2026-10-26", si.lanisce.lani.game.School.progress(at, "sl", "dajalnik")!!.done)
+        assertNull(si.lanisce.lani.game.School.progress(at, "sl", "dajalnik-2"))
+        assertTrue(si.lanisce.lani.game.School.reveal(at, two).first { it.state.level == "A2" }.rows.any { it.id == "dajalnik-2" })
         // "school:reveal" is the reveal, not a unit called "reveal" ("school:<unit>")
         var revealed = false
         val units = mutableListOf<String>()

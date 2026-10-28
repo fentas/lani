@@ -501,14 +501,22 @@ object QaHooks {
     /**
      * [s] ready for the class of unit [unit] of [language] ("school:<unit>"): as "school" ([readySchool]), the unit as never
      * begun and its course [level] open ([today], or the day it opened before), whatever holds the level back (the levels
-     * before it, the school's upgrade): QA plays a later level's unit from its first step. A debug build's, on the dev
-     * bridge's copy.
+     * before it, the school's upgrade): QA plays a later level's unit from its first step. The written units [before] it
+     * in its level are done (a day before, as a learner who got there; one done already as it was), so the school, which
+     * shows a level's current unit and the next two and folds the rest (COURSE.md, "What the school shows"), has it as
+     * the current one. A debug build's, on the dev bridge's copy.
      */
-    fun readyUnit(s: si.lanisce.lani.game.GameState, language: String, unit: String, level: String, today: java.time.LocalDate, now: Long): si.lanisce.lani.game.GameState {
+    fun readyUnit(
+        s: si.lanisce.lani.game.GameState, language: String, unit: String, level: String, today: java.time.LocalDate, now: Long,
+        before: List<String> = emptyList(),
+    ): si.lanisce.lani.game.GameState {
         val r = readySchool(s, now)
         val c = r.course ?: si.lanisce.lani.game.CourseProgress()
         val opened = si.lanisce.lani.game.School.key(language, level)
-        return r.copy(course = c.copy(units = c.units - si.lanisce.lani.game.School.key(language, unit), opened = c.opened + (opened to (c.opened[opened] ?: today.toString()))))
+        val day = today.minusDays(1).toString()
+        val done = before.map { si.lanisce.lani.game.School.key(language, it) }
+            .associateWith { k -> c.units[k]?.takeIf { it.done != null } ?: si.lanisce.lani.game.UnitProgress(started = day, introDone = true, done = day) }
+        return r.copy(course = c.copy(units = c.units - si.lanisce.lani.game.School.key(language, unit) + done, opened = c.opened + (opened to (c.opened[opened] ?: today.toString()))))
     }
 
     /**
