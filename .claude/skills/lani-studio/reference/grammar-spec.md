@@ -141,7 +141,7 @@ language's terms in brackets. Level it honestly; link the modules that practise 
 ## Other languages
 
 A page is of one language (`language`), and a bridge serves the pages of its village's language
-(`companion/grammar/<language>/`, then yours). Slovene has 49 curated pages, Italian, German and English 16 each (the
+(`companion/grammar/<language>/`, then yours). Slovene has 57 curated pages, Italian, German and English 16 each (the
 list is in companion/README.md, "Grammar book"), explained in the bases their learners have: Italian in `sl`, `en`, `de`;
 German in `sl`, `en`, `it`; English in `sl`, `it`, `de` (and `en`). Extend them as you would a Slovene page; for a rule the book
 lacks, write a page with the village's language in `title` and the examples, the learner's base (and English) in `rule`.
