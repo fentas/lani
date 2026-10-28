@@ -704,7 +704,7 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
                 onPractise = { homeOpen = false },
                 onAges = { homeOpen = false; vm.openVillageAges() },
                 onGather = { r -> homeOpen = false; vm.startGather(r) },
-                onSchool = { homeOpen = false; vm.openSchool(fromVillage = true) },
+                onSchool = { homeOpen = false; vm.openSchool() },
                 grows = false,
             ),
             sheet = true,

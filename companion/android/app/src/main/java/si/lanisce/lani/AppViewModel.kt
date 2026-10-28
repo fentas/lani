@@ -1841,29 +1841,6 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         nav.go(Screen.ReadAloud(id))
     }
 
-    // The village's callers before the back stack, which knows where a screen was opened from: what they said of it is
-    // read no more (docs/plans/05-built/navigation.md, "What's left").
-    @Deprecated("The back stack knows where it was opened from", ReplaceWith("openPacks()"))
-    fun openPacks(@Suppress("UNUSED_PARAMETER") fromVillage: Boolean) = openPacks()
-
-    @Deprecated("The back stack knows where it was opened from", ReplaceWith("openReadings()"))
-    fun openReadings(@Suppress("UNUSED_PARAMETER") fromVillage: Boolean) = openReadings()
-
-    @Deprecated("The back stack knows where it was opened from", ReplaceWith("openReadAloud(id)"))
-    fun openReadAloud(id: String, @Suppress("UNUSED_PARAMETER") fromVillage: Boolean, @Suppress("UNUSED_PARAMETER") fromCorner: Boolean = true) = openReadAloud(id)
-
-    @Deprecated("The back stack knows where it was opened from", ReplaceWith("openSchool()"))
-    fun openSchool(@Suppress("UNUSED_PARAMETER") fromVillage: Boolean) = openSchool()
-
-    @Deprecated("The back stack knows where it was opened from", ReplaceWith("openTreasure()"))
-    fun openTreasure(@Suppress("UNUSED_PARAMETER") fromVillage: Boolean) = openTreasure()
-
-    @Deprecated("The back stack knows where it was opened from", ReplaceWith("openProgress()"))
-    fun openProgress(@Suppress("UNUSED_PARAMETER") fromVillage: Boolean) = openProgress()
-
-    @Deprecated("The back stack knows where it was opened from", ReplaceWith("startPack(id)"))
-    fun startPack(id: String, @Suppress("UNUSED_PARAMETER") fromVillage: Boolean, again: Boolean = false) = startPack(id, again)
-
     /**
      * The learner's level in [language] ("sl" → "A2"; A1 before the dashboard is loaded): the storyteller tells at it. The
      * level a treasure just brought counts before the node has it ([ContentController.levelIn]).

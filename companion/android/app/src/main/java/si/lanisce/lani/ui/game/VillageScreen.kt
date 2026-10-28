@@ -448,7 +448,7 @@ fun VillageScreen(vm: AppViewModel) {
                 m.id.startsWith(Keepers.MARKER) -> { card = null; villager = null; Keepers.of(keepers, m.id)?.let { vm.scenes.startKeeper(it) } }
                 m.id.startsWith("project:") -> { card = null; sheet = VillageSheet.Projects(m.id.removePrefix("project:")) }
                 // the treasure map by the fire: the map
-                m.id == TownMarkers.TREASURE -> { card = null; vm.openTreasure(fromVillage = true) }
+                m.id == TownMarkers.TREASURE -> { card = null; vm.openTreasure() }
                 m.id.startsWith("festival:") -> { card = null; vm.startFestival(m.id.removePrefix("festival:")) }
                 // an age's party tonight (companion/GAME.md "Ages and their celebrations"): all the village, its dialog
                 m.id.startsWith(TownMarkers.PARTY) -> { card = null; vm.startParty(s.age) }
@@ -488,8 +488,8 @@ fun VillageScreen(vm: AppViewModel) {
             register = { scrollOpen = false; hudState.section = null; vm.openVillagers() },
             rule = { id -> vm.grammar.show(id) },
             friends = { scrollOpen = false; hudState.section = null; vm.openFriends() },
-            reading = { scrollOpen = false; hudState.section = null; vm.openReadings(fromVillage = true) },
-            school = if (vm.school.course != null) { { scrollOpen = false; hudState.section = null; vm.openSchool(fromVillage = true) } } else null,
+            reading = { scrollOpen = false; hudState.section = null; vm.openReadings() },
+            school = if (vm.school.course != null) { { scrollOpen = false; hudState.section = null; vm.openSchool() } } else null,
             quest = { q -> scrollOpen = false; vm.startQuest(q.id) },
             replay = replay,
         )
@@ -658,7 +658,7 @@ fun VillageScreen(vm: AppViewModel) {
                 s, attrs, check, goal,
                 goalAction = goal.action(
                     onGather = { r -> vm.startGather(r) }, onAdvance = advance, onBuild = { build(it, false) },
-                    onPacks = { vm.openPacks(fromVillage = true) }, onVillagers = vm::openVillagers, onPolish = { vm.startPolish() },
+                    onPacks = { vm.openPacks() }, onVillagers = vm::openVillagers, onPolish = { vm.startPolish() },
                 ),
                 chestNew = vm.game.chestNews.shows(s.chest),
                 festival = v.festival?.takeIf { !it.done },
@@ -685,7 +685,7 @@ fun VillageScreen(vm: AppViewModel) {
                     fire = { sheet = VillageSheet.Fire },
                     chest = { sheet = VillageSheet.Chest },
                     projects = { id -> sheet = VillageSheet.Projects(id) },
-                    progress = { vm.openProgress(fromVillage = true) },
+                    progress = { vm.openProgress() },
                     goal = { sheet = VillageSheet.Ages },
                     festival = { id -> vm.startFestival(id) },
                     arrival = { id -> vm.villagers.meet(id) },
@@ -698,7 +698,7 @@ fun VillageScreen(vm: AppViewModel) {
                         when (stepAction(st)) {
                             StepAction.GATHER -> st.res?.let { vm.startGather(it) }
                             StepAction.BUILD -> sheet = VillageSheet.Build
-                            StepAction.LEARN -> vm.openPacks(fromVillage = true)
+                            StepAction.LEARN -> vm.openPacks()
                             StepAction.POLISH -> vm.startPolish()
                             StepAction.HELP -> vm.openVillagers()
                             null -> {}
@@ -763,7 +763,7 @@ fun VillageScreen(vm: AppViewModel) {
                             // a spot its culture tells about (the charcoal pile): its history and its words
                             story = story,
                             onWord = { w, line, meant -> vm.words.open(si.lanisce.lani.app.WordQuery(w, line, meant.takeIf { it.isNotBlank() }, si.lanisce.lani.data.Words.SCENE)) },
-                            onLearn = story?.pack?.let { p -> { card = null; vm.startPack(p, fromVillage = true) } },
+                            onLearn = story?.pack?.let { p -> { card = null; vm.startPack(p) } },
                             speaker = vm.speaker,
                         )
                     }
@@ -791,7 +791,7 @@ fun VillageScreen(vm: AppViewModel) {
                             onPractise = { sheet = null },
                             onAges = { sheet = VillageSheet.Ages },
                             onGather = { r -> sheet = null; vm.startGather(r) },
-                            onSchool = { sheet = null; vm.openSchool(fromVillage = true) },
+                            onSchool = { sheet = null; vm.openSchool() },
                             onMove = move?.let { m -> { choose(Choosing(m, cancel = sh)) } },
                             onReplace = if (si.lanisce.lani.game.Rebuild.replaceable(s, b.id, cast)) { { sheet = VillageSheet.Replace(b.id) } } else null,
                             // taken down: its plot free, half its materials back, the people staying (the card asked first)
@@ -838,7 +838,7 @@ fun VillageScreen(vm: AppViewModel) {
                             si.lanisce.lani.game.NewThing.Go.SCENE -> n.arg?.let { vm.openScene(it, null) }
                             si.lanisce.lani.game.NewThing.Go.PERSON -> vm.openVillagers()
                             si.lanisce.lani.game.NewThing.Go.CHEST -> sheet = VillageSheet.Chest
-                            si.lanisce.lani.game.NewThing.Go.SCHOOL -> vm.openSchool(fromVillage = true)
+                            si.lanisce.lani.game.NewThing.Go.SCHOOL -> vm.openSchool()
                             si.lanisce.lani.game.NewThing.Go.INFO -> sheet = VillageSheet.Info
                             si.lanisce.lani.game.NewThing.Go.FESTIVALS -> hudState.section = HudSection.SOON
                             si.lanisce.lani.game.NewThing.Go.NONE -> Unit
@@ -887,7 +887,7 @@ fun VillageScreen(vm: AppViewModel) {
                     when (stepAction(st)) {
                         StepAction.GATHER -> st.res?.let { r -> sheet = null; vm.startGather(r) }
                         StepAction.BUILD -> sheet = VillageSheet.Build
-                        StepAction.LEARN -> { sheet = null; vm.openPacks(fromVillage = true) }
+                        StepAction.LEARN -> { sheet = null; vm.openPacks() }
                         StepAction.POLISH -> { sheet = null; vm.startPolish() }
                         StepAction.HELP -> { sheet = null; vm.openVillagers() }
                         null -> Unit
@@ -896,13 +896,13 @@ fun VillageScreen(vm: AppViewModel) {
                 primaryLabel(st) to go
             } ?: goal.action(
                 onGather = { r -> sheet = null; vm.startGather(r) }, onAdvance = advance, onBuild = { sheet = null; build(it, false) },
-                onPacks = { sheet = null; vm.openPacks(fromVillage = true) }, onVillagers = { sheet = null; vm.openVillagers() },
+                onPacks = { sheet = null; vm.openPacks() }, onVillagers = { sheet = null; vm.openVillagers() },
                 onPolish = { sheet = null; vm.startPolish() },
             ).let { a -> a.label to a.run },
             cards = hudState.cards(null), onCards = { hudState.toggleCards(null) },
             onGather = { r -> sheet = null; scrollOpen = false; vm.startGather(r) },
             onBuild = { sheet = VillageSheet.Build },
-            onLearn = { sheet = null; vm.openPacks(fromVillage = true) },
+            onLearn = { sheet = null; vm.openPacks() },
             onPolish = { sheet = null; vm.startPolish() },
             onFriends = { sheet = null; vm.openVillagers() },
             onDismiss = { sheet = null },
@@ -923,10 +923,10 @@ fun VillageScreen(vm: AppViewModel) {
                     feast = { if (vm.game.feast()) { haptic.performHapticFeedback(HapticFeedbackType.LongPress); sheet = null } },
                     buy = { seller, good -> if (vm.game.buy(seller, good)) haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove) },
                     read = { r -> sheet = VillageSheet.Reading(r) },
-                    readings = { sheet = null; vm.openReadings(fromVillage = true) },
+                    readings = { sheet = null; vm.openReadings() },
                     // over the chest: closed, the chest is there again
                     openNotebook = { vm.openNotebook() },
-                    openTreasure = { sheet = null; vm.openTreasure(fromVillage = true) },
+                    openTreasure = { sheet = null; vm.openTreasure() },
                 ),
                 onDismiss = { sheet = null },
                 fresh = fresh,
@@ -938,7 +938,7 @@ fun VillageScreen(vm: AppViewModel) {
             read = si.lanisce.lani.game.Readings.done(s, sh.readable.reading.id),
             onAnswered = { verdicts, minutes, looks, cost -> vm.readings.answered(sh.readable.reading, verdicts, minutes, looks, cost) },
             onDismiss = { sheet = VillageSheet.Chest },
-            onReadAloud = { sheet = null; vm.openReadAloud(sh.readable.reading.id, fromVillage = true, fromCorner = false) },
+            onReadAloud = { sheet = null; vm.openReadAloud(sh.readable.reading.id) },
         )
         is VillageSheet.Resource -> ResourceSheet(
             s, attrs, sh.res, onGather = { sheet = null; vm.startGather(sh.res) }, onDismiss = { sheet = null },
@@ -962,7 +962,7 @@ fun VillageScreen(vm: AppViewModel) {
                 onMeet = { id -> sheet = null; scrollOpen = false; vm.villagers.meet(id) },
                 words = { spec -> vm.projectWords(spec) },
                 onWord = { w, line, meant -> vm.words.open(si.lanisce.lani.app.WordQuery(w, line, meant.takeIf { it.isNotBlank() }, si.lanisce.lani.data.Words.SCENE)) },
-                onLearn = { pack -> sheet = null; scrollOpen = false; vm.startPack(pack, fromVillage = true) },
+                onLearn = { pack -> sheet = null; scrollOpen = false; vm.startPack(pack) },
             )
         }
         // over the map, by the bottom bar (above)

@@ -118,7 +118,7 @@ review ("Dobro delo 💪" for 0 of 1).
   (what a screen reads anew as it comes on view, also by Back: Home and the packs refresh, the village syncs …),
   `left(screen)` (what a screen takes with it: a visit ends, the treasure map is seen, a town's progress closes, My
   words' cards, a scene's open dialog, Friends' guests seen), `openSettings`, `openGrammarBook`, `friendsNews`. The old
-  `openPacks(fromVillage)` and its kind stay as deprecated overloads for the village's callers (see "What's left").
+  `fromVillage` overloads are gone: the village's callers (`VillageScreen`, the scene's home sheet) call the plain ones.
 - `MainActivity.App`: the entry's `SaveableStateProvider`, the `PredictiveBackHandler`, `BackScrim`, `BackPeek`,
   `predictiveBack` (`ui/Back.kt`); the manifest's `enableOnBackInvokedCallback` and the `lani://` filter.
 - Every screen's back link: `vm.backLabel`/`BackButton`; their `BackHandler`s that only navigated are gone (the root's
@@ -212,10 +212,7 @@ taps counted:
 
 ## What's left
 
-- The village's callers still pass `fromVillage` (`VillageScreen.kt`): deprecated overloads in `AppViewModel` keep
-  them compiling and ignore it; remove both once the village's round (ux-village, the same files) is merged.
-- The building card's "pride po …" and the ages sheet's "Do …" lines are still hard-coded: the village's round rewrites
-  those cards (quick win 18).
+- Quick win 18 (the building card's hard-coded lines) went with the village's round, which rewrote those cards.
 - The plot chooser's "←" (`PlotChooser.kt`) and the game intro's "← skill" keep their arrows: the village's files.
 - A run's answers aren't saved across the process's death (only across leaving the screen): the app opens where the
   run began.
