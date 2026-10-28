@@ -4419,6 +4419,8 @@ companion/bin/qa --steps school                  # the school: from Home's tile,
 companion/bin/qa --steps school-build            # the school built in the hamlet: the Build sheet's tenth plot, the line under it, the bed, indoors
 companion/bin/qa --steps school-scene            # the teacher in the school's scene: her requests as on the map, the lesson by her, the blackboard
 companion/bin/qa --steps school-seats            # the school's scene at 10: the pupils at their desks and the blackboard's lesson, zoomed in
+companion/bin/qa --no-town --steps friuli-school  # the Friuli village's school for a synthetic Teo (LANI_DEV_DATA: make-learner.ts --target it --base de --name Teo; LANI_CULTURE=friuli LANI_CHILD=1 LANI_QA_SETUP_PAIR=it-de LANI_QA_LEARNER=Teo): Maestra Elena preparing the next lessons, the school's card's "🚪 Entra" into A scuola, the roll call, phone and tablet
+companion/bin/qa --no-town --steps friuli-school-unit  # the same learner, a run of its own: the Italian unit ciao end to end (intro, summary, a worksheet, the test passed), kept done
 companion/bin/qa --steps school-print            # the unit biti's sheet printed: fit.js in the WebView as in Chromium, the print dialog, the PDF saved
 companion/bin/qa --no-town --steps school-reveal  # a level a bit at a time (QA's hook school:reveal; a synthetic learner: LANI_DEV_DATA): A1 done one line, A2's current and next two, the rest folded and listed, B1 closed
 companion/bin/qa --steps shadow-tutor            # the shadow tutor on QA's mock: the developer section, a fake key, a chat and a review, the panel, the export, the effort per task and within the thread

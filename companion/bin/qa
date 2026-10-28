@@ -261,7 +261,13 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        scene; the blackboard tapped: the class's units; "school-seats" the
                        school's scene at 10 o'clock (QA's hook "hour:10"), zoomed in on the desks: the pupils on their
                        chairs behind them, the hands on the lids; again with the class's happening on; zoomed in on the
-                       blackboard: the learner's lesson in chalk;
+                       blackboard: the learner's lesson in chalk; "friuli-school" the Friuli village's school for a
+                       child learning Italian from German (LANI_DEV_DATA: make-learner.ts --target it --base de --name
+                       Teo, LANI_CULTURE=friuli, LANI_CHILD=1, LANI_QA_SETUP_PAIR=it-de, LANI_QA_LEARNER=Teo): the school
+                       (QA's hook "school:reveal"), Maestra Elena preparing the next lessons; the school's card on the map
+                       and "🚪 Entra" into A scuola at 10 o'clock; "friuli-school-unit" (the same learner, a run of its
+                       own: each is about 8 minutes) the unit ciao end to end ("school:ciao"), kept done; both also as
+                       fs-*.png in $LANI_QA_FRIULI_SHOTS;
                        "offline-audio" the
                        settings' "🔊 Zvok brez povezave" section; "prefetch" the day's clips got from the dev bridge (QA's
                        hook "audio:prefetch"; the day's size in prefetch.json); "offline-voice" the Piper voice downloaded
@@ -6110,6 +6116,322 @@ def school_unit():
             break
         time.sleep(2)
     assert done and done.get("done"), f"the dev bridge's village keeps the unit done ({done})"
+
+
+def based(v, base: str):
+    """[v] of a unit's file as a learner of [base] reads it: its texts per base (explain, hint, instruction, translation,
+    cue, label, prompt, a table's columns: companion/COURSE.md "Texts in the learner's language") in that base, else English."""
+    keys = {"explain", "hint", "instruction", "translation", "cue", "label", "prompt"}
+
+    def per_base(x):
+        return isinstance(x, dict) and x and all(re.fullmatch(r"[a-z]{2,3}", k) and isinstance(y, str) for k, y in x.items())
+
+    def pick(x):
+        return x.get(base) or x.get("en") or next(iter(x.values()))
+
+    def walk(x, key=None):
+        if key in keys and per_base(x):
+            return pick(x)
+        if isinstance(x, list):
+            return [pick(c) if key == "columns" and per_base(c) else walk(c) for c in x]
+        if isinstance(x, dict):
+            return {k: walk(y, k) for k, y in x.items()}
+        return x
+    return walk(v)
+
+
+def friuli_school(part: str = "scene"):
+    """The Friuli village's school for a child learning Italian from German (docs/plans/05-built/friuli-school.md): a
+    synthetic Teo (LANI_DEV_DATA: make-learner.ts --target it --base de --name Teo; LANI_CULTURE=friuli, LANI_CHILD=1,
+    LANI_QA_SETUP_PAIR=it-de, LANI_QA_LEARNER=Teo), the app in its own pair, it · de. QA's hook "school:reveal" (the school
+    standing, the course's written units done): the school, Maestra Elena preparing the next lessons, the rest of A1
+    folded; the village: the school's building on the map, its card's "🚪 Entra · Geh hinein" into "A scuola" at 10
+    o'clock (QA's hooks "hour:10", "happening:a-scuola/appello"): Maestra Elena at the board in the Friuli classroom (the
+    map of Friuli, the tricolore), closer up. [part] "unit" (the step friuli-school-unit, a run of its own: together
+    they take longer than one run should): "school:ciao" (the unit as never begun) and the unit ciao end to end from its
+    file (its texts in German): its intro's quick questions (a gap typed into the step's field), the summary, its first
+    worksheet, its test straight away, passed: the dev bridge's village keeping it/ciao done. Also as fs-*.png in
+    $LANI_QA_FRIULI_SHOTS."""
+    try:
+        culture = api("/culture").get("id")
+    except (OSError, RuntimeError, ValueError):
+        culture = None
+    if culture != "friuli":
+        return "skipped: the dev bridge's village isn't the Friuli culture's (LANI_CULTURE=friuli and a learner of Italian)"
+    path = ROOT / "companion/course/it/units/ciao.json"
+    if not path.exists():
+        return f"no unit ciao here ({path})"
+    pair = ["it", "de"]
+    u = based(json.loads(path.read_text()), pair[1])
+    out = Path(os.environ["LANI_QA_FRIULI_SHOTS"]) if os.environ.get("LANI_QA_FRIULI_SHOTS") else None
+
+    def msg(lang: str, key: str, **a) -> str:
+        t = l10n(lang).get(key, key)
+        for k, v in a.items():
+            t = t.replace("{" + k + "}", str(v))
+        return t
+
+    def lab(key: str, **a) -> str:
+        return " · ".join(msg(lang, key, **a) for lang in pair)
+
+    def half(key: str, **a) -> str:
+        return msg(pair[0], key, **a)
+
+    def snap(name: str):
+        shot(name)
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"{name}.png")
+
+    def tablet(name: str):
+        """[name] on Teo's tablet (a Galaxy Tab S6: 2560 × 1600 at 320 dpi), on its side and upright, then the phone again."""
+        try:
+            adb("shell", "wm", "density", "320")
+            for size, side in (("2560x1600", "side"), ("1600x2560", "upright")):
+                adb("shell", "wm", "size", size)
+                time.sleep(5 * slow())
+                snap(f"{name}-tablet-{side}")
+        finally:
+            adb("shell", "wm", "size", "reset")
+            adb("shell", "wm", "density", "reset")
+            time.sleep(4 * slow())
+
+    def text_field(swipes: int):
+        """The centre of the first text field, scrolled into view (up to [swipes] swipes), or None."""
+        for _ in range(swipes + 1):
+            for n in re.findall(r"<node [^>]*?>", screen_xml()):
+                if 'class="android.widget.EditText"' in n and (m := re.search(r'bounds="([^"]*)"', n)):
+                    b = list(map(int, re.findall(r"\d+", m.group(1))))
+                    if len(b) == 4 and 300 < (b[1] + b[3]) // 2 < 1850:
+                        return (b[0] + b[2]) // 2, (b[1] + b[3]) // 2
+            adb("shell", "input", "swipe", "540", "1600", "540", "1000", "400")
+            time.sleep(1)
+        return None
+
+    def typed(s: str) -> str:
+        """What adb types of an answer: the learner's name in, the punctuation at its end left out (graded without it)."""
+        return re.sub(r"[!?.,]+$", "", unit_text(s)).translate(ASCII)
+
+    check, nxt = lab("playerScreen.check"), lab("common.next")
+
+    def exercise(e: dict, where: str):
+        kind = e["type"]
+        if kind in ("gaptext", "transform"):
+            items = e["gaps"] if kind == "gaptext" else e["items"]
+            for i, it in enumerate(items, 1):
+                label = lab("school.gapN" if kind == "gaptext" else "school.lineN", n=i)
+                assert fill(label, typed(it["accept"][0])), f"{where}: {label}"
+        elif kind == "choice":
+            c = option_at(unit_text(e["options"][e["answer"]]))
+            assert c is not None, f"{where}: the option «{e['options'][e['answer']]}»"
+            tap_at(c)
+            return  # a tap answers it
+        elif kind == "sort":
+            for col in e["columns"]:
+                for w in col["words"]:
+                    assert tap(unit_text(w), 4), f"{where}: the word «{w}»"
+                    assert tap(col["label"], 4), f"{where}: the column «{col['label']}»"
+        else:
+            raise AssertionError(f"{where}: QA doesn't play a {kind} here")
+        assert tap_above(check, 2400), f"{where}: check"
+
+    qa_hook("pair:it-de")  # Teo's own pair (the profile's): the village's course, Italian, its labels in it · de
+    try:
+        if part == "scene":
+            # --- the school standing, A1's written units done: Maestra Elena is preparing the next lessons -----------------
+            qa_hook("school:reveal")
+            assert wait_for(half("school.level", level="A1"), 15), "the school's levels"
+            assert wait_for("Maestra Elena", 8), "Maestra Elena teaches here"
+            assert wait_for(half("school.preparing")[:24], 8), "the next lessons in preparation, said kindly"
+            time.sleep(1.5)
+            snap("fs-school-preparing")
+            tablet("fs-school-preparing")
+            c = scroll_to("📝", 4)
+            if c is not None:
+                snap("fs-school-folded")
+            # --- the village: the school's card, into A scuola ------------------------------------------------------------
+            # in the evening, when no happening of the school's is on (a bubble over the school goes straight into its scene)
+            qa_hook("hour:21")
+            adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "village")
+            # past the village's first-time intro and its news (a fresh install), to the plain village (its scroll's button)
+            end = time.time() + 40 * slow()
+            while time.time() < end and find(lab("villageScreen.scroll")) is None:
+                c = find(lab("common.skip")) or find(lab("common.continue")) or find(lab("challengeScreen.village"))
+                if c is not None:
+                    tap_at(c)
+                time.sleep(1.5)
+            assert find(lab("villageScreen.scroll")) is not None, "the village"
+            time.sleep(3)
+            school = lab("school.title")  # "Scuola · Schule": its node on the map ("…, livello · Stufe 1")
+
+            def school_node(timeout=20.0):
+                """The school's node on the map, waited for: a busy map often answers uiautomator with no screen at all."""
+                end = time.time() + timeout * slow()
+                while time.time() < end:
+                    c = next((c for t, c in nodes() if t.startswith(school + ",")), None)
+                    if c is not None:
+                        return c
+                    time.sleep(1.5)
+                return None
+
+            def way_in():  # the card's "🚪 Entra · Geh hinein: 🏫 A scuola …" (not another building's way in)
+                return next((c for t, c in nodes() if half("placeCard.go") in t and "A scuola" in t), None)
+
+            snap("fs-village")
+            go_in = None
+            for attempt in range(3):
+                c = school_node()
+                assert c is not None, "the school on the village's map"
+                if attempt > 0:
+                    # closer in on the school (the village's home view is crowded: a tap there may land on a hut in front)
+                    double_tap_zoom(c[0], c[1])
+                    time.sleep(2)
+                    c = school_node()
+                    assert c is not None, "the school on the village's map, closer in"
+                tap_at(c)
+                end = time.time() + 10 * slow()
+                while (go_in := way_in()) is None and time.time() < end:
+                    time.sleep(1)
+                if go_in is not None:
+                    break
+                adb("shell", "input", "keyevent", "KEYCODE_BACK")  # another building's card: closed, closer in
+                time.sleep(1.5)
+            assert go_in is not None, "the school's card: its way into A scuola"
+            time.sleep(1)
+            snap("fs-school-card")
+            tap_at(go_in)
+            assert wait_for("Villaggio · Dorf", 12), "into A scuola (its way back to the village in the top bar)"
+            time.sleep(3)
+            snap("fs-scene-evening")
+            tap("Villaggio · Dorf", 4)  # back to the village: the morning's scene opened anew
+            time.sleep(2)
+            # the morning: Maestra Elena's roll call (QA's hook: the happening on), played; the class at its desks
+            qa_hook("hour:10")
+            qa_hook("happening:a-scuola/appello", "scene:a-scuola@a-scuola/appello")
+            assert wait_for("Facciamo l'appello", 15), "Maestra Elena's roll call"
+            time.sleep(2)
+            snap("fs-scene-roll-call")
+            for said in ("Presente, maestra!", "La lavagna è verde."):
+                end, c = time.time() + 25 * slow(), None
+                while time.time() < end:  # her lines typed in, "Avanti · Weiter" between them
+                    if (c := find(said)) is not None:
+                        break
+                    if (n := find(nxt)) is not None:
+                        tap_at(n)
+                    time.sleep(1.5)
+                assert c is not None, f"the choice «{said}»"
+                tap_at(c)
+                time.sleep(3)
+            for _ in range(4):  # her last lines, to the dialog's end
+                if find(nxt) is None:
+                    break
+                tap(nxt, 3)
+                time.sleep(2)
+            snap("fs-scene-roll-call-answered")
+            tap(lab("common.close"), 6)
+            time.sleep(2)
+            snap("fs-scene")
+            tablet("fs-scene")
+            qa_hook("zoom")
+            time.sleep(3)
+            snap("fs-scene-closer")
+            qa_hook("happening:")
+            qa_hook("hour:")
+        else:
+            # --- the unit ciao end to end -------------------------------------------------------------------------------
+            qa_hook("school:ciao")
+            assert wait_for(half("school.level", level="A1"), 15), "the school's levels"
+            title = unit_text(u["title"]["it"])
+            c = scroll_to(title, 10)
+            assert c is not None, f"the unit «{title}», next"
+            snap("fs-school-next")
+            tap_at(c)
+            assert wait_for(half("school.worksheets"), 12), "the unit's page"
+            snap("fs-unit")
+            c = find(half("school.continueStep", step=half("school.intro"))) or find(lab("school.intro"))
+            assert c is not None, "the intro"
+            tap_at(c)
+            steps = u["intro"]["steps"]
+            for i, st in enumerate(steps, 1):
+                assert wait_for(half("school.stepOf", n=i, of=len(steps)), 12), f"step {i}"
+                a = st.get("ask")
+                if a is None:
+                    assert tap(nxt, 4), f"step {i}'s next"
+                    continue
+                if a["type"] == "choice":
+                    option = unit_text(a["options"][a["answer"]])
+                    c = option_at(option)
+                    assert c is not None, f"step {i}'s option «{option}»"
+                    tap_at(c)
+                else:
+                    # the step's text field itself, not its hint (ciao's "Mi chiamo …" is the title's and a cell of the
+                    # table too): typing hides the keyboard with Back, which off the field closes the intro
+                    c = text_field(3)
+                    assert c is not None, f"step {i}'s gap"
+                    tap_at(c)
+                    type_text(typed(a["accept"][0]))
+                    assert tap_above(check, 2150), f"step {i}'s check"
+                assert wait_for(half("playerScreen.correct"), 6) or wait_for(half("playerScreen.almost"), 2), f"step {i} answered right"
+                if i in (1, 4, len(steps)):
+                    snap(f"fs-intro-{i}")
+                if i == 1:
+                    tablet("fs-intro-1")
+                assert tap(nxt, 4), f"step {i}'s next"
+            assert wait_for(half("school.summary"), 10), "the intro's summary card"
+            snap("fs-intro-summary")
+            assert tap(half("school.toWorksheets"), 6), "on to the worksheets"
+            sheet = u["worksheets"][0]
+            assert tap(half("school.continueStep", step=sheet["title"]["it"]), 8), f"the first worksheet «{sheet['title']['it']}»"
+            for n, e in enumerate(sheet["exercises"], 1):
+                time.sleep(1.5)
+                if n == 1:
+                    snap("fs-sheet")
+                exercise(e, f"{sheet['id']} #{n}")
+                if n == 1:
+                    snap("fs-sheet-checked")
+                assert tap(nxt, 6), f"{sheet['id']} #{n}: on"
+            assert wait_for(lab("common.continue"), 10), "the worksheet's end"
+            snap("fs-sheet-done")
+            assert tap(lab("common.continue"), 4), "back to the unit"
+            assert tap(half("school.testOut"), 8), "⏩ the test"
+            tests = u["test"]["exercises"]
+            for n, e in enumerate(tests, 1):
+                time.sleep(1.5)
+                exercise(e, f"test #{n}")
+                if n == 1:
+                    snap("fs-test")
+                if n < len(tests):
+                    assert tap(nxt, 6), f"test #{n}: on"
+            assert wait_for(nxt, 6), "the test's last: on"
+            tap(nxt, 4)
+            assert wait_for(half("school.unitDoneTitle"), 12), "the test passed: the unit done"
+            time.sleep(2)
+            snap("fs-test-passed")
+            assert tap(lab("common.continue"), 4), "back to the unit"
+            assert wait_for(half("school.unitIsDone"), 8), "the unit done"
+            end, done = time.time() + 20 * slow(), None
+            while time.time() < end:  # the app pushes the village to the node
+                try:
+                    done = (((api("/game").get("state") or {}).get("course") or {}).get("units") or {}).get("it/ciao")
+                except (OSError, RuntimeError, ValueError):
+                    done = None
+                if done and done.get("done"):
+                    break
+                time.sleep(2)
+            assert done and done.get("done"), f"the dev bridge's village keeps it/ciao done ({done})"
+    finally:
+        qa_hook("happening:")
+        qa_hook("hour:")
+        restore = os.environ.get("LANI_QA_PAIR")
+        qa_hook(f"pair:{restore}" if restore else "pair:")
+    return None
+
+
+def friuli_school_unit():
+    """The Friuli village's school for Teo, its unit ciao end to end (friuli_school's [part] "unit"; the same synthetic
+    learner and env, a run of its own): "school:ciao", the intro's quick questions, the summary, the first worksheet,
+    the test straight away, passed; the dev bridge's village keeping it/ciao done."""
+    return friuli_school("unit")
 
 
 def school_point(pic, x: float, y: float, z: float) -> tuple[int, int]:
@@ -12045,6 +12367,9 @@ def plan():
         ("school-build", school_build, go_home, False, ""),
         ("school-scene", school_scene, v, False, ""),
         ("school-seats", school_seats, v, False, ""),
+        # the Friuli village's school for Teo (LANI_CULTURE=friuli, a synthetic learner of Italian from German)
+        ("friuli-school", friuli_school, None, False, ""),
+        ("friuli-school-unit", friuli_school_unit, None, False, ""),
         ("village-life", village_life, v, False, ""),
         ("reactions", reactions, v, False, ""),
         ("quests-threat", quests_threat, v, False, ""),
