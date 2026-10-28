@@ -4668,7 +4668,9 @@ def scene_coherence():
         qa_hook("hour:")
         qa_hook("level:")
     plain_village()
-    return "; ".join(notes) or None
+    for n in notes:
+        print(f"    {n}")
+    return None
 
 
 def over_the_village():
