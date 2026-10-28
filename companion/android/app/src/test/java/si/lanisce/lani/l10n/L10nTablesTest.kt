@@ -87,7 +87,9 @@ class L10nTablesTest {
         val tables = L10n.table(Lang.SL).keys
         val prefixes = tables.map { it.substringBefore('.') }.toSet()
         val file = Regex("""\.(json|txt|png|webp|mp3|m4a|wav|ogg)$""")
-        val missing = named.filter { it.substringBefore('.') in prefixes && it !in tables && !file.containsMatchIn(it) }
+        // a culture look's names ("<art>.<name>": school.map) are no keys of the tables (game/scene/CultureLook.kt)
+        val looks = si.lanisce.lani.game.scene.CultureLooks.names
+        val missing = named.filter { it.substringBefore('.') in prefixes && it !in tables && !file.containsMatchIn(it) && it !in looks }
         assertTrue("keys the code names but no table has: $missing", missing.isEmpty())
     }
 }

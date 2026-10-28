@@ -4,7 +4,7 @@ import java.util.concurrent.ConcurrentHashMap
 
 /**
  * A culture's look in the scenes (companion/SCENES.md, "Culture looks"): what a painter draws its own way in that
- * culture's village. Three kinds of thing, each named for its art ("school.plaster.l", "school.map"):
+ * culture's village. Three kinds of thing, each named for its art (`school.plaster.l`, `school.map`):
  *
  * - a colour ([colour]): the plaster, the wainscot, a flag's stripes, the desks' wood;
  * - a material ([material]): what a thing is made of, a word the painter knows ("wood", "painted", "stone");
@@ -60,7 +60,7 @@ object CultureLooks {
         operator fun plus(o: Table) = Table(colours + o.colours, materials + o.materials, variants + o.variants)
 
         companion object {
-            /** A table of [art]'s: its names given without the art ("plaster.l" for "school.plaster.l"). */
+            /** A table of [art]'s: its names given without the art (`plaster.l` for `school.plaster.l`). */
             fun of(art: String, colours: Map<String, Int> = emptyMap(), materials: Map<String, String> = emptyMap(), variants: Map<String, String> = emptyMap()) =
                 Table(colours.mapKeys { "$art.${it.key}" }, materials.mapKeys { "$art.${it.key}" }, variants.mapKeys { "$art.${it.key}" })
 
@@ -79,4 +79,10 @@ object CultureLooks {
 
     /** The cultures that have a look of their own, and the arts each touches (tests, the docs). */
     val touched: Map<String, Set<String>> get() = tables.mapValues { it.value.arts }
+
+    /**
+     * Every name the looks set, "<art>.<name>" (`school.map`): not keys of the string tables, though they look alike
+     * (L10nTablesTest leaves them out).
+     */
+    val names: Set<String> get() = tables.values.flatMap { it.colours.keys + it.materials.keys + it.variants.keys }.toSet()
 }
