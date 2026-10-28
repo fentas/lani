@@ -28,10 +28,15 @@ import okhttp3.Response
 import okhttp3.sse.EventSource
 import okhttp3.sse.EventSourceListener
 import okhttp3.sse.EventSources
+import okio.ByteString
 import si.lanisce.lani.game.GameState
+import si.lanisce.lani.l10n.L10n
+import si.lanisce.lani.l10n.LangPair
 import si.lanisce.lani.l10n.Learner
 import java.io.File
 import java.io.IOException
+import java.time.LocalDate
+import java.util.concurrent.ConcurrentHashMap
 
 data class BridgeConfig(val baseUrl: String, val token: String)
 
@@ -59,9 +64,46 @@ class Bridge(private val config: BridgeConfig) {
      */
     private suspend fun <T> off(block: suspend CoroutineScope.() -> T): T = withContext(Dispatchers.Default, block)
 
+    /** What reading an answer depends on besides its text: the learner it is said to, the language pair, the day. */
+    private data class Said(val learner: Learner, val pair: LangPair, val day: LocalDate) {
+        companion object { fun now() = Said(Learner.current, L10n.pair, LocalDate.now()) }
+    }
+
+    /** An answer read before: its text's digest as sent, what else its reading depended on, the value it gave. */
+    private class Read(val digest: ByteString, val said: Said, val value: Any?)
+
+    /** The last answer read of each path ([remembered]). */
+    private val reads = ConcurrentHashMap<String, Read>()
+
+    /**
+     * GET [path] read by [parse] (its text said to the learner first, as [get]); an answer the same as the last one read
+     * of [path] (the same text, learner, pair and day) is not read again: the value read then comes back, the same
+     * instance (2026-10-28, docs/plans/05-built/home-return.md). Home reads everything anew each time it comes back
+     * (AppViewModel.shown) and mostly nothing changed since: reading the learner's state and the scenes again made tens
+     * of MB for the collector, which the main thread then waited for while it drew Home, and a new value, equal to the
+     * last, was compared field by field on the main thread before the screen's state kept the one it had. A status other
+     * than 2xx is an [IOException] naming it, as [get] has it.
+     */
+    @Suppress("UNCHECKED_CAST")
+    private suspend fun <T> remembered(path: String, parse: (String) -> T): T = answer(path, notFound = false, parse) as T
+
+    /** [remembered] for a route an older bridge hasn't: null for its 404, an [IOException] for a status other than 200, as [content] has it. */
+    @Suppress("UNCHECKED_CAST")
+    private suspend fun <T : Any> rememberedOrNone(path: String, parse: (String) -> T?): T? = answer(path, notFound = true, parse) as T?
+
+    private suspend fun answer(path: String, notFound: Boolean, parse: (String) -> Any?): Any? {
+        val a = http.raw(request(path).build())
+        if (notFound && a.code == 404) return null
+        if (a.code !in 200..299 || (notFound && a.code != 200)) throw IOException("HTTP ${a.code}: ${a.text.take(200)}")
+        val said = Said.now()
+        val digest = a.body.sha256()
+        reads[path]?.let { if (it.digest == digest && it.said == said) return it.value }
+        return parse(said.learner.renderJson(a.text)).also { reads[path] = Read(digest, said, it) }
+    }
+
     /** The home language's dashboard; with [language], that language's (its own review deck: GET /state?language=). */
     suspend fun dashboard(language: String? = null): Dashboard = off {
-        Dashboard.parse(get(if (language == null) "/state" else "/state?language=$language"))
+        remembered(if (language == null) "/state" else "/state?language=$language", Dashboard::parse)
     }
     /** GET /state as sent: all six learner databases plus computed fields. */
     suspend fun stateRaw(): String = off { get("/state") }
@@ -81,41 +123,20 @@ class Bridge(private val config: BridgeConfig) {
      * phone, the app's files cleared). An [IOException] when the node hasn't it (404) or can't be reached.
      */
     suspend fun chatImage(id: String, to: File) = off { http.downloadTo(request("/chat/images/$id").build(), to) }
-    suspend fun modules(): List<ModuleInfo> = off { json.decodeFromString(get("/modules")) }
+    suspend fun modules(): List<ModuleInfo> = off { remembered("/modules") { json.decodeFromString<List<ModuleInfo>>(it) } }
     suspend fun module(id: String): Module = off { parseModule(get("/modules/$id")) }
-    suspend fun packs(): List<PackInfo> = off { parsePacks(get("/packs")) }
+    suspend fun packs(): List<PackInfo> = off { remembered("/packs", ::parsePacks) }
     suspend fun pack(id: String): Pack = off { parsePack(get("/packs/$id")) }
 
     /** The grammar book's pages (GET /grammar: the curated ones with the tutor's additions, then the tutor's); null from an older bridge (404). */
-    suspend fun grammar(): List<GrammarPage>? = off {
-        val (code, body) = content(request("/grammar").build())
-        return@off when (code) {
-            200 -> Grammar.parseList(body)
-            404 -> null
-            else -> throw IOException("HTTP $code: ${body.take(200)}")
-        }
-    }
+    suspend fun grammar(): List<GrammarPage>? = off { rememberedOrNone("/grammar") { Grammar.parseList(it) } }
     /** The cheat sheet's cards no grammar page fits (GET /cards, lani.card/v0: the curated ones, then the tutor's); null from an older bridge (404). */
-    suspend fun cards(): List<DeckCard>? = off {
-        val (code, body) = content(request("/cards").build())
-        return@off when (code) {
-            200 -> Cards.parseList(body)
-            404 -> null
-            else -> throw IOException("HTTP $code: ${body.take(200)}")
-        }
-    }
+    suspend fun cards(): List<DeckCard>? = off { rememberedOrNone("/cards") { Cards.parseList(it) } }
     /**
      * The school's course of the village's language (GET /course, companion/COURSE.md: the outline, the units, the tutor's
      * homework); null from an older bridge (404), or for a language without a course: the app's own then.
      */
-    suspend fun course(): Course? = off {
-        val (code, body) = content(request("/course").build())
-        return@off when (code) {
-            200 -> Courses.parse(body)
-            404 -> null
-            else -> throw IOException("HTTP $code: ${body.take(200)}")
-        }
-    }
+    suspend fun course(): Course? = off { rememberedOrNone("/course") { Courses.parse(it) } }
     /**
      * A printed sheet or booklet of the course as a page to print ([Prints.path]: GET /course/sheet/<unit>, GET
      * /course/booklet/<level>, companion/COURSE.md "Printed sheets"): self-contained HTML, its fonts and fit.js inlined.
@@ -143,12 +164,12 @@ class Bridge(private val config: BridgeConfig) {
      * Close-up scenes of the village, resolved (companion/SCENES.md), as far as this app draws them: it says which arts
      * it has ([SceneArt.VERSION]); an app that doesn't say gets what the first arts drew.
      */
-    suspend fun scenes(): List<SceneSpec> = off { parseScenes(get("/scenes?arts=${si.lanisce.lani.game.scene.SceneArt.VERSION}")) }
+    suspend fun scenes(): List<SceneSpec> = off { remembered("/scenes?arts=${si.lanisce.lani.game.scene.SceneArt.VERSION}", ::parseScenes) }
     /**
      * The people of the village (companion/VILLAGERS.md). The phone's [time] of day says the app reads a line's `when`
      * (an older app gets the lines without it).
      */
-    suspend fun villagers(time: TimeOfDay = TimeOfDay.now()): List<Villager> = off { parseVillagers(get("/villagers?time=${time.name.lowercase()}")) }
+    suspend fun villagers(time: TimeOfDay = TimeOfDay.now()): List<Villager> = off { remembered("/villagers?time=${time.name.lowercase()}", ::parseVillagers) }
     /**
      * A role-play with villager [id] played by the tutor (scenario id "villager:<id>"), built for the current friendship
      * and the phone's [time] of day (its opener a greeting for it: `?time=evening`).
@@ -301,14 +322,7 @@ class Bridge(private val config: BridgeConfig) {
      * The reading corner's readings (GET /readings: the culture pack's, then the tutor's; data/ReadingPractice.kt); null
      * from an older bridge without them (404).
      */
-    suspend fun readings(): List<si.lanisce.lani.game.culture.ReadingFile>? = off {
-        val (code, body) = content(request("/readings").build())
-        return@off when (code) {
-            200 -> ReadingPractice.parseServed(body)
-            404 -> null
-            else -> throw IOException("HTTP $code: ${body.take(200)}")
-        }
-    }
+    suspend fun readings(): List<si.lanisce.lani.game.culture.ReadingFile>? = off { rememberedOrNone("/readings") { ReadingPractice.parseServed(it) } }
 
     /** The towns linked with this learner's (GET /towns, see data/Towns.kt); null from an older bridge without towns (404). */
     suspend fun towns(): TownsList? = off {

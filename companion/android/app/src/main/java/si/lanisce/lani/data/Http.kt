@@ -5,8 +5,10 @@ import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okio.ByteString
 import java.io.File
 import java.io.IOException
+import java.nio.charset.Charset
 import java.util.concurrent.TimeUnit
 
 /** Shared HTTP plumbing for the node's APIs ([Bridge], [FamilyApi], [ClipsApi]). */
@@ -44,6 +46,19 @@ internal suspend fun OkHttpClient.text(req: Request): String = withContext(Dispa
 /** Like [text], but hands back the status code instead of throwing (for expected 404 or 409 answers). */
 internal suspend fun OkHttpClient.exchange(req: Request): Pair<Int, String> = withContext(Dispatchers.IO) {
     newCall(req).execute().use { r -> r.code to r.body?.string().orEmpty() }
+}
+
+/** An answer as sent: its status [code], its [body] not decoded yet, and the [charset] it is in. */
+internal class RawAnswer(val code: Int, val body: ByteString, val charset: Charset) {
+    val text: String get() = body.string(charset)
+}
+
+/** Like [exchange], the body as bytes ([Bridge] reads an answer the same as the last one not again). */
+internal suspend fun OkHttpClient.raw(req: Request): RawAnswer = withContext(Dispatchers.IO) {
+    newCall(req).execute().use { r ->
+        val body = r.body
+        RawAnswer(r.code, body?.byteString() ?: ByteString.EMPTY, body?.contentType()?.charset(Charsets.UTF_8) ?: Charsets.UTF_8)
+    }
 }
 
 /** Saves [req]'s body as [to] through a ".part" file, so an interrupted download never looks complete. */
