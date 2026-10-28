@@ -1,0 +1,365 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "ce-ci-sono",
+  "language": "it",
+  "level": "A1",
+  "emoji": "🌟",
+  "title": { "it": "C'è, ci sono: dov'è?", "de": "C'è, ci sono: wo ist …?", "sl": "C'è, ci sono: kje je?", "en": "C'è, ci sono: where is it?" },
+  "goal": {
+    "de": "Du sagst, was da ist und was nicht, und fragst, wo etwas ist: c'è la luna, ci sono tante stelle, non c'è scuola, dov'è il gatto?",
+    "sl": "Poveš, kaj je tu in česa ni, in vprašaš, kje je nekaj: c'è la luna, ci sono tante stelle, non c'è scuola, dov'è il gatto?",
+    "en": "You can say what is there and what isn't, and ask where something is: c'è la luna, ci sono tante stelle, non c'è scuola, dov'è il gatto?"
+  },
+  "grammar": ["ce-ci-sono"],
+  "words": ["c'è", "ci sono", "dove", "qui", "lì", "la luna", "la stella", "la nuvola", "il sole", "il cielo", "la fontana", "la piazza", "la rana", "il gabbiano", "la barca", "il pesce", "il pane", "la scuola", "il gatto", "il cane", "la pecora", "la conchiglia", "tanto", "stasera", "oggi"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "frase", "de": "Satz", "sl": "stavek", "en": "sentence" },
+        { "it": "una cosa: c'è", "de": "eine Sache: c'è", "sl": "ena stvar: c'è", "en": "one thing: c'è" },
+        { "it": "più cose: ci sono", "de": "mehrere: ci sono", "sl": "več stvari: ci sono", "en": "more things: ci sono" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Wenn etwas da ist, sagst du **c'è** (da ist) bei einer Sache und **ci sono** (da sind) bei mehreren: **C'è un gatto.** **Ci sono tre gatti.** Im Deutschen sagst du für beides oft es gibt. Im Italienischen zählst du: eins oder mehr?",
+          "sl": "Ko je nekaj tu, rečeš **c'è** (je) pri eni stvari in **ci sono** (so) pri več: **C'è un gatto.** (Tu je mačka.) **Ci sono tre gatti.** (Tu so tri mačke.) Vedno preštej: ena ali več?",
+          "en": "When something is there, say **c'è** (there is) for one thing and **ci sono** (there are) for more: **C'è un gatto.** **Ci sono tre gatti.** Always count: one, or more?"
+        },
+        "examples": [
+          { "it": "In piazza c'è una fontana.", "de": "Auf dem Platz gibt es einen Brunnen.", "sl": "Na trgu je vodnjak.", "en": "There's a fountain in the square." },
+          { "it": "In cielo ci sono tre nuvole.", "de": "Am Himmel sind drei Wolken.", "sl": "Na nebu so trije oblaki.", "en": "There are three clouds in the sky." }
+        ],
+        "rows": [[{ "it": "affermazione", "de": "Aussage", "sl": "trditev", "en": "statement" }, "C'è un gatto.", "Ci sono tre gatti."]],
+        "ask": {
+          "type": "choice",
+          "grammar": "ce-ci-sono",
+          "prompt": "In cucina ___ Nonna Rosa.",
+          "options": ["c'è", "ci sono"],
+          "answer": 0,
+          "say_options": true,
+          "explain": { "de": "**Nonna Rosa** ist eine → **c'è**\n- c'è · eins\n- ci sono · mehrere", "sl": "**Nonna Rosa** je ena → **c'è**\n- c'è · ena\n- ci sono · več", "en": "**Nonna Rosa** is one → **c'è**\n- c'è · one\n- ci sono · more" }
+        }
+      },
+      {
+        "say": {
+          "de": "Mehr als eins heißt immer **ci sono**, bei zwei, bei zehn und bei ganz vielen: **Ci sono due barche.** **Ci sono tante stelle!** Auch bei **tante** (viele) zählst du mehrere.",
+          "sl": "Več kot eno je vedno **ci sono**, pri dveh, pri desetih in pri zelo veliko: **Ci sono due barche.** **Ci sono tante stelle!** Pazi: slovensko rečeš je veliko zvezd, italijansko pa **ci sono tante stelle**.",
+          "en": "More than one is always **ci sono**: two, ten or lots: **Ci sono due barche.** **Ci sono tante stelle!** With **tante** (lots of) you count more than one too."
+        },
+        "examples": [
+          { "it": "Stasera ci sono tante stelle.", "de": "Heute Abend sind viele Sterne da.", "sl": "Nocoj je veliko zvezd.", "en": "There are lots of stars tonight." },
+          { "it": "Qui ci sono cinque rane!", "de": "Hier sind fünf Frösche!", "sl": "Tu je pet žab!", "en": "There are five frogs here!" }
+        ],
+        "rows": [[{ "it": "con i numeri", "de": "mit Zahlen", "sl": "s števili", "en": "with numbers" }, "C'è una stella.", "Ci sono tante stelle."]],
+        "ask": {
+          "type": "choice",
+          "grammar": "ce-ci-sono",
+          "prompt": "In cielo ___ tre gabbiani.",
+          "options": ["c'è", "ci sono"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**tre gabbiani** sind mehrere → **ci sono**\n- c'è un gabbiano · eins\n- ci sono tre gabbiani · mehrere",
+            "sl": "**tre gabbiani** je več → **ci sono**\n- c'è un gabbiano · eden\n- ci sono tre gabbiani · več",
+            "en": "**tre gabbiani** is more than one → **ci sono**\n- c'è un gabbiano · one\n- ci sono tre gabbiani · more"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Eine Frage ist derselbe Satz, nur die Stimme geht hoch: **C'è Giulia?** (Ist Giulia da?) **Ci sono le pecore?** Und wenn dich jemand ruft, **Ci sei?** (Bist du da?), antwortest du: **Sì, ci sono!** (Ja, ich bin da!)",
+          "sl": "Vprašanje je isti stavek, le glas gre gor: **C'è Giulia?** (Je Giulia tu?) **Ci sono le pecore?** In ko te kdo pokliče, **Ci sei?** (Si tu?), odgovoriš: **Sì, ci sono!** (Ja, tu sem!)",
+          "en": "A question is the same sentence with your voice going up: **C'è Giulia?** (Is Giulia here?) **Ci sono le pecore?** And when someone calls you, **Ci sei?** (Are you there?), you answer: **Sì, ci sono!** (Yes, I'm here!)"
+        },
+        "examples": [
+          { "it": "C'è Giulia? Sì, c'è!", "de": "Ist Giulia da? Ja, sie ist da!", "sl": "Je Giulia tu? Ja, je!", "en": "Is Giulia here? Yes, she is!" },
+          { "it": "Ci sei, {learner}? Sì, ci sono!", "de": "Bist du da, {learner}? Ja, ich bin da!", "sl": "Si tu, {learner}? Ja, tu sem!", "en": "Are you there, {learner}? Yes, I'm here!" }
+        ],
+        "rows": [[{ "it": "domanda", "de": "Frage", "sl": "vprašanje", "en": "question" }, "C'è Giulia?", "Ci sono le pecore?"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "ce-ci-sono",
+          "prompt": "«Ci sei?» «Sì, ___!»",
+          "options": ["c'è", "ci sono", "sei"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**Ci sei?** fragt dich → io: **ci sono**\n- Ci sei? · Bist du da?\n- Sì, ci sono! · Ja, ich bin da!",
+            "sl": "**Ci sei?** vpraša tebe → io: **ci sono**\n- Ci sei? · Si tu?\n- Sì, ci sono! · Ja, tu sem!",
+            "en": "**Ci sei?** asks you → io: **ci sono**\n- Ci sei? · Are you there?\n- Sì, ci sono! · Yes, I'm here!"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Für nein stellst du **non** davor: **Non c'è.** (Er ist nicht da.) **Non ci sono nuvole.** (Es gibt keine Wolken.) Ohne Artikel heißt es kein: **Non c'è pane.** (Es gibt kein Brot.)",
+          "sl": "Za ne postaviš **non** spredaj: **Non c'è.** (Ni ga.) **Non ci sono nuvole.** (Ni oblakov.) Brez člena: **Non c'è pane.** (Ni kruha.)",
+          "en": "For no, put **non** in front: **Non c'è.** (He isn't here.) **Non ci sono nuvole.** (There are no clouds.) Without an article it means no: **Non c'è pane.** (There's no bread.)"
+        },
+        "examples": [
+          { "it": "Oggi non c'è scuola!", "de": "Heute ist keine Schule!", "sl": "Danes ni šole!", "en": "There's no school today!" },
+          { "it": "Non ci sono nuvole: c'è il sole.", "de": "Es gibt keine Wolken: Die Sonne scheint.", "sl": "Ni oblakov: sije sonce.", "en": "There are no clouds: the sun is out." }
+        ],
+        "rows": [[{ "it": "negazione", "de": "Verneinung", "sl": "zanikanje", "en": "negative" }, "Non c'è pane.", "Non ci sono nuvole."]],
+        "ask": {
+          "type": "cloze",
+          "grammar": "ce-ci-sono",
+          "text": "Oggi ___ c'è scuola: è domenica!",
+          "accept": ["non"],
+          "hint": { "de": "nein …", "sl": "ne …", "en": "no …" },
+          "explain": {
+            "de": "**nein** → **non** davor\n- C'è scuola. · Es ist Schule.\n- Non c'è scuola. · Es ist keine Schule.",
+            "sl": "**ne** → **non** spredaj\n- C'è scuola. · Je pouk.\n- Non c'è scuola. · Ni pouka.",
+            "en": "**no** → **non** in front\n- C'è scuola. · There's school.\n- Non c'è scuola. · There's no school."
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**C'è** sagt, dass etwas da ist. **È** sagt, was etwas ist oder wie es ist: **C'è la luna.** (Der Mond ist zu sehen.) **È la luna.** (Das ist der Mond.) **La luna è grande.** (Der Mond ist groß.)",
+          "sl": "**C'è** pove, da je nekaj tu. **È** pove, kaj nekaj je ali kakšno je: **C'è la luna.** (Luna je na nebu.) **È la luna.** (To je luna.) **La luna è grande.** (Luna je velika.)",
+          "en": "**C'è** says that something is there. **È** says what something is or what it's like: **C'è la luna.** (The moon is out.) **È la luna.** (It's the moon.) **La luna è grande.** (The moon is big.)"
+        },
+        "examples": [
+          { "it": "Che cos'è? È la luna!", "de": "Was ist das? Das ist der Mond!", "sl": "Kaj je to? To je luna!", "en": "What's that? It's the moon!" },
+          { "it": "Stasera c'è la luna.", "de": "Heute Abend scheint der Mond.", "sl": "Nocoj sije luna.", "en": "The moon is out tonight." }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "ce-ci-sono",
+          "prompt": "La luna ___ grande e bianca.",
+          "options": ["c'è", "è"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**wie ist sie?** → **è**\n- C'è la luna. · Sie ist da.\n- La luna è grande. · So ist sie.",
+            "sl": "**kakšna je?** → **è**\n- C'è la luna. · Je na nebu.\n- La luna è grande. · Taka je.",
+            "en": "**what is it like?** → **è**\n- C'è la luna. · It's there.\n- La luna è grande. · That's what it's like."
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Wo ist …? fragst du mit **Dov'è** (dove + è): **Dov'è il gatto?** Bei mehreren: **Dove sono le pecore?** Die Antwort sagt, wo: **È qui.** (Er ist hier.) **Sono lì.** (Sie sind dort.)",
+          "sl": "Kje je …? vprašaš z **Dov'è** (dove + è): **Dov'è il gatto?** Pri več: **Dove sono le pecore?** Odgovor pove, kje: **È qui.** (Tu je.) **Sono lì.** (Tam so.)",
+          "en": "To ask where something is, say **Dov'è** (dove + è): **Dov'è il gatto?** For more than one: **Dove sono le pecore?** The answer says where: **È qui.** (It's here.) **Sono lì.** (They're there.)"
+        },
+        "examples": [
+          { "it": "Dov'è Lorenzo? È a casa.", "de": "Wo ist Lorenzo? Er ist zu Hause.", "sl": "Kje je Lorenzo? Doma je.", "en": "Where's Lorenzo? He's at home." },
+          { "it": "Dove sono le pecore? Sono lì!", "de": "Wo sind die Schafe? Sie sind dort!", "sl": "Kje so ovce? Tam so!", "en": "Where are the sheep? They're over there!" }
+        ],
+        "rows": [[{ "it": "dove?", "de": "wo?", "sl": "kje?", "en": "where?" }, "Dov'è il gatto?", "Dove sono i gatti?"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "ce-ci-sono",
+          "prompt": "___ le pecore? Sono lì.",
+          "options": ["Dov'è", "Dove sono"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**le pecore** sind mehrere → **Dove sono**\n- Dov'è il gatto? · eins\n- Dove sono le pecore? · mehrere",
+            "sl": "**le pecore** je več → **Dove sono**\n- Dov'è il gatto? · ena\n- Dove sono le pecore? · več",
+            "en": "**le pecore** is more than one → **Dove sono**\n- Dov'è il gatto? · one\n- Dove sono le pecore? · more"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "ce-ci-sono-1",
+      "title": { "it": "Una o tante?", "de": "Eins oder viele?", "sl": "Ena ali veliko?", "en": "One or lots?" },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "ce-ci-sono",
+          "instruction": { "de": "C'è o ci sono? · Sortiere", "sl": "C'è o ci sono? · Razvrsti", "en": "C'è o ci sono? · Sort" },
+          "columns": [
+            { "label": "c'è", "words": ["un gatto", "la luna", "una barca", "Giulia"]},
+            { "label": "ci sono", "words": ["tre rane", "tante stelle", "le pecore", "due gabbiani"]}
+          ],
+          "explain": {
+            "de": "**eins** → c'è · **mehrere** → ci sono\n- c'è la luna · c'è Giulia\n- ci sono tre rane · ci sono tante stelle",
+            "sl": "**ena** → c'è · **več** → ci sono\n- c'è la luna · c'è Giulia\n- ci sono tre rane · ci sono tante stelle",
+            "en": "**one** → c'è · **more** → ci sono\n- c'è la luna · c'è Giulia\n- ci sono tre rane · ci sono tante stelle"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "ce-ci-sono",
+          "prompt": "Oggi ___ nuvole: c'è il sole.",
+          "options": ["non c'è", "non ci sono"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**nuvole** sind mehrere → **non ci sono**\n- non c'è il sole · eins\n- non ci sono nuvole · mehrere",
+            "sl": "**nuvole** je več → **non ci sono**\n- non c'è il sole · eno\n- non ci sono nuvole · več",
+            "en": "**nuvole** is more than one → **non ci sono**\n- non c'è il sole · one\n- non ci sono nuvole · more"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "ce-ci-sono",
+          "prompt": "In piazza ___ una fontana.",
+          "options": ["c'è", "ci sono", "è"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**una fontana** ist da → **c'è**\n- c'è una fontana · sie ist da\n- la fontana è grande · so ist sie",
+            "sl": "**una fontana** je tam → **c'è**\n- c'è una fontana · je tam\n- la fontana è grande · taka je",
+            "en": "**una fontana** is there → **c'è**\n- c'è una fontana · it's there\n- la fontana è grande · what it's like"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ce-ci-sono-2",
+      "title": { "it": "Di notte", "de": "In der Nacht", "sl": "Ponoči", "en": "At night" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "ce-ci-sono",
+          "title": "Di notte",
+          "text": "È sera. In cielo ___ la luna. ___ tante stelle. Non ___ nuvole. Giulia chiama: «Lorenzo, ci sei?» «Sì, ___!» «E Moro, dov'è?» «Moro ___ qui. Dorme!» «E le pecore? Dove ___?» «Sono con Davide.»",
+          "gaps": [
+            { "accept": ["c'è"], "hint": { "de": "eins: la luna", "sl": "ena: la luna", "en": "one: la luna" } },
+            { "accept": ["Ci sono"], "hint": { "de": "mehrere: tante stelle", "sl": "več: tante stelle", "en": "more: tante stelle" } },
+            { "accept": ["ci sono"], "hint": { "de": "mehrere: nuvole", "sl": "več: nuvole", "en": "more: nuvole" } },
+            {
+              "accept": ["ci sono"],
+              "hint": "Ci sei? → io",
+              "explain": { "de": "**Ci sei?** → **Sì, ci sono!** (Ich bin da.)", "sl": "**Ci sei?** → **Sì, ci sono!** (Tu sem.)", "en": "**Ci sei?** → **Sì, ci sono!** (I'm here.)" }
+            },
+            {
+              "accept": ["è"],
+              "hint": { "de": "wo er ist: Moro …", "sl": "kje je: Moro …", "en": "where he is: Moro …" },
+              "explain": { "de": "Wo Moro ist: Moro **è** qui (c'è sagt nur, dass etwas da ist).", "sl": "Kje je Moro: Moro **è** qui (c'è pove le, da je nekaj tu).", "en": "Where Moro is: Moro **è** qui (c'è only says that something is there)." }
+            },
+            {
+              "accept": ["sono"],
+              "hint": { "de": "wo? mehrere", "sl": "kje? več", "en": "where? more" },
+              "explain": { "de": "**le pecore** sind mehrere → Dove **sono**?", "sl": "**le pecore** je več → Dove **sono**?", "en": "**le pecore** is more than one → Dove **sono**?" }
+            }
+          ],
+          "bank": true,
+          "distractors": ["sei", "Dov'è"],
+          "translation": {
+            "de": "Es ist Abend. Am Himmel ist der Mond. Es gibt viele Sterne. Es gibt keine Wolken. Giulia ruft: „Lorenzo, bist du da?“ „Ja, ich bin da!“ „Und Moro, wo ist er?“ „Moro ist hier. Er schläft!“ „Und die Schafe? Wo sind sie?“ „Sie sind bei Davide.“",
+            "sl": "Večer je. Na nebu je luna. Veliko zvezd je. Ni oblakov. Giulia kliče: »Lorenzo, si tu?« »Ja, tu sem!« »Pa Moro, kje je?« »Moro je tu. Spi!« »Pa ovce? Kje so?« »Z Davidom so.«",
+            "en": "It's evening. The moon is in the sky. There are lots of stars. There are no clouds. Giulia calls: \"Lorenzo, are you there?\" \"Yes, I'm here!\" \"And Moro, where is he?\" \"Moro is here. He's asleep!\" \"And the sheep? Where are they?\" \"They're with Davide.\""
+          },
+          "instruction": { "de": "Completa · Ergänze c'è, ci sono, è, sono", "sl": "Completa · Dopolni c'è, ci sono, è, sono", "en": "Completa · Fill in c'è, ci sono, è, sono" }
+        },
+        {
+          "type": "choice",
+          "grammar": "ce-ci-sono",
+          "prompt": "«___ i bambini?» «Sono in piazza.»",
+          "options": ["Dov'è", "Dove sono"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**i bambini** sind mehrere → **Dove sono**\n- Dov'è Moro? · eins\n- Dove sono i bambini? · mehrere",
+            "sl": "**i bambini** je več → **Dove sono**\n- Dov'è Moro? · eden\n- Dove sono i bambini? · več",
+            "en": "**i bambini** is more than one → **Dove sono**\n- Dov'è Moro? · one\n- Dove sono i bambini? · more"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ce-ci-sono-3",
+      "title": { "it": "No, non c'è!", "de": "Nein, nicht da!", "sl": "Ne, ni ga!", "en": "No, it isn't there!" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "ce-ci-sono",
+          "instruction": { "de": "Di' di no · Sag es mit nein", "sl": "Di' di no · Povej z ne", "en": "Di' di no · Say it with no" },
+          "items": [
+            { "from": "C'è il sole.", "accept": ["Non c'è il sole."]},
+            { "from": "Ci sono le nuvole.", "accept": ["Non ci sono le nuvole.", "Non ci sono nuvole."]},
+            { "from": "C'è Giulia.", "accept": ["Non c'è Giulia."]},
+            { "from": "C'è pane.", "accept": ["Non c'è pane."]}
+          ],
+          "explain": { "de": "**nein** → **non** davor\n- c'è → non c'è\n- ci sono → non ci sono", "sl": "**ne** → **non** spredaj\n- c'è → non c'è\n- ci sono → non ci sono", "en": "**no** → **non** in front\n- c'è → non c'è\n- ci sono → non ci sono" },
+          "cue": "→"
+        },
+        {
+          "type": "transform",
+          "grammar": "ce-ci-sono",
+          "instruction": { "de": "Più di uno · Mehr als eins: schreib den ganzen Satz", "sl": "Più di uno · Več kot eno: napiši cel stavek", "en": "Più di uno · More than one: write the whole sentence" },
+          "whole": true,
+          "items": [
+            { "from": "C'è una rana. (tre)", "accept": ["Ci sono tre rane."]},
+            { "from": "C'è un gabbiano. (due)", "accept": ["Ci sono due gabbiani."]},
+            { "from": "C'è una barca. (quattro)", "accept": ["Ci sono quattro barche."], "hint": "barca → barche" },
+            { "from": "C'è una stella. (tante)", "accept": ["Ci sono tante stelle."]}
+          ],
+          "explain": {
+            "de": "**mehrere** → **ci sono**, das Nomen im Plural\n- c'è una rana → ci sono tre rane\n- c'è una barca → ci sono quattro barche",
+            "sl": "**več** → **ci sono**, samostalnik v množini\n- c'è una rana → ci sono tre rane\n- c'è una barca → ci sono quattro barche",
+            "en": "**more** → **ci sono**, the noun in the plural\n- c'è una rana → ci sono tre rane\n- c'è una barca → ci sono quattro barche"
+          },
+          "cue": "→"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "sort",
+        "grammar": "ce-ci-sono",
+        "instruction": { "de": "C'è o ci sono? · Sortiere", "sl": "C'è o ci sono? · Razvrsti", "en": "C'è o ci sono? · Sort" },
+        "columns": [{ "label": "c'è", "words": ["il sole", "un cane"]}, { "label": "ci sono", "words": ["due barche", "tanti pesci"]}]
+      },
+      {
+        "type": "gaptext",
+        "grammar": "ce-ci-sono",
+        "text": "Oggi ___ il sole. In piazza ___ tanti bambini. «C'è Tommaso?» «No, non ___.» «E Lorenzo e Giulia? Dove ___?» «Sono lì, con il cane!»",
+        "gaps": [{ "accept": ["c'è"]}, { "accept": ["ci sono"]}, { "accept": ["c'è"]}, { "accept": ["sono"]}],
+        "translation": {
+          "de": "Heute scheint die Sonne. Auf dem Platz sind viele Kinder. „Ist Tommaso da?“ „Nein, er ist nicht da.“ „Und Lorenzo und Giulia? Wo sind sie?“ „Sie sind dort, mit dem Hund!“",
+          "sl": "Danes sije sonce. Na trgu je veliko otrok. »Je Tommaso tu?« »Ne, ni ga.« »Pa Lorenzo in Giulia? Kje sta?« »Tam sta, s psom!«",
+          "en": "The sun is out today. There are lots of children in the square. \"Is Tommaso here?\" \"No, he isn't.\" \"And Lorenzo and Giulia? Where are they?\" \"They're over there, with the dog!\""
+        },
+        "instruction": { "de": "Completa · Ergänze c'è, ci sono, è, sono", "sl": "Completa · Dopolni c'è, ci sono, è, sono", "en": "Completa · Fill in c'è, ci sono, è, sono" }
+      },
+      {
+        "type": "transform",
+        "grammar": "ce-ci-sono",
+        "instruction": { "de": "Di' di no · Sag es mit nein", "sl": "Di' di no · Povej z ne", "en": "Di' di no · Say it with no" },
+        "items": [
+          { "from": "C'è la luna.", "accept": ["Non c'è la luna."]},
+          { "from": "Ci sono le pecore.", "accept": ["Non ci sono le pecore.", "Non ci sono pecore."]}
+        ],
+        "cue": "→"
+      },
+      {
+        "type": "choice",
+        "grammar": "ce-ci-sono",
+        "prompt": "Che cos'è? ___ una conchiglia!",
+        "options": ["C'è", "È"],
+        "answer": 1,
+        "say_options": true,
+        "explain": {
+          "de": "**was ist das?** → **è**\n- È una conchiglia. · Das ist eine Muschel.\n- C'è una conchiglia. · Da ist eine Muschel.",
+          "sl": "**kaj je to?** → **è**\n- È una conchiglia. · To je školjka.\n- C'è una conchiglia. · Tam je školjka.",
+          "en": "**what is it?** → **è**\n- È una conchiglia. · It's a shell.\n- C'è una conchiglia. · There's a shell."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "ce-ci-sono",
+        "prompt": "Dove ___ i gabbiani?",
+        "options": ["è", "sono"],
+        "answer": 1,
+        "say_options": true,
+        "explain": { "de": "**i gabbiani** sind mehrere → **Dove sono**", "sl": "**i gabbiani** je več → **Dove sono**", "en": "**i gabbiani** is more than one → **Dove sono**" }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (it, de, sl). Native check: Di notte (Ci sei? Sì, ci sono!); In piazza è una fontana as a wrong option; Di' di no for a child."
+}
