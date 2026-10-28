@@ -2,7 +2,9 @@ package si.lanisce.lani.data
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotSame
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.time.LocalDate
@@ -118,14 +120,30 @@ class MyWordsTest {
             card("v_$i", w, "meaning $i", today.minusDays(rnd.nextInt(90).toLong()))
         }
         val learnedBig = big.filter { rnd.nextBoolean() }.map { it.id }.toSet()
-        repeat(3) { MyWords.of(big, learnedBig) }
+        // a copy each time: the same lists are given back the list made the last time
+        repeat(3) { MyWords.of(big.toList(), learnedBig.toSet()) }
+        val copy = big.toList()
         val t0 = System.nanoTime()
-        val listed = MyWords.of(big, learnedBig)
+        val listed = MyWords.of(copy, learnedBig)
         val ms = (System.nanoTime() - t0) / 1e6
         assertEquals(listed.sortedWith(MyWords.ORDER), listed)
         val groups = MyWords.groups(listed, today)
         assertEquals(listed.size, groups.filterNot { it.recent }.sumOf { it.words.size })
         println("2,000 words listed in %.1f ms".format(ms))
         assertTrue("$ms ms", ms < si.lanisce.lani.FrameBudget.scaled(60.0))
+    }
+
+    @Test fun `the same deck again gives the list made the last time, another deck its own`() {
+        val learned = setOf("v_cesta", "v_caj")
+        val first = MyWords.of(pool, learned)
+        assertSame("Home composed anew after a Back asks again: nothing sorted again", first, MyWords.of(pool, learned))
+        val more = pool + card("v_kolo", "kolo", "bicycle", today)
+        val other = MyWords.of(more, learned)
+        assertNotSame(first, other)
+        assertEquals(first.size + 1, other.size)
+        val fewer = MyWords.of(pool, setOf("v_cesta"))
+        assertNotSame(first, fewer)
+        assertTrue(first.single { it.word == "čaj" }.learned)
+        assertFalse(fewer.single { it.word == "čaj" }.learned)
     }
 }

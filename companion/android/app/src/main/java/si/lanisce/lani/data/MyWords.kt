@@ -51,14 +51,23 @@ object MyWords {
      * The learner's words from their review cards ([pool]: vocabulary only, not a counting or a forms card) and the ids
      * of those [learned]: one per word (the learned card of it first, else the newest), in Slovene's alphabetical order.
      */
-    fun of(pool: List<ReviewCard>, learned: Set<String>): List<MyWord> =
-        pool.asSequence()
+    fun of(pool: List<ReviewCard>, learned: Set<String>): List<MyWord> {
+        // the same deck as the last time (the bridge's dashboard read once while it is the same: Home composed anew after
+        // every Back asks again; docs/plans/05-built/home-return.md): the list made then
+        last?.let { if (it.pool === pool && it.learned === learned) return it.words }
+        return pool.asSequence()
             .filter { it.kind == "vocabulary" && it.front.isNotBlank() }
             .map { MyWord(it.id, it.front.trim(), it.back.trim(), it.id in learned, it.created, it.category) }
             .sortedWith(compareBy<MyWord> { !it.learned }.thenByDescending { it.added })
             .distinctBy { fold(it.word) }
             .toList()
             .let(::ordered)
+            .also { last = Made(pool, learned, it) }
+    }
+
+    /** The last list [of] made, and of what. */
+    private class Made(val pool: List<ReviewCard>, val learned: Set<String>, val words: List<MyWord>)
+    @Volatile private var last: Made? = null
 
     /** Slovene's alphabetical order: c before č, s before š, z before ž, each its own letter; an accent elsewhere after its letter. */
     val ORDER: Comparator<MyWord> = compareBy<MyWord> { sortKey(it.word) }.thenBy { it.word }
