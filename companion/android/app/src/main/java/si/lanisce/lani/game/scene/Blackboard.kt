@@ -10,14 +10,27 @@ import si.lanisce.lani.game.UnitProgress
 /**
  * What the school's blackboard says (companion/SCENES.md, "The school's blackboard"; Jan, 2026-10-14: "I like the
  * chalkboard; maybe it could show what we're currently / last learned in school"): the unit the learner worked on last,
- * its [title] in the course's language ("Biti: sem, si, je") and a few of its [forms] from the intro's table ("jaz sem",
+ * its [title] in the course's [language] ("Biti: sem, si, je") and a few of its [forms] from the intro's table ("jaz sem",
  * "ti si", "on je"), in the table's order, each as its cells ("jaz", "sem"); before the first unit no title
- * ("Dobrodošli!" and the day). The painter writes what fits ([si.lanisce.lani.game.render.scene.BoardFont.lines]). Pure.
+ * ("Dobrodošli!" and the day; "Benvenuti!" in an Italian course). The painter writes what fits ([si.lanisce.lani.game.render.scene.BoardFont.lines]). Pure.
  */
-data class Blackboard(val title: String?, val forms: List<List<String>> = emptyList()) {
+data class Blackboard(val title: String?, val forms: List<List<String>> = emptyList(), val language: String = "sl") {
+    /** The board's welcome before the first unit, in the course's language ("Dobrodošli!", "Benvenuti!"). */
+    val welcome: String get() = WELCOMES[language] ?: WELCOMES.getValue("sl")
+
+    /** The day as the course's language writes it on a board: "14. 10. 2026", "14/10/2026", "14.10.2026". */
+    fun day(d: java.time.LocalDate): String = when (language) {
+        "it", "en" -> "${d.dayOfMonth}/${d.monthValue}/${d.year}"
+        "de" -> "${d.dayOfMonth}.${d.monthValue}.${d.year}"
+        else -> "${d.dayOfMonth}. ${d.monthValue}. ${d.year}"
+    }
+
     companion object {
         /** Before the first unit: no lesson yet, a welcome. */
         val WELCOME = Blackboard(null)
+
+        /** The welcome of a board in each course's language. */
+        private val WELCOMES = mapOf("sl" to "Dobrodošli!", "it" to "Benvenuti!", "de" to "Willkommen!", "en" to "Welcome!")
 
         /** How many forms the board is given at most (it writes those that fit). */
         const val MAX_FORMS = 6
@@ -28,8 +41,8 @@ data class Blackboard(val title: String?, val forms: List<List<String>> = emptyL
          */
         fun of(s: GameState, course: Course?): Blackboard? {
             course ?: return null
-            val u = unit(s, course) ?: return WELCOME
-            return Blackboard(Grammar.text(u.title, course.language), forms(u))
+            val u = unit(s, course) ?: return Blackboard(null, language = course.language)
+            return Blackboard(Grammar.text(u.title, course.language), forms(u), course.language)
         }
 
         /**

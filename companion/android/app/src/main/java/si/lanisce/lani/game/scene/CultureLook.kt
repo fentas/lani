@@ -202,11 +202,30 @@ object CultureLooks {
     /** Friuli's sea (Il mare, its own art): the batela's halyard from the masthead to its cleat ("Vedi la corda lì?"). */
     val FRIULI_SEA = Table.of("sea", variants = mapOf("halyard" to "drizza"))
 
+    private fun hex(v: Long): Int = si.lanisce.lani.game.render.Col.hex(v)
+
+    /**
+     * The Friuli village's school (Maestra Elena's): an old Italian classroom. The walls pale yellow over a lower wall
+     * painted in a sea-green enamel (the zoccolo) instead of the oak wainscot, a vine with bunches of grapes in the
+     * frieze (the Collio's) instead of the tulips, the map of Friuli Venezia Giulia instead of Slovenia's, the Italian
+     * tricolore on the flagpole, the pallottoliere where the basket stands, and "Ciao! Come va? Bene!" on the board
+     * before the first lesson (companion/SCENES.md "Culture looks").
+     */
+    internal val FRIULI_SCHOOL = Table.of(
+        "school",
+        colours = mapOf(
+            "plaster.l" to hex(0xF7EDCF), "plaster.m" to hex(0xEDDDB4), "plaster.d" to hex(0xD6C390),
+            "wainscot.l" to hex(0xC6DDCB), "wainscot.m" to hex(0xA9C9B2), "wainscot.d" to hex(0x6F8F7A),
+        ),
+        materials = mapOf("wainscot" to "painted"),
+        variants = mapOf("map" to "friuli", "flag" to "it", "frieze" to "vine", "abacus" to "pallottoliere", "greeting" to "it"),
+    )
+
     /** Each culture's look: its arts' tables added up. A culture not here draws every art as the default culture does. */
     private val tables: Map<String, Table> = mapOf(
         "kaernten" to KAERNTEN_ALPS + KAERNTEN_CAMPFIRE,
         "lakeland" to LAKELAND_ALPS + LAKELAND_CAMPFIRE,
-        "friuli" to FRIULI_KITCHEN + FRIULI_SMITHY + FRIULI_TENT + FRIULI_MILL + FRIULI_FIELD + FRIULI_FOREST + FRIULI_STREAM + FRIULI_POND + FRIULI_SEA,
+        "friuli" to FRIULI_KITCHEN + FRIULI_SMITHY + FRIULI_TENT + FRIULI_MILL + FRIULI_FIELD + FRIULI_FOREST + FRIULI_STREAM + FRIULI_POND + FRIULI_SEA + FRIULI_SCHOOL,
     )
 
     private val looks = ConcurrentHashMap<String, CultureLook>()

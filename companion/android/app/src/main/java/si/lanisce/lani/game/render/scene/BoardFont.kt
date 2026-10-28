@@ -184,10 +184,10 @@ internal object BoardFont {
      * ženski," / "srednji spol"), else its head before the first "?", "!" or "," ("Kje? V hiši, na vrtu, pri babici" →
      * "Kje?"); then the forms, as many as fit, a line after another, [SEP] between two on a line, at most 4: a form too
      * wide for a line its last cell alone ("imenovati se imenujem se" → "imenujem se"), else left out. Before the first
-     * unit ([Blackboard.WELCOME]): "Dobrodošli!" and [date] under it ("14. 10. 2026").
+     * unit ([Blackboard.WELCOME]): its welcome ("Dobrodošli!", "Benvenuti!") and [date] under it ("14. 10. 2026").
      */
     fun lines(board: Blackboard, width: Int, lines: Int = LINES, date: String? = null): List<Line> {
-        val title = board.title ?: return listOfNotNull(Line("Dobrodošli!", true), date?.let { Line(it, false) })
+        val title = board.title ?: return listOfNotNull(Line(board.welcome, true), date?.let { Line(it, false) })
         val out = ArrayList<Line>()
         for (l in titled(title, width, minOf(2, lines - 1))) out.add(Line(l, true))
         var line = ""; var forms = 0

@@ -49,6 +49,13 @@ import kotlin.math.sqrt
  * The school grows with its level ([si.lanisce.lani.game.scene.SceneFixtures]): the map and the globe come with the
  * second, the clock with the third.
  *
+ * In a culture's look (companion/SCENES.md "Culture looks"; [si.lanisce.lani.game.scene.CultureLooks]) the classroom is
+ * that country's: in the Friuli village ("FRIULI_SCHOOL") an old Italian one, the walls pale yellow over a lower wall
+ * painted in a sea-green enamel instead of the oak wainscot ([paintedWall]), a vine with bunches of grapes in the frieze
+ * ([grapes]), the map of Friuli Venezia Giulia with Udine, the Tagliamento, the Isonzo and the lagoons ([friuliMap],
+ * [friuliFine]), the Italian tricolore on the pole, the pallottoliere where the basket stands ([abacus]), and "Ciao! Come
+ * va? Bene!" on the board before the first lesson. The default culture's look is the Slovene classroom above.
+ *
  * At night ([beds]: "alcove") Učiteljica Mojca sleeps in the school, as the village teacher did in the old schools, where
  * the teacher's room was in the school house: in a wooden bed along the left wall under the map, its head by the bookcase,
  * a curtain on a rod along it drawn back and gathered at its head, under a rose wool blanket with a cream check. The bed
@@ -101,7 +108,25 @@ internal class SchoolPainter : DioramaPainter() {
 
     private var floorId = 0
 
-    private val plasterL = Col.hex(0xF2ECDC); private val plasterM = Col.hex(0xE4DBC4); private val plasterD = Col.hex(0xCDC2A6)
+    // the plaster: the culture's look's (companion/SCENES.md "Culture looks"), read at the start of each frame ([readLook])
+    private var plasterL = PLASTER_L; private var plasterM = PLASTER_M; private var plasterD = PLASTER_D
+    /** The wainscot: oak boards ("wood"), or painted ("painted", in [paintL] … [paintD], an old Italian classroom's). */
+    private var painted = false
+    private var paintL = 0; private var paintM = 0; private var paintD = 0
+    /** The culture's variants of the map, the flag, the frieze, the greeting on the board and the abacus (null: the art's own). */
+    private var mapLook: String? = null
+    private var flagLook: String? = null
+    private var friezeLook: String? = null
+    private var greetingLook: String? = null
+    private var abacusLook: String? = null
+
+    /** The culture's look of this frame, once (companion/SCENES.md "Culture looks"; [CultureLooks.FRIULI_SCHOOL][si.lanisce.lani.game.scene.CultureLooks]). */
+    private fun readLook() {
+        plasterL = colour("plaster.l", PLASTER_L); plasterM = colour("plaster.m", PLASTER_M); plasterD = colour("plaster.d", PLASTER_D)
+        painted = material("wainscot", "wood") == "painted"
+        paintL = colour("wainscot.l", PAINT_L); paintM = colour("wainscot.m", PAINT_M); paintD = colour("wainscot.d", PAINT_D)
+        mapLook = variant("map"); flagLook = variant("flag"); friezeLook = variant("frieze"); greetingLook = variant("greeting"); abacusLook = variant("abacus")
+    }
     private val slate = Col.hex(0x2E4A3A); private val slateL = Col.hex(0x3A5A48); private val slateD = Col.hex(0x253D30)
     private val chalkW = Col.hex(0xF4F2E8); private val chalkD = Col.hex(0xC8CCC0); private val chalkY = Col.hex(0xF2D46A)
     private val oakL = Col.hex(0xD6A870); private val oakM = Col.hex(0xB0804E); private val oakD = Col.hex(0x8A5E36)
@@ -143,6 +168,7 @@ internal class SchoolPainter : DioramaPainter() {
     }
 
     override fun paint() {
+        readLook()
         fit()
         vignette()
         // the lamps are lit from dusk, and put out while Mojca sleeps
@@ -185,7 +211,8 @@ internal class SchoolPainter : DioramaPainter() {
 
         // the teacher's corner by the window: her chair, the desk, the books, the lamp and the globe on it
         thing("chair") { chair(6.75f, 2.55f, facingX = false) }
-        prop { basket(7.25f, 3.75f) }
+        // the waste-paper basket by her chair; in an Italian classroom the pallottoliere stands there (the culture's look)
+        if (abacusLook != null) prop { abacus(7.25f, 3.75f) } else prop { basket(7.25f, 3.75f) }
         prop { teacherDesk() }
         thing("book", slop = 1) { books(7.75f, 2.35f) }
         prop { oilLamp(8.55f, 2.45f, lit) }
@@ -388,7 +415,7 @@ internal class SchoolPainter : DioramaPainter() {
     private fun wallColor(px: Int, py: Int, u: Float, z: Float, lum: Float): Int {
         val zf = z - fl
         val wz = wain - fl
-        var col = when {
+        var col = if (painted) paintedWall(px, py, u, z, zf, wz) else when {
             zf < 0.5f -> Col.hex(0x3E2616)
             zf < 1.1f -> Pal.WOOD_X
             zf < wz - 0.5f -> {
@@ -410,11 +437,44 @@ internal class SchoolPainter : DioramaPainter() {
         return Col.scale(col, lum)
     }
 
+    /**
+     * The wall of an old Italian classroom at [u] cells from the corner and [z] px up (the culture's look, "painted"): a
+     * dark skirting, the lower wall painted in a glossy enamel up to the wainscot's height with a darker line along its top
+     * (the zoccolo), the plaster over it; the gloss a little lighter here and there, closer up a few brush marks.
+     */
+    private fun paintedWall(px: Int, py: Int, u: Float, z: Float, zf: Float, wz: Float): Int = when {
+        zf < 0.5f -> Col.scale(paintD, 0.62f)
+        zf < 1.1f -> paintD
+        zf < wz - 0.4f -> {
+            val sheen = Noise.v2(u * 1.6f, zf * 0.18f, 13)
+            when {
+                sheen > 0.7f && Dither.at(px, py) < (sheen - 0.7f) * 3f -> paintL
+                detail > 1 && Noise.v2(u * 9f, zf * 0.08f, 17) > 0.8f -> Col.mix(paintM, paintL, 0.35f)
+                else -> paintM
+            }
+        }
+        zf < wz + 0.3f -> paintD
+        else -> plaster(px, py, u, z)
+    }
+
     private fun plaster(px: Int, py: Int, u: Float, z: Float): Int {
-        // a painted frieze under the top: a band with little red tulips between two green lines
+        // a painted frieze under the top: a band with little red tulips between two green lines; in the culture's look a
+        // vine, bunches of grapes among its leaves (Friuli's)
         val fz = hw - 2.6f
         if (z > fz - 0.25f && z < fz + 0.25f || z > fz + 1.9f && z < fz + 2.25f) return Col.hex(0x5E8A5A)
-        if (z in fz..fz + 1.9f) {
+        if (friezeLook == "vine" && z in fz..fz + 1.9f) {
+            val m = (u / 0.55f) - floor(u / 0.55f)
+            val zz = z - fz
+            if (detail == 1) {
+                // a leaf over the bunch, the bunch of two purple pixels, the vine's tendril between
+                if (abs(m - 0.5f) < 0.2f && zz in 1.2f..1.7f) return Col.hex(0x6E9A5A)
+                if (abs(m - 0.5f) < 0.1f && zz in 0.3f..1.2f) return Col.hex(0x6A3A78)
+                if (abs(m - 0.05f) < 0.06f && zz in 1.2f..1.5f) return Col.hex(0x5E8A5A)
+            } else {
+                val g = grapes(m - 0.5f, zz)
+                if (g != 0) return g
+            }
+        } else if (z in fz..fz + 1.9f) {
             val m = (u / 0.55f) - floor(u / 0.55f)
             val zz = z - fz
             if (detail == 1) {
@@ -462,6 +522,40 @@ internal class SchoolPainter : DioramaPainter() {
             val rise = zz - (if (dm < 0f) 0.35f else 0.25f)
             if (abs(a - rise * 0.26f) < px * 0.7f + (0.14f - a) * 0.25f && a > px * 0.4f) return Col.hex(0x6E9A5A)
         }
+        return 0
+    }
+
+    /**
+     * Closer up, a bunch of the vine of the frieze at [dm] from its middle (in bunch spacings along the wall) and [zz] px up
+     * the band: a vine leaf of three lobes over a bunch of round purple grapes hanging to a point, a curl of tendril between
+     * the bunches; 0 off it.
+     */
+    private fun grapes(dm: Float, zz: Float): Int {
+        val px = 1f / (4f * K * 0.55f) // a picture pixel along the wall, in bunch spacings
+        val a = abs(dm)
+        // the leaf: three lobes over the bunch, lit from the left
+        if (zz in 1.2f..1.8f) {
+            val lobe = min(hypot(dm / 0.12f, (zz - 1.5f) / 0.3f), min(hypot((dm + 0.13f) / 0.09f, (zz - 1.42f) / 0.22f), hypot((dm - 0.13f) / 0.09f, (zz - 1.42f) / 0.22f)))
+            if (lobe < 1f) return if (dm < -0.04f) Col.hex(0x7EAA62) else if (abs(dm) < px * 0.5f && zz < 1.6f) Col.hex(0x4E7A4A) else Col.hex(0x6E9A5A)
+        }
+        // the bunch: grapes in rows, fewer to the point
+        if (zz in 0.25f..1.2f) {
+            val row = floor((1.2f - zz) / 0.24f).toInt()
+            val n = (4 - row).coerceAtLeast(1)
+            val rz = 1.2f - (row + 0.5f) * 0.24f
+            for (k in 0 until n) {
+                val gx = (k - (n - 1) / 2f) * 0.085f
+                val d = hypot((dm - gx) / 0.045f, (zz - rz) / 0.12f)
+                if (d < 1f) return when {
+                    dm - gx < -0.015f && zz > rz -> Col.hex(0x9A6AA8) // the light on each grape
+                    d > 0.75f -> Col.hex(0x4A2858)
+                    else -> Col.hex(0x6A3A78)
+                }
+            }
+        }
+        // the tendril between two bunches, curling
+        val tm = dm + 0.5f // 0 … 1 across the gap: the curl about its ends
+        if (a > 0.36f && abs(sin(tm * 14f) * 0.12f + 1.45f - zz) < 0.06f) return Col.hex(0x5E8A5A)
         return 0
     }
 
@@ -940,10 +1034,11 @@ internal class SchoolPainter : DioramaPainter() {
             }
             // each letter slants on its own and starts where the board's edge is at its left, so all of them look alike
             fun letter(x0: Int, gx: Int, k: Int, row: Int, ink: Int) = dot(x0 + gx + k, top(x0 + gx) + row, ink)
-            val w1 = ChalkFont.write("Dober dan!", slant = true) { gx, k, ry -> letter(4, gx, k, ry, chalkW) }
+            val (g1, g2, g3) = greeting()
+            val w1 = ChalkFont.write(g1, slant = true) { gx, k, ry -> letter(4, gx, k, ry, chalkW) }
             for (cx in 4 until 4 + w1) if (Noise.rnd(cx, 3) < 0.85f) dot(cx, top(cx) + 8 + (if (cx % 7 == 3) 1 else 0), chalkD)
-            ChalkFont.write("Kako si?", slant = true) { gx, k, ry -> letter(4, gx, k, 10 + ry, chalkW) }
-            ChalkFont.write("Dobro.", slant = true) { gx, k, ry -> letter(4, gx, k, 18 + ry, chalkD) }
+            ChalkFont.write(g2, slant = true) { gx, k, ry -> letter(4, gx, k, 10 + ry, chalkW) }
+            ChalkFont.write(g3, slant = true) { gx, k, ry -> letter(4, gx, k, 18 + ry, chalkD) }
             // a chalk sun with a smile
             val sc = cols - 8; val sr = 18
             for (row in -8..8) for (col in -8..8) {
@@ -967,6 +1062,9 @@ internal class SchoolPainter : DioramaPainter() {
             c.set(iso.ix(dx, dy), iso.iy(dx, dy, bz0), Col.mix(Pal.WOOD_L, chalkW, 0.35f + Noise.rnd(k, 83) * 0.5f))
         }
     }
+
+    /** The school's own greeting on the board (no lesson on it: [SceneWorld.board][si.lanisce.lani.game.scene.SceneWorld.board] null), in the culture's look's language. */
+    private fun greeting(): Triple<String, String, String> = GREETINGS[greetingLook] ?: GREETINGS.getValue(null)
 
     /**
      * The lesson closer up: the same words and the same sun in the same places as on the scene's canvas ([cols1] of
@@ -1000,15 +1098,16 @@ internal class SchoolPainter : DioramaPainter() {
                 l += g[0].length + 1
             }
         }
-        write("Dober dan!", 0, chalkW)
+        val (g1, g2, g3) = greeting()
+        write(g1, 0, chalkW)
         // underlined with a wavering stroke
-        val w1 = ChalkFont.write("Dober dan!", slant = false) { _, _, _ -> }
+        val w1 = ChalkFont.write(g1, slant = false) { _, _, _ -> }
         for (x in ax + 4 * d until ax + (4 + w1) * d) {
             if (Noise.rnd(x / (2 * d), 3) >= 0.85f) continue
             chalk(x, floor(edge(x.toFloat()) + 8 * d + mid + sin(x * 0.55f / d) * 0.4f * d + 0.5f).toInt(), chalkD)
         }
-        write("Kako si?", 10, chalkW)
-        write("Dobro.", 18, chalkD)
+        write(g2, 10, chalkW)
+        write(g3, 18, chalkD)
         // the sun with a smile: a ring, long and short rays, two eyes
         val xc = ax + (cols1 - 8) * d + mid
         val r8 = 8.5f * d
@@ -1041,7 +1140,7 @@ internal class SchoolPainter : DioramaPainter() {
     private fun chalkLesson(board: Blackboard, sx0: Float, sy0: Float, ax: Int, cols: Int, cols1: Int) {
         val d = detail
         val mid = (d - 1) / 2f
-        val date = frame.date?.let { "${it.dayOfMonth}. ${it.monthValue}. ${it.year}" }
+        val date = frame.date?.let(board::day)
         val lines = BoardFont.lines(board, cols1 - 2 * BOARD_MARGIN, date = date)
         fun edge(x: Float): Float = sy0 + (x + 0.5f - sx0) * 0.5f
         fun chalk(x: Int, y: Int, ink: Int) {
@@ -1192,9 +1291,12 @@ internal class SchoolPainter : DioramaPainter() {
         pix(nx, ny, Pal.STONE_D)
         val land = Col.hex(0x8CC25A); val landD = Col.hex(0x5C9A48); val sea = Col.hex(0x7FB8E0)
         val paper = Col.hex(0xF0E8D0); val paperD = Col.hex(0xD8CCA8)
+        val friuli = mapLook == "friuli"
         quadFill(xm, ma, mz0, xm, mb, mz0, xm, mb, mz1, xm, ma, mz1) { px, py ->
             val y = wallXy(px, xm); val z = wallXz(px, py, xm)
             val u = (mb - y) / (mb - ma); val v = (mz1 - z) / (mz1 - mz0)
+            // the map of the culture's look (Friuli's), else Slovenia's
+            if (friuli) return@quadFill if (detail > 1) friuliFine(u, v, paper, paperD) else friuliMap(u, v, paper, paperD)
             if (detail > 1) return@quadFill mapFine(u, v, paper, paperD)
             val col = ((u - 0.05f) / 0.9f * 30f).toInt(); val row = ((v - 0.14f) / 0.78f * 16f).toInt()
             val inLand = row in 0..15 && col in 0..29 && SLOVENIA[row][col] == '#'
@@ -1280,10 +1382,10 @@ internal class SchoolPainter : DioramaPainter() {
     }
 
     /** How much the map's cell at ([cf], [rf]) is land, the outline's cells blended smoothly, its edge a little ragged. */
-    private fun landness(cf: Float, rf: Float): Float {
+    private fun landness(cf: Float, rf: Float, grid: Array<String> = SLOVENIA): Float {
         val x = cf - 0.5f; val y = rf - 0.5f
         val ix = floor(x).toInt(); val iy = floor(y).toInt(); val fx = x - ix; val fy = y - iy
-        fun at(cl: Int, rw: Int) = if (rw in 0..15 && cl in 0..29 && SLOVENIA[rw][cl] == '#') 1f else 0f
+        fun at(cl: Int, rw: Int) = if (rw in 0..15 && cl in 0..29 && grid[rw][cl] == '#') 1f else 0f
         val l = (at(ix, iy) * (1 - fx) + at(ix + 1, iy) * fx) * (1 - fy) + (at(ix, iy + 1) * (1 - fx) + at(ix + 1, iy + 1) * fx) * fy
         return l + (Noise.v2(cf * 1.3f, rf * 1.3f, 5) - 0.5f) * 0.3f
     }
@@ -1296,7 +1398,7 @@ internal class SchoolPainter : DioramaPainter() {
     }
 
     /** The map's red title band closer up: SLOVENIJA in white capitals when there's room for them (detail 3), else a hint of them. */
-    private fun mapTitle(u: Float, v: Float): Int {
+    private fun mapTitle(u: Float, v: Float, title: Array<Array<String>> = TITLE): Int {
         val red = Col.hex(0xB83A2E)
         val xp = u * (mb - ma) * 4f * K; val yp = v * (mz1 - mz0) * K
         val ink = Col.mix(red, Col.hex(0xF4EEDD), 0.85f)
@@ -1306,17 +1408,90 @@ internal class SchoolPainter : DioramaPainter() {
             val inText = abs(xp - span / 2f) < span * 0.3f && abs(yp - 0.05f * (mz1 - mz0) * K) < 0.7f
             return if (inText && Math.floorMod(floor(xp).toInt(), 3) != 2) Col.mix(red, ink, 0.55f) else red
         }
-        val w = TITLE.sumOf { it[0].length + 1 } - 1
+        val w = title.sumOf { it[0].length + 1 } - 1
         val gx0 = floor(xp - ((mb - ma) * 4f * K - w) / 2f).toInt(); val gy = floor(yp - 0.3f).toInt()
         if (gy !in 0..4 || gx0 < 0) return red
         var x = gx0
-        for (g in TITLE) {
+        for (g in title) {
             val gw = g[0].length
             if (x < gw) return if (g[gy][x] == '#') ink else red
             x -= gw + 1
             if (x < 0) return red
         }
         return red
+    }
+
+    /**
+     * The map of Friuli (the culture's look, "friuli"), on the scene's canvas, at [u] across and [v] down its paper: the
+     * region of [FRIULI] in green with its border, the Carnic and Julian Alps along the north, Udine (the red dot), the
+     * Tagliamento and the Isonzo running down to the sea along the south, the title band.
+     */
+    private fun friuliMap(u: Float, v: Float, paper: Int, paperD: Int): Int {
+        val land = Col.hex(0x8CC25A); val landD = Col.hex(0x5C9A48); val sea = Col.hex(0x7FB8E0)
+        val col = ((u - 0.05f) / 0.9f * 30f).toInt(); val row = ((v - 0.14f) / 0.78f * 16f).toInt()
+        fun at(r: Int, c: Int) = r in 0..15 && c in 0..29 && FRIULI[r][c] == '#'
+        val inLand = at(row, col)
+        return when {
+            v < 0.1f -> Col.hex(0xB83A2E)                                       // the title band
+            u > 0.97f || v > 0.96f -> paperD
+            inLand -> when {
+                !at(row - 1, col) || !at(row + 1, col) || !at(row, col - 1) || !at(row, col + 1) -> landD
+                col == 15 && row == 7 -> Pal.FLAG_RED                            // Udine
+                row < 4 -> if ((col + row) % 3 == 0) Col.hex(0xF4F4F0) else Col.hex(0xB8A888) // the Alps
+                abs(col - (12f - (row - 3) * 0.25f)) < 0.5f -> sea               // the Tagliamento
+                abs(col - (24f - (row - 3) * 0.3f)) < 0.5f && row >= 3 -> sea    // the Isonzo
+                else -> land
+            }
+            row in 11..15 && col in 5..25 -> sea                                 // the Adriatic
+            else -> paper
+        }
+    }
+
+    /**
+     * The map of Friuli closer up at [u] across and [v] down its paper: the outline smoothed out of [FRIULI] with a fine
+     * border, the Alps in relief along the north, the Tagliamento and the Isonzo, the lagoons of Marano and Grado pale
+     * along the coast, the towns (Udine, the capital, as a red dot in a white ring), the sea rippled, the grid, the title
+     * FRIULI in the red band.
+     */
+    private fun friuliFine(u: Float, v: Float, paper: Int, paperD: Int): Int {
+        val land = Col.hex(0x8CC25A); val landD = Col.hex(0x4E8A40); val sea = Col.hex(0x7FB8E0)
+        val pu = 1f / ((mb - ma) * 4f * K); val pv = 1f / ((mz1 - mz0) * K)
+        val dc = pu / 0.9f * 30f; val dr = pv / 0.78f * 16f
+        if (v < 0.1f) return mapTitle(u, v, FRIULI_TITLE)
+        if (u > 0.97f || v > 0.96f) return paperD
+        val cf = (u - 0.05f) / 0.9f * 30f; val rf = (v - 0.14f) / 0.78f * 16f
+        fun land(c: Float, r: Float) = landness(c, r, FRIULI) > 0.5f
+        if (land(cf, rf)) {
+            if (!land(cf - dc, rf) || !land(cf + dc, rf) || !land(cf, rf - dr) || !land(cf, rf + dr)) return landD
+            val ud = hypot((cf - 15.5f) / dc, (rf - 7.5f) / dr)
+            if (ud < 1.2f) return Pal.FLAG_RED
+            if (ud < 2f) return Col.hex(0xFFFFFF)
+            for (k in FRIULI_TOWNS.indices step 2) if (hypot((cf - FRIULI_TOWNS[k]) / dc, (rf - FRIULI_TOWNS[k + 1]) / dr) < 0.9f) return Col.hex(0x3A2A24)
+            val river = Col.hex(0x4E8EC8)
+            if (rf in 2.5f..12.5f && abs(cf - (12.5f - (rf - 3f) * 0.25f + sin(rf * 1.2f) * 0.35f)) < dc * 0.6f) return river // the Tagliamento
+            if (rf in 2.5f..12.5f && abs(cf - (24.5f - (rf - 3f) * 0.3f + sin(rf * 1.4f) * 0.3f)) < dc * 0.6f) return river // the Isonzo
+            // the lagoons along the coast, pale
+            if (rf > 11.4f && cf in 9.5f..21.5f && !land(cf, rf + 2f * dr)) return Col.mix(land, sea, 0.5f)
+            val e = 1f - rf / 5.5f + (Noise.v2(cf * 0.9f, rf * 0.9f, 33) - 0.5f) * 0.4f
+            val lit = e - (1f - (rf - 0.4f) / 5.5f + (Noise.v2((cf - 0.4f) * 0.9f, (rf - 0.4f) * 0.9f, 33) - 0.5f) * 0.4f)
+            return when {
+                e > 0.74f -> if (lit > 0.02f) Col.hex(0xC8C4B8) else Col.hex(0xF4F4F0)
+                e > 0.5f -> if (lit > 0.02f) Col.hex(0x9A8A6A) else Col.hex(0xB8A888)
+                e > 0.3f -> Col.mix(land, Col.hex(0xB8A888), if (lit > 0.02f) 0.6f else 0.35f)
+                Noise.v2(cf * 0.7f, rf * 0.7f, 35) > 0.66f -> Col.mix(land, Col.hex(0xC8E080), 0.4f)
+                else -> land
+            }
+        }
+        // the Adriatic along the south, rippled
+        if (rf > 10.8f && cf in 4.5f..26f) {
+            val ripple = Math.floorMod((v / pv).toInt(), 3) == 0 && Math.floorMod((u / pu).toInt() + (v / pv).toInt() / 3 * 2, 5) < 2
+            return if (ripple) Col.mix(sea, Col.hex(0xFFFFFF), 0.35f) else sea
+        }
+        val neat = (abs(u - 0.035f) < pu * 0.6f || abs(u - 0.955f) < pu * 0.6f) && v in 0.12f..0.94f ||
+            (abs(v - 0.12f) < pv * 0.6f || abs(v - 0.94f) < pv * 0.6f) && u in 0.035f..0.955f
+        if (neat) return Col.mix(paperD, Col.hex(0x8A7A5A), 0.3f)
+        val grid = abs(cf / 7.5f - floor(cf / 7.5f + 0.5f)) * 7.5f < dc * 0.5f || abs(rf / 4f - floor(rf / 4f + 0.5f)) * 4f < dr * 0.5f
+        return if (grid && u in 0.035f..0.955f && v in 0.12f..0.94f) Col.mix(paper, paperD, 0.55f) else paper
     }
 
     /** The school clock over the map: a wooden rim, the hours, the hands at the hour of the day, the red second hand ticking. */
@@ -1583,6 +1758,40 @@ internal class SchoolPainter : DioramaPainter() {
         }
         c.fillRect(cx - 4 * k, by - 8 * k, 9 * k, k, l)
         if (k > 1) c.hline(cx - 4 * k, cx + 5 * k - 1, by - 8 * k, Col.mix(l, Col.hex(0xFFFFFF), 0.25f))
+    }
+
+    /**
+     * The pallottoliere (the culture's look's abacus, where the basket stands in the Slovene classroom): a wooden frame on
+     * two feet, ten rods of beads, five red and five white on each, the beads of the top rods pushed to one side as if
+     * someone had just counted; closer up the beads round and lit, the frame's turned posts.
+     */
+    private fun abacus(x: Float, y: Float) {
+        val cx = iso.ix(x, y); val by = iso.iy(x, y, fl)
+        val k = detail
+        val frameL = Col.hex(0xC88A4E); val frameM = Col.hex(0x9C6634); val frameD = Col.hex(0x6E4422)
+        val red = Col.hex(0xD8402E); val redD = Col.hex(0x9A2A20); val white = Col.hex(0xF4F0E4); val whiteD = Col.hex(0xC8C0B0)
+        val w = 9; val h = 12 // the frame's size on the scene's canvas
+        val left = cx - (w / 2) * k; val top = by - (h + 1) * k
+        // the feet, then the two posts and the top and bottom rails
+        c.fillRect(left - k, by - k, 3 * k, k, frameD); c.fillRect(left + (w - 2) * k, by - k, 3 * k, k, frameD)
+        c.fillRect(left, top, k, (h + 1) * k, frameM); c.fillRect(left + (w - 1) * k, top, k, (h + 1) * k, frameD)
+        c.fillRect(left, top, w * k, k, frameL); c.fillRect(left, top + (h - 1) * k, w * k, k, frameM)
+        if (k > 1) { c.vline(left, top, by - 1, frameL); c.hline(left, left + w * k - 1, top, Col.mix(frameL, Col.hex(0xFFFFFF), 0.25f)) }
+        // ten rods of beads between the rails: each bead a pixel of the scene canvas, red then white, a gap at one end
+        for (r in 0 until 10) {
+            val ry = top + k + r * k
+            if (ry >= top + (h - 1) * k) break
+            val shift = if (r < 3) 1 else 0 // the top rods' beads pushed to the right: counted
+            for (b in 0 until w - 3) {
+                val bx = left + (1 + b + shift) * k
+                val beadRed = b < (w - 3) / 2
+                if (k == 1) c.set(bx, ry, if (beadRed) red else white)
+                else {
+                    c.fillCircle(bx + k / 2f, ry + k / 2f, k * 0.5f, if (beadRed) redD else whiteD)
+                    c.fillCircle(bx + k / 2f - 0.4f, ry + k / 2f - 0.4f, k * 0.36f, if (beadRed) red else white)
+                }
+            }
+        }
     }
 
     // ------------------------------------------------------------------ the pupils' corner
@@ -1852,7 +2061,10 @@ internal class SchoolPainter : DioramaPainter() {
         if (winter) prop { sled(bedX - 0.4f, bedY) } else prop { flowerBed(bedX, bedY) }
     }
 
-    /** The flagpole at the corner with the Slovenian flag waving: white, blue and red, the arms near the pole. */
+    /**
+     * The flagpole at the corner with the Slovenian flag waving: white, blue and red, the arms near the pole; in the
+     * culture's look its own ("it": the Italian tricolore, green, white and red from the pole).
+     */
     private fun flagpole() {
         val top = 31f
         post(poleX, poleY, 0f, top, Col.hex(0xD8D8DC), Col.hex(0xA8A8B0), Col.hex(0x6A6A74))
@@ -1864,7 +2076,12 @@ internal class SchoolPainter : DioramaPainter() {
             val x = wallYx(px, y); val u = (x - poleX - 0.1f) / len
             val wave = sin(t * 4 - u * 7).toFloat() * 0.7f * u
             val v = (wallYz(px, py, y) - z0 - wave) / fh
-            if (v in 0f..1f) {
+            if (v in 0f..1f && flagLook == "it") {
+                // the Italian tricolore (the culture's look): green at the hoist, white, red at the fly
+                var col = ITALY[(u * 3f).toInt().coerceIn(0, 2)]
+                if (sin(t * 4 - u * 7) > 0.6f) col = Col.scale(col, 0.85f)
+                c.set(px, py, col)
+            } else if (v in 0f..1f) {
                 var col = stripe[(v * 3f).toInt().coerceIn(0, 2)]
                 // the arms by the hoist, over the white and the blue: a blue shield edged in red, the white peaks of Triglav
                 val au = (u - 0.14f) / 0.2f; val av = (v - 0.4f) / 0.5f
@@ -2121,6 +2338,53 @@ internal class SchoolPainter : DioramaPainter() {
         /** Nominal px along a wall per cell, for round things drawn on a wall. */
         private const val CELL = 4.47f
 
+        /** The plaster of the Slovene classroom (the default culture's look). */
+        private val PLASTER_L = Col.hex(0xF2ECDC); private val PLASTER_M = Col.hex(0xE4DBC4); private val PLASTER_D = Col.hex(0xCDC2A6)
+        /** A painted wainscot's enamel when the look gives none of its own: a pale sage green. */
+        private val PAINT_L = Col.hex(0xC4D8BC); private val PAINT_M = Col.hex(0xA8C49E); private val PAINT_D = Col.hex(0x6E8A66)
+
+        /** The Italian tricolore, from the hoist: green, white, red. */
+        private val ITALY = intArrayOf(Col.hex(0x009246), Col.hex(0xF4F5F0), Col.hex(0xCE2B37))
+
+        /** The school's own greeting on the board by the culture's look's language (null: the Slovene classroom's). */
+        private val GREETINGS: Map<String?, Triple<String, String, String>> = mapOf(
+            null to Triple("Dober dan!", "Kako si?", "Dobro."),
+            "it" to Triple("Ciao!", "Come va?", "Bene!"),
+        )
+
+        /** A rough outline of Friuli Venezia Giulia, 30 × 16, north up: the Alps along the top, the coast and Trieste at the foot. */
+        private val FRIULI = arrayOf(
+            "....#####################.....",
+            "...##########################.",
+            "...##########################.",
+            "....#########################.",
+            "....########################..",
+            ".....######################...",
+            ".....#####################....",
+            "......####################....",
+            "......###################.....",
+            ".......#################......",
+            ".......################.......",
+            "........##############........",
+            ".........###########..##......",
+            "......................###.....",
+            ".......................##.....",
+            "........................#.....",
+        )
+
+        /** Towns on the map of Friuli closer up, as (column, row) of [FRIULI]: Pordenone, Tolmezzo, Gorizia, Trieste. */
+        private val FRIULI_TOWNS = floatArrayOf(8.5f, 8.3f, 12.6f, 3.4f, 21.6f, 9.4f, 23.6f, 13.6f)
+
+        /** The map of Friuli's title in small capitals: FRIULI. */
+        private val FRIULI_TITLE = arrayOf(
+            arrayOf("###", "#..", "##.", "#..", "#.."), // F
+            arrayOf("##.", "#.#", "##.", "#.#", "#.#"), // R
+            arrayOf("#", "#", "#", "#", "#"), // I
+            arrayOf("#.#", "#.#", "#.#", "#.#", "###"), // U
+            arrayOf("#..", "#..", "#..", "#..", "###"), // L
+            arrayOf("#", "#", "#", "#", "#"), // I
+        )
+
         /** Mojca's bed in the school, a curtained alcove along the left wall ("alcove"). */
         private const val ALCOVE = "alcove"
 
@@ -2226,6 +2490,11 @@ internal object ChalkFont {
         '?' to arrayOf("##.", "..#", "..#", ".#.", ".#.", "...", ".#."),
         '.' to arrayOf(".", ".", ".", ".", ".", "#"),
         ' ' to arrayOf("..", "..", "..", "..", "..", ".."),
+        // the Italian greeting's (the culture's look: "Ciao! Come va? Bene!")
+        'C' to arrayOf(".##", "#..", "#..", "#..", "#..", ".##"),
+        'B' to arrayOf("###.", "#..#", "###.", "#..#", "#..#", "###."),
+        'm' to arrayOf(".....", ".....", "####.", "#.#.#", "#.#.#", "#.#.#"),
+        'v' to arrayOf("...", "...", "#.#", "#.#", "#.#", ".#."),
     )
 
     /**
@@ -2283,6 +2552,10 @@ internal object ChalkHand {
         '!' to arrayOf(p(0f, 0f, 0f, 3.3f), p(0f, 5f)),
         '?' to arrayOf(p(0f, 0.9f, 0.4f, 0.2f, 1.2f, 0f, 1.9f, 0.3f, 2f, 1.1f, 1.6f, 1.8f, 1f, 2.5f, 1f, 3.5f), p(1f, 5f)),
         '.' to arrayOf(p(0f, 5f)),
+        'C' to arrayOf(arc(1.5f, 2.5f, 1.5f, 2.5f, 40f, 320f, 16)),
+        'B' to arrayOf(p(0f, 0f, 0f, 5f), p(0f, 0f, 1.7f, 0f, 2.5f, 0.6f, 2.5f, 1.8f, 1.7f, 2.4f, 0f, 2.4f), p(1.7f, 2.4f, 2.7f, 2.9f, 3f, 3.8f, 2.6f, 4.6f, 1.6f, 5f, 0f, 5f)),
+        'm' to arrayOf(p(0f, 2f, 0f, 5f), p(0f, 3f, 0.5f, 2.2f, 1.2f, 2f, 2f, 2.6f, 2f, 5f), p(2f, 2.8f, 2.6f, 2.1f, 3.4f, 2f, 4f, 2.6f, 4f, 5f)),
+        'v' to arrayOf(p(0f, 2f, 1f, 5f, 2f, 2f)),
     )
 
     /** The strokes of [ch] (none for a space or a letter it doesn't know). */

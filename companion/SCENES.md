@@ -2379,6 +2379,7 @@ picture, the words checked against it, the frame times).
 | `friuli` | `smithy` | Fabbro Bruno's smithy (`FRIULI_SMITHY`): walls of pale river cobbles in courses with bands of brick through them, as the houses of the Friulian plain and the Isonzo are built; a wrought-iron grille in the window, bars with scrolls in their bays; his black notebook of orders on the window's sill with a pencil on it (the orders from Gorizia he dictates); the moka warming on the forge's stone top, steaming in the morning |
 | `friuli` | `tent` | the tent at Friuli's camp (`FRIULI_TENT`): Friuli's pennant, the golden eagle on blue, flying from the front post's top and rippling more in a wind; a pair of scarpets, the Friulian velvet slippers with a flower embroidered on each toe, on the floor by the camp bed; a row of vines on stakes and wire along the meadow's back edge, green with grapes from July, gold in autumn, bare canes in winter |
 | `friuli` | `mill` | Mugnaio Franco's mill (`FRIULI_MILL`): it grinds maize for the polenta, golden kernels in the hopper, the stream poured into it and the miller's measure, the meal yellow in its sack, its stream and its spill (the cloud of dust stays white, as Lorenzo says); bunches of maize cobs hung up to dry from the gallery's edge and on a nail in the right wall; the Collio through the window |
+| `friuli` | `school` | an old Italian classroom (`CultureLooks.FRIULI_SCHOOL`; `SchoolLooksTest`): the walls pale yellow over a lower wall painted in a sea-green enamel (material `wainscot` "painted"), a vine with bunches of grapes in the frieze (`frieze` "vine"), the map of Friuli Venezia Giulia with Udine, the Tagliamento, the Isonzo and the lagoons, its title FRIULI (`map` "friuli"), the Italian tricolore on the pole (`flag` "it"), the pallottoliere where the basket stands (`abacus`), and "Ciao! Come va? Bene!" on the board before the first lesson (`greeting` "it") |
 
 ### Where people stand
 
@@ -2416,9 +2417,11 @@ line is its head before ": " ("Biti: sem, si, je" → "Biti"), else over two lin
 "srednji spol"), else its head before the first "?" ("Kje? V hiši, na vrtu, pri babici" → "Kje?"); the forms follow, " · "
 between two on a line, a form too long its last cell ("imenovati se imenujem se" → "imenujem se"); a row of three or more
 keeps its first two cells without the endings ("jaz -m delam" → "jaz delam"), a sentence and its change the change ("Ne
-delam."). Before the first unit: "Dobrodošli!" and the day ("14. 10. 2026"). Without a course, on a visit, in the tools
+delam."). Before the first unit: "Dobrodošli!" and the day ("14. 10. 2026"); the board of an Italian course
+(the Friuli village's) "Benvenuti!" and the day as Italy writes it ("28/10/2026"), its lesson in Italian (`Blackboard.language`). Without a course, on a visit, in the tools
 and the tests (no board in the frame's world: `SceneWorld.board`, set by `AppViewModel.sceneWorld` for the school) it is
-the school's own greeting, "Dober dan! / Kako si? / Dobro." and the chalk sun.
+the school's own greeting, "Dober dan! / Kako si? / Dobro." and the chalk sun ("Ciao! / Come va? / Bene!" in the Friuli
+look).
 
 The hand: letters 3 px wide (m, w, a few capitals 4 or 5), the small ones 4 rows high, capitals and tall letters 6, a row
 below for g, j, p, y; č, š, ž and the other Latin letters with a mark are their letter and the mark over it; "…" three
