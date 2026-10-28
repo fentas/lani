@@ -1,0 +1,326 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "presente-are",
+  "language": "it",
+  "level": "A1",
+  "emoji": "🗣️",
+  "title": { "it": "Parlo, mangio, gioco", "de": "Präsens auf -are: parlo, mangio, gioco", "sl": "Sedanjik na -are: parlo, mangio, gioco", "en": "The present in -are: parlo, mangio, gioco" },
+  "goal": {
+    "de": "Du sagst, was du, deine Freunde und die anderen gerade tun, mit den Verben auf -are: parlo, giochi, canta, mangiamo, pescano.",
+    "sl": "Poveš, kaj delaš ti, kaj delajo tvoji prijatelji in drugi, z glagoli na -are: parlo, giochi, canta, mangiamo, pescano.",
+    "en": "You can say what you, your friends and the others are doing, with the verbs in -are: parlo, giochi, canta, mangiamo, pescano."
+  },
+  "grammar": ["presente-regolare"],
+  "words": ["parlare", "giocare", "mangiare", "cantare", "guardare", "ascoltare", "aspettare", "abitare", "lavorare", "pescare", "nuotare", "saltare", "cucinare", "preparare", "portare", "aiutare", "il frico", "la palla", "la canzone", "il pesce", "la radio", "la piazza", "il nascondino", "oggi", "insieme"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "persona", "de": "wer", "sl": "oseba", "en": "who" },
+        { "it": "desinenza", "de": "Endung", "sl": "končnica", "en": "ending" },
+        { "it": "parlare", "de": "parlare (sprechen)", "sl": "parlare (govoriti)", "en": "parlare (speak)" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Viele Verben enden auf **-are**: **parlare** (sprechen), **cantare** (singen), **guardare** (schauen). Nimm **-are** weg, dann bleibt **parl-**. Für eine Person hängst du an: **-o** (ich), **-i** (du), **-a** (er, sie): **parlo, parli, parla**. Das **io** lässt du meistens weg, denn die Endung sagt schon, wer spricht.",
+          "sl": "Veliko glagolov se konča na **-are**: **parlare** (govoriti), **cantare** (peti), **guardare** (gledati). Odreži **-are** in ostane **parl-**. Za eno osebo dodaš: **-o** (jaz), **-i** (ti), **-a** (on, ona): **parlo, parli, parla**. Kot v slovenščini **io** navadno izpustiš, saj končnica že pove, kdo govori.",
+          "en": "Lots of verbs end in **-are**: **parlare** (to speak), **cantare** (to sing), **guardare** (to look). Take off **-are** and **parl-** is left. For one person add **-o** (I), **-i** (you), **-a** (he, she): **parlo, parli, parla**. You mostly leave **io** out: the ending already says who is speaking."
+        },
+        "examples": [
+          { "it": "Parlo tedesco e un po' di italiano.", "de": "Ich spreche Deutsch und ein bisschen Italienisch.", "sl": "Govorim nemško in malo italijansko.", "en": "I speak German and a little Italian." },
+          { "it": "Nonna Rosa prepara il frico.", "de": "Nonna Rosa macht Frico.", "sl": "Babica Rosa pripravlja frico.", "en": "Nonna Rosa is making frico." }
+        ],
+        "rows": [["io", "-o", "parlo"], ["tu", "-i", "parli"], ["lui, lei", "-a", "parla"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "presente-regolare",
+          "prompt": "Giulia ___ con il gatto. (parlare)",
+          "options": ["parlo", "parli", "parla"],
+          "answer": 2,
+          "say_options": true,
+          "explain": {
+            "de": "**Giulia** ist lei (sie) → **-a**: parla\n- parlo · ich\n- parli · du\n- parla · er, sie",
+            "sl": "**Giulia** je lei (ona) → **-a**: parla\n- parlo · jaz\n- parli · ti\n- parla · on, ona",
+            "en": "**Giulia** is lei (she) → **-a**: parla\n- parlo · I\n- parli · you\n- parla · he, she"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Für mehrere: **-iamo** (wir), **-ate** (ihr), **-ano** (sie): **parliamo, parlate, parlano**. Hör gut hin: Bei **parlano** liegt die Betonung vorn, auf **par**. Die Form mit **noi** heißt auch lass uns: **Cantiamo!** (Singen wir!)",
+          "sl": "Za več oseb: **-iamo** (mi), **-ate** (vi), **-ano** (oni): **parliamo, parlate, parlano**. Dobro poslušaj: pri **parlano** je naglas spredaj, na **par**. Oblika z **noi** je tudi spodbuda: **Cantiamo!** (Zapojmo!)",
+          "en": "For more than one: **-iamo** (we), **-ate** (you all), **-ano** (they): **parliamo, parlate, parlano**. Listen: **parlano** is stressed at the front, on **par**. The **noi** form also means let's: **Cantiamo!** (Let's sing!)"
+        },
+        "examples": [
+          { "it": "Cantiamo una canzone!", "de": "Singen wir ein Lied!", "sl": "Zapojmo pesem!", "en": "Let's sing a song!" },
+          { "it": "I gabbiani guardano il mare.", "de": "Die Möwen schauen aufs Meer.", "sl": "Galebi gledajo morje.", "en": "The seagulls are looking at the sea." }
+        ],
+        "rows": [["noi", "-iamo", "parliamo"], ["voi", "-ate", "parlate"], ["loro", "-ano", "parlano"]],
+        "ask": {
+          "type": "cloze",
+          "grammar": "presente-regolare",
+          "text": "Guarda, le rane ___! (saltare)",
+          "accept": ["saltano"],
+          "hint": "loro …",
+          "explain": {
+            "de": "**le rane** sind loro (sie) → **-ano**: saltano\n- saltiamo · wir\n- saltate · ihr\n- saltano · sie",
+            "sl": "**le rane** so loro (one) → **-ano**: saltano\n- saltiamo · mi\n- saltate · vi\n- saltano · oni, one",
+            "en": "**le rane** are loro (they) → **-ano**: saltano\n- saltiamo · we\n- saltate · you all\n- saltano · they"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Mit mir sprichst du höflich, mit **Lei** (Sie). **Lei** hat dieselbe Form wie **lui** und **lei**: **Maestra, Lei parla sloveno?** Mit Freunden und mit der Familie sagst du **tu**: **Giulia, parli tedesco?**",
+          "sl": "Z mano govoriš vljudno, z **Lei** (vikanje). **Lei** ima isto obliko kot **lui** in **lei**: **Maestra, Lei parla sloveno?** S prijatelji in z družino rečeš **tu**: **Giulia, parli tedesco?**",
+          "en": "With me you speak politely, with **Lei** (you). **Lei** takes the same form as **lui** and **lei**: **Maestra, Lei parla sloveno?** With friends and family you say **tu**: **Giulia, parli tedesco?**"
+        },
+        "examples": [
+          { "it": "Maestra, Lei parla sloveno?", "de": "Maestra, sprechen Sie Slowenisch?", "sl": "Učiteljica, ali govorite slovensko?", "en": "Maestra, do you speak Slovene?" },
+          { "it": "Sì, parlo anche sloveno.", "de": "Ja, ich spreche auch Slowenisch.", "sl": "Ja, govorim tudi slovensko.", "en": "Yes, I speak Slovene too." }
+        ],
+        "rows": [["Lei", "-a", "parla"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "presente-regolare",
+          "prompt": "Signor Franco, Lei ___ oggi? (lavorare)",
+          "options": ["lavori", "lavora", "lavorate"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**Lei** nimmt die Form von lui, lei → **-a**: lavora\n- tu lavori · zu einem Freund\n- Lei lavora · höflich",
+            "sl": "**Lei** ima obliko lui, lei → **-a**: lavora\n- tu lavori · prijatelju\n- Lei lavora · vljudno",
+            "en": "**Lei** takes the lui, lei form → **-a**: lavora\n- tu lavori · to a friend\n- Lei lavora · polite"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Eine Frage ist derselbe Satz, nur die Stimme geht am Ende hoch: **Canti con noi?** (Singst du mit uns?) Für nein stellst du **non** vor das Verb: **Non canto, ascolto.** (Ich singe nicht, ich höre zu.)",
+          "sl": "Vprašanje je isti stavek, le glas gre na koncu gor: **Canti con noi?** (Poješ z nami?) Za ne postaviš **non** pred glagol: **Non canto, ascolto.** (Ne pojem, poslušam.)",
+          "en": "A question is the same sentence, only your voice goes up at the end: **Canti con noi?** (Are you singing with us?) For no, put **non** before the verb: **Non canto, ascolto.** (I'm not singing, I'm listening.)"
+        },
+        "examples": [
+          { "it": "Ciao, {learner}! Canti con noi?", "de": "Hallo, {learner}! Singst du mit uns?", "sl": "Živjo, {learner}! Poješ z nami?", "en": "Hi, {learner}! Are you singing with us?" },
+          { "it": "No, oggi non nuoto: il mare è freddo.", "de": "Nein, heute schwimme ich nicht: Das Meer ist kalt.", "sl": "Ne, danes ne plavam: morje je mrzlo.", "en": "No, I'm not swimming today: the sea is cold." }
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "presente-regolare",
+          "text": "Oggi Tommaso ___ nuota: è stanco.",
+          "accept": ["non"],
+          "hint": { "de": "nein …", "sl": "ne …", "en": "no …" },
+          "explain": {
+            "de": "**nein** → **non** vor das Verb\n- Tommaso nuota. · er schwimmt\n- Tommaso non nuota. · er schwimmt nicht",
+            "sl": "**ne** → **non** pred glagol\n- Tommaso nuota. · plava\n- Tommaso non nuota. · ne plava",
+            "en": "**no** → **non** before the verb\n- Tommaso nuota. · he swims\n- Tommaso non nuota. · he doesn't swim"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Zwei kleine Fallen beim Schreiben. Bei **giocare** und **pescare** kommt vor dem i ein h, damit es hart bleibt: **giochi, giochiamo; peschi, peschiamo**. Bei **mangiare** steht das i nur einmal: **mangi, mangiamo**, nie zwei i.",
+          "sl": "Dve majhni pasti pri pisanju. Pri **giocare** in **pescare** pride pred i še h, da ostane trdo: **giochi, giochiamo; peschi, peschiamo**. Pri **mangiare** je i samo enkrat: **mangi, mangiamo**, nikoli dva i.",
+          "en": "Two little traps when you write. In **giocare** and **pescare** an h comes before the i, so it stays hard: **giochi, giochiamo; peschi, peschiamo**. In **mangiare** the i is written only once: **mangi, mangiamo**, never two i's."
+        },
+        "examples": [
+          { "it": "Giochiamo a nascondino?", "de": "Spielen wir Verstecken?", "sl": "Se gremo skrivalnice?", "en": "Shall we play hide-and-seek?" },
+          { "it": "Peschi con noi? Sì, peschiamo insieme!", "de": "Angelst du mit uns? Ja, wir angeln zusammen!", "sl": "Loviš ribe z nami? Ja, skupaj lovimo ribe!", "en": "Are you fishing with us? Yes, we're fishing together!" },
+          { "it": "Davide, mangi con noi? Mangiamo il frico!", "de": "Davide, isst du mit uns? Wir essen Frico!", "sl": "Davide, ješ z nami? Jemo frico!", "en": "Davide, are you eating with us? We're having frico!" }
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "presente-regolare",
+          "text": "Tu ___ con il cane. (giocare)",
+          "accept": ["giochi"],
+          "hint": "c + i → ch + i",
+          "explain": {
+            "de": "**giocare** mit tu → **giochi** (mit h)\n- gioco · ich\n- giochi · du\n- giochiamo · wir",
+            "sl": "**giocare** s tu → **giochi** (s h)\n- gioco · jaz\n- giochi · ti\n- giochiamo · mi",
+            "en": "**giocare** with tu → **giochi** (with h)\n- gioco · I\n- giochi · you\n- giochiamo · we"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "presente-are-1",
+      "title": { "it": "Canto, canti, canta", "de": "Canto, canti, canta", "sl": "Canto, canti, canta", "en": "Canto, canti, canta" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "presente-regolare",
+          "prompt": { "de": "cantare (singen), ascoltare (zuhören), abitare (wohnen)", "sl": "cantare (peti), ascoltare (poslušati), abitare (stanovati)", "en": "cantare (sing), ascoltare (listen), abitare (live)" },
+          "columns": [
+            { "de": "cantare · singen", "sl": "cantare · peti", "en": "cantare · sing" },
+            { "de": "ascoltare · zuhören", "sl": "ascoltare · poslušati", "en": "ascoltare · listen" },
+            { "de": "abitare · wohnen", "sl": "abitare · stanovati", "en": "abitare · live" }
+          ],
+          "rows": [
+            { "label": "io", "cells": ["canto", { "accept": ["ascolto"], "hint": "-o" }, "abito"]},
+            { "label": "tu", "cells": [{ "accept": ["canti"], "hint": "-i" }, "ascolti", { "accept": ["abiti"]}]},
+            { "label": "lui, lei", "cells": ["canta", { "accept": ["ascolta"], "hint": "-a" }, "abita"]},
+            { "label": "noi", "cells": [{ "accept": ["cantiamo"], "hint": "-iamo" }, "ascoltiamo", { "accept": ["abitiamo"]}]},
+            { "label": "voi", "cells": ["cantate", { "accept": ["ascoltate"], "hint": "-ate" }, "abitate"]},
+            { "label": "loro", "cells": [{ "accept": ["cantano"], "hint": "-ano" }, { "accept": ["ascoltano"]}, "abitano"]}
+          ],
+          "explain": {
+            "de": "**-o, -i, -a, -iamo, -ate, -ano** an den Stamm\n- canto, canti, canta\n- cantiamo, cantate, cantano",
+            "sl": "**-o, -i, -a, -iamo, -ate, -ano** na koren\n- canto, canti, canta\n- cantiamo, cantate, cantano",
+            "en": "**-o, -i, -a, -iamo, -ate, -ano** after the stem\n- canto, canti, canta\n- cantiamo, cantate, cantano"
+          },
+          "instruction": { "de": "Completa · Ergänze die Tabelle", "sl": "Completa · Dopolni tabelo", "en": "Completa · Fill in the table" }
+        },
+        {
+          "type": "sort",
+          "grammar": "presente-regolare",
+          "instruction": { "de": "Chi? · Wer? Sortiere die Verben", "sl": "Chi? · Kdo? Razvrsti glagole", "en": "Chi? · Who? Sort the verbs" },
+          "columns": [
+            { "label": "io", "words": ["parlo", "gioco"]},
+            { "label": "tu", "words": ["canti", "mangi"]},
+            { "label": "lui, lei", "words": ["guarda", "pesca"]},
+            { "label": "loro", "words": ["lavorano", "nuotano"]}
+          ],
+          "explain": {
+            "de": "**Die Endung** sagt, wer\n- -o · io\n- -i · tu\n- -a · lui, lei\n- -ano · loro",
+            "sl": "**Končnica** pove, kdo\n- -o · io\n- -i · tu\n- -a · lui, lei\n- -ano · loro",
+            "en": "**The ending** says who\n- -o · io\n- -i · tu\n- -a · lui, lei\n- -ano · loro"
+          }
+        }
+      ]
+    },
+    {
+      "id": "presente-are-2",
+      "title": { "it": "Domenica in paese", "de": "Sonntag im Dorf", "sl": "Nedelja v vasi", "en": "Sunday in the village" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "presente-regolare",
+          "title": "Domenica in paese",
+          "text": "Oggi è domenica. Nonna Rosa ___ (cucinare) il frico. Giulia ___ (aiutare) la nonna. Tommaso e Lorenzo ___ (giocare) in piazza. Davide ___ (guardare) le pecore. Io ___ (ascoltare) la radio con Zia Nives. E tu, ___ (mangiare) con noi?",
+          "gaps": [
+            { "accept": ["cucina"], "hint": "lei → -a" },
+            { "accept": ["aiuta"], "hint": "lei → -a" },
+            {
+              "accept": ["giocano"],
+              "hint": "loro → -ano",
+              "explain": { "de": "Tommaso e Lorenzo sind loro: **giocano** (vor a kein h).", "sl": "Tommaso e Lorenzo sta loro: **giocano** (pred a ni h).", "en": "Tommaso e Lorenzo = loro: **giocano** (no h before a)." }
+            },
+            { "accept": ["guarda"], "hint": "lui → -a" },
+            { "accept": ["ascolto"], "hint": "io → -o" },
+            {
+              "accept": ["mangi"],
+              "hint": "tu → -i",
+              "explain": { "de": "mangiare mit tu → **mangi**: nur ein i.", "sl": "mangiare s tu → **mangi**: samo en i.", "en": "mangiare with tu → **mangi**: one i." }
+            }
+          ],
+          "bank": true,
+          "distractors": ["cucino", "giocate"],
+          "translation": {
+            "de": "Heute ist Sonntag. Nonna Rosa kocht Frico. Giulia hilft der Oma. Tommaso und Lorenzo spielen auf dem Platz. Davide passt auf die Schafe auf. Ich höre mit Zia Nives Radio. Und du, isst du mit uns?",
+            "sl": "Danes je nedelja. Babica Rosa kuha frico. Giulia pomaga babici. Tommaso in Lorenzo se igrata na trgu. Davide pazi na ovce. S teto Nives poslušam radio. Pa ti, ješ z nami?",
+            "en": "Today is Sunday. Nonna Rosa is cooking frico. Giulia is helping Grandma. Tommaso and Lorenzo are playing in the square. Davide is watching the sheep. I'm listening to the radio with Zia Nives. And you, are you eating with us?"
+          },
+          "instruction": { "de": "Completa · Ergänze das Verb", "sl": "Completa · Dopolni glagol", "en": "Completa · Fill in the verb" }
+        },
+        {
+          "type": "choice",
+          "grammar": "presente-regolare",
+          "prompt": "Lorenzo e io ___ una canzone. (cantare)",
+          "options": ["cantano", "cantiamo", "cantate"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**Lorenzo e io** sind noi (wir) → **-iamo**: cantiamo\n- cantiamo · wir\n- cantate · ihr\n- cantano · sie",
+            "sl": "**Lorenzo e io** je noi (italijanščina nima dvojine) → **-iamo**: cantiamo\n- cantiamo · mi\n- cantate · vi\n- cantano · oni",
+            "en": "**Lorenzo e io** is noi (we) → **-iamo**: cantiamo\n- cantiamo · we\n- cantate · you all\n- cantano · they"
+          }
+        }
+      ]
+    },
+    {
+      "id": "presente-are-3",
+      "title": { "it": "Chi fa che cosa?", "de": "Wer macht was?", "sl": "Kdo kaj dela?", "en": "Who does what?" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "presente-regolare",
+          "instruction": { "de": "Cambia la persona · Schreib es für die Person in Klammern", "sl": "Cambia la persona · Napiši za osebo v oklepaju", "en": "Cambia la persona · Write it for the person in brackets" },
+          "items": [
+            { "from": "Parlo italiano. (noi)", "accept": ["Parliamo italiano.", "Noi parliamo italiano."]},
+            { "from": "Canto una canzone. (Giulia)", "accept": ["Giulia canta una canzone."]},
+            { "from": "Guardo il mare. (i gabbiani)", "accept": ["I gabbiani guardano il mare."]},
+            { "from": "Abito a Gorizia. (voi)", "accept": ["Abitate a Gorizia.", "Voi abitate a Gorizia."]},
+            { "from": "Pesco con Nonno Bepi. (tu)", "accept": ["Peschi con Nonno Bepi.", "Tu peschi con Nonno Bepi."], "hint": "c + i → ch + i" },
+            { "from": "Gioco con il cane. (noi)", "accept": ["Giochiamo con il cane.", "Noi giochiamo con il cane."], "hint": "c + i → ch + i" },
+            { "from": "Aspetto la maestra. (Lorenzo e Tommaso)", "accept": ["Lorenzo e Tommaso aspettano la maestra."]}
+          ],
+          "explain": {
+            "de": "**Die Person** ändert die Endung, der Stamm bleibt\n- parlo → parliamo · canto → canta\n- pesco → peschi · gioco → giochiamo",
+            "sl": "**Oseba** spremeni končnico, koren ostane\n- parlo → parliamo · canto → canta\n- pesco → peschi · gioco → giochiamo",
+            "en": "**The person** changes the ending, the stem stays\n- parlo → parliamo · canto → canta\n- pesco → peschi · gioco → giochiamo"
+          },
+          "cue": "→"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table",
+        "grammar": "presente-regolare",
+        "prompt": { "de": "nuotare (schwimmen)", "sl": "nuotare (plavati)", "en": "nuotare (swim)" },
+        "columns": [{ "de": "nuotare · schwimmen", "sl": "nuotare · plavati", "en": "nuotare · swim" }],
+        "rows": [
+          { "label": "io", "cells": [{ "accept": ["nuoto"]}]},
+          { "label": "tu", "cells": [{ "accept": ["nuoti"]}]},
+          { "label": "noi", "cells": [{ "accept": ["nuotiamo"]}]},
+          { "label": "loro", "cells": [{ "accept": ["nuotano"]}]}
+        ],
+        "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" }
+      },
+      {
+        "type": "gaptext",
+        "grammar": "presente-regolare",
+        "text": "Il pescatore ___ (pescare) in barca. Giulia e io ___ (cantare) in cucina. Tu ___ (giocare) con Tommaso? Zia Nives ___ (ascoltare) la radio.",
+        "gaps": [{ "accept": ["pesca"]}, { "accept": ["cantiamo"]}, { "accept": ["giochi"]}, { "accept": ["ascolta"]}],
+        "translation": {
+          "de": "Der Fischer fischt im Boot. Giulia und ich singen in der Küche. Spielst du mit Tommaso? Zia Nives hört Radio.",
+          "sl": "Ribič lovi ribe v čolnu. Giulia in jaz pojeva v kuhinji. Se igraš s Tommasom? Teta Nives posluša radio.",
+          "en": "The fisherman is fishing in his boat. Giulia and I are singing in the kitchen. Are you playing with Tommaso? Zia Nives is listening to the radio."
+        },
+        "instruction": { "de": "Completa · Ergänze das Verb", "sl": "Completa · Dopolni glagol", "en": "Completa · Fill in the verb" }
+      },
+      {
+        "type": "transform",
+        "grammar": "presente-regolare",
+        "instruction": { "de": "Cambia la persona · Schreib es für die Person in Klammern", "sl": "Cambia la persona · Napiši za osebo v oklepaju", "en": "Cambia la persona · Write it for the person in brackets" },
+        "items": [
+          { "from": "Mangio il frico. (noi)", "accept": ["Mangiamo il frico.", "Noi mangiamo il frico."]},
+          { "from": "Lavoro oggi. (voi)", "accept": ["Lavorate oggi.", "Voi lavorate oggi."]},
+          { "from": "Porto la palla. (Tommaso)", "accept": ["Tommaso porta la palla."]}
+        ],
+        "cue": "→"
+      },
+      {
+        "type": "choice",
+        "grammar": "presente-regolare",
+        "prompt": "Maestra, Lei ___ tedesco? (parlare)",
+        "options": ["parli", "parla", "parlano"],
+        "answer": 1,
+        "say_options": true,
+        "explain": {
+          "de": "**Lei** (höflich) nimmt die Form von lui, lei: **parla**\n- tu parli · zu einem Freund\n- Lei parla · höflich",
+          "sl": "**Lei** (vikanje) ima obliko lui, lei: **parla**\n- tu parli · prijatelju\n- Lei parla · vljudno",
+          "en": "**Lei** (polite) takes the lui, lei form: **parla**\n- tu parli · to a friend\n- Lei parla · polite"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (it, de, sl). Native check: Domenica in paese; giocare a nascondino; the stress tip for parlano; Lei only to Elena and the adults."
+}
