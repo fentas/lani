@@ -1,0 +1,358 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "aggettivi",
+  "language": "it",
+  "level": "A1",
+  "emoji": "🎨",
+  "title": { "it": "Grande, piccola, rossa", "de": "Adjektive: grande, piccola, rossa", "sl": "Pridevniki: grande, piccola, rossa", "en": "Adjectives: grande, piccola, rossa" },
+  "goal": {
+    "de": "Du sagst, wie etwas ist, und das Adjektiv passt zum Nomen: il gatto nero, la pecora nera, i prati verdi, le barche bianche.",
+    "sl": "Poveš, kakšno je nekaj, in pridevnik se ujema s samostalnikom: il gatto nero, la pecora nera, i prati verdi, le barche bianche.",
+    "en": "You can say what things are like, the adjective matching its noun: il gatto nero, la pecora nera, i prati verdi, le barche bianche."
+  },
+  "grammar": ["aggettivi-accordo"],
+  "words": ["rosso", "giallo", "nero", "bianco", "verde", "grigio", "azzurro", "grande", "piccolo", "vecchio", "nuovo", "bello", "stanco", "felice", "caldo", "freddo", "calmo", "il gatto", "la pecora", "la mela", "la ciliegia", "il fiore", "il prato", "la foglia", "la barca", "il trattore", "la conchiglia", "il gabbiano", "il cappello", "la giacca", "gli scarponi", "la tazza"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "maschile", "de": "männlich", "sl": "moški spol", "en": "masculine" },
+        { "it": "femminile", "de": "weiblich", "sl": "ženski spol", "en": "feminine" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Ein Adjektiv sagt, wie etwas ist: **nero** (schwarz), **rosso** (rot), **piccolo** (klein). Es passt sich an das Nomen an: männlich mit **-o**, **il gatto nero**; weiblich mit **-a**, **la pecora nera**. Und es steht meistens hinter dem Nomen, nicht davor wie im Deutschen.",
+          "sl": "Pridevnik pove, kakšno je nekaj: **nero** (črn), **rosso** (rdeč), **piccolo** (majhen). Ujema se s samostalnikom: moški spol z **-o**, **il gatto nero**; ženski spol z **-a**, **la pecora nera**. In navadno stoji za samostalnikom, ne pred njim kot v slovenščini.",
+          "en": "An adjective says what something is like: **nero** (black), **rosso** (red), **piccolo** (small). It matches its noun: masculine with **-o**, **il gatto nero**; feminine with **-a**, **la pecora nera**. And it mostly comes after the noun, not before it as in English."
+        },
+        "examples": [
+          { "it": "Davide ha una pecora nera.", "de": "Davide hat ein schwarzes Schaf.", "sl": "Davide ima črno ovco.", "en": "Davide has a black sheep." },
+          { "it": "Tommaso ha un pallone rosso.", "de": "Tommaso hat einen roten Ball.", "sl": "Tommaso ima rdečo žogo.", "en": "Tommaso has a red football." }
+        ],
+        "rows": [["il gatto nero", "la pecora nera"], ["un pallone rosso", "una mela rossa"]],
+        "ask": {
+          "type": "cloze",
+          "grammar": "aggettivi-accordo",
+          "text": "Giulia mangia una mela ___. (rosso)",
+          "accept": ["rossa"],
+          "hint": { "de": "la mela → weiblich", "sl": "la mela → ženski spol", "en": "la mela → feminine" },
+          "explain": {
+            "de": "**la mela** ist weiblich → **-a**: una mela rossa\n- un pallone rosso · männlich\n- una mela rossa · weiblich",
+            "sl": "**la mela** je ženskega spola → **-a**: una mela rossa\n- un pallone rosso · moški\n- una mela rossa · ženski",
+            "en": "**la mela** is feminine → **-a**: una mela rossa\n- un pallone rosso · masculine\n- una mela rossa · feminine"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Bei mehreren geht es wie bei den Nomen: **-o** wird **-i**, **-a** wird **-e**: **i gatti neri**, **le pecore nere**. Nomen und Adjektiv enden dann oft gleich.",
+          "sl": "Pri več stvareh gre kot pri samostalnikih: **-o** postane **-i**, **-a** postane **-e**: **i gatti neri**, **le pecore nere**. Samostalnik in pridevnik imata potem pogosto isti konec.",
+          "en": "For more than one it goes as with the nouns: **-o** becomes **-i**, **-a** becomes **-e**: **i gatti neri**, **le pecore nere**. The noun and the adjective then often end the same."
+        },
+        "examples": [
+          { "it": "Lorenzo guarda due cavalli neri.", "de": "Lorenzo schaut zwei schwarze Pferde an.", "sl": "Lorenzo gleda dva črna konja.", "en": "Lorenzo is looking at two black horses." },
+          { "it": "Giulia mangia le ciliegie rosse.", "de": "Giulia isst die roten Kirschen.", "sl": "Giulia je rdeče češnje.", "en": "Giulia is eating the red cherries." }
+        ],
+        "rows": [["i gatti neri", "le pecore nere"], ["i palloni rossi", "le mele rosse"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "aggettivi-accordo",
+          "prompt": "Tommaso ha le scarpe ___. (nero)",
+          "options": ["neri", "nere", "nero"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**le scarpe**: weiblich, mehrere → **-e**: nere\n- i gatti neri · männlich\n- le scarpe nere · weiblich",
+            "sl": "**le scarpe**: ženski spol, več → **-e**: nere\n- i gatti neri · moški\n- le scarpe nere · ženski",
+            "en": "**le scarpe**: feminine, more → **-e**: nere\n- i gatti neri · masculine\n- le scarpe nere · feminine"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Adjektive auf **-e** haben nur zwei Formen, für männlich und weiblich gleich: **verde, verdi**; **grande, grandi**; **felice, felici**. Also **il prato verde** und **la foglia verde**, **i prati verdi** und **le foglie verdi**.",
+          "sl": "Pridevniki na **-e** imajo samo dve obliki, enaki za moški in ženski spol: **verde, verdi**; **grande, grandi**; **felice, felici**. Torej **il prato verde** in **la foglia verde**, **i prati verdi** in **le foglie verdi**.",
+          "en": "Adjectives in **-e** have only two forms, the same for masculine and feminine: **verde, verdi**; **grande, grandi**; **felice, felici**. So **il prato verde** and **la foglia verde**, **i prati verdi** and **le foglie verdi**."
+        },
+        "examples": [
+          { "it": "Il gatto di Giulia ha gli occhi verdi.", "de": "Giulias Katze hat grüne Augen.", "sl": "Giulijina mačka ima zelene oči.", "en": "Giulia's cat has green eyes." },
+          { "it": "Davide è un pastore felice.", "de": "Davide ist ein fröhlicher Hirte.", "sl": "Davide je srečen pastir.", "en": "Davide is a happy shepherd." }
+        ],
+        "rows": [["il prato verde", "la foglia verde"], ["i prati verdi", "le foglie verdi"]],
+        "ask": {
+          "type": "cloze",
+          "grammar": "aggettivi-accordo",
+          "text": "Bruno ha due martelli ___. (grande)",
+          "accept": ["grandi"],
+          "hint": "-e → -i",
+          "explain": {
+            "de": "**grande** hat zwei Formen → mehrere: **grandi**\n- un martello grande · una casa grande\n- due martelli grandi · due case grandi",
+            "sl": "**grande** ima dve obliki → več: **grandi**\n- un martello grande · una casa grande\n- due martelli grandi · due case grandi",
+            "en": "**grande** has two forms → more: **grandi**\n- un martello grande · una casa grande\n- due martelli grandi · due case grandi"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Auch nach **è** und **sono** passt das Adjektiv zum Nomen, anders als im Deutschen: **Il cielo è grigio.** (Der Himmel ist grau.) **La luna è bianca.** **Le stelle sono piccole.**",
+          "sl": "Tudi za **è** in **sono** se pridevnik ujema s samostalnikom, kot v slovenščini: **Il cielo è grigio.** (Nebo je sivo.) **La luna è bianca.** **Le stelle sono piccole.**",
+          "en": "After **è** and **sono** the adjective still matches its noun, unlike in English: **Il cielo è grigio.** (The sky is grey.) **La luna è bianca.** **Le stelle sono piccole.**"
+        },
+        "examples": [
+          { "it": "Oggi il mare è grigio.", "de": "Heute ist das Meer grau.", "sl": "Danes je morje sivo.", "en": "The sea is grey today." },
+          { "it": "Le onde sono grandi.", "de": "Die Wellen sind groß.", "sl": "Valovi so veliki.", "en": "The waves are big." }
+        ],
+        "rows": [["il cielo è grigio", "la luna è bianca"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "aggettivi-accordo",
+          "prompt": "La barca è ___. (piccolo)",
+          "options": ["piccolo", "piccola", "piccole"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**la barca** ist weiblich → **piccola**\n- il pontile è piccolo · männlich\n- la barca è piccola · weiblich",
+            "sl": "**la barca** je ženskega spola → **piccola**\n- il pontile è piccolo · moški\n- la barca è piccola · ženski",
+            "en": "**la barca** is feminine → **piccola**\n- il pontile è piccolo · masculine\n- la barca è piccola · feminine"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Ein paar kurze Adjektive stehen oft vor dem Nomen: **grande, piccolo, vecchio, nuovo**: **una piccola barca**, **un vecchio trattore**. Hinter dem Nomen ist es auch richtig: **una barca piccola**. Farben stehen hinten: **un vecchio trattore rosso**.",
+          "sl": "Nekaj kratkih pridevnikov pogosto stoji pred samostalnikom: **grande, piccolo, vecchio, nuovo**: **una piccola barca**, **un vecchio trattore**. Za samostalnikom je tudi prav: **una barca piccola**. Barve so zadaj: **un vecchio trattore rosso**.",
+          "en": "A few short adjectives often come before the noun: **grande, piccolo, vecchio, nuovo**: **una piccola barca**, **un vecchio trattore**. After the noun is right too: **una barca piccola**. Colours come after: **un vecchio trattore rosso**."
+        },
+        "examples": [
+          { "it": "Franco ha un vecchio trattore rosso.", "de": "Franco hat einen alten roten Traktor.", "sl": "Franco ima star rdeč traktor.", "en": "Franco has an old red tractor." },
+          { "it": "Nonno Bepi racconta una vecchia storia.", "de": "Nonno Bepi erzählt eine alte Geschichte.", "sl": "Nonno Bepi pripoveduje staro zgodbo.", "en": "Nonno Bepi tells an old story." }
+        ],
+        "rows": [["un vecchio trattore rosso", "una piccola barca bianca"]],
+        "ask": {
+          "type": "cloze",
+          "grammar": "aggettivi-accordo",
+          "text": "Giulia ha una ___ gatta nera. (piccolo)",
+          "accept": ["piccola"],
+          "hint": { "de": "la gatta → weiblich", "sl": "la gatta → ženski spol", "en": "la gatta → feminine" },
+          "explain": {
+            "de": "**la gatta** ist weiblich → **piccola** davor, **nera** dahinter\n- un piccolo gatto nero\n- una piccola gatta nera",
+            "sl": "**la gatta** je ženskega spola → **piccola** spredaj, **nera** zadaj\n- un piccolo gatto nero\n- una piccola gatta nera",
+            "en": "**la gatta** is feminine → **piccola** before, **nera** after\n- un piccolo gatto nero\n- una piccola gatta nera"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Zwei Tipps zum Schluss. Ein Junge und ein Mädchen zusammen sind männlich: **Giulia e Lorenzo sono stanchi.** Und **bianco** und **stanco** bekommen bei mehreren ein h, damit es hart bleibt: **bianchi, bianche; stanchi, stanche**, wie **giochi**.",
+          "sl": "Še dva nasveta. Deček in deklica skupaj sta v moškem spolu: **Giulia e Lorenzo sono stanchi.** In **bianco** ter **stanco** dobita v množini h, da ostane trdo: **bianchi, bianche; stanchi, stanche**, kot **giochi**.",
+          "en": "Two last tips. A boy and a girl together are masculine: **Giulia e Lorenzo sono stanchi.** And **bianco** and **stanco** add an h for more than one, so it stays hard: **bianchi, bianche; stanchi, stanche**, like **giochi**."
+        },
+        "examples": [
+          { "it": "Giulia e Lorenzo sono stanchi.", "de": "Giulia und Lorenzo sind müde.", "sl": "Giulia in Lorenzo sta utrujena.", "en": "Giulia and Lorenzo are tired." },
+          { "it": "Davide ha tante pecore bianche.", "de": "Davide hat viele weiße Schafe.", "sl": "Davide ima veliko belih ovc.", "en": "Davide has lots of white sheep." },
+          { "it": "Anche io sono {m:stanco|f:stanca}.", "de": "Ich bin auch müde.", "sl": "Tudi jaz sem {m:utrujen|f:utrujena}.", "en": "I'm tired too." }
+        ],
+        "rows": [["i gatti bianchi", "le pecore bianche"]],
+        "ask": {
+          "type": "cloze",
+          "grammar": "aggettivi-accordo",
+          "text": "Tommaso e Giulia sono ___. (stanco)",
+          "accept": ["stanchi"],
+          "hint": { "de": "ein Junge und ein Mädchen → männlich", "sl": "deček in deklica → moški spol", "en": "a boy and a girl → masculine" },
+          "explain": {
+            "de": "**Tommaso e Giulia**: männlich, mehrere → **stanchi** (mit h)\n- stanco · stanca\n- stanchi · stanche",
+            "sl": "**Tommaso e Giulia**: moški spol, več → **stanchi** (s h)\n- stanco · stanca\n- stanchi · stanche",
+            "en": "**Tommaso e Giulia**: masculine, more → **stanchi** (with h)\n- stanco · stanca\n- stanchi · stanche"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "aggettivi-1",
+      "title": { "it": "Di che colore è?", "de": "Welche Farbe hat es?", "sl": "Kakšne barve je?", "en": "What colour is it?" },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "aggettivi-accordo",
+          "instruction": { "de": "Quale parola va bene? · Welches Wort passt?", "sl": "Quale parola va bene? · Katera beseda se ujema?", "en": "Quale parola va bene? · Which word fits?" },
+          "columns": [
+            { "label": "il cappello …", "words": ["rosso", "nuovo"]},
+            { "label": "la giacca …", "words": ["rossa", "nuova"]},
+            { "label": "gli scarponi …", "words": ["neri", "vecchi"]},
+            { "label": "le tazze …", "words": ["bianche", "gialle"]}
+          ],
+          "explain": {
+            "de": "**Das Nomen** entscheidet die Endung\n- il cappello rosso · la giacca rossa\n- gli scarponi neri · le tazze bianche",
+            "sl": "**Samostalnik** odloči končnico\n- il cappello rosso · la giacca rossa\n- gli scarponi neri · le tazze bianche",
+            "en": "**The noun** decides the ending\n- il cappello rosso · la giacca rossa\n- gli scarponi neri · le tazze bianche"
+          }
+        },
+        {
+          "type": "table",
+          "grammar": "aggettivi-accordo",
+          "prompt": { "de": "nero (schwarz), piccolo (klein), verde (grün), bianco (weiß)", "sl": "nero (črn), piccolo (majhen), verde (zelen), bianco (bel)", "en": "nero (black), piccolo (small), verde (green), bianco (white)" },
+          "columns": ["il cane …", "la casa …", "i cani …", "le case …"],
+          "rows": [
+            { "label": "nero", "cells": ["nero", { "accept": ["nera"], "hint": "-a" }, { "accept": ["neri"], "hint": "-i" }, "nere"]},
+            { "label": "piccolo", "cells": ["piccolo", "piccola", { "accept": ["piccoli"]}, { "accept": ["piccole"]}]},
+            {
+              "label": "verde",
+              "cells": [
+                "verde",
+                { "accept": ["verde"], "hint": { "de": "-e: zwei Formen", "sl": "-e: dve obliki", "en": "-e: two forms" } },
+                { "accept": ["verdi"]},
+                "verdi"
+              ]
+            },
+            { "label": "bianco", "cells": ["bianco", { "accept": ["bianca"]}, "bianchi", { "accept": ["bianche"], "hint": "+ h" }]}
+          ],
+          "explain": {
+            "de": "**-o** → -o, -a, -i, -e · **-e** → -e, -i\n- nero, nera, neri, nere\n- verde, verde, verdi, verdi",
+            "sl": "**-o** → -o, -a, -i, -e · **-e** → -e, -i\n- nero, nera, neri, nere\n- verde, verde, verdi, verdi",
+            "en": "**-o** → -o, -a, -i, -e · **-e** → -e, -i\n- nero, nera, neri, nere\n- verde, verde, verdi, verdi"
+          },
+          "instruction": { "de": "Completa · Ergänze die Tabelle", "sl": "Completa · Dopolni tabelo", "en": "Completa · Fill in the table" }
+        }
+      ]
+    },
+    {
+      "id": "aggettivi-2",
+      "title": { "it": "Il mare oggi", "de": "Das Meer heute", "sl": "Morje danes", "en": "The sea today" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "aggettivi-accordo",
+          "title": "Il mare oggi",
+          "text": "Oggi la giornata è ___ (bello). Il cielo è ___ (azzurro). La sabbia è ___ (caldo). Giulia trova due conchiglie ___ (bianco). I gabbiani sono ___ (grigio). Lorenzo e Giulia sono ___ (felice).",
+          "gaps": [
+            { "accept": ["bella"], "hint": { "de": "la giornata → weiblich", "sl": "la giornata → ženski", "en": "la giornata → feminine" } },
+            { "accept": ["azzurro"], "hint": { "de": "il cielo → männlich", "sl": "il cielo → moški", "en": "il cielo → masculine" } },
+            { "accept": ["calda"], "hint": { "de": "la sabbia → weiblich", "sl": "la sabbia → ženski", "en": "la sabbia → feminine" } },
+            {
+              "accept": ["bianche"],
+              "hint": { "de": "weiblich, mehrere: + h", "sl": "ženski, več: + h", "en": "feminine, more: + h" },
+              "explain": { "de": "le conchiglie → **bianche**: Das h hält es hart.", "sl": "le conchiglie → **bianche**: h ohrani trdi glas.", "en": "le conchiglie → **bianche**: the h keeps it hard." }
+            },
+            {
+              "accept": ["grigi"],
+              "hint": { "de": "männlich, mehrere", "sl": "moški, več", "en": "masculine, more" },
+              "explain": { "de": "grigio → **grigi**: nur ein i.", "sl": "grigio → **grigi**: samo en i.", "en": "grigio → **grigi**: one i." }
+            },
+            { "accept": ["felici"], "hint": "-e → -i" }
+          ],
+          "bank": true,
+          "distractors": ["calde", "grigie"],
+          "translation": {
+            "de": "Heute ist ein schöner Tag. Der Himmel ist blau. Der Sand ist warm. Giulia findet zwei weiße Muscheln. Die Möwen sind grau. Lorenzo und Giulia sind fröhlich.",
+            "sl": "Danes je lep dan. Nebo je modro. Pesek je topel. Giulia najde dve beli školjki. Galebi so sivi. Lorenzo in Giulia sta vesela.",
+            "en": "Today is a beautiful day. The sky is blue. The sand is warm. Giulia finds two white shells. The seagulls are grey. Lorenzo and Giulia are happy."
+          },
+          "instruction": { "de": "Completa · Ergänze das Adjektiv", "sl": "Completa · Dopolni pridevnik", "en": "Completa · Fill in the adjective" }
+        },
+        {
+          "type": "choice",
+          "grammar": "aggettivi-accordo",
+          "prompt": "Le pecore di Davide sono ___.",
+          "options": ["bianchi", "bianche", "bianca"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**le pecore**: weiblich, mehrere → **bianche** (mit h)\n- i gatti bianchi · männlich\n- le pecore bianche · weiblich",
+            "sl": "**le pecore**: ženski spol, več → **bianche** (s h)\n- i gatti bianchi · moški\n- le pecore bianche · ženski",
+            "en": "**le pecore**: feminine, more → **bianche** (with h)\n- i gatti bianchi · masculine\n- le pecore bianche · feminine"
+          }
+        }
+      ]
+    },
+    {
+      "id": "aggettivi-3",
+      "title": { "it": "Una, due, tante", "de": "Eins, zwei, viele", "sl": "Ena, dve, veliko", "en": "One, two, lots" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "aggettivi-accordo",
+          "instruction": { "de": "Al plurale · In den Plural", "sl": "Al plurale · V množino", "en": "Al plurale · Into the plural" },
+          "items": [
+            { "from": "Il gatto nero.", "accept": ["I gatti neri."]},
+            { "from": "La mela rossa.", "accept": ["Le mele rosse."]},
+            { "from": "Il fiore giallo.", "accept": ["I fiori gialli."]},
+            { "from": "La barca bianca.", "accept": ["Le barche bianche."], "hint": "barca, bianca: + h" },
+            { "from": "Il cane è felice.", "accept": ["I cani sono felici."], "hint": "è → sono" }
+          ],
+          "explain": {
+            "de": "**mehrere** → Nomen und Adjektiv ändern sich\n- il gatto nero → i gatti neri\n- la barca bianca → le barche bianche",
+            "sl": "**več** → spremenita se samostalnik in pridevnik\n- il gatto nero → i gatti neri\n- la barca bianca → le barche bianche",
+            "en": "**more** → the noun and the adjective change\n- il gatto nero → i gatti neri\n- la barca bianca → le barche bianche"
+          },
+          "cue": "→"
+        },
+        {
+          "type": "transform",
+          "grammar": "aggettivi-accordo",
+          "instruction": { "de": "Cambia la parola · Nimm das neue Wort", "sl": "Cambia la parola · Vzemi novo besedo", "en": "Cambia la parola · Change the word" },
+          "items": [
+            { "from": "Il gatto è nero. (la pecora)", "accept": ["La pecora è nera."]},
+            { "from": "Il cappello è nuovo. (la giacca)", "accept": ["La giacca è nuova."]},
+            { "from": "La casa è piccola. (il fienile)", "accept": ["Il fienile è piccolo."]},
+            { "from": "Le mele sono rosse. (i pomodori)", "accept": ["I pomodori sono rossi."]}
+          ],
+          "explain": {
+            "de": "**das neue Nomen** → das Adjektiv folgt ihm\n- la pecora è nera\n- i pomodori sono rossi",
+            "sl": "**nov samostalnik** → pridevnik mu sledi\n- la pecora è nera\n- i pomodori sono rossi",
+            "en": "**the new noun** → the adjective follows it\n- la pecora è nera\n- i pomodori sono rossi"
+          },
+          "cue": "→"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table",
+        "grammar": "aggettivi-accordo",
+        "prompt": { "de": "giallo (gelb), grande (groß)", "sl": "giallo (rumen), grande (velik)", "en": "giallo (yellow), grande (big)" },
+        "columns": ["il fiore …", "la mela …", "i fiori …", "le mele …"],
+        "rows": [
+          { "label": "giallo", "cells": ["giallo", { "accept": ["gialla"]}, { "accept": ["gialli"]}, { "accept": ["gialle"]}]},
+          { "label": "grande", "cells": ["grande", { "accept": ["grande"]}, { "accept": ["grandi"]}, "grandi"]}
+        ],
+        "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" }
+      },
+      {
+        "type": "gaptext",
+        "grammar": "aggettivi-accordo",
+        "text": "Il cielo è ___ (grigio). La nebbia è ___ (bianco). Le onde sono ___ (grande). Tommaso e Giulia sono ___ (stanco).",
+        "gaps": [{ "accept": ["grigio"]}, { "accept": ["bianca"]}, { "accept": ["grandi"]}, { "accept": ["stanchi"]}],
+        "translation": {
+          "de": "Der Himmel ist grau. Der Nebel ist weiß. Die Wellen sind groß. Tommaso und Giulia sind müde.",
+          "sl": "Nebo je sivo. Megla je bela. Valovi so veliki. Tommaso in Giulia sta utrujena.",
+          "en": "The sky is grey. The fog is white. The waves are big. Tommaso and Giulia are tired."
+        },
+        "instruction": { "de": "Completa · Ergänze das Adjektiv", "sl": "Completa · Dopolni pridevnik", "en": "Completa · Fill in the adjective" }
+      },
+      {
+        "type": "transform",
+        "grammar": "aggettivi-accordo",
+        "instruction": { "de": "Al plurale · In den Plural", "sl": "Al plurale · V množino", "en": "Al plurale · Into the plural" },
+        "items": [{ "from": "La pecora nera.", "accept": ["Le pecore nere."]}, { "from": "Il prato verde.", "accept": ["I prati verdi."]}],
+        "cue": "→"
+      },
+      {
+        "type": "choice",
+        "grammar": "aggettivi-accordo",
+        "prompt": "Franco ha un ___ trattore rosso. (vecchio)",
+        "options": ["vecchio", "vecchia", "vecchi"],
+        "answer": 0,
+        "say_options": true,
+        "explain": { "de": "**il trattore** ist männlich → **vecchio** davor, **rosso** dahinter", "sl": "**il trattore** je moškega spola → **vecchio** spredaj, **rosso** zadaj", "en": "**il trattore** is masculine → **vecchio** before, **rosso** after" }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (it, de, sl). Native check: Il mare oggi; colours after the noun as a child's rule; the playful table (il cane verde)."
+}
