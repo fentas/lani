@@ -146,8 +146,9 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        frames.tsv and screenshots in $LANI_QA_ZOOM_SHOTS (LANI_QA_FRAMES_S seconds each, 8;
                        LANI_QA_FRAMES_HOURS, "22,11"; LANI_QA_FRAMES_ZOOMS, "1.5,2.5,3");
                        "home-return" (only when named) what going back to Home costs: from the village and from
-                       Settings, three times each, every frame after the Back (gfxinfo framestats: the longest, the main
-                       thread's longest, those over 33 ms), Choreographer's skipped frames, when Home shows again; with
+                       Settings, three times each, and the village opened: for 3 s from the Back (the tap) the main
+                       thread's messages (QA's hook "main:watch": their sum, the longest), every frame (gfxinfo
+                       framestats), Choreographer's skipped frames, the garbage collections; with
                        LANI_QA_TRACE=<dir> the first Back from the village traced by method (am profile) into it;
                        home-return.tsv in $LANI_QA_HOME_SHOTS;
                        "bubbles-follow" the village's bubbles with their people (QA's hook "hour:11"): at home, dragged
@@ -11665,11 +11666,14 @@ def zoom_frames():
 def home_return():
     """What going back to Home costs (2026-10-28, Jan: "going back to the main screen freezes the app for a short moment,
     then it works; consistently", 1 to 2 s from the village; docs/plans/05-built/home-return.md): from Home into the
-    village and into Settings, each three times, and Back; every frame after the Back (dumpsys gfxinfo framestats, reset
-    just before it): the longest frame, the main thread's longest work (input to handing the frame over) and the frames over
-    33 ms, and how long until Home's "Danes · Today" is on the screen again (uiautomator, about a second's grain). With
-    LANI_QA_TRACE=<dir> the first Back from the village is also traced by method (am profile, sampled every 0.2 ms) into
-    <dir>/back-village.trace. A table, also home-return.tsv in $LANI_QA_HOME_SHOTS; LANI_QA_HOME_TRIES (3) times each."""
+    village and into Settings, each three times, and Back; and the village opened from Home. For the 3 s from the key or
+    the tap, nothing asked of the screen meanwhile: the main thread's messages (QA's hook "main:watch", app/MainWatch.kt:
+    how many, their sum, the longest, those over a frame and over 100 ms; "?" from a build without the hook), every frame
+    (dumpsys gfxinfo framestats, reset just before: the longest, its main thread's part, those over 33 ms), Choreographer's
+    skipped frames, the runtime's garbage collections (how many, the MB they freed, how long a thread waited for one), and
+    whether Home (the village) shows then. With LANI_QA_TRACE=<dir> the first Back from the village is also traced by
+    method (am profile, sampled every 0.2 ms; its sampling waits for each collection) into <dir>/back-village.trace. A
+    table, also home-return.tsv in $LANI_QA_HOME_SHOTS; LANI_QA_HOME_TRIES (3) times each."""
     go_home()
     rows = []
     out_dir = Path(os.environ["LANI_QA_HOME_SHOTS"]) if os.environ.get("LANI_QA_HOME_SHOTS") else None
@@ -11697,34 +11701,62 @@ def home_return():
                 got.append(((done - vs) / 1e6, max(0, queued - ui0) / 1e6))
         return got
 
+    def uptime_ms() -> int:
+        """The device's SystemClock.elapsedRealtime now (ms): /proc/uptime."""
+        return int(float(adb("shell", "cat", "/proc/uptime").split()[0]) * 1000)
+
+    def watched(t0: int) -> tuple[str, ...]:
+        """The main thread's messages in the 3 s from [t0] (QA's hook "main:report", app/MainWatch.kt): how many, their
+        sum, the longest, those over a frame and over 100 ms; "?" each when the build hasn't the hook."""
+        qa_hook(f"main:report:{t0}")
+        line = next((l for l in adb("logcat", "-d", "-s", "LaniMain:I", check=False).splitlines() if f"main from {t0}:" in l), "")
+        m = re.search(r"(\d+) messages, ([\d.]+) ms, the longest ([\d.]+) ms, (\d+) over 16.7 ms, (\d+) over 100 ms", line)
+        return m.groups() if m else ("?",) * 5
+
+    def row(name: str, i: int, seen, main_watch: tuple[str, ...]):
+        fs = frames()
+        whole = sorted(f[0] for f in fs); main = sorted(f[1] for f in fs)
+        skipped = sum(int(m.group(1)) for m in re.finditer(r"Skipped (\d+) frames", adb("logcat", "-d", "-s", "Choreographer:I", check=False)))
+        # the runtime's garbage collections meanwhile (logged under the process's name: "Background concurrent mark compact
+        # GC freed …", "WaitForGcToComplete blocked …"): what the app's threads made for the collector, and a wait for it
+        gc_words = ("GC freed", "blocking GC", "WaitForGcToComplete", "Suspending all threads took")
+        gcs = [l.split(": ", 1)[-1] for l in adb("logcat", "-d", check=False).splitlines() if any(w in l for w in gc_words)]
+        freed = sum(int(m.group(1)) for l in gcs for m in [re.search(r"freed (\d+)MB", l)] if m)
+        waited = sum(float(m.group(1)) for l in gcs for m in [re.search(r"WaitForGcToComplete blocked .* for ([\d.]+)ms", l)] if m)
+        r = "\t".join([name, str(i + 1), *main_watch, str(len(fs)), f"{(whole[-1] if whole else float('nan')):.1f}",
+                       f"{(main[-1] if main else float('nan')):.1f}", str(sum(1 for x in whole if x > 33.4)), str(skipped),
+                       str(sum(1 for l in gcs if "GC freed" in l)), str(freed), f"{waited:.0f}", seen])
+        rows.append(r)
+        print(f"    {r}")
+
+    def reset():
+        adb("logcat", "-c")
+        adb("shell", "dumpsys", "gfxinfo", PKG, "reset", check=False)
+
+    def window(t0: int):
+        """The 3 s from [t0] go by, nothing asked of the screen meanwhile (uiautomator's dumps are the main thread's work too)."""
+        left = t0 / 1000 + 3.3 - uptime_ms() / 1000
+        if left > 0:
+            time.sleep(left)
+
     def back(name: str, opener, i: int):
         opener()
         time.sleep(2.5 * slow())
-        adb("logcat", "-c")
-        adb("shell", "dumpsys", "gfxinfo", PKG, "reset", check=False)
+        reset()
         traced = trace_dir and name == "village" and i == 0
         if traced:
             adb("shell", "am", "profile", "start", "--sampling", "200", PKG, "/data/local/tmp/back.trace", check=False)
-        t0 = time.time()
+            time.sleep(1.5)  # the profiler on in the app before the key (am returns before it is)
+        t0 = uptime_ms()
         adb("shell", "input", "keyevent", "KEYCODE_BACK")
-        seen = None
-        while time.time() - t0 < 10:
-            if find("Danes · Today"):
-                seen = time.time() - t0
-                break
-        time.sleep(1.5)
+        window(t0)
         if traced:
             adb("shell", "am", "profile", "stop", PKG, check=False)
             time.sleep(1)
             Path(trace_dir).mkdir(parents=True, exist_ok=True)
             adb("pull", "/data/local/tmp/back.trace", str(Path(trace_dir) / "back-village.trace"), check=False)
-        fs = frames()
-        whole = sorted(f[0] for f in fs); main = sorted(f[1] for f in fs)
-        skipped = sum(int(m.group(1)) for m in re.finditer(r"Skipped (\d+) frames", adb("logcat", "-d", "-s", "Choreographer:I", check=False)))
-        row = (f"{name}\t{i + 1}\t{len(fs)}\t{(whole[-1] if whole else float('nan')):.1f}\t{(main[-1] if main else float('nan')):.1f}\t"
-               f"{sum(1 for x in whole if x > 33.4)}\t{skipped}\t{'?' if seen is None else f'{seen:.1f}'}")
-        rows.append(row)
-        print(f"    {row}")
+        w = watched(t0)
+        row(name, i, "yes" if wait_for("Danes · Today", 8) else "no", w)
 
     def open_village():
         village()  # its first-time intro skipped
@@ -11732,14 +11764,32 @@ def home_return():
     def open_settings():
         assert tap("Nastavitve · Settings", 5), "Settings from Home"
 
+    def into_village(i: int):
+        # the village opened once more, its frames and the main thread's messages from the tap on
+        to_top()
+        c = wait_for("Moja vas", 5)
+        assert c is not None, "the header's way into the village"
+        time.sleep(2.5 * slow())  # Home's reading anew after the Back before done
+        reset()
+        t0 = uptime_ms()
+        adb("shell", "input", "tap", str(c[0]), str(c[1]))
+        window(t0)
+        w = watched(t0)
+        row("open village", i, "yes" if wait_for("Zvitek · Scroll", 5) or find("Knjiga · Book") else "no", w)
+        go_home()
+
+    qa_hook("main:watch")
     tries = int(os.environ.get("LANI_QA_HOME_TRIES", "3"))
     for i in range(tries):
         back("village", open_village, i)
         go_home()
     for i in range(tries):
+        into_village(i)
+    for i in range(tries):
         back("settings", open_settings, i)
         go_home()
-    head = "from\ttry\tframes\tlongest frame ms\tlongest main ms\tframes over 33 ms\tskipped (Choreographer)\tHome seen after s"
+    head = ("from\ttry\tmain messages in 3 s\ttheir ms\tlongest message ms\tover 16.7 ms\tover 100 ms\tframes\tlongest frame ms\t"
+            "longest frame's main ms\tframes over 33 ms\tskipped (Choreographer)\tGCs\tGC freed MB\twaited for GC ms\tshown")
     print(f"    {head}")
     if out_dir:
         (out_dir / "home-return.tsv").write_text("\n".join([head] + rows) + "\n")

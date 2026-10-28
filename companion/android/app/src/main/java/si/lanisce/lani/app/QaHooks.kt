@@ -149,6 +149,9 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   "hearths:short" the store short of wood, the outlying hearths out as the day's tick leaves them; "hearths:lit" every
  *   one lit again; "hearths:feast" a feast today (the square's kres in the evening); "hearths:cold" the forge without
  *   charcoal.
+ * - "main:watch": each message of the main thread's loop is timed from now on ([MainWatch]); "main:report:<from>" logs
+ *   (tag LaniMain) those that began within 3 s from that moment (SystemClock.elapsedRealtime, ms): how many, their sum, the
+ *   longest, those over a frame: QA's home-return (docs/plans/05-built/home-return.md).
  * - "seed:<n>": the founding's place ("Kje bo tvoja vas?", ui/game/FoundingScreen) is the one of that seed for the dice and
  *   the land ([foundingSeed]; 551323397: Teo's coast, whose land seed it is too), a reroll going on from it; "seed:" rolls
  *   one at random again.
@@ -362,6 +365,8 @@ object QaHooks {
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
+            command == "main:watch" -> MainWatch.watch()
+            command.startsWith("main:report:") -> command.removePrefix("main:report:").trim().toLongOrNull()?.let(MainWatch::report)
             command.startsWith("event:") -> event(command.removePrefix("event:").trim())
             command.startsWith("hearths:") -> hearths(command.removePrefix("hearths:").trim())
             command.startsWith("dev:") -> dev(command.removePrefix("dev:"))
