@@ -10867,19 +10867,22 @@ def zoom_frames():
     the frames' times (dumpsys gfxinfo framestats, every frame: its whole time from the vsync it was meant for, and the
     main thread's part, input to sync), the summary's percentiles and janky share, and the map's own render time (the
     debug build's log, tag TownScene). Printed as a table, also as frames.tsv in $LANI_QA_ZOOM_SHOTS with screenshots;
-    LANI_QA_FRAMES_HOURS ("22,11") and LANI_QA_FRAMES_ZOOMS ("1.5,2.5,3") choose fewer, for a short run."""
+    LANI_QA_FRAMES_HOURS ("22,11") and LANI_QA_FRAMES_ZOOMS ("1.5,2.5,3") choose fewer, for a short run;
+    LANI_QA_FRAMES_DISPLAY ("2560x1600/320") another display (1280x800/160: the same canvas, a quarter of the pixels for
+    the emulator's software GPU, whose frames are otherwise the GPU's time, not the app's)."""
     go_home()
     found_village()
     go_home()
     village()
     seconds = float(os.environ.get("LANI_QA_FRAMES_S", "8"))
     rows = []
+    dw, dh = 2560, 1600  # the display's size (LANI_QA_FRAMES_DISPLAY)
     out_dir = Path(os.environ["LANI_QA_ZOOM_SHOTS"]) if os.environ.get("LANI_QA_ZOOM_SHOTS") else None
     if out_dir:
         out_dir.mkdir(parents=True, exist_ok=True)
 
     def framestats() -> list[tuple[int, float, float]]:
-        """The frames gfxinfo still holds (its last 120): (intended vsync ns, whole ms, main thread ms)."""
+        """The frames gfxinfo still holds (its last 120): (intended vsync ns, whole ms, the main thread's work ms)."""
         out = adb("shell", "dumpsys", "gfxinfo", PKG, "framestats", check=False)
         frames = []
         cols = None
@@ -10898,7 +10901,9 @@ def zoom_frames():
                 if int(row["Flags"]) != 0:
                     continue
                 vs, done = int(row["IntendedVsync"]), int(row["FrameCompleted"])
-                ui0, sync = int(row["HandleInputStart"]), int(row["SyncStart"])
+                # the main thread's own work: input, animation, layout and drawing, up to handing the frame over
+                # (not the wait for the screen's render thread after it, which a slow GPU makes long)
+                ui0, sync = int(row["HandleInputStart"]), int(row["SyncQueued"])
             except (KeyError, ValueError):
                 continue
             if vs <= 0 or done <= vs:
@@ -10937,9 +10942,11 @@ def zoom_frames():
         if act == "pinch":
             qa_hook(f"cam:pinch:{seconds:.0f}")
         while time.time() < end:
-            if act == "pan":  # back and forth over the village
-                adb("shell", "input", "swipe", "900", "800", "1700", "900", "600")
-                adb("shell", "input", "swipe", "1700", "900", "900", "800", "600")
+            if act == "pan":  # back and forth over the village, a third of the screen each way
+                a, b = f"{dw * 35 // 100}", f"{dh // 2}"
+                c, d = f"{dw * 66 // 100}", f"{dh * 56 // 100}"
+                adb("shell", "input", "swipe", a, b, c, d, "600")
+                adb("shell", "input", "swipe", c, d, a, b, "600")
             else:
                 time.sleep(1.2)
             for f in framestats():
@@ -10954,6 +10961,7 @@ def zoom_frames():
         over = sum(1 for x in whole if x > 33.4)
         row = (f"{name}\t{renders()}\t{len(frames)}\t{pct(whole, 0.5):.1f}\t{pct(whole, 0.9):.1f}\t{pct(whole, 0.99):.1f}\t"
                f"{(whole[-1] if whole else float('nan')):.1f}\t{over}\t{pct(main, 0.5):.1f}\t{pct(main, 0.9):.1f}\t"
+               f"{(main[-1] if main else float('nan')):.1f}\t{sum(1 for x in main if x > 16.7)}\t"
                f"{g['p50']}\t{g['p90']}\t{g['janky']}")
         rows.append(row)
         print(f"    {row}")
@@ -10962,8 +10970,12 @@ def zoom_frames():
             shutil.copy(shots[-1], out_dir / f"{name.replace(' ', '-')}.png")
 
     try:
-        adb("shell", "wm", "size", "2560x1600")
-        adb("shell", "wm", "density", "320")
+        # the tablet on its side; LANI_QA_FRAMES_DISPLAY="1280x800/160": the same canvas (320 × 200) and the same layout
+        # in dp, a quarter of the pixels for an emulator's software GPU to put on the screen
+        size, dpi = os.environ.get("LANI_QA_FRAMES_DISPLAY", "2560x1600/320").split("/")
+        dw, dh = (int(v) for v in size.split("x"))
+        adb("shell", "wm", "size", size)
+        adb("shell", "wm", "density", dpi)
         time.sleep(6 * slow())
         for hour in os.environ.get("LANI_QA_FRAMES_HOURS", "22,11").split(","):
             qa_hook(f"hour:{hour}")
@@ -10986,7 +10998,7 @@ def zoom_frames():
         adb("shell", "wm", "density", "reset")
         time.sleep(6 * slow())
     head = ("look\trender ms\tdetail\tframes\tp50 ms\tp90 ms\tp99 ms\tmax ms\tover 33 ms\tmain p50 ms\tmain p90 ms\t"
-            "gfx p50\tgfx p90\tjanky %")
+            "main max ms\tmain over 16 ms\tgfx p50\tgfx p90\tjanky %")
     print(f"    {head}")
     if out_dir:
         (out_dir / "frames.tsv").write_text("\n".join([head] + rows) + "\n")
