@@ -203,6 +203,13 @@ state (about 18 bytes a pixel: 8 MB on the tablet at most).
 - `TownPicturesTest` (Robolectric, native graphics): the first picture there at once, the nominal canvas's pixels; the
   closer look from the render thread covering the screen and its apron, its pixels a render of its window; the picture
   on the screen never drawn into while 38 asks come in a row, merged while it renders.
+- **On the emulator** (the qa build of the branch): `zoom-frames` (above) on the Teo-like coast village, its screenshots at
+  every look (ux-perf-zoom/after-qa-1280/; before-qa-1280/ the same with the build before); `scene-people` on a synthetic
+  Slovene learner: the church, the kitchen and the smithy opened, their people where they stand and closer up (the closer
+  look rendered on its own thread, the view covered), the church's top bar in German; `bubbles-follow`: the bubbles with
+  their people at home, dragged, zoomed in and dragged (the closer look's window following the camera), the edge chip.
+  QA's `place-card` didn't find the fire's node on a Vas village ("Ogenj · The fire": its centre is the fire ring there,
+  since the hearths), on main as on the branch.
 - Unchanged and green: `ClassicLandTest`'s digests (the classic land's pictures pixel for pixel, at details 2 and 3
   through a lens too), `GroundCacheTest` (1,302 frames the same kept and whole, now through the cells), `LodTest`,
   `LandmarksTest`, `CoastHorizonTest`, `SceneDetailTest` (every scene's window the whole picture's, the frame budget) and
