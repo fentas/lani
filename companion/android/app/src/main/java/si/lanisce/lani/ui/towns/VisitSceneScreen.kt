@@ -182,7 +182,7 @@ private fun VisitPlace(vm: AppViewModel, v: TownVisit, spec: SceneSpec) {
             SceneView(
                 scene = scene, people = people, highlight = talk?.person?.id ?: selected ?: greeted, onTap = ::tapped,
                 modifier = Modifier.fillMaxWidth().height(sceneHeight), anchors = anchors, cues = cues, world = world,
-                onPoke = { id, poked -> vm.ambience.poke(scene.art, id, poked, sceneClock) },
+                onPoke = { id, poked -> vm.ambience.poke(scene.art, id, poked, sceneClock, world.look) },
                 village = state?.seed ?: 0L, clock = sceneClock,
                 // the night sky over an outdoor place: its card, in the town's language (not during a dialog)
                 onSky = { tap -> if (talk == null) (VisitTaps.sky(tap) as? VisitTaps.Open.Sky)?.let { selected = null; greeted = null; skyCard = it.tap } },

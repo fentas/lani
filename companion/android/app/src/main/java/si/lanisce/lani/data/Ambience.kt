@@ -90,10 +90,13 @@ class Ambience(context: Context, scope: CoroutineScope, talking: () -> Boolean) 
         if (before != null && place is Place.Scene && before.fx != place.fx) cue(clock, duck = false) { now -> Sfx.fx(place.art, before.fx, place.fx, now) }
     }
 
-    /** A tap on [id] of [art] set off its reaction [poked] (on the scene's [clock]): its sound, if it makes one ([Sfx.poke]). */
-    fun poke(art: String, id: String, poked: Poked, clock: TownClock) {
+    /**
+     * A tap on [id] of [art] set off its reaction [poked] (on the scene's [clock]): its sound, if it makes one ([Sfx.poke]),
+     * as the [look] of the village's culture draws it.
+     */
+    fun poke(art: String, id: String, poked: Poked, clock: TownClock, look: si.lanisce.lani.game.scene.CultureLook? = null) {
         val origin = clock.origin.takeIf { it >= 0 } ?: (System.nanoTime() - (poked.start * 1e9).toLong())
-        if (on) player.play(Sfx.poke(art, id, poked.step, poked.start), origin)
+        if (on) player.play(Sfx.poke(art, id, poked.step, poked.start, look), origin)
     }
 
     /**

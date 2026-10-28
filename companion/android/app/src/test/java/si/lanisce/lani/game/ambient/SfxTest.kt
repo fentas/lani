@@ -80,6 +80,9 @@ class SfxTest {
     @Test fun `the marmot whistles, the owl hoots at the third tap, the pot rattles, the cat purrs at the second`() {
         assertEquals(listOf(Cue(Sound.WHISTLE, 20.3)), poke("alps", "marmot", 0))
         assertEquals(emptyList<Cue>(), poke("alps", "marmot", 1))
+        // Carinthia's marmot whistles too; in the Lake District's look a rabbit sits there, and a rabbit makes no sound
+        assertEquals(listOf(Cue(Sound.WHISTLE, 20.3)), Sfx.poke("alps", "marmot", 0, 20.0, si.lanisce.lani.game.scene.CultureLooks.of("kaernten")))
+        assertEquals(emptyList<Cue>(), Sfx.poke("alps", "marmot", 0, 20.0, si.lanisce.lani.game.scene.CultureLooks.of("lakeland")))
         assertEquals(emptyList<Cue>(), poke("forest", "owl", 0))
         assertEquals(listOf(Sound.HOOT), poke("forest", "owl", 2).map { it.sound })
         assertEquals(20.6, poke("forest", "owl", 2).single().at, 1e-9)

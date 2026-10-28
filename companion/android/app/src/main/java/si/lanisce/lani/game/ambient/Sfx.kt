@@ -86,9 +86,10 @@ object Sfx {
      * swing; the anvil rings, then twice; the cow's bell clanks as she shakes her head (her lowing has no sound); the
      * marmot whistles; the owl hoots (its third reaction); the pot's lid rattles, and after its hop when it boils over; the
      * cat purrs (its second reaction); the campfire flares up; the square's dog barks as he jumps up (his second). Nothing
-     * for the rest.
+     * for the rest. [look]: the village's culture's look ([si.lanisce.lani.game.scene.CultureLook]), where it draws the thing
+     * otherwise: the Lake District's rabbit in the marmot's place makes no sound.
      */
-    fun poke(art: String, id: String, step: Int, start: Double): List<Cue> = when ("$art/$id") {
+    fun poke(art: String, id: String, step: Int, start: Double, look: si.lanisce.lani.game.scene.CultureLook? = null): List<Cue> = when ("$art/$id") {
         // SquarePainter: the swing sin(5.5 t) × up in 0.25 s, down from 2 to 3.2 s
         "square/tower" -> strikes(SQUARE_SWING, start + 0.1, start + 3.2).map { t ->
             Cue(Sound.BELL, t, ease(t - start, 0.0, 0.25) * (1f - ease(t - start, 2.0, 3.2)))
@@ -107,7 +108,7 @@ object Sfx {
             Cue(Sound.COWBELL, start + a, 0.8f * (1f - ease(a, 1.6, 2.6)), if (i % 2 == 0) 0.96f else 1.04f)
         }
         // AlpsPainter: up on its rock it whistles, the sound's rings going out from 0.3 s
-        "alps/marmot" -> if (step == 0) listOf(Cue(Sound.WHISTLE, start + 0.3)) else emptyList()
+        "alps/marmot" -> if (step == 0 && look?.variant(art, id) == null) listOf(Cue(Sound.WHISTLE, start + 0.3)) else emptyList()
         // ForestPainter: the third tap turns its head and hoots, the calls going out from 0.6 s
         "forest/owl" -> if (step == 2) listOf(Cue(Sound.HOOT, start + 0.6)) else emptyList()
         // RoomPainter.pot: the lid rattles for a second; boiling over it hops (down again at 0.42 s), then rattles

@@ -502,7 +502,7 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
                 // the number the dialog counts: the picture draws that many (the sheep at the water)
                 count = talk?.counted,
                 onPoke = { id, poked ->
-                    vm.ambience.poke(scene.art, id, poked, sceneClock)
+                    vm.ambience.poke(scene.art, id, poked, sceneClock, world.look)
                     // a sleeper of the scene, or one of the household it doesn't list (Zala in the kitchen): themselves
                     val who = Sleep.sleeperOf(id)?.let { p ->
                         scene.people.firstOrNull { it.id == p }
