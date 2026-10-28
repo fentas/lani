@@ -1962,8 +1962,8 @@ lists every unit that turns on a form.
 
 **The units.** A1's 18 (to be, gender, the present, the plural, the accusative, numbers, the locative, the tenses …),
 then A2, which opens with the cases (2026-10-27, [COURSE.md](COURSE.md#the-cases-a2)): `skloni` (the six cases by their
-questions), `rodilnik`, `kje-kam-od-kod`, `dajalnik`, `orodnik` and `pridevniki-skloni`; the rest of A2 and B1 is in
-the outline, planned. A2 opens when the school stands and every A1 unit is done (GAME.md, "The school opens the next
+questions), `rodilnik`, `kje-kam-od-kod`, `dajalnik`, `orodnik`, `pridevniki-skloni`, and goes on with the plural's
+cases, pronouns, the comparative, aspect, the conditional (14 units); then B1's 16. A2 opens when the school stands and every A1 unit is done (GAME.md, "The school opens the next
 levels"); a unit's "⏩ Znam že: kar na test" tests out of it at once.
 
 **Checked** (`ui/school/SheetExercises.kt`, `data/AnswerDiff.kt`, `ui/AnswerDiffText.kt`). "Preveri · Check" marks every

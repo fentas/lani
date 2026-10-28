@@ -25,8 +25,8 @@ the prints companion/COURSE.md ("Printed sheets"), the school's rules companion/
 - **What they turn on** (COURSE.md's table): the genitive, dative and instrumental rows of the forms cards and the
   adjective's cases; `skloni` and `kje-kam-od-kod` nothing new.
 - **Content checks** in the bridge's smoke (`test/smoke/course-content.ts`), on every unit of the course: a named form
-  (lemma + form) is the dictionary's for its slot, an answer with a word in brackets is a form of that word (327
-  answers), and COURSE.md's "What a unit turns on" lists every unit that turns on a form, with its pages.
+  (lemma + form) is the dictionary's for its slot, an answer with a word in brackets is a form of that word (441
+  answers of all 48 units; a word made of it, a verbal noun or a participle, isn't judged as its form), and COURSE.md's "What a unit turns on" lists every unit that turns on a form, with its pages.
 - **The cases overview to print**, "🧩 Šest sklonov · The six cases", three A4 pages made by the school's print
   generator from the grammar book's pages and two of the units' tables (`companion/prints/overview.ts`; nothing written
   for it but its headings): the six cases at a glance (question, endings, what it does, prepositions, an example), how
@@ -72,8 +72,8 @@ villager lines and scenes besides: 33 and 192 texts, as before). Their explanati
 
 ## Tests
 
-- Bridge: `bunx tsc --noEmit -p .` green; the smoke 2,816 ✅, 0 ❌ (on main after the rebase), with the course's content
-  checks (327 answers against the dictionary, COURSE.md's 20 rows) and the overview's route.
+- Bridge: `bunx tsc --noEmit -p .` green; the smoke all ✅ on main after the last rebase, with the course's content
+  checks (441 answers of A1, A2 and B1 against the dictionary, COURSE.md's 40 rows) and the overview's route.
 - Android: 3,138 unit tests; `PhoneBridgeNodeTest` (25) failed once with another agent's bridge on its fixed port 19110
   and passes alone. New: `PrintsTest` (the overview, a level's overview).
 - Python: 251 + 98 (`tests`, `companion/tests`).
