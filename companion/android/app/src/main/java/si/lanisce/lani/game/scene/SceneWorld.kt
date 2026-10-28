@@ -70,7 +70,10 @@ data class SceneWorld(
     val lindenDay: Long? = null,
     /** What goes on at the village's centre today ([Centre]): a feast, the age's party and its decorations, its fire out. */
     val centre: Centre = Centre(),
-    /** The culture whose village it is ([si.lanisce.lani.game.culture.Cultures], "primorska", "friuli" …): its houses' style. */
+    /**
+     * The culture whose village it is ([si.lanisce.lani.game.culture.Cultures], "primorska", "friuli" …): its houses' style,
+     * and its [look] in the scenes. On a visit, the host's.
+     */
     val culture: String = si.lanisce.lani.game.culture.Cultures.DEFAULT,
     /** The land the village stands on ([si.lanisce.lani.game.Landscape] id: "coast", "lake" …): the coast's sandy square. */
     val landscape: String = si.lanisce.lani.game.Landscape.CLASSIC.id,
@@ -107,6 +110,12 @@ data class SceneWorld(
             }
         }
     }
+
+    /**
+     * The look of the village's culture in the scenes ([CultureLook]; companion/SCENES.md "Culture looks"): what a painter
+     * draws its own way in it (the school's map and flag in Friuli). The default culture's draws every art as it is.
+     */
+    val look: CultureLook get() = CultureLooks.of(culture, landscape)
 
     /** Whether a building of [type] stands. */
     fun has(type: BuildingType): Boolean = buildings?.containsKey(type) ?: true

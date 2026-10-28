@@ -18,7 +18,7 @@ Village (full screen, pinch zoom, pan)         Scene (close-up)
 
 | Part | Code |
 |---|---|
-| Format, registry, daily logic (the contract) | `android/.../game/scene/`: `SceneSpec.kt` (format), `SceneArt.kt` (arts, slots, sprites, effects, stages), `Stage.kt` (stage directions and tap turns, see [Stage directions](#stage-directions-people-move-on-cue)), `Happenings.kt` (what's on), `Story.kt` and `Stories.kt` (the storyteller's evening story, see [Stories](#stories-the-evening-story)), `Notebook.kt`, `StoryBooks.kt` and `Vignettes.kt` (the learner's story notebook: every story heard written down, its questions, and its pictures' library, see [The story notebook](#the-story-notebook); the ink painters and the pencil sketch in `game/render/book/`, the notebook's pages in `ui/notebook/`), `Wildlife.kt` (the wild animals out, see [Wild animals](#wild-animals)), `SceneSights.kt` (which things a picture shows now and when the others come, see [The words panel](#the-words-panel-here-now-seen-before-still-hidden)), `ISpy.kt` (I spy with a child of the village, see [I spy](#i-spy-vidim-vidim-nekaj-česar-ti-ne-vidiš)), `SceneWorld.kt` (what the village has built, as the scenes show it: `needs`, the fixtures, see [What the village has built](#what-the-village-has-built)), `TownMarkers.kt` (bubbles in the village), `SceneDoors.kt` (a thing of a picture that is a place with scenes of its own: the stream's mill into the mill, see [The mill inside](#the-mill-inside-from-the-stream-and-from-the-map)), `ScenePainter.kt` (painter interface), `Sky.kt` and `SceneFx.kt` (a dialog's weather and effects, what stays for the day), `Pokes.kt` (what a tap sets off, see [Pokes](#pokes-small-gotchas)) |
+| Format, registry, daily logic (the contract) | `android/.../game/scene/`: `SceneSpec.kt` (format), `SceneArt.kt` (arts, slots, sprites, effects, stages), `Stage.kt` (stage directions and tap turns, see [Stage directions](#stage-directions-people-move-on-cue)), `Happenings.kt` (what's on), `Story.kt` and `Stories.kt` (the storyteller's evening story, see [Stories](#stories-the-evening-story)), `Notebook.kt`, `StoryBooks.kt` and `Vignettes.kt` (the learner's story notebook: every story heard written down, its questions, and its pictures' library, see [The story notebook](#the-story-notebook); the ink painters and the pencil sketch in `game/render/book/`, the notebook's pages in `ui/notebook/`), `Wildlife.kt` (the wild animals out, see [Wild animals](#wild-animals)), `SceneSights.kt` (which things a picture shows now and when the others come, see [The words panel](#the-words-panel-here-now-seen-before-still-hidden)), `ISpy.kt` (I spy with a child of the village, see [I spy](#i-spy-vidim-vidim-nekaj-česar-ti-ne-vidiš)), `SceneWorld.kt` (what the village has built, as the scenes show it: `needs`, the fixtures, see [What the village has built](#what-the-village-has-built)), `CultureLook.kt` (a culture's own look of an art: its colours, materials and variants, see [Culture looks](#culture-looks)), `TownMarkers.kt` (bubbles in the village), `SceneDoors.kt` (a thing of a picture that is a place with scenes of its own: the stream's mill into the mill, see [The mill inside](#the-mill-inside-from-the-stream-and-from-the-map)), `ScenePainter.kt` (painter interface), `Sky.kt` and `SceneFx.kt` (a dialog's weather and effects, what stays for the day), `Pokes.kt` (what a tap sets off, see [Pokes](#pokes-small-gotchas)) |
 | Village view: full screen, camera, bubbles, the HUD, the scroll | `ui/game/VillageScreen.kt` and friends (`VillageHud.kt`, `VillageScroll.kt`), `game/render/` (the village renderer) |
 | Scene art: one painter per art, people sprites, the wild animals (`Wild.kt`) | `game/render/scene/` |
 | Scene screen: words, learning, dialogs, rewards | `ui/scene/` (the words panel's chips: `WordGroups.kt`), `app/SceneController.kt`; the learner's words a dialog tests (see [Your words in the dialogs](#your-words-in-the-dialogs)): `game/DialogWords.kt`, `game/DialogReviews.kt` (on `game/PlayReviews.kt`), `app/DialogWordsController.kt` |
@@ -2316,6 +2316,46 @@ its light lies on the water only while it is up. Its card in the night sky says 
 The market scene trades nothing itself: a visit's market is the town bar's "⚖️ Tržnica · Market" (companion/README.md,
 "Things to do on a visit"). Its stall has a seller at `stall` and a buyer at `buyer`, so that haggle could one day open
 from here, with the host's villager behind the counter.
+
+### Culture looks
+
+Jan, 2026-10-28: "do the scenes look different per culture?" Each art can draw its picture in the culture's own way. The
+fire's village round it (`FireStyle`: [Ob ognju by the age](#ob-ognju-by-the-age)) and the landscapes at the horizon
+were each culture's own already; every other art draws the Slovene picture until the culture's look says otherwise.
+
+A culture's look (`game/scene/CultureLook.kt`: `CultureLook`, its tables in `CultureLooks`) sets three kinds of thing of
+an art, each by a name of that art:
+
+| Kind | Named | Read by the painter as |
+|---|---|---|
+| a colour | `"school.plaster.l"` | `colour("plaster.l", default)`: an ARGB colour |
+| a material | `"school.wainscot"` | `material("wainscot", default)`: a word the painter knows (`"wood"`, `"painted"`) |
+| a variant | `"school.map"`, `"school.abacus"` | `variant("map")`: which of the art's own versions of a thing it draws (`"friuli"`), or a thing only that culture's village has; null for the art's own |
+
+The frame's world carries the village's culture (`SceneWorld.culture`; on a visit the host's) and with it its look
+(`SceneWorld.look`), which every painter reads through `ArtPainter` (`look`, `colour`, `material`, `variant`). A
+painter always asks with its own default, so what a culture doesn't set is the painter's own: the default culture
+(Primorska, the look every art was drawn in) and a culture without a look draw exactly as before. The words' stickers
+are cut in the learner's culture's look (`Stickers.cut(…, culture)`, kept apart by `CultureLook.keyOf`: a look that
+changes nothing of the art shares the default culture's sticker).
+
+To give an art a culture's look:
+
+1. In its painter, read what varies once a frame (at the top of `paint()`, into the painter's fields; never a lookup per
+   pixel), and branch where the thing is drawn: `when (variant("map")) { "friuli" -> mapFriuli() else -> map() }`; a
+   thing only some cultures add, `if (variant("abacus") != null) prop { abacus() }`. A still picture ([`still`](#ob-ognju-by-the-age))
+   that the look changes is kept by `lookKey` too.
+2. In `CultureLooks`, the art's table for the culture, `Table.of("school", colours = …, materials = …, variants = …)`
+   as a value of its own (`FRIULI_SCHOOL`), added to the culture's entry of `tables`.
+3. Tests: `CultureLooksTest` keeps every art of the default culture pixel for pixel as it was (its digests) and every art
+   a look doesn't touch the same in every culture; a render test of the new look shows what it changes (the school's:
+   `SchoolLooksTest`, its pictures in `build/scene-snapshots/looks/`). The frame budget holds (`ScenePaintersTest`).
+4. The painter's class comment and the table below say what the culture's look draws; the culture's scene's I spy clues
+   describe its own picture (the Friuli school's map is of Friuli).
+
+| Culture | Art | What its look draws |
+|---|---|---|
+| — | — | none yet |
 
 ### Where people stand
 

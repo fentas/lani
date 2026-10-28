@@ -70,30 +70,42 @@ private sealed interface Pic {
  * a PNG in the app's cache, in a folder of this app version (the painters change with it); older folders go.
  */
 object StickerImages {
-    private val memory = LruCache<StickerSpot, ImageBitmap>(64)
+    /** By the spot and the look it is cut in ([CultureLook.keyOf][si.lanisce.lani.game.scene.CultureLook.keyOf]: "" for the default culture's). */
+    private val memory = LruCache<Pair<StickerSpot, String>, ImageBitmap>(64)
     private val cutting = Dispatchers.Default.limitedParallelism(1)
     /** Cut to nothing (touched on [cutting] only). */
-    private val none = HashSet<StickerSpot>()
+    private val none = HashSet<Pair<StickerSpot, String>>()
     private var swept = false
 
-    fun cached(spot: StickerSpot): ImageBitmap? = memory.get(spot)
+    /** The learner's culture (the look a sticker is cut in, companion/SCENES.md "Culture looks") and its key for [spot]'s art. */
+    private fun lookOf(spot: StickerSpot): Pair<String, String> {
+        val culture = si.lanisce.lani.game.culture.Cultures.current.manifest.id
+        return culture to si.lanisce.lani.game.scene.CultureLooks.of(culture).keyOf(spot.art)
+    }
+
+    fun cached(spot: StickerSpot): ImageBitmap? = memory.get(spot to lookOf(spot).second)
 
     /** [spot]'s sticker, from memory, the cache folder under [cacheDir] or cut now; null when the scene draws nothing there. */
-    suspend fun load(cacheDir: File, spot: StickerSpot): ImageBitmap? = memory.get(spot) ?: withContext(cutting) {
-        memory.get(spot) ?: if (spot in none) null else run {
-            val root = File(cacheDir, "stickers")
-            val dir = File(root, "v${Stickers.VERSION}-${BuildConfig.VERSION_CODE}")
-            if (!swept) {
-                swept = true
-                root.listFiles()?.filter { it != dir }?.forEach { it.deleteRecursively() }
-            }
-            val file = File(dir, "${spot.art}-${spot.slot}.png")
-            val bitmap = runCatching { BitmapFactory.decodeFile(file.path) }.getOrNull()
-                ?: runCatching { Stickers.cut(spot.art, spot.slot) }.getOrNull()?.let { s ->
-                    Bitmap.createBitmap(s.argb, s.width, s.height, Bitmap.Config.ARGB_8888).also { b -> save(b, dir, file) }
+    suspend fun load(cacheDir: File, spot: StickerSpot): ImageBitmap? {
+        val (culture, look) = lookOf(spot)
+        val key = spot to look
+        return memory.get(key) ?: withContext(cutting) {
+            memory.get(key) ?: if (key in none) null else run {
+                val root = File(cacheDir, "stickers")
+                val dir = File(root, "v${Stickers.VERSION}-${BuildConfig.VERSION_CODE}")
+                if (!swept) {
+                    swept = true
+                    root.listFiles()?.filter { it != dir }?.forEach { it.deleteRecursively() }
                 }
-            if (bitmap == null) none += spot
-            bitmap?.asImageBitmap()?.also { memory.put(spot, it) }
+                // in the look of the learner's culture, kept apart where it changes the art
+                val file = File(dir, "${spot.art}-${spot.slot}${if (look.isEmpty()) "" else "-$look"}.png")
+                val bitmap = runCatching { BitmapFactory.decodeFile(file.path) }.getOrNull()
+                    ?: runCatching { Stickers.cut(spot.art, spot.slot, culture = culture) }.getOrNull()?.let { s ->
+                        Bitmap.createBitmap(s.argb, s.width, s.height, Bitmap.Config.ARGB_8888).also { b -> save(b, dir, file) }
+                    }
+                if (bitmap == null) none += key
+                bitmap?.asImageBitmap()?.also { memory.put(key, it) }
+            }
         }
     }
 

@@ -45,14 +45,17 @@ object Stickers {
     private const val BLACK = 0xFF000000.toInt()
     private const val WHITE = 0xFFFFFFFF.toInt()
 
-    /** The sticker of [slot] of [art], or null when the art has no such slot or draws nothing there. */
-    fun cut(art: String, slot: String, detail: Int = DETAIL): Sticker? {
+    /**
+     * The sticker of [slot] of [art], or null when the art has no such slot or draws nothing there; in the look of
+     * [culture]'s village (companion/SCENES.md "Culture looks": the Friuli school's map is Friuli's).
+     */
+    fun cut(art: String, slot: String, detail: Int = DETAIL, culture: String = si.lanisce.lani.game.culture.Cultures.DEFAULT): Sticker? {
         if (slot !in SceneArt.objects[art].orEmpty()) return null
         // a painter of its own: this may run off the main thread while a scene is drawn with the shared one
         val painter = ScenePainters.create(art) as? ArtPainter ?: return null
         painter.solo = slot
         // in a world where it is there (a thing that goes as its room is upgraded: the level that has it)
-        val frame = FRAME.copy(objects = setOf(slot), world = SceneFixtures.showing(art, slot))
+        val frame = FRAME.copy(objects = setOf(slot), world = SceneFixtures.showing(art, slot).copy(culture = culture))
         // the widest and tallest view a scene has: a thing at the stage's edge (the mill by the stream) is there whole
         val bw = ArtPainter.STAGE_W * 3 / 2; val bh = ArtPainter.STAGE_H * 2
         // where it is: its hit, drawn alone

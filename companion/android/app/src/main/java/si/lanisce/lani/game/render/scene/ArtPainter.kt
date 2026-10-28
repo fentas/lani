@@ -277,6 +277,28 @@ internal abstract class ArtPainter : ScenePainter {
     /** The poke [id] (one of [pokes]) playing in this frame: its step and when it began ([Poked.age] at [t]); null when none. */
     protected fun poked(id: String): Poked? = frame.pokes[id]
 
+    // ------------------------------------------------------------------ the culture's look
+
+    /**
+     * The look of the frame's village's culture ([SceneWorld.look]; companion/SCENES.md "Culture looks"): what this art
+     * draws its own way there. Ask it with the painter's own default ([colour], [material], [variant]): the default
+     * culture's look sets nothing, so the art draws as it always did. A still picture ([still]) the look changes keys by
+     * [lookKey] too.
+     */
+    protected val look: si.lanisce.lani.game.scene.CultureLook get() = frame.world.look
+
+    /** This art's colour [name] in the culture's look, else [default] (the painter's own). Ask once a frame, not per pixel. */
+    protected fun colour(name: String, default: Int): Int = look.colour(art, name, default)
+
+    /** This art's material [name] in the culture's look ("wood", "painted" …), else [default]. */
+    protected fun material(name: String, default: String): String = look.material(art, name, default)
+
+    /** Which variant of thing [name] of this art the culture's look draws ("friuli" for the school's map), null for the art's own. */
+    protected fun variant(name: String): String? = look.variant(art, name)
+
+    /** What a still picture of this art is kept by in the culture's look: "" wherever it draws as the default culture. */
+    protected val lookKey: String get() = look.keyOf(art)
+
     /** Whether the village has what object slot [slot] of this art needs ([SceneFixtures]): draw it only then. */
     protected fun there(slot: String): Boolean = SceneFixtures.there(art, slot, frame.world)
 
