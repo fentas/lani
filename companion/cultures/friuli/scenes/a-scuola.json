@@ -1,0 +1,2303 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "a-scuola",
+  "language": "it",
+  "title": {
+    "it": "A scuola",
+    "sl": "V šoli",
+    "en": "At school",
+    "de": "In der Schule"
+  },
+  "emoji": "🏫",
+  "level": "A1",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker",
+  "art": "school",
+  "from": [
+    "school"
+  ],
+  "pack": "a-scuola",
+  "objects": [
+    {
+      "slot": "blackboard",
+      "word": "lavagna"
+    },
+    {
+      "slot": "chalk",
+      "word": "gesso"
+    },
+    {
+      "slot": "sponge",
+      "word": "spugna"
+    },
+    {
+      "slot": "desk",
+      "word": "banco"
+    },
+    {
+      "slot": "chair",
+      "word": "sedia",
+      "pack": "casa-e-cucina"
+    },
+    {
+      "slot": "book",
+      "word": "libro",
+      "pack": "nella-tenda"
+    },
+    {
+      "slot": "notebook",
+      "word": "quaderno",
+      "pack": "nella-fucina"
+    },
+    {
+      "slot": "pencil",
+      "word": "matita"
+    },
+    {
+      "slot": "bag",
+      "word": "cartella"
+    },
+    {
+      "slot": "map",
+      "word": "mappa",
+      "pack": "nella-tenda",
+      "needs": {
+        "level": 2
+      }
+    },
+    {
+      "slot": "globe",
+      "word": "mappamondo",
+      "needs": {
+        "level": 2
+      }
+    },
+    {
+      "slot": "clock",
+      "word": "orologio",
+      "pack": "in-cucina",
+      "needs": {
+        "level": 3
+      }
+    },
+    {
+      "slot": "window",
+      "word": "finestra",
+      "pack": "casa-e-cucina"
+    },
+    {
+      "slot": "door",
+      "word": "porta",
+      "pack": "casa-e-cucina"
+    }
+  ],
+  "people": [
+    {
+      "id": "elena",
+      "name": "Maestra Elena",
+      "emoji": "👩‍🏫",
+      "art": "teacher",
+      "slot": "teacher",
+      "villager": "elena"
+    },
+    {
+      "id": "lorenzo",
+      "name": "Lorenzo",
+      "emoji": "👦",
+      "art": "child3",
+      "slot": "desk1",
+      "villager": "lorenzo"
+    },
+    {
+      "id": "giulia",
+      "name": "Giulia",
+      "emoji": "👧",
+      "art": "child2",
+      "slot": "desk2",
+      "villager": "giulia"
+    },
+    {
+      "id": "tommaso",
+      "name": "Tommaso",
+      "emoji": "🧒",
+      "art": "child1",
+      "slot": "door",
+      "villager": "tommaso"
+    }
+  ],
+  "happenings": [
+    {
+      "id": "appello",
+      "title": {
+        "it": "L'appello del mattino",
+        "sl": "Jutranje preverjanje prisotnosti",
+        "en": "The morning register",
+        "de": "Die Anwesenheit am Morgen"
+      },
+      "who": "elena",
+      "when": [
+        "morning"
+      ],
+      "months": [
+        9,
+        10,
+        11,
+        12,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "weekdays": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "chance": 0.5,
+      "dialog": "appello",
+      "dialogs": [
+        "appello-stai",
+        "appello"
+      ],
+      "reward": {
+        "stone": 20
+      },
+      "marker": "📋",
+      "memory": {
+        "it": "l'appello del mattino, quando hai detto «presente»",
+        "sl": "jutranje preverjanje, ko si {m:rekel|f:rekla} »presente«",
+        "en": "the morning register, when you said «presente»",
+        "de": "die Anwesenheit am Morgen, als du «presente» gesagt hast"
+      }
+    },
+    {
+      "id": "lavagna",
+      "title": {
+        "it": "Errori alla lavagna",
+        "sl": "Napake na tabli",
+        "en": "Mistakes on the blackboard",
+        "de": "Fehler an der Tafel"
+      },
+      "who": "elena",
+      "when": [
+        "afternoon"
+      ],
+      "months": [
+        9,
+        10,
+        11,
+        12,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "weekdays": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "chance": 0.45,
+      "dialog": "lavagna",
+      "dialogs": [
+        "lavagna-articoli",
+        "lavagna-plurale",
+        "lavagna"
+      ],
+      "reward": {
+        "stone": 20
+      },
+      "marker": "🖍️",
+      "memory": {
+        "it": "gli errori alla lavagna che hai corretto",
+        "sl": "napake na tabli, ki si jih {m:popravil|f:popravila}",
+        "en": "the mistakes on the blackboard you corrected",
+        "de": "die Fehler an der Tafel, die du verbessert hast"
+      }
+    },
+    {
+      "id": "cartina",
+      "title": {
+        "it": "La mappa del Friuli",
+        "sl": "Zemljevid Furlanije",
+        "en": "The map of Friuli",
+        "de": "Die Karte von Friaul"
+      },
+      "who": "elena",
+      "when": [
+        "morning"
+      ],
+      "months": [
+        9,
+        10,
+        11,
+        12,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "weekdays": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "chance": 0.35,
+      "dialog": "cartina",
+      "dialogs": [
+        "cartina-citta",
+        "cartina"
+      ],
+      "reward": {
+        "wisdom": 15
+      },
+      "marker": "🗺️",
+      "needs": {
+        "level": 2
+      },
+      "memory": {
+        "it": "la mappa del Friuli che abbiamo guardato insieme",
+        "sl": "zemljevid Furlanije, ki sva ga {m:gledala|f:gledali} skupaj",
+        "en": "the map of Friuli we looked at together",
+        "de": "die Karte von Friaul, die wir zusammen angeschaut haben"
+      }
+    },
+    {
+      "id": "mappamondo",
+      "title": {
+        "it": "Giulia e il mappamondo",
+        "sl": "Giulia in globus",
+        "en": "Giulia and the globe",
+        "de": "Giulia und der Globus"
+      },
+      "who": "giulia",
+      "when": [
+        "morning"
+      ],
+      "chance": 0.4,
+      "dialog": "mappamondo",
+      "dialogs": [
+        "mappamondo-gira",
+        "mappamondo"
+      ],
+      "reward": {
+        "food": 15
+      },
+      "marker": "🌍",
+      "needs": {
+        "level": 2
+      },
+      "memory": {
+        "it": "il mappamondo e lo stivale dell'Italia che mi hai mostrato",
+        "sl": "globus in italijanski škorenj, ki si mi ga {m:pokazal|f:pokazala}",
+        "en": "the globe and Italy's boot, which you showed me",
+        "de": "den Globus und den Stiefel Italiens, den du mir gezeigt hast"
+      }
+    },
+    {
+      "id": "compiti",
+      "title": {
+        "it": "Lorenzo fa i compiti",
+        "sl": "Lorenzo dela domačo nalogo",
+        "en": "Lorenzo is doing his homework",
+        "de": "Lorenzo macht seine Hausaufgaben"
+      },
+      "who": "lorenzo",
+      "when": [
+        "afternoon"
+      ],
+      "months": [
+        9,
+        10,
+        11,
+        12,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "chance": 0.4,
+      "dialog": "compiti",
+      "dialogs": [
+        "compiti-matite",
+        "compiti-conti",
+        "compiti"
+      ],
+      "reward": {
+        "wisdom": 15
+      },
+      "marker": "✏️",
+      "memory": {
+        "it": "i compiti che mi hai aiutato a scrivere",
+        "sl": "domačo nalogo, ki si mi jo {m:pomagal|f:pomagala} napisati",
+        "en": "the homework you helped me write",
+        "de": "die Hausaufgabe, bei der du mir geholfen hast"
+      }
+    },
+    {
+      "id": "pallone",
+      "title": {
+        "it": "Tommaso e il pallone",
+        "sl": "Tommaso in žoga",
+        "en": "Tommaso and his football",
+        "de": "Tommaso und sein Fußball"
+      },
+      "who": "tommaso",
+      "when": [
+        "afternoon"
+      ],
+      "chance": 0.4,
+      "dialog": "pallone",
+      "dialogs": [
+        "pallone-merenda",
+        "pallone"
+      ],
+      "reward": {
+        "food": 15
+      },
+      "marker": "⚽",
+      "memory": {
+        "it": "la partita di calcio nel cortile della scuola",
+        "sl": "nogometno tekmo na šolskem dvorišču",
+        "en": "the football match in the school playground",
+        "de": "das Fußballspiel auf dem Schulhof"
+      }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "appello",
+      "lines": [
+        {
+          "who": "elena",
+          "it": "Buongiorno, bambini! Facciamo l'appello. Lorenzo? Presente. Giulia? Presente. E {learner}?",
+          "sl": "Dober dan, otroci! Poglejmo, kdo je tu. Lorenzo? Tukaj. Giulia? Tukaj. Pa {learner}?",
+          "en": "Good morning, children! Let's take the register. Lorenzo? Here. Giulia? Here. And {learner}?",
+          "de": "Guten Morgen, Kinder! Wir schauen, wer da ist. Lorenzo? Da. Giulia? Da. Und {learner}?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Presente, maestra!",
+              "sl": "Tukaj, učiteljica!",
+              "en": "Here, Miss!",
+              "de": "Hier, Frau Lehrerin!",
+              "ok": true,
+              "reply": {
+                "it": "{m:Bravo|f:Brava}. Ti segno presente sul registro.",
+                "sl": "Bravo. Zapišem te v dnevnik.",
+                "en": "Well done. I'll mark you present in the register.",
+                "de": "Gut so. Ich trage dich ins Klassenbuch ein."
+              }
+            },
+            {
+              "it": "Ciao, Elena! Ci sono.",
+              "sl": "Živjo, Elena! Tukaj sem.",
+              "en": "Hi, Elena! I'm here.",
+              "de": "Hallo, Elena! Ich bin da.",
+              "grammar": "tu-lei",
+              "why": {
+                "sl": "Učiteljici rečeš Lei in maestra: ciao je za prijatelje.",
+                "en": "Say Lei to the teacher and call her maestra: ciao is for friends.",
+                "de": "Zur Lehrerin sagst du Lei und maestra: ciao ist für Freunde."
+              },
+              "reply": {
+                "it": "Ciao? Come in cortile? Qui siamo in classe!",
+                "sl": "Živjo? Kot na dvorišču? Tu smo v razredu!",
+                "en": "Ciao? Like in the playground? This is the classroom!",
+                "de": "Ciao? Wie auf dem Schulhof? Hier sind wir im Klassenzimmer!"
+              }
+            },
+            {
+              "it": "Presento, maestra!",
+              "sl": "Predstavljam, učiteljica!",
+              "en": "I introduce, Miss!",
+              "de": "Ich stelle vor, Frau Lehrerin!",
+              "why": {
+                "sl": "Presente pomeni tukaj (tukaj sem). Presento pomeni predstavljam.",
+                "en": "Presente means here (I'm here). Presento means I introduce.",
+                "de": "Presente heißt hier (ich bin da). Presento heißt ich stelle vor."
+              },
+              "reply": {
+                "it": "Presenti chi? Io qui vedo solo te!",
+                "sl": "Koga predstavljaš? Tu vidim samo tebe!",
+                "en": "Introduce whom? I only see you here!",
+                "de": "Wen stellst du vor? Ich sehe hier nur dich!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "elena",
+          "it": "Bene, ci siete tutti. Oggi impariamo i colori. Di che colore è la lavagna?",
+          "sl": "Dobro, vsi ste tukaj. Danes se učimo barve. Kakšne barve je tabla?",
+          "en": "Good, you're all here. Today we're learning colours. What colour is the blackboard?",
+          "de": "Gut, ihr seid alle da. Heute lernen wir die Farben. Welche Farbe hat die Tafel?"
+        },
+        {
+          "choices": [
+            {
+              "it": "La lavagna è verde.",
+              "sl": "Tabla je zelena.",
+              "en": "The blackboard is green.",
+              "de": "Die Tafel ist grün.",
+              "ok": true,
+              "reply": {
+                "it": "Esatto! Verde scuro, come il bosco.",
+                "sl": "Točno! Temno zelena, kot gozd.",
+                "en": "Exactly! Dark green, like the wood.",
+                "de": "Genau! Dunkelgrün, wie der Wald."
+              }
+            },
+            {
+              "it": "Il lavagna è verde.",
+              "sl": "Tabla je zelena.",
+              "en": "The blackboard is green.",
+              "de": "Die Tafel ist grün.",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Lavagna se konča na -a in je ženskega spola: la lavagna.",
+                "en": "Lavagna ends in -a and is feminine: la lavagna.",
+                "de": "Lavagna endet auf -a und ist feminin: la lavagna."
+              },
+              "reply": {
+                "it": "Il lavagna? Povera lavagna, è una signora!",
+                "sl": "Il lavagna? Uboga tabla, saj je gospa!",
+                "en": "Il lavagna? Poor blackboard, she's a lady!",
+                "de": "Il lavagna? Arme Tafel, sie ist doch eine Dame!"
+              }
+            },
+            {
+              "it": "La lavagna è verdi.",
+              "sl": "Tabla je zelene.",
+              "en": "The blackboard is green (plural).",
+              "de": "Die Tafel ist grün (Mehrzahl).",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Ena tabla: verde. Verdi je za več stvari (i prati verdi).",
+                "en": "One blackboard: verde. Verdi is for more than one (i prati verdi).",
+                "de": "Eine Tafel: verde. Verdi steht bei mehreren (i prati verdi)."
+              },
+              "reply": {
+                "it": "Verdi? Quante lavagne vedi? Io ne vedo una sola.",
+                "sl": "Verdi? Koliko tabel vidiš? Jaz vidim samo eno.",
+                "en": "Verdi? How many blackboards do you see? I see just one.",
+                "de": "Verdi? Wie viele Tafeln siehst du? Ich sehe nur eine."
+              }
+            }
+          ]
+        },
+        {
+          "who": "elena",
+          "it": "{m:Bravo|f:Brava}. Adesso aprite i quaderni. Cominciamo!",
+          "sl": "Bravo. Zdaj odprite zvezke. Začnimo!",
+          "en": "Well done. Now open your exercise books. Let's begin!",
+          "de": "Gut gemacht. Jetzt schlagt eure Hefte auf. Fangen wir an!"
+        }
+      ]
+    },
+    {
+      "id": "lavagna",
+      "lines": [
+        {
+          "who": "elena",
+          "it": "Buon pomeriggio, {learner}! Guarda la lavagna: ci sono due frasi sbagliate.",
+          "sl": "Dober dan, {learner}! Poglej tablo: tam sta dva napačna stavka.",
+          "en": "Good afternoon, {learner}! Look at the blackboard: there are two wrong sentences.",
+          "de": "Guten Tag, {learner}! Schau an die Tafel: Da stehen zwei falsche Sätze."
+        },
+        {
+          "who": "elena",
+          "it": "Prima frase: «Lorenzo è sei anni.» Come si dice giusto?",
+          "sl": "Prvi stavek: »Lorenzo je šest let.« Kako se reče prav?",
+          "en": "First sentence: «Lorenzo is six years» (wrong verb). How do you say it right?",
+          "de": "Erster Satz: «Lorenzo ist sechs Jahre.» (falsches Verb) Wie sagt man es richtig?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Lorenzo ha sei anni.",
+              "sl": "Lorenzo je star šest let.",
+              "en": "Lorenzo is six.",
+              "de": "Lorenzo ist sechs Jahre alt.",
+              "ok": true,
+              "reply": {
+                "it": "Esatto! In italiano gli anni si hanno.",
+                "sl": "Točno! V italijanščini leta imaš.",
+                "en": "Exactly! In Italian you have your years.",
+                "de": "Genau! Auf Italienisch hat man seine Jahre."
+              }
+            },
+            {
+              "it": "Lorenzo sono sei anni.",
+              "sl": "Lorenzo so šest let.",
+              "en": "Lorenzo are six years.",
+              "de": "Lorenzo sind sechs Jahre.",
+              "grammar": "essere-avere",
+              "why": {
+                "sl": "Leta imaš: avere. Lorenzo ha sei anni (ima šest let).",
+                "en": "Your age is something you have: avere. Lorenzo ha sei anni.",
+                "de": "Das Alter hat man: avere. Lorenzo ha sei anni."
+              },
+              "reply": {
+                "it": "Sono? Allora Lorenzo è sei bambini?",
+                "sl": "So? Potem je Lorenzo šest otrok?",
+                "en": "Sono (they are)? So Lorenzo is six children?",
+                "de": "Sono (sie sind)? Dann ist Lorenzo sechs Kinder?"
+              }
+            },
+            {
+              "it": "Lorenzo hai sei anni.",
+              "sl": "Lorenzo imaš šest let.",
+              "en": "Lorenzo you have six years.",
+              "de": "Lorenzo hast sechs Jahre.",
+              "grammar": "essere-avere",
+              "why": {
+                "sl": "Za eno osebo (lui): ha. Hai je za tu (ti imaš).",
+                "en": "For one person (lui): ha. Hai is for tu (you have).",
+                "de": "Für eine Person (lui): ha. Hai ist für tu (du hast)."
+              },
+              "reply": {
+                "it": "Hai? Parli con Lorenzo? Ciao, Lorenzo!",
+                "sl": "Imaš? Govoriš z Lorenzom? Živjo, Lorenzo!",
+                "en": "Hai (you have)? Are you talking to Lorenzo? Hi, Lorenzo!",
+                "de": "Hai (du hast)? Sprichst du mit Lorenzo? Hallo, Lorenzo!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "elena",
+          "it": "{m:Bravissimo|f:Bravissima}! Seconda frase: «Giulia ha stanca.»",
+          "sl": "Odlično! Drugi stavek: »Giulia ima utrujena.«",
+          "en": "Excellent! Second sentence: «Giulia has tired.»",
+          "de": "Ausgezeichnet! Zweiter Satz: «Giulia hat müde.»"
+        },
+        {
+          "choices": [
+            {
+              "it": "Giulia è stanca.",
+              "sl": "Giulia je utrujena.",
+              "en": "Giulia is tired.",
+              "de": "Giulia ist müde.",
+              "ok": true,
+              "reply": {
+                "it": "Perfetto. Povera Giulia, ha giocato troppo!",
+                "sl": "Odlično. Uboga Giulia, preveč se je igrala!",
+                "en": "Perfect. Poor Giulia, she played too much!",
+                "de": "Perfekt. Arme Giulia, sie hat zu viel gespielt!"
+              }
+            },
+            {
+              "it": "Giulia sei stanca.",
+              "sl": "Giulia si utrujena.",
+              "en": "Giulia you are tired.",
+              "de": "Giulia bist müde.",
+              "grammar": "essere-avere",
+              "why": {
+                "sl": "Za eno osebo (lei): è. Sei je za tu (ti si).",
+                "en": "For one person (lei): è. Sei is for tu (you are).",
+                "de": "Für eine Person (lei): è. Sei ist für tu (du bist)."
+              },
+              "reply": {
+                "it": "Sei? Allora parli con Giulia, non con me.",
+                "sl": "Si? Potem govoriš z Giulio, ne z mano.",
+                "en": "Sei (you are)? Then you're talking to Giulia, not to me.",
+                "de": "Sei (du bist)? Dann sprichst du mit Giulia, nicht mit mir."
+              }
+            },
+            {
+              "it": "Giulia è stanco.",
+              "sl": "Giulia je utrujen.",
+              "en": "Giulia is tired (masculine).",
+              "de": "Giulia ist müde (männlich).",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Giulia je deklica: stanca. Stanco je za fanta.",
+                "en": "Giulia is a girl: stanca. Stanco is for a boy.",
+                "de": "Giulia ist ein Mädchen: stanca. Stanco ist für einen Jungen."
+              },
+              "reply": {
+                "it": "Stanco? Giulia non è un ragazzo!",
+                "sl": "Stanco? Giulia ni fant!",
+                "en": "Stanco? Giulia isn't a boy!",
+                "de": "Stanco? Giulia ist doch kein Junge!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "elena",
+          "it": "Benissimo. Due errori, due correzioni. Domani scrivi tu alla lavagna!",
+          "sl": "Odlično. Dve napaki, dva popravka. Jutri pa ti pišeš na tablo!",
+          "en": "Very good. Two mistakes, two corrections. Tomorrow you'll write on the board!",
+          "de": "Sehr gut. Zwei Fehler, zwei Verbesserungen. Morgen schreibst du an die Tafel!"
+        }
+      ]
+    },
+    {
+      "id": "cartina",
+      "lines": [
+        {
+          "who": "elena",
+          "it": "Buongiorno, {learner}! Guarda la mappa sul muro: è il Friuli, la nostra regione.",
+          "sl": "Dober dan, {learner}! Poglej zemljevid na steni: to je Furlanija, naša pokrajina.",
+          "en": "Good morning, {learner}! Look at the map on the wall: it's Friuli, our region.",
+          "de": "Guten Morgen, {learner}! Schau dir die Karte an der Wand an: Das ist Friaul, unsere Region."
+        },
+        {
+          "who": "elena",
+          "it": "In alto ci sono le montagne. E il mare? Dov'è il mare?",
+          "sl": "Zgoraj so gore. Pa morje? Kje je morje?",
+          "en": "At the top there are the mountains. And the sea? Where's the sea?",
+          "de": "Oben sind die Berge. Und das Meer? Wo ist das Meer?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Il mare è in basso, vicino a Grado.",
+              "sl": "Morje je spodaj, blizu Gradeža.",
+              "en": "The sea is at the bottom, near Grado.",
+              "de": "Das Meer ist unten, bei Grado.",
+              "ok": true,
+              "reply": {
+                "it": "Sì! È il mare Adriatico, con la laguna di Grado.",
+                "sl": "Ja! To je Jadransko morje, z laguno pri Gradežu.",
+                "en": "Yes! It's the Adriatic Sea, with the lagoon of Grado.",
+                "de": "Ja! Das ist die Adria, mit der Lagune von Grado."
+              }
+            },
+            {
+              "it": "La mare è in basso, vicino a Grado.",
+              "sl": "Morje je spodaj, blizu Gradeža.",
+              "en": "The sea is at the bottom, near Grado.",
+              "de": "Das Meer ist unten, bei Grado.",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Mare je moškega spola: il mare. Besede na -e so lahko obojega spola.",
+                "en": "Mare is masculine: il mare. Words in -e can be either gender.",
+                "de": "Mare ist maskulin: il mare. Wörter auf -e können beides sein."
+              },
+              "reply": {
+                "it": "La mare? Mm, per noi è un signore, non una signora.",
+                "sl": "La mare? Mm, pri nas je morje gospod, ne gospa.",
+                "en": "La mare? Hm, for us the sea is a gentleman, not a lady.",
+                "de": "La mare? Hm, bei uns ist das Meer ein Herr, keine Dame."
+              }
+            },
+            {
+              "it": "Il mare è in alto, vicino a Grado.",
+              "sl": "Morje je zgoraj, blizu Gradeža.",
+              "en": "The sea is at the top, near Grado.",
+              "de": "Das Meer ist oben, bei Grado.",
+              "why": {
+                "sl": "In alto je zgoraj: tam so gore. Morje je spodaj: in basso.",
+                "en": "In alto is at the top: that's the mountains. The sea is at the bottom: in basso.",
+                "de": "In alto heißt oben: Da sind die Berge. Das Meer ist unten: in basso."
+              },
+              "reply": {
+                "it": "In alto? Allora le barche vanno in montagna!",
+                "sl": "Zgoraj? Potem gredo čolni v hribe!",
+                "en": "At the top? Then the boats sail into the mountains!",
+                "de": "Oben? Dann fahren die Boote in die Berge!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "elena",
+          "it": "E questa riga blu, dalle montagne al mare? È un fiume: il Tagliamento.",
+          "sl": "Pa ta modra črta od gora do morja? To je reka: Tilment.",
+          "en": "And this blue line from the mountains to the sea? It's a river: the Tagliamento.",
+          "de": "Und diese blaue Linie von den Bergen zum Meer? Das ist ein Fluss: der Tagliamento."
+        },
+        {
+          "choices": [
+            {
+              "it": "Il fiume è lungo!",
+              "sl": "Reka je dolga!",
+              "en": "The river is long!",
+              "de": "Der Fluss ist lang!",
+              "ok": true,
+              "reply": {
+                "it": "Lunghissimo! In primavera ha tanta acqua.",
+                "sl": "Zelo dolga! Spomladi ima veliko vode.",
+                "en": "Very long! In spring it has lots of water.",
+                "de": "Sehr lang! Im Frühling hat er viel Wasser."
+              }
+            },
+            {
+              "it": "Il fiume è lunga!",
+              "sl": "Reka je dolga!",
+              "en": "The river is long (feminine)!",
+              "de": "Der Fluss ist lang (weiblich)!",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Fiume je moškega spola: lungo. Lunga je za ženski spol (la strada lunga).",
+                "en": "Fiume is masculine: lungo. Lunga is for feminine nouns (la strada lunga).",
+                "de": "Fiume ist maskulin: lungo. Lunga steht bei femininen Nomen (la strada lunga)."
+              },
+              "reply": {
+                "it": "Lunga? Hm, il Tagliamento è un fiume, non una strada.",
+                "sl": "Lunga? Hm, Tilment je reka, ne cesta.",
+                "en": "Lunga? Hm, the Tagliamento is a river, not a road.",
+                "de": "Lunga? Hm, der Tagliamento ist ein Fluss, keine Straße."
+              }
+            },
+            {
+              "it": "Il fiume sono lungo!",
+              "sl": "Reka so dolga!",
+              "en": "The river are long!",
+              "de": "Der Fluss sind lang!",
+              "grammar": "essere-avere",
+              "why": {
+                "sl": "Ena reka: è. Sono je jaz sem ali oni so.",
+                "en": "One river: è. Sono is I am, or they are.",
+                "de": "Ein Fluss: è. Sono heißt ich bin oder sie sind."
+              },
+              "reply": {
+                "it": "Sono? Quanti fiumi vedi? Io ne vedo uno.",
+                "sl": "So? Koliko rek vidiš? Jaz vidim eno.",
+                "en": "Sono (they are)? How many rivers do you see? I see one.",
+                "de": "Sono (sie sind)? Wie viele Flüsse siehst du? Ich sehe einen."
+              }
+            }
+          ]
+        },
+        {
+          "who": "elena",
+          "it": "{m:Bravissimo|f:Bravissima}! Montagne, un fiume e il mare: il Friuli ha tutto.",
+          "sl": "Odlično! Gore, reka in morje: Furlanija ima vse.",
+          "en": "Excellent! Mountains, a river and the sea: Friuli has it all.",
+          "de": "Ausgezeichnet! Berge, ein Fluss und das Meer: Friaul hat alles."
+        }
+      ]
+    },
+    {
+      "id": "mappamondo",
+      "lines": [
+        {
+          "who": "giulia",
+          "it": "{learner}, vieni! Guarda il mappamondo. Gira, gira! Dov'è l'Italia?",
+          "sl": "{learner}, pridi! Poglej globus. Vrti se, vrti! Kje je Italija?",
+          "en": "{learner}, come! Look at the globe. It spins and spins! Where's Italy?",
+          "de": "{learner}, komm! Schau, der Globus. Er dreht sich und dreht sich! Wo ist Italien?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Eccola! È a forma di stivale.",
+              "sl": "Tukaj je! Ima obliko škornja.",
+              "en": "There it is! It's shaped like a boot.",
+              "de": "Da ist es! Es sieht aus wie ein Stiefel.",
+              "ok": true,
+              "reply": {
+                "it": "Sì! Uno stivale nel mare. E dà un calcio alla Sicilia!",
+                "sl": "Ja! Škorenj v morju. In brcne Sicilijo!",
+                "en": "Yes! A boot in the sea. And it's kicking Sicily!",
+                "de": "Ja! Ein Stiefel im Meer. Und er kickt Sizilien!"
+              }
+            },
+            {
+              "it": "Eccolo! È a forma di stivale.",
+              "sl": "Tukaj je! Ima obliko škornja.",
+              "en": "There he is! It's shaped like a boot.",
+              "de": "Da ist er! Es sieht aus wie ein Stiefel.",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Italia je ženskega spola: eccola. Eccolo je za moški spol (il mappamondo: eccolo!).",
+                "en": "Italia is feminine: eccola. Eccolo is for masculine words (il mappamondo: eccolo!).",
+                "de": "Italia ist feminin: eccola. Eccolo steht bei maskulinen Wörtern (il mappamondo: eccolo!)."
+              },
+              "reply": {
+                "it": "Eccolo? Chi, il mappamondo? Ma io cerco l'Italia!",
+                "sl": "Tukaj je? Kdo, globus? Saj jaz iščem Italijo!",
+                "en": "Eccolo (masculine)? Who, the globe? I'm looking for Italy!",
+                "de": "Eccolo (männlich)? Wer, der Globus? Ich suche doch Italien!"
+              }
+            },
+            {
+              "it": "Eccola! È a forma di cappello.",
+              "sl": "Tukaj je! Ima obliko klobuka.",
+              "en": "There it is! It's shaped like a hat.",
+              "de": "Da ist es! Es sieht aus wie ein Hut.",
+              "why": {
+                "sl": "Italija je videti kot škorenj: stivale. Cappello je klobuk.",
+                "en": "Italy looks like a boot: stivale. Cappello is a hat.",
+                "de": "Italien sieht aus wie ein Stiefel: stivale. Cappello ist ein Hut."
+              },
+              "reply": {
+                "it": "Un cappello? Ih ih, e chi lo mette in testa?",
+                "sl": "Klobuk? Hi hi, kdo pa ga nosi na glavi?",
+                "en": "A hat? Hee hee, and who wears it on their head?",
+                "de": "Ein Hut? Hihi, und wer setzt ihn auf?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "giulia",
+          "it": "Perché il mappamondo è rotondo? Lo sai?",
+          "sl": "Zakaj je globus okrogel? Veš?",
+          "en": "Why is the globe round? Do you know?",
+          "de": "Warum ist der Globus rund? Weißt du das?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Perché la Terra è rotonda, come una palla.",
+              "sl": "Ker je Zemlja okrogla, kot žoga.",
+              "en": "Because the Earth is round, like a ball.",
+              "de": "Weil die Erde rund ist, wie ein Ball.",
+              "ok": true,
+              "reply": {
+                "it": "Come una palla! Allora giochiamo a calcio con la Terra?",
+                "sl": "Kot žoga! Potem igrava nogomet z Zemljo?",
+                "en": "Like a ball! So shall we play football with the Earth?",
+                "de": "Wie ein Ball! Spielen wir dann Fußball mit der Erde?"
+              }
+            },
+            {
+              "it": "Perché la Terra è rotondo, come una palla.",
+              "sl": "Ker je Zemlja okrogel, kot žoga.",
+              "en": "Because the Earth is round (masculine), like a ball.",
+              "de": "Weil die Erde rund ist (männlich), wie ein Ball.",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Terra je ženskega spola: rotonda. Rotondo je za moški spol (il mappamondo è rotondo).",
+                "en": "Terra is feminine: rotonda. Rotondo is for masculine words (il mappamondo è rotondo).",
+                "de": "Terra ist feminin: rotonda. Rotondo steht bei maskulinen Wörtern (il mappamondo è rotondo)."
+              },
+              "reply": {
+                "it": "Rotondo? Ih ih, la Terra è una femmina!",
+                "sl": "Rotondo? Hi hi, Zemlja je ženskega spola!",
+                "en": "Rotondo? Hee hee, the Earth is a girl word!",
+                "de": "Rotondo? Hihi, die Erde ist doch weiblich!"
+              }
+            },
+            {
+              "it": "Perché la Terra è rotonda, come una pala.",
+              "sl": "Ker je Zemlja okrogla, kot lopata.",
+              "en": "Because the Earth is round, like a shovel.",
+              "de": "Weil die Erde rund ist, wie eine Schaufel.",
+              "why": {
+                "sl": "Pala je lopata. Žoga je palla, z dvema l.",
+                "en": "Pala is a shovel. A ball is palla, with two l's.",
+                "de": "Pala ist eine Schaufel. Ein Ball ist palla, mit zwei l."
+              },
+              "reply": {
+                "it": "Come una pala? Ih ih, allora la Terra serve per scavare!",
+                "sl": "Kot lopata? Hi hi, potem je Zemlja za kopanje!",
+                "en": "Like a shovel? Hee hee, so the Earth is for digging!",
+                "de": "Wie eine Schaufel? Hihi, dann ist die Erde zum Graben da!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "giulia",
+          "it": "Lo dice anche la maestra: palla con due elle! Io da grande faccio la maestra.",
+          "sl": "Tudi učiteljica pravi: palla z dvema l! Ko bom velika, bom učiteljica.",
+          "en": "The teacher says so too: palla with two l's! When I grow up, I'll be a teacher.",
+          "de": "Das sagt auch die Lehrerin: palla mit zwei l! Wenn ich groß bin, werde ich Lehrerin."
+        }
+      ]
+    },
+    {
+      "id": "compiti",
+      "lines": [
+        {
+          "who": "lorenzo",
+          "it": "{learner}… mi aiuti? I compiti. Devo scrivere «cavallo».",
+          "sl": "{learner} … mi pomagaš? Domača naloga. Napisati moram »cavallo« (konj).",
+          "en": "{learner}… will you help me? Homework. I have to write «cavallo» (horse).",
+          "de": "{learner} … hilfst du mir? Hausaufgaben. Ich muss «cavallo» (Pferd) schreiben."
+        },
+        {
+          "who": "lorenzo",
+          "it": "Io ho scritto: c-a-v-a-l-o. È giusto?",
+          "sl": "Jaz sem napisal: c-a-v-a-l-o. Je prav?",
+          "en": "I wrote: c-a-v-a-l-o. Is that right?",
+          "de": "Ich habe geschrieben: c-a-v-a-l-o. Stimmt das?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Quasi! Cavallo ha due elle.",
+              "sl": "Skoraj! Cavallo ima dva l.",
+              "en": "Almost! Cavallo has two l's.",
+              "de": "Fast! Cavallo hat zwei l.",
+              "ok": true,
+              "reply": {
+                "it": "Due elle? Ca-val-lo. Ah, sì! Come dice la maestra.",
+                "sl": "Dva l? Ca-val-lo. Aha, ja! Kot pravi učiteljica.",
+                "en": "Two l's? Ca-val-lo. Oh, yes! Like the teacher says.",
+                "de": "Zwei l? Ca-val-lo. Ach ja! Wie die Lehrerin sagt."
+              }
+            },
+            {
+              "it": "Sì, è giusto!",
+              "sl": "Ja, prav je!",
+              "en": "Yes, that's right!",
+              "de": "Ja, das stimmt!",
+              "why": {
+                "sl": "Cavallo se piše z dvema l: ca-val-lo. Podvojene črke so pomembne.",
+                "en": "Cavallo is written with two l's: ca-val-lo. Double letters matter.",
+                "de": "Cavallo schreibt man mit zwei l: ca-val-lo. Doppelte Buchstaben sind wichtig."
+              },
+              "reply": {
+                "it": "Giusto? Evviva! Ma… la maestra ha la matita rossa.",
+                "sl": "Prav? Juhu! Ampak … učiteljica ima rdeč svinčnik.",
+                "en": "Right? Hooray! But… the teacher has a red pencil.",
+                "de": "Richtig? Juhu! Aber … die Lehrerin hat einen roten Stift."
+              }
+            },
+            {
+              "it": "Quasi! Cavallo ha tre elle.",
+              "sl": "Skoraj! Cavallo ima tri l.",
+              "en": "Almost! Cavallo has three l's.",
+              "de": "Fast! Cavallo hat drei l.",
+              "why": {
+                "sl": "Ca-val-lo: dva l, ne trije.",
+                "en": "Ca-val-lo: two l's, not three.",
+                "de": "Ca-val-lo: zwei l, nicht drei."
+              },
+              "reply": {
+                "it": "Tre? Ca-val-l-l-o? Che parola lunga!",
+                "sl": "Tri? Ca-val-l-l-o? Kako dolga beseda!",
+                "en": "Three? Ca-val-l-l-o? What a long word!",
+                "de": "Drei? Ca-val-l-l-o? Was für ein langes Wort!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "lorenzo",
+          "it": "Ca-val-lo. Fatto! Adesso la frase: «Il cavallo del nonno …». Baio è grande!",
+          "sl": "Ca-val-lo. Narejeno! Zdaj pa stavek: »Dedkov konj …« Baio je velik!",
+          "en": "Ca-val-lo. Done! Now the sentence: «Grandpa's horse …». Baio is big!",
+          "de": "Ca-val-lo. Fertig! Jetzt der Satz: «Das Pferd von Opa …». Baio ist groß!"
+        },
+        {
+          "choices": [
+            {
+              "it": "Scrivi: «Il cavallo del nonno è grande.»",
+              "sl": "Napiši: »Dedkov konj je velik.«",
+              "en": "Write: «Grandpa's horse is big.»",
+              "de": "Schreib: «Das Pferd von Opa ist groß.»",
+              "ok": true,
+              "reply": {
+                "it": "È grande! Uno, due, tre, quattro gambe. Grazie!",
+                "sl": "Velik je! Ena, dve, tri, štiri noge. Hvala!",
+                "en": "It's big! One, two, three, four legs. Thanks!",
+                "de": "Es ist groß! Eins, zwei, drei, vier Beine. Danke!"
+              }
+            },
+            {
+              "it": "Scrivi: «Il cavallo del nonno ha grande.»",
+              "sl": "Napiši: »Dedkov konj ima velik.«",
+              "en": "Write: «Grandpa's horse has big.»",
+              "de": "Schreib: «Das Pferd von Opa hat groß.»",
+              "grammar": "essere-avere",
+              "why": {
+                "sl": "Kakšen je: essere, è grande. Ha je za to, kar ima (ha quattro gambe).",
+                "en": "What it's like: essere, è grande. Ha is for what it has (ha quattro gambe).",
+                "de": "Wie es ist: essere, è grande. Ha steht für das, was es hat (ha quattro gambe)."
+              },
+              "reply": {
+                "it": "Ha grande? Ha… che cosa? Non capisco.",
+                "sl": "Ima velik? Ima … kaj? Ne razumem.",
+                "en": "Has big? Has… what? I don't get it.",
+                "de": "Hat groß? Hat … was? Versteh ich nicht."
+              }
+            },
+            {
+              "it": "Scriva: «Il cavallo del nonno è grande.»",
+              "sl": "Napišite: »Dedkov konj je velik.«",
+              "en": "Write (polite): «Grandpa's horse is big.»",
+              "de": "Schreiben Sie: «Das Pferd von Opa ist groß.»",
+              "grammar": "tu-lei",
+              "why": {
+                "sl": "Lorenzo je otrok: tu, scrivi. Scriva je vikanje (Lei).",
+                "en": "Lorenzo is a child: tu, scrivi. Scriva is the polite Lei.",
+                "de": "Lorenzo ist ein Kind: tu, scrivi. Scriva ist das höfliche Lei."
+              },
+              "reply": {
+                "it": "Scriva? Ih ih, io non sono la maestra!",
+                "sl": "Napišite? Hi hi, saj nisem učiteljica!",
+                "en": "Scriva (polite)? Hee hee, I'm not the teacher!",
+                "de": "Schreiben Sie? Hihi, ich bin doch nicht die Lehrerin!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "lorenzo",
+          "it": "Fatto! Domani lo faccio vedere alla maestra.",
+          "sl": "Narejeno! Jutri pokažem učiteljici.",
+          "en": "Done! Tomorrow I'll show the teacher.",
+          "de": "Fertig! Morgen zeig ich es der Lehrerin."
+        }
+      ]
+    },
+    {
+      "id": "pallone",
+      "lines": [
+        {
+          "who": "tommaso",
+          "it": "Ehi, {learner}! Basta studiare! Vieni fuori a giocare a calcio?",
+          "sl": "Hej, {learner}! Dovolj učenja! Prideš ven igrat nogomet?",
+          "en": "Hey, {learner}! Enough studying! Coming out to play football?",
+          "de": "He, {learner}! Genug gelernt! Kommst du raus Fußball spielen?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì, dai! Andiamo in cortile!",
+              "sl": "Ja, daj! Greva na dvorišče!",
+              "en": "Yes, come on! Let's go to the playground!",
+              "de": "Ja, los! Gehen wir auf den Hof!",
+              "ok": true,
+              "reply": {
+                "it": "Forza! Tu in porta, io in attacco!",
+                "sl": "Gremo! Ti v gol, jaz v napad!",
+                "en": "Go! You in goal, me up front!",
+                "de": "Los! Du ins Tor, ich in den Sturm!"
+              }
+            },
+            {
+              "it": "Un momento, finisco la pagina e vengo!",
+              "sl": "Trenutek, dokončam stran in pridem!",
+              "en": "One moment, I'll finish the page and come!",
+              "de": "Moment, ich mach die Seite fertig und komme!",
+              "ok": true,
+              "reply": {
+                "it": "Va bene, ti aspetto. Ma veloce, eh!",
+                "sl": "Prav, počakam te. Ampak hitro, ja!",
+                "en": "OK, I'll wait for you. But be quick!",
+                "de": "Okay, ich warte. Aber schnell, ja!"
+              }
+            },
+            {
+              "it": "Sì, dai! Vado in cortile, Lei viene?",
+              "sl": "Ja, daj! Grem na dvorišče, pridete tudi vi?",
+              "en": "Yes, come on! I'm going to the playground, are you (Lei) coming?",
+              "de": "Ja, los! Ich geh auf den Hof, kommen Sie mit?",
+              "grammar": "tu-lei",
+              "why": {
+                "sl": "Tommaso je otrok: tu. Lei je za odrasle, ki jih vikaš.",
+                "en": "Tommaso is a child: tu. Lei is for grown-ups you are polite to.",
+                "de": "Tommaso ist ein Kind: tu. Lei ist für Erwachsene, die du siezt."
+              },
+              "reply": {
+                "it": "Lei? Ih ih, io non sono il sindaco!",
+                "sl": "Vi? Hi hi, saj nisem župan!",
+                "en": "Lei (polite you)? Hee hee, I'm not the mayor!",
+                "de": "Sie? Hihi, ich bin doch nicht der Bürgermeister!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "tommaso",
+          "it": "Ecco il mio pallone! È dell'Udinese. Bianco e nero!",
+          "sl": "Tole je moja žoga! Od Udineseja je. Bela in črna!",
+          "en": "Here's my ball! It's an Udinese one. Black and white!",
+          "de": "Das ist mein Ball! Der ist von Udinese. Schwarz-weiß!"
+        },
+        {
+          "choices": [
+            {
+              "it": "Che bello! Il pallone è nuovo?",
+              "sl": "Kako lepa! Je žoga nova?",
+              "en": "Cool! Is the ball new?",
+              "de": "Toll! Ist der Ball neu?",
+              "ok": true,
+              "reply": {
+                "it": "Nuovo nuovo! Regalo della mamma.",
+                "sl": "Čisto nova! Darilo od mame.",
+                "en": "Brand new! A present from Mum.",
+                "de": "Nagelneu! Ein Geschenk von Mama."
+              }
+            },
+            {
+              "it": "Che bello! La pallone è nuova?",
+              "sl": "Kako lepa! Je žoga nova?",
+              "en": "Cool! Is the ball new (feminine)?",
+              "de": "Toll! Ist der Ball neu (weiblich)?",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Pallone je moškega spola: il pallone, nuovo.",
+                "en": "Pallone is masculine: il pallone, nuovo.",
+                "de": "Pallone ist maskulin: il pallone, nuovo."
+              },
+              "reply": {
+                "it": "La pallone? Ehi, è un pallone maschio, forte!",
+                "sl": "La pallone? Hej, to je fantovska žoga, močna!",
+                "en": "La pallone? Hey, it's a boy ball, a strong one!",
+                "de": "La pallone? He, das ist ein Jungs-Ball, ein starker!"
+              }
+            },
+            {
+              "it": "Che bello! Il pallone ha nuovo?",
+              "sl": "Kako lepa! Ima žoga nova?",
+              "en": "Cool! Has the ball new?",
+              "de": "Toll! Hat der Ball neu?",
+              "grammar": "essere-avere",
+              "why": {
+                "sl": "Kakšen je: è nuovo. Ha je za to, kar ima.",
+                "en": "What it's like: è nuovo. Ha is for what it has.",
+                "de": "Wie er ist: è nuovo. Ha steht für das, was er hat."
+              },
+              "reply": {
+                "it": "Ha nuovo? Ha… cosa? Boh!",
+                "sl": "Ima novo? Ima … kaj? Ne vem!",
+                "en": "Has new? Has… what? Dunno!",
+                "de": "Hat neu? Hat … was? Keine Ahnung!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "tommaso",
+          "it": "Dai, andiamo! Chi segna per primo vince un gelato!",
+          "sl": "Daj, greva! Kdor prvi zabije gol, dobi sladoled!",
+          "en": "Come on, let's go! First to score wins an ice cream!",
+          "de": "Los, komm! Wer zuerst ein Tor schießt, gewinnt ein Eis!"
+        }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "appello-stai",
+      "memory": {
+        "it": "il libro nuovo che abbiamo letto insieme",
+        "sl": "novo knjigo, ki sva jo {m:brala|f:brali} skupaj",
+        "en": "the new book we read together",
+        "de": "das neue Buch, das wir zusammen gelesen haben"
+      },
+      "lines": [
+        {
+          "who": "elena",
+          "it": "Buongiorno, {learner}! Come stai oggi?",
+          "sl": "Dober dan, {learner}! Kako si danes?",
+          "en": "Good morning, {learner}! How are you today?",
+          "de": "Guten Morgen, {learner}! Wie geht's dir heute?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sto bene, grazie. E Lei, maestra?",
+              "sl": "Dobro, hvala. Pa vi, učiteljica?",
+              "en": "I'm fine, thanks. And you, Miss?",
+              "de": "Mir geht's gut, danke. Und Ihnen, Frau Lehrerin?",
+              "ok": true,
+              "reply": {
+                "it": "Bene anch'io, grazie. Che {m:educato|f:educata}!",
+                "sl": "Tudi meni dobro, hvala. Kako {m:vljuden|f:vljudna} si!",
+                "en": "I'm fine too, thank you. How polite you are!",
+                "de": "Mir auch, danke. Wie höflich du bist!"
+              }
+            },
+            {
+              "it": "Sto bene, grazie. E tu, maestra?",
+              "sl": "Dobro, hvala. Pa ti, učiteljica?",
+              "en": "I'm fine, thanks. And you (tu), Miss?",
+              "de": "Mir geht's gut, danke. Und dir, Frau Lehrerin?",
+              "grammar": "tu-lei",
+              "why": {
+                "sl": "Učiteljici rečeš Lei: E Lei? Tu je za prijatelje in družino.",
+                "en": "To the teacher say Lei: E Lei? Tu is for friends and family.",
+                "de": "Zur Lehrerin sagst du Lei: E Lei? Tu ist für Freunde und Familie."
+              },
+              "reply": {
+                "it": "Tu? Mm, a scuola sono la maestra, sai?",
+                "sl": "Ti? Mm, v šoli sem jaz učiteljica, veš?",
+                "en": "Tu (to a friend)? Hm, at school I'm the teacher, you know?",
+                "de": "Tu (du)? Hm, in der Schule bin ich die Lehrerin, weißt du?"
+              }
+            },
+            {
+              "it": "Sono bene, grazie. E Lei, maestra?",
+              "sl": "Sem dobro, hvala. Pa vi, učiteljica?",
+              "en": "I am well (essere), thanks. And you, Miss?",
+              "de": "Ich bin gut, danke. Und Ihnen, Frau Lehrerin?",
+              "grammar": "verbi-irregolari",
+              "why": {
+                "sl": "Kako si, povemo s stare: sto bene. Sono bene se ne reče.",
+                "en": "How you are is said with stare: sto bene. Sono bene isn't Italian.",
+                "de": "Wie es dir geht, sagt man mit stare: sto bene. Sono bene sagt man nicht."
+              },
+              "reply": {
+                "it": "Sono bene? Hm, non si dice così. Riprova!",
+                "sl": "Sono bene? Hm, tako se ne reče. Poskusi še enkrat!",
+                "en": "Sono bene? Hm, that's not how we say it. Try again!",
+                "de": "Sono bene? Hm, so sagt man das nicht. Versuch's noch mal!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "elena",
+          "it": "Oggi abbiamo una sorpresa: un libro nuovo! Ti piace leggere?",
+          "sl": "Danes imamo presenečenje: novo knjigo! Ti je všeč brati?",
+          "en": "Today we have a surprise: a new book! Do you like reading?",
+          "de": "Heute haben wir eine Überraschung: ein neues Buch! Liest du gern?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì, mi piace tanto!",
+              "sl": "Ja, zelo mi je všeč!",
+              "en": "Yes, I like it a lot!",
+              "de": "Ja, sehr gern!",
+              "ok": true,
+              "reply": {
+                "it": "Anche a me! Leggiamo insieme.",
+                "sl": "Tudi meni! Bereva skupaj.",
+                "en": "Me too! We'll read together.",
+                "de": "Ich auch! Wir lesen zusammen."
+              }
+            },
+            {
+              "it": "Sì, mi piaccio tanto!",
+              "sl": "Ja, zelo sem si všeč!",
+              "en": "Yes, I like myself a lot!",
+              "de": "Ja, ich gefalle mir sehr!",
+              "grammar": "piacere",
+              "why": {
+                "sl": "Za eno stvar (brati): mi piace. Mi piaccio pomeni, da si všeč sam sebi.",
+                "en": "For one thing (reading): mi piace. Mi piaccio means I like myself.",
+                "de": "Für eine Sache (lesen): mi piace. Mi piaccio heißt: Ich gefalle mir selbst."
+              },
+              "reply": {
+                "it": "Ti piaci? Bene, ma io parlavo del libro!",
+                "sl": "Všeč si {m:sam|f:sama} sebi? Lepo, ampak jaz sem mislila na knjigo!",
+                "en": "You like yourself? Good, but I meant the book!",
+                "de": "Du gefällst dir? Schön, aber ich meinte das Buch!"
+              }
+            },
+            {
+              "it": "Sì, ho fame!",
+              "sl": "Ja, {m:lačen|f:lačna} sem!",
+              "en": "Yes, I'm hungry!",
+              "de": "Ja, ich habe Hunger!",
+              "why": {
+                "sl": "Ho fame je lakota. Da ti je nekaj všeč: mi piace.",
+                "en": "Ho fame means I'm hungry. To like something: mi piace.",
+                "de": "Ho fame heißt: Ich habe Hunger. Etwas gern haben: mi piace."
+              },
+              "reply": {
+                "it": "Fame? Alle nove del mattino? La merenda è dopo!",
+                "sl": "Lakota? Ob devetih zjutraj? Malica je pozneje!",
+                "en": "Hungry? At nine in the morning? Snack time is later!",
+                "de": "Hunger? Um neun Uhr morgens? Die Pause kommt später!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "elena",
+          "it": "Allora leggiamo la prima pagina insieme.",
+          "sl": "Potem pa skupaj preberiva prvo stran.",
+          "en": "Then let's read the first page together.",
+          "de": "Dann lesen wir zusammen die erste Seite."
+        }
+      ]
+    },
+    {
+      "id": "lavagna-articoli",
+      "lines": [
+        {
+          "who": "elena",
+          "it": "Buon pomeriggio, {learner}! Oggi alla lavagna ci sono gli articoli. Leggi qui: «il zaino».",
+          "sl": "Dober dan, {learner}! Danes so na tabli členi. Preberi tole: »il zaino«.",
+          "en": "Good afternoon, {learner}! Today the articles are on the board. Read this: «il zaino».",
+          "de": "Guten Tag, {learner}! Heute stehen die Artikel an der Tafel. Lies das hier: «il zaino»."
+        },
+        {
+          "choices": [
+            {
+              "it": "Non è giusto: lo zaino!",
+              "sl": "To ni prav: lo zaino!",
+              "en": "That's not right: lo zaino!",
+              "de": "Das stimmt nicht: lo zaino!",
+              "ok": true,
+              "reply": {
+                "it": "Esatto! Davanti alla zeta va lo: lo zaino, lo zio.",
+                "sl": "Točno! Pred z pride lo: lo zaino, lo zio.",
+                "en": "Exactly! Before z comes lo: lo zaino, lo zio.",
+                "de": "Genau! Vor z steht lo: lo zaino, lo zio."
+              }
+            },
+            {
+              "it": "Non è giusto: la zaino!",
+              "sl": "To ni prav: la zaino!",
+              "en": "That's not right: la zaino!",
+              "de": "Das stimmt nicht: la zaino!",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Zaino je moškega spola in se začne z z: lo zaino. La je za ženski spol.",
+                "en": "Zaino is masculine and starts with z: lo zaino. La is for feminine words.",
+                "de": "Zaino ist maskulin und beginnt mit z: lo zaino. La steht bei femininen Wörtern."
+              },
+              "reply": {
+                "it": "La zaino? Povero zaino, è un maschietto!",
+                "sl": "La zaino? Ubogi nahrbtnik, saj je fantek!",
+                "en": "La zaino? Poor backpack, it's a little boy!",
+                "de": "La zaino? Armer Rucksack, der ist doch ein Junge!"
+              }
+            },
+            {
+              "it": "È giusto: il zaino!",
+              "sl": "Prav je: il zaino!",
+              "en": "It's right: il zaino!",
+              "de": "Das stimmt: il zaino!",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Pred z je lo: lo zaino, lo zio. Il je pred drugimi soglasniki (il libro).",
+                "en": "Before z the article is lo: lo zaino, lo zio. Il goes before other consonants (il libro).",
+                "de": "Vor z steht lo: lo zaino, lo zio. Il steht vor anderen Konsonanten (il libro)."
+              },
+              "reply": {
+                "it": "Giusto? Hm. Pensa alla prima lettera: zeta!",
+                "sl": "Prav? Hm. Pomisli na prvo črko: z!",
+                "en": "Right? Hm. Think of the first letter: z!",
+                "de": "Richtig? Hm. Denk an den ersten Buchstaben: z!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "elena",
+          "it": "{m:Bravo|f:Brava}. Adesso questa: «un casa». Come si dice?",
+          "sl": "Bravo. Zdaj pa tole: »un casa«. Kako se reče?",
+          "en": "Well done. Now this one: «un casa». How do you say it?",
+          "de": "Gut. Jetzt das hier: «un casa». Wie sagt man es?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Una casa!",
+              "sl": "Una casa! (ena hiša)",
+              "en": "Una casa! (a house)",
+              "de": "Una casa! (ein Haus)",
+              "ok": true,
+              "reply": {
+                "it": "Sì! Casa finisce in -a ed è femminile.",
+                "sl": "Ja! Casa se konča na -a in je ženskega spola.",
+                "en": "Yes! Casa ends in -a and it's feminine.",
+                "de": "Ja! Casa endet auf -a und ist feminin."
+              }
+            },
+            {
+              "it": "Un casa!",
+              "sl": "Un casa!",
+              "en": "Un casa!",
+              "de": "Un casa!",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Casa je ženskega spola: una casa. Un je za moški spol (un libro).",
+                "en": "Casa is feminine: una casa. Un is for masculine words (un libro).",
+                "de": "Casa ist feminin: una casa. Un steht bei maskulinen Wörtern (un libro)."
+              },
+              "reply": {
+                "it": "Un casa? Ma è proprio quello che c'è scritto!",
+                "sl": "Un casa? Saj je točno to, kar piše!",
+                "en": "Un casa? But that's exactly what's written there!",
+                "de": "Un casa? Aber genau das steht doch da!"
+              }
+            },
+            {
+              "it": "Uno casa!",
+              "sl": "Uno casa!",
+              "en": "Uno casa!",
+              "de": "Uno casa!",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Uno je samo za moški spol pred s + soglasnik ali z (uno zaino). Casa je ženskega spola: una casa.",
+                "en": "Uno is only for masculine words with s + consonant or z (uno zaino). Casa is feminine: una casa.",
+                "de": "Uno steht nur bei maskulinen Wörtern mit s + Konsonant oder z (uno zaino). Casa ist feminin: una casa."
+              },
+              "reply": {
+                "it": "Uno casa? Uno, due, tre… contiamo le case?",
+                "sl": "Uno casa? Ena, dve, tri … štejemo hiše?",
+                "en": "Uno casa? One, two, three… are we counting houses?",
+                "de": "Uno casa? Eins, zwei, drei … zählen wir Häuser?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "elena",
+          "it": "Benissimo! Una casa, una tenda, una scuola: le parole in -a amano «una».",
+          "sl": "Odlično! Una casa, una tenda, una scuola: besede na -a imajo rade »una«.",
+          "en": "Very good! Una casa, una tenda, una scuola: words in -a love «una».",
+          "de": "Sehr gut! Una casa, una tenda, una scuola: Wörter auf -a lieben «una»."
+        }
+      ]
+    },
+    {
+      "id": "lavagna-plurale",
+      "lines": [
+        {
+          "who": "elena",
+          "it": "Buon pomeriggio, {learner}! Oggi alla lavagna c'è il plurale. Leggi: «due gatto».",
+          "sl": "Dober dan, {learner}! Danes je na tabli množina. Preberi: »due gatto«.",
+          "en": "Good afternoon, {learner}! Today the plural is on the board. Read: «due gatto».",
+          "de": "Guten Tag, {learner}! Heute steht der Plural an der Tafel. Lies: «due gatto»."
+        },
+        {
+          "choices": [
+            {
+              "it": "Due gatti!",
+              "sl": "Due gatti! (dva mačka)",
+              "en": "Due gatti! (two cats)",
+              "de": "Due gatti! (zwei Kater)",
+              "ok": true,
+              "reply": {
+                "it": "Esatto: -o diventa -i. Un gatto, due gatti.",
+                "sl": "Točno: -o postane -i. Un gatto, due gatti.",
+                "en": "Exactly: -o becomes -i. Un gatto, due gatti.",
+                "de": "Genau: -o wird zu -i. Un gatto, due gatti."
+              }
+            },
+            {
+              "it": "Due gatto!",
+              "sl": "Due gatto!",
+              "en": "Due gatto!",
+              "de": "Due gatto!",
+              "grammar": "plurale",
+              "why": {
+                "sl": "Za več kot enega: -o postane -i, due gatti.",
+                "en": "More than one: -o becomes -i, due gatti.",
+                "de": "Mehr als einer: -o wird zu -i, due gatti."
+              },
+              "reply": {
+                "it": "Due gatto? Un gatto solo con due teste?",
+                "sl": "Due gatto? En sam maček z dvema glavama?",
+                "en": "Due gatto? One cat with two heads?",
+                "de": "Due gatto? Ein einziger Kater mit zwei Köpfen?"
+              }
+            },
+            {
+              "it": "Due gatte!",
+              "sl": "Due gatte! (dve mački)",
+              "en": "Due gatte! (two she-cats)",
+              "de": "Due gatte! (zwei Katzen)",
+              "grammar": "plurale",
+              "why": {
+                "sl": "Gatto je moškega spola: -o postane -i, due gatti. Gatte so mačke samice.",
+                "en": "Gatto is masculine: -o becomes -i, due gatti. Gatte are she-cats.",
+                "de": "Gatto ist maskulin: -o wird zu -i, due gatti. Gatte sind Katzenweibchen."
+              },
+              "reply": {
+                "it": "Gatte? Due signore gatte con il cappello?",
+                "sl": "Gatte? Dve gospe mačke s klobukom?",
+                "en": "Gatte? Two lady cats in hats?",
+                "de": "Gatte? Zwei Katzendamen mit Hut?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "elena",
+          "it": "{m:Bravo|f:Brava}! E questa: «tre mela».",
+          "sl": "Bravo! Pa tale: »tre mela«.",
+          "en": "Well done! And this one: «tre mela».",
+          "de": "Gut! Und das hier: «tre mela»."
+        },
+        {
+          "choices": [
+            {
+              "it": "Tre mele!",
+              "sl": "Tre mele! (tri jabolka)",
+              "en": "Tre mele! (three apples)",
+              "de": "Tre mele! (drei Äpfel)",
+              "ok": true,
+              "reply": {
+                "it": "Sì! -a diventa -e: una mela, tre mele.",
+                "sl": "Ja! -a postane -e: una mela, tre mele.",
+                "en": "Yes! -a becomes -e: una mela, tre mele.",
+                "de": "Ja! -a wird zu -e: una mela, tre mele."
+              }
+            },
+            {
+              "it": "Tre meli!",
+              "sl": "Tre meli!",
+              "en": "Tre meli!",
+              "de": "Tre meli!",
+              "grammar": "plurale",
+              "why": {
+                "sl": "Mela je ženskega spola: -a postane -e, tre mele.",
+                "en": "Mela is feminine: -a becomes -e, tre mele.",
+                "de": "Mela ist feminin: -a wird zu -e, tre mele."
+              },
+              "reply": {
+                "it": "Meli? Non conosco questo frutto. È buono?",
+                "sl": "Meli? Tega sadeža ne poznam. Je dober?",
+                "en": "Meli? I don't know that fruit. Is it nice?",
+                "de": "Meli? Das Obst kenne ich nicht. Schmeckt es?"
+              }
+            },
+            {
+              "it": "Tre mela!",
+              "sl": "Tre mela!",
+              "en": "Tre mela!",
+              "de": "Tre mela!",
+              "grammar": "plurale",
+              "why": {
+                "sl": "Za več kot eno: -a postane -e, tre mele.",
+                "en": "More than one: -a becomes -e, tre mele.",
+                "de": "Mehr als einer: -a wird zu -e, tre mele."
+              },
+              "reply": {
+                "it": "Tre mela? Una mela sola, tagliata in tre?",
+                "sl": "Tre mela? Eno samo jabolko, narezano na tri?",
+                "en": "Tre mela? A single apple, cut in three?",
+                "de": "Tre mela? Ein einziger Apfel, in drei geschnitten?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "elena",
+          "it": "Perfetto. Domani portiamo tre mele vere per la merenda!",
+          "sl": "Odlično. Jutri prinesemo tri prava jabolka za malico!",
+          "en": "Perfect. Tomorrow we'll bring three real apples for our snack!",
+          "de": "Perfekt. Morgen bringen wir drei echte Äpfel für die Pause mit!"
+        }
+      ]
+    },
+    {
+      "id": "cartina-citta",
+      "memory": {
+        "it": "le città sulla mappa e il nostro piccolo paese",
+        "sl": "mesta na zemljevidu in našo majhno vas",
+        "en": "the towns on the map and our little village",
+        "de": "die Städte auf der Karte und unser kleines Dorf"
+      },
+      "lines": [
+        {
+          "who": "elena",
+          "it": "Buongiorno, {learner}! Sulla mappa ci sono anche le città. Questo punto rosso è Udine.",
+          "sl": "Dober dan, {learner}! Na zemljevidu so tudi mesta. Ta rdeča pika je Videm.",
+          "en": "Good morning, {learner}! The towns are on the map too. This red dot is Udine.",
+          "de": "Guten Morgen, {learner}! Auf der Karte sind auch die Städte. Dieser rote Punkt ist Udine."
+        },
+        {
+          "who": "elena",
+          "it": "Udine è una città grande. E Gorizia, la mia città? È qui, vicino al confine.",
+          "sl": "Videm je veliko mesto. Pa Gorica, moje mesto? Tukaj je, blizu meje.",
+          "en": "Udine is a big town. And Gorizia, my town? It's here, near the border.",
+          "de": "Udine ist eine große Stadt. Und Görz, meine Stadt? Die ist hier, nahe der Grenze."
+        },
+        {
+          "choices": [
+            {
+              "it": "Lei è di Gorizia, maestra?",
+              "sl": "Ste vi iz Gorice, učiteljica?",
+              "en": "Are you from Gorizia, Miss?",
+              "de": "Sind Sie aus Görz, Frau Lehrerin?",
+              "ok": true,
+              "reply": {
+                "it": "Sì! E mia nonna è di Nova Gorica, di là dal confine.",
+                "sl": "Ja! In moja babica je iz Nove Gorice, onkraj meje.",
+                "en": "Yes! And my grandmother is from Nova Gorica, across the border.",
+                "de": "Ja! Und meine Oma ist aus Nova Gorica, auf der anderen Seite der Grenze."
+              }
+            },
+            {
+              "it": "Tu sei di Gorizia, maestra?",
+              "sl": "Si ti iz Gorice, učiteljica?",
+              "en": "Are you (tu) from Gorizia, Miss?",
+              "de": "Bist du aus Görz, Frau Lehrerin?",
+              "grammar": "tu-lei",
+              "why": {
+                "sl": "Učiteljici rečeš Lei: Lei è di Gorizia? Tu sei je za prijatelje.",
+                "en": "To the teacher say Lei: Lei è di Gorizia? Tu sei is for friends.",
+                "de": "Zur Lehrerin sagst du Lei: Lei è di Gorizia? Tu sei ist für Freunde."
+              },
+              "reply": {
+                "it": "Tu? Eh, non sono mica tua sorella!",
+                "sl": "Ti? Eh, saj nisem tvoja sestra!",
+                "en": "Tu? Well, I'm not your sister!",
+                "de": "Du? Na, ich bin doch nicht deine Schwester!"
+              }
+            },
+            {
+              "it": "Lei è di Udine, maestra?",
+              "sl": "Ste vi iz Vidma, učiteljica?",
+              "en": "Are you from Udine, Miss?",
+              "de": "Sind Sie aus Udine, Frau Lehrerin?",
+              "why": {
+                "sl": "Elena je rekla, da je Gorica njeno mesto. Udine je veliko mesto.",
+                "en": "Elena said Gorizia is her town. Udine is the big town.",
+                "de": "Elena hat gesagt, Görz ist ihre Stadt. Udine ist die große Stadt."
+              },
+              "reply": {
+                "it": "Di Udine? No, no: Udine è il punto rosso grande.",
+                "sl": "Iz Vidma? Ne, ne: Videm je velika rdeča pika.",
+                "en": "From Udine? No, no: Udine is the big red dot.",
+                "de": "Aus Udine? Nein, nein: Udine ist der große rote Punkt."
+              }
+            }
+          ]
+        },
+        {
+          "who": "elena",
+          "it": "E il nostro paese? È piccolo piccolo: questo puntino.",
+          "sl": "Pa naša vas? Čisto majhna je: ta pikica.",
+          "en": "And our village? It's tiny: this little dot.",
+          "de": "Und unser Dorf? Das ist winzig: dieser kleine Punkt."
+        },
+        {
+          "choices": [
+            {
+              "it": "È piccolo, ma è il più bello!",
+              "sl": "Majhna je, ampak je najlepša!",
+              "en": "It's small, but it's the most beautiful!",
+              "de": "Es ist klein, aber es ist das schönste!",
+              "ok": true,
+              "reply": {
+                "it": "Hai ragione: per me è il più bello del mondo!",
+                "sl": "Prav imaš: zame je najlepša na svetu!",
+                "en": "You're right: to me it's the most beautiful in the world!",
+                "de": "Du hast recht: Für mich ist es das schönste der Welt!"
+              }
+            },
+            {
+              "it": "Che bello! Il nostro paese è sulla mappa!",
+              "sl": "Kako lepo! Naša vas je na zemljevidu!",
+              "en": "How lovely! Our village is on the map!",
+              "de": "Wie schön! Unser Dorf ist auf der Karte!",
+              "ok": true,
+              "reply": {
+                "it": "Sì! Piccolo piccolo, ma c'è.",
+                "sl": "Ja! Čisto majhna, ampak je tam.",
+                "en": "Yes! Tiny, but it's there.",
+                "de": "Ja! Winzig, aber es ist da."
+              }
+            },
+            {
+              "it": "È piccola, ma è la più bella!",
+              "sl": "Majhna je, ampak je najlepša!",
+              "en": "It's small (feminine), but it's the most beautiful!",
+              "de": "Sie ist klein, aber sie ist die schönste!",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Paese je moškega spola: piccolo, il più bello.",
+                "en": "Paese is masculine: piccolo, il più bello.",
+                "de": "Paese ist maskulin: piccolo, il più bello."
+              },
+              "reply": {
+                "it": "Piccola e bella? Parli di Giulia, forse?",
+                "sl": "Majhna in lepa? Morda govoriš o Giulii?",
+                "en": "Small and pretty (feminine)? Are you talking about Giulia?",
+                "de": "Klein und hübsch? Redest du vielleicht von Giulia?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "elena",
+          "it": "Piccolo e bello. Adesso tutti al posto: si scrive!",
+          "sl": "Majhna in lepa. Zdaj pa vsi na svoje mesto: pišemo!",
+          "en": "Small and lovely. Now everyone to their seats: we're writing!",
+          "de": "Klein und schön. Und jetzt alle auf den Platz: Wir schreiben!"
+        }
+      ]
+    },
+    {
+      "id": "mappamondo-gira",
+      "memory": {
+        "it": "il gioco del mappamondo, il blu e il verde",
+        "sl": "igro z globusom, modro in zeleno",
+        "en": "the globe game, the blue and the green",
+        "de": "das Globusspiel, das Blaue und das Grüne"
+      },
+      "lines": [
+        {
+          "who": "giulia",
+          "it": "{learner}, facciamo un gioco! Io giro il mappamondo, tu metti il dito. Dove si ferma?",
+          "sl": "{learner}, igrajva se! Jaz zavrtim globus, ti nanj položiš prst. Kje se ustavi?",
+          "en": "{learner}, let's play a game! I spin the globe, you put your finger on it. Where does it stop?",
+          "de": "{learner}, lass uns was spielen! Ich drehe den Globus, du legst den Finger drauf. Wo bleibt er stehen?"
+        },
+        {
+          "who": "giulia",
+          "it": "Stop! Il tuo dito è sul blu. Che cos'è il blu?",
+          "sl": "Stop! Tvoj prst je na modrem. Kaj je modro?",
+          "en": "Stop! Your finger is on the blue. What's the blue?",
+          "de": "Stopp! Dein Finger ist auf dem Blauen. Was ist das Blaue?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Il blu è il mare.",
+              "sl": "Modro je morje.",
+              "en": "The blue is the sea.",
+              "de": "Das Blaue ist das Meer.",
+              "ok": true,
+              "reply": {
+                "it": "Sì! Sul mappamondo c'è tanto mare, più della terra!",
+                "sl": "Ja! Na globusu je veliko morja, več kot kopnega!",
+                "en": "Yes! There's lots of sea on the globe, more than land!",
+                "de": "Ja! Auf dem Globus ist viel Meer, mehr als Land!"
+              }
+            },
+            {
+              "it": "Il blu è la mare.",
+              "sl": "Modro je morje.",
+              "en": "The blue is the sea.",
+              "de": "Das Blaue ist das Meer.",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Mare je moškega spola: il mare.",
+                "en": "Mare is masculine: il mare.",
+                "de": "Mare ist maskulin: il mare."
+              },
+              "reply": {
+                "it": "La mare? Ih ih, anch'io l'ho scritto così, una volta!",
+                "sl": "La mare? Hi hi, tudi jaz sem enkrat tako napisala!",
+                "en": "La mare? Hee hee, I wrote it like that once too!",
+                "de": "La mare? Hihi, das hab ich auch mal so geschrieben!"
+              }
+            },
+            {
+              "it": "Il blu è il cielo.",
+              "sl": "Modro je nebo.",
+              "en": "The blue is the sky.",
+              "de": "Das Blaue ist der Himmel.",
+              "why": {
+                "sl": "Na globusu je modro morje. Nebo je zgoraj, nad nami.",
+                "en": "On the globe the blue is the sea. The sky is up above us.",
+                "de": "Auf dem Globus ist das Blaue das Meer. Der Himmel ist oben, über uns."
+              },
+              "reply": {
+                "it": "Il cielo? Sul mappamondo? E dove sono le nuvole?",
+                "sl": "Nebo? Na globusu? Kje so pa oblaki?",
+                "en": "The sky? On the globe? So where are the clouds?",
+                "de": "Der Himmel? Auf dem Globus? Wo sind dann die Wolken?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "giulia",
+          "it": "Ancora! Gira, gira… stop! Adesso è sul verde. E il verde?",
+          "sl": "Še enkrat! Vrti, vrti … stop! Zdaj je na zelenem. Pa zeleno?",
+          "en": "Again! Spin, spin… stop! Now it's on the green. And the green?",
+          "de": "Noch mal! Dreh, dreh … stopp! Jetzt ist er auf dem Grünen. Und das Grüne?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Il verde è la terra: i prati e i boschi.",
+              "sl": "Zeleno je kopno: travniki in gozdovi.",
+              "en": "The green is the land: the meadows and the woods.",
+              "de": "Das Grüne ist das Land: die Wiesen und die Wälder.",
+              "ok": true,
+              "reply": {
+                "it": "{m:Bravo|f:Brava}! E il nostro paese è sul verde, vicino al blu.",
+                "sl": "Bravo! In naša vas je na zelenem, blizu modrega.",
+                "en": "Well done! And our village is on the green, near the blue.",
+                "de": "Super! Und unser Dorf ist auf dem Grünen, nahe beim Blauen."
+              }
+            },
+            {
+              "it": "Il verde è la terra: i prati e i bosci.",
+              "sl": "Zeleno je kopno: travniki in gozdovi.",
+              "en": "The green is the land: the meadows and the woods.",
+              "de": "Das Grüne ist das Land: die Wiesen und die Wälder.",
+              "grammar": "plurale",
+              "why": {
+                "sl": "Bosco v množini doda h, da ostane trdi glas: i boschi.",
+                "en": "Bosco adds an h in the plural to keep the hard sound: i boschi.",
+                "de": "Bosco bekommt im Plural ein h, damit es hart bleibt: i boschi."
+              },
+              "reply": {
+                "it": "Bosci? Ih ih, sembra un uccello che starnutisce!",
+                "sl": "Bosci? Hi hi, zveni kot ptica, ki kiha!",
+                "en": "Bosci? Hee hee, sounds like a bird sneezing!",
+                "de": "Bosci? Hihi, das klingt wie ein Vogel, der niest!"
+              }
+            },
+            {
+              "it": "Il verde è la terra: il prati e il boschi.",
+              "sl": "Zeleno je kopno: travniki in gozdovi.",
+              "en": "The green is the land: the meadows and the woods.",
+              "de": "Das Grüne ist das Land: die Wiesen und die Wälder.",
+              "grammar": "plurale",
+              "why": {
+                "sl": "V množini je člen i: i prati, i boschi. Il je za eno stvar.",
+                "en": "In the plural the article is i: i prati, i boschi. Il is for one.",
+                "de": "Im Plural ist der Artikel i: i prati, i boschi. Il steht für eins."
+              },
+              "reply": {
+                "it": "Il prati? Un prato solo, allora?",
+                "sl": "Il prati? Samo en travnik, torej?",
+                "en": "Il prati? Just one meadow, then?",
+                "de": "Il prati? Nur eine Wiese also?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "giulia",
+          "it": "Che bel gioco! Domani giochiamo ancora, va bene?",
+          "sl": "Kakšna lepa igra! Jutri se spet igrava, prav?",
+          "en": "What a great game! Let's play again tomorrow, OK?",
+          "de": "Was für ein tolles Spiel! Morgen spielen wir wieder, ja?"
+        }
+      ]
+    },
+    {
+      "id": "compiti-matite",
+      "count": {
+        "from": "dice",
+        "min": 2,
+        "max": 10,
+        "gender": "f"
+      },
+      "memory": {
+        "it": "le matite che abbiamo contato insieme",
+        "sl": "svinčnike, ki sva jih preštela",
+        "en": "the pencils we counted together",
+        "de": "die Stifte, die wir zusammen gezählt haben"
+      },
+      "lines": [
+        {
+          "who": "lorenzo",
+          "it": "{learner}! Guarda il mio astuccio. Contiamo le matite? Uno, due, tre…",
+          "sl": "{learner}! Poglej mojo peresnico. Preštejva svinčnike? Ena, dve, tri …",
+          "en": "{learner}! Look at my pencil case. Shall we count the pencils? One, two, three…",
+          "de": "{learner}! Schau mein Federmäppchen. Zählen wir die Stifte? Eins, zwei, drei …"
+        },
+        {
+          "choices": [
+            {
+              "it": "Nell'astuccio {c'è|ci sono} {n} {matita|matite}.",
+              "sl": "V peresnici {je|sta|so|je} {n} {svinčnik|svinčnika|svinčniki|svinčnikov}.",
+              "en": "There {is|are} {n} {pencil|pencils} in the pencil case.",
+              "de": "Im Mäppchen {ist|sind} {n} {Stift|Stifte}.",
+              "ok": true,
+              "reply": {
+                "it": "Sì! Tu conti bene, come il mio nonno!",
+                "sl": "Ja! Dobro šteješ, kot moj dedek!",
+                "en": "Yes! You count well, like my grandpa!",
+                "de": "Ja! Du zählst gut, wie mein Opa!"
+              }
+            },
+            {
+              "it": "Nell'astuccio {c'è|ci sono} {n} {!matita|matite}.",
+              "sl": "V peresnici {je|sta|so|je} {n} {!svinčnik|svinčnika|svinčniki|svinčnikov}.",
+              "en": "There {is|are} {n} {!pencil|pencils} in the pencil case.",
+              "de": "Im Mäppchen {ist|sind} {n} {!Stift|Stifte}.",
+              "wrong_form": 1,
+              "grammar": "plurale",
+              "why": {
+                "sl": "{Ena je v ednini|Več jih je v množini}: {n} {matita|matite}.",
+                "en": "{One takes the singular|More than one takes the plural}: {n} {matita|matite}.",
+                "de": "{Eins steht im Singular|Mehrere stehen im Plural}: {n} {matita|matite}."
+              },
+              "reply": {
+                "it": "Hm? Contiamo di nuovo. Piano piano.",
+                "sl": "Hm? Preštejva še enkrat. Počasi.",
+                "en": "Hm? Let's count again. Slowly.",
+                "de": "Hm? Zählen wir noch mal. Ganz langsam."
+              }
+            },
+            {
+              "it": "Nello astuccio {c'è|ci sono} {n} {matita|matite}.",
+              "sl": "V peresnici {je|sta|so|je} {n} {svinčnik|svinčnika|svinčniki|svinčnikov}.",
+              "en": "There {is|are} {n} {pencil|pencils} in the pencil case.",
+              "de": "Im Mäppchen {ist|sind} {n} {Stift|Stifte}.",
+              "grammar": "preposizioni-articolate",
+              "why": {
+                "sl": "Astuccio se začne s samoglasnikom: in + l' = nell'astuccio.",
+                "en": "Astuccio starts with a vowel: in + l' = nell'astuccio.",
+                "de": "Astuccio beginnt mit einem Vokal: in + l' = nell'astuccio."
+              },
+              "reply": {
+                "it": "Nello astuccio? Uh, che parola lunga!",
+                "sl": "Nello astuccio? Uh, kako dolga beseda!",
+                "en": "Nello astuccio? Ooh, what a long word!",
+                "de": "Nello astuccio? Uh, was für ein langes Wort!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "lorenzo",
+          "it": "E adesso i colori! Questa matita è rossa. E questa?",
+          "sl": "Pa zdaj barve! Ta svinčnik je rdeč. Pa ta?",
+          "en": "And now the colours! This pencil is red. And this one?",
+          "de": "Und jetzt die Farben! Dieser Stift ist rot. Und der?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Questa è gialla, come il sole.",
+              "sl": "Ta je rumen, kot sonce.",
+              "en": "This one is yellow, like the sun.",
+              "de": "Der ist gelb, wie die Sonne.",
+              "ok": true,
+              "reply": {
+                "it": "Gialla! Con questa disegno il sole.",
+                "sl": "Rumen! S tem rišem sonce.",
+                "en": "Yellow! I draw the sun with this one.",
+                "de": "Gelb! Damit male ich die Sonne."
+              }
+            },
+            {
+              "it": "Questa è giallo, come il sole.",
+              "sl": "Ta je rumen, kot sonce.",
+              "en": "This one is yellow (masculine), like the sun.",
+              "de": "Der ist gelb (männlich), wie die Sonne.",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Matita je ženskega spola: gialla. Giallo je za moški spol (il sole è giallo).",
+                "en": "Matita is feminine: gialla. Giallo is for masculine words (il sole è giallo).",
+                "de": "Matita ist feminin: gialla. Giallo steht bei maskulinen Wörtern (il sole è giallo)."
+              },
+              "reply": {
+                "it": "Giallo? Ma la matita è una femmina!",
+                "sl": "Giallo? Saj je matita ženskega spola!",
+                "en": "Giallo? But matita is a girl word!",
+                "de": "Giallo? Aber matita ist doch weiblich!"
+              }
+            },
+            {
+              "it": "Questa è gialla, come la sole.",
+              "sl": "Ta je rumen, kot sonce.",
+              "en": "This one is yellow, like the sun.",
+              "de": "Der ist gelb, wie die Sonne.",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Sole je moškega spola: il sole.",
+                "en": "Sole is masculine: il sole.",
+                "de": "Sole ist maskulin: il sole."
+              },
+              "reply": {
+                "it": "La sole? Ih ih, sembra la mamma del sole!",
+                "sl": "La sole? Hi hi, kot da bi bila sončeva mama!",
+                "en": "La sole? Hee hee, sounds like the sun's mum!",
+                "de": "La sole? Hihi, auf Italienisch ist die Sonne ein Junge!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "lorenzo",
+          "it": "Uno, due, tre… tutte belle! Grazie, {learner}. Adesso disegno un cavallo!",
+          "sl": "Ena, dve, tri … vsi so lepi! Hvala, {learner}. Zdaj narišem konja!",
+          "en": "One, two, three… all lovely! Thanks, {learner}. Now I'll draw a horse!",
+          "de": "Eins, zwei, drei … alle schön! Danke, {learner}. Jetzt male ich ein Pferd!"
+        }
+      ]
+    },
+    {
+      "id": "compiti-conti",
+      "memory": {
+        "it": "i conti di matematica che abbiamo fatto insieme",
+        "sl": "račune, ki sva jih naredila skupaj",
+        "en": "the sums we did together",
+        "de": "die Rechenaufgaben, die wir zusammen gemacht haben"
+      },
+      "lines": [
+        {
+          "who": "lorenzo",
+          "it": "{learner}… aiuto! I compiti di matematica. Due più tre… quanto fa?",
+          "sl": "{learner} … na pomoč! Domača naloga iz matematike. Dva plus tri … koliko je to?",
+          "en": "{learner}… help! Maths homework. Two plus three… how much is that?",
+          "de": "{learner} … Hilfe! Mathe-Hausaufgaben. Zwei plus drei … wie viel ist das?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Due più tre fa cinque.",
+              "sl": "Dva plus tri je pet.",
+              "en": "Two plus three makes five.",
+              "de": "Zwei plus drei ist fünf.",
+              "ok": true,
+              "reply": {
+                "it": "Cinque! Uno, due, tre, quattro, cinque. Sì!",
+                "sl": "Pet! Ena, dve, tri, štiri, pet. Ja!",
+                "en": "Five! One, two, three, four, five. Yes!",
+                "de": "Fünf! Eins, zwei, drei, vier, fünf. Ja!"
+              }
+            },
+            {
+              "it": "Due più tre fa sei.",
+              "sl": "Dva plus tri je šest.",
+              "en": "Two plus three makes six.",
+              "de": "Zwei plus drei ist sechs.",
+              "grammar": "numeri",
+              "why": {
+                "sl": "Preštej na prste: dva in tri je pet, cinque.",
+                "en": "Count on your fingers: two and three make five, cinque.",
+                "de": "Zähl an den Fingern: zwei und drei sind fünf, cinque."
+              },
+              "reply": {
+                "it": "Sei? Conto con le dita… no, non sono sei!",
+                "sl": "Šest? Štejem na prste … ne, ni šest!",
+                "en": "Six? I'm counting on my fingers… no, it's not six!",
+                "de": "Sechs? Ich zähl an den Fingern … nein, es sind nicht sechs!"
+              }
+            },
+            {
+              "it": "Due più tre fa cinquanta.",
+              "sl": "Dva plus tri je petdeset.",
+              "en": "Two plus three makes fifty.",
+              "de": "Zwei plus drei ist fünfzig.",
+              "grammar": "numeri",
+              "why": {
+                "sl": "Cinquanta je petdeset. Pet je cinque.",
+                "en": "Cinquanta is fifty. Five is cinque.",
+                "de": "Cinquanta ist fünfzig. Fünf ist cinque."
+              },
+              "reply": {
+                "it": "Cinquanta? Così tanti? Il mio quaderno è piccolo!",
+                "sl": "Petdeset? Toliko? Moj zvezek je majhen!",
+                "en": "Fifty? That many? My exercise book is small!",
+                "de": "Fünfzig? So viele? Mein Heft ist klein!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "lorenzo",
+          "it": "Cinque! Adesso l'ultimo: dieci meno due?",
+          "sl": "Pet! Zdaj pa zadnji: deset minus dva?",
+          "en": "Five! Now the last one: ten minus two?",
+          "de": "Fünf! Jetzt der letzte: zehn minus zwei?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Dieci meno due fa otto.",
+              "sl": "Deset minus dva je osem.",
+              "en": "Ten minus two makes eight.",
+              "de": "Zehn minus zwei ist acht.",
+              "ok": true,
+              "reply": {
+                "it": "Otto! Come le zampe di due cavalli!",
+                "sl": "Osem! Kot noge dveh konj!",
+                "en": "Eight! Like the legs of two horses!",
+                "de": "Acht! Wie die Beine von zwei Pferden!"
+              }
+            },
+            {
+              "it": "Dieci meno due fa nove.",
+              "sl": "Deset minus dva je devet.",
+              "en": "Ten minus two makes nine.",
+              "de": "Zehn minus zwei ist neun.",
+              "grammar": "numeri",
+              "why": {
+                "sl": "Deset minus dva je osem: otto. Nove je devet.",
+                "en": "Ten minus two is eight: otto. Nove is nine.",
+                "de": "Zehn minus zwei ist acht: otto. Nove ist neun."
+              },
+              "reply": {
+                "it": "Nove? Dieci, nove… ci vuole ancora un passo!",
+                "sl": "Devet? Deset, devet … še en korak manjka!",
+                "en": "Nine? Ten, nine… one more step to go!",
+                "de": "Neun? Zehn, neun … noch ein Schritt!"
+              }
+            },
+            {
+              "it": "Dieci meno due fa diciotto.",
+              "sl": "Deset minus dva je osemnajst.",
+              "en": "Ten minus two makes eighteen.",
+              "de": "Zehn minus zwei ist achtzehn.",
+              "grammar": "numeri",
+              "why": {
+                "sl": "Diciotto je osemnajst. Osem je otto.",
+                "en": "Diciotto is eighteen. Eight is otto.",
+                "de": "Diciotto ist achtzehn. Acht ist otto."
+              },
+              "reply": {
+                "it": "Diciotto? Ma è più di dieci! Strano…",
+                "sl": "Osemnajst? Saj je več kot deset! Čudno …",
+                "en": "Eighteen? But that's more than ten! Strange…",
+                "de": "Achtzehn? Das ist doch mehr als zehn! Komisch …"
+              }
+            }
+          ]
+        },
+        {
+          "who": "lorenzo",
+          "it": "Finito! Tutto giusto. Il nonno sarà contento!",
+          "sl": "Konec! Vse prav. Dedek bo vesel!",
+          "en": "Finished! All right. Grandpa will be pleased!",
+          "de": "Fertig! Alles richtig. Opa wird sich freuen!"
+        }
+      ]
+    },
+    {
+      "id": "pallone-merenda",
+      "months": [
+        9,
+        10,
+        11,
+        12,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "memory": {
+        "it": "la merenda che abbiamo fatto insieme",
+        "sl": "malico, ki sva jo pojedla skupaj",
+        "en": "the snack we had together",
+        "de": "das Pausenbrot, das wir zusammen gegessen haben"
+      },
+      "lines": [
+        {
+          "who": "tommaso",
+          "it": "{learner}! È l'ora della merenda! Io ho un panino. E tu che cosa hai?",
+          "sl": "{learner}! Čas je za malico! Jaz imam sendvič. Kaj pa imaš ti?",
+          "en": "{learner}! It's snack time! I've got a sandwich. And what have you got?",
+          "de": "{learner}! Pause! Ich hab ein Brötchen. Und was hast du?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Io ho una mela.",
+              "sl": "Jaz imam jabolko.",
+              "en": "I've got an apple.",
+              "de": "Ich hab einen Apfel.",
+              "ok": true,
+              "reply": {
+                "it": "Una mela! Facciamo cambio? Metà panino, metà mela!",
+                "sl": "Jabolko! Zamenjava? Pol sendviča, pol jabolka!",
+                "en": "An apple! Shall we swap? Half the sandwich, half the apple!",
+                "de": "Einen Apfel! Tauschen wir? Halbes Brötchen, halber Apfel!"
+              }
+            },
+            {
+              "it": "Io sono una mela.",
+              "sl": "Jaz sem jabolko.",
+              "en": "I'm an apple.",
+              "de": "Ich bin ein Apfel.",
+              "grammar": "essere-avere",
+              "why": {
+                "sl": "Kar imaš, je avere: ho una mela. Sono una mela pomeni jaz sem jabolko.",
+                "en": "What you have is avere: ho una mela. Sono una mela means I am an apple.",
+                "de": "Was du hast, ist avere: ho una mela. Sono una mela heißt: Ich bin ein Apfel."
+              },
+              "reply": {
+                "it": "Sei una mela? Ah ah! Allora ti mangio io!",
+                "sl": "Ti si jabolko? Ha ha! Potem te pojem jaz!",
+                "en": "You're an apple? Ha ha! Then I'll eat you!",
+                "de": "Du bist ein Apfel? Haha! Dann ess ich dich!"
+              }
+            },
+            {
+              "it": "Io ho uno mela.",
+              "sl": "Jaz imam jabolko.",
+              "en": "I've got an apple.",
+              "de": "Ich hab einen Apfel.",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Mela je ženskega spola: una mela. Uno je za moški spol pred s + soglasnik ali z.",
+                "en": "Mela is feminine: una mela. Uno is for masculine words with s + consonant or z.",
+                "de": "Mela ist feminin: una mela. Uno steht bei maskulinen Wörtern mit s + Konsonant oder z."
+              },
+              "reply": {
+                "it": "Uno mela? Uno, due… quante mele hai?",
+                "sl": "Uno mela? Ena, dve … koliko jabolk imaš?",
+                "en": "Uno mela? One, two… how many apples have you got?",
+                "de": "Uno mela? Eins, zwei … wie viele Äpfel hast du?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "tommaso",
+          "it": "Mmm, buona! Hai sete? Io dopo il calcio ho tanta sete.",
+          "sl": "Mmm, dobro! Si {m:žejen|f:žejna}? Jaz sem po nogometu zelo žejen.",
+          "en": "Mmm, yummy! Are you thirsty? I'm really thirsty after football.",
+          "de": "Mmm, lecker! Hast du Durst? Ich hab nach dem Fußball so viel Durst."
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì, ho sete! Andiamo alla fontana?",
+              "sl": "Ja, {m:žejen|f:žejna} sem! Greva k vodnjaku?",
+              "en": "Yes, I'm thirsty! Shall we go to the fountain?",
+              "de": "Ja, ich hab Durst! Gehen wir zum Brunnen?",
+              "ok": true,
+              "reply": {
+                "it": "Sì! Chi arriva ultimo è una lumaca!",
+                "sl": "Ja! Kdor pride zadnji, je polž!",
+                "en": "Yes! Last one there is a snail!",
+                "de": "Ja! Wer als Letzter da ist, ist eine Schnecke!"
+              }
+            },
+            {
+              "it": "Sì, sono sete! Andiamo alla fontana?",
+              "sl": "Ja, sem žeja! Greva k vodnjaku?",
+              "en": "Yes, I am thirst! Shall we go to the fountain?",
+              "de": "Ja, ich bin Durst! Gehen wir zum Brunnen?",
+              "grammar": "essere-avere",
+              "why": {
+                "sl": "Žejo imaš: ho sete, tako kot ho fame.",
+                "en": "Thirst is something you have: ho sete, like ho fame.",
+                "de": "Durst hat man: ho sete, wie ho fame."
+              },
+              "reply": {
+                "it": "Sei sete? Ah ah, sei un bicchiere d'acqua?",
+                "sl": "Ti si žeja? Ha ha, si kozarec vode?",
+                "en": "You're thirst? Ha ha, are you a glass of water?",
+                "de": "Du bist Durst? Haha, bist du ein Glas Wasser?"
+              }
+            },
+            {
+              "it": "Sì, ho sete! Andiamo al fontana?",
+              "sl": "Ja, {m:žejen|f:žejna} sem! Greva k vodnjaku?",
+              "en": "Yes, I'm thirsty! Shall we go to the fountain?",
+              "de": "Ja, ich hab Durst! Gehen wir zum Brunnen?",
+              "grammar": "preposizioni-articolate",
+              "why": {
+                "sl": "Fontana je ženskega spola: a + la = alla fontana.",
+                "en": "Fontana is feminine: a + la = alla fontana.",
+                "de": "Fontana ist feminin: a + la = alla fontana."
+              },
+              "reply": {
+                "it": "Al fontana? Ih ih, la fontana è una signora!",
+                "sl": "Al fontana? Hi hi, vodnjak je gospa!",
+                "en": "Al fontana? Hee hee, the fountain is a lady!",
+                "de": "Al fontana? Hihi, der Brunnen ist eine Dame!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "tommaso",
+          "it": "Dai, corriamo! Uno, due, tre… via!",
+          "sl": "Daj, tečeva! Ena, dve, tri … zdaj!",
+          "en": "Come on, let's run! One, two, three… go!",
+          "de": "Los, rennen wir! Eins, zwei, drei … los!"
+        }
+      ]
+    }
+  ]
+}

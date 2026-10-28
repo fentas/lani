@@ -595,11 +595,12 @@ where before it opened the project straight away.
 
 A pack whose language has no curated scenes (no `companion/scenes/<language>/`) brings its village's everyday places
 too, the same arts as the Slovene scenes and so the same slots, `needs` and stages: the Friuli pack has its tent, its
-kitchen, its field, its wood, its stream, its pond, its smithy and its mill in Italian (below; docs/plans/05-built/friuli-scenes.md,
-docs/plans/05-built/mill-scene.md), so its tent, hut, field and smithy have "Vstopi · Go in", the wood, the stream bank
-and the pond open their scene from the first day, and the mill once its project grinds. Their words are the pack's own
-packs (`nella-tenda`, `in-cucina`, `nel-campo`, `animali-del-bosco`, `nel-bosco`, `al-ruscello`, `allo-stagno`,
-`nella-fucina`, `nel-mulino`) and the Italian starter packs, and each has its I spy clues
+kitchen, its field, its wood, its stream, its pond, its smithy, its mill and its school in Italian (below;
+docs/plans/05-built/friuli-scenes.md, docs/plans/05-built/mill-scene.md, docs/plans/05-built/friuli-school.md), so its
+tent, hut, field, smithy and school have "Vstopi · Go in", the wood, the stream bank and the pond open their scene from
+the first day, and the mill once its project grinds. Their words are the pack's own packs (`nella-tenda`, `in-cucina`,
+`nel-campo`, `animali-del-bosco`, `nel-bosco`, `al-ruscello`, `allo-stagno`, `nella-fucina`, `nel-mulino`, `a-scuola`)
+and the Italian starter packs, and each has its I spy clues
 in `companion/ispy/scenes/` (the app bundles those, so the clues come with the next app build; the scenes themselves go
 out with the bridge).
 
@@ -616,6 +617,7 @@ out with the bridge).
 | `friuli` | `al-ruscello`, Al ruscello · By the stream (`stream`) | the stream bank | Mugnaio Franco (the mill he dreams of, until the mill project grinds), Nonna Rosa (the laundry, a sheet in the wind), Pastore Davide (the sheep drinking, the lamb that won't; counted) |
 | `friuli` | `allo-stagno`, Allo stagno · At the pond (`pond`) | the pond | Apicoltore Aldo (the heron in the mist, the ducks), Tommaso (a frog caught and let go, the tadpoles in spring), Nonno Bepi fishing with his dog Moro in the afternoon |
 | `friuli` | `nella-fucina`, Nella fucina · In the smithy (`smithy`) | the smithy | Fabbro Bruno's smithy, growing with its level; Bruno (a horseshoe in the morning, counted in the bucket; an order from Gorizia written in his black notebook, Lei to signor Bruno), Tommaso (the bellows from level 2) |
+| `friuli` | `a-scuola`, A scuola · In der Schule (`school`, in the Friuli look: [Culture looks](#culture-looks)) | the school | Maestra Elena's classroom, growing with the school's level (the map of Friuli and the globe from 2, the clock from 3); Elena (the morning roll call on school days, "Presente, maestra!", Lei to her and "maestra"; the mistakes on the blackboard in the afternoon, il/lo/la, essere or avere, the plural; the map of Friuli from level 2: the mountains, the Tagliamento, the sea, Udine and Gorizia), Giulia (the globe from level 2: Italy the boot, the blue and the green), Lorenzo (his homework in the afternoon: the syllables, the pencils counted, the numbers in words), Tommaso at the door (his football in the afternoon; the merenda at break); 6 happenings, 14 dialogs, 28 turns, 54 wrong choices; its words `a-scuola` (18) and the Italian packs' chair, window, door, book, map, exercise book and clock |
 | `friuli` | `nel-mulino`, Nel mulino · In the mill (`mill`) | the mill project's landmark, and the stream's mill | Mugnaio Franco's mill once it grinds ([The mill inside](#the-mill-inside-from-the-stream-and-from-the-map)): Franco (the morning start, the wheel iced in winter; grinding, the sacks counted; the harvest weeks; the evening, the lantern), Lorenzo (a sack too heavy, flour over everyone; the cat and the mouse, found with a tap), Nonna Rosa (maize for her polenta, poured into the hopper), Pastore Davide (the miller's toll, la molenda, weighed and measured) |
 | `kaernten` | `am-feuer`, Am Feuer · At the campfire (`campfire`) | the fire | the village's campfire, in German: Oma Resi's tea in the evening, Maxi gathering wood in the afternoon, and Opa Sepp's evening story ([Stories](#stories-the-evening-story)). |
 | `kaernten` | `am-see`, Am See · By the lake (`alps`) | the horizon | the Faaker See under the Mittagskogel in the Karawanken, in Carinthia's look ([Culture looks](#culture-looks)): the turquoise lake, the Mittagskogel's pyramid with its summit cross and the Karawanken's ridge, the little church with its onion dome on the shore, its stone bridge, the farm on the far shore (the farmhouse timbered above, a Harpfe, the boathouse and the jetty), the Alm with its Almhütte and its trough, Fleckvieh cows and cowbells, larches and spruces, a waterfall; Opa Sepp (a guest's first time, a storm over the Mittagskogel), Florian (the cowbells on the Alm; milking at dawn while the peaks glow), Maxi (fishing in the morning fog); chamois and an ibex |
@@ -710,6 +712,7 @@ something on in every month):
 | `al-fuoco`, `am-feuer` | | "are you cold?" by the fire 9–5 |
 | `nella-tenda`, `nel-campo`, `nel-bosco`, `allo-stagno` (friuli) | the wheat harvest 6–8, the mushrooms 8–11, the frog 3–9 | the thunderstorm in the tent 4–10, the scarecrow's scarf 10–3, Bianca in the fog 10–3, the tadpoles 3–6 |
 | `v-mlinu`, `nel-mulino` (friuli) | the harvest weeks at the mill 7–9 | the wheel iced at the morning start 12–2 |
+| `a-scuola` (friuli) | school (the roll call, the blackboard, the map of Friuli on school days; Lorenzo's homework) 9–6 | the merenda at break 9–6 |
 
 ### What the village has built
 
