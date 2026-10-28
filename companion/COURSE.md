@@ -707,6 +707,35 @@ Franco's old red tractor, Aldo's honey, Nonno Bepi's stories and his dog Moro, t
 - **A gap has one answer in its sentence**: where c'è and dov'è could both answer ("«___ Moro?» «È qui.»"), the sentence
   is rewritten so only one fits.
 
+### The Italian course: units 13–18
+
+The Italian course (`companion/course/it/`) is Teo's: a child of about seven, learning from German, in the Friuli
+village on the coast. Its last six A1 units come after the present tense, the adjectives, c'è, the prepositions and
+the possessives (units 7–12), and use only those around their gaps:
+
+| # | unit | what it teaches | its pages |
+|---|---|---|---|
+| 13 | `verbi-irregolari` | andare, venire (and venire for coming along: Sì, vengo!), fare (Fa caldo), stare (Come stai?), volere + an infinitive | verbi-irregolari |
+| 14 | `domande` | a yes/no question by the voice, no/non, chi, che cosa, dove (where and where to), da dove, quando, come, perché (why and because), quanto/quanti/quante | domande |
+| 15 | `ore-giorni` | sono le tre, è l'una, e mezza (3:30 is le tre e mezza, not the next hour as in German), meno un quarto, alle otto, the days (lunedì, il sabato every week), the months (a maggio), a date (il venti maggio, il primo) | ore-giorni, numeri |
+| 16 | `piacere` | mi piace + one thing or a verb, mi piacciono + more, ti piace?, non mi piace, gli/le and a + a name | piacere |
+| 17 | `imperativo` | tu: -are → guarda!, -ere/-ire → leggi!; voi: guardate!; noi as let's (andiamo!); vieni, vai/va', fai/fa', stai/sta', dai; non + the infinitive (non correre!) and non + voi | imperativo, verbi-irregolari |
+| 18 | `passato-prossimo` | avere + -ato, -uto, -ito; fatto, visto, preso, letto, detto; essere for going and coming; the participle agreeing with essere (Giulia è andata) | passato-prossimo, essere-avere |
+
+- **Pages written for them**: `imperativo` (the outline named none) and `ore-giorni` (the outline's `numeri` is the
+  numbers; the time, the days and months had no page, so the cheat sheet had nothing for the unit's sheets), both A1;
+  `verbi-irregolari` has volere and potere now (the unit's title says voglio).
+- **Maestra Elena** teaches (the school's person in Friuli): her lines (`say`) in German first, then Slovene and
+  English, "du" in German, every Italian form in bold for her voice with its meaning in brackets after it. The children
+  say tu to each other and to the nonni; nobody in these units says Lei.
+- **The texts the learner reads are per base** (`explain`, `hint`, `instruction`, `translation`, `cue`, a sort's
+  `label`, a table's `columns`: `{"de", "sl", "en"}`, German first), where they hold more than Italian forms; a hint of
+  forms only ("tu → ?", "noi: -iamo") stays a string. An instruction is the Italian label, then the base:
+  "Completa la tabella · Füll die Tabelle aus".
+- **Not used, being Slovene-only**: a table cell's or a line's `lemma` and `form` (the forms book is Slovene's:
+  `FORMS_LANGUAGES`), "What a unit turns on" (no Italian forms cards, counting cards or numbers module), the smoke's
+  check of a gap's answer against the word in brackets (the dictionary's forms, Slovene only).
+
 ## Printed sheets
 
 Jan, 2026-10-14: "Could you design A4 prints for each school topic? So one can use them as a reference in the future
