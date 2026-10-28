@@ -2,8 +2,10 @@ package si.lanisce.lani.app
 
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import si.lanisce.lani.data.Bridge
 import si.lanisce.lani.data.Counting
@@ -45,7 +47,8 @@ class CountingController(
         val today = LocalDate.now()
         if (Counting.room(d.counting, today) <= 0) return false
         val no = refused.takeIf { it.first == today }?.second.orEmpty()
-        val want = Counting.candidates(d.pool, d.learned, d.counting, forms::entriesOf, no)
+        // over the learner's whole deck: off the main thread (docs/plans/05-built/home-return.md: every Back to Home)
+        val want = withContext(Dispatchers.Default) { Counting.candidates(d.pool, d.learned, d.counting, forms::entriesOf, no) }
         if (want.isEmpty()) return false
         val answer = try {
             b.counting(want)

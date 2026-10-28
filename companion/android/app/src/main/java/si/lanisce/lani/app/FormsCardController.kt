@@ -5,9 +5,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import si.lanisce.lani.data.Bridge
 import si.lanisce.lani.data.Course
@@ -119,7 +121,8 @@ class FormsCardController(
         if (!on(d) || game.state == null) return false
         val today = LocalDate.now()
         val no = refused.takeIf { it.first == today }?.second.orEmpty()
-        val want = if (FormsCard.room(d.formsCards, today) > 0) FormsCard.candidates(d.pool, d.learned, d.formsCards, forms::entriesOf, no) else emptyList()
+        // over the learner's whole deck: off the main thread (docs/plans/05-built/home-return.md: every Back to Home)
+        val want = if (FormsCard.room(d.formsCards, today) > 0) withContext(Dispatchers.Default) { FormsCard.candidates(d.pool, d.learned, d.formsCards, forms::entriesOf, no) } else emptyList()
         val pages = introduced()
         if (want.isEmpty() && pages == told) return false
         val answer = ask(b, want, pages, asked = false) ?: return false

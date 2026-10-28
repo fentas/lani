@@ -64,8 +64,18 @@ object Cultures {
         resource("index.json")?.let { json.decodeFromString(ListSerializer(String.serializer()), it) }.orEmpty()
     }
 
-    /** [id]'s manifest, whether complete or a stub; null when there's no such pack. */
-    fun manifest(id: String): Manifest? = resource("$id/culture.json")?.let { runCatching { json.decodeFromString(Manifest.serializer(), it) }.getOrNull() }
+    /**
+     * [id]'s manifest, whether complete or a stub; null when there's no such pack. Read once (until [forget]): a reading's
+     * check asks it for each reading (docs/plans/05-built/home-return.md).
+     */
+    fun manifest(id: String): Manifest? = manifests.getOrPut(id) {
+        java.util.Optional.ofNullable(resource("$id/culture.json")?.let { runCatching { json.decodeFromString(Manifest.serializer(), it) }.getOrNull() })
+    }.orElse(null)
+
+    private val manifests = ConcurrentHashMap<String, java.util.Optional<Manifest>>()
+
+    /** A text's language: a code ([Check.text]). */
+    private val LANGUAGE_CODE = Regex("[a-z]{2,3}")
 
     /** The bundled pack [id], read and checked once; throws [CultureError] when it's missing, a stub or broken. */
     fun load(id: String): Culture = loaded[id] ?: parse(id) { name -> resource("$id/$name") }.also { loaded[id] = it }
@@ -102,6 +112,7 @@ object Cultures {
      */
     fun forget() {
         loaded.clear()
+        manifests.clear()
         libraries.clear()
         skies.clear()
         reactionFiles.clear()
@@ -368,7 +379,7 @@ object Cultures {
             if (t == null) return
             if (!anyLanguage && lang !in t.by) fail(where, "no \"$lang\" text (the pack's language)")
             for ((l, s) in t.by) {
-                if (!Regex("[a-z]{2,3}").matches(l)) fail(where, "\"$l\" isn't a language code (sl, en, it …)")
+                if (!LANGUAGE_CODE.matches(l)) fail(where, "\"$l\" isn't a language code (sl, en, it …)")
                 if (s.isBlank()) fail("$where.$l", "empty")
                 val msg = try {
                     Message.parse(s)

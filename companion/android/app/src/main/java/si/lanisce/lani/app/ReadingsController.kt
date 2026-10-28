@@ -92,6 +92,9 @@ class ReadingsController(
         }
         nodeHasReadings = got != null
         if (got == null) return
+        // the same answer as the last one (the value read then: Bridge's answers, docs/plans/05-built/home-return.md):
+        // nothing new to keep or to check again on the main thread
+        if (got === served) return
         served = got
         withContext(io) { runCatching { cache.writeText(json.encodeToString(ListSerializer(ReadingFile.serializer()), got)) } }
         merge()

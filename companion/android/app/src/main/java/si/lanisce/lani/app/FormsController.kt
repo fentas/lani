@@ -86,9 +86,13 @@ class FormsController(
      */
     suspend fun reload(b: Bridge, cards: List<ReviewCard>) {
         val now = System.currentTimeMillis()
-        val wanted = cards.mapNotNull(WordFormsWire::lemmaOf).distinctBy(WordFormsWire::key)
-            .filter { (cache[WordFormsWire.key(it)]?.at ?: 0L) < now - STALE_MS }
-            .take(MAX_PER_RELOAD)
+        // over the learner's whole deck: off the main thread (docs/plans/05-built/home-return.md: every Back to Home)
+        val known = cache
+        val wanted = withContext(Dispatchers.Default) {
+            cards.mapNotNull(WordFormsWire::lemmaOf).distinctBy(WordFormsWire::key)
+                .filter { (known[WordFormsWire.key(it)]?.at ?: 0L) < now - STALE_MS }
+                .take(MAX_PER_RELOAD)
+        }
         fetch(b, wanted)
     }
 
