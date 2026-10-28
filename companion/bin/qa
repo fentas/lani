@@ -5665,15 +5665,6 @@ def option_at(text: str, swipes=6):
     return None
 
 
-def check_here(where: str):
-    """"Preveri · Check" scrolled to (under a long table or a question's field it lies below the screen) and tapped: at
-    the content's end it may stay low (an intro's button over the bottom bar's "Naprej", y ≈ 2040 px), out of
-    [scroll_to]'s window, and is tapped where it is."""
-    c = scroll_to("Preveri · Check", 4) or find("Preveri · Check")
-    assert c is not None, f"{where}: check"
-    tap_at(c)
-
-
 def sheet_exercise(e: dict, where: str):
     """One exercise of a worksheet or the test, answered right from the unit's file (typed without č, š, ž), checked,
     and on to the next: a table's cells ("<row>, <column>"), a gap text's gaps ("Vrzel n · Gap n"), a transform's lines
@@ -5712,13 +5703,13 @@ def sheet_exercise(e: dict, where: str):
                 assert tap(col["label"], 4), f"{where}: the column «{col['label']}»"
     else:
         raise AssertionError(f"{where}: QA doesn't play a {kind} yet")
-    check_here(where)
+    assert check_sheet(), f"{where}: check"
 
 
 def school_unit():
-    """A unit of the course end to end from its own file (companion/course/sl/units/<id>.json; QA's hook "school:<id>":
-    the dev village's copy ready for the class, the unit's level open, the unit as never begun): $LANI_QA_UNIT,
-    pogojnik-polno (B1) by default. Its page; its intro step by step, each quick question answered as the file says (a
+    """A unit of the course end to end from its own file (companion/course/sl/units/<id>.json), school-b1's way for any
+    unit: QA's hook "school:<id>" (the dev village's copy ready for the class, the unit's level open, the unit as never
+    begun), the unit from its level in the school: $LANI_QA_UNIT, pogojnik-polno (B1) by default. Its page; its intro step by step, each quick question answered as the file says (a
     choice's answer tapped, a cloze's typed and checked), the table growing, the summary card; its first worksheet,
     every item answered right; then its test straight away ("⏩ Znam že"), passed, Mojca's cheer; the dev bridge's
     village keeping the unit done. adb types no č, š, ž: an answer with one is almost right, half an item."""
@@ -5728,9 +5719,14 @@ def school_unit():
     u = json.loads(path.read_text())
     title = u["title"]["sl"]
     go_home()
-    qa_hook(f"school:{QA_UNIT}")
+    qa_hook(f"school:{QA_UNIT}")  # school-b1's hook: the class ready, the unit's level open, the school open
+    assert wait_for("Raven A1", 10), "the school's levels"
+    if u["level"] != "A1":
+        assert scroll_to(f"Raven {u['level']}", 30) is not None, f"the level {u['level']}"
+    c = scroll_to(title, 30)
+    assert c is not None, f"the unit «{title}» in {u['level']}, open"
+    tap_at(c)
     assert wait_for("Delovni listi", 12), f"the unit {QA_UNIT}'s page"
-    assert find(title) or find(title.split(":")[0]), f"its title «{title}»"
     shot(f"school-unit-{QA_UNIT}")
     c = find("Naprej: Uvod") or find("Uvod · Introduction")
     assert c is not None, "the intro"
@@ -5753,7 +5749,8 @@ def school_unit():
             assert c is not None, f"step {i}'s gap"
             tap_at(c)
             type_text(unit_text(a["accept"][0]).translate(ASCII))
-            check_here(f"step {i}")
+            # under the field, above the intro's bar of "Naprej · Next" (from about 2170 px down)
+            assert tap_above("Preveri · Check", 2150), f"step {i}'s check"
         assert wait_for("Pravilno", 6) or wait_for("Skoraj", 2), f"step {i} answered right"
         if i in (1, len(steps)):
             shot(f"school-unit-intro-{i}")
