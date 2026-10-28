@@ -1,0 +1,263 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "passato-prossimo",
+  "language": "it",
+  "level": "A1",
+  "emoji": "🕰️",
+  "title": { "it": "Ho mangiato, sono andato", "de": "Das Perfekt: ho mangiato, sono andato", "sl": "Preteklik: ho mangiato, sono andato", "en": "The past: ho mangiato, sono andato" },
+  "goal": {
+    "de": "Du erzählst, was gestern war: was du gemacht hast (ho mangiato, ho visto) und wohin du gegangen bist (sono andato, Giulia è andata).",
+    "sl": "Poveš, kaj je bilo včeraj: kaj si {m:naredil|f:naredila} (ho mangiato, ho visto) in kam si {m:šel|f:šla} (sono andato, Giulia è andata).",
+    "en": "You can tell what happened yesterday: what you did (ho mangiato, ho visto) and where you went (sono andato, Giulia è andata)."
+  },
+  "grammar": ["passato-prossimo", "essere-avere"],
+  "words": ["ieri", "stanotte", "la sera", "mangiare", "giocare", "trovare", "comprare", "cantare", "dormire", "capire", "sentire", "vendere", "fare", "vedere", "prendere", "leggere", "andare", "venire", "arrivare", "tornare", "partire", "il frico", "la gubana", "la polenta", "la farina", "la tenda", "il gufo", "il delfino", "la conchiglia", "il granchio", "il castello di sabbia", "la cartolina", "stanco", "felice", "tardi", "Grado"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "infinito", "de": "Infinitiv", "sl": "nedoločnik", "en": "infinitive" },
+        { "it": "participio", "de": "Partizip", "sl": "deležnik", "en": "participle" },
+        { "it": "esempio", "de": "Beispiel", "sl": "primer", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Was gestern war, erzählst du wie im Deutschen mit zwei Teilen: **avere** (haben) und dem Partizip. Bei Verben auf **-are** wird **-are** zu **-ato**: **mangiare → ho mangiato** (ich habe gegessen), **giocare → ho giocato**. Aber das Partizip steht nicht am Ende: **Ho mangiato il frico.**",
+          "sl": "Kar je bilo včeraj, poveš z dvema deloma: **avere** (imeti) in deležnikom. Pri glagolih na **-are** se **-are** spremeni v **-ato**: **mangiare → ho mangiato** ({m:jedel|f:jedla} sem), **giocare → ho giocato**. **Ho, hai, ha** se menjajo z osebo: **Giulia ha mangiato.** (Giulia je jedla.)",
+          "en": "To tell what happened yesterday, use two parts: **avere** (have) and the past participle. For verbs in **-are**, **-are** becomes **-ato**: **mangiare → ho mangiato** (I ate, I have eaten), **giocare → ho giocato**. **Ho, hai, ha** change with the person: **Giulia ha mangiato.**"
+        },
+        "examples": [
+          { "it": "Ieri ho mangiato il frico.", "de": "Gestern habe ich Frico gegessen.", "sl": "Včeraj sem {m:jedel|f:jedla} frico.", "en": "Yesterday I ate frico." },
+          { "it": "Tommaso ha giocato a calcio.", "de": "Tommaso hat Fußball gespielt.", "sl": "Tommaso je igral nogomet.", "en": "Tommaso played football." }
+        ],
+        "rows": [["mangiare", "mangiato", "ho mangiato"], ["giocare", "giocato", "ha giocato"]],
+        "ask": {
+          "type": "choice", "grammar": "passato-prossimo", "prompt": "Ieri Lorenzo ___ mangiato la polenta.", "options": ["ho", "ha", "hanno"], "answer": 1, "say_options": true,
+          "explain": "**Lorenzo** → lui → **ha** mangiato\n- ho · io\n- hanno · loro"
+        }
+      },
+      {
+        "say": {
+          "de": "Bei **-ere** wird es **-uto**, bei **-ire** **-ito**: **vendere → ho venduto** (verkauft), **dormire → ho dormito** (geschlafen), **capire → ho capito** (verstanden). **Hai capito?** (Hast du verstanden?) hörst du in der Schule jeden Tag!",
+          "sl": "Pri **-ere** postane **-uto**, pri **-ire** **-ito**: **vendere → ho venduto** (prodati), **dormire → ho dormito** (spati), **capire → ho capito** (razumeti). **Hai capito?** (Razumeš?) slišiš v šoli vsak dan!",
+          "en": "With **-ere** it becomes **-uto**, with **-ire** **-ito**: **vendere → ho venduto** (sold), **dormire → ho dormito** (slept), **capire → ho capito** (understood). **Hai capito?** (Got it?) You'll hear it at school every day!"
+        },
+        "examples": [
+          { "it": "Stanotte ho dormito nella tenda.", "de": "Heute Nacht habe ich im Zelt geschlafen.", "sl": "Ponoči sem {m:spal|f:spala} v šotoru.", "en": "Last night I slept in the tent." },
+          { "it": "Franco ha venduto la farina.", "de": "Franco hat das Mehl verkauft.", "sl": "Franco je prodal moko.", "en": "Franco sold the flour." }
+        ],
+        "rows": [["vendere", "venduto", "ha venduto"], ["dormire", "dormito", "ho dormito"], ["capire", "capito", "hai capito?"]],
+        "ask": {
+          "type": "cloze", "grammar": "passato-prossimo", "text": "«Hai ___?» «Sì, maestra!» (capire)", "accept": ["capito"], "hint": "-ire → -ito",
+          "explain": "**capire** → -ire → **-ito**: capito\n- dormire → dormito\n- vendere → venduto"
+        }
+      },
+      {
+        "say": {
+          "de": "Ein paar Partizipien sind unregelmäßig. Die wichtigsten lernst du auswendig, wie die Verben: **fare → fatto**, **vedere → visto**, **prendere → preso**, **leggere → letto**, **dire → detto**. **Ho visto un gufo!** (Ich habe eine Eule gesehen!)",
+          "sl": "Nekaj deležnikov je nepravilnih. Najpomembnejše se naučiš na pamet, kot glagole: **fare → fatto**, **vedere → visto**, **prendere → preso**, **leggere → letto**, **dire → detto**. **Ho visto un gufo!** ({m:Videl|f:Videla} sem sovo!)",
+          "en": "Some participles are irregular. Learn the main ones by heart, like the verbs: **fare → fatto**, **vedere → visto**, **prendere → preso**, **leggere → letto**, **dire → detto**. **Ho visto un gufo!** (I saw an owl!)"
+        },
+        "examples": [
+          { "it": "Ho visto un gufo nel bosco!", "de": "Ich habe im Wald eine Eule gesehen!", "sl": "V gozdu sem {m:videl|f:videla} sovo!", "en": "I saw an owl in the wood!" },
+          { "it": "Nonna Rosa ha fatto la gubana.", "de": "Nonna Rosa hat Gubana gemacht.", "sl": "Babica Rosa je spekla gubano.", "en": "Nonna Rosa made gubana." }
+        ],
+        "rows": [["fare", "fatto", "ha fatto"], ["vedere", "visto", "ho visto"], ["prendere", "preso", "ho preso"], ["leggere", "letto", "ho letto"]],
+        "ask": {
+          "type": "choice", "grammar": "passato-prossimo", "prompt": "Ieri Giulia ha ___ un delfino! (vedere)", "options": ["fatto", "visto", "preso"], "answer": 1, "say_options": true,
+          "explain": "**vedere** → **visto**\n- fare → fatto\n- prendere → preso"
+        }
+      },
+      {
+        "say": {
+          "de": "Verben der Bewegung nehmen **essere** (sein), fast wie im Deutschen: **sono andato** (ich bin gegangen), **sono venuto** (gekommen), **sono arrivato** (angekommen), **sono tornato** (zurückgekommen), **sono partito** (abgefahren). Auch **stare** und **essere**: **sono stato** (ich bin gewesen).",
+          "sl": "Glagoli premikanja gredo z **essere** (biti): **sono andato** (šel sem), **sono venuto** (prišel sem), **sono arrivato** (prispel sem), **sono tornato** (vrnil sem se), **sono partito** (odšel sem). Tudi **stare** in **essere**: **sono stato** (bil sem).",
+          "en": "Verbs of going and coming take **essere** (be): **sono andato** (I went), **sono venuto** (I came), **sono arrivato** (I arrived), **sono tornato** (I came back), **sono partito** (I left). **Stare** and **essere** too: **sono stato** (I was)."
+        },
+        "examples": [
+          { "it": "Lorenzo è andato al mulino.", "de": "Lorenzo ist zur Mühle gegangen.", "sl": "Lorenzo je šel k mlinu.", "en": "Lorenzo went to the mill." },
+          { "it": "Tommaso è arrivato tardi.", "de": "Tommaso ist spät angekommen.", "sl": "Tommaso je prišel pozno.", "en": "Tommaso arrived late." }
+        ],
+        "rows": [["andare", "andato", "è andato"], ["arrivare", "arrivato", "è arrivato"], ["tornare", "tornato", "è tornato"]],
+        "ask": {
+          "type": "choice", "grammar": "passato-prossimo", "prompt": "Ieri Tommaso ___ andato allo stagno.", "options": ["ha", "è", "sono"], "answer": 1, "say_options": true,
+          "explain": "**andare** → **essere**: Tommaso **è** andato\n- ha mangiato · avere\n- sono andato · io"
+        }
+      },
+      {
+        "say": {
+          "de": "Mit **essere** passt sich das Partizip an, wie ein Adjektiv: **Lorenzo è andato**, **Giulia è andata**, **i bambini sono andati**, **le pecore sono andate**. Mit avere bleibt es gleich: **Giulia ha mangiato.** Und du? **Sono {m:andato|f:andata} a scuola.**",
+          "sl": "Z **essere** se deležnik ujema kot pridevnik, tako kot v slovenščini šel, šla, šli: **Lorenzo è andato**, **Giulia è andata**, **i bambini sono andati**, **le pecore sono andate**. Z avere ostane enak: **Giulia ha mangiato.** Pa ti? **Sono {m:andato|f:andata} a scuola.**",
+          "en": "With **essere** the participle agrees, like an adjective: **Lorenzo è andato**, **Giulia è andata**, **i bambini sono andati**, **le pecore sono andate**. With avere it stays the same: **Giulia ha mangiato.** And you? **Sono {m:andato|f:andata} a scuola.**"
+        },
+        "examples": [
+          { "it": "Giulia è andata al mare con la zia.", "de": "Giulia ist mit ihrer Tante ans Meer gefahren.", "sl": "Giulia je šla s teto na morje.", "en": "Giulia went to the sea with her aunt." },
+          { "it": "Le pecore di Davide sono tornate.", "de": "Davides Schafe sind zurückgekommen.", "sl": "Davidove ovce so se vrnile.", "en": "Davide's sheep have come back." }
+        ],
+        "rows": [["andare", "andato · andata", "Lorenzo è andato · Giulia è andata"], ["tornare", "tornati · tornate", "i bambini sono tornati · le pecore sono tornate"]],
+        "ask": {
+          "type": "cloze", "grammar": "passato-prossimo", "text": "Giulia è ___ al mare. (andare)", "accept": ["andata"], "hint": "Giulia: -a",
+          "explain": {
+            "de": "**essere** → das Partizip passt sich an: Giulia è **andata**\n- Lorenzo è andato\n- i bambini sono andati",
+            "sl": "**essere** → deležnik se ujema: Giulia è **andata**\n- Lorenzo è andato\n- i bambini sono andati",
+            "en": "**essere** → the participle agrees: Giulia è **andata**\n- Lorenzo è andato\n- i bambini sono andati"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "passato-prossimo-1",
+      "title": { "it": "I participi", "de": "Die Partizipien", "sl": "Deležniki", "en": "The participles" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "passato-prossimo",
+          "instruction": { "de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table" },
+          "prompt": "infinito → participio",
+          "columns": [{ "de": "participio · Partizip", "sl": "participio · deležnik", "en": "participio · participle" }],
+          "rows": [
+            { "label": "mangiare", "cells": ["mangiato"] },
+            { "label": "giocare", "cells": [{ "accept": ["giocato"], "hint": "-are → -ato" }] },
+            { "label": "dormire", "cells": [{ "accept": ["dormito"], "hint": "-ire → -ito" }] },
+            { "label": "vendere", "cells": [{ "accept": ["venduto"], "hint": "-ere → -uto" }] },
+            { "label": "fare", "cells": [{ "accept": ["fatto"], "hint": { "de": "unregelmäßig", "sl": "nepravilen", "en": "irregular" } }] },
+            { "label": "vedere", "cells": [{ "accept": ["visto"], "hint": { "de": "unregelmäßig", "sl": "nepravilen", "en": "irregular" } }] },
+            { "label": "prendere", "cells": [{ "accept": ["preso"] }] },
+            { "label": "andare", "cells": [{ "accept": ["andato"] }] }
+          ],
+          "explain": {
+            "de": "**-are → -ato · -ere → -uto · -ire → -ito**\n- auswendig: fatto, visto, preso, letto",
+            "sl": "**-are → -ato · -ere → -uto · -ire → -ito**\n- na pamet: fatto, visto, preso, letto",
+            "en": "**-are → -ato · -ere → -uto · -ire → -ito**\n- by heart: fatto, visto, preso, letto"
+          }
+        },
+        {
+          "type": "sort", "grammar": "passato-prossimo",
+          "instruction": { "de": "Avere o essere? · Mit avere oder mit essere?", "sl": "Avere o essere? · Z avere ali z essere?", "en": "Avere o essere? · With avere or with essere?" },
+          "columns": [
+            { "label": "ho …", "words": ["mangiato", "dormito", "visto", "fatto"] },
+            { "label": "sono …", "words": ["andato", "venuto", "arrivato", "tornato"] }
+          ],
+          "explain": {
+            "de": "**gehen, kommen, ankommen, zurückkommen** → essere: sono andato\n- alles andere → avere: ho mangiato",
+            "sl": "**iti, priti, prispeti, vrniti se** → essere: sono andato\n- vse drugo → avere: ho mangiato",
+            "en": "**going, coming, arriving, coming back** → essere: sono andato\n- the rest → avere: ho mangiato"
+          }
+        }
+      ]
+    },
+    {
+      "id": "passato-prossimo-2",
+      "title": { "it": "Ieri al mare", "de": "Gestern am Meer", "sl": "Včeraj na morju", "en": "Yesterday at the sea" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "passato-prossimo",
+          "instruction": { "de": "Completa con il passato · Setz die Vergangenheit ein", "sl": "Completa con il passato · Vstavi preteklik", "en": "Completa con il passato · Fill in the past" },
+          "title": "Ieri al mare",
+          "text": "Ieri io e i bambini ___ (andare) al mare con Nonna Rosa. Giulia ___ (trovare) una conchiglia grande. Lorenzo ___ (vedere) un granchio. Tommaso ___ (fare) un castello di sabbia. A mezzogiorno ___ (noi · mangiare) il frico. La sera ___ (noi · tornare) a casa, stanchi e felici.",
+          "gaps": [
+            { "accept": ["siamo andati"], "hint": "andare → essere; io e i bambini: noi, -i" },
+            { "accept": ["ha trovato"], "hint": "-are → -ato" },
+            { "accept": ["ha visto"], "hint": "vedere → ?" },
+            { "accept": ["ha fatto"], "hint": "fare → ?" },
+            { "accept": ["abbiamo mangiato"], "hint": "avere: noi …" },
+            { "accept": ["siamo tornati"], "hint": "tornare → essere", "explain": { "de": "tornare nimmt essere; io e i bambini → noi, -i (stanchi): **siamo tornati**.", "sl": "tornare gre z essere; io e i bambini → noi, -i (stanchi): **siamo tornati**.", "en": "tornare takes essere; io e i bambini → noi, -i (stanchi): **siamo tornati**." } }
+          ],
+          "bank": true, "distractors": ["abbiamo andato", "abbiamo tornato"],
+          "translation": {
+            "de": "Gestern sind die Kinder und ich mit Nonna Rosa ans Meer gefahren. Giulia hat eine große Muschel gefunden. Lorenzo hat eine Krabbe gesehen. Tommaso hat eine Sandburg gebaut. Am Mittag haben wir Frico gegessen. Am Abend sind wir nach Hause gekommen, müde und glücklich.",
+            "sl": "Včeraj smo šli z otroki in babico Roso na morje. Giulia je našla veliko školjko. Lorenzo je videl rakovico. Tommaso je naredil grad iz peska. Opoldne smo jedli frico. Zvečer smo se vrnili domov, utrujeni in srečni.",
+            "en": "Yesterday the children and I went to the sea with Nonna Rosa. Giulia found a big shell. Lorenzo saw a crab. Tommaso made a sandcastle. At noon we ate frico. In the evening we came home, tired and happy."
+          }
+        },
+        {
+          "type": "choice", "grammar": "passato-prossimo",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "Giulia è ___ al mare.", "options": ["andato", "andata", "andati"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**essere** → das Partizip passt sich an: Giulia → **andata**",
+            "sl": "**essere** → deležnik se ujema: Giulia → **andata**",
+            "en": "**essere** → the participle agrees: Giulia → **andata**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "passato-prossimo-3",
+      "title": { "it": "Racconta!", "de": "Erzähl!", "sl": "Pripoveduj!", "en": "Tell it!" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "passato-prossimo",
+          "instruction": { "de": "Metti al passato · Setz es in die Vergangenheit", "sl": "Metti al passato · Postavi v preteklik", "en": "Metti al passato · Put it in the past" },
+          "cue": "ieri",
+          "items": [
+            { "from": "Mangio la polenta.", "accept": ["Ho mangiato la polenta.", "Ieri ho mangiato la polenta."] },
+            { "from": "Giulia gioca con il gatto.", "accept": ["Giulia ha giocato con il gatto.", "Ieri Giulia ha giocato con il gatto."] },
+            { "from": "Dormiamo nella tenda.", "accept": ["Abbiamo dormito nella tenda.", "Ieri abbiamo dormito nella tenda."] },
+            { "from": "Nonna Rosa fa la gubana.", "accept": ["Nonna Rosa ha fatto la gubana.", "Ieri Nonna Rosa ha fatto la gubana."], "hint": "fare → fatto" },
+            { "from": "Vedo un gufo.", "accept": ["Ho visto un gufo.", "Ieri ho visto un gufo."], "hint": "vedere → visto" },
+            { "from": "Lorenzo va al mulino.", "accept": ["Lorenzo è andato al mulino.", "Ieri Lorenzo è andato al mulino."], "hint": "andare → essere" },
+            { "from": "Giulia va al mare.", "accept": ["Giulia è andata al mare.", "Ieri Giulia è andata al mare."], "hint": "Giulia: -a" },
+            { "from": "Le pecore tornano a casa.", "accept": ["Le pecore sono tornate a casa.", "Ieri le pecore sono tornate a casa."], "hint": { "de": "le pecore: feminin, mehrere", "sl": "le pecore: ženski spol, več", "en": "le pecore: feminine, more than one" } }
+          ],
+          "explain": {
+            "de": "**avere** oder **essere** + das Partizip\n- mangio → ho mangiato · vedo → ho visto\n- va → è andato, è andata (es passt sich an)",
+            "sl": "**avere** ali **essere** + deležnik\n- mangio → ho mangiato · vedo → ho visto\n- va → è andato, è andata (se ujema)",
+            "en": "**avere** or **essere** + the participle\n- mangio → ho mangiato · vedo → ho visto\n- va → è andato, è andata (it agrees)"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "passato-prossimo",
+        "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "columns": [{ "de": "participio · Partizip", "sl": "participio · deležnik", "en": "participio · participle" }],
+        "rows": [
+          { "label": "parlare", "cells": ["parlato"] },
+          { "label": "cantare", "cells": [{ "accept": ["cantato"] }] },
+          { "label": "sentire", "cells": [{ "accept": ["sentito"] }] },
+          { "label": "fare", "cells": [{ "accept": ["fatto"] }] },
+          { "label": "prendere", "cells": [{ "accept": ["preso"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "passato-prossimo",
+        "instruction": { "de": "Completa con il passato · Setz die Vergangenheit ein", "sl": "Completa con il passato · Vstavi preteklik", "en": "Completa con il passato · Fill in the past" },
+        "text": "Sabato Giulia ___ (andare) a Grado con la zia. Giulia ___ (mangiare) un gelato. La zia ___ (comprare) una cartolina. La sera Giulia e la zia ___ (tornare) a casa.",
+        "gaps": [
+          { "accept": ["è andata"] },
+          { "accept": ["ha mangiato"] },
+          { "accept": ["ha comprato"] },
+          { "accept": ["sono tornate"] }
+        ],
+        "translation": {
+          "de": "Am Samstag ist Giulia mit ihrer Tante nach Grado gefahren. Giulia hat ein Eis gegessen. Die Tante hat eine Postkarte gekauft. Am Abend sind Giulia und die Tante nach Hause gekommen.",
+          "sl": "V soboto je šla Giulia s teto v Gradež. Giulia je jedla sladoled. Teta je kupila razglednico. Zvečer sta se Giulia in teta vrnili domov.",
+          "en": "On Saturday Giulia went to Grado with her aunt. Giulia ate an ice cream. Her aunt bought a postcard. In the evening Giulia and her aunt came home."
+        }
+      },
+      {
+        "type": "transform", "grammar": "passato-prossimo",
+        "instruction": { "de": "Metti al passato · Setz es in die Vergangenheit", "sl": "Metti al passato · Postavi v preteklik", "en": "Metti al passato · Put it in the past" },
+        "cue": "ieri",
+        "items": [
+          { "from": "Tommaso gioca a calcio.", "accept": ["Tommaso ha giocato a calcio.", "Ieri Tommaso ha giocato a calcio."] },
+          { "from": "Leggo un libro.", "accept": ["Ho letto un libro.", "Ieri ho letto un libro."] },
+          { "from": "Lorenzo arriva tardi.", "accept": ["Lorenzo è arrivato tardi.", "Ieri Lorenzo è arrivato tardi."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "passato-prossimo", "prompt": "Ieri i bambini ___ andati nel bosco.", "options": ["hanno", "sono", "è"], "answer": 1, "say_options": true,
+        "explain": "**andare** → essere, **i bambini** → loro: **sono** andati"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: io e i bambini siamo andati, Hai capito?, stanchi e felici, a Grado, the participles' German"
+}

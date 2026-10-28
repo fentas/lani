@@ -1,0 +1,286 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "domande",
+  "language": "it",
+  "level": "A1",
+  "emoji": "❓",
+  "title": { "it": "Chi? Che cosa? Dove? Perché?", "de": "Wer? Was? Wo? Warum?", "sl": "Kdo? Kaj? Kje? Zakaj?", "en": "Who? What? Where? Why?" },
+  "goal": {
+    "de": "Du fragst, wer, was, wo, woher, wann, wie, warum und wie viele, stellst eine Ja-Nein-Frage und antwortest mit no, non …",
+    "sl": "Vprašaš, kdo, kaj, kje, od kod, kdaj, kako, zakaj in koliko, postaviš vprašanje da ali ne in odgovoriš z no, non …",
+    "en": "You can ask who, what, where, where from, when, how, why and how many, ask a yes-or-no question and answer no, non …"
+  },
+  "grammar": ["domande"],
+  "words": ["chi", "che cosa", "cosa", "dove", "da dove", "quando", "come", "perché", "quanto", "quanti", "quante", "sì", "no", "non", "oggi", "domani", "stasera", "la sera", "la festa", "il granchio", "la conchiglia", "la pecora", "il tiglio", "l'ombra", "il pagliaccio", "ridere", "abitare", "costare", "piovere", "raccontare", "la storia", "il miele", "l'ape", "il mercato", "la vigna", "il fabbro"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "domanda", "de": "Frage", "sl": "vprašanje", "en": "question" },
+        { "it": "significato", "de": "Bedeutung", "sl": "pomen", "en": "meaning" },
+        { "it": "risposta", "de": "Antwort", "sl": "odgovor", "en": "answer" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Eine Ja-Nein-Frage ist auf Italienisch ganz leicht: Du sagst den Satz und lässt die Stimme am Ende nach oben gehen. **Hai fame?** (Hast du Hunger?) Kein Wort wandert nach vorn. Die Antwort ist **sì** oder **no**, und *nicht* heißt **non**, vor dem Verb: **No, non ho fame.**",
+          "sl": "Vprašanje da ali ne je v italijanščini zelo lahko: poveš stavek in na koncu dvigneš glas. **Hai fame?** (Si lačen?) Nobena beseda se ne premakne. Odgovor je **sì** ali **no**, *ne* pred glagolom pa je **non**: **No, non ho fame.**",
+          "en": "A yes-or-no question is easy in Italian: say the sentence and let your voice go up at the end. **Hai fame?** (Are you hungry?) No word moves. The answer is **sì** or **no**, and *not* is **non**, before the verb: **No, non ho fame.**"
+        },
+        "examples": [
+          { "it": "Hai fame? No, non ho fame.", "de": "Hast du Hunger? Nein, ich habe keinen Hunger.", "sl": "Si {m:lačen|f:lačna}? Ne, nisem {m:lačen|f:lačna}.", "en": "Are you hungry? No, I'm not hungry." },
+          { "it": "Giulia è a casa? No, è al mare.", "de": "Ist Giulia zu Hause? Nein, sie ist am Meer.", "sl": "Je Giulia doma? Ne, na morju je.", "en": "Is Giulia at home? No, she's at the sea." }
+        ],
+        "rows": [["Hai fame?", { "de": "ja oder nein?", "sl": "da ali ne?", "en": "yes or no?" }, "Sì. · No, non ho fame."]],
+        "ask": {
+          "type": "choice", "grammar": "domande", "prompt": "«Hai sonno?» «No, ___ sonno.»", "options": ["non ho", "ho non", "no ho"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**non** steht vor dem Verb: **non ho**\n- No, non ho sonno.\n- Non c'è.",
+            "sl": "**non** stoji pred glagolom: **non ho**\n- No, non ho sonno.\n- Non c'è.",
+            "en": "**non** goes before the verb: **non ho**\n- No, non ho sonno.\n- Non c'è."
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Fragewörter stehen ganz vorn. **Chi?** heißt wer: **Chi è?** (Wer ist das?) **Che cosa?**, kurz auch **cosa?**, heißt was: **Che cosa fai?** (Was machst du?) Vor è wird **cosa** zu **cos'**: **Che cos'è?** (Was ist das?)",
+          "sl": "Vprašalnice so čisto na začetku. **Chi?** pomeni kdo: **Chi è?** (Kdo je to?) **Che cosa?**, krajše tudi **cosa?**, pomeni kaj: **Che cosa fai?** (Kaj delaš?) Pred è postane **cosa** **cos'**: **Che cos'è?** (Kaj je to?)",
+          "en": "Question words come first. **Chi?** is who: **Chi è?** (Who is it?) **Che cosa?**, or just **cosa?**, is what: **Che cosa fai?** (What are you doing?) Before è, **cosa** becomes **cos'**: **Che cos'è?** (What is it?)"
+        },
+        "examples": [
+          { "it": "Chi è? È Davide, il pastore.", "de": "Wer ist das? Das ist Davide, der Hirte.", "sl": "Kdo je to? To je Davide, pastir.", "en": "Who's that? It's Davide, the shepherd." },
+          { "it": "Che cos'è? È un granchio!", "de": "Was ist das? Das ist eine Krabbe!", "sl": "Kaj je to? Rakovica!", "en": "What's that? It's a crab!" }
+        ],
+        "rows": [
+          ["chi?", { "de": "wer", "sl": "kdo", "en": "who" }, "È Davide."],
+          ["che cosa? cosa?", { "de": "was", "sl": "kaj", "en": "what" }, "È un granchio."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "domande", "prompt": "«___ è?» «È Nonna Rosa.»", "options": ["Chi", "Che cosa", "Dove"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**eine Person** → **chi**\n- chi · wer\n- che cosa · was\n- dove · wo",
+            "sl": "**oseba** → **chi**\n- chi · kdo\n- che cosa · kaj\n- dove · kje",
+            "en": "**a person** → **chi**\n- chi · who\n- che cosa · what\n- dove · where"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Dove?** heißt wo, aber auch wohin: ein Wort für beides! **Dove sei?** (Wo bist du?) **Dove vai?** (Wohin gehst du?) Vor è wird es zu **dov'è**. Woher heißt **da dove**: **Da dove vieni?** (Woher kommst du?)",
+          "sl": "**Dove?** pomeni kje, pa tudi kam: ena beseda za oboje! **Dove sei?** (Kje si?) **Dove vai?** (Kam greš?) Pred è postane **dov'è**. Od kod je **da dove**: **Da dove vieni?** (Od kod prihajaš?)",
+          "en": "**Dove?** is where, and also where to: one word for both! **Dove sei?** (Where are you?) **Dove vai?** (Where are you going?) Before è it becomes **dov'è**. Where from is **da dove**: **Da dove vieni?** (Where are you coming from?)"
+        },
+        "examples": [
+          { "it": "Dov'è Lorenzo? È nel campo.", "de": "Wo ist Lorenzo? Er ist auf dem Feld.", "sl": "Kje je Lorenzo? Na njivi je.", "en": "Where's Lorenzo? He's in the field." },
+          { "it": "Da dove vieni? Vengo dalla spiaggia.", "de": "Woher kommst du? Ich komme vom Strand.", "sl": "Od kod prihajaš? S plaže.", "en": "Where are you coming from? From the beach." }
+        ],
+        "rows": [
+          ["dove?", { "de": "wo, wohin", "sl": "kje, kam", "en": "where, where to" }, "nel campo, al mare"],
+          ["da dove?", { "de": "woher", "sl": "od kod", "en": "where from" }, "dalla spiaggia"]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "domande", "text": "«___ vai?» «Vado allo stagno.»", "accept": ["Dove"], "hint": { "de": "wohin?", "sl": "kam?", "en": "where to?" },
+          "explain": {
+            "de": "**wo, wohin** → **dove**: Dove vai?\n- da dove · woher",
+            "sl": "**kje, kam** → **dove**: Dove vai?\n- da dove · od kod",
+            "en": "**where, where to** → **dove**: Dove vai?\n- da dove · where from"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Quando?** heißt wann: **oggi, domani, stasera**. **Come?** heißt wie: **Come stai?** **Perché?** heißt warum, und die Antwort beginnt mit demselben Wort, dann heißt es weil: **Perché ridi? Perché Tommaso fa il pagliaccio!**",
+          "sl": "**Quando?** pomeni kdaj: **oggi, domani, stasera**. **Come?** pomeni kako: **Come stai?** **Perché?** pomeni zakaj, odgovor pa se začne z isto besedo, ki tedaj pomeni ker: **Perché ridi? Perché Tommaso fa il pagliaccio!**",
+          "en": "**Quando?** is when: **oggi, domani, stasera**. **Come?** is how: **Come stai?** **Perché?** is why, and the answer starts with the same word, which then means because: **Perché ridi? Perché Tommaso fa il pagliaccio!**"
+        },
+        "examples": [
+          { "it": "Quando è la festa? Domani!", "de": "Wann ist das Fest? Morgen!", "sl": "Kdaj je praznik? Jutri!", "en": "When is the festa? Tomorrow!" },
+          { "it": "Perché ridi? Perché Tommaso fa il pagliaccio!", "de": "Warum lachst du? Weil Tommaso den Clown spielt!", "sl": "Zakaj se smeješ? Ker Tommaso uganja norčije!", "en": "Why are you laughing? Because Tommaso is clowning around!" }
+        ],
+        "rows": [
+          ["quando?", { "de": "wann", "sl": "kdaj", "en": "when" }, "oggi, domani"],
+          ["come?", { "de": "wie", "sl": "kako", "en": "how" }, "bene"],
+          ["perché?", { "de": "warum; weil", "sl": "zakaj; ker", "en": "why; because" }, "perché …"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "domande", "prompt": "«___ sei a casa?» «Perché piove.»", "options": ["Quando", "Come", "Perché"], "answer": 2, "say_options": true,
+          "explain": {
+            "de": "**die Antwort sagt perché (weil)** → die Frage ist **perché?**\n- Perché sei a casa? · Perché piove.",
+            "sl": "**odgovor pravi perché (ker)** → vprašanje je **perché?**\n- Perché sei a casa? · Perché piove.",
+            "en": "**the answer says perché (because)** → the question is **perché?**\n- Perché sei a casa? · Perché piove."
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Quanto?** heißt wie viel und richtet sich nach dem Nomen, wie ein Adjektiv: **quanto** (m), **quanta** (f), **quanti** (m, mehrere), **quante** (f, mehrere). **Quanti anni hai?** (Wie alt bist du?) **Quante pecore ha Davide?** **Quanto costa?** (Was kostet das?)",
+          "sl": "**Quanto?** pomeni koliko in se ravna po samostalniku kot pridevnik: **quanto** (m), **quanta** (ž), **quanti** (m, več), **quante** (ž, več). **Quanti anni hai?** (Koliko si star?) **Quante pecore ha Davide?** **Quanto costa?** (Koliko stane?)",
+          "en": "**Quanto?** is how much, how many, and agrees with its noun like an adjective: **quanto** (m), **quanta** (f), **quanti** (m, more than one), **quante** (f, more than one). **Quanti anni hai?** (How old are you?) **Quante pecore ha Davide?** **Quanto costa?** (How much is it?)"
+        },
+        "examples": [
+          { "it": "Quanti anni hai? Ho sette anni.", "de": "Wie alt bist du? Ich bin sieben.", "sl": "Koliko si {m:star|f:stara}? Sedem let imam.", "en": "How old are you? I'm seven." },
+          { "it": "Quante pecore ha Davide? Venti!", "de": "Wie viele Schafe hat Davide? Zwanzig!", "sl": "Koliko ovc ima Davide? Dvajset!", "en": "How many sheep has Davide got? Twenty!" }
+        ],
+        "rows": [
+          ["quanto? quanta?", { "de": "wie viel", "sl": "koliko", "en": "how much" }, "Quanto costa?"],
+          ["quanti? quante?", { "de": "wie viele", "sl": "koliko", "en": "how many" }, "venti pecore"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "domande", "prompt": "___ conchiglie hai?", "options": ["Quanto", "Quanti", "Quante"], "answer": 2, "say_options": true,
+          "explain": {
+            "de": "**le conchiglie** → feminin, mehrere → **quante**\n- quanti gabbiani · quante conchiglie",
+            "sl": "**le conchiglie** → ženski spol, več → **quante**\n- quanti gabbiani · quante conchiglie",
+            "en": "**le conchiglie** → feminine, more than one → **quante**\n- quanti gabbiani · quante conchiglie"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "domande-1",
+      "title": { "it": "Che domanda?", "de": "Welche Frage?", "sl": "Katero vprašanje?", "en": "Which question?" },
+      "exercises": [
+        {
+          "type": "sort", "grammar": "domande", "instruction": { "de": "A quale domanda risponde? · Auf welche Frage antwortet es?", "sl": "A quale domanda risponde? · Na katero vprašanje odgovori?", "en": "A quale domanda risponde? · Which question does it answer?" },
+          "columns": [
+            { "label": { "de": "Chi? · wer", "sl": "Chi? · kdo", "en": "Chi? · who" }, "words": ["Giulia", "la maestra", "il nonno"] },
+            { "label": { "de": "Dove? · wo", "sl": "Dove? · kje", "en": "Dove? · where" }, "words": ["al mare", "nel bosco", "a casa"] },
+            { "label": { "de": "Quando? · wann", "sl": "Quando? · kdaj", "en": "Quando? · when" }, "words": ["oggi", "domani", "stasera"] },
+            { "label": { "de": "Quanti? · wie viele", "sl": "Quanti? · koliko", "en": "Quanti? · how many" }, "words": ["tre", "dieci", "cento"] }
+          ],
+          "explain": {
+            "de": "**die Antwort zeigt die Frage**\n- chi: eine Person\n- dove: ein Ort\n- quando: eine Zeit\n- quanti: eine Zahl",
+            "sl": "**odgovor pokaže vprašanje**\n- chi: oseba\n- dove: kraj\n- quando: čas\n- quanti: število",
+            "en": "**the answer shows the question**\n- chi: a person\n- dove: a place\n- quando: a time\n- quanti: a number"
+          }
+        },
+        {
+          "type": "choice", "grammar": "domande", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "«___ costa il gelato?» «Due euro.»", "options": ["Quanto", "Quanti", "Chi"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**wie viel** (Geld) → **quanto**: Quanto costa?",
+            "sl": "**koliko** (denar) → **quanto**: Quanto costa?",
+            "en": "**how much** (money) → **quanto**: Quanto costa?"
+          }
+        },
+        {
+          "type": "choice", "grammar": "domande", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "«___ ti chiami?» «Mi chiamo Giulia.»", "options": ["Chi", "Come", "Dove"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**dein Name** → **Come ti chiami?** (wörtlich: Wie nennst du dich?)",
+            "sl": "**tvoje ime** → **Come ti chiami?** (dobesedno: Kako se kličeš?)",
+            "en": "**your name** → **Come ti chiami?** (literally: how do you call yourself?)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "domande-2",
+      "title": { "it": "Sotto il tiglio", "de": "Unter der Linde", "sl": "Pod lipo", "en": "Under the linden" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "domande", "instruction": { "de": "Completa con la parola della domanda · Setz das Fragewort ein", "sl": "Completa con la parola della domanda · Vstavi vprašalnico", "en": "Completa con la parola della domanda · Fill in the question word" }, "title": "Sotto il tiglio",
+          "text": "«Nonno Bepi, ___ anni hai?» «Ottantadue.» «___ abiti?» «Qui, vicino al tiglio.» «___ si chiama il tuo cane?» «Moro.» «___ racconti le storie?» «La sera, al falò.» «___ sei sempre sotto il tiglio?» «Perché c'è l'ombra!» «___ hai in mano?» «Un libro di storie.»",
+          "gaps": [
+            { "accept": ["Quanti"], "hint": { "de": "anni: maskulin, mehrere", "sl": "anni: moški spol, več", "en": "anni: masculine, more than one" }, "explain": { "de": "gli anni: maskulin, Mehrzahl → **quanti**.", "sl": "gli anni: moški spol, množina → **quanti**.", "en": "gli anni: masculine plural → **quanti**." } },
+            { "accept": ["Dove"], "hint": { "de": "ein Ort", "sl": "kraj", "en": "a place" } },
+            { "accept": ["Come"], "hint": { "de": "ein Name: … ti chiami?", "sl": "ime: … ti chiami?", "en": "a name: … ti chiami?" } },
+            { "accept": ["Quando"], "hint": { "de": "eine Zeit", "sl": "čas", "en": "a time" } },
+            { "accept": ["Perché"], "hint": { "de": "die Antwort: perché …", "sl": "odgovor: perché …", "en": "the answer: perché …" } },
+            { "accept": ["Che cosa", "Cosa", "Che"], "hint": { "de": "eine Sache", "sl": "stvar", "en": "a thing" } }
+          ],
+          "bank": true, "distractors": ["Chi", "Quante"],
+          "translation": {
+            "de": "„Nonno Bepi, wie alt bist du?“ „Zweiundachtzig.“ „Wo wohnst du?“ „Hier, bei der Linde.“ „Wie heißt dein Hund?“ „Moro.“ „Wann erzählst du die Geschichten?“ „Am Abend, am Lagerfeuer.“ „Warum bist du immer unter der Linde?“ „Weil da Schatten ist!“ „Was hast du in der Hand?“ „Ein Buch mit Geschichten.“",
+            "sl": "»Dedek Bepi, koliko si star?« »Dvainosemdeset let.« »Kje živiš?« »Tukaj, blizu lipe.« »Kako je ime tvojemu psu?« »Moro.« »Kdaj pripoveduješ zgodbe?« »Zvečer, ob tabornem ognju.« »Zakaj si vedno pod lipo?« »Ker je tam senca!« »Kaj imaš v roki?« »Knjigo zgodb.«",
+            "en": "\"Nonno Bepi, how old are you?\" \"Eighty-two.\" \"Where do you live?\" \"Here, near the linden.\" \"What's your dog called?\" \"Moro.\" \"When do you tell the stories?\" \"In the evening, at the campfire.\" \"Why are you always under the linden?\" \"Because there's shade!\" \"What have you got in your hand?\" \"A book of stories.\""
+          }
+        },
+        {
+          "type": "choice", "grammar": "domande", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "«C'è Giulia?» «No, ___.»", "options": ["c'è non", "non c'è", "non è"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**non** vor c'è: **Non c'è.** (sie ist nicht da)",
+            "sl": "**non** pred c'è: **Non c'è.** (ni je tukaj)",
+            "en": "**non** before c'è: **Non c'è.** (she isn't here)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "domande-3",
+      "title": { "it": "Fai la domanda!", "de": "Stell die Frage!", "sl": "Vprašaj!", "en": "Ask!" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "domande", "instruction": { "de": "Chiedi con la parola tra parentesi · Frag mit dem Wort in Klammern", "sl": "Chiedi con la parola tra parentesi · Vprašaj z besedo v oklepaju", "en": "Chiedi con la parola tra parentesi · Ask with the word in brackets" }, "cue": "?",
+          "items": [
+            { "from": "Giulia è al mare. (dove?)", "accept": ["Dov'è Giulia?", "Dove è Giulia?", "Giulia dov'è?"], "hint": "dove + è → dov'è" },
+            { "from": "Davide ha venti pecore. (quante?)", "accept": ["Quante pecore ha Davide?", "Davide quante pecore ha?"], "hint": { "de": "quante + das Nomen", "sl": "quante + samostalnik", "en": "quante + the noun" } },
+            { "from": "Lorenzo mangia una mela. (che cosa?)", "accept": ["Che cosa mangia Lorenzo?", "Cosa mangia Lorenzo?", "Che mangia Lorenzo?", "Lorenzo che cosa mangia?", "Lorenzo cosa mangia?"] },
+            { "from": "Nonna Rosa fa il frico. (chi?)", "accept": ["Chi fa il frico?"], "hint": { "de": "chi steht für die Person", "sl": "chi stoji namesto osebe", "en": "chi takes the person's place" } },
+            { "from": "La festa è domani. (quando?)", "accept": ["Quando è la festa?", "Quand'è la festa?", "La festa quando è?"] },
+            { "from": "Tommaso ride perché è felice. (perché?)", "accept": ["Perché ride Tommaso?", "Perché Tommaso ride?"] },
+            { "from": "Lorenzo ha fame. (sì o no?)", "accept": ["Lorenzo ha fame?", "Ha fame Lorenzo?"], "hint": { "de": "nur die Stimme geht nach oben", "sl": "samo glas gre gor", "en": "only the voice goes up" } },
+            { "from": "Il gelato costa due euro. (quanto?)", "accept": ["Quanto costa il gelato?", "Il gelato quanto costa?"] }
+          ],
+          "explain": {
+            "de": "**zuerst das Fragewort**, gleich danach das Verb\n- Dov'è Giulia?\n- Che cosa mangia Lorenzo?\n- Lorenzo ha fame? (nur die Stimme geht nach oben)",
+            "sl": "**najprej vprašalnica**, takoj za njo glagol\n- Dov'è Giulia?\n- Che cosa mangia Lorenzo?\n- Lorenzo ha fame? (samo glas gre gor)",
+            "en": "**the question word first**, the verb right after it\n- Dov'è Giulia?\n- Che cosa mangia Lorenzo?\n- Lorenzo ha fame? (only the voice goes up)"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext", "grammar": "domande", "instruction": { "de": "Completa con la parola della domanda · Setz das Fragewort ein", "sl": "Completa con la parola della domanda · Vstavi vprašalnico", "en": "Completa con la parola della domanda · Fill in the question word" },
+        "text": "«___ è?» «È Aldo, l'apicoltore.» «___ abita?» «Vicino al bosco.» «___ api ha?» «Tante!» «___ vende il miele?» «Domani, al mercato.»",
+        "gaps": [
+          { "accept": ["Chi"] },
+          { "accept": ["Dove"] },
+          { "accept": ["Quante"] },
+          { "accept": ["Quando"] }
+        ],
+        "translation": {
+          "de": "„Wer ist das?“ „Das ist Aldo, der Imker.“ „Wo wohnt er?“ „Beim Wald.“ „Wie viele Bienen hat er?“ „Ganz viele!“ „Wann verkauft er den Honig?“ „Morgen, auf dem Markt.“",
+          "sl": "»Kdo je to?« »To je Aldo, čebelar.« »Kje živi?« »Blizu gozda.« »Koliko čebel ima?« »Veliko!« »Kdaj prodaja med?« »Jutri, na tržnici.«",
+          "en": "\"Who's that?\" \"It's Aldo, the beekeeper.\" \"Where does he live?\" \"Near the wood.\" \"How many bees has he got?\" \"Lots!\" \"When does he sell the honey?\" \"Tomorrow, at the market.\""
+        }
+      },
+      {
+        "type": "transform", "grammar": "domande", "instruction": { "de": "Chiedi con la parola tra parentesi · Frag mit dem Wort in Klammern", "sl": "Chiedi con la parola tra parentesi · Vprašaj z besedo v oklepaju", "en": "Chiedi con la parola tra parentesi · Ask with the word in brackets" }, "cue": "?",
+        "items": [
+          { "from": "Matteo è nella vigna. (dove?)", "accept": ["Dov'è Matteo?", "Dove è Matteo?", "Matteo dov'è?"] },
+          { "from": "Giulia legge un libro. (che cosa?)", "accept": ["Che cosa legge Giulia?", "Cosa legge Giulia?", "Che legge Giulia?", "Giulia che cosa legge?", "Giulia cosa legge?"] },
+          { "from": "Tommaso ha sonno. (sì o no?)", "accept": ["Tommaso ha sonno?", "Ha sonno Tommaso?"] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "domande", "prompt": "«___ stai?» «Bene, grazie!»", "options": ["Dove", "Come", "Chi"], "answer": 1, "say_options": true,
+        "explain": {
+          "de": "**wie geht es dir?** → **Come stai?**",
+          "sl": "**kako si?** → **Come stai?**",
+          "en": "**how are you?** → **Come stai?**"
+        }
+      },
+      {
+        "type": "choice", "grammar": "domande", "prompt": "«Hai freddo?» «No, ___ freddo.»", "options": ["non sono", "ho non", "non ho"], "answer": 2, "say_options": true,
+        "explain": {
+          "de": "**avere freddo** (frieren: mir ist kalt), und **non** vor dem Verb: **non ho freddo**",
+          "sl": "**avere freddo** (zebe me), in **non** pred glagolom: **non ho freddo**",
+          "en": "**avere freddo** (to be cold), and **non** before the verb: **non ho freddo**"
+        }
+      },
+      {
+        "type": "sort", "grammar": "domande", "instruction": { "de": "A quale domanda risponde? · Auf welche Frage antwortet es?", "sl": "A quale domanda risponde? · Na katero vprašanje odgovori?", "en": "A quale domanda risponde? · Which question does it answer?" },
+        "columns": [
+          { "label": { "de": "Chi? · wer", "sl": "Chi? · kdo", "en": "Chi? · who" }, "words": ["il fabbro", "Marisa"] },
+          { "label": { "de": "Quando? · wann", "sl": "Quando? · kdaj", "en": "Quando? · when" }, "words": ["domani", "la sera"] }
+        ]
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: Che/Cosa/Che cosa all accepted, Giulia dov'è?, Quand'è, Tommaso fa il pagliaccio, Sotto il tiglio"
+}

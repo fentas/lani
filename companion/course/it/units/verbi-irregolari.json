@@ -1,0 +1,249 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "verbi-irregolari",
+  "language": "it",
+  "level": "A1",
+  "emoji": "🚶",
+  "title": { "it": "Vado, faccio, vengo, voglio", "de": "Unregelmäßige Verben: vado, faccio, vengo", "sl": "Nepravilni glagoli: vado, faccio, vengo", "en": "Irregular verbs: vado, faccio, vengo" },
+  "goal": {
+    "de": "Du sagst, wohin du gehst, wer mitkommt, was du machst, wie es dir geht und was du willst: vado, vengo, faccio, sto, voglio.",
+    "sl": "Poveš, kam greš, kdo pride zraven, kaj delaš, kako si in kaj hočeš: vado, vengo, faccio, sto, voglio.",
+    "en": "You can say where you're going, who's coming along, what you're doing, how you are and what you want: vado, vengo, faccio, sto, voglio."
+  },
+  "grammar": ["verbi-irregolari"],
+  "words": ["andare", "venire", "fare", "stare", "volere", "il mare", "la spiaggia", "il mulino", "lo stagno", "il bosco", "il falò", "il castello di sabbia", "il gelato", "il frico", "il disegno", "il bagno", "la storia", "giocare", "nuotare", "anche", "insieme", "bene", "benissimo", "zitto", "stasera", "oggi"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "verbo", "de": "Verb", "sl": "glagol", "en": "verb" },
+        { "it": "io · tu · lui, lei", "de": "io · tu · lui, lei (ich, du, er, sie)", "sl": "io · tu · lui, lei (jaz, ti, on, ona)", "en": "io · tu · lui, lei (I, you, he, she)" },
+        { "it": "noi · voi · loro", "de": "noi · voi · loro (wir, ihr, sie)", "sl": "noi · voi · loro (mi, vi, oni)", "en": "noi · voi · loro (we, you, they)" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Ein paar Verben, die du jeden Tag brauchst, folgen keiner Regel. Du lernst sie auswendig, wie ein Lied. Das erste ist **andare** (gehen): **vado** (ich gehe), **vai** (du gehst), **va** (er, sie geht), **andiamo, andate, vanno**. Wohin du gehst, sagst du meist mit **a** oder **in**: **Vado al mare.**",
+          "sl": "Nekaj glagolov, ki jih rabiš vsak dan, ne gre po nobenem pravilu. Naučiš se jih na pamet, kot pesmico. Prvi je **andare** (iti): **vado** (grem), **vai** (greš), **va** (gre), **andiamo, andate, vanno**. Kam greš, povesta navadno **a** ali **in**: **Vado al mare.**",
+          "en": "A few verbs you need every day follow no rule. You learn them by heart, like a song. The first is **andare** (to go): **vado** (I go), **vai** (you go), **va** (he, she goes), **andiamo, andate, vanno**. Where you go to mostly takes **a** or **in**: **Vado al mare.**"
+        },
+        "examples": [
+          { "it": "Vado al mare con la nonna.", "de": "Ich gehe mit Oma ans Meer.", "sl": "Z babico grem na morje.", "en": "I'm going to the sea with Grandma." },
+          { "it": "Dove vai, Lorenzo? Vado al mulino.", "de": "Wohin gehst du, Lorenzo? Ich gehe zur Mühle.", "sl": "Kam greš, Lorenzo? K mlinu grem.", "en": "Where are you going, Lorenzo? I'm going to the mill." }
+        ],
+        "rows": [["andare", "vado, vai, va", "andiamo, andate, vanno"]],
+        "ask": {
+          "type": "choice", "grammar": "verbi-irregolari", "prompt": "Lorenzo ___ al mulino.", "options": ["vado", "va", "vanno"], "answer": 1, "say_options": true,
+          "explain": "**Lorenzo** → lui → **va**\n- vado · io\n- vanno · loro"
+        }
+      },
+      {
+        "say": {
+          "de": "**Venire** heißt kommen: hierher, zu dir oder mit jemandem mit. **Vengo** (ich komme), **vieni** (du kommst), **viene**, **veniamo, venite, vengono**. **Vieni con me?** heißt *Kommst du mit?* Gehst du allein irgendwohin, sagst du **vado**.",
+          "sl": "**Venire** pomeni priti: sem, k tebi ali z nekom zraven. **Vengo** (pridem), **vieni** (prideš), **viene**, **veniamo, venite, vengono**. **Vieni con me?** pomeni *Greš z mano?* Če greš sam nekam, rečeš **vado**.",
+          "en": "**Venire** is to come: here, to you, or along with someone. **Vengo** (I come), **vieni** (you come), **viene**, **veniamo, venite, vengono**. **Vieni con me?** is *Are you coming with me?* Going somewhere on your own is **vado**."
+        },
+        "examples": [
+          { "it": "Vieni con me in spiaggia?", "de": "Kommst du mit mir an den Strand?", "sl": "Greš z mano na plažo?", "en": "Are you coming to the beach with me?" },
+          { "it": "Sì, vengo anch'io!", "de": "Ja, ich komme auch mit!", "sl": "Ja, pridem tudi jaz!", "en": "Yes, I'm coming too!" }
+        ],
+        "rows": [["venire", "vengo, vieni, viene", "veniamo, venite, vengono"]],
+        "ask": {
+          "type": "cloze", "grammar": "verbi-irregolari", "text": "Giulia, ___ con me al mare? (venire)", "accept": ["vieni"], "hint": "tu → ?",
+          "explain": "**tu** → **vieni**\n- vengo · io\n- viene · lui, lei"
+        }
+      },
+      {
+        "say": {
+          "de": "**Fare** heißt machen und tun: **faccio** (ich mache), **fai**, **fa**, **facciamo, fate, fanno**. **Che cosa fai?** heißt *Was machst du?* Mit fare sagt man auch, wie das Wetter ist: **Fa caldo.** (Es ist heiß.) **Fa freddo.** (Es ist kalt.)",
+          "sl": "**Fare** pomeni delati in narediti: **faccio** (delam), **fai**, **fa**, **facciamo, fate, fanno**. **Che cosa fai?** pomeni *Kaj delaš?* S fare poveš tudi, kakšno je vreme: **Fa caldo.** (Vroče je.) **Fa freddo.** (Mrzlo je.)",
+          "en": "**Fare** is to do and to make: **faccio** (I make), **fai**, **fa**, **facciamo, fate, fanno**. **Che cosa fai?** is *What are you doing?* Fare tells the weather too: **Fa caldo.** (It's hot.) **Fa freddo.** (It's cold.)"
+        },
+        "examples": [
+          { "it": "Faccio un castello di sabbia.", "de": "Ich baue eine Sandburg.", "sl": "Delam grad iz peska.", "en": "I'm making a sandcastle." },
+          { "it": "Nonna Rosa fa il frico.", "de": "Nonna Rosa macht Frico.", "sl": "Babica Rosa pripravlja frico.", "en": "Nonna Rosa is making frico." }
+        ],
+        "rows": [["fare", "faccio, fai, fa", "facciamo, fate, fanno"]],
+        "ask": {
+          "type": "choice", "grammar": "verbi-irregolari", "prompt": "Giulia e Lorenzo ___ un castello di sabbia.", "options": ["fa", "fate", "fanno"], "answer": 2, "say_options": true,
+          "explain": "**Giulia e Lorenzo** → loro → **fanno**\n- fa · lui, lei\n- fate · voi"
+        }
+      },
+      {
+        "say": {
+          "de": "**Stare** brauchst du, wenn du sagst, wie es dir geht: **Come stai?** (Wie geht's dir?) **Sto bene!** (Mir geht's gut!) Die Formen sind **sto, stai, sta, stiamo, state, stanno**. Es heißt auch bleiben: **Sto a casa.** (Ich bleibe zu Hause.)",
+          "sl": "**Stare** rabiš, ko poveš, kako si: **Come stai?** (Kako si?) **Sto bene!** (Dobro sem!) Oblike so **sto, stai, sta, stiamo, state, stanno**. Pomeni tudi ostati: **Sto a casa.** (Ostanem doma.)",
+          "en": "You need **stare** to say how you are: **Come stai?** (How are you?) **Sto bene!** (I'm fine!) The forms are **sto, stai, sta, stiamo, state, stanno**. It also means to stay: **Sto a casa.** (I'm staying at home.)"
+        },
+        "examples": [
+          { "it": "Ciao, Nonno Bepi! Come stai?", "de": "Hallo, Nonno Bepi! Wie geht's dir?", "sl": "Živjo, dedek Bepi! Kako si?", "en": "Hi, Nonno Bepi! How are you?" },
+          { "it": "Sto bene, grazie. E tu?", "de": "Mir geht's gut, danke. Und dir?", "sl": "Dobro sem, hvala. Pa ti?", "en": "I'm fine, thanks. And you?" }
+        ],
+        "rows": [["stare", "sto, stai, sta", "stiamo, state, stanno"]],
+        "ask": {
+          "type": "choice", "grammar": "verbi-irregolari", "prompt": "«Come stai?» «___ bene, grazie!»", "options": ["Sta", "Stai", "Sto"], "answer": 2, "say_options": true,
+          "explain": "**io** → **sto**: Sto bene!\n- stai · tu: Come stai?\n- sta · lui, lei"
+        }
+      },
+      {
+        "say": {
+          "de": "**Volere** heißt wollen: **voglio** (ich will), **vuoi** (du willst), **vuole**, **vogliamo, volete, vogliono**. Danach kommt eine Sache oder ein Verb in der Grundform, wie im Deutschen: **Voglio un gelato!** **Vuoi giocare?** (Willst du spielen?)",
+          "sl": "**Volere** pomeni hoteti: **voglio** (hočem), **vuoi** (hočeš), **vuole**, **vogliamo, volete, vogliono**. Za njim pride stvar ali glagol v nedoločniku: **Voglio un gelato!** **Vuoi giocare?** (Se hočeš igrati?)",
+          "en": "**Volere** is to want: **voglio** (I want), **vuoi** (you want), **vuole**, **vogliamo, volete, vogliono**. After it comes a thing, or a verb as the dictionary has it: **Voglio un gelato!** **Vuoi giocare?** (Do you want to play?)"
+        },
+        "examples": [
+          { "it": "Voglio un gelato al limone!", "de": "Ich will ein Zitroneneis!", "sl": "Hočem limonin sladoled!", "en": "I want a lemon ice cream!" },
+          { "it": "Vuoi venire al mare con noi?", "de": "Willst du mit uns ans Meer kommen?", "sl": "Hočeš priti z nami na morje?", "en": "Do you want to come to the sea with us?" }
+        ],
+        "rows": [["volere", "voglio, vuoi, vuole", "vogliamo, volete, vogliono"]],
+        "ask": {
+          "type": "choice", "grammar": "verbi-irregolari", "prompt": "Tommaso vuole ___ a calcio.", "options": ["gioca", "giocare", "giochi"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**volere** + ein Verb in der Grundform: **vuole giocare**\n- Voglio giocare.\n- Vuoi venire?",
+            "sl": "**volere** + glagol v nedoločniku: **vuole giocare**\n- Voglio giocare.\n- Vuoi venire?",
+            "en": "**volere** + the verb as it is: **vuole giocare**\n- Voglio giocare.\n- Vuoi venire?"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "verbi-irregolari-1",
+      "title": { "it": "Chi fa che cosa?", "de": "Wer macht was?", "sl": "Kdo kaj dela?", "en": "Who does what?" },
+      "exercises": [
+        {
+          "type": "sort", "grammar": "verbi-irregolari", "instruction": { "de": "Quale verbo? · Welches Verb?", "sl": "Quale verbo? · Kateri glagol?", "en": "Quale verbo? · Which verb?" },
+          "columns": [
+            { "label": { "de": "andare · gehen", "sl": "andare · iti", "en": "andare · go" }, "words": ["vado", "vanno"] },
+            { "label": { "de": "venire · kommen", "sl": "venire · priti", "en": "venire · come" }, "words": ["vengo", "viene"] },
+            { "label": { "de": "fare · machen", "sl": "fare · delati", "en": "fare · do, make" }, "words": ["faccio", "fanno"] },
+            { "label": { "de": "volere · wollen", "sl": "volere · hoteti", "en": "volere · want" }, "words": ["voglio", "vuole"] }
+          ],
+          "explain": {
+            "de": "**die Formen ändern sich, das Verb bleibt**\n- vado, vanno · andare\n- vengo, viene · venire\n- faccio, fanno · fare\n- voglio, vuole · volere",
+            "sl": "**oblike se spreminjajo, glagol ostane**\n- vado, vanno · andare\n- vengo, viene · venire\n- faccio, fanno · fare\n- voglio, vuole · volere",
+            "en": "**the forms change, the verb stays**\n- vado, vanno · andare\n- vengo, viene · venire\n- faccio, fanno · fare\n- voglio, vuole · volere"
+          }
+        },
+        {
+          "type": "table", "grammar": "verbi-irregolari", "instruction": { "de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table" }, "prompt": "io · tu · lui, lei",
+          "columns": ["io", "tu", "lui · lei"],
+          "rows": [
+            { "label": "andare", "cells": ["vado", { "accept": ["vai"], "hint": "tu …" }, { "accept": ["va"] }] },
+            { "label": "venire", "cells": [{ "accept": ["vengo"] }, "vieni", { "accept": ["viene"] }] },
+            { "label": "fare", "cells": [{ "accept": ["faccio"], "hint": { "de": "zwei c", "sl": "dva c", "en": "two c" } }, { "accept": ["fai"] }, "fa"] },
+            { "label": "volere", "cells": ["voglio", { "accept": ["vuoi"] }, { "accept": ["vuole"] }] }
+          ],
+          "explain": {
+            "de": "**io** endet auf -o, **tu** auf -i\n- vado · vai · va\n- vengo · vieni · viene\n- voglio · vuoi · vuole",
+            "sl": "**io** se konča na -o, **tu** na -i\n- vado · vai · va\n- vengo · vieni · viene\n- voglio · vuoi · vuole",
+            "en": "**io** ends in -o, **tu** in -i\n- vado · vai · va\n- vengo · vieni · viene\n- voglio · vuoi · vuole"
+          }
+        }
+      ]
+    },
+    {
+      "id": "verbi-irregolari-2",
+      "title": { "it": "Al mare", "de": "Am Meer", "sl": "Na morju", "en": "At the sea" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "verbi-irregolari", "instruction": { "de": "Completa con il verbo · Setz das Verb ein", "sl": "Completa con il verbo · Vstavi glagol", "en": "Completa con il verbo · Fill in the verb" }, "title": "Al mare",
+          "text": "Oggi io ___ (andare) al mare. «Giulia, ___ (venire) anche tu?» «Sì, ___ (venire)!» Sulla spiaggia Giulia ___ (fare) un castello di sabbia. Lorenzo e Tommaso ___ (volere) un gelato. «Come ___ (stare), Lorenzo?» «___ (stare) benissimo!»",
+          "gaps": [
+            { "accept": ["vado"], "hint": "io → ?" },
+            { "accept": ["vieni"], "hint": "tu → ?" },
+            { "accept": ["vengo"], "hint": "io → ?", "explain": { "de": "Giulia spricht von sich selbst: io → **vengo**.", "sl": "Giulia govori o sebi: io → **vengo**.", "en": "Giulia says it of herself: io → **vengo**." } },
+            { "accept": ["fa"], "hint": "Giulia = lei" },
+            { "accept": ["vogliono"], "hint": "Lorenzo e Tommaso = loro", "explain": { "de": "Zwei Jungen: loro → **vogliono**.", "sl": "Dva dečka: loro → **vogliono**.", "en": "Two boys: loro → **vogliono**." } },
+            { "accept": ["stai"], "hint": "tu → ?" },
+            { "accept": ["Sto"], "hint": "io → ?" }
+          ],
+          "bank": true, "distractors": ["va", "viene", "fanno"],
+          "translation": {
+            "de": "Heute gehe ich ans Meer. „Giulia, kommst du auch mit?“ „Ja, ich komme!“ Am Strand baut Giulia eine Sandburg. Lorenzo und Tommaso wollen ein Eis. „Wie geht's dir, Lorenzo?“ „Super!“",
+            "sl": "Danes grem na morje. »Giulia, prideš tudi ti?« »Ja, pridem!« Na plaži Giulia dela grad iz peska. Lorenzo in Tommaso hočeta sladoled. »Kako si, Lorenzo?« »Odlično!«",
+            "en": "Today I'm going to the sea. \"Giulia, are you coming too?\" \"Yes, I'm coming!\" On the beach Giulia makes a sandcastle. Lorenzo and Tommaso want an ice cream. \"How are you, Lorenzo?\" \"I'm great!\""
+          }
+        },
+        {
+          "type": "choice", "grammar": "verbi-irregolari", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "«Vieni con me al mulino?» «Sì, ___!»", "options": ["vado", "vengo"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**mit jemandem mitkommen** → **venire**: Sì, vengo!\n- vado · allein irgendwohin gehen",
+            "sl": "**iti z nekom zraven** → **venire**: Sì, vengo!\n- vado · sam iti nekam",
+            "en": "**coming along with someone** → **venire**: Sì, vengo!\n- vado · going somewhere on your own"
+          }
+        }
+      ]
+    },
+    {
+      "id": "verbi-irregolari-3",
+      "title": { "it": "Cambia la persona", "de": "Wechsle die Person", "sl": "Zamenjaj osebo", "en": "Change the person" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "verbi-irregolari", "instruction": { "de": "Cambia la persona · Wechsle die Person", "sl": "Cambia la persona · Zamenjaj osebo", "en": "Cambia la persona · Change the person" },
+          "items": [
+            { "from": "Vado al mulino. (Lorenzo)", "accept": ["Lorenzo va al mulino.", "Va al mulino."], "hint": "lui → ?" },
+            { "from": "Faccio un disegno. (noi)", "accept": ["Facciamo un disegno.", "Noi facciamo un disegno."], "hint": "noi: -iamo" },
+            { "from": "Vengo con te. (Giulia)", "accept": ["Giulia viene con te.", "Viene con te."] },
+            { "from": "Voglio un gelato. (i bambini)", "accept": ["I bambini vogliono un gelato.", "Vogliono un gelato."], "hint": "loro → ?" },
+            { "from": "Sto a casa. (tu)", "accept": ["Stai a casa.", "Tu stai a casa."] },
+            { "from": "Vado al mare. (voi)", "accept": ["Andate al mare.", "Voi andate al mare."], "hint": "andare → voi?" }
+          ],
+          "explain": {
+            "de": "**dasselbe Verb, eine andere Person**\n- vado → va (lui) · andate (voi)\n- voglio → vogliono (loro)\n- faccio → facciamo (noi)",
+            "sl": "**isti glagol, druga oseba**\n- vado → va (lui) · andate (voi)\n- voglio → vogliono (loro)\n- faccio → facciamo (noi)",
+            "en": "**the same verb, another person**\n- vado → va (lui) · andate (voi)\n- voglio → vogliono (loro)\n- faccio → facciamo (noi)"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "verbi-irregolari", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "columns": ["io", "tu", "loro"],
+        "rows": [
+          { "label": "andare", "cells": ["vado", { "accept": ["vai"] }, { "accept": ["vanno"] }] },
+          { "label": "fare", "cells": [{ "accept": ["faccio"] }, "fai", { "accept": ["fanno"] }] },
+          { "label": "volere", "cells": [{ "accept": ["voglio"] }, { "accept": ["vuoi"] }, "vogliono"] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "verbi-irregolari", "instruction": { "de": "Completa con il verbo · Setz das Verb ein", "sl": "Completa con il verbo · Vstavi glagol", "en": "Completa con il verbo · Fill in the verb" },
+        "text": "Stasera noi ___ (andare) al falò. Nonno Bepi ___ (venire) con il suo cane Moro. «Che cosa ___ (fare), nonno?» «Racconto una storia!» I bambini ___ (stare) zitti e ascoltano.",
+        "gaps": [
+          { "accept": ["andiamo"] },
+          { "accept": ["viene"] },
+          { "accept": ["fai"] },
+          { "accept": ["stanno"] }
+        ],
+        "translation": {
+          "de": "Heute Abend gehen wir zum Lagerfeuer. Nonno Bepi kommt mit seinem Hund Moro. „Was machst du, Nonno?“ „Ich erzähle eine Geschichte!“ Die Kinder sind still und hören zu.",
+          "sl": "Nocoj gremo k tabornemu ognju. Dedek Bepi pride s svojim psom Morom. »Kaj delaš, dedek?« »Pripovedujem zgodbo!« Otroci so tiho in poslušajo.",
+          "en": "Tonight we're going to the campfire. Nonno Bepi comes with his dog Moro. \"What are you doing, Nonno?\" \"I'm telling a story!\" The children keep quiet and listen."
+        }
+      },
+      {
+        "type": "transform", "grammar": "verbi-irregolari", "instruction": { "de": "Cambia la persona · Wechsle die Person", "sl": "Cambia la persona · Zamenjaj osebo", "en": "Cambia la persona · Change the person" },
+        "items": [
+          { "from": "Vado al bosco. (Giulia e Lorenzo)", "accept": ["Giulia e Lorenzo vanno al bosco.", "Vanno al bosco."] },
+          { "from": "Voglio una mela. (Lorenzo)", "accept": ["Lorenzo vuole una mela.", "Vuole una mela."] },
+          { "from": "Faccio il bagno. (voi)", "accept": ["Fate il bagno.", "Voi fate il bagno."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "verbi-irregolari", "prompt": "Giulia vuole ___ un castello.", "options": ["fa", "fare", "fanno"], "answer": 1, "say_options": true,
+        "explain": {
+          "de": "**volere** + ein Verb in der Grundform: **vuole fare**",
+          "sl": "**volere** + glagol v nedoločniku: **vuole fare**",
+          "en": "**volere** + the verb as it is: **vuole fare**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: Vieni con me? / Sì, vengo!, Sto bene, stanno zitti, Fa caldo, the German for a child"
+}

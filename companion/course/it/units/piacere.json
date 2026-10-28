@@ -1,0 +1,287 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "piacere",
+  "language": "it",
+  "level": "A1",
+  "emoji": "💛",
+  "title": { "it": "Mi piace, mi piacciono", "de": "Mi piace: was ich mag", "sl": "Mi piace: kaj mi je všeč", "en": "Mi piace: what I like" },
+  "goal": {
+    "de": "Du sagst, was du magst und was nicht (mi piace, non mi piace), fragst andere (ti piace?) und sagst, was Giulia oder Lorenzo mag.",
+    "sl": "Poveš, kaj ti je všeč in kaj ne (mi piace, non mi piace), vprašaš druge (ti piace?) in poveš, kaj je všeč Giuliji ali Lorenzu.",
+    "en": "You can say what you like and don't (mi piace, non mi piace), ask others (ti piace?) and say what Giulia or Lorenzo likes."
+  },
+  "grammar": ["piacere"],
+  "words": ["piacere", "mi piace", "ti piace", "il mare", "il gelato", "il miele", "la polenta", "la gubana", "le ciliegie", "i cavalli", "i gatti", "i gabbiani", "le conchiglie", "i granchi", "i funghi", "le storie", "i ragni", "la pioggia", "il freddo", "il sole", "il trattore", "nuotare", "giocare", "disegnare", "leggere", "correre", "cantare", "ballare", "pizzicare", "tanto", "l'inverno", "la sabbia", "il secchio"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "che cosa piace", "de": "was gefällt", "sl": "kaj je všeč", "en": "what is liked" },
+        { "it": "si dice", "de": "so sagt man", "sl": "rečeš", "en": "you say" },
+        { "it": "esempio", "de": "Beispiel", "sl": "primer", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Auf Italienisch sagst du *mögen* andersherum, wie *gefallen*: **Mi piace il gelato.** heißt *Das Eis gefällt mir*, also *Ich mag Eis.* **Mi** heißt *mir*. Die Sache, die dir gefällt, behält ihren Artikel: **mi piace il mare**, nie *mi piace mare*.",
+          "sl": "V italijanščini to poveš kot v slovenščini *všeč mi je*: **Mi piace il gelato.** (Sladoled mi je všeč.) **Mi** pomeni *mi*. Stvar, ki ti je všeč, obdrži člen: **mi piace il mare**, nikoli *mi piace mare*.",
+          "en": "Italian says *like* the other way round: **Mi piace il gelato.** is *Ice cream pleases me*, so *I like ice cream.* **Mi** is *to me*. The thing you like keeps its article: **mi piace il mare**, never *mi piace mare*."
+        },
+        "examples": [
+          { "it": "Mi piace il mare.", "de": "Ich mag das Meer.", "sl": "Morje mi je všeč.", "en": "I like the sea." },
+          { "it": "Mi piace il miele di Aldo.", "de": "Mir schmeckt Aldos Honig.", "sl": "Aldov med mi je všeč.", "en": "I like Aldo's honey." }
+        ],
+        "rows": [[{ "de": "eine Sache", "sl": "ena stvar", "en": "one thing" }, "mi piace", "Mi piace il mare."]],
+        "ask": {
+          "type": "choice", "grammar": "piacere", "instruction": { "de": "Quale frase è giusta? · Welcher Satz ist richtig?", "sl": "Quale frase è giusta? · Kateri stavek je pravi?", "en": "Quale frase è giusta? · Which sentence is right?" }, "prompt": "Il gelato? ___", "options": ["Mi piace gelato.", "Mi piace il gelato.", "Io piace il gelato."], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**mi piace** + die Sache mit ihrem Artikel: **Mi piace il gelato.**\n- nie mi piace gelato\n- nie io piace",
+            "sl": "**mi piace** + stvar s členom: **Mi piace il gelato.**\n- nikoli mi piace gelato\n- nikoli io piace",
+            "en": "**mi piace** + the thing with its article: **Mi piace il gelato.**\n- never mi piace gelato\n- never io piace"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Das Verb richtet sich nach der Sache, nicht nach dir! Eine Sache: **piace**. Mehrere Sachen: **piacciono**. **Mi piacciono le ciliegie.** (Ich mag Kirschen.) **Mi piacciono i cavalli.** (Ich mag Pferde.)",
+          "sl": "Glagol se ravna po stvari, ne po tebi! Ena stvar: **piace**. Več stvari: **piacciono**. **Mi piacciono le ciliegie.** (Češnje so mi všeč.) **Mi piacciono i cavalli.** (Konji so mi všeč.)",
+          "en": "The verb goes with the thing, not with you! One thing: **piace**. More than one: **piacciono**. **Mi piacciono le ciliegie.** (I like cherries.) **Mi piacciono i cavalli.** (I like horses.)"
+        },
+        "examples": [
+          { "it": "Mi piacciono le ciliegie.", "de": "Ich mag Kirschen.", "sl": "Češnje so mi všeč.", "en": "I like cherries." },
+          { "it": "Mi piacciono i gabbiani.", "de": "Ich mag die Möwen.", "sl": "Galebi so mi všeč.", "en": "I like the seagulls." }
+        ],
+        "rows": [[{ "de": "mehrere Sachen", "sl": "več stvari", "en": "more things" }, "mi piacciono", "Mi piacciono le ciliegie."]],
+        "ask": {
+          "type": "cloze", "grammar": "piacere", "text": "Mi ___ le conchiglie.", "accept": ["piacciono"], "hint": { "de": "le conchiglie: mehrere", "sl": "le conchiglie: več", "en": "le conchiglie: more than one" },
+          "explain": {
+            "de": "**mehrere Sachen** → **piacciono**\n- mi piace la conchiglia\n- mi piacciono le conchiglie",
+            "sl": "**več stvari** → **piacciono**\n- mi piace la conchiglia\n- mi piacciono le conchiglie",
+            "en": "**more than one thing** → **piacciono**\n- mi piace la conchiglia\n- mi piacciono le conchiglie"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Machst du etwas gern? Dann kommt nach **piace** ein Verb in der Grundform, und es bleibt immer **piace**: **Mi piace nuotare.** (Ich schwimme gern.) **Mi piace disegnare.** (Ich male gern.)",
+          "sl": "Ti je všeč nekaj početi? Potem za **piace** pride glagol v nedoločniku in vedno ostane **piace**: **Mi piace nuotare.** (Všeč mi je plavati.) **Mi piace disegnare.** (Všeč mi je risati.)",
+          "en": "Do you like doing something? Then **piace** is followed by a verb as the dictionary has it, and it always stays **piace**: **Mi piace nuotare.** (I like swimming.) **Mi piace disegnare.** (I like drawing.)"
+        },
+        "examples": [
+          { "it": "Mi piace nuotare in mare.", "de": "Ich schwimme gern im Meer.", "sl": "Všeč mi je plavati v morju.", "en": "I like swimming in the sea." },
+          { "it": "Mi piace disegnare i cavalli.", "de": "Ich male gern Pferde.", "sl": "Všeč mi je risati konje.", "en": "I like drawing horses." }
+        ],
+        "rows": [[{ "de": "etwas tun (ein Verb)", "sl": "nekaj početi (glagol)", "en": "doing something (a verb)" }, "mi piace", "Mi piace nuotare."]],
+        "ask": {
+          "type": "choice", "grammar": "piacere", "prompt": "Mi ___ correre sulla spiaggia.", "options": ["piace", "piacciono"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**ein Verb** → immer **piace**: mi piace correre",
+            "sl": "**glagol** → vedno **piace**: mi piace correre",
+            "en": "**a verb** → always **piace**: mi piace correre"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Fragen kannst du mit **ti** (dir): **Ti piace la polenta?** (Magst du Polenta?) Nein sagst du mit **non** ganz vorn: **Non mi piace il freddo.** (Ich mag die Kälte nicht.) **Non mi piacciono i ragni.** (Ich mag keine Spinnen.)",
+          "sl": "Vprašaš s **ti**: **Ti piace la polenta?** (Ti je polenta všeč?) Ne poveš z **non** čisto spredaj: **Non mi piace il freddo.** (Mraz mi ni všeč.) **Non mi piacciono i ragni.** (Pajki mi niso všeč.)",
+          "en": "To ask, use **ti** (to you): **Ti piace la polenta?** (Do you like polenta?) No is **non** right at the front: **Non mi piace il freddo.** (I don't like the cold.) **Non mi piacciono i ragni.** (I don't like spiders.)"
+        },
+        "examples": [
+          { "it": "Ti piace la polenta? Sì, tanto!", "de": "Magst du Polenta? Ja, sehr!", "sl": "Ti je polenta všeč? Ja, zelo!", "en": "Do you like polenta? Yes, a lot!" },
+          { "it": "Non mi piace la pioggia.", "de": "Ich mag den Regen nicht.", "sl": "Dež mi ni všeč.", "en": "I don't like the rain." }
+        ],
+        "rows": [
+          [{ "de": "fragen", "sl": "vprašati", "en": "asking" }, "ti piace?", "Ti piace la polenta?"],
+          [{ "de": "nein", "sl": "ne", "en": "no" }, "non mi piace", "Non mi piace la pioggia."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "piacere", "prompt": "«Ti piacciono i ragni?» «No, ___!»", "options": ["mi non piacciono", "non mi piacciono", "non piacciono mi"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**non** zuerst, dann mi: **non mi piacciono**",
+            "sl": "**non** najprej, nato mi: **non mi piacciono**",
+            "en": "**non** first, then mi: **non mi piacciono**"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Für andere sagst du **gli** (ihm) und **le** (ihr): **Gli piacciono i cavalli.** (Er mag Pferde.) **Le piace leggere.** (Sie liest gern.) Mit einem Namen steht **a** davor: **A Giulia piace leggere. A Lorenzo piacciono i cavalli.**",
+          "sl": "Za druge rečeš **gli** (mu) in **le** (ji): **Gli piacciono i cavalli.** (Konji so mu všeč.) **Le piace leggere.** (Všeč ji je brati.) Z imenom stoji pred njim **a**: **A Giulia piace leggere. A Lorenzo piacciono i cavalli.**",
+          "en": "For others you say **gli** (to him) and **le** (to her): **Gli piacciono i cavalli.** (He likes horses.) **Le piace leggere.** (She likes reading.) With a name, put **a** in front: **A Giulia piace leggere. A Lorenzo piacciono i cavalli.**"
+        },
+        "examples": [
+          { "it": "A Lorenzo piacciono i cavalli.", "de": "Lorenzo mag Pferde.", "sl": "Lorenzu so všeč konji.", "en": "Lorenzo likes horses." },
+          { "it": "A Giulia piacciono i gatti. Le piacciono tanto!", "de": "Giulia mag Katzen. Sie mag sie sehr!", "sl": "Giuliji so všeč mačke. Zelo so ji všeč!", "en": "Giulia likes cats. She likes them a lot!" }
+        ],
+        "rows": [
+          [{ "de": "ihm, Lorenzo", "sl": "njemu, Lorenzu", "en": "him, Lorenzo" }, "gli piace · a Lorenzo piace", "Gli piacciono i cavalli."],
+          [{ "de": "ihr, Giulia", "sl": "njej, Giuliji", "en": "her, Giulia" }, "le piace · a Giulia piace", "Le piace leggere."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "piacere", "prompt": "Lorenzo? ___ piace il trattore.", "options": ["Le", "Mi", "Gli"], "answer": 2, "say_options": true,
+          "explain": {
+            "de": "**Lorenzo** → ihm → **gli**\n- le · ihr (Giulia)\n- mi · mir",
+            "sl": "**Lorenzo** → njemu → **gli**\n- le · njej (Giulia)\n- mi · meni",
+            "en": "**Lorenzo** → to him → **gli**\n- le · to her (Giulia)\n- mi · to me"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "piacere-1",
+      "title": { "it": "Piace o piacciono?", "de": "Piace oder piacciono?", "sl": "Piace ali piacciono?", "en": "Piace or piacciono?" },
+      "exercises": [
+        {
+          "type": "sort", "grammar": "piacere", "instruction": { "de": "Piace o piacciono? · Piace oder piacciono?", "sl": "Piace o piacciono? · Piace ali piacciono?", "en": "Piace o piacciono? · Piace or piacciono?" },
+          "columns": [
+            { "label": "mi piace …", "words": ["il mare", "la polenta", "il gelato", "nuotare", "giocare", "il miele"] },
+            { "label": "mi piacciono …", "words": ["le ciliegie", "i cavalli", "le conchiglie", "i gatti", "le storie", "i funghi"] }
+          ],
+          "explain": {
+            "de": "**eine Sache oder ein Verb** → piace · **mehrere** → piacciono\n- mi piace il mare · mi piace nuotare\n- mi piacciono le ciliegie",
+            "sl": "**ena stvar ali glagol** → piace · **več** → piacciono\n- mi piace il mare · mi piace nuotare\n- mi piacciono le ciliegie",
+            "en": "**one thing or a verb** → piace · **more than one** → piacciono\n- mi piace il mare · mi piace nuotare\n- mi piacciono le ciliegie"
+          }
+        },
+        {
+          "type": "choice", "grammar": "piacere", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "A Giulia ___ i gatti.", "options": ["piace", "piacciono"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**i gatti** → mehrere → **piacciono**",
+            "sl": "**i gatti** → več → **piacciono**",
+            "en": "**i gatti** → more than one → **piacciono**"
+          }
+        },
+        {
+          "type": "choice", "grammar": "piacere", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Giulia? ___ piace leggere.", "options": ["Gli", "Le", "Ti"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**Giulia** → ihr → **le**\n- gli · ihm",
+            "sl": "**Giulia** → njej → **le**\n- gli · njemu",
+            "en": "**Giulia** → to her → **le**\n- gli · to him"
+          }
+        }
+      ]
+    },
+    {
+      "id": "piacere-2",
+      "title": { "it": "In spiaggia", "de": "Am Strand", "sl": "Na plaži", "en": "On the beach" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "piacere", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" }, "title": "In spiaggia",
+          "text": "«{learner}, ti ___ il mare?» «Sì, mi ___ tanto!» «E ti ___ i granchi?» «No, non mi ___. Pizzicano!» «A Lorenzo ___ le conchiglie. Ha un secchio pieno!» «E a Tommaso?» «___ piace giocare a calcio sulla sabbia.»",
+          "gaps": [
+            { "accept": ["piace"], "hint": { "de": "il mare: eine Sache", "sl": "il mare: ena stvar", "en": "il mare: one thing" } },
+            { "accept": ["piace"], "hint": { "de": "immer noch il mare", "sl": "še vedno il mare", "en": "still il mare" } },
+            { "accept": ["piacciono"], "hint": { "de": "i granchi: mehrere", "sl": "i granchi: več", "en": "i granchi: more than one" } },
+            { "accept": ["piacciono"], "hint": { "de": "immer noch i granchi", "sl": "še vedno i granchi", "en": "still i granchi" } },
+            { "accept": ["piacciono"], "hint": { "de": "le conchiglie: mehrere", "sl": "le conchiglie: več", "en": "le conchiglie: more than one" } },
+            { "accept": ["Gli"], "hint": { "de": "Tommaso: ihm", "sl": "Tommaso: njemu", "en": "Tommaso: to him" }, "explain": { "de": "Tommaso → ihm → **gli**.", "sl": "Tommaso → njemu → **gli**.", "en": "Tommaso → to him → **gli**." } }
+          ],
+          "bank": true, "distractors": ["Le", "piacere"],
+          "translation": {
+            "de": "„{learner}, magst du das Meer?“ „Ja, sehr!“ „Und magst du Krabben?“ „Nein, die mag ich nicht. Sie zwicken!“ „Lorenzo mag Muscheln. Er hat einen ganzen Eimer voll!“ „Und Tommaso?“ „Er spielt gern Fußball im Sand.“",
+            "sl": "»{learner}, ti je morje všeč?« »Ja, zelo!« »Pa rakovice?« »Ne, niso mi všeč. Ščipajo!« »Lorenzu so všeč školjke. Ima jih polno vedro!« »Pa Tommasu?« »Všeč mu je igrati nogomet na pesku.«",
+            "en": "\"{learner}, do you like the sea?\" \"Yes, I like it a lot!\" \"And do you like crabs?\" \"No, I don't like them. They pinch!\" \"Lorenzo likes shells. He's got a whole bucket of them!\" \"And Tommaso?\" \"He likes playing football on the sand.\""
+          }
+        },
+        {
+          "type": "choice", "grammar": "piacere", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "«Ti piace la pioggia?» «No, ___.»", "options": ["non ti piace", "non mi piace", "mi non piace"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**über dich selbst** → **mi**: No, non mi piace.\n- ti piace? · die Frage an dich",
+            "sl": "**o sebi** → **mi**: No, non mi piace.\n- ti piace? · vprašanje tebi",
+            "en": "**about yourself** → **mi**: No, non mi piace.\n- ti piace? · the question to you"
+          }
+        }
+      ]
+    },
+    {
+      "id": "piacere-3",
+      "title": { "it": "Che cosa ti piace?", "de": "Was magst du?", "sl": "Kaj ti je všeč?", "en": "What do you like?" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "piacere", "instruction": { "de": "Più cose! · Mehrere!", "sl": "Più cose! · Več stvari!", "en": "Più cose! · More than one!" },
+          "items": [
+            { "from": "Mi piace la mela. (le mele)", "accept": ["Mi piacciono le mele."] },
+            { "from": "Mi piace il cavallo. (i cavalli)", "accept": ["Mi piacciono i cavalli."] },
+            { "from": "Ti piace la storia? (le storie)", "accept": ["Ti piacciono le storie?"] },
+            { "from": "A Giulia piace il gatto. (i gatti)", "accept": ["A Giulia piacciono i gatti."] }
+          ],
+          "explain": {
+            "de": "**mehrere Sachen** → **piacciono**\n- mi piace la mela → mi piacciono le mele",
+            "sl": "**več stvari** → **piacciono**\n- mi piace la mela → mi piacciono le mele",
+            "en": "**more than one thing** → **piacciono**\n- mi piace la mela → mi piacciono le mele"
+          }
+        },
+        {
+          "type": "transform", "grammar": "piacere", "instruction": { "de": "Di' di no · Sag nein", "sl": "Di' di no · Reci ne", "en": "Di' di no · Say no" },
+          "items": [
+            { "from": "Mi piace il freddo.", "accept": ["Non mi piace il freddo."] },
+            { "from": "Mi piacciono i ragni.", "accept": ["Non mi piacciono i ragni."] },
+            { "from": "A Lorenzo piace la pioggia.", "accept": ["A Lorenzo non piace la pioggia."], "hint": { "de": "a Lorenzo, dann non", "sl": "a Lorenzo, nato non", "en": "a Lorenzo, then non" } },
+            { "from": "Gli piace nuotare.", "accept": ["Non gli piace nuotare."] }
+          ],
+          "explain": {
+            "de": "**non** vor mi, ti, gli, le: **Non mi piace.**\n- mit einem Namen: A Lorenzo non piace …",
+            "sl": "**non** pred mi, ti, gli, le: **Non mi piace.**\n- z imenom: A Lorenzo non piace …",
+            "en": "**non** before mi, ti, gli, le: **Non mi piace.**\n- with a name: A Lorenzo non piace …"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext", "grammar": "piacere", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "text": "«Ti ___ la gubana di Nonna Rosa?» «Sì, mi ___ tanto!» A Lorenzo ___ i cavalli. Giulia non ama l'inverno: non ___ piace il freddo.",
+        "gaps": [
+          { "accept": ["piace"] },
+          { "accept": ["piace"] },
+          { "accept": ["piacciono"] },
+          { "accept": ["le"] }
+        ],
+        "translation": {
+          "de": "„Magst du die Gubana von Nonna Rosa?“ „Ja, sehr!“ Lorenzo mag Pferde. Giulia liebt den Winter nicht: Sie mag die Kälte nicht.",
+          "sl": "»Ti je všeč gubana babice Rose?« »Ja, zelo!« Lorenzu so všeč konji. Giulia nima rada zime: mraz ji ni všeč.",
+          "en": "\"Do you like Nonna Rosa's gubana?\" \"Yes, I like it a lot!\" Lorenzo likes horses. Giulia doesn't love winter: she doesn't like the cold."
+        }
+      },
+      {
+        "type": "transform", "grammar": "piacere", "instruction": { "de": "Più cose! · Mehrere!", "sl": "Più cose! · Več stvari!", "en": "Più cose! · More than one!" },
+        "items": [
+          { "from": "Mi piace il fungo. (i funghi)", "accept": ["Mi piacciono i funghi."] },
+          { "from": "Ti piace la conchiglia? (le conchiglie)", "accept": ["Ti piacciono le conchiglie?"] },
+          { "from": "A Tommaso piace il gabbiano. (i gabbiani)", "accept": ["A Tommaso piacciono i gabbiani."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "piacere", "prompt": "Mi ___ cantare e ballare.", "options": ["piacciono", "piace"], "answer": 1, "say_options": true,
+        "explain": {
+          "de": "**ein Verb** (oder zwei) → **piace**: mi piace cantare e ballare",
+          "sl": "**glagol** (ali dva) → **piace**: mi piace cantare e ballare",
+          "en": "**a verb** (or two) → **piace**: mi piace cantare e ballare"
+        }
+      },
+      {
+        "type": "choice", "grammar": "piacere", "prompt": "«Ti piace il miele?» «No, ___.»", "options": ["non mi piace", "non ti piace", "mi non piace"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**über dich selbst** → **non mi piace**",
+          "sl": "**o sebi** → **non mi piace**",
+          "en": "**about yourself** → **non mi piace**"
+        }
+      },
+      {
+        "type": "sort", "grammar": "piacere", "instruction": { "de": "Piace o piacciono? · Piace oder piacciono?", "sl": "Piace o piacciono? · Piace ali piacciono?", "en": "Piace o piacciono? · Piace or piacciono?" },
+        "columns": [
+          { "label": "mi piace …", "words": ["la sabbia", "disegnare"] },
+          { "label": "mi piacciono …", "words": ["i granchi", "le stelle"] }
+        ]
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: Ha un secchio pieno, Pizzicano!, nuotare in mare, Giulia non ama l'inverno, Mi piace il miele di Aldo"
+}

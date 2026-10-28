@@ -1,0 +1,280 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "imperativo",
+  "language": "it",
+  "level": "A1",
+  "emoji": "📣",
+  "title": { "it": "Vieni! Guarda! Ascolta!", "de": "Komm! Schau! Hör zu! Der Imperativ", "sl": "Pridi! Poglej! Poslušaj! Velelnik", "en": "Come! Look! Listen! The imperative" },
+  "goal": {
+    "de": "Du sagst einem Kind oder mehreren, was sie tun sollen (guarda! guardate!), schlägst vor, etwas zusammen zu tun (andiamo!), und sagst, was sie nicht tun sollen (non correre!).",
+    "sl": "Otroku ali več otrokom poveš, kaj naj naredijo (guarda! guardate!), predlagaš, da nekaj naredite skupaj (andiamo!), in poveš, česa naj ne delajo (non correre!).",
+    "en": "You can tell a child or several what to do (guarda! guardate!), suggest doing something together (andiamo!), and say what not to do (non correre!)."
+  },
+  "grammar": ["imperativo", "verbi-irregolari"],
+  "words": ["guardare", "ascoltare", "aspettare", "mangiare", "giocare", "toccare", "gridare", "cantare", "disegnare", "leggere", "scrivere", "correre", "dormire", "aprire", "venire", "andare", "fare", "stare", "dai", "attento", "qui", "il gabbiano", "lo scoglio", "l'onda", "il fuoco", "la sabbia", "la palla", "il panino", "il banco", "la frase", "la porta", "tesoro", "tardi", "adesso", "insieme"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "infinito", "de": "Infinitiv", "sl": "nedoločnik", "en": "infinitive" },
+        { "it": "a te (tu)", "de": "zu dir (tu)", "sl": "tebi (tu)", "en": "to you (tu)" },
+        { "it": "a voi (voi)", "de": "zu euch (voi)", "sl": "vam (voi)", "en": "to you all (voi)" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Mit dem Imperativ (*imperativo*) sagst du jemandem, was er tun soll. Bei Verben auf **-are** endet er für **tu** auf **-a**: **guarda!** (schau!), **ascolta!** (hör zu!), **aspetta!** (warte!). Für **voi**, also mehrere, auf **-ate**: **guardate! ascoltate!** Pass auf: **guardi** heißt *du schaust*, **guarda!** heißt *schau!*",
+          "sl": "Z velelnikom (*imperativo*) nekomu poveš, kaj naj naredi. Pri glagolih na **-are** se za **tu** konča na **-a**: **guarda!** (poglej!), **ascolta!** (poslušaj!), **aspetta!** (počakaj!). Za **voi**, torej več ljudi, na **-ate**: **guardate! ascoltate!** Pazi: **guardi** pomeni *gledaš*, **guarda!** pa *poglej!*",
+          "en": "The imperative (*imperativo*) tells someone what to do. For verbs in **-are** it ends in **-a** for **tu**: **guarda!** (look!), **ascolta!** (listen!), **aspetta!** (wait!). For **voi**, several people, in **-ate**: **guardate! ascoltate!** Careful: **guardi** is *you look*, **guarda!** is *look!*"
+        },
+        "examples": [
+          { "it": "Guarda, un gabbiano!", "de": "Schau, eine Möwe!", "sl": "Poglej, galeb!", "en": "Look, a seagull!" },
+          { "it": "Bambini, ascoltate!", "de": "Kinder, hört zu!", "sl": "Otroci, poslušajte!", "en": "Children, listen!" }
+        ],
+        "rows": [["guardare", "guarda!", "guardate!"], ["ascoltare", "ascolta!", "ascoltate!"], ["aspettare", "aspetta!", "aspettate!"]],
+        "ask": {
+          "type": "choice", "grammar": "imperativo", "prompt": "Giulia, ___ il mare!", "options": ["guardi", "guarda", "guardate"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**Giulia** → eine Person, tu → **guarda!**\n- guardi · du schaust (kein Befehl)\n- guardate! · zu mehreren",
+            "sl": "**Giulia** → ena oseba, tu → **guarda!**\n- guardi · gledaš (ni ukaz)\n- guardate! · več osebam",
+            "en": "**Giulia** → one person, tu → **guarda!**\n- guardi · you look (not an order)\n- guardate! · to several"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Bei Verben auf **-ere** und **-ire** endet der Imperativ für **tu** auf **-i**, genau wie *du* im Präsens: **leggi!** (lies!), **corri!** (lauf!), **dormi!** (schlaf!), **senti!** (hör mal!). Für **voi**: **leggete! correte! dormite! sentite!**",
+          "sl": "Pri glagolih na **-ere** in **-ire** se velelnik za **tu** konča na **-i**, tako kot sedanjik za tu: **leggi!** (beri!), **corri!** (teci!), **dormi!** (spi!), **senti!** (poslušaj!). Za **voi**: **leggete! correte! dormite! sentite!**",
+          "en": "For verbs in **-ere** and **-ire** the imperative for **tu** ends in **-i**, just like the present for tu: **leggi!** (read!), **corri!** (run!), **dormi!** (sleep!), **senti!** (listen!). For **voi**: **leggete! correte! dormite! sentite!**"
+        },
+        "examples": [
+          { "it": "Corri, Tommaso!", "de": "Lauf, Tommaso!", "sl": "Teci, Tommaso!", "en": "Run, Tommaso!" },
+          { "it": "Dormi, tesoro. È tardi.", "de": "Schlaf, Schatz. Es ist spät.", "sl": "Spi, srček. Pozno je.", "en": "Sleep, sweetheart. It's late." }
+        ],
+        "rows": [["leggere", "leggi!", "leggete!"], ["correre", "corri!", "correte!"], ["dormire", "dormi!", "dormite!"]],
+        "ask": {
+          "type": "cloze", "grammar": "imperativo", "text": "Lorenzo, ___ il libro! (leggere)", "accept": ["leggi"],
+          "hint": "-ere → tu: -i",
+          "explain": "**leggere** → tu → **leggi!**\n- corri! · dormi! · senti!"
+        }
+      },
+      {
+        "say": {
+          "de": "Willst du etwas mit anderen zusammen machen? Dann nimm die **noi**-Form, sie heißt *lass uns*: **Andiamo!** (Gehen wir!) **Giochiamo!** (Spielen wir!) **Mangiamo!** (Essen wir!) Tommaso ruft das den ganzen Tag: **Dai, andiamo allo stagno!**",
+          "sl": "Hočeš nekaj narediti skupaj z drugimi? Vzemi obliko za **noi**, pomeni *dajmo*: **Andiamo!** (Gremo!) **Giochiamo!** (Igrajmo se!) **Mangiamo!** (Jejmo!) Tommaso to kliče ves dan: **Dai, andiamo allo stagno!**",
+          "en": "Want to do something together? Use the **noi** form: it means *let's*. **Andiamo!** (Let's go!) **Giochiamo!** (Let's play!) **Mangiamo!** (Let's eat!) Tommaso shouts it all day: **Dai, andiamo allo stagno!**"
+        },
+        "examples": [
+          { "it": "Dai, andiamo allo stagno!", "de": "Komm schon, gehen wir zum Teich!", "sl": "Daj no, gremo do ribnika!", "en": "Come on, let's go to the pond!" },
+          { "it": "Giochiamo a palla sulla spiaggia!", "de": "Spielen wir Ball am Strand!", "sl": "Igrajmo se z žogo na plaži!", "en": "Let's play ball on the beach!" }
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "imperativo", "text": "Tommaso: «Dai, ___ a calcio!» (giocare: noi)", "accept": ["giochiamo"], "hint": "noi: -iamo",
+          "explain": {
+            "de": "**lass uns** → die noi-Form: **giochiamo!**\n- giocare → giochiamo (mit h: das c bleibt hart)",
+            "sl": "**dajmo** → oblika za noi: **giochiamo!**\n- giocare → giochiamo (s h: c ostane trd)",
+            "en": "**let's** → the noi form: **giochiamo!**\n- giocare → giochiamo (with an h: the c stays hard)"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Ein paar kennst du schon aus dem Präsens: **vieni!** (komm!), **vai!** (geh!), **fai!** (mach!), **stai attento!** (pass auf!), **dai!** (gib!, und auch *komm schon!*). Man schreibt sie auch kurz: **va', fa', sta', da'**. Für voi: **venite! andate! fate! state!**",
+          "sl": "Nekatere že poznaš iz sedanjika: **vieni!** (pridi!), **vai!** (pojdi!), **fai!** (naredi!), **stai attento!** (pazi!), **dai!** (daj!, in tudi *daj no!*). Pišejo se tudi kratko: **va', fa', sta', da'**. Za voi: **venite! andate! fate! state!**",
+          "en": "A few you know from the present already: **vieni!** (come!), **vai!** (go!), **fai!** (do it!), **stai attento!** (be careful!), **dai!** (give!, and also *come on!*). They're also written short: **va', fa', sta', da'**. For voi: **venite! andate! fate! state!**"
+        },
+        "examples": [
+          { "it": "Vieni qui, Moro!", "de": "Komm her, Moro!", "sl": "Pridi sem, Moro!", "en": "Come here, Moro!" },
+          { "it": "Lorenzo, stai attento!", "de": "Lorenzo, pass auf!", "sl": "Lorenzo, pazi!", "en": "Lorenzo, be careful!" }
+        ],
+        "rows": [["venire", "vieni!", "venite!"], ["andare", "vai! va'!", "andate!"], ["fare", "fai! fa'!", "fate!"], ["stare", "stai! sta'!", "state!"]],
+        "ask": {
+          "type": "choice", "grammar": "imperativo", "prompt": "«Giulia, ___ qui!» chiama la nonna.", "options": ["vengo", "viene", "vieni"], "answer": 2, "say_options": true,
+          "explain": {
+            "de": "**zu Giulia** (tu) → **vieni!**\n- vengo · ich komme\n- viene · er, sie kommt",
+            "sl": "**Giuliji** (tu) → **vieni!**\n- vengo · pridem\n- viene · pride",
+            "en": "**to Giulia** (tu) → **vieni!**\n- vengo · I come\n- viene · he, she comes"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Verbieten geht für **tu** anders: **non** + das Verb in der Grundform. **Non correre!** (Lauf nicht!) **Non toccare il fuoco!** (Fass das Feuer nicht an!) Für **voi** bleibt die normale Form: **Non correte!** (Lauft nicht!)",
+          "sl": "Prepoved se za **tu** reče drugače: **non** + glagol v nedoločniku. **Non correre!** (Ne teci!) **Non toccare il fuoco!** (Ne dotikaj se ognja!) Za **voi** ostane navadna oblika: **Non correte!** (Ne tecite!)",
+          "en": "Telling one person not to is different: **non** + the verb as the dictionary has it. **Non correre!** (Don't run!) **Non toccare il fuoco!** (Don't touch the fire!) For **voi** the usual form stays: **Non correte!** (Don't run, all of you!)"
+        },
+        "examples": [
+          { "it": "Non toccare il fuoco, Lorenzo!", "de": "Fass das Feuer nicht an, Lorenzo!", "sl": "Ne dotikaj se ognja, Lorenzo!", "en": "Don't touch the fire, Lorenzo!" },
+          { "it": "Bambini, non correte sugli scogli!", "de": "Kinder, lauft nicht auf den Felsen herum!", "sl": "Otroci, ne tecite po skalah!", "en": "Children, don't run on the rocks!" }
+        ],
+        "rows": [["correre", "non correre!", "non correte!"], ["toccare", "non toccare!", "non toccate!"]],
+        "ask": {
+          "type": "choice", "grammar": "imperativo", "prompt": "«Tommaso, non ___!» (gridare)", "options": ["grida", "gridare", "gridi"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**nicht**, zu einer Person → **non** + die Grundform: **non gridare!**\n- grida! · schrei!",
+            "sl": "**ne**, eni osebi → **non** + nedoločnik: **non gridare!**\n- grida! · kriči!",
+            "en": "**don't**, to one → **non** + the verb as it is: **non gridare!**\n- grida! · shout!"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "imperativo-1",
+      "title": { "it": "Tu e voi", "de": "Tu und voi", "sl": "Tu in voi", "en": "Tu and voi" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "imperativo",
+          "instruction": { "de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table" },
+          "prompt": "tu! · voi!",
+          "columns": [{ "de": "tu! · zu einer Person", "sl": "tu! · eni osebi", "en": "tu! · to one" }, { "de": "voi! · zu mehreren", "sl": "voi! · več osebam", "en": "voi! · to several" }],
+          "rows": [
+            { "label": "guardare", "cells": ["guarda", { "accept": ["guardate"], "hint": "-are → voi: -ate" }] },
+            { "label": "ascoltare", "cells": [{ "accept": ["ascolta"], "hint": "-are → tu: -a" }, "ascoltate"] },
+            { "label": "mangiare", "cells": ["mangia", { "accept": ["mangiate"] }] },
+            { "label": "leggere", "cells": [{ "accept": ["leggi"], "hint": "-ere → tu: -i" }, "leggete"] },
+            { "label": "dormire", "cells": [{ "accept": ["dormi"] }, "dormite"] },
+            { "label": "venire", "cells": [{ "accept": ["vieni"], "hint": "tu vieni" }, "venite"] },
+            { "label": "andare", "cells": [{ "accept": ["vai", "va'"] }, "andate"] }
+          ],
+          "explain": {
+            "de": "**tu**: -are → -a, -ere und -ire → -i · **voi**: wie im Präsens\n- guarda! · leggi! · dormi!\n- vieni! · vai! (va')",
+            "sl": "**tu**: -are → -a, -ere in -ire → -i · **voi**: kot v sedanjiku\n- guarda! · leggi! · dormi!\n- vieni! · vai! (va')",
+            "en": "**tu**: -are → -a, -ere and -ire → -i · **voi**: as in the present\n- guarda! · leggi! · dormi!\n- vieni! · vai! (va')"
+          }
+        },
+        {
+          "type": "sort", "grammar": "imperativo",
+          "instruction": { "de": "A chi lo dici? · Zu wem sagst du es?", "sl": "A chi lo dici? · Komu to rečeš?", "en": "A chi lo dici? · Who are you telling?" },
+          "columns": [
+            { "label": { "de": "a una persona · zu einer Person", "sl": "a una persona · eni osebi", "en": "a una persona · to one" }, "words": ["guarda", "leggi", "aspetta"] },
+            { "label": { "de": "a più persone · zu mehreren", "sl": "a più persone · več osebam", "en": "a più persone · to several" }, "words": ["guardate", "leggete", "venite"] },
+            { "label": { "de": "insieme · lass uns", "sl": "insieme · dajmo", "en": "insieme · let's" }, "words": ["andiamo", "giochiamo", "mangiamo"] }
+          ],
+          "explain": {
+            "de": "**tu**: -a, -i · **voi**: -ate, -ete, -ite · **noi** (lass uns): -iamo",
+            "sl": "**tu**: -a, -i · **voi**: -ate, -ete, -ite · **noi** (dajmo): -iamo",
+            "en": "**tu**: -a, -i · **voi**: -ate, -ete, -ite · **noi** (let's): -iamo"
+          }
+        }
+      ]
+    },
+    {
+      "id": "imperativo-2",
+      "title": { "it": "Al mare con la nonna", "de": "Mit Oma am Meer", "sl": "Z babico na morju", "en": "At the sea with Grandma" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "imperativo",
+          "instruction": { "de": "Completa con l'imperativo · Setz den Imperativ ein", "sl": "Completa con l'imperativo · Vstavi velelnik", "en": "Completa con l'imperativo · Fill in the imperative" },
+          "title": "Al mare con la nonna",
+          "text": "«Giulia, ___ (venire) qui! ___ (mangiare) il panino!» «Lorenzo, non ___ (correre) sugli scogli!» «Bambini, ___ (guardare): un gabbiano!» «Dai, ___ (giocare: noi) a palla!» «Tommaso, ___ (stare) attento alle onde!» «{learner}, ___ (aspettare) un momento!»",
+          "gaps": [
+            { "accept": ["vieni"], "hint": "tu vieni" },
+            { "accept": ["Mangia"], "hint": "-are → tu: -a" },
+            { "accept": ["correre"], "hint": { "de": "non + die Grundform", "sl": "non + nedoločnik", "en": "non + the verb as it is" }, "explain": { "de": "Zu einer Person: **non correre!**", "sl": "Eni osebi: **non correre!**", "en": "To one person: **non correre!**" } },
+            { "accept": ["guardate"], "hint": { "de": "bambini: mehrere", "sl": "bambini: več", "en": "bambini: several" } },
+            { "accept": ["giochiamo"], "hint": "noi: -iamo" },
+            { "accept": ["stai", "sta'"], "hint": "tu stai" },
+            { "accept": ["aspetta"], "hint": "-are → tu: -a" }
+          ],
+          "bank": true, "distractors": ["mangi", "corri", "guarda"],
+          "translation": {
+            "de": "„Giulia, komm her! Iss dein Brötchen!“ „Lorenzo, lauf nicht auf den Felsen herum!“ „Kinder, schaut: eine Möwe!“ „Komm schon, spielen wir Ball!“ „Tommaso, pass auf die Wellen auf!“ „{learner}, warte einen Moment!“",
+            "sl": "»Giulia, pridi sem! Pojej sendvič!« »Lorenzo, ne teci po skalah!« »Otroci, poglejte: galeb!« »Daj no, igrajmo se z žogo!« »Tommaso, pazi na valove!« »{learner}, počakaj trenutek!«",
+            "en": "\"Giulia, come here! Eat your sandwich!\" \"Lorenzo, don't run on the rocks!\" \"Children, look: a seagull!\" \"Come on, let's play ball!\" \"Tommaso, watch out for the waves!\" \"{learner}, wait a moment!\""
+          }
+        }
+      ]
+    },
+    {
+      "id": "imperativo-3",
+      "title": { "it": "Fai! Non fare!", "de": "Mach! Mach nicht!", "sl": "Naredi! Ne delaj!", "en": "Do! Don't!" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "imperativo",
+          "instruction": { "de": "Fai un ordine · Mach daraus einen Befehl", "sl": "Fai un ordine · Naredi ukaz", "en": "Fai un ordine · Make it an order" },
+          "cue": "!",
+          "items": [
+            { "from": "Aspetti Lorenzo.", "accept": ["Aspetta Lorenzo!"] },
+            { "from": "Mangi la mela.", "accept": ["Mangia la mela!"] },
+            { "from": "Ascolti la maestra.", "accept": ["Ascolta la maestra!"] },
+            { "from": "Giochi con me.", "accept": ["Gioca con me!"], "hint": { "de": "ohne h: gioca", "sl": "brez h: gioca", "en": "no h: gioca" } }
+          ],
+          "explain": {
+            "de": "**-are**: tu -i (du machst) → -a! (mach!)\n- mangi → mangia! · giochi → gioca!",
+            "sl": "**-are**: tu -i (delaš) → -a! (naredi!)\n- mangi → mangia! · giochi → gioca!",
+            "en": "**-are**: tu -i (you do) → -a! (do it!)\n- mangi → mangia! · giochi → gioca!"
+          }
+        },
+        {
+          "type": "transform", "grammar": "imperativo",
+          "instruction": { "de": "Di' di no · Verbiete es", "sl": "Di' di no · Prepovej", "en": "Di' di no · Say don't" },
+          "cue": "!",
+          "items": [
+            { "from": "Corri!", "accept": ["Non correre!"] },
+            { "from": "Mangia la sabbia!", "accept": ["Non mangiare la sabbia!"] },
+            { "from": "Gridate!", "accept": ["Non gridate!"], "hint": { "de": "voi: die voi-Form bleibt", "sl": "voi: oblika za voi ostane", "en": "voi: the voi form stays" } }
+          ],
+          "explain": {
+            "de": "**zu einer Person**: non + die Grundform · **zu mehreren**: non + die voi-Form\n- non correre! · non gridate!",
+            "sl": "**eni osebi**: non + nedoločnik · **več osebam**: non + oblika za voi\n- non correre! · non gridate!",
+            "en": "**to one**: non + the verb as it is · **to several**: non + the voi form\n- non correre! · non gridate!"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "imperativo",
+        "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "columns": ["tu!", "voi!"],
+        "rows": [
+          { "label": "ascoltare", "cells": [{ "accept": ["ascolta"] }, "ascoltate"] },
+          { "label": "leggere", "cells": ["leggi", { "accept": ["leggete"] }] },
+          { "label": "dormire", "cells": [{ "accept": ["dormi"] }, "dormite"] },
+          { "label": "fare", "cells": [{ "accept": ["fai", "fa'"] }, "fate"] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "imperativo",
+        "instruction": { "de": "Completa con l'imperativo · Setz den Imperativ ein", "sl": "Completa con l'imperativo · Vstavi velelnik", "en": "Completa con l'imperativo · Fill in the imperative" },
+        "text": "«Bambini, ___ (ascoltare)!» dice la maestra Elena. «Tommaso, ___ (leggere) la prima frase. Lorenzo, non ___ (disegnare) sul banco! E adesso ___ (cantare: noi) insieme!»",
+        "gaps": [
+          { "accept": ["ascoltate"] },
+          { "accept": ["leggi"] },
+          { "accept": ["disegnare"] },
+          { "accept": ["cantiamo"] }
+        ],
+        "translation": {
+          "de": "„Kinder, hört zu!“, sagt Maestra Elena. „Tommaso, lies den ersten Satz. Lorenzo, mal nicht auf den Tisch! Und jetzt singen wir zusammen!“",
+          "sl": "»Otroci, poslušajte!« reče učiteljica Elena. »Tommaso, preberi prvi stavek. Lorenzo, ne riši po klopi! Zdaj pa zapojmo skupaj!«",
+          "en": "\"Children, listen!\" says Maestra Elena. \"Tommaso, read the first sentence. Lorenzo, don't draw on the desk! And now let's sing together!\""
+        }
+      },
+      {
+        "type": "transform", "grammar": "imperativo",
+        "instruction": { "de": "Di' di no · Verbiete es", "sl": "Di' di no · Prepovej", "en": "Di' di no · Say don't" },
+        "cue": "!",
+        "items": [
+          { "from": "Tocca il granchio!", "accept": ["Non toccare il granchio!"] },
+          { "from": "Correte in classe!", "accept": ["Non correte in classe!"] },
+          { "from": "Apri la porta!", "accept": ["Non aprire la porta!"] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "imperativo", "prompt": "«___ allo stagno!» grida Tommaso. (andare: noi)", "options": ["Andiamo", "Andate", "Vai"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**lass uns gehen** → noi: **Andiamo!**",
+          "sl": "**gremo** → noi: **Andiamo!**",
+          "en": "**let's go** → noi: **Andiamo!**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: vai/va', stai attento for a girl (attenta), non disegnare sul banco, Mangia la sabbia!, the German for a child"
+}
