@@ -1,0 +1,492 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "articoli",
+  "language": "it",
+  "level": "A1",
+  "emoji": "🏷️",
+  "title": {
+    "it": "Il, la, lo, l', un, una",
+    "de": "Die Artikel: il, la, lo, un, una",
+    "sl": "Členi: il, la, lo, un, una",
+    "en": "The articles: il, la, lo, un, una"
+  },
+  "goal": {
+    "de": "Du sagst jedes Ding mit seinem Artikel: il, lo, l' und la für der, die, das, un, uno, una und un' für ein, eine, und du erkennst an der Endung, ob ein Wort maskulin oder feminin ist.",
+    "sl": "Vsako stvar poveš z njenim členom: il, lo, l' in la (določni), un, uno, una in un' (nedoločni), in po končnici prepoznaš, ali je beseda moškega ali ženskega spola.",
+    "en": "You can say every thing with its article: il, lo, l' and la for the, un, uno, una and un' for a, and you can tell from the ending whether a word is masculine or feminine."
+  },
+  "grammar": ["articoli-genere"],
+  "words": [
+    "gatto",
+    "cane",
+    "cavallo",
+    "libro",
+    "pallone",
+    "mare",
+    "pane",
+    "fiore",
+    "pecora",
+    "mela",
+    "casa",
+    "tenda",
+    "barca",
+    "lavagna",
+    "neve",
+    "zaino",
+    "scoiattolo",
+    "specchio",
+    "zio",
+    "albero",
+    "amico",
+    "orologio",
+    "ape",
+    "oca",
+    "isola",
+    "erba",
+    "uovo"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {"it": "genere", "de": "Genus", "sl": "spol", "en": "gender"},
+        {"it": "il, la …", "de": "der, die, das", "sl": "določni (the)", "en": "the"},
+        {"it": "un, una …", "de": "ein, eine", "sl": "nedoločni (a)", "en": "a, an"}
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Jedes italienische Wort ist maskulin oder feminin, ein Neutrum gibt es nicht. Vor dem Wort steht ein Artikel. Endet ein Wort auf -o, ist es meist maskulin: **il gatto** (der Kater), **un gatto** (ein Kater). Das Deutsche hat der, die, das; das Italienische nur zwei Geschlechter.",
+          "sl": "Vsaka italijanska beseda je moškega ali ženskega spola, srednjega ni. Pred besedo stoji člen, ki ga slovenščina nima. Beseda na -o je večinoma moškega spola: **il gatto** (maček), **un gatto** (en maček, neki maček).",
+          "en": "Every Italian word is masculine or feminine; there is no neuter. In front of the word comes an article. A word in -o is mostly masculine: **il gatto** (the cat), **un gatto** (a cat)."
+        },
+        "examples": [
+          {
+            "it": "Il gatto è sul tetto.",
+            "de": "Der Kater ist auf dem Dach.",
+            "sl": "Maček je na strehi.",
+            "en": "The cat is on the roof."
+          },
+          {"it": "Ecco un cavallo!", "de": "Da ist ein Pferd!", "sl": "Glej, konj!", "en": "Look, a horse!"}
+        ],
+        "rows": [[{"it": "maschile", "de": "maskulin", "sl": "moški", "en": "masculine"}, "il gatto", "un gatto"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "articoli-genere",
+          "prompt": "Ecco ___ libro di Giulia.",
+          "options": ["il", "la"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**-o ist meist maskulin: il**\n- il libro · das Buch\n- il gatto · der Kater",
+            "sl": "**-o je večinoma moški spol: il**\n- il libro · knjiga\n- il gatto · maček",
+            "en": "**-o is mostly masculine: il**\n- il libro · the book\n- il gatto · the cat"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Endet ein Wort auf -a, ist es meist feminin: **la pecora** (das Schaf), **una pecora** (ein Schaf). Achtung: Im Deutschen ist es oft anders. **La tenda** ist das Zelt, und hier ist es feminin.",
+          "sl": "Beseda na -a je večinoma ženskega spola: **la pecora** (ovca), **una pecora** (ena ovca). Pazi: spol je lahko drugačen kot v slovenščini. **La tenda** je šotor, tukaj pa ženskega spola.",
+          "en": "A word in -a is mostly feminine: **la pecora** (the sheep), **una pecora** (a sheep). Careful: in Italian a tent is feminine, **la tenda**, though it's just a thing."
+        },
+        "examples": [
+          {
+            "it": "La pecora di Davide si chiama Bianca.",
+            "de": "Das Schaf von Davide heißt Bianca.",
+            "sl": "Davidovi ovci je ime Bianca.",
+            "en": "Davide's sheep is called Bianca."
+          },
+          {
+            "it": "Nonna Rosa ha una mela.",
+            "de": "Oma Rosa hat einen Apfel.",
+            "sl": "Babica Rosa ima jabolko.",
+            "en": "Nonna Rosa has an apple."
+          }
+        ],
+        "rows": [[{"it": "femminile", "de": "feminin", "sl": "ženski", "en": "feminine"}, "la pecora", "una pecora"]],
+        "ask": {
+          "type": "cloze",
+          "grammar": "articoli-genere",
+          "text": "Ecco ___ tenda di Davide.",
+          "accept": ["la"],
+          "hint": "-a → ?",
+          "explain": {
+            "de": "**-a ist meist feminin: la**\n- la tenda · das Zelt",
+            "sl": "**-a je večinoma ženski spol: la**\n- la tenda · šotor",
+            "en": "**-a is mostly feminine: la**\n- la tenda · the tent"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Beginnt das Wort mit einem Vokal (a, e, i, o, u), wird aus il und la ein **l'** mit Apostroph: **l'albero** (der Baum), **l'ape** (die Biene). Bei ein heißt es **un albero**, aber feminin **un'ape**: Nur das feminine **un'** bekommt den Apostroph.",
+          "sl": "Če se beseda začne s samoglasnikom (a, e, i, o, u), iz il in la nastane **l'** z opuščajem: **l'albero** (drevo), **l'ape** (čebela). Pri nedoločnem členu je **un albero**, v ženskem spolu pa **un'ape**: opuščaj dobi samo ženski **un'**.",
+          "en": "When the word starts with a vowel (a, e, i, o, u), il and la become **l'** with an apostrophe: **l'albero** (the tree), **l'ape** (the bee). For a it's **un albero**, but feminine **un'ape**: only the feminine **un'** takes the apostrophe."
+        },
+        "examples": [
+          {"it": "L'albero è grande.", "de": "Der Baum ist groß.", "sl": "Drevo je veliko.", "en": "The tree is big."},
+          {
+            "it": "C'è un'ape sul fiore!",
+            "de": "Da ist eine Biene auf der Blume!",
+            "sl": "Na roži je čebela!",
+            "en": "There's a bee on the flower!"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "it": "maschile + vocale",
+              "de": "maskulin + Vokal",
+              "sl": "moški + samoglasnik",
+              "en": "masculine + vowel"
+            },
+            "l'albero",
+            "un albero"
+          ],
+          [
+            {
+              "it": "femminile + vocale",
+              "de": "feminin + Vokal",
+              "sl": "ženski + samoglasnik",
+              "en": "feminine + vowel"
+            },
+            "l'ape",
+            "un'ape"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "articoli-genere",
+          "prompt": "Ecco ___ oca di Nonna Rosa.",
+          "options": ["la", "l'", "lo"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**Vor einem Vokal: l'**\n- l'oca · die Gans\n- l'albero · der Baum",
+            "sl": "**Pred samoglasnikom: l'**\n- l'oca · gos\n- l'albero · drevo",
+            "en": "**Before a vowel: l'**\n- l'oca · the goose\n- l'albero · the tree"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Ein Sonderfall: Beginnt ein maskulines Wort mit s + Konsonant oder mit z, steht **lo** statt il und **uno** statt un: **lo zaino** (der Rucksack), **uno zaino**, **lo scoiattolo** (das Eichhörnchen). Das klingt einfach schöner.",
+          "sl": "Posebnost: če se moška beseda začne na s + soglasnik ali na z, stoji **lo** namesto il in **uno** namesto un: **lo zaino** (nahrbtnik), **uno zaino**, **lo scoiattolo** (veverica). Tako se lepše izgovori.",
+          "en": "A special case: when a masculine word starts with s + consonant or with z, it takes **lo** instead of il and **uno** instead of un: **lo zaino** (the rucksack), **uno zaino**, **lo scoiattolo** (the squirrel). It's simply easier to say."
+        },
+        "examples": [
+          {
+            "it": "Tommaso ha uno zaino nuovo.",
+            "de": "Tommaso hat einen neuen Rucksack.",
+            "sl": "Tommaso ima nov nahrbtnik.",
+            "en": "Tommaso has a new rucksack."
+          },
+          {
+            "it": "Lo scoiattolo è sull'albero.",
+            "de": "Das Eichhörnchen ist auf dem Baum.",
+            "sl": "Veverica je na drevesu.",
+            "en": "The squirrel is in the tree."
+          }
+        ],
+        "rows": [
+          [
+            {"it": "maschile + s, z", "de": "maskulin + s, z", "sl": "moški + s, z", "en": "masculine + s, z"},
+            "lo zaino",
+            "uno zaino"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "articoli-genere",
+          "prompt": "Dov'è ___ zaino di Lorenzo?",
+          "options": ["il", "lo", "la"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**Maskulin mit z am Anfang: lo**\n- lo zaino · der Rucksack\n- lo scoiattolo · das Eichhörnchen",
+            "sl": "**Moški spol z z na začetku: lo**\n- lo zaino · nahrbtnik\n- lo scoiattolo · veverica",
+            "en": "**Masculine starting with z: lo**\n- lo zaino · the rucksack\n- lo scoiattolo · the squirrel"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Und Wörter auf -e? Die können maskulin oder feminin sein: **il mare** (das Meer), **il fiore** (die Blume), aber **la neve** (der Schnee) und **la chiave** (der Schlüssel). Darum lernst du jedes Wort gleich mit seinem Artikel: nicht nur mare, sondern **il mare**.",
+          "sl": "Pa besede na -e? Te so lahko moškega ali ženskega spola: **il mare** (morje), **il fiore** (roža), toda **la neve** (sneg) in **la chiave** (ključ). Zato se vsako besedo naučiš kar s členom: ne samo mare, ampak **il mare**.",
+          "en": "And words in -e? They can be masculine or feminine: **il mare** (the sea), **il fiore** (the flower), but **la neve** (the snow) and **la chiave** (the key). So learn every word with its article right away: not just mare, but **il mare**."
+        },
+        "examples": [
+          {"it": "Il mare è blu.", "de": "Das Meer ist blau.", "sl": "Morje je modro.", "en": "The sea is blue."},
+          {"it": "La neve è bianca.", "de": "Der Schnee ist weiß.", "sl": "Sneg je bel.", "en": "The snow is white."}
+        ],
+        "rows": [
+          [{"it": "-e maschile", "de": "-e maskulin", "sl": "-e moški", "en": "-e masculine"}, "il fiore", "un fiore"],
+          [
+            {"it": "-e femminile", "de": "-e feminin", "sl": "-e ženski", "en": "-e feminine"},
+            "la chiave",
+            "una chiave"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "articoli-genere",
+          "prompt": "Mangio ___ pane di Nonna Rosa.",
+          "options": ["il", "la"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**pane ist maskulin: il pane**\n- -e: mit dem Artikel lernen",
+            "sl": "**pane je moškega spola: il pane**\n- -e: nauči se s členom",
+            "en": "**pane is masculine: il pane**\n- -e: learn it with its article"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "articoli-1",
+      "title": {
+        "it": "Maschile o femminile?",
+        "de": "Maskulin oder feminin?",
+        "sl": "Moški ali ženski spol?",
+        "en": "Masculine or feminine?"
+      },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "articoli-genere",
+          "instruction": {
+            "de": "Metti in ordine · Sortiere nach dem Artikel",
+            "sl": "Metti in ordine · Razvrsti po členu",
+            "en": "Metti in ordine · Sort by the article"
+          },
+          "columns": [
+            {
+              "label": {"de": "il · maskulin", "sl": "il · moški", "en": "il · masculine"},
+              "words": ["gatto", "pallone", "pane", "libro"]
+            },
+            {
+              "label": {"de": "la · feminin", "sl": "la · ženski", "en": "la · feminine"},
+              "words": ["pecora", "barca", "lavagna", "neve"]
+            }
+          ],
+          "explain": {
+            "de": "**-o meist il, -a meist la, -e mit dem Artikel lernen**\n- il pallone · il pane\n- la neve",
+            "sl": "**-o večinoma il, -a večinoma la, -e se nauči s členom**\n- il pallone · il pane\n- la neve",
+            "en": "**-o mostly il, -a mostly la, -e: learn it with its article**\n- il pallone · il pane\n- la neve"
+          }
+        },
+        {
+          "type": "table",
+          "grammar": "articoli-genere",
+          "instruction": {
+            "de": "Completa · Ergänze die Artikel",
+            "sl": "Completa · Dopolni člene",
+            "en": "Completa · Fill in the articles"
+          },
+          "columns": [
+            {"de": "il, lo, la, l' · der, die, das", "sl": "il, lo, la, l' · določni", "en": "il, lo, la, l' · the"},
+            {
+              "de": "un, uno, una, un' · ein, eine",
+              "sl": "un, uno, una, un' · nedoločni",
+              "en": "un, uno, una, un' · a, an"
+            }
+          ],
+          "rows": [
+            {"label": "mela", "cells": [{"accept": ["la mela"]}, {"accept": ["una mela"]}]},
+            {"label": "zaino", "cells": [{"accept": ["lo zaino"], "hint": "z …"}, "uno zaino"]},
+            {
+              "label": "albero",
+              "cells": [
+                {"accept": ["l'albero"], "hint": {"de": "Vokal", "sl": "samoglasnik", "en": "vowel"}},
+                {"accept": ["un albero"]}
+              ]
+            },
+            {
+              "label": {"de": "ape (feminin)", "sl": "ape (ženski)", "en": "ape (feminine)"},
+              "cells": [
+                "l'ape",
+                {
+                  "accept": ["un'ape"],
+                  "hint": {"de": "feminin + Vokal", "sl": "ženski + samoglasnik", "en": "feminine + vowel"}
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "de": "**il, lo, l', la · un, uno, un'**\n- il cane · un cane\n- lo zaino · uno zaino\n- l'ape · un'ape",
+            "sl": "**il, lo, l', la · un, uno, un'**\n- il cane · un cane\n- lo zaino · uno zaino\n- l'ape · un'ape",
+            "en": "**il, lo, l', la · un, uno, un'**\n- il cane · un cane\n- lo zaino · uno zaino\n- l'ape · un'ape"
+          }
+        }
+      ]
+    },
+    {
+      "id": "articoli-2",
+      "title": {"it": "Nella tenda di Davide", "de": "In Davides Zelt", "sl": "V Davidovem šotoru", "en": "In Davide's tent"},
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "articoli-genere",
+          "instruction": {
+            "de": "Completa con il, lo, la, l' · Ergänze der, die, das",
+            "sl": "Completa con il, lo, la, l' · Dopolni z določnim členom",
+            "en": "Completa con il, lo, la, l' · Fill in the"
+          },
+          "title": "Nella tenda di Davide",
+          "text": "Ecco ___ tenda di Davide. ___ zaino è vicino al letto. ___ libro di Giulia è sul letto. Fuori, ___ albero è alto. ___ scoiattolo è sull'albero. E ___ ape è sul fiore.",
+          "gaps": [
+            {"accept": ["la"], "hint": "-a"},
+            {"accept": ["Lo"], "hint": "z …"},
+            {"accept": ["Il"], "hint": "-o"},
+            {"accept": ["l'"], "hint": {"de": "Vokal", "sl": "samoglasnik", "en": "vowel"}},
+            {"accept": ["Lo"], "hint": "s + c …"},
+            {
+              "accept": ["l'"],
+              "hint": {"de": "Vokal", "sl": "samoglasnik", "en": "vowel"},
+              "explain": {
+                "de": "**Vor einem Vokal: l'ape**",
+                "sl": "**Pred samoglasnikom: l'ape**",
+                "en": "**Before a vowel: l'ape**"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": ["un", "una"],
+          "translation": {
+            "de": "Da ist das Zelt von Davide. Der Rucksack ist beim Bett. Giulias Buch liegt auf dem Bett. Draußen ist der Baum hoch. Das Eichhörnchen ist auf dem Baum. Und die Biene ist auf der Blume.",
+            "sl": "Tukaj je Davidov šotor. Nahrbtnik je pri postelji. Giuliina knjiga je na postelji. Zunaj je drevo visoko. Veverica je na drevesu. Čebela pa je na roži.",
+            "en": "Here's Davide's tent. The rucksack is by the bed. Giulia's book is on the bed. Outside, the tree is tall. The squirrel is in the tree. And the bee is on the flower."
+          }
+        }
+      ]
+    },
+    {
+      "id": "articoli-3",
+      "title": {"it": "Un cane, il cane", "de": "Ein Hund, der Hund", "sl": "En pes, ta pes", "en": "A dog, the dog"},
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "articoli-genere",
+          "whole": true,
+          "instruction": {
+            "de": "Con il, lo, la, l' · Mit dem bestimmten Artikel",
+            "sl": "Con il, lo, la, l' · Z določnim členom",
+            "en": "Con il, lo, la, l' · With the definite article"
+          },
+          "cue": "→",
+          "items": [
+            {"from": "un cane", "accept": ["il cane"]},
+            {"from": "una barca", "accept": ["la barca"]},
+            {"from": "uno specchio", "accept": ["lo specchio"], "hint": "uno → ?"},
+            {
+              "from": "un orologio",
+              "accept": ["l'orologio"],
+              "hint": {"de": "Vokal", "sl": "samoglasnik", "en": "vowel"}
+            },
+            {"from": "un'isola", "accept": ["l'isola"]},
+            {"from": "un amico", "accept": ["l'amico"]}
+          ],
+          "explain": {
+            "de": "**un → il, una → la, uno → lo, un' und un vor Vokal → l'**",
+            "sl": "**un → il, una → la, uno → lo, un' in un pred samoglasnikom → l'**",
+            "en": "**un → il, una → la, uno → lo, un' and un before a vowel → l'**"
+          }
+        },
+        {
+          "type": "gaptext",
+          "grammar": "articoli-genere",
+          "instruction": {
+            "de": "Completa con un, uno, una, un' · Ergänze ein, eine",
+            "sl": "Completa con un, uno, una, un' · Dopolni z nedoločnim členom",
+            "en": "Completa con un, uno, una, un' · Fill in a or an"
+          },
+          "title": "Al mare",
+          "text": "Al mare c'è ___ barca. Sulla barca c'è ___ gatto. Vicino c'è ___ isola piccola. Sull'isola c'è ___ zaino rosso.",
+          "gaps": [
+            {"accept": ["una"], "hint": "-a"},
+            {"accept": ["un"], "hint": "-o"},
+            {
+              "accept": ["un'"],
+              "hint": {"de": "feminin + Vokal", "sl": "ženski + samoglasnik", "en": "feminine + vowel"}
+            },
+            {"accept": ["uno"], "hint": "z …"}
+          ],
+          "translation": {
+            "de": "Am Meer ist ein Boot. Auf dem Boot ist ein Kater. In der Nähe ist eine kleine Insel. Auf der Insel ist ein roter Rucksack.",
+            "sl": "Na morju je čoln. Na čolnu je maček. Blizu je majhen otok. Na otoku je rdeč nahrbtnik.",
+            "en": "At the sea there's a boat. On the boat there's a cat. Nearby there's a small island. On the island there's a red rucksack."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "sort",
+        "grammar": "articoli-genere",
+        "instruction": {
+          "de": "Metti in ordine · Welcher Artikel?",
+          "sl": "Metti in ordine · Kateri člen?",
+          "en": "Metti in ordine · Which article?"
+        },
+        "columns": [
+          {"label": "il", "words": ["fiore", "cavallo"]},
+          {"label": "lo", "words": ["scoiattolo", "zaino"]},
+          {"label": "la", "words": ["tenda", "neve"]},
+          {"label": "l'", "words": ["erba", "orologio"]}
+        ]
+      },
+      {
+        "type": "gaptext",
+        "grammar": "articoli-genere",
+        "instruction": {
+          "de": "Completa con il, lo, la, l' · Ergänze der, die, das",
+          "sl": "Completa con il, lo, la, l' · Dopolni z določnim členom",
+          "en": "Completa con il, lo, la, l' · Fill in the"
+        },
+        "text": "Nel campo di Franco: ___ cavallo si chiama Baio. ___ erba è verde. ___ zio di Lorenzo è nel campo. ___ mela è sul tavolo.",
+        "gaps": [{"accept": ["Il"]}, {"accept": ["L'"]}, {"accept": ["Lo"], "hint": "z …"}, {"accept": ["La"]}],
+        "translation": {
+          "de": "Auf Francos Feld: Das Pferd heißt Baio. Das Gras ist grün. Lorenzos Onkel ist auf dem Feld. Der Apfel liegt auf dem Tisch.",
+          "sl": "Na Francovem polju: konju je ime Baio. Trava je zelena. Lorenzov stric je na polju. Jabolko je na mizi.",
+          "en": "In Franco's field: the horse is called Baio. The grass is green. Lorenzo's uncle is in the field. The apple is on the table."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "articoli-genere",
+        "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Pick"},
+        "prompt": "Giulia ha ___ amica a Gorizia.",
+        "options": ["un", "un'", "uno"],
+        "answer": 1,
+        "say_options": true,
+        "explain": {
+          "de": "**amica ist feminin + Vokal: un'amica**",
+          "sl": "**amica je ženskega spola + samoglasnik: un'amica**",
+          "en": "**amica is feminine + vowel: un'amica**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "articoli-genere",
+        "instruction": {"de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Pick"},
+        "prompt": "Dov'è ___ specchio?",
+        "options": ["il", "lo", "l'"],
+        "answer": 1,
+        "say_options": true,
+        "explain": {
+          "de": "**s + Konsonant: lo specchio**",
+          "sl": "**s + soglasnik: lo specchio**",
+          "en": "**s + consonant: lo specchio**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (it, de, sl); check: «Fuori, l'albero è alto», «Vicino c'è un'isola piccola», «Lo zio di Lorenzo è nel campo» (Lorenzo's uncle is not one of the cast)"
+}

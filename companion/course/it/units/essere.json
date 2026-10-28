@@ -1,0 +1,285 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "essere",
+  "language": "it",
+  "level": "A1",
+  "emoji": "🟰",
+  "title": { "it": "Essere: sono, sei, è", "de": "Sein: sono, sei, è", "sl": "Biti: sono, sei, è", "en": "To be: sono, sei, è" },
+  "goal": {
+    "de": "Du sagst, wer jemand ist und wo jemand ist (sono, sei, è, siamo, siete, sono), auch zur Lehrerin mit Lei è, und wer nicht da ist: non è.",
+    "sl": "Poveš, kdo je kdo in kje je kdo (sono, sei, è, siamo, siete, sono), tudi učiteljici z Lei è, in koga ni: non è.",
+    "en": "You can say who and where people are (sono, sei, è, siamo, siete, sono), also to the teacher with Lei è, and who isn't: non è."
+  },
+  "grammar": ["essere-avere"],
+  "words": ["essere", "io", "tu", "lui", "lei", "noi", "voi", "loro", "non", "qui", "casa", "scuola", "classe", "campo", "mare", "bosco", "tenda", "fuoco", "stanco", "contento", "pronto", "piccolo", "pastore", "fabbro", "mugnaio"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "chi", "de": "wer", "sl": "kdo", "en": "who" },
+        { "it": "essere", "de": "essere (sein)", "sl": "essere (biti)", "en": "essere (to be)" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "**Essere** heißt sein. Zuerst eine Person: **io sono** (ich bin), **tu sei** (du bist), **lui è** (er ist), **lei è** (sie ist). Das **è** hat einen Strich, so heißt es ist. Ohne den Strich ist **e** das Wort und.",
+          "sl": "**Essere** pomeni biti. Najprej ena oseba: **io sono** (jaz sem), **tu sei** (ti si), **lui è** (on je), **lei è** (ona je). **è** ima strešico, tako pomeni je. Brez nje je **e** beseda in.",
+          "en": "**Essere** means to be. First one person: **io sono** (I am), **tu sei** (you are), **lui è** (he is), **lei è** (she is). The **è** has an accent: that is is. Without it, **e** is the word and."
+        },
+        "examples": [
+          { "it": "Io sono {learner}.", "de": "Ich bin {learner}.", "sl": "Jaz sem {learner}.", "en": "I am {learner}." },
+          { "it": "Tu sei Giulia?", "de": "Bist du Giulia?", "sl": "Si ti Giulia?", "en": "Are you Giulia?" },
+          { "it": "Lorenzo è a casa.", "de": "Lorenzo ist zu Hause.", "sl": "Lorenzo je doma.", "en": "Lorenzo is at home." }
+        ],
+        "rows": [["io", "sono"], ["tu", "sei"], ["lui, lei", "è"]],
+        "ask": {
+          "type": "choice", "grammar": "essere-avere", "prompt": "Giulia ___ a scuola.", "options": ["sono", "sei", "è"], "answer": 2, "say_options": true,
+          "explain": {
+            "de": "**Giulia ist lei (sie): è**\n- io sono · tu sei · lei è",
+            "sl": "**Giulia je lei (ona): è**\n- io sono · tu sei · lei è",
+            "en": "**Giulia is lei (she): è**\n- io sono · tu sei · lei è"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Zwei oder mehr: **noi siamo** (wir sind), **voi siete** (ihr seid), **loro sono** (sie sind). Zwei Kinder mit **e** (und) sind auch loro: **Lorenzo e Giulia sono nel campo.** (Lorenzo und Giulia sind auf dem Feld.)",
+          "sl": "Dva ali več: **noi siamo** (mi smo), **voi siete** (vi ste), **loro sono** (oni so). Italijanščina nima dvojine: tudi dva sta loro. **Lorenzo e Giulia sono nel campo.** (Lorenzo in Giulia sta na polju.)",
+          "en": "Two or more: **noi siamo** (we are), **voi siete** (you are, more than one), **loro sono** (they are). Two children joined by **e** (and) are loro too: **Lorenzo e Giulia sono nel campo.** (Lorenzo and Giulia are in the field.)"
+        },
+        "examples": [
+          { "it": "Noi siamo al mare.", "de": "Wir sind am Meer.", "sl": "Mi smo na morju.", "en": "We are at the seaside." },
+          { "it": "Voi siete pronti?", "de": "Seid ihr bereit?", "sl": "Ste pripravljeni?", "en": "Are you ready?" },
+          { "it": "Lorenzo e Giulia sono nel campo.", "de": "Lorenzo und Giulia sind auf dem Feld.", "sl": "Lorenzo in Giulia sta na polju.", "en": "Lorenzo and Giulia are in the field." }
+        ],
+        "rows": [["noi", "siamo"], ["voi", "siete"], ["loro", "sono"]],
+        "ask": {
+          "type": "cloze", "grammar": "essere-avere", "text": "Tommaso e Lorenzo ___ nel bosco.", "accept": ["sono"], "hint": "loro → ?",
+          "explain": {
+            "de": "**Tommaso e Lorenzo sind loro (sie): sono**\n- noi siamo · voi siete · loro sono",
+            "sl": "**Tommaso e Lorenzo sta loro (onadva): sono**\n- noi siamo · voi siete · loro sono",
+            "en": "**Tommaso e Lorenzo are loro (they): sono**\n- noi siamo · voi siete · loro sono"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Das Wort für ich, du, wir lässt man meistens weg: Das Verb sagt schon, wer es ist. **Sono a scuola.** (Ich bin in der Schule.) **Siamo qui!** (Wir sind hier!) Aufpassen: **sono** heißt ich bin und auch sie sind.",
+          "sl": "Osebni zaimek se navadno izpusti, kot v slovenščini: glagol že pove, kdo je. **Sono a scuola.** (Sem v šoli.) **Siamo qui!** (Tukaj smo!) Pazi: **sono** pomeni sem in tudi so.",
+          "en": "The word for I, you, we is mostly left out: the verb already says who it is. **Sono a scuola.** (I'm at school.) **Siamo qui!** (We're here!) Careful: **sono** means I am and also they are."
+        },
+        "examples": [
+          { "it": "Sono a scuola.", "de": "Ich bin in der Schule.", "sl": "Sem v šoli.", "en": "I'm at school." },
+          { "it": "Siamo qui, maestra!", "de": "Wir sind hier, Frau Lehrerin!", "sl": "Tukaj smo, učiteljica!", "en": "We're here, Miss!" },
+          { "it": "Sei nella tenda?", "de": "Bist du im Zelt?", "sl": "Si v šotoru?", "en": "Are you in the tent?" }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "essere-avere", "prompt": "(noi) ___ al fuoco con Nonno Bepi.", "options": ["Siamo", "Siete", "Sono"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**noi: siamo**\n- Siamo al fuoco · Wir sind am Feuer",
+            "sl": "**noi: siamo**\n- Siamo al fuoco · Smo pri ognju",
+            "en": "**noi: siamo**\n- Siamo al fuoco · We're by the fire"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Zu einem Erwachsenen sagst du **Lei** (Sie). Lei ist dasselbe Wort wie sie, und es nimmt dieselbe Form: **è**. **Lei è la maestra Elena?** (Sind Sie Maestra Elena?) **Maestra, Lei è di Gorizia?** (Frau Lehrerin, sind Sie aus Görz?)",
+          "sl": "Odraslemu rečeš **Lei** (vi). Lei je ista beseda kot ona in ima isto obliko: **è**. **Lei è la maestra Elena?** (Ste vi učiteljica Elena?) **Maestra, Lei è di Gorizia?** (Učiteljica, ste iz Gorice?)",
+          "en": "To a grown-up you say **Lei**, the polite you. Lei is the same word as she, and it takes the same form: **è**. **Lei è la maestra Elena?** (Are you Maestra Elena?) **Maestra, Lei è di Gorizia?** (Miss, are you from Gorizia?)"
+        },
+        "examples": [
+          { "it": "Lei è la maestra Elena?", "de": "Sind Sie Maestra Elena?", "sl": "Ste vi učiteljica Elena?", "en": "Are you Maestra Elena?" },
+          { "it": "Signor Bruno, Lei è il fabbro?", "de": "Herr Bruno, sind Sie der Schmied?", "sl": "Gospod Bruno, ste vi kovač?", "en": "Mr Bruno, are you the blacksmith?" }
+        ],
+        "rows": [["Lei", "è"]],
+        "ask": {
+          "type": "choice", "grammar": "tu-lei", "prompt": "Maestra, Lei ___ di Gorizia?", "options": ["sei", "è", "siete"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**Lei (Sie) nimmt die Form von lei: è**\n- Lei è di Gorizia? · Sind Sie aus Görz?",
+            "sl": "**Lei (vi) ima obliko kot lei: è**\n- Lei è di Gorizia? · Ste iz Gorice?",
+            "en": "**Lei (polite you) takes the form of lei: è**\n- Lei è di Gorizia? · Are you from Gorizia?"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Und nein? Du stellst **non** (nicht) vor das Verb: **Non sono stanco.** (Ich bin nicht müde.) **Tommaso non è a scuola.** (Tommaso ist nicht in der Schule.) Das **non** kommt immer vor **è**, **sono**, **sei**.",
+          "sl": "Pa zanikanje? Pred glagol postaviš **non** (ne): **Non sono stanco.** (Nisem utrujen.) **Tommaso non è a scuola.** (Tommasa ni v šoli.) **non** je vedno pred **è**, **sono**, **sei**.",
+          "en": "And no? You put **non** (not) before the verb: **Non sono stanco.** (I'm not tired.) **Tommaso non è a scuola.** (Tommaso isn't at school.) The **non** always comes before **è**, **sono**, **sei**."
+        },
+        "examples": [
+          { "it": "Tommaso non è a scuola.", "de": "Tommaso ist nicht in der Schule.", "sl": "Tommasa ni v šoli.", "en": "Tommaso isn't at school." },
+          { "it": "Non sono {m:stanco|f:stanca}!", "de": "Ich bin nicht müde!", "sl": "Nisem {m:utrujen|f:utrujena}!", "en": "I'm not tired!" }
+        ],
+        "rows": [["io", "non sono"], ["lui, lei", "non è"]],
+        "ask": {
+          "type": "choice", "grammar": "essere-avere", "prompt": "Lorenzo ___ a scuola: è a casa.", "options": ["non è", "è non", "no è"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**non vor dem Verb: non è**\n- Lorenzo non è a scuola · Lorenzo ist nicht in der Schule",
+            "sl": "**non pred glagolom: non è**\n- Lorenzo non è a scuola · Lorenza ni v šoli",
+            "en": "**non before the verb: non è**\n- Lorenzo non è a scuola · Lorenzo isn't at school"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "essere-1",
+      "title": { "it": "Sono, sei, è", "de": "Ich bin, du bist, er ist", "sl": "Sem, si, je", "en": "I am, you are, he is" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "essere-avere",
+          "instruction": { "de": "Completa · Ergänze essere", "sl": "Completa · Dopolni essere", "en": "Completa · Fill in essere" },
+          "prompt": { "de": "essere (presente) · sein", "sl": "essere (presente) · biti", "en": "essere (presente) · to be" },
+          "columns": [{ "de": "essere · sein", "sl": "essere · biti", "en": "essere · to be" }],
+          "rows": [
+            { "label": "io", "cells": ["sono"] },
+            { "label": "tu", "cells": [{ "accept": ["sei"], "hint": "tu …" }] },
+            { "label": "lui, lei", "cells": [{ "accept": ["è"], "hint": { "de": "mit Strich", "sl": "s strešico", "en": "with an accent" } }] },
+            { "label": "noi", "cells": [{ "accept": ["siamo"] }] },
+            { "label": "voi", "cells": [{ "accept": ["siete"] }] },
+            { "label": "loro", "cells": [{ "accept": ["sono"], "hint": { "de": "wie io", "sl": "kot io", "en": "as io" } }] }
+          ],
+          "explain": {
+            "de": "**essere lernst du auswendig**\n- sono · sei · è\n- siamo · siete · sono",
+            "sl": "**essere se naučiš na pamet**\n- sono · sei · è\n- siamo · siete · sono",
+            "en": "**learn essere by heart**\n- sono · sei · è\n- siamo · siete · sono"
+          }
+        },
+        {
+          "type": "choice", "grammar": "essere-avere",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Pick" },
+          "prompt": "Voi ___ nel campo?", "options": ["siamo", "siete", "sono"], "answer": 1, "say_options": true,
+          "explain": { "de": "**voi: siete**", "sl": "**voi: siete**", "en": "**voi: siete**" }
+        },
+        {
+          "type": "choice", "grammar": "essere-avere",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Pick" },
+          "prompt": "Tu ___ nella tenda, {learner}?", "options": ["sei", "è", "sono"], "answer": 0, "say_options": true,
+          "explain": { "de": "**tu: sei**", "sl": "**tu: sei**", "en": "**tu: sei**" }
+        }
+      ]
+    },
+    {
+      "id": "essere-2",
+      "title": { "it": "Chi è dove?", "de": "Wer ist wo?", "sl": "Kdo je kje?", "en": "Who is where?" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "essere-avere",
+          "instruction": { "de": "Completa con essere · Ergänze mit essere", "sl": "Completa con essere · Dopolni z essere", "en": "Completa con essere · Fill in with essere" },
+          "title": "Una mattina in paese",
+          "text": "Oggi io ___ a scuola. La maestra Elena ___ alla lavagna. Lorenzo e Giulia ___ nei banchi. Pastore Davide ___ nel bosco con le pecore. E tu, {learner}, dove ___? Noi ___ tutti qui!",
+          "gaps": [
+            { "accept": ["sono"], "hint": "io → ?" },
+            { "accept": ["è"], "hint": "lei → ?" },
+            { "accept": ["sono"], "hint": "loro → ?" },
+            { "accept": ["è"], "hint": "lui → ?" },
+            { "accept": ["sei"], "hint": "tu → ?" },
+            { "accept": ["siamo"], "hint": "noi → ?" }
+          ],
+          "bank": true,
+          "distractors": ["siete"],
+          "translation": {
+            "de": "Heute bin ich in der Schule. Maestra Elena ist an der Tafel. Lorenzo und Giulia sind an ihren Bänken. Pastore Davide ist mit den Schafen im Wald. Und du, {learner}, wo bist du? Wir sind alle hier!",
+            "sl": "Danes sem v šoli. Učiteljica Elena je pri tabli. Lorenzo in Giulia sta v klopeh. Pastir Davide je z ovcami v gozdu. Pa ti, {learner}, kje si? Vsi smo tukaj!",
+            "en": "Today I'm at school. Maestra Elena is at the blackboard. Lorenzo and Giulia are at their desks. Pastore Davide is in the wood with the sheep. And you, {learner}, where are you? We're all here!"
+          }
+        }
+      ]
+    },
+    {
+      "id": "essere-3",
+      "title": { "it": "Sì e no", "de": "Ja und nein", "sl": "Da in ne", "en": "Yes and no" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "essere-avere",
+          "instruction": { "de": "Cambia la persona · Sag es für die Person in Klammern", "sl": "Cambia la persona · Povej za osebo v oklepaju", "en": "Cambia la persona · Say it for the person in brackets" },
+          "cue": "→",
+          "items": [
+            { "from": "Sono a casa. (Giulia)", "accept": ["Giulia è a casa."], "hint": "Giulia = lei" },
+            { "from": "Sei al mare. (noi)", "accept": ["Noi siamo al mare."], "hint": "noi → ?" },
+            { "from": "È nel campo. (io)", "accept": ["Io sono nel campo."], "hint": "io → ?" },
+            { "from": "Siamo nella tenda. (Lorenzo e Tommaso)", "accept": ["Lorenzo e Tommaso sono nella tenda."], "hint": "loro → ?" }
+          ]
+        },
+        {
+          "type": "transform", "grammar": "essere-avere",
+          "instruction": { "de": "Di' di no · Sag es mit non", "sl": "Di' di no · Povej z non", "en": "Di' di no · Say it with non" },
+          "cue": "non",
+          "items": [
+            { "from": "Lorenzo è a scuola.", "accept": ["Lorenzo non è a scuola."], "hint": "non + è" },
+            { "from": "Siamo al mare.", "accept": ["Non siamo al mare.", "Noi non siamo al mare."] },
+            { "from": "Tu sei nel bosco.", "accept": ["Tu non sei nel bosco.", "Non sei nel bosco."] },
+            { "from": "Le pecore sono nel campo.", "accept": ["Le pecore non sono nel campo."] }
+          ],
+          "explain": {
+            "de": "**non vor das Verb**\n- è → non è\n- siamo → non siamo",
+            "sl": "**non pred glagol**\n- è → non è\n- siamo → non siamo",
+            "en": "**non before the verb**\n- è → non è\n- siamo → non siamo"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext", "grammar": "essere-avere",
+        "instruction": { "de": "Completa con essere · Ergänze mit essere", "sl": "Completa con essere · Dopolni z essere", "en": "Completa con essere · Fill in with essere" },
+        "text": "Stasera ___ tutti al fuoco. Nonno Bepi ___ vicino alla tenda. Tommaso e Giulia ___ con lui. E voi, dove ___? Io ___ qui con Nonna Rosa.",
+        "gaps": [
+          { "accept": ["siamo"], "hint": "noi → ?" },
+          { "accept": ["è"], "hint": "lui → ?" },
+          { "accept": ["sono"], "hint": "loro → ?" },
+          { "accept": ["siete"], "hint": "voi → ?" },
+          { "accept": ["sono"], "hint": "io → ?" }
+        ],
+        "translation": {
+          "de": "Heute Abend sind wir alle am Feuer. Nonno Bepi ist beim Zelt. Tommaso und Giulia sind bei ihm. Und ihr, wo seid ihr? Ich bin hier bei Nonna Rosa.",
+          "sl": "Nocoj smo vsi pri ognju. Dedek Bepi je pri šotoru. Tommaso in Giulia sta z njim. Pa vi, kje ste? Jaz sem tukaj z babico Roso.",
+          "en": "Tonight we're all by the fire. Nonno Bepi is by the tent. Tommaso and Giulia are with him. And you lot, where are you? I'm here with Nonna Rosa."
+        }
+      },
+      {
+        "type": "transform", "grammar": "essere-avere",
+        "instruction": { "de": "Cambia la persona · Sag es für die Person in Klammern", "sl": "Cambia la persona · Povej za osebo v oklepaju", "en": "Cambia la persona · Say it for the person in brackets" },
+        "cue": "→",
+        "items": [
+          { "from": "Sono nel bosco. (tu)", "accept": ["Tu sei nel bosco."] },
+          { "from": "È al mare. (voi)", "accept": ["Voi siete al mare."] },
+          { "from": "Siamo a scuola. (Giulia)", "accept": ["Giulia è a scuola."] }
+        ]
+      },
+      {
+        "type": "transform", "grammar": "essere-avere",
+        "instruction": { "de": "Di' di no · Sag es mit non", "sl": "Di' di no · Povej z non", "en": "Di' di no · Say it with non" },
+        "cue": "non",
+        "items": [
+          { "from": "Davide è nella tenda.", "accept": ["Davide non è nella tenda."] },
+          { "from": "Sono a scuola.", "accept": ["Non sono a scuola.", "Io non sono a scuola."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "tu-lei",
+        "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Pick" },
+        "prompt": "Signor Franco, Lei ___ il mugnaio?", "options": ["sei", "è", "sono"], "answer": 1, "say_options": true,
+        "explain": { "de": "**Lei (Sie): è**", "sl": "**Lei (vi): è**", "en": "**Lei (polite you): è**" }
+      },
+      {
+        "type": "choice", "grammar": "essere-avere",
+        "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Pick" },
+        "prompt": "Il cane Moro ___ con Nonno Bepi.", "options": ["e", "è", "ho"], "answer": 1, "say_options": true,
+        "explain": {
+          "de": "**è mit Strich: ist**\n- e · und",
+          "sl": "**è s strešico: je**\n- e · in",
+          "en": "**è with an accent: is**\n- e · and"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (it, de, sl); check: «Lorenzo e Giulia sono nei banchi» (at their desks), the made-up wrong options «è non» and «no è»"
+}

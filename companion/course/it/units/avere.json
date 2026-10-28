@@ -1,0 +1,274 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "avere",
+  "language": "it",
+  "level": "A1",
+  "emoji": "🎒",
+  "title": { "it": "Avere: ho sette anni", "de": "Haben: ho sette anni", "sl": "Imeti: ho sette anni", "en": "To have: ho sette anni" },
+  "goal": {
+    "de": "Du sagst, was du und die anderen haben (ho, hai, ha …), wie alt jemand ist (Lorenzo ha sei anni) und dass du Hunger hast oder dir kalt ist: ho fame, ho freddo.",
+    "sl": "Poveš, kaj imaš ti in kaj imajo drugi (ho, hai, ha …), koliko je kdo star (Lorenzo ha sei anni) in da si {m:lačen|f:lačna} ali da te zebe: ho fame, ho freddo.",
+    "en": "You can say what you and the others have (ho, hai, ha …), how old someone is (Lorenzo ha sei anni) and that you're hungry or cold: ho fame, ho freddo."
+  },
+  "grammar": ["essere-avere"],
+  "words": ["avere", "cane", "gatto", "zaino", "tenda", "pallone", "aquilone", "cappello", "mappa", "cavallo", "carota", "fame", "sete", "freddo", "caldo", "sonno", "paura", "anno", "festa", "paese"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "persona", "de": "wer", "sl": "kdo", "en": "who" },
+        { "it": "avere", "de": "avere (haben)", "sl": "avere (imeti)", "en": "avere (to have)" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "**Avere** heißt haben. Zuerst eine Person: **io ho** (ich habe), **tu hai** (du hast), **lui ha, lei ha** (er hat, sie hat). Das h schreibst du, aber du sprichst es nie: ho klingt wie o. Das Wort für ich lässt man meist weg: **Ho un cane.** (Ich habe einen Hund.)",
+          "sl": "**Avere** pomeni imeti. Najprej ena oseba: **io ho** (imam), **tu hai** (imaš), **lui ha, lei ha** (on ima, ona ima). Črko h napišeš, izgovoriš pa je nikoli: ho se sliši kot o. Zaimek navadno izpustiš, kot v slovenščini: **Ho un cane.** (Imam psa.)",
+          "en": "**Avere** means to have. One person first: **io ho** (I have), **tu hai** (you have), **lui ha, lei ha** (he has, she has). You write the h but never say it: ho sounds like o. The word for I is usually left out: **Ho un cane.** (I have a dog.)"
+        },
+        "examples": [
+          { "it": "Ho un cane.", "de": "Ich habe einen Hund.", "sl": "Imam psa.", "en": "I have a dog." },
+          { "it": "Lorenzo ha un gatto.", "de": "Lorenzo hat eine Katze.", "sl": "Lorenzo ima mačko.", "en": "Lorenzo has a cat." },
+          { "it": "Hai uno zaino, {learner}?", "de": "Hast du einen Rucksack, {learner}?", "sl": "Imaš nahrbtnik, {learner}?", "en": "Do you have a rucksack, {learner}?" }
+        ],
+        "rows": [["io", "ho"], ["tu", "hai"], ["lui, lei", "ha"]],
+        "ask": {
+          "type": "choice", "grammar": "essere-avere", "prompt": "Giulia ___ una mappa.", "options": ["ho", "hai", "ha"], "answer": 2, "say_options": true,
+          "explain": {
+            "de": "**Giulia** ist lei (sie): **ha**\n- io ho · tu hai · lei ha",
+            "sl": "**Giulia** je lei (ona): **ha**\n- io ho · tu hai · lei ha",
+            "en": "**Giulia** is lei (she): **ha**\n- io ho · tu hai · lei ha"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Zwei oder mehr: **noi abbiamo** (wir haben), **voi avete** (ihr habt), **loro hanno** (sie haben). Auch zwei Leute mit **e** (und) nehmen **hanno**: **Tommaso e Giulia hanno un pallone.** (Tommaso und Giulia haben einen Ball.)",
+          "sl": "Dva ali več: **noi abbiamo** (imamo), **voi avete** (imate), **loro hanno** (imajo). Italijanščina nima dvojine: tudi dva z **e** (in) dobita **hanno**: **Tommaso e Giulia hanno un pallone.** (Tommaso in Giulia imata žogo.)",
+          "en": "Two or more: **noi abbiamo** (we have), **voi avete** (you have, more than one of you), **loro hanno** (they have). Two people with **e** (and) take **hanno** too: **Tommaso e Giulia hanno un pallone.** (Tommaso and Giulia have a ball.)"
+        },
+        "examples": [
+          { "it": "Tommaso e Giulia hanno un pallone.", "de": "Tommaso und Giulia haben einen Ball.", "sl": "Tommaso in Giulia imata žogo.", "en": "Tommaso and Giulia have a ball." },
+          { "it": "Abbiamo una tenda.", "de": "Wir haben ein Zelt.", "sl": "Imamo šotor.", "en": "We have a tent." }
+        ],
+        "rows": [["noi", "abbiamo"], ["voi", "avete"], ["loro", "hanno"]],
+        "ask": {
+          "type": "cloze", "grammar": "essere-avere", "text": "Lorenzo e Giulia ___ un aquilone.", "accept": ["hanno"], "hint": "loro → ?",
+          "explain": {
+            "de": "**Lorenzo e Giulia** sind loro (sie): **hanno**\n- noi abbiamo · voi avete · loro hanno",
+            "sl": "**Lorenzo e Giulia** sta loro (onadva): **hanno**\n- noi abbiamo · voi avete · loro hanno",
+            "en": "**Lorenzo e Giulia** are loro (they): **hanno**\n- noi abbiamo · voi avete · loro hanno"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Ohne h ist es ein anderes Wort! **ho** (ich habe) und **o** (oder) klingen gleich, **ha** (er hat, sie hat) und **a** (in, nach) auch. Nur das h zeigt dir: Hier ist **avere**. **Giulia ha un gatto o un cane?** (Hat Giulia eine Katze oder einen Hund?)",
+          "sl": "Brez h je to druga beseda! **ho** (imam) in **o** (ali) se slišita enako, prav tako **ha** (ima) in **a** (v, na, k). Samo h ti pove: tu je **avere**. **Giulia ha un gatto o un cane?** (Ima Giulia mačko ali psa?)",
+          "en": "Without the h it's another word! **ho** (I have) and **o** (or) sound the same, and so do **ha** (he has, she has) and **a** (to, at). Only the h tells you: this is **avere**. **Giulia ha un gatto o un cane?** (Does Giulia have a cat or a dog?)"
+        },
+        "examples": [
+          { "it": "Giulia ha un gatto o un cane?", "de": "Hat Giulia eine Katze oder einen Hund?", "sl": "Ima Giulia mačko ali psa?", "en": "Does Giulia have a cat or a dog?" },
+          { "it": "Lorenzo è a casa.", "de": "Lorenzo ist zu Hause.", "sl": "Lorenzo je doma.", "en": "Lorenzo is at home." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "essere-avere", "prompt": "Lorenzo ___ un cavallo.", "options": ["a", "ha", "o"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**ha** mit h: er hat\n- a · in, nach\n- o · oder",
+            "sl": "**ha** s h: ima\n- a · v, na, k\n- o · ali",
+            "en": "**ha** with an h: he has\n- a · to, at\n- o · or"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Wie alt bist du? Auf Italienisch sagst du, wie viele Jahre du hast: **Lorenzo ha sei anni.** (Lorenzo ist sechs Jahre alt.) **Giulia ha otto anni.** (Giulia ist acht.) Für das Alter also immer **avere**, nie essere.",
+          "sl": "Starost povemo z **avere**: dobesedno imaš leta. **Lorenzo ha sei anni.** (Lorenzo je star šest let.) **Giulia ha otto anni.** (Giulia je stara osem let.) Za starost torej vedno **avere**, nikoli essere.",
+          "en": "Age takes **avere**: you have your years. **Lorenzo ha sei anni.** (Lorenzo is six years old.) **Giulia ha otto anni.** (Giulia is eight.) So for age always **avere**, never essere."
+        },
+        "examples": [
+          { "it": "Lorenzo ha sei anni.", "de": "Lorenzo ist sechs Jahre alt.", "sl": "Lorenzo je star šest let.", "en": "Lorenzo is six years old." },
+          { "it": "Giulia ha otto anni e Tommaso ha nove anni.", "de": "Giulia ist acht und Tommaso ist neun.", "sl": "Giulia je stara osem let, Tommaso pa devet.", "en": "Giulia is eight and Tommaso is nine." }
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "essere-avere", "text": "Tommaso ___ nove anni.", "accept": ["ha"],
+          "hint": { "de": "Alter: avere", "sl": "starost: avere", "en": "age: avere" },
+          "explain": {
+            "de": "**Das Alter mit avere**: Tommaso ha nove anni\n- Lorenzo ha sei anni · Lorenzo ist sechs",
+            "sl": "**Starost z avere**: Tommaso ha nove anni\n- Lorenzo ha sei anni · Lorenzo je star šest let",
+            "en": "**Age with avere**: Tommaso ha nove anni\n- Lorenzo ha sei anni · Lorenzo is six"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Wie im Deutschen: **ho fame** (ich habe Hunger), **ho sete** (ich habe Durst), **ho paura** (ich habe Angst). Aber auch: **ho freddo** (mir ist kalt), **ho caldo** (mir ist heiß), **ho sonno** (ich bin schläfrig). Ein Mensch **ha freddo**, nie *è freddo*: Das hieße, er ist kalt wie Eis.",
+          "sl": "**ho fame** ({m:lačen|f:lačna} sem), **ho sete** ({m:žejen|f:žejna} sem), **ho freddo** (zebe me), **ho caldo** (vroče mi je), **ho sonno** ({m:zaspan|f:zaspana} sem), **ho paura** (strah me je): kjer slovenščina reče biti, italijanščina reče imeti. Človek **ha freddo**, nikoli *è freddo*: to bi pomenilo, da je mrzel kot led.",
+          "en": "**ho fame** (I'm hungry), **ho sete** (I'm thirsty), **ho freddo** (I'm cold), **ho caldo** (I'm hot), **ho sonno** (I'm sleepy), **ho paura** (I'm scared): where English says I am, Italian says I have. A person **ha freddo**, never *è freddo*: that would mean cold as ice."
+        },
+        "examples": [
+          { "it": "Ho fame, Nonna!", "de": "Ich habe Hunger, Oma!", "sl": "{m:Lačen|f:Lačna} sem, babica!", "en": "I'm hungry, Nonna!" },
+          { "it": "Le pecore hanno sete.", "de": "Die Schafe haben Durst.", "sl": "Ovce so žejne.", "en": "The sheep are thirsty." },
+          { "it": "Brr, Lorenzo ha freddo.", "de": "Brr, Lorenzo friert.", "sl": "Brr, Lorenza zebe.", "en": "Brr, Lorenzo is cold." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "essere-avere", "prompt": "Brr! Lorenzo ___ freddo.", "options": ["è", "ha", "sono"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**ha freddo**: Lorenzo friert\n- ho fame · ich habe Hunger\n- è freddo · kalt wie Eis",
+            "sl": "**ha freddo**: Lorenza zebe\n- ho fame · lačen sem\n- è freddo · mrzel kot led",
+            "en": "**ha freddo**: Lorenzo is cold\n- ho fame · I'm hungry\n- è freddo · cold as ice"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "avere-1",
+      "title": { "it": "Ho, hai, ha", "de": "Ich habe, du hast, er hat", "sl": "Imam, imaš, ima", "en": "I have, you have, he has" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "essere-avere",
+          "instruction": { "de": "Completa · Ergänze avere", "sl": "Completa · Dopolni avere", "en": "Completa · Fill in avere" },
+          "prompt": { "de": "avere (presente) · haben", "sl": "avere (presente) · imeti", "en": "avere (presente) · to have" },
+          "columns": [{ "de": "avere · haben", "sl": "avere · imeti", "en": "avere · to have" }],
+          "rows": [
+            { "label": "io", "cells": ["ho"] },
+            { "label": "tu", "cells": [{ "accept": ["hai"] }] },
+            { "label": "lui, lei", "cells": [{ "accept": ["ha"], "hint": { "de": "mit h", "sl": "s h", "en": "with an h" } }] },
+            { "label": "noi", "cells": [{ "accept": ["abbiamo"], "hint": "ab…" }] },
+            { "label": "voi", "cells": [{ "accept": ["avete"] }] },
+            { "label": "loro", "cells": [{ "accept": ["hanno"], "hint": { "de": "mit h", "sl": "s h", "en": "with an h" } }] }
+          ],
+          "explain": "io ho · tu hai · lui, lei ha · noi abbiamo · voi avete · loro hanno"
+        },
+        {
+          "type": "sort", "grammar": "essere-avere",
+          "instruction": { "de": "Essere o avere? · Sein oder haben? Sortiere", "sl": "Essere o avere? · Biti ali imeti? Razvrsti", "en": "Essere o avere? · To be or to have? Sort" },
+          "columns": [
+            { "label": { "de": "essere · sein", "sl": "essere · biti", "en": "essere · to be" }, "words": ["sei", "è", "siamo", "siete"] },
+            { "label": { "de": "avere · haben", "sl": "avere · imeti", "en": "avere · to have" }, "words": ["hai", "ha", "avete", "hanno"] }
+          ],
+          "explain": {
+            "de": "**essere**: sono, sei, è, siamo, siete, sono\n**avere**: ho, hai, ha, abbiamo, avete, hanno",
+            "sl": "**essere**: sono, sei, è, siamo, siete, sono\n**avere**: ho, hai, ha, abbiamo, avete, hanno",
+            "en": "**essere**: sono, sei, è, siamo, siete, sono\n**avere**: ho, hai, ha, abbiamo, avete, hanno"
+          }
+        }
+      ]
+    },
+    {
+      "id": "avere-2",
+      "title": { "it": "Alla festa del paese", "de": "Beim Dorffest", "sl": "Na vaškem prazniku", "en": "At the village feast" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "essere-avere",
+          "instruction": { "de": "Completa con avere · Ergänze mit avere", "sl": "Completa con avere · Dopolni z avere", "en": "Completa con avere · Fill in with avere" },
+          "title": "Alla festa del paese",
+          "text": "Oggi è festa in paese! Io ___ un cappello. Tommaso ___ un pallone. Giulia e Lorenzo ___ un aquilone. Noi ___ fame! E tu, {learner}, ___ sete? Zia Nives: «Bambini, ___ freddo?»",
+          "gaps": [
+            { "accept": ["ho"], "hint": "io → ?" },
+            { "accept": ["ha"], "hint": "lui → ?" },
+            { "accept": ["hanno"], "hint": "loro → ?" },
+            { "accept": ["abbiamo"], "hint": "noi → ?" },
+            { "accept": ["hai"], "hint": "tu → ?" },
+            { "accept": ["avete"], "hint": "voi → ?", "explain": { "de": "Zia Nives fragt alle Kinder, also voi: **avete**.", "sl": "Teta Nives vpraša vse otroke, torej voi: **avete**.", "en": "Zia Nives asks all the children, so voi: **avete**." } }
+          ],
+          "bank": true, "distractors": ["sono", "è", "a"],
+          "translation": {
+            "de": "Heute ist Fest im Dorf! Ich habe einen Hut. Tommaso hat einen Ball. Giulia und Lorenzo haben einen Drachen. Wir haben Hunger! Und du, {learner}, hast du Durst? Zia Nives: „Kinder, ist euch kalt?“",
+            "sl": "Danes je v vasi praznik! Jaz imam klobuk. Tommaso ima žogo. Giulia in Lorenzo imata zmaja. Lačni smo! Pa ti, {learner}, si {m:žejen|f:žejna}? Teta Nives: »Otroci, vas zebe?«",
+            "en": "Today there's a feast in the village! I have a hat. Tommaso has a ball. Giulia and Lorenzo have a kite. We're hungry! And you, {learner}, are you thirsty? Zia Nives: \"Children, are you cold?\""
+          }
+        }
+      ]
+    },
+    {
+      "id": "avere-3",
+      "title": { "it": "Chi ha che cosa?", "de": "Wer hat was?", "sl": "Kdo ima kaj?", "en": "Who has what?" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "essere-avere",
+          "instruction": { "de": "Cambia la persona · Sag es für die Person in Klammern", "sl": "Cambia la persona · Povej za osebo v oklepaju", "en": "Cambia la persona · Say it for the person in brackets" },
+          "cue": "→",
+          "items": [
+            { "from": "Ho un gatto. (Giulia)", "accept": ["Giulia ha un gatto."], "hint": "Giulia = lei" },
+            { "from": "Ho fame. (noi)", "accept": ["Noi abbiamo fame.", "Abbiamo fame."] },
+            { "from": "Hai sete? (voi)", "accept": ["Voi avete sete?", "Avete sete?"] },
+            { "from": "Ho un cavallo. (Mugnaio Franco)", "accept": ["Mugnaio Franco ha un cavallo."], "hint": "Franco = lui" },
+            { "from": "Ho sonno. (Lorenzo e Giulia)", "accept": ["Lorenzo e Giulia hanno sonno."], "hint": "Lorenzo e Giulia = loro" },
+            { "from": "Ho sei anni. (Lorenzo)", "accept": ["Lorenzo ha sei anni."] },
+            { "from": "Abbiamo una tenda. (io)", "accept": ["Io ho una tenda.", "Ho una tenda."] },
+            { "from": "Ho caldo. (tu)", "accept": ["Tu hai caldo.", "Hai caldo."] }
+          ],
+          "explain": {
+            "de": "**avere** passt zur Person\n- io ho · tu hai · lui, lei ha\n- noi abbiamo · voi avete · loro hanno",
+            "sl": "**avere** se ujema z osebo\n- io ho · tu hai · lui, lei ha\n- noi abbiamo · voi avete · loro hanno",
+            "en": "**avere** goes with the person\n- io ho · tu hai · lui, lei ha\n- noi abbiamo · voi avete · loro hanno"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "essere-avere",
+        "instruction": { "de": "Completa · Ergänze avere", "sl": "Completa · Dopolni avere", "en": "Completa · Fill in avere" },
+        "columns": [{ "de": "avere · haben", "sl": "avere · imeti", "en": "avere · to have" }],
+        "rows": [
+          { "label": "io", "cells": ["ho"] },
+          { "label": "tu", "cells": [{ "accept": ["hai"] }] },
+          { "label": "lui, lei", "cells": ["ha"] },
+          { "label": "noi", "cells": [{ "accept": ["abbiamo"] }] },
+          { "label": "voi", "cells": ["avete"] },
+          { "label": "loro", "cells": [{ "accept": ["hanno"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "essere-avere",
+        "instruction": { "de": "Completa con avere · Ergänze mit avere", "sl": "Completa con avere · Dopolni z avere", "en": "Completa con avere · Fill in with avere" },
+        "text": "Nel campo con Mugnaio Franco. Franco ___ un cavallo, Baio. Baio ___ fame. Io e Lorenzo ___ le carote per Baio. E tu, {learner}, ___ paura?",
+        "gaps": [
+          { "accept": ["ha"] },
+          { "accept": ["ha"] },
+          { "accept": ["abbiamo"] },
+          { "accept": ["hai"] }
+        ],
+        "translation": {
+          "de": "Auf dem Feld mit Mugnaio Franco. Franco hat ein Pferd, Baio. Baio hat Hunger. Lorenzo und ich haben die Karotten für Baio. Und du, {learner}, hast du Angst?",
+          "sl": "Na polju z mlinarjem Francom. Franco ima konja, Baia. Baio je lačen. Lorenzo in jaz imava korenje za Baia. Pa ti, {learner}, te je strah?",
+          "en": "In the field with Mugnaio Franco. Franco has a horse, Baio. Baio is hungry. Lorenzo and I have the carrots for Baio. And you, {learner}, are you scared?"
+        }
+      },
+      {
+        "type": "transform", "grammar": "essere-avere",
+        "instruction": { "de": "Cambia la persona · Sag es für die Person in Klammern", "sl": "Cambia la persona · Povej za osebo v oklepaju", "en": "Cambia la persona · Say it for the person in brackets" },
+        "cue": "→",
+        "items": [
+          { "from": "Ho freddo. (Giulia)", "accept": ["Giulia ha freddo."] },
+          { "from": "Ho un aquilone. (noi)", "accept": ["Noi abbiamo un aquilone.", "Abbiamo un aquilone."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "essere-avere", "prompt": "Nonno Bepi è stanco e ___ sonno.", "options": ["è", "ha", "hanno"], "answer": 1, "say_options": true,
+        "explain": {
+          "de": "**ho sonno**: mit avere\n- Nonno Bepi ha sonno · er ist schläfrig\n- è stanco · er ist müde",
+          "sl": "**ho sonno**: z avere\n- Nonno Bepi ha sonno · zaspan je\n- è stanco · utrujen je",
+          "en": "**ho sonno**: with avere\n- Nonno Bepi ha sonno · he's sleepy\n- è stanco · he's tired"
+        }
+      },
+      {
+        "type": "choice", "grammar": "essere-avere", "prompt": "Tommaso ___ un pallone o un aquilone?", "options": ["a", "ha", "o"], "answer": 1, "say_options": true,
+        "explain": {
+          "de": "**ha** mit h: er hat\n- a · in, nach\n- o · oder",
+          "sl": "**ha** s h: ima\n- a · v, na, k\n- o · ali",
+          "en": "**ha** with an h: he has\n- a · to, at\n- o · or"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (it, de, sl). Native check: Oggi è festa in paese; Io e Lorenzo abbiamo le carote per Baio; the made-up wrong forms in the choices"
+}

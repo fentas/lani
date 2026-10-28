@@ -101,6 +101,25 @@ export default async function courseSpeech() {
         met.some(i => i.source === 'arrival:micka' && i.voice === 'grandma'), hers.slice(0, 4))
   }
 
+  // --- the Friuli village's school: Maestra Elena reads the Italian course, its explanations in the child's German ------
+  {
+    const friuliCast = new VillagerStore(join(culturesDir, 'friuli/villagers'), tempDir('lani-cs-friuli-villagers-')).all()
+    const teo = addressee({ name: 'Teo', gender: 'male' })
+    const itUnits = renderDeep(new CourseStore(courseDir(join(repo, 'companion/course'), 'it'), 'it', tempDir('lani-cs-course-it-'), () => {}, () => 'de').served()!.units, teo)
+    check("the Friuli school's person (Residents.brings(SCHOOL)): Maestra Elena, in her cast's voice, \"teacher\" (Alice); her own once it is ready (\"@elena\")",
+      S.schoolTeacher(friuliCast)?.id === 'elena' && S.teacherVoice(friuliCast, v => v.speaker ?? v.voice) === 'teacher' && S.teacherVoice(friuliCast, v => v.speaker ?? v.voice, id => id === 'elena') === '@elena')
+    const ct = S.courseTexts({ units: itUnits, bases: ['de'] }, 'it')
+    const has = (x: string) => ct.lines.some(l => l.text === x)
+    const german = ct.lines.filter(l => /\b(und|ist|bist|heißt|ich|du|nicht|Hallo|Tschüss)\b/.test(l.text))
+    check("the Italian course as the app reads it in her voice for a learner of German: the examples, the quick questions (a gap a pause), the answers, the Italian of the German explanations; never the German",
+      itUnits.length >= 6 && has('Ciao, Giulia!') && has('Mi … Tommaso.') && has('Mi chiamo Tommaso.') && has('Giulia … a scuola.') && has('Giulia è a scuola.') && has('io sono') &&
+        german.length === 0 && ct.explanations.length > 0 && ct.explanations.every(e => e.lang === 'de') && ct.explanations.some(e => e.text.startsWith('Hallo! Ich bin Maestra Elena')),
+      german.slice(0, 6))
+    const items = corpus({ packs: [], modules: [], scenarios: [], villagers: friuliCast, course: { units: itUnits, bases: ['de'] }, learner: teo, language: 'it' })
+    const read = items.filter(i => i.source.startsWith('course:'))
+    check("corpus: the Italian course in Maestra Elena's voice, its German explanations last", read.length > 100 && read.every(i => i.voice === 'teacher') && read.filter(i => i.lang).every(i => i.lang === 'de'), read.length)
+  }
+
   // --- companion/bin/voice-build --only, --explanations, --base on a store of its own ---------------------------------
   {
     const fe = fakeEleven()

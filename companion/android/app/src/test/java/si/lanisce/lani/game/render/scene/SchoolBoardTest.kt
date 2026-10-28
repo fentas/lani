@@ -73,6 +73,29 @@ class SchoolBoardTest {
         }
     }
 
+    @Test fun `the Italian course's board - every letter written, every lesson laid out, an Italian welcome and day`() {
+        val it = assertNotNullAnd(Courses.bundled("it"))
+        val missing = HashSet<Char>()
+        for (u in it.units.values) {
+            val b = Blackboard(u.title["it"], Blackboard.forms(u), "it")
+            for (ch in (b.title.orEmpty() + b.forms.flatten().joinToString(""))) if (!BoardFont.knows(ch)) missing.add(ch)
+            val lines = BoardFont.lines(b, width)
+            assertTrue("${u.id}: the title first", lines.first().title)
+            assertTrue("${u.id}: $lines in ${BoardFont.LINES} lines", lines.size in 2..BoardFont.LINES)
+            assertTrue("${u.id}: every line fits: $lines", lines.all { BoardFont.width(it.text) <= width })
+        }
+        assertTrue("letters the board can't write: $missing", missing.isEmpty())
+        for (ch in "àèéìòùÈ'") assertTrue("$ch", BoardFont.knows(ch))
+        // before the first unit of the Italian course: "Benvenuti!" and the day as Italy writes it
+        val welcome = Blackboard.of(GameState(), it)!!
+        assertEquals("it", welcome.language)
+        assertEquals(listOf(BoardFont.Line("Benvenuti!", true), BoardFont.Line("14/10/2026", false)), BoardFont.lines(welcome, width, date = welcome.day(today)))
+        // a unit begun: its title and forms in Italian (essere: io sono · tu sei)
+        val essere = Blackboard.of(GameState(course = CourseProgress(classroom = "2026-10-13", units = mapOf("it/essere" to UnitProgress(started = "2026-10-13")))), it)!!
+        assertEquals("Essere: sono, sei, è", essere.title)
+        assertEquals(listOf("io sono", "tu sei"), essere.forms.take(2).map { f -> f.joinToString(" ") })
+    }
+
     @Test fun `every letter of the course is written, and what fits is laid out`() {
         val missing = HashSet<Char>()
         for (u in course.units.values) {

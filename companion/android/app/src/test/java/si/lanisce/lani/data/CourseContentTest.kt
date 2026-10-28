@@ -18,20 +18,26 @@ import si.lanisce.lani.l10n.Lang
 import java.io.File
 
 /**
- * The course's content as the app plays it (companion/COURSE.md): every unit file of companion/course/sl is a unit the
- * app parses and plays, at its place in the outline; every exercise is a type it knows; every right answer of a sheet,
- * a test and an intro's question is graded right by the app's own grading, and a word bank's distractors are wrong for
- * every gap; every page a unit names is in the bundled grammar book. The bridge's smoke checks the format; this checks
- * what the app makes of it, for every unit written (A1 to B2), so a unit the app would drop or misgrade can't ship.
+ * The course's content as the app plays it (companion/COURSE.md): every unit file of companion/course/<language> is a
+ * unit the app parses and plays, at its place in the outline; every exercise is a type it knows; every right answer of a
+ * sheet, a test and an intro's question is graded right by the app's own grading of the language, and a word bank's
+ * distractors are wrong for every gap; every page a unit names is in the bundled grammar book. The bridge's smoke checks
+ * the format; this checks what the app makes of it, for every unit written (A1 to B2), so a unit the app would drop or
+ * misgrade can't ship: the Slovene course ([CourseContentTest]) and the Italian one ([ItalianCourseContentTest]).
  */
-class CourseContentTest {
-    private val companion = listOf(File("../.."), File(".."), File("companion")).first { File(it, "course/sl/course.json").isFile }
+abstract class CourseContentChecks(
+    private val language: String,
+    private val lang: Lang,
+    /** The distractors that are almost right for a gap, as "unit: word" (a slip in the stem forgiven): known, none other. */
+    private val almostDistractors: List<String>,
+) {
+    private val companion = listOf(File("../.."), File(".."), File("companion")).first { File(it, "course/$language/course.json").isFile }
     private val json = Json { ignoreUnknownKeys = true }
-    private val course = checkNotNull(Courses.bundled("sl")) { "the bundled course (companion/course/sl)" }
-    private val outline = json.parseToJsonElement(File(companion, "course/sl/course.json").readText()).jsonObject
-    private val files = File(companion, "course/sl/units").listFiles { f -> f.name.endsWith(".json") }!!.sortedBy { it.name }
+    private val course = checkNotNull(Courses.bundled(language)) { "the bundled course (companion/course/$language)" }
+    private val outline = json.parseToJsonElement(File(companion, "course/$language/course.json").readText()).jsonObject
+    private val files = File(companion, "course/$language/units").listFiles { f -> f.name.endsWith(".json") }!!.sortedBy { it.name }
     private val raw: Map<String, JsonObject> = files.associate { it.nameWithoutExtension to json.parseToJsonElement(it.readText()).jsonObject }
-    private val pages = Grammar.bundled("sl").map { it.id }.toSet()
+    private val pages = Grammar.bundled(language).map { it.id }.toSet()
 
     private fun JsonElement?.objects(): List<JsonObject> = (this as? JsonArray).orEmpty().mapNotNull { it as? JsonObject }
 
@@ -74,7 +80,7 @@ class CourseContentTest {
 
     @Test fun `every right answer is graded right, and a word bank's distractors wrong for every gap`() {
         fun right(where: String, item: SheetItem) = item.accept.forEach { a ->
-            assertEquals("$where: «$a» in «${item.frame}»", Verdict.CORRECT, Grading.check(a, item.accept, Lang.SL).verdict)
+            assertEquals("$where: «$a» in «${item.frame}»", Verdict.CORRECT, Grading.check(a, item.accept, lang).verdict)
         }
         // a distractor almost right for a gap pays half when tapped: a slip in the stem is forgiven (Grading), so a
         // distractor that is the gap's word with its stem wrong is almost: mestnik's ogenju for ognju,
@@ -83,12 +89,12 @@ class CourseContentTest {
         val almost = mutableListOf<String>()
         for (u in course.units.values) {
             for ((where, e) in exercises(u)) {
-                if (e !is Exercise.Sort) Sheets.items(e).forEach { right(where, it) }
+                if (e !is Exercise.Sort) Sheets.items(e, lang).forEach { right(where, it) }
                 when (e) {
                     is Exercise.GapText -> {
-                        val items = Sheets.items(e)
+                        val items = Sheets.items(e, lang)
                         for (d in e.distractors) for (item in items) {
-                            val v = Grading.check(d, item.accept, Lang.SL).verdict
+                            val v = Grading.check(d, item.accept, lang).verdict
                             assertTrue("$where: the distractor «$d» is right for «${item.frame}»", v != Verdict.CORRECT)
                             if (v == Verdict.ALMOST) almost += "${u.id}: $d"
                         }
@@ -106,13 +112,13 @@ class CourseContentTest {
             }
             u.intro?.steps.orEmpty().forEachIndexed { i, s ->
                 when (val a = s.ask) {
-                    is Exercise.Cloze -> a.accept.forEach { x -> assertEquals("${u.id} step ${i + 1}: «$x»", Verdict.CORRECT, Grading.check(x, a.accept, Lang.SL).verdict) }
+                    is Exercise.Cloze -> a.accept.forEach { x -> assertEquals("${u.id} step ${i + 1}: «$x»", Verdict.CORRECT, Grading.check(x, a.accept, lang).verdict) }
                     is Exercise.Choice -> assertTrue("${u.id} step ${i + 1}: the answer is an option", a.answer in a.options.indices)
                     else -> {}
                 }
             }
         }
-        assertEquals("distractors almost right for a gap", listOf("mestnik: ogenju", "sklanjatev-posebnosti: pesom", "vid-vsi-casi: sedli"), almost.distinct().sorted())
+        assertEquals("distractors almost right for a gap", almostDistractors, almost.distinct().sorted())
     }
 
     @Test fun `every page a unit names is a page of the bundled book`() {
@@ -134,3 +140,47 @@ class CourseContentTest {
         }
     }
 }
+
+/**
+ * The Italian course (companion/course/it, the Friuli village's school) as the app plays it, by [CourseContentTest]'s
+ * checks with the Italian grading: its units' texts per base read in English here (the app reads them in the learner's
+ * base, Courses.inBase), no distractor even almost right.
+ */
+class ItalianCourseContentTest : CourseContentChecks("it", Lang.IT, emptyList()) {
+    private val companion = listOf(File("../.."), File(".."), File("companion")).first { File(it, "course/it/course.json").isFile }
+    private val files = File(companion, "course/it/units").listFiles { f -> f.name.endsWith(".json") }!!.sortedBy { it.name }
+
+    @Test fun `every text the learner reads in their own language is there in German, Slovene and English, and read in the base`() {
+        // a text per base (COURSE.md "Texts in the learner's language") under one of the keys the app reads so
+        fun walk(e: kotlinx.serialization.json.JsonElement, key: String?, at: String, out: MutableList<String>) {
+            when (e) {
+                is JsonObject -> {
+                    val based = key != null && key in Courses.BASED && e.isNotEmpty() && e.values.all { (it as? JsonPrimitive)?.isString == true }
+                    if (based) { if (!e.keys.containsAll(listOf("de", "sl", "en"))) out += "$at.$key: ${e.keys}"; return }
+                    e.forEach { (k, v) -> walk(v, k, "$at.$k", out) }
+                }
+                is JsonArray -> e.forEachIndexed { i, v ->
+                    if (key == "columns" && v is JsonObject && v.values.all { (it as? JsonPrimitive)?.isString == true }) {
+                        if (!v.keys.containsAll(listOf("de", "sl", "en"))) out += "$at.$i: ${v.keys}"
+                    } else walk(v, null, "$at.$i", out)
+                }
+                else -> Unit
+            }
+        }
+        val missing = ArrayList<String>()
+        for (f in files) walk(Json.parseToJsonElement(f.readText()), null, f.nameWithoutExtension, missing)
+        assertEquals("texts per base without one of de, sl, en", emptyList<String>(), missing)
+        // read in the learner's base: the German for Teo, the Slovene for a learner from Slovene
+        val ciao = Json.parseToJsonElement(File(companion, "course/it/units/ciao.json").readText()).jsonObject
+        val sort = ((ciao["worksheets"] as JsonArray)[0].jsonObject["exercises"] as JsonArray)[0].jsonObject
+        assertEquals("Metti in ordine · Zu einem Kind oder zu einem Erwachsenen?", (Courses.exercise(sort, "de") as Exercise.Sort).instruction)
+        assertEquals("con tu · otroku", (Courses.exercise(sort, "sl") as Exercise.Sort).columns[0].label)
+    }
+}
+
+/**
+ * The Slovene course (companion/course/sl) as the app plays it, by [CourseContentChecks]: the distractors almost right for a
+ * gap are mestnik's ogenju for ognju, sklanjatev-posebnosti's pesom for psom, vid-vsi-casi's sedli (sesti) for sedeli (the
+ * other aspect: worth a look by whoever writes those units); none other.
+ */
+class CourseContentTest : CourseContentChecks("sl", Lang.SL, listOf("mestnik: ogenju", "sklanjatev-posebnosti: pesom", "vid-vsi-casi: sedli"))

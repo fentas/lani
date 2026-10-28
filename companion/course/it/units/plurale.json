@@ -1,0 +1,266 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "plurale",
+  "language": "it",
+  "level": "A1",
+  "emoji": "🐈",
+  "title": { "it": "Un gatto, due gatti", "de": "Ein Kater, zwei Kater: der Plural", "sl": "En maček, dva mačka: množina", "en": "One cat, two cats: the plural" },
+  "goal": {
+    "de": "Du sprichst über zwei und mehr: il gatto → i gatti, la pecora → le pecore, und du kennst die Artikel im Plural: i, gli, le.",
+    "sl": "Govoriš o dveh in več: il gatto → i gatti, la pecora → le pecore, in poznaš člene v množini: i, gli, le.",
+    "en": "You can talk about two or more: il gatto → i gatti, la pecora → le pecore, and you know the plural articles: i, gli, le."
+  },
+  "grammar": ["plurale", "articoli-genere"],
+  "words": ["gatto", "cavallo", "libro", "piatto", "pecora", "mela", "casa", "gallina", "barca", "cane", "fiore", "pesce", "chiave", "nave", "zaino", "scoiattolo", "albero", "ape", "oca", "fungo", "bosco", "città", "caffè", "uovo", "uomo", "gabbiano", "onda", "stella", "agnello", "secchio", "tenda"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "regola", "de": "Regel", "sl": "pravilo", "en": "rule" },
+        { "it": "singolare", "de": "eins", "sl": "ena", "en": "one" },
+        { "it": "plurale", "de": "zwei und mehr", "sl": "dve in več", "en": "two or more" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Sind es zwei oder mehr, kommt der Plural. Ein Wort auf **-o** bekommt **-i**: **il gatto** (der Kater) → **i gatti** (die Kater). Und der Artikel ändert sich mit: **il** wird **i**. Im Deutschen heißt es immer die, im Italienischen gibt es drei Artikel im Plural.",
+          "sl": "Od dveh naprej pride množina, tudi pri točno dveh: italijanščina nima dvojine. Beseda na **-o** dobi **-i**: **il gatto** (maček) → **i gatti** (mački). Spremeni se tudi člen: **il** postane **i**.",
+          "en": "Two or more: that is the plural. A word in **-o** takes **-i**: **il gatto** (the cat) → **i gatti** (the cats). The article changes with it: **il** becomes **i**."
+        },
+        "examples": [
+          { "it": "Ecco i gatti di Nonna Rosa.", "de": "Da sind die Katzen von Nonna Rosa.", "sl": "Tukaj so mačke babice Rose.", "en": "Here are Nonna Rosa's cats." },
+          { "it": "I cavalli sono nel campo.", "de": "Die Pferde sind auf dem Feld.", "sl": "Konji so na polju.", "en": "The horses are in the field." }
+        ],
+        "rows": [["-o → -i", "il gatto", "i gatti"]],
+        "ask": {
+          "type": "choice", "grammar": "plurale", "prompt": "Ecco due ___. (gatto)", "options": ["gatto", "gatti", "gatte"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**-o → -i**: gatto → gatti\n- un gatto · ein Kater\n- due gatti · zwei Kater",
+            "sl": "**-o → -i**: gatto → gatti\n- un gatto · en maček\n- due gatti · dva mačka",
+            "en": "**-o → -i**: gatto → gatti\n- un gatto · one cat\n- due gatti · two cats"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Ein Wort auf **-a** bekommt **-e**: **la pecora** (das Schaf) → **le pecore** (die Schafe). Der Artikel **la** wird **le**.",
+          "sl": "Beseda na **-a** dobi **-e**: **la pecora** (ovca) → **le pecore** (ovce). Člen **la** postane **le**.",
+          "en": "A word in **-a** takes **-e**: **la pecora** (the sheep) → **le pecore** (the sheep, more than one). The article **la** becomes **le**."
+        },
+        "examples": [
+          { "it": "Le pecore di Davide sono fuori.", "de": "Die Schafe von Davide sind draußen.", "sl": "Davidove ovce so zunaj.", "en": "Davide's sheep are outside." },
+          { "it": "Ecco le galline di Nonna Rosa.", "de": "Da sind die Hühner von Nonna Rosa.", "sl": "Tukaj so kokoši babice Rose.", "en": "Here are Nonna Rosa's hens." }
+        ],
+        "rows": [["-a → -e", "la pecora", "le pecore"]],
+        "ask": {
+          "type": "cloze", "grammar": "plurale", "text": "Le ___ sono fuori. (pecora)", "accept": ["pecore"], "hint": "-a → ?",
+          "explain": {
+            "de": "**-a → -e**: pecora → pecore\n- la pecora · le pecore",
+            "sl": "**-a → -e**: pecora → pecore\n- la pecora · le pecore",
+            "en": "**-a → -e**: pecora → pecore\n- la pecora · le pecore"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Ein Wort auf **-e** bekommt **-i**, ob maskulin oder feminin: **il pesce** (der Fisch) → **i pesci**, **il fiore** (die Blume) → **i fiori**, **la chiave** (der Schlüssel) → **le chiavi**. Welcher Artikel? Das sagt dir das Wort im Singular: **il** wird **i**, **la** wird **le**.",
+          "sl": "Beseda na **-e** dobi **-i**, ne glede na spol: **il pesce** (riba) → **i pesci**, **il fiore** (roža) → **i fiori**, **la chiave** (ključ) → **le chiavi**. Kateri člen? To ti pove beseda v ednini: **il** postane **i**, **la** postane **le**.",
+          "en": "A word in **-e** takes **-i**, masculine or feminine: **il pesce** (the fish) → **i pesci**, **il fiore** (the flower) → **i fiori**, **la chiave** (the key) → **le chiavi**. Which article? The singular tells you: **il** becomes **i**, **la** becomes **le**."
+        },
+        "examples": [
+          { "it": "I pesci sono nel secchio.", "de": "Die Fische sind im Eimer.", "sl": "Ribe so v vedru.", "en": "The fish are in the bucket." },
+          { "it": "I fiori sono in giardino.", "de": "Die Blumen sind im Garten.", "sl": "Rože so na vrtu.", "en": "The flowers are in the garden." }
+        ],
+        "rows": [["-e → -i", "il pesce", "i pesci"], ["-e → -i", "la chiave", "le chiavi"]],
+        "ask": {
+          "type": "cloze", "grammar": "plurale", "text": "Ecco i ___ di Giulia. (fiore)", "accept": ["fiori"], "hint": "-e → ?",
+          "explain": {
+            "de": "**-e → -i**: fiore → fiori\n- il fiore · i fiori",
+            "sl": "**-e → -i**: fiore → fiori\n- il fiore · i fiori",
+            "en": "**-e → -i**: fiore → fiori\n- il fiore · i fiori"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Wo im Singular **lo** steht oder ein maskulines **l'**, steht im Plural **gli**: **lo zaino** (der Rucksack) → **gli zaini**, **l'albero** (der Baum) → **gli alberi**. Ein feminines **l'** wird **le**: **l'ape** (die Biene) → **le api**.",
+          "sl": "Kjer v ednini stoji **lo** ali moški **l'**, stoji v množini **gli**: **lo zaino** (nahrbtnik) → **gli zaini**, **l'albero** (drevo) → **gli alberi**. Ženski **l'** postane **le**: **l'ape** (čebela) → **le api**.",
+          "en": "Where the singular has **lo** or a masculine **l'**, the plural has **gli**: **lo zaino** (the rucksack) → **gli zaini**, **l'albero** (the tree) → **gli alberi**. A feminine **l'** becomes **le**: **l'ape** (the bee) → **le api**."
+        },
+        "examples": [
+          { "it": "Gli zaini sono in tenda.", "de": "Die Rucksäcke sind im Zelt.", "sl": "Nahrbtniki so v šotoru.", "en": "The rucksacks are in the tent." },
+          { "it": "Le api di Aldo sono sui fiori.", "de": "Aldos Bienen sind auf den Blumen.", "sl": "Aldove čebele so na rožah.", "en": "Aldo's bees are on the flowers." }
+        ],
+        "rows": [["lo → gli", "lo zaino", "gli zaini"], [{ "it": "l' (maschile) → gli", "de": "l' (maskulin) → gli", "sl": "l' (moški) → gli", "en": "l' (masculine) → gli" }, "l'albero", "gli alberi"], [{ "it": "l' (femminile) → le", "de": "l' (feminin) → le", "sl": "l' (ženski) → le", "en": "l' (feminine) → le" }, "l'ape", "le api"]],
+        "ask": {
+          "type": "choice", "grammar": "plurale", "prompt": "Ecco ___ zaini di Tommaso.", "options": ["i", "gli", "le"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**lo → gli**: lo zaino → gli zaini\n- il gatto → i gatti\n- la pecora → le pecore",
+            "sl": "**lo → gli**: lo zaino → gli zaini\n- il gatto → i gatti\n- la pecora → le pecore",
+            "en": "**lo → gli**: lo zaino → gli zaini\n- il gatto → i gatti\n- la pecora → le pecore"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Drei kleine Ausnahmen. Bei **-ca** und **-go** kommt ein h dazu, damit es hart klingt: **la barca** (das Boot) → **le barche**, **il fungo** (der Pilz) → **i funghi**. Ein Wort mit Akzent am Ende bleibt gleich: **la città** (die Stadt) → **le città**. Und **l'uovo** (das Ei) → **le uova**: das musst du dir merken.",
+          "sl": "Tri majhne izjeme. Pri **-ca** in **-go** se doda h, da glas ostane trd: **la barca** (čoln) → **le barche**, **il fungo** (goba) → **i funghi**. Beseda z naglasom na koncu ostane enaka: **la città** (mesto) → **le città**. In **l'uovo** (jajce) → **le uova**: to si zapomni.",
+          "en": "Three small exceptions. With **-ca** and **-go** an h comes in to keep the sound hard: **la barca** (the boat) → **le barche**, **il fungo** (the mushroom) → **i funghi**. A word with an accent at the end stays the same: **la città** (the town) → **le città**. And **l'uovo** (the egg) → **le uova**: that one you learn by heart."
+        },
+        "examples": [
+          { "it": "Le barche sono al mare.", "de": "Die Boote sind am Meer.", "sl": "Čolni so na morju.", "en": "The boats are at the sea." },
+          { "it": "Le uova sono nel cesto.", "de": "Die Eier sind im Korb.", "sl": "Jajca so v košari.", "en": "The eggs are in the basket." }
+        ],
+        "rows": [["-ca → -che", "la barca", "le barche"], ["-go → -ghi", "il fungo", "i funghi"], [{ "it": "invariabile", "de": "bleibt gleich", "sl": "se ne spremeni", "en": "stays the same" }, "la città", "le città"], [{ "it": "irregolare", "de": "unregelmäßig", "sl": "nepravilno", "en": "irregular" }, "l'uovo", "le uova"]],
+        "ask": {
+          "type": "choice", "grammar": "plurale", "prompt": "Ecco le ___. (barca)", "options": ["barca", "barce", "barche"], "answer": 2, "say_options": true,
+          "explain": {
+            "de": "**-ca → -che**: das h hält den Laut hart\n- la barca → le barche\n- l'oca → le oche",
+            "sl": "**-ca → -che**: h ohrani trdi glas\n- la barca → le barche\n- l'oca → le oche",
+            "en": "**-ca → -che**: the h keeps the sound hard\n- la barca → le barche\n- l'oca → le oche"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "plurale-1",
+      "title": { "it": "Uno o tanti?", "de": "Eins oder viele?", "sl": "Eden ali veliko?", "en": "One or many?" },
+      "exercises": [
+        {
+          "type": "sort", "grammar": "plurale",
+          "instruction": { "de": "Che plurale? · Welcher Plural? Sortiere", "sl": "Che plurale? · Katera množina? Razvrsti", "en": "Che plurale? · Which plural? Sort" },
+          "columns": [
+            { "label": "-i", "words": ["gatto", "libro", "cane", "fiore"] },
+            { "label": "-e", "words": ["pecora", "mela", "casa", "stella"] }
+          ],
+          "explain": {
+            "de": "**-o und -e → -i**, **-a → -e**\n- il gatto → i gatti · il cane → i cani\n- la casa → le case",
+            "sl": "**-o in -e → -i**, **-a → -e**\n- il gatto → i gatti · il cane → i cani\n- la casa → le case",
+            "en": "**-o and -e → -i**, **-a → -e**\n- il gatto → i gatti · il cane → i cani\n- la casa → le case"
+          }
+        },
+        {
+          "type": "table", "grammar": "plurale",
+          "instruction": { "de": "Completa · Ergänze den Plural", "sl": "Completa · Dopolni množino", "en": "Completa · Fill in the plural" },
+          "prompt": { "de": "uno → tanti · eins → viele", "sl": "uno → tanti · eden → veliko", "en": "uno → tanti · one → many" },
+          "columns": [
+            { "de": "singolare · Singular", "sl": "singolare · ednina", "en": "singolare · singular" },
+            { "de": "plurale · Plural", "sl": "plurale · množina", "en": "plurale · plural" }
+          ],
+          "rows": [
+            { "label": "-o → -i", "cells": ["il libro", { "accept": ["i libri"], "hint": "il → ?" }] },
+            { "label": "-a → -e", "cells": ["la casa", { "accept": ["le case"], "hint": "la → ?" }] },
+            { "label": "-e → -i", "cells": ["il cane", { "accept": ["i cani"] }] },
+            { "label": "-e → -i", "cells": ["la nave", { "accept": ["le navi"], "hint": { "de": "feminin: la → le", "sl": "ženski spol: la → le", "en": "feminine: la → le" } }] },
+            { "label": "lo → gli", "cells": ["lo scoiattolo", { "accept": ["gli scoiattoli"] }] },
+            { "label": { "de": "l' (maskulin) → gli", "sl": "l' (moški) → gli", "en": "l' (masculine) → gli" }, "cells": ["l'albero", { "accept": ["gli alberi"] }] },
+            { "label": { "de": "l' (feminin) → le", "sl": "l' (ženski) → le", "en": "l' (feminine) → le" }, "cells": ["l'oca", { "accept": ["le oche"], "hint": { "de": "-ca → -che", "sl": "-ca → -che", "en": "-ca → -che" } }] }
+          ],
+          "explain": "il libro → i libri · la casa → le case · il cane → i cani · la nave → le navi · lo scoiattolo → gli scoiattoli · l'albero → gli alberi · l'oca → le oche"
+        }
+      ]
+    },
+    {
+      "id": "plurale-2",
+      "title": { "it": "In cucina con Nonna Rosa", "de": "In der Küche mit Nonna Rosa", "sl": "V kuhinji z babico Roso", "en": "In the kitchen with Nonna Rosa" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "plurale",
+          "instruction": { "de": "Completa · Ergänze den Plural", "sl": "Completa · Dopolni množino", "en": "Completa · Fill in the plural" },
+          "title": "In cucina con Nonna Rosa",
+          "text": "Oggi Nonna Rosa fa una torta. Ecco le ___ (mela) per la torta. I ___ (piatto) sono sul tavolo. Le ___ (uovo) sono nel cesto. ___ zaini di Lorenzo e Giulia sono sulla sedia. I ___ (gatto) sono sotto il tavolo. «Bambini, ecco le ___ (chiave) di casa!»",
+          "gaps": [
+            { "accept": ["mele"], "hint": "-a → ?" },
+            { "accept": ["piatti"], "hint": "-o → ?" },
+            { "accept": ["uova"], "hint": { "de": "eine Ausnahme", "sl": "izjema", "en": "an exception" }, "explain": { "de": "l'uovo → **le uova**: unregelmäßig.", "sl": "l'uovo → **le uova**: nepravilno.", "en": "l'uovo → **le uova**: irregular." } },
+            { "accept": ["Gli"], "hint": "lo zaino → ?", "grammar": "articoli-genere", "explain": { "de": "lo zaino → **gli** zaini.", "sl": "lo zaino → **gli** zaini.", "en": "lo zaino → **gli** zaini." } },
+            { "accept": ["gatti"], "hint": "-o → ?" },
+            { "accept": ["chiavi"], "hint": "-e → ?", "explain": { "de": "la chiave → le **chiavi**: -e → -i, auch feminin.", "sl": "la chiave → le **chiavi**: -e → -i, tudi v ženskem spolu.", "en": "la chiave → le **chiavi**: -e → -i, feminine too." } }
+          ],
+          "bank": true, "distractors": ["uovi", "chiave", "i"],
+          "translation": {
+            "de": "Heute backt Nonna Rosa einen Kuchen. Da sind die Äpfel für den Kuchen. Die Teller sind auf dem Tisch. Die Eier sind im Korb. Die Rucksäcke von Lorenzo und Giulia sind auf dem Stuhl. Die Katzen sind unter dem Tisch. „Kinder, da sind die Hausschlüssel!“",
+            "sl": "Danes babica Rosa peče torto. Tukaj so jabolka za torto. Krožniki so na mizi. Jajca so v košari. Nahrbtnika Lorenza in Giulie sta na stolu. Mačke so pod mizo. »Otroci, tukaj so ključi od hiše!«",
+            "en": "Today Nonna Rosa is making a cake. Here are the apples for the cake. The plates are on the table. The eggs are in the basket. Lorenzo's and Giulia's rucksacks are on the chair. The cats are under the table. \"Children, here are the house keys!\""
+          }
+        }
+      ]
+    },
+    {
+      "id": "plurale-3",
+      "title": { "it": "Al plurale", "de": "In den Plural", "sl": "V množino", "en": "Into the plural" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "plurale",
+          "instruction": { "de": "Al plurale · In den Plural", "sl": "Al plurale · V množino", "en": "Al plurale · Into the plural" },
+          "cue": { "de": "→ tanti · viele", "sl": "→ tanti · veliko", "en": "→ tanti · many" },
+          "items": [
+            { "from": "Il gatto è qui.", "accept": ["I gatti sono qui."], "hint": "il → i, è → sono" },
+            { "from": "La pecora è fuori.", "accept": ["Le pecore sono fuori."], "hint": "la → le, è → sono" },
+            { "from": "Il pesce è nel secchio.", "accept": ["I pesci sono nel secchio."] },
+            { "from": "Lo zaino è in tenda.", "accept": ["Gli zaini sono in tenda."], "hint": "lo → ?" },
+            { "from": "L'ape è qui.", "accept": ["Le api sono qui."], "hint": { "de": "ape ist feminin", "sl": "ape je ženskega spola", "en": "ape is feminine" } },
+            { "from": "La barca è al mare.", "accept": ["Le barche sono al mare."], "hint": "-ca → ?" },
+            { "from": "L'albero è nel bosco.", "accept": ["Gli alberi sono nel bosco."], "hint": { "de": "albero ist maskulin", "sl": "albero je moškega spola", "en": "albero is masculine" } },
+            { "from": "Il fungo è nel bosco.", "accept": ["I funghi sono nel bosco."], "hint": "-go → ?" }
+          ],
+          "explain": {
+            "de": "**Plural**: der Artikel, das Nomen und **è → sono**\n- il gatto è → i gatti sono\n- lo zaino è → gli zaini sono\n- la barca è → le barche sono",
+            "sl": "**Množina**: člen, samostalnik in **è → sono**\n- il gatto è → i gatti sono\n- lo zaino è → gli zaini sono\n- la barca è → le barche sono",
+            "en": "**The plural**: the article, the noun and **è → sono**\n- il gatto è → i gatti sono\n- lo zaino è → gli zaini sono\n- la barca è → le barche sono"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "sort", "grammar": "plurale",
+        "instruction": { "de": "Quale articolo? · Welcher Artikel? Sortiere", "sl": "Quale articolo? · Kateri člen? Razvrsti", "en": "Quale articolo? · Which article? Sort" },
+        "columns": [
+          { "label": "i", "words": ["cani", "libri"] },
+          { "label": "gli", "words": ["alberi", "scoiattoli"] },
+          { "label": "le", "words": ["stelle", "chiavi"] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "plurale",
+        "instruction": { "de": "Completa · Ergänze den Plural", "sl": "Completa · Dopolni množino", "en": "Completa · Fill in the plural" },
+        "text": "Al mare con Tommaso. Ecco le ___ (onda). I ___ (gabbiano) sono sul pontile. Le ___ (barca) sono nella laguna.",
+        "gaps": [
+          { "accept": ["onde"] },
+          { "accept": ["gabbiani"] },
+          { "accept": ["barche"] }
+        ],
+        "translation": {
+          "de": "Am Meer mit Tommaso. Da sind die Wellen. Die Möwen sind auf dem Steg. Die Boote sind in der Lagune.",
+          "sl": "Na morju s Tommasom. Tukaj so valovi. Galebi so na pomolu. Čolni so v laguni.",
+          "en": "At the sea with Tommaso. Here are the waves. The seagulls are on the jetty. The boats are in the lagoon."
+        }
+      },
+      {
+        "type": "transform", "grammar": "plurale",
+        "instruction": { "de": "Al plurale · In den Plural", "sl": "Al plurale · V množino", "en": "Al plurale · Into the plural" },
+        "cue": { "de": "→ tanti · viele", "sl": "→ tanti · veliko", "en": "→ tanti · many" },
+        "items": [
+          { "from": "Il cavallo è nel campo.", "accept": ["I cavalli sono nel campo."] },
+          { "from": "L'oca è allo stagno.", "accept": ["Le oche sono allo stagno."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "plurale", "prompt": "Gorizia e Udine sono due ___.", "options": ["città", "citte"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**Akzent am Ende**: das Wort bleibt gleich\n- la città → le città\n- il caffè → i caffè",
+          "sl": "**Naglas na koncu**: beseda ostane enaka\n- la città → le città\n- il caffè → i caffè",
+          "en": "**An accent at the end**: the word stays the same\n- la città → le città\n- il caffè → i caffè"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (it, de, sl). Native check: the gap text's frame (Oggi Nonna Rosa fa una torta), the made-up wrong options citte, barce"
+}

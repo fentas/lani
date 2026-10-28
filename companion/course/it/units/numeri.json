@@ -1,0 +1,276 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "numeri",
+  "language": "it",
+  "level": "A1",
+  "emoji": "🔢",
+  "title": { "it": "I numeri: uno, due, tre …", "de": "Die Zahlen: uno, due, tre …", "sl": "Števila: uno, due, tre …", "en": "Numbers: uno, due, tre …" },
+  "goal": {
+    "de": "Du zählst von null bis zwanzig und in Zehnern bis hundert, sagst, wie viele es sind (venti pecore) und fragst: Quanti? Quante?",
+    "sl": "Šteješ od nič do dvajset in po desetice do sto, poveš, koliko česa je (venti pecore), in vprašaš: Quanti? Quante?",
+    "en": "You can count from zero to twenty and in tens up to a hundred, say how many there are (venti pecore) and ask: Quanti? Quante?"
+  },
+  "grammar": ["numeri"],
+  "words": ["numero", "zero", "uno", "due", "tre", "quattro", "cinque", "sei", "sette", "otto", "nove", "dieci", "undici", "dodici", "tredici", "quindici", "venti", "trenta", "cinquanta", "cento", "quanto", "anno", "mese", "pecora", "agnello", "gatto", "cane", "pallone", "conchiglia", "gabbiano", "ape", "mulino"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "numero", "de": "Zahl", "sl": "število", "en": "number" },
+        { "it": "parola", "de": "Wort", "sl": "beseda", "en": "word" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Zählen wir! **uno, due, tre** (eins, zwei, drei), **quattro, cinque, sei** (vier, fünf, sechs), **sette, otto, nove, dieci** (sieben, acht, neun, zehn). Null ist **zero**. Lustig: **sei** heißt sechs und auch du bist, **tu sei**.",
+          "sl": "Štejmo! **uno, due, tre** (ena, dva, tri), **quattro, cinque, sei** (štiri, pet, šest), **sette, otto, nove, dieci** (sedem, osem, devet, deset). Nič je **zero**. Zabavno: **sei** je šest in tudi si, **tu sei**.",
+          "en": "Let's count! **uno, due, tre** (one, two, three), **quattro, cinque, sei** (four, five, six), **sette, otto, nove, dieci** (seven, eight, nine, ten). Zero is **zero**. Funny: **sei** is six and also you are, **tu sei**."
+        },
+        "examples": [
+          { "it": "Uno, due, tre: via!", "de": "Eins, zwei, drei: los!", "sl": "Ena, dva, tri, gremo!", "en": "One, two, three: go!" },
+          { "it": "Tommaso ha nove anni.", "de": "Tommaso ist neun Jahre alt.", "sl": "Tommaso je star devet let.", "en": "Tommaso is nine years old." },
+          { "it": "Tu sei Giulia?", "de": "Bist du Giulia?", "sl": "Si ti Giulia?", "en": "Are you Giulia?" }
+        ],
+        "rows": [["0, 1, 2, 3", "zero, uno, due, tre"], ["4, 5, 6", "quattro, cinque, sei"], ["7, 8, 9, 10", "sette, otto, nove, dieci"]],
+        "ask": {
+          "type": "choice", "grammar": "numeri", "prompt": "sette, ___, nove", "options": ["sei", "otto", "dieci"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**sette, otto, nove**: 7, 8, 9\n- sei · 6\n- dieci · 10",
+            "sl": "**sette, otto, nove**: 7, 8, 9\n- sei · 6\n- dieci · 10",
+            "en": "**sette, otto, nove**: 7, 8, 9\n- sei · 6\n- dieci · 10"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Hör gut hin: **undici, dodici, tredici, quattordici, quindici, sedici** (11 bis 16) enden alle gleich. Bei **diciassette, diciotto, diciannove** (17 bis 19) kommt dieser Teil nach vorne. Und 20 ist **venti**.",
+          "sl": "Dobro poslušaj: **undici, dodici, tredici, quattordici, quindici, sedici** (11 do 16) se končajo enako. Pri **diciassette, diciotto, diciannove** (17 do 19) pride ta del naprej. 20 pa je **venti**.",
+          "en": "Listen carefully: **undici, dodici, tredici, quattordici, quindici, sedici** (11 to 16) all end the same. In **diciassette, diciotto, diciannove** (17 to 19) that part comes first. And 20 is **venti**."
+        },
+        "examples": [
+          { "it": "Giulia ha quindici conchiglie.", "de": "Giulia hat fünfzehn Muscheln.", "sl": "Giulia ima petnajst školjk.", "en": "Giulia has fifteen shells." },
+          { "it": "Nonna Rosa ha dodici uova.", "de": "Nonna Rosa hat zwölf Eier.", "sl": "Babica Rosa ima dvanajst jajc.", "en": "Nonna Rosa has twelve eggs." }
+        ],
+        "rows": [["11, 12, 13", "undici, dodici, tredici"], ["14, 15, 16", "quattordici, quindici, sedici"], ["17, 18, 19", "diciassette, diciotto, diciannove"], ["20", "venti"]],
+        "ask": {
+          "type": "cloze", "grammar": "numeri", "text": "Lorenzo ha ___ conchiglie. (13)", "accept": ["tredici"], "hint": "10 + 3",
+          "explain": {
+            "de": "**13 = tredici**: tre + dici\n- undici · 11\n- dodici · 12",
+            "sl": "**13 = tredici**: tre + dici\n- undici · 11\n- dodici · 12",
+            "en": "**13 = tredici**: tre + dici\n- undici · 11\n- dodici · 12"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Die Zehner: **venti, trenta, quaranta, cinquanta, sessanta, settanta, ottanta, novanta**, und 100 ist **cento**. Aufgepasst, anders als im Deutschen kommt der Zehner zuerst: **ventidue** (zweiundzwanzig) ist **venti** und **due**. Vor **uno** und **otto** fällt ein Buchstabe weg: **ventuno**, **ventotto**. Und **ventitré** bekommt einen Akzent.",
+          "sl": "Desetice: **venti, trenta, quaranta, cinquanta, sessanta, settanta, ottanta, novanta**, 100 pa je **cento**. Pozor, drugače kot v slovenščini je desetica spredaj: **ventidue** (dvaindvajset) je **venti** in **due**. Pred **uno** in **otto** ena črka odpade: **ventuno**, **ventotto**. **ventitré** pa dobi naglasno znamenje.",
+          "en": "The tens: **venti, trenta, quaranta, cinquanta, sessanta, settanta, ottanta, novanta**, and 100 is **cento**. Then the units, as in English: **ventidue** (twenty-two) is **venti** and **due**. Before **uno** and **otto** a letter drops: **ventuno**, **ventotto**. And **ventitré** takes an accent."
+        },
+        "examples": [
+          { "it": "Davide ha ventotto pecore.", "de": "Davide hat achtundzwanzig Schafe.", "sl": "Davide ima osemindvajset ovc.", "en": "Davide has twenty-eight sheep." },
+          { "it": "Il mulino ha cento anni.", "de": "Die Mühle ist hundert Jahre alt.", "sl": "Mlin je star sto let.", "en": "The mill is a hundred years old." }
+        ],
+        "rows": [["20, 30, 40, 50", "venti, trenta, quaranta, cinquanta"], ["60, 70, 80, 90", "sessanta, settanta, ottanta, novanta"], ["100", "cento"], ["22, 25", "ventidue, venticinque"], ["21, 28", "ventuno, ventotto"], ["23", "ventitré"]],
+        "ask": {
+          "type": "choice", "grammar": "numeri", "prompt": "Davide ha ___ pecore. (28)", "options": ["ventiotto", "ventotto", "ottoventi"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**venti + otto → ventotto**: das i fällt weg\n- ventuno · 21\n- der Zehner kommt zuerst: nie ottoventi",
+            "sl": "**venti + otto → ventotto**: i odpade\n- ventuno · 21\n- desetica je spredaj: nikoli ottoventi",
+            "en": "**venti + otto → ventotto**: the i drops\n- ventuno · 21\n- the tens come first: never ottoventi"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Bei einem Ding ist **uno** der Artikel: **un cane** (ein Hund), **una pecora** (ein Schaf). Ab zwei kommt der Plural: **due gatti** (zwei Katzen), **tre pecore** (drei Schafe). Wie viele Schafe hat Davide? **Davide ha venti pecore.**",
+          "sl": "Pri eni stvari je **uno** člen: **un cane** (en pes), **una pecora** (ena ovca). Od dva naprej je množina, vedno enaka, brez rodilnika: **due gatti** (dva mačka), **tre pecore** (tri ovce), **venti pecore** (dvajset ovc).",
+          "en": "With one thing **uno** is the article: **un cane** (a dog), **una pecora** (a sheep). From two on, the plural: **due gatti** (two cats), **tre pecore** (three sheep). How many sheep has Davide got? **Davide ha venti pecore.**"
+        },
+        "examples": [
+          { "it": "Nonna Rosa ha due gatti.", "de": "Nonna Rosa hat zwei Katzen.", "sl": "Babica Rosa ima dve mački.", "en": "Nonna Rosa has two cats." },
+          { "it": "Davide ha venti pecore e un cane.", "de": "Davide hat zwanzig Schafe und einen Hund.", "sl": "Davide ima dvajset ovc in psa.", "en": "Davide has twenty sheep and a dog." }
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "numeri", "text": "Tommaso ha tre ___. (pallone)", "accept": ["palloni"], "hint": "-e → ?",
+          "explain": {
+            "de": "**Ab zwei der Plural**: un pallone → tre palloni\n- una pecora → tre pecore",
+            "sl": "**Od dva naprej množina**: un pallone → tre palloni\n- una pecora → tre pecore",
+            "en": "**From two on, the plural**: un pallone → tre palloni\n- una pecora → tre pecore"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Wie viele? heißt **quanti** bei maskulinen Wörtern und **quante** bei femininen: **Quanti gatti?** (Wie viele Katzen?) **Quante pecore?** (Wie viele Schafe?) Auch beim Alter: **Quanti anni ha Lorenzo?** (Wie alt ist Lorenzo?) **Lorenzo ha sei anni.**",
+          "sl": "Koliko? je **quanti** pri moških besedah in **quante** pri ženskih: **Quanti gatti?** (Koliko mačk?) **Quante pecore?** (Koliko ovc?) Tudi pri starosti: **Quanti anni ha Lorenzo?** (Koliko je star Lorenzo?) **Lorenzo ha sei anni.**",
+          "en": "How many? is **quanti** with masculine words and **quante** with feminine ones: **Quanti gatti?** (How many cats?) **Quante pecore?** (How many sheep?) Age too: **Quanti anni ha Lorenzo?** (How old is Lorenzo?) **Lorenzo ha sei anni.**"
+        },
+        "examples": [
+          { "it": "Quante api ha Aldo? Tante!", "de": "Wie viele Bienen hat Aldo? Ganz viele!", "sl": "Koliko čebel ima Aldo? Ogromno!", "en": "How many bees has Aldo got? Lots!" },
+          { "it": "Quanti anni ha Nonno Bepi? Ottantadue!", "de": "Wie alt ist Nonno Bepi? Zweiundachtzig!", "sl": "Koliko je star dedek Bepi? Dvainosemdeset let!", "en": "How old is Nonno Bepi? Eighty-two!" }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "numeri", "prompt": "___ pecore ha Davide?", "options": ["Quanti", "Quante", "Quanto"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**pecore** ist feminin: **quante**\n- quanti gatti · quanti anni\n- quante pecore · quante api",
+            "sl": "**pecore** je ženskega spola: **quante**\n- quanti gatti · quanti anni\n- quante pecore · quante api",
+            "en": "**pecore** is feminine: **quante**\n- quanti gatti · quanti anni\n- quante pecore · quante api"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "numeri-1",
+      "title": { "it": "Contiamo", "de": "Wir zählen", "sl": "Štejemo", "en": "Let's count" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "numeri",
+          "instruction": { "de": "Scrivi in lettere · Schreib die Zahl als Wort", "sl": "Scrivi in lettere · Napiši z besedo", "en": "Scrivi in lettere · Write it as a word" },
+          "prompt": { "de": "numero → parola · Zahl → Wort", "sl": "numero → parola · število → beseda", "en": "numero → parola · number → word" },
+          "columns": [{ "de": "parola · Wort", "sl": "parola · beseda", "en": "parola · word" }],
+          "rows": [
+            { "label": "7", "cells": [{ "accept": ["sette"] }] },
+            { "label": "11", "cells": [{ "accept": ["undici"], "hint": "10 + 1" }] },
+            { "label": "14", "cells": [{ "accept": ["quattordici"], "hint": "10 + 4" }] },
+            { "label": "17", "cells": [{ "accept": ["diciassette"], "hint": { "de": "dici… vorne", "sl": "dici… spredaj", "en": "dici… first" } }] },
+            { "label": "20", "cells": [{ "accept": ["venti"] }] },
+            { "label": "30", "cells": [{ "accept": ["trenta"] }] },
+            { "label": "21", "cells": [{ "accept": ["ventuno"], "hint": { "de": "venti + uno: ein Buchstabe fällt weg", "sl": "venti + uno: ena črka odpade", "en": "venti + uno: a letter drops" } }] },
+            { "label": "28", "cells": [{ "accept": ["ventotto"], "hint": { "de": "venti + otto", "sl": "venti + otto", "en": "venti + otto" } }] }
+          ],
+          "explain": "7 sette · 11 undici · 14 quattordici · 17 diciassette · 20 venti · 30 trenta · 21 ventuno · 28 ventotto"
+        },
+        {
+          "type": "multi", "grammar": "numeri",
+          "instruction": { "de": "Scegli · Wähle alle richtigen", "sl": "Scegli · Izberi vse prave", "en": "Scegli · Pick all the right ones" },
+          "prompt": { "de": "Più di dieci? · Welche sind mehr als zehn?", "sl": "Più di dieci? · Katera so več kot deset?", "en": "Più di dieci? · Which are more than ten?" },
+          "options": ["otto", "dodici", "nove", "quindici", "sette", "venti"], "answers": [1, 3, 5], "say_options": true,
+          "explain": {
+            "de": "**mehr als zehn**: dodici (12), quindici (15), venti (20)\n- otto · 8 · nove · 9 · sette · 7",
+            "sl": "**več kot deset**: dodici (12), quindici (15), venti (20)\n- otto · 8 · nove · 9 · sette · 7",
+            "en": "**more than ten**: dodici (12), quindici (15), venti (20)\n- otto · 8 · nove · 9 · sette · 7"
+          }
+        }
+      ]
+    },
+    {
+      "id": "numeri-2",
+      "title": { "it": "Quanti sono?", "de": "Wie viele?", "sl": "Koliko?", "en": "How many?" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "numeri",
+          "instruction": { "de": "Completa · Ergänze die Zahl als Wort", "sl": "Completa · Dopolni število z besedo", "en": "Completa · Fill in the number as a word" },
+          "title": "Quanti sono?",
+          "text": "Pastore Davide ha ___ (20) pecore. Bianca, l'agnellina, ha ___ (2) mesi. Moro, il cane di Nonno Bepi, ha ___ (9) anni. Nonno Bepi ha ___ (82) anni. Giulia ha ___ (1) gatto. Il mulino di Franco ha ___ (100) anni!",
+          "gaps": [
+            { "accept": ["venti"] },
+            { "accept": ["due"] },
+            { "accept": ["nove"] },
+            { "accept": ["ottantadue"], "hint": "80 + 2", "explain": { "de": "ottanta + due: der Zehner zuerst, **ottantadue**.", "sl": "ottanta + due: desetica spredaj, **ottantadue**.", "en": "ottanta + due: the tens first, **ottantadue**." } },
+            { "accept": ["un"], "hint": { "de": "vor einem Nomen", "sl": "pred samostalnikom", "en": "before a noun" }, "explain": { "de": "Vor einem Nomen ist uno der Artikel: **un** gatto.", "sl": "Pred samostalnikom je uno člen: **un** gatto.", "en": "Before a noun uno is the article: **un** gatto." } },
+            { "accept": ["cento"] }
+          ],
+          "bank": true, "distractors": ["uno", "dodici", "ottanta"],
+          "translation": {
+            "de": "Pastore Davide hat zwanzig Schafe. Bianca, das Lämmchen, ist zwei Monate alt. Moro, der Hund von Nonno Bepi, ist neun Jahre alt. Nonno Bepi ist zweiundachtzig. Giulia hat eine Katze. Die Mühle von Franco ist hundert Jahre alt!",
+            "sl": "Pastir Davide ima dvajset ovc. Bianca, mala ovčka, je stara dva meseca. Moro, pes dedka Bepija, je star devet let. Dedek Bepi je star dvainosemdeset let. Giulia ima eno mačko. Francov mlin je star sto let!",
+            "en": "Pastore Davide has twenty sheep. Bianca, the little lamb, is two months old. Moro, Nonno Bepi's dog, is nine. Nonno Bepi is eighty-two. Giulia has one cat. Franco's mill is a hundred years old!"
+          }
+        }
+      ]
+    },
+    {
+      "id": "numeri-3",
+      "title": { "it": "Tanti!", "de": "Ganz viele!", "sl": "Veliko!", "en": "Lots!" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "numeri",
+          "instruction": { "de": "Con il numero · Sag es mit der Zahl in Klammern, als Wort", "sl": "Con il numero · Povej s številom v oklepaju, z besedo", "en": "Con il numero · Say it with the number in brackets, as a word" },
+          "items": [
+            { "from": "Ecco un gatto. (2)", "accept": ["Ecco due gatti."], "hint": { "de": "ab zwei: der Plural", "sl": "od dva naprej: množina", "en": "from two on: the plural" } },
+            { "from": "Ecco una pecora. (5)", "accept": ["Ecco cinque pecore."] },
+            { "from": "Ecco un'ape. (10)", "accept": ["Ecco dieci api."] },
+            { "from": "Ecco uno zaino. (3)", "accept": ["Ecco tre zaini."] },
+            { "from": "Lorenzo ha un pallone. (4)", "accept": ["Lorenzo ha quattro palloni."] },
+            { "from": "Nonna Rosa ha un uovo. (6)", "accept": ["Nonna Rosa ha sei uova."], "hint": { "de": "l'uovo → le uova", "sl": "l'uovo → le uova", "en": "l'uovo → le uova" } },
+            { "from": "Ecco un albero. (12)", "accept": ["Ecco dodici alberi."] },
+            { "from": "Davide ha un agnello. (2)", "accept": ["Davide ha due agnelli."] }
+          ],
+          "explain": {
+            "de": "**ab zwei**: die Zahl und der Plural\n- un gatto → due gatti\n- una pecora → cinque pecore\n- un uovo → sei uova",
+            "sl": "**od dva naprej**: število in množina\n- un gatto → due gatti\n- una pecora → cinque pecore\n- un uovo → sei uova",
+            "en": "**from two on**: the number and the plural\n- un gatto → due gatti\n- una pecora → cinque pecore\n- un uovo → sei uova"
+          }
+        },
+        {
+          "type": "choice", "grammar": "numeri", "prompt": "Lorenzo: «___ anni hai, Giulia?»", "options": ["Quanti", "Quante", "Quanto"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**anni** ist maskulin: **quanti**\n- Quanti anni hai? · Wie alt bist du?",
+            "sl": "**anni** je moškega spola: **quanti**\n- Quanti anni hai? · Koliko si star?",
+            "en": "**anni** is masculine: **quanti**\n- Quanti anni hai? · How old are you?"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "numeri",
+        "instruction": { "de": "Scrivi in lettere · Schreib die Zahl als Wort", "sl": "Scrivi in lettere · Napiši z besedo", "en": "Scrivi in lettere · Write it as a word" },
+        "columns": [{ "de": "parola · Wort", "sl": "parola · beseda", "en": "parola · word" }],
+        "rows": [
+          { "label": "13", "cells": [{ "accept": ["tredici"] }] },
+          { "label": "16", "cells": [{ "accept": ["sedici"] }] },
+          { "label": "19", "cells": [{ "accept": ["diciannove"] }] },
+          { "label": "50", "cells": [{ "accept": ["cinquanta"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "numeri",
+        "instruction": { "de": "Completa · Ergänze die Zahl als Wort", "sl": "Completa · Dopolni število z besedo", "en": "Completa · Fill in the number as a word" },
+        "text": "Al mare con Zia Nives. Zia Nives ha ___ (75) anni. Ecco ___ (3) gabbiani sul pontile. Tommaso ha ___ (12) conchiglie.",
+        "gaps": [
+          { "accept": ["settantacinque"] },
+          { "accept": ["tre"] },
+          { "accept": ["dodici"] }
+        ],
+        "translation": {
+          "de": "Am Meer mit Zia Nives. Zia Nives ist fünfundsiebzig Jahre alt. Da sind drei Möwen auf dem Steg. Tommaso hat zwölf Muscheln.",
+          "sl": "Na morju s teto Nives. Teta Nives je stara petinsedemdeset let. Tukaj so trije galebi na pomolu. Tommaso ima dvanajst školjk.",
+          "en": "At the sea with Zia Nives. Zia Nives is seventy-five. Here are three seagulls on the jetty. Tommaso has twelve shells."
+        }
+      },
+      {
+        "type": "transform", "grammar": "numeri",
+        "instruction": { "de": "Con il numero · Sag es mit der Zahl in Klammern, als Wort", "sl": "Con il numero · Povej s številom v oklepaju, z besedo", "en": "Con il numero · Say it with the number in brackets, as a word" },
+        "items": [
+          { "from": "Ecco una barca. (4)", "accept": ["Ecco quattro barche."] },
+          { "from": "Giulia ha un fiore. (7)", "accept": ["Giulia ha sette fiori."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "numeri", "prompt": "Davide ha ___ pecore. (21)", "options": ["ventiuno", "ventuno", "unoventi"], "answer": 1, "say_options": true,
+        "explain": {
+          "de": "**venti + uno → ventuno**: das i fällt weg, der Zehner zuerst",
+          "sl": "**venti + uno → ventuno**: i odpade, desetica spredaj",
+          "en": "**venti + uno → ventuno**: the i drops, the tens first"
+        }
+      },
+      {
+        "type": "choice", "grammar": "numeri", "prompt": "___ cani ha Nonno Bepi?", "options": ["Quanti", "Quante", "Quanto"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**cani** ist maskulin: **quanti**\n- quante pecore · quanti cani",
+          "sl": "**cani** je moškega spola: **quanti**\n- quante pecore · quanti cani",
+          "en": "**cani** is masculine: **quanti**\n- quante pecore · quanti cani"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (it, de, sl). Native check: ventuno pecore (or ventun pecore), Bianca l'agnellina, the made-up wrong forms ventiotto, ottoventi, ventiuno, unoventi"
+}

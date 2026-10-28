@@ -1968,6 +1968,15 @@ questions), `rodilnik`, `kje-kam-od-kod`, `dajalnik`, `orodnik`, `pridevniki-skl
 cases, pronouns, the comparative, aspect, the conditional (14 units); then B1's 16. A2 opens when the school stands and every A1 unit is done (GAME.md, "The school opens the next
 levels"); a unit's "⏩ Znam že: kar na test" tests out of it at once.
 
+**The Italian school** (the Friuli village's: [COURSE.md](COURSE.md#the-italian-course), docs/plans/05-built/friuli-school.md).
+A village of the Friuli culture gets the Italian course (`companion/course/it`: A1's first six units written, ciao to
+numeri; the rest planned) and Maestra Elena teaches it, in her voice of the culture's cast. Its exercises' instructions,
+hints and whys come in the learner's own language (German for Teo; [COURSE.md](COURSE.md#texts-in-the-learners-language)),
+its sheets print headed in Italian and the base. While the next units are planned, Elena says she is preparing them
+("Sto preparando le prossime lezioni. Torna presto!") and Home's tile "📝 Nuove lezioni in arrivo". The school building's
+card goes into "A scuola · In der Schule", the Friuli classroom ([SCENES.md](SCENES.md#culture-looks)). QA:
+`companion/bin/qa --steps friuli-school` with a synthetic Teo (its usage).
+
 **Checked** (`ui/school/SheetExercises.kt`, `data/AnswerDiff.kt`, `ui/AnswerDiffText.kt`). "Preveri · Check" marks every
 item where it was answered: its field outlined in the verdict's colour with a small round ✓, ≈ or ✗ on its corner (it
 takes no room from what was typed), and under a field not right its correction: what was typed set against what is right

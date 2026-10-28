@@ -1,0 +1,299 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "ciao",
+  "language": "it",
+  "level": "A1",
+  "emoji": "👋",
+  "title": { "it": "Ciao! Mi chiamo …", "de": "Hallo! Ich heiße …", "sl": "Živjo! Ime mi je …", "en": "Hi! My name is …" },
+  "goal": {
+    "de": "Du grüßt Kinder und Erwachsene richtig (ciao, buongiorno, buonasera, arrivederci), sagst, wie du heißt, fragst, wie es jemandem geht, und weißt, wann man tu und wann Lei sagt.",
+    "sl": "Pravilno pozdraviš otroke in odrasle (ciao, buongiorno, buonasera, arrivederci), poveš, kako ti je ime, vprašaš, kako je kdo, in veš, kdaj rečeš tu in kdaj Lei.",
+    "en": "You can greet children and grown-ups the right way (ciao, buongiorno, buonasera, arrivederci), say your name, ask how someone is, and you know when to say tu and when Lei."
+  },
+  "grammar": ["tu-lei"],
+  "words": ["ciao", "buongiorno", "buonasera", "arrivederci", "chiamarsi", "come", "stare", "bene", "grazie", "scusa", "scusi", "maestra", "signore", "signora", "bambino", "amico"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "che cosa", "de": "was", "sl": "kaj", "en": "what" },
+        { "it": "con tu", "de": "mit tu (du)", "sl": "s tu (ti)", "en": "with tu (friends)" },
+        { "it": "con Lei", "de": "mit Lei (Sie)", "sl": "z Lei (vi)", "en": "with Lei (polite)" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Hallo! Ich bin Maestra Elena, deine Lehrerin. Zu Kindern, Freunden und zur Familie sagst du **ciao**. **Ciao** heißt hallo und auch tschüss: **Ciao, Giulia!** (Hallo, Giulia!) und am Ende **Ciao, Lorenzo!** (Tschüss, Lorenzo!).",
+          "sl": "Živjo! Jaz sem učiteljica Elena. Otrokom, prijateljem in družini rečeš **ciao**. **Ciao** pomeni živjo in tudi adijo: **Ciao, Giulia!** (Živjo, Giulia!) in na koncu **Ciao, Lorenzo!** (Adijo, Lorenzo!).",
+          "en": "Hello! I'm Maestra Elena, your teacher. To children, friends and family you say **ciao**. **Ciao** means hi and also bye: **Ciao, Giulia!** (Hi, Giulia!) and at the end **Ciao, Lorenzo!** (Bye, Lorenzo!)."
+        },
+        "examples": [
+          { "it": "Ciao, Giulia!", "de": "Hallo, Giulia!", "sl": "Živjo, Giulia!", "en": "Hi, Giulia!" },
+          { "it": "Ciao, Nonna Rosa! A domani!", "de": "Tschüss, Oma Rosa! Bis morgen!", "sl": "Adijo, babica Rosa! Se vidiva jutri!", "en": "Bye, Nonna Rosa! See you tomorrow!" }
+        ],
+        "rows": [
+          [{ "it": "salutare", "de": "Hallo!", "sl": "Živjo! / Dober dan!", "en": "Hello!" }, "Ciao!", "Buongiorno!"],
+          [{ "it": "congedarsi", "de": "Tschüss!", "sl": "Adijo! / Na svidenje!", "en": "Goodbye!" }, "Ciao!", "Arrivederci!"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "tu-lei", "prompt": "Tommaso: «Ciao!» — Tu: «___, Tommaso!»", "options": ["Ciao", "Arrivederci", "Buonasera"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**Tommaso ist ein Kind: ciao**\n- Ciao, Tommaso! · Hallo, Tommaso!",
+            "sl": "**Tommaso je otrok: ciao**\n- Ciao, Tommaso! · Živjo, Tommaso!",
+            "en": "**Tommaso is a child: ciao**\n- Ciao, Tommaso! · Hi, Tommaso!"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Wie heißt du? Auf Italienisch: **Come ti chiami?** Du antwortest: **Mi chiamo** … (Ich heiße …). Ich sage: **Mi chiamo Elena.** (Ich heiße Elena.) Und du?",
+          "sl": "Kako ti je ime? Po italijansko: **Come ti chiami?** Odgovoriš: **Mi chiamo** … (Ime mi je …). Jaz rečem: **Mi chiamo Elena.** (Ime mi je Elena.) Pa ti?",
+          "en": "What's your name? In Italian: **Come ti chiami?** You answer: **Mi chiamo** … (My name is …). I say: **Mi chiamo Elena.** (My name is Elena.) And you?"
+        },
+        "examples": [
+          { "it": "Come ti chiami?", "de": "Wie heißt du?", "sl": "Kako ti je ime?", "en": "What's your name?" },
+          { "it": "Mi chiamo {learner}.", "de": "Ich heiße {learner}.", "sl": "Ime mi je {learner}.", "en": "My name is {learner}." },
+          { "it": "Lui si chiama Lorenzo.", "de": "Er heißt Lorenzo.", "sl": "Njemu je ime Lorenzo.", "en": "His name is Lorenzo." }
+        ],
+        "rows": [
+          [{ "it": "il nome", "de": "Wie heißt du?", "sl": "Kako ti je ime?", "en": "What's your name?" }, "Come ti chiami?", "Come si chiama?"],
+          [{ "it": "rispondere", "de": "Ich heiße …", "sl": "Ime mi je …", "en": "My name is …" }, "Mi chiamo …", "Mi chiamo …"]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "tu-lei", "text": "Mi ___ Tommaso.", "accept": ["chiamo"], "hint": "Mi chiamo …",
+          "explain": {
+            "de": "**Mi chiamo** heißt ich heiße\n- Mi chiamo Tommaso · Ich heiße Tommaso",
+            "sl": "**Mi chiamo** pomeni ime mi je\n- Mi chiamo Tommaso · Ime mi je Tommaso",
+            "en": "**Mi chiamo** means my name is\n- Mi chiamo Tommaso · My name is Tommaso"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Zu Erwachsenen, die nicht deine Familie sind, sagst du nicht ciao. Am Morgen und am Nachmittag sagst du **buongiorno** (guten Tag), am Abend **buonasera** (guten Abend), zum Abschied **arrivederci** (auf Wiedersehen). Zu mir sagst du **Buongiorno, maestra!**",
+          "sl": "Odraslim, ki niso tvoja družina, ne rečeš ciao. Zjutraj in popoldne rečeš **buongiorno** (dober dan), zvečer **buonasera** (dober večer), ob slovesu **arrivederci** (na svidenje). Meni rečeš **Buongiorno, maestra!**",
+          "en": "To grown-ups who aren't your family you don't say ciao. In the morning and the afternoon you say **buongiorno** (good morning), in the evening **buonasera** (good evening), and to say goodbye **arrivederci**. To me you say **Buongiorno, maestra!**"
+        },
+        "examples": [
+          { "it": "Buongiorno, maestra!", "de": "Guten Morgen, Frau Lehrerin!", "sl": "Dober dan, učiteljica!", "en": "Good morning, Miss!" },
+          { "it": "Buonasera, signor Franco!", "de": "Guten Abend, Herr Franco!", "sl": "Dober večer, gospod Franco!", "en": "Good evening, Mr Franco!" },
+          { "it": "Arrivederci, signora Marisa!", "de": "Auf Wiedersehen, Frau Marisa!", "sl": "Na svidenje, gospa Marisa!", "en": "Goodbye, Mrs Marisa!" }
+        ],
+        "rows": [
+          [{ "it": "la sera", "de": "Guten Abend!", "sl": "Dober večer!", "en": "Good evening!" }, "Ciao!", "Buonasera!"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "tu-lei", "prompt": "È sera. Al signor Bruno: «___, signor Bruno!»", "options": ["Buongiorno", "Buonasera", "Ciao"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**Am Abend: buonasera**\n- Buonasera, signor Bruno! · Guten Abend, Herr Bruno!\n- ciao nur zu Kindern und Freunden",
+            "sl": "**Zvečer: buonasera**\n- Buonasera, signor Bruno! · Dober večer, gospod Bruno!\n- ciao samo otrokom in prijateljem",
+            "en": "**In the evening: buonasera**\n- Buonasera, signor Bruno! · Good evening, Mr Bruno!\n- ciao only to children and friends"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Zu einem Kind sagst du **tu** (du), zu einem Erwachsenen **Lei** (Sie). Mit tu: **Come ti chiami?** und **Scusa!** (Entschuldige!). Mit Lei: **Come si chiama?** (Wie heißen Sie?) und **Scusi!** (Entschuldigen Sie!). Ich sage tu zu dir, und du sagst Lei zu mir.",
+          "sl": "Otroku rečeš **tu** (ti), odraslemu **Lei** (vi). S tu: **Come ti chiami?** in **Scusa!** (Oprosti!). Z Lei: **Come si chiama?** (Kako vam je ime?) in **Scusi!** (Oprostite!). Jaz tebi rečem tu, ti meni rečeš Lei.",
+          "en": "To a child you say **tu**, to a grown-up **Lei** (the polite you). With tu: **Come ti chiami?** and **Scusa!** (Sorry!). With Lei: **Come si chiama?** (What is your name?) and **Scusi!** (Excuse me!). I say tu to you, and you say Lei to me."
+        },
+        "examples": [
+          { "it": "Scusa, Giulia!", "de": "Entschuldige, Giulia!", "sl": "Oprosti, Giulia!", "en": "Sorry, Giulia!" },
+          { "it": "Scusi, maestra!", "de": "Entschuldigen Sie, Frau Lehrerin!", "sl": "Oprostite, učiteljica!", "en": "Excuse me, Miss!" },
+          { "it": "Buongiorno! Come si chiama?", "de": "Guten Tag! Wie heißen Sie?", "sl": "Dober dan! Kako vam je ime?", "en": "Good morning! What is your name?" }
+        ],
+        "rows": [
+          [{ "it": "scusarsi", "de": "Entschuldige! / Entschuldigen Sie!", "sl": "Oprosti! / Oprostite!", "en": "Sorry! / Excuse me!" }, "Scusa!", "Scusi!"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "tu-lei", "prompt": "Alla maestra: «___, maestra!»", "options": ["Scusa", "Scusi"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**Zur Lehrerin sagst du Lei: scusi**\n- Scusi, maestra! · Entschuldigen Sie!\n- Scusa, Giulia! · Entschuldige!",
+            "sl": "**Učiteljici rečeš Lei: scusi**\n- Scusi, maestra! · Oprostite!\n- Scusa, Giulia! · Oprosti!",
+            "en": "**To the teacher you say Lei: scusi**\n- Scusi, maestra! · Excuse me!\n- Scusa, Giulia! · Sorry!"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Und wie geht es dir? **Come stai?** (Wie geht es dir?) fragst du ein Kind, **Come sta?** (Wie geht es Ihnen?) einen Erwachsenen. Die Antwort: **Bene, grazie!** (Gut, danke!) Und dann fragst du zurück: **E tu?** (Und du?) oder **E Lei?** (Und Ihnen?)",
+          "sl": "Kako si? **Come stai?** (Kako si?) vprašaš otroka, **Come sta?** (Kako ste?) odraslega. Odgovor: **Bene, grazie!** (Dobro, hvala!) Nato vprašaš nazaj: **E tu?** (Pa ti?) ali **E Lei?** (Pa vi?)",
+          "en": "And how are you? **Come stai?** (How are you?) you ask a child, **Come sta?** (How are you?, polite) a grown-up. The answer: **Bene, grazie!** (Fine, thanks!) Then you ask back: **E tu?** (And you?) or **E Lei?** (And you?, polite)"
+        },
+        "examples": [
+          { "it": "Ciao, Lorenzo! Come stai?", "de": "Hallo, Lorenzo! Wie geht's dir?", "sl": "Živjo, Lorenzo! Kako si?", "en": "Hi, Lorenzo! How are you?" },
+          { "it": "Bene, grazie! E tu?", "de": "Gut, danke! Und dir?", "sl": "Dobro, hvala! Pa ti?", "en": "Fine, thanks! And you?" },
+          { "it": "Buongiorno, maestra! Come sta?", "de": "Guten Morgen, Frau Lehrerin! Wie geht es Ihnen?", "sl": "Dober dan, učiteljica! Kako ste?", "en": "Good morning, Miss! How are you?" }
+        ],
+        "rows": [
+          [{ "it": "come va", "de": "Wie geht's?", "sl": "Kako si? / Kako ste?", "en": "How are you?" }, "Come stai?", "Come sta?"],
+          [{ "it": "e tu?", "de": "Und du? / Und Sie?", "sl": "Pa ti? / Pa vi?", "en": "And you?" }, "E tu?", "E Lei?"]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "tu-lei", "text": "Ciao, Giulia! Come ___?", "accept": ["stai", "va"], "hint": { "de": "Giulia ist ein Kind: tu", "sl": "Giulia je otrok: tu", "en": "Giulia is a child: tu" },
+          "explain": {
+            "de": "**Zu einem Kind: come stai?**\n- Come stai? · Wie geht's dir?\n- Come sta? · Wie geht es Ihnen?",
+            "sl": "**Otroku: come stai?**\n- Come stai? · Kako si?\n- Come sta? · Kako ste?",
+            "en": "**To a child: come stai?**\n- Come stai? · How are you?\n- Come sta? · How are you? (polite)"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "ciao-1",
+      "title": { "it": "Tu o Lei?", "de": "Du oder Sie?", "sl": "Ti ali vi?", "en": "Tu or Lei?" },
+      "exercises": [
+        {
+          "type": "sort", "grammar": "tu-lei",
+          "instruction": { "de": "Metti in ordine · Zu einem Kind oder zu einem Erwachsenen?", "sl": "Metti in ordine · Otroku ali odraslemu?", "en": "Metti in ordine · To a child or to a grown-up?" },
+          "columns": [
+            { "label": { "de": "con tu · zu einem Kind", "sl": "con tu · otroku", "en": "con tu · to a child" }, "words": ["Ciao!", "Come stai?", "Come ti chiami?", "Scusa!", "E tu?"] },
+            { "label": { "de": "con Lei · zu einem Erwachsenen", "sl": "con Lei · odraslemu", "en": "con Lei · to a grown-up" }, "words": ["Arrivederci!", "Come sta?", "Come si chiama?", "Scusi!", "E Lei?"] }
+          ],
+          "explain": {
+            "de": "**tu zu Kindern, Lei zu Erwachsenen**\n- Come stai? · Come sta?\n- Scusa! · Scusi!",
+            "sl": "**tu otrokom, Lei odraslim**\n- Come stai? · Come sta?\n- Scusa! · Scusi!",
+            "en": "**tu to children, Lei to grown-ups**\n- Come stai? · Come sta?\n- Scusa! · Scusi!"
+          }
+        },
+        {
+          "type": "choice", "grammar": "tu-lei",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Pick" },
+          "prompt": { "de": "Am Morgen in der Schule, zur Lehrerin:", "sl": "Zjutraj v šoli, učiteljici:", "en": "In the morning at school, to the teacher:" },
+          "options": ["Buongiorno, maestra!", "Buonasera, maestra!", "Ciao, Elena!"], "answer": 0,
+          "explain": {
+            "de": "**Am Morgen zur Lehrerin: buongiorno**\n- Buongiorno, maestra! · Guten Morgen!\n- buonasera erst am Abend",
+            "sl": "**Zjutraj učiteljici: buongiorno**\n- Buongiorno, maestra! · Dober dan!\n- buonasera šele zvečer",
+            "en": "**In the morning to the teacher: buongiorno**\n- Buongiorno, maestra! · Good morning!\n- buonasera only in the evening"
+          }
+        },
+        {
+          "type": "choice", "grammar": "tu-lei",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Pick" },
+          "prompt": { "de": "Lorenzo fragt dich: „Come ti chiami?“ Du antwortest:", "sl": "Lorenzo te vpraša: »Come ti chiami?« Odgovoriš:", "en": "Lorenzo asks you: “Come ti chiami?” You answer:" },
+          "options": ["Mi chiamo {learner}.", "Come stai?", "Arrivederci!"], "answer": 0,
+          "explain": {
+            "de": "**Come ti chiami? – Mi chiamo …**\n- Mi chiamo {learner} · Ich heiße {learner}",
+            "sl": "**Come ti chiami? – Mi chiamo …**\n- Mi chiamo {learner} · Ime mi je {learner}",
+            "en": "**Come ti chiami? – Mi chiamo …**\n- Mi chiamo {learner} · My name is {learner}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ciao-2",
+      "title": { "it": "Il primo giorno di scuola", "de": "Der erste Schultag", "sl": "Prvi šolski dan", "en": "The first day at school" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "tu-lei",
+          "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+          "title": "Il primo giorno di scuola",
+          "text": "Maestra Elena: Buongiorno! Io mi chiamo Elena. E tu, come ti ___? — Mi ___ {learner}. — Ciao, {learner}! Come ___? — Bene, grazie! E ___, maestra? — Bene, grazie! — Ciao, Giulia! — ___, {learner}!",
+          "gaps": [
+            { "accept": ["chiami"], "hint": "tu …", "explain": { "de": "**Zu dir sagt sie tu: come ti chiami?**", "sl": "**Tebi reče tu: come ti chiami?**", "en": "**She says tu to you: come ti chiami?**" } },
+            { "accept": ["chiamo"], "hint": "Mi … {learner}" },
+            { "accept": ["stai", "va"], "hint": { "de": "zu dir: tu", "sl": "tebi: tu", "en": "to you: tu" } },
+            { "accept": ["Lei"], "hint": { "de": "zur Lehrerin", "sl": "učiteljici", "en": "to the teacher" }, "explain": { "de": "**Zur Lehrerin sagst du Lei: E Lei?**", "sl": "**Učiteljici rečeš Lei: E Lei?**", "en": "**To the teacher you say Lei: E Lei?**" } },
+            { "accept": ["Ciao"], "hint": { "de": "Giulia ist ein Kind", "sl": "Giulia je otrok", "en": "Giulia is a child" } }
+          ],
+          "bank": true,
+          "distractors": ["chiama", "sta", "Buonasera"],
+          "translation": {
+            "de": "Maestra Elena: Guten Morgen! Ich heiße Elena. Und du, wie heißt du? — Ich heiße {learner}. — Hallo, {learner}! Wie geht's dir? — Gut, danke! Und Ihnen, Frau Lehrerin? — Gut, danke! — Hallo, Giulia! — Hallo, {learner}!",
+            "sl": "Učiteljica Elena: Dober dan! Ime mi je Elena. Pa ti, kako ti je ime? — Ime mi je {learner}. — Živjo, {learner}! Kako si? — Dobro, hvala! Pa vi, učiteljica? — Dobro, hvala! — Živjo, Giulia! — Živjo, {learner}!",
+            "en": "Maestra Elena: Good morning! My name is Elena. And you, what's your name? — My name is {learner}. — Hi, {learner}! How are you? — Fine, thanks! And you, Miss? — Fine, thanks! — Hi, Giulia! — Hi, {learner}!"
+          }
+        },
+        {
+          "type": "reorder",
+          "instruction": { "de": "Metti in ordine · Bring in die richtige Reihenfolge", "sl": "Metti in ordine · Postavi v pravi vrstni red", "en": "Metti in ordine · Put in order" },
+          "prompt": { "de": "Ich heiße Giulia.", "sl": "Ime mi je Giulia.", "en": "My name is Giulia." },
+          "tokens": ["chiamo", "Giulia.", "Mi"], "solutions": [["Mi", "chiamo", "Giulia."]],
+          "explain": { "de": "**Mi chiamo + Name**", "sl": "**Mi chiamo + ime**", "en": "**Mi chiamo + the name**" }
+        }
+      ]
+    },
+    {
+      "id": "ciao-3",
+      "title": { "it": "Ai grandi e ai piccoli", "de": "Zu Großen und zu Kleinen", "sl": "Velikim in malim", "en": "To grown-ups and to children" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "tu-lei",
+          "instruction": { "de": "Cambia · Sag es für die Person in Klammern", "sl": "Cambia · Povej osebi v oklepaju", "en": "Cambia · Say it to the person in brackets" },
+          "items": [
+            { "from": "Come stai? (alla maestra)", "accept": ["Come sta?", "Come sta, maestra?"], "hint": "stai → ?" },
+            { "from": "Come ti chiami? (al signor Bruno)", "accept": ["Come si chiama?", "Come si chiama, signor Bruno?"], "hint": "ti → si" },
+            { "from": "Scusa! (alla maestra)", "accept": ["Scusi!", "Scusi, maestra!"], "hint": "-a → -i" },
+            { "from": "Ciao! (alla maestra, di mattina)", "accept": ["Buongiorno!", "Buongiorno, maestra!"], "hint": { "de": "am Morgen", "sl": "zjutraj", "en": "in the morning" } },
+            { "from": "Come sta? (a Lorenzo)", "accept": ["Come stai?", "Come stai, Lorenzo?"], "hint": "sta → ?" },
+            { "from": "Come si chiama? (a una bambina)", "accept": ["Come ti chiami?"], "hint": "si → ti" },
+            { "from": "E Lei? (a Tommaso)", "accept": ["E tu?", "E tu, Tommaso?"], "hint": "Lei → ?" },
+            { "from": "Arrivederci! (a Giulia)", "accept": ["Ciao!", "Ciao, Giulia!"], "hint": { "de": "zu einem Kind", "sl": "otroku", "en": "to a child" } }
+          ],
+          "explain": {
+            "de": "**tu zu Kindern, Lei zu Erwachsenen**\n- Come stai? · Come sta?\n- Come ti chiami? · Come si chiama?\n- Scusa! · Scusi!",
+            "sl": "**tu otrokom, Lei odraslim**\n- Come stai? · Come sta?\n- Come ti chiami? · Come si chiama?\n- Scusa! · Scusi!",
+            "en": "**tu to children, Lei to grown-ups**\n- Come stai? · Come sta?\n- Come ti chiami? · Come si chiama?\n- Scusa! · Scusi!"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext", "grammar": "tu-lei",
+        "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "text": "Davide: Ciao! Come ti ___? — Mi chiamo {learner}. E tu? — Mi chiamo Davide. Come ___? — Bene, grazie! Ciao, Davide! — Signora Marisa: Buonasera! — ___, signora Marisa! Come ___?",
+        "gaps": [
+          { "accept": ["chiami"], "hint": "tu …" },
+          { "accept": ["stai", "va"], "hint": { "de": "zu dir: tu", "sl": "tebi: tu", "en": "to you: tu" } },
+          { "accept": ["Buonasera"], "hint": { "de": "am Abend", "sl": "zvečer", "en": "in the evening" } },
+          { "accept": ["sta", "va"], "hint": { "de": "zu ihr: Lei", "sl": "njej: Lei", "en": "to her: Lei" } }
+        ],
+        "translation": {
+          "de": "Davide: Hallo! Wie heißt du? — Ich heiße {learner}. Und du? — Ich heiße Davide. Wie geht's dir? — Gut, danke! Tschüss, Davide! — Frau Marisa: Guten Abend! — Guten Abend, Frau Marisa! Wie geht es Ihnen?",
+          "sl": "Davide: Živjo! Kako ti je ime? — Ime mi je {learner}. Pa tebi? — Ime mi je Davide. Kako si? — Dobro, hvala! Adijo, Davide! — Gospa Marisa: Dober večer! — Dober večer, gospa Marisa! Kako ste?",
+          "en": "Davide: Hi! What's your name? — My name is {learner}. And you? — My name is Davide. How are you? — Fine, thanks! Bye, Davide! — Mrs Marisa: Good evening! — Good evening, Mrs Marisa! How are you?"
+        }
+      },
+      {
+        "type": "transform", "grammar": "tu-lei",
+        "instruction": { "de": "Cambia · Sag es für die Person in Klammern", "sl": "Cambia · Povej osebi v oklepaju", "en": "Cambia · Say it to the person in brackets" },
+        "items": [
+          { "from": "Scusa! (al signor Franco)", "accept": ["Scusi!", "Scusi, signor Franco!"] },
+          { "from": "Come sta? (a Giulia)", "accept": ["Come stai?", "Come stai, Giulia?"] },
+          { "from": "Come ti chiami? (alla signora)", "accept": ["Come si chiama?", "Come si chiama, signora?"] },
+          { "from": "E tu? (alla maestra)", "accept": ["E Lei?", "E Lei, maestra?"] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "tu-lei",
+        "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Pick" },
+        "prompt": { "de": "Am Ende der Schule, zur Lehrerin:", "sl": "Na koncu pouka, učiteljici:", "en": "At the end of school, to the teacher:" },
+        "options": ["Arrivederci, maestra!", "Ciao, Elena!", "Scusa, maestra!"], "answer": 0,
+        "explain": {
+          "de": "**Zum Abschied zur Lehrerin: arrivederci**",
+          "sl": "**Ob slovesu učiteljici: arrivederci**",
+          "en": "**Saying goodbye to the teacher: arrivederci**"
+        }
+      },
+      {
+        "type": "choice", "grammar": "tu-lei",
+        "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Pick" },
+        "prompt": { "de": "Nonna Rosa fragt: „Come stai, tesoro?“ Du antwortest:", "sl": "Babica Rosa vpraša: »Come stai, tesoro?« Odgovoriš:", "en": "Nonna Rosa asks: “Come stai, tesoro?” You answer:" },
+        "options": ["Bene, grazie! E tu, nonna?", "Mi chiamo nonna.", "Buonasera, signora!"], "answer": 0,
+        "explain": {
+          "de": "**Bene, grazie!** und zurück: **E tu?** (zur Oma sagst du tu)",
+          "sl": "**Bene, grazie!** in nazaj: **E tu?** (babici rečeš tu)",
+          "en": "**Bene, grazie!** and back: **E tu?** (you say tu to your granny)"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (it, de, sl)"
+}

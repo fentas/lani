@@ -226,8 +226,46 @@ export default async function friuli() {
       fuoco && { stories: fuoco.stories?.map((s: any) => [s.id, s.teller]), words: fuoco.stories?.[0]?.words },
     )
 
+    // the school's scene (A scuola, companion/cultures/friuli/scenes/a-scuola.json): from the school, Maestra Elena at the board
+    const scuola = scenes.find((s: any) => s.id === 'a-scuola')
+    check(
+      "friuli: the school's own scene is served (A scuola, from the school, in the school's art): Maestra Elena at the board, the village's children at the desks",
+      scuola?.culture === 'friuli' && scuola.language === 'it' && scuola.art === 'school' && JSON.stringify(scuola.from) === '["school"]' && scuola.title.de === 'In der Schule' &&
+        scuola.people.some((p: any) => p.villager === 'elena' && p.slot === 'teacher') && ['desk1', 'desk2'].every(d => scuola.people.some((p: any) => p.slot === d && /^child/.test(p.art))) &&
+        scuola.objects.find((o: any) => o.slot === 'blackboard')?.it === 'la lavagna',
+      scuola && { from: scuola.from, people: scuola.people.map((p: any) => [p.id, p.slot]) },
+    )
+
+    // --- the school's course: Italian (companion/course/it), its texts in the child's base (Slovene) -----------------
+    const course = await (await fetch(`${base}/course`, { headers: auth })).json()
+    const a1 = course.levels?.[0]?.units ?? []
+    const written = ['ciao', 'essere', 'articoli', 'plurale', 'avere', 'numeri']
+    check(
+      "friuli: GET /course serves the Italian course: A1's first six units written in the outline's order, the others planned",
+      course.language === 'it' && a1.length === 18 && a1.slice(0, 6).every((u: any) => !u.planned) && a1.slice(6).every((u: any) => u.planned) &&
+        course.units.slice(0, 6).map((u: any) => u.id).join() === written.join(),
+      { language: course.language, units: course.units?.map((u: any) => u.id), planned: a1.filter((u: any) => u.planned).length },
+    )
+    const ciao = course.units?.find((u: any) => u.id === 'ciao')
+    const sort = ciao?.worksheets[0].exercises[0]
+    check(
+      "friuli: a unit's exercises read in the child's base (Slovene: the instruction, the sort's columns, a why), its intro per language as written, the child's name in it",
+      sort?.instruction === 'Metti in ordine · Otroku ali odraslemu?' && sort.columns[0].label === 'con tu · otroku' && sort.explain.startsWith('**tu otrokom') &&
+        !!ciao.intro.steps[0].say.de && !!ciao.intro.steps[0].say.sl && ciao.intro.steps[1].examples[1].it === 'Mi chiamo Tim.',
+      sort,
+    )
+    const printed = await fetch(`${base}/course/sheet/ciao`, { headers: auth })
+    const page = await printed.text()
+    check(
+      "friuli: the unit's printed sheet: headed in Italian and in the child's Slovene, its examples Italian",
+      printed.ok && printed.headers.get('x-lani-print-name') === '01-ciao' && page.includes('Regola') && page.includes('Pravilo') && page.includes('Unità') && page.includes('Giulia'),
+      [printed.status, printed.headers.get('x-lani-print-name')],
+    )
+
     // --- the tutor is told about the village and the child ----------------------------------------------
     const instructions = await guideOf(client)
+    const school = instructions.slice(instructions.indexOf('The school ('), instructions.indexOf('The school (') + 1400)
+    check("friuli: the guide's school is the village's: Maestra Elena teaches, the course is Italian", school.includes('Maestra Elena comes over from the next village') && school.includes('companion/course/it') && !school.includes('Mojca'), school.slice(0, 400))
     const rules = client.getInstructions() ?? ''
     check('friuli: the instructions Claude Code shows fit, and hold the child\'s rules', rules.length <= 2048 && rules.includes('Child: the learner is a child') && rules.includes('channel_guide'), rules.length)
     check('friuli: the instructions name the child, the village\'s cast and language, and the style', instructions.includes('Child: the learner is a child') && instructions.includes('Nonna Rosa') && instructions.includes('Ricordo ancora') && instructions.includes('Friulian style') && instructions.includes('companion/cultures/friuli') && !instructions.includes('Primorska style'), instructions.slice(0, 400))

@@ -18,10 +18,12 @@ how to write units.
 - [A unit (lani.unit/v0)](#a-unit-laniunitv0)
 - [The introduction](#the-introduction)
 - [Worksheets and the test](#worksheets-and-the-test)
+- [Texts in the learner's language](#texts-in-the-learners-language)
 - [The school's exercise types](#the-schools-exercise-types)
 - [Homework (lani.worksheet/v0)](#homework-laniworksheetv0)
 - [The learner's progress](#the-learners-progress)
 - [Writing a unit](#writing-a-unit)
+- [The Italian course](#the-italian-course)
 - [Printed sheets](#printed-sheets)
 
 ## The files
@@ -638,6 +640,50 @@ the six cases, singular and plural). Writing one:
   (s pošte, s kladivom).
 - **Names decline**: Muri → Muriju, z Murijem; Luka → Luki, z Luko; France → Francetu, s Francetom; Nejc → Nejcu,
   z Nejcem (-em after c).
+
+## The Italian course
+
+Teo, a child learning Italian from German in the Friuli village, built the school (2026-10-28). The Italian course is
+`companion/course/it/`: the outline (A1, 18 units, the grammar book's Italian pages to teach) and its units, written in
+the Friuli village's life (Maestra Elena, Nonna Rosa, Lorenzo, Giulia, Tommaso, Pastore Davide and his sheep, the sea,
+the camp, the field, the wood, the mill, the festa). The school is the same school: the bridge serves the course of the
+village's language (`GET /course` of a Friuli village is Italian), the app bundles it, and every part of the school is the
+course's language's, not Slovene's:
+
+| What | For Italian |
+|---|---|
+| Who teaches | the school's person of the culture's cast (`Residents.brings(SCHOOL)`: Maestra Elena in Friuli), in her cast's voice (`teacher`, Alice; `@elena` once she has her own); the guide names her (features/course.ts) |
+| Read aloud | the intro's Italian in her voice: `Spoken.looks` for Italian (à, è …, its frequent words) and the words the intro itself shows; the explanation in the learner's German as one clip (`de\|…`); voice-build's `course` source makes her lines ahead (`course-speech.ts`, the smoke's Friuli checks) |
+| The teacher's lines | "Benvenuti a scuola! Sedetevi …" and "Questo lo sai già" (tu: Elena says tu to the children); "only the Italian is read" when the phone lacks a German voice |
+| Texts in German | the exercises' instructions, hints, whys, labels and columns per base ([above](#texts-in-the-learners-language)) |
+| Grading | the Italian table (`grading/it.json`): an accent forgotten is almost, an apostrophe (`un'amica`, `l'ape`) too; the person in brackets may be left out (`drop_subject`) |
+| The blackboard | "Benvenuti!" and the day as Italy writes it (28/10/2026) before the first unit; the unit's title and forms in chalk (à, è, ' written) |
+| Prints | headed in Italian and the base ("Regola · Die Regel", "Unità"), the words from the Italian and the culture's packs with their article; Slovene as a base for an Italian course |
+| Not for Italian | forms cards, counting cards and the numbers module (Slovene's: `numeri` turns nothing on), case rows, the cases overview; the Italian units name no `lemma`/`form`, and the smoke's checks against the dictionary's forms (a cell's named form, a bracketed word's forms) and of "What a unit turns on" stay Slovene's (`FORMS_LANGUAGES`: no Italian forms book yet) |
+| Checked | `ItalianCourseContentTest` (every unit parsed and played at its level, every right answer graded right by the Italian grading, no decoy right, every text per base in de, sl and en), `SchoolBoardTest` (the blackboard writes every letter of the Italian course), the smoke's course, course-speech and Friuli sections |
+
+While units are still planned (`"planned": true`), the school is no dead end: a level's planned units are folded
+("📝 Ancora 12 unità di A1"), and once every written unit is done (or none is written yet) Maestra Elena says she is
+preparing the next lessons ("Sto preparando le prossime lezioni. Torna presto!", `School.preparing`); Home's school tile
+says "📝 Nuove lezioni in arrivo" rather than "all done".
+
+Writing an Italian unit: as [Writing a unit](#writing-a-unit), with the explanations German first (Teo's base; "du"),
+Slovene and English; every Italian form in **bold** with its meaning in brackets; the exercises' texts per base; tu with
+the children and the family, Lei only where Elena teaches it; a child's sentences, never a trick, never the child's own
+data (an age is Lorenzo's, not the learner's); every file flagged machine-written in its `review`.
+
+### The Italian course: units 1–6
+
+A1's first six units, the greetings to the numbers (the next twelve are written by the course's other writers):
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `ciao` 👋 | ciao, buongiorno, buonasera, arrivederci; mi chiamo, come ti chiami; tu with children, Lei with the teacher (come stai / come sta, scusa / scusi) | tu-lei |
+| `essere` 🟰 | sono, sei, è, siamo, siete, sono; the pronoun left out; Lei è; non | essere-avere |
+| `articoli` 🏷️ | il, la (-o, -a), l' and un' before a vowel, lo and uno (s + consonant, z), -e words with their article | articoli-genere |
+| `plurale` 🐈 | -o → -i, -a → -e, -e → -i; i, gli, le; -ca, -go, città, uova | plurale, articoli-genere |
+| `avere` 🎒 | ho, hai, ha … hanno; the h never said; age with avere; ho fame, ho freddo | essere-avere |
+| `numeri` 🔢 | 0–20, the tens to 100, ventuno, ventotto; un, una before a noun; quanti, quante | numeri |
 
 ## Printed sheets
 
