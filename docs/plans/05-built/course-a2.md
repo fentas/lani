@@ -134,8 +134,10 @@ podkovati (perfective), tih (tišji), lahek (lažji), sladek (slajši, also slad
 - `bunx tsc --noEmit -p .` in the bridge: clean.
 - The app: `SchoolBoardTest` (every unit's title and forms on the board, the ellipsis), `GrammarTest` (the bundled pages),
   `CourseTest`, `SheetsTest`, `PrintsTest`, `IntroSpeechTest`, `IntroSpeechParityTest`: 50 tests, none failed; the full
-  unit suite with the reveal (school-reveal.md), rebased on main (course-b1a in): 403 classes, 3,176 tests, none failed (an earlier run had a frame-time check of
-  the alps scene at 25 ms on the loaded machine, `SceneDetailTest`, 4 of 4 alone).
+  unit suite with the reveal (school-reveal.md), rebased on main (course-b1a and b1b, the navigation round in): 408 classes, 3,208 tests, none failed (an earlier
+  run had a frame-time check of the alps scene at 25 ms on the loaded machine, `SceneDetailTest`, 4 of 4 alone). Main's
+  `CourseContentTest` (every unit as the app plays it) found glagolski-vid's bank distractor "speče" graded almost for
+  the gap "peče" (a stem slip): it is "spekla" now.
 - `school-prints --level A2`: the eight sheets and the booklet; A1's HTML byte for byte as before the print fix.
 - Emulator QA, `companion/bin/qa --steps school-a2` (a synthetic learner, QA's hook "school:reveal", the rebased debug
   build): the unit cigav from the school's levels (one of the next two after the unit begun), its intro's five steps
@@ -149,11 +151,17 @@ podkovati (perfective), tih (tišji), lahek (lažji), sladek (slajši, also slad
   After the last rebase (course-b1a in), one run of main's school-b1 and school-reveal on the final build: school-b1
   passed (its unit the current row now), the reveal to its last screenshot (B1 closed, its units folded; the run's cap
   fell during its final tap): `ux-course-a2/b1-and-reveal-final/`.
+  After the rebase onto the navigation round, school-reveal and school-a2 on the tip's build: the reveal to its end
+  (A1 folded again), the unit through its intro, both sheets and the test's lines before the run's cap:
+  `ux-course-a2/nav-rebase/`.
 
 ## For the lead
 
 - course-cases' content check (test/smoke/course-content.ts) reads COURSE.md's rows as "| `unit` |"; course-b1a's
   rows are "| `dvojina-skloni` (B1) |", so after both merge the check will ask for rows of dolocna-oblika,
   dvojina-skloni, svoj and vid-vsi-casi (the A2 units of this branch pass it: 326 answers, 18 rows).
+- The rebase onto the navigation round: the reveal's commit still calls `openSchool(fromVillage = false)`, which main
+  removed; the hook fix after it calls `openSchool()` (the branch's tip builds and passes, that one commit alone
+  doesn't compile).
 - The plural rows of the forms cards open with each case's page (`pageOf`: gen.pl needs rodilnik and mnozina), so at
   the case units, before mnozina-skloni teaches them; to make them wait for it, `pageOf` would name mnozina-skloni.
