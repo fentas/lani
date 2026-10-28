@@ -5486,6 +5486,25 @@ def sheet_corrections_types():
 B1_UNIT = "Ki in kateri: prijatelj, ki sem ga srečal"  # the unit oziralni-ki (companion/course/sl/units/oziralni-ki.json)
 
 
+def tap_above(text: str, bottom: int, swipes=4) -> bool:
+    """Taps [text] once it is on screen above [bottom] px (a bar below covers the rest), scrolling up to [swipes]
+    times; False when it never is."""
+    for k in range(swipes + 1):
+        c = find(text)
+        if c is not None and 250 < c[1] < bottom:
+            tap_at(c)
+            return True
+        if k < swipes:
+            adb("shell", "input", "swipe", "540", "1600", "540", "1000", "400")
+            time.sleep(1)
+    return False
+
+
+def check_sheet() -> bool:
+    """A sheet's "Preveri · Check" tapped: in its bottom bar as biti's, else below the fold, scrolled to."""
+    return tap_above("Preveri · Check", 2400)
+
+
 def school_b1():
     """A B1 unit end to end (companion/COURSE.md; QA's hook "school:oziralni-ki": the dev village's copy ready for the
     class as "school" does, the unit as never begun and B1 open): "Raven B1" in the school, the unit from its level, its
@@ -5498,9 +5517,10 @@ def school_b1():
     go_home()
     qa_hook("school:oziralni-ki")
     assert wait_for("Raven A1", 10), "the school's levels"
-    c = scroll_to("Raven B1", 8)
+    c = scroll_to("Raven B1", 30)  # below A1's 18 units and A2's 14 (planned while course-a2 isn't merged)
     assert c is not None, "the level B1"
-    c = scroll_to(B1_UNIT, 4)
+    assert find("Raven B1 se odpre") is None, "B1 open (the hook opened it)"
+    c = scroll_to(B1_UNIT, 8)
     assert c is not None, "the unit oziralni-ki in B1, open"
     shot("school-b1-level")
     tap_at(c)
@@ -5527,7 +5547,8 @@ def school_b1():
             assert c is not None, f"step {i}'s gap"
             tap_at(c)
             type_text(answer)
-            assert tap("Preveri · Check", 4), f"step {i}'s check"
+            # under the field, above the intro's bar of "Naprej · Next" (from about 2170 px down)
+            assert tap_above("Preveri · Check", 2150), f"step {i}'s check"
         assert wait_for("Pravilno", 6), f"step {i} answered right ({answer})"
         if i in (1, 4, 6):
             shot(f"school-b1-intro-{i}")
@@ -5547,14 +5568,15 @@ def school_b1():
             assert c is not None, f"the column {col}"
             tap_at(c)
     shot("school-b1-sort")
-    assert tap("Preveri · Check", 4), "check the sort"
-    assert wait_for("Pravilno", 6), "the sort right"
+    assert check_sheet(), "check the sort"
+    assert wait_for("Naprej · Next", 8), "the sort checked"
+    time.sleep(1)
     shot("school-b1-sort-checked")
     assert tap("Naprej · Next", 4), "on to the table"
     for label, answer in [("Zala, koga? · ki … poznam", "ki jo"), ("Zala, komu? · ki … pomagam", "ki ji"), ("otroci, koga? · ki … poznam", "ki jih"),
                           ("otroci, komu? · ki … pomagam", "ki jim"), ("jagnje, koga? · ki … poznam", "ki ga"), ("jagnje, komu? · ki … pomagam", "ki mu")]:
         assert fill(label, answer), f"the cell {label}"
-    assert tap("Preveri · Check", 4), "check the table"
+    assert check_sheet(), "check the table"
     assert wait_for("Pravilno", 6), "the table right"
     shot("school-b1-table-checked")
     assert tap("Naprej · Next", 6), "on"
@@ -5565,7 +5587,7 @@ def school_b1():
     shot("school-b1-gaptext")
     for i, answer in enumerate(["v kateri", "ki jo", "kateri", "katerega", "ki jo", "ki ga", "ki jih", "ki jim", "kar"], 1):
         assert fill(f"Vrzel {i} · Gap {i}", answer), f"gap {i}"
-    assert tap("Preveri · Check", 4), "check the gap text"
+    assert check_sheet(), "check the gap text"
     time.sleep(1)
     shot("school-b1-gaptext-checked")
     assert tap("Naprej · Next", 6), "on"
@@ -5577,7 +5599,7 @@ def school_b1():
              "To je hisa, v kateri zivi Ancka.", "To je Marko, s katerim sem govoril.", "To so otroci, ki jih Mojca uci.", "To je travnik, na katerem se pasejo ovce."]
     for i, answer in enumerate(lines, 1):
         assert fill(f"Vrstica {i} · Line {i}", answer), f"line {i}"
-    assert tap("Preveri · Check", 4), "check the lines"
+    assert check_sheet(), "check the lines"
     time.sleep(1)
     shot("school-b1-transform-checked")
     assert tap("Naprej · Next", 6), "on"
@@ -5587,15 +5609,15 @@ def school_b1():
     assert wait_for("ki ali kateri", 10), "the test's first sheet"
     for label, answer in [("otroci · koga?, … ki / kateri", "ki jih"), ("babica · komu?, … ki / kateri", "ki ji"), ("vas · v + kje?, … ki / kateri", "v kateri")]:
         assert fill(label, answer), f"the test's cell {label}"
-    assert tap("Preveri · Check", 4), "check"
+    assert check_sheet(), "check"
     assert tap("Naprej · Next", 6), "on"
     for i, answer in enumerate(["ki ga", "s katerim", "ki jih", "kar"], 1):
         assert fill(f"Vrzel {i} · Gap {i}", answer), f"the test's gap {i}"
-    assert tap("Preveri · Check", 4), "check"
+    assert check_sheet(), "check"
     assert tap("Naprej · Next", 6), "on"
     for i, answer in enumerate(["To je Zala, ki bere knjigo.", "To je pismo, ki ga je napisal Marko.", "To je klop, na kateri sedi Janez."], 1):
         assert fill(f"Vrstica {i} · Line {i}", answer), f"the test's line {i}"
-    assert tap("Preveri · Check", 4), "check"
+    assert check_sheet(), "check"
     assert tap("Naprej · Next", 6), "on"
     c = ([c for t, c in nodes() if t == "ki se mu"] or [None])[-1]
     assert c is not None, "the test's choice"
