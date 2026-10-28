@@ -1,0 +1,112 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "ore-giorni",
+  "language": "it",
+  "level": "A1",
+  "emoji": "🕒",
+  "title": {
+    "it": "Che ore sono? Le ore, i giorni, i mesi",
+    "sl": "Koliko je ura? Ure, dnevi, meseci",
+    "en": "What time is it? Hours, days, months",
+    "de": "Wie spät ist es? Uhrzeit, Tage, Monate"
+  },
+  "rule": {
+    "en": "**Che ore sono?** (What time is it?) The answer is **sono le** + the hour: **Sono le tre.** One o'clock is singular: **È l'una.** At twelve: **è mezzogiorno** (noon), **è mezzanotte** (midnight).\n\nThe minutes come after **e** (and): **le tre e dieci** (3:10), **le tre e un quarto** (3:15), **le tre e mezza** or **e mezzo** (3:30: the hour that's already here). Just before the hour, **meno** (less): **le quattro meno un quarto** (3:45).\n\n**A che ora?** (At what time?) **alle** + the hour: **alle otto**, **all'una**, **a mezzogiorno**.\n\nDays and months are written small: **lunedì, martedì, mercoledì, giovedì, venerdì, sabato, domenica**; **gennaio, febbraio, marzo, aprile, maggio, giugno, luglio, agosto, settembre, ottobre, novembre, dicembre**. *On Monday* is just **lunedì**; with the article it's every week: **il sabato** (on Saturdays). *In May* is **a maggio** (or **in maggio**; before a vowel often **ad**: **ad aprile**). A date is **il** + the number, **il venti maggio**; the first is **il primo**.",
+    "sl": "**Che ore sono?** (Koliko je ura?) Odgovor je **sono le** + ura: **Sono le tre.** Ena je v ednini: **È l'una.** Ob dvanajstih: **è mezzogiorno** (poldne), **è mezzanotte** (polnoč).\n\nMinute pridejo za **e** (in): **le tre e dieci** (3.10), **le tre e un quarto** (3.15), **le tre e mezza** ali **e mezzo** (3.30: ura, ki je že tu, ne naslednja kot v pol štirih). Malo pred uro **meno** (manj): **le quattro meno un quarto** (3.45).\n\n**A che ora?** (Ob kateri uri?) **alle** + ura: **alle otto**, **all'una**, **a mezzogiorno**.\n\nDnevi in meseci se pišejo z malo: **lunedì, martedì, mercoledì, giovedì, venerdì, sabato, domenica**; **gennaio, febbraio, marzo, aprile, maggio, giugno, luglio, agosto, settembre, ottobre, novembre, dicembre**. *V ponedeljek* je kar **lunedì**; s členom pomeni vsak teden: **il sabato** (ob sobotah). *Maja* je **a maggio** (ali **in maggio**; pred samoglasnikom pogosto **ad**: **ad aprile**). Datum je **il** + število, **il venti maggio**; prvi je **il primo**.",
+    "de": "**Che ore sono?** (Wie spät ist es?) Die Antwort ist **sono le** + die Stunde: **Sono le tre.** Ein Uhr steht in der Einzahl: **È l'una.** Um zwölf: **è mezzogiorno** (Mittag), **è mezzanotte** (Mitternacht).\n\nDie Minuten kommen nach **e** (und): **le tre e dieci** (3:10), **le tre e un quarto** (3:15), **le tre e mezza** oder **e mezzo** (3:30: die Stunde, die schon da ist, nicht wie bei halb vier). Kurz vor der Stunde **meno** (weniger): **le quattro meno un quarto** (3:45).\n\n**A che ora?** (Um wie viel Uhr?) **alle** + die Stunde: **alle otto**, **all'una**, **a mezzogiorno**.\n\nTage und Monate schreibt man klein: **lunedì, martedì, mercoledì, giovedì, venerdì, sabato, domenica**; **gennaio, febbraio, marzo, aprile, maggio, giugno, luglio, agosto, settembre, ottobre, novembre, dicembre**. *Am Montag* heißt einfach **lunedì**; mit Artikel heißt es jede Woche: **il sabato** (samstags). *Im Mai* ist **a maggio** (oder **in maggio**; vor einem Vokal oft **ad**: **ad aprile**). Ein Datum ist **il** + die Zahl, **il venti maggio**; der Erste heißt **il primo**."
+  },
+  "table": {
+    "head": [
+      { "it": "che cosa", "sl": "kaj", "en": "what", "de": "was" },
+      { "it": "si dice", "sl": "rečeš", "en": "you say", "de": "so sagt man" }
+    ],
+    "rows": [
+      ["1:00", "è l'una"],
+      ["3:00", "sono le tre"],
+      ["3:15", "le tre e un quarto"],
+      ["3:30", "le tre e mezza"],
+      ["3:45", "le quattro meno un quarto"],
+      ["12:00 · 0:00", "mezzogiorno · mezzanotte"],
+      [{ "it": "a che ora?", "sl": "ob kateri uri?", "en": "at what time?", "de": "um wie viel Uhr?" }, "alle tre, all'una, a mezzogiorno"],
+      [{ "it": "i giorni", "sl": "dnevi", "en": "the days", "de": "die Tage" }, "lunedì, martedì, mercoledì, giovedì, venerdì, sabato, domenica"],
+      [{ "it": "ogni settimana", "sl": "vsak teden", "en": "every week", "de": "jede Woche" }, "il sabato, la domenica"],
+      [{ "it": "i mesi", "sl": "meseci", "en": "the months", "de": "die Monate" }, "gennaio, febbraio, marzo, aprile, maggio, giugno"],
+      [{ "it": "i mesi", "sl": "meseci", "en": "the months", "de": "die Monate" }, "luglio, agosto, settembre, ottobre, novembre, dicembre"],
+      [{ "it": "la data", "sl": "datum", "en": "the date", "de": "das Datum" }, "il primo agosto, il venti maggio"]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Che ore sono? Sono le otto.",
+      "sl": "Koliko je ura? Osem je.",
+      "en": "What time is it? It's eight o'clock.",
+      "de": "Wie spät ist es? Es ist acht Uhr.",
+      "note": {
+        "sl": "sono le (ure) + število.",
+        "en": "sono le (the hours) + the number.",
+        "de": "sono le (die Stunden) + die Zahl."
+      }
+    },
+    {
+      "it": "È l'una: andiamo a pranzo!",
+      "sl": "Ura je ena: gremo na kosilo!",
+      "en": "It's one o'clock: let's go and have lunch!",
+      "de": "Es ist ein Uhr: gehen wir essen!",
+      "note": {
+        "sl": "Samo ena v ednini: è l'una.",
+        "en": "Only one is singular: è l'una.",
+        "de": "Nur eins steht in der Einzahl: è l'una."
+      }
+    },
+    {
+      "it": "Sono le quattro e mezza.",
+      "sl": "Ura je pol petih.",
+      "en": "It's half past four.",
+      "de": "Es ist halb fünf.",
+      "note": {
+        "sl": "Ura, ki je že tu (quattro), in pol; slovensko pol petih.",
+        "en": "The hour already here (quattro), and a half.",
+        "de": "Die Stunde, die schon da ist (quattro), und halb: auf Deutsch halb fünf."
+      }
+    },
+    {
+      "it": "La scuola comincia alle otto.",
+      "sl": "Šola se začne ob osmih.",
+      "en": "School starts at eight.",
+      "de": "Die Schule fängt um acht an."
+    },
+    {
+      "it": "Il sabato Tommaso gioca a calcio.",
+      "sl": "Ob sobotah Tommaso igra nogomet.",
+      "en": "On Saturdays Tommaso plays football.",
+      "de": "Samstags spielt Tommaso Fußball.",
+      "note": {
+        "sl": "il sabato: vsako soboto. Sabato brez člena: to soboto.",
+        "en": "il sabato: every Saturday. Sabato alone: this Saturday.",
+        "de": "il sabato: jeden Samstag. Sabato allein: diesen Samstag."
+      }
+    },
+    {
+      "it": "A settembre c'è la vendemmia.",
+      "sl": "Septembra je trgatev.",
+      "en": "In September there's the grape harvest.",
+      "de": "Im September ist die Weinlese."
+    },
+    {
+      "it": "Il venti maggio è la giornata delle api.",
+      "sl": "Dvajsetega maja je dan čebel.",
+      "en": "The twentieth of May is the bees' day.",
+      "de": "Der zwanzigste Mai ist der Tag der Bienen.",
+      "note": {
+        "sl": "Datum: il + število (il venti maggio); prvi je il primo.",
+        "en": "A date: il + the number (il venti maggio); the first is il primo.",
+        "de": "Ein Datum: il + die Zahl (il venti maggio); der Erste ist il primo."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["time", "clock", "hours", "days", "months", "dates", "ore", "giorni"],
+  "see": ["numeri", "preposizioni-articolate"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

@@ -34,8 +34,12 @@ class GrammarTest {
         assertEquals(emptyList<GrammarPage>(), Grammar.bundled("xx"))
     }
 
-    @Test fun `Italian, German and English have 16 pages each, and the Italian tent's page is there`() {
-        for (lang in listOf("it", "de", "en")) assertEquals(lang, 16, Grammar.bundled(lang).size)
+    @Test fun `German and English have 16 pages each, Italian every file of its book, and the Italian tent's page is there`() {
+        for (lang in listOf("de", "en")) assertEquals(lang, 16, Grammar.bundled(lang).size)
+        // the 16 of the villages and the pages the school's units brought (imperativo, ore-giorni: COURSE.md, "Italian A1")
+        val italian = File("../../grammar/it").listFiles { f -> f.name.endsWith(".json") }!!.size
+        assertTrue("$italian Italian pages", italian >= 18)
+        assertEquals("it", italian, Grammar.bundled("it").size)
         val dove = Grammar.bundled("it").first { it.id == "dove-preposizioni" }
         // the second learner's view: Italian, explained in Slovene
         assertEquals("${dove.target} · ${dove.titleIn("sl")}", dove.titleShown(LangPair(Lang.IT, Lang.SL)))
