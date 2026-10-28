@@ -24,6 +24,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntRect
 import androidx.compose.ui.unit.IntSize
+import si.lanisce.lani.game.render.Arrival
 import si.lanisce.lani.game.render.CameraRig
 import si.lanisce.lani.game.render.FADE_MS
 import si.lanisce.lani.game.render.Held
@@ -316,24 +317,27 @@ fun SceneView(
         val ready = if (k > 1) fine != null else base != null
         val prev = view.prev
         if (ready && sw.shownK != k) {
-            if (sw.shownK > 0 && prev.valid) { sw.fadeFrom = tick; clock.frames = true }
+            if (sw.shownK > 0 && prev.valid) sw.fadeFrom = tick
             sw.shownK = k
         }
         var alpha = 1f
         if (sw.fadeFrom >= 0) {
             alpha = ((clock.frame - sw.fadeFrom) / 1e6 / FADE_MS).toFloat().coerceIn(0f, 1f)
-            if (alpha >= 1f) { sw.fadeFrom = -1L; clock.frames = false }
+            if (alpha >= 1f) sw.fadeFrom = -1L
         }
         val fading = sw.fadeFrom >= 0 && prev.valid
 
         drawRect(Color(ps.backdrop))
-        base?.let { drawPicture(it.image, it.lens, it.ox, it.oy, it.w, it.h, c) }
+        // the first picture fades in as it comes (it is never drawn on the main thread)
+        val a0 = view.arrival.alpha(base != null, tick, clock)
+        base?.let { drawPicture(it.image, it.lens, it.ox, it.oy, it.w, it.h, c, a0) }
         when {
             !ready -> if (prev.valid) prev.draw(this, c) // the picture before, until the new detail is rendered
-            fine != null && fading -> { prev.draw(this, c); drawPicture(fine.image, fine.lens, fine.ox, fine.oy, fine.w, fine.h, c, alpha) }
-            fine != null -> drawPicture(fine.image, fine.lens, fine.ox, fine.oy, fine.w, fine.h, c)
+            fine != null && fading -> { prev.draw(this, c); drawPicture(fine.image, fine.lens, fine.ox, fine.oy, fine.w, fine.h, c, alpha * a0) }
+            fine != null -> drawPicture(fine.image, fine.lens, fine.ox, fine.oy, fine.w, fine.h, c, a0)
             fading -> prev.draw(this, c, 1f - alpha)
         }
+        clock.frames = sw.fadeFrom >= 0 || view.arrival.fading
     }
 }
 
@@ -344,6 +348,7 @@ fun SceneView(
 private class SceneShown {
     val switch = Switch()
     val prev = Held()
+    val arrival = Arrival(cold = true)
     val shownK: Int get() = switch.shownK
     private var people: Any? = null
     private var highlight: String? = null

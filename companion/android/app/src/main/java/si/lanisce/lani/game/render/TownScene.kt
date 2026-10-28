@@ -119,8 +119,15 @@ fun TownScene(
 ) {
     val anim = remember { AnimMarks(celebrateSeen = celebrate) }
     val iw = fit.width; val ih = fit.height
-    val pics = remember(iw, ih, renderer) { TownPictures(iw, ih, renderer) }
-    DisposableEffect(pics) { onDispose { pics.close() } }
+    // kept for when the village comes back (Retained): its last picture at once, the render thread bringing the next
+    val context = androidx.compose.ui.platform.LocalContext.current
+    val pics = remember(iw, ih, renderer) { Retained.attach(context); Retained.town(iw, ih, renderer) }
+    DisposableEffect(pics) {
+        Retained.use(pics, true)
+        onDispose { Retained.use(pics, false) }
+    }
+    // nothing kept (the village's first time): the sky until the first picture is there, then it fades in
+    val arrival = remember(pics) { Arrival(cold = pics.base == null) }
     val inputs = remember(iw, ih) { Inputs() }
     val prev = remember(iw, ih) { Held() }
     val switch = remember(iw, ih) { Switch() }
@@ -184,24 +191,48 @@ fun TownScene(
         // the new picture is there: it is what shows, fading in over the one before
         val ready = if (k > 1) fine != null else base != null
         if (ready && switch.shownK != k) {
-            if (switch.shownK > 0 && prev.valid) { switch.fadeFrom = tick; clock.frames = true }
+            if (switch.shownK > 0 && prev.valid) switch.fadeFrom = tick
             switch.shownK = k
         }
         var alpha = 1f
         if (switch.fadeFrom >= 0) {
             alpha = ((clock.frame - switch.fadeFrom) / 1e6 / FADE_MS).toFloat().coerceIn(0f, 1f)
-            if (alpha >= 1f) { switch.fadeFrom = -1L; clock.frames = false }
+            if (alpha >= 1f) switch.fadeFrom = -1L
         }
         val fading = switch.fadeFrom >= 0 && prev.valid
 
-        drawRect(Color(renderer.skyColor))
-        base?.let { drawPicture(it.image, it.lens, it.ox, it.oy, it.w, it.h, cam) }
+        // before the first picture the hour's sky (the renderer's is the last picture's)
+        drawRect(Color(if (base == null) Env(frame.hour, frame.month, false).skyTop else renderer.skyColor))
+        val a0 = arrival.alpha(base != null, tick, clock)
+        base?.let { drawPicture(it.image, it.lens, it.ox, it.oy, it.w, it.h, cam, a0) }
         when {
             !ready -> if (prev.valid) prev.draw(this, cam) // the picture before, until the new detail is rendered
-            fine != null && fading -> { prev.draw(this, cam); drawPicture(fine.image, fine.lens, fine.ox, fine.oy, fine.w, fine.h, cam, alpha) }
-            fine != null -> drawPicture(fine.image, fine.lens, fine.ox, fine.oy, fine.w, fine.h, cam)
+            fine != null && fading -> { prev.draw(this, cam); drawPicture(fine.image, fine.lens, fine.ox, fine.oy, fine.w, fine.h, cam, alpha * a0) }
+            fine != null -> drawPicture(fine.image, fine.lens, fine.ox, fine.oy, fine.w, fine.h, cam, a0)
             fading -> prev.draw(this, cam, 1f - alpha)
         }
+        clock.frames = switch.fadeFrom >= 0 || arrival.fading
+    }
+}
+
+/**
+ * The first picture of a view that had none kept ([cold]): it fades in over the sky as it arrives, over [FADE_MS]; a view
+ * with its last picture kept shows it at once.
+ */
+internal class Arrival(private val cold: Boolean) {
+    private var from = -1L
+    private var done = !cold
+
+    /** Fading in now (the clock's every frame wanted). */
+    val fading: Boolean get() = from >= 0 && !done
+
+    /** The first picture's alpha in the frame at clock [tick] ([shown]: there is one). */
+    fun alpha(shown: Boolean, tick: Long, clock: TownClock): Float {
+        if (done || !shown) return if (done) 1f else 0f
+        if (from < 0) from = tick
+        val a = ((clock.frame - from) / 1e6 / FADE_MS).toFloat().coerceIn(0f, 1f)
+        if (a >= 1f) done = true
+        return a
     }
 }
 

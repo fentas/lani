@@ -400,6 +400,16 @@ class VillageRenderer {
     /** The trees', the bushes' and the lindens' paintings, kept for every canvas this renderer draws ([Stamps]). */
     internal val stamps = Stamps()
 
+    /**
+     * Memory is short ([Retained.trim]): what this renderer keeps from frame to frame goes (the ground's cells, the trees'
+     * stamps, each canvas's drawing state); drawn again as it is shown. Waits for a frame being drawn.
+     */
+    fun trim() = synchronized(lock) {
+        groundCells.clear()
+        stamps.clear()
+        ctxs.clear()
+    }
+
     /** The ground's still picture, kept in cells of each picture from frame to frame: only its water is drawn anew. */
     internal val groundCells = GroundCache()
 

@@ -20,7 +20,8 @@ import si.lanisce.lani.game.scene.ScenePainter
  * shows changed; [fine]: the closer look by [closer], a window of the picture at detail 2 or 3 a third bigger than the
  * canvas round what the camera sees, every tick, and at once when the camera moved past it. The painters keep what they
  * drew last to hit-test it: what reads them (a tap, TalkBack's sky) does so holding [lock], which the render thread holds
- * while it draws. The first picture is drawn at once on the main thread.
+ * while it draws. Nothing is drawn on the main thread, the first picture neither (2026-10-28,
+ * docs/plans/05-built/home-return.md): the scene's backdrop shows until it is there, and it fades in.
  */
 internal class ScenePictures(val w: Int, val h: Int, private val painter: ScenePainter, private val closer: ScenePainter, private val art: String) {
     private class Ask(val frame: SceneFrame, val base: Boolean, val k: Int, val fine: Lens?)
@@ -85,7 +86,7 @@ internal class ScenePictures(val w: Int, val h: Int, private val painter: SceneP
         if (wantBase) baseKey = key
         if (lens != null) { fineTick = tick; asked = lens }
         val ask = Ask(frame, wantBase, k, lens)
-        if (base == null) draw(ask) else thread.post(ask)
+        thread.post(ask)
     }
 
     /** Whether the closer look through [lens] covers what camera [c] shows (nominal pixels). */
@@ -98,6 +99,9 @@ internal class ScenePictures(val w: Int, val h: Int, private val painter: SceneP
     fun drew(base: Picture?, fine: Picture?) { drewBase = base; drewFine = fine }
 
     fun close() = thread.close()
+
+    /** The thread that drew the last picture (tests: never the one that asked). */
+    val drewOn: Thread? get() = thread.drewOn
 
     private fun draw(ask: Ask) {
         if (ask.base) {

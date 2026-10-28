@@ -394,7 +394,8 @@ fun VillageScreen(vm: AppViewModel) {
         snapshotFlow { run.elapsed >= cheer.from || run.card }.first { it }
         if (!reduced) vm.game.cheer()
     }
-    val townRenderer = remember { si.lanisce.lani.game.render.VillageRenderer() }
+    // kept for when the village comes back (its map's last picture at once, what it keeps from frame to frame): Retained
+    val townRenderer = remember { si.lanisce.lani.game.render.Retained.townRenderer() }
     val scrollPrefs = rememberScrollPrefs()
 
     BoxWithConstraints(Modifier.fillMaxSize().background(Color(0xFF16202E))) {

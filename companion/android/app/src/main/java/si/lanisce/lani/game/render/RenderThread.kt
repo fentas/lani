@@ -55,11 +55,12 @@ internal class PictureSlots {
 
 /**
  * A thread of its own that renders what the main thread asks for ([post]), so the screen's frames never wait for a
- * picture (2026-10-27, docs/plans/05-built/zoom-frames.md): what is asked while it renders waits as one ask ([merge]: the
- * newest frame, everything asked for), so it never falls behind; [draw] renders an ask and hands its pictures over, and
- * [version] is bumped on the main thread for each, which the screen's draw reads. Started with the first ask, ended by
- * [close] after the picture it draws. A failed picture is logged ([tag]); a debug or qa build crashes then, as the main
- * thread's render did, which is what QA looks for.
+ * picture, the first one neither (2026-10-27/28, docs/plans/05-built/zoom-frames.md, home-return.md): what is asked while
+ * it renders waits as one ask ([merge]: the newest frame, everything asked for), so it never falls behind; [draw] renders
+ * an ask and hands its pictures over, and [version] is bumped on the main thread for each, which the screen's draw reads.
+ * The thread starts with an ask and ends after [IDLE_MS] without one (a view kept for when it comes back, off the screen,
+ * holds no thread), and a new ask starts it again; one thread at a time. [close] ends it for good. A failed picture is
+ * logged ([tag]); a debug or qa build crashes then, as the main thread's render did, which is what QA looks for.
  */
 internal class RenderThread<A : Any>(private val name: String, private val tag: String, private val merge: (A, A) -> A, private val draw: (A) -> Unit) {
     /** Bumped on the main thread for every ask drawn: the draw phase reads it. */
@@ -68,23 +69,35 @@ internal class RenderThread<A : Any>(private val name: String, private val tag: 
 
     private val main = Handler(Looper.getMainLooper())
     private val lock = Object()
+    // guarded by [lock]
     private var pending: A? = null
-    @Volatile private var running = true
+    private var closed = false
     private var thread: Thread? = null
 
-    /** Asks for [a]: drawn next, with what still waits. Main thread. */
+    /** The thread that drew the last ask (tests: never the one that asked). */
+    @Volatile var drewOn: Thread? = null
+        private set
+
+    /** Whether the thread is alive now (tests: it ends when idle). */
+    val alive: Boolean get() = synchronized(lock) { thread != null }
+
+    /** Asks for [a]: drawn next on the render thread, with what still waits. Never draws on the calling thread. */
     fun post(a: A) {
         synchronized(lock) {
+            if (closed) return
             pending = pending?.let { merge(it, a) } ?: a
-            lock.notifyAll()
+            if (thread == null) thread = Thread(::loop, name).apply { isDaemon = true; start() }
+            else lock.notifyAll()
         }
-        if (thread == null) thread = Thread(::loop, name).apply { isDaemon = true; start() }
     }
 
-    /** The view is gone: the thread ends after the picture it draws. */
+    /** The view is gone for good: the thread ends after the picture it draws, and nothing more is drawn. */
     fun close() {
-        running = false
-        synchronized(lock) { lock.notifyAll() }
+        synchronized(lock) {
+            closed = true
+            pending = null
+            lock.notifyAll()
+        }
     }
 
     private fun loop() {
@@ -93,17 +106,26 @@ internal class RenderThread<A : Any>(private val name: String, private val tag: 
         runCatching { Process.setThreadPriority(Process.THREAD_PRIORITY_DISPLAY) }
         while (true) {
             val a = synchronized(lock) {
-                while (pending == null && running) lock.wait()
-                pending.also { pending = null }
+                if (pending == null && !closed) lock.wait(IDLE_MS)
+                val next = pending
+                // idle so long, or closed: the thread ends (a new ask starts another)
+                if (next == null || closed) { thread = null; return }
+                pending = null
+                next
             }
-            if (a == null || !running) break
             try {
                 draw(a)
+                drewOn = Thread.currentThread()
                 main.post { version++ }
             } catch (e: RuntimeException) {
                 Log.e(tag, "a picture failed", e)
                 if (si.lanisce.lani.BuildConfig.QA) main.post { throw e }
             }
         }
+    }
+
+    companion object {
+        /** The thread ends after this long without an ask (ms). */
+        const val IDLE_MS = 2_000L
     }
 }

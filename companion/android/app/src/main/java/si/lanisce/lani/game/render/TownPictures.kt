@@ -10,10 +10,12 @@ import si.lanisce.lani.game.GameState
  * the picture at detail 2 or 3 covering the screen ([TownFrames]), every tick, and at once when the camera has moved past
  * what the one asked for covers. It draws the newest ones there are, through the camera, on the GPU. The render thread
  * draws them with [renderer] into canvases of its own and hands each one over in one of three bitmaps a layer
- * ([PictureSlots]), never the one the screen drew last ([drew]) nor the one it draws next. The very first picture is
- * drawn at once on the main thread, so the village never opens empty.
+ * ([PictureSlots]), never the one the screen drew last ([drew]) nor the one it draws next. Nothing is ever drawn on the
+ * main thread, the first picture neither (2026-10-28, docs/plans/05-built/home-return.md): the village's own pictures are
+ * kept for when it comes back ([Retained]), so a Back into it shows the last one at once; a cold one shows the sky until
+ * the first is there, and fades it in.
  */
-internal class TownPictures(val w: Int, val h: Int, private val renderer: VillageRenderer) {
+internal class TownPictures(val w: Int, val h: Int, val renderer: VillageRenderer) {
     /** What the main thread asks of the render thread: [frame] of [state], the nominal picture and/or the closer look's [window] at detail [k]. */
     private class Ask(val state: GameState, val frame: Frame, val base: Boolean, val k: Int, val window: PixelRect?, val screen: PixelRect?)
 
@@ -69,15 +71,19 @@ internal class TownPictures(val w: Int, val h: Int, private val renderer: Villag
         if (!wantBase && window == null) return
         if (wantBase) baseTick = tick
         if (window != null) { fineTick = tick; asked = window; askedK = k }
-        val ask = Ask(state, frame, wantBase, k, window, screen)
-        // the very first picture at once, on the main thread: the village never opens empty
-        if (base == null) draw(ask) else thread.post(ask)
+        thread.post(Ask(state, frame, wantBase, k, window, screen))
     }
+
+    /** The thread that drew the last picture (tests: never the one that asked). */
+    val drewOn: Thread? get() = thread.drewOn
+
+    /** Whether its render thread is alive (tests: it ends when nothing is asked). */
+    val rendering: Boolean get() = thread.alive
 
     /** The screen drew [base] and [fine] (the newest closer look there was, drawn or not). */
     fun drew(base: Picture?, fine: Picture?) { drewBase = base; drewFine = fine }
 
-    /** The view is gone: the render thread ends after the picture it draws. */
+    /** Not kept any more ([Retained]): the render thread ends after the picture it draws, and draws no more. */
     fun close() = thread.close()
 
     /** Renders what [ask] asks for and hands it over. */
