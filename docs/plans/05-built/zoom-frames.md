@@ -29,7 +29,40 @@ gesture made every frame start again.
 
 ## Before: what a frame cost
 
-<!-- BEFORE -->
+Measured before anything changed (the branch's first commit, 2a0511d2: only QA's hooks added).
+
+**The renderer's passes on the JVM** (`TownFrameProfileTest`, the tablet's 320 × 200 canvas, at night; the middle of 40
+frames; a machine shared with other builds, so the numbers move by ±30 %):
+
+| Village | At rest, detail 1 | 1.5 × (detail 2) | 2 × | 2.5 × (detail 3) | 3 × | Panned at 2 | Panned at 3 |
+|---|---|---|---|---|---|---|---|
+| Teo's camp (coast) | 1.8 ms | 2.1 | 2.2 | 2.1 | 1.8 | 7.5 (ground 5.2) | 6.3 (ground 4.6) |
+| Teo's coast at Vas | 2.5 | 2.5 | 2.4 | 2.1 | 2.3 | 6.6 (ground 4.7) | 7.4 (ground 5.6) |
+| The classic land at Vas | 2.9 | 2.6 | 2.6 | 1.7 | 1.6 | 5.3 (ground 3.3) | 5.0 (ground 3.2) |
+
+At rest the ground is kept and a frame is the objects (trees, buildings, people: 0.5 to 1.3 ms), the backdrop, the
+outline and the light; a pan pays the whole ground every frame, two thirds of it. Where a frame's time goes at rest
+closer up (the sampler, Teo's coast at Vas, detail 3, by day): the linden's and the beeches' crowns 27 %, the outline
+pass 18 %, the polygons of the buildings 8 %, the ground's detail 5 %; at night the light pass 24 %.
+
+**On the emulator** (QA's `zoom-frames`, the qa build, Teo-like coast village at night, 6 s a look): at 2560 × 1600 with
+the emulator on two host cores, a frame took 300 to 350 ms in the middle whatever the app did (the emulator's software
+GPU putting 4 million pixels on the screen: gfxinfo's GPU part 200 to 300 ms), so these runs say nothing of the app's
+own time. At 1280 × 800 / 160 dpi (the same 320 × 200 canvas and the same layout in dp, a quarter of the pixels to put on
+the screen) on four host cores, the main thread's own work a frame (input to handing the frame over, gfxinfo framestats):
+
+| Look | Map render (ms) | Main p50 | Main p90 | Main max | Main frames over 16 ms | Frames in 6 s |
+|---|---|---|---|---|---|---|
+| At home (detail 1) | 12.5 | 2.2 ms | 16.5 | 45.6 | 20 | 205 |
+| 1.5 ×, at rest | 18.4 | 9.6 | 30.1 | 52.2 | 44 | 113 |
+| 1.5 ×, panned | 18.9 | 9.1 | 31.3 | 92.3 | 72 | 193 |
+| 2 ×, at rest | 9.8 | 1.7 | 13.6 | 33.6 | 17 | 228 |
+| 2 ×, panned | 21.7 | 6.5 | 29.1 | 48.6 | 78 | 257 |
+| Pinched (1 × to 3 ×) | 6.7 | 4.1 | 11.0 | 24.8 | 6 | 275 |
+
+The map's render ran inside those frames, once a tick (12 a second): the frames that drew a picture took it all on the
+main thread. On Teo's tablet the processor is about 3 to 4 times slower than this emulator's (the 2026-10-26 numbers: about
+400 ms there against 96 here, drawn the same way), and every tick's frame waited the whole render: the lag Jan saw.
 
 ## What
 
@@ -84,20 +117,67 @@ gesture made every frame start again.
 
 ## After
 
-<!-- AFTER -->
+**The renderer on the JVM**, the same scenes (the closer look as it is drawn now: a window of the picture covering the
+screen and its apron, the trees stamped, the ground in cells):
+
+| Village | At rest, detail 1 | 1.5 × | 2 × | 2.5 × | 3 × | Panned at 2 | Panned at 3 | Pinched at 3 |
+|---|---|---|---|---|---|---|---|---|
+| Teo's camp (coast) | 1.1 ms | 2.8 | 1.3 | 1.1 | 0.9 | 1.7 (ground 0.3) | 1.3 (ground 0.2) | 1.4 |
+| Teo's coast at Vas | 1.6 | 2.5 | 1.4 | 1.4 | 1.1 | 1.9 (ground 0.3) | 1.5 (ground 0.2) | 1.6 |
+| The classic land at Vas | 1.6 | 3.4 | 1.7 | 1.5 | 1.6 | 2.6 (ground 0.4) | 1.8 (ground 0.2) | 1.9 |
+
+A pan costs what a frame at rest does (`TownWindowTest`: 1.3 to 1.7 ms panning against 1.0 to 1.3 at rest; it was up to
+five times as much). At 1.5 × a frame draws more than before, by design: the window covers the whole screen (427 × 267
+canvas pixels and its apron), where the old canvas (320 × 200) left a quarter of the screen to the coarser picture. The
+trees' stamps take the objects from 0.5 to 1.3 ms to 0.1 to 0.9.
+
+**On the emulator**, the same runs (1280 × 800, four host cores):
+
+| Look | Map render (ms, its own thread) | Main p50 | Main p90 | Main max | Main frames over 16 ms | Frames in 6 s |
+|---|---|---|---|---|---|---|
+| At home (detail 1) | 5.6 | 1.2 ms | 2.7 | 14.2 | 0 (20) | 269 (205) |
+| 1.5 ×, at rest | 14.4 | 1.2 | 3.0 | 10.2 | 0 (44) | 232 (113) |
+| 1.5 ×, panned | 16.7 | 5.8 | 10.7 | 34.7 | 2 (72) | 201 (193) |
+| 2 ×, at rest | 13.6 | 1.3 | 4.1 | 12.3 | 0 (17) | 217 (228) |
+| 2 ×, panned | 11.0 | 5.4 | 10.9 | 28.6 | 7 (78) | 254 (257) |
+| Pinched (1 × to 3 ×) | 8.5 | 4.3 | 9.1 | 28.4 | 4 (6) | 224 (275) |
+
+(In brackets: before.) The main thread's work a frame is under 16 ms at the 90th percentile in every look now (it was
+over it at every zoom but the pinch), and over 33 ms in at most two frames of 1,400 (a pan's at 1.5 ×: 34.7 ms; the pinch none). What is
+left on it while the camera moves is Compose's own (the bubbles, TalkBack's nodes following the people, the HUD), 5 to
+11 ms. The whole frame on this emulator stays at 67 to 88 ms in the middle, bound by its software GPU (gfxinfo's GPU part
+46 to 65 ms at a quarter of the tablet's pixels), which the tablet doesn't have (4 to 11 ms there, measured before the
+ground was kept). So the round's targets, honestly: the main thread's part of a frame is within 20 ms (p90 2.7 to 10.9
+ms) at rest and panning at every zoom on the emulator, and a pinch has no frame over 33 ms of the main thread's; ≥ 50 fps
+of whole frames can't be seen on this emulator, and the tablet hasn't been measured yet (see "What's left").
+
+**What it looks like**: the same pictures at rest (`ClassicLandTest`'s digests, through lenses at details 2 and 3 too,
+are unchanged; every window is the whole picture's pixels); at 1.5 × the screen's left and right quarters were the coarser
+picture before (a seam where the finer one began, the palisade a different, chunkier shape), and are the finer one now
+(screenshots: ux-perf-zoom/crop-edges.png, before on the left). The ground's and the trees' grain stays on the land as the
+camera moves.
+
+**Memory**: the ground's cells under 24 MB (a phone's closest look, every cell of its picture: 10.8 MB in 408 cells; the
+tablet's picture at detail 3 has 150 cells, about 4 MB); the stamps under 1.6 million pixels (about 8 MB); three bitmaps a layer (the tablet's nominal
+picture 0.8 MB, its closer look's up to about 2.4 MB) and up to three canvases of the closer look with their drawing
+state (about 18 bytes a pixel: 8 MB on the tablet at most).
 
 ## How to measure
 
 - **On the emulator, as Teo's tablet** (the steps' numbers below): a synthetic learner of the Friuli culture
   (`bun companion/bridge/test/fixtures/make-learner.ts <dir> --name Teo --target it --base de`, its village, a Vas of 11
-  buildings, moved onto Teo's coast: `"land": {"kind": "coast", "seed": 551323397}`), the emulator pinned to two host
-  cores, four threads (`taskset -a -p -c 2,3,14,15 <qemu pid>`) for its four CPUs, its display as the tablet on its side:
+  buildings, moved onto Teo's coast: `"land": {"kind": "coast", "seed": 551323397}`), the emulator pinned to four host
+  cores (`taskset -a -p -c 2-5,14-17 <qemu pid>`; with two, its software GPU took every frame's time), its display as the
+  tablet on its side at a quarter of the pixels (the same 320 × 200 canvas, the same layout in dp):
 
   ```bash
   LANI_DEV_DATA=<the learner's dir> LANI_CULTURE=friuli LANI_QA_PAIR=sl-en LANI_QA_ZOOM_SHOTS=<dir> \
-    LANI_QA_FRAMES_S=6 LANI_QA_FRAMES_HOURS=22 LANI_QA_FRAMES_ZOOMS=1.5,2.5 \
-    companion/bin/qa --minified --no-town --steps place-card,scene,zoom-frames
+    LANI_QA_FRAMES_S=6 LANI_QA_FRAMES_HOURS=22 LANI_QA_FRAMES_ZOOMS=1.5,2.5 LANI_QA_FRAMES_DISPLAY=1280x800/160 \
+    companion/bin/qa --minified --no-town --steps zoom-frames
   ```
+
+  About six minutes on the emulator. "2.5" settles at 2 × at this display's fitted scale of 4 (the crisp scales are
+  multiples of the detail); the tablet's own (8) settles at 2.6 ×, detail 3.
 
   `--minified` is the qa build: the release build's R8 with QA's hooks, not debuggable (a debuggable build's code runs
   slower, and the tablet runs a release build).
@@ -130,4 +210,19 @@ gesture made every frame start again.
 
 ## What's left
 
-<!-- LEFT -->
+- **Teo's tablet itself.** The emulator can't show whole frames (its GPU is software); the main thread's part is what
+  this round changed, and it is small now. With wireless debugging on, a release build can be traced as it runs (README,
+  "Measure the map on a phone or a tablet"): the frames' time, and whether the render thread keeps up at 12 pictures a
+  second on the Snapdragon 855 (on the emulator a picture takes 5 to 17 ms; 3 to 4 times that is 20 to 70 ms there, under
+  the 83 ms of a tick, so the village should still move 12 times a second closer up).
+- **The main thread while the camera moves**: 5 to 11 ms a frame of Compose's own (the bubbles and TalkBack's nodes
+  following the people, read through the camera each frame), in ui/game (the village screens' area). Worth a look on the
+  tablet once it is measured.
+- **The rest of a picture**: the outline and the light passes and the backdrop are per pixel every frame (a third of a
+  frame closer up at night); the buildings are painted every frame (they flicker, smoke and flutter: not stampable as
+  they are). A coast at dusk draws its ground anew every frame (the sea takes the sky's colour at the horizon, which moves
+  by the minute), as before.
+- **A fling faster than the margin** (about 2,400 screen px a second at 3 × on the tablet) shows the coarser picture at
+  the screen's edge for a frame or two, until the next picture. No popping beyond that: a detail switch fades as before.
+- **The scenes** render on their own thread now; their painters draw the whole picture clipped to the window each frame
+  (no cells or stamps of their own: a vista's ground is the painter's own code).
