@@ -1354,7 +1354,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     fun qaSchoolUnit(id: String) {
         val u = school.unit(id) ?: return
         game.apply { si.lanisce.lani.app.QaHooks.readyUnit(it, u.language, u.id, u.level, java.time.LocalDate.now(), System.currentTimeMillis()) }
-        openSchool(fromVillage = false)
+        openSchool()
     }
 
     /**
