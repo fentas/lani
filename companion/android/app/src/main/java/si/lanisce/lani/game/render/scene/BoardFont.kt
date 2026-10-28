@@ -183,7 +183,8 @@ internal object BoardFont {
      * its head (before the ": ", "Biti: sem, si, je" → "Biti"), else over two lines (at its commas if it can: "Moški,
      * ženski," / "srednji spol"), else its head before the first "?", "!" or "," ("Kje? V hiši, na vrtu, pri babici" →
      * "Kje?"); then the forms, as many as fit, a line after another, [SEP] between two on a line, at most 4: a form too
-     * wide for a line its last cell alone ("imenovati se imenujem se" → "imenujem se"), else left out. Before the first
+     * wide for a line its last cell alone ("imenovati se imenujem se" → "imenujem se"), else left out; none fitting (a
+     * table of sentences: "Ci sono tre gatti."), the unit's words instead ("c'è · ci sono"). Before the first
      * unit ([Blackboard.WELCOME]): its welcome ("Dobrodošli!", "Benvenuti!") and [date] under it ("14. 10. 2026").
      */
     fun lines(board: Blackboard, width: Int, lines: Int = LINES, date: String? = null): List<Line> {
@@ -191,7 +192,9 @@ internal object BoardFont {
         val out = ArrayList<Line>()
         for (l in titled(title, width, minOf(2, lines - 1))) out.add(Line(l, true))
         var line = ""; var forms = 0
-        for (cells in board.forms) {
+        // the forms that fit; none fitting (a table of sentences), the unit's words
+        val fits = board.forms.filter { cells -> width(cells.joinToString(" ")) <= width || width(cells.last()) <= width }
+        for (cells in fits.ifEmpty { board.words.map { listOf(it) } }) {
             if (out.size >= lines || forms >= 4) break
             val f = cells.joinToString(" ").takeIf { width(it) <= width } ?: cells.last().takeIf { width(it) <= width } ?: continue
             val with = if (line.isEmpty()) f else line + SEP + f

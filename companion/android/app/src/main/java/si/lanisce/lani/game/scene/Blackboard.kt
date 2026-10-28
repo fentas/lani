@@ -11,10 +11,16 @@ import si.lanisce.lani.game.UnitProgress
  * What the school's blackboard says (companion/SCENES.md, "The school's blackboard"; Jan, 2026-10-14: "I like the
  * chalkboard; maybe it could show what we're currently / last learned in school"): the unit the learner worked on last,
  * its [title] in the course's [language] ("Biti: sem, si, je") and a few of its [forms] from the intro's table ("jaz sem",
- * "ti si", "on je"), in the table's order, each as its cells ("jaz", "sem"); before the first unit no title
- * ("Dobrodošli!" and the day; "Benvenuti!" in an Italian course). The painter writes what fits ([si.lanisce.lani.game.render.scene.BoardFont.lines]). Pure.
+ * "ti si", "on je"), in the table's order, each as its cells ("jaz", "sem"), and its [words] for when none of the forms
+ * fits (a table of sentences: "Ci sono tre gatti."); before the first unit no title ("Dobrodošli!" and the day;
+ * "Benvenuti!" in an Italian course). The painter writes what fits ([si.lanisce.lani.game.render.scene.BoardFont.lines]). Pure.
  */
-data class Blackboard(val title: String?, val forms: List<List<String>> = emptyList(), val language: String = "sl") {
+data class Blackboard(
+    val title: String?,
+    val forms: List<List<String>> = emptyList(),
+    val language: String = "sl",
+    val words: List<String> = emptyList(),
+) {
     /** The board's welcome before the first unit, in the course's language ("Dobrodošli!", "Benvenuti!"). */
     val welcome: String get() = WELCOMES[language] ?: WELCOMES.getValue("sl")
 
@@ -42,8 +48,12 @@ data class Blackboard(val title: String?, val forms: List<List<String>> = emptyL
         fun of(s: GameState, course: Course?): Blackboard? {
             course ?: return null
             val u = unit(s, course) ?: return Blackboard(null, language = course.language)
-            return Blackboard(Grammar.text(u.title, course.language), forms(u), course.language)
+            return of(u, course.language)
         }
+
+        /** The board of [u] in a course of [language]: its title, its [forms], its words. */
+        fun of(u: CourseUnit, language: String): Blackboard =
+            Blackboard(Grammar.text(u.title, language), forms(u), language, u.words.distinct().take(MAX_FORMS))
 
         /**
          * The unit the learner worked on last: of the units with progress, the one with the latest day in it (begun, an

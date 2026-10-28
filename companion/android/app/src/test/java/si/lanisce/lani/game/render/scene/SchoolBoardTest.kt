@@ -77,7 +77,7 @@ class SchoolBoardTest {
         val it = assertNotNullAnd(Courses.bundled("it"))
         val missing = HashSet<Char>()
         for (u in it.units.values) {
-            val b = Blackboard(u.title["it"], Blackboard.forms(u), "it")
+            val b = Blackboard.of(u, "it")
             for (ch in (b.title.orEmpty() + b.forms.flatten().joinToString(""))) if (!BoardFont.knows(ch)) missing.add(ch)
             val lines = BoardFont.lines(b, width)
             assertTrue("${u.id}: the title first", lines.first().title)
@@ -86,6 +86,9 @@ class SchoolBoardTest {
         }
         assertTrue("letters the board can't write: $missing", missing.isEmpty())
         for (ch in "àèéìòùÈ'") assertTrue("$ch", BoardFont.knows(ch))
+        // a table of sentences too wide for the board (c'è: "Ci sono tre gatti."): the unit's words instead
+        val ce = BoardFont.lines(Blackboard.of(it.units.getValue("ce-ci-sono"), "it"), width)
+        assertTrue("$ce", ce[1].text.startsWith("c'è") && !ce[1].title)
         // before the first unit of the Italian course: "Benvenuti!" and the day as Italy writes it
         val welcome = Blackboard.of(GameState(), it)!!
         assertEquals("it", welcome.language)
