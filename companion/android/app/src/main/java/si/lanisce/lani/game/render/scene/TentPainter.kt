@@ -34,6 +34,11 @@ import kotlin.math.sin
  *
  * At night whoever lives in the tent sleeps on the camp bed ([beds]: "bed"), the head on the pillow, zipped into the
  * sleeping bag, the Zzz rising; the lantern is turned low for them (unless a dialog lit it).
+ *
+ * At Friuli's camp ([look]; companion/SCENES.md "Culture looks") a pennant of Friuli, the golden eagle on blue, flies from
+ * the top of the tent's front post; a pair of scarpets, the Friulian velvet slippers with flowers embroidered on their toes,
+ * waits on the floor by the camp bed; and behind the meadow a row of vines runs along its back edge on its stakes and wire,
+ * as on the Collio's slopes, green with grapes in summer, gold in autumn, bare in winter.
  */
 internal class TentPainter : DioramaPainter() {
     override val art = "tent"
@@ -86,9 +91,15 @@ internal class TentPainter : DioramaPainter() {
         return floatArrayOf(env.ambR + lift, env.ambG + lift, env.ambB + lift)
     }
 
+    /** Friuli's camp ([look]): its pennant, the scarpets by the bed, the row of vines behind the meadow. */
+    private var pennant = false
+    private var scarpets = false
+    private var vines = false
+
     override fun paint() {
         fit()
         vignette()
+        pennant = variant("pennant") == "friuli"; scarpets = variant("slippers") == "scarpets"; vines = variant("vines") == "collio"
         val asleep = peopleAt(BED).firstOrNull()
         // the lantern burns from dusk, or as a dialog has it (its "lantern": 0 dark, 1 lit); turned low for a sleeper
         val low = asleep != null && fx("lantern") == null
@@ -98,6 +109,7 @@ internal class TentPainter : DioramaPainter() {
         // tufts first: they lie flat, and whatever stands in front of them covers them
         tufts(90, 7) { x, y -> (x in x0 - 0.2f..x1 + 0.3f && y in y0 - 0.2f..y1 + 0.3f) || pathDist(x, y) < 0.5f || hypot(x - coilAt.first, y - coilAt.second) < 1f }
         prop { steppingStones() }
+        if (vines) prop { vineRow() }
         // the tent's shade on the grass beside the low wall and in front of the floor
         shade(iso.sx(x1 + 0.6f, (y0 + yr) / 2), iso.sy(x1 + 0.6f, (y0 + yr) / 2, 0f), 3.2f * 4 * K, 1.1f * 4 * K, 0.8f, groundId)
 
@@ -132,6 +144,8 @@ internal class TentPainter : DioramaPainter() {
         asleep?.let { sleeperAt(it, 1.68f, 8.55f, fl + 5.9f, 3.85f, 8.55f, fl + 5.5f, BAG) }
         thing("blanket") { blanket() }
         thing("boots", slop = 1) { boots() }
+        if (scarpets) prop { scarpets() }
+        if (pennant) prop { pennant() }
 
         // outside
         prop(outline = 0) {
@@ -1037,6 +1051,125 @@ internal class TentPainter : DioramaPainter() {
             iso.line(xa, yb, z + 0.25f, xb, yb, z + 0.25f, Col.hex(0xB8AA8A))
         }
         iso.line(xb - 0.1f, ym, z + 0.5f, xb + 0.15f, ym + 0.05f, z - 0.8f, Pal.FLAG_RED)
+    }
+
+    // ------------------------------------------------------------------ Friuli's camp
+
+    /**
+     * Friuli's pennant on the front post's top: a long blue triangle waving in the wind (more in a gust), the golden eagle
+     * of Friuli spread on it closer up, a yellow spot of it on the scene's canvas.
+     */
+    private fun pennant() {
+        val px0 = x0 + 0.12f; val py0 = y1 - 0.1f; val top = hBeam + 2f
+        val len = 1.9f; val hh = 2.9f
+        val blue = Col.hex(0x2A5CB0); val blueD = Col.hex(0x1C4486); val gold = Col.hex(0xF2C230); val goldD = Col.hex(0xC8941A)
+        val wave = (gust * 0.35f).coerceAtMost(1f)
+        quadPlot(px0, py0, top - hh, px0 + len, py0, top - hh, px0 + len, py0, top + 0.6f, px0, py0, top + 0.6f) { px, py ->
+            val x = wallYx(px, py0); val z = wallYz(px, py, py0)
+            val u = (x - px0) / len
+            if (u < 0f || u > 1f) return@quadPlot 0
+            // it narrows to its tip and ripples along its length
+            val mid = top - hh * 0.5f + sin(u * 7f - t.toFloat() * 5f) * 0.35f * u * (0.4f + wave)
+            val half = hh * 0.5f * (1f - u)
+            val v = (z - mid) / max(0.01f, half)
+            if (abs(v) > 1f) return@quadPlot 0
+            // the eagle: its body and head in the middle near the staff, its wings spread up and out
+            val eu = (u - 0.3f) / 0.22f; val ev = v
+            val eagle = (abs(eu) < 0.28f && ev in -0.55f..0.45f) || (abs(eu) < 0.95f && ev in -0.05f..0.3f && abs(ev - 0.12f - abs(eu) * 0.3f) < 0.22f) ||
+                (hypot(eu, ev - 0.62f) < 0.24f)
+            when {
+                detail == 1 -> if (eu * eu + ev * ev < 0.5f) gold else if (v > 0.55f) blueD else blue
+                eagle -> if (ev < -0.1f && abs(eu) < 0.28f) goldD else gold
+                v < -0.7f -> blueD
+                else -> blue
+            }
+        }
+        // the staff's knob over the post
+        iso.px(px0, py0, top + 0.8f, Col.hex(0xE8D8A0))
+    }
+
+    /**
+     * The scarpets: a pair of Friulian slippers on the floor by the camp bed, black velvet with a little flower embroidered on
+     * each toe, their pale rope soles.
+     */
+    private fun scarpets() {
+        val velvet = Col.hex(0x2A2430); val velvetL = Col.hex(0x4A4256); val sole = Col.hex(0xD8C8A0)
+        for ((k, sx) in floatArrayOf(4.45f, 4.55f).withIndex()) {
+            val sy = 8.55f + k * 0.42f
+            iso.box(sx, sy, fl, 0.62f, 0.26f, 0.35f, sole, sole, Col.hex(0xB8A880))
+            iso.box(sx + 0.04f, sy + 0.02f, fl + 0.35f, 0.5f, 0.22f, 0.75f, velvetL, velvet, Col.hex(0x1C1820))
+            // the opening for the foot at the heel, dark
+            iso.top(sx + 0.06f, sy + 0.05f, fl + 1.1f, 0.24f, 0.16f, Col.hex(0x140F14))
+            // the flower on the toe: red petals round a yellow eye, two green leaves (closer up), a red spot on the canvas
+            val fx = iso.sx(sx + 0.42f, sy + 0.24f); val fy = iso.sy(sx + 0.42f, sy + 0.24f, fl + 0.75f)
+            if (detail == 1) c.set(floor(fx).toInt(), floor(fy).toInt(), Col.hex(0xD8344A))
+            else {
+                val p = detail.toFloat()
+                c.fillCircle(fx, fy, 0.9f * p, Col.hex(0xD8344A))
+                c.fillCircle(fx, fy, 0.35f * p, Col.hex(0xF2C230))
+                c.set(floor(fx - 1.3f * p).toInt(), floor(fy + 0.4f * p).toInt(), Col.hex(0x4E8A3A)); c.set(floor(fx + 1.3f * p).toInt(), floor(fy + 0.3f * p).toInt(), Col.hex(0x4E8A3A))
+            }
+        }
+    }
+
+    /**
+     * A row of vines along the meadow's back edge behind the tent, as on the Collio's slopes: their stakes and the wire
+     * between them, each vine's gnarled trunk and its leaves along the wire, bunches of grapes hanging under them from
+     * summer; gold in autumn, bare canes in winter (snow on the wire's ends).
+     */
+    private fun vineRow() {
+        val ya = 0.35f; val xa = 9.3f; val xb = 13.7f; val wz = 4.2f; val top = wz + 4.6f
+        val season = env.season
+        val autumn = season == si.lanisce.lani.game.render.Season.AUTUMN
+        val leaf = if (autumn) Col.hex(0xD8A03A) else Col.hex(0x4E8A3A)
+        val leafD = if (autumn) Col.hex(0xA8682A) else Col.hex(0x2E6A2E)
+        val leafL = if (autumn) Col.hex(0xF0C25A) else Col.hex(0x7AB25A)
+        val wire = Col.hex(0x6A6670)
+        // the stakes, the trunks up to the fruiting wire, the wires
+        for (k in 0..3) { val x = xa + k * (xb - xa) / 3f; iso.post(x, ya, 0f, top + 0.6f, Pal.WOOD_D) }
+        for (k in 0 until 6) iso.post(xa + 0.35f + k * (xb - xa - 0.7f) / 5f, ya + 0.02f, 0f, wz, Col.hex(0x5A3E26))
+        iso.line(xa, ya, wz, xb, ya, wz, wire)
+        if (winter) {
+            // bare: the canes tied along the wire, a little snow on the stakes' tops
+            for (k in 0 until 6) { val x = xa + 0.35f + k * (xb - xa - 0.7f) / 5f; iso.line(x, ya, wz, x + 0.55f, ya, wz + 0.5f, Col.hex(0x6A4A30)); iso.line(x, ya, wz, x - 0.5f, ya, wz + 0.4f, Col.hex(0x6A4A30)) }
+            for (k in 0..3) iso.px(xa + k * (xb - xa) / 3f, ya, top + 0.8f, Pal.SNOW_L)
+            return
+        }
+        iso.line(xa, ya, top - 1.2f, xb, ya, top - 1.2f, wire)
+        // the shoots up from the wire: a wall of leaves along the row, its top ragged, each leaf lit on its upper left
+        quadPlot(xa + 0.1f, ya, wz - 0.3f, xb - 0.1f, ya, wz - 0.3f, xb - 0.1f, ya, top, xa + 0.1f, ya, top) { px, py ->
+            val x = wallYx(px, ya); val z = wallYz(px, py, ya)
+            val crown = top - 0.9f + Noise.v1(x * 3.3f, 13) * 1.1f
+            val bottom = wz - 0.3f + Noise.v1(x * 4.1f, 15) * 0.5f
+            if (z > crown || z < bottom) 0 else {
+                val n = Noise.v2(x * 5f, z * 0.9f, 17)
+                when {
+                    n > 0.66f -> leafL
+                    n < 0.3f -> leafD
+                    detail > 1 && Noise.rnd(px / detail, py / detail, 19) < 0.08f -> leafD
+                    else -> leaf
+                }
+            }
+        }
+        // the bunches hanging under the leaves from July
+        if (env.month in 7..10) for (k in 0 until 6) {
+            val x = xa + 0.55f + k * (xb - xa - 0.7f) / 5f
+            val gx = iso.sx(x, ya + 0.04f); val gy = iso.sy(x, ya + 0.04f, wz - 0.4f)
+            val grape = if (k % 2 == 0) Col.hex(0x5A2E6A) else Col.hex(0xC8C060)
+            for (r in 0 until 3) for (q in 0..(2 - r)) c.fillCircle(gx + (q - (2 - r) / 2f) * 0.9f * K, gy + r * 0.8f * K, 0.5f * K, if (q == 0 && r == 0) Col.mix(grape, Col.hex(0xFFFFFF), 0.3f) else grape)
+        }
+    }
+
+    /** Like [quadFill], but pixels the shader answers 0 for are left alone. */
+    private inline fun quadPlot(
+        xa: Float, ya: Float, za: Float, xb: Float, yb: Float, zb: Float,
+        xc: Float, yc: Float, zc: Float, xd: Float, yd: Float, zd: Float,
+        crossinline shader: (Int, Int) -> Int,
+    ) {
+        c.polyBegin()
+        c.polyAdd(iso.sx(xa, ya), iso.sy(xa, ya, za)); c.polyAdd(iso.sx(xb, yb), iso.sy(xb, yb, zb))
+        c.polyAdd(iso.sx(xc, yc), iso.sy(xc, yc, zc)); c.polyAdd(iso.sx(xd, yd), iso.sy(xd, yd, zd))
+        c.polyScan { px, py -> val col = shader(px, py); if (col != 0) c.set(px, py, col) }
     }
 
     /** A pair of leather boots at the edge of the floor. */

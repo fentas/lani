@@ -137,11 +137,43 @@ object CultureLooks {
         fixtures = mapOf("hearth" to null),
     )
 
+    /**
+     * Fabbro Bruno's smithy in Friuli (SmithyPainter): walls of river cobbles with bands of brick, as the plain's and the
+     * Isonzo's houses are built; a wrought-iron grille in the window, his black notebook of orders on its sill; the moka on
+     * the forge's stone top.
+     */
+    private val FRIULI_SMITHY = Table.of(
+        "smithy",
+        variants = mapOf("walls" to "cobbles", "window" to "grille", "notebook" to "black", "moka" to "moka"),
+    )
+
+    /**
+     * The tent at Friuli's camp (TentPainter): the pennant of Friuli (the golden eagle on blue) on its front post, a pair of
+     * scarpets by the camp bed, a row of vines along the meadow's back edge.
+     */
+    private val FRIULI_TENT = Table.of(
+        "tent",
+        variants = mapOf("pennant" to "friuli", "slippers" to "scarpets", "vines" to "collio"),
+    )
+
+    /**
+     * Mugnaio Franco's mill in Friuli (MillPainter): it grinds maize for polenta, golden kernels in the hopper and the
+     * measure, the meal yellow in its sack; cobs hung up to dry from the gallery and on the wall; the Collio through the window.
+     */
+    private val FRIULI_MILL = Table.of(
+        "mill",
+        colours = mapOf(
+            "grain.l" to 0xFFFAD050.toInt(), "grain.m" to 0xFFEAA22C.toInt(), "grain.d" to 0xFFB4701A.toInt(),
+            "meal" to 0xFFF2CE62.toInt(), "meal.d" to 0xFFD6AE46.toInt(),
+        ),
+        variants = mapOf("grain" to "maize", "view" to "collio"),
+    )
+
     /** Each culture's look: its arts' tables added up. A culture not here draws every art as the default culture does. */
     private val tables: Map<String, Table> = mapOf(
         "kaernten" to KAERNTEN_ALPS + KAERNTEN_CAMPFIRE,
         "lakeland" to LAKELAND_ALPS + LAKELAND_CAMPFIRE,
-        "friuli" to FRIULI_KITCHEN,
+        "friuli" to FRIULI_KITCHEN + FRIULI_SMITHY + FRIULI_TENT + FRIULI_MILL,
     )
 
     private val looks = ConcurrentHashMap<String, CultureLook>()

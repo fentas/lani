@@ -61,6 +61,11 @@ import kotlin.math.sqrt
  * Closer up ([detail] 2 and 3) the same mill is drawn finer: the boards' grain and the footing's stones, the runner's
  * furrows, the vat's staves and hoops, the cog wheel's pegs, the buckets of the waterwheel, the sacks' weave, the scale's
  * chains, the cat's stripes and whiskers.
+ *
+ * Mugnaio Franco's mill in Friuli ([look]; companion/SCENES.md "Culture looks") grinds maize for the polenta: golden
+ * kernels in the hopper, in the stream poured into it and heaped in the measure, the meal yellow in its sack, in its stream
+ * from the spout, spilled round it, round the runner and on the scale's pan (the dust in the air stays white); bunches of
+ * cobs hang up to dry from the gallery's edge and on a nail in the right wall; the window looks out on the Collio.
  */
 internal class MillPainter : RoomPainter() {
     override val art = "mill"
@@ -93,7 +98,11 @@ internal class MillPainter : RoomPainter() {
     private val stoneD = Col.hex(0x66625C); private val mortar = Col.hex(0x4E4A44)
     private val boardL = Col.hex(0xB07A48); private val boardM = Col.hex(0x96643A); private val boardD = Col.hex(0x7A5030); private val boardX = Col.hex(0x4E321C)
     private val flourC = Col.hex(0xF6F2EA); private val flourD = Col.hex(0xDCD6CA)
-    private val grainL = Col.hex(0xF2CC6A); private val grainM = Col.hex(0xD8A846); private val grainD = Col.hex(0xA87A2A)
+    /** The grain in the hopper, the measure and the stream, and the meal the stones grind of it: the culture's ([readGrain]). */
+    private var grainL = GRAIN_L; private var grainM = GRAIN_M; private var grainD = GRAIN_D
+    private var mealC = flourC; private var mealD = flourD
+    /** Friuli's mill grinds maize ([look]: "grain" "maize"): golden kernels, yellow meal, cobs hanging to dry. */
+    private var maize = false
     private val jute = Col.hex(0xC8A872); private val juteL = Col.hex(0xDCC08A); private val juteD = Col.hex(0x9A7E4E)
     private val ironC = Col.hex(0x3E3A40); private val ironHi = Col.hex(0x8A8690)
     private val water = Col.hex(0x5A8EB8); private val waterL = Col.hex(0x9CC4E2); private val waterD = Col.hex(0x3A6488)
@@ -129,6 +138,8 @@ internal class MillPainter : RoomPainter() {
         vignette()
         // the mill's walls are its own; lv only keeps RoomPainter's window plain (no geranium on a mill's sill)
         lv = 1
+        readLook()
+        readGrain()
         val a = angle()
         val turning = spin() > 0f
         yard()
@@ -149,6 +160,8 @@ internal class MillPainter : RoomPainter() {
         // the ladder up to it, the door and the lantern on its hook by it
         prop { gallery() }
         thing("sack") { sacks() }
+        // Friuli's maize cobs hanging to dry from the gallery's edge and on a nail in the right wall
+        if (maize) prop { cobs(GAL_X - 0.08f, 4.8f, gzLoft - 0.9f, 7, 3); cobs(4.05f, y0 + 0.12f, fl + 20.5f, 5, 9) }
         thing("cat", slop = 1) { cat() }
         thing("ladder") { ladder() }
         thing("door") { millDoor() }
@@ -546,8 +559,8 @@ internal class MillPainter : RoomPainter() {
             // what lies in it: the bag of flour on the left, the weights on the right
             if (side < 0f && w > 0.05f) {
                 val bh = 2.6f * PokeArt.ease(w, 0.05f, 0.3f)
-                c.fillEllipse(pcx, pcy - bh * detail, 1.8f * detail, bh * detail, flourD)
-                c.fillEllipse(pcx - 0.4f * detail, pcy - bh * 1.2f * detail, 1.2f * detail, bh * 0.7f * detail, flourC)
+                c.fillEllipse(pcx, pcy - bh * detail, 1.8f * detail, bh * detail, mealD)
+                c.fillEllipse(pcx - 0.4f * detail, pcy - bh * 1.2f * detail, 1.2f * detail, bh * 0.7f * detail, mealC)
                 c.set(floor(pcx).toInt(), floor(pcy - bh * 2f * detail).toInt(), juteD)
             }
             if (side > 0f) {
@@ -950,7 +963,7 @@ internal class MillPainter : RoomPainter() {
         // flour round the runner's edge, the eye dark with grain going in
         if (turning) for (k in 0 until 10) {
             val ang = a * 0.5f + k * 0.63f
-            c.blend(floor(cx + cos(ang) * ro * 0.98f).toInt(), floor(rt + sin(ang) * ro * 0.49f).toInt(), flourC, 0.8f)
+            c.blend(floor(cx + cos(ang) * ro * 0.98f).toInt(), floor(rt + sin(ang) * ro * 0.49f).toInt(), mealC, 0.8f)
         }
         c.fillEllipse(cx, rt, 1.2f * p, 0.6f * p, Col.hex(0x2E2A26))
         if (turning) c.set(floor(cx).toInt(), floor(rt).toInt(), grainM)
@@ -1006,7 +1019,7 @@ internal class MillPainter : RoomPainter() {
         val sink = if (turning) (t * 0.6).toFloat() else 0f
         onFlat(gl, SX - half, SY - half, SX + half, SY + half) { x, y, px, py ->
             val d = hypot2(x - SX, y - SY)
-            val g = Noise.v2((x + sink * 0.1f) * 9f, (y - sink * 0.1f) * 9f, 81)
+            val g = Noise.v2((x + sink * 0.1f) * (if (maize) 6f else 9f), (y - sink * 0.1f) * (if (maize) 6f else 9f), 81)
             when {
                 // the dimple over the throat where it runs down
                 turning && d < 0.16f -> grainD
@@ -1086,8 +1099,8 @@ internal class MillPainter : RoomPainter() {
         val cx = iso.sx(FLOUR_X, FLOUR_Y); val base = iso.sy(FLOUR_X, FLOUR_Y, fl)
         val p = detail.toFloat()
         // the spilled flour round its foot
-        c.fillEllipse(cx + 0.5f * p, base, 7f * p, 2.6f * p, flourD)
-        c.fillEllipse(cx - 0.5f * p, base - 0.3f * p, 5.4f * p, 1.8f * p, flourC)
+        c.fillEllipse(cx + 0.5f * p, base, 7f * p, 2.6f * p, mealD)
+        c.fillEllipse(cx - 0.5f * p, base - 0.3f * p, 5.4f * p, 1.8f * p, mealC)
         val hgt = 3.2f + 4.4f * full
         val rx = 0.42f * 11.3f * detail
         val sack = Col.hex(0xEDE6D8); val sackL = Col.hex(0xFAF6EE); val sackD = Col.hex(0xC4BCAC)
@@ -1110,15 +1123,15 @@ internal class MillPainter : RoomPainter() {
         // its open mouth: the flour inside, heaped when it is full
         val my = base - hgt * p
         c.fillEllipse(cx, my, rx, rx * 0.45f, sackD)
-        c.fillEllipse(cx, my + 0.3f * p, rx - p, rx * 0.45f - 0.6f * p, flourC)
-        if (full > 0.75f) c.fillEllipse(cx - 0.3f * p, my - (full - 0.75f) * 6f * p, rx * 0.6f, (full - 0.75f) * 5f * p + 0.5f, flourC)
+        c.fillEllipse(cx, my + 0.3f * p, rx - p, rx * 0.45f - 0.6f * p, mealC)
+        if (full > 0.75f) c.fillEllipse(cx - 0.3f * p, my - (full - 0.75f) * 6f * p, rx * 0.6f, (full - 0.75f) * 5f * p + 0.5f, mealC)
         // the flour running from the spout into it
         if (turning) {
             val sx0 = iso.ix(FLOUR_X + 0.02f, FLOUR_Y - 0.25f); val sy0 = iso.iy(FLOUR_X + 0.02f, FLOUR_Y - 0.25f, fl + 7.2f)
             val wide = if (spin() >= HARD) 2 * detail else detail
             for (yy in sy0..floor(my).toInt()) for (o in 0 until wide) {
                 val ph = yy + (t * 30).toInt() + o
-                c.set(sx0 + o - wide / 2, yy, if (Math.floorMod(ph, 5) == 0) flourD else flourC)
+                c.set(sx0 + o - wide / 2, yy, if (Math.floorMod(ph, 5) == 0) mealD else mealC)
             }
         }
     }
@@ -1340,7 +1353,54 @@ internal class MillPainter : RoomPainter() {
         }
     }
 
+    // ------------------------------------------------------------------ Friuli's maize (companion/SCENES.md "Culture looks")
+
+    /** Reads the culture's grain and its meal once a frame: the default culture's golden wheat and white flour, Friuli's maize. */
+    private fun readGrain() {
+        maize = variant("grain") == "maize"
+        grainL = colour("grain.l", GRAIN_L); grainM = colour("grain.m", GRAIN_M); grainD = colour("grain.d", GRAIN_D)
+        mealC = colour("meal", flourC); mealD = colour("meal.d", flourD)
+    }
+
+    /**
+     * A bunch of maize cobs hung up to dry (Friuli's): [n] cobs tied by their husks to a cord from a nail at world ([x], [y],
+     * [z]), the pale husks fanning up over the knot, the golden cobs hanging under it in two staggered rows, their kernels in
+     * rows closer up.
+     */
+    private fun cobs(x: Float, y: Float, z: Float, n: Int, seed: Int) {
+        val p = detail.toFloat()
+        val cx = iso.sx(x, y); val top = iso.sy(x, y, z)
+        val cord = Col.hex(0x8A6A44); val husk = Col.hex(0xE6D7A0); val huskD = Col.hex(0xC0AC70)
+        val l = Col.hex(0xFAD25A); val m = Col.hex(0xEAA632); val d = Col.hex(0xB8761E)
+        c.vline(floor(cx).toInt(), floor(top).toInt(), floor(top + 2.5f * p).toInt(), cord)
+        val ty = top + 3f * p
+        // the husks pulled back, fanning up over the knot
+        for (k in -2..2) {
+            val hx = cx + k * 1.4f * p; val hy = ty - (3.2f - abs(k) * 0.5f) * p
+            for (o in 0 until max(1, detail / 2 + 1)) c.line(floor(cx).toInt() + o, floor(ty).toInt(), floor(hx).toInt() + o, floor(hy).toInt(), if (k < 0) husk else huskD)
+        }
+        // the cobs, the back ones first
+        for (i in n - 1 downTo 0) {
+            val col = i % 2; val row = i / 2
+            val ccx = cx + (col - 0.5f) * 3f * p + (if (row % 2 == 1) 0.7f * p else 0f)
+            val ccy = ty + 4.5f * p + row * 3.2f * p + Noise.rnd(i, seed) * p
+            // the cob, round at its top and narrowing to a blunt point
+            c.fillEllipse(ccx, ccy - 0.8f * p, 1.5f * p, 3.2f * p, d)
+            c.fillEllipse(ccx, ccy + 1.6f * p, 1.0f * p, 2.2f * p, d)
+            c.fillEllipse(ccx - 0.25f * p, ccy - 1f * p, 1.2f * p, 2.9f * p, m)
+            c.fillEllipse(ccx - 0.2f * p, ccy + 1.3f * p, 0.75f * p, 1.9f * p, m)
+            c.fillEllipse(ccx - 0.6f * p, ccy - 1.4f * p, 0.45f * p, 2f * p, l)
+            if (fine) for (r in -3..3) for (q in -1..1) {
+                if ((r + q) and 1 != 0) continue
+                c.set(floor(ccx + q * 0.7f * p).toInt(), floor(ccy + r * 1.05f * p).toInt(), if (q < 0) l else d)
+            }
+        }
+    }
+
     private companion object {
+        /** The default culture's grain: golden wheat. */
+        val GRAIN_L = Col.hex(0xF2CC6A); val GRAIN_M = Col.hex(0xD8A846); val GRAIN_D = Col.hex(0xA87A2A)
+
         /** The shaft's turn by itself (rad/s), and grinding hard; the pinion and the runner turn this many times as fast. */
         const val EASY = 0.7f
         const val HARD = 1.7f

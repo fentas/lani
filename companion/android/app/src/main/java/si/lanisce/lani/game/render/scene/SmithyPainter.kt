@@ -53,6 +53,11 @@ import kotlin.math.sqrt
  *
  * Its stage ([marks]; companion/SCENES.md, "Stage directions"): at the anvil, by the forge and in the doorway, where a
  * dialog can send Tone for his coffee and back.
+ *
+ * Fabbro Bruno's smithy in Friuli ([look]; companion/SCENES.md "Culture looks") is built as the houses of the Friulian
+ * plain and the Isonzo are: walls of river cobbles in courses, pale and rounded, with bands of brick through them; the
+ * window has a grille of his own wrought iron, bars with scrolls between them, and his black notebook of orders lies on its
+ * sill with a pencil on it; the moka, the coffee pot, stands warming on the forge's stone top, steaming in the morning.
  */
 internal class SmithyPainter : DioramaPainter() {
     override val art = "smithy"
@@ -131,9 +136,14 @@ internal class SmithyPainter : DioramaPainter() {
         return if (ph < 0.25f) 1f - ph / 0.25f else (ph - 0.25f) / 0.75f
     }
 
+    /** Friuli's smithy ([look]): cobble walls with brick bands, the window's grille, the black notebook, the moka. */
+    private var cobbles = false
+    private var grille = false
+
     override fun paint() {
         fit()
         vignette()
+        cobbles = variant("walls") == "cobbles"; grille = variant("window") == "grille"
         val lit = env.windows > 0.35f
         // Tone asleep by it: the fire banked for the night, the bellows at rest (unless a dialog fires the forge up); the
         // forge cold (no charcoal, the smithy damaged: companion/GAME.md "Hearths"), its coals under ash the same way
@@ -152,6 +162,7 @@ internal class SmithyPainter : DioramaPainter() {
         floor()
         walls()
         thing("window") { window() }
+        if (variant("notebook") != null) prop { notebook() }
         thing("door") { door(lit) }
         thing("horseshoe", slop = 1) { horseshoes() }
         if (there("axe")) thing("axe", slop = 1) { axe() }
@@ -159,6 +170,7 @@ internal class SmithyPainter : DioramaPainter() {
         // the forge and its fire, the bellows, the hood and chimney over them, the chain beside them
         thing("forge") { forge() }
         thing("fire", outline = 0) { coals(heat, banked) }
+        if (variant("moka") != null) prop { moka(3.3f, 1.55f, ft + 1f) }
         if (bellows) thing("bellows", slop = 1) { bellows(br) }
         prop { hood() }
         // Tone asleep on his cot along the left wall, his head by the forge's warm bricks
@@ -714,6 +726,7 @@ internal class SmithyPainter : DioramaPainter() {
      * lit along its top; [soot] darkens it, [light] dims the whole face.
      */
     private fun stoneAt(a: Float, z: Float, px: Int, py: Int, soot: Float, light: Float): Int {
+        if (cobbles) return cobbleAt(a, z, px, py, soot, light)
         if (fine) return stoneFine(a, z, px, py, soot, light)
         val ch = 3f
         val zz = z + (Noise.v2(a * 4.1f, z * 0.35f, 3) - 0.5f) * 1.1f
@@ -950,6 +963,7 @@ internal class SmithyPainter : DioramaPainter() {
                     val yy = y - thick; val zz = z - 4f * thick
                     val mid = (wa + wb) / 2f; val midZ = (za + zb) / 2f + 0.6f
                     when {
+                        grille && grilleAt(yy, zz) -> if (fine && grilleLit(yy, zz)) ironL else ironD
                         fine && abs(yy - mid) < 0.07f && yy < mid - 0.07f + e / 4f -> Pal.WOOD_M
                         fine && abs(zz - midZ) < 0.35f && zz > midZ + 0.35f - e -> Pal.WOOD_M
                         abs(yy - mid) < 0.07f || abs(zz - midZ) < 0.35f -> Pal.WOOD_D
@@ -959,6 +973,114 @@ internal class SmithyPainter : DioramaPainter() {
                 }
             }
         }
+    }
+
+    // ------------------------------------------------------------------ Friuli's smithy (companion/SCENES.md "Culture looks")
+
+    /**
+     * The window's wrought-iron grille at [y] cells along the window and [z] up (in its outer plane): three upright bars and
+     * two cross bars, and closer up a scroll curling in each top bay.
+     */
+    private fun grilleAt(y: Float, z: Float): Boolean {
+        val w = wb - wa
+        val k = (y - wa) / w * 4f
+        val bar = abs(k - floor(k + 0.5f)) * w / 4f < 0.06f && k > 0.5f && k < 3.5f
+        val cross = (abs(z - (za + 1.6f)) < 0.3f || abs(z - (zb - 1.6f)) < 0.3f) && y > wa + 0.05f && y < wb - 0.05f
+        if (bar || cross) return true
+        if (!fine) return false
+        // a scroll in each bay under the top bar: a ring a little open at its foot
+        val bay = floor(k).toInt()
+        if (bay < 0 || bay > 3 || z > zb - 1.6f || z < zb - 3.4f) return false
+        val yc = wa + (bay + 0.5f) * w / 4f; val zc = zb - 2.5f
+        val d = hypot((y - yc) * 4f, z - zc)
+        return abs(d - 0.75f) < 0.17f && !(z < zc - 0.3f && y > yc)
+    }
+
+    /** A grille bar's lit edge closer up: its left side and its top. */
+    private fun grilleLit(y: Float, z: Float): Boolean {
+        val w = wb - wa
+        val k = (y - wa) / w * 4f
+        return (k - floor(k + 0.5f)) * w / 4f < -0.025f || z - (za + 1.6f) > 0.12f || z - (zb - 1.6f) > 0.12f
+    }
+
+    /**
+     * River cobbles in courses (Friuli's walls, [cobbles]) at [a] cells along a wall and [z] px up: rounded pale stones in
+     * lime mortar, each lit at its upper left, two courses of brick through them every few courses; [soot] darkens them,
+     * [light] dims the face.
+     */
+    private fun cobbleAt(a: Float, z: Float, px: Int, py: Int, soot: Float, light: Float): Int {
+        val band = z - floor(z / 8.6f) * 8.6f
+        var col = if (band < 3f) brickAt(a, z, 1f, px, py) else {
+            val ch = 1.9f
+            val zz = band - 3f + floor(z / 8.6f) * 7f
+            val course = floor(zz / ch).toInt(); val fz = zz - course * ch
+            val bl = 0.4f + Noise.rnd(course, 71) * 0.2f
+            val u = a / bl + Noise.rnd(course, 72) * 3f
+            val b = floor(u).toInt(); val fa = u - b
+            val tone = Noise.rnd(b, course, 73)
+            val ex = (fa - 0.5f) * 2.1f; val ez = (fz / ch - 0.5f) * 2.2f
+            val e = ex * ex + ez * ez * (0.8f + tone * 0.4f)
+            when {
+                e > 1f -> if (ez < -0.6f && Dither.at(px, py) < 0.6f) COB_JOINT else COB_MORTAR
+                ex < -0.25f && ez > 0.15f && e < 0.55f -> if (tone < 0.5f) COB_HI else COB_L
+                ex > 0.45f || ez < -0.55f -> COB_D
+                tone < 0.3f -> COB_L
+                tone > 0.82f -> COB_SAND
+                else -> COB_M
+            }
+        }
+        if (fine && col != COB_MORTAR && Noise.rnd(px, py, 74) < 0.05f) col = Col.scale(col, 0.88f)
+        if (soot > 0f) {
+            val f = soot + (Dither.at(px, py) - 0.5f) * 0.25f
+            if (f > 0.12f) col = Col.mix(col, sootC, min(0.82f, f))
+        }
+        return if (light == 1f) col else Col.scale(col, light)
+    }
+
+    /** Bruno's black notebook of orders on the window's sill, a pencil on it. */
+    private fun notebook() {
+        val nx = x0 - 0.32f; val ny = 5.15f; val nz = za
+        iso.box(nx, ny, nz, 0.36f, 0.5f, 0.32f, Col.hex(0x3A3640), Col.hex(0x1E1C22), Col.hex(0x2A2830))
+        // the pages' edge along its front, the elastic band round it closer up
+        iso.line(nx + 0.36f, ny + 0.04f, nz + 0.16f, nx + 0.36f, ny + 0.46f, nz + 0.16f, Col.hex(0xE8E0CC))
+        if (fine) iso.line(nx + 0.04f, ny + 0.36f, nz + 0.32f, nx + 0.36f, ny + 0.36f, nz + 0.32f, Col.hex(0xB02A24))
+        // the pencil, red and yellow, lying across it
+        rodIso(nx + 0.05f, ny + 0.08f, nz + 0.34f, nx + 0.33f, ny + 0.44f, nz + 0.34f, Col.hex(0xD8A43A), Col.hex(0xF2C85A), Col.hex(0xB02A24), max(1, detail / 2))
+    }
+
+    /**
+     * The moka on the forge's stone top, warming: an eight-sided aluminium pot narrow at its waist, its lid and knob, the
+     * black handle, the spout; steam from its spout in the morning, and while a dialog says something is hot.
+     */
+    private fun moka(x: Float, y: Float, z: Float) {
+        val p = detail.toFloat()
+        val cx = iso.sx(x, y); val base = iso.sy(x, y, z)
+        val hi = Col.hex(0xF4F6F8); val l = Col.hex(0xD6DAE0); val m = Col.hex(0xA8AEB6); val d = Col.hex(0x767C86)
+        val hgt = 8f * p
+        for (yy in floor(base - hgt).toInt() until ceil(base).toInt()) {
+            val f = (base - yy) / hgt
+            // wide at its foot and its top, narrow at the waist; the lid a little rim over the top
+            val half = p * when { f < 0.45f -> 2.3f - f * 0.9f; f < 0.55f -> 1.9f; f < 0.95f -> 1.9f + (f - 0.55f) * 0.9f; else -> 2.4f }
+            for (xx in floor(cx - half).toInt()..ceil(cx + half).toInt() - 1) {
+                val u = (xx + 0.5f - cx) / half
+                if (abs(u) > 1f) continue
+                c.set(xx, yy, when {
+                    f > 0.95f -> if (u < 0f) hi else l
+                    abs(f - 0.5f) < 0.05f -> d
+                    // its facets: light, mid, dark across its eight sides
+                    u < -0.55f -> l
+                    u < -0.15f -> if (fine && abs(u + 0.35f) < 0.08f) hi else l
+                    u < 0.3f -> m
+                    else -> d
+                })
+            }
+        }
+        // the knob, the handle, the spout
+        c.fillRect(floor(cx - 0.6f * p).toInt(), floor(base - hgt - 1.2f * p).toInt(), max(1, detail), max(1, detail), Col.hex(0x1E1C22))
+        c.line(floor(cx + 2.2f * p).toInt(), floor(base - 6.6f * p).toInt(), floor(cx + 3.6f * p).toInt(), floor(base - 5.4f * p).toInt(), Col.hex(0x1E1C22))
+        c.line(floor(cx + 3.6f * p).toInt(), floor(base - 5.4f * p).toInt(), floor(cx + 3.2f * p).toInt(), floor(base - 3.6f * p).toInt(), Col.hex(0x1E1C22))
+        c.line(floor(cx - 2.2f * p).toInt(), floor(base - 7.2f * p).toInt(), floor(cx - 3.4f * p).toInt(), floor(base - 7.9f * p).toInt(), m)
+        if (s.hour in 6f..10f || fxOn("forge") > 0.5f) wisps(cx - 3.4f * p, base - 8.6f * p, 0.3f, 37)
     }
 
     /** By day the window throws a pale patch of sun across the floor. */
@@ -2207,6 +2329,10 @@ internal class SmithyPainter : DioramaPainter() {
     }
 
     private companion object {
+        /** Friuli's cobble walls: the stones, pale and rounded, their mortar and its shadow ([cobbleAt]). */
+        val COB_HI = Col.hex(0xDCD6C8); val COB_L = Col.hex(0xC4BDAE); val COB_M = Col.hex(0xA9A193); val COB_D = Col.hex(0x8A8276)
+        val COB_SAND = Col.hex(0xBCA886); val COB_MORTAR = Col.hex(0x9A9282); val COB_JOINT = Col.hex(0x6E685C)
+
         /** Tone's cot by the forge ("cot"). */
         const val COT = "cot"
 
