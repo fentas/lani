@@ -65,8 +65,31 @@ internal abstract class RoomPainter : DioramaPainter() {
     protected var lv = 3
 
     protected val lime = Col.hex(0xEDE5D2); protected val limeL = Col.hex(0xFAF6EA); protected val limeD = Col.hex(0xD9CFB9)
-    protected val dado = Col.hex(0x93A98F); protected val dadoD = Col.hex(0x7C927A)
-    protected val border = Col.hex(0xB0503C); protected val leafC = Col.hex(0x5E8A4A)
+    protected val leafC = Col.hex(0x5E8A4A)
+
+    // ------------------------------------------------------------------ what a culture's look paints otherwise (companion/SCENES.md "Culture looks")
+
+    /** The painted dado, its stipple and the red line over it (and the border's lines): the room's culture's, read once a frame ([readLook]). */
+    protected var dado = DADO; protected var dadoD = DADO_D; protected var border = BORDER
+    /** The border under the top a frieze of vine leaves and grapes (the Collio's, "frieze": "vines"), not the stencilled flowers. */
+    protected var vineFrieze = false
+    /** What the window looks out on: the Collio's hills, their vines in rows and a cypress ("view": "collio"), not the spruce. */
+    protected var collio = false
+    /** The painted dresser's paint, and the back of its shelves: blue with tulips on its panels, or ([cupboardPlain]) walnut with plain fielded panels. */
+    protected var cupL = Col.hex(0x7C9EC4); protected var cupM = Col.hex(0x5A7EA8); protected var cupD = Col.hex(0x3E5C82); protected var cupBack = Col.hex(0x3E4E66)
+    protected var cupboardPlain = false
+
+    /**
+     * Reads what the frame's culture paints its own way in the room (its walls' dado and border, the window's view, the
+     * dresser): once a frame, at the top of [paint]. The default culture's look keeps every one of them as it always was.
+     */
+    protected fun readLook() {
+        dado = colour("dado", DADO); dadoD = colour("dado.d", DADO_D); border = colour("border", BORDER)
+        vineFrieze = variant("frieze") == "vines"
+        collio = variant("view") == "collio"
+        cupboardPlain = variant("cupboard") == "walnut"
+        cupL = colour("cupboard.l", paintL); cupM = colour("cupboard.m", paintM); cupD = colour("cupboard.d", paintD); cupBack = colour("cupboard.back", Col.hex(0x3E4E66))
+    }
     protected val iron = Col.hex(0x34303A); protected val ironL = Col.hex(0x5E5A64); protected val ironD = Col.hex(0x1E1A20)
     protected val tileL = Col.hex(0x9ACAA6); protected val tileM = Col.hex(0x6FA282); protected val tileD = Col.hex(0x4F8064); protected val grout = Col.hex(0xE6E0CA)
     protected val china = Col.hex(0xF7F5EE); protected val chinaD = Col.hex(0xD2CEC2); protected val chinaBlue = Col.hex(0x3E6FB0)
@@ -419,8 +442,8 @@ internal abstract class RoomPainter : DioramaPainter() {
         else if (lv >= 3 && abs(dz) < 1.3f) {
             val m = along / 0.62f
             val a = abs(m - floor(m) - 0.5f) * 0.62f * 8f
-            if (P > 1) stencil(a, dz)?.let { col = it }
-            else if (a < 1.1f && abs(dz) < 0.8f) col = Col.hex(0xC8442E)
+            if (P > 1) (if (vineFrieze) vineStencil(a, dz) else stencil(a, dz))?.let { col = it }
+            else if (a < 1.1f && abs(dz) < 0.8f) col = if (vineFrieze) GRAPE else Col.hex(0xC8442E)
             else if (a < 2.6f && abs(dz) < 0.3f) col = leafC
         }
         if (z > hw - 0.6f) col = limeL
@@ -442,6 +465,30 @@ internal abstract class RoomPainter : DioramaPainter() {
         if (ax in 0.58f..1.36f) {
             val w = 0.3f * sin((ax - 0.58f) / 0.78f * PI.toFloat())
             if (abs(dz + 0.05f) < w) return if (abs(dz + 0.05f) < 0.5f / K) Col.hex(0x3E6A34) else leafC
+        }
+        return null
+    }
+
+    /**
+     * A bunch of the vine frieze closer up (Friuli's border, [vineFrieze]), [a] eighths of a cell beside its middle and [dz]
+     * nominal px above it: grapes hanging in a little cone under the stem, each round with a glint; a vine leaf to each side
+     * with its veins, the stem running along over them; null where the wall shows.
+     */
+    protected fun vineStencil(a: Float, dz: Float): Int? {
+        val ax = a * 0.5f
+        // the stem along the top, waving
+        if (abs(dz - 0.95f - 0.12f * sin(ax * 4f)) < 0.11f) return Col.hex(0x6A5030)
+        // the grapes: rows of round berries narrowing downward
+        for ((gx, gz) in GRAPES) {
+            val d = hypot(ax - gx, dz - gz)
+            if (d < 0.25f) return if (d < 0.09f && ax < gx && dz > gz) Col.hex(0xB088C0) else if (dz < gz - 0.1f) GRAPE_D else GRAPE
+        }
+        // a leaf to the side: three lobes round its stalk, its veins darker
+        val lx = ax - 0.95f; val lz = dz - 0.25f
+        val r = hypot(lx, lz * 1.15f)
+        if (r < 0.62f) {
+            val ang = atan2(lz, lx)
+            if (r < 0.5f + 0.13f * cos(ang * 3f)) return if (abs(lz - lx * 0.2f) < 0.06f || abs(ang - 1.1f) < 0.12f) Col.hex(0x3E6A34) else leafC
         }
         return null
     }
@@ -561,6 +608,7 @@ internal abstract class RoomPainter : DioramaPainter() {
             val fu = (Noise.rnd(k, 71) + sin(t * 0.8 + k).toFloat() * 0.05f); val fv = 1f - ((Noise.rnd(k, 72) + t.toFloat() * 0.13f) % 1f)
             if (abs((u - fu) * ww) < 0.6f && abs((v - fv) * wh) < 0.6f) return Col.hex(0xFFFFFF)
         }
+        if (collio) collioView(u, v, ww, wh, px, py)?.let { return it }
         // the spruce and the hills
         val spruce = (0.64f - v) * wh * 0.38f - abs(u - 0.24f) * ww
         val far = 0.36f + Noise.v1(u * 2.4f + 1.3f, 5) * 0.14f
@@ -594,6 +642,39 @@ internal abstract class RoomPainter : DioramaPainter() {
         // a sheen across the glass
         if (abs(u * ww - (1f - v) * wh * 0.5f - 1f) < 0.7f) col = Col.mix(col, Col.hex(0xFFFFFF), 0.25f)
         return col
+    }
+
+    /**
+     * The Collio through the window at ([u], [v]) of the glass ([collio]): the near hill striped with rows of vines (bare
+     * and brown in winter, under snow), a cypress dark against the sky, the far hills with a little church tower on one;
+     * null above them, where the sky shows.
+     */
+    private fun collioView(u: Float, v: Float, ww: Float, wh: Float, px: Int, py: Int): Int? {
+        val snow = winter
+        // the cypress: a tall dark flame of green, narrowing to its tip
+        val tip = 0.86f; val foot = 0.12f
+        if (v in foot..tip) {
+            val t = (v - foot) / (tip - foot)
+            val half = 1.25f * sqrt(1f - t) * (0.55f + 0.45f * min(1f, t * 3f))
+            val du = (u - 0.2f) * ww
+            if (abs(du) < half) return env.lit(if (du > half * 0.3f) Col.hex(0x1E4428) else if (snow && Noise.rnd(px / P, py / P, 5) < 0.2f) Pal.SNOW_L else Col.hex(0x2C5A34))
+        }
+        val near = 0.24f + u * 0.1f + Noise.v1(u * 3f, 9) * 0.05f
+        val far = 0.4f + Noise.v1(u * 2.2f + 1.3f, 5) * 0.12f
+        if (v < near) {
+            // the rows of vines running across the slope, the earth between them
+            val row = ((v * wh * 0.75f + u * ww * 0.18f) % 2f) < 1f
+            return env.lit(when {
+                snow -> if (row) Pal.SNOW_M else Pal.SNOW_L
+                env.season == Season.AUTUMN -> if (row) Col.hex(0xC08A3A) else Col.hex(0x8A6A44)
+                env.season == Season.WINTER -> if (row) Col.hex(0x6A5038) else Col.hex(0x8A7458)
+                else -> if (row) Col.hex(0x4E8A3A) else Col.hex(0x9A8A5A)
+            })
+        }
+        // the far hills, and the little church's tower on the highest
+        val tower = abs((u - 0.68f) * ww) < 0.55f && v < far + 0.12f
+        if (v < far || tower) return env.lit(if (tower) (if (v > far + 0.08f) Col.hex(0xB06A4A) else Col.hex(0xE8DCC4)) else if (snow) Col.hex(0xC8D4E4) else Col.hex(0x7E9A72))
+        return null
     }
 
     /** The gingham curtains and their valance at ([x], [z]) in front of the wall; 0 where there is none. */
@@ -1021,7 +1102,7 @@ internal abstract class RoomPainter : DioramaPainter() {
      * the stove's warm side to the door; once the stove is there ([dressed]) an embroidered cushion at the stove's end
      * and, while nobody sleeps on it ([made]), the red wool blanket folded at its other end. At level 1 the bare plank.
      */
-    protected fun bench(made: Boolean, dressed: Boolean) {
+    protected fun bench(made: Boolean, dressed: Boolean, benchA: Float = this.benchA, benchB: Float = this.benchB) {
         val bc = y0 + 0.08f; val bd = y0 + 0.82f; val bz = fl + 4.6f
         val legs = listOf(benchA + 0.15f, benchA + 1.6f, benchB - 0.15f)
         for (lx in legs) for (ly in floatArrayOf(bc + 0.15f, bd - 0.12f)) iso.post(lx, ly, fl, bz, Pal.WOOD_D)
@@ -1181,10 +1262,10 @@ internal abstract class RoomPainter : DioramaPainter() {
      * A face of the hearth at [a] cells along it and height [z]: rough stones in courses, lime mortar between, soot
      * creeping down from the top; on the front ([niche]) the dark niche with the logs' ends stacked in it. [dim] shades it.
      */
-    protected fun hearthStone(a: Float, z: Float, px: Int, py: Int, dim: Float, niche: Boolean): Int {
+    protected fun hearthStone(a: Float, z: Float, px: Int, py: Int, dim: Float, niche: Boolean, nicheA: Float = 0.45f, nicheB: Float = 1.55f): Int {
         val h = z - fl
-        if (niche && a in 0.45f..1.55f && h in 0.45f..2.9f) {
-            val lx = (a - 0.45f) / 0.37f; val ly = (h - 0.45f) / 0.8f
+        if (niche && a in nicheA..nicheB && h in 0.45f..2.9f) {
+            val lx = (a - nicheA) / 0.37f; val ly = (h - 0.45f) / 0.8f
             val r = hypot((lx - floor(lx) - 0.5f) * 1.2f, (ly - floor(ly) - 0.5f) * 1.1f)
             return Col.scale(when {
                 ly > 2.8f -> Col.hex(0x1A1512)
@@ -1218,9 +1299,9 @@ internal abstract class RoomPainter : DioramaPainter() {
      * The fire on the hearth: two logs crossed on the embers, small flames (higher and brighter when a dialog fires the
      * oven up), sparks and the smoke going up into the black corner. Scenery, under the pot's trivet.
      */
-    protected fun hearthFire() {
+    protected fun hearthFire(fx: Float = fireX, fy: Float = fireY) {
         val oven = fxOn("oven")
-        val cx = iso.sx(fireX, fireY); val cy = iso.sy(fireX, fireY, hz)
+        val cx = iso.sx(fx, fy); val cy = iso.sy(fx, fy, hz)
         val p = P.toFloat()
         prop {
             for (j in 0 until 2) {
@@ -1555,33 +1636,42 @@ internal abstract class RoomPainter : DioramaPainter() {
      */
     protected fun cupboard() {
         val xf = x0 + 1.0f; val xs = x0 + 0.62f; val zc = fl + 8.5f; val zt = fl + 21.5f
-        onY(cupB, x0, xf, fl, zc) { _, z, _, _ -> if (z < fl + 0.8f) paintD else paintM }
+        onY(cupB, x0, xf, fl, zc) { _, z, _, _ -> if (z < fl + 0.8f) cupD else cupM }
         onX(xf, cupA, cupB, fl, zc) { y, z, px, py -> cabinet(y, z, px, py) }
         iso.box(x0, cupA - 0.06f, zc, xf - x0 + 0.1f, cupB - cupA + 0.12f, 0.8f, Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
         val z1 = zc + 0.8f
-        onY(cupB - 0.04f, x0, xs, z1, zt) { _, _, _, _ -> paintM }
+        onY(cupB - 0.04f, x0, xs, z1, zt) { _, _, _, _ -> cupM }
         onX(xs, cupA + 0.02f, cupB - 0.04f, z1, zt) { y, z, px, py -> shelves(y, z, px, py) }
-        iso.box(x0, cupA - 0.1f, zt, xs - x0 + 0.16f, cupB - cupA + 0.16f, 1.3f, paintL, paintM, paintD)
-        iso.line(x0, cupB + 0.06f, zt + 1.3f, xs + 0.16f, cupB + 0.06f, zt + 1.3f, Col.mix(paintL, Col.hex(0xFFFFFF), 0.3f))
-        iso.line(xs + 0.16f, cupA - 0.1f, zt + 1.3f, xs + 0.16f, cupB + 0.06f, zt + 1.3f, Col.mix(paintL, Col.hex(0xFFFFFF), 0.3f))
+        iso.box(x0, cupA - 0.1f, zt, xs - x0 + 0.16f, cupB - cupA + 0.16f, 1.3f, cupL, cupM, cupD)
+        iso.line(x0, cupB + 0.06f, zt + 1.3f, xs + 0.16f, cupB + 0.06f, zt + 1.3f, Col.mix(cupL, Col.hex(0xFFFFFF), 0.3f))
+        iso.line(xs + 0.16f, cupA - 0.1f, zt + 1.3f, xs + 0.16f, cupB + 0.06f, zt + 1.3f, Col.mix(cupL, Col.hex(0xFFFFFF), 0.3f))
     }
 
     protected fun cabinet(y: Float, z: Float, px: Int, py: Int): Int {
         val h = z - fl; val a = y - cupA; val w = cupB - cupA
-        if (h < 0.8f) return paintD
-        if (a < 0.09f || w - a < 0.09f) return paintL
+        if (h < 0.8f) return cupD
+        if (a < 0.09f || w - a < 0.09f) return cupL
         // the drawers under the counter, with knobs
         if (h > 6f) {
             val da = if (a < w / 2f) a else a - w / 2f
-            if (h < 6.35f || abs(a - w / 2f) < 0.06f) return paintD
+            if (h < 6.35f || abs(a - w / 2f) < 0.06f) return cupD
             if (abs(da - w / 4f) < 0.07f && abs(h - 7.2f) < 0.35f) return brass
-            return paintM
+            return cupM
         }
         // the doors: cream panels with a red tulip
         val da = if (a < w / 2f) a else a - w / 2f
-        if (abs(a - w / 2f) < 0.05f) return paintD
+        if (abs(a - w / 2f) < 0.05f) return cupD
         val inPanel = da in 0.2f..(w / 2f - 0.18f) && h in 1.6f..5.3f
-        if (!inPanel) return if (abs(da - (w / 2f - 0.11f)) < 0.04f && abs(h - 3.4f) < 0.5f) brass else paintM
+        if (!inPanel) return if (abs(da - (w / 2f - 0.11f)) < 0.04f && abs(h - 3.4f) < 0.5f) brass else cupM
+        // walnut ([cupboardPlain]): a fielded panel, its bevel lit on the upper left, the grain running up it
+        if (cupboardPlain) {
+            val ea = min(da - 0.2f, w / 2f - 0.18f - da); val eh = min(h - 1.6f, 5.3f - h)
+            return when {
+                ea < 0.07f || eh < 0.3f -> if (da - 0.2f < 0.07f || 5.3f - h < 0.3f) Col.mix(cupL, cupM, 0.4f) else cupD
+                abs(Noise.v2(da * 9f, h * 0.35f, 31) - 0.5f) < 0.04f -> Col.mix(cupM, cupD, 0.5f)
+                else -> Col.mix(cupM, cupL, 0.3f)
+            }
+        }
         val pc = w / 4f
         val dx = (da - pc) * 8f; val dz = (h - 3.7f) * 2f
         return when {
@@ -1596,8 +1686,8 @@ internal abstract class RoomPainter : DioramaPainter() {
     /** The open shelves at ([y], [z]): plates standing on the upper two, cups hanging under the lowest. */
     protected fun shelves(y: Float, z: Float, px: Int, py: Int): Int {
         val h = z - fl; val a = y - cupA
-        if (a < 0.1f || cupB - y < 0.12f) return paintL
-        val back = Col.hex(0x3E4E66)
+        if (a < 0.1f || cupB - y < 0.12f) return cupL
+        val back = cupBack
         if (h in 9.3f..10.1f || h in 13.6f..14.4f || h in 17.6f..18.4f) return if (h - floor(h) < 0.3f) Pal.WOOD_D else Pal.WOOD_L
         // plates on the upper shelves: white with a blue rim and a red dot
         for (row in 0..1) for (k in 0 until 3) {
@@ -2790,6 +2880,13 @@ internal abstract class RoomPainter : DioramaPainter() {
 
         /** The red wool blanket on it (the sleeper's cover, see PeoplePainter.lying), with its ochre check. */
         val WOOL_L = Col.hex(0xD8604A); val WOOL_M = Col.hex(0xB8452E); val WOOL_D = Col.hex(0x7E2A20); val WOOL_CHECK = Col.hex(0xC98A3A)
+
+        /** The painted dado of the walls from level 2, its stipple, and the red line over it and round the stencilled border. */
+        val DADO = Col.hex(0x93A98F); val DADO_D = Col.hex(0x7C927A); val BORDER = Col.hex(0xB0503C)
+
+        /** The grapes of the vine frieze ([vineStencil]): the berries' middles (eighths of a cell, nominal px) and colours. */
+        private val GRAPES = listOf(-0.22f to 0.55f, 0.22f to 0.55f, 0f to 0.1f, -0.42f to 0.12f, 0.42f to 0.12f, -0.2f to -0.32f, 0.2f to -0.32f, 0f to -0.74f)
+        val GRAPE = Col.hex(0x6A3A7A); val GRAPE_D = Col.hex(0x4A2658)
 
         /** The coarse brown blanket of the straw bed (level 1), and its sleeper's cover. */
         val COARSE = intArrayOf(Col.hex(0xA08A6A), Col.hex(0x846E52), Col.hex(0x5A4A38))

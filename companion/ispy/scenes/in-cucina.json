@@ -3,22 +3,22 @@
   "scene": "in-cucina",
   "language": "it",
   "machine_written": true,
-  "review": "clues: machine-written (Claude) in it, with sl, en and de translations, from the kitchen's picture (its painter's colours and where each thing is drawn at each level, as kuhinja's clues have them); not reviewed by a native speaker",
+  "review": "clues: machine-written (Claude) in it, with sl, en and de translations, from the kitchen's picture (its painter's colours and where each thing is drawn at each level, as kuhinja's clues have them; in Friuli's look since 2026-10-28: the fogolâr and the copper cauldron on its chain, the spolert, the walnut dresser, the radio's corner); not reviewed by a native speaker",
   "things": {
     "stove": {
       "clues": [
-        { "kind": "colour", "it": "È verde.", "sl": "Je zelene barve.", "en": "It's green.", "de": "Er ist grün.", "grammar": ["aggettivi-accordo"] },
-        { "kind": "size", "it": "È grande.", "sl": "To je nekaj velikega.", "en": "It's big.", "de": "Er ist groß.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "colour", "it": "È bianco e nero.", "sl": "Je bele in črne barve.", "en": "It's white and black.", "de": "Er ist weiß und schwarz.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "material", "it": "È di ferro.", "sl": "Je iz železa.", "en": "It's made of iron.", "de": "Er ist aus Eisen.", "grammar": ["essere-avere"] },
         { "kind": "does", "it": "D'inverno scalda la cucina.", "sl": "Pozimi greje kuhinjo.", "en": "In winter it warms the kitchen.", "de": "Im Winter wärmt er die Küche.", "grammar": ["presente-regolare"] },
         { "kind": "use", "it": "Ci cuciniamo sopra.", "sl": "Na tem kuhamo.", "en": "We cook on it.", "de": "Darauf kochen wir.", "grammar": ["presente-regolare"] }
       ]
     },
     "pot": {
       "clues": [
-        { "kind": "colour", "it": "È blu.", "sl": "Je modre barve.", "en": "It's blue.", "de": "Das ist blau.", "grammar": ["aggettivi-accordo"] },
-        { "kind": "where", "it": "È sul focolare.", "sl": "Stoji na ognjišču.", "en": "It's on the hearth.", "de": "Das steht auf der Feuerstelle.", "grammar": ["preposizioni-articolate"], "ref": "hearth" },
-        { "kind": "where", "it": "È sul fornello.", "sl": "Stoji na štedilniku.", "en": "It's on the stove.", "de": "Das steht auf dem Herd.", "grammar": ["preposizioni-articolate"], "ref": "stove" },
-        { "kind": "use", "it": "Ci cuciniamo la minestra.", "sl": "V tem kuhamo juho.", "en": "We cook soup in it.", "de": "Darin kochen wir Suppe.", "grammar": ["presente-regolare"] }
+        { "kind": "material", "it": "È di rame.", "sl": "Je iz bakra.", "en": "It's made of copper.", "de": "Das ist aus Kupfer.", "grammar": ["essere-avere"] },
+        { "kind": "does", "it": "Pende da una catena.", "sl": "Visi na verigi.", "en": "It hangs from a chain.", "de": "Das hängt an einer Kette.", "grammar": ["presente-regolare"] },
+        { "kind": "where", "it": "È sopra il focolare.", "sl": "Visi nad ognjiščem.", "en": "It hangs over the hearth.", "de": "Das hängt über der Feuerstelle.", "grammar": ["dove-preposizioni"], "ref": "hearth" },
+        { "kind": "use", "it": "Ci cuciniamo la polenta.", "sl": "V tem kuhamo polento.", "en": "We cook polenta in it.", "de": "Darin kochen wir Polenta.", "grammar": ["presente-regolare"] }
       ]
     },
     "bowl": {
@@ -118,7 +118,7 @@
     "cupboard": {
       "name": { "en": "dresser", "de": "Küchenschrank", "sl": "kredenca" },
       "clues": [
-        { "kind": "colour", "it": "È blu.", "sl": "Je modre barve.", "en": "It's blue.", "de": "Sie ist blau.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "colour", "it": "È marrone.", "sl": "Je rjave barve.", "en": "It's brown.", "de": "Sie ist braun.", "grammar": ["aggettivi-accordo"] },
         { "kind": "size", "it": "È alta.", "sl": "To je nekaj visokega.", "en": "It's tall.", "de": "Sie ist hoch.", "grammar": ["aggettivi-accordo"] },
         { "kind": "where", "it": "È contro la parete.", "sl": "Stoji ob steni.", "en": "It stands against the wall.", "de": "Sie steht an der Wand.", "grammar": ["dove-preposizioni"] },
         { "kind": "use", "it": "Dentro ci sono i piatti.", "sl": "Notri so krožniki.", "en": "There are plates inside it.", "de": "Darin sind die Teller.", "grammar": ["ce-ci-sono"] }
@@ -179,8 +179,8 @@
       "clues": [
         { "kind": "colour", "it": "È grigio.", "sl": "Je sive barve.", "en": "It's grey.", "de": "Das ist grau.", "grammar": ["aggettivi-accordo"] },
         { "kind": "material", "it": "È di pietra.", "sl": "Je iz kamna.", "en": "It's made of stone.", "de": "Das ist aus Stein.", "grammar": ["essere-avere"] },
-        { "kind": "use", "it": "Dentro brucia il fuoco.", "sl": "V tem gori ogenj.", "en": "A fire burns in it.", "de": "Darin brennt das Feuer.", "grammar": ["presente-regolare"] },
-        { "kind": "use", "it": "Sopra c'è la pentola.", "sl": "Na tem stoji lonec.", "en": "The pot stands on it.", "de": "Darauf steht der Topf.", "grammar": ["ce-ci-sono"], "ref": "pot" }
+        { "kind": "use", "it": "Sopra brucia il fuoco.", "sl": "Na tem gori ogenj.", "en": "A fire burns on top of it.", "de": "Darauf brennt das Feuer.", "grammar": ["presente-regolare"] },
+        { "kind": "use", "it": "Sopra c'è la pentola.", "sl": "Nad tem visi lonec.", "en": "The pot hangs over it.", "de": "Darüber hängt der Topf.", "grammar": ["ce-ci-sono"], "ref": "pot" }
       ]
     },
     "bench": {
@@ -219,8 +219,8 @@
     "corner": {
       "clues": [
         { "kind": "where", "it": "È sulla parete di sinistra.", "sl": "Je na levi steni.", "en": "It's on the left wall.", "de": "Das ist an der linken Wand.", "grammar": ["preposizioni-articolate"] },
-        { "kind": "use", "it": "C'è appesa una croce.", "sl": "Tam visi križ.", "en": "A cross hangs there.", "de": "Dort hängt ein Kreuz.", "grammar": ["ce-ci-sono"] },
-        { "kind": "use", "it": "C'è una candela accesa.", "sl": "Tam gori sveča.", "en": "A candle burns there.", "de": "Dort brennt eine Kerze.", "grammar": ["ce-ci-sono"] }
+        { "kind": "use", "it": "C'è la foto della famiglia.", "sl": "Tam je družinska fotografija.", "en": "The family photo is there.", "de": "Dort ist das Foto der Familie.", "grammar": ["ce-ci-sono"] },
+        { "kind": "use", "it": "C'è una vecchia radio.", "sl": "Tam je star radio.", "en": "There's an old radio there.", "de": "Dort steht ein altes Radio.", "grammar": ["ce-ci-sono"] }
       ]
     }
   }

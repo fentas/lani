@@ -115,10 +115,33 @@ object CultureLooks {
     val KAERNTEN_CAMPFIRE = Table.of("campfire", variants = mapOf("flag" to "austria"))
     val LAKELAND_CAMPFIRE = Table.of("campfire", variants = mapOf("flag" to "england"))
 
+    // ------------------------------------------------------------------ Friuli's indoor places
+
+    /**
+     * Nonna Rosa's kitchen in Friuli (KitchenPainter): the fogolâr in the corner at every level, so its hearth is a thing of
+     * the kitchen at every level (not only the first, as the open hearth before the Slovene stove is); the spolert, the iron
+     * range, beside it from the second level (the "stove", il fornello); the copper cauldron on its chain (the "pot"); Zia
+     * Nives's radio in the front corner (from level 3 the corner, l'angolo, without a holy corner); the walnut dresser; an
+     * ochre dado under a frieze of vines and grapes; the Collio's vines and a cypress through the window.
+     */
+    private val FRIULI_KITCHEN = Table.of(
+        "kitchen",
+        colours = mapOf(
+            "dado" to 0xFFC9A468.toInt(), "dado.d" to 0xFFB28C54.toInt(), "border" to 0xFF9A4632.toInt(),
+            "cupboard.l" to 0xFF9C6C42.toInt(), "cupboard.m" to 0xFF7A4E2C.toInt(), "cupboard.d" to 0xFF56341C.toInt(), "cupboard.back" to 0xFF3A281C.toInt(),
+        ),
+        variants = mapOf(
+            "hearth" to "fogolar", "stove" to "spolert", "pot" to "cjaldir", "corner" to "radio", "cupboard" to "walnut",
+            "frieze" to "vines", "view" to "collio",
+        ),
+        fixtures = mapOf("hearth" to null),
+    )
+
     /** Each culture's look: its arts' tables added up. A culture not here draws every art as the default culture does. */
     private val tables: Map<String, Table> = mapOf(
         "kaernten" to KAERNTEN_ALPS + KAERNTEN_CAMPFIRE,
         "lakeland" to LAKELAND_ALPS + LAKELAND_CAMPFIRE,
+        "friuli" to FRIULI_KITCHEN,
     )
 
     private val looks = ConcurrentHashMap<String, CultureLook>()
