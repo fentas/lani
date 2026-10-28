@@ -121,7 +121,7 @@ podkovati (perfective), tih (tišji), lahek (lažji), sladek (slajši, also slad
 
 ## Tests
 
-- The bridge's smoke (`bun test/smoke.ts`, ports 8800/8803/8806), rebased on main: 2,804 checks, none failed; its course section validates
+- The bridge's smoke (`bun test/smoke.ts`, ports 8800/8803/8806), rebased on main: 2,806 checks, none failed; its course section validates
   every unit, its pages, the outline and the grammar links, and its course-speech section reads them as the app does.
   The teacher's voiced lines of the eight units (401 in English, the same in German and Italian, for a man and a woman):
   none with a placeholder or an English "the" left in her voice.
@@ -130,7 +130,8 @@ podkovati (perfective), tih (tišji), lahek (lažji), sladek (slajši, also slad
 - `bunx tsc --noEmit -p .` in the bridge: clean.
 - The app: `SchoolBoardTest` (every unit's title and forms on the board, the ellipsis), `GrammarTest` (the bundled pages),
   `CourseTest`, `SheetsTest`, `PrintsTest`, `IntroSpeechTest`, `IntroSpeechParityTest`: 50 tests, none failed; the full
-  unit suite with the reveal (school-reveal.md), rebased on main: 399 classes, 3,147 tests, none failed.
+  unit suite with the reveal (school-reveal.md), rebased on main: 403 classes, 3,175 tests, none failed
+  but a frame-time check of the alps scene at 25 ms on the loaded shared machine (`SceneDetailTest`, 4 of 4 alone).
 - `school-prints --level A2`: the eight sheets and the booklet; A1's HTML byte for byte as before the print fix.
 - Emulator QA, `companion/bin/qa --steps school-a2` (a synthetic learner, QA's hook "school:reveal", the rebased debug
   build): the unit cigav from the school's levels (one of the next two after the unit begun), its intro's five steps
@@ -138,4 +139,6 @@ podkovati (perfective), tih (tišji), lahek (lažji), sladek (slajši, also slad
   choice, the gap text with one gap wrong (its correction: Lukova → Francetov; Cigav almost: adb types no č), the test
   straight away: 10½ of 12 (three answers without č, š, ž count half), "Enota opravljena", the dev bridge's village
   keeping the unit done. The step needed three runs to find its buttons below a long table (Check under a quick question
-  or a sheet: one swipe up); screenshots in the scratchpad's `ux-course-a2/`.
+  or a sheet: one swipe up). On the final build (main's corrections at their items) the step passed again, the gap's
+  ✗ and the verdict's Francetov looked for instead of a "Popravki" list; the run's twelve-minute cap fell during the
+  crash check after it. Screenshots in the scratchpad's `ux-course-a2/final/`, the reveal's in `ux-course-a2/reveal-final/`.
