@@ -11706,12 +11706,15 @@ def home_return():
         return int(float(adb("shell", "cat", "/proc/uptime").split()[0]) * 1000)
 
     def watched(t0: int) -> tuple[str, ...]:
-        """The main thread's messages in the 3 s from [t0] (QA's hook "main:report", app/MainWatch.kt): how many, their
-        sum, the longest, those over a frame and over 100 ms; "?" each when the build hasn't the hook."""
+        """The main thread's messages in the 3 s from [t0] (QA's hook "main:report", app/MainWatch.kt): how many, and of
+        those besides the screen's frames (a frame's message waits for the emulator's software graphics too; framestats
+        has a frame's own work) their sum, the longest, those over a frame and over 100 ms; "?" each when the build hasn't
+        the hook."""
         qa_hook(f"main:report:{t0}")
         line = next((l for l in adb("logcat", "-d", "-s", "LaniMain:I", check=False).splitlines() if f"main from {t0}:" in l), "")
-        m = re.search(r"(\d+) messages, ([\d.]+) ms, the longest ([\d.]+) ms, (\d+) over 16.7 ms, (\d+) over 100 ms", line)
-        return m.groups() if m else ("?",) * 5
+        part = r"(\d+) messages, ([\d.]+) ms, the longest ([\d.]+) ms, (\d+) over 16.7 ms, (\d+) over 100 ms"
+        m = re.search(part + "; besides the frames: " + part, line)
+        return (m.group(1), *m.groups()[5:]) if m else ("?",) * 6
 
     def row(name: str, i: int, seen, main_watch: tuple[str, ...]):
         fs = frames()
@@ -11788,8 +11791,8 @@ def home_return():
     for i in range(tries):
         back("settings", open_settings, i)
         go_home()
-    head = ("from\ttry\tmain messages in 3 s\ttheir ms\tlongest message ms\tover 16.7 ms\tover 100 ms\tframes\tlongest frame ms\t"
-            "longest frame's main ms\tframes over 33 ms\tskipped (Choreographer)\tGCs\tGC freed MB\twaited for GC ms\tshown")
+    head = ("from\ttry\tmain messages in 3 s\tbesides frames\ttheir ms\tthe longest ms\tover 16.7 ms\tover 100 ms\tframes\t"
+            "longest frame ms\tlongest frame's main ms\tframes over 33 ms\tskipped (Choreographer)\tGCs\tGC freed MB\twaited for GC ms\tshown")
     print(f"    {head}")
     if out_dir:
         (out_dir / "home-return.tsv").write_text("\n".join([head] + rows) + "\n")
