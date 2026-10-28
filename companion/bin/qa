@@ -5177,7 +5177,8 @@ def screen_size() -> tuple[int, int]:
 def sheet_scroll(down: bool, times=1):
     """Scrolls the sheet on screen (between its title and the feedback under it) a part of a page [down] or up."""
     w, h = screen_size()
-    top = (find("Kdo kaj dela?") or (w // 2, h // 5))[1] + 120
+    title = next((c for t, c in nodes() if t.startswith("📝 ") or t.startswith("🎓 ")), None)  # the run's title over the sheet
+    top = (title or (w // 2, h // 4))[1] + 120
     feedback = find("Ne čisto") or find("Skoraj") or find("Pravilno")
     bottom = (feedback[1] - 160) if feedback else int(h * 0.7)
     if bottom - top < 200:
