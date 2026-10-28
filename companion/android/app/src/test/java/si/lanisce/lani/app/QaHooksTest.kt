@@ -304,6 +304,9 @@ class QaHooksTest {
         assertEquals("2026-10-26", si.lanisce.lani.game.School.progress(at, "sl", "dajalnik")!!.done)
         assertNull(si.lanisce.lani.game.School.progress(at, "sl", "dajalnik-2"))
         assertTrue(si.lanisce.lani.game.School.reveal(at, two).first { it.state.level == "A2" }.rows.any { it.id == "dajalnik-2" })
+        // a B1 opened before (another step's "school:<unit>"): closed again for the reveal
+        val b1Opened = s.copy(course = s.course!!.copy(opened = mapOf(si.lanisce.lani.game.School.key("sl", "A1") to "2026-10-01", si.lanisce.lani.game.School.key("sl", "B1") to "2026-10-20")))
+        assertEquals(setOf(si.lanisce.lani.game.School.key("sl", "A1")), QaHooks.readyReveal(b1Opened, two, today, 0L).course!!.opened.keys)
         // "school:reveal" is the reveal, not a unit called "reveal" ("school:<unit>")
         var revealed = false
         val units = mutableListOf<String>()

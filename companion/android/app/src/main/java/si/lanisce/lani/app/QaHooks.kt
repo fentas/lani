@@ -523,8 +523,8 @@ object QaHooks {
      * [s] ready for the school's reveal ("school:reveal"; companion/COURSE.md, "What the school shows"): the school standing
      * (on a free plot of the age, else the next age's first), undamaged; every written unit of A1 done (one done before as
      * it was); A2 as QA wants it, whatever the copy's learner did there: its first written unit done and its second begun
-     * (with only one written, that one begun). Its level opens as the school opens ([School.opened]). A debug build's, on
-     * the dev bridge's copy.
+     * (with only one written, that one begun); no level above A2 opened. Its level opens as the school opens
+     * ([School.opened]). A debug build's, on the dev bridge's copy.
      */
     fun readyReveal(s: si.lanisce.lani.game.GameState, course: si.lanisce.lani.data.Course, today: java.time.LocalDate, now: Long): si.lanisce.lani.game.GameState {
         val schoolType = si.lanisce.lani.game.BuildingType.SCHOOL
@@ -550,7 +550,9 @@ object QaHooks {
             else -> emptyMap()
         }
         val a2Keys = course.refs("A2").map { k(it.id) }.toSet()
-        return r.copy(course = c.copy(units = c.units.filterKeys { it !in a2Keys } + a1 + a2Now))
+        // no level above A2 opened (another QA step, "school:<unit>", may have opened B1 on this copy): B1 closed, as QA wants it
+        val later = si.lanisce.lani.game.School.LEVELS.drop(2).map { k(it) }.toSet()
+        return r.copy(course = c.copy(units = c.units.filterKeys { it !in a2Keys } + a1 + a2Now, opened = c.opened - later))
     }
 
     /**
