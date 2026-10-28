@@ -121,7 +121,7 @@ podkovati (perfective), tih (tišji), lahek (lažji), sladek (slajši, also slad
 
 ## Tests
 
-- The bridge's smoke (`bun test/smoke.ts`, ports 8800/8803/8806): 2,751 checks, none failed; its course section validates
+- The bridge's smoke (`bun test/smoke.ts`, ports 8800/8803/8806), rebased on main: 2,804 checks, none failed; its course section validates
   every unit, its pages, the outline and the grammar links, and its course-speech section reads them as the app does.
   The teacher's voiced lines of the eight units (401 in English, the same in German and Italian, for a man and a woman):
   none with a placeholder or an English "the" left in her voice.
@@ -130,7 +130,12 @@ podkovati (perfective), tih (tišji), lahek (lažji), sladek (slajši, also slad
 - `bunx tsc --noEmit -p .` in the bridge: clean.
 - The app: `SchoolBoardTest` (every unit's title and forms on the board, the ellipsis), `GrammarTest` (the bundled pages),
   `CourseTest`, `SheetsTest`, `PrintsTest`, `IntroSpeechTest`, `IntroSpeechParityTest`: 50 tests, none failed; the full
-  unit suite with the reveal (school-reveal.md): 3,084 tests, none failed.
+  unit suite with the reveal (school-reveal.md), rebased on main: 399 classes, 3,147 tests, none failed.
 - `school-prints --level A2`: the eight sheets and the booklet; A1's HTML byte for byte as before the print fix.
-- Emulator QA, `companion/bin/qa --steps school-a2` (a synthetic learner, QA's hook "school:reveal"): the unit cigav end
-  to end, screenshots in the scratchpad's `ux-course-a2/`.
+- Emulator QA, `companion/bin/qa --steps school-a2` (a synthetic learner, QA's hook "school:reveal", the rebased debug
+  build): the unit cigav from the school's levels (one of the next two after the unit begun), its intro's five steps
+  (the table growing, Mojca reading, the summary card: the page cigav), the possessives' table (11 cells right) and its
+  choice, the gap text with one gap wrong (its correction: Lukova → Francetov; Cigav almost: adb types no č), the test
+  straight away: 10½ of 12 (three answers without č, š, ž count half), "Enota opravljena", the dev bridge's village
+  keeping the unit done. The step needed three runs to find its buttons below a long table (Check under a quick question
+  or a sheet: one swipe up); screenshots in the scratchpad's `ux-course-a2/`.
