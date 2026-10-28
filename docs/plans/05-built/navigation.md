@@ -178,7 +178,8 @@ swipe left for the tiles is Ana's: her Today is long (two ideas, the village's d
   different screens of a kind kept (two units, two villagers), runs replaced and Back after them, the same screen
   keeping its state, the settings' pages, what leaves told top first, `backTo`, `reset`, saved and restored under the
   same ids up to a run (new ids after the run's), a visit not saved, unreadable text is Home, every route round-trips.
-- `DeepLinkTest`: the new links survive the extra, the grammar page's notification, `lani://` links and what isn't one.
+- `DeepLinkTest`: the new links survive the extra, the grammar page's notification, `lani://` links and what isn't one,
+  a town's invitation apart from them.
 - `HomeLogicTest`: the threat as Today's one thing (the reviews then the first idea), not for the merchant; My words',
   the book's and the numbers' tiles.
 - `FriendsNewsTest`: nothing linked; a guest until seen; a question, help, a move and a feast each counted once.
@@ -190,7 +191,9 @@ swipe left for the tiles is Ana's: her Today is long (two ideas, the village's d
 
 On the emulator (Android 16, 1080 × 2400), on a synthetic learner (the audit's "Ana": A1, the Primorska village with
 the whole cast, 6 cards due, no grammar page met yet), the dev bridge on 8791 inside the emulator lock, never real data.
-`companion/bin/qa --steps navigation` (setup, then the step above), then each journey by hand, its taps counted:
+`companion/bin/qa --steps navigation` (setup, then the step above; it passes on the build rebased onto the village's
+and the invitations' rounds, its shots in the session's scratchpad `ux-nav/qa-final/`), then each journey by hand, its
+taps counted:
 
 - Home: ⚙️ and 🤝 in the header, the dot green; Today with "➕ Še 10 v vasi" under two of the twelve calls; the tiles a
   swipe below, three to a row.
