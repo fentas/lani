@@ -37,8 +37,8 @@ the prints companion/COURSE.md ("Printed sheets"), the school's rules companion/
   Android's print dialog, "Save as PDF". The bridge serves it
   (`GET /course/overview/skloni`), `school-prints --overview skloni [--base de|it] [--png]` writes the PDF. 3 pages in
   en, de and it with the real units, black-and-white safe.
-- **QA:** the hook `school:<level>` (A2 open as the school keeps a level it opened, its units as never begun) and the
-  step `school-cases` (the unit skloni end to end).
+- **QA:** the step `school-cases` (the unit skloni end to end, through QA's hook `school:skloni`, which opens the
+  unit's level) and `school-print-overview` (the overview printed from the book's page).
 
 ## Taps
 
@@ -75,7 +75,7 @@ villager lines and scenes besides: 33 and 192 texts, as before). Their explanati
 - Bridge: `bunx tsc --noEmit -p .` green; the smoke 2,816 ✅, 0 ❌ (on main after the rebase), with the course's content
   checks (327 answers against the dictionary, COURSE.md's 20 rows) and the overview's route.
 - Android: 3,138 unit tests; `PhoneBridgeNodeTest` (25) failed once with another agent's bridge on its fixed port 19110
-  and passes alone. New: `PrintsTest` (the overview, a level's overview), `QaHooksTest` (`school:<level>`).
+  and passes alone. New: `PrintsTest` (the overview, a level's overview).
 - Python: 251 + 98 (`tests`, `companion/tests`).
 - Emulator (`companion/bin/qa --steps school-cases`, then `school-print-overview`): the unit skloni end to end (its six
   intro steps, the table of the six cases, the sort by case, its test passed 11 of 12, the unit done) and the overview

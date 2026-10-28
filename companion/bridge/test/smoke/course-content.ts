@@ -115,12 +115,12 @@ export const SLOT_PAGES = new Set(['biti', 'imeti', 'iti', 'delati', 'hiša'].fl
   return p ? [p.page, ...p.needs] : []
 })))
 
-/** COURSE.md's "What a unit turns on" table: each row's unit and its pages. */
+/** COURSE.md's "What a unit turns on" table: each row's unit ("`svoj`", or "`svoj` (B1)" past A2) and its pages. */
 export function turnsOnTable(courseMd: string): Map<string, string[]> {
   const from = courseMd.indexOf('### What a unit turns on')
   const to = courseMd.indexOf('\n## ', from)
   const rows = new Map<string, string[]>()
-  for (const m of courseMd.slice(from, to < 0 ? undefined : to).matchAll(/^\| `([a-z0-9-]+)` \| ([^|]+) \|/gm)) rows.set(m[1], m[2].split(',').map(p => p.trim()).filter(Boolean))
+  for (const m of courseMd.slice(from, to < 0 ? undefined : to).matchAll(/^\| `([a-z0-9-]+)`(?: \([A-C][12]\))? \| ([^|]+) \|/gm)) rows.set(m[1], m[2].split(',').map(p => p.trim()).filter(Boolean))
   return rows
 }
 
