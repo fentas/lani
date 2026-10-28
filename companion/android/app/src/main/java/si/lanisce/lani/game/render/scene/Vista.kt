@@ -411,8 +411,10 @@ internal abstract class VistaPainter : ArtPainter() {
      * side [stile] (m; none when NaN), each throwing its shadow on the wall below it; the ends stepping down; grass at the
      * foot, snow along the top and on the steps in winter. The stones are laid out in metres, so every detail shows the
      * same wall, finer: joints, pits and lichen come out closer up. Drawn in daylight colours (the light pass dims them).
+     * [stones]: its four tones (a culture's own stone: the Lake District's slate), else the limestone's.
      */
-    protected fun dryWall(x0: Float, x1: Float, d: Float, height: Float, seed: Int, thick: Float = 0.55f, stile: Float = Float.NaN) {
+    protected fun dryWall(x0: Float, x1: Float, d: Float, height: Float, seed: Int, thick: Float = 0.55f, stile: Float = Float.NaN, stones: IntArray? = null) {
+        val tones = stones ?: STONES
         val p = pm(d); val by = gy(d)
         val cope = 0.2f
         val body = height - cope
@@ -440,7 +442,7 @@ internal abstract class VistaPainter : ArtPainter() {
                 if (topAt(x) < height - 0.01f) continue
                 val cell = floor(x / COPE_W).toInt()
                 val u = x / COPE_W - cell
-                var col = STONES[(Noise.rnd(cell, seed, 5) * 4).toInt()]
+                var col = tones[(Noise.rnd(cell, seed, 5) * 4).toInt()]
                 col = if (u < 0.18f || u > 0.88f) Col.scale(col, 0.62f) else if ((u < 0.45f) == sunLeft) Col.mix(col, LIT_STONE, 0.35f) else col
                 if (snow && Noise.rnd(px, py, seed + 6) < 0.9f) col = if (u < 0.18f) Pal.SNOW_M else Pal.SNOW_L
                 else if (!snow && Noise.v2(x * 7f, dd * 7f, seed + 7) > 0.72f) col = MOSS
@@ -456,7 +458,7 @@ internal abstract class VistaPainter : ArtPainter() {
                 val x = sideAt(px, d)
                 val top = topAt(x)
                 if (hm > top) continue
-                c.set(px, py, stoneAt(px, py, x, hm, top, body, courses, n, seed, sunLeft, gap, bevel, snow, stile, p))
+                c.set(px, py, stoneAt(px, py, x, hm, top, body, courses, n, seed, sunLeft, gap, bevel, snow, stile, p, tones))
             }
         }
         // the step stile: three through-stones, the lowest first
@@ -470,7 +472,7 @@ internal abstract class VistaPainter : ArtPainter() {
                 for (px in max(gx(xa, dd).toInt(), c.left)..min(gx(xb, dd).toInt(), c.right - 1)) {
                     val x = sideAt(px, dd)
                     val edge = min(x - xa, xb - x)
-                    var col = if (front) STONES[k % 4] else Col.mix(STONES[(k + 2) % 4], LIT_STONE, 0.45f)
+                    var col = if (front) tones[k % 4] else Col.mix(tones[(k + 2) % 4], LIT_STONE, 0.45f)
                     if (front) col = Col.scale(col, if (py >= yl - 1) 0.6f else 0.78f)
                     if (edge < 0.035f) col = Col.scale(col, 0.7f)
                     if (!front && snow) col = Pal.SNOW_L
@@ -500,13 +502,13 @@ internal abstract class VistaPainter : ArtPainter() {
     /** The colour of the wall's face at ([x] m, [hm] m up), picture pixel ([px], [py]); see [dryWall]. */
     private fun stoneAt(
         px: Int, py: Int, x: Float, hm: Float, top: Float, body: Float, courses: FloatArray, n: Int, seed: Int,
-        sunLeft: Boolean, gap: Float, bevel: Float, snow: Boolean, stile: Float, p: Float,
+        sunLeft: Boolean, gap: Float, bevel: Float, snow: Boolean, stile: Float, p: Float, tones: IntArray,
     ): Int {
         // the coping: slabs set on edge, rounded at the top
         if (hm > body && top >= body + 0.1f) {
             val cell = floor(x / COPE_W).toInt()
             val u = x / COPE_W - cell
-            val tone = STONES[(Noise.rnd(cell, seed, 5) * 4).toInt()]
+            val tone = tones[(Noise.rnd(cell, seed, 5) * 4).toInt()]
             val slabTop = top - 0.03f * Noise.rnd(cell, seed, 12) - (if (u < 0.2f || u > 0.8f) 0.02f else 0f)
             if (hm > slabTop) return JOINT
             if (u < 0.1f || u > 0.92f || hm < body + gap) return JOINT
@@ -532,9 +534,9 @@ internal abstract class VistaPainter : ArtPainter() {
         val inside = kotlin.math.sqrt(ex * ex + ey * ey) - rad
         if (inside > -gap + rough) {
             // the joint: deep shade, now and then a small chinking stone wedged in it
-            return if (Noise.v2(x * 11f, hm * 11f, seed + 15) > 0.8f && inside < gap * 0.3f) Col.scale(STONES[1], 0.6f) else JOINT
+            return if (Noise.v2(x * 11f, hm * 11f, seed + 15) > 0.8f && inside < gap * 0.3f) Col.scale(tones[1], 0.6f) else JOINT
         }
-        val tone0 = STONES[(Noise.rnd(i, k, seed + 16) * 4).toInt()]
+        val tone0 = tones[(Noise.rnd(i, k, seed + 16) * 4).toInt()]
         val tone = Col.scale(tone0, 0.9f + 0.18f * Noise.rnd(i, k, seed + 17))
         val fromTop = t - hm; val fromBottom = hm - b
         val fromSun = if (sunLeft) x - l else r - x

@@ -68,8 +68,39 @@ object CultureLooks {
         }
     }
 
+    /**
+     * Carinthia's mountains (`alps`, Am See: the Faaker See under the Mittagskogel): the Karawanken behind the lake with the
+     * Mittagskogel's pyramid and its summit cross, the lake turquoise, the church's onion dome, the Almhütte of logs under
+     * shingles weighted with stones and its trough, Fleckvieh cows, and on the far shore a farmhouse with its timbered upper
+     * storey, a Harpfe, a boathouse and a jetty.
+     */
+    val KAERNTEN_ALPS = Table.of(
+        "alps",
+        variants = mapOf("range" to "karawanken", "lake" to "turquoise", "church" to "onion", "hut" to "alm", "cow" to "fleckvieh", "shore" to "carinthian"),
+    )
+
+    /**
+     * The Lake District's fells (`alps`, On the fell): rounded fells of grass and bracken with crags and dry-stone walls
+     * climbing them, a cairn on the summit, the lake dark with a wooded island, the chapel whitewashed under slate with its
+     * battlemented tower, the packhorse bridge, the shepherd's hut of slate stone, Daisy the one cow (an Ayrshire) among the
+     * Herdwick sheep and Sooty the black lamb, Meg the sheepdog by the wall, ravens off the crag, a feral goat and a Herdwick
+     * ram for the chamois and the ibex, a rabbit for the marmot, buttercups and foxgloves, oaks and birches for spruces.
+     */
+    val LAKELAND_ALPS = Table.of(
+        "alps",
+        materials = mapOf("wall" to "slate"),
+        variants = mapOf(
+            "range" to "fells", "lake" to "tarn", "church" to "chapel", "bridge" to "packhorse", "hut" to "stone", "cow" to "ayrshire",
+            "herd" to "herdwicks", "dog" to "collie", "birds" to "ravens", "chamois" to "goat", "ibex" to "ram", "marmot" to "rabbit",
+            "flowers" to "meadow", "trees" to "broadleaf", "shore" to "island",
+        ),
+    )
+
     /** Each culture's look: its arts' tables added up. A culture not here draws every art as the default culture does. */
-    private val tables: Map<String, Table> = mapOf()
+    private val tables: Map<String, Table> = mapOf(
+        "kaernten" to KAERNTEN_ALPS,
+        "lakeland" to LAKELAND_ALPS,
+    )
 
     private val looks = ConcurrentHashMap<String, CultureLook>()
 

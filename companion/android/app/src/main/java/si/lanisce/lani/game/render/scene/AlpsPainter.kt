@@ -42,6 +42,26 @@ import kotlin.math.sqrt
  * Closer up ([detail] 2 and 3) the same view is drawn finer: the wall's joints, lichen and moss, the hut's logs and
  * shingles, the cows' faces and bells, the curtain of the waterfall and its foam, needles on the spruce, the church's
  * windows and the bridge's arches.
+ *
+ * In a culture's look (companion/SCENES.md "Culture looks", [CultureLooks]' tables) the same pasture and its stage stand
+ * elsewhere, every thing where it was:
+ *
+ * - **Carinthia** (Am See, the Faaker See): the Karawanken behind the lake, the Mittagskogel's pyramid with its summit
+ *   cross for Triglav; the lake turquoise, paler over the shallows along its shores; the church's tower under an onion
+ *   dome of green copper, the nave under dark shingles; on the left shore a farmhouse, white below and timbered above
+ *   with its balcony, a Harpfe (the double hayrack) in the meadow beside it, a boathouse on its piles in the water and a
+ *   jetty with a rowing boat; the Almhütte of logs on a low stone footing, its shingles weighted with stones, a trough
+ *   by its door; Fleckvieh cows, white heads and gold-red patches.
+ * - **The Lake District** (On the fell): rounded fells of grass and bracken (green in summer, russet from October) with
+ *   grey crags and scree, dry-stone walls climbing their lower slopes and oakwoods along the shore, snow only on their
+ *   tops in winter, a cairn on the summit; the lake dark as slate with a wooded island; the chapel whitewashed under
+ *   slate, its square tower battlemented; the packhorse bridge humped over its two arches; the shepherd's hut of slate
+ *   stone with a round chimney and white frames; Daisy the one cow (an Ayrshire, mahogany and white, lyre horns) among
+ *   the Herdwick sheep, grey with white faces, Sooty the black lamb with them, her friends from the farm below coming up
+ *   over the brow when a dialog counts the cows; Meg the sheepdog lying by the wall; the wall of slate stone; ravens off
+ *   the crag for the choughs; a feral goat for the chamois and a Herdwick ram on the crag for the ibex; a rabbit by its
+ *   burrow for the marmot; buttercups, clover and foxgloves for the alpine flowers, bracken close by; birches and oaks
+ *   among the larches at the pasture's sides.
  */
 internal class AlpsPainter : WildPainter() {
     /** Toward Triglav, north-north-west: the Plough and the Pole Star stand over the peaks. */
@@ -80,6 +100,9 @@ internal class AlpsPainter : WildPainter() {
 
     private val farCows = ArrayList<FarCow>()
 
+    /** How many cows graze on the pasture in the frame drawn last, the near one among them (not those still below the brow). */
+    internal val cowsOnPasture: Int get() = 1 + farCows.count { it.sink <= 0.01f }
+
     /** The lake lies this far (m) below the pasture: its rows are those of a plane seen from EYE + DROP. */
     private val drop = 22f
 
@@ -109,8 +132,54 @@ internal class AlpsPainter : WildPainter() {
 
     private val items = ArrayList<Pair<Float, () -> Unit>>()
 
+    // ------------------------------------------------------------------ the culture's look
+
+    /** The mountains behind the lake ([variant] "range"): the Julian Alps under Triglav ([JULIAN]), the Karawanken, the fells. */
+    private var range = JULIAN
+    /** The range's peaks ([PEAKS]: column, height, half width), how their flanks fall ([peakPow]: 1 a pyramid's, below it round). */
+    private var peaks = PEAKS
+    private var peakPow = 1.35
+    /** The first [heads] peaks are the "peak" thing (Triglav's three heads, the Mittagskogel, the summit) from [headsFrom] up. */
+    private var heads = 3
+    private var headsFrom = 38f
+    /** The look's own versions of the art's things ([variant]), read once a frame: null for the art's own. */
+    private var lakeKind: String? = null
+    private var churchKind: String? = null
+    private var bridgeKind: String? = null
+    private var hutKind: String? = null
+    private var cowKind: String? = null
+    private var herdKind: String? = null
+    private var dogKind: String? = null
+    private var birdKind: String? = null
+    private var chamoisKind: String? = null
+    private var ibexKind: String? = null
+    private var marmotKind: String? = null
+    private var flowerKind: String? = null
+    private var treeKind: String? = null
+    private var shoreKind: String? = null
+    private var wallStones: IntArray? = null
+    /** A fell meadow's flowers instead of the alpine ones ([flowerKind] "meadow"), for every pixel of the grass. */
+    private var meadowFlowers = false
+
+    /** What the culture's look draws its own way (companion/SCENES.md "Culture looks"), once a frame. */
+    private fun readLook() {
+        range = when (variant("range")) { "karawanken" -> KARAWANKEN; "fells" -> FELLS; else -> JULIAN }
+        when (range) {
+            KARAWANKEN -> { peaks = PEAKS_KARAWANKEN; peakPow = 1.0; heads = 1; headsFrom = 40f }
+            FELLS -> { peaks = PEAKS_FELLS; peakPow = 1.0; heads = 1; headsFrom = 34f }
+            else -> { peaks = PEAKS; peakPow = 1.35; heads = 3; headsFrom = 38f }
+        }
+        lakeKind = variant("lake"); churchKind = variant("church"); bridgeKind = variant("bridge"); hutKind = variant("hut")
+        cowKind = variant("cow"); herdKind = variant("herd"); dogKind = variant("dog"); birdKind = variant("birds")
+        chamoisKind = variant("chamois"); ibexKind = variant("ibex"); marmotKind = variant("marmot"); flowerKind = variant("flowers")
+        treeKind = variant("trees"); shoreKind = variant("shore")
+        meadowFlowers = flowerKind == "meadow"
+        wallStones = if (material("wall", "limestone") == "slate") SLATE_STONES else null
+    }
+
     override fun paint() {
         setup()
+        readLook()
         val z = z
         sunLeft = (sunAt()?.first ?: vx) < vx
         alpenglow = fx("glow") ?: if (env.dark < 0.6f && frame.sky.gloom < 0.5f) (1f - abs(env.sun - 0.07f) / 0.2f).coerceIn(0f, 1f) else 0f
@@ -128,6 +197,8 @@ internal class AlpsPainter : WildPainter() {
         prop(0) { back(FLANK) }
         prop(0) { flock(fxOn("birds")) }
         thing("lake", outline = 0) { lake() }
+        // the look's far shore: Carinthia's farm by the water, the Lake District's island
+        if (shoreKind != null) prop(0) { farShore(false) }
         thing("bridge", outline = 0) { bridge(false) }
         thing("church", outline = 0) { church(false) }
         prop(0) { jumps(fxOn("fish")) }
@@ -143,7 +214,11 @@ internal class AlpsPainter : WildPainter() {
         for ((k, t) in FOREST.withIndex()) {
             val (x, d, larch) = t
             val hgt = 14f + Noise.rnd(k, 701) * 6f
-            items.add(d to { prop(Pal.OUTLINE_TREE) { if (larch) larchTree(x, d, hgt, k) else spruceTree(x, d, hgt, k) } })
+            val leafy = !larch && treeKind == "broadleaf"
+            items.add(d to {
+                if (leafy) prop { leafyTree(x, d, 8.5f + Noise.rnd(k, 702) * 3.5f, 40 + k) }
+                else prop(Pal.OUTLINE_TREE) { if (larch) larchTree(x, d, hgt, k) else spruceTree(x, d, hgt, k) }
+            })
         }
         items.add(hutD to { thing("hut") { hut() } })
         for (cw in farCows) items.add(cw.d to {
@@ -155,7 +230,13 @@ internal class AlpsPainter : WildPainter() {
             val x = m.x + (if (m.left) 1.1f else -1.1f); val d = m.d - 0.5f
             items.add(d to { groundShadow(x, d, 0.6f); prop { cow(x, d, m.left, 9, near = false, calf = true) } })
         }
-        items.add(marmotD to { pokeable("marmot") { marmot() } })
+        // the Lake District's Herdwicks on the fell, Sooty the black lamb with them; Meg the sheepdog lying by the wall
+        if (herdKind == "herdwicks") for ((k, sp) in SHEEP.withIndex()) {
+            val (x, d, left) = sp
+            items.add(d to { groundShadow(x, d, 0.45f); prop { sheep(x, d, left, k, lamb = k == SHEEP.size - 1) } })
+        }
+        if (dogKind == "collie") items.add(MEG_D to { groundShadow(MEG_X, MEG_D, 0.4f); prop { collie(MEG_X, MEG_D) } })
+        items.add(marmotD to { pokeable("marmot") { if (marmotKind == "rabbit") rabbit() else marmot() } })
         items.add(spruceD to { thing("spruce", outline = Pal.OUTLINE_TREE) { spruceTree(spruceX, spruceD, 17f, 0, big = true) } })
         items.add(larchD to { thing("larch", outline = Pal.OUTLINE_TREE) { larchTree(larchX, larchD, 16f, 0, big = true) } })
         // the near cow and her bell; a dialog's "bell-lost" has it lying in the grass by the stream until it goes back on her
@@ -168,7 +249,7 @@ internal class AlpsPainter : WildPainter() {
         // a dialog's milk pail by the milker's feet ("pail")
         fx("pail")?.let { v -> if (v > 0.02f) items.add(PAIL_D to { groundShadow(PAIL_X, PAIL_D, 0.22f); prop { pail(PAIL_X, PAIL_D, v) } }) }
         items.add(fallD + 0.05f to { prop { ledge() }; thing("waterfall", outline = 0, slop = 1) { fall() } })
-        items.add(wallD to { thing("wall") { dryWall(wallA, wallB, wallD, wallH, 71, stile = stileX) } })
+        items.add(wallD to { thing("wall") { dryWall(wallA, wallB, wallD, wallH, 71, stile = stileX, stones = wallStones) } })
         items.add(stoneD to { groundShadow(stoneX, stoneD - 0.2f, 0.8f); thing("stone") { boulder(stoneX, stoneD, 1.5f, 1.0f, 72, mossy = true) } })
         for (p in peopleAt("wall")) items.add(11.5f to { groundShadow(-2.75f, 11.5f, 0.5f); person(p, gx(-2.75f, 11.5f).toInt(), gy(11.5f).toInt(), flip = false) })
         for (p in peopleAt("path")) items.add(13.3f to { val x = path(13.3f) + 0.15f; groundShadow(x, 13.3f, 0.5f); person(p, gx(x, 13.3f).toInt(), gy(13.3f).toInt(), flip = true) })
@@ -194,8 +275,18 @@ internal class AlpsPainter : WildPainter() {
         if (out("chamois")) {
             val u = spot("chamois")
             val x = 7.2f + u * 3.6f; val d = 22.6f + u * 1.4f
-            items.add(d to { groundShadow(x, d, 0.5f); creature("chamois") { chamois(gx(x, d), gy(d), 34f / d, left = u > 0.5f, look = sin(t * 0.4 + u * 7) > 0.4) } })
-            items.add(d + 0.8f to { prop { chamois(gx(x + (if (u > 0.5f) -1.6f else 1.6f), d + 0.8f), gy(d + 0.8f), 22f / (d + 0.8f), left = u > 0.5f) } })
+            // the Lake District's: a feral goat and her kid
+            val feral = chamoisKind == "goat"
+            items.add(d to {
+                groundShadow(x, d, 0.5f)
+                creature("chamois") { if (feral) goat(gx(x, d), gy(d), 34f / d, left = u > 0.5f, look = sin(t * 0.4 + u * 7) > 0.4) else chamois(gx(x, d), gy(d), 34f / d, left = u > 0.5f, look = sin(t * 0.4 + u * 7) > 0.4) }
+            })
+            items.add(d + 0.8f to {
+                prop {
+                    val kx = gx(x + (if (u > 0.5f) -1.6f else 1.6f), d + 0.8f)
+                    if (feral) goat(kx, gy(d + 0.8f), 22f / (d + 0.8f), left = u > 0.5f, kid = true) else chamois(kx, gy(d + 0.8f), 22f / (d + 0.8f), left = u > 0.5f)
+                }
+            })
         }
         val cue = fx("ibex")
         if (out("ibex") || (cue ?: 0f) > 0.02f) {
@@ -208,10 +299,12 @@ internal class AlpsPainter : WildPainter() {
             val v = (cue ?: 1f).coerceIn(0f, 1f)
             val up = v >= 0.95f
             val climb = if (up) 0f else (1f - v / 0.95f) * 2.4f
+            // the Lake District's: a Herdwick ram up on the crag
+            val herdwick = ibexKind == "ram"
             items.add(d to {
-                if (!up) creature("ibex") { ibex(gx(x + 0.15f, d - 0.2f), hy(d - 0.2f, rock * 0.94f - climb), 40f / d, left = u > 0.4f) }
+                if (!up) creature("ibex") { if (herdwick) ram(gx(x + 0.15f, d - 0.2f), hy(d - 0.2f, rock * 0.94f - climb), 40f / d, left = u > 0.4f) else ibex(gx(x + 0.15f, d - 0.2f), hy(d - 0.2f, rock * 0.94f - climb), 40f / d, left = u > 0.4f) }
                 prop { crag(x, d, rock) }
-                if (up) creature("ibex") { ibex(gx(x, d - 0.2f), hy(d - 0.2f, rock * 0.94f), 40f / d, left = u > 0.4f) }
+                if (up) creature("ibex") { if (herdwick) ram(gx(x, d - 0.2f), hy(d - 0.2f, rock * 0.94f), 40f / d, left = u > 0.4f) else ibex(gx(x, d - 0.2f), hy(d - 0.2f, rock * 0.94f), 40f / d, left = u > 0.4f) }
             })
         }
     }
@@ -239,38 +332,65 @@ internal class AlpsPainter : WildPainter() {
             farTop = FloatArray(w); farLit = BooleanArray(w); massTop = FloatArray(w); massPeak = IntArray(w)
             midTop = FloatArray(w); flankTop = FloatArray(w); shore = FloatArray(w); meadow = FloatArray(w); browRow = IntArray(w)
         }
+        val fells = range == FELLS
         for (x in 0 until w) {
             val u = ux(x)
-            // the far ranges: ridged peaks across the whole view
-            val a = 1f - abs(Noise.v1(u * 0.03f, 611) * 2f - 1f)
-            val b = 1f - abs(Noise.v1(u * 0.075f, 612) * 2f - 1f)
-            farTop[x] = (11f + 30f * (a * a * 0.7f + b * 0.3f)) * lift
-            // Triglav and its neighbours: the highest peak of each column, a jagged crest
+            if (fells) {
+                // the far fells: rounded backs one behind the other, no ridges
+                farTop[x] = (9f + 17f * (Noise.v1(u * 0.022f, 611) * 0.7f + Noise.v1(u * 0.06f, 612) * 0.3f)) * lift
+            } else {
+                // the far ranges: ridged peaks across the whole view
+                val a = 1f - abs(Noise.v1(u * 0.03f, 611) * 2f - 1f)
+                val b = 1f - abs(Noise.v1(u * 0.075f, 612) * 2f - 1f)
+                farTop[x] = (11f + 30f * (a * a * 0.7f + b * 0.3f)) * lift
+            }
+            // Triglav and its neighbours (the Mittagskogel and the Karawanken's ridge, the fells): the highest of each column
             var best = 0f; var bi = 0
             var i = 0
-            while (i < PEAKS.size) {
-                val f = 1f - abs(u - PEAKS[i]) / PEAKS[i + 2]
-                if (f > 0f) { val hh = PEAKS[i + 1] * f.toDouble().pow(1.35).toFloat(); if (hh > best) { best = hh; bi = i / 3 } }
+            while (i < peaks.size) {
+                val f = 1f - abs(u - peaks[i]) / peaks[i + 2]
+                if (f > 0f) {
+                    // the fells' backs round on top (1 - q²), the peaks' flanks straight or hollow (f^p)
+                    val hh = if (fells) { val q = 1f - f; peaks[i + 1] * (1f - q * q).toDouble().pow(1.25).toFloat() } else peaks[i + 1] * f.toDouble().pow(peakPow).toFloat()
+                    if (hh > best) { best = hh; bi = i / 3 }
+                }
                 i += 3
             }
-            if (best > 3f) {
-                val jag = 1f - abs(Noise.v1(u * 0.11f, 603) * 2f - 1f)
-                best += (jag - 0.5f) * 3.2f * min(1f, best / 14f) + (Noise.v1(u * 0.45f, 601) - 0.5f) * 1.8f + (Noise.v1(u * 1.6f, 602) - 0.5f) * 0.9f
+            if (best > 3f) when (range) {
+                // the fells: lumpy backs, a crag's step here and there
+                FELLS -> best += (Noise.v1(u * 0.07f, 603) - 0.5f) * 2.2f * min(1f, best / 14f) + (Noise.v1(u * 0.3f, 601) - 0.5f) * 0.9f
+                // the Mittagskogel's clean pyramid, the ridge either side of it jagged
+                KARAWANKEN -> {
+                    val jag = 1f - abs(Noise.v1(u * 0.13f, 603) * 2f - 1f)
+                    val clean = if (bi == 0) 0.45f else 1f
+                    best += ((jag - 0.5f) * 3f * min(1f, best / 14f) + (Noise.v1(u * 0.45f, 601) - 0.5f) * 1.6f) * clean + (Noise.v1(u * 1.6f, 602) - 0.5f) * 0.8f
+                }
+                else -> {
+                    val jag = 1f - abs(Noise.v1(u * 0.11f, 603) * 2f - 1f)
+                    best += (jag - 0.5f) * 3.2f * min(1f, best / 14f) + (Noise.v1(u * 0.45f, 601) - 0.5f) * 1.8f + (Noise.v1(u * 1.6f, 602) - 0.5f) * 0.9f
+                }
             }
             massTop[x] = best * lift; massPeak[x] = bi
-            // the lower mountains at the lake's far end, forested
-            midTop[x] = 3f + 8f * Noise.v1(u * 0.035f, 621) + 5f * (1f - abs(Noise.v1(u * 0.09f, 622) * 2f - 1f)) - max(0f, abs(u - 125f) - 70f) * 0.2f
-            // the forested slopes either side of the lake, a row of spruce spires along their crest
+            // the lower mountains (fells) at the lake's far end, forested
+            midTop[x] = if (fells) 3f + 9f * Noise.v1(u * 0.03f, 621) + 3f * Noise.v1(u * 0.1f, 622) - max(0f, abs(u - 125f) - 70f) * 0.2f
+            else 3f + 8f * Noise.v1(u * 0.035f, 621) + 5f * (1f - abs(Noise.v1(u * 0.09f, 622) * 2f - 1f)) - max(0f, abs(u - 125f) - 70f) * 0.2f
+            // the forested slopes either side of the lake, a row of spruce spires along their crest (the fells' open backs)
             val sl = ((104f - u) / 150f).coerceIn(0f, 1.6f); val sr = ((u - 146f) / 150f).coerceIn(0f, 1.6f)
             val crest = if (u < 125f) 50f * sl.toDouble().pow(1.3).toFloat() else 47f * sr.toDouble().pow(1.3).toFloat()
-            val cell = u / 2.6f - floor(u / 2.6f)
-            flankTop[x] = crest - 2f + (1f - abs(cell - 0.5f) * 2f) * 2.4f * min(1f, crest / 4f)
+            if (fells) flankTop[x] = crest - 1f + (Noise.v1(u * 0.12f, 624) - 0.5f) * 1.8f * min(1f, crest / 4f)
+            else {
+                val cell = u / 2.6f - floor(u / 2.6f)
+                flankTop[x] = crest - 2f + (1f - abs(cell - 0.5f) * 2f) * 2.4f * min(1f, crest / 4f)
+            }
             // where the water begins: the slopes' feet, lower (nearer) toward the sides
             val lumpy = (Noise.v1(u * 0.35f, 605) - 0.5f) * 2.2f * min(1f, (abs(u - 125f) - 21f).coerceAtLeast(0f) / 10f)
-            val foot = -2f - max(0f, 104f - u) * 0.45f - min(max(0f, u - 146f), 59f) * 0.35f - max(0f, u - 205f) * 1.2f + lumpy
+            var foot = -2f - max(0f, 104f - u) * 0.45f - min(max(0f, u - 146f), 59f) * 0.35f - max(0f, u - 205f) * 1.2f + lumpy
+            // Carinthia's farm on the left shore: there the shore runs level along its meadow, a bay
+            if (shoreKind == "carinthian") foot += (FARM_FOOT - foot) * (1f - abs(u - FARM_U) / 22f).coerceIn(0f, 1f).let { it * (3f - 2f * it) }
             shore[x] = hz - foot * z
-            // a strip of meadow on the right shore, where the church stands
-            val band = 4.4f * (1f - abs(u - 184f) / 20f).coerceIn(0f, 1f).let { it * (3f - 2f * it) }
+            // a strip of meadow on the right shore, where the church stands; Carinthia's on the left too, its farm's
+            val band = 4.4f * (1f - abs(u - 184f) / 20f).coerceIn(0f, 1f).let { it * (3f - 2f * it) } +
+                (if (shoreKind == "carinthian") 6.5f * (1f - abs(u - FARM_U) / 19f).coerceIn(0f, 1f).let { it * (3f - 2f * it) } else 0f)
             meadow[x] = shore[x] - band * z
         }
         massLift = lift
@@ -296,13 +416,14 @@ internal class AlpsPainter : WildPainter() {
         if (x < 0 || x >= w || y >= shore[x]) return 0
         val up = upOf(y)
         val u = ux(x)
-        if (up <= flankTop[x]) return if (only == 0 || only == FLANK) flank(x, y, u, up) else 0
-        if (up <= midTop[x]) return if (only == 0 || only == MID) mid(x, y, u, up) else 0
+        val fells = range == FELLS
+        if (up <= flankTop[x]) return if (only == 0 || only == FLANK) (if (fells) fellFlank(x, y, u, up) else flank(x, y, u, up)) else 0
+        if (up <= midTop[x]) return if (only == 0 || only == MID) (if (fells) fellMid(x, y, u, up) else mid(x, y, u, up)) else 0
         if (up <= massTop[x]) {
-            val peak = massPeak[x] <= 2 && up > 38f * massLift
-            return if (only == 0 || (only == MASS && !peak) || (only == PEAK && peak)) mass(x, y, u, up) else 0
+            val peak = massPeak[x] < heads && up > headsFrom * massLift
+            return if (only == 0 || (only == MASS && !peak) || (only == PEAK && peak)) (if (fells) fell(x, y, u, up) else mass(x, y, u, up)) else 0
         }
-        if (up <= farTop[x]) return if (only == 0 || only == FAR) far(x, y, u, up) else 0
+        if (up <= farTop[x]) return if (only == 0 || only == FAR) (if (fells) fellFar(x, u, up) else far(x, y, u, up)) else 0
         return 0
     }
 
@@ -330,7 +451,7 @@ internal class AlpsPainter : WildPainter() {
      */
     private fun mass(x: Int, y: Int, u: Float, up: Float): Int {
         val k = massPeak[x]
-        val cu = PEAKS[k * 3]; val ph = PEAKS[k * 3 + 1] * massLift
+        val cu = peaks[k * 3]; val ph = peaks[k * 3 + 1] * massLift
         val ridge = cu + (Noise.v1(up * 0.11f, 631) - 0.5f) * 5f * (1f - up / ph).coerceIn(0f, 1f)
         val lit = (u < ridge) == sunLeft
         val q = (u - cu) / max(3f, ph - up + 3f)
@@ -426,8 +547,191 @@ internal class AlpsPainter : WildPainter() {
         return if ((fu < 0.5f) == sunLeft && ft > 0.25f) light else mid
     }
 
-    /** The Aljaž turret on Triglav's top: a little tin cylinder with its flag, closer up. */
+    // ------------------------------------------------------------------ the fells (the Lake District's look)
+
+    /** The open fell's grass this month, lit and in shade: olive in summer, fresh in spring, tawny from October, dun in winter. */
+    private fun fellGrass(lit: Boolean): Int = when (env.month) {
+        6, 7, 8, 9 -> if (lit) FELL_SUMMER_L else FELL_SUMMER_D
+        4, 5 -> if (lit) FELL_SPRING_L else FELL_SPRING_D
+        10, 11 -> if (lit) FELL_AUTUMN_L else FELL_AUTUMN_D
+        else -> if (lit) FELL_WINTER_L else FELL_WINTER_D
+    }
+
+    /** The walled fields' greens this month (the intake below the open fell): each field its own of three, darker in shade. */
+    private fun fieldGreen(k: Int, lit: Boolean): Int {
+        val tones = when (env.season) {
+            Season.SUMMER -> FIELDS_SUMMER
+            Season.SPRING -> FIELDS_SPRING
+            Season.AUTUMN -> FIELDS_AUTUMN
+            Season.WINTER -> FIELDS_WINTER
+        }
+        val col = tones[Math.floorMod(k, tones.size)]
+        return if (lit) col else Col.scale(col, 0.84f)
+    }
+
+    /** The bracken this month, dark, middle and light: dead russet through the winter, unfurling in May, green, rusting in October. */
+    private fun bracken(): IntArray = when (env.month) {
+        6, 7, 8, 9 -> BRACKEN_GREEN
+        5 -> BRACKEN_UNFURL
+        10 -> BRACKEN_TURN
+        else -> BRACKEN_DEAD
+    }
+
+    /** Broadleaf woods (oak, birch) this season, dark, middle, light: fresh in spring, gold-brown in autumn, bare in winter. */
+    private fun woodsCols(): IntArray = when (env.season) {
+        Season.SPRING -> WOODS_SPRING
+        Season.SUMMER -> WOODS_SUMMER
+        Season.AUTUMN -> if (env.month == 9) WOODS_SUMMER else WOODS_AUTUMN
+        Season.WINTER -> WOODS_WINTER
+    }
+
+    /** Broadleaf woods seen from afar: rounded crowns in rows, lit on the sun's side and their tops, the gaps between them dark. */
+    private fun woods(u: Float, up: Float, seed: Int, cols: IntArray): Int {
+        val cw = 2.3f; val ch = 1.9f
+        val row = floor(up / ch).toInt()
+        val shift = if (row % 2 == 0) 0f else 0.5f
+        val cell = floor(u / cw + shift).toInt()
+        val fu = u / cw + shift - cell; val fv = up / ch - row
+        val n = Noise.rnd(cell, row, seed)
+        val dx = fu - 0.5f; val dy = fv - 0.45f
+        return when {
+            dx * dx + dy * dy > 0.2f + n * 0.09f -> cols[0]
+            (dx < 0f) == sunLeft && dy > -0.12f -> cols[2]
+            else -> cols[1]
+        }
+    }
+
+    /**
+     * A fellside at ([u], [up]), [rel] how far up it (0 its foot, 1 its top), lit or in shade: the walled fields of the intake
+     * low down (a patchwork of greens, a dry-stone wall round each), the open fell above (grass, bracken over its lower
+     * part, heather in flower in August and September), its crags with their scree where [crags] lets them (the summit's
+     * face has the most), snow on the tops in winter and lying in patches below them. In daylight colours.
+     */
+    private fun fellside(u: Float, up: Float, rel: Float, lit: Boolean, x: Int, y: Int, crags: Float, seed: Int): Int {
+        val px = 1f / z
+        val snowLine = when (env.month) { 12, 1, 2 -> 0.42f; 3 -> 0.72f; 11 -> 0.84f; else -> 2f }
+        if (rel > snowLine + (Noise.v2(u * 0.2f, up * 0.25f, seed) - 0.5f) * 0.24f) {
+            // the snow on the tops, the crags dark through it
+            return if (Noise.v2(u * 0.12f, up * 0.35f, seed + 1) > crags + 0.06f) CRAG_D else if (lit) SNOW_LIT else SNOW_SHADE
+        }
+        val crag = rel > 0.38f && Noise.v2(u * 0.12f, up * 0.35f, seed + 1) > crags
+        if (crag) return if (lit) (if (Noise.rnd(x / z, y / z, seed + 2) < 0.22f) CRAG_D else CRAG_L) else CRAG_D
+        // the scree fanning out under a crag, in streaks
+        if (rel > 0.26f && Noise.v2(u * 0.12f, (up + 3.4f) * 0.35f, seed + 1) > crags + 0.03f && Noise.v2(u * 0.9f, up * 0.2f, seed + 3) > 0.4f) return if (lit) SCREE_L else SCREE_D
+        val intakeTop = 0.34f + 0.08f * Noise.v1(u * 0.05f, seed + 4)
+        var col = if (rel < intakeTop) {
+            // the intake: fields climbing the slope, walled
+            val fq = (u + up * 0.4f) / 9f + Noise.v1(up * 0.08f, seed + 5) * 0.4f
+            val fr = up / 4.6f + Noise.v1(u * 0.05f, seed + 6) * 0.9f
+            val wall = abs(fq - floor(fq) - 0.5f) * 9f > 4.5f - 0.5f * px - 0.06f || abs(fr - floor(fr) - 0.5f) * 4.6f > 2.3f - 0.5f * px - 0.03f
+            if (wall && Dither.at(x, y) < 0.9f) WALL_FAR
+            else if (rel > intakeTop - 0.05f && Noise.rnd(floor(fq).toInt(), seed + 7) < 0.4f) WALL_FAR // the intake wall along its top
+            else fieldGreen(floor(fq).toInt() * 7 + floor(fr).toInt() * 3, lit)
+        } else if (rel < 0.62f && Noise.v2(u * 0.09f, up * 0.14f, seed + 8) > 0.46f) {
+            bracken().let { b -> if (lit) b[2] else b[1] }
+        } else if (env.month in 8..9 && rel > 0.5f && Noise.v2(u * 0.11f, up * 0.2f, seed + 9) > 0.56f) {
+            if (lit) HEATHER_L else HEATHER_D
+        } else fellGrass(lit)
+        // snow lying in patches below the tops in winter
+        if (env.snow && Noise.v2(u * 0.3f, up * 0.5f, seed + 10) > 0.5f - rel * 0.3f) col = if (lit) Pal.SNOW_M else Pal.SNOW_D
+        return col
+    }
+
+    /**
+     * The fells: rounded backs, the summit's face steep with its crag (where the ravens are) and scree; the walled fields of
+     * the intake low down, the open fell above, oakwoods at their feet; pink in the low sun; the haze toward their feet.
+     */
+    private fun fell(x: Int, y: Int, u: Float, up: Float): Int {
+        val k = massPeak[x]
+        val cu = peaks[k * 3]; val ph = peaks[k * 3 + 1] * massLift
+        val ridge = cu + (Noise.v1(up * 0.11f, 631) - 0.5f) * 4f * (1f - up / ph).coerceIn(0f, 1f)
+        val lit = (u < ridge) == sunLeft
+        // how far up the fell, from where the lower fells in front of it hide it to its top
+        val rel = ((up - midTop[x]) / max(4f, ph * 0.94f - midTop[x])).coerceIn(0f, 1f)
+        val foot = 4.5f + 4f * Noise.v1(u * 0.08f, 639)
+        var col = if (up < foot) woods(u, up, 641, woodsCols()) else fellside(u, up, rel, lit, x, y, if (k == 0) 0.6f else 0.7f, 642)
+        if (alpenglow > 0f && up >= foot) col = if (lit) Col.mix(col, GLOW_ROCK, 0.42f * alpenglow) else Col.mix(col, GLOW_SHADE, 0.3f * alpenglow)
+        return env.lit(Col.mix(col, env.skyHorizon, 0.16f + 0.14f * (1f - up / (44f * massLift)).coerceIn(0f, 1f)))
+    }
+
+    /** The far fells: blue-grey backs in the haze, snow on their tops in winter, lit on the side facing the sun. */
+    private fun fellFar(x: Int, u: Float, up: Float): Int {
+        val lit = farLit[x]
+        val rel = up / (26f * massLift)
+        val line = when (env.month) { 12, 1, 2 -> 0.55f; 3 -> 0.8f; else -> 2f }
+        val snowy = rel > line + (Noise.v2(u * 0.3f, up * 0.3f, 641) - 0.5f) * 0.2f
+        var col = if (snowy) (if (lit) SNOW_LIT else SNOW_SHADE) else if (lit) FELL_FAR_L else FELL_FAR_D
+        if (alpenglow > 0f && lit) col = Col.mix(col, if (snowy) GLOW_SNOW else GLOW_ROCK, 0.35f * alpenglow)
+        return env.lit(Col.mix(col, env.skyHorizon, 0.5f))
+    }
+
+    /** The lower fells at the lake's far end: their fields and open tops, woods down to the water; blue with the distance. */
+    private fun fellMid(x: Int, y: Int, u: Float, up: Float): Int {
+        val lit = (Noise.v1(u * 0.09f, 651) > 0.45f) == sunLeft
+        val low = ((midTop[x] - up) / 10f).coerceIn(0f, 1f)
+        val rel = (up / max(1f, midTop[x])).coerceIn(0f, 1f) * 0.8f
+        val col = if (up < 2.5f + 3f * Noise.v1(u * 0.1f, 652)) woods(u, up, 653, woodsCols()) else fellside(u, up, rel, lit, x, y, 0.85f, 654)
+        return env.lit(Col.mix(col, env.skyHorizon, 0.28f + 0.2f * low))
+    }
+
+    /**
+     * The fells either side of the lake: their open backs up top, crags near the crest, the walled fields below them and the
+     * oak and birch woods down their lower slopes to the shore; the meadow strip on the right shore.
+     */
+    private fun fellFlank(x: Int, y: Int, u: Float, up: Float): Int {
+        if (y >= meadow[x]) {
+            val g = env.grass
+            val n = Noise.v2(u * 0.3f, up * 0.8f, 661) + (Dither.at(x, y) - 0.5f) * 0.3f
+            return env.lit(Col.mix(if (n > 0.55f) g[0] else g[1], env.skyHorizon, 0.14f))
+        }
+        val lit = (Noise.v1(u * 0.07f + up * 0.03f, 662) > 0.45f) == sunLeft
+        val crest = max(1f, flankTop[x] - shoreUp(x))
+        val rel = ((up - shoreUp(x)) / crest).coerceIn(0f, 1f)
+        val woodsTop = 0.3f + 0.12f * Noise.v1(u * 0.09f, 663)
+        val col = if (rel < woodsTop) woods(u, up, 664, woodsCols()) else fellside(u, up, rel, lit, x, y, 0.72f, 665)
+        return env.lit(Col.mix(col, env.skyHorizon, 0.1f + 0.1f * ((up + 10f) / 60f).coerceIn(0f, 1f)))
+    }
+
+    /** Height above the horizon (scene px) of the shore in picture column [x]. */
+    private fun shoreUp(x: Int): Float = (hz - shore[x]) / z
+
+    /** The Mittagskogel's summit cross: a dark wooden cross on the very top, its arms out, as on every Carinthian peak. */
+    private fun summitCross() {
+        val z = z
+        val x = (ox + (peaks[0] + 0.5f) * z).toInt()
+        var top = hz.toFloat()
+        for (xx in x - z..x + z) if (xx in 0 until w) top = min(top, hz - massTop[xx] * z)
+        val y = top.toInt() + max(1, z / 2)
+        val wood = env.lit(Col.mix(Col.hex(0x3A2E26), env.skyHorizon, 0.2f))
+        val th = max(1, z / 2)
+        c.penEmissive = true
+        c.fillRect(x - th / 2, y - 4 * z, th, 4 * z, wood)
+        c.fillRect(x - z - th / 2, y - 3 * z, 2 * z + th, th, wood)
+        c.penEmissive = false
+    }
+
+    /** The fell's summit cairn: a little heap of grey stones on the top, its stones showing closer up. */
+    private fun cairn() {
+        val z = z
+        val x = (ox + (peaks[0] + 0.5f) * z).toInt()
+        var top = hz.toFloat()
+        for (xx in x - z..x + z) if (xx in 0 until w) top = min(top, hz - massTop[xx] * z)
+        val y = top.toInt() + max(1, z / 2)
+        val stone = env.lit(Col.mix(CAIRN, env.skyHorizon, 0.15f)); val shade = env.lit(Col.mix(Col.scale(CAIRN, 0.7f), env.skyHorizon, 0.15f))
+        c.penEmissive = true
+        for (r in 0 until 3 * z) {
+            val half = (1.5f * z * (1f - r / (3.2f * z))).toInt()
+            for (xx in x - half..x + half) c.set(xx, y - 1 - r, if ((xx < x) == sunLeft && z > 1 && Noise.rnd(xx, r, 645) < 0.7f) stone else if (xx == x + half) shade else stone)
+        }
+        c.penEmissive = false
+    }
+
+    /** The top of the peak: Triglav's Aljaž turret, the Mittagskogel's summit cross, the fell's cairn. */
     private fun turret() {
+        when (range) {
+            KARAWANKEN -> { summitCross(); return }
+            FELLS -> { cairn(); return }
+        }
         val z = z
         val x = (ox + (PEAKS[0] + 0.5f) * z).toInt()
         var top = hz.toFloat()
@@ -456,7 +760,10 @@ internal class AlpsPainter : WildPainter() {
     private fun lake() {
         val z = z
         c.penEmissive = true
-        val deep = env.lit(Col.hex(0x1E4C64))
+        // the water's own colour: the Bohinj lake's deep blue-green, the Faaker See's turquoise, the tarn's slate
+        val turquoise = lakeKind == "turquoise"; val tarn = lakeKind == "tarn"
+        val deep = env.lit(when { turquoise -> LAKE_TURQUOISE; tarn -> LAKE_TARN; else -> Col.hex(0x1E4C64) })
+        val shallows = env.lit(LAKE_SHALLOWS)
         val icy = bareMonths
         val sun = sunAt()
         val glintX = if (sun != null && env.sun < 0.4f) sun.first else if (sun == null && env.dark > 0.3f && env.moonShows) (ox + 96f * z) else Float.NaN
@@ -473,7 +780,13 @@ internal class AlpsPainter : WildPainter() {
                 var refl = backAt(sx, my)
                 if (refl == 0) refl = skyRefl(my)
                 val near = (dn / 38f).coerceIn(0f, 1f)
-                var col = Col.mix(Col.scale(refl, 0.84f), deep, 0.12f + 0.32f * near)
+                var col = when {
+                    // the Faaker See: turquoise through the mirror, paler over the shallows along the shores
+                    turquoise -> Col.mix(Col.mix(Col.scale(refl, 0.86f), deep, 0.34f + 0.3f * near), shallows, 0.45f * (1f - dn / 4.5f).coerceIn(0f, 1f))
+                    // the tarn: dark as slate, the fells in it darker still
+                    tarn -> Col.mix(Col.scale(refl, 0.72f), deep, 0.22f + 0.34f * near)
+                    else -> Col.mix(Col.scale(refl, 0.84f), deep, 0.12f + 0.32f * near)
+                }
                 // bands the breeze draws across it
                 val band = Noise.rnd(floor((x / z + t * 2.2) / 9.0).toInt(), y / z, 682)
                 if (band > 0.92f - breeze * 0.06f) col = Col.mix(col, skyRefl(0), 0.28f)
@@ -494,9 +807,193 @@ internal class AlpsPainter : WildPainter() {
             }
         }
         c.penEmissive = false
-        // the church and the bridge upside down in the water, wavering
+        // the church and the bridge upside down in the water, wavering; the look's far shore too
+        if (shoreKind != null) farShore(true)
         bridge(true)
         church(true)
+    }
+
+    // ------------------------------------------------------------------ the look's far shore
+
+    /**
+     * The far shore in the culture's look ([shoreKind]), or ([mirror]) its picture in the lake: Carinthia's farm on the
+     * left shore (the farmhouse, its Harpfe, the boathouse on its piles and the jetty with its boat), the Lake District's
+     * wooded island.
+     */
+    private fun farShore(mirror: Boolean) {
+        when (shoreKind) {
+            "carinthian" -> { farmhouse(mirror); harpfe(mirror); boathouse(mirror); jetty(mirror) }
+            "island" -> island(mirror)
+        }
+    }
+
+    /**
+     * A Carinthian farmhouse on the left shore's meadow: its long side toward us, the ground floor whitewashed with small
+     * windows, the upper storey of dark timber with a balcony running along it (geraniums in summer), under a steep roof of
+     * dark shingles with a half-hip at the gable; its windows lit at night, smoke from its chimney in the morning and evening.
+     */
+    private fun farmhouse(mirror: Boolean) {
+        val z = z
+        val cu = FARM_U - 16f
+        val base = shoreAt(cu + 5f) - 1.6f * z
+        val b = base.toInt()
+        val x0 = (ox + cu * z).toInt(); val wd = 10 * z
+        val white = env.lit(Col.mix(Pal.WALL_L, env.skyHorizon, 0.12f)); val whiteD = env.lit(Col.mix(Pal.WALL_D, env.skyHorizon, 0.12f))
+        val timber = env.lit(Col.mix(Col.hex(0x6A4426), env.skyHorizon, 0.12f)); val timberD = env.lit(Col.mix(Col.hex(0x4A2E1A), env.skyHorizon, 0.12f))
+        val roof = env.lit(Col.mix(Pal.SHINGLE_M, env.skyHorizon, 0.1f)); val roofD = env.lit(Col.mix(Pal.SHINGLE_D, env.skyHorizon, 0.1f))
+        val night = env.windows > 0.35f
+        val glass = if (night) Pal.WINDOW_LIT else env.lit(Pal.GLASS)
+        c.penEmissive = true
+        // the ground floor, white; the upper storey of timber, its gable end in shade
+        for (yy in b - 3 * z until b) for (xx in x0 until x0 + wd) stand(xx, yy, if (xx >= x0 + wd - z) whiteD else white, mirror, base)
+        for (yy in b - 6 * z until b - 3 * z) for (xx in x0 until x0 + wd) stand(xx, yy, if (xx >= x0 + wd - z) timberD else timber, mirror, base)
+        // the balcony along the upper storey: its rail, red with geraniums in summer
+        val rail = env.lit(Col.mix(Col.hex(0x8A5E3A), env.skyHorizon, 0.12f))
+        for (xx in x0 - z / 2 until x0 + wd + z / 2) stand(xx, b - 4 * z, if (env.month in 5..9 && (xx / z) % 2 == 0) env.lit(Pal.GERANIUM) else rail, mirror, base)
+        // the windows: below in the white, above behind the balcony
+        for (k in 0 until 3) {
+            val wx = x0 + (2 + k * 3) * z
+            for (yy in b - 2 * z until b - z) for (xx in wx until wx + z) stand(xx, yy, glass, mirror, base)
+            for (yy in b - 6 * z + z / 2 until b - 5 * z + z / 2) for (xx in wx until wx + z) stand(xx, yy, glass, mirror, base)
+        }
+        // the steep shingle roof, overhanging, its half-hip
+        for (r in 0 until 4 * z) {
+            val col = if (r < z) roofD else roof
+            val inset = (r * 0.6f).toInt()
+            for (xx in x0 - z + inset until x0 + wd + z - inset) stand(xx, b - 6 * z - 1 - r, col, mirror, base)
+        }
+        c.penEmissive = false
+        if (!mirror) {
+            if (night) s.light((x0 + wd / 2).toFloat(), (b - 3 * z).toFloat(), 14f, 0.3f)
+            val hr = s.hour
+            if (hr in 5.5f..9.5f || hr in 17f..21.5f) s.smoke((x0 + wd - 3 * z).toFloat(), (b - 10 * z).toFloat(), 0.3f, 12)
+        }
+    }
+
+    /**
+     * The Harpfe beside the farmhouse: Carinthia's double hayrack, posts in a row with the laths across between them, a
+     * little shingle roof along its top, hay hanging on it from June to October (bare laths the rest of the year).
+     */
+    private fun harpfe(mirror: Boolean) {
+        val z = z
+        val cu = FARM_U - 4f
+        val base = shoreAt(cu + 4f) - 1.4f * z
+        val b = base.toInt()
+        val x0 = (ox + cu * z).toInt(); val wd = 8 * z; val hh = 6 * z
+        val post = env.lit(Col.mix(Col.hex(0x5A3E26), env.skyHorizon, 0.12f))
+        val lath = env.lit(Col.mix(Col.hex(0x8A6A44), env.skyHorizon, 0.12f))
+        val hay = env.lit(Col.mix(if (env.month in 6..10) Pal.HAY_M else lath, env.skyHorizon, 0.12f))
+        val hayD = env.lit(Col.mix(if (env.month in 6..10) Pal.HAY_D else lath, env.skyHorizon, 0.12f))
+        val roof = env.lit(Col.mix(Pal.SHINGLE_D, env.skyHorizon, 0.1f))
+        val full = env.month in 6..10
+        c.penEmissive = true
+        for (yy in b - hh until b) {
+            val h = b - yy
+            for (xx in x0 until x0 + wd) {
+                val onPost = ((xx - x0) / z) % 3 == 0
+                val col = when {
+                    onPost -> post
+                    full && h > z && h < hh - z -> if ((h / z) % 2 == 0) hay else hayD
+                    (h / z) % 2 == 0 && h > z -> lath
+                    else -> continue
+                }
+                stand(xx, yy, col, mirror, base)
+            }
+        }
+        // its roof along the top
+        for (r in 0 until max(1, z + z / 2)) for (xx in x0 - z / 2 - (if (r == 0) z / 2 else 0) until x0 + wd + z / 2 + (if (r == 0) z / 2 else 0)) stand(xx, b - hh - r, roof, mirror, base)
+        c.penEmissive = false
+    }
+
+    /**
+     * The boathouse in the water off the farm's shore: dark wooden walls on piles over the lake, the opening at the water
+     * for the boat, a steep roof of shingles with a little gable rider, as the boathouses along the Carinthian lakes.
+     */
+    private fun boathouse(mirror: Boolean) {
+        val z = z
+        val cu = FARM_U + 7f
+        val shoreRow = shoreAt(cu + 3f)
+        val base = shoreRow + 2.2f * z
+        val b = base.toInt()
+        val x0 = (ox + cu * z).toInt(); val wd = 6 * z
+        val wood = env.lit(Col.mix(Col.hex(0x6E4A2C), env.skyHorizon, 0.1f)); val woodD = env.lit(Col.mix(Col.hex(0x4A3020), env.skyHorizon, 0.1f))
+        val roof = env.lit(Col.mix(Pal.SHINGLE_M, env.skyHorizon, 0.1f)); val roofD = env.lit(Col.mix(Pal.SHINGLE_D, env.skyHorizon, 0.1f))
+        val dark = env.lit(Col.hex(0x1E1A18))
+        c.penEmissive = true
+        // the piles under it into the water
+        for (k in 0..2) { val px = x0 + k * (wd - max(1, z / 2)) / 2; for (yy in b - z until b) stand(px, yy, woodD, mirror, base) }
+        // its walls of boards, the opening for the boat dark at the water
+        for (yy in b - 5 * z until b - z) for (xx in x0 until x0 + wd) {
+            val open = yy >= b - 3 * z && xx >= x0 + 2 * z && xx < x0 + wd - z
+            stand(xx, yy, if (open) dark else if ((xx - x0) % (2 * z) == 0 && z > 1) woodD else wood, mirror, base)
+        }
+        // the steep gable roof, its rider on the ridge
+        val mid = x0 + wd / 2f
+        for (r in 0 until 5 * z) {
+            val half = (wd / 2f + z) * (1f - r / (5f * z))
+            for (xx in (mid - half).toInt() until (mid + half).toInt() + 1) stand(xx, b - 5 * z - 1 - r, if (xx < mid == sunLeft) roof else roofD, mirror, base)
+        }
+        stand(mid.toInt(), b - 10 * z - 1, roofD, mirror, base)
+        c.penEmissive = false
+    }
+
+    /** The jetty out into the lake beside the boathouse: planks on posts, a rowing boat tied up by it. */
+    private fun jetty(mirror: Boolean) {
+        val z = z
+        val u0 = FARM_U + 13f; val u1 = FARM_U + 21f
+        val plank = env.lit(Col.mix(Col.hex(0xA8845A), env.skyHorizon, 0.1f)); val post = env.lit(Col.mix(Col.hex(0x5A3E26), env.skyHorizon, 0.1f))
+        val hull = env.lit(Col.mix(Col.hex(0x2E5A7A), env.skyHorizon, 0.1f)); val gunwale = env.lit(Col.mix(Col.hex(0xE8DCC8), env.skyHorizon, 0.1f))
+        c.penEmissive = true
+        val x0 = (ox + u0 * z).toInt(); val x1 = (ox + u1 * z).toInt()
+        // it runs out from the shore and a little toward us, falling a pixel along the way
+        for (xx in x0 until x1) {
+            val f = (xx - x0) / max(1f, (x1 - x0).toFloat())
+            val y = shoreAt(u0 + 0.5f) + (1f + f * 2.5f) * z
+            val base = y + z
+            for (r in 0 until max(1, z / 2 + 1)) stand(xx, y.toInt() + r, plank, mirror, base)
+            if (((xx - x0) / max(1, 2 * z)) % 2 == 0 && (xx - x0) % max(1, 2 * z) == 0) for (r in 1..z) stand(xx, y.toInt() + r, post, mirror, base + z)
+        }
+        // the rowing boat tied up at its end
+        val bx = x1 - 2 * z; val by = (shoreAt(u0 + 0.5f) + 5.4f * z).toInt()
+        for (j in 0 until 5 * z) {
+            val inset = if (j < z || j >= 4 * z) z / 2 else 0
+            stand(bx - 2 * z + j, by, gunwale, mirror, by + z.toFloat())
+            for (r in 1..max(1, z)) if (j >= inset && j < 5 * z - inset) stand(bx - 2 * z + j, by + r, hull, mirror, by + z.toFloat() + 1)
+        }
+        c.penEmissive = false
+    }
+
+    /**
+     * Derwentwater's wooded island out in the lake: a low hump of land, oaks and a pine or two on it in the season's
+     * colours, a pale strip of shingle at the water.
+     */
+    private fun island(mirror: Boolean) {
+        val z = z
+        val cu = ISLAND_U; val half = 12f
+        val shoreRow = shoreAt(cu)
+        val base = shoreRow + 11f * z
+        val cols = woodsCols()
+        val pine = env.lit(Col.mix(SPRUCE_M, env.skyHorizon, 0.12f))
+        val shingle = env.lit(Col.mix(Col.hex(0xB8B09A), env.skyHorizon, 0.12f))
+        c.penEmissive = true
+        val x0 = (ox + (cu - half) * z).toInt(); val x1 = (ox + (cu + half) * z).toInt()
+        for (xx in x0 until x1) {
+            val u = (xx + 0.5f - ox) / z
+            val f = 1f - abs(u - cu) / half
+            if (f <= 0f) continue
+            val crown = (7.5f * sqrt(f) + 1.4f * Noise.v1(u * 0.6f, 695)) * z
+            val top = (base - crown).toInt()
+            for (yy in top until base.toInt()) {
+                val upHere = (base - yy) / z
+                val col = when {
+                    yy >= base.toInt() - max(1, z / 2) -> shingle
+                    abs(u - cu - 2.5f) < 0.8f && upHere > 1f -> pine
+                    else -> env.lit(Col.mix(woods(u, upHere + 30f, 696, cols).let { if (upHere > 3.5f) Col.mix(it, cols[2], 0.35f) else it }, env.skyHorizon, 0.08f))
+                }
+                stand(xx, yy, col, mirror, base)
+            }
+        }
+        c.penEmissive = false
     }
 
     /** A fish jumping out of the lake again and again ([fx] "fish"), rings where it falls back. */
@@ -557,7 +1054,9 @@ internal class AlpsPainter : WildPainter() {
     /**
      * The little church of St John on the right shore: a white nave with a steep red roof, its apse, round-headed windows
      * lit at night, the bell tower at its front with the bell in the belfry (swinging and ringing, [fx] "bell") under a
-     * pointed roof and a cross. [mirror]: its picture in the lake.
+     * pointed roof and a cross. [mirror]: its picture in the lake. In Carinthia's look ([churchKind] "onion") the tower
+     * wears an onion dome of green copper with a gilt ball and the cross, the nave dark shingles; in the Lake District's
+     * ("chapel") the tower ends in battlements over a string course, the nave under slate.
      */
     private fun church(mirror: Boolean) {
         val z = z
@@ -565,7 +1064,9 @@ internal class AlpsPainter : WildPainter() {
         val base = shoreAt(cu) - 1.5f * z
         val x0 = (ox + cu * z).toInt()
         val wall = env.lit(Col.mix(Pal.WALL_L, env.skyHorizon, 0.1f)); val wallD = env.lit(Col.mix(Pal.WALL_D, env.skyHorizon, 0.1f))
-        val roof = env.lit(Col.mix(Pal.ROOF_M, env.skyHorizon, 0.08f)); val roofD = env.lit(Col.mix(Pal.ROOF_D, env.skyHorizon, 0.08f))
+        // the nave's roof: red tiles, Carinthia's dark shingles, the Lake District's slate
+        val (roofL, roofDk) = when (churchKind) { "onion" -> Pal.SHINGLE_M to Pal.SHINGLE_D; "chapel" -> Pal.SLATE_M to Pal.SLATE_D; else -> Pal.ROOF_M to Pal.ROOF_D }
+        val roof = env.lit(Col.mix(roofL, env.skyHorizon, 0.08f)); val roofD = env.lit(Col.mix(roofDk, env.skyHorizon, 0.08f))
         val night = env.windows > 0.35f
         val glass = if (night) Pal.WINDOW_LIT else env.lit(Pal.GLASS)
         c.penEmissive = true
@@ -593,12 +1094,46 @@ internal class AlpsPainter : WildPainter() {
         val swing = if (ring > 0.02f) sin(t * 5.0).toFloat() * ring else 0f
         val bx = tx + tw / 2 + (swing * z).toInt()
         for (yy in b - 19 * z until b - 17 * z) for (xx in bx - max(1, z / 2) until bx + max(1, z / 2) + (if (z == 1) 0 else 0)) stand(xx, yy, Pal.GOLD, mirror, base)
-        for (r in 0 until 7 * z) {
-            val half = (tw / 2f + z * 0.5f) * (1f - r / (7f * z))
-            for (xx in (tx + tw / 2f - half).toInt() until (tx + tw / 2f + half).toInt()) stand(xx, b - 21 * z - 1 - r, if (r < z) roofD else roof, mirror, base)
+        val iron = env.lit(Col.hex(0x3A3432))
+        when (churchKind) {
+            // Carinthia: the onion dome of green copper over the tower, a gilt ball and the cross on its tip
+            "onion" -> {
+                val cop = env.lit(Col.mix(ONION_L, env.skyHorizon, 0.08f)); val copM = env.lit(Col.mix(ONION_M, env.skyHorizon, 0.08f)); val copD = env.lit(Col.mix(ONION_D, env.skyHorizon, 0.08f))
+                val mid = tx + tw / 2f
+                val rows = (ONION.size - 1) * z
+                for (r in 0 until rows) {
+                    val v = r / z.toFloat(); val i = v.toInt().coerceAtMost(ONION.size - 2); val f = v - i
+                    val half = (ONION[i] + (ONION[i + 1] - ONION[i]) * f) * z
+                    for (xx in (mid - half).toInt() until (mid + half).toInt().coerceAtLeast((mid - half).toInt() + 1)) {
+                        val side = (xx + 0.5f - mid) / max(1f, half)
+                        val col = if (r < z / 2 + 1 && z > 1) copD else if ((side < -0.2f) == sunLeft) cop else if (abs(side) > 0.6f) copD else copM
+                        stand(xx, b - 21 * z - 1 - r, col, mirror, base)
+                    }
+                }
+                val tip = b - 21 * z - 1 - rows
+                stand(mid.toInt(), tip, env.lit(Pal.GOLD), mirror, base)
+                for (yy in tip - 3 * z until tip) stand(mid.toInt(), yy, iron, mirror, base)
+                for (xx in mid.toInt() - z until mid.toInt() + z + 1) stand(xx, tip - 2 * z, iron, mirror, base)
+            }
+            // the Lake District's chapel: a square tower with its battlements, a string course of grey stone under them, no spire
+            "chapel" -> {
+                val greyD = env.lit(Col.mix(Pal.STONE_D, env.skyHorizon, 0.1f))
+                val x0b = tx - z / 2; val x1b = tx + tw + z / 2 + (if (z == 1) 1 else 0)
+                for (xx in x0b until x1b) stand(xx, b - 21 * z, greyD, mirror, base)
+                for (r in 0 until z) for (xx in x0b until x1b) stand(xx, b - 21 * z - 1 - r, if (xx >= x1b - z) wallD else wall, mirror, base)
+                for (r in 0 until z) for (xx in x0b until x1b) {
+                    if (((xx - x0b) / z) % 2 == 0) stand(xx, b - 22 * z - 1 - r, if (xx >= x1b - z) wallD else wall, mirror, base)
+                }
+            }
+            else -> {
+                for (r in 0 until 7 * z) {
+                    val half = (tw / 2f + z * 0.5f) * (1f - r / (7f * z))
+                    for (xx in (tx + tw / 2f - half).toInt() until (tx + tw / 2f + half).toInt()) stand(xx, b - 21 * z - 1 - r, if (r < z) roofD else roof, mirror, base)
+                }
+                for (yy in b - 31 * z until b - 28 * z) stand(tx + tw / 2, yy, iron, mirror, base)
+                for (xx in tx + tw / 2 - z until tx + tw / 2 + z + 1) stand(xx, b - 30 * z, iron, mirror, base)
+            }
         }
-        for (yy in b - 31 * z until b - 28 * z) stand(tx + tw / 2, yy, env.lit(Col.hex(0x3A3432)), mirror, base)
-        for (xx in tx + tw / 2 - z until tx + tw / 2 + z + 1) stand(xx, b - 30 * z, env.lit(Col.hex(0x3A3432)), mirror, base)
         // its door and the tower's clock-face window
         for (yy in b - 4 * z until b) for (xx in tx + 2 * z until tx + 3 * z) stand(xx, yy, env.lit(Pal.DOOR), mirror, base)
         c.penEmissive = false
@@ -612,8 +1147,9 @@ internal class AlpsPainter : WildPainter() {
     }
 
     /**
-     * The stone bridge over the water by the church: three round arches on piers, a low parapet, the water showing through
-     * the arches (and in the lake the arches close into rings); a spit of stones under its far end.
+     * The stone bridge over the water by the church: two round arches on piers, a low parapet, the water showing through
+     * the arches (and in the lake the arches close into rings); a spit of stones under its far end. In the Lake District's
+     * look ([bridgeKind] "packhorse") the packhorse bridge: its road humped over the middle pier, its parapet lower.
      */
     private fun bridge(mirror: Boolean) {
         val z = z
@@ -624,6 +1160,9 @@ internal class AlpsPainter : WildPainter() {
         val stoneD = env.lit(Col.mix(Pal.STONE_D, env.skyHorizon, 0.12f))
         val x0 = (ox + u0 * z).toInt(); val x1 = (ox + u1 * z).toInt()
         val span = (u1 - u0 - 2f) / 2f
+        // the Lake District's packhorse bridge: humped, its road rising over the middle, a low parapet
+        val packhorse = bridgeKind == "packhorse"
+        val wall = if (packhorse) 1f else 1.6f
         c.penEmissive = true
         for (xx in x0 until x1) {
             val u = (xx + 0.5f - ox) / z - u0
@@ -635,16 +1174,17 @@ internal class AlpsPainter : WildPainter() {
             val dx = (f - 0.5f) * span
             // the arch's crown: a half circle springing from the piers
             val crown = base - (1.5f * z) - sqrt(max(0f, archR * archR - dx * dx)) * z
-            for (yy in (deck - 1.6f * z).toInt() until base.toInt()) {
+            val top = if (!packhorse) deck else { val m = (u - span - 1f) / (span + 1f); base - (5.6f + 3.4f * (1f - m * m).coerceAtLeast(0f)) * z }
+            for (yy in (top - wall * z).toInt() until base.toInt()) {
                 val open = inSpan && abs(dx) < archR && yy >= crown
                 if (open) continue
-                val parapet = yy < deck
+                val parapet = yy < top
                 var col = when {
-                    parapet -> if (yy < deck - 1.6f * z + z) stone else stoneM
+                    parapet -> if (yy < top - wall * z + z) stone else stoneM
                     inSpan && abs(dx) < archR + z && yy >= crown - z -> stoneD // the arch's ring of voussoirs
                     else -> if (z > 1 && Noise.rnd(xx / 2, yy / 2, 693) < 0.22f) stoneM else stone
                 }
-                if (!parapet && z > 1 && ((yy - deck.toInt()) / (2 * z)) % 2 == 0 && (xx / (3 * z)) % 2 == 0 && col == stone) col = Col.mix(stone, stoneM, 0.5f)
+                if (!parapet && z > 1 && ((yy - top.toInt()) / (2 * z)) % 2 == 0 && (xx / (3 * z)) % 2 == 0 && col == stone) col = Col.mix(stone, stoneM, 0.5f)
                 stand(xx, yy, col, mirror, base)
             }
         }
@@ -669,7 +1209,15 @@ internal class AlpsPainter : WildPainter() {
             if (d < 22f && r > 0.975f) col = g[3]
             // flowers: gentians and alpine roses in summer, crocuses in spring, a few in autumn
             val f = Noise.rnd(px / z, py / z, 713)
-            if (d < 20f && f < when (env.month) { 3, 4 -> 0.011f; 5, 6, 7 -> 0.013f; 8 -> 0.008f; else -> 0f }) {
+            if (meadowFlowers) {
+                // a fell meadow's: primroses and daisies in spring, buttercups, clover and harebells in summer
+                if (d < 20f && f < when (env.month) { 3, 4 -> 0.009f; 5, 6, 7 -> 0.016f; 8 -> 0.01f; else -> 0f }) {
+                    col = when (env.month) {
+                        3, 4 -> if (f < 0.005f) Col.hex(0xF4E8A0) else Col.hex(0xF4F0EA)
+                        else -> if (f < 0.008f) Col.hex(0xF2D23A) else if (f < 0.012f) Col.hex(0xE6B4C8) else Col.hex(0x8A94DA)
+                    }
+                }
+            } else if (d < 20f && f < when (env.month) { 3, 4 -> 0.011f; 5, 6, 7 -> 0.013f; 8 -> 0.008f; else -> 0f }) {
                 col = when (env.month) {
                     3, 4 -> if (f < 0.0055f) Col.hex(0xB08AD8) else Col.hex(0xF4F0FA)
                     else -> if (f < 0.005f) Col.hex(0x3A62D0) else if (f < 0.009f) Col.hex(0xD8587E) else Col.hex(0xF0D458)
@@ -732,12 +1280,15 @@ internal class AlpsPainter : WildPainter() {
     /** The cows of the frame's [farCows]: the art's own, and those a dialog's "cows" brings ([herdNow]). */
     private fun moreCows() {
         val cue = fx("cows")
-        val n = if (cue == null) herd.size + 1 else (frame.count ?: (herd.size + 1)).coerceIn(1, herd.size + 1 + MORE_COWS.size)
-        for (k in 0 until min(herd.size, n - 1)) { val (x, d, left) = herd[k]; farCows.add(FarCow(x, d, left, 0f, k + 1)) }
-        val more = n - 1 - herd.size
+        // the Lake District's Daisy is the fell's one cow, among the sheep: her friends from the farm below come up over the brow
+        val alone = herdKind == "herdwicks"
+        val own = if (alone) 0 else herd.size
+        val n = if (cue == null) own + 1 else (frame.count ?: (herd.size + 1)).coerceIn(1, herd.size + 1 + MORE_COWS.size)
+        for (k in 0 until min(own, n - 1)) { val (x, d, left) = herd[k]; farCows.add(FarCow(x, d, left, 0f, k + 1)) }
+        val more = n - 1 - own
         if (cue == null || more <= 0) return
         for (k in 0 until more) {
-            val (x, d) = MORE_COWS[k]
+            val (x, d) = if (alone) (if (k < herd.size) herd[k].first to herd[k].second else MORE_COWS[k - herd.size]) else MORE_COWS[k]
             val s0 = if (more == 1) 0f else 0.5f * k / (more - 1f)
             val u = PokeArt.ease(cue, s0, s0 + 0.5f)
             val from = brow(x) + 2.6f
@@ -929,15 +1480,21 @@ internal class AlpsPainter : WildPainter() {
      * logs above, a steep roof of wooden shingles (skodle) coming far down, a small window with a red geranium in summer,
      * lit at night; a bench by the door; smoke from the chimney in the morning and evening; snow on the roof in winter.
      * The side wall runs back on the right.
+     *
+     * In Carinthia's look ([hutKind] "alm") the Almhütte: logs from a low stone footing up, its gable boarded, stones
+     * holding the shingles down, a trough of a hollowed log by the door with its spout running; in the Lake District's
+     * ("stone") the shepherd's hut of slate stone to the ridge under a slate roof, a white frame round its window, its
+     * chimney round.
      */
     private fun hut() {
         val z = z
         val d = hutD; val p = pm(d)
         val xl = hutX - hutW / 2f; val xr = hutX + hutW / 2f
-        val base = 0.95f; val eave = 2.3f; val ridge = 5.1f
-        val stone = intArrayOf(Col.hex(0xC8C2B4), Col.hex(0xAEA89A), Col.hex(0x8E887C))
+        val alm = hutKind == "alm"; val slate = hutKind == "stone"
+        val base = when { alm -> 0.38f; slate -> 9f; else -> 0.95f }; val eave = 2.3f; val ridge = 5.1f
+        val stone = if (slate) SLATE_HUT else intArrayOf(Col.hex(0xC8C2B4), Col.hex(0xAEA89A), Col.hex(0x8E887C))
         val log = intArrayOf(Col.hex(0x8A5E3C), Col.hex(0x6E4A2E), Col.hex(0x4E3420))
-        val shingle = intArrayOf(Col.hex(0x8E8474), Col.hex(0x6E665A), Col.hex(0x524C44))
+        val shingle = if (slate) intArrayOf(Pal.SLATE_L, Pal.SLATE_M, Pal.SLATE_D) else intArrayOf(Col.hex(0x8E8474), Col.hex(0x6E665A), Col.hex(0x524C44))
         // the side wall running back, its logs and the roof's slope over it
         val back = d + hutL
         val sx0 = gx(xr, d); val sx1 = gx(xr, back)
@@ -963,7 +1520,11 @@ internal class AlpsPainter : WildPainter() {
                     val course = floor(hm / 0.24f).toInt()
                     val sx = (x + course * 0.17f) / 0.38f
                     val j = (hm / 0.24f - course < 0.14f) || (sx - floor(sx) < 0.1f)
-                    if (j) Col.hex(0x5E584E) else stone[(Noise.rnd(floor(sx).toInt(), course, 752) * 2.9f).toInt()]
+                    if (j) (if (slate) SLATE_JOINT else Col.hex(0x5E584E)) else stone[(Noise.rnd(floor(sx).toInt(), course, 752) * 2.9f).toInt()]
+                } else if (alm && hm > eave) {
+                    // the gable boarded, upright boards
+                    val bd = (x - xl) / 0.26f
+                    if (bd - floor(bd) < 0.16f) log[2] else log[if (floor(bd).toInt() % 2 == 0) 1 else 0]
                 } else {
                     // logs: round ends lit on top
                     val lv = (hm - base) / 0.22f
@@ -979,15 +1540,17 @@ internal class AlpsPainter : WildPainter() {
         if (z > 1) for (k in 1..2) c.vline(doorL + (doorR - doorL) * k / 3, hy(d, 1.75f).toInt(), fy.toInt() - 1, Col.hex(0x3A2418))
         c.set(doorR - z, hy(d, 0.95f).toInt(), Pal.GOLD)
         val night = env.windows > 0.35f
+        val sash = if (slate) Col.hex(0xF4F4F0) else Col.hex(0xE8DCC8)
         val wx0 = gx(hutX + 0.35f, d).toInt(); val wx1 = gx(hutX + 1.2f, d).toInt(); val wy0 = hy(d, 1.95f).toInt(); val wy1 = hy(d, 1.3f).toInt()
-        c.fillRect(wx0 - z, wy0 - z, wx1 - wx0 + 2 * z, wy1 - wy0 + 2 * z, Col.hex(0xE8DCC8))
+        c.fillRect(wx0 - z, wy0 - z, wx1 - wx0 + 2 * z, wy1 - wy0 + 2 * z, sash)
         glow { c.fillRect(wx0, wy0, wx1 - wx0, wy1 - wy0, if (night) Pal.WINDOW_LIT else Pal.GLASS) }
-        if (z > 1) { c.vline((wx0 + wx1) / 2, wy0, wy1 - 1, Col.hex(0xE8DCC8)); c.hline(wx0, wx1 - 1, (wy0 + wy1) / 2, Col.hex(0xE8DCC8)) }
+        if (z > 1) { c.vline((wx0 + wx1) / 2, wy0, wy1 - 1, sash); c.hline(wx0, wx1 - 1, (wy0 + wy1) / 2, sash) }
         if (env.month in 5..9) for (k in 0 until 3) c.fillEllipse(wx0 + (k + 0.5f) * (wx1 - wx0) / 3f, wy1 + z.toFloat(), 1.2f * z, z.toFloat(), if (k == 1) Pal.GERANIUM else Pal.GERANIUM_D)
         if (night) s.light((wx0 + wx1) / 2f, (wy0 + wy1) / 2f, 26f, 0.6f)
         val bl = gx(hutX + 0.4f, d - 0.3f).toInt(); val br = gx(hutX + 1.9f, d - 0.3f).toInt(); val bt = hy(d - 0.3f, 0.45f).toInt()
         c.fillRect(bl, bt, br - bl, max(1, z), Pal.WOOD_L)
         c.fillRect(bl + z, bt, max(1, z), (gy(d - 0.3f) - bt).toInt(), Pal.WOOD_D); c.fillRect(br - 2 * z, bt, max(1, z), (gy(d - 0.3f) - bt).toInt(), Pal.WOOD_D)
+        if (alm) trough(d)
         // the roof: the front edge of the shingles, the slope over the side wall back to the ridge
         val over = 0.45f
         val ry = hy(d - over, ridge + 0.25f)
@@ -1003,17 +1566,52 @@ internal class AlpsPainter : WildPainter() {
                 val row = ((py - ry) / max(2f, 0.28f * p)).toInt()
                 var col = if (onFront) {
                     // the shingles' edge along the gable: a thick board, then courses
-                    if (abs(px - xa) < 1.2f * z || abs(px - xb) < 1.2f * z) Pal.WOOD_D else shingle[if (row % 2 == 0) 0 else 1]
+                    if (abs(px - xa) < 1.2f * z || abs(px - xb) < 1.2f * z) (if (slate) Pal.SLATE_D else Pal.WOOD_D) else shingle[if (row % 2 == 0) 0 else 1]
                 } else shingle[if (row % 2 == 0) 1 else 2]
+                // Carinthia's: stones along the courses of the slope, holding the shingles down
+                if (alm && !onFront && row % 2 == 1 && v > 0.15f && Noise.rnd(px / max(1, (0.32f * p).toInt()), row, 753) < 0.55f) col = if (v < 0.5f) stone[0] else stone[1]
                 if (env.snow && (v < 0.85f || !onFront)) col = if (onFront) Pal.SNOW_L else Pal.SNOW_M
                 c.set(px, py, col)
             }
         }
         // the chimney, and its smoke in the morning and the evening
         val chx = gx(hutX + 0.9f, back - 1.2f); val chy = hy(back - 1.2f, ridge + 0.1f)
-        c.fillRect(chx.toInt(), (chy - 0.7f * pm(back - 1.2f)).toInt(), max(z, (0.4f * pm(back - 1.2f)).toInt()), (0.7f * pm(back - 1.2f)).toInt(), stone[1])
+        val chw = max(z, (0.4f * pm(back - 1.2f)).toInt())
+        c.fillRect(chx.toInt(), (chy - 0.7f * pm(back - 1.2f)).toInt(), chw, (0.7f * pm(back - 1.2f)).toInt(), stone[1])
+        if (slate) {
+            // the Lakeland chimney: round, its lit side, a dark ring at its top
+            c.fillRect(chx.toInt() + (if (sunLeft) 0 else chw - max(1, chw / 3)), (chy - 0.7f * pm(back - 1.2f)).toInt(), max(1, chw / 3), (0.7f * pm(back - 1.2f)).toInt(), stone[0])
+            c.fillRect(chx.toInt(), (chy - 0.7f * pm(back - 1.2f)).toInt(), chw, max(1, z / 2), SLATE_JOINT)
+        }
         val hr = s.hour
         if (hr in 5.5f..9.5f || hr in 17f..21.5f) s.smoke(chx + z, chy - 0.8f * pm(back - 1.2f), 0.55f, 11)
+    }
+
+    /**
+     * The trough by the Almhütte's door: a larch log hollowed out on two short legs, a wooden pipe on a post pouring a thin
+     * stream of water into it (frozen in winter), the water's surface catching the sky.
+     */
+    private fun trough(d: Float) {
+        val dd = d - 0.55f
+        val p = pm(dd)
+        val x0 = gx(hutX - 2.15f, dd); val x1 = gx(hutX - 1.05f, dd)
+        val top = hy(dd, 0.5f); val bot = hy(dd, 0.18f)
+        val wood = Col.hex(0x7A5636); val woodL = Col.hex(0x9C7448); val woodD = Col.hex(0x4E3420)
+        // the legs, the log, its rim lit
+        c.fillRect(x0.toInt() + z, bot.toInt(), max(1, z), (gy(dd) - bot).toInt(), woodD)
+        c.fillRect(x1.toInt() - 2 * z, bot.toInt(), max(1, z), (gy(dd) - bot).toInt(), woodD)
+        c.fillRect(x0.toInt(), top.toInt(), (x1 - x0).toInt(), (bot - top).toInt(), wood)
+        c.hline(x0.toInt(), x1.toInt() - 1, top.toInt(), woodL)
+        val water = if (bareMonths) Pal.ICE_L else Col.mix(Col.hex(0x6FA8C0), env.skyHorizon, 0.3f)
+        c.hline(x0.toInt() + z, x1.toInt() - 1 - z, top.toInt() + max(1, z / 2), water)
+        // the post and the pipe, its stream of water
+        val px = x0.toInt() - z
+        c.fillRect(px, hy(dd, 1.1f).toInt(), max(1, z), (gy(dd) - hy(dd, 1.1f)).toInt(), woodD)
+        c.fillRect(px, hy(dd, 0.95f).toInt(), max(2, (0.35f * p).toInt()), max(1, z / 2 + 1), wood)
+        if (!bareMonths) {
+            val sx = px + max(2, (0.35f * p).toInt())
+            for (yy in hy(dd, 0.95f).toInt() + 1 until top.toInt() + 1) c.set(sx, yy, if ((yy + (t * 12).toInt()) % 3 == 0) Col.hex(0xFFFFFF) else Col.hex(0xB8DCEA))
+        }
     }
 
     // ------------------------------------------------------------------ the cows
@@ -1027,12 +1625,20 @@ internal class AlpsPainter : WildPainter() {
      * under its neck. [near]: the cow in front, whose bell is its own thing and which reacts to a tap; [bare]: her neck bare,
      * the strap and the bell lost ("bell-lost"); [sink]: m below the pasture, still on the slope beyond the brow ("cows");
      * [calf]: a calf, smaller, no horns, no udder, no bell.
+     *
+     * In a culture's look ([cowKind]) a breed of its own: Carinthia's Fleckvieh, white with gold-red patches and a white
+     * head; the Lake District's Ayrshire (Daisy), white with mahogany patches, a brown face with its white blaze, the horns
+     * curving up in a lyre.
      */
     private fun cow(x: Float, d: Float, flip: Boolean, seed: Int, near: Boolean, bare: Boolean = false, sink: Float = 0f, calf: Boolean = false) {
         val z = z
         val p = pm(d) * (if (calf) 0.6f else 1f); val bx = gx(x, d); val by = gy(d) + sink * pm(d)
         val dir = if (flip) -1f else 1f
-        val red = Col.hex(0x9A4A2A); val redL = Col.hex(0xBE6A3E); val redD = Col.hex(0x6A3020); val white = Col.hex(0xF2EADC); val horn = Col.hex(0xE8DCC0)
+        val fleck = cowKind == "fleckvieh"; val ayr = cowKind == "ayrshire"; val patched = fleck || ayr
+        val red = if (fleck) FLECK_M else if (ayr) AYR_M else Col.hex(0x9A4A2A)
+        val redL = if (fleck) FLECK_L else if (ayr) AYR_L else Col.hex(0xBE6A3E)
+        val redD = if (fleck) FLECK_D else if (ayr) AYR_D else Col.hex(0x6A3020)
+        val white = Col.hex(0xF2EADC); val horn = Col.hex(0xE8DCC0)
         // what it does: grazing, the head swinging a little; poked (near cow): head up lowing, then shaking its head
         val pk = if (near) poked("cow") else null
         val a = pk?.age(t) ?: 0f
@@ -1048,7 +1654,7 @@ internal class AlpsPainter : WildPainter() {
             val legX = bx + (lx + (if (far) 0.08f else 0f)) * dir * p
             val lw = max(z.toFloat(), 0.13f * p)
             val top = by - 0.72f * p
-            c.fillRect((legX - lw / 2).toInt(), top.toInt(), max(1, lw.toInt()), (by - top).toInt() - (if (far) z else 0), if (far) redD else red)
+            c.fillRect((legX - lw / 2).toInt(), top.toInt(), max(1, lw.toInt()), (by - top).toInt() - (if (far) z else 0), if (patched) (if (far) COW_WHITE_D else white) else if (far) redD else red)
             if (!far) c.fillRect((legX - lw / 2).toInt(), (by - 0.28f * p).toInt(), max(1, lw.toInt()), max(1, (0.18f * p).toInt()), Col.hex(0xE8DCCB))
             c.fillRect((legX - lw / 2).toInt(), (by - 0.1f * p).toInt() - (if (far) z else 0), max(1, lw.toInt()), max(1, (0.1f * p).toInt()), Col.hex(0x2A2220))
         }
@@ -1060,7 +1666,16 @@ internal class AlpsPainter : WildPainter() {
             val half = rx * sqrt(max(0f, 1f - vy.toDouble().pow(4.0).toFloat()))
             for (px in max((cx - half).toInt(), c.left)..min((cx + half).toInt(), c.right - 1)) {
                 val vx2 = (px + 0.5f - cx) / rx
-                var col = when {
+                var col = if (patched) {
+                    // patches over white, the belly white, the top lit and the underside in shade
+                    val patch = Noise.v2((px + 0.5f - cx) / p * 2.3f + seed * 3.7f, (py + 0.5f - cy) / p * 2.8f, 765) > (if (fleck) 0.4f else 0.5f)
+                    when {
+                        vy > 0.62f || !patch -> if (vy > 0.3f) COW_WHITE_D else white
+                        vy < -0.35f -> redL
+                        vy > 0.3f -> redD
+                        else -> red
+                    }
+                } else when {
                     vy < -0.72f && abs(vx2) < 0.85f -> white // the line down its back
                     vy > 0.62f -> white
                     vy < -0.35f -> redL
@@ -1085,17 +1700,31 @@ internal class AlpsPainter : WildPainter() {
         val neckTop = cy - ry * 0.55f
         for (j in 0..8) {
             val f = j / 8f
-            c.fillEllipse(nx + (hx - nx) * f, neckTop + (hy2 - neckTop) * f, (0.26f - 0.08f * f) * p, (0.24f - 0.06f * f) * p, if (j < 3) red else redL)
+            c.fillEllipse(nx + (hx - nx) * f, neckTop + (hy2 - neckTop) * f, (0.26f - 0.08f * f) * p, (0.24f - 0.06f * f) * p, if (fleck) (if (j < 4) red else white) else if (j < 3) red else redL)
         }
         // the head: red, a pale muzzle, a little white blaze
         val hw = 0.19f * p; val hh = 0.28f * p
-        c.fillEllipse(hx, hy2, hw, hh, red)
-        c.fillEllipse(hx - dir * 0.05f * p, hy2 - hh * 0.3f, hw * 0.6f, hh * 0.45f, redL)
-        c.fillEllipse(hx + dir * 0.03f * p, hy2 + hh * 0.72f, hw * 0.8f, hh * 0.36f, Col.hex(0xD8B0A0))
-        if (p > 8f) c.fillEllipse(hx + dir * 0.02f * p, hy2 - hh * 0.2f, 0.035f * p + 0.3f, 0.08f * p, white)
+        if (fleck) {
+            // the Fleckvieh's white head, a gold-red patch round the eye and the ear
+            c.fillEllipse(hx, hy2, hw, hh, white)
+            c.fillEllipse(hx - dir * 0.07f * p, hy2 - hh * 0.35f, hw * 0.55f, hh * 0.4f, red)
+            c.fillEllipse(hx + dir * 0.03f * p, hy2 + hh * 0.72f, hw * 0.8f, hh * 0.36f, Col.hex(0xE8B8A8))
+        } else {
+            c.fillEllipse(hx, hy2, hw, hh, red)
+            c.fillEllipse(hx - dir * 0.05f * p, hy2 - hh * 0.3f, hw * 0.6f, hh * 0.45f, redL)
+            c.fillEllipse(hx + dir * 0.03f * p, hy2 + hh * 0.72f, hw * 0.8f, hh * 0.36f, Col.hex(0xD8B0A0))
+            if (ayr) c.fillEllipse(hx + dir * 0.03f * p, hy2 - hh * 0.05f, 0.06f * p + 0.4f, hh * 0.55f, white)
+            else if (p > 8f) c.fillEllipse(hx + dir * 0.02f * p, hy2 - hh * 0.2f, 0.035f * p + 0.3f, 0.08f * p, white)
+        }
         // ears and horns
         c.fillEllipse(hx - dir * 0.2f * p, hy2 - hh * 0.45f, 0.1f * p, 0.05f * p + 0.5f, redD)
-        if (!calf) {
+        if (!calf && ayr) {
+            // the Ayrshire's lyre: out, then up and in at their tips
+            for (sd in intArrayOf(-1, 1)) {
+                c.line((hx + sd * 0.06f * p).toInt(), (hy2 - hh * 0.8f).toInt(), (hx + sd * 0.2f * p).toInt(), (hy2 - hh * 1.15f).toInt(), horn)
+                c.line((hx + sd * 0.2f * p).toInt(), (hy2 - hh * 1.15f).toInt(), (hx + sd * 0.17f * p).toInt(), (hy2 - hh * 1.6f).toInt(), horn)
+            }
+        } else if (!calf) {
             c.line((hx - 0.06f * p).toInt(), (hy2 - hh * 0.8f).toInt(), (hx - 0.14f * p).toInt(), (hy2 - hh * 1.2f).toInt(), horn)
             c.line((hx + 0.06f * p).toInt(), (hy2 - hh * 0.8f).toInt(), (hx + 0.14f * p).toInt(), (hy2 - hh * 1.2f).toInt(), horn)
         }
@@ -1325,6 +1954,147 @@ internal class AlpsPainter : WildPainter() {
         c.fillEllipse(hx - 0.07f * p, hy2 - 0.08f * p, 0.03f * p + 0.5f, 0.03f * p + 0.5f, furD)
     }
 
+    // ------------------------------------------------------------------ the Lake District's animals
+
+    /**
+     * A Herdwick on the fell ([SHEEP]): a stocky ewe in her grey fleece, its edge woolly, a white face and white legs, her
+     * head down grazing and now and then up; [lamb]: Sooty, the black lamb, smaller, black from nose to tail.
+     */
+    private fun sheep(x: Float, d: Float, left: Boolean, seed: Int, lamb: Boolean) {
+        val z = z
+        val p = pm(d) * (if (lamb) 0.62f else 1f); val bx = gx(x, d); val by = gy(d)
+        val dir = if (left) -1f else 1f
+        val wool = if (lamb) SOOTY else HERDWICK; val woolL = if (lamb) SOOTY_L else HERDWICK_L; val woolD = if (lamb) SOOTY_D else HERDWICK_D
+        val face = if (lamb) SOOTY_D else HERDWICK_FACE
+        val leg = if (lamb) SOOTY_D else HERDWICK_LEG
+        for ((k, lx) in floatArrayOf(-0.36f, 0.3f, -0.26f, 0.4f).withIndex()) {
+            val far = k < 2
+            val lxp = bx + (lx + (if (far) 0.06f else 0f)) * dir * p
+            c.fillRect(lxp.toInt(), (by - 0.36f * p).toInt(), max(1, (0.08f * p).toInt()), (0.36f * p).toInt() - (if (far) z else 0), if (far) Col.scale(leg, 0.85f) else leg)
+        }
+        // the fleece: a woolly oval, lit along its top, its edge lumpy
+        val cx = bx; val cy = by - 0.55f * p; val rx = 0.56f * p; val ry = 0.25f * p
+        for (py in max((cy - ry - 1f).toInt(), c.top)..min((cy + ry + 1f).toInt(), c.bottom - 1)) {
+            val vy = (py + 0.5f - cy) / ry
+            for (px in max((cx - rx - 1f).toInt(), c.left)..min((cx + rx + 1f).toInt(), c.right - 1)) {
+                val vx2 = (px + 0.5f - cx) / rx
+                val lump = (Noise.rnd(px / max(1, z), py / max(1, z), 851 + seed) - 0.5f) * 0.3f
+                if (vx2 * vx2 + vy * vy > 1f + lump) continue
+                c.set(px, py, if (vy < -0.45f) woolL else if (vy > 0.45f) woolD else wool)
+            }
+        }
+        // the head: down to the grass, or up looking about
+        val up = (sin(t.toFloat() * 0.5f + seed * 1.9f) * 0.5f + 0.5f).let { if (it > 0.8f) 1f else 0f }
+        val hx = cx + dir * rx * 1.02f; val hy2 = by - (0.22f + 0.4f * up) * p
+        c.fillEllipse(cx + dir * rx * 0.8f, cy - ry * 0.2f + (hy2 - cy) * 0.3f, 0.14f * p, 0.13f * p, wool)
+        c.fillEllipse(hx, hy2, 0.11f * p + 0.3f, 0.14f * p + 0.3f, face)
+        c.fillEllipse(hx - dir * 0.1f * p, hy2 - 0.08f * p, 0.07f * p + 0.3f, 0.035f * p + 0.3f, if (lamb) SOOTY else HERDWICK_FACE)
+        if (p > 9f) c.set((hx + dir * 0.03f * p).toInt(), (hy2 - 0.03f * p).toInt(), Col.hex(0x1E1A18))
+    }
+
+    /** Meg, Jack's sheepdog, lying in the grass by the wall: a black and white collie, her head up, her white chest and blaze. */
+    private fun collie(x: Float, d: Float) {
+        val p = pm(d); val bx = gx(x, d); val by = gy(d)
+        val black = Col.hex(0x1E1C20); val blackL = Col.hex(0x3A3840); val white = Col.hex(0xF0EEE8)
+        // the body lying along the grass, the forelegs out in front, the tail with its white tip
+        c.fillEllipse(bx, by - 0.14f * p, 0.36f * p, 0.13f * p, black)
+        c.fillEllipse(bx - 0.04f * p, by - 0.22f * p, 0.26f * p, 0.05f * p + 0.3f, blackL)
+        c.fillRect((bx + 0.22f * p).toInt(), (by - 0.05f * p).toInt(), (0.22f * p).toInt().coerceAtLeast(1), max(1, (0.05f * p).toInt()), white)
+        c.line((bx - 0.34f * p).toInt(), (by - 0.12f * p).toInt(), (bx - 0.56f * p).toInt(), (by - 0.04f * p).toInt(), black)
+        c.fillEllipse(bx - 0.56f * p, by - 0.04f * p, 0.04f * p + 0.4f, 0.03f * p + 0.4f, white)
+        // the white chest, the head up, ears pricked, the blaze down its face
+        c.fillEllipse(bx + 0.25f * p, by - 0.2f * p, 0.09f * p, 0.11f * p, white)
+        val hx = bx + 0.32f * p; val hy2 = by - 0.38f * p
+        c.fillEllipse(hx, hy2, 0.1f * p + 0.3f, 0.09f * p + 0.3f, black)
+        c.fillEllipse(hx + 0.08f * p, hy2 + 0.03f * p, 0.06f * p + 0.3f, 0.04f * p + 0.3f, white)
+        c.vline(hx.toInt(), (hy2 - 0.06f * p).toInt(), (hy2 + 0.04f * p).toInt(), white)
+        c.set((hx - 0.06f * p).toInt(), (hy2 - 0.12f * p).toInt(), black); c.set((hx + 0.03f * p).toInt(), (hy2 - 0.12f * p).toInt(), black)
+        if (p > 12f) c.set((hx + 0.15f * p).toInt(), (hy2 + 0.02f * p).toInt(), Col.hex(0x0E0C0E))
+    }
+
+    /** A feral goat of the fells: shaggy, dark brown with a pale saddle and face, a fringe under her belly, long horns swept back, a beard; [kid]: no horns. */
+    private fun goat(x: Float, y: Float, size: Float = 1f, left: Boolean = false, look: Boolean = false, kid: Boolean = false) {
+        anchor(x, y, size, left)
+        val coat = Col.hex(0x4A3A2E); val saddle = Col.hex(0xA89C8A); val pale = Col.hex(0xDCD4C6); val dark = Col.hex(0x1E1814); val horn = Col.hex(0x8A7A62)
+        for ((lx, s) in listOf(-3f to 0.3f, -2f to -0.3f, 2f to -0.3f, 3f to 0.3f)) seg(lx, -3.4f, lx + s, 0f, 0.8f, dark)
+        ell(0f, -4.6f, 3.8f, 1.9f, coat)
+        for (k in -3..3) seg(k.toFloat(), -3.6f, k + 0.2f, -2.5f, 0.7f, coat)
+        ell(-0.6f, -5.7f, 2.4f, 0.7f, saddle)
+        val hy = if (look) -9.2f else -8.4f
+        poly(coat, 2.3f, -5.8f, 3.8f, -5f, 4.8f, hy + 1f, 3.6f, hy + 0.6f)
+        ell(4.6f, hy, 1.2f, 1.1f, pale)
+        seg(4.5f, hy + 0.8f, 4.7f, hy + 2.4f, 0.6f, saddle)
+        dot(5.6f, hy + 0.3f, dark); dot(4.5f, hy - 0.3f, dark)
+        if (!kid) {
+            seg(4f, hy - 0.8f, 2.8f, hy - 3.2f, 0.6f, horn); seg(2.8f, hy - 3.2f, 1.6f, hy - 3.6f, 0.45f, horn)
+            seg(4.6f, hy - 0.9f, 3.6f, hy - 3.4f, 0.6f, horn); seg(3.6f, hy - 3.4f, 2.4f, hy - 3.9f, 0.45f, horn)
+        }
+    }
+
+    /** A Herdwick ram on the crag: a heavy grey fleece, white legs and a white face with its Roman nose, horns curling round his ears. */
+    private fun ram(x: Float, y: Float, size: Float = 1f, left: Boolean = false) {
+        anchor(x, y, size, left)
+        val face = HERDWICK_FACE; val horn = Col.hex(0xC8B890); val hornD = Col.hex(0x8A7A5A); val dark = Col.hex(0x2A2624)
+        for ((lx, s) in listOf(-3.2f to 0.2f, -2.2f to -0.2f, 2.2f to -0.2f, 3.2f to 0.2f)) { seg(lx, -3.6f, lx + s, 0f, 1f, face); dot(lx + s, -0.2f, dark) }
+        ell(0f, -5.2f, 4.2f, 2.5f, HERDWICK); ell(-0.4f, -6.6f, 3.4f, 0.9f, HERDWICK_L); ell(0.2f, -3.6f, 3.4f, 0.7f, HERDWICK_D)
+        poly(HERDWICK, 2.6f, -6.8f, 4.4f, -5.6f, 5.4f, -8f, 3.8f, -8.8f)
+        ell(5.6f, -8.4f, 1.3f, 1.4f, face)
+        dot(6.7f, -7.7f, Col.hex(0x3A3230)); dot(5.5f, -8.9f, dark)
+        // the horn curling back, down and round the ear
+        var px = 4.6f; var py = -10f
+        for (k in 1..10) {
+            val a = -PI.toFloat() / 2f - k * 0.62f; val r = 1.9f - k * 0.1f
+            val nx = 4.2f + cos(a) * r; val ny = -8.5f + sin(a) * r
+            seg(px, py, nx, ny, 1.1f - k * 0.05f, if (k % 3 == 0) hornD else horn)
+            px = nx; py = ny
+        }
+    }
+
+    /**
+     * The rabbit on its rock across the stream (the Lake District's, in the marmot's place): sitting up by day, crouched by
+     * its burrow at night; poked, it sits up tall, its ears up, then dives into the burrow under the rock and after a while
+     * its ears peek out and it hops back up.
+     */
+    private fun rabbit() {
+        boulder(marmotX, marmotD, 1.3f, 0.75f, 771, mossy = true)
+        val p = pm(marmotD)
+        val bx = gx(marmotX - 0.1f, marmotD); val by = hy(marmotD, 0.7f)
+        val hx = gx(marmotX - 0.75f, marmotD - 0.1f); val hy2 = gy(marmotD - 0.1f)
+        c.fillEllipse(hx, hy2 - 0.06f * p, 0.14f * p, 0.08f * p + 0.5f, Col.hex(0x2A221C))
+        val pk = poked("marmot"); val a = pk?.age(t) ?: 0f
+        val asleep = env.dark > 0.55f && pk == null
+        when {
+            pk != null && pk.step == 1 -> {
+                val out = PokeArt.ease(a, 3.6f, 4.4f)
+                val back = PokeArt.ease(a, 5.2f, 6.2f)
+                if (back > 0f) bunny(bx, by + (1f - back) * 0.3f * p, p, 0f)
+                else if (out > 0f) {
+                    // the ears first out of the burrow
+                    c.vline(hx.toInt() - 1, (hy2 - 0.2f * p * out).toInt(), hy2.toInt(), RABBIT)
+                    c.vline(hx.toInt() + 1, (hy2 - 0.18f * p * out).toInt(), hy2.toInt(), RABBIT)
+                } else if (a < 0.5f) { val f = a / 0.5f; bunny(hx + (bx - hx) * (1f - f), by + (hy2 - by) * f, p, 0f) }
+            }
+            pk != null -> bunny(bx, by, p, PokeArt.ease(a, 0f, 0.3f) * (1f - PokeArt.ease(a, 2f, 2.4f)))
+            asleep -> c.fillEllipse(bx, by - 0.08f * p, 0.14f * p, 0.08f * p, RABBIT_D)
+            else -> bunny(bx, by, p, 0f)
+        }
+    }
+
+    /** A rabbit sitting at ([x], [y]) (its feet), [up] 0..1 sitting up tall, ears up: grey-brown, a paler belly, the white scut. */
+    private fun bunny(x: Float, y: Float, p: Float, up: Float) {
+        val hgt = (0.3f + 0.12f * up) * p
+        c.fillEllipse(x - 0.03f * p, y - hgt * 0.35f, 0.14f * p, hgt * 0.38f, RABBIT)
+        c.fillEllipse(x + 0.04f * p, y - hgt * 0.35f, 0.06f * p, hgt * 0.3f, RABBIT_L)
+        c.fillEllipse(x - 0.15f * p, y - hgt * 0.25f, 0.04f * p + 0.5f, 0.04f * p + 0.5f, Col.hex(0xF4F2EC))
+        val hx = x + 0.08f * p; val hy2 = y - hgt * 0.85f
+        c.fillEllipse(hx, hy2, 0.08f * p + 0.3f, 0.07f * p + 0.3f, RABBIT)
+        // the long ears, up or laid back
+        val ear = (0.16f + 0.08f * up) * p
+        c.line(hx.toInt(), (hy2 - 0.04f * p).toInt(), (hx - 0.05f * p * (1f - up)).toInt(), (hy2 - ear).toInt(), RABBIT_D)
+        c.line((hx + 0.03f * p).toInt(), (hy2 - 0.04f * p).toInt(), (hx + 0.01f * p - 0.04f * p * (1f - up)).toInt(), (hy2 - ear * 0.92f).toInt(), RABBIT)
+        c.set((hx + 0.05f * p).toInt(), (hy2 - 0.01f * p).toInt(), Col.hex(0x1E1A18))
+    }
+
     // ------------------------------------------------------------------ the trees
 
     /**
@@ -1462,6 +2232,7 @@ internal class AlpsPainter : WildPainter() {
             if (abs(x - brook(d)) < brookHalf(d) + 0.7f || abs(x - path(d)) < 0.9f) continue
             if (gy(d) >= h + 4 * z) continue
             if (k % 3 == 0) prop { boulder(x, d, 0.55f + Noise.rnd(k, 803) * 0.5f, 0.3f + Noise.rnd(k, 804) * 0.25f, 805 + k, mossy = true) }
+            else if (flowerKind == "meadow") { if (!env.snow) prop(0) { if (k % 3 == 1 && env.month in 6..8) foxglove(x, d, k) else brackenClump(x, d, k) } }
             else if (!env.snow && env.month in 3..9) prop(0) { clump(x, d, k) }
         }
     }
@@ -1482,6 +2253,43 @@ internal class AlpsPainter : WildPainter() {
         }
     }
 
+    /** A clump of bracken close by: fronds arching out from the ground, green in summer, russet from October, brown in spring. */
+    private fun brackenClump(x: Float, d: Float, seed: Int) {
+        val p = pm(d); val bx = gx(x, d); val by = gy(d)
+        val b = bracken()
+        for (j in 0 until 5) {
+            val a = (j - 2) * 0.5f + (Noise.rnd(j, seed, 815) - 0.5f) * 0.3f
+            val len = (0.35f + 0.2f * Noise.rnd(j, seed, 816)) * p
+            val tx = bx + sin(a) * len; val ty = by - cos(a) * len * 0.8f
+            c.line(bx.toInt(), by.toInt(), tx.toInt(), ty.toInt(), b[0])
+            // the frond's pinnae either side of its stem, drooping toward the tip
+            val n = max(2, (len / 2f).toInt())
+            for (q in 1..n) {
+                val f = q / (n + 1f)
+                val sx = bx + (tx - bx) * f; val sy = by + (ty - by) * f
+                val w = (1f - f) * 0.12f * p + 0.5f
+                c.line((sx - w).toInt(), (sy + w * 0.4f).toInt(), (sx + w).toInt(), (sy + w * 0.4f).toInt(), if (q % 2 == 0) b[2] else b[1])
+            }
+        }
+    }
+
+    /** A foxglove close by in June to August: a tall spike of purple-pink bells hanging from its top, its leaves at its foot. */
+    private fun foxglove(x: Float, d: Float, seed: Int) {
+        val p = pm(d); val bx = gx(x, d); val by = gy(d)
+        val stem = Col.scale(env.grass[2], 0.8f); val bell = Col.hex(0xC8509A); val bellL = Col.hex(0xE884C0)
+        val top = by - (0.7f + 0.2f * Noise.rnd(seed, 817)) * p
+        c.fillEllipse(bx, by - 0.04f * p, 0.14f * p, 0.05f * p + 0.5f, stem)
+        c.line(bx.toInt(), by.toInt(), bx.toInt(), top.toInt(), stem)
+        val n = max(3, ((by - top) / max(2f, 0.06f * p)).toInt())
+        for (q in 0 until n) {
+            val f = q / n.toFloat()
+            if (f > 0.65f) continue
+            val y = top + (by - top) * f * 0.9f + 0.05f * p
+            val side = if (q % 2 == 0) 1 else -1
+            c.fillEllipse(bx + side * max(1f, 0.03f * p), y, max(1f, 0.025f * p), max(1f, 0.035f * p), if (q % 3 == 0) bellL else bell)
+        }
+    }
+
     // ------------------------------------------------------------------ what a dialog brings
 
     /**
@@ -1495,6 +2303,7 @@ internal class AlpsPainter : WildPainter() {
         val e = level * level * (3f - 2f * level)
         val cx = 130f - 150f * e + sin(e * 9f) * 16f
         val cy = (horizon - 30f) - 26f * sin(e * 3.14f) + cos(e * 9f) * 5f
+        if (birdKind == "ravens") { ravens(e, cx, cy); return }
         for (j in 0 until 16) {
             val a = Noise.rnd(j, 811) * 6.28f + t.toFloat() * (0.9f + Noise.rnd(j, 812))
             val r = (4f + 10f * sin(e * 3.14f)) * sqrt(Noise.rnd(j, 813))
@@ -1503,6 +2312,30 @@ internal class AlpsPainter : WildPainter() {
             sprite(x, y) {
                 PokeArt.wings(c, x, y, up == 0, 1, col)
                 c.set(x + 1, y, bill)
+            }
+        }
+    }
+
+    /**
+     * The Lake District's ravens off the crag ([flock]'s path, [e] how far): a few big black birds on long fingered wings,
+     * their wedge tails, rowing slowly, one now and then tumbling over onto its back as ravens do.
+     */
+    private fun ravens(e: Float, cx: Float, cy: Float) {
+        val col = env.lit(Col.hex(0x141218))
+        for (j in 0 until 7) {
+            val a = Noise.rnd(j, 811) * 6.28f + t.toFloat() * (0.5f + 0.5f * Noise.rnd(j, 812))
+            val r = (3f + 9f * sin(e * 3.14f)) * sqrt(Noise.rnd(j, 813))
+            val x = ox + ((cx + cos(a) * r * 1.5f) * z).toInt(); val y = oy + ((cy + sin(a) * r * 0.7f) * z).toInt()
+            val beat = ((t * 4).toInt() + j) and 3
+            val roll = ((t * 0.7 + j * 0.37) % 3.0) < 0.12
+            sprite(x, y) {
+                // the body and the wedge of the tail, the long wings beating slowly (or flung over in a tumble)
+                c.fillRect(x - 1, y, 3, 1, col); c.set(x, y + 1, col)
+                val dy = if (roll) 1 else when (beat) { 0 -> -1; 2 -> 1; else -> 0 }
+                for (k in 2..4) {
+                    val off = when { dy < 0 -> if (k == 2) -1 else -2; dy > 0 -> if (k == 4) 2 else 1; else -> if (k == 4) 1 else 0 }
+                    c.set(x - k, y + off, col); c.set(x + k, y + off, col)
+                }
             }
         }
     }
@@ -1604,5 +2437,130 @@ internal class AlpsPainter : WildPainter() {
         private val SPRUCE_L = Col.hex(0x3A6844)
         private val STREAM_EDGE = Col.hex(0x3A5A48)
         private val LICHEN = Col.hex(0xC8C49A)
+
+        // ------------------------------------------------------------------ the cultures' looks
+
+        /** The ranges behind the lake ([range]). */
+        private const val JULIAN = 0
+        private const val KARAWANKEN = 1
+        private const val FELLS = 2
+
+        /** The Karawanken from the Faaker See: the Mittagskogel's pyramid first, the ridge's peaks either side of it. */
+        private val PEAKS_KARAWANKEN = floatArrayOf(
+            150f, 58f, 40f,
+            114f, 39f, 36f,
+            188f, 42f, 42f,
+            82f, 33f, 40f,
+            226f, 35f, 42f,
+            44f, 27f, 44f,
+            262f, 29f, 44f,
+        )
+
+        /** The fells round the lake: the summit with its crag first, the rounded backs of the others. */
+        private val PEAKS_FELLS = floatArrayOf(
+            146f, 44f, 54f,
+            94f, 36f, 48f,
+            196f, 38f, 52f,
+            50f, 27f, 46f,
+            240f, 29f, 46f,
+            120f, 30f, 26f,
+        )
+
+        /** Carinthia's farm on the left shore (scene column), where the shore runs level ([FARM_FOOT] px below the horizon). */
+        private const val FARM_U = 98f
+        private const val FARM_FOOT = -8.5f
+        /** The Lake District's wooded island in the lake (scene column). */
+        private const val ISLAND_U = 124f
+
+        private val LAKE_TURQUOISE = Col.hex(0x1E8C8A)
+        private val LAKE_SHALLOWS = Col.hex(0x62C8B4)
+        private val LAKE_TARN = Col.hex(0x1A2C38)
+
+        /** The onion dome's half width (in scene px) up from its foot, every scene px. */
+        private val ONION = floatArrayOf(2.9f, 3.4f, 3.5f, 3f, 2f, 1f, 0.5f, 0.3f)
+        private val ONION_L = Col.hex(0x7CB8A0)
+        private val ONION_M = Col.hex(0x4E8C78)
+        private val ONION_D = Col.hex(0x2F5E50)
+
+        /** Carinthia's Fleckvieh and the Lake District's Ayrshire: their patches, light, middle and dark, over white. */
+        private val FLECK_L = Col.hex(0xD89A58)
+        private val FLECK_M = Col.hex(0xBC6E34)
+        private val FLECK_D = Col.hex(0x8A4A22)
+        private val AYR_L = Col.hex(0xA85438)
+        private val AYR_M = Col.hex(0x84361F)
+        private val AYR_D = Col.hex(0x5A2214)
+        private val COW_WHITE_D = Col.hex(0xD8CFC0)
+
+        /** The Lake District's slate stone: the wall's four tones, the hut's three, the joints between them. */
+        private val SLATE_STONES = intArrayOf(Col.hex(0x8A9094), Col.hex(0x6E767A), Col.hex(0x7E8478), Col.hex(0x9A968A))
+        private val SLATE_HUT = intArrayOf(Col.hex(0x9AA0A2), Col.hex(0x7C8486), Col.hex(0x5E6668))
+        private val SLATE_JOINT = Col.hex(0x3A3E42)
+
+        /** The open fell's grass by the season, lit and in shade. */
+        private val FELL_SUMMER_L = Col.hex(0x96A05A)
+        private val FELL_SUMMER_D = Col.hex(0x6E7A48)
+        private val FELL_SPRING_L = Col.hex(0x9AA060)
+        private val FELL_SPRING_D = Col.hex(0x747A4C)
+        private val FELL_AUTUMN_L = Col.hex(0xB09A5E)
+        private val FELL_AUTUMN_D = Col.hex(0x84724A)
+        private val FELL_WINTER_L = Col.hex(0x9C8E6C)
+        private val FELL_WINTER_D = Col.hex(0x726852)
+        /** The intake's walled fields by the season: three greens, one per field. */
+        private val FIELDS_SUMMER = intArrayOf(Col.hex(0x6EA442), Col.hex(0x7EB04C), Col.hex(0x5E9640))
+        private val FIELDS_SPRING = intArrayOf(Col.hex(0x7AB04E), Col.hex(0x8CBC5A), Col.hex(0x6AA046))
+        private val FIELDS_AUTUMN = intArrayOf(Col.hex(0x7A9A48), Col.hex(0x8AA452), Col.hex(0x6C8C42))
+        private val FIELDS_WINTER = intArrayOf(Col.hex(0x7A8A56), Col.hex(0x86925E), Col.hex(0x6C7C4E))
+        /** Heather on the open fell, in flower in August and September. */
+        private val HEATHER_L = Col.hex(0xA0628E)
+        private val HEATHER_D = Col.hex(0x7A4A6C)
+        private val FELL_FAR_L = Col.hex(0x8E9AAE)
+        private val FELL_FAR_D = Col.hex(0x6E7A94)
+
+        /** Bracken, dark, middle and light: green in summer, unfurling in May, rusting in October, dead russet through the winter. */
+        private val BRACKEN_GREEN = intArrayOf(Col.hex(0x3E6A26), Col.hex(0x557E2E), Col.hex(0x6E9A3A))
+        private val BRACKEN_UNFURL = intArrayOf(Col.hex(0x5A5A30), Col.hex(0x707A38), Col.hex(0x8A9A48))
+        private val BRACKEN_TURN = intArrayOf(Col.hex(0x8A4A22), Col.hex(0xB0642A), Col.hex(0xCC8438))
+        private val BRACKEN_DEAD = intArrayOf(Col.hex(0x6A3E24), Col.hex(0x8A5230), Col.hex(0xA0663A))
+
+        /** Oak and birch woods from afar by the season, dark, middle and light. */
+        private val WOODS_SPRING = intArrayOf(Col.hex(0x3E6A30), Col.hex(0x5E8E3E), Col.hex(0x86B456))
+        private val WOODS_SUMMER = intArrayOf(Col.hex(0x23442A), Col.hex(0x34603A), Col.hex(0x4E7E44))
+        private val WOODS_AUTUMN = intArrayOf(Col.hex(0x6A4220), Col.hex(0x9A6A2A), Col.hex(0xC4943E))
+        private val WOODS_WINTER = intArrayOf(Col.hex(0x4A3E36), Col.hex(0x5E5246), Col.hex(0x726656))
+
+        private val CRAG_L = Col.hex(0xA4A29A)
+        private val CAIRN = Col.hex(0x6A6862)
+        private val CRAG_D = Col.hex(0x6C6C6A)
+        private val SCREE_L = Col.hex(0xB0A890)
+        private val SCREE_D = Col.hex(0x8A8472)
+        /** A dry-stone wall seen from across the valley: a line of dark grey. */
+        private val WALL_FAR = Col.hex(0x5A5C58)
+
+        /** The Herdwicks: the grey fleece, light and dark, the white face and legs; Sooty, the black lamb. */
+        private val HERDWICK = Col.hex(0x8A8580)
+        private val HERDWICK_L = Col.hex(0xAEAAA2)
+        private val HERDWICK_D = Col.hex(0x625E5A)
+        private val HERDWICK_FACE = Col.hex(0xF0ECE2)
+        private val HERDWICK_LEG = Col.hex(0xE0DCD2)
+        private val SOOTY = Col.hex(0x2A2628)
+        private val SOOTY_L = Col.hex(0x423C3E)
+        private val SOOTY_D = Col.hex(0x181618)
+
+        private val RABBIT = Col.hex(0x8A7660)
+        private val RABBIT_L = Col.hex(0xB4A088)
+        private val RABBIT_D = Col.hex(0x5E4E3E)
+
+        /**
+         * The Herdwicks on the fell (side, depth, facing left), Sooty last: clear of the cows' places (the art's and those a
+         * dialog's "cows" brings), the people's spots and the stream.
+         */
+        private val SHEEP = listOf(
+            Triple(-12.4f, 19.6f, false), Triple(-13.6f, 23.2f, true), Triple(-2.4f, 14.6f, true), Triple(1.6f, 16.4f, false),
+            Triple(7.8f, 20.4f, true), Triple(0.9f, 16f, false),
+        )
+
+        /** Where Meg lies, in front of the wall left of whoever stands at it (m). */
+        private const val MEG_X = -4.1f
+        private const val MEG_D = 11.1f
     }
 }
