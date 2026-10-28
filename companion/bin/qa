@@ -334,6 +334,12 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
+# -h / --help: the usage above, nothing run (QA has no other options parser: a run started for --help built, installed and
+# took the dev bridge's ports without the emulator lock)
+if "-h" in sys.argv or "--help" in sys.argv:
+    print(__doc__)
+    sys.exit(0)
+
 ROOT = Path(__file__).resolve().parents[2]
 
 
