@@ -7,7 +7,7 @@ in the learner's base language, with a table, examples, links to the modules tha
 examples and mistakes on it. A page unlocks the first time the learner meets its rule: an exercise, a challenge's question
 or a module that names it (below), and a "why" that belongs to it leads there ("📖 V knjigo · To the book").
 
-Curated pages live in `companion/grammar/<language>/<id>.json` (51 in `sl/`, 16 each in `it/`, `de/` and `en/`). You add
+Curated pages live in `companion/grammar/<language>/<id>.json` (59 in `sl/`, 16 each in `it/`, `de/` and `en/`). You add
 pages, or extend a curated one, with `publish_grammar`; `list_grammar` shows the pages and which the learner has met,
 `get_grammar` one page.
 
