@@ -205,6 +205,9 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        learner, LANI_DEV_DATA): "Raven B1" in the school, the unit oziralni-ki from its level, its six
                        intro steps and their quick questions, the summary, the sort, the table, the gap text, the
                        transform list, its test passed, the dev bridge's village keeping the unit done;
+                       "school-unit" a unit end to end from its file ($LANI_QA_UNIT, pogojnik-polno of B1 by default;
+                       QA's hook "school:<unit>": its level open, the unit as never begun): its intro's questions, its
+                       first worksheet and its test answered as the file says, passed, kept done by the dev bridge;
                        "school-print" the unit biti's sheet printed ("🖨️ Natisni list"): fit.js in the app's
                        WebView choosing as headless Chromium does, the print dialog's preview, the PDF saved through it
                        (A4, its pages as chosen), the level's booklet ("🖨️ Vsi listi") to its dialog;
@@ -5640,6 +5643,148 @@ def school_b1():
     assert unit and unit.get("done"), f"the dev bridge's village keeps the unit done ({unit})"
 
 
+QA_UNIT = os.environ.get("LANI_QA_UNIT", "pogojnik-polno")  # the unit "school-unit" plays (a B1 unit by default)
+ASCII = str.maketrans("čšžćđČŠŽĆĐ", "cszcdCSZCD")  # what adb can type: č, š, ž forgotten is almost right (half an item)
+
+
+def unit_text(s: str) -> str:
+    """[s] of a unit's file as the dev bridge's learner reads it: the masculine of {m:…|f:…}, {learner} their name."""
+    s = re.sub(r"\{m:([^|}]*)\|f:[^}]*\}", r"\1", s)
+    return s.replace("{learner}", os.environ.get("LANI_QA_LEARNER", "Ana"))
+
+
+def sheet_exercise(e: dict, where: str):
+    """One exercise of a worksheet or the test, answered right from the unit's file (typed without č, š, ž), checked,
+    and on to the next: a table's cells ("<row>, <column>"), a gap text's gaps ("Vrzel n · Gap n"), a transform's lines
+    ("Vrstica n · Line n"), a choice's answer and a multi's answers tapped, a reorder's first solution and a sort's words
+    tapped in."""
+    kind = e["type"]
+    if kind == "table":
+        for r in e["rows"]:
+            for c, cell in enumerate(r["cells"]):
+                if isinstance(cell, dict):
+                    label = f'{r["label"]}, {e["columns"][c]}'
+                    assert fill(label, unit_text(cell["accept"][0]).translate(ASCII)), f"{where}: the cell {label}"
+    elif kind in ("gaptext", "transform"):
+        n = len(e["gaps"] if kind == "gaptext" else e["items"])
+        for i in range(1, n + 1):
+            answer = (e["gaps"] if kind == "gaptext" else e["items"])[i - 1]["accept"][0]
+            label = f"Vrzel {i} · Gap {i}" if kind == "gaptext" else f"Vrstica {i} · Line {i}"
+            assert fill(label, unit_text(answer).translate(ASCII)), f"{where}: {label}"
+    elif kind in ("choice", "multi"):
+        picks = [e["options"][e["answer"]]] if kind == "choice" else [e["options"][a] for a in e["answers"]]
+        for p in picks:
+            c = scroll_to(unit_text(p), 3, exact=True)
+            assert c is not None, f"{where}: the option «{p}»"
+            tap_at(c)
+        if kind == "choice":  # a tap answers it
+            return
+    elif kind == "reorder":
+        for t in e["solutions"][0]:
+            c = ([c for x, c in nodes() if x == unit_text(t)] or [None])[0]
+            assert c is not None, f"{where}: the tile «{t}»"
+            tap_at(c)
+    elif kind == "sort":
+        for col in e["columns"]:
+            for w in col["words"]:
+                assert tap(unit_text(w), 4), f"{where}: the word «{w}»"
+                assert tap(col["label"], 4), f"{where}: the column «{col['label']}»"
+    else:
+        raise AssertionError(f"{where}: QA doesn't play a {kind} yet")
+    assert tap("Preveri · Check", 4), f"{where}: check"
+
+
+def school_unit():
+    """A unit of the course end to end from its own file (companion/course/sl/units/<id>.json; QA's hook "school:<id>":
+    the dev village's copy ready for the class, the unit's level open, the unit as never begun): $LANI_QA_UNIT,
+    pogojnik-polno (B1) by default. Its page; its intro step by step, each quick question answered as the file says (a
+    choice's answer tapped, a cloze's typed and checked), the table growing, the summary card; its first worksheet,
+    every item answered right; then its test straight away ("⏩ Znam že"), passed, Mojca's cheer; the dev bridge's
+    village keeping the unit done. adb types no č, š, ž: an answer with one is almost right, half an item."""
+    path = ROOT / f"companion/course/sl/units/{QA_UNIT}.json"
+    if not path.exists():
+        return f"no unit {QA_UNIT} here ({path})"
+    u = json.loads(path.read_text())
+    title = u["title"]["sl"]
+    go_home()
+    qa_hook(f"school:{QA_UNIT}")
+    assert wait_for("Delovni listi", 12), f"the unit {QA_UNIT}'s page"
+    assert find(title) or find(title.split(":")[0]), f"its title «{title}»"
+    shot(f"school-unit-{QA_UNIT}")
+    c = find("Naprej: Uvod") or find("Uvod · Introduction")
+    assert c is not None, "the intro"
+    tap_at(c)
+    steps = u["intro"]["steps"]
+    for i, s in enumerate(steps, 1):
+        assert wait_for(f"Korak {i}/{len(steps)}", 10), f"step {i}"
+        a = s.get("ask")
+        if a is None:
+            assert tap("Naprej · Next", 4), f"step {i}'s next"
+            continue
+        if a["type"] == "choice":
+            # the question under the lines and the table: scrolled to, the option the last of its words on screen (the
+            # table above may show them too), clear of the bottom bar's "Naprej"
+            adb("shell", "input", "swipe", "540", "1600", "540", "900", "400")
+            time.sleep(1)
+            option = unit_text(a["options"][a["answer"]])
+            c = ([c for t, c in nodes() if t == option and c[1] < 2100] or [None])[-1]
+            assert c is not None, f"step {i}'s option «{option}»"
+            tap_at(c)
+        else:
+            c = scroll_to(a["hint"], 3) if a.get("hint") else None  # the field, its hint as the placeholder
+            assert c is not None, f"step {i}'s gap"
+            tap_at(c)
+            type_text(unit_text(a["accept"][0]).translate(ASCII))
+            assert tap("Preveri · Check", 4), f"step {i}'s check"
+        assert wait_for("Pravilno", 6) or wait_for("Skoraj", 2), f"step {i} answered right"
+        if i in (1, len(steps)):
+            shot(f"school-unit-intro-{i}")
+        assert tap("Naprej · Next", 4), f"step {i}'s next"
+    assert wait_for("Povzetek", 8), "the intro's summary card"
+    shot("school-unit-summary")
+    assert tap("Na delovne liste", 5), "on to the worksheets"
+    sheet = u["worksheets"][0]
+    assert tap(f'Naprej: {sheet["title"]["sl"]}', 6), f'the first worksheet «{sheet["title"]["sl"]}»'
+    for n, e in enumerate(sheet["exercises"], 1):
+        time.sleep(1.5)
+        if n == 1:
+            shot("school-unit-sheet")
+        sheet_exercise(e, f'{sheet["id"]} #{n}')
+        if n == 1:
+            shot("school-unit-sheet-checked")
+        assert tap("Naprej · Next", 6), f'{sheet["id"]} #{n}: on'
+    assert wait_for("Naprej · Continue", 10), "the worksheet's end"
+    shot("school-unit-sheet-done")
+    assert tap("Naprej · Continue", 4), "back to the unit"
+    # the test straight away: passed, the unit done
+    assert tap("Znam že: kar na test", 8), "⏩ the test"
+    tests = u["test"]["exercises"]
+    for n, e in enumerate(tests, 1):
+        time.sleep(1.5)
+        sheet_exercise(e, f"test #{n}")
+        if n == 1:
+            shot("school-unit-test")
+        if n < len(tests):
+            assert tap("Naprej · Next", 6), f"test #{n}: on"
+    assert wait_for("Naprej · Next", 6), "the test's last: on"
+    nxt = find("Naprej · Next")
+    record_frames("school-unit-cheer", lambda: tap_at(nxt), seconds=5, keep=(0.6, 1.8, 3.6))
+    assert wait_for("Enota opravljena", 10), "the test passed: the unit done"
+    shot("school-unit-passed")
+    assert tap("Naprej · Continue", 4), "back to the unit"
+    assert wait_for("Enota je opravljena", 8), "the unit done"
+    end, done = time.time() + 20 * slow(), None
+    while time.time() < end:  # the app pushes the village to the node
+        try:
+            done = (((api("/game").get("state") or {}).get("course") or {}).get("units") or {}).get(f"sl/{QA_UNIT}")
+        except (OSError, RuntimeError, ValueError):
+            done = None
+        if done and done.get("done"):
+            break
+        time.sleep(2)
+    assert done and done.get("done"), f"the dev bridge's village keeps the unit done ({done})"
+
+
 def school_point(pic, x: float, y: float, z: float) -> tuple[int, int]:
     """Where world point ([x], [y], [z]) of the school's diorama (SchoolPainter: its plot 13 × 11 cells, 26 px high, 7 deep)
     lies on screen in the scene's picture [pic] (its bounds), the camera fitted: the scene's canvas as SceneFit lays it
@@ -10751,6 +10896,7 @@ def plan():
         ("sheet-corrections", sheet_corrections, go_home, False, ""),
         ("sheet-corrections-types", sheet_corrections_types, go_home, False, ""),
         ("school-b1", school_b1, go_home, False, ""),
+        ("school-unit", school_unit, go_home, False, ""),
         ("school-print", school_print, go_home, False, ""),
         ("school-build", school_build, go_home, False, ""),
         ("school-scene", school_scene, v, False, ""),
