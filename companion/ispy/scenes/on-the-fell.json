@@ -3,11 +3,11 @@
   "scene": "on-the-fell",
   "language": "en",
   "machine_written": true,
-  "review": "clues: machine-written (Claude) in en, with sl translations, from the scene's picture (its painter's colours and where each thing is drawn; the goat and the ram are wild and never placed; the trees' and the meadow's colours change with the season, so those clues say \"in summer\"); the sl translations keep to forms that don't give the word's gender away where they can; not reviewed by a native speaker",
+  "review": "clues: machine-written (Claude) in en, with sl translations, from the scene's picture (its painter's colours and where each thing is drawn; the goat and the ram are wild and never placed; revised 2026-10-28 for the Lake District's own look of the picture: the fell green and brown, the summit grey with its cairn, the hut of stone, the feral goat's long horns and beard, the Herdwick ram grey and white; the trees' and the meadow's colours change with the season, so those clues say \"in summer\"); the sl translations keep to forms that don't give the word's gender away where they can; not reviewed by a native speaker",
   "things": {
     "mountain": {
       "clues": [
-        { "kind": "colour", "en": "It's grey and white.", "sl": "Je sive in bele barve.", "grammar": ["to-be"] },
+        { "kind": "colour", "en": "It's green and brown.", "sl": "Je zelene in rjave barve.", "grammar": ["to-be"] },
         { "kind": "size", "en": "It's very high.", "sl": "To je nekaj zelo visokega.", "grammar": ["to-be"] },
         { "kind": "where", "en": "It's behind the lake.", "sl": "Je za jezerom.", "grammar": ["to-be", "prepositions-place"], "ref": "lake" },
         { "kind": "trait", "en": "There's snow on it in winter.", "sl": "Pozimi je tam sneg.", "grammar": ["there-is-are", "prepositions-place"] },
@@ -16,8 +16,8 @@
     },
     "peak": {
       "clues": [
-        { "kind": "colour", "en": "It's white.", "sl": "Je bele barve.", "grammar": ["to-be"] },
-        { "kind": "trait", "en": "It's pointed.", "sl": "To je nekaj koničastega.", "grammar": ["to-be"] },
+        { "kind": "colour", "en": "It's grey.", "sl": "Je sive barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has a pile of stones on top.", "sl": "Zgoraj ima kup kamnov.", "grammar": ["to-have", "prepositions-place"] },
         { "kind": "where", "en": "It's the highest point of all.", "sl": "To je najvišja točka od vseh.", "grammar": ["to-be"] },
         { "kind": "use", "en": "You can see very far from it.", "sl": "Od tam vidiš zelo daleč.", "grammar": ["can"] }
       ]
@@ -59,7 +59,7 @@
     },
     "hut": {
       "clues": [
-        { "kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"] },
+        { "kind": "material", "en": "It's made of stone.", "sl": "Je iz kamna.", "grammar": ["to-be"] },
         { "kind": "trait", "en": "It has a steep roof.", "sl": "Ima strmo streho.", "grammar": ["to-have"] },
         { "kind": "trait", "en": "In summer it has red flowers at the window.", "sl": "Poleti ima na oknu rdeče rože.", "grammar": ["to-have"] },
         { "kind": "where", "en": "It's on the left.", "sl": "Je na levi.", "grammar": ["to-be", "prepositions-place"] },
@@ -147,15 +147,15 @@
     "chamois": {
       "clues": [
         { "kind": "colour", "en": "It's dark brown.", "sl": "Je temno rjave barve.", "grammar": ["to-be"] },
-        { "kind": "trait", "en": "It has small horns.", "sl": "Ima majhne roge.", "grammar": ["to-have"] },
-        { "kind": "trait", "en": "It has a white face with black stripes.", "sl": "Ima bel obraz s črnimi progami.", "grammar": ["to-have"] },
+        { "kind": "trait", "en": "It has long horns.", "sl": "Ima dolge roge.", "grammar": ["to-have"] },
+        { "kind": "trait", "en": "It has a beard.", "sl": "Ima brado.", "grammar": ["to-have"] },
         { "kind": "does", "en": "It climbs on the rocks.", "sl": "Pleza po skalah.", "grammar": ["present-simple"] },
         { "kind": "does", "en": "It lives high up on the fells.", "sl": "Živi visoko v hribih.", "grammar": ["present-simple"] }
       ]
     },
     "ibex": {
       "clues": [
-        { "kind": "colour", "en": "It's grey and brown.", "sl": "Je sivo rjave barve.", "grammar": ["to-be"] },
+        { "kind": "colour", "en": "It's grey and white.", "sl": "Je sive in bele barve.", "grammar": ["to-be"] },
         { "kind": "trait", "en": "It has big curly horns.", "sl": "Ima velike zavite roge.", "grammar": ["to-have"] },
         { "kind": "trait", "en": "It's very strong.", "sl": "Je zelo močan.", "grammar": ["to-be"] },
         { "kind": "does", "en": "It fights with its horns.", "sl": "Bori se z rogovi.", "grammar": ["present-simple"] }
