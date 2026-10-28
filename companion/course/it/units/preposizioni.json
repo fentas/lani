@@ -1,0 +1,352 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "preposizioni",
+  "language": "it",
+  "level": "A1",
+  "emoji": "🧭",
+  "title": { "it": "A, in, di, da: nel bosco, al mare", "de": "A, in, di, da: im Wald, am Meer", "sl": "A, in, di, da: v gozdu, na morju", "en": "A, in, di, da: in the wood, at the sea" },
+  "goal": {
+    "de": "Du sagst, wo etwas ist, und verschmilzt die kleinen Wörter mit dem Artikel: a Gorizia, in cucina, nel bosco, al mare, dalla nonna, sul tavolo.",
+    "sl": "Poveš, kje je nekaj, in predlog zliješ s členom: a Gorizia, in cucina, nel bosco, al mare, dalla nonna, sul tavolo.",
+    "en": "You can say where something is, melting the little words into the article: a Gorizia, in cucina, nel bosco, al mare, dalla nonna, sul tavolo."
+  },
+  "grammar": ["dove-preposizioni", "preposizioni-articolate"],
+  "words": ["a", "in", "di", "da", "su", "con", "sotto", "sopra", "dietro", "vicino a", "il bosco", "il mare", "il campo", "la tenda", "lo stagno", "la cucina", "la fucina", "il mulino", "il ruscello", "la fontana", "l'osteria", "il tavolo", "la barca", "il palo", "il pontile", "lo zaino", "l'acqua", "l'orto", "il fabbro", "l'apicoltore", "Gorizia", "il Friuli", "l'Italia"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "preposizione", "de": "Präposition", "sl": "predlog", "en": "preposition" },
+        { "it": "+ il / lo / l' (maschile)", "de": "+ il / lo / l' (männlich)", "sl": "+ il / lo / l' (moški)", "en": "+ il / lo / l' (masculine)" },
+        { "it": "+ la / l' (femminile)", "de": "+ la / l' (weiblich)", "sl": "+ la / l' (ženski)", "en": "+ la / l' (feminine)" },
+        { "it": "+ i / gli / le (plurale)", "de": "+ i / gli / le (Plural)", "sl": "+ i / gli / le (množina)", "en": "+ i / gli / le (plural)" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Wo bist du? Bei einer Stadt sagst du **a**: **a Gorizia**. Auch **a casa** (zu Hause) und **a scuola** (in der Schule). Bei einem Land, einer Gegend oder einem Zimmer sagst du **in**: **in Italia**, **in Friuli**, **in cucina** (in der Küche). Hier gibt es keinen Artikel.",
+          "sl": "Kje si? Pri mestu rečeš **a**: **a Gorizia** (v Gorici). Tudi **a casa** (doma) in **a scuola** (v šoli). Pri državi, pokrajini ali prostoru rečeš **in**: **in Italia**, **in Friuli**, **in cucina** (v kuhinji). Tu ni člena.",
+          "en": "Where are you? With a town you say **a**: **a Gorizia** (in Gorizia). Also **a casa** (at home) and **a scuola** (at school). With a country, a region or a room you say **in**: **in Italia**, **in Friuli**, **in cucina** (in the kitchen). No article here."
+        },
+        "examples": [
+          { "it": "Abito a Gorizia, in Friuli.", "de": "Ich wohne in Gorizia, im Friaul.", "sl": "Živim v Gorici, v Furlaniji.", "en": "I live in Gorizia, in Friuli." },
+          { "it": "Nonna Rosa è in cucina.", "de": "Nonna Rosa ist in der Küche.", "sl": "Babica Rosa je v kuhinji.", "en": "Nonna Rosa is in the kitchen." }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "dove-preposizioni",
+          "prompt": "Zia Nives abita ___ Gorizia.",
+          "options": ["a", "in"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**Gorizia** ist eine Stadt → **a**\n- a Gorizia · Stadt\n- in Friuli · Gegend\n- in cucina · Zimmer",
+            "sl": "**Gorizia** je mesto → **a**\n- a Gorizia · mesto\n- in Friuli · pokrajina\n- in cucina · prostor",
+            "en": "**Gorizia** is a town → **a**\n- a Gorizia · a town\n- in Friuli · a region\n- in cucina · a room"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Mit dem Artikel verschmilzt **in** zu einem Wort: **in + il = nel**, **in + la = nella**: **nel bosco** (im Wald), **nella tenda** (im Zelt). Vor **lo** und **l'**: **nello stagno**, **nell'acqua**. Bei mehreren: **nei boschi**, **nelle tende**.",
+          "sl": "S členom se **in** zlije v eno besedo: **in + il = nel**, **in + la = nella**: **nel bosco** (v gozdu), **nella tenda** (v šotoru). Pred **lo** in **l'**: **nello stagno**, **nell'acqua**. Pri več: **nei boschi**, **nelle tende**.",
+          "en": "With the article, **in** melts into one word: **in + il = nel**, **in + la = nella**: **nel bosco** (in the wood), **nella tenda** (in the tent). Before **lo** and **l'**: **nello stagno**, **nell'acqua**. For more: **nei boschi**, **nelle tende**."
+        },
+        "examples": [
+          { "it": "Lo scoiattolo vive nel bosco.", "de": "Das Eichhörnchen lebt im Wald.", "sl": "Veverica živi v gozdu.", "en": "The squirrel lives in the wood." },
+          { "it": "Le anatre nuotano nello stagno.", "de": "Die Enten schwimmen im Teich.", "sl": "Race plavajo v ribniku.", "en": "The ducks are swimming in the pond." }
+        ],
+        "rows": [["in", "nel, nello, nell'", "nella, nell'", "nei, negli, nelle"]],
+        "ask": {
+          "type": "cloze",
+          "grammar": "preposizioni-articolate",
+          "text": "Davide dorme ___ tenda. (in)",
+          "accept": ["nella"],
+          "hint": "la tenda → in + la",
+          "explain": {
+            "de": "**in + la** → nella: nella tenda\n- nel bosco · in + il\n- nella tenda · in + la",
+            "sl": "**in + la** → nella: nella tenda\n- nel bosco · in + il\n- nella tenda · in + la",
+            "en": "**in + la** → nella: nella tenda\n- nel bosco · in + il\n- nella tenda · in + la"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Auch **a** verschmilzt: **a + il = al**, **a + la = alla**: **al mare** (am Meer), **alla fontana** (am Brunnen). Vor **lo** und **l'**: **allo stagno**, **all'osteria**. Bei mehreren: **ai pali**, **alle barche**. So geht auch **vicino a** (nahe bei): **vicino allo stagno**.",
+          "sl": "Tudi **a** se zlije: **a + il = al**, **a + la = alla**: **al mare** (na morju), **alla fontana** (pri vodnjaku). Pred **lo** in **l'**: **allo stagno**, **all'osteria**. Pri več: **ai pali**, **alle barche**. Tako tudi **vicino a** (blizu): **vicino allo stagno**.",
+          "en": "**a** melts too: **a + il = al**, **a + la = alla**: **al mare** (at the sea), **alla fontana** (at the fountain). Before **lo** and **l'**: **allo stagno**, **all'osteria**. For more: **ai pali**, **alle barche**. **vicino a** (near) goes the same way: **vicino allo stagno**."
+        },
+        "examples": [
+          { "it": "Oggi siamo al mare!", "de": "Heute sind wir am Meer!", "sl": "Danes smo na morju!", "en": "Today we're at the seaside!" },
+          { "it": "La tenda è vicino allo stagno.", "de": "Das Zelt steht nahe am Teich.", "sl": "Šotor je blizu ribnika.", "en": "The tent is near the pond." }
+        ],
+        "rows": [["a", "al, allo, all'", "alla, all'", "ai, agli, alle"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "preposizioni-articolate",
+          "prompt": "Giulia aspetta Lorenzo ___ fontana.",
+          "options": ["al", "alla", "allo"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**la fontana** → a + la: **alla**\n- al mare · a + il\n- alla fontana · a + la\n- allo stagno · a + lo",
+            "sl": "**la fontana** → a + la: **alla**\n- al mare · a + il\n- alla fontana · a + la\n- allo stagno · a + lo",
+            "en": "**la fontana** → a + la: **alla**\n- al mare · a + il\n- alla fontana · a + la\n- allo stagno · a + lo"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**da** heißt bei jemandem: **da Nonna Rosa** (bei Nonna Rosa). Mit dem Artikel verschmilzt es: **dal fabbro** (beim Schmied), **dalla nonna** (bei der Oma). Ein Name hat keinen Artikel, also verschmilzt nichts: **da Giulia**.",
+          "sl": "**da** pomeni pri nekom: **da Nonna Rosa** (pri babici Rosi). S členom se zlije: **dal fabbro** (pri kovaču), **dalla nonna** (pri babici). Ime nima člena, zato se nič ne zlije: **da Giulia**.",
+          "en": "**da** means at someone's: **da Nonna Rosa** (at Nonna Rosa's). With the article it melts: **dal fabbro** (at the smith's), **dalla nonna** (at Grandma's). A name has no article, so nothing melts: **da Giulia**."
+        },
+        "examples": [
+          { "it": "Lorenzo è dal fabbro.", "de": "Lorenzo ist beim Schmied.", "sl": "Lorenzo je pri kovaču.", "en": "Lorenzo is at the smith's." },
+          { "it": "Stasera mangiamo da Nonna Rosa.", "de": "Heute Abend essen wir bei Nonna Rosa.", "sl": "Nocoj jemo pri babici Rosi.", "en": "Tonight we're eating at Nonna Rosa's." }
+        ],
+        "rows": [["da", "dal, dallo, dall'", "dalla, dall'", "dai, dagli, dalle"]],
+        "ask": {
+          "type": "cloze",
+          "grammar": "preposizioni-articolate",
+          "text": "Oggi Tommaso è ___ nonna. (da)",
+          "accept": ["dalla"],
+          "hint": "la nonna → da + la",
+          "explain": {
+            "de": "**da + la** → dalla: dalla nonna\n- dal fabbro · da + il\n- dalla nonna · da + la\n- da Nonna Rosa · ein Name: kein Artikel",
+            "sl": "**da + la** → dalla: dalla nonna\n- dal fabbro · da + il\n- dalla nonna · da + la\n- da Nonna Rosa · ime: brez člena",
+            "en": "**da + la** → dalla: dalla nonna\n- dal fabbro · da + il\n- dalla nonna · da + la\n- da Nonna Rosa · a name: no article"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**di** sagt, wem etwas gehört: **il cane di Giulia** (Giulias Hund). Mit dem Artikel: **di + il = del**, **di + la = della**: **il cane del nonno**, **la casa della nonna**. Vor **l'**: **il miele dell'apicoltore**.",
+          "sl": "**di** pove, čigavo je nekaj: **il cane di Giulia** (Giulijin pes). S členom: **di + il = del**, **di + la = della**: **il cane del nonno** (dedkov pes), **la casa della nonna** (babičina hiša). Pred **l'**: **il miele dell'apicoltore**.",
+          "en": "**di** says whose something is: **il cane di Giulia** (Giulia's dog). With the article: **di + il = del**, **di + la = della**: **il cane del nonno** (Grandpa's dog), **la casa della nonna** (Grandma's house). Before **l'**: **il miele dell'apicoltore**."
+        },
+        "examples": [
+          { "it": "Moro è il cane del nonno.", "de": "Moro ist der Hund vom Opa.", "sl": "Moro je dedkov pes.", "en": "Moro is Grandpa's dog." },
+          { "it": "Il miele dell'apicoltore è dolce.", "de": "Der Honig des Imkers ist süß.", "sl": "Čebelarjev med je sladek.", "en": "The beekeeper's honey is sweet." }
+        ],
+        "rows": [["di", "del, dello, dell'", "della, dell'", "dei, degli, delle"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "preposizioni-articolate",
+          "prompt": "È la casa ___ nonna.",
+          "options": ["del", "della", "dello"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**la nonna** → di + la: **della**\n- il cane del nonno · di + il\n- la casa della nonna · di + la",
+            "sl": "**la nonna** → di + la: **della**\n- il cane del nonno · di + il\n- la casa della nonna · di + la",
+            "en": "**la nonna** → di + la: **della**\n- il cane del nonno · di + il\n- la casa della nonna · di + la"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Auch **su** (auf) verschmilzt: **sul tavolo**, **sulla barca**, **sui pali**. Diese Wörter verschmelzen nie, sie nehmen nur den Artikel: **sotto** (unter), **sopra** (über), **dietro** (hinter): **Il cane è sotto il tavolo.** Und **con** (mit) bleibt allein: **con il cane**.",
+          "sl": "Tudi **su** (na) se zlije: **sul tavolo**, **sulla barca**, **sui pali**. Te besede se nikoli ne zlijejo, imajo samo člen: **sotto** (pod), **sopra** (nad), **dietro** (za): **Il cane è sotto il tavolo.** In **con** (z) ostane sam: **con il cane**.",
+          "en": "**su** (on) melts too: **sul tavolo**, **sulla barca**, **sui pali**. These words never melt, they just take the article: **sotto** (under), **sopra** (above), **dietro** (behind): **Il cane è sotto il tavolo.** And **con** (with) stays on its own: **con il cane**."
+        },
+        "examples": [
+          { "it": "I gabbiani sono sui pali.", "de": "Die Möwen sitzen auf den Pfählen.", "sl": "Galebi so na kolih.", "en": "The seagulls are on the posts." },
+          { "it": "Il cane dorme sotto il tavolo.", "de": "Der Hund schläft unter dem Tisch.", "sl": "Pes spi pod mizo.", "en": "The dog is sleeping under the table." }
+        ],
+        "rows": [["su", "sul, sullo, sull'", "sulla, sull'", "sui, sugli, sulle"]],
+        "ask": {
+          "type": "cloze",
+          "grammar": "preposizioni-articolate",
+          "text": "Il gabbiano è ___ barca. (su)",
+          "accept": ["sulla"],
+          "hint": "la barca → su + la",
+          "explain": {
+            "de": "**su + la** → sulla: sulla barca\n- sul tavolo · su + il\n- sulla barca · su + la\n- sotto il tavolo · sotto verschmilzt nicht",
+            "sl": "**su + la** → sulla: sulla barca\n- sul tavolo · su + il\n- sulla barca · su + la\n- sotto il tavolo · sotto se ne zlije",
+            "en": "**su + la** → sulla: sulla barca\n- sul tavolo · su + il\n- sulla barca · su + la\n- sotto il tavolo · sotto doesn't melt"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "preposizioni-1",
+      "title": { "it": "Nel, nella, nello", "de": "Nel, nella, nello", "sl": "Nel, nella, nello", "en": "Nel, nella, nello" },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "preposizioni-articolate",
+          "instruction": { "de": "Nel, nella, nello o nell'? · Sortiere", "sl": "Nel, nella, nello o nell'? · Razvrsti", "en": "Nel, nella, nello o nell'? · Sort" },
+          "columns": [
+            { "label": "nel …", "words": ["bosco", "campo"]},
+            { "label": "nella …", "words": ["tenda", "cucina"]},
+            { "label": "nello …", "words": ["stagno", "zaino"]},
+            { "label": "nell' …", "words": ["acqua", "orto"]}
+          ],
+          "explain": {
+            "de": "**Der Artikel** entscheidet: in + il, la, lo, l'\n- il bosco → nel bosco\n- la tenda → nella tenda\n- lo stagno → nello stagno · l'acqua → nell'acqua",
+            "sl": "**Člen** odloči: in + il, la, lo, l'\n- il bosco → nel bosco\n- la tenda → nella tenda\n- lo stagno → nello stagno · l'acqua → nell'acqua",
+            "en": "**The article** decides: in + il, la, lo, l'\n- il bosco → nel bosco\n- la tenda → nella tenda\n- lo stagno → nello stagno · l'acqua → nell'acqua"
+          }
+        },
+        {
+          "type": "table",
+          "grammar": "preposizioni-articolate",
+          "prompt": "in, a, su, da, di + il, la, i, le",
+          "columns": ["il", "la", "i", "le"],
+          "rows": [
+            { "label": "in", "cells": ["nel", { "accept": ["nella"], "hint": "ne + lla" }, "nei", { "accept": ["nelle"]}]},
+            { "label": "a", "cells": [{ "accept": ["al"]}, "alla", { "accept": ["ai"]}, "alle"]},
+            { "label": "su", "cells": [{ "accept": ["sul"]}, "sulla", "sui", { "accept": ["sulle"]}]},
+            { "label": "da", "cells": ["dal", { "accept": ["dalla"]}, "dai", "dalle"]},
+            { "label": "di", "cells": [{ "accept": ["del"], "hint": "di → de-" }, "della", "dei", "delle"]}
+          ],
+          "explain": {
+            "de": "**il → -l · la → -lla · i → -i · le → -lle**\n- in: nel, nella, nei, nelle\n- a: al, alla, ai, alle",
+            "sl": "**il → -l · la → -lla · i → -i · le → -lle**\n- in: nel, nella, nei, nelle\n- a: al, alla, ai, alle",
+            "en": "**il → -l · la → -lla · i → -i · le → -lle**\n- in: nel, nella, nei, nelle\n- a: al, alla, ai, alle"
+          },
+          "instruction": { "de": "Completa · Ergänze die Tabelle", "sl": "Completa · Dopolni tabelo", "en": "Completa · Fill in the table" }
+        }
+      ]
+    },
+    {
+      "id": "preposizioni-2",
+      "title": { "it": "Dove sono tutti?", "de": "Wo sind alle?", "sl": "Kje so vsi?", "en": "Where is everyone?" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "preposizioni-articolate",
+          "title": "Dove sono tutti?",
+          "text": "Oggi tutti lavorano. Nonna Rosa è ___ cucina. Franco è ___ mulino. Bruno lavora ___ fucina. Davide porta le pecore ___ ruscello. Le anatre nuotano ___ stagno. E il gatto? Dorme ___ tavolo!",
+          "gaps": [
+            {
+              "accept": ["in"],
+              "hint": { "de": "ein Zimmer: kein Artikel", "sl": "prostor: brez člena", "en": "a room: no article" },
+              "grammar": "dove-preposizioni",
+              "explain": { "de": "**in cucina**: ein Zimmer, kein Artikel.", "sl": "**in cucina**: prostor, brez člena.", "en": "**in cucina**: a room, no article." }
+            },
+            { "accept": ["al"], "hint": "il mulino → a + il" },
+            { "accept": ["nella", "in"], "hint": "la fucina → in + la" },
+            { "accept": ["al"], "hint": "il ruscello → a + il" },
+            { "accept": ["nello"], "hint": "lo stagno → in + lo" },
+            { "accept": ["sul"], "hint": "il tavolo → su + il" }
+          ],
+          "bank": true,
+          "distractors": ["nel", "alla"],
+          "translation": {
+            "de": "Heute arbeiten alle. Nonna Rosa ist in der Küche. Franco ist bei der Mühle. Bruno arbeitet in der Schmiede. Davide bringt die Schafe zum Bach. Die Enten schwimmen im Teich. Und die Katze? Sie schläft auf dem Tisch!",
+            "sl": "Danes vsi delajo. Babica Rosa je v kuhinji. Franco je pri mlinu. Bruno dela v kovačnici. Davide žene ovce k potoku. Race plavajo v ribniku. Pa mačka? Spi na mizi!",
+            "en": "Today everyone is working. Nonna Rosa is in the kitchen. Franco is at the mill. Bruno is working in the smithy. Davide is taking the sheep to the stream. The ducks are swimming in the pond. And the cat? It's sleeping on the table!"
+          },
+          "instruction": { "de": "Completa · Ergänze das kleine Wort", "sl": "Completa · Dopolni predlog", "en": "Completa · Fill in the little word" }
+        },
+        {
+          "type": "choice",
+          "grammar": "dove-preposizioni",
+          "prompt": "Abito ___ Italia.",
+          "options": ["a", "in", "nel"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**Italia** ist ein Land → **in**, ohne Artikel\n- a Gorizia · Stadt\n- in Italia · Land",
+            "sl": "**Italia** je država → **in**, brez člena\n- a Gorizia · mesto\n- in Italia · država",
+            "en": "**Italia** is a country → **in**, no article\n- a Gorizia · a town\n- in Italia · a country"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "preposizioni-articolate",
+          "prompt": "Il miele ___ apicoltore è dolce.",
+          "options": ["del", "dell'", "della"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**l'apicoltore** → di + l': **dell'**\n- del nonno · di + il\n- dell'apicoltore · di + l'",
+            "sl": "**l'apicoltore** → di + l': **dell'**\n- del nonno · di + il\n- dell'apicoltore · di + l'",
+            "en": "**l'apicoltore** → di + l': **dell'**\n- del nonno · di + il\n- dell'apicoltore · di + l'"
+          }
+        }
+      ]
+    },
+    {
+      "id": "preposizioni-3",
+      "title": { "it": "Metti insieme", "de": "Setz zusammen", "sl": "Sestavi", "en": "Put them together" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "preposizioni-articolate",
+          "instruction": { "de": "Metti insieme · Mach ein Wort daraus", "sl": "Metti insieme · Zlij v eno besedo", "en": "Metti insieme · Make them one word" },
+          "items": [
+            { "from": "in + il bosco", "accept": ["nel bosco"]},
+            { "from": "a + la fontana", "accept": ["alla fontana"]},
+            { "from": "su + la barca", "accept": ["sulla barca"]},
+            { "from": "da + il fabbro", "accept": ["dal fabbro"]},
+            { "from": "di + la nonna", "accept": ["della nonna"]},
+            { "from": "in + lo stagno", "accept": ["nello stagno"]},
+            { "from": "su + i pali", "accept": ["sui pali"]}
+          ],
+          "explain": {
+            "de": "**Präposition + Artikel** → ein Wort\n- in + il → nel · a + la → alla\n- su + i → sui · da + il → dal",
+            "sl": "**predlog + člen** → ena beseda\n- in + il → nel · a + la → alla\n- su + i → sui · da + il → dal",
+            "en": "**preposition + article** → one word\n- in + il → nel · a + la → alla\n- su + i → sui · da + il → dal"
+          },
+          "cue": "→"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table",
+        "grammar": "preposizioni-articolate",
+        "prompt": "in, a, su + il, la",
+        "columns": ["il", "la"],
+        "rows": [
+          { "label": "in", "cells": [{ "accept": ["nel"]}, { "accept": ["nella"]}]},
+          { "label": "a", "cells": [{ "accept": ["al"]}, "alla"]},
+          { "label": "su", "cells": ["sul", { "accept": ["sulla"]}]}
+        ],
+        "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" }
+      },
+      {
+        "type": "gaptext",
+        "grammar": "preposizioni-articolate",
+        "text": "Lorenzo è ___ campo con il nonno. Giulia gioca ___ piazza. Il gatto dorme ___ zaino di Tommaso. Le barche sono vicino ___ pontile.",
+        "gaps": [{ "accept": ["nel"]}, { "accept": ["in"], "grammar": "dove-preposizioni" }, { "accept": ["nello"]}, { "accept": ["al"]}],
+        "translation": {
+          "de": "Lorenzo ist mit seinem Opa auf dem Feld. Giulia spielt auf dem Platz. Die Katze schläft in Tommasos Rucksack. Die Boote liegen nahe am Steg.",
+          "sl": "Lorenzo je z dedkom na njivi. Giulia se igra na trgu. Mačka spi v Tommasovem nahrbtniku. Čolni so blizu pomola.",
+          "en": "Lorenzo is in the field with his grandpa. Giulia is playing in the square. The cat is sleeping in Tommaso's rucksack. The boats are near the jetty."
+        },
+        "instruction": { "de": "Completa · Ergänze das kleine Wort", "sl": "Completa · Dopolni predlog", "en": "Completa · Fill in the little word" }
+      },
+      {
+        "type": "transform",
+        "grammar": "preposizioni-articolate",
+        "instruction": { "de": "Metti insieme · Mach ein Wort daraus", "sl": "Metti insieme · Zlij v eno besedo", "en": "Metti insieme · Make them one word" },
+        "items": [
+          { "from": "a + il mare", "accept": ["al mare"]},
+          { "from": "da + la nonna", "accept": ["dalla nonna"]},
+          { "from": "di + il nonno", "accept": ["del nonno"]}
+        ],
+        "cue": "→"
+      },
+      {
+        "type": "choice",
+        "grammar": "preposizioni-articolate",
+        "prompt": "Il libro è ___ tavolo.",
+        "options": ["sul", "sulla", "sui"],
+        "answer": 0,
+        "say_options": true,
+        "explain": { "de": "**il tavolo** → su + il: **sul**", "sl": "**il tavolo** → su + il: **sul**", "en": "**il tavolo** → su + il: **sul**" }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (it, de, sl). Native check: Dove sono tutti? (in fucina / nella fucina both kept); Oggi siamo al mare; da for a child."
+}
