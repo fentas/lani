@@ -85,6 +85,11 @@ A frame with the still picture kept costs 1 to 3.5 ms at every age and detail: a
 panning closer up, a change of the light's colours at dusk) the village's frame costs about what the camp's did. The
 light pass and the outlines (over the whole canvas each frame) are most of what is left.
 
+On the emulator (QA's `fire-ages`, the debug build without R8, a phone's 1080 × 2400 display, the scene's own log, tag
+`SceneView`, every 24 frames): 8.5 to 12 ms a frame at detail 1 on its 270 × 222 canvas at every age (the kres's evening
+the dearest, its big flames and their light), 28 to 36 ms closer up (a 364 × 300 window at detail 2, while the camera
+settles).
+
 ## Tests
 
 - `FireAgesTest`: renders for review; each age differs from the one before; every thing to tap at every age, culture,
@@ -100,7 +105,11 @@ light pass and the outlines (over the whole canvas each frame) are most of what 
 ## How to see it
 
 - On the phone: open the fire's scene (the fire's card, "Vstopi · Go in") at any age; it shows the village as built.
-- QA: `companion/bin/qa --no-town --steps fire-ages` (the hooks `hearths:<age>:pond`, `hour:<h>`, `hearths:feast`, `zoom`).
+- QA: `companion/bin/qa --no-town --steps fire-ages` (the hooks `hearths:<age>:pond`, `hour:<h>`, `hearths:feast`, `zoom`):
+  each age's scene on its evening (in late October already night at half past eight), the village by day, the town closer
+  up, the market town's kres; one run of about seven minutes on the shared emulator (2026-10-28: all passed, no crash). In
+  that run the synthetic learner's few residents were at home, so its evenings show the place without its crowd; the crowd
+  round the fire is shown by `FireAgesTest`'s evening renders and checked by `FireCrowdTest`.
 
 ## Tap counts
 
