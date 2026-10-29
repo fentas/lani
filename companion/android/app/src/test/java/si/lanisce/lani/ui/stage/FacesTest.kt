@@ -193,6 +193,9 @@ class FacesTest {
         assertEquals(4_000 + Expression.HOLD_MS + Expression.SOFT_MS, Expression.next(line, 0, 4_000 + Expression.HOLD_MS, talking = false))
         assertNull(Expression.next(line, 0, 9_000, talking = false))
         assertEquals(6_000L, Expression.next(null, 6_000, 5_000, talking = false))
+        // a line no voice says holds from when it could be read; one said, from when it was heard
+        assertEquals(1_000L + 35 * Expression.READ_MS_PER_CHAR, Expression.over("Jaz? Kaj pa delam ves večer? Kuham!", 1_000, 1_000))
+        assertEquals(9_000L, Expression.over("Ja.", 1_000, 9_000))
     }
 
     @Test fun `the line, the reaction and listening, in their order`() {

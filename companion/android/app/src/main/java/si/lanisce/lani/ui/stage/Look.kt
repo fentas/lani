@@ -38,6 +38,15 @@ object Expression {
     /** Then its softer face, this long, on the way back to rest. */
     const val SOFT_MS = 900L
 
+    /** A line is read in about this long a character (typed in at 28 ms, then read): its face holds from then at least. */
+    const val READ_MS_PER_CHAR = 50L
+
+    /**
+     * When a line of [text] shown at [shownAt] and last heard at [quietAt] is over for its face: when it was heard to its
+     * end, or once it could be read (typed in and read: a line no voice says, the phone silent, holds its face as long).
+     */
+    fun over(text: String, shownAt: Long, quietAt: Long): Long = maxOf(quietAt, shownAt + text.length * READ_MS_PER_CHAR)
+
     /** The face [line] shows at [now] ([talking]: it is being said), or null once it is back at rest. */
     fun held(line: LineFace?, now: Long, talking: Boolean): Face? {
         val f = line?.face?.takeIf { it != Face.NEUTRAL } ?: return null

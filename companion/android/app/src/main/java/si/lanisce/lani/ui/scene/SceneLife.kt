@@ -93,7 +93,7 @@ fun rememberPartnerLook(run: DialogRun?, talking: Boolean, listening: Boolean, f
         if (!talking) quietAt = SystemClock.uptimeMillis()
         now = SystemClock.uptimeMillis()
     }
-    val line = said.getOrNull(at)?.let { LineFace(DialogMood.lineFace(said, at), shownAt, quietAt) }
+    val line = said.getOrNull(at)?.let { LineFace(DialogMood.lineFace(said, at), shownAt, Expression.over(it.sl, shownAt, quietAt)) }
     // the next change by itself: a mood's time up, a line's hold over
     LaunchedEffect(mood, line, talking, now) {
         val next = Expression.next(line, mood.until, now, talking) ?: return@LaunchedEffect

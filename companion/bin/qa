@@ -3363,6 +3363,18 @@ def portrait_says(name: str):
     return [d for d, _ in portraits_of(name)]
 
 
+def faces_shown(name: str, timeout=8.0, want=None):
+    """The faces [name]'s portrait showed since the log was cleared, in order (a debug or qa build logs each, tag Faces:
+    "Babica Micka THINK cross"), once one besides the resting face (or [want]) is there, or what there is at [timeout]. Read
+    from the log, not the screen: a dump on a busy emulator fails while the portraits move, and leaves the last one's file."""
+    end = time.time() + timeout * slow()
+    while True:
+        got = [l.split(f" {name} ", 1)[1].split()[-1] for l in adb("logcat", "-d", "-s", "Faces:I", check=False).splitlines() if f" {name} " in l]
+        if (want in got if want else any(f != "neutral" for f in got)) or time.time() >= end:
+            return got
+        time.sleep(0.5)
+
+
 def faces_run():
     """[faces], its hooks asked."""
     sid, hid, did = PLAYER_DIALOG
@@ -3378,6 +3390,10 @@ def faces_run():
     turn = next(l for l in dialog["lines"] if l.get("choices"))
     right = {c["sl"] for c in turn["choices"] if c.get("ok")}
     wrong = next(c for c in turn["choices"] if not c.get("ok") and c.get("reply"))
+    try:  # the learner's voice chosen (the default): "Moj glas" isn't offered over the dialog at their first line
+        dev_bridge("/learner/voice", {"voice": "default"})
+    except (OSError, ValueError):
+        pass
     qa_hook(f"happening:{sid}/{hid}/{did}", f"scene:{sid}@{sid}/{hid}")
     assert wait_for("‹ Vas · Village", 10), "the fire's scene"
     assert wait_for("Zapri · Close", 8), f"the dialog {did} (QA's hook)"
@@ -3394,18 +3410,24 @@ def faces_run():
     ns = list(nodes())
     c = next((c for t, c in ns if t == wrong["sl"] or t.startswith(wrong["sl"] + ",") or t.startswith(wrong["sl"] + " ")), None)
     assert c is not None, f"the wrong choice «{wrong['sl']}» on screen"
+    adb("logcat", "-c")
     tap_at(c)
-    time.sleep(1.6)  # the learner's line said, her reaction typed in, her face
-    said = portrait_says(name)
-    print(f"    a wrong pick («{wrong['sl']}» → «{wrong['reply']['sl']}», face {wrong['reply'].get('face', '-')}): {said}")
+    time.sleep(0.6)  # the learner's line said, her reaction typed in, her face
+    if find(MY_VOICE_OFFER) is not None:  # "Moj glas" offered at the learner's first line: the default kept
+        tap("V redu · OK", 3)
+    reaction = wrong["reply"].get("face", "confused")
+    got = faces_shown(name, want=reaction)
+    print(f"    a wrong pick («{wrong['sl']}» → «{wrong['reply']['sl']}», face {reaction}): her faces {got}")
     shot("faces-dialog-wrong")
-    assert any(", " in t for t in said), f"her face after a wrong pick she reacts to (her reaction's, else confused): {said}"
+    assert reaction in got, f"her face after a wrong pick she reacts to (her reaction's, else confused): {got}"
+    adb("logcat", "-c")
     assert answer_right(right), "the right choice on screen"
-    time.sleep(1.6)
-    said = portrait_says(name)
-    print(f"    the right pick: {said}")
+    replied = next((c.get("reply", {}).get("face") for c in turn["choices"] if c.get("ok")), None) or "happy"
+    got = faces_shown(name, want=replied)
+    print(f"    the right pick (her reply's face {replied}): her faces {got}")
+    time.sleep(0.6)
     shot("faces-dialog-right")
-    assert any(", " in t for t in said), f"her face after a right pick (her reply's, else a smile): {said}"
+    assert replied in got, f"her face after a right pick (her reply's, else a smile): {got}"
     tap("Zapri · Close", 3)
     time.sleep(1)
     if find("‹ Vas · Village") is not None:
@@ -3442,14 +3464,16 @@ def faces_run():
             assert busts and all(b[2] - b[0] < 200 for b in busts), f"the stage folded to the bar's avatar: {busts}"
             shot("faces-talk-keyboard")
         adb("shell", "input", "text", line.replace(" ", "%s"))
+        adb("logcat", "-c")
         assert tap("Pošlji", 3), "Pošlji · Send"
         adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the keyboard down: the stage back
-        time.sleep(5.0)  # the dev tutor answers after 2.5 s, its line said
-        said = portrait_says(character)
-        print(f"    reply {k + 1}: {said}")
+        # the dev tutor's faces (test/dev-bridge.ts): happy, then curious; thinking while it is awaited
+        want = ["happy", "curious"][k]
+        got = faces_shown(character, timeout=12, want=want)
+        print(f"    reply {k + 1}: {character}'s faces {got}")
+        time.sleep(1.0)
         shot(f"faces-talk-reply-{k + 1}")
-        # the dev tutor's faces: happy, then curious (test/dev-bridge.ts), on the stage's bust and the bar's avatar alike
-        assert any(", " in t for t in said), f"{character}'s face after reply {k + 1}: {said}"
+        assert want in got and "thinking" in got, f"{character} thinking, then {want} after reply {k + 1}: {got}"
     adb("shell", "input", "keyevent", "KEYCODE_BACK")  # out of the talk: "Pozneje · Later" keeps it for later
     time.sleep(1)
     if find("Pozneje") is not None:

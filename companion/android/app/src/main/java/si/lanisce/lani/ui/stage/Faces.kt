@@ -64,6 +64,7 @@ fun FaceAvatar(art: String, seed: Int, face: Face?, size: Dp, modifier: Modifier
 @Composable
 fun SpeakerPortrait(art: String, seed: Int, name: String, look: Look, size: Dp, modifier: Modifier = Modifier, animate: Boolean = true) {
     val reduced = rememberReducedMotion()
+    QaFaceLog(name, look)
     val shape = RoundedCornerShape(size / 4)
     Box(
         modifier.size(size).clip(shape).background(MaterialTheme.colorScheme.tertiaryContainer)
@@ -75,4 +76,11 @@ fun SpeakerPortrait(art: String, seed: Int, name: String, look: Look, size: Dp, 
             animate = animate && !reduced, seed = seed, face = look.face, framing = Framing.HEAD,
         )
     }
+}
+
+/** A debug or qa build logs each face [name]'s portrait shows (tag Faces: "Babica Micka THINK cross"), for QA to read. */
+@Composable
+fun QaFaceLog(name: String, look: Look) {
+    if (!si.lanisce.lani.BuildConfig.QA) return
+    androidx.compose.runtime.LaunchedEffect(name, look.pose, look.face) { android.util.Log.i("Faces", "$name ${look.pose} ${look.face.key}") }
 }

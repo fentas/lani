@@ -136,7 +136,7 @@ internal fun rememberTalkLook(st: TalkState, talking: Boolean, listening: Boolea
         if (!talking) quietAt = SystemClock.uptimeMillis()
         now = SystemClock.uptimeMillis()
     }
-    val line = last?.let { LineFace(Talk.faceOf(st, it), shownAt, quietAt) }
+    val line = last?.let { LineFace(Talk.faceOf(st, it), shownAt, Expression.over(it.sl, shownAt, quietAt)) }
     LaunchedEffect(line, talking, now, st.waiting, st.sceneOver) {
         val next = Expression.next(line, 0L, now, talking) ?: return@LaunchedEffect
         delay((next - SystemClock.uptimeMillis()).coerceAtLeast(0L) + 1L)
@@ -154,6 +154,7 @@ internal fun rememberTalkLook(st: TalkState, talking: Boolean, listening: Boolea
 @Composable
 internal fun TalkStage(who: StagePerson, place: StagePlace, look: Look, visible: Boolean, onFold: () -> Unit) {
     val reduced = rememberReducedMotion()
+    if (visible) si.lanisce.lani.ui.stage.QaFaceLog(who.name, look)
     AnimatedVisibility(
         visible = visible,
         enter = expandVertically(tween(MOVE_MS)) + fadeIn(tween(MOVE_MS)),

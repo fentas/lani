@@ -245,7 +245,8 @@ wrong one they answer or a form typed that none of the choices has, a hand at th
 at the end without a mistake a cheer, proud (a child laughs), else a smile. A line without a face of its own is said with
 what the moment brings (`DialogMood.lineFace`): the first line smiling (a greeting), a reply to a right line smiling, a
 reaction confused, a line after one of theirs with that one's softer face (after a laugh a smile, after a smile at rest),
-any other at rest. A line's face shows while it is said and holds 3.5 s after it was heard, then eases back to the
+any other at rest. A line's face shows while it is said and holds 3.5 s after it was heard (a line no voice says, after it
+could be read: 50 ms a character), then eases back to the
 resting face through its softer one (a laugh through a smile, surprise through curiosity: `Expression`); a new face comes
 in with a blink, never popping, so a dialog whose lines change faces often doesn't flicker; blinking goes on, and a
 talking mouth moves inside the face's mouth shape. Asleep on the stage (a line's `act` with the pose `sleep`), the sleep
