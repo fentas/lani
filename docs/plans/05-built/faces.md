@@ -77,7 +77,8 @@ typed turn. This is Part A (the code, the art, the bridge); Part B, the faces in
 - `face` on `dialogLine`, `dialogReply` and `puzzled` (`companion/bridge/src/scenes.ts`), a `z.object` key an older
   bridge strips; `faceErrors` in every validator's cross-check (scenes, variants, stories, arrivals, project steps,
   keepers' talks, parties) reports an unknown name with where it is, `neutral`, and a face on a choice or a turn.
-- The role-play instructions ask for `face` in the reply's data ("leave it out for neutral"); the dev bridge's tutor
+- The role-play instructions (`scenariosInstructions`, in the course's language) ask for `face` in the reply's data
+  ("leave it out for neutral"); the dev bridge's tutor
   sends faces. The publish tools' docs and the studio skill say where faces go and how to direct them; the tutor guide is
   regenerated.
 
@@ -156,8 +157,8 @@ one on the bar's avatar brings it back.
 
 ## Tests
 
-- **App** (after the rebase onto main with Part B's 5,690 faces and "Moj glas"): the whole unit suite, 3,329 tests in 427
-  classes, 0 failures (2 skipped). New:
+- **App** (after the rebase onto main 0c2c2e20: Part B's 5,690 faces, "Moj glas", the talk's speech): the whole unit
+  suite, 3,344 tests in 427 classes, 0 failures (2 skipped). New:
   - `FacesGoldenTest` (pixel identity without a face, against the digests taken before).
   - `FacesRenderTest` (9): the contact sheets (build/faces: the bust by day and night, at 64 and 32 px, the head alone,
     the scene's sprite, the talking beats, the faces with the poses, a contact sheet, two close-ups); every face differs
@@ -172,11 +173,11 @@ one on the bar's avatar brings it back.
   - `L10nTablesTest` holds with the new keys. The scenes' frame-time test (`SceneDetailTest`) failed once at 25.3 ms
     against 25 ms while the machine's load was over 400; alone it passes.
 - **Bridge:** `bunx tsc --noEmit -p .` clean; the whole smoke (`LANI_SMOKE_PORT=8950`, 8953, 8956) after the rebase onto
-  main (with Part B and "Moj glas"): 2,917 checks, all passed, Part B's content validating against the faces' check (a face check of every kind: the enum
+  main 0c2c2e20: 2,935 checks, all passed, Part B's content validating against the faces' check (a face check of every kind: the enum
   against Face.kt, seven refusals of publish_scene, faces served by the scenes, variants, stories, arrivals, a visit, the
   keepers', steps' and parties' refusals with their paths, a role-play reply's face reaching the app's event).
   `tutor-export --check`: 82 files match.
-- **Python:** `python3 -m unittest discover -s tests` (251, OK) and `-s companion/tests` (98, OK, 10 skipped).
+- **Python:** `python3 -m unittest discover -s tests` (251, OK) and `-s companion/tests` (102, OK, 11 skipped).
 - **Emulator QA** (`companion/bin/qa --steps faces`, a synthetic learner, the dev bridge's fake ElevenLabs, on main with
   Part B's faces and "Moj glas"; 7.3 minutes with the emulator's boot; an earlier run `typed-turn` too). The faces are
   read from the log (a debug or qa build logs each face a speaker's portrait shows, tag Faces: `QaFaceLog`), since a
@@ -188,6 +189,19 @@ one on the bar's avatar brings it back.
   Teo's tablet's screen (2560 × 1600 at 320 dpi) landscape and upright (the bigger stage). The typed turn with the
   keyboard up: the panel risen, the child's portrait in its header keeping her in view. Screenshots: scratchpad
   `ux-faces/qa/`, the log of the faces and the voices `ux-faces/qa/faces-and-speaker.log`.
+
+- **With the talk's speech** (stt-talk, after the rebase onto main 0c2c2e20): QA's `talk-mic` step on a synthetic Teo
+  (Italian from German, Friuli, a child), the emulator's microphone fed the boy's "Ciao! Giochi a calcio?", the dev
+  bridge's recognizer a Whisper worker of this run's own on the CPU (127.0.0.1:8957, stopped after). The stage stays over
+  the conversation with the speech row under it: a sure take's "➤ Invio … · Wird gesendet …" with "✋ Tieni · Behalten",
+  the line gone by itself and Davide's answer, a room's noise ("🤔 Non ti ho sentito"), the draft waiting for ➤ with
+  "Send by itself" off. His faces, as logged: happy at the opener, then at rest; listening (a hand at the ear) for
+  every take while the 🎤 records (the room's gate and the noise take included), back at rest when it ends; thinking while
+  the answer is awaited; the answer's face. On Teo's tablet's screen the talk with its draft row: landscape (the stage
+  148 dp) and upright (212 dp). The sending row shows only while the field isn't focused, so with the keyboard up the
+  stage has folded and the draft row is under the list, as before. Screenshots: scratchpad `ux-faces/qa-talk/`, the
+  faces and the takes in `ux-faces/qa-talk/faces-talk.log`. Then `--steps faces` (Jan) again on the rebased build:
+  passed, as above.
 
 What QA found and was fixed: a line no voice says (the phone silent, a clip not made yet) held its face only 3.5 s from
 showing, too short to read it: its face now holds from when it could be read (50 ms a character, `Expression.over`); a
