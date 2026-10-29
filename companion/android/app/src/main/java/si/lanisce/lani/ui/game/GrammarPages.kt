@@ -175,6 +175,13 @@ internal fun LazyListScope.rulePage(view: RuleView, vm: AppViewModel, onSee: (St
             PageButton("💬 ${bi("grammar.ask")}", Modifier.weight(1f)) { vm.grammar.ask(p.id) }
         }
     }
+    // a page about a case or what decides one: the case trainer, a session on it (companion/README.md "Case trainer")
+    if (p.id in si.lanisce.lani.data.CaseLook.PAGES && p.language == si.lanisce.lani.data.CaseTrainer.LANGUAGE && vm.cases.available && !vm.runBusy) {
+        item("rule:cases") {
+            val focus = vm.cases.bank?.let { b -> si.lanisce.lani.data.CaseTrainer.focusOfPage(p.id, b.rules.values.map { it.page }) }
+            PageButton("🧩 ${bi("cases.fromPage")}", Modifier.fillMaxWidth()) { if (vm.cases.open) vm.startCases(focus) else vm.openCases(focus) }
+        }
+    }
     // the page's overview on paper (companion/COURSE.md, "The cases overview"): skloni's six cases on three pages
     si.lanisce.lani.data.Prints.overview(p.language, p.id)?.let { job ->
         item("rule:print") { si.lanisce.lani.ui.school.PrintButton(vm, job, bi("school.printOverview")) }

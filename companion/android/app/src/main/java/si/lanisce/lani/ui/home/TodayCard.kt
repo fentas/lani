@@ -89,6 +89,15 @@ private fun look(a: HomeAction): ActionLook = when (a) {
         if (a.due > 0) "🔁 ${bi("numbers.dueAgain", "n" to a.due)}" else bi("numbers.homeRange", "range" to a.range, "right" to a.right, "of" to a.of),
         "▶  ${bi("numbers.practise")}",
     )
+    is HomeAction.Cases -> ActionLook(
+        "🧩", bi("cases.title"),
+        when {
+            a.assigned -> "🧑‍🏫 " + (a.note ?: bi("cases.assignedFocus", "focus" to (a.label ?: a.focus.orEmpty())))
+            a.due > 0 -> "🔁 ${bi("cases.dueAgain", "n" to a.due)}"
+            else -> "🎯 ${bi("cases.homeWeak", "case" to (a.label ?: a.focus.orEmpty()))}"
+        },
+        "▶  ${bi("cases.practise")}",
+    )
     is HomeAction.Lesson -> ActionLook(
         a.emoji, a.title,
         "🏫 ${bi("school.title")} · ${a.level}" + if (a.started) " · ${bi("school.started")}" else " · ★ ${bi("school.next")}",

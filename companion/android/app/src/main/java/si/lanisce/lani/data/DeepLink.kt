@@ -35,6 +35,8 @@ sealed interface DeepLink {
     data object Review : DeepLink
     /** "📖 Slovnica · Grammar": the book open at page [id] (the tutor's new page). */
     data class Grammar(val id: String) : DeepLink
+    /** "🧩 Skloni · Cases": the case trainer, its session focused on [focus] (the tutor's assignment) or mixed. */
+    data class Cases(val focus: String? = null) : DeepLink
     /** "⚙️ Nastavitve · Settings", at [section] (lani://tutor: back from a sign-in in the browser, at the tutor's settings). */
     data class Settings(val section: String? = null) : DeepLink
 
@@ -48,6 +50,7 @@ sealed interface DeepLink {
             Friends -> "friends"
             is Grammar -> "grammar:${link.id}"
             is Settings -> "settings" + (link.section?.let { ":$it" } ?: "")
+            is Cases -> "cases" + (link.focus?.let { ":$it" } ?: "")
             Chat -> "chat"
             Talk -> "talk"
             Village -> "village"
@@ -71,6 +74,7 @@ sealed interface DeepLink {
                 "friends" -> Friends
                 "grammar" -> arg?.let(::Grammar)
                 "settings" -> Settings(arg)
+                "cases" -> Cases(arg)
                 "chat" -> Chat
                 "talk" -> Talk
                 "village" -> Village
@@ -112,6 +116,8 @@ sealed interface DeepLink {
             is BridgeEvent.WordsAdded, is BridgeEvent.LexiconUpdated, is BridgeEvent.SentenceExplained, is BridgeEvent.WordRequestDone -> null
             // a card on the cheat sheet: it shows there, marked new, the next time it's opened
             is BridgeEvent.CardPublished -> null
+            // the tutor's assignment: the trainer, its session focused; new items wait for the next session
+            is BridgeEvent.CasesChanged -> if (ev.assigned && ev.focus != null) Cases(ev.focus) else null
             // a newcomer's introduction: their bubble waits in the village
             is BridgeEvent.ArrivalPublished -> Village
             // a guest's visit: the village applies it once open

@@ -138,6 +138,23 @@ fun UnitScreen(vm: AppViewModel, id: String) {
                 ) { vm.openNumbers() }
             }
         }
+        // a unit about the cases: the case trainer, a session on what the unit teaches (companion/README.md "Case trainer")
+        if (unit.id in si.lanisce.lani.data.CaseTrainer.CASE_UNITS && unit.language == si.lanisce.lani.data.CaseTrainer.LANGUAGE && vm.cases.available) {
+            item { SectionTitle("🧩 ${bi("cases.title")}") }
+            item {
+                val focus = si.lanisce.lani.data.CaseTrainer.focusOfUnit(unit.id)
+                val open = vm.cases.open
+                StepCard(
+                    "🧩", bi("cases.title"),
+                    when {
+                        !open -> "🔒 ${bi("cases.lockedShort")}"
+                        focus != null -> bi("cases.practiseFocus", "focus" to si.lanisce.lani.ui.cases.focusTitle(vm, focus))
+                        else -> bi("cases.practiseAll")
+                    },
+                    done = false,
+                ) { if (open) vm.startCases(focus) else vm.openCases(focus) }
+            }
+        }
         item { SectionTitle("📝 ${bi("school.worksheets")}") }
         for ((i, ws) in unit.worksheets.withIndex()) item("ws-${ws.id}") {
             SheetCard(vm, unit, ws, i + 1, p?.sheets?.get(ws.id), SheetKind.WORKSHEET)

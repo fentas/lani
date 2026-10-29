@@ -654,6 +654,8 @@ private fun ExerciseView(
         is Exercise.FormsTable -> FormsCardEx(vm, ex, locked, done, onStep)
         // a task of the numbers module (ui/numbers/NumeralEx.kt)
         is Exercise.Numeral -> si.lanisce.lani.ui.numbers.NumeralEx(ex, locked, done)
+        // a task of the case trainer (ui/cases/CaseEx.kt)
+        is Exercise.CaseTask -> si.lanisce.lani.ui.cases.CaseTaskEx(vm, ex, locked, done)
     }
 }
 
@@ -1232,6 +1234,8 @@ internal fun sloveneOf(ex: Exercise, isSlovene: (String) -> Boolean): String? = 
     is Exercise.Counting, is Exercise.FormsTable -> null
     // a number's word ("sedemindvajset"), a date said whole, a clock time ("ob pol šestih")
     is Exercise.Numeral -> ex.word.takeIf { it.isNotBlank() }
+    // the case trainer's sentence, its answer in it
+    is Exercise.CaseTask -> ex.sentence
 }
 
 /**
@@ -1375,6 +1379,7 @@ private fun expectedOf(ex: Exercise): String? = when (ex) {
     is Exercise.Counting -> ex.steps.joinToString(" · ") { it.line }
     is Exercise.FormsTable -> ex.gaps.joinToString(" · ") { g -> listOf(g.before, g.answer + g.after).filter { it.isNotBlank() }.joinToString(" ") }
     is Exercise.Numeral -> ex.shown
+    is Exercise.CaseTask -> si.lanisce.lani.data.CaseTrainer.expectedLine(ex)
     is Exercise.Free, is Exercise.Unsupported, is Exercise.Table, is Exercise.Transform, is Exercise.Sort -> null
 }
 
@@ -1395,6 +1400,8 @@ private fun shownPrompt(ex: Exercise): String = when (ex) {
     is Exercise.FormsTable -> "📋 ${ex.lemma}: ${ex.gaps.map { it.where.substringBefore(" — ") }.distinct().joinToString(", ")}"
     // a number heard only as 🎧 (its words are the answer)
     is Exercise.Numeral -> if (ex.audio != null) "🔢 🎧" else "🔢 ${ex.prompt}"
+    // the sentence asked about (a gap's prompt): never its answer
+    is Exercise.CaseTask -> "🧩 ${ex.prompt.ifBlank { ex.sentence }}"
     else -> typeAndPrompt(ex).second
 }.ifBlank { typeAndPrompt(ex).first }
 
@@ -1418,6 +1425,7 @@ private fun typeAndPrompt(ex: Exercise): Pair<String, String> = when (ex) {
     is Exercise.Counting -> "counting" to "${ex.lemma} (${ex.gender}): 1 · 2 · 3 · 5${if (ex.typed) ", typed" else ""}"
     is Exercise.FormsTable -> "forms_card" to "${ex.lemma} (${ex.pos}): ${ex.gaps.joinToString(", ") { it.key }}${if (ex.typed) ", typed" else ""}"
     is Exercise.Numeral -> "numbers_${ex.mode}" to listOfNotNull(ex.audio?.let { "🎧 $it" }, ex.prompt.takeIf { it.isNotBlank() }).joinToString(" · ")
+    is Exercise.CaseTask -> "cases_${ex.kind}" to listOfNotNull(ex.prompt.ifBlank { ex.sentence }, ex.tokens.getOrNull(ex.word)?.takeIf { ex.kind == "which" }?.let { "[$it]" }).joinToString(" ")
 }
 
 /**

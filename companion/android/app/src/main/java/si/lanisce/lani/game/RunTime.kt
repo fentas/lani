@@ -35,6 +35,8 @@ internal object RunTime {
         is Exercise.FormsTable -> 15 + 12 * ex.gaps.size
         // a number heard or read, typed on the pad; a word written
         is Exercise.Numeral -> if (ex.pad) 12 else 20
+        // a case picked, then the word that decides it tapped; a form typed
+        is Exercise.CaseTask -> if (ex.kind == "decline") 25 else 20
     }
 
     /** The old flat time: 50 s and 4 s a question. */

@@ -206,6 +206,7 @@ object NavRoutes {
         is Screen.CourseUnit -> listOf("unit", s.id)
         is Screen.UnitIntro -> listOf("intro", s.id)
         Screen.Numbers -> listOf("numbers")
+        is Screen.Cases -> listOf("cases", s.focus.orEmpty())
         is Screen.Settings -> listOf("settings", s.section.orEmpty())
         Screen.GrammarBook -> listOf("grammar")
         else -> null
@@ -235,6 +236,7 @@ object NavRoutes {
             "unit" -> arg(1)?.let { Screen.CourseUnit(it) }
             "intro" -> arg(1)?.let { Screen.UnitIntro(it) }
             "numbers" -> Screen.Numbers
+            "cases" -> Screen.Cases(arg(1))
             "settings" -> Screen.Settings(arg(1))
             "grammar" -> Screen.GrammarBook
             else -> null

@@ -92,6 +92,17 @@ sealed interface Screen {
     /** A run of the numbers module: its [tasks]; [run] tells one run from the next. */
     data class NumbersRun(val tasks: List<si.lanisce.lani.data.NumberTask>, val run: Int = 0) : Screen
     /**
+     * "🧩 Skloni · Cases" (ui/cases/CasesScreen, data/CaseTrainer): each case's and rule's mastery, a session to start;
+     * closed, what opens it. [focus]: the case or the rule a session is about (opened from its grammar page, a case unit,
+     * Home's suggestion or the tutor's assignment), null for a mixed one.
+     */
+    data class Cases(val focus: String? = null) : Screen
+    /**
+     * A session of the case trainer: its tasks with their exercises, its [focus]; [storm]: "⚡ Sklonski vihar · Case storm"
+     * (phrases sorted into the six cases against the clock); [run] tells one session from the next.
+     */
+    data class CasesRun(val planned: List<si.lanisce.lani.data.CasePlanned>, val focus: String? = null, val run: Int = 0, val storm: Boolean = false) : Screen
+    /**
      * "⚙️ Nastavitve · Settings" (ui/settings/SettingsScreen): its sections ([section] null), or one of them as a page of its
      * own ([SettingsSection]'s ids: "tutor", "data", "languages", "sound", "connection", "developer").
      */
@@ -103,7 +114,7 @@ sealed interface Screen {
 /** An exercise run: leaving it now would lose the answers so far. */
 val Screen.inRun: Boolean
     get() = this is Screen.Review || this is Screen.Player || this is Screen.Challenge || this is Screen.PackLearn || this is Screen.VisitRequest ||
-        this is Screen.GrammarPractice || this is Screen.UpgradeWords || this is Screen.Sheet || this is Screen.NumbersRun
+        this is Screen.GrammarPractice || this is Screen.UpgradeWords || this is Screen.Sheet || this is Screen.NumbersRun || this is Screen.CasesRun
 
 /** What a village challenge answers to. */
 sealed interface ChallengeOrigin {

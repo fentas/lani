@@ -29,7 +29,7 @@ object LiveEvents {
     val CONTENT = setOf("villager_arrived", "dialog_variants_heard", "stories_low")
 
     /** The routine kinds that wait for the day's digest. */
-    val ROUTINE = setOf("words_added", "words_learned", "reading_done", "dialog_words")
+    val ROUTINE = setOf("words_added", "words_learned", "reading_done", "cases_done", "dialog_words")
 
     fun handling(kind: String, reactAtOnce: Boolean): Pair<Handling, String?> = when (kind) {
         in CONTENT -> Handling.RECORDED to "content writing: the studio's job (on a bridge without the studio: left for Claude Code)"

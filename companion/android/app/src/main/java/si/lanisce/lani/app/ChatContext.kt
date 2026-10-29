@@ -68,6 +68,21 @@ object ExerciseSource {
         put("machine_written", true)
     }
 
+    /**
+     * A task of the case trainer ("🧩 Skloni · Cases", data/CaseTrainer.kt): its [kind] and [key] (a bank item's id, the
+     * tutor's own when [tutor], or "d:<frame>:<noun>[:<adjective>]": a frame of the bank with the learner's word). A bank
+     * item that is wrong is fixed in the bank (companion/cases/sl/bank.json: a note for the developer) or, the tutor's own,
+     * published again (publish_case_items); a frame's forms are the dictionary's.
+     */
+    fun cases(kind: String, key: String, index: Int, tutor: Boolean = false): JsonObject = buildJsonObject {
+        put("kind", "cases")
+        put("task", kind)
+        put("item", key)
+        if (tutor) put("by", "tutor")
+        put("exercise_index", index)
+        put("machine_written", true)
+    }
+
     fun module(id: String, version: Int, index: Int): JsonObject = buildJsonObject {
         put("kind", "module")
         put("module_id", id)

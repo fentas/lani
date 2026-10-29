@@ -31,6 +31,7 @@ object ShadowEvents {
             path == "/words" -> Quad("words_added", null, "added a word: ${o.str("sl").orEmpty()} (${o.str("en").orEmpty()})", data)
             packLearn.matches(path) -> Quad("words_learned", null, "learned words of the pack ${packLearn.find(path)!!.groupValues[1]}", JsonObject(data + ("pack_id" to JsonPrimitive(packLearn.find(path)!!.groupValues[1]))))
             path == "/readings/done" -> Quad("reading_done", null, "reading practice done", data)
+            path == "/cases/done" -> Quad("cases_done", null, "case trainer practice done", data)
             path == "/level" -> Quad("level_up", null, "a new level", data)
             else -> return null
         }

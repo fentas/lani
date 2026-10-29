@@ -346,6 +346,7 @@ object Intros {
         is Exercise.Counting -> bi("counting.title")
         is Exercise.FormsTable -> bi("formsCard.title")
         is Exercise.Numeral -> bi("numbers.title")
+        is Exercise.CaseTask -> bi("cases.title")
     }
 
     /** About how long one exercise takes, in seconds. */

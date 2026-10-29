@@ -322,6 +322,8 @@ object GameEngine {
             si.lanisce.lani.data.NumberMode.DATE, si.lanisce.lani.data.NumberMode.TIME_WRITE -> Res.STONE
             else -> Res.FOOD
         }
+        // the case trainer: the cases' endings and what decides them, grammar
+        is Exercise.CaseTask -> Res.STONE
     }
 
     /**

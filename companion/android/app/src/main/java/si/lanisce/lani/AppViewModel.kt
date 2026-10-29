@@ -365,6 +365,13 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         viewModelScope, game, chat, notices, course = { school.course }, canSay = { speaker.canSay }, canListen = { canListen() },
     )
     /**
+     * "🧩 Skloni · Cases": the case trainer (app/CasesController, data/CaseTrainer): its bank, sessions focused or mixed,
+     * each case's and rule's mastery, what comes back; the case lens's "seen" signal ([si.lanisce.lani.app.CasesController.seen]).
+     */
+    val cases: si.lanisce.lani.app.CasesController = si.lanisce.lani.app.CasesController(
+        app, viewModelScope, game, content, grammar, forms, sync, notices, course = { school.course }, child = { child }, scenes = { scenes.all },
+    )
+    /**
      * The learner's own words in the dialogs: which turns test them, and what a first answer on one does to its card, once
      * a day (companion/SCENES.md, "Your words in the dialogs").
      */
@@ -805,6 +812,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         // and the day's new forms cards (the pages introduced told: the cards they open rows of come back soon)
         formsCards.reload(b)
         readings.reload(b)
+        cases.reload(b)
         packs.reload(b)
         scenes.reload(b)
         villagers.reload(b)
@@ -915,6 +923,11 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
                 refresh() // the review counts grow
             }
             is BridgeEvent.LexiconUpdated -> words.onLexiconUpdated(ev.word)
+            // the tutor assigned a case trainer session (or took it back), or wrote items: the bank again
+            is BridgeEvent.CasesChanged -> {
+                cases.changed(bridge)
+                if (ev.assigned && ev.focus != null) notices.banner = "🧩 ${ev.note ?: bi("cases.assignedFocus", "focus" to ev.focus)}"
+            }
             // a word asked for from its card got its meaning: the card shows it added, else a quiet notice
             is BridgeEvent.WordRequestDone -> words.onWordRequestDone(ev)
             is BridgeEvent.SentenceExplained -> sentences.onExplained(ev.sentence)
@@ -963,6 +976,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         is Screen.TownProgress -> "a linked town's progress"
         is Screen.School, is Screen.CourseUnit, is Screen.UnitIntro, is Screen.Sheet -> "the school"
         is Screen.Numbers, is Screen.NumbersRun -> "the numbers module (🔢 Števila)"
+        is Screen.Cases, is Screen.CasesRun -> "the case trainer (🧩 Skloni)"
         is Screen.Progress -> "the progress screen (📊 Napredek)"
         is Screen.MyWords -> "the learner's words (🔤 Moje besede)"
         is Screen.GrammarBook -> "the grammar book's index (📖 Slovnica)"
@@ -1096,6 +1110,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
                 if (grammar.page(link.id) != null) grammar.show(link.id)
             }
             is DeepLink.Settings -> openSettings(link.section)
+            is DeepLink.Cases -> openCases(link.focus)
         }
     }
 
@@ -1789,6 +1804,63 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
             what == "near" -> game.apply { si.lanisce.lani.app.QaHooks.numbersNear(it) }
         }
         openNumbers()
+    }
+
+    // --- the case trainer (data/CaseTrainer.kt; companion/README.md "Case trainer") ---------------------------------------
+
+    /**
+     * "🧩 Skloni · Cases": its screen, each case's and rule's mastery, a session to start; [focus]: the case or the rule a
+     * session is about (a case unit's, Home's suggestion, the tutor's), its start button then that session's.
+     */
+    fun openCases(focus: String? = null) {
+        grammar.close()
+        nav.go(Screen.Cases(focus))
+    }
+
+    /** Each session of the trainer is a screen of its own ([Screen.CasesRun.run]). */
+    private var caseRuns = 0
+
+    /**
+     * A session of the trainer now ([si.lanisce.lani.app.CasesController.plan]), focused on [focus] (a grammar page's "🧩
+     * Vadi sklone", a case's row) or mixed; none while there is nothing to ask. [again]: "▶ Še enkrat" from its end.
+     */
+    fun startCases(focus: String? = null, again: Boolean = false) {
+        if (!again && busyRun()) return
+        val planned = cases.plan(focus)
+        if (planned.isEmpty()) {
+            notices.banner = "🧩 ${bi("cases.nothing")}"
+            return
+        }
+        grammar.close()
+        startRun(Screen.CasesRun(planned, focus, ++caseRuns), again)
+    }
+
+    /** "⚡ Sklonski vihar · Case storm": phrases sorted into the six cases against the clock; [again] from its end. */
+    fun startStorm(again: Boolean = false) {
+        if (!again && busyRun()) return
+        val planned = cases.storm()
+        if (planned.isEmpty()) {
+            notices.banner = "🧩 ${bi("cases.nothing")}"
+            return
+        }
+        startRun(Screen.CasesRun(planned, null, ++caseRuns, storm = true), again)
+    }
+
+    /**
+     * QA's case trainer hooks (app/QaHooks, "cases…"): "ready" the case pages met (as the case units' intros would) and the
+     * trainer's screen; "start" a mixed session; "focus:<id>" one on a case or a rule; "again" items missed due today, then
+     * the screen; "" the screen.
+     */
+    fun qaCases(what: String) {
+        val today = java.time.LocalDate.now()
+        when {
+            what == "ready" -> grammar.meet(listOf("skloni", "imenovalnik", "tozilnik", "kam-tozilnik", "mestnik", "kje-mestnik-orodnik", "rodilnik-nikalnica", "rodilnik", "rodilnik-predlogi", "rodilnik-kolicina", "dajalnik", "orodnik", "mnozina", "dvojina", "pridevniki-ujemanje", "stevila-samostalniki"))
+            what == "start" -> return startCases()
+            what == "storm" -> return startStorm()
+            what.startsWith("focus:") -> return startCases(what.removePrefix("focus:").trim().ifBlank { null })
+            what == "again" -> game.apply { si.lanisce.lani.app.QaHooks.casesAgain(it, today) }
+        }
+        openCases()
     }
 
     /** The village with building [id]'s card open (the school's level a course level waits for: its upgrade). */

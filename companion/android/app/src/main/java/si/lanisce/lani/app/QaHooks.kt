@@ -103,6 +103,11 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   ([numbersRanges]); "numbers:again" a few numbers missed due today ([numbersAgain]); "numbers:near" the newest range one
  *   right answer from opening the next ([numbersNear]); "numbers:only:<mode>" asks every
  *   task of the next runs that way ([numbersOnly]: "hear", "write", "time_hear" …), "numbers:only:" mixes them again.
+ * - "cases": "🧩 Skloni · Cases" (data/CaseTrainer.kt) opened; "cases:ready" meets the case pages (as the A1 and A2 case
+ *   units' intros would: tožilnik, mestnik, the genitive after a no, the genitive's, dative's and instrumental's) and
+ *   opens it; "cases:start" starts a mixed session, "cases:focus:<id>" one focused on a case or a rule ("rodilnik",
+ *   "kam-tozilnik"); "cases:again" a few items missed due today ([casesAgain]); "cases:only:<kind>" asks every task of the
+ *   next sessions as one kind ([casesOnly]: "which", "place", "decline"), "cases:only:" mixes them again.
  * - "formscard": forms cards (data/FormsCard.kt): today's asked of the dev bridge now, then a review of up to three of
  *   them that ask something, due or not; "formscard:<word>" a review of that word's card (made on demand first);
  *   "formscard:type" types their gaps from then on, as if each card were secure ([formsTyped]), "formscard:off" lets
@@ -195,6 +200,10 @@ object QaHooks {
 
     /** QA asked for one way of asking in the numbers' runs ("numbers:only:<mode>"), or null: mixed as ever. */
     var numbersOnly: si.lanisce.lani.data.NumberMode? = null
+        private set
+
+    /** QA asked for one kind of the case trainer's tasks ("cases:only:<kind>"), or null: mixed as ever. */
+    var casesOnly: si.lanisce.lani.data.CaseKind? = null
         private set
 
     /** QA asked for typed counting cards ("counting:type"): every counting card's steps are typed. */
@@ -365,6 +374,7 @@ object QaHooks {
         review: () -> Unit = {}, numbers: (String) -> Unit = {}, event: (String) -> Unit = {}, hearths: (String) -> Unit = {},
         request: (List<String>) -> Unit = {}, word: (String) -> Unit = {}, friends: () -> Unit = {},
         sheet: (String, String) -> Unit = { _, _ -> }, grammar: (String) -> Unit = {}, talk: (String) -> Unit = {},
+        cases: (String) -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
@@ -407,6 +417,9 @@ object QaHooks {
             command == "counting:type" -> countingTyped = true
             command == "counting:off" -> countingTyped = false
             command.startsWith("numbers:only:") -> numbersOnly = si.lanisce.lani.data.NumberMode.of(command.removePrefix("numbers:only:").trim())
+            command.startsWith("cases:only:") -> casesOnly = si.lanisce.lani.data.CaseKind.of(command.removePrefix("cases:only:").trim())
+            command == "cases" -> cases("")
+            command.startsWith("cases:") -> cases(command.removePrefix("cases:").trim())
             command == "numbers" -> numbers("")
             command.startsWith("numbers:") -> numbers(command.removePrefix("numbers:").trim())
             command == "formscard" -> formsCard("review", "")
@@ -597,6 +610,16 @@ object QaHooks {
         val p = s.numbers ?: si.lanisce.lani.data.NumbersProgress()
         val newest = si.lanisce.lani.data.NumbersPractice.newest(p, true) ?: return s
         return s.copy(numbers = p.copy(last = p.last + (newest.id to "1".repeat(si.lanisce.lani.data.NumbersPractice.WINDOW - 1))))
+    }
+
+    /**
+     * [s] with a few of the case trainer's items missed due [today] ("cases:again"): a genitive after brez, a kam with v,
+     * a dative after k. A debug build's, on the dev bridge's copy.
+     */
+    fun casesAgain(s: si.lanisce.lani.game.GameState, today: java.time.LocalDate): si.lanisce.lani.game.GameState {
+        val p = s.cases ?: si.lanisce.lani.data.CaseProgress()
+        val add = listOf("brez-mleka", "na-posto", "k-babici").map { si.lanisce.lani.data.CaseAgain(it, today.toString(), 0) }
+        return s.copy(cases = p.copy(again = p.again.filter { a -> add.none { it.item == a.item } } + add))
     }
 
     /** [s] with a few numbers missed due [today] ("numbers:again"): 17 heard, 12 written, 19 read. */

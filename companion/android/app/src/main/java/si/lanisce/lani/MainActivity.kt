@@ -98,7 +98,7 @@ class MainActivity : ComponentActivity() {
             dev = { what -> if (what == "again") vm.devUpload.forgetThrottle() else if (what == "off") vm.shadow.showDeveloper(false) },
             pair = { code -> vm.chooseLangPair(si.lanisce.lani.l10n.LangPair.parse(code)) }, grow = vm::qaAgeUp, formsCard = vm::qaFormsCard,
             data = { vm.dataOpen = true }, review = vm::qaReview, numbers = vm::qaNumbers, event = vm::qaEvent, hearths = vm::qaHearths,
-            request = vm::qaRequest, word = vm::qaWord, friends = { vm.openFriends() }, sheet = vm::qaSheet, grammar = { vm.grammar.show(it) }, talk = { vm.talkWithVillager(it) },
+            request = vm::qaRequest, word = vm::qaWord, friends = { vm.openFriends() }, sheet = vm::qaSheet, grammar = { vm.grammar.show(it) }, talk = { vm.talkWithVillager(it) }, cases = vm::qaCases,
             tutorLive = { base -> vm.live.update { it.copy(debugBaseUrl = base.ifBlank { null }) } })
         intent?.removeExtra(si.lanisce.lani.app.QaHooks.EXTRA)
         DeepLink.parse(intent?.getStringExtra(DeepLink.EXTRA))?.let(vm::open)
@@ -286,6 +286,8 @@ private fun androidx.compose.foundation.layout.BoxScope.ScreenOf(vm: AppViewMode
         is Screen.Sheet -> si.lanisce.lani.ui.school.SheetScreen(vm, screen.unit, screen.kind, screen.sheet)
         Screen.Numbers -> si.lanisce.lani.ui.numbers.NumbersScreen(vm)
         is Screen.NumbersRun -> si.lanisce.lani.ui.numbers.NumbersRunScreen(vm, screen)
+        is Screen.Cases -> si.lanisce.lani.ui.cases.CasesScreen(vm, screen.focus)
+        is Screen.CasesRun -> key(screen) { si.lanisce.lani.ui.cases.CasesRunScreen(vm, screen) }
         is Screen.Settings -> si.lanisce.lani.ui.settings.SettingsScreen(vm, screen.section)
         Screen.GrammarBook -> si.lanisce.lani.ui.grammar.GrammarBookScreen(vm)
     }

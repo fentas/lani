@@ -72,6 +72,14 @@ sealed interface HomeAction {
         override val key get() = "numbers"
     }
 
+    /**
+     * "🧩 Skloni · Cases" (data/CaseTrainer.kt), open: the tutor's assignment ([assigned], its [focus] and [note]), else
+     * [due] items missed due again, else the weakest case ([focus], its [label]): a session on it one tap away.
+     */
+    data class Cases(val focus: String?, val label: String?, val due: Int, val assigned: Boolean = false, val note: String? = null) : HomeAction {
+        override val key get() = "cases"
+    }
+
     /** The school's unit suggested next (companion/GAME.md, "The school"): [unit]'s [title] of [level]; [started] once begun. */
     data class Lesson(val unit: String, val title: String, val emoji: String, val level: String, val started: Boolean) : HomeAction {
         override val key get() = "school"
@@ -229,6 +237,11 @@ object HomeLogic {
          * the first idea.
          */
         threat: HomeAction.Defend? = null,
+        /**
+         * The case trainer ([casesIdea]): the tutor's assignment or items due again right after the tutor's modules, a weak
+         * case after the school's lesson.
+         */
+        cases: HomeAction.Cases? = null,
     ): Today {
         val due = d.dueCards.size
         val weak = modules.filter { m -> m.targets.any { it in d.weakPatterns } }.sortedByDescending { it.id in newModules }
@@ -250,7 +263,8 @@ object HomeLogic {
         val numbersLater = numbers?.takeIf { it.due == 0 }
         val ideas = listOfNotNull(
             HomeAction.Review(due).takeIf { due > 0 && threat != null },
-            talking?.let { HomeAction.Talk(it) }, answer, weak, fresh, numbersDue, lesson, pack, numbersLater, HomeAction.Talk(null),
+            talking?.let { HomeAction.Talk(it) }, answer, weak, fresh, cases?.takeIf { it.assigned || it.due > 0 }, numbersDue, lesson,
+            cases?.takeIf { !it.assigned && it.due == 0 }, pack, numbersLater, HomeAction.Talk(null),
         )
         val more = ArrayList<HomeAction>()
         for (a in ideas) {
@@ -271,6 +285,30 @@ object HomeLogic {
         val newest = si.lanisce.lani.data.NumbersPractice.newest(p, true) ?: return null
         val (right, of) = si.lanisce.lani.data.NumbersPractice.score(p, newest)
         return HomeAction.Numbers(si.lanisce.lani.data.NumbersPractice.due(p, today).size, newest.label, right, of)
+    }
+
+    /**
+     * The case trainer's idea for "Danes · Today" (companion/README.md, "Case trainer"): open ([open]) and the tutor's
+     * assignment ([assigned]: its focus, [label] its name, its note) whenever it waits; else, not played today ([p]'s day),
+     * the items missed due again ([due]) or the weakest case ([weakest]: a case weak enough, its name [label]); null otherwise.
+     */
+    fun casesIdea(
+        open: Boolean, p: si.lanisce.lani.data.CaseProgress?, due: Int, weakest: si.lanisce.lani.data.Kase?, label: (String) -> String,
+        assigned: si.lanisce.lani.data.CaseAssigned?, today: LocalDate,
+    ): HomeAction.Cases? {
+        if (!open) return null
+        if (assigned != null) return HomeAction.Cases(assigned.focus, label(assigned.focus), due, assigned = true, note = assigned.note)
+        if (p?.day == today.toString()) return null
+        if (due > 0) return HomeAction.Cases(null, null, due)
+        return weakest?.let { HomeAction.Cases(it.id, label(it.id), 0) }
+    }
+
+    /** "Skloni": the tutor's assignment, else what comes back, else the weakest case. */
+    fun cases(idea: HomeAction.Cases?): TileStatus = when {
+        idea == null -> TileStatus(bi("cases.tile"))
+        idea.assigned -> TileStatus("🧑‍🏫 ${idea.label ?: idea.focus.orEmpty()}", attention = true)
+        idea.due > 0 -> TileStatus("🔁 ${bi("cases.dueAgain", "n" to idea.due)}", attention = true)
+        else -> TileStatus("🎯 ${idea.label ?: idea.focus.orEmpty()}")
     }
 
     /**

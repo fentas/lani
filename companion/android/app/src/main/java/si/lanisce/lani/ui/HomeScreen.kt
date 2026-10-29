@@ -100,7 +100,8 @@ private fun HomeContent(vm: AppViewModel, list: LazyListState, bottom: Dp) {
         val numbers = HomeLogic.numbersIdea(vm.numbers.open, vm.numbers.progress, java.time.LocalDate.now())
         // wolves, a bear or a storm about: defending the village is today's one thing (it is lost at its deadline)
         val defend = HomeLogic.defend(state)
-        val today = HomeLogic.today(d, modules, vm.content.newModules, packs, vm.packs.newIds, talking, vm.family.challenges, festival, si.lanisce.lani.ui.school.lessonIdea(vm), numbers, defend)
+        val cases = casesIdea(vm)
+        val today = HomeLogic.today(d, modules, vm.content.newModules, packs, vm.packs.newIds, talking, vm.family.challenges, festival, si.lanisce.lani.ui.school.lessonIdea(vm), numbers, defend, cases)
         val offered = (listOf(today.primary) + today.more).filterIsInstance<HomeAction.Module>().map { it.info.id }.toSet()
         // the threat once only: Today's button, not the strip's red row too
         val needs = vm.game.state?.let { HomeLogic.needs(it, vm.scenes.active(it), vm.villagers.people(it), vm.scenes.all, offered) }.orEmpty()
@@ -186,6 +187,9 @@ private fun learningTiles(vm: AppViewModel, d: si.lanisce.lani.data.Dashboard, t
         tile("📗", "readings.title", readingStatus(vm, d.level), vm::openReadings),
         // the numbers, once the unit stevila's intro opened them (companion/README.md "Numbers")
         if (vm.numbers.open) tile("🔢", "numbers.title", HomeLogic.numbers(numbers, newest), vm::openNumbers) else null,
+        // the case trainer, once the cases have begun where the village's language has them (companion/README.md "Case
+        // trainer"): its screen
+        if (vm.cases.available && vm.cases.open) tile("🧩", "cases.title", HomeLogic.cases(casesIdea(vm)), { vm.openCases() }) else null,
         tile("💌", "homeScreen.family", HomeLogic.family(vm.family.challenges)) {
             if (vm.family.challenges.isEmpty()) vm.openFamily() else sheet(Sheet.FAMILY)
         },
@@ -205,6 +209,15 @@ private fun readingStatus(vm: AppViewModel, level: String): si.lanisce.lani.ui.h
     return HomeLogic.reading(unread.size, unread.count { it.source == "tutor" }, vm.readings.all.size)
 }
 
+/** The case trainer's idea for Home ([HomeLogic.casesIdea]): open, the assignment, what comes back, the weakest case. */
+private fun casesIdea(vm: AppViewModel): HomeAction.Cases? {
+    if (!vm.cases.available || !vm.cases.open) return null
+    return HomeLogic.casesIdea(
+        true, vm.cases.progress, vm.cases.due(), vm.cases.weakest()?.first, { si.lanisce.lani.ui.cases.focusTitle(vm, it) },
+        vm.cases.assigned, java.time.LocalDate.now(),
+    )
+}
+
 /** Starts what Home offered. */
 private fun act(vm: AppViewModel, a: HomeAction) {
     when (a) {
@@ -215,6 +228,8 @@ private fun act(vm: AppViewModel, a: HomeAction) {
         is HomeAction.Family -> vm.openFamily(a.challenge.id)
         is HomeAction.Lesson -> vm.openUnit(a.unit)
         is HomeAction.Numbers -> vm.openNumbers()
+        // the tutor's assignment or a weak case: its session at once; items due again: a mixed one (they come first)
+        is HomeAction.Cases -> vm.startCases(a.focus)
         is HomeAction.Defend -> vm.startEvent()
     }
 }

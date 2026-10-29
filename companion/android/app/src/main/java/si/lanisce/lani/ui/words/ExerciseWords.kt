@@ -270,6 +270,8 @@ class ExerciseTaps(val exercise: Exercise, val answered: Boolean, private val re
         is Exercise.FormsTable -> if (answered) open(Reads.TARGET) else Taps.NONE
         // a number's task: its words are what it asks (a date's sentence around the gap is the unit's own)
         is Exercise.Numeral -> if (answered) open(Reads.TARGET) else Taps.NONE
+        // the case trainer: its sentence's words are what it asks about (their cases); once answered, every word
+        is Exercise.CaseTask -> if (answered) open(Reads.TARGET) else Taps.NONE
     }
 
     /** A sort's word (one of the school's sheets): what it tests (its card says its gender), so only once checked. */
@@ -352,6 +354,7 @@ class ExerciseTaps(val exercise: Exercise, val answered: Boolean, private val re
             is Exercise.Cloze, is Exercise.Reorder, is Exercise.Dictation, is Exercise.Speak -> true
             is Exercise.GapText, is Exercise.Table, is Exercise.Transform, is Exercise.Sort, is Exercise.Counting, is Exercise.FormsTable -> true
             is Exercise.Numeral -> !ex.pad
+            is Exercise.CaseTask -> ex.kind == "decline"
         }
 
     /** Whether anything of the exercise as it shows can be looked up now (the first time, a tip says so). */
@@ -372,7 +375,7 @@ class ExerciseTaps(val exercise: Exercise, val answered: Boolean, private val re
             is Exercise.Table -> ex.rows.any { r -> prompt(r.label).isNotEmpty() || r.cells.any { c -> c.given?.let { prompt(it).isNotEmpty() } == true } }
             is Exercise.Transform -> ex.items.any { prompt(it.from).isNotEmpty() }
             is Exercise.Sort -> ex.prompt?.let { prompt(it).isNotEmpty() } == true
-            is Exercise.Counting, is Exercise.FormsTable, is Exercise.Numeral -> false
+            is Exercise.Counting, is Exercise.FormsTable, is Exercise.Numeral, is Exercise.CaseTask -> false
         }
 
     companion object {
