@@ -56,19 +56,19 @@
           "sky": { "fog": 0.6, "gloom": 0.3 } },
         { "choices": [
           { "it": "Lo vedo! Sta su una zampa sola.", "sl": "Vidim jo! Stoji na eni nogi.", "en": "I can see it! It's standing on one leg.", "de": "Ich sehe ihn! Er steht auf einem Bein.", "ok": true,
-            "reply": { "it": "Sì. Può stare così per un'ora. Pazienza!", "sl": "Ja. Tako lahko stoji eno uro. Potrpljenje!", "en": "Yes. It can stand like that for an hour. Patience!", "de": "Ja. So kann er eine Stunde stehen. Geduld!" } },
+            "reply": { "face": "happy", "it": "Sì. Può stare così per un'ora. Pazienza!", "sl": "Ja. Tako lahko stoji eno uro. Potrpljenje!", "en": "Yes. It can stand like that for an hour. Patience!", "de": "Ja. So kann er eine Stunde stehen. Geduld!" } },
           { "it": "Lo vedo! Sta su un zampa sola.", "sl": "Vidim jo! Stoji na eni nogi.", "en": "I can see it! It's standing on one leg.", "de": "Ich sehe ihn! Er steht auf einem Bein.",
             "grammar": "articoli-genere", "why": { "sl": "Zampa je ženskega spola: una zampa.", "en": "Zampa is feminine: una zampa.", "de": "Zampa ist weiblich: una zampa." },
-            "reply": { "it": "Un zampa? Piano, piano… ripeti.", "sl": "Un zampa? Počasi, počasi … ponovi.", "en": "Un zampa? Slowly, slowly… say it again.", "de": "Un zampa? Langsam, langsam … sag es noch mal." } }
+            "reply": { "face": "confused", "it": "Un zampa? Piano, piano… ripeti.", "sl": "Un zampa? Počasi, počasi … ponovi.", "en": "Un zampa? Slowly, slowly… say it again.", "de": "Un zampa? Langsam, langsam … sag es noch mal." } }
         ] },
-        { "who": "aldo", "it": "Adesso guarda: cerca un pesce. Uno… due… e zac!", "sl": "Zdaj pa glej: išče ribo. Ena … dve … in hop!", "en": "Now watch: it's looking for a fish. One… two… and snap!", "de": "Jetzt schau: Er sucht einen Fisch. Eins … zwei … und zack!",
+        { "who": "aldo", "face": "surprised", "it": "Adesso guarda: cerca un pesce. Uno… due… e zac!", "sl": "Zdaj pa glej: išče ribo. Ena … dve … in hop!", "en": "Now watch: it's looking for a fish. One… two… and snap!", "de": "Jetzt schau: Er sucht einen Fisch. Eins … zwei … und zack!",
           "fx": { "heron": 1 } },
         { "choices": [
           { "it": "Che bravo! Prende un pesce!", "sl": "Kako spretna! Ujame ribo!", "en": "How clever! It catches a fish!", "de": "Wie geschickt! Er fängt einen Fisch!", "ok": true,
-            "reply": { "it": "Eh sì. L'airone è il pescatore dello stagno.", "sl": "Ja, ja. Čaplja je ribič ribnika.", "en": "Oh yes. The heron is the pond's fisherman.", "de": "Oh ja. Der Reiher ist der Fischer vom Teich." } },
+            "reply": { "face": "proud", "it": "Eh sì. L'airone è il pescatore dello stagno.", "sl": "Ja, ja. Čaplja je ribič ribnika.", "en": "Oh yes. The heron is the pond's fisherman.", "de": "Oh ja. Der Reiher ist der Fischer vom Teich." } },
           { "it": "Che brava! Prende un pesce!", "sl": "Kako spretna! Ujame ribo!", "en": "How clever! It catches a fish!", "de": "Wie geschickt! Er fängt einen Fisch!",
             "grammar": "aggettivi-accordo", "why": { "sl": "Airone je moškega spola: che bravo!", "en": "Airone is masculine: che bravo!", "de": "Airone ist männlich: che bravo!" },
-            "reply": { "it": "Brava? L'airone è un signore, sai.", "sl": "Brava? Airone je gospod, veš.", "en": "Brava (she)? Airone is a he, you know.", "de": "Brava (sie)? Airone ist ein Er, weißt du." } }
+            "reply": { "face": "laugh", "it": "Brava? L'airone è un signore, sai.", "sl": "Brava? Airone je gospod, veš.", "en": "Brava (she)? Airone is a he, you know.", "de": "Brava (sie)? Airone ist ein Er, weißt du." } }
         ] },
         { "who": "aldo", "it": "Ecco, la nebbia va via. Grazie del silenzio, {learner}.", "sl": "Glej, megla se dviga. Hvala za tišino, {learner}.", "en": "There, the mist is lifting. Thanks for the quiet, {learner}.", "de": "Schau, der Nebel geht weg. Danke für die Stille, {learner}.",
           "sky": { "fog": 0, "gloom": 0 } }
@@ -77,23 +77,23 @@
     {
       "id": "rana",
       "lines": [
-        { "who": "tommaso", "it": "Ehi, {learner}! Vieni, presto! C'è una rana sulla ninfea!", "sl": "Hej, {learner}! Pridi, hitro! Na lokvanju je žaba!", "en": "Hey, {learner}! Come quick! There's a frog on the water lily!", "de": "He, {learner}! Komm schnell! Auf der Seerose sitzt ein Frosch!" },
+        { "who": "tommaso", "face": "surprised", "it": "Ehi, {learner}! Vieni, presto! C'è una rana sulla ninfea!", "sl": "Hej, {learner}! Pridi, hitro! Na lokvanju je žaba!", "en": "Hey, {learner}! Come quick! There's a frog on the water lily!", "de": "He, {learner}! Komm schnell! Auf der Seerose sitzt ein Frosch!" },
         { "choices": [
           { "it": "Dove? Non la vedo!", "sl": "Kje? Ne vidim je!", "en": "Where? I can't see it!", "de": "Wo? Ich sehe ihn nicht!", "ok": true,
-            "reply": { "it": "Là, sulla foglia verde! Shh, piano!", "sl": "Tam, na zelenem listu! Pst, tiho!", "en": "There, on the green leaf! Shh, quietly!", "de": "Da, auf dem grünen Blatt! Pst, leise!" } },
+            "reply": { "face": "happy", "it": "Là, sulla foglia verde! Shh, piano!", "sl": "Tam, na zelenem listu! Pst, tiho!", "en": "There, on the green leaf! Shh, quietly!", "de": "Da, auf dem grünen Blatt! Pst, leise!" } },
           { "it": "Quando? Non la vedo!", "sl": "Kdaj? Ne vidim je!", "en": "When? I can't see it!", "de": "Wann? Ich sehe ihn nicht!",
             "grammar": "domande", "why": { "sl": "Quando pomeni kdaj. Za kraj vprašaš dove? (kje?)", "en": "Quando means when. For a place, ask dove? (where?)", "de": "Quando heißt wann. Nach dem Ort fragst du dove? (wo?)" },
-            "reply": { "it": "Quando? Adesso, subito! Dai, guarda!", "sl": "Kdaj? Zdaj, takoj! Daj, poglej!", "en": "When? Now, right now! Come on, look!", "de": "Wann? Jetzt, sofort! Los, schau!" } }
+            "reply": { "face": "laugh", "it": "Quando? Adesso, subito! Dai, guarda!", "sl": "Kdaj? Zdaj, takoj! Daj, poglej!", "en": "When? Now, right now! Come on, look!", "de": "Wann? Jetzt, sofort! Los, schau!" } }
         ] },
         { "who": "tommaso", "it": "La prendiamo? Poi la lasciamo andare, promesso!", "sl": "Jo ujameva? Potem jo izpustiva, obljubim!", "en": "Shall we catch it? Then we'll let it go, promise!", "de": "Fangen wir ihn? Dann lassen wir ihn wieder frei, versprochen!" },
         { "choices": [
           { "it": "Va bene, ma piano piano.", "sl": "Prav, ampak čisto počasi.", "en": "All right, but very gently.", "de": "Okay, aber ganz vorsichtig.", "ok": true,
-            "reply": { "it": "Oh no! È saltata in acqua! Splash!", "sl": "Ojoj! Skočila je v vodo! Pljusk!", "en": "Oh no! It jumped into the water! Splash!", "de": "Oh nein! Er ist ins Wasser gesprungen! Platsch!", "fx": { "frog": 1 } } },
+            "reply": { "face": "surprised", "it": "Oh no! È saltata in acqua! Splash!", "sl": "Ojoj! Skočila je v vodo! Pljusk!", "en": "Oh no! It jumped into the water! Splash!", "de": "Oh nein! Er ist ins Wasser gesprungen! Platsch!", "fx": { "frog": 1 } } },
           { "it": "Va bene, ma forte forte.", "sl": "Prav, ampak čisto močno.", "en": "All right, but really hard.", "de": "Okay, aber ganz fest.",
             "why": { "sl": "Forte pomeni močno ali glasno. Z žabo ravnaj nežno: piano.", "en": "Forte means hard or loud. With a frog, go gently: piano.", "de": "Forte heißt fest oder laut. Mit einem Frosch geht man sanft um: piano." },
-            "reply": { "it": "Forte? No! Le rane hanno paura!", "sl": "Močno? Ne! Žabe se bojijo!", "en": "Hard? No! Frogs get scared!", "de": "Fest? Nein! Frösche haben Angst!" } }
+            "reply": { "face": "worried", "it": "Forte? No! Le rane hanno paura!", "sl": "Močno? Ne! Žabe se bojijo!", "en": "Hard? No! Frogs get scared!", "de": "Fest? Nein! Frösche haben Angst!" } }
         ] },
-        { "who": "tommaso", "it": "Ih ih! Guarda, solo gli occhi fuori dall'acqua! Ciao, rana!", "sl": "Hi hi! Poglej, samo oči ima nad vodo! Adijo, žaba!", "en": "Hee hee! Look, just its eyes out of the water! Bye, frog!", "de": "Hihi! Schau, nur die Augen gucken aus dem Wasser! Tschüss, Frosch!" }
+        { "who": "tommaso", "face": "laugh", "it": "Ih ih! Guarda, solo gli occhi fuori dall'acqua! Ciao, rana!", "sl": "Hi hi! Poglej, samo oči ima nad vodo! Adijo, žaba!", "en": "Hee hee! Look, just its eyes out of the water! Bye, frog!", "de": "Hihi! Schau, nur die Augen gucken aus dem Wasser! Tschüss, Frosch!" }
       ]
     },
     {
@@ -103,21 +103,21 @@
           "fx": { "dog": 0.1, "bite": 0 } },
         { "choices": [
           { "it": "Ciao, nonno! Ci sono tanti pesci?", "sl": "Živjo, dedek! Je veliko rib?", "en": "Hi, Nonno! Are there lots of fish?", "de": "Hallo, Opa! Gibt es viele Fische?", "ok": true,
-            "reply": { "it": "Tanti, sì. Ma sono furbi, eh eh.", "sl": "Veliko, ja. Ampak zvite so, he he.", "en": "Lots, yes. But they're clever, heh heh.", "de": "Viele, ja. Aber sie sind schlau, hehe." } },
+            "reply": { "face": "laugh", "it": "Tanti, sì. Ma sono furbi, eh eh.", "sl": "Veliko, ja. Ampak zvite so, he he.", "en": "Lots, yes. But they're clever, heh heh.", "de": "Viele, ja. Aber sie sind schlau, hehe." } },
           { "it": "Ciao, nonno! C'è tanti pesci?", "sl": "Živjo, dedek! Je veliko rib?", "en": "Hi, Nonno! Are there lots of fish?", "de": "Hallo, Opa! Gibt es viele Fische?",
             "grammar": "ce-ci-sono", "why": { "sl": "Za več stvari rečeš ci sono: ci sono tanti pesci.", "en": "For more than one thing, say ci sono: ci sono tanti pesci.", "de": "Für mehrere Dinge sagst du ci sono: ci sono tanti pesci." },
-            "reply": { "it": "C'è? Uno solo? Eh eh, che pescatore triste!", "sl": "Je? Samo ena? He he, kako žalosten ribič!", "en": "C'è (one)? Just one? Heh heh, what a sad fisherman!", "de": "C'è (einer)? Nur einer? Hehe, was für ein trauriger Angler!" } }
+            "reply": { "face": "laugh", "it": "C'è? Uno solo? Eh eh, che pescatore triste!", "sl": "Je? Samo ena? He he, kako žalosten ribič!", "en": "C'è (one)? Just one? Heh heh, what a sad fisherman!", "de": "C'è (einer)? Nur einer? Hehe, was für ein trauriger Angler!" } }
         ] },
-        { "who": "bepi", "it": "Guarda il galleggiante… si muove! Tira, tira!", "sl": "Poglej plovec … premika se! Vleci, vleci!", "en": "Look at the float… it's moving! Pull, pull!", "de": "Schau den Schwimmer an … er bewegt sich! Zieh, zieh!",
+        { "who": "bepi", "face": "surprised", "it": "Guarda il galleggiante… si muove! Tira, tira!", "sl": "Poglej plovec … premika se! Vleci, vleci!", "en": "Look at the float… it's moving! Pull, pull!", "de": "Schau den Schwimmer an … er bewegt sich! Zieh, zieh!",
           "fx": { "dog": 0.6, "bite": 0.85 } },
         { "choices": [
           { "it": "Un pesce! È piccolo!", "sl": "Riba! Majhna je!", "en": "A fish! It's small!", "de": "Ein Fisch! Der ist klein!", "ok": true,
-            "reply": { "it": "Piccolo, sì. E Moro abbaia di gioia!", "sl": "Majhna, ja. In Moro od veselja laja!", "en": "Small, yes. And Moro is barking for joy!", "de": "Klein, ja. Und Moro bellt vor Freude!", "fx": { "dog": 1, "bite": 1 } } },
+            "reply": { "face": "happy", "it": "Piccolo, sì. E Moro abbaia di gioia!", "sl": "Majhna, ja. In Moro od veselja laja!", "en": "Small, yes. And Moro is barking for joy!", "de": "Klein, ja. Und Moro bellt vor Freude!", "fx": { "dog": 1, "bite": 1 } } },
           { "it": "Una pesce! È piccolo!", "sl": "Riba! Majhna je!", "en": "A fish! It's small!", "de": "Ein Fisch! Der ist klein!",
             "grammar": "articoli-genere", "why": { "sl": "Pesce je moškega spola: un pesce.", "en": "Pesce is masculine: un pesce.", "de": "Pesce ist männlich: un pesce." },
-            "reply": { "it": "Una pesce? Anche Moro ti guarda strano!", "sl": "Una pesce? Še Moro te čudno gleda!", "en": "Una pesce? Even Moro's giving you a funny look!", "de": "Una pesce? Sogar Moro schaut dich komisch an!" } }
+            "reply": { "face": "laugh", "it": "Una pesce? Anche Moro ti guarda strano!", "sl": "Una pesce? Še Moro te čudno gleda!", "en": "Una pesce? Even Moro's giving you a funny look!", "de": "Una pesce? Sogar Moro schaut dich komisch an!" } }
         ] },
-        { "who": "bepi", "it": "Lo rimettiamo nell'acqua. Il pesce piccolo deve crescere, come te.", "sl": "Vrneva jo v vodo. Mala riba mora zrasti, tako kot ti.", "en": "We'll put it back in the water. A little fish has to grow, like you.", "de": "Wir setzen ihn zurück ins Wasser. Ein kleiner Fisch muss wachsen, so wie du.",
+        { "who": "bepi", "face": "thinking", "it": "Lo rimettiamo nell'acqua. Il pesce piccolo deve crescere, come te.", "sl": "Vrneva jo v vodo. Mala riba mora zrasti, tako kot ti.", "en": "We'll put it back in the water. A little fish has to grow, like you.", "de": "Wir setzen ihn zurück ins Wasser. Ein kleiner Fisch muss wachsen, so wie du.",
           "fx": { "dog": 0.3, "bite": 0 } }
       ]
     }
@@ -130,19 +130,19 @@
         { "who": "aldo", "it": "Buongiorno, {learner}. Quante anatre oggi! Le senti?", "sl": "Dobro jutro, {learner}. Koliko rac danes! Jih slišiš?", "en": "Good morning, {learner}. So many ducks today! Can you hear them?", "de": "Guten Morgen, {learner}. So viele Enten heute! Hörst du sie?" },
         { "choices": [
           { "it": "Sì! Fanno qua qua.", "sl": "Ja! Gagajo.", "en": "Yes! They go quack quack.", "de": "Ja! Sie machen quak quak.", "ok": true,
-            "reply": { "it": "Eh eh, sì. Ma piano, se no volano via.", "sl": "He he, ja. Ampak tiho, sicer odletijo.", "en": "Heh heh, yes. But quietly, or they'll fly away.", "de": "Hehe, ja. Aber leise, sonst fliegen sie weg." } },
+            "reply": { "face": "laugh", "it": "Eh eh, sì. Ma piano, se no volano via.", "sl": "He he, ja. Ampak tiho, sicer odletijo.", "en": "Heh heh, yes. But quietly, or they'll fly away.", "de": "Hehe, ja. Aber leise, sonst fliegen sie weg." } },
           { "it": "Sì! Fa qua qua.", "sl": "Ja! Gaga.", "en": "Yes! It goes quack quack.", "de": "Ja! Sie macht quak quak.",
             "grammar": "verbi-irregolari", "why": { "sl": "Race so več: fanno (delajo). Fa je za eno.", "en": "The ducks are more than one: fanno. Fa is for one.", "de": "Die Enten sind mehrere: fanno. Fa steht für eine." },
-            "reply": { "it": "Fa? Una sola? Io ne vedo tante!", "sl": "Gaga? Samo ena? Jaz jih vidim veliko!", "en": "Fa (does, one)? Just one? I can see lots!", "de": "Fa (macht, eine)? Nur eine? Ich sehe viele!" } }
+            "reply": { "face": "confused", "it": "Fa? Una sola? Io ne vedo tante!", "sl": "Gaga? Samo ena? Jaz jih vidim veliko!", "en": "Fa (does, one)? Just one? I can see lots!", "de": "Fa (macht, eine)? Nur eine? Ich sehe viele!" } }
         ] },
-        { "who": "aldo", "it": "Oh! Un rumore nel bosco! Guarda le anatre…", "sl": "Oh! Šum v gozdu! Poglej race …", "en": "Oh! A noise in the wood! Look at the ducks…", "de": "Oh! Ein Geräusch im Wald! Schau dir die Enten an …",
+        { "who": "aldo", "face": "surprised", "it": "Oh! Un rumore nel bosco! Guarda le anatre…", "sl": "Oh! Šum v gozdu! Poglej race …", "en": "Oh! A noise in the wood! Look at the ducks…", "de": "Oh! Ein Geräusch im Wald! Schau dir die Enten an …",
           "fx": { "ducks": 1 } },
         { "choices": [
           { "it": "Volano via! Che belle!", "sl": "Odletijo! Kako lepe!", "en": "They're flying away! How beautiful!", "de": "Sie fliegen weg! Wie schön!", "ok": true,
-            "reply": { "it": "Sì. Tornano stasera, vedrai.", "sl": "Ja. Zvečer se vrnejo, boš {m:videl|f:videla}.", "en": "Yes. They'll be back this evening, you'll see.", "de": "Ja. Heute Abend kommen sie zurück, du wirst sehen." } },
+            "reply": { "face": "happy", "it": "Sì. Tornano stasera, vedrai.", "sl": "Ja. Zvečer se vrnejo, boš {m:videl|f:videla}.", "en": "Yes. They'll be back this evening, you'll see.", "de": "Ja. Heute Abend kommen sie zurück, du wirst sehen." } },
           { "it": "Volano via! Che belli!", "sl": "Odletijo! Kako lepi!", "en": "They're flying away! How beautiful!", "de": "Sie fliegen weg! Wie schön!",
             "grammar": "aggettivi-accordo", "why": { "sl": "Anatre so ženskega spola in v množini: che belle!", "en": "Anatre is feminine plural: che belle!", "de": "Anatre ist weiblich und Plural: che belle!" },
-            "reply": { "it": "Belli? Le anatre sono signore, sai!", "sl": "Belli? Race so gospe, veš!", "en": "Belli? The ducks are ladies, you know!", "de": "Belli? Die Enten sind Damen, weißt du!" } }
+            "reply": { "face": "laugh", "it": "Belli? Le anatre sono signore, sai!", "sl": "Belli? Race so gospe, veš!", "en": "Belli? The ducks are ladies, you know!", "de": "Belli? Die Enten sind Damen, weißt du!" } }
         ] },
         { "who": "aldo", "it": "Anche le api volano così: tutte insieme.", "sl": "Tudi čebele tako letijo: vse skupaj.", "en": "The bees fly like that too: all together.", "de": "Die Bienen fliegen auch so: alle zusammen." }
       ]
@@ -152,22 +152,22 @@
       "months": [3, 4, 5, 6],
       "memory": { "it": "i girini che abbiamo guardato nello stagno", "sl": "paglavce, ki sva jih gledala v ribniku", "en": "the tadpoles we watched in the pond", "de": "die Kaulquappen, die wir im Teich beobachtet haben" },
       "lines": [
-        { "who": "tommaso", "it": "{learner}! Guarda nell'acqua! Tanti pesciolini neri!", "sl": "{learner}! Poglej v vodo! Veliko črnih ribic!", "en": "{learner}! Look in the water! Lots of little black fish!", "de": "{learner}! Schau ins Wasser! Viele kleine schwarze Fische!",
+        { "who": "tommaso", "face": "surprised", "it": "{learner}! Guarda nell'acqua! Tanti pesciolini neri!", "sl": "{learner}! Poglej v vodo! Veliko črnih ribic!", "en": "{learner}! Look in the water! Lots of little black fish!", "de": "{learner}! Schau ins Wasser! Viele kleine schwarze Fische!",
           "fx": { "tadpoles": 1 } },
         { "choices": [
           { "it": "Non sono pesci. Sono girini!", "sl": "To niso ribe. To so paglavci!", "en": "They're not fish. They're tadpoles!", "de": "Das sind keine Fische. Das sind Kaulquappen!", "ok": true,
-            "reply": { "it": "Girini? Che cosa sono?", "sl": "Paglavci? Kaj pa je to?", "en": "Tadpoles? What are they?", "de": "Kaulquappen? Was ist das?" } },
+            "reply": { "face": "curious", "it": "Girini? Che cosa sono?", "sl": "Paglavci? Kaj pa je to?", "en": "Tadpoles? What are they?", "de": "Kaulquappen? Was ist das?" } },
           { "it": "Non è pesci. Sono girini!", "sl": "To niso ribe. To so paglavci!", "en": "They're not fish. They're tadpoles!", "de": "Das sind keine Fische. Das sind Kaulquappen!",
             "grammar": "essere-avere", "why": { "sl": "Za več stvari rečeš sono: non sono pesci.", "en": "For more than one thing, say sono: non sono pesci.", "de": "Für mehrere Dinge sagst du sono: non sono pesci." },
-            "reply": { "it": "È? Uno solo? Ma guarda quanti!", "sl": "Je? Samo eden? Poglej, koliko jih je!", "en": "È (is, one)? Just one? Look how many!", "de": "È (ist, einer)? Nur einer? Schau, wie viele!" } }
+            "reply": { "face": "surprised", "it": "È? Uno solo? Ma guarda quanti!", "sl": "Je? Samo eden? Poglej, koliko jih je!", "en": "È (is, one)? Just one? Look how many!", "de": "È (ist, einer)? Nur einer? Schau, wie viele!" } }
         ] },
-        { "who": "tommaso", "it": "Ah! E poi diventano rane?", "sl": "Aha! In potem postanejo žabe?", "en": "Ah! And then they turn into frogs?", "de": "Ah! Und dann werden sie zu Fröschen?" },
+        { "who": "tommaso", "face": "curious", "it": "Ah! E poi diventano rane?", "sl": "Aha! In potem postanejo žabe?", "en": "Ah! And then they turn into frogs?", "de": "Ah! Und dann werden sie zu Fröschen?" },
         { "choices": [
           { "it": "Sì! Prima hanno la coda, poi le zampe.", "sl": "Ja! Najprej imajo rep, potem noge.", "en": "Yes! First they have a tail, then legs.", "de": "Ja! Zuerst haben sie einen Schwanz, dann Beine.", "ok": true,
-            "reply": { "it": "Forte! Domani lo dico a tutti!", "sl": "Super! Jutri povem vsem!", "en": "Cool! Tomorrow I'll tell everyone!", "de": "Toll! Morgen erzähle ich es allen!" } },
+            "reply": { "face": "happy", "it": "Forte! Domani lo dico a tutti!", "sl": "Super! Jutri povem vsem!", "en": "Cool! Tomorrow I'll tell everyone!", "de": "Toll! Morgen erzähle ich es allen!" } },
           { "it": "Sì! Prima ha la coda, poi le zampe.", "sl": "Ja! Najprej ima rep, potem noge.", "en": "Yes! First it has a tail, then legs.", "de": "Ja! Zuerst hat er einen Schwanz, dann Beine.",
             "grammar": "essere-avere", "why": { "sl": "Paglavcev je več: hanno (imajo). Ha je za enega.", "en": "The tadpoles are more than one: hanno. Ha is for one.", "de": "Die Kaulquappen sind mehrere: hanno. Ha steht für eine." },
-            "reply": { "it": "Ha? Chi, la rana grande?", "sl": "Ima? Kdo, velika žaba?", "en": "Ha (has, one)? Who, the big frog?", "de": "Ha (hat, einer)? Wer, der große Frosch?" } }
+            "reply": { "face": "confused", "it": "Ha? Chi, la rana grande?", "sl": "Ima? Kdo, velika žaba?", "en": "Ha (has, one)? Who, the big frog?", "de": "Ha (hat, einer)? Wer, der große Frosch?" } }
         ] },
         { "who": "tommaso", "it": "Allora torno ogni giorno a guardare! Ciao, girini!", "sl": "Potem pridem gledat vsak dan! Adijo, paglavci!", "en": "Then I'll come back every day to watch! Bye, tadpoles!", "de": "Dann komme ich jeden Tag gucken! Tschüss, Kaulquappen!" }
       ]
@@ -180,21 +180,21 @@
           "fx": { "dog": 0.1, "bite": 0 } },
         { "choices": [
           { "it": "Ecco i vermi, nonno. Bleah!", "sl": "Izvoli črve, dedek. Fuj!", "en": "Here are the worms, Nonno. Yuck!", "de": "Hier sind die Würmer, Opa. Igitt!", "ok": true,
-            "reply": { "it": "Eh eh! Ai pesci piacciono tanto.", "sl": "He he! Ribam so zelo všeč.", "en": "Heh heh! The fish love them.", "de": "Hehe! Die Fische mögen sie sehr." } },
+            "reply": { "face": "laugh", "it": "Eh eh! Ai pesci piacciono tanto.", "sl": "He he! Ribam so zelo všeč.", "en": "Heh heh! The fish love them.", "de": "Hehe! Die Fische mögen sie sehr." } },
           { "it": "Ecco gli vermi, nonno. Bleah!", "sl": "Izvoli črve, dedek. Fuj!", "en": "Here are the worms, Nonno. Yuck!", "de": "Hier sind die Würmer, Opa. Igitt!",
             "grammar": "articoli-genere", "why": { "sl": "Pred v je moški člen v množini i: i vermi. Gli stoji pred samoglasnikom, pred s s soglasnikom ter pred z, gn in ps.", "en": "Before v the masculine plural article is i: i vermi. Gli goes before a vowel, s + consonant, z, gn and ps.", "de": "Vor v ist der männliche Pluralartikel i: i vermi. Gli steht vor Vokal, s + Konsonant, z, gn und ps." },
-            "reply": { "it": "Gli vermi? Eh eh, che parola strana!", "sl": "Gli vermi? He he, kakšna čudna beseda!", "en": "Gli vermi? Heh heh, what a funny word!", "de": "Gli vermi? Hehe, was für ein komisches Wort!" } }
+            "reply": { "face": "laugh", "it": "Gli vermi? Eh eh, che parola strana!", "sl": "Gli vermi? He he, kakšna čudna beseda!", "en": "Gli vermi? Heh heh, what a funny word!", "de": "Gli vermi? Hehe, was für ein komisches Wort!" } }
         ] },
         { "who": "bepi", "it": "Senti Moro? Abbaia ai pesci! Moro, zitto!", "sl": "Slišiš Mora? Laja na ribe! Moro, tiho!", "en": "Hear Moro? He's barking at the fish! Moro, quiet!", "de": "Hörst du Moro? Er bellt die Fische an! Moro, still!",
           "fx": { "dog": 0.9 } },
         { "choices": [
           { "it": "Moro, vieni qui! Bravo cane.", "sl": "Moro, pridi sem! Priden kuža.", "en": "Moro, come here! Good dog.", "de": "Moro, komm her! Braver Hund.", "ok": true,
-            "reply": { "it": "Ecco, adesso è tranquillo. Grazie, {learner}.", "sl": "Tako, zdaj je miren. Hvala, {learner}.", "en": "There, now he's calm. Thanks, {learner}.", "de": "So, jetzt ist er ruhig. Danke, {learner}.", "fx": { "dog": 0.3 } } },
+            "reply": { "face": "happy", "it": "Ecco, adesso è tranquillo. Grazie, {learner}.", "sl": "Tako, zdaj je miren. Hvala, {learner}.", "en": "There, now he's calm. Thanks, {learner}.", "de": "So, jetzt ist er ruhig. Danke, {learner}.", "fx": { "dog": 0.3 } } },
           { "it": "Moro, vai qui! Bravo cane.", "sl": "Moro, pojdi sem! Priden kuža.", "en": "Moro, go here! Good dog.", "de": "Moro, geh her! Braver Hund.",
             "grammar": "verbi-irregolari", "why": { "sl": "Ko kličeš k sebi, rečeš vieni (pridi). Vai je pojdi.", "en": "To call someone over: vieni (come). Vai is go.", "de": "Wenn du jemanden zu dir rufst: vieni (komm). Vai heißt geh." },
-            "reply": { "it": "Vai qui? Moro non capisce: deve andare o restare?", "sl": "Pojdi sem? Moro ne razume: naj gre ali ostane?", "en": "Go here? Moro doesn't get it: go or stay?", "de": "Geh her? Moro versteht nicht: gehen oder bleiben?" } }
+            "reply": { "face": "confused", "it": "Vai qui? Moro non capisce: deve andare o restare?", "sl": "Pojdi sem? Moro ne razume: naj gre ali ostane?", "en": "Go here? Moro doesn't get it: go or stay?", "de": "Geh her? Moro versteht nicht: gehen oder bleiben?" } }
         ] },
-        { "who": "bepi", "it": "I pesci tornano. Per pescare, la pazienza è la prima cosa.", "sl": "Ribe se vračajo. Pri ribolovu je potrpljenje na prvem mestu.", "en": "The fish are coming back. When you fish, patience comes first.", "de": "Die Fische kommen zurück. Beim Angeln ist Geduld das Wichtigste.",
+        { "who": "bepi", "face": "thinking", "it": "I pesci tornano. Per pescare, la pazienza è la prima cosa.", "sl": "Ribe se vračajo. Pri ribolovu je potrpljenje na prvem mestu.", "en": "The fish are coming back. When you fish, patience comes first.", "de": "Die Fische kommen zurück. Beim Angeln ist Geduld das Wichtigste.",
           "fx": { "fish": 1, "bite": 0.4 } }
       ]
     }
