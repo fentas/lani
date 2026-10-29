@@ -222,6 +222,12 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        typed with the pad's colon; a date's ordinal; a whole run read → figures one right answer from the
                        next range ("numbers:near"): the range opened, the number missed coming back, the dev bridge's
                        village keeping both, the dev tutor hearing the run;
+                       "cases" the case trainer ("🧩 Skloni · Cases", on a synthetic learner: LANI_DEV_DATA): the case
+                       pages met (QA's hook "cases:ready"), its screen; "Kateri sklon?" right, then "Zakaj?" the word
+                       that decides it tapped (✅), another with the case and the word wrong (❌, the rule, its page);
+                       "Kje ali kam?" with its scene's picture, the verb tapped; "Sklanjaj!" one of the learner's nouns
+                       typed in its nominative (❌, the right form); a case storm sorted, its end; the grammar page's
+                       "🧩 Vadi sklone"; Home's idea; the dev bridge's village keeping the progress, the sessions persisted;
                        "forms-card" forms cards ("📋 Oblike · Forms"): "📋 Vse oblike" on a noun's word card (QA's hook
                        "formscard:word:<word>") making its card at once, "▶ Vadi zdaj": its table (rows greyed, gaps), the
                        rules' pages, 💬 attaching it, a gap wrong, the rest right, the rows said together at the end, the
@@ -9406,6 +9412,223 @@ def my_words_log(query: str, dictionary=None, timeout=12.0):
     return None
 
 
+CASES_START = "Začni · Start"  # the trainer's ▶️ (l10n cases.start)
+CASES_ASK_WHICH = "Kateri sklon je poudarjena beseda?"  # (l10n cases.ask.which)
+CASES_ASK_WHY = "Zakaj? Tapni besedo"  # the why step (l10n cases.ask.why)
+CASES_ASK_WHY_PLACE = "Katera beseda pove"  # a place's why (l10n cases.ask.whyPlace)
+CASES_ASK_PLACE = "Kje ali kam?"  # a place item's instruction (l10n cases.ask.place.kjekam)
+CASES_ASK_DECLINE = "Sklanjaj!"  # a decline item's instruction (l10n cases.ask.decline)
+CASES_FROM_PAGE = "Vadi sklone · Case trainer"  # the grammar page's button (l10n cases.fromPage)
+CASES_STORM = "Sklonski vihar"  # the storm's button and title (l10n cases.storm.*)
+# each case's chip by its question words (the trainer's case look, data/CaseLook.kt)
+CASE_QUESTION = {"imenovalnik": "kdo? kaj?", "rodilnik": "koga? česa?", "dajalnik": "komu? čemu?", "tozilnik": "koga? kaj?", "mestnik": "pri kom? pri čem?", "orodnik": "s kom? s čim?"}
+
+
+def case_bank() -> list:
+    """The bank's items (companion/cases/sl/bank.json): what QA reads to know a task's case and its deciding word."""
+    return json.loads((ROOT / "companion/cases/sl/bank.json").read_text())["items"]
+
+
+def case_item_on_screen(items: list, timeout=8.0):
+    """The bank item on screen: its sentence (the which's, a place's prompt with its gap), or None."""
+    end = time.time() + timeout * slow()
+    while time.time() < end:
+        texts = [t for t, _ in nodes() if t]
+        for it in items:
+            toks = it["sl"].split()
+            if it["kind"] == "place":
+                a, b = it["gap"]
+                last = toks[b]
+                trailing = last[len(last.rstrip(".!?…,;:")):]
+                prompt = " ".join(toks[:a] + ["___" + (f" ({it['cue']})" if it.get("cue") else "") + trailing] + toks[b + 1:])
+                if any(t.strip() == prompt for t in texts):
+                    return it
+            elif any(t.startswith(it["sl"]) for t in texts):
+                return it
+        time.sleep(1)
+    return None
+
+
+def case_chip(case: str):
+    """The case's chip (its question words) below the sentence."""
+    q = CASE_QUESTION[case]
+    return next((c for t, c in nodes() if t.startswith(q) or (q in t and "sklon" not in t.lower() and c[1] > 500)), None)
+
+
+def word_chip(word: str, ask: str = CASES_ASK_WHY):
+    """A word's chip of "Zakaj?" (its text alone) below the question [ask]: the sentence above has the same word."""
+    for _ in range(3):
+        ns = list(nodes())
+        top = next((c[1] for t, c in ns if ask in t), None)
+        c = None if top is None else next((c for t, c in ns if t == word and c[1] > top), None)
+        if c is not None and c[1] < 2150:
+            return c
+        # a long sentence: the chips under the screen's edge, the run's question scrolled up
+        adb("shell", "input", "swipe", "540", "1500", "540", "1000", "400")
+        time.sleep(1)
+    return None
+
+
+def cases_step():
+    """"🧩 Skloni · Cases" (companion/README.md "Case trainer") on the dev bridge's copy of a synthetic learner: the case
+    pages met ("cases:ready"), the screen; a "Kateri sklon?" picked right and its deciding word tapped (✅), one with the
+    case wrong (❌, the rule and its page); a "Kje ali kam?" with its picture, the verb tapped; a noun of the learner's
+    typed in its nominative where a case is asked (❌, the form shown); a storm sorted a few phrases, ended (its medal); the
+    grammar page's "🧩 Vadi sklone"; Home's idea; the village's progress and the sessions on the dev bridge."""
+    go_home()
+    items = case_bank()
+    try:
+        qa_hook("cases:ready")
+        assert wait_for(CASES_START, 15), "the trainer's screen, open"
+        shot("cases-screen")
+
+        # Kateri sklon? right, then Zakaj? right
+        qa_hook("cases:only:which")
+        assert tap(CASES_START, 4), "start a session"
+        assert wait_for(CASES_ASK_WHICH, 12), "a which-case task"
+        it = case_item_on_screen([i for i in items if i["kind"] == "which"])
+        assert it, "the item on screen is the bank's"
+        shot("cases-which")
+        chip = case_chip(it["case"])
+        assert chip, f"the chip of {it['case']}"
+        tap_at(chip)
+        assert wait_for(CASES_ASK_WHY, 6), "Zakaj?"
+        shot("cases-why")
+        if it.get("trigger") is not None:
+            word = re.sub(r"^[^\w]+|[^\w]+$", "", it["sl"].split()[it["trigger"]])
+            c = word_chip(word)
+            assert c, f"the deciding word's chip ({word})"
+            tap_at(c)
+        else:
+            assert tap("osebek" if it.get("role") == "subject" else "predmet", 4), "nothing decides it: the role"
+        assert wait_for("✅", 6), f"right: {it['id']}"
+        shot("cases-why-right")
+        print(f"    {it['id']}: {it['case']}, decided by {it['sl'].split()[it['trigger']] if it.get('trigger') is not None else it.get('role')}")
+        assert tap(NEXT, 6), "on"
+
+        # another: the case wrong, then a wrong word: ❌, the rule and its page
+        assert wait_for(CASES_ASK_WHICH, 10), "the next which-case task"
+        it2 = case_item_on_screen([i for i in items if i["kind"] == "which"])
+        assert it2, "the next item"
+        wrong = next(k for k in CASE_QUESTION if k != it2["case"])
+        tap_at(case_chip(wrong))
+        assert wait_for(CASES_ASK_WHY, 6), "Zakaj? after a wrong pick too"
+        words = [re.sub(r"^[^\w]+|[^\w]+$", "", w) for w in it2["sl"].split()]
+        right_taps = {it2.get("trigger")} | set(it2.get("also", []))
+        pick = next((i for i, w in enumerate(words) if i != it2["word"] and i not in right_taps and w), None)
+        if pick is not None and (c := word_chip(words[pick])):
+            tap_at(c)
+        else:
+            assert tap("osebek", 4), "a role instead"
+        assert wait_for("❌", 6), "wrong"
+        assert wait_for("V knjigo", 4) or wait_for("📖", 2), "the rule's page one tap away"
+        shot("cases-which-wrong")
+        assert tap(NEXT, 6), "on"
+        assert tap(DONE, 6), "the session's Done"
+        assert wait_for(CONTINUE, 10), "the session's end"
+        shot("cases-end")
+        assert tap(CONTINUE, 4), "back from the end"
+
+        # Kje ali kam?: its picture where the village draws the place, the option, the verb
+        qa_hook("cases:only:place")
+        qa_hook("cases")
+        assert tap(CASES_START, 8), "start a session"
+        assert wait_for(CASES_ASK_PLACE, 12) or wait_for("V ali na", 2) or wait_for("Pri ali k", 2) or wait_for("Od kod", 2), "a place task"
+        pl = case_item_on_screen([i for i in items if i["kind"] == "place"])
+        assert pl, "the place item on screen"
+        time.sleep(2)  # its picture draws
+        shot("cases-place")
+        assert tap(pl["options"][pl["answer"]], 4), "the right option"
+        if pl.get("trigger") is not None:
+            assert wait_for(CASES_ASK_WHY_PLACE, 6), "Zakaj? for kje or kam"
+            verb = re.sub(r"^[^\w]+|[^\w]+$", "", pl["sl"].split()[pl["trigger"]])
+            c = word_chip(verb, CASES_ASK_WHY_PLACE)
+            assert c, f"the verb's chip ({verb})"
+            tap_at(c)
+        assert wait_for("✅", 6), f"right: {pl['id']}"
+        shot("cases-place-right")
+        print(f"    {pl['id']}: {pl['options'][pl['answer']]} ({pl['case']}), the verb {pl['sl'].split()[pl['trigger']] if pl.get('trigger') is not None else '-'}")
+        assert tap(NEXT, 6), "on"
+        assert tap(DONE, 6), "Done"
+        assert tap(CONTINUE, 10), "back"
+
+        # Sklanjaj!: the learner's noun typed as it is in the brackets (the nominative where a case is asked): ❌, the form
+        qa_hook("cases:only:decline")
+        qa_hook("cases")
+        assert tap(CASES_START, 8), "start a session"
+        assert wait_for(CASES_ASK_DECLINE, 12), "a decline task"
+        prompt = next((t for t, _ in nodes() if "___" in t), "")
+        m = re.search(r"\(([^)]*)\)\s*$", prompt)
+        assert m, f"the word in brackets ({prompt!r})"
+        cue = m.group(1).replace(", mn.", "").strip()
+        field = wait_for(ANSWER_FIELD, 6)
+        assert field, "the answer field"
+        tap_at(field)
+        type_text(ascii_of(cue))
+        shot("cases-decline")
+        assert tap("Preveri · Check", 3), "check"
+        assert wait_for("❌", 6) or wait_for("🟡", 2) or wait_for("✅", 2), "graded"
+        shot("cases-decline-graded")
+        print(f"    «{prompt}»: typed «{cue}»")
+        assert tap(NEXT, 6), "on"
+        assert tap(DONE, 6), "Done"
+        assert tap(CONTINUE, 10), "back"
+        qa_hook("cases:only:")
+
+        # the storm: a few phrases sorted right against the clock, then Done: its medal
+        qa_hook("cases:storm")
+        bare = lambda w: re.sub(r"^[^\w]+|[^\w]+$", "", w).lower()
+        which = [(i, " ".join(bare(w) for w in i["sl"].split())) for i in items if i["kind"] == "which"]
+        sorted_ = 0
+        for _ in range(3):
+            c = None
+            end = time.time() + 15 * slow()
+            while time.time() < end and c is None:
+                for t, _xy in nodes():
+                    phrase = " ".join(bare(w) for w in (t or "").split(",")[0].split())
+                    if len(phrase) < 3:
+                        continue
+                    hit = next((i for i, sent in which if phrase == sent or (f" {phrase} " in f" {sent} " and bare(i["sl"].split()[i["word"]]) in phrase.split())), None)
+                    if hit:
+                        c = case_chip(hit["case"])
+                        break
+                time.sleep(0.5)
+            if c is None:
+                break
+            if sorted_ == 0:
+                shot("cases-storm")
+            tap_at(c)
+            sorted_ += 1
+            time.sleep(1)
+        assert tap(DONE, 8), "the storm's Done"
+        assert wait_for(CONTINUE, 10), "the storm's end"
+        assert wait_for("🥇", 2) or wait_for("🥈", 2) or wait_for("🥉", 2), "its medal"
+        shot("cases-storm-end")
+        print(f"    the storm: {sorted_} sorted, then Done")
+        assert tap(CONTINUE, 4), "back"
+
+        # the grammar page's button
+        qa_hook("grammar:rodilnik-predlogi")
+        assert scroll_to(CASES_FROM_PAGE, 8), "the page's 🧩 Vadi sklone"
+        shot("cases-grammar-page")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+
+        # the dev bridge: the village keeps the progress, the sessions were persisted as grammar practice
+        kept = api("/game").get("state", {}).get("cases", {})
+        assert kept.get("runs", 0) >= 3, f"the dev bridge's village keeps the trainer's progress ({kept.get('runs')})"
+        end = time.time() + 20 * slow()
+        while time.time() < end and "Practised the cases" not in (OUT / "bridge.log").read_text(errors="replace"):
+            time.sleep(1)
+        assert "Practised the cases" in (OUT / "bridge.log").read_text(errors="replace"), "a session persisted (cases_done at the dev tutor)"
+        go_home()
+        if scroll_to("Skloni · Cases", 6):
+            shot("cases-home")
+    finally:
+        qa_hook("cases:only:")
+        go_home()
+
+
 def forms_cards():
     """Forms cards ("📋 Oblike · Forms", companion/README.md "Forms cards"): "📋 Vse oblike · All forms" on a noun's word card
     (QA's hook "formscard:word:<word>") opens its overview, whose "🃏 Vadi oblike" makes its card at once on the dev
@@ -12983,6 +13206,7 @@ def plan():
         ("word-forms", word_forms, go_home, False, ""),
         ("counting", counting_cards, go_home, False, ""),
         ("numbers", numbers, go_home, False, ""),
+        ("cases", cases_step, go_home, False, ""),
         ("forms-card", forms_cards, go_home, False, ""),
         ("forms-view", forms_view_step, go_home, False, ""),
         ("missing-word", missing_word, go_home, False, ""),
