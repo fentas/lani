@@ -14,16 +14,16 @@ import si.lanisce.lani.ui.words.WordToken
 import si.lanisce.lani.ui.words.WordTokens
 
 /**
- * The case lens in the app (data/CaseLens.kt): GET /lookup's `case` as the bridge sends it (companion/bridge/src/cases.ts,
+ * The case lens in the app (data/CaseLens.kt): GET /lookup's `case` as the bridge sends it (companion/bridge/src/case-lens.ts,
  * these answers its own) read into the word card's row in each of its states, the tapped word's place in its line, the
- * colours' marks (POST /cases) and how a case is named.
+ * colours' marks (POST /case-lens) and how a case is named.
  */
 class CaseLensTest {
     private fun lookupWith(case: String?) = Words.parse(
         """{"word":"w","entries":[{"lemma":"w","pos":"noun","gloss":["x"],"source":"wiktionary"}]${case?.let { ",\"case\":$it" } ?: ""}}""",
     )
 
-    private val brezMleka = """{"i":3,"word":"mleka","start":16,"end":21,"readings":[{"lemma":"mleko","pos":"noun","case":"gen","number":"sg","genders":["n"]}],"pick":{"case":"gen","number":"sg","gender":"n","as":"preposition"},"sure":"decided","kind":"preposition","trigger":{"i":2,"word":"brez","start":11,"end":15},"sense":"other","rule":"rodilnik-predlogi","options":[{"case":"gen","number":"sg","gender":"n","as":"preposition"}],"out":[]}"""
+    private val brezMleka = """{"i":3,"word":"mleka","start":16,"end":21,"readings":[{"lemma":"mleko","pos":"noun","case":"gen","number":"sg","genders":["n"]}],"pick":{"case":"gen","number":"sg","gender":"n","as":"preposition"},"sure":"decided","kind":"preposition","trigger":{"i":2,"word":"brez","start":11,"end":15},"sense":"other","rule":"rodilnik-predlogi","options":[{"case":"gen","number":"sg","gender":"n","as":"preposition"}],"out":[],"seen":true}"""
     private val podMizo = """{"i":1,"word":"mizo","start":4,"end":8,"readings":[{"lemma":"miza","pos":"noun","case":"acc","number":"sg","genders":["f"]},{"lemma":"miza","pos":"noun","case":"ins","number":"sg","genders":["f"]}],"pick":{"case":"ins","number":"sg","gender":"f","as":"preposition"},"sure":"likely","kind":"preposition","trigger":{"i":0,"word":"Pod","start":0,"end":3},"sense":"rest","rule":"kje-mestnik-orodnik","options":[{"case":"ins","number":"sg","gender":"f","as":"preposition"},{"case":"acc","number":"sg","gender":"f","as":"preposition"}],"out":[]}"""
     private val doVasi = """{"i":4,"word":"vasi","start":16,"end":20,"readings":[],"pick":{"case":"gen","number":"sg","gender":"f","as":"preposition"},"sure":"likely","kind":"preposition","trigger":{"i":3,"word":"do","start":13,"end":15},"sense":"towards","rule":"rodilnik-predlogi","options":[{"case":"gen","number":"sg","gender":"f","as":"preposition"},{"case":"gen","number":"pl","gender":"f","as":"preposition"}],"out":[{"case":"nom","number":"du","why":"dual"},{"case":"gen","number":"du","why":"dual"},{"case":"acc","number":"du","why":"dual"},{"case":"nom","number":"pl","why":"preposition"},{"case":"acc","number":"pl","why":"preposition"},{"case":"dat","number":"sg","why":"preposition"},{"case":"loc","number":"sg","why":"preposition"}]}"""
     private val brez = """{"i":2,"word":"brez","start":11,"end":15,"words":[{"i":3,"word":"mleka","start":16,"end":21,"case":"gen"}],"governs":{"i":2,"word":"brez","start":11,"end":15,"words":[{"i":3,"word":"mleka","start":16,"end":21,"case":"gen"}]}}"""
@@ -44,6 +44,9 @@ class CaseLensTest {
         assertEquals(listOf(CaseChoice(Case.GEN, "sg", null, role = "preposition")), row.options)
         assertNull(row.gender)
         assertTrue(row.others.isEmpty())
+        // the look counted as met for its rule (the case trainer's hook)
+        assertTrue(read.seen)
+        assertFalse(lookupWith(podMizo).lens!!.seen)
     }
 
     @Test fun `a likely one comes first with the others it leaves, and the form's other readings ruled out`() {

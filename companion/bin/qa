@@ -3035,7 +3035,7 @@ def lens_in_dialog() -> str:
     assert tap(CASES, 5), "its 🎨 Skloni · Cases"
     time.sleep(1.5)
     shot("lens-dialog-menu-on")
-    back_key()  # the menu closes; the lines are coloured (POST /cases, a moment)
+    back_key()  # the menu closes; the lines are coloured (POST /case-lens, a moment)
     time.sleep(3)
     shot("lens-dialog-colours")
     assert tap("Zapri · Close", 3), "close the dialog"

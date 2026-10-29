@@ -75,7 +75,7 @@ object CaseLook {
 @Composable
 @Suppress("ComposableNaming")
 fun caseMarks(vm: si.lanisce.lani.AppViewModel, line: String, offset: Int = 0): List<si.lanisce.lani.data.CaseMark> {
-    val c = vm.cases
+    val c = vm.caseColours
     if (!c.on) return emptyList()
     androidx.compose.runtime.LaunchedEffect(line) { c.request(line) }
     val spans = c.known(line) ?: return emptyList()

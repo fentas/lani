@@ -220,12 +220,12 @@ class Bridge(private val config: BridgeConfig) {
     }
 
     /**
-     * Each of [lines]' words with a case, as the colours draw them ("Skloni · Cases": POST /cases, data/CaseLens.kt), at
+     * Each of [lines]' words with a case, as the colours draw them ("Skloni · Cases": POST /case-lens, data/CaseLens.kt), at
      * most [CaseLens.BATCH] lines of [CaseLens.MAX_CHARS] characters. Null from an older bridge without them (404) or one
      * that won't take the request (400): no colours then.
      */
     suspend fun cases(lines: List<String>): CasesAnswer? = off {
-        val (code, text) = exchange(request("/cases").post(CaseLens.casesBody(lines).toString().toRequestBody(Http.jsonType)).build())
+        val (code, text) = exchange(request("/case-lens").post(CaseLens.casesBody(lines).toString().toRequestBody(Http.jsonType)).build())
         return@off when (code) {
             200 -> CaseLens.parseCases(text)
             400, 404 -> null

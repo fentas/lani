@@ -2,14 +2,14 @@
 // case-lens-heldout.json, lines drawn after it was written and labelled before it ran on them, its misses then fixed; and
 // case-lens-heldout2.json, drawn after those fixes, run once): how often its pick is the
 // labelled case and number, how often it decides wrongly (the one that matters: a wrong answer said as sure), its
-// trigger and its rule, and the labelled ambiguities it keeps open. The smoke checks the numbers (test/smoke/cases.ts);
+// trigger and its rule, and the labelled ambiguities it keeps open. The smoke checks the numbers (test/smoke/case-lens.ts);
 // The case trainer's bank too, once it is merged (trainerItems). `bun test/case-lens-eval.ts [gold|heldout|heldout2|trainer]
 // [-v]` prints them with each miss.
 import { existsSync, readFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { validateCaseTriggers } from '../src/case-triggers'
-import { CaseLens, namesOf, type CaseOption } from '../src/cases'
+import { CaseLens, namesOf, type CaseOption } from '../src/case-lens'
 import { FormsBook } from '../src/forms'
 import { Lexicon } from '../src/lexicon'
 

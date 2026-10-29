@@ -116,7 +116,7 @@ class PhoneBridgeTest {
             "/stories", "/stt/status", "/villagers", "/voice/index", "/voice/offline", "/voice/profiles", "/voice/status", "/words",
             "/course", "/culture", "/cultures", "/game", "/lexicon/status", "/packs", "/scenes", "/app/latest", "/towns",
             "/towns/guests", "/towns/questions", "/towns/friendship", "/audio/index", "/family/api/settings", "/family/api/words",
-            "/family/api/challenges", "/counting", "/forms-cards", "/level", "/cases/seen",
+            "/family/api/challenges", "/counting", "/forms-cards", "/level", "/case-lens/seen",
         )
         val failed = routes.map { it to get(it) }.filter { (_, r) -> r.status >= 500 }
         assertEquals(failed.joinToString("\n") { (p, r) -> "$p: ${r.status} ${r.text.take(200)}" }, 0, failed.size)
@@ -167,7 +167,7 @@ class PhoneBridgeTest {
 
     @Test
     fun theCaseLens() {
-        // the case lens runs in the phone's own bridge (companion/bridge/src/cases.ts): a word's case in its line, offline
+        // the case lens runs in the phone's own bridge (companion/bridge/src/case-lens.ts): a word's case in its line, offline
         val line = java.net.URLEncoder.encode("Kavo pijem brez mleka.", "UTF-8")
         val mleka = ok(get("/lookup?w=mleka&line=$line")).json().jsonObject["case"]!!.jsonObject
         assertEquals(mleka.toString(), "gen", mleka["pick"]!!.jsonObject["case"]!!.jsonPrimitive.content)
@@ -175,12 +175,12 @@ class PhoneBridgeTest {
         assertEquals("brez", mleka["trigger"]!!.jsonObject["word"]!!.jsonPrimitive.content)
         assertEquals("rodilnik-predlogi", mleka["rule"]!!.jsonPrimitive.content)
         // the colours of a reading's lines, one request
-        val lines = ok(send("POST", "/cases", """{"lines":["Babica je v kuhinji.","Pod mizo!"]}""")).json().jsonObject["lines"]!!.jsonArray
+        val lines = ok(send("POST", "/case-lens", """{"lines":["Babica je v kuhinji.","Pod mizo!"]}""")).json().jsonObject["lines"]!!.jsonArray
         val words = lines[0].jsonObject["words"]!!.jsonArray.map { it.jsonObject }
         assertEquals(listOf("Babica" to "nom", "kuhinji" to "loc"), words.map { it["word"]!!.jsonPrimitive.content to it["case"]!!.jsonPrimitive.content })
         assertEquals("likely", lines[1].jsonObject["words"]!!.jsonArray[0].jsonObject["sure"]!!.jsonPrimitive.content)
         // the word looked up through the lens counts as seen for its rule
-        val seen = ok(get("/cases/seen")).json().jsonObject["rules"]!!.jsonObject
+        val seen = ok(get("/case-lens/seen")).json().jsonObject["rules"]!!.jsonObject
         assertTrue(seen.toString(), (seen["rodilnik-predlogi"]?.jsonObject?.get("seen")?.jsonPrimitive?.content?.toInt() ?: 0) >= 1)
     }
 

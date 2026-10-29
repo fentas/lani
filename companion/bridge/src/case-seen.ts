@@ -2,7 +2,7 @@
 // the lens (GET /lookup with its line: the word card's "Sklon · Case" row) counts as met for the case trainer's per-rule
 // mastery, lightly: how often and on how many days each rule (the grammar page's id: rodilnik-predlogi, kam-tozilnik …)
 // and its trigger words were seen. Never a pass: nothing here is an answer. <data>/app/case-lens-seen.json, GET
-// /cases/seen. The same word of the same line counts once a day.
+// /case-lens/seen. The same word of the same line counts once a day.
 import { existsSync, readFileSync, renameSync, writeFileSync } from 'node:fs'
 import type { Log } from './config'
 

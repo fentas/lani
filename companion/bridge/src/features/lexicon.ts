@@ -8,7 +8,7 @@
 // loaded (or downloaded) at the first lookup. A word's forms (GET /forms, forms.ts): its slots with the grammar book's
 // page of each and the content's lines they stand in, for the review's form questions and the word card's table.
 // A Slovene word looked up in its line has its case too (cases.ts, the case lens: GET /lookup's `case`, the word card's
-// "Sklon · Case" row), and a reading's or a dialog's lines are coloured by case on demand (POST /cases).
+// "Sklon · Case" row), and a reading's or a dialog's lines are coloured by case on demand (POST /case-lens).
 import { existsSync, readdirSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 import { z } from 'zod'
@@ -26,7 +26,7 @@ import { itemId, meaningOf, normWord, PackStore, packsDirs, vocabularyWords, wor
 import { labelEn } from '../langs'
 import { untrustedJson } from '../family'
 import { MAX_REQUESTS, WordRequests, type WordRequest } from '../word-requests'
-import { CaseLens, namesOf, type LineCases, type NameForms, type WordCase } from '../cases'
+import { CaseLens, namesOf, type LineCases, type NameForms, type WordCase } from '../case-lens'
 import type { CaseTriggers } from '../case-triggers'
 import { CaseSeen } from '../case-seen'
 
@@ -55,7 +55,7 @@ The case lens (Slovene): a word card of a Slovene word in its line shows its cas
 subject's verb), the rule's grammar page, and every reading when the line can't tell; readings, stories and dialogs can
 underline each noun in its case's colour ("Skloni · Cases"). The lens is a rule table (companion/grammar/sl/data/
 case-triggers.json), never a guess: point Jan to it when a case trips them ("tap the word: the card says what decides
-it"). GET /cases/seen lists, per rule (the grammar page's id), how often Jan has looked at a word through it: met, not
+it"). GET /case-lens/seen lists, per rule (the grammar page's id), how often Jan has looked at a word through it: met, not
 practised; the case trainer weighs it lightly.
 `.trim()
 
@@ -113,7 +113,7 @@ const WAIT_MS = Number(process.env.LANI_LEXICON_WAIT_MS ?? 20_000)
 
 const LANG = /^[a-z]{2,3}$/
 
-/** At most this many lines POST /cases colours at once, each this long at most. */
+/** At most this many lines POST /case-lens colours at once, each this long at most. */
 const CASES_LINES = 60
 const CASES_CHARS = 400
 
@@ -369,15 +369,17 @@ export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox,
 
   /**
    * The word [w] of [line] (its [n]th) through the case lens, null for a word without a case that decides none; one whose
-   * case the line decides counts as seen for its rule.
+   * case the line decides counts as seen for its rule, and says so (`seen: true`, once a day per word of a line: the
+   * app's hook for the case trainer's own count).
    */
-  function caseOf(line: string, w: string, n: number): (Partial<WordCase> & { governs?: unknown }) | null {
+  function caseOf(line: string, w: string, n: number): (Partial<WordCase> & { governs?: unknown; seen?: true }) | null {
     const l = caseLens()
     if (!l) return null
     try {
       const c = l.at(line, w, n, lensNames())
       // seen: a word whose case the line decides (its number may be open: vasi, the genitive singular or plural)
-      if (c && 'pick' in c && c.pick && c.kind !== 'unresolved' && c.rule && new Set(c.options.map(o => o.case)).size === 1) seen.saw(c.rule, line, `${c.i}`, c.trigger?.word)
+      const decided = c && 'pick' in c && c.pick && c.kind !== 'unresolved' && c.rule && new Set(c.options.map(o => o.case)).size === 1
+      if (decided && seen.saw(c.rule!, line, `${c.i}`, c.trigger?.word)) return { ...c, seen: true }
       return c
     } catch (e) {
       log(`case lens: ${line.slice(0, 80)}: ${(e as Error).message}`)
@@ -612,7 +614,7 @@ export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox,
       { method: 'GET', path: '/words', handle: () => json({ from: WORD_SOURCES }) },
       {
         method: 'POST',
-        path: '/cases',
+        path: '/case-lens',
         // {lines: [...]}: each line's words with a case, for the colours of a reading, a story or a dialog ("Skloni · Cases");
         // a read, not a write (no outbox); none for a language without the lens
         handle: async ({ req }) => {
@@ -637,7 +639,7 @@ export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox,
         },
       },
       // how often the learner has looked at a word through the lens, per rule (the case trainer weighs it lightly)
-      { method: 'GET', path: '/cases/seen', handle: () => json(seen.current()) },
+      { method: 'GET', path: '/case-lens/seen', handle: () => json(seen.current()) },
     ],
     tools: [
       {

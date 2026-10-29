@@ -103,7 +103,7 @@ fun ReadingSheet(
     }
     val textBlock: @Composable () -> Unit = {
         TranslationSwitch(view.showAll) { view = view.toggle() }
-        if (vm.cases.available) CasesSwitch(vm.cases.prefs.colours, vm.cases::toggle)
+        if (vm.caseColours.available) CasesSwitch(vm.caseColours.prefs.colours, vm.caseColours::toggle)
         ReadingText(vm, r, lines, view, onReveal = { i -> view = view.reveal(i) }, speak = speak)
     }
     Sheet(onDismiss) {

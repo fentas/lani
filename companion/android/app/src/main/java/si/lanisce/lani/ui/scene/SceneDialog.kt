@@ -270,7 +270,7 @@ fun DialogPanel(
                     Text(talk.happening.title, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
                 if (run.step != DialogRun.Step.END) TranslationsToggle(prefs.translations, prefs::showTranslations)
-                if (vm.cases.available) DialogMore(vm)
+                if (vm.caseColours.available) DialogMore(vm)
                 CloseButton(onClose)
             }
             if (run.step == DialogRun.Step.END) {
@@ -363,7 +363,7 @@ internal fun TranslationsToggle(on: Boolean, onChange: (Boolean) -> Unit) {
 @Composable
 private fun DialogMore(vm: AppViewModel) {
     var open by remember { mutableStateOf(false) }
-    val on = vm.cases.prefs.colours
+    val on = vm.caseColours.prefs.colours
     Box {
         IconButton(onClick = { open = true }, modifier = Modifier.semantics { contentDescription = bi("caseLens.more") }) {
             Text("⋯", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold, modifier = Modifier.clearAndSetSemantics { })
@@ -377,7 +377,7 @@ private fun DialogMore(vm: AppViewModel) {
                     }
                 },
                 trailingIcon = { Switch(checked = on, onCheckedChange = null, modifier = Modifier.clearAndSetSemantics { }) },
-                onClick = { vm.cases.toggle() },
+                onClick = { vm.caseColours.toggle() },
                 modifier = Modifier.semantics { stateDescription = if (on) bi("caseLens.on") else bi("caseLens.off") },
             )
             if (on) si.lanisce.lani.ui.words.CaseLegend(Modifier.padding(horizontal = 16.dp, vertical = 8.dp).widthIn(max = 300.dp))

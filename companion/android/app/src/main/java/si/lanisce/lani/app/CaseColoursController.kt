@@ -15,7 +15,7 @@ import si.lanisce.lani.l10n.L10n
 
 /**
  * "🎨 Skloni · Cases" (docs/plans/05-built/case-lens.md): the lines of a reading, a story or a dialog with each noun
- * underlined in its case's colour, asked of the bridge (POST /cases, its own analysis: in the phone's bridge offline) a
+ * underlined in its case's colour, asked of the bridge (POST /case-lens, its own analysis: in the phone's bridge offline) a
  * few dozen lines at a time and kept; the drawing is the text's (WordText), nothing computed on the main thread. Only
  * Slovene's, at home ([available]); off until the learner turns it on ([CasePrefs]).
  */

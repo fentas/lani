@@ -10,7 +10,7 @@ import si.lanisce.lani.game.Case
 import si.lanisce.lani.ui.words.WordToken
 import si.lanisce.lani.ui.words.WordTokens
 
-// --- the case lens: GET /lookup's `case`, POST /cases (companion/bridge/src/cases.ts, docs/plans/05-built/case-lens.md) ---
+// --- the case lens: GET /lookup's `case`, POST /case-lens (companion/bridge/src/case-lens.ts, docs/plans/05-built/case-lens.md) ---
 
 /** A word of the line the lens points at: its place among the line's words, as written, where it is (UTF-16 offsets). */
 @Serializable
@@ -39,7 +39,9 @@ data class GovernedWord(val i: Int, val case: String, val word: String = "", val
  * What the lens says of a tapped word (GET /lookup's `case`): its [readings], the one the line picks ([pick], null when
  * it can't tell), how sure ([sure]: decided, likely, ambiguous), what decided ([kind], [trigger], [sense]), the grammar
  * page ([rule]), the [options] left, the likely one first, the readings ruled [out], an adjective's noun ([agrees]), a
- * form read by its endings ([derived]); a preposition or another trigger tapped: what it [governs] (no [pick]).
+ * form read by its endings ([derived]); a preposition or another trigger tapped: what it [governs] (no [pick]). [seen]:
+ * this look counted as met for [rule] (the bridge's GET /case-lens/seen; once a day per word of a line), the case
+ * trainer's hook for its own count of a rule the lens showed.
  */
 @Serializable
 data class CaseRead(
@@ -59,9 +61,10 @@ data class CaseRead(
     val agrees: CaseRef? = null,
     val derived: Boolean = false,
     val governs: CaseGoverns? = null,
+    val seen: Boolean = false,
 )
 
-/** A word of a line as the colours draw it (POST /cases): where, its case (null: the line can't tell), how sure. */
+/** A word of a line as the colours draw it (POST /case-lens): where, its case (null: the line can't tell), how sure. */
 @Serializable
 data class CaseSpan(
     val i: Int,
@@ -179,7 +182,7 @@ object CaseLens {
     }
 
     /**
-     * The marks the colours draw under a line's words ([spans], POST /cases), shifted by [offset] when the text shows the
+     * The marks the colours draw under a line's words ([spans], POST /case-lens), shifted by [offset] when the text shows the
      * line after a prefix: a decided case in its colour, the rest (likely, ambiguous) dotted. Words outside [length] (the
      * text shown) are left out.
      */
@@ -190,7 +193,7 @@ object CaseLens {
         CaseMark(start, end, if (s.sure == "decided") caseOf(s.case) else null)
     }
 
-    /** POST /cases' body: the lines to colour. */
+    /** POST /case-lens' body: the lines to colour. */
     fun casesBody(lines: List<String>) = buildJsonObject { put("lines", buildJsonArray { lines.forEach { add(JsonPrimitive(it)) } }) }
 
     fun parseCases(raw: String): CasesAnswer = json.decodeFromString(CasesAnswer.serializer(), raw)
@@ -201,7 +204,7 @@ object CaseLens {
     /** At most this many of the form's other readings a card lists ("can also be"). */
     const val MAX_OTHERS = 4
 
-    /** At most this many lines one POST /cases asks about, each this long at most (the bridge's limits). */
+    /** At most this many lines one POST /case-lens asks about, each this long at most (the bridge's limits). */
     const val BATCH = 60
     const val MAX_CHARS = 400
 }

@@ -36,7 +36,7 @@ const words = z.array(word).min(1)
 /**
  * An example of an entry: a sentence, its translation, the word it decides ([word], as written; [nth]: which of the same
  * words, from 0), the case and number the analysis must give it, and the word that decides it ([trigger], as written;
- * none: the word's role decides, the subject or the object). The smoke analyses every example (test/smoke/cases.ts).
+ * none: the word's role decides, the subject or the object). The smoke analyses every example (test/smoke/case-lens.ts).
  */
 const example = z.strictObject({
   sl: z.string().trim().min(3).max(160),
