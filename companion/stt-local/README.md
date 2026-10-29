@@ -172,11 +172,13 @@ for the tutor, and noise as nothing heard (docs/plans/05-built/stt-talk.md). Wha
   requests, and 0.39 s (p90 0.58 s) for one plain hearing alone; the same texts in 75 of 80 (the others: noise heard
   at a higher temperature, which samples).
 - **The voice in the take** (`voice`): seconds loud over the room (4 dB over the take's quietest tenth) and periodic
-  like a voice (a pitch of 70 to 500 Hz, the normalized autocorrelation over 0.35), in frames of 30 ms. large-v3-turbo's
-  `no_speech_prob` is 0 for a room's noise, which it hears as "Grazie." or "Grazie a tutti." (large-v3's works: 0.8 on
-  the noise takes, 0.1 on speech), so this is what tells a voice from a room: under 0.15 s voiced was every room and
-  every breath-and-knock take of the test set (60 of 60), 1.1 % of 1,239 child-like takes and 0.1 % of 1,239 clean
-  ones; a sung "ooo" and a reversed mumble are voices (0 and 10 % under it). 14 ms a take.
+  like a voice (the normalized autocorrelation over 0.35 at the period of a pitch of 70 to 500 Hz, and 0.3 over the
+  lowest it fell to before it), in frames of 30 ms. large-v3-turbo's `no_speech_prob` is 0 for a room's noise, which it
+  hears as "Grazie." or "Grazie a tutti." (large-v3's works: 0.8 on the noise takes, 0.1 on speech), so this is what
+  tells a voice from a room: every room and every breath-and-knock take of the test set (60 of 60) had at most 0.01 s
+  voiced, under the 0.1 s the bridge asks of a voice, as had 0.6 % of 1,239 child-like takes and none of 1,239 clean
+  ones; a sung "ooo" and a reversed mumble are voices. A voice's period is a peak of the autocorrelation after a valley:
+  a low rumble's stays high at a pitch's lag without one. 7-14 ms a take.
 - **A loop stops sooner** (`LANI_STT_BUDGET`): at most 12 text tokens a second of audio and 10 more. A take that
   Whisper fills with "non, non, non, …" took up to 9 s at 224 tokens with its retries.
 

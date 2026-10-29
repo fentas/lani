@@ -21,11 +21,12 @@ instructions said "simple Slovene" to Teo's Italian tutor.
   without the prompt, so the two compare; the plain one needs 0.1 more). The other reading goes to the tutor as
   `alternatives`.
 - **Noise is nothing heard.** The worker now measures how much of a take is a voice (`voice.voiced`: seconds loud over
-  the room and periodic like a pitch); under 0.15 s is no voice. large-v3-turbo's `no_speech_prob` is 0 for a room's
-  noise that it hears as "Grazie.", so this is what tells them apart. A reading Whisper made up (a word or a phrase over
-  and over, a letter held, more words than the audio can hold, a web address, its stock lines like "Grazie a tutti.",
-  "Sottotitoli creati dalla comunità Amara.org"), a sound ("Ooooh", "mmm") or the prompt's own words that don't fit the
-  audio is no line either. Nothing goes to the draft; the app says "🤔 I didn't catch that".
+  the room and periodic like a pitch: the autocorrelation peaks at a voice's period after a valley); under 0.1 s is no
+  voice. large-v3-turbo's `no_speech_prob` is 0 for a room's noise that it hears as "Grazie.", so this is what tells
+  them apart. A reading Whisper made up (a word or a phrase over and over, a letter held, more words than the audio can
+  hold, a web address, its stock lines like "Grazie a tutti.", "Sottotitoli creati dalla comunità Amara.org"), a sound
+  ("Ooooh", "mmm") or the prompt's own words that don't fit the audio is no line either. Nothing goes to the draft; the
+  app says "🤔 I didn't catch that".
 - **Near-misses go to the tutor.** A heard word the language doesn't have, one edit from a word of the conversation
   ("Amigo" with "amico" in Davide's line), is matched to it in an alternative reading for the tutor ("Amico, come
   stai?"), with `near: [{from, to}]`. The draft keeps what was heard: on the test set every match changed a word wrongly
@@ -73,7 +74,7 @@ instructions said "simple Slovene" to Teo's Italian tutor.
   take) in every response, `token_budget` (12 text tokens a second and 10 more, `LANI_STT_BUDGET`; 0: Whisper's 224),
   `load_half` (the model made in fp16 on the CPU, then moved: equal to the old load's in all 587 tensors). Tests:
   `companion/tests/test_stt_worker.py` (the plain hearing asked for, the budget, the cache, the voice).
-- **Bridge**: `src/stt-talk.ts` (`talkPrompt`, `weigh` with `WEIGHING` {margin 0.1, sureWord 0.85, minVoiced 0.15,
+- **Bridge**: `src/stt-talk.ts` (`talkPrompt`, `weigh` with `WEIGHING` {margin 0.1, sureWord 0.85, minVoiced 0.1,
   copyProb 0.5, words: true}, `madeUp`, `copied`, `snap`, `MIN_LEMMAS`), `src/features/stt.ts`
   (`?talk=1&said=…&words=…&names=…`, `talkContextOf`, `Stt.talk`: one request with `plain=1`, else two; the response's
   `alternatives`, `near`, `sure`, `noise`, `by`, `readings`), `src/lexicon.ts` (`size`), `src/features/scenarios.ts`
@@ -125,7 +126,7 @@ node's own worker and other jobs.
 | … of them reusing a word of the character's lines | 33.1 % | 28.1 % |
 | Clean takes needing a retake | 6.0 % | 5.5 % |
 | WER: child-like / reusing / clean | 17.3 / 10.8 / 2.4 % | 16.1 / 9.1 / 2.2 % |
-| Noise takes with text in the draft | 99 % | 29 % (none sent by itself) |
+| Noise takes with text in the draft | 99 % | 30 % (none sent by itself) |
 | Sent by itself (child-like / clean) | – | 22 % / 47 % of the takes; with other words than said: 1.8 % / 0.5 % of the takes |
 | A soft voice (-26 dBFS) not sent when its take ends | 61.5 % | 0.2 % |
 | Latency a take (median / p90) | 0.39 / 0.58 s (one hearing) | 0.43 / 0.81 s (both, one request) |
@@ -156,8 +157,8 @@ Today's worker (two requests), the test split (the odd lines):
 | context prompt, unrelated context | 617 | 39.1 % | 36.6 % | 0.0 % | 0.0 % | 0.0 % | 0.55 / 1.65 s |
 | + second opinion | 617 | 16.2 % | 35.0 % | 0.8 % | 0.0 % | 0.0 % | 1.01 / 2.50 s |
 | + dictionary (near-misses to the tutor) | 617 | 15.8 % | 34.0 % | 0.6 % | 0.0 % | 0.0 % | 1.01 / 2.50 s |
-| + voice check (all) | 617 | 15.8 % | 34.0 % | 1.9 % | 22.0 % | 1.8 % | 1.01 / 2.50 s |
-| all, unrelated context | 617 | 16.6 % | 35.7 % | 2.3 % | 22.5 % | 1.6 % | 1.01 / 2.52 s |
+| + voice check (all) | 617 | 15.8 % | 34.0 % | 1.3 % | 22.0 % | 1.8 % | 1.01 / 2.50 s |
+| all, unrelated context | 617 | 16.6 % | 35.7 % | 1.6 % | 22.5 % | 1.6 % | 1.01 / 2.52 s |
 
 *Child-like takes that reuse a word of the character's lines (139)*
 
@@ -180,8 +181,8 @@ Today's worker (two requests), the test split (the odd lines):
 | context prompt, unrelated context | 120 | 99.2 % | 0.0 % |
 | + second opinion | 120 | 68.3 % | 0.0 % |
 | + dictionary (near-misses to the tutor) | 120 | 68.3 % | 0.0 % |
-| + voice check (all) | 120 | 26.7 % | 0.0 % |
-| all, unrelated context | 120 | 25.8 % | 0.0 % |
+| + voice check (all) | 120 | 27.5 % | 0.0 % |
+| all, unrelated context | 120 | 26.7 % | 0.0 % |
 
 The worker as built (one request, `plain=1`: the encoder shared, the token budget), the same takes heard again (the
 temperature retries sample, so a reading can differ); the single hearings are parts of one request here, their latency
@@ -205,7 +206,7 @@ is in the table above and under "Latency":
 | context prompt | 617 | 17.2 % | 34.7 % | 0.0 % | 0.0 % | 0.0 % | – |
 | + second opinion | 617 | 16.5 % | 35.3 % | 0.8 % | 0.0 % | 0.0 % | 0.52 / 1.03 s |
 | + dictionary (near-misses to the tutor) | 617 | 16.1 % | 34.4 % | 0.6 % | 0.0 % | 0.0 % | 0.52 / 1.03 s |
-| + voice check (all) | 617 | 16.1 % | 34.4 % | 1.9 % | 22.0 % | 1.8 % | 0.52 / 1.03 s |
+| + voice check (all) | 617 | 16.1 % | 34.4 % | 1.3 % | 22.0 % | 1.8 % | 0.52 / 1.03 s |
 
 *Child-like, reusing the character's words*
 
@@ -225,7 +226,7 @@ is in the table above and under "Latency":
 | context prompt | 120 | 100.0 % | 0.0 % |
 | + second opinion | 120 | 70.8 % | 0.0 % |
 | + dictionary (near-misses to the tutor) | 120 | 70.8 % | 0.0 % |
-| + voice check (all) | 120 | 29.2 % | 0.0 % |
+| + voice check (all) | 120 | 30.0 % | 0.0 % |
 
 
 **Latency** (`talk-bench/timing.py`, 80 child-like takes, the ways in turn on the same takes):
@@ -247,10 +248,12 @@ reading goes to the tutor as an alternative, and the draft keeps what was heard.
 **Noise.** Whisper writes "Grazie." or "Grazie a tutti." over a room's noise (99 % of the noise takes got text with the
 plain hearing), with word probabilities of 0.6 to 0.9, as high as a real "Grazie" heard through noise, and
 large-v3-turbo's `no_speech_prob` is 0 there. The two hearings agree on it about a third of the time. What tells them
-apart is the voice in the take: every room and every breath-and-knock take (60) is under 0.15 s voiced, and 1.1 % of the
-child-like takes (0.1 % of the clean ones), most of them single words that are misheard anyway. What still reaches the
-draft (27 % of the noise takes) is voiced: a sung "ooo" or a reversed mumble heard as "Sì" or "Grazie."; none of it goes
-by itself.
+apart is the voice in the take: every room and every breath-and-knock take (60) has at most 0.01 s voiced, under the 0.1
+s a voice needs, and 0.6 % of the child-like takes (none of the clean ones) have less, most of them single words that
+are misheard anyway. On the emulator, a burst of pink noise over a silent room measured 0.2 s voiced at first: a low
+rumble's autocorrelation stays high at a pitch's lag; a voice's period is now a peak after a valley (0.3 over it), and
+the burst measures 0. What still reaches the draft (30 % of the noise takes) is voiced: a sung "ooo" or a reversed
+mumble heard as "Sì" or "Grazie."; none of it goes by itself.
 
 **The take** (`talk-bench/gate.py`: the gate on the teo takes' 100 ms levels, 620 of them, each scaled to a peak; no
 tap, the take ends by itself):
@@ -297,15 +300,16 @@ and 617 child-like takes) and the 120 noise takes:
 | child-like, reusing the character's words: both hearings, median / p90 | 0.56 / 0.96 s | 1.29 / 3.07 s |
 | no_speech_prob of the plain hearing, noise takes (median / max) | 0.0 / 0.0 | 0.815 / 0.923 |
 | no_speech_prob, child-like takes (median / max) | 0.0 / 0.0 | 0.097 / 0.878 |
-| noise takes with text in the draft (all) | 29.2 % | 39.2 % |
+| noise takes with text in the draft (all) | 30.0 % | 40.0 % |
 | VRAM (stt-local/README.md) / load | 2.4 GiB / 9 s | 4.3 GiB / 14 s |
+
 
 large-v3 needs a retake for 2.3 points fewer child-like takes (32.1 % against 34.4 %) and has a working `no_speech_prob`
 (0.8 on noise, 0.1 on speech; turbo's is 0 everywhere), but takes 2.3 times as long for the two hearings (1.17 s against
 0.52 s, median) and 3 times at the p90 (3.1 s against 1.0 s), on a GPU shared with the voice worker, with 4.3 GiB
 instead of 2.4. Its word probabilities run higher: at the same 0.85 more of its lines would go by themselves, and more
 of them wrongly (2.4 % of the child-like takes, 5.0 % of those that reuse the character's words, against 1.8 % and 2.2
-%), so it would need its own threshold; and more of the noise takes reach the draft (39 % against 29 %). Not clearly
+%), so it would need its own threshold; and more of the noise takes reach the draft (40 % against 30 %). Not clearly
 better at an acceptable latency: large-v3-turbo stays. Should real takes show turbo struggling where large-v3 doesn't,
 the switch is `FLUENT_STT_MODEL_IT=large-v3` in `~/.config/fluent-stt.env` (the model downloaded into the service's
 models directory first: the worker never downloads one; `sureWord` measured again for it).
