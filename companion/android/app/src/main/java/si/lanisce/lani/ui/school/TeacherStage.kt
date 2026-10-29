@@ -28,6 +28,7 @@ import si.lanisce.lani.game.render.PixelCanvas
 import si.lanisce.lani.game.scene.Portraits
 import si.lanisce.lani.game.scene.Pose
 import si.lanisce.lani.game.scene.StagePose
+import si.lanisce.lani.game.scene.face
 import java.time.LocalTime
 import kotlin.math.max
 import kotlin.math.min
@@ -68,7 +69,9 @@ fun TeacherStage(
             shift = ((p - 1f) * px).toInt(),
             walking = p < 1f,
         )
-        Portraits.painter.renderStage(canvas, art, if (p < 1f) Pose.IDLE else pose, t, now.hour + now.minute / 60f, seed, stage)
+        // her face as her pose has it: a cheer laughs, a smile at a right answer, a sad face at a wrong one (Pose.face)
+        val posed = if (p < 1f) Pose.IDLE else pose
+        Portraits.painter.renderStage(canvas, art, posed, t, now.hour + now.minute / 60f, seed, stage, posed.face)
         bitmap.setPixels(canvas.pixels, 0, px, 0, 0, px, px)
         drawImage(image, srcOffset = IntOffset.Zero, srcSize = IntSize(px, px), dstOffset = IntOffset(ox, oy), dstSize = IntSize(w, w), filterQuality = FilterQuality.None)
     }

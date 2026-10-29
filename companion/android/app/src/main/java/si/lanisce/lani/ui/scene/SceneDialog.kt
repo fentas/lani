@@ -123,14 +123,23 @@ import si.lanisce.lani.ui.game.giftWords
 import si.lanisce.lani.ui.theme.AlpineGreen
 import si.lanisce.lani.ui.theme.TriglavRed
 import si.lanisce.lani.ui.villagers.FriendChip
+import si.lanisce.lani.ui.stage.FaceAvatar
+import si.lanisce.lani.ui.stage.Look
+import si.lanisce.lani.ui.stage.SpeakerPortrait
 import si.lanisce.lani.l10n.bi
 import si.lanisce.lani.l10n.inTarget
 
 /** How fast a person's line types in. */
 private const val TYPE_MS = 28L
 
-/** Someone of a dialog of several people (an arrival: Micka introduces Zala): their face beside their lines, and their voice. */
-data class Speaking(val emoji: String, val voice: Spoken)
+/**
+ * Someone of a dialog of several people (an arrival: Micka introduces Zala): their face beside their lines, and their voice;
+ * their sprite ([art], with [seed]) and [name] for their portrait (without one, their emoji stands in).
+ */
+data class Speaking(val emoji: String, val voice: Spoken, val art: String? = null, val seed: Int = 0, val name: String? = null)
+
+/** Who someone of a dialog is on the screen: their [name], [emoji], sprite [art] (null: none known) and its [seed]. */
+internal data class Who(val name: String, val emoji: String, val art: String?, val seed: Int)
 
 /**
  * The dialog with someone in the scene, chat-like over the lower part of the screen: their lines (Slovene
@@ -177,6 +186,13 @@ fun DialogPanel(
     onEcho: () -> Unit = {},
     /** An echo turn said out loud ([DialogRun.echo]): false when it wasn't close enough (again, or tap on). */
     onEchoSaid: (List<String>) -> Boolean = { false },
+    /**
+     * How whom the learner answers looks now ([rememberPartnerLook]: talking, listening, their line's face, a reaction):
+     * their portrait in the header shows it (companion/SCENES.md, "Faces").
+     */
+    look: Look = Look.REST,
+    /** The header's portrait alive; off where a bigger portrait of them shows over the panel (a sheet's stage). */
+    livePortrait: Boolean = true,
 ) {
     val run = talk.run
     // at a story's end, which of its words are learned: its packs as the node has them
@@ -236,13 +252,16 @@ fun DialogPanel(
         // edge to edge, the window doesn't shrink for the keyboard: the panel keeps above it (a typed turn), and its host
         // lets it have the picture's room meanwhile (DialogRoom); the navigation bar's part of the keyboard counted once
         Column(Modifier.fillMaxSize().navigationBarsPadding().imePadding()) {
-            Row(Modifier.fillMaxWidth().padding(start = 16.dp, end = 8.dp, top = 10.dp), verticalAlignment = Alignment.CenterVertically) {
-                Box(Modifier.size(44.dp).clip(CircleShape).background(MaterialTheme.colorScheme.tertiaryContainer), contentAlignment = Alignment.Center) {
-                    Text(talk.person.emoji, style = MaterialTheme.typography.titleLarge, modifier = Modifier.clearAndSetSemantics { })
+            // whom the learner answers: the person, or in a dialog of several whoever spoke last; their portrait with their face
+            val facing = whoIs(talk, speakers, run.said.lastOrNull { it.who != null }?.who)
+            Row(Modifier.fillMaxWidth().padding(start = 12.dp, end = 8.dp, top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                if (facing.art != null) SpeakerPortrait(facing.art, facing.seed, facing.name, look, PORTRAIT_DP.dp, animate = livePortrait)
+                else Box(Modifier.size(44.dp).clip(CircleShape).background(MaterialTheme.colorScheme.tertiaryContainer), contentAlignment = Alignment.Center) {
+                    Text(facing.emoji, style = MaterialTheme.typography.titleLarge, modifier = Modifier.clearAndSetSemantics { })
                 }
                 Spacer(Modifier.width(10.dp))
                 Column(Modifier.weight(1f)) {
-                    Text(talk.person.name, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                    Text(facing.name, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                     Text(talk.happening.title, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
                 if (run.step != DialogRun.Step.END) TranslationsToggle(prefs.translations, prefs::showTranslations)
@@ -290,6 +309,23 @@ fun DialogPanel(
             }
         }
     }
+}
+
+/** The header's portrait: the head alone, big enough for the face to read at a glance. */
+private const val PORTRAIT_DP = 52
+
+/** A line's face by its bubble. */
+private const val AVATAR_DP = 34
+
+/**
+ * Who [id] (a speaker of [talk]; null: its person) is on the screen: the person ([SceneTalk.person], their villager's id
+ * seeding their sprite as their portraits have it), or one of the others who speak ([speakers]).
+ */
+internal fun whoIs(talk: SceneTalk, speakers: Map<String, Speaking>, id: String?): Who {
+    val p = talk.person
+    val other = id?.takeIf { it != p.id }?.let(speakers::get)
+    return if (other != null) Who(other.name ?: p.name, other.emoji, other.art, other.seed)
+    else Who(p.name, p.emoji, p.art.takeIf { it.isNotEmpty() }, (p.villager ?: p.id).hashCode())
 }
 
 /**
@@ -360,6 +396,7 @@ private fun Lines(vm: AppViewModel, talk: SceneTalk, voice: Spoken, modifier: Mo
         itemsIndexed(said, key = { i, _ -> i }) { i, s ->
             val onWord = lookUp(vm, s.sl, s.en)
             val who = s.who?.let(speakers::get)
+            val face = s.who?.let { whoIs(talk, speakers, it) }
             val translation = rememberTranslation(s, translations)
             // a long press on a line said (theirs any time, the learner's own once said): its grammar, word by word; the same
             // lambda for the line, so its gestures aren't started over as the dialog goes on
@@ -373,7 +410,10 @@ private fun Lines(vm: AppViewModel, talk: SceneTalk, voice: Spoken, modifier: Mo
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 // the learner's own line with its 🔊 in their voice (a slip typed has none)
                 if (s.who == null) Mine(s, onWord, translation, onLong, vm.speaker.takeIf { s.replayable && it.mine()?.off != true })
-                else Theirs(s, who?.emoji ?: talk.person.emoji, vm.speaker, who?.voice ?: voice, typing = i == said.lastIndex, onWord = onWord, translation = translation, onLong = onLong)
+                else Theirs(
+                    s, who?.emoji ?: talk.person.emoji, vm.speaker, who?.voice ?: voice, typing = i == said.lastIndex, onWord = onWord, translation = translation,
+                    onLong = onLong, avatar = face?.art?.let { art -> { FaceAvatar(art, face.seed, DialogMood.lineFace(said, i), AVATAR_DP.dp) } },
+                )
                 // the learner's words the turn just passed got wrong: their cards, after it (the dialog goes on)
                 for (c in missed) MissedWord(vm, c.answer)
             }
@@ -510,7 +550,10 @@ private fun SemanticsPropertyReceiver.describeLine(s: Said, t: LineTranslation, 
  * below (unless translations are hidden: a tap on the line beside its words shows it).
  */
 @Composable
-internal fun Theirs(s: Said, emoji: String, speaker: Speaker, voice: Spoken, typing: Boolean, onWord: (WordToken) -> Unit, translation: LineTranslation, onLong: () -> Unit) {
+internal fun Theirs(
+    s: Said, emoji: String, speaker: Speaker, voice: Spoken, typing: Boolean, onWord: (WordToken) -> Unit, translation: LineTranslation, onLong: () -> Unit,
+    avatar: (@Composable () -> Unit)? = null,
+) {
     var shown by remember(s) { mutableIntStateOf(if (typing) 0 else s.sl.length) }
     LaunchedEffect(s) {
         while (shown < s.sl.length) {
@@ -519,7 +562,9 @@ internal fun Theirs(s: Said, emoji: String, speaker: Speaker, voice: Spoken, typ
         }
     }
     Row(verticalAlignment = Alignment.Top, modifier = Modifier.popIn(s, from = 0.85f, origin = androidx.compose.ui.graphics.TransformOrigin(0f, 0f))) {
-        Text(emoji, style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(top = 6.dp).clearAndSetSemantics { })
+        // their face as they said it (the line's own, or what the moment brought: FaceAvatar), else their emoji
+        if (avatar != null) Box(Modifier.padding(top = 2.dp)) { avatar() }
+        else Text(emoji, style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(top = 6.dp).clearAndSetSemantics { })
         Spacer(Modifier.width(8.dp))
         Surface(
             color = MaterialTheme.colorScheme.tertiaryContainer,

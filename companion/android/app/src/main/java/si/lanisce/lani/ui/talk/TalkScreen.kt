@@ -72,6 +72,16 @@ import si.lanisce.lani.ui.game.GiftReveals
 import si.lanisce.lani.ui.game.formatRes
 import si.lanisce.lani.ui.game.giftWords
 import si.lanisce.lani.ui.stage.Cast
+import si.lanisce.lani.ui.stage.FaceAvatar
+import si.lanisce.lani.ui.stage.Run
+import si.lanisce.lani.ui.stage.SpeakerPortrait
+import si.lanisce.lani.ui.stage.StagePerson
+import si.lanisce.lani.ui.stage.StagePlace
+import si.lanisce.lani.ui.scene.keyboardUp
+import si.lanisce.lani.game.scene.Face
+import si.lanisce.lani.data.Talk
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import si.lanisce.lani.ui.stage.IntroSheet
 import si.lanisce.lani.ui.stage.Intros
 import si.lanisce.lani.ui.stage.StageCast
@@ -254,6 +264,15 @@ private fun Conversation(vm: AppViewModel, st: TalkState) {
     val t = vm.talk
     var confirmLeave by remember { mutableStateOf(false) }
     var showGoals by rememberSaveable { mutableStateOf(false) }
+    // whom the learner talks with, on their place: the stage over the conversation (TalkStage), folded with the keyboard up,
+    // on a short screen or with large fonts, or by a tap; then a small avatar in the bar
+    val who = remember(st.scenario) { Cast.talker(st.scenario, StageCast.of(vm.villagers.all, vm.game.state), vm.game.state) }
+    val place = remember(st.scenario, who) { StagePlace.of(Run.Talk(st.scenario), who) }
+    var listening by remember { mutableStateOf(false) }
+    val speaking by rememberSpeaking(vm)
+    val look = rememberTalkLook(st, speaking, listening)
+    var chosen by rememberSaveable(st.conversationId) { mutableStateOf<Boolean?>(null) }
+    val stage = TalkStageRules.shown(LocalConfiguration.current.screenHeightDp, LocalDensity.current.fontScale, keyboardUp(), chosen)
     val leave = { if (st.turn == 0) t.abandon() else confirmLeave = true }
     BackHandler(onBack = leave)
 
@@ -271,8 +290,13 @@ private fun Conversation(vm: AppViewModel, st: TalkState) {
             Column(Modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = 8.dp, vertical = 6.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     TextButton(onClick = leave) { EmojiLabel("‹", Labels.BACK, color = Color.White) }
+                    // the stage folded: the character small in the bar, alive; a tap brings the stage back
+                    if (!stage) SpeakerPortrait(
+                        who.art, who.seed, who.name, look, TalkStageRules.AVATAR_DP.dp,
+                        Modifier.padding(end = 10.dp).clickable(onClickLabel = bi("stage.makeLarger")) { chosen = true },
+                    )
                     Column(Modifier.weight(1f)) {
-                        Text("${st.scenario.emoji} ${st.scenario.character}", color = Color.White, style = MaterialTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                        Text(st.scenario.character, color = Color.White, style = MaterialTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
                         Text(st.scenario.title, color = Color.White.copy(alpha = 0.75f), style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
                     }
                     Surface(
@@ -295,14 +319,15 @@ private fun Conversation(vm: AppViewModel, st: TalkState) {
                 if (showGoals) Goals(st, Modifier.padding(start = 16.dp, end = 16.dp, bottom = 8.dp), onDark = true)
             }
         }
+        TalkStage(who, place, look, visible = stage, onFold = { chosen = false })
         LazyColumn(
             Modifier.weight(1f).fillMaxWidth(),
             state = list,
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
-            items(st.lines, key = { it.id }) { l -> if (l.fromMe) MyLine(vm, l) else CharacterLine(vm, st.scenario, l) }
-            if (st.waiting) item(key = "typing") { Typing(vm, st) }
+            items(st.lines, key = { it.id }) { l -> if (l.fromMe) MyLine(vm, l) else CharacterLine(vm, st.scenario, l, who, Talk.faceOf(st, l)) }
+            if (st.waiting) item(key = "typing") { Typing(vm, st, who) }
             if (st.sceneOver && !st.waiting) item(key = "over") {
                 Surface(color = MaterialTheme.colorScheme.primaryContainer, shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth()) {
                     Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -328,6 +353,7 @@ private fun Conversation(vm: AppViewModel, st: TalkState) {
                 hintEnabled = !st.waiting && !st.hintLoading,
                 onSay = t::say,
                 onHint = t::hint,
+                onListening = { listening = it },
             )
         } else Spacer(Modifier.navigationBarsPadding())
     }
@@ -365,17 +391,20 @@ private fun Goals(st: TalkState, modifier: Modifier = Modifier, onDark: Boolean 
     }
 }
 
+/** A line of the character's: their face as they said it by the bubble ([face]), the line (a tap on a word looks it up), 🔊, 🐢, its translation. */
 @Composable
-private fun CharacterLine(vm: AppViewModel, s: Scenario, l: TalkLine) {
+private fun CharacterLine(vm: AppViewModel, s: Scenario, l: TalkLine, who: StagePerson, face: Face) {
     var translated by rememberSaveable(l.id) { mutableStateOf(false) }
-    Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterStart) {
+    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top) {
+        FaceAvatar(who.art, who.seed, face, TalkStageRules.BUBBLE_DP.dp, Modifier.padding(top = 2.dp))
+        Spacer(Modifier.width(8.dp))
         Surface(
             color = MaterialTheme.colorScheme.surfaceVariant,
             shape = RoundedCornerShape(20.dp, 20.dp, 20.dp, 4.dp),
             modifier = Modifier.widthIn(max = 320.dp),
         ) {
             Column(Modifier.padding(start = 14.dp, end = 6.dp, top = 10.dp, bottom = 2.dp)) {
-                Text("${s.emoji} ${s.character}", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.primary)
+                Text(s.character, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.primary)
                 WordText(
                     l.sl,
                     lookUpIn(vm, l.sl, l.en, Words.ROLEPLAY),
@@ -436,7 +465,7 @@ private fun MyLine(vm: AppViewModel, l: TalkLine) {
 
 /** The character is "typing"; the tutor can take 10-30 s, so after a while say so and offer a resend. */
 @Composable
-private fun Typing(vm: AppViewModel, st: TalkState) {
+private fun Typing(vm: AppViewModel, st: TalkState, who: StagePerson) {
     var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
     LaunchedEffect(st.waitingSince) {
         while (true) {
@@ -447,8 +476,12 @@ private fun Typing(vm: AppViewModel, st: TalkState) {
     val waited = ((now - st.waitingSince) / 1000).coerceAtLeast(0)
     val dots = ".".repeat((waited % 3 + 1).toInt())
     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-        Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = RoundedCornerShape(20.dp, 20.dp, 20.dp, 4.dp)) {
-            Text("${st.scenario.emoji} $dots", style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp))
+        Row(verticalAlignment = Alignment.Top) {
+            FaceAvatar(who.art, who.seed, Face.THINKING, TalkStageRules.BUBBLE_DP.dp, Modifier.padding(top = 2.dp))
+            Spacer(Modifier.width(8.dp))
+            Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = RoundedCornerShape(20.dp, 20.dp, 20.dp, 4.dp)) {
+                Text(dots, style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp))
+            }
         }
         when {
             vm.link == Link.OFFLINE -> Text("📶 ${bi("talkScreen.offlineAnswerComesWhen")}", style = MaterialTheme.typography.labelSmall)

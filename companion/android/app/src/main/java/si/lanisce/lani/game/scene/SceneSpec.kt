@@ -288,6 +288,11 @@ data class DialogLine(
      * without one shows it once played. Someone's line only; elsewhere it means nothing.
      */
     val done: Boolean = false,
+    /**
+     * Someone's line: the speaker's face as they say it ([Face]; companion/SCENES.md, "Faces"); null, their resting face.
+     * Read leniently: a name the app doesn't know is none.
+     */
+    @Serializable(with = FaceSerializer::class) val face: Face? = null,
 )
 
 @Serializable
@@ -350,6 +355,8 @@ data class DialogReply(
     @Serializable(with = FxLevels::class) val fx: Map<String, Float> = emptyMap(),
     /** Stage directions when this reply is said (a reaction's pass with the learner's next pick); see [DialogLine.act]. */
     val act: Map<String, ActCue> = emptyMap(),
+    /** The face they say it with (a reply, a reaction, a puzzled one; see [DialogLine.face]); null, their resting face. */
+    @Serializable(with = FaceSerializer::class) val face: Face? = null,
 )
 
 /** GET /scenes: every scene, resolved, read in the learner's pair ([inPair]). */

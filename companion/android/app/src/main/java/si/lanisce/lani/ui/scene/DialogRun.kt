@@ -14,6 +14,7 @@ import si.lanisce.lani.game.scene.Dialog
 import si.lanisce.lani.game.scene.DialogChoice
 import si.lanisce.lani.game.scene.DialogLine
 import si.lanisce.lani.game.scene.DialogReply
+import si.lanisce.lani.game.scene.Face
 import si.lanisce.lani.game.scene.Placement
 import si.lanisce.lani.game.scene.Sky
 import si.lanisce.lani.game.scene.actAt
@@ -28,8 +29,9 @@ import si.lanisce.lani.l10n.inTarget
 /**
  * One line said in a scene dialog: by a person ([who] = their id) or by the learner ([who] null). [wrong]: the
  * learner's wrong choice, said when the person reacts to it (see [DialogRun.choose]). [by]: how the learner's line came.
+ * [face]: the face someone's line is said with, as the content gives it (a line's, a reply's, a puzzled one's; null, none).
  */
-data class Said(val who: String?, val sl: String, val en: String, val wrong: Boolean = false, val by: By = By.PICK) {
+data class Said(val who: String?, val sl: String, val en: String, val wrong: Boolean = false, val by: By = By.PICK, val face: Face? = null) {
     /**
      * How the learner's line came (companion/SCENES.md, "The learner's voice"): [PICK] a choice tapped (in the list or in
      * the picture, or "✓ Naprej" at an echo), [TYPE] typed into its gap (right, or a wrong form that is one of the
@@ -308,7 +310,7 @@ data class DialogRun(
             WordAnswer(w, false, DialogWords.typed(w.card, sentence.let { s -> Forms.words(s).getOrNull(w.slot) ?: s }), produced = true, at, sentence, right.orEmpty())
         }
         return copy(
-            said = said + Said(null, sentence, "", wrong = true, by = Said.By.SLIP) + Said(by, puzzled.sl, puzzled.en),
+            said = said + Said(null, sentence, "", wrong = true, by = Said.By.SLIP) + Said(by, puzzled.sl, puzzled.en, face = puzzled.face),
             why = bi("adaptive.notThatForm"), wrongPick = null, puzzledBy = puzzled, mistakes = mistakes + 1,
             missedTurns = missedTurns + if (missed) 0 else 1, missed = true, rule = line.grammar ?: pages.firstOrNull(),
             answers = answers + pages.map { RuleAnswer(it, false, sentence, right) },
@@ -387,7 +389,7 @@ data class DialogRun(
         if (!right) {
             if (k in tried) return this // the same wrong choice again doesn't count twice
             // with a reaction, the wrong choice is said and the person answers what they heard; the learner picks again
-            val heard = c.reply?.let { listOf(Said(null, c.sl, c.en, wrong = true, by = how), Said(by, it.sl, it.en)) }.orEmpty()
+            val heard = c.reply?.let { listOf(Said(null, c.sl, c.en, wrong = true, by = how), Said(by, it.sl, it.en, face = it.face)) }.orEmpty()
             val page = (c.grammar ?: line.grammar)?.takeIf { it !in notHere }
             return copy(
                 said = said + heard, tried = tried + k, why = c.why ?: bi("dialogRun.tryAnotherOne"), wrongPick = k, mistakes = mistakes + 1,
@@ -412,7 +414,7 @@ data class DialogRun(
         )
         val shown = { r: DialogRun -> if (missedHere.isEmpty()) r else r.copy(wordCards = r.wordCards + missedHere.map { WordShown(r.said.lastIndex, it) }) }
         val reply = c.reply ?: return shown(mine).play()
-        return shown(mine.copy(said = mine.said + Said(by, reply.sl, reply.en))).afterLine()
+        return shown(mine.copy(said = mine.said + Said(by, reply.sl, reply.en, face = reply.face))).afterLine()
     }
 
     /**
@@ -446,7 +448,7 @@ data class DialogRun(
         if (line.choices.isNotEmpty()) return this
         val sl = line.sl
         if (sl.isNullOrBlank()) return copy(at = at + 1).play() // nothing to say: skip it
-        return copy(at = at + 1, said = said + Said(line.who ?: partner, sl, line.en.orEmpty())).afterLine()
+        return copy(at = at + 1, said = said + Said(line.who ?: partner, sl, line.en.orEmpty(), face = line.face)).afterLine()
     }
 
     /** After someone spoke: the learner's turn right away when one follows, else they listen and tap on. */

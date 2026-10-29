@@ -1,9 +1,14 @@
 package si.lanisce.lani.ui.scene
 
+import si.lanisce.lani.game.scene.Face
 import si.lanisce.lani.game.scene.Pose
+import si.lanisce.lani.game.scene.face
 
-/** How the talk partner stands for a while: [pose] from [since] (ms) for [holdMs], then idle again. */
-data class Mood(val pose: Pose, val since: Long = 0L, val holdMs: Long = 0L) {
+/**
+ * How the talk partner stands for a while: [pose] with [face] (by default the pose's) from [since] (ms) for [holdMs],
+ * then idle again.
+ */
+data class Mood(val pose: Pose, val since: Long = 0L, val holdMs: Long = 0L, val face: Face = pose.face) {
     /** When it is over (ms). */
     val until: Long get() = since + holdMs
 
@@ -16,10 +21,11 @@ data class Mood(val pose: Pose, val since: Long = 0L, val holdMs: Long = 0L) {
 
 /**
  * How the person Jan talks to in a scene reacts to the dialog (pure; like the stage's
- * [si.lanisce.lani.ui.stage.Director], the scene screen plays it): a wave when it opens, a happy hop at a right
- * pick, a sad tilt at a wrong one, a puzzled look (a hand to the chin) at a wrong one they answer ([DialogRun.reaction]),
- * a hand at the ear while Jan speaks into the mic, a cheer at the end without a mistake (else a happy hop). Their own
- * lines win: while they speak they are drawn talking.
+ * [si.lanisce.lani.ui.stage.Director], the scene screen plays it), with the face that goes with it (companion/SCENES.md,
+ * "Faces"): a wave and a smile when it opens, a happy hop and a smile at a right pick, a worried shrug at a wrong one, a
+ * hand to the chin at a wrong one they answer ([DialogRun.reaction]), confused unless the reaction has a face of its own,
+ * a hand at the ear while Jan speaks into the mic, a cheer at the end without a mistake (proud; a child laughs), else a
+ * happy hop. Their own lines win: while they speak they are drawn talking, with their line's face.
  */
 object DialogMood {
     const val WAVE_MS = 1_500L
@@ -33,14 +39,18 @@ object DialogMood {
     /** ... and a moment later after a reaction (the first line, after the wave; a reply, after the happy hop), so it shows first. */
     const val SAY_AFTER_REACTION_MS = 700L
 
-    /** The mood once the dialog went from [before] to [after] at [now] (ms): a step's reaction, else [mood] goes on. */
-    fun react(before: DialogRun?, after: DialogRun?, mood: Mood, now: Long): Mood = when {
+    /**
+     * The mood once the dialog went from [before] to [after] at [now] (ms): a step's reaction, else [mood] goes on. [child]:
+     * the person is a child (who laughs at the end, where a grown-up is proud).
+     */
+    fun react(before: DialogRun?, after: DialogRun?, mood: Mood, now: Long, child: Boolean = false): Mood = when {
         after == null -> Mood.NONE
-        before == null -> Mood(Pose.WAVE, now, WAVE_MS)
+        before == null -> Mood(Pose.WAVE, now, WAVE_MS, Face.HAPPY)
         after.step == DialogRun.Step.END && before.step != DialogRun.Step.END ->
-            Mood(if (after.mistakes == 0) Pose.CHEER else Pose.HAPPY, now, END_MS)
-        after.mistakes > before.mistakes -> if (after.reaction != null) Mood(Pose.THINK, now, PUZZLED_MS) else Mood(Pose.SAD, now, SAD_MS)
-        after.picks.size > before.picks.size -> Mood(Pose.HAPPY, now, HAPPY_MS)
+            if (after.mistakes == 0) Mood(Pose.CHEER, now, END_MS, if (child) Face.LAUGH else Face.PROUD) else Mood(Pose.HAPPY, now, END_MS, Face.HAPPY)
+        after.mistakes > before.mistakes -> after.reaction?.let { r -> Mood(Pose.THINK, now, PUZZLED_MS, r.face ?: Face.CONFUSED) }
+            ?: Mood(Pose.SAD, now, SAD_MS, Face.WORRIED)
+        after.picks.size > before.picks.size -> Mood(Pose.HAPPY, now, HAPPY_MS, Face.HAPPY)
         else -> mood
     }
 
@@ -53,6 +63,24 @@ object DialogMood {
         listening -> Pose.LISTEN
         mood.on(now) -> mood.pose
         else -> Pose.IDLE
+    }
+
+    /**
+     * The face someone's line [i] of [said] is said with: its own ([Said.face]), else what the moment brings: the first
+     * line a smile (a greeting), a reply to the learner's right line a smile, a reaction to a wrong one confused, any other
+     * the resting face. Its bubble's face shows it, and the person's face holds it a while ([rememberPartnerLook]).
+     */
+    fun lineFace(said: List<Said>, i: Int): Face {
+        val s = said.getOrNull(i) ?: return Face.NEUTRAL
+        s.face?.takeIf { it != Face.NEUTRAL }?.let { return it }
+        if (s.who == null) return Face.NEUTRAL
+        if (i == 0) return Face.HAPPY
+        val before = said[i - 1]
+        return when {
+            before.who != null -> Face.NEUTRAL
+            before.wrong -> Face.CONFUSED
+            else -> Face.HAPPY
+        }
     }
 
     /**

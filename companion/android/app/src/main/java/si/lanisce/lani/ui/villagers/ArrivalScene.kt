@@ -40,7 +40,9 @@ import si.lanisce.lani.ui.scene.DialogStage
 import si.lanisce.lani.ui.scene.SceneWords
 import si.lanisce.lani.ui.scene.Speaking
 import si.lanisce.lani.ui.scene.Spoken
-import si.lanisce.lani.ui.scene.rememberPartnerPose
+import si.lanisce.lani.ui.scene.rememberPartnerLook
+import si.lanisce.lani.ui.stage.Look
+import si.lanisce.lani.game.scene.face
 import si.lanisce.lani.ui.scene.rememberDialogVoice
 import si.lanisce.lani.ui.stage.Backdrop
 import si.lanisce.lani.ui.stage.StagePlace
@@ -59,7 +61,7 @@ fun ArrivalScene(vm: AppViewModel, m: MeetingTalk) {
     val people: Map<String, Villager> = remember(m.meeting.speakers, vm.villagers.all, vm.game.state?.residents) {
         m.meeting.speakers.mapNotNull { who -> vm.villagers.byId(who)?.let { who to it } }.toMap()
     }
-    val speakers = remember(people) { people.mapValues { (_, v) -> Speaking(v.emoji, SceneWords.voiceOf(v.art, v)) } }
+    val speakers = remember(people) { people.mapValues { (_, v) -> Speaking(v.emoji, SceneWords.voiceOf(v.art, v), v.art, v.id.hashCode(), v.name) } }
     val voice = speakers[id]?.voice ?: Spoken(SceneWords.voiceOf(talk.person.art))
     // each new line said aloud in its speaker's voice, and drawn talking meanwhile
     var micOn by remember { mutableStateOf(false) }
@@ -67,12 +69,13 @@ fun ArrivalScene(vm: AppViewModel, m: MeetingTalk) {
     val talking = rememberDialogVoice(vm.speaker, talk) { who -> who to (speakers[who]?.voice ?: voice) }
     // who the learner answers now: whoever spoke last (the newcomer at first)
     val facing = talk.run.said.lastOrNull { it.who != null }?.who ?: id
-    val pose = rememberPartnerPose(talk.run, talking != null && talking == facing, micOn)
+    val facingArt = people[facing]?.art
+    val look = rememberPartnerLook(talk.run, talking != null && talking == facing, micOn, facing, child = facingArt?.startsWith("child") == true || facingArt == "baby")
     LaniSheet(onDismissRequest = vm.villagers::closeMeeting) {
         Box(Modifier.fillMaxWidth().fillMaxHeight()) {
             Column(Modifier.matchParentSize()) {
                 // folded away while the keyboard is up (a typed turn), so the panel has the room (DialogRoom)
-                DialogStage { Stage(people, id, talk.person.art, facing, pose, talking) }
+                DialogStage { Stage(people, id, talk.person.art, facing, look, talking) }
                 DialogPanel(
                     vm = vm,
                     talk = talk,
@@ -89,6 +92,9 @@ fun ArrivalScene(vm: AppViewModel, m: MeetingTalk) {
                     modifier = Modifier.weight(1f),
                     onListening = { micOn = it },
                     speakers = speakers,
+                    // their faces: on the stage over the panel, and in its header (alive) once the stage folds away for the keyboard
+                    look = look,
+                    livePortrait = si.lanisce.lani.ui.scene.keyboardUp(),
                     // over the village "✓ Nazaj v vas"; over Home (its call in "Danes · Today") it stays there: "✓ Naprej"
                     closeLabel = "✓ ${bi(if (vm.screen == si.lanisce.lani.Screen.Village) "arrivals.backVillage" else "common.continue")}",
                 )
@@ -132,7 +138,7 @@ fun MeetButton(vm: AppViewModel, v: Villager, modifier: Modifier = Modifier, onM
  * is drawn talking, the one the learner answers reacts (a wave, a hop, a puzzled hand to the chin), the rest stand by.
  */
 @Composable
-private fun Stage(people: Map<String, Villager>, id: String, art: String, facing: String, pose: Pose, talking: String?) {
+private fun Stage(people: Map<String, Villager>, id: String, art: String, facing: String, look: Look, talking: String?) {
     Box(Modifier.fillMaxWidth().height(150.dp).padding(horizontal = 16.dp).clip(RoundedCornerShape(20.dp))) {
         Backdrop(StagePlace.home(people[id]?.art ?: art), Modifier.matchParentSize(), dim = 0.35f)
         Row(
@@ -145,11 +151,11 @@ private fun Stage(people: Map<String, Villager>, id: String, art: String, facing
                 val v = people[who] ?: continue
                 val p = when {
                     who == talking -> Pose.TALK
-                    who == facing -> pose
+                    who == facing -> look.pose
                     else -> Pose.IDLE
                 }
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    VillagerPortrait(v, if (who == id) 100.dp else 84.dp, pose = p)
+                    VillagerPortrait(v, if (who == id) 100.dp else 84.dp, pose = p, face = if (who == facing) look.face else p.face)
                     Text(
                         "${v.emoji} ${VillagerLogic.shortName(v.name)}",
                         color = Color.White, style = MaterialTheme.typography.labelMedium, fontWeight = if (who == id) FontWeight.Bold else FontWeight.Normal,

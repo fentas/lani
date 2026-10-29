@@ -376,7 +376,10 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
         SceneSights.frame(now, world, state?.seed ?: 0L, cues.fx.target, Moon.now(), SkyCards.now())
     }
     val groups = remember(spec, sights, found) { SceneSights.group(spec, sights, found) }
-    val pose = rememberPartnerPose(talk?.run, talking, micOn && talk != null)
+    // how whom the learner answers looks (DialogMood, Expression): drawn so in the picture and in the panel's header
+    val facingArt = talk?.step?.cast?.firstOrNull { it.id == facing }?.art ?: talk?.person?.art
+    val look = rememberPartnerLook(talk?.run, talking, micOn && talk != null, facing, child = facingArt?.startsWith("child") == true || facingArt == "baby")
+    val pose = look.pose
     // its background sounds: the place's, with the weather and the effects its dialog brings (the rain, the fire flaring),
     // and on the picture's clock what it shows making a sound (the thunder after a flash, a bell's peal, what a tap sets off)
     val sceneClock = si.lanisce.lani.game.render.rememberTownClock()
@@ -404,7 +407,7 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
     val present = remember(state) { state?.let { Residents.present(it, LocalDate.now()) } }
     val ispyHost = ispy?.host?.person?.id
     val cast = talk?.step?.cast.orEmpty()
-    val drawn = remember(scene, here, sleepers, about, talk?.person, cast, talkingId, facing, present, pose, state, ispyTalking, ispyHost) {
+    val drawn = remember(scene, here, sleepers, about, talk?.person, cast, talkingId, facing, present, look, state, ispyTalking, ispyHost) {
         // whoever a dialog left somewhere for the day (act_stays: Luka by the lantern while it rains) is still there, and
         // who is here by their day (France hoeing the field)
         val stayed = Stage.stayed(scene, DayAct.of(state, now.toLocalDate(), scene.id), present)
@@ -417,7 +420,13 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
         val staged = if (cast.isEmpty()) base else base.filter { it.id !in ids && villagerOf(it.id) !in ids && it.slot !in spots } + cast.map { PersonInScene(it.id, it.art, it.slot) }
         // Whoever is talking stays until the dialog is closed, also once it's done for today.
         val all = talk?.person?.takeIf { p -> staged.none { it.id == p.id } }?.let { staged + PersonInScene(it.id, it.art, it.slot) } ?: staged
-        all.map { it.copy(talking = (talkingId != null && it.id == talkingId) || (ispyTalking && it.id == ispyHost), pose = if (it.id == facing) pose else it.pose) }
+        // whom the learner answers with their face too, as the panel's header shows it
+        all.map {
+            it.copy(
+                talking = (talkingId != null && it.id == talkingId) || (ispyTalking && it.id == ispyHost), pose = if (it.id == facing) pose else it.pose,
+                face = if (it.id == facing && talk != null) look.face else it.face,
+            )
+        }
     }
     // «Vidim, vidim» (companion/SCENES.md, "I spy"): a child in the picture, or one of the village's who comes by (awake, not
     // busy elsewhere; QA's hook takes any child), offers it while the day has games left; in a game the child stays
@@ -567,7 +576,8 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
                         onListening = { micOn = it },
                         onLearnStory = { story -> vm.learnStory(scene.id, story) },
                         // a project's step: its people's lines show their faces and are read in their voices
-                        speakers = t.step?.cast.orEmpty().associate { p -> p.id to Speaking(p.emoji, voiceOf(p)) },
+                        speakers = t.step?.cast.orEmpty().associate { p -> p.id to Speaking(p.emoji, voiceOf(p), p.art, (p.villager ?: p.id).hashCode(), p.name) },
+                        look = look,
                     )
                 } else {
                     val asleep = sleepers.mapNotNull { s ->

@@ -68,6 +68,7 @@ import si.lanisce.lani.ui.game.EmojiBadge
 import kotlinx.coroutines.delay
 import si.lanisce.lani.ui.scene.Anchored
 import si.lanisce.lani.ui.scene.DialogPanel
+import si.lanisce.lani.ui.scene.rememberPartnerLook
 import si.lanisce.lani.ui.scene.rememberDialogVoice
 import si.lanisce.lani.ui.scene.OverlayPill
 import si.lanisce.lani.ui.scene.PersonBubble
@@ -114,9 +115,15 @@ private fun VisitPlace(vm: AppViewModel, v: TownVisit, spec: SceneSpec) {
     val active = remember(state, v.scenes) { state?.let { Happenings.active(v.scenes, it, now, guest = true, cast = v.cast) }.orEmpty().filter { it.scene.id == scene.id } }
     val present = remember(state) { state?.let { Residents.present(it, LocalDate.now()) } }
     val talk = vm.visits.sceneTalk?.takeIf { it.sceneId == scene.id }
-    val people = remember(scene, active, present, talk?.person) {
+    fun voiceOf(p: ScenePerson) = SceneWords.voiceOf(p.art, p.villager?.let { v.villager(it) })
+    // a person's new line is said aloud, the learner's own first in their voice (as at home: DialogVoice), they drawn
+    // talking meanwhile, with their line's face and their reactions (as at home: rememberPartnerLook)
+    val talkingId = rememberDialogVoice(vm.speaker, talk) { who -> who to voiceOf(talk!!.person) }
+    val look = rememberPartnerLook(talk?.run, talkingId != null && talkingId == talk?.person?.id, false, child = talk?.person?.art?.startsWith("child") == true)
+    val people = remember(scene, active, present, talk?.person, look) {
         val base = Happenings.peopleIn(scene, active, present)
-        talk?.person?.takeIf { p -> base.none { it.id == p.id } }?.let { base + PersonInScene(it.id, it.art, it.slot) } ?: base
+        val all = talk?.person?.takeIf { p -> base.none { it.id == p.id } }?.let { base + PersonInScene(it.id, it.art, it.slot) } ?: base
+        all.map { if (it.id == talk?.person?.id) it.copy(talking = look.talking, pose = look.pose, face = look.face) else it }
     }
     val anchors = rememberSceneAnchors(scene.id)
     val waiting = remember(active, talk?.happening) { (active.map { it.happening } + listOfNotNull(talk?.happening)).filter { it.act.isNotEmpty() }.distinctBy { it.id } }
@@ -124,10 +131,7 @@ private fun VisitPlace(vm: AppViewModel, v: TownVisit, spec: SceneSpec) {
     val sceneClock = si.lanisce.lani.game.render.rememberTownClock()
     val fireSound = remember(scene.art, world, now, people) { si.lanisce.lani.ui.scene.fireSound(scene.art, world, now, people) }
     si.lanisce.lani.ui.AmbientSound(vm.ambience, si.lanisce.lani.game.ambient.Place.Scene(scene.art, cues.fx.target, fireSound), cues.sky.target, sceneClock)
-    fun voiceOf(p: ScenePerson) = SceneWords.voiceOf(p.art, p.villager?.let { v.villager(it) })
-    // a person's new line is said aloud, the learner's own first in their voice (as at home: DialogVoice); the dialog
-    // played to its end: the learner met them
-    rememberDialogVoice(vm.speaker, talk) { who -> who to voiceOf(talk!!.person) }
+    // the dialog played to its end: the learner met them
     LaunchedEffect(talk?.key, talk?.settled) {
         val t = talk ?: return@LaunchedEffect
         if (t.settled) vm.metOnVisit(t.person.villager ?: t.person.id, t.person.name)
@@ -193,7 +197,7 @@ private fun VisitPlace(vm: AppViewModel, v: TownVisit, spec: SceneSpec) {
             if (talk != null) DialogPanel(
                 vm = vm, talk = talk, voice = voiceOf(talk.person),
                 onChoose = vm.visits::chooseInScene, onNext = vm.visits::nextInScene, onClose = vm.visits::closeSceneTalk, onHint = vm.visits::hintInScene,
-                onKeepTalking = null, modifier = Modifier.fillMaxSize().padding(top = panelTop),
+                onKeepTalking = null, modifier = Modifier.fillMaxSize().padding(top = panelTop), look = look,
             ) else Column(
                 Modifier.fillMaxSize().padding(top = sceneHeight).verticalScroll(rememberScrollState()).navigationBarsPadding().padding(horizontal = 16.dp, vertical = 12.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp),

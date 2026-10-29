@@ -93,12 +93,15 @@ fun TalkInput(
     hintEnabled: Boolean,
     onSay: (Said) -> Unit,
     onHint: () -> Unit,
+    /** Whether the 🎤 records now (the character listens meanwhile). */
+    onListening: (Boolean) -> Unit = {},
 ) {
     val draft = remember { TalkDraft() }
     val voice = rememberTalkVoice(vm, draft, conversation = {
         vm.talk.state?.let { si.lanisce.lani.data.Talk.sttContext(it, si.lanisce.lani.l10n.Learner.current.takeIf { l -> !l.generic }?.name) }
     })
     val mic = voice.mic
+    androidx.compose.runtime.LaunchedEffect(mic.recording) { onListening(mic.recording) }
     var keyboard by remember { mutableStateOf(!voice.canListen()) }
     var focused by remember { mutableStateOf(false) }
     val focus = remember { FocusRequester() }

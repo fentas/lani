@@ -13,6 +13,7 @@ import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.intOrNull
 import kotlinx.serialization.json.put
 import si.lanisce.lani.data.Grading.Verdict
+import si.lanisce.lani.game.scene.Face
 import java.util.UUID
 
 // --- role-play scenarios (lani.scenario/v0, see companion/bridge/src/scenarios.ts) -----
@@ -71,6 +72,11 @@ data class RoleplayReply(
     val hint: Boolean = false,
     /** A line of the scene (or a hint), not the debrief (`debrief: true`); late ones are dropped after the end. */
     val inCharacter: Boolean = hint,
+    /**
+     * The character's face as they say [sl] (`face`, companion/SCENES.md "Faces"); null without one, and for a name the
+     * app doesn't know (a newer tutor's).
+     */
+    val face: Face? = null,
 ) {
     companion object {
         fun parse(text: String, data: JsonObject?): RoleplayReply {
@@ -86,6 +92,7 @@ data class RoleplayReply(
                 end = b("end"),
                 hint = b("hint"),
                 inCharacter = (s("sl") != null || b("hint")) && !b("debrief"),
+                face = Face.orNull(s("face")),
             )
         }
     }
@@ -103,6 +110,8 @@ data class TalkLine(
     val typed: Boolean = false,
     /** On Jan's lines: how many times it was said before it went out (0: not counted, typed). */
     val takes: Int = 0,
+    /** On the character's lines: the face they said it with, as the tutor gave it ([RoleplayReply.face]); null, none. */
+    val face: Face? = null,
 )
 
 data class TalkHint(val sl: String, val en: String?)
@@ -183,7 +192,7 @@ object Talk {
             val lines = st.lines.mapIndexed { i, l -> if (i == mine && r.correction != null) l.copy(correction = r.correction) else l }
             val valid = r.goalsDone.orEmpty().filter { it in st.scenario.goals.indices }
             st.copy(
-                lines = lines + TalkLine(lines.size, fromMe = false, sl = r.sl, en = r.en),
+                lines = lines + TalkLine(lines.size, fromMe = false, sl = r.sl, en = r.en, face = r.face),
                 goalsDone = st.goalsDone + valid, // goals never untick
                 waiting = false,
                 sceneOver = st.sceneOver || r.end,
@@ -192,6 +201,18 @@ object Talk {
     }
 
     fun ending(st: TalkState) = st.copy(phase = TalkPhase.ENDING, waiting = false, hintLoading = false)
+
+    /**
+     * The face the character says [line] of [st] with: the tutor's ([TalkLine.face]), else the opener smiles (a greeting) and
+     * so does the last line once the scene is over; any other line, the resting face. Its bubble's face shows it, and the
+     * character's face holds it a while.
+     */
+    fun faceOf(st: TalkState, line: TalkLine): Face = line.face?.takeIf { it != Face.NEUTRAL } ?: when {
+        line.fromMe -> Face.NEUTRAL
+        line.id == 0 -> Face.HAPPY
+        st.sceneOver && line.id == st.lines.lastOrNull { !it.fromMe }?.id -> Face.HAPPY
+        else -> Face.NEUTRAL
+    }
 
     /** One village entry per line Jan said: correct unless the tutor corrected it. */
     fun verdicts(st: TalkState): List<Verdict> =

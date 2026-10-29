@@ -57,6 +57,7 @@ import kotlinx.coroutines.launch
 import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.data.Words
 import si.lanisce.lani.game.scene.Pose
+import si.lanisce.lani.game.scene.face
 import si.lanisce.lani.game.villagers.Bonds
 import si.lanisce.lani.game.villagers.Villager
 import si.lanisce.lani.ui.stage.portraitPx
@@ -195,11 +196,14 @@ fun FriendChip(g: FriendGain, modifier: Modifier = Modifier) {
 }
 
 /**
- * A villager's pixel portrait in a rounded frame; [silhouette] darkens it to a shadow with a "?" (someone
- * who arrives in a later age).
+ * A villager's pixel portrait in a rounded frame, in [pose] with [face] (the pose's own by default; companion/SCENES.md,
+ * "Faces"); [silhouette] darkens it to a shadow with a "?" (someone who arrives in a later age).
  */
 @Composable
-fun VillagerPortrait(v: Villager, size: Dp, modifier: Modifier = Modifier, pose: Pose = Pose.IDLE, silhouette: Boolean = false, animate: Boolean = true) {
+fun VillagerPortrait(
+    v: Villager, size: Dp, modifier: Modifier = Modifier, pose: Pose = Pose.IDLE, silhouette: Boolean = false, animate: Boolean = true,
+    face: si.lanisce.lani.game.scene.Face? = pose.face,
+) {
     val shade = if (isSystemInDarkTheme()) Color(0xFF05070C) else Color(0xFF1B2130)
     Box(
         modifier.size(size).clip(RoundedCornerShape(size / 5))
@@ -215,6 +219,7 @@ fun VillagerPortrait(v: Villager, size: Dp, modifier: Modifier = Modifier, pose:
             px = px,
             animate = animate && !silhouette,
             seed = v.id.hashCode(), // newcomers who share a sprite look different
+            face = if (silhouette) null else face,
         )
         if (silhouette) Text("?", color = Color.White.copy(alpha = 0.8f), fontWeight = FontWeight.Black, style = MaterialTheme.typography.headlineMedium)
     }

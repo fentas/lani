@@ -42,6 +42,8 @@ import si.lanisce.lani.l10n.bi
 import si.lanisce.lani.ui.Confetti
 import si.lanisce.lani.ui.LaniSheet
 import si.lanisce.lani.ui.stage.Backdrop
+import si.lanisce.lani.ui.stage.Look
+import si.lanisce.lani.game.scene.face
 import si.lanisce.lani.ui.stage.StagePlace
 import si.lanisce.lani.ui.stage.rememberReducedMotion
 import si.lanisce.lani.ui.villagers.VillagerLogic
@@ -64,7 +66,9 @@ fun ProjectStepScene(vm: AppViewModel, talk: SceneTalk) {
         val everyone = vm.villagers.people(vm.game.state)
         step.cast.mapNotNull { p -> everyone.firstOrNull { it.id == p.id }?.let { p.id to it } }.toMap()
     }
-    val speakers = remember(step.cast, people) { step.cast.associate { p -> p.id to Speaking(p.emoji, SceneWords.voiceOf(p.art, people[p.id])) } }
+    val speakers = remember(step.cast, people) {
+        step.cast.associate { p -> p.id to Speaking(p.emoji, SceneWords.voiceOf(p.art, people[p.id]), p.art, (people[p.id]?.id ?: p.villager ?: p.id).hashCode(), p.name) }
+    }
     val voice = speakers[talk.person.id]?.voice ?: Spoken(SceneWords.voiceOf(talk.person.art))
     // each new line said aloud in its speaker's voice, and drawn talking meanwhile
     var micOn by remember { mutableStateOf(false) }
@@ -72,7 +76,8 @@ fun ProjectStepScene(vm: AppViewModel, talk: SceneTalk) {
     val talking = rememberDialogVoice(vm.speaker, talk) { who -> who to (speakers[who]?.voice ?: voice) }
     // whom the learner answers: whoever spoke last (the leader at first)
     val facing = talk.run.said.lastOrNull { it.who != null }?.who ?: talk.person.id
-    val pose = rememberPartnerPose(talk.run, talking != null && talking == facing, micOn)
+    val facingArt = step.cast.firstOrNull { it.id == facing }?.art
+    val look = rememberPartnerLook(talk.run, talking != null && talking == facing, micOn, facing, child = facingArt?.startsWith("child") == true)
     // an age's party (companion/GAME.md "Ages and their celebrations"): all the village on a festive stage, its music as it begins
     val party = remember(step.party) { step.party?.let { si.lanisce.lani.game.AgeUps.celebration(it) } }
     val place = remember(step.project, step.index, party) { party?.let(::partyPlace) ?: placeOf(vm, step.project, step.index, talk.person.art) }
@@ -98,8 +103,8 @@ fun ProjectStepScene(vm: AppViewModel, talk: SceneTalk) {
             Column(Modifier.matchParentSize()) {
                 // folded away while the keyboard is up (a typed turn), so the panel has the room (DialogRoom)
                 DialogStage {
-                    if (party != null) PartyStage(people, step.cast, place, facing, pose, talking, party)
-                    else Stage(people, step.cast, place, facing, pose, talking, rungAt)
+                    if (party != null) PartyStage(people, step.cast, place, facing, look, talking, party)
+                    else Stage(people, step.cast, place, facing, look, talking, rungAt)
                 }
                 DialogPanel(
                     vm = vm,
@@ -118,6 +123,9 @@ fun ProjectStepScene(vm: AppViewModel, talk: SceneTalk) {
                     modifier = Modifier.weight(1f),
                     onListening = { micOn = it },
                     speakers = speakers,
+                    // their faces: on the stage over the panel, and in its header (alive) once the stage folds away for the keyboard
+                    look = look,
+                    livePortrait = keyboardUp(),
                     // over the village "✓ Nazaj v vas"; over Home (its call in "Danes · Today") it stays there: "✓ Naprej"
                     closeLabel = "✓ ${bi(if (vm.screen == si.lanisce.lani.Screen.Village) "arrivals.backVillage" else "common.continue")}",
                 )
@@ -153,7 +161,7 @@ private fun placeOf(vm: AppViewModel, project: String, index: Int, leaderArt: St
  */
 @Composable
 private fun Stage(
-    people: Map<String, si.lanisce.lani.game.villagers.Villager>, cast: List<ScenePerson>, place: StagePlace, facing: String, pose: Pose,
+    people: Map<String, si.lanisce.lani.game.villagers.Villager>, cast: List<ScenePerson>, place: StagePlace, facing: String, look: Look,
     talking: String?, rungAt: Long = 0L,
 ) {
     Box(Modifier.fillMaxWidth().height(150.dp).padding(horizontal = 16.dp).clip(RoundedCornerShape(20.dp))) {
@@ -167,11 +175,11 @@ private fun Stage(
                 val v = people[p.id] ?: return@forEachIndexed
                 val now = when (p.id) {
                     talking -> Pose.TALK
-                    facing -> pose
+                    facing -> look.pose
                     else -> Pose.IDLE
                 }
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    VillagerPortrait(v, if (i == 0) 100.dp else 84.dp, pose = now)
+                    VillagerPortrait(v, if (i == 0) 100.dp else 84.dp, pose = now, face = if (p.id == facing) look.face else now.face)
                     Text(
                         "${v.emoji} ${VillagerLogic.shortName(v.name)}",
                         color = Color.White, style = MaterialTheme.typography.labelMedium, fontWeight = if (i == 0) FontWeight.Bold else FontWeight.Normal,
@@ -201,7 +209,7 @@ private const val PARTY_MUSIC_MS = 900L
  */
 @Composable
 private fun PartyStage(
-    people: Map<String, si.lanisce.lani.game.villagers.Villager>, cast: List<ScenePerson>, place: StagePlace, facing: String, pose: Pose,
+    people: Map<String, si.lanisce.lani.game.villagers.Villager>, cast: List<ScenePerson>, place: StagePlace, facing: String, look: Look,
     talking: String?, c: si.lanisce.lani.game.Celebration,
 ) {
     val front = cast.filter { people[it.id] != null }.take(FRONT)
@@ -224,11 +232,11 @@ private fun PartyStage(
                     val v = people[p.id] ?: return@forEachIndexed
                     val now = when (p.id) {
                         talking -> Pose.TALK
-                        facing -> pose
+                        facing -> look.pose
                         else -> Pose.IDLE
                     }
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        VillagerPortrait(v, if (i == 0) 84.dp else 66.dp, pose = now)
+                        VillagerPortrait(v, if (i == 0) 84.dp else 66.dp, pose = now, face = if (p.id == facing) look.face else now.face)
                         Text(
                             "${v.emoji} ${VillagerLogic.shortName(v.name)}",
                             color = Color.White, style = MaterialTheme.typography.labelSmall, fontWeight = if (i == 0) FontWeight.Bold else FontWeight.Normal,

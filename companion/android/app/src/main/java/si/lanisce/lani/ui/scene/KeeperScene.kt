@@ -50,7 +50,7 @@ fun KeeperScene(vm: AppViewModel, k: KeeperTalk) {
     var micOn by remember { mutableStateOf(false) }
     // his lines said aloud, drawn talking while one is heard; the learner's own first, in their voice (SceneScreen's dialog)
     val talking = rememberDialogVoice(vm.speaker, talk) { who -> who to voice } != null
-    val pose = rememberPartnerPose(talk.run, talking, micOn)
+    val look = rememberPartnerLook(talk.run, talking, micOn)
     LaniSheet(onDismissRequest = vm.scenes::closeKeeper) {
         Box(Modifier.fillMaxWidth().fillMaxHeight()) {
             Column(Modifier.matchParentSize()) {
@@ -80,7 +80,7 @@ fun KeeperScene(vm: AppViewModel, k: KeeperTalk) {
                             Modifier.align(if (pile) Alignment.BottomStart else Alignment.BottomCenter).padding(bottom = 8.dp, start = if (pile) 8.dp else 0.dp),
                             horizontalAlignment = Alignment.CenterHorizontally,
                         ) {
-                            VillagerPortrait(v, if (pile) 84.dp else 100.dp, pose = if (talking) Pose.TALK else pose)
+                            VillagerPortrait(v, if (pile) 84.dp else 100.dp, pose = look.portraitPose, face = look.face)
                             Text(
                                 "${v.emoji} ${v.name}", color = Color.White, style = MaterialTheme.typography.labelMedium, fontWeight = FontWeight.Bold,
                                 modifier = Modifier.padding(top = 2.dp).clearAndSetSemantics { },
@@ -114,6 +114,9 @@ fun KeeperScene(vm: AppViewModel, k: KeeperTalk) {
                     onKeepTalking = null,
                     modifier = Modifier.weight(1f),
                     onListening = { micOn = it },
+                    // his face: on the stage over the panel, and in its header (alive) once the stage folds away for the keyboard
+                    look = look,
+                    livePortrait = keyboardUp(),
                     // over the village "✓ Nazaj v vas"; over Home (its call in "Danes · Today") it stays there: "✓ Naprej"
                     closeLabel = "✓ ${bi(if (vm.screen == si.lanisce.lani.Screen.Village) "arrivals.backVillage" else "common.continue")}",
                 )
