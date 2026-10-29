@@ -3,8 +3,9 @@
 // case-lens-heldout2.json, drawn after those fixes, run once): how often its pick is the
 // labelled case and number, how often it decides wrongly (the one that matters: a wrong answer said as sure), its
 // trigger and its rule, and the labelled ambiguities it keeps open. The smoke checks the numbers (test/smoke/cases.ts);
-// `bun test/case-lens-eval.ts [gold|heldout|heldout2] [-v]` prints them with each miss.
-import { readFileSync } from 'node:fs'
+// The case trainer's bank too, once it is merged (trainerItems). `bun test/case-lens-eval.ts [gold|heldout|heldout2|trainer]
+// [-v]` prints them with each miss.
+import { existsSync, readFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { validateCaseTriggers } from '../src/case-triggers'
@@ -101,6 +102,27 @@ export function evaluate(lens: CaseLens, items: GoldItem[]): Evaluation {
   return e
 }
 
+/**
+ * The case trainer's bank (companion/cases/sl/bank.json, lani.cases/v0, its "which case?" items: a sentence, the word's
+ * place among its words, its case by its id and its number, the deciding word's place) as labelled items; none while the
+ * trainer isn't merged (the file isn't there).
+ */
+export function trainerItems(): GoldItem[] | null {
+  const path = join(companion, 'cases/sl/bank.json')
+  if (!existsSync(path)) return null
+  const ids: Record<string, CaseOption['case']> = { imenovalnik: 'nom', rodilnik: 'gen', dajalnik: 'dat', tozilnik: 'acc', mestnik: 'loc', orodnik: 'ins' }
+  const bank = JSON.parse(readFileSync(path, 'utf8')) as { items: { kind: string; sl: string; word: number; case: string; number: CaseOption['number']; trigger?: number | null }[] }
+  const words = (line: string) => [...line.matchAll(/[\p{L}\p{M}]+|\d+/gu)].map(m => m[0])
+  return bank.items.filter(i => i.kind === 'which').map(i => {
+    const w = words(i.sl)
+    const nth = w.slice(0, i.word).filter(x => x.toLowerCase() === w[i.word]?.toLowerCase()).length
+    return {
+      sl: i.sl, en: '', from: 'trainer', word: w[i.word] ?? '', ...(nth ? { nth } : {}), case: ids[i.case], number: i.number,
+      ...(typeof i.trigger === 'number' && w[i.trigger] ? { trigger: w[i.trigger] } : {}),
+    }
+  })
+}
+
 export const goldItems = (name: 'gold' | 'heldout' | 'heldout2'): GoldItem[] => JSON.parse(readFileSync(join(import.meta.dir, `fixtures/case-lens-${name}.json`), 'utf8')).items
 
 export const summary = (e: Evaluation) =>
@@ -108,8 +130,13 @@ export const summary = (e: Evaluation) =>
   `triggers ${e.triggers.right}/${e.triggers.labelled}, rules ${e.rules.right}/${e.rules.labelled}, ambiguities kept open ${e.ambiguous.keptOpen}/${e.ambiguous.labelled}; ${e.ms.toFixed(0)} ms`
 
 if (import.meta.main) {
-  const which = (['heldout', 'heldout2'].includes(process.argv[2]) ? process.argv[2] : 'gold') as 'gold' | 'heldout' | 'heldout2'
-  const e = evaluate(repoLens(), goldItems(which))
+  const which = (['heldout', 'heldout2', 'trainer'].includes(process.argv[2]) ? process.argv[2] : 'gold') as 'gold' | 'heldout' | 'heldout2' | 'trainer'
+  const items = which === 'trainer' ? trainerItems() : goldItems(which)
+  if (!items) {
+    console.log('trainer: no companion/cases/sl/bank.json (the case trainer not merged)')
+    process.exit(0)
+  }
+  const e = evaluate(repoLens(), items)
   if (process.argv.includes('-v')) for (const m of e.misses) console.log(m)
   console.log(`${which}: ${e.items} items: ${summary(e)}`)
 }

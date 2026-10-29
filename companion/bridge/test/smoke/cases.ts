@@ -8,7 +8,7 @@ import { join, resolve } from 'node:path'
 import { addressee, renderDeep } from '../../src/addressee'
 import { CASE_IDS, CASE_KEYS, validateCaseTriggers, type CaseExample } from '../../src/case-triggers'
 import { contentLines } from '../../src/forms'
-import { evaluate, goldItems, repoLens, summary, VILLAGE_NAMES } from '../case-lens-eval'
+import { evaluate, goldItems, repoLens, summary, trainerItems, VILLAGE_NAMES } from '../case-lens-eval'
 import { auth, base, check, dataDir } from './harness'
 
 const companion = resolve(import.meta.dir, '../../..')
@@ -86,6 +86,12 @@ export default async function cases() {
   )
   const held = evaluate(lens, goldItems('heldout'))
   check(`case lens: the held-out lines (${held.items}, labelled before the lens ran on them, its misses fixed since): ${summary(held)}`, held.items >= 100 && held.right / held.labelled >= 0.9 && held.wrongDecided === 0, held.misses)
+  // the case trainer's bank (its gold annotations), once the trainer is merged
+  const bank = trainerItems()
+  if (bank) {
+    const t = evaluate(lens, bank)
+    check(`case lens: the case trainer's bank (${t.items} "which case?" items, its gold annotations): ${summary(t)}`, t.items >= 100 && t.right / t.labelled >= 0.93 && t.wrongDecided === 0, t.misses)
+  } else console.log('ℹ️ case lens: the case trainer\'s bank not here (companion/cases/sl/bank.json): its check skipped')
   const held2 = evaluate(lens, goldItems('heldout2'))
   check(`case lens: the second held-out lines (${held2.items}, drawn after those fixes): ${summary(held2)}`, held2.items >= 100 && held2.right / held2.labelled >= 0.88 && held2.wrongDecided === 0, held2.misses)
 

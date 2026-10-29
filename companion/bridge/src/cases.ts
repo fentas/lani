@@ -166,7 +166,7 @@ type Clause = {
 const NOMINAL_POS = new Set(['noun', 'adj', 'det', 'pron', 'num', 'name'])
 const MODIFIER_POS = new Set(['adj', 'det', 'num'])
 /** Words that start a clause of their own: a comma isn't always written before them in a short line. */
-const CLAUSE_WORDS = new Set(['da', 'ki', 'ko', 'ker', 'če', 'ampak', 'toda', 'vendar', 'dokler', 'preden', 'čeprav', 'temveč'])
+const CLAUSE_WORDS = new Set(['ki', 'ko', 'ker', 'če', 'ampak', 'toda', 'vendar', 'dokler', 'preden', 'čeprav', 'temveč'])
 const COORDINATION = new Set(['in', 'ali', 'ter'])
 /** Words that ask for something, after which a verbless line names what is wanted (Kavo, prosim: the accusative). */
 const ASKING = new Set(['prosim', 'hvala'])
@@ -175,6 +175,8 @@ const PUNCTUATION = /[,.!?;:—–…()"«»„“”]/
 const HOURS = new Set(['en', 'eden', 'dva', 'trije', 'štirje', 'pet', 'šest', 'sedem', 'osem', 'devet', 'deset', 'enajst', 'dvanajst', 'prvi', 'drugi', 'tretji', 'četrti', 'peti', 'šesti', 'sedmi', 'osmi', 'deveti', 'deseti', 'enajsti', 'dvanajsti'])
 /** A word ending as an adjective does (delovno, Vipavske, Tonetovo, pastirski): one between a preposition and its noun is read so. */
 const ADJECTIVE_LIKE = /(?:ega|emu|em|im|ih|imi|ima)$|(?:n|sk|šk|ov|ev|in|ast|at|iv|ljiv|ičn)[aoei]$/
+/** An adjective's suffix and ending (Tonetovo, Vipavske, Mickinega): no name, though it is written with a capital. */
+const ADJECTIVE_SUFFIX = /(?:sk|šk|ov|ev|in|ičn|ljiv)(?:[aoei]|ega|emu|em|im|ih|imi|ima)$/
 /** English words of a gloss that make a noun a person (or an animal one calls): whom a call can be to. */
 const PERSON = /\b(man|woman|boy|girl|child|children|kid|teacher|mother|mum|mom|father|dad|grand\w*|friend|person|people|neighbou?r|sister|brother|aunt|uncle|son|daughter|king|queen|lady|gentleman|sir|madam|miller|smith|blacksmith|hunter|shepherd|farmer|baker|priest|doctor|guest|wife|husband|master|mistress|pupil|student|lad|lass|fellow|dog|cat|horse|beekeeper|winemaker|innkeeper|landlady|landlord|neighbour|cousin|godfather|godmother|uncle|elder|old man|old woman|stranger|traveller|traveler|pedlar|peddler|merchant|knight|soldier|witch|fairy)\b/
 
@@ -471,7 +473,10 @@ export class CaseLens {
       if (r.pos === 'noun' && [...this.norm(r.lemma)].length <= 2) continue
       const genders: GenderKey[] = r.gender ? [r.gender] : ['m', 'f', 'n']
       const strong = r.source !== 'wiktionary'
-      const numberless: NumberKey[] = r.pos === 'pron' ? pronounNumbers(r.lemma) : r.pos === 'num' && this.numbers.has(this.norm(r.lemma)) ? ['pl'] : ['sg']
+      // (a number's readings without one: dva, oba the dual; trije, štirje and from five the plural)
+      const numberless: NumberKey[] = r.pos === 'pron' ? pronounNumbers(r.lemma)
+        : r.pos === 'num' && /^(dva|dve|oba|obe)$/.test(this.norm(r.lemma)) ? ['du']
+        : r.pos === 'num' && (this.numbers.has(this.norm(r.lemma)) || /^(trije|tri|štirje|štiri)$/.test(this.norm(r.lemma))) ? ['pl'] : ['sg']
       for (const c of caseReadingsOf(r.grammar, genders, numberless)) nominal.push({ lemma: r.lemma, pos: r.pos, ...c, strong })
       // the dictionary form of a noun listed without its grammar (Wiktionary's lemma alone, a pack's word): its nominative,
       // and a thing's accusative too (by the endings)
@@ -626,7 +631,7 @@ export class CaseLens {
     }
     // a capitalized word the dictionary doesn't know (Muriju, Krpan, Lambergarju): a name, its case by its ending, marked
     for (const t of out) {
-      if (t.nominal.length || t.verbs.length || t.other.size || t.prep || !/^\p{Lu}\p{Ll}{2,}$/u.test(t.raw) || ADJECTIVE_LIKE.test(t.form)) continue
+      if (t.nominal.length || t.verbs.length || t.other.size || t.prep || !/^\p{Lu}\p{Ll}{2,}$/u.test(t.raw) || ADJECTIVE_SUFFIX.test(t.form)) continue
       t.nominal = nameByEnding(t.raw)
     }
     return out
@@ -693,7 +698,13 @@ export class CaseLens {
     }
     for (const t of toks) {
       if (t.clitic) continue
+      // a word that starts its clause (ki, ko, ker) is no verb; nor da (that), unless after its subject or a pronoun
+      // (Micka da Luki kavo, Kdo mi da kruh?: dati's gives)
       if (CLAUSE_WORDS.has(t.form) && toks[t.i - 1]?.clause !== t.clause) continue
+      if (t.form === 'da') {
+        const p0 = prev(t)
+        if (!p0 || !(p0.role === 'nominal' || p0.nominal.some(r => r.pos === 'pron') || this.beforeVerb.has(p0.form))) continue
+      }
       if (t.fused) {
         t.role = 'nominal'
         continue
