@@ -103,6 +103,7 @@ fun ReadingSheet(
     }
     val textBlock: @Composable () -> Unit = {
         TranslationSwitch(view.showAll) { view = view.toggle() }
+        if (vm.cases.available) CasesSwitch(vm.cases.prefs.colours, vm.cases::toggle)
         ReadingText(vm, r, lines, view, onReveal = { i -> view = view.reveal(i) }, speak = speak)
     }
     Sheet(onDismiss) {
@@ -236,8 +237,29 @@ internal fun TranslationSwitch(on: Boolean, onToggle: () -> Unit) {
 }
 
 /**
- * One line: a step's number or an ingredient's bullet, the text (tap a word for its card), a proverb's meaning, the
- * translation (or 👁 to show it), 🔊.
+ * "🎨 Skloni · Cases" (the case lens): each noun of the text underlined in its case's colour, dotted where its line can't
+ * tell, with the colours' legend while on; off by default, remembered for the learner (CasePrefs).
+ */
+@Composable
+internal fun CasesSwitch(on: Boolean, onToggle: () -> Unit) {
+    Column {
+        Row(
+            Modifier.fillMaxWidth().heightIn(min = 48.dp).toggleable(value = on, role = Role.Switch, onValueChange = { onToggle() }),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Column(Modifier.weight(1f)) {
+                Text("🎨 ${bi("caseLens.colours")}", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
+                Text(bi("caseLens.coloursAbout"), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+            Switch(checked = on, onCheckedChange = null)
+        }
+        if (on) si.lanisce.lani.ui.words.CaseLegend(Modifier.padding(bottom = 4.dp))
+    }
+}
+
+/**
+ * One line: a step's number or an ingredient's bullet, the text (tap a word for its card; its nouns in their case's
+ * colours while "🎨 Skloni" is on), a proverb's meaning, the translation (or 👁 to show it), 🔊.
  */
 @Composable
 internal fun LineRow(vm: AppViewModel, l: ReadLine, shown: Boolean, onReveal: () -> Unit, speak: @Composable (String) -> Unit) {
@@ -271,11 +293,12 @@ internal fun LineRow(vm: AppViewModel, l: ReadLine, shown: Boolean, onReveal: ()
                 l.target, onWord,
                 style = if (l.kind == ReadLine.Kind.INTRO) MaterialTheme.typography.bodyLarge else MaterialTheme.typography.titleMedium,
                 fontStyle = if (l.kind == ReadLine.Kind.INTRO) FontStyle.Italic else null,
+                cases = si.lanisce.lani.ui.words.caseMarks(vm, l.target),
             )
             l.meansTarget?.let { m ->
                 Row {
                     Text("💡 ", style = MaterialTheme.typography.bodyMedium)
-                    WordText(m, means, style = MaterialTheme.typography.bodyMedium, color = AlpineGreen)
+                    WordText(m, means, style = MaterialTheme.typography.bodyMedium, color = AlpineGreen, cases = si.lanisce.lani.ui.words.caseMarks(vm, m))
                 }
             }
             if (shown) {

@@ -34,7 +34,11 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.FilledIconButton
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Switch
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.IconButtonDefaults
@@ -64,6 +68,7 @@ import androidx.compose.ui.semantics.SemanticsPropertyReceiver
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.ui.text.font.FontStyle
@@ -265,6 +270,7 @@ fun DialogPanel(
                     Text(talk.happening.title, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
                 if (run.step != DialogRun.Step.END) TranslationsToggle(prefs.translations, prefs::showTranslations)
+                if (vm.cases.available) DialogMore(vm)
                 CloseButton(onClose)
             }
             if (run.step == DialogRun.Step.END) {
@@ -350,6 +356,35 @@ internal fun TranslationsToggle(on: Boolean, onChange: (Boolean) -> Unit) {
     )
 }
 
+/**
+ * The header's ⋯: "🎨 Skloni · Cases" (the case lens): each noun of the lines underlined in its case's colour, with the
+ * colours' legend while on; remembered for the learner (CasePrefs), for every dialog, story and talk.
+ */
+@Composable
+private fun DialogMore(vm: AppViewModel) {
+    var open by remember { mutableStateOf(false) }
+    val on = vm.cases.prefs.colours
+    Box {
+        IconButton(onClick = { open = true }, modifier = Modifier.semantics { contentDescription = bi("caseLens.more") }) {
+            Text("⋯", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold, modifier = Modifier.clearAndSetSemantics { })
+        }
+        DropdownMenu(expanded = open, onDismissRequest = { open = false }) {
+            DropdownMenuItem(
+                text = {
+                    Column {
+                        Text("🎨 ${bi("caseLens.colours")}", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
+                        Text(bi("caseLens.coloursAbout"), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                },
+                trailingIcon = { Switch(checked = on, onCheckedChange = null, modifier = Modifier.clearAndSetSemantics { }) },
+                onClick = { vm.cases.toggle() },
+                modifier = Modifier.semantics { stateDescription = if (on) bi("caseLens.on") else bi("caseLens.off") },
+            )
+            if (on) si.lanisce.lani.ui.words.CaseLegend(Modifier.padding(horizontal = 16.dp, vertical = 8.dp).widthIn(max = 300.dp))
+        }
+    }
+}
+
 /** Once: words can be looked up. Shown until closed, a word is looked up, or the first dialog with it ends. */
 @Composable
 private fun WordHint(onSeen: () -> Unit) {
@@ -409,10 +444,12 @@ private fun Lines(vm: AppViewModel, talk: SceneTalk, voice: Spoken, modifier: Mo
             val missed = cards[i].orEmpty()
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 // the learner's own line with its 🔊 in their voice (a slip typed has none)
-                if (s.who == null) Mine(s, onWord, translation, onLong, vm.speaker.takeIf { s.replayable && it.mine()?.off != true })
+                // "🎨 Skloni": the line's nouns in their case's colours (never a wrong choice's: its form is the mistake)
+                val cases = if (s.wrong) emptyList() else si.lanisce.lani.ui.words.caseMarks(vm, s.sl)
+                if (s.who == null) Mine(s, onWord, translation, onLong, vm.speaker.takeIf { s.replayable && it.mine()?.off != true }, cases)
                 else Theirs(
                     s, who?.emoji ?: talk.person.emoji, vm.speaker, who?.voice ?: voice, typing = i == said.lastIndex, onWord = onWord, translation = translation,
-                    onLong = onLong, avatar = face?.art?.let { art -> { FaceAvatar(art, face.seed, DialogMood.lineFace(said, i), AVATAR_DP.dp) } },
+                    onLong = onLong, avatar = face?.art?.let { art -> { FaceAvatar(art, face.seed, DialogMood.lineFace(said, i), AVATAR_DP.dp) } }, cases = cases,
                 )
                 // the learner's words the turn just passed got wrong: their cards, after it (the dialog goes on)
                 for (c in missed) MissedWord(vm, c.answer)
@@ -553,6 +590,7 @@ private fun SemanticsPropertyReceiver.describeLine(s: Said, t: LineTranslation, 
 internal fun Theirs(
     s: Said, emoji: String, speaker: Speaker, voice: Spoken, typing: Boolean, onWord: (WordToken) -> Unit, translation: LineTranslation, onLong: () -> Unit,
     avatar: (@Composable () -> Unit)? = null,
+    cases: List<si.lanisce.lani.data.CaseMark> = emptyList(),
 ) {
     var shown by remember(s) { mutableIntStateOf(if (typing) 0 else s.sl.length) }
     LaunchedEffect(s) {
@@ -584,6 +622,7 @@ internal fun Theirs(
                         color = MaterialTheme.colorScheme.onTertiaryContainer,
                         onElse = translation.toggle,
                         onLongPress = onLong,
+                        cases = cases,
                     )
                     if (translation.shows) {
                         Text(s.en, style = MaterialTheme.typography.bodySmall, fontStyle = FontStyle.Italic, color = MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.75f))
@@ -603,7 +642,7 @@ internal fun Theirs(
  * a word) it has none.
  */
 @Composable
-internal fun Mine(s: Said, onWord: (WordToken) -> Unit, translation: LineTranslation, onLong: () -> Unit, speaker: Speaker? = null) {
+internal fun Mine(s: Said, onWord: (WordToken) -> Unit, translation: LineTranslation, onLong: () -> Unit, speaker: Speaker? = null, cases: List<si.lanisce.lani.data.CaseMark> = emptyList()) {
     Row(Modifier.fillMaxWidth().popIn(s, from = 0.85f, origin = androidx.compose.ui.graphics.TransformOrigin(1f, 0f)), horizontalArrangement = Arrangement.End) {
         Spacer(Modifier.width(48.dp))
         val ink = if (s.wrong) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onPrimaryContainer
@@ -616,7 +655,7 @@ internal fun Mine(s: Said, onWord: (WordToken) -> Unit, translation: LineTransla
             val end = if (speaker != null && speaker.canSay) 4.dp else 14.dp
             Row(Modifier.lineGestures(translation, onLong).padding(start = 14.dp, top = 8.dp, bottom = 8.dp, end = end), verticalAlignment = Alignment.CenterVertically) {
                 Column(horizontalAlignment = Alignment.End, modifier = Modifier.weight(1f, fill = false).clearAndSetSemantics { describeLine(s, translation, onWord, onLong) }) {
-                    WordText(s.sl, onWord, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold, color = ink, onElse = translation.toggle, onLongPress = onLong)
+                    WordText(s.sl, onWord, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold, color = ink, onElse = translation.toggle, onLongPress = onLong, cases = cases)
                     if (translation.shows) Text(s.en, style = MaterialTheme.typography.bodySmall, fontStyle = FontStyle.Italic, color = ink.copy(alpha = 0.75f))
                 }
                 if (s.wrong) {

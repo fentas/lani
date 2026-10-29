@@ -210,12 +210,26 @@ class Bridge(private val config: BridgeConfig) {
      * another town's [language] on a visit. Null from an older bridge without lookups (404); an answer without entries
      * means the dictionary doesn't know the word.
      */
-    suspend fun lookup(word: String, line: String?, en: String?, language: String? = null, meaningIn: String? = null): WordLookup? = off {
-        val (code, body) = exchange(request(Words.url(config.baseUrl, word, line, en, language, meaningIn).toString()).build())
+    suspend fun lookup(word: String, line: String?, en: String?, language: String? = null, meaningIn: String? = null, nth: Int = 0): WordLookup? = off {
+        val (code, body) = exchange(request(Words.url(config.baseUrl, word, line, en, language, meaningIn, nth).toString()).build())
         return@off when (code) {
             200 -> Words.parse(body)
             404 -> null
             else -> throw IOException("HTTP $code: ${body.take(200)}")
+        }
+    }
+
+    /**
+     * Each of [lines]' words with a case, as the colours draw them ("Skloni · Cases": POST /cases, data/CaseLens.kt), at
+     * most [CaseLens.BATCH] lines of [CaseLens.MAX_CHARS] characters. Null from an older bridge without them (404) or one
+     * that won't take the request (400): no colours then.
+     */
+    suspend fun cases(lines: List<String>): CasesAnswer? = off {
+        val (code, text) = exchange(request("/cases").post(CaseLens.casesBody(lines).toString().toRequestBody(Http.jsonType)).build())
+        return@off when (code) {
+            200 -> CaseLens.parseCases(text)
+            400, 404 -> null
+            else -> throw IOException("HTTP $code: ${text.take(200)}")
         }
     }
 

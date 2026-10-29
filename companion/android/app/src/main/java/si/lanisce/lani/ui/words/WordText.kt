@@ -19,6 +19,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.pointer.pointerInput
@@ -52,6 +53,8 @@ import si.lanisce.lani.l10n.bi
  * [longPress], a long press on one of the others does nothing, neither a card nor the choice); [unknown]:
  * words underlined with dots, subtly, in the text's own colour (an exercise's words new to the learner, KnownWords).
  * [onLayout]: the text laid out (where its words are). Null [onWord] is a plain [Text].
+ * [cases]: "🎨 Skloni · Cases" (the case lens, data/CaseLens.kt): each word's underline in its case's colour, dotted for a
+ * word the line can't tell; drawn with the text, as its other marks, nothing worked out here.
  */
 @Composable
 fun WordText(
@@ -70,7 +73,8 @@ fun WordText(
     words: List<WordToken>? = null,
     unknown: List<WordToken> = emptyList(),
     onLayout: ((TextLayoutResult) -> Unit)? = null,
-) = WordText(AnnotatedString(text), onWord, modifier, style, color, fontWeight, fontStyle, shown, longPress, marks, onElse, onLongPress, words, unknown, onLayout)
+    cases: List<si.lanisce.lani.data.CaseMark> = emptyList(),
+) = WordText(AnnotatedString(text), onWord, modifier, style, color, fontWeight, fontStyle, shown, longPress, marks, onElse, onLongPress, words, unknown, onLayout, cases)
 
 /** [WordText] of a text with its own styles (inlineMarkdown's bold, a right answer's marks). */
 @Composable
@@ -90,6 +94,7 @@ fun WordText(
     words: List<WordToken>? = null,
     unknown: List<WordToken> = emptyList(),
     onLayout: ((TextLayoutResult) -> Unit)? = null,
+    cases: List<si.lanisce.lani.data.CaseMark> = emptyList(),
 ) {
     val text = styled.text
     val all = remember(text) { WordTokens.of(text) }
@@ -194,6 +199,29 @@ fun WordText(
         }
     }
 
+    // the case lens's colours: a line in the case's colour under each word, a dotted one where the line can't tell
+    val dark = MaterialTheme.colorScheme.surface.luminance() < 0.5f
+    val unsure = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
+    val coloured = if (cases.isEmpty()) Modifier else Modifier.drawBehind {
+        val l = layout ?: return@drawBehind
+        val thick = 2.5.dp.toPx()
+        val dots = PathEffect.dashPathEffect(floatArrayOf(2.dp.toPx(), 2.5.dp.toPx()))
+        for (m in cases) {
+            if (m.end > shown || m.end > l.layoutInput.text.length || m.start >= m.end) continue
+            val ink = m.case?.let { CaseLook.colour(it, dark) } ?: unsure
+            var from = m.start
+            while (from < m.end) {
+                val line = l.getLineForOffset(from)
+                val until = minOf(m.end, l.getLineEnd(line, visibleEnd = true)).coerceAtLeast(from + 1)
+                val x0 = l.getHorizontalPosition(from, usePrimaryDirection = true)
+                val x1 = l.getHorizontalPosition(until, usePrimaryDirection = true).let { if (until == m.end) it else l.getLineRight(line) }
+                val y = l.getLineBaseline(line) + 4.5.dp.toPx()
+                drawLine(ink, Offset(minOf(x0, x1), y), Offset(maxOf(x0, x1), y), strokeWidth = if (m.case != null) thick else 1.6.dp.toPx(), cap = StrokeCap.Round, pathEffect = if (m.case != null) null else dots)
+                from = until
+            }
+        }
+    }
+
     Text(
         shownText,
         style = style,
@@ -207,6 +235,7 @@ fun WordText(
         modifier = modifier
             .then(if (onWord != null) Modifier.semantics { lookUpWords(tokens, onWord) } else Modifier)
             .then(dotted)
+            .then(coloured)
             .then(gestures),
     )
 }

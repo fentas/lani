@@ -19,6 +19,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -37,6 +38,7 @@ import si.lanisce.lani.app.Requesting
 import si.lanisce.lani.app.WordCard
 import si.lanisce.lani.app.WordQuery
 import si.lanisce.lani.app.WordState
+import si.lanisce.lani.data.CaseLens
 import si.lanisce.lani.data.WordEntry
 import si.lanisce.lani.data.WordLookup
 import si.lanisce.lani.data.WordSuggestion
@@ -49,9 +51,12 @@ import si.lanisce.lani.ui.LaniSheet
 import si.lanisce.lani.ui.SpeakButton
 import si.lanisce.lani.ui.theme.AlpineGreen
 
-/** What a tap on a word of [line] (translated [en]) does: opens its card. [from]: where, e.g. [si.lanisce.lani.data.Words.SCENE]. */
+/**
+ * What a tap on a word of [line] (translated [en]) does: opens its card, with which of the line's same words it is (the
+ * case lens reads that one). [from]: where, e.g. [si.lanisce.lani.data.Words.SCENE].
+ */
 fun lookUpIn(vm: AppViewModel, line: String, en: String?, from: String): (WordToken) -> Unit =
-    { t -> vm.words.open(WordQuery(t.text, line, en?.takeIf { it.isNotBlank() }, from)) }
+    { t -> vm.words.open(WordQuery(t.text, line, en?.takeIf { it.isNotBlank() }, from, nth = si.lanisce.lani.data.CaseLens.nth(line, t))) }
 
 /**
  * A tapped word's card: the word big with 🔊 and the line it's in, then each meaning (emoji, dictionary form and
@@ -72,9 +77,14 @@ fun WordSheet(vm: AppViewModel, card: WordCard) {
                 // in the word's own language (a town's word on its card at home: that language's voices, not the home one's)
                 si.lanisce.lani.ui.WordSpeakButton(vm.speaker, q.word, q.lang, Modifier.padding(start = 8.dp))
             }
+            // the case lens (a Slovene word in its line, data/CaseLens.kt): not while an exercise is open (q.forms), whose
+            // answer its row could give away
+            val lens = (card.state as? WordState.Found)?.lookup?.lens?.takeIf { q.forms && q.line.isNotBlank() }
+            val row = remember(lens) { CaseLens.row(lens) }
             if (q.line.isNotBlank()) {
-                Text("«${q.line.trim()}»", style = MaterialTheme.typography.bodyMedium, fontStyle = FontStyle.Italic, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(caseLine(q.line.trim(), lens, row), style = MaterialTheme.typography.bodyMedium, fontStyle = FontStyle.Italic, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
+            if (row != null && lens != null) CaseRowView(vm, row, lens)
             when (val s = card.state) {
                 WordState.Loading -> Row(verticalAlignment = Alignment.CenterVertically) {
                     CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)

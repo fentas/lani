@@ -66,7 +66,7 @@ export type WordCase = WordRef & {
 }
 
 /** A word that decides other words' case (a preposition, a negation, a word of quantity, a verb): which, and to what. */
-export type Governs = WordRef & { words: { i: number; case: CaseKey }[] }
+export type Governs = WordRef & { words: (WordRef & { case: CaseKey })[] }
 
 /** A sentence through the lens: each word with a case, and the words that decide one. */
 export type LineCases = { words: WordCase[]; governs: Governs[] }
@@ -635,7 +635,7 @@ export class CaseLens {
     for (const w of words) {
       if (!w.trigger || !w.pick || w.agrees || !['preposition', 'negation', 'quantity', 'number', 'verb', 'predicate'].includes(w.kind) || w.trigger.i === w.i) continue
       const g = governs.get(w.trigger.i) ?? { ...w.trigger, words: [] }
-      g.words.push({ i: w.i, case: w.pick.case })
+      g.words.push({ i: w.i, word: w.word, start: w.start, end: w.end, case: w.pick.case })
       governs.set(w.trigger.i, g)
     }
     return { words: words.sort((a, b) => a.i - b.i), governs: [...governs.values()].sort((a, b) => a.i - b.i) }

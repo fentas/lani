@@ -75,6 +75,8 @@ data class WordSuggestion(
  * GET /lookup: the form asked about and its meanings; no entries means the dictionary doesn't know it. Then
  * [suggestions] are the words it may be instead (a typo, an accent left out, another ending), and [requested] says the
  * learner asked for it already ("➕ Add to my words": the tutor is writing its meaning). An older node sends neither.
+ * [lens]: a Slovene word's case in its line (the case lens, data/CaseLens.kt: the card's "Sklon · Case" row); none from
+ * an older node, for a word without a case, or another language's.
  */
 @Serializable
 data class WordLookup(
@@ -83,6 +85,7 @@ data class WordLookup(
     val attribution: String? = null,
     val suggestions: List<WordSuggestion> = emptyList(),
     val requested: Boolean = false,
+    @SerialName("case") val lens: CaseRead? = null,
 )
 
 /**
@@ -123,15 +126,17 @@ object Words {
     private const val MAX_LINE = 300
 
     /**
-     * `/lookup?w=<form>&line=<the line>&en=<its translation>`: the line lets the node pick the meaning meant there. On a
-     * visit, [language] is the town's (the node looks the word up in that language's dictionary); [meaningIn] is the
-     * language the meanings are wanted in (the pair's base), left out when it is the word's own.
+     * `/lookup?w=<form>&line=<the line>&en=<its translation>`: the line lets the node pick the meaning meant there (and
+     * the word's case: the [nth] of the same words in the line, from 0, when it has it twice). On a visit, [language] is
+     * the town's (the node looks the word up in that language's dictionary); [meaningIn] is the language the meanings are
+     * wanted in (the pair's base), left out when it is the word's own.
      */
-    fun url(base: String, word: String, line: String?, en: String?, language: String? = null, meaningIn: String? = null): HttpUrl =
+    fun url(base: String, word: String, line: String?, en: String?, language: String? = null, meaningIn: String? = null, nth: Int = 0): HttpUrl =
         (base.trimEnd('/') + "/lookup").toHttpUrl().newBuilder()
             .addQueryParameter("w", word)
             .apply {
                 line?.trim()?.takeIf { it.isNotEmpty() }?.let { addQueryParameter("line", it.take(MAX_LINE)) }
+                if (nth > 0 && !line.isNullOrBlank()) addQueryParameter("n", nth.toString())
                 en?.trim()?.takeIf { it.isNotEmpty() }?.let { addQueryParameter("en", it.take(MAX_LINE)) }
                 language?.let { addQueryParameter("language", it) }
                 meaningIn?.takeIf { it != language }?.let { addQueryParameter("base", it) }

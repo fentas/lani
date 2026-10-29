@@ -39,6 +39,8 @@ data class WordQuery(
     val example: String? = null,
     val forms: Boolean = true,
     val language: String? = null,
+    /** Which of the same words of [line] it is, from 0 (the case lens reads that one: "od vasi do vasi"). */
+    val nth: Int = 0,
 ) {
     /** The language the word is in: [language], else the visited town's (null at home). */
     val lang: String? get() = language ?: VisitWorld.language
@@ -176,7 +178,7 @@ class WordsController(
                 val b = bridge() ?: throw java.io.IOException("not connected")
                 // on a visit: the town's language, explained in the visit's base; at home, in the pair's base
                 val pair = L10n.pair
-                when (val l = b.lookup(q.word, q.line, q.en, language = q.lang, meaningIn = pair.base.code.takeIf { pair.base != pair.target })) {
+                when (val l = b.lookup(q.word, q.line, q.en, language = q.lang, meaningIn = pair.base.code.takeIf { pair.base != pair.target }, nth = q.nth)) {
                     null -> WordState.Unavailable
                     else -> if (l.entries.isEmpty()) WordState.NotFound(l) else WordState.Found(l)
                 }

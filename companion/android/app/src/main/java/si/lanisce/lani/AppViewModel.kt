@@ -375,6 +375,8 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     val readings = ReadingsController(app, viewModelScope, node, sync, game, notices, words::sourceFor)
     /** What the scene dialogs remember on this phone. */
     val dialogPrefs = DialogPrefs(app)
+    /** "🎨 Skloni · Cases": the lines of readings, stories and dialogs underlined in their nouns' case colours (on demand). */
+    val cases = si.lanisce.lani.app.CaseColoursController(viewModelScope, node, si.lanisce.lani.data.CasePrefs(app))
     /** What the tutor chat remembers on this phone (its tip about swiping a message). */
     val chatPrefs = si.lanisce.lani.data.ChatPrefs(app)
     /** What the village's HUD remembers on this phone: minimized or not, the news its panel showed. */
