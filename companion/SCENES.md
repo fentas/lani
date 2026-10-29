@@ -135,20 +135,49 @@ line is said aloud as it comes, in their voice, and the other side's reply waits
   next pick) cuts what is being said, as it always did.
 - **Its 🔊:** the learner's line in the conversation has its 🔊, like the others' lines, which says it again in their voice
   (TalkBack: "Poslušaj · Listen"; a long press records it again). A slip typed has none.
-- **The voice:** the voice cast's `player` (`companion/voice-cast.json`), one voice per gender by the learner profile's
-  `learner.gender`: in the Slovene village Luka for a man, Nina for a woman (the narrators' Slovene voices), Nina while
-  the profile says none (the content still speaks to them as to a man). The app asks the node for the voice `player`; the
-  bridge says it in that voice on its normal path (a word to three inside its carrier sentence, as a re-record), so the
-  learner's clip of a text is the narrator's. On the phone the clips are looked up by the voice the node names in its
-  voice profiles (`GET /voice/profiles`: `player`), else by the narrator of the profile's gender. When the learner's
-  voice can't be had, no clip of the other gender stands in: the phone's offline voice or text-to-speech says it.
+- **The voice, "🗣️ Moj glas · My voice"** (Jan, October 29, 2026: "for teo this should be maybe a boy voice -> maybe we offer
+  (in general) like 2,3 voices to choose from?"; docs/plans/05-built/my-voice.md): the learner chooses it from the voices
+  their village's cast offers for their gender and age, the cast's `players` (`companion/voice-cast.json`,
+  `cultures/*/voice-cast.json`): 2 or 3 a gender for a grown-up and for a child (the profile registry's child flag,
+  `LANI_CHILD`), the default first. Without a choice, the default: in the Slovene village Luka for a man, Nina for a woman
+  (the narrators' Slovene voices), in the Italian one Teo, a boy, a boy's Italian voice; a profile without a gender is
+  offered both genders' voices of their age, the female one's by default (the content still speaks to them as to a man).
+  No voice offered is a voice anyone in the cast speaks with (a test: the friuli male narrator, Chris Basetta, is Pastore
+  Davide's voice too, so Teo's line and Davide's reply sounded like one person). "🔇 Brez glasu · No voice" turns the
+  learner's lines off: none is said, and their line has no 🔊.
+  - **The choice** is the learner's, kept by the node in their learner profile (`learner-profile.json`
+    `preferences.my_voice`), so it holds on every device, and voice-build and a visit say their lines in it. The app asks
+    for their lines as the voice `player`, as before; the bridge says them in the voice chosen (a word to three inside its
+    carrier sentence, as a re-record), so a line's clip of Luka is the male narrator's. Changing the voice voices nothing
+    again in bulk: the next lines come in the new voice as they're asked for, the old clips stay in the store.
+  - **Where:** "⚙️ Nastavitve › 🔊 Zvok in glas · Sound and voice", first on the page: each voice its face (👦 👧 👨 👩),
+    its name and ▶, the one in effect marked; a tap on a row chooses it (64 dp high: a child's finger on the tablet). And
+    once, at the first line of theirs a dialog says: a sheet over the dialog, "🗣️ Kateri glas je tvoj? · Which voice is
+    yours?", while the line is said in the default and the dialog goes on behind; a tap on a voice chooses it and closes
+    the sheet, ▶ only listens, "✓ V redu · OK" or a tap beside the sheet keeps the default, which the node remembers as
+    chosen too, so it never comes again on any device.
+  - **The ▶:** a short line in the village's language with the learner's name ("Ciao! Sono Teo.", "Živjo! Jaz sem
+    Jan."), made by the node in that voice the first time it is tapped, on the normal clip path (a live line, a few
+    characters; the reserve's rules), then kept on the node and the phone.
+  - **When no clip of their voice can be had** (no ElevenLabs key, the quota at its reserve, the node away): in the
+    Slovene village the voice's own local Gepard voice (marko for a man, nina for a child's); never another person's
+    clip, never a cast member's voice. Else the phone's offline voice or text-to-speech, in the voice's gender when the
+    phone names one (Samsung's "SMTm…", Google's "#male_…"), a man's a little lower when it doesn't, a child's at a
+    higher pitch (×1.3). On the phone the clips are looked up by the voice the node names in its voice profiles (`GET
+    /voice/profiles`: `player`, and `mine` with the gender, the age, off and whether they have chosen).
+  - **On a visit** the town speaks the learner's lines in its own voice of their kind, in its language: the voice of their
+    voice's gender and age at the place their choice has on their own list (a boy's second voice at home: the town's
+    second boy's), never a voice someone of that town speaks with; off stays off.
 - **Where:** every dialog panel: a scene's dialog and the storyteller's evening story (its turns), a keeper's talk, an
   arrival, a village project's step and an age's party, and a guest's dialog on a visit. In «Vidim, vidim» the learner's
   guesses are words and stay silent, without a 🔊 ([I spy](#i-spy-vidim-vidim-nekaj-česar-ti-ne-vidiš)).
-- **Settings:** the app has no mute or auto-play setting for the dialogs: the learner's line is said as everyone's lines
-  are, at the phone's volume, with TalkBack too (it reads a choice before the tap, the line is said after it).
+- **Settings:** "🗣️ Moj glas · My voice" above is the only setting of the learner's lines (its "🔇 Brez glasu · No voice"
+  turns them off); otherwise the learner's line is said as everyone's lines are, at the phone's volume, with TalkBack too
+  (it reads a choice before the tap, the line is said after it).
 
-**QA:** `companion/bin/qa --steps player-voice`: a dialog by the fire (Babica's soup): a choice tapped, its line said in the
+**QA:** `companion/bin/qa --steps my-voice`: the offer at the first line of the learner's (QA's hook "audio:myvoice:offer"),
+a voice's ▶, a voice chosen in it and the next line said in it (tag MyVoice, Speaker), "🔇 Brez glasu" and back, the settings'
+page. `companion/bin/qa --steps player-voice`: a dialog by the fire (Babica's soup): a choice tapped, its line said in the
 learner's voice ("said «…»: node clip (player)" or "clip on the phone"), heard to its end before the reply starts (tag
 Speaker); a turn typed right (QA's hook "turns:type"), said; a choice said into the 🎤 (QA's hook "mic:<text>", a debug
 build: the 🎤's take as the recognizer would give it), not said, the reply only; a screenshot of the 🔊 on the learner's

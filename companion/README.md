@@ -662,10 +662,10 @@ has no Slovene voice. Now each line of a visit (a villager's greeting, a scene's
 line) is heard in the first of these that can say it:
 
 1. **The host's own clip.** The visitor's app asks its own bridge (`POST /towns/:id/voice/say {text, voice}`), which asks
-   the host: `GET /town/voice?v=1&text=…&voice=…[&voice=…][&gender=…]` (signed both ways, linked towns only). The host
-   answers with the clip of that text in the first of those voices its store has, as its own app would get it (a Slovene
-   narrator's in Nina's or Luka's voice, else its local one; `player` is the voice its cast says a learner's lines in for
-   that `gender`): `{v, town, language, voice, engine, bytes, audio}`, the MP3 in base64. Only a clip there: nothing is
+   the host: `GET /town/voice?v=1&text=…&voice=…[&voice=…][&gender=…][&age=…][&pick=…]` (signed both ways, linked towns
+   only). The host answers with the clip of that text in the first of those voices its store has, as its own app would
+   get it (a Slovene narrator's in Nina's or Luka's voice, else its local one; `player` is the voice its cast offers a
+   learner of that `gender` and `age` at place `pick` of its list, "🗣️ Moj glas · My voice"): `{v, town, language, voice, engine, bytes, audio}`, the MP3 in base64. Only a clip there: nothing is
    made, asked for or counted on the host, and a file is only ever one of its store's own MP3s, at most 768 KB
    (`no_clip`, `404`, otherwise). At most 900 asks an hour from a town (`LANI_TOWN_VOICE_PER_HOUR`; `429` beyond). The
    visitor's bridge checks the answer (that town, a voice asked, an MP3 within the size) and keeps it.
@@ -691,8 +691,10 @@ line) is heard in the first of these that can say it:
    Without a node to download it from (the hosted mode), the note alone. The line's text stays on screen.
 
 The learner's own lines (a choice tapped, a turn typed right; not one said into the 🎤) follow the town the same way:
-asked as `player`, they are the host's clip in the voice its cast gives the visitor's gender, else voiced on the
-visitor's node in that voice, else the phone's.
+asked as `player`, they are the host's clip in the town's voice of the visitor's kind (their own voice's gender and age,
+at its place on their list: "🗣️ Moj glas · My voice", [Voice](#voice); the host's `players`, else its `player` for the
+gender unless a villager of it speaks with that voice too), else voiced on the visitor's node in that voice, else the
+phone's. A visitor who turned their lines off hears none.
 
 **A town's word at home.** A word card's 🔊 says the word in its own language (`WordSpeakButton`, `Speaker.sayIn`): a
 word of a town visited, on its card at home (a review of that language's words), is never said in the home village's
@@ -2119,19 +2121,48 @@ The app plays a line in the speaker's voice; without that clip, in the villager'
 then `female`, then it asks the node (an older bridge refuses a character voice, and the app then
 asks in the next voice), then Android TTS. The bridge's `POST /voice/say` falls back the same way.
 
-**The learner's voice.** The learner's own lines in a dialog (a choice tapped, a turn typed right, an echo gone on from)
-are said in their voice before the reply comes, and their line has a 🔊 like everyone's; a line they said into the 🎤
-isn't said again ([SCENES.md](SCENES.md#the-learners-voice)). The voice is the cast's `player`, one voice per gender by
-the learner profile's `learner.gender`: `{"male": "male.sl", "female": "female.sl"}`, Luka for a man and Nina for a
-woman in the Slovene village, Nina while the profile says none (`unsaid` on the bridge's addressee; the content speaks
-to them as to a man all the same). The app asks for the voice `player` (`POST /voice/say`, `/voice/prepare`,
-`/voice/redo`); the bridge says it in the cast's voice for the learner's gender on its normal path (a word to three
-inside its carrier sentence, as a re-record says it), so a line's clip is the narrator's, and never answers with the other
-gender's clip when theirs can't be had now: the phone's offline voice or TTS says it then. `GET /voice/profiles` names
-the voice (`"player": "male"`), and the phone looks the learner's clips up by it (`Clips.playerVoice`; before the node
-said, the narrator of the profile's gender). A voice of the learner's own is a speaker added to the cast and named in
-`player`: one line. Nina and Luka are ElevenLabs library voices that leave the library on about October 21, 2027: a
-replacement comes before then, for the narrators and for the learner. `voice_status` shows the cast's `player`.
+**The learner's voice: "🗣️ Moj glas · My voice".** The learner's own lines in a dialog (a choice tapped, a turn typed
+right, an echo gone on from) are said in their voice before the reply comes, and their line has a 🔊 like everyone's; a
+line they said into the 🎤 isn't said again ([SCENES.md](SCENES.md#the-learners-voice); docs/plans/05-built/my-voice.md).
+
+- **The voices to choose from:** each cast's `players`, by gender and age: `{"male": {"adult": [...], "child": [...]},
+  "female": {...}}`, 2 or 3 voices each, the default first. Each is a speaker of the cast (`player-boy-a`: an ElevenLabs
+  library voice, its `gender`, its `age`, the `name` the app shows, its local Gepard voice in a Slovene cast), or a
+  speaker's voice in a language (`male.sl`: Luka). The cast's `player` stays the default for a grown-up of each gender
+  (Luka, Nina in the Slovene village); a cast without `players` falls back to it as before.
+- **Never a voice of the cast's:** no voice offered may be one anyone the learner talks to speaks with (any speaker but the
+  narrators and the learner's voices, in any language): the bridge leaves such an entry out and logs it (`checkPlayers`,
+  `castClash` in `bridge/src/cast.ts`), and the smoke test fails on one in the casts shipped. A cast without `players`
+  whose `player` is a villager's voice too says nothing in it (the phone speaks): friuli's male narrator, Chris Basetta,
+  is Pastore Davide's voice, the bug that made Teo's line and Davide's reply one person. A villager may not speak with a
+  learner's voice (a villager's `speaker` is refused when it names one).
+- **The choice:** the learner's, kept on the bridge in their learner profile, `learner-profile.json` `preferences.my_voice`
+  (`{"voice": "player-boy-b" | "male.sl" | "off" | "default", "since"}`); without one, the default of their gender (the
+  profile's `learner.gender`; both genders offered while it says none, the female one's the default) and age (the profile
+  registry's child flag, `LANI_CHILD`). `GET /learner/voice` gives the voices offered, the one in effect, whether they have
+  chosen and the sample line ("Ciao! Sono Teo."); `POST /learner/voice {voice}` keeps a choice (the lease guards it: it
+  writes the learner's data); `POST /voice/sample {voice}` says a voice's sample in it alone, on the normal clip path (a
+  live line, made once, kept). `GET /voice/profiles` names the voice in effect (`player`, the voice the phone looks the
+  learner's clips up by) and `mine` (its id, name, gender, age, `off`, `chosen`). The app asks for the lines as the voice
+  `player` (`POST /voice/say`, `/voice/prepare`, `/voice/redo`), as before; the bridge says them in the voice in effect, a
+  word to three inside its carrier sentence, never in another voice when theirs can't be had (the app speaks then).
+  Changing the voice voices nothing again in bulk; the old clips stay. `voice_status` shows `my_voice` and the cast's
+  `players`; the tutor keeps `preferences.my_voice` when it writes the profile.
+- **When ElevenLabs can't** (the quota at its reserve, no key, an error): in a Slovene village the voice's own Gepard voice
+  (a learner's voice never waits for the narrator's clip, as a villager's does); else the phone's offline voice or TTS in
+  the voice's gender (a voice the engine names as a man's or a woman's: Samsung's `SMTm00`, Google's `#male_1`; a man's
+  line a little lower, ×0.85, in a voice not known to be a man's), a child's higher (×1.3). Never another person's clip.
+- **voice-build** voices the learner's lines too: the dialogs' choices in the learner's voice (`my lines`, after the scenes
+  and I spy; their 🔊 before the pick says them in the default voice, as before), none while their lines are off; the
+  learner's voice is read from their data directory's profile (`--data`) and the child flag from `LANI_CHILD`, else their
+  registry entry's.
+- **On a visit** the visitor's choice goes along as its kind: the town's voice of the same gender and age at the same place
+  on its list (`GET /town/voice?voice=player&gender=…&age=…&pick=…`; the town's `players` in `GET /town/voice/cast`), in the
+  town's language; never a voice someone of that town speaks with ([Voices on a visit](#voices-on-a-visit)).
+- **The library voices** (October 2026, docs/plans/05-built/my-voice.md has the shortlist and why): Nina and Luka leave the
+  ElevenLabs library on about October 21, 2027; the library has no Slovenian voice left, so the other Slovene options are
+  South Slavic ones. The first request with a library voice's id adds it to the account (no voice slot); a sample costs
+  its characters once (about 20, 10 credits with `eleven_v4_turbo`).
 
 **A culture pack's voices.** A village in another language has its own voice cast, `voice-cast.json` in its
 culture pack (`cultures/friuli/voice-cast.json`), with the same archetypes (`grandma`, `grandpa`, `young-man`, …)
@@ -2544,7 +2575,7 @@ than Gepard, so it remakes the villagers' local Gepard clips, in a batch, on the
 `--run` (most played first, `--max N`). The clips are preferred **ElevenLabs first, then Drama 3, then Gepard**: a clip
 is replaced only by an engine ranked as high (`ENGINE_RANK` in `bridge/src/voice.ts`), so a Gepard take never replaces a
 Drama 3 clip, and `--upgrade`, `--elevenlabs` and a re-record replace a Drama 3 clip with ElevenLabs as they do a
-Gepard one. Never the narrators (their local voices stay Gepard's). Each voice is a reference made by Drama 3 itself from
+Gepard one. Never the narrators (their local voices stay Gepard's), nor the learner's own voices. Each voice is a reference made by Drama 3 itself from
 a description of the character (no real person's voice; Jan picks one of three candidates); every take passes the
 worker's checks or is made again with another seed, and a line no take passes keeps its Gepard clip and is listed
 (`--retry-failed`). The clips are trimmed and levelled to −18 LUFS like every clip, marked `drama3` with the worker's
@@ -4179,8 +4210,9 @@ pot); the villagers who need the learner; "📊 Napredek · Progress"; the tutor
 
 **⚙️ Nastavitve · Settings** (`ui/settings/SettingsScreen.kt`): a row per section with what it holds now, each a page:
 🧑‍🏫 Učitelj · Tutor, 💾 Podatki · Data (a parent's on a child's device), 🌐 Jeziki · Languages, 🔊 Zvok in glas · Sound
-and voice, 🔗 Povezava · Connection (the node, pairing again, Lani on this phone), and 🛠️ Razvijalec · Developer once the
-version line was tapped seven times.
+and voice ("🗣️ Moj glas · My voice" first: the voice of the learner's own lines, [Voice](#voice); the background sounds, the
+explanations read aloud, the offline audio), 🔗 Povezava · Connection (the node, pairing again, Lani on this phone), and
+🛠️ Razvijalec · Developer once the version line was tapped seven times.
 
 ### Getting the APK
 
