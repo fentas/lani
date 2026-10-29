@@ -1,7 +1,8 @@
 // Speech recognition in a talk (docs/plans/05-built/stt-talk.md): what the learner says in a free conversation, heard
 // twice by the node's Whisper, with the conversation as its context (the prompt) and without (plain), and the two
-// readings weighed: which one lands in the draft, whether it is sure enough to send by itself, the other reading for the
-// tutor, a heard non-word matched to a word of the conversation (amigo → amico), and a take of noise heard as nothing.
+// readings weighed: which one lands in the draft, whether it is sure enough to send by itself, the other readings for
+// the tutor (the plain one, and the one with a heard non-word matched to a word of the conversation: amigo → amico), and
+// a take of noise heard as nothing.
 // Pure; features/stt.ts runs the two hearings and this.
 import type { SttResult, SttWord } from './features/stt'
 
@@ -204,7 +205,9 @@ export type Snap = { from: string; to: string }
  * The reading with its near-misses matched to the conversation: a heard word the language doesn't have ([knows] says
  * no, and it isn't a word of the context) becomes the one context word one edit away (two for words of seven letters
  * or more; "amigo" → "amico"), when exactly one is that close. A real word is never changed into another, nor is a
- * word of under three letters, an elided one ("dov'") or a number.
+ * word of under three letters, an elided one ("dov'") or a number. [weigh] gives the matched reading to the tutor as an
+ * alternative, never to the draft: on the test set every match changed a word the learner hadn't meant, or one they
+ * had said wrong ("Uovi?" → "Uova", docs/plans/05-built/stt-talk.md, "Near-misses").
  */
 export function snap(text: string, ctx: Map<string, string>, knows: Knows): { text: string; snaps: Snap[] } {
   if (!knows || !ctx.size) return { text, snaps: [] }
@@ -261,11 +264,13 @@ export type TalkHearing = {
   result: SttResult
   /** Which reading: both said the same, the one with the context, or the plain one. */
   by: 'both' | 'context' | 'plain' | null
-  /** The other reading, when it says other words: for the tutor (heard may be a mishearing of it). */
+  /**
+   * The other readings, when they say other words: for the tutor (heard may be a mishearing of them). The plain
+   * reading (or the prompted one, when the plain one was chosen), then the chosen one with its near-misses matched.
+   */
   alternatives: string[]
-  /** The reading before its near-misses were matched, when they were. */
-  heardRaw?: string
-  snaps: Snap[]
+  /** The heard non-words one edit from a word of the conversation, and that word ([snap]): the matched alternative's. */
+  near: Snap[]
   /**
    * Sure enough to send by itself: both readings say the same words, each one clear and a word of the language or of
    * the talk, and the worker measured a voice (without that measure nothing is sure: a room's noise heard as "Grazie."
@@ -286,7 +291,8 @@ const SOUND = /^[aeiouyhm]{3,}$/
  * its prompt while the plain one heard nothing real). The same words in both is the prompted reading (it spells as the
  * conversation does). Otherwise the one whose words fit the audio better: the word probabilities are Whisper's of the
  * text without the prompt, so the two compare; the plain one needs [Weighing.margin] more, and a copy of the prompt
- * loses. The other reading goes along as the alternative; then the near-misses are matched to the context.
+ * loses. The other reading goes along as an alternative, and so does the chosen one with its near-misses matched to
+ * the context ([snap]); the draft keeps what was heard.
  */
 export function weigh(
   prompted: SttResult, plain: SttResult | null, c: TalkContext, prompt: string, language: string, knows: Knows,
@@ -299,7 +305,7 @@ export function weigh(
   }
   const sounds = (r: SttResult) => keys(r.text).every(k => SOUND.test(k) && !isWord(k))
   const real = (r: SttResult | null): r is SttResult => !!r && keys(r.text).length > 0 && !madeUp(r.text, language, r.duration) && !sounds(r)
-  const nothing = (): TalkHearing => ({ text: '', result: { ...prompted, text: '', segments: [] }, by: null, alternatives: [], snaps: [], sure: false, noise: true })
+  const nothing = (): TalkHearing => ({ text: '', result: { ...prompted, text: '', segments: [] }, by: null, alternatives: [], near: [], sure: false, noise: true })
   if (voice && voice.voiced < o.minVoiced) return nothing()
   const pOk = real(prompted)
   const nOk = real(plain)
@@ -328,17 +334,19 @@ export function weigh(
     other = plain
     by = 'context'
   }
-  const s = snap(chosen.text, ctx, knows)
+  const matched = snap(chosen.text, ctx, knows)
   const words = wordsOf(chosen).filter(w => key(w.word).length > 0)
-  const sure = by === 'both' && !!voice && s.snaps.length === 0 && words.length > 0 && words.every(w => (w.prob ?? 0) >= o.sureWord && isWord(w.word))
-  const alternatives = other && real(other) && !agree(other.text, s.text) ? [other.text.trim()] : []
+  const sure = by === 'both' && !!voice && matched.snaps.length === 0 && words.length > 0 && words.every(w => (w.prob ?? 0) >= o.sureWord && isWord(w.word))
+  const alternatives: string[] = []
+  for (const t of [other && real(other) ? other.text : null, matched.snaps.length ? matched.text : null]) {
+    if (t && !agree(t, chosen.text) && !alternatives.some(a => agree(a, t))) alternatives.push(t.trim())
+  }
   return {
-    text: s.text.trim(),
-    result: s.snaps.length ? { ...chosen, text: s.text.trim() } : chosen,
+    text: chosen.text.trim(),
+    result: chosen,
     by,
     alternatives,
-    ...(s.snaps.length ? { heardRaw: chosen.text.trim() } : {}),
-    snaps: s.snaps,
+    near: matched.snaps,
     sure,
     noise: false,
   }

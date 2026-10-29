@@ -111,7 +111,7 @@ export default async function stt() {
 
   whisper.talk = { prompted: reading('Moj prijatel.'), plain: reading('Moj prijatel.'), voice: { voiced: 1, loud: 1 }, twice: true }
   const sl = await talkPost('&said=' + encodeURIComponent('Je to tvoj prijatelj?'))
-  check('Slovene\'s small dictionary matches no near-miss (prijatel stays)', sl.body.text === 'Moj prijatel.' && !('heard_raw' in sl.body), sl.body)
+  check('Slovene\'s small dictionary matches no near-miss (prijatel: no matched alternative)', sl.body.text === 'Moj prijatel.' && sl.body.alternatives.length === 0 && !('near' in sl.body), sl.body)
 
   whisper.talk = null
   const notTalk = await (await post(take, '?language=sl&said=x')).json()
@@ -127,7 +127,7 @@ export default async function stt() {
   check('loops, a held letter, a web address and stock lines are made up', madeUp('E tu? E tu? E tu? E tu?', 'it') && madeUp('Mmmmmmmmm', 'it') && madeUp('Il nostro corso è www.esempio.info', 'it') && madeUp('Grazie a tutti.', 'it') && !madeUp('Grazie.', 'it') && !madeUp('No, no, sì.', 'it'))
   check('more words than the audio can hold are made up', madeUp('uno due tre quattro cinque sei sette otto nove dieci undici', 'it', 1.5) && !madeUp('uno due tre quattro cinque', 'it', 1.5))
   const amigo = weigh(reading('Amigo, come stai?'), reading('Amigo, come stai?'), { said: ['Ciao! Sei il mio amico?'], words: [], names: ['Teo'] }, 'Teo. Ciao! Sei il mio amico?', 'it', knows, { voiced: 1, loud: 1 })
-  check('a near-miss matched: the matched reading, what was heard raw, not sure', amigo.text === 'Amico, come stai?' && amigo.heardRaw === 'Amigo, come stai?' && amigo.sure === false && amigo.snaps[0].to === 'Amico', amigo)
+  check('a near-miss: the draft keeps what was heard, the tutor gets it matched (Amico, come stai?), not sure', amigo.text === 'Amigo, come stai?' && amigo.alternatives[0] === 'Amico, come stai?' && amigo.sure === false && amigo.near[0].to === 'Amico', amigo)
   const ruscello = weigh(reading('Al ruscello.', 0.9), reading('Al ruscello.', 0.9), { said: ['Andiamo al ruscello o al bosco?'], words: [], names: [] }, 'Andiamo al ruscello o al bosco?', 'it', knows, { voiced: 0.8, loud: 0.9 })
   check('the conversation\'s own words said back are believed (Al ruscello): sure', ruscello.text === 'Al ruscello.' && ruscello.sure === true, ruscello)
   const pulled = weigh(reading('Al bosco?', 0.2), reading('Ooooh', 0.3), { said: ['Andiamo al ruscello o al bosco?'], words: [], names: [] }, 'Andiamo al ruscello o al bosco?', 'it', knows, { voiced: 0.8, loud: 0.9 })

@@ -10,7 +10,7 @@ import type { Log } from '../config'
 import type { FeatureFactory } from '../feature'
 import { HttpError, json, readBody } from '../http'
 import { normalizeForm } from '../lexicon'
-import { meanProb, MIN_LEMMAS, talkPrompt, weigh, type Knows, type TalkContext, type Voice } from '../stt-talk'
+import { meanProb, MIN_LEMMAS, talkPrompt, weigh, type Knows, type Snap, type TalkContext, type Voice } from '../stt-talk'
 
 export type SttWord = { word: string; start: number | null; end: number | null; prob: number | null }
 export type SttSegment = { start: number | null; end: number | null; text: string; words: SttWord[]; avg_logprob?: number; no_speech_prob?: number }
@@ -74,7 +74,8 @@ export function talkContextOf(url: URL): TalkContext | null {
 /** A talk's take as the app gets it: the reading for the draft, and what the tutor and the app's log get besides. */
 export type TalkResult = SttResult & {
   alternatives: string[]
-  heard_raw?: string
+  /** Heard non-words one edit from a word of the conversation ({from, to}): an alternative has them matched. */
+  near?: Snap[]
   sure: boolean
   noise: boolean
   by: 'both' | 'context' | 'plain' | null
@@ -159,7 +160,7 @@ export class Stt {
       took: Math.round(performance.now() - t0) / 1000,
       ...(voice ? { voice } : {}),
       alternatives: h.alternatives,
-      ...(h.heardRaw ? { heard_raw: h.heardRaw } : {}),
+      ...(h.near.length ? { near: h.near } : {}),
       sure: h.sure,
       noise: h.noise,
       by: h.by,
