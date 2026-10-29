@@ -113,7 +113,8 @@ class TextMatch(unittest.TestCase):
 
 class Voices(unittest.TestCase):
     def test_every_cast_speaker_has_a_voice_of_its_gender(self):
-        cast = json.loads((ROOT / "voice-cast.json").read_text())["speakers"]
+        # the learner's own voices (a speaker with its "age": "🗣️ Moj glas") have none: Drama 3 remakes the villagers' clips
+        cast = {k: v for k, v in json.loads((ROOT / "voice-cast.json").read_text())["speakers"].items() if "age" not in v}
         voices = {k: v for k, v in json.loads((ROOT / "voice-drama3" / "voices.json").read_text()).items() if not k.startswith("_")}
         self.assertEqual(set(voices), set(cast))
         for name, v in voices.items():

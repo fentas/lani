@@ -102,7 +102,7 @@
 //                    the narrators (female, male: their local clips stay beside their Slovene ElevenLabs ones). E.g.
 //                    --elevenlabs teacher: Učiteljica Mojca's lines the local voice said for her (Jan, 2026-10-16).
 //                    Drama 3's clips count as local here too: ElevenLabs ranks above Drama 3, Drama 3 above Gepard.
-//   --drama3 S       speaker S's local Gepard clips (S: speaker[,speaker], or all: every speaker but the narrators) made
+//   --drama3 S       speaker S's local Gepard clips (S: speaker[,speaker], or all: every speaker but the narrators and the learner's voices) made
 //                    again by the local Drama 3 worker (companion/voice-drama3; Built with Fish Audio), most played first,
 //                    at most --max N; each take passes the worker's checks (the gender by pitch, noise, the text heard
 //                    by Whisper, length and silence) or is made again with another seed; a line no take passes is
@@ -122,7 +122,7 @@ import { existsSync, readFileSync, statSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
 import { addresseeOf } from '../bridge/src/addressee'
 import { ArrivalStore, cultureArrivals } from '../bridge/src/arrivals'
-import { cast, castVoiced, denoiseVoices, isSpeaker, PERSON_VOICE, personVoice, tempoVoices, useCastFile, usePersonVoices } from '../bridge/src/cast'
+import { cast, castVoiced, denoiseVoices, isLearnerVoice, isSpeaker, PERSON_VOICE, personVoice, tempoVoices, useCastFile, usePersonVoices } from '../bridge/src/cast'
 import { CourseStore, courseDir } from '../bridge/src/course'
 import { familyHas, indexHas } from '../bridge/src/course-speech'
 import { childOf, learnerLangs } from '../bridge/src/learners'
@@ -187,7 +187,8 @@ const d3At = args.indexOf('--drama3')
 const d3Arg = d3At >= 0 ? (args[d3At + 1] ?? '') : ''
 const toDrama3 = d3At >= 0
 // all: every speaker of the village's cast but the narrators
-const d3Speakers = d3Arg === 'all' ? Object.keys(cast()).filter(s => s !== 'female' && s !== 'male') : d3Arg.split(',').filter(Boolean)
+// all: the villagers' speakers (not the narrators, nor the learner's own voices: theirs stay ElevenLabs' and Gepard's)
+const d3Speakers = d3Arg === 'all' ? Object.keys(cast()).filter(s => s !== 'female' && s !== 'male' && !isLearnerVoice(s)) : d3Arg.split(',').filter(Boolean)
 const d3Unknown = d3Speakers.filter(s => !isSpeaker(s))
 const d3Narrators = d3Speakers.filter(s => s === 'female' || s === 'male')
 const restoreAt = args.indexOf('--restore-gepard')
