@@ -1854,7 +1854,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     fun qaCases(what: String) {
         val today = java.time.LocalDate.now()
         when {
-            what == "ready" -> grammar.meet(listOf("skloni", "imenovalnik", "tozilnik", "kam-tozilnik", "mestnik", "kje-mestnik-orodnik", "rodilnik-nikalnica", "rodilnik", "rodilnik-predlogi", "rodilnik-kolicina", "dajalnik", "orodnik", "mnozina", "dvojina", "pridevniki-ujemanje", "stevila-samostalniki"))
+            what == "ready" -> grammar.meet(listOf("skloni", "imenovalnik", "tozilnik", "kam-tozilnik", "mestnik", "kje-mestnik-orodnik", "rodilnik-nikalnica", "rodilnik", "rodilnik-predlogi", "rodilnik-kolicina", "dajalnik", "orodnik", "mnozina", "dvojina", "pridevniki-ujemanje", "stevila-samostalniki")).forEach(grammar::announced) // met before: no news in the first feedback
             what == "start" -> return startCases()
             what == "storm" -> return startStorm()
             what.startsWith("focus:") -> return startCases(what.removePrefix("focus:").trim().ifBlank { null })

@@ -189,6 +189,8 @@ private fun typed(answer: String, accept: List<String>, explain: String?): Outco
  *
  * @param timeLimitSeconds shows a countdown bar; at zero the run ends with what was answered
  * @param fast timed-event mode: a correct answer flashes and moves on by itself
+ * @param endless more exercises than the clock allows (the case storm): the goodbye's tally counts what was answered,
+ *   not the run's length ("3 od 3", not "3 od 30")
  * @param onExit where ✕ leads before anything was answered (default: home)
  * @param stage the training stage above the exercises: the companion reacts to each prompt and answer
  * @param before shown under the title until the first answer (the review's switch between the decks of languages)
@@ -217,6 +219,7 @@ fun ExerciseRun(
     moduleId: String?,
     timeLimitSeconds: Int? = null,
     fast: Boolean = false,
+    endless: Boolean = false,
     onExit: (() -> Unit)? = null,
     stage: StageState? = null,
     before: (@Composable () -> Unit)? = null,
@@ -251,7 +254,7 @@ fun ExerciseRun(
     var steps by remember(index) { mutableStateOf<List<si.lanisce.lani.data.ItemMark>>(emptyList()) }
     // Stopping early still reports what was answered, so progress is never lost.
     val complete = { outs: List<Outcome> ->
-        stage?.finish(outs.map { it.verdict }, exercises.size)
+        stage?.finish(outs.map { it.verdict }, if (endless) outs.size else exercises.size)
         vm.grammar.announceRest() // pages met in quick answers without a feedback box
         onComplete(outs)
     }

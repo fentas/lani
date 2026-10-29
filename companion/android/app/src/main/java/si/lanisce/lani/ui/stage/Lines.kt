@@ -160,7 +160,11 @@ object Lines {
         is Exercise.Counting -> listOf(G("Štejva!", "Let's count!", it = "Contiamo!", de = "Zählen wir!"))
         is Exercise.FormsTable -> listOf(G("Dopolniva tabelo!", "Let's fill in the table!", it = "Completiamo la tabella!", de = "Füllen wir die Tabelle aus!"))
         is Exercise.Numeral -> if (ex.audio != null) LISTEN else listOf(G("Koliko je to?", "How much is that?", it = "Quanto fa?", de = "Wie viel ist das?"))
-        is Exercise.CaseTask -> listOf(G("Kateri sklon je to?", "Which case is it?", it = "Che caso è?", de = "Welcher Fall ist das?"))
+        is Exercise.CaseTask -> when (ex.kind) {
+            "place" -> listOf(G("Kje ali kam?", "Where, or where to?", it = "Dove o verso dove?", de = "Wo oder wohin?"))
+            "decline" -> listOf(G("Napiši pravo obliko.", "Napišite pravo obliko.", "Write the right form.", it = "Scrivi la forma giusta.", de = "Schreib die richtige Form."))
+            else -> listOf(G("Kateri sklon je to?", "Which case is it?", it = "Che caso è?", de = "Welcher Fall ist das?"))
+        }
     }.of(register)
 
     /** An intro's request, by what the run is (the villager's own greeting may come first). */

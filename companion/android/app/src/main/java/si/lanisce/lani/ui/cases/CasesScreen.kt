@@ -248,7 +248,7 @@ fun CasesRunScreen(vm: AppViewModel, at: Screen.CasesRun) {
         ExerciseRun(
             vm, if (at.storm) "⚡ ${bi("cases.storm.title")}" else "🧩 ${bi("cases.title")}", exercises, moduleId = null, onExit = vm::leaveRun, stage = stage,
             // the storm against the clock: a right pick flashes and the next phrase comes (ExerciseRun's timed run)
-            timeLimitSeconds = if (at.storm) CaseTrainer.STORM_SECONDS else null, fast = at.storm,
+            timeLimitSeconds = if (at.storm) CaseTrainer.STORM_SECONDS else null, fast = at.storm, endless = at.storm,
             source = { i -> at.planned.getOrNull(i)?.let { p -> ExerciseSource.cases(p.task.kind.wire, p.task.key, i, tutor = vm.cases.bank?.items?.firstOrNull { it.id == p.task.key }?.source == "tutor") } },
             pages = listOf("skloni"),
             // a form typed wrong counts on its page with both sentences, as a dialog's turn records one
