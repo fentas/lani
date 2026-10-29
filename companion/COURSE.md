@@ -576,6 +576,21 @@ units turn on comes from the earlier pages they list:
 little): their sheets ask mostly what a form means, which verb it comes from and which ending it has (a choice, a
 multi, a sort, a word bank), and only the easy ones are made (Okno je odprto, plavanje, pečenje kruha).
 
+**The case trainer** ("🧩 Skloni · Cases"; README.md "Case trainer") asks what the units have introduced: an item or a
+frame once its rule's page is introduced (met in the book, or listed in the `grammar` of a unit whose intro is done) or
+at or below the learner's level, one level above it when its rule is introduced. It opens once the cases have begun: for
+an A1 learner the intro of `tozilnik` (or a case's page met in the book), from A2 for every learner. Each case unit's
+page has "🧩 Skloni", a session on what the unit teaches:
+
+| unit | the session's focus |
+|---|---|
+| `tozilnik`, `mestnik`, `rodilnik`, `dajalnik`, `orodnik` | that case |
+| `nikalnica-rodilnik` | rodilnik-nikalnica (the genitive after a no) |
+| `kje-kam-od-kod` | kje or kam: every "Kje ali kam?" and the rules kam-tozilnik, kje-mestnik-orodnik |
+| `pridevniki-skloni` | agreement: the adjectives and possessives in their cases |
+| `mnozina-skloni`, `dvojina-skloni` | the plural's, the dual's cases |
+| `skloni`, `sklanjatev-posebnosti` | all six, mixed |
+
 ## Writing a unit
 
 - **Natural Slovene at the level**: short sentences of everyday words the learner meets in the village (the kitchen, the

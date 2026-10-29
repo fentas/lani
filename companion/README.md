@@ -1799,7 +1799,9 @@ items `trpnik` (zaprta vrata, Hiša je bila sezidana, Seno se suši na kozolcu) 
 odkritje; košnja, trgatev). The school's A2 units added `mnozina-skloni` (the plural through the cases: pet krav, k sosedom, na
 travnikih, z ovcami; veliko ljudi, z otroki) and `cigav` (čigav, the possessives: njegov, njen, njun; Lukov, Mickina,
 babičin). Their levels follow when each is learnt (the cases' in `skloni`; the rest as docs/grammar-syllabus.md has
-them).
+them). A page about a case or what decides one (the six cases', skloni, the genitive's slices, Kam?, Kje?, the plural's
+and the dual's cases, agreement) has "🧩 Vadi sklone · Case trainer" under its buttons: a session of the case trainer on
+it ([Case trainer](#case-trainer)).
 
 Italian, German and English have 16 each, A1 and A2, explained in the bases their learners have (Italian in Slovene,
 English and German; German in Slovene, English and Italian; English in Slovene, Italian and German, and English), with
@@ -1966,6 +1968,121 @@ words run looked up), `CardsTest` (the formats, the bundled deck in every base, 
 one left out, the note's 📋 line, `recent_answers {looked_up}`, an app from before), `chat` (a `session_end`'s 📋 line,
 a worksheet's items, none without, the guide) and `course` (the last 14 days' lookups, `get_village` and `get_course`
 showing the most looked up, none without).
+
+## Case trainer
+
+"🧩 Skloni · Cases" (Jan, 2026-10-29: "I struggle a bit with the cases. Maybe we can do some test modules around them?
+One idea: show a sentence and I pick what case this is?"): short sessions on the six cases, the kinds interleaved, one
+task at a time with feedback at once, towards what decides a case more than its endings. Its rules are
+`app/.../data/CaseTrainer.kt` (pure), the shared look `data/CaseLook.kt` (each case's id, number, question words and
+colour: the contract with the case lens), the bank `data/CaseBank.kt`, the screens `ui/cases/`, the rest
+`app/CasesController.kt`; the bridge's `bridge/src/cases.ts` and `features/cases.ts`. Slovene only, as the forms book.
+Why it is built so: docs/plans/05-built/case-trainer.md.
+
+**Where it opens.** Home's tile "🧩 Skloni" once it is open (its line: the tutor's assignment, what comes back, the
+weakest case), Home's "Danes · Today" idea (the tutor's assignment or items due again right after the tutor's modules, a
+weak case after the school's lesson: "▶ Vadi" starts its session at once), a case page of the grammar book ("🧩 Vadi
+sklone · Case trainer": a session on that case or rule; the overview skloni a mixed one), the school's case units ("🧩
+Skloni" on the unit's page: tožilnik, mestnik, nikalnica-rodilnik, rodilnik, kje-kam-od-kod, dajalnik, orodnik,
+pridevniki-skloni, mnozina-skloni, dvojina-skloni a session on what each teaches; skloni and sklanjatev-posebnosti a
+mixed one) and the tutor's assignment's notification. It opens once the cases have begun (an A1 learner: the intro of
+the first case unit, Tožilnik, or a case's page met in the book; from A2 every learner); closed, its screen says so with
+"🏫 V šolo: Tožilnik" one tap away, and the unit's page shows "🔒 Odpre jih uvod enote Tožilnik".
+
+**Its screen:** "▶️ Začni · Start" (mixed, or "Vadi: <focus>" when opened on one, with "🔀 Raje vse premešano"), "⚡
+Sklonski vihar · Case storm", the items due again, the six cases in their colours with their stars and their last
+answers (a tap: a session on that case), what decides them (each rule's grammar page with its stars, how often its
+deciding word was tapped right, what the case lens showed; a tap: a session on it), the kinds, the tip ("Ask the
+question") and that its Slovene is machine-written. The tutor's assignment on top: "🧑‍🏫 Učitelj predlaga · Your tutor
+suggests: …", its note, "▶️ Vadi to zdaj".
+
+**A session** is 10 tasks (8 for a child), the kinds interleaved (never the same kind twice in a row where another is
+planned, no case three times in a row, no item, word or sentence twice):
+
+| kind | asks | answered |
+|---|---|---|
+| 🧩 Kateri sklon? · Which case? | a real sentence, one word framed (a noun, an adjective or possessive agreeing with it, a pronoun, a name) | its case among the six chips (the school's questions big: kdo? kaj? … s kom? s čim?, the case's number and name small, each in its colour); then "🤔 Zakaj? · Why?": the word that decides it tapped (brez, iz, k, v + the verb of motion, ni, nimam, pet, kozarec, pomagati …), or "👤 Nič ne odloči: je osebek · Nothing decides it: it's the subject" / "🎯 … je predmet · … the object" |
+| 🧭 Kje ali kam? | the sentence with its gap ("Micka gre ___ (tržnica).") under the village's picture of the place where a scene draws it (the school, the market, the forest, the mill … as the village has it now, without its people, not to touch), else the sentence alone | the option (na tržnico · na tržnici; v or na; pri or k; od kod); then the verb that says kje or kam tapped |
+| ✍️ Sklanjaj! · Decline it | a frame with a known trigger and the learner's own noun ("Tukaj ni ___. (miza)", "Grem k ___. (moj brat)", "Vidim dva ___. (brat)"), the frame's meaning and the words' under it | typed (č, š, ž chips, 💡, "Preveri · Check"): the noun alone, with the frame's preposition, or the whole sentence |
+
+The case picked wrong is wrong; right with the deciding word wrong, almost ("Sklon je pravi, odločilna beseda pa ne");
+both right, right. A form typed is graded as any typed answer (č, š, ž forgotten is almost, a slip in the stem forgiven,
+a wrong ending wrong); every form the dictionary gives for the slot is right (the usual one shown: bratu before brati,
+sester before sestra), a spoken form is right and labelled ("🗣️ Pogovorno, prav tako prav; knjižno: …"), never wrong.
+After the answer, in the case's colour: the word framed, the deciding words underlined, a wrong tap struck through; the
+feedback's line "**brez** → **2. rodilnik** (koga? česa?) · ednina", the rule's line in the learner's base, the same
+form's other readings ("🔀 mize je lahko tudi 1. imenovalnik mn., 4. tožilnik mn."), the item's note on how the sentence
+decides an ambiguous form, and "📖 V knjigo" to the rule's page. The cheat sheet (📋) opens at the rule's page; 💬 attaches
+the task (`about_exercise.source` kind `cases`: its task, its item, `machine_written`).
+
+**What a learner is asked.** An item or frame is asked when its rule's page is open to the learner (introduced: met in
+the book or by a unit's intro; or at or below their level) and its level fits (their level, one above when its rule is
+introduced); a plural needs mnozina, a dual dvojina, an oblique dual dvojina-skloni. A child gets no B1 and no sentence
+of more than seven words. The decline's nouns are the learner's own (their one-word vocabulary cards whose forms the
+phone has, GET /forms), the bank's 23 when they have fewer than six, a mass noun of the bank's `uncountable` (voda,
+mleko, kruh …) only in the singular frames; its adjectives and possessives the bank's (moj, tvoj, naš, njegov … lep,
+velik, majhen, dober …), a masculine person's accusative the genitive (mojega brata).
+
+**Which first** (`CaseTrainer.plan`): the items missed due today first (at most 3, spread through the session); then by
+kind (which 45 %, Kje ali kam? 25 %, decline 30 %; Kje ali kam? 45 % on a focus on kje or kam; recognition more while
+the learner's accuracy lately is under 55 %, declining more above 80 %); each task drawn by its weight: its case's and
+its rule's weakness (their last answers, the learner's mistakes on the case's and the rule's grammar pages counted as
+wrong answers that fade as the trainer's own come in), the learner's own mistakes that fit it exactly
+(accusative_feminine_a_to_o weighs the feminine accusatives, possessive_neuter_moje the neuter possessives), its
+agreement's for an adjective; a quarter when asked lately; its level as the accuracy wants it (60–70 % right); a third
+more for a rule the case lens showed in the last three days. A focus (a case, a rule, kje-kam, agreement, the plural's
+or the dual's cases) asks only it, filled up with its case's when it has too few.
+
+**Kept** in the village state (`GameState.cases`, synced as the rest; the bridge keeps it from an older app): each
+case's, rule's and kind's last 12 answers ("case:rodilnik" …: an almost counts right, the case was right), each rule's
+taps of the deciding word, the items missed with their box (wrong: the next session the same day; almost: tomorrow;
+right: on a box, 1, 3, 7, 16 days, then gone; wrong again: the first box), the items asked lately, the rules the lens
+showed, the sessions. The stars: right of the last answers, capped while they are few (2 under 3 answers, 3 under 6, 4
+under 10).
+
+**For the learner databases.** A session goes to the node through the outbox (**`POST /cases/done`**: its minutes, its
+focus, each answer with its kind, item, case, number, rule, verdict, the why's tap, what was answered and right, the
+sentence; the errors for update-db.py; each case's and rule's mastery after it; `storm` for a storm), persisted by the
+bridge with update-db.py as grammar practice (Kateri sklon?, Kje ali kam?) and writing (the forms typed): a session in
+the log, the rules as its topics, the weakest case under 70 % as the next focus, and each wrong answer a mistake under
+the learner's own pattern id when one fits (its words all the task's: genitive_after_iz, kam_vs_kje, v_vs_na …, the most
+specific, then the most frequent), else the trainer's own (`cases_<case>_<rule>`, `cases_form_<case>[_plural|_dual]
+[_adjective|_possessive]`); a deciding word missed with the case right is a minor one, `cases_trigger_<rule>`. The tutor
+hears `cases_done` ("Already persisted"); an older node (404) gets a `session_end` with the same data for the tutor to
+persist. The answers count on the grammar book's pages too, as any exercise's (a form typed wrong with both sentences).
+
+**⚡ Sklonski vihar · Case storm:** 60 seconds, short phrases ("brez mleka", "v veliki hiši", "Luka pase ovce.") sorted
+into the six coloured cases, a right one flashing on to the next (the exercise player's timed run), no "Zakaj?"; its end
+a medal (🥇 14 right at 90 %, 🥈 8, else 🥉), the longest streak, each case's, "⚡ Še en vihar"; the villager's goodbye
+counts what was answered, not the 30 phrases the run holds. Its answers count as a session's (its cases, what comes
+back).
+
+**The bank** (`companion/cases/sl/bank.json`, `lani.cases/v0`; bundled as the resource `cases/sl/bank.json`, served by
+**`GET /cases`** with the tutor's items and assignment): 416 items (324 Kateri sklon?, 92 Kje ali kam?) over the six
+cases (imenovalnik 37, rodilnik 96, dajalnik 52, tožilnik 94, mestnik 91, orodnik 46), singular 327, plural 63, dual 26,
+A1 158, A2 180, B1 78, 248 of them from the content (the grammar pages' examples, the scenes, the stories, the
+readings); 31 rules (each its grammar page, the words that trigger it, a line in en, de, it); 31 frames; 20 adjectives
+and possessives with every form; 23 nouns. Each item: its sentence and translations, the word's token, lemma, gender,
+case and number, the deciding word's token or the role, more tokens right to tap, the other readings of an ambiguous
+form and a note on how the sentence decides one, where it is from. The bridge checks it (`validateBank`; `bun
+test/check-cases.ts`, the smoke's section "cases"): every form that case of its lemma where the dictionary has the word
+(333 of its words), every trigger a word its rule names, every page in the grammar book (an item at least its page's
+level), every scene the village's, a place item's answer its gap. Machine-written, not reviewed by a native speaker (its
+`review` says what to check).
+
+**The tutor** (the channel guide's paragraph, the in-app tutor's topic `cases`): `get_cases` (the mastery per case and
+per rule, what comes back, the lens's rules, the bank's spread, the assignment), `assign_cases {focus, note}` (a case or
+a rule: Home and the trainer offer it until a session with that focus is played; a notification; focus null takes it
+back), `publish_case_items {items, note}` (the bank's format, checked as the bank is; ids of the tutor's own) and
+`remove_case_item`. `get_village` shows the trainer's progress too.
+
+**The case lens's entry point:** `vm.cases.seen(rule)` (`CasesController.seen`, `CaseTrainer.seen`): a rule id (a
+grammar page: the contract's rodilnik-predlogi, rodilnik-nikalnica, rodilnik-kolicina, kam-tozilnik,
+kje-mestnik-orodnik, dajalnik, orodnik, tozilnik, mestnik, skloni) the lens showed the learner; counted as seen
+(`GameState.cases.seen`: how often, the last day), never as an answer.
+
+QA: `companion/bin/qa --steps cases` (on a synthetic learner: LANI_DEV_DATA). Tests: `CaseTrainerTest`; the smoke's
+`cases`.
 
 ## The school's course
 
@@ -4546,6 +4663,7 @@ companion/bin/qa --steps exercise-words          # a review's words looked up: t
 companion/bin/qa --steps exercise-explain        # the module kdo-govori's explanation in shape, «delam» in it looked up
 companion/bin/qa --steps counting                # counting cards: the unit stevila's intro skipped and its note, a card's four steps (one wrong), the lines said, the cheat sheet, 💬, typed
 companion/bin/qa --steps counting-dialogs        # the happenings with a counting dialog (Luka's cows): each opens, its number in words
+LANI_DEV_DATA=<synthetic learner> companion/bin/qa --no-town --steps cases  # 🧩 Skloni: the screen, a which case right with its deciding word and one wrong, a Kje ali kam? and its verb, a decline typed, a storm and its medal, the grammar page's Vadi sklone, the node's session
 companion/bin/qa --steps numbers                 # 🔢 Števila: closed with "📖 Odpri uvod", the intro skipped; a number heard on the pad, a word with the tens first, a clock time, a date, a whole run opening 100–999
 LANI_DEV_FAKE_ELEVENLABS=1 companion/bin/qa --no-town --steps forms-card  # forms cards: Vse oblike on a word's card (its overview, then Vadi oblike), a noun's table (greyed rows, a mistake kept by kind, the rows said), a verb's (its imperative hidden), the day's in a review, typed, a unit done bringing a card back
 LANI_DEV_FAKE_ELEVENLABS=1 companion/bin/qa --no-town --steps forms-view  # biti's card in a test: its present alone; the overview after it and from the word's card; Moje besede from Napredek, a search with its dictionary part, a word opened from it
