@@ -16,13 +16,16 @@ Radeon RX 9070 (gfx1201) with the PyTorch ROCm 7.2 wheels, next to the Gepard vo
 |---|---|
 | `GET /health` | `200 {"ok": true, "engine": "whisper", "model": "large-v3-turbo", "device": "rocm gfx1201 (...)", "busy": false, "prompt": true, "load_seconds": 8.3, "models": [{"model", "languages", "present", "loaded", "idle_seconds"}]}` when ready (`model`: the primary one). `503 {"ok": false, "loading": true}` while the primary model loads, `503 {"ok": false, "error": "..."}` if loading failed. |
 | `GET /health?language=it` | The same, and `"language": {"code": "it", "model": "large-v3-turbo", "available": true, "loaded": false}`. A model that is present but not loaded starts loading in the background, so the recognition that follows doesn't wait. |
-| `POST /transcribe?language=sl&prompt=<expected text>` with the audio as the body | `200 {"text", "segments": [{"start", "end", "text", "avg_logprob", "no_speech_prob", "words": [{"word", "start", "end", "prob"}]}], "language", "duration", "took", "model"}` |
+| `POST /transcribe?language=sl&prompt=<expected text>` with the audio as the body | `200 {"text", "segments": [{"start", "end", "text", "avg_logprob", "no_speech_prob", "words": [{"word", "start", "end", "prob"}]}], "language", "duration", "took", "model", "voice": {"voiced", "loud"}}` |
+| `POST /transcribe?language=it&prompt=<a talk's context>&plain=1` | the same, and `"plain": {"text", "segments"}`: the take heard a second time without the prompt, the audio encoded once for both (see "Talks") |
 | | `400` no audio, audio under 0.1 s, undecodable audio or an unknown language. `413` more than 2 MB or longer than 30 s. `415` not m4a, ogg, webm, wav or mp3 (checked from the first bytes). |
 | | `503 {"error": "busy"}` when another recognition (or a model load) held the GPU for 15 s (`LANI_STT_QUEUE_SECONDS`); one runs at a time, and each takes well under a second. `503` while loading. `503 {"error": "not available", "language", "model"}` when the language's model isn't on disk or failed to load. `500` if recognition failed. |
 
 `language` defaults to `sl`. `prompt` (at most 300 characters) is the sentence the learner is
 expected to say; it goes to Whisper as the initial prompt (see "Why the prompt" below). `prob` is
-Whisper's probability of the word (0..1); the app shows words under 0.3 as a pronunciation hint.
+Whisper's probability of the word (0..1); the app shows words under 0.3 as a pronunciation hint. `voice` is how much of
+the take is a voice, in seconds: `voiced` (loud over the room and periodic like a voice) and `loud` (over the room).
+A take gives at most 12 text tokens a second and 10 more (`LANI_STT_BUDGET`).
 
 The audio is written to a temporary file in `$XDG_RUNTIME_DIR` (tmpfs; MediaRecorder's MP4 has
 its index at the end, so ffmpeg can't read it from a pipe), decoded to 16 kHz mono and deleted
@@ -61,7 +64,10 @@ Without `loginctl enable-linger $USER` the service runs only while the user has 
 
 ## Resources (measured on this node)
 
-- Model load: 8-12 s (fp16 weights, then a warm-up that compiles the GPU kernels).
+- Model load: 8-12 s (fp16 weights, then a warm-up that compiles the GPU kernels). The model is made in fp16 on the
+  CPU and moved to the GPU (`load_half`): the GPU never holds more than the fp16 model while it loads (openai-whisper's
+  own load held the checkpoint and the fp32 model there, 3 times as much: about 9 GB for large-v3), the CPU twice that
+  for the moment (3.2 GB for turbo, 6.2 GB for large-v3).
 - VRAM: 2.4 GiB reserved by torch, 2.9 GiB for the process in `rocm-smi`. With the Gepard worker
   (2.7 GiB) both use 6.2-6.3 GiB of the 16 GiB, also while both are busy at the same time.
 - RAM: ~1.8 GB RSS (3.5 GB peak while loading). The unit sets `MemoryHigh=6G`, `MemoryMax=10G`.
@@ -152,6 +158,46 @@ mended ones by the second opinion: "zlatim", heard "Zlatimi"; "bela", not heard)
 fixtures (`android/app/src/test/java/si/lanisce/lani/data/ReadAloudTest.kt`). Still to see: a learner's own voice,
 which is less clear than these, so Whisper is less sure and the prompt pulls more.
 
+## Talks
+
+A talk's line ("Pogovor · Talk") has no expected text: the app sends the conversation instead (the character's last
+lines, the scenario's phrases, the names), and the bridge (`companion/bridge/src/stt-talk.ts`) makes Whisper's prompt of
+it, asks for `plain=1` and weighs the two readings: which goes to the draft, whether it may go by itself, the other one
+for the tutor, and noise as nothing heard (docs/plans/05-built/stt-talk.md). What the worker does for it:
+
+- **One request, the audio encoded once.** `plain=1` hears the take a second time without the prompt. The encoder's
+  output is kept for the request (`EncoderCache`): both hearings, their retries at a higher temperature and their word
+  timings encode the same 30 s window, which is most of the work for a short take. 80 child-like takes on the RX 9070
+  (large-v3-turbo, beam 5, the GPU shared): 0.43 s a take (median; p90 0.81 s) instead of 0.80 s (p90 1.11 s) as two
+  requests, and 0.39 s (p90 0.58 s) for one plain hearing alone; the same texts in 75 of 80 (the others: noise heard
+  at a higher temperature, which samples).
+- **The voice in the take** (`voice`): seconds loud over the room (4 dB over the take's quietest tenth) and periodic
+  like a voice (a pitch of 70 to 500 Hz, the normalized autocorrelation over 0.35), in frames of 30 ms. large-v3-turbo's
+  `no_speech_prob` is 0 for a room's noise, which it hears as "Grazie." or "Grazie a tutti." (large-v3's works: 0.8 on
+  the noise takes, 0.1 on speech), so this is what tells a voice from a room: under 0.15 s voiced was every room and
+  every breath-and-knock take of the test set (60 of 60), 1.1 % of 1,239 child-like takes and 0.1 % of 1,239 clean
+  ones; a sung "ooo" and a reversed mumble are voices (0 and 10 % under it). 14 ms a take.
+- **A loop stops sooner** (`LANI_STT_BUDGET`): at most 12 text tokens a second of audio and 10 more. A take that
+  Whisper fills with "non, non, non, …" took up to 9 s at 224 tokens with its retries.
+
+The benchmark (`talk-bench/`, with the worker's venv and bun; the corpus: `corpus.json` of
+`{file, text, voice, words, source}` and its clips, the app's own voiced Italian lines):
+
+```bash
+python talk-bench/prep.py <corpus> .tmp/stt-bench/audio            # clean, teo (child-like) and noise takes, m4a
+bun talk-bench/items.ts <corpus> .tmp/stt-bench/audio/manifest.json items.json   # the contexts, by talkPrompt
+python talk-bench/run.py items.json large-v3-turbo raw.jsonl --twice   # the hearings (HIP_VISIBLE_DEVICES=0)
+python talk-bench/voice.py .tmp/stt-bench/audio/manifest.json voice.json
+bun talk-bench/score.ts items.json raw.jsonl --lexicon <dir with it.json> --voice voice.json --split test
+bun talk-bench/sweep.ts items.json raw.jsonl dev '[{"sureWord":0.8},{"sureWord":0.9}]' <lexicon dir> voice.json
+python talk-bench/timing.py items.json large-v3-turbo timing.json   # one request against two
+python talk-bench/gate.py .tmp/stt-bench/audio/manifest.json gate.md   # the app's take gate on the takes' levels
+```
+
+`run.py` keeps its models and kernel caches in `LANI_TALK_BENCH` (default `.tmp/stt-bench`), never the service's, waits
+while less than 2.5 GiB of VRAM is free and pauses every 20 takes; `LANI_TALK_SERVER` names another `server.py` to
+measure (an older one: without `--twice`).
+
 ## Languages
 
 The app asks in the learner's target language (`language=it` for Italian). Each language has a model:
@@ -198,6 +244,7 @@ The app asks in the learner's target language (`language=it` for Italian). Each 
 | `LANI_STT_PORT` / `LANI_STT_HOST` | `8796` / `127.0.0.1` | do not use 8790, 8791 or 8795 |
 | `LANI_STT_QUEUE_SECONDS` | `15` | how long a request waits for the GPU before 503 busy |
 | `LANI_STT_FP16` | `1` | `0`: fp32 weights (double the VRAM) |
+| `LANI_STT_BUDGET` | `12` | text tokens a second of audio may give, and 10 more (a loop stops there); `0`: Whisper's 224 a window |
 
 The bridge reads `LANI_STT_URL` (default `http://127.0.0.1:8796`) and `LANI_STT_TIMEOUT_MS`
 (default 30000).
@@ -207,5 +254,7 @@ The bridge reads `LANI_STT_URL` (default `http://127.0.0.1:8796`) and `LANI_STT_
 - `server.py`: HTTP worker (standard library `http.server` + torch + openai-whisper); its tests, with the models
   faked: `companion/tests/test_stt_worker.py` (`python3 -m unittest discover companion/tests`)
 - `bench.py`: the model comparison above, without HTTP (`--model`, `--models-dir`, `--errors`, `--json`)
+- `talk-bench/`: the talks' benchmark (see "Talks"): the takes, their contexts, the hearings, the scores by the
+  bridge's own weighing, the latency, the app's take gate
 - `convert_hf.py`: Hugging Face Whisper checkpoint → openai-whisper `.pt`
 - `install.sh`, `lani-stt.service`, `smoke.sh`, `requirements.lock`

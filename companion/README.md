@@ -1016,21 +1016,36 @@ All endpoints except `/health`, `POST /pair`, the family page and the routes bet
 
 The app plays a scenario as a conversation with the tutor in character. The opener comes from the
 scenario; every line of Jan's is a `/message` with `kind: roleplay`, `conversation_id: rp-<uuid>` and
-`data: {scenario_id, turn, heard, alternatives?}` (`heard` is the recognizer's text or what the learner typed;
-`{scenario_id, turn, hint: true}` asks for a suggestion). The bridge adds the scenario brief (role,
-setting, goals) so the tutor stays in character. The tutor's `reply` carries
-`data: {sl, en, correction?, goals_done: [goal indices], end?}`, or `{hint: true, sl, en}` for a hint.
-`kind: roleplay_end` sends the transcript; the tutor replies with a debrief (`data: {debrief: true}`) and persists it as a
+`data: {scenario_id, turn, heard, alternatives?, unclear?, takes?, typed?}` (`heard` is the recognizer's text or what the
+learner typed, `alternatives` its other readings, `unclear` the words it was unsure of, `takes` how many times the line
+was said when more than once; `{scenario_id, turn, hint: true}` asks for a suggestion). The bridge adds the scenario
+brief (role, setting, goals) so the tutor stays in character, and tells it that `heard` is a recognizer's reading of a
+learner, maybe a child: a word it may have misheard is recast, never corrected (`features/scenarios.ts`, in the course's
+language). The tutor's `reply` carries
+`data: {sl, en, correction?, goals_done: [goal indices], end?}` (`sl`: the line in the course's language, whatever it
+is; `en`: its translation in the learner's base), or `{hint: true, sl, en}` for a hint.
+`kind: roleplay_end` sends the transcript (Jan's lines with `typed`, or `takes` when said more than once); the tutor
+replies with a debrief (`data: {debrief: true}`) and persists it as a
 speaking session (lani-db-updater). The app credits the village: one wisdom entry per line,
 correct when it needed no correction, almost when it did.
 
 Jan says a line with the talk's 🎤 (tap to start and stop, or hold it), as many sentences as they like: a pause of
-3 s ends the take, shorter ones don't. The node's Whisper listens when it is up: one recording per stretch, sent at
+3 s ends the take, shorter ones don't. The take's gate listens to the room: speech is 8 dB over the quietest the room
+was (400 to 1500 of 32767), so a child's soft voice on a tablet starts and ends a take as a loud one does. The node's
+Whisper listens when it is up: one recording per stretch, sent at
 once when they tap "Naslednji stavek · Next sentence" (a full stop, and it records on) and cut at a pause before the
-node's 30 s limit; the transcripts land in the order said, the words Whisper was unsure of (probability under 0.3, at
-most 3 a take) underlined, to say again or type. When the node can't be reached the phone's recognizer listens
+node's 30 s limit. Each recording goes with the conversation (`?talk=1&said=…&words=…&names=…`: the character's last two
+lines, the scenario's phrases, the learner's and the character's names): the node hears it with them as Whisper's
+prompt and without, and weighs the two readings (`bridge/src/stt-talk.ts`, docs/plans/05-built/stt-talk.md): a take of
+no voice or only noise lands nothing ("I didn't catch that"); the other reading goes to the tutor as an alternative. The
+transcripts land in the order said, the words Whisper was unsure of (probability under 0.3, at most 3 a take)
+underlined, to say again or type. When the node can't be reached the phone's recognizer listens
 instead, again after each sentence. The text waits in the input field until Jan sends it (`heard`, spoken unless they
-typed it all). Under the debrief, "Vprašaj učitelja · Ask your tutor" sends `kind: chat` on
+typed it all), or, with "🎤 Pogovor: pošlji sam · Talk: send by itself" on (Settings, "Zvok in glas · Sound and voice";
+on by default for a child), a line the node heard surely (both readings the same words, each clear and a word of the
+language, a voice in the take) goes by itself after 1.8 s, "➤ Pošiljam … · Sending …" with "✋ Obdrži · Keep" to keep it
+as a draft. Each take is a line of the app log (tag `LaniStt`: the readings, the level, how it ended, ms; no audio).
+Under the debrief, "Vprašaj učitelja · Ask your tutor" sends `kind: chat` on
 `conversation_id: rp-<uuid>-debrief` with `data.about_roleplay: {scenario_id, title, conversation_id, turns,
 goals_done, goals_total, debrief}`; the tutor's answers show there as a thread, which can move on to the chat.
 
@@ -1688,7 +1703,9 @@ where while it's on. The tutor knows nothing of it (no tool, no paragraph of the
 - **What:** the shadow's export (the share sheet's `lani.shadow-export/v0`; past 5 MB the oldest days are left out,
   named in `days_left_out`) and the app's own log: this process's logcat lines (an app reads its own without a
   permission, on Android 16 too), its warnings and errors and the info lines of its own tags (`AppLog.TAGS`: the
-  shadow's calls, turns and transport errors, Clips' "no clip of a line", the speaker's route lines in QA builds …),
+  shadow's calls, turns and transport errors, Clips' "no clip of a line", the speaker's route lines in QA builds, a
+  talk's takes: `LaniStt`, one line each with the engine, both readings and their probabilities, the one chosen, the
+  take's level, how it ended and the ms; no audio …),
   at most the last 2,000 of the last 24 hours, after those sent before. Both cleaned of secrets (`tutor/KeyVault.kt`
   `Redact.all`, `Redact.json`): the API key and the device token by their values, `sk-ant-…`, `Bearer …`, the value
   after a secret's name (`token=…`, `x-api-key: …`, `Authorization: …`, `"api_key": "…"`), a URL's `key`, `sig` or
@@ -2959,6 +2976,12 @@ text as the prompt and without it, and grades word by word: on the prompted tran
 opinion where the prompt may have mended a slip (`data/ReadAloud.kt`; why, and the recordings it was decided on:
 [stt-local/README.md](stt-local/README.md#reading-aloud)). A take is up to 28 s (the worker takes 30), and a pause of
 3 s ends it. Without the node, the phone's recognizer hears it once.
+
+**A talk's line** ("Pogovor · Talk", above) is heard with the conversation as Whisper's prompt and plain, in one
+request to the worker (`plain=1`: the audio encoded once), and the two readings weighed by the bridge
+(`bridge/src/stt-talk.ts`): the measurements, the model comparison and what each guard is for are in
+[docs/plans/05-built/stt-talk.md](../docs/plans/05-built/stt-talk.md) and
+[stt-local/README.md](stt-local/README.md#talks).
 
 **Grading in the target language.** What counts as the same answer, a slip of the keyboard or almost
 right is a table per language (`android/app/src/main/resources/grading/<code>.json`, `data/Spelling.kt`), so
