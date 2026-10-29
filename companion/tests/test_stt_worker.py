@@ -404,7 +404,11 @@ class Talks(unittest.TestCase):
         voice[sr // 2: sr] += vowel[sr // 2: sr].astype(np.float32)  # half a second of an "a"
         knock = room.copy()
         knock[sr: sr + 400] += (np.exp(-np.arange(400) / 60) * g.standard_normal(400)).astype(np.float32)
+        rumble = room.copy()  # a burst of low noise over a quiet room: its autocorrelation falls from lag 0, no pitch
+        brown = np.cumsum(g.standard_normal(sr))
+        rumble[sr // 2: sr // 2 + sr] += (brown - brown.mean()).astype(np.float32) / np.abs(brown).max() * 0.3
         self.assertEqual(server.voice_activity(room)["voiced"], 0.0)
+        self.assertLess(server.voice_activity(rumble)["voiced"], 0.1)
         self.assertLess(server.voice_activity(knock)["voiced"], 0.1)
         v = server.voice_activity(voice)
         self.assertGreater(v["voiced"], 0.4)

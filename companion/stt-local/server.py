@@ -180,10 +180,11 @@ def rounded(x, n=3):
 
 def voice_activity(audio) -> dict | None:
     """How much of the take is a voice: {"voiced": seconds, "loud": seconds}. Frames of 30 ms every 10 ms; loud: 4 dB
-    over the room (the take's quietest tenth); voiced: loud and periodic like a voice (a pitch of 70-500 Hz, the
-    normalized autocorrelation over 0.35). A room, a fan, breaths and knocks have no voiced time; speech, also a child's
-    and a mumble, has (companion/stt-local/README.md, "Talks"). Whisper writes "Grazie." over a room's noise, and
-    large-v3-turbo's no_speech_prob stays 0 there: this is what tells them apart. None without numpy."""
+    over the room (the take's quietest tenth); voiced: loud and periodic like a voice (the normalized autocorrelation
+    peaks over 0.35 at the period of a pitch of 70-500 Hz, 0.3 over the lowest it fell to before it: a noise's falls
+    from lag 0 and doesn't come back, a low rumble's included). A room, a fan, breaths and knocks have no voiced time;
+    speech, also a child's and a mumble, has (companion/stt-local/README.md, "Talks"). Whisper writes "Grazie." over a
+    room's noise, and large-v3-turbo's no_speech_prob stays 0 there: this is what tells them apart. None without numpy."""
     try:
         import numpy as np
     except ImportError:
@@ -200,7 +201,12 @@ def voice_activity(audio) -> dict | None:
     spec = np.fft.rfft(f * np.hanning(frame), 2 * frame, axis=1)
     ac = np.fft.irfft(np.abs(spec) ** 2, axis=1)[:, : SAMPLE_RATE // 70 + 1]
     ac /= ac[:, :1] + 1e-12
-    voiced = loud & (ac[:, SAMPLE_RATE // 500:].max(axis=1) > 0.35)
+    lo = SAMPLE_RATE // 500
+    k = lo + ac[:, lo:].argmax(axis=1)  # the period
+    rows = np.arange(n)
+    peak = ac[rows, k]
+    valley = np.minimum.accumulate(ac[:, 1:], axis=1)[rows, k - 1]  # the lowest before it
+    voiced = loud & (peak > 0.35) & (peak - valley > 0.3)
     return {"voiced": round(float(voiced.sum()) * hop / SAMPLE_RATE, 2), "loud": round(float(loud.sum()) * hop / SAMPLE_RATE, 2)}
 
 

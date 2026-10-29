@@ -253,7 +253,7 @@ export type Weighing = {
   words: boolean
 }
 
-export const WEIGHING: Weighing = { margin: 0.1, sureWord: 0.85, minVoiced: 0.15, copyProb: 0.5, words: true }
+export const WEIGHING: Weighing = { margin: 0.1, sureWord: 0.85, minVoiced: 0.1, copyProb: 0.5, words: true }
 
 /** The worker's measure of the take's voice ([voice_activity] in companion/stt-local/server.py): seconds. */
 export type Voice = { voiced: number; loud: number }
