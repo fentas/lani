@@ -156,6 +156,38 @@ val cardFiles = tasks.register<CardFiles>("cardFiles") {
 }
 
 /**
+ * The case trainer's bank (companion/cases/<language>/bank.json, lani.cases/v0; companion/README.md "Case trainer"),
+ * bundled as the Java resource cases/<language>/bank.json: the trainer has it without the bridge (data/CaseBank.kt),
+ * which serves it with the tutor's items (GET /cases).
+ */
+abstract class CaseFiles : DefaultTask() {
+    @get:InputFiles @get:PathSensitive(PathSensitivity.RELATIVE)
+    abstract val sources: ConfigurableFileCollection
+
+    @get:Internal
+    abstract val root: DirectoryProperty
+
+    @get:OutputDirectory
+    abstract val out: DirectoryProperty
+
+    @TaskAction
+    fun copy() {
+        val dir = out.get().asFile.resolve("cases")
+        dir.deleteRecursively()
+        dir.mkdirs()
+        val root = root.get().asFile
+        for (lang in root.listFiles { f -> f.isDirectory && f.resolve("bank.json").isFile }.orEmpty()) {
+            lang.resolve("bank.json").copyTo(dir.resolve("${lang.name}/bank.json").apply { parentFile.mkdirs() })
+        }
+    }
+}
+
+val caseFiles = tasks.register<CaseFiles>("caseFiles") {
+    root.set(layout.projectDirectory.dir("../../cases"))
+    sources.from(fileTree("../../cases") { include("**/*.json") })
+}
+
+/**
  * The school's course (companion/course/<language>/course.json and units/<id>.json, lani.course/v0 and lani.unit/v0;
  * companion/COURSE.md), bundled as Java resources under course/<language>/, with course/index.json listing each language's
  * units: the school has them without the bridge (data/Course.kt), which serves them with the tutor's homework (GET
@@ -379,7 +411,7 @@ val phoneProject = tasks.register<PhoneProject>("phoneProject") {
     files.from(fileTree("../../..") {
         include(
             "companion/cultures/**/*.json", "companion/voice-cast.json", "companion/modules/**/*.json", "companion/packs/**/*.json",
-            "companion/grammar/**/*.json", "companion/cards/**/*.json", "companion/course/**/*.json", "companion/drills/**/*.json",
+            "companion/grammar/**/*.json", "companion/cards/**/*.json", "companion/cases/**/*.json", "companion/course/**/*.json", "companion/drills/**/*.json",
             "companion/scenarios/**/*.json", "companion/scenes/**/*.json", "companion/lexicon/*.json", "companion/ispy/**/*.json",
             "companion/prints/sheet.css", "companion/prints/fit.js", "site/fonts/*.woff2", "companion/bridge/web/family/*",
             "data-examples/*-template.json",
@@ -422,6 +454,7 @@ androidComponents {
         variant.sources.resources?.addGeneratedSourceDirectory(culturePacks, CulturePacks::out)
         variant.sources.resources?.addGeneratedSourceDirectory(grammarPages, GrammarPages::out)
         variant.sources.resources?.addGeneratedSourceDirectory(cardFiles, CardFiles::out)
+        variant.sources.resources?.addGeneratedSourceDirectory(caseFiles, CaseFiles::out)
         variant.sources.resources?.addGeneratedSourceDirectory(drillFiles, DrillFiles::out)
         variant.sources.resources?.addGeneratedSourceDirectory(courseFiles, CourseFiles::out)
         variant.sources.assets?.addGeneratedSourceDirectory(phoneBridgeBundle, PhoneBridgeBundle::out)

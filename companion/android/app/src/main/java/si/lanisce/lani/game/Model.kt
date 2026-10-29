@@ -450,6 +450,12 @@ data class GameState(
      */
     val numbers: si.lanisce.lani.data.NumbersProgress? = null,
     /**
+     * The learner's way through "🧩 Skloni · Cases" (see [si.lanisce.lani.data.CaseTrainer]): each case's and rule's last
+     * answers, the deciding word's taps, the items missed that come back, the rules the case lens showed. Null before the
+     * first session; the bridge keeps it from an app that leaves it out (PUT /game), as the numbers.
+     */
+    val cases: si.lanisce.lani.data.CaseProgress? = null,
+    /**
      * The village's hearths today (see [Hearths], companion/GAME.md "Hearths"): which went out for want of wood or were blown
      * out by the storm, and the smith's charcoal. Null in a save from before the hearths: derived from the buildings and the
      * wood until the next day's tick decides. An older app drops it (and derives it again here), an older bridge keeps it.

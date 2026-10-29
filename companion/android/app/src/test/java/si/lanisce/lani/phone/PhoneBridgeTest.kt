@@ -95,7 +95,7 @@ class PhoneBridgeTest {
         assertEquals("primorska", s["culture"]!!.jsonPrimitive.content)
         assertEquals("sl", s["language"]!!.jsonPrimitive.content)
         // the node's features, the tutor session's (features/tutor.ts: the app's own tutor's routes) among them
-        assertEquals(37, s["features"]!!.jsonArray.size)
+        assertEquals(38, s["features"]!!.jsonArray.size)
         assertTrue(s["features"]!!.jsonArray.any { it.jsonPrimitive.content == "tutor" })
         // a child's links that wait for a parent (features/town-requests.ts): a phone's town takes them too
         assertTrue(s["features"]!!.jsonArray.any { it.jsonPrimitive.content == "town-requests" })
@@ -116,7 +116,7 @@ class PhoneBridgeTest {
             "/stories", "/stt/status", "/villagers", "/voice/index", "/voice/offline", "/voice/profiles", "/voice/status", "/words",
             "/course", "/culture", "/cultures", "/game", "/lexicon/status", "/packs", "/scenes", "/app/latest", "/towns",
             "/towns/guests", "/towns/questions", "/towns/friendship", "/audio/index", "/family/api/settings", "/family/api/words",
-            "/family/api/challenges", "/counting", "/forms-cards", "/level", "/case-lens/seen",
+            "/family/api/challenges", "/counting", "/forms-cards", "/level", "/case-lens/seen", "/cases",
         )
         val failed = routes.map { it to get(it) }.filter { (_, r) -> r.status >= 500 }
         assertEquals(failed.joinToString("\n") { (p, r) -> "$p: ${r.status} ${r.text.take(200)}" }, 0, failed.size)
@@ -183,6 +183,28 @@ class PhoneBridgeTest {
         val seen = ok(get("/case-lens/seen")).json().jsonObject["rules"]!!.jsonObject
         assertTrue(seen.toString(), (seen["rodilnik-predlogi"]?.jsonObject?.get("seen")?.jsonPrimitive?.content?.toInt() ?: 0) >= 1)
     }
+
+    @Test
+    fun theCaseTrainer() {
+        // "🧩 Skloni · Cases" (features/cases.ts): the bundled bank from the phone's project (companion/cases), then a
+        // session persisted for the tutor (learner.update: a session, the mastery, the mistakes)
+        val bank = ok(get("/cases")).json().jsonObject
+        assertEquals("lani.cases/v0", bank["schema"]!!.jsonPrimitive.content)
+        assertTrue("items: ${bank["items"]!!.jsonArray.size}", bank["items"]!!.jsonArray.size > 300)
+        val before = sessionCount()
+        val done = """{"client_id":"test-cases-00001","duration_minutes":3,"language":"sl","machine_written":true,
+            "answers":[{"kind":"which","item":"brez-mleka","case":"rodilnik","number":"sg","rule":"rodilnik-predlogi",
+            "verdict":"wrong","why":"right","answer":"4. tožilnik · brez","expected":"2. rodilnik · brez","sentence":"Kavo pijem brez mleka."}],
+            "errors":[{"pattern_id":"cases_genitive_brez","severity":"moderate","your_answer":"4. tožilnik · brez","correct_answer":"2. rodilnik · brez"}],
+            "mastery":{"rodilnik":{"right":0,"of":1,"stars":0}},"rules":{"rodilnik-predlogi":{"right":0,"of":1}}}"""
+        ok(send("POST", "/cases/done", done))
+        assertEquals(before + 1, sessionCount())
+        val mistakes = ok(get("/state")).json().jsonObject["databases"]!!.jsonObject["mistakes_db"].toString()
+        assertTrue(mistakes.take(400), mistakes.contains("cases_genitive_brez"))
+    }
+
+    private fun sessionCount(): Int =
+        ok(get("/state")).json().jsonObject["databases"]!!.jsonObject["session_log"]!!.jsonObject["sessions"]?.jsonArray?.size ?: 0
 
     @Test
     fun theGame() {

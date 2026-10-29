@@ -339,6 +339,16 @@ object Writes {
         entry("/readings/done", bi("outbox.reading"), body, id, now)
 
     /**
+     * A case trainer's session ([CaseTrainer.wire]): `POST /cases/done` for the bridge to persist as grammar practice; for
+     * a node from before the trainer (404), a `session_end` with the same answers and errors for the tutor to persist
+     * instead ([OutboxEntry.fallbackPath]), the same id.
+     */
+    fun casesDone(body: JsonObject, summary: String, data: JsonObject, id: String = Outbox.newId(), now: Long = System.currentTimeMillis()): OutboxEntry {
+        val fallback = message("session_end", "main", summary, data, id, now)
+        return entry("/cases/done", bi("outbox.cases"), body, id, now).copy(fallbackPath = fallback.path, fallbackBody = fallback.body)
+    }
+
+    /**
      * The level the treasure brought ([LevelReport]): `POST /level` for the bridge to persist; for a node from before it
      * (404), a `session_end` with the report for the tutor to persist instead ([OutboxEntry.fallbackPath]), the same id.
      */

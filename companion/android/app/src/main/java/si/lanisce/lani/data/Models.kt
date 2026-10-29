@@ -353,6 +353,53 @@ sealed interface Exercise {
         /** Answered on the number pad. */
         val pad: Boolean get() = NumberMode.of(mode)?.pad == true
     }
+
+    /**
+     * A task of the case trainer ("🧩 Skloni · Cases", data/CaseTrainer.kt), by its [kind]: "which" (Kateri sklon?: the
+     * sentence's [tokens], the one asked about [word]; the case picked among the six, then "Zakaj?": the deciding word
+     * tapped, one of [taps], or the [role] said when nothing decides it), "place" (Kje ali kam?: the [prompt] with its gap,
+     * chosen among [options], [answer] right; "Zakaj?" too when [askWhy]: the verb in the whole [sentence] that says kje or
+     * kam; the [scene] whose picture shows the place) or "decline" (Sklanjaj!: the [prompt] typed, right as one of
+     * [accept], a [spoken] form right too, the answer [shown]). Its [case] and [number], its rule's page ([rule]) and key
+     * ([why]), the rule's line in the learner's base ([line]) and in Slovene ([ruleSl]), the sentence's meaning
+     * ([translation]), a note on an ambiguous form or a spoken one ([note]), the other readings of the same form
+     * ([ambiguous]: "nom.pl"), the frame's meaning with the words' ([hint]). Only the trainer makes one ([key]: its bank
+     * item, or "d:<frame>:<noun>[:<adjective>]"); a module never has it.
+     */
+    @Serializable @SerialName("case_task")
+    data class CaseTask(
+        val kind: String,
+        val key: String,
+        val sentence: String,
+        val tokens: List<String> = emptyList(),
+        val word: Int = -1,
+        val case: String,
+        val number: String = "sg",
+        val rule: String,
+        val why: String = "",
+        val line: String = "",
+        val ruleSl: String = "",
+        val taps: List<Int> = emptyList(),
+        val role: String? = null,
+        val askWhy: Boolean = true,
+        val prompt: String = "",
+        val options: List<String> = emptyList(),
+        val answer: Int = 0,
+        val accept: List<String> = emptyList(),
+        val spoken: List<String> = emptyList(),
+        val shown: String = "",
+        val hint: String? = null,
+        val translation: String? = null,
+        val note: String? = null,
+        val ambiguous: List<String> = emptyList(),
+        val scene: String? = null,
+        val lemma: String = "",
+        val level: String = "A1",
+        val gender: String? = null,
+        val adj: String? = null,
+        val possessive: Boolean = false,
+        override val grammar: String? = null,
+    ) : Exercise
 }
 
 /**
@@ -872,6 +919,12 @@ sealed interface BridgeEvent {
     ) : BridgeEvent
     /** Words became the learner's review items (POST /words, or the tutor added them). */
     data class WordsAdded(val itemIds: List<String>) : BridgeEvent
+    /**
+     * The case trainer's bank changed (companion/bridge/src/features/cases.ts): the tutor assigned a session focused on
+     * [focus] (a case or a rule) with [note], took the assignment back or a session played it ([assigned], [focus] null),
+     * or published items ([assigned] false).
+     */
+    data class CasesChanged(val assigned: Boolean, val focus: String?, val note: String?) : BridgeEvent
     /** The node learned more about [word] (the tutor explained it): an open word card can look again. */
     data class LexiconUpdated(val word: String) : BridgeEvent
     /**
@@ -954,6 +1007,8 @@ sealed interface BridgeEvent {
                 "variant_published" -> ScenePublished(s("scene") ?: return null, s("title"), s("emoji"), s("note"), variant = true)
                 "variant_removed" -> ScenePublished(s("scene") ?: return null, null, null, null, removed = true, variant = true)
                 "app_update" -> AppUpdate(o["versionCode"]?.jsonPrimitive?.intOrNull ?: 0, s("versionName") ?: "?", s("notes"))
+                "cases_assigned" -> CasesChanged(true, s("focus"), s("note"))
+                "cases_published" -> CasesChanged(false, null, s("note"))
                 "words_added" -> WordsAdded((o["item_ids"] as? JsonArray).orEmpty().mapNotNull { (it as? JsonPrimitive)?.contentOrNull })
                 "lexicon_updated" -> LexiconUpdated(s("word") ?: return null)
                 "word_request_done" -> WordRequestDone(
