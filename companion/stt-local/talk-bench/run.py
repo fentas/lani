@@ -28,6 +28,17 @@ sys.path.insert(0, os.environ.get("LANI_TALK_SERVER", str(HERE.parent)))
 import server  # noqa: E402
 
 
+def wait_for_room(model: str) -> None:
+    """Until the GPU has the model's fp16 weights and 2 GiB more free: the live worker and others share it."""
+    import torch
+
+    f = server.model_file(model)
+    need = (f.stat().st_size if f else 3 * 2**30) + 2 * 2**30
+    while torch.cuda.is_available() and torch.cuda.mem_get_info()[0] < need:
+        print(f"VRAM: {torch.cuda.mem_get_info()[0] / 2**30:.1f} GiB free, {need / 2**30:.1f} needed: waiting", flush=True)
+        time.sleep(30)
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("items")
@@ -37,13 +48,14 @@ def main() -> None:
     ap.add_argument("--passes", default="plain,ctx,far")
     ap.add_argument("--twice", action="store_true", help="one request per take with plain=1: ctx and plain")
     ap.add_argument("--every", type=int, default=1, help="every n-th clip only (a sample)")
+    ap.add_argument("--offset", type=int, default=0, help="with --every: from this clip (1 with --every 2: the odd ones, the test split)")
     ap.add_argument("--limit", type=int, default=0)
     a = ap.parse_args()
     data = json.loads(Path(a.items).read_text())
     items = {i["id"]: i for i in data["items"]}
     conds = a.conds.split(",")
     passes = ["ctx", "plain"] if a.twice else a.passes.split(",")
-    takes = [m for m in data["manifest"] if m["cond"] in conds and (m["cond"] == "noise" or int(m["id"]) % a.every == 0)]
+    takes = [m for m in data["manifest"] if m["cond"] in conds and (m["cond"] == "noise" or (int(m["id"]) - a.offset) % a.every == 0)]
     if a.limit:
         takes = takes[: a.limit]
     out = Path(a.out)
@@ -54,6 +66,7 @@ def main() -> None:
             done.add((r["id"], r["cond"], r["pass"]))
     for p in (BENCH / "miopen/cache", BENCH / "triton", BENCH / "state"):
         p.mkdir(parents=True, exist_ok=True)
+    wait_for_room(a.model)
     e = server.Engine(a.model, warm=("it", None))
     e.load()
     if not e.ready:

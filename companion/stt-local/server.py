@@ -214,6 +214,26 @@ def token_budget(seconds: float, per_second: float | None = None) -> int:
     return max(16, min(224, int(10 + rate * seconds)))
 
 
+def load_half(whisper, torch, source: str, dev: str):
+    """The model in fp16 on [dev], its LayerNorms and buffers fp32 (as openai-whisper's fp32 model with its other weights
+    halved, which this worker ran before 2026-10-29), made on the CPU and moved: the GPU never holds more than the fp16
+    model. openai-whisper's load_model on the GPU held the checkpoint and the fp32 model at once there, 3x the fp16 size
+    (large-v3: 9.3 GB of a 16 GB card the voice worker shares; the CPU now holds 2x, 6.2 GB, while it loads)."""
+    old = torch.get_default_dtype()
+    torch.set_default_dtype(torch.float16)  # the model is made in fp16 (the GPU lock is held: nothing else runs)
+    try:
+        model = whisper.load_model(source, device="cpu", download_root=str(MODELS_DIR))
+    finally:
+        torch.set_default_dtype(old)
+    for m in model.modules():
+        if isinstance(m, torch.nn.LayerNorm):
+            m.float()  # it computes in fp32
+        for name, b in list(m.named_buffers(recurse=False)):
+            if b is not None and b.is_floating_point():
+                setattr(m, name, b.float())
+    return model.to(dev)
+
+
 class EncoderCache:
     """The audio encoder's last output, by its input: a take heard twice (with the prompt and plain), its retries at
     higher temperatures and its word timings all encode the same 30 s window, which is most of the work. Installed in
@@ -300,19 +320,15 @@ class Engine:
             self.whisper = whisper
             self.fp16 = FP16 and dev != "cpu"
 
-            model = whisper.load_model(model_source(whisper, self.model_id), device=dev, download_root=str(MODELS_DIR))
+            if self.fp16:
+                model = load_half(whisper, torch, model_source(whisper, self.model_id), dev)
+            else:
+                model = whisper.load_model(model_source(whisper, self.model_id), device=dev, download_root=str(MODELS_DIR))
             base = alignment_base(whisper, self.model_id, self.alignment)
             if base:
                 # A fine-tune keeps its base model's cross-attention heads for word timing.
                 model.set_alignment_heads(whisper._ALIGNMENT_HEADS[base])
-            if self.fp16:
-                # openai-whisper keeps fp32 weights and casts them on every call; storing them as
-                # fp16 halves the VRAM. LayerNorm stays fp32 (it computes in fp32 anyway).
-                for m in model.modules():
-                    if isinstance(m, torch.nn.LayerNorm):
-                        continue
-                    for p in m.parameters(recurse=False):
-                        p.data = p.data.half()
+                model = model.to(dev)
             self.cache = EncoderCache().install(model.encoder)
             self.model = model
 
@@ -484,7 +500,8 @@ class Models:
         return None
 
     def need(self, e: Engine) -> int:
-        """What loading [e] takes on the GPU: about 1.5x its fp16 weights (turbo: 1.6 GB file, 2.4 GiB)."""
+        """What loading [e] takes on the GPU: about 1.5x its fp16 weights (turbo: 1.6 GB file, 2.4 GiB); the fp32 weights
+        openai-whisper reads are halved on the CPU first (Engine.load)."""
         f = self.present(e.model_id)
         return int(f.stat().st_size * 1.5) if f else 3 * 2**30
 

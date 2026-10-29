@@ -22,12 +22,24 @@ sys.path.insert(0, str(HERE.parent))
 import server  # noqa: E402
 
 
+def wait_for_room(model: str) -> None:
+    """Until the GPU has the model's fp16 weights and 2 GiB more free: the live worker and others share it."""
+    import torch
+
+    f = server.model_file(model)
+    need = (f.stat().st_size if f else 3 * 2**30) + 2 * 2**30
+    while torch.cuda.is_available() and torch.cuda.mem_get_info()[0] < need:
+        print(f"VRAM: {torch.cuda.mem_get_info()[0] / 2**30:.1f} GiB free, {need / 2**30:.1f} needed: waiting", flush=True)
+        time.sleep(30)
+
+
 def main():
     items_path, model, out = sys.argv[1], sys.argv[2], sys.argv[3]
     n = int(sys.argv[4]) if len(sys.argv) > 4 else 80
     data = json.loads(Path(items_path).read_text())
     items = {i["id"]: i for i in data["items"]}
     takes = [m for m in data["manifest"] if m["cond"] == "teo" and int(m["id"]) % 15 == 0][:n]
+    wait_for_room(model)
     e = server.Engine(model, warm=("it", None))
     e.load()
     if not e.ready:
