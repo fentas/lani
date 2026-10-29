@@ -14,10 +14,12 @@ needs the room. When the general model is the primary one, one model serves ever
                       and a model present but not loaded starts loading in the background
                       503 {"ok": false, "loading": true} while the primary model loads
     POST /transcribe  body: audio (m4a/ogg/webm/wav/mp3), at most 2 MB and 30 s
-                      query: language=sl (default), prompt=<expected text> (optional)
+                      query: language=sl (default), prompt=<expected text> (optional),
+                      plain=1 (optional: heard a second time without the prompt, as "plain")
                       200 {"text", "segments": [{"start", "end", "text", "avg_logprob",
                            "no_speech_prob", "words": [{"word", "start", "end", "prob"}]}],
-                           "language", "duration", "took", "model"}
+                           "language", "duration", "took", "model", "voice": {"voiced", "loud"},
+                           "plain"?: {"text", "segments"}}
                       400 bad input, 413 too large or too long, 415 not audio,
                       503 busy / not ready / "not available" (no model for the language),
                       500 recognition error
@@ -87,6 +89,8 @@ BEAM = int(os.environ.get("LANI_STT_BEAM", "5"))
 PROMPT = os.environ.get("LANI_STT_PROMPT", "auto")
 FP16 = os.environ.get("LANI_STT_FP16", "1") != "0"
 QUEUE_SECONDS = float(os.environ.get("LANI_STT_QUEUE_SECONDS", "15"))
+# The most text tokens a second of audio may give (token_budget); 0: Whisper's own limit, 224 a window.
+BUDGET = float(os.environ.get("LANI_STT_BUDGET", "12"))
 MAX_BYTES = 2 * 1024 * 1024
 MAX_SECONDS = 30.0
 MAX_PROMPT = 300
@@ -174,6 +178,76 @@ def rounded(x, n=3):
     return None if x is None else round(float(x), n)
 
 
+def voice_activity(audio) -> dict | None:
+    """How much of the take is a voice: {"voiced": seconds, "loud": seconds}. Frames of 30 ms every 10 ms; loud: 4 dB
+    over the room (the take's quietest tenth); voiced: loud and periodic like a voice (a pitch of 70-500 Hz, the
+    normalized autocorrelation over 0.35). A room, a fan, breaths and knocks have no voiced time; speech, also a child's
+    and a mumble, has (companion/stt-local/README.md, "Talks"). Whisper writes "Grazie." over a room's noise, and
+    large-v3-turbo's no_speech_prob stays 0 there: this is what tells them apart. None without numpy."""
+    try:
+        import numpy as np
+    except ImportError:
+        return None
+    x = np.asarray(audio, dtype=np.float32)
+    frame, hop = 480, 160
+    if len(x) < frame:
+        return {"voiced": 0.0, "loud": 0.0}
+    n = 1 + (len(x) - frame) // hop
+    f = x[np.arange(frame)[None, :] + hop * np.arange(n)[:, None]].astype(np.float64)
+    f -= f.mean(axis=1, keepdims=True)
+    e = 10 * np.log10((f ** 2).mean(axis=1) + 1e-12)
+    loud = e > np.percentile(e, 10) + 4.0
+    spec = np.fft.rfft(f * np.hanning(frame), 2 * frame, axis=1)
+    ac = np.fft.irfft(np.abs(spec) ** 2, axis=1)[:, : SAMPLE_RATE // 70 + 1]
+    ac /= ac[:, :1] + 1e-12
+    voiced = loud & (ac[:, SAMPLE_RATE // 500:].max(axis=1) > 0.35)
+    return {"voiced": round(float(voiced.sum()) * hop / SAMPLE_RATE, 2), "loud": round(float(loud.sum()) * hop / SAMPLE_RATE, 2)}
+
+
+def token_budget(seconds: float, per_second: float | None = None) -> int:
+    """The most text tokens a take of [seconds] may give: [per_second] (LANI_STT_BUDGET, 12) a second and 10 more
+    (fast speech is under 8), at most Whisper's 224 (also with 0). A loop ("non, non, non, …", "E tu? E tu? …") stops
+    there instead of filling 224 tokens, and its temperature retries stop sooner too."""
+    rate = BUDGET if per_second is None else per_second
+    if rate <= 0:
+        return 224
+    return max(16, min(224, int(10 + rate * seconds)))
+
+
+class EncoderCache:
+    """The audio encoder's last output, by its input: a take heard twice (with the prompt and plain), its retries at
+    higher temperatures and its word timings all encode the same 30 s window, which is most of the work. Installed in
+    front of the model's encoder ([install]); [on] only for the request that asks (one runs at a time: the GPU lock)."""
+
+    def __init__(self) -> None:
+        self.on = False
+        self.key = None
+        self.out = None
+        self.hits = 0
+        self.inner = None
+
+    def install(self, encoder) -> "EncoderCache":
+        self.inner = encoder.forward
+        encoder.forward = self.forward
+        return self
+
+    def forward(self, mel):
+        if not self.on:
+            return self.inner(mel)
+        k = (tuple(mel.shape), str(mel.dtype), float(mel.float().sum()), float(mel[..., ::97].float().sum()))
+        if k == self.key:
+            self.hits += 1
+            return self.out
+        self.out = self.inner(mel)
+        self.key = k
+        return self.out
+
+    def clear(self) -> None:
+        self.on = False
+        self.key = None
+        self.out = None
+
+
 class Engine:
     """One Whisper model: loaded, used and unloaded by Models. [warm]: the language and text of the
     warm-up call that compiles the GPU kernels."""
@@ -239,6 +313,7 @@ class Engine:
                         continue
                     for p in m.parameters(recurse=False):
                         p.data = p.data.half()
+            self.cache = EncoderCache().install(model.encoder)
             self.model = model
 
             if dev == "cpu":
@@ -274,13 +349,12 @@ class Engine:
                 temperature=(0.0, 0.2, 0.4),
                 beam_size=BEAM,
                 best_of=BEAM,
+                sample_len=token_budget(len(audio) / SAMPLE_RATE),
                 fp16=self.fp16,
                 verbose=None,
             )
 
-    def transcribe(self, audio, language: str, prompt: str | None) -> dict:
-        self.last_used = time.monotonic()
-        r = self._transcribe(audio, language, prompt if self.use_prompt else None)
+    def _result(self, r: dict) -> dict:
         segments = []
         for s in r.get("segments", []):
             words = [{"word": w["word"].strip(), "start": rounded(w["start"], 2), "end": rounded(w["end"], 2),
@@ -289,9 +363,33 @@ class Engine:
             segments.append({"start": rounded(s["start"], 2), "end": rounded(s["end"], 2), "text": s["text"].strip(),
                              "avg_logprob": rounded(s.get("avg_logprob")),
                              "no_speech_prob": rounded(s.get("no_speech_prob")), "words": words})
-        text = " ".join(s["text"] for s in segments if s["text"]).strip()
-        return {"text": text, "segments": segments, "language": r.get("language") or language,
-                "duration": rounded(len(audio) / SAMPLE_RATE, 2), "model": self.name}
+        return {"text": " ".join(s["text"] for s in segments if s["text"]).strip(), "segments": segments}
+
+    def transcribe(self, audio, language: str, prompt: str | None, plain: bool = False) -> dict:
+        """What Whisper heard, with [prompt] as its initial prompt (when the model takes one); [plain]: heard a second
+        time without it (a talk's second opinion), its text and segments as "plain", the audio encoded once for both.
+        "voice": how much of the take is a voice ([voice_activity])."""
+        self.last_used = time.monotonic()
+        prompt = prompt if self.use_prompt else None
+        cache = getattr(self, "cache", None)
+        twice = plain and bool(prompt)
+        if cache is not None:
+            cache.on = twice
+        try:
+            r = self._transcribe(audio, language, prompt)
+            out = {**self._result(r), "language": r.get("language") or language,
+                   "duration": rounded(len(audio) / SAMPLE_RATE, 2), "model": self.name}
+            if twice:
+                out["plain"] = self._result(self._transcribe(audio, language, None))
+            elif plain:
+                out["plain"] = {"text": out["text"], "segments": out["segments"]}  # no prompt: the same hearing
+        finally:
+            if cache is not None:
+                cache.clear()
+        v = voice_activity(audio)
+        if v is not None:
+            out["voice"] = v
+        return out
 
 
 class NotAvailable(Exception):
@@ -533,6 +631,7 @@ class Handler(BaseHTTPRequestHandler):
         q = parse_qs(url.query)
         language = (q.get("language") or ["sl"])[0].strip().lower() or "sl"
         prompt = " ".join((q.get("prompt") or [""])[0].split())[:MAX_PROMPT] or None
+        plain = (q.get("plain") or [""])[0] in ("1", "true", "yes")
         if language not in (self.langs or languages()):
             return self._json(400, {"ok": False, "error": f"unknown language {language!r}"})
         kind = sniff(data)
@@ -563,7 +662,7 @@ class Handler(BaseHTTPRequestHandler):
         t0 = time.monotonic()
         try:
             m.load(engine)
-            out = engine.transcribe(audio, language, prompt)
+            out = engine.transcribe(audio, language, prompt, plain=True) if plain else engine.transcribe(audio, language, prompt)
         except NotAvailable:
             return self._json(503, {"ok": False, "error": "not available", "language": language, "model": engine.name})
         except Exception as e:  # noqa: BLE001
@@ -572,8 +671,8 @@ class Handler(BaseHTTPRequestHandler):
         finally:
             m.gpu.release()
         out["took"] = round(time.monotonic() - t0, 3)
-        log.info("transcribed %.1fs of %s in %s with %s (%d bytes, prompt %s) in %.2fs", seconds, kind, language,
-                 engine.name, n, "yes" if prompt else "no", out["took"])
+        log.info("transcribed %.1fs of %s in %s with %s (%d bytes, prompt %s%s) in %.2fs", seconds, kind, language,
+                 engine.name, n, "yes" if prompt else "no", ", and plain" if plain else "", out["took"])
         return self._json(200, out)
 
 

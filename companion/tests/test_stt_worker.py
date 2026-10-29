@@ -85,10 +85,13 @@ class FakeEngine:
         self.ready = False
         self.unloads += 1
 
-    def transcribe(self, audio, language: str, prompt: str | None) -> dict:
+    def transcribe(self, audio, language: str, prompt: str | None, plain: bool = False) -> dict:
         self.last_used = time.monotonic()
-        self.heard.append((language, prompt))
-        return {"text": f"{self.name}:{language}", "segments": [], "language": language, "duration": len(audio) / 16000, "model": self.name}
+        self.heard.append((language, prompt) if not plain else (language, prompt, "plain"))
+        out = {"text": f"{self.name}:{language}", "segments": [], "language": language, "duration": len(audio) / 16000, "model": self.name}
+        if plain:
+            out["plain"] = {"text": f"{self.name}:{language}:plain", "segments": []}
+        return out
 
 
 def touch(name: str, size: int = 1000) -> Path:
@@ -326,12 +329,87 @@ class Http(unittest.TestCase):
         code, out = self.call("/transcribe?language=xx", WAV)
         self.assertEqual(code, 400)
 
+    def test_a_talk_asks_for_the_plain_hearing_too(self):
+        code, out = self.call("/transcribe?language=sl&prompt=Gremo%20k%20potoku%3F&plain=1", WAV)
+        self.assertEqual(code, 200)
+        self.assertEqual(out["plain"]["text"], "large-v3-sl:sl:plain")
+        self.assertEqual(server.MODELS.primary.heard[-1], ("sl", "Gremo k potoku?", "plain"))
+        code, out = self.call("/transcribe?language=sl&prompt=x", WAV)
+        self.assertNotIn("plain", out)
+
     def test_while_the_primary_loads_the_worker_says_so(self):
         server.MODELS = models(primary="large-v3-sl", general="large-v3-sl")
         code, health = self.call("/health")
         self.assertEqual((code, health.get("loading")), (503, True))
         code, out = self.call("/transcribe?language=it", WAV)
         self.assertEqual((code, out["error"]), (503, "loading"))
+
+
+class Talks(unittest.TestCase):
+    """What a talk's take needs of the worker: a token budget, the encoder shared by the two hearings, the voice."""
+
+    def test_the_token_budget_grows_with_the_take_up_to_whispers(self):
+        self.assertEqual(server.token_budget(0.2), 16)
+        self.assertEqual(server.token_budget(2.0), 34)
+        self.assertEqual(server.token_budget(30.0), 224)
+        self.assertEqual(server.token_budget(2.0, per_second=0), 224)  # LANI_STT_BUDGET=0: Whisper's own limit
+
+    def test_the_encoder_runs_once_for_the_same_window_while_on(self):
+        class Mel:  # what the cache reads of a tensor
+            def __init__(self, v):
+                self.v, self.shape, self.dtype = v, (1, 128, 3000), "float16"
+
+            def float(self):
+                return self
+
+            def sum(self):
+                return self.v
+
+            def __getitem__(self, k):
+                return self
+
+        class Encoder:
+            calls = 0
+
+            def forward(self, mel):
+                Encoder.calls += 1
+                return ("features", mel.v)
+
+        enc = Encoder()
+        cache = server.EncoderCache().install(enc)
+        a, b = Mel(1.0), Mel(2.0)
+        enc.forward(a)
+        enc.forward(a)
+        self.assertEqual(Encoder.calls, 2)  # off: every call encodes
+        cache.on = True
+        self.assertEqual(enc.forward(a), ("features", 1.0))
+        self.assertEqual(enc.forward(Mel(1.0)), ("features", 1.0))  # the same window again: the cached features
+        self.assertEqual(Encoder.calls, 3)
+        self.assertEqual(enc.forward(b), ("features", 2.0))
+        self.assertEqual(Encoder.calls, 4)
+        cache.clear()
+        enc.forward(b)
+        self.assertEqual((Encoder.calls, cache.on), (5, False))
+
+    @unittest.skipUnless(importlib.util.find_spec("numpy"), "numpy is the worker's (its venv), not this Python's")
+    def test_a_voice_is_voiced_and_a_room_is_not(self):
+        import numpy as np
+
+        sr = 16000
+        t = np.arange(2 * sr) / sr
+        g = np.random.default_rng(1)
+        room = (g.standard_normal(len(t)) * 0.01).astype(np.float32)
+        vowel = sum(np.sin(2 * np.pi * 220 * k * t) / k for k in range(1, 8)) * 0.2
+        voice = room.copy()
+        voice[sr // 2: sr] += vowel[sr // 2: sr].astype(np.float32)  # half a second of an "a"
+        knock = room.copy()
+        knock[sr: sr + 400] += (np.exp(-np.arange(400) / 60) * g.standard_normal(400)).astype(np.float32)
+        self.assertEqual(server.voice_activity(room)["voiced"], 0.0)
+        self.assertLess(server.voice_activity(knock)["voiced"], 0.1)
+        v = server.voice_activity(voice)
+        self.assertGreater(v["voiced"], 0.4)
+        self.assertGreaterEqual(v["loud"], v["voiced"])
+        self.assertEqual(server.voice_activity(np.zeros(100, np.float32)), {"voiced": 0.0, "loud": 0.0})
 
 
 if __name__ == "__main__":
