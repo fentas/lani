@@ -12,12 +12,20 @@
 #                                     Else $LANI_BRIDGE_MODE, else ~/.config/lani/bridge-mode, else classic; but
 #                                     while the learner's bridge service runs, the service mode (--classic refused).
 #   … --print                         print the commands instead of running them
+#   lani-session --restart [--profile <id> | --all] [--now]
+#                                     quit the learner's running tutor at a quiet moment (its screen still for 2 minutes,
+#                                     no turn under way; --now: at once) and start it again in the background, the
+#                                     development channel confirmed: a fresh context that reads the guide anew. Bridge
+#                                     code alone needs only `lani-bridge restart` (the tutor stays). Attach: tmux attach -t lani
 set -euo pipefail
 cd "$(dirname "$0")/../.."
 
 profile=""
 print=""
 mode=""
+restart=""
+all=""
+now=""
 while [ $# -gt 0 ]; do
   case "$1" in
     --list|-l) exec bun companion/bridge/src/cli/profile.ts list ;;
@@ -26,11 +34,75 @@ while [ $# -gt 0 ]; do
     --service) mode=service ;;
     --classic) mode=classic ;;
     --print) print=1 ;;
-    -h|--help) sed -n '2,14p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    --restart) restart=1 ;;
+    --all) all=1 ;;
+    --now) now=1 ;;
+    -h|--help) sed -n '2,19p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
     *) echo "lani-session: unknown argument $1" >&2; exit 2 ;;
   esac
   shift
 done
+
+# --restart: quit each tutor at a quiet moment and start it again (this script once more, in the background)
+if [ -n "$restart" ]; then
+  [ -n "$print" ] && { echo "lani-session: --restart and --print don't go together" >&2; exit 2; }
+  # tmux resolves a plain "-t lani" to "lani-teo" here: the session's id, by its exact name
+  session_id() { tmux list-sessions -F '#{session_name} #{session_id}' 2>/dev/null | awk -v n="$1" '$1 == n { print $2 }'; }
+  quiet_s="${LANI_RESTART_QUIET_S:-120}"
+  restart_one() {
+    local id="$1" name sid pane waited=0 args=()
+    if [ "$id" = default ]; then name=lani; else name="lani-$id"; args=(--profile "$id"); fi
+    sid="$(session_id "$name")"
+    if [ -n "$sid" ]; then
+      pane="$(tmux list-panes -s -t "$sid" -F '#{pane_id}' | head -1)"
+      # a quiet moment: no turn under way (Claude Code's "esc to interrupt") and the screen still for quiet_s
+      while [ -z "$now" ]; do
+        local idle=$(( $(date +%s) - $(tmux display -p -t "$pane" '#{window_activity}') ))
+        if ! tmux capture-pane -p -t "$pane" | grep -q "esc to interrupt" && [ "$idle" -ge "$quiet_s" ]; then break; fi
+        if [ "$waited" -ge 1800 ]; then echo "lani-session: $name was busy for 30 minutes; not restarted (--now restarts it anyway)" >&2; return 1; fi
+        [ "$waited" -eq 0 ] && echo "lani-session: $name is busy or was used in the last $((quiet_s / 60)) minutes: waiting for a quiet moment…" >&2
+        sleep 10; waited=$((waited + 10))
+      done
+      tmux send-keys -t "$pane" Escape
+      sleep 0.5
+      tmux send-keys -t "$pane" "/exit" Enter
+      for _ in $(seq 1 60); do [ -z "$(session_id "$name")" ] && break; sleep 0.5; done
+      if [ -n "$(session_id "$name")" ]; then
+        echo "lani-session: $name didn't quit; its screen:" >&2
+        tmux capture-pane -p -t "$pane" | grep -v '^[[:space:]]*$' | tail -8 >&2
+        return 1
+      fi
+      echo "lani-session: $name quit" >&2
+    fi
+    # the session again, in the background (tmux new-session -d instead of attaching)
+    LANI_SESSION_DETACHED=1 "$0" "${args[@]}" || return 1
+    sid=""
+    for _ in $(seq 1 40); do sid="$(session_id "$name")"; [ -n "$sid" ] && break; sleep 0.5; done
+    [ -n "$sid" ] || { echo "lani-session: $name didn't start" >&2; return 1; }
+    pane="$(tmux list-panes -s -t "$sid" -F '#{pane_id}' | head -1)"
+    # Claude Code asks before it loads a development channel: confirm it (the default answer)
+    local confirmed=""
+    for _ in $(seq 1 60); do
+      local screen; screen="$(tmux capture-pane -p -t "$pane" 2>/dev/null || true)"
+      if [ -z "$confirmed" ] && grep -qi "development channel" <<<"$screen" && grep -qiE "enter to confirm|❯ 1\.|yes, I" <<<"$screen"; then
+        tmux send-keys -t "$pane" Enter; confirmed=1; sleep 1; continue
+      fi
+      grep -q "accept edits\|bypass permissions\|? for shortcuts" <<<"$screen" && break
+      sleep 0.5
+    done
+    if companion/bin/lani-bridge status "${args[@]}" --quiet 2>/dev/null; then
+      for _ in $(seq 1 40); do companion/bin/lani-bridge status "${args[@]}" 2>/dev/null | grep -q "tutor is attached" && break; sleep 0.5; done
+      companion/bin/lani-bridge status "${args[@]}" 2>/dev/null | grep -m1 "tutor " | sed "s/^ */lani-session: $name: /" >&2
+    fi
+    echo "lani-session: $name started again (tmux attach -t $name)" >&2
+  }
+  ids=("${profile:-default}")
+  if [ -n "$all" ]; then mapfile -t ids < <(bun companion/bridge/src/cli/profile.ts list --ids); fi
+  rc=0
+  for id in "${ids[@]}"; do restart_one "$id" || rc=1; done
+  exit $rc
+fi
+[ -n "$all" ] && { echo "lani-session: --all goes with --restart" >&2; exit 2; }
 
 # LANI_* (or their FLUENT_* names), and the config files of ~/.config/lani (or ~/.config/fluent): bin/lani-env.sh
 . companion/bin/lani-env.sh
@@ -102,4 +174,6 @@ if [ "$mode" = service ]; then
 fi
 
 # The bridge listens on localhost only; `tailscale serve` publishes it to the tailnet over HTTPS.
+# LANI_SESSION_DETACHED=1 (lani-session --restart): in the background, nothing attached
+if [ -n "${LANI_SESSION_DETACHED:-}" ]; then exec tmux new-session -d -s "$name" "$cmd"; fi
 exec tmux new-session -A -s "$name" "$cmd"

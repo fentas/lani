@@ -24,6 +24,11 @@ const [cmd, ...rest] = process.argv.slice(2)
 const culturesDir = process.env.LANI_CULTURES_DIR || join(projectDir, 'companion/cultures')
 
 async function list() {
+  // --ids: the learners' ids, one a line (lani-session --restart --all)
+  if (rest.includes('--ids')) {
+    for (const p of allProfiles()) console.log(p.id)
+    return
+  }
   const rows = [['PROFILE', 'LEARNER', 'LEARNS', 'VILLAGE', 'PORT', 'TAILNET', 'TMUX', 'DATA', 'STATUS']]
   for (const p of allProfiles()) {
     const learns = p.target ? `${p.target} ← ${p.base}` : ''
