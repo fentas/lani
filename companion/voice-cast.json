@@ -1,17 +1,23 @@
 {
-  "_comment": "Who speaks Lani's Slovene (companion/README.md, Voice). A speaker: an ElevenLabs voice (the model LANI_ELEVENLABS_MODEL, eleven_v4_turbo by default), a local Gepard voice for when ElevenLabs can't, and a gender (the app's fallback voice and grammar). 'female' and 'male' are the narrators of every generic text; a villager speaks with their 'speaker' (companion/cultures/<culture>/villagers/*.json); the learner's own lines in a dialog are said by 'player', a voice of the cast for each gender (Luka, Nina; see its comment). To swap a voice, change its 'elevenlabs' id (the voice must be in the ElevenLabs account) and set its 'since' to the day (YYYY-MM-DD): its clips are made again in the new voice as the app asks for them (the lazy re-voice, the day's cap; 'since' tells the clips from before October 11, 2026, whose voice isn't recorded), or all at once: companion/bin/voice-build --run --revoice <speaker>. 'carrier': the speaker says a lone word (one to three words) inside a carrier sentence that is then cut out (the narrators, English library voices, say a lone Slovene word the English way; companion/README.md, Voice); on a 'languages' voice, that voice does (Nina and Luka since 2026-10-26: a lone word said plainly by a native voice can come out in another language's sound, 'učiteljica' on 2026-10-19; their clips from before, said plainly, are kept, never re-voiced: a long press re-records one). 'alternatives' are the audition runners-up (library voices: add one to the account first). 'denoise': the voices whose ElevenLabs clips are filtered before they are stored (a voice that hisses). 'languages': the voices a speaker speaks a language with that its own voice doesn't speak natively. The narrators are English voices (Matilda, Daniel), so in a Slovene village they speak with their 'languages' 'sl' voices, native Slovene library voices that take no voice slot (female: Nina, male: Luka; chosen by audition in October 2026; the first request with an id adds the voice to the account), a new lone word inside the carrier sentence too ('carrier'); their clips are the voice 'female.sl' or 'male.sl' in voice.db. When ElevenLabs can't (the quota, the reserve, no key), the local Gepard voice speaks for them, as it does for the clips made before (female: ana for a lone word, 'gepard_words', nina for a sentence; male: marko), else the phone; never Matilda or Daniel. A narrator's local clip stays next to the ElevenLabs one, as its fallback. LANI_VOICE_NARRATOR_SL=gepard puts the local voice first. To swap a narrator's Slovene voice, change its 'languages' 'sl' 'elevenlabs' id, then companion/bin/voice-build --run --revoice female (companion/README.md, Voice). 'tempo': a voice that speaks slowly, its clips sped up by a factor from 0.5 to 2, the pitch kept (ffmpeg atempo, after a carrier sentence's cut and the denoise filter, before the edges and the level): a number for every engine, or by engine ({\"elevenlabs\": 1.1}: an engine left out keeps its pace); also on a 'languages' voice. New clips are paced as they are stored, the ones from before by companion/bin/voice-build --pace --run; each clip records its factor, so a pass paces it once and a changed tempo paces it by the difference. The girl's Piku: ElevenLabs ×1.1 (October 19, 2026: 3.3 syllables a second over a line's sound against 3.7, the middle of the cast's ElevenLabs voices; her local clips, nina's, are fast already: 5.4). A tempo belongs to the voice it was measured on: after a swap, measure again (voice-build --pace's dry run).",
+  "_comment": "Who speaks Lani's Slovene (companion/README.md, Voice). A speaker: an ElevenLabs voice (the model LANI_ELEVENLABS_MODEL, eleven_v4_turbo by default), a local Gepard voice for when ElevenLabs can't, and a gender (the app's fallback voice and grammar). 'female' and 'male' are the narrators of every generic text; a villager speaks with their 'speaker' (companion/cultures/<culture>/villagers/*.json); the learner's own lines in a dialog are said in the voice they choose of 'players' (a gender → an age → 2 or 3 voices of the cast's, never a voice someone in it speaks with; see its comment), 'player' the grown-ups' default for each gender (Luka, Nina). To swap a voice, change its 'elevenlabs' id (the voice must be in the ElevenLabs account) and set its 'since' to the day (YYYY-MM-DD): its clips are made again in the new voice as the app asks for them (the lazy re-voice, the day's cap; 'since' tells the clips from before October 11, 2026, whose voice isn't recorded), or all at once: companion/bin/voice-build --run --revoice <speaker>. 'carrier': the speaker says a lone word (one to three words) inside a carrier sentence that is then cut out (the narrators, English library voices, say a lone Slovene word the English way; companion/README.md, Voice); on a 'languages' voice, that voice does (Nina and Luka since 2026-10-26: a lone word said plainly by a native voice can come out in another language's sound, 'učiteljica' on 2026-10-19; their clips from before, said plainly, are kept, never re-voiced: a long press re-records one). 'alternatives' are the audition runners-up (library voices: add one to the account first). 'denoise': the voices whose ElevenLabs clips are filtered before they are stored (a voice that hisses). 'languages': the voices a speaker speaks a language with that its own voice doesn't speak natively. The narrators are English voices (Matilda, Daniel), so in a Slovene village they speak with their 'languages' 'sl' voices, native Slovene library voices that take no voice slot (female: Nina, male: Luka; chosen by audition in October 2026; the first request with an id adds the voice to the account), a new lone word inside the carrier sentence too ('carrier'); their clips are the voice 'female.sl' or 'male.sl' in voice.db. When ElevenLabs can't (the quota, the reserve, no key), the local Gepard voice speaks for them, as it does for the clips made before (female: ana for a lone word, 'gepard_words', nina for a sentence; male: marko), else the phone; never Matilda or Daniel. A narrator's local clip stays next to the ElevenLabs one, as its fallback. LANI_VOICE_NARRATOR_SL=gepard puts the local voice first. To swap a narrator's Slovene voice, change its 'languages' 'sl' 'elevenlabs' id, then companion/bin/voice-build --run --revoice female (companion/README.md, Voice). 'tempo': a voice that speaks slowly, its clips sped up by a factor from 0.5 to 2, the pitch kept (ffmpeg atempo, after a carrier sentence's cut and the denoise filter, before the edges and the level): a number for every engine, or by engine ({\"elevenlabs\": 1.1}: an engine left out keeps its pace); also on a 'languages' voice. New clips are paced as they are stored, the ones from before by companion/bin/voice-build --pace --run; each clip records its factor, so a pass paces it once and a changed tempo paces it by the difference. The girl's Piku: ElevenLabs ×1.1 (October 19, 2026: 3.3 syllables a second over a line's sound against 3.7, the middle of the cast's ElevenLabs voices; her local clips, nina's, are fast already: 5.4). A tempo belongs to the voice it was measured on: after a swap, measure again (voice-build --pace's dry run).",
   "denoise": {
-    "_comment": "A voice that hisses → the filter its ElevenLabs clips go through before they are stored (companion/README.md, Voice): 'hiss' (true means this one), or 'hiss-strong' if 'hiss' leaves some. The key is a speaker below, or someone's own designed voice ('@janez': Stari Janez's, ElevenLabs GSjfM5vjA9qucp51dZnc, which hisses). The bridge filters new clips; the clips from before: companion/bin/voice-build --denoise --run. After a redesign, check whether the new voice still hisses. Since 2026-09-28 also the young man, gruff, France's and Micka's own voices (the girl's Torri Miles too until 2026-10-14; her new voice, Piku, is clean: pauses down to −97 dB): their pauses at −38 to −55 dB, the others' −58 to −88; 'hiss' takes them to −74 to −96 dB.",
+    "_comment": "A voice that hisses → the filter its ElevenLabs clips go through before they are stored (companion/README.md, Voice): 'hiss' (true means this one), or 'hiss-strong' if 'hiss' leaves some. The key is a speaker below, or someone's own designed voice ('@janez': Stari Janez's, ElevenLabs GSjfM5vjA9qucp51dZnc, which hisses). The bridge filters new clips; the clips from before: companion/bin/voice-build --denoise --run. After a redesign, check whether the new voice still hisses. Since 2026-09-28 also the young man, gruff, France's and Micka's own voices (the girl's Torri Miles too until 2026-10-14; her new voice, Piku, is clean: pauses down to −97 dB): their pauses at −38 to −55 dB, the others' −58 to −88; 'hiss' takes them to −74 to −96 dB. The learner's boy's voice Valf (player-boy-a, 2026-10-29) too: its library preview's pauses at −56 dB.",
     "@janez": "hiss",
     "young-man": "hiss",
     "gruff": "hiss",
     "@france": "hiss",
-    "@micka": "hiss"
+    "@micka": "hiss",
+    "player-boy-a": "hiss"
   },
   "player": {
-    "_comment": "Who says the learner's own lines in a dialog (a choice tapped, a turn typed right, an echo gone on from; never a line they said into the microphone): one voice per gender, by the learner profile's learner.gender, the female one while the profile says none. A voice of the cast: a speaker, or a speaker's voice in a language ('male.sl': the male narrator's Slovene voice, Luka; 'female.sl': Nina). The app asks for the lines in the voice 'player' and the bridge says them in this one (companion/README.md, Voice), so a line's clip is that voice's: the narrator's clip of a text serves both. A voice of the learner's own is one line here: add it as a speaker (\"player-male\": its gender, ElevenLabs id and local Gepard voice) and name it for its gender. Nina and Luka are ElevenLabs library voices that leave the library on about October 21, 2027: a replacement (a designed voice, or another library voice) comes before then, for the narrators and for the learner.",
+    "_comment": "The grown-ups' default voice for the learner's own lines in a dialog (a choice tapped, a turn typed right, an echo gone on from; never a line they said into the microphone), per gender: the first of 'players' (see its comment; the learner may choose another, \"🗣️ Moj glas · My voice\"), the female one while the profile says none. A voice of the cast: a speaker of the learner's own (with its 'age'), or a speaker's voice in a language ('male.sl': the male narrator's Slovene voice, Luka; 'female.sl': Nina); never a voice someone in the cast speaks with. The app asks for the lines in the voice 'player' and the bridge says them in the learner's (companion/README.md, Voice), so a line's clip of Luka's is the narrator's: one clip of a text serves both. Nina and Luka are ElevenLabs library voices that leave the library on about October 21, 2027 (the library has no Slovenian voice left): a replacement (a designed voice, or another library voice) comes before then, for the narrators and for the learner.",
     "male": "male.sl",
     "female": "female.sl"
+  },
+  "players": {
+    "_comment": "The voices the learner chooses theirs from, \"🗣️ Moj glas · My voice\" (companion/SCENES.md, \"The learner's voice\"; docs/plans/05-built/my-voice.md): a gender → an age (adult; child, for a learner whose profile is a child's: LANI_CHILD) → 2 or 3 voices, the default first. Each is a speaker below with its 'age' (a voice of the learner's: no villager may speak with it), or a narrator's voice in a language ('male.sl'). None may be a voice anyone in this cast speaks with (every speaker but the narrators and these, in every language): the bridge leaves such an entry out and logs it, and the smoke test fails on one. The learner's choice is kept in their learner profile (preferences.my_voice); a voice swapped here keeps its speaker, so their choice stays (set its 'since'). Picked from the ElevenLabs voice library on 2026-10-29 by their labels and their free previews (pitch, loudness, noise, the local Whisper), not heard by Jan yet; each speaker's 'role' says why. The first request with a library voice's id adds it to the account (no voice slot).",
+    "male": { "adult": ["male.sl", "player-man-a", "player-man-b"], "child": ["player-boy-a", "player-boy-b"] },
+    "female": { "adult": ["female.sl", "player-woman-a", "player-woman-b"], "child": ["player-girl-a", "player-girl-b", "player-girl-c"] }
   },
   "speakers": {
     "female": {
@@ -112,6 +118,87 @@
       "gepard": "nina",
       "role": "Boy: Nejc, Tine; boys born in the village (Gepard: a child's voice is higher, so nina)",
       "alternatives": [{ "name": "Teddy Twinkle", "elevenlabs": "XjGYkUkzth8BPs29fmcV", "library_owner": "119adcff6f9d8ee3d5194065d19fb9b473760336ad4a7227a6890226bc62167b" }]
+    },
+    "player-man-a": {
+      "gender": "male",
+      "age": "adult",
+      "elevenlabs": "O9XgmQnaZveORWl6mTHm",
+      "name": "Tomislav",
+      "library_owner": "2d3604d2b88a7ab4f5ff5bba9dc5f8dadc5a33f41ca5f48484a32634979da83b",
+      "gepard": "marko",
+      "role": "A man's voice for the learner: Croatian native (no Slovene one left), calm and clear; F0 107 Hz"
+    },
+    "player-man-b": {
+      "gender": "male",
+      "age": "adult",
+      "elevenlabs": "peXmQaCErbfrWCM5FqjH",
+      "name": "Marko",
+      "library_owner": "4d9c23e886f1e45a9cb08ec5263096517cb93159697f49680a8071b4171656ad",
+      "gepard": "marko",
+      "role": "A man's voice for the learner: Croatian native, a young warm baritone, natural; F0 114 Hz, the cleanest of the Croatian men"
+    },
+    "player-woman-a": {
+      "gender": "female",
+      "age": "adult",
+      "elevenlabs": "rmUck1qkzTjuEjdC6Cav",
+      "name": "Ana",
+      "library_owner": "64cbc624eb5aab4e95a968e1f41d75402277cca6e549036ed17e56ea33bbbc9e",
+      "gepard": "ana",
+      "role": "A woman's voice for the learner: Croatian native from Nina's and Luka's owner, gentle and friendly; F0 209 Hz"
+    },
+    "player-woman-b": {
+      "gender": "female",
+      "age": "adult",
+      "elevenlabs": "iahPPG34ls0Mm3W0DBhh",
+      "name": "Elena",
+      "library_owner": "64cbc624eb5aab4e95a968e1f41d75402277cca6e549036ed17e56ea33bbbc9e",
+      "gepard": "nina",
+      "role": "A woman's voice for the learner: Croatian native from Nina's and Luka's owner, confident and articulate; F0 190 Hz"
+    },
+    "player-boy-a": {
+      "gender": "male",
+      "age": "child",
+      "elevenlabs": "loY1uopAz31XyhAEhNSa",
+      "name": "Valf",
+      "library_owner": "edb29bf3ecacd3634096c4bc62c0537e04cbfb94cf27cd2babced5c1709800d6",
+      "gepard": "nina",
+      "role": "A boy's voice for the learner: a real kid's voice, playful; F0 318 Hz; verified in Croatian (none in Slovene); pauses near −56 dB, so filtered"
+    },
+    "player-boy-b": {
+      "gender": "male",
+      "age": "child",
+      "elevenlabs": "oT6YGCPblY04TqTskA2d",
+      "name": "Pintu",
+      "library_owner": "7398804d9eaf2f463899a907587c33a390591775784f87857b6d0e1e4e3e66f6",
+      "gepard": "ana",
+      "role": "A boy's voice for the learner: a young child's, playful; F0 368 Hz, very clean; verified in Croatian (none in Slovene)"
+    },
+    "player-girl-a": {
+      "gender": "female",
+      "age": "child",
+      "elevenlabs": "MIl0Flub6Sc9KSkX2A42",
+      "name": "Mithi",
+      "library_owner": "7398804d9eaf2f463899a907587c33a390591775784f87857b6d0e1e4e3e66f6",
+      "gepard": "nina",
+      "role": "A girl's voice for the learner: an actual young girl's, sincere and curious; F0 272 Hz; verified in Croatian (none in Slovene)"
+    },
+    "player-girl-b": {
+      "gender": "female",
+      "age": "child",
+      "elevenlabs": "VOGEEZj2Kly5dP9LrQy8",
+      "name": "Munni",
+      "library_owner": "7398804d9eaf2f463899a907587c33a390591775784f87857b6d0e1e4e3e66f6",
+      "gepard": "ana",
+      "role": "A girl's voice for the learner: a lively real kid's; F0 394 Hz, very clean; verified in Croatian (none in Slovene)"
+    },
+    "player-girl-c": {
+      "gender": "female",
+      "age": "child",
+      "elevenlabs": "XJ2fW4ybq7HouelYYGcL",
+      "name": "Cherry",
+      "library_owner": "9678631cb37e3563db1009a63ef157907498ecd3622f3449de0cac253c6faaaf",
+      "gepard": "nina",
+      "role": "A girl's voice for the learner: bright and sweet, the library's most used kid voice; F0 375 Hz, clean"
     }
   }
 }

@@ -1,7 +1,17 @@
 {
   "_comment": "Who speaks the German of the kaernten village (companion/README.md, Voice): the same archetypes as companion/voice-cast.json, for the kaernten cast (villagers/*.json 'speaker'). The bridge asks ElevenLabs (its model, LANI_ELEVENLABS_MODEL: eleven_v4_turbo by default) with language_code de. Chosen by audition on 2026-09-27: the same villager lines in each candidate, checked with the local Whisper (every word right), the pitch and the noise measured. Native Austrian library voices for the narrator and the old men (Fiona, Helmut: on the account since the audition, no voice slot); the others are voices the account had, which ElevenLabs verified in German where it says so (Mila, Daniel, Lily, Matilda, Jessica, Brian, Chris Basetta, Torri Miles; not Kavya). The male narrator Daniel is an English voice: 'carrier', so he says a lone word inside 'Das Wort ist: …'. 'alternatives': the other candidates heard (on the account); one with a 'library_owner' was not heard, only its library preview, and must be added first. To swap a voice, put its id in 'elevenlabs' and re-voice that speaker: LANI_CULTURE=kaernten companion/bin/voice-build --run --revoice <speaker> --data <the learner's data dir>. No 'gepard' voices: the local worker speaks only Slovene. Voice Design stays off for new profiles (LANI_VOICE_DESIGN=off).",
   "language": "de",
-  "denoise": { "_comment": "The girl's voice (Torri Miles) hisses: her ElevenLabs clips are filtered before they are stored (companion/voice-cast.json).", "girl": "hiss" },
+  "denoise": { "_comment": "The girl's voice (Torri Miles) hisses: her ElevenLabs clips are filtered before they are stored (companion/voice-cast.json). So are the learner's voices whose library previews had their pauses above −58 dB (2026-10-29: 'players'); measure their first clips and take a filter away where it isn't needed.", "girl": "hiss", "player-woman-a": "hiss", "player-woman-c": "hiss" },
+  "player": {
+    "_comment": "The grown-ups' default voice for the learner's own lines in a dialog, per gender: the first of 'players' (see its comment), which a learner without a choice hears; the cast's voice for a learner of a town older than 'players' on a visit.",
+    "male": "player-man-a",
+    "female": "player-woman-a"
+  },
+  "players": {
+    "_comment": "The voices the learner chooses theirs from, \"🗣️ Moj glas · My voice\" (companion/SCENES.md, \"The learner's voice\"; docs/plans/05-built/my-voice.md): a gender → an age (adult; child, for a learner whose profile is a child's: LANI_CHILD) → 2 or 3 voices, the default first. Each is a speaker below with its 'age' (a voice of the learner's: no villager may speak with it), or a narrator's voice in a language ('male.sl'). None may be a voice anyone in this cast speaks with (every speaker but the narrators and these, in every language): the bridge leaves such an entry out and logs it, and the smoke test fails on one. The learner's choice is kept in their learner profile (preferences.my_voice); a voice swapped here keeps its speaker, so their choice stays (set its 'since'). Picked from the ElevenLabs voice library on 2026-10-29 by their labels and their free previews (pitch, loudness, noise, the local Whisper), not heard by Jan yet; each speaker's 'role' says why. The first request with a library voice's id adds it to the account (no voice slot).",
+    "male": { "adult": ["player-man-a", "player-man-b", "player-man-c"], "child": ["player-boy-a", "player-boy-b"] },
+    "female": { "adult": ["player-woman-a", "player-woman-b", "player-woman-c"], "child": ["player-girl-a", "player-girl-b", "player-girl-c"] }
+  },
   "speakers": {
     "female": {
       "gender": "female",
@@ -89,6 +99,94 @@
       "elevenlabs": "bA58y3FqVI6b6gTNh0oT",
       "name": "Kavya",
       "role": "Boy: Maxi, Jakob; boys born in the village"
+    },
+    "player-man-a": {
+      "gender": "male",
+      "age": "adult",
+      "elevenlabs": "06UBgCCFLiCyxbrvrgpN",
+      "name": "Juri",
+      "library_owner": "b4a68d0792538f779a20796def8925d216ff56f09916e2950f582411d4c83210",
+      "role": "A man's voice for the learner: Austrian (verified de-AT), gentle and young; F0 137 Hz, very clean"
+    },
+    "player-man-b": {
+      "gender": "male",
+      "age": "adult",
+      "elevenlabs": "FosrFSJcgFTol7FFvQXU",
+      "name": "Peter",
+      "library_owner": "61bdf9421a2750e0eac8fefe65b7847f941ed7f09bf643c034413cdfd019445d",
+      "role": "A man's voice for the learner: Austrian (Upper Austria, de-AT), calm; F0 102 Hz, clean (a quiet preview: levelled)"
+    },
+    "player-man-c": {
+      "gender": "male",
+      "age": "adult",
+      "elevenlabs": "sTeT0bXBeK6hi9pnfwhh",
+      "name": "Tom",
+      "library_owner": "e3ba14e05119d8bf6f086d8e0a00080c5260d54cc0746264340bae592584c43f",
+      "role": "A man's voice for the learner: clear, calm, an Austrian-German colour; F0 101 Hz"
+    },
+    "player-woman-a": {
+      "gender": "female",
+      "age": "adult",
+      "elevenlabs": "Ah5UjbC5d1A2iCl9Lbe7",
+      "name": "Anna",
+      "library_owner": "dff498bc30daae11a1f76177fc3e1bd91a04667dc3ba2e9bae6395aa9786429f",
+      "role": "A woman's voice for the learner: Austrian (verified de-AT), calm and pleasant, steady; F0 158 Hz; pauses near −56 dB, so filtered"
+    },
+    "player-woman-b": {
+      "gender": "female",
+      "age": "adult",
+      "elevenlabs": "coPfQIqaxowKv5u2s2bV",
+      "name": "Johanna",
+      "library_owner": "7398804d9eaf2f463899a907587c33a390591775784f87857b6d0e1e4e3e66f6",
+      "role": "A woman's voice for the learner: warm, clear standard German; F0 175 Hz, very clean"
+    },
+    "player-woman-c": {
+      "gender": "female",
+      "age": "adult",
+      "elevenlabs": "mekn71YL8kSYrEunOj4N",
+      "name": "Seda",
+      "library_owner": "e733269255b8d188bd4c40acacebdf9df272413f5c1fff6ba085aaff24b85818",
+      "role": "A woman's voice for the learner: warm Austrian German (verified de-AT), a storyteller's; F0 207 Hz; pauses near −56 dB, so filtered"
+    },
+    "player-boy-a": {
+      "gender": "male",
+      "age": "child",
+      "elevenlabs": "d7G4zsIoYxHBAwkKbqs5",
+      "name": "Bhola",
+      "library_owner": "7398804d9eaf2f463899a907587c33a390591775784f87857b6d0e1e4e3e66f6",
+      "role": "A boy's voice for the learner: soft, innocent young boy, verified in German (not native: none is in the library); F0 294 Hz, very clean"
+    },
+    "player-boy-b": {
+      "gender": "male",
+      "age": "child",
+      "elevenlabs": "srEfhy4AF67Mw9SpTVFd",
+      "name": "Omar",
+      "library_owner": "7398804d9eaf2f463899a907587c33a390591775784f87857b6d0e1e4e3e66f6",
+      "role": "A boy's voice for the learner: a bright, lively young boy, verified in Italian and German; F0 ~340 Hz, very clean"
+    },
+    "player-girl-a": {
+      "gender": "female",
+      "age": "child",
+      "elevenlabs": "VD1if7jDVYtAKs4P0FIY",
+      "name": "Milly",
+      "library_owner": "4d49e1f6a4608f4702abcb9914a565b56353fa58abba4b23a34b647e549c3cd6",
+      "role": "A girl's voice for the learner: German native, a bright, cheerful little adventurer; F0 253 Hz, clean"
+    },
+    "player-girl-b": {
+      "gender": "female",
+      "age": "child",
+      "elevenlabs": "hO2yZ8lxM3axUxL8OeKX",
+      "name": "Mini",
+      "library_owner": "7398804d9eaf2f463899a907587c33a390591775784f87857b6d0e1e4e3e66f6",
+      "role": "A girl's voice for the learner: bright and cheerful, verified in German; F0 255 Hz, very clean"
+    },
+    "player-girl-c": {
+      "gender": "female",
+      "age": "child",
+      "elevenlabs": "9vP6R7VVxNwGIGLnpl17",
+      "name": "Suhana",
+      "library_owner": "7398804d9eaf2f463899a907587c33a390591775784f87857b6d0e1e4e3e66f6",
+      "role": "A girl's voice for the learner: very young and joyful, verified in German; F0 375 Hz, clean"
     }
   }
 }

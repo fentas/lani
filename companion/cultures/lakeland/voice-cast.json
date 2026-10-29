@@ -1,7 +1,17 @@
 {
   "_comment": "Who speaks the English of the lakeland village (companion/README.md, Voice): the same archetypes as companion/voice-cast.json, for the lakeland cast (villagers/*.json 'speaker'). The bridge asks ElevenLabs (its model, LANI_ELEVENLABS_MODEL: eleven_v4_turbo by default) with language_code en. Chosen by audition on 2026-09-27 from the voices the account had: the same villager lines in each candidate, checked with the local Whisper (every word right), the pitch and the noise measured. British where the account has it (Alice, Daniel, Lily, George: premade voices); the others are American or other voices speaking English. No northern English voice yet: those in the library (Wilf, Steve, Beatrice, Tony below) are 'alternatives' with a 'library_owner', heard only in their library previews; to add one, it must be added to the account first (a library voice takes no voice slot). The voices are native English speakers, so no 'carrier'. To swap a voice, put its id in 'elevenlabs' and re-voice that speaker: LANI_CULTURE=lakeland companion/bin/voice-build --run --revoice <speaker> --data <the learner's data dir>. No 'gepard' voices: the local worker speaks only Slovene. Voice Design stays off for new profiles (LANI_VOICE_DESIGN=off).",
   "language": "en",
-  "denoise": { "_comment": "The girl's voice (Torri Miles) hisses: her ElevenLabs clips are filtered before they are stored (companion/voice-cast.json).", "girl": "hiss" },
+  "denoise": { "_comment": "The girl's voice (Torri Miles) hisses: her ElevenLabs clips are filtered before they are stored (companion/voice-cast.json). So are the learner's voices whose library previews had their pauses above −58 dB (2026-10-29: 'players'); measure their first clips and take a filter away where it isn't needed.", "girl": "hiss", "player-man-c": "hiss" },
+  "player": {
+    "_comment": "The grown-ups' default voice for the learner's own lines in a dialog, per gender: the first of 'players' (see its comment), which a learner without a choice hears; the cast's voice for a learner of a town older than 'players' on a visit.",
+    "male": "player-man-a",
+    "female": "player-woman-a"
+  },
+  "players": {
+    "_comment": "The voices the learner chooses theirs from, \"🗣️ Moj glas · My voice\" (companion/SCENES.md, \"The learner's voice\"; docs/plans/05-built/my-voice.md): a gender → an age (adult; child, for a learner whose profile is a child's: LANI_CHILD) → 2 or 3 voices, the default first. Each is a speaker below with its 'age' (a voice of the learner's: no villager may speak with it), or a narrator's voice in a language ('male.sl'). None may be a voice anyone in this cast speaks with (every speaker but the narrators and these, in every language): the bridge leaves such an entry out and logs it, and the smoke test fails on one. The learner's choice is kept in their learner profile (preferences.my_voice); a voice swapped here keeps its speaker, so their choice stays (set its 'since'). Picked from the ElevenLabs voice library on 2026-10-29 by their labels and their free previews (pitch, loudness, noise, the local Whisper), not heard by Jan yet; each speaker's 'role' says why. The first request with a library voice's id adds it to the account (no voice slot).",
+    "male": { "adult": ["player-man-a", "player-man-b", "player-man-c"], "child": ["player-boy-a", "player-boy-b", "player-boy-c"] },
+    "female": { "adult": ["player-woman-a", "player-woman-b", "player-woman-c"], "child": ["player-girl-a", "player-girl-b", "player-girl-c"] }
+  },
   "speakers": {
     "female": {
       "gender": "female",
@@ -94,6 +104,102 @@
       "elevenlabs": "bA58y3FqVI6b6gTNh0oT",
       "name": "Kavya",
       "role": "Boy: Harry, Alfie; boys born in the village"
+    },
+    "player-man-a": {
+      "gender": "male",
+      "age": "adult",
+      "elevenlabs": "wUwsnXivqGrDWuz1Fc89",
+      "name": "Liam",
+      "library_owner": "b1019b8a5780068969664d50f19ea33060c881929d4c720ba326f5364254938a",
+      "role": "A man's voice for the learner: a soft northern British accent, warm and relaxed; F0 150 Hz"
+    },
+    "player-man-b": {
+      "gender": "male",
+      "age": "adult",
+      "elevenlabs": "tsZIuoP32cHvWfs5aIPK",
+      "name": "Woodstock",
+      "library_owner": "22204bd65b9ab1ad94647ba9aee92e05d9403aa445b74b8bddd76589eb4a406a",
+      "role": "A man's voice for the learner: northern English (East Lancashire, the nearest to the Lakes), conversational; F0 128 Hz"
+    },
+    "player-man-c": {
+      "gender": "male",
+      "age": "adult",
+      "elevenlabs": "0CoxwbC90B8N0Fa3LDCH",
+      "name": "Mark",
+      "library_owner": "61b1e3f1bfd82354194c13af4c51588b9968bdb5de195a4281371d9bda585ba2",
+      "role": "A man's voice for the learner: northern English (Durham), warm and clear; F0 105 Hz; pauses near −57 dB, so filtered"
+    },
+    "player-woman-a": {
+      "gender": "female",
+      "age": "adult",
+      "elevenlabs": "GETflDbIxMMHeQDeVCEW",
+      "name": "Carrie",
+      "library_owner": "bcafb46d30663fb9f499a75f18c3d6f46021a540fc713fa9fdc8f499a47a5c6a",
+      "role": "A woman's voice for the learner: British, a softly assured northern tone, clear and friendly; F0 168 Hz"
+    },
+    "player-woman-b": {
+      "gender": "female",
+      "age": "adult",
+      "elevenlabs": "xbOj8ppmiYz8dqX2I2ri",
+      "name": "Ida",
+      "library_owner": "9a3630b5bd6d2fe07334d9111109cd2afdab89597fb01b1cde683ed76e2c4c88",
+      "role": "A woman's voice for the learner: northern English, warm and down-to-earth; F0 171 Hz, clean"
+    },
+    "player-woman-c": {
+      "gender": "female",
+      "age": "adult",
+      "elevenlabs": "RU8huomG1ebFQW6nNko3",
+      "name": "Maria",
+      "library_owner": "fc9726e5e3a219e7115e17561ba503648ab30ebcdf1244e77c3575e4b9538d08",
+      "role": "A woman's voice for the learner: Manchester, clear and articulate, soft northern vowels; F0 185 Hz, clean"
+    },
+    "player-boy-a": {
+      "gender": "male",
+      "age": "child",
+      "elevenlabs": "XjGYkUkzth8BPs29fmcV",
+      "name": "Teddy",
+      "library_owner": "119adcff6f9d8ee3d5194065d19fb9b473760336ad4a7227a6890226bc62167b",
+      "role": "A boy's voice for the learner: a sweet, cheerful little boy (American: the library has no British boy); F0 319 Hz, very clean"
+    },
+    "player-boy-b": {
+      "gender": "male",
+      "age": "child",
+      "elevenlabs": "d7G4zsIoYxHBAwkKbqs5",
+      "name": "Bhola",
+      "library_owner": "7398804d9eaf2f463899a907587c33a390591775784f87857b6d0e1e4e3e66f6",
+      "role": "A boy's voice for the learner: soft, innocent young boy, verified in English (an Indian accent); F0 289 Hz, clean"
+    },
+    "player-boy-c": {
+      "gender": "male",
+      "age": "child",
+      "elevenlabs": "loY1uopAz31XyhAEhNSa",
+      "name": "Valf",
+      "library_owner": "edb29bf3ecacd3634096c4bc62c0537e04cbfb94cf27cd2babced5c1709800d6",
+      "role": "A boy's voice for the learner: a very young, playful boy (American); F0 359 Hz; pauses near −64 dB"
+    },
+    "player-girl-a": {
+      "gender": "female",
+      "age": "child",
+      "elevenlabs": "nDJIICjR9zfJExIFeSCN",
+      "name": "Emmaline",
+      "library_owner": "2d45e341c1672ec1b7a9c952a12dc504a49a8b21a672441a7a5f4e9fa1ee4029",
+      "role": "A girl's voice for the learner: the library's young British girl, clear and bright (rather 10 than 7); F0 258 Hz"
+    },
+    "player-girl-b": {
+      "gender": "female",
+      "age": "child",
+      "elevenlabs": "e3FEEanj39p8QCSMe8iV",
+      "name": "Gudiya",
+      "library_owner": "7398804d9eaf2f463899a907587c33a390591775784f87857b6d0e1e4e3e66f6",
+      "role": "A girl's voice for the learner: a curious child's, sweet and natural (an Indian accent); F0 334 Hz, very clean"
+    },
+    "player-girl-c": {
+      "gender": "female",
+      "age": "child",
+      "elevenlabs": "XJ2fW4ybq7HouelYYGcL",
+      "name": "Cherry",
+      "library_owner": "9678631cb37e3563db1009a63ef157907498ecd3622f3449de0cac253c6faaaf",
+      "role": "A girl's voice for the learner: bright and sweet, the library's most used kid voice; F0 375 Hz, clean"
     }
   }
 }

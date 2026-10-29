@@ -1,7 +1,17 @@
 {
   "_comment": "Who speaks the Italian of the friuli village (companion/README.md, Voice): the same archetypes as companion/voice-cast.json, for the friuli cast (villagers/*.json 'speaker'). The bridge asks ElevenLabs (its model, LANI_ELEVENLABS_MODEL: eleven_v4_turbo by default) with language_code it. Chosen by audition on 2026-09-27: the same villager lines in each candidate, checked with the local Whisper (every word right but 'gubana'), the pitch and the noise measured. Native Italian library voices for the narrator, the grandparents and the young man (Violetta, Nonno Ben, Angelina, Chris Basetta: on the account since the audition, no voice slot); the others are voices the account had, which ElevenLabs verified in Italian where it says so (Mila, Tomasz Z, Alice, Torri Miles, Kavya). The narrators are native, so no 'carrier'. The library has no Italian child's voice (Oceano, 14, is a teenager's), so the children keep the account's. 'alternatives': the other candidates heard (on the account); one with a 'library_owner' was not heard, only its library preview, and must be added first. To swap a voice, put its id in 'elevenlabs' and re-voice that speaker: LANI_CULTURE=friuli companion/bin/voice-build --run --revoice <speaker> --data <the learner's data dir>. No 'gepard' voices: the local worker speaks only Slovene. Voice Design stays off for new profiles (LANI_VOICE_DESIGN=off).",
   "language": "it",
-  "denoise": { "_comment": "The girl's voice (Torri Miles) hisses: her ElevenLabs clips are filtered before they are stored (companion/voice-cast.json).", "girl": "hiss" },
+  "denoise": { "_comment": "The girl's voice (Torri Miles) hisses: her ElevenLabs clips are filtered before they are stored (companion/voice-cast.json). So are the learner's voices whose library previews had their pauses above −58 dB (2026-10-29: 'players'); measure their first clips and take a filter away where it isn't needed.", "girl": "hiss", "player-man-b": "hiss", "player-man-c": "hiss", "player-woman-c": "hiss" },
+  "player": {
+    "_comment": "The grown-ups' default voice for the learner's own lines in a dialog, per gender: the first of 'players' (see its comment), which a learner without a choice hears; the cast's voice for a learner of a town older than 'players' on a visit.",
+    "male": "player-man-a",
+    "female": "player-woman-a"
+  },
+  "players": {
+    "_comment": "The voices the learner chooses theirs from, \"🗣️ Moj glas · My voice\" (companion/SCENES.md, \"The learner's voice\"; docs/plans/05-built/my-voice.md): a gender → an age (adult; child, for a learner whose profile is a child's: LANI_CHILD) → 2 or 3 voices, the default first. Each is a speaker below with its 'age' (a voice of the learner's: no villager may speak with it), or a narrator's voice in a language ('male.sl'). None may be a voice anyone in this cast speaks with (every speaker but the narrators and these, in every language): the bridge leaves such an entry out and logs it, and the smoke test fails on one. The learner's choice is kept in their learner profile (preferences.my_voice); a voice swapped here keeps its speaker, so their choice stays (set its 'since'). Picked from the ElevenLabs voice library on 2026-10-29 by their labels and their free previews (pitch, loudness, noise, the local Whisper), not heard by Jan yet; each speaker's 'role' says why. The first request with a library voice's id adds it to the account (no voice slot).",
+    "male": { "adult": ["player-man-a", "player-man-b", "player-man-c"], "child": ["player-boy-a", "player-boy-b", "player-boy-c"] },
+    "female": { "adult": ["player-woman-a", "player-woman-b", "player-woman-c"], "child": ["player-girl-a", "player-girl-b", "player-girl-c"] }
+  },
   "speakers": {
     "female": {
       "gender": "female",
@@ -92,6 +102,102 @@
       "name": "Kavya",
       "role": "Boy: Tommaso, Lorenzo; boys born in the village",
       "alternatives": [{ "name": "Oceano", "elevenlabs": "c6cUlh8iJa74kYbBwDaZ", "library_owner": "80db51a320172e482336b4d447b6dbebe4eae1689131be5888649e78b23d6493" }]
+    },
+    "player-man-a": {
+      "gender": "male",
+      "age": "adult",
+      "elevenlabs": "G1QO6RfZl0zS1DpKDReq",
+      "name": "Ricasco",
+      "library_owner": "4af1f1c565dedabc7483dcc04f64ef9dffaffe1a312581d0eaf4075501d81532",
+      "role": "A man's voice for the learner: Italian native, clear, warm and well-paced, made for teaching; F0 140 Hz"
+    },
+    "player-man-b": {
+      "gender": "male",
+      "age": "adult",
+      "elevenlabs": "nH7uLS5UdEnvKEOAXtlQ",
+      "name": "Vittorio",
+      "library_owner": "a0a4e67f327861c1168f736f3f5d70bb12c0d8285a7655d970ed469ea50257ee",
+      "role": "A man's voice for the learner: Italian native, a friendly northern (Milanese) colour; F0 109 Hz; pauses near −56 dB, so filtered"
+    },
+    "player-man-c": {
+      "gender": "male",
+      "age": "adult",
+      "elevenlabs": "MTgv1KRJpUnc34UMGTHK",
+      "name": "Matteo",
+      "library_owner": "af8cd84dd4e37ceac6f9e48f92c15236109f4797d79c9f043814b36da482d379",
+      "role": "A man's voice for the learner: Italian native, a soft Veneto accent (the nearest to Friuli), warm; F0 149 Hz; hisses (−48 dB), so filtered"
+    },
+    "player-woman-a": {
+      "gender": "female",
+      "age": "adult",
+      "elevenlabs": "MuTiG4dbrEGYEy3XP4iP",
+      "name": "Rossana",
+      "library_owner": "8c27cf5b77c6b23a438b771fbada14b3368b9f2bd1153c1c12d89edfe2cbcacb",
+      "role": "A woman's voice for the learner: Italian native, clear standard Italian at an easy pace, made for conversation; F0 175 Hz, very clean"
+    },
+    "player-woman-b": {
+      "gender": "female",
+      "age": "adult",
+      "elevenlabs": "zFA34HbdHBvF8WhlSusK",
+      "name": "Nora",
+      "library_owner": "c195786f8bcf2bfeb6a065ba669daea4a2b67575d054f502913a3e88d0d7050b",
+      "role": "A woman's voice for the learner: Italian native, bright and easy to understand; F0 233 Hz, very clean"
+    },
+    "player-woman-c": {
+      "gender": "female",
+      "age": "adult",
+      "elevenlabs": "uV2Bhcm1HwmAqPqkbjfl",
+      "name": "Sara",
+      "library_owner": "74072602ea6dce8736c73ea50cab9d7d02996bc1274aa2e7710faeaaec8ef485",
+      "role": "A woman's voice for the learner: Italian native, warm, clear, mid-range; F0 209 Hz; pauses near −58 dB, so filtered"
+    },
+    "player-boy-a": {
+      "gender": "male",
+      "age": "child",
+      "elevenlabs": "d7G4zsIoYxHBAwkKbqs5",
+      "name": "Bhola",
+      "library_owner": "7398804d9eaf2f463899a907587c33a390591775784f87857b6d0e1e4e3e66f6",
+      "role": "A boy's voice for the learner (Teo's default in friuli): soft, innocent, cheerful young boy, verified in Italian; F0 ~300 Hz, very clean"
+    },
+    "player-boy-b": {
+      "gender": "male",
+      "age": "child",
+      "elevenlabs": "EeQEodFZVtBkjtgK3HBc",
+      "name": "Piku",
+      "library_owner": "7398804d9eaf2f463899a907587c33a390591775784f87857b6d0e1e4e3e66f6",
+      "role": "A boy's voice for the learner: an expressive real kid ('his' delivery; the library says female; Zala's in Primorska); verified in Italian; F0 299 Hz"
+    },
+    "player-boy-c": {
+      "gender": "male",
+      "age": "child",
+      "elevenlabs": "srEfhy4AF67Mw9SpTVFd",
+      "name": "Omar",
+      "library_owner": "7398804d9eaf2f463899a907587c33a390591775784f87857b6d0e1e4e3e66f6",
+      "role": "A boy's voice for the learner: a bright, lively young boy, verified in Italian and German; F0 ~340 Hz, very clean"
+    },
+    "player-girl-a": {
+      "gender": "female",
+      "age": "child",
+      "elevenlabs": "e3FEEanj39p8QCSMe8iV",
+      "name": "Gudiya",
+      "library_owner": "7398804d9eaf2f463899a907587c33a390591775784f87857b6d0e1e4e3e66f6",
+      "role": "A girl's voice for the learner: a curious child's, sweet and natural, verified in Italian; F0 ~325 Hz, very clean"
+    },
+    "player-girl-b": {
+      "gender": "female",
+      "age": "child",
+      "elevenlabs": "Jr72SE8p9OcJmr8hyX0D",
+      "name": "Chutki",
+      "library_owner": "7398804d9eaf2f463899a907587c33a390591775784f87857b6d0e1e4e3e66f6",
+      "role": "A girl's voice for the learner: a cheerful kid, verified in Italian; F0 277 Hz, very clean (giggly at times)"
+    },
+    "player-girl-c": {
+      "gender": "female",
+      "age": "child",
+      "elevenlabs": "XJ2fW4ybq7HouelYYGcL",
+      "name": "Cherry",
+      "library_owner": "9678631cb37e3563db1009a63ef157907498ecd3622f3449de0cac253c6faaaf",
+      "role": "A girl's voice for the learner: bright and sweet, the library's most used kid voice, verified in Italian; F0 378 Hz, clean"
     }
   }
 }
