@@ -17,3 +17,10 @@ reply needed. A typo of another word: gloss that word (its lemma) with a note; a
 in a reply only if the word can't be explained at all.
 publish_gloss's gloss_lang is the language your glosses are in (default: Jan's base); language is the word's (default:
 the village's; on a visit, the town's, as the note or data.lookup.language says).
+The case lens (Slovene): a word card of a Slovene word in its line shows its case and number ("rodilnik, ed. · koga?
+česa?"), the word that decided it (a preposition, a negation, a number or quantity, a verb or word of feeling, the
+subject's verb), the rule's grammar page, and every reading when the line can't tell; readings, stories and dialogs can
+underline each noun in its case's colour ("Skloni · Cases"). The lens is a rule table (companion/grammar/sl/data/
+case-triggers.json), never a guess: point Jan to it when a case trips them ("tap the word: the card says what decides
+it"). GET /cases/seen lists, per rule (the grammar page's id), how often Jan has looked at a word through it: met, not
+practised; the case trainer weighs it lightly.

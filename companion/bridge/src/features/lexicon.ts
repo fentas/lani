@@ -7,6 +7,8 @@
 // On a visit the words are the host town's language, explained in the visit's base: that language's dictionary is
 // loaded (or downloaded) at the first lookup. A word's forms (GET /forms, forms.ts): its slots with the grammar book's
 // page of each and the content's lines they stand in, for the review's form questions and the word card's table.
+// A Slovene word looked up in its line has its case too (cases.ts, the case lens: GET /lookup's `case`, the word card's
+// "Sklon · Case" row), and a reading's or a dialog's lines are coloured by case on demand (POST /cases).
 import { existsSync, readdirSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 import { z } from 'zod'
@@ -24,6 +26,9 @@ import { itemId, meaningOf, normWord, PackStore, packsDirs, vocabularyWords, wor
 import { labelEn } from '../langs'
 import { untrustedJson } from '../family'
 import { MAX_REQUESTS, WordRequests, type WordRequest } from '../word-requests'
+import { CaseLens, namesOf, type LineCases, type NameForms, type WordCase } from '../cases'
+import type { CaseTriggers } from '../case-triggers'
+import { CaseSeen } from '../case-seen'
 
 const instructions = `
 Word lookup: in the app's dialogs Jan taps a word and sees its base form, meaning and grammar (the bridge looks it up
@@ -45,6 +50,13 @@ reply needed. A typo of another word: gloss that word (its lemma) with a note; a
 in a reply only if the word can't be explained at all.
 publish_gloss's gloss_lang is the language your glosses are in (default: Jan's base); language is the word's (default:
 the village's; on a visit, the town's, as the note or data.lookup.language says).
+The case lens (Slovene): a word card of a Slovene word in its line shows its case and number ("rodilnik, ed. · koga?
+česa?"), the word that decided it (a preposition, a negation, a number or quantity, a verb or word of feeling, the
+subject's verb), the rule's grammar page, and every reading when the line can't tell; readings, stories and dialogs can
+underline each noun in its case's colour ("Skloni · Cases"). The lens is a rule table (companion/grammar/sl/data/
+case-triggers.json), never a guess: point Jan to it when a case trips them ("tap the word: the card says what decides
+it"). GET /cases/seen lists, per rule (the grammar page's id), how often Jan has looked at a word through it: met, not
+practised; the case trainer weighs it lightly.
 `.trim()
 
 /**
@@ -101,6 +113,10 @@ const WAIT_MS = Number(process.env.LANI_LEXICON_WAIT_MS ?? 20_000)
 
 const LANG = /^[a-z]{2,3}$/
 
+/** At most this many lines POST /cases colours at once, each this long at most. */
+const CASES_LINES = 60
+const CASES_CHARS = 400
+
 /** At most this many words GET /forms answers at once. */
 const FORMS_WORDS = 40
 /** How long the content's lines are kept before they are read again (sooner when the tutor publishes something). */
@@ -115,6 +131,26 @@ export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox,
   // (lexicon/<language>.forms.json); shared through the context (the woven words' check reads them too)
   const { dict, book } = dictionary
   const partners = (lemma: string) => partnerOf(book, dict, lemma)
+
+  // The case lens (cases.ts): made at the first ask, again when its table or the forms book changes; Slovene's only (its
+  // cases, FORMS_LANGUAGES), the village's language, never a visit's.
+  let lens: { table: CaseTriggers; book: unknown; lens: CaseLens } | null = null
+  function caseLens(): CaseLens | null {
+    if (!FORMS_LANGUAGES.has(language)) return null
+    const table = dictionary.triggers.current()
+    if (!table) return null
+    const current = book.current()
+    if (lens?.table !== table || lens.book !== current) lens = { table, book: current, lens: new CaseLens({ dict, book, table }) }
+    return lens.lens
+  }
+  /** The village's names as the lens declines them: the villagers' given names, and the learner's own forms. */
+  function lensNames(): NameForms[] {
+    const villagersNames = namesOf(villagers.all().map(v => ({ given: v.name.trim().split(/\s+/).at(-1) ?? v.name })))
+    const a = addressee()
+    const me: NameForms[] = a.generic ? [] : [{ name: a.name, forms: { nom: a.name, gen: a.forms.gen, dat: a.forms.dat, acc: a.forms.acc, loc: a.forms.loc, ins: a.forms.ins } }]
+    return [...me, ...villagersNames.filter(n => n.name !== a.name)]
+  }
+  const seen = new CaseSeen(join(cfg.appDir, 'case-lens-seen.json'), log)
 
   // The content's lines a form may be asked in, by their words: made at the first ask, again after LINES_TTL_MS or when
   // the tutor published something with lines in it.
@@ -331,6 +367,35 @@ export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox,
     return lookup(w, at, { lexicon: v.dict, base: b, packs: renderDeep(v.packs.curatedOnly(), addressee()), people: [], items: srItems(lang) })
   }
 
+  /**
+   * The word [w] of [line] (its [n]th) through the case lens, null for a word without a case that decides none; one whose
+   * case the line decides counts as seen for its rule.
+   */
+  function caseOf(line: string, w: string, n: number): (Partial<WordCase> & { governs?: unknown }) | null {
+    const l = caseLens()
+    if (!l) return null
+    try {
+      const c = l.at(line, w, n, lensNames())
+      // seen: a word whose case the line decides (its number may be open: vasi, the genitive singular or plural)
+      if (c && 'pick' in c && c.pick && c.kind !== 'unresolved' && c.rule && new Set(c.options.map(o => o.case)).size === 1) seen.saw(c.rule, line, `${c.i}`, c.trigger?.word)
+      return c
+    } catch (e) {
+      log(`case lens: ${line.slice(0, 80)}: ${(e as Error).message}`)
+      return null
+    }
+  }
+
+  /** A line's words with a case, as the colours draw them: where each is, its case (null: the line can't tell), how sure. */
+  function coloured(r: LineCases) {
+    return {
+      words: r.words.map(w => ({
+        i: w.i, start: w.start, end: w.end, word: w.word, sure: w.sure, kind: w.kind, rule: w.rule,
+        ...(w.pick ? { case: w.pick.case, number: w.pick.number, ...(w.pick.gender ? { gender: w.pick.gender } : {}) } : {}),
+        ...(w.trigger ? { trigger: { i: w.trigger.i, start: w.trigger.start, end: w.trigger.end } } : {}),
+      })),
+    }
+  }
+
   // --- the words asked for: "➕ Add to my words" on a word the dictionary didn't know ---------------------------------
 
   const requests = new WordRequests(join(cfg.appDir, 'word-requests.json'), log)
@@ -505,9 +570,13 @@ export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox,
           const b = asks ?? baseFor(lang)
           const r = await lookUpIn(w, at, lang, b)
           noteGaps(r, lang, b)
+          // its case in the line (the village's Slovene; the word's [n]th in the line, from 0): the word card's
+          // "Sklon · Case" row; a word decided by a rule counts as seen for that rule
+          const n = Math.min(20, Math.max(0, Number.parseInt(url.searchParams.get('n') ?? '0', 10) || 0))
+          const c = lang === language && at.line ? caseOf(at.line, w, n) : null
           // not found, and asked for already ("➕ Add to my words"): the card says the tutor is writing its meaning
           const waiting = !r.entries.length && r.word ? requests.find(lang, normalizeForm(r.word, lang)) : undefined
-          return json(waiting ? { ...r, requested: true } : r)
+          return json({ ...r, ...(waiting ? { requested: true } : {}), ...(c ? { case: c } : {}) })
         },
       },
       { method: 'POST', path: '/words', handle: ({ req, url }) => outbox.once(req, url.pathname, handleWords) },
@@ -541,6 +610,34 @@ export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox,
       },
       // what POST /words takes as its `from`: the app sends "reading" only when it is here
       { method: 'GET', path: '/words', handle: () => json({ from: WORD_SOURCES }) },
+      {
+        method: 'POST',
+        path: '/cases',
+        // {lines: [...]}: each line's words with a case, for the colours of a reading, a story or a dialog ("Skloni · Cases");
+        // a read, not a write (no outbox); none for a language without the lens
+        handle: async ({ req }) => {
+          const body = (await readJson(req)) as { lines?: unknown } | null
+          const lines = Array.isArray(body?.lines) ? body.lines : null
+          if (!lines || lines.length > CASES_LINES || lines.some(l => typeof l !== 'string' || l.length > CASES_CHARS))
+            return json({ error: `lines: 0-${CASES_LINES} lines, each a string of at most ${CASES_CHARS} characters` }, 400)
+          const l = caseLens()
+          if (!l) return json({ language, lines: (lines as string[]).map(() => ({ words: [] })) })
+          const names = lensNames()
+          return json({
+            language,
+            lines: (lines as string[]).map(line => {
+              try {
+                return coloured(l.analyze(line, names))
+              } catch (e) {
+                log(`case lens: ${line.slice(0, 80)}: ${(e as Error).message}`)
+                return { words: [] }
+              }
+            }),
+          })
+        },
+      },
+      // how often the learner has looked at a word through the lens, per rule (the case trainer weighs it lightly)
+      { method: 'GET', path: '/cases/seen', handle: () => json(seen.current()) },
     ],
     tools: [
       {

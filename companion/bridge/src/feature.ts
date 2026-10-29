@@ -11,6 +11,7 @@ import type { Manifest } from './cultures'
 import type { Events } from './events'
 import type { Family } from './family'
 import type { FormsBook } from './forms'
+import type { CaseTriggersFile } from './case-triggers'
 import type { GameStore } from './game'
 import type { GrammarStore } from './grammar'
 import type { Route } from './http'
@@ -119,9 +120,10 @@ export type Ctx = {
   /**
    * The village language's dictionary (lexicon.ts: Wiktionary's, the supplement, the tutor's glosses; read at its first
    * use) and its forms book (forms.ts), one of each: the word lookup serves them, and the check of a dialog's woven words
-   * reads which lemma a form is of (dialog-words.ts).
+   * reads which lemma a form is of (dialog-words.ts); and the case lens's trigger table (case-triggers.ts: what decides a
+   * word's case, companion/grammar/<language>/data/case-triggers.json; none for a language without one).
    */
-  dictionary: { dict: Lexicon; book: FormsBook; language: string }
+  dictionary: { dict: Lexicon; book: FormsBook; language: string; triggers: CaseTriggersFile }
 }
 
 export type FeatureFactory = (ctx: Ctx) => Feature

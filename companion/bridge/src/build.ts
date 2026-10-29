@@ -59,6 +59,7 @@ import { grammarDir, GrammarStore } from './grammar'
 import { setting } from './env'
 import { addressed, bearer, json, loadToken, router, type Role, type Route } from './http'
 import { FormsBook } from './forms'
+import { caseTriggersPath, CaseTriggersFile } from './case-triggers'
 import { Learner } from './learner'
 import { channelRules, INSTRUCTIONS_LIMIT, learnerFacts, learnerInstructions, learnerLangs, profileFromEnv, type DataPlace, type Profile } from './learners'
 import { Lexicon } from './lexicon'
@@ -311,6 +312,7 @@ export function buildBridge<C extends ChannelPort>(platform: Platform<C>, o: Bui
       dict: new Lexicon({ dir: lexiconDir, language, base: learnerLangs(dataDir, language).base, tutorFile: join(appDir, 'lexicon.json'), log }),
       book: new FormsBook({ dir: lexiconDir, language, log }),
       language,
+      triggers: new CaseTriggersFile(caseTriggersPath(env.LANI_GRAMMAR_DIR ?? join(projectDir, 'companion/grammar'), language), log),
     },
   }
   ctx.profiles = voicing.profiles(ctx)
