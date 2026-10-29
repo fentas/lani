@@ -131,6 +131,15 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         speaker.clips = it
         it.playerGender = { learners.profile.gender }
     }
+    /**
+     * "🗣️ Moj glas · My voice" (app/MyVoiceController): the voice the learner's own lines are said in, chosen on the node from
+     * 2–3 of their gender and age, or off; offered once at the first line of theirs a dialog says. The node's say of it
+     * ([Clips.mine]) is the home node's on a visit too: the phone's own voice imitates it when no clip can be had.
+     */
+    val myVoice = si.lanisce.lani.app.MyVoiceController(viewModelScope, clips, speaker).also { m ->
+        speaker.mine = { clips.mine }
+        speaker.onOwnLine = { m.offerAtLine() }
+    }
     /** The hint's 🔊 in a dialog: its TL;DR in the learner's base with the Slovene in the app's voice; stopped by [speaker]. */
     val hintVoice = si.lanisce.lani.data.HintVoice(app, viewModelScope, speaker).also { speaker.hint = it }
     /** A unit's introduction read aloud in the teacher's voice (data/IntroVoice.kt); stopped by [speaker], as the hint's. */
@@ -668,6 +677,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         connected = c
         family.connect(c)
         clips.connect(c)
+        myVoice.connect(c)
         stt.connect(c)
         // Home, or the screens the learner was on before the process died (the stack saved, Nav.kt)
         val back = restoring
@@ -1403,6 +1413,8 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
             what == "visitvoice:again" -> visitVoice.qaAgain()
             // the offline voice of a language off the phone ("voice:remove:sl"), as the settings' 🗑️ takes it
             what.startsWith("voice:remove:") -> offlineAudio.removeFor(what.removePrefix("voice:remove:"))
+            // "🗣️ Moj glas · My voice": offered again at the next line of the learner's, as if never chosen
+            what == "myvoice:offer" -> myVoice.qaOfferAgain()
         }
     }
 

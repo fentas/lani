@@ -77,6 +77,18 @@ class Speaker(private val context: Context) {
     /** Natural voice clips from the node, after family recordings and before TTS. */
     var clips: Clips? = null
 
+    /**
+     * The learner's own voice as their node says it ([MineVoice]: the home node's, on a visit too): what the phone's own
+     * voice imitates when no clip of their line can be had (its gender, a child's higher: [PlayerTts]).
+     */
+    var mine: () -> MineVoice? = { null }
+
+    /**
+     * Told as the learner's own line in a dialog is about to be said in their voice ([si.lanisce.lani.ui.scene.DialogVoice]):
+     * the app offers the choice of their voice then, once (app/MyVoiceController).
+     */
+    var onOwnLine: (() -> Unit)? = null
+
     /** Something can speak: a TTS voice, the node's voice store, or the offline voice of the target language. */
     val canSay: Boolean get() = available || clips?.enabled == true || offline?.speaks(L10n.pair.target.code) == true
 
@@ -275,6 +287,8 @@ class Speaker(private val context: Context) {
         val c = clips
         val (voices, shared, own) = voicesFor(voiceName, fallback, person)
         val (pitch, rate) = pitchRate(person)
+        // the learner's own line without a clip of their voice: the phone's voice as theirs (its gender, a child's higher)
+        val style = if (voiceName == Clips.PLAYER) playerStyle(mine()) else null
         // only the wanted voice's clip plays at once: another voice's waits until the node can't make this one
         val local = c?.onDevice(text, voices.take(1))
         val route = Clips.route(
@@ -285,7 +299,7 @@ class Speaker(private val context: Context) {
         )
         if (route != Route.TTS && ready) tts.stop()
         /** No clip to play: the offline voice, else TTS ([fallback]). */
-        fun withoutClip() = speakOffline(t, text, slow, pitch, rate)
+        fun withoutClip() = speakOffline(t, text, slow, style?.pitch ?: pitch, rate, style)
         /**
          * A clip on the phone in another voice of theirs (their shared one, for a voice of their own), when the wanted one
          * couldn't be had; else the offline voice, else TTS.
@@ -455,19 +469,59 @@ class Speaker(private val context: Context) {
      * background, 🐢 through its length scale, then played as a clip at the person's pitch and pace), else text-to-speech.
      * [t]: the turn it was asked in; a line that comes late doesn't talk over the next one.
      */
-    private fun speakOffline(t: Int, text: String, slow: Boolean, pitch: Float, rate: Float) {
+    private fun speakOffline(t: Int, text: String, slow: Boolean, pitch: Float, rate: Float, style: PlayerTts.Style? = null) {
         val o = offline
         val v = voice
         val target = L10n.pair.target.code
-        if (o == null || v == null || fallback(false, o.language, target, available) != Fallback.OFFLINE) return synthesize(t, text, slow)
+        if (o == null || v == null || fallback(false, o.language, target, available) != Fallback.OFFLINE) return synthesize(t, text, slow, style)
         said(text, "offline voice")
         loading = true
         scope.launch {
             val f: File? = runCatching { o.render(text, if (slow) Piper.SLOW else 1f) }.getOrNull()
             if (t != turn) return@launch
             loading = false
-            if (f != null) v.playClips(listOf(f), false, pitch, rate) { synthesize(t, text, slow) } else synthesize(t, text, slow)
+            if (f != null) v.playClips(listOf(f), false, pitch, rate) { synthesize(t, text, slow, style) } else synthesize(t, text, slow, style)
         }
+    }
+
+    /** The phone's voices, as [PlayerTts] reads them (none before the engine is ready). */
+    private fun ttsVoices(): List<PlayerTts.VoiceInfo> = if (!ready) emptyList() else runCatching {
+        tts.voices.orEmpty().map { PlayerTts.VoiceInfo(it.name, it.locale, it.features.orEmpty(), it.isNetworkConnectionRequired, it.quality) }
+    }.getOrDefault(emptyList())
+
+    /** How the phone's voice says a line of [m]'s (the learner's own voice, or one to choose): [PlayerTts.style]. */
+    private fun playerStyle(m: MineVoice?): PlayerTts.Style = PlayerTts.style(m, locale(L10n.pair.target), ttsVoices())
+
+    /**
+     * A voice to choose, heard ("🗣️ Moj glas · My voice"'s ▶): its sample [text] in its clip ([fetch]: on the phone already,
+     * else got from the node, which makes it the first time), else the phone's own voice as it would say the learner's lines
+     * in it ([like]: its gender, a child's higher). Returns once it has been heard, or cut by what is said after it; true
+     * when a voice was heard.
+     */
+    suspend fun sample(text: String, like: MineVoice, fetch: suspend () -> File?): Boolean {
+        val t = ++turn
+        hint?.stop()
+        intro?.stop()
+        voice?.stop()
+        if (ready) tts.stop()
+        loading = true
+        val f = try {
+            fetch()
+        } catch (e: CancellationException) {
+            if (turn == t) loading = false
+            throw e
+        } catch (_: Exception) {
+            null
+        }
+        if (t != turn) return false
+        loading = false
+        val v = voice
+        val style = playerStyle(like)
+        if (f != null && v != null) {
+            said(text, "sample clip (${like.voice})")
+            v.playClips(listOf(f), false, 1f, 1f) { synthesize(t, text, false, style) }
+        } else synthesize(t, text, false, style)
+        return heard(t, { turn }, { busy }, { talking })
     }
 
     /**
@@ -567,22 +621,36 @@ class Speaker(private val context: Context) {
         return true
     }
 
-    private fun synthesize(t: Int, text: String, slow: Boolean) {
+    /**
+     * [text] by Android's text-to-speech, asked in turn [t]; [style]: the learner's own line (or a voice to choose) in their
+     * voice's gender and pitch ([PlayerTts]), set for this line only (the request keeps what it was asked with).
+     */
+    private fun synthesize(t: Int, text: String, slow: Boolean, style: PlayerTts.Style? = null) {
         // the phone's voice spoke another language last ([sayIn]): the target's again
         if (foreign != null) {
             foreign = null
             refresh()
         }
-        said(text, if (available) "tts" else "nothing (no tts voice)")
+        said(text, if (available) (if (style != null) "tts (${style.voice ?: "default"}, pitch ${style.pitch})" else "tts") else "nothing (no tts voice)")
         if (!available) {
             if (t == turn) onSilent?.invoke(text)
             return
         }
         tts.setSpeechRate(if (slow) 0.55f else 0.9f)
+        if (style != null) {
+            style.voice?.let { name -> runCatching { tts.voices?.firstOrNull { it.name == name }?.let { tts.voice = it } } }
+            tts.setPitch(style.pitch)
+        }
         val id = "say-$t"
         utterance = id
         ttsTalking = true
-        if (tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, id) != TextToSpeech.SUCCESS) {
+        val spoken = tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, id)
+        if (style != null) {
+            // the next line in the phone's own voice again: its pitch, and the language's default voice
+            tts.setPitch(1f)
+            tts.setLanguage(locale(L10n.pair.target))
+        }
+        if (spoken != TextToSpeech.SUCCESS) {
             if (utterance == id) ttsTalking = false
             return
         }

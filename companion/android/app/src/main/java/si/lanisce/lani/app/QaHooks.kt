@@ -50,7 +50,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   "audio:tts:" lets it be; "audio:visitvoice:reset" forgets the visits' offers of an offline voice declined, and lets this
  *   visit's note come again (app/VisitVoiceController), "audio:visitvoice:again" lets it come again keeping the declines (the
  *   🔇 note after a "Ne zdaj"); "audio:voice:remove:<lang>" takes that language's offline voice
- *   off the phone, as the settings' 🗑️ does.
+ *   off the phone, as the settings' 🗑️ does; "audio:myvoice:offer" lets "🗣️ Moj glas · My voice" be offered again at the
+ *   learner's next line in a dialog, as if they had never chosen (app/MyVoiceController).
  * - "render:full": the village's map draws its ground whole every frame, as it did before 2026-10-26, instead of keeping its
  *   still picture and drawing only its water anew ([si.lanisce.lani.game.render.VillageRenderer.groundKept]), and paints its
  *   trees every frame instead of keeping their stamps ([si.lanisce.lani.game.render.Stamps.on]): QA measures the two (the

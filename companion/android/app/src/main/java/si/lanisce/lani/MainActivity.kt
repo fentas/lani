@@ -225,6 +225,8 @@ private fun App(vm: AppViewModel) {
     vm.scenes.keeperTalk?.let { si.lanisce.lani.ui.scene.KeeperScene(vm, it) }
     // a village project's step played over the village (no scene of its own open today): its people and its dialog
     vm.scenes.talk?.takeIf { it.step?.over == true }?.let { si.lanisce.lani.ui.scene.ProjectStepScene(vm, it) }
+    // "🗣️ Moj glas · My voice" offered once, at the first line of the learner's a dialog says, over it (ui/settings/MyVoiceSettings)
+    if (vm.myVoice.offering) si.lanisce.lani.ui.settings.MyVoiceOffer(vm)
     vm.words.card?.let { WordSheet(vm, it) }
     // a word's whole table to read ("📋 Vse oblike"), over the word's card or a forms card's end it was opened from
     vm.formsCards.view?.let { si.lanisce.lani.ui.FormsOverviewSheet(vm, it) }

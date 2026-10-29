@@ -196,8 +196,21 @@ class Clips(context: Context, private val scope: CoroutineScope, private val vis
     /** The learner profile's gender ("male", "female"; null when it says none): their voice until the node says ([player]). */
     var playerGender: () -> String? = { null }
 
-    /** The voice the learner's own lines are in on the phone: the node's ([player]), else their gender's narrator ([playerOf]). */
-    val playerVoice: String get() = player ?: playerOf(playerGender())
+    /**
+     * The learner's own voice as the node says it (GET /voice/profiles' "mine": the voice they chose or the default, its
+     * gender and age, off, whether they have chosen; data/MyVoice.kt); null until it said (offline, an older node, a visit).
+     */
+    var mine by mutableStateOf<MineVoice?>(null)
+        private set
+
+    /** The node said no voice may say the learner's lines (its "player" null): none of the phone's clips stands in. */
+    private var playerNone = false
+
+    /**
+     * The voice the learner's own lines are in on the phone: the node's ([mine], [player]), else their gender's narrator
+     * ([playerOf]); [NONE] when the node has none for them (the phone's own voice says them).
+     */
+    val playerVoice: String get() = if (playerNone) NONE else player ?: playerOf(playerGender())
 
     /** [voices] as the clips on the phone know them: the learner's own ([PLAYER]) as the voice they are in ([playerVoice]). */
     private fun known(voices: List<String>): List<String> = knownAs(voices, playerVoice)
@@ -206,6 +219,18 @@ class Clips(context: Context, private val scope: CoroutineScope, private val vis
     internal fun profilesSaid(raw: String) {
         runCatching { parseProfiles(raw) }.getOrNull()?.let { profiles = it }
         runCatching { parsePlayer(raw) }.getOrNull()?.let { player = it }
+        playerNone = runCatching { playerSaidNone(raw) }.getOrDefault(false)
+        runCatching { MyVoices.parseMine(raw) }.getOrNull()?.let { mine = it }
+    }
+
+    /**
+     * The learner chose their voice ("🗣️ Moj glas · My voice"): their lines from now on in [m]'s voice, as the node said it
+     * after keeping the choice; their clips in the voice before stay (nothing is voiced again in bulk).
+     */
+    fun mineSaid(m: MineVoice) {
+        mine = m
+        if (m.voice != null) player = m.voice
+        playerNone = m.voice == null
     }
     /** The people last told to the node, so an unchanged list isn't sent again. */
     private var told: List<PersonVoice>? = null
@@ -623,6 +648,12 @@ class Clips(context: Context, private val scope: CoroutineScope, private val vis
 
         /** [voices] with the learner's own ([PLAYER]) as the voice their clips are in, [player] ("male"): what the index knows. */
         fun knownAs(voices: List<String>, player: String): List<String> = voices.map { if (it == PLAYER) player else it }.distinct()
+
+        /** The learner's lines have no voice of the node's ([playerVoice]): no clip is kept under it. */
+        const val NONE = "-"
+
+        /** The node said "player": null (no voice of its cast may say the learner's lines), not left it out (an older bridge). */
+        fun playerSaidNone(raw: String): Boolean = json.parseToJsonElement(raw).jsonObject["player"] is kotlinx.serialization.json.JsonNull
 
         /** The voice the learner's lines are in, from GET or POST /voice/profiles ("player": "male"); null from an older bridge. */
         fun parsePlayer(raw: String): String? =

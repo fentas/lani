@@ -192,4 +192,23 @@ class DialogVoiceTest {
         voice.say(heard, { fail("the learner's line said again: ${it.sl}") }, { l -> v.events += "said ${l.sl}" }, quiet = { fail("waited for quiet with no line of the learner's before") })
         assertEquals(listOf("said Izvoli."), v.events)
     }
+
+    @Test fun `the learner's lines off, a choice tapped is not said, the reply comes as it did before they had a voice`() = runBlocking {
+        val r = start()
+        val voice = DialogVoice()
+        val v = FakeVoice()
+        voice.say(r, { v.say("me", it) }, { l -> v.events += "said ${l.sl}" }, own = false)
+        v.events.clear()
+        val tapped = r.choose(r.right())
+        val from = System.currentTimeMillis()
+        voice.say(tapped, { fail("a line of the learner's said while their voice is off: ${it.sl}") }, { l -> v.events += "said ${l.sl}" },
+            quiet = { fail("waited for quiet with no line of the learner's said") }, own = false)
+        assertEquals(listOf("said Izvoli."), v.events)
+        // the reply's pause is the dialog's own, as without a line of the learner's (not the breath after one)
+        assertTrue(System.currentTimeMillis() - from >= DialogMood.sayAfter(tapped) - 20)
+        // a choice without a reply: nothing at all is said
+        v.events.clear()
+        voice.say(tapped.choose(tapped.right()), { fail("said while off: ${it.sl}") }, { l -> v.events += "said ${l.sl}" }, own = false)
+        assertTrue(v.events.isEmpty())
+    }
 }

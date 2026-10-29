@@ -35,7 +35,9 @@ class DialogVoice {
     /**
      * Says what [run]'s newest step brought ([toSay], since the last time), in turn: [mine] says the learner's line and
      * returns once it has been heard (or cut); [quiet] waits while anything else is still being said (a 🔊 tapped); then
-     * [theirs] says someone's, drawn talking meanwhile as [idOf] has them. The pauses are the dialog's ([pauses]).
+     * [theirs] says someone's, drawn talking meanwhile as [idOf] has them. The pauses are the dialog's ([pauses]). [own]:
+     * the learner's lines are said (their voice isn't off: "🗣️ Moj glas · My voice"); off, the reply comes as it did
+     * before they had a voice.
      */
     suspend fun say(
         run: DialogRun,
@@ -43,8 +45,9 @@ class DialogVoice {
         theirs: suspend (Said) -> Unit,
         quiet: suspend () -> Unit = {},
         idOf: (String) -> String = { it },
+        own: Boolean = true,
     ) {
-        val lines = toSay(run.said, heard)
+        val lines = toSay(run.said, heard).filter { own || it.who != null }
         heard = run.said.size
         val pauses = pauses(run, lines)
         for ((i, line) in lines.withIndex()) {
@@ -111,6 +114,8 @@ fun rememberDialogVoice(speaker: Speaker, talk: SceneTalk?, voiceOf: (String) ->
         voice.say(
             run,
             mine = { line ->
+                // the first line of theirs said: the app offers the choice of their voice, once (never a wall: said meanwhile)
+                speaker.onOwnLine?.invoke()
                 val from = System.currentTimeMillis()
                 speaker.sayThrough(line.sl, voiceName = Clips.PLAYER, stopIfLeft = false)
                 if (BuildConfig.QA) Log.i("Speaker", "heard «${Voice.normalize(line.sl)}» after ${System.currentTimeMillis() - from} ms (the learner's line, ${line.by})")
@@ -124,6 +129,8 @@ fun rememberDialogVoice(speaker: Speaker, talk: SceneTalk?, voiceOf: (String) ->
             },
             quiet = speaker::awaitQuiet,
             idOf = { who -> of(who).first },
+            // the learner turned their lines off ("🗣️ Moj glas · My voice"): theirs aren't said
+            own = speaker.mine()?.off != true,
         )
     }
     return voice.talking

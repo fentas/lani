@@ -372,7 +372,7 @@ private fun Lines(vm: AppViewModel, talk: SceneTalk, voice: Spoken, modifier: Mo
             val missed = cards[i].orEmpty()
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 // the learner's own line with its 🔊 in their voice (a slip typed has none)
-                if (s.who == null) Mine(s, onWord, translation, onLong, vm.speaker.takeIf { s.replayable })
+                if (s.who == null) Mine(s, onWord, translation, onLong, vm.speaker.takeIf { s.replayable && it.mine()?.off != true })
                 else Theirs(s, who?.emoji ?: talk.person.emoji, vm.speaker, who?.voice ?: voice, typing = i == said.lastIndex, onWord = onWord, translation = translation, onLong = onLong)
                 // the learner's words the turn just passed got wrong: their cards, after it (the dialog goes on)
                 for (c in missed) MissedWord(vm, c.answer)
