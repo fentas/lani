@@ -11,7 +11,7 @@ import { learnerLangs } from '../learners'
 import { localDate } from '../rhythm'
 import { knownIds, Names, residentsNamed, sceneMentions } from '../mentions'
 import { checkWoven, fittingWords, lemmaFinder, testedAt, WEAVES_A_DAY, wordsToWeave, wovenToday, type Card, type WeaveWord } from '../dialog-words'
-import { artsOf, dialogGrammar, forApp, forHost, inSeason, monthsSaid, resolveScene, validateScene, variantsOf, type Dialog, type LoadedScene, type Scene } from '../scenes'
+import { artsOf, dialogGrammar, FACES, FACES_SAID, forApp, forHost, inSeason, monthsSaid, resolveScene, validateScene, variantsOf, type Dialog, type LoadedScene, type Scene } from '../scenes'
 import { attachStories } from '../stories'
 import { allHeard, variantNote, VariantAsks, weakSpots } from '../variants'
 import { learnerLevel } from '../villagers'
@@ -57,6 +57,10 @@ the tent) a line or a reply can move its people ("act": {"zala": {"to": "behind-
 stage, in a pose; "act_stays": true keeps it until midnight), and a learner's turn can be answered by tapping the picture
 (each choice's "tap": a spot, a slot of the art or a person; a tap turn may have 4 choices): Zala hides, and the learner
 finds her ("Za vrati si!").
+A spoken line, a choice's reply and a turn's puzzled reaction may carry "face", the speaker's expression as they say
+it: ${FACES.join(', ')}. Only where the line carries a feeling (a right choice's reply often happy, a wrong one's
+reaction confused, surprised or curious, cross only mild and comic); neutral, the resting face, is never written,
+and the learner's turn and its choices have none (companion/SCENES.md "Faces"; stories and arrivals likewise).
 Every text you write for the app (a scene, a story, a villager, an arrival, a reading, a module, a pack, a role-play, a
 grammar page) speaks to whoever learns: never write the learner's name or their gender out. Their name is {learner} (its
 cases {learner:gen}, {learner:dat}, {learner:acc}, {learner:loc}, {learner:ins}; {learner:poss}a hiša: "Markova hiša", "Anina hiša"),
@@ -253,7 +257,7 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
       {
         name: 'publish_scene',
         description:
-          'Validate a lani.scene/v0 scene and publish it to the app (replaces a tutor scene with the same id; a curated id is replaced until remove_scene). Returns validation errors instead of publishing if invalid. Load the lani-studio skill before using. Say the learner {learner} and what agrees with them {m:…|f:…} (companion/SCENES.md, the learner in the content).',
+          'Validate a lani.scene/v0 scene and publish it to the app (replaces a tutor scene with the same id; a curated id is replaced until remove_scene). Returns validation errors instead of publishing if invalid. Load the lani-studio skill before using. Say the learner {learner} and what agrees with them {m:…|f:…} (companion/SCENES.md, the learner in the content). ' + FACES_SAID,
         inputSchema: {
           type: 'object',
           properties: {
@@ -300,7 +304,7 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
       {
         name: 'publish_dialog_variant',
         description:
-          "Add a fresh dialog to a happening of a scene (a variant: companion/SCENES.md \"Variants\"), e.g. when dialog_variants_heard says the learner has heard all its dialogs. The same situation (the happening's title, time, months and person), other words, another point of grammar, at the learner's level; a dialog of lani.scene/v0 (3-8 lines, the person's line first, a reaction on every wrong choice, optionally a count with {n}, a memory of its own). It plays the next time the happening comes, marked as the tutor's. Validates it with the scene; a tutor variant with the same id is replaced. Load the lani-studio skill before using. Say the learner {learner} and what agrees with them {m:…|f:…} (companion/SCENES.md, the learner in the content).",
+          "Add a fresh dialog to a happening of a scene (a variant: companion/SCENES.md \"Variants\"), e.g. when dialog_variants_heard says the learner has heard all its dialogs. The same situation (the happening's title, time, months and person), other words, another point of grammar, at the learner's level; a dialog of lani.scene/v0 (3-8 lines, the person's line first, a reaction on every wrong choice, optionally a count with {n}, a memory of its own). It plays the next time the happening comes, marked as the tutor's. Validates it with the scene; a tutor variant with the same id is replaced. Load the lani-studio skill before using. Say the learner {learner} and what agrees with them {m:…|f:…} (companion/SCENES.md, the learner in the content). " + FACES_SAID,
         inputSchema: {
           type: 'object',
           properties: {

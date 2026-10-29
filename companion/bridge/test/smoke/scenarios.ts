@@ -51,6 +51,14 @@ export default async function scenarios() {
   await Bun.sleep(100)
   const rpEv = channelEvents.findLast(n => n.params?.meta?.kind === 'roleplay')
   check('roleplay reaches Claude with the scenario brief', rpEv?.params?.meta?.conversation_id?.startsWith('rp-') && rpEv.params.content.includes('Tašča Marija') && rpEv.params.content.includes('"goals"'), rpEv)
+  // the character's line comes with the face it is said with (companion/SCENES.md, "Faces"): passed on to the app as written
+  const rpId = 'rp-0f8b8e2c-5a1d-4d6b-9b8e-2f3c4d5e6f70'
+  const said = { sl: 'Ha ha, prav imaš!', en: "Ha ha, you're right!", face: 'laugh', goals_done: [0] }
+  const sent = await client.callTool({ name: 'reply', arguments: { conversation_id: rpId, text: said.sl, data: said } })
+  await Bun.sleep(100)
+  const got = ((await (await fetch(`${base}/events/backlog?since=0`, { headers: auth })).json()) as any[]).findLast(b => b.event.type === 'reply' && b.event.conversation_id === rpId)
+  check("a role-play reply's face reaches the app in its data, with the line", !sent.isError && got?.event.data?.face === 'laugh' && got.event.data.sl === said.sl && JSON.stringify(got.event.data.goals_done) === '[0]', got)
+  check("the guide asks for the face of the character's line", (await guideOf()).includes('"face"?: "<the face of your line, one of happy, laugh,'))
   const rpEnd = await fetch(`${base}/message`, {
     method: 'POST',
     headers: auth,

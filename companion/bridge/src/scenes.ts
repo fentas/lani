@@ -357,6 +357,25 @@ const emoji = text.max(16)
  */
 export const said = { sl: line.optional(), en: line.optional(), it: line.optional(), de: line.optional() }
 export const reply = z.object(said)
+
+/**
+ * The faces a speaker can make, apart from how they stand (Face.kt in the app; the smoke test compares): what a line is
+ * said with (companion/SCENES.md, "Faces"). Neutral, the resting face, is the default and never written; the content
+ * names one of the others as `face` on a spoken line, a choice's reply and a turn's puzzled reaction (faceErrors). An
+ * older bridge strips the key, and an older app never sees it.
+ */
+export const FACES = ['happy', 'laugh', 'surprised', 'curious', 'confused', 'thinking', 'worried', 'sad', 'cross', 'shy', 'proud'] as const
+/** Every face, the resting one first: as Face.kt has them. */
+export const ALL_FACES = ['neutral', ...FACES] as const
+/** What the publish tools' descriptions say of faces, so that what the tutor writes carries them. */
+export const FACES_SAID = `A spoken line, a choice's reply and a turn's puzzled may carry "face" (${FACES.join(', ')}; never neutral, the resting face): the speaker's expression, only where the line carries a feeling (companion/SCENES.md, "Faces").`
+/**
+ * A face as the content writes it: any string here, so that crossCheck (faceErrors) can say where a wrong name is and
+ * which there are. Declared on a learner's turn and a choice too, only to report it there (zod would strip it unseen).
+ */
+const face = z.string().optional()
+/** A turn's puzzled reaction: what someone says, with the face they make. A memory has no face: it stays [reply]. */
+const puzzledReply = reply.extend({ face })
 const level = z.number().min(0).max(1)
 /** The weather changes when a line or a reply plays: new levels 0-1 for what it names (companion/SCENES.md, "Sky cues"). */
 export const skyCue = z
@@ -378,7 +397,8 @@ export const actCue = z
       .refine(a => a.to !== undefined || a.pose !== undefined, 'a stage direction names a spot (to), a pose or both'),
   )
   .refine(c => Object.keys(c).length > 0, 'an act cue names at least one person')
-const dialogReply = reply.extend({ sky: skyCue.optional(), fx: fxCue.optional(), act: actCue.optional() })
+/** A choice's reply: the person's answer to a right choice, their reaction to a wrong one; with its cues and its face. */
+const dialogReply = reply.extend({ sky: skyCue.optional(), fx: fxCue.optional(), act: actCue.optional(), face })
 /** Why a wrong choice is wrong: in English, or per language ({"sl": …, "en": …}: the learner reads it in their base). */
 const why = z.union([line, langText(200)])
 /**
@@ -402,10 +422,17 @@ const choice = z.object({
    * one, or none has.
    */
   tap: z.string().regex(/^[a-z0-9][a-z0-9-]{0,62}$/, 'a spot, a slot of the art or a person id').optional(),
+  /** Never on a choice (the learner's line): declared to report it there; the face goes on its reply (faceErrors). */
+  face,
 })
 export const dialogLine = z.object({
   who: id.optional(),
   ...said,
+  /**
+   * Someone's line: the face they say it with (one of FACES; absent: neutral, the resting face), only where the line
+   * carries a feeling. A learner's turn has none (faceErrors reports it): its replies and puzzled do.
+   */
+  face,
   /** 2-3 choices; a tap turn up to 4 (crossCheck). A bridge before tap turns reads at most 3 and skips the scene. */
   choices: z.array(choice).max(4).default([]),
   grammar,
@@ -414,9 +441,9 @@ export const dialogLine = z.object({
   act: actCue.optional(),
   /**
    * A learner's turn: how the person reacts to a wrong answer with no reaction of its own (the learner's own trap, a form
-   * typed wrong); without it the app's "Hm? Kako, prosim?" (companion/SCENES.md, "Own traps").
+   * typed wrong); without it the app's "Hm? Kako, prosim?" (companion/SCENES.md, "Own traps"). It may have its face.
    */
-  puzzled: reply.optional(),
+  puzzled: puzzledReply.optional(),
   /**
    * A village project's step only (project-steps.ts): its work is done in the picture from this line on, so its scene shows
    * the project one stage on as the line is said (companion/SCENES.md, "Project steps"). A scene's dialog has none.
@@ -736,6 +763,7 @@ export function crossCheck(s: Scene, refs?: SceneRefs): string[] {
     const start = s.happenings.find(h => h.act && variantsOf(h).includes(d.id))?.act
     errs.push(...stageErrors(d, s, at, start))
     errs.push(...staysErrors(d, at))
+    errs.push(...faceErrors(d.lines, at))
     inLang(d.memory, `${at}.memory`)
     errs.push(...countErrors(d, lang, at, SCENE_LANGUAGES))
   })
@@ -834,6 +862,37 @@ export function offStage(d: { lines: { act?: unknown; choices: { tap?: string; r
     if (l.choices.length > 3) errs.push(`${here}: a turn needs 2-3 choices`)
   })
   return errs
+}
+
+/** A line as its faces are checked: someone's, or the learner's turn with its choices, their replies and its puzzled reaction. */
+type FacedLine = { face?: string; choices: { face?: string; reply?: { face?: string } }[]; puzzled?: { face?: string } }
+
+/** What is wrong with the face [f] of what is said at [at]: nothing when there is none, or it is one of FACES. */
+function faceName(f: string | undefined, at: string): string[] {
+  if (f === undefined || (FACES as readonly string[]).includes(f)) return []
+  if (f === 'neutral') return [`${at}.face: "neutral" is the resting face: leave the key out`]
+  return [`${at}.face: ${JSON.stringify(f)} is no face (faces: ${FACES.join(', ')})`]
+}
+
+/**
+ * The faces of line [l] at [here] ("dialogs[0] (juha).lines[2]"; companion/SCENES.md, "Faces"): someone's line, a choice's
+ * reply and a turn's puzzled reaction name one of FACES, never neutral (the resting face: no key). The learner isn't drawn:
+ * their turn and its choices have no face, what they said shows on the other's, in the reply.
+ */
+export function lineFaceErrors(l: FacedLine, here: string): string[] {
+  const errs = l.choices.length ? [] : faceName(l.face, here)
+  if (l.choices.length && l.face !== undefined) errs.push(`${here}.face: a learner's turn has no face; its choices' replies and puzzled do`)
+  l.choices.forEach((c, ci) => {
+    if (c.face !== undefined) errs.push(`${here}.choices[${ci}].face: a choice is the learner's line: its face goes on its reply`)
+    errs.push(...faceName(c.reply?.face, `${here}.choices[${ci}].reply`))
+  })
+  errs.push(...faceName(l.puzzled?.face, `${here}.puzzled`))
+  return errs
+}
+
+/** The faces of every line of [lines] (lineFaceErrors), each at `[at].lines[i]`: a scene's dialog, a story's telling, a step's. */
+export function faceErrors(lines: FacedLine[], at: string): string[] {
+  return lines.flatMap((l, li) => lineFaceErrors(l, `${at}.lines[${li}]`))
 }
 
 /**

@@ -165,6 +165,9 @@ export default async function cultures() {
   delete told[0].title.de
   delete told[0].again[0].levels.A2.lines[1].choices[1].reply
   delete told[0].again[0].levels.A1.lines[1].choices[1].why.sl
+  // his faces as a scene's (companion/SCENES.md, "Faces"): one of the app's on his line, none on the learner's choice
+  told[0].again[0].levels.A1.lines[0].face = 'grin'
+  told[0].levels.A1.lines[1].choices[0].face = 'happy'
   const tws = JSON.parse(readFileSync(resolve(android, '../../../../../../test/resources/cultures-test/tinyland/world.json'), 'utf8'))
   tws.spots.kopa.keeper.talks = told
   writeFileSync(join(spotted, 'tinyland/world.json'), JSON.stringify(tws))
@@ -173,8 +176,10 @@ export default async function cultures() {
     'tinyland/world.json: spots.kopa.keeper.talks[1].id: "fuoco" twice (each talk of his story once)', 'spots.kopa.keeper.talks[1].levels: no A2',
     'spots.kopa.keeper.talks[0].title: no "de" text', 'spots.kopa.keeper.talks[0].again[0].levels.A2.lines[1].choices[1]: a wrong choice needs a reaction',
     'spots.kopa.keeper.talks[0].again[0].levels.A1.lines[1].choices[1].why: no "sl" why',
+    'spots.kopa.keeper.talks[0].again[0].levels.A1.lines[0].face: "grin" is no face (faces: happy, laugh,',
+    "spots.kopa.keeper.talks[0].levels.A1.lines[1].choices[0].face: a choice is the learner's line: its face goes on its reply",
   ]
-  check("… a talk of his story: an id twice, a talk without A2, a title without a language, a later telling's wrong choice without its reaction or its why", !btk.ok && talkWrong.every(e => btk.errors.includes(e)), !btk.ok && btk.errors)
+  check("… a talk of his story: an id twice, a talk without A2, a title without a language, a later telling's wrong choice without its reaction or its why, a face that is none, a face on a choice", !btk.ok && talkWrong.every(e => btk.errors.includes(e)), !btk.ok && btk.errors)
   tws.spots.kopa.keeper.talks = [{ ...twTalks[0], when: 'rain' }]
   writeFileSync(join(spotted, 'tinyland/world.json'), JSON.stringify(tws))
   const loose = validateCulture(spotted, 'tinyland')
@@ -296,6 +301,10 @@ export default async function cultures() {
   // over the village a step may ring a bell (the chapel's little one), nothing else
   a1[0].fx = { bell: 1 }
   a1[2].fx = { flare: 1 }
+  // faces as a scene's: one of the app's on a spoken line (a1[1]'s is kept), none on the learner's turn
+  a1[0].face = 'grin'
+  a1[1].face = 'proud'
+  a1[3].face = 'happy'
   delete ts.steps[0].levels.A2
   ts.steps.push(...[null, null, null, null, null])
   writeFileSync(join(stepped, 'tinyland/project-steps/mlaj.json'), JSON.stringify(ts))
@@ -309,10 +318,12 @@ export default async function cultures() {
     'tinyland/project-steps/mlaj.json: steps[0].levels.A1.lines[3].choices[1]: a wrong choice needs a reaction',
     'tinyland/project-steps/mlaj.json: steps[0].levels.A1.lines[3]: a tap turn needs the step\'s scene (its picture to tap in)',
     'tinyland/project-steps/mlaj.json: steps[0].levels.A1.lines[2]: a sky or fx cue needs the step\'s scene (over the village only a bell rings: fx bell)',
+    'tinyland/project-steps/mlaj.json: steps[0].levels.A1.lines[0].face: "grin" is no face (faces: happy, laugh,',
+    "tinyland/project-steps/mlaj.json: steps[0].levels.A1.lines[3].face: a learner's turn has no face; its choices' replies and puzzled do",
     'tinyland/project-steps/nowhere.json:',
   ]
-  check("… a step: more steps than its project, a level missing, a line someone else says, a why or a reaction missing, a tap with no scene, an effect with no scene but a bell, a file of no project",
-    !bst.ok && stepWrong.every(e => bst.errors.includes(e)) && !bst.errors.includes('steps[0].levels.A1.lines[0]: a sky or fx'), !bst.ok && bst.errors)
+  check("… a step: more steps than its project, a level missing, a line someone else says, a why or a reaction missing, a tap with no scene, an effect with no scene but a bell, a face that is none, a face on the learner's turn, a file of no project",
+    !bst.ok && stepWrong.every(e => bst.errors.includes(e)) && !bst.errors.includes('steps[0].levels.A1.lines[0]: a sky or fx') && !bst.errors.includes('lines[1].face'), !bst.ok && bst.errors)
   writeFileSync(join(stepped, 'tinyland/project-steps/mlaj.json'), JSON.stringify({ ...JSON.parse(readFileSync(resolve(android, '../../../../../../test/resources/cultures-test/tinyland/project-steps/mlaj.json'), 'utf8')), when: 'today' }))
   writeFileSync(join(stepped, 'tinyland/project-steps/nowhere.json'), '{}')
   const looseSteps = cultureProjectSteps(stepped, 'tinyland', 'it', [{ id: 'mlaj', leader: 'nino', helpers: ['pina'], steps: 5 }])
@@ -372,10 +383,10 @@ export default async function cultures() {
     decor: ['bunting', 'floor'], music: 'harmonika', place: 'square', host: 'nino', guests: ['pina'], pack: 'festa', words: ['ballo'],
     levels: {
       A1: { lines: [
-        { who: 'nino', ...tx('Benvenuti alla sagra!', 'Dobrodošli na šagri!', 'Welcome to the feast!', 'Willkommen beim Fest!') },
+        { who: 'nino', ...tx('Benvenuti alla sagra!', 'Dobrodošli na šagri!', 'Welcome to the feast!', 'Willkommen beim Fest!'), face: 'happy' },
         { choices: [
           { ...tx('Salute!', 'Na zdravje!', 'Cheers!', 'Prost!'), ok: true },
-          { ...tx('Buonanotte!', 'Lahko noč!', 'Good night!', 'Gute Nacht!'), why: { sl: 'Za zdravico: salute.', en: 'A toast: salute.', de: 'Ein Trinkspruch: salute.' }, reply: tx('Già a letto?', 'Že spat?', 'Off to bed?', 'Schon ins Bett?') },
+          { ...tx('Buonanotte!', 'Lahko noč!', 'Good night!', 'Gute Nacht!'), why: { sl: 'Za zdravico: salute.', en: 'A toast: salute.', de: 'Ein Trinkspruch: salute.' }, reply: { ...tx('Già a letto?', 'Že spat?', 'Off to bed?', 'Schon ins Bett?'), face: 'surprised' } },
         ] },
         { who: 'pina', ...tx('Balliamo?', 'Plešemo?', 'Shall we dance?', 'Tanzen wir?') },
         { choices: [
@@ -400,6 +411,7 @@ export default async function cultures() {
   delete bad.levels.A1.lines[1].choices[1].reply
   bad.levels.A1.lines[3] = { who: 'pina', ...tx('Che bella sera!', 'Kako lep večer!', 'What a lovely evening!', 'Was für ein schöner Abend!') }
   delete bad.name.de
+  bad.levels.A1.lines[2].face = 'neutral'
   writeFileSync(join(celebrated, 'tinyland/celebrations/vas.json'), JSON.stringify(bad))
   writeFileSync(join(celebrated, 'tinyland/celebrations/zaselek.json'), JSON.stringify({ ...party, levels: {} }))
   const badCel = validateCulture(celebrated, 'tinyland')
@@ -411,9 +423,10 @@ export default async function cultures() {
     'tinyland/celebrations/vas.json: levels.A1: the host (gino) says nothing',
     'tinyland/celebrations/vas.json: levels.A1.lines[0]: a party is played over the village: no sky or fx cue',
     'tinyland/celebrations/vas.json: levels.A1.lines[1]: a party has no picture to tap in: no tap turn',
+    'tinyland/celebrations/vas.json: levels.A1.lines[2].face: "neutral" is the resting face: leave the key out',
     'tinyland/celebrations/zaselek.json: age "vas", but the file is zaselek.json',
   ]
-  check("… a party: a text missing a language, a line by neither the host nor a guest, a host who says nothing, a reaction missing, one turn only, a bell and a tap over the village, a file for another age",
+  check("… a party: a text missing a language, a line by neither the host nor a guest, a host who says nothing, a reaction missing, one turn only, a bell and a tap over the village, the resting face written, a file for another age",
     !badCel.ok && celWrong.every(e => badCel.errors.includes(e)), !badCel.ok && badCel.errors)
 
   tw.spots = { nowhere: tw.spots.kopa }

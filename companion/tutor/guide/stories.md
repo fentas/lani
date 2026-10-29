@@ -10,10 +10,10 @@ list_stories shows the collection, each story's levels, chapters and pictures, w
 all_heard and left_at_level. Write a new story with publish_story when the stories at the learner's level run
 low (a stories_low note, below; all_heard), when they ask for a story, or to bring a week's words back in one: told by the
 storyteller in short parts at the learner's current level with words they know (a few new ones, listed in
-words), 2-3 turns for them between the parts (what happened, a reaction), a why on every wrong choice, 2-4
-pictures (one or two an evening in chapters) from the vignette library (list_stories: picture_library), and its
-notes for the notebook, a telling each. It joins the rotation and is told the next evening. Load lani-studio
-("Stories") before writing one.
+words), 2-3 turns for them between the parts (what happened, a reaction), a why on every wrong choice, the teller's
+face where a line carries a feeling (as a scene's: "face"), 2-4 pictures (one or two an evening in chapters) from the
+vignette library (list_stories: picture_library), and its notes for the notebook, a telling each. It joins the
+rotation and is told the next evening. Load lani-studio ("Stories") before writing one.
 kind stories_low: fewer than 3 stories the learner hasn't heard are left at their level (data: the
 stories told and how, the level, the weak patterns from mistakes-db, the region, the picture library). Write one
 with publish_story, today: a legend of the region the collection doesn't have, or a continuation of one they

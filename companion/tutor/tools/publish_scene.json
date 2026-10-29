@@ -1,6 +1,6 @@
 {
   "name": "publish_scene",
-  "description": "Validate a lani.scene/v0 scene and publish it to the app (replaces a tutor scene with the same id; a curated id is replaced until remove_scene). Returns validation errors instead of publishing if invalid. Load the lani-studio skill before using. Say the learner {learner} and what agrees with them {m:…|f:…} (companion/SCENES.md, the learner in the content).",
+  "description": "Validate a lani.scene/v0 scene and publish it to the app (replaces a tutor scene with the same id; a curated id is replaced until remove_scene). Returns validation errors instead of publishing if invalid. Load the lani-studio skill before using. Say the learner {learner} and what agrees with them {m:…|f:…} (companion/SCENES.md, the learner in the content). A spoken line, a choice's reply and a turn's puzzled may carry \"face\" (happy, laugh, surprised, curious, confused, thinking, worried, sad, cross, shy, proud; never neutral, the resting face): the speaker's expression, only where the line carries a feeling (companion/SCENES.md, \"Faces\").",
   "input_schema": {
     "type": "object",
     "properties": {

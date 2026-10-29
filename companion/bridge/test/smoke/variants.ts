@@ -5,7 +5,7 @@
 import { existsSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { category, renderForms, slovene, WRONG_SL, wrongCategory } from '../../src/counts'
-import { forHost, resolveScene, validateScene, type LoadedScene } from '../../src/scenes'
+import { FACES, forHost, resolveScene, validateScene, type LoadedScene } from '../../src/scenes'
 import { allHeard, VariantAsks, weakSpots } from '../../src/variants'
 import { corpus } from '../../src/voice'
 import { auth, base, channelEvents, check, client, dataDir, scenesDir, tempDir } from './harness'
@@ -187,6 +187,30 @@ export default async function variants() {
   check('publish_dialog_variant refuses an id the scene has', taken.isError && text(taken).includes('already'), taken)
   const invalid = await client.callTool({ name: 'publish_dialog_variant', arguments: { scene: 'smoke-potok', happening: 'ovce', dialog: { ...fresh, id: 'ovce-x', lines: [fresh.lines[0], { choices: [fresh.lines[1].choices[0], { sl: 'Dam jim sena.', en: 'x' }] }, fresh.lines[2]] } } })
   check('publish_dialog_variant validates the dialog with the scene (a wrong choice needs a why)', invalid.isError && text(invalid).includes('needs a why') && text(invalid).includes('nothing published'), invalid)
+  // a variant with faces (companion/SCENES.md, "Faces"): kept and served as written; a face that is none, or the resting
+  // one written, is refused with where it is
+  const faced = {
+    ...fresh, id: 'ovce-obrazi',
+    lines: [
+      { ...fresh.lines[0], face: 'worried' },
+      { puzzled: { sl: 'Hm? Kako, prosim?', en: 'Hm? Pardon?', face: 'confused' }, choices: [
+        { ...fresh.lines[1].choices![0], reply: { ...fresh.lines[1].choices![0].reply, face: 'happy' } },
+        { ...fresh.lines[1].choices![1], reply: { ...fresh.lines[1].choices![1].reply, face: 'curious' } },
+      ] },
+      fresh.lines[2],
+    ],
+  }
+  const pf = await client.callTool({ name: 'publish_dialog_variant', arguments: { scene: 'smoke-potok', happening: 'ovce', dialog: faced } })
+  const fl = (await (await fetch(`${base}/scenes/smoke-potok`, { headers: auth })).json()).dialogs.find((d: any) => d.id === 'ovce-obrazi')?.lines
+  check("publish_dialog_variant keeps a variant's faces, and the app gets them: the line's, the replies', the puzzled's",
+    !pf.isError && fl?.[0].face === 'worried' && fl[1].choices[0].reply.face === 'happy' && fl[1].choices[1].reply.face === 'curious' && fl[1].puzzled.face === 'confused' && fl[2].face === undefined &&
+      JSON.parse(readFileSync(join(dataDir, 'app/variants/smoke-potok.ovce.ovce-obrazi.json'), 'utf8')).dialog.lines[0].face === 'worried',
+    [text(pf), fl])
+  await client.callTool({ name: 'remove_dialog_variant', arguments: { scene: 'smoke-potok', happening: 'ovce', id: 'ovce-obrazi' } })
+  const grin = await client.callTool({ name: 'publish_dialog_variant', arguments: { scene: 'smoke-potok', happening: 'ovce', dialog: { ...faced, id: 'ovce-x', lines: [faced.lines[0], { ...faced.lines[1], choices: [faced.lines[1].choices![0], { ...faced.lines[1].choices![1], reply: { ...fresh.lines[1].choices![1].reply, face: 'grin' } }] }, { ...fresh.lines[2], face: 'neutral' }] } } })
+  check('publish_dialog_variant refuses a face that is none and the resting face written, saying where and which faces there are',
+    !!grin.isError && text(grin).includes(`(ovce-x).lines[1].choices[1].reply.face: "grin" is no face (faces: ${FACES.join(', ')})`) && text(grin).includes('(ovce-x).lines[2].face: "neutral" is the resting face: leave the key out') && text(grin).includes('nothing published'),
+    text(grin))
   const nowhere = await client.callTool({ name: 'publish_dialog_variant', arguments: { scene: 'smoke-potok', happening: 'nope', dialog: fresh } })
   const noScene = await client.callTool({ name: 'publish_dialog_variant', arguments: { scene: 'nope', happening: 'ovce', dialog: fresh } })
   check('publish_dialog_variant of a happening or a scene that does not exist fails', nowhere.isError && noScene.isError && text(nowhere).includes('has no happening'), [nowhere, noScene])

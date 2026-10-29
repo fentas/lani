@@ -16,7 +16,7 @@ import { learnerErrors, learnerErrorsIn, render, addressee as addresseeFor, same
 import { PACK_LANGUAGES } from './arrivals'
 import { lcsPairs, wordsIn } from './dialog-words'
 import { schemaField } from './schema'
-import { dialogLine, SCENE_ART, SCENE_LANGUAGES, SCENE_STAGE, scenesDirs, sceneSpec, type Scene } from './scenes'
+import { dialogLine, faceErrors, SCENE_ART, SCENE_LANGUAGES, SCENE_STAGE, scenesDirs, sceneSpec, type Scene } from './scenes'
 import { LEVELS } from './stories'
 
 export const PROJECT_STEPS_SCHEMA = 'lani.project-steps/v0'
@@ -347,7 +347,8 @@ type Texts = Partial<Record<string, unknown>>
  * (PACK_LANGUAGES), a why in each but the pack's (the learner reads it in their base), a reaction to every wrong choice
  * (its reply: what they make of it, never the right form), a right one and a wrong one at every turn, 1 to [maxTurns]
  * turns, the first line someone's, every line said by one of [speakers] (who they are: [whose]); no placeholder but the
- * learner's ({learner}, {m:…|f:…}). An age's party (celebrations.ts) checks its lines the same way, with its host and guests.
+ * learner's ({learner}, {m:…|f:…}); every face one of the app's, where a face goes (faceErrors). An age's party
+ * (celebrations.ts) checks its lines the same way, with its host and guests.
  */
 export function linesErrors(lines: Line[], lang: string, speakers: Set<string>, at: string, maxTurns = 3, whose = "the project's leader nor a helper"): string[] {
   const errs: string[] = []
@@ -396,6 +397,8 @@ export function linesErrors(lines: Line[], lang: string, speakers: Set<string>, 
       if (!c.reply) errs.push(`${ch}: a wrong choice needs a reaction (its reply: what they make of it, never the right form)`)
     })
   })
+  // the faces they say it with: a spoken line's, a reply's, a puzzled reaction's (never a turn's or a choice's)
+  errs.push(...faceErrors(lines, at))
   if (!turns) errs.push(`${at}: no turn for the learner`)
   if (turns > maxTurns) errs.push(`${at}: ${turns} turns: at most ${maxTurns} (${maxTurns === 3 ? 'a step is short' : 'it is short'})`)
   return errs

@@ -139,7 +139,8 @@ export default async function stories() {
     villagers: new VillagerStore(join(culturesDir, 'primorska', 'villagers'), join(dataDir, 'unused-villagers-stories')).all(),
   }
   const line = (sl: string) => ({ sl, en: `(${sl})` })
-  const turn = { choices: [{ sl: 'Kaj pa potem?', en: 'And then?', ok: true, reply: line('Poslušaj.') }, { sl: 'Kdo pa potem?', en: 'Who then?', why: 'Kdo is who.' }] }
+  // (the teller's reply to a right answer with his face: companion/SCENES.md, "Faces")
+  const turn = { choices: [{ sl: 'Kaj pa potem?', en: 'And then?', ok: true, reply: { ...line('Poslušaj.'), face: 'happy' } }, { sl: 'Kdo pa potem?', en: 'Who then?', why: 'Kdo is who.' }] }
   const telling = { lines: [line('Nekoč je živel kralj.'), turn, line('Lahko noč, Jan.')] }
   const story = {
     schema: 'lani.story/v0', id: 'smoke-kralj', title: 'Kralj · The king', teller: 'janez', teaser: { sl: 'Janez pove o kralju', en: 'Janez tells of a king' },
@@ -221,6 +222,10 @@ export default async function stories() {
   const exampleOk = example ? validateStory(JSON.parse(example), refs) : undefined
   check('module-spec.md story example validates', exampleOk?.ok === true, exampleOk)
   const withLines = (lines: unknown[]) => ({ ...story, levels: { A2: { lines } } })
+  const faced = validateStory(withLines([{ ...line('Nekoč je živel kralj.'), face: 'thinking' }, { ...turn, puzzled: { ...line('Hm? Kako, prosim?'), face: 'confused' } }, { ...line('Lahko noč.'), face: 'proud' }]), refs)
+  const facedLines = faced.ok ? faced.story.levels?.A2?.lines : undefined
+  check("a story with the teller's faces validates and keeps them: his lines', his reply's, his puzzled's",
+    facedLines?.[0].face === 'thinking' && facedLines[1].choices[0].reply?.face === 'happy' && facedLines[1].puzzled?.face === 'confused' && facedLines[2].face === 'proud', faced.ok ? facedLines : faced.errors)
   const bad: [string, unknown, string][] = [
     ['levels and chapters both', { ...story, chapters: [{ teaser: story.teaser, levels: { A2: telling } }, { teaser: story.teaser, levels: { A2: telling } }] }, 'not both'],
     ['a chapter without a level the others have', { ...story, levels: undefined, chapters: [{ teaser: story.teaser, levels: { A1: telling, A2: telling } }, { teaser: story.teaser, levels: { A2: telling } }] }, 'same levels'],
@@ -236,6 +241,10 @@ export default async function stories() {
     ['a word its pack does not have', { ...story, words: ['zmaj'] }, 'pack "zgodbe" has no word "zmaj"'],
     ['a teller not in the cast', { ...story, teller: 'bepi' }, 'not in the cast'],
     ['a teller who is not the storyteller', { ...story, teller: 'luka' }, "isn't the village's storyteller"],
+    // faces: one of the app's on his line, a reply, a puzzled; never neutral, none on the learner's turn
+    ['a face that is none', withLines([{ ...line('Oj.'), face: 'grin' }, turn, line('Adijo.')]), 'levels.A2.lines[0].face: "grin" is no face (faces: happy, laugh,'],
+    ['the resting face on a puzzled', withLines([line('Oj.'), { ...turn, puzzled: { ...line('Hm?'), face: 'neutral' } }, line('Adijo.')]), 'levels.A2.lines[1].puzzled.face: "neutral" is the resting face: leave the key out'],
+    ["a face on the learner's turn", withLines([line('Oj.'), { ...turn, face: 'curious' }, line('Adijo.')]), "levels.A2.lines[1].face: a learner's turn has no face"],
   ]
   for (const [label, s, mention] of bad) {
     const v = validateStory(s, refs)
@@ -387,6 +396,8 @@ export default async function stories() {
   check('story_published event, with the scene where it is told', ev.some((b: any) => b.event.type === 'story_published' && b.event.id === 'smoke-kralj' && b.event.scene === 'smoke-zgodbe' && b.event.note === 'Janez has a new story tonight' && b.event.title === 'Kralj · The king'))
   const after = await (await fetch(`${base}/scenes/smoke-zgodbe`, { headers: auth })).json()
   check("the tutor's story joins the rotation, after the curated ones", after.stories.length === janIds.length + 1 && after.stories.at(-1).id === 'smoke-kralj' && after.stories.at(-1).source === 'tutor', after.stories.map((s: any) => s.id))
+  const toldReply = after.stories.at(-1)?.levels?.A2?.lines[1]?.choices[0]?.reply
+  check("… served with the teller's face on his reply", toldReply?.face === 'happy' && toldReply.sl === 'Poslušaj.', toldReply)
   // --- never out of stories: fewer than three left at the learner's level, the tutor is asked, once a day -----------
   const low = (from = 0) => channelEvents.slice(from).filter(n => n.params?.meta?.kind === 'stories_low')
   const put = async (stories: unknown) => {

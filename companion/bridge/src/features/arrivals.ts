@@ -7,6 +7,7 @@ import { ARRIVAL_SCHEMA, cultureArrivals, residentIds, validateArrival } from '.
 import type { FeatureFactory } from '../feature'
 import { json } from '../http'
 import { LANGUAGES } from '../learners'
+import { FACES_SAID } from '../scenes'
 
 /** The paragraph, in the village's language [lang] ([languageName]): Jan's names Slovene examples. */
 export function arrivalsInstructions(lang: string, languageName: string): string {
@@ -23,8 +24,9 @@ your cue to write theirs: publish_arrival with data.id as the id, in ${languageN
 dialog's lines, at data.arrival.level (one level is enough): 3-5 short lines at A1 (name, trade, where from), a bit more
 at A2 (why they came, with whom), 1-2 turns for Jan with 2-3 choices each (${examples}), around one of the weak patterns
 where it fits naturally. Every wrong choice has a why and a reply (their reaction to what was said, never the right
-form). Who speaks: the newcomer (their id), or a baby's parents (their ids: a baby can't talk); a relative who
-introduces them is "by". memory: what they keep of the day, in their words, fitting their remember lines (${memory}).
+form); their lines and replies may carry a face, as a scene's ("face": glad to meet Jan, shy, proud of a baby).
+Who speaks: the newcomer (their id), or a baby's parents (their ids: a baby can't talk); a relative who introduces
+them is "by". memory: what they keep of the day, in their words, fitting their remember lines (${memory}).
 It replaces the template, which plays until then. get_arrival shows what the app would play for someone now.
 `.trim()
 }
@@ -65,7 +67,7 @@ export const arrivals: FeatureFactory = ctx => {
       {
         name: 'publish_arrival',
         description:
-          'Validate a lani.arrival/v0 arrival (the introduction dialog of someone who joined the village) and publish it to the app: it replaces the template for that newcomer or baby (or the culture pack\'s for a cast member, until remove_arrival). Returns validation errors instead of publishing if invalid. Load the lani-studio skill before using. Say the learner {learner} and what agrees with them {m:…|f:…} (companion/SCENES.md, the learner in the content).',
+          'Validate a lani.arrival/v0 arrival (the introduction dialog of someone who joined the village) and publish it to the app: it replaces the template for that newcomer or baby (or the culture pack\'s for a cast member, until remove_arrival). Returns validation errors instead of publishing if invalid. Load the lani-studio skill before using. Say the learner {learner} and what agrees with them {m:…|f:…} (companion/SCENES.md, the learner in the content). ' + FACES_SAID,
         inputSchema: {
           type: 'object',
           properties: {

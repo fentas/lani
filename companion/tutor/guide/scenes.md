@@ -37,6 +37,10 @@ the tent) a line or a reply can move its people ("act": {"zala": {"to": "behind-
 stage, in a pose; "act_stays": true keeps it until midnight), and a learner's turn can be answered by tapping the picture
 (each choice's "tap": a spot, a slot of the art or a person; a tap turn may have 4 choices): Zala hides, and the learner
 finds her ("Za vrati si!").
+A spoken line, a choice's reply and a turn's puzzled reaction may carry "face", the speaker's expression as they say
+it: happy, laugh, surprised, curious, confused, thinking, worried, sad, cross, shy, proud. Only where the line carries a feeling (a right choice's reply often happy, a wrong one's
+reaction confused, surprised or curious, cross only mild and comic); neutral, the resting face, is never written,
+and the learner's turn and its choices have none (companion/SCENES.md "Faces"; stories and arrivals likewise).
 Every text you write for the app (a scene, a story, a villager, an arrival, a reading, a module, a pack, a role-play, a
 grammar page) speaks to whoever learns: never write the learner's name or their gender out. Their name is {learner} (its
 cases {learner:gen}, {learner:dat}, {learner:acc}, {learner:loc}, {learner:ins}; {learner:poss}a hiša: "Markova hiša", "Anina hiša"),

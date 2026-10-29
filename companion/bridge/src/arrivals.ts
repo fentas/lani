@@ -14,7 +14,7 @@ import { join } from 'node:path'
 import { z } from 'zod'
 import { learnerErrors, withoutLearner } from './addressee'
 import { schemaField } from './schema'
-import { dialogLine, offStage, reply, SCENE_LANGUAGES } from './scenes'
+import { dialogLine, faceErrors, lineFaceErrors, offStage, reply, SCENE_LANGUAGES } from './scenes'
 import { LEVELS, type Level } from './stories'
 
 export const ARRIVALS_SCHEMA = 'lani.arrivals/v0'
@@ -231,6 +231,9 @@ export function arrivalErrors(a: ArrivalBody, rules: Rules, at = ''): string[] {
     else if (rules.curated) errs.push(`${where(p)}.late: missing (the first line when the learner meets them days after they came: "Nisva se še spoznala …")`)
     if (v.lines[0]?.choices.length) errs.push(`${where(p)}.lines[0]: the first line is someone's, not the learner's choices`)
     errs.push(...offStage({ lines: v.late ? [v.late, ...v.lines] : v.lines }, where(p), what))
+    // the faces they say it with (a keeper's talk too: spotErrors checks it as an arrival's)
+    if (v.late) errs.push(...lineFaceErrors(v.late, where(`${p}.late`)))
+    errs.push(...faceErrors(v.lines, where(p)))
     let turns = 0
     v.lines.forEach((l, li) => {
       const here = `${p}.lines[${li}]`

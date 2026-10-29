@@ -76,7 +76,14 @@ client.fallbackNotificationHandler = async n => {
       const turn = Number(d.turn ?? 1)
       const goals = Array.from({ length: Math.min(turn, d.scenario?.goals?.length ?? 0) }, (_, i) => i)
       const correction = turn === 2 ? 'Rekli bi: **Zelo je dobro.** · "dobro" agrees with the neuter "it".' : undefined
-      await reply(conversation_id, 'Me veseli! Še malo juhe?', { sl: 'Me veseli! Še malo juhe?', en: "I'm glad! A bit more soup?", goals_done: goals, correction, end: turn >= 4 || undefined })
+      // a line and a face a turn (companion/SCENES.md, "Faces"), so QA's screenshots of each differ; nothing heard: puzzled
+      const said = !String(d.heard ?? '').trim()
+        ? { sl: 'Kako, prosim? Še enkrat?', en: 'Pardon? Once more?', face: 'confused' }
+        : turn === 1 ? { sl: 'Me veseli! Še malo juhe?', en: "I'm glad! A bit more soup?", face: 'happy' }
+        : turn === 2 ? { sl: 'Res? Ti je juha všeč?', en: 'Really? Do you like the soup?', face: 'curious' }
+        : turn === 3 ? { sl: 'Ha ha, prav imaš!', en: "Ha ha, you're right!", face: 'laugh' }
+        : { sl: 'Hvala! To je moj recept.', en: "Thank you! It's my recipe.", face: 'proud' }
+      await reply(conversation_id, said.sl, { ...said, goals_done: goals, correction, end: turn >= 4 || undefined })
     }
   } else if (kind === 'roleplay_end') {
     await Bun.sleep(2500)

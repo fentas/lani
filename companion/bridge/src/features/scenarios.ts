@@ -5,6 +5,7 @@ import type { FeatureFactory } from '../feature'
 import { json } from '../http'
 import { LANGUAGES } from '../learners'
 import { validateScenario } from '../scenarios'
+import { FACES } from '../scenes'
 import { corpus } from '../voice'
 import { talkPlace } from './villagers'
 
@@ -43,7 +44,8 @@ alternatives read otherwise, one in unclear, a word a letter or two from one of 
 a mumble (${m.ending}); recast it naturally in your reply instead (${m.recast}). Correct only what every reading agrees on and is clearly Jan's own (a typed line is). A line that is only a
 sound ("Ooooh", "mmm") gets a friendly "${WHAT[target] ?? WHAT.en}" in character, never a correction.
 Stay in character as the role and answer in simple ${lang} at Jan's level, 1-2 short sentences, as the text and in
-data: ${keys}, "correction"?: "<only for a real mistake: Jan's line corrected, ${lang} + short ${baseName} why>",
+data: ${keys}, "face"?: "<the face of your line, one of ${FACES.join(', ')}; leave it out for neutral>",
+"correction"?: "<only for a real mistake: Jan's line corrected, ${lang} + short ${baseName} why>",
 "goals_done": [indices of goals reached so far], "end"?: true when the scene reaches a natural end}. data.hint = true
 means Jan is stuck: reply {"hint": true, "sl": "<one line Jan could say next${target === 'sl' ? '' : `, in ${lang}`}>", "en": "..."}
 without moving the scene on. kind roleplay_end carries the transcript: reply out of character with a short debrief

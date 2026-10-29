@@ -49,6 +49,13 @@ export default async function arrivals() {
     },
   })
   check('a pack\'s arrivals: the cast\'s (an extra may go without) and the templates, with their placeholders', arrivalsFileErrors(good, 'sl', cast).length === 0, arrivalsFileErrors(good, 'sl', cast))
+  // with faces where a line carries a feeling: Zala shy, the reaction to a wrong choice surprised, the late line curious
+  const faced = structuredClone(good) as any
+  faced.cast.zala.levels.A1.lines[0].face = 'shy'
+  faced.cast.zala.levels.A1.lines[1].choices[1].reply.face = 'surprised'
+  faced.cast.zala.levels.A2.late.face = 'curious'
+  const facedFile = arrivalsFileSpec.safeParse(faced)
+  check("a pack's arrivals with faces validate and keep them", facedFile.success && arrivalsFileErrors(facedFile.data, 'sl', cast).length === 0 && facedFile.data.cast.zala.levels.A2?.late?.face === 'curious' && facedFile.data.cast.zala.levels.A1?.lines[1].choices[1].reply?.face === 'surprised', facedFile.success ? arrivalsFileErrors(facedFile.data, 'sl', cast) : facedFile.error)
   const bad: [string, (f: any) => void, string][] = [
     ['someone of the cast without one', f => delete f.cast.zala, 'no arrival for "zala"'],
     ['an introducer who comes later', f => { f.cast.micka.by = 'zala'; f.cast.micka.levels.A1.lines[0].who = 'zala' }, 'comes after'],
@@ -66,6 +73,11 @@ export default async function arrivals() {
     ['a message that doesn\'t parse', f => (f.templates.newcomer.levels.A1.lines[0].sl = 'Jaz sem {g, select, f {nova}}.'), 'without an other branch'],
     ['a baby that talks', f => (f.templates.birth.levels.A1.lines[2].who = 'self'), 'who "self" isn\'t in it'],
     ['a sky over an arrival', f => (f.cast.zala.levels.A1.lines[0].sky = { rain: 0.5 }), 'no sky or fx cue'],
+    // faces (companion/SCENES.md, "Faces"): one of the app's, never neutral, never on the learner's turn or choice
+    ['a face that is none', f => (f.cast.zala.levels.A1.lines[0].face = 'grin'), 'cast.zala.levels.A1.lines[0].face: "grin" is no face (faces: happy, laugh,'],
+    ['the resting face on the late line', f => (f.cast.zala.levels.A2.late.face = 'neutral'), 'cast.zala.levels.A2.late.face: "neutral" is the resting face: leave the key out'],
+    ['a face on a choice', f => (f.cast.zala.levels.A1.lines[1].choices[0].face = 'happy'), "cast.zala.levels.A1.lines[1].choices[0].face: a choice is the learner's line: its face goes on its reply"],
+    ["a reaction's face that is none in a template", f => (f.templates.birth.levels.A1.lines[1].choices[1].reply.face = 'smile'), 'templates.birth.levels.A1.lines[1].choices[1].reply.face: "smile" is no face'],
   ]
   for (const [label, change, mention] of bad) {
     const f = structuredClone(good) as any
@@ -94,10 +106,10 @@ export default async function arrivals() {
     levels: {
       A1: {
         lines: [
-          { who: 'n-ana-furlan', sl: 'Dober dan! Jaz sem Ana, tkalka.', en: 'Good day! I am Ana, a weaver.' },
+          { who: 'n-ana-furlan', sl: 'Dober dan! Jaz sem Ana, tkalka.', en: 'Good day! I am Ana, a weaver.', face: 'happy' },
           { choices: [
-            { sl: 'Dober dan! Me veseli.', en: 'Good day! Nice to meet you.', ok: true, reply: { sl: 'Tudi mene.', en: 'Me too.' } },
-            { sl: 'Živjo, Ana! Kako si?', en: 'Hi, Ana! How are you? (ti)', why: 'You have just met: say vi.', reply: { sl: 'Kako si? Hm, saj se še ne poznava.', en: 'How are you? Hm, we don\'t know each other yet.' } },
+            { sl: 'Dober dan! Me veseli.', en: 'Good day! Nice to meet you.', ok: true, reply: { sl: 'Tudi mene.', en: 'Me too.', face: 'shy' } },
+            { sl: 'Živjo, Ana! Kako si?', en: 'Hi, Ana! How are you? (ti)', why: 'You have just met: say vi.', reply: { sl: 'Kako si? Hm, saj se še ne poznava.', en: 'How are you? Hm, we don\'t know each other yet.', face: 'surprised' } },
           ] },
           { who: 'n-ana-furlan', sl: 'Iz Solkana sem prišla, s statvami.', en: 'I came from Solkan, with my loom.' },
         ],
@@ -111,6 +123,7 @@ export default async function arrivals() {
     ['a placeholder', { ...ana, levels: { A1: { lines: [{ ...ana.levels.A1.lines[0], sl: 'Jaz sem {first}.' }, ...ana.levels.A1.lines.slice(1)] } } }, 'names people as they are'],
     ['another language than the village\'s', { ...ana, language: 'it', levels: { A1: { lines: ana.levels.A1.lines.map((l: any) => (l.choices ? l : { who: l.who, it: l.sl, en: l.en })) } } }, 'the village speaks "sl"'],
     ['no level', { ...ana, levels: {} }, 'at least one level'],
+    ['a face that is none', { ...ana, levels: { A1: { lines: [{ ...ana.levels.A1.lines[0], face: 'grin' }, ...ana.levels.A1.lines.slice(1)] } } }, 'levels.A1.lines[0].face: "grin" is no face (faces: happy, laugh,'],
   ]
   for (const [label, arrival, mention] of refused) {
     const r = await client.callTool({ name: 'publish_arrival', arguments: { arrival } })
@@ -121,6 +134,8 @@ export default async function arrivals() {
   check('publish_arrival publishes a newcomer\'s introduction', !pub.isError && text(pub).includes('published the arrival of n-ana-furlan (A1)'), text(pub))
   const served = await (await fetch(`${base}/arrivals`, { headers: auth })).json()
   check('GET /arrivals serves the tutor\'s, for the app', served.language === 'sl' && served.arrivals.length === 1 && served.arrivals[0].id === 'n-ana-furlan' && served.arrivals[0].source === 'tutor', served)
+  const anaLines = served.arrivals[0]?.levels.A1.lines
+  check("… with its faces: Ana's line happy, her reply shy, her reaction surprised", anaLines?.[0].face === 'happy' && anaLines[1].choices[0].reply.face === 'shy' && anaLines[1].choices[1].reply.face === 'surprised' && anaLines[2].face === undefined, anaLines)
   check('GET /arrivals needs the app token', (await fetch(`${base}/arrivals`)).status === 401)
   const got = await client.callTool({ name: 'get_arrival', arguments: { id: 'n-ana-furlan' } })
   check('get_arrival shows the tutor\'s', !got.isError && text(got).includes('"source": "tutor"'), text(got).slice(0, 200))

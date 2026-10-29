@@ -16,7 +16,7 @@ import { z } from 'zod'
 import { learnerErrorsIn } from './addressee'
 import { schemaField } from './schema'
 import { label, labelEn, labelTarget, langText, type Label } from './langs'
-import { dialogLine, offStage, reactionErrors, reply, SCENE_ART, SCENE_LANGUAGES, staysErrors, type ResolvedScene, type SceneRefs } from './scenes'
+import { dialogLine, faceErrors, offStage, reactionErrors, reply, SCENE_ART, SCENE_LANGUAGES, staysErrors, type ResolvedScene, type SceneRefs } from './scenes'
 
 export const STORY_SCHEMA = 'lani.story/v0'
 /** The levels a story can be told at, easiest first. */
@@ -299,6 +299,8 @@ export function crossCheck(s: Story, refs?: StoryRefs): string[] {
       if (!v.lines.some(l => l.choices.length)) errs.push(`${at}: no turn for the learner (a question about the story, or a reaction, between the parts)`)
       errs.push(...staysErrors(v, at))
       errs.push(...offStage(v, at, 'a story'))
+      // the teller's face as he tells it, his replies' and his puzzled reactions'
+      errs.push(...faceErrors(v.lines, at))
     }
   })
 

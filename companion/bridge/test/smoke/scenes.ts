@@ -5,8 +5,9 @@ import { join, resolve } from 'node:path'
 import { cultureProjects } from '../../src/cultures'
 import { PackStore } from '../../src/packs'
 import { ScenarioStore } from '../../src/scenarios'
-import { arrive, emptyMonths, firstPose, forApp, inSeason, monthsSaid, offStage, POSES, resolveScene, SCENE_ART, SCENE_ARTS_VERSION, SCENE_STAGE, validateScene, variantsOf, type LoadedScene } from '../../src/scenes'
+import { ALL_FACES, arrive, emptyMonths, FACES, FACES_SAID, firstPose, forApp, inSeason, monthsSaid, offStage, POSES, resolveScene, SCENE_ART, SCENE_ARTS_VERSION, SCENE_STAGE, validateScene, variantsOf, type LoadedScene } from '../../src/scenes'
 import { allHeard } from '../../src/variants'
+import { cleanScenes } from '../../src/visits'
 import { VillagerStore } from '../../src/villagers'
 import { corpus, PRIORITY_LABELS } from '../../src/voice'
 import { reference } from './fixtures'
@@ -71,6 +72,10 @@ export default async function scenes() {
   const beforeMill = forApp([{ art: 'mill', objects: [{ slot: 'millstone' }] }, { art: 'cellar', objects: [] }], 2)
   check('an app before the mill (arts=2) gets no mill scene; an app of arts=3 does', JSON.stringify(beforeMill) === '[{"art":"cellar","objects":[]}]' && forApp([{ art: 'mill', objects: [] }], 3).length === 1, beforeMill)
   check('the bridge registry matches SceneArt.kt and Model.kt', JSON.stringify(kt) === JSON.stringify(SCENE_ART), { kt, ts: SCENE_ART })
+  // the faces a line is said with (companion/SCENES.md, "Faces"): the app's, neutral first, the resting face never written
+  const faceKt = readFileSync(join(android, 'scene/Face.kt'), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '')
+  const ktFaces = [...(/enum class Face\(val key: String\) \{([^;]*);/.exec(faceKt)?.[1] ?? '').matchAll(/[A-Z]+\("(\w+)"\)/g)].map(m => m[1])
+  check("the bridge's faces are the app's (Face.kt), neutral first and never one to write", JSON.stringify(ktFaces) === JSON.stringify(ALL_FACES) && ktFaces.length === 12 && !(FACES as readonly string[]).includes('neutral'), { kt: ktFaces, ts: ALL_FACES })
 
   // --- the curated content, against the repo's packs and scenarios ------------------------------
   const repo = resolve(import.meta.dir, '../../..')
@@ -267,6 +272,14 @@ export default async function scenes() {
     ['a grammar page that is no id', withLines([l1, { choices: [l2.choices![0], { ...l2.choices![1], grammar: 'Dvojina!' }] }, l3]), 'grammar'],
     ['a puzzled reaction without English', withLines([l1, { ...l2, puzzled: { sl: 'Hm?' } }, l3]), 'puzzled: no "en" text'],
     ["a puzzled reaction on someone's line", withLines([{ ...l1, puzzled: { sl: 'Hm?', en: 'Hm?' } }, l2, l3]), "puzzled is a learner's turn's"],
+    // faces (companion/SCENES.md, "Faces"): one of the app's on someone's line, a reply or a puzzled; never neutral, none on the learner's
+    ['a face that is none', withLines([{ ...l1, face: 'grin' }, l2, l3]), `dialogs[0] (juha).lines[0].face: "grin" is no face (faces: ${FACES.join(', ')})`],
+    ["a reply's face in capitals", withLines([l1, { choices: [{ ...l2.choices![0], reply: { ...l2.choices![0].reply!, face: 'Happy' } }, l2.choices![1]] }, l3]), 'dialogs[0] (juha).lines[1].choices[0].reply.face: "Happy" is no face'],
+    ["a puzzled reaction's face that is none", withLines([l1, { ...l2, puzzled: { sl: 'Hm?', en: 'Hm?', face: 'puzzled' } }, l3]), 'dialogs[0] (juha).lines[1].puzzled.face: "puzzled" is no face'],
+    ['the resting face written', withLines([l1, l2, { ...l3, face: 'neutral' }]), 'dialogs[0] (juha).lines[2].face: "neutral" is the resting face: leave the key out'],
+    ["a face on the learner's turn", withLines([l1, { ...l2, face: 'happy' }, l3]), "dialogs[0] (juha).lines[1].face: a learner's turn has no face; its choices' replies and puzzled do"],
+    ['a face on a choice', withLines([l1, { choices: [{ ...l2.choices![0], face: 'happy' }, l2.choices![1]] }, l3]), "dialogs[0] (juha).lines[1].choices[0].face: a choice is the learner's line: its face goes on its reply"],
+    ['a face that is no name', withLines([{ ...l1, face: 3 }, l2, l3]), 'face'],
     // a season (companion/SCENES.md, "Seasons"): months 1-12, each once; a dialog in its happening's months; never an empty month
     ['a month 13', { ...kitchen, happenings: [{ ...kitchen.happenings[0], months: [12, 13] }] }, 'months'],
     ['no months at all', { ...kitchen, happenings: [{ ...kitchen.happenings[0], months: [] }] }, 'months'],
@@ -423,6 +436,40 @@ export default async function scenes() {
       shown.dialog_months?.['juha-zima']?.months === 'December–February' && !!shown.dialog_months['juha-zima'].out_of_season === ![12, 1, 2].includes(month) && shown.dialog_months.juha === undefined,
     shown)
   await client.callTool({ name: 'remove_scene', arguments: { id: 'smoke-letni' } })
+  // faces (companion/SCENES.md, "Faces"): someone's line, a right choice's reply, a reaction and a turn's puzzled are
+  // published and served with the face they were written with; a line without one has none (the app's neutral)
+  const faced = {
+    ...camp, id: 'smoke-obrazi',
+    dialogs: [{
+      id: 'zgodba',
+      lines: [
+        { who: 'janez', sl: 'Dober večer. Sedi k ognju.', en: 'Good evening. Sit by the fire.', face: 'happy' },
+        { puzzled: { sl: 'Kako, prosim?', en: 'Pardon?', face: 'confused' }, choices: [
+          { sl: 'Hvala, Janez.', en: 'Thanks, Janez.', ok: true, reply: { sl: 'Poslušaj zgodbo.', en: 'Listen to the story.', face: 'thinking' } },
+          { sl: 'Dobro jutro, Janez.', en: 'Good morning, Janez.', why: 'Evening: dober večer.', reply: { sl: 'Jutro? Saj je že tema.', en: 'Morning? But it is dark already.', face: 'surprised' } },
+        ] },
+        { who: 'janez', sl: 'Lahko noč.', en: 'Good night.' },
+      ],
+    }],
+  }
+  const pf = await client.callTool({ name: 'publish_scene', arguments: { scene: faced } })
+  const facedServed = await (await fetch(`${base}/scenes/smoke-obrazi`, { headers: auth })).json()
+  const facedLines = facedServed.dialogs?.[0]?.lines
+  check("faces are published and served as written: someone's line, a right choice's reply, a reaction, a turn's puzzled; none where none is",
+    !pf.isError && facedLines?.[0].face === 'happy' && facedLines[1].choices[0].reply?.face === 'thinking' && facedLines[1].choices[1].reply?.face === 'surprised' &&
+      facedLines[1].puzzled?.face === 'confused' && !('face' in facedLines[1]) && !('face' in facedLines[1].choices[0]) && !('face' in facedLines[2]),
+    [text(pf), facedLines])
+  // a visitor's bridge passes them on as the host serves them (visits.ts, cleanScenes)
+  const visited = cleanScenes({ v: 1, town: 'smoke-town', scenes: [facedServed] }, 'smoke-town')?.scenes[0]?.dialogs[0]?.lines as any[] | undefined
+  check("a visit's scene keeps its faces", visited?.[0].face === 'happy' && visited[1].choices[1].reply?.face === 'surprised' && visited[1].puzzled?.face === 'confused', visited)
+  const facedSpec = text(await client.callTool({ name: 'get_scene', arguments: { id: 'smoke-obrazi' } }))
+  check('get_scene keeps the faces, to change and publish again', facedSpec.includes('"face": "surprised"') && facedSpec.includes('"face": "confused"'), facedSpec.slice(0, 300))
+  await client.callTool({ name: 'remove_scene', arguments: { id: 'smoke-obrazi' } })
+  const tools = (await client.listTools()).tools
+  const sayFaces = ['publish_scene', 'publish_dialog_variant', 'publish_story', 'publish_arrival'].map(n => tools.find(t => t.name === n))
+  check('the publish tools of dialogs say where a face goes (a line, a reply, a puzzled) and which there are', sayFaces.every(t => t?.description?.includes(FACES_SAID)) && FACES_SAID.includes('proud'), sayFaces.map(t => t?.name))
+  const sceneGuide = await guideOf()
+  check("the guide's scenes say the faces: where, which, never neutral nor the learner's", sceneGuide.includes(`${FACES.join(', ')}. Only where the line carries a feeling`) && sceneGuide.includes('neutral, the resting face, is never written'))
   await stage(kitchen, curated, refs)
 }
 
