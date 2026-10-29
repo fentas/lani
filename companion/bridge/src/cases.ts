@@ -173,6 +173,8 @@ const ASKING = new Set(['prosim', 'hvala'])
 const PUNCTUATION = /[,.!?;:—–…()"«»„“”]/
 /** The numbers as an hour says them (ob šestih: Wiktionary's šesti), and the ordinals. */
 const HOURS = new Set(['en', 'eden', 'dva', 'trije', 'štirje', 'pet', 'šest', 'sedem', 'osem', 'devet', 'deset', 'enajst', 'dvanajst', 'prvi', 'drugi', 'tretji', 'četrti', 'peti', 'šesti', 'sedmi', 'osmi', 'deveti', 'deseti', 'enajsti', 'dvanajsti'])
+/** A word ending as an adjective does (delovno, Vipavske, Tonetovo, pastirski): one between a preposition and its noun is read so. */
+const ADJECTIVE_LIKE = /(?:ega|emu|em|im|ih|imi|ima)$|(?:n|sk|šk|ov|ev|in|ast|at|iv|ljiv|ičn)[aoei]$/
 /** English words of a gloss that make a noun a person (or an animal one calls): whom a call can be to. */
 const PERSON = /\b(man|woman|boy|girl|child|children|kid|teacher|mother|mum|mom|father|dad|grand\w*|friend|person|people|neighbou?r|sister|brother|aunt|uncle|son|daughter|king|queen|lady|gentleman|sir|madam|miller|smith|blacksmith|hunter|shepherd|farmer|baker|priest|doctor|guest|wife|husband|master|mistress|pupil|student|lad|lass|fellow|dog|cat|horse|beekeeper|winemaker|innkeeper|landlady|landlord|neighbour|cousin|godfather|godmother|uncle|elder|old man|old woman|stranger|traveller|traveler|pedlar|peddler|merchant|knight|soldier|witch|fairy)\b/
 
@@ -615,11 +617,17 @@ export class CaseLens {
         t.measure = true
       }
     }
-    // a word the dictionary doesn't know, ending as a verb does (počakam, zapojem): a verb, weakly, for the subject it says
+    // a word the dictionary doesn't know, ending as a verb does (počakam, zapojem), or right after ne (ne mara): a verb,
+    // weakly, for the subject it says
     for (const t of out) {
-      if (t.nominal.length || t.verbs.length || t.other.size || t.prep || /^\p{Lu}/u.test(t.raw) || [...t.form].length < 4) continue
-      const guess = guessVerb(t.form)
+      if (t.nominal.length || t.verbs.length || t.other.size || t.prep || /^\p{Lu}/u.test(t.raw) || [...t.form].length < 3) continue
+      const guess = guessVerb(t.form) ?? (this.beforeVerb.has(out[t.i - 1]?.form ?? '') ? { lemma: '?', kind: 'pres' as VerbKind, person: 3 as const, number: 'sg' as NumberKey, weak: true as const } : null)
       if (guess) t.verbs = [guess]
+    }
+    // a capitalized word the dictionary doesn't know (Muriju, Krpan, Lambergarju): a name, its case by its ending, marked
+    for (const t of out) {
+      if (t.nominal.length || t.verbs.length || t.other.size || t.prep || !/^\p{Lu}\p{Ll}{2,}$/u.test(t.raw) || ADJECTIVE_LIKE.test(t.form)) continue
+      t.nominal = nameByEnding(t.raw)
     }
     return out
   }
@@ -794,8 +802,12 @@ export class CaseLens {
   private isIntransitive(v: Tok, hasSe: boolean): boolean {
     const lemmas = new Set([v.form, ...v.verbs.map(r => this.norm(r.lemma))])
     if ((this.governing.get(v.form) ?? []).some(e => e.takes.includes('acc') && (!e.se || hasSe))) return false
-    const tr = [...lemmas].some(l => this.transitive.has(l)) || !!this.transitive.get(v.form)?.length
-    const intr = [...lemmas].some(l => this.intransitive.get(l)?.some(h => !h.se || hasSe)) || !!this.intransitive.get(v.form)?.some(h => !h.se || hasSe)
+    // the form's own entries first: pade is pasti's that falls (padem), not pasti's that grazes (pasem)
+    const ownTr = !!this.transitive.get(v.form)?.length
+    const ownIntr = !!this.intransitive.get(v.form)?.some(h => !h.se || hasSe)
+    if (ownTr !== ownIntr && !hasSe) return ownIntr
+    const tr = [...lemmas].some(l => this.transitive.has(l)) || ownTr
+    const intr = [...lemmas].some(l => this.intransitive.get(l)?.some(h => !h.se || hasSe)) || ownIntr
     // a verb with se has no object in the accusative, unless the table says it has one
     if (hasSe && !(this.governing.get(v.form) ?? []).some(e => e.se && e.takes.includes('acc'))) return true
     return intr && !tr
@@ -903,14 +915,18 @@ export class CaseLens {
       return s
     }
 
-    // the dual only with a word that says two (in the phrase: then only the dual)
-    if (p.toks.some(t => t.dual && !t.verbs.length)) narrow(s, o => o.number === 'du', 'dual')
-    else if (!c.dual) drop(s, o => o.number === 'du', 'dual', true)
+    // the dual only with a word that says two (in the phrase or right before it: then only the dual), or when nothing
+    // else of the form can stand here (Dajte mi vedri: two buckets, the instrumental plural would need a preposition)
+    const twoBefore = before && before.dual && !before.verbs.length && !before.nominal.length
+    const atPrep = before?.role === 'prep' ? new Set(before.prep?.takes.map(x => x.case)) : null
+    const fitsHere = (o: Option) => (atPrep ? atPrep.has(o.case) : o.case !== 'loc' && o.case !== 'ins')
+    if (p.toks.some(t => t.dual && !t.verbs.length) || twoBefore) narrow(s, o => o.number === 'du', 'dual')
+    else if (!c.dual && s.options.some(o => o.number !== 'du' && fitsHere(o))) drop(s, o => o.number === 'du', 'dual', true)
 
     // a preposition right before the phrase (or before a word the dictionary doesn't know, an adjective of a name: iz
     // Vipavske doline): its cases, by what the sentence means (where to, where, when)
     const unknown = (t: Tok | undefined) => !!t && t.role === 'other' && !t.nominal.length && !t.verbs.length && !t.other.size && !t.prep
-      && (/^\p{Lu}/u.test(t.raw) || /(ega|emu|em|im|ih|imi|ima)$/.test(t.form) || /(n|sk|šk|ov|ev|in|ast|at|iv|ljiv|ičn)[aoei]$/.test(t.form)) && p.head.nominal.some(r => r.pos === 'noun' || r.pos === 'name')
+      && (/^\p{Lu}/u.test(t.raw) || ADJECTIVE_LIKE.test(t.form)) && p.head.nominal.some(r => r.pos === 'noun' || r.pos === 'name')
     const over = (t: Tok | undefined) => unknown(t) || (!!t && t.role === 'other' && (t.count || t.quantity || (t.other.has('adv') && !t.nominal.length)))
     let prep: Tok | undefined = before?.role === 'prep' ? before : undefined
     for (let k = first.i - 1; !prep && k >= first.i - 3 && k >= 0 && all[k].clause === first.clause && over(all[k]); k--) if (all[k - 1]?.role === 'prep' && all[k - 1].clause === first.clause) prep = all[k - 1]
@@ -1024,6 +1040,11 @@ export class CaseLens {
   private byPreposition(s: PhraseState, prep: Tok, c: Clause, timeNoun: boolean, unresolved: () => PhraseState): PhraseState {
     const takes = prep.prep!.takes
     const cases = new Set(takes.map(x => x.case))
+    // the phrase's words agree in none of its cases: its noun alone (an adjective the supplement lists by one reading: močne)
+    if (!s.options.some(o => cases.has(o.case)) && s.phrase.toks.length > 1) {
+      const head = agreeing([s.phrase.head]).filter(o => cases.has(o.case) && (o.number !== 'du' || c.dual))
+      if (head.length) s.options = head.map(o => ({ ...o }))
+    }
     drop(s, o => !cases.has(o.case), 'preposition')
     if (!s.options.length) return unresolved()
     // a phrase of the clause that can be its subject: then the verb is no imperative
@@ -1033,7 +1054,8 @@ export class CaseLens {
     const left = () => [...new Set(s.options.map(o => o.case))]
     if (left().length > 1) {
       const fits = (x: (typeof takes)[number]) => left().includes(x.case)
-      const pick = timeNoun ? takes.filter(x => x.time && fits(x))
+      const timed = timeNoun ? takes.filter(x => x.time && fits(x)) : []
+      const pick = timed.length ? timed
         : motion && !rest ? takes.filter(x => x.sense === 'motion' && fits(x))
         : rest && !motion ? takes.filter(x => x.sense === 'rest' && fits(x))
         : []
@@ -1042,7 +1064,8 @@ export class CaseLens {
     // each case's sense: of a case it takes twice (za: for, or behind as where to), by the verb
     for (const o of s.options) {
       const same = takes.filter(x => x.case === o.case)
-      const e = same.length > 1 ? (motion ? same.find(x => x.sense === 'motion') : same.find(x => x.sense !== 'motion')) ?? same[0] : same[0]
+      // (za nedeljo: for Sunday, a time: not where to, whatever the verb)
+      const e = same.length > 1 ? (motion && !timeNoun ? same.find(x => x.sense === 'motion') : same.find(x => x.sense !== 'motion')) ?? same[0] : same[0]
       const time = timeNoun && !!e.time
       Object.assign(o, { as: 'preposition', by: prep, rule: time ? e.time : e.rule, sense: time ? 'time' : e.sense, ...(e.default && left().length > 1 ? { likely: true } : {}) })
     }
@@ -1304,6 +1327,24 @@ function verbReadingOfSlot(lemma: string, key: string): VerbReading | null {
       return { lemma, kind: 'past', gender: b as GenderKey, number: c as NumberKey }
   }
   return null
+}
+
+/**
+ * A name the dictionary doesn't know, by its ending (derived, as a person's: a masculine's accusative is its genitive):
+ * -u the dative or locative (Muriju), -om or -em the instrumental, -a a woman's nominative or a man's genitive and
+ * accusative, -e a woman's genitive or a man's nominative (Tone), -i a woman's dative or locative or a man's nominative
+ * (Muri), -o a woman's accusative or instrumental or a man's nominative (Marko), a consonant a man's nominative.
+ */
+function nameByEnding(raw: string): Nominal[] {
+  const f = raw.toLowerCase()
+  const r = (c: CaseKey, g: GenderKey[]): Nominal => ({ lemma: raw, pos: 'name', case: c, number: 'sg', genders: g, strong: false, derived: true })
+  if (/(om|em)$/.test(f)) return [r('ins', ['m'])]
+  if (f.endsWith('u')) return [r('dat', ['m']), r('loc', ['m'])]
+  if (f.endsWith('a')) return [r('nom', ['f']), r('gen', ['m']), r('acc', ['m'])]
+  if (f.endsWith('e')) return [r('gen', ['f']), r('nom', ['m'])]
+  if (f.endsWith('i')) return [r('dat', ['f']), r('loc', ['f']), r('nom', ['m'])]
+  if (f.endsWith('o')) return [r('acc', ['f']), r('ins', ['f']), r('nom', ['m'])]
+  return /[^aeiou]$/.test(f) ? [r('nom', ['m'])] : []
 }
 
 /** A verb the dictionary doesn't know, by its ending: the present's persons (počakam: I), weakly. */
