@@ -186,7 +186,8 @@ class DevUpload(
 /**
  * The app's own log (this process's lines in logcat: an app reads its own without a permission): its warnings and
  * errors, and the info lines of its own tags that matter to the developer ([TAGS]: the shadow's calls and transport
- * errors, Clips' "no clip of a line", the speaker's route lines in QA builds …); the last [MAX_LINES] of the last
+ * errors, Clips' "no clip of a line", the speaker's route lines in QA builds, a talk's takes (LaniStt: the readings, the
+ * level, how each ended; no audio) …); the last [MAX_LINES] of the last
  * [MAX_AGE_MS], after what was sent before.
  */
 object AppLog {
@@ -196,7 +197,7 @@ object AppLog {
     /** The app's tags whose info lines go too (warnings and errors go from every tag). */
     val TAGS = listOf(
         "ShadowTutor", DevUpload.TAG, "Clips", "Speaker", "IntroVoice", "Piper", "Prefetch", "OfflineAudio", "OfflineVoice",
-        "Ambience", "Cultures", "RoadPrep", "RoadCar", "LaniPrint",
+        "Ambience", "Cultures", "RoadPrep", "RoadCar", "LaniPrint", "LaniStt",
     )
 
     /** What was read: the lines, where from ("logcat"), and why nothing could be (null: read). */

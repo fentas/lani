@@ -42,6 +42,34 @@ class SttTest {
         }
     }
 
+    @Test fun `a talk's take carries the conversation, as the bridge takes it`() {
+        val u = SttSpeech.url(
+            "http://n", null, language = "it",
+            context = SttContext(said = listOf("Ciao!", "Andiamo al  ruscello\no al bosco?"), words = listOf("Come stai?", "", "Come stai?"), names = listOf("Teo", "Pastore Davide")),
+        )
+        assertEquals("1", u.queryParameter("talk"))
+        assertNull(u.queryParameter("prompt"))
+        assertEquals(listOf("Ciao!", "Andiamo al ruscello o al bosco?"), u.queryParameterValues("said"))
+        assertEquals(listOf("Come stai?"), u.queryParameterValues("words"))
+        assertEquals(listOf("Teo", "Pastore Davide"), u.queryParameterValues("names"))
+        assertNull(SttSpeech.url("http://n", "Ciao").queryParameter("talk"))
+    }
+
+    @Test fun `a talk's reading parses with what the bridge weighed - an older bridge's without`() {
+        val r = SttSpeech.parse(
+            """{"text":"Amico!","segments":[],"language":"it","alternatives":["Amigo!"],"near":[{"from":"Amigo","to":"Amico"}],"sure":false,"noise":false,"by":"context",""" +
+                """"readings":[{"by":"context","text":"Amigo!","prob":0.8},{"by":"plain","text":"Amigo!","prob":null}],"voice":{"voiced":0.7,"loud":0.9},"took":0.61}""",
+        )
+        assertEquals(listOf("Amigo!"), r.alternatives)
+        assertEquals(false, r.sure)
+        assertEquals(2, r.readings.size)
+        assertEquals(0.7, r.voice!!.voiced, 0.0)
+        val old = SttSpeech.parse("""{"text":"Hvala.","segments":[]}""")
+        assertNull(old.sure)
+        assertFalse(old.noise)
+        assertTrue(old.alternatives.isEmpty())
+    }
+
     @Test fun `blank prompt is left out and a long one is cut`() {
         assertNull(SttSpeech.url("http://n", "  ").queryParameter("prompt"))
         assertNull(SttSpeech.url("http://n", null).queryParameter("prompt"))
@@ -166,5 +194,34 @@ class SttTest {
         val levels = List(5) { 12_000 } + List(30) { 3_000 }
         assertNull(run(g, levels))
         assertTrue(SilenceGate().let { gg -> run(gg, List(5) { 12_000 } + List(30) { 1_500 }) } != null)
+    }
+
+    @Test fun `listening to the room - a soft voice starts the take and its pause ends it`() {
+        // a quiet room (150), a child's soft voice (900): the fixed gate never starts and gives up after 8 s
+        val levels = List(5) { 150 } + List(8) { 900 } + List(20) { 150 }
+        assertEquals(8_000L, run(SilenceGate(), levels + List(60) { 150 }))
+        val g = SilenceGate(room = true)
+        val at = run(g, levels)!!
+        assertTrue(g.started)
+        assertEquals(150, g.roomLevel)
+        assertEquals(400, g.speechLevel) // 2.5 times the room, 400 at least
+        assertEquals((13 + 14) * 100L, at) // quiet from index 13, 1.4 s later
+    }
+
+    @Test fun `listening to the room - the room is its quietest stretch, and speech from the first tick isn't cut`() {
+        val g = SilenceGate(quietMs = 3_000, room = true)
+        // speech at once (the room not heard yet), 4 s of it with short dips, then the room
+        val speech = List(40) { i -> if (i % 7 == 6) 1_200 else 5_000 }
+        assertNull(run(g, speech))
+        assertTrue(g.started)
+        val rest = List(35) { 300 }
+        val at = run(SilenceGate(quietMs = 3_000, room = true), speech + rest)!!
+        assertTrue("ends 3 s after the speech, not inside it: $at", at in 7_000L..7_200L)
+    }
+
+    @Test fun `listening to the room - a room as loud as a voice keeps the fixed level`() {
+        val g = SilenceGate(room = true)
+        run(g, List(10) { 2_000 })
+        assertEquals(1_500, g.speechLevel) // at most the fixed level
     }
 }

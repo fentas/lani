@@ -2,6 +2,7 @@ package si.lanisce.lani.ui.talk
 
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.TextRange
@@ -12,8 +13,18 @@ import si.lanisce.lani.data.SttWord
 /** A word of the draft the node's recognizer was unsure of: [start] until [end] in the text. */
 data class Unclear(val id: Int, val start: Int, val end: Int, val word: String)
 
-/** A turn as it goes out: the text, the recognizer's other readings of it, and whether it was typed. */
-data class Said(val text: String, val alternatives: List<String>, val typed: Boolean)
+/**
+ * A turn as it goes out: the text, the recognizer's other readings of it, whether it was typed; how many times the
+ * learner said it ([takes]: every take since the last turn, also the ones nothing came of), and the words the
+ * recognizer was unsure of still in it ([unclear]).
+ */
+data class Said(
+    val text: String,
+    val alternatives: List<String>,
+    val typed: Boolean,
+    val takes: Int = 0,
+    val unclear: List<String> = emptyList(),
+)
 
 /**
  * The input field of a talk (and of the question under its debrief). What the 🎤 recognizes lands here, sentence by
@@ -33,6 +44,15 @@ class TalkDraft {
     /** The marked word Jan tapped (in the field, or its chip): what to do with it shows. */
     var picked by mutableStateOf<Unclear?>(null)
         private set
+    /**
+     * The text is what the node heard surely, untouched (every piece sure, no word marked, nothing edited): it may go by
+     * itself (TalkInput, "Pošlji sam · Send by itself").
+     */
+    var sure by mutableStateOf(false)
+        private set
+    /** Takes since the last turn went out. */
+    var takes by mutableIntStateOf(0)
+        private set
     /** The recognizer's other readings, sent while the text is still the one piece they belong to. */
     private var alternatives: List<String> = emptyList()
     private var recognized: String? = null
@@ -42,9 +62,12 @@ class TalkDraft {
 
     /**
      * A recognized [piece] goes at the end, after a space; [unclear] are ranges in the piece to mark,
-     * [alternatives] the recognizer's other readings of it.
+     * [alternatives] the recognizer's other readings of it; [sure]: the node heard it surely.
      */
-    fun append(piece: String, unclear: List<IntRange> = emptyList(), alternatives: List<String> = emptyList()) {
+    fun append(
+        piece: String, unclear: List<IntRange> = emptyList(), alternatives: List<String> = emptyList(),
+        sure: Boolean = false,
+    ) {
         val p = piece.trim()
         if (p.isEmpty()) return
         val was = value.text.takeIf { it.isNotBlank() }.orEmpty()
@@ -55,9 +78,15 @@ class TalkDraft {
             unclear.filter { it.first >= 0 && it.last < p.length }.map { Unclear(ids++, at + it.first, at + it.last + 1, p.substring(it)) }
         this.alternatives = if (was.isEmpty()) alternatives else emptyList()
         recognized = if (was.isEmpty()) p else null
+        this.sure = sure && (was.isEmpty() || this.sure) && marks.isEmpty()
         spoken = true
         picked = null
         value = TextFieldValue(text, TextRange(text.length))
+    }
+
+    /** A take began (the 🎤, or a word said again): counted for the turn, whatever comes of it. */
+    fun took() {
+        takes++
     }
 
     /** A sentence ends here: a full stop after the text, unless it ends in one. */
@@ -80,8 +109,14 @@ class TalkDraft {
             alternatives = emptyList()
             recognized = null
         }
+        sure = false
         picked = null
         value = v
+    }
+
+    /** Keep it as a draft ("✋"): it doesn't go by itself, Jan sends it. */
+    fun hold() {
+        sure = false
     }
 
     /** The chip of a marked word was tapped. */
@@ -112,6 +147,7 @@ class TalkDraft {
         marks = marks.filter { it.id != id }.map { if (it.start >= m.end) it.copy(start = it.start + delta, end = it.end + delta) else it }
         spoken = true
         recognized = null
+        sure = false
         picked = null
         value = TextFieldValue(text, TextRange(m.start + w.length))
         return true
@@ -121,11 +157,16 @@ class TalkDraft {
     fun take(): Said? {
         val t = value.text.trim()
         if (t.isEmpty()) return null
-        val said = Said(t, if (t == recognized) alternatives else emptyList(), typed = !spoken)
+        val heard = t == recognized
+        val said = Said(
+            t, if (heard) alternatives else emptyList(), typed = !spoken, takes = takes, unclear = marks.map { it.word }.distinct(),
+        )
         clear()
+        takes = 0
         return said
     }
 
+    /** An empty field (✕): what was heard goes; the takes of the turn still count. */
     fun clear() {
         value = TextFieldValue("")
         marks = emptyList()
@@ -133,6 +174,7 @@ class TalkDraft {
         picked = null
         alternatives = emptyList()
         recognized = null
+        sure = false
     }
 
     companion object {

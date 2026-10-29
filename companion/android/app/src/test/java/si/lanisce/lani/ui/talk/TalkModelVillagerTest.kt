@@ -42,7 +42,7 @@ class TalkModelVillagerTest {
     @Test fun `ending a talk with a villager befriends them, the debrief's memory stays`() {
         talk.pick(scenario("villager:luka"))
         talk.start()
-        talk.say("Živjo, Luka!", emptyList(), typed = true)
+        talk.say(Said("Živjo, Luka!", emptyList(), typed = true))
         talk.finish()
         assertEquals(listOf(Triple("luka", Bonds.TALK, null as Memory?)), calls)
         assertEquals(Bonds.TALK, talk.friend?.points)
@@ -66,7 +66,7 @@ class TalkModelVillagerTest {
     @Test fun `a memory arriving after the next talk began still reaches the villager`() {
         talk.pick(scenario("villager:luka"))
         talk.start()
-        talk.say("Dober dan!", emptyList(), typed = false)
+        talk.say(Said("Dober dan!", emptyList(), typed = false))
         talk.finish()
         val first = talk.state!!.conversationId
         talk.again() // a new conversation before the debrief came
@@ -79,7 +79,7 @@ class TalkModelVillagerTest {
     @Test fun `other role-plays leave the villagers alone`() {
         talk.pick(scenario("v-pekarni"))
         talk.start()
-        talk.say("En kruh, prosim.", emptyList(), typed = true)
+        talk.say(Said("En kruh, prosim.", emptyList(), typed = true))
         talk.finish()
         talk.onReply(reply(talk.state!!.conversationId, """{"debrief": true, "memory": {"sl": "kruh"}}"""))
         assertTrue(calls.isEmpty())

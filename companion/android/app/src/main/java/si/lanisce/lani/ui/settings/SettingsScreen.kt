@@ -74,8 +74,8 @@ enum class SettingsSection(val id: String, val emoji: String, val key: String) {
  * "⚙️ Nastavitve · Settings" (docs/plans/05-built/navigation.md, "Settings"), from the ⚙️ on Home: its sections, each a row
  * with what it holds now in a line, a tap its page ([section]): "🧑‍🏫 Učitelj · Tutor" (who answers, the provider and its
  * key, the spend), "💾 Podatki · Data" (git, the handover, the backup), "🌐 Jeziki · Languages", "🔊 Zvok in glas · Sound
- * and voice" (the learner's own voice, "🗣️ Moj glas · My voice"; the background sounds, the explanations read aloud, the
- * offline audio and voice), "🔗 Povezava · Connection"
+ * and voice" (the learner's own voice, "🗣️ Moj glas · My voice"; the background sounds, the explanations read aloud, a
+ * talk's line sent by itself, the offline audio and voice), "🔗 Povezava · Connection"
  * (the node or Lani on this phone, pairing again by QR code). On a child's device the tutor's and the data's pages are a
  * parent's (a hold opens them: ui/setup/ParentGated). The version line at the end, tapped seven times, shows
  * "🛠️ Razvijalec · Developer".
@@ -156,6 +156,7 @@ private fun Page(vm: AppViewModel, s: SettingsSection) {
                     MyVoiceSettings(vm.myVoice, Modifier.padding(bottom = 8.dp))
                     AmbienceSettings(vm.ambience)
                     si.lanisce.lani.ui.school.ReadSetting(vm)
+                    si.lanisce.lani.ui.talk.BySelfSetting(vm)
                     // Lani on this phone has no node's clips nor its offline voice yet: the phone's text-to-speech speaks
                     if (!vm.hosted.active) OfflineAudioSettings(vm.offlineAudio, Modifier.padding(top = 8.dp))
                 }

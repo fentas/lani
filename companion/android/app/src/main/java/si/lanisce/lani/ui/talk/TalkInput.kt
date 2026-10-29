@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.FilledTonalButton
@@ -29,6 +30,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -79,19 +81,23 @@ import si.lanisce.lani.ui.theme.XpGold
 /**
  * Jan's side of the conversation: a big 🎤 and the input field. Tap 🎤 (or hold it) and speak, several sentences if they
  * like: ⏹ or a long pause ends it, "Next sentence" closes one and goes on. What was recognized lands in the field,
- * sentence by sentence, with the unclear words marked, to check, correct and send (➤); nothing goes out by itself.
- * ⌨️ types instead; 💡 asks for a hint.
+ * sentence by sentence, with the unclear words marked, to check, correct and send (➤). A line the node heard surely
+ * ([TalkDraft.sure]) goes by itself after a moment ([SendingBar], "✋ Obdrži · Keep" keeps it) when "Pošlji sam · Send
+ * by itself" is on (a child's default: data/Stt.kt sendsBySelf). ⌨️ types instead; 💡 asks for a hint. The node hears
+ * each line with the conversation so far ([Talk.sttContext]).
  */
 @Composable
 fun TalkInput(
     vm: AppViewModel,
     enabled: Boolean,
     hintEnabled: Boolean,
-    onSay: (text: String, alternatives: List<String>, typed: Boolean) -> Unit,
+    onSay: (Said) -> Unit,
     onHint: () -> Unit,
 ) {
     val draft = remember { TalkDraft() }
-    val voice = rememberTalkVoice(vm, draft)
+    val voice = rememberTalkVoice(vm, draft, conversation = {
+        vm.talk.state?.let { si.lanisce.lani.data.Talk.sttContext(it, si.lanisce.lani.l10n.Learner.current.takeIf { l -> !l.generic }?.name) }
+    })
     val mic = voice.mic
     var keyboard by remember { mutableStateOf(!voice.canListen()) }
     var focused by remember { mutableStateOf(false) }
@@ -101,7 +107,16 @@ fun TalkInput(
     fun send() {
         if (!mic.canSend(enabled)) return
         val s = draft.take() ?: return
-        onSay(s.text, s.alternatives, s.typed)
+        onSay(s)
+    }
+
+    // a line heard surely goes by itself, after a moment to keep it
+    val bySelf = vm.stt.sendsBySelf(vm.child)
+    val sending = bySelf && draft.sure && mic.canSend(enabled) && !focused
+    LaunchedEffect(sending, draft.text) {
+        if (!sending) return@LaunchedEffect
+        kotlinx.coroutines.delay(SEND_BY_SELF_MS)
+        if (draft.sure && mic.canSend(enabled)) send()
     }
 
     Column(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -111,6 +126,7 @@ fun TalkInput(
             return@Column
         }
         MicStatus(mic)
+        if (sending) SendingBar(onKeep = draft::hold)
         UnclearHint(voice, onTypeIt = { draft.select(it); focus.requestFocus() })
         if (keyboard || focused || draft.text.isNotEmpty()) {
             if (keyboard || focused) {
@@ -146,6 +162,44 @@ fun TalkInput(
                     TextButton(onClick = onHint, enabled = hintEnabled && !mic.recording) { Text("💡 ${bi("talkInput.hint")}") }
                 }
             }
+        }
+    }
+}
+
+/**
+ * "🎤 Pošlji sam · Send by itself" in the settings' "Zvok in glas · Sound and voice": a talk's line the node heard surely
+ * goes without a tap. On for a child unless a parent turns it off; off for others unless they turn it on.
+ */
+@Composable
+fun BySelfSetting(vm: AppViewModel, modifier: Modifier = Modifier) {
+    val on = vm.stt.sendsBySelf(vm.child)
+    Column(modifier) {
+        Row(
+            Modifier.fillMaxWidth().toggleable(value = on, role = Role.Switch, onValueChange = vm.stt::chooseBySelf).padding(vertical = 4.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text("🎤 ${bi("talkInput.bySelf")}", Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium)
+            androidx.compose.material3.Switch(checked = on, onCheckedChange = null)
+        }
+        Text(bi("talkInput.bySelfHint"), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    }
+}
+
+/** How long a line heard surely waits before it goes by itself: time to see it and keep it. */
+internal const val SEND_BY_SELF_MS = 1_800L
+
+/** "➤ Pošiljam … · Sending …" with the time filling up, and "✋ Obdrži · Keep" to keep the line as a draft. */
+@Composable
+internal fun SendingBar(onKeep: () -> Unit) {
+    val progress = remember { androidx.compose.animation.core.Animatable(0f) }
+    LaunchedEffect(Unit) { progress.animateTo(1f, androidx.compose.animation.core.tween(SEND_BY_SELF_MS.toInt(), easing = androidx.compose.animation.core.LinearEasing)) }
+    Surface(color = MaterialTheme.colorScheme.secondaryContainer, shape = RoundedCornerShape(14.dp), modifier = Modifier.fillMaxWidth()) {
+        Column(Modifier.padding(horizontal = 12.dp, vertical = 4.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text("➤ ${bi("talkInput.sending")}", style = MaterialTheme.typography.labelLarge, modifier = Modifier.weight(1f).semantics { liveRegion = LiveRegionMode.Polite })
+                TextButton(onClick = onKeep) { Text("✋ ${bi("talkInput.keep")}") }
+            }
+            LinearProgressIndicator(progress = { progress.value }, modifier = Modifier.fillMaxWidth().height(3.dp).clip(RoundedCornerShape(2.dp)))
         }
     }
 }

@@ -29,6 +29,7 @@ import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.data.Recognizer
 import si.lanisce.lani.data.SpeechRecorder
 import si.lanisce.lani.data.Stt
+import si.lanisce.lani.data.SttContext
 import si.lanisce.lani.data.SttResult
 import si.lanisce.lani.data.SttUnavailable
 import si.lanisce.lani.l10n.bi
@@ -72,6 +73,9 @@ class TalkVoice internal constructor(val mic: TalkMic, private val listens: () -
 
 private fun clock() = SystemClock.elapsedRealtime()
 
+/** The talk's takes in the app log (one line each: si.lanisce.lani.app.AppLog.TAGS). */
+const val LOG_TAG = "LaniStt"
+
 /** [TalkEars] on the phone: [SpeechRecorder] and the node's [Stt], and the in-app [SpeechRecognizer]. */
 private class PhoneEars(
     context: Context,
@@ -91,8 +95,8 @@ private class PhoneEars(
 
     override fun stopRecording(): File? = recorder.stop()
 
-    override suspend fun transcribe(take: File, expected: String?): SttResult = try {
-        stt.transcribe(take, expected)
+    override suspend fun transcribe(take: File, expected: String?, context: SttContext?): SttResult = try {
+        stt.transcribe(take, expected, context)
     } catch (e: IOException) {
         if (e !is SttUnavailable) stt.refresh() // unreachable: the phone listens next time, unless the node is up
         throw e
@@ -132,16 +136,19 @@ private class PhoneEars(
 
 /**
  * The 🎤 of a talk's input, filling [draft]. The node's recognizer listens when it is up (checked when this shows, and
- * again when it can't be reached), else the phone's.
+ * again when it can't be reached), else the phone's. [conversation]: what the node hears a line with (null: none).
  */
 @Composable
-fun rememberTalkVoice(vm: AppViewModel, draft: TalkDraft, config: TalkMic.Config = TalkMic.Config()): TalkVoice {
+fun rememberTalkVoice(
+    vm: AppViewModel, draft: TalkDraft, config: TalkMic.Config = TalkMic.Config(), conversation: () -> SttContext? = { null },
+): TalkVoice {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val rec = vm.recognizer
     val sr = remember { if (rec.inApp) runCatching { SpeechRecognizer.createSpeechRecognizer(context) }.getOrNull() else null }
     val ears = remember { PhoneEars(context, vm.stt, sr, scope) { rec.intent(silenceMs = config.longPauseMs) } }
-    val mic = remember { TalkMic(scope, ears, draft, config) }
+    val ctx = androidx.compose.runtime.rememberUpdatedState(conversation)
+    val mic = remember { TalkMic(scope, ears, draft, config, context = { ctx.value() }, log = { android.util.Log.i(LOG_TAG, it) }) }
     val phone = { sr != null && rec.support != Recognizer.Support.NO }
     val voice = remember { TalkVoice(mic) { vm.stt.available == true || phone() || rec.dialog } }
     ears.on = { mic.engine == TalkMic.Engine.PHONE }
@@ -220,6 +227,7 @@ fun rememberTalkVoice(vm: AppViewModel, draft: TalkDraft, config: TalkMic.Config
             // The system's voice dialog needs no permission of ours; it listens for one sentence.
             rec.dialog -> {
                 pending[0] = mark
+                draft.took()
                 runCatching { dialog.launch(rec.intent(bi("common.saySlovene"))) }
                     .onFailure { mic.message = "📵 ${bi("speakExercise.phoneHasNoSpeech")}" }
             }

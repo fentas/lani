@@ -101,6 +101,8 @@ data class TalkLine(
     /** On Jan's lines: the tutor's gentle correction, if there was a real mistake. */
     val correction: String? = null,
     val typed: Boolean = false,
+    /** On Jan's lines: how many times it was said before it went out (0: not counted, typed). */
+    val takes: Int = 0,
 )
 
 data class TalkHint(val sl: String, val en: String?)
@@ -162,8 +164,8 @@ object Talk {
     fun start(s: Scenario, now: Long, conversationId: String = newConversationId(), onScreen: Long = now) =
         TalkState(s, conversationId, onScreen, listOf(TalkLine(0, fromMe = false, sl = s.openerSl, en = s.openerEn)))
 
-    fun said(st: TalkState, text: String, typed: Boolean, now: Long): TalkState = st.copy(
-        lines = st.lines + TalkLine(st.lines.size, fromMe = true, sl = text.trim(), typed = typed),
+    fun said(st: TalkState, text: String, typed: Boolean, now: Long, takes: Int = 0): TalkState = st.copy(
+        lines = st.lines + TalkLine(st.lines.size, fromMe = true, sl = text.trim(), typed = typed, takes = takes),
         waiting = true,
         waitingSince = now,
         hint = null,
@@ -195,8 +197,17 @@ object Talk {
     fun verdicts(st: TalkState): List<Verdict> =
         st.lines.filter { it.fromMe }.map { if (it.correction == null) Verdict.CORRECT else Verdict.ALMOST }
 
-    /** `data` of a roleplay message: Jan's line, already in [st] (or a hint request when [heard] is null). */
-    fun turnData(st: TalkState, heard: String?, alternatives: List<String> = emptyList()): JsonObject = buildJsonObject {
+    /**
+     * `data` of a roleplay message: Jan's line, already in [st] (or a hint request when [heard] is null), with the
+     * recognizer's other readings ([alternatives]: the other hearing, and the one with a near-miss matched to the
+     * conversation, amigo → amico); `typed` ([typed]: Jan typed it), `takes` ([takes]: how many times Jan said it, when
+     * more than once) and `unclear` ([unclear]: the words it was unsure of). The tutor never corrects what the
+     * recognizer may have misheard (features/scenarios.ts).
+     */
+    fun turnData(
+        st: TalkState, heard: String?, alternatives: List<String> = emptyList(), typed: Boolean = false, takes: Int = 0,
+        unclear: List<String> = emptyList(),
+    ): JsonObject = buildJsonObject {
         put("scenario_id", st.scenario.id)
         put("turn", if (heard == null) st.turn + 1 else st.turn) // Jan's line number, 1-based
         if (heard == null) {
@@ -205,8 +216,21 @@ object Talk {
             put("heard", heard)
             val alts = alternatives.map { it.trim() }.filter { it.isNotEmpty() && it != heard }.distinct().take(4)
             if (alts.isNotEmpty()) put("alternatives", buildJsonArray { alts.forEach { add(it) } })
+            if (typed) put("typed", true)
+            if (takes > 1) put("takes", takes)
+            if (!typed && unclear.isNotEmpty()) put("unclear", buildJsonArray { unclear.take(6).forEach { add(it) } })
         }
     }
+
+    /**
+     * What the node's recognizer gets of the conversation for Jan's next line ([SttContext]): the character's last two
+     * lines, the scenario's useful phrases, and the names: [learner]'s, the character's (the role before its comma).
+     */
+    fun sttContext(st: TalkState, learner: String?): SttContext = SttContext(
+        said = st.lines.filter { !it.fromMe }.takeLast(2).map { it.sl },
+        words = st.scenario.vocabularyHints.map { it.sl }.filter { it.isNotBlank() },
+        names = listOfNotNull(learner?.takeIf { it.isNotBlank() }, st.scenario.character.takeIf { it.isNotBlank() }),
+    )
 
     /** `data` of roleplay_end: the whole scene, for the debrief and the session log. [now] is on the clock [TalkState.startedAt] is. */
     fun transcript(st: TalkState, now: Long): JsonObject = buildJsonObject {
@@ -223,6 +247,7 @@ object Talk {
                 put("who", if (l.fromMe) "jan" else "character")
                 put("sl", l.sl)
                 if (l.typed) put("typed", true)
+                if (l.takes > 1) put("takes", l.takes)
                 l.correction?.let { put("correction", it) }
             })
         })

@@ -8,6 +8,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.booleanOrNull
 import kotlinx.serialization.json.jsonObject
@@ -35,7 +36,21 @@ data class SttWord(val word: String, val start: Double? = null, val end: Double?
 @Serializable
 data class SttSegment(val start: Double? = null, val end: Double? = null, val text: String = "", val words: List<SttWord> = emptyList())
 
-/** POST /stt: the transcript, its segments with per-word probabilities, and the audio length in seconds. */
+/** One of a talk's two readings of a take: by the prompt with the conversation ("context") or "plain"; its mean word probability. */
+@Serializable
+data class SttReading(val by: String, val text: String, val prob: Double? = null)
+
+/** How much of a take was a voice, by the node's measure (seconds voiced, seconds over the room). */
+@Serializable
+data class SttVoice(val voiced: Double, val loud: Double)
+
+/**
+ * POST /stt: the transcript, its segments with per-word probabilities, and the audio length in seconds. A talk's take
+ * (`talk=1`, [SttContext]) comes with what the bridge weighed besides (companion/bridge/src/stt-talk.ts): the other
+ * readings as [alternatives] (the other hearing, and the line with a heard non-word matched to the conversation's word:
+ * amigo → amico), [sure] (sure enough to send by itself), [noise] (no line in it: nothing goes to the draft), [by] (which reading) and both
+ * [readings]. A bridge from before talks sends none of them: [sure] null.
+ */
 @Serializable
 data class SttResult(
     val text: String,
@@ -43,9 +58,23 @@ data class SttResult(
     val language: String = "sl",
     val duration: Double? = null,
     val model: String? = null,
+    val took: Double? = null,
+    val voice: SttVoice? = null,
+    val alternatives: List<String> = emptyList(),
+    val sure: Boolean? = null,
+    val noise: Boolean = false,
+    val by: String? = null,
+    val readings: List<SttReading> = emptyList(),
 ) {
     val words: List<SttWord> get() = segments.flatMap { it.words }
 }
+
+/**
+ * What a talk tells the node's recognizer about the conversation, in the course's language: the character's last lines
+ * ([said], oldest first), the scenario's useful phrases ([words]) and the names in the scene ([names], the learner's
+ * too). The bridge makes Whisper's prompt of them, hears the take with it and without, and matches near-misses to them.
+ */
+data class SttContext(val said: List<String>, val words: List<String> = emptyList(), val names: List<String> = emptyList())
 
 /** Thrown when the node answers but can't recognize now (503: not running, starting or busy). */
 class SttUnavailable(message: String) : IOException(message)
@@ -63,14 +92,24 @@ object SttSpeech {
      * `/stt?language=it&prompt=<expected>`: the language is the learner's target (the pair's, [L10n.pair]), and the
      * expected sentence steers spelling toward it.
      */
-    fun url(base: String, expected: String?, language: String = L10n.pair.target.code): HttpUrl =
+    fun url(base: String, expected: String?, language: String = L10n.pair.target.code, context: SttContext? = null): HttpUrl =
         (base.trimEnd('/') + "/stt").toHttpUrl().newBuilder()
             .addQueryParameter("language", language)
             .apply { expected?.trim()?.takeIf { it.isNotEmpty() }?.let { addQueryParameter("prompt", it.take(MAX_PROMPT)) } }
+            .apply {
+                // a talk's take: the conversation, as the bridge takes it (features/stt.ts talkContextOf)
+                if (context == null) return@apply
+                addQueryParameter("talk", "1")
+                context.said.map(::squash).filter { it.isNotEmpty() }.takeLast(3).forEach { addQueryParameter("said", it.take(MAX_PROMPT)) }
+                context.words.map(::squash).filter { it.isNotEmpty() }.distinct().take(12).forEach { addQueryParameter("words", it.take(80)) }
+                context.names.map(::squash).filter { it.isNotEmpty() }.distinct().take(8).forEach { addQueryParameter("names", it.take(40)) }
+            }
             .build()
 
-    fun request(config: BridgeConfig, audio: File, expected: String?, language: String = L10n.pair.target.code): Request = Request.Builder()
-        .url(url(config.baseUrl, expected, language))
+    private fun squash(s: String) = s.replace(Regex("\\s+"), " ").trim()
+
+    fun request(config: BridgeConfig, audio: File, expected: String?, language: String = L10n.pair.target.code, context: SttContext? = null): Request = Request.Builder()
+        .url(url(config.baseUrl, expected, language, context))
         .header("Authorization", "Bearer ${config.token}")
         .post(audio.asRequestBody("audio/mp4".toMediaType()))
         .build()
@@ -156,12 +195,21 @@ object SttSpeech {
  * When to stop recording on its own, fed MediaRecorder amplitudes (0..32767) with their time in
  * ms: once speech has started (at least [speech] for [startMs]), after [quietMs] below a sixth of
  * the loudest level so far; or after [giveUpMs] when nothing loud enough came. Tapping stops too.
+ *
+ * [room]: the gate listens to the room (a child's voice is softer, a tablet's microphone farther away): the room is the
+ * lowest level it has heard, the median of three ticks; speech is 8 dB over it (2.5 times, [ROOM_SPEECH]: from 400 up to
+ * [speech]) and starts at once, and quiet is also under twice the room once the room is well below the voice (a
+ * quarter of the loudest level). Measured on 620 takes like a child's on a tablet (docs/plans/05-built/stt-talk.md,
+ * "The take"): with a voice peaking at -26 dBFS the fixed gate didn't send 61 % of the takes that ended by themselves
+ * ("I didn't catch that") and waited for the give-up in 98 %; this one sends 99.8 % and ends 93 % within 4.5 s of the
+ * last word.
  */
 class SilenceGate(
     private val speech: Int = 1_500,
     private val startMs: Long = 150,
     private val quietMs: Long = 1_400,
     private val giveUpMs: Long = 8_000,
+    private val room: Boolean = false,
 ) {
     /** Speech was heard: the take is worth sending. */
     var started = false
@@ -170,19 +218,41 @@ class SilenceGate(
     private var first = -1L
     private var loudSince = -1L
     private var quietSince = -1L
+    private val last = IntArray(3)
+    private var ticks = 0
+    /** The room's level ([room]): the lowest median of three ticks so far; -1 before three ticks. */
+    var roomLevel = -1
+        private set
+
+    /** What counts as speech now: [speech], or with [room] 8 dB over the room (400 at least). */
+    val speechLevel: Int
+        get() = if (!room || roomLevel < 0) speech else (roomLevel * ROOM_SPEECH).toInt().coerceIn(MIN_SPEECH, speech)
+
+    /** The loudest level so far. */
+    val loudest: Int get() = peak
 
     /** True when recording should stop now. */
     fun feed(amplitude: Int, atMs: Long): Boolean {
         if (first < 0) first = atMs
+        if (room) {
+            last[ticks % 3] = amplitude
+            ticks++
+            if (ticks >= 3) {
+                val median = last.sorted()[1]
+                roomLevel = if (roomLevel < 0) median else minOf(roomLevel, median)
+            }
+        }
+        val sp = speechLevel
         peak = maxOf(peak, amplitude)
         if (!started) {
-            if (amplitude >= speech) {
+            if (amplitude >= sp) {
                 if (loudSince < 0) loudSince = atMs
-                if (atMs - loudSince >= startMs) started = true
+                if (room || atMs - loudSince >= startMs) started = true
             } else loudSince = -1
             return !started && atMs - first >= giveUpMs
         }
-        if (amplitude < maxOf(speech / 2, peak / 6)) {
+        val roomQuiet = if (room && roomLevel >= 0 && roomLevel * 4 <= peak) roomLevel * 2 else 0
+        if (amplitude < maxOf(sp / 2, peak / 6, roomQuiet)) {
             if (quietSince < 0) quietSince = atMs
             return atMs - quietSince >= quietMs
         }
@@ -192,6 +262,13 @@ class SilenceGate(
 
     /** How long it has been quiet at [atMs] since speech started (0 while loud, or before speech): a pause to cut at. */
     fun quietFor(atMs: Long): Long = if (quietSince < 0) 0 else atMs - quietSince
+
+    companion object {
+        /** Speech over the room: 2.5 times its level, 8 dB. */
+        const val ROOM_SPEECH = 2.5
+        /** The softest level that counts as speech over a quiet room. */
+        const val MIN_SPEECH = 400
+    }
 }
 
 /** HTTP for POST /stt and GET /stt/status, with the app token. */
@@ -202,8 +279,8 @@ class SttApi(private val config: BridgeConfig) {
         .readTimeout(40, TimeUnit.SECONDS)
         .build()
 
-    suspend fun transcribe(audio: File, expected: String?, language: String): SttResult = withContext(Dispatchers.IO) {
-        http.newCall(SttSpeech.request(config, audio, expected, language)).execute().use { r ->
+    suspend fun transcribe(audio: File, expected: String?, language: String, context: SttContext? = null): SttResult = withContext(Dispatchers.IO) {
+        http.newCall(SttSpeech.request(config, audio, expected, language, context)).execute().use { r ->
             val body = r.body?.string().orEmpty()
             when {
                 r.code == 503 || r.code == 404 -> throw SttUnavailable("HTTP ${r.code}")
@@ -261,11 +338,29 @@ class Stt(context: Context, private val scope: CoroutineScope, private val langu
         prefs.edit().putBoolean(KEY_ACCURATE, accurate).apply()
     }
 
-    /** Sends the recording and deletes it, whatever the outcome. */
-    suspend fun transcribe(audio: File, expected: String?): SttResult {
+    /**
+     * "Pošlji sam · Send by itself": a talk's line the node heard surely goes without a tap (TalkInput). Null until
+     * chosen in the settings; then [sendsBySelf] is the profile's default: on for a child.
+     */
+    var bySelf by mutableStateOf(if (prefs.contains(KEY_BY_SELF)) prefs.getBoolean(KEY_BY_SELF, false) else null)
+        private set
+
+    /** Whether a sure line goes by itself: the learner's choice, else on for a [child] (docs/plans/05-built/stt-talk.md). */
+    fun sendsBySelf(child: Boolean): Boolean = bySelf ?: child
+
+    fun chooseBySelf(on: Boolean) {
+        bySelf = on
+        prefs.edit().putBoolean(KEY_BY_SELF, on).apply()
+    }
+
+    /**
+     * Sends the recording and deletes it, whatever the outcome. [context]: a talk's take, heard with the conversation
+     * and without (the bridge weighs the two: [SttResult.sure], [SttResult.alternatives]).
+     */
+    suspend fun transcribe(audio: File, expected: String?, context: SttContext? = null): SttResult {
         val a = api ?: throw SttUnavailable("not connected")
         try {
-            return a.transcribe(audio, expected, language().code).also { available = true }
+            return a.transcribe(audio, expected, language().code, context).also { available = true }
         } catch (e: SttUnavailable) {
             available = false
             throw e
@@ -302,5 +397,6 @@ class Stt(context: Context, private val scope: CoroutineScope, private val langu
 
     private companion object {
         const val KEY_ACCURATE = "stt_accurate"
+        const val KEY_BY_SELF = "stt_talk_by_self"
     }
 }

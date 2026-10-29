@@ -123,6 +123,41 @@ class TalkTest {
         assertSame(st, Talk.replied(st, reply(null, text = "again")))
     }
 
+    @Test fun `a spoken line tells the tutor how it was heard`() {
+        val st = Talk.said(Talk.start(scenario, now = 0, conversationId = "rp-1"), "Amico, come stai?", typed = false, now = 1)
+        val data = Talk.turnData(st, "Amigo, come stai?", listOf("Amico, come stai?"), takes = 3, unclear = listOf("stai"))
+        assertEquals("3", data["takes"]!!.jsonPrimitive.content)
+        assertEquals(listOf("Amico, come stai?"), (data["alternatives"] as JsonArray).map { it.jsonPrimitive.content })
+        assertEquals(listOf("stai"), (data["unclear"] as JsonArray).map { it.jsonPrimitive.content })
+        assertNull(data["typed"])
+        val once = Talk.turnData(st, "Ciao!", takes = 1)
+        assertNull("one take is no news", once["takes"])
+        val typed = Talk.turnData(st, "Ciao!", typed = true, unclear = listOf("x"))
+        assertEquals("true", typed["typed"]!!.jsonPrimitive.content)
+        assertNull("typed: nothing unclear", typed["unclear"])
+    }
+
+    @Test fun `the transcript keeps how many times a line was said`() {
+        var st = Talk.start(scenario, now = 0, conversationId = "rp-1")
+        st = Talk.said(st, "Al ruscello.", typed = false, now = 1, takes = 3)
+        st = Talk.replied(st, reply("""{"sl":"Bene!"}"""))
+        st = Talk.said(st, "Ciao!", typed = false, now = 2, takes = 1)
+        val lines = (Talk.transcript(st, now = 60_000)["transcript"] as JsonArray).map { it as JsonObject }
+        assertEquals("3", lines[1]["takes"]!!.jsonPrimitive.content)
+        assertNull("said once: no news", lines[3]["takes"])
+    }
+
+    @Test fun `the recognizer gets the character's last two lines, the phrases and the names`() {
+        var st = Talk.start(scenario, now = 0, conversationId = "rp-1")
+        st = Talk.said(st, "Dober dan.", typed = false, now = 1)
+        st = Talk.replied(st, reply("""{"sl":"Kaj bo?","en":"What will it be?"}"""))
+        val c = Talk.sttContext(st, "Teo")
+        assertEquals(listOf(scenario.openerSl, "Kaj bo?"), c.said)
+        assertEquals(scenario.vocabularyHints.map { it.sl }, c.words)
+        assertEquals(listOf("Teo", scenario.character), c.names)
+        assertEquals(listOf(scenario.character), Talk.sttContext(st, null).names)
+    }
+
     @Test fun `hints don't move the scene on`() {
         var st = Talk.start(scenario, now = 0)
         assertTrue(st.conversationId.startsWith("rp-"))

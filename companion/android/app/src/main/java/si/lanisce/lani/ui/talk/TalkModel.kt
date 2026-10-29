@@ -166,12 +166,13 @@ class TalkModel(
         } else stray(ev)
     }
 
-    fun say(text: String, alternatives: List<String>, typed: Boolean) {
+    /** Jan's line ([TalkDraft.take]): typed, or heard with its other readings, its takes and its unclear words. */
+    fun say(s: Said) {
         val st = state ?: return
-        if (text.isBlank() || st.waiting || st.phase != TalkPhase.CHAT) return
-        val next = Talk.said(st, text, typed, System.currentTimeMillis())
+        if (s.text.isBlank() || st.waiting || st.phase != TalkPhase.CHAT) return
+        val next = Talk.said(st, s.text, s.typed, System.currentTimeMillis(), s.takes)
         state = next
-        post("roleplay", text.trim(), Talk.turnData(next, text.trim(), alternatives))
+        post("roleplay", s.text.trim(), Talk.turnData(next, s.text.trim(), s.alternatives, s.typed, s.takes, s.unclear))
     }
 
     fun hint() {

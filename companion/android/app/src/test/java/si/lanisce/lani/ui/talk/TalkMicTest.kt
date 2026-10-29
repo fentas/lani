@@ -8,6 +8,7 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import si.lanisce.lani.data.SttContext
 import si.lanisce.lani.data.SttResult
 import si.lanisce.lani.data.SttSegment
 import si.lanisce.lani.data.SttUnavailable
@@ -26,6 +27,7 @@ class TalkMicTest {
         val calls = ArrayList<String>()
         val uploads = ArrayList<CompletableDeferred<SttResult>>()
         val expected = ArrayList<String?>()
+        val contexts = ArrayList<SttContext?>()
         private var n = 0
 
         override fun record(limitMs: Int) {
@@ -34,10 +36,11 @@ class TalkMicTest {
 
         override fun stopRecording(): File = File("never-written-${n++}.m4a")
 
-        override suspend fun transcribe(take: File, expected: String?): SttResult {
+        override suspend fun transcribe(take: File, expected: String?, context: SttContext?): SttResult {
             val d = CompletableDeferred<SttResult>()
             uploads += d
             this.expected += expected
+            this.contexts += context
             return d.await()
         }
 
@@ -56,7 +59,9 @@ class TalkMicTest {
 
     private val ears = Ears()
     private val draft = TalkDraft()
-    private val mic = TalkMic(CoroutineScope(Dispatchers.Unconfined), ears, draft)
+    private val logged = ArrayList<String>()
+    private var conversation: SttContext? = SttContext(said = listOf("Andiamo al ruscello o al bosco?"), names = listOf("Teo", "Pastore Davide"))
+    private val mic = TalkMic(CoroutineScope(Dispatchers.Unconfined), ears, draft, context = { conversation }, log = { logged += it })
     private var t = 0L
 
     /** [ms] of the recorder's ticks at [amplitude]. */
@@ -96,7 +101,7 @@ class TalkMicTest {
         assertEquals("Dober dan. Rad bi kavo.", draft.text)
         assertTrue(mic.canSend(enabled = true))
         assertFalse("not while the character answers", mic.canSend(enabled = false))
-        assertEquals(Said("Dober dan. Rad bi kavo.", emptyList(), typed = false), draft.take())
+        assertEquals(Said("Dober dan. Rad bi kavo.", emptyList(), typed = false, takes = 1), draft.take())
         assertEquals("", draft.text)
     }
 
@@ -262,7 +267,7 @@ class TalkMicTest {
         assertFalse(mic.recording)
         assertEquals("dober dan rad bi kavo", draft.text)
         assertNull(mic.message)
-        assertEquals(Said("dober dan rad bi kavo", emptyList(), typed = false), draft.take())
+        assertEquals(Said("dober dan rad bi kavo", emptyList(), typed = false, takes = 1), draft.take())
     }
 
     @Test fun `a tap ends the phone's take with the sentence being said`() {
@@ -313,7 +318,7 @@ class TalkMicTest {
         mic.phoneResults(listOf("rad bi kavo", "rad bi kafo"), 1_000)
         mic.stop(1_100)
         mic.phoneNothing(1_200)
-        assertEquals(Said("rad bi kavo", listOf("rad bi kafo"), typed = false), draft.take())
+        assertEquals(Said("rad bi kavo", listOf("rad bi kafo"), typed = false, takes = 1), draft.take())
     }
 
     @Test fun `leaving drops the take on now`() {
@@ -327,6 +332,82 @@ class TalkMicTest {
         mic.stop(t)
         heard(0, "Spet.")
         assertEquals("Spet.", draft.text)
+    }
+
+    // --- a talk's take: the conversation, the readings weighed, noise, takes ----------------------------
+
+    @Test fun `a line is heard with the conversation - a word said again with the word`() {
+        mic.start(Engine.NODE, t)
+        speak(1_000)
+        mic.stop(t)
+        assertEquals(conversation, ears.contexts.last())
+        ears.uploads[0].complete(SttResult("Al rusello.", listOf(SttSegment(text = "Al rusello.", words = listOf(SttWord("Al", prob = 0.9), SttWord(" rusello.", prob = 0.1))))))
+        mic.sayAgain(draft.marks.single(), Engine.NODE, t)
+        speak(600)
+        quiet(1_000)
+        assertNull("a word said again: its word steers, not the talk", ears.contexts.last())
+        assertEquals("rusello", ears.expected.last())
+    }
+
+    @Test fun `a sure reading may go by itself - an unsure one, or a marked word, stays a draft`() {
+        mic.start(Engine.NODE, t)
+        speak(1_000)
+        mic.stop(t)
+        ears.uploads[0].complete(SttResult("Al ruscello.", listOf(SttSegment(text = "Al ruscello.", words = listOf(SttWord("Al", prob = 0.95), SttWord(" ruscello.", prob = 0.97)))), sure = true, by = "both"))
+        assertTrue(draft.sure)
+        assertEquals(Said("Al ruscello.", emptyList(), typed = false, takes = 1), draft.take())
+
+        mic.start(Engine.NODE, t)
+        speak(1_000)
+        mic.stop(t)
+        ears.uploads[1].complete(SttResult("Al bosco.", alternatives = listOf("Al vosco."), sure = false, by = "context"))
+        assertFalse(draft.sure)
+        assertEquals(listOf("Al vosco."), draft.take()!!.alternatives)
+    }
+
+    @Test fun `noise lands nothing - I didn't catch that - and the take still counts`() {
+        mic.start(Engine.NODE, t)
+        speak(1_000)
+        mic.stop(t)
+        ears.uploads[0].complete(SttResult("", noise = true, sure = false))
+        assertEquals("", draft.text)
+        assertEquals(TalkMic.NOT_HEARD, mic.message)
+        assertEquals(1, draft.takes)
+        mic.start(Engine.NODE, t)
+        speak(1_000)
+        mic.stop(t)
+        heard(1, "Al ruscello.")
+        assertEquals(2, draft.take()!!.takes)
+    }
+
+    @Test fun `a soft voice over a quiet room starts and ends the take by itself`() {
+        mic.start(Engine.NODE, t)
+        sound(500, 150) // the room
+        sound(800, 900) // a child's soft "Al ruscello", under the old 1500
+        sound(3_100, 150)
+        assertFalse("ended by the pause, not the 10 s give-up", mic.recording)
+        assertEquals(1, ears.uploads.size)
+    }
+
+    @Test fun `each take is a line of the log - the readings, the level, how it ended`() {
+        mic.start(Engine.NODE, t)
+        speak(1_000)
+        mic.stop(t)
+        ears.uploads[0].complete(
+            SttResult(
+                "Amico!", listOf(SttSegment(text = "Amico!", words = listOf(SttWord("Amico!", prob = 0.8)))), model = "large-v3-turbo",
+                alternatives = listOf("Amico!"), sure = false, by = "context",
+                readings = listOf(si.lanisce.lani.data.SttReading("context", "Amigo!", 0.8), si.lanisce.lani.data.SttReading("plain", "Amigo!", 0.7)),
+            ),
+        )
+        val line = logged.last()
+        assertTrue(line, line.startsWith("talk take: engine=node ms="))
+        for (part in listOf("ended=tap", "by=context", "sure=false", "chosen=\"Amico!\"", "context=\"Amigo!\" (0.8)", "plain=\"Amigo!\" (0.7)", "alternative=\"Amico!\"", "model=large-v3-turbo", "min=0.80")) {
+            assertTrue("$part in $line", part in line)
+        }
+        mic.start(Engine.NODE, t)
+        quiet(12_000)
+        assertTrue(logged.last(), logged.last().startsWith("talk take: engine=node not sent") && "ended=nothing" in logged.last())
     }
 }
 

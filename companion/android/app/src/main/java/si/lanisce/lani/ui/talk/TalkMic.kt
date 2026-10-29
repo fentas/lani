@@ -10,6 +10,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import si.lanisce.lani.data.SilenceGate
+import si.lanisce.lani.data.SttContext
 import si.lanisce.lani.data.SttResult
 import si.lanisce.lani.data.SttUnavailable
 import si.lanisce.lani.data.SttWord
@@ -24,8 +25,11 @@ interface TalkEars {
     /** Stops recording: the take, or null when nothing usable was recorded. */
     fun stopRecording(): File?
 
-    /** What the node's Whisper heard in [take] (deleted afterwards); [expected] steers its spelling. */
-    suspend fun transcribe(take: File, expected: String?): SttResult
+    /**
+     * What the node's Whisper heard in [take] (deleted afterwards); [expected] steers its spelling (a word said again),
+     * [context] is the conversation (a line of the talk: heard with it and without, weighed by the bridge).
+     */
+    suspend fun transcribe(take: File, expected: String?, context: SttContext? = null): SttResult
 
     /** The phone's recognizer starts listening; [again]: after a sentence, to go on with the next. */
     fun listen(again: Boolean)
@@ -47,7 +51,10 @@ interface TalkEars {
  * (the node takes 30 s at most); the transcripts land in [draft] in the order they were said, whatever order they come
  * back in, with the words Whisper was unsure of marked (at most [Config.maxUnclear] a take). The phone's recognizer
  * ([Engine.PHONE]) ends each sentence by itself: it listens again after each one until the take ends, appending them.
- * Nothing is sent: the text waits in [draft] until Jan sends it ([canSend]).
+ * Nothing is sent: the text waits in [draft] until Jan sends it ([canSend]), or goes by itself when the node heard it
+ * surely ([TalkDraft.sure], TalkInput). The node hears a line with the conversation ([context]: the character's last
+ * lines, the scenario's phrases, the names) and without; a take of noise lands nothing ("I didn't catch that"). Each
+ * take is logged in a line ([log], tag LaniStt: the engine, the readings, the level, how it ended, ms; no audio).
  */
 @Stable
 class TalkMic(
@@ -55,6 +62,11 @@ class TalkMic(
     private val ears: TalkEars,
     val draft: TalkDraft,
     val config: Config = Config(),
+    /** The talk's conversation as the node's recognizer gets it; null: none (a question under the debrief). */
+    private val context: () -> SttContext? = { null },
+    /** A line of the app log per take (tag LaniStt). */
+    private val log: (String) -> Unit = {},
+    private val clock: () -> Long = System::currentTimeMillis,
 ) {
     data class Config(
         /** This long quiet after speech ends the take. */
@@ -72,9 +84,11 @@ class TalkMic(
         /** Saying one word again: the pause that ends it, and its longest take. */
         val redoPauseMs: Long = 900,
         val redoMaxMs: Long = 6_000,
+        /** The gate listens to the room (SilenceGate's room): a soft voice, a child's on a tablet, starts and ends the take. */
+        val room: Boolean = true,
     ) {
-        fun gate() = SilenceGate(speech = SPEECH, quietMs = longPauseMs, giveUpMs = giveUpMs)
-        fun redoGate() = SilenceGate(speech = SPEECH, quietMs = redoPauseMs, giveUpMs = minOf(giveUpMs, redoMaxMs))
+        fun gate() = SilenceGate(speech = SPEECH, quietMs = longPauseMs, giveUpMs = giveUpMs, room = room)
+        fun redoGate() = SilenceGate(speech = SPEECH, quietMs = redoPauseMs, giveUpMs = minOf(giveUpMs, redoMaxMs), room = room)
     }
 
     enum class Engine { NODE, PHONE }
@@ -108,7 +122,13 @@ class TalkMic(
     /** Send is allowed: something to send, and nothing still being recognized ("nothing goes out half-finished"). */
     fun canSend(enabled: Boolean): Boolean = enabled && !busy && draft.text.isNotBlank()
 
-    private class Piece(val text: String, val words: List<SttWord> = emptyList(), val alternatives: List<String> = emptyList(), val redo: Unclear? = null)
+    private class Piece(
+        val text: String,
+        val words: List<SttWord> = emptyList(),
+        val alternatives: List<String> = emptyList(),
+        val redo: Unclear? = null,
+        val sure: Boolean = false,
+    )
 
     private val order = InOrder<Piece>()
 
@@ -147,6 +167,7 @@ class TalkMic(
 
     private fun begin(engine: Engine, now: Long, mark: Unclear?) {
         message = null
+        draft.took()
         heard = false
         appended = 0
         runStart = now
@@ -172,7 +193,7 @@ class TalkMic(
     /** ⏹ (a tap, or the hold let go): the take ends; what was said so far is recognized. */
     fun stop(now: Long) {
         when (engine) {
-            Engine.NODE -> end(now, tapped = true)
+            Engine.NODE -> end(now, tapped = true, why = "tap")
             Engine.PHONE -> askStop(now)
             null -> Unit
         }
@@ -200,14 +221,14 @@ class TalkMic(
         when (engine) {
             Engine.NODE -> {
                 level = (amplitude / 12_000f).coerceIn(0f, 1f)
-                if (amplitude >= SPEECH) loud++
+                if (amplitude >= gate.speechLevel) loud++
                 peak = maxOf(peak, amplitude)
                 val run = now - runStart
                 val seg = now - segmentStart
                 when {
-                    gate.feed(amplitude, run) -> end(now, tapped = false)
-                    redo != null -> if (seg >= config.redoMaxMs) end(now, tapped = false)
-                    run >= config.maxMs -> end(now, tapped = false)
+                    gate.feed(amplitude, run) -> end(now, tapped = false, why = if (gate.started) "pause" else "nothing")
+                    redo != null -> if (seg >= config.redoMaxMs) end(now, tapped = false, why = "limit")
+                    run >= config.maxMs -> end(now, tapped = false, why = "limit")
                     seg >= config.segmentMaxMs || (seg >= config.splitAfterMs && gate.quietFor(run) >= SPLIT_QUIET_MS) -> cut(now, fullStop = false)
                 }
             }
@@ -293,6 +314,7 @@ class TalkMic(
     }
 
     private fun recognized(text: String, alternatives: List<String>) {
+        log("talk take: engine=phone heard=\"${text.take(LOG_TEXT)}\" alternatives=${alternatives.size}")
         heard = true
         val t = if (boundary) sentence(text, fullStop = true) else text
         val alts = if (boundary) emptyList() else alternatives
@@ -351,7 +373,7 @@ class TalkMic(
 
     /** The recording so far goes to the node; a new one starts ([fullStop]: Jan said the sentence is done). */
     private fun cut(now: Long, fullStop: Boolean) {
-        send(ears.stopRecording(), tapped = fullStop, now = now, fullStop = fullStop)
+        send(ears.stopRecording(), tapped = fullStop, now = now, fullStop = fullStop, why = if (fullStop) "next" else "cut")
         if (fullStop) {
             gate = config.gate() // a new stretch: a pause to think about the next sentence first is fine
             runStart = now
@@ -359,38 +381,49 @@ class TalkMic(
         if (!record(now)) settle()
     }
 
-    private fun end(now: Long, tapped: Boolean) {
-        send(ears.stopRecording(), tapped, now, fullStop = false)
+    private fun end(now: Long, tapped: Boolean, why: String) {
+        send(ears.stopRecording(), tapped, now, fullStop = false, why = why)
         engine = null
         level = 0f
         settle()
     }
 
-    private fun send(take: File?, tapped: Boolean, now: Long, fullStop: Boolean) {
+    private fun send(take: File?, tapped: Boolean, now: Long, fullStop: Boolean, why: String) {
         val i = segment
         // A tap means "I said it" even when the level stayed low (a soft voice); silence isn't sent (Whisper makes up
         // words for it: "Hvala.").
+        // (the tap's floor stays the fixed one: a quiet room's level is under it, a soft voice over it)
         val said = loud >= MIN_LOUD || (tapped && now - segmentStart >= 600 && peak >= SPEECH / 3)
+        val stats = "ms=${now - segmentStart} peak=$peak speech=${gate.speechLevel} room=${gate.roomLevel} loud=$loud ended=$why"
         if (take == null || !said) {
             take?.delete()
+            log("talk take: engine=node not sent $stats")
             deliver(order.fill(i, null))
             return
         }
         heard = true
         uploads++
         val mark = redo
+        // a word said again is steered by the word; a line of the talk by the conversation
+        val ctx = if (mark == null) context() else null
         scope.launch {
             var piece: Piece? = null
+            val t0 = clock()
             try {
-                val r = ears.transcribe(take, mark?.word)
-                piece = Piece(sentence(r.text, fullStop), r.words, redo = mark).takeIf { it.text.isNotEmpty() }
+                val r = ears.transcribe(take, mark?.word, ctx)
+                log(logLine(r, clock() - t0, stats))
+                piece = if (r.noise) null else Piece(
+                    sentence(r.text, fullStop), r.words, alternatives = r.alternatives, redo = mark, sure = r.sure == true,
+                ).takeIf { it.text.isNotEmpty() }
             } catch (e: CancellationException) {
                 uploads--
                 throw e
             } catch (e: SttUnavailable) {
                 message = "📶 ${bi("nodeMic.nodesSpeechRecognitionIsnt")}"
+                log("talk take: engine=node unavailable $stats")
             } catch (e: Exception) {
                 message = "📶 ${bi("nodeMic.cantReachNodeTry")}"
+                log("talk take: engine=node failed (${e.javaClass.simpleName}) $stats")
             }
             uploads--
             deliver(order.fill(i, piece))
@@ -409,7 +442,7 @@ class TalkMic(
             } else {
                 val unclear = TalkDraft.unclear(p.text, p.words, config.maxUnclear - marked)
                 marked += unclear.size
-                draft.append(p.text, unclear, p.alternatives)
+                draft.append(p.text, unclear, p.alternatives, sure = p.sure && unclear.isEmpty())
             }
             appended++
         }
@@ -434,6 +467,27 @@ class TalkMic(
         private const val ENDS = ".!?…"
 
         val NOT_HEARD: String get() = "🤔 ${bi("talkInput.iDidntCatchTry")}"
+
+        /** A logged reading's longest part: the line, not a page. */
+        private const val LOG_TEXT = 160
+
+        /**
+         * A take's line in the app log: the engine, the readings with their mean word probability, the one chosen and
+         * why, the voice the node measured, the take's level and how it ended, the round trip in ms. No audio.
+         */
+        internal fun logLine(r: SttResult, ms: Long, stats: String): String = buildString {
+            fun q(t: String) = "\"" + t.replace('"', '\'').take(LOG_TEXT) + "\""
+            append("talk take: engine=node ").append(stats).append(" took=").append(ms).append("ms")
+            r.model?.let { append(" model=").append(it) }
+            r.duration?.let { append(" dur=").append(it).append("s") }
+            r.voice?.let { append(" voiced=").append(it.voiced).append("s") }
+            if (r.sure != null) append(" by=").append(r.by ?: "-").append(" sure=").append(r.sure).append(" noise=").append(r.noise)
+            append(" chosen=").append(q(r.text))
+            for (x in r.readings) append(' ').append(x.by).append('=').append(q(x.text)).append(" (").append(x.prob ?: "-").append(')')
+            for (a in r.alternatives) append(" alternative=").append(q(a))
+            val probs = r.words.mapNotNull { it.prob }
+            if (probs.isNotEmpty()) append(" min=").append("%.2f".format(java.util.Locale.ROOT, probs.min()))
+        }
 
         /** A transcript as a sentence of the draft; [fullStop]: it ends with one. */
         fun sentence(text: String, fullStop: Boolean): String {

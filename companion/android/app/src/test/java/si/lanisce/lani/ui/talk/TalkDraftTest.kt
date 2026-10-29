@@ -98,4 +98,48 @@ class TalkDraftTest {
         assertTrue(TalkDraft.unclear(text, words, max = 0).isEmpty())
         assertEquals(3, TalkDraft.unclear(text, words, max = 5).size)
     }
+
+    @Test fun `a line the node heard surely may go by itself until it is touched`() {
+        val d = TalkDraft()
+        d.append("Al ruscello.", sure = true)
+        assertTrue(d.sure)
+        d.edit(TextFieldValue("Al ruscello!"))
+        assertFalse("edited: Jan sends it", d.sure)
+
+        d.clear()
+        d.append("Ciao!", sure = true)
+        d.append("Come stai?", sure = true)
+        assertTrue("every piece sure", d.sure)
+        d.append("Bene.", sure = false)
+        assertFalse(d.sure)
+
+        d.clear()
+        d.append("Poštal je tu.", listOf(0 until 6), sure = true)
+        assertFalse("a marked word is never sure", d.sure)
+
+        d.clear()
+        d.append("Al ruscello.", sure = true)
+        d.hold() // ✋ Keep
+        assertFalse(d.sure)
+        assertEquals("Al ruscello.", d.text)
+    }
+
+    @Test fun `the takes of a turn count until it goes out - the other readings and the unclear words go along`() {
+        val d = TalkDraft()
+        d.took()
+        d.took() // the first take landed nothing
+        d.append("Amigo, come stai?", listOf(12 until 16), alternatives = listOf("Amico, come stai?"))
+        d.clear() // ✕: said again
+        d.took()
+        d.append("Amigo, come stai?", listOf(12 until 16), alternatives = listOf("Amico, come stai?"))
+        assertEquals(
+            Said("Amigo, come stai?", listOf("Amico, come stai?"), typed = false, takes = 3, unclear = listOf("stai")),
+            d.take(),
+        )
+        assertEquals(0, d.takes)
+        d.took()
+        d.append("Ciao", alternatives = listOf("Chao"))
+        d.edit(TextFieldValue("Ciao!")) // Jan's own now: not what was heard, no other readings
+        assertEquals(Said("Ciao!", emptyList(), typed = false, takes = 1), d.take())
+    }
 }

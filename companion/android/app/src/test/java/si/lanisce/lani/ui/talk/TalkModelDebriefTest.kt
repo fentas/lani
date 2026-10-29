@@ -46,7 +46,7 @@ class TalkModelDebriefTest {
     private fun debriefed(): String {
         talk.pick(lunch)
         talk.start()
-        talk.say("Dober dan, Marija!", emptyList(), typed = false)
+        talk.say(Said("Dober dan, Marija!", emptyList(), typed = false))
         val conv = talk.state!!.conversationId
         talk.onReply(reply(conv, "Dober dan!", """{"sl": "Dober dan, Jan! Juha je na mizi.", "goals_done": [0]}"""))
         talk.finish()
