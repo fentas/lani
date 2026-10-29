@@ -233,6 +233,12 @@ export class Lexicon {
     return !!this.file
   }
 
+  /** How many lemmas Wiktionary's dictionary has (0 without one). */
+  get size(): number {
+    this.load()
+    return this.file?.lemmas.length ?? 0
+  }
+
   /** Whether the repository has this language's dictionary (companion/lexicon/<language>.json): nothing to download. */
   get bundled(): boolean {
     this.load()

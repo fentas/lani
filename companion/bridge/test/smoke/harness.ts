@@ -118,6 +118,9 @@ export function fakeWhisper() {
     languages: ['sl', 'it', 'de', 'en'],
     legacy: false,
     health: [] as Record<string, string>[],
+    // a talk's take (?talk=1): what the worker hears with a prompt, and plain; voice: its measure of the voice (null: a
+    // worker from before it); twice: it takes plain=1 (both in one request)
+    talk: null as null | { prompted: any; plain: any; voice: { voiced: number; loud: number } | null; twice: boolean },
   }
   const server = Bun.serve({
     hostname: '127.0.0.1',
@@ -137,6 +140,13 @@ export function fakeWhisper() {
         if (st.mode === 'slow') await Bun.sleep(1_500)
         if (st.mode === 'error') return Response.json({ ok: false, error: 'boom' }, { status: 500 })
         if (st.mode === 'junk') return Response.json({ text: 'Hvala.', segments: [{ start: 0, end: 1, text: 'Hvala.', secret: 'x', words: [{ word: ' Hvala.', prob: 'high' }, { word: ' ' }] }], language: 'sl', debug: '/tmp/x' })
+        if (st.talk) {
+          const t = st.talk
+          const base = { language: language ?? 'sl', duration: 2.1, took: 0.3, model: 'large-v3-turbo', ...(t.voice ? { voice: t.voice } : {}) }
+          if (!u.searchParams.get('prompt')) return Response.json({ ...t.plain, ...base })
+          const plain = t.twice && u.searchParams.get('plain') === '1' ? { plain: { text: t.plain.text, segments: t.plain.segments } } : {}
+          return Response.json({ ...t.prompted, ...base, ...plain })
+        }
         return Response.json({
           text: 'Na vrtu je čebelniak.',
           segments: [{ start: 0, end: 2.1, text: 'Na vrtu je čebelniak.', avg_logprob: -0.3, no_speech_prob: 0.01, words: [
