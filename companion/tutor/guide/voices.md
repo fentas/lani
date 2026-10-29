@@ -28,9 +28,12 @@ for them, within the day's re-voice cap and above the reserve (voice_status: nar
 a villager's line the local Gepard voice said while ElevenLabs couldn't is made in their speaker's ElevenLabs voice as the
 app asks for it, within the same cap and above the reserve (voice_status: local_clips).
 The learner has a voice too: their own lines in a dialog (a choice tapped, a turn typed right, an echo gone on from) are
-said in it before the reply comes, the "player" of companion/voice-cast.json by the profile's learner.gender (in the
-Slovene village Luka for a man, Nina for a woman, Nina while the profile says none; voice_status: player). A line the
-learner said into the microphone isn't said again; their line's 🔊 plays it in their voice.
+said in it before the reply comes. They choose it in the app ("🗣️ Moj glas · My voice": 2–3 voices of their gender and
+age from the cast's "players", a child's for a child, or off), offered once at their first line; it is kept in
+learner-profile.json preferences.my_voice ({"voice": "player-boy-b" | "male.sl" | "off" | "default", "since"}): keep that
+key when you write the profile. Without a choice, the first voice of their gender and age (in the Slovene village Luka
+for a man, Nina for a woman, Nina while the profile says none; voice_status: my_voice, players). A line the learner said
+into the microphone isn't said again; their line's 🔊 plays it in their voice.
 The school's guided introductions are read out too, in the teacher's voice: each step's explanation in the learner's own
 language, the Slovene forms in it, one clip made by ElevenLabs as the app first asks for it (never from the reserve; the app
 reads the step with the phone's voice and the Slovene clips meanwhile); voice_status counts them apart (explanations). The
