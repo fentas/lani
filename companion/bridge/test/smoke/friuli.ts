@@ -272,6 +272,12 @@ export default async function friuli() {
     check('friuli: the instructions Claude Code shows fit, and hold the child\'s rules', rules.length <= 2048 && rules.includes('Child: the learner is a child') && rules.includes('channel_guide'), rules.length)
     check('friuli: the instructions name the child, the village\'s cast and language, and the style', instructions.includes('Child: the learner is a child') && instructions.includes('Nonna Rosa') && instructions.includes('Ricordo ancora') && instructions.includes('Friulian style') && instructions.includes('companion/cultures/friuli') && !instructions.includes('Primorska style'), instructions.slice(0, 400))
     check('friuli: packs are written in Italian for this village', instructions.includes('"language": "it"'))
+    const roleplay = instructions.slice(instructions.indexOf('Role-play ("Pogovor · Talk")'), instructions.indexOf('Role-play ("Pogovor · Talk")') + 2400)
+    check(
+      "friuli: the role-plays are played in Italian, the recognizer's mishearings recast, never corrected",
+      roleplay.includes('simple Italian') && roleplay.includes('<your line, in Italian') && !roleplay.includes('simple Slovene') && roleplay.includes('amigo → amico') && roleplay.includes('"Come?"') && roleplay.includes('maybe a child'),
+      roleplay.slice(0, 600),
+    )
     await languageBook('friuli', base, auth, 'it', 'Italian', 'Grammatica', 'sl', instructions)
 
     // --- the voices: the pack's cast speaks Italian (without voices yet, the phone does) -----------------------
