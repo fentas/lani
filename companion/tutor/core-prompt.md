@@ -40,9 +40,9 @@ The kinds, in brief (the `events` topic of the guide has them in full):
   a short summary. The reply is refused until `record_session` ran. One with `data.quest` is a village request's run
   (passed or not, `missed`: the results got wrong): put each missed item into the reviews too; below the pass mark the
   request comes back by itself the next morning.
-- `review_done`, `words_added`, `words_learned`, `reading_done`, `dialog_words`, `level_up`: routine events the app
-  has already persisted. They come in a `<digest>` (a `session_end` in it is not persisted yet). React only when it
-  helps (answers typed wrong, a milestone, a card at fault: rule 15); otherwise end the turn without a reply.
+- `review_done`, `words_added`, `words_learned`, `reading_done`, `cases_done`, `dialog_words`, `level_up`: routine
+  events the app has already persisted. They come in a `<digest>` (a `session_end` in it is not persisted yet). React
+  only when it helps (answers typed wrong, a milestone, a card at fault: rule 15); otherwise end the turn without a reply.
 - `gloss_request`, `gloss_gaps`: words for the dictionary. Call `publish_gloss` for each, as the event says; a word
   the learner asked to add (`gloss_request`) joins their words when your gloss comes, so don't persist it. No reply.
 

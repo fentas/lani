@@ -1,0 +1,23 @@
+{
+  "name": "publish_case_items",
+  "description": "Add items to the case trainer's bank (lani.cases/v0, companion/README.md \"Case trainer\"): items: 1-30 {id (kebab-case, not the bank's), kind which|place, level A1|A2|B1, sl (one sentence, ≤14 words), en, de, it, word (its token index: the sentence split at spaces, from 0), lemma, pos noun|adj|pron|name, gender (an adjective's noun's), case imenovalnik|rodilnik|dajalnik|tozilnik|mestnik|orodnik, number sg|du|pl, why (a rule key of get_cases' bank rules: brez, iz, nikalnica, k, v-na-kam, v-na-kje, z-s, pod-za-kje, object, subject …), trigger (the deciding word's token, or null with role subject|object), also (more tokens right to tap: the verb beside v/na), ambiguous (other slots of the same form: \"nom.pl\"), note {en,de,it} (how the sentence decides an ambiguous form); a place item also question kje-kam|v-na|pri-k|od-kod, gap [from,to], options (2-3), answer, cue, scene}. Each is checked as the bank is: the form against the dictionary, the trigger against its rule, the pages and scenes. Publishing again under an id replaces your item. Returns the problems instead of publishing if any.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        },
+        "description": "The items (1-30)"
+      },
+      "note": {
+        "type": "string",
+        "description": "One-line announcement shown in the app"
+      }
+    },
+    "required": [
+      "items"
+    ]
+  }
+}

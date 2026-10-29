@@ -8,6 +8,7 @@ import { join } from 'node:path'
 import { addresseeOf } from './addressee'
 import { ArrivalStore } from './arrivals'
 import { CardStore, cardsDir } from './cards'
+import { CaseStore } from './cases'
 import { useCastFile } from './cast'
 import type { Config } from './config'
 import { log } from './config'
@@ -18,6 +19,7 @@ import { Family } from './family'
 import type { Ctx, Feature, FeatureFactory } from './feature'
 import { arrivals } from './features/arrivals'
 import { cards as cardsFeature } from './features/cards'
+import { cases as casesFeature } from './features/cases'
 import { chat } from './features/chat'
 import { counting } from './features/counting'
 import { formsCards } from './features/forms-cards'
@@ -95,6 +97,7 @@ export const FEATURES: readonly { name: string; factory: FeatureFactory }[] = [
   { name: 'course', factory: courseFeature },
   { name: 'counting', factory: counting },
   { name: 'forms-cards', factory: formsCards },
+  { name: 'cases', factory: casesFeature },
   { name: 'drills', factory: drillsFeature },
   { name: 'rhythm', factory: rhythm },
   { name: 'game', factory: game },
@@ -259,6 +262,8 @@ export function buildBridge<C extends ChannelPort>(platform: Platform<C>, o: Bui
     grammar: new GrammarStore(grammarDir(env.LANI_GRAMMAR_DIR ?? join(projectDir, 'companion/grammar'), language), language, join(appDir, 'grammar'), log),
     // The cheat sheet's cards no grammar page fits (companion/cards/<language>), then the tutor's (publish_card).
     cards: new CardStore(cardsDir(env.LANI_CARDS_DIR ?? join(projectDir, 'companion/cards'), language), language, join(appDir, 'cards'), log),
+    // The case trainer's bank (companion/cases/<language>/bank.json; Slovene only), then the tutor's items and assignment.
+    cases: new CaseStore(env.LANI_CASES_DIR ?? join(projectDir, 'companion/cases'), language, join(appDir, 'cases'), log),
     // The school's course of the village's language (companion/course/<language>: sl, it, de, en), then the tutor's
     // homework for its units (<data>/app/course), their texts per base in the learner's (COURSE.md "Texts in the learner's
     // language").

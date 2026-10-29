@@ -1,5 +1,6 @@
 // The village game state ("Moja vas"): written by the app, read by the tutor.
 // Stored as {rev, state}; the app writes with the rev it last read, so two devices can't clobber each other.
+import { casesOf } from './cases'
 import { existsSync, readFileSync, renameSync, writeFileSync } from 'node:fs'
 import { knownIds } from './mentions'
 
@@ -313,6 +314,8 @@ export class GameStore {
         course: courseOf(s.course),
         // the numbers module (companion/README.md "Numbers"), open with the unit stevila's intro: its ranges, the numbers missed
         numbers: numbersOf(s.numbers, s.course?.units?.['sl/stevila']?.introDone === true),
+        // the case trainer (companion/README.md "Case trainer"): each case's and rule's last answers, what comes back
+        cases: casesOf(s.cases),
         // the landscape's spots with a cycle today (the charcoal pile: its stage, the day of it, a breakout tonight, the
         // last delivery to the smith; spot-cycles.ts cyclesNow), given what the village keeps of them
         spots: spots?.(s.cycles && typeof s.cycles === 'object' ? s.cycles : {}, s),

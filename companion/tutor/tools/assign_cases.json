@@ -1,0 +1,23 @@
+{
+  "name": "assign_cases",
+  "description": "Assign the learner a case trainer session focused on one case or rule: focus = a case id (imenovalnik, rodilnik, dajalnik, tozilnik, mestnik, orodnik) or a rule id (the grammar page: rodilnik-predlogi, rodilnik-nikalnica, rodilnik-kolicina, kam-tozilnik, kje-mestnik-orodnik, dajalnik, orodnik, tozilnik, mestnik, skloni), with a one-line note in the learner's base. Home and the trainer offer it until a session with that focus is played (cases_done says so); focus null takes it back.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "focus": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "A case id or a rule id; null takes the assignment back"
+      },
+      "note": {
+        "type": "string",
+        "description": "Why, in a line (shown with it)"
+      }
+    },
+    "required": [
+      "focus"
+    ]
+  }
+}

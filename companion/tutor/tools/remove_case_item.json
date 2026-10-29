@@ -1,0 +1,15 @@
+{
+  "name": "remove_case_item",
+  "description": "Take back one of your case trainer items (publish_case_items) by its id; the bank's own can't be removed.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  }
+}

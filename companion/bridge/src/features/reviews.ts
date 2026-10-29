@@ -49,12 +49,16 @@ import { LANGUAGES } from '../learners'
  * counting cards (POST /counting) and sends how they went (POST /reviews `counting`) only to one that makes them
  * ("counting"); a photo in the chat goes to one that keeps it (PUT /chat/images/<id>, "chat-images"; an older bridge
  * answers 404 and the message goes without it); it asks for forms cards (POST /forms-cards) and sends how they went
- * (POST /reviews `forms_cards`) only to one that makes them ("forms-cards").
+ * (POST /reviews `forms_cards`) only to one that makes them ("forms-cards"); it sends a case trainer's session to POST
+ * /cases/done only to one that persists it ("cases"; an older one gets it as a session_end for the tutor to persist).
  */
-export const STATE_FEATURES = ['dialog-words', 'explanations', 'counting', 'chat-images', 'forms-cards'] as const
+export const STATE_FEATURES = ['dialog-words', 'explanations', 'counting', 'chat-images', 'forms-cards', 'cases'] as const
 
-/** What makes counting and forms cards is Slovene's (its numerals, cases and dual): a village in another language says neither. */
-const SLOVENE_ONLY = new Set<string>(['counting', 'forms-cards'])
+/**
+ * What makes counting and forms cards is Slovene's (its numerals, cases and dual), and so is the case trainer (GET /cases,
+ * POST /cases/done: features/cases.ts): a village in another language says none of them.
+ */
+const SLOVENE_ONLY = new Set<string>(['counting', 'forms-cards', 'cases'])
 
 /** [STATE_FEATURES] as a bridge whose village speaks [language] says them. */
 export const stateFeatures = (language: string): string[] => STATE_FEATURES.filter(f => language === 'sl' || !SLOVENE_ONLY.has(f))
