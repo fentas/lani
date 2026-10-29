@@ -39,6 +39,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -284,6 +286,17 @@ private fun Conversation(vm: AppViewModel, st: TalkState) {
     val list = rememberLazyListState()
     val count = st.lines.size + (if (st.waiting) 1 else 0) + (if (st.sceneOver) 1 else 0)
     LaunchedEffect(count, st.lines.lastOrNull()?.correction) { list.animateScrollToItem((count - 1).coerceAtLeast(0)) }
+    // the list's room changes (the stage folding and unfolding with the keyboard, the goals opened): the newest line, in
+    // view before, stays in view
+    val newest by rememberUpdatedState(count - 1)
+    LaunchedEffect(list) {
+        var was = -1
+        var atEnd = true
+        snapshotFlow { list.layoutInfo.viewportSize.height to list.canScrollForward }.collect { (h, more) ->
+            if (was >= 0 && h != was && atEnd && newest >= 0) list.scrollToItem(newest) else atEnd = !more
+            was = h
+        }
+    }
 
     Column(Modifier.fillMaxSize().imePadding()) {
         Surface(color = SloBlueDeep) {

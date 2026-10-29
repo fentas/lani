@@ -69,14 +69,17 @@ fun Portrait(
     val ask by rememberUpdatedState(asked)
     // the first frame, drawn here (main thread) once, so the portrait never shows empty before the thread's
     val first = remember(slot) { arrayOfNulls<ImageBitmap>(1) }
+    // the portrait's clock (ns since it began), its ticks' and a change's alike
+    val clock = remember(slot) { LongArray(1) }
     // a new pose or face asked for at once, not at the next tick
-    LaunchedEffect(slot, asked) { PortraitThread.post(slot, asked.at(0.0)) }
+    LaunchedEffect(slot, asked) { PortraitThread.post(slot, asked.at(clock[0] / 1e9)) }
     LaunchedEffect(slot) {
         val start = withFrameNanos { it }
         var last = -FRAME_NANOS
         while (true) withFrameNanos { now ->
             if (now - start - last >= FRAME_NANOS) {
                 last = now - start
+                clock[0] = last
                 PortraitThread.post(slot, ask.at(last / 1e9))
             }
         }

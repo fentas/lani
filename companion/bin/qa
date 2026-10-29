@@ -3346,9 +3346,21 @@ def faces():
         qa_hook("happening:")
 
 
+def portraits_of(name: str):
+    """The portraits of [name] on screen: (TalkBack label, bounds), the label who and how ("Babica Micka, se smehlja ·
+    smiles"), the name alone at rest (a node whose description is the name; the name's own text has no description)."""
+    out = []
+    for n in re.findall(r"<node [^>]*?>", screen_xml()):
+        d = html.unescape((re.search(r'content-desc="([^"]*)"', n) or [None, ""])[1])
+        if d == name or d.startswith(name + ", "):
+            b = list(map(int, re.findall(r"\d+", (re.search(r'bounds="([^"]*)"', n) or [None, ""])[1]))) or [0, 0, 0, 0]
+            out.append((d, tuple(b)))
+    return out
+
+
 def portrait_says(name: str):
-    """The labels of the portraits of [name] on screen ("Babica Micka, se smehlja · smiles": who and how)."""
-    return [t for t, _ in nodes() if t.startswith(name + ", ")]
+    """The TalkBack labels of the portraits of [name] on screen ([portraits_of])."""
+    return [d for d, _ in portraits_of(name)]
 
 
 def faces_run():
@@ -3374,6 +3386,9 @@ def faces_run():
         tap("Izberi raje", 2)
     said = portrait_says(name)
     print(f"    the header: {said}")
+    if not said:
+        (OUT / "faces-dialog.xml").write_text(screen_xml())
+        print(f"    labels with {name}: {[t for t, _ in nodes() if name in t]}")
     assert said, f"{name}'s portrait in the panel's header says who and how"
     shot("faces-dialog-open")
     ns = list(nodes())
@@ -3384,11 +3399,13 @@ def faces_run():
     said = portrait_says(name)
     print(f"    a wrong pick («{wrong['sl']}» → «{wrong['reply']['sl']}», face {wrong['reply'].get('face', '-')}): {said}")
     shot("faces-dialog-wrong")
+    assert any(", " in t for t in said), f"her face after a wrong pick she reacts to (her reaction's, else confused): {said}"
     assert answer_right(right), "the right choice on screen"
     time.sleep(1.6)
     said = portrait_says(name)
     print(f"    the right pick: {said}")
     shot("faces-dialog-right")
+    assert any(", " in t for t in said), f"her face after a right pick (her reply's, else a smile): {said}"
     tap("Zapri · Close", 3)
     time.sleep(1)
     if find("‹ Vas · Village") is not None:
@@ -3409,7 +3426,7 @@ def faces_run():
     time.sleep(2.5)
     said = portrait_says(character)
     print(f"    the talk's stage: {said}")
-    assert said, f"{character}'s bust on the stage says who and how"
+    assert said, f"{character}'s bust on the stage says who (and how)"
     shot("faces-talk-stage")
     for k, line in enumerate(["Dober dan.", "Rad bi kruh."]):
         if wait_for("Piši", 3) is not None and find(ANSWER_FIELD_TALK) is None:
@@ -3420,8 +3437,7 @@ def faces_run():
         top = keyboard_settled()
         if k == 0:
             assert top is not None, "the keyboard came up"
-            bs = list(boxes())
-            busts = [b for t, b in bs if t.startswith(character + ", ")]
+            busts = [b for _, b in portraits_of(character)]
             print(f"    with the keyboard up: {[(b[2] - b[0]) for b in busts]} px wide portraits")
             assert busts and all(b[2] - b[0] < 200 for b in busts), f"the stage folded to the bar's avatar: {busts}"
             shot("faces-talk-keyboard")
@@ -3432,10 +3448,31 @@ def faces_run():
         said = portrait_says(character)
         print(f"    reply {k + 1}: {said}")
         shot(f"faces-talk-reply-{k + 1}")
-    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # out of the talk: "Kasneje · Later" keeps it for later
+        # the dev tutor's faces: happy, then curious (test/dev-bridge.ts), on the stage's bust and the bar's avatar alike
+        assert any(", " in t for t in said), f"{character}'s face after reply {k + 1}: {said}"
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # out of the talk: "Pozneje · Later" keeps it for later
     time.sleep(1)
-    if find("Kasneje") is not None:
-        tap("Kasneje", 3)
+    if find("Pozneje") is not None:
+        tap("Pozneje", 3)
+    go_home()
+
+    # Teo's tablet (2560 × 1600 at 320 dpi): the conversation kept for later, its stage in landscape and upright
+    try:
+        adb("shell", "wm", "size", "2560x1600")
+        adb("shell", "wm", "density", "320")
+        time.sleep(4)
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", "si.lanisce.lani.open", "talk")
+        time.sleep(5)
+        print(f"    the tablet, landscape: {portrait_says(character)}")
+        shot("faces-tablet-landscape")
+        adb("shell", "wm", "size", "1600x2560")
+        time.sleep(5)
+        print(f"    the tablet, upright: {portrait_says(character)}")
+        shot("faces-tablet-upright")
+    finally:
+        adb("shell", "wm", "size", "reset")
+        adb("shell", "wm", "density", "reset")
+        time.sleep(4)
     go_home()
     return None
 
