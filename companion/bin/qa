@@ -61,6 +61,11 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        "talk:<villager>" (LANI_QA_TALK_VILLAGER) opens the talk: the line heard surely goes by itself
                        for a child (LANI_CHILD=1), a room's noise is "I didn't catch that", with "Send by itself" off
                        the line waits for ➤; the takes' LaniStt lines in talk-mic.log;
+                       "case-lens" the case lens (docs/plans/05-built/case-lens.md): word cards opened in their lines
+                       (QA's hook "word:"): mleka by brez, the genitive; mizo after pod, the instrumental likely; les in
+                       a list, every reading; veliko agreeing with smreko; brez itself, what it decides; then a word of a
+                       dialog's line tapped, its case row, the ⋯'s "🎨 Skloni · Cases" on (the lines' colours, the
+                       legend), a reading coloured, a word of it tapped, the switch off again;
                        "typed-turn" a dialog's turn typed with the keyboard up (QA's hook "turns:type"), the
                        keyboard the answer's (its language, no suggestion strip); "faces" the faces: Babica's soup's
                        header portrait through a wrong and a right pick, then a free talk's stage with the dev tutor's
@@ -2956,6 +2961,116 @@ def keyboard_settled(timeout=8.0):
         last = top
         time.sleep(0.6)
     return None
+
+
+CASE_ROW = "Sklon · Case"  # the word card's case row (caseLens.title)
+CASES = "Skloni · Cases"  # the colours' switch and the dialog's ⋯ item (caseLens.colours)
+MORE = "Več · More"  # the dialog header's ⋯ (caseLens.more)
+
+
+def lens_card(word: str, line: str, en: str, wants: list, name: str):
+    """[word]'s card opened in [line] (QA's hook, as a tap there opens it): its case row says each of [wants]. The hook's
+    text quoted for the device's shell (a line has spaces)."""
+    adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", QA_HOOK, shlex.quote(f"word:{word}|{line}|{en}"))
+    time.sleep(1.5)
+    assert word_card(), f"the card of {word}"
+    assert wait_for(CASE_ROW, 8), f"{word}: its case row"
+    time.sleep(0.6)
+    screen = html.unescape(screen_xml())
+    missing = [w for w in wants if w not in screen]
+    assert not missing, f"{word} in «{line}»: not on its card: {missing}"
+    shot(name)
+    back_key()
+    assert not any(w in t for t, _ in nodes() for w in WORD_CARD), f"{word}'s card still open"
+
+
+def tap_word_with_case(line_box, name: str, tries=12) -> str:
+    """Taps along the first row of a line's text ([line_box]) until a word's card shows a case row; its card shot as
+    [name], closed again. The word, or ""."""
+    x0, y0, x1, _ = line_box
+    for x in range(x0 + 24, x1 - 8, max(40, (x1 - x0) // tries)):
+        tap_at((x, y0 + 26))
+        if word_card(4):
+            if wait_for(CASE_ROW, 3):
+                title = next((t for t, b in boxes() if b[1] < 700 and len(t) < 30 and " " not in t.strip()), "")
+                shot(name)
+                back_key()
+                return title or "?"
+            back_key()
+    return ""
+
+
+def case_lens():
+    """The case lens: a word's case on its card in its line, decided, likely, ambiguous, agreeing, a trigger's; a word
+    of a dialog tapped; the colours in a dialog (⋯) and in a reading, off again at the end (the learner's default)."""
+    try:
+        lens_card("mleka", "Kavo pijem brez mleka.", "I drink coffee without milk.", ["rodilnik", "koga? česa?", "brez"], "lens-brez-mleka")
+        lens_card("mizo", "Pod mizo!", "Under the table!", ["orodnik", "tožilnik", "verjetno"], "lens-pod-mizo-likely")
+        lens_card("les", "Kamni, les, kolo … Kaj še rabimo za mlin?", "Stones, wood, a wheel … what else do we need for the mill?", ["Ne vem zagotovo", "imenovalnik", "tožilnik"], "lens-les-ambiguous")
+        lens_card("veliko", "Šotor bo stal pod veliko smreko.", "The tent will stand under the big spruce.", ["orodnik", "smreko"], "lens-veliko-agrees")
+        lens_card("brez", "Kavo pijem brez mleka.", "", ["Zahteva rodilnik", "mleka"], "lens-brez-decides")
+        if why := lens_in_dialog():
+            return why
+        return lens_in_reading()
+    finally:
+        qa_hook("happening:")
+
+
+def lens_in_dialog() -> str:
+    """A word of the person's line tapped (its case row), then the ⋯'s "🎨 Skloni · Cases" on: the legend in the menu,
+    the lines underlined in their case's colours."""
+    if why := open_dialog():
+        return why
+    time.sleep(3)  # the first line types in (only typed words can be tapped)
+    bs = list(boxes())
+    listen = min((b for t, b in bs if t == "Poslušaj · Listen"), key=lambda b: b[1], default=None)
+    assert listen is not None, "the person's line (its 🔊)"
+    cy = (listen[1] + listen[3]) // 2
+    line = next((b for t, b in bs if " · " in t and b[2] <= listen[0] + 4 and b[1] <= cy <= b[3]), None)
+    assert line is not None, "the person's line"
+    word = tap_word_with_case(line, "lens-dialog-card")
+    assert word, "a word of the person's line with its case on its card"
+    print(f"    the dialog's word with a case: {word}")
+    assert tap(MORE, 5), "the dialog header's ⋯"
+    assert tap(CASES, 5), "its 🎨 Skloni · Cases"
+    time.sleep(1.5)
+    shot("lens-dialog-menu-on")
+    back_key()  # the menu closes; the lines are coloured (POST /cases, a moment)
+    time.sleep(3)
+    shot("lens-dialog-colours")
+    assert tap("Zapri · Close", 3), "close the dialog"
+    assert tap("‹ Vas · Village", 5), "back from the scene"
+    plain_village()
+    return ""
+
+
+# a reading of the corner and a line of it with cases: the A1 page when the learner has it, else the anthem (shown to all)
+LENS_READINGS = (("Jutro v vasi", "Vstanem ob šestih"), ("Zdravljica (sedma kitica)", "Žive naj vsi narodi"))
+
+
+def lens_in_reading() -> str:
+    """A reading of the corner (LENS_READINGS) with the colours on (the dialog's ⋯ turned them on; here the switch under
+    👁 Prevod), a word of a line tapped, then the switch off: the learner's default for the steps after."""
+    adb("shell", "am", "start", "-a", "android.intent.action.VIEW", "-d", "lani://readings")
+    wait_for("Branje · Reading", 15)
+    time.sleep(1)
+    texts = [t for t, _ in boxes()]
+    title, first = next(((t, l) for t, l in LENS_READINGS if any(x.startswith(t) for x in texts)), LENS_READINGS[-1])
+    assert tap(title, 10), f"the reading {title}"
+    assert wait_for(CASES, 10), "the reading's 🎨 Skloni · Cases (on since the dialog: remembered for the learner)"
+    time.sleep(3)
+    shot("lens-reading-colours")
+    bs = list(boxes())
+    line = next((b for t, b in bs if t.startswith(first)), None)
+    if line is not None:
+        word = tap_word_with_case(line, "lens-reading-card")
+        print(f"    the reading's word with a case: {word or '(none tapped)'}")
+    assert tap(CASES, 5), "the colours off again"
+    time.sleep(1)
+    shot("lens-reading-off")
+    back_key()
+    go_home()
+    return ""
 
 
 def typed_turn():
@@ -12781,6 +12896,7 @@ def plan():
         ("scene-building", scene_building, v, False, ""),
         ("fire-peek", fire_peek, v, False, ""),
         ("dialog-words", dialog_words, v, False, ""),
+        ("case-lens", case_lens, v, False, ""),
         ("typed-turn", typed_turn, v, False, ""),
         ("player-voice", player_voice, v, False, ""),
         # "🗣️ Moj glas · My voice": the offer at the first line, a ▶, the pick, the next line in it, the settings' page
