@@ -35,6 +35,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   small letters, without its punctuation), without listening ([micRight]): an emulator's microphone hears nothing, and
  *   QA checks a line said into the 🎤 isn't said again (companion/SCENES.md, "The learner's voice"); the 🎤 shows while it
  *   is set. "mic:" lets the microphone listen again.
+ * - "talk:<villager>": a talk with that villager opens (AppViewModel.talkWithVillager, as their page's "💬 Talk"): QA's
+ *   talk-mic step, whatever the village's language, without finding the villager on the map.
  * - "bubbles:<n>": the village shows only the n bubbles nearest the fire ([fewer]), for a recording that isn't crowded;
  *   "bubbles:" shows them all again.
  * - "ispy:<scene>/<slot>": «Vidim, vidim» is offered in that scene whatever the day (games played, the hour: a child comes
@@ -362,7 +364,7 @@ object QaHooks {
         grow: (si.lanisce.lani.game.Age) -> Unit = {}, formsCard: (String, String) -> Unit = { _, _ -> }, data: () -> Unit = {}, tutorLive: (String) -> Unit = {},
         review: () -> Unit = {}, numbers: (String) -> Unit = {}, event: (String) -> Unit = {}, hearths: (String) -> Unit = {},
         request: (List<String>) -> Unit = {}, word: (String) -> Unit = {}, friends: () -> Unit = {},
-        sheet: (String, String) -> Unit = { _, _ -> }, grammar: (String) -> Unit = {},
+        sheet: (String, String) -> Unit = { _, _ -> }, grammar: (String) -> Unit = {}, talk: (String) -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
@@ -399,6 +401,7 @@ object QaHooks {
             command == "forms:off" -> this.forms = false
             command.startsWith("turns:") -> typedTurns = command == "turns:type"
             command.startsWith("mic:") -> micRight = command == "mic:right"
+            command.startsWith("talk:") -> command.removePrefix("talk:").trim().takeIf { it.isNotEmpty() }?.let(talk)
             command == "counting" -> counting("")
             command == "counting:intro" -> counting("intro")
             command == "counting:type" -> countingTyped = true
