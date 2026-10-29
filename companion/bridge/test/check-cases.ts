@@ -5,7 +5,7 @@
 import { existsSync, mkdtempSync, readdirSync, readFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
-import { bankCounts, validateBank, type CaseCheck } from '../src/cases'
+import { bankCounts, validateBank, type CaseCheck } from '../src/case-bank'
 import { FormsBook, LineIndex } from '../src/forms'
 import { validateGrammar } from '../src/grammar'
 import { Lexicon } from '../src/lexicon'

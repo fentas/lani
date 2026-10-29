@@ -1,10 +1,10 @@
-// The case trainer ("🧩 Skloni · Cases", cases.ts; companion/README.md "Case trainer"): its bank for the app (GET /cases:
+// The case trainer ("🧩 Skloni · Cases", case-bank.ts; companion/README.md "Case trainer"): its bank for the app (GET /cases:
 // the curated items and the tutor's, the rules, the frames, the adjectives and nouns, the tutor's assignment), a session
 // the app played persisted as grammar practice (POST /cases/done: update-db.py, no LLM; the tutor hears a summary), and
 // the tutor's tools: get_cases (the learner's mastery per case and per rule, the bank), publish_case_items and
 // remove_case_item (items checked as the bank is), assign_cases (a session focused on a case or a rule).
 import { z } from 'zod'
-import { bankCounts, CASE_EN, CASES, CASES_LANGUAGES, caseItem, casesOf, checkItems, type CaseCheck, type CaseItem } from '../cases'
+import { bankCounts, CASE_EN, CASES, CASES_LANGUAGES, caseItem, casesOf, checkItems, type CaseCheck, type CaseItem } from '../case-bank'
 import type { FeatureFactory } from '../feature'
 import { LineIndex } from '../forms'
 import { json, readJson } from '../http'

@@ -1976,8 +1976,8 @@ One idea: show a sentence and I pick what case this is?"): short sessions on the
 task at a time with feedback at once, towards what decides a case more than its endings. Its rules are
 `app/.../data/CaseTrainer.kt` (pure), the shared look `data/CaseLook.kt` (each case's id, number, question words and
 colour: the contract with the case lens), the bank `data/CaseBank.kt`, the screens `ui/cases/`, the rest
-`app/CasesController.kt`; the bridge's `bridge/src/cases.ts` and `features/cases.ts`. Slovene only, as the forms book.
-Why it is built so: docs/plans/05-built/case-trainer.md.
+`app/CasesController.kt`; the bridge's `bridge/src/case-bank.ts` and `features/cases.ts`. Slovene only, as the forms
+book. Why it is built so: docs/plans/05-built/case-trainer.md.
 
 **Where it opens.** Home's tile "🧩 Skloni" once it is open (its line: the tutor's assignment, what comes back, the
 weakest case), Home's "Danes · Today" idea (the tutor's assignment or items due again right after the tutor's modules, a
@@ -2065,10 +2065,10 @@ readings); 31 rules (each its grammar page, the words that trigger it, a line in
 and possessives with every form; 23 nouns. Each item: its sentence and translations, the word's token, lemma, gender,
 case and number, the deciding word's token or the role, more tokens right to tap, the other readings of an ambiguous
 form and a note on how the sentence decides one, where it is from. The bridge checks it (`validateBank`; `bun
-test/check-cases.ts`, the smoke's section "cases"): every form that case of its lemma where the dictionary has the word
-(333 of its words), every trigger a word its rule names, every page in the grammar book (an item at least its page's
-level), every scene the village's, a place item's answer its gap. Machine-written, not reviewed by a native speaker (its
-`review` says what to check).
+test/check-cases.ts`, the smoke's section "case-trainer"): every form that case of its lemma where the dictionary has
+the word (333 of its words), every trigger a word its rule names, every page in the grammar book (an item at least its
+page's level), every scene the village's, a place item's answer its gap. Machine-written, not reviewed by a native
+speaker (its `review` says what to check).
 
 **The tutor** (the channel guide's paragraph, the in-app tutor's topic `cases`): `get_cases` (the mastery per case and
 per rule, what comes back, the lens's rules, the bank's spread, the assignment), `assign_cases {focus, note}` (a case or
@@ -2076,13 +2076,13 @@ a rule: Home and the trainer offer it until a session with that focus is played;
 back), `publish_case_items {items, note}` (the bank's format, checked as the bank is; ids of the tutor's own) and
 `remove_case_item`. `get_village` shows the trainer's progress too.
 
-**The case lens's entry point:** `vm.cases.seen(rule)` (`CasesController.seen`, `CaseTrainer.seen`): a rule id (a
+**The case lens's entry point:** `vm.caseTrainer.seen(rule)` (`CasesController.seen`, `CaseTrainer.seen`): a rule id (a
 grammar page: the contract's rodilnik-predlogi, rodilnik-nikalnica, rodilnik-kolicina, kam-tozilnik,
 kje-mestnik-orodnik, dajalnik, orodnik, tozilnik, mestnik, skloni) the lens showed the learner; counted as seen
 (`GameState.cases.seen`: how often, the last day), never as an answer.
 
 QA: `companion/bin/qa --steps cases` (on a synthetic learner: LANI_DEV_DATA). Tests: `CaseTrainerTest`; the smoke's
-`cases`.
+`case-trainer`.
 
 ## The school's course
 

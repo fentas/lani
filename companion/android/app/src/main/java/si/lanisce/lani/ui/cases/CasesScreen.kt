@@ -1,5 +1,6 @@
 package si.lanisce.lani.ui.cases
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,7 +19,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -39,6 +39,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import java.time.LocalDate
 import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.Screen
 import si.lanisce.lani.app.CasesDone
@@ -46,8 +47,11 @@ import si.lanisce.lani.app.ExerciseSource
 import si.lanisce.lani.data.CaseKind
 import si.lanisce.lani.data.CaseTrainer
 import si.lanisce.lani.data.Grading.Verdict
-import si.lanisce.lani.data.Kase
 import si.lanisce.lani.data.ScreenClock
+import si.lanisce.lani.data.asks
+import si.lanisce.lani.data.id
+import si.lanisce.lani.data.ofId
+import si.lanisce.lani.game.Case
 import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.bi
 import si.lanisce.lani.l10n.inTarget
@@ -64,7 +68,6 @@ import si.lanisce.lani.ui.stage.Run
 import si.lanisce.lani.ui.stage.rememberStage
 import si.lanisce.lani.ui.theme.AlpineGreen
 import si.lanisce.lani.ui.theme.XpGold
-import java.time.LocalDate
 
 /**
  * "🧩 Skloni · Cases" (companion/README.md "Case trainer"): closed, what opens it (the first case unit's intro, the
@@ -75,11 +78,11 @@ import java.time.LocalDate
  */
 @Composable
 fun CasesScreen(vm: AppViewModel, focus: String?) {
-    val pool = remember(vm.cases.bank, vm.game.state, vm.content.dashboard, vm.forms.cache) { vm.cases.pool() }
+    val pool = remember(vm.caseTrainer.bank, vm.game.state, vm.content.dashboard, vm.forms.cache) { vm.caseTrainer.pool() }
     val open = pool?.let(CaseTrainer::isOpen) == true
-    val p = vm.cases.progress
+    val p = vm.caseTrainer.progress
     val due = CaseTrainer.due(p, LocalDate.now()).size
-    val assigned = vm.cases.assigned
+    val assigned = vm.caseTrainer.assigned
     LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 32.dp)) {
         item { GradientHeader("🧩 ${bi("cases.title")}", bi("cases.about"), vm.backLabel, onBack = vm::back) }
         if (!open) {
@@ -102,7 +105,7 @@ fun CasesScreen(vm: AppViewModel, focus: String?) {
                 }
             }
             item { SectionTitle("🎨 ${bi("cases.theCases")}") }
-            items(Kase.entries, key = { it.id }) { k -> CaseRow(vm, k) }
+            items(Case.entries, key = { it.id }) { k -> CaseRow(vm, k) }
             item { SectionTitle("🔑 ${bi("cases.whatDecides")}") }
             item { RuleRows(vm) }
             item { SectionTitle("🎛️ ${bi("cases.kinds")}") }
@@ -119,7 +122,7 @@ fun CasesScreen(vm: AppViewModel, focus: String?) {
 
 /** A focus's name: a case's ("2. rodilnik · genitive"), else its grammar page's title, else its id. */
 internal fun focusTitle(vm: AppViewModel, focus: String): String =
-    Kase.of(focus)?.label() ?: vm.grammar.page(focus)?.titleShown(L10n.pair) ?: focus
+    Case.ofId(focus)?.label() ?: vm.grammar.page(focus)?.titleShown(L10n.pair) ?: focus
 
 @Composable
 private fun SectionTitle(text: String) {
@@ -133,8 +136,8 @@ private fun Locked(vm: AppViewModel) {
     Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant), modifier = Modifier.fillMaxWidth().padding(16.dp)) {
         Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp), horizontalAlignment = Alignment.CenterHorizontally) {
             Text("🔒", style = MaterialTheme.typography.displaySmall, modifier = Modifier.clearAndSetSemantics {})
-            Text(bi(if (vm.cases.available) "cases.locked" else "cases.notHere"), style = MaterialTheme.typography.bodyLarge, textAlign = TextAlign.Center)
-            if (vm.cases.available) {
+            Text(bi(if (vm.caseTrainer.available) "cases.locked" else "cases.notHere"), style = MaterialTheme.typography.bodyLarge, textAlign = TextAlign.Center)
+            if (vm.caseTrainer.available) {
                 if (unit != null) BigButton("🏫 ${bi("cases.toUnit")}", onClick = { vm.openUnit(unit.id) }, color = XpGold)
                 else BigButton("📖 ${bi("cases.toBook")}", onClick = { vm.openGrammarBook() }, color = XpGold)
             }
@@ -156,8 +159,8 @@ private fun Assigned(vm: AppViewModel, focus: String, note: String?) {
 
 /** A case's row: its colour, number and name, its questions, its stars and its last answers; a tap starts a session on it. */
 @Composable
-private fun CaseRow(vm: AppViewModel, k: Kase) {
-    val p = vm.cases.progress
+private fun CaseRow(vm: AppViewModel, k: Case) {
+    val p = vm.caseTrainer.progress
     val key = CaseTrainer.caseKey(k)
     val (right, of) = CaseTrainer.score(p, key)
     val st = CaseTrainer.stars(p, key)
@@ -171,7 +174,7 @@ private fun CaseRow(vm: AppViewModel, k: Kase) {
             Box(Modifier.width(6.dp).fillMaxHeight().background(c).clearAndSetSemantics {})
             Column(Modifier.weight(1f).padding(horizontal = 14.dp, vertical = 10.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                 Text(k.label(), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-                Text(k.questions, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(k.asks, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Text(
                     if (of == 0) bi("cases.notYet") else bi("cases.lately", "right" to right, "of" to of),
                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -189,9 +192,9 @@ private fun CaseRow(vm: AppViewModel, k: Kase) {
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun RuleRows(vm: AppViewModel) {
-    val bank = vm.cases.bank ?: return
-    val p = vm.cases.progress
-    val rules = bank.rules.values.map { it.page to Kase.of(it.case) }.distinctBy { it.first }
+    val bank = vm.caseTrainer.bank ?: return
+    val p = vm.caseTrainer.progress
+    val rules = bank.rules.values.map { it.page to Case.ofId(it.case) }.distinctBy { it.first }
     FlowRow(Modifier.padding(horizontal = 16.dp), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         for ((page, k) in rules) {
             val title = vm.grammar.page(page)?.titleShown(L10n.pair) ?: page
@@ -249,7 +252,7 @@ fun CasesRunScreen(vm: AppViewModel, at: Screen.CasesRun) {
             vm, if (at.storm) "⚡ ${bi("cases.storm.title")}" else "🧩 ${bi("cases.title")}", exercises, moduleId = null, onExit = vm::leaveRun, stage = stage,
             // the storm against the clock: a right pick flashes and the next phrase comes (ExerciseRun's timed run)
             timeLimitSeconds = if (at.storm) CaseTrainer.STORM_SECONDS else null, fast = at.storm, endless = at.storm,
-            source = { i -> at.planned.getOrNull(i)?.let { p -> ExerciseSource.cases(p.task.kind.wire, p.task.key, i, tutor = vm.cases.bank?.items?.firstOrNull { it.id == p.task.key }?.source == "tutor") } },
+            source = { i -> at.planned.getOrNull(i)?.let { p -> ExerciseSource.cases(p.task.kind.wire, p.task.key, i, tutor = vm.caseTrainer.bank?.items?.firstOrNull { it.id == p.task.key }?.source == "tutor") } },
             pages = listOf("skloni"),
             // a form typed wrong counts on its page with both sentences, as a dialog's turn records one
             slips = { i, o ->
@@ -257,7 +260,7 @@ fun CasesRunScreen(vm: AppViewModel, at: Screen.CasesRun) {
                 if (ex == null || ex.kind != "decline" || o.correct == null) null
                 else ex.prompt.substringBeforeLast(" (").replace("___", o.answer) to ex.sentence
             },
-        ) { outs -> done = vm.cases.finish(at.planned, outs, minutesSince(started), at.focus, storm = at.storm) }
+        ) { outs -> done = vm.caseTrainer.finish(at.planned, outs, minutesSince(started), at.focus, storm = at.storm) }
         return
     }
     if (at.storm) return StormEnd(vm, d, stage)
@@ -310,7 +313,7 @@ private fun StormEnd(vm: AppViewModel, d: CasesDone, stage: si.lanisce.lani.ui.s
 private fun ByCase(d: CasesDone) {
     val by = d.tasks.zip(d.verdicts).groupBy({ it.first.case }, { it.second })
     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally), verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
-        for (k in Kase.entries) {
+        for (k in Case.entries) {
             val vs = by[k] ?: continue
             val c = k.color()
             Card(colors = CardDefaults.cardColors(containerColor = c.copy(alpha = 0.16f)), shape = RoundedCornerShape(12.dp)) {

@@ -8,6 +8,7 @@ import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 import si.lanisce.lani.data.Grading.Verdict
+import si.lanisce.lani.game.Case
 import si.lanisce.lani.game.Introduction
 import si.lanisce.lani.game.WordForms
 import si.lanisce.lani.l10n.Lang
@@ -78,7 +79,7 @@ data class CaseNoun(
 data class CaseTask(
     val kind: CaseKind,
     val key: String,
-    val case: Kase,
+    val case: Case,
     val number: String,
     val rule: String,
     val level: String,
@@ -155,15 +156,15 @@ object CaseTrainer {
     }
 
     /** The pages a number needs: the plural's, the dual's, an oblique dual's. */
-    private fun numberOpen(pool: CasePool, case: Kase, number: String): Boolean = when (number) {
+    private fun numberOpen(pool: CasePool, case: Case, number: String): Boolean = when (number) {
         "pl" -> open(pool, PLURAL)
-        "du" -> open(pool, DUAL) && (case == Kase.IMENOVALNIK || case == Kase.TOZILNIK || open(pool, DUAL_CASES))
+        "du" -> open(pool, DUAL) && (case == Case.NOM || case == Case.ACC || open(pool, DUAL_CASES))
         else -> true
     }
 
     /** Whether bank item [it] may be asked now. */
     fun allowed(pool: CasePool, it: CaseItem): Boolean {
-        val kase = Kase.of(it.case) ?: return false
+        val kase = Case.ofId(it.case) ?: return false
         val rule = pool.bank.page(it.why) ?: return false
         if (pool.bank.rule(it.why)?.case != it.case) return false
         if (it.kind == "place" && (it.gap.size != 2 || it.options.size !in 2..3 || it.answer !in it.options.indices)) return false
@@ -175,7 +176,7 @@ object CaseTrainer {
 
     /** Whether frame [f] may be asked now (its nouns aside). */
     fun allowed(pool: CasePool, f: CaseFrame): Boolean {
-        val kase = Kase.of(f.case) ?: return false
+        val kase = Case.ofId(f.case) ?: return false
         val rule = pool.bank.page(f.why) ?: return false
         if (pool.bank.rule(f.why)?.case != f.case) return false
         return open(pool, rule) && numberOpen(pool, kase, f.number) && f.needs.all { open(pool, it) } && fits(pool, f.level, rule)
@@ -212,10 +213,10 @@ object CaseTrainer {
     fun isOpen(pool: CasePool): Boolean =
         (rank(pool.level) >= rank("A2") || pool.introduced.any { it in CaseLook.PAGES }) && count(pool, OPEN_AT) >= OPEN_AT
 
-    private fun slotOf(case: Kase, number: String) = "${case.slot}.$number"
+    private fun slotOf(case: Case, number: String) = "${case.slot}.$number"
 
     private fun nounFits(pool: CasePool, f: CaseFrame, n: CaseNoun): Boolean {
-        val kase = Kase.of(f.case) ?: return false
+        val kase = Case.ofId(f.case) ?: return false
         if (f.gender != null && n.gender !in f.gender) return false
         // a mass noun only in the singular (no "Grem k vodam", "Vidim pet mlek")
         if (f.number != "sg" && n.lemma.lowercase() in pool.bank.uncountable) return false
@@ -258,7 +259,7 @@ object CaseTrainer {
     }
 
     /** The case keys' ids, rules' and kinds': "case:rodilnik". */
-    fun caseKey(k: Kase) = "case:${k.id}"
+    fun caseKey(k: Case) = "case:${k.id}"
     fun ruleKey(r: String) = "rule:$r"
     fun kindKey(k: CaseKind) = "kind:${k.wire}"
 
@@ -270,8 +271,8 @@ object CaseTrainer {
     }
 
     /** The weakest case: the case to suggest on Home, with its weakness (mistakes counted as [priors] give); null when none is weak. */
-    fun weakest(p: CaseProgress?, priors: (String) -> Double): Pair<Kase, Double>? =
-        Kase.entries.map { it to weakness(p, caseKey(it), priors(it.id)) }.maxByOrNull { it.second }?.takeIf { it.second >= 0.55 }
+    fun weakest(p: CaseProgress?, priors: (String) -> Double): Pair<Case, Double>? =
+        Case.entries.map { it to weakness(p, caseKey(it), priors(it.id)) }.maxByOrNull { it.second }?.takeIf { it.second >= 0.55 }
 
     // --- the learner's mistakes: priors and pattern ids -----------------------------------------------------------------
 
@@ -316,7 +317,7 @@ object CaseTrainer {
 
     /** What a task is about, as facets: its case, number, gender, the rule's words, kje or kam, agreement. */
     fun taskFacets(t: CaseTask, rule: CaseRuleLine?, ruleKey: String): Set<String> = buildSet {
-        add(t.case.en)
+        add(t.case.lexicon)
         add(when (t.number) { "pl" -> "plural"; "du" -> "dual"; else -> "singular" })
         when (t.gender) {
             "m" -> add("masculine")
@@ -360,7 +361,7 @@ object CaseTrainer {
 
     /** A bank item's task. */
     fun taskOf(pool: CasePool, it: CaseItem, again: Boolean = false): CaseTask? {
-        val kase = Kase.of(it.case) ?: return null
+        val kase = Case.ofId(it.case) ?: return null
         val rule = pool.bank.page(it.why) ?: return null
         val kind = if (it.kind == "place") CaseKind.PLACE else CaseKind.WHICH
         val gender = it.gender ?: pool.nouns.firstOrNull { n -> n.lemma == it.lemma }?.gender
@@ -371,7 +372,7 @@ object CaseTrainer {
     fun declineKey(f: CaseFrame, n: CaseNoun, adj: CaseAdjective?) = "d:${f.id}:${n.lemma}" + (adj?.let { ":${it.lemma}" } ?: "")
 
     private fun declineTask(pool: CasePool, f: CaseFrame, n: CaseNoun, adj: CaseAdjective?, again: Boolean = false): CaseTask? {
-        val kase = Kase.of(f.case) ?: return null
+        val kase = Case.ofId(f.case) ?: return null
         val rule = pool.bank.page(f.why) ?: return null
         return CaseTask(CaseKind.DECLINE, declineKey(f, n, adj), kase, f.number, rule, maxOf(f.level, adj?.level ?: "A1"), again, adj?.lemma, n.gender)
     }
@@ -414,7 +415,7 @@ object CaseTrainer {
 
     /** The trainer's focus of a grammar page ("🧩 Vadi sklone" on it): a case's, a rule's, a group's; null for a mixed session. */
     fun focusOfPage(page: String, rules: Collection<String>): String? = when {
-        Kase.of(page) != null -> page
+        Case.ofId(page) != null -> page
         page in rules -> page
         page in setOf(KJE_KAM, AGREEMENT, PLURAL_CASES, DUAL_CASES) -> page
         else -> null
@@ -486,7 +487,7 @@ object CaseTrainer {
             focus == null -> all
             inFocus.size >= size -> inFocus
             else -> {
-                val caseOf = (inFocus.firstOrNull()?.case ?: Kase.of(focus) ?: all.firstOrNull { it.rule == focus }?.case)
+                val caseOf = (inFocus.firstOrNull()?.case ?: Case.ofId(focus) ?: all.firstOrNull { it.rule == focus }?.case)
                 val sameCase = all.filter { it.case == caseOf && it !in inFocus }
                 inFocus + sameCase + if (inFocus.size + sameCase.size >= size) emptyList() else all.filter { it !in inFocus && it !in sameCase }
             }
@@ -745,10 +746,10 @@ object CaseTrainer {
     }
 
     /** The adjective's form agreeing with a noun of [gender] (its animacy for the masculine accusative) in [case] and [number]. */
-    fun adjectiveForm(adj: CaseAdjective, case: Kase, gender: String, number: String, animate: Boolean): String? {
+    fun adjectiveForm(adj: CaseAdjective, case: Case, gender: String, number: String, animate: Boolean): String? {
         val n = if (number == "du") return null else number
         val key = "${case.slot}.$gender.$n"
-        return if (case == Kase.TOZILNIK && gender == "m" && n == "sg" && animate) adj.forms["acc.m.sg.anim"] else adj.forms[key]
+        return if (case == Case.ACC && gender == "m" && n == "sg" && animate) adj.forms["acc.m.sg.anim"] else adj.forms[key]
     }
 
     /** The standard endings a slot's form has by gender, to show the usual one first where the dictionary has two. */
@@ -775,7 +776,7 @@ object CaseTrainer {
      * the frame's meaning with the words' ("I'm going to … · moj = my · brat = brother").
      */
     fun decline(pool: CasePool, f: CaseFrame, n: CaseNoun, adj: CaseAdjective?): Exercise.CaseTask? {
-        val kase = Kase.of(f.case) ?: return null
+        val kase = Case.ofId(f.case) ?: return null
         val rule = pool.bank.rule(f.why) ?: return null
         val slot = slotOf(kase, f.number)
         val forms = shownForms(n, slot).ifEmpty { return null }
@@ -786,7 +787,7 @@ object CaseTrainer {
         val two = if (n.gender == "m") "dva" else "dve"
         fun fill(gap: String) = f.sl.replace("{k}", WordForms.kh(shown)).replace("{s}", WordForms.sz(shown)).replace("{two}", two).replace("{x}", gap)
         // the cue: the phrase in its nominative ("moj brat", "lepa hiša"), a plural marked as WordForms marks it
-        val cueAdj = adj?.let { adjectiveForm(it, Kase.IMENOVALNIK, n.gender, "sg", false) }
+        val cueAdj = adj?.let { adjectiveForm(it, Case.NOM, n.gender, "sg", false) }
         val cue = listOfNotNull(cueAdj, n.lemma).joinToString(" ") + if (f.number == "pl") ", mn." else ""
         val sentence = fill(shown)
         val words = listOfNotNull(adj?.let { "${it.lemma} = ${it.meaning(pool.base)}" }, "${n.lemma} = ${n.meaning}")
@@ -802,7 +803,7 @@ object CaseTrainer {
     // --- grading -------------------------------------------------------------------------------------------------------
 
     /** The case picked: right when it is the item's. */
-    fun pickRight(ex: Exercise.CaseTask, picked: Kase): Boolean = picked.id == ex.case
+    fun pickRight(ex: Exercise.CaseTask, picked: Case): Boolean = picked.id == ex.case
 
     /**
      * The "Zakaj?" answer: the token tapped ([tapped]) is the trigger or another word that decides it ([Exercise.CaseTask.taps]),
@@ -907,8 +908,8 @@ object CaseTrainer {
 
     /** The trainer's own pattern id of a wrong answer no mistake of the learner's fits: cases_genitive_brez, cases_form_dative_plural_adjective. */
     fun ownPattern(t: CaseTask, ruleKey: String): String = when (t.kind) {
-        CaseKind.DECLINE -> listOfNotNull("cases_form", t.case.en, t.number.takeIf { it != "sg" }?.let { if (it == "pl") "plural" else "dual" }, t.adjective?.let { if (it in POSSESSIVES) "possessive" else "adjective" }).joinToString("_")
-        else -> "cases_${t.case.en}_${ruleKey.replace('-', '_')}"
+        CaseKind.DECLINE -> listOfNotNull("cases_form", t.case.lexicon, t.number.takeIf { it != "sg" }?.let { if (it == "pl") "plural" else "dual" }, t.adjective?.let { if (it in POSSESSIVES) "possessive" else "adjective" }).joinToString("_")
+        else -> "cases_${t.case.lexicon}_${ruleKey.replace('-', '_')}"
     }
 
     /**
@@ -931,7 +932,7 @@ object CaseTrainer {
                 put("pattern_id", pattern)
                 put("category", "grammar")
                 put("subcategory", "cases")
-                put("description", if (wrongCase) "${t.case.en.replaceFirstChar { it.uppercase() }} (${t.case.sl}${if (t.number == "sg") "" else ", ${t.number}"}): ${rule?.en ?: t.rule}" else "The word that decides the case: ${rule?.en ?: t.rule}")
+                put("description", if (wrongCase) "${t.case.lexicon.replaceFirstChar { it.uppercase() }} (${t.case.slName}${if (t.number == "sg") "" else ", ${t.number}"}): ${rule?.en ?: t.rule}" else "The word that decides the case: ${rule?.en ?: t.rule}")
                 put("severity", if (wrongCase) "moderate" else "minor")
                 put("your_answer", a.answer.take(160))
                 put("correct_answer", a.expected.take(160))
@@ -993,7 +994,7 @@ object CaseTrainer {
 
     /** The right answer in a line: the case and the deciding word, the option, the form. */
     fun expectedLine(ex: Exercise.CaseTask): String {
-        val kase = Kase.of(ex.case)
+        val kase = Case.ofId(ex.case)
         val decider = when {
             ex.taps.isNotEmpty() -> ex.taps.mapNotNull { ex.wordAt(it) }.firstOrNull()
             else -> ex.role
@@ -1001,7 +1002,7 @@ object CaseTrainer {
         return when (ex.kind) {
             "decline" -> ex.shown
             "place" -> listOfNotNull(ex.options.getOrNull(ex.answer), decider).joinToString(" · ")
-            else -> listOfNotNull(kase?.let { "${it.n}. ${it.sl}" }, decider).joinToString(" · ")
+            else -> listOfNotNull(kase?.let { "${it.n}. ${it.slName}" }, decider).joinToString(" · ")
         }
     }
 }

@@ -6,6 +6,7 @@ import si.lanisce.lani.data.ModuleInfo
 import si.lanisce.lani.data.PackInfo
 import si.lanisce.lani.data.PackSession
 import si.lanisce.lani.data.Stats
+import si.lanisce.lani.data.id
 import si.lanisce.lani.data.previewLine
 import si.lanisce.lani.game.Age
 import si.lanisce.lani.game.Calendar
@@ -293,7 +294,7 @@ object HomeLogic {
      * the items missed due again ([due]) or the weakest case ([weakest]: a case weak enough, its name [label]); null otherwise.
      */
     fun casesIdea(
-        open: Boolean, p: si.lanisce.lani.data.CaseProgress?, due: Int, weakest: si.lanisce.lani.data.Kase?, label: (String) -> String,
+        open: Boolean, p: si.lanisce.lani.data.CaseProgress?, due: Int, weakest: si.lanisce.lani.game.Case?, label: (String) -> String,
         assigned: si.lanisce.lani.data.CaseAssigned?, today: LocalDate,
     ): HomeAction.Cases? {
         if (!open) return null

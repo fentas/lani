@@ -10,7 +10,7 @@ import kotlinx.serialization.json.contentOrNull
 // "Kateri sklon?" and "Kje ali kam?" with their gold annotations, the rules' one lines, the frames of "Sklanjaj!", the
 // adjectives and possessives it declines with the learner's nouns, and nouns for when the learner has too few of their
 // own. companion/cases/<language>/bank.json is bundled (app/build.gradle.kts: cases/<language>/bank.json); the bridge
-// serves it with the tutor's items and assignment (GET /cases, companion/bridge/src/cases.ts, which checks it). Pure.
+// serves it with the tutor's items and assignment (GET /cases, companion/bridge/src/case-bank.ts, which checks it). Pure.
 
 /** A text in the learner's bases: English, German, Italian; English is every base's fallback. */
 @Serializable
@@ -41,7 +41,7 @@ data class CaseRuleLine(
 data class CaseSpoken(val form: String, val standard: String, val note: CaseTexts = CaseTexts())
 
 /**
- * An item of the bank (companion/bridge/src/cases.ts has the format and its checks): "which" (Kateri sklon?) or "place"
+ * An item of the bank (companion/bridge/src/case-bank.ts has the format and its checks): "which" (Kateri sklon?) or "place"
  * (Kje ali kam?). Tokens are the sentence split at white space ([CaseBanks.tokens]); [word] the token asked about, [trigger]
  * the one that decides the case (null: nothing does, [role]), [also] more tokens right to tap. A place item's [gap] (from,
  * to: inclusive) is chosen among [options] ([answer] right), its [cue] the noun in brackets, its [trigger] the verb saying
@@ -173,10 +173,10 @@ object CaseBanks {
     /** The languages that have a trainer: the cases are Slovene's (the forms book's FORMS_LANGUAGES). */
     val LANGUAGES = setOf("sl")
 
-    /** A sentence's tokens: split at white space, punctuation on its word (as the bridge's cases.ts tokensOf). */
+    /** A sentence's tokens: split at white space, punctuation on its word (as the bridge's case-bank.ts tokensOf). */
     fun tokens(sentence: String): List<String> = sentence.trim().split(Regex("\\s+")).filter { it.isNotEmpty() }
 
-    /** A token without the punctuation around it ("šoli." → "šoli"; as cases.ts bare). */
+    /** A token without the punctuation around it ("šoli." → "šoli"; as case-bank.ts bare). */
     fun bare(token: String): String = token.replace(Regex("^[^\\p{L}\\p{N}]+|[^\\p{L}\\p{N}]+$"), "")
 
     /** The bank in [raw] (GET /cases, or the bundled file); null when it isn't one. */

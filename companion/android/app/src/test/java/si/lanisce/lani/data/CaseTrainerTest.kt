@@ -13,6 +13,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import si.lanisce.lani.data.Grading.Verdict
+import si.lanisce.lani.game.Case
 import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.Lang
 import si.lanisce.lani.l10n.LangPair
@@ -140,13 +141,13 @@ class CaseTrainerTest {
     // --- the contract -------------------------------------------------------------------------------------------------
 
     @Test fun `the six cases keep the contract's ids order questions and colours`() {
-        assertEquals(listOf("imenovalnik", "rodilnik", "dajalnik", "tozilnik", "mestnik", "orodnik"), Kase.entries.map { it.id })
-        assertEquals(listOf(1, 2, 3, 4, 5, 6), Kase.entries.map { it.n })
-        assertEquals(listOf("kdo? kaj?", "koga? česa?", "komu? čemu?", "koga? kaj?", "pri kom? pri čem?", "s kom? s čim?"), Kase.entries.map { it.question })
-        assertEquals("pri kom? pri čem? (o kom? o čem?)", Kase.MESTNIK.questions)
-        assertEquals(listOf(0xFF4A7FC1, 0xFFC2503C, 0xFFD69A2D, 0xFF3E9B5F, 0xFF8A5CB8, 0xFF2C9AA0), Kase.entries.map { it.lightArgb })
-        assertEquals("tožilnik", Kase.TOZILNIK.sl)
-        assertEquals(Kase.RODILNIK, Kase.ofSlot("gen.pl"))
+        assertEquals(listOf("imenovalnik", "rodilnik", "dajalnik", "tozilnik", "mestnik", "orodnik"), Case.entries.map { it.id })
+        assertEquals(listOf(1, 2, 3, 4, 5, 6), Case.entries.map { it.n })
+        assertEquals(listOf("kdo? kaj?", "koga? česa?", "komu? čemu?", "koga? kaj?", "pri kom? pri čem?", "s kom? s čim?"), Case.entries.map { it.ask })
+        assertEquals("pri kom? pri čem? (o kom? o čem?)", Case.LOC.asks)
+        assertEquals(listOf(0xFF4A7FC1, 0xFFC2503C, 0xFFD69A2D, 0xFF3E9B5F, 0xFF8A5CB8, 0xFF2C9AA0), Case.entries.map { it.lightArgb })
+        assertEquals("tožilnik", Case.ACC.slName)
+        assertEquals(Case.GEN, Case.ofSlot("gen.pl"))
         assertEquals(listOf("rodilnik-predlogi", "rodilnik-nikalnica", "rodilnik-kolicina", "kam-tozilnik", "kje-mestnik-orodnik", "dajalnik", "orodnik", "tozilnik", "mestnik", "skloni"), CaseLook.RULES)
     }
 
@@ -161,7 +162,7 @@ class CaseTrainerTest {
             val h = when (max) { r -> 60 * (((g - b) / d).mod(6.0)); g -> 60 * ((b - r) / d + 2); else -> 60 * ((r - g) / d + 4) }
             return h to (max + min) / 2
         }
-        for (k in Kase.entries) {
+        for (k in Case.entries) {
             val (h1, l1) = hsl(k.lightArgb)
             val (h2, l2) = hsl(k.darkArgb)
             assertTrue("${k.id}: ${k.darkArgb.toString(16)} lighter", l2 > l1 + 0.1)
@@ -183,7 +184,7 @@ class CaseTrainerTest {
             val r = b.rule(it.why)
             assertNotNull("${it.id}: rule ${it.why}", r)
             assertEquals("${it.id}: the rule's case", r!!.case, it.case)
-            assertNotNull("${it.id}: case", Kase.of(it.case))
+            assertNotNull("${it.id}: case", Case.ofId(it.case))
             it.trigger?.let { t -> assertTrue("${it.id}: trigger in the sentence", t in toks.indices && t != it.word) }
             if (it.kind == "which" && it.trigger == null) assertTrue("${it.id}: a role", it.role in setOf("subject", "object"))
             if (it.kind == "place") {
@@ -194,10 +195,10 @@ class CaseTrainerTest {
             assertTrue("${it.id}: translations", it.en.isNotBlank() && it.de.isNotBlank() && it.it.isNotBlank())
         }
         // every case and number, every level
-        for (k in Kase.entries) assertTrue("${k.id} asked", b.items.count { it.case == k.id } >= 20)
+        for (k in Case.entries) assertTrue("${k.id} asked", b.items.count { it.case == k.id } >= 20)
         for (n in listOf("sg", "pl", "du")) assertTrue("number $n", b.items.any { it.number == n })
         for (l in listOf("A1", "A2", "B1")) assertTrue("level $l", b.items.any { it.level == l })
-        assertTrue("frames for every case", Kase.entries.all { k -> b.frames.any { it.case == k.id } })
+        assertTrue("frames for every case", Case.entries.all { k -> b.frames.any { it.case == k.id } })
         assertTrue("adjectives and possessives", b.adjectives.any { it.possessive } && b.adjectives.any { !it.possessive })
         // a session can be planned from it for an A2 learner with the bank's own nouns
         val p = CasePool(b, emptyList(), emptySet(), "A2", false, "en", { levels[it] })
@@ -217,8 +218,8 @@ class CaseTrainerTest {
 
     @Test fun `a case picked is right only when it is the item's`() {
         val ex = exerciseOf("brez-mleka")
-        assertTrue(CaseTrainer.pickRight(ex, Kase.RODILNIK))
-        assertFalse(CaseTrainer.pickRight(ex, Kase.TOZILNIK))
+        assertTrue(CaseTrainer.pickRight(ex, Case.GEN))
+        assertFalse(CaseTrainer.pickRight(ex, Case.ACC))
     }
 
     @Test fun `the deciding word is its trigger or a word beside it`() {
@@ -397,7 +398,7 @@ class CaseTrainerTest {
             var all = 0
             for (seed in 0 until 300) {
                 val plan = CaseTrainer.plan(pool(), p, emptyList(), priors, today, Random(seed.toLong()), only = CaseKind.WHICH, size = 3)
-                gen += plan.count { it.task.case == Kase.RODILNIK }
+                gen += plan.count { it.task.case == Case.GEN }
                 all += plan.size
             }
             return gen.toDouble() / all
@@ -405,7 +406,7 @@ class CaseTrainerTest {
         val even = share({ 0.0 }, null)
         val weakGen = share({ if (it == "rodilnik" || it == "rodilnik-predlogi" || it == "rodilnik-nikalnica") 1.0 else 0.0 }, null)
         assertTrue("the genitive's mistakes: more genitive ($even → $weakGen)", weakGen > even + 0.05)
-        val strong = CaseProgress(keys = Kase.entries.associate { CaseTrainer.caseKey(it) to "1".repeat(12) } + ("case:rodilnik" to "000000000000"))
+        val strong = CaseProgress(keys = Case.entries.associate { CaseTrainer.caseKey(it) to "1".repeat(12) } + ("case:rodilnik" to "000000000000"))
         assertTrue("the genitive wrong lately: more genitive", share({ 0.0 }, strong) > even + 0.1)
     }
 
@@ -433,9 +434,9 @@ class CaseTrainerTest {
     @Test fun `a focus asks its case or its rule and fills up with its case`() {
         val onGen = CaseTrainer.plan(pool(), null, emptyList(), { 0.0 }, today, Random(4), focus = "rodilnik", size = 6)
         assertTrue(onGen.isNotEmpty())
-        assertTrue(onGen.all { it.task.case == Kase.RODILNIK })
+        assertTrue(onGen.all { it.task.case == Case.GEN })
         val onRule = CaseTrainer.plan(pool(), null, emptyList(), { 0.0 }, today, Random(4), focus = "kje-mestnik-orodnik", size = 4)
-        assertTrue("its rule first", onRule.take(2).all { it.task.rule == "kje-mestnik-orodnik" || it.task.case == Kase.MESTNIK })
+        assertTrue("its rule first", onRule.take(2).all { it.task.rule == "kje-mestnik-orodnik" || it.task.case == Case.LOC })
         val kjeKam = CaseTrainer.plan(pool(), null, emptyList(), { 0.0 }, today, Random(4), focus = CaseTrainer.KJE_KAM, size = 4)
         assertTrue(kjeKam.all { CaseTrainer.focused(it.task, CaseTrainer.KJE_KAM) })
         val agreement = CaseTrainer.plan(pool(), null, emptyList(), { 0.0 }, today, Random(4), focus = CaseTrainer.AGREEMENT, size = 4)
@@ -501,7 +502,7 @@ class CaseTrainerTest {
     }
 
     @Test fun `a decline with an adjective counts on agreement too`() {
-        val t = CaseTask(CaseKind.DECLINE, "d:vidim:brat:moj", Kase.TOZILNIK, "sg", "tozilnik", "A1", adjective = "moj", gender = "m")
+        val t = CaseTask(CaseKind.DECLINE, "d:vidim:brat:moj", Case.ACC, "sg", "tozilnik", "A1", adjective = "moj", gender = "m")
         val r = CaseTrainer.record(null, listOf(t), listOf(CaseAnswer(Verdict.WRONG, null, "moj brata", "mojega brata")), today)
         assertEquals("0", r.progress.keys["rule:pridevniki-ujemanje"])
     }
@@ -539,10 +540,10 @@ class CaseTrainerTest {
     }
 
     @Test fun `the weakest case is the one to suggest`() {
-        val p = CaseProgress(keys = Kase.entries.associate { CaseTrainer.caseKey(it) to "1".repeat(12) } + ("case:dajalnik" to "000011110000"))
-        assertEquals(Kase.DAJALNIK, CaseTrainer.weakest(p, { 0.0 })?.first)
-        assertNull("none weak", CaseTrainer.weakest(CaseProgress(keys = Kase.entries.associate { CaseTrainer.caseKey(it) to "1".repeat(12) }), { 0.0 }))
-        assertEquals("Jan's genitive at once", Kase.RODILNIK, CaseTrainer.weakest(null, { if (it == "rodilnik") 1.0 else 0.0 })?.first)
+        val p = CaseProgress(keys = Case.entries.associate { CaseTrainer.caseKey(it) to "1".repeat(12) } + ("case:dajalnik" to "000011110000"))
+        assertEquals(Case.DAT, CaseTrainer.weakest(p, { 0.0 })?.first)
+        assertNull("none weak", CaseTrainer.weakest(CaseProgress(keys = Case.entries.associate { CaseTrainer.caseKey(it) to "1".repeat(12) }), { 0.0 }))
+        assertEquals("Jan's genitive at once", Case.GEN, CaseTrainer.weakest(null, { if (it == "rodilnik") 1.0 else 0.0 })?.first)
     }
 
     // --- mistakes and the node --------------------------------------------------------------------------------------------
@@ -568,9 +569,9 @@ class CaseTrainerTest {
         assertEquals("genitive_forms", pat(task("nimam-casa"), "nikalnica"))
         assertEquals("kam_vs_kje", pat(task("na-posto").copy(gender = "m"), "v-na-kam"))
         assertEquals("accusative_feminine_a_to_o", pat(task("na-posto").copy(gender = "f"), "v-na-kam"))
-        val neuter = CaseTask(CaseKind.DECLINE, "d:to-je:okno:moj", Kase.IMENOVALNIK, "sg", "skloni", "A1", adjective = "moj", gender = "n")
+        val neuter = CaseTask(CaseKind.DECLINE, "d:to-je:okno:moj", Case.NOM, "sg", "skloni", "A1", adjective = "moj", gender = "n")
         assertEquals("possessive_neuter_moje", pat(neuter, "subject"))
-        val agreement = CaseTask(CaseKind.DECLINE, "d:vidim:hisa:lep", Kase.TOZILNIK, "sg", "tozilnik", "A1", adjective = "lep", gender = "m")
+        val agreement = CaseTask(CaseKind.DECLINE, "d:vidim:hisa:lep", Case.ACC, "sg", "tozilnik", "A1", adjective = "lep", gender = "m")
         assertEquals("adjective_gender_agreement", pat(agreement, "object"))
         assertNull("no fit", pat(task("s-kladivom"), "z-s"))
     }
@@ -592,7 +593,7 @@ class CaseTrainerTest {
         assertEquals("the deciding word missed", "cases_trigger_k", id(2))
         assertEquals("minor", e[2].jsonObject["severity"]!!.jsonPrimitive.content)
         assertEquals("grammar", e[0].jsonObject["category"]!!.jsonPrimitive.content)
-        assertEquals("cases_form_dative_plural_possessive", CaseTrainer.ownPattern(CaseTask(CaseKind.DECLINE, "d:x:y:moj", Kase.DAJALNIK, "pl", "dajalnik", "A2", adjective = "moj"), "k"))
+        assertEquals("cases_form_dative_plural_possessive", CaseTrainer.ownPattern(CaseTask(CaseKind.DECLINE, "d:x:y:moj", Case.DAT, "pl", "dajalnik", "A2", adjective = "moj"), "k"))
     }
 
     @Test fun `the node is sent each answer the errors and the mastery after`() {
@@ -658,7 +659,7 @@ class CaseTrainerTest {
         assertEquals("rodilnik", CaseTrainer.focusOfPage("rodilnik", pages))
         assertEquals("rodilnik-predlogi", CaseTrainer.focusOfPage("rodilnik-predlogi", pages))
         assertNull(CaseTrainer.focusOfPage("skloni-x", pages))
-        val plural = CaseTask(CaseKind.WHICH, "x", Kase.MESTNIK, "pl", "mestnik", "A2")
+        val plural = CaseTask(CaseKind.WHICH, "x", Case.LOC, "pl", "mestnik", "A2")
         assertTrue(CaseTrainer.focused(plural, CaseTrainer.PLURAL_CASES))
         assertFalse(CaseTrainer.focused(plural, CaseTrainer.DUAL_CASES))
     }
@@ -666,17 +667,17 @@ class CaseTrainerTest {
     @Test fun `Home offers the tutor's assignment then what comes back then the weakest case`() {
         val label = { id: String -> "label of $id" }
         val assigned = CaseAssigned("rodilnik-predlogi", "iz and brez", "2026-10-29")
-        val a = HomeLogic.casesIdea(true, CaseProgress(day = today.toString()), 2, Kase.DAJALNIK, label, assigned, today)!!
+        val a = HomeLogic.casesIdea(true, CaseProgress(day = today.toString()), 2, Case.DAT, label, assigned, today)!!
         assertTrue("even when played today", a.assigned)
         assertEquals("rodilnik-predlogi", a.focus)
-        assertNull("played today", HomeLogic.casesIdea(true, CaseProgress(day = today.toString()), 2, Kase.DAJALNIK, label, null, today))
-        val due = HomeLogic.casesIdea(true, null, 2, Kase.DAJALNIK, label, null, today)!!
+        assertNull("played today", HomeLogic.casesIdea(true, CaseProgress(day = today.toString()), 2, Case.DAT, label, null, today))
+        val due = HomeLogic.casesIdea(true, null, 2, Case.DAT, label, null, today)!!
         assertEquals(2, due.due)
         assertNull("a mixed session: what's due comes first", due.focus)
-        val weak = HomeLogic.casesIdea(true, null, 0, Kase.DAJALNIK, label, null, today)!!
+        val weak = HomeLogic.casesIdea(true, null, 0, Case.DAT, label, null, today)!!
         assertEquals("dajalnik", weak.focus)
         assertEquals("label of dajalnik", weak.label)
         assertNull("nothing weak", HomeLogic.casesIdea(true, null, 0, null, label, null, today))
-        assertNull("closed", HomeLogic.casesIdea(false, null, 2, Kase.DAJALNIK, label, assigned, today))
+        assertNull("closed", HomeLogic.casesIdea(false, null, 2, Case.DAT, label, assigned, today))
     }
 }

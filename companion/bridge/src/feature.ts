@@ -3,7 +3,7 @@
 import type { Addressee } from './addressee'
 import type { ArrivalStore } from './arrivals'
 import type { CardStore } from './cards'
-import type { CaseStore } from './cases'
+import type { CaseStore } from './case-bank'
 import type { Profiles } from './profiles'
 import type { Config, Log } from './config'
 import type { CourseStore } from './course'
@@ -80,7 +80,7 @@ export type Ctx = {
   grammar: GrammarStore
   /** The cheat sheet's cards of the village's language that aren't a grammar page's (cards.ts): the curated ones and the tutor's. */
   cards: CardStore
-  /** The case trainer's bank (cases.ts): the curated items, rules, frames and words, the tutor's items and assignment. */
+  /** The case trainer's bank (case-bank.ts): the curated items, rules, frames and words, the tutor's items and assignment. */
   cases: CaseStore
   /** The school's course of the village's language (course.ts): the curated outline and units, the tutor's homework. */
   course: CourseStore

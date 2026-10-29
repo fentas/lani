@@ -45,8 +45,13 @@ import si.lanisce.lani.data.CaseBanks
 import si.lanisce.lani.data.CaseTrainer
 import si.lanisce.lani.data.Exercise
 import si.lanisce.lani.data.Grading.Verdict
-import si.lanisce.lani.data.Kase
+import si.lanisce.lani.data.alsoAsk
+import si.lanisce.lani.data.ask
+import si.lanisce.lani.data.ofId
+import si.lanisce.lani.data.ofSlot
+import si.lanisce.lani.data.slName
 import si.lanisce.lani.data.wordAt
+import si.lanisce.lani.game.Case
 import si.lanisce.lani.l10n.bi
 import si.lanisce.lani.ui.LocalSpeaker
 import si.lanisce.lani.ui.Outcome
@@ -93,18 +98,18 @@ private fun Meaning(text: String?) {
 
 @Composable
 private fun WhichEx(vm: AppViewModel, ex: Exercise.CaseTask, locked: Boolean, done: (Outcome) -> Unit) {
-    var picked by remember(ex.key) { mutableStateOf<Kase?>(null) }
+    var picked by remember(ex.key) { mutableStateOf<Case?>(null) }
     var tapped by remember(ex.key) { mutableStateOf<Int?>(null) }
     var role by remember(ex.key) { mutableStateOf<String?>(null) }
-    val right = Kase.of(ex.case) ?: Kase.IMENOVALNIK
+    val right = Case.ofId(ex.case) ?: Case.NOM
     val p = picked
     val whyDone = tapped != null || role != null
     fun finish() {
         val p0 = picked ?: return
         val caseRight = CaseTrainer.pickRight(ex, p0)
         val whyRight = if (ex.askWhy) CaseTrainer.whyRight(ex, tapped, role) else null
-        vm.cases.marked(ex.key, whyRight)
-        val answer = CaseTrainer.answerLine(ex, "${p0.n}. ${p0.sl}", tapped?.let { ex.wordAt(it) } ?: role)
+        vm.caseTrainer.marked(ex.key, whyRight)
+        val answer = CaseTrainer.answerLine(ex, "${p0.n}. ${p0.slName}", tapped?.let { ex.wordAt(it) } ?: role)
         done(Outcome(CaseTrainer.verdict(caseRight, whyRight), answer, null, explain(ex, whyRight)))
     }
     Ask("🧩 ${bi("cases.ask.which")}")
@@ -138,7 +143,7 @@ private fun WhichEx(vm: AppViewModel, ex: Exercise.CaseTask, locked: Boolean, do
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun Sentence(vm: AppViewModel, ex: Exercise.CaseTask, tokens: List<String>, word: Int, shownCase: Kase?, marked: Set<Int>, wrongTap: Int?) {
+private fun Sentence(vm: AppViewModel, ex: Exercise.CaseTask, tokens: List<String>, word: Int, shownCase: Case?, marked: Set<Int>, wrongTap: Int?) {
     val caseColor = shownCase?.color()
     val frame = MaterialTheme.colorScheme.primary
     // what shows is what is read and said: a storm's phrase ("brez mleka"), else the sentence
@@ -187,18 +192,18 @@ private fun Sentence(vm: AppViewModel, ex: Exercise.CaseTask, tokens: List<Strin
  * its number and name small, its colour. Once picked: the right one filled, a wrong pick outlined in red.
  */
 @Composable
-private fun CaseGrid(picked: Kase?, right: Kase?, enabled: Boolean, onPick: (Kase) -> Unit) {
+private fun CaseGrid(picked: Case?, right: Case?, enabled: Boolean, onPick: (Case) -> Unit) {
     val wide = LocalConfiguration.current.screenWidthDp >= 600
     val perRow = if (wide) 3 else 2
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        for (row in Kase.entries.chunked(perRow)) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        for (row in Case.entries.chunked(perRow)) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             for (k in row) CaseChip(k, picked = picked == k, right = right == k, answered = right != null, enabled = enabled, modifier = Modifier.weight(1f)) { onPick(k) }
         }
     }
 }
 
 @Composable
-private fun CaseChip(k: Kase, picked: Boolean, right: Boolean, answered: Boolean, enabled: Boolean, modifier: Modifier, onClick: () -> Unit) {
+private fun CaseChip(k: Case, picked: Boolean, right: Boolean, answered: Boolean, enabled: Boolean, modifier: Modifier, onClick: () -> Unit) {
     val c = k.color()
     val container = when {
         right -> c.copy(alpha = 0.36f)
@@ -227,10 +232,10 @@ private fun CaseChip(k: Kase, picked: Boolean, right: Boolean, answered: Boolean
     ) {
         Column(Modifier.fillMaxWidth().padding(horizontal = 10.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(k.question, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface, modifier = Modifier.weight(1f))
+                Text(k.ask, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface, modifier = Modifier.weight(1f))
                 state?.let { Text(it, style = MaterialTheme.typography.titleMedium, color = if (right) AlpineGreen else TriglavRed) }
             }
-            k.also?.let { Text(it, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurface) }
+            k.alsoAsk?.let { Text(it, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurface) }
             Text(k.label(), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
     }
@@ -242,7 +247,7 @@ private fun CaseChip(k: Kase, picked: Boolean, right: Boolean, answered: Boolean
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun Taps(tokens: List<String>, except: Int, right: Set<Int>, tapped: Int?, enabled: Boolean, case: Kase, onTap: (Int) -> Unit) {
+private fun Taps(tokens: List<String>, except: Int, right: Set<Int>, tapped: Int?, enabled: Boolean, case: Case, onTap: (Int) -> Unit) {
     val c = case.color()
     val answered = tapped != null || !enabled
     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -299,7 +304,7 @@ private fun RoleButtons(ex: Exercise.CaseTask, said: String?, enabled: Boolean, 
  * the rule's line, the same form's other readings, the item's note; whether the why was right is the verdict's.
  */
 internal fun explain(ex: Exercise.CaseTask, whyRight: Boolean?): String {
-    val k = Kase.of(ex.case) ?: return ex.line
+    val k = Case.ofId(ex.case) ?: return ex.line
     val decider = when {
         ex.taps.isNotEmpty() && ex.kind == "which" && ex.role == null -> ex.taps.mapNotNull { ex.wordAt(it) }.distinct().joinToString(" + ") { "**$it**" }
         ex.kind == "place" && ex.taps.isNotEmpty() -> ex.taps.mapNotNull { ex.wordAt(it) }.joinToString(" + ") { "**$it**" }
@@ -314,8 +319,8 @@ internal fun explain(ex: Exercise.CaseTask, whyRight: Boolean?): String {
         ex.case == "rodilnik" -> "od kod?"
         else -> null
     }
-    val head = listOfNotNull(decider, where, "**${k.n}. ${k.sl}** (${k.question}) · ${numberLabel(ex.number)}").joinToString(" → ")
-    val readings = ex.ambiguous.mapNotNull { s -> Kase.ofSlot(s)?.let { kk -> "${kk.n}. ${kk.sl} ${shortNumber(s.substringAfter('.'))}" } }
+    val head = listOfNotNull(decider, where, "**${k.n}. ${k.slName}** (${k.ask}) · ${numberLabel(ex.number)}").joinToString(" → ")
+    val readings = ex.ambiguous.mapNotNull { s -> Case.ofSlot(s)?.let { kk -> "${kk.n}. ${kk.slName} ${shortNumber(s.substringAfter('.'))}" } }
     val form = ex.wordAt(ex.word).orEmpty()
     return listOfNotNull(
         head,
@@ -339,14 +344,14 @@ private fun shortNumber(n: String): String = when (n) {
 private fun PlaceEx(vm: AppViewModel, ex: Exercise.CaseTask, locked: Boolean, done: (Outcome) -> Unit) {
     var picked by remember(ex.key) { mutableStateOf<Int?>(null) }
     var tapped by remember(ex.key) { mutableStateOf<Int?>(null) }
-    val right = Kase.of(ex.case) ?: Kase.MESTNIK
+    val right = Case.ofId(ex.case) ?: Case.LOC
     val p = picked
     val sentence = remember(ex.sentence) { CaseBanks.tokens(ex.sentence) }
     fun finish() {
         val p0 = picked ?: return
         val caseRight = p0 == ex.answer
         val whyRight = if (ex.askWhy) tapped?.let { it in ex.taps } ?: false else null
-        vm.cases.marked(ex.key, whyRight)
+        vm.caseTrainer.marked(ex.key, whyRight)
         val answer = CaseTrainer.answerLine(ex, ex.options.getOrNull(p0).orEmpty(), tapped?.let { ex.wordAt(it) })
         done(Outcome(CaseTrainer.verdict(caseRight, whyRight), answer, null, explain(ex, whyRight)))
     }
@@ -408,7 +413,7 @@ private fun DeclineEx(vm: AppViewModel, ex: Exercise.CaseTask, locked: Boolean, 
     Text(ex.prompt, style = MaterialTheme.typography.headlineSmall, modifier = Modifier.semantics { contentDescription = ex.prompt.replace("___", bi("cases.gap")) })
     ex.hint?.let { Meaning(it) }
     if (locked) {
-        Kase.of(ex.case)?.let { k ->
+        Case.ofId(ex.case)?.let { k ->
             Spacer(Modifier.height(10.dp))
             CasePill(k)
         }
@@ -416,7 +421,7 @@ private fun DeclineEx(vm: AppViewModel, ex: Exercise.CaseTask, locked: Boolean, 
     Spacer(Modifier.height(12.dp))
     TypedEx("", null, locked, done, accept = ex.accept) { a ->
         val g = CaseTrainer.gradeDecline(ex, a)
-        vm.cases.marked(ex.key, null)
+        vm.caseTrainer.marked(ex.key, null)
         val spoken = if (g.spoken) "🗣️ ${bi("cases.spoken", "standard" to ex.shown)}" else null
         Outcome(g.verdict, a.trim(), g.expected.takeIf { g.verdict != Verdict.CORRECT || g.spoken }, listOfNotNull(spoken, explain(ex, null)).joinToString("\n"), marks = g.marks, hint = g.hint)
     }

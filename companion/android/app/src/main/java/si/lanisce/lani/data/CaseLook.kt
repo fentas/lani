@@ -1,42 +1,68 @@
 package si.lanisce.lani.data
 
+import si.lanisce.lani.game.Case
+
 /**
  * The six Slovene cases as the app shows them everywhere (the case trainer, the case lens, the grammar links): the shared
- * definition both keep to (docs/plans/05-built/case-trainer.md, "The contract"). Each case has its id (its grammar
- * page), its number in the school's order, its forms book slot ("gen"), the school's question words, its colour (the
- * light theme's; [darkArgb] the same hue lighter, for the dark theme) and its English name for the tutor. The name
- * shown is the string tables' "cases.case.<id>" (rodilnik · genitive). Pure.
+ * definition both keep to (docs/plans/05-built/case-trainer.md, "The contract"), on the app's own [Case] (game/Triggers.kt:
+ * the school's number, its question, its English name as [Case.lexicon], its name in the string tables as [Case.key]).
+ * Here each case's id (its grammar page, the bank's and the wire's), its forms book slot ("gen"), the question words as
+ * the contract writes them and its colour (the light theme's; [darkArgb] the same hue lighter, for the dark theme). Pure.
  */
-enum class Kase(val id: String, val n: Int, val slot: String, val question: String, val lightArgb: Long, val en: String) {
-    IMENOVALNIK("imenovalnik", 1, "nom", "kdo? kaj?", 0xFF4A7FC1, "nominative"),
-    RODILNIK("rodilnik", 2, "gen", "koga? česa?", 0xFFC2503C, "genitive"),
-    DAJALNIK("dajalnik", 3, "dat", "komu? čemu?", 0xFFD69A2D, "dative"),
-    TOZILNIK("tozilnik", 4, "acc", "koga? kaj?", 0xFF3E9B5F, "accusative"),
-    MESTNIK("mestnik", 5, "loc", "pri kom? pri čem?", 0xFF8A5CB8, "locative"),
-    ORODNIK("orodnik", 6, "ins", "s kom? s čim?", 0xFF2C9AA0, "instrumental");
 
-    /** The second pair of question words, where the school teaches one: the locative's "o kom? o čem?". */
-    val also: String? get() = if (this == MESTNIK) "o kom? o čem?" else null
-
-    /** The whole question as the contract writes it: "pri kom? pri čem? (o kom? o čem?)". */
-    val questions: String get() = also?.let { "$question ($it)" } ?: question
-
-    /** Its name in Slovene, as the school writes it (tožilnik with its ž; the id has none). */
-    val sl: String get() = when (this) {
-        TOZILNIK -> "tožilnik"
-        else -> id
+/** The case's id: its grammar page, as the bank, the wire and the mastery keys name it ("rodilnik"). */
+val Case.id: String
+    get() = when (this) {
+        Case.NOM -> "imenovalnik"
+        Case.GEN -> "rodilnik"
+        Case.DAT -> "dajalnik"
+        Case.ACC -> "tozilnik"
+        Case.LOC -> "mestnik"
+        Case.INS -> "orodnik"
     }
 
-    /** The same hue for the dark theme: lighter and a little less saturated, readable on a dark surface. */
-    val darkArgb: Long get() = CaseLook.lighter(lightArgb)
-
-    companion object {
-        fun of(id: String?): Kase? = entries.firstOrNull { it.id == id }
-
-        /** By its forms book slot: "gen" → [RODILNIK] ("gen.sg" works too). */
-        fun ofSlot(slot: String?): Kase? = slot?.substringBefore('.')?.let { s -> entries.firstOrNull { it.slot == s } }
+/** Its slot in the forms book: "gen" (with the number: "gen.sg"). */
+val Case.slot: String
+    get() = when (this) {
+        Case.NOM -> "nom"
+        Case.GEN -> "gen"
+        Case.DAT -> "dat"
+        Case.ACC -> "acc"
+        Case.LOC -> "loc"
+        Case.INS -> "ins"
     }
-}
+
+/** The school's question words as the contract writes them, lower case: "koga? česa?". */
+val Case.ask: String get() = question.lowercase()
+
+/** The second pair of question words, where the school teaches one: the locative's "o kom? o čem?". */
+val Case.alsoAsk: String? get() = if (this == Case.LOC) "o kom? o čem?" else null
+
+/** The whole question as the contract writes it: "pri kom? pri čem? (o kom? o čem?)". */
+val Case.asks: String get() = alsoAsk?.let { "$ask ($it)" } ?: ask
+
+/** Its name in Slovene as the school writes it (tožilnik with its ž; the id has none), for the tutor's lines. */
+val Case.slName: String get() = if (this == Case.ACC) "tožilnik" else id
+
+/** Its colour on the light theme (the contract's six: blue, red, amber, green, violet, teal). */
+val Case.lightArgb: Long
+    get() = when (this) {
+        Case.NOM -> 0xFF4A7FC1
+        Case.GEN -> 0xFFC2503C
+        Case.DAT -> 0xFFD69A2D
+        Case.ACC -> 0xFF3E9B5F
+        Case.LOC -> 0xFF8A5CB8
+        Case.INS -> 0xFF2C9AA0
+    }
+
+/** The same hue for the dark theme: lighter and a little less saturated, readable on a dark surface. */
+val Case.darkArgb: Long get() = CaseLook.lighter(lightArgb)
+
+/** The case of [id] ("rodilnik"); null for another word. */
+fun Case.Companion.ofId(id: String?): Case? = Case.entries.firstOrNull { it.id == id }
+
+/** By its forms book slot: "gen" → [Case.GEN] ("gen.sg" works too). */
+fun Case.Companion.ofSlot(slot: String?): Case? = slot?.substringBefore('.')?.let { s -> Case.entries.firstOrNull { it.slot == s } }
 
 /**
  * The rest of the contract: the rule ids (the grammar pages that explain a rule), and the colour arithmetic. A rule id is
@@ -50,7 +76,7 @@ object CaseLook {
     )
 
     /** The pages that are about a case or a case's rule: the trainer opens from them ("🧩 Vadi sklone"). */
-    val PAGES: Set<String> = RULES.toSet() + Kase.entries.map { it.id } + setOf(
+    val PAGES: Set<String> = RULES.toSet() + Case.entries.map { it.id } + setOf(
         "stevila-samostalniki", "mnozina-skloni", "dvojina-skloni", "sklanjatev-moski", "sklanjatev-zenski",
         "sklanjatev-srednji", "pridevniki-ujemanje",
     )

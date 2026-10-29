@@ -368,7 +368,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
      * "🧩 Skloni · Cases": the case trainer (app/CasesController, data/CaseTrainer): its bank, sessions focused or mixed,
      * each case's and rule's mastery, what comes back; the case lens's "seen" signal ([si.lanisce.lani.app.CasesController.seen]).
      */
-    val cases: si.lanisce.lani.app.CasesController = si.lanisce.lani.app.CasesController(
+    val caseTrainer: si.lanisce.lani.app.CasesController = si.lanisce.lani.app.CasesController(
         app, viewModelScope, game, content, grammar, forms, sync, notices, course = { school.course }, child = { child }, scenes = { scenes.all },
     )
     /**
@@ -812,7 +812,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         // and the day's new forms cards (the pages introduced told: the cards they open rows of come back soon)
         formsCards.reload(b)
         readings.reload(b)
-        cases.reload(b)
+        caseTrainer.reload(b)
         packs.reload(b)
         scenes.reload(b)
         villagers.reload(b)
@@ -925,7 +925,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
             is BridgeEvent.LexiconUpdated -> words.onLexiconUpdated(ev.word)
             // the tutor assigned a case trainer session (or took it back), or wrote items: the bank again
             is BridgeEvent.CasesChanged -> {
-                cases.changed(bridge)
+                caseTrainer.changed(bridge)
                 if (ev.assigned && ev.focus != null) notices.banner = "🧩 ${ev.note ?: bi("cases.assignedFocus", "focus" to ev.focus)}"
             }
             // a word asked for from its card got its meaning: the card shows it added, else a quiet notice
@@ -1826,7 +1826,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
      */
     fun startCases(focus: String? = null, again: Boolean = false) {
         if (!again && busyRun()) return
-        val planned = cases.plan(focus)
+        val planned = caseTrainer.plan(focus)
         if (planned.isEmpty()) {
             notices.banner = "🧩 ${bi("cases.nothing")}"
             return
@@ -1838,7 +1838,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     /** "⚡ Sklonski vihar · Case storm": phrases sorted into the six cases against the clock; [again] from its end. */
     fun startStorm(again: Boolean = false) {
         if (!again && busyRun()) return
-        val planned = cases.storm()
+        val planned = caseTrainer.storm()
         if (planned.isEmpty()) {
             notices.banner = "🧩 ${bi("cases.nothing")}"
             return

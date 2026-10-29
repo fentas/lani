@@ -1,4 +1,4 @@
-// Smoke checks: the case trainer (cases.ts, features/cases.ts; companion/README.md "Case trainer"). The repository's bank
+// Smoke checks: the case trainer (case-bank.ts, features/cases.ts; companion/README.md "Case trainer"). The repository's bank
 // against the dictionary, the forms book, the grammar book and the scenes (every word's form that case of its lemma
 // where the dictionary has the word, every trigger the word its rule names, every page and scene there), its spread over
 // the cases, numbers and levels, and what the checks catch; GET /cases; the tutor's publish_case_items, remove_case_item,
@@ -6,7 +6,7 @@
 // client id), the assignment done, cases_done to the tutor; PUT /game keeping the trainer's progress, get_village's.
 import { readFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
-import { bankCounts, checkItems, checkRest, validateBank, type CaseItem } from '../../src/cases'
+import { bankCounts, checkItems, checkRest, validateBank, type CaseItem } from '../../src/case-bank'
 import { casesNote, casesPayload, casesDone } from '../../src/features/cases'
 import { caseCheck } from '../check-cases'
 import { auth, base, channelEvents, check, client, dataDir, guideOf } from './harness'

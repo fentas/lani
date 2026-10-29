@@ -136,7 +136,7 @@ class Bridge(private val config: BridgeConfig) {
      * The case trainer's bank (GET /cases, companion/README.md "Case trainer": the curated items with the tutor's, the
      * rules, the frames, the words, the tutor's assignment); null from an older bridge (404), or a village without one.
      */
-    suspend fun cases(): CaseBank? = off { rememberedOrNone("/cases") { CaseBanks.parse(it) } }
+    suspend fun caseBank(): CaseBank? = off { rememberedOrNone("/cases") { CaseBanks.parse(it) } }
     /**
      * The school's course of the village's language (GET /course, companion/COURSE.md: the outline, the units, the tutor's
      * homework); null from an older bridge (404), or for a language without a course: the app's own then.

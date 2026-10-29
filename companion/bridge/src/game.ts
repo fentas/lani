@@ -1,6 +1,6 @@
 // The village game state ("Moja vas"): written by the app, read by the tutor.
 // Stored as {rev, state}; the app writes with the rev it last read, so two devices can't clobber each other.
-import { casesOf } from './cases'
+import { casesOf } from './case-bank'
 import { existsSync, readFileSync, renameSync, writeFileSync } from 'node:fs'
 import { knownIds } from './mentions'
 

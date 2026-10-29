@@ -139,11 +139,11 @@ fun UnitScreen(vm: AppViewModel, id: String) {
             }
         }
         // a unit about the cases: the case trainer, a session on what the unit teaches (companion/README.md "Case trainer")
-        if (unit.id in si.lanisce.lani.data.CaseTrainer.CASE_UNITS && unit.language == si.lanisce.lani.data.CaseTrainer.LANGUAGE && vm.cases.available) {
+        if (unit.id in si.lanisce.lani.data.CaseTrainer.CASE_UNITS && unit.language == si.lanisce.lani.data.CaseTrainer.LANGUAGE && vm.caseTrainer.available) {
             item { SectionTitle("🧩 ${bi("cases.title")}") }
             item {
                 val focus = si.lanisce.lani.data.CaseTrainer.focusOfUnit(unit.id)
-                val open = vm.cases.open
+                val open = vm.caseTrainer.open
                 StepCard(
                     "🧩", bi("cases.title"),
                     when {

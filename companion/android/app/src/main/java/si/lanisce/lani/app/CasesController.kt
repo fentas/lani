@@ -27,7 +27,7 @@ import si.lanisce.lani.data.Exercise
 import si.lanisce.lani.data.FormsCard
 import si.lanisce.lani.data.Grading.Verdict
 import si.lanisce.lani.data.Grammar
-import si.lanisce.lani.data.Kase
+import si.lanisce.lani.game.Case
 import si.lanisce.lani.data.MistakeNote
 import si.lanisce.lani.data.WordFormsWire
 import si.lanisce.lani.data.Writes
@@ -40,7 +40,7 @@ import java.time.LocalDate
 import kotlin.random.Random
 
 /** A session done: how each task went, the items that come back (their keys), each case's stars after it. */
-data class CasesDone(val verdicts: List<Verdict>, val tasks: List<si.lanisce.lani.data.CaseTask>, val missed: List<String>, val stars: Map<Kase, Int?>)
+data class CasesDone(val verdicts: List<Verdict>, val tasks: List<si.lanisce.lani.data.CaseTask>, val missed: List<String>, val stars: Map<Case, Int?>)
 
 /**
  * "🧩 Skloni · Cases" (data/CaseTrainer.kt; companion/README.md "Case trainer"): its bank (the bundled one, then the
@@ -117,7 +117,7 @@ class CasesController(
     suspend fun reload(b: Bridge) {
         if (!available) return
         val got = try {
-            b.cases()
+            b.caseBank()
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
@@ -201,7 +201,7 @@ class CasesController(
     fun due(today: LocalDate = LocalDate.now()): Int = CaseTrainer.due(progress, today).size
 
     /** The weakest case now, for Home's suggestion (null: none weak). */
-    fun weakest(): Pair<Kase, Double>? = CaseTrainer.weakest(progress, ::prior)
+    fun weakest(): Pair<Case, Double>? = CaseTrainer.weakest(progress, ::prior)
 
     /** A session now, focused on [focus] (a case id, a rule id) or mixed; QA's "cases:only:<kind>" asks one kind. */
     fun plan(focus: String? = null, today: LocalDate = LocalDate.now(), random: Random = Random(System.currentTimeMillis())): List<CasePlanned> {
@@ -244,7 +244,7 @@ class CasesController(
             val body = CaseTrainer.wire(pool, recorded, tasks, exercises, answers, mistakes, minutes, focus).let { b -> if (storm) JsonObject(b + ("storm" to kotlinx.serialization.json.JsonPrimitive(true))) else b }
             sync.submitLater(Writes.casesDone(body, summary(tasks, answers, focus), sessionData(body)))
         }
-        val stars = Kase.entries.associateWith { CaseTrainer.stars(recorded.progress, CaseTrainer.caseKey(it)) }
+        val stars = Case.entries.associateWith { CaseTrainer.stars(recorded.progress, CaseTrainer.caseKey(it)) }
         return CasesDone(answers.map { it.verdict }, tasks.take(answers.size), recorded.missed, stars)
     }
 
@@ -276,7 +276,7 @@ class CasesController(
         val right = answers.count { it.verdict == Verdict.CORRECT }
         val almost = answers.count { it.verdict == Verdict.ALMOST }
         val wrong = answers.indices.filter { answers[it].verdict == Verdict.WRONG }.take(6).joinToString("; ") { i ->
-            "${tasks[i].kind.wire} ${tasks[i].case.en} (${tasks[i].rule}): \"${answers[i].answer.take(40)}\" for \"${answers[i].expected.take(40)}\""
+            "${tasks[i].kind.wire} ${tasks[i].case.lexicon} (${tasks[i].rule}): \"${answers[i].answer.take(40)}\" for \"${answers[i].expected.take(40)}\""
         }
         val early = if (answers.size < tasks.size) " Left early after ${answers.size} of ${tasks.size}." else ""
         return "Practised the cases (🧩 Skloni · Cases${focus?.let { ", focused on $it" }.orEmpty()}) in the app: $right/${answers.size} right" +
