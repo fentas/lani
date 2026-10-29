@@ -352,6 +352,15 @@ class CaseTrainerTest {
         assertTrue("no plural without kmet's plural", plan.none { it.task.number == "pl" })
     }
 
+    @Test fun `a mass noun stays in the singular`() {
+        val voda = noun("voda", "f", "nom.sg" to "voda", "gen.sg" to "vode", "dat.sg" to "vodi", "acc.sg" to "vodo", "loc.sg" to "vodi", "ins.sg" to "vodo",
+            "acc.pl" to "vode", "acc.du" to "vodi")
+        val p = CasePool(bank.copy(uncountable = listOf("voda")), listOf(voda), setOf("mnozina", "dvojina"), "A2", false, "en", { levels[it] }, emptySet())
+        val plan = CaseTrainer.plan(p, null, emptyList(), { 0.0 }, today, Random(4), only = CaseKind.DECLINE, size = 20)
+        assertTrue("some singular", plan.any { it.task.number == "sg" })
+        assertTrue("no «Vidim vode» nor «Vidim dve vodi»: ${plan.map { it.exercise.sentence }}", plan.none { it.task.number != "sg" })
+    }
+
     // --- what may be asked, and the weighting ----------------------------------------------------------------------------
 
     @Test fun `the trainer opens once the cases have begun`() {

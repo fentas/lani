@@ -200,6 +200,8 @@ export const bankSpec = z.strictObject({
   frames: z.array(frameSpec).max(200),
   adjectives: z.array(adjectiveSpec).max(80),
   nouns: z.array(nounSpec).max(200),
+  /** Mass nouns the frames keep to the singular ("Grem k vodam", "Vidim pet mlek" would be no Slovene). */
+  uncountable: z.array(z.string().trim().regex(/^[a-zčšž]+$/).max(40)).max(200).optional(),
 })
 export type CaseBank = z.infer<typeof bankSpec>
 export type CaseRule = CaseBank['rules'][string]
@@ -336,7 +338,7 @@ export function checkItems(items: CaseItem[], rules: Record<string, CaseRule>, c
 }
 
 /** The problems of the bank's rules, frames, adjectives and fallback nouns, against the grammar book and the dictionary. */
-export function checkRest(bank: Pick<CaseBank, 'rules' | 'frames' | 'adjectives' | 'nouns'>, c: CaseCheck): { problems: string[]; judged: number } {
+export function checkRest(bank: Pick<CaseBank, 'rules' | 'frames' | 'adjectives' | 'nouns' | 'uncountable'>, c: CaseCheck): { problems: string[]; judged: number } {
   const lang = c.forms.language
   const norm = (s: string) => normalizeForm(s, lang)
   const problems: string[] = []
@@ -389,6 +391,7 @@ export function checkRest(bank: Pick<CaseBank, 'rules' | 'frames' | 'adjectives'
       for (const f of typeof v === 'string' ? [v] : v) if (fs && !fs.map(norm).includes(norm(f))) p(`${k} "${f}" isn't the dictionary's (${fs.join('/')})`)
     }
   }
+  for (const u of bank.uncountable ?? []) if (!lexOf(c, u).noun) problems.push(`uncountable.${u}: no noun in the dictionary`)
   return { problems, judged }
 }
 
@@ -599,6 +602,7 @@ export class CaseStore {
       frames: b.frames,
       adjectives: b.adjectives,
       nouns: b.nouns,
+      ...(b.uncountable ? { uncountable: b.uncountable } : {}),
       items: this.items(),
       ...(assigned ? { assigned } : {}),
     }

@@ -48,8 +48,8 @@ export default async function cases() {
   const place = bank.items.find(i => i.kind === 'place' && i.question === 'kje-kam') as CaseItem & { kind: 'place' }
   check("… a place item's answer that isn't its gap", /isn't the gap's/.test(checkItems([{ ...place, id: 'probe', answer: (place.answer + 1) % place.options.length }], bank.rules, ctx).problems.join(' ')))
   check('… a scene the village lacks', /isn't one of the village's/.test(checkItems([{ ...place, id: 'probe', scene: 'nowhere' }], bank.rules, ctx).problems.join(' ')))
-  const rest = checkRest({ ...bank, frames: [{ ...bank.frames[0], sl: 'Danes ni {x} ni {x}.' }], adjectives: [{ ...bank.adjectives.find(a => a.lemma === 'lep')!, forms: { ...bank.adjectives.find(a => a.lemma === 'lep')!.forms, 'gen.f.sg': 'lepa' } }], nouns: [] }, ctx).problems.join(' | ')
-  check('… a frame with its gap twice, an adjective\'s form the dictionary lacks', /\{x\} once/.test(rest) && /gen\.f\.sg "lepa" isn't the dictionary's/.test(rest), rest)
+  const rest = checkRest({ ...bank, frames: [{ ...bank.frames[0], sl: 'Danes ni {x} ni {x}.' }], adjectives: [{ ...bank.adjectives.find(a => a.lemma === 'lep')!, forms: { ...bank.adjectives.find(a => a.lemma === 'lep')!.forms, 'gen.f.sg': 'lepa' } }], nouns: [], uncountable: ['vodaa'] }, ctx).problems.join(' | ')
+  check('… a frame with its gap twice, an adjective\'s form the dictionary lacks, a mass noun that is none', /\{x\} once/.test(rest) && /gen\.f\.sg "lepa" isn't the dictionary's/.test(rest) && /uncountable\.vodaa/.test(rest), rest)
 
   // --- served ----------------------------------------------------------------------------------------------------------
   const served = (await (await fetch(`${base}/cases`, { headers: auth })).json()) as any

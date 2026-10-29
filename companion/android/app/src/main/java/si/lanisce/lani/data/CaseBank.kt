@@ -159,6 +159,8 @@ data class CaseBank(
     val frames: List<CaseFrame> = emptyList(),
     val adjectives: List<CaseAdjective> = emptyList(),
     val nouns: List<CaseBankNoun> = emptyList(),
+    /** Mass nouns the frames keep to the singular (voda, mleko: "Grem k vodam" is no Slovene). */
+    val uncountable: List<String> = emptyList(),
     val assigned: CaseAssigned? = null,
 ) {
     fun rule(key: String): CaseRuleLine? = rules[key]
@@ -202,6 +204,7 @@ object CaseBanks {
             frames = bridge.frames.ifEmpty { bundled.frames },
             adjectives = bridge.adjectives.ifEmpty { bundled.adjectives },
             nouns = bridge.nouns.ifEmpty { bundled.nouns },
+            uncountable = bridge.uncountable.ifEmpty { bundled.uncountable },
         )
     }
 }

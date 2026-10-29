@@ -201,7 +201,7 @@ object CaseTrainer {
         val items = pool.bank.items.count { allowed(pool, it) }
         if (items >= enough) return items
         val nouns = nouns(pool)
-        val frames = pool.bank.frames.filter { allowed(pool, it) }.sumOf { f -> nouns.count { n -> nounFits(f, n) } }
+        val frames = pool.bank.frames.filter { allowed(pool, it) }.sumOf { f -> nouns.count { n -> nounFits(pool, f, n) } }
         return items + frames
     }
 
@@ -214,9 +214,11 @@ object CaseTrainer {
 
     private fun slotOf(case: Kase, number: String) = "${case.slot}.$number"
 
-    private fun nounFits(f: CaseFrame, n: CaseNoun): Boolean {
+    private fun nounFits(pool: CasePool, f: CaseFrame, n: CaseNoun): Boolean {
         val kase = Kase.of(f.case) ?: return false
         if (f.gender != null && n.gender !in f.gender) return false
+        // a mass noun only in the singular (no "Grem k vodam", "Vidim pet mlek")
+        if (f.number != "sg" && n.lemma.lowercase() in pool.bank.uncountable) return false
         if (n.forms[slotOf(kase, f.number)].isNullOrEmpty()) return false
         // a word the frame's sentence has already
         return n.lemma.lowercase() !in f.sl.lowercase().split(Regex("[^\\p{L}]+"))
@@ -379,7 +381,7 @@ object CaseTrainer {
         if (key.startsWith("d:")) {
             val parts = key.split(':')
             val f = pool.bank.frames.firstOrNull { it.id == parts.getOrNull(1) }?.takeIf { allowed(pool, it) } ?: return null
-            val n = nouns(pool).firstOrNull { it.lemma == parts.getOrNull(2) }?.takeIf { nounFits(f, it) } ?: return null
+            val n = nouns(pool).firstOrNull { it.lemma == parts.getOrNull(2) }?.takeIf { nounFits(pool, f, it) } ?: return null
             val adj = parts.getOrNull(3)?.let { a -> adjectives(pool).firstOrNull { it.lemma == a } ?: return null }
             return declineTask(pool, f, n, adj, again = true)
         }
@@ -466,7 +468,7 @@ object CaseTrainer {
         val frames = pool.bank.frames.filter { allowed(pool, it) }
         val declines = buildList {
             for (f in frames) {
-                val fit = nouns.filter { nounFits(f, it) }.shuffled(random).take(6)
+                val fit = nouns.filter { nounFits(pool, f, it) }.shuffled(random).take(6)
                 for (n in fit) {
                     declineTask(pool, f, n, null)?.let(::add)
                     if (f.adj && adjs.isNotEmpty() && f.number != "du") {
