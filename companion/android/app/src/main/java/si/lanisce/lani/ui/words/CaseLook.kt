@@ -36,17 +36,18 @@ object CaseLook {
     /** The school's question words of [case], as the shared contract writes them: "koga? česa?", "pri kom? pri čem?". */
     fun question(case: Case): String = case.question.lowercase()
 
-    /** [case]'s name and [number] ("sg", "du", "pl"), short, in [lang]: "rodilnik, ed.", "genitive, sg.". */
-    fun name(case: Case, number: String?, lang: Lang, short: Boolean = true): String {
+    /** [case]'s name, [number] ("sg", "du", "pl") and an adjective's [gender], short, in [lang]: "rodilnik, ed., ž.". */
+    fun name(case: Case, number: String?, lang: Lang, short: Boolean = true, gender: String? = null): String {
         val n = number?.let { numberKey(it, short) }?.let { L10n.text(lang, it) }
-        return L10n.text(lang, case.key) + (n?.let { ", $it" } ?: "")
+        val g = genderKey(gender)?.let { L10n.text(lang, it) }
+        return L10n.text(lang, case.key) + listOfNotNull(n, g).joinToString("") { ", $it" }
     }
 
     /** [name] in both of the learner's languages: "rodilnik, ed. · genitive, sg." (one, when they are the same). */
-    fun bi(case: Case, number: String?, short: Boolean = true): String {
+    fun bi(case: Case, number: String?, short: Boolean = true, gender: String? = null): String {
         val pair = L10n.pair
-        val target = name(case, number, pair.target, short)
-        val base = name(case, number, pair.base, short)
+        val target = name(case, number, pair.target, short, gender)
+        val base = name(case, number, pair.base, short, gender)
         return if (pair.target == pair.base || target == base) target else "$target · $base"
     }
 

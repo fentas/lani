@@ -28,7 +28,7 @@ class CaseLensTest {
     private val doVasi = """{"i":4,"word":"vasi","start":16,"end":20,"readings":[],"pick":{"case":"gen","number":"sg","gender":"f","as":"preposition"},"sure":"likely","kind":"preposition","trigger":{"i":3,"word":"do","start":13,"end":15},"sense":"towards","rule":"rodilnik-predlogi","options":[{"case":"gen","number":"sg","gender":"f","as":"preposition"},{"case":"gen","number":"pl","gender":"f","as":"preposition"}],"out":[{"case":"nom","number":"du","why":"dual"},{"case":"gen","number":"du","why":"dual"},{"case":"acc","number":"du","why":"dual"},{"case":"nom","number":"pl","why":"preposition"},{"case":"acc","number":"pl","why":"preposition"},{"case":"dat","number":"sg","why":"preposition"},{"case":"loc","number":"sg","why":"preposition"}]}"""
     private val brez = """{"i":2,"word":"brez","start":11,"end":15,"words":[{"i":3,"word":"mleka","start":16,"end":21,"case":"gen"}],"governs":{"i":2,"word":"brez","start":11,"end":15,"words":[{"i":3,"word":"mleka","start":16,"end":21,"case":"gen"}]}}"""
     private val les = """{"i":1,"word":"les","start":7,"end":10,"readings":[],"pick":null,"sure":"ambiguous","kind":"form","rule":"skloni","options":[{"case":"nom","number":"sg","gender":"m","as":"form"},{"case":"acc","number":"sg","gender":"m","as":"form"}],"out":[]}"""
-    private val veliko = """{"i":4,"word":"veliko","start":18,"end":24,"readings":[],"pick":{"case":"ins","number":"sg","gender":"f","as":"preposition"},"sure":"decided","kind":"preposition","trigger":{"i":3,"word":"pod","start":14,"end":17},"sense":"rest","rule":"kje-mestnik-orodnik","options":[{"case":"ins","number":"sg","gender":"f","as":"preposition"}],"out":[{"case":"acc","number":"sg","why":"preposition"}],"agrees":{"i":5,"word":"smreko","start":25,"end":31}}"""
+    private val veliko = """{"i":4,"word":"veliko","start":18,"end":24,"readings":[{"lemma":"velik","pos":"adj","case":"ins","number":"sg","genders":["f"]}],"pick":{"case":"ins","number":"sg","gender":"f","as":"preposition"},"sure":"decided","kind":"preposition","trigger":{"i":3,"word":"pod","start":14,"end":17},"sense":"rest","rule":"kje-mestnik-orodnik","options":[{"case":"ins","number":"sg","gender":"f","as":"preposition"}],"out":[{"case":"acc","number":"sg","why":"preposition"}],"agrees":{"i":5,"word":"smreko","start":25,"end":31}}"""
 
     @Test fun `a word the line decides is one case, its trigger, its rule`() {
         val read = lookupWith(brezMleka).lens!!
@@ -40,7 +40,9 @@ class CaseLensTest {
         assertEquals("brez", row.trigger?.word)
         assertEquals(11, row.trigger?.start)
         assertEquals("rodilnik-predlogi", row.rule)
-        assertEquals(listOf(CaseChoice(Case.GEN, "sg", "n", role = "preposition")), row.options)
+        // a noun's gender is on its entry, not the case's line
+        assertEquals(listOf(CaseChoice(Case.GEN, "sg", null, role = "preposition")), row.options)
+        assertNull(row.gender)
         assertTrue(row.others.isEmpty())
     }
 
@@ -129,6 +131,7 @@ class CaseLensTest {
             assertEquals("rodilnik, ed. · genitive, sg.", CaseLook.bi(Case.GEN, "sg"))
             assertEquals("mestnik, mn. · locative, pl.", CaseLook.bi(Case.LOC, "pl"))
             assertEquals("tožilnik · accusative", CaseLook.bi(Case.ACC, null))
+            assertEquals("orodnik, ed., ž. · instrumental, sg., f.", CaseLook.bi(Case.INS, "sg", gender = "f"))
             assertEquals("orodnik, dvojina", CaseLook.name(Case.INS, "du", Lang.SL, short = false))
             assertEquals(listOf("kdo? kaj?", "koga? česa?", "komu? čemu?", "koga? kaj?", "pri kom? pri čem?", "s kom? s čim?"), Case.entries.map(CaseLook::question))
             assertFalse(CaseLook.colour(Case.NOM, dark = false) == CaseLook.colour(Case.NOM, dark = true))

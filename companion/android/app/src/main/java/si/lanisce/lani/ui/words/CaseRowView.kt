@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
@@ -53,6 +54,7 @@ import si.lanisce.lani.l10n.inTarget
 @Composable
 fun caseLine(line: String, read: CaseRead?, row: CaseRow?): AnnotatedString {
     val colour = row?.case?.let { CaseLook.colour(it) }
+    val dark = MaterialTheme.colorScheme.surface.luminance() < 0.5f
     return buildAnnotatedString {
         append("«")
         append(line)
@@ -68,7 +70,7 @@ fun caseLine(line: String, read: CaseRead?, row: CaseRow?): AnnotatedString {
         // a trigger tapped: the words it decides, each in its case's colour
         for ((ref, case) in row.governs) {
             val g = read.governs?.words?.firstOrNull { it.i == ref.i } ?: continue
-            if (fits(g.start, g.end)) addStyle(SpanStyle(fontWeight = FontWeight.Bold, color = CaseLook.colour(case, false)), g.start + 1, g.end + 1)
+            if (fits(g.start, g.end)) addStyle(SpanStyle(fontWeight = FontWeight.Bold, color = CaseLook.colour(case, dark)), g.start + 1, g.end + 1)
         }
     }
 }
@@ -86,14 +88,17 @@ fun CaseRowView(vm: AppViewModel, row: CaseRow, read: CaseRead) {
     val why = whyLine(row, read)
     val title = when (row.state) {
         CaseRow.State.GOVERNS -> null
-        else -> main?.let { CaseLook.bi(it, row.number) + (CaseLook.genderKey(row.gender)?.let { g -> ", ${inTarget(g)}" } ?: "") }
+        else -> main?.let { CaseLook.bi(it, row.number, gender = row.gender) }
     }
     val spoken = listOfNotNull(
         bi("caseLens.title"),
         when (row.state) {
             CaseRow.State.AMBIGUOUS -> "${inBase("caseLens.ambiguous")}: " + row.options.joinToString(", ") { spokenName(it) }
             CaseRow.State.GOVERNS -> row.governs.joinToString(", ") { (ref, c) -> governsText(c, wordAt(read, ref)) }
-            else -> main?.let { "${spokenName(CaseChoice(it, row.number ?: "sg", row.gender))}, ${CaseLook.question(it)}" + if (row.state == CaseRow.State.LIKELY) " (${inBase("caseLens.likely")})" else "" }
+            else -> main?.let {
+                "${spokenName(CaseChoice(it, row.number ?: "sg", row.gender))}, ${CaseLook.question(it)}" +
+                    if (row.state == CaseRow.State.LIKELY) " (${bi("caseLens.likely")}); ${bi("caseLens.alsoForm")}: " + row.options.drop(1).joinToString(", ") { o -> spokenName(o) } else ""
+            }
         },
         why?.let { "${it.first} ${it.second}" },
     ).joinToString(". ")
@@ -111,7 +116,8 @@ fun CaseRowView(vm: AppViewModel, row: CaseRow, read: CaseRead) {
             when (row.state) {
                 CaseRow.State.AMBIGUOUS -> {
                     Text(bi("caseLens.ambiguous"), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
-                    for ((k, o) in row.options.withIndex()) ChoiceLine(o, likely = k == 0 && row.options.size > 1)
+                    // no reading preferred: none marked likely (the order is the cases' own)
+                    for (o in row.options) ChoiceLine(o, likely = false)
                 }
                 CaseRow.State.GOVERNS -> for ((ref, c) in row.governs) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -159,7 +165,7 @@ private fun ChoiceLine(o: CaseChoice, likely: Boolean) {
         Spacer(Modifier.width(8.dp))
         Column {
             Text(
-                CaseLook.bi(o.case, o.number) + (CaseLook.genderKey(o.gender)?.let { g -> ", ${inTarget(g)}" } ?: "") + if (likely) "  · ${bi("caseLens.likely")}" else "",
+                CaseLook.bi(o.case, o.number, gender = o.gender) + if (likely) "  · ${bi("caseLens.likely")}" else "",
                 style = MaterialTheme.typography.titleSmall, fontWeight = if (likely) FontWeight.Bold else FontWeight.Medium, color = c,
             )
             Text(CaseLook.question(o.case), style = MaterialTheme.typography.bodySmall, fontStyle = FontStyle.Italic)

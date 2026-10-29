@@ -141,14 +141,19 @@ object CaseLens {
             return CaseRow(CaseRow.State.GOVERNS, null, null, null, read.kind ?: "trigger", null, null, read.rule, emptyList(), emptyList(), null, false, governs)
         }
         if (read.kind == "unresolved") return null
-        val options = read.options.mapNotNull { o -> caseOf(o.case)?.let { CaseChoice(it, o.number, o.gender, role = o.role) } }
+        // a gender is an adjective's, a pronoun's, a number's to show (a noun's is on its entry: mleko · s.)
+        val gendered = read.readings.any { it.pos in GENDERED }
+        val options = read.options.mapNotNull { o ->
+            caseOf(o.case)?.let { CaseChoice(it, o.number, o.gender.takeIf { gendered }, role = o.role) }
+        }
         if (options.isEmpty()) return null
         val state = when (read.sure) {
             "decided" -> CaseRow.State.DECIDED
             "likely" -> CaseRow.State.LIKELY
             else -> CaseRow.State.AMBIGUOUS
         }
-        val first = pick?.let { p -> caseOf(p.case)?.let { CaseChoice(it, p.number, p.gender, role = p.role) } } ?: options.first()
+        val first = (pick?.let { p -> caseOf(p.case)?.let { CaseChoice(it, p.number, p.gender, role = p.role) } } ?: options.first())
+            .let { if (gendered) it else it.copy(gender = null) }
         // the form's readings the line rules out, each case and number once, with the first reason given
         val shown = options.map { it.case to it.number }.toSet()
         val others = read.out.mapNotNull { o -> caseOf(o.case)?.let { CaseChoice(it, o.number, why = o.why) } }
@@ -189,6 +194,9 @@ object CaseLens {
     fun casesBody(lines: List<String>) = buildJsonObject { put("lines", buildJsonArray { lines.forEach { add(JsonPrimitive(it)) } }) }
 
     fun parseCases(raw: String): CasesAnswer = json.decodeFromString(CasesAnswer.serializer(), raw)
+
+    /** The parts of speech whose gender the card shows (they agree in it). */
+    private val GENDERED = setOf("adj", "det", "pron", "num")
 
     /** At most this many of the form's other readings a card lists ("can also be"). */
     const val MAX_OTHERS = 4
