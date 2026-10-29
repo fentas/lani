@@ -80,7 +80,7 @@ class MyVoiceTest {
     private fun voice(name: String, lang: String = "it-IT", features: Set<String> = emptySet(), network: Boolean = false, quality: Int = 300) =
         PlayerTts.VoiceInfo(name, Locale.forLanguageTag(lang), features, network, quality)
 
-    @Test fun `the phone's voice for a line of the learner's: their voice's gender where the phone names one, a child's higher`() {
+    @Test fun `the phone's voice for a line of the learner's, their voice's gender where the phone names one, a child's higher`() {
         assertEquals(Clips.MALE, PlayerTts.genderOf(voice("it-IT-SMTm00")))
         assertEquals(Clips.FEMALE, PlayerTts.genderOf(voice("it-IT-SMTf00")))
         assertEquals(Clips.MALE, PlayerTts.genderOf(voice("en-us-x-sfg#male_1-local", "en-US")))

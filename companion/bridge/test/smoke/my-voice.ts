@@ -176,7 +176,8 @@ export default async function myVoiceSection() {
     const kept = JSON.parse(readFileSync(profile, 'utf8'))
     const before = JSON.parse(was)
     const t1 = bridgeEleven.st.tts.length
-    const line = await (await say('Ja, rad bi juho.')).json()
+    const said = await say('Ja, rad bi juho.')
+    const line = said.status === 200 ? await said.json() : { status: said.status }
     const p1 = await (await fetch(`${base}/voice/profiles`, { headers: auth })).json()
     check("POST /learner/voice: Jan's choice is kept in his learner profile (preferences.my_voice), the rest of it as it was; his next line is in it (asked as player), GET /voice/profiles says it",
       r1.ok && s1.voice === other.id && s1.chosen && !s1.off && kept.preferences?.my_voice?.voice === other.id && /^\d{4}-\d\d-\d\d$/.test(kept.preferences.my_voice.since) && kept.preferences.gamification_enabled === before.preferences.gamification_enabled && kept.learner.name === 'Jan' &&
