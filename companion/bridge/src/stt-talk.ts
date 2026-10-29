@@ -249,9 +249,11 @@ export type Weighing = {
   minVoiced: number
   /** The prompted reading copying its prompt is believed under this mean probability only when the plain one agrees. */
   copyProb: number
+  /** In a disagreement, the reading with fewer words the language doesn't have wins (with a dictionary). */
+  words: boolean
 }
 
-export const WEIGHING: Weighing = { margin: 0.1, sureWord: 0.85, minVoiced: 0.15, copyProb: 0.5 }
+export const WEIGHING: Weighing = { margin: 0.1, sureWord: 0.85, minVoiced: 0.15, copyProb: 0.5, words: true }
 
 /** The worker's measure of the take's voice ([voice_activity] in companion/stt-local/server.py): seconds. */
 export type Voice = { voiced: number; loud: number }
@@ -289,9 +291,9 @@ const SOUND = /^[aeiouyhm]{3,}$/
  * (without; null when its hearing failed), with the worker's measure of the voice in it ([voice], when it sent one).
  * Noise when there was no voice or neither reading heard a line (empty, made up, sounds, or the prompted one copying
  * its prompt while the plain one heard nothing real). The same words in both is the prompted reading (it spells as the
- * conversation does). Otherwise the one whose words fit the audio better: the word probabilities are Whisper's of the
- * text without the prompt, so the two compare; the plain one needs [Weighing.margin] more, and a copy of the prompt
- * loses. The other reading goes along as an alternative, and so does the chosen one with its near-misses matched to
+ * conversation does). Otherwise the one with fewer words the language doesn't have (with a dictionary), then the one
+ * whose words fit the audio better: the word probabilities are Whisper's of the text without the prompt, so the two
+ * compare; the plain one needs [Weighing.margin] more, and a copy of the prompt loses. The other reading goes along as an alternative, and so does the chosen one with its near-misses matched to
  * the context ([snap]); the draft keeps what was heard.
  */
 export function weigh(
@@ -304,6 +306,7 @@ export function weigh(
     return k.length < 2 || ctx.has(k) || (knows ? knows(w.replace(/^[^\p{L}]+|[^\p{L}]+$/gu, '')) : !SOUND.test(k))
   }
   const sounds = (r: SttResult) => keys(r.text).every(k => SOUND.test(k) && !isWord(k))
+  const nonWords = (r: SttResult) => wordsOf(r).filter(w => key(w.word).length >= 2 && !/['’ʼ]$/.test(w.word) && !isWord(w.word)).length
   const real = (r: SttResult | null): r is SttResult => !!r && keys(r.text).length > 0 && !madeUp(r.text, language, r.duration) && !sounds(r)
   const nothing = (): TalkHearing => ({ text: '', result: { ...prompted, text: '', segments: [] }, by: null, alternatives: [], near: [], sure: false, noise: true })
   if (voice && voice.voiced < o.minVoiced) return nothing()
@@ -325,7 +328,8 @@ export function weigh(
     chosen = prompted
     other = null
     by = 'context'
-  } else if (!pOk || pulled || (meanProb(plain) ?? 0) > (meanProb(prompted) ?? 0) + o.margin) {
+  } else if (!pOk || pulled || (o.words && knows && nonWords(plain) < nonWords(prompted)) ||
+    (!(o.words && knows && nonWords(plain) > nonWords(prompted)) && (meanProb(plain) ?? 0) > (meanProb(prompted) ?? 0) + o.margin)) {
     chosen = plain
     other = pOk && !pulled ? prompted : null
     by = 'plain'
