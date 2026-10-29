@@ -23,67 +23,67 @@
   "words": ["godba", "zastava"],
   "levels": {
     "A1": { "lines": [
-      { "who": "mojca", "sl": "Danes je velik dan. Naš trg je postal mesto!", "en": "Today is a big day. Our market town has become a town!", "de": "Heute ist ein großer Tag. Unser Marktflecken ist eine Stadt geworden!", "it": "Oggi è un gran giorno. Il nostro borgo è diventato una città!" },
-      { "who": "janez", "sl": "Poslušaj! Kdo prihaja po cesti?", "en": "Listen! Who's coming down the road?", "de": "Hör mal! Wer kommt da die Straße entlang?", "it": "Ascolta! Chi arriva per la strada?" },
+      { "who": "mojca", "face": "proud", "sl": "Danes je velik dan. Naš trg je postal mesto!", "en": "Today is a big day. Our market town has become a town!", "de": "Heute ist ein großer Tag. Unser Marktflecken ist eine Stadt geworden!", "it": "Oggi è un gran giorno. Il nostro borgo è diventato una città!" },
+      { "who": "janez", "face": "curious", "sl": "Poslušaj! Kdo prihaja po cesti?", "en": "Listen! Who's coming down the road?", "de": "Hör mal! Wer kommt da die Straße entlang?", "it": "Ascolta! Chi arriva per la strada?" },
       { "choices": [
         { "sl": "Godba prihaja!", "en": "The brass band is coming!", "de": "Die Blaskapelle kommt!", "it": "Arriva la banda!", "ok": true,
-          "reply": { "sl": "Tako je! Trobente se svetijo.", "en": "That's right! The trumpets are gleaming.", "de": "Genau! Die Trompeten glänzen.", "it": "Esatto! Le trombe luccicano." } },
+          "reply": { "face": "happy", "sl": "Tako je! Trobente se svetijo.", "en": "That's right! The trumpets are gleaming.", "de": "Genau! Die Trompeten glänzen.", "it": "Esatto! Le trombe luccicano." } },
         { "sl": "Krava prihaja!", "en": "The cow is coming!", "de": "Die Kuh kommt!", "it": "Arriva la mucca!",
           "why": { "en": "Krava is a cow. With trumpets and drums comes the brass band: godba.", "de": "Krava ist eine Kuh. Mit Trompeten und Trommeln kommt die Blaskapelle: godba.", "it": "Krava è una mucca. Con le trombe e i tamburi arriva la banda: godba." },
-          "reply": { "sl": "Krava? Ha ha, krave so na paši!", "en": "A cow? Ha ha, the cows are out at pasture!", "de": "Eine Kuh? Ha ha, die Kühe sind auf der Weide!", "it": "Una mucca? Ah ah, le mucche sono al pascolo!" } }
+          "reply": { "face": "laugh", "sl": "Krava? Ha ha, krave so na paši!", "en": "A cow? Ha ha, the cows are out at pasture!", "de": "Eine Kuh? Ha ha, die Kühe sind auf der Weide!", "it": "Una mucca? Ah ah, le mucche sono al pascolo!" } }
       ] },
       { "who": "tone", "sl": "Za godbo gre sprevod. Kaj nosimo spredaj?", "en": "The procession goes behind the band. What do we carry at the front?", "de": "Hinter der Kapelle geht der Umzug. Was tragen wir vorne?", "it": "Dietro la banda c'è il corteo. Che cosa portiamo davanti?" },
       { "choices": [
         { "sl": "Spredaj nosimo zastavo.", "en": "At the front we carry the flag.", "de": "Vorne tragen wir die Flagge.", "it": "Davanti portiamo la bandiera.", "ok": true,
-          "reply": { "sl": "Ja! Visoko, da jo vsi vidijo!", "en": "Yes! High up, so everyone can see it!", "de": "Ja! Hoch oben, damit alle sie sehen!", "it": "Sì! In alto, perché tutti la vedano!" } },
+          "reply": { "face": "proud", "sl": "Ja! Visoko, da jo vsi vidijo!", "en": "Yes! High up, so everyone can see it!", "de": "Ja! Hoch oben, damit alle sie sehen!", "it": "Sì! In alto, perché tutti la vedano!" } },
         { "sl": "Spredaj nosimo lonec.", "en": "At the front we carry a pot.", "de": "Vorne tragen wir einen Topf.", "it": "Davanti portiamo una pentola.",
           "why": { "en": "Lonec is a pot. At the front of a procession you carry the flag: zastava.", "de": "Lonec ist ein Topf. Vorne im Umzug trägt man die Flagge: zastava.", "it": "Lonec è una pentola. In testa al corteo si porta la bandiera: zastava." },
-          "reply": { "sl": "Lonec? Ta je za kosilo, ne za sprevod!", "en": "A pot? That's for lunch, not for the procession!", "de": "Ein Topf? Der ist fürs Mittagessen, nicht für den Umzug!", "it": "Una pentola? Quella è per il pranzo, non per il corteo!" } }
+          "reply": { "face": "confused", "sl": "Lonec? Ta je za kosilo, ne za sprevod!", "en": "A pot? That's for lunch, not for the procession!", "de": "Ein Topf? Der ist fürs Mittagessen, nicht für den Umzug!", "it": "Una pentola? Quella è per il pranzo, non per il corteo!" } }
       ] },
-      { "who": "mojca", "sl": "Zdaj preberem listino: od danes smo mesto! Naj živi naše mesto!", "en": "Now I'll read the charter: from today we are a town! Long live our town!", "de": "Jetzt lese ich die Urkunde vor: ab heute sind wir eine Stadt! Hoch lebe unsere Stadt!", "it": "Adesso leggo lo statuto: da oggi siamo una città! Viva la nostra città!" },
+      { "who": "mojca", "face": "happy", "sl": "Zdaj preberem listino: od danes smo mesto! Naj živi naše mesto!", "en": "Now I'll read the charter: from today we are a town! Long live our town!", "de": "Jetzt lese ich die Urkunde vor: ab heute sind wir eine Stadt! Hoch lebe unsere Stadt!", "it": "Adesso leggo lo statuto: da oggi siamo una città! Viva la nostra città!" },
       { "choices": [
         { "sl": "Naj živi!", "en": "Long may it live!", "de": "Hoch soll sie leben!", "it": "Viva!", "ok": true,
-          "reply": { "sl": "Naj živi! Godba, zaigraj!", "en": "Long may it live! Band, play!", "de": "Hoch soll sie leben! Kapelle, spiel!", "it": "Viva! Banda, suona!" } },
+          "reply": { "face": "laugh", "sl": "Naj živi! Godba, zaigraj!", "en": "Long may it live! Band, play!", "de": "Hoch soll sie leben! Kapelle, spiel!", "it": "Viva! Banda, suona!" } },
         { "sl": "Lahko noč!", "en": "Good night!", "de": "Gute Nacht!", "it": "Buonanotte!",
           "why": { "en": "Lahko noč is said when you go to bed. Cheering the town, you say: naj živi!", "de": "Lahko noč sagt man, wenn man schlafen geht. Um die Stadt hochleben zu lassen, sagt man: naj živi!", "it": "Lahko noč si dice quando si va a dormire. Per festeggiare la città si dice: naj živi!" },
-          "reply": { "sl": "Lahko noč? Zdaj? Saj praznujemo!", "en": "Good night? Now? We're celebrating!", "de": "Gute Nacht? Jetzt? Wir feiern doch!", "it": "Buonanotte? Adesso? Stiamo festeggiando!" } }
+          "reply": { "face": "surprised", "sl": "Lahko noč? Zdaj? Saj praznujemo!", "en": "Good night? Now? We're celebrating!", "de": "Gute Nacht? Jetzt? Wir feiern doch!", "it": "Buonanotte? Adesso? Stiamo festeggiando!" } }
       ] },
       { "who": "vida", "sl": "Na trgu so mize in godba igra polko. Pridite vsi!", "en": "There are tables on the square and the band is playing a polka. Come, everyone!", "de": "Auf dem Platz stehen Tische und die Kapelle spielt eine Polka. Kommt alle!", "it": "In piazza ci sono i tavoli e la banda suona una polca. Venite tutti!" }
     ] },
     "A2": { "lines": [
       { "who": "mojca", "sl": "{m:Dobrodošel|f:Dobrodošla} na našem prvem mestnem prazniku, {learner}!", "en": "Welcome to our first town's feast, {learner}!", "de": "Willkommen bei unserem ersten Stadtfest, {learner}!", "it": "{m:Benvenuto|f:Benvenuta} alla nostra prima festa della città, {learner}!" },
-      { "who": "tone", "sl": "Slišiš bobne? Kdo vodi sprevod?", "en": "Do you hear the drums? Who's leading the procession?", "de": "Hörst du die Trommeln? Wer führt den Umzug an?", "it": "Senti i tamburi? Chi guida il corteo?" },
+      { "who": "tone", "face": "curious", "sl": "Slišiš bobne? Kdo vodi sprevod?", "en": "Do you hear the drums? Who's leading the procession?", "de": "Hörst du die Trommeln? Wer führt den Umzug an?", "it": "Senti i tamburi? Chi guida il corteo?" },
       { "choices": [
         { "sl": "Sprevod vodi godba.", "en": "The brass band is leading the procession.", "de": "Die Blaskapelle führt den Umzug an.", "it": "Il corteo lo guida la banda.", "ok": true,
-          "reply": { "sl": "Prav! Za njo gredo prapori in narodne noše.", "en": "Right! Behind it come the banners and the folk costumes.", "de": "Richtig! Dahinter kommen die Banner und die Trachten.", "it": "Giusto! Dietro vengono gli stendardi e i costumi tradizionali." } },
+          "reply": { "face": "happy", "sl": "Prav! Za njo gredo prapori in narodne noše.", "en": "Right! Behind it come the banners and the folk costumes.", "de": "Richtig! Dahinter kommen die Banner und die Trachten.", "it": "Giusto! Dietro vengono gli stendardi e i costumi tradizionali." } },
         { "sl": "Sprevod vodi ovca.", "en": "A sheep is leading the procession.", "de": "Ein Schaf führt den Umzug an.", "it": "Il corteo lo guida una pecora.",
           "why": { "en": "Ovca is a sheep. The procession is led by the brass band: godba.", "de": "Ovca ist ein Schaf. Den Umzug führt die Blaskapelle an: godba.", "it": "Ovca è una pecora. Il corteo è guidato dalla banda: godba." },
-          "reply": { "sl": "Ovca? Ha ha, ovce so na paši!", "en": "A sheep? Ha ha, the sheep are out at pasture!", "de": "Ein Schaf? Ha ha, die Schafe sind auf der Weide!", "it": "Una pecora? Ah ah, le pecore sono al pascolo!" } }
+          "reply": { "face": "laugh", "sl": "Ovca? Ha ha, ovce so na paši!", "en": "A sheep? Ha ha, the sheep are out at pasture!", "de": "Ein Schaf? Ha ha, die Schafe sind auf der Weide!", "it": "Una pecora? Ah ah, le pecore sono al pascolo!" } }
       ] },
       { "who": "vida", "sl": "Novi mestni grb je na blagu, na dolgem drogu.", "en": "The new coat of arms is on a cloth, on a long pole.", "de": "Das neue Stadtwappen ist auf einem Tuch, an einer langen Stange.", "it": "Il nuovo stemma della città è su un drappo, in cima a un'asta lunga." },
       { "who": "mojca", "sl": "{learner}, kaj nosiš na čelu sprevoda?", "en": "{learner}, what are you carrying at the head of the procession?", "de": "{learner}, was trägst du an der Spitze des Umzugs?", "it": "{learner}, che cosa porti in testa al corteo?" },
       { "choices": [
         { "sl": "Nosim zastavo!", "en": "I'm carrying the flag!", "de": "Ich trage die Flagge!", "it": "Porto la bandiera!", "ok": true,
-          "reply": { "sl": "Bravo! Visoko jo dvigni, da jo vsi vidijo.", "en": "Well done! Lift it high so everyone can see it.", "de": "Bravo! Heb sie hoch, damit alle sie sehen.", "it": "Bravo! Alzala in alto, perché tutti la vedano." } },
+          "reply": { "face": "proud", "sl": "Bravo! Visoko jo dvigni, da jo vsi vidijo.", "en": "Well done! Lift it high so everyone can see it.", "de": "Bravo! Heb sie hoch, damit alle sie sehen.", "it": "Bravo! Alzala in alto, perché tutti la vedano." } },
         { "sl": "Nosim kozo!", "en": "I'm carrying the goat!", "de": "Ich trage die Ziege!", "it": "Porto la capra!",
           "why": { "en": "Koza is a goat. What you hold up high in a procession is the flag: zastava.", "de": "Koza ist eine Ziege. Was man im Umzug hochhält, ist die Flagge: zastava.", "it": "Koza è una capra. Quello che si tiene in alto nel corteo è la bandiera: zastava." },
-          "reply": { "sl": "Kozo? Ha ha, koza bi ti ušla!", "en": "The goat? Ha ha, the goat would run off!", "de": "Die Ziege? Ha ha, die würde dir weglaufen!", "it": "La capra? Ah ah, la capra ti scapperebbe!" } }
+          "reply": { "face": "laugh", "sl": "Kozo? Ha ha, koza bi ti ušla!", "en": "The goat? Ha ha, the goat would run off!", "de": "Die Ziege? Ha ha, die würde dir weglaufen!", "it": "La capra? Ah ah, la capra ti scapperebbe!" } }
       ] },
-      { "who": "nejc", "sl": "Godba igra koračnico. Gremo, {learner}!", "en": "The band is playing a march. Let's go, {learner}!", "de": "Die Kapelle spielt einen Marsch. Los, {learner}!", "it": "La banda suona una marcia. Andiamo, {learner}!" },
+      { "who": "nejc", "face": "happy", "sl": "Godba igra koračnico. Gremo, {learner}!", "en": "The band is playing a march. Let's go, {learner}!", "de": "Die Kapelle spielt einen Marsch. Los, {learner}!", "it": "La banda suona una marcia. Andiamo, {learner}!" },
       { "choices": [
         { "sl": "Gremo! Korakajmo za godbo!", "en": "Let's go! Let's march behind the band!", "de": "Los! Marschieren wir hinter der Kapelle!", "it": "Andiamo! Marciamo dietro la banda!", "ok": true,
-          "reply": { "sl": "Levo, desno, levo, desno!", "en": "Left, right, left, right!", "de": "Links, rechts, links, rechts!", "it": "Sinistra, destra, sinistra, destra!" } },
+          "reply": { "face": "proud", "sl": "Levo, desno, levo, desno!", "en": "Left, right, left, right!", "de": "Links, rechts, links, rechts!", "it": "Sinistra, destra, sinistra, destra!" } },
         { "sl": "Gremo! Plavajmo za godbo!", "en": "Let's go! Let's swim behind the band!", "de": "Los! Schwimmen wir hinter der Kapelle!", "it": "Andiamo! Nuotiamo dietro la banda!",
           "why": { "en": "Plavati is to swim. On the street you march: korakajmo.", "de": "Plavati heißt schwimmen. Auf der Straße marschiert man: korakajmo.", "it": "Plavati vuol dire nuotare. Per la strada si marcia: korakajmo." },
-          "reply": { "sl": "Plavajmo? Po cesti? Ha ha, tu ni vode!", "en": "Swim? Down the road? Ha ha, there's no water here!", "de": "Schwimmen? Auf der Straße? Ha ha, hier gibt es kein Wasser!", "it": "Nuotare? Per la strada? Ah ah, qui non c'è acqua!" } }
+          "reply": { "face": "laugh", "sl": "Plavajmo? Po cesti? Ha ha, tu ni vode!", "en": "Swim? Down the road? Ha ha, there's no water here!", "de": "Schwimmen? Auf der Straße? Ha ha, hier gibt es kein Wasser!", "it": "Nuotare? Per la strada? Ah ah, qui non c'è acqua!" } }
       ] },
       { "who": "mojca", "sl": "Na trgu preberemo listino: od danes smo mesto! Dvignimo kozarce!", "en": "On the square we read the charter: from today we are a town! Let's raise our glasses!", "de": "Auf dem Platz verlesen wir die Urkunde: ab heute sind wir eine Stadt! Erheben wir die Gläser!", "it": "In piazza leggiamo lo statuto: da oggi siamo una città! Alziamo i bicchieri!" },
       { "choices": [
         { "sl": "Na zdravje! Naj živi naše mesto!", "en": "Cheers! Long live our town!", "de": "Prost! Hoch lebe unsere Stadt!", "it": "Salute! Viva la nostra città!", "ok": true,
-          "reply": { "sl": "Naj živi! In še na mnoga leta!", "en": "Long may it live! And for many years to come!", "de": "Hoch soll sie leben! Und noch viele Jahre!", "it": "Viva! E per tanti anni ancora!" } },
+          "reply": { "face": "happy", "sl": "Naj živi! In še na mnoga leta!", "en": "Long may it live! And for many years to come!", "de": "Hoch soll sie leben! Und noch viele Jahre!", "it": "Viva! E per tanti anni ancora!" } },
         { "sl": "Na zdravje! Naj joka naše mesto!", "en": "Cheers! May our town cry!", "de": "Prost! Möge unsere Stadt weinen!", "it": "Salute! Che la nostra città pianga!",
           "why": { "en": "Naj živi is long live. Naj joka would mean may it cry.", "de": "Naj živi heißt hoch lebe. Naj joka hieße: möge sie weinen.", "it": "Naj živi vuol dire viva. Naj joka vorrebbe dire: che pianga." },
-          "reply": { "sl": "Naj joka? Ne, danes se vsi smejimo!", "en": "May it cry? No, today we're all laughing!", "de": "Weinen? Nein, heute lachen wir alle!", "it": "Che pianga? No, oggi ridiamo tutti!" } }
+          "reply": { "face": "laugh", "sl": "Naj joka? Ne, danes se vsi smejimo!", "en": "May it cry? No, today we're all laughing!", "de": "Weinen? Nein, heute lachen wir alle!", "it": "Che pianga? No, oggi ridiamo tutti!" } }
       ] }
     ] }
   }

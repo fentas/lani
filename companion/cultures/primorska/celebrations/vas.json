@@ -23,74 +23,74 @@
   "words": ["kozarec", "plesati"],
   "levels": {
     "A1": { "lines": [
-      { "who": "vida", "sl": "Dobrodošli na veselici! Danes praznuje vsa vas.", "en": "Welcome to the village party! Today the whole village celebrates.", "de": "Willkommen beim Dorffest! Heute feiert das ganze Dorf.", "it": "Benvenuti alla festa del paese! Oggi festeggia tutto il paese." },
+      { "who": "vida", "face": "happy", "sl": "Dobrodošli na veselici! Danes praznuje vsa vas.", "en": "Welcome to the village party! Today the whole village celebrates.", "de": "Willkommen beim Dorffest! Heute feiert das ganze Dorf.", "it": "Benvenuti alla festa del paese! Oggi festeggia tutto il paese." },
       { "who": "vida", "sl": "{learner}, pomagaj mi. Kaj nesemo na mizo za vino?", "en": "{learner}, help me. What do we take to the table for the wine?", "de": "{learner}, hilf mir. Was bringen wir für den Wein auf den Tisch?", "it": "{learner}, aiutami. Che cosa portiamo in tavola per il vino?" },
       { "choices": [
         { "sl": "Nesimo kozarce.", "en": "Let's take glasses.", "de": "Bringen wir Gläser.", "it": "Portiamo i bicchieri.", "ok": true,
-          "reply": { "sl": "Tako je, hvala! Zdaj jih napolnimo.", "en": "That's right, thank you! Now let's fill them.", "de": "Genau, danke! Jetzt füllen wir sie.", "it": "Esatto, grazie! Ora riempiamoli." } },
+          "reply": { "face": "happy", "sl": "Tako je, hvala! Zdaj jih napolnimo.", "en": "That's right, thank you! Now let's fill them.", "de": "Genau, danke! Jetzt füllen wir sie.", "it": "Esatto, grazie! Ora riempiamoli." } },
         { "sl": "Nesimo krožnike.", "en": "Let's take plates.", "de": "Bringen wir Teller.", "it": "Portiamo i piatti.",
           "why": { "en": "Krožniki are plates, for food. For wine you need glasses: kozarci.", "de": "Krožniki sind Teller, fürs Essen. Für Wein braucht man Gläser: kozarci.", "it": "Krožniki sono i piatti, per il cibo. Per il vino ci vogliono i bicchieri: kozarci." },
-          "reply": { "sl": "Krožnike? Iz krožnika pa ne boš {m:pil|f:pila} vina, ha ha!", "en": "Plates? You won't drink wine out of a plate, ha ha!", "de": "Teller? Aus einem Teller trinkst du doch keinen Wein, ha ha!", "it": "Piatti? Il vino non lo berrai mica dal piatto, ah ah!" } },
+          "reply": { "face": "laugh", "sl": "Krožnike? Iz krožnika pa ne boš {m:pil|f:pila} vina, ha ha!", "en": "Plates? You won't drink wine out of a plate, ha ha!", "de": "Teller? Aus einem Teller trinkst du doch keinen Wein, ha ha!", "it": "Piatti? Il vino non lo berrai mica dal piatto, ah ah!" } },
         { "sl": "Nesimo copate.", "en": "Let's take slippers.", "de": "Bringen wir Hausschuhe.", "it": "Portiamo le pantofole.",
           "why": { "en": "Copati are slippers. For wine you need glasses: kozarci.", "de": "Copati sind Hausschuhe. Für Wein braucht man Gläser: kozarci.", "it": "Copati sono le pantofole. Per il vino ci vogliono i bicchieri: kozarci." },
-          "reply": { "sl": "Copate? Ha ha, copate so za doma!", "en": "Slippers? Ha ha, slippers are for home!", "de": "Hausschuhe? Ha ha, die sind für zu Hause!", "it": "Pantofole? Ah ah, quelle sono per casa!" } }
+          "reply": { "face": "laugh", "sl": "Copate? Ha ha, copate so za doma!", "en": "Slippers? Ha ha, slippers are for home!", "de": "Hausschuhe? Ha ha, die sind für zu Hause!", "it": "Pantofole? Ah ah, quelle sono per casa!" } }
       ] },
       { "who": "marko", "sl": "Vino je natočeno. Nazdravimo novi vasi! Na zdravje!", "en": "The wine is poured. Let's drink to the new village! Cheers!", "de": "Der Wein ist eingeschenkt. Stoßen wir auf das neue Dorf an! Prost!", "it": "Il vino è versato. Brindiamo al nuovo paese! Salute!" },
       { "choices": [
         { "sl": "Na zdravje!", "en": "Cheers!", "de": "Prost!", "it": "Salute!", "ok": true,
-          "reply": { "sl": "Na zdravje! Naj živi naša vas!", "en": "Cheers! Long live our village!", "de": "Prost! Hoch lebe unser Dorf!", "it": "Salute! Viva il nostro paese!" } },
+          "reply": { "face": "laugh", "sl": "Na zdravje! Naj živi naša vas!", "en": "Cheers! Long live our village!", "de": "Prost! Hoch lebe unser Dorf!", "it": "Salute! Viva il nostro paese!" } },
         { "sl": "Živijo!", "en": "Cheers!", "de": "Prost!", "it": "Evviva!", "ok": true,
-          "reply": { "sl": "Živijo! Naj živi naša vas!", "en": "Cheers! Long live our village!", "de": "Prost! Hoch lebe unser Dorf!", "it": "Evviva! Viva il nostro paese!" } },
+          "reply": { "face": "laugh", "sl": "Živijo! Naj živi naša vas!", "en": "Cheers! Long live our village!", "de": "Prost! Hoch lebe unser Dorf!", "it": "Evviva! Viva il nostro paese!" } },
         { "sl": "Dobro jutro!", "en": "Good morning!", "de": "Guten Morgen!", "it": "Buongiorno!",
           "why": { "en": "Dobro jutro is good morning. Answering a toast, you say: na zdravje.", "de": "Dobro jutro heißt guten Morgen. Auf einen Trinkspruch antwortet man: na zdravje.", "it": "Dobro jutro vuol dire buongiorno. A un brindisi si risponde: na zdravje." },
-          "reply": { "sl": "Jutro? Veselica se šele začenja, ha ha!", "en": "Morning? The party's only just starting, ha ha!", "de": "Morgen? Das Fest fängt doch gerade erst an, ha ha!", "it": "Mattina? La festa è appena cominciata, ah ah!" } }
+          "reply": { "face": "laugh", "sl": "Jutro? Veselica se šele začenja, ha ha!", "en": "Morning? The party's only just starting, ha ha!", "de": "Morgen? Das Fest fängt doch gerade erst an, ha ha!", "it": "Mattina? La festa è appena cominciata, ah ah!" } }
       ] },
-      { "who": "luka", "sl": "Moja harmonika je tu. Zaigram polko!", "en": "My accordion is here. I'll play a polka!", "de": "Meine Harmonika ist da. Ich spiele eine Polka!", "it": "La mia fisarmonica è qui. Suono una polca!" },
-      { "who": "nejc", "sl": "{learner}, greš plesat z mano?", "en": "{learner}, will you come and dance with me?", "de": "{learner}, tanzt du mit mir?", "it": "{learner}, vieni a ballare con me?" },
+      { "who": "luka", "face": "proud", "sl": "Moja harmonika je tu. Zaigram polko!", "en": "My accordion is here. I'll play a polka!", "de": "Meine Harmonika ist da. Ich spiele eine Polka!", "it": "La mia fisarmonica è qui. Suono una polca!" },
+      { "who": "nejc", "face": "curious", "sl": "{learner}, greš plesat z mano?", "en": "{learner}, will you come and dance with me?", "de": "{learner}, tanzt du mit mir?", "it": "{learner}, vieni a ballare con me?" },
       { "choices": [
         { "sl": "Ja, rad{m:|f:a} plešem!", "en": "Yes, I love dancing!", "de": "Ja, ich tanze gern!", "it": "Sì, ballo volentieri!", "ok": true,
-          "reply": { "sl": "Juhu! Gremo na plesišče!", "en": "Yippee! To the dance floor!", "de": "Juhu! Auf die Tanzfläche!", "it": "Evviva! In pista!" } },
+          "reply": { "face": "laugh", "sl": "Juhu! Gremo na plesišče!", "en": "Yippee! To the dance floor!", "de": "Juhu! Auf die Tanzfläche!", "it": "Evviva! In pista!" } },
         { "sl": "Ja, rad{m:|f:a} berem!", "en": "Yes, I love reading!", "de": "Ja, ich lese gern!", "it": "Sì, leggo volentieri!",
           "why": { "en": "Brati is to read: berem. Dancing is plesati: plešem.", "de": "Brati heißt lesen: berem. Tanzen ist plesati: plešem.", "it": "Brati vuol dire leggere: berem. Ballare è plesati: plešem." },
-          "reply": { "sl": "Bereš? Zdaj? Saj igra harmonika!", "en": "You read? Now? But the accordion is playing!", "de": "Du liest? Jetzt? Die Harmonika spielt doch!", "it": "Leggi? Adesso? Ma suona la fisarmonica!" } }
+          "reply": { "face": "surprised", "sl": "Bereš? Zdaj? Saj igra harmonika!", "en": "You read? Now? But the accordion is playing!", "de": "Du liest? Jetzt? Die Harmonika spielt doch!", "it": "Leggi? Adesso? Ma suona la fisarmonica!" } }
       ] },
-      { "who": "vida", "sl": "Glej jih, kako plešejo! To je prava veselica.", "en": "Look at them dancing! This is a proper village party.", "de": "Schau, wie sie tanzen! Das ist ein richtiges Dorffest.", "it": "Guardali come ballano! Questa sì che è una festa del paese." }
+      { "who": "vida", "face": "happy", "sl": "Glej jih, kako plešejo! To je prava veselica.", "en": "Look at them dancing! This is a proper village party.", "de": "Schau, wie sie tanzen! Das ist ein richtiges Dorffest.", "it": "Guardali come ballano! Questa sì che è una festa del paese." }
     ] },
     "A2": { "lines": [
-      { "who": "vida", "sl": "{m:Dobrodošel|f:Dobrodošla}, {learner}! Fantje so postavili brjar, klobase so že na žaru.", "en": "Welcome, {learner}! The lads have put up the brjar, the sausages are already on the grill.", "de": "Willkommen, {learner}! Die Burschen haben den Brjar aufgebaut, die Würste sind schon auf dem Grill.", "it": "{m:Benvenuto|f:Benvenuta}, {learner}! I ragazzi hanno montato il brjar, le salsicce sono già sulla griglia." },
-      { "who": "marko", "sl": "Iz kleti smo prinesli najboljše vino. Kaj še manjka na mizi?", "en": "We've brought the best wine up from the cellar. What's still missing on the table?", "de": "Aus dem Keller haben wir den besten Wein geholt. Was fehlt noch auf dem Tisch?", "it": "Dalla cantina abbiamo portato il vino migliore. Che cosa manca ancora in tavola?" },
+      { "who": "vida", "face": "happy", "sl": "{m:Dobrodošel|f:Dobrodošla}, {learner}! Fantje so postavili brjar, klobase so že na žaru.", "en": "Welcome, {learner}! The lads have put up the brjar, the sausages are already on the grill.", "de": "Willkommen, {learner}! Die Burschen haben den Brjar aufgebaut, die Würste sind schon auf dem Grill.", "it": "{m:Benvenuto|f:Benvenuta}, {learner}! I ragazzi hanno montato il brjar, le salsicce sono già sulla griglia." },
+      { "who": "marko", "face": "proud", "sl": "Iz kleti smo prinesli najboljše vino. Kaj še manjka na mizi?", "en": "We've brought the best wine up from the cellar. What's still missing on the table?", "de": "Aus dem Keller haben wir den besten Wein geholt. Was fehlt noch auf dem Tisch?", "it": "Dalla cantina abbiamo portato il vino migliore. Che cosa manca ancora in tavola?" },
       { "choices": [
         { "sl": "Manjkajo še kozarci.", "en": "The glasses are still missing.", "de": "Es fehlen noch die Gläser.", "it": "Mancano ancora i bicchieri.", "ok": true,
-          "reply": { "sl": "Res je! Takoj jih prinesem.", "en": "That's true! I'll bring them right away.", "de": "Stimmt! Ich bringe sie sofort.", "it": "È vero! Li porto subito." } },
+          "reply": { "face": "happy", "sl": "Res je! Takoj jih prinesem.", "en": "That's true! I'll bring them right away.", "de": "Stimmt! Ich bringe sie sofort.", "it": "È vero! Li porto subito." } },
         { "sl": "Manjkajo še žlice.", "en": "The spoons are still missing.", "de": "Es fehlen noch die Löffel.", "it": "Mancano ancora i cucchiai.",
           "why": { "en": "Žlice are spoons. For wine you need glasses: kozarci.", "de": "Žlice sind Löffel. Für Wein braucht man Gläser: kozarci.", "it": "Žlice sono i cucchiai. Per il vino ci vogliono i bicchieri: kozarci." },
-          "reply": { "sl": "Žlice? Vina ne bomo jedli, ha ha!", "en": "Spoons? We won't be eating the wine, ha ha!", "de": "Löffel? Den Wein essen wir doch nicht, ha ha!", "it": "Cucchiai? Il vino non lo mangiamo mica, ah ah!" } }
+          "reply": { "face": "laugh", "sl": "Žlice? Vina ne bomo jedli, ha ha!", "en": "Spoons? We won't be eating the wine, ha ha!", "de": "Löffel? Den Wein essen wir doch nicht, ha ha!", "it": "Cucchiai? Il vino non lo mangiamo mica, ah ah!" } }
       ] },
       { "who": "luka", "sl": "Harmonika je uglašena. Kaj naj zaigram?", "en": "The accordion is tuned. What shall I play?", "de": "Die Harmonika ist gestimmt. Was soll ich spielen?", "it": "La fisarmonica è accordata. Che cosa suono?" },
       { "choices": [
         { "sl": "Zaigraj polko, prosim!", "en": "Play a polka, please!", "de": "Spiel bitte eine Polka!", "it": "Suona una polca, per favore!", "ok": true,
-          "reply": { "sl": "Polka, prav! Ena, dva, tri, gremo!", "en": "A polka it is! One, two, three, let's go!", "de": "Eine Polka, gut! Eins, zwei, drei, los!", "it": "Una polca, va bene! Uno, due, tre, via!" } },
+          "reply": { "face": "laugh", "sl": "Polka, prav! Ena, dva, tri, gremo!", "en": "A polka it is! One, two, three, let's go!", "de": "Eine Polka, gut! Eins, zwei, drei, los!", "it": "Una polca, va bene! Uno, due, tre, via!" } },
         { "sl": "Zaigraj kosilo, prosim!", "en": "Play lunch, please!", "de": "Spiel bitte das Mittagessen!", "it": "Suona il pranzo, per favore!",
           "why": { "en": "Kosilo is lunch: you eat it. A dance to play on the accordion: polka.", "de": "Kosilo ist das Mittagessen: das isst man. Ein Tanz auf der Harmonika: polka.", "it": "Kosilo è il pranzo: si mangia. Un ballo da suonare con la fisarmonica: polka." },
-          "reply": { "sl": "Kosilo? Tega pa ne znam zaigrati, ha ha!", "en": "Lunch? That I can't play, ha ha!", "de": "Mittagessen? Das kann ich nicht spielen, ha ha!", "it": "Il pranzo? Quello non lo so suonare, ah ah!" } }
+          "reply": { "face": "laugh", "sl": "Kosilo? Tega pa ne znam zaigrati, ha ha!", "en": "Lunch? That I can't play, ha ha!", "de": "Mittagessen? Das kann ich nicht spielen, ha ha!", "it": "Il pranzo? Quello non lo so suonare, ah ah!" } }
       ] },
-      { "who": "nejc", "sl": "Polka! {learner}, ali znaš plesati?", "en": "A polka! {learner}, can you dance?", "de": "Eine Polka! {learner}, kannst du tanzen?", "it": "Una polca! {learner}, sai ballare?" },
+      { "who": "nejc", "face": "curious", "sl": "Polka! {learner}, ali znaš plesati?", "en": "A polka! {learner}, can you dance?", "de": "Eine Polka! {learner}, kannst du tanzen?", "it": "Una polca! {learner}, sai ballare?" },
       { "choices": [
         { "sl": "Seveda! Rad{m:|f:a} plešem.", "en": "Of course! I love dancing.", "de": "Natürlich! Ich tanze gern.", "it": "Certo! Ballo volentieri.", "ok": true,
-          "reply": { "sl": "Super! Gremo na plesišče!", "en": "Great! To the dance floor!", "de": "Super! Auf die Tanzfläche!", "it": "Fantastico! In pista!" } },
+          "reply": { "face": "happy", "sl": "Super! Gremo na plesišče!", "en": "Great! To the dance floor!", "de": "Super! Auf die Tanzfläche!", "it": "Fantastico! In pista!" } },
         { "sl": "Seveda! Rad{m:|f:a} kuham.", "en": "Of course! I love cooking.", "de": "Natürlich! Ich koche gern.", "it": "Certo! Cucino volentieri.",
           "why": { "en": "Kuhati is to cook: kuham. Dancing is plesati: plešem.", "de": "Kuhati heißt kochen: kuham. Tanzen ist plesati: plešem.", "it": "Kuhati vuol dire cucinare: kuham. Ballare è plesati: plešem." },
-          "reply": { "sl": "Kuhaš? Zdaj? Saj je vse že skuhano!", "en": "You cook? Now? Everything's cooked already!", "de": "Du kochst? Jetzt? Es ist doch schon alles gekocht!", "it": "Cucini? Adesso? È già tutto cucinato!" } }
+          "reply": { "face": "surprised", "sl": "Kuhaš? Zdaj? Saj je vse že skuhano!", "en": "You cook? Now? Everything's cooked already!", "de": "Du kochst? Jetzt? Es ist doch schon alles gekocht!", "it": "Cucini? Adesso? È già tutto cucinato!" } }
       ] },
       { "who": "vida", "sl": "Dvignimo kozarce: na našo vas!", "en": "Let's raise our glasses: to our village!", "de": "Erheben wir die Gläser: auf unser Dorf!", "it": "Alziamo i bicchieri: al nostro paese!" },
       { "choices": [
         { "sl": "Na zdravje! Naj živi naša vas!", "en": "Cheers! Long live our village!", "de": "Prost! Hoch lebe unser Dorf!", "it": "Salute! Viva il nostro paese!", "ok": true,
-          "reply": { "sl": "Naj živi! In še na mnoga leta!", "en": "Long may it live! And for many years to come!", "de": "Hoch soll es leben! Und noch viele Jahre!", "it": "Viva! E per tanti anni ancora!" } },
+          "reply": { "face": "happy", "sl": "Naj živi! In še na mnoga leta!", "en": "Long may it live! And for many years to come!", "de": "Hoch soll es leben! Und noch viele Jahre!", "it": "Viva! E per tanti anni ancora!" } },
         { "sl": "Na zdravje! Naj spi naša vas!", "en": "Cheers! May our village sleep!", "de": "Prost! Möge unser Dorf schlafen!", "it": "Salute! Che il nostro paese dorma!",
           "why": { "en": "Naj živi is long live. Naj spi would mean may it sleep.", "de": "Naj živi heißt hoch lebe. Naj spi hieße: möge es schlafen.", "it": "Naj živi vuol dire viva. Naj spi vorrebbe dire: che dorma." },
-          "reply": { "sl": "Naj spi? Nocoj nihče ne bo spal!", "en": "May it sleep? Nobody's sleeping tonight!", "de": "Schlafen? Heute Nacht schläft keiner!", "it": "Che dorma? Stanotte non dorme nessuno!" } }
+          "reply": { "face": "laugh", "sl": "Naj spi? Nocoj nihče ne bo spal!", "en": "May it sleep? Nobody's sleeping tonight!", "de": "Schlafen? Heute Nacht schläft keiner!", "it": "Che dorma? Stanotte non dorme nessuno!" } }
       ] },
-      { "who": "micka", "sl": "Potem pa še valček! Na veselici se pleše do polnoči.", "en": "And then a waltz! At a village party people dance until midnight.", "de": "Und dann noch ein Walzer! Beim Dorffest wird bis Mitternacht getanzt.", "it": "E poi un valzer! Alla festa del paese si balla fino a mezzanotte." }
+      { "who": "micka", "face": "happy", "sl": "Potem pa še valček! Na veselici se pleše do polnoči.", "en": "And then a waltz! At a village party people dance until midnight.", "de": "Und dann noch ein Walzer! Beim Dorffest wird bis Mitternacht getanzt.", "it": "E poi un valzer! Alla festa del paese si balla fino a mezzanotte." }
     ] }
   }
 }

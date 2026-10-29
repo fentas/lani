@@ -23,63 +23,63 @@
   "words": ["medenjak", "kupiti"],
   "levels": {
     "A1": { "lines": [
-      { "who": "marko", "sl": "Danes je prvi semenj na našem trgu!", "en": "Today is the first fair on our square!", "de": "Heute ist der erste Jahrmarkt auf unserem Platz!", "it": "Oggi c'è la prima fiera nella nostra piazza!" },
+      { "who": "marko", "face": "happy", "sl": "Danes je prvi semenj na našem trgu!", "en": "Today is the first fair on our square!", "de": "Heute ist der erste Jahrmarkt auf unserem Platz!", "it": "Oggi c'è la prima fiera nella nostra piazza!" },
       { "who": "ancka", "sl": "Poglej stojnice: medenjaki, mandolat, piščalke …", "en": "Look at the stalls: honey biscuits, almond nougat, whistles …", "de": "Schau dir die Stände an: Honigkuchen, Mandelnougat, Pfeifen …", "it": "Guarda le bancarelle: biscotti al miele, mandorlato, fischietti …" },
       { "who": "zala", "sl": "{learner}, kaj kupiš?", "en": "{learner}, what will you buy?", "de": "{learner}, was kaufst du?", "it": "{learner}, che cosa compri?" },
       { "choices": [
         { "sl": "Kupim medenjake.", "en": "I'll buy honey biscuits.", "de": "Ich kaufe Honigkuchen.", "it": "Compro dei biscotti al miele.", "ok": true,
-          "reply": { "sl": "Mmm, sladki so!", "en": "Mmm, they're sweet!", "de": "Mmm, die sind süß!", "it": "Mmm, sono dolci!" } },
+          "reply": { "face": "happy", "sl": "Mmm, sladki so!", "en": "Mmm, they're sweet!", "de": "Mmm, die sind süß!", "it": "Mmm, sono dolci!" } },
         { "sl": "Kupim oblake.", "en": "I'll buy clouds.", "de": "Ich kaufe Wolken.", "it": "Compro delle nuvole.",
           "why": { "en": "Oblaki are clouds: nobody sells them. The sweet honey biscuits are medenjaki.", "de": "Oblaki sind Wolken: die verkauft niemand. Die süßen Honigkuchen heißen medenjaki.", "it": "Oblaki sono le nuvole: non le vende nessuno. I biscotti al miele si chiamano medenjaki." },
-          "reply": { "sl": "Oblake? Ti so na nebu, zastonj, ha ha!", "en": "Clouds? They're up in the sky, for free, ha ha!", "de": "Wolken? Die sind am Himmel, umsonst, ha ha!", "it": "Nuvole? Quelle sono in cielo, gratis, ah ah!" } }
+          "reply": { "face": "laugh", "sl": "Oblake? Ti so na nebu, zastonj, ha ha!", "en": "Clouds? They're up in the sky, for free, ha ha!", "de": "Wolken? Die sind am Himmel, umsonst, ha ha!", "it": "Nuvole? Quelle sono in cielo, gratis, ah ah!" } }
       ] },
-      { "who": "zala", "sl": "Glej, piščalke! Ali kupiš eno?", "en": "Look, whistles! Will you buy one?", "de": "Schau, Pfeifen! Kaufst du eine?", "it": "Guarda, i fischietti! Ne compri uno?" },
+      { "who": "zala", "face": "curious", "sl": "Glej, piščalke! Ali kupiš eno?", "en": "Look, whistles! Will you buy one?", "de": "Schau, Pfeifen! Kaufst du eine?", "it": "Guarda, i fischietti! Ne compri uno?" },
       { "choices": [
         { "sl": "Ja, kupim jo!", "en": "Yes, I'll buy it!", "de": "Ja, ich kaufe sie!", "it": "Sì, lo compro!", "ok": true,
-          "reply": { "sl": "Juhu! Pi-pi-pi!", "en": "Yippee! Peep-peep-peep!", "de": "Juhu! Piep-piep-piep!", "it": "Evviva! Fi-fi-fi!" } },
+          "reply": { "face": "laugh", "sl": "Juhu! Pi-pi-pi!", "en": "Yippee! Peep-peep-peep!", "de": "Juhu! Piep-piep-piep!", "it": "Evviva! Fi-fi-fi!" } },
         { "sl": "Ja, popijem jo!", "en": "Yes, I'll drink it up!", "de": "Ja, ich trinke sie aus!", "it": "Sì, lo bevo!",
           "why": { "en": "Popiti is to drink up. A whistle you buy: kupim.", "de": "Popiti heißt austrinken. Eine Pfeife kauft man: kupim.", "it": "Popiti vuol dire bere tutto. Un fischietto si compra: kupim." },
-          "reply": { "sl": "Popiješ? Piščalke se ne pije, ha ha!", "en": "Drink it? You don't drink a whistle, ha ha!", "de": "Austrinken? Eine Pfeife trinkt man doch nicht, ha ha!", "it": "Berlo? Un fischietto non si beve, ah ah!" } }
+          "reply": { "face": "laugh", "sl": "Popiješ? Piščalke se ne pije, ha ha!", "en": "Drink it? You don't drink a whistle, ha ha!", "de": "Austrinken? Eine Pfeife trinkt man doch nicht, ha ha!", "it": "Berlo? Un fischietto non si beve, ah ah!" } }
       ] },
-      { "who": "marko", "sl": "Prvi semenj je uspel! Dvignimo kozarce!", "en": "The first fair is a success! Let's raise our glasses!", "de": "Der erste Jahrmarkt ist gelungen! Erheben wir die Gläser!", "it": "La prima fiera è riuscita! Alziamo i bicchieri!" },
+      { "who": "marko", "face": "proud", "sl": "Prvi semenj je uspel! Dvignimo kozarce!", "en": "The first fair is a success! Let's raise our glasses!", "de": "Der erste Jahrmarkt ist gelungen! Erheben wir die Gläser!", "it": "La prima fiera è riuscita! Alziamo i bicchieri!" },
       { "choices": [
         { "sl": "Na zdravje!", "en": "Cheers!", "de": "Prost!", "it": "Salute!", "ok": true,
-          "reply": { "sl": "Na zdravje! Naj živi naš trg!", "en": "Cheers! Long live our market town!", "de": "Prost! Hoch lebe unser Marktflecken!", "it": "Salute! Viva il nostro borgo!" } },
+          "reply": { "face": "laugh", "sl": "Na zdravje! Naj živi naš trg!", "en": "Cheers! Long live our market town!", "de": "Prost! Hoch lebe unser Marktflecken!", "it": "Salute! Viva il nostro borgo!" } },
         { "sl": "Dober tek!", "en": "Enjoy your meal!", "de": "Guten Appetit!", "it": "Buon appetito!",
           "why": { "en": "Dober tek is said before a meal. Raising a glass, you say: na zdravje.", "de": "Dober tek sagt man vor dem Essen. Mit erhobenem Glas sagt man: na zdravje.", "it": "Dober tek si dice prima di mangiare. Alzando il bicchiere si dice: na zdravje." },
-          "reply": { "sl": "Dober tek? Saj ne jemo, pijemo!", "en": "Enjoy your meal? We're not eating, we're drinking!", "de": "Guten Appetit? Wir essen doch nicht, wir trinken!", "it": "Buon appetito? Non mangiamo, beviamo!" } }
+          "reply": { "face": "surprised", "sl": "Dober tek? Saj ne jemo, pijemo!", "en": "Enjoy your meal? We're not eating, we're drinking!", "de": "Guten Appetit? Wir essen doch nicht, wir trinken!", "it": "Buon appetito? Non mangiamo, beviamo!" } }
       ] },
-      { "who": "zala", "sl": "To je najlepši dan v letu!", "en": "This is the best day of the year!", "de": "Das ist der schönste Tag im Jahr!", "it": "È il giorno più bello dell'anno!" }
+      { "who": "zala", "face": "happy", "sl": "To je najlepši dan v letu!", "en": "This is the best day of the year!", "de": "Das ist der schönste Tag im Jahr!", "it": "È il giorno più bello dell'anno!" }
     ] },
     "A2": { "lines": [
-      { "who": "marko", "sl": "{m:Dobrodošel|f:Dobrodošla} na našem prvem semnju, {learner}! Zdaj je naš kraj pravi trg.", "en": "Welcome to our first fair, {learner}! Now our place is a proper market town.", "de": "Willkommen auf unserem ersten Jahrmarkt, {learner}! Jetzt ist unser Ort ein richtiger Marktflecken.", "it": "{m:Benvenuto|f:Benvenuta} alla nostra prima fiera, {learner}! Adesso il nostro paese è un vero borgo con mercato." },
+      { "who": "marko", "face": "proud", "sl": "{m:Dobrodošel|f:Dobrodošla} na našem prvem semnju, {learner}! Zdaj je naš kraj pravi trg.", "en": "Welcome to our first fair, {learner}! Now our place is a proper market town.", "de": "Willkommen auf unserem ersten Jahrmarkt, {learner}! Jetzt ist unser Ort ein richtiger Marktflecken.", "it": "{m:Benvenuto|f:Benvenuta} alla nostra prima fiera, {learner}! Adesso il nostro paese è un vero borgo con mercato." },
       { "who": "ancka", "sl": "Krošnjarji so prišli od daleč. Iz Ribnice so prinesli suho robo.", "en": "Pedlars have come from far away. They've brought wooden ware from Ribnica.", "de": "Hausierer sind von weit her gekommen. Aus Ribnica haben sie Holzwaren mitgebracht.", "it": "I venditori ambulanti sono venuti da lontano. Da Ribnica hanno portato oggetti di legno." },
       { "who": "micka", "sl": "Za otroke pečem medenjake. Koliko jih boš vzel{m:|f:a}, {learner}?", "en": "I bake honey biscuits for the children. How many will you take, {learner}?", "de": "Für die Kinder backe ich Honigkuchen. Wie viele nimmst du, {learner}?", "it": "Per i bambini faccio i biscotti al miele. Quanti ne prendi, {learner}?" },
       { "choices": [
         { "sl": "Tri medenjake, prosim.", "en": "Three honey biscuits, please.", "de": "Drei Honigkuchen, bitte.", "it": "Tre biscotti al miele, per favore.", "ok": true,
-          "reply": { "sl": "Izvoli, tri, še topli!", "en": "Here you are, three, still warm!", "de": "Bitte sehr, drei, noch warm!", "it": "Ecco, tre, ancora caldi!" } },
+          "reply": { "face": "happy", "sl": "Izvoli, tri, še topli!", "en": "Here you are, three, still warm!", "de": "Bitte sehr, drei, noch warm!", "it": "Ecco, tre, ancora caldi!" } },
         { "sl": "Tri medenjaka, prosim.", "en": "Three honey biscuits, please.", "de": "Drei Honigkuchen, bitte.", "it": "Tre biscotti al miele, per favore.", "grammar": "stevila-samostalniki",
           "why": { "en": "After tri the noun is plural: tri medenjake. The ending -a is for two: dva medenjaka.", "de": "Nach tri steht das Nomen im Plural: tri medenjake. Die Endung -a ist für zwei: dva medenjaka.", "it": "Dopo tri il nome è al plurale: tri medenjake. La desinenza -a è per due: dva medenjaka." },
-          "reply": { "sl": "Tri … kako, prosim?", "en": "Three … what was that?", "de": "Drei … wie bitte?", "it": "Tre … come, scusa?" } }
+          "reply": { "face": "confused", "sl": "Tri … kako, prosim?", "en": "Three … what was that?", "de": "Drei … wie bitte?", "it": "Tre … come, scusa?" } }
       ] },
-      { "who": "marko", "sl": "To je moj zadnji kos mandolata iz Gorice. Ali ga vzameš?", "en": "This is my last piece of almond nougat from Gorizia. Will you take it?", "de": "Das ist mein letztes Stück Mandelnougat aus Görz. Nimmst du es?", "it": "Questo è il mio ultimo pezzo di mandorlato di Gorizia. Lo prendi?" },
+      { "who": "marko", "face": "curious", "sl": "To je moj zadnji kos mandolata iz Gorice. Ali ga vzameš?", "en": "This is my last piece of almond nougat from Gorizia. Will you take it?", "de": "Das ist mein letztes Stück Mandelnougat aus Görz. Nimmst du es?", "it": "Questo è il mio ultimo pezzo di mandorlato di Gorizia. Lo prendi?" },
       { "choices": [
         { "sl": "Ja, kupim ga!", "en": "Yes, I'll buy it!", "de": "Ja, ich kaufe es!", "it": "Sì, lo compro!", "ok": true,
-          "reply": { "sl": "Izvoli! Sladek je kot med.", "en": "Here you are! It's as sweet as honey.", "de": "Bitte sehr! Es ist süß wie Honig.", "it": "Ecco! È dolce come il miele." } },
+          "reply": { "face": "happy", "sl": "Izvoli! Sladek je kot med.", "en": "Here you are! It's as sweet as honey.", "de": "Bitte sehr! Es ist süß wie Honig.", "it": "Ecco! È dolce come il miele." } },
         { "sl": "Ja, prodam ga!", "en": "Yes, I'll sell it!", "de": "Ja, ich verkaufe es!", "it": "Sì, lo vendo!",
           "why": { "en": "Prodati is to sell: Marko sells, you buy: kupim.", "de": "Prodati heißt verkaufen: Marko verkauft, du kaufst: kupim.", "it": "Prodati vuol dire vendere: Marko vende, tu compri: kupim." },
-          "reply": { "sl": "Prodaš? Saj je moje, ha ha!", "en": "You'll sell it? But it's mine, ha ha!", "de": "Du verkaufst es? Es gehört doch mir, ha ha!", "it": "Lo vendi? Ma è mio, ah ah!" } }
+          "reply": { "face": "laugh", "sl": "Prodaš? Saj je moje, ha ha!", "en": "You'll sell it? But it's mine, ha ha!", "de": "Du verkaufst es? Es gehört doch mir, ha ha!", "it": "Lo vendi? Ma è mio, ah ah!" } }
       ] },
-      { "who": "tine", "sl": "Glej, {learner}! Piščalke! Pojdiva jih poskusit!", "en": "Look, {learner}! Whistles! Let's go and try them!", "de": "Schau, {learner}! Pfeifen! Gehen wir sie ausprobieren!", "it": "Guarda, {learner}! I fischietti! Andiamo a provarli!" },
-      { "who": "marko", "sl": "Semenj je uspel. Dvignimo kozarce: na naš trg!", "en": "The fair is a success. Let's raise our glasses: to our market town!", "de": "Der Jahrmarkt ist gelungen. Erheben wir die Gläser: auf unseren Marktflecken!", "it": "La fiera è riuscita. Alziamo i bicchieri: al nostro borgo!" },
+      { "who": "tine", "face": "happy", "sl": "Glej, {learner}! Piščalke! Pojdiva jih poskusit!", "en": "Look, {learner}! Whistles! Let's go and try them!", "de": "Schau, {learner}! Pfeifen! Gehen wir sie ausprobieren!", "it": "Guarda, {learner}! I fischietti! Andiamo a provarli!" },
+      { "who": "marko", "face": "proud", "sl": "Semenj je uspel. Dvignimo kozarce: na naš trg!", "en": "The fair is a success. Let's raise our glasses: to our market town!", "de": "Der Jahrmarkt ist gelungen. Erheben wir die Gläser: auf unseren Marktflecken!", "it": "La fiera è riuscita. Alziamo i bicchieri: al nostro borgo!" },
       { "choices": [
         { "sl": "Na zdravje! Naj živi trg!", "en": "Cheers! Long live the market town!", "de": "Prost! Hoch lebe der Marktflecken!", "it": "Salute! Viva il borgo!", "ok": true,
-          "reply": { "sl": "Naj živi! In še mnogo semnjev!", "en": "Long may it live! And many more fairs!", "de": "Hoch soll er leben! Und noch viele Jahrmärkte!", "it": "Viva! E tante altre fiere!" } },
+          "reply": { "face": "laugh", "sl": "Naj živi! In še mnogo semnjev!", "en": "Long may it live! And many more fairs!", "de": "Hoch soll er leben! Und noch viele Jahrmärkte!", "it": "Viva! E tante altre fiere!" } },
         { "sl": "Na zdravje! Naj živi kokoš!", "en": "Cheers! Long live the hen!", "de": "Prost! Hoch lebe die Henne!", "it": "Salute! Viva la gallina!",
           "why": { "en": "Kokoš is a hen. We drink to the market town: naj živi trg!", "de": "Kokoš ist eine Henne. Wir stoßen auf den Marktflecken an: naj živi trg!", "it": "Kokoš è una gallina. Brindiamo al borgo: naj živi trg!" },
-          "reply": { "sl": "Kokoš? Ha ha, ta je doma v kurniku!", "en": "The hen? Ha ha, she's at home in the henhouse!", "de": "Die Henne? Ha ha, die ist daheim im Hühnerstall!", "it": "La gallina? Ah ah, è a casa nel pollaio!" } }
+          "reply": { "face": "laugh", "sl": "Kokoš? Ha ha, ta je doma v kurniku!", "en": "The hen? Ha ha, she's at home in the henhouse!", "de": "Die Henne? Ha ha, die ist daheim im Hühnerstall!", "it": "La gallina? Ah ah, è a casa nel pollaio!" } }
       ] },
-      { "who": "zala", "sl": "To je najlepši dan v letu!", "en": "This is the best day of the year!", "de": "Das ist der schönste Tag im Jahr!", "it": "È il giorno più bello dell'anno!" }
+      { "who": "zala", "face": "happy", "sl": "To je najlepši dan v letu!", "en": "This is the best day of the year!", "de": "Das ist der schönste Tag im Jahr!", "it": "È il giorno più bello dell'anno!" }
     ] }
   }
 }

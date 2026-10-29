@@ -23,65 +23,65 @@
   "words": ["trak", "smrecica"],
   "levels": {
     "A1": { "lines": [
-      { "who": "france", "sl": "Ostrešje stoji! Danes je likof.", "en": "The roof frame is up! Today is the likof.", "de": "Der Dachstuhl steht! Heute ist Likof.", "it": "La travatura del tetto è su! Oggi è il likof." },
+      { "who": "france", "face": "proud", "sl": "Ostrešje stoji! Danes je likof.", "en": "The roof frame is up! Today is the likof.", "de": "Der Dachstuhl steht! Heute ist Likof.", "it": "La travatura del tetto è su! Oggi è il likof." },
       { "who": "luka", "sl": "Na sleme postavimo smrečico. Prej jo moramo okrasiti. {learner}, kaj potrebujemo?", "en": "We put a little spruce on the ridge. First we have to decorate it. {learner}, what do we need?", "de": "Wir setzen eine kleine Fichte auf den First. Vorher müssen wir sie schmücken. {learner}, was brauchen wir?", "it": "Sul colmo mettiamo un abetino. Prima dobbiamo decorarlo. {learner}, che cosa ci serve?" },
       { "choices": [
         { "sl": "Potrebujemo trakove.", "en": "We need ribbons.", "de": "Wir brauchen Bänder.", "it": "Ci servono dei nastri.", "ok": true,
-          "reply": { "sl": "Ja! Rdeče, bele in modre!", "en": "Yes! Red, white and blue ones!", "de": "Ja! Rote, weiße und blaue!", "it": "Sì! Rossi, bianchi e blu!" } },
+          "reply": { "face": "happy", "sl": "Ja! Rdeče, bele in modre!", "en": "Yes! Red, white and blue ones!", "de": "Ja! Rote, weiße und blaue!", "it": "Sì! Rossi, bianchi e blu!" } },
         { "sl": "Potrebujemo krompir.", "en": "We need potatoes.", "de": "Wir brauchen Kartoffeln.", "it": "Ci servono delle patate.",
           "why": { "en": "Krompir is potatoes. To decorate the little spruce you need ribbons: trakovi.", "de": "Krompir sind Kartoffeln. Um die kleine Fichte zu schmücken, braucht man Bänder: trakovi.", "it": "Krompir sono le patate. Per decorare l'abetino ci vogliono i nastri: trakovi." },
-          "reply": { "sl": "Krompir? Ta je za kosilo, ne za smrečico!", "en": "Potatoes? They're for lunch, not for the spruce!", "de": "Kartoffeln? Die sind fürs Mittagessen, nicht für die Fichte!", "it": "Patate? Quelle sono per il pranzo, non per l'abetino!" } },
+          "reply": { "face": "laugh", "sl": "Krompir? Ta je za kosilo, ne za smrečico!", "en": "Potatoes? They're for lunch, not for the spruce!", "de": "Kartoffeln? Die sind fürs Mittagessen, nicht für die Fichte!", "it": "Patate? Quelle sono per il pranzo, non per l'abetino!" } },
         { "sl": "Potrebujemo kamne.", "en": "We need stones.", "de": "Wir brauchen Steine.", "it": "Ci servono delle pietre.",
           "why": { "en": "Kamni are stones. To decorate the little spruce you need ribbons: trakovi.", "de": "Kamni sind Steine. Um die kleine Fichte zu schmücken, braucht man Bänder: trakovi.", "it": "Kamni sono le pietre. Per decorare l'abetino ci vogliono i nastri: trakovi." },
-          "reply": { "sl": "Kamne? Ti so že v zidu!", "en": "Stones? They're already in the wall!", "de": "Steine? Die sind schon in der Mauer!", "it": "Pietre? Quelle sono già nel muro!" } }
+          "reply": { "face": "confused", "sl": "Kamne? Ti so že v zidu!", "en": "Stones? They're already in the wall!", "de": "Steine? Die sind schon in der Mauer!", "it": "Pietre? Quelle sono già nel muro!" } }
       ] },
       { "who": "france", "sl": "Lepo! Zdaj jo nesimo gor po lestvi.", "en": "Nice! Now let's carry it up the ladder.", "de": "Schön! Jetzt tragen wir sie die Leiter hinauf.", "it": "Bene! Ora portiamolo su per la scala." },
-      { "who": "tine", "sl": "Glej, {learner}! Kaj je zdaj na strehi?", "en": "Look, {learner}! What's on the roof now?", "de": "Schau, {learner}! Was ist jetzt auf dem Dach?", "it": "Guarda, {learner}! Che cosa c'è adesso sul tetto?" },
+      { "who": "tine", "face": "curious", "sl": "Glej, {learner}! Kaj je zdaj na strehi?", "en": "Look, {learner}! What's on the roof now?", "de": "Schau, {learner}! Was ist jetzt auf dem Dach?", "it": "Guarda, {learner}! Che cosa c'è adesso sul tetto?" },
       { "choices": [
         { "sl": "Na strehi je smrečica.", "en": "The little spruce is on the roof.", "de": "Auf dem Dach ist die kleine Fichte.", "it": "Sul tetto c'è l'abetino.", "ok": true,
-          "reply": { "sl": "Ja! In trakovi plapolajo v vetru.", "en": "Yes! And the ribbons are fluttering in the wind.", "de": "Ja! Und die Bänder flattern im Wind.", "it": "Sì! E i nastri sventolano nel vento." } },
+          "reply": { "face": "happy", "sl": "Ja! In trakovi plapolajo v vetru.", "en": "Yes! And the ribbons are fluttering in the wind.", "de": "Ja! Und die Bänder flattern im Wind.", "it": "Sì! E i nastri sventolano nel vento." } },
         { "sl": "Na strehi je mačka.", "en": "The cat is on the roof.", "de": "Auf dem Dach ist die Katze.", "it": "Sul tetto c'è il gatto.",
           "why": { "en": "Mačka is a cat. What stands on the roof is the little spruce: smrečica.", "de": "Mačka ist eine Katze. Auf dem Dach steht die kleine Fichte: smrečica.", "it": "Mačka è un gatto. Sul tetto c'è l'abetino: smrečica." },
-          "reply": { "sl": "Mačka? Ha ha, mačka spi pri peči!", "en": "The cat? Ha ha, the cat is asleep by the stove!", "de": "Die Katze? Ha ha, die Katze schläft am Ofen!", "it": "Il gatto? Ah ah, il gatto dorme vicino alla stufa!" } }
+          "reply": { "face": "laugh", "sl": "Mačka? Ha ha, mačka spi pri peči!", "en": "The cat? Ha ha, the cat is asleep by the stove!", "de": "Die Katze? Ha ha, die Katze schläft am Ofen!", "it": "Il gatto? Ah ah, il gatto dorme vicino alla stufa!" } }
       ] },
       { "who": "france", "sl": "Zdaj pa nazdravimo! Na zdravje vsem, ki so gradili!", "en": "Now let's drink a toast! Cheers to everyone who built it!", "de": "Jetzt stoßen wir an! Auf alle, die gebaut haben!", "it": "E adesso brindiamo! Salute a tutti quelli che hanno costruito!" },
       { "choices": [
         { "sl": "Na zdravje!", "en": "Cheers!", "de": "Prost!", "it": "Salute!", "ok": true,
-          "reply": { "sl": "Na zdravje! Naj streha dolgo drži!", "en": "Cheers! May the roof last a long time!", "de": "Prost! Möge das Dach lange halten!", "it": "Salute! Che il tetto duri a lungo!" } },
+          "reply": { "face": "happy", "sl": "Na zdravje! Naj streha dolgo drži!", "en": "Cheers! May the roof last a long time!", "de": "Prost! Möge das Dach lange halten!", "it": "Salute! Che il tetto duri a lungo!" } },
         { "sl": "Dober dan!", "en": "Good day!", "de": "Guten Tag!", "it": "Buongiorno!",
           "why": { "en": "Dober dan is a greeting. Answering a toast, you say: na zdravje.", "de": "Dober dan ist ein Gruß. Auf einen Trinkspruch antwortet man: na zdravje.", "it": "Dober dan è un saluto. A un brindisi si risponde: na zdravje." },
-          "reply": { "sl": "Dober dan? Saj smo že ves dan skupaj, ha ha!", "en": "Good day? We've been together all day, ha ha!", "de": "Guten Tag? Wir sind doch schon den ganzen Tag zusammen, ha ha!", "it": "Buongiorno? Ma siamo insieme da tutto il giorno, ah ah!" } }
+          "reply": { "face": "laugh", "sl": "Dober dan? Saj smo že ves dan skupaj, ha ha!", "en": "Good day? We've been together all day, ha ha!", "de": "Guten Tag? Wir sind doch schon den ganzen Tag zusammen, ha ha!", "it": "Buongiorno? Ma siamo insieme da tutto il giorno, ah ah!" } }
       ] },
-      { "who": "micka", "sl": "Mize so polne. Izvolite, jejte in pijte!", "en": "The tables are full. Help yourselves, eat and drink!", "de": "Die Tische sind voll. Bitte, esst und trinkt!", "it": "Le tavole sono piene. Prego, mangiate e bevete!" }
+      { "who": "micka", "face": "happy", "sl": "Mize so polne. Izvolite, jejte in pijte!", "en": "The tables are full. Help yourselves, eat and drink!", "de": "Die Tische sind voll. Bitte, esst und trinkt!", "it": "Le tavole sono piene. Prego, mangiate e bevete!" }
     ] },
     "A2": { "lines": [
-      { "who": "france", "sl": "{learner}, poglej! Ostrešje stoji, hiša je pod streho. To pomeni likof!", "en": "{learner}, look! The roof frame stands, the house has its roof. That means a likof!", "de": "{learner}, schau! Der Dachstuhl steht, das Haus ist unter Dach. Das heißt Likof!", "it": "{learner}, guarda! La travatura è in piedi, la casa ha il suo tetto. Vuol dire likof!" },
+      { "who": "france", "face": "proud", "sl": "{learner}, poglej! Ostrešje stoji, hiša je pod streho. To pomeni likof!", "en": "{learner}, look! The roof frame stands, the house has its roof. That means a likof!", "de": "{learner}, schau! Der Dachstuhl steht, das Haus ist unter Dach. Das heißt Likof!", "it": "{learner}, guarda! La travatura è in piedi, la casa ha il suo tetto. Vuol dire likof!" },
       { "who": "ancka", "sl": "Na sleme postavimo smrečico, da bo hiša srečna.", "en": "We put a little spruce on the ridge, so the house will be lucky.", "de": "Wir setzen eine kleine Fichte auf den First, damit das Haus Glück hat.", "it": "Sul colmo mettiamo un abetino, perché la casa porti fortuna." },
       { "who": "luka", "sl": "Ampak je še čisto gola. Kaj ji privežemo na veje?", "en": "But it's still quite bare. What shall we tie to its branches?", "de": "Aber sie ist noch ganz kahl. Was binden wir an ihre Zweige?", "it": "Ma è ancora tutto spoglio. Che cosa leghiamo ai suoi rami?" },
       { "choices": [
         { "sl": "Privežimo ji pisane trakove!", "en": "Let's tie colourful ribbons to it!", "de": "Binden wir bunte Bänder daran!", "it": "Leghiamogli dei nastri colorati!", "ok": true,
-          "reply": { "sl": "Prav imaš! Zdaj plapolajo v vetru.", "en": "You're right! Now they're fluttering in the wind.", "de": "Du hast recht! Jetzt flattern sie im Wind.", "it": "Hai ragione! Adesso sventolano nel vento." } },
+          "reply": { "face": "happy", "sl": "Prav imaš! Zdaj plapolajo v vetru.", "en": "You're right! Now they're fluttering in the wind.", "de": "Du hast recht! Jetzt flattern sie im Wind.", "it": "Hai ragione! Adesso sventolano nel vento." } },
         { "sl": "Privežimo ji pisane copate!", "en": "Let's tie colourful slippers to it!", "de": "Binden wir bunte Hausschuhe daran!", "it": "Leghiamogli delle pantofole colorate!",
           "why": { "en": "Copati are slippers. On the likof's spruce you tie ribbons: trakovi.", "de": "Copati sind Hausschuhe. An die Likof-Fichte bindet man Bänder: trakovi.", "it": "Copati sono le pantofole. All'abetino del likof si legano i nastri: trakovi." },
-          "reply": { "sl": "Copate? Ha ha, smrečica ne bo hodila!", "en": "Slippers? Ha ha, the spruce isn't going anywhere on foot!", "de": "Hausschuhe? Ha ha, die Fichte geht doch nicht spazieren!", "it": "Pantofole? Ah ah, l'abetino non va mica a passeggio!" } }
+          "reply": { "face": "laugh", "sl": "Copate? Ha ha, smrečica ne bo hodila!", "en": "Slippers? Ha ha, the spruce isn't going anywhere on foot!", "de": "Hausschuhe? Ha ha, die Fichte geht doch nicht spazieren!", "it": "Pantofole? Ah ah, l'abetino non va mica a passeggio!" } }
       ] },
       { "who": "france", "sl": "Tesarji gremo gor. Kdo nam poda smrečico?", "en": "We carpenters are going up. Who'll hand us the little spruce?", "de": "Wir Zimmerleute gehen hinauf. Wer reicht uns die kleine Fichte?", "it": "Noi carpentieri saliamo. Chi ci passa l'abetino?" },
       { "choices": [
         { "sl": "Jaz! Izvolite, tu je smrečica.", "en": "Me! Here you are, here's the little spruce.", "de": "Ich! Bitte sehr, hier ist die kleine Fichte.", "it": "Io! Ecco, ecco l'abetino.", "ok": true,
-          "reply": { "sl": "Hvala! Zdaj jo pritrdimo na sleme.", "en": "Thanks! Now we fix it to the ridge.", "de": "Danke! Jetzt befestigen wir sie am First.", "it": "Grazie! Adesso lo fissiamo al colmo." } },
+          "reply": { "face": "happy", "sl": "Hvala! Zdaj jo pritrdimo na sleme.", "en": "Thanks! Now we fix it to the ridge.", "de": "Danke! Jetzt befestigen wir sie am First.", "it": "Grazie! Adesso lo fissiamo al colmo." } },
         { "sl": "Jaz! Izvolite, tu je žlica.", "en": "Me! Here you are, here's a spoon.", "de": "Ich! Bitte sehr, hier ist ein Löffel.", "it": "Io! Ecco, ecco un cucchiaio.",
           "why": { "en": "Žlica is a spoon. The tree for the roof is the little spruce: smrečica.", "de": "Žlica ist ein Löffel. Der Baum für das Dach ist die kleine Fichte: smrečica.", "it": "Žlica è un cucchiaio. L'albero per il tetto è l'abetino: smrečica." },
-          "reply": { "sl": "Žlica? Z njo bomo jedli potem!", "en": "A spoon? We'll eat with it later!", "de": "Ein Löffel? Damit essen wir später!", "it": "Un cucchiaio? Con quello mangiamo dopo!" } }
+          "reply": { "face": "laugh", "sl": "Žlica? Z njo bomo jedli potem!", "en": "A spoon? We'll eat with it later!", "de": "Ein Löffel? Damit essen wir später!", "it": "Un cucchiaio? Con quello mangiamo dopo!" } }
       ] },
-      { "who": "france", "sl": "Bog živi gospodarja in vse, ki so pomagali!", "en": "Long live the owner and everyone who helped!", "de": "Hoch lebe der Bauherr und alle, die geholfen haben!", "it": "Viva il padrone di casa e tutti quelli che hanno aiutato!" },
+      { "who": "france", "face": "happy", "sl": "Bog živi gospodarja in vse, ki so pomagali!", "en": "Long live the owner and everyone who helped!", "de": "Hoch lebe der Bauherr und alle, die geholfen haben!", "it": "Viva il padrone di casa e tutti quelli che hanno aiutato!" },
       { "choices": [
         { "sl": "Na zdravje in srečno v novi hiši!", "en": "Cheers, and good luck in the new house!", "de": "Prost, und viel Glück im neuen Haus!", "it": "Salute, e buona fortuna nella casa nuova!", "ok": true,
-          "reply": { "sl": "Na zdravje! Lepo si {m:rekel|f:rekla}.", "en": "Cheers! Well said.", "de": "Prost! Schön gesagt.", "it": "Salute! Ben detto." } },
+          "reply": { "face": "happy", "sl": "Na zdravje! Lepo si {m:rekel|f:rekla}.", "en": "Cheers! Well said.", "de": "Prost! Schön gesagt.", "it": "Salute! Ben detto." } },
         { "sl": "Na zdravje in srečno pot!", "en": "Cheers, and have a good trip!", "de": "Prost, und gute Reise!", "it": "Salute, e buon viaggio!",
           "why": { "en": "Srečno pot is said to someone leaving on a journey. For a new house: srečno v novi hiši.", "de": "Srečno pot sagt man jemandem, der verreist. Für ein neues Haus: srečno v novi hiši.", "it": "Srečno pot si dice a chi parte per un viaggio. Per una casa nuova: srečno v novi hiši." },
-          "reply": { "sl": "Pot? Saj nihče ne gre nikamor, ha ha!", "en": "A trip? Nobody's going anywhere, ha ha!", "de": "Eine Reise? Es geht doch niemand weg, ha ha!", "it": "Un viaggio? Ma nessuno va da nessuna parte, ah ah!" } }
+          "reply": { "face": "laugh", "sl": "Pot? Saj nihče ne gre nikamor, ha ha!", "en": "A trip? Nobody's going anywhere, ha ha!", "de": "Eine Reise? Es geht doch niemand weg, ha ha!", "it": "Un viaggio? Ma nessuno va da nessuna parte, ah ah!" } }
       ] },
-      { "who": "micka", "sl": "Zdaj pa vsi k mizi! Na likofu se je, pije in poje.", "en": "Now everyone to the table! At a likof people eat, drink and sing.", "de": "Und jetzt alle zu Tisch! Beim Likof wird gegessen, getrunken und gesungen.", "it": "E adesso tutti a tavola! Al likof si mangia, si beve e si canta." }
+      { "who": "micka", "face": "happy", "sl": "Zdaj pa vsi k mizi! Na likofu se je, pije in poje.", "en": "Now everyone to the table! At a likof people eat, drink and sing.", "de": "Und jetzt alle zu Tisch! Beim Likof wird gegessen, getrunken und gesungen.", "it": "E adesso tutti a tavola! Al likof si mangia, si beve e si canta." }
     ] }
   }
 }
