@@ -101,6 +101,8 @@ export default async function cases() {
   const payload = casesPayload(casesDone.parse(body), { session_id: 'session-x', date: '2026-10-29' })
   check('… as grammar practice (the chosen ones) and writing (the typed one), the rules its topics, the weakest case next', JSON.stringify(payload.skill_scores) === JSON.stringify({ grammar: { exercises: 3, correct: 1, time_minutes: 3 }, writing: { exercises: 1, correct: 0, time_minutes: 1 } }) && payload.topics_covered.includes('rodilnik-nikalnica') && payload.focus_next_session?.[0]?.includes('genitive') === true, payload)
   check("… its note says what went wrong and the deciding word's taps", /1\/4 right, 1 almost/.test(casesNote(casesDone.parse(body))) && /tapped right 2\/3/.test(casesNote(casesDone.parse(body))), casesNote(casesDone.parse(body)))
+  const storm = casesNote(casesDone.parse({ ...body, storm: true, focus: undefined }))
+  check('… a case storm says so (sorted against the clock)', /^Played a case storm/.test(storm) && /right/.test(storm), storm)
   const read = (f: string) => JSON.parse(readFileSync(join(dataDir, f), 'utf8'))
   const mistakesBefore = read('mistakes-db.json').error_patterns ?? {}
   const sessionsBefore = (read('session-log.json').sessions ?? []).length

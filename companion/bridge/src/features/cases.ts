@@ -19,7 +19,8 @@ picks its case by the school's question words (1. kdo? kaj? 2. koga? česa? 3. k
 čem? 6. s kom? s čim?), then "Zakaj? · Why?": taps the word that decides it (brez, iz, k, v + a verb of motion, ni,
 nimam, pet, kozarec, pomagati …) or says nothing decides it (the subject, the object); then the rule's line and its
 grammar page. "Kje ali kam?": v/na + the locative or the accusative (sem v šoli, grem v šolo), pri or k, v or na, od
-kod, over the village's places (its scene's picture above it). "Sklanjaj! · Decline it": the learner's own nouns (their
+kod, over the village's places (its scene's picture above it). "⚡ Sklonski vihar · Case storm": short phrases sorted into
+the six cases against the clock (60 s), a medal at the end. "Sklanjaj! · Decline it": the learner's own nouns (their
 cards with forms) and the bank's adjectives and possessives typed into a frame with a known trigger ("Ni ___ (miza)",
 "Grem k ___ (moj brat)"), graded as any typed answer (č, š, ž forgotten is almost, a wrong ending wrong; a spoken form is
 right). Items are picked towards the weak cases and rules (the learner's mistakes count from the start); a missed item
@@ -36,7 +37,10 @@ Home and the trainer offer it until it is played; focus null takes it back. publ
 format (lani.cases/v0: a sentence, the word's token, lemma, case, number, the rule's key, the trigger's token or the role,
 en, de and it), checked as the bank is (each form against the dictionary, the trigger against its rule, the pages):
 add sentences of a topic Jan meets (their words, their village) or to cover a rule thin in the bank; ids of yours,
-not the bank's. Machine-written: the native check marks spoken forms; never call a spoken form wrong.
+not the bank's. An item Jan reports wrong (about_exercise.source kind cases: its item, by tutor when yours): yours,
+publish it again fixed or remove_case_item; the bank's, a note for the developer (the lani-fix skill); a decline's
+form is the dictionary's (card.py show). Machine-written: the native check marks spoken forms;
+never call a spoken form wrong.
 `.trim()
 
 /** A session as the app reports it (data/CaseTrainer.kt wire): its answers, the errors ready for update-db.py, the mastery after. */
@@ -75,6 +79,8 @@ export const casesDone = z.object({
   rules: masteryIn.optional(),
   language: z.string().regex(/^[a-z]{2}$/).optional(),
   machine_written: z.boolean().optional(),
+  /** "⚡ Sklonski vihar · Case storm": phrases sorted into the six cases against the clock, nothing more asked. */
+  storm: z.boolean().optional(),
 })
 export type CasesDone = z.infer<typeof casesDone>
 
@@ -88,7 +94,7 @@ export function casesNote(d: CasesDone): string {
   const why = d.answers.filter(a => a.why && a.why !== 'none')
   const whyWrong = why.filter(a => a.why === 'wrong').length
   return (
-    `Practised the cases in the Lani app (🧩 Skloni · Cases${d.focus ? `, focused on ${d.focus}` : ''}): ${right}/${d.answers.length} right${almost ? `, ${almost} almost` : ''}` +
+    `${d.storm ? 'Played a case storm in the Lani app (⚡ Sklonski vihar, phrases sorted into the six cases against the clock)' : `Practised the cases in the Lani app (🧩 Skloni · Cases${d.focus ? `, focused on ${d.focus}` : ''})`}: ${right}/${d.answers.length} right${almost ? `, ${almost} almost` : ''}` +
     ` (${kinds.map(([k, n]) => `${n} ${names[k]}`).join(', ')})` +
     (why.length ? `; the deciding word tapped right ${why.length - whyWrong}/${why.length}` : '') +
     (wrong.length ? `. Wrong: ${wrong.join('; ')}` : '') +
