@@ -1022,8 +1022,11 @@ was said when more than once; `{scenario_id, turn, hint: true}` asks for a sugge
 brief (role, setting, goals) so the tutor stays in character, and tells it that `heard` is a recognizer's reading of a
 learner, maybe a child: a word it may have misheard is recast, never corrected (`features/scenarios.ts`, in the course's
 language). The tutor's `reply` carries
-`data: {sl, en, correction?, goals_done: [goal indices], end?}` (`sl`: the line in the course's language, whatever it
-is; `en`: its translation in the learner's base), or `{hint: true, sl, en}` for a hint.
+`data: {sl, en, correction?, goals_done: [goal indices], end?, face?}` (`sl`: the line in the course's language, whatever
+it is; `en`: its translation in the learner's base), or `{hint: true, sl, en}` for a hint. `face` is the character's face
+as they say the line, one of `happy`, `laugh`, `surprised`, `curious`, `confused`, `thinking`, `worried`, `sad`, `cross`,
+`shy`, `proud`, left out for the resting face (SCENES.md, "Faces"); the app reads it leniently, and a tutor from before
+sends none.
 `kind: roleplay_end` sends the transcript (Jan's lines with `typed`, or `takes` when said more than once); the tutor
 replies with a debrief (`data: {debrief: true}`) and persists it as a
 speaking session (lani-db-updater). The app credits the village: one wisdom entry per line,
@@ -1048,6 +1051,18 @@ as a draft. Each take is a line of the app log (tag `LaniStt`: the readings, the
 Under the debrief, "Vprašaj učitelja · Ask your tutor" sends `kind: chat` on
 `conversation_id: rp-<uuid>-debrief` with `data.about_roleplay: {scenario_id, title, conversation_id, turns,
 goals_done, goals_total, debrief}`; the tutor's answers show there as a thread, which can move on to the chat.
+
+**The person on screen** (`ui/talk/TalkStage.kt`): over the conversation a stage shows whom the learner talks with (the
+villager's sprite, or the person the scenario names: `Cast.talker`) as an animated bust on their place, with their name,
+role and friendship. They talk while their line is said, lean in with a hand at the ear while the 🎤 records, think (a
+hand at the chin, … in a thought bubble) while the tutor's answer is on its way, and wear the face of their line: the
+tutor's `face`, else the opener smiles, the last line smiles once the scene is over, and any other rests; a line's face
+holds a few seconds after it was said, then eases back. The goals, Back and "Končaj · End" stay in the bar. With the
+keyboard up, on a short screen (a phone turned, under 640 dp), with large fonts, or after a tap on it, the stage folds to
+a small live avatar in the bar; a tap on that brings it back. Each of the character's bubbles has a small still face, the
+one that line was said with, and the "typing" bubble a thinking one. TalkBack hears who and how ("Babica Micka, se
+smehlja · smiles"). The intro shows the person on their place, as before. Its tap counts are unchanged: the stage needs
+no tap (a tap folds it, one more brings it back).
 
 A talk with a villager uses the same flow with `scenario_id: villager:<id>`: the bridge builds the
 scenario for the friendship and adds `data.villager` (persona, friendship level, memories) to every

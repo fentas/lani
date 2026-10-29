@@ -88,7 +88,7 @@ published by the tutor with `publish_scene`.
 | `objects[]` | `slot` (one of the art's slots, each at most once) and `word`; `needs`: what the village must have built for the thing to be there (see [What the village has built](#what-the-village-has-built)). The bridge serves them resolved: `sl`, `en`, `emoji`, `gender`, `plural`, `example_sl`, `example_en` copied from the pack. |
 | `people[]` | `id`, `name`, `emoji`, `art` (a sprite), `slot` (one of the art's person spots), `always` (there all day, without a happening), `villager` (their id in the cast, [VILLAGERS.md](VILLAGERS.md): the friendship grows here too). |
 | `happenings[]` | `who` (a person here), `when` (`morning` 5–11, `afternoon` 11–17, `evening` 17–22, `night` 22–5, `dawn`: the morning's first two or three hours round the month's sunrise, see [What's on today](#whats-on-today); empty = all day), `weekdays` (1 = Monday … 7), `months` (1 = January … 12, the months it is on in: the hay `[6, 7, 8, 9]`; empty = all year, see [Seasons](#seasons-in-their-months)), `chance` (per day), `dialog`, `dialogs` (its variants, see [Variants](#variants-not-the-same-dialog-every-time)), `reward` (`food`, `wood`, `stone`, `wisdom`; paid once a day when the dialog is done), `marker` (emoji for the village bubble), `needs` (the earliest age, `"vas"`, or what the village must have built, as an object's), `memory` (`{sl, en}`: what the person remembers afterwards, fitting "Še vedno mislim na …"), `guests` (`true`: only a visitor from a linked town meets it, see [Dialogs for guests](#dialogs-for-guests)), `stories` (`true`: the person tells tonight's story instead of a `dialog`, see [Stories](#stories-the-evening-story)), `act` (in an art with a stage: where its people wait for the learner, as a line's stage directions say it, and its dialogs start from there: Nejc in his bed, see [Stage directions](#stage-directions-people-move-on-cue)). |
-| `dialogs[]` | `lines`: someone's line (`who`, `sl`, `en`) or the learner's turn (`choices`: 2–3, one `ok` or two where people would accept either, and at least one wrong; a right one may carry the other person's `reply`; a wrong one says `why` and carries their reaction as its `reply`, see [Reactions and more than one right answer](#reactions-and-more-than-one-right-answer); a why that is a rule names its grammar book page, `grammar`, see [A why that is a rule of the grammar book](#a-why-that-is-a-rule-of-the-grammar-book); the turn may carry a `puzzled` reaction for a wrong answer without its own, see [Adaptive turns](#adaptive-turns) and [Own traps](#own-traps)). 3–8 lines. `talk`: an optional role-play scenario to go on with the tutor. A line and a reply may carry a `sky` cue and an `fx` cue, and the dialog `sky_stays` and `fx_stays` (see [Sky cues](#sky-cues-the-weather-in-a-dialog) and [Effects](#effects-the-place-joins-in)); in an art with a stage, an `act` cue and `act_stays` (see [Stage directions](#stage-directions-people-move-on-cue)), and a turn's choices may each stand for a place in the picture, `tap` (see [Tap turns](#tap-turns-answer-by-tapping-the-scene)). `guests` (`true`): the dialog is for a guest, and so is every happening that plays it. Who can be named: anyone of the cast, but a happening whose texts name someone is on only while they're in the village and met ([What's on today](#whats-on-today)): name whom the scene is about and whom they'd be with (Micka at the market with Marko at his stall), not someone the place doesn't bring. A dialog may also say `count` (a number from the village, see [Numbers](#numbers-counting-what-the-village-has)), `memory` (what the person remembers of this variant, instead of the happening's), `months` (the months it plays in, within its happening's: a variant about the snow in winter, see [Seasons](#seasons-in-their-months)), `words` (the learner's words a tutor's variant weaves in, each the tested element of a turn, see [Your words in the dialogs](#your-words-in-the-dialogs)) and, a tutor's, `source: "tutor"`. |
+| `dialogs[]` | `lines`: someone's line (`who`, `sl`, `en`) or the learner's turn (`choices`: 2–3, one `ok` or two where people would accept either, and at least one wrong; a right one may carry the other person's `reply`; a wrong one says `why` and carries their reaction as its `reply`, see [Reactions and more than one right answer](#reactions-and-more-than-one-right-answer); a why that is a rule names its grammar book page, `grammar`, see [A why that is a rule of the grammar book](#a-why-that-is-a-rule-of-the-grammar-book); the turn may carry a `puzzled` reaction for a wrong answer without its own, see [Adaptive turns](#adaptive-turns) and [Own traps](#own-traps); a spoken line, a reply and a puzzled reaction may say the speaker's `face`, see [Faces](#faces-the-person-you-talk-to-and-their-expressions)). 3–8 lines. `talk`: an optional role-play scenario to go on with the tutor. A line and a reply may carry a `sky` cue and an `fx` cue, and the dialog `sky_stays` and `fx_stays` (see [Sky cues](#sky-cues-the-weather-in-a-dialog) and [Effects](#effects-the-place-joins-in)); in an art with a stage, an `act` cue and `act_stays` (see [Stage directions](#stage-directions-people-move-on-cue)), and a turn's choices may each stand for a place in the picture, `tap` (see [Tap turns](#tap-turns-answer-by-tapping-the-scene)). `guests` (`true`): the dialog is for a guest, and so is every happening that plays it. Who can be named: anyone of the cast, but a happening whose texts name someone is on only while they're in the village and met ([What's on today](#whats-on-today)): name whom the scene is about and whom they'd be with (Micka at the market with Marko at his stall), not someone the place doesn't bring. A dialog may also say `count` (a number from the village, see [Numbers](#numbers-counting-what-the-village-has)), `memory` (what the person remembers of this variant, instead of the happening's), `months` (the months it plays in, within its happening's: a variant about the snow in winter, see [Seasons](#seasons-in-their-months)), `words` (the learner's words a tutor's variant weaves in, each the tested element of a turn, see [Your words in the dialogs](#your-words-in-the-dialogs)) and, a tutor's, `source: "tutor"`. |
 | `variants[]` | more dialogs, the same as `dialogs[]`: the happenings' other variants. The curated scenes keep them here, because an older bridge reads at most 12 `dialogs` (and skips a scene with more) and leaves `variants` out; the bridge serves them to the app in `dialogs`. At most 36. |
 
 Slovene must be correct and natural at the scene's level. The learner's own lines, and whatever anyone says to them
@@ -195,7 +195,8 @@ learner still finds it. It may carry an `fx` of the art (Micka brings water), wh
 picks again and goes with the next pick; it has no `sky` (the bridge rejects one).
 
 The app (`DialogRun.choose`) puts the wrong choice into the conversation, marked wrong (red, ✗), and the reaction after
-it as the person's line, voiced like their others; the person looks puzzled (a hand to the chin, `DialogMood`). The
+it as the person's line, voiced like their others; the person looks puzzled (a hand to the chin and a confused face, or the
+reaction's own `face`: [Faces](#faces-the-person-you-talk-to-and-their-expressions), `DialogMood`). The
 choice is crossed out, the mistake counts once as before, and the why is one tap away ("💡 Zakaj? · Why?"): first what
 the person made of it. A wrong choice without a reply (a tutor's older scene or story) shows its why at once, as before.
 
@@ -205,6 +206,69 @@ cheeky cheekily, so choosing is about what the learner wants to say. Either goes
 the one taken (the dialog's `picks` are the file's indices), so give both replies the same `sky` and `fx`. Such a turn
 keeps a wrong choice, and a turn that tests a form (the choices differ in one ending) has one right answer. A handful
 per scene, where it is natural.
+
+### Faces: the person you talk to, and their expressions
+
+The person the learner talks to is on screen as the same chibi sprite, and their face follows the conversation (Jan,
+October 29, 2026: "maybe we can have the character shown on the free speech / dialogs - with different expressions"). A
+face is an expression of its own, apart from how they stand (`Pose`): someone can wave and laugh. There are twelve, in
+this order: `neutral` (resting, friendly: the default, never written), `happy` (a smile), `laugh` (the eyes shut in arcs,
+the mouth open, pink cheeks; a ♪), `surprised` (the eyes wide, a round mouth; a !), `curious` (a question asked, one brow
+up; a ?), `confused` ("Hm? Kako, prosim?", a misunderstanding: one eye squinted, the mouth wavy; a ? that wobbles),
+`thinking` (the eyes up, the mouth to one side; … in a thought bubble), `worried` (the brows up in the middle, a small
+mouth; a sweat drop), `sad` (kind disappointment, the eyes down), `cross` (mild and comic, never scary: the brows down,
+red cheeks; a little cross mark), `shy` (blushing, the eyes aside) and `proud` (the eyes shut, a smug smile, the chin up;
+sparkles).
+
+**In the content** a spoken line (one with `who`), a choice's `reply` and a turn's `puzzled` may carry `"face"`, one of the
+eleven names besides `neutral`, in every dialog of the shapes above: a scene's dialogs and variants, the tutor's variants,
+a project's step, an age's party, an arrival, a keeper's talk and a story's lines:
+
+```json
+{ "who": "micka", "sl": "Krava je bolna …", "en": "The cow is ill …", "face": "worried" }
+{ "sl": "Žejen sem.", "en": "I'm thirsty.", "why": "…", "reply": { "sl": "Žejen? Tu imaš vodo.", "en": "Thirsty? Here's water.", "face": "surprised" } }
+```
+
+Direct like a director: a face only where the line carries a feeling other than the speaker's resting one; most lines stay
+unmarked. A right choice's reply is usually `happy`, now and then `laugh` or `proud`; a reaction to a wrong one (what the
+person made of it) `confused`, `surprised` or `curious`, `laugh` when it's funny; a puzzled line `confused`; a question to
+the learner `curious`; `worried` or `sad` when the story says so (the cow is ill, the rain on the hay); `cross` only mild and
+comic; `shy` for compliments and the children; the person's character shows (grandpa's proud stories, the children's
+laughs). The bridge checks every name (`faceErrors` in `crossCheck`): an unknown one is reported with where it is, so is
+`neutral`, and so is a face on a choice (the learner's line: its face goes on its reply) or on a turn. The keys are
+`z.object`s: a bridge from before faces strips them, and an app from before never sees them; the app reads them leniently
+(`FaceSerializer`: a name it doesn't know is no face).
+
+**What the content doesn't say, the moment brings** (`DialogMood`): a wave and a smile when the dialog opens, a happy hop
+and a smile at a right pick, a worried shrug at a wrong one, a hand to the chin and confused (or the reaction's face) at a
+wrong one they answer or a form typed that none of the choices has, a hand at the ear while the learner speaks into the 🎤,
+at the end without a mistake a cheer, proud (a child laughs), else a smile. A line without a face of its own is said with
+what the moment brings (`DialogMood.lineFace`): the first line smiling (a greeting), a reply to a right line smiling, a
+reaction confused, a line after one of theirs with that one's softer face (after a laugh a smile, after a smile at rest),
+any other at rest. A line's face shows while it is said and holds 3.5 s after it was heard, then eases back to the
+resting face through its softer one (a laugh through a smile, surprise through curiosity: `Expression`); a new face comes
+in with a blink, never popping, so a dialog whose lines change faces often doesn't flicker; blinking goes on, and a
+talking mouth moves inside the face's mouth shape. Asleep on the stage (a line's `act` with the pose `sleep`), the sleep
+wins: the eyes stay shut in the picture and in the header, with no face over them; the line's bubble keeps its face (how it
+was said, dozing off). Lying awake (`lie`), the face shows as on anyone. Every pose brings its face where nothing names
+one (`Pose.face`: a hop smiles, a cheer laughs, a shrug is sad, a hand at the chin thinks): the training stage, the
+school's teacher and the villagers' pages have their moods' faces too.
+
+**On the screen**: the dialog panel's header shows whom the learner answers (the person, or in a dialog of several whoever
+spoke last) as a live portrait, the head alone, with their face; while the panel rises over the picture for a typed turn
+([Adaptive turns](#adaptive-turns)) it keeps them in view. Each of their lines has a small still face by its bubble, the
+face it was said with, so the conversation shows the expressions. The picture's sprite wears the same face, its emote over
+its head (drawn after the outlines, never a part of them to tap). A sheet with a stage of its own (a keeper's talk, an
+arrival, a project's step, an age's party) shows the face on its stage's portraits, and the header's portrait comes alive
+once the stage folds away for the keyboard. A guest's dialog on a visit has it as at home. TalkBack hears who and how
+("Babica Micka, se smehlja · smiles").
+
+**The art** (`PeoplePainter.faceOf`, `PeoplePainter.emote`) is in the sprite's own pixels, the same in a scene and in a
+portrait (the sprite cut at the waist, or the head alone for a small avatar: `Framing.HEAD`): the eyes (dots, shut in arcs,
+shut smugly, wide with a glint, squinted, up, down, aside), the brows, the mouth, the blush; the emotes drawn not emoji,
+in little white badges for ! ? and …, plain for the note, the drop, the cross mark and the sparkles, by the head's far top
+corner and inside a portrait's canvas. Without a face everyone is drawn pixel for pixel as before (`FacesGoldenTest`).
+Contact sheets of every face on a few sprites: `FacesRenderTest` (build/faces).
 
 ### A why that is a rule of the grammar book
 
@@ -344,7 +408,8 @@ the app draws edge to edge, so the window doesn't shrink for the keyboard): in a
 picture to just under the status bar, the top bar out of the way; in a keeper's talk and an arrival the portraits fold
 away. The turn takes the room it needs and the lines keep the rest, at least the last line said; on a small screen (or
 with large fonts) the turn scrolls instead, kept down at the sentence with the gap, the field, the letter chips and
-"Preveri · Check". Once the keyboard is down, the picture comes back; a tap turn, with no keyboard, keeps it. The
+"Preveri · Check". The panel's header keeps the person in view meanwhile: their live portrait with their face
+([Faces](#faces-the-person-you-talk-to-and-their-expressions)). Once the keyboard is down, the picture comes back; a tap turn, with no keyboard, keeps it. The
 keyboard is an answer's (README.md, "Answer fields and the keyboard"): no suggestion strip and no auto-correct. It
 opens in the scene's language (Slovene at home, the town's language on a visit), and the learner can switch it.
 
@@ -2128,8 +2193,10 @@ has, the story first ([What someone has here](#what-someone-has-here)).
 | `notes` | what the learner would have written down of each telling, the notebook's text ([The story notebook](#the-story-notebook)): evening `chapter` (from 1) told at `level`, its `text` (2–10 paragraphs, each in the story's language and English, and the others its lines have) and `after` (the paragraph each of the evening's pictures follows, in their order; 0: at the head). The story as prose in the past tense (at A1 too), no asides to the listener, no greetings or questions, none of the learner's turns but every beat the turns and replies carry, short clear sentences at the telling's level. One per telling; the curated stories have them all (machine-written, `review`). Without them the notebook writes the telling down itself |
 | `review` | for writers: who wrote what and whether a native speaker checked it ("notes: machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker") |
 
-A telling is a scene dialog told by the teller: his lines have no `who` (the happening's person says them), the first is
-his, and it has at least one turn for the learner: a question he asks ("Povej: kaj je naredil lovec?") that the
+A telling is a scene dialog told by the teller: his lines have no `who` (the happening's person says them; the panel's
+header shows him with his face, [Faces](#faces-the-person-you-talk-to-and-their-expressions): his lines and replies may
+carry a `face` as a scene's do, the curated ones have none yet), the first is his, and it has at least one turn for the
+learner: a question he asks ("Povej: kaj je naredil lovec?") that the
 choices answer, or a reaction ("O, ne! Ubogi Zlatorog!"); every wrong choice has its `why` and the teller's reaction as
 its `reply`, as in a scene ([Reactions](#reactions-and-more-than-one-right-answer)): "Dobro jutro? Ob tej uri?" to a
 morning greeting by the fire (the curated stories all have theirs, `DialogReactionsTest`). The cues are the campfire's:
