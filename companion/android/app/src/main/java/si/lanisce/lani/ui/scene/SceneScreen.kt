@@ -378,7 +378,11 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
     val groups = remember(spec, sights, found) { SceneSights.group(spec, sights, found) }
     // how whom the learner answers looks (DialogMood, Expression): drawn so in the picture and in the panel's header
     val facingArt = talk?.step?.cast?.firstOrNull { it.id == facing }?.art ?: talk?.person?.art
-    val look = rememberPartnerLook(talk?.run, talking, micOn && talk != null, facing, child = facingArt?.startsWith("child") == true || facingArt == "baby")
+    val awake = rememberPartnerLook(talk?.run, talking, micOn && talk != null, facing, child = facingArt?.startsWith("child") == true || facingArt == "baby")
+    // asleep on the stage (a line's `act`: Nejc dozes off with "Burja, tiho bodi!"), the sleep wins: the eyes shut, no face
+    // over them, in the picture and in the panel's header
+    val asleep = facing != null && cues.stage.target[facing]?.stance == si.lanisce.lani.game.scene.Stance.SLEEP
+    val look = if (asleep) awake.copy(pose = si.lanisce.lani.game.scene.Pose.SLEEP, face = si.lanisce.lani.game.scene.Face.NEUTRAL) else awake
     val pose = look.pose
     // its background sounds: the place's, with the weather and the effects its dialog brings (the rain, the fire flaring),
     // and on the picture's clock what it shows making a sound (the thunder after a flash, a bell's peal, what a tap sets off)

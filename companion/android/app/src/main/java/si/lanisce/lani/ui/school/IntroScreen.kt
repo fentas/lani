@@ -81,6 +81,7 @@ import si.lanisce.lani.data.Intro
 import si.lanisce.lani.data.IntroSpeech
 import si.lanisce.lani.data.IntroVoice
 import si.lanisce.lani.game.scene.Pose
+import si.lanisce.lani.game.scene.face
 import si.lanisce.lani.data.Sheets
 import si.lanisce.lani.game.School
 import si.lanisce.lani.l10n.L10n
@@ -504,7 +505,7 @@ internal fun TeacherPortrait(t: si.lanisce.lani.game.villagers.Villager?, pose: 
     val reduced = rememberReducedMotion()
     Portrait(
         t.art, pose, animate = !reduced, px = portraitPx(size), seed = t.id.hashCode(),
-        modifier = Modifier.size(size).clip(RoundedCornerShape(14.dp)).semantics { contentDescription = t.name },
+        modifier = Modifier.size(size).clip(RoundedCornerShape(14.dp)).semantics { contentDescription = si.lanisce.lani.ui.stage.described(t.name, pose, pose.face) },
     )
 }
 

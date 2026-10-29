@@ -82,6 +82,7 @@ internal class PortraitsPainter : PortraitPainter {
         people.draw(
             sp, art, bx, by, time, seed, talking = false, flip = reach?.flip ?: false, walking = stage?.walking == true, seated = false,
             pose = pose, upright = true, reach = reach?.let { intArrayOf(it.x, it.y) }, holding = reach != null, face = face,
+            blinkNow = face != null && faceAge < FACE_BLINK_S,
         )
         val hx = people.heldX; val hy = people.heldY
         sp.penId = 0
@@ -150,6 +151,9 @@ internal class PortraitsPainter : PortraitPainter {
     private companion object {
         const val SPRITE_W = 48
         const val SPRITE_H = 60
+
+        /** A face that has just come shows with a blink, this long (s): one face eases into the next, never pops. */
+        const val FACE_BLINK_S = 0.12
 
         /** The head alone ([Framing.HEAD]): this many rows under the chin show, the shoulders' top. */
         const val HEAD_SHOULDERS = 4

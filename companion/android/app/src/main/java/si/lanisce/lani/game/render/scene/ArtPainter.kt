@@ -489,8 +489,9 @@ internal abstract class ArtPainter : ScenePainter {
         if (awake) {
             val id0 = begin(Pal.OUTLINE)
             val mood = if (p.pose == Pose.SLEEP) Pose.IDLE else p.pose
-            sprite(hx, hy) { people.lying(c, p.art, hx, hy, (fx - hx) / detail, (fy - hy) / detail, t, seed, cover, pillow, pose = mood, talking = p.talking) }
+            sprite(hx, hy) { people.lying(c, p.art, hx, hy, (fx - hx) / detail, (fy - hy) / detail, t, seed, cover, pillow, pose = mood, talking = p.talking, face = p.face) }
             end(SceneTarget.Person(p.id), id0, true, 1)
+            emote(p, hx, hy)
             return
         }
         val pk = poked(Sleep.pokeId(p.id)); val a = pk?.age(t) ?: 0f

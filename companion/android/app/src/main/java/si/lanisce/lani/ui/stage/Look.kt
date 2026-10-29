@@ -81,7 +81,17 @@ object Expression {
 /** "se smeji · laughs": a face for TalkBack, in the pair of the moment; empty for the resting face. */
 fun faceLabel(face: Face?): String = when (face) {
     null, Face.NEUTRAL -> ""
-    else -> bi("face.${face.key}")
+    Face.HAPPY -> bi("face.happy")
+    Face.LAUGH -> bi("face.laugh")
+    Face.SURPRISED -> bi("face.surprised")
+    Face.CURIOUS -> bi("face.curious")
+    Face.CONFUSED -> bi("face.confused")
+    Face.THINKING -> bi("face.thinking")
+    Face.WORRIED -> bi("face.worried")
+    Face.SAD -> bi("face.sad")
+    Face.CROSS -> bi("face.cross")
+    Face.SHY -> bi("face.shy")
+    Face.PROUD -> bi("face.proud")
 }
 
 /** "Mojca, se smeji · laughs": who and how, for a portrait's TalkBack; the pose's word when the face says nothing. */

@@ -62,7 +62,9 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        for a child (LANI_CHILD=1), a room's noise is "I didn't catch that", with "Send by itself" off
                        the line waits for ➤; the takes' LaniStt lines in talk-mic.log;
                        "typed-turn" a dialog's turn typed with the keyboard up (QA's hook "turns:type"), the
-                       keyboard the answer's (its language, no suggestion strip); "player-voice" the learner's voice in
+                       keyboard the answer's (its language, no suggestion strip); "faces" the faces: Babica's soup's
+                       header portrait through a wrong and a right pick, then a free talk's stage with the dev tutor's
+                       faces, folded with the keyboard up; "player-voice" the learner's voice in
                        Babica's soup: a choice tapped said in it before her reply (tag Speaker, player-voice.log), its
                        line's 🔊, a turn by the 🎤 (QA's hook "mic:right") not said again, a turn typed right said; "my-voice"
                        "🗣️ Moj glas · My voice": offered at the learner's first line (QA's hook "audio:myvoice:offer"), a voice's
@@ -3328,6 +3330,117 @@ def my_voice_flow():
     back_key()
     go_home()
     return None
+
+
+def faces():
+    """The faces (companion/SCENES.md, "Faces"; docs/plans/05-built/faces.md). Babica's soup by the fire (QA's hook, as
+    player-voice): her portrait in the dialog panel's header says who and how (TalkBack: "Babica Micka, se smehlja ·
+    smiles"), a still face by her line; a wrong choice: her reaction's face; the right one: a smile; screenshots of each.
+    Then a free talk with the dev bridge's tutor, whose replies carry faces (test/dev-bridge.ts): the stage over the
+    conversation with the character's bust, the stage folded to the bar's avatar with the keyboard up, the face of each
+    reply (the stage's portrait says it), its bubble's still face."""
+    try:
+        return faces_run()
+    finally:
+        qa_hook("turns:")
+        qa_hook("happening:")
+
+
+def portrait_says(name: str):
+    """The labels of the portraits of [name] on screen ("Babica Micka, se smehlja · smiles": who and how)."""
+    return [t for t, _ in nodes() if t.startswith(name + ", ")]
+
+
+def faces_run():
+    """[faces], its hooks asked."""
+    sid, hid, did = PLAYER_DIALOG
+    try:
+        scene = next(s for s in api("/scenes") if isinstance(s, dict) and s.get("id") == sid)
+    except (OSError, RuntimeError, ValueError, StopIteration) as e:
+        return f"the dev bridge's {sid}: {e}"
+    dialog = next((d for d in scene.get("dialogs", []) if d.get("id") == did), None)
+    if dialog is None:
+        return f"no dialog {did} in {sid}"
+    person = next(p for p in scene["people"] if p["id"] == next(h for h in scene["happenings"] if h["id"] == hid)["who"])
+    name = person["name"]
+    turn = next(l for l in dialog["lines"] if l.get("choices"))
+    right = {c["sl"] for c in turn["choices"] if c.get("ok")}
+    wrong = next(c for c in turn["choices"] if not c.get("ok") and c.get("reply"))
+    qa_hook(f"happening:{sid}/{hid}/{did}", f"scene:{sid}@{sid}/{hid}")
+    assert wait_for("‹ Vas · Village", 10), "the fire's scene"
+    assert wait_for("Zapri · Close", 8), f"the dialog {did} (QA's hook)"
+    assert at_turn(), "the learner's first turn"
+    if any("Izberi raje" in t for t, _ in nodes()):
+        tap("Izberi raje", 2)
+    said = portrait_says(name)
+    print(f"    the header: {said}")
+    assert said, f"{name}'s portrait in the panel's header says who and how"
+    shot("faces-dialog-open")
+    ns = list(nodes())
+    c = next((c for t, c in ns if t == wrong["sl"] or t.startswith(wrong["sl"] + ",") or t.startswith(wrong["sl"] + " ")), None)
+    assert c is not None, f"the wrong choice «{wrong['sl']}» on screen"
+    tap_at(c)
+    time.sleep(1.6)  # the learner's line said, her reaction typed in, her face
+    said = portrait_says(name)
+    print(f"    a wrong pick («{wrong['sl']}» → «{wrong['reply']['sl']}», face {wrong['reply'].get('face', '-')}): {said}")
+    shot("faces-dialog-wrong")
+    assert answer_right(right), "the right choice on screen"
+    time.sleep(1.6)
+    said = portrait_says(name)
+    print(f"    the right pick: {said}")
+    shot("faces-dialog-right")
+    tap("Zapri · Close", 3)
+    time.sleep(1)
+    if find("‹ Vas · Village") is not None:
+        tap("‹ Vas · Village", 4)
+    plain_village()
+
+    # the free talk: the stage, the faces of the tutor's replies, folded with the keyboard up
+    go_home()
+    c = scroll_to("Pogovor", 6, exact=True)
+    if c is None:
+        return "no 'Pogovor' on Home"
+    tap_at(c)
+    assert wait_for("Učitelj igra drugo osebo", 8), "the talk's scenes"
+    scenario = next(s for s in api("/scenarios") if isinstance(s, dict) and not s["id"].startswith("villager:"))
+    assert tap(scenario["title"], 5), f"the scenario {scenario['title']}"
+    assert tap("Začni", 6), "Začni · Start"
+    character = scenario["role"].split(",")[0].strip()[:40]
+    time.sleep(2.5)
+    said = portrait_says(character)
+    print(f"    the talk's stage: {said}")
+    assert said, f"{character}'s bust on the stage says who and how"
+    shot("faces-talk-stage")
+    for k, line in enumerate(["Dober dan.", "Rad bi kruh."]):
+        if wait_for("Piši", 3) is not None and find(ANSWER_FIELD_TALK) is None:
+            tap("Piši", 3)
+        field = wait_for(ANSWER_FIELD_TALK, 5)
+        assert field is not None, "the talk's field"
+        tap_at(field)
+        top = keyboard_settled()
+        if k == 0:
+            assert top is not None, "the keyboard came up"
+            bs = list(boxes())
+            busts = [b for t, b in bs if t.startswith(character + ", ")]
+            print(f"    with the keyboard up: {[(b[2] - b[0]) for b in busts]} px wide portraits")
+            assert busts and all(b[2] - b[0] < 200 for b in busts), f"the stage folded to the bar's avatar: {busts}"
+            shot("faces-talk-keyboard")
+        adb("shell", "input", "text", line.replace(" ", "%s"))
+        assert tap("Pošlji", 3), "Pošlji · Send"
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the keyboard down: the stage back
+        time.sleep(5.0)  # the dev tutor answers after 2.5 s, its line said
+        said = portrait_says(character)
+        print(f"    reply {k + 1}: {said}")
+        shot(f"faces-talk-reply-{k + 1}")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # out of the talk: "Kasneje · Later" keeps it for later
+    time.sleep(1)
+    if find("Kasneje") is not None:
+        tap("Kasneje", 3)
+    go_home()
+    return None
+
+
+ANSWER_FIELD_TALK = "Napiši po slovensko"  # the talk's field (talkInput.writeSlovene)
 
 
 def forest():
@@ -12608,6 +12721,7 @@ def plan():
         ("player-voice", player_voice, v, False, ""),
         # "🗣️ Moj glas · My voice": the offer at the first line, a ▶, the pick, the next line in it, the settings' page
         ("my-voice", my_voice, v, False, ""),
+        ("faces", faces, v, False, ""),
         ("ispy", ispy, v, False, ""),
         ("scene-people", scene_people, v, False, ""),
         ("your-words", your_words, v, False, ""),

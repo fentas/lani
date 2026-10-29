@@ -140,10 +140,16 @@ class FacesTest {
         assertEquals(Face.CONFUSED, DialogMood.lineFace(run.said, run.said.lastIndex))
         val right = run.choose(0)
         assertEquals(Face.HAPPY, DialogMood.lineFace(right.said, right.said.lastIndex))
-        // a line after a line of theirs rests; the learner's own has none
+        // a line after a line of theirs goes on with its softer face (after a smile, at rest); the learner's own has none
         val on = right.next()
         assertEquals(Face.NEUTRAL, DialogMood.lineFace(on.said, on.said.lastIndex))
         assertEquals(Face.NEUTRAL, DialogMood.lineFace(on.said, 1))
+        val laughs = listOf(
+            si.lanisce.lani.ui.scene.Said("micka", "Ha ha!", "", face = Face.LAUGH),
+            si.lanisce.lani.ui.scene.Said("micka", "Zdaj pa jej.", ""),
+            si.lanisce.lani.ui.scene.Said("micka", "Dober tek.", ""),
+        )
+        assertEquals(listOf(Face.LAUGH, Face.HAPPY, Face.NEUTRAL), laughs.indices.map { DialogMood.lineFace(laughs, it) })
         // the content's own wins
         assertEquals(Face.CURIOUS, DialogMood.lineFace(DialogRun.start(soup, "babica").said, 0))
     }

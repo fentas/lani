@@ -67,8 +67,10 @@ object DialogMood {
 
     /**
      * The face someone's line [i] of [said] is said with: its own ([Said.face]), else what the moment brings: the first
-     * line a smile (a greeting), a reply to the learner's right line a smile, a reaction to a wrong one confused, any other
-     * the resting face. Its bubble's face shows it, and the person's face holds it a while ([rememberPartnerLook]).
+     * line a smile (a greeting), a reply to the learner's right line a smile, a reaction to a wrong one confused; a line
+     * after one of theirs goes on with that one's softer face ([Face.softer]: after a laugh a smile, after a smile at rest),
+     * so the face eases from line to line rather than snapping back. Its bubble's face shows it, and the person's face holds
+     * it a while ([rememberPartnerLook]).
      */
     fun lineFace(said: List<Said>, i: Int): Face {
         val s = said.getOrNull(i) ?: return Face.NEUTRAL
@@ -77,6 +79,7 @@ object DialogMood {
         if (i == 0) return Face.HAPPY
         val before = said[i - 1]
         return when {
+            before.who == s.who -> lineFace(said, i - 1).softer ?: Face.NEUTRAL
             before.who != null -> Face.NEUTRAL
             before.wrong -> Face.CONFUSED
             else -> Face.HAPPY

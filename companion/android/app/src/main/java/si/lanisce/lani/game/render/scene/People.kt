@@ -287,11 +287,12 @@ internal class PeoplePainter {
         canvas: PixelCanvas, art: String, bx: Int, by0: Int, time: Double, seed: Int, talking: Boolean, flip: Boolean,
         walking: Boolean, seated: Boolean, pose: Pose = Pose.IDLE, upright: Boolean = false, crouch: Boolean = false,
         reach: IntArray? = null, holding: Boolean = false, wink: Boolean = false, rest: IntArray? = null, face: Face? = null,
+        blinkNow: Boolean = false,
     ) {
         if (crouch && art != "baby" && pose != Pose.SLEEP) {
             // squatting: sat low on the heels, the torso a little shorter; drawn as sitting, with short shins
             crouching = true
-            draw(canvas, art, bx, by0, time, seed, talking, flip, walking = false, seated = true, pose = pose, upright = upright, reach = reach, holding = holding, wink = wink, rest = rest, face = face)
+            draw(canvas, art, bx, by0, time, seed, talking, flip, walking = false, seated = true, pose = pose, upright = upright, reach = reach, holding = holding, wink = wink, rest = rest, face = face, blinkNow = blinkNow)
             crouching = false
             return
         }
@@ -422,7 +423,7 @@ internal class PeoplePainter {
         if (chinUp > 0) row(bx - 1, bx + 1, hBot + 1, Col.scale(L.skin, 0.86f)) // the neck, the chin lifted
         head(L, bx, hw, hTop, hBot, eyeRow, d)
         if (F == null) face(L, P, bx, hw, hTop, hBot, eyeRow, time, seed, speaking, if (wink) d else 0)
-        else faceOf(L, P, F, bx, hw, hTop, hBot, eyeRow, time, seed, speaking, if (wink) d else 0, d)
+        else faceOf(L, P, F, bx, hw, hTop, hBot, eyeRow, time, seed, speaking, if (wink) d else 0, d, blinkNow)
         hat(L, art, bx, hw, hTop, hBot, eyeRow, d)
         if (F != null) headAt(F, bx, hw, hTop, -d)
 
@@ -709,10 +710,14 @@ internal class PeoplePainter {
      * moustache and the old one's lines as [face] has them. Blinking goes on with the eyes open. What it adds by the head is
      * drawn later ([emote]). [d] is the way they face.
      */
-    private fun faceOf(L: Look, P: Pose, F: Face, bx: Int, hw: Int, hTop: Int, hBot: Int, eyeRow: Int, time: Double, seed: Int, speaking: Boolean, wink: Int, d: Int) {
+    private fun faceOf(
+        L: Look, P: Pose, F: Face, bx: Int, hw: Int, hTop: Int, hBot: Int, eyeRow: Int, time: Double, seed: Int, speaking: Boolean, wink: Int, d: Int,
+        blinkNow: Boolean = false,
+    ) {
         val r = eyeRow
         val ex = intArrayOf(bx - 3, bx + 3)
-        val blink = !F.eyesShut && ((time + (seed and 0xFF) * 0.031) % 3.7) < 0.14
+        // a blink now and then; and one as the face changes ([blinkNow]), so one face eases into the next
+        val blink = !F.eyesShut && (blinkNow || ((time + (seed and 0xFF) * 0.031) % 3.7) < 0.14)
         val brow = Col.scale(if (L.hairStyle == Looks.HAIR_BALD) Pal.HAIR[0] else L.hair, 0.7f)
         val shine = Col.hex(0xFFFFFF)
         // the eyes
@@ -953,9 +958,10 @@ internal class PeoplePainter {
     fun lying(
         canvas: PixelCanvas, art: String, bx: Int, by0: Int, dx: Int, dy: Int, time: Double, seed: Int,
         cover: IntArray? = null, pillow: Boolean = false, turn: Float = 0f, stir: Float = 0f,
-        pose: Pose = Pose.SLEEP, talking: Boolean = false,
+        pose: Pose = Pose.SLEEP, talking: Boolean = false, face: Face? = null,
     ) {
         c = canvas
+        headFace = null
         val d = if (dx < 0) -1 else 1
         // a baby sleeps in its basket
         if (art == "baby") { baby(bx + d * 4, by0 + 9, time, seed, false, d < 0, Pose.SLEEP); return }
@@ -991,7 +997,11 @@ internal class PeoplePainter {
         if (away) backOfHead(L, bx, hw, hTop, hBot, eyeRow)
         else {
             head(L, bx, hw, hTop, hBot, eyeRow, d)
-            face(L, if (pose == Pose.IDLE && talking) Pose.TALK else pose, bx, hw, hTop, hBot, eyeRow, time, seed, talking)
+            // lying awake with a face of their own (Nejc in his bed, cross at the wind); asleep, the sleep's
+            val lyingFace = face?.takeIf { pose != Pose.SLEEP && !awake }
+            val lp = if (pose == Pose.IDLE && talking) Pose.TALK else pose
+            if (lyingFace == null) face(L, lp, bx, hw, hTop, hBot, eyeRow, time, seed, talking)
+            else { faceOf(L, lp, lyingFace, bx, hw, hTop, hBot, eyeRow, time, seed, talking || lp == Pose.TALK, 0, d); headAt(lyingFace, bx, hw, hTop, -d) }
             if (L.hat == Looks.HAT_SCARF) hat(L, art, bx, hw, hTop, hBot, eyeRow, d)
             if (awake) grumble(L, bx, eyeRow, time, d)
         }
