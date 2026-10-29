@@ -344,18 +344,21 @@ backend, `-audio pa`, didn't start in the headless emulator: "Could not init `pa
 
 `--steps talk-mic` on a synthetic Teo (Italian from German, Friuli, a child), Pastore Davide's talk ("Ehi, ciao! Sei
 nuovo?"), the emulator's microphone fed the boy's voice saying "Ciao! Giochi a calcio?" from the test set, the dev
-bridge's recognizer a worker of the run's own on the CPU (8 threads), screenshots in `scratchpad/ux-stt/qa-run9/`:
+bridge's recognizer a worker of the run's own on the CPU (8 threads), screenshots in `scratchpad/ux-stt/qa-final/`:
 
-1. The take ended 3 s after the line (`ended=pause`, room 0, speech level 400, 17 loud ticks); both hearings "Ciao!
-   Giochi a calcio?" (0.98 each, every word 0.93 or more, 1.4 s voiced): sure. "➤ Invio … · Wird gesendet …" with "✋
-   Tieni · Behalten" for 1.8 s, then the line went by itself (🎤 Ciao! Giochi a calcio?) and Davide answered: one tap for
-   the line.
-2. A room's noise (pink, 2.5 s): both hearings "Grazie a tutti." (0.76), 0.21 s voiced: noise. Nothing in the draft, "🤔
-   Non ti ho sentito · Ich habe dich nicht verstanden …".
-3. The same line again, heard "Ciao! Giochi a casa!" (the lowest word 0.54): not sure, it waits in the draft for ➤.
+1. "Send by itself" on (`09-talk-mic-setting-on`): the take ended 3 s after the line (`ended=pause`, room 0, speech
+   level 400, 17 loud ticks); both hearings "Ciao! Giochi a calcio?" (0.97 each, every word 0.89 or more, 1.33 s
+   voiced): sure. "➤ Invio … · Wird gesendet …" with "✋ Tieni · Behalten" for 1.8 s (`11-talk-mic-said`), then the
+   line went by itself (🎤 Ciao! Giochi a calcio?) and Davide answered (`12-talk-mic-sent`): one tap for the line.
+2. A room's noise (pink, 2.5 s): "Grazie." with the conversation, "Grazie a tutti." plain, 0.01 s voiced: noise.
+   Nothing in the draft, "🤔 Non ti ho sentito · Ich habe dich nicht verstanden …" (`13-talk-mic-room`).
+3. "Send by itself" off (`14-talk-mic-setting-off`): the same line, heard surely again, waits in the draft for ➤
+   (`16-talk-mic-draft`), as every line did before.
 
-The node took 6 to 10 s for the two hearings on the CPU (0.4 s on the node's GPU). Before (today's app): every line
-waits in the draft for ➤, and the room's "Grazie a tutti." lands there.
+The node took 6 to 7 s for the two hearings on the CPU (0.4 s on the node's GPU). Getting there showed two things now
+fixed: the headless emulator's PulseAudio backend doesn't start (the WAV driver feeds the microphone instead), and a
+burst of pink noise over a silent room measured 0.2 s voiced, so its "Grazie." went to the draft (the voice measure's
+valley, "Noise" above).
 
 ## Deploy
 
