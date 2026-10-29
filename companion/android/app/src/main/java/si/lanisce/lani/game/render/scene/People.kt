@@ -4,6 +4,8 @@ import si.lanisce.lani.game.render.Col
 import si.lanisce.lani.game.render.Dither
 import si.lanisce.lani.game.render.Pal
 import si.lanisce.lani.game.render.PixelCanvas
+import si.lanisce.lani.game.scene.Emote
+import si.lanisce.lani.game.scene.Face
 import si.lanisce.lani.game.scene.Pose
 import kotlin.math.abs
 import kotlin.math.max
@@ -232,6 +234,21 @@ internal class PeoplePainter {
     var heldY = 0; private set
 
     /**
+     * The face the last [draw] gave its own ([draw]'s face), null without one; then where the head was: its middle column
+     * ([headX]), its top row ([headTop]), its half width ([headHw]) and the side away from the near hand ([headSide], -1 the
+     * left). What the face adds by the head ([emote]) is drawn from there, after the sprite's outline.
+     */
+    var headFace: Face? = null; private set
+    var headX = 0; private set
+    var headTop = 0; private set
+    var headHw = 0; private set
+    var headSide = -1; private set
+
+    private fun headAt(f: Face, x: Int, hw: Int, top: Int, side: Int) {
+        headFace = f; headX = x; headHw = hw; headTop = top; headSide = side
+    }
+
+    /**
      * Where [art]'s body is, standing (or squatting, [crouch]) with the feet's middle at (bx, by0): the torso's and the
      * head's half widths, and in rows from by0 (up is negative) the shoulders' row (where the arms start), the hands' row
      * when they hang, the head's top and the eyes' row (without a breath's dip). For a caller placing what someone holds,
@@ -269,17 +286,18 @@ internal class PeoplePainter {
     fun draw(
         canvas: PixelCanvas, art: String, bx: Int, by0: Int, time: Double, seed: Int, talking: Boolean, flip: Boolean,
         walking: Boolean, seated: Boolean, pose: Pose = Pose.IDLE, upright: Boolean = false, crouch: Boolean = false,
-        reach: IntArray? = null, holding: Boolean = false, wink: Boolean = false, rest: IntArray? = null,
+        reach: IntArray? = null, holding: Boolean = false, wink: Boolean = false, rest: IntArray? = null, face: Face? = null,
     ) {
         if (crouch && art != "baby" && pose != Pose.SLEEP) {
             // squatting: sat low on the heels, the torso a little shorter; drawn as sitting, with short shins
             crouching = true
-            draw(canvas, art, bx, by0, time, seed, talking, flip, walking = false, seated = true, pose = pose, upright = upright, reach = reach, holding = holding, wink = wink, rest = rest)
+            draw(canvas, art, bx, by0, time, seed, talking, flip, walking = false, seated = true, pose = pose, upright = upright, reach = reach, holding = holding, wink = wink, rest = rest, face = face)
             crouching = false
             return
         }
         c = canvas
-        if (art == "baby") { baby(bx, by0, time, seed, talking, flip, pose); return }
+        headFace = null
+        if (art == "baby") { baby(bx, by0, time, seed, talking, flip, pose, face); return }
         if (pose == Pose.SLEEP && !upright) {
             val (hx, hy, dx) = flat(bx, by0, flip)
             lying(canvas, art, hx, hy, dx, 0, time, seed, pillow = true)
@@ -304,7 +322,10 @@ internal class PeoplePainter {
         val legTop = by - legH
         val torsoTop = legTop - (if (crouching) max(4, L.torsoH - 2) else L.torsoH)
         // the head sits on the shoulders: its chin row is the torso's first; it dips a little on a breath, when sad and dozing
-        val hBot = torsoTop + breath + (if (P == Pose.SAD || P == Pose.SLEEP) 1 else 0)
+        // a face of its own ([face]; asleep they keep the sleeper's): proud lifts the chin, the neck showing under it
+        val F = face?.takeIf { P != Pose.SLEEP }
+        val chinUp = if (F == Face.PROUD) 1 else 0
+        val hBot = torsoTop + breath + (if (P == Pose.SAD || P == Pose.SLEEP) 1 else 0) - chinUp
         val hTop = hBot - L.headH + 1
         val eyeRow = hTop + (L.headH * 0.55f).toInt()
         val topD = Col.scale(L.top, 0.78f); val topL = Col.mix(L.top, Col.hex(0xFFFFFF), 0.18f)
@@ -398,9 +419,12 @@ internal class PeoplePainter {
         if (L.satchel != 0) c.line(bx + d * (tw - 1), tTop, bx - d * (tw - 1), tBot - 1, Col.scale(L.satchel, 0.7f))
 
         // ---- the head
+        if (chinUp > 0) row(bx - 1, bx + 1, hBot + 1, Col.scale(L.skin, 0.86f)) // the neck, the chin lifted
         head(L, bx, hw, hTop, hBot, eyeRow, d)
-        face(L, P, bx, hw, hTop, hBot, eyeRow, time, seed, speaking, if (wink) d else 0)
+        if (F == null) face(L, P, bx, hw, hTop, hBot, eyeRow, time, seed, speaking, if (wink) d else 0)
+        else faceOf(L, P, F, bx, hw, hTop, hBot, eyeRow, time, seed, speaking, if (wink) d else 0, d)
         hat(L, art, bx, hw, hTop, hBot, eyeRow, d)
+        if (F != null) headAt(F, bx, hw, hTop, -d)
 
         // ---- arms, after the head so a hand can rest at the chin or the ear (far side plain, near side gesturing)
         val gesture = P == Pose.TALK && ((time * 2).toInt() and 1) == 0
@@ -676,6 +700,163 @@ internal class PeoplePainter {
         }
         if (P == Pose.SAD && ((time * 2).toInt() and 1) == 0 && L.child) c.set(ex[1] + 1, eyeRow + 3, Pal.WATER_L) // a tear
         if (L.old) { c.set(ex[0] - 1, eyeRow + 3, Col.scale(L.skin, 0.84f)); c.set(ex[1] + 1, eyeRow + 3, Col.scale(L.skin, 0.84f)) }
+    }
+
+    /**
+     * The face of its own ([Face], companion/SCENES.md "Faces"), in the sprite's pixels: the eyes (dots, shut in arcs, shut
+     * smugly, wide, squinted, looking up, down or aside), the brows (up, up in the middle, down in the middle, one up), the
+     * mouth by the face and, when talking ([speaking]), moving inside its shape, and the blush. Glasses, a beard, a
+     * moustache and the old one's lines as [face] has them. Blinking goes on with the eyes open. What it adds by the head is
+     * drawn later ([emote]). [d] is the way they face.
+     */
+    private fun faceOf(L: Look, P: Pose, F: Face, bx: Int, hw: Int, hTop: Int, hBot: Int, eyeRow: Int, time: Double, seed: Int, speaking: Boolean, wink: Int, d: Int) {
+        val r = eyeRow
+        val ex = intArrayOf(bx - 3, bx + 3)
+        val blink = !F.eyesShut && ((time + (seed and 0xFF) * 0.031) % 3.7) < 0.14
+        val brow = Col.scale(if (L.hairStyle == Looks.HAIR_BALD) Pal.HAIR[0] else L.hair, 0.7f)
+        val shine = Col.hex(0xFFFFFF)
+        // the eyes
+        for ((i, x) in ex.withIndex()) {
+            val side = if (i == 0) -1 else 1
+            val far = side == -d
+            when {
+                wink == side && !F.eyesShut -> { c.set(x - 1, r + 1, eye); c.set(x, r, eye); c.set(x + 1, r + 1, eye) }
+                F == Face.LAUGH -> { c.set(x - 1, r + 1, eye); c.set(x, r, eye); c.set(x + 1, r + 1, eye) } // ^ ^
+                F == Face.PROUD -> { c.set(x - 1, r, eye); c.set(x, r + 1, eye); c.set(x + 1, r, eye) } // shut, content: v v
+                blink -> row(x - 1, x, r + 1, eye)
+                F == Face.SURPRISED -> {
+                    // wide: a 2 × 2 eye with a glint, the pair spread a little
+                    val x0 = if (L.glasses || side < 0) x - 1 else x
+                    c.fillRect(x0, r, 2, 2, eye); c.set(x0 + (if (side < 0) 0 else 1), r, shine)
+                }
+                F == Face.CONFUSED && far -> row(x - 1, x, r + 1, eye) // squinted
+                F == Face.THINKING -> c.vline(x, r - 1, r, eye) // up
+                F == Face.SAD -> c.vline(x, r + 1, r + 2, eye) // down
+                F == Face.SHY -> c.vline(x - d, r + 1, r + 2, eye) // aside and down
+                else -> c.vline(x, r, r + 1, eye)
+            }
+            // the brows
+            when (F) {
+                Face.SURPRISED -> row(x - 1, x + 1, r - 2, brow)
+                // up in the middle: the inner end higher, the outer one low but clear of the eye
+                Face.WORRIED, Face.SAD -> { c.set(x - side, r - 2, brow); c.set(x, r - 2, brow); c.set(x + 2 * side, r - 1, brow) }
+                // down in the middle: the inner end lower, toward the nose
+                Face.CROSS -> { c.set(x + side, r - 2, brow); c.set(x, r - 2, brow); c.set(x - 2 * side, r - 1, brow) }
+                // one brow up, the near one; the other at rest
+                Face.CURIOUS -> if (!far) { c.set(x - 1, r - 2, brow); c.set(x, r - 3, brow); c.set(x + 1, r - 2, brow) }
+                // askew: the squinted eye's brow down over it, the other up
+                Face.CONFUSED -> if (far) row(x - 1, x + 1, r - 1, brow) else { c.set(x - side, r - 2, brow); c.set(x, r - 2, brow); c.set(x + side, r - 3, brow) }
+                Face.THINKING -> if (side > 0) { c.set(x - 1, r - 3, brow); c.set(x, r - 3, brow) }
+                Face.NEUTRAL -> if (P == Pose.LISTEN) row(x - 1, x, r - 2, brow)
+                else -> Unit
+            }
+        }
+        if (L.glasses) {
+            val rim = Col.hex(0x3A3A44)
+            for (x in ex) {
+                row(x - 2, x + 1, r - 1, rim); row(x - 2, x + 1, r + 2, rim)
+                c.vline(x - 2, r - 1, r + 2, rim); c.vline(x + 1, r - 1, r + 2, rim)
+                if (!F.eyesShut && F != Face.SURPRISED) c.set(x - 1, r, Col.hex(0xE8F0F8))
+            }
+            row(ex[0] + 2, ex[1] - 3, r, rim)
+        }
+        // the blush: the rosy-cheeked always; a laugh, a cross face and a shy one bring it to everyone, the shy one deeper
+        val cheeks = L.cheeks || L.child
+        val flush = when (F) {
+            Face.SHY -> Col.hex(0xEE7F86)
+            Face.CROSS -> Col.hex(0xE8605C)
+            Face.LAUGH -> blush
+            else -> if (cheeks) blush else 0
+        }
+        if (flush != 0) {
+            c.set(ex[0] - 2, r + 2, flush); c.set(ex[0] - 1, r + 2, flush); c.set(ex[1] + 1, r + 2, flush); c.set(ex[1] + 2, r + 2, flush)
+            if (F == Face.SHY) { c.set(ex[0] - 2, r + 1, flush); c.set(ex[1] + 2, r + 1, flush); c.set(ex[0], r + 2, blush); c.set(ex[1], r + 2, blush) }
+        }
+        val my = r + 3
+        if (L.beard != 0) {
+            for (yy in my - 1..hBot + 2) {
+                val rr = yy - (my - 1); val last = hBot + 2 - yy
+                val inset = if (last == 0) 3 else if (last == 1) 1 else if (rr == 0) 2 else 0
+                row(bx - hw + 1 + inset, bx + hw - 1 - inset, yy, L.beard)
+            }
+            c.vline(bx + hw - 1, my, hBot, Col.scale(L.beard, 0.82f))
+        }
+        if (L.moustache != 0) { row(bx - 2, bx + 1, my - 1, L.moustache); c.set(bx - 3, my, L.moustache); c.set(bx + 2, my, L.moustache) }
+        // the mouth: its shape, and talking, its open shape every other beat
+        val open = speaking && ((time * 7).toInt() and 1) == 0
+        val lip = if (L.beard != 0) Col.scale(L.beard, 0.55f) else mouthCol
+        val tongue = Col.hex(0xE07070)
+        fun dark(x0: Int, x1: Int, y: Int) = row(x0, x1, y, mouthIn)
+        when (F) {
+            Face.NEUTRAL -> if (open) { c.fillRect(bx - 1, my, 2, 2, mouthIn); c.set(bx, my + 1, tongue) } else row(bx - 1, bx, my, lip)
+            Face.HAPPY -> if (open) { dark(bx - 1, bx, my); dark(bx - 1, bx, my + 1); c.set(bx, my + 1, tongue); c.set(bx - 2, my, lip); c.set(bx + 1, my, lip) }
+                else { row(bx - 1, bx, my + 1, lip); c.set(bx - 2, my, lip); c.set(bx + 1, my, lip) }
+            Face.LAUGH -> if (open) dark(bx - 2, bx + 1, my) else { dark(bx - 2, bx + 1, my); dark(bx - 1, bx, my + 1); c.set(bx, my + 1, tongue) }
+            Face.SURPRISED -> if (open) { dark(bx - 1, bx, my); dark(bx - 1, bx, my + 1) } else { dark(bx - 1, bx, my); dark(bx - 1, bx, my + 1); c.set(bx - 1, my + 2, lip); c.set(bx, my + 2, lip) }
+            Face.CURIOUS -> if (open) { dark(bx - 1, bx, my); c.set(bx + d, my - 1 + 1, lip) } else { row(bx - 1, bx, my + 1, lip); c.set(bx + (if (d > 0) 1 else -2), my, lip) }
+            Face.CONFUSED -> if (open) { dark(bx - 1, bx, my); c.set(bx - 2, my + 1, lip); c.set(bx + 1, my + 1, lip) }
+                else { c.set(bx - 2, my + 1, lip); c.set(bx - 1, my, lip); c.set(bx, my + 1, lip); c.set(bx + 1, my, lip) }
+            Face.THINKING -> if (open) c.vline(bx + 1, my, my + 1, mouthIn) else c.set(bx + 1, my, lip)
+            Face.WORRIED -> if (open) { dark(bx - 1, bx, my); dark(bx - 1, bx, my + 1) } else { c.set(bx - 1, my + 1, lip); c.set(bx, my, lip); c.set(bx + 1, my + 1, lip) }
+            Face.SAD -> if (open) { dark(bx - 1, bx, my); c.set(bx - 2, my + 1, lip); c.set(bx + 1, my + 1, lip) } else { row(bx - 1, bx, my, lip); c.set(bx - 2, my + 1, lip); c.set(bx + 1, my + 1, lip) }
+            Face.CROSS -> if (open) { dark(bx - 2, bx + 1, my); row(bx - 1, bx, my + 1, mouthIn) } else row(bx - 2, bx + 1, my, lip)
+            Face.SHY -> if (open) c.set(bx, my, mouthIn) else { c.set(bx - 1, my + 1, lip); c.set(bx, my, lip) }
+            Face.PROUD -> if (open) { dark(bx - 1, bx, my); c.set(bx - 2, my, lip); c.set(bx + 1, my, lip); c.set(bx + 2, my - 1, lip) }
+                else { row(bx - 1, bx, my + 1, lip); c.set(bx - 2, my, lip); c.set(bx + 1, my, lip); c.set(bx + 2, my - 1, lip) }
+        }
+        // a child's tear when sad, now and then
+        if (F == Face.SAD && ((time * 2).toInt() and 1) == 0 && L.child) c.set(ex[1] + 1, r + 3, Pal.WATER_L)
+        if (L.old) { c.set(ex[0] - 1, r + 3, Col.scale(L.skin, 0.84f)); c.set(ex[1] + 1, r + 3, Col.scale(L.skin, 0.84f)) }
+    }
+
+    /**
+     * What [face] adds by the head (its [Face.emote], drawn not emoji): a ♪ for a laugh, a ! for surprise, a ? for a
+     * question and a wobbling one for confusion, … in a thought bubble, a sweat drop, a little cross mark, sparkles. Drawn
+     * with [plot] (x, y, colour), in the sprite's pixels, at the head's top corner on the [side] away from the near hand
+     * ([hx] the head's middle, [top] its top row, [hw] its half width), overlapping it a little; [time] animates it and
+     * [age] (seconds since the face began) pops it in. Nothing for a face without one.
+     */
+    fun emote(plot: (Int, Int, Int) -> Unit, face: Face, hx: Int, top: Int, hw: Int, side: Int, time: Double, age: Double = 9.0, bounds: IntArray? = null) {
+        val e = face.emote ?: return
+        val frames = EMOTES.getValue(e)
+        val frame = when (e) {
+            Emote.DOTS -> if (age < 0.4) 0 else ((time * 2.4).toInt() % 3)
+            Emote.SPARKLES, Emote.PUZZLED -> ((time * 2.6).toInt() and 1)
+            else -> 0
+        }.coerceIn(0, frames.lastIndex)
+        val g = frames[frame]
+        val gw = g.maxOf { it.length }; val gh = g.size
+        // popping in: from a pixel lower; then the note bobs, the drop slides, the ! shakes once
+        val rise = if (age < 0.12) 1 else 0
+        val bob = when (e) {
+            Emote.NOTE -> if (sin(time * 4.0) > 0.2) -1 else 0
+            Emote.SWEAT -> if (((time * 1.6).toInt() and 1) == 1) 1 else 0
+            else -> 0
+        }
+        val shake = if (e == Emote.BANG && age in 0.12..0.45) (if (((age * 20).toInt() and 1) == 0) 1 else -1) else 0
+        // its inner bottom corner by the head's top corner, the glyph out and up from there; within [bounds] (a portrait's
+        // canvas: left, top, right, bottom), moved in where it would leave them
+        val lift = EMOTE_LIFT.getValue(e)
+        var x0 = if (side < 0) hx - hw - 1 - gw + 1 else hx + hw + 1
+        var y0 = top + 1 - gh + 1 - lift
+        if (bounds != null) {
+            x0 = x0.coerceIn(bounds[0], max(bounds[0], bounds[2] - gw + 1))
+            y0 = y0.coerceIn(bounds[1], max(bounds[1], bounds[3] - gh + 1))
+        }
+        y0 += rise + bob
+        for (yy in 0 until gh) {
+            val line = g[yy]
+            for (xx in line.indices) {
+                val col = when (line[xx]) {
+                    'o' -> EMOTE_INK
+                    'f' -> EMOTE_FILL.getValue(e)
+                    'h' -> EMOTE_SHINE
+                    'd' -> EMOTE_SHADE.getValue(e)
+                    else -> continue
+                }
+                plot(x0 + xx + shake, y0 + yy, col)
+            }
+        }
     }
 
     /** Hats over the hair: the kerchief, felt hats, the straw hat, the beekeeper's veil, a cap, the smith's bandana. */
@@ -1015,6 +1196,63 @@ internal class PeoplePainter {
         val SHEET_L = Col.hex(0xF6F0E2); val SHEET_M = Col.hex(0xDCD2BC)
         val BLANKET_L = Col.hex(0xD8604A); val BLANKET_M = Col.hex(0xB8452E); val BLANKET_D = Col.hex(0x7E2A20); val BLANKET_CHECK = Col.hex(0xC98A3A)
         val ZZZ = Col.hex(0xEEF2FF); val ZZZ_SHADE = Col.hex(0x1A2040)
+
+        // ---- the emotes ([emote]): each a few frames of pixels, f its fill, h a shine, d a shade; o, the dark outline, is
+        // added round the outlined ones as they're read (OUTLINED)
+        /** A question mark in a white badge, outlined: f its ink. */
+        private val QUESTION = listOf(".ooooo.", "ohhhhho", "ohfffho", "ohhhfho", "ohhfhho", "ohhhhho", "ohhfhho", ".ooooo.")
+        private val GLYPHS: Map<Emote, List<List<String>>> = mapOf(
+            Emote.NOTE to listOf(listOf("..ff", "..fd", "..f.", "..f.", "fff.", "fd..")),
+            Emote.BANG to listOf(listOf(".ooo.", "ohfho", "ohfho", "ohfho", "ohhho", "ohfho", ".ooo.")),
+            // the question mark in a little white badge, its ink the colour (a 1-px stroke outlined would fill its hook)
+            Emote.QUESTION to listOf(QUESTION),
+            // the same in violet, wobbling a pixel from side to side
+            Emote.PUZZLED to listOf(QUESTION, QUESTION.map { ".$it" }),
+            // "…" in a thought bubble, the dots coming one by one
+            Emote.DOTS to listOf(
+                listOf(".ooooooo.", "ohhhhhhho", "ohfhhhhho", "ohhhhhhho", ".ooooooo."),
+                listOf(".ooooooo.", "ohhhhhhho", "ohfhfhhho", "ohhhhhhho", ".ooooooo."),
+                listOf(".ooooooo.", "ohhhhhhho", "ohfhfhfho", "ohhhhhhho", ".ooooooo."),
+            ),
+            Emote.SWEAT to listOf(listOf(".f.", ".f.", "hff", "hff", ".d.")),
+            // the comic cross mark: four little curls round a cross-shaped gap
+            Emote.VEIN to listOf(listOf(".f.f.", "fd.df", ".....", "fd.df", ".f.f.")),
+            Emote.SPARKLES to listOf(
+                listOf("..d....", ".dhd...", "..d....", ".....d.", "....dhd", ".....d."),
+                listOf("..d....", "..d....", "ddhdd..", "..d....", "..d..d.", "......."),
+            ),
+        )
+
+        private val OUTLINED = setOf(Emote.NOTE, Emote.SWEAT)
+
+        /** The emotes' frames, outlined where they are ([OUTLINED]): a ring of o round what is drawn. */
+        val EMOTES: Map<Emote, List<List<String>>> = GLYPHS.mapValues { (e, frames) -> if (e in OUTLINED) frames.map(::outlined) else frames }
+
+        private fun outlined(g: List<String>): List<String> {
+            val h = g.size + 2; val w = g.maxOf { it.length } + 2
+            fun at(x: Int, y: Int) = g.getOrNull(y - 1)?.getOrNull(x - 1)?.takeIf { it != '.' }
+            return (0 until h).map { y ->
+                (0 until w).map { x ->
+                    at(x, y) ?: if (at(x - 1, y) != null || at(x + 1, y) != null || at(x, y - 1) != null || at(x, y + 1) != null) 'o' else '.'
+                }.joinToString("")
+            }
+        }
+
+        /** How much higher than the head's top corner each emote's glyph sits (the drop and the cross mark lower: on the temple). */
+        private val EMOTE_LIFT: Map<Emote, Int> = mapOf(
+            Emote.NOTE to 0, Emote.BANG to 0, Emote.QUESTION to 0, Emote.PUZZLED to 0,
+            Emote.DOTS to 1, Emote.SWEAT to -3, Emote.VEIN to -2, Emote.SPARKLES to 0,
+        )
+        private val EMOTE_INK = Col.hex(0x2A1E26)
+        private val EMOTE_SHINE = Col.hex(0xFFFFFF)
+        private val EMOTE_FILL: Map<Emote, Int> = mapOf(
+            Emote.NOTE to Col.hex(0xF0587A), Emote.BANG to Col.hex(0xE8452C), Emote.QUESTION to Col.hex(0x2F86D0), Emote.PUZZLED to Col.hex(0x8A4FD8),
+            Emote.DOTS to Col.hex(0x2A1E26), Emote.SWEAT to Col.hex(0x8CCDF5), Emote.VEIN to Col.hex(0xE8403A), Emote.SPARKLES to Col.hex(0xFFE27A),
+        )
+        private val EMOTE_SHADE: Map<Emote, Int> = mapOf(
+            Emote.NOTE to Col.hex(0xB83A5A), Emote.BANG to Col.hex(0xB02A18), Emote.QUESTION to Col.hex(0x3A8AC8), Emote.PUZZLED to Col.hex(0x8A64C8),
+            Emote.DOTS to Col.hex(0x2A1E26), Emote.SWEAT to Col.hex(0x4A9AD8), Emote.VEIN to Col.hex(0xC42C2A), Emote.SPARKLES to Col.hex(0xF0A21E),
+        )
     }
 
     private fun basket(x: Int, y: Int) {
@@ -1112,9 +1350,19 @@ internal class PeoplePainter {
      * frilled bonnet. It babbles when talking, bounces when happy, throws its little arms up at a cheer, cries when
      * sad, sucks its thumb when thinking, and waves.
      */
-    private fun baby(bx: Int, by0: Int, time: Double, seed: Int, talking: Boolean, flip: Boolean, pose: Pose) {
+    private fun baby(bx: Int, by0: Int, time: Double, seed: Int, talking: Boolean, flip: Boolean, pose: Pose, face: Face? = null) {
         val d = if (flip) -1 else 1
         val P = if (pose == Pose.IDLE && talking) Pose.TALK else pose
+        // a face of its own, as the baby has them: a laugh and pride beam (the eyes shut), happy and shy smile, a sad,
+        // worried or cross face cries, a thinking one sucks its thumb, the others look on
+        val FP = when (face?.takeIf { P != Pose.SLEEP }) {
+            null -> P
+            Face.LAUGH, Face.PROUD -> Pose.CHEER
+            Face.HAPPY, Face.SHY -> Pose.HAPPY
+            Face.SAD, Face.WORRIED, Face.CROSS -> Pose.SAD
+            Face.THINKING -> Pose.THINK
+            else -> if (talking) Pose.TALK else Pose.IDLE
+        }
         val hop = when (P) { Pose.HAPPY -> if (sin(time * 5 + seed * 0.3) > 0.3) 1 else 0; Pose.CHEER -> (max(0.0, sin(time * 4 + seed * 0.3)) * 2.5).toInt(); else -> 0 }
         val by = by0 - hop
         val blanket = if ((seed ushr 3) % 2 == 0) Col.hex(0xF4B8CC) else Col.hex(0x9CC8E8)
@@ -1140,18 +1388,22 @@ internal class PeoplePainter {
         c.set(hx - 1, hBot + 1, blanket); c.set(hx + 1, hBot + 1, blanket)
         // the face: dot eyes (shut when crying or at a cheer), cheeks, a mouth
         val eyeY = hTop + 4
-        when (P) {
+        face?.takeIf { P != Pose.SLEEP }?.let { headAt(it, hx, 6, hTop - 2, -d) }
+        when (FP) {
             Pose.SAD, Pose.CHEER, Pose.SLEEP -> { row(hx - 3, hx - 2, eyeY + 1, eye); row(hx + 2, hx + 3, eyeY + 1, eye) }
-            else -> { c.vline(hx - 2, eyeY, eyeY + 1, eye); c.vline(hx + 2, eyeY, eyeY + 1, eye); if (P == Pose.THINK) { c.set(hx - 2, eyeY - 1, eye); c.set(hx + 2, eyeY - 1, eye) } }
+            else -> { c.vline(hx - 2, eyeY, eyeY + 1, eye); c.vline(hx + 2, eyeY, eyeY + 1, eye); if (FP == Pose.THINK) { c.set(hx - 2, eyeY - 1, eye); c.set(hx + 2, eyeY - 1, eye) } }
         }
         c.set(hx - 4, eyeY + 2, blush); c.set(hx + 4, eyeY + 2, blush)
+        if (face == Face.SHY) { c.set(hx - 3, eyeY + 2, blush); c.set(hx + 3, eyeY + 2, blush) }
         val my = eyeY + 3
         val babble = (talking || P == Pose.TALK) && ((time * 6).toInt() and 1) == 0
         when {
-            P == Pose.SAD -> { c.fillRect(hx - 1, my, 2, 2, mouthIn); if (((time * 3).toInt() and 1) == 0) { c.set(hx - 4, eyeY + 3, Pal.WATER_L); c.set(hx + 4, eyeY + 4, Pal.WATER_L) } }
-            P == Pose.CHEER || babble -> c.fillRect(hx - 1, my, 2, 1, mouthIn)
-            P == Pose.THINK -> c.fillRect(hx, my, 2, 2, Pal.SKIN_D) // a thumb
+            FP == Pose.SAD -> { c.fillRect(hx - 1, my, 2, 2, mouthIn); if (((time * 3).toInt() and 1) == 0) { c.set(hx - 4, eyeY + 3, Pal.WATER_L); c.set(hx + 4, eyeY + 4, Pal.WATER_L) } }
+            FP == Pose.CHEER || babble -> c.fillRect(hx - 1, my, 2, 1, mouthIn)
+            FP == Pose.THINK -> c.fillRect(hx, my, 2, 2, Pal.SKIN_D) // a thumb
             talking || P == Pose.TALK -> c.set(hx, my, mouthIn) // an "o" between the babbles
+            face == Face.SURPRISED -> c.fillRect(hx - 1, my, 2, 2, mouthIn)
+            FP == Pose.HAPPY && face != null -> { c.set(hx - 1, my, mouthCol); c.set(hx, my + 1, mouthCol); c.set(hx + 1, my, mouthCol) }
             else -> c.set(hx, my, mouthCol)
         }
         // little hands out of the blanket

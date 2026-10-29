@@ -404,10 +404,27 @@ internal abstract class ArtPainter : ScenePainter {
     ) {
         if (p.pose == Pose.SLEEP) { lyingHere(p, bx, by, flip, awake = false); return }
         val id0 = begin(Pal.OUTLINE)
-        sprite(bx, by) { people.draw(c, p.art, bx, by, t, Noise.hash(p.id.hashCode(), 7) ushr 1, p.talking, flip, walking, seated, p.pose, crouch = crouch, reach = reach, rest = rest) }
+        sprite(bx, by) { people.draw(c, p.art, bx, by, t, Noise.hash(p.id.hashCode(), 7) ushr 1, p.talking, flip, walking, seated, p.pose, crouch = crouch, reach = reach, rest = rest, face = p.face) }
         val id1 = c.penId
         end(SceneTarget.Person(p.id), id0, true, 1)
         if (keepPeople) keep(p.id, id0, id1)
+        emote(p, bx, by)
+    }
+
+    /**
+     * What [p]'s face adds by their head (PeoplePainter.emote: a ♪, a !, a sweat drop …), from where the sprite just drawn
+     * with its feet at ([bx], [by]) had it: in the effects pass, over everything and unlit, never a part of them to tap.
+     */
+    private fun emote(p: PersonInScene, bx: Int, by: Int) {
+        val f = people.headFace ?: return
+        val hx = people.headX; val top = people.headTop; val hw = people.headHw; val side = people.headSide
+        val age = p.faceAge.toDouble()
+        s.fx {
+            val was = c.penEmissive
+            c.penEmissive = true
+            sprite(bx, by) { people.emote({ x, y, col -> c.set(x, y, col) }, f, hx, top, hw, side, t, age) }
+            c.penEmissive = was
+        }
     }
 
     /**

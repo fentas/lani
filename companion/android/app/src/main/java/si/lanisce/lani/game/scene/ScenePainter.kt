@@ -76,6 +76,9 @@ data class PersonInScene(
     val from: String? = null,
     val fromStance: Stance = Stance.STAND,
     val moveAge: Float = 0f,
+    /** Their face of their own ([Face]; null: the pose's, as it always was), and since when it shows ([faceAge], seconds). */
+    val face: Face? = null,
+    val faceAge: Float = 9f,
 )
 
 /** How a person stands: moods and gestures for scenes, intros and the training stage. */
@@ -107,18 +110,32 @@ enum class Pose {
  * on a plain or softly lit background. Nominal canvas 64×64; any square-ish size works.
  */
 interface PortraitPainter {
-    /** [seed] varies a sprite per person (hair, clothes) for the village's own people: their id's hash. */
-    fun render(canvas: PixelCanvas, art: String, pose: Pose, time: Double, hour: Float = 12f, seed: Int = 0)
+    /**
+     * [seed] varies a sprite per person (hair, clothes) for the village's own people: their id's hash. [face]: an
+     * expression of its own ([Face]; null: the pose's own, as it always was), what it adds by the head popping in over
+     * the first moments of [faceAge] (seconds since it began); [framing]: the bust, or the head alone (an avatar).
+     */
+    fun render(
+        canvas: PixelCanvas, art: String, pose: Pose, time: Double, hour: Float = 12f, seed: Int = 0,
+        face: Face? = null, faceAge: Double = 9.0, framing: Framing = Framing.BUST,
+    )
 
     /**
      * As [render], on the school's stage ([StagePose]): turned and reaching toward a point, walking in from the side.
      * Where the near hand is on the canvas (where a pointer it holds starts), or null without one (a stand-in painter).
      */
-    fun renderStage(canvas: PixelCanvas, art: String, pose: Pose, time: Double, hour: Float, seed: Int, stage: StagePose): StageHand? {
-        render(canvas, art, pose, time, hour, seed)
+    fun renderStage(canvas: PixelCanvas, art: String, pose: Pose, time: Double, hour: Float, seed: Int, stage: StagePose, face: Face? = null, faceAge: Double = 9.0): StageHand? {
+        render(canvas, art, pose, time, hour, seed, face, faceAge)
         return null
     }
 }
+
+/**
+ * How a portrait frames the sprite: [BUST] from the hat to the waist (the stage, the intros, the dialogs' sheets), [HEAD]
+ * the head and the shoulders, close (a small avatar: the conversation's bubbles, a bar, the dialog panel's header), so the
+ * face reads at that size.
+ */
+enum class Framing { BUST, HEAD }
 
 /**
  * How someone stands on the school's stage (the teacher of a unit's introduction): [aim] the canvas point they point at

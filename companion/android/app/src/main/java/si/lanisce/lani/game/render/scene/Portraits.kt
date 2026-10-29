@@ -5,6 +5,8 @@ import si.lanisce.lani.game.render.Dither
 import si.lanisce.lani.game.render.Env
 import si.lanisce.lani.game.render.Pal
 import si.lanisce.lani.game.render.PixelCanvas
+import si.lanisce.lani.game.scene.Face
+import si.lanisce.lani.game.scene.Framing
 import si.lanisce.lani.game.scene.PortraitPainter
 import si.lanisce.lani.game.scene.Pose
 import si.lanisce.lani.game.scene.StageHand
@@ -28,29 +30,39 @@ internal class PortraitsPainter : PortraitPainter {
     private val sprite = PixelCanvas(SPRITE_W, SPRITE_H)
     private val edge = BooleanArray(SPRITE_W * SPRITE_H)
 
-    override fun render(canvas: PixelCanvas, art: String, pose: Pose, time: Double, hour: Float, seed: Int) {
-        paint(canvas, art, pose, time, hour, seed, null)
+    override fun render(canvas: PixelCanvas, art: String, pose: Pose, time: Double, hour: Float, seed: Int, face: Face?, faceAge: Double, framing: Framing) {
+        paint(canvas, art, pose, time, hour, seed, null, face, faceAge, framing)
     }
 
     /**
      * The school's stage ([StagePose]): turned toward [StagePose.aim], the near arm reaching that way (the hand free: the
      * pointer is the caller's, drawn from the hand returned), the book back in hand without one; shifted and walking in.
      */
-    override fun renderStage(canvas: PixelCanvas, art: String, pose: Pose, time: Double, hour: Float, seed: Int, stage: StagePose): StageHand =
-        paint(canvas, art, pose, time, hour, seed, stage)
+    override fun renderStage(canvas: PixelCanvas, art: String, pose: Pose, time: Double, hour: Float, seed: Int, stage: StagePose, face: Face?, faceAge: Double): StageHand =
+        paint(canvas, art, pose, time, hour, seed, stage, face, faceAge, Framing.BUST)
 
-    private fun paint(canvas: PixelCanvas, art: String, pose: Pose, time: Double, hour: Float, seed: Int, stage: StagePose?): StageHand {
+    private fun paint(
+        canvas: PixelCanvas, art: String, pose: Pose, time: Double, hour: Float, seed: Int, stage: StagePose?,
+        face: Face? = null, faceAge: Double = 9.0, framing: Framing = Framing.BUST,
+    ): StageHand {
         val w = canvas.width; val h = canvas.height
         canvas.reset(0)
         backdrop(canvas, Env(hour, 6, false))
 
-        // framing: the waist at the bottom edge (a baby: its basket), but never the hat cut off
+        // framing: the waist at the bottom edge (a baby: its basket), but never the hat cut off; the head alone: the chin and
+        // the shoulders' top at the bottom edge, the hat cut first when the canvas is too small for all of it
         val L = Looks.of(art, seed)
         val bx = SPRITE_W / 2; val by = SPRITE_H - 2
         // a whole number of times bigger; a canvas nearly big enough for the next step takes it (the waist may go)
-        val s = max(1, (min(w, h) + 8) / 30)
-        val cut = if (art == "baby") by + 1 else by - L.legH + 1
+        val s = if (framing == Framing.HEAD) max(1, (min(w, h) + 4) / 22) else max(1, (min(w, h) + 8) / 30)
+        val chin = if (art == "baby") by - 11 else by - L.legH - L.torsoH
+        val cut = when {
+            framing == Framing.HEAD -> chin + HEAD_SHOULDERS
+            art == "baby" -> by + 1
+            else -> by - L.legH + 1
+        }
         val headTop = by - (if (art == "baby") 24 else L.height) - when {
+            framing == Framing.HEAD -> if (L.hat == Looks.HAT_NONE && L.hairStyle != Looks.HAIR_BUN) 2 else 3 // the crown, a hat's brim
             L.pack == Looks.PACK_KROSNJA -> 11 // the pedlar's load stands higher than his hat
             L.hat == Looks.HAT_FELT -> 5; L.hat == Looks.HAT_STRAW || L.hat == Looks.HAT_VEIL -> 4
             else -> if (L.hairStyle == Looks.HAIR_BUN) 5 else 2
@@ -69,7 +81,7 @@ internal class PortraitsPainter : PortraitPainter {
         // a bust: asleep, they doze where they stand
         people.draw(
             sp, art, bx, by, time, seed, talking = false, flip = reach?.flip ?: false, walking = stage?.walking == true, seated = false,
-            pose = pose, upright = true, reach = reach?.let { intArrayOf(it.x, it.y) }, holding = reach != null,
+            pose = pose, upright = true, reach = reach?.let { intArrayOf(it.x, it.y) }, holding = reach != null, face = face,
         )
         val hx = people.heldX; val hy = people.heldY
         sp.penId = 0
@@ -84,6 +96,13 @@ internal class PortraitsPainter : PortraitPainter {
                 if (ids[i] == 0 && !edge[i]) continue
                 canvas.block(x * s + dx, cy, s, px[i])
             }
+        }
+        // what the face adds by the head, over the outline, in the sprite's pixels; kept inside the canvas (a small one:
+        // over the head's corner)
+        people.headFace?.let { f ->
+            // the canvas in the sprite's pixels, a pixel in from its edges
+            val bounds = intArrayOf(-Math.floorDiv(dx, s) + 1, -Math.floorDiv(dy, s) + 1, Math.floorDiv(w - 1 - dx, s) - 1, Math.floorDiv(h - 1 - dy, s) - 1)
+            people.emote({ x, y, col -> canvas.block(x * s + dx, y * s + dy, s, col) }, f, people.headX, people.headTop, people.headHw, people.headSide, time, faceAge, bounds)
         }
         // the hand: its 2×2 pixels' middle (to the left of its column when it faces left)
         val flip = reach?.flip ?: false
@@ -131,6 +150,9 @@ internal class PortraitsPainter : PortraitPainter {
     private companion object {
         const val SPRITE_W = 48
         const val SPRITE_H = 60
+
+        /** The head alone ([Framing.HEAD]): this many rows under the chin show, the shoulders' top. */
+        const val HEAD_SHOULDERS = 4
     }
 }
 
