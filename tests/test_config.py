@@ -9,6 +9,7 @@ import sqlite3
 import subprocess
 import sys
 import tempfile
+import time
 import unittest
 from pathlib import Path
 
@@ -42,6 +43,17 @@ def real_tool(name: str) -> str:
         if "shims" not in Path(d).parts and p.is_file() and os.access(p, os.X_OK):
             return str(p)
     return name
+
+
+def wait_for_background_pushes(data: Path, timeout: float = 30) -> None:
+    """Waits while a push lani_data_repo.py started in the background for [data] (after an autocommit) still runs: it
+    writes in data/.git, and a test's temporary directory removed under it fails ("Directory not empty: …/.git",
+    test_lease's HandoverTest on 2026-10-29)."""
+    deadline = time.monotonic() + timeout
+    while time.monotonic() < deadline:
+        if subprocess.run(["pgrep", "-f", f"lani_data_repo.py push {data}"], capture_output=True).returncode != 0:
+            return
+        time.sleep(0.1)
 
 
 def sandbox_env(home: Path, **more) -> dict:

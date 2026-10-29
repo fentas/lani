@@ -19,7 +19,7 @@ HOOKS = REPO / ".claude" / "hooks"
 sys.path.insert(0, str(HOOKS))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import lani_lease as L  # noqa: E402
-from test_config import sandbox_env  # noqa: E402
+from test_config import sandbox_env, wait_for_background_pushes  # noqa: E402
 
 TEMPLATES = REPO / "data-examples"
 NODE = {"side": "node", "device": "test-node", "name": "test-node", "mode": "self-hosted"}
@@ -149,6 +149,7 @@ class HandoverTest(unittest.TestCase):
         git(self.data, "push", "-q", "origin", "HEAD")
 
     def tearDown(self):
+        wait_for_background_pushes(self.data)
         self.tmp.cleanup()
 
     def env(self, **more):

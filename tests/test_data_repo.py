@@ -17,7 +17,7 @@ os.environ["LANI_ENV_FILE"] = os.devnull  # this process never reads the machine
 REPO = Path(__file__).resolve().parents[1]
 HOOKS = REPO / ".claude" / "hooks"
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from test_config import sandbox_env  # noqa: E402
+from test_config import sandbox_env, wait_for_background_pushes  # noqa: E402
 
 TEMPLATES = REPO / "data-examples"
 
@@ -58,6 +58,7 @@ class DataRepoTest(unittest.TestCase):
         self.lani_env.write_text(f"LANI_DATA_DIR={self.data}\n")
 
     def tearDown(self):
+        wait_for_background_pushes(self.data)
         self.tmp.cleanup()
 
     def run_hook(self, script: str, stdin: str = "", **env) -> subprocess.CompletedProcess:
