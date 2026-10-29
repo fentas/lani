@@ -117,6 +117,13 @@ export default async function stt() {
   const notTalk = await (await post(take, '?language=sl&said=x')).json()
   check('without talk=1 the said words are no talk: one hearing as before', notTalk.text === 'Na vrtu je čebelniak.' && !('sure' in notTalk) && !('plain' in whisper.calls.at(-1)!.query), notTalk)
 
+  // the prompt: the names, the phrases, the character's last two lines nearest; within 300 characters, phrases go first
+  const long = talkPrompt({ said: ['Ciao, Teo!', 'Andiamo al ruscello o al bosco? '.repeat(9).trim()], words: ['Come stai?', 'le pecore', 'i campanacci'], names: ['Teo', 'Pastore Davide'] })
+  const short = talkPrompt({ said: ['Ciao, Teo!', 'Andiamo al ruscello o al bosco?'], words: ['Come stai?', 'le pecore', 'i campanacci', 'ciao'], names: ['Teo', 'Pastore Davide'] })
+  check('the talk prompt: names, phrases (bare words as a list), then the lines; a phrase the lines say is left out',
+    short === 'Teo, Pastore Davide. Come stai? Le pecore, i campanacci. Ciao, Teo! Andiamo al ruscello o al bosco?', short)
+  check('the talk prompt keeps within 300 characters: the phrases, then the older line go, then the last line\'s start', long.length <= 300 && long.startsWith('Teo, Pastore Davide. ruscello') && long.endsWith('al bosco?') && !long.includes('Come stai?') && !long.includes('Ciao, Teo!'), long)
+
   // the weighing itself (stt-talk.ts), with an Italian dictionary of a few words
   const words = new Set(['amico', 'come', 'stai', 'il', 'mio', 'ciao', 'grazie', 'piccola', 'piccoli', 'al', 'ruscello', 'bosco', 'o', 'andiamo'])
   const knows: Knows = w => words.has(w.toLowerCase())
