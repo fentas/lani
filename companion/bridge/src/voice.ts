@@ -19,7 +19,7 @@ import { copyFileSync, existsSync, mkdirSync, readFileSync, renameSync, unlinkSy
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { renderDeep, type Addressee } from './addressee'
-import { archetypeOf, carrierVoice, cast, castInfo, playerVoices, denoiseOf, denoiseVoices, elevenlabsOf, fallbacks, genderOf, GENDERS, isNarrator, isVoice, LANGUAGE_VOICE, languageVoice, languageVoiceName, personVoice, speakerFor, tempoOf, tempoVoices, voiceSince, type DenoisePreset, type Gender } from './cast'
+import { archetypeOf, carrierVoice, cast, castInfo, isLearnerVoice, playerOptions, playerVoices, denoiseOf, denoiseVoices, elevenlabsOf, fallbacks, genderOf, GENDERS, isNarrator, isVoice, LANGUAGE_VOICE, languageVoice, languageVoiceName, personVoice, speakerFor, tempoOf, tempoVoices, voiceSince, type DenoisePreset, type Gender } from './cast'
 import { courseTexts, teacherVoice, type CourseInput } from './course-speech'
 import type { ArrivalBody } from './arrivals'
 import { drillTexts, type Drill } from './drills'
@@ -1567,7 +1567,7 @@ export function cardTexts(items: Record<string, { type?: string; content?: strin
 }
 
 /** The corpus priorities, in prebuild order (CorpusItem.priority is the index). */
-export const PRIORITY_LABELS = ['villagers', 'pack words', 'examples', 'modules', 'scenarios', 'course', 'stories A1', 'drills A1', 'scenes', 'ispy', 'stories A2', 'drills A2+', 'stories B1+', 'explanations']
+export const PRIORITY_LABELS = ['villagers', 'pack words', 'examples', 'modules', 'scenarios', 'course', 'stories A1', 'drills A1', 'scenes', 'ispy', 'my lines', 'stories A2', 'drills A2+', 'stories B1+', 'explanations']
 
 /** The school's course in the teacher's voice (course-speech.ts): what the app reads aloud in the language learned. */
 const COURSE = PRIORITY_LABELS.indexOf('course')
@@ -1581,6 +1581,11 @@ export const EXPLANATIONS = PRIORITY_LABELS.indexOf('explanations')
 const SCENES = PRIORITY_LABELS.indexOf('scenes')
 /** What a child says playing «Vidim, vidim» in the scenes (ispy.ts): after the scenes' dialogs. */
 const ISPY = PRIORITY_LABELS.indexOf('ispy')
+/**
+ * The learner's own lines in the dialogs, in their voice (my-voice.ts: the dialogs' choices, which are said as they are
+ * picked): after the scenes' dialogs and I spy, since the choices are voiced in the default voice there already (their 🔊).
+ */
+const MINE = PRIORITY_LABELS.indexOf('my lines')
 /**
  * The storyteller's tellings at [level]: the A1 ones before the scenes (the learner's level: the car plays a telling
  * only when its clips exist), A2 after them, then B1 and up.
@@ -1660,6 +1665,11 @@ export function corpus(input: {
    * gets it, so a clip is keyed by what the app says. Without, a text with such a placeholder is voiced when played.
    */
   learner?: Addressee
+  /**
+   * The voice the learner's own lines are said in (my-voice.ts, as the store speaks it: "male" for Jan's Luka,
+   * "player-boy-a"): the dialogs' choices in it too ('my lines'); none while the learner has their lines off.
+   */
+  mine?: VoiceName
 }): CorpusItem[] {
   if (input.learner) {
     const { ownVoice, learner, ...content } = input
@@ -1670,6 +1680,12 @@ export function corpus(input: {
   const villagerVoice = new Map((c.villagers ?? []).map(v => [v.id, speakerFor(v)]))
   const out: CorpusItem[] = []
   const seen = new Set<string>()
+  // the learner's own lines (the dialogs' choices), in their voice after the scenes and I spy ([MINE])
+  const own: { text: string; source: string }[] = []
+  const choice = (text: string | undefined, source: string) => {
+    add(text, source, SCENES)
+    if (text && c.mine) own.push({ text, source })
+  }
   const add = (text: string | undefined, source: string, priority: number, voice: VoiceName = 'female') => {
     if (!text) return
     for (const p of phrases(text)) {
@@ -1773,7 +1789,7 @@ export function corpus(input: {
           add(said(l), src, SCENES, speaker)
         }
         for (const ch of l.choices) {
-          add(said(ch), src, SCENES)
+          choice(said(ch), src)
           add(said(ch.reply), src, SCENES, speaker)
         }
       }
@@ -1811,7 +1827,7 @@ export function corpus(input: {
     for (const t of k.tellings) for (const l of t.lines) {
       if (l.who) add(say(l), src, SCENES, voice)
       for (const ch of l.choices) {
-        add(say(ch), src, SCENES)
+        choice(say(ch), src)
         add(say(ch.reply), src, SCENES, voice)
       }
     }
@@ -1834,7 +1850,7 @@ export function corpus(input: {
           if (speaker) add(say(l), src, SCENES, speaker)
         }
         for (const ch of l.choices ?? []) {
-          add(say(ch), src, SCENES)
+          choice(say(ch), src)
           if (speaker) add(say(ch.reply), src, SCENES, speaker)
         }
       }
@@ -1856,12 +1872,14 @@ export function corpus(input: {
           add(say(l), src, SCENES, speaker)
         }
         for (const ch of l.choices) {
-          add(say(ch), src, SCENES)
+          choice(say(ch), src)
           add(say(ch.reply), src, SCENES, speaker)
         }
       }
     }
   }
+  // the learner's own lines in their voice, after the scenes and I spy (their choices' 🔊 says them in the default voice)
+  for (const t of own) add(t.text, t.source, MINE, c.mine)
   const later = drillPriority('A2')
   for (const t of stories) if (t.priority > SCENES && t.priority < later) add(t.text, t.source, t.priority, t.voice)
   for (const t of drills) if (t.priority > SCENES) add(t.text, t.source, t.priority, t.voice)
@@ -2442,6 +2460,9 @@ export class VoiceStore {
   waitsForElevenLabs(norm: string, voice: VoiceName): boolean {
     // someone's own voice is only ever theirs: a local clip in it would be someone else speaking
     if (personVoice(voice)) return true
+    // a learner's voice (the cast's `players`): their line in it alone, never the narrator's clip, so the local voice
+    // (the option's Gepard voice) says it when ElevenLabs can't
+    if (isLearnerVoice(voice)) return false
     return !isNarrator(voice) && !!this.best(norm, genderOf(voice))
   }
 
@@ -3945,8 +3966,10 @@ export class VoiceStore {
       ...(this.eleven?.configured ? { local_clips: this.localStats() } : {}),
       engines,
       cast: castInfo(),
-      // who says the learner's own lines in a dialog, by their gender (the cast's `player`)
+      // who says the learner's own lines in a dialog, by their gender (the cast's `player`), and the voices they choose
+      // theirs from (the cast's `players`, by gender and age: my-voice.ts)
       player: playerVoices(),
+      players: Object.fromEntries(GENDERS.map(g => [g, Object.fromEntries(Object.entries(playerOptions()[g]).map(([a, l]) => [a, l.map(o => `${o.id} (${o.name})`)]))])),
       queued: this.queue.length,
       ...(this.eleven ? { carrier: this.carrierStats() } : {}),
       ...(Object.keys(denoiseVoices()).length ? { denoise: this.denoiseStats() } : {}),
@@ -3995,9 +4018,12 @@ for them, within the day's re-voice cap and above the reserve (voice_status: nar
 a villager's line the local Gepard voice said while ElevenLabs couldn't is made in their speaker's ElevenLabs voice as the
 app asks for it, within the same cap and above the reserve (voice_status: local_clips).
 The learner has a voice too: their own lines in a dialog (a choice tapped, a turn typed right, an echo gone on from) are
-said in it before the reply comes, the "player" of companion/voice-cast.json by the profile's learner.gender (in the
-Slovene village Luka for a man, Nina for a woman, Nina while the profile says none; voice_status: player). A line the
-learner said into the microphone isn't said again; their line's 🔊 plays it in their voice.
+said in it before the reply comes. They choose it in the app ("🗣️ Moj glas · My voice": 2–3 voices of their gender and
+age from the cast's "players", a child's for a child, or off), offered once at their first line; it is kept in
+learner-profile.json preferences.my_voice ({"voice": "player-boy-b" | "male.sl" | "off" | "default", "since"}): keep that
+key when you write the profile. Without a choice, the first voice of their gender and age (in the Slovene village Luka
+for a man, Nina for a woman, Nina while the profile says none; voice_status: my_voice, players). A line the learner said
+into the microphone isn't said again; their line's 🔊 plays it in their voice.
 The school's guided introductions are read out too, in the teacher's voice: each step's explanation in the learner's own
 language, the Slovene forms in it, one clip made by ElevenLabs as the app first asks for it (never from the reserve; the app
 reads the step with the phone's voice and the Slovene clips meanwhile); voice_status counts them apart (explanations). The

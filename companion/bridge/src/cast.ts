@@ -12,13 +12,18 @@
 // narrators' Slovene voices (Nina, Luka) beside their English ones (Matilda, Daniel). Their clips are those of the voice
 // "female.sl" (languageVoice), next to the narrator's local Gepard clips (voice.ts, "The narrators in Slovene").
 // The cast's `player` is who says the learner's own lines in a dialog: a voice of the cast for each gender (the narrators'
-// Slovene voices: Luka, Nina), the app asking for them as the voice "player" (PLAYER, playerVoice).
+// Slovene voices: Luka, Nina), the app asking for them as the voice "player" (PLAYER, playerVoice). The cast's `players`
+// are the voices the learner chooses theirs from ("Moj glas · My voice", my-voice.ts): 2–3 per gender and age (adult,
+// child), each a speaker of the cast that nobody else in it speaks with (crossCheck), the default first.
 import { readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 import { z } from 'zod'
 
 export type Gender = 'female' | 'male'
 export const GENDERS: Gender[] = ['female', 'male']
+/** A learner's voice's age (the cast's `players`): a grown-up's, or a child's for a child (the profile's child flag). */
+export type Age = 'adult' | 'child'
+export const AGES: Age[] = ['adult', 'child']
 /** A speaker name: "grandma", "young-man". */
 export const SPEAKER_ID = /^[a-z][a-z0-9-]{0,31}$/
 /** A speaker's voice in a language (its `languages`): "female.sl", the female narrator's Slovene voice. */
@@ -62,6 +67,8 @@ const speakerSpec = z.object({
   languages: z.record(z.string().regex(/^[a-z]{2}$/), languageSpec).optional(),
   // its own pace (tempoSpec): a voice that speaks slowly sped up (the girl's Piku, ×1.1 since 2026-10-19)
   tempo: tempoSpec.optional(),
+  // a voice of the learner's own (the cast's `players`): a grown-up's or a child's; its place in `players` must agree
+  age: z.enum(['adult', 'child']).optional(),
   name: z.string().max(80).optional(),
   role: z.string().max(200).optional(),
 })
@@ -97,7 +104,7 @@ export const CAST_FILE = join(import.meta.dir, '../../voice-cast.json')
 export const DENOISE_PRESETS = ['hiss', 'hiss-strong'] as const
 export type DenoisePreset = (typeof DENOISE_PRESETS)[number]
 
-let cached: { path: string; mtime: number; cast: Cast; denoise: Record<string, DenoisePreset>; player: Record<Gender, string> } | undefined
+let cached: { path: string; mtime: number; cast: Cast; denoise: Record<string, DenoisePreset>; player: Record<Gender, string>; players: Players; explicit: Set<Gender> } | undefined
 let castFile: string | undefined
 
 /** The voice cast this bridge speaks with from now on: its culture pack's (voice-cast.json in the pack), else the default. */
@@ -122,6 +129,8 @@ function load(path = process.env.LANI_VOICE_CAST || castFile || CAST_FILE): NonN
   let c = NARRATORS
   let denoise: Record<string, DenoisePreset> = {}
   let player = { ...PLAYER_DEFAULT }
+  let players = emptyPlayers()
+  let explicit = new Set<Gender>()
   if (mtime >= 0) {
     try {
       const raw = JSON.parse(readFileSync(path, 'utf8'))
@@ -130,11 +139,23 @@ function load(path = process.env.LANI_VOICE_CAST || castFile || CAST_FILE): NonN
       else console.error(`[voice] ${path}: ${z.prettifyError(r.error)}; using the narrators only`)
       denoise = denoiseSpec(raw?.denoise, c, path)
       player = playerSpec(raw?.player, c, path)
+      explicit = new Set(GENDERS.filter(g => typeof raw?.player?.[g] === 'string' && player[g] === raw.player[g]))
+      const checked = checkPlayers(raw?.players, c)
+      for (const e of checked.problems) console.error(`[voice] ${path}: ${e}`)
+      players = checked.players
+      // the cast's `player` written for a gender: never a voice the cast speaks with (the narrators' are theirs to give)
+      for (const g of explicit) {
+        const clash = castClash(player[g], c, optionSpeakers(players))
+        if (clash) {
+          console.error(`[voice] ${path}: player ${g}: ${JSON.stringify(player[g])} is ${clash === player[g] ? 'a voice of the cast (a voice of the learner\'s own is a speaker with its age)' : `${clash}'s voice`}: never a cast member's; the learner's voices say their lines`)
+          explicit.delete(g)
+        }
+      }
     } catch (e) {
       console.error(`[voice] ${path}: ${(e as Error).message}; using the narrators only`)
     }
   }
-  cached = { path, mtime, cast: c, denoise, player }
+  cached = { path, mtime, cast: c, denoise, player, players, explicit }
   return cached
 }
 
@@ -169,19 +190,199 @@ function playerSpec(raw: unknown, speakers: Cast, path: string): Record<Gender, 
 /** The cast's `player` as it is written, by gender ({male: "male.sl", female: "female.sl"}): the status, the tutor. */
 export const playerVoices = (): Record<Gender, string> => ({ ...load().player })
 
+// --- the learner's voices: the cast's `players` ("Moj glas · My voice", my-voice.ts) -------------------------------------
+
+/** A gender → an age → the voices a learner of them chooses theirs from, the default first. */
+export type Players = Record<Gender, Record<Age, string[]>>
+
+/** At most this many voices to choose from in one gender and age: two or three are a choice, more a chore. */
+export const MAX_OPTIONS = 3
+
+const emptyPlayers = (): Players => ({ female: { adult: [], child: [] }, male: { adult: [], child: [] } })
+
+/** [v] as the cast names a voice: a speaker ("player-boy-a"), or a speaker's voice in a language ("male.sl"). */
+const speakerOfVoice = (v: string) => LANGUAGE_VOICE.exec(v)?.[1] ?? v
+
+/** The speakers [players] names (a language voice's speaker: "male.sl" → male). */
+const optionSpeakers = (players: Players) => new Set(GENDERS.flatMap(g => AGES.flatMap(a => players[g][a].map(speakerOfVoice))))
+
+/** The ElevenLabs voice [v] speaks with in [speakers]: a speaker's own, a speaker's voice in a language's; undefined for none. */
+function elevenlabsIn(v: string, speakers: Cast): string | undefined {
+  const m = LANGUAGE_VOICE.exec(v)
+  if (m) return Object.hasOwn(speakers, m[1]) ? speakers[m[1]].languages?.[m[2]]?.elevenlabs || undefined : undefined
+  return Object.hasOwn(speakers, v) ? speakers[v].elevenlabs || undefined : undefined
+}
+
 /**
- * The voice the learner's own lines are said in, for a learner of [gender] (the cast's `player`): the voice the store
- * speaks with, a speaker of the cast. A speaker's voice in a language there ("male.sl") is that speaker's: the store says
- * the village's language with it (the narrators' Slovene voices in a Slovene village: Luka, Nina). A learner whose gender
- * the profile doesn't say ([gender] undefined) has the female one, as [genderOf] counts a name it doesn't know.
+ * Who in [speakers] already speaks with the ElevenLabs voice [v] speaks with, if anyone: a speaker the learner talks to in a
+ * dialog (an archetype: grandma, young-man, boy …; any of its voices in a language too; [v]'s own speaker when it is one),
+ * never the narrators (they read the words and exercises: the app's own voice, which may be a learner's, Luka for Jan)
+ * nor the learner's own voices ([options], and every speaker with an `age`: a learner's voice by its declaration).
+ * "young-man" for the friuli male narrator, Chris Basetta, who is Pastore Davide's voice too: the bug of October 2026,
+ * Teo's line and Davide's reply in one voice.
  */
-export function playerVoice(gender?: Gender): string {
-  const v = load().player[gender ?? 'female']
-  return LANGUAGE_VOICE.test(v) ? baseVoice(v) : v
+export function castClash(v: string, speakers: Cast, options: Set<string>): string | undefined {
+  const id = elevenlabsIn(v, speakers)
+  if (!id) return undefined
+  for (const [name, s] of Object.entries(speakers)) {
+    if (isNarrator(name) || options.has(name) || s.age) continue
+    if (s.elevenlabs === id) return name
+    for (const [l, lv] of Object.entries(s.languages ?? {})) if (lv.elevenlabs === id) return `${name}.${l}`
+  }
+  return undefined
+}
+
+/**
+ * The cast's `players` checked against its [speakers] ([raw]: the file's `players`): a gender (female, male) → an age
+ * (adult, child) → the voices a learner of them chooses theirs from, the default first, at most MAX_OPTIONS. Each is a
+ * speaker of the cast ("player-boy-a") or a speaker's voice in a language ("male.sl": the male narrator's Slovene voice,
+ * Luka), of that gender, its `age` (when it says one) that age, in one place only, a voice no other option has, and never
+ * a voice someone in the cast speaks with ([castClash]). Keys starting with "_" are comments. [problems]: each entry left
+ * out, and why (the bridge logs them; the smoke test wants none in the casts shipped).
+ */
+export function checkPlayers(raw: unknown, speakers: Cast): { players: Players; problems: string[] } {
+  const players = emptyPlayers()
+  const problems: string[] = []
+  if (raw === undefined) return { players, problems }
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return { players, problems: ['"players" must map a gender (female, male) to an age (adult, child) to a list of voices of the cast'] }
+  // every speaker the file names among them, so one option's voice is never counted as the cast's against another
+  const named = new Set<string>()
+  for (const [g, ages] of Object.entries(raw as Record<string, unknown>))
+    if (!g.startsWith('_') && ages && typeof ages === 'object') for (const [a, list] of Object.entries(ages)) if (!a.startsWith('_') && Array.isArray(list)) for (const v of list) if (typeof v === 'string') named.add(speakerOfVoice(v))
+  const placed = new Map<string, string>()
+  const voices = new Map<string, string>()
+  for (const [g, ages] of Object.entries(raw as Record<string, unknown>)) {
+    if (g.startsWith('_')) continue
+    if (!(GENDERS as string[]).includes(g)) {
+      problems.push(`players "${g}": not a gender (female, male); left out`)
+      continue
+    }
+    if (!ages || typeof ages !== 'object' || Array.isArray(ages)) {
+      problems.push(`players ${g}: must map an age (adult, child) to a list of voices; left out`)
+      continue
+    }
+    for (const [a, list] of Object.entries(ages as Record<string, unknown>)) {
+      if (a.startsWith('_')) continue
+      const at = `players ${g} ${a}`
+      if (!(AGES as string[]).includes(a)) {
+        problems.push(`${at}: not an age (adult, child); left out`)
+        continue
+      }
+      if (!Array.isArray(list)) {
+        problems.push(`${at}: must be a list of voices; left out`)
+        continue
+      }
+      for (const v of list) {
+        const why = optionProblem(v, g as Gender, a as Age, speakers, named, placed, voices)
+        if (why) problems.push(`${at}: ${JSON.stringify(v)} ${why}; left out`)
+        else if (players[g as Gender][a as Age].length >= MAX_OPTIONS) problems.push(`${at}: ${JSON.stringify(v)}: more than ${MAX_OPTIONS} voices to choose from; left out`)
+        else {
+          players[g as Gender][a as Age].push(v as string)
+          placed.set(v as string, at)
+          const id = elevenlabsIn(v as string, speakers)
+          if (id) voices.set(id, v as string)
+        }
+      }
+    }
+  }
+  return { players, problems }
+}
+
+/** Why [v] can't be a voice to choose in [g] [a] (see [checkPlayers]); undefined when it can. */
+function optionProblem(v: unknown, g: Gender, a: Age, speakers: Cast, named: Set<string>, placed: Map<string, string>, voices: Map<string, string>): string | undefined {
+  if (typeof v !== 'string') return 'is not a voice'
+  const m = LANGUAGE_VOICE.exec(v)
+  const name = m?.[1] ?? v
+  if (!Object.hasOwn(speakers, name)) return `is neither a speaker of the cast nor one's voice in a language ("male.sl")`
+  const s = speakers[name]
+  if (m && !s.languages?.[m[2]]) return `names a voice in "${m[2]}" that ${name} hasn't`
+  if (s.gender !== g) return `is a ${s.gender} voice`
+  if (!m && !s.age && !isNarrator(name)) return 'has no age: a voice of the learner\'s is a speaker with its age (adult, child)'
+  if (s.age && s.age !== a) return `is a${s.age === 'adult' ? 'n' : ''} ${s.age}'s voice`
+  if (!elevenlabsIn(v, speakers) && !s.gepard) return 'has no voice yet (no ElevenLabs id, no local one)'
+  if (placed.has(v)) return `is in ${placed.get(v)} already`
+  const id = elevenlabsIn(v, speakers)
+  if (id && voices.has(id)) return `is the same ElevenLabs voice as ${voices.get(id)}`
+  const clash = castClash(v, speakers, named)
+  if (clash) return `is ${clash}'s voice: never a voice someone in the cast speaks with`
+  return undefined
+}
+
+/**
+ * One of the voices a learner chooses theirs from: [id] as the cast names it ("male.sl", "player-boy-a"), [voice] as the
+ * store speaks it ("male", "player-boy-a"), its gender and age, the name to show ("Luka", "Teddy"), and its place on its
+ * list ([pick]: 0, the default, 1, 2), which a visit carries to the town's list of that gender and age.
+ */
+export type PlayerOption = { id: string; voice: string; gender: Gender; age: Age; name: string; pick: number }
+
+/** [id] of [g] [a] as an option, at place [pick]. */
+function optionOf(id: string, g: Gender, a: Age, pick: number): PlayerOption {
+  const m = LANGUAGE_VOICE.exec(id)
+  const s = cast()[m?.[1] ?? id]
+  const name = (m ? s?.languages?.[m[2]]?.name : s?.name) ?? s?.name ?? id
+  return { id, voice: m ? m[1] : id, gender: g, age: a, name: name.replace(/\s+[-–(].*$/, '').trim() || name, pick }
+}
+
+/**
+ * The voices a learner of [g] and [a] chooses theirs from, the default first: the cast's `players`, after the cast's
+ * `player` for a grown-up when the file names one (a voice of the learner's own as one line: "player-male"), at most
+ * MAX_OPTIONS; a child's without voices of their own: a grown-up's. None when the cast has none: [playerVoice] falls back.
+ */
+export function optionsOf(g: Gender, a: Age): PlayerOption[] {
+  const l = load()
+  let ids = l.players[g][a]
+  if (a === 'adult' && l.explicit.has(g)) ids = [l.player[g], ...ids.filter(v => v !== l.player[g])]
+  if (!ids.length && a === 'child') return optionsOf(g, 'adult')
+  return ids.slice(0, MAX_OPTIONS).map((id, i) => optionOf(id, g, a, i))
+}
+
+/** Every voice of the cast's `players` (and `player`, written), by gender and age: the status, the tutor, voice-build. */
+export function playerOptions(): Record<Gender, Record<Age, PlayerOption[]>> {
+  const l = load()
+  const of = (g: Gender, a: Age) => (a === 'child' && !l.players[g].child.length ? [] : optionsOf(g, a))
+  return { female: { adult: of('female', 'adult'), child: of('female', 'child') }, male: { adult: of('male', 'adult'), child: of('male', 'child') } }
+}
+
+/**
+ * Whether [name] is a speaker of the cast that is a learner's voice and nobody else's (not a narrator; one with an `age`,
+ * or one the cast's `players` or `player` names): its lines are a learner's, said in it alone (no other voice's clip
+ * stands in), and no villager may speak with it.
+ */
+export function isLearnerVoice(name: string): boolean {
+  if (!isSpeaker(name) || isNarrator(name)) return false
+  const l = load()
+  return !!l.cast[name].age || optionSpeakers(l.players).has(name) || [...l.explicit].some(g => speakerOfVoice(l.player[g]) === name)
+}
+
+/**
+ * The option a learner of [gender] (the female one's while the profile says none) and [age] hears their lines in at place
+ * [pick] of their list (else its first): see [optionsOf]. Without options, the cast's `player` for the gender, as before
+ * the options (the narrator of the gender when the cast says none), unless someone in the cast speaks with it
+ * ([castClash]: never a cast member's voice): then none, and the phone speaks the learner's lines.
+ */
+export function playerOption(gender?: Gender, age: Age = 'adult', pick = 0): PlayerOption | undefined {
+  const g = gender ?? 'female'
+  const options = optionsOf(g, age)
+  if (options.length) return options[pick] ?? options[0]
+  const l = load()
+  const v = l.player[g]
+  if (castClash(v, l.cast, optionSpeakers(l.players))) return undefined
+  return optionOf(v, g, age, 0)
+}
+
+/**
+ * The voice the learner's own lines are said in, as the store speaks it, for a learner of [gender] and [age] at place
+ * [pick] ([playerOption]): a speaker of the cast. A speaker's voice in a language there ("male.sl") is that speaker's: the
+ * store says the village's language with it (the narrators' Slovene voices in a Slovene village: Luka, Nina). A learner
+ * whose gender the profile doesn't say ([gender] undefined) has the female one, as [genderOf] counts a name it doesn't
+ * know. Undefined when the cast has no voice that may say them.
+ */
+export function playerVoice(gender?: Gender, age: Age = 'adult', pick = 0): string | undefined {
+  return playerOption(gender, age, pick)?.voice
 }
 
 /** [name] as the store speaks it: the learner's lines ([PLAYER]) in [playerVoice] for [gender], any other voice itself. */
-export const voiceFor = (name: string, gender?: Gender): string => (name === PLAYER ? playerVoice(gender) : name)
+export const voiceFor = (name: string, gender?: Gender): string | undefined => (name === PLAYER ? playerVoice(gender) : name)
 
 /**
  * The cast's `denoise`: a voice (a speaker, or someone's own voice "@janez") → its preset (`true`: the first, `false`:
@@ -312,9 +513,9 @@ export function fallbacks(name: string): string[] {
   return chain.filter((v, i) => v !== name && chain.indexOf(v) === i)
 }
 
-/** Who reads someone's lines: their registered speaker, else their gender voice. */
+/** Who reads someone's lines: their registered speaker (never one of the learner's voices), else their gender voice. */
 export function speakerFor(v: { voice: Gender; speaker?: string }): string {
-  return isSpeaker(v.speaker) ? v.speaker : v.voice
+  return isSpeaker(v.speaker) && !isLearnerVoice(v.speaker) ? v.speaker : v.voice
 }
 
 /**
@@ -329,7 +530,7 @@ export function newcomerSpeaker(gender: Gender, young: boolean): string {
 /** The speakers as the tutor and the status see them (a speaker's voices in other languages: {sl: "Nina"}). */
 export function castInfo() {
   return Object.entries(cast()).map(([id, s]) => ({
-    id, gender: s.gender, name: s.name, role: s.role,
+    id, gender: s.gender, name: s.name, role: s.role, ...(s.age ? { age: s.age } : {}),
     ...(s.languages ? { languages: Object.fromEntries(Object.entries(s.languages).map(([l, v]) => [l, v.name ?? v.elevenlabs])) } : {}),
   }))
 }

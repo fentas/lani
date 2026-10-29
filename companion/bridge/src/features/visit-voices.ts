@@ -11,7 +11,8 @@ import { join } from 'node:path'
 import { readFileSync } from 'node:fs'
 import { z } from 'zod'
 import { voicedGender } from '../addressee'
-import { PLAYER, type Gender } from '../cast'
+import { PLAYER } from '../cast'
+import { choiceOf, myVoice } from '../my-voice'
 import type { FeatureFactory } from '../feature'
 import { normalizeText } from '../family'
 import { json, readText, type RouteCtx } from '../http'
@@ -35,8 +36,10 @@ import {
   visitFileUrl,
   visitVoices as voicesFor,
   voiceInTown,
+  visitPlayer,
   type VisitCast,
   type VisitClip,
+  type VisitMine,
 } from '../visit-voices'
 import { ffmpegLeveller, LINE_CHARS, type Leveller } from '../voice'
 
@@ -70,7 +73,7 @@ class HourlyLimit {
   }
 }
 
-export const visitVoices: FeatureFactory = ({ cfg, townKey, culture, voice, voiceEngines, profiles, addressee, log }) => {
+export const visitVoices: FeatureFactory = ({ cfg, townKey, culture, voice, voiceEngines, profiles, addressee, log, profile }) => {
   const store = new Towns(cfg.appDir, log)
   const nonces = new Nonces()
   const self = townKey.fingerprint
@@ -88,6 +91,16 @@ export const visitVoices: FeatureFactory = ({ cfg, townKey, culture, voice, voic
   const level = () => {
     if (leveller === undefined) leveller = ffmpegLeveller() ?? null
     return leveller ?? undefined
+  }
+  /**
+   * Where the visitor's own lines go in a town's voices (my-voice.ts): their voice's gender (the profile's, or the one they
+   * chose; the female one's while neither says), its age (a child's for a child) and its place on their own list, so the
+   * town's voice of that kind says them, in the town's language; their own voice is their home cast's.
+   */
+  const mine = (): VisitMine => {
+    const a = addressee()
+    const m = myVoice({ gender: voicedGender(a), child: profile.child, choice: choiceOf(cfg.dataDir) })
+    return m.option ? { gender: m.option.gender, age: m.option.age, pick: m.option.pick } : { gender: voicedGender(a), age: m.age }
   }
   const missed = (k: string, now = Date.now()) => {
     const at = misses.get(k)
@@ -139,11 +152,16 @@ export const visitVoices: FeatureFactory = ({ cfg, townKey, culture, voice, voic
   }
 
   /** The clip of [text] in the first of [voices] that town [l] has (GET /town/voice), checked; undefined when none, or it can't be had. */
-  async function fromHost(l: TownLink, text: string, voices: string[], gender?: Gender) {
+  async function fromHost(l: TownLink, text: string, voices: string[], m: VisitMine = {}) {
     const q = new URLSearchParams({ v: String(VISIT_VOICE_VERSION), text })
     for (const v of voices) q.append('voice', v)
-    if (gender && voices.includes(PLAYER)) q.set('gender', gender)
-    const k = `host:${l.id}:${voices.join(',')}:${gender ?? ''}:${normalizeText(text)}`
+    // the learner's own line: by their voice's gender, age and place on their list (a host older than them takes the gender)
+    if (voices.includes(PLAYER)) {
+      if (m.gender) q.set('gender', m.gender)
+      if (m.age) q.set('age', m.age)
+      if (m.pick !== undefined) q.set('pick', String(m.pick))
+    }
+    const k = `host:${l.id}:${voices.join(',')}:${voices.includes(PLAYER) ? `${m.gender ?? ''}/${m.age ?? ''}/${m.pick ?? ''}` : ''}:${normalizeText(text)}`
     if (missed(k) || missed(`old:${l.id}:voice`)) return undefined
     try {
       const r = await townRequest(townKey, l, 'GET', `${VOICE_PATH}?${q}`, undefined, { timeoutMs: ASK_MS, maxBytes: MAX_CLIP_ANSWER })
@@ -179,10 +197,14 @@ export const visitVoices: FeatureFactory = ({ cfg, townKey, culture, voice, voic
     // a clip kept in the voice asked for: at once, without the town's cast (which may have to be asked for first)
     const quick = asked === PLAYER ? undefined : clips.get(l.id, asked, norm)
     if (quick) return served(quick)
-    const gender = voicedGender(addressee())
+    const own = asked === PLAYER
+    const my = mine()
     const cast = await castOf(l)
     const lang = cast?.language || l.display?.language || ''
-    const v = voicesFor(asked, cast ?? { speakers: {}, player: { female: 'female', male: 'male' }, people: {} }, gender)
+    const v = voicesFor(asked, cast ?? { speakers: {}, player: { female: 'female', male: 'male' }, people: {} }, my)
+    // the learner's own line when the town has no voice that may say it (a town older than the learner's voices, whose
+    // `player` is a villager's voice too): the phone speaks it
+    if (own && !v.wanted.length) return new Response(null, { status: 204 })
     for (const w of v.wanted) {
       const kept = clips.get(l.id, w, norm)
       if (kept) return served(kept)
@@ -192,8 +214,7 @@ export const visitVoices: FeatureFactory = ({ cfg, townKey, culture, voice, voic
       return served(clips.put({ town: l.id, language: lang, voice: voiceAs, norm, text, from, engine, ...(engine_voice ? { engine_voice } : {}), bytes }))
     }
     // the host's own clip; the learner's own line in the voice its cast says it in for them
-    const own = asked === PLAYER
-    const host = await fromHost(l, text, own ? [PLAYER] : v.wanted, gender)
+    const host = await fromHost(l, text, own ? [PLAYER] : v.wanted, my)
     if (host) return keep(own ? v.wanted[0] : host.voice, host.bytes, 'host', host.engine)
     // voiced here, in the host's cast voice (the speaker's: someone with a voice of their own in their archetype's)
     if (v.spec && v.speaker && lang) {
@@ -290,9 +311,11 @@ export const visitVoices: FeatureFactory = ({ cfg, townKey, culture, voice, voic
           const l = store.get(id)
           if (!l) return json({ error: 'no such town', code: 'unknown_town' }, 404)
           const cast = await castOf(l)
-          const gender = voicedGender(addressee()) ?? 'female'
+          const my = mine()
           const people = Object.fromEntries(Object.entries(cast?.people ?? {}).map(([p, v]) => [p, { ...v, status: v.speaker.startsWith('@') ? 'own' : 'shared' }]))
-          return json({ people, player: cast?.player[gender] ?? gender, language: cast?.language ?? l.display?.language ?? null })
+          // the learner's voice there: the town's of their voice's kind (null when the town has none that may say them)
+          const player = cast ? visitPlayer(cast, my) ?? null : (my.gender ?? 'female')
+          return json({ people, player, language: cast?.language ?? l.display?.language ?? null })
         },
       },
       {

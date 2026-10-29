@@ -7,7 +7,8 @@ import type { Ctx, FeatureFactory } from '../feature'
 import { json, readJson } from '../http'
 import { cardExamples } from '../cards'
 import { voicedGender } from '../addressee'
-import { baseVoice, cast, isVoice, PERSON_VOICE, personVoice, PLAYER, SPEAKER_ID, voiceFor } from '../cast'
+import { baseVoice, cast, isLearnerVoice, isVoice, PERSON_VOICE, personVoice, PLAYER, SPEAKER_ID } from '../cast'
+import { CHOICE, choiceOf, DEFAULT, mineVoice, myVoice, OFF, sampleLine, writeChoice, type MyVoice } from '../my-voice'
 import { cultureArrivals } from '../arrivals'
 import { familyHas, indexHas } from '../course-speech'
 import { cultureKeepers, keeperTellings } from '../cultures'
@@ -82,7 +83,7 @@ const redesignIn = z.object({ person: personId, description: z.string().trim().m
  * explanations), scenes, the cast's arrivals, villagers, grammar pages (and the cheat sheet's cards' examples), stories
  * and the car's drills.
  */
-function voiceCorpus({ cfg, modules, packs, scenarios, scenes, villagers, learner, culture, grammar, cards, stories, drills, addressee, course, arrivals, voice, family }: Ctx): CorpusItem[] {
+function voiceCorpus({ cfg, modules, packs, scenarios, scenes, villagers, learner, culture, grammar, cards, stories, drills, addressee, course, arrivals, voice, family, profile }: Ctx): CorpusItem[] {
   const current = modules.list().filter(m => !m.tags.includes('retired')).flatMap(m => modules.get(m.id) ?? [])
   // «Vidim, vidim»: the content the app bundles (companion/ispy), read here for its voices only
   const ispy = readISpy(join(cfg.projectDir, 'companion/ispy'))
@@ -94,20 +95,45 @@ function voiceCorpus({ cfg, modules, packs, scenarios, scenes, villagers, learne
   let clips: ReturnType<VoiceStore['index']> | undefined
   const has = (t: string) => indexHas((clips ??= voice.index()), t) || familyHas(family.index(), t)
   const school = { units: course.served()?.units ?? [], pages: grammar.all(), bases: [learnerLangs(cfg.dataDir, language).base], has }
-  return corpus({ packs: packs.all(), modules: current, scenarios: scenarios.all(), scenes: scenes.resolved(), keepers: cultureKeepers(culture.dir, culture.id).map(k => ({ ...k, tellings: keeperTellings(k, k.cycle) })), steps: [...cultureStepFiles(culture.dir, culture.id).map(f => ({ project: f.project, tellings: stepTellings(f) })), ...cultureCelebrationFiles(culture.dir, culture.id).map(f => ({ project: `party:${f.age}`, tellings: partyTellings(f) }))], villagers: villagers.all(), cards: learner.reviewCards(), grammar: [...grammar.all(), ...cardExamples(grammar.all(), cards.all())], stories: stories.all(), drills: drills.all(), ispy, course: school, arrivals: [...met.values()], ownVoice: id => !!personVoice(`@${id}`), language: culture.manifest?.language, learner: addressee() })
+  return corpus({ packs: packs.all(), modules: current, scenarios: scenarios.all(), scenes: scenes.resolved(), keepers: cultureKeepers(culture.dir, culture.id).map(k => ({ ...k, tellings: keeperTellings(k, k.cycle) })), steps: [...cultureStepFiles(culture.dir, culture.id).map(f => ({ project: f.project, tellings: stepTellings(f) })), ...cultureCelebrationFiles(culture.dir, culture.id).map(f => ({ project: `party:${f.age}`, tellings: partyTellings(f) }))], villagers: villagers.all(), cards: learner.reviewCards(), grammar: [...grammar.all(), ...cardExamples(grammar.all(), cards.all())], stories: stories.all(), drills: drills.all(), ispy, course: school, arrivals: [...met.values()], ownVoice: id => !!personVoice(`@${id}`), language: culture.manifest?.language, learner: addressee(), mine: mineVoice(cfg.dataDir, addressee(), profile.child) })
     // the explanations: apart (voice_status explanations), as the app asks for them
     .filter(i => !i.lang)
 }
 
+// the learner's choice of their own voice ("Moj glas · My voice"): one of the voices offered them, "off" or "default"
+const choiceIn = z.object({ voice: z.string().regex(CHOICE, 'a voice offered, "off" or "default"') })
+// a voice offered, to hear its sample (its ▶)
+const sampleIn = z.object({ voice: z.string().regex(CHOICE, 'a voice offered') })
+
+/** The learner's voice as the app gets it (GET and POST /learner/voice): what is offered, what is in effect, the sample. */
+function myVoiceBody(m: MyVoice, sample: string, language: string) {
+  return {
+    language,
+    sample,
+    // the voice in effect, as the cast names it ("male.sl", "player-boy-b"); null when none may say the learner's lines
+    voice: m.option?.id ?? null,
+    off: m.off,
+    chosen: m.chosen,
+    choice: m.choice ?? null,
+    age: m.age,
+    options: m.options.map(o => ({ id: o.id, voice: o.voice, name: o.name, gender: o.gender, age: o.age, pick: o.pick, default: o.pick === 0 })),
+  }
+}
+
 export const voice: FeatureFactory = ctx => {
   const { voice, profiles, outbox } = ctx
-  // the voice a line asked for in [v] is said in: the learner's own ("player") in the cast's `player` for their gender
-  // (the profile's learner.gender; the female one while it says none), anyone else's as asked
-  const voiceOf = (v: string) => voiceFor(v, voicedGender(ctx.addressee()))
+  const language = ctx.culture.manifest?.language ?? 'sl'
+  // the learner's own voice: their choice (learner-profile.json preferences.my_voice), else the default of their gender
+  // (the profile's learner.gender; the female one's while it says none) and age (the profile's child flag, LANI_CHILD)
+  const mine = () => myVoice({ gender: voicedGender(ctx.addressee()), child: ctx.profile.child, choice: choiceOf(ctx.cfg.dataDir) })
+  // the voice a line asked for in [v] is said in: the learner's own ("player") in their voice (undefined when the cast has
+  // none that may say it: the phone speaks), anyone else's as asked
+  const voiceOf = (v: string): string | undefined => (v === PLAYER ? mine().option?.voice : v)
   const handleRedo = async (req: Request) => {
     const r = redoIn.safeParse(await readJson(req))
     if (!r.success) return json({ error: z.prettifyError(r.error) }, 400)
     const v = voiceOf(r.data.voice)
+    if (!v && r.data.voice === PLAYER) return json({ status: 'failed', message: "no voice of the cast may say the learner's lines" }, 503)
     if (!isVoice(v)) return json({ error: `unknown voice "${r.data.voice}"; the cast has ${Object.keys(cast()).join(', ')}` }, 400)
     return redoAnswer(await voice.redo(r.data.text, v), voice)
   }
@@ -127,7 +153,8 @@ export const voice: FeatureFactory = ctx => {
     const clips: Prepared[] = []
     for (const { text, voice: asked, lang } of r.data.texts) {
       const v = voiceOf(asked)
-      // a voice not in the cast: none for this text only (the app asks in the voice it wants, no other voice's clip)
+      // a voice not in the cast (or none for the learner's lines): none for this text only (the app asks in the voice it
+      // wants, no other voice's clip)
       if (!isVoice(v)) {
         clips.push({ text, voice: asked, url: null })
         continue
@@ -150,8 +177,14 @@ export const voice: FeatureFactory = ctx => {
   // the app looks their clips up by it
   const views = () => {
     profiles.syncCast()
-    return { people: profiles.views(), player: voiceOf(PLAYER) }
+    const m = mine()
+    const o = m.option
+    // mine: the learner's voice for the app (what speaks their lines when no clip can be had: the phone's voice in its
+    // gender, higher for a child's; off: their lines aren't said), and whether they have chosen (the offer at the first line)
+    return { people: profiles.views(), player: o?.voice ?? null, mine: { voice: o?.voice ?? null, id: o?.id ?? null, name: o?.name ?? null, gender: o?.gender ?? null, age: o?.age ?? m.age, off: m.off, chosen: m.chosen } }
   }
+  /** The learner's voice as the app's "Moj glas · My voice" shows it: the voices offered, the one in effect, the sample. */
+  const myVoiceNow = () => myVoiceBody(mine(), sampleLine(language, ctx.addressee()), language)
   return {
     start: () => {
       profiles.syncCast()
@@ -188,11 +221,14 @@ export const voice: FeatureFactory = ctx => {
           const long = tooLong(voice, r.data)
           if (long) return json({ error: long }, 400)
           const v = voiceOf(r.data.voice)
+          // the learner's own line when the cast has no voice that may say it: the phone speaks it
+          if (!v && r.data.voice === PLAYER) return new Response(null, { status: 204 })
           if (!isVoice(v)) return json({ error: `unknown voice "${r.data.voice}"; the cast has ${Object.keys(cast()).join(', ')}` }, 400)
           // with lang: an explanation in the learner's own language (not a live line: never the reserve). The learner's own
-          // line: on the normal path in their voice, a word to three said inside the carrier sentence as a re-record says
-          // it, and never in the other gender's voice when theirs can't be had now (the app speaks it otherwise)
-          const own = r.data.voice === PLAYER
+          // line (asked as "player", or in one of the voices they choose from: a sample, a line asked in it): on the normal
+          // path in their voice, a word to three said inside the carrier sentence as a re-record says it, and never in
+          // another voice when theirs can't be had now (the app speaks it otherwise)
+          const own = r.data.voice === PLAYER || isLearnerVoice(v)
           const c = await voice.say(r.data.text, v, r.data.lang, own ? { carrier: true, alone: true } : undefined)
           // the voice the app knows the clip by (a Slovene narrator's in its ElevenLabs voice: the narrator's)
           return c ? json({ url: fileUrl(c.file), voice: baseVoice(c.voice), engine: c.engine }) : new Response(null, { status: 204 })
@@ -209,6 +245,46 @@ export const voice: FeatureFactory = ctx => {
       { method: 'GET', path: '/voice/status', handle: async () => json({ ...(await voice.status(voiceCorpus(ctx))), profiles: views().people }) },
       // Everyone's voice: their speaker (their own "@id", else their archetype) and the pitch and pace to play it with.
       { method: 'GET', path: '/voice/profiles', handle: () => json(views()) },
+      // The learner's own voice ("🗣️ Moj glas · My voice"): the voices offered them (their gender's, their age's), the one
+      // in effect, whether they have chosen, and the sample line their ▶ says.
+      { method: 'GET', path: '/learner/voice', handle: () => json(myVoiceNow()) },
+      {
+        // the choice, kept in the learner profile (preferences.my_voice): a voice offered, "off" (their lines aren't
+        // said) or "default" (they saw it and keep the default, which follows their gender, age and the cast). It writes the
+        // learner's data, so the lease guards it (not a /voice/ route). Nothing is voiced again: their new lines come in it.
+        method: 'POST',
+        path: '/learner/voice',
+        handle: async ({ req }) => {
+          const r = choiceIn.safeParse(await readJson(req))
+          if (!r.success) return json({ error: z.prettifyError(r.error) }, 400)
+          const c = r.data.voice
+          const now = mine()
+          if (c !== OFF && c !== DEFAULT && !now.options.some(o => o.id === c)) return json({ error: `"${c}" isn't a voice offered: ${now.options.map(o => o.id).join(', ') || 'none'}, off or default`, code: 'not_offered' }, 400)
+          try {
+            writeChoice(ctx.cfg.dataDir, c, localDate(new Date()))
+          } catch (e) {
+            return json({ error: `the choice couldn't be kept: ${(e as Error).message}`, code: 'not_kept' }, 409)
+          }
+          ctx.log(`my voice: ${c}`)
+          return json(myVoiceNow())
+        },
+      },
+      {
+        // a voice offered, heard: its sample line ("Ciao! Sono Teo.") in that voice alone, on the normal clip path (a live
+        // line: a few characters, the reserve's rules; made the first time, kept after); url null when it can't be had
+        // now (the app says it with the phone's voice in the option's gender, higher for a child's)
+        method: 'POST',
+        path: '/voice/sample',
+        handle: async ({ req }) => {
+          const r = sampleIn.safeParse(await readJson(req))
+          if (!r.success) return json({ error: z.prettifyError(r.error) }, 400)
+          const o = mine().options.find(x => x.id === r.data.voice)
+          if (!o) return json({ error: `"${r.data.voice}" isn't a voice offered`, code: 'not_offered' }, 400)
+          const text = sampleLine(language, ctx.addressee())
+          const c = await voice.say(text, o.voice, undefined, { alone: true })
+          return json({ text, voice: o.voice, url: c ? fileUrl(c.file) : null, engine: c?.engine ?? null })
+        },
+      },
       {
         method: 'POST',
         path: '/voice/profiles',
@@ -259,7 +335,11 @@ export const voice: FeatureFactory = ctx => {
         description:
           'Voice store status: cached clips per voice and engine, ElevenLabs quota, whether the local Gepard worker is up, the voice cast (speakers), and how much of the content (packs, modules, scenarios, scenes, villagers) is voiced.',
         inputSchema: { type: 'object', properties: {} },
-        handle: async () => ok(JSON.stringify(await voice.status(voiceCorpus(ctx)), null, 2)),
+        handle: async () => {
+          const m = mine()
+          const my_voice = { choice: m.choice ?? null, voice: m.option ? `${m.option.id} (${m.option.name})` : null, off: m.off, age: m.age, offered: m.options.map(o => `${o.id} (${o.name})`) }
+          return ok(JSON.stringify({ ...(await voice.status(voiceCorpus(ctx))), my_voice }, null, 2))
+        },
       },
     ],
   }

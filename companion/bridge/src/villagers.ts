@@ -9,7 +9,7 @@ import { join } from 'node:path'
 import { z } from 'zod'
 import { learnerErrorsIn, withoutLearner } from './addressee'
 import { schemaField } from './schema'
-import { cast, genderOf, isSpeaker, newcomerSpeaker, SPEAKER_ID, speakerFor, type Gender } from './cast'
+import { cast, genderOf, isLearnerVoice, isSpeaker, newcomerSpeaker, SPEAKER_ID, speakerFor, type Gender } from './cast'
 import { PRIMORSKA_TUTOR, type CultureTutor } from './cultures'
 import type { GameDoc } from './game'
 import { fits, label, labelEn, labelTarget, lineLangs, meant, parseLike, partNow, PARTS, said, spokenLine, type Label, type Part, type SpokenLine } from './langs'
@@ -242,12 +242,14 @@ export function routineErrors(r: z.infer<typeof routineSpec> | undefined): strin
 }
 
 /**
- * What publishing checks beyond the shape: the speaker is in the voice cast, with the villager's gender.
- * (Loading doesn't: a speaker the cast lost falls back to the gender voice.)
+ * What publishing checks beyond the shape: the speaker is in the voice cast, with the villager's gender, and isn't one of
+ * the learner's voices (the cast's `players`: my-voice.ts). (Loading doesn't: a speaker the cast lost falls back to the
+ * gender voice.)
  */
 export function speakerErrors(v: Pick<Villager, 'voice' | 'speaker'>): string[] {
   if (!v.speaker) return []
-  if (!isSpeaker(v.speaker)) return [`speaker "${v.speaker}" is not in the voice cast (${Object.keys(cast()).join(', ')})`]
+  if (!isSpeaker(v.speaker)) return [`speaker "${v.speaker}" is not in the voice cast (${Object.keys(cast()).filter(k => !isLearnerVoice(k)).join(', ')})`]
+  if (isLearnerVoice(v.speaker)) return [`speaker "${v.speaker}" is one of the learner's own voices (the cast's players): a villager speaks with an archetype (${Object.keys(cast()).filter(k => !isLearnerVoice(k)).join(', ')})`]
   const g = genderOf(v.speaker)
   return g === v.voice ? [] : [`speaker "${v.speaker}" is ${g}, the villager's voice is ${v.voice}`]
 }

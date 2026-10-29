@@ -8,7 +8,8 @@
 // language of the learner's culture pack, LANI_CULTURE, with its own voice cast), what is voiced, what is missing and
 // the ElevenLabs quota left. With --run, generates the missing clips in priority order (villager lines in their
 // speakers' voices, pack words, examples, modules, scenarios, the stories' tellings at A1, the drills at A1, scenes,
-// the keepers' talks and the projects' steps, I spy's lines (in the voice of each child who may play there), then the tellings at A2, the drills
+// the keepers' talks and the projects' steps, I spy's lines (in the voice of each child who may play there), the
+// learner's own lines (the dialogs' choices) in their own voice (my-voice.ts; none while their lines are off), then the tellings at A2, the drills
 // above A1, the tellings at B1 and up; a telling and a
 // riddle in the teller's voice, their own designed one where it is ready ("@janez": ElevenLabs only), a drill's other
 // texts in the narrator's: the car plays a story or a drill's item only when its clips exist):
@@ -124,7 +125,8 @@ import { ArrivalStore, cultureArrivals } from '../bridge/src/arrivals'
 import { cast, castVoiced, denoiseVoices, isSpeaker, PERSON_VOICE, personVoice, tempoVoices, useCastFile, usePersonVoices } from '../bridge/src/cast'
 import { CourseStore, courseDir } from '../bridge/src/course'
 import { familyHas, indexHas } from '../bridge/src/course-speech'
-import { learnerLangs } from '../bridge/src/learners'
+import { childOf, learnerLangs } from '../bridge/src/learners'
+import { mineVoice } from '../bridge/src/my-voice'
 import { ownVoicesIn } from '../bridge/src/profiles'
 import { cultureDir, cultureKeepers, keeperTellings, resolveCulture } from '../bridge/src/cultures'
 import { cultureStepFiles, stepTellings } from '../bridge/src/project-steps'
@@ -867,6 +869,9 @@ const everything = corpus({
   language,
   // rendered for the learner ({learner}, {m:…|f:…}: addressee.ts), as the app says it
   learner: addresseeOf(join(appDir, '..'), language),
+  // the learner's own lines (the dialogs' choices) in their voice (my-voice.ts: their choice in learner-profile.json, else
+  // the default of their gender and age; the child flag LANI_CHILD, else their registry entry's); none while it's off
+  mine: mineVoice(join(appDir, '..'), addresseeOf(join(appDir, '..'), language), childOf(join(appDir, '..'), root)),
 })
 // --only: the texts of those voices (someone's own voice counts as their speaker's: "@mojca" as the teacher's)
 const ofOnly = (v: string) => !only.length || only.includes(v) || (!!personVoice(v) && only.includes(personVoice(v)!.archetype))

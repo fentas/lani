@@ -181,6 +181,16 @@ export async function checkCultureVoices(o: { culture: string; base: string; hea
   }
   const asked = sent(o.line)
   check(`${o.culture}: the grandmother speaks in the pack's voice: a clip from eleven_v4_turbo with language_code ${language}`, line.ok && asked.length === 1 && asked[0].voice === speakers.grandma.elevenlabs && asked[0].body.model_id === 'eleven_v4_turbo' && asked[0].body.language_code === language && theirs, { status: line.status, asked })
+  // the learner's own line (the voice "player"): in the voice offered first for their gender and age in the pack's cast
+  // (GET /learner/voice), in the pack's language; never a voice anyone in the cast speaks with (my-voice.ts)
+  const mine = await (await fetch(`${o.base}/learner/voice`, { headers: o.headers })).json()
+  const first = mine.options?.[0]
+  const ownLine = await say(o.line.replace(/\?$/, '!'), 'player')
+  const ownSent = sent(o.line.replace(/\?$/, '!'))
+  const firstId = first && speakers[first.voice]?.elevenlabs
+  const others = new Set(Object.entries(speakers).filter(([id]) => !['female', 'male'].includes(id) && !mine.options.some((x: any) => x.voice === id)).map(([, s]: [string, any]) => s.elevenlabs))
+  check(`${o.culture}: the learner's own line in their voice of the pack's cast (${first?.name}, the first offered them), with language_code ${language}; nobody else in the cast speaks with it`,
+    ownLine.ok && !!firstId && mine.voice === first.id && ownSent.length === 1 && ownSent[0].voice === firstId && ownSent[0].body.language_code === language && !others.has(firstId), { mine, sent: ownSent })
   const narrator = ['female', 'male'].find(n => speakers[n].carrier) ?? 'female'
   const carrier = !!speakers[narrator].carrier && !!ffmpegCutter()
   const word = await say(o.word, narrator)

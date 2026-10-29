@@ -280,6 +280,23 @@ export function profileFromEnv(env = process.env): Profile {
   return { id, isDefault: id === DEFAULT_ID, child: ['1', 'true', 'yes'].includes((env.LANI_CHILD ?? '').toLowerCase()), culture, ...known }
 }
 
+/**
+ * Whether the learner of [dataDir] is a child, for a tool run outside their bridge (voice-build --data): LANI_CHILD when
+ * it is set, as their bridge has it; else their registry entry's child flag (profiles/profiles.json, the entry whose data
+ * directory it is); else not.
+ */
+export function childOf(dataDir: string, projectDir: string, env: Record<string, string | undefined> = process.env): boolean {
+  const flag = env.LANI_CHILD?.trim().toLowerCase()
+  if (flag) return ['1', 'true', 'yes'].includes(flag)
+  try {
+    const dir = profilesDir(projectDir, env)
+    const want = resolve(dataDir)
+    return readRegistry(dir).profiles.some(e => e?.child === true && entryDataDir(dir, e) === want)
+  } catch {
+    return false
+  }
+}
+
 /** [target] and [base] as the profile names them ("Italian"); [targetCode] and [baseCode] as codes ("it"), when known. */
 export type LearnerFacts = { name: string; target: string; base: string; level?: string; targetCode?: string; baseCode?: string }
 

@@ -160,6 +160,22 @@ export async function visitVoiceChecks(jan: Town, mia: Town, luka: Town) {
   visitGepard.st.up = true
   check("visit voices: … one no voice can have now: 204 (no other voice stands in for the learner's own), the phone speaks it", ownNone.status === 204, ownNone.status)
 
+  // the visitor's choice ("🗣️ Moj glas · My voice": my-voice.ts): the town's voice of her kind at her place on its list.
+  // Mia (no gender: the women's voices first, then the men's) picks her second woman's voice: Jan's town's second woman's
+  // voice says her line (the host's clip in it)
+  const mineMia = await (await fetch(`${mia.base}/learner/voice`, { headers: mia.auth })).json()
+  const pick = mineMia.options?.find((o: any) => o.gender === 'female' && o.pick === 1)
+  const hostSecond = cast.body?.players?.female?.adult?.[1]
+  const picked = await (await fetch(`${mia.base}/learner/voice`, { method: 'POST', headers: mia.auth, body: JSON.stringify({ voice: pick?.id }) })).json()
+  const chosenLine = 'Hvala, pridem spet.'
+  plant(jan, { text: chosenLine, voice: hostSecond, file: `${'e'.repeat(40)}.mp3`, bytes: mp3(`second:${chosenLine}`) })
+  const prof2 = await (await fetch(`${mia.base}/towns/${jan.key.fingerprint}/voice/profiles`, { headers: mia.auth })).json()
+  const own3 = await (await say(mia, jan, { text: chosenLine, voice: 'player' })).json()
+  check("visit voices: the visitor's choice of her voice (her second woman's): the town's voice of her kind at her place on its list (its second woman's; GET /town/voice/cast has its players), its profiles say it, the host's clip in it",
+    !!pick && picked.voice === pick.id && cast.body.players?.male?.child?.length >= 2 && !!hostSecond && prof2.player === hostSecond && own3.from === 'host' && own3.voice === hostSecond,
+    { pick, players: cast.body?.players, prof2: prof2.player, own3 })
+  await fetch(`${mia.base}/learner/voice`, { method: 'POST', headers: mia.auth, body: JSON.stringify({ voice: 'default' }) })
+
   // the app's side of the routes
   const refusedApp = {
     unknown: (await fetch(`${mia.base}/towns/${'0'.repeat(32)}/voice/say`, { method: 'POST', headers: mia.auth, body: JSON.stringify({ text: line, voice: 'grandma' }) })).status,
@@ -228,7 +244,7 @@ export async function visitVoiceChecks(jan: Town, mia: Town, luka: Town) {
     { kaernten: kaernten?.speakers.male, primorska: primorska?.speakers.female })
   const people = { speakers: { grandma: { gender: 'female' as const, elevenlabs: 'MLpDWJvrjFIdb63xbJp8' }, female: { gender: 'female' as const }, male: { gender: 'male' as const } }, player: { female: 'female', male: 'male' }, people: { micka: { speaker: '@micka', archetype: 'grandma', pitch: 1, rate: 1 } } }
   const own2 = voicesFor('@micka', people)
-  const player = voicesFor('player', people, 'male')
+  const player = voicesFor('player', people, { gender: 'male' })
   check("visit voices: the voices tried: someone's own, then their archetype's (voiced in it), then the narrators; the learner's own in theirs alone",
     own2.wanted.join() === '@micka,grandma' && own2.speaker === 'grandma' && own2.fallback.join() === 'female,male' && player.wanted.join() === 'male' && !player.fallback.length,
     { own2, player })

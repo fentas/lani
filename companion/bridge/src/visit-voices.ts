@@ -13,7 +13,7 @@
 import { createHash } from 'node:crypto'
 import { existsSync, mkdirSync, readFileSync, renameSync, statSync, unlinkSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { CAST_FILE, DENOISE_PRESETS, PERSON_VOICE, PLAYER, SPEAKER_ID, carrierVoice, cast, denoiseOf, elevenlabsOf, isVoice, languageVoice, playerVoice, tempoOf, type DenoisePreset, type Gender } from './cast'
+import { AGES, CAST_FILE, DENOISE_PRESETS, GENDERS, MAX_OPTIONS, PERSON_VOICE, PLAYER, SPEAKER_ID, carrierVoice, cast, denoiseOf, elevenlabsOf, isVoice, languageVoice, playerOptions, playerVoice, tempoOf, type Age, type DenoisePreset, type Gender } from './cast'
 import { CULTURE_ID, cultureDir } from './cultures'
 import { normalizeText } from './family'
 import type { ProfileView } from './profiles'
@@ -67,9 +67,17 @@ export type CastSpeaker = {
 export type PersonVoiceView = { speaker: string; archetype: string; pitch: number; rate: number }
 
 /**
+ * The voices a town's cast gives a learner's own lines, by gender and age (its `players`, as the store speaks them: "male"
+ * for the male narrator's Slovene Luka, "player-boy-a"), the default first: a visitor's lines are said in the one at the
+ * place their own choice has on their own list (my-voice.ts: a boy's second voice at home, the town's second boy's voice).
+ */
+export type VisitPlayers = Record<Gender, Record<Age, string[]>>
+
+/**
  * A town's cast for a visit (GET /town/voice/cast): its speakers ([CastSpeaker]), the voice its cast says a learner's own
- * lines in by their gender (`player`: a speaker, "male"), and how each of its people is heard ([PersonVoiceView]).
- * Nothing private: library voice ids, genders and pitches, no key, no account, no designed voice's id.
+ * lines in by their gender (`player`: a speaker, "male"; a grown-up's default), the voices it gives them by gender and age
+ * (`players`; none from a town older than them), and how each of its people is heard ([PersonVoiceView]). Nothing
+ * private: library voice ids, genders and pitches, no key, no account, no designed voice's id.
  */
 export type VisitCast = {
   v: number
@@ -78,8 +86,12 @@ export type VisitCast = {
   language: string
   speakers: Record<string, CastSpeaker>
   player: Record<Gender, string>
+  players?: VisitPlayers
   people: Record<string, PersonVoiceView>
 }
+
+/** Where a visitor's own line goes in a town's `players`: their voice's gender and age, and its place on their list. */
+export type VisitMine = { gender?: Gender; age?: Age; pick?: number }
 
 /** A pace factor from a cast: 0.5 to 2, rounded; undefined for 1 or none. */
 const factor = (n: unknown): number | undefined => (typeof n === 'number' && Number.isFinite(n) && n >= 0.5 && n <= 2 && n !== 1 ? Math.round(n * 10_000) / 10_000 : undefined)
@@ -95,7 +107,7 @@ function paceOf(t: { elevenlabs?: number; gepard?: number }): CastSpeaker['tempo
  * (cast.ts) as it speaks [language], the village's, with the voice the cast gives it there; the learner's voice by gender
  * (the cast's `player`, as the store speaks it: "male.sl" is the male narrator's); [people]: the voice profiles' views.
  */
-export function castForVisits(language: string, people: Record<string, ProfileView> = {}): Pick<VisitCast, 'speakers' | 'player' | 'people'> {
+export function castForVisits(language: string, people: Record<string, ProfileView> = {}): Pick<VisitCast, 'speakers' | 'player' | 'players' | 'people'> {
   const speakers: Record<string, CastSpeaker> = {}
   for (const [id, s] of Object.entries(cast())) {
     // a narrator's voice in the village's language ("female.sl": Nina), else its own
@@ -115,7 +127,9 @@ export function castForVisits(language: string, people: Record<string, ProfileVi
   }
   const views: Record<string, PersonVoiceView> = {}
   for (const [id, p] of Object.entries(people).slice(0, MAX_PEOPLE)) views[id] = { speaker: p.speaker, archetype: p.archetype, pitch: p.pitch, rate: p.rate }
-  return { speakers, player: { female: playerVoice('female'), male: playerVoice('male') }, people: views }
+  const all = playerOptions()
+  const players = Object.fromEntries(GENDERS.map(g => [g, Object.fromEntries(AGES.map(a => [a, all[g][a].map(o => o.voice)]))])) as VisitPlayers
+  return { speakers, player: { female: playerVoice('female') ?? 'female', male: playerVoice('male') ?? 'male' }, players, people: views }
 }
 
 /** A cast speaker from another town, checked; undefined when it isn't one. */
@@ -137,6 +151,46 @@ function cleanSpeaker(s: any): CastSpeaker | undefined {
 function cleanPlayer(p: any, speakers: Record<string, CastSpeaker>): Record<Gender, string> {
   const of = (g: Gender) => (typeof p?.[g] === 'string' && Object.hasOwn(speakers, p[g]) ? (p[g] as string) : g)
   return { female: of('female'), male: of('male') }
+}
+
+/**
+ * The voices a cast gives a learner's own lines by gender and age ([VisitPlayers]), each a speaker of it of that gender, at
+ * most MAX_OPTIONS a place; undefined when it gives none (a town older than them).
+ */
+function cleanPlayers(p: any, speakers: Record<string, CastSpeaker>): VisitPlayers | undefined {
+  if (!p || typeof p !== 'object') return undefined
+  const out = Object.fromEntries(GENDERS.map(g => [g, Object.fromEntries(AGES.map(a => {
+    const list: unknown[] = Array.isArray(p[g]?.[a]) ? p[g][a] : []
+    return [a, [...new Set(list.filter((v): v is string => typeof v === 'string' && Object.hasOwn(speakers, v) && speakers[v].gender === g))].slice(0, MAX_OPTIONS)]
+  }))])) as VisitPlayers
+  return GENDERS.some(g => AGES.some(a => out[g][a].length)) ? out : undefined
+}
+
+/**
+ * Whether [voice] of [c] speaks with an ElevenLabs voice someone else of [c] speaks with (never a narrator, nor one of the
+ * learner's voices): a town's `player` from before its `players` that is a villager's voice too (friuli's male narrator,
+ * Chris Basetta, is Pastore Davide's): never the learner's then.
+ */
+function clashIn(c: Pick<VisitCast, 'speakers' | 'players'>, voice: string): boolean {
+  const id = c.speakers[voice]?.elevenlabs
+  if (!id) return false
+  const mine = new Set(GENDERS.flatMap(g => AGES.flatMap(a => c.players?.[g][a] ?? [])))
+  return Object.entries(c.speakers).some(([k, s]) => k !== voice && !GENDERS.includes(k as Gender) && !mine.has(k) && s.elevenlabs === id)
+}
+
+/**
+ * The voice of [c] a learner's own lines are said in, for [m]: the town's voice of their voice's gender (the female one's
+ * when it isn't known) and age at their place on its list (else its first; a child's without its own: a grown-up's), else
+ * the town's `player` for the gender unless it is someone else's voice too ([clashIn]); undefined: none (the phone speaks).
+ */
+export function visitPlayer(c: Pick<VisitCast, 'speakers' | 'player' | 'players'>, m: VisitMine = {}): string | undefined {
+  const g = m.gender ?? 'female'
+  const age = m.age ?? 'adult'
+  const list = c.players?.[g][age].length ? c.players[g][age] : (c.players?.[g].adult ?? [])
+  const v = list[m.pick ?? 0] ?? list[0]
+  if (v) return v
+  const p = c.player[g]
+  return p && !clashIn(c, p) ? p : undefined
 }
 
 /**
@@ -169,6 +223,7 @@ export function cleanVisitCast(b: any, id: string): VisitCast | undefined {
     language: b.language,
     speakers,
     player: cleanPlayer(b.player, speakers),
+    ...(cleanPlayers(b.players, speakers) ? { players: cleanPlayers(b.players, speakers) } : {}),
     people,
   }
 }
@@ -178,7 +233,7 @@ export function cleanVisitCast(b: any, id: string): VisitCast | undefined {
  * default cast, companion/voice-cast.json), for a town whose bridge is older than GET /town/voice/cast: read leniently,
  * as [castForVisits] gives it. Undefined when there is none.
  */
-export function castFromPack(culturesDir: string, culture: string, language: string): Pick<VisitCast, 'speakers' | 'player'> | undefined {
+export function castFromPack(culturesDir: string, culture: string, language: string): Pick<VisitCast, 'speakers' | 'player' | 'players'> | undefined {
   if (!CULTURE_ID.test(culture)) return undefined
   const own = join(cultureDir(culturesDir, culture), 'voice-cast.json')
   const path = existsSync(own) ? own : language === 'sl' ? CAST_FILE : undefined
@@ -209,19 +264,23 @@ export function castFromPack(culturesDir: string, culture: string, language: str
   }
   // the cast's `player`: a speaker, or one's voice in a language ("male.sl": the male narrator's)
   const base = (v: unknown) => (typeof v === 'string' ? v.replace(/\.[a-z]{2}$/, '') : undefined)
-  return { speakers, player: cleanPlayer({ female: base(raw?.player?.female), male: base(raw?.player?.male) }, speakers) }
+  // its `players`: by gender and age, each a speaker or one's voice in a language, as the store speaks them
+  const listed = raw?.players && typeof raw.players === 'object' ? raw.players : {}
+  const players = cleanPlayers(Object.fromEntries(GENDERS.map(g => [g, Object.fromEntries(AGES.map(a => [a, Array.isArray(listed[g]?.[a]) ? listed[g][a].map(base) : []]))])), speakers)
+  return { speakers, player: cleanPlayer({ female: base(raw?.player?.female), male: base(raw?.player?.male) }, speakers), ...(players ? { players } : {}) }
 }
 
 /**
  * The voices to try for a line asked in [asked] in town [cast], best first, as they are kept: the learner's own lines
- * ([PLAYER]) in the town's voice for the learner's [gender] and no other; someone with a voice of their own ("@micka") in
+ * ([PLAYER]) in the town's voice for the learner's own ([mine]: its gender, age and place on their list; [visitPlayer]) and
+ * no other; someone with a voice of their own ("@micka") in
  * it, then their archetype's; anyone else in theirs. [fallback]: the voices a line falls back to when the wanted one's
  * can't be had (their gender's narrator, the other narrator), none for the learner's own.
  */
-export function visitVoices(asked: string, cast: Pick<VisitCast, 'speakers' | 'player' | 'people'>, gender?: Gender): { wanted: string[]; spec?: CastSpeaker; speaker?: string; fallback: string[] } {
+export function visitVoices(asked: string, cast: Pick<VisitCast, 'speakers' | 'player' | 'players' | 'people'>, mine: VisitMine = {}): { wanted: string[]; spec?: CastSpeaker; speaker?: string; fallback: string[] } {
   if (asked === PLAYER) {
-    const v = cast.player[gender ?? 'female']
-    return { wanted: [v], spec: cast.speakers[v], speaker: v, fallback: [] }
+    const v = visitPlayer(cast, mine)
+    return v ? { wanted: [v], spec: cast.speakers[v], speaker: v, fallback: [] } : { wanted: [], fallback: [] }
   }
   const person = PERSON_VOICE.test(asked) ? Object.values(cast.people).find(p => p.speaker === asked) ?? { archetype: undefined } : undefined
   const speaker = person ? person.archetype : asked
@@ -234,29 +293,36 @@ export function visitVoices(asked: string, cast: Pick<VisitCast, 'speakers' | 'p
 
 // --- the host's side: a clip it has ----------------------------------------------------------------------------------
 
-/** What a town asks for (GET /town/voice?text=…&voice=…[&voice=…][&gender=…]): checked; why not when it isn't valid. */
-export function parseVoiceAsk(url: URL): { text: string; voices: string[]; gender?: Gender } | { error: string } {
+/**
+ * What a town asks for (GET /town/voice?text=…&voice=…[&voice=…][&gender=…][&age=…][&pick=…]: the learner's own line by
+ * their voice's gender, age and place on their list): checked; why not when it isn't valid.
+ */
+export function parseVoiceAsk(url: URL): { text: string; voices: string[]; gender?: Gender; age?: Age; pick?: number } | { error: string } {
   const text = (url.searchParams.get('text') ?? '').trim()
   if (!text || text.length > LINE_CHARS || /[\u0000-\u001f\u007f]/.test(text)) return { error: `expected text: a line of 1 to ${LINE_CHARS} characters` }
   const voices = url.searchParams.getAll('voice')
   if (!voices.length || voices.length > MAX_ASKED || !voices.every(isAskedVoice)) return { error: `expected 1 to ${MAX_ASKED} voices (a speaker, someone's own "@id", or "player")` }
   const g = url.searchParams.get('gender')
   if (g !== null && g !== 'female' && g !== 'male') return { error: 'gender: female or male' }
-  return { text, voices, ...(g ? { gender: g } : {}) }
+  const age = url.searchParams.get('age')
+  if (age !== null && age !== 'adult' && age !== 'child') return { error: 'age: adult or child' }
+  const pick = url.searchParams.get('pick')
+  if (pick !== null && !/^[0-9]$/.test(pick)) return { error: 'pick: a place on the list, 0 to 9' }
+  return { text, voices, ...(g ? { gender: g } : {}), ...(age ? { age } : {}), ...(pick !== null ? { pick: Number(pick) } : {}) }
 }
 
 /**
  * The clip this town has of [text] in the first of [voices] that has one (the host's side of GET /town/voice): the one
  * its own app gets ([VoiceStore.best]: a Slovene narrator's in its ElevenLabs voice or its local one), the learner's own
- * lines in the voice the cast says them in for a learner of [gender]. Only a clip there: nothing is made, asked for or
+ * lines in the voice the cast says them in for a learner of [gender] and [age] at place [pick] of their list. Only a clip there: nothing is made, asked for or
  * counted, and a file is only ever one of the store's own (its name from the store's row, read from its files). Undefined
  * when it has none.
  */
-export function hostClip(store: Pick<VoiceStore, 'best' | 'path'>, o: { text: string; voices: string[]; gender?: Gender }): { voice: string; engine: string; bytes: Uint8Array } | undefined {
+export function hostClip(store: Pick<VoiceStore, 'best' | 'path'>, o: { text: string; voices: string[]; gender?: Gender; age?: Age; pick?: number }): { voice: string; engine: string; bytes: Uint8Array } | undefined {
   const norm = normalizeText(o.text)
   if (!norm) return undefined
   for (const asked of o.voices) {
-    const v = asked === PLAYER ? playerVoice(o.gender) : asked
+    const v = asked === PLAYER ? playerVoice(o.gender, o.age, o.pick) : asked
     if (!isVoice(v)) continue
     const c = store.best(norm, v)
     if (!c || !FILE.test(c.file)) continue

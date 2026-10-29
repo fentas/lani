@@ -157,19 +157,27 @@ export default async function voice() {
       [playerVoices(), playerVoice('male'), playerVoice()])
     check("the learner's gender for their voice: the profile's, none when it says none (spoken to as a man all the same)",
       voicedGender(JAN) === 'male' && voicedGender(addressee({ name: 'Ana', gender: 'F' })) === 'female' && voicedGender(addressee({ name: 'Kim' })) === undefined && addressee({ name: 'Kim' }).gender === 'male' && addressee({ name: 'Kim', gender: '{GENDER}' }).unsaid === true && JAN.unsaid === undefined)
-    // a voice of the learner's own: one line in the cast's player (a speaker of the cast); a wrong one keeps the narrator
+    // a voice of the learner's own: one line in the cast's player (a speaker of the cast with its age, my-voice.ts), the
+    // grown-ups' default and offered first; a villager's voice (grandpa) never (my-voice.ts: never a cast member's voice); a
+    // wrong one keeps the default
     const ownPlayer = join(mkdtempSync(join(tmpdir(), 'lani-cast-')), 'voice-cast.json')
-    writeFileSync(ownPlayer, JSON.stringify({ ...castJson, player: { _comment: 'x', male: 'grandpa', female: 'nobody', other: 'female' } }))
+    const own = { gender: 'male', age: 'adult', elevenlabs: 'OwnPlayerVoice0000001', gepard: 'marko', name: 'Moj' }
+    writeFileSync(ownPlayer, JSON.stringify({ ...castJson, speakers: { ...castJson.speakers, 'player-male': own }, player: { _comment: 'x', male: 'player-male', female: 'nobody', other: 'female' } }))
+    const villagerPlayer = join(mkdtempSync(join(tmpdir(), 'lani-cast-')), 'voice-cast.json')
+    writeFileSync(villagerPlayer, JSON.stringify({ ...castJson, player: { male: 'grandpa' } }))
     const castErrors: string[] = []
     const consoleError = console.error
     console.error = (...a: unknown[]) => void castErrors.push(a.join(' '))
     process.env.LANI_VOICE_CAST = ownPlayer
     const swappedPlayer = [playerVoice('male'), playerVoice('female'), playerVoice()]
+    process.env.LANI_VOICE_CAST = villagerPlayer
+    const grandpaPlayer = playerVoice('male')
     delete process.env.LANI_VOICE_CAST
     console.error = consoleError
-    check("the player swapped in the cast is one line (male: grandpa); a voice not in the cast, or no gender, is logged and that gender keeps its narrator",
-      JSON.stringify(swappedPlayer) === JSON.stringify(['grandpa', 'female', 'female']) && castErrors.some(e => e.includes('player female') && e.includes('nobody')) && castErrors.some(e => e.includes('player "other"')) && playerVoice('male') === 'male',
-      [swappedPlayer, castErrors])
+    check("the player swapped in the cast is one line (male: a speaker of the learner's own, with its age); a voice not in the cast, or no gender, is logged and that gender keeps its default; a villager's voice (grandpa) is refused: never a cast member's",
+      JSON.stringify(swappedPlayer) === JSON.stringify(['player-male', 'female', 'female']) && castErrors.some(e => e.includes('player female') && e.includes('nobody')) && castErrors.some(e => e.includes('player "other"')) &&
+        grandpaPlayer === 'male' && castErrors.some(e => e.includes('player male') && e.includes('grandpa') && e.includes("never a cast member's")) && playerVoice('male') === 'male',
+      [swappedPlayer, grandpaPlayer, castErrors])
 
     // The corpus and companion/bin/voice-build on a fixture (fresh data dir, own content dirs).
     const vbPacks = mkdtempSync(join(tmpdir(), 'lani-vb-packs-'))

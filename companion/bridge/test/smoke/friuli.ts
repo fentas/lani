@@ -5,7 +5,7 @@
 // the child, and speaks with the pack's voice cast, in Italian (the phone's Italian TTS while the cast has no voices).
 import { Client } from '@modelcontextprotocol/sdk/client/index.js'
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
-import { existsSync, readdirSync, readFileSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { initLearnerData } from '../../src/learners'
 import { labelShown, meant, said } from '../../src/langs'
@@ -276,6 +276,23 @@ export default async function friuli() {
 
     // --- the voices: the pack's cast speaks Italian (without voices yet, the phone does) -----------------------
     await checkCultureVoices({ culture: 'friuli', base, headers: auth, line: 'Ciao! Hai fame?', word: 'legna', role: /Nonna Rosa/, since: ttsBefore })
+
+    // --- Teo's case: a boy (the profile says so) and a child (LANI_CHILD): a boy's Italian voice, never Pastore Davide's ----
+    {
+      const profile = join(dataDir, 'learner-profile.json')
+      const p = JSON.parse(readFileSync(profile, 'utf8'))
+      writeFileSync(profile, JSON.stringify({ ...p, learner: { ...p.learner, gender: 'male' } }, null, 2))
+      const speakers = JSON.parse(readFileSync(join(culturesDir, 'friuli/voice-cast.json'), 'utf8')).speakers
+      const mine = await (await fetch(`${base}/learner/voice`, { headers: auth })).json()
+      const t0 = bridgeEleven.st.tts.length
+      const own = await (await fetch(`${base}/voice/say`, { method: 'POST', headers: auth, body: JSON.stringify({ text: 'Sì, grazie!', voice: 'player' }) })).json()
+      const asked = bridgeEleven.st.tts.slice(t0)
+      const boy = mine.options?.[0]
+      check("friuli: a boy who is a child (Teo) is offered the boys' voices, the first his; his line is said in it in Italian, not in Chris Basetta's (the male narrator, Pastore Davide's voice), not in Kavya's (the village's boys)",
+        mine.age === 'child' && mine.options.length >= 2 && mine.options.every((o: any) => o.gender === 'male' && o.age === 'child') && mine.sample === 'Ciao! Sono Tim.' && own.voice === boy.voice && asked.length === 1 &&
+          asked[0].voice === speakers[boy.voice].elevenlabs && asked[0].body.language_code === 'it' && ![speakers.male.elevenlabs, speakers['young-man'].elevenlabs, speakers.boy.elevenlabs].includes(asked[0].voice),
+        { mine, own, asked })
+    }
 
     // --- speech recognition: in the village's language when the app doesn't say --------------------------
     const take = new Uint8Array([0, 0, 0, 0x18, ...new TextEncoder().encode('ftypM4A '), 0, 0, 0, 0, 7, 7, 7, 7])
