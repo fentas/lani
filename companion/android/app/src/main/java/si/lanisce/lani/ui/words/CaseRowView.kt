@@ -207,6 +207,7 @@ private fun whyLine(row: CaseRow, read: CaseRead): Pair<String, String>? {
         "verb" -> if (read.trigger?.lemma != null) "caseLens.whyVerb" else "caseLens.whyVerbForm"
         "predicate" -> "caseLens.whyPredicate"
         "copula" -> "caseLens.whyCopula"
+        "predicative" -> "caseLens.whyPredicative"
         "subject" -> if (word.isNotEmpty()) "caseLens.whySubject" else "caseLens.whySubjectAlone"
         "object" -> if (word.isNotEmpty()) "caseLens.whyObject" else "caseLens.whyObjectAlone"
         "address" -> "caseLens.whyAddress"

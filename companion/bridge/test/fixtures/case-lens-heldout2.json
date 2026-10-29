@@ -1,0 +1,1038 @@
+{
+ "meta": {
+  "about": "The case lens's second held-out lines (seed 1030), drawn and labelled by hand after every change the first held-out set led to, and run once to measure (test/case-lens-eval.ts heldout2): the accuracy on lines the lens has never been tuned on. Machine-labelled (Claude, 2026-10-30): wants a native speaker's check.",
+  "machine_written": true,
+  "seed": 1030
+ },
+ "items": [
+  {
+   "sl": "Dobro jutro, Jan! Tiho … nekaj se premika v travi.",
+   "en": "Good morning, Jan! Quiet … something is moving in the grass.",
+   "from": "scene:na-njivi",
+   "word": "travi",
+   "case": "loc",
+   "number": "sg",
+   "trigger": "v",
+   "rule": "kje-mestnik-orodnik"
+  },
+  {
+   "sl": "Dobro jutro, Jan! Tiho … nekaj se premika v travi.",
+   "en": "Good morning, Jan! Quiet … something is moving in the grass.",
+   "from": "scene:na-njivi",
+   "word": "Jan",
+   "case": "nom",
+   "number": "sg",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Tako je. Za zvon na otoku.",
+   "en": "That's right. For a bell on the island.",
+   "from": "story:zvon-zelja",
+   "word": "zvon",
+   "case": "acc",
+   "number": "sg",
+   "trigger": "Za",
+   "rule": "tozilnik"
+  },
+  {
+   "sl": "Tako je. Za zvon na otoku.",
+   "en": "That's right. For a bell on the island.",
+   "from": "story:zvon-zelja",
+   "word": "otoku",
+   "case": "loc",
+   "number": "sg",
+   "trigger": "na",
+   "rule": "kje-mestnik-orodnik"
+  },
+  {
+   "sl": "Tako je. Sosedje smo: kruh je za vse.",
+   "en": "That's it. We're neighbours: the bread is for everyone.",
+   "from": "scene:ob-potoku",
+   "word": "Sosedje",
+   "case": "nom",
+   "number": "pl",
+   "trigger": "smo",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Tako je. Sosedje smo: kruh je za vse.",
+   "en": "That's it. We're neighbours: the bread is for everyone.",
+   "from": "scene:ob-potoku",
+   "word": "kruh",
+   "case": "nom",
+   "number": "sg",
+   "trigger": "je",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Tako je. Sosedje smo: kruh je za vse.",
+   "en": "That's it. We're neighbours: the bread is for everyone.",
+   "from": "scene:ob-potoku",
+   "word": "vse",
+   "case": "acc",
+   "number": "pl",
+   "trigger": "za",
+   "rule": "tozilnik"
+  },
+  {
+   "sl": "Smejo, ja. Preveč! Slišim jih do lipe.",
+   "en": "They are, yes. Too much! I can hear them all the way to the linden.",
+   "from": "scene:v-soli",
+   "word": "jih",
+   "case": "acc",
+   "number": "pl",
+   "trigger": "Slišim",
+   "rule": "tozilnik"
+  },
+  {
+   "sl": "Smejo, ja. Preveč! Slišim jih do lipe.",
+   "en": "They are, yes. Too much! I can hear them all the way to the linden.",
+   "from": "scene:v-soli",
+   "word": "lipe",
+   "case": "gen",
+   "number": "sg",
+   "trigger": "do",
+   "rule": "rodilnik-predlogi"
+  },
+  {
+   "sl": "Ne, tudi jaz nimam denarja.",
+   "en": "No, I have no money either.",
+   "from": "scene:na-stolpu",
+   "word": "denarja",
+   "case": "gen",
+   "number": "sg",
+   "trigger": "nimam",
+   "rule": "rodilnik-nikalnica"
+  },
+  {
+   "sl": "Ne, tudi jaz nimam denarja.",
+   "en": "No, I have no money either.",
+   "from": "scene:na-stolpu",
+   "word": "jaz",
+   "case": "nom",
+   "number": "sg",
+   "trigger": "nimam",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Jutri zjutraj, ob šestih.",
+   "en": "Tomorrow morning, at six.",
+   "from": "scene:v-gorah",
+   "word": "šestih",
+   "case": "loc",
+   "number": "pl",
+   "trigger": "ob",
+   "rule": "kdaj-cas"
+  },
+  {
+   "sl": "Ne, hvala. Zame je voda premrzla.",
+   "en": "No, thanks. The water is too cold for me.",
+   "from": "scene:pri-ribniku",
+   "word": "Zame",
+   "case": "acc",
+   "number": "sg",
+   "rule": "tozilnik"
+  },
+  {
+   "sl": "Ne, hvala. Zame je voda premrzla.",
+   "en": "No, thanks. The water is too cold for me.",
+   "from": "scene:pri-ribniku",
+   "word": "voda",
+   "case": "nom",
+   "number": "sg",
+   "trigger": "je",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Lovec ustreli Zlatoroga.",
+   "en": "The hunter shoots Zlatorog.",
+   "from": "story:zlatorog",
+   "word": "Lovec",
+   "case": "nom",
+   "number": "sg",
+   "trigger": "ustreli",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Lovec ustreli Zlatoroga.",
+   "en": "The hunter shoots Zlatorog.",
+   "from": "story:zlatorog",
+   "word": "Zlatoroga",
+   "case": "acc",
+   "number": "sg",
+   "trigger": "ustreli",
+   "rule": "tozilnik"
+  },
+  {
+   "sl": "Ja! Mlin melje. Kmalu bo moka.",
+   "en": "Yes! The mill is grinding. Soon there will be flour.",
+   "from": "scene:ob-potoku",
+   "word": "Mlin",
+   "case": "nom",
+   "number": "sg",
+   "trigger": "melje",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Ja! Mlin melje. Kmalu bo moka.",
+   "en": "Yes! The mill is grinding. Soon there will be flour.",
+   "from": "scene:ob-potoku",
+   "word": "moka",
+   "case": "nom",
+   "number": "sg",
+   "trigger": "bo",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Dobro jutro, Jan! Tako zgodaj? Še ptice spijo.",
+   "en": "Good morning, Jan! So early? Even the birds are still asleep.",
+   "from": "scene:ob-potoku",
+   "word": "ptice",
+   "case": "nom",
+   "number": "pl",
+   "trigger": "spijo",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "O, Jan! Dobro, da si prišel. Pečem potico. Poglej v kredenco: so tam orehi?",
+   "en": "Oh, Jan! Good that you've come. I'm baking potica. Look in the cupboard: are there walnuts in there?",
+   "from": "scene:kuhinja",
+   "word": "potico",
+   "case": "acc",
+   "number": "sg",
+   "trigger": "Pečem",
+   "rule": "tozilnik"
+  },
+  {
+   "sl": "O, Jan! Dobro, da si prišel. Pečem potico. Poglej v kredenco: so tam orehi?",
+   "en": "Oh, Jan! Good that you've come. I'm baking potica. Look in the cupboard: are there walnuts in there?",
+   "from": "scene:kuhinja",
+   "word": "kredenco",
+   "case": "acc",
+   "number": "sg",
+   "trigger": "v",
+   "rule": "kam-tozilnik"
+  },
+  {
+   "sl": "O, Jan! Dobro, da si prišel. Pečem potico. Poglej v kredenco: so tam orehi?",
+   "en": "Oh, Jan! Good that you've come. I'm baking potica. Look in the cupboard: are there walnuts in there?",
+   "from": "scene:kuhinja",
+   "word": "orehi",
+   "case": "nom",
+   "number": "pl",
+   "trigger": "so",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Ti tudi, Jan. Burja, tiho bodi!",
+   "en": "You too, Jan. Burja, be quiet!",
+   "from": "scene:v-podstresju",
+   "word": "Burja",
+   "case": "nom",
+   "number": "sg",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Vidim jo! Stoji na vrhu griča.",
+   "en": "I see it! It stands on the top of the hill.",
+   "from": "scene:na-gricih",
+   "word": "jo",
+   "case": "acc",
+   "number": "sg",
+   "trigger": "Vidim",
+   "rule": "tozilnik"
+  },
+  {
+   "sl": "Vidim jo! Stoji na vrhu griča.",
+   "en": "I see it! It stands on the top of the hill.",
+   "from": "scene:na-gricih",
+   "word": "vrhu",
+   "case": "loc",
+   "number": "sg",
+   "trigger": "na",
+   "rule": "kje-mestnik-orodnik"
+  },
+  {
+   "sl": "Vidim jo! Stoji na vrhu griča.",
+   "en": "I see it! It stands on the top of the hill.",
+   "from": "scene:na-gricih",
+   "word": "griča",
+   "case": "gen",
+   "number": "sg",
+   "trigger": "vrhu",
+   "rule": "rodilnik"
+  },
+  {
+   "sl": "Nič hudega. Suhe vejice gorijo še bolje.",
+   "en": "Never mind. Dry twigs burn even better.",
+   "from": "scene:v-hisi",
+   "word": "vejice",
+   "case": "nom",
+   "number": "pl",
+   "trigger": "gorijo",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Nič hudega. Suhe vejice gorijo še bolje.",
+   "en": "Never mind. Dry twigs burn even better.",
+   "from": "scene:v-hisi",
+   "word": "Suhe",
+   "case": "nom",
+   "number": "pl",
+   "trigger": "gorijo"
+  },
+  {
+   "sl": "Jan! Rad bi vozil traktor. Dedek pravi: ne. Zakaj?",
+   "en": "Jan! I'd like to drive the tractor. Grandpa says: no. Why?",
+   "from": "scene:na-gricih",
+   "word": "traktor",
+   "case": "acc",
+   "number": "sg",
+   "trigger": "vozil",
+   "rule": "tozilnik"
+  },
+  {
+   "sl": "Jan! Rad bi vozil traktor. Dedek pravi: ne. Zakaj?",
+   "en": "Jan! I'd like to drive the tractor. Grandpa says: no. Why?",
+   "from": "scene:na-gricih",
+   "word": "Rad",
+   "case": "nom",
+   "number": "sg",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Jan! Rad bi vozil traktor. Dedek pravi: ne. Zakaj?",
+   "en": "Jan! I'd like to drive the tractor. Grandpa says: no. Why?",
+   "from": "scene:na-gricih",
+   "word": "Dedek",
+   "case": "nom",
+   "number": "sg",
+   "trigger": "pravi",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Ne, samo še malo sena!",
+   "en": "No, only a little hay left!",
+   "from": "scene:na-njivi",
+   "word": "sena",
+   "case": "gen",
+   "number": "sg",
+   "trigger": "malo",
+   "rule": "rodilnik-kolicina"
+  },
+  {
+   "sl": "Tako. Zibelka gre nazaj v kot. Hvala za pomoč, Jan!",
+   "en": "There. The cradle goes back in the corner. Thanks for the help, Jan!",
+   "from": "scene:v-podstresju",
+   "word": "Zibelka",
+   "case": "nom",
+   "number": "sg",
+   "trigger": "gre",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Tako. Zibelka gre nazaj v kot. Hvala za pomoč, Jan!",
+   "en": "There. The cradle goes back in the corner. Thanks for the help, Jan!",
+   "from": "scene:v-podstresju",
+   "word": "kot",
+   "case": "acc",
+   "number": "sg",
+   "trigger": "v",
+   "rule": "kam-tozilnik"
+  },
+  {
+   "sl": "Tako. Zibelka gre nazaj v kot. Hvala za pomoč, Jan!",
+   "en": "There. The cradle goes back in the corner. Thanks for the help, Jan!",
+   "from": "scene:v-podstresju",
+   "word": "pomoč",
+   "case": "acc",
+   "number": "sg",
+   "trigger": "za",
+   "rule": "tozilnik"
+  },
+  {
+   "sl": "Jan! Ne morem spati. Povej mi zgodbo. Prosim, prosim!",
+   "en": "Jan! I cannot sleep. Tell me a story. Please, please!",
+   "from": "scene:v-sotoru",
+   "word": "mi",
+   "case": "dat",
+   "number": "sg",
+   "trigger": "Povej",
+   "rule": "dajalnik"
+  },
+  {
+   "sl": "Jan! Ne morem spati. Povej mi zgodbo. Prosim, prosim!",
+   "en": "Jan! I cannot sleep. Tell me a story. Please, please!",
+   "from": "scene:v-sotoru",
+   "word": "zgodbo",
+   "case": "acc",
+   "number": "sg",
+   "trigger": "Povej",
+   "rule": "tozilnik"
+  },
+  {
+   "sl": "Tudi mene je malo strah.",
+   "en": "I am a little scared too.",
+   "from": "scene:v-gozdu",
+   "word": "mene",
+   "case": "acc",
+   "number": "sg",
+   "trigger": "strah",
+   "rule": "custva"
+  },
+  {
+   "sl": "Vidim jo! Skočila je iz vode.",
+   "en": "I see it! It jumped out of the water.",
+   "from": "scene:ob-potoku",
+   "word": "vode",
+   "case": "gen",
+   "number": "sg",
+   "trigger": "iz",
+   "rule": "rodilnik-predlogi"
+  },
+  {
+   "sl": "Vidim jo! Skočila je iz vode.",
+   "en": "I see it! It jumped out of the water.",
+   "from": "scene:ob-potoku",
+   "word": "jo",
+   "case": "acc",
+   "number": "sg",
+   "trigger": "Vidim",
+   "rule": "tozilnik"
+  },
+  {
+   "sl": "Jaz? Pameten? Jaaa! Tečem k dedku!",
+   "en": "Me? Clever? Yesss! I'm running to grandpa!",
+   "from": "scene:v-soli",
+   "word": "dedku",
+   "case": "dat",
+   "number": "sg",
+   "trigger": "k",
+   "rule": "dajalnik"
+  },
+  {
+   "sl": "Deset podkev, dvajset žebljev, ena veriga, dva metra.",
+   "en": "Ten horseshoes, twenty nails, one chain, two metres.",
+   "from": "scene:v-kovacnici",
+   "word": "podkev",
+   "case": "gen",
+   "number": "pl",
+   "trigger": "Deset",
+   "rule": "rodilnik-kolicina"
+  },
+  {
+   "sl": "Deset podkev, dvajset žebljev, ena veriga, dva metra.",
+   "en": "Ten horseshoes, twenty nails, one chain, two metres.",
+   "from": "scene:v-kovacnici",
+   "word": "žebljev",
+   "case": "gen",
+   "number": "pl",
+   "trigger": "dvajset",
+   "rule": "rodilnik-kolicina"
+  },
+  {
+   "sl": "Deset podkev, dvajset žebljev, ena veriga, dva metra.",
+   "en": "Ten horseshoes, twenty nails, one chain, two metres.",
+   "from": "scene:v-kovacnici",
+   "word": "veriga",
+   "case": "nom",
+   "number": "sg",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Sodniki pa so razsodili, da Veronika ni čarovnica in da ni kriva ničesar.",
+   "en": "But the judges ruled that Veronika was no witch and was guilty of nothing.",
+   "from": "story:veronika-deseniska",
+   "word": "Sodniki",
+   "case": "nom",
+   "number": "pl",
+   "trigger": "razsodili",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Sodniki pa so razsodili, da Veronika ni čarovnica in da ni kriva ničesar.",
+   "en": "But the judges ruled that Veronika was no witch and was guilty of nothing.",
+   "from": "story:veronika-deseniska",
+   "word": "čarovnica",
+   "case": "nom",
+   "number": "sg",
+   "trigger": "ni",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Sodniki pa so razsodili, da Veronika ni čarovnica in da ni kriva ničesar.",
+   "en": "But the judges ruled that Veronika was no witch and was guilty of nothing.",
+   "from": "story:veronika-deseniska",
+   "word": "ničesar",
+   "case": "gen",
+   "number": "sg",
+   "trigger": "ni",
+   "rule": "rodilnik-nikalnica"
+  },
+  {
+   "sl": "Dober dan! Nov obraz v gorah. Kako si prišel gor? Z avtom?",
+   "en": "Good day! A new face in the mountains. How did you get up here? By car?",
+   "from": "scene:v-gorah",
+   "word": "gorah",
+   "case": "loc",
+   "number": "pl",
+   "trigger": "v",
+   "rule": "kje-mestnik-orodnik"
+  },
+  {
+   "sl": "Dober dan! Nov obraz v gorah. Kako si prišel gor? Z avtom?",
+   "en": "Good day! A new face in the mountains. How did you get up here? By car?",
+   "from": "scene:v-gorah",
+   "word": "avtom",
+   "case": "ins",
+   "number": "sg",
+   "trigger": "Z",
+   "rule": "orodnik"
+  },
+  {
+   "sl": "Dober dan! Nov obraz v gorah. Kako si prišel gor? Z avtom?",
+   "en": "Good day! A new face in the mountains. How did you get up here? By car?",
+   "from": "scene:v-gorah",
+   "word": "obraz",
+   "case": "nom",
+   "number": "sg",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Nemčija je večja od Slovenije.",
+   "en": "Germany is bigger than Slovenia.",
+   "from": "scene:v-soli",
+   "word": "Slovenije",
+   "case": "gen",
+   "number": "sg",
+   "trigger": "od",
+   "rule": "rodilnik-predlogi"
+  },
+  {
+   "sl": "Nemčija je večja od Slovenije.",
+   "en": "Germany is bigger than Slovenia.",
+   "from": "scene:v-soli",
+   "word": "Nemčija",
+   "case": "nom",
+   "number": "sg",
+   "trigger": "je",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Nejc, vstani! Zajtrk je na mizi.",
+   "en": "Nejc, get up! Breakfast is on the table.",
+   "from": "scene:v-podstresju",
+   "word": "Nejc",
+   "case": "nom",
+   "number": "sg",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Nejc, vstani! Zajtrk je na mizi.",
+   "en": "Nejc, get up! Breakfast is on the table.",
+   "from": "scene:v-podstresju",
+   "word": "Zajtrk",
+   "case": "nom",
+   "number": "sg",
+   "trigger": "je",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Nejc, vstani! Zajtrk je na mizi.",
+   "en": "Nejc, get up! Breakfast is on the table.",
+   "from": "scene:v-podstresju",
+   "word": "mizi",
+   "case": "loc",
+   "number": "sg",
+   "trigger": "na",
+   "rule": "kje-mestnik-orodnik"
+  },
+  {
+   "sl": "Tako je! Pravilna končnica, bravo.",
+   "en": "That's right! The correct ending, well done.",
+   "from": "scene:v-soli",
+   "word": "končnica",
+   "case": "nom",
+   "number": "sg",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Še dve vrsti, potem greva. Hvala, sosed.",
+   "en": "Two more rows, then we go. Thanks, neighbour.",
+   "from": "scene:na-njivi",
+   "word": "sosed",
+   "case": "nom",
+   "number": "sg",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Pridi, obesiva jo skupaj. Ti drži en konec.",
+   "en": "Come, let's hang it up together. You hold one end.",
+   "from": "scene:ob-potoku",
+   "word": "jo",
+   "case": "acc",
+   "number": "sg",
+   "trigger": "obesiva",
+   "rule": "tozilnik"
+  },
+  {
+   "sl": "Pridi, obesiva jo skupaj. Ti drži en konec.",
+   "en": "Come, let's hang it up together. You hold one end.",
+   "from": "scene:ob-potoku",
+   "word": "konec",
+   "case": "acc",
+   "number": "sg",
+   "trigger": "drži",
+   "rule": "tozilnik"
+  },
+  {
+   "sl": "Pridi, obesiva jo skupaj. Ti drži en konec.",
+   "en": "Come, let's hang it up together. You hold one end.",
+   "from": "scene:ob-potoku",
+   "word": "Ti",
+   "case": "nom",
+   "number": "sg",
+   "trigger": "drži",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Zdaj vi: dve besedi z dvojino. Do jutri. Na svidenje, Jan!",
+   "en": "Now you: two words in the dual. By tomorrow. Goodbye, Jan!",
+   "from": "scene:v-soli",
+   "word": "dvojino",
+   "case": "ins",
+   "number": "sg",
+   "trigger": "z",
+   "rule": "orodnik"
+  },
+  {
+   "sl": "Zdaj vi: dve besedi z dvojino. Do jutri. Na svidenje, Jan!",
+   "en": "Now you: two words in the dual. By tomorrow. Goodbye, Jan!",
+   "from": "scene:v-soli",
+   "word": "svidenje",
+   "case": "acc",
+   "number": "sg",
+   "trigger": "Na",
+   "rule": "tozilnik"
+  },
+  {
+   "sl": "Brr, mrzlo mi je. Kje je moja odeja?",
+   "en": "Brr, I'm cold. Where's my blanket?",
+   "from": "scene:v-podstresju",
+   "word": "mi",
+   "case": "dat",
+   "number": "sg",
+   "trigger": "mrzlo",
+   "rule": "custva"
+  },
+  {
+   "sl": "Brr, mrzlo mi je. Kje je moja odeja?",
+   "en": "Brr, I'm cold. Where's my blanket?",
+   "from": "scene:v-podstresju",
+   "word": "odeja",
+   "case": "nom",
+   "number": "sg",
+   "trigger": "je",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Hitro, primi kokoš! Jaz ne morem tako hitro.",
+   "en": "Quick, grab the hen! I can't go that fast.",
+   "from": "scene:na-trznici",
+   "word": "kokoš",
+   "case": "acc",
+   "number": "sg",
+   "trigger": "primi",
+   "rule": "tozilnik"
+  },
+  {
+   "sl": "Konec februarja je lahko toplo ali pa spet zelo mrzlo.",
+   "en": "At the end of February it can be warm, or very cold again.",
+   "from": "reading:stara-pratika",
+   "word": "februarja",
+   "case": "gen",
+   "number": "sg",
+   "trigger": "Konec",
+   "rule": "rodilnik"
+  },
+  {
+   "sl": "Primešaj sladkor, med, cimet in rum ter pusti, da se ohladi.",
+   "en": "Stir in the sugar, honey, cinnamon and rum, and let it cool.",
+   "from": "reading:potica",
+   "word": "sladkor",
+   "case": "acc",
+   "number": "sg",
+   "trigger": "Primešaj",
+   "rule": "tozilnik"
+  },
+  {
+   "sl": "Podjetje je v Novi Gorici.",
+   "en": "The company is in Nova Gorica.",
+   "from": "pack:delo-in-pisarna",
+   "word": "Gorici",
+   "case": "loc",
+   "number": "sg",
+   "trigger": "v",
+   "rule": "kje-mestnik-orodnik"
+  },
+  {
+   "sl": "Podjetje je v Novi Gorici.",
+   "en": "The company is in Nova Gorica.",
+   "from": "pack:delo-in-pisarna",
+   "word": "Podjetje",
+   "case": "nom",
+   "number": "sg",
+   "trigger": "je",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Pozimi pade veliko snega.",
+   "en": "A lot of snow falls in winter.",
+   "from": "grammar:kdaj-cas",
+   "word": "snega",
+   "case": "gen",
+   "number": "sg",
+   "trigger": "veliko",
+   "rule": "rodilnik-kolicina"
+  },
+  {
+   "sl": "Ob polnoči si vsi zaželimo srečo.",
+   "en": "At midnight we all wish each other luck.",
+   "from": "pack:praznik-novo-leto",
+   "word": "polnoči",
+   "case": "loc",
+   "number": "sg",
+   "trigger": "Ob"
+  },
+  {
+   "sl": "Ob polnoči si vsi zaželimo srečo.",
+   "en": "At midnight we all wish each other luck.",
+   "from": "pack:praznik-novo-leto",
+   "word": "srečo",
+   "case": "acc",
+   "number": "sg",
+   "trigger": "zaželimo",
+   "rule": "tozilnik"
+  },
+  {
+   "sl": "Ob polnoči si vsi zaželimo srečo.",
+   "en": "At midnight we all wish each other luck.",
+   "from": "pack:praznik-novo-leto",
+   "word": "vsi",
+   "case": "nom",
+   "number": "pl",
+   "trigger": "zaželimo",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Sem Jan, iz Berlina.",
+   "en": "I'm Jan, from Berlin.",
+   "from": "grammar:biti",
+   "word": "Berlina",
+   "case": "gen",
+   "number": "sg",
+   "trigger": "iz",
+   "rule": "rodilnik-predlogi"
+  },
+  {
+   "sl": "Sem Jan, iz Berlina.",
+   "en": "I'm Jan, from Berlin.",
+   "from": "grammar:biti",
+   "word": "Jan",
+   "case": "nom",
+   "number": "sg",
+   "trigger": "Sem",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Kosilo je na mizi.",
+   "en": "Lunch is on the table.",
+   "from": "pack:v-kuhinji",
+   "word": "Kosilo",
+   "case": "nom",
+   "number": "sg",
+   "trigger": "je",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Kosilo je na mizi.",
+   "en": "Lunch is on the table.",
+   "from": "pack:v-kuhinji",
+   "word": "mizi",
+   "case": "loc",
+   "number": "sg",
+   "trigger": "na",
+   "rule": "kje-mestnik-orodnik"
+  },
+  {
+   "sl": "Avtobus gre v Novo Gorico.",
+   "en": "The bus goes to Nova Gorica.",
+   "from": "pack:pot-in-promet",
+   "word": "Gorico",
+   "case": "acc",
+   "number": "sg",
+   "trigger": "v",
+   "rule": "kam-tozilnik"
+  },
+  {
+   "sl": "Avtobus gre v Novo Gorico.",
+   "en": "The bus goes to Nova Gorica.",
+   "from": "pack:pot-in-promet",
+   "word": "Avtobus",
+   "case": "nom",
+   "number": "sg",
+   "trigger": "gre",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Vino je v kleti.",
+   "en": "The wine is in the cellar.",
+   "from": "pack:na-gricih",
+   "word": "kleti",
+   "case": "loc",
+   "number": "sg",
+   "trigger": "v",
+   "rule": "kje-mestnik-orodnik"
+  },
+  {
+   "sl": "Vino je v kleti.",
+   "en": "The wine is in the cellar.",
+   "from": "pack:na-gricih",
+   "word": "Vino",
+   "case": "nom",
+   "number": "sg",
+   "trigger": "je",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Imam dvajset evrov.",
+   "en": "I have twenty euros.",
+   "from": "pack:stevila",
+   "word": "evrov",
+   "case": "gen",
+   "number": "pl",
+   "trigger": "dvajset",
+   "rule": "rodilnik-kolicina"
+  },
+  {
+   "sl": "Na nebu je veliko zvezd.",
+   "en": "There are many stars in the sky.",
+   "from": "pack:praznik-kres",
+   "word": "nebu",
+   "case": "loc",
+   "number": "sg",
+   "trigger": "Na",
+   "rule": "kje-mestnik-orodnik"
+  },
+  {
+   "sl": "Na nebu je veliko zvezd.",
+   "en": "There are many stars in the sky.",
+   "from": "pack:praznik-kres",
+   "word": "zvezd",
+   "case": "gen",
+   "number": "pl",
+   "trigger": "veliko",
+   "rule": "rodilnik-kolicina"
+  },
+  {
+   "sl": "Iz moke spečemo kruh.",
+   "en": "We bake bread from flour.",
+   "from": "pack:projekt-mlin",
+   "word": "moke",
+   "case": "gen",
+   "number": "sg",
+   "trigger": "Iz",
+   "rule": "rodilnik-predlogi"
+  },
+  {
+   "sl": "Iz moke spečemo kruh.",
+   "en": "We bake bread from flour.",
+   "from": "pack:projekt-mlin",
+   "word": "kruh",
+   "case": "acc",
+   "number": "sg",
+   "trigger": "spečemo",
+   "rule": "tozilnik"
+  },
+  {
+   "sl": "Na Trnovem je megla.",
+   "en": "There is fog on the Trnovo plateau.",
+   "from": "pack:vreme-in-dan",
+   "word": "megla",
+   "case": "nom",
+   "number": "sg",
+   "trigger": "je",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Pot gre v gozd.",
+   "en": "The path goes into the forest.",
+   "from": "pack:v-gozdu",
+   "word": "gozd",
+   "case": "acc",
+   "number": "sg",
+   "trigger": "v",
+   "rule": "kam-tozilnik"
+  },
+  {
+   "sl": "Pot gre v gozd.",
+   "en": "The path goes into the forest.",
+   "from": "pack:v-gozdu",
+   "word": "Pot",
+   "case": "nom",
+   "number": "sg",
+   "trigger": "gre",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Ko se les kuha, je dim rumen.",
+   "en": "When the wood is cooking, the smoke is yellow.",
+   "from": "pack:pri-kopi",
+   "word": "les",
+   "case": "nom",
+   "number": "sg",
+   "trigger": "kuha",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Ko se les kuha, je dim rumen.",
+   "en": "When the wood is cooking, the smoke is yellow.",
+   "from": "pack:pri-kopi",
+   "word": "dim",
+   "case": "nom",
+   "number": "sg",
+   "trigger": "je",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Ko se les kuha, je dim rumen.",
+   "en": "When the wood is cooking, the smoke is yellow.",
+   "from": "pack:pri-kopi",
+   "word": "rumen",
+   "case": "nom",
+   "number": "sg",
+   "trigger": "je",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Na travniku so ovce in konji.",
+   "en": "There are sheep and horses in the meadow.",
+   "from": "grammar:mnozina",
+   "word": "travniku",
+   "case": "loc",
+   "number": "sg",
+   "trigger": "Na",
+   "rule": "kje-mestnik-orodnik"
+  },
+  {
+   "sl": "Na travniku so ovce in konji.",
+   "en": "There are sheep and horses in the meadow.",
+   "from": "grammar:mnozina",
+   "word": "ovce",
+   "case": "nom",
+   "number": "pl",
+   "trigger": "so",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Na travniku so ovce in konji.",
+   "en": "There are sheep and horses in the meadow.",
+   "from": "grammar:mnozina",
+   "word": "konji",
+   "case": "nom",
+   "number": "pl",
+   "trigger": "so",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Veverica pleza na drevo.",
+   "en": "The squirrel is climbing the tree.",
+   "from": "pack:zivali-v-gozdu",
+   "word": "drevo",
+   "case": "acc",
+   "number": "sg",
+   "trigger": "na",
+   "rule": "kam-tozilnik"
+  },
+  {
+   "sl": "Veverica pleza na drevo.",
+   "en": "The squirrel is climbing the tree.",
+   "from": "pack:zivali-v-gozdu",
+   "word": "Veverica",
+   "case": "nom",
+   "number": "sg",
+   "trigger": "pleza",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Z vrha je lep razgled.",
+   "en": "There's a lovely view from the top.",
+   "from": "pack:projekt-razgledni-stolp",
+   "word": "vrha",
+   "case": "gen",
+   "number": "sg",
+   "trigger": "Z",
+   "rule": "rodilnik-predlogi"
+  },
+  {
+   "sl": "Z vrha je lep razgled.",
+   "en": "There's a lovely view from the top.",
+   "from": "pack:projekt-razgledni-stolp",
+   "word": "razgled",
+   "case": "nom",
+   "number": "sg",
+   "trigger": "je",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Kilogram češenj, prosim.",
+   "en": "A kilo of cherries, please.",
+   "from": "pack:na-trznici",
+   "word": "češenj",
+   "case": "gen",
+   "number": "pl",
+   "trigger": "Kilogram",
+   "rule": "rodilnik-kolicina"
+  },
+  {
+   "sl": "Premrzla? Ha ha, sploh ni! Pridi še ti!",
+   "en": "Too cold? Ha ha, not at all! Come on in too!",
+   "from": "scene:pri-ribniku",
+   "word": "ti",
+   "case": "nom",
+   "number": "sg",
+   "trigger": "Pridi",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Vem. Tudi jaz sem bil tam!",
+   "en": "I know. I was there too!",
+   "from": "scene:v-kleti",
+   "word": "jaz",
+   "case": "nom",
+   "number": "sg",
+   "trigger": "bil",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Utrujen sem, zato grem spat.",
+   "en": "I'm tired, so I'm off to sleep.",
+   "from": "grammar:vezniki",
+   "word": "Utrujen",
+   "case": "nom",
+   "number": "sg",
+   "trigger": "sem",
+   "rule": "imenovalnik"
+  },
+  {
+   "sl": "Prvič sem v gorah.",
+   "en": "I'm in the mountains for the first time.",
+   "from": "grammar:datumi",
+   "word": "gorah",
+   "case": "loc",
+   "number": "pl",
+   "trigger": "v",
+   "rule": "kje-mestnik-orodnik"
+  }
+ ]
+}

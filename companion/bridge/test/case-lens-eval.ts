@@ -1,8 +1,9 @@
-// The case lens against its hand-labelled sentences (test/fixtures/case-lens-gold.json, the set it was built on, and
-// case-lens-heldout.json, lines drawn after it was written and labelled before it ran on them): how often its pick is the
+// The case lens against its hand-labelled sentences (test/fixtures/case-lens-gold.json, the set it was built on;
+// case-lens-heldout.json, lines drawn after it was written and labelled before it ran on them, its misses then fixed; and
+// case-lens-heldout2.json, drawn after those fixes, run once): how often its pick is the
 // labelled case and number, how often it decides wrongly (the one that matters: a wrong answer said as sure), its
 // trigger and its rule, and the labelled ambiguities it keeps open. The smoke checks the numbers (test/smoke/cases.ts);
-// `bun test/case-lens-eval.ts [gold|heldout] [-v]` prints them with each miss.
+// `bun test/case-lens-eval.ts [gold|heldout|heldout2] [-v]` prints them with each miss.
 import { readFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
@@ -100,14 +101,14 @@ export function evaluate(lens: CaseLens, items: GoldItem[]): Evaluation {
   return e
 }
 
-export const goldItems = (name: 'gold' | 'heldout'): GoldItem[] => JSON.parse(readFileSync(join(import.meta.dir, `fixtures/case-lens-${name}.json`), 'utf8')).items
+export const goldItems = (name: 'gold' | 'heldout' | 'heldout2'): GoldItem[] => JSON.parse(readFileSync(join(import.meta.dir, `fixtures/case-lens-${name}.json`), 'utf8')).items
 
 export const summary = (e: Evaluation) =>
   `${e.right}/${e.labelled} right (${((e.right / e.labelled) * 100).toFixed(1)}%), ${e.wrongDecided} wrong and decided, ${e.wrongLikely} wrong as likely, ${e.open} left open; ` +
   `triggers ${e.triggers.right}/${e.triggers.labelled}, rules ${e.rules.right}/${e.rules.labelled}, ambiguities kept open ${e.ambiguous.keptOpen}/${e.ambiguous.labelled}; ${e.ms.toFixed(0)} ms`
 
 if (import.meta.main) {
-  const which = (process.argv[2] === 'heldout' ? 'heldout' : 'gold') as 'gold' | 'heldout'
+  const which = (['heldout', 'heldout2'].includes(process.argv[2]) ? process.argv[2] : 'gold') as 'gold' | 'heldout' | 'heldout2'
   const e = evaluate(repoLens(), goldItems(which))
   if (process.argv.includes('-v')) for (const m of e.misses) console.log(m)
   console.log(`${which}: ${e.items} items: ${summary(e)}`)

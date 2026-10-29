@@ -188,6 +188,15 @@ export const caseTriggersSchema = z.strictObject({
   /** Nouns of time (dan, ura, ponedeljek …), their lemmas: v ponedeljek, ob petih, ves dan. */
   time: z.strictObject({ nouns: words, rule: page, examples }),
   phrases: z.array(phraseEntry),
+  /**
+   * Words said of the subject, in the nominative whatever the verb (rad, rada, rado …: Rad pomagam, Rada imam juho): each
+   * form with its number and gender.
+   */
+  predicatives: z.array(z.strictObject({
+    lemma: word,
+    forms: z.array(z.strictObject({ form: word, number: numberKey, genders: z.array(genderKey).min(1).max(3) })).min(1),
+    rule: page,
+  })),
   pronouns: z.array(pronounEntry).min(1),
   fused: z.array(fusedEntry),
   /** The roles that decide without a trigger word: the subject, what something is, the object, a call, a genitive after a noun, a dative. */
@@ -237,7 +246,7 @@ export function validateCaseTriggers(input: unknown, pages?: Set<string>): { ok:
       ...t.cases.map(c => c.page),
       ...t.prepositions.flatMap(p => p.takes.flatMap(x => [x.rule, ...(x.time ? [x.time] : [])])),
       t.negation.rule, t.quantity.rule, t.time.rule,
-      ...t.verbs.map(v => v.rule), ...t.predicates.map(p => p.rule), ...t.phrases.map(p => p.rule), ...t.fused.map(f => f.rule),
+      ...t.verbs.map(v => v.rule), ...t.predicates.map(p => p.rule), ...t.phrases.map(p => p.rule), ...t.fused.map(f => f.rule), ...t.predicatives.map(p => p.rule),
       ...Object.values(t.roles).map(r => r.rule),
     ]
     for (const r of new Set(rules)) if (!pages.has(r)) errors.push(`rule "${r}": no such page in the grammar book`)

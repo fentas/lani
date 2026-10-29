@@ -85,7 +85,9 @@ export default async function cases() {
     { missingRules: needs.filter(r => !rules.has(r)), misses: dev.misses },
   )
   const held = evaluate(lens, goldItems('heldout'))
-  check(`case lens: the held-out lines (${held.items}, labelled before the lens ran on them): ${summary(held)}`, held.items >= 100 && held.right / held.labelled >= 0.9 && held.wrongDecided === 0, held.misses)
+  check(`case lens: the held-out lines (${held.items}, labelled before the lens ran on them, its misses fixed since): ${summary(held)}`, held.items >= 100 && held.right / held.labelled >= 0.9 && held.wrongDecided === 0, held.misses)
+  const held2 = evaluate(lens, goldItems('heldout2'))
+  check(`case lens: the second held-out lines (${held2.items}, drawn after those fixes): ${summary(held2)}`, held2.items >= 100 && held2.right / held2.labelled >= 0.88 && held2.wrongDecided === 0, held2.misses)
 
   // --- every line of the content ------------------------------------------------------------------------------------
   const js = (d: string) => (existsSync(d) ? readdirSync(d).filter(f => f.endsWith('.json')).map(f => JSON.parse(readFileSync(join(d, f), 'utf8'))) : [])

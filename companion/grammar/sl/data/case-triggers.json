@@ -957,7 +957,7 @@
       "present": "zebem",
       "forms": ["zebe", "zeblo"],
       "takes": ["acc"],
-      "rule": "tozilnik",
+      "rule": "custva",
       "examples": [{"sl": "Zebe me.", "en": "I'm cold.", "word": "me", "case": "acc", "number": "sg", "trigger": "Zebe"}]
     },
     {
@@ -965,15 +965,26 @@
       "present": "bolim",
       "forms": ["boli", "bolijo", "bolelo", "bolela"],
       "takes": ["acc"],
-      "rule": "tozilnik"
+      "rule": "custva"
     },
-    {"lemma": "skrbeti", "present": "skrbim", "forms": ["skrbi", "skrbelo"], "takes": ["acc"], "rule": "tozilnik"},
+    {"lemma": "skrbeti", "present": "skrbim", "forms": ["skrbi", "skrbelo"], "takes": ["acc"], "rule": "custva"},
+    {"lemma": "srbeti", "present": "srbim", "forms": ["srbi", "srbelo"], "takes": ["acc"], "rule": "custva"},
+    {"lemma": "jeziti", "present": "jezim", "forms": ["jezi", "jezilo"], "takes": ["acc"], "rule": "custva"},
+    {"lemma": "veseliti", "present": "veselim", "forms": ["veseli", "veselilo"], "takes": ["acc"], "rule": "custva"},
+    {
+      "lemma": "muditi",
+      "present": "mudim",
+      "forms": ["mudi", "mudilo"],
+      "se": true,
+      "takes": ["dat"],
+      "rule": "custva"
+    },
     {
       "lemma": "zanimati",
       "present": "zanimam",
       "forms": ["zanimalo"],
       "takes": ["acc"],
-      "rule": "tozilnik",
+      "rule": "custva",
       "examples": [
         {
           "sl": "Toneta zanima vse o konjih.",
@@ -990,10 +1001,10 @@
     {
       "words": [
         "všeč", "mrzlo", "toplo", "vroče", "žal", "dolgčas", "hudo", "slabo", "težko", "treba", "ime", "jasno",
-        "škoda"
+        "škoda", "vseeno"
       ],
       "case": "dat",
-      "rule": "dajalnik",
+      "rule": "custva",
       "examples": [
         {
           "sl": "Rebula mi je zelo všeč.",
@@ -1017,7 +1028,7 @@
     {
       "words": ["strah", "sram"],
       "case": "acc",
-      "rule": "tozilnik",
+      "rule": "custva",
       "examples": [{"sl": "Strah me je.", "en": "I'm afraid.", "word": "me", "case": "acc", "number": "sg", "trigger": "Strah"}]
     }
   ],
@@ -1340,6 +1351,21 @@
     {"words": "na koncu", "case": "loc", "number": "sg", "trigger": "na", "rule": "mestnik"},
     {"words": "na začetku", "case": "loc", "number": "sg", "trigger": "na", "rule": "mestnik"},
     {"words": "na vrsti", "case": "loc", "number": "sg", "trigger": "na", "rule": "mestnik"}
+  ],
+  "predicatives": [
+    {
+      "lemma": "rad",
+      "rule": "imenovalnik",
+      "forms": [
+        {"form": "rad", "number": "sg", "genders": ["m"]},
+        {"form": "rada", "number": "sg", "genders": ["f"]},
+        {"form": "rado", "number": "sg", "genders": ["n"]},
+        {"form": "radi", "number": "pl", "genders": ["m"]},
+        {"form": "rade", "number": "pl", "genders": ["f", "n"]},
+        {"form": "rada", "number": "du", "genders": ["m"]},
+        {"form": "radi", "number": "du", "genders": ["f", "n"]}
+      ]
+    }
   ],
   "pronouns": [
     {
