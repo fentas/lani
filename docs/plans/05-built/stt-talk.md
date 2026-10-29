@@ -355,6 +355,10 @@ bridge's recognizer a worker of the run's own on the CPU (8 threads), screenshot
 3. "Send by itself" off (`14-talk-mic-setting-off`): the same line, heard surely again, waits in the draft for ➤
    (`16-talk-mic-draft`), as every line did before.
 
+The step ran again on the branch rebased onto main (`scratchpad/ux-stt/qa-final-rebased/`, "🗣️ Moj glas · My voice"
+now above the switch): the same three outcomes; the noise's hearing with the conversation was the character's own
+line this time ("Ehi, ciao!", 0.04: a copy of the prompt, pulled), plain "Grazie a tutti", 0.01 s voiced.
+
 The node took 6 to 7 s for the two hearings on the CPU (0.4 s on the node's GPU). Getting there showed two things now
 fixed: the headless emulator's PulseAudio backend doesn't start (the WAV driver feeds the microphone instead), and a
 burst of pink noise over a silent room measured 0.2 s voiced, so its "Grazie." went to the draft (the voice measure's
