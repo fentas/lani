@@ -113,6 +113,9 @@ typed turn. This is Part A (the code, the art, the bridge); Part B, the faces in
   the rest rest; the end proud, a child laughing. Part B's faces override any of them.
 - **The header's portrait** (52 dp, the head alone) replaced the emoji circle rather than adding a third portrait on the
   screen; the sheets with a stage keep their stage and make the header's portrait still while it shows.
+- **The talk's stage grows on a tall screen** (from 1,000 dp high: Teo's tablet upright) to 212 dp with a 192 dp bust; in
+  landscape and on phones it stays 148 dp with a 132 dp bust, its row (the bust, the name, the role) at most 560 dp wide,
+  centred over the place's full width.
 - **The talk's fold rule is the training stage's** (keyboard, under 640 dp, fonts at 130 %): one rule for the learner to
   learn; a tap overrides it for the conversation.
 - **Easing from line to line.** About half of Part B's lines carry a face (curious on the questions, laugh on the "Ha ha"
@@ -153,4 +156,36 @@ one on the bar's avatar brings it back.
 
 ## Tests
 
-(filled in below)
+- **App** (after the rebase onto main with Part B's 5,690 faces): the whole unit suite, 3,324 tests in 426 classes, 0
+  failures (2 skipped). New:
+  - `FacesGoldenTest` (pixel identity without a face, against the digests taken before).
+  - `FacesRenderTest` (9): the contact sheets (build/faces: the bust by day and night, at 64 and 32 px, the head alone,
+    the scene's sprite, the talking beats, the faces with the poses, a contact sheet, two close-ups); every face differs
+    from every other on nine sprites and in a scene; the resting face is the face without one; the blink (not with the
+    eyes shut) and the talking mouth; the emotes inside the canvas at three sizes and both framings; a face in six arts'
+    scenes, its emote no one's to tap; closer up; the frame time.
+  - `FacesTest` (13): the names and their lenient reading, each pose's face, the emotes and the softer faces, the
+    content's faces on a line, a reply and a puzzled one carried into what is said (a form typed included), the moment's
+    faces and the easing from line to line, the reactions' faces, the hold and the easing back, the order of the line, the
+    reaction and listening, the tutor's face in a role-play, the talk's look, the fold rules and the stage's size (a phone
+    turned, large fonts, Teo's tablet both ways), TalkBack's words in every table.
+  - `L10nTablesTest` holds with the new keys. The scenes' frame-time test (`SceneDetailTest`) failed once at 25.3 ms
+    against 25 ms while the machine's load was over 400; alone it passes.
+- **Bridge:** `bunx tsc --noEmit -p .` clean; the whole smoke (`LANI_SMOKE_PORT=8950`, 8953, 8956) after the rebase:
+  2,878 checks, all passed, Part B's content validating against the faces' check (a face check of every kind: the enum
+  against Face.kt, seven refusals of publish_scene, faces served by the scenes, variants, stories, arrivals, a visit, the
+  keepers', steps' and parties' refusals with their paths, a role-play reply's face reaching the app's event).
+  `tutor-export --check`: 82 files match.
+- **Python:** `python3 -m unittest discover -s tests` (251, OK) and `-s companion/tests` (98, OK, 10 skipped).
+- **Emulator QA** (`companion/bin/qa --steps faces`, a synthetic learner, the dev bridge's fake ElevenLabs; 6.5 minutes
+  with the emulator's boot; earlier runs `typed-turn` too). Babica's soup by the fire: her portrait in the header at rest
+  ("Babica Micka"), after a wrong pick her reaction's own face from the content ("se jezi · is cross", her cross mark by
+  her head in the picture too), after the right one a smile; a free talk with Gospod Stanko: the stage with his bust,
+  folded to a 126 px avatar in the bar with the keyboard up, the dev tutor's faces (a smile, then curious with its ?);
+  Teo's tablet's screen (2560 × 1600 at 320 dpi) landscape and upright. The typed turn with the keyboard up: the panel
+  risen, the child's portrait in its header keeping her in view. Screenshots: scratchpad `ux-faces/qa/`.
+
+What QA found and was fixed: a pose's change drew one frame at the portrait clock's start (a jump to a blink); the
+talk's newest answer hidden under the correction (the answer takes the typing bubble's place, so the count the list
+scrolled on didn't change; and the stage unfolding as the keyboard went down shrank the list); on a tablet upright the
+stage stayed phone-sized (now 212 dp with a 192 dp bust from 1,000 dp high).

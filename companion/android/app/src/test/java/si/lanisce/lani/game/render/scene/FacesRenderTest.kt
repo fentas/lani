@@ -71,9 +71,12 @@ class FacesRenderTest {
         // each face with the poses that go with it (a cheer laughing, a wave smiling, a hand at the ear …)
         val poses = listOf(Pose.IDLE, Pose.TALK, Pose.HAPPY, Pose.CHEER, Pose.SAD, Pose.THINK, Pose.LISTEN, Pose.WAVE)
         sheet(Face.entries.map { f -> poses.map { p -> portrait("child2", f, 32, pose = p) } }, 6, file = "faces-poses.png")
-        // a contact sheet: the bust, the head and the sprite of the first four sprites, every face
-        val contact = sprites.take(4).flatMap { s -> listOf(Face.entries.map { f -> portrait(s, f, 48) }, Face.entries.map { f -> portrait(s, f, 48, Framing.HEAD) }) }
-        sheet(contact, 4, file = "faces-contact.png")
+        // a contact sheet: every face on a child, the teacher, grandpa and a village woman, the bust (as on a stage) over
+        // the head alone (as by a bubble), at the canvas sizes the app draws them
+        val contact = listOf("child2", "teacher", "grandpa", "woman").flatMap { s ->
+            listOf(Face.entries.map { f -> portrait(s, f, 31) }, Face.entries.map { f -> portrait(s, f, 24, Framing.HEAD) })
+        }
+        sheet(contact, 6, file = "faces-contact.png")
         // close up, to judge the pixels: the head alone, big
         val zoom = listOf("child1", "teacher", "grandpa", "woman", "grandma", "smith")
         sheet(zoom.map { s -> Face.entries.take(7).map { f -> portrait(s, f, 24, Framing.HEAD) } }, 10, file = "faces-zoom-a.png")

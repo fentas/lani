@@ -3463,6 +3463,9 @@ def faces_run():
         time.sleep(4)
         adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", "si.lanisce.lani.open", "talk")
         time.sleep(5)
+        if not portrait_says(character) and tap(scenario["title"], 5):  # the list: the scene again, from its opener
+            tap("Začni", 6)
+            time.sleep(3)
         print(f"    the tablet, landscape: {portrait_says(character)}")
         shot("faces-tablet-landscape")
         adb("shell", "wm", "size", "1600x2560")

@@ -254,9 +254,12 @@ class FacesTest {
         assertTrue(TalkStageRules.shown(411, 1f, keyboard = false, chosen = true))
         assertFalse(TalkStageRules.shown(900, 1.3f, keyboard = false, chosen = null))
         assertFalse(TalkStageRules.shown(900, 1f, keyboard = false, chosen = false))
-        // Teo's tablet (2560 × 1600 at 2.0: 800 dp high in landscape, 1280 dp upright): shown both ways
+        // Teo's tablet (2560 × 1600 at 2.0: 800 dp high in landscape, 1280 dp upright): shown both ways, bigger upright
         assertTrue(TalkStageRules.shown(800, 1f, keyboard = false, chosen = null))
         assertTrue(TalkStageRules.shown(1280, 1f, keyboard = false, chosen = null))
+        assertEquals(TalkStageRules.TALL_DP to TalkStageRules.PORTRAIT_DP, TalkStageRules.size(800))
+        assertEquals(TalkStageRules.BIG_TALL_DP to TalkStageRules.BIG_PORTRAIT_DP, TalkStageRules.size(1280))
+        assertEquals(TalkStageRules.TALL_DP to TalkStageRules.PORTRAIT_DP, TalkStageRules.size(914)) // a phone
     }
 
     @Test fun `TalkBack hears who and how`() {

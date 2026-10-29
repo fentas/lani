@@ -72,6 +72,15 @@ object TalkStageRules {
     /** The bust on it. */
     const val PORTRAIT_DP = 132
 
+    /** On a tall screen (a tablet upright, [BIG_SCREEN_DP] high and more) the stage and its bust are bigger. */
+    const val BIG_TALL_DP = 212
+    const val BIG_PORTRAIT_DP = 192
+    const val BIG_SCREEN_DP = 1000
+
+    /** The stage's height and its bust's on a screen [screenHeightDp] high: bigger on a tall one. */
+    fun size(screenHeightDp: Int): Pair<Int, Int> =
+        if (screenHeightDp >= BIG_SCREEN_DP) BIG_TALL_DP to BIG_PORTRAIT_DP else TALL_DP to PORTRAIT_DP
+
     /** The small avatar in the bar while the stage is folded. */
     const val AVATAR_DP = 40
 
@@ -139,8 +148,8 @@ internal fun rememberTalkLook(st: TalkState, talking: Boolean, listening: Boolea
 }
 
 /**
- * The stage: [who] on their [place] (blurred, dimmed), the bust alive as [look] has them, their name, role and the
- * friendship beside it; shown while [visible] (it folds and unfolds over [StageLayout]'s time), a tap folds it ([onFold]).
+ * The stage: [who] on their [place] (blurred, dimmed), the bust alive as [look] has them (bigger on a tall screen), their
+ * name, role and the friendship beside it; shown while [visible] (it folds and unfolds over [StageLayout]'s time), a tap folds it ([onFold]).
  */
 @Composable
 internal fun TalkStage(who: StagePerson, place: StagePlace, look: Look, visible: Boolean, onFold: () -> Unit) {
@@ -151,8 +160,9 @@ internal fun TalkStage(who: StagePerson, place: StagePlace, look: Look, visible:
         exit = shrinkVertically(tween(MOVE_MS)) + fadeOut(tween(MOVE_MS)),
         label = "talkStage",
     ) {
+        val (tall, bust) = TalkStageRules.size(androidx.compose.ui.platform.LocalConfiguration.current.screenHeightDp)
         Box(
-            Modifier.fillMaxWidth().height(TalkStageRules.TALL_DP.dp)
+            Modifier.fillMaxWidth().height(tall.dp)
                 .clickable(onClickLabel = bi("stage.makeSmaller"), onClick = onFold),
         ) {
             Backdrop(place, Modifier.matchParentSize(), dim = 0.45f)
@@ -162,9 +172,9 @@ internal fun TalkStage(who: StagePerson, place: StagePlace, look: Look, visible:
             ) {
                 val shape = RoundedCornerShape(topStart = 22.dp, topEnd = 22.dp)
                 Portrait(
-                    who.art, if (reduced) look.pose else look.portraitPose, animate = !reduced, px = portraitPx(TalkStageRules.PORTRAIT_DP.dp), seed = who.seed,
+                    who.art, if (reduced) look.pose else look.portraitPose, animate = !reduced, px = portraitPx(bust.dp), seed = who.seed,
                     face = look.face,
-                    modifier = Modifier.size(TalkStageRules.PORTRAIT_DP.dp).clip(shape).border(2.dp, Color.White.copy(alpha = 0.25f), shape)
+                    modifier = Modifier.size(bust.dp).clip(shape).border(2.dp, Color.White.copy(alpha = 0.25f), shape)
                         .semantics { contentDescription = described(who.name, look.pose, look.face) },
                 )
                 Spacer(Modifier.width(14.dp))

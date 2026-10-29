@@ -1057,7 +1057,8 @@ villager's sprite, or the person the scenario names: `Cast.talker`) as an animat
 role and friendship. They talk while their line is said, lean in with a hand at the ear while the 🎤 records, think (a
 hand at the chin, … in a thought bubble) while the tutor's answer is on its way, and wear the face of their line: the
 tutor's `face`, else the opener smiles, the last line smiles once the scene is over, and any other rests; a line's face
-holds a few seconds after it was said, then eases back. The goals, Back and "Končaj · End" stay in the bar. With the
+holds a few seconds after it was said, then eases back. On a tall screen (a tablet upright) the stage and the bust are
+bigger. The goals, Back and "Končaj · End" stay in the bar. With the
 keyboard up, on a short screen (a phone turned, under 640 dp), with large fonts, or after a tap on it, the stage folds to
 a small live avatar in the bar; a tap on that brings it back. Each of the character's bubbles has a small still face, the
 one that line was said with, and the "typing" bubble a thinking one. TalkBack hears who and how ("Babica Micka, se

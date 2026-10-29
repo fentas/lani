@@ -285,7 +285,8 @@ private fun Conversation(vm: AppViewModel, st: TalkState) {
     }
     val list = rememberLazyListState()
     val count = st.lines.size + (if (st.waiting) 1 else 0) + (if (st.sceneOver) 1 else 0)
-    LaunchedEffect(count, st.lines.lastOrNull()?.correction) { list.animateScrollToItem((count - 1).coerceAtLeast(0)) }
+    // a new line (the answer takes the "typing" bubble's place: the count stays), a correction under the learner's: to the end
+    LaunchedEffect(count, st.lines.size, st.waiting, st.lines.lastOrNull { it.fromMe }?.correction) { list.animateScrollToItem((count - 1).coerceAtLeast(0)) }
     // the list's room changes (the stage folding and unfolding with the keyboard, the goals opened): the newest line, in
     // view before, stays in view
     val newest by rememberUpdatedState(count - 1)
