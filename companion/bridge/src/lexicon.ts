@@ -390,6 +390,54 @@ export class Lexicon {
     return { ...r, fallback: true }
   }
 
+  /**
+   * The grammar of a normalized form, as the supplement and Wiktionary have it (the supplement's gloss of a lemma it
+   * overrides aside): each reading's lemma, part of speech, grammar string, a noun's gender and where it is from. No
+   * meanings and no tutor's glosses: what the case lens (cases.ts) reads, many times a sentence, kept cheap.
+   */
+  grammarReadings(form: string): { lemma: string; pos: string; grammar: string | null; gender: WordGender | null; source: 'extra' | 'wiktionary' }[] {
+    this.load()
+    const out: { lemma: string; pos: string; grammar: string | null; gender: WordGender | null; source: 'extra' | 'wiktionary' }[] = []
+    for (const r of this.extra.get(form) ?? []) out.push({ lemma: r.lemma, pos: r.pos, grammar: r.grammar, gender: r.gender, source: 'extra' })
+    const f = this.file
+    if (f && Object.hasOwn(f.forms, form)) {
+      for (const [i, g] of f.forms[form]) {
+        const l = f.lemmas[i]
+        if (!l) continue
+        const own = this.overrides.get(`${normalizeForm(l.lemma, this.o.language)}|${l.pos}`)
+        out.push({ lemma: l.lemma, pos: l.pos, grammar: g === undefined ? null : (f.grammar[g] ?? null), gender: own?.gender ?? l.gender ?? null, source: own ? 'extra' : 'wiktionary' })
+      }
+    }
+    return out
+  }
+
+  /** The supplement's entries by "lemma|pos", made at the first ask ([genderOf]). */
+  private extraLemmas: Map<string, ExtraEntry['gender'] | null> | null = null
+
+  /**
+   * The gender of the dictionary's or the supplement's lemma [lemma] of [pos] (normalized), whatever forms they list: a
+   * noun the supplement has by some of its forms only (šotoru, not šotor) is known by its lemma too. Null for one
+   * without a gender; undefined for a lemma neither has.
+   */
+  genderOf(lemma: string, pos: string): WordGender | null | undefined {
+    this.load()
+    const lang = this.o.language
+    const key = normalizeForm(lemma, lang)
+    if (!this.extraLemmas) {
+      this.extraLemmas = new Map()
+      for (const rs of this.extra.values()) for (const r of rs) this.extraLemmas.set(`${normalizeForm(r.lemma, lang)}|${r.pos}`, r.gender ?? null)
+    }
+    const own = this.extraLemmas.get(`${key}|${pos}`)
+    if (own !== undefined) return own
+    const f = this.file
+    if (!f || !Object.hasOwn(f.forms, key)) return undefined
+    for (const [i] of f.forms[key]) {
+      const l = f.lemmas[i]
+      if (l && l.pos === pos && normalizeForm(l.lemma, lang) === key) return l.gender ?? null
+    }
+    return undefined
+  }
+
   /** The forms and lemmas of the tutor's glosses, made again when they change ([has]). */
   private glossKeys: { of: TutorGloss[]; keys: Set<string> } | null = null
 
