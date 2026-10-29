@@ -57,7 +57,10 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        "typed-turn" a dialog's turn typed with the keyboard up (QA's hook "turns:type"), the
                        keyboard the answer's (its language, no suggestion strip); "player-voice" the learner's voice in
                        Babica's soup: a choice tapped said in it before her reply (tag Speaker, player-voice.log), its
-                       line's 🔊, a turn by the 🎤 (QA's hook "mic:right") not said again, a turn typed right said; "ispy" a game of «Vidim, vidim» by
+                       line's 🔊, a turn by the 🎤 (QA's hook "mic:right") not said again, a turn typed right said; "my-voice"
+                       "🗣️ Moj glas · My voice": offered at the learner's first line (QA's hook "audio:myvoice:offer"), a voice's
+                       ▶ (its sample made by the node), the pick, the next line in it (my-voice.log), the settings' page with
+                       off and the default again; "ispy" a game of «Vidim, vidim» by
                        the fire (QA's hook "ispy:ob-ognju/stump"): a wrong thing tapped, the right one, the child's
                        lines in turn (tags Speaker and Voice: each clip played to its end before the next line,
                        ispy-speech.log), a second game left mid-line (its clip stopped);
@@ -3129,6 +3132,123 @@ def voice_in_dialog():
     if find("‹ Vas · Village") is not None:
         tap("‹ Vas · Village", 4)
     plain_village()
+    return None
+
+
+MY_VOICE_OFFER = "Kateri glas je tvoj?"  # the offer's title at the first line (l10n myVoice.offerTitle)
+MY_VOICE = "Moj glas · My voice"  # the settings' section (myVoice.title)
+NO_VOICE = "Brez glasu · No voice"  # its "off" row (myVoice.off)
+
+
+def my_voice():
+    """"🗣️ Moj glas · My voice" (companion/SCENES.md, "The learner's voice"; docs/plans/05-built/my-voice.md): in Babica's
+    soup by the fire (QA's hook "audio:myvoice:offer": as if the learner had never chosen), the first line of the learner's
+    said brings the offer over the dialog, which goes on; the second voice's ▶ says its sample (the node makes it: the dev
+    bridge's fake ElevenLabs), a tap on it chooses it (the sheet closes, the node keeps it: GET /learner/voice, its
+    /voice/profiles' player), the learner's next line is said in it; then the settings' "🔊 Zvok in glas" page: the voices,
+    "🔇 Brez glasu" (off) and the default again. The choice goes back to the default after (failed or not)."""
+    try:
+        return my_voice_flow()
+    finally:
+        qa_hook("happening:")
+        try:
+            dev_bridge("/learner/voice", {"voice": "default"})
+        except (OSError, ValueError):
+            pass
+
+
+def my_voice_flow():
+    """[my_voice], its hooks asked."""
+    sid, hid, did = PLAYER_DIALOG
+    try:
+        state = dev_bridge("/learner/voice")
+        scene = next(s for s in api("/scenes") if isinstance(s, dict) and s.get("id") == sid)
+    except (OSError, RuntimeError, ValueError, StopIteration) as e:
+        return f"the dev bridge's voices or {sid}: {e}"
+    opts = state.get("options") or []
+    if len(opts) < 2:
+        return f"the dev bridge offers {len(opts)} voices: nothing to choose"
+    dialog = next((d for d in scene.get("dialogs", []) if d.get("id") == did), None)
+    if dialog is None:
+        return f"no dialog {did} in {sid}"
+    turns = [l for l in dialog["lines"] if l.get("choices")]
+    replies = {c["sl"]: c["reply"]["sl"] for l in turns for c in l["choices"] if c.get("reply")}
+    first = next(c["sl"] for c in turns[0]["choices"] if c.get("ok"))
+    second_line = next(c["sl"] for c in turns[1]["choices"] if c.get("ok"))
+    pick = opts[1]
+    lines = [f"offered: {', '.join(o['name'] + ' (' + o['id'] + ')' for o in opts)}; the sample «{state.get('sample')}»"]
+    print(f"    offered: {', '.join(o['name'] for o in opts)}; sample «{state.get('sample')}»")
+
+    # the first line of the learner's: said, and the offer over the dialog
+    qa_hook("audio:myvoice:offer")
+    qa_hook(f"happening:{sid}/{hid}/{did}", f"scene:{sid}@{sid}/{hid}")
+    assert wait_for("‹ Vas · Village", 10), "the fire's scene"
+    assert wait_for("Zapri · Close", 8), f"the dialog {did} (QA's hook)"
+    assert at_turn(), "the learner's first turn"
+    if any(TYPED_TURN in t for t, _ in nodes()):
+        return "the first turn came typed (the dev learner has its rule secure): the offer at a tap isn't checked"
+    adb("logcat", "-c")
+    assert answer_right({first}), f"the right choice «{first}» on screen"
+    assert wait_for(MY_VOICE_OFFER, 12), "the offer of the learner's voice at their first line"
+    log = said_in_log()
+    lines += [f"tapped «{first}»: the offer"] + [f"  {k} «{t}» {how}" for k, t, how in log]
+    assert any(k == "said" and t == norm(first) for k, t, _ in log), f"the learner's first line said meanwhile: {log[-4:]}"
+    shot("my-voice-offer")
+
+    # the second voice's ▶: its sample in it (made by the node the first time)
+    adb("logcat", "-c")
+    assert tap(f"Poslušaj: {pick['name']} · Listen: {pick['name']}", 4), f"the ▶ of {pick['name']}"
+    log = wait_said(state["sample"], "said", 20)
+    how = next((h for k, t, h in log if k == "said" and t == norm(state["sample"])), None)
+    lines += [f"▶ {pick['name']}:"] + [f"  {k} «{t}» {how}" for k, t, how in log]
+    assert how, f"the sample «{state['sample']}» said: {log[-4:]}"
+    print(f"    ▶ {pick['name']}: «{state['sample']}» ({how})")
+    shot("my-voice-sample")
+
+    # a tap on it chooses it: the sheet closes, the node keeps it
+    assert tap(pick["name"], 4), f"the row of {pick['name']}"
+    time.sleep(2)
+    assert find(MY_VOICE_OFFER) is None, "the offer closed after the pick"
+    st = dev_bridge("/learner/voice")
+    prof = api("/voice/profiles")
+    assert st.get("voice") == pick["id"] and st.get("chosen"), f"the node kept the choice: {st.get('voice')} chosen {st.get('chosen')}"
+    assert prof.get("player") == pick["voice"] and (prof.get("mine") or {}).get("id") == pick["id"], f"/voice/profiles says it: {prof.get('player')}, {prof.get('mine')}"
+
+    # the learner's next line: in the voice chosen
+    assert at_turn(), "the learner's second turn"
+    adb("logcat", "-c")
+    assert answer_right({second_line}), f"the right choice «{second_line}» on screen"
+    log = wait_said(replies[second_line], "said")
+    how = next((h for k, t, h in log if k == "said" and t == norm(second_line)), "")
+    lines += [f"tapped «{second_line}» after the pick:"] + [f"  {k} «{t}» {h}" for k, t, h in log]
+    why = in_turn(log, second_line, replies[second_line])
+    assert not why, f"the next line in the voice chosen: {why}"
+    assert how.startswith(("node clip (player)", "clip on the phone")), f"the next line said in the voice chosen (a node clip): {how}"
+    print(f"    «{second_line}»: {how}, then «{replies[second_line]}»")
+    shot("my-voice-next-line")
+    tap("Zapri · Close", 3)
+    time.sleep(1)
+    if find("‹ Vas · Village") is not None:
+        tap("‹ Vas · Village", 4)
+    plain_village()
+
+    # the settings' page: the voices, off, and the default again
+    open_settings("sound")
+    assert wait_for(MY_VOICE, 8), "the settings' Moj glas"
+    assert wait_for(pick["name"], 6), f"the voice chosen ({pick['name']}) on the page"
+    shot("my-voice-settings")
+    assert tap(NO_VOICE, 4), "Brez glasu · No voice"
+    time.sleep(1.5)
+    st = dev_bridge("/learner/voice")
+    assert st.get("off"), f"off kept on the node: {st}"
+    shot("my-voice-off")
+    assert tap(opts[0]["name"], 4), f"the default voice ({opts[0]['name']}) again"
+    time.sleep(1.5)
+    st = dev_bridge("/learner/voice")
+    assert st.get("voice") == opts[0]["id"] and not st.get("off"), f"the default again: {st.get('voice')} off {st.get('off')}"
+    (OUT / "my-voice.log").write_text("\n".join(lines) + "\n")
+    back_key()
+    go_home()
     return None
 
 
@@ -12323,6 +12443,8 @@ def plan():
         ("dialog-words", dialog_words, v, False, ""),
         ("typed-turn", typed_turn, v, False, ""),
         ("player-voice", player_voice, v, False, ""),
+        # "🗣️ Moj glas · My voice": the offer at the first line, a ▶, the pick, the next line in it, the settings' page
+        ("my-voice", my_voice, v, False, ""),
         ("ispy", ispy, v, False, ""),
         ("scene-people", scene_people, v, False, ""),
         ("your-words", your_words, v, False, ""),
