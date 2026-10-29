@@ -55,8 +55,9 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        the chat event's image (bridge.log), deleted from its long press (on the node too); then 📷 → the
                        camera (allowed when asked), the virtual scene taken and sent alone;
                        "talk-mic" (named only) a talk said into the emulator's microphone: LANI_QA_MIC=1 starts the
-                       emulator hearing a PulseAudio null sink of QA's own that QA plays LANI_QA_TALK_CLIP into (the
-                       dev bridge's LANI_STT_URL a Whisper worker of the run's own, never the node's), QA's hook
+                       emulator with its WAV audio driver hearing a file QA writes LANI_QA_TALK_CLIP into and rewinds
+                       ("avd rewindaudio"; the dev bridge's LANI_STT_URL a Whisper worker of the run's own, never the
+                       node's), QA's hook
                        "talk:<villager>" (LANI_QA_TALK_VILLAGER) opens the talk: the line heard surely goes by itself
                        for a child (LANI_CHILD=1), a room's noise is "I didn't catch that", with "Send by itself" off
                        the line waits for ➤; the takes' LaniStt lines in talk-mic.log;
@@ -533,31 +534,46 @@ def avd() -> str:
     return "fluent-qa" if "lani-qa" not in known and "fluent-qa" in known else "lani-qa"
 
 
-# The emulator's microphone (LANI_QA_MIC=1): a PulseAudio null sink of QA's own, whose monitor the emulator hears as its
-# microphone; QA plays a recording into the sink (mic_say) and the app records it. Only the emulator listens to it
-# (PULSE_SOURCE in its environment); the sink goes when QA ends. Without it the emulator has no audio (-no-audio).
-MIC_SINK = "lani_qa_mic"
+# The emulator's microphone (LANI_QA_MIC=1): the emulator's own WAV audio driver (QEMU_AUDIO_DRV=wav) hears a file,
+# OUT/mic.wav (QEMU_WAV_IN_PATH; what it plays goes to OUT/speaker.wav), and "avd rewindaudio" on its console starts it
+# over. QA writes a recording into that file in place (mic_say: always MIC_SECONDS long, 44.1 kHz stereo, the take's
+# pause after it) and rewinds it as the app starts recording. Nothing of the host's audio is touched. Without it the
+# emulator has no audio (-no-audio).
+MIC_SECONDS = 15
 MIC: dict = {}
 
 
-def mic_on() -> bool:
-    """The microphone sink, made once (LANI_QA_MIC=1); False without it."""
+def mic_file(path: Path | None, out: Path):
+    """[path] (silence when None) as the microphone's input: 0.5 s of quiet, the recording, quiet to MIC_SECONDS."""
+    src = ["-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo"] if path is None else ["-i", str(path)]
+    tmp = out.with_suffix(".new.wav")
+    subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", *src, "-af",
+                    f"adelay=500|500,apad,atrim=0:{MIC_SECONDS}", "-ar", "44100", "-ac", "2", "-c:a", "pcm_s16le",
+                    "-t", str(MIC_SECONDS), str(tmp)], check=True)
+    if out.exists():  # in place: the driver keeps the file open
+        with open(out, "r+b") as f:
+            f.write(tmp.read_bytes())
+        tmp.unlink()
+    else:
+        tmp.rename(out)
+
+
+def mic_on() -> dict:
+    """The microphone's environment for the emulator (LANI_QA_MIC=1), its input file made; {} without it."""
     if not os.environ.get("LANI_QA_MIC"):
-        return False
-    if "module" not in MIC:
-        out = sh("pactl", "load-module", "module-null-sink", f"sink_name={MIC_SINK}",
-                 "sink_properties=device.description=LaniQaMic", check=False).strip()
-        if not out.isdigit():
-            print(f"no microphone sink: {out}")
-            return False
-        MIC["module"] = out
-        atexit.register(lambda: sh("pactl", "unload-module", MIC["module"], check=False))
-    return True
+        return {}
+    MIC["in"] = OUT / "mic.wav"
+    mic_file(None, MIC["in"])
+    return {"QEMU_AUDIO_DRV": "wav", "QEMU_WAV_IN_PATH": str(MIC["in"]), "QEMU_WAV_PATH": str(OUT / "speaker.wav")}
 
 
 def mic_say(path: Path):
-    """[path] played into the emulator's microphone (mic_on), to its end."""
-    subprocess.run(["paplay", f"--device={MIC_SINK}", str(path)], check=True)
+    """[path] said into the emulator's microphone (mic_on): the file written, the input started over; returns after it."""
+    mic_file(path, MIC["in"])
+    adb("emu", "avd", "rewindaudio")
+    r = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(path)],
+                       capture_output=True, text=True)
+    time.sleep(0.5 + float(r.stdout.strip() or 2))
 
 
 def ensure_emulator():
@@ -566,19 +582,45 @@ def ensure_emulator():
     print("starting emulator …")
     mic = mic_on()
     subprocess.Popen(
-        [str(SDK / "emulator/emulator"), "-avd", avd(), "-no-window", *(("-audio", "pa", "-allow-host-audio") if mic else ("-no-audio",)),
+        [str(SDK / "emulator/emulator"), "-avd", avd(), "-no-window", *(("-allow-host-audio",) if mic else ("-no-audio",)),
          "-no-boot-anim", "-gpu", "swangle_indirect", "-no-snapshot-save", "-memory", "4096"],
-        env={**os.environ, **({"PULSE_SOURCE": f"{MIC_SINK}.monitor"} if mic else {})},
-        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True,
+        env={**os.environ, **mic},
+        stdout=open(OUT / "emulator.log", "w") if mic else subprocess.DEVNULL, stderr=subprocess.STDOUT if mic else subprocess.DEVNULL,
+        start_new_session=True,
         # A crashing emulator would otherwise leave a core dump of ~10 GB in the working directory.
         preexec_fn=lambda: resource.setrlimit(resource.RLIMIT_CORE, (0, 0)),
     )
     adb("wait-for-device")
     for _ in range(90):
         if adb("shell", "getprop", "sys.boot_completed", check=False).strip() == "1":
+            settle_after_boot()
             return
         time.sleep(2)
     sys.exit("emulator did not boot")
+
+
+def settle_after_boot():
+    """A freshly booted emulator on a busy machine: "System UI isn't responding" covers the first screen (setup then
+    can't see the welcome). Waited out ("Wait"), for up to a minute."""
+    time.sleep(5)
+    wait_out_anr(60)
+
+
+def wait_out_anr(seconds=30.0) -> bool:
+    """"<app> isn't responding" (System UI, the launcher: a busy machine's emulator) on screen: "Wait" until it's gone,
+    for up to [seconds]. Whether one was there."""
+    seen = False
+    end = time.time() + seconds
+    while time.time() < end:
+        ns = list(nodes())
+        if not any("isn't responding" in t for t, _ in ns):
+            return seen
+        seen = True
+        c = next((c for t, c in ns if t == "Wait"), None)
+        if c is not None:
+            adb("shell", "input", "tap", str(c[0]), str(c[1]))
+        time.sleep(3)
+    return seen
 
 
 def screen_xml() -> str:
@@ -810,7 +852,8 @@ def setup(url=None, token=None):
     plain error: "Can't reach your computer", "Poskusi znova", "Odpri Tailscale"), then the dev bridge's address and
     token, Home (the village founded where a synthetic learner has none). Screenshots also to $LANI_QA_SETUP_SHOTS."""
     url, token = url or BRIDGE_URL, token or TOKEN
-    if wait_for(OWN_NAMES[SETUP_PAIR[0]], 12) is None:
+    wait_out_anr(20)
+    if wait_for(OWN_NAMES[SETUP_PAIR[0]], 12) is None and not (wait_out_anr(20) and wait_for(OWN_NAMES[SETUP_PAIR[0]], 12)):
         return "already connected"
     first_launch()
     assert wait_for(say("setup.scan", 0), 8), "the QR code's button"
@@ -10594,14 +10637,14 @@ def progress():
 
 def talk_mic():
     """A talk said into the emulator's microphone (docs/plans/05-built/stt-talk.md): the emulator started by QA with
-    LANI_QA_MIC=1 (mic_on), the node's recognizer a Whisper worker of the run's own (LANI_STT_URL for the dev bridge:
+    LANI_QA_MIC=1 (mic_on: its WAV driver hears a file QA writes), the node's recognizer a Whisper worker of the run's own (LANI_STT_URL for the dev bridge:
     never the node's 8796). QA's hook "talk:<villager>" opens a talk (LANI_QA_TALK_VILLAGER, default davide), the
     microphone allowed. Then: a line said (LANI_QA_TALK_CLIP, an audio file; its text LANI_QA_TALK_TEXT) heard surely goes
     by itself for a child (LANI_CHILD=1: "➤ Sending …", "✋ Keep"), its LaniStt line in the app log (talk-mic.log);
     a room's noise heard as nothing ("I didn't catch that"); with "Send by itself" off in Settings
     (lani://settings:sound), the same line waits in the draft for ➤ as before."""
     clip = os.environ.get("LANI_QA_TALK_CLIP")
-    if not clip or "module" not in MIC:
+    if not clip or "in" not in MIC:
         return "skipped: no microphone (LANI_QA_MIC=1 with the emulator started by QA) or no LANI_QA_TALK_CLIP"
     who = os.environ.get("LANI_QA_TALK_VILLAGER", "davide")
     said = os.environ.get("LANI_QA_TALK_TEXT", "")
@@ -10617,36 +10660,58 @@ def talk_mic():
         assert tap(mic, 10), "the talk's 🎤"
         time.sleep(0.8)
         mic_say(path)
-        time.sleep(4.5)  # the 3 s pause ends the take
+        lines = ""
+        for _ in range(120):  # the take ends 3 s after the last word; then the node's two hearings (QA's worker may be a CPU's)
+            lines = adb("logcat", "-d", "-s", "LaniStt", check=False)
+            if "talk take:" in lines:
+                break
+            time.sleep(1)
         shot(f"talk-mic-{name}")
-        lines = adb("logcat", "-d", "-s", "LaniStt", check=False)
         with open(log, "a") as f:
             f.write(f"--- {name}\n{lines}\n")
         return lines
 
+    wait_out_anr(20)
+    def by_self(on: bool):
+        """"Send by itself" in Settings (lani://settings:sound) set to [on]: a child's default, but an app set up by hand
+        (a token typed, not paired) doesn't know it's a child's."""
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "settings:sound")
+        name = label("talkInput.bySelf", half=True)
+        at = wait_for(name, 10)
+        assert at, "Send by itself in Settings"
+        # its switch: the checkable node nearest the label
+        def centre_y(n):
+            b = list(map(int, re.findall(r"\d+", (re.search(r'bounds="([^"]*)"', n) or [None, "0 0 0 0"])[1])))
+            return (b[1] + b[3]) // 2 if len(b) == 4 else 0
+        switches = [n for n in re.findall(r"<node [^>]*?>", screen_xml()) if 'checkable="true"' in n]
+        node = min(switches, key=lambda n: abs(centre_y(n) - at[1]), default="")
+        if ('checked="true"' in node) != on:
+            assert tap(name, 3), "Send by itself"
+        shot(f"talk-mic-setting-{'on' if on else 'off'}")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(2)
+
+    if os.environ.get("LANI_CHILD"):
+        by_self(True)
     qa_hook(f"talk:{who}")
+    wait_out_anr(10)
     assert wait_for(mic, 15), "the talk with its 🎤"
     time.sleep(3)
     shot("talk-mic-open")
-    heard = take(Path(clip), "said")
+    heard = take(Path(clip), "said")  # its screenshot shows "➤ Sending …" while it lasts (1.8 s; a dump may come after)
     assert "talk take: engine=node" in heard, "the take reached the node (LaniStt)"
-    sending = wait_for(label("talkInput.sending", half=True), 2)
-    shot("talk-mic-sending")
     sure = "sure=true" in heard
     if os.environ.get("LANI_CHILD") and sure:
-        assert sending is not None, "a sure line goes by itself for a child"
-        time.sleep(3)
+        time.sleep(4)
         shot("talk-mic-sent")
+        assert "← roleplay" in (OUT / "bridge.log").read_text(), "a sure line goes to the tutor by itself for a child"
     noise = take(room, "room")
     assert "noise=true" in noise or "not sent" in noise, f"a room's noise heard as nothing: {noise[-300:]}"
     assert wait_for(label("talkInput.iDidntCatchTry", half=True), 3), "I didn't catch that"
-    # before: Send by itself off, the line waits for ➤
-    adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "settings:sound")
-    time.sleep(2)
-    assert tap(label("talkInput.bySelf", half=True), 8), "Send by itself in Settings"
-    shot("talk-mic-setting-off")
-    adb("shell", "input", "keyevent", "KEYCODE_BACK")
-    time.sleep(2)
+    # before: Send by itself off, the line waits for ➤ (Settings opened over Home: the talk opened again, still on)
+    by_self(False)
+    qa_hook(f"talk:{who}")
+    assert wait_for(mic, 15), "the talk again"
     again = take(Path(clip), "said-draft")
     assert wait_for(label("talkInput.sending", half=True), 1) is None, "with the setting off nothing goes by itself"
     shot("talk-mic-draft")
