@@ -85,6 +85,9 @@ fun VillageScene(
     // the picture's clock, at ~12 fps; stopped while the screen is covered (Home under another: ui/Covered.kt), and on
     // from where it stopped when it shows again (the construction's and the celebration's marks go by it)
     val covered = si.lanisce.lani.ui.LocalCovered.current
+    // a celebration while covered (a win in the village) played where it happened: not again when Home shows (as a Home
+    // composed anew didn't)
+    if (covered) anim.celebrateSeen = celebrate
     LaunchedEffect(covered) {
         if (covered) return@LaunchedEffect
         val start = withFrameNanos { it } - clock.longValue
