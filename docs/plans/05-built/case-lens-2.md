@@ -173,6 +173,12 @@ its Sloleks headword, the table's script cites the entries its rules rest on.
   sentence; fixed, hintSay.*), then the touched classes again: 102 tests, none failing.
 - Emulator QA: `companion/bin/qa-slot --no-town --steps lens-sheet` (below).
 
+## Checks on the branch rebased onto main (18c3bd71, with places-it-arts)
+
+`bunx tsc --noEmit -p .` clean; the smoke 3,139 checks, all passed (LANI_SMOKE_PORT 9190, LANI_SMOKE_DRAMA3_PORT 9208);
+`tutor-export --check` 88 files match; `case-triggers.py --check` matches; the Android unit suite through lani-slot.sh
+3,486 tests, 0 failures, 2 skipped; Python 251 and 134 tests OK (11 skipped); the emulator step lens-sheet ok (slot 2).
+
 ## Emulator QA
 
 The step `lens-sheet` (QA's hook `sentence:`), shots in the session's scratchpad (ux-case-lens-2/):
