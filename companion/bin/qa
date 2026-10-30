@@ -306,6 +306,7 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        Home's tip; the tent's request failed, when it comes back (its end, the Scroll's Later, the giver's
                        🔁 and card), its drill passed, back the same day (as Teo with
                        LANI_CULTURE=friuli, LANI_CHILD=1, LANI_QA_SETUP_PAIR=it-de; g-*.png in $LANI_QA_GUIDANCE_SHOTS);
+                       "guidance-retry" only that failed request (a run of its own);
                        "offline-audio" the
                        settings' "🔊 Zvok brez povezave" section; "prefetch" the day's clips got from the dev bridge (QA's
                        hook "audio:prefetch"; the day's size in prefetch.json); "offline-voice" the Piper voice downloaded
@@ -7083,7 +7084,7 @@ def friuli_school(part: str = "scene"):
     return None
 
 
-def guidance():
+def guidance(part: str = "all"):
     """"💡 Namigi · Tips" (companion/GAME.md "Guidance"; docs/plans/05-built/guidance.md), in the learner's pair (the
     synthetic Teo: LANI_DEV_DATA make-learner.ts --target it --base de --name Teo, LANI_CULTURE=friuli, LANI_CHILD=1,
     LANI_QA_SETUP_PAIR=it-de, LANI_QA_LEARNER=Teo; Jan's sl · en without them). QA's hook "tips:full-wisdom" (wisdom at its
@@ -7092,8 +7093,8 @@ def guidance():
     school standing): the card's button opens the school's next unit. "tips:chat": Home's tip in "Danes". "tips:tentmove"
     (the shepherd's request asked anew): its run failed (a child's answers listed, ✅/❌), the end says when it comes back
     and offers its drill; the Scroll's "Later" says when; the giver's 🔁 on the map opens their card with the drill; the
-    drill passed: the request back the same day ("🔁 Riprova"), its intro opens. Also as g-*.png and g-voice.log in
-    $LANI_QA_GUIDANCE_SHOTS."""
+    drill passed: the request back the same day ("🔁 Riprova"), its intro opens. [part] "retry": only the failed request (the
+    step guidance-retry). Also as g-*.png and g-voice.log in $LANI_QA_GUIDANCE_SHOTS."""
     pair = (os.environ.get("LANI_QA_SETUP_PAIR") or "sl-en").split("-")
     out = Path(os.environ["LANI_QA_GUIDANCE_SHOTS"]) if os.environ.get("LANI_QA_GUIDANCE_SHOTS") else None
     child = bool(os.environ.get("LANI_CHILD"))
@@ -7202,6 +7203,8 @@ def guidance():
     if pair != ["sl", "en"]:
         qa_hook(f"pair:{'-'.join(pair)}")
     qa_hook("tips:reset")
+    if part == "retry":
+        return guidance_retry(pair, child, msg, lab, snap, run, to_village)
     # --- wisdom full: the trade, wisdom chosen to give ---------------------------------------------------------------------
     qa_hook("tips:full-wisdom")
     to_village()
@@ -7285,7 +7288,14 @@ def guidance():
     time.sleep(1.5)
     snap("g-home")
     tap(lab("tips.gotIt"), 4)
-    # --- a request tried below the mark: where it went, its drill, back the same day ------------------------------------
+    return guidance_retry(pair, child, msg, lab, snap, run, to_village)
+
+
+def guidance_retry(pair, child, msg, lab, snap, run, to_village):
+    """The guidance step's failed request (QA's hook "tips:tentmove": the shepherd's request asked anew and started): its run
+    answered wrong, its end (a child's answers listed, when it comes back, the drill), the Scroll's "Later" row saying when,
+    the tip "back" on the map (its 💡 at the giver; else the giver's 🔁, or off the view their row in the Scroll) opening
+    its card with the drill, the drill passed: the request back the same day, its intro."""
     qa_hook("tips:tentmove")
     assert tap(lab("introInfo.start"), 15), "the tent's request: its intro's start"
     time.sleep(2)
@@ -7302,6 +7312,15 @@ def guidance():
     # the village: the Scroll's "Later" says when, the giver's 🔁 on the map opens their card with the drill
     to_village()
     again_at = msg(pair[0], "quests.againAt", time="").split("{")[0].strip()
+    # on the map the tip "back" (its 💡 bubble at the giver, in place of their quiet 🔁 while it shows), else the giver's 🔁
+    # (its TalkBack label: "<request>: Di nuovo domani dalle 05:00 · …, <what>"; a "Later" row says "<giver> · 🌙 …")
+    tip = "💡 " + lab("tips.tip")
+    end, bubble = time.time() + 15 * slow(), None
+    while time.time() < end and bubble is None:
+        bubble = next((c for t, c in nodes() if ", " in t and (t.endswith(tip) or again_at in t and "🌙" not in t)), None)
+        if bubble is None:
+            time.sleep(1.5)
+    snap("g-tent-map")
     assert tap(lab("villageScreen.scroll"), 6), "the Scroll"
     people = lab("townScroll.villagers") + ": "
     assert wait_for(people, 8), "the Scroll's grid"
@@ -7309,22 +7328,30 @@ def guidance():
     assert c is not None, "the Scroll's people"
     tap_at(c)
     time.sleep(1.5)
-    assert scroll_to(lab("quests.later"), 6) is not None, "the Scroll's Later"
-    assert scroll_to(again_at, 3) is not None, "the Scroll's Later row says when it comes back"
+    # the Scroll's "Later" (the last rows of the people's list, so maybe low on the screen)
+    assert (scroll_to(lab("quests.later"), 6) or find(lab("quests.later"))) is not None, "the Scroll's Later"
+    row = next(((t, c) for t, c in nodes() if "🌙 " + again_at in t), None)
+    assert row is not None, "the Scroll's Later row says when it comes back"
+    giver = row[0].split(" · ")[0].strip()
     snap("g-tent-later")
-    for _ in range(4):  # the people's list, the grid: back to the map
-        if find(lab("quests.later")) is None and find(people) is None:
-            break
-        adb("shell", "input", "keyevent", "KEYCODE_BACK")
-        time.sleep(1.2)
-    end, c = time.time() + 20 * slow(), None
-    while time.time() < end and c is None:
-        c = next((c for t, c in nodes() if again_at in t and ", " in t), None)
+    if bubble is not None:
+        for _ in range(4):  # the people's list, the grid: back to the map, the giver's 🔁 tapped
+            if find(lab("quests.later")) is None and find(people) is None:
+                break
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")
+            time.sleep(1.2)
+        tap_at(bubble)  # the tip's card or the giver's: both offer the drill
+    else:  # their 🔁 off the view: their row in the Scroll's people opens the same card
+        print(f"    the giver's 🔁 off the view: {giver}'s card from the Scroll")
+        c = next((c for t, c in nodes() if t == giver), None) or scroll_to(giver, 8, exact=True)
         if c is None:
-            time.sleep(1.5)
-    assert c is not None, "the giver's 🔁 on the map"
-    snap("g-tent-back-bubble")
-    tap_at(c)
+            for _ in range(8):
+                adb("shell", "input", "swipe", "540", "900", "540", "1700", "300")
+                time.sleep(0.8)
+                if (c := next((c for t, c in nodes() if t == giver), None)) is not None:
+                    break
+        assert c is not None, f"the giver's row in the Scroll ({giver})"
+        tap_at(c)
     time.sleep(2)
     c = find(retry) or scroll_to(retry, 3)
     assert c is not None, "the giver's card: the drill"
@@ -13780,6 +13807,7 @@ def plan():
         # only when named: "💡 Namigi · Tips" (GAME.md "Guidance"): the map's, Home's, a failed request's way back (Teo's pair
         # with LANI_*; its hooks fill a store, build a school and fail a request)
         ("guidance", guidance, guidance_home, False, ""),
+        ("guidance-retry", lambda: guidance("retry"), guidance_home, False, ""),
         ("village-life", village_life, v, False, ""),
         ("palisade-walk", palisade_walk, v, False, ""),
         ("reactions", reactions, v, False, ""),
