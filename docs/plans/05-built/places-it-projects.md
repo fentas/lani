@@ -18,14 +18,14 @@ German, A1, for a child. All are machine-written and say so in their `review`, a
 
 | Scene | Art | Opens from | People (spot) | Happenings | Dialogs | Turns | Wrong choices (naming a page) | Pack | I spy |
 |---|---|---|---|---|---|---|---|---|---|
-| `nella-vigna` Nella vigna | `hills` | the vineyard's terraces (`vinograd`) | Vignaiolo Matteo (vines), Nonno Bepi (wall), Lorenzo and Giulia (road) | 6 | 13 | 31 | 36 (22) | `nella-vigna`, 16 | 58 |
-| `la-cuccagna` L'albero della cuccagna | `square` | the greasy pole (`mlaj`), while it stands | Pastore Davide (well), Tommaso, Lorenzo (play), Nonna Rosa (bench) | 6 | 12 | 26 | 29 (21) | `la-cuccagna`, 16 | 50 |
-| `la-fontana` La fontana | `square` | the fountain (`vodnjak_na_trgu`) | Fabbro Bruno (well), Zia Nives (bench), Giulia, Lorenzo (play) | 6 | 13 | 27 | 28 (25) | `la-fontana`, 14 | 50 |
-| `il-ponte` Il ponte | `stream` | the bridge (`most`) | Mugnaio Franco (bank), Pastore Davide (ford), Fabbro Bruno, Tommaso, Apicoltore Aldo (mill: morning, afternoon, evening) | 7 | 14 | 33 | 37 (25) | `il-ponte`, 12 | 64 |
-| `il-grande-fienile` Il grande fienile | `field` | the big hay barn (`toplar`) | Mugnaio Franco (field), Pastore Davide and Vignaiolo Matteo (kozolec: never at once), Lorenzo (path) | 7 | 14 | 29 | 29 (25) | `il-grande-fienile`, 13 | 88 |
-| `il-prato-delle-api` Il prato delle api | `apiary` | the bee meadow (`cebelji_travnik`) | Apicoltore Aldo (hives), Nonna Rosa and Tommaso (bench: morning, afternoon), Giulia (table) | 6 | 15 | 32 | 34 (22) | `il-prato-delle-api`, 16 | 54 |
-| `l-orologio` L'orologio del campanile | `square` | the tower clock (`mestna_ura`) | Maestra Elena and Fabbro Bruno (well: afternoon, morning), Nonno Bepi and Zia Nives (bench: morning; afternoon, evening), Tommaso (play) | 6 | 12 | 28 | 29 (20) | `l-orologio`, 15 | 48 |
-| **7 scenes** | | | | **44** | **93** | **206** | **222 (160)** | **102 words** | **412** |
+| `nella-vigna` Nella vigna | `hills` | the vineyard's terraces (`vinograd`) | Vignaiolo Matteo (vines), Nonno Bepi (wall), Lorenzo and Giulia (road) | 6 | 13 | 31 | 36 (22) | `nella-vigna`, 13 | 58 |
+| `la-cuccagna` L'albero della cuccagna | `square` | the greasy pole (`mlaj`), while it stands | Pastore Davide (well), Tommaso, Lorenzo (play), Nonna Rosa (bench) | 6 | 12 | 26 | 29 (21) | `la-cuccagna`, 8 | 50 |
+| `la-fontana` La fontana | `square` | the fountain (`vodnjak_na_trgu`) | Fabbro Bruno (well), Zia Nives (bench), Giulia, Lorenzo (play) | 6 | 13 | 27 | 28 (25) | `la-fontana`, 12 | 50 |
+| `il-ponte` Il ponte | `stream` | the bridge (`most`) | Mugnaio Franco (bank), Pastore Davide (ford), Fabbro Bruno, Tommaso, Apicoltore Aldo (mill: morning, afternoon, evening) | 7 | 14 | 33 | 37 (25) | `il-ponte`, 10 | 64 |
+| `il-grande-fienile` Il grande fienile | `field` | the big hay barn (`toplar`) | Mugnaio Franco (field), Pastore Davide and Vignaiolo Matteo (kozolec: never at once), Lorenzo (path) | 7 | 14 | 29 | 29 (25) | `il-grande-fienile`, 10 | 88 |
+| `il-prato-delle-api` Il prato delle api | `apiary` | the bee meadow (`cebelji_travnik`) | Nonna Rosa and Tommaso (bench: morning, afternoon), Apicoltore Aldo (hives: afternoon), Maestra Elena and Lorenzo (table: morning, afternoon) | 5 | 17 | 34 | 38 (31) | `il-prato-delle-api`, 11 | 60 |
+| `l-orologio` L'orologio del campanile | `square` | the tower clock (`mestna_ura`) | Maestra Elena and Fabbro Bruno (well: afternoon, morning), Nonno Bepi and Zia Nives (bench: morning; afternoon, evening), Tommaso (play) | 6 | 12 | 28 | 29 (20) | `l-orologio`, 13 | 51 |
+| **7 scenes** | | | | **43** | **95** | **208** | **226 (169)** | **77 words** | **421** |
 
 What each holds:
 
@@ -53,11 +53,18 @@ What each holds:
   village's stores (a counting variant from its food), Davide taking hay for his sheep in the cold months and watching the
   bats come out at dusk, Lorenzo counting the barn's eight posts (Baio back in the shafts) and drawing the scarecrow a face
   (the crows back on its arm, then chased off), Matteo startling a hare out of the grass.
-- **Il prato delle api**: Aldo at the hives the children painted (the smoker, the comb; the bees quiet in winter), a swarm
-  round the linden in May and June, Giulia at the honey extractor (acacia honey in spring, chestnut in the autumn), Rosa
-  on the bench by the meadow's flowers (yellow and white in spring, the linden in flower in June and July, the clover the
-  children sowed), Tommaso proud of his painted hive (two things found with a tap; a sting in the summer). Every effect of
-  the art: the swarm, the smoke, the honey.
+- **Il prato delle api**: the meadow the village made for Aldo's bees, by his apiary, drawn by the bee garden's art in
+  Friuli's look (agent B's: Aldo's shed of cobbles, the box hives painted white, yellow, light blue and green with their
+  numbers, the light blue hive apart for a swarm, his yellow MIELE sign, the acacia, the flower bed by the season), so it
+  names the art's things with the bee garden's words, Dalle api's, and tells what Dalle api doesn't: Nonna Rosa on the bench
+  by the meadow's flowers as the art has them by the month (dandelions and daisies, a crown of daisies, in spring; the
+  clover the children sowed and the purple phacelia in summer; the asters, the bees' last lunch, in autumn), Aldo in the
+  afternoon (a last puff of smoke, then a bee on a flower: the nectar, the pollen on its legs, six legs and four wings; no
+  bees, no cherries), Maestra Elena's lesson in the meadow on school days (no fear; who makes the honey; ali and zampe;
+  the colours of a bee and of Aldo's sign), Tommaso and the hives the children painted (the light blue hive and the comb
+  found with a tap; the meadow under snow in winter), Lorenzo counting the bees and turning the extractor (a swarm off the
+  hives onto the acacia in May and June, a dandelion clock and a wish in spring, a four-leaf clover in summer). Every effect
+  of the art: the smoke, the honey, the swarm.
 - **L'orologio del campanile**: the clock shows the phone's own hour and is lit at night, so no turn asks the learner to
   read an hour off it, and every happening needs the church it is drawn in. Maestra Elena and the clock's two hands on
   school-day afternoons (the long one the minutes; one o'clock from where she says the hands are; being on time), Tommaso
@@ -65,7 +72,7 @@ What each holds:
   forged (the key; twelve strokes at noon), Bepi on the days before the clock (the sun, the shadow), Nives and her radio
   that tells the same time, the clock lit like a little moon on the winter evenings of November to January.
 
-Across them: every happening with two or three variants, the dialog of before last, its memory; each scene has something
+Across them: every happening with two to four dialogs, the dialog of before last, its memory; each scene has something
 on in every month; Nonno Bepi never in the evening (his story's), the children never in the evening; registers as the
 cast has them (Lei and "signor" to Franco and Bruno, "maestra" and Lei to Elena, tu to the others); everything that agrees
 with the learner a gender pair in every language, Slovene duals with a woman paired; faces where a line carries a feeling;
@@ -84,10 +91,12 @@ and four ribbons (its prizes are told as hung for the feast: the square draws no
 water (`fountain`), the bridge's piers and the cart over its deck (`cart`), the barn's eight posts and its roof, snow on
 it in winter. Friuli's toplar is the big barn the field draws, as looks-friuli-out.md found.
 
-The square's three Friuli scenes share its things' words and their I spy clues with the square scene of B's part to come
-(the clues name no colour for the church, the tower and the houses, which Friuli's look repaints). The bee meadow's art is
-the bee house: the meadow full of flowers, the hives the children painted (spoken of by their many colours, not the
-Slovene paintings), the little bee house: as its project's steps say.
+The square's three Friuli scenes name its things with In piazza's words and show In piazza's I spy clues (agent B's, from
+the Friuli piazza at every level of the linden and the well; the tower's with its clock in L'orologio), and the bee meadow
+Dalle api's: the same picture, the same words and clues. A level of a building adds scenery, never takes a word away
+(SCENES.md "Every building at its level"), so no line counts what a level changes: the hives are "the hives the children
+painted", the linden is told climbed and lost under, not big; Nel campo's clue for the fienile "Ha due archi" (it has one
+at the hayrack's first level) is "Ha un grande arco" now, in Il grande fienile's clues too.
 
 ## How it is reached (taps)
 
@@ -98,18 +107,20 @@ Slovene paintings), the little bee house: as its project's steps say.
 
 ## The words
 
-Seven new packs in `companion/cultures/friuli/packs/` (102 words, `it` with its article, `sl`, `en`, `de`, examples in all
-four, notes in English, Slovene and German): `nella-vigna`, `la-cuccagna` (with the square's tiglio, panchina, pozzo and
-bicicletta that no Italian pack had), `la-fontana`, `il-ponte`, `il-grande-fienile`, `il-prato-delle-api`, `l-orologio`.
-Where an Italian pack had a thing's word, the scene names that pack (in-paese's vigna, chiesa, campanile, strada, ponte and
-fontana; festa-vendemmia's vite and grappolo; Al ruscello's and Nel campo's every thing; famiglia's cane and gatto …), so a
-word is one card wherever it is met. No two Italian words share an English, German or Slovene prompt (card.py's rule,
-over 619 Italian words).
-
-Words that agent B's packs may bring too, to keep as one card when both are on main: tiglio, panchina, pozzo, bicicletta
-(the square), the bee house's words (ape, miele, arnia, favo, cera, affumicatore, smielatore), and the watchtower's
-`sulla-torre` (already on B's branch): ringhiera, tetto, tuono, the same meaning as here (one card); `lampo`'s German is
-"Lichtblitz" so it doesn't share "Blitz" with B's `fulmine`.
+Seven new packs in `companion/cultures/friuli/packs/` (77 words, `it` with its article, `sl`, `en`, `de`, examples in all
+four, notes in English, Slovene and German): `nella-vigna`, `la-cuccagna`, `la-fontana`, `il-ponte`, `il-grande-fienile`,
+`il-prato-delle-api` (the meadow's own: the clover and the four-leaf clover, the daisy, the dandelion clock, the pollen,
+the nectar, the wing, the paw, the insect, the number, luck), `l-orologio`. Where another Italian pack has a word, the
+scene names that pack and its own pack doesn't have it, so a word is one card wherever it is met: in-paese's vigna, chiesa,
+campanile, strada, ponte and fontana; festa-vendemmia's vite and grappolo; Al ruscello's and Nel campo's every thing;
+famiglia's cane and gatto; and agent B's packs, merged first: In piazza's tiglio, panchina, pozzo, bicicletta, banda,
+ballare and salire, Dalle api's every thing of the bee garden, In cantina's cassetta, assaggiare, brocca and fresco, Al
+mercato's salame, Sulla torre's tuono, ringhiera and tetto, In bottega's tavola and legno, In soffitta's trave, In
+chiesa's suonare, In salotto's occhiali, leggende's soffiare (32 words this branch had written are theirs now; the bee meadow's bee house, painted hive board, jar and sunflower went with the bee garden's look). No two Italian
+words share an English, German or Slovene prompt (card.py's rule, over 742 Italian words): `lampo`'s German is
+"Lichtblitz" (not B's `fulmine`, "Blitz"), `attraversare` is "to go across" (not B's `croce`, "cross"), `cannella` is "cev
+(vodnjaka)" in Slovene, the fountain's spouts "cevi" in its lines as in the project's steps (not In cantina's `rubinetto`,
+"pipa").
 
 ## Requests for the art owners
 
@@ -124,8 +135,6 @@ None of these is needed for the scenes to be right as they are; each would let t
 - **square**: a way for a dialog to ring the real hour's strokes, so a counting turn could match the drawn clock.
 - **stream**: a `cartbridge` slot, there once the bridge is finished, so il ponte is a thing to find.
 - **field**: a `toplar` slot (il grande fienile), there once it is finished.
-- **apiary** (B's Friuli look, or the painter's owner): the bee meadow as its project builds it (the clover and the
-  sunflowers the children sowed), and the hive boards painted as children's work in Friuli's look.
 
 ## What is left
 
@@ -135,13 +144,27 @@ None of these is needed for the scenes to be right as they are; each would let t
   art once A's branch is merged.
 - **The projects of agent A's other new arts**: the bocce court (`balinisce`), the playground (`igrisce`), the fire station
   (`gasilski_dom`), the wayside chapel (`kapelica`) and the palisade's gate: their Friuli scenes after A's merge.
-- **A native speaker's check** of the Italian, the Slovene and the German. To look at first: "la tavoletta dipinta" for a
-  hive board, "smielatore" and "affumicatore" for a child, "il caco" and its plural, "la cannella" (the spout, and cinnamon),
-  "Lei dice sempre l'ora" of the radio, the gender jokes in reactions ("il fieno è un signore", "la campana è una signora",
-  "Bianca è una signorina"); Slovene "štirna" for pozzo, "panjska končnica", "točilo", "narasla voda"; German "Heuschober"
-  for the big barn, "Smoker", "Schraubglas", "Lichtblitz".
-- **Dedupe with B's packs** once both are on main (above).
+- **A native speaker's check** of the Italian, the Slovene and the German. To look at first: "il caco" and its plural,
+  "la cannella" (the spout, and cinnamon), "Lei dice sempre l'ora" of the radio, "il soffione", "gli astri" and "la facelia"
+  for a child, the pun "quattro alle" (alle, at the), the gender jokes in reactions ("il fieno è un signore", "la campana è
+  una signora", "Bianca è una signorina", "le api sono femmine"); Slovene "cev (vodnjaka)" and "cevi" for the spouts,
+  "regratova lučka", "nebine", "narasla voda"; German "Heuschober" for the big barn, "Lichtblitz", "Phazelie".
 
 ## How it was checked
 
-(below, after the rebase)
+After the rebase onto main (the case trainer, the lens and the palisade's walks merged):
+
+- The content, without Gradle (the scratchpad's replay of the app's content tests): every turn, reaction, why and grammar
+  page (DialogReactions, Variants, the seasons), every I spy clue (ISpyContent: 3–6 clues, two at A1, never the word, the
+  German pronoun by the Italian gender), the look lint ("guarda" cued or naming a thing the art draws, faces, 3–8 lines),
+  the culture's validation and the prompts of the seven packs (0 clashes over 619 Italian words), the learner audit
+  (`bun test/learner-content.ts`: 0 texts naming Jan, 0 malformed placeholders, 0 turns the same for one gender).
+- The app's content tests with the seven scenes (DialogReactionsTest `19 + 24` scene files, CultureScenesTest with the
+  vineyard's and the bee meadow's arts, ScenesContentTest, VariantsContentTest, ISpyContentTest, SceneCoherenceTest,
+  DialogWordsContentTest, WordStickersTest, FriuliCultureTest, CultureParityTest … 22 classes): 149 tests, 0 failed.
+- The bridge: `tsc` clean; the smoke on ports 9030–9035: 3009 checks, all passed (its lookup of l'ombra now finds the tower
+  clock's pack word first, the dictionary's ombra after it); `tutor-export --check`: 87 files match.
+- The full Android unit suite (lani-slot.sh): 3413 tests in 430 classes, 2 skipped, 1 failed: ScenePaintersTest's "a frame
+  renders fast" (the alps at 22 ms, the machine at a load of 38); alone it passes (18 of 18). The run before the rebase
+  had the same kind of one (SceneDetailTest, the kitchen and the alps at 25 ms under a load of 45; alone it passed).
+- On the emulator (QA_PLACES), a synthetic Italian learner of the Friuli culture, the phone in sl · en: see below.
