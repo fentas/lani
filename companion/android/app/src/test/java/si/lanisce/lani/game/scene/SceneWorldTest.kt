@@ -207,11 +207,11 @@ class SceneWorldTest {
         assertEquals(listOf("stream", "bridge"), none.objects.map { it.slot })
         assertEquals(listOf("stream", "bridge", "mill"), stream.inWorld(SceneWorld.of(village)).objects.map { it.slot })
         assertTrue(stream.inWorld(SceneWorld.ALL) === stream)
-        // the curated field without a hayrack: no kozolec, no hay
+        // the curated field without a hayrack: no kozolec, no hay (and no double hayrack: its project isn't finished)
         val field = parseScene(File(dir, "na-njivi.json").readText())
         val bare = field.inWorld(SceneWorld.of(village.copy(buildings = village.buildings.filter { it.type != BuildingType.KOZOLEC })))
-        assertFalse(bare.objects.any { it.slot == "kozolec" || it.slot == "hay" })
-        assertEquals(field.objects.size - 2, bare.objects.size)
+        assertFalse(bare.objects.any { it.slot == "kozolec" || it.slot == "hay" || it.slot == "toplar" })
+        assertEquals(field.objects.size - 3, bare.objects.size)
     }
 
     @Test fun `France talks of the mill until it grinds, then mills`() {

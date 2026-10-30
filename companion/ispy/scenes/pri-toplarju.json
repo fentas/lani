@@ -3,7 +3,7 @@
   "scene": "pri-toplarju",
   "language": "sl",
   "machine_written": true,
-  "review": "clues: machine-written (Claude) in sl and en from the field's picture as its painter draws it (the colours, and where each thing is; the wild animals are described, never placed); not reviewed by a native speaker",
+  "review": "clues: machine-written (Claude) in sl and en from the field's picture as its painter draws it (the colours, and where each thing is; the wild animals are described, never placed); not reviewed by a native speaker; the finished projects' things (toplar): machine-written (Claude) from the picture as its painter draws them, not reviewed by a native speaker",
   "things": {
     "wheat": {
       "clues": [
@@ -522,6 +522,53 @@
           "en": "By day it sleeps.",
           "grammar": ["glagoli-sedanjik"],
           "verb": "spati"
+        }
+      ]
+    },
+    "toplar": {
+      "clues": [
+        {
+          "kind": "size",
+          "sl": "Je velik.",
+          "en": "It's big.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "velik"
+        },
+        {
+          "kind": "material",
+          "sl": "Je lesen.",
+          "en": "It's made of wood.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "lesen"
+        },
+        {
+          "kind": "trait",
+          "sl": "Ima osem stebrov.",
+          "en": "It has eight posts.",
+          "grammar": ["stevila-samostalniki"]
+        },
+        {
+          "kind": "trait",
+          "sl": "Ima leseno streho.",
+          "en": "It has a wooden roof.",
+          "grammar": ["pridevniki-ujemanje"]
+        },
+        {
+          "kind": "where",
+          "sl": "Stoji daleč na polju.",
+          "en": "It stands far off in the field.",
+          "grammar": ["mestnik"],
+          "prep": "na",
+          "case": "loc",
+          "noun": "polje",
+          "form": "polju"
+        },
+        {
+          "kind": "use",
+          "sl": "Na njem sušimo seno.",
+          "en": "We dry hay on it.",
+          "grammar": ["mestnik"],
+          "pronoun": "loc"
         }
       ]
     }

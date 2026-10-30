@@ -4,7 +4,7 @@
   "title": { "sl": "Pod uro", "en": "Under the clock", "de": "Unter der Uhr", "it": "Sotto l'orologio" },
   "emoji": "🕰️",
   "level": "A1",
-  "review": "sl lines, reactions, variants, de, it: machine-written (Claude), not reviewed by a native speaker; to check: četrt na enajst, pol ure čez eno, navijat uro, zamuja/prehiteva, Nisva skupaj krav pasla",
+  "review": "sl lines, reactions, variants, de, it: machine-written (Claude), unreviewed; to check: četrt na enajst, pol ure čez eno, navijat uro, zamuja/prehiteva, Nisva skupaj krav pasla, Bilo je pet udarcev",
   "art": "square",
   "from": ["project:mestna_ura"],
   "pack": "pod-uro",
@@ -20,7 +20,10 @@
     { "slot": "bicycle", "word": "kolo", "pack": "pot-in-promet" },
     { "slot": "flowers", "word": "roza", "pack": "v-gozdu" },
     { "slot": "sun", "word": "sonce", "pack": "vreme-in-dan" },
-    { "slot": "fence", "word": "ograja", "pack": "na-vasi" }
+    { "slot": "fence", "word": "ograja", "pack": "na-vasi" },
+    { "slot": "maypole", "word": "mlaj", "pack": "pod-mlajem", "needs": { "project": "mlaj" } },
+    { "slot": "fountain", "word": "vodnjak", "pack": "pri-vodnjaku", "needs": { "project": "vodnjak_na_trgu" } },
+    { "slot": "clock", "word": "ura", "needs": { "building": "CHURCH", "project": "mestna_ura" } }
   ],
   "people": [
     {
@@ -28,12 +31,12 @@
       "name": "Učiteljica Mojca",
       "emoji": "👩‍🏫",
       "art": "teacher",
-      "slot": "play2",
+      "slot": "clock",
       "villager": "mojca"
     },
     { "id": "tone", "name": "Kovač Tone", "emoji": "⚒️", "art": "smith", "slot": "well", "villager": "tone" },
     { "id": "janez", "name": "Stari Janez", "emoji": "👴", "art": "grandpa", "slot": "bench", "villager": "janez" },
-    { "id": "ancka", "name": "Teta Ančka", "emoji": "📻", "art": "aunt", "slot": "play3", "villager": "ancka" }
+    { "id": "ancka", "name": "Teta Ančka", "emoji": "📻", "art": "aunt", "slot": "fountain", "villager": "ancka" }
   ],
   "happenings": [
     {
@@ -65,7 +68,7 @@
       "when": ["afternoon"],
       "chance": 0.5,
       "dialog": "ancka",
-      "dialogs": ["ancka-poroka", "ancka"],
+      "dialogs": ["ancka-bije", "ancka-poroka", "ancka"],
       "reward": { "wisdom": 15 },
       "marker": "📻",
       "memory": {
@@ -2062,6 +2065,100 @@
           "en": "Well, now we're all here. One, two, three … and we sing!",
           "de": "So, jetzt sind wir alle da. Eins, zwei, drei … und wir singen!",
           "it": "Bene, adesso ci siamo tutti. Uno, due, tre … e cantiamo!"
+        }
+      ]
+    },
+    {
+      "id": "ancka-bije",
+      "count": { "from": "hour", "min": 1, "max": 12, "gender": "m" },
+      "memory": {
+        "sl": "udarce ure, ki si mi jih {m:preštel|f:preštela}",
+        "en": "the clock's strokes you counted for me",
+        "de": "die Glockenschläge, die du für mich gezählt hast",
+        "it": "i rintocchi che hai contato per me"
+      },
+      "lines": [
+        {
+          "who": "ancka",
+          "face": "curious",
+          "sl": "Pst, {learner}! Ura na zvoniku bije. Preštej udarce, jaz slabo slišim!",
+          "en": "Psst, {learner}! The clock on the tower is striking. Count the strokes, I don't hear well!",
+          "de": "Pst, {learner}! Die Uhr am Turm schlägt. Zähl die Schläge, ich höre schlecht!",
+          "it": "Psst, {learner}! L'orologio del campanile batte. Conta i rintocchi, io ci sento poco!",
+          "fx": { "strike": 1 }
+        },
+        {
+          "choices": [
+            {
+              "sl": "{Bil je|Bila sta|Bili so|Bilo je} {n} {!udarec|udarca|udarci|udarcev}.",
+              "en": "There {was|were} {n} {stroke|strokes}.",
+              "de": "Es {war|waren} {n} {Schlag|Schläge}.",
+              "it": "{C'è stato|Ci sono stati} {n} {rintocco|rintocchi}.",
+              "wrong_form": 1,
+              "grammar": "stevila-samostalniki",
+              "why": {
+                "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on, the genitive plural}: {n} {udarec|udarca|udarci|udarcev}.",
+                "de": "{Eins steht mit dem Singular|Zwei steht mit dem Dual|Drei und vier stehen mit dem Plural|Ab fünf steht der Genitiv Plural}: {n} {udarec|udarca|udarci|udarcev}.",
+                "it": "{Uno vuole il singolare|Due vuole il duale|Tre e quattro vogliono il plurale|Da cinque in su, il genitivo plurale}: {n} {udarec|udarca|udarci|udarcev}."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Kaj? Glasneje, prosim! Štej še enkrat.",
+                "en": "What? Louder, please! Count again.",
+                "de": "Was? Lauter, bitte! Zähl noch einmal.",
+                "it": "Cosa? Più forte, per favore! Conta di nuovo."
+              }
+            },
+            {
+              "sl": "{Bil je|Bila sta|Bili so|Bilo je} {n} {udarec|udarca|udarci|udarcev}.",
+              "en": "There {was|were} {n} {stroke|strokes}.",
+              "de": "Es {war|waren} {n} {Schlag|Schläge}.",
+              "it": "{C'è stato|Ci sono stati} {n} {rintocco|rintocchi}.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Hvala! Zdaj vem, koliko je ura. Moj radio pa spet molči …",
+                "en": "Thanks! Now I know what time it is. And my radio has gone quiet again …",
+                "de": "Danke! Jetzt weiß ich, wie spät es ist. Und mein Radio schweigt schon wieder …",
+                "it": "Grazie! Adesso so che ore sono. E la mia radio tace di nuovo …"
+              }
+            },
+            {
+              "sl": "{Bil je|Bila sta|Bili so|Bilo je} {n} {!udarec|udarca|udarci|udarcev}.",
+              "en": "There {was|were} {n} {stroke|strokes}.",
+              "de": "Es {war|waren} {n} {Schlag|Schläge}.",
+              "it": "{C'è stato|Ci sono stati} {n} {rintocco|rintocchi}.",
+              "wrong_form": 2,
+              "grammar": "stevila-samostalniki",
+              "why": {
+                "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on, the genitive plural}: {n} {udarec|udarca|udarci|udarcev}.",
+                "de": "{Eins steht mit dem Singular|Zwei steht mit dem Dual|Drei und vier stehen mit dem Plural|Ab fünf steht der Genitiv Plural}: {n} {udarec|udarca|udarci|udarcev}.",
+                "it": "{Uno vuole il singolare|Due vuole il duale|Tre e quattro vogliono il plurale|Da cinque in su, il genitivo plurale}: {n} {udarec|udarca|udarci|udarcev}."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Kako? Moj radio ne bi tako rekel … Še enkrat!",
+                "en": "Sorry? My radio wouldn't say it like that … Once more!",
+                "de": "Wie bitte? Mein Radio würde das nicht so sagen … Noch einmal!",
+                "it": "Come? La mia radio non direbbe così … Ancora una volta!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Glasneje, prosim!",
+            "en": "What? Louder, please!",
+            "de": "Was? Lauter, bitte!",
+            "it": "Cosa? Più forte, per favore!"
+          }
+        },
+        {
+          "who": "ancka",
+          "face": "laugh",
+          "sl": "Ti imaš dobra ušesa, {learner}. Jaz pa slišim samo svoj radio!",
+          "en": "You've got good ears, {learner}. I only hear my radio!",
+          "de": "Du hast gute Ohren, {learner}. Ich höre nur mein Radio!",
+          "it": "Tu hai buone orecchie, {learner}. Io sento solo la mia radio!"
         }
       ]
     }

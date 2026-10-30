@@ -3,7 +3,7 @@
   "scene": "ob-potoku",
   "language": "sl",
   "machine_written": true,
-  "review": "clues: machine-written (Claude) in sl and en from the scene's picture (its painter's colours and where each thing is drawn; the wild animals are described, never placed); not reviewed by a native speaker",
+  "review": "clues: machine-written (Claude) in sl and en from the scene's picture (its painter's colours and where each thing is drawn; the wild animals are described, never placed); not reviewed by a native speaker; the finished projects' things (cart bridge): machine-written (Claude) from the picture as its painter draws them, not reviewed by a native speaker",
   "things": {
     "stream": {
       "clues": [
@@ -128,6 +128,57 @@
         { "kind": "does", "sl": "Leti ponoči.", "en": "It flies at night.", "grammar": ["glagoli-sedanjik"], "verb": "leteti" },
         { "kind": "does", "sl": "Podnevi spi.", "en": "By day it sleeps.", "grammar": ["glagoli-sedanjik"], "verb": "spati" },
         { "kind": "does", "sl": "Spi z glavo navzdol.", "en": "It sleeps upside down.", "grammar": ["glagoli-sedanjik", "orodnik"], "verb": "spati" }
+      ]
+    },
+    "cartbridge": {
+      "clues": [
+        {
+          "kind": "material",
+          "sl": "Je lesen.",
+          "en": "It's made of wood.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "lesen"
+        },
+        {
+          "kind": "size",
+          "sl": "Je širok.",
+          "en": "It's wide.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "širok"
+        },
+        {
+          "kind": "trait",
+          "sl": "Ima dva kamnita stebra.",
+          "en": "It has two stone pillars.",
+          "grammar": ["dvojina", "pridevniki-ujemanje"]
+        },
+        {
+          "kind": "where",
+          "sl": "Je nad potokom.",
+          "en": "It's over the stream.",
+          "grammar": ["orodnik"],
+          "prep": "nad",
+          "case": "ins",
+          "ref": "stream",
+          "form": "potokom"
+        },
+        {
+          "kind": "where",
+          "sl": "Je pri mlinu.",
+          "en": "It's by the mill.",
+          "grammar": ["mestnik"],
+          "prep": "pri",
+          "case": "loc",
+          "ref": "mill",
+          "form": "mlinu"
+        },
+        {
+          "kind": "use",
+          "sl": "Po njem pelje voz.",
+          "en": "A cart drives over it.",
+          "grammar": ["mestnik"],
+          "pronoun": "loc"
+        }
       ]
     }
   }

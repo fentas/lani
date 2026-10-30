@@ -20,7 +20,8 @@
     { "slot": "smoker", "word": "kadilnik" },
     { "slot": "extractor", "word": "tocilo" },
     { "slot": "wax", "word": "vosek" },
-    { "slot": "bench", "word": "klop", "pack": "na-vasi" }
+    { "slot": "bench", "word": "klop", "pack": "na-vasi" },
+    { "slot": "meadow", "word": "travnik", "pack": "na-cebeljem-travniku", "needs": { "project": "cebelji_travnik" } }
   ],
   "people": [
     { "id": "anton", "name": "Čebelar Anton", "emoji": "🐝", "art": "beekeeper", "slot": "hives", "villager": "anton" },

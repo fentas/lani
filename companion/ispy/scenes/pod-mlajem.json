@@ -3,7 +3,7 @@
   "scene": "pod-mlajem",
   "language": "sl",
   "machine_written": true,
-  "review": "clues: machine-written (Claude) in sl and en from the square's picture as its painter draws it (the colours, and where each thing is; the ball moves, so it isn't placed); not reviewed by a native speaker",
+  "review": "clues: machine-written (Claude) in sl and en from the square's picture as its painter draws it (the colours, and where each thing is; the ball moves, so it isn't placed); not reviewed by a native speaker; the finished projects' things (maypole, fountain, clock): machine-written (Claude) from the picture as its painter draws them, not reviewed by a native speaker",
   "things": {
     "linden": {
       "name": { "en": "linden tree" },
@@ -338,6 +338,149 @@
           "en": "Behind it there's a garden.",
           "grammar": ["orodnik"],
           "pronoun": "ins"
+        }
+      ]
+    },
+    "maypole": {
+      "clues": [
+        {
+          "kind": "size",
+          "sl": "Je zelo visok.",
+          "en": "It's very tall.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "visok"
+        },
+        {
+          "kind": "colour",
+          "sl": "Na vrhu je zelen.",
+          "en": "At the top it's green.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "zelen"
+        },
+        {
+          "kind": "trait",
+          "sl": "Ima pisane trakove.",
+          "en": "It has colourful ribbons.",
+          "grammar": ["pridevniki-ujemanje"]
+        },
+        {
+          "kind": "where",
+          "sl": "Stoji pred zvonikom.",
+          "en": "It stands in front of the bell tower.",
+          "grammar": ["orodnik"],
+          "prep": "pred",
+          "case": "ins",
+          "ref": "tower",
+          "form": "zvonikom"
+        },
+        {
+          "kind": "use",
+          "sl": "Ponoči ga fantje stražijo.",
+          "en": "At night the lads guard it.",
+          "grammar": ["tozilnik"],
+          "pronoun": "acc"
+        },
+        {
+          "kind": "use",
+          "sl": "Pod njim plešemo polko.",
+          "en": "We dance the polka under it.",
+          "grammar": ["orodnik"],
+          "pronoun": "ins"
+        }
+      ]
+    },
+    "fountain": {
+      "clues": [
+        {
+          "kind": "colour",
+          "sl": "Je bel.",
+          "en": "It's white.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "bel"
+        },
+        {
+          "kind": "material",
+          "sl": "Je kamnit.",
+          "en": "It's made of stone.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "kamnit"
+        },
+        {
+          "kind": "trait",
+          "sl": "Ima štiri železne cevi.",
+          "en": "It has four iron pipes.",
+          "grammar": ["pridevniki-ujemanje"]
+        },
+        {
+          "kind": "where",
+          "sl": "Stoji sredi trga.",
+          "en": "It stands in the middle of the square.",
+          "grammar": ["rodilnik-predlogi"],
+          "prep": "sredi",
+          "case": "gen",
+          "noun": "trg",
+          "form": "trga"
+        },
+        {
+          "kind": "does",
+          "sl": "Iz njega teče voda.",
+          "en": "Water runs out of it.",
+          "grammar": ["glagoli-sedanjik", "rodilnik-predlogi"],
+          "pronoun": "gen"
+        },
+        {
+          "kind": "use",
+          "sl": "Pri njem napojimo konja.",
+          "en": "We water the horse at it.",
+          "grammar": ["mestnik"],
+          "pronoun": "loc"
+        }
+      ]
+    },
+    "clock": {
+      "name": { "en": "clock" },
+      "clues": [
+        {
+          "kind": "colour",
+          "sl": "Je bela.",
+          "en": "It's white.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "bel"
+        },
+        {
+          "kind": "trait",
+          "sl": "Ima zlat rob.",
+          "en": "It has a gold rim.",
+          "grammar": ["pridevniki-ujemanje"]
+        },
+        {
+          "kind": "trait",
+          "sl": "Ima dva črna kazalca.",
+          "en": "It has two black hands.",
+          "grammar": ["dvojina", "pridevniki-ujemanje"]
+        },
+        {
+          "kind": "where",
+          "sl": "Je na zvoniku.",
+          "en": "It's on the bell tower.",
+          "grammar": ["mestnik"],
+          "prep": "na",
+          "case": "loc",
+          "ref": "tower",
+          "form": "zvoniku"
+        },
+        {
+          "kind": "does",
+          "sl": "Ponoči sveti.",
+          "en": "At night it's lit.",
+          "grammar": ["glagoli-sedanjik"]
+        },
+        {
+          "kind": "use",
+          "sl": "Na njej beremo čas.",
+          "en": "We read the time on it.",
+          "grammar": ["mestnik"],
+          "pronoun": "loc"
         }
       ]
     }

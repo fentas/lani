@@ -4,7 +4,7 @@
   "title": { "sl": "Na mostu", "en": "On the bridge", "de": "Auf der Brücke", "it": "Sul ponte" },
   "emoji": "🌉",
   "level": "A1",
-  "review": "sl lines, reactions, variants, de, it: machine-written (Claude), not reviewed by a native speaker; to check: narasel, upade, zdržal, šumi, Nisva skupaj krav pasla",
+  "review": "sl lines, reactions, variants, de, it: machine-written (Claude), not reviewed by a native speaker; to check: narasel, upade, zdržal, šumi, Nisva skupaj krav pasla; place-life too",
   "art": "stream",
   "from": ["project:most"],
   "pack": "na-mostu",
@@ -22,7 +22,8 @@
     { "slot": "fox", "word": "lisica", "pack": "zivali-v-gozdu" },
     { "slot": "hedgehog", "word": "jez", "pack": "zivali-v-gozdu" },
     { "slot": "butterfly", "word": "metulj", "pack": "na-prezi" },
-    { "slot": "bat", "word": "netopir", "pack": "zivali-v-gozdu" }
+    { "slot": "bat", "word": "netopir", "pack": "zivali-v-gozdu" },
+    { "slot": "cartbridge", "word": "most", "needs": { "project": "most" } }
   ],
   "people": [
     { "id": "france", "name": "Mlinar France", "emoji": "🧑‍🌾", "art": "farmer", "slot": "mill", "villager": "france" },
@@ -555,10 +556,10 @@
         {
           "who": "france",
           "face": "worried",
-          "sl": "Ali bo most zdržal? Ne vem …",
-          "en": "Will the bridge hold? I don't know …",
-          "de": "Wird die Brücke halten? Ich weiß nicht …",
-          "it": "Il ponte reggerà? Non lo so …"
+          "sl": "Poglej most! Ali bo zdržal? Ne vem …",
+          "en": "Look at the bridge! Will it hold? I don't know …",
+          "de": "Schau dir die Brücke an! Wird sie halten? Ich weiß nicht …",
+          "it": "Guarda il ponte! Reggerà? Non lo so …"
         },
         {
           "choices": [

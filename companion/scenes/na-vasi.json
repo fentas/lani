@@ -20,7 +20,10 @@
     { "slot": "bicycle", "word": "kolo", "pack": "pot-in-promet" },
     { "slot": "flowers", "word": "roza", "pack": "v-gozdu" },
     { "slot": "sun", "word": "sonce", "pack": "vreme-in-dan" },
-    { "slot": "fence", "word": "ograja" }
+    { "slot": "fence", "word": "ograja" },
+    { "slot": "maypole", "word": "mlaj", "pack": "pod-mlajem", "needs": { "project": "mlaj" } },
+    { "slot": "fountain", "word": "vodnjak", "pack": "pri-vodnjaku", "needs": { "project": "vodnjak_na_trgu" } },
+    { "slot": "clock", "word": "ura", "pack": "pod-uro", "needs": { "building": "CHURCH", "project": "mestna_ura" } }
   ],
   "people": [
     { "id": "janez", "name": "Stari Janez", "emoji": "👴", "art": "grandpa", "slot": "bench", "villager": "janez" },

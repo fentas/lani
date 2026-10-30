@@ -4,7 +4,7 @@
   "title": { "sl": "Pri toplarju", "en": "By the double hayrack", "de": "Bei der Doppelharfe", "it": "Al doppio essiccatoio" },
   "emoji": "🌾",
   "level": "A2",
-  "review": "sl lines, reactions, variants, de, it: machine-written (Claude), not reviewed by a native speaker; checked against Fran: toplar (regional), lata, kopica, vile; to check: de Doppelharfe",
+  "review": "sl lines, reactions, variants, de, it: machine-written (Claude), not reviewed by a native speaker; checked against Fran: toplar (regional), lata, kopica, vile; to check: de Doppelharfe; place-life too",
   "art": "field",
   "from": ["project:toplar"],
   "pack": "pri-toplarju",
@@ -28,7 +28,8 @@
     { "slot": "butterfly", "word": "metulj", "pack": "na-prezi" },
     { "slot": "fox", "word": "lisica", "pack": "zivali-v-gozdu" },
     { "slot": "boar", "word": "divji-prasic", "pack": "zivali-v-gozdu" },
-    { "slot": "bat", "word": "netopir", "pack": "zivali-v-gozdu" }
+    { "slot": "bat", "word": "netopir", "pack": "zivali-v-gozdu" },
+    { "slot": "toplar", "word": "toplar", "needs": { "project": "toplar" } }
   ],
   "people": [
     { "id": "france", "name": "Mlinar France", "emoji": "🧑‍🌾", "art": "farmer", "slot": "field", "villager": "france" },
@@ -175,10 +176,10 @@
         {
           "who": "france",
           "face": "happy",
-          "sl": "Dobro jutro, {learner}! Danes obešamo seno na toplar.",
-          "en": "Good morning, {learner}! Today we're hanging the hay on the toplar.",
-          "de": "Guten Morgen, {learner}! Heute hängen wir das Heu auf die Doppelharfe.",
-          "it": "Buongiorno, {learner}! Oggi appendiamo il fieno al toplar."
+          "sl": "Dobro jutro, {learner}! Poglej toplar! Danes nanj obešamo seno.",
+          "en": "Good morning, {learner}! Look at the toplar! Today we're hanging the hay on it.",
+          "de": "Guten Morgen, {learner}! Schau dir die Doppelharfe an! Heute hängen wir das Heu darauf.",
+          "it": "Buongiorno, {learner}! Guarda il toplar! Oggi ci appendiamo il fieno."
         },
         {
           "choices": [

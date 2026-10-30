@@ -3,7 +3,7 @@
   "scene": "na-cebeljem-travniku",
   "language": "sl",
   "machine_written": true,
-  "review": "clues: machine-written (Claude) in sl and en from the bee house's picture as its painter draws it (the colours, and where each thing is; the flower bed is the meadow's); not reviewed by a native speaker",
+  "review": "clues: machine-written (Claude) in sl and en from the bee house's picture as its painter draws it (the colours, and where each thing is; the flower bed is the meadow's); not reviewed by a native speaker; the finished projects' things (bee meadow): machine-written (Claude) from the picture as its painter draws them, not reviewed by a native speaker",
   "things": {
     "beehouse": {
       "name": { "en": "bee house" },
@@ -414,6 +414,46 @@
           "en": "We drink tea on it.",
           "grammar": ["mestnik"],
           "pronoun": "loc"
+        }
+      ]
+    },
+    "meadow": {
+      "clues": [
+        {
+          "kind": "colour",
+          "sl": "Poleti je pisan.",
+          "en": "In summer it's colourful.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "pisan"
+        },
+        {
+          "kind": "trait",
+          "sl": "Ima visoko travo.",
+          "en": "It has tall grass.",
+          "grammar": ["pridevniki-ujemanje"]
+        },
+        {
+          "kind": "where",
+          "sl": "Je pred klopjo.",
+          "en": "It's in front of the bench.",
+          "grammar": ["orodnik"],
+          "prep": "pred",
+          "case": "ins",
+          "ref": "bench",
+          "form": "klopjo"
+        },
+        {
+          "kind": "does",
+          "sl": "Lepo diši.",
+          "en": "It smells lovely.",
+          "grammar": ["glagoli-sedanjik"]
+        },
+        {
+          "kind": "use",
+          "sl": "Čebele ga imajo rade.",
+          "en": "Bees love it.",
+          "grammar": ["tozilnik"],
+          "pronoun": "acc"
         }
       ]
     }

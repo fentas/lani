@@ -4,7 +4,7 @@
   "title": { "sl": "Pod mlajem", "en": "Under the maypole", "de": "Unter dem Maibaum", "it": "Sotto l'albero di maggio" },
   "emoji": "🌲",
   "level": "A1",
-  "review": "sl lines, reactions, variants, de, it: machine-written (Claude), not reviewed by a native speaker; words to check: godba, stražiti mlaj, Živijo! as a toast, vlečem",
+  "review": "sl lines, reactions, variants, de, it: machine-written (Claude), not reviewed by a native speaker; words to check: godba, stražiti mlaj, Živijo! as a toast, vlečem; place-life lines too",
   "art": "square",
   "from": ["project:mlaj"],
   "pack": "pod-mlajem",
@@ -20,11 +20,14 @@
     { "slot": "bicycle", "word": "kolo", "pack": "pot-in-promet" },
     { "slot": "flowers", "word": "roza", "pack": "v-gozdu" },
     { "slot": "sun", "word": "sonce", "pack": "vreme-in-dan" },
-    { "slot": "fence", "word": "ograja", "pack": "na-vasi" }
+    { "slot": "fence", "word": "ograja", "pack": "na-vasi" },
+    { "slot": "maypole", "word": "mlaj", "needs": { "project": "mlaj" } },
+    { "slot": "fountain", "word": "vodnjak", "pack": "pri-vodnjaku", "needs": { "project": "vodnjak_na_trgu" } },
+    { "slot": "clock", "word": "ura", "pack": "pod-uro", "needs": { "building": "CHURCH", "project": "mestna_ura" } }
   ],
   "people": [
     { "id": "luka", "name": "Pastir Luka", "emoji": "🐑", "art": "shepherd", "slot": "bench", "villager": "luka" },
-    { "id": "marko", "name": "Vinar Marko", "emoji": "🍇", "art": "winemaker", "slot": "well", "villager": "marko" },
+    { "id": "marko", "name": "Vinar Marko", "emoji": "🍇", "art": "winemaker", "slot": "maypole", "villager": "marko" },
     { "id": "nejc", "name": "Nejc", "emoji": "🧒", "art": "child1", "slot": "play1", "villager": "nejc" },
     { "id": "tine", "name": "Tine", "emoji": "👦", "art": "child3", "slot": "play3", "villager": "tine" }
   ],
@@ -301,10 +304,10 @@
         {
           "who": "tine",
           "face": "happy",
-          "sl": "{learner}! Vidiš venec na mlaju? Ima pisane trakove.",
-          "en": "{learner}! Do you see the wreath on the maypole? It has colourful ribbons.",
-          "de": "{learner}! Siehst du den Kranz am Maibaum? Er hat bunte Bänder.",
-          "it": "{learner}! Vedi la corona sull'albero di maggio? Ha dei nastri colorati."
+          "sl": "{learner}! Poglej mlaj! Na vencu ima pisane trakove.",
+          "en": "{learner}! Look at the maypole! It has colourful ribbons on its wreath.",
+          "de": "{learner}! Schau dir den Maibaum an! Am Kranz hat er bunte Bänder.",
+          "it": "{learner}! Guarda l'albero di maggio! Sulla corona ha dei nastri colorati."
         },
         {
           "choices": [
