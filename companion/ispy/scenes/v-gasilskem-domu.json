@@ -1,0 +1,388 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "v-gasilskem-domu",
+  "language": "sl",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in sl and en from the scene's picture as its painter draws it (the colours, and where each thing is); what changes with the season is said with its season (\"poleti\"); not reviewed by a native speaker",
+  "things": {
+    "pump": {
+      "clues": [
+        { "kind": "colour", "sl": "Je rdeča.", "en": "It's red.", "grammar": ["pridevniki-ujemanje"], "adj": "rdeč" },
+        { "kind": "size", "sl": "Je velika.", "en": "It's big.", "grammar": ["pridevniki-ujemanje"], "adj": "velik" },
+        { "kind": "trait", "sl": "Ima štiri kolesa.", "en": "It has four wheels.", "grammar": ["stevila-samostalniki"] },
+        { "kind": "does", "sl": "Brizga vodo.", "en": "It squirts water.", "grammar": ["glagoli-sedanjik"] },
+        {
+          "kind": "use",
+          "sl": "Z njo gasimo ogenj.",
+          "en": "We put out fire with it.",
+          "grammar": ["orodnik"],
+          "pronoun": "ins"
+        }
+      ]
+    },
+    "hose": {
+      "clues": [
+        {
+          "kind": "colour",
+          "sl": "Je svetla.",
+          "en": "It's pale.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "svetel"
+        },
+        { "kind": "size", "sl": "Je dolga.", "en": "It's long.", "grammar": ["pridevniki-ujemanje"], "adj": "dolg" },
+        {
+          "kind": "where",
+          "sl": "Je navita na kolesu.",
+          "en": "It's wound on a reel.",
+          "grammar": ["mestnik"],
+          "prep": "na",
+          "case": "loc",
+          "noun": "kolo",
+          "form": "kolesu"
+        },
+        {
+          "kind": "use",
+          "sl": "Po njej teče voda.",
+          "en": "Water runs through it.",
+          "grammar": ["mestnik"],
+          "pronoun": "loc"
+        }
+      ]
+    },
+    "helmet": {
+      "clues": [
+        { "kind": "colour", "sl": "Je črna.", "en": "It's black.", "grammar": ["pridevniki-ujemanje"], "adj": "črn" },
+        {
+          "kind": "trait",
+          "sl": "Ima zlat greben.",
+          "en": "It has a golden comb on top.",
+          "grammar": ["pridevniki-ujemanje"]
+        },
+        {
+          "kind": "where",
+          "sl": "Visi na klinu.",
+          "en": "It hangs on a peg.",
+          "grammar": ["mestnik"],
+          "prep": "na",
+          "case": "loc",
+          "noun": "klin",
+          "form": "klinu"
+        },
+        {
+          "kind": "use",
+          "sl": "Gasilec jo nosi na glavi.",
+          "en": "A firefighter wears it on his head.",
+          "grammar": ["tozilnik"],
+          "pronoun": "acc"
+        }
+      ]
+    },
+    "axe": {
+      "clues": [
+        { "kind": "trait", "sl": "Je ostra.", "en": "It's sharp.", "grammar": ["pridevniki-ujemanje"], "adj": "oster" },
+        {
+          "kind": "where",
+          "sl": "Visi na steni.",
+          "en": "It hangs on the wall.",
+          "grammar": ["mestnik"],
+          "prep": "na",
+          "case": "loc",
+          "noun": "stena",
+          "form": "steni"
+        },
+        {
+          "kind": "use",
+          "sl": "Z njo sekamo les.",
+          "en": "We chop wood with it.",
+          "grammar": ["orodnik"],
+          "pronoun": "ins"
+        }
+      ]
+    },
+    "ladder": {
+      "clues": [
+        { "kind": "colour", "sl": "Je rjava.", "en": "It's brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        {
+          "kind": "material",
+          "sl": "Je lesena.",
+          "en": "It's wooden.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "lesen"
+        },
+        {
+          "kind": "where",
+          "sl": "Visi na steni.",
+          "en": "It hangs on the wall.",
+          "grammar": ["mestnik"],
+          "prep": "na",
+          "case": "loc",
+          "noun": "stena",
+          "form": "steni"
+        },
+        {
+          "kind": "use",
+          "sl": "Po njej plezamo gor.",
+          "en": "We climb up it.",
+          "grammar": ["mestnik"],
+          "pronoun": "loc"
+        }
+      ]
+    },
+    "bucket": {
+      "clues": [
+        { "kind": "colour", "sl": "Je rjavo.", "en": "It's brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        {
+          "kind": "where",
+          "sl": "Stoji na polici.",
+          "en": "It stands on a shelf.",
+          "grammar": ["mestnik"],
+          "prep": "na",
+          "case": "loc",
+          "noun": "polica",
+          "form": "polici"
+        },
+        {
+          "kind": "use",
+          "sl": "V njem nosimo vodo.",
+          "en": "We carry water in it.",
+          "grammar": ["mestnik"],
+          "pronoun": "loc"
+        }
+      ]
+    },
+    "bell": {
+      "clues": [
+        { "kind": "colour", "sl": "Je zlat.", "en": "It's golden.", "grammar": ["pridevniki-ujemanje"], "adj": "zlat" },
+        {
+          "kind": "where",
+          "sl": "Visi v stolpu.",
+          "en": "It hangs in the tower.",
+          "grammar": ["mestnik"],
+          "prep": "v",
+          "case": "loc",
+          "ref": "tower",
+          "form": "stolpu"
+        },
+        {
+          "kind": "does",
+          "sl": "Ko gori, se sliši daleč.",
+          "en": "When there's a fire, you can hear it far away.",
+          "grammar": ["glagoli-sedanjik"]
+        },
+        {
+          "kind": "use",
+          "sl": "Z njim kličemo gasilce.",
+          "en": "We call the firefighters with it.",
+          "grammar": ["orodnik"],
+          "pronoun": "ins"
+        }
+      ]
+    },
+    "door": {
+      "number": "pl",
+      "name": { "en": "doors" },
+      "clues": [
+        { "kind": "colour", "sl": "So rdeča.", "en": "It's red.", "grammar": ["pridevniki-ujemanje"], "adj": "rdeč" },
+        { "kind": "size", "sl": "So velika.", "en": "It's big.", "grammar": ["pridevniki-ujemanje"], "adj": "velik" },
+        {
+          "kind": "trait",
+          "sl": "Imajo bel križ.",
+          "en": "It has a white cross on it.",
+          "grammar": ["pridevniki-ujemanje"]
+        },
+        {
+          "kind": "use",
+          "sl": "Zvečer jih zapremo.",
+          "en": "We shut it in the evening.",
+          "grammar": ["tozilnik"],
+          "pronoun": "acc"
+        }
+      ]
+    },
+    "tower": {
+      "clues": [
+        { "kind": "colour", "sl": "Je bel.", "en": "It's white.", "grammar": ["pridevniki-ujemanje"], "adj": "bel" },
+        { "kind": "size", "sl": "Je visok.", "en": "It's tall.", "grammar": ["pridevniki-ujemanje"], "adj": "visok" },
+        {
+          "kind": "where",
+          "sl": "Stoji zraven doma.",
+          "en": "It stands next to the station.",
+          "grammar": ["rodilnik-predlogi"],
+          "prep": "zraven",
+          "case": "gen",
+          "noun": "dom",
+          "form": "doma"
+        },
+        {
+          "kind": "use",
+          "sl": "V njem je zvon.",
+          "en": "There's a bell in it.",
+          "grammar": ["mestnik"],
+          "pronoun": "loc"
+        }
+      ]
+    },
+    "uniform": {
+      "clues": [
+        { "kind": "colour", "sl": "Je modra.", "en": "It's blue.", "grammar": ["pridevniki-ujemanje"], "adj": "moder" },
+        {
+          "kind": "trait",
+          "sl": "Ima zlate gumbe.",
+          "en": "It has golden buttons.",
+          "grammar": ["pridevniki-ujemanje"]
+        },
+        {
+          "kind": "where",
+          "sl": "Visi na klinu.",
+          "en": "It hangs on a peg.",
+          "grammar": ["mestnik"],
+          "prep": "na",
+          "case": "loc",
+          "noun": "klin",
+          "form": "klinu"
+        },
+        {
+          "kind": "use",
+          "sl": "Gasilci jo oblečejo za praznik.",
+          "en": "The firefighters put it on for a feast.",
+          "grammar": ["tozilnik"],
+          "pronoun": "acc"
+        }
+      ]
+    },
+    "flag": {
+      "name": { "en": "banner" },
+      "clues": [
+        {
+          "kind": "colour",
+          "sl": "Je rdeč in rumen.",
+          "en": "It's red and yellow.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "rdeč"
+        },
+        {
+          "kind": "where",
+          "sl": "Stoji v kotu.",
+          "en": "It stands in the corner.",
+          "grammar": ["mestnik"],
+          "prep": "v",
+          "case": "loc",
+          "noun": "kot",
+          "form": "kotu"
+        },
+        { "kind": "trait", "sl": "Visi na drogu.", "en": "It hangs on a pole.", "grammar": ["mestnik"] },
+        {
+          "kind": "use",
+          "sl": "Na praznik ga nesemo po vasi.",
+          "en": "On a feast we carry it through the village.",
+          "grammar": ["tozilnik"],
+          "pronoun": "acc"
+        }
+      ]
+    },
+    "picture": {
+      "clues": [
+        {
+          "kind": "colour",
+          "sl": "Ima zlat okvir.",
+          "en": "It has a golden frame.",
+          "grammar": ["pridevniki-ujemanje"]
+        },
+        {
+          "kind": "trait",
+          "sl": "Na njej je svetnik z vedrom.",
+          "en": "There's a saint with a bucket on it.",
+          "grammar": ["mestnik"],
+          "pronoun": "loc"
+        },
+        {
+          "kind": "where",
+          "sl": "Visi na steni.",
+          "en": "It hangs on the wall.",
+          "grammar": ["mestnik"],
+          "prep": "na",
+          "case": "loc",
+          "noun": "stena",
+          "form": "steni"
+        }
+      ]
+    },
+    "bench": {
+      "clues": [
+        { "kind": "colour", "sl": "Je rjava.", "en": "It's brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        {
+          "kind": "material",
+          "sl": "Je lesena.",
+          "en": "It's wooden.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "lesen"
+        },
+        { "kind": "size", "sl": "Je dolga.", "en": "It's long.", "grammar": ["pridevniki-ujemanje"], "adj": "dolg" },
+        { "kind": "use", "sl": "Na njej sedimo.", "en": "We sit on it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "horn": {
+      "clues": [
+        { "kind": "colour", "sl": "Je zlata.", "en": "It's golden.", "grammar": ["pridevniki-ujemanje"], "adj": "zlat" },
+        {
+          "kind": "where",
+          "sl": "Visi na steni.",
+          "en": "It hangs on the wall.",
+          "grammar": ["mestnik"],
+          "prep": "na",
+          "case": "loc",
+          "noun": "stena",
+          "form": "steni"
+        },
+        { "kind": "does", "sl": "Glasno trobi.", "en": "It sounds loud.", "grammar": ["glagoli-sedanjik"] },
+        {
+          "kind": "use",
+          "sl": "Z njo kličemo gasilce.",
+          "en": "We call the firefighters with it.",
+          "grammar": ["orodnik"],
+          "pronoun": "ins"
+        }
+      ]
+    },
+    "lantern": {
+      "clues": [
+        { "kind": "size", "sl": "Je majhna.", "en": "It's small.", "grammar": ["pridevniki-ujemanje"], "adj": "majhen" },
+        {
+          "kind": "where",
+          "sl": "Visi zraven vrat.",
+          "en": "It hangs next to the doors.",
+          "grammar": ["rodilnik-predlogi"],
+          "prep": "zraven",
+          "case": "gen",
+          "noun": "vrata",
+          "noun_number": "pl",
+          "form": "vrat"
+        },
+        { "kind": "does", "sl": "Zvečer sveti.", "en": "It shines in the evening.", "grammar": ["glagoli-sedanjik"] },
+        {
+          "kind": "use",
+          "sl": "Prižgemo jo, ko je tema.",
+          "en": "We light it when it's dark.",
+          "grammar": ["tozilnik"],
+          "pronoun": "acc"
+        }
+      ]
+    },
+    "window": {
+      "clues": [
+        { "kind": "size", "sl": "Je majhno.", "en": "It's small.", "grammar": ["pridevniki-ujemanje"], "adj": "majhen" },
+        {
+          "kind": "where",
+          "sl": "Je v steni.",
+          "en": "It's in the wall.",
+          "grammar": ["mestnik"],
+          "prep": "v",
+          "case": "loc",
+          "noun": "stena",
+          "form": "steni"
+        },
+        { "kind": "use", "sl": "Skozi njega vidimo nebo.", "en": "We see the sky through it.", "grammar": ["tozilnik"] }
+      ]
+    }
+  }
+}
