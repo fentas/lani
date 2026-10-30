@@ -370,12 +370,13 @@ up one by one):
 | "Pogovorno, prav tako prav" (`cases.spoken`) | | naturalness | | N |
 | "po: za čem, okoli" (`caseLens.senseAfter`) | | naturalness | | N |
 
-### Not counted: the content-fixes branch
+### Not counted: the content-fixes round
 
-The content-fixes branch (not on main while this was checked) has new Slovene lines; their grammar and spelling are
-right by the same entries (trta: "petdeset trt", "k vsaki trti"; "v Trnovem"; "pod Dobrač", "Ziljska dolina", "blizu
-Gorice"), and their naturalness is on that branch's own list (docs/plans/05-built/content-fixes.md). Its open "pote or
-po te?" is settled above: pote.
+The content-fixes round (merged into main as this branch was finished) has new Slovene lines; their grammar and
+spelling are right by the same entries (trta: "petdeset trt", "k vsaki trti"; "v Trnovem"; "pod Dobrač", "Ziljska
+dolina", "blizu Gorice"), and their naturalness is on its own list (docs/plans/05-built/content-fixes.md). Its open
+"pote or po te?" is settled above (pote), and its list says so now. After the rebase, no turn of it grades a spoken hour
+wrong, no saint's day is capitalised in a sentence, and every noun of the packs still has every slot checked.
 
 ## How it is built
 
@@ -393,12 +394,12 @@ po te?" is settled above: pote.
 
 ## Checks
 
-On the branch rebased onto main (6b766b61): the bridge's `bunx tsc --noEmit -p .` clean; the smoke 3,122 checks, all
-passed (LANI_SMOKE_PORT 9090, friuli 9092, kaernten and setup 9093, lakeland 9094, towns 9095–9096, service
-9097–9099); `tutor-export --check` 88 files match; the Android unit suite through lani-slot.sh 3,471 tests, 0 failures,
-2 skipped (its first run found two of DialogReactionsTest's rules broken by V podstrešju's new turn: its two right
-choices had one reply, the wrong one's said "sedem"; fixed); `bun test/check-cases.ts` ok; the case lens's labelled
-sets unchanged (97.9 %, 94.1 %, 94.2 %, the bank 97.2 %, none wrong and decided); Python 251 tests and 131 (11
+On the branch rebased onto main (2437193f, with the content-fixes round): the bridge's `bunx tsc --noEmit -p .` clean;
+the smoke 3,131 checks, all passed (LANI_SMOKE_PORT 9090, friuli 9092, kaernten and setup 9093, lakeland 9094, towns
+9095–9096, service 9097–9099); `tutor-export --check` 88 files match; the Android unit suite through lani-slot.sh 3,477
+tests, 0 failures, 2 skipped (its first run found two of DialogReactionsTest's rules broken by V podstrešju's new turn:
+its two right choices had one reply, the wrong one's said "sedem"; fixed); `bun test/check-cases.ts` ok; the case lens's
+labelled sets unchanged (97.9 %, 94.1 %, 94.2 %, the bank 97.2 %, none wrong and decided); Python 251 tests and 131 (11
 skipped), all OK. No emulator: no screen changed.
 
 ## What's left

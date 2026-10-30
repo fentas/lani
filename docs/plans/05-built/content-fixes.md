@@ -209,8 +209,8 @@ Slovene (Jan's; the speaker's checks):
 - na-vasi `klop-sneg`: "Zima? Za božič? To si želiš za darilo?"
 - the dual's answers without the pronoun: "Šla sta domov.", "Sta šla domov.", "Kuhali sta.", "Sta kuhali.", "V kuhinji
   sta.", "Sta v kuhinji." (the clitic-first ones are spoken order: accepted, never graded wrong; say whether any reads off)
-- **unchanged, a judgement**: "Po šoli bom {m:prišel|f:prišla} pote." (v-podstresju `vstani-ribnik`, its three choices):
-  "pote" or "po te"?
+- **settled by the native check** (docs/plans/05-built/native-check-sl.md): "Po šoli bom {m:prišel|f:prišla} pote."
+  (v-podstresju `vstani-ribnik`): pote, written together, is the standard spelling (SSKJ² ti: "tudi pote bodo prišli").
 - **unchanged, a judgement**: ti where the villager file says vi: celebrations/vas A1 #2, Vida: "{learner}, pomagaj mi.";
   celebrations/mesto A2 #6–7, Mojca: "kaj nosiš na čelu sprevoda?", "Visoko jo dvigni"; project-steps/igrisce step 3, A1
   and A2 #7, Mojca: "potegni za vrvi!" (a party, the children round them: meant, or vi?)
