@@ -245,20 +245,55 @@ object CultureLooks {
     /** Friuli's church (In chiesa, ChurchPainter). */
     internal val FRIULI_CHURCH = Table.of("church")
 
-    /** Nonno Bepi's room by the fogolâr (In salotto, LivingRoomPainter). */
-    internal val FRIULI_LIVINGROOM = Table.of("livingroom")
+    /**
+     * Nonno Bepi's room by the fogolâr (In salotto, LivingRoomPainter): the fogolâr for the kmečka peč, a knee-high hearth of
+     * grey stones in the corner with the fire on it and the benches round it, the corner black with smoke at level 1, its
+     * white hood with a shelf of copper pans from level 2, chestnuts roasting over it in autumn; terracotta tiles, the walnut
+     * cassapanca, an ochre dado under the vine frieze, the Collio through the window.
+     */
+    internal val FRIULI_LIVINGROOM = Table.of(
+        "livingroom",
+        colours = mapOf(
+            "dado" to 0xFFC9A468.toInt(), "dado.d" to 0xFFB28C54.toInt(), "border" to 0xFF9A4632.toInt(),
+            "cupboard.l" to 0xFF9C6C42.toInt(), "cupboard.m" to 0xFF7A4E2C.toInt(), "cupboard.d" to 0xFF56341C.toInt(),
+        ),
+        variants = mapOf("stove" to "fogolar", "frieze" to "vines", "view" to "collio", "cupboard" to "walnut"),
+    )
 
-    /** Vignaiolo Matteo's cantina (In cantina, CellarPainter). */
-    internal val FRIULI_CELLAR = Table.of("cellar")
+    /**
+     * Vignaiolo Matteo's cantina (In cantina, CellarPainter): walls of river cobbles with bands of brick, the Ribolla gialla's
+     * golden-green grapes in the crate, salami beside the San Daniele ham from level 3, the Collio through the slit, and from
+     * level 2 the frasca outside, the green branch at the house's corner that says the farm sells its own wine.
+     */
+    internal val FRIULI_CELLAR = Table.of(
+        "cellar",
+        variants = mapOf("walls" to "cobbles", "grapes" to "ribolla", "salami" to "salami", "frasca" to "frasca", "view" to "collio"),
+    )
 
-    /** Marisa and Tommaso's attic (In soffitta, AtticPainter). */
-    internal val FRIULI_ATTIC = Table.of("attic")
+    /**
+     * Marisa and Tommaso's attic (In soffitta, AtticPainter): under a roof of coppi, their curved undersides between the
+     * battens at level 1, the tavelle on the rafters from 2; maize cobs drying from the ridge beam; the scarpets by the bed;
+     * the wardrobe and the chest of walnut; the Collio through the gable window.
+     */
+    internal val FRIULI_ATTIC = Table.of(
+        "attic",
+        colours = mapOf("cupboard.l" to 0xFF9C6C42.toInt(), "cupboard.m" to 0xFF7A4E2C.toInt(), "cupboard.d" to 0xFF56341C.toInt()),
+        variants = mapOf("roof" to "coppi", "maize" to "pannocchie", "slippers" to "scarpets", "cupboard" to "walnut", "view" to "collio"),
+    )
 
-    /** Mugnaio Franco's workshop (In bottega, WorkshopPainter). */
-    internal val FRIULI_WORKSHOP = Table.of("workshop")
+    /**
+     * Mugnaio Franco's workshop (In bottega, WorkshopPainter): walls of river cobbles with bands of brick, a Friulian chair with
+     * its rush seat hanging on the left wall and a basket of turned legs for the next (Manzano's chairs), the Collio through
+     * the window.
+     */
+    internal val FRIULI_WORKSHOP = Table.of("workshop", variants = mapOf("walls" to "cobbles", "chairs" to "manzano", "view" to "collio"))
 
-    /** The Collio's vineyard (the vinograd project's hills, HillsPainter). */
-    internal val FRIULI_HILLS = Table.of("hills")
+    /**
+     * The Collio's vineyard (the vinograd project's hills, HillsPainter), seen from the Italian side: the farmstead in ochre
+     * plaster under coppi with green shutters, the frasca by its door from November to May; the church on the hill under coppi
+     * with a free-standing brick campanile and its low cap; the far farms in Friuli's plaster under coppi.
+     */
+    internal val FRIULI_HILLS = Table.of("hills", variants = mapOf("farm" to "friuli", "church" to "campanile"))
 
     /** Each culture's look: its arts' tables added up. A culture not here draws every art as the default culture does. */
     private val tables: Map<String, Table> = mapOf(

@@ -58,15 +58,33 @@ internal class CellarPainter : RoomPainter() {
 
     override fun soot(d: Float, z: Float): Float = 0f
 
+    /**
+     * Friuli's look ([look]; companion/SCENES.md "Culture looks"): Vignaiolo Matteo's cantina. Walls of river cobbles in lime
+     * with bands of brick ([cobbles]), as the Collio's farms are built; the grapes in the crate the Ribolla gialla's, golden
+     * green ([ribolla]); a string of salami beside the San Daniele ham from level 3 ([salami]); and from level 2, once there
+     * is wine to sell, the frasca outside ([frasca]): a bundle of green branches hung from a pole at the house's corner by
+     * the path, the sign of a Friulian farm that sells its own wine (an osmiza on the Karst).
+     */
+    private var cobbles = false
+    private var ribolla = false
+    private var salami = false
+    private var frasca = false
+
     /** A cellar is dim: the candle and the window light it. */
     override fun ambient(): FloatArray {
         val a = super.ambient()
         return floatArrayOf(a[0] * 0.8f, a[1] * 0.8f, a[2] * 0.82f)
     }
 
-    /** Rough stones in lime mortar, damp and greenish low down, a darker band under the top. */
+    /** Rough stones in lime mortar, damp and greenish low down, a darker band under the top (in Friuli river cobbles with brick bands). */
     override fun inner(along: Float, z: Float, px: Int, py: Int, dim: Float, sootF: Float): Int {
         val h = z - fl
+        if (cobbles) {
+            var col = if (z > hw - 0.6f) Col.hex(0xB8AC98) else cobbleWall(along, h, px, py)
+            if (h < 3.5f && Dither.at(px, py) < (3.5f - h) / 5f) col = Col.mix(col, Col.hex(0x5E6A48), 0.35f)
+            if (z > hw - 4f) col = Col.scale(col, 0.88f)
+            return Col.scale(Col.scale(col, 0.86f), dim)
+        }
         val course = floor(h / 2.6f).toInt()
         val u = (along + if (course % 2 == 0) 0f else 0.31f) / 0.62f
         val stone = floor(u).toInt()
@@ -116,7 +134,10 @@ internal class CellarPainter : RoomPainter() {
     override fun paint() {
         fit()
         vignette()
-        lv = frame.world.hereLevel.coerceIn(1, 3)
+        lv = frame.world.hereLevel.coerceIn(1, 5)
+        readLook()
+        cobbles = variant("walls") == "cobbles"; ribolla = variant("grapes") == "ribolla"
+        salami = variant("salami") != null; frasca = variant("frasca") != null
         // the candle: out at 0, lit otherwise; set, its flame flares up (just lit), not set it burns calm, low while Marko sleeps
         val candle = fx("candle")?.let { it > 0.02f } ?: true
         val flare = if (candle) fxOn("candle").coerceIn(0f, 1f) else 0f
@@ -140,7 +161,10 @@ internal class CellarPainter : RoomPainter() {
         thing("door") { cellarDoor() }
         if (there("shelf")) thing("shelf") { bottleShelf() }
         if (there("bottle")) thing("bottle", slop = 1) { bottles() }
-        if (there("ham")) thing("ham", slop = 1) { ham() }
+        if (there("ham")) {
+            thing("ham", slop = 1) { ham() }
+            if (salami) prop { salami() }
+        }
         thing("stairs") { steps() }
         for (p in peopleAt("stairs")) { footShadow(7.6f, 2.6f); personAt(p, 7.6f, 2.6f, fl, flip = true) }
 
@@ -176,8 +200,11 @@ internal class CellarPainter : RoomPainter() {
         thing("candle", slop = 2) { candleOn(tabX + 0.45f, tabY - 0.3f, tabZ, candle, flare, low) }
 
         stubs()
-        prop { gardenBench() }
-        if (lv >= 2) prop { pots() }
+        // the frasca at the house's corner by the path, once there is wine to sell (Friuli's)
+        if (frasca && lv >= 2) prop { frascaPole() }
+        // the garden grows with the house: the bench by the wall from its fourth level, the geraniums at the top
+        if (lv >= BENCH_LEVEL) prop { gardenBench() }
+        if (lv >= POTS_LEVEL) prop { pots() }
         prop { vegetables() }
         if (env.dark < 0.5f) prop { hen(henX, henY) }
         fireflies(iso.ix(0f, 12f), iso.iy(12f, 12f, 20f), iso.ix(12f, 0f), iso.iy(12f, 12f, 0f), 12, 5)
@@ -336,6 +363,43 @@ internal class CellarPainter : RoomPainter() {
         c.fillEllipse(cx + 0.4f * p, top + 9.2f * p, 2.6f * p, 4.4f * p, Col.hex(0x9A3A2E))
         c.fillEllipse(cx + 0.8f * p, top + 10.2f * p, 1.6f * p, 2.8f * p, Col.hex(0xB84A3A))
         c.fillEllipse(cx - 1.4f * p, top + 7f * p, 0.8f * p, 2.6f * p, Col.hex(0xF4EEDC))
+    }
+
+    /** Friuli's salami beside the ham ([salami]): three on a string from the same beam, dark red, their skins white with bloom. */
+    private fun salami() {
+        val p = P.toFloat()
+        for (k in 0 until 3) {
+            val x = 3.05f + k * 0.32f; val y = y0 + 0.25f
+            val cx = iso.sx(x, y); val top = iso.sy(x, y, fl + 20.4f)
+            val len = (6.5f - k * 0.8f) * p
+            c.vline(floor(cx).toInt(), floor(top).toInt(), floor(top + 1.6f * p).toInt(), Col.hex(0xD8C8A0))
+            c.fillEllipse(cx, top + 1.6f * p + len / 2f, 1.15f * p, len / 2f, Col.hex(0x8A3A30))
+            c.fillEllipse(cx - 0.35f * p, top + 1.4f * p + len / 2f, 0.6f * p, len / 2f - 0.6f * p, Col.hex(0xC8B8A8))
+            if (P > 1) for (j in 1..3) c.hline(floor(cx - 1f * p).toInt(), floor(cx + 1f * p).toInt(), floor(top + 1.6f * p + j * len / 4f).toInt(), Col.hex(0xE8DCC8))
+        }
+    }
+
+    /**
+     * Friuli's frasca ([frasca]): a pole leaning out from the house's front corner over the path, a bundle of green
+     * branches hanging from its end on a cord, stirring in the wind; dry and brown in winter, when the wine sold is last year's.
+     */
+    private fun frascaPole() {
+        val p = P.toFloat()
+        val bx = x1 + tk + 0.05f; val by = y1 + tk + 0.05f
+        val baseX = iso.sx(bx, by); val baseY = iso.sy(bx, by, hs + 0.5f)
+        val tipX = iso.sx(bx + 2.1f, by + 0.9f); val tipY = iso.sy(bx + 2.1f, by + 0.9f, hs + 5f)
+        for (o in 0 until max(1, P)) c.line(floor(baseX).toInt(), floor(baseY).toInt() + o, floor(tipX).toInt(), floor(tipY).toInt() + o, if (o == 0) Pal.WOOD_L else Pal.WOOD_D)
+        val sway = sin(t * 1.6).toFloat() * (0.6f + 1.4f * frame.sky.wind) * p
+        val cordY = tipY + 2.5f * p
+        c.line(floor(tipX).toInt(), floor(tipY).toInt(), floor(tipX + sway * 0.4f).toInt(), floor(cordY).toInt(), Col.hex(0xC8B890))
+        val dry = env.month in 12..12 || env.month in 1..2
+        val leaf = if (dry) intArrayOf(Col.hex(0x8A6A3A), Col.hex(0x6E5230), Col.hex(0xA8844A)) else intArrayOf(Col.hex(0x4E8A3A), Col.hex(0x3A6A2E), Col.hex(0x7AB050))
+        for (k in 0 until 30) {
+            val a = Noise.rnd(k, 161) * 6.28f; val r = sqrt(Noise.rnd(k, 162))
+            val lx = tipX + sway + cos(a) * r * 4.4f * p; val ly = cordY + 4.8f * p + sin(a) * r * 5f * p + r * 1.6f * p
+            c.fillEllipse(lx, ly, 1.4f * p, 0.9f * p, leaf[k % 3])
+        }
+        c.fillEllipse(tipX + sway, cordY + 0.6f * p, 0.8f * p, 0.8f * p, Col.hex(0xC8423A))
     }
 
     // ------------------------------------------------------------------ the barrels
@@ -505,9 +569,10 @@ internal class CellarPainter : RoomPainter() {
         for (k in 0 until 14) {
             val gx = x - 0.4f + Noise.rnd(k, 81) * 0.8f; val gy = y - 0.28f + Noise.rnd(k, 82) * 0.56f
             val cx = iso.sx(gx, gy); val cy = iso.sy(gx, gy, fl + 3.4f + Noise.rnd(k, 83) * 1.2f)
-            c.fillCircle(cx, cy, 1.1f * p, Col.hex(0x3A2A5A))
-            c.fillCircle(cx - 0.3f * p, cy - 0.3f * p, 0.7f * p, Col.hex(0x5A4A8A))
-            if (P > 1) c.set(floor(cx - 0.5f * p).toInt(), floor(cy - 0.6f * p).toInt(), Col.hex(0xA8A0C8))
+            // the Ribolla gialla's grapes golden green in Friuli, dark blue otherwise
+            c.fillCircle(cx, cy, 1.1f * p, if (ribolla) Col.hex(0x9AA03A) else Col.hex(0x3A2A5A))
+            c.fillCircle(cx - 0.3f * p, cy - 0.3f * p, 0.7f * p, if (ribolla) Col.hex(0xD8D468) else Col.hex(0x5A4A8A))
+            if (P > 1) c.set(floor(cx - 0.5f * p).toInt(), floor(cy - 0.6f * p).toInt(), if (ribolla) Col.hex(0xF6F2B0) else Col.hex(0xA8A0C8))
         }
         val lx = iso.sx(x + 0.3f, y - 0.1f); val ly = iso.sy(x + 0.3f, y - 0.1f, fl + 4.6f)
         c.fillEllipse(lx, ly, 2.2f * p, 1.2f * p, Col.hex(0x4E8A3A))

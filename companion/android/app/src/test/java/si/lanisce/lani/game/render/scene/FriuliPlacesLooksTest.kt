@@ -25,26 +25,33 @@ import javax.imageio.ImageIO
 
 /**
  * Friuli's buildings and rooms in its own look (companion/SCENES.md "Culture looks"; docs/plans/05-built/places-it-buildings.md):
- * the view from Friuli's watchtower (Sulla torre), each beside the Slovene picture it was, at each of the building's five
- * levels, by day and in the evening, closer up, on a winter night and on Teo's coast (build/scene-snapshots/looks/
+ * the view from Friuli's watchtower (Sulla torre), Nonno Bepi's room by the fogolâr, Matteo's cantina, the attic under coppi,
+ * Franco's bottega and the Collio's vineyard, each beside the Slovene picture it was, at each of the building's five levels,
+ * by day and in the evening, closer up, on a winter night and on Teo's coast (build/scene-snapshots/looks/
  * friuli-<art>…png); and checked: each level looks Friuli's own, every thing a level has is drawn and tappable once at
  * every detail, the people stand where they did, and a frame stays inside its budget.
  */
 class FriuliPlacesLooksTest {
     private val dir = File("build/scene-snapshots/looks").apply { mkdirs() }
 
-    /** The arts: the building it is seen in, and who stands at its spots in the previews. */
-    private val arts = listOf(
+    /** The arts: the building it is seen in (null: none, no levels), and who stands at its spots in the previews. */
+    private val arts = listOf<Triple<String, BuildingType?, List<String>>>(
         Triple("watchtower", BuildingType.WATCHTOWER, listOf("shepherd", "child1", "farmer")),
+        Triple("livingroom", BuildingType.HOUSE, listOf("grandpa", "child2", "farmer")),
+        Triple("cellar", BuildingType.HOUSE, listOf("winemaker", "innkeeper", "beekeeper")),
+        Triple("attic", BuildingType.HOUSE, listOf("child1", "innkeeper", "woman")),
+        Triple("workshop", BuildingType.HOUSE, listOf("farmer", "child3", "grandpa")),
+        // the vineyard's hills (the vinograd project's): no building, so no levels
+        Triple("hills", null, listOf("winemaker", "grandpa", "child3")),
     )
 
-    private val levels = 1..si.lanisce.lani.game.Catalog.MAX_LEVEL
+    private fun levelsOf(type: BuildingType?) = if (type == null) listOf(si.lanisce.lani.game.Catalog.MAX_LEVEL) else (1..si.lanisce.lani.game.Catalog.MAX_LEVEL).toList()
 
-    private fun world(type: BuildingType, level: Int, culture: String, land: String = si.lanisce.lani.game.Landscape.CLASSIC.id) =
-        SceneWorld.room(level, type).copy(culture = culture, landscape = land)
+    private fun world(type: BuildingType?, level: Int, culture: String, land: String = si.lanisce.lani.game.Landscape.CLASSIC.id) =
+        (if (type == null) SceneWorld.ALL else SceneWorld.room(level, type)).copy(culture = culture, landscape = land)
 
     private fun frame(
-        art: String, type: BuildingType, level: Int, culture: String, hour: Float, sprites: List<String>, people: Boolean = true, month: Int = 6,
+        art: String, type: BuildingType?, level: Int, culture: String, hour: Float, sprites: List<String>, people: Boolean = true, month: Int = 6,
         land: String = si.lanisce.lani.game.Landscape.CLASSIC.id, sky: Sky = Sky.CLEAR,
     ) = SceneFrame(
         time = 3.0, hour = hour, month = month, objects = SceneArt.objects.getValue(art).toSet(), world = world(type, level, culture, land), sky = sky,
@@ -60,6 +67,7 @@ class FriuliPlacesLooksTest {
     @Test fun `render Friuli's places beside the Slovene ones at every level`() {
         for ((art, type, sprites) in arts) {
             val s = 2; val label = 16
+            val levels = levelsOf(type)
             val rows = levels.flatMap { l -> listOf(Triple(l, "day", 10.5f), Triple(l, "evening", 20f)) }
             val img = BufferedImage(240 * s * 2, (160 * s + label) * rows.size, BufferedImage.TYPE_INT_RGB)
             val g = img.createGraphics()
@@ -79,6 +87,7 @@ class FriuliPlacesLooksTest {
             // a winter night, an autumn afternoon on the coast, a phone's view at dusk
             write(render(art, frame(art, type, 5, "friuli", 22f, sprites, month = 1), 2), File(dir, "friuli-$art-night-winter.png"))
             write(render(art, frame(art, type, 3, "friuli", 15f, sprites, month = 10, land = "coast"), 2), File(dir, "friuli-$art-coast-L3.png"))
+            write(render(art, frame(art, type, 5, "friuli", 11f, sprites, month = 12), 2), File(dir, "friuli-$art-december.png"))
             write(render(art, frame(art, type, 5, "friuli", 18.5f, sprites, month = 9), 2, 270, 297), File(dir, "friuli-$art-phone-L5.png"))
             write(render(art, frame(art, type, 2, "friuli", 9f, sprites, month = 4, sky = Sky(rain = 0.6f, gloom = 0.6f, wind = 0.4f)), 2, 270, 297), File(dir, "friuli-$art-phone-L2-rain.png"))
         }
@@ -87,7 +96,7 @@ class FriuliPlacesLooksTest {
     @Test fun `Friuli's look draws each place its own way at every level`() {
         for ((art, type, sprites) in arts) {
             assertTrue("Friuli's look touches $art", CultureLooks.of("friuli").touches(art))
-            for (level in levels) {
+            for (level in levelsOf(type)) {
                 val a = render(art, frame(art, type, level, "primorska", 10.5f, sprites, people = false)).pixels.toList()
                 val b = render(art, frame(art, type, level, "friuli", 10.5f, sprites, people = false)).pixels.toList()
                 assertNotEquals("$art at level $level looks Slovene in Friuli", a, b)
@@ -96,7 +105,7 @@ class FriuliPlacesLooksTest {
     }
 
     @Test fun `in Friuli each level draws what it has, once, and the people stand where they did`() {
-        for ((art, type, sprites) in arts) for (level in levels) for (k in 1..3) for (land in listOf("classic", "coast")) {
+        for ((art, type, sprites) in arts) for (level in levelsOf(type)) for (k in 1..3) for (land in listOf("classic", "coast")) {
             val w = world(type, level, "friuli", land)
             val hits = ScenePainters.create(art).render(PixelCanvas(240 * k, 160 * k), frame(art, type, level, "friuli", 10.5f, sprites, land = land), Lens(k, 0, 0, 240, 160))
             for (slot in SceneArt.objects.getValue(art)) {
@@ -114,7 +123,7 @@ class FriuliPlacesLooksTest {
 
     /** A frame of each art in Friuli's look and in Primorska's, at night with people and a highlight: the best of three rounds of 20. */
     @Test fun `a Friuli frame renders fast`() {
-        for ((art, type, sprites) in arts) for (level in listOf(1, 5)) {
+        for ((art, type, sprites) in arts) for (level in levelsOf(type).let { listOf(it.first(), it.last()).distinct() }) {
             val c = PixelCanvas(360, 240)
             fun round(culture: String): Double {
                 val p = ScenePainters.of(art)

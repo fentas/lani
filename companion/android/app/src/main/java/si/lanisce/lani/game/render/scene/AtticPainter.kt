@@ -9,6 +9,7 @@ import si.lanisce.lani.game.scene.Pose
 import si.lanisce.lani.game.scene.Stance
 import kotlin.math.PI
 import kotlin.math.abs
+import kotlin.math.ceil
 import kotlin.math.cos
 import kotlin.math.floor
 import kotlin.math.hypot
@@ -26,8 +27,8 @@ import kotlin.math.sin
  *
  * By the house's level ([si.lanisce.lani.game.scene.SceneFixtures]): at level 1 the bed with its pillow and blanket, the
  * cradle, a plain chest, the roof, the window and the stairs, rough boards and rough plaster; at level 2 the wardrobe, a
- * rug, the lamp, Nejc's ball, the roof lined with boards, the chest painted, whitewash; at level 3 the mirror and a teddy
- * bear on the chest. Its effects: `lamp` (0 dark, 1 lit; not set: lit from dusk), `cradle` (rocking, how far), `window` (the
+ * rug, the lamp, Nejc's ball, the roof lined with boards, whitewash; at level 3 the chest painted, the mirror and a teddy
+ * bear on it; outside, the bench by the wall at level 4 and the geraniums at 5. Its effects: `lamp` (0 dark, 1 lit; not set: lit from dusk), `cradle` (rocking, how far), `window` (the
  * gable window blown open by the burja, its casement swinging and banging in the wind, the draught coming in; 0: shut).
  *
  * Its stage (companion/SCENES.md, "Stage directions"): by the bed, by the chest and at the top of the stairs, standing; and in
@@ -54,6 +55,17 @@ internal class AtticPainter : RoomPainter() {
         else kh + (rh - kh) * ((y1 + tk - y) / (y1 + tk - ym)).coerceIn(0f, 1f)
 
     override fun soot(d: Float, z: Float): Float = 0f
+
+    /**
+     * Friuli's look ([look]; companion/SCENES.md "Culture looks"): Marisa and Tommaso's soffitta under a roof of coppi. At level
+     * 1 the coppi's curved undersides between the battens ([coppi]), from level 2 the tavelle, flat terracotta tiles laid on
+     * the rafters, for the boards; bunches of maize cobs hung from the ridge beam to dry, as Friulian attics had them
+     * ([maize]); a pair of scarpets, the Friulian velvet slippers, by the bed ([scarpets]); the wardrobe and the chest of
+     * walnut ([readLook]); the Collio through the gable window.
+     */
+    private var coppi = false
+    private var maize = false
+    private var scarpets = false
 
     /** Plaster: rough and patchy at level 1, whitewashed from level 2. */
     override fun inner(along: Float, z: Float, px: Int, py: Int, dim: Float, sootF: Float): Int {
@@ -109,7 +121,9 @@ internal class AtticPainter : RoomPainter() {
     override fun paint() {
         fit()
         vignette()
-        lv = frame.world.hereLevel.coerceIn(1, 3)
+        lv = frame.world.hereLevel.coerceIn(1, 5)
+        readLook()
+        coppi = variant("roof") == "coppi"; maize = variant("maize") != null; scarpets = variant("slippers") == "scarpets"
         // the lamp: as a dialog has it, else lit from dusk, and put out for anyone asleep
         val lit = (fx("lamp")?.let { it > 0.5f } ?: (env.windows > 0.35f && !asleepHere)) && there("lamp")
         plot { x, y, px, py -> ground(x, y, px, py) }
@@ -156,9 +170,13 @@ internal class AtticPainter : RoomPainter() {
         // the lamp hangs from the ridge behind whoever stands by the bed, the chest or the stairs: drawn before them, so it
         // never hangs in front of a head or a hat
         if (there("lamp")) thing("lamp", slop = 1) { hangingLamp(lit) }
+        // Friuli's maize drying from the ridge beam, also behind whoever stands below it
+        if (maize) prop { maizeBunches() }
+        if (scarpets) prop { slippers() }
         cast("bed")
         // by the gable: the chest, the toy on it
-        thing("chest") { paintedChest(5.9f, 7.25f, painted = lv >= 2) }
+        // the chest painted with the third level, with the mirror and the teddy bear on it
+        thing("chest") { paintedChest(5.9f, 7.25f, painted = lv >= 3) }
         if (there("toy")) thing("toy", slop = 1) { teddy(x0 + 0.5f, 6.55f, fl + 4.9f) }
         if (there("ball")) thing("ball", slop = 2) { ball(4.9f, 5.9f) }
         cast("chest")
@@ -167,8 +185,9 @@ internal class AtticPainter : RoomPainter() {
         if (open > 0.02f) draught(open)
 
         stubs()
-        prop { gardenBench() }
-        if (lv >= 2) prop { pots() }
+        // the garden grows with the house: the bench by the wall from its fourth level, the geraniums at the top
+        if (lv >= BENCH_LEVEL) prop { gardenBench() }
+        if (lv >= POTS_LEVEL) prop { pots() }
         prop { vegetables() }
         if (env.dark < 0.5f) prop { hen(henX, henY) }
         fireflies(iso.ix(0f, 12f), iso.iy(12f, 12f, 20f), iso.ix(12f, 0f), iso.iy(12f, 12f, 0f), 12, 5)
@@ -208,6 +227,27 @@ internal class AtticPainter : RoomPainter() {
             val along = (y - y0) / (ym - y0)
             when {
                 rafter -> if (rf - floor(rf) < 0.04f) Pal.WOOD_L else Pal.WOOD_D
+                coppi && lined -> {
+                    // the tavelle: flat terracotta tiles in rows up the slope, staggered, pale mortar between
+                    val row = floor(along * 11f).toInt()
+                    val tu = (x - x0 + (row % 2) * 0.27f) / 0.54f
+                    if (along * 11f - row < 0.1f || tu - floor(tu) < 0.07f) Col.hex(0xD8C8AE)
+                    else intArrayOf(Col.hex(0xC8784E), Col.hex(0xB86A44), Col.hex(0xD2865A), Col.hex(0xBE7048))[Math.floorMod(Noise.hash(floor(tu).toInt(), row, 171), 4)]
+                }
+                coppi -> {
+                    // the coppi from below: their curved undersides in channels down the slope, the battens across
+                    val batten = along * 12f - floor(along * 12f) < 0.2f
+                    val ch = (x - x0) / 0.36f
+                    val f = ch - floor(ch)
+                    val chink = Noise.rnd(floor(ch).toInt(), floor(along * 12f).toInt(), 15) < 0.03f && !batten && env.dark < 0.5f && abs(f - 0.5f) > 0.4f
+                    when {
+                        batten -> Col.hex(0x8A5A34)
+                        chink -> Col.hex(0xFFF0C8)
+                        abs(f - 0.5f) > 0.42f -> Col.hex(0x6A2A1C)
+                        abs(f - 0.5f) < 0.16f -> Col.hex(0xC8603E)
+                        else -> if (Dither.at(px, py) < 0.3f) Col.hex(0x8A3A28) else Col.hex(0xA84A30)
+                    }
+                }
                 lined -> {
                     val board = floor(along * 9f).toInt()
                     if (along * 9f - board < 0.08f) Col.hex(0x6A4428) else if (Noise.rnd(board, floor(rf).toInt(), 13) < 0.5f) Pal.WOOD_M else Col.mix(Pal.WOOD_M, Pal.WOOD_L, 0.3f)
@@ -325,6 +365,8 @@ internal class AtticPainter : RoomPainter() {
     /** The wardrobe against the gable (level 2): two painted doors with knobs, a cornice, standing under the roof line. */
     private fun wardrobe() {
         val ya = 2.95f; val yb = 4.2f; val h = fl + 13.5f; val xb = x0 + 1f
+        // a culture's walnut ([cupboardPlain], Friuli's) for the painted blue
+        val paintL = if (cupboardPlain) cupL else paintL; val paintM = if (cupboardPlain) cupM else paintM; val paintD = if (cupboardPlain) cupD else paintD
         onY(yb, x0, xb, fl, h) { _, z, _, _ -> if (z < fl + 0.6f) paintD else paintM }
         onX(xb, ya, yb, fl, h) { y, z, px, py ->
             val a = y - ya; val hh = z - fl; val w = yb - ya
@@ -338,6 +380,41 @@ internal class AtticPainter : RoomPainter() {
             }
         }
         iso.box(x0, ya - 0.06f, h, xb - x0 + 0.1f, yb - ya + 0.12f, 1f, paintL, paintM, paintD)
+    }
+
+    /** Friuli's maize ([maize]): three bunches of golden cobs hanging from the ridge beam on cords, their husks folded back. */
+    private fun maizeBunches() {
+        val p = P.toFloat()
+        val gold = intArrayOf(Col.hex(0xF2C24A), Col.hex(0xE0A22E), Col.hex(0xB87A1E)); val husk = Col.hex(0xE8D8A8); val huskD = Col.hex(0xC8B47E)
+        for ((k, bx) in floatArrayOf(1.55f, 2.6f, 8.2f).withIndex()) {
+            val cx = iso.sx(bx, ym); val top = iso.sy(bx, ym, rh - 1.4f)
+            val cordEnd = top + (3f + k) * p
+            c.vline(floor(cx).toInt(), floor(top).toInt(), floor(cordEnd).toInt(), Col.hex(0xC8B890))
+            // the husks folded back up over the knot, then the cobs hanging in a fan
+            for (h in -2..2) c.line(floor(cx).toInt(), floor(cordEnd).toInt(), floor(cx + h * 1.2f * p).toInt(), floor(cordEnd - 2.2f * p).toInt(), if (h % 2 == 0) husk else huskD)
+            for (j in -2..2) {
+                val ox = j * 1.5f * p; val len = (6.5f - abs(j) * 0.8f) * p
+                for (i in 0 until len.toInt()) {
+                    val f = i / len
+                    val w = (1.3f - f * 0.5f) * p
+                    for (o in floor(-w).toInt()..ceil(w).toInt()) {
+                        val col = if ((i / max(1, P) + o) % 2 == 0) gold[0] else if (o > 0) gold[2] else gold[1]
+                        c.set(floor(cx + ox + j * f * 1.2f * p + o).toInt(), floor(cordEnd + 0.5f * p + i).toInt(), col)
+                    }
+                }
+            }
+        }
+    }
+
+    /** Friuli's scarpets ([scarpets]) by the bed: black velvet slippers with a little flower embroidered on each toe, pale rope soles. */
+    private fun slippers() {
+        val velvet = Col.hex(0x2A2430); val velvetL = Col.hex(0x4A4256); val sole = Col.hex(0xD8C8A0)
+        for ((k, sx) in floatArrayOf(4.75f, 5.05f).withIndex()) {
+            val sy = 2.85f + k * 0.12f
+            iso.box(sx, sy, fl, 0.5f, 0.22f, 0.3f, sole, sole, Col.hex(0xB8A880))
+            iso.box(sx + 0.04f, sy + 0.02f, fl + 0.3f, 0.4f, 0.18f, 0.6f, velvetL, velvet, Col.hex(0x1C1820))
+            iso.px(sx + 0.38f, sy + 0.2f, fl + 0.7f, if (k == 0) Col.hex(0xE84A5A) else Col.hex(0xF0C23A))
+        }
     }
 
     /** The mirror over the chest (level 3): an oval in a carved wooden frame, the room's light in it. */

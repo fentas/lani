@@ -7,6 +7,7 @@ import si.lanisce.lani.game.render.Pal
 import si.lanisce.lani.game.scene.PersonInScene
 import si.lanisce.lani.game.scene.Stance
 import kotlin.math.abs
+import kotlin.math.cos
 import kotlin.math.floor
 import kotlin.math.hypot
 import kotlin.math.max
@@ -71,13 +72,28 @@ internal class LivingRoomPainter : RoomPainter() {
         "behind-door" to Mark(6.8f, 2.95f, fl, layer = "door", hidden = "behind-door"),
     )
 
-    /** No soot: the stove is fed from the kitchen. */
-    override fun soot(d: Float, z: Float): Float = 0f
+    /**
+     * Friuli's look ([look]: the living room's "stove" is "fogolar"; companion/SCENES.md "Culture looks"): Nonno Bepi's room
+     * by the fogolâr, where the village sat round the fire of an evening for his stories. The fogolâr for the kmečka peč: a
+     * knee-high hearth of grey stones in the corner, the fire on its top between two andirons (chestnuts roasting in their
+     * pan over it in October and November), the benches round it as the zapeček ran round the stove; at level 1 the corner
+     * over it black with smoke, from level 2 its white hood up to the walls' top, a shelf round its foot with copper pans, a
+     * plate and a jug on a lace edging. Terracotta tiles for the planks, the walnut cassapanca for the painted chest, an
+     * ochre dado, the vine frieze, the Collio through the window ([readLook]).
+     */
+    private var fogolar = false
+
+    /** No soot: the stove is fed from the kitchen. Friuli's fogolâr blackens its corner until its hood comes (level 2). */
+    override fun soot(d: Float, z: Float): Float {
+        if (!fogolar || lv >= 2 || z < hz) return 0f
+        val up = ((z - hz) / (hw - hz)).coerceIn(0f, 1f)
+        return ((1.2f - abs(d - 0.6f) / (1.2f + up * 2.4f)) * (0.55f + up * 0.45f)).coerceIn(0f, 0.9f)
+    }
 
     override fun floor() {
         if (lv < 2) { super.floor(); return }
         floorId = s.newObject(Pal.OUTLINE)
-        planks(x0, y0, x1, y1, fl, 0.5f)
+        if (fogolar) cotto(x0, y0, x1, y1, fl) else planks(x0, y0, x1, y1, fl, 0.5f)
         c.penId = 0
     }
 
@@ -87,7 +103,9 @@ internal class LivingRoomPainter : RoomPainter() {
     override fun paint() {
         fit()
         vignette()
-        lv = frame.world.hereLevel.coerceIn(1, 3)
+        lv = frame.world.hereLevel.coerceIn(1, 5)
+        readLook()
+        fogolar = variant("stove") == "fogolar"
         val asleep = peopleAt(BED).firstOrNull()
         // the lamp over the table burns from dusk, and is put out for whoever is asleep
         val lit = env.windows > 0.35f && there("lamp") && !asleepHere
@@ -124,8 +142,9 @@ internal class LivingRoomPainter : RoomPainter() {
         if (there("corner")) thing("corner", slop = 1) { corner() }
         cast("door")
 
-        // the stove and the bench round it, Muri on it; Jože asleep on its side run, behind the front one
-        thing("stove") { pec() }
+        // the stove and the bench round it, Muri on it; Jože asleep on its side run, behind the front one (in Friuli the
+        // fogolâr, its fire, its hood)
+        if (fogolar) fogolarCorner() else thing("stove") { pec() }
         val joze = peopleAt(SIDE).firstOrNull()
         thing("bench") { sideRun(joze != null) }
         joze?.let { p ->
@@ -157,8 +176,9 @@ internal class LivingRoomPainter : RoomPainter() {
         cast("table")
 
         stubs()
-        prop { gardenBench() }
-        if (lv >= 2) prop { pots() }
+        // the garden grows with the house: the bench by the wall from its fourth level, the geraniums at the top
+        if (lv >= BENCH_LEVEL) prop { gardenBench() }
+        if (lv >= POTS_LEVEL) prop { pots() }
         prop { vegetables() }
         if (env.dark < 0.5f) prop { hen(henX, henY) }
         fireflies(iso.ix(0f, 12f), iso.iy(12f, 12f, 20f), iso.ix(12f, 0f), iso.iy(12f, 12f, 0f), 12, 5)
@@ -241,6 +261,115 @@ internal class LivingRoomPainter : RoomPainter() {
             else -> if (Noise.rnd(px, py, 97) < 0.05f) limeD else lime
         }
         return Col.scale(col, dim)
+    }
+
+    // ------------------------------------------------------------------ Friuli's fogolâr ([fogolar])
+
+    /**
+     * The fogolâr in the corner, its fire and (from level 2) its hood and the shelf round the hood's foot: the "stove" is the
+     * hearth itself, what a tap finds; fired up ([fxOn] "stove") the fire roars and lights the benches.
+     */
+    private fun fogolarCorner() {
+        thing("stove") { fogolarHearth() }
+        hearthFire(FX, FY, oven = fxOn("stove"))
+        prop { andirons() }
+        if (env.month in 10..12 && !hearthCold) prop { chestnutPan() }
+        if (lv < 2) return
+        prop { fogolarHood(HX, HY, HXT, HYT, HB) }
+        prop { hoodShelf() }
+    }
+
+    /** The hearth: a knee-high block of grey stones in the corner, a niche with the firewood's ends in its front, slabs on top grey with ash. */
+    private fun fogolarHearth() {
+        onY(FY1, x0, FX1, fl, hz) { x, z, px, py -> hearthStone(x - x0, z, px, py, 1f, niche = true, nicheA = 0.55f, nicheB = 1.65f) }
+        onX(FX1, y0, FY1, fl, hz) { y, z, px, py -> hearthStone(y - y0 + 3.1f, z, px, py, 0.8f, niche = false) }
+        onFlat(hz, x0, y0, FX1, FY1) { x, y, px, py ->
+            val d = hypot(x - FX, (y - FY) * 1.2f)
+            val fu = (x - x0) / 0.66f; val fv = (y - y0) / 0.6f
+            val slab = floor(fu).toInt() + floor(fv).toInt() * 7
+            val n = Noise.rnd(px, py, 81)
+            when {
+                d < 0.45f -> if (n < 0.3f) Col.hex(0x1E1A18) else Col.hex(0x2E2826)
+                d < 0.8f + Noise.v2(x * 4f, y * 4f, 83) * 0.22f -> if (n < 0.25f) Col.hex(0x6A6660) else if (n < 0.6f) Col.hex(0x8E8A84) else Col.hex(0xA8A49C)
+                x > FX1 - 0.1f || y > FY1 - 0.1f -> Col.hex(0xC0B8A8)
+                fu - floor(fu) < 0.08f || fv - floor(fv) < 0.1f -> Col.hex(0x5A534C)
+                else -> Col.scale(if (Noise.rnd(slab, 85) < 0.5f) Pal.STONE_M else Col.hex(0x9A948A), if (n > 0.96f) 0.86f else 1f)
+            }
+        }
+    }
+
+    /** The two iron andirons either side of the fire, a knob at the front of each. */
+    private fun andirons() {
+        for (dx in floatArrayOf(-0.45f, 0.45f)) {
+            val ax = FX + dx; val ay = FY + 0.32f
+            iso.post(ax, ay, hz, hz + 1.6f, ironD)
+            iso.line(ax, ay - 0.55f, hz + 0.9f, ax, ay, hz + 0.9f, ironD)
+            knob(ax, ay, hz + 1.9f, ironL, Col.hex(0x8C8896), ironD)
+        }
+    }
+
+    /**
+     * The chestnut pan over the fire in autumn: a shallow black pan full of holes on the andirons, its long handle to the
+     * front, the chestnuts in it: as many as a dialog counts ([SceneFrame.count]: Bepi's "Ne ho messe dodici, contale tu!"),
+     * else seven, in rings from the middle out.
+     */
+    private fun chestnutPan() {
+        val p = P.toFloat()
+        val cx = iso.sx(FX, FY); val cy = iso.sy(FX, FY, hz + 2.1f)
+        val rx = 4.6f * p; val ry = 2f * p
+        for (o in 0 until P) c.line(floor(cx + rx * 0.7f).toInt(), floor(cy).toInt() + o, floor(cx + rx + 6f * p).toInt(), floor(cy + 3.5f * p).toInt() + o, if (o == 0) ironL else ironD)
+        c.fillEllipse(cx, cy + 0.6f * p, rx, ry + 0.6f * p, ironD)
+        c.fillEllipse(cx, cy, rx, ry, Col.hex(0x2A2628))
+        val n = (frame.count ?: 7).coerceIn(1, 12)
+        for (k in 0 until n) {
+            // one in the middle, five round it, six round those
+            val (r, a) = when {
+                k == 0 -> 0f to 0f
+                k <= 5 -> 0.42f to (k - 1) / 5f * 6.28f
+                else -> 0.78f to ((k - 6) / 6f * 6.28f + 0.4f)
+            }
+            val ex = cx + cos(a) * r * (rx - 1.2f * p); val ey = cy - 0.4f * p + sin(a) * r * (ry - 0.5f * p)
+            c.fillEllipse(ex, ey, 1f * p, 0.75f * p, if (k % 2 == 0) Col.hex(0x6A3A1E) else Col.hex(0x8A4E26))
+            if (P > 1) c.set(floor(ex - 0.3f * p).toInt(), floor(ey - 0.4f * p).toInt(), Col.hex(0xC88A5A))
+        }
+    }
+
+    /** The shelf round the hood's foot: two copper pans, a plate and a jug, a lace edging hanging from its front. */
+    private fun hoodShelf() {
+        val d = 0.27f; val lz = HB - 0.7f
+        iso.box(HX - 0.02f, y0, lz, d, HY - y0, 0.7f, Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
+        iso.box(x0, HY - 0.02f, lz, HX + d - x0, d, 0.7f, Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
+        iso.line(x0, HY + d, HB, HX + d, HY + d, HB, Col.mix(Pal.WOOD_L, Col.hex(0xFFFFFF), 0.25f))
+        onY(HY + d + 0.01f, x0 + 0.04f, HX + d - 0.02f, lz - 1.1f, lz) { x, z, px, py -> lace(x - x0, z - lz, px, py, 1f) }
+        onX(HX + d + 0.01f, y0 + 0.04f, HY + d - 0.02f, lz - 1.1f, lz) { y, z, px, py -> lace(y - y0, z - lz, px, py, 0.84f) }
+        val oy = HY + 0.12f
+        copperPan(1.55f, oy, HB, 2.6f)
+        copperPan(3.25f, oy, HB, 2.0f)
+        // a plate standing on the side shelf, a jug beside the pans
+        val p = P.toFloat()
+        val px = iso.sx(HX + 0.12f, 1.7f); val py = iso.sy(HX + 0.12f, 1.7f, HB + 2.2f)
+        c.fillEllipse(px, py, 1.3f * p, 2.3f * p, chinaD); c.fillEllipse(px + 0.3f, py - 0.2f, 1.2f * p, 2.1f * p, china)
+        arc(px + 0.3f, py - 0.2f, 1.2f * p - 0.5f, 2.1f * p - 0.5f, chinaBlue)
+        val jx = iso.sx(2.45f, oy); val jy = iso.sy(2.45f, oy, HB)
+        drum(jx, jy, jy - 3.6f * p, 1.4f * p, 0.6f * p, china, chinaD, Col.hex(0xB8B2A6))
+        c.fillEllipse(jx, jy - 3.6f * p, 1.1f * p, 0.5f * p, chinaD)
+        arc(jx + 1.6f * p, jy - 2f * p, 0.9f * p, 1.2f * p, chinaD, -1.6f, 1.6f)
+    }
+
+    /** Terracotta tiles in squares, the joints pale, each tile its own shade, worn a little where people walk. */
+    private fun cotto(xa: Float, ya: Float, xb: Float, yb: Float, z: Float) {
+        val tiles = intArrayOf(Col.hex(0xC8784E), Col.hex(0xB86A44), Col.hex(0xD2865A), Col.hex(0xBE7048))
+        onFlat(z, xa, ya, xb, yb) { x, y, px, py ->
+            val u = (x - xa) / 0.62f; val v = (y - ya) / 0.62f
+            val i = floor(u).toInt(); val j = floor(v).toInt()
+            if (u - i < 0.07f || v - j < 0.07f) Col.hex(0xD8C8AE)
+            else {
+                var col = tiles[Math.floorMod(Noise.hash(i, j, 141), 4)]
+                if (u - i < 0.18f || v - j < 0.18f) col = Col.mix(col, Col.hex(0xFFFFFF), 0.08f)
+                if (Noise.rnd(px, py, 143) > 0.96f) col = Col.scale(col, 0.9f)
+                col
+            }
+        }
     }
 
     /**
@@ -443,6 +572,11 @@ internal class LivingRoomPainter : RoomPainter() {
     }
 
     private companion object {
+        /** Friuli's fogolâr in the corner out to (FX1, FY1), its fire at (FX, FY); its hood's foot out to (HX, HY) at HB, its top at (HXT, HYT). */
+        const val FX1 = 3.05f; const val FY1 = 2.75f; const val FX = 2.05f; const val FY = 1.85f
+        const val HX = 3.55f; const val HY = 3.25f; const val HXT = 2.1f; const val HYT = 1.85f
+        val HB = 2f + 15.5f
+
         /** Where one crouches hidden under the corner table, and where peeking out from under its front corner. */
         const val HIDE_TX = 3.1f; const val HIDE_TY = 7.25f
         const val PEEK_TX = 4.55f; const val PEEK_TY = 7.75f

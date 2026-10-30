@@ -44,9 +44,23 @@ internal class WorkshopPainter : RoomPainter() {
 
     override fun soot(d: Float, z: Float): Float = 0f
 
-    /** Plain whitewash, greyed and scuffed low down where boards and tools lean on it; no dado and no border. */
+    /**
+     * Friuli's look ([look]; companion/SCENES.md "Culture looks"): Mugnaio Franco's bottega, of river cobbles with bands of
+     * brick ([cobbles]) as the plain's farm buildings are; a Friulian chair (la sedia, with its seat of woven rush) hanging
+     * on its pegs high on the left wall and a basket of turned legs for the next by the broom ([chairs]): the chairs of
+     * Manzano, the Friulian chair country, by the Natisone.
+     */
+    private var cobbles = false
+    private var chairs = false
+
+    /** Plain whitewash, greyed and scuffed low down where boards and tools lean on it; no dado and no border (in Friuli river cobbles). */
     override fun inner(along: Float, z: Float, px: Int, py: Int, dim: Float, sootF: Float): Int {
         val h = z - fl
+        if (cobbles) {
+            var col = if (z > hw - 0.6f) Col.hex(0xC8BCA6) else cobbleWall(along, h, px, py)
+            if (h < 1.1f) col = Col.scale(col, 0.85f)
+            return Col.scale(col, dim)
+        }
         val n = Noise.rnd(px, py, 7)
         val scuff = h < 6f && Noise.v2(along * 2f, h * 0.4f, 13) > 0.62f - (6f - h) * 0.03f
         var col = when {
@@ -91,7 +105,9 @@ internal class WorkshopPainter : RoomPainter() {
     override fun paint() {
         fit()
         vignette()
-        lv = frame.world.hereLevel.coerceIn(1, 3)
+        lv = frame.world.hereLevel.coerceIn(1, 5)
+        readLook()
+        cobbles = variant("walls") == "cobbles"; chairs = variant("chairs") != null
         val lit = env.windows > 0.35f && there("lantern")
         // turned low for anyone asleep
         val low = lit && asleepHere
@@ -120,6 +136,7 @@ internal class WorkshopPainter : RoomPainter() {
         thing("boards") { boards() }
         if (there("ladder")) thing("ladder", slop = 1) { ladder() }
         if (there("rake")) thing("rake", slop = 1) { rake() }
+        if (chairs) { prop { hangingChair() }; prop { spindles() } }
         // the workbench and what is on it, the lantern over it
         thing("workbench") { workbench() }
         thing("nails", slop = 2) { nails(1.95f, 1.45f, wz) }
@@ -159,8 +176,9 @@ internal class WorkshopPainter : RoomPainter() {
         thing("broom", slop = 1) { broom() }
 
         stubs()
-        prop { gardenBench() }
-        if (lv >= 2) prop { pots() }
+        // the garden grows with the house: the bench by the wall from its fourth level, the geraniums at the top
+        if (lv >= BENCH_LEVEL) prop { gardenBench() }
+        if (lv >= POTS_LEVEL) prop { pots() }
         prop { vegetables() }
         if (env.dark < 0.5f) prop { hen(henX, henY) }
         fireflies(iso.ix(0f, 12f), iso.iy(12f, 12f, 20f), iso.ix(12f, 0f), iso.iy(12f, 12f, 0f), 12, 5)
@@ -470,6 +488,45 @@ internal class WorkshopPainter : RoomPainter() {
     }
 
     /** The broom leaning in the front corner of the left wall: its handle and the straw of its head. */
+    /** Friuli's chair on its two pegs high on the left wall ([chairs]): turned walnut posts, two slats in its back, a seat of woven rush. */
+    private fun hangingChair() {
+        val ya = 7.2f; val yb = 8.15f; val za = fl + 11.5f; val zb = fl + 21f
+        val wood = Col.hex(0x7A4E2C); val woodL = Col.hex(0x9C6C42); val woodD = Col.hex(0x56341C)
+        val rush = Col.hex(0xD8B868); val rushD = Col.hex(0xB8963E)
+        for (py in floatArrayOf(ya + 0.15f, yb - 0.15f)) iso.box(x0, py - 0.05f, zb + 0.4f, 0.3f, 0.1f, 0.3f, Pal.WOOD_D, Pal.WOOD_D, Pal.WOOD_X)
+        onX(x0 + 0.06f, ya, yb, za, zb) { y, z, px, _ ->
+            val u = (y - ya) / (yb - ya); val v = (z - za) / (zb - za)
+            when {
+                // the back posts up its sides, turned (a bead every so often), their finials
+                u < 0.1f || u > 0.9f -> if (((z - za) * 1.6f).toInt() % 4 == 0) woodL else if (u < 0.05f || u > 0.95f) woodD else wood
+                // the two slats of its back, curved a little
+                v > 0.6f && abs(v - 0.72f - 0.03f * kotlin.math.sin(u * 3.14f)) < 0.04f -> woodL
+                v > 0.6f && abs(v - 0.88f - 0.03f * kotlin.math.sin(u * 3.14f)) < 0.04f -> woodL
+                // the seat, seen edge-on, its rush woven in a herringbone
+                v in 0.42f..0.56f -> if (((px / max(1, P)) + (z * 2f).toInt()) % 3 == 0) rushD else rush
+                // the front legs and a stretcher between them
+                v < 0.42f && (u in 0.14f..0.22f || u in 0.78f..0.86f) -> wood
+                v < 0.42f && abs(v - 0.16f) < 0.025f -> woodD
+                else -> 0
+            }
+        }
+    }
+
+    /** Friuli's basket of turned chair legs by the broom ([chairs]): a round wicker basket, the pale legs standing in it. */
+    private fun spindles() {
+        val bx = x0 + 0.55f; val by = 7.65f
+        val cx = iso.sx(bx, by); val base = iso.sy(bx, by, fl)
+        val p = P.toFloat()
+        for (k in 0 until 6) {
+            val ox = (k - 2.5f) * 0.9f * p; val lean = (k - 2.5f) * 0.6f * p
+            val top = base - (12f + (k % 3) * 1.5f) * p
+            for (o in 0 until max(1, P)) c.line(floor(cx + ox + o).toInt(), floor(base - 3f * p).toInt(), floor(cx + ox + lean + o).toInt(), floor(top).toInt(), if (o == 0) Col.hex(0xE8C890) else Col.hex(0xC8A068))
+            if (P > 1) c.set(floor(cx + ox + lean * 0.5f).toInt(), floor(base - 3f * p - (top - base + 3f * p) * -0.5f).toInt(), Col.hex(0xB08850))
+        }
+        drum(cx, base, base - 4f * p, 3.4f * p, 1.4f * p, Col.hex(0xC8A060), Col.hex(0xA8823E), Col.hex(0x7A5A28))
+        c.fillEllipse(cx, base - 4f * p, 3.4f * p, 1.4f * p, Col.hex(0x5A4020))
+    }
+
     private fun broom() {
         val by = 8.55f
         rod(x0 + 0.7f, by, fl + 2.8f, x0 + 0.1f, by, fl + 16f, Pal.WOOD_M, Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)

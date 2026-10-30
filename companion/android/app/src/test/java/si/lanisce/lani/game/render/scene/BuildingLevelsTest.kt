@@ -134,18 +134,13 @@ class BuildingLevelsTest {
         /** The arts whose levels are still being drawn this round (places-it-buildings): none at its end. */
         private val PENDING = setOf(
             "apiary",
-            "attic",
-            "cellar",
             "church",
             "field",
-            "kitchen",
-            "livingroom",
             "market",
             "school",
             "smithy",
             "square",
             "tent",
-            "workshop",
         )
 
         /** The arts whose wild animals come and go with the day (Wildlife): not counted as a level's things. */

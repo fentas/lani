@@ -51,10 +51,10 @@ import kotlin.math.sqrt
  * The kitchen grows with its building's level ([SceneWorld.here], see [SceneFixtures]): at level 1 it is bare, a beaten
  * earth floor, plain whitewash blackened over the open hearth in the corner (the pot on its trivet over the fire), a plain
  * bench under the window, the straw bed along the left wall and a shelf with the jugs; at level 2 the tiled stove and its
- * pipe take the hearth's place, the bench gets its cushion, the tiles, the rag rug, the painted dado, the table laid with
- * its chairs and the lamp over it, curtains and a geranium, pots of them outside; at level 3 the stencilled border, the
- * clock, the painted dresser instead of the shelf and the holy corner (bohkov kot) with its crucifix high in the front
- * corner. Asleep at level 1, the grandmother lies in the straw bed.
+ * pipe take the hearth's place, the bench gets its cushion, the tiles, the painted dado, the table laid with its chairs
+ * and the lamp over it, curtains and a geranium; at level 3 the clock, the painted dresser instead of the shelf and the
+ * holy corner (bohkov kot) with its crucifix high in the front corner; at level 4 the stencilled border and the rag rug;
+ * at level 5 the pots of geraniums outside. Asleep at level 1, the grandmother lies in the straw bed.
  *
  * In Friuli ([look]: the kitchen's "hearth" is "fogolar"; companion/SCENES.md "Culture looks") it is Nonna Rosa's
  * Friulian kitchen: the fogolâr in the corner at every level, a knee-high hearth of grey stone with the fire on its top
@@ -83,7 +83,7 @@ internal class KitchenPainter : RoomPainter() {
     override fun paint() {
         fit()
         vignette()
-        lv = frame.world.hereLevel.coerceIn(1, 3)
+        lv = frame.world.hereLevel.coerceIn(1, 5)
         readLook()
         friuli = variant("hearth") == "fogolar"
         val asleep = peopleAt(BED).firstOrNull()
@@ -106,7 +106,8 @@ internal class KitchenPainter : RoomPainter() {
         }
 
         floor()
-        if (lv >= 2) rug() else rugId = floorId
+        // the rag rug before the stove comes with the fourth level, with the stencilled border
+        if (lv >= BORDER_LEVEL) rug() else rugId = floorId
         catAround(behind = true)
         walls()
         thing("window") { window() }
@@ -183,9 +184,10 @@ internal class KitchenPainter : RoomPainter() {
 
         // the front walls, cut down, and the garden in front of them
         stubs()
+        // the bench at every level (the cat's), the pots of geraniums at the top (RoomPainter.garden)
         prop { gardenBench() }
         catAround(behind = false)
-        if (lv >= 2) prop { pots() }
+        if (lv >= POTS_LEVEL) prop { pots() }
         prop { vegetables() }
         if (env.dark < 0.5f) prop { hen(henX, henY) }
         fireflies(iso.ix(0f, 12f), iso.iy(12f, 12f, 20f), iso.ix(12f, 0f), iso.iy(12f, 12f, 0f), 12, 5)
@@ -515,35 +517,8 @@ internal class KitchenPainter : RoomPainter() {
     private fun hoodY(z: Float): Float = HOOD_Y - (HOOD_Y - HOOD_YT) * ((z - hb) / (hw - hb)).coerceIn(0f, 1f)
     private fun hoodX(z: Float): Float = HOOD_X - (HOOD_X - HOOD_XT) * ((z - hb) / (hw - hb)).coerceIn(0f, 1f)
 
-    /**
-     * The fogolâr's hood over the hearth and the spolert: two sloping faces of whitewash from the shelf up to the walls' top,
-     * soot-stained along their foot where the smoke curls out, the flue black at the top where the walls are cut.
-     */
-    private fun hood() {
-        val s1 = (HOOD_Y - HOOD_YT) / (hw - hb); val s2 = (HOOD_X - HOOD_XT) / (hw - hb)
-        quadFill(x0, HOOD_Y, hb, HOOD_X, HOOD_Y, hb, HOOD_XT, HOOD_YT, hw, x0, HOOD_YT, hw) { px, py ->
-            val z = (2f * ua(px) + 4f * HOOD_Y + 4f * s1 * hb - vb(py)) / (1f + 4f * s1)
-            val x = ua(px) + HOOD_Y - s1 * (z - hb)
-            plaster(x, z, px, py, 0.97f)
-        }
-        quadFill(HOOD_X, y0, hb, HOOD_X, HOOD_Y, hb, HOOD_XT, HOOD_YT, hw, HOOD_XT, y0, hw) { px, py ->
-            val z = (4f * HOOD_X + 4f * s2 * hb - 2f * ua(px) - vb(py)) / (1f + 4f * s2)
-            val y = HOOD_X - s2 * (z - hb) - ua(px)
-            plaster(y + 5f, z, px, py, 0.8f)
-        }
-        // the flue's mouth at the top, where the walls are cut
-        onFlat(hw, x0, y0, HOOD_XT, HOOD_YT) { x, y, _, _ -> if (x > HOOD_XT - 0.12f || y > HOOD_YT - 0.12f) limeL else Col.hex(0x1C1714) }
-    }
-
-    /** The hood's whitewash at [a] cells along a face and [z] up: lime with specks, the soot of the smoke along its foot. */
-    private fun plaster(a: Float, z: Float, px: Int, py: Int, dim: Float): Int {
-        val n = Noise.rnd(px, py, 7)
-        var col = if (n < 0.04f) limeL else if (n > 0.965f) limeD else lime
-        if (P > 1 && abs(Noise.v2(a * 3f, z * 0.4f, 13) - 0.5f) < 0.01f) col = limeD
-        val sootF = (1f - (z - hb) / 3.2f).coerceIn(0f, 1f) * 0.42f + ((z - (hw - 2.5f)) / 2.5f).coerceIn(0f, 1f) * 0.2f
-        if (sootF > 0f && Dither.at(px, py) < sootF + 0.25f) col = Col.mix(col, Col.hex(0x4A423A), sootF)
-        return Col.scale(col, dim)
-    }
+    /** The fogolâr's hood over the hearth and the spolert ([RoomPainter.fogolarHood]). */
+    private fun hood() = fogolarHood(HOOD_X, HOOD_Y, HOOD_XT, HOOD_YT, hb)
 
     /**
      * The shelf round the hood's foot and what is on it: a lace edging hanging from its front, two copper pans, the polenta
@@ -566,25 +541,6 @@ internal class KitchenPainter : RoomPainter() {
         val p = P.toFloat()
         c.fillEllipse(px, py, 1.3f * p, 2.3f * p, chinaD); c.fillEllipse(px + 0.3f, py - 0.2f, 1.2f * p, 2.1f * p, china)
         arc(px + 0.3f, py - 0.2f, 1.2f * p - 0.5f, 2.1f * p - 0.5f, chinaBlue)
-    }
-
-    /** A lace edging at [a] cells along and [dz] nominal px below its top (0 to −1.1): white, scalloped, holes in it closer up; 0 below it. */
-    private fun lace(a: Float, dz: Float, px: Int, py: Int, dim: Float): Int {
-        val bottom = -1.1f + 0.45f * abs(sin(a * 9f))
-        if (dz < bottom) return 0
-        val col = if (P > 1 && dz < -0.35f && ((px + py) % 3 == 0)) Col.hex(0xD8D2C4) else if (dz > -0.18f) Col.hex(0xE8E2D4) else Col.hex(0xFAF8F0)
-        return Col.scale(col, dim)
-    }
-
-    /** A copper saucepan standing on a shelf at world ([x], [y], [z]), [r] picture px (at detail 1) round, its long handle out to the side. */
-    private fun copperPan(x: Float, y: Float, z: Float, r: Float) {
-        val p = P.toFloat()
-        val cx = iso.sx(x, y); val by = iso.sy(x, y, z)
-        val l = Col.hex(0xE8945A); val m = Col.hex(0xC2693A); val d = Col.hex(0x8A4426)
-        for (o in 0 until P) c.line(floor(cx - r * p).toInt(), floor(by - 2f * p).toInt() + o, floor(cx - (r + 3.4f) * p).toInt(), floor(by - 3.2f * p).toInt() + o, if (o == 0) brassL else brassD)
-        drum(cx, by, by - 3.2f * p, r * p, r * 0.45f * p, l, m, d, Col.hex(0xFFC898))
-        c.fillEllipse(cx, by - 3.2f * p, r * p, r * 0.45f * p, l)
-        c.fillEllipse(cx, by - 3.1f * p, (r - 0.7f) * p, (r * 0.45f - 0.35f) * p, d)
     }
 
     /** From level 2 the bench along the left wall, the fogolâr's other side: a thick plank on legs and a stretcher. */

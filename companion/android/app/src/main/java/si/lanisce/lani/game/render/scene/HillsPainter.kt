@@ -78,10 +78,21 @@ internal class HillsPainter : VistaPainter() {
     /** How much taller the hills and the mountains stand in this view: a taller view has sky to spare above the stage. */
     private var lift = 1f
 
+    /**
+     * Friuli's look ([look]; companion/SCENES.md "Culture looks"): the Collio from the Italian side. The farmstead in ochre
+     * plaster under a roof of coppi, its shutters green, the frasca hung by its door in the months the farm sells its wine
+     * ([collio]); the church on the hill whitewashed under coppi with a free-standing campanile of brick and its low
+     * pyramid cap ([campanile]); the far farms in Friuli's plaster under coppi.
+     */
+    private var collio: FireStyle? = null
+    private var campanile = false
+
     override fun paint() {
         setup()
         val z = z
         lift = 1f + 0.45f * (oy / z / 55f).coerceIn(0f, 1f)
+        collio = if (variant("farm") == "friuli") FireStyle.of("friuli", look.landscape) else null
+        campanile = variant("church") == "campanile"
         vistaSky(4, 21, moonX = ox + 60 * z, moonY = oy + 10 * z)
         thing("mountains", outline = 0) { alps() }
         thing("sea", outline = 0) { seaGlint() }
@@ -300,7 +311,8 @@ internal class HillsPainter : VistaPainter() {
     /** A farmhouse far off: a white wall, a red roof, a lit window at dusk. */
     private fun farHouse(x: Int, base: Int, seed: Int) {
         val z = z
-        val wall = env.lit(Col.mix(Pal.WALL_L, env.skyHorizon, 0.2f)); val roof = env.lit(Col.mix(Pal.ROOF_M, env.skyHorizon, 0.18f))
+        val fs = collio
+        val wall = env.lit(Col.mix(fs?.walls?.get(seed % fs.walls.size)?.get(0) ?: Pal.WALL_L, env.skyHorizon, 0.2f)); val roof = env.lit(Col.mix(fs?.roof?.get(1) ?: Pal.ROOF_M, env.skyHorizon, 0.18f))
         c.penEmissive = true
         c.fillRect(x, base - 3 * z, (3 + seed % 2) * z, 3 * z, wall)
         for (r in 0 until 2 * z) c.hline(x - z + r / 2, x + (4 + seed % 2) * z - 1 - r / 2, base - 3 * z - 1 - r, roof)
@@ -375,9 +387,13 @@ internal class HillsPainter : VistaPainter() {
         val z = z
         val cx = (ox + 184 * z)
         val base = hillTop(cx).toInt() + 2 * z
-        val wall = env.lit(Col.mix(Pal.WALL_L, env.skyHorizon, 0.12f)); val wallD = env.lit(Col.mix(Pal.WALL_D, env.skyHorizon, 0.12f))
-        val roof = env.lit(Col.mix(Pal.ROOF_M, env.skyHorizon, 0.1f)); val roofD = env.lit(Col.mix(Pal.ROOF_D, env.skyHorizon, 0.1f))
+        val fs = if (campanile) FireStyle.of("friuli", look.landscape) else null
+        val wall = env.lit(Col.mix(fs?.churchWall?.get(0) ?: Pal.WALL_L, env.skyHorizon, 0.12f)); val wallD = env.lit(Col.mix(fs?.churchWall?.get(2) ?: Pal.WALL_D, env.skyHorizon, 0.12f))
+        val roof = env.lit(Col.mix(fs?.roof?.get(1) ?: Pal.ROOF_M, env.skyHorizon, 0.1f)); val roofD = env.lit(Col.mix(fs?.roof?.get(2) ?: Pal.ROOF_D, env.skyHorizon, 0.1f))
         val stone = env.lit(Col.mix(Pal.STONE_L, env.skyHorizon, 0.12f))
+        // the campanile's brick and its cap of coppi, Friuli's
+        val tower = if (fs != null) env.lit(Col.mix(fs.towerWall[0], env.skyHorizon, 0.12f)) else wall
+        val towerD = if (fs != null) env.lit(Col.mix(fs.towerWall[2], env.skyHorizon, 0.12f)) else wallD
         val lit = env.windows > 0.35f
         thing("church") {
             c.penEmissive = true
@@ -397,9 +413,11 @@ internal class HillsPainter : VistaPainter() {
         thing("belltower") {
             c.penEmissive = true
             val tl = cx - 8 * z; val tw = 3 * z
-            c.fillRect(tl, base - 15 * z, tw, 15 * z, wall)
-            c.fillRect(tl + tw - z, base - 15 * z, z, 15 * z, wallD)
-            c.hline(tl, tl + tw - 1, base - 10 * z, wallD)
+            c.fillRect(tl, base - 15 * z, tw, 15 * z, tower)
+            c.fillRect(tl + tw - z, base - 15 * z, z, 15 * z, towerD)
+            c.hline(tl, tl + tw - 1, base - 10 * z, towerD)
+            // closer up the brick's courses
+            if (fs != null && z > 1) for (yy in base - 15 * z until base step 2 * z) c.hline(tl, tl + tw - 2, yy, Col.mix(tower, towerD, 0.4f))
             c.hline(tl, tl + tw - 1, base - 1, stone)
             // the belfry: a dark opening with the bell, swinging when it rings
             val ring = fxOn("bell")
@@ -408,13 +426,16 @@ internal class HillsPainter : VistaPainter() {
             val bx = tl + tw / 2 + (swing * z * 0.8f).toInt()
             c.fillRect(bx - z / 2, base - 13 * z, max(1, z), max(1, z + z / 2), Pal.GOLD)
             if (z > 1) c.set(bx - z / 2, base - 13 * z, Pal.GOLD_L)
-            // the pyramid roof and a little cross
-            for (r in 0 until 4 * z) {
-                val half = (tw / 2f + z * 0.5f) * (1f - r / (4f * z))
-                c.hline((tl + tw / 2f - half).toInt(), (tl + tw / 2f + half).toInt() - 1, base - 15 * z - 1 - r, if (r < z) roofD else roof)
+            // the pyramid roof and a little cross (Friuli's campanile: a low cap of coppi over a cornice)
+            val capH = if (fs != null) 2 * z else 4 * z
+            if (fs != null) c.hline(tl - z / 2, tl + tw + z / 2 - 1, base - 15 * z, env.lit(Col.mix(fs.churchWall[0], env.skyHorizon, 0.12f)))
+            for (r in 0 until capH) {
+                val half = (tw / 2f + z * 0.5f) * (1f - r / (if (fs != null) 3f * z else 4f * z))
+                c.hline((tl + tw / 2f - half).toInt(), (tl + tw / 2f + half).toInt() - 1, base - 15 * z - 1 - r, if (r < z && fs == null) roofD else roof)
             }
-            c.vline(tl + tw / 2, base - 21 * z, base - 19 * z - 1, Pal.GOLD)
-            c.hline(tl + tw / 2 - z / 2, tl + tw / 2 + z / 2, base - 20 * z, Pal.GOLD)
+            val ct = base - 15 * z - capH
+            c.vline(tl + tw / 2, ct - 2 * z, ct - 1, Pal.GOLD)
+            c.hline(tl + tw / 2 - z / 2, tl + tw / 2 + z / 2, ct - z - z / 2, Pal.GOLD)
             if (lit) c.set(tl + tw / 2, base - 6 * z, Pal.WINDOW_LIT)
             if (ring > 0.02f) bellRings(tl + tw / 2, base - 12 * z, ring)
         }
@@ -783,10 +804,11 @@ internal class HillsPainter : VistaPainter() {
         val by = gy(d); val bx = gx(houseX, d)
         val hw = 5.6f; val wallH = 5.2f; val roofH = 1.9f
         val x0 = gx(houseX - hw, d); val x1 = gx(houseX + hw, d)
-        val wall = hazy(Col.hex(0xF2ECDC), d); val wallD = hazy(Col.hex(0xD6CCB6), d)
+        val fs = collio
+        val wall = hazy(fs?.walls?.get(0)?.get(0) ?: Col.hex(0xF2ECDC), d); val wallD = hazy(fs?.walls?.get(0)?.get(1) ?: Col.hex(0xD6CCB6), d)
         val stone = hazy(Col.hex(0xB4AA96), d); val stoneD = hazy(Col.hex(0x8A826E), d)
-        val tile = hazy(Col.hex(0xB8583A), d); val tileD = hazy(Col.hex(0x8A3A24), d); val tileL = hazy(Col.hex(0xD4744A), d)
-        val shutter = hazy(Col.hex(0x3E6E3A), d)
+        val tile = hazy(fs?.roof?.get(0) ?: Col.hex(0xB8583A), d); val tileD = hazy(fs?.roof?.get(2) ?: Col.hex(0x8A3A24), d); val tileL = hazy(fs?.roof?.get(1)?.let { Col.mix(it, Col.hex(0xFFE0B0), 0.25f) } ?: Col.hex(0xD4744A), d)
+        val shutter = hazy(fs?.shutter ?: Col.hex(0x3E6E3A), d)
         val sunLeft = (sunAt()?.first ?: vx) < bx
         // the walls, shaded toward the side away from the sun; the plinth and the quoins of stone
         for (py in max(hy(d, wallH).toInt(), c.top)..min(by.toInt(), c.bottom - 1)) {
@@ -829,8 +851,11 @@ internal class HillsPainter : VistaPainter() {
             val over = 0.5f * p * v
             for (px in max((x0 - over).toInt(), c.left)..min((x1 + over).toInt(), c.right - 1)) {
                 val course = ((py - ry) / max(1.5f, 0.35f * p)).toInt()
-                var col = if (py >= ey.toInt()) tileD else if (course % 2 == 0) tile else if (Noise.rnd(px / max(1, z), course, 282) < 0.3f) tileL else tile
-                if (z > 1 && (px / (2 * z) + course) % 3 == 0 && py < ey) col = Col.mix(col, tileD, 0.4f)
+                var col = if (fs != null) {
+                    // coppi: their channels down the roof, the rounded backs lit
+                    if (py >= ey.toInt()) tileD else if (((px - ox) / max(1, z)) % 2 == 0) tileL else tile
+                } else if (py >= ey.toInt()) tileD else if (course % 2 == 0) tile else if (Noise.rnd(px / max(1, z), course, 282) < 0.3f) tileL else tile
+                if (fs == null && z > 1 && (px / (2 * z) + course) % 3 == 0 && py < ey) col = Col.mix(col, tileD, 0.4f)
                 if (env.snow && v < 0.9f) col = if (course % 2 == 0) Pal.SNOW_L else Pal.SNOW_M
                 c.set(px, py, col)
             }
@@ -840,6 +865,15 @@ internal class HillsPainter : VistaPainter() {
         c.fillRect(cx.toInt() - max(1, z / 2), (ry - 0.6f * p).toInt(), max(z, (0.6f * p).toInt()) + 2 * max(1, z / 2), max(1, z), tileD)
         val hr = s.hour
         if (env.season != Season.SUMMER && (hr in 6f..9f || hr in 17.5f..21f)) s.smoke(cx + z, ry - 0.8f * p, 0.45f, 13)
+        // Friuli's frasca by the door, in the months the farm sells its own wine (from the new wine to the spring)
+        if (fs != null && env.month !in 6..10) {
+            val fx = gx(houseX + 1.5f, d); val fy = hy(d, 2.6f)
+            c.line(dx.toInt(), fy.toInt(), fx.toInt(), fy.toInt(), hazy(Pal.WOOD_D, d))
+            for (k in 0 until 9) {
+                val a = Noise.rnd(k, 285) * 6.28f; val r = kotlin.math.sqrt(Noise.rnd(k, 286))
+                c.fillEllipse(fx + cos(a) * r * 0.6f * p, fy + 0.5f * p + sin(a) * r * 0.6f * p, max(0.8f, 0.22f * p), max(0.6f, 0.16f * p), hazy(if (k % 2 == 0) Col.hex(0x4E8A3A) else Col.hex(0x3A6A2E), d))
+            }
+        }
     }
 
     /** A cypress: a tall dark flame of scale-like foliage, lit on the sun's side, swaying a little at its tip. */

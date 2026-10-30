@@ -24,8 +24,8 @@ import kotlin.math.sqrt
  * A room of a farmhouse as a diorama (the kitchen, the living room, the workshop, the wine cellar; companion/SCENES.md,
  * "Houses and their rooms"): a room on its own plot of grass with its two front walls cut down to a stub so we look in.
  * What every room shares: the plot and its garden (the stepping stones, a bench by the wall, the geraniums, the
- * vegetable bed and the hen), the whitewashed walls that grow with the room's level (plain lime at level 1, a painted
- * dado from 2, a stencilled border from 3), the floor (beaten earth at 1, terracotta tiles from 2), the window with its
+ * vegetable bed and the hen; the bench from the house's fourth level, the geraniums at its fifth), the whitewashed walls
+ * that grow with the room's level (plain lime at level 1, a painted dado from 2, a stencilled border from 4), the floor (beaten earth at 1, terracotta tiles from 2), the window with its
  * view and the gingham curtains, the plank door with the horseshoe over it, and the furniture more than one room has
  * (the clock, the petroleum lamp, the tiled stove's tiles, the chairs with hearts in their backs, the holy corner). Each
  * room paints itself from these ([paint]); the kitchen ([KitchenPainter]) is the first of them.
@@ -61,8 +61,13 @@ internal abstract class RoomPainter : DioramaPainter() {
     protected val fireX = 2.0f; protected val fireY = 1.68f; protected val trivetZ = hz + 2.6f
     protected val bedY0 = 4.75f; protected val bedY1 = 7.45f; protected val bedX1 = x0 + 1.5f; protected val bedZ = fl + 2.3f
 
-    /** The room's level as it shows (1 … 3; its building's, see [SceneWorld.hereLevel]), set as each frame is painted. */
-    protected var lv = 3
+    /**
+     * The room's level as it shows (1 … 5; its building's, see [SceneWorld.hereLevel]), set as each frame is painted: its
+     * things come with levels 2 and 3 ([si.lanisce.lani.game.scene.SceneFixtures]); the stencilled border under the top
+     * ([BORDER_LEVEL]) and the bench outside ([BENCH_LEVEL]) with the fourth, the pots of geraniums along the wall with the
+     * fifth ([POTS_LEVEL]), the house's top, as everything built has it.
+     */
+    protected var lv = 5
 
     protected val lime = Col.hex(0xEDE5D2); protected val limeL = Col.hex(0xFAF6EA); protected val limeD = Col.hex(0xD9CFB9)
     protected val leafC = Col.hex(0x5E8A4A)
@@ -419,7 +424,7 @@ internal abstract class RoomPainter : DioramaPainter() {
 
     /**
      * Whitewash at [along] cells and height [z] inside: a stippled green dado with a red line over it (from level 2), a
-     * stencilled border of little flowers under the top (from level 3), specks in the lime, soot over the stove ([sootF]);
+     * stencilled border of little flowers under the top (from level 4), specks in the lime, soot over the stove ([sootF]);
      * [dim] shades the wall. At level 1 plain lime, patchy, as the plasterer left it.
      */
     protected open fun inner(along: Float, z: Float, px: Int, py: Int, dim: Float, sootF: Float): Int {
@@ -438,8 +443,8 @@ internal abstract class RoomPainter : DioramaPainter() {
             }
         }
         val dz = z - (hw - 3.6f)
-        if (lv >= 3 && abs(abs(dz) - 2f) < 0.26f) col = border
-        else if (lv >= 3 && abs(dz) < 1.3f) {
+        if (lv >= BORDER_LEVEL && abs(abs(dz) - 2f) < 0.26f) col = border
+        else if (lv >= BORDER_LEVEL && abs(dz) < 1.3f) {
             val m = along / 0.62f
             val a = abs(m - floor(m) - 0.5f) * 0.62f * 8f
             if (P > 1) (if (vineFrieze) vineStencil(a, dz) else stencil(a, dz))?.let { col = it }
@@ -1299,8 +1304,7 @@ internal abstract class RoomPainter : DioramaPainter() {
      * The fire on the hearth: two logs crossed on the embers, small flames (higher and brighter when a dialog fires the
      * oven up), sparks and the smoke going up into the black corner. Scenery, under the pot's trivet.
      */
-    protected fun hearthFire(fx: Float = fireX, fy: Float = fireY) {
-        val oven = fxOn("oven")
+    protected fun hearthFire(fx: Float = fireX, fy: Float = fireY, oven: Float = fxOn("oven")) {
         val cx = iso.sx(fx, fy); val cy = iso.sy(fx, fy, hz)
         val p = P.toFloat()
         prop {
@@ -1349,6 +1353,82 @@ internal abstract class RoomPainter : DioramaPainter() {
             for (o in 0 until P) c.line(floor(lx).toInt() + o, floor(ly).toInt(), floor(fx).toInt() + o, floor(fy).toInt(), if (o == 0) ironL else ironD)
         }
         for (o in 0 until P) arc(cx, ry + o, 6.4f * p, 2.5f * p, if (o == 0) ironL else ironD)
+    }
+
+    /**
+     * A wall of river cobbles at [along] cells and [h] up, as the Collio's and the Isonzo's farms are built (Friuli's cellar
+     * and workshop): rounded stones of their own sizes in courses, pale lime between, two courses of brick every so often.
+     */
+    protected fun cobbleWall(along: Float, h: Float, px: Int, py: Int): Int {
+        val course = floor(h / 1.5f).toInt()
+        val fv = h / 1.5f - course
+        val mortar = Col.hex(0xC8BCA6)
+        if (course % 6 >= 4) {
+            val u = (along + (course % 2) * 0.17f) / 0.34f
+            if (fv < 0.12f || u - floor(u) < 0.1f) return mortar
+            return if (Noise.hash(floor(u).toInt(), course * 17 + 7) % 2 == 0) Col.hex(0xB0603E) else Col.hex(0x9C5236)
+        }
+        val off = Noise.rnd(course, 151) * 0.5f
+        val u = (along + off) / (0.36f + 0.12f * Noise.rnd(course, 153))
+        val k = floor(u).toInt(); val fu = u - k
+        val r = hypot((fu - 0.5f) * 2f, (fv - 0.5f) * 2f)
+        if (r > 0.92f) return mortar
+        val tone = intArrayOf(Col.hex(0xBCB2A0), Col.hex(0xA89E8C), Col.hex(0xC8C0AE), Col.hex(0x968C7A))
+        var col = tone[Math.floorMod(Noise.hash(k, course * 13 + 3), 4)]
+        if (fu < 0.4f && fv > 0.55f) col = Col.mix(col, Col.hex(0xFFFFFF), 0.12f) else if (r > 0.7f) col = Col.scale(col, 0.86f)
+        if (Noise.rnd(px, py, 155) > 0.96f) col = Col.scale(col, 0.9f)
+        return col
+    }
+
+    // ------------------------------------------------------------------ Friuli's fogolâr (the kitchen's, the living room's)
+
+    /**
+     * A fogolâr's hood over the corner (Friuli's kitchen and its living room): two sloping faces of whitewash from its foot
+     * out to ([hx], [hy]) at height [hb] up to the walls' top at ([hxt], [hyt]), soot-stained along their foot where the smoke
+     * curls out, the flue black at the top where the walls are cut.
+     */
+    protected fun fogolarHood(hx: Float, hy: Float, hxt: Float, hyt: Float, hb: Float) {
+        val s1 = (hy - hyt) / (hw - hb); val s2 = (hx - hxt) / (hw - hb)
+        quadFill(x0, hy, hb, hx, hy, hb, hxt, hyt, hw, x0, hyt, hw) { px, py ->
+            val z = (2f * ua(px) + 4f * hy + 4f * s1 * hb - vb(py)) / (1f + 4f * s1)
+            val x = ua(px) + hy - s1 * (z - hb)
+            hoodPlaster(x, z, px, py, 0.97f, hb)
+        }
+        quadFill(hx, y0, hb, hx, hy, hb, hxt, hyt, hw, hxt, y0, hw) { px, py ->
+            val z = (4f * hx + 4f * s2 * hb - 2f * ua(px) - vb(py)) / (1f + 4f * s2)
+            val y = hx - s2 * (z - hb) - ua(px)
+            hoodPlaster(y + 5f, z, px, py, 0.8f, hb)
+        }
+        onFlat(hw, x0, y0, hxt, hyt) { x, y, _, _ -> if (x > hxt - 0.12f || y > hyt - 0.12f) limeL else Col.hex(0x1C1714) }
+    }
+
+    /** A hood's whitewash at [a] cells along a face and [z] up, its foot at [hb]: lime with specks, the soot of the smoke along its foot. */
+    protected fun hoodPlaster(a: Float, z: Float, px: Int, py: Int, dim: Float, hb: Float): Int {
+        val n = Noise.rnd(px, py, 7)
+        var col = if (n < 0.04f) limeL else if (n > 0.965f) limeD else lime
+        if (P > 1 && abs(Noise.v2(a * 3f, z * 0.4f, 13) - 0.5f) < 0.01f) col = limeD
+        val sootF = (1f - (z - hb) / 3.2f).coerceIn(0f, 1f) * 0.42f + ((z - (hw - 2.5f)) / 2.5f).coerceIn(0f, 1f) * 0.2f
+        if (sootF > 0f && Dither.at(px, py) < sootF + 0.25f) col = Col.mix(col, Col.hex(0x4A423A), sootF)
+        return Col.scale(col, dim)
+    }
+
+    /** A lace edging at [a] cells along and [dz] nominal px below its top (0 to −1.1): white, scalloped, holes in it closer up; 0 below it. */
+    protected fun lace(a: Float, dz: Float, px: Int, py: Int, dim: Float): Int {
+        val bottom = -1.1f + 0.45f * abs(sin(a * 9f))
+        if (dz < bottom) return 0
+        val col = if (P > 1 && dz < -0.35f && ((px + py) % 3 == 0)) Col.hex(0xD8D2C4) else if (dz > -0.18f) Col.hex(0xE8E2D4) else Col.hex(0xFAF8F0)
+        return Col.scale(col, dim)
+    }
+
+    /** A copper saucepan standing on a shelf at world ([x], [y], [z]), [r] picture px (at detail 1) round, its long handle out to the side. */
+    protected fun copperPan(x: Float, y: Float, z: Float, r: Float) {
+        val p = P.toFloat()
+        val cx = iso.sx(x, y); val by = iso.sy(x, y, z)
+        val l = Col.hex(0xE8945A); val m = Col.hex(0xC2693A); val d = Col.hex(0x8A4426)
+        for (o in 0 until P) c.line(floor(cx - r * p).toInt(), floor(by - 2f * p).toInt() + o, floor(cx - (r + 3.4f) * p).toInt(), floor(by - 3.2f * p).toInt() + o, if (o == 0) brassL else brassD)
+        drum(cx, by, by - 3.2f * p, r * p, r * 0.45f * p, l, m, d, Col.hex(0xFFC898))
+        c.fillEllipse(cx, by - 3.2f * p, r * p, r * 0.45f * p, l)
+        c.fillEllipse(cx, by - 3.1f * p, (r - 0.7f) * p, (r * 0.45f - 0.35f) * p, d)
     }
 
     /**
@@ -1498,10 +1578,12 @@ internal abstract class RoomPainter : DioramaPainter() {
      */
     protected fun paintedChest(ya: Float, yb: Float, painted: Boolean) {
         val xa = x0; val xb = x0 + 0.95f; val h = fl + 4.2f
+        // a culture's walnut ([cupboardPlain]: Friuli's cassapanca) for the painted one
+        val (pL, pM, pD) = if (cupboardPlain) Triple(cupL, cupM, cupD) else Triple(paintL, paintM, paintD)
         for (fy in floatArrayOf(ya + 0.1f, yb - 0.18f)) iso.box(xb - 0.16f, fy, fl, 0.14f, 0.1f, 0.5f, Pal.WOOD_D, Pal.WOOD_D, Pal.WOOD_X)
-        onY(yb, xa, xb, fl + 0.5f, h) { _, z, _, _ -> if (painted) (if (z < fl + 0.9f) paintD else paintM) else Pal.WOOD_M }
+        onY(yb, xa, xb, fl + 0.5f, h) { _, z, _, _ -> if (painted) (if (z < fl + 0.9f) pD else pM) else Pal.WOOD_M }
         onX(xb, ya, yb, fl + 0.5f, h) { y, z, px, py -> chestFront(y - ya, z - fl - 0.5f, yb - ya, h - fl - 0.5f, painted, px, py) }
-        val ll = if (painted) paintL else Pal.WOOD_L; val lm = if (painted) paintM else Pal.WOOD_M; val ld = if (painted) paintD else Pal.WOOD_D
+        val ll = if (painted) pL else Pal.WOOD_L; val lm = if (painted) pM else Pal.WOOD_M; val ld = if (painted) pD else Pal.WOOD_D
         iso.box(xa, ya - 0.04f, h, xb - xa + 0.06f, yb - ya + 0.08f, 0.7f, ll, lm, ld)
         iso.line(xb + 0.06f, ya - 0.04f, h + 0.7f, xb + 0.06f, yb + 0.04f, h + 0.7f, Col.mix(ll, Col.hex(0xFFFFFF), 0.3f))
         iso.px(xb + 0.02f, (ya + yb) / 2f, h - 0.6f, if (painted) brass else ironL)
@@ -1513,6 +1595,15 @@ internal abstract class RoomPainter : DioramaPainter() {
             if (abs(a - 0.16f) < 0.06f || abs(a - (w - 0.16f)) < 0.06f) return if (h > hh - 0.4f) ironL else iron
             val board = floor(h / 1.2f).toInt()
             return if (h - board * 1.2f < 0.15f) Pal.WOOD_D else if (Noise.v2(a * 3f, board * 2.3f, 99) > 0.7f) Col.scale(Pal.WOOD_M, 0.92f) else Pal.WOOD_M
+        }
+        if (cupboardPlain) {
+            // walnut: two fielded panels in a frame, their bevels lit on top and to the left
+            if (a < 0.08f || w - a < 0.08f || h < 0.3f || h > hh - 0.3f) return cupL
+            val pw = (w - 0.3f) / 2f
+            val pa = (a - 0.1f) % (pw + 0.1f)
+            val inP = a in 0.1f..(w - 0.1f) && pa < pw && h in 0.7f..(hh - 0.6f)
+            if (!inP) return if (Dither.at(px, py) < 0.12f) cupD else cupM
+            return if (pa < 0.07f || h > hh - 0.72f) cupL else if (pa > pw - 0.06f || h < 0.8f) cupD else if (Noise.v2(a * 4f, h * 0.5f, 31) > 0.72f) Col.scale(cupM, 0.92f) else cupM
         }
         if (a < 0.08f || w - a < 0.08f || h < 0.3f || h > hh - 0.3f) return paintL
         val inPanel = a in 0.22f..(w - 0.22f) && h in 0.8f..(hh - 0.7f)
@@ -2866,6 +2957,11 @@ internal abstract class RoomPainter : DioramaPainter() {
     }
 
     companion object {
+        /** The house's level that brings the stencilled border under the top of the walls, the bench by the wall outside, the geraniums. */
+        const val BORDER_LEVEL = 4
+        const val BENCH_LEVEL = 4
+        const val POTS_LEVEL = 5
+
         /** How far off the floor an open door's leaf ends (nominal px): the shoes of someone behind it show under it. */
         const val LEAF_GAP = 2f
 
