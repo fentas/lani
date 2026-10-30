@@ -4,7 +4,7 @@
   "title": { "sl": "V gorah", "en": "In the mountains", "de": "In den Bergen", "it": "In montagna" },
   "emoji": "🏔️",
   "level": "A1",
-  "review": "reactions, second right answers, variants: machine-written, not reviewed by a native speaker",
+  "review": "reactions, second right answers, variants: machine-written, not reviewed by a native speaker; checked against Fran (2026-10-30, docs/plans/05-built/native-check-sl.md): ob šest is spoken, accepted, the written ob šestih said back (SP2001 pet: ob petih; Jezikovna svetovalnica)",
   "art": "alps",
   "from": ["spot:horizon"],
   "pack": "v-gorah",
@@ -323,8 +323,8 @@
         { "choices": [
           { "sl": "Jutri zjutraj, ob šestih.", "en": "Tomorrow morning, at six.", "de": "Morgen früh, um sechs.", "it": "Domani mattina, alle sei.", "ok": true,
             "reply": { "face": "proud", "sl": "Ob šestih? Jaz sem tu že ob petih! Ha ha.", "en": "At six? I'm here at five already! Ha ha.", "de": "Um sechs? Ich bin schon um fünf hier! Haha.", "it": "Alle sei? Io sono qui già alle cinque! Ah ah." } },
-          { "sl": "Jutri zjutraj, ob šest.", "en": "Tomorrow morning, at six (wrong form).", "de": "Morgen früh, um sechs (falsche Form).", "it": "Domani mattina, alle sei (forma sbagliata).", "grammar": "kdaj-cas", "why": { "en": "The hour takes ob + the locative: ob šestih (like ob petih).", "de": "Die Uhrzeit: ob + Lokativ, ob šestih (wie ob petih).", "it": "L'ora vuole ob + locativo: ob šestih (come ob petih)." },
-            "reply": { "face": "confused", "sl": "Ob šest? Ha? Koliko je to, {learner}?", "en": "Ob šest? Huh? What time is that, {learner}?", "de": "Ob šest? Hä? Wie spät ist das, {learner}?", "it": "Ob šest? Eh? Che ora sarebbe, {learner}?" } },
+          { "sl": "Jutri zjutraj, ob šest.", "en": "Tomorrow morning, at six (as people say it).", "de": "Morgen früh, um sechs (wie man es sagt).", "it": "Domani mattina, alle sei (come si dice a voce).", "ok": true,
+            "reply": { "face": "proud", "sl": "Ob šestih, ja! Tako pišemo, ob šest pa tudi rečemo. Jaz sem tu že ob petih!", "en": "At six, yes! Ob šestih is how we write it, but people say ob šest too. I'm here at five already!", "de": "Um sechs, ja! Ob šestih schreibt man, aber man sagt auch ob šest. Ich bin schon um fünf hier!", "it": "Alle sei, sì! Si scrive ob šestih, ma si dice anche ob šest. Io sono qui già alle cinque!" } },
           { "sl": "Včeraj zjutraj, ob šestih.", "en": "Yesterday morning, at six.", "de": "Gestern früh, um sechs.", "it": "Ieri mattina, alle sei.", "why": { "en": "Coming again is later: jutri (tomorrow). Včeraj is yesterday.", "de": "Wiederkommen ist später: jutri (morgen). Včeraj heißt gestern.", "it": "Tornare è dopo: jutri (domani). Včeraj è ieri." },
             "reply": { "face": "surprised", "sl": "Včeraj? Včeraj te ni bilo tu, {learner}!", "en": "Yesterday? You weren't here yesterday, {learner}!", "de": "Gestern? Gestern warst du nicht hier, {learner}!", "it": "Ieri? Ieri non c'eri, {learner}!" } }
         ] },

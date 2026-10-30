@@ -4,7 +4,7 @@
   "title": { "sl": "V podstrešju", "en": "In the attic", "de": "Auf dem Dachboden", "it": "In soffitta" },
   "emoji": "🛏️",
   "level": "A2",
-  "review": "sl, en, de, it: machine-written, not reviewed by a native speaker; reactions, second right answers, variants: machine-written, not reviewed by a native speaker",
+  "review": "sl, en, de, it: machine-written, not reviewed by a native speaker; reactions, second right answers, variants: machine-written, not reviewed by a native speaker; checked against Fran (2026-10-30, docs/plans/05-built/native-check-sl.md): pote is the standard spelling (SSKJ2 ti: tudi pote bodo prišli); ob osem is spoken, accepted, the written ob osmih said back, and the turn asks ura je sedem instead (machine-written)",
   "art": "attic",
   "from": ["house"],
   "household": ["vida", "nejc"],
@@ -49,9 +49,11 @@
         { "choices": [
           { "sl": "Ura je sedem. Šola je ob osmih!", "en": "It's seven o'clock. School is at eight!", "de": "Es ist sieben Uhr. Die Schule ist um acht!", "it": "Sono le sette. La scuola è alle otto!", "ok": true,
             "reply": { "face": "worried", "sl": "Ob osmih? Ojoj! Mami bo jezna!", "en": "At eight? Oh no! Mum will be cross!", "de": "Um acht? Oje! Mama wird böse!", "it": "Alle otto? Oh no! La mamma si arrabbia!" } },
-          { "sl": "Ura je sedem. Šola je ob osem!", "en": "It's seven o'clock. School is at eight!", "de": "Es ist sieben Uhr. Die Schule ist um acht!", "it": "Sono le sette. La scuola è alle otto!",
-            "grammar": "kdaj-cas", "why": { "en": "Ob with the hour takes the locative: ob osmih, ob sedmih.", "de": "Ob steht bei Uhrzeiten mit dem Lokativ: ob osmih, ob sedmih.", "it": "Ob con le ore regge il locativo: ob osmih, ob sedmih." },
-            "reply": { "face": "confused", "sl": "Ob osem? Kaj je to? Še pet minut …", "en": "Ob osem? What's that? Five more minutes …", "de": "Ob osem? Was ist das? Noch fünf Minuten …", "it": "Ob osem? Che roba è? Altri cinque minuti …" } }
+          { "sl": "Ura je sedem. Šola je ob osem!", "en": "It's seven o'clock. School is at eight (as people say it)!", "de": "Es ist sieben Uhr. Die Schule ist um acht (wie man es sagt)!", "it": "Sono le sette. La scuola è alle otto (come si dice a voce)!", "ok": true,
+            "reply": { "face": "worried", "sl": "Ob osmih? Ojoj! Mami bo jezna!", "en": "At eight? Oh no! Mum will be cross!", "de": "Um acht? Oje! Mama wird böse!", "it": "Alle otto? Oh no! La mamma si arrabbia!" } },
+          { "sl": "Ura je sedmih. Šola je ob osmih!", "en": "It's at-seven o'clock. School is at eight!", "de": "Es ist um-sieben Uhr. Die Schule ist um acht!", "it": "Sono alle-sette. La scuola è alle otto!",
+            "grammar": "kdaj-cas", "why": { "en": "What time it is: the hour in the nominative, ura je sedem. Ob + the locative says when: ob osmih.", "de": "Wie spät es ist: die Stunde im Nominativ, ura je sedem. Ob + Lokativ sagt, wann: ob osmih.", "it": "Che ore sono: l'ora al nominativo, ura je sedem. Ob + locativo dice quando: ob osmih." },
+            "reply": { "face": "confused", "sl": "Sedmih? Ura je sedem, {learner}. Še pet minut …", "en": "Sedmih? It's seven o'clock, {learner}. Five more minutes …", "de": "Sedmih? Es ist sieben Uhr, {learner}. Noch fünf Minuten …", "it": "Sedmih? Sono le sette, {learner}. Altri cinque minuti …" } }
         ] },
         { "who": "nejc", "face": "sad", "sl": "Še pet minut … Samo še pet minut, prosim …", "en": "Five more minutes … Just five more minutes, please …", "de": "Noch fünf Minuten … Nur noch fünf Minuten, bitte …", "it": "Altri cinque minuti … Solo altri cinque minuti, per favore …" },
         { "choices": [
