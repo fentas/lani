@@ -91,10 +91,10 @@ skrito · Still hidden" with the level each needs). No crash.
 
 ## How it is tested
 
-Run on the rebased branch: the bridge's `tsc` clean, its smoke 3,098 checks passed (ports 9010–9018), `tutor-export
---check` 87 files match; the Android unit suite 3,393 tests through lani-slot.sh, all passing but one timing check of an
-existing art on the loaded machine (`SceneDetailTest` "a closer frame renders fast": the kitchen, the Alps, the stream at
-26–30 ms against 25; none of the new arts), and the scene battery again after the last changes (254 tests, the same one).
+Run on the branch rebased onto main with places-it-buildings: the bridge's `tsc` clean, its smoke 3,107 checks passed
+(ports 9010–9018), `tutor-export --check` 87 files match; the Android unit suite 3,412 tests through lani-slot.sh, all
+passing but one timing check of an existing art on the loaded machine (`SceneDetailTest` "a closer frame renders fast":
+the kitchen at 26 ms against 25; none of the new arts), `BuildingLevelsTest` with the palisade's gate among the buildings.
 
 - **The pictures.** Every art goes through the generic art contract: `ScenePaintersTest` (a hit for every thing and
   spot, sane sizes, taps to the pixel), `SceneDetailTest` (every detail, a window is that part of the whole, the hits stay
