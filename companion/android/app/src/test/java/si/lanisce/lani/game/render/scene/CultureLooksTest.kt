@@ -45,21 +45,27 @@ class CultureLooksTest {
             name to fnv(c.pixels)
         }
 
-    /** The default culture's pictures as the painters drew them before the culture looks (2026-10-28). */
+    /** The default culture's pictures as the painters drew them before the culture looks (2026-10-28); the village's places' arts as they came (2026-10-30). */
     private val golden: Map<String, Map<String, String>> = mapOf(
         "alps" to mapOf("day" to "5a5d0afa6df563f4", "dusk-winter" to "be61904231098891", "night-k2" to "bce95d26f149895d"),
         "apiary" to mapOf("day" to "1e50f1d726d07a25", "dusk-winter" to "453ae0df7ded3067", "night-k2" to "9ff1c006eba8e0d6"),
         "attic" to mapOf("day" to "6bcda3ea37e68e36", "dusk-winter" to "13561ab21998b47a", "night-k2" to "958630ef3667941a"),
+        "bocce" to mapOf("day" to "837c3d737072911", "dusk-winter" to "e072d2281c279b5", "night-k2" to "988317a05f34c9e6"),
         "campfire" to mapOf("day" to "c988e0ed81e30678", "dusk-winter" to "ec0e7881a3a9821b", "night-k2" to "364e561b9a420d1d"),
         "cellar" to mapOf("day" to "6633d946c91eadb1", "dusk-winter" to "3d10864ad96e0bac", "night-k2" to "3ab89f1c73da72f4"),
+        "chapel" to mapOf("day" to "57ef3ad3b19cdaf1", "dusk-winter" to "3a4c3b1c58777ab9", "night-k2" to "39b8d55a448c7018"),
         "church" to mapOf("day" to "31e3524cecc81ed0", "dusk-winter" to "e0afa01d6bb37039", "night-k2" to "d27bfb5087f0e0df"),
         "field" to mapOf("day" to "53c33480469df7eb", "dusk-winter" to "bb60e7a24cdee2a2", "night-k2" to "3e8ad26693cd3c6f"),
+        "firestation" to mapOf("day" to "34c5ae40e76974ef", "dusk-winter" to "fbd1e5ac93f1a8ee", "night-k2" to "7aef511846894a30"),
         "forest" to mapOf("day" to "fc9002307f0a454b", "dusk-winter" to "6cdd11be017d0d90", "night-k2" to "b6f42a1b58c4fcd8"),
         "hills" to mapOf("day" to "7c29c75bfdb6a063", "dusk-winter" to "a89c994e437f0f7c", "night-k2" to "a6f01781c31c2a4f"),
         "kitchen" to mapOf("day" to "8a26337490b31ce4", "dusk-winter" to "7f35f5dfdec87d4d", "night-k2" to "1de2dcf56a1668e0"),
         "livingroom" to mapOf("day" to "3792029f557f5463", "dusk-winter" to "9e3c1d5bc85e8d6", "night-k2" to "bf313be42e550c6e"),
+        "lookout" to mapOf("day" to "1a65549e7f4f8e39", "dusk-winter" to "62605923514f4d41", "night-k2" to "9982dd3271548e37"),
         "market" to mapOf("day" to "8dd099421cc3261", "dusk-winter" to "2d072797b199d996", "night-k2" to "b3dbc364108f1053"),
         "mill" to mapOf("day" to "d0297be1420f9767", "dusk-winter" to "885fab03655f7af3", "night-k2" to "f064f029a16ba8c0"),
+        "palisade" to mapOf("day" to "f16888db9f7d6efb", "dusk-winter" to "3132ceac8dbf5bd7", "night-k2" to "aaa9207a66c2b3d"),
+        "playground" to mapOf("day" to "b58bf294c2f79037", "dusk-winter" to "614fddf15333bd83", "night-k2" to "9e1073bd8d6a20a7"),
         "pond" to mapOf("day" to "5a13676b2c982f85", "dusk-winter" to "9f8f32e1d4110d56", "night-k2" to "d62373967a2d989b"),
         "school" to mapOf("day" to "d95a98ccc0c168b4", "dusk-winter" to "166230201723e32a", "night-k2" to "c72dd088e6bbb3f6"),
         "sea" to mapOf("day" to "2838a9cce526e19e", "dusk-winter" to "aceed89f35199027", "night-k2" to "bc0cebb5ceef25a"),
