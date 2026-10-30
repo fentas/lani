@@ -24,7 +24,7 @@ Android app ──HTTP/SSE──► bridge service ◄──unix socket (MCP)─
 |---|---|
 | `bridge/` | Claude Code channel server (Bun/TS). Forwards app messages into the session, exposes `reply`, `publish_module`, `publish_pack`, `publish_grammar`, `publish_worksheet`, `publish_scenario`, `publish_scene`, `publish_reading` and `publish_gloss` tools, relays permission prompts, serves the app API. |
 | `lexicon/` | Word lookup's dictionaries (see [Word lookup](#word-lookup)): `sl.json`, built from Wiktionary, with its meanings in Italian and German, `sl.extra.json`, a hand-written supplement, and `sl.forms.json`, the forms book: hand-checked tables of the irregular verbs and the verb pairs (see [Word forms](#word-forms)). The larger ones (Italian, German, English) are downloads (`LANI_LEXICON_URL`). |
-| `grammar/` | The grammar book's curated pages (`lani.grammar/v0`, one rule each, see [Grammar book](#grammar-book)): `grammar/<language>/`, 59 in `grammar/sl/`, 16 each in `grammar/it/`, `grammar/de/` and `grammar/en/`. |
+| `grammar/` | The grammar book's curated pages (`lani.grammar/v0`, one rule each, see [Grammar book](#grammar-book)): `grammar/<language>/`, 59 in `grammar/sl/`, 16 each in `grammar/it/`, `grammar/de/` and `grammar/en/`; `grammar/sl/data/case-triggers.json`, what decides a case (the case lens's trigger table, see [The case lens](#the-case-lens)), no page. |
 | `cards/` | The cheat sheet's curated cards no grammar page fits (`lani.card/v0`, see [Cheat sheet](#cheat-sheet)): `cards/<language>/<id>.json`. |
 | `course/` | The school's course (see [The school's course](#the-schools-course) and [COURSE.md](COURSE.md)): `course/<language>/course.json`, the outline of its levels and units (`lani.course/v0`), and `course/<language>/units/<id>.json`, a unit each (`lani.unit/v0`). |
 | `drills/` | The car's audio drills (`lani.drill/v0`, see [The drills](#the-drills)): `drills/<language>/`, four in `drills/sl/` (transformations, rapid fire, sentence building, riddles). |
@@ -3615,6 +3615,70 @@ text's figures), so a year said is right as its figures too. Machine-written, no
 module's screen says so ("🤖"), the tutor's data has `machine_written`, and a word that looks wrong is fixed in the app's
 code. `NumbersPracticeTest` holds a hand-checked table of the tricky ones (1 and 2's forms, 11–19, 21, 22, 99, 100, 101,
 200, 1000, 2000, 2026) and reads every number 0 … 9999 back. QA's step `numbers` goes through it ([Test](#test)).
+
+### The case lens
+
+A tapped Slovene word shows its case and number and the word that decided it, wherever a word can be tapped (dialogs,
+talks, stories, readings, the chat, the grammar pages' examples): the word card's "🧩 Sklon · Case" row
+(docs/plans/05-built/case-lens.md). The bridge reads it (`bridge/src/case-lens.ts`), so the phone's own bridge does too,
+offline, in the same `GET /lookup`.
+
+**What decides a case is data**: `companion/grammar/sl/data/case-triggers.json` (`lani.case-triggers/v0`, schema in
+`bridge/src/case-triggers.ts`, one directory under the book's pages, which are every `.json` beside it). The six cases
+with their school question words and colours (shared with the case trainer: imenovalnik 1 `#4A7FC1` … orodnik 6
+`#2C9AA0`); the prepositions by sense (v, na: where to, the accusative, or where, the locative; pod, nad, pred, med, za:
+the instrumental or the accusative; z/s: with, or from, the genitive; a time noun: kdaj-cas); the negations; the words
+of quantity, the nouns of measure and the numbers from five; the verbs and the words of feeling that govern a case
+(bati se, pomagati, dati, všeč); the verbs of motion and of rest, the copulas, the verbs with and without an object;
+the nouns of time; fixed phrases (dober dan, na svidenje); the personal pronouns (osebni-zaimki's, with the genitive
+and locative it leaves out) and the fused ones (zame, nanj). Each entry names its rule, a grammar page's id, and has
+examples the smoke analyses. A verb is given by its infinitive and its first person singular; the lens makes its forms.
+
+**The analysis**: each word's readings come from the forms book (Wiktionary's grammar strings read back into case,
+number and gender; the hand-checked tables; the table's pronouns; the villagers' and the learner's declined names; a
+noun's or an adjective's regular endings for a form the dictionary lacks, marked `derived`). The clause then decides,
+each step a rule: a phrase, the preposition before the phrase (the verb's motion or rest where the form doesn't tell),
+a number or quantity, a word of feeling, a negation, a verb of the table, the subject's agreement with its verb (person,
+number, an l-form's gender), the object of a verb that takes one; the dual only with dva, dve, oba or a dual verb, the
+locative and the instrumental only after a preposition, a genitive only with something that asks for it (or when the
+form is nothing else: Daj mi kruha). What's left: one reading (`decided`), one preferred (`likely`: the singular of a form
+that reads alike in the plural, the subject before its verb, a preposition's usual sense), or several (`ambiguous`,
+none picked). Adjectives, possessives and numbers agree with their noun (`agrees`).
+
+**`GET /lookup?w=mleka&line=Kavo pijem brez mleka.`** (and `&n=1` for the same word's second place in its line) has
+`case`:
+
+```json
+{ "i": 3, "word": "mleka", "start": 16, "end": 21,
+  "readings": [{ "lemma": "mleko", "pos": "noun", "case": "gen", "number": "sg", "genders": ["n"] }],
+  "pick": { "case": "gen", "number": "sg", "gender": "n", "as": "preposition" }, "sure": "decided", "kind": "preposition",
+  "trigger": { "i": 2, "word": "brez", "start": 11, "end": 15 }, "sense": "other", "rule": "rodilnik-predlogi",
+  "options": [{ "case": "gen", "number": "sg", "gender": "n", "as": "preposition" }], "out": [] }
+```
+
+- `kind`: what decided it (preposition, negation, quantity, number, verb, predicate, copula, subject, object, address,
+  attribute, time, phrase, fused, form, unresolved); `trigger` its word and place in the line (offsets of the line as
+  sent); `options` the readings left, the likely one first; `out` the form's readings ruled out and why (`dual`,
+  `preposition`, `needs-preposition`, `needs-trigger`, `agreement`, `subject-taken`, `no-object` …); `derived` a form read
+  by its endings; `seen: true` when this look counted for `GET /case-lens/seen` (below; the case trainer's hook). A
+  preposition or another trigger tapped has `governs` (the words it decides and their case) instead. None for a word
+  without a case, a line not given, a visit's word or another language's village.
+- **`POST /case-lens {lines: [...]}`** (60 lines of 400 characters at most; a read, no outbox): each line's words with a
+  case, `{i, start, end, word, case?, number?, gender?, sure, kind, rule, trigger?}`, for the colours.
+- **`GET /case-lens/seen`**: per rule (the page id), how often and on how many days a word whose case its line decided was
+  looked up (`seen`, `days`, `last`, its trigger `words`); once a day per word of a line;
+  `<data>/app/case-lens-seen.json`. A light "met" signal for the case trainer, never a pass.
+
+**In the app**: the card's line shows the tapped word in its case's colour and the deciding word underlined; the row
+gives the case and number in both languages ("rodilnik, ed. · genitive, sg.", an adjective's gender too), the question
+words ("koga? česa?"), what decided it in one line (Slovene, then the base), the agreement, the form's other readings,
+"〰 po pravilnih končnicah" for a derived one, and the rule's page (📖 ›). A likely case comes first, marked, with the
+readings it leaves; an ambiguous word lists its readings, none preferred. Not while an exercise is open (its answer
+could show). "🎨 Skloni · Cases" (off by default,
+remembered: `data/CasePrefs.kt`), a switch under "👁 Prevod" in a reading and an item of the ⋯ in the dialog panel's
+header (every dialog, story, talk), underlines each word in its case's colour, dotted where the line can't tell, with a
+legend; the lines are asked of the bridge a few dozen at a time (`app/CaseColoursController.kt`) and drawn with the text.
+Slovene only, at home.
 
 ### Forms cards
 

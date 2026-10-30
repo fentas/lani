@@ -106,7 +106,11 @@ sedeti under it; see [GAME.md](GAME.md#a-words-forms)). "👁 Prevod" in the hea
 translations of the lines and the choices, to read and answer in the language alone; the phone remembers it for every
 later dialog (`DialogPrefs.translations`, on by default). While they're hidden, a tap on a line beside its words shows
 that line's translation (a tap again hides it; TalkBack: "Pokaži prevod · Show the translation"); the word cards, the
-🔊 and the why stay. Beside the 🎤, a turn whose rule has a page shows "📖 Namig · Hint" (the rule, never the answer: see
+🔊 and the why stay. A Slovene word's card has its case ("🧩 Sklon · Case": the case and number, the word that decided
+it underlined in the line, the rule's page; [README](README.md#the-case-lens)), and the header's ⋯ has "🎨 Skloni ·
+Cases": each word of the lines underlined in its case's colour, dotted where the line can't tell (a wrong choice's
+never), with a legend; remembered for every later dialog (`CasePrefs.colours`, off by default). Beside the 🎤, a turn
+whose rule has a page shows "📖 Namig · Hint" (the rule, never the answer: see
 [The hint](#the-hint-the-rule-never-the-answer)), and a long press on a line said opens its grammar word by word (see
 [The sentence's grammar](#the-sentences-grammar-a-long-press-on-a-line)). Every dialog is this panel: a scene's, the
 storyteller's evening story, a keeper's talk at a spot of the landscape, a newcomer's arrival, a village project's step
