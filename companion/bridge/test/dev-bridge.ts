@@ -11,6 +11,7 @@ import { cpSync, existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } 
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { setting } from '../src/env'
+import { learnerLangs } from '../src/learners'
 import { voiceDir } from '../src/paths'
 import { fakeEleven } from './fakes/eleven'
 
@@ -39,6 +40,65 @@ for (const sig of ['SIGINT', 'SIGTERM', 'SIGHUP'] as const) process.on(sig, () =
 const client = new Client({ name: 'dev-tutor', version: '0' })
 const reply = (conversation_id: string, text: string, data?: object) =>
   client.callTool({ name: 'reply', arguments: { conversation_id, text, ...(data ? { data } : {}) } })
+
+/**
+ * The canned role-play in each course's language: the lines are `sl` and `en` in a reply's data whatever the language
+ * (scenarios.ts: "the key is sl in every language"), `en` in the learner's base. Machine-written Italian and German, for
+ * QA only (no learner sees them).
+ */
+type Said = Record<string, string>
+const ROLEPLAY: Record<string, { hint: Said; puzzled: Said; turns: Said[]; correction: Said; practise: string }> = {
+  sl: {
+    hint: { sl: 'Hvala, zelo dobro je.', en: 'Thanks, it is very good.', de: 'Danke, es ist sehr gut.' },
+    puzzled: { sl: 'Kako, prosim? Še enkrat?', en: 'Pardon? Once more?', de: 'Wie bitte? Noch einmal?' },
+    turns: [
+      { sl: 'Me veseli! Še malo juhe?', en: "I'm glad! A bit more soup?", de: 'Das freut mich! Noch ein bisschen Suppe?' },
+      { sl: 'Res? Ti je juha všeč?', en: 'Really? Do you like the soup?', de: 'Wirklich? Schmeckt dir die Suppe?' },
+      { sl: 'Ha ha, prav imaš!', en: "Ha ha, you're right!", de: 'Haha, du hast recht!' },
+      { sl: 'Hvala! To je moj recept.', en: "Thank you! It's my recipe.", de: 'Danke! Das ist mein Rezept.' },
+    ],
+    correction: { en: 'Rekli bi: **Zelo je dobro.** · "dobro" agrees with the neuter "it".', de: 'Man sagt: **Zelo je dobro.** · „dobro" richtet sich nach dem sächlichen „es".' },
+    practise: '*sit sem*, *še malo*',
+  },
+  it: {
+    hint: { sl: 'Grazie, è molto buona.', en: 'Thanks, it is very good.', de: 'Danke, sie ist sehr gut.' },
+    puzzled: { sl: 'Come, scusa? Puoi ripetere?', en: 'Pardon? Once more?', de: 'Wie bitte? Noch einmal?' },
+    turns: [
+      { sl: 'Che piacere! Ancora un po\' di minestra?', en: "I'm glad! A bit more soup?", de: 'Das freut mich! Noch ein bisschen Suppe?' },
+      { sl: 'Davvero? Ti piace la minestra?', en: 'Really? Do you like the soup?', de: 'Wirklich? Schmeckt dir die Suppe?' },
+      { sl: 'Ah ah, hai ragione!', en: "Ha ha, you're right!", de: 'Haha, du hast recht!' },
+      { sl: 'Grazie! È la mia ricetta.', en: "Thank you! It's my recipe.", de: 'Danke! Das ist mein Rezept.' },
+    ],
+    correction: { en: 'Si dice: **È molto buona.** · "buona" agrees with the feminine "minestra".', de: 'Man sagt: **È molto buona.** · „buona" richtet sich nach der weiblichen „minestra".' },
+    practise: '*sono sazio*, *ancora un po\'*',
+  },
+}
+const DEBRIEF: Said = { en: '✅ You greeted politely.\n\n📌 Practise', de: '✅ Du hast höflich gegrüßt.\n\n📌 Übe' }
+
+/** The course's language (the village's: its culture pack's, GET /culture) and the learner's base, asked once. */
+let course: { target: string; base: string } | undefined
+async function courseLangs(): Promise<{ target: string; base: string }> {
+  if (course) return course
+  try {
+    const r = await fetch(`http://127.0.0.1:${port}/culture`, { headers: { authorization: 'Bearer dev-token' } })
+    const language = ((await r.json()) as { language?: string }).language ?? 'sl'
+    course = learnerLangs(dataDir, language)
+  } catch {
+    return learnerLangs(dataDir, 'sl')
+  }
+  return course
+}
+
+/** A role-play's language: a visit's talk is in the visited town's (data.visit.language), any other in the course's. */
+async function talkLangs(d: { visit?: { language?: string } }): Promise<{ lines: (typeof ROLEPLAY)[string]; target: string; base: string }> {
+  const c = await courseLangs()
+  const target = d.visit?.language ?? c.target
+  const base = c.base === target ? 'en' : c.base
+  return { lines: ROLEPLAY[target] ?? ROLEPLAY.sl, target, base }
+}
+
+/** [s] for a reply: its line (`sl`, in the talk's language) and its translation in [base] (`en`), English without one. */
+const said = (s: Said, base: string) => ({ sl: s.sl, en: s[base] ?? s.en })
 
 client.fallbackNotificationHandler = async n => {
   const p = n.params as any
@@ -71,23 +131,25 @@ client.fallbackNotificationHandler = async n => {
   else if (kind === 'roleplay') {
     const d = JSON.parse(/```json\n([\s\S]*)\n```/.exec(String(p.content))?.[1] ?? '{}')
     await Bun.sleep(2500) // the real tutor takes 10-30 s
-    if (d.hint) await reply(conversation_id, 'Hvala, zelo dobro je.', { hint: true, sl: 'Hvala, zelo dobro je.', en: 'Thanks, it is very good.' })
+    // in the talk's language: the course's (an Italian learner's talk in Italian), a visit's in the town's
+    const { lines, base } = await talkLangs(d)
+    if (d.hint) await reply(conversation_id, lines.hint.sl, { hint: true, ...said(lines.hint, base) })
     else {
       const turn = Number(d.turn ?? 1)
       const goals = Array.from({ length: Math.min(turn, d.scenario?.goals?.length ?? 0) }, (_, i) => i)
-      const correction = turn === 2 ? 'Rekli bi: **Zelo je dobro.** · "dobro" agrees with the neuter "it".' : undefined
+      const correction = turn === 2 ? lines.correction[base] ?? lines.correction.en : undefined
       // a line and a face a turn (companion/SCENES.md, "Faces"), so QA's screenshots of each differ; nothing heard: puzzled
-      const said = !String(d.heard ?? '').trim()
-        ? { sl: 'Kako, prosim? Še enkrat?', en: 'Pardon? Once more?', face: 'confused' }
-        : turn === 1 ? { sl: 'Me veseli! Še malo juhe?', en: "I'm glad! A bit more soup?", face: 'happy' }
-        : turn === 2 ? { sl: 'Res? Ti je juha všeč?', en: 'Really? Do you like the soup?', face: 'curious' }
-        : turn === 3 ? { sl: 'Ha ha, prav imaš!', en: "Ha ha, you're right!", face: 'laugh' }
-        : { sl: 'Hvala! To je moj recept.', en: "Thank you! It's my recipe.", face: 'proud' }
-      await reply(conversation_id, said.sl, { ...said, goals_done: goals, correction, end: turn >= 4 || undefined })
+      const faces = ['happy', 'curious', 'laugh', 'proud']
+      const line = !String(d.heard ?? '').trim()
+        ? { ...said(lines.puzzled, base), face: 'confused' }
+        : { ...said(lines.turns[Math.min(turn, 4) - 1] ?? lines.turns[3], base), face: faces[Math.min(turn, 4) - 1] ?? 'proud' }
+      await reply(conversation_id, line.sl, { ...line, goals_done: goals, correction, end: turn >= 4 || undefined })
     }
   } else if (kind === 'roleplay_end') {
     await Bun.sleep(2500)
-    await reply(conversation_id, '(dev tutor) **Bravo!** 🎉\n\n✅ You greeted politely.\n\n📌 Practise: *sit sem*, *še malo*.', { debrief: true })
+    const d = JSON.parse(/```json\n([\s\S]*)\n```/.exec(String(p.content))?.[1] ?? '{}')
+    const { lines, base } = await talkLangs(d)
+    await reply(conversation_id, `(dev tutor) **Bravo!** 🎉\n\n${DEBRIEF[base] ?? DEBRIEF.en}: ${lines.practise}.`, { debrief: true })
   }
   else if (kind === 'partner_answer') await reply(conversation_id, '**Lepo!** 🟢 (dev tutor) Nice answer.', { score: 8, partner_note: '(dev tutor) Jan answered well.' })
   else if (kind === 'gloss_request') {
