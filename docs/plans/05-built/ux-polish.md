@@ -107,8 +107,12 @@ How they were directed:
 ### 5. QA's visit-home and coast steps
 
 Both were fixed on main by infra (60908e38: `visit-home` expects Friends after "⌂ Home", where the visit began; the coast
-step's "open village" after Nonna Rosa's talk uses `is_home`). They are run again here (below); the coast run also
-checks the founding's reading.
+step's "open village" after Nonna Rosa's talk uses `is_home`). Run again here, `visit-home` passes; the coast stopped
+earlier, at a wild animal: a hare on the map hopped on between the screen's dump and the tap, so its card never opened
+and the step failed before the talk. An animal whose card doesn't open is a note now, as the talk's look is (its
+Italian word on the map is the check that matters; when its card opens its word is checked as before), and the coast
+runs to its end, past Nonna Rosa's talk and "open village" to the village and the town on the coast. The founding's
+reading is checked in setup, where a learner without a village founds it (`founding_read`).
 
 ### 6. The export carries a hosted child's marker
 
@@ -156,7 +160,8 @@ a refused key in the learner's words too ("🔑 Ta ključ ne deluje …") instea
 |---|---|---|
 | Hear the founding screen | not possible | 0 (it reads itself), 1 to hear it again |
 | Hear the news sheet | not possible | 1 (🔊) |
-| Read the question against the card, tablet on its side | TBD | 0 (both in view) |
+| Read the question against the card, tablet on its side | a swipe in a 33 px strip, the options never in view | 0 (the question, its options and the card side by side) |
+| The same on the phone, a long explanation | not possible (16 px of the question shown) | 0 (the sentence asked in view) |
 | Teo's story with the teller's faces | 0 | 0 (the same taps; the faces come with the lines) |
 | The roll call's room | the I spy offer beside the lesson | the lesson alone (one thing to do) |
 | A child's data to a node | export, import, then `profiles.json` edited by hand (or not known at all) | export, import |
@@ -164,11 +169,55 @@ a refused key in the learner's words too ("🔑 Ta ključ ne deluje …") instea
 
 ## Tests
 
-TBD
+On the branch rebased onto main (e5c5d810: map-culture and native-check-sl merged):
+
+- **Android**, the whole unit suite through lani-slot.sh: 3,494 tests, 2 skipped. Its first run showed 2 failures in
+  `L10nTablesTest`: the visitor's new key (`villageSheets.visitingToday`) was written to the tables while the suite ran
+  (the code read at test time, the tables from the build before); the l10n tests again after it: 59, all passing; the
+  suite once more at the end (below, "The last checks"). New and changed:
+  - `game/ReadAloudTest` (3): the founding in it · de and sl · en from each language's table in all twelve pairs; a
+    chronicle line's halves, a name, halves holding " · ", an odd count, emoji gone, "°C" kept; the sheet's heading and
+    its eight newest lines.
+  - `ui/FeedbackPlaceTest` (2): beside on the tablet on its side and a phone turned, under it upright; the card's width.
+  - `game/scene/HappeningsTest` (+1, 13): the roll call alone on in its room (the globe and the ball waiting), the
+    lesson found; without it the room's own; someone not in the class goes on elsewhere.
+  - `tutor/live/LiveTutorTest` (+1, 23): empty, refused (a 401 on GET /v1/models), failed (the key never in the text).
+  - `app/SetupFlowTest` (15): the typed problems in plain words.
+  - `hosted/HostedExportTest` (+1, 7): a child's export from the phone read back and verified by the node's script, a
+    grown-up's without the flag, a node's child profile read by the app.
+- **Bridge**: `bunx tsc --noEmit -p .` clean; the smoke (ports 9170/9173/9176): 3,131 checks, all passing. Twice, at a
+  load average of 53 (three agents' Gradle and four emulators), one check failed: "POST /words: the tutor hears the words
+  added, gathered in one line" (it waits 1.3 s for a note gathered 1 s after the first word); at a quiet moment it
+  passes. Nothing of the bridge changed here; the stories' faces pass `faceErrors`. `tutor-export --check`: 88 files
+  match.
+- **Python**: `companion/tests` 132 (11 skipped), `test_export` 19 among them (+1: a child's profile by `--profile` and
+  `--data`, verify, the dry run, the registry marked, a grown-up's export into a child's profile, unregistered data, the
+  default learner, `LANI_CHILD`); `tests` 251.
+- **The stories' faces**: the faces script's proof on all 46 files against the base and again against main after the
+  rebase: exit 0, 1,749 faces. (The script, faces-content's taught stories, lived in the session's scratchpad and went
+  with the machine's reboot; the proof's output is above.)
 
 ## On the emulator
 
-TBD
+`companion/bin/qa-slot`, synthetic learners only (`make-learner.ts`: Ana, Slovene from English; Teo, Italian from German,
+Friuli, a child, with and without a village), the debug build of the base (2437193f, "before") and of the branch
+("after"), the dev bridge with a fake ElevenLabs where a line is voiced. Screenshots in
+`/tmp/claude-1000/-mnt-scratch-github-fentas-ai-slo/721724ea-4389-48ad-b641-b6d1d5157803/scratchpad/ux-ux-polish/`
+(`before/`, `after/`), and in `companion/qa-shots/` of each run.
+
+| What | Before | After |
+|---|---|---|
+| Teo's founding (it · de) | no 🔊; nothing read (`founding-teo.txt`) | it reads itself: "1/3 it clip «Dove sarà il tuo villaggio?»" (the Italian narrator's clip), then the German by the phone's voice; ⏹ by the 🏡 while it plays |
+| The news sheet, Ana (sl · en) and Teo (it · de) | no 🔊 | 🔊: 14 pieces, the heading and six lines, each "sl node" then "en tts:en" (Teo's "it node" then "de tts:de"); a tap stops it |
+| The story by the fire, Ana | the teller's faces: happy and at rest only | Stari Janez's portrait says who and how; his faces include curious, surprised, sad and proud from the content (`story-faces.txt`) |
+| The story al fuoco (Teo's village) | (the same: the moment's faces only) | Nonno Bepi: curious, surprised, worried, sad and proud from the content (`story-bepi-faces.txt`) |
+| The feedback card, tablet on its side | 33 px of "Jaz ___ brata." under the card, the options out of view | the question, its options (the wrong one marked) and the card side by side: 72 px of the question's line, all of it |
+| The same, the tablet upright | 72 px shown, the card under it | the same |
+| The same, the phone | 16 px of the question shown | 95 px: the sentence asked in view, the card under it with its buttons |
+| The roll call's room (Teo) | "🔍 Vedo, vedo · Ich sehe was", "Giulia: Giochiamo a «Vedo, vedo»?" during the roll call | Maestra Elena's lesson alone; the roll call played to its end after it |
+| QA's friuli-school | stopped at the preparing line (on main) | passes: "✅ 18 unità fatte" in one line, the card, the room, the roll call, the tablet |
+| QA's visit-home | (fixed on main by infra) | passes: Friends with "Borgo di Prova" after "⌂ Home" |
+| QA's coast | stopped at a hare that hopped away from the tap (its card never opened) | passes end to end: the founding read, the beach, the horizon, the tablet, «scoiattolo» on its card, the talk's goals in it · de after Nonna Rosa's page (no "open village" failure), the village and the town on the coast |
 
 ## What's left
 
@@ -184,8 +233,17 @@ TBD
 - **A grown-up's export into a child's phone or profile** leaves it a child's on purpose; a parent changes it
   (`lani profile` has no "set child" yet: `profiles.json` by hand on a node, the onboarding's "for me" on a phone).
 - **The stories' content problems** below, for the writers and the native check; nothing was changed in the texts.
+- **A request's line read aloud**: the four cultures' `quests.json` write the base half as a gloss without its subject
+  ("Zia Nives ti chiede aiuto · bittet dich um Hilfe", Jan's "Babica Micka te prosi za pomoč · asks for your help"), so
+  the 🔊 says "bittet dich um Hilfe" alone. `{giver}` in each base half would make it a sentence (on screen too).
+- **The faces script** (faces-content's, taught that a story's line without `who` is the teller's) lived in the session's
+  scratchpad and was lost with the machine's reboot. A tutor's new story gets its faces from the tutor (the publish
+  tools' `FACES_SAID`); bring a script into the repo if the curated stories are directed again.
 
 ## For the native check
+
+The app's one new label, machine-written in de and it: `villageSheets.visitingToday`, "{name} ist heute zu Besuch",
+"{name} oggi è in visita" (sl and en as the line read before).
 
 The faces add no words. What the reading of the 46 stories found, not changed:
 
