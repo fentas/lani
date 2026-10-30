@@ -1,0 +1,954 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "la-cuccagna",
+  "language": "it",
+  "title": { "it": "L'albero della cuccagna", "sl": "Drog z nagradami", "en": "The greasy pole", "de": "Der Klettermast" },
+  "emoji": "🌲",
+  "level": "A1",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written, not reviewed by a native speaker",
+  "art": "square",
+  "from": ["project:mlaj"],
+  "pack": "la-cuccagna",
+  "objects": [
+    { "slot": "linden", "word": "tiglio", "pack": "la-cuccagna" },
+    { "slot": "bench", "word": "panchina", "pack": "la-cuccagna" },
+    { "slot": "ball", "word": "pallone", "pack": "a-scuola" },
+    { "slot": "well", "word": "pozzo", "pack": "la-cuccagna", "needs": { "building": "WELL" } },
+    { "slot": "dog", "word": "cane", "pack": "famiglia" },
+    { "slot": "cat", "word": "gatto", "pack": "famiglia" },
+    { "slot": "house", "word": "casa", "pack": "casa-e-cucina" },
+    { "slot": "tower", "word": "campanile", "pack": "in-paese", "needs": { "building": "CHURCH" } },
+    { "slot": "bicycle", "word": "bicicletta", "pack": "la-cuccagna" },
+    { "slot": "flowers", "word": "fiore", "pack": "festa-liberazione" },
+    { "slot": "sun", "word": "sole", "pack": "festa-pasquetta" },
+    { "slot": "fence", "word": "steccato", "pack": "nel-campo" }
+  ],
+  "people": [
+    { "id": "davide", "name": "Pastore Davide", "emoji": "🐑", "art": "shepherd", "slot": "well", "villager": "davide" },
+    { "id": "tommaso", "name": "Tommaso", "emoji": "🧒", "art": "child1", "slot": "play1", "villager": "tommaso" },
+    { "id": "lorenzo", "name": "Lorenzo", "emoji": "👦", "art": "child3", "slot": "play2", "villager": "lorenzo" },
+    { "id": "rosa", "name": "Nonna Rosa", "emoji": "👵", "art": "grandma", "slot": "bench", "villager": "rosa" }
+  ],
+  "happenings": [
+    {
+      "id": "arrampicata",
+      "title": { "it": "Davide e l'albero della cuccagna", "sl": "Davide in drog z nagradami", "en": "Davide and the greasy pole", "de": "Davide und der Klettermast" },
+      "who": "davide",
+      "when": ["afternoon"],
+      "chance": 0.6,
+      "dialog": "arrampicata",
+      "dialogs": ["arrampicata-gatto", "arrampicata"],
+      "reward": { "wood": 20},
+      "marker": "🧗",
+      "memory": { "it": "l'albero della cuccagna e il palo unto", "sl": "drog z nagradami in namazan kol", "en": "the greasy pole and its soaped trunk", "de": "den Klettermast und seinen eingeseiften Stamm" }
+    },
+    {
+      "id": "mattina",
+      "title": { "it": "Davide unge il palo", "sl": "Davide maže drog", "en": "Davide greases the pole", "de": "Davide schmiert den Mast ein" },
+      "who": "davide",
+      "when": ["morning"],
+      "chance": 0.5,
+      "dialog": "mattina",
+      "dialogs": ["mattina-vento", "mattina"],
+      "reward": { "wood": 15},
+      "marker": "🧼",
+      "memory": { "it": "la mattina che abbiamo unto il palo", "sl": "jutro, ko sva mazala drog", "en": "the morning we greased the pole", "de": "den Morgen, an dem wir den Mast eingeschmiert haben" }
+    },
+    {
+      "id": "premi",
+      "title": { "it": "Lorenzo sogna i premi", "sl": "Lorenzo sanja o nagradah", "en": "Lorenzo dreams of the prizes", "de": "Lorenzo träumt von den Preisen" },
+      "who": "lorenzo",
+      "when": ["morning"],
+      "chance": 0.5,
+      "dialog": "premi",
+      "dialogs": ["premi-nastri", "premi"],
+      "reward": { "food": 15},
+      "marker": "🍬",
+      "memory": { "it": "le caramelle in cima all'albero", "sl": "bonbone na vrhu droga", "en": "the candies at the top of the pole", "de": "die Bonbons oben am Mast" }
+    },
+    {
+      "id": "pallone",
+      "title": { "it": "Tommaso gioca a pallone", "sl": "Tommaso igra nogomet", "en": "Tommaso plays football", "de": "Tommaso spielt Fußball" },
+      "who": "tommaso",
+      "when": ["afternoon"],
+      "chance": 0.5,
+      "dialog": "pallone",
+      "dialogs": ["pallone-panchina", "pallone"],
+      "reward": { "food": 15},
+      "marker": "⚽",
+      "memory": { "it": "il gol in piazza", "sl": "gol na trgu", "en": "the goal on the square", "de": "das Tor auf dem Platz" }
+    },
+    {
+      "id": "festa",
+      "title": { "it": "La festa della cuccagna", "sl": "Praznik ob drogu", "en": "The feast at the greasy pole", "de": "Das Fest am Klettermast" },
+      "who": "rosa",
+      "when": ["afternoon", "evening"],
+      "weekdays": [6, 7],
+      "chance": 0.7,
+      "dialog": "festa",
+      "dialogs": ["festa-polca", "festa"],
+      "reward": { "wisdom": 20},
+      "marker": "🎺",
+      "memory": { "it": "la banda alla festa della cuccagna", "sl": "godbo na prazniku ob drogu", "en": "the band at the feast of the greasy pole", "de": "die Blaskapelle beim Fest am Klettermast" }
+    },
+    {
+      "id": "merenda",
+      "title": { "it": "Nonna Rosa porta la merenda", "sl": "Babica Rosa prinese malico", "en": "Nonna Rosa brings a snack", "de": "Nonna Rosa bringt eine Jause" },
+      "who": "rosa",
+      "when": ["afternoon"],
+      "weekdays": [1, 2, 3, 4, 5],
+      "chance": 0.5,
+      "dialog": "merenda",
+      "dialogs": ["merenda-gubana", "merenda"],
+      "reward": { "food": 20},
+      "marker": "🧀",
+      "memory": { "it": "il frico per i ragazzi della cuccagna", "sl": "frico za fante pri drogu", "en": "the frico for the boys at the greasy pole", "de": "den Frico für die Jungs am Klettermast" }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "arrampicata",
+      "lines": [
+        { "who": "davide", "face": "happy", "it": "Ehi, {learner}! Hai visto l'albero della cuccagna? È altissimo!", "sl": "Ej, {learner}! Si {m:videl|f:videla} drog z nagradami? Zelo visok je!", "en": "Hey, {learner}! Have you seen the greasy pole? It's really tall!", "de": "He, {learner}! Hast du den Klettermast gesehen? Der ist riesig hoch!" },
+        {
+          "choices": [
+            {
+              "it": "Sì! Chi sale fino in cima?",
+              "sl": "Ja! Kdo spleza čisto do vrha?",
+              "en": "Yes! Who climbs right to the top?",
+              "de": "Ja! Wer klettert ganz nach oben?",
+              "ok": true,
+              "reply": { "face": "laugh", "it": "Chi sale vince i premi! Ma non è facile.", "sl": "Kdor spleza, dobi nagrade! Ampak ni lahko.", "en": "Whoever climbs up wins the prizes! But it isn't easy.", "de": "Wer hinaufklettert, gewinnt die Preise! Aber das ist nicht leicht." }
+            },
+            {
+              "it": "Sì! Chi sali fino in cima?",
+              "sl": "Ja! Kdo splezaš do vrha?",
+              "en": "Yes! Who climb (you) to the top?",
+              "de": "Ja! Wer kletterst du nach oben?",
+              "grammar": "verbi-irregolari",
+              "why": { "sl": "Chi (kdo) gre z obliko za on ali ona: sale. Sali je ti.", "en": "Chi (who) takes the he/she form: sale. Sali is 'you climb'.", "de": "Chi (wer) steht mit der Form für er/sie: sale. Sali heißt 'du kletterst'." },
+              "reply": { "face": "laugh", "it": "Sali? Io? Adesso? Ah ah!", "sl": "Splezam? Jaz? Zdaj? Ha ha!", "en": "Sali (you climb)? Me? Now? Ha ha!", "de": "Sali (du kletterst)? Ich? Jetzt? Haha!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "davide", "face": "laugh", "it": "Io ho provato stamattina. Sono salito un po'… e poi sono scivolato giù!", "sl": "Jaz sem poskusil zjutraj. Splezal sem malo … potem pa sem zdrsnil dol!", "en": "I tried this morning. I climbed up a little… and then I slid down!", "de": "Ich habe es heute Morgen versucht. Ich bin ein Stück hinaufgeklettert … und dann hinuntergerutscht!" },
+        {
+          "choices": [
+            {
+              "it": "Perché? Il palo è unto?",
+              "sl": "Zakaj? Je drog namazan?",
+              "en": "Why? Is the pole greasy?",
+              "de": "Warum? Ist der Mast eingefettet?",
+              "ok": true,
+              "reply": { "face": "laugh", "it": "Sì! Unto di sapone. Scivola come un pesce!", "sl": "Ja! Namazan z milom. Spolzek je kot riba!", "en": "Yes! Greased with soap. It's as slippery as a fish!", "de": "Ja! Mit Seife eingeschmiert. Glitschig wie ein Fisch!" }
+            },
+            {
+              "it": "Perché? Il palo è unta?",
+              "sl": "Zakaj? Je drog namazan?",
+              "en": "Why? Is the pole greasy?",
+              "de": "Warum? Ist der Mast eingefettet?",
+              "grammar": "aggettivi-accordo",
+              "why": { "sl": "Palo je moškega spola: unto.", "en": "Palo is masculine: unto.", "de": "Palo ist männlich: unto." },
+              "reply": { "face": "curious", "it": "Unta? Chi è unta? La panchina?", "sl": "Namazana? Kdo je namazana? Klopca?", "en": "Unta? Who's greasy? The bench?", "de": "Unta? Wer ist eingefettet? Die Bank?" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "davide", "face": "curious", "it": "Domenica proviamo tutti insieme. Vieni anche tu?", "sl": "V nedeljo poskusimo vsi skupaj. Prideš tudi ti?", "en": "On Sunday we'll all try together. Are you coming too?", "de": "Am Sonntag probieren wir es alle zusammen. Kommst du auch?" },
+        {
+          "choices": [
+            {
+              "it": "Sì, vengo anch'io!",
+              "sl": "Ja, tudi jaz pridem!",
+              "en": "Yes, I'm coming too!",
+              "de": "Ja, ich komme auch!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Grande! Sei {m:leggero|f:leggera}: forse arrivi in cima!", "sl": "Super! {m:Lahek|f:Lahka} si: mogoče prideš do vrha!", "en": "Great! You're light: maybe you'll get to the top!", "de": "Super! Du bist leicht: Vielleicht schaffst du es nach oben!" }
+            },
+            {
+              "it": "Sì, vieni anch'io!",
+              "sl": "Ja, prideš tudi jaz!",
+              "en": "Yes, you come too, I!",
+              "de": "Ja, du kommst auch, ich!",
+              "grammar": "verbi-irregolari",
+              "why": { "sl": "Vieni je ti. O sebi rečeš: vengo.", "en": "Vieni is 'you come'. About yourself: vengo.", "de": "Vieni heißt 'du kommst'. Über dich selbst: vengo." },
+              "reply": { "face": "confused", "it": "Chi viene? Tu o io? Che confusione!", "sl": "Kdo pride? Ti ali jaz? Kakšna zmešnjava!", "en": "Who's coming? You or me? What a muddle!", "de": "Wer kommt? Du oder ich? Was für ein Durcheinander!" }
+            },
+            {
+              "it": "No, vengo anch'io!",
+              "sl": "Ne, tudi jaz pridem!",
+              "en": "No, I'm coming too!",
+              "de": "Nein, ich komme auch!",
+              "why": { "sl": "No pomeni ne, vengo anch'io pa: tudi jaz pridem. Odloči se: sì!", "en": "No means no, and vengo anch'io means I'm coming too. Make up your mind: sì!", "de": "No heißt nein, und vengo anch'io heißt: Ich komme auch. Entscheide dich: sì!" },
+              "reply": { "face": "laugh", "it": "No… ma vieni? Allora? Ah ah!", "sl": "Ne … ampak prideš? Torej? Ha ha!", "en": "No… but you're coming? So? Ha ha!", "de": "Nein … aber du kommst? Also was? Haha!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        }
+      ]
+    },
+    {
+      "id": "mattina",
+      "lines": [
+        {
+          "who": "davide",
+          "face": "curious",
+          "it": "Buongiorno, {learner}! Stamattina ungo di nuovo il palo. Mi dai il sapone?",
+          "sl": "Dobro jutro, {learner}! Zjutraj spet mažem drog. Mi daš milo?",
+          "en": "Good morning, {learner}! This morning I'm greasing the pole again. Will you give me the soap?",
+          "de": "Guten Morgen, {learner}! Heute Morgen schmiere ich den Mast wieder ein. Gibst du mir die Seife?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Ecco il sapone!",
+              "sl": "Izvoli milo!",
+              "en": "Here's the soap!",
+              "de": "Hier ist die Seife!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Grazie! Adesso il palo scivola tantissimo.", "sl": "Hvala! Zdaj bo drog zelo spolzek.", "en": "Thanks! Now the pole is ever so slippery.", "de": "Danke! Jetzt ist der Mast so richtig rutschig." }
+            },
+            {
+              "it": "Ecco la sapone!",
+              "sl": "Izvoli milo!",
+              "en": "Here's the soap!",
+              "de": "Hier ist die Seife!",
+              "grammar": "articoli-genere",
+              "why": { "sl": "Sapone je moškega spola: il sapone.", "en": "Sapone is masculine: il sapone.", "de": "Sapone ist männlich: il sapone." },
+              "reply": { "face": "laugh", "it": "La sapone? È una signora? Ah ah!", "sl": "Gospa milo? Ha ha!", "en": "La sapone? Is it a lady? Ha ha!", "de": "La sapone? Ist das eine Dame? Haha!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "davide", "face": "proud", "it": "In cima c'è la ghirlanda, con i nastri colorati. Li vedi?", "sl": "Na vrhu je venec s pisanimi trakovi. Jih vidiš?", "en": "At the top there's the wreath, with the coloured ribbons. Can you see them?", "de": "Ganz oben ist der Kranz mit den bunten Bändern. Siehst du sie?" },
+        {
+          "choices": [
+            {
+              "it": "Sì, li vedo! Sono bellissimi.",
+              "sl": "Ja, vidim jih! Prelepi so.",
+              "en": "Yes, I can see them! They're beautiful.",
+              "de": "Ja, ich sehe sie! Die sind wunderschön.",
+              "ok": true,
+              "reply": { "face": "proud", "it": "Li abbiamo legati io e i ragazzi.", "sl": "Privezal sem jih jaz s fanti.", "en": "The lads and I tied them on.", "de": "Die haben die Jungs und ich festgebunden." }
+            },
+            {
+              "it": "Sì, li vedo! Sono bellissime.",
+              "sl": "Ja, vidim jih! Prelepi so.",
+              "en": "Yes, I can see them! They're beautiful.",
+              "de": "Ja, ich sehe sie! Die sind wunderschön.",
+              "grammar": "aggettivi-accordo",
+              "why": { "sl": "Nastri so moškega spola, v množini: bellissimi.", "en": "Nastri is masculine plural: bellissimi.", "de": "Nastri ist männlich und Plural: bellissimi." },
+              "reply": { "face": "curious", "it": "Bellissime? Chi? Le nuvole?", "sl": "Prelepe? Kdo? Oblaki?", "en": "Bellissime? Who? The clouds?", "de": "Bellissime? Wer? Die Wolken?" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "davide", "face": "happy", "it": "Grazie dell'aiuto, {learner}! Ci vediamo alla festa.", "sl": "Hvala za pomoč, {learner}! Se vidimo na prazniku.", "en": "Thanks for your help, {learner}! See you at the feast.", "de": "Danke für die Hilfe, {learner}! Wir sehen uns beim Fest." }
+      ]
+    },
+    {
+      "id": "premi",
+      "lines": [
+        { "who": "lorenzo", "face": "happy", "it": "Ciao, {learner}! Per la festa Davide appende i premi in cima all'albero!", "sl": "Živjo, {learner}! Za praznik bo Davide obesil nagrade na vrh droga!", "en": "Hi, {learner}! For the feast Davide hangs the prizes at the top of the pole!", "de": "Hallo, {learner}! Zum Fest hängt Davide die Preise oben an den Mast!" },
+        {
+          "choices": [
+            {
+              "it": "Che premi ci sono?",
+              "sl": "Katere nagrade so?",
+              "en": "What prizes are there?",
+              "de": "Welche Preise gibt es?",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Un salame, un formaggio e tante caramelle!", "sl": "Salama, sir in veliko bonbonov!", "en": "A salami, a cheese and lots of candies!", "de": "Eine Salami, einen Käse und viele Bonbons!" }
+            },
+            {
+              "it": "Che premi c'è?",
+              "sl": "Katere nagrade je?",
+              "en": "What prizes is there?",
+              "de": "Welche Preise gibt's da (Einzahl)?",
+              "grammar": "ce-ci-sono",
+              "why": { "sl": "Nagrade so v množini: ci sono.", "en": "Premi is plural: ci sono.", "de": "Premi ist Plural: ci sono." },
+              "reply": { "face": "confused", "it": "Un premio solo? No, sono tre!", "sl": "Samo ena nagrada? Ne, tri so!", "en": "Just one prize? No, there are three!", "de": "Nur ein Preis? Nein, es sind drei!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        { "who": "lorenzo", "face": "shy", "it": "Io voglio le caramelle. Tutte! A te piacciono le caramelle?", "sl": "Jaz hočem bonbone. Vse! So tebi všeč bonboni?", "en": "I want the candies. All of them! Do you like candies?", "de": "Ich will die Bonbons. Alle! Magst du Bonbons?" },
+        {
+          "choices": [
+            {
+              "it": "Sì, mi piacciono tanto!",
+              "sl": "Ja, zelo so mi všeč!",
+              "en": "Yes, I like them a lot!",
+              "de": "Ja, die mag ich sehr!",
+              "ok": true,
+              "reply": { "face": "laugh", "it": "Allora le dividiamo: metà a te, metà a me!", "sl": "Potem si jih razdeliva: pol tebi, pol meni!", "en": "Then we'll share them: half for you, half for me!", "de": "Dann teilen wir: die Hälfte für dich, die Hälfte für mich!" }
+            },
+            {
+              "it": "Sì, mi piace tanto!",
+              "sl": "Ja, zelo mi je všeč!",
+              "en": "Yes, I like it a lot!",
+              "de": "Ja, das mag ich sehr!",
+              "grammar": "piacere",
+              "why": { "sl": "Bonboni so v množini: mi piacciono.", "en": "Caramelle is plural: mi piacciono.", "de": "Caramelle ist Plural: mi piacciono." },
+              "reply": { "face": "curious", "it": "Ti piace? Una caramella sola?", "sl": "Všeč ti je? En sam bonbon?", "en": "You like it? Just one candy?", "de": "Du magst es? Nur ein Bonbon?" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        { "who": "lorenzo", "face": "sad", "it": "Ma io sono piccolo. Non arrivo in cima…", "sl": "Ampak jaz sem majhen. Ne pridem do vrha …", "en": "But I'm small. I can't reach the top…", "de": "Aber ich bin klein. Ich komme nicht bis oben …" },
+        {
+          "choices": [
+            {
+              "it": "Ti aiuto io!",
+              "sl": "Jaz ti pomagam!",
+              "en": "I'll help you!",
+              "de": "Ich helfe dir!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Davvero? Sei {m:il mio migliore amico|f:la mia migliore amica}!", "sl": "Res? {m:Moj najboljši prijatelj|f:Moja najboljša prijateljica} si!", "en": "Really? You're my best friend!", "de": "Echt? Du bist {m:mein bester Freund|f:meine beste Freundin}!" }
+            },
+            {
+              "it": "Ti aiuti io!",
+              "sl": "Ti pomagaš jaz!",
+              "en": "You help you, me!",
+              "de": "Du hilfst dir, ich!",
+              "grammar": "presente-regolare",
+              "why": { "sl": "Aiuti je ti. O sebi rečeš: ti aiuto (pomagam ti).", "en": "Aiuti is 'you help'. About yourself: ti aiuto (I help you).", "de": "Aiuti heißt 'du hilfst'. Über dich selbst: ti aiuto (ich helfe dir)." },
+              "reply": { "face": "confused", "it": "Chi aiuta chi? Non capisco!", "sl": "Kdo komu pomaga? Ne razumem!", "en": "Who's helping who? I don't get it!", "de": "Wer hilft wem? Das verstehe ich nicht!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        }
+      ]
+    },
+    {
+      "id": "pallone",
+      "fx_stays": true,
+      "lines": [
+        { "who": "tommaso", "face": "happy", "it": "Ehi, {learner}! Giochiamo a calcio? La porta è lì, tra le due cartelle!", "sl": "Ej, {learner}! Igrava nogomet? Gol je tam, med obema torbama!", "en": "Hey, {learner}! Shall we play football? The goal is there, between the two school bags!", "de": "He, {learner}! Spielen wir Fußball? Das Tor ist da, zwischen den zwei Schultaschen!" },
+        {
+          "choices": [
+            {
+              "it": "Sì! Passami il pallone!",
+              "sl": "Ja! Podaj mi žogo!",
+              "en": "Yes! Pass me the ball!",
+              "de": "Ja! Pass mir den Ball zu!",
+              "ok": true,
+              "reply": { "face": "laugh", "it": "Eccolo! Adesso tira forte!", "sl": "Na! Zdaj pa močno ustreli!", "en": "Here it is! Now kick it hard!", "de": "Hier! Jetzt schieß fest!" }
+            },
+            {
+              "it": "Sì! Passimi il pallone!",
+              "sl": "Ja! Podaj mi žogo!",
+              "en": "Yes! Pass me the ball!",
+              "de": "Ja! Pass mir den Ball zu!",
+              "grammar": "imperativo",
+              "why": { "sl": "Ukaz za ti: passa! Z mi: passami.", "en": "The order to one friend: passa! With 'me': passami.", "de": "Die Aufforderung an einen Freund: passa! Mit 'mir': passami." },
+              "reply": { "face": "confused", "it": "Passi… cosa? Si dice in un altro modo!", "sl": "Kaj … prosim? To se reče drugače!", "en": "Passi… what? You say it another way!", "de": "Passi … was? Das sagt man anders!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        { "who": "tommaso", "face": "curious", "it": "Dai! Tira verso la porta!", "sl": "Daj! Ustreli proti golu!", "en": "Come on! Shoot at the goal!", "de": "Los! Schieß aufs Tor!" },
+        {
+          "choices": [
+            {
+              "it": "Ecco, tiro!",
+              "sl": "Evo, streljam!",
+              "en": "Here goes, I'm shooting!",
+              "de": "Los, ich schieße!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Gooool! Che tiro!",
+                "sl": "Goool! Kakšen strel!",
+                "en": "Goaaal! What a shot!",
+                "de": "Tooor! Was für ein Schuss!",
+                "fx": { "goal": 1}
+              }
+            },
+            {
+              "it": "Ecco, tira!",
+              "sl": "Evo, strelja!",
+              "en": "Here goes, he's shooting!",
+              "de": "Los, er schießt!",
+              "grammar": "presente-regolare",
+              "why": { "sl": "Tira je on ali ona. O sebi rečeš: tiro.", "en": "Tira is he or she (or an order: shoot!). About yourself: tiro.", "de": "Tira heißt er oder sie (oder: Schieß!). Über dich selbst: tiro." },
+              "reply": { "face": "curious", "it": "Chi tira? Io? Ma il pallone ce l'hai tu!", "sl": "Kdo strelja? Jaz? Saj imaš žogo ti!", "en": "Who's shooting? Me? But you've got the ball!", "de": "Wer schießt? Ich? Du hast doch den Ball!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        { "who": "tommaso", "face": "proud", "it": "Sei {m:fortissimo|f:fortissima}! Da oggi sei nella mia squadra.", "sl": "Odličen si! Od danes si v moji ekipi.", "en": "You're brilliant! From today you're on my team.", "de": "Du bist super! Ab heute bist du in meiner Mannschaft." }
+      ]
+    },
+    {
+      "id": "festa",
+      "lines": [
+        {
+          "who": "rosa",
+          "face": "happy",
+          "it": "Ciao, tesoro! Senti? Arriva la banda!",
+          "sl": "Živjo, srček! Slišiš? Godba prihaja!",
+          "en": "Hello, darling! Hear that? The band's coming!",
+          "de": "Hallo, Schatz! Hörst du? Die Blaskapelle kommt!",
+          "fx": { "band": 0.6}
+        },
+        {
+          "choices": [
+            {
+              "it": "Che bella musica!",
+              "sl": "Kako lepa glasba!",
+              "en": "What lovely music!",
+              "de": "Was für schöne Musik!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "È la banda del paese. Suona per la festa.", "sl": "To je vaška godba. Igra za praznik.", "en": "It's the village band. It's playing for the feast.", "de": "Das ist die Dorfkapelle. Sie spielt für das Fest." }
+            },
+            {
+              "it": "Che bello musica!",
+              "sl": "Kako lepa glasba!",
+              "en": "What lovely music!",
+              "de": "Was für schöne Musik!",
+              "grammar": "aggettivi-accordo",
+              "why": { "sl": "Musica je ženskega spola: bella.", "en": "Musica is feminine: bella.", "de": "Musica ist weiblich: bella." },
+              "reply": { "face": "curious", "it": "Bello? Hm, ascolta meglio, tesoro.", "sl": "Lep? Hm, bolje poslušaj, srček.", "en": "Bello? Hm, listen more closely, darling.", "de": "Bello? Hm, hör genauer hin, Schatz." }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumela.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        {
+          "who": "rosa",
+          "face": "happy",
+          "it": "Guarda: due trombe, un tamburo grande e una tuba enorme!",
+          "sl": "Poglej: dve trobenti, velik boben in ogromna tuba!",
+          "en": "Look: two trumpets, a big drum and an enormous tuba!",
+          "de": "Schau: zwei Trompeten, eine große Trommel und eine riesige Tuba!",
+          "fx": { "band": 0.8}
+        },
+        {
+          "choices": [
+            {
+              "it": "Ci sono due trombe!",
+              "sl": "Dve trobenti sta!",
+              "en": "There are two trumpets!",
+              "de": "Da sind zwei Trompeten!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Giusto! E il tamburo fa: bum, bum!", "sl": "Tako je! Boben pa dela: bum, bum!", "en": "Right! And the drum goes: boom, boom!", "de": "Richtig! Und die Trommel macht: bumm, bumm!" }
+            },
+            {
+              "it": "Ci sono due tromba!",
+              "sl": "Dve trobenti sta!",
+              "en": "There are two trumpet!",
+              "de": "Da sind zwei Trompete!",
+              "grammar": "plurale",
+              "why": { "sl": "Dve sta v množini: due trombe.", "en": "Two takes the plural: due trombe.", "de": "Bei zwei steht der Plural: due trombe." },
+              "reply": { "face": "curious", "it": "Due… tromba? Conta ancora, tesoro.", "sl": "Dve … trobenta? Še enkrat preštej, srček.", "en": "Two… trumpet? Count again, darling.", "de": "Zwei … Trompete? Zähl noch mal, Schatz." }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumela.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        {
+          "who": "rosa",
+          "face": "laugh",
+          "it": "Bum, bum! Quando suona la banda, mi viene voglia di ballare!",
+          "sl": "Bum, bum! Ko igra godba, bi kar zaplesala!",
+          "en": "Boom, boom! When the band plays, I feel like dancing!",
+          "de": "Bumm, bumm! Wenn die Kapelle spielt, kriege ich Lust zu tanzen!",
+          "fx": { "band": 1}
+        }
+      ]
+    },
+    {
+      "id": "merenda",
+      "lines": [
+        { "who": "rosa", "face": "happy", "it": "Ciao, tesoro! Ho fatto il frico per i ragazzi della cuccagna. Ne vuoi un pezzo?", "sl": "Živjo, srček! Za fante pri drogu sem naredila frico. Hočeš košček?", "en": "Hello, darling! I've made frico for the boys at the greasy pole. Do you want a piece?", "de": "Hallo, Schatz! Ich habe Frico für die Jungs am Klettermast gemacht. Willst du ein Stück?" },
+        {
+          "choices": [
+            {
+              "it": "Sì, grazie, nonna!",
+              "sl": "Ja, hvala, babica!",
+              "en": "Yes, thank you, Granny!",
+              "de": "Ja, danke, Oma!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Ecco. Attenzione, è caldo!", "sl": "Izvoli. Pazi, vroč je!", "en": "Here you are. Careful, it's hot!", "de": "Bitte. Vorsicht, der ist heiß!" }
+            },
+            {
+              "it": "Sì, per favore!",
+              "sl": "Ja, prosim!",
+              "en": "Yes, please!",
+              "de": "Ja, bitte!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Ecco a te. Mangia, mangia!", "sl": "Izvoli. Jej, jej!", "en": "Here you go. Eat up, eat up!", "de": "Da hast du. Iss, iss!" }
+            },
+            {
+              "it": "Sì, prego, nonna!",
+              "sl": "Ja, prosim (ni za kaj), babica!",
+              "en": "Yes, you're welcome, Granny!",
+              "de": "Ja, gern geschehen, Oma!",
+              "why": { "sl": "Ko nekaj dobiš, rečeš grazie ali per favore. Prego rečeš, ko daješ ali na grazie.", "en": "When you get something, say grazie or per favore. Prego is what you say when you give something, or after grazie.", "de": "Wenn du etwas bekommst, sagst du grazie oder per favore. Prego sagt man, wenn man etwas gibt, oder auf grazie." },
+              "reply": { "face": "laugh", "it": "Prego? Ma il frico te lo do io!", "sl": "Ni za kaj? Saj ti dam frico jaz!", "en": "You're welcome? But I'm the one giving you the frico!", "de": "Gern geschehen? Ich gebe dir doch den Frico!" }
+            }
+          ]
+        },
+        { "who": "rosa", "face": "curious", "it": "Il frico si fa con il formaggio e le patate. È buono, no?", "sl": "Frico se naredi iz sira in krompirja. Dober je, kajne?", "en": "Frico is made with cheese and potatoes. It's good, isn't it?", "de": "Frico macht man aus Käse und Kartoffeln. Der ist gut, oder?" },
+        {
+          "choices": [
+            {
+              "it": "È buonissimo!",
+              "sl": "Odličen je!",
+              "en": "It's delicious!",
+              "de": "Der ist super lecker!",
+              "ok": true,
+              "reply": { "face": "proud", "it": "È la ricetta della mia mamma.", "sl": "To je recept moje mame.", "en": "It's my mother's recipe.", "de": "Das ist das Rezept meiner Mutter." }
+            },
+            {
+              "it": "È buonissima!",
+              "sl": "Odličen je!",
+              "en": "It's delicious!",
+              "de": "Der ist super lecker!",
+              "grammar": "aggettivi-accordo",
+              "why": { "sl": "Frico je moškega spola: buonissimo.", "en": "Frico is masculine: buonissimo.", "de": "Frico ist männlich: buonissimo." },
+              "reply": { "face": "curious", "it": "Buonissima? Chi? La patata?", "sl": "Odlična? Kdo? Krompir?", "en": "Buonissima? Who? The potato?", "de": "Buonissima? Wer? Die Kartoffel?" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumela.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "rosa", "face": "laugh", "it": "Mangia, tesoro. Chi mangia bene sale fino in cima!", "sl": "Jej, srček. Kdor dobro je, spleza do vrha!", "en": "Eat up, darling. Whoever eats well climbs right to the top!", "de": "Iss, Schatz. Wer gut isst, klettert bis ganz nach oben!" }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "arrampicata-gatto",
+      "memory": { "it": "il gatto che sale meglio di noi", "sl": "mačko, ki pleza bolje od naju", "en": "the cat that climbs better than us", "de": "die Katze, die besser klettert als wir" },
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "davide",
+          "face": "laugh",
+          "it": "{learner}, guarda il gatto! È salito sul tiglio e adesso miagola.",
+          "sl": "{learner}, poglej mačko! Splezala je na lipo in zdaj mijavka.",
+          "en": "{learner}, look at the cat! It climbed up the linden and now it's meowing.",
+          "de": "{learner}, schau dir die Katze an! Sie ist auf die Linde geklettert und jetzt miaut sie.",
+          "fx": { "cat": 0}
+        },
+        {
+          "choices": [
+            {
+              "it": "Poverino! Ha paura?",
+              "sl": "Revica! Jo je strah?",
+              "en": "Poor thing! Is it scared?",
+              "de": "Die Arme! Hat sie Angst?",
+              "ok": true,
+              "reply": { "face": "thinking", "it": "Un po'. Salire è facile, scendere no!", "sl": "Malo. Splezati je lahko, priti dol pa ne!", "en": "A bit. Climbing up is easy, getting down isn't!", "de": "Ein bisschen. Hinauf ist leicht, hinunter nicht!" }
+            },
+            {
+              "it": "Poverino! Hai paura?",
+              "sl": "Revica! Te je strah?",
+              "en": "Poor thing! Are you scared?",
+              "de": "Die Arme! Hast du Angst?",
+              "grammar": "essere-avere",
+              "why": { "sl": "Hai paura pomeni: te je strah? O mački: ha paura.", "en": "Hai paura means: are you scared? About the cat: ha paura.", "de": "Hai paura heißt: Hast du Angst? Über die Katze: ha paura." },
+              "reply": { "face": "laugh", "it": "Io? No, io no. Ma lui sì!", "sl": "Mene? Ne, mene ne. Njo pa!", "en": "Me? No, not me. But it is!", "de": "Ich? Nein, ich nicht. Aber die schon!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        {
+          "who": "davide",
+          "face": "worried",
+          "it": "Dai, micio, vieni giù! Piano piano.",
+          "sl": "Daj, muca, pridi dol! Počasi.",
+          "en": "Come on, kitty, come down! Slowly.",
+          "de": "Komm, Mieze, komm runter! Ganz langsam.",
+          "fx": { "cat": 0.3}
+        },
+        {
+          "choices": [
+            {
+              "it": "Scendi, micio! Vieni!",
+              "sl": "Pridi dol, muca! Pridi!",
+              "en": "Come down, kitty! Come on!",
+              "de": "Komm runter, Mieze! Komm!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Ecco, scende! Zampa dopo zampa…",
+                "sl": "Glej, spušča se! Taca za taco …",
+                "en": "There, it's coming down! Paw after paw…",
+                "de": "Da, sie kommt runter! Pfote für Pfote …",
+                "fx": { "cat": 1}
+              }
+            },
+            {
+              "it": "Sali, micio! Vieni!",
+              "sl": "Pojdi gor, muca! Pridi!",
+              "en": "Go up, kitty! Come on!",
+              "de": "Geh rauf, Mieze! Komm!",
+              "why": { "sl": "Sali pomeni: pojdi gor. Muca naj pride dol: scendi!", "en": "Sali means go up. The cat should come down: scendi!", "de": "Sali heißt: Geh hinauf. Die Katze soll herunterkommen: scendi!" },
+              "reply": { "face": "laugh", "it": "Su? Ma è già in alto! Ah ah!", "sl": "Gor? Saj je že visoko! Ha ha!", "en": "Up? But it's already up high! Ha ha!", "de": "Rauf? Die ist doch schon oben! Haha!" }
+            }
+          ]
+        },
+        { "who": "davide", "face": "laugh", "it": "Guarda: adesso dorme sulla panchina. Il gatto sale meglio di noi!", "sl": "Poglej: zdaj spi na klopci. Mačka pleza bolje od nas!", "en": "Look: now it's asleep on the bench. The cat climbs better than us!", "de": "Schau: Jetzt schläft sie auf der Bank. Die Katze klettert besser als wir!" }
+      ]
+    },
+    {
+      "id": "mattina-vento",
+      "memory": { "it": "il vento che faceva ballare i nastri", "sl": "veter, ki je plesal s trakovi", "en": "the wind that made the ribbons dance", "de": "den Wind, der die Bänder tanzen ließ" },
+      "sky_stays": false,
+      "lines": [
+        {
+          "who": "davide",
+          "face": "surprised",
+          "it": "Ciao, {learner}! Che vento oggi! Senti come soffia?",
+          "sl": "Živjo, {learner}! Kakšen veter danes! Slišiš, kako piha?",
+          "en": "Hi, {learner}! What a wind today! Hear how it's blowing?",
+          "de": "Hallo, {learner}! Was für ein Wind heute! Hörst du, wie er bläst?",
+          "sky": { "wind": 0.75}
+        },
+        { "who": "davide", "face": "happy", "it": "Guarda i nastri in cima all'albero: ballano nel vento!", "sl": "Poglej trakove na vrhu droga: plešejo v vetru!", "en": "Look at the ribbons at the top of the pole: they're dancing in the wind!", "de": "Schau dir die Bänder oben am Mast an: Sie tanzen im Wind!" },
+        {
+          "choices": [
+            {
+              "it": "Il vento è forte!",
+              "sl": "Veter je močan!",
+              "en": "The wind is strong!",
+              "de": "Der Wind ist stark!",
+              "ok": true,
+              "reply": { "face": "thinking", "it": "Sì. Ma l'albero è ben piantato: non cade.", "sl": "Ja. Ampak drog je trdno zasajen: ne pade.", "en": "Yes. But the pole is set in firmly: it won't fall.", "de": "Ja. Aber der Mast steht fest: Er fällt nicht um." }
+            },
+            {
+              "it": "Il vento è forti!",
+              "sl": "Veter je močan!",
+              "en": "The wind is strong!",
+              "de": "Der Wind ist stark!",
+              "grammar": "aggettivi-accordo",
+              "why": { "sl": "Veter je samo eden: forte (ednina).", "en": "There's one wind: forte (singular).", "de": "Es ist ein Wind: forte (Singular)." },
+              "reply": { "face": "confused", "it": "Forti? Quanti venti ci sono?", "sl": "Močni? Koliko vetrov pa je?", "en": "Forti? How many winds are there?", "de": "Forti? Wie viele Winde gibt es denn?" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "davide", "face": "curious", "it": "Brrr! Vuoi la mia sciarpa?", "sl": "Brrr! Hočeš moj šal?", "en": "Brrr! Do you want my scarf?", "de": "Brrr! Willst du meinen Schal?" },
+        {
+          "choices": [
+            {
+              "it": "Sì, grazie! Ho freddo.",
+              "sl": "Ja, hvala! Zebe me.",
+              "en": "Yes, thanks! I'm cold.",
+              "de": "Ja, danke! Mir ist kalt.",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Tieni. Così stai al caldo.", "sl": "Izvoli. Tako ti bo toplo.", "en": "Here you are. That'll keep you warm.", "de": "Hier, nimm. So bleibst du warm." }
+            },
+            {
+              "it": "Sì, grazie! Sono {m:freddo|f:fredda}.",
+              "sl": "Ja, hvala! {m:Mrzel|f:Mrzla} sem.",
+              "en": "Yes, thanks! I'm cold to the touch.",
+              "de": "Ja, danke! Ich bin kalt (zum Anfassen).",
+              "grammar": "essere-avere",
+              "why": { "sl": "Mraz se ima: ho freddo. Sono {m:freddo|f:fredda} pomeni, da si {m:mrzel|f:mrzla} na otip.", "en": "Feeling cold is something you have: ho freddo. Sono {m:freddo|f:fredda} means you're cold to the touch.", "de": "Kälte hat man: ho freddo. Sono {m:freddo|f:fredda} heißt, du fühlst dich kalt an." },
+              "reply": { "face": "laugh", "it": "Sei un ghiacciolo? Ah ah!", "sl": "Si ledena sveča? Ha ha!", "en": "Are you an icicle? Ha ha!", "de": "Bist du ein Eiszapfen? Haha!" }
+            },
+            {
+              "it": "Sì, grazie! Ho caldo.",
+              "sl": "Ja, hvala! Vroče mi je.",
+              "en": "Yes, thanks! I'm hot.",
+              "de": "Ja, danke! Mir ist heiß.",
+              "why": { "sl": "Caldo pomeni vroče. Kdor hoče šal, ga zebe: ho freddo.", "en": "Caldo means hot. Whoever wants a scarf is cold: ho freddo.", "de": "Caldo heißt heiß. Wer einen Schal will, dem ist kalt: ho freddo." },
+              "reply": { "face": "laugh", "it": "Caldo? E vuoi la sciarpa? Ah ah!", "sl": "Vroče? Pa hočeš šal? Ha ha!", "en": "Hot? And you want the scarf? Ha ha!", "de": "Heiß? Und du willst den Schal? Haha!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        {
+          "who": "davide",
+          "face": "happy",
+          "it": "Ecco, il vento si calma. Domani è una bella giornata!",
+          "sl": "Tako, veter se umirja. Jutri bo lep dan!",
+          "en": "There, the wind is dropping. Tomorrow will be a fine day!",
+          "de": "So, der Wind legt sich. Morgen wird ein schöner Tag!",
+          "sky": { "wind": 0.1}
+        }
+      ]
+    },
+    {
+      "id": "premi-nastri",
+      "memory": { "it": "i nastri che abbiamo contato insieme", "sl": "trakove, ki sva jih skupaj preštela", "en": "the ribbons we counted together", "de": "die Bänder, die wir zusammen gezählt haben" },
+      "lines": [
+        { "who": "lorenzo", "face": "curious", "it": "Ciao, {learner}! Contiamo i nastri in cima all'albero? Io conto tutto!", "sl": "Živjo, {learner}! Bova preštela trakove na vrhu droga? Jaz preštejem vse!", "en": "Hi, {learner}! Shall we count the ribbons at the top of the pole? I count everything!", "de": "Hallo, {learner}! Zählen wir die Bänder oben am Mast? Ich zähle alles!" },
+        {
+          "choices": [
+            {
+              "it": "Uno, due, tre, quattro: quattro nastri!",
+              "sl": "En, dva, tri, štiri: štirje trakovi!",
+              "en": "One, two, three, four: four ribbons!",
+              "de": "Eins, zwei, drei, vier: vier Bänder!",
+              "ok": true,
+              "reply": { "face": "proud", "it": "Quattro! Uno per ogni vento, dice il nonno.", "sl": "Štirje! Za vsak veter enega, pravi dedek.", "en": "Four! One for each wind, Grandpa says.", "de": "Vier! Eins für jeden Wind, sagt der Opa." }
+            },
+            {
+              "it": "Uno, due, tre, quattro: quattro nastro!",
+              "sl": "En, dva, tri, štiri: štirje trakovi!",
+              "en": "One, two, three, four: four ribbon!",
+              "de": "Eins, zwei, drei, vier: vier Band!",
+              "grammar": "plurale",
+              "why": { "sl": "Štirje so v množini: quattro nastri.", "en": "Four takes the plural: quattro nastri.", "de": "Bei vier steht der Plural: quattro nastri." },
+              "reply": { "face": "confused", "it": "Quattro… nastro? Uno solo?", "sl": "Štirje … trak? Samo eden?", "en": "Four… ribbon? Just one?", "de": "Vier … Band? Nur eins?" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        { "who": "lorenzo", "it": "E sopra i nastri c'è la ghirlanda verde.", "sl": "Nad trakovi pa je zelen venec.", "en": "And above the ribbons there's the green wreath.", "de": "Und über den Bändern ist der grüne Kranz." },
+        {
+          "choices": [
+            {
+              "it": "È fatta di rami?",
+              "sl": "Je iz vejic?",
+              "en": "Is it made of twigs?",
+              "de": "Ist der aus Zweigen?",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Sì! Di rami di abete. Profuma di bosco.", "sl": "Ja! Iz jelovih vejic. Diši po gozdu.", "en": "Yes! Of fir twigs. It smells of the woods.", "de": "Ja! Aus Tannenzweigen. Der riecht nach Wald." }
+            },
+            {
+              "it": "È fatto di rami?",
+              "sl": "Je iz vejic?",
+              "en": "Is it made of twigs?",
+              "de": "Ist der aus Zweigen?",
+              "grammar": "aggettivi-accordo",
+              "why": { "sl": "Ghirlanda je ženskega spola: fatta.", "en": "Ghirlanda is feminine: fatta.", "de": "Ghirlanda ist weiblich: fatta." },
+              "reply": { "face": "curious", "it": "Fatto? Chi? Il palo?", "sl": "Narejen? Kdo? Drog?", "en": "Fatto? Who? The pole?", "de": "Fatto? Wer? Der Mast?" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        { "who": "lorenzo", "face": "laugh", "it": "Grazie, {learner}! Alla festa contiamo le caramelle!", "sl": "Hvala, {learner}! Na prazniku bova preštela bonbone!", "en": "Thanks, {learner}! At the feast we'll count the candies!", "de": "Danke, {learner}! Beim Fest zählen wir die Bonbons!" }
+      ]
+    },
+    {
+      "id": "pallone-panchina",
+      "memory": { "it": "il pallone che hai trovato sotto la panchina", "sl": "žogo, ki si jo {m:našel|f:našla} pod klopco", "en": "the ball you found under the bench", "de": "den Ball, den du unter der Bank gefunden hast" },
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "tommaso",
+          "face": "worried",
+          "it": "Uffa! Il pallone è sparito! Dov'è?",
+          "sl": "Ojej! Žoga je izginila! Kje je?",
+          "en": "Oh no! The ball's gone! Where is it?",
+          "de": "Mist! Der Ball ist weg! Wo ist er?",
+          "fx": { "ball": 0}
+        },
+        {
+          "choices": [
+            {
+              "it": "È sotto la panchina!",
+              "sl": "Pod klopco je!",
+              "en": "It's under the bench!",
+              "de": "Er ist unter der Bank!",
+              "ok": true,
+              "tap": "bench",
+              "grammar": "dove-preposizioni",
+              "reply": {
+                "face": "happy",
+                "it": "Eccolo! Grazie, {learner}!",
+                "sl": "Tukaj je! Hvala, {learner}!",
+                "en": "There it is! Thanks, {learner}!",
+                "de": "Da ist er! Danke, {learner}!",
+                "fx": { "ball": 1}
+              }
+            },
+            {
+              "it": "È sotto il tiglio!",
+              "sl": "Pod lipo je!",
+              "en": "It's under the linden!",
+              "de": "Er ist unter der Linde!",
+              "tap": "linden",
+              "why": { "sl": "Pod lipo je ni. Poišči pod klopco: tam se vidi nekaj rdečega in belega.", "en": "It isn't under the linden. Look under the bench: something red and white shows there.", "de": "Unter der Linde ist er nicht. Such unter der Bank: Da sieht man etwas Rotes und Weißes." },
+              "reply": { "face": "curious", "it": "Sotto il tiglio? No, lì c'è solo l'ombra.", "sl": "Pod lipo? Ne, tam je samo senca.", "en": "Under the linden? No, there's only shade there.", "de": "Unter der Linde? Nein, da ist nur Schatten." }
+            },
+            {
+              "it": "È nei fiori!",
+              "sl": "Med rožami je!",
+              "en": "It's in the flowers!",
+              "de": "Er ist in den Blumen!",
+              "tap": "flowers",
+              "why": { "sl": "Med rožami je ni. Pod klopco se nekaj vidi.", "en": "It isn't in the flowers. Something shows under the bench.", "de": "In den Blumen ist er nicht. Unter der Bank sieht man etwas." },
+              "reply": { "face": "laugh", "it": "Nei fiori? Lì c'è solo il profumo!", "sl": "Med rožami? Tam je samo vonj!", "en": "In the flowers? There's only the smell there!", "de": "In den Blumen? Da ist nur der Duft!" }
+            }
+          ]
+        },
+        { "who": "tommaso", "face": "happy", "it": "Adesso tiriamo in porta! Al tre: uno, due…", "sl": "Zdaj pa na gol! Na tri: ena, dva …", "en": "Now let's shoot at the goal! On three: one, two…", "de": "Jetzt aufs Tor! Bei drei: eins, zwei …" },
+        {
+          "choices": [
+            {
+              "it": "…tre! Gol!",
+              "sl": "… tri! Gol!",
+              "en": "…three! Goal!",
+              "de": "… drei! Tor!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Gooool! Che squadra!",
+                "sl": "Goool! Kakšna ekipa!",
+                "en": "Goaaal! What a team!",
+                "de": "Tooor! Was für eine Mannschaft!",
+                "fx": { "goal": 1}
+              }
+            },
+            {
+              "it": "…quattro! Gol!",
+              "sl": "… štiri! Gol!",
+              "en": "…four! Goal!",
+              "de": "… vier! Tor!",
+              "grammar": "numeri",
+              "why": { "sl": "Za ena, dva pride tri: tre.", "en": "After one, two comes three: tre.", "de": "Nach eins, zwei kommt drei: tre." },
+              "reply": { "face": "laugh", "it": "Quattro? Hai saltato un numero!", "sl": "Štiri? Eno število si {m:preskočil|f:preskočila}!", "en": "Four? You skipped a number!", "de": "Vier? Du hast eine Zahl übersprungen!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        { "who": "tommaso", "face": "happy", "it": "Che bello giocare in piazza, sotto l'albero della cuccagna!", "sl": "Kako lepo se je igrati na trgu, pod drogom z nagradami!", "en": "How great it is to play in the square, under the greasy pole!", "de": "Wie schön, auf dem Platz zu spielen, unter dem Klettermast!" }
+      ]
+    },
+    {
+      "id": "festa-polca",
+      "memory": { "it": "la polca in piazza", "sl": "polko na trgu", "en": "the polka on the square", "de": "die Polka auf dem Platz" },
+      "lines": [
+        {
+          "who": "rosa",
+          "face": "happy",
+          "it": "Tesoro! La banda suona la polca. Balliamo?",
+          "sl": "Srček! Godba igra polko. Greva plesat?",
+          "en": "Darling! The band is playing the polka. Shall we dance?",
+          "de": "Schatz! Die Kapelle spielt eine Polka. Tanzen wir?",
+          "fx": { "band": 1}
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì, balliamo!",
+              "sl": "Ja, plešiva!",
+              "en": "Yes, let's dance!",
+              "de": "Ja, tanzen wir!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Evviva! Uno, due, tre, salta!",
+                "sl": "Juhu! Ena, dva, tri, skok!",
+                "en": "Hooray! One, two, three, hop!",
+                "de": "Juhu! Eins, zwei, drei, hüpf!",
+                "fx": { "dance": 0.75}
+              }
+            },
+            {
+              "it": "Volentieri, nonna!",
+              "sl": "Z veseljem, babica!",
+              "en": "Gladly, Granny!",
+              "de": "Gern, Oma!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Che {m:bravo|f:brava}! Uno, due, tre, salta!",
+                "sl": "Kako {m:priden|f:pridna}! Ena, dva, tri, skok!",
+                "en": "How lovely of you! One, two, three, hop!",
+                "de": "Wie lieb! Eins, zwei, drei, hüpf!",
+                "fx": { "dance": 0.75}
+              }
+            },
+            {
+              "it": "No, dormiamo!",
+              "sl": "Ne, spiva!",
+              "en": "No, let's sleep!",
+              "de": "Nein, schlafen wir!",
+              "why": { "sl": "Dormiamo pomeni: spiva. Babica te vabi na ples!", "en": "Dormiamo means let's sleep. Granny is asking you to dance!", "de": "Dormiamo heißt: Schlafen wir. Oma lädt dich zum Tanzen ein!" },
+              "reply": { "face": "laugh", "it": "Dormire? Con questa musica? Ah ah!", "sl": "Spati? Ob tej glasbi? Ha ha!", "en": "Sleep? With this music? Ha ha!", "de": "Schlafen? Bei dieser Musik? Haha!" }
+            }
+          ]
+        },
+        {
+          "who": "rosa",
+          "face": "happy",
+          "it": "Guarda le coppie: girano e girano!",
+          "sl": "Poglej pare: vrtijo se in vrtijo!",
+          "en": "Look at the couples: round and round they go!",
+          "de": "Schau dir die Paare an: Sie drehen sich und drehen sich!",
+          "fx": { "dance": 1}
+        },
+        {
+          "choices": [
+            {
+              "it": "Che bello ballare!",
+              "sl": "Kako lepo je plesati!",
+              "en": "Dancing is so much fun!",
+              "de": "Tanzen ist so schön!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Sì! Alla festa ballano tutti: grandi e piccoli.", "sl": "Ja! Na prazniku plešejo vsi: veliki in mali.", "en": "Yes! At the feast everyone dances: big and small.", "de": "Ja! Beim Fest tanzen alle: Große und Kleine." }
+            },
+            {
+              "it": "Che brutto ballare!",
+              "sl": "Kako grdo je plesati!",
+              "en": "Dancing is horrible!",
+              "de": "Tanzen ist furchtbar!",
+              "why": { "sl": "Brutto pomeni grdo. Če ti je ples všeč: che bello!", "en": "Brutto means horrible. If you enjoy the dance: che bello!", "de": "Brutto heißt furchtbar. Wenn dir das Tanzen gefällt: che bello!" },
+              "reply": { "face": "surprised", "it": "Brutto? Ma tu ridi, tesoro!", "sl": "Grdo? Saj se smeješ, srček!", "en": "Horrible? But you're laughing, darling!", "de": "Furchtbar? Aber du lachst doch, Schatz!" }
+            }
+          ]
+        },
+        { "who": "rosa", "face": "laugh", "it": "Uff, che fatica! Adesso un bicchiere d'acqua fresca.", "sl": "Uf, kakšen napor! Zdaj pa kozarec sveže vode.", "en": "Phew, hard work! Now a glass of cool water.", "de": "Puh, ist das anstrengend! Jetzt ein Glas frisches Wasser." }
+      ]
+    },
+    {
+      "id": "merenda-gubana",
+      "memory": { "it": "la fetta di gubana in piazza", "sl": "kos gubance na trgu", "en": "the slice of gubana on the square", "de": "das Stück Gubana auf dem Platz" },
+      "lines": [
+        { "who": "rosa", "face": "happy", "it": "Tesoro! Oggi ho la gubana: con le noci, l'uvetta e il miele. Ne vuoi una fetta?", "sl": "Srček! Danes imam gubanco: z orehi, rozinami in medom. Hočeš kos?", "en": "Darling! Today I've got gubana: with walnuts, raisins and honey. Do you want a slice?", "de": "Schatz! Heute habe ich Gubana: mit Nüssen, Rosinen und Honig. Willst du ein Stück?" },
+        {
+          "choices": [
+            {
+              "it": "Sì! Mi piace tanto la gubana.",
+              "sl": "Ja! Gubanca mi je zelo všeč.",
+              "en": "Yes! I love gubana.",
+              "de": "Ja! Ich mag Gubana so gern.",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Lo so, lo so. Ecco una fetta grande.", "sl": "Vem, vem. Izvoli velik kos.", "en": "I know, I know. Here's a big slice.", "de": "Ich weiß, ich weiß. Hier ist ein großes Stück." }
+            },
+            {
+              "it": "Sì! Mi piacciono tanto la gubana.",
+              "sl": "Ja! Gubanca mi je zelo všeč.",
+              "en": "Yes! I love gubana.",
+              "de": "Ja! Ich mag Gubana so gern.",
+              "grammar": "piacere",
+              "why": { "sl": "Gubana je samo ena: mi piace.", "en": "There's just one gubana: mi piace.", "de": "Es ist nur eine Gubana: mi piace." },
+              "reply": { "face": "curious", "it": "Piacciono? La gubana è una sola, tesoro!", "sl": "Všeč so? Gubanca je samo ena, srček!", "en": "Piacciono? There's only one gubana, darling!", "de": "Piacciono? Es gibt nur eine Gubana, Schatz!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumela.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "rosa", "face": "laugh", "it": "Una fetta per te e una per Lorenzo. È piccolo, ma mangia tanto!", "sl": "En kos zate in enega za Lorenza. Majhen je, ampak veliko poje!", "en": "A slice for you and one for Lorenzo. He's small, but he eats a lot!", "de": "Ein Stück für dich und eins für Lorenzo. Er ist klein, aber er isst viel!" },
+        {
+          "choices": [
+            {
+              "it": "Grazie, nonna! Sei gentilissima.",
+              "sl": "Hvala, babica! Zelo prijazna si.",
+              "en": "Thank you, Granny! You're so kind.",
+              "de": "Danke, Oma! Du bist so lieb.",
+              "ok": true,
+              "reply": { "face": "shy", "it": "Oh, tesoro! Mangia, mangia.", "sl": "Oh, srček! Jej, jej.", "en": "Oh, darling! Eat up, eat up.", "de": "Ach, Schatz! Iss, iss." }
+            },
+            {
+              "it": "Grazie, nonna! Sei gentilissimo.",
+              "sl": "Hvala, babica! Zelo prijazen si.",
+              "en": "Thank you, Granny! You're so kind (said to a man).",
+              "de": "Danke, Oma! Du bist so lieb (zu einem Mann gesagt).",
+              "grammar": "aggettivi-accordo",
+              "why": { "sl": "Babica je ženska: gentilissima.", "en": "Granny is a woman: gentilissima.", "de": "Oma ist eine Frau: gentilissima." },
+              "reply": { "face": "laugh", "it": "Gentilissimo? Io sono una nonna, tesoro!", "sl": "Prijazen? Jaz sem babica, srček!", "en": "Gentilissimo? I'm a granny, darling!", "de": "Gentilissimo? Ich bin eine Oma, Schatz!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumela.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "rosa", "face": "happy", "it": "E adesso andiamo a vedere chi sale sull'albero!", "sl": "Zdaj pa pojdiva pogledat, kdo bo splezal na drog!", "en": "And now let's go and see who climbs the pole!", "de": "Und jetzt schauen wir, wer auf den Mast klettert!" }
+      ]
+    }
+  ]
+}
