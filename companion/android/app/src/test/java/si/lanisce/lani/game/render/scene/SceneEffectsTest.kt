@@ -35,9 +35,11 @@ class SceneEffectsTest {
         val failed = ArrayList<String>()
         for (art in SceneArt.arts) for (name in SceneArt.effects.getValue(art)) for (k in 1..Lens.MAX_DETAIL) {
             // over a second: the sparks come with the hammer's blows, the bell's rings go out
+            // one that plays out in time (the clock's strike: SLOW) on its way, a stroke ringing
+            val level = if (name in si.lanisce.lani.game.scene.SLOW) si.lanisce.lani.game.scene.Strike.at(0) + 0.02f else 0.6f
             val diff = (0 until 6).sumOf { i ->
                 val t = 3.0 + i * 0.17
-                changed(render(art, frame(art, emptyMap(), t), k).first, render(art, frame(art, mapOf(name to 0.6f), t), k).first)
+                changed(render(art, frame(art, emptyMap(), t), k).first, render(art, frame(art, mapOf(name to level), t), k).first)
             }
             if (diff < 20 * k * k) failed += "$art/$name at detail $k: $diff px change"
         }

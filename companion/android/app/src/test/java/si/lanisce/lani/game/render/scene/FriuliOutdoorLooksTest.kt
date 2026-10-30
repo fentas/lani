@@ -285,7 +285,8 @@ class FriuliOutdoorLooksTest {
     }
 
     /**
-     * Friuli's outdoor pictures as built on 2026-10-28, inland and on the coast: by day with someone at every spot and
+     * Friuli's outdoor pictures as built on 2026-10-28 (the stream's cart bridge on its pillars of cobbles and brick, the big
+     * hay barn's maize from August to March: 2026-10-30, place-life), inland and on the coast: by day with someone at every spot and
      * everything built, by day before anything is (the fienile not yet, the mill and the bridges not begun, the field at its
      * first level: its first plots, since 2026-10-30), a winter's
      * dusk in a tall view, a night closer up, a summer's afternoon at the closest. A change to one of them is a change to
@@ -316,13 +317,13 @@ class FriuliOutdoorLooksTest {
     private val golden: Map<String, String> = mapOf(
         "field/classic/day" to "46a3fcb02112ca22",
         "field/classic/day-unbuilt" to "68b9a33281dbbc82",
-        "field/classic/dusk-winter" to "81910872d516f56",
-        "field/classic/night-k2" to "9368eb8965f19962",
+        "field/classic/dusk-winter" to "92774eb393930562",
+        "field/classic/night-k2" to "2a3694212f7e1797",
         "field/classic/afternoon-k3" to "3a924b936f6b69a2",
         "field/coast/day" to "46a3fcb02112ca22",
         "field/coast/day-unbuilt" to "68b9a33281dbbc82",
-        "field/coast/dusk-winter" to "81910872d516f56",
-        "field/coast/night-k2" to "72d982e740ef25b3",
+        "field/coast/dusk-winter" to "92774eb393930562",
+        "field/coast/night-k2" to "9baf4c95b76afdaa",
         "field/coast/afternoon-k3" to "bd96d687fc0bf17d",
         "forest/classic/day" to "917830871af2b779",
         "forest/classic/day-unbuilt" to "5a8fb4ab9f01ec66",
@@ -334,16 +335,16 @@ class FriuliOutdoorLooksTest {
         "forest/coast/dusk-winter" to "f4532a55c215c252",
         "forest/coast/night-k2" to "2f330679144b3e16",
         "forest/coast/afternoon-k3" to "9314086eeb27d90e",
-        "stream/classic/day" to "38abb935ad53d60a",
+        "stream/classic/day" to "e6d37a50eff717db",
         "stream/classic/day-unbuilt" to "512cdcec17f6ae41",
-        "stream/classic/dusk-winter" to "1fba2c1a3f69077e",
-        "stream/classic/night-k2" to "e77a65440fe25c1b",
-        "stream/classic/afternoon-k3" to "8c83a25a60699651",
-        "stream/coast/day" to "38abb935ad53d60a",
+        "stream/classic/dusk-winter" to "62ad9399d2bc5a78",
+        "stream/classic/night-k2" to "37e75adf397b0c2e",
+        "stream/classic/afternoon-k3" to "386e18bf8c6f8c87",
+        "stream/coast/day" to "e6d37a50eff717db",
         "stream/coast/day-unbuilt" to "512cdcec17f6ae41",
-        "stream/coast/dusk-winter" to "1fba2c1a3f69077e",
-        "stream/coast/night-k2" to "25d0ef99361a1c97",
-        "stream/coast/afternoon-k3" to "8c83a25a60699651",
+        "stream/coast/dusk-winter" to "62ad9399d2bc5a78",
+        "stream/coast/night-k2" to "8fc94a550547e13a",
+        "stream/coast/afternoon-k3" to "386e18bf8c6f8c87",
         "pond/classic/day" to "c2b3d0f661f38dcd",
         "pond/classic/day-unbuilt" to "40a6a8ed193539ba",
         "pond/classic/dusk-winter" to "6c3c45dae116dfaa",

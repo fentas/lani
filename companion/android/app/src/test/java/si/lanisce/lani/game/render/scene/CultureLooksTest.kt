@@ -19,10 +19,18 @@ import si.lanisce.lani.game.scene.SceneWorld
  * 2026-10-28); an art a culture's look doesn't touch draws the same for every culture as for the default.
  */
 class CultureLooksTest {
+    /**
+     * What came after the digests were taken, left out of their frames so they keep holding: the square's standing spots by its
+     * projects and the bee meadow (2026-10-30, place-life: PlaceLifeRenderTest has them, and checks the things drawn before
+     * draw the same pixels as things now).
+     */
+    private val laterSpots = mapOf("square" to setOf("maypole", "fountain", "clock"))
+    private val laterProjects = mapOf("apiary" to "cebelji_travnik")
+
     /** A few frames of every art: by day and at night, closer up, with someone at every spot. */
     private fun frames(art: String, culture: String = si.lanisce.lani.game.culture.Cultures.DEFAULT): List<Triple<String, SceneFrame, Lens>> {
-        val world = SceneWorld(culture = culture)
-        val people = SceneArt.personSlots.getValue(art).mapIndexed { k, slot -> PersonInScene("p-$slot", SceneArt.people[k % SceneArt.people.size], slot) }
+        val world = SceneWorld(culture = culture).let { w -> laterProjects[art]?.let { w.stepping(it, 0) } ?: w }
+        val people = (SceneArt.personSlots.getValue(art) - laterSpots[art].orEmpty()).mapIndexed { k, slot -> PersonInScene("p-$slot", SceneArt.people[k % SceneArt.people.size], slot) }
         val objects = SceneArt.objects.getValue(art).toSet()
         return listOf(
             Triple("day", SceneFrame(time = 3.0, hour = 11f, month = 6, objects = objects, people = people, world = world), Lens(1, 0, 0, 240, 160)),
