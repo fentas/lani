@@ -13,6 +13,8 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -22,6 +24,7 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -411,33 +414,12 @@ fun ExerciseRun(
             GetReady(if (clock == Clock.COUNTING) count else null, slowSounds, Modifier.weight(1f))
             return@Column
         }
-        Text(title, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(top = 8.dp))
-        if (before != null && outcomes.isEmpty() && outcome == null) before()
-        if (text != null) PeekButton(peeking, Modifier.padding(top = 8.dp)) {
-            // a look counts while the question is open; after its answer, the text is there to check, free
-            if (!peeking && outcome == null) onLook()
-            peeking = !peeking
-        }
-        Box(Modifier.weight(1f)) {
-            // the question stays under the text (what was typed is kept), out of TalkBack's way while it's covered
-            Column(
-                Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(vertical = 16.dp)
-                    .then(if (peeking) Modifier.clearAndSetSemantics { } else Modifier),
-            ) {
-                key(index) {
-                    ExerciseView(vm, moduleId, index, exercises[index], locked = outcome != null, done = answered, adapted = adapted, onStep = { steps = it })
-                }
-            }
-            if (peeking && text != null) Surface(
-                color = MaterialTheme.colorScheme.surface, tonalElevation = 3.dp, shadowElevation = 6.dp, shape = MaterialTheme.shapes.large,
-                modifier = Modifier.fillMaxSize().padding(vertical = 8.dp),
-            ) {
-                Column(Modifier.verticalScroll(rememberScrollState()).padding(4.dp)) {
-                    Paper { ReadFirstText(vm, text) }
-                }
-            }
-        }
-        AnimatedVisibility(outcome != null, enter = slideInVertically { it }) {
+        // Teo's tablet on its side (2560 × 1600: 1280 × 800 dp), a phone on its side: the feedback card beside the question,
+        // which stays whole to read; upright, under it as before ([FeedbackPlace]). The question keeps its place in the
+        // tree either way (what was typed survives a turn of the tablet)
+        val config = LocalConfiguration.current
+        val beside = FeedbackPlace.beside(config.screenWidthDp, config.screenHeightDp)
+        val feedback: @Composable (Boolean) -> Unit = { side ->
             outcome?.let { o ->
                 if (fast && o.verdict == Verdict.CORRECT) CorrectFlash()
                 else Feedback(
@@ -445,11 +427,65 @@ fun ExerciseRun(
                     onAsk = { vm.chat.askAbout(chatContext(exercises[index], o, moduleId, source(index))) }, next = advance,
                     // the "why" belongs to a rule: "📖 V knjigo", and "Nova stran v knjigi" for a page it just unlocked
                     book = { BookLinks(vm, listOfNotNull(ruleAt(index)) + noted, fresh = noted) },
+                    side = side,
                 )
             }
         }
+        Row(Modifier.weight(1f).fillMaxWidth()) {
+            Column(Modifier.weight(1f).fillMaxHeight()) {
+                Text(title, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(top = 8.dp))
+                if (before != null && outcomes.isEmpty() && outcome == null) before()
+                if (text != null) PeekButton(peeking, Modifier.padding(top = 8.dp)) {
+                    // a look counts while the question is open; after its answer, the text is there to check, free
+                    if (!peeking && outcome == null) onLook()
+                    peeking = !peeking
+                }
+                Box(Modifier.weight(1f)) {
+                    // the question stays under the text (what was typed is kept), out of TalkBack's way while it's covered
+                    Column(
+                        Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(vertical = 16.dp)
+                            .then(if (peeking) Modifier.clearAndSetSemantics { } else Modifier),
+                    ) {
+                        key(index) {
+                            ExerciseView(vm, moduleId, index, exercises[index], locked = outcome != null, done = answered, adapted = adapted, onStep = { steps = it })
+                        }
+                    }
+                    if (peeking && text != null) Surface(
+                        color = MaterialTheme.colorScheme.surface, tonalElevation = 3.dp, shadowElevation = 6.dp, shape = MaterialTheme.shapes.large,
+                        modifier = Modifier.fillMaxSize().padding(vertical = 8.dp),
+                    ) {
+                        Column(Modifier.verticalScroll(rememberScrollState()).padding(4.dp)) {
+                            Paper { ReadFirstText(vm, text) }
+                        }
+                    }
+                }
+            }
+            if (beside) AnimatedVisibility(outcome != null, enter = slideInHorizontally { it } + fadeIn(), modifier = Modifier.fillMaxHeight()) {
+                Box(
+                    Modifier.width(FeedbackPlace.width(config.screenWidthDp).dp).fillMaxHeight().padding(start = 16.dp, top = 8.dp, bottom = 8.dp),
+                    contentAlignment = Alignment.BottomCenter,
+                ) { feedback(true) }
+            }
+        }
+        if (!beside) AnimatedVisibility(outcome != null, enter = slideInVertically { it }) { feedback(false) }
     }
     }
+}
+
+/**
+ * Where an answer's feedback card goes (ui/PlayerScreen): beside the question on a screen wide and on its side (Teo's
+ * tablet in landscape, 1280 × 800 dp; a phone turned), so the question stays whole to read; under it on one upright.
+ */
+internal object FeedbackPlace {
+    /** At least [MIN_WIDE_DP] wide and wider than tall. */
+    fun beside(widthDp: Int, heightDp: Int): Boolean = widthDp >= MIN_WIDE_DP && widthDp > heightDp
+
+    /** The card's width beside the question: 40 % of the screen, at least [MIN_DP] (its buttons side by side), at most [MAX_DP]. */
+    fun width(widthDp: Int): Int = (widthDp * 0.4f).toInt().coerceIn(MIN_DP, MAX_DP)
+
+    const val MIN_WIDE_DP = 720
+    const val MIN_DP = 340
+    const val MAX_DP = 520
 }
 
 /** Where a timed run's clock is: its sounds getting ready, counting 3, 2, 1, or running. */
@@ -1128,8 +1164,13 @@ private fun TutorGradedEx(
     }
 }
 
+/**
+ * An answer's feedback card: right, almost or not quite, the right answer and what was typed against it, the sentence to
+ * hear, the tutor's word and the why, "💬 Vprašaj" and "Naprej". Under the question its middle scrolls in at most 45 % of
+ * the screen; [side] (beside the question, [FeedbackPlace]) in the height there is, its buttons kept in view.
+ */
 @Composable
-private fun Feedback(vm: AppViewModel, o: Outcome, slovene: String?, onAsk: () -> Unit, next: () -> Unit, book: @Composable () -> Unit = {}) {
+private fun Feedback(vm: AppViewModel, o: Outcome, slovene: String?, onAsk: () -> Unit, next: () -> Unit, book: @Composable () -> Unit = {}, side: Boolean = false) {
     val (label, color) = when (o.verdict) {
         Verdict.CORRECT -> "${inTarget("playerScreen.correct")} ✅" to AlpineGreen
         Verdict.ALMOST -> "${inTarget("playerScreen.almost")} 🟡" to FlameOrange
@@ -1149,7 +1190,8 @@ private fun Feedback(vm: AppViewModel, o: Outcome, slovene: String?, onAsk: () -
                 ExText(styled, remember(styled, look) { look?.taps?.explanation(styled.text, styled.emphasized()).orEmpty() }, m, style = style, tag = "explain")
             }
             Column(
-                Modifier.heightIn(max = (LocalConfiguration.current.screenHeightDp * 0.45f).dp).verticalScroll(rememberScrollState()),
+                Modifier.then(if (side) Modifier.weight(1f, fill = false) else Modifier.heightIn(max = (LocalConfiguration.current.screenHeightDp * 0.45f).dp))
+                    .verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 if (o.hints > 0 && o.verdict != Verdict.WRONG) {
