@@ -1,6 +1,6 @@
 // Smoke checks: GET /changes, the version of what the app reads (src/changes.ts; docs/plans/05-built/nav-perf.md), and
 // the answers' ETags: the same answer asked again with its ETag is a 304 without a body.
-import { utimesSync } from 'node:fs'
+import { existsSync, readFileSync, utimesSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { auth, base, check, client, dataDir, modulesDir } from './harness'
 
@@ -21,6 +21,13 @@ export default async function changes() {
   const statuses = await Promise.all(reads.map(async p => [p, (await fetch(`${base}${p}`, { headers: auth })).status] as const))
   const b = await version()
   check("/changes: the same version after Home's reads (none writes)", a.version === b.version, { a, b, statuses })
+
+  // the bridge's own bookkeeping (the events kept for the app, the outbox's client ids) moves nothing
+  for (const f of ['app/events.json', 'app/client-ids.json']) {
+    writeFileSync(join(dataDir, f), existsSync(join(dataDir, f)) ? readFileSync(join(dataDir, f)) : '[]')
+    later(join(dataDir, f))
+  }
+  check("/changes: the bridge's own bookkeeping moves nothing (the events kept, the client ids)", (await version()).version === b.version)
 
   // a session's update-db.py writes the databases beside the bridge, card.py fixes a card
   later(join(dataDir, 'mastery-db.json'))

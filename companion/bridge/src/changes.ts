@@ -13,11 +13,13 @@ const localDate = (now = Date.now()) => {
 }
 
 /**
- * Where the learner's data has what the app's reads never serve, or what changes for nothing they read: the data
- * repository's history, the voice clips (the voice store's database stands for them), the released APKs, the backups,
- * the chat's photos.
+ * Where the learner's data has what the app's reads never serve, or what changes for nothing they read (paths from the
+ * data directory): the data repository's history, the backups, the voice clips (the voice store's database stands for
+ * them), the released APKs, the chat's photos, and the bridge's own bookkeeping: the events kept for the app (written two
+ * seconds after each event, which moves the version anyway), the outbox's client ids, the paired phones' last visits, the
+ * developer's uploads.
  */
-const DATA_SKIP = new Set(['.git', '.backups', 'voice', 'release', 'chat-images'])
+const DATA_SKIP = new Set(['.git', '.backups', 'app/voice', 'app/release', 'app/chat-images', 'app/events.json', 'app/client-ids.json', 'app/devices.json', 'app/dev'])
 
 /** The project's directories with no content the bridge serves (its code, the app's, the workers'), and big trees. */
 const PROJECT_SKIP = new Set(['android', 'bridge', 'bin', 'relay', 'stt-local', 'systemd', 'tests', 'voice-local', 'voice-drama3'])
@@ -78,8 +80,11 @@ function stamp(path: string, h: ReturnType<typeof createHash>) {
   } catch {} // not there (yet): nothing
 }
 
-/** Every file under [dir] (its top-level names in [skip] left out, and any .git), in a fixed order, stamped into [h]. */
-function walk(dir: string, h: ReturnType<typeof createHash>, skip: Set<string> = new Set()) {
+/**
+ * Every file under [dir] (the paths from it in [skip] left out, and any .git or node_modules), in a fixed order, stamped
+ * into [h]; [rel] is [dir]'s path from where the walk began.
+ */
+function walk(dir: string, h: ReturnType<typeof createHash>, skip: Set<string> = new Set(), rel = '') {
   let names: string[]
   try {
     names = readdirSync(dir).sort()
@@ -87,7 +92,8 @@ function walk(dir: string, h: ReturnType<typeof createHash>, skip: Set<string> =
     return // not there (yet)
   }
   for (const name of names) {
-    if (skip.has(name) || name === '.git' || name === 'node_modules') continue
+    const at = rel ? `${rel}/${name}` : name
+    if (skip.has(at) || name === '.git' || name === 'node_modules') continue
     const path = join(dir, name)
     let s
     try {
@@ -95,7 +101,7 @@ function walk(dir: string, h: ReturnType<typeof createHash>, skip: Set<string> =
     } catch {
       continue // gone meanwhile
     }
-    if (s.isDirectory()) walk(path, h)
+    if (s.isDirectory()) walk(path, h, skip, at)
     else h.update(`${path}\0${s.ino}\0${s.size}\0${s.mtimeMs}\n`)
   }
 }
