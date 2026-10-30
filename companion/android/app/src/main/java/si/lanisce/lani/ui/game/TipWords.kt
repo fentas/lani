@@ -74,6 +74,23 @@ internal fun marked(line: String): AnnotatedString = buildAnnotatedString {
 /** The tip's moment as a bubble on the map at its thing ([Tip.at]): "tip:<moment>", its picture, its line. */
 fun Tip.marker(child: Boolean): TownMarker? = at?.let { TownMarker("$TIP_MARKER$moment", TownMarker.Kind.TIP, emoji, HintSpeech.plain(text(child)), it) }
 
+/**
+ * The map's bubble this tip stands in for: the same thing at the same place (a request's quiet "🔁" for its drill, its "!"
+ * for the first request, someone to meet, a visitor, a festival, the surprise, a project's step), so the map never shows two
+ * bubbles for one thing; the tip's goes once it is dealt with and the other comes back. A giver's "!" for several requests
+ * stays (the tip names only one).
+ */
+fun Tip.standsFor(m: TownMarker): Boolean = when (val a = action) {
+    is TipAction.Retry -> m.id == "${si.lanisce.lani.game.scene.TownMarkers.BACK}${a.id}"
+    is TipAction.Quest -> m.id == "quest:${a.id}" && m.count <= 1
+    is TipAction.Meet -> m.id == "arrival:${a.id}"
+    is TipAction.Villager -> m.id == "visitor:${a.id}"
+    is TipAction.Festival -> m.id == "festival:${a.id}"
+    is TipAction.Surprise -> m.id.startsWith("surprise:")
+    is TipAction.Projects -> a.id != null && m.id == "project:${a.id}"
+    else -> false
+}
+
 /** A tip's bubble's id on the map. */
 const val TIP_MARKER = "tip:"
 

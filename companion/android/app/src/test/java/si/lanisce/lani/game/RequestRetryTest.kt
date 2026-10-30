@@ -12,8 +12,10 @@ import si.lanisce.lani.game.BusyVillage.play
 import si.lanisce.lani.game.BusyVillage.queue
 import si.lanisce.lani.game.BusyVillage.today
 import si.lanisce.lani.game.BusyVillage.zone
+import si.lanisce.lani.game.scene.TownMarker
 import si.lanisce.lani.game.scene.TownMarkers
 import si.lanisce.lani.game.villagers.Resident
+import si.lanisce.lani.ui.game.standsFor
 import si.lanisce.lani.ui.game.whyText
 
 /**
@@ -101,13 +103,17 @@ class RequestRetryTest {
         assertTrue(back.pace.up.any { it.id == TentMove.ID })
     }
 
-    @Test fun `the map's tip says where it went, once, its one tap the drill`() {
+    @Test fun `the map's tip says where it went, once, its one tap the drill, in place of the giver's quiet sign`() {
         val (s, t) = failed()
         val markers = TownMarkers.backMarkers(queue(s, t + 60_000), s, cast)
         val tip = Guidance.next(s, GuideFacts(today, t + 6 * 60_000, ready = true, markers = markers, chatted = true, reviewed = true), TipPlace.MAP)
         assertEquals("back", tip?.moment)
         assertEquals(TipAction.Retry(mojca), tip?.action)
-        val dealt = Guidance.dealt(Guidance.shown(s, tip!!, today, t), "back", today, t)
+        // on the map it stands in for her quiet "🔁" (one bubble for one thing), never for another's
+        assertTrue(tip!!.standsFor(markers.single()))
+        assertFalse(tip.standsFor(markers.single().copy(id = "${TownMarkers.BACK}other")))
+        assertFalse(tip.standsFor(TownMarker("quest:$mojca", TownMarker.Kind.QUEST, "📋", "", markers.single().place)))
+        val dealt = Guidance.dealt(Guidance.shown(s, tip, today, t), "back", today, t)
         assertNull(Guidance.next(dealt, GuideFacts(today.plusDays(3), t + 3 * 86_400_000L, ready = true, markers = markers, chatted = true, reviewed = true), TipPlace.MAP)?.takeIf { it.moment == "back" })
     }
 }

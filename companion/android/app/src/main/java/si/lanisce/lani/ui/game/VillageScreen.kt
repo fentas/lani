@@ -246,11 +246,15 @@ fun VillageScreen(vm: AppViewModel) {
     si.lanisce.lani.ui.VillageSound(vm.ambience, s, cam, townClock)
     // Zoomed out, places are close together: one bubble each; closer in, they fan out.
     val zoomedOut by remember { derivedStateOf { cam.rig?.let { cam.camera.scale < it.minScale * 1.5f } ?: false } }
-    val shown = remember(markers, zoomedOut) { if (zoomedOut) clusterBubbles(markers) else foldBubbles(markers) }
     // "💡 Namigi · Tips" (companion/GAME.md "Guidance"): the map's one tip, a gentle bubble at its thing; a tap opens its card.
     // A new one only in a quiet moment: nothing open over the map (a card, a sheet, the scroll, the plot chooser, an age's moment)
     val tip = rememberTip(vm, si.lanisce.lani.game.TipPlace.MAP, quiet = sheet == null && card == null && villager == null && moment == null && choosing == null && !scrollOpen)
     val tipMarker = remember(tip, vm.langPair) { tip?.marker(vm.child) }
+    // the bubbles on the map, the one the tip stands in for left out while it shows (one bubble for one thing)
+    val shown = remember(markers, zoomedOut, tip, tipMarker) {
+        val ms = if (tipMarker == null) markers else markers.filterNot { tip?.standsFor(it) == true }
+        if (zoomedOut) clusterBubbles(ms) else foldBubbles(ms)
+    }
     /** The tip's card is open over the map (its bubble tapped). */
     var tipOpen by remember { mutableStateOf(false) }
     LaunchedEffect(tip?.moment) { if (tip == null) tipOpen = false }
