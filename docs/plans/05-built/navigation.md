@@ -29,7 +29,9 @@ Home · Tidy Home", over a real back stack, with its 20 quick wins. This is that
   where letting go leads ("‹ 🏘️ Vas · Village"). The screens' own Back comes first (a card, a sheet, a step, a dialog,
   as Compose's later BackHandler does); at Home nothing takes it, and the system's back-to-home animation leaves the app.
 - **State survives.** Each screen's remembered state (a list's scroll, a section open) is kept under its entry while
-  another is on top (`rememberSaveableStateHolder`), and dropped when it leaves the stack. The stack itself is saved
+  another is on top (`rememberSaveableStateHolder`), and dropped when it leaves the stack. Home is kept whole: composed
+  under the screens opened from it, out of the way, and on view again as it was (`ui/Covered.kt`, since nav-perf,
+  docs/plans/05-built/nav-perf.md). The stack itself is saved
   with the activity (`SavedStateHandle`, `NavRoutes`): after the process's death the app opens on the screens the learner
   was on, as routes ("scene", "ob-ognju"). A run is not saved (its answers live in the run: the app opens where it
   began); a visit isn't either (the visited town's world is entered again from Friends). The activity isn't recreated

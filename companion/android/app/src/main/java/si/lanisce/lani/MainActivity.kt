@@ -162,8 +162,7 @@ private fun App(vm: AppViewModel) {
         if (vm.screen == Screen.Home && Build.VERSION.SDK_INT >= 33) notifications.launch(Manifest.permission.POST_NOTIFICATIONS)
     }
 
-    val entry = vm.nav.entries.last()
-    val screen = entry.screen
+    val screen = vm.nav.top
     // each screen's remembered state (a list's scroll, a section open) kept under its entry while another is on top, and
     // across the process's death (the stack is saved with it: AppViewModel); a screen gone from the stack drops it
     val states = rememberSaveableStateHolder()
@@ -197,10 +196,13 @@ private fun App(vm: AppViewModel) {
         contentWindowInsets = androidx.compose.foundation.layout.WindowInsets(0.dp),
     ) { pad ->
         Box(Modifier.fillMaxSize().padding(pad)) {
-            if (backProgress > 0f) si.lanisce.lani.ui.BackScrim(backProgress)
-            Box(Modifier.fillMaxSize().then(si.lanisce.lani.ui.predictiveBack(backProgress, backEdge))) {
-                states.SaveableStateProvider(entry.id) { key(entry.id) { ScreenOf(vm, screen) } }
-            }
+            // the top screen, and Home kept composed under the screens opened from it (ui/Covered.kt: Back to Home shows it as
+            // it was, nothing composed again; docs/plans/05-built/nav-perf.md), drawn behind the back gesture when Back leads there
+            si.lanisce.lani.ui.ScreenStack(
+                vm.nav.entries, states, peek = backProgress,
+                top = si.lanisce.lani.ui.predictiveBack(backProgress, backEdge),
+                behind = { if (backProgress > 0f) si.lanisce.lani.ui.BackScrim(backProgress) },
+            ) { ScreenOf(vm, it) }
             if (backProgress > 0f) BackPeek(vm, backProgress, backEdge)
             VoiceBadge(vm.family.voice, Modifier.align(Alignment.TopCenter))
             // on a visit, once, when a line can't be heard (at home, a word of another language): that language's offline voice

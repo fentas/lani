@@ -82,9 +82,13 @@ fun VillageScene(
     val offX = fit.offX
     val offY = fit.offY
 
-    LaunchedEffect(Unit) {
-        val start = withFrameNanos { it }
-        var last = -FRAME_NANOS
+    // the picture's clock, at ~12 fps; stopped while the screen is covered (Home under another: ui/Covered.kt), and on
+    // from where it stopped when it shows again (the construction's and the celebration's marks go by it)
+    val covered = si.lanisce.lani.ui.LocalCovered.current
+    LaunchedEffect(covered) {
+        if (covered) return@LaunchedEffect
+        val start = withFrameNanos { it } - clock.longValue
+        var last = clock.longValue - FRAME_NANOS
         while (true) {
             withFrameNanos { now ->
                 val t = now - start

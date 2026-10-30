@@ -66,13 +66,15 @@ import java.time.LocalTime
 @Composable
 fun HomeHero(vm: AppViewModel, d: Dashboard?, onLink: () -> Unit = { vm.openSettings("connection") }) {
     val village = vm.game.state
+    // the greeting's hour and the threat's time left by a clock of the minute (stopped while Home is covered: ui/Covered.kt)
+    val now = si.lanisce.lani.ui.game.rememberNow(60_000)
     Box(Modifier.fillMaxWidth().background(Brush.verticalGradient(listOf(SloBlueDeep, SloBlue)))) {
         if (village != null) HeaderVillage(village, vm.game.celebrate, onOpen = vm::openVillage, modifier = Modifier.matchParentSize())
         else Triglav(Modifier.fillMaxWidth().height(150.dp).align(Alignment.BottomCenter))
         Column(Modifier.statusBarsPadding().padding(start = 20.dp, end = 20.dp, top = 16.dp, bottom = 16.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    "${greeting(LocalTime.now().hour)}, ${d?.name ?: ""}",
+                    "${greeting(java.time.Instant.ofEpochMilli(now).atZone(java.time.ZoneId.systemDefault()).hour)}, ${d?.name ?: ""}",
                     style = MaterialTheme.typography.headlineMedium,
                     color = Color.White,
                     modifier = Modifier.weight(1f),
@@ -97,7 +99,7 @@ fun HomeHero(vm: AppViewModel, d: Dashboard?, onLink: () -> Unit = { vm.openSett
             UpdateBanner(vm)
             if (village != null) {
                 Spacer(Modifier.height(96.dp)) // the village shows through
-                VillageChip(HomeLogic.villageHint(village, vm.villagers.outlook(village)), onClick = vm::openVillage)
+                VillageChip(HomeLogic.villageHint(village, vm.villagers.outlook(village)), now, onClick = vm::openVillage)
             } else {
                 Spacer(Modifier.height(56.dp))
             }
@@ -107,11 +109,11 @@ fun HomeHero(vm: AppViewModel, d: Dashboard?, onLink: () -> Unit = { vm.openSett
 
 /** "🔥 Moja vas · My village ›", or the event on now, or the dying fire: tapping it opens the village. */
 @Composable
-private fun VillageChip(hint: VillageHint, onClick: () -> Unit) {
+private fun VillageChip(hint: VillageHint, now: Long, onClick: () -> Unit) {
     val (color, text) = when (hint) {
         is VillageHint.Event -> {
             val k = hint.event.kind
-            val left = timeLeft(hint.event.deadline, System.currentTimeMillis())
+            val left = timeLeft(hint.event.deadline, now)
             (if (HomeLogic.threat(k)) TriglavRed else XpGold.copy(alpha = 0.95f)) to "${k.emoji} ${k.names.bi()} · ⏳ $left"
         }
         VillageHint.FireLow -> FlameOrange to "🔥 ${bi("hearths.goingOut")}"
@@ -269,7 +271,8 @@ private fun UnpairedChip(onClick: () -> Unit) {
 
 @Composable
 private fun Pill(emoji: String, value: String, description: String, tint: Color, pulse: Boolean = false, onClick: () -> Unit = {}) {
-    val scale = if (pulse) {
+    // no animation while Home is covered (ui/Covered.kt): it would ask for every frame
+    val scale = if (pulse && !si.lanisce.lani.ui.LocalCovered.current) {
         val t = rememberInfiniteTransition(label = "pulse")
         t.animateFloat(1f, 1.18f, infiniteRepeatable(tween(900), RepeatMode.Reverse), label = "flame").value
     } else 1f

@@ -1118,7 +1118,11 @@ internal fun BarButton(
 /** Minute-resolution clock for countdowns. */
 @Composable
 fun rememberNow(periodMs: Long = 30_000): Long {
-    val now by produceState(System.currentTimeMillis()) {
+    // stopped while the screen is covered (Home under another: ui/Covered.kt), the time now at once when it shows again
+    val covered = si.lanisce.lani.ui.LocalCovered.current
+    val now by produceState(System.currentTimeMillis(), covered) {
+        if (covered) return@produceState
+        value = System.currentTimeMillis()
         while (true) {
             delay(periodMs)
             value = System.currentTimeMillis()

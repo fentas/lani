@@ -89,6 +89,11 @@ private fun HomeContent(vm: AppViewModel, list: LazyListState, bottom: Dp) {
     // "💡 Namigi · Tips" (companion/GAME.md "Guidance"): Home's one tip, a card in "Danes · Today" with its button; a new one
     // only while no sheet is open over Home
     val tip = si.lanisce.lani.ui.game.rememberTip(vm, si.lanisce.lani.game.TipPlace.HOME, quiet = sheet == Sheet.NONE)
+    // what Home works out by the clock (the festival soon, the burner at his pile now, what's on in the village) again each
+    // minute, and at once when Home shows again after another screen over it (kept composed: ui/Covered.kt)
+    val minute = si.lanisce.lani.ui.game.rememberNow(60_000) / 60_000
+    val now = remember(minute) { java.time.LocalDateTime.now() }
+    val covered = si.lanisce.lani.ui.LocalCovered.current
     LazyColumn(Modifier.fillMaxSize(), state = list, contentPadding = PaddingValues(bottom = bottom)) {
         item("hero") { HomeHero(vm, d) }
         if (d == null) {
@@ -99,15 +104,15 @@ private fun HomeContent(vm: AppViewModel, list: LazyListState, bottom: Dp) {
         val state = vm.game.state
         val modules = vm.content.modules.map { vm.villagers.shown(it, state) }
         val packs = vm.packs.list.map { vm.villagers.shown(it, state) }
-        val festival = si.lanisce.lani.game.Calendar.soon(state, java.time.LocalDate.now())?.id
-        val numbers = HomeLogic.numbersIdea(vm.numbers.open, vm.numbers.progress, java.time.LocalDate.now())
+        val festival = si.lanisce.lani.game.Calendar.soon(state, now.toLocalDate())?.id
+        val numbers = HomeLogic.numbersIdea(vm.numbers.open, vm.numbers.progress, now.toLocalDate())
         // wolves, a bear or a storm about: defending the village is today's one thing (it is lost at its deadline)
         val defend = HomeLogic.defend(state)
         val cases = casesIdea(vm)
         val today = HomeLogic.today(d, modules, vm.content.newModules, packs, vm.packs.newIds, talking, vm.family.challenges, festival, si.lanisce.lani.ui.school.lessonIdea(vm), numbers, defend, cases)
         val offered = (listOf(today.primary) + today.more).filterIsInstance<HomeAction.Module>().map { it.info.id }.toSet()
         // the threat once only: Today's button, not the strip's red row too
-        val needs = vm.game.state?.let { HomeLogic.needs(it, vm.scenes.active(it), vm.villagers.people(it), vm.scenes.all, offered) }.orEmpty()
+        val needs = vm.game.state?.let { HomeLogic.needs(it, vm.scenes.active(it, now), vm.villagers.people(it), vm.scenes.all, offered) }.orEmpty()
             .filterNot { it.alarm && today.primary is HomeAction.Defend }
 
         item("today") {
@@ -123,7 +128,7 @@ private fun HomeContent(vm: AppViewModel, list: LazyListState, bottom: Dp) {
                 // meet, the burner at his pile): a tap opens them over Home; two at most, the rest one line to the village
                 calls = listOfNotNull(
                     vm.treasure.let { t -> HomeLogic.treasure(t.status(), t.hunt(), t.tellerName(), t.required(), t.waiting) },
-                ) + state?.let { HomeLogic.calls(it, vm.villagers.all, si.lanisce.lani.game.scene.Keepers.here(it, java.time.LocalDateTime.now())) }.orEmpty(),
+                ) + state?.let { HomeLogic.calls(it, vm.villagers.all, si.lanisce.lani.game.scene.Keepers.here(it, now)) }.orEmpty(),
                 onCall = { c ->
                     when (c) {
                         is si.lanisce.lani.ui.home.VillageCall.Arrival -> vm.villagers.meet(c.id)
@@ -159,7 +164,8 @@ private fun HomeContent(vm: AppViewModel, list: LazyListState, bottom: Dp) {
             Column(Modifier.padding(top = 24.dp)) { ProgressSection(HomeLogic.road(d), onProgress = vm::openProgress) }
         }
     }
-    when (sheet) {
+    // a sheet is a window of its own: not over the screen on top while Home is covered (it comes back with Home)
+    if (!covered) when (sheet) {
         Sheet.NONE -> Unit
         Sheet.CHALLENGES -> ChallengesSheet(
             vm.content.modules.map { vm.villagers.shown(it, vm.game.state) },

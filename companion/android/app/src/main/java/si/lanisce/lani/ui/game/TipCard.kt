@@ -96,12 +96,20 @@ fun rememberTip(vm: AppViewModel, place: TipPlace, quiet: Boolean, scene: String
     if (si.lanisce.lani.data.VisitWorld.active) return null
     val minute = rememberNow(30_000) / 60_000
     val d = vm.content.dashboard
-    val facts = remember(s, d, vm.packs.list, vm.chat.messages.size, vm.scenes.all, vm.scenes.found, vm.villagers.all, vm.school.course, scene, minute) {
-        guideFacts(vm, s, scene = scene)
+    // covered (Home kept under another screen: ui/Covered.kt): the tip it showed stays as it was, nothing worked out again,
+    // nothing counted as shown, until it is on view again
+    val covered = si.lanisce.lani.ui.LocalCovered.current
+    val held = remember { arrayOfNulls<Any?>(2) }
+    if (!covered || held[0] == null) {
+        held[0] = s
+        held[1] = arrayOf(s, d, vm.packs.list, vm.chat.messages.size, vm.scenes.all, vm.scenes.found, vm.villagers.all, vm.school.course, scene, minute)
     }
-    LaunchedEffect(s.tips.since.isEmpty(), facts.ready) { if (s.tips.since.isEmpty() && facts.ready) vm.game.tipsBegin(facts) }
-    val tip = remember(s, facts, place, quiet) { runCatching { Guidance.next(s, facts, place, quiet) }.getOrNull() }
-    LaunchedEffect(tip?.moment) { tip?.let(vm.game::tipShown) }
+    val shownState = held[0] as GameState
+    @Suppress("UNCHECKED_CAST") val keys = held[1] as Array<Any?>
+    val facts = remember(*keys) { guideFacts(vm, shownState, scene = scene) }
+    LaunchedEffect(shownState.tips.since.isEmpty(), facts.ready, covered) { if (!covered && shownState.tips.since.isEmpty() && facts.ready) vm.game.tipsBegin(facts) }
+    val tip = remember(shownState, facts, place, quiet) { runCatching { Guidance.next(shownState, facts, place, quiet) }.getOrNull() }
+    LaunchedEffect(tip?.moment, covered) { if (!covered) tip?.let(vm.game::tipShown) }
     // a debug build says what each place shows (tag Tips): QA's evidence, and why the tutor's pointer waits
     if (si.lanisce.lani.app.QaHooks.enabled) LaunchedEffect(tip?.moment, s.tips.asked, facts.lesson) {
         android.util.Log.d("Tips", "$place: ${tip?.moment ?: "none"} asked=${s.tips.asked?.moment} lesson=${facts.lesson} ready=${facts.ready} quiet=$quiet")
