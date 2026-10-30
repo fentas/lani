@@ -294,7 +294,10 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        (QA's hook "school:reveal"), Maestra Elena preparing the next lessons; the school's card on the map
                        and "🚪 Entra" into A scuola at 10 o'clock; "friuli-school-unit" (the same learner, a run of its
                        own: each is about 8 minutes) the unit ciao end to end ("school:ciao"), kept done; both also as
-                       fs-*.png in $LANI_QA_FRIULI_SHOTS;
+                       fs-*.png in $LANI_QA_FRIULI_SHOTS; "friuli-watchtower" (only when named; the same learner)
+                       Teo's watchtower at level 2 (QA's hook "hearths:trg"): its card on the map and "🚪 Entra" into
+                       Sulla torre, closer up, on the tablet, «Vedo, vedo» (the horn), Davide's lookout in the evening
+                       (fw-*.png there too);
                        "offline-audio" the
                        settings' "🔊 Zvok brez povezave" section; "prefetch" the day's clips got from the dev bridge (QA's
                        hook "audio:prefetch"; the day's size in prefetch.json); "offline-voice" the Piper voice downloaded
@@ -6966,6 +6969,156 @@ def friuli_school_unit():
     return friuli_school("unit")
 
 
+def friuli_watchtower():
+    """Teo's watchtower (docs/plans/05-built/places-it-buildings.md): a child learning Italian from German in the Friuli
+    village (LANI_DEV_DATA: make-learner.ts --target it --base de --name Teo; LANI_CULTURE=friuli, LANI_CHILD=1,
+    LANI_QA_SETUP_PAIR=it-de, LANI_QA_LEARNER=Teo), the app in its own pair, it · de; the village built up as a Trg (QA's
+    hook "hearths:trg": its watchtower at level 2, as Teo's after its first upgrade). The watchtower's card on the map
+    and its "🚪 Entra · Geh hinein: 🗼 Sulla torre" into the scene, which before 2026-10-30 Friuli didn't have (the card
+    had no way in); the view from the platform at level 2 (the plank rail, the pennant), closer up; «Vedo, vedo» up there,
+    its first round the horn (QA's hook "ispy:sulla-torre/horn"), found; Davide's lookout in the evening (QA's hooks
+    "hour:20.5", "happening:sulla-torre/guardia"), its first line; Teo's tablet on its side and upright. Also as fw-*.png
+    in $LANI_QA_FRIULI_SHOTS."""
+    try:
+        culture = api("/culture").get("id")
+    except (OSError, RuntimeError, ValueError):
+        culture = None
+    if culture != "friuli":
+        return "skipped: the dev bridge's village isn't the Friuli culture's (LANI_CULTURE=friuli and a learner of Italian)"
+    pair = ["it", "de"]
+    out = Path(os.environ["LANI_QA_FRIULI_SHOTS"]) if os.environ.get("LANI_QA_FRIULI_SHOTS") else None
+    lab = lambda key: " · ".join(l10n(lang).get(key, key) for lang in pair)
+    half = lambda key: l10n(pair[0]).get(key, key)
+    tower = "Torre di guardia"  # cultures/friuli/world.json: the watchtower's name, its node on the map "Torre di guardia · Wachturm, …"
+    back = lab("common.village")  # "Villaggio · Dorf": the scene's way back in its top bar
+
+    def snap(name: str):
+        shot(name)
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"{name}.png")
+
+    def tablet(name: str):
+        """[name] on Teo's tablet (a Galaxy Tab S6: 2560 × 1600 at 320 dpi), on its side and upright, then the phone again."""
+        try:
+            adb("shell", "wm", "density", "320")
+            for size, side in (("2560x1600", "side"), ("1600x2560", "upright")):
+                adb("shell", "wm", "size", size)
+                time.sleep(5 * slow())
+                snap(f"{name}-tablet-{side}")
+        finally:
+            adb("shell", "wm", "size", "reset")
+            adb("shell", "wm", "density", "reset")
+            time.sleep(4 * slow())
+
+    def tower_node(timeout=20.0):
+        """The watchtower's node on the map, waited for (a busy map often answers uiautomator with no screen at all)."""
+        end = time.time() + timeout * slow()
+        while time.time() < end:
+            c = next((c for t, c in nodes() if t.startswith(tower)), None)
+            if c is not None:
+                return c
+            time.sleep(1.5)
+        return None
+
+    def way_in():  # the card's "🚪 Entra · Geh hinein: 🗼 Sulla torre …" (not another building's way in)
+        return next((c for t, c in nodes() if half("placeCard.go") in t and "Sulla torre" in t), None)
+
+    qa_hook("pair:it-de")  # Teo's own pair (the profile's): the village's labels in it · de
+    try:
+        qa_hook("hearths:trg")  # a Trg: the watchtower among its buildings, every one at level 2
+        qa_hook("hour:13")  # no happening of the tower's then for a bubble over it (its pedlar and its storm are the afternoon's dice)
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "village")
+        end = time.time() + 40 * slow()
+        while time.time() < end and find(lab("villageScreen.scroll")) is None:
+            c = find(lab("common.skip")) or find(lab("common.continue")) or find(lab("challengeScreen.village"))
+            if c is not None:
+                tap_at(c)
+            time.sleep(1.5)
+        assert find(lab("villageScreen.scroll")) is not None, "the village"
+        time.sleep(3)
+        snap("fw-village")
+        go_in = None
+        for attempt in range(3):
+            c = tower_node()
+            assert c is not None, "the watchtower on the village's map"
+            if attempt > 0:
+                double_tap_zoom(c[0], c[1])  # closer in: a tap on the crowded map may land on a house in front
+                time.sleep(2)
+                c = tower_node()
+                assert c is not None, "the watchtower on the village's map, closer in"
+            tap_at(c)
+            end = time.time() + 10 * slow()
+            while (go_in := way_in()) is None and time.time() < end:
+                if find(back) is not None:  # a bubble over the tower: straight into its scene, as the card's way in goes
+                    break
+                time.sleep(1)
+            if go_in is not None or find(back) is not None:
+                break
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")  # another building's card: closed, closer in
+            time.sleep(1.5)
+        if go_in is not None:
+            time.sleep(1)
+            snap("fw-card")
+            tap_at(go_in)
+        assert wait_for(back, 12), "into Sulla torre (its way back to the village in the top bar)"
+        assert wait_for("Sulla torre", 6), "the scene's title"
+        time.sleep(3 * slow())
+        snap("fw-scene")
+        qa_hook("zoom")
+        time.sleep(3 * slow())
+        snap("fw-scene-closer")
+        tablet("fw-scene")
+        tap(back, 4)
+        time.sleep(2)
+        # «Vedo, vedo» up there (QA's hook: offered whatever the day, its first round spying the horn): the round, the horn found
+        adb("logcat", "-c")
+        qa_hook("ispy:sulla-torre/horn", "scene:sulla-torre")
+        assert wait_for(back, 12), "Sulla torre again"
+        marker = wait_for(lab("ispy.title"), 20)  # "<child>: Vedo, vedo · Ich sehe was. Giochiamo …" over the child
+        card = scroll_to("🔍 " + lab("ispy.play"), 5) or marker
+        assert card is not None, "the offer «Vedo, vedo»: the 🔍 over the child, the card on the panel"
+        snap("fw-ispy-offer")
+        tap_at(card)
+        got = ispy_positions(15)
+        assert got is not None, "the debug build's ISpy log of where the things are"
+        _, target, at, word = got
+        assert target == "horn" and "horn" in at, f"the first round spies the horn (QA's hook): {target}, {sorted(at)}"
+        time.sleep(4 * slow())  # the child's line and the first clue
+        snap("fw-ispy-round")
+        tap_at(at["horn"])
+        assert wait_for(f"{word}!", 30), f"the child's cheer: «{word}» found"
+        time.sleep(1)
+        snap("fw-ispy-found")
+        qa_hook("ispy:")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")  # out of the game, into the scene
+        time.sleep(2)
+        if find(back) is not None:
+            tap(back, 4)
+        time.sleep(2)
+        # the evening: Davide on the lookout (the happening on through the hook), its dialog opened at its first line
+        qa_hook("hour:20.5")
+        qa_hook("happening:sulla-torre/guardia", "scene:sulla-torre@sulla-torre/guardia")
+        assert wait_for(back, 12) or wait_for(lab("common.next"), 4), "Sulla torre in the evening"
+        time.sleep(4 * slow())
+        snap("fw-guardia")
+        for _ in range(3):  # a line or two on, to the first turn
+            if find(lab("common.next")) is None:
+                break
+            tap(lab("common.next"), 3)
+            time.sleep(2)
+        snap("fw-guardia-turn")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(2)
+        snap("fw-scene-evening")
+    finally:
+        qa_hook("happening:")
+        qa_hook("hour:")
+        restore = os.environ.get("LANI_QA_PAIR")
+        qa_hook(f"pair:{restore}" if restore else "pair:")
+    return None
+
+
 def school_point(pic, x: float, y: float, z: float) -> tuple[int, int]:
     """Where world point ([x], [y], [z]) of the school's diorama (SchoolPainter: its plot 13 × 11 cells, 26 px high, 7 deep)
     lies on screen in the scene's picture [pic] (its bounds), the camera fitted: the scene's canvas as SceneFit lays it
@@ -13218,6 +13371,8 @@ def plan():
         # the Friuli village's school for Teo (LANI_CULTURE=friuli, a synthetic learner of Italian from German)
         ("friuli-school", friuli_school, None, False, ""),
         ("friuli-school-unit", friuli_school_unit, None, False, ""),
+        # only with --steps friuli-watchtower: Teo's watchtower at level 2 and into Sulla torre (the village made a Trg)
+        ("friuli-watchtower", friuli_watchtower, None, False, ""),
         ("village-life", village_life, v, False, ""),
         ("palisade-walk", palisade_walk, v, False, ""),
         ("reactions", reactions, v, False, ""),
@@ -13551,7 +13706,7 @@ def selected(steps):
     want = arg("--steps")
     if not want:
         # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
-        return [s for s in steps if s[0] not in ("hosted", "town-progress-child", "zoom-frames", "home-return", "friuli-looks", "talk-mic") and s[4] != VOICES_GROUP]
+        return [s for s in steps if s[0] not in ("hosted", "town-progress-child", "zoom-frames", "home-return", "friuli-looks", "friuli-watchtower", "talk-mic") and s[4] != VOICES_GROUP]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")
