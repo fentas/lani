@@ -1,0 +1,905 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "la-fontana",
+  "language": "it",
+  "title": { "it": "La fontana", "sl": "Vodnjak", "en": "The fountain", "de": "Der Brunnen" },
+  "emoji": "⛲",
+  "level": "A1",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written, not reviewed by a native speaker",
+  "art": "square",
+  "from": ["project:vodnjak_na_trgu"],
+  "pack": "la-fontana",
+  "objects": [
+    { "slot": "linden", "word": "tiglio", "pack": "la-cuccagna" },
+    { "slot": "bench", "word": "panchina", "pack": "la-cuccagna" },
+    { "slot": "ball", "word": "pallone", "pack": "a-scuola" },
+    { "slot": "well", "word": "pozzo", "pack": "la-cuccagna", "needs": { "building": "WELL" } },
+    { "slot": "dog", "word": "cane", "pack": "famiglia" },
+    { "slot": "cat", "word": "gatto", "pack": "famiglia" },
+    { "slot": "house", "word": "casa", "pack": "casa-e-cucina" },
+    { "slot": "tower", "word": "campanile", "pack": "in-paese", "needs": { "building": "CHURCH" } },
+    { "slot": "bicycle", "word": "bicicletta", "pack": "la-cuccagna" },
+    { "slot": "flowers", "word": "fiore", "pack": "festa-liberazione" },
+    { "slot": "sun", "word": "sole", "pack": "festa-pasquetta" },
+    { "slot": "fence", "word": "steccato", "pack": "nel-campo" }
+  ],
+  "people": [
+    { "id": "bruno", "name": "Fabbro Bruno", "emoji": "⚒️", "art": "smith", "slot": "well", "villager": "bruno" },
+    { "id": "nives", "name": "Zia Nives", "emoji": "📻", "art": "aunt", "slot": "bench", "villager": "nives" },
+    { "id": "giulia", "name": "Giulia", "emoji": "👧", "art": "child2", "slot": "play1", "villager": "giulia" },
+    { "id": "lorenzo", "name": "Lorenzo", "emoji": "👦", "art": "child3", "slot": "play2", "villager": "lorenzo" }
+  ],
+  "happenings": [
+    {
+      "id": "acqua",
+      "title": { "it": "Bruno alla sua fontana", "sl": "Bruno pri svojem vodnjaku", "en": "Bruno at his fountain", "de": "Bruno an seinem Brunnen" },
+      "who": "bruno",
+      "when": ["morning"],
+      "chance": 0.5,
+      "dialog": "acqua",
+      "dialogs": ["acqua-ghiaccio", "acqua-cannelle", "acqua"],
+      "reward": { "stone": 20},
+      "marker": "⛲",
+      "memory": { "it": "l'acqua fresca della fontana", "sl": "svežo vodo iz vodnjaka", "en": "the fountain's cool water", "de": "das frische Wasser vom Brunnen" }
+    },
+    {
+      "id": "notizie",
+      "title": { "it": "Zia Nives sente le notizie", "sl": "Teta Nives posluša novice", "en": "Zia Nives hears the news", "de": "Zia Nives hört die Neuigkeiten" },
+      "who": "nives",
+      "when": ["morning"],
+      "chance": 0.5,
+      "dialog": "notizie",
+      "dialogs": ["notizie-radio", "notizie"],
+      "reward": { "wisdom": 15},
+      "marker": "📻",
+      "memory": { "it": "le notizie della fontana", "sl": "novice pri vodnjaku", "en": "the news at the fountain", "de": "die Neuigkeiten am Brunnen" }
+    },
+    {
+      "id": "schizzi",
+      "title": { "it": "Giulia si rinfresca alla fontana", "sl": "Giulia se osvežuje pri vodnjaku", "en": "Giulia cools off at the fountain", "de": "Giulia kühlt sich am Brunnen ab" },
+      "who": "giulia",
+      "when": ["afternoon"],
+      "months": [6, 7, 8, 9],
+      "chance": 0.5,
+      "dialog": "schizzi",
+      "dialogs": ["schizzi-mani", "schizzi"],
+      "reward": { "food": 15},
+      "marker": "💦",
+      "memory": { "it": "gli schizzi d'acqua alla fontana", "sl": "škropljenje z vodo pri vodnjaku", "en": "the splashing at the fountain", "de": "das Spritzen am Brunnen" }
+    },
+    {
+      "id": "brocca",
+      "title": { "it": "Lorenzo riempie la brocca", "sl": "Lorenzo polni vrč", "en": "Lorenzo fills the jug", "de": "Lorenzo füllt den Krug" },
+      "who": "lorenzo",
+      "when": ["morning"],
+      "chance": 0.5,
+      "dialog": "brocca",
+      "dialogs": ["brocca-conta", "brocca"],
+      "reward": { "food": 15},
+      "marker": "🫗",
+      "memory": { "it": "la brocca che abbiamo portato insieme", "sl": "vrč, ki sva ga nesla skupaj", "en": "the jug we carried together", "de": "den Krug, den wir zusammen getragen haben" }
+    },
+    {
+      "id": "sera",
+      "title": { "it": "Bruno alla fontana la sera", "sl": "Bruno zvečer pri vodnjaku", "en": "Bruno at the fountain in the evening", "de": "Bruno abends am Brunnen" },
+      "who": "bruno",
+      "when": ["evening"],
+      "chance": 0.4,
+      "dialog": "sera",
+      "dialogs": ["sera-campana", "sera"],
+      "reward": { "wisdom": 15},
+      "marker": "🔔",
+      "needs": { "building": "CHURCH" },
+      "memory": { "it": "la sera alla fontana", "sl": "večer pri vodnjaku", "en": "the evening at the fountain", "de": "den Abend am Brunnen" }
+    },
+    {
+      "id": "lingua",
+      "title": { "it": "Giulia e il gioco dell'articolo", "sl": "Giulia in igra s členi", "en": "Giulia and the article game", "de": "Giulia und das Artikelspiel" },
+      "who": "giulia",
+      "when": ["afternoon"],
+      "months": [10, 11, 12, 1, 2, 3, 4, 5],
+      "chance": 0.5,
+      "dialog": "lingua",
+      "dialogs": ["lingua-plurale", "lingua"],
+      "reward": { "wisdom": 15},
+      "marker": "📖",
+      "memory": { "it": "il gioco delle parole alla fontana", "sl": "igro z besedami pri vodnjaku", "en": "the word game at the fountain", "de": "das Wörterspiel am Brunnen" }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "acqua",
+      "lines": [
+        {
+          "who": "bruno",
+          "it": "Buongiorno. Hai sete? L'acqua della fontana è fresca.",
+          "sl": "Dober dan. Si {m:žejen|f:žejna}? Voda iz vodnjaka je sveža.",
+          "en": "Good morning. Are you thirsty? The fountain's water is cool.",
+          "de": "Guten Morgen. Hast du Durst? Das Wasser vom Brunnen ist frisch.",
+          "fx": { "fountain": 1}
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì, ho sete! Grazie, signor Bruno.",
+              "sl": "Ja, {m:žejen|f:žejna} sem! Hvala, gospod Bruno.",
+              "en": "Yes, I'm thirsty! Thank you, Mr Bruno.",
+              "de": "Ja, ich habe Durst! Danke, Herr Bruno.",
+              "ok": true,
+              "reply": { "it": "Bevi. Viene dalla sorgente, sopra il paese.", "sl": "Pij. Priteče iz izvira nad vasjo.", "en": "Drink. It comes from the spring above the village.", "de": "Trink. Es kommt von der Quelle über dem Dorf." }
+            },
+            {
+              "it": "Sì, sono sete! Grazie, signor Bruno.",
+              "sl": "Ja, sem žeja! Hvala, gospod Bruno.",
+              "en": "Yes, I am thirst! Thank you, Mr Bruno.",
+              "de": "Ja, ich bin Durst! Danke, Herr Bruno.",
+              "grammar": "essere-avere",
+              "why": { "sl": "Žeja se ima: ho sete (imam žejo).", "en": "Thirst is something you have: ho sete (I have thirst).", "de": "Durst hat man: ho sete, wie im Deutschen." },
+              "reply": { "face": "confused", "it": "Sei sete? Tu sei {learner}, non la sete!", "sl": "Ti si žeja? Ti si {learner}, ne žeja!", "en": "You are thirst? You're {learner}, not thirst!", "de": "Du bist Durst? Du bist {learner}, nicht der Durst!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "bruno", "face": "proud", "it": "La fontana ha quattro cannelle. Le ho fatte io, nella fucina.", "sl": "Vodnjak ima štiri pipe. Naredil sem jih jaz, v kovačnici.", "en": "The fountain has four spouts. I made them myself, in the smithy.", "de": "Der Brunnen hat vier Röhren. Die habe ich selbst gemacht, in der Schmiede." },
+        {
+          "choices": [
+            {
+              "it": "Le ha fatte Lei? Che bravo!",
+              "sl": "Vi ste jih naredili? Kako spretno!",
+              "en": "You made them? How clever!",
+              "de": "Die haben Sie gemacht? Wie geschickt!",
+              "ok": true,
+              "reply": { "face": "proud", "it": "Sì. Ferro buono, lavoro buono.", "sl": "Ja. Dobro železo, dobro delo.", "en": "Yes. Good iron, good work.", "de": "Ja. Gutes Eisen, gute Arbeit." }
+            },
+            {
+              "it": "Le hai fatte tu? Che bravo!",
+              "sl": "Ti si jih naredil? Kako spretno!",
+              "en": "You (tu) made them? How clever!",
+              "de": "Die hast du gemacht? Wie geschickt!",
+              "grammar": "tu-lei",
+              "why": { "sl": "Brunu rečeš Lei: le ha fatte Lei?", "en": "To Bruno you say Lei: le ha fatte Lei?", "de": "Zu Bruno sagst du Lei: le ha fatte Lei?" },
+              "reply": { "face": "cross", "it": "Tu? Per te sono il signor Bruno.", "sl": "Ti? Zate sem gospod Bruno.", "en": "Tu? To you I'm Mr Bruno.", "de": "Du? Für dich bin ich Herr Bruno." }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "bruno", "it": "Bevi ancora, se vuoi. L'acqua è di tutti.", "sl": "Pij še, če hočeš. Voda je od vseh.", "en": "Drink some more, if you like. The water belongs to everyone.", "de": "Trink noch, wenn du willst. Das Wasser gehört allen." }
+      ]
+    },
+    {
+      "id": "notizie",
+      "lines": [
+        { "who": "nives", "face": "happy", "it": "Ciao, {learner}! Alla fontana si sentono tutte le notizie del paese!", "sl": "Živjo, {learner}! Pri vodnjaku se slišijo vse vaške novice!", "en": "Hello, {learner}! At the fountain you hear all the news of the village!", "de": "Hallo, {learner}! Am Brunnen hört man alle Neuigkeiten aus dem Dorf!" },
+        {
+          "choices": [
+            {
+              "it": "Ciao, zia! Che notizie ci sono oggi?",
+              "sl": "Živjo, teta! Katere novice so danes?",
+              "en": "Hi, Auntie! What news is there today?",
+              "de": "Hallo, Tante! Was gibt's heute Neues?",
+              "ok": true,
+              "reply": { "face": "surprised", "it": "Eh! La gallina del vicino ha fatto due uova! Due!", "sl": "Eh! Sosedova kokoš je znesla dve jajci! Dve!", "en": "Eh! The neighbour's hen has laid two eggs! Two!", "de": "Eh! Die Henne vom Nachbarn hat zwei Eier gelegt! Zwei!" }
+            },
+            {
+              "it": "Ciao, zia! Che notizie c'è oggi?",
+              "sl": "Živjo, teta! Katere novice je danes?",
+              "en": "Hi, Auntie! What news is (sg.) there today?",
+              "de": "Hallo, Tante! Was gibt's (Einzahl) heute Neues?",
+              "grammar": "ce-ci-sono",
+              "why": { "sl": "Novice so v množini: ci sono.", "en": "Notizie is plural: ci sono.", "de": "Notizie ist Plural: ci sono." },
+              "reply": { "face": "confused", "it": "Come? C'è… cosa? Parla più forte!", "sl": "Kako? Je … kaj? Govori glasneje!", "en": "What? There's… what? Speak up!", "de": "Wie? Es gibt … was? Sprich lauter!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumela.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "nives", "face": "curious", "it": "Adesso tu: dimmi una notizia! Ma forte, eh: l'acqua fa rumore.", "sl": "Zdaj ti: povej mi novico! Ampak glasno, ja: voda šumi.", "en": "Now you: tell me some news! But loudly, eh: the water's noisy.", "de": "Jetzt du: Erzähl mir etwas Neues! Aber laut, ja: Das Wasser ist laut." },
+        {
+          "choices": [
+            {
+              "it": "Oggi c'è il sole!",
+              "sl": "Danes je sonce!",
+              "en": "Today the sun is out!",
+              "de": "Heute scheint die Sonne!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Il sole? Che bella notizia! La dico a tutti.", "sl": "Sonce? Kako lepa novica! Povem vsem.", "en": "The sun? What lovely news! I'll tell everyone.", "de": "Die Sonne? Was für eine schöne Neuigkeit! Ich sag's allen." }
+            },
+            {
+              "it": "Oggi ci sono il sole!",
+              "sl": "Danes so sonce!",
+              "en": "Today there are the sun!",
+              "de": "Heute sind die Sonne!",
+              "grammar": "ce-ci-sono",
+              "why": { "sl": "Sonce je eno: c'è il sole.", "en": "There's one sun: c'è il sole.", "de": "Es gibt eine Sonne: c'è il sole." },
+              "reply": { "face": "confused", "it": "Come? Quanti soli? Non sento bene…", "sl": "Kako? Koliko sonc? Ne slišim dobro …", "en": "What? How many suns? I can't hear well…", "de": "Wie? Wie viele Sonnen? Ich höre nicht gut …" }
+            },
+            {
+              "it": "Oggi c'è la luna!",
+              "sl": "Danes je luna!",
+              "en": "Today the moon is out!",
+              "de": "Heute scheint der Mond!",
+              "why": { "sl": "Jutro je: sije sonce. Luna je ponoči.", "en": "It's morning: the sun is shining. The moon is for the night.", "de": "Es ist Morgen: Die Sonne scheint. Der Mond kommt in der Nacht." },
+              "reply": { "face": "surprised", "it": "La luna? Di mattina? Che notizia strana!", "sl": "Luna? Zjutraj? Kakšna čudna novica!", "en": "The moon? In the morning? What strange news!", "de": "Der Mond? Am Morgen? Was für eine seltsame Neuigkeit!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumela.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "nives", "face": "laugh", "it": "Lo dico a tutto il paese. Due volte! Tutto il paese!", "sl": "To povem vsej vasi. Dvakrat! Vsej vasi!", "en": "I'll tell the whole village. Twice! The whole village!", "de": "Das erzähle ich dem ganzen Dorf. Zweimal! Dem ganzen Dorf!" }
+      ]
+    },
+    {
+      "id": "schizzi",
+      "lines": [
+        { "who": "giulia", "face": "happy", "it": "Uff, che caldo! {learner}, vieni alla fontana! L'acqua è freschissima!", "sl": "Uf, kakšna vročina! {learner}, pridi k vodnjaku! Voda je zelo sveža!", "en": "Phew, it's so hot! {learner}, come to the fountain! The water's lovely and cool!", "de": "Puh, ist das heiß! {learner}, komm zum Brunnen! Das Wasser ist ganz frisch!" },
+        {
+          "choices": [
+            {
+              "it": "Arrivo! Ho caldo anch'io.",
+              "sl": "Prihajam! Tudi meni je vroče.",
+              "en": "Coming! I'm hot too.",
+              "de": "Ich komme! Mir ist auch heiß.",
+              "ok": true,
+              "reply": { "face": "laugh", "it": "Allora bagniamoci le mani!", "sl": "Potem si zmočiva roke!", "en": "Then let's wet our hands!", "de": "Dann machen wir uns die Hände nass!" }
+            },
+            {
+              "it": "Arrivo! Sono {m:caldo|f:calda} anch'io.",
+              "sl": "Prihajam! Tudi jaz sem {m:vroč|f:vroča}.",
+              "en": "Coming! I'm hot to the touch too.",
+              "de": "Ich komme! Ich bin auch heiß (zum Anfassen).",
+              "grammar": "essere-avere",
+              "why": { "sl": "Vročino se ima: ho caldo. Sono {m:caldo|f:calda} pomeni, da si {m:vroč|f:vroča} na otip.", "en": "Feeling hot is something you have: ho caldo. Sono {m:caldo|f:calda} means you're hot to the touch.", "de": "Hitze hat man: ho caldo. Sono {m:caldo|f:calda} heißt, du fühlst dich heiß an." },
+              "reply": { "face": "laugh", "it": "Come il pane appena fatto? Ah ah!", "sl": "Kot kruh iz peči? Ha ha!", "en": "Like bread fresh from the oven? Ha ha!", "de": "Wie frisches Brot aus dem Ofen? Haha!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        {
+          "who": "giulia",
+          "face": "laugh",
+          "it": "Guarda come esce l'acqua dalle cannelle! Splash!",
+          "sl": "Poglej, kako teče voda iz pip! Pljusk!",
+          "en": "Look at the water pouring from the spouts! Splash!",
+          "de": "Schau, wie das Wasser aus den Röhren kommt! Platsch!",
+          "fx": { "fountain": 1}
+        },
+        {
+          "choices": [
+            {
+              "it": "Che fresca, l'acqua!",
+              "sl": "Kako sveža je voda!",
+              "en": "How cool the water is!",
+              "de": "Wie frisch das Wasser ist!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Freschissima! Adesso tocca a te!", "sl": "Zelo sveža! Zdaj si ti na vrsti!", "en": "Lovely and cool! Now it's your turn!", "de": "Ganz frisch! Jetzt bist du dran!" }
+            },
+            {
+              "it": "Che fresco, l'acqua!",
+              "sl": "Kako sveža je voda!",
+              "en": "How cool the water is!",
+              "de": "Wie frisch das Wasser ist!",
+              "grammar": "aggettivi-accordo",
+              "why": { "sl": "Acqua je ženskega spola: fresca.", "en": "Acqua is feminine: fresca.", "de": "Acqua ist weiblich: fresca." },
+              "reply": { "face": "curious", "it": "Fresco? L'acqua è femmina, sai?", "sl": "Svež? Voda je ženskega spola, veš?", "en": "Fresco? Water is a girl, you know?", "de": "Fresco? Das Wasser ist ein Mädchen, weißt du?" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        { "who": "giulia", "face": "laugh", "it": "Ah ah! Adesso siamo {m:tutti e due bagnati|f:tutte e due bagnate}!", "sl": "Ha ha! Zdaj sva {m:oba mokra|f:obe mokri}!", "en": "Ha ha! Now we're both wet!", "de": "Haha! Jetzt sind wir beide nass!" }
+      ]
+    },
+    {
+      "id": "brocca",
+      "lines": [
+        { "who": "lorenzo", "face": "happy", "it": "Ciao, {learner}! Il nonno vuole l'acqua fresca della fontana. Riempio la brocca!", "sl": "Živjo, {learner}! Dedek hoče svežo vodo iz vodnjaka. Napolnim vrč!", "en": "Hi, {learner}! Grandpa wants cool water from the fountain. I'm filling the jug!", "de": "Hallo, {learner}! Opa will frisches Wasser vom Brunnen. Ich fülle den Krug!" },
+        {
+          "choices": [
+            {
+              "it": "Ti aiuto! Io tengo la brocca.",
+              "sl": "Pomagam ti! Jaz držim vrč.",
+              "en": "I'll help you! I'll hold the jug.",
+              "de": "Ich helfe dir! Ich halte den Krug.",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Sì! E io conto: uno, due, tre… è piena!", "sl": "Ja! Jaz pa štejem: ena, dva, tri … poln je!", "en": "Yes! And I'll count: one, two, three… it's full!", "de": "Ja! Und ich zähle: eins, zwei, drei … er ist voll!" }
+            },
+            {
+              "it": "Ti aiuto! Io tieni la brocca.",
+              "sl": "Pomagam ti! Jaz držiš vrč.",
+              "en": "I'll help you! I holds the jug.",
+              "de": "Ich helfe dir! Ich hältst den Krug.",
+              "grammar": "verbi-irregolari",
+              "why": { "sl": "Tieni je ti. O sebi rečeš: tengo.", "en": "Tieni is 'you hold'. About yourself: tengo.", "de": "Tieni heißt 'du hältst'. Über dich selbst: tengo." },
+              "reply": { "face": "confused", "it": "Chi? Io o tu? Che confusione!", "sl": "Kdo? Jaz ali ti? Kakšna zmešnjava!", "en": "Who? Me or you? What a muddle!", "de": "Wer? Ich oder du? Was für ein Durcheinander!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        { "who": "lorenzo", "face": "worried", "it": "La brocca è piena. Ma è pesante!", "sl": "Vrč je poln. Ampak težek je!", "en": "The jug is full. But it's heavy!", "de": "Der Krug ist voll. Aber er ist schwer!" },
+        {
+          "choices": [
+            {
+              "it": "Portiamo la brocca insieme!",
+              "sl": "Neseva vrč skupaj!",
+              "en": "Let's carry the jug together!",
+              "de": "Tragen wir den Krug zusammen!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Sì! Tu da una parte, io dall'altra.", "sl": "Ja! Ti na eni strani, jaz na drugi.", "en": "Yes! You on one side, me on the other.", "de": "Ja! Du auf der einen Seite, ich auf der anderen." }
+            },
+            {
+              "it": "Portate la brocca insieme!",
+              "sl": "Nesite vrč skupaj!",
+              "en": "You all carry the jug together!",
+              "de": "Tragt den Krug zusammen!",
+              "grammar": "presente-regolare",
+              "why": { "sl": "Portate je vi (več ljudi). Za naju dva: portiamo.", "en": "Portate is 'you all'. For the two of you: portiamo.", "de": "Portate heißt 'ihr'. Für euch zwei: portiamo." },
+              "reply": { "face": "curious", "it": "Voi chi? Siamo solo noi due!", "sl": "Kdo vi? Sva samo midva!", "en": "You all? It's just the two of us!", "de": "Ihr? Wir sind doch nur zu zweit!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        { "who": "lorenzo", "face": "proud", "it": "Il nonno sarà contento! Grazie, {learner}!", "sl": "Dedek bo vesel! Hvala, {learner}!", "en": "Grandpa will be pleased! Thanks, {learner}!", "de": "Opa wird sich freuen! Danke, {learner}!" }
+      ]
+    },
+    {
+      "id": "sera",
+      "lines": [
+        { "who": "bruno", "it": "Buonasera. Ho le mani nere di carbone. Adesso le lavo alla fontana.", "sl": "Dober večer. Roke imam črne od oglja. Zdaj si jih bom umil pri vodnjaku.", "en": "Good evening. My hands are black with charcoal. I'm going to wash them at the fountain.", "de": "Guten Abend. Meine Hände sind schwarz von der Kohle. Gleich wasche ich sie am Brunnen." },
+        {
+          "choices": [
+            {
+              "it": "Buonasera, signor Bruno! Lavora tanto, Lei.",
+              "sl": "Dober večer, gospod Bruno! Veliko delate.",
+              "en": "Good evening, Mr Bruno! You work so hard.",
+              "de": "Guten Abend, Herr Bruno! Sie arbeiten so viel.",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Sì. La fucina è calda, la fontana è fresca.", "sl": "Ja. Kovačnica je vroča, vodnjak je svež.", "en": "Yes. The smithy is hot, the fountain is cool.", "de": "Ja. Die Schmiede ist heiß, der Brunnen ist frisch." }
+            },
+            {
+              "it": "Buongiorno, signor Bruno! Lavora tanto, Lei.",
+              "sl": "Dober dan, gospod Bruno! Veliko delate.",
+              "en": "Good morning, Mr Bruno! You work so hard.",
+              "de": "Guten Morgen, Herr Bruno! Sie arbeiten so viel.",
+              "why": { "sl": "Zvečer je: buonasera. Buongiorno je za jutro in dan.", "en": "It's evening: buonasera. Buongiorno is for the morning and the day.", "de": "Es ist Abend: buonasera. Buongiorno sagt man am Morgen und am Tag." },
+              "reply": { "face": "surprised", "it": "Buongiorno? Ma è sera, ormai.", "sl": "Dober dan? Saj je že večer.", "en": "Good morning? But it's evening by now.", "de": "Guten Morgen? Es ist doch schon Abend." }
+            }
+          ]
+        },
+        {
+          "who": "bruno",
+          "face": "curious",
+          "it": "L'acqua fresca porta via il nero. Domani ho tanto lavoro. Tu cosa fai domani?",
+          "sl": "Sveža voda odnese črnino. Jutri imam veliko dela. Kaj pa ti jutri?",
+          "en": "Cool water takes the black away. Tomorrow I have lots of work. What are you doing tomorrow?",
+          "de": "Frisches Wasser spült das Schwarze weg. Morgen habe ich viel Arbeit. Was machst du morgen?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Domani vado a scuola!",
+              "sl": "Jutri grem v šolo!",
+              "en": "Tomorrow I'm going to school!",
+              "de": "Morgen gehe ich in die Schule!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "{m:Bravo|f:Brava}. Studia bene.", "sl": "Bravo. Pridno se uči.", "en": "Good. Study hard.", "de": "Gut. Lern fleißig." }
+            },
+            {
+              "it": "Domani va a scuola!",
+              "sl": "Jutri gre v šolo!",
+              "en": "Tomorrow he's going to school!",
+              "de": "Morgen geht er in die Schule!",
+              "grammar": "verbi-irregolari",
+              "why": { "sl": "Va je on ali ona. O sebi rečeš: vado.", "en": "Va is he or she. About yourself: vado.", "de": "Va heißt er oder sie. Über dich selbst: vado." },
+              "reply": { "face": "curious", "it": "Chi? Io? Io ho la fucina!", "sl": "Kdo? Jaz? Jaz imam kovačnico!", "en": "Who? Me? I've got the smithy!", "de": "Wer? Ich? Ich habe die Schmiede!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "bruno", "it": "Buonanotte, {learner}. Domani la fontana è ancora qui.", "sl": "Lahko noč, {learner}. Jutri bo vodnjak še tu.", "en": "Good night, {learner}. Tomorrow the fountain will still be here.", "de": "Gute Nacht, {learner}. Morgen ist der Brunnen noch da." }
+      ]
+    },
+    {
+      "id": "lingua",
+      "lines": [
+        {
+          "who": "giulia",
+          "face": "curious",
+          "it": "Ciao, {learner}! Facciamo un gioco? Io dico una parola, tu metti l'articolo giusto. Prima parola: fontana!",
+          "sl": "Živjo, {learner}! Se igrava? Jaz rečem besedo, ti dodaš pravi člen. Prva beseda: fontana!",
+          "en": "Hi, {learner}! Shall we play a game? I say a word, you add the right article. First word: fontana!",
+          "de": "Hallo, {learner}! Spielen wir ein Spiel? Ich sage ein Wort, du setzt den richtigen Artikel davor. Erstes Wort: fontana!"
+        },
+        {
+          "choices": [
+            {
+              "it": "La fontana!",
+              "sl": "La fontana!",
+              "en": "La fontana (the fountain)!",
+              "de": "La fontana (der Brunnen)!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Giusto!", "sl": "Pravilno!", "en": "Right!", "de": "Richtig!" }
+            },
+            {
+              "it": "Il fontana!",
+              "sl": "Il fontana!",
+              "en": "Il fontana!",
+              "de": "Il fontana!",
+              "grammar": "articoli-genere",
+              "why": { "sl": "Fontana je ženskega spola: la.", "en": "Fontana is feminine: la.", "de": "Fontana ist weiblich: la." },
+              "reply": { "face": "laugh", "it": "Il? No, no, no! Riprova!", "sl": "Il? Ne, ne, ne! Poskusi še enkrat!", "en": "Il? No, no, no! Try again!", "de": "Il? Nein, nein, nein! Versuch's noch mal!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        { "who": "giulia", "face": "curious", "it": "Adesso: acqua. Attenzione!", "sl": "Zdaj pa: acqua. Pazi!", "en": "Now: acqua (water). Careful!", "de": "Jetzt: acqua (Wasser). Aufgepasst!" },
+        {
+          "choices": [
+            {
+              "it": "L'acqua!",
+              "sl": "L'acqua!",
+              "en": "L'acqua (the water)!",
+              "de": "L'acqua (das Wasser)!",
+              "ok": true,
+              "reply": { "face": "proud", "it": "{m:Bravo|f:Brava}! Prima di una vocale ci vuole l'apostrofo.", "sl": "Bravo! Pred samoglasnikom pride opuščaj.", "en": "Well done! Before a vowel you need the apostrophe.", "de": "Gut gemacht! Vor einem Vokal kommt der Apostroph." }
+            },
+            {
+              "it": "La acqua!",
+              "sl": "La acqua!",
+              "en": "La acqua!",
+              "de": "La acqua!",
+              "grammar": "articoli-genere",
+              "why": { "sl": "Pred samoglasnikom: l'acqua.", "en": "Before a vowel: l'acqua.", "de": "Vor einem Vokal: l'acqua." },
+              "reply": { "face": "curious", "it": "La acqua? Suona male, no?", "sl": "La acqua? Slabo zveni, kajne?", "en": "La acqua? Sounds wrong, doesn't it?", "de": "La acqua? Klingt komisch, oder?" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        { "who": "giulia", "face": "curious", "it": "Ultima parola: cannelle. Sono quattro!", "sl": "Zadnja beseda: cannelle. Štiri so!", "en": "Last word: cannelle (spouts). There are four!", "de": "Letztes Wort: cannelle (Röhren). Es sind vier!" },
+        {
+          "choices": [
+            {
+              "it": "Le cannelle!",
+              "sl": "Le cannelle!",
+              "en": "Le cannelle (the spouts)!",
+              "de": "Le cannelle (die Röhren)!",
+              "ok": true,
+              "reply": { "face": "proud", "it": "Bravissim{m:o|f:a}! Sei {m:un vero maestro|f:una vera maestra}!", "sl": "Odlično! {m:Pravi učitelj|f:Prava učiteljica} si!", "en": "Brilliant! You're a real teacher!", "de": "Super! Du bist {m:ein echter Lehrer|f:eine echte Lehrerin}!" }
+            },
+            {
+              "it": "Gli cannelle!",
+              "sl": "Gli cannelle!",
+              "en": "Gli cannelle!",
+              "de": "Gli cannelle!",
+              "grammar": "articoli-genere",
+              "why": { "sl": "Cannelle so ženskega spola, v množini: le.", "en": "Cannelle is feminine plural: le.", "de": "Cannelle ist weiblich und Plural: le." },
+              "reply": { "face": "laugh", "it": "Gli? Ah ah! Riprova!", "sl": "Gli? Ha ha! Poskusi še enkrat!", "en": "Gli? Ha ha! Try again!", "de": "Gli? Haha! Versuch's noch mal!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "acqua-cannelle",
+      "memory": { "it": "le quattro cannelle che abbiamo contato", "sl": "štiri pipe, ki sva jih preštela", "en": "the four spouts we counted", "de": "die vier Röhren, die wir gezählt haben" },
+      "lines": [
+        {
+          "who": "bruno",
+          "face": "curious",
+          "it": "Buongiorno. Conta le cannelle della fontana. Quante sono?",
+          "sl": "Dober dan. Preštej pipe na vodnjaku. Koliko jih je?",
+          "en": "Good morning. Count the fountain's spouts. How many are there?",
+          "de": "Guten Morgen. Zähl die Röhren am Brunnen. Wie viele sind es?",
+          "fx": { "fountain": 1}
+        },
+        {
+          "choices": [
+            {
+              "it": "Sono quattro!",
+              "sl": "Štiri so!",
+              "en": "There are four!",
+              "de": "Es sind vier!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Giusto. Una per ogni lato.", "sl": "Tako je. Ena na vsaki strani.", "en": "Right. One on each side.", "de": "Richtig. Eine auf jeder Seite." }
+            },
+            {
+              "it": "Sono tre!",
+              "sl": "Tri so!",
+              "en": "There are three!",
+              "de": "Es sind drei!",
+              "grammar": "numeri",
+              "why": { "sl": "Pipe so štiri: quattro. Tre je tri.", "en": "There are four spouts: quattro. Tre is three.", "de": "Es sind vier Röhren: quattro. Tre heißt drei." },
+              "reply": { "face": "curious", "it": "Tre? Guarda meglio. Conta piano.", "sl": "Tri? Bolje poglej. Štej počasi.", "en": "Three? Look again. Count slowly.", "de": "Drei? Schau genauer hin. Zähl langsam." }
+            }
+          ]
+        },
+        { "who": "bruno", "it": "Le cannelle sono di ferro. Il ferro è duro e forte.", "sl": "Pipe so iz železa. Železo je trdo in močno.", "en": "The spouts are made of iron. Iron is hard and strong.", "de": "Die Röhren sind aus Eisen. Eisen ist hart und stark." },
+        {
+          "choices": [
+            {
+              "it": "Le cannelle sono belle!",
+              "sl": "Pipe so lepe!",
+              "en": "The spouts are beautiful!",
+              "de": "Die Röhren sind schön!",
+              "ok": true,
+              "reply": { "face": "proud", "it": "Grazie. Le ho fatte con il martello, tin tin tin.", "sl": "Hvala. Naredil sem jih s kladivom, tink, tink, tink.", "en": "Thanks. I made them with the hammer, clink, clink, clink.", "de": "Danke. Die habe ich mit dem Hammer gemacht, kling, kling, kling." }
+            },
+            {
+              "it": "Le cannelle sono belli!",
+              "sl": "Pipe so lepe!",
+              "en": "The spouts are beautiful!",
+              "de": "Die Röhren sind schön!",
+              "grammar": "aggettivi-accordo",
+              "why": { "sl": "Cannelle so ženskega spola, v množini: belle.", "en": "Cannelle is feminine plural: belle.", "de": "Cannelle ist weiblich und Plural: belle." },
+              "reply": { "face": "curious", "it": "Belli? Chi? I miei martelli?", "sl": "Lepi? Kdo? Moja kladiva?", "en": "Belli? Who? My hammers?", "de": "Belli? Wer? Meine Hämmer?" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "bruno", "face": "happy", "it": "{m:Bravo|f:Brava}. Adesso bevi un po' d'acqua fresca.", "sl": "Bravo. Zdaj pa popij malo sveže vode.", "en": "Well done. Now drink a little cool water.", "de": "Gut gemacht. Jetzt trink ein bisschen frisches Wasser." }
+      ]
+    },
+    {
+      "id": "acqua-ghiaccio",
+      "months": [12, 1, 2],
+      "memory": { "it": "la mattina che la fontana dormiva per il freddo", "sl": "jutro, ko je vodnjak spal zaradi mraza", "en": "the morning the fountain was asleep from the cold", "de": "den Morgen, an dem der Brunnen vor Kälte schlief" },
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "bruno",
+          "face": "worried",
+          "it": "Buongiorno. Che freddo! Stamattina l'acqua non esce: le cannelle sono gelate.",
+          "sl": "Dober dan. Kakšen mraz! Zjutraj voda ne teče: pipe so zamrznjene.",
+          "en": "Good morning. How cold! This morning no water comes out: the spouts are frozen.",
+          "de": "Guten Morgen. Wie kalt! Heute Morgen kommt kein Wasser: Die Röhren sind zugefroren.",
+          "fx": { "fountain": 0}
+        },
+        {
+          "choices": [
+            {
+              "it": "Oh no! Che cosa facciamo?",
+              "sl": "O ne! Kaj bova naredila?",
+              "en": "Oh no! What shall we do?",
+              "de": "Oh nein! Was machen wir?",
+              "ok": true,
+              "reply": { "face": "thinking", "it": "Aspettiamo il sole. Il sole scalda il ferro.", "sl": "Počakava na sonce. Sonce ogreje železo.", "en": "We wait for the sun. The sun warms the iron.", "de": "Wir warten auf die Sonne. Die Sonne wärmt das Eisen." }
+            },
+            {
+              "it": "Oh no! Che cosa fate?",
+              "sl": "O ne! Kaj boste naredili?",
+              "en": "Oh no! What will you all do?",
+              "de": "Oh nein! Was macht ihr?",
+              "grammar": "verbi-irregolari",
+              "why": { "sl": "Fate je vi (več ljudi). Za naju dva: facciamo.", "en": "Fate is 'you all'. For the two of you: facciamo.", "de": "Fate heißt 'ihr'. Für euch zwei: facciamo." },
+              "reply": { "face": "curious", "it": "Voi chi? Io e la fontana?", "sl": "Kdo vi? Jaz in vodnjak?", "en": "You all? The fountain and me?", "de": "Ihr? Der Brunnen und ich?" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        {
+          "who": "bruno",
+          "it": "Ecco il sole. Senti? L'acqua comincia a uscire. Piano piano.",
+          "sl": "Glej, sonce. Slišiš? Voda začenja teči. Počasi, počasi.",
+          "en": "Here's the sun. Hear that? The water is starting to come out. Slowly, slowly.",
+          "de": "Da ist die Sonne. Hörst du? Das Wasser fängt an zu fließen. Ganz langsam.",
+          "fx": { "fountain": 0.35}
+        },
+        {
+          "choices": [
+            {
+              "it": "Evviva! L'acqua esce!",
+              "sl": "Juhu! Voda teče!",
+              "en": "Hooray! The water's coming out!",
+              "de": "Hurra! Das Wasser kommt!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Sì. La fontana si sveglia, come noi.",
+                "sl": "Ja. Vodnjak se zbuja, kot midva.",
+                "en": "Yes. The fountain is waking up, like us.",
+                "de": "Ja. Der Brunnen wacht auf, wie wir.",
+                "fx": { "fountain": 0.8}
+              }
+            },
+            {
+              "it": "Evviva! L'acqua entra!",
+              "sl": "Juhu! Voda gre noter!",
+              "en": "Hooray! The water's going in!",
+              "de": "Hurra! Das Wasser geht hinein!",
+              "why": { "sl": "Entra pomeni: gre noter. Voda priteče ven: esce.", "en": "Entra means it goes in. The water comes out: esce.", "de": "Entra heißt: Es geht hinein. Das Wasser kommt heraus: esce." },
+              "reply": { "face": "confused", "it": "Entra? Dove? Nella mia scarpa?", "sl": "Noter? Kam? V moj čevelj?", "en": "Going in? Where? Into my shoe?", "de": "Hinein? Wohin? In meinen Schuh?" }
+            }
+          ]
+        },
+        { "who": "bruno", "face": "laugh", "it": "D'inverno la fontana dorme un po'. Come gli orsi!", "sl": "Pozimi vodnjak malo spi. Kot medvedi!", "en": "In winter the fountain sleeps a little. Like the bears!", "de": "Im Winter schläft der Brunnen ein bisschen. Wie die Bären!" }
+      ]
+    },
+    {
+      "id": "notizie-radio",
+      "memory": { "it": "la bora della mia radio", "sl": "burjo z mojega radia", "en": "the bora on my radio", "de": "die Bora aus meinem Radio" },
+      "lines": [
+        { "who": "nives", "face": "worried", "it": "{learner}, senti la mia radio? Dice che stasera arriva la bora!", "sl": "{learner}, slišiš moj radio? Pravi, da nocoj pride burja!", "en": "{learner}, can you hear my radio? It says the bora is coming tonight!", "de": "{learner}, hörst du mein Radio? Es sagt, heute Abend kommt die Bora!" },
+        {
+          "choices": [
+            {
+              "it": "La bora? È un vento forte?",
+              "sl": "Burja? Je to močan veter?",
+              "en": "The bora? Is it a strong wind?",
+              "de": "Die Bora? Ist das ein starker Wind?",
+              "ok": true,
+              "reply": { "face": "worried", "it": "Fortissimo! Viene dal mare e fa volare i cappelli!", "sl": "Zelo močan! Pride z morja in odnaša klobuke!", "en": "Very strong! It comes from the sea and blows hats away!", "de": "Ganz stark! Er kommt vom Meer und lässt die Hüte fliegen!" }
+            },
+            {
+              "it": "La bora? È una vento forte?",
+              "sl": "Burja? Je to močna veter?",
+              "en": "The bora? Is it a (fem.) strong wind?",
+              "de": "Die Bora? Ist das eine starke Wind?",
+              "grammar": "articoli-genere",
+              "why": { "sl": "Vento je moškega spola: un vento.", "en": "Vento is masculine: un vento.", "de": "Vento ist männlich: un vento." },
+              "reply": { "face": "confused", "it": "Come? Ripeti, non sento!", "sl": "Kako? Ponovi, ne slišim!", "en": "What? Say it again, I can't hear!", "de": "Wie? Sag's noch mal, ich höre nichts!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumela.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "nives", "face": "thinking", "it": "Allora riempio la brocca adesso. Con la bora non esco di casa!", "sl": "Potem bom zdaj napolnila vrč. V burji ne grem iz hiše!", "en": "Then I'll fill my jug now. In the bora I don't leave the house!", "de": "Dann fülle ich jetzt meinen Krug. Bei Bora gehe ich nicht aus dem Haus!" },
+        {
+          "choices": [
+            {
+              "it": "Ti aiuto a riempire la brocca!",
+              "sl": "Pomagam ti napolniti vrč!",
+              "en": "I'll help you fill the jug!",
+              "de": "Ich helfe dir, den Krug zu füllen!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Che {m:bravo|f:brava}! Tieni, è pesante.", "sl": "{m:Priden|f:Pridna}! Drži, težek je.", "en": "How kind! Hold it, it's heavy.", "de": "Wie lieb! Halt ihn, er ist schwer." }
+            },
+            {
+              "it": "Ti aiuta a riempire la brocca!",
+              "sl": "Pomaga ti napolniti vrč!",
+              "en": "He helps you fill the jug!",
+              "de": "Er hilft dir, den Krug zu füllen!",
+              "grammar": "presente-regolare",
+              "why": { "sl": "Aiuta je on ali ona. O sebi rečeš: ti aiuto.", "en": "Aiuta is he or she. About yourself: ti aiuto.", "de": "Aiuta heißt er oder sie. Über dich selbst: ti aiuto." },
+              "reply": { "face": "curious", "it": "Chi mi aiuta? Il vento?", "sl": "Kdo mi pomaga? Veter?", "en": "Who's helping me? The wind?", "de": "Wer hilft mir? Der Wind?" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumela.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "nives", "face": "happy", "it": "Grazie, tesoro. Grazie! Lo ripeto: grazie!", "sl": "Hvala, srček. Hvala! Še enkrat: hvala!", "en": "Thank you, darling. Thank you! I'll say it again: thank you!", "de": "Danke, Schatz. Danke! Ich sag's noch mal: Danke!" }
+      ]
+    },
+    {
+      "id": "schizzi-mani",
+      "memory": { "it": "le mani che abbiamo lavato alla fontana", "sl": "roke, ki sva si jih {m:umila|f:umili} pri vodnjaku", "en": "the hands we washed at the fountain", "de": "die Hände, die wir am Brunnen gewaschen haben" },
+      "lines": [
+        { "who": "giulia", "face": "curious", "it": "{learner}, hai le mani sporche? Laviamole alla fontana!", "sl": "{learner}, imaš umazane roke? Umijva si jih pri vodnjaku!", "en": "{learner}, are your hands dirty? Let's wash them at the fountain!", "de": "{learner}, hast du schmutzige Hände? Waschen wir sie am Brunnen!" },
+        {
+          "choices": [
+            {
+              "it": "Sì, ho le mani sporche!",
+              "sl": "Ja, roke imam umazane!",
+              "en": "Yes, my hands are dirty!",
+              "de": "Ja, meine Hände sind schmutzig!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Anch'io! Dai, sotto l'acqua!",
+                "sl": "Jaz tudi! Daj, pod vodo!",
+                "en": "Me too! Come on, under the water!",
+                "de": "Ich auch! Los, unters Wasser!",
+                "fx": { "fountain": 1}
+              }
+            },
+            {
+              "it": "Sì, ho le mane sporche!",
+              "sl": "Ja, roke imam umazane!",
+              "en": "Yes, my hands are dirty!",
+              "de": "Ja, meine Hände sind schmutzig!",
+              "grammar": "plurale",
+              "why": { "sl": "Mano ima nepravilno množino: le mani.", "en": "Mano has an irregular plural: le mani.", "de": "Mano hat einen unregelmäßigen Plural: le mani." },
+              "reply": { "face": "laugh", "it": "Le mane? Ah ah! Si dice in un altro modo!", "sl": "Mane? Ha ha! To se reče drugače!", "en": "Mane? Ha ha! You say that another way!", "de": "Mane? Haha! Das sagt man anders!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        { "who": "giulia", "face": "happy", "it": "Strofina bene! Ecco: adesso sono pulite.", "sl": "Dobro podrgni! Tako: zdaj so čiste.", "en": "Rub them well! There: now they're clean.", "de": "Gut reiben! So: Jetzt sind sie sauber." },
+        {
+          "choices": [
+            {
+              "it": "Sì, sono pulite!",
+              "sl": "Ja, čiste so!",
+              "en": "Yes, they're clean!",
+              "de": "Ja, sie sind sauber!",
+              "ok": true,
+              "reply": { "face": "proud", "it": "{m:Bravo|f:Brava}! La maestra sarà contenta.", "sl": "Bravo! Učiteljica bo vesela.", "en": "Well done! The teacher will be pleased.", "de": "Gut gemacht! Die Lehrerin wird sich freuen." }
+            },
+            {
+              "it": "Sì, sono puliti!",
+              "sl": "Ja, čiste so!",
+              "en": "Yes, they're clean!",
+              "de": "Ja, sie sind sauber!",
+              "grammar": "aggettivi-accordo",
+              "why": { "sl": "Mani so ženskega spola, v množini: pulite.", "en": "Mani is feminine plural: pulite.", "de": "Mani ist weiblich und Plural: pulite." },
+              "reply": { "face": "curious", "it": "Puliti? Le mani sono femmine, {learner}!", "sl": "Čisti? Roke so ženskega spola, {learner}!", "en": "Puliti? Hands are girls, {learner}!", "de": "Puliti? Hände sind Mädchen, {learner}!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        { "who": "giulia", "face": "happy", "it": "Adesso possiamo mangiare la merenda!", "sl": "Zdaj lahko pojeva malico!", "en": "Now we can eat our snack!", "de": "Jetzt können wir unsere Jause essen!" }
+      ]
+    },
+    {
+      "id": "brocca-conta",
+      "count": { "from": "dice", "min": 2, "max": 6, "gender": "f" },
+      "memory": { "it": "le brocche che abbiamo portato al nonno", "sl": "vrče, ki sva jih nesla dedku", "en": "the jugs we carried to Grandpa", "de": "die Krüge, die wir zu Opa getragen haben" },
+      "lines": [
+        {
+          "who": "lorenzo",
+          "face": "curious",
+          "it": "Ciao, {learner}! Oggi il nonno vuole {n} {brocca|brocche} d'acqua. Me lo ripeti?",
+          "sl": "Živjo, {learner}! Danes hoče dedek {n} {vrč|vrča|vrče|vrčev} vode. Mi ponoviš?",
+          "en": "Hi, {learner}! Today Grandpa wants {n} {jug|jugs} of water. Will you say it back to me?",
+          "de": "Hallo, {learner}! Heute will Opa {n} {Krug|Krüge} Wasser. Sagst du es mir noch einmal?"
+        },
+        {
+          "choices": [
+            {
+              "it": "{n} {brocca|brocche} d'acqua!",
+              "sl": "{n} {vrč|vrča|vrči|vrčev} vode!",
+              "en": "{n} {jug|jugs} of water!",
+              "de": "{n} {Krug|Krüge} Wasser!",
+              "ok": true,
+              "reply": { "face": "laugh", "it": "Sì! Il nonno ha tanta sete.", "sl": "Ja! Dedek je zelo žejen.", "en": "Yes! Grandpa is very thirsty.", "de": "Ja! Opa hat großen Durst." }
+            },
+            {
+              "it": "{n} {!brocca|brocche} d'acqua!",
+              "sl": "{n} {!vrč|vrča|vrči|vrčev} vode!",
+              "en": "{n} {!jug|jugs} of water!",
+              "de": "{n} {!Krug|Krüge} Wasser!",
+              "wrong_form": 1,
+              "grammar": "plurale",
+              "why": { "sl": "{Ena je v ednini|Več jih je v množini}: {n} {brocca|brocche}.", "en": "{One takes the singular|More than one takes the plural}: {n} {brocca|brocche}.", "de": "{Eins steht im Singular|Mehrere stehen im Plural}: {n} {brocca|brocche}." },
+              "reply": { "face": "confused", "it": "Hm? Quante? Contiamo insieme.", "sl": "Hm? Koliko? Preštejva skupaj.", "en": "Hm? How many? Let's count together.", "de": "Hm? Wie viele? Zählen wir zusammen." }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        { "who": "lorenzo", "face": "worried", "it": "Uffa, una brocca piena è pesante!", "sl": "Ojej, poln vrč je težek!", "en": "Oh dear, a full jug is heavy!", "de": "Mensch, ein voller Krug ist schwer!" },
+        {
+          "choices": [
+            {
+              "it": "La porto io!",
+              "sl": "Jaz ga nesem!",
+              "en": "I'll carry it!",
+              "de": "Ich trage ihn!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Grazie! Sei {m:fortissimo|f:fortissima}!", "sl": "Hvala! Zelo {m:močan|f:močna} si!", "en": "Thanks! You're so strong!", "de": "Danke! Du bist so stark!" }
+            },
+            {
+              "it": "La porta io!",
+              "sl": "Jaz ga nese!",
+              "en": "I carries it!",
+              "de": "Ich trägt ihn!",
+              "grammar": "presente-regolare",
+              "why": { "sl": "Porta je on ali ona. O sebi rečeš: porto.", "en": "Porta is he or she. About yourself: porto.", "de": "Porta heißt er oder sie. Über dich selbst: porto." },
+              "reply": { "face": "laugh", "it": "La porta? Quale porta? Quella di casa?", "sl": "Vrata? Katera vrata? Hišna?", "en": "La porta (the door)? Which door? The one at home?", "de": "La porta (die Tür)? Welche Tür? Die vom Haus?" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        { "who": "lorenzo", "face": "happy", "it": "Andiamo! Piano piano, non versiamo l'acqua.", "sl": "Greva! Počasi, da ne polijeva vode.", "en": "Let's go! Slowly, slowly, let's not spill the water.", "de": "Los geht's! Ganz langsam, damit wir kein Wasser verschütten." }
+      ]
+    },
+    {
+      "id": "sera-campana",
+      "memory": { "it": "la campana della sera alla fontana", "sl": "večerni zvon pri vodnjaku", "en": "the evening bell at the fountain", "de": "die Abendglocke am Brunnen" },
+      "lines": [
+        {
+          "who": "bruno",
+          "it": "Buonasera. Senti la campana? È ora di cena.",
+          "sl": "Dober večer. Slišiš zvon? Čas je za večerjo.",
+          "en": "Good evening. Hear the bell? It's time for supper.",
+          "de": "Guten Abend. Hörst du die Glocke? Es ist Zeit fürs Abendessen.",
+          "fx": { "bell": 1}
+        },
+        {
+          "choices": [
+            {
+              "it": "Ho fame! Cosa c'è per cena?",
+              "sl": "{m:Lačen|f:Lačna} sem! Kaj je za večerjo?",
+              "en": "I'm hungry! What's for supper?",
+              "de": "Ich habe Hunger! Was gibt's zum Abendessen?",
+              "ok": true,
+              "reply": { "face": "laugh", "it": "Minestra e polenta. Come sempre!", "sl": "Juha in polenta. Kot vedno!", "en": "Soup and polenta. As always!", "de": "Suppe und Polenta. Wie immer!" }
+            },
+            {
+              "it": "Sono fame! Cosa c'è per cena?",
+              "sl": "Sem lakota! Kaj je za večerjo?",
+              "en": "I am hunger! What's for supper?",
+              "de": "Ich bin Hunger! Was gibt's zum Abendessen?",
+              "grammar": "essere-avere",
+              "why": { "sl": "Lakoto se ima: ho fame.", "en": "Hunger is something you have: ho fame.", "de": "Hunger hat man: ho fame, wie im Deutschen." },
+              "reply": { "face": "laugh", "it": "Sei la fame? Allora mangia subito!", "sl": "Ti si lakota? Potem pa hitro jej!", "en": "You are hunger? Then eat right away!", "de": "Du bist der Hunger? Dann iss sofort!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "bruno", "face": "happy", "it": "La fontana fa: glu, glu. La campana fa: din, don. È la musica della sera.", "sl": "Vodnjak dela: glu, glu. Zvon dela: bim, bam. To je večerna glasba.", "en": "The fountain goes: gurgle, gurgle. The bell goes: ding, dong. It's the music of the evening.", "de": "Der Brunnen macht: gluck, gluck. Die Glocke macht: bim, bam. Das ist die Musik des Abends." },
+        {
+          "choices": [
+            {
+              "it": "Mi piace questa musica.",
+              "sl": "Ta glasba mi je všeč.",
+              "en": "I like this music.",
+              "de": "Diese Musik gefällt mir.",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Anche a me. Dopo una giornata in fucina…", "sl": "Tudi meni. Po dnevu v kovačnici …", "en": "Me too. After a day in the smithy…", "de": "Mir auch. Nach einem Tag in der Schmiede …" }
+            },
+            {
+              "it": "Mi piacciono questa musica.",
+              "sl": "Ta glasba mi je všeč.",
+              "en": "I like this music.",
+              "de": "Diese Musik gefällt mir.",
+              "grammar": "piacere",
+              "why": { "sl": "Glasba je ena: mi piace.", "en": "There's one music: mi piace.", "de": "Es ist eine Musik: mi piace." },
+              "reply": { "face": "curious", "it": "Piacciono? È una musica sola.", "sl": "Všeč so? Saj je samo ena glasba.", "en": "Piacciono? It's just one music.", "de": "Piacciono? Es ist nur eine Musik." }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "bruno", "face": "happy", "it": "Buona cena, {learner}. A domani.", "sl": "Dober tek pri večerji, {learner}. Do jutri.", "en": "Enjoy your supper, {learner}. See you tomorrow.", "de": "Guten Appetit beim Abendessen, {learner}. Bis morgen." }
+      ]
+    },
+    {
+      "id": "lingua-plurale",
+      "memory": { "it": "il gioco delle parole alla fontana", "sl": "igro z besedami pri vodnjaku", "en": "the word game at the fountain", "de": "das Wörterspiel am Brunnen" },
+      "lines": [
+        { "who": "giulia", "face": "curious", "it": "Ciao, {learner}! La maestra dice: un uovo, due… Come si dice?", "sl": "Živjo, {learner}! Učiteljica pravi: un uovo, due … Kako se reče?", "en": "Hi, {learner}! The teacher says: un uovo (one egg), due… What comes next?", "de": "Hallo, {learner}! Die Lehrerin sagt: un uovo (ein Ei), due … Wie heißt es?" },
+        {
+          "choices": [
+            {
+              "it": "Due uova!",
+              "sl": "Due uova!",
+              "en": "Due uova (two eggs)!",
+              "de": "Due uova (zwei Eier)!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Giusto! È strano, vero?", "sl": "Pravilno! Čudno je, kajne?", "en": "Right! It's strange, isn't it?", "de": "Richtig! Komisch, oder?" }
+            },
+            {
+              "it": "Due uovi!",
+              "sl": "Due uovi!",
+              "en": "Due uovi!",
+              "de": "Due uovi!",
+              "grammar": "plurale",
+              "why": { "sl": "Uovo ima nepravilno množino: le uova.", "en": "Uovo has an irregular plural: le uova.", "de": "Uovo hat einen unregelmäßigen Plural: le uova." },
+              "reply": { "face": "laugh", "it": "Uovi? Ah ah! Le galline non lo sanno!", "sl": "Uovi? Ha ha! Kokoši tega ne poznajo!", "en": "Uovi? Ha ha! The hens don't know that word!", "de": "Uovi? Haha! Die Hühner kennen das nicht!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        { "who": "giulia", "face": "curious", "it": "Adesso tu: una cannella, due…", "sl": "Zdaj ti: una cannella, due …", "en": "Now you: una cannella (one spout), due…", "de": "Jetzt du: una cannella (eine Röhre), due …" },
+        {
+          "choices": [
+            {
+              "it": "Due cannelle!",
+              "sl": "Due cannelle!",
+              "en": "Due cannelle (two spouts)!",
+              "de": "Due cannelle (zwei Röhren)!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "{m:Bravo|f:Brava}! Come le cannelle della fontana.", "sl": "Bravo! Kot pipe na vodnjaku.", "en": "Well done! Like the fountain's spouts.", "de": "Gut gemacht! Wie die Röhren am Brunnen." }
+            },
+            {
+              "it": "Due cannelli!",
+              "sl": "Due cannelli!",
+              "en": "Due cannelli!",
+              "de": "Due cannelli!",
+              "grammar": "plurale",
+              "why": { "sl": "Cannella je ženskega spola: cannelle.", "en": "Cannella is feminine: cannelle.", "de": "Cannella ist weiblich: cannelle." },
+              "reply": { "face": "curious", "it": "Cannelli? Sono maschi? No!", "sl": "Cannelli? Moškega spola? Ne!", "en": "Cannelli? Are they boys? No!", "de": "Cannelli? Sind das Jungen? Nein!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        { "who": "giulia", "face": "proud", "it": "Domani facciamo un altro gioco. Io sono la maestra!", "sl": "Jutri se igrava drugo igro. Jaz sem učiteljica!", "en": "Tomorrow we'll play another game. I'm the teacher!", "de": "Morgen spielen wir ein anderes Spiel. Ich bin die Lehrerin!" }
+      ]
+    }
+  ]
+}
