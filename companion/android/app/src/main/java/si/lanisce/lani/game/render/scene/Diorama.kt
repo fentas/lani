@@ -466,12 +466,52 @@ internal abstract class DioramaPainter : ArtPainter() {
         quadFill(pw, 0f, 0f, pw, pd, 0f, pw, pd, -dp, pw, 0f, -dp) { px, py ->
             earth(px, py, wallXy(px, pw) + 31f, -wallXz(px, py, pw) / dp, 0.78f)
         }
-        // the top
-        quadFill(0f, 0f, 0f, pw, 0f, 0f, pw, pd, 0f, 0f, pd, 0f) { px, py ->
-            val x = flatX(px, py, 0f); val y = flatY(px, py, 0f)
-            rim(ground(x, y, px, py), x, y, px, py)
+        // the top, not shaded where a flat drawn later covers it whole ([under]: a room's floor), as [quadFill] fills it
+        val skip = under?.takeIf { !shadeUnder && c.zoom <= 1 && it.size == c.height * 2 }
+        val oy = c.originY
+        c.polyBegin()
+        c.polyAdd(iso.sx(0f, 0f), iso.sy(0f, 0f, 0f)); c.polyAdd(iso.sx(pw, 0f), iso.sy(pw, 0f, 0f))
+        c.polyAdd(iso.sx(pw, pd), iso.sy(pw, pd, 0f)); c.polyAdd(iso.sx(0f, pd), iso.sy(0f, pd, 0f))
+        c.polyScan { px, py ->
+            if (skip == null || px < skip[(py - oy) * 2] || px > skip[(py - oy) * 2 + 1]) {
+                val x = flatX(px, py, 0f); val y = flatY(px, py, 0f)
+                c.set(px, py, rim(ground(x, y, px, py), x, y, px, py))
+            }
         }
         c.penId = 0
+    }
+
+    /**
+     * What a flat drawn later covers whole, for [plot] to leave unshaded (2026-10-30, docs/plans/05-built/nav-perf.md: closer
+     * up the kitchen's window is mostly its room, and its grass was shaded under all of the floor before the floor was drawn
+     * over it): per row of the canvas, the first and the last picture x covered (none: [Int.MAX_VALUE], [Int.MIN_VALUE]).
+     * Set it with [flatSpans] only for a flat every pixel of which is drawn, opaque, after the plot, nothing in between
+     * reading what lies under it; null (the default): the whole top shaded.
+     */
+    @PublishedApi internal var under: IntArray? = null
+    private var spans = IntArray(0)
+
+    /** True: the plot's top shaded under [under] too, as before it (tests: the same pixels either way, and the time it saves). */
+    internal var shadeUnder = false
+
+    /**
+     * The rows of the canvas the horizontal plane z = [z] over x [xa]..[xb], y [ya]..[yb] covers, scanned as a quad of its four
+     * corners is filled (RoomPainter.onFlat): for [under].
+     */
+    protected fun flatSpans(z: Float, xa: Float, ya: Float, xb: Float, yb: Float): IntArray {
+        if (spans.size != c.height * 2) spans = IntArray(c.height * 2)
+        val rows = spans
+        for (r in 0 until c.height) { rows[r * 2] = Int.MAX_VALUE; rows[r * 2 + 1] = Int.MIN_VALUE }
+        val oy = c.originY
+        c.polyBegin()
+        c.polyAdd(iso.sx(xa, ya), iso.sy(xa, ya, z)); c.polyAdd(iso.sx(xb, ya), iso.sy(xb, ya, z))
+        c.polyAdd(iso.sx(xb, yb), iso.sy(xb, yb, z)); c.polyAdd(iso.sx(xa, yb), iso.sy(xa, yb, z))
+        c.polyScan { px, py ->
+            val r = (py - oy) * 2
+            if (px < rows[r]) rows[r] = px
+            if (px > rows[r + 1]) rows[r + 1] = px
+        }
+        return rows
     }
 
     /** The plot's edges fall away a little darker; the two front ones catch a thin light rim. */

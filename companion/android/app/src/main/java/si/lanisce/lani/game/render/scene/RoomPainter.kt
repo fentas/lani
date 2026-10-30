@@ -281,8 +281,11 @@ internal abstract class RoomPainter : DioramaPainter() {
 
     protected fun ground(x: Float, y: Float, px: Int, py: Int): Int {
         val g = grassAt(x, y, px, py)
-        // scratched bare where the hen pecks
-        val f = (1f - hypot(x - henX, (y - henY) * 1.3f) / 0.8f) * (0.7f + Noise.v2(x * 3f, y * 3f, 5) * 0.6f)
+        // scratched bare where the hen pecks, within 0.8 of her: further off the grass as it is, without the hypot (a fifth
+        // of a closer frame's time on the JVM; the patch the same to the pixel: beyond 0.65² the hypot is over 0.8)
+        val dx = x - henX; val dy = (y - henY) * 1.3f
+        if (dx * dx + dy * dy > 0.65f) return g
+        val f = (1f - hypot(dx, dy) / 0.8f) * (0.7f + Noise.v2(x * 3f, y * 3f, 5) * 0.6f)
         return dirtAt(px, py, f.coerceIn(0f, 1f), g)
     }
 

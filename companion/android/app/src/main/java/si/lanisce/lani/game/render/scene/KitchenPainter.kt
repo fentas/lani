@@ -91,7 +91,10 @@ internal class KitchenPainter : RoomPainter() {
         val stove = there("stove")
         // the lamp over the table burns from dusk, and is put out for anyone asleep
         val lit = env.windows > 0.35f && !quiet && there("table")
+        // the grass under the floor isn't shaded: the floor is drawn over all of it below, opaque, nothing in between reads it
+        under = flatSpans(fl, x0, y0, x1, y1)
         plot { x, y, px, py -> ground(x, y, px, py) }
+        under = null
         // tufts first: they lie flat, and whatever stands in front of them covers them
         tufts(80, 13) { x, y ->
             (x < x1 + tk + 0.3f && y < y1 + tk + 0.3f) || (x in 1.3f..6.5f && y in 9.7f..11.6f) ||

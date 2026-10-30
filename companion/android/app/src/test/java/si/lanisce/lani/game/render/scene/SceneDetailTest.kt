@@ -146,12 +146,46 @@ class SceneDetailTest {
     }
 
     /**
-     * A closer frame's budget: 25 ms (set 2026-10-04), the kitchen's 30. The kitchen grew since (faces, the weather's
-     * pokes, Friuli's look, its levels) and is the dearest closer frame: 23 to 25 ms of this thread's CPU time at detail 3
-     * on the desktop in all the weather (2026-10-30, the same before and after its levels), so 25 ms failed on its own
-     * cost, not the machine's. 30 keeps a fifth of it in hand; the other arts stay at 25 (their dearest, the Alps, 22 ms).
+     * A closer frame's budget: 25 ms (set 2026-10-04), every art's. The kitchen had 30 for a while (23 to 25 ms of this
+     * thread's CPU time at detail 3 in all the weather): its plot's grass was shaded under all of its floor before the
+     * floor was drawn over it, which closer up is most of the window. It isn't since (Diorama.under: 18.5 ms, 19.6 in all
+     * the weather; docs/plans/05-built/nav-perf.md), the pixels the same (the test below).
      */
-    private fun budget(art: String): Double = if (art == "kitchen") 30.0 else 25.0
+    private fun budget(@Suppress("UNUSED_PARAMETER") art: String): Double = 25.0
+
+    @Test fun `the kitchen's grass under its floor is left unshaded, every pixel the same`() {
+        // what the floor covers whole the plot doesn't shade (Diorama.under): the same picture, ids and glow as shading it all
+        // (shadeUnder), at every level, in both looks, at every detail, by day, at dusk and at night in all the weather
+        val bw = 270; val bh = 297
+        var saved = 0.0; var whole = 0.0
+        for (culture in listOf(si.lanisce.lani.game.culture.Cultures.DEFAULT, "friuli")) for (lv in 1..5) {
+            val type = if (lv == 1) si.lanisce.lani.game.BuildingType.HUT else si.lanisce.lani.game.BuildingType.HOUSE
+            val world = si.lanisce.lani.game.scene.SceneWorld(culture = culture, here = si.lanisce.lani.game.Building("h", type, lv))
+            for (f in listOf(frame("kitchen").copy(world = world), frame("kitchen", hour = 19.6f, month = 1).copy(world = world),
+                frame("kitchen", hour = 22.5f, month = 10, time = 3.4, sky = storm, fx = true, pokes = poked("kitchen", 1, 2.6)).copy(world = world))) {
+                for (k in 1..Lens.MAX_DETAIL) {
+                    val ww = if (k == 1) bw else 360; val wh = if (k == 1) bh else 300
+                    val lens = Lens(k, (bw * k - ww) / 2, (bh * k - wh) / 2, bw, bh)
+                    val pictures = listOf(false, true).map { all ->
+                        val p = ScenePainters.create("kitchen")
+                        (p as DioramaPainter).shadeUnder = all
+                        val c = PixelCanvas(ww, wh)
+                        val t0 = FrameBudget.now()
+                        val hits = p.render(c, f, lens)
+                        if (k == Lens.MAX_DETAIL) { val ms = (FrameBudget.now() - t0) / 1e6; if (all) whole += ms else saved += ms }
+                        Triple(c, hits, all)
+                    }
+                    val (a, ha) = pictures[0]; val (b, hb) = pictures[1]
+                    val what = "kitchen L$lv $culture at detail $k, ${f.hour} h${if (f.sky.clear) "" else " in all the weather"}"
+                    assertTrue("$what: the pixels", a.pixels.contentEquals(b.pixels))
+                    assertTrue("$what: the ids", a.ids.contentEquals(b.ids))
+                    assertTrue("$what: the glow", a.emissive.contentEquals(b.emissive))
+                    assertEquals("$what: the hits", hb, ha)
+                }
+            }
+        }
+        println("the kitchen at detail 3, the grass under its floor left unshaded: %.1f ms for 30 frames, %.1f shading it all".format(saved, whole))
+    }
 
     private fun write(c: PixelCanvas, f: File, scale: Int) {
         val img = BufferedImage(c.width * scale, c.height * scale, BufferedImage.TYPE_INT_RGB)
