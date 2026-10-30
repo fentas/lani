@@ -458,7 +458,10 @@ Primorska's valley), and the village drawn where it would stand, at its first ag
 "🎲 Nov kraj · Another place" rolls the next seed of a fixed sequence (SplitMix64: the same seed always rolls the same
 next one, and the same seed is always the same land); "✓ Tu bo moja vas · My village will be here" founds it there, its
 first day ticked, for good. A village that exists is never asked about, and a village that arrives from the node or
-another phone meanwhile stays.
+another phone meanwhile stays. The screen reads itself as it opens, as the village's first words do (when the school's
+"🔊 Beri razlago" is on and no screen reader is): its title in the language learned in the culture's narrator's voice,
+what to do and that it is chosen once in the learner's base by the phone's voice (`game/ReadAloud`); its 🔊 by the 🏡
+reads it again or stops it. A child who doesn't read yet hears what the screen asks.
 
 **The wild animals round the village** (`game/render/Wildlife.kt`: a squirrel and a hare by day, roe deer and a fox at
 dawn and dusk, a boar with her young at night, tracks in the snow) are each a word: a tap opens its card in the village's
@@ -760,6 +763,7 @@ What changed in the properties, and why: "complete" now counts the project steps
 - If there is enough food, morale moves 5 per day toward its target (50 + linden, well and church bonuses, + Anton's candles and the children's keepsakes, at most 100). Morale above the target (after a festival or a feast) goes down by 2 per day. If there is not enough food, morale −10. Hearths out cost morale by their share (see "Hearths").
 - If morale stays below 25 for 3 days, a villager leaves. The village always keeps at least 1 villager. If there is enough food and morale is 50 or more, a villager joins, up to the population cap.
 - From the 4th missed day, the rules are gentler: consumption is halved, penalties are smaller, and morale does not go below 30. Upkeep never destroys buildings.
+- What the days brought shows at the next return, over Home or the village: "🌄 Medtem ko te ni bilo · While you were away", its newest eight lines. Its 🔊 reads them on a tap (never by itself: it comes at every return), the heading and each line in the language learned in the narrator's voice, then in the base (`game/ReadAloud.news`: a chronicle line's "target · base" cut at its middle, its emoji not said).
 
 ## Hearths
 

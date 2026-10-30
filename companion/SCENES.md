@@ -794,8 +794,11 @@ the scene there with them while it is on, by their ids: Maestra Elena's roll cal
 ("Lorenzo, presente. Giulia, presente. E {learner}?"), Učiteljica Mojca's dual lesson Tine and Zala ("Tine in Zala sta dva
 učenca. Kaj delata?"). They're drawn at their spots (`Happenings.peopleIn`), aren't the ones the learner talks with (a tap
 on them greets them), stand at its place on the map too (`TownMarkers.standing`), and the happening is on only while each
-is in the village and met, as a text that names them; while it is on, their own happenings in other scenes wait
-(`Happenings.active`: Lorenzo's cat at the mill), so the picture, the line and the map agree on where they are. The bridge checks each is a person of the scene and not the happening's own; an older bridge strips it, an older app
+is in the village and met, as a text that names them; while it is on, their own happenings wait, in other scenes and in
+the room itself (`Happenings.claimed`: Lorenzo's cat at the mill, Giulia's globe in the classroom), so the picture, the
+line and the map agree on where they are. A happening with others is a lesson (`Happenings.lessonIn`): while it runs, the
+room holds back what else it would offer, the others' happenings there and a game of I spy ([I spy](#i-spy-vidim-vidim-nekaj-česar-ti-ne-vidiš)); the
+requests stay, as the map's bubbles show them. Once the lesson is done for the day, the room's own come back. The bridge checks each is a person of the scene and not the happening's own; an older bridge strips it, an older app
 shows the person alone.
 
 ### Seasons: in their months
@@ -1931,7 +1934,9 @@ not only found and learned in a pack run (`game/scene/ISpy.kt`: the content, who
 at a person spot of the scene nobody stands at, the door where there is one (Zala comes into the kitchen; into the church
 while Tine is away, by its door under the organ loft), clear of the picture as anyone there ([Where people
 stand](#where-people-stand)). No child about
-(the children are in bed from eight, none lives here yet): no game. The words panel offers it above "Danes tukaj · Here
+(the children are in bed from eight, none lives here yet): no game. Nor while a lesson runs in the room (the roll call:
+`Happenings.lessonIn`, [Who else is there](#whats-on-today)): the pupils are in class, Lorenzo at his desk doesn't ask
+to play «Vedo, vedo» while Maestra Elena calls the names. The words panel offers it above "Danes tukaj · Here
 today": "🔍 Vidim, vidim · I spy", the child asking «Se igrava «Vidim, vidim»?» with its meaning under it, the games left
 today and "🔍 Igrajva · Let's play"; a 🔍 over the child in the picture does the same (unless a happening of theirs has its
 own marker). Two games a day in each scene (`ISpy.GAMES_PER_DAY`), then "✓ Vidim, vidim: jutri spet · again tomorrow".
@@ -2407,7 +2412,8 @@ has, the story first ([What someone has here](#what-someone-has-here)).
 
 A telling is a scene dialog told by the teller: his lines have no `who` (the happening's person says them; the panel's
 header shows him with his face, [Faces](#faces-the-person-you-talk-to-and-their-expressions): his lines and replies may
-carry a `face` as a scene's do, the curated ones have none yet), the first is his, and it has at least one turn for the
+carry a `face` as a scene's do: the curated ones have theirs, 1,749 in the 46 stories, the teller acting the tale out, about
+half his lines, every reaction and nearly every reply; docs/plans/05-built/ux-polish.md), the first is his, and it has at least one turn for the
 learner: a question he asks ("Povej: kaj je naredil lovec?") that the
 choices answer, or a reaction ("O, ne! Ubogi Zlatorog!"); every wrong choice has its `why` and the teller's reaction as
 its `reply`, as in a scene ([Reactions](#reactions-and-more-than-one-right-answer)): "Dobro jutro? Ob tej uri?" to a
