@@ -116,7 +116,7 @@ const val BUBBLE_REACH = 1.5f * APART
  * map's window are bubbles always.
  */
 fun TownMarker.quiet(): Boolean = when {
-    kind == TownMarker.Kind.EVENT -> false
+    kind == TownMarker.Kind.EVENT || kind == TownMarker.Kind.TIP -> false
     id.startsWith("arrival:") || id.startsWith(si.lanisce.lani.game.scene.TownMarkers.PARTY) -> false
     id.startsWith("quest:") || id.startsWith("cluster:") || id.startsWith("more:") -> false
     else -> true
@@ -141,7 +141,7 @@ fun quietness(dx: Float, dy: Float, short: Float): Float {
 private fun TownMarker.fill(threat: Boolean): Color = when {
     kind == TownMarker.Kind.EVENT && threat -> TriglavRed
     kind == TownMarker.Kind.EVENT -> XpGold
-    kind == TownMarker.Kind.HAPPENING && !id.startsWith("more:") -> BubbleMint
+    kind == TownMarker.Kind.HAPPENING && !id.startsWith("more:") && !id.startsWith(si.lanisce.lani.game.scene.TownMarkers.BACK) -> BubbleMint
     else -> BubblePaper
 }
 
@@ -475,7 +475,7 @@ private class BubbleLayout(
         val at = groups.indices.map { g -> anchor(g, cam)?.let { BubbleOffset(it.x / density, it.y / density) } }
         fun rank(g: Int, i: Int): Int {
             val m = groups[g].second.getOrNull(i) ?: return 9
-            return when (m.kind) { TownMarker.Kind.EVENT -> 0; TownMarker.Kind.HAPPENING -> 1; TownMarker.Kind.QUEST -> 2 }
+            return when (m.kind) { TownMarker.Kind.EVENT -> 0; TownMarker.Kind.HAPPENING -> 1; TownMarker.Kind.QUEST -> 2; TownMarker.Kind.TIP -> 3 }
         }
         return offScreen(spots, at, ::rank, half = BUBBLE.value / 2f, width = viewW / density, top = hudInset / density, bottom = (viewH - bottomInset) / density)
     }
@@ -511,6 +511,7 @@ private fun Bubble(
         TownMarker.Kind.QUEST -> if (m.id.startsWith("quest:tutor-")) bi("townBubbles.requestFromTutor") else bi("common.request")
         TownMarker.Kind.HAPPENING -> bi("townBubbles.happeningNow")
         TownMarker.Kind.EVENT -> bi("townBubbles.event")
+        TownMarker.Kind.TIP -> "💡 ${bi("tips.tip")}"
     }
     Box(
         modifier
@@ -537,9 +538,16 @@ private fun Bubble(
                 contentAlignment = Alignment.Center,
             ) { Portrait(face.art, modifier = Modifier.size(FACE - 6.dp), px = 32, animate = false, seed = face.id.hashCode()) }
         } else Box(
-            Modifier.align(Alignment.Center).then(small).size(BUBBLE).shadow(4.dp, PixelShape).background(m.fill(threat), PixelShape).border(2.dp, BubbleInk, PixelShape),
+            Modifier.align(Alignment.Center).then(small).size(BUBBLE).shadow(4.dp, PixelShape).background(m.fill(threat), PixelShape)
+                // a tip: a gold rim, gentle (it never wobbles or pulses)
+                .border(if (m.kind == TownMarker.Kind.TIP) 3.dp else 2.dp, if (m.kind == TownMarker.Kind.TIP) TipRim else BubbleInk, PixelShape),
             contentAlignment = Alignment.Center,
         ) { Text(m.emoji, style = fixed(22f)) }
+        if (m.kind == TownMarker.Kind.TIP) {
+            Box(Modifier.align(Alignment.TopEnd).size(20.dp).background(Color.White, CircleShape).border(1.5.dp, TipRim, CircleShape), contentAlignment = Alignment.Center) {
+                Text("💡", style = fixed(11f))
+            }
+        }
         if (m.kind == TownMarker.Kind.QUEST) {
             Box(Modifier.align(Alignment.TopEnd).graphicsLayer { alpha = 1f - quiet() }.size(18.dp).background(XpGold, CircleShape).border(1.5.dp, BubbleInk, CircleShape), contentAlignment = Alignment.Center) {
                 Text("!", color = BubbleInk, fontWeight = FontWeight.Black, style = fixed(12f))

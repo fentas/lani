@@ -885,7 +885,7 @@ val VISITORS = TownPlace.Spot("road")
 const val MAX_BUBBLES = 5
 
 /** Which bubbles a crowded place shows first. */
-val BUBBLE_ORDER = listOf(TownMarker.Kind.EVENT, TownMarker.Kind.HAPPENING, TownMarker.Kind.QUEST)
+val BUBBLE_ORDER = listOf(TownMarker.Kind.EVENT, TownMarker.Kind.HAPPENING, TownMarker.Kind.QUEST, TownMarker.Kind.TIP)
 
 /**
  * At most [MAX_BUBBLES] per place, the event and the people there now before the requests (the scroll lists

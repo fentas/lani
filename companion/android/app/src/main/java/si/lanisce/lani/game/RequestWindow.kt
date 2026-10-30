@@ -201,6 +201,25 @@ object RequestWindow {
     }
 
     /**
+     * The drill after a try below the mark of request [questId] ("🎯 Esercitati e riprova · Practise and try again": the rules
+     * that try missed) was passed at [now]: the request comes back today, at once, instead of tomorrow (its [RequestPace.back]
+     * gone), its giver asks again (the rest after that run gone), and the window shows it (up from [now]). [state] as it is
+     * when the request isn't waiting for tomorrow (passed meanwhile, or back already).
+     */
+    fun retried(state: GameState, questId: String, now: Long): GameState {
+        val q = state.quests.firstOrNull { it.id == questId && !it.done } ?: return state
+        val p = state.pace
+        if ((p.back[questId] ?: 0L) <= now) return state
+        val rest = p.rests[q.giver]?.takeIf { !it.passed }
+        val pace = p.copy(
+            back = p.back - questId,
+            rests = if (rest != null) p.rests - q.giver else p.rests,
+            up = p.up.filter { it.id != questId } + RequestUp(questId, now),
+        )
+        return state.copy(pace = pace)
+    }
+
+    /**
      * The window as [queue] shows it at [now], kept with the village: the requests up stay up while they're open (for the
      * day they came up), whatever comes later; nothing else changes. [state] as it is when nothing changed.
      */

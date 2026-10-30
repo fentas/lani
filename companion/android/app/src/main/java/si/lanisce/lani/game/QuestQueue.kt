@@ -217,6 +217,13 @@ object QuestQueue {
      */
     fun hard(q: Quest, quests: List<Quest>): Boolean = !q.done && q.tries >= HARD_TRIES && drillFor(q, quests) == null
 
+    /**
+     * Tried below the pass mark and waiting for the next day ([RequestPace.back] after [now]): it offers "🎯 Esercitati e
+     * riprova · Practise and try again" (a short drill of the rules the try missed, [Quest.missed]): passed, the request comes
+     * back today ([RequestWindow.retried]); without it, tomorrow as ever.
+     */
+    fun retry(q: Quest, pace: RequestPace, now: Long): Boolean = !q.done && q.tries > 0 && (pace.back[q.id] ?: 0L) > now
+
     /** The pass mark of [q]'s best try (8 of 12); 0 before the first. */
     fun passMark(q: Quest): Int = if (q.bestOf > 0) Quests.passMark(q.bestOf) else 0
 

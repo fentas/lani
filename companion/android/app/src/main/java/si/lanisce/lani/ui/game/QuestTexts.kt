@@ -31,7 +31,8 @@ fun whyText(why: QuestQueue.Why): String = when (why) {
     is QuestQueue.Why.Danger -> "${why.kind.emoji} ${dangerText(why.kind)}"
     is QuestQueue.Why.Spent -> "✓ ${bi("quests.taskDone")}"
     is QuestQueue.Why.Resting -> "☕ ${bi("quests.resting", "time" to clockText(why.until))}"
-    is QuestQueue.Why.Again -> "🌙 ${bi("quests.again")}"
+    // when it comes back, plainly ("Riproviamo domani dalle 05:00"): never "gone"
+    is QuestQueue.Why.Again -> "🌙 ${bi("quests.againAt", "time" to clockText(why.at))}"
 }
 
 /** A time of the day as the phone's clock shows it: "14:30". */
@@ -50,6 +51,12 @@ fun laterTitle(): String = "📜 ${bi("quests.later")}"
 
 /** "🎯 Vadi, kar ti ne gre · Practise what's hard": a request tried [QuestQueue.HARD_TRIES] times without a drill for it. */
 fun practiseHardLabel(): String = "🎯 ${bi("quests.practiseHard")}"
+
+/**
+ * "🎯 Vadi in poskusi znova · Practise and try again": a request tried below the mark, back tomorrow ([QuestQueue.retry]):
+ * a short drill of the rules the try missed, passed, brings it back today.
+ */
+fun practiseRetryLabel(): String = "🎯 ${bi("quests.practiseRetry")}"
 
 /**
  * A request's run as the tutor is told it (a module's session_end, its data.quest; companion/GAME.md "Quests"): the request

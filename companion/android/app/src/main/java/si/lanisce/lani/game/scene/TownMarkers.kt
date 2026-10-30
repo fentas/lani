@@ -103,7 +103,8 @@ object TownSpots {
  * many (its badge: "⚒️ 2").
  */
 data class TownMarker(val id: String, val kind: Kind, val emoji: String, val label: String, val place: TownPlace, val count: Int = 1) {
-    enum class Kind { QUEST, HAPPENING, EVENT }
+    /** [TIP]: a tip at its thing ("tip:<moment>", companion/GAME.md "Guidance"): one at a time, a tap opens its card. */
+    enum class Kind { QUEST, HAPPENING, EVENT, TIP }
 }
 
 object TownMarkers {
@@ -199,7 +200,11 @@ object TownMarkers {
         out += arrivals(state, cast, today)
         // a request from someone of the cast who isn't in the village today waits for them; the map's window shows a few, one
         // of each villager (none while wolves, a bear or a storm are about: they wait in the scroll, QuestQueue.Why.Danger)
-        out += questMarkers(si.lanisce.lani.game.villagers.Residents.queue(state, cast, today).up, state, cast)
+        val queue = si.lanisce.lani.game.villagers.Residents.queue(state, cast, today)
+        out += questMarkers(queue.up, state, cast)
+        // a request tried below the mark isn't gone: a quiet "🔁" at its giver says it comes back tomorrow (their card has
+        // the drill that brings it back today)
+        out += backMarkers(queue, state, cast)
         // wolves, a bear or a storm about: only the event (companion/GAME.md "People react"); the rest waits
         if (si.lanisce.lani.game.villagers.Reactions.quiet(state)) return out
         // today's visitor waits with a bubble until Jan has greeted or met them today; then they're just about
@@ -249,6 +254,23 @@ object TownMarkers {
             }
             TownMarker("quest:${q.id}", TownMarker.Kind.QUEST, q.emoji, label, questPlace(q.giver, q.source, state, cast), count = mine.size)
         }
+
+    /** A request back tomorrow's quiet marker on the map: "back:<request id>" ([backMarkers]). */
+    const val BACK = "back:"
+
+    /**
+     * "back:<id>" (🔁) at the giver of each request tried below the pass mark that waits for the next morning
+     * ([si.lanisce.lani.game.QuestQueue.Why.Again]), one per giver, none for a giver with a request up (their "!" is there):
+     * where it went and when it comes back ("Riproviamo domani · Morgen nochmal, ab 05:00"); a tap opens the giver's card.
+     */
+    fun backMarkers(queue: si.lanisce.lani.game.QuestQueue.Queue, state: GameState, cast: List<Villager>): List<TownMarker> {
+        val busy = queue.up.map { it.giver }.toSet()
+        return queue.later.filter { it.why is si.lanisce.lani.game.QuestQueue.Why.Again && it.quest.giver !in busy }.distinctBy { it.quest.giver }.map { w ->
+            val at = (w.why as si.lanisce.lani.game.QuestQueue.Why.Again).at
+            val time = java.time.Instant.ofEpochMilli(at).atZone(java.time.ZoneId.systemDefault()).toLocalTime().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm"))
+            TownMarker("$BACK${w.quest.id}", TownMarker.Kind.HAPPENING, "🔁", "${w.quest.title}: ${bi("quests.againAt", "time" to time)}", questPlace(w.quest.giver, w.quest.source, state, cast))
+        }
+    }
 
     /**
      * "arrival:<id>" at the home of each who joined the village and whose introduction can be played now

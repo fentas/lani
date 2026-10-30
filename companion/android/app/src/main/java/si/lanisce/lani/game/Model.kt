@@ -467,6 +467,12 @@ data class GameState(
      * (the window starts afresh), an older bridge keeps it as it is.
      */
     val pace: RequestPace = RequestPace(),
+    /**
+     * "💡 Namigi · Tips" (see [Guidance], companion/GAME.md "Guidance"): the moments shown, dealt with and put off, the
+     * learner's off switch, the tutor's pointer. An older save has none; an older app drops it and the bridge keeps it
+     * (PUT /game).
+     */
+    val tips: Tips = Tips(),
 ) {
     fun res(r: Res): Int = resources[r] ?: 0
 

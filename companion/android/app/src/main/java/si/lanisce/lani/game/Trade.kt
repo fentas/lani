@@ -200,7 +200,8 @@ internal object Trade {
         val day = today.toString()
         val gave = (s.trades?.takeIf { it.on == day }?.gave.orEmpty()) + give
         val line = bi("trade.chronicle", "given" to given, "giveEmoji" to give.emoji, "got" to (came[get] ?: 0), "getEmoji" to get.emoji, "rate" to decimal(rate.pct))
-        return credited.copy(trades = TradeDay(day, gave)).logged(now, "⇄" to line) to
+        // a trade done: the tips about trading are known from now on (companion/GAME.md "Guidance")
+        return Guidance.did(credited.copy(trades = TradeDay(day, gave)), "trade").logged(now, "⇄" to line) to
             TradeDeal(give, get, asked, given, came[get] ?: 0, rate)
     }
 
