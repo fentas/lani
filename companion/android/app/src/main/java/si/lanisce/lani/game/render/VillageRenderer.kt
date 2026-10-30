@@ -785,8 +785,8 @@ class VillageRenderer {
         // the hens bunched up by a house while wolves or a bear are about, by day
         if (stir?.threat == true && stir.phase == si.lanisce.lani.game.villagers.Stir.Phase.ON && env.dark < 0.55f) {
             buildings.firstOrNull { it.type == BuildingType.HUT || it.type == BuildingType.HOUSE }?.let { b ->
-                val c = land.centers[b.plot]
-                val hx = c[0] + TownPeople.Nook.YARD.dx; val hy = c[1] + TownPeople.Nook.YARD.dy
+                val yard = TownPeople.nookAt(state, land, land.centers[b.plot], TownPeople.Nook.YARD, Walkways.of(state, bw, bh).walk)
+                val hx = yard[0]; val hy = yard[1]
                 objs.add(Obj(hx + hy) {
                     s.newObject(Pal.OUTLINE)
                     s.effects.huddle(s.iso.ix(hx, hy), s.iso.iy(hx, hy, 0f), 3, Noise.hash(b.plot, 29))

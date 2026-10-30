@@ -12,7 +12,8 @@ import kotlin.math.min
  * someone standing would be in its flames, [TownPeople.inFire]; a building's: its plot's footprint; a field's: its soil and
  * crops, which only its own workers walk into, from their way's end or start there), and the corners just outside it that a
  * way round it goes by. A walk is straight when nothing is in the way, else the shortest way
- * round what is ([around]): past the fire on its nearer side, round the plaza's ring; round the corner of a house. Pure,
+ * round what is ([around]): past the fire on its nearer side, round the plaza's ring; round the corner of a house. Where
+ * the palisade stands, never through its stakes but by its gates ([PalisadeWalk], [along] with the village's [Ways]). Pure,
  * the ways worked out once per village and walk ([Ways]).
  */
 object Walkways {
@@ -163,16 +164,27 @@ object Walkways {
      * The way from [a] to [b] (world cells) round [blocks]: straight when nothing is in the way, else the shortest way by
      * the blocks' corners (a block [a] or [b] is in, they walk out of or into). Its points, [a] first and [b] last.
      */
-    fun around(a: FloatArray, b: FloatArray, blocks: List<Block>): List<FloatArray> {
-        val live = blocks.filter { !it.inside(a[0], a[1]) && !it.inside(b[0], b[1]) }
+    fun around(a: FloatArray, b: FloatArray, blocks: List<Block>): List<FloatArray> = around(a, b, blocks, null, true)
+
+    /**
+     * [around] by only those of the blocks' corners that [sides] (by block, by corner) says are on [side] of the palisade
+     * (null: all of them), so a way on one side of it doesn't go round a block by the other's.
+     */
+    internal fun around(a: FloatArray, b: FloatArray, blocks: List<Block>, sides: List<BooleanArray>?, side: Boolean): List<FloatArray> {
+        val liveAt = blocks.indices.filter { !blocks[it].inside(a[0], a[1]) && !blocks[it].inside(b[0], b[1]) }
+        val live = liveAt.map { blocks[it] }
         fun clear(p: FloatArray, q: FloatArray) = live.none { it.crossed(p[0], p[1], q[0], q[1]) }
         if (hypot(b[0] - a[0], b[1] - a[1]) < EPS || clear(a, b)) return listOf(a, b)
-        // the corners to go by: each block's, those inside another left out
+        // the corners to go by: each block's, those inside another left out (and those on the palisade's other side)
         val pts = ArrayList<FloatArray>()
         pts += a; pts += b
-        for (bl in live) for (i in bl.corners.indices step 2) {
-            val x = bl.corners[i]; val y = bl.corners[i + 1]
-            if (live.none { it.inside(x, y) }) pts += floatArrayOf(x, y)
+        for (k in liveAt) {
+            val bl = blocks[k]
+            for (i in bl.corners.indices step 2) {
+                if (sides != null && sides[k][i / 2] != side) continue
+                val x = bl.corners[i]; val y = bl.corners[i + 1]
+                if (live.none { it.inside(x, y) }) pts += floatArrayOf(x, y)
+            }
         }
         // Dijkstra from a (0) to b (1) over the clear walks between them
         val n = pts.size
@@ -211,22 +223,168 @@ object Walkways {
     /** The length of [way] (cells). */
     fun length(way: List<FloatArray>): Float = (1 until way.size).sumOf { hypot(way[it][0] - way[it - 1][0], way[it][1] - way[it - 1][1]).toDouble() }.toFloat()
 
+    // ------------------------------------------------------------------ through the palisade's gates
+
+    /**
+     * [along] in [ways]' village: each leg round what is in the way and, where the palisade stands ([Ways.walk]), never
+     * through its stakes but by its gates ([leg]). Without a palisade, [along] as it was.
+     */
+    internal fun along(points: List<FloatArray>, ways: Ways): List<FloatArray> {
+        val walk = ways.walk ?: return along(points, ways.blocks)
+        val out = ArrayList<FloatArray>()
+        out += points.first()
+        for (i in 1 until points.size) out.addAll(leg(points[i - 1], points[i], ways, walk).drop(1))
+        return out
+    }
+
+    /**
+     * The way from [a] to [b] where the palisade stands ([PalisadeWalk]): both on one side of it, on that side, round what
+     * is in the way by that side's corners and clear of the stakes ([keep]); from one side to the other, through the gate
+     * that makes the way shortest ([through]).
+     */
+    private fun leg(a: FloatArray, b: FloatArray, ways: Ways, walk: PalisadeWalk): List<FloatArray> {
+        val ia = walk.inside(a[0], a[1]); val ib = walk.inside(b[0], b[1])
+        return if (ia == ib) keep(a, b, ia, ways, walk, 0) else through(a, b, ia, ways, walk) ?: around(a, b, ways.blocks)
+    }
+
+    /**
+     * The way from [a] to [b], both [inside] the ring or both outside it, on that side: round what is in the way by that
+     * side's corners, and where that would go through the stakes (the ring bends in between them), bent round the bend
+     * ([bend]); outside, the way in through one gate and out through another when that is shorter than round the ring.
+     * The way with the fewest stretches through the stakes, of those the shortest (none, unless shut in).
+     */
+    private fun keep(a: FloatArray, b: FloatArray, inside: Boolean, ways: Ways, walk: PalisadeWalk, depth: Int): List<FloatArray> {
+        val way = around(a, b, ways.blocks, ways.inner, inside)
+        if (depth >= MAX_BENDS || !walk.crosses(way)) return way
+        var best = way; var bestX = walk.crossings(way); var bestLen = length(way)
+        fun offer(w: List<FloatArray>) {
+            val x = walk.crossings(w); val len = length(w)
+            if (x < bestX || x == bestX && len < bestLen) { best = w; bestX = x; bestLen = len }
+        }
+        bend(a, b, inside, ways, walk)?.let { m -> offer(join(keep(a, m, inside, ways, walk, depth + 1), keep(m, b, inside, ways, walk, depth + 1))) }
+        if (!inside && depth == 0) for (d1 in walk.doors) for (d2 in walk.doors) {
+            if (d1 === d2) continue
+            val est = dist(a, d1.outer) + 2f * d1.reach + dist(d1.inner, d2.inner) + 2f * d2.reach + dist(d2.outer, b)
+            if (bestX == 0 && est >= bestLen) continue
+            offer(join(keep(a, d1.outer, false, ways, walk, 1), keep(d1.inner, d2.inner, true, ways, walk, 1), keep(d2.outer, b, false, ways, walk, 1)))
+        }
+        return best
+    }
+
+    /**
+     * Where a way from [a] to [b] on one side of the ring ([inside]) that would go through its stakes bends to keep clear
+     * of them: from the middle between them towards the fire inside the ring (it stands round the fire), away from it
+     * outside, or to either side, a little farther each time, the first point that is on that side, in nothing, and in
+     * sight of both [a] and [b] (else of one of them, the rest bent again). Null: none.
+     */
+    private fun bend(a: FloatArray, b: FloatArray, inside: Boolean, ways: Ways, walk: PalisadeWalk): FloatArray? {
+        val mx = (a[0] + b[0]) / 2f; val my = (a[1] + b[1]) / 2f
+        val dirs = ArrayList<FloatArray>(3)
+        val d = hypot(mx, my)
+        if (d > 0.3f) dirs += if (inside) floatArrayOf(-mx / d, -my / d) else floatArrayOf(mx / d, my / d)
+        val ex = b[0] - a[0]; val ey = b[1] - a[1]
+        val el = hypot(ex, ey).coerceAtLeast(1e-3f)
+        dirs += floatArrayOf(-ey / el, ex / el); dirs += floatArrayOf(ey / el, -ex / el)
+        var half: FloatArray? = null
+        for (t in BEND_STEPS) for (dir in dirs) {
+            val x = mx + dir[0] * t; val y = my + dir[1] * t
+            if (walk.inside(x, y) != inside || ways.blocks.any { it.inside(x, y) }) continue
+            val ca = walk.crosses(a[0], a[1], x, y); val cb = walk.crosses(x, y, b[0], b[1])
+            if (!ca && !cb) return floatArrayOf(x, y)
+            if (half == null && (!ca || !cb)) half = floatArrayOf(x, y)
+        }
+        return half
+    }
+
+    /**
+     * The way from [a] on one side of the ring ([inside]: inside it) to [b] on the other: through the gate that makes it
+     * shortest, straight through the middle of its opening ([PalisadeWalk.Door.inner] to [PalisadeWalk.Door.outer]), on
+     * each side as [keep] has it; from or to [a] or [b] where they stand in the opening itself. A gate something to keep
+     * off stands in (the wolves at the path's gate) only when no other will do. Null: the ring has no gate to walk through.
+     */
+    private fun through(a: FloatArray, b: FloatArray, inside: Boolean, ways: Ways, walk: PalisadeWalk): List<FloatArray>? {
+        var best: List<FloatArray>? = null; var bestX = Int.MAX_VALUE; var bestLen = Float.MAX_VALUE
+        val doors = walk.doors.sortedBy { dist(a, it.at(inside)) + 2f * it.reach + dist(it.at(!inside), b) }
+        for (pass in 0..1) {
+            for (d in doors) {
+                val near = if (d.mouth(a[0], a[1])) a else d.at(inside)
+                val far = if (d.mouth(b[0], b[1])) b else d.at(!inside)
+                val shut = ways.blocks.any { bl ->
+                    !bl.inside(a[0], a[1]) && !bl.inside(b[0], b[1]) && (bl.inside(near[0], near[1]) || bl.inside(far[0], far[1]) || bl.inside(d.mx, d.my))
+                }
+                if (shut != (pass == 1)) continue
+                if (bestX == 0 && dist(a, near) + dist(near, far) + dist(far, b) >= bestLen) continue
+                val w = join(if (near === a) listOf(a) else keep(a, near, inside, ways, walk, 0), if (far === b) listOf(b) else keep(far, b, !inside, ways, walk, 0))
+                val x = walk.crossings(w); val len = length(w)
+                if (x < bestX || x == bestX && len < bestLen) { best = w; bestX = x; bestLen = len }
+            }
+            if (best != null) return best
+        }
+        return best
+    }
+
+    /** [ways] one after the other, a point the next one starts at not twice. */
+    private fun join(vararg ways: List<FloatArray>): List<FloatArray> {
+        val out = ArrayList<FloatArray>()
+        for (w in ways) for (p in w) {
+            val last = out.lastOrNull()
+            if (last == null || last[0] != p[0] || last[1] != p[1]) out += p
+        }
+        return out
+    }
+
+    private fun dist(a: FloatArray, b: FloatArray) = hypot(b[0] - a[0], b[1] - a[1])
+
+    /** How often a way on one side of the ring bends again to keep clear of its stakes, at most. */
+    private const val MAX_BENDS = 4
+
+    /** How far from the middle a bend goes, a step farther each time (cells). */
+    private val BEND_STEPS = floatArrayOf(0.5f, 1f, 1.5f, 2f, 3f, 4f, 5f, 6.5f, 8f, 10f, 13f)
+
+    /** The path into the woods from just outside its gate: a point every this many rows of the canvas (nominal px). */
+    private const val FOREST_STEP = 6f
+
+    /**
+     * The path down into the woods below a tall canvas ([fg]) from just outside its gate in the palisade ([door]): its
+     * middle every few rows, down to the meadow's way in (the forest's spot) or, on a canvas that goes down that far, to
+     * the charcoal pile's row. World cells.
+     */
+    private fun forestPath(fg: Foreground, door: PalisadeWalk.Door): List<FloatArray> {
+        val fx = fg.comp.fireX.toFloat(); val fy = fg.comp.fireY.toFloat()
+        fun world(sx: Float, sy: Float) = floatArrayOf((sx / 4f + sy / 2f) / 2f, (sy / 2f - sx / 4f) / 2f)
+        val out = ArrayList<FloatArray>()
+        out += door.outer
+        val bottom = if (fg.kopa) fg.kopaY else fg.gateY
+        var y = fy + (door.outer[0] + door.outer[1]) * 2f + FOREST_STEP
+        while (y < bottom) { out += world(fg.pathX(y) - fx, y - fy); y += FOREST_STEP }
+        out += world(fg.pathX(bottom) - fx, bottom - fy)
+        return out
+    }
+
     // ------------------------------------------------------------------ the ways worked out, per village
 
     /**
      * [state]'s village's blocks on a [w] × [h] canvas and the ways round them already worked out, by their points: the
-     * renderer asks for each walker every frame. A village that changes (a building, the age) gets a new one.
+     * renderer asks for each walker every frame. A village that changes (a building, the age) gets a new one. Where the
+     * palisade stands, [walk] is its ring as people walk it, and [forest] the path into the woods below from its gate (see
+     * [TownPeople.route]); null: no palisade (or no woods).
      */
-    class Ways internal constructor(val blocks: List<Block>) {
+    class Ways internal constructor(val blocks: List<Block>, internal val walk: PalisadeWalk? = null, internal val forest: List<FloatArray>? = null) {
         private val cache = object : LinkedHashMap<List<Float>, List<FloatArray>>(64, 0.75f, true) {
             override fun removeEldestEntry(eldest: MutableMap.MutableEntry<List<Float>, List<FloatArray>>?) = size > 512
         }
 
-        /** [Walkways.along] by [points], remembered. */
+        /** Which of each block's corners stand inside the palisade (by block, by corner): a way goes round by its own side's. */
+        internal val inner: List<BooleanArray>? = walk?.let { w -> blocks.map { b -> BooleanArray(b.corners.size / 2) { w.inside(b.corners[2 * it], b.corners[2 * it + 1]) } } }
+
+        /** Whether the walk from [a] to [b] would go through the palisade's stakes (never without one). */
+        internal fun crosses(a: FloatArray, b: FloatArray): Boolean = walk?.crosses(a[0], a[1], b[0], b[1]) == true
+
+        /** [Walkways.along] by [points], through the palisade's gates where it stands, remembered. */
         fun along(points: List<FloatArray>): List<FloatArray> {
             val key = ArrayList<Float>(points.size * 2).apply { for (p in points) { add(p[0]); add(p[1]) } }
             synchronized(cache) { cache[key] }?.let { return it }
-            return along(points, blocks).also { synchronized(cache) { cache[key] = it } }
+            return along(points, this).also { synchronized(cache) { cache[key] = it } }
         }
     }
 
@@ -234,7 +392,10 @@ object Walkways {
         override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, Ways>?) = size > 8
     }
 
-    /** The [Ways] of [state]'s village on a [w] × [h] canvas. */
+    /**
+     * The [Ways] of [state]'s village on a [w] × [h] canvas: with its palisade's ring as people walk it ([PalisadeWalk]) once
+     * the palisade stands (the ring of the age, with a gate for the path where the canvas has the woods).
+     */
     fun of(state: GameState, w: Int, h: Int): Ways {
         val key = buildString {
             append(VillageLayout.of(state).key).append('/').append(state.age.name).append('/').append(w).append('x').append(h).append('/')
@@ -245,6 +406,10 @@ object Walkways {
             state.event?.takeIf { it.kind == si.lanisce.lani.game.EventKind.WOLVES || it.kind == si.lanisce.lani.game.EventKind.BEAR }?.let { append('/').append(it.kind.name).append(':').append(it.strength) }
         }
         synchronized(ways) { ways[key] }?.let { return it }
-        return Ways(blocks(state, w, h)).also { synchronized(ways) { ways[key] = it } }
+        val fg = Foreground.of(state, w, h)
+        val walk = if (state.buildings.none { it.type == BuildingType.PALISADE }) null
+        else Palisade.ring(VillageLayout.of(state), state.age, fg).takeIf { it.stakes.size >= 3 }?.let { PalisadeWalk.of(it) }
+        val forest = walk?.path?.let { d -> fg?.let { forestPath(it, d) } }
+        return Ways(blocks(state, w, h), walk, forest).also { synchronized(ways) { ways[key] = it } }
     }
 }

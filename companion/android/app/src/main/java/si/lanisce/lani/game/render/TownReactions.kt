@@ -143,6 +143,17 @@ internal object TownReactions {
             val r = t.keep / kotlin.math.cos(Math.PI / 8).toFloat() + 0.6f
             if (d >= r) return null
             val ux = if (d < 1e-3f) 0f else dx / d; val uy = if (d < 1e-3f) -1f else dy / d
+            val walk = ways.walk ?: return floatArrayOf(t.cx + ux * r, t.cy + uy * r)
+            // where the palisade stands, on their own side of it and in sight across no stake: straight out from the
+            // animals, else turning a little more each time either way
+            val side = walk.inside(p[0], p[1])
+            val a0 = kotlin.math.atan2(uy, ux)
+            for (k in 0..12) for (sign in intArrayOf(1, -1)) {
+                if (k == 0 && sign < 0) continue
+                val a = a0 + sign * k * (Math.PI / 12).toFloat()
+                val x = t.cx + kotlin.math.cos(a) * r; val y = t.cy + kotlin.math.sin(a) * r
+                if (walk.inside(x, y) == side && !walk.crosses(p[0], p[1], x, y)) return floatArrayOf(x, y)
+            }
             return floatArrayOf(t.cx + ux * r, t.cy + uy * r)
         }
 
@@ -152,7 +163,7 @@ internal object TownReactions {
         /** Their home's door (world cells): where they go in and come out. */
         fun door(v: Villager): Goal? {
             val home = day.homes[v.id] ?: TownMarkers.homeOf(v, state)
-            val g = TownPeople.groundOf(v, home, state, comp, w, h, Noise.hash(v.id.hashCode(), 11), land, TownPeople.Nook.DOOR) ?: return null
+            val g = TownPeople.groundOf(v, home, state, comp, w, h, Noise.hash(v.id.hashCode(), 11), land, TownPeople.Nook.DOOR, ways.walk) ?: return null
             val p = TownPeople.offFire(g[0], g[1], scale)
             return Goal(p[0], p[1], Activity.STAND, p[0] > 0f, home, inside = true)
         }
@@ -411,7 +422,7 @@ internal object TownReactions {
         fun lineOf(v: Villager): Goal? {
             val home = day.homes[v.id] ?: TownMarkers.homeOf(v, state)
             if (TownPeople.nookOf(state, home, si.lanisce.lani.game.villagers.Doing.HANG) != TownPeople.Nook.LINE) return null
-            val g = TownPeople.groundOf(v, home, state, comp, w, h, Noise.hash(v.id.hashCode(), 11), land, TownPeople.Nook.LINE) ?: return null
+            val g = TownPeople.groundOf(v, home, state, comp, w, h, Noise.hash(v.id.hashCode(), 11), land, TownPeople.Nook.LINE, ways.walk) ?: return null
             return Goal(g[0], g[1], Activity.HANG, true, home)
         }
 

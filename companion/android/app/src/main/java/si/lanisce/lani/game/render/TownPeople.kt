@@ -374,12 +374,17 @@ object TownPeople {
         // where nobody stands: in a building, the fire; and but for a field's own workers, in its crops
         val blocked = blocked(state, land, scale, w, h, fields = false)
         val clear = blocked(state, land, scale, w, h, fields = true)
-        fun clearAt(place: TownPlace) = if (place is TownPlace.At && place.type == BuildingType.FIELD) blocked else clear
         val ways = Walkways.of(state, w, h)
+        // ... and, where the palisade stands, on the other side of its stakes from the place's ground [g]
+        val walk = ways.walk
+        fun clearAt(place: TownPlace, g: FloatArray): (Float, Float) -> Boolean {
+            val base = if (place is TownPlace.At && place.type == BuildingType.FIELD) blocked else clear
+            return if (walk == null) base else { x, y -> base(x, y) || walk.crosses(g[0], g[1], x, y) }
+        }
         // where someone stands at a place doing [doing] (at a household's: its nook), clear of the fire (a building's corner
         // that would be behind its flames: beside them)
         fun ground(v: Villager, place: TownPlace, seed: Int, doing: Doing = Doing.STAND): FloatArray? =
-            groundOf(v, place, state, comp, w, h, seed, land, nookOf(state, place, doing))?.let { offFire(it[0], it[1], scale) }
+            groundOf(v, place, state, comp, w, h, seed, land, nookOf(state, place, doing), walk)?.let { offFire(it[0], it[1], scale) }
         fun way(a: FloatArray, b: FloatArray, aWoods: Boolean, bWoods: Boolean, seed: Int) = route(a, b, aWoods, bWoods, gate, land, seed, ways)
         val nows = HashMap<String, Now>()
         fun nowOf(v: Villager) = nows.getOrPut(v.id) { Routine.now(v, state, date, minute, month, routine) }
@@ -435,7 +440,7 @@ object TownPeople {
                     continue
                 }
                 val g = (if (busy != null) TownAnchors.visitorSpot(state, busy, comp, w, h) else ground(v, place, seed)) ?: continue
-                out += idle(v, g, place, slot, time, seed, if (busy != null) Activity.WARM else Activity.STAND)
+                out += idle(v, g, place, slot, time, seed, if (busy != null) Activity.WARM else Activity.STAND, walk)
                 continue
             }
             val now = nowOf(v)
@@ -463,13 +468,13 @@ object TownPeople {
             // their own spot there (kept for them while they're away on an errand, taken on the way there): at the fire their
             // place round it, else beside whoever came before them
             val slot = slotOf(v, here, minute)
-            val spot = if (to == TownPlace.Fire) aroundFire(slot, scale) else spotAt(at, slot, clearAt(to))
+            val spot = if (to == TownPlace.Fire) aroundFire(slot, scale) else spotAt(at, slot, clearAt(to, at))
             // away on an errand of their work: there and back, the load one way; beside whoever is where they load and unload
             now.errand?.let { trip ->
                 val src0 = ground(v, trip.from, seed); val dst0 = ground(v, trip.to, seed)
                 if (src0 != null && dst0 != null) {
-                    val src = if (trip.from == to) spot else spotAt(src0, slotOf(v, Pk(trip.from, nookOf(state, trip.from, Doing.STAND)), minute), clearAt(trip.from))
-                    val dst = if (trip.to == to) spot else spotAt(dst0, slotOf(v, Pk(trip.to, nookOf(state, trip.to, Doing.STAND)), minute), clearAt(trip.to))
+                    val src = if (trip.from == to) spot else spotAt(src0, slotOf(v, Pk(trip.from, nookOf(state, trip.from, Doing.STAND)), minute), clearAt(trip.from, src0))
+                    val dst = if (trip.to == to) spot else spotAt(dst0, slotOf(v, Pk(trip.to, nookOf(state, trip.to, Doing.STAND)), minute), clearAt(trip.to, dst0))
                     out += errand(v, spot, to, src, dst, trip, time, seed) { a, b, ap, bp -> way(a, b, woods(ap), woods(bp), seed) }
                     continue
                 }
@@ -484,7 +489,7 @@ object TownPeople {
                 val did = Routine.now(v, state, date, left, month, routine).doing
                 val was = slotOf(v, Pk(from, nookOf(state, from, did)), left)
                 val start = if (from == TownPlace.Fire) aroundFire(was, scale)
-                else seat(from, did, was, fg, comp) ?: ground(v, from, seed, did)?.let { spotAt(it, was, clearAt(from)) }
+                else seat(from, did, was, fg, comp) ?: ground(v, from, seed, did)?.let { spotAt(it, was, clearAt(from, it)) }
                 if (start != null) {
                     val way = way(start, dest, woods(from), woods(to), seed)
                     val len = Walkways.length(way)
@@ -503,7 +508,7 @@ object TownPeople {
             // garden): a few steps over
             now.before?.let { was ->
                 val wasAt = Pk(to, nookOf(state, to, was))
-                val a = seat(to, was, slot, fg, comp) ?: if (wasAt == here) spot else ground(v, to, seed, was)?.let { spotAt(it, slotOf(v, wasAt, minute - now.begun / 60.0 - 1e-3), clearAt(to)) } ?: spot
+                val a = seat(to, was, slot, fg, comp) ?: if (wasAt == here) spot else ground(v, to, seed, was)?.let { spotAt(it, slotOf(v, wasAt, minute - now.begun / 60.0 - 1e-3), clearAt(to, it)) } ?: spot
                 if (hypot(dest[0] - a[0], dest[1] - a[1]) > 0.05f) {
                     val way = way(a, dest, woods(to), woods(to), seed)
                     if (now.begun * SPEED < Walkways.length(way)) {
@@ -520,7 +525,7 @@ object TownPeople {
             // a child at play: their game with the others there (see [games]), easing into it as they come and out as they go
             if (placed.activity == Activity.PLAY && !waiting) {
                 val into = if (now.before == null) now.since else now.begun
-                players += Player(out.size, v, to, at, spot, smooth((minOf(into, now.left) / EASE).toFloat()), clearAt(to))
+                players += Player(out.size, v, to, at, spot, smooth((minOf(into, now.left) / EASE).toFloat()), clearAt(to, at))
             }
             out += placed
         }
@@ -894,8 +899,10 @@ object TownPeople {
      * A stranger at [g] (the pedlar, the pilgrim at the road), standing by their things, a step aside and back now and then
      * and looking about; or [activity] there (the burner warming himself by his pile).
      */
-    private fun idle(v: Villager, g: FloatArray, place: TownPlace, slot: Int, time: Double, seed: Int, activity: Activity): Placed {
-        val ring = RING[slot % RING.size]
+    private fun idle(v: Villager, g: FloatArray, place: TownPlace, slot: Int, time: Double, seed: Int, activity: Activity, walk: PalisadeWalk? = null): Placed {
+        // beside whoever stands there, on this side of the palisade's stakes (with the step out)
+        fun ours(r: FloatArray) = walk == null || !walk.crosses(g[0], g[1], g[0] + r[0], g[1] + r[1]) && !walk.crosses(g[0], g[1], g[0] + r[0] + 0.5f, g[1] + r[1])
+        val ring = RING[slot % RING.size].takeIf(::ours) ?: (1..RING.size).map { RING[(slot + it) % RING.size] }.firstOrNull(::ours) ?: RING[0]
         var x = g[0] + ring[0]; val y = g[1] + ring[1]
         if (activity == Activity.WARM) return Placed(v, x, y, Activity.WARM, false, place, slot) // the pile is to his right
         val period = 24.0 + Noise.rnd(seed, 2) * 12.0
@@ -915,14 +922,24 @@ object TownPeople {
     }
 
     /**
-     * The way from [a] to [b] (world cells): into or out of the woods by the path's gate; from one side of the road to the
-     * other, out to the road (on their lane), along it and in again; else straight to it. Each stretch round
-     * the fire and the buildings in the way ([Walkways]): past the fire on its nearer side round the plaza, never through it.
+     * The way from [a] to [b] (world cells): into or out of the woods by the path ([gate]: where it comes into the meadow;
+     * where the palisade stands, through its gate and along the path, as far down it as it goes nearest the woods' end);
+     * from one side of the road to the other, out to the road (on their lane), along it and in again; else straight to it.
+     * Each stretch round the fire and the buildings in the way ([Walkways]): past the fire on its nearer side round the
+     * plaza, never through it; and never through the palisade's stakes, but by its gates ([Walkways.Ways.walk]).
      */
     internal fun route(a: FloatArray, b: FloatArray, aWoods: Boolean, bWoods: Boolean, gate: FloatArray?, land: Terrain, seed: Int, ways: Walkways.Ways): List<FloatArray> {
         val pts = ArrayList<FloatArray>(4)
         pts += a
-        if (aWoods != bWoods && gate != null) pts += gate
+        val forest = ways.forest
+        if (aWoods != bWoods && gate != null && forest != null) {
+            // down the path from its gate to where it goes nearest the end in the woods (or up it from there)
+            val end = if (bWoods) b else a
+            var k = 0
+            for (i in forest.indices) if (hypot(forest[i][0] - end[0], forest[i][1] - end[1]) < hypot(forest[k][0] - end[0], forest[k][1] - end[1])) k = i
+            val down = forest.subList(0, k + 1)
+            pts.addAll(if (bWoods) down else down.asReversed())
+        } else if (aWoods != bWoods && gate != null) pts += gate
         else if (!aWoods && !bWoods && byRoad(a, b, land)) {
             val lane = ((seed ushr 9) % 3 - 1) * 0.35f
             // the road's points, those in the fire's reach left out (the way goes round it)
@@ -965,20 +982,53 @@ object TownPeople {
      * place's visitor spot. A building of [v]'s home types (the old way: their dwellings
      * shared out by id) when [place] is one of their homes' types without an id.
      */
-    internal fun groundOf(v: Villager, place: TownPlace, state: GameState, comp: Composition, w: Int, h: Int, seed: Int, land: Terrain, nook: Nook? = null): FloatArray? {
+    internal fun groundOf(
+        v: Villager, place: TownPlace, state: GameState, comp: Composition, w: Int, h: Int, seed: Int, land: Terrain, nook: Nook? = null,
+        walk: PalisadeWalk? = null,
+    ): FloatArray? {
         if (place is TownPlace.At && place.type.onPlot && !(place.type == BuildingType.TENT && TentMove.moved(state))) {
             val b = buildingOf(place, state, seed)
             if (b != null && b.plot in 0 until VillageLayout.MAX_PLOTS) {
                 val c = land.centers[b.plot]
                 return when {
                     place.type == BuildingType.FIELD -> floatArrayOf(c[0] + ((seed ushr 3) % 3 - 1) * 0.7f, c[1] + 0.3f)
-                    nook != null -> floatArrayOf(c[0] + nook.dx, c[1] + nook.dy)
+                    nook != null -> nookAt(state, land, c, nook, walk)
                     else -> floatArrayOf(c[0] + 2.0f, c[1] + 0.6f)
                 }
             }
         }
         return TownAnchors.visitorSpot(state, place, comp, w, h)
     }
+
+    /**
+     * Where [nook] of the household's building at [c] (its plot's middle, world cells) is: its own spot by the house; but
+     * where the palisade stands ([walk]) and that spot would be beyond its stakes or among them (a house at the clearing's
+     * rim, its yard behind the stakes), the same spot a little nearer the house, else round the house on another side, the
+     * first inside the ring, a step clear of the stakes and off the other buildings.
+     */
+    internal fun nookAt(state: GameState, land: Terrain, c: FloatArray, nook: Nook, walk: PalisadeWalk?): FloatArray {
+        val own = floatArrayOf(c[0] + nook.dx, c[1] + nook.dy)
+        if (walk == null) return own
+        fun ok(x: Float, y: Float): Boolean {
+            if (!walk.inside(x, y) || walk.crosses(c[0], c[1], x, y)) return false
+            if (NOOK_ROOM.any { walk.crosses(x, y, x + it[0], y + it[1]) }) return false
+            return state.buildings.none { b -> b.type.onPlot && b.type != BuildingType.FIELD && b.plot in 0 until VillageLayout.MAX_PLOTS &&
+                land.centers[b.plot].let { o -> o !== c && abs(x - o[0]) < 1.7f && abs(y - o[1]) < 1.7f } }
+        }
+        if (ok(own[0], own[1])) return own
+        // the same side nearer the house, then a quarter round either way, then the far side
+        for ((rx, ry) in listOf(nook.dx to nook.dy, -nook.dy to nook.dx, nook.dy to -nook.dx, -nook.dx to -nook.dy)) for (f in NOOK_IN) {
+            val x = c[0] + rx * f; val y = c[1] + ry * f
+            if (ok(x, y)) return floatArrayOf(x, y)
+        }
+        return own
+    }
+
+    /** How much nearer the house a nook beyond the palisade comes, in turn (of its distance). */
+    private val NOOK_IN = floatArrayOf(1f, 0.85f, 0.72f)
+
+    /** A nook keeps this clear of the palisade's stakes (cells each way). */
+    private val NOOK_ROOM = arrayOf(floatArrayOf(0.6f, 0f), floatArrayOf(-0.6f, 0f), floatArrayOf(0f, 0.6f), floatArrayOf(0f, -0.6f))
 
     /** The building [place] is: by its id; the houses' first (the one [TownPlace.At] without an id names); another type's by [seed]. */
     private fun buildingOf(place: TownPlace.At, state: GameState, seed: Int): Building? {
