@@ -337,6 +337,58 @@ object CultureLooks {
      */
     internal val FRIULI_HILLS = Table.of("hills", variants = mapOf("farm" to "friuli", "church" to "campanile"))
 
+    // ------------------------------------------------------------------ Friuli's places (the village's projects, the palisade's gate)
+
+    /**
+     * Friuli's fire station (FirestationPainter): the tower and the hall's outsides of river cobbles in courses with bands of
+     * brick, the tower's roof of coppi, the sign VVF (vigili del fuoco) over the doors, helmets of polished steel, the picture
+     * of Santa Barbara (the Italian firemen's patron, with her tower), the banner the tricolore.
+     */
+    private val FRIULI_FIRESTATION = Table.of(
+        "firestation",
+        materials = mapOf("walls" to "cobbles", "roof" to "coppi"),
+        variants = mapOf("sign" to "vvf", "helmet" to "chrome", "picture" to "barbara", "flag" to "it"),
+    )
+
+    /**
+     * Friuli's bocce court (BoccePainter): an osteria's wall in ochre under coppi, its shutters brown, and the frasca, the leafy
+     * branch hung over the door of an osteria that has its own wine open.
+     */
+    private val FRIULI_BOCCE = Table.of(
+        "bocce",
+        colours = mapOf("shutter" to 0xFF6E4A2E.toInt(), "shutter.l" to 0xFF8E6440.toInt()),
+        variants = mapOf("inn" to "osteria", "frasca" to "frasca"),
+    )
+
+    /**
+     * Friuli's playground (PlaygroundPainter): the school's wall pale yellow over a green dado, as Maestra Elena's classroom
+     * has it, and a fontanella by the fence, the green cast-iron drinking fountain of the Italian towns.
+     */
+    private val FRIULI_PLAYGROUND = Table.of("playground", variants = mapOf("school" to "friuli", "fontanella" to "fontanella"))
+
+    /**
+     * Friuli's wayside chapel (ChapelPainter): an ancona, its walls ochre under coppi, the bell on an iron bracket under its
+     * gable, the fresco of the Madonna and Child on a blue ground with stars; maize in the field, Lombardy poplars along a far
+     * ditch, the village on the hill as Friuli builds it with its campanile.
+     */
+    private val FRIULI_CHAPEL = Table.of("chapel", variants = mapOf("chapel" to "ancona", "field" to "maize", "village" to "friuli", "trees" to "pioppi"))
+
+    /**
+     * Friuli's palisade gate (PalisadePainter): the land beyond it is Friuli's, Lombardy poplars along the road, the vines strung
+     * between pollarded mulberries on the meadow, the campanile of a village on the far hill.
+     */
+    private val FRIULI_PALISADE = Table.of("palisade", variants = mapOf("land" to "friuli"))
+
+    /**
+     * Friuli's lookout tower (LookoutPainter): the view of Friuli, the Collio's hills striped with vines, the plain with its rows
+     * of poplars, the village on the hill as Friuli builds it with its campanile, the lagoon and the sea at Grado; the flag on the
+     * roof the golden eagle of Friuli.
+     */
+    private val FRIULI_LOOKOUT = Table.of("lookout", variants = mapOf("view" to "friuli"))
+
+    /** Friuli's looks of the village's places, added up (each place's table above). */
+    private val FRIULI_PLACES: Table get() = FRIULI_FIRESTATION + FRIULI_BOCCE + FRIULI_PLAYGROUND + FRIULI_CHAPEL + FRIULI_PALISADE + FRIULI_LOOKOUT
+
     /** Each culture's look: its arts' tables added up. A culture not here draws every art as the default culture does. */
     private val tables: Map<String, Table> = mapOf(
         "kaernten" to KAERNTEN_ALPS + KAERNTEN_CAMPFIRE,
@@ -351,7 +403,8 @@ object CultureLooks {
             FRIULI_CELLAR +
             FRIULI_ATTIC +
             FRIULI_WORKSHOP +
-            FRIULI_HILLS,
+            FRIULI_HILLS +
+            FRIULI_PLACES,
     )
 
     private val looks = ConcurrentHashMap<String, CultureLook>()

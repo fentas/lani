@@ -9,11 +9,12 @@ package si.lanisce.lani.game.scene
 object SceneArt {
     /**
      * Which arts and slots this app draws: 1 the first seventeen arts, 2 the rooms of the houses and the kitchen's level
-     * slots, 3 the mill inside. The app asks for its scenes with it (GET /scenes?arts=3); the bridge gives an app that asks
-     * for less, or doesn't say, only what its arts drew, so an older app never gets a place it can't paint
-     * (bridge/src/scenes.ts, `forApp`).
+     * slots, 3 the mill inside, 4 the village's places (the fire station, the bocce court, the playground, the wayside
+     * chapel, the palisade's gate, the lookout tower). The app asks for its scenes with it (GET /scenes?arts=4); the bridge
+     * gives an app that asks for less, or doesn't say, only what its arts drew, so an older app never gets a place it can't
+     * paint (bridge/src/scenes.ts, `forApp`).
      */
-    const val VERSION = 3
+    const val VERSION = 4
 
     /** art id → object slots, back to front roughly. */
     val objects: Map<String, List<String>> = mapOf(
@@ -104,6 +105,43 @@ object SceneArt {
             "millstone", "hopper", "grain", "flour", "sack", "shaft", "gear", "wheel", "flume", "scale", "measure",
             "bench", "window", "door", "ladder", "cat", "mouse", "lantern", "sieve",
         ),
+        // The village's places (companion/SCENES.md "Arts", docs/plans/05-built/places-sl.md), each open once its project is
+        // finished (the palisade from the palisade). V gasilskem domu: the fire station's hall, the old hand pump from Gorica
+        // before the big open doors, the hose tower in the back corner with its bell, helmets and jackets on their pegs.
+        "firestation" to listOf(
+            "pump", "hose", "helmet", "axe", "ladder", "bucket", "bell", "door", "tower", "uniform", "flag", "picture",
+            "bench", "horn", "lantern", "window",
+        ),
+        // Na balinišču: the bocce court under the linden by the inn, its sand between the boards, the balls round the jack,
+        // the table under the vine pergola, the scoreboard.
+        "bocce" to listOf(
+            "court", "board", "sand", "jack", "ball", "linden", "bench", "table", "jug", "glass", "scoreboard", "rake",
+            "meter", "pergola", "lantern",
+        ),
+        // Na igrišču: the playground by the school, the swing, the slide, the sandpit with its bucket and spade, the
+        // climbing frame and the little house, the hopscotch in chalk, the chestnut tree, the fence and its gate.
+        "playground" to listOf(
+            "swing", "slide", "sandpit", "sand", "bucket", "spade", "climber", "house", "ball", "hopscotch", "bench",
+            "tree", "fence", "gate", "school",
+        ),
+        // Pri kapelici: the wayside chapel by the road among the fields, its little bell in the turret, the altar with its
+        // embroidered cloth behind the grille, the bench and the linden beside it, the hills beyond.
+        "chapel" to listOf(
+            "chapel", "roof", "bell", "altar", "cloth", "picture", "candle", "flowers", "grille", "bench", "linden",
+            "road", "field", "cross", "hills",
+        ),
+        // Pri vratih: the palisade's gate from inside, the road out through it over the meadow to the forest; it grows with
+        // the palisade's level (SceneFixtures): the torches, the gate's roof and its pennant, the walkway's ladder, the bell.
+        "palisade" to listOf(
+            "palisade", "stake", "gate", "bar", "torch", "flag", "roof", "ladder", "bell", "road", "forest", "meadow",
+            "bench", "trough", "hills",
+        ),
+        // Na razglednem stolpu: the top of the lookout tower, its railing and roof, the board with the mountains' names,
+        // the telescope, the visitors' book and its stamp; the view: the Alps with Triglav, the village below, the sea.
+        "lookout" to listOf(
+            "tower", "railing", "roof", "board", "telescope", "book", "stamp", "bench", "stairs", "flag", "mountains",
+            "peak", "sea", "village", "forest", "valley",
+        ),
     )
 
     /** art id → where people stand. */
@@ -130,6 +168,12 @@ object SceneArt {
         "cellar" to listOf("barrel", "press", "stairs"),
         "attic" to listOf("bed", "chest", "stairs"),
         "mill" to listOf("stones", "sacks", "door"),
+        "firestation" to listOf("pump", "hoses", "door"),
+        "bocce" to listOf("throw", "jack", "table"),
+        "playground" to listOf("swing", "sandpit", "bench"),
+        "chapel" to listOf("chapel", "bench", "road"),
+        "palisade" to listOf("gate", "bench", "road"),
+        "lookout" to listOf("rail", "board", "stairs"),
     )
 
     /** People sprites. */
@@ -313,6 +357,34 @@ object SceneArt {
         // its hole, the mouse gone in); the lantern (0 dark, 1 lit; not set: lit from dusk); a sack weighed on the scale (the
         // beam tipping and settling: how far); the miller's toll, the measure filling with grain (how full)
         "mill" to listOf("grind", "pour", "sack", "dust", "cat", "lantern", "weigh", "toll"),
+        // the bell in the hose tower ringing the alarm (how hard), its rope going up and down; the hand pump worked, its two
+        // handles see-sawing and a jet out of the nozzle through the doors (how hard); the big doors (0 shut, 1 open; not
+        // set: open by day, shut at night); the lantern (0 dark, 1 lit; not set: lit from dusk); the signal horn blown, its
+        // call going out (how loud)
+        "firestation" to listOf("bell", "pump", "doors", "lantern", "horn"),
+        // a ball thrown from the near end, arcing and rolling up to the jack (how far: 1 at rest by it); a ball thrown full
+        // at another and knocking it away with a clack (how far); the measuring stick laid from the jack to the nearest
+        // balls (how far out); wine poured from the jug into the glass (how full); the chalk marks on the scoreboard (as
+        // many as the dialog counts, else the day's score); the lantern on its post (0 dark, 1 lit; not set: lit from dusk)
+        "bocce" to listOf("throw", "hit", "measure", "pour", "score", "lantern"),
+        // the swing swinging (how high); the ball kicked over the lawn and back (how far: 0 lost under the slide); a kite up
+        // over the playground on its string (how high); soap bubbles drifting up from the bench (how many); a sand castle
+        // built in the sandpit (how far: 1 with its flag)
+        "playground" to listOf("swing", "ball", "kite", "bubbles", "castle"),
+        // the little bell swinging in its turret and ringing (how hard); the candles on the altar (0 out, 1 all lit; not set:
+        // one burns); fresh flowers in the vases (0 wilted, 1 fresh; not set: fresh); a traveller walking up the road past
+        // the chapel and on (how far: 1 gone over the rise)
+        "chapel" to listOf("bell", "candles", "flowers", "traveller"),
+        // the gate's wings (0 shut and barred, 1 wide open; not set: open by day, shut at night); the torches on its posts (0
+        // out, 1 lit; not set: lit from dusk, from the second level); wolves' eyes in the dark forest at night, grey shapes
+        // slinking along its edge by day (how many); the flock out through the gate to the pasture and home again (to 0.5
+        // going out, as many as the dialog counts; from 0.5 coming home, 1 all in); the pedlar coming up the road to the gate
+        // (how far: 1 in at the gate); the bell at the gate ringing (how hard, from the fifth level)
+        "palisade" to listOf("gate", "torch", "wolves", "flock", "pedlar", "bell"),
+        // how clear the air is (0 a haze over the far land, the sea and the far peaks gone; 1 clear to the sea; not set: as
+        // the day is); the alpenglow on the peaks (how pink; not set: at sunrise and sunset); a buzzard circling over the
+        // valley (how many rounds); the village's church bell far below, its rings coming up (how hard)
+        "lookout" to listOf("clear", "glow", "hawk", "bell"),
     )
 
     val arts: Set<String> get() = objects.keys

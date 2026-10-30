@@ -74,6 +74,31 @@ export const SCENE_ART = {
       'millstone', 'hopper', 'grain', 'flour', 'sack', 'shaft', 'gear', 'wheel', 'flume', 'scale', 'measure',
       'bench', 'window', 'door', 'ladder', 'cat', 'mouse', 'lantern', 'sieve',
     ],
+    // the village's places (companion/SCENES.md "Arts"), each open once its project is finished (the palisade from the palisade)
+    firestation: [
+      'pump', 'hose', 'helmet', 'axe', 'ladder', 'bucket', 'bell', 'door', 'tower', 'uniform', 'flag', 'picture',
+      'bench', 'horn', 'lantern', 'window',
+    ],
+    bocce: [
+      'court', 'board', 'sand', 'jack', 'ball', 'linden', 'bench', 'table', 'jug', 'glass', 'scoreboard', 'rake',
+      'meter', 'pergola', 'lantern',
+    ],
+    playground: [
+      'swing', 'slide', 'sandpit', 'sand', 'bucket', 'spade', 'climber', 'house', 'ball', 'hopscotch', 'bench',
+      'tree', 'fence', 'gate', 'school',
+    ],
+    chapel: [
+      'chapel', 'roof', 'bell', 'altar', 'cloth', 'picture', 'candle', 'flowers', 'grille', 'bench', 'linden',
+      'road', 'field', 'cross', 'hills',
+    ],
+    palisade: [
+      'palisade', 'stake', 'gate', 'bar', 'torch', 'flag', 'roof', 'ladder', 'bell', 'road', 'forest', 'meadow',
+      'bench', 'trough', 'hills',
+    ],
+    lookout: [
+      'tower', 'railing', 'roof', 'board', 'telescope', 'book', 'stamp', 'bench', 'stairs', 'flag', 'mountains',
+      'peak', 'sea', 'village', 'forest', 'valley',
+    ],
   } as Record<string, string[]>,
   personSlots: {
     campfire: ['left', 'right', 'back'],
@@ -98,6 +123,12 @@ export const SCENE_ART = {
     cellar: ['barrel', 'press', 'stairs'],
     attic: ['bed', 'chest', 'stairs'],
     mill: ['stones', 'sacks', 'door'],
+    firestation: ['pump', 'hoses', 'door'],
+    bocce: ['throw', 'jack', 'table'],
+    playground: ['swing', 'sandpit', 'bench'],
+    chapel: ['chapel', 'bench', 'road'],
+    palisade: ['gate', 'bench', 'road'],
+    lookout: ['rail', 'board', 'stairs'],
   } as Record<string, string[]>,
   people: ['grandma', 'grandpa', 'child1', 'child2', 'child3', 'shepherd', 'smith', 'teacher', 'farmer', 'beekeeper', 'innkeeper', 'winemaker', 'aunt', 'pedlar', 'pilgrim', 'woman', 'man', 'baby', 'hunter', 'burner'],
   /** What each art's painter shows when a dialog line's `fx` sets it (companion/SCENES.md, "Effects"). */
@@ -185,6 +216,21 @@ export const SCENE_ART = {
     // the stones grinding (0 stopped), grain poured into the hopper, the flour sack filling, a puff of flour dust, the cat
     // pouncing at the mouse, the lantern, a sack weighed on the scale, the miller's toll in the measure
     mill: ['grind', 'pour', 'sack', 'dust', 'cat', 'lantern', 'weigh', 'toll'],
+    // the alarm bell in the hose tower, the hand pump worked (a jet out of the doors), the big doors (0 shut), the lantern,
+    // the signal horn
+    firestation: ['bell', 'pump', 'doors', 'lantern', 'horn'],
+    // a ball thrown up to the jack, a ball knocking another away, the measuring stick laid, wine poured, the chalk marks on
+    // the scoreboard (as many as the dialog counts), the lantern
+    bocce: ['throw', 'hit', 'measure', 'pour', 'score', 'lantern'],
+    // the swing swinging, the ball kicked (0 lost under the slide), a kite up, soap bubbles, a sand castle built
+    playground: ['swing', 'ball', 'kite', 'bubbles', 'castle'],
+    // the little bell in its turret, the candles on the altar, fresh flowers in the vases, a traveller walking up the road
+    chapel: ['bell', 'candles', 'flowers', 'traveller'],
+    // the gate's wings (0 shut and barred), its torches, wolves at the forest, the flock out and home again (as many as the
+    // dialog counts), the pedlar coming up the road, the bell at the gate
+    palisade: ['gate', 'torch', 'wolves', 'flock', 'pedlar', 'bell'],
+    // how clear the air is (1 clear to the sea), the alpenglow, a buzzard circling over the valley, the village's bell far below
+    lookout: ['clear', 'glow', 'hawk', 'bell'],
   } as Record<string, string[]>,
   buildings: ['tent', 'field', 'well', 'hut', 'kozolec', 'beehive', 'palisade', 'watchtower', 'smithy', 'lipa', 'house', 'church', 'school', 'market'],
   ages: ['ogenj', 'tabor', 'zaselek', 'vas', 'trg', 'mesto'],
@@ -264,14 +310,16 @@ export function arrive(art: string, from: { spot: string; pose: string }, cue: {
 
 /**
  * Which arts and slots an app draws (SceneArt.VERSION in SceneArt.kt): 1 the first seventeen arts, 2 the rooms of the houses
- * and the kitchen's level slots, 3 the mill inside. The app says it when it asks for its scenes (GET /scenes?arts=3); one that
- * doesn't is an older one, which gets what the first arts drew ([forApp]).
+ * and the kitchen's level slots, 3 the mill inside, 4 the village's places (the fire station, the bocce court, the playground,
+ * the wayside chapel, the palisade's gate, the lookout tower). The app says it when it asks for its scenes (GET
+ * /scenes?arts=4); one that doesn't is an older one, which gets what the first arts drew ([forApp]).
  */
-export const SCENE_ARTS_VERSION = 3
+export const SCENE_ARTS_VERSION = 4
 /** What each version after the first added: its new arts, and new slots of an art the version before had. */
 const ADDED: Record<number, { arts: string[]; slots: Record<string, string[]> }> = {
   2: { arts: ['livingroom', 'workshop', 'cellar', 'attic'], slots: { kitchen: ['hearth', 'bench', 'bed', 'shelf', 'curtains', 'corner'] } },
   3: { arts: ['mill'], slots: {} },
+  4: { arts: ['firestation', 'bocce', 'playground', 'chapel', 'palisade', 'lookout'], slots: {} },
 }
 
 /** The arts version an app asked with (`?arts=`): 1, the first, when it doesn't say (an older app). */

@@ -119,6 +119,16 @@ object Soundscape {
         "church" to Spot(weather = 0.3f, indoor = true),
         // the mill: the water on the wheel outside heard through the plank walls, a few birds by day
         "mill" to ROOM.copy(birds = 0.15f, crickets = 0.12f, stream = 0.55f, weather = 0.45f),
+        // the fire station's hall: its big doors open onto the village, birds and crickets come in through them
+        "firestation" to ROOM.copy(birds = 0.3f, crickets = 0.25f, weather = 0.5f),
+        // the bocce court under the linden by the inn, the playground by the school, the chapel among the fields
+        "bocce" to Spot(birds = 0.55f, crickets = 0.55f, owl = 0.25f),
+        "playground" to Spot(birds = 0.6f, crickets = 0.45f, owl = 0.2f, meadow = true),
+        "chapel" to Spot(birds = 0.7f, crickets = 0.8f, owl = 0.35f, wind = 0.12f, meadow = true),
+        // at the palisade's gate: the forest beyond it, its owl at night
+        "palisade" to Spot(birds = 0.7f, crickets = 0.5f, owl = 0.6f, wind = 0.1f),
+        // up the lookout tower the wind blows, the birds far below
+        "lookout" to Spot(birds = 0.25f, crickets = 0.2f, owl = 0.2f, wind = 0.6f),
     )
 
     /**

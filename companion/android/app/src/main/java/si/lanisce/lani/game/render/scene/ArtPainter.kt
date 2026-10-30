@@ -935,6 +935,8 @@ internal object ScenePaintersList {
         ::LivingRoomPainter, ::WorkshopPainter, ::CellarPainter, ::AtticPainter,
         // the mill inside, open once the village's mill grinds
         ::MillPainter,
+        // the village's places, open once their projects are finished (the palisade's gate from the palisade)
+        ::FirestationPainter, ::BoccePainter, ::PlaygroundPainter, ::ChapelPainter, ::PalisadePainter, ::LookoutPainter,
     )
 
     fun all(): List<ScenePainter> = makers.map { it() }

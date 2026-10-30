@@ -96,6 +96,13 @@ export const NOT_ALWAYS: Record<string, string[]> = {
   cellar: ['shelf', 'bottle', 'grapes', 'wine', 'ham', 'cheese'],
   attic: ['wardrobe', 'rug', 'lamp', 'ball', 'mirror', 'toy'],
   mill: [],
+  // the village's places: the palisade's gate grows with the palisade's level (its torches, roof, pennant, ladder and bell)
+  firestation: [],
+  bocce: [],
+  playground: [],
+  chapel: [],
+  palisade: ['torch', 'flag', 'roof', 'ladder', 'bell'],
+  lookout: [],
 }
 
 /** What the check of a pack's project steps reads: its language, its projects, the scenes and packs it may name. */

@@ -67,7 +67,7 @@ class SceneWorldRenderTest {
         "campfire" to listOf("no tent" to SceneWorld.ALL.copy(buildings = noTent.associateWith { si.lanisce.lani.game.Catalog.MAX_LEVEL }), "tent" to SceneWorld.ALL),
         // the maypole's spruce felled in the forest (lying by its stump), then carried off to the village (the stump)
         "forest" to (0..2).map { s -> "mlaj $s/5" to world(projects = mapOf("mlaj" to s)) },
-        // a building's levels (the rooms, the smithy, the school, the tower …): BuildingLevelsTest, build/scene-snapshots/levels
+        // a building's levels (the rooms, the smithy, the school, the tower, the palisade's gate …): BuildingLevelsTest, build/scene-snapshots/levels
     )
 
     @Test fun `render the stages side by side`() {

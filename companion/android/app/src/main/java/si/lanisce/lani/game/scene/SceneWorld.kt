@@ -315,6 +315,10 @@ object SceneFixtures {
         "cellar" to mapOf("shelf" to L2, "bottle" to L2, "grapes" to L2, "wine" to L2, "ham" to L3, "cheese" to L3),
         "attic" to mapOf("wardrobe" to L2, "rug" to L2, "lamp" to L2, "ball" to L2, "mirror" to L3, "toy" to L3),
         "stream" to mapOf("mill" to SceneNeeds(project = "mlin")),
+        // the palisade's gate grows with the palisade's level, as the map's: the torches on the gate's posts from the second,
+        // the gate's roof and its pennant from the third, the walkway along the stakes and its ladder from the fourth, the
+        // bell under the gate's roof at the fifth
+        "palisade" to mapOf("torch" to L2, "roof" to L3, "flag" to L3, "ladder" to SceneNeeds(level = 4), "bell" to SceneNeeds(level = 5)),
     )
 
     /**
