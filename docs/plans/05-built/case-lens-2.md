@@ -165,11 +165,28 @@ its Sloleks headword, the table's script cites the entries its rules rest on.
   table example (92, the genitive of time's six among them); `tutor-export --check` 88 files match.
 - Python: `companion/tests/test_case_triggers.py` (3: the table is the script's, a hand edit fails, it says what it
   is); 251 and 134 tests OK (11 skipped).
-- App: `SentenceGrammarTest` (decided, likely, ambiguous, unresolved, a preposition tapped, the genitive of time, a verb's
-  dative, the card's line and the sheet's the same, offline, a verb's tense), `TurnHintTest` (the five pages' rules,
-  nothing shown the turn's form), `QaHooksTest` (the `sentence:` hook), `L10nTablesTest` (the strings; sentence.agrees
-  gone). The full suite: below.
-- Emulator QA: `companion/bin/qa-slot --steps lens-sheet` (below).
+- App: `SentenceGrammarTest` (decided, likely, ambiguous, unresolved, a word with no entry but a case, a preposition
+  tapped, the genitive of time, a verb's dative, the card's line and the sheet's the same, offline, a verb's tense),
+  `TurnHintTest` (the five pages' rules, nothing shown the turn's form), `HintSpeechTest` (their spoken sentences),
+  `QaHooksTest` (the `sentence:` hook), `L10nTablesTest` (the strings; sentence.agrees gone). The full suite through
+  lani-slot.sh after the host's reboot: 3,486 tests, 2 skipped, 1 failure (HintSpeechTest: the five rules had no spoken
+  sentence; fixed, hintSay.*), then the touched classes again: 102 tests, none failing.
+- Emulator QA: `companion/bin/qa-slot --no-town --steps lens-sheet` (below).
+
+## Emulator QA
+
+The step `lens-sheet` (QA's hook `sentence:`), shots in the session's scratchpad (ux-case-lens-2/):
+
+| Shot | What it shows |
+|---|---|
+| lens-sheet-brez | «Kavo pijem brez mleka.»: Kavo "tožilnik, ed." (the object of pijem), brez "Zahteva rodilnik: «mleka»", mleka "rodilnik, ed. · genitive, sg.", "Koga? Česa? → 2. rodilnik", "Po predlogu «brez»: rodilnik.", 📖 Iz, od, do, blizu |
+| lens-sheet-leta (5 screens) | Zdravljica's line: France and Prešeren the subject, Zdravljico the object, napisal the past, leta "Kdaj? → 2. rodilnik", "Kdaj? Rodilnik časa («1844»)", 📖 to the time page; Njena, sedma (→ sedmi, a numeral), kitica: the nominative |
+| lens-sheet-kombi | «Marko mi je posodil svoj novi kombi.»: mi "Glagol «posodil» (posoditi) zahteva dajalnik.", svoj, novi, kombi the accusative |
+| lens-card-leta | leta's card in the same line: the same row and line, the year underlined |
+
+What the runs found and this branch fixed: a word the dictionary has no entry of (Prešeren) lost the lens's row on the
+sheet; the step's scroll for a long line. Before: the sheet's case lines came from its own rules; there are no "before"
+shots of this round (main's APK wasn't built: the machine was full).
 
 ## What's left
 
