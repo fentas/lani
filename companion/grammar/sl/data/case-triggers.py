@@ -177,6 +177,9 @@ T = {
   {"words": "všeč mrzlo toplo vroče žal dolgčas hudo slabo težko treba ime jasno škoda vseeno".split(), "case": "dat", "rule": "custva",
    "examples": [ex("Rebula mi je zelo všeč.", "I like Rebula a lot.", "mi", "dat", "sg", "všeč"), ex("Tudi meni je mrzlo.", "I'm cold too.", "meni", "dat", "sg", "mrzlo"), ex("Koliko ti je let, Nejc?", "How old are you, Nejc?", "ti", "dat", "sg")]},
   {"words": ["strah", "sram"], "case": "acc", "rule": "custva", "examples": [ex("Strah me je.", "I'm afraid.", "me", "acc", "sg", "Strah")]},
+  # adjectives that take the genitive of what follows them (SP2001 poln: "poln vode"; vreden: "vreden truda") (case-lens-2)
+  {"words": "poln polna polno polni polne vreden vredna vredno vredni vredne".split(), "case": "gen", "rule": "rodilnik", "after": True,
+   "examples": [ex("Hrib je poln grmovja.", "The hill is full of bushes.", "grmovja", "gen", "sg", "poln"), ex("Pa poglej ta razgled. Vreden je vsake stopnice.", "And look at this view. It's worth every step.", "stopnice", "gen", "sg", "Vreden")]},
  ],
  "motion": [
   v("iti", "grem"), v("priti", "pridem"), v("oditi", "odidem", "odšel odšla odšlo odšli odšle odidi odidite"), v("hoditi", "hodim"),
@@ -249,9 +252,24 @@ T = {
   v("bliskati", "bliskam", "bliska bliskalo", se=True), v("mračiti", "mračim", "mrači mračilo", se=True), v("začeti", "začnem", "začel začela začelo začeli", se=True),
  ],
  "time": {
-  "nouns": "dan teden mesec leto ura minuta sekunda trenutek jutro dopoldne popoldne večer noč zima pomlad poletje jesen ponedeljek torek sreda četrtek petek sobota nedelja čas vikend".split(),
+  "nouns": "dan teden mesec leto ura minuta sekunda trenutek jutro dopoldne popoldne večer noč zima pomlad poletje jesen ponedeljek torek sreda četrtek petek sobota nedelja čas vikend".split() + ["poldne", "polnoč"],
   "rule": "kdaj-cas",
   "examples": [ex("Ves dan je deževalo.", "It rained all day.", "dan", "acc", "sg"), ex("Vsak dan grem v šolo.", "Every day I go to school.", "dan", "acc", "sg")],
+ },
+ # the genitive of time (when?): leto before a year in figures (leta 1844), a masculine or neuter noun of time after
+ # nekega, tistega … (nekega dne, tistega večera): the cas-izrazi page's (datumi has leta 2026 too) (case-lens-2)
+ "time_genitive": {
+  "years": ["leto"],
+  "determiners": ["nekega", "tistega", "istega", "onega", "naslednjega", "prejšnjega", "drugega"],
+  "rule": "cas-izrazi",
+  "examples": [
+   ex("France Prešeren je Zdravljico napisal leta 1844.", "France Prešeren wrote the Zdravljica in 1844.", "leta", "gen", "sg", "1844"),
+   ex("Mlin so zgradili leta 1890.", "The mill was built in 1890.", "leta", "gen", "sg", "1890"),
+   ex("Leta 1991 je Slovenija postala samostojna.", "In 1991 Slovenia became independent.", "Leta", "gen", "sg", "1991"),
+   ex("Tukaj živim od leta 2024.", "I've lived here since 2024.", "leta", "gen", "sg", "od"),
+   ex("Nekega dne pride na Dunaj Pegam.", "One day Pegam comes to Vienna.", "dne", "gen", "sg", "Nekega"),
+   ex("Tistega večera je prišel tujec.", "That evening a stranger came.", "večera", "gen", "sg", "Tistega"),
+  ],
  },
  "phrases": [
   {"words": "dober dan", "case": "nom", "number": "sg", "rule": "imenovalnik"},
@@ -278,6 +296,12 @@ T = {
    {"form": "rad", "number": "sg", "genders": ["m"]}, {"form": "rada", "number": "sg", "genders": ["f"]}, {"form": "rado", "number": "sg", "genders": ["n"]},
    {"form": "radi", "number": "pl", "genders": ["m"]}, {"form": "rade", "number": "pl", "genders": ["f", "n"]},
    {"form": "rada", "number": "du", "genders": ["m"]}, {"form": "radi", "number": "du", "genders": ["f", "n"]}]},
+  # sam (alone, by oneself), said of the subject as rad is: Zdaj kuham sam, jota se ne skuha sama, moramo sami; not samo
+  # (the adverb, only) (case-lens-2)
+  {"lemma": "sam", "rule": "imenovalnik", "forms": [
+   {"form": "sam", "number": "sg", "genders": ["m"]}, {"form": "sama", "number": "sg", "genders": ["f"]},
+   {"form": "sami", "number": "pl", "genders": ["m"]}, {"form": "same", "number": "pl", "genders": ["f"]}, {"form": "sama", "number": "pl", "genders": ["n"]},
+   {"form": "sama", "number": "du", "genders": ["m"]}, {"form": "sami", "number": "du", "genders": ["f", "n"]}]},
  ],
  "pronouns": [
   {"lemma": "jaz", "person": 1, "number": "sg", "genders": ["m", "f"], "forms": {"nom": ["jaz"], "gen": ["mene", "me"], "dat": ["meni", "mi"], "acc": ["mene", "me"], "loc": ["meni"], "ins": ["mano", "menoj"]}},

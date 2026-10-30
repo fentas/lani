@@ -1030,6 +1030,30 @@
       "case": "acc",
       "rule": "custva",
       "examples": [{"sl": "Strah me je.", "en": "I'm afraid.", "word": "me", "case": "acc", "number": "sg", "trigger": "Strah"}]
+    },
+    {
+      "words": ["poln", "polna", "polno", "polni", "polne", "vreden", "vredna", "vredno", "vredni", "vredne"],
+      "case": "gen",
+      "rule": "rodilnik",
+      "after": true,
+      "examples": [
+        {
+          "sl": "Hrib je poln grmovja.",
+          "en": "The hill is full of bushes.",
+          "word": "grmovja",
+          "case": "gen",
+          "number": "sg",
+          "trigger": "poln"
+        },
+        {
+          "sl": "Pa poglej ta razgled. Vreden je vsake stopnice.",
+          "en": "And look at this view. It's worth every step.",
+          "word": "stopnice",
+          "case": "gen",
+          "number": "sg",
+          "trigger": "Vreden"
+        }
+      ]
     }
   ],
   "motion": [
@@ -1325,12 +1349,67 @@
     "nouns": [
       "dan", "teden", "mesec", "leto", "ura", "minuta", "sekunda", "trenutek", "jutro", "dopoldne", "popoldne",
       "večer", "noč", "zima", "pomlad", "poletje", "jesen", "ponedeljek", "torek", "sreda", "četrtek", "petek",
-      "sobota", "nedelja", "čas", "vikend"
+      "sobota", "nedelja", "čas", "vikend", "poldne", "polnoč"
     ],
     "rule": "kdaj-cas",
     "examples": [
       {"sl": "Ves dan je deževalo.", "en": "It rained all day.", "word": "dan", "case": "acc", "number": "sg"},
       {"sl": "Vsak dan grem v šolo.", "en": "Every day I go to school.", "word": "dan", "case": "acc", "number": "sg"}
+    ]
+  },
+  "time_genitive": {
+    "years": ["leto"],
+    "determiners": ["nekega", "tistega", "istega", "onega", "naslednjega", "prejšnjega", "drugega"],
+    "rule": "cas-izrazi",
+    "examples": [
+      {
+        "sl": "France Prešeren je Zdravljico napisal leta 1844.",
+        "en": "France Prešeren wrote the Zdravljica in 1844.",
+        "word": "leta",
+        "case": "gen",
+        "number": "sg",
+        "trigger": "1844"
+      },
+      {
+        "sl": "Mlin so zgradili leta 1890.",
+        "en": "The mill was built in 1890.",
+        "word": "leta",
+        "case": "gen",
+        "number": "sg",
+        "trigger": "1890"
+      },
+      {
+        "sl": "Leta 1991 je Slovenija postala samostojna.",
+        "en": "In 1991 Slovenia became independent.",
+        "word": "Leta",
+        "case": "gen",
+        "number": "sg",
+        "trigger": "1991"
+      },
+      {
+        "sl": "Tukaj živim od leta 2024.",
+        "en": "I've lived here since 2024.",
+        "word": "leta",
+        "case": "gen",
+        "number": "sg",
+        "trigger": "od"
+      },
+      {
+        "sl": "Nekega dne pride na Dunaj Pegam.",
+        "en": "One day Pegam comes to Vienna.",
+        "word": "dne",
+        "case": "gen",
+        "number": "sg",
+        "trigger": "Nekega"
+      },
+      {
+        "sl": "Tistega večera je prišel tujec.",
+        "en": "That evening a stranger came.",
+        "word": "večera",
+        "case": "gen",
+        "number": "sg",
+        "trigger": "Tistega"
+      }
     ]
   },
   "phrases": [
@@ -1365,6 +1444,19 @@
         {"form": "rade", "number": "pl", "genders": ["f", "n"]},
         {"form": "rada", "number": "du", "genders": ["m"]},
         {"form": "radi", "number": "du", "genders": ["f", "n"]}
+      ]
+    },
+    {
+      "lemma": "sam",
+      "rule": "imenovalnik",
+      "forms": [
+        {"form": "sam", "number": "sg", "genders": ["m"]},
+        {"form": "sama", "number": "sg", "genders": ["f"]},
+        {"form": "sami", "number": "pl", "genders": ["m"]},
+        {"form": "same", "number": "pl", "genders": ["f"]},
+        {"form": "sama", "number": "pl", "genders": ["n"]},
+        {"form": "sama", "number": "du", "genders": ["m"]},
+        {"form": "sami", "number": "du", "genders": ["f", "n"]}
       ]
     }
   ],
