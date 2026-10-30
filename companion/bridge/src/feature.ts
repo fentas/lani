@@ -66,7 +66,7 @@ export type Ctx = {
    */
   addressee: () => Addressee
   events: Events
-  /** The version of what the app reads (changes.ts, GET /changes): it moves with every file the reads come from, each event, the day. */
+  /** The version of what the app reads (changes.ts, GET /changes): it moves with every file the reads come from, and the day. */
   changes: Changes
   /** Events into the tutor's session, and tool approvals: the node's MCP channel (channel.ts), the phone's (src/phone/channel.ts). */
   channel: ChannelPort

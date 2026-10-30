@@ -27,25 +27,24 @@ const PROJECT_SKIP = new Set(['android', 'bridge', 'bin', 'relay', 'stt-local', 
 /**
  * The version of what the bridge serves the app (GET /changes): a digest of
  * - this run of the bridge (a restart is new code or settings: everything may read differently),
- * - the events emitted so far (each one is something the tutor or the bridge did: a page published, a guest come),
  * - the day (the cards due, today's happenings, the rhythm),
  * - every file the reads come from, by its inode, size and time of change: the learner's data directory (the six
- *   databases, app/'s stores, the tutor's content there; [DATA_SKIP] left out), the voice store's database (its
- *   clips' index) and, on a node, the project's content (companion/'s scenes, packs, grammar, the culture packs …:
- *   [PROJECT_SKIP] left out), which a merge on main changes under a running bridge.
+ *   databases, app/'s stores, the village, the tutor's content there; [DATA_SKIP] left out) and, on a node, the
+ *   project's content (companion/'s scenes, packs, grammar, the culture packs …: [PROJECT_SKIP] left out), which a merge
+ *   on main changes under a running bridge.
  *
  * Anything that writes a file the app reads moves it: the app's writes through the bridge, the tutor's tools, a session's
- * update-db.py, card.py's fixes, a merge. A walk is a stat of each file (about 900 on a node: 3 to 4 ms).
+ * update-db.py, card.py's fixes, a merge. Not the events (the app handles each as it comes, and what one says changed is
+ * written to a file the walk sees), nor the voice store (each clip made says so: voice_updated, and the app reads its
+ * clips' index again then; a node voicing in the background moved every Back's version before). A walk is a stat of each
+ * file (about 900 on a node: 3 to 6 ms).
  */
 export class Changes {
   private readonly run = randomUUID()
-  private events = 0
 
   constructor(
     private readonly o: {
       dataDir: string
-      /** The voice store's directory (voice.db and its write-ahead log), read when asked (the store is made after this). */
-      voiceDir?: () => string | undefined
       /**
        * Where the content the bridge serves comes from, when it can change under a running bridge (a node's checkout:
        * the project's companion/, and a content directory set apart from it, LANI_SCENES_DIR …); none on the phone,
@@ -55,29 +54,14 @@ export class Changes {
     },
   ) {}
 
-  /** Something happened that the app may read differently now (an event emitted). */
-  bump() {
-    this.events++
-  }
-
   /** The version now ([now]: the clock, for its day). */
   version(now = Date.now()): string {
     const h = createHash('sha1')
-    h.update(`${this.run}\n${this.events}\n${localDate(now)}\n`)
+    h.update(`${this.run}\n${localDate(now)}\n`)
     walk(this.o.dataDir, h, DATA_SKIP)
-    const voice = this.o.voiceDir?.()
-    if (voice) for (const f of ['voice.db', 'voice.db-wal']) stamp(join(voice, f), h)
     for (const dir of this.o.contentDirs ?? []) walk(dir, h, PROJECT_SKIP)
     return h.digest('base64url').slice(0, 22)
   }
-}
-
-/** [path]'s inode, size and time of change into [h]; nothing for a file that isn't there. */
-function stamp(path: string, h: ReturnType<typeof createHash>) {
-  try {
-    const s = statSync(path)
-    h.update(`${path}\0${s.ino}\0${s.size}\0${s.mtimeMs}\n`)
-  } catch {} // not there (yet): nothing
 }
 
 /**

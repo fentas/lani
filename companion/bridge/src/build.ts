@@ -260,7 +260,7 @@ export function buildBridge<C extends ChannelPort>(platform: Platform<C>, o: Bui
     learner: new Learner(projectDir, dataDir, language),
     addressee: () => addresseeOf(dataDir, language),
     events: new Events(),
-    // set right below: it reads the voice store's directory and the content's
+    // set right below, with the content's directories
     changes: undefined as unknown as Changes,
     channel: platform.channel,
     outbox: new Outbox(join(appDir, 'client-ids.json'), log),
@@ -333,11 +333,10 @@ export function buildBridge<C extends ChannelPort>(platform: Platform<C>, o: Bui
   }
   ctx.profiles = voicing.profiles(ctx)
   voicing.ready?.(ctx)
-  // What the app's reads depend on, as one version (GET /changes): the learner's data, the voice store's database, the
-  // content (a node's: the project's companion/, and each content directory set apart from it), each event, the day.
+  // What the app's reads depend on, as one version (GET /changes): the learner's data and the content (a node's: the
+  // project's companion/, and each content directory set apart from it), the day.
   const contentDirs = [join(projectDir, 'companion'), ...[culturesDir, lexiconDir, ...CONTENT_ENV.map(k => env[k])].filter((d): d is string => !!d && !resolve(d).startsWith(resolve(projectDir, 'companion') + sep))]
-  ctx.changes = new Changes({ dataDir, voiceDir: () => ctx.voice.dir, contentDirs: (platform.contentChanges ?? true) ? [...new Set(contentDirs.map(d => resolve(d)))] : [] })
-  ctx.events.tap(() => ctx.changes.bump())
+  ctx.changes = new Changes({ dataDir, contentDirs: (platform.contentChanges ?? true) ? [...new Set(contentDirs.map(d => resolve(d)))] : [] })
   // The pack the village is in, checked once against its cast, (its scenes) the packs and the grammar book its requests and
   // questions name: what's wrong is logged (the app checks the pack too).
   if (platform.checkCulture ?? true) {

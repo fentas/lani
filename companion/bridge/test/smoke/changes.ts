@@ -33,10 +33,10 @@ export default async function changes() {
   later(join(dataDir, 'mastery-db.json'))
   const c = await version()
   check('/changes moves when a database is written beside the bridge (update-db.py, card.py)', c.version !== b.version)
-  // an event: the tutor did something (here a reply)
+  // an event alone moves nothing (the app handles each as it comes; what one says changed is in a file): a reply
   await client.callTool({ name: 'reply', arguments: { conversation_id: 'c1', text: 'changes' } })
   const d = await version()
-  check('/changes moves with each event', d.version !== c.version)
+  check('/changes: an event alone moves nothing (a reply)', d.version === c.version)
   // content changed under the running bridge (a merge on main): a curated module's file (the smoke's content directory,
   // LANI_MODULES_DIR, set apart from the project's companion/)
   later(join(modulesDir, 'curated-demo.json'))
