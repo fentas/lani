@@ -359,6 +359,8 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
         val step = Crossing.step(stage, stages).coerceAtLeast(1)
         val snow = env.snow
         val x1 = x + w; val y1 = y + d
+        val kind = s.look.bridge
+        if (kind == Bridge.PACKHORSE && step >= 3) { packhorse(x, y, w, d, step); return }
         if (step <= 2) {
             // measured: pegs at the deck's corners on both banks, a line between them over the water along the road
             ground { i.line(x + 0.1f, y + d / 2f, 2f, x1 - 0.1f, y + d / 2f, 2f, if (snow) Pal.WOOD_X else Pal.CANVAS_L) }
@@ -372,19 +374,87 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
         if (step == 4) logs(x, x1, y, d)
         if (step >= 6) rail(x, x1, y)
         if (step >= 5) {
-            // the planks across the way, finer closer up
-            i.box(x, y, DECK_UNDER, w, d, DECK - DECK_UNDER, if (snow) Pal.SNOW_L else Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
+            // the planks across the way, finer closer up (Carinthia's of larch)
+            val wood = if (kind == Bridge.LARCH) LARCH else intArrayOf(Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
+            i.box(x, y, DECK_UNDER, w, d, DECK - DECK_UNDER, if (snow) Pal.SNOW_L else wood[0], wood[1], wood[2])
             if (!snow) {
                 val gap = if (fine) 0.25f else 0.5f
                 var px = x + gap
-                while (px < x1 - 0.05f) { i.line(px, y, DECK, px, y1, DECK, if (fine) Col.mix(Pal.WOOD_L, Pal.WOOD_M, 0.6f) else Pal.WOOD_M); px += gap }
+                while (px < x1 - 0.05f) { i.line(px, y, DECK, px, y1, DECK, if (fine) Col.mix(wood[0], wood[1], 0.6f) else wood[1]); px += gap }
             }
         }
         if (step >= 6) rail(x, x1, y1)
     }
 
-    /** A stone pillar on the bank, from [x] along the road ([PILLAR] thick), [d] across it, as high as the deck's underside and a little more. */
+    /**
+     * The Lake District's packhorse bridge ([Bridge.PACKHORSE]), from its third step (the first two, the beck measured and
+     * the stones gathered, as the timber bridge's): the walls on both banks, dry slate in courses; the timber frame between
+     * them, the arch's ribs on their props; the arch of slate laid on it, humped over the beck, the water under its round
+     * opening, the frame gone; finished, its low parapets along both sides, the way between them.
+     */
+    private fun packhorse(x: Float, y: Float, w: Float, d: Float, step: Int) {
+        val snow = env.snow
+        val x1 = x + w; val y1 = y + d
+        val ab = ABUTMENT; val s0 = x + ab; val s1 = x1 - ab; val sw = s1 - s0
+        fun under(u: Float) = ARCH_FOOT + (ARCH_TOP - ARCH_FOOT) * sin(PI.toFloat() * u)
+        fun top(u: Float) = WALL_H + HUMP * sin(PI.toFloat() * u)
+        // the far bank's wall
+        slateWall(x, y - 0.08f, ab, d + 0.16f)
+        if (step == 4) {
+            // the timber frame the arch is laid on: its rib along each side, on props from the water
+            for (yy in floatArrayOf(y, y1)) {
+                val n = 8
+                for (j in 0 until n) {
+                    val u0 = j / n.toFloat(); val u1 = (j + 1) / n.toFloat()
+                    i.line(s0 + sw * u0, yy, under(u0), s0 + sw * u1, yy, under(u1), Pal.WOOD_L)
+                }
+                for (u in floatArrayOf(0.25f, 0.5f, 0.75f)) i.post(s0 + sw * u, yy, 0f, under(u), Pal.WOOD_M)
+            }
+        }
+        if (step >= 5) {
+            // the far parapet, then the arch slice by slice from the far bank, its face toward us
+            val n = max(8, (sw * 6 * k).toInt())
+            if (step >= 6) for (j in 0 until n) {
+                val u = (j + 0.5f) / n
+                i.box(s0 + sw * j / n, y, top(u), sw / n + 0.02f, PARAPET, PARAPET_H, if (snow) Pal.SNOW_L else SLATE[0], SLATE[1], SLATE[2])
+            }
+            for (j in 0 until n) {
+                val u = (j + 0.5f) / n
+                val zu = under(u); val zt = top(u)
+                val xa = s0 + sw * j / n; val dx = sw / n + 0.02f
+                i.box(xa, y, zu, dx, d, zt - zu, if (snow) Pal.SNOW_L else SLATE_WAY, SLATE[0], SLATE[1])
+                // the round opening on its face: the water in the arch's shade under it, the ring of its stones round it
+                i.panelY(xa, y1, 0f, dx, zu, if (snow) Pal.ICE_M else ARCH_SHADE)
+                i.line(xa, y1, zu + 0.3f, xa + dx, y1, zu + 0.3f, SLATE[0])
+                if (fine && j % 2 == 0) i.px(s0 + sw * u, y1, zu + 0.9f, SLATE[2])
+            }
+            if (step >= 6) for (j in 0 until n) {
+                val u = (j + 0.5f) / n
+                i.box(s0 + sw * j / n, y1 - PARAPET, top(u), sw / n + 0.02f, PARAPET, PARAPET_H, if (snow) Pal.SNOW_L else SLATE[0], SLATE[1], SLATE[2])
+            }
+        }
+        // the near bank's wall
+        slateWall(s1, y - 0.08f, ab, d + 0.16f)
+    }
+
+    /** A wall of dry slate on a bank, [w] along the way, [d] across it: its courses closer up. */
+    private fun slateWall(x: Float, y: Float, w: Float, d: Float) {
+        i.box(x, y, 0f, w, d, WALL_H, if (env.snow) Pal.SNOW_L else SLATE[0], SLATE[1], SLATE[2])
+        if (fine) { var z = 0.7f; while (z < WALL_H - 0.2f) { i.line(x, y + d, z, x + w, y + d, z, SLATE_D); i.line(x + w, y, z, x + w, y + d, z, SLATE_D); z += 0.7f } }
+    }
+
+    /**
+     * A stone pillar on the bank, from [x] along the road ([PILLAR] thick), [d] across it, as high as the deck's underside and a
+     * little more; Friuli's of river cobbles under a course of brick ([Bridge.COBBLES]).
+     */
     private fun pillar(x: Float, y: Float, d: Float) {
+        if (s.look.bridge == Bridge.COBBLES) {
+            // a pier of river cobbles a little wider and higher, its course of brick on top at the deck's corners
+            val cx = x - (COBBLE_PIER - PILLAR) / 2f
+            b.looks.cobbleBox(cx, y - 0.1f, 0f, COBBLE_PIER, d + 0.2f, COBBLE_PIER_H, 61)
+            i.box(cx, y - 0.1f, COBBLE_PIER_H, COBBLE_PIER, d + 0.2f, 0.5f, if (env.snow) Pal.SNOW_L else BRICK_L, BRICK, BRICK_D)
+            return
+        }
         i.box(x, y, 0f, PILLAR, d, PILLAR_H, if (env.snow) Pal.SNOW_L else Pal.STONE_L, Pal.STONE_M, Pal.STONE_D)
         if (fine) b.mortar(x, y, 0f, PILLAR, d, PILLAR_H, Pal.STONE_D, Pal.STONE_X)
     }
@@ -400,9 +470,10 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
     /** A railing along one side ([y]) of the deck, from [x0] to [x1]: posts at its ends and middle standing on the deck, a rail on them. */
     private fun rail(x0: Float, x1: Float, y: Float) {
         val top = DECK + 2.8f
-        for (px in floatArrayOf(x0 + 0.12f, (x0 + x1) / 2f, x1 - 0.12f)) i.post(px, y, DECK, top, Pal.WOOD_D)
-        i.line(x0 + 0.12f, y, top, x1 - 0.12f, y, top, if (env.snow) Pal.SNOW_L else Pal.WOOD_L)
-        if (fine) i.line(x0 + 0.12f, y, DECK + 1.4f, x1 - 0.12f, y, DECK + 1.4f, Pal.WOOD_M)
+        val larch = s.look.bridge == Bridge.LARCH
+        for (px in floatArrayOf(x0 + 0.12f, (x0 + x1) / 2f, x1 - 0.12f)) i.post(px, y, DECK, top, if (larch) LARCH[2] else Pal.WOOD_D)
+        i.line(x0 + 0.12f, y, top, x1 - 0.12f, y, top, if (env.snow) Pal.SNOW_L else if (larch) LARCH[0] else Pal.WOOD_L)
+        if (fine) i.line(x0 + 0.12f, y, DECK + 1.4f, x1 - 0.12f, y, DECK + 1.4f, if (larch) LARCH[1] else Pal.WOOD_M)
     }
 
     /** A few stones gathered on the bank: two side by side and one on them. */
@@ -1463,6 +1534,36 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
         const val PILLAR_H = 0.8f
         const val DECK_UNDER = 0.4f
         const val DECK = 1.2f
+
+        /** Carinthia's larch, light, mid and dark: reddish brown ([Bridge.LARCH]). */
+        val LARCH = intArrayOf(Col.hex(0xC47E4C), Col.hex(0x9E5C36), Col.hex(0x6E3C22))
+
+        /** Friuli's piers of river cobbles ([Bridge.COBBLES]): how thick along the road (cells) and how high (px), and their brick. */
+        const val COBBLE_PIER = 0.46f
+        const val COBBLE_PIER_H = 1.5f
+        val BRICK_L = Col.hex(0xD08050)
+        val BRICK = Col.hex(0xB0603E)
+        val BRICK_D = Col.hex(0x8C4A2C)
+
+        /**
+         * The packhorse bridge ([Bridge.PACKHORSE]): its walls on the banks (cells along the way, px high), its arch's
+         * underside from its foot to its crown, how far its top humps over the walls, its parapets (cells thick, px high).
+         */
+        const val ABUTMENT = 0.42f
+        const val WALL_H = 2.6f
+        const val ARCH_FOOT = 0.2f
+        const val ARCH_TOP = 2.9f
+        const val HUMP = 1.5f
+
+        /** The water in the arch's shade, under its opening. */
+        val ARCH_SHADE = Col.hex(0x23394E)
+        const val PARAPET = 0.14f
+        const val PARAPET_H = 1.3f
+
+        /** Lakeland slate, light, mid and dark, its joints, and the way over it (worn paler). */
+        val SLATE = intArrayOf(Col.hex(0x8C929C), Col.hex(0x6C727E), Col.hex(0x4E525C))
+        val SLATE_D = Col.hex(0x3C4048)
+        val SLATE_WAY = Col.hex(0xA4A49A)
 
         /** The onion dome's half width by row from its foot (nominal px). */
         val DOME = floatArrayOf(5f, 6f, 6.5f, 6.4f, 5.8f, 4.8f, 3.4f, 2.2f, 1.3f, 1.1f, 1.6f, 1.2f)

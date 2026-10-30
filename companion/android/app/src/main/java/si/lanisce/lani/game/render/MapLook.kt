@@ -71,6 +71,13 @@ internal class MapLook private constructor(val id: String, val style: FireStyle?
     /** The bocce court project's: the bocce court, the Stockschießbahn, the bowling green. */
     val court: Court = Court.entries.firstOrNull { it.id == v("court") } ?: Court.BOCCE
 
+    /**
+     * The bridge over the stream (the project "most"): the map's timber bridge on stone pillars, Friuli's on pillars of river
+     * cobbles with a band of brick (as the stream's scene builds it), Carinthia's of larch, the Lake District's packhorse
+     * bridge of slate with one round arch (as its project builds it: walls on the banks, the timber frame, the arch on it).
+     */
+    val bridge: Bridge = Bridge.entries.firstOrNull { it.id == v("bridge") } ?: Bridge.TIMBER
+
     /** The town clock's tower: the map's own (ochre, the onion dome), the campanile, the battlemented tower. */
     val clock: Tower? = when (v("clock")) { "campanile" -> Tower.CAMPANILE; "battlements" -> Tower.BATTLEMENTS; else -> null }
 
@@ -121,6 +128,9 @@ internal enum class Maypole(val id: String) { MLAJ("mlaj"), CUCCAGNA("cuccagna")
 
 /** The vineyard project's landmark (see [MapLook.vineyard]). */
 internal enum class Vineyard(val id: String) { TERRACES("terraces"), COLLIO("collio"), ORCHARD("orchard"), DAMSONS("damsons") }
+
+/** The bridge over the stream (see [MapLook.bridge]). */
+internal enum class Bridge(val id: String) { TIMBER("timber"), COBBLES("cobbles"), LARCH("larch"), PACKHORSE("packhorse") }
 
 /** The bocce court project's landmark (see [MapLook.court]). */
 internal enum class Court(val id: String) { BOCCE("bocce"), CURLING("curling"), GREEN("green") }

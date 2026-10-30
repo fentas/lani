@@ -421,14 +421,15 @@ object CultureLooks {
      * bee garden's bunting (`apiary.bunting`), the market's awnings as Al mercato's (`market.awnings`); the greasy pole
      * (l'albero della cuccagna) with its prizes for the maypole; the Collio's vines without the Slovene klopotec; the town
      * clock in the campanile; the fire station of cobbles with bands of brick under coppi (`firestation.walls`), the wayside
-     * chapel an ancona in ochre (`chapel.chapel`), Friuli's eagle on the lookout tower's roof (`lookout.view`).
+     * chapel an ancona in ochre (`chapel.chapel`), Friuli's eagle on the lookout tower's roof (`lookout.view`); the bridge's
+     * pillars of river cobbles with a band of brick, as the stream's scene builds them (`stream.cartbridge`).
      */
     val FRIULI_MAP = Table.of(
         "map",
         variants = mapOf(
             "hayrack" to "fienile", "smithy" to "cobbles", "well" to "vera", "hives" to "plain", "school" to "italian",
             "flag" to "friuli", "watchtower" to "stone", "pennant" to "friuli", "festive" to "friuli", "maypole" to "cuccagna",
-            "vineyard" to "collio", "clock" to "campanile", "firestation" to "cobbles", "chapel" to "ancona",
+            "vineyard" to "collio", "clock" to "campanile", "firestation" to "cobbles", "chapel" to "ancona", "bridge" to "cobbles",
         ),
     )
 
@@ -437,13 +438,13 @@ object CultureLooks {
      * shore of Am See; the log trough with its running spout for the well, as by the Almhütte; Austria's red, white and red
      * on the watchtower, the tent (`campfire.flag`) and the feasts; the Karawanken with the Mittagskogel at the horizon, as
      * the scene behind it (`alps.range`); the orchard of old apple and pear trees (der Obstgarten) for the vineyard; the
-     * Stockschießbahn for the bocce court.
+     * Stockschießbahn for the bocce court; the bridge's deck and railings of larch, reddish brown, as its project's logs.
      */
     val KAERNTEN_MAP = Table.of(
         "map",
         variants = mapOf(
             "hayrack" to "harpfe", "well" to "trough", "flag" to "austria", "pennant" to "austria", "festive" to "austria",
-            "range" to "karawanken", "vineyard" to "orchard", "court" to "curling",
+            "range" to "karawanken", "vineyard" to "orchard", "court" to "curling", "bridge" to "larch",
         ),
     )
 
@@ -452,14 +453,15 @@ object CultureLooks {
      * trough for the well; white WBC hives for the bee house; the school of stone under slate with its bellcote; St George's
      * cross on the watchtower and the tent (`campfire.flag`), the feasts' bunting red, white and blue; the fells at the
      * horizon (`alps.range`); the maypole with its long ribbons for the children's dance; damsons on the terraces; a stone
-     * bank barn for the toplar; the bowling green for the bocce court; the church clock on its battlemented tower.
+     * bank barn for the toplar; the bowling green for the bocce court; the church clock on its battlemented tower; the
+     * packhorse bridge of slate with one round arch over the beck, as its project builds it.
      */
     val LAKELAND_MAP = Table.of(
         "map",
         variants = mapOf(
             "hayrack" to "barn", "well" to "pump", "hives" to "wbc", "school" to "stone", "flag" to "england", "pennant" to "england",
             "festive" to "union", "range" to "fells", "maypole" to "ribbons", "vineyard" to "damsons", "toplar" to "bank", "court" to "green",
-            "clock" to "battlements",
+            "clock" to "battlements", "bridge" to "packhorse",
         ),
     )
 
