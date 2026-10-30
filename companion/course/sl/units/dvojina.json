@@ -156,9 +156,9 @@
           "items": [
             { "from": "Trije konji so na travniku. (2)", "accept": ["Dva konja sta na travniku."], "hint": "dva, -a, sta", "lemma": "konj", "form": "nom.du" },
             { "from": "Tri ovce so bele. (2)", "accept": ["Dve ovci sta beli."], "hint": "dve, -i, sta, -i", "lemma": "ovca", "form": "nom.du" },
-            { "from": "Otroci so šli domov. (Zala in Tine)", "accept": ["Zala in Tine sta šla domov."], "hint": "a girl and a boy: -la" },
+            { "from": "Otroci so šli domov. (Zala in Tine)", "accept": ["Zala in Tine sta šla domov.", "Šla sta domov.", "Sta šla domov."], "hint": "a girl and a boy: -la" },
             { "from": "Mi gremo v šolo. (midva)", "accept": ["Midva greva v šolo.", "Greva v šolo."] },
-            { "from": "One so kuhale. (onidve)", "accept": ["Onidve sta kuhali."], "hint": "two women: -li" },
+            { "from": "One so kuhale. (onidve)", "accept": ["Onidve sta kuhali.", "Kuhali sta.", "Sta kuhali."], "hint": "two women: -li" },
             { "from": "Tri jajca so sveža. (2)", "accept": ["Dve jajci sta sveži."], "hint": "neuter: dve, -i", "lemma": "jajce", "form": "nom.du" },
             { "from": "Bomo doma. (midva)", "accept": ["Bova doma.", "Midva bova doma."] },
             { "from": "Pojdimo! (you and I)", "accept": ["Pojdiva!"], "grammar": "velelnik", "lemma": "iti", "form": "imp.1du" }
@@ -195,7 +195,7 @@
         "type": "transform", "grammar": "dvojina", "instruction": "Povej za dva · Say it for two",
         "items": [
           { "from": "Trije bratje so doma. (2)", "accept": ["Dva brata sta doma."], "lemma": "brat", "form": "nom.du" },
-          { "from": "One so v kuhinji. (onidve)", "accept": ["Onidve sta v kuhinji."] },
+          { "from": "One so v kuhinji. (onidve)", "accept": ["Onidve sta v kuhinji.", "V kuhinji sta.", "Sta v kuhinji."] },
           { "from": "Pridite! (vidva)", "accept": ["Pridita!"], "grammar": "velelnik", "lemma": "priti", "form": "imp.2du" }
         ]
       },
