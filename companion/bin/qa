@@ -4856,6 +4856,15 @@ def mill():
         assert wait_for(T["back"], 10), "Back from the mill is the stream again, the village below it"
         assert find(T["back_stream"]) is None, "the stream on view, not the mill"
         snap("mill-back-stream")
+        # the system's Back the same (the key, as the back gesture ends): into the mill again from the stream's mill, Back
+        # is the stream, then the village (docs/plans/05-built/nav-perf.md)
+        qa_hook("hour:11", f"scene:{T['stream']}@mill")
+        assert wait_for(T["inside"], 8), "the stream's mill's bubble again"
+        assert tap(T["inside"], 4), "into the mill from the stream again"
+        assert wait_for(T["back_stream"], 10), "the mill over the stream again"
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        assert wait_for(T["back"], 10) and find(T["back_stream"]) is None, "the system's Back from the mill is the stream"
+        snap("mill-key-back-stream")
         assert tap(T["back"], 3), "back from the stream"
         # a dialog: the stones grinding, the flour running
         hid, did = ("macina", "macina") if sid == "nel-mulino" else ("melje", "melje-zobnik")
@@ -14255,7 +14264,8 @@ def home_return():
     how many, their sum, the longest, those over a frame and over 100 ms; "?" from a build without the hook), every frame
     (dumpsys gfxinfo framestats, reset just before: the longest, its main thread's part, those over 33 ms), Choreographer's
     skipped frames, the runtime's garbage collections (how many, the MB they freed, how long a thread waited for one), and
-    whether Home (the village) shows then. Over 6 s from the key or the tap (docs/plans/05-built/nav-perf.md): the app's
+    whether Home (the village) shows then; the frame whose main thread worked longest split into composing, layout and
+    drawing, and all the frames' main parts summed. Over 6 s from the key or the tap (docs/plans/05-built/nav-perf.md): the app's
     requests (how many, each one's path, status and length: QA's request log, data/NetWatch.kt) and what the runtime
     allocated on every thread and its collections (ART's counts, sampled by the watch); first Home left alone for as
     long, the baseline. With LANI_QA_TRACE=<dir> the first Back from the village is also traced by
@@ -14269,7 +14279,10 @@ def home_return():
         out_dir.mkdir(parents=True, exist_ok=True)
     trace_dir = os.environ.get("LANI_QA_TRACE")
 
-    def frames() -> list[tuple[float, float]]:
+    def frames() -> list[tuple[float, float, float, float, float]]:
+        """Each frame since the reset (dumpsys gfxinfo framestats): its whole time, its main thread's part, and that part's
+        phases: composing (Compose's recomposition and the animations, from AnimationStart), measuring and laying out (from
+        PerformTraversalsStart), recording the drawing (from DrawStart to SyncQueued), in ms."""
         out = adb("shell", "dumpsys", "gfxinfo", PKG, "framestats", check=False)
         got, cols = [], None
         for line in out.splitlines():
@@ -14283,10 +14296,11 @@ def home_return():
             try:
                 vs, done = int(row["IntendedVsync"]), int(row["FrameCompleted"])
                 ui0, queued = int(row["HandleInputStart"]), int(row["SyncQueued"])
+                anim, trav, draw = int(row["AnimationStart"]), int(row["PerformTraversalsStart"]), int(row["DrawStart"])
             except (KeyError, ValueError):
                 continue
             if vs > 0 and done > vs:
-                got.append(((done - vs) / 1e6, max(0, queued - ui0) / 1e6))
+                got.append(((done - vs) / 1e6, max(0, queued - ui0) / 1e6, max(0, trav - anim) / 1e6, max(0, draw - trav) / 1e6, max(0, queued - draw) / 1e6))
         return got
 
     def uptime_ms() -> int:
@@ -14316,6 +14330,10 @@ def home_return():
         requests_log.append(f"{name} {i + 1}: {n_req} requests, {alloc} MB, {n_gc} collections\n  " + "\n  ".join(req_list.split(", ") if req_list else []))
         fs = frames()
         whole = sorted(f[0] for f in fs); main = sorted(f[1] for f in fs)
+        # the frame whose main thread worked longest, its phases (composing, layout, drawing), and all the frames' main parts
+        top = max(fs, key=lambda f: f[1]) if fs else None
+        phases = f"{top[2]:.1f}/{top[3]:.1f}/{top[4]:.1f}" if top else "?"
+        frames_main = f"{sum(f[1] for f in fs):.1f}"
         skipped = sum(int(m.group(1)) for m in re.finditer(r"Skipped (\d+) frames", adb("logcat", "-d", "-s", "Choreographer:I", check=False)))
         # the runtime's garbage collections meanwhile (logged under the process's name: "Background concurrent mark compact
         # GC freed …", "WaitForGcToComplete blocked …"): what the app's threads made for the collector, and a wait for it
@@ -14324,7 +14342,7 @@ def home_return():
         freed = sum(int(m.group(1)) for l in gcs for m in [re.search(r"freed (\d+)MB", l)] if m)
         waited = sum(float(m.group(1)) for l in gcs for m in [re.search(r"WaitForGcToComplete blocked .* for ([\d.]+)ms", l)] if m)
         r = "\t".join([name, str(i + 1), *main_watch, str(len(fs)), f"{(whole[-1] if whole else float('nan')):.1f}",
-                       f"{(main[-1] if main else float('nan')):.1f}", str(sum(1 for x in whole if x > 33.4)), str(skipped),
+                       f"{(main[-1] if main else float('nan')):.1f}", phases, frames_main, str(sum(1 for x in whole if x > 33.4)), str(skipped),
                        str(sum(1 for l in gcs if "GC freed" in l)), str(freed), f"{waited:.0f}", n_req, alloc, n_gc, seen])
         rows.append(r)
         print(f"    {r}")
@@ -14402,7 +14420,7 @@ def home_return():
         back("settings", open_settings, i)
         go_home()
     head = ("from\ttry\tmain messages in 3 s\tbesides frames\ttheir ms\tthe longest ms\tover 16.7 ms\tover 100 ms\tframes\t"
-            "longest frame ms\tlongest frame's main ms\tframes over 33 ms\tskipped (Choreographer)\tGCs\tGC freed MB\twaited for GC ms\t"
+            "longest frame ms\tlongest frame's main ms\tits compose/layout/draw ms\tframes' main ms\tframes over 33 ms\tskipped (Choreographer)\tGCs\tGC freed MB\twaited for GC ms\t"
             "requests in 6 s\tallocated MB in 6 s\tcollections in 6 s\tshown")
     print(f"    {head}")
     if out_dir:
