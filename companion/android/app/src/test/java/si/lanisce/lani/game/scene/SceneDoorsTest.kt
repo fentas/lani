@@ -53,6 +53,18 @@ class SceneDoorsTest {
         assertEquals(listOf("project:mlin"), mill.from)
     }
 
+    @Test fun `the cart bridge's scene by the stream has the mill too, and leads into it the same`() {
+        // Na mostu is the stream's picture with the cart bridge built: its mill is the same thing (stream/mill)
+        val bridge = scene("na-mostu")
+        assertEquals("stream", bridge.art)
+        val grinds = village.copy(projects = mapOf("mlin" to 6, "most" to 7))
+        assertEquals(listOf("v-mlinu"), SceneDoors.into(bridge, "mill") { at(it, grinds) }.map { it.id })
+        assertTrue("before the mill grinds no way in", SceneDoors.into(bridge, "mill") { at(it, village.copy(projects = mapOf("mlin" to 5, "most" to 7))) }.isEmpty())
+        assertTrue("its bridge leads nowhere", SceneDoors.into(bridge, "bridge") { at(it, grinds) }.isEmpty())
+        Cultures.use("friuli")
+        assertEquals(listOf("nel-mulino"), SceneDoors.into(scene("il-ponte"), "mill") { at(it, grinds, "it") }.map { it.id })
+    }
+
     @Test fun `the Friuli village's mill opens from its own mill project`() {
         Cultures.use("friuli")
         val stream = scene("al-ruscello")

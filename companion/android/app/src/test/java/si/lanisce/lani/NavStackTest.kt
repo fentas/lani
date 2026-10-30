@@ -195,6 +195,24 @@ class NavStackTest {
     }
 
     @Test
+    fun `the mill gone into from the cart bridge's scene lies on it, as from the stream`() {
+        val nav = home()
+        nav.go(Screen.Village)
+        nav.go(Screen.Scene("na-mostu"))
+        nav.go(Screen.Scene("v-mlinu", from = "na-mostu"))
+        assertEquals(listOf(Screen.Home, Screen.Village, Screen.Scene("na-mostu"), Screen.Scene("v-mlinu", from = "na-mostu")), nav.screens())
+        assertTrue(nav.back())
+        assertEquals("Back from the mill: the bridge's scene", Screen.Scene("na-mostu"), nav.top)
+        assertTrue(nav.back())
+        assertEquals(Screen.Village, nav.top)
+        // Friuli's the same: Il ponte, then Nel mulino over it
+        nav.go(Screen.Scene("il-ponte"))
+        nav.go(Screen.Scene("nel-mulino", from = "il-ponte"))
+        assertTrue(nav.back())
+        assertEquals(Screen.Scene("il-ponte"), nav.top)
+    }
+
+    @Test
     fun `the stack is saved up to its first run or visit, and comes back under the same ids`() {
         val nav = home()
         nav.go(Screen.Village)

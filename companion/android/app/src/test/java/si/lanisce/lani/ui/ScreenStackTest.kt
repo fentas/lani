@@ -15,6 +15,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.layout.onPlaced
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
@@ -48,6 +49,9 @@ class ScreenStackTest {
     private val backs = mutableListOf<String>()
     private var homeCovered: Boolean? = null
     private var homePlaced = 0
+    private var homeMeasured = 0
+    /** What Home shows besides its name: changed while it is covered. */
+    private var homeNews by mutableIntStateOf(0)
 
     private fun name(s: Screen) = s.javaClass.simpleName
 
@@ -63,12 +67,16 @@ class ScreenStackTest {
         ScreenStack(nav.entries, states, peek = peek) { s ->
             val n = name(s)
             remember(n) { Life(n) }
+            val measured = if (s == Screen.Home) Modifier.layout { m, c -> homeMeasured++; val p = m.measure(c); layout(p.width, p.height) { p.place(0, 0) } } else Modifier
             Box(Modifier.fillMaxSize().then(if (s == Screen.Home) Modifier.onPlaced { homePlaced++ } else Modifier)) {
-                var taps by rememberSaveable { mutableIntStateOf(0) }
-                Text("$n $taps", Modifier.clickable { taps++ })
-                if (s == Screen.Home) {
-                    homeCovered = LocalCovered.current
-                    BackHandler { backs += "home" }
+                Box(measured) {
+                    var taps by rememberSaveable { mutableIntStateOf(0) }
+                    Text("$n $taps", Modifier.clickable { taps++ })
+                    if (s == Screen.Home) {
+                        homeCovered = LocalCovered.current
+                        Text("news $homeNews")
+                        BackHandler { backs += "home" }
+                    }
                 }
             }
         }
@@ -99,6 +107,21 @@ class ScreenStackTest {
         assertEquals(null, ended["Home"])
         assertEquals(false, homeCovered)
         assertEquals(2, began["Village"])
+    }
+
+    @Test fun `a covered Home is neither measured nor drawn while what it shows changes, and shows it once on top`() {
+        val nav = home()
+        compose.setContent { Screens(nav) }
+        compose.runOnIdle { nav.go(Screen.Packs) }
+        compose.waitForIdle()
+        val measured = homeMeasured
+        val placed = homePlaced
+        compose.runOnIdle { homeNews = 3 }
+        compose.waitForIdle()
+        assertEquals("not measured while covered", measured, homeMeasured)
+        assertEquals("not placed while covered", placed, homePlaced)
+        compose.runOnIdle { nav.back() }
+        compose.onNodeWithText("news 3").assertExists()
     }
 
     @Test fun `a covered Home takes no Back, its own Back works again once on top`() {
