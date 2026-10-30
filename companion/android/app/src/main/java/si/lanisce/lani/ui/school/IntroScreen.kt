@@ -376,13 +376,14 @@ internal fun introReader(vm: AppViewModel): IntroVoice.Reader {
  * question; Slovene what the app's check says is, and the words the intro itself shows ("**Biti**").
  */
 /**
- * What the summary reads: the unit's grammar page's rule in the base language (its table is to look at), else the unit's
- * goal; null with neither. Read as a step is: the explanation in one clip, its Slovene in the teacher's voice without it.
+ * What the summary reads: the intro's own summary ([Intro.summary]: a child's first lesson), else the unit's grammar
+ * page's rule in the base language (its table is to look at), else the unit's goal; null with none. Read as a step is:
+ * the explanation in one clip, its Slovene in the teacher's voice without it.
  */
 internal fun summaryScript(vm: AppViewModel, unit: CourseUnit, intro: Intro): IntroSpeech.Script? {
     val base = L10n.pair.base.code
     val page = unit.grammar.firstNotNullOfOrNull { vm.grammar.page(it) }
-    val say = IntroSpeech.summarySay(page?.rule, unit.goal, base) ?: return null
+    val say = IntroSpeech.summarySay(intro.summary ?: page?.rule, unit.goal, base) ?: return null
     return IntroSpeech.summary("${unit.id}/summary/${say.hashCode()}", say, base, intro, unit.language, unit.title[unit.language], vm.speaker::isSlovene, unit.words)
 }
 
@@ -713,8 +714,9 @@ private fun AskResult(vm: AppViewModel, v: Grading.Verdict, right: String, expla
 private const val RESULT_SCROLL_MS = 120L
 
 /**
- * The end: the rule's page as a summary card (its rule and its whole table), the book one tap away, then the worksheets.
- * She reads it as she read the steps ([summaryScript]: the rule, its table to look at; as it appears, 🔊 and 🐢 again).
+ * The end: the rule's page as a summary card (its rule and its whole table), the book one tap away, then the worksheets;
+ * an intro with its own summary ([Intro.summary]) shows that and the table its steps built instead, the page still one tap
+ * away. She reads it as she read the steps ([summaryScript]: the rule, its table to look at; as it appears, 🔊 and 🐢 again).
  */
 @Composable
 private fun Summary(vm: AppViewModel, unit: CourseUnit, intro: Intro, modifier: Modifier, done: () -> Unit) {
@@ -737,13 +739,20 @@ private fun Summary(vm: AppViewModel, unit: CourseUnit, intro: Intro, modifier: 
                 Text("🧾 ${bi("school.summary")}", style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
                 if (script != null) ReadButtons(reading, onRead = { slow -> if (reading && !slow) voice.stop() else voice.play(script, reader, slow) })
             }
-            if (page != null) {
+            val own = intro.summary?.let { Grammar.text(it, base) }?.takeIf { it.isNotBlank() }
+            val rows = intro.steps.flatMap { it.rows }
+            if (own != null) {
+                // the intro's own words, and the table its steps built: the page's whole rule waits in the book
+                if (page != null) Text("${page.emoji} ${page.titleShown(L10n.pair)}", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                Markdown(own)
+                if (intro.head.isNotEmpty() && rows.isNotEmpty()) GrowingTable(vm, intro.head, rows, fresh = 0)
+                if (page != null) TextButton(onClick = { vm.grammar.show(page.id) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("📖 ${bi("school.toTheBook")}") }
+            } else if (page != null) {
                 Text("${page.emoji} ${page.titleShown(L10n.pair)}", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                 Markdown(page.ruleIn(base))
                 page.table?.let { GrowingTable(vm, it.head, it.rows, fresh = 0) }
                 TextButton(onClick = { vm.grammar.show(page.id) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("📖 ${bi("school.toTheBook")}") }
             } else {
-                val rows = intro.steps.flatMap { it.rows }
                 if (intro.head.isNotEmpty() && rows.isNotEmpty()) GrowingTable(vm, intro.head, rows, fresh = 0)
             }
         }

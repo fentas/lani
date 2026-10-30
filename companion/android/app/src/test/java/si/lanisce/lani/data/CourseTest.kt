@@ -49,6 +49,20 @@ class CourseTest {
         assertNull(intro.steps[2].ask)
         assertEquals("I'm at home.", intro.steps[0].examples.single().meaning("en"))
         assertNull(c.units.getValue("spol").intro)
+        // no summary of its own: the card is the unit's first page
+        assertNull(intro.summary)
+    }
+
+    @Test fun `an intro's own summary, per base, for the card instead of the page's rule`() {
+        val o = kotlinx.serialization.json.Json.parseToJsonElement(
+            """{"steps": [{"say": {"en": "To a child: ciao."}}], "summary": {"en": "**Tu** to children: **Ciao!**", "de": "**Tu** zu Kindern: **Ciao!**"}}""",
+        ) as kotlinx.serialization.json.JsonObject
+        val intro = Courses.intro(o)!!
+        assertEquals(mapOf("en" to "**Tu** to children: **Ciao!**", "de" to "**Tu** zu Kindern: **Ciao!**"), intro.summary)
+        // what she reads: the intro's own in the base, before the page's rule (summaryScript: intro.summary ?: page.rule)
+        val rule = mapOf("de" to "Die ganze Seite")
+        assertEquals("**Tu** zu Kindern: **Ciao!**", IntroSpeech.summarySay(intro.summary ?: rule, null, "de"))
+        assertEquals("**Tu** to children: **Ciao!**", IntroSpeech.summarySay(intro.summary ?: rule, null, "sl"))
     }
 
     @Test fun `the four types read as they are written`() {

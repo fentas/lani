@@ -1420,8 +1420,9 @@ of a unit ("⏩ Znam že") brings the next one in. A unit with the tutor's homew
 few lines (in the learner's base, Markdown), an example or two (🔊, every word tappable), the table growing (this step's
 rows marked), then a quick question (a tap choice or a one-word gap) whose answer shows with its why. Graded lightly: a
 miss says "Nič hudega · No matter", shows the answer, costs nothing, pays nothing and doesn't count on the rule. At the
-end the unit's first grammar page is the summary card (its rule and its whole table, "📖 V knjigo"), and "✓ Na delovne
-liste · On to the worksheets". Through it (or skipped) the unit's pages are met: in the book, and their cards on the
+end the unit's first grammar page is the summary card (its rule and its whole table, "📖 V knjigo"; an intro with a
+summary of its own, a child's first lesson such as the Italian `ciao`, shows that and the table its steps built, the page
+one tap away), and "✓ Na delovne liste · On to the worksheets". Through it (or skipped) the unit's pages are met: in the book, and their cards on the
 cheat sheet (`CheatSheetController.met`); a sheet of the unit opened first meets them too.
 
 **The worksheets and the test** play as a run (`ExerciseRun`): one exercise at a time, its feedback, the teacher on the

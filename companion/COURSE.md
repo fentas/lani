@@ -138,6 +138,12 @@ pages are met (`CheatSheetController.met`), their cards unlocked.
   - `rows` (0–8): rows added to the table under the head (as long as the head); the table grows as the steps go.
   - `ask` (optional): one quick question about the step, a `choice` (tap) or a `cloze` (a one-word gap). Graded
     lightly: a miss shows the answer and why, costs nothing and doesn't count on the rule.
+- `summary` (optional): the summary card's own words, per base (English always; Markdown, at most 600 characters each),
+  instead of the unit's first page's rule: what a child's first lesson needs of a page that goes on further (the Italian
+  `ciao`: tu and Lei in the greetings, where the `tu-lei` page goes on to the polite imperative). The card shows them with
+  the table the steps built and "📖 V knjigo · To the book" for the whole page, and she reads them as she reads the page's
+  rule (the bridge voices them ahead the same way). An older bridge refuses the key (the intro is a strict object): the
+  unit goes out after the bridge.
 - The learner's place is kept (`intro` in the progress): leaving in the middle resumes there. "⏭ Poznam to · I know
   this" skips to the worksheets. The intro can be opened again any time (the unit's "📖 Uvod · Introduction").
 

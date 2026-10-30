@@ -178,6 +178,13 @@ export const intro = z
   .strictObject({
     table: z.strictObject({ head: z.array(cell).min(2).max(4) }).optional(),
     steps: z.array(step).min(1).max(10),
+    /**
+     * The summary card's words (per base, Markdown), instead of the unit's first grammar page's rule: what a child's first
+     * lesson needs of a page that goes on (the polite imperative under tu and Lei), with the table the steps built and the
+     * page one tap away (companion/COURSE.md, "The introduction"). An older bridge refuses the key: the unit goes out after
+     * the bridge.
+     */
+    summary: withEn(600).optional(),
   })
   .superRefine((t, ctx) => {
     t.steps.forEach((s, i) => {

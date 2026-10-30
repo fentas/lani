@@ -68,8 +68,11 @@ data class CourseUnit(
     fun sheet(id: String): Worksheet? = worksheets.firstOrNull { it.id == id } ?: homework.firstOrNull { it.id == id }
 }
 
-/** The guided introduction: the [head] of the table its [steps] build, and the steps. */
-data class Intro(val head: List<GrammarCell>, val steps: List<IntroStep>)
+/**
+ * The guided introduction: the [head] of the table its [steps] build, and the steps; [summary] (per base), the summary
+ * card's own words instead of the unit's first page's rule (a child's first lesson: companion/COURSE.md "The introduction").
+ */
+data class Intro(val head: List<GrammarCell>, val steps: List<IntroStep>, val summary: Map<String, String>? = null)
 
 /** A step of an intro: the teacher's few lines ([say], per base), [examples], the table's [rows] it adds, a quick question ([ask]). */
 data class IntroStep(
@@ -160,7 +163,7 @@ object Courses {
                 (s["ask"] as? JsonObject)?.let(::exercise)?.takeIf { it is Exercise.Choice || it is Exercise.Cloze },
             )
         }
-        return Intro(head, steps).takeIf { steps.isNotEmpty() }
+        return Intro(head, steps, o["summary"].texts()).takeIf { steps.isNotEmpty() }
     }
 
     fun worksheet(o: JsonObject, tutor: Boolean = false): Worksheet? {

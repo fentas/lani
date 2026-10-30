@@ -79,7 +79,7 @@ export type Ask =
 /** A cell of the intro's table: words of the language learned (a string), or a text per base. */
 type Cell = string | Record<string, string>
 export type IntroStep = { say: Record<string, string>; examples?: Record<string, unknown>[]; rows?: Cell[][]; ask?: Ask }
-export type Intro = { table?: { head: Cell[] }; steps: IntroStep[] }
+export type Intro = { table?: { head: Cell[] }; steps: IntroStep[]; summary?: Record<string, string> }
 
 /** [s]'s inline Markdown in its segments, in order: the plain text between the spans (when not empty) and each span. */
 export function segments(s: string): Segment[] {
@@ -310,7 +310,7 @@ export function introStep(id: string, intro: Intro, i: number, language: string,
   return step(id, textIn(s.say, base), base, (s.examples ?? []).map(e => (typeof e[language] === 'string' ? (e[language] as string) : '')), s.ask, t => isSlovene(t) || within(t, known))
 }
 
-/** What the summary reads: the unit's grammar page's [rule] in [base] (its table is to look at), else its [goal]; undefined with neither. */
+/** What the summary reads: [rule] in [base] (the intro's own summary, else the unit's grammar page's rule: its table is to look at), else its [goal]; undefined with neither. */
 export function summarySay(rule: Record<string, string> | undefined, goal: Record<string, string> | undefined, base: string): string | undefined {
   const r = rule ? textIn(rule, base) : undefined
   if (r !== undefined && !ktBlank(r)) return r
@@ -473,7 +473,8 @@ export function courseTexts(c: CourseInput, language: string): { lines: CourseTe
       }
       intro.steps.forEach((s, i) => read(introStep(`${u.id}/${i}`, intro, i, language, base, title, isSlovene, u.words ?? []), s.ask))
       const page = u.grammar.map(g => pages.get(g)).find(Boolean)
-      const say = summarySay(page?.rule, u.goal, base)
+      // the intro's own summary (a child's first lesson), else the page's rule, as the app reads it
+      const say = summarySay(intro.summary ?? page?.rule, u.goal, base)
       if (say !== undefined) read(summary(`${u.id}/summary`, say, base, intro, language, title, isSlovene, u.words ?? []))
     }
   }
