@@ -3,7 +3,7 @@
   "language": "sl",
   "machine_written": true,
   "review": "Machine-written (Claude, 2026-10-29), not reviewed by a native speaker yet: the lists, the senses, the rules and the examples want a native check (docs/plans/05-built/case-lens.md, \"Native check\"). Standard Slovene; a spoken form is never wrong, only not listed. Checked against Fran 2026-10-30 (docs/plans/05-built/native-check-sl.md): every preposition's cases and the governing verbs by SP2001, the fused forms by SSKJ² (po, the plural and the dual added); the lists and examples otherwise as written.",
-  "about": "What decides a Slovene word's case, for the case lens (bridge/src/case-lens.ts, docs/plans/05-built/case-lens.md): the six cases (their question words and colours, shared with the case trainer), the prepositions and the cases they take by sense (motion: kam? rest: kje? time: kdaj?), the negations, the words of quantity and the numbers from five, the verbs and the words of feeling that govern a case, the verbs of motion and of rest, the copulas, the verbs with an accusative object and those without one, the nouns of time, fixed phrases, the personal pronouns' forms (the osebni-zaimki page's, with the genitive and the locative it leaves out) and the prepositions fused with a pronoun (zame, nanj). Every entry names its rule: the grammar book's page that explains it. A verb is given by its infinitive and its first person singular; the lens makes its other forms. The examples are analysed by the smoke: each must come out as it says.",
+  "about": "What decides a Slovene word's case, for the case lens (bridge/src/case-lens.ts, docs/plans/05-built/case-lens.md): the six cases (their question words and colours, shared with the case trainer), the prepositions and the cases they take by sense (motion: kam? rest: kje? time: kdaj?), the negations, the words of quantity and the numbers from five, the verbs and the words of feeling that govern a case, the verbs of motion and of rest, the copulas, the verbs with an accusative object and those without one, the nouns of time, fixed phrases, the personal pronouns' forms (the osebni-zaimki page's, with the genitive and the locative it leaves out) and the prepositions fused with a pronoun (zame, nanj). Every entry names its rule: the grammar book's page that explains it. A verb is given by its infinitive and its first person singular; the lens makes its other forms. The examples are analysed by the smoke: each must come out as it says. Made by case-triggers.py beside it: change that and run it, never this file.",
   "cases": [
     {
       "key": "nom",
@@ -1604,16 +1604,44 @@
     {"form": "vanje", "preposition": "v", "pronoun": "oni", "case": "acc", "number": "pl", "rule": "kam-tozilnik"},
     {"form": "ponje", "preposition": "po", "pronoun": "oni", "case": "acc", "number": "pl", "rule": "tozilnik"},
     {"form": "podnje", "preposition": "pod", "pronoun": "oni", "case": "acc", "number": "pl", "rule": "kam-tozilnik"},
-    {"form": "prednje", "preposition": "pred", "pronoun": "oni", "case": "acc", "number": "pl", "rule": "kam-tozilnik"},
+    {
+      "form": "prednje",
+      "preposition": "pred",
+      "pronoun": "oni",
+      "case": "acc",
+      "number": "pl",
+      "rule": "kam-tozilnik"
+    },
     {"form": "nadnje", "preposition": "nad", "pronoun": "oni", "case": "acc", "number": "pl", "rule": "kam-tozilnik"},
     {"form": "čeznje", "preposition": "čez", "pronoun": "oni", "case": "acc", "number": "pl", "rule": "tozilnik"},
     {"form": "zanju", "preposition": "za", "pronoun": "onadva", "case": "acc", "number": "du", "rule": "tozilnik"},
     {"form": "nanju", "preposition": "na", "pronoun": "onadva", "case": "acc", "number": "du", "rule": "kam-tozilnik"},
     {"form": "vanju", "preposition": "v", "pronoun": "onadva", "case": "acc", "number": "du", "rule": "kam-tozilnik"},
     {"form": "ponju", "preposition": "po", "pronoun": "onadva", "case": "acc", "number": "du", "rule": "tozilnik"},
-    {"form": "podnju", "preposition": "pod", "pronoun": "onadva", "case": "acc", "number": "du", "rule": "kam-tozilnik"},
-    {"form": "prednju", "preposition": "pred", "pronoun": "onadva", "case": "acc", "number": "du", "rule": "kam-tozilnik"},
-    {"form": "nadnju", "preposition": "nad", "pronoun": "onadva", "case": "acc", "number": "du", "rule": "kam-tozilnik"},
+    {
+      "form": "podnju",
+      "preposition": "pod",
+      "pronoun": "onadva",
+      "case": "acc",
+      "number": "du",
+      "rule": "kam-tozilnik"
+    },
+    {
+      "form": "prednju",
+      "preposition": "pred",
+      "pronoun": "onadva",
+      "case": "acc",
+      "number": "du",
+      "rule": "kam-tozilnik"
+    },
+    {
+      "form": "nadnju",
+      "preposition": "nad",
+      "pronoun": "onadva",
+      "case": "acc",
+      "number": "du",
+      "rule": "kam-tozilnik"
+    },
     {"form": "čeznju", "preposition": "čez", "pronoun": "onadva", "case": "acc", "number": "du", "rule": "tozilnik"}
   ],
   "roles": {

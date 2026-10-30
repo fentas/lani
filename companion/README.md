@@ -3842,6 +3842,9 @@ of quantity, the nouns of measure and the numbers from five; the verbs and the w
 the nouns of time; fixed phrases (dober dan, na svidenje); the personal pronouns (osebni-zaimki's, with the genitive
 and locative it leaves out) and the fused ones (zame, nanj). Each entry names its rule, a grammar page's id, and has
 examples the smoke analyses. A verb is given by its infinitive and its first person singular; the lens makes its forms.
+The JSON is made by `grammar/sl/data/case-triggers.py` beside it (the table in a compact form, its fixed layout): change
+the script and run it (`python3 companion/grammar/sl/data/case-triggers.py`), never the JSON; `--check` says whether they
+match, and `companion/tests/test_case_triggers.py` runs it, so a table edited by hand fails the Python tests.
 
 **The analysis**: each word's readings come from the forms book (Wiktionary's grammar strings read back into case,
 number and gender; the hand-checked tables; the table's pronouns; the villagers' and the learner's declined names; a
