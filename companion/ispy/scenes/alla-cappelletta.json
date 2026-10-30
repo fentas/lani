@@ -1,0 +1,568 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "alla-cappelletta",
+  "language": "it",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in it, with sl, en and de translations, describing the chapel in Friuli's look (the ancona's ochre walls under coppi, the bell on its iron bracket, the fresco of the Madonna and Child on blue with stars, the red lumini on the step, the maize field); not reviewed by a native speaker",
+  "things": {
+    "chapel": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È gialla.",
+          "sl": "Je rumene barve.",
+          "en": "It's yellow.",
+          "de": "Sie ist gelb.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "giallo"
+        },
+        {
+          "kind": "size",
+          "it": "È piccola.",
+          "sl": "Je majhna.",
+          "en": "It's small.",
+          "de": "Sie ist klein.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "piccolo"
+        },
+        {
+          "kind": "trait",
+          "it": "Ha un arco davanti.",
+          "sl": "Spredaj ima lok.",
+          "en": "It has an arch at the front.",
+          "de": "Sie hat vorne einen Bogen.",
+          "grammar": ["essere-avere"]
+        },
+        {
+          "kind": "where",
+          "it": "È vicino alla strada.",
+          "sl": "Stoji ob cesti.",
+          "en": "It's by the road.",
+          "de": "Sie steht an der Straße.",
+          "grammar": ["dove-preposizioni", "preposizioni-articolate"],
+          "ref": "road"
+        },
+        {
+          "kind": "use",
+          "it": "Dentro ci mettiamo i fiori e i lumini.",
+          "sl": "Vanjo damo rože in lučke.",
+          "en": "We put flowers and little lights in it.",
+          "de": "Hinein stellen wir Blumen und Lichtlein.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "roof": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È rosso scuro.",
+          "sl": "Je temno rdeče barve.",
+          "en": "It's dark red.",
+          "de": "Das ist dunkelrot.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "rosso"
+        },
+        {
+          "kind": "material",
+          "it": "È fatto di coppi, come le case del Friuli.",
+          "sl": "Narejena je iz korcev, kot furlanske hiše.",
+          "en": "It's made of curved tiles, like the houses of Friuli.",
+          "de": "Das ist aus Hohlziegeln, wie die Häuser im Friaul.",
+          "grammar": ["essere-avere"]
+        },
+        {
+          "kind": "where",
+          "it": "È sopra la cappelletta.",
+          "sl": "Je nad kapelico.",
+          "en": "It's over the chapel.",
+          "de": "Das ist über der Kapelle.",
+          "grammar": ["dove-preposizioni"],
+          "ref": "chapel"
+        },
+        {
+          "kind": "use",
+          "it": "Ci ripara dalla pioggia.",
+          "sl": "Varuje nas pred dežjem.",
+          "en": "It keeps the rain off us.",
+          "de": "Das schützt uns vor dem Regen.",
+          "grammar": ["presente-regolare", "preposizioni-articolate"]
+        }
+      ]
+    },
+    "bell": {
+      "clues": [
+        {
+          "kind": "size",
+          "it": "È piccola.",
+          "sl": "Je majhen.",
+          "en": "It's small.",
+          "de": "Das ist klein.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "piccolo"
+        },
+        {
+          "kind": "material",
+          "it": "È di metallo.",
+          "sl": "Je iz kovine.",
+          "en": "It's made of metal.",
+          "de": "Das ist aus Metall.",
+          "grammar": ["essere-avere"]
+        },
+        {
+          "kind": "where",
+          "it": "È appesa a un ferro nero.",
+          "sl": "Visi na črnem železu.",
+          "en": "It hangs from a black iron bar.",
+          "de": "Das hängt an einem schwarzen Eisen.",
+          "grammar": ["essere-avere"]
+        },
+        {
+          "kind": "where",
+          "it": "È sotto il tetto.",
+          "sl": "Je pod streho.",
+          "en": "It's under the roof.",
+          "de": "Das ist unter dem Dach.",
+          "grammar": ["dove-preposizioni"],
+          "ref": "roof"
+        },
+        { "kind": "does", "it": "Fa din din.", "sl": "Dela cin cin.", "en": "It goes ding ding.", "de": "Das macht bim bim.", "grammar": ["verbi-irregolari"]}
+      ]
+    },
+    "altar": {
+      "clues": [
+        { "kind": "material", "it": "È di pietra.", "sl": "Je iz kamna.", "en": "It's made of stone.", "de": "Er ist aus Stein.", "grammar": ["essere-avere"]},
+        {
+          "kind": "where",
+          "it": "È dentro la cappelletta.",
+          "sl": "Je v kapelici.",
+          "en": "It's inside the chapel.",
+          "de": "Er steht in der Kapelle.",
+          "grammar": ["dove-preposizioni"],
+          "ref": "chapel"
+        },
+        {
+          "kind": "trait",
+          "it": "Sopra c'è una tovaglia bianca.",
+          "sl": "Na njem je bel prt.",
+          "en": "There's a white cloth on it.",
+          "de": "Darauf liegt eine weiße Decke.",
+          "grammar": ["ce-ci-sono"]
+        },
+        {
+          "kind": "use",
+          "it": "Ci mettiamo i fiori e la candela.",
+          "sl": "Nanj damo rože in svečo.",
+          "en": "We put the flowers and the candle on it.",
+          "de": "Wir stellen die Blumen und die Kerze darauf.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "cloth": {
+      "name": { "en": "cloth", "de": "Decke", "sl": "prt" },
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È bianca.",
+          "sl": "Je bele barve.",
+          "en": "It's white.",
+          "de": "Sie ist weiß.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "bianco"
+        },
+        {
+          "kind": "trait",
+          "it": "Ha un bordo rosso.",
+          "sl": "Ima rdeč rob.",
+          "en": "It has a red border.",
+          "de": "Sie hat einen roten Rand.",
+          "grammar": ["essere-avere"]
+        },
+        {
+          "kind": "where",
+          "it": "È sull'altare.",
+          "sl": "Je na oltarju.",
+          "en": "It's on the altar.",
+          "de": "Sie liegt auf dem Altar.",
+          "grammar": ["dove-preposizioni", "preposizioni-articolate"],
+          "ref": "altar"
+        },
+        {
+          "kind": "material",
+          "it": "È di merletto.",
+          "sl": "Je iz čipke.",
+          "en": "It's made of lace.",
+          "de": "Sie ist aus Spitze.",
+          "grammar": ["essere-avere"]
+        }
+      ]
+    },
+    "picture": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È blu.",
+          "sl": "Je modre barve.",
+          "en": "It's blue.",
+          "de": "Das ist blau.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "blu"
+        },
+        {
+          "kind": "trait",
+          "it": "Ci sono tante stelle gialle.",
+          "sl": "Na njej je veliko rumenih zvezd.",
+          "en": "There are lots of yellow stars.",
+          "de": "Darauf sind viele gelbe Sterne.",
+          "grammar": ["ce-ci-sono"]
+        },
+        {
+          "kind": "trait",
+          "it": "C'è una mamma con un bambino.",
+          "sl": "Na njej je mama z otrokom.",
+          "en": "There's a mother with a child.",
+          "de": "Darauf ist eine Mutter mit einem Kind.",
+          "grammar": ["ce-ci-sono"]
+        },
+        {
+          "kind": "trait",
+          "it": "Ha una cornice d'oro.",
+          "sl": "Ima zlat okvir.",
+          "en": "It has a gold frame.",
+          "de": "Das hat einen goldenen Rahmen.",
+          "grammar": ["essere-avere"]
+        },
+        {
+          "kind": "where",
+          "it": "È sopra l'altare.",
+          "sl": "Je nad oltarjem.",
+          "en": "It's above the altar.",
+          "de": "Das ist über dem Altar.",
+          "grammar": ["dove-preposizioni"],
+          "ref": "altar"
+        }
+      ]
+    },
+    "candle": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È rosso.",
+          "sl": "Je rdeče barve.",
+          "en": "It's red.",
+          "de": "Das ist rot.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "rosso"
+        },
+        {
+          "kind": "size",
+          "it": "È piccolo.",
+          "sl": "Je majhna.",
+          "en": "It's small.",
+          "de": "Das ist klein.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "piccolo"
+        },
+        { "kind": "material", "it": "È di vetro.", "sl": "Je iz stekla.", "en": "It's made of glass.", "de": "Das ist aus Glas.", "grammar": ["essere-avere"]},
+        {
+          "kind": "where",
+          "it": "È davanti alla grata.",
+          "sl": "Je pred mrežo.",
+          "en": "It's in front of the grille.",
+          "de": "Das steht vor dem Gitter.",
+          "grammar": ["dove-preposizioni", "preposizioni-articolate"],
+          "ref": "grille"
+        },
+        {
+          "kind": "does",
+          "it": "Di sera fa una luce rossa.",
+          "sl": "Zvečer rdeče sveti.",
+          "en": "In the evening it gives a red light.",
+          "de": "Am Abend macht das ein rotes Licht.",
+          "grammar": ["verbi-irregolari"]
+        }
+      ]
+    },
+    "flowers": {
+      "name": { "en": "flower", "de": "Blume", "sl": "roža" },
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È colorato.",
+          "sl": "Je pisane barve.",
+          "en": "It's colourful.",
+          "de": "Das ist bunt.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "colorato"
+        },
+        {
+          "kind": "where",
+          "it": "È sull'altare, in un vaso.",
+          "sl": "Je na oltarju, v vazi.",
+          "en": "It's on the altar, in a vase.",
+          "de": "Das ist auf dem Altar, in einer Vase.",
+          "grammar": ["dove-preposizioni", "preposizioni-articolate"],
+          "ref": "altar"
+        },
+        { "kind": "does", "it": "Ha un buon profumo.", "sl": "Lepo diši.", "en": "It smells nice.", "de": "Das duftet gut.", "grammar": ["essere-avere"]},
+        {
+          "kind": "use",
+          "it": "Lo portiamo alla Madonna.",
+          "sl": "Prinesemo jo Mariji.",
+          "en": "We bring it for Our Lady.",
+          "de": "Das bringen wir der Muttergottes.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "grille": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È nera.",
+          "sl": "Je črne barve.",
+          "en": "It's black.",
+          "de": "Das ist schwarz.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "nero"
+        },
+        { "kind": "material", "it": "È di ferro.", "sl": "Je iz železa.", "en": "It's made of iron.", "de": "Das ist aus Eisen.", "grammar": ["essere-avere"]},
+        {
+          "kind": "trait",
+          "it": "Ha tanti riccioli.",
+          "sl": "Ima veliko zavojčkov.",
+          "en": "It has lots of little curls.",
+          "de": "Das hat viele kleine Schnörkel.",
+          "grammar": ["essere-avere"]
+        },
+        {
+          "kind": "where",
+          "it": "È nell'arco della cappelletta.",
+          "sl": "Je v loku kapelice.",
+          "en": "It's in the chapel's arch.",
+          "de": "Das ist im Bogen der Kapelle.",
+          "grammar": ["preposizioni-articolate"],
+          "ref": "chapel"
+        },
+        {
+          "kind": "use",
+          "it": "Protegge l'altare.",
+          "sl": "Varuje oltar.",
+          "en": "It protects the altar.",
+          "de": "Das schützt den Altar.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "bench": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È marrone.",
+          "sl": "Je rjave barve.",
+          "en": "It's brown.",
+          "de": "Sie ist braun.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "marrone"
+        },
+        { "kind": "material", "it": "È di legno.", "sl": "Je iz lesa.", "en": "It's made of wood.", "de": "Sie ist aus Holz.", "grammar": ["essere-avere"]},
+        {
+          "kind": "where",
+          "it": "È sotto il tiglio.",
+          "sl": "Je pod lipo.",
+          "en": "It's under the linden.",
+          "de": "Sie steht unter der Linde.",
+          "grammar": ["dove-preposizioni"],
+          "ref": "linden"
+        },
+        {
+          "kind": "use",
+          "it": "Ci sediamo sopra.",
+          "sl": "Na njej sedimo.",
+          "en": "We sit on it.",
+          "de": "Wir sitzen darauf.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "linden": {
+      "clues": [
+        { "kind": "size", "it": "È grande.", "sl": "Je velika.", "en": "It's big.", "de": "Das ist groß.", "grammar": ["aggettivi-accordo"], "adj": "grande" },
+        {
+          "kind": "trait",
+          "it": "Ha il tronco marrone.",
+          "sl": "Ima rjavo deblo.",
+          "en": "It has a brown trunk.",
+          "de": "Das hat einen braunen Stamm.",
+          "grammar": ["essere-avere"]
+        },
+        {
+          "kind": "where",
+          "it": "È vicino alla panchina.",
+          "sl": "Je pri klopi.",
+          "en": "It's by the bench.",
+          "de": "Das steht bei der Bank.",
+          "grammar": ["dove-preposizioni", "preposizioni-articolate"],
+          "ref": "bench"
+        },
+        {
+          "kind": "does",
+          "it": "A giugno fa i fiori.",
+          "sl": "Junija cveti.",
+          "en": "In June it flowers.",
+          "de": "Im Juni blüht das.",
+          "grammar": ["verbi-irregolari"]
+        },
+        {
+          "kind": "use",
+          "it": "D'estate ci fa ombra.",
+          "sl": "Poleti nam dela senco.",
+          "en": "In summer it gives us shade.",
+          "de": "Im Sommer gibt das uns Schatten.",
+          "grammar": ["verbi-irregolari"]
+        }
+      ]
+    },
+    "road": {
+      "clues": [
+        {
+          "kind": "material",
+          "it": "È di terra e sassi.",
+          "sl": "Je iz zemlje in kamenja.",
+          "en": "It's made of earth and stones.",
+          "de": "Sie ist aus Erde und Steinen.",
+          "grammar": ["essere-avere"]
+        },
+        { "kind": "trait", "it": "È lunga.", "sl": "Je dolga.", "en": "It's long.", "de": "Sie ist lang.", "grammar": ["aggettivi-accordo"], "adj": "lungo" },
+        {
+          "kind": "trait",
+          "it": "In mezzo c'è l'erba.",
+          "sl": "Na sredini raste trava.",
+          "en": "There's grass down the middle.",
+          "de": "In der Mitte wächst Gras.",
+          "grammar": ["ce-ci-sono"]
+        },
+        {
+          "kind": "where",
+          "it": "Va verso le colline.",
+          "sl": "Pelje proti gričem.",
+          "en": "It goes toward the hills.",
+          "de": "Sie führt zu den Hügeln.",
+          "grammar": ["verbi-irregolari"],
+          "ref": "hills"
+        },
+        {
+          "kind": "use",
+          "it": "Ci camminano i pellegrini.",
+          "sl": "Po njej hodijo romarji.",
+          "en": "Pilgrims walk along it.",
+          "de": "Auf ihr gehen die Pilger.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "field": {
+      "clues": [
+        { "kind": "size", "it": "È grande.", "sl": "Je velika.", "en": "It's big.", "de": "Das ist groß.", "grammar": ["aggettivi-accordo"], "adj": "grande" },
+        {
+          "kind": "trait",
+          "it": "Ci cresce il mais.",
+          "sl": "Na njej raste koruza.",
+          "en": "Maize grows in it.",
+          "de": "Darauf wächst Mais.",
+          "grammar": ["presente-regolare"]
+        },
+        {
+          "kind": "colour",
+          "it": "D'estate è verde.",
+          "sl": "Poleti je zelene barve.",
+          "en": "In summer it is green.",
+          "de": "Im Sommer ist das grün.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "verde"
+        },
+        {
+          "kind": "where",
+          "it": "È a sinistra della strada.",
+          "sl": "Je levo od ceste.",
+          "en": "It's to the left of the road.",
+          "de": "Das ist links von der Straße.",
+          "grammar": ["dove-preposizioni", "preposizioni-articolate"],
+          "ref": "road"
+        }
+      ]
+    },
+    "cross": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È nera.",
+          "sl": "Je črne barve.",
+          "en": "It's black.",
+          "de": "Das ist schwarz.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "nero"
+        },
+        {
+          "kind": "size",
+          "it": "È piccola.",
+          "sl": "Je majhen.",
+          "en": "It's small.",
+          "de": "Das ist klein.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "piccolo"
+        },
+        { "kind": "material", "it": "È di ferro.", "sl": "Je iz železa.", "en": "It's made of iron.", "de": "Das ist aus Eisen.", "grammar": ["essere-avere"]},
+        {
+          "kind": "where",
+          "it": "È in cima alla cappelletta.",
+          "sl": "Je na vrhu kapelice.",
+          "en": "It's on top of the chapel.",
+          "de": "Das ist oben auf der Kapelle.",
+          "grammar": ["dove-preposizioni", "preposizioni-articolate"],
+          "ref": "chapel"
+        }
+      ]
+    },
+    "hills": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È verde.",
+          "sl": "Je zelene barve.",
+          "en": "It's green.",
+          "de": "Das ist grün.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "verde"
+        },
+        {
+          "kind": "where",
+          "it": "È lontana.",
+          "sl": "Je daleč.",
+          "en": "It's far away.",
+          "de": "Das ist weit weg.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "lontano"
+        },
+        {
+          "kind": "trait",
+          "it": "Sopra c'è un paese con il campanile.",
+          "sl": "Na njem je vas z zvonikom.",
+          "en": "There's a village with a bell tower on it.",
+          "de": "Darauf ist ein Dorf mit einem Glockenturm.",
+          "grammar": ["ce-ci-sono"]
+        },
+        {
+          "kind": "where",
+          "it": "È dietro il campo.",
+          "sl": "Je za njivo.",
+          "en": "It's behind the field.",
+          "de": "Das ist hinter dem Feld.",
+          "grammar": ["dove-preposizioni"],
+          "ref": "field"
+        }
+      ]
+    }
+  }
+}
