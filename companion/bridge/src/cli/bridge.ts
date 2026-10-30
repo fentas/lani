@@ -16,7 +16,7 @@ import { dirname, join } from 'node:path'
 import { parseArgs } from 'node:util'
 import { readJson, stateDir, statusFile } from '../control'
 import { laniDir } from '../env'
-import { allProfiles, bridgeEnv, bridgeUp, die, projectDir, q, registryDir, resolveProfile, serviceSocket, serviceTmux, short, tmuxUp, type Resolved } from './common'
+import { allProfiles, bridgeEnv, bridgeUp, die, holdFile, projectDir, q, registryDir, resolveProfile, serviceSocket, serviceTmux, short, tmuxScope, tmuxUp, type Resolved } from './common'
 
 const [cmd, ...args] = process.argv.slice(2)
 const { values } = parseArgs({
@@ -39,7 +39,7 @@ type Status = {
   tools: string[]
 }
 
-type Service = { p: Resolved; tmux: string; socket: string; status: string; log: string; stop: string }
+type Service = { p: Resolved; tmux: string; socket: string; status: string; log: string; stop: string; hold: string }
 
 function serviceOf(p: Resolved): Service {
   const socket = serviceSocket(p)
@@ -50,6 +50,8 @@ function serviceOf(p: Resolved): Service {
     status: statusFile(socket),
     log: join(laniDir(stateDir()), p.isDefault ? 'bridge.log' : `bridge-${p.id}.log`),
     stop: socket.replace(/\.sock$/, '.stop'),
+    // stopped on purpose: companion/bin/lani-watchdog leaves it down for a while
+    hold: holdFile(laniDir(stateDir()), 'bridge', p.isDefault ? 'default' : p.id),
   }
 }
 
@@ -138,9 +140,12 @@ async function start(p: Resolved) {
     console.log(`tmux new-session -d -s ${q(s.tmux)} ${q(command)}`)
     return
   }
+  if (existsSync(s.hold)) unlinkSync(s.hold) // started by hand (or by the watchdog): a stop's hold is over
   if (!tmuxUp(s.tmux)) {
     if (existsSync(s.stop)) unlinkSync(s.stop) // a stop's mark the loop never read
-    const r = spawnSync('tmux', ['new-session', '-d', '-s', s.tmux, command], { encoding: 'utf8' })
+    // a tmux server that doesn't run yet starts in a systemd scope of its own (tmuxScope), not in this terminal's
+    const [bin, ...pre] = [...tmuxScope(), 'tmux']
+    const r = spawnSync(bin, [...pre, 'new-session', '-d', '-s', s.tmux, command], { encoding: 'utf8' })
     if (r.status !== 0) die(`tmux new-session ${s.tmux} failed: ${r.stderr.trim()}`)
     console.log(`started the bridge service of ${p.isDefault ? 'the default learner' : p.id} in tmux ${s.tmux}`)
   }
@@ -205,13 +210,15 @@ async function stop(p: Resolved) {
   if (st?.supervisor === 'systemd') die(`systemd runs it: systemctl --user stop lani-bridge@${p.id}`)
   mkdirSync(dirname(s.stop), { recursive: true, mode: 0o700 })
   writeFileSync(s.stop, `${new Date().toISOString()}\n`) // the loop ends instead of starting it again
+  mkdirSync(dirname(s.hold), { recursive: true, mode: 0o700 })
+  writeFileSync(s.hold, `${new Date().toISOString()}\n`) // the watchdog leaves it down for a while
   if (st) {
     process.kill(st.pid, 'SIGTERM')
     if (!(await until(() => !alive(st.pid) || undefined, 15_000))) process.kill(st.pid, 'SIGKILL')
   }
   if (!(await until(() => !tmuxUp(s.tmux) || undefined, 5_000))) spawnSync('tmux', ['kill-session', '-t', `=${s.tmux}`])
   const queued = statusOf(s)?.queued ?? 0
-  console.log(`${p.isDefault ? 'default' : p.id}: the bridge service is stopped${st ? '' : ' (it was not running)'}.${queued ? ` ${queued} event(s) wait for the tutor: a classic session won't get them.` : ''}`)
+  console.log(`${p.isDefault ? 'default' : p.id}: the bridge service is stopped${st ? '' : ' (it was not running)'}.${queued ? ` ${queued} event(s) wait for the tutor: a classic session won't get them.` : ''} The watchdog leaves it down for ${process.env.LANI_WATCHDOG_HOLD_MIN || 120} minutes (lani-bridge start ends that).`)
 }
 
 const targets = (): Resolved[] => (values.all ? allProfiles() : [resolveProfile(values.profile)])

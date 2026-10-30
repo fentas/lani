@@ -56,3 +56,26 @@ if [ -f "$_f" ] && [ -r "$_f" ]; then
   done < "$_f"
 fi
 unset _f _l _k _v
+
+# lani_state_dir: ~/.local/state/lani ($XDG_STATE_HOME/lani), or …/fluent while only that one exists (as the bridge's
+# laniDir): the bridge services' logs, the watchdog's log and the holds below.
+lani_state_dir() {
+  local base="${XDG_STATE_HOME:-$HOME/.local/state}"
+  if [ ! -e "$base/lani" ] && [ -e "$base/fluent" ]; then printf '%s\n' "$base/fluent"; else printf '%s\n' "$base/lani"; fi
+}
+
+# lani_hold_file KIND ID: the mark a deliberate stop leaves (KIND tutor: lani-session --stop; bridge: lani-bridge stop),
+# so companion/bin/lani-watchdog leaves that one down for a while; a start by hand removes it.
+lani_hold_file() { printf '%s\n' "$(lani_state_dir)/held/$1-$2"; }
+
+# lani_tmux_scope: the command words that put a new tmux server in a systemd scope of its own (systemd-run --user
+# --scope), printed one a line, when no tmux server runs yet and the user's systemd answers; nothing otherwise
+# (LANI_TMUX_SCOPE=0: never). A server started from a terminal lives in the terminal's scope and dies with it (October
+# 2026: both learners' bridges and tutors went down with a terminal); in a scope of its own it outlives it.
+lani_tmux_scope() {
+  [ "${LANI_TMUX_SCOPE:-1}" = 0 ] && return 0
+  tmux list-sessions >/dev/null 2>&1 && return 0
+  command -v systemd-run >/dev/null 2>&1 || return 0
+  case "$(systemctl --user is-system-running 2>/dev/null)" in running|degraded|starting) ;; *) return 0 ;; esac
+  printf '%s\n' systemd-run --user --scope --quiet --collect "--unit=lani-tmux-$(date +%s)-$$" --
+}

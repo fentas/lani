@@ -1,0 +1,13 @@
+# companion/bin/lani-watchdog --install writes this into ~/.config/systemd/user/ and enables it (companion/README.md,
+# "The watchdog"). Without linger (`loginctl enable-linger`, Jan's decision) user timers run only while Jan is logged in.
+[Unit]
+Description=Run the Lani watchdog every 3 minutes
+
+[Timer]
+OnBootSec=2min
+# 3 minutes after the last round ended: rounds never overlap
+OnUnitInactiveSec=3min
+AccuracySec=20s
+
+[Install]
+WantedBy=timers.target

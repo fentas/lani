@@ -145,6 +145,22 @@ export function tmuxUp(name: string): boolean {
   return spawnSync('tmux', ['has-session', '-t', `=${name}`], { stdio: 'ignore' }).status === 0
 }
 
+/**
+ * The command words that put a new tmux server in a systemd scope of its own (`systemd-run --user --scope`), as
+ * companion/bin/lani-env.sh's lani_tmux_scope: when no tmux server runs yet and the user's systemd answers; [] otherwise
+ * (LANI_TMUX_SCOPE=0: never). A server started from a terminal lives in the terminal's scope and dies with it.
+ */
+export function tmuxScope(env = process.env): string[] {
+  if (env.LANI_TMUX_SCOPE === '0') return []
+  if (spawnSync('tmux', ['list-sessions'], { stdio: 'ignore' }).status === 0) return []
+  const sd = spawnSync('systemctl', ['--user', 'is-system-running'], { encoding: 'utf8' })
+  if (sd.error || !['running', 'degraded', 'starting'].includes((sd.stdout ?? '').trim())) return []
+  return ['systemd-run', '--user', '--scope', '--quiet', '--collect', `--unit=lani-tmux-${Math.floor(Date.now() / 1000)}-${process.pid}`, '--']
+}
+
+/** The mark a deliberate stop leaves for companion/bin/lani-watchdog ([kind] bridge: lani-bridge stop; tutor: lani-session --stop). */
+export const holdFile = (stateBase: string, kind: 'bridge' | 'tutor', id: string) => join(stateBase, 'held', `${kind}-${id}`)
+
 export function die(msg: string): never {
   console.error(msg)
   process.exit(1)

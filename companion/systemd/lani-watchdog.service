@@ -1,0 +1,17 @@
+# companion/bin/lani-watchdog --install writes this into ~/.config/systemd/user/ with @REPO@, @PATH@ and @LANG@ filled in
+# (the checkout, the installer's PATH with bun, tmux and claude, its locale), and starts lani-watchdog.timer, which runs
+# it every 3 minutes. Don't copy it by hand. companion/README.md, "The watchdog".
+[Unit]
+Description=Lani watchdog: start a learner's bridge service or tutor session that is down
+
+[Service]
+Type=oneshot
+WorkingDirectory=@REPO@
+Environment=PATH=@PATH@
+Environment=LANG=@LANG@
+ExecStart=/usr/bin/env python3 @REPO@/companion/bin/lani-watchdog
+# a tutor's start confirms its channel's prompt and waits for it to attach: a few minutes at most
+TimeoutStartSec=15min
+# What a round starts outlives it: a tmux server that isn't running starts in a systemd scope of its own
+# (companion/bin/lani-env.sh lani_tmux_scope), and new sessions join a running server, which lives elsewhere.
+Nice=5

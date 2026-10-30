@@ -1,0 +1,467 @@
+#!/usr/bin/env python3
+"""Keeps each learner's bridge service and tutor session up (companion/README.md, "The watchdog").
+
+Usage: companion/bin/lani-watchdog                one round: every learner checked, what is down started
+       companion/bin/lani-watchdog --dry-run      what a round would do; nothing started, nothing written
+       companion/bin/lani-watchdog --status       the timer, a pause, the holds, the log's last lines
+       companion/bin/lani-watchdog --install      the systemd user timer that runs a round every 3 minutes (idempotent)
+       companion/bin/lani-watchdog --uninstall    the timer and its units gone
+       companion/bin/lani-watchdog --pause [MIN]  start nothing for MIN minutes (without MIN: until --resume)
+       companion/bin/lani-watchdog --resume
+
+A round, for each learner (lani-profile list --ids):
+- the bridge service is down (for a learner whose tutor uses one: lani-session's service mode): lani-bridge start;
+- the tutor's tmux session is gone; or it is there, older than 10 minutes (LANI_WATCHDOG_GRACE_MIN), and the tutor
+  hasn't been attached to the bridge service for 6 rounds' worth of minutes (LANI_WATCHDOG_DETACHED_MIN): lani-session
+  --restart --profile <id> --now (it quits a stale session, starts it detached and confirms the channel's prompt).
+It starts nothing:
+- while less than 4 GB of memory are available (LANI_WATCHDOG_MIN_GB): the log says what waits;
+- for 120 minutes (LANI_WATCHDOG_HOLD_MIN) after a stop on purpose: `lani-session --stop` holds the tutor down,
+  `lani-bridge stop` the bridge and its tutor; `lani-session` or `lani-bridge start` by hand ends the hold;
+- while paused (--pause).
+Each start, and each change of what a learner waits for, goes to ~/.local/state/lani/watchdog.log (1 MB, one old file
+kept) and to stdout (the journal under systemd). One round at a time (a lock). A tmux server that doesn't run any more
+starts in a systemd scope of its own (companion/bin/lani-env.sh lani_tmux_scope), so it outlives the round and any
+terminal.
+
+Linger is Jan's decision: without it (`loginctl enable-linger` turns it on) the user timer runs only while Jan is logged in.
+
+Env (tests): LANI_WATCHDOG_BIN the directory of lani-bridge, lani-session and lani-profile; LANI_WATCHDOG_MEMINFO;
+LANI_WATCHDOG_UNIT_DIR, LANI_WATCHDOG_SYSTEMCTL, LANI_WATCHDOG_LOGINCTL for --install; XDG_STATE_HOME.
+"""
+from __future__ import annotations
+
+import dataclasses
+import fcntl
+import json
+import os
+import shutil
+import subprocess
+import sys
+import time
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+
+
+def env_min(name: str, default: float) -> float:
+    try:
+        return float(os.environ.get(name) or default)
+    except ValueError:
+        return default
+
+
+@dataclasses.dataclass(frozen=True)
+class Config:
+    min_gb: float = 4.0
+    hold_s: float = 120 * 60
+    grace_s: float = 10 * 60
+    detached_s: float = 6 * 60
+
+    @staticmethod
+    def from_env() -> "Config":
+        return Config(
+            min_gb=env_min("LANI_WATCHDOG_MIN_GB", 4),
+            hold_s=env_min("LANI_WATCHDOG_HOLD_MIN", 120) * 60,
+            grace_s=env_min("LANI_WATCHDOG_GRACE_MIN", 10) * 60,
+            detached_s=env_min("LANI_WATCHDOG_DETACHED_MIN", 6) * 60,
+        )
+
+
+# --- where things are -------------------------------------------------------------------------------------------------
+
+def state_dir() -> Path:
+    """~/.local/state/lani ($XDG_STATE_HOME/lani), or …/fluent while only that one exists (lani-env.sh lani_state_dir)."""
+    base = Path(os.environ.get("XDG_STATE_HOME") or Path.home() / ".local/state")
+    return base / "fluent" if not (base / "lani").exists() and (base / "fluent").exists() else base / "lani"
+
+
+def bin_dir() -> Path:
+    return Path(os.environ.get("LANI_WATCHDOG_BIN") or ROOT / "companion/bin")
+
+
+def hold_file(kind: str, learner: str) -> Path:
+    """A stop on purpose's mark (lani-env.sh lani_hold_file, cli/common.ts holdFile)."""
+    return state_dir() / "held" / f"{kind}-{learner}"
+
+
+def tmux_name(learner: str) -> str:
+    return "lani" if learner == "default" else f"lani-{learner}"
+
+
+def profile_args(learner: str) -> list[str]:
+    return [] if learner == "default" else ["--profile", learner]
+
+
+# --- what is up -------------------------------------------------------------------------------------------------------
+
+@dataclasses.dataclass(frozen=True)
+class Seen:
+    """One learner as a round finds it."""
+    learner: str
+    mode: str  # "service": the tutor reaches a bridge service; "classic": the bridge runs inside the tutor's session
+    bridge_up: bool
+    attached: bool  # the tutor is attached to the bridge service
+    session: bool  # the tutor's tmux session exists
+    session_age: float  # seconds since that session was made (0 without one)
+    held_bridge: float | None  # how long ago the bridge was stopped on purpose (s), None: it wasn't
+    held_tutor: float | None
+
+
+@dataclasses.dataclass(frozen=True)
+class Action:
+    kind: str  # "bridge" | "tutor"
+    why: str
+
+
+def run(cmd: list[str], timeout: float = 60) -> subprocess.CompletedProcess:
+    try:
+        return subprocess.run(cmd, capture_output=True, text=True, timeout=timeout, cwd=ROOT)
+    except subprocess.TimeoutExpired as e:
+        return subprocess.CompletedProcess(cmd, 124, e.stdout or "", (e.stderr or "") + f"\n(timed out after {timeout:.0f} s)")
+    except OSError as e:
+        return subprocess.CompletedProcess(cmd, 127, "", str(e))
+
+
+def learners() -> list[str]:
+    r = run([str(bin_dir() / "lani-profile"), "list", "--ids"])
+    if r.returncode != 0:
+        raise RuntimeError(f"lani-profile list --ids failed: {last_line(r)}")
+    return [l.strip() for l in r.stdout.splitlines() if l.strip()]
+
+
+def sessions() -> dict[str, float]:
+    """The tmux sessions by name, with when each was made (epoch s); {} when no tmux server runs."""
+    r = run(["tmux", "list-sessions", "-F", "#{session_name} #{session_created}"], timeout=15)
+    out = {}
+    if r.returncode == 0:
+        for line in r.stdout.splitlines():
+            name, _, created = line.rpartition(" ")
+            if name and created.isdigit():
+                out[name] = float(created)
+    return out
+
+
+def age(path: Path, now: float) -> float | None:
+    try:
+        return max(0.0, now - path.stat().st_mtime)
+    except OSError:
+        return None
+
+
+def observe(learner: str, tmux: dict[str, float], now: float) -> Seen:
+    b = str(bin_dir() / "lani-bridge")
+    # the mode as lani-session decides it (its --print shows the service's start in the service mode)
+    printed = run([str(bin_dir() / "lani-session"), "--print", *profile_args(learner)])
+    mode = "service" if "lani-bridge start" in printed.stdout else "classic"
+    up = run([b, "status", "--quiet", *profile_args(learner)]).returncode == 0
+    attached = up and "the tutor is attached" in run([b, "status", *profile_args(learner)]).stdout
+    created = tmux.get(tmux_name(learner))
+    return Seen(
+        learner=learner, mode=mode, bridge_up=up, attached=attached, session=created is not None,
+        session_age=max(0.0, now - created) if created is not None else 0.0,
+        held_bridge=age(hold_file("bridge", learner), now), held_tutor=age(hold_file("tutor", learner), now),
+    )
+
+
+def available_gb() -> float:
+    try:
+        with open(os.environ.get("LANI_WATCHDOG_MEMINFO", "/proc/meminfo")) as f:
+            for line in f:
+                if line.startswith("MemAvailable:"):
+                    return int(line.split()[1]) / 1048576
+    except OSError:
+        pass
+    return 0.0
+
+
+# --- the decision (pure: tests/test_watchdog.py) ----------------------------------------------------------------------
+
+def minutes(s: float) -> str:
+    return f"{s / 60:.0f} min"
+
+
+def clock(t: float) -> str:
+    """[t] as the time of day: a note keeps its words from round to round (it is logged only when it changes)."""
+    return time.strftime("%H:%M", time.localtime(t))
+
+
+def decide(seen: Seen, prev: dict, now: float, cfg: Config, gb: float, paused: str | None = None) -> tuple[list[Action], str, dict]:
+    """What to start for [seen] ([prev]: this learner's state from the last round), a note of what waits (""), and the
+    learner's state for the next round."""
+    actions: list[Action] = []
+    notes: list[str] = []
+    state: dict = {}
+    held_bridge = seen.held_bridge is not None and seen.held_bridge < cfg.hold_s
+    held_tutor = seen.held_tutor is not None and seen.held_tutor < cfg.hold_s
+    if seen.mode == "service" and not seen.bridge_up:
+        if held_bridge:
+            notes.append(f"the bridge service was stopped on purpose at {clock(now - seen.held_bridge)}: left down (lani-bridge start ends that)")
+        else:
+            actions.append(Action("bridge", "the bridge service is down"))
+    if held_tutor:
+        notes.append(f"the tutor was stopped on purpose at {clock(now - seen.held_tutor)}: left down (lani-session ends that)")
+    elif held_bridge and seen.mode == "service":
+        if not seen.session:
+            notes.append("the tutor waits for its bridge service, which was stopped on purpose")
+    elif not seen.session:
+        actions.append(Action("tutor", "its tmux session is gone"))
+    elif seen.mode == "service" and seen.bridge_up and not seen.attached:
+        since = float(prev.get("detached_since") or now)
+        state["detached_since"] = since
+        if seen.session_age < cfg.grace_s:
+            notes.append(f"the tutor isn't attached yet: its session started at {clock(now - seen.session_age)}")
+        elif now - since < cfg.detached_s:
+            notes.append(f"the tutor isn't attached since {clock(since)}: restarted if it still isn't at {clock(since + cfg.detached_s)}")
+        else:
+            actions.append(Action("tutor", f"its session runs but the tutor hasn't been attached for {minutes(now - since)}"))
+    if actions and paused:
+        notes.append(f"paused ({paused}): not started: {'; '.join(a.why for a in actions)}")
+        actions = []
+    if actions and gb < cfg.min_gb:
+        notes.append(f"only {gb:.1f} GB available (needs {cfg.min_gb:.0f}): not started: {'; '.join(a.why for a in actions)}")
+        actions = []
+    return actions, "; ".join(notes), state
+
+
+# --- a round ----------------------------------------------------------------------------------------------------------
+
+def log_line(line: str):
+    """[line] to the log (and stdout): rotated at 1 MB."""
+    print(line, flush=True)
+    log = state_dir() / "watchdog.log"
+    log.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        if log.stat().st_size > 1 << 20:
+            log.replace(log.with_suffix(".log.1"))
+    except OSError:
+        pass
+    with open(log, "a") as f:
+        f.write(line + "\n")
+
+
+def stamp(now: float) -> str:
+    return time.strftime("%Y-%m-%dT%H:%M:%S%z", time.localtime(now))
+
+
+def last_line(r: subprocess.CompletedProcess) -> str:
+    lines = [l for l in (r.stderr + "\n" + r.stdout).splitlines() if l.strip()]
+    return lines[-1].strip()[:300] if lines else f"exit {r.returncode}"
+
+
+def act(learner: str, a: Action) -> tuple[bool, str]:
+    """[a] done: whether it worked, and what it said."""
+    if a.kind == "bridge":
+        cmd = [str(bin_dir() / "lani-bridge"), "start", *profile_args(learner)]
+        r = run(cmd, timeout=120)
+    else:
+        cmd = [str(bin_dir() / "lani-session"), "--restart", "--profile", learner, "--now"]
+        r = run(cmd, timeout=300)
+    shown = " ".join(["lani-bridge" if a.kind == "bridge" else "lani-session", *cmd[1:]])
+    return r.returncode == 0, f"{shown}: {'ok' if r.returncode == 0 else f'failed ({r.returncode})'}: {last_line(r)}"
+
+
+def paused_now(now: float) -> str | None:
+    """Why rounds start nothing now (--pause), or None."""
+    p = state_dir() / "watchdog.pause"
+    try:
+        until = float(p.read_text().strip() or 0)
+    except (OSError, ValueError):
+        return None
+    if until and until <= now:
+        p.unlink(missing_ok=True)
+        return None
+    return f"until {time.strftime('%H:%M', time.localtime(until))}" if until else "until lani-watchdog --resume"
+
+
+def round_(dry: bool = False) -> int:
+    cfg = Config.from_env()
+    sd = state_dir()
+    sd.mkdir(parents=True, exist_ok=True)
+    lock = open(sd / "watchdog.lock", "w")
+    try:
+        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except OSError:
+        print("lani-watchdog: a round is under way already")
+        return 0
+    state_path = sd / "watchdog.json"
+    try:
+        state = json.loads(state_path.read_text())
+    except (OSError, ValueError):
+        state = {}
+    now = time.time()
+    try:
+        ids = learners()
+    except RuntimeError as e:
+        if not dry:
+            log_line(f"{stamp(now)} {e}")
+        else:
+            print(e)
+        return 1
+    tmux = sessions()
+    paused = paused_now(now)
+    failed = 0
+    new_state = {}
+    for learner in ids:
+        seen = observe(learner, tmux, now)
+        prev = state.get(learner, {})
+        actions, note, s = decide(seen, prev, now, cfg, available_gb(), paused)
+        if dry:
+            print(f"{learner}: {seen.mode} mode, bridge {'up' if seen.bridge_up else 'down'}, tutor "
+                  f"{'attached' if seen.attached else 'not attached'}, session {'there' if seen.session else 'gone'}"
+                  + "".join(f"\n  would start: {a.why}" for a in actions) + (f"\n  waits: {note}" if note else ""))
+            continue
+        if note and note != prev.get("note"):
+            log_line(f"{stamp(now)} {learner}: {note}")
+        if not note and prev.get("note") and not actions:
+            log_line(f"{stamp(now)} {learner}: all up again")
+        for a in actions:
+            # memory again before each start: the one before may have taken it
+            if (gb := available_gb()) < cfg.min_gb:
+                log_line(f"{stamp(time.time())} {learner}: only {gb:.1f} GB available (needs {cfg.min_gb:.0f}): not started: {a.why}")
+                note = note or f"low memory: {a.why}"
+                continue
+            ok, said = act(learner, a)
+            log_line(f"{stamp(time.time())} {learner}: {a.why}: {said}")
+            failed += not ok
+            if a.kind == "tutor":
+                s.pop("detached_since", None)
+        if note:
+            s["note"] = note
+        new_state[learner] = s
+    if not dry:
+        tmp = state_path.with_suffix(".tmp")
+        tmp.write_text(json.dumps(new_state, indent=2) + "\n")
+        tmp.replace(state_path)
+    return 1 if failed else 0
+
+
+# --- the timer --------------------------------------------------------------------------------------------------------
+
+UNITS = ("lani-watchdog.service", "lani-watchdog.timer")
+
+
+def unit_dir() -> Path:
+    if os.environ.get("LANI_WATCHDOG_UNIT_DIR"):
+        return Path(os.environ["LANI_WATCHDOG_UNIT_DIR"])
+    return Path(os.environ.get("XDG_CONFIG_HOME") or Path.home() / ".config") / "systemd/user"
+
+
+def systemctl(*args: str) -> subprocess.CompletedProcess:
+    return run([*(os.environ.get("LANI_WATCHDOG_SYSTEMCTL") or "systemctl").split(), "--user", *args], timeout=60)
+
+
+def service_path() -> str:
+    """The PATH the units run with: this one, with the directories of bun, tmux and claude first (systemd's own is bare)."""
+    have = [p for p in os.environ.get("PATH", "").split(":") if p]
+    first = [str(Path(w).parent) for w in (shutil.which(t) for t in ("bun", "tmux", "claude", "python3")) if w]
+    return ":".join(dict.fromkeys([*first, *have, "/usr/local/bin", "/usr/bin", "/bin"]))
+
+
+def rendered(name: str) -> str:
+    text = (ROOT / "companion/systemd" / name).read_text()
+    lang = os.environ.get("LANG") or "C.UTF-8"
+    return text.replace("@REPO@", str(ROOT)).replace("@PATH@", service_path()).replace("@LANG@", lang)
+
+
+def linger_note() -> str:
+    r = run([*(os.environ.get("LANI_WATCHDOG_LOGINCTL") or "loginctl").split(), "show-user", os.environ.get("USER", ""), "-p", "Linger", "--value"], timeout=15)
+    if r.stdout.strip() == "yes":
+        return "linger is on: the timer runs after a logout too"
+    return ("linger is off: the timer runs only while you are logged in; `loginctl enable-linger` keeps it (and what it "
+            "starts) running after a logout")
+
+
+def install() -> int:
+    d = unit_dir()
+    d.mkdir(parents=True, exist_ok=True)
+    changed = []
+    for name in UNITS:
+        text = rendered(name)
+        target = d / name
+        if not target.exists() or target.read_text() != text:
+            target.write_text(text)
+            changed.append(name)
+    if changed:
+        r = systemctl("daemon-reload")
+        if r.returncode != 0:
+            print(f"lani-watchdog: systemctl --user daemon-reload failed: {last_line(r)}", file=sys.stderr)
+            return 1
+    r = systemctl("enable", "--now", "lani-watchdog.timer")
+    if r.returncode != 0:
+        print(f"lani-watchdog: systemctl --user enable --now lani-watchdog.timer failed: {last_line(r)}", file=sys.stderr)
+        return 1
+    print(f"lani-watchdog: {'wrote ' + ', '.join(changed) if changed else 'the units were up to date'} in {d}; the timer is "
+          f"on (a round every 3 minutes; the log: {state_dir() / 'watchdog.log'})")
+    print(f"lani-watchdog: {linger_note()}")
+    return 0
+
+
+def uninstall() -> int:
+    systemctl("disable", "--now", "lani-watchdog.timer")
+    gone = []
+    for name in UNITS:
+        p = unit_dir() / name
+        if p.exists():
+            p.unlink()
+            gone.append(name)
+    systemctl("daemon-reload")
+    print(f"lani-watchdog: {'removed ' + ', '.join(gone) if gone else 'nothing was installed'}")
+    return 0
+
+
+def status() -> int:
+    now = time.time()
+    r = systemctl("is-active", "lani-watchdog.timer")
+    print(f"timer: {r.stdout.strip() or 'not installed'} ({linger_note()})")
+    p = paused_now(now)
+    print(f"paused: {p}" if p else "paused: no")
+    held = sorted((state_dir() / "held").glob("*")) if (state_dir() / "held").is_dir() else []
+    hold_s = Config.from_env().hold_s
+    for h in held:
+        a = age(h, now) or 0
+        print(f"held: {h.name} since {minutes(a)} ago" + (" (expired: no longer held)" if a >= hold_s else ""))
+    log = state_dir() / "watchdog.log"
+    if log.exists():
+        print(f"log: {log}")
+        for line in log.read_text().splitlines()[-10:]:
+            print(f"  {line}")
+    return 0
+
+
+def pause(args: list[str]) -> int:
+    i = args.index("--pause")
+    mins = args[i + 1] if i + 1 < len(args) and not args[i + 1].startswith("-") else None
+    until = time.time() + float(mins) * 60 if mins else 0
+    p = state_dir() / "watchdog.pause"
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(f"{until:.0f}\n")
+    log_line(f"{stamp(time.time())} paused {f'for {mins} min' if mins else 'until --resume'}")
+    return 0
+
+
+def main(args: list[str]) -> int:
+    if "-h" in args or "--help" in args:
+        print(__doc__)
+        return 0
+    if "--install" in args:
+        return install()
+    if "--uninstall" in args:
+        return uninstall()
+    if "--status" in args:
+        return status()
+    if "--pause" in args:
+        return pause(args)
+    if "--resume" in args:
+        (state_dir() / "watchdog.pause").unlink(missing_ok=True)
+        log_line(f"{stamp(time.time())} resumed")
+        return 0
+    unknown = [a for a in args if a != "--dry-run"]
+    if unknown:
+        print(f"lani-watchdog: unknown argument {unknown[0]} (--help)", file=sys.stderr)
+        return 2
+    return round_(dry="--dry-run" in args)
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))
