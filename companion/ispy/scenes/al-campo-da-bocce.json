@@ -1,0 +1,575 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "al-campo-da-bocce",
+  "language": "it",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in it, with sl, en and de translations, from the bocce court's painter in Friuli's look (the osteria in ochre with the frasca, the grey metal balls, the light wooden jack, the yellow rule on the far end's board, the dark slate scoreboard behind the court, the lantern on its post); not reviewed by a native speaker",
+  "things": {
+    "court": {
+      "clues": [
+        {
+          "kind": "size",
+          "it": "È lungo e stretto.",
+          "sl": "Je dolgo in ozko.",
+          "en": "It's long and narrow.",
+          "de": "Das ist lang und schmal.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "lungo"
+        },
+        {
+          "kind": "trait",
+          "it": "È piatto, come un tavolo.",
+          "sl": "Je ravno kot miza.",
+          "en": "It's flat, like a table.",
+          "de": "Das ist flach wie ein Tisch.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "piatto"
+        },
+        {
+          "kind": "compare",
+          "it": "È più lungo della panchina.",
+          "sl": "Je daljše od klopi.",
+          "en": "It's longer than the bench.",
+          "de": "Das ist länger als die Bank.",
+          "grammar": ["aggettivi-accordo", "preposizioni-articolate"],
+          "adj": "lungo"
+        },
+        {
+          "kind": "use",
+          "it": "Ci giocano i nonni e i bambini.",
+          "sl": "Na njem se igrajo dedki in otroci.",
+          "en": "Grandpas and children play on it.",
+          "de": "Darauf spielen Opas und Kinder.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "board": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È marrone.",
+          "sl": "Je rjave barve.",
+          "en": "It's brown.",
+          "de": "Sie ist braun.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "marrone"
+        },
+        { "kind": "material", "it": "È di legno.", "sl": "Je iz lesa.", "en": "It's made of wood.", "de": "Sie ist aus Holz.", "grammar": ["essere-avere"]},
+        {
+          "kind": "trait",
+          "it": "È lunga e bassa.",
+          "sl": "Je dolga in nizka.",
+          "en": "It's long and low.",
+          "de": "Sie ist lang und niedrig.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "lungo"
+        },
+        {
+          "kind": "use",
+          "it": "Tiene la sabbia dentro il campo.",
+          "sl": "Drži pesek v igrišču.",
+          "en": "It keeps the sand inside the court.",
+          "de": "Sie hält den Sand in der Bahn.",
+          "grammar": ["verbi-irregolari"]
+        }
+      ]
+    },
+    "sand": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È chiara.",
+          "sl": "Je svetle barve.",
+          "en": "It's pale.",
+          "de": "Das ist hell.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "chiaro"
+        },
+        {
+          "kind": "trait",
+          "it": "È fine e liscia.",
+          "sl": "Je fin in gladek.",
+          "en": "It's fine and smooth.",
+          "de": "Das ist fein und glatt.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "liscio"
+        },
+        {
+          "kind": "where",
+          "it": "È nel campo da bocce.",
+          "sl": "Je na balinišču.",
+          "en": "It's on the bocce court.",
+          "de": "Das ist auf der Bocciabahn.",
+          "grammar": ["preposizioni-articolate"],
+          "ref": "court"
+        },
+        {
+          "kind": "does",
+          "it": "Le bocce ci rotolano sopra.",
+          "sl": "Krogle se kotalijo po njem.",
+          "en": "The balls roll over it.",
+          "de": "Die Kugeln rollen darüber.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "jack": {
+      "clues": [
+        {
+          "kind": "size",
+          "it": "È piccolo.",
+          "sl": "Je majhen.",
+          "en": "It's small.",
+          "de": "Das ist klein.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "piccolo"
+        },
+        {
+          "kind": "trait",
+          "it": "È rotondo.",
+          "sl": "Je okrogel.",
+          "en": "It's round.",
+          "de": "Das ist rund.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "rotondo"
+        },
+        {
+          "kind": "material",
+          "it": "È di legno chiaro.",
+          "sl": "Je iz svetlega lesa.",
+          "en": "It's made of light wood.",
+          "de": "Das ist aus hellem Holz.",
+          "grammar": ["essere-avere"]
+        },
+        {
+          "kind": "compare",
+          "it": "È più piccolo di una boccia.",
+          "sl": "Je manjši od krogle.",
+          "en": "It's smaller than a bocce ball.",
+          "de": "Das ist kleiner als eine Kugel.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "piccolo"
+        },
+        {
+          "kind": "use",
+          "it": "Lo tiriamo per primo.",
+          "sl": "Vržemo ga prvega.",
+          "en": "We throw it first.",
+          "de": "Das werfen wir zuerst.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "ball": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È grigia.",
+          "sl": "Je sive barve.",
+          "en": "It's grey.",
+          "de": "Sie ist grau.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "grigio"
+        },
+        {
+          "kind": "trait",
+          "it": "È rotonda e pesante.",
+          "sl": "Je okrogla in težka.",
+          "en": "It's round and heavy.",
+          "de": "Sie ist rund und schwer.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "rotondo"
+        },
+        {
+          "kind": "material",
+          "it": "È di metallo.",
+          "sl": "Je iz kovine.",
+          "en": "It's made of metal.",
+          "de": "Sie ist aus Metall.",
+          "grammar": ["essere-avere"]
+        },
+        {
+          "kind": "where",
+          "it": "È sulla sabbia.",
+          "sl": "Leži na pesku.",
+          "en": "It's lying on the sand.",
+          "de": "Sie liegt auf dem Sand.",
+          "grammar": ["preposizioni-articolate"],
+          "ref": "sand"
+        },
+        {
+          "kind": "use",
+          "it": "La tiriamo verso il pallino.",
+          "sl": "Mečemo jo proti bulinu.",
+          "en": "We throw it towards the jack.",
+          "de": "Wir werfen sie zur Zielkugel.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "linden": {
+      "clues": [
+        {
+          "kind": "size",
+          "it": "È grande e alto.",
+          "sl": "Je veliko in visoko.",
+          "en": "It's big and tall.",
+          "de": "Das ist groß und hoch.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "alto"
+        },
+        {
+          "kind": "colour",
+          "it": "D'estate è verde.",
+          "sl": "Poleti je zelene barve.",
+          "en": "In summer it's green.",
+          "de": "Im Sommer ist das grün.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "verde"
+        },
+        {
+          "kind": "where",
+          "it": "È in fondo al campo.",
+          "sl": "Je na koncu igrišča.",
+          "en": "It's at the far end of the court.",
+          "de": "Das ist am hinteren Ende der Bahn.",
+          "grammar": ["dove-preposizioni", "preposizioni-articolate"],
+          "ref": "court"
+        },
+        {
+          "kind": "does",
+          "it": "A giugno fa i fiori e profuma.",
+          "sl": "Junija cveti in diši.",
+          "en": "In June it flowers and smells sweet.",
+          "de": "Im Juni blüht das und duftet.",
+          "grammar": ["verbi-irregolari", "ore-giorni"]
+        },
+        {
+          "kind": "does",
+          "it": "Fa tanta ombra.",
+          "sl": "Dela veliko sence.",
+          "en": "It gives lots of shade.",
+          "de": "Das macht viel Schatten.",
+          "grammar": ["verbi-irregolari"]
+        }
+      ]
+    },
+    "bench": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È marrone.",
+          "sl": "Je rjave barve.",
+          "en": "It's brown.",
+          "de": "Sie ist braun.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "marrone"
+        },
+        { "kind": "material", "it": "È di legno.", "sl": "Je iz lesa.", "en": "It's made of wood.", "de": "Sie ist aus Holz.", "grammar": ["essere-avere"]},
+        { "kind": "trait", "it": "È lunga.", "sl": "Je dolga.", "en": "It's long.", "de": "Sie ist lang.", "grammar": ["aggettivi-accordo"], "adj": "lungo" },
+        {
+          "kind": "where",
+          "it": "È davanti al campo.",
+          "sl": "Je pred igriščem.",
+          "en": "It's in front of the court.",
+          "de": "Sie steht vor der Bahn.",
+          "grammar": ["dove-preposizioni", "preposizioni-articolate"],
+          "ref": "court"
+        },
+        {
+          "kind": "use",
+          "it": "Ci sediamo a guardare la partita.",
+          "sl": "Na njej sedimo in gledamo igro.",
+          "en": "We sit on it to watch the game.",
+          "de": "Wir sitzen darauf und schauen dem Spiel zu.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "table": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È marrone.",
+          "sl": "Je rjave barve.",
+          "en": "It's brown.",
+          "de": "Er ist braun.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "marrone"
+        },
+        { "kind": "material", "it": "È di legno.", "sl": "Je iz lesa.", "en": "It's made of wood.", "de": "Er ist aus Holz.", "grammar": ["essere-avere"]},
+        {
+          "kind": "where",
+          "it": "È sotto il pergolato.",
+          "sl": "Stoji pod brajdo.",
+          "en": "It's under the pergola.",
+          "de": "Er steht unter der Pergola.",
+          "grammar": ["dove-preposizioni"],
+          "ref": "pergola"
+        },
+        {
+          "kind": "use",
+          "it": "Ci appoggiamo la brocca e i bicchieri.",
+          "sl": "Nanjo postavimo vrč in kozarce.",
+          "en": "We put the jug and the glasses on it.",
+          "de": "Wir stellen den Krug und die Gläser darauf.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "jug": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È arancione.",
+          "sl": "Je oranžne barve.",
+          "en": "It's orange.",
+          "de": "Das ist orange.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "arancione"
+        },
+        {
+          "kind": "material",
+          "it": "È di terracotta.",
+          "sl": "Je iz žgane gline.",
+          "en": "It's made of terracotta.",
+          "de": "Das ist aus Terrakotta.",
+          "grammar": ["essere-avere"]
+        },
+        { "kind": "trait", "it": "Ha un manico.", "sl": "Ima ročaj.", "en": "It has a handle.", "de": "Das hat einen Henkel.", "grammar": ["essere-avere"]},
+        {
+          "kind": "where",
+          "it": "È sul tavolo.",
+          "sl": "Stoji na mizi.",
+          "en": "It's on the table.",
+          "de": "Das steht auf dem Tisch.",
+          "grammar": ["preposizioni-articolate"],
+          "ref": "table"
+        },
+        {
+          "kind": "use",
+          "it": "Dentro c'è da bere.",
+          "sl": "V njem je pijača.",
+          "en": "There's something to drink in it.",
+          "de": "Darin ist etwas zu trinken.",
+          "grammar": ["ce-ci-sono"]
+        }
+      ]
+    },
+    "glass": {
+      "clues": [
+        {
+          "kind": "size",
+          "it": "È piccolo.",
+          "sl": "Je majhen.",
+          "en": "It's small.",
+          "de": "Es ist klein.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "piccolo"
+        },
+        {
+          "kind": "trait",
+          "it": "È trasparente.",
+          "sl": "Je prozoren.",
+          "en": "You can see through it.",
+          "de": "Es ist durchsichtig.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "trasparente"
+        },
+        {
+          "kind": "where",
+          "it": "È sul tavolo.",
+          "sl": "Stoji na mizi.",
+          "en": "It's on the table.",
+          "de": "Es steht auf dem Tisch.",
+          "grammar": ["preposizioni-articolate"],
+          "ref": "table"
+        },
+        {
+          "kind": "use",
+          "it": "Lo usiamo per bere.",
+          "sl": "Iz njega pijemo.",
+          "en": "We drink from it.",
+          "de": "Daraus trinken wir.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "scoreboard": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È nera.",
+          "sl": "Je črne barve.",
+          "en": "It's black.",
+          "de": "Sie ist schwarz.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "nero"
+        },
+        {
+          "kind": "trait",
+          "it": "Ha tante righe bianche.",
+          "sl": "Ima veliko belih črt.",
+          "en": "It has lots of white lines.",
+          "de": "Sie hat viele weiße Striche.",
+          "grammar": ["essere-avere", "aggettivi-accordo"]
+        },
+        {
+          "kind": "where",
+          "it": "È dietro il campo.",
+          "sl": "Je za igriščem.",
+          "en": "It's behind the court.",
+          "de": "Sie steht hinter der Bahn.",
+          "grammar": ["dove-preposizioni"],
+          "ref": "court"
+        },
+        {
+          "kind": "use",
+          "it": "Ci contiamo i punti.",
+          "sl": "Na njej štejemo točke.",
+          "en": "We count the points on it.",
+          "de": "Darauf zählen wir die Punkte.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "rake": {
+      "clues": [
+        { "kind": "material", "it": "È di legno.", "sl": "Je iz lesa.", "en": "It's made of wood.", "de": "Er ist aus Holz.", "grammar": ["essere-avere"]},
+        {
+          "kind": "trait",
+          "it": "Ha il manico lungo.",
+          "sl": "Ima dolg ročaj.",
+          "en": "It has a long handle.",
+          "de": "Er hat einen langen Stiel.",
+          "grammar": ["essere-avere", "aggettivi-accordo"],
+          "adj": "lungo"
+        },
+        {
+          "kind": "where",
+          "it": "È vicino alla sponda.",
+          "sl": "Je ob ograji igrišča.",
+          "en": "It's by the side board.",
+          "de": "Er steht an der Bande.",
+          "grammar": ["dove-preposizioni", "preposizioni-articolate"],
+          "ref": "board"
+        },
+        {
+          "kind": "use",
+          "it": "Lo passiamo sulla sabbia ogni mattina.",
+          "sl": "Z njim vsako jutro pograbimo pesek.",
+          "en": "We pull it over the sand every morning.",
+          "de": "Wir ziehen ihn jeden Morgen über den Sand.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "meter": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È giallo.",
+          "sl": "Je rumen.",
+          "en": "It's yellow.",
+          "de": "Er ist gelb.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "giallo"
+        },
+        {
+          "kind": "trait",
+          "it": "È lungo e stretto.",
+          "sl": "Je dolg in ozek.",
+          "en": "It's long and narrow.",
+          "de": "Er ist lang und schmal.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "lungo"
+        },
+        {
+          "kind": "where",
+          "it": "È sulla sponda.",
+          "sl": "Leži na ograji igrišča.",
+          "en": "It's lying on the side board.",
+          "de": "Er liegt auf der Bande.",
+          "grammar": ["preposizioni-articolate"],
+          "ref": "board"
+        },
+        {
+          "kind": "use",
+          "it": "Lo usiamo per misurare.",
+          "sl": "Z njim merimo.",
+          "en": "We measure with it.",
+          "de": "Damit messen wir.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "pergola": {
+      "clues": [
+        { "kind": "size", "it": "È grande.", "sl": "Je velika.", "en": "It's big.", "de": "Das ist groß.", "grammar": ["aggettivi-accordo"], "adj": "grande" },
+        {
+          "kind": "colour",
+          "it": "D'estate è verde.",
+          "sl": "Poleti je zelena.",
+          "en": "In summer it's green.",
+          "de": "Im Sommer ist das grün.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "verde"
+        },
+        {
+          "kind": "trait",
+          "it": "Sopra cresce una vite.",
+          "sl": "Po njej raste trta.",
+          "en": "A vine grows over it.",
+          "de": "Darüber wächst eine Rebe.",
+          "grammar": ["presente-regolare"]
+        },
+        {
+          "kind": "use",
+          "it": "Sotto c'è l'ombra.",
+          "sl": "Pod njo je senca.",
+          "en": "There's shade under it.",
+          "de": "Darunter ist Schatten.",
+          "grammar": ["ce-ci-sono"]
+        }
+      ]
+    },
+    "lantern": {
+      "clues": [
+        {
+          "kind": "size",
+          "it": "È piccola.",
+          "sl": "Je majhna.",
+          "en": "It's small.",
+          "de": "Sie ist klein.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "piccolo"
+        },
+        {
+          "kind": "where",
+          "it": "È in cima a un palo.",
+          "sl": "Je na vrhu droga.",
+          "en": "It's on top of a post.",
+          "de": "Sie ist oben auf einem Pfahl.",
+          "grammar": ["dove-preposizioni"]
+        },
+        {
+          "kind": "does",
+          "it": "La sera fa luce.",
+          "sl": "Zvečer sveti.",
+          "en": "In the evening it gives light.",
+          "de": "Am Abend macht sie Licht.",
+          "grammar": ["verbi-irregolari"]
+        },
+        {
+          "kind": "use",
+          "it": "L'accendiamo quando è buio.",
+          "sl": "Prižgemo jo, ko je tema.",
+          "en": "We light it when it's dark.",
+          "de": "Wir zünden sie an, wenn es dunkel ist.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    }
+  }
+}
