@@ -119,7 +119,7 @@ meadow; il grande fienile, l'orologio del campanile, "Sono … colpi"; "Ma che m
 
 | Journey | Before | After |
 |---|---|---|
-| The maypole, the fountain, the clock, the cart bridge, the toplar, the bee meadow in their scene: its word | not possible (scenery) | 1 tap on the thing |
+| The maypole, the fountain, the clock, the cart bridge, the toplar, the bee meadow in their scene: its word | not possible (scenery) | 1 tap on the thing (from the village: the landmark, "🚪 Vstopi", the thing: 3) |
 | One of them as I spy's thing | never asked | as any thing of the scene |
 | The clock striking the hour in Pod uro / L'orologio | not possible | the dialog (its happening's variant) |
 | The map's bridge in Friuli, Carinthia, the Lake District | the Slovene timber bridge | its own, no tap |
@@ -130,6 +130,27 @@ at night and in winter at every detail; the square with someone at every spot, a
 to 1 and the strike stroke by stroke closer up, the greasy pole's steps and its raising; the bee meadow through the year
 and at each of the bee garden's levels; Friuli's maize by the month; the map's bridge per culture at every step, at night
 and in winter.
+
+**On the emulator** (QA's step `place-life` through `companion/bin/qa-slot`, the dev bridge on synthetic learners: Ana,
+Slovene from English, and Teo, Italian from German in the Friuli village; the village built up as a Trg and the six
+projects finished through QA's hooks; shots in the round's scratchpad, `ux-place-life/qa-sl`, `qa-sl2`, `qa-fr`):
+
+- Pod uro: «Vidim, vidim» with Zala at the clock spot, its first round the clock ("Je bela."), found by a tap ("Ja, to je
+  ura! Bravo!"), then the clock tapped outside the game: "ura · clock". Ančka's strokes to count at three in the afternoon:
+  "Pst, Ana! Ura na zvoniku bije. Preštej udarce …", the choices "Bili so trije udarca / udarcev / udarci" (the hour from the
+  scene's clock), Ančka at the fountain spot.
+- Pod mlajem: the maypole spied and found, its word "mlaj"; Pri vodnjaku: the fountain, "vodnjak"; Pri toplarju: the double
+  hayrack, "toplar · double hayrack".
+- La fontana: the fountain with its pine cone, found, "la fontana · Brunnen"; Il grande fienile: the big barn with its maize
+  (October), found by Tommaso's round ("Sì, è il grande fienile! Bravo!"); Il ponte and Il prato delle api: their rounds
+  spied the cart bridge and the meadow, and QA's tap at the middle of their boxes landed on the stream under the deck and on
+  Aldo's sign standing in the meadow (a learner taps the deck or the flowers; the JVM test taps every thing at its pixels).
+  L'orologio: Bruno's strokes, "Sono tre colpi!"; La cuccagna: Davide by the pole, the lad at its foot and then up it.
+- Na mostu, Na čebeljem travniku, L'orologio and La cuccagna offered «Vidim, vidim» but no round started for these synthetic
+  learners (`ISpy.rounds` found no thing there with two clues their grammar has reached: the offer shows before that is
+  known, as before this round); the things themselves showed in the pictures as drawn.
+
+No crash in either run.
 
 ## How it is tested
 
@@ -154,13 +175,20 @@ and in winter.
 On the branch on main e5c5d810 (map-culture and native-check-sl merged), the content folded in:
 
 - The Android unit suite through lani-slot.sh: 3,497 tests in 441 classes, 2 skipped, none failed.
-- The bridge: `tsc` clean; the smoke on ports 9150–9158: 3,132 checks, all passed (with the content; the run before it
+- The bridge: `tsc` clean; the smoke on ports 9150–9158 and 9168 (Drama 3's worker): 3,132 checks, all passed (with the content; the run before it
   failed on exactly the scenes that didn't word the new slots yet, and once on a timing check of the words' note under a
   load of 56); `tutor-export --check`: 88 files match.
 - The Python tests: `companion/tests` 131 (11 skipped), `tests` 251, all pass.
-- The contact sheets: the round's scratchpad, `ux-place-life/sheets/` (and every shot on its own in `ux-place-life/shots/`).
+- The contact sheets: the round's scratchpad, `ux-place-life/sheets/` (and every shot on its own in `ux-place-life/shots/`);
+  the JVM renders are made again by `PlaceLifeRenderTest` and `MapBridgeLooksTest` into build/scene-snapshots/place-life and
+  build/map-looks.
 
 ## What is left
+
+- QA's `place-life` taps a spied thing at the middle of its box, which for the cart bridge and the bee meadow is something
+  else's pixel (the stream under the deck, Aldo's sign): a tap point from the thing's own pixels would make it sure.
+- «Vidim, vidim» is offered where no round can start for a beginner (before this round too): the offer could ask
+  `ISpy.rounds` first.
 
 - The native check of the new content (see the content's `review` notes).
 - The Kärnten and Lake District villages have no square, stream, field or apiary scenes yet (a later wave): their looks of
