@@ -210,7 +210,11 @@ the review's form questions are right too, not only the trainer:
   with a slot not checked are exactly the list below; `CaseTrainerTest` an unchecked slot never declined and a variant
   right, labelled and never shown.
 
-**Nouns left out** (a slot not checked; "Sklanjaj!" leaves them out there and asks their checked slots). Of the 686
+**Nouns left out** (a slot not checked; "Sklanjaj!" leaves them out there and asks their checked slots). Since the
+native check of 2026-10-30 none is: each below has a forms book table written from Slovenski pravopis 2001 and Sloleks
+2.0, tesar too (a person's accusative, tesarja, which the regular check had confirmed as tesar), and oven and trot are on
+the `animate` list (docs/plans/05-built/native-check-sl.md): all 455 nouns with forms have every slot checked. Before
+it, of the 686
 nouns of the packs (the shared ones and the Slovene culture's) and the bank, 455 have forms in the dictionary; 406 have
 every slot checked, 49 not (the counts of 2026-10-30, with the village's places' packs):
 
@@ -338,8 +342,9 @@ machine's slow boot); the run before it passed whole.
   `pod-smreko`, `pod-peco`, `pred-kovacnico`, `pod-veliko-smreko`), `brada-kralja` / `okoli-mize`, the verbless
   fragments from the scenes (`z-vozom`, `h-kravam`, `vsi-v-hiso`, `z-mlekom`), `na-kozolcu`'s German and Italian,
   `nom-sta-soseda`, `dajte-mi-vedri`.
-- **The irregular nouns left out of "Sklanjaj!"** (below): a forms book table each would bring them in (dan, oko, uho,
-  kolo, hči, zob, otrok's plural, the plural-only words); written by hand and checked by a native speaker first.
+- **The irregular nouns left out of "Sklanjaj!"**: done, a forms book table each from SP2001 and Sloleks
+  (docs/plans/05-built/native-check-sl.md); the spoken forms they accept or leave out are on its list for the native
+  speaker.
 - **A frame's meaning with the learner's word** stays in two parts ("There's no … here. · miza = table") rather than
   "There's no table here.": the card's meaning has its own article and form. Fine for an adult; a child's version could
   show the noun's picture (its pack's emoji) instead.
