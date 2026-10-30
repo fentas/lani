@@ -281,8 +281,9 @@ class GameController(
         if (cast.isEmpty() || s.visitor?.on == today.toString()) return s to emptyList()
         val v = Residents.visit(s, cast, today) ?: return s.copy(visitor = Visit("", today.toString())) to emptyList()
         val who = cast.first { it.id == v.id }
-        // a chronicle line: stays as the chronicle writes (its text comes per language in a later step)
-        return s.copy(visitor = v) to listOf("🧳" to "${who.name} je danes na obisku · ${who.name} is visiting today")
+        // a chronicle line in the learner's pair, as the chronicle's other lines (it was Slovene and English for everyone:
+        // Teo's news said "Nonno Bepi je danes na obisku", and read it aloud so)
+        return s.copy(visitor = v) to listOf("🧳" to bi("villageSheets.visitingToday", "name" to who.name))
     }
 
     /** Matches the residents to the population now (e.g. once the cast has loaded). */
