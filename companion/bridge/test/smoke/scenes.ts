@@ -63,7 +63,7 @@ export default async function scenes() {
       JSON.stringify(POSES) === JSON.stringify([...readFileSync(join(android, 'scene/Stage.kt'), 'utf8').matchAll(/[A-Z]+\("(\w+)"\)/g)].map(m => m[1])),
     SCENE_STAGE)
   const kt = registryFromKotlin()
-  check('SceneArt.kt parsed: 22 arts, 20 sprites, effects for every art, 14 buildings, 6 ages', Object.keys(kt.objects).length === 22 && kt.people.length === 20 && Object.keys(kt.effects).length === 22 && kt.buildings.length === 14 && kt.ages.length === 6, kt)
+  check('SceneArt.kt parsed: 28 arts, 20 sprites, effects for every art, 14 buildings, 6 ages', Object.keys(kt.objects).length === 28 && kt.people.length === 20 && Object.keys(kt.effects).length === 28 && kt.buildings.length === 14 && kt.ages.length === 6, kt)
   // an app says which arts it draws (?arts=): an older one gets no room of a house and no kitchen hearth (forApp)
   const older = forApp([{ art: 'kitchen', objects: [{ slot: 'stove' }, { slot: 'hearth' }] }, { art: 'cellar', objects: [{ slot: 'barrel' }] }], 1)
   check('an older app gets the kitchen without its new slots and no cellar; a current one all', JSON.stringify(older) === '[{"art":"kitchen","objects":[{"slot":"stove"}]}]' &&
@@ -89,7 +89,7 @@ export default async function scenes() {
     projects,
   }
   const curatedFiles = readdirSync(join(repo, 'scenes')).filter(f => f.endsWith('.json'))
-  check('19 curated scenes', curatedFiles.length === 19, curatedFiles)
+  check('31 curated scenes', curatedFiles.length === 31, curatedFiles)
   const curated: LoadedScene[] = []
   for (const f of curatedFiles) {
     const v = validateScene(JSON.parse(readFileSync(join(repo, 'scenes', f), 'utf8')), refs)

@@ -210,9 +210,9 @@ the review's form questions are right too, not only the trainer:
   with a slot not checked are exactly the list below; `CaseTrainerTest` an unchecked slot never declined and a variant
   right, labelled and never shown.
 
-**Nouns left out** (a slot not checked; "Sklanjaj!" leaves them out there and asks their checked slots). Of the 637
-nouns of the packs (the shared ones and the Slovene culture's) and the bank, 433 have forms in the dictionary; 391 have
-every slot checked, 42 not:
+**Nouns left out** (a slot not checked; "Sklanjaj!" leaves them out there and asks their checked slots). Of the 686
+nouns of the packs (the shared ones and the Slovene culture's) and the bank, 455 have forms in the dictionary; 406 have
+every slot checked, 49 not (the counts of 2026-10-30, with the village's places' packs):
 
 | noun | slots not checked | why |
 |---|---|---|
@@ -226,6 +226,8 @@ every slot checked, 42 not:
 | vrata, grablje, škarje, orgle, klešče, vilice, vile | the plural | plural-only nouns: no singular to take the stem from |
 | potica, kosa, palisada, tehtnica | nom.sg, acc.sg, ins.sg | the dictionary has no genitive singular for them (partial tables) |
 | daljnogled, hlebec, tolminc, pršut, žito, ribnik, romar, trgatev, veselica, peskovnik, tobogan, zvonček, kolesje, venec, ogrodje, grmovje, korito | their few slots | partial tables without a genitive singular |
+| balinišče, vaja, listje, krošnjar, toplar | their few slots | partial tables without a genitive singular (the village's places' packs) |
+| oven, trot | acc.sg | an animal's accusative given as the nominative (ovna, trota) |
 
 The other 204 pack nouns have no forms in the dictionary at all (štedilnik, pečica, lonec …): never declined, as before.
 Through the phone's own bridge the trainer makes 11 524 decline tasks over these 433 nouns (every frame, no adjective),

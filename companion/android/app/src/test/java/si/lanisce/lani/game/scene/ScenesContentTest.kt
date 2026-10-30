@@ -23,13 +23,16 @@ class ScenesContentTest {
     }
 
     @Test fun `every curated scene parses, alone and as the served list`() {
-        assertEquals(19, files.size)
+        assertEquals(31, files.size)
         val scenes = files.map { f -> parseScene(f.readText()).also { assertEquals(f.nameWithoutExtension, it.id) } }
         assertEquals(scenes.map { it.id }, parseScenes(files.joinToString(",", "[", "]") { it.readText() }).map { it.id })
         assertEquals(
             listOf(
-                "kuhinja", "na-njivi", "na-stolpu", "na-trznici", "na-vasi", "ob-ognju", "ob-potoku", "pri-cebelnjaku", "pri-ribniku", "v-cerkvi",
-                "v-delavnici", "v-gozdu", "v-hisi", "v-kleti", "v-kovacnici", "v-mlinu", "v-podstresju", "v-soli", "v-sotoru",
+                "kuhinja", "na-baliniscu", "na-cebeljem-travniku", "na-igriscu", "na-mostu", "na-njivi",
+                "na-razglednem-stolpu", "na-stolpu", "na-trznici", "na-vasi", "ob-ognju", "ob-potoku", "pod-mlajem",
+                "pod-uro", "pri-cebelnjaku", "pri-kapelici", "pri-ribniku", "pri-toplarju", "pri-vodnjaku", "pri-vratih",
+                "v-cerkvi", "v-delavnici", "v-gasilskem-domu", "v-gozdu", "v-hisi", "v-kleti", "v-kovacnici", "v-mlinu",
+                "v-podstresju", "v-soli", "v-sotoru",
             ),
             scenes.map { it.id },
         )
@@ -155,11 +158,15 @@ class ScenesContentTest {
         assertTrue(storm.first().gloom > 0f && storm.first().rain == 0f && storm.any { it.lightning } && storm.last().rain >= 0.6f)
         val kept = files.map { parseScene(it.readText()) }.flatMap { s -> s.dialogs.filter { it.skyKept }.map { "${s.id}/${it.id}" } }
         // the variants of the same happenings keep theirs too (the hay, the storm, the tent in the rain, Luka staying in
-        // it while it pours), and the rain that ends the children's football and the burja at night (Nejc's three)
+        // it while it pours), and the rain that ends the children's football and the burja at night (Nejc's three); the
+        // village's places: the kite's wind at the playground, the summer storms at the chapel and by the double hayrack
         assertEquals(
             listOf(
-                "na-njivi/seno", "na-njivi/seno-grom", "na-stolpu/nevihta", "na-stolpu/nevihta-sekunde", "na-stolpu/nevihta-seno", "na-vasi/nogomet-dez",
-                "ob-potoku/perilo", "v-podstresju/burja", "v-podstresju/burja-zgodba", "v-podstresju/burja-okno", "v-sotoru/dez", "v-sotoru/dez-cakava", "v-sotoru/dez-svetilka",
+                "na-igriscu/zmaj", "na-igriscu/zmaj-veter", "na-njivi/seno", "na-njivi/seno-grom", "na-stolpu/nevihta",
+                "na-stolpu/nevihta-sekunde", "na-stolpu/nevihta-seno", "na-vasi/nogomet-dez", "ob-potoku/perilo",
+                "pri-kapelici/nevihta", "pri-kapelici/nevihta-zvoncek", "pri-toplarju/nevihta",
+                "pri-toplarju/nevihta-strela", "v-podstresju/burja", "v-podstresju/burja-zgodba",
+                "v-podstresju/burja-okno", "v-sotoru/dez", "v-sotoru/dez-cakava", "v-sotoru/dez-svetilka",
             ),
             kept,
         )
@@ -282,16 +289,33 @@ class ScenesContentTest {
         // and their variants: the candles lit, the lantern left burning; what is gone or home or dressed for good, until
         // midnight: the hare, Sivko, the scarecrow (its face drawn), the pedlar in at the gate, the lamb drinking, the flocks
         // gone home, the lost sheep found, the wooden horse mended, Marko's cart on its wheels, the attic's lamp left on, the
-        // mill's evening (its lantern lit, its stones still); the square as it is by itself
+        // mill's evening (its lantern lit, its stones still); the square as it is by itself; the village's places: the
+        // bocce game left on the sand and the evening's lantern, the sand castle, the cart, the flock and the high water at
+        // the bridge, the maypole's lads, the chapel's flowers, candles and traveller, the hayrack's scarecrow and hare, the
+        // fountain's water and its drill, the gate's flock, bar, pedlar and torches, the fire station's night
         assertEquals(
             listOf(
-                "na-njivi/strasilo", "na-njivi/strasilo-klobuk", "na-njivi/konj-hlev", "na-njivi/kosnja-zajec", "na-stolpu/straza",
-                "na-stolpu/krosnjar", "na-stolpu/krosnjar-daljnogled", "na-stolpu/krosnjar-denar", "na-vasi/nogomet", "na-vasi/muri",
+                "na-baliniscu/igra", "na-baliniscu/vecer", "na-baliniscu/igra-bulin", "na-baliniscu/igra-zbij",
+                "na-baliniscu/vecer-mi", "na-igriscu/grad", "na-igriscu/grad-stolpi", "na-igriscu/zoga-tobogan",
+                "na-mostu/voz", "na-mostu/ovce", "na-mostu/voda", "na-mostu/voz-hlodi", "na-mostu/ovce-stejem",
+                "na-mostu/ovce-bela", "na-mostu/voda-tone", "na-mostu/ograja-voz", "na-njivi/strasilo",
+                "na-njivi/strasilo-klobuk", "na-njivi/konj-hlev", "na-njivi/kosnja-zajec",
+                "na-razglednem-stolpu/razgled-morje", "na-stolpu/straza", "na-stolpu/krosnjar",
+                "na-stolpu/krosnjar-daljnogled", "na-stolpu/krosnjar-denar", "na-vasi/nogomet", "na-vasi/muri",
                 "na-vasi/macka", "na-vasi/nogomet-zoga", "na-vasi/macka-sir", "ob-ognju/roke-ovce", "ob-potoku/ovce",
-                "ob-potoku/ovce-stejem", "ob-potoku/ovce-jagnje", "v-cerkvi/sveca", "v-cerkvi/sveca-stejem", "v-cerkvi/sveca-veter",
-                "v-delavnici/konjicek", "v-gozdu/ovca", "v-gozdu/ovca-megla", "v-gozdu/ovca-pikica", "v-kovacnici/kolo-steklenice",
-                "v-kovacnici/kolo-tvoj", "v-mlinu/vecer", "v-mlinu/vecer-tema", "v-podstresju/burja", "v-sotoru/svetilka",
-                "v-sotoru/svetilka-bom", "v-sotoru/svetilka-komu", "v-sotoru/dez-svetilka",
+                "ob-potoku/ovce-stejem", "ob-potoku/ovce-jagnje", "pod-mlajem/straza-zaga", "pod-mlajem/plezanje-nagrada",
+                "pod-mlajem/ples-postavljanje", "pod-uro/poldne-zoga", "pri-kapelici/roze", "pri-kapelici/sveca",
+                "pri-kapelici/popotnik", "pri-kapelici/roze-vaza", "pri-kapelici/popotnik-kruh", "pri-toplarju/strasilo",
+                "pri-toplarju/seno-sivko", "pri-toplarju/strasilo-obraz", "pri-toplarju/vecer-zajec", "pri-vodnjaku/voda",
+                "pri-vodnjaku/konj", "pri-vodnjaku/zala", "pri-vodnjaku/vaja", "pri-vodnjaku/voda-cev",
+                "pri-vodnjaku/konj-sivko", "pri-vodnjaku/zala-poletje", "pri-vodnjaku/vaja-vedra", "pri-vratih/creda",
+                "pri-vratih/domov", "pri-vratih/zapah", "pri-vratih/krosnjar", "pri-vratih/bakle",
+                "pri-vratih/creda-megla", "pri-vratih/domov-stejem", "pri-vratih/krosnjar-sito", "pri-vratih/bakle-tecaj",
+                "v-cerkvi/sveca", "v-cerkvi/sveca-stejem", "v-cerkvi/sveca-veter", "v-delavnici/konjicek",
+                "v-gasilskem-domu/noc", "v-gasilskem-domu/noc-trobenta", "v-gozdu/ovca", "v-gozdu/ovca-megla",
+                "v-gozdu/ovca-pikica", "v-kovacnici/kolo-steklenice", "v-kovacnici/kolo-tvoj", "v-mlinu/vecer",
+                "v-mlinu/vecer-tema", "v-podstresju/burja", "v-sotoru/svetilka", "v-sotoru/svetilka-bom",
+                "v-sotoru/svetilka-komu", "v-sotoru/dez-svetilka",
             ),
             kept,
         )

@@ -234,6 +234,8 @@ export default async function formsSection() {
     'potica', 'vrata', 'hči', 'otrok', 'kosa', 'grablje', 'daljnogled', 'palisada', 'med', 'ribnik', 'kolo', 'mir', 'škarje', 'romar', 'oko', 'uho', 'zob',
     'tehtnica', 'hlebec', 'tolminc', 'orgle', 'pršut', 'klešče', 'vilice', 'žito', 'most', 'dan', 'zid', 'trgatev', 'nebo', 'veselica', 'peskovnik',
     'tobogan', 'zvonček', 'kolesje', 'venec', 'ogrodje', 'vile', 'grmovje', 'korito', 'slap', 'grad',
+    // the village's places (docs/plans/05-built/places-sl.md): partial tables, an animal's accusative given as the nominative
+    'balinišče', 'vaja', 'listje', 'krošnjar', 'toplar', 'oven', 'trot',
   ]
   console.log(`  nouns with a slot not checked: ${[...unchecked].map(([w, k]) => `${w} (${k.length === 18 ? 'all' : k.join(' ')})`).join(', ')}`)
   check(
