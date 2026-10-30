@@ -57,7 +57,8 @@ hours 5 (1 variant kept, 4 fixed); the places' words 52 (39 right, 4 variants ke
    wrong, and is the reply natural?
 4. **The spoken hour**, now right in four more turns, the reply saying the written form back: "Ob šestih, ja. Tako
    pišemo, ob šest pa tudi rečemo." (V hiši, V gorah), "Ob desetih, ja! …" (V cerkvi). And V podstrešju's new wrong
-   choice "Ura je sedmih. Šola je ob osmih!" with Nejc's "Sedmih? Ura je sedem, {learner}. Še pet minut …".
+   choice "Ura je sedmih. Šola je ob osmih!" with Nejc's "Sedmih? Česa sedmih? Še pet minut …", and his "Ja, ob osmih!
+   Ojoj, mami bo jezna!" to "ob osem".
 5. **narasel or narastel**: "Potok je narasel" (Na mostu). SP2001 prefers narasti, narastel; narasel is the variant.
 6. **"Dajte mi vedri."** for the two buckets (or "obe vedri"?), and **"Luka nese drva za šotor."**: behind the tent, or
    for it? (The case trainer; both readings take the accusative, so the answer stands either way.)
