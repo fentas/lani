@@ -53,6 +53,16 @@ import kotlin.math.sqrt
  * [fienileHay]), the village on the hill is Friuli's (ochre and terracotta under coppi, the brick campanile), vines run in
  * rows along the Collio's slopes, and the plain has its mulberries with the vines strung between them and its Lombardy
  * poplars ([plainTrees]).
+ *
+ * It grows with two buildings' levels (companion/SCENES.md "What the village has built"), read once a frame. The field's
+ * (FIELD): at 1 the first plots cleared from the meadow, a few rows of potatoes and cabbages by the track, a strip of wheat,
+ * a strip of corn with two rows of plants, the fence's near run, the plain around still meadow; at 2 the potatoes and the
+ * cabbages in full, more wheat and corn, the fence's middle run; at 3 the wheat and the corn to their full depth; at 4 the
+ * fruit trees about the fields (in Friuli the piantata and the poplars) and the fence's far run; at 5 the patchwork of fields
+ * over the plain: the picture as it was. The hayrack's (KOZOLEC): at 1 a kozolec of one bay under a roof of boards, half its
+ * rails hung with hay; at 2 two bays; at 3 three; at 4 its roof shingled; at 5 its rails full of hay. Friuli's fienile: at 1
+ * one arch and plain cobble walls, at 2 its second arch, at 3 the string course and the bands of brick, at 4 the brick
+ * quoins and lattices, at 5 the loft full. Every word, the wild animals, every effect and the people's spots at every level.
  */
 internal class FieldPainter : WildPainter() {
     override val art = "field"
@@ -127,6 +137,45 @@ internal class FieldPainter : WildPainter() {
 
     private val items = ArrayList<Pair<Float, () -> Unit>>()
 
+    // the field's level and the hayrack's, read once a frame (the class comment)
+    private var fieldLv = 5
+    private var kozLv = 5
+    private var potEnd = potatoes
+    private var cabEnd = cabbages.second
+    private var cabRight = Float.MAX_VALUE
+    private var potLeft = -Float.MAX_VALUE
+    private var wheatEnd = wheat.second
+    private var cornEnd = corn.second
+    private var cornRows = 6f
+    private var fenceMid = true
+    private var fenceFar = true
+    private var orchardUp = true
+    private var patchUp = true
+    private var kBays = 3
+    private var kShingles = true
+    private var hayFull = true
+    private var fArches = 2
+    private var fBands = true
+    private var fLattice = true
+
+    private fun readLevels() {
+        fieldLv = frame.world.level(si.lanisce.lani.game.BuildingType.FIELD).coerceIn(1, 5)
+        kozLv = frame.world.level(si.lanisce.lani.game.BuildingType.KOZOLEC).coerceIn(1, 5)
+        val l = fieldLv
+        potEnd = if (l == 1) 10.8f else potatoes
+        cabEnd = if (l == 1) 11.2f else cabbages.second
+        cabRight = if (l == 1) 8f else Float.MAX_VALUE
+        potLeft = if (l == 1) -7f else -Float.MAX_VALUE
+        wheatEnd = when (l) { 1 -> 19f; 2 -> 24f; else -> wheat.second }
+        cornEnd = when (l) { 1 -> 24f; 2 -> 28f; else -> corn.second }
+        cornRows = when (l) { 1 -> 2f; 2 -> 4f; else -> 6f }
+        fenceMid = l >= 2; fenceFar = l >= 4; orchardUp = l >= 4; patchUp = l >= 5
+        val kl = kozLv
+        kBays = when (kl) { 1 -> 1; 2 -> 2; else -> 3 }
+        kShingles = kl >= 4; hayFull = kl >= 5
+        fArches = if (kl == 1) 1 else 2; fBands = kl >= 3; fLattice = kl >= 4
+    }
+
     // the culture's look (companion/SCENES.md "Culture looks"), read once a frame: Friuli's fienile, its village on the hill,
     // the Collio's vines on the near hills, the plain's mulberries and poplars
     private var fienile = false
@@ -141,6 +190,7 @@ internal class FieldPainter : WildPainter() {
     )
 
     override fun paint() {
+        readLevels()
         setup()
         val season = env.season
         val k = detail
@@ -156,13 +206,13 @@ internal class FieldPainter : WildPainter() {
         // the track, then everything standing, far to near
         thing("path") { trackPixels() }
         items.clear()
-        for ((x, d, hgt) in orchard) {
+        if (orchardUp) for ((x, d, hgt) in orchard) {
             // the piantata's row stands where two apple trees on the right do
             if (piantata && x > 0f && abs(d - PIANTATA_D) < 3f) continue
             items.add(d to { prop(Col.hex(0x1E3A22)) { leafyTree(x, d, hgt, (x * 7 + d).toInt(), blossom = true, fruit = Col.hex(0xD83A2E)) } })
         }
-        if (piantata) plainTrees()
-        items.add(40f to { thing("fence") { fenceRun(24f, 40f) } })
+        if (piantata && orchardUp) plainTrees()
+        if (fenceFar) items.add(40f to { thing("fence") { fenceRun(24f, 40f) } })
         cornPlants()
         items.add(wheat.first to { thing("wheat", outline = Col.hex(0x6A5220), slop = 1) { wheatEdge() } })
         items.add(17f to { thing("scarecrow", slop = 1) { scarecrow(6.4f, 17f) } })
@@ -173,7 +223,9 @@ internal class FieldPainter : WildPainter() {
             thing("kozolec") { if (fienile) fienile(kozolecA, kozolecB, kozolecD) else kozolec(kozolecA, kozolecB, kozolecD) }
             if (there("hay")) thing("hay") { if (fienile) fienileHay(kozolecA, kozolecB, kozolecD) else hay(kozolecA, kozolecB, kozolecD) }
         })
-        if (kozolec) items.add(kozolecD - 0.3f to { thing("rake", slop = 1) { rake(kozolecB + 0.35f, kozolecD - 0.3f) } })
+        // the rake leans on the kozolec's last post (as many bays as it has), on the fienile's corner
+        val rakeX = if (fienile || kBays == 3) kozolecB + 0.35f else kozolecA + (kozolecB - kozolecA) * kBays / 3f + 0.35f
+        if (kozolec) items.add(kozolecD - 0.3f to { thing("rake", slop = 1) { rake(rakeX, kozolecD - 0.3f) } })
         else items.add(12.6f to { thing("rake", slop = 1) { rake(fenceX + 0.4f, 12.6f) } })
         // the double hayrack (the project "toplar") beyond the wheat, as far as it's built
         toplar()
@@ -199,7 +251,7 @@ internal class FieldPainter : WildPainter() {
             })
         }
         items.add(cartD - 0.1f to { thing("cart") { cart(-1.2f, 2.1f, cartD, shafted = home) } })
-        items.add(24f to { thing("fence") { fenceRun(13f, 24f) } })
+        if (fenceMid) items.add(24f to { thing("fence") { fenceRun(13f, 24f) } })
         items.add(13f to { thing("fence") { fenceRun(3.5f, 13f) } })
         items.add(11.2f to { thing("scythe", slop = 1) { scythe(fenceX + 0.1f, 11.2f) } })
         potatoPlants()
@@ -643,16 +695,18 @@ internal class FieldPainter : WildPainter() {
         return if (x > tx) {
             when {
                 x < fenceX + 0.5f && d < 44f -> grassCol
-                d < cabbages.second && x > cabbages.first -> soilRows(x - cabbages.first, d, 0.9f, px, py)
+                d < cabEnd && x > cabbages.first && x < cabRight -> soilRows(x - cabbages.first, d, 0.9f, px, py)
                 d < cabbages.second -> grassCol
-                d < wheat.second && x > 3.0f -> wheatAt(x, d, px, py)
+                d < wheatEnd && x > 3.0f -> wheatAt(x, d, px, py)
+                !patchUp -> grassCol
                 else -> patch(x, d, px, py)
             }
         } else {
             when {
-                d < potatoes && x < tx - trackHalf - 0.3f -> soilRows(x, d, 0.8f, px, py, hilled = true)
+                d < potEnd && x < tx - trackHalf - 0.3f && x > potLeft -> soilRows(x, d, 0.8f, px, py, hilled = true)
                 d < meadow -> grassCol
-                d < corn.second && x < tx - trackHalf - 0.6f -> cornAt(x, d, px, py)
+                d < cornEnd && x < tx - trackHalf - 0.6f -> cornAt(x, d, px, py)
+                !patchUp -> grassCol
                 else -> patch(x, d, px, py)
             }
         }.let { if (season == Season.WINTER) snowOver(it, x, d, px, py) else it }
@@ -950,7 +1004,7 @@ internal class FieldPainter : WildPainter() {
     private fun cornPlants() {
         val season = env.season
         val k = detail
-        var d = corn.first + 6f
+        var d = corn.first + cornRows
         while (d >= corn.first) {
             val dd = d
             items.add(dd to {
@@ -1051,7 +1105,7 @@ internal class FieldPainter : WildPainter() {
     private fun potatoPlants() {
         val season = env.season
         val k = detail
-        var d = potatoes - 0.2f
+        var d = potEnd - 0.2f
         while (d >= 4f) {
             val dd = d
             items.add(dd to {
@@ -1062,7 +1116,7 @@ internal class FieldPainter : WildPainter() {
                         val hi = if (k == 1) w + 6f else c.right + 0.3f * p + 6f
                         // on the ridge tops: the soil's rows are 0.8 m apart, ridges at 0.5–0.6 of a row
                         var x = floor((track(dd) - trackHalf - 0.6f) / 0.8f) * 0.8f + 0.52f
-                        while (x > -30f) {
+                        while (x > max(-30f, potLeft)) {
                             val sx = gx(x, dd)
                             if (sx >= lo && sx <= hi) plantPotato(sx, by, p, season, (x * 13 + dd * 7).toInt())
                             x -= 0.8f
@@ -1128,7 +1182,7 @@ internal class FieldPainter : WildPainter() {
     private fun cabbagePlants() {
         val season = env.season
         val k = detail
-        var d = cabbages.second - 0.3f
+        var d = cabEnd - 0.3f
         while (d >= 4f) {
             val dd = d
             items.add(dd to {
@@ -1138,7 +1192,7 @@ internal class FieldPainter : WildPainter() {
                         val lo = if (k == 1) -6f else c.left - 0.3f * p - 6f
                         val hi = if (k == 1) w + 6f else c.right + 0.3f * p + 6f
                         var x = cabbages.first + 0.45f
-                        while (x < 30f) {
+                        while (x < min(30f, cabRight)) {
                             val sx = gx(x, dd)
                             if (sx >= lo && sx <= hi) plantCabbage(sx, by, p, season, (x * 11 + dd * 5).toInt())
                             x += 0.9f
@@ -1197,13 +1251,15 @@ internal class FieldPainter : WildPainter() {
     private fun kozolec(xa: Float, xb: Float, d: Float) {
         if (detail > 1) { kozolecFine(xa, xb, d); return }
         val p = pm(d); val by = gy(d)
-        val xs = (0..3).map { gx(xa + (xb - xa) * it / 3f, d) }
+        // its posts, as many bays as the level has (the bays the full kozolec's)
+        val xs = (0..kBays).map { gx(xa + (xb - xa) * it / 3f, d) }
+        val xr = xs.last()
         val eave = by - 4.4f * p; val ridge = by - 5.4f * p
         val pw = max(2f, 0.26f * p)
         // rails first, then the posts over them
         for (z in rails) {
             val y = (by - z * p).toInt()
-            c.hline(xs[0].toInt(), xs[3].toInt(), y, Pal.WOOD_L); c.hline(xs[0].toInt(), xs[3].toInt(), y + 1, Pal.WOOD_D)
+            c.hline(xs[0].toInt(), xr.toInt(), y, Pal.WOOD_L); c.hline(xs[0].toInt(), xr.toInt(), y + 1, Pal.WOOD_D)
         }
         for (x in xs) {
             c.fillRect((x - pw / 2).toInt(), eave.toInt(), pw.toInt(), (by - eave).toInt(), Pal.WOOD_M)
@@ -1219,26 +1275,43 @@ internal class FieldPainter : WildPainter() {
         val step = max(2, (0.26f * p).toInt())
         for (y in ridge.toInt()..eave.toInt()) {
             val u = (y - ridge) / max(1f, eave - ridge)
-            val xl = (xs[0] - over - (1 - u) * 0.25f * p).toInt(); val xr = (xs[3] + over + (1 - u) * 0.25f * p).toInt()
+            val xl = (xs[0] - over - (1 - u) * 0.25f * p).toInt(); val xrr = (xr + over + (1 - u) * 0.25f * p).toInt()
             val row = (y - ridge.toInt()) / step
+            if (!kShingles) { roofBoards(xl, xrr, y, u, p); continue }
             val col = when {
                 env.snow && u < 0.75f -> if ((y + row) % 4 == 0) Pal.SNOW_M else Pal.SNOW_L
                 (y - ridge.toInt()) % step == 0 -> Pal.SHINGLE_D
                 u < 0.3f -> Pal.SHINGLE_L
                 else -> Pal.SHINGLE_M
             }
-            c.hline(xl, xr, y, col)
-            if (!env.snow && p > 9f && (y - ridge.toInt()) % step != 0) { var sx = xl + (row % 2) * 3; while (sx < xr) { c.set(sx, y, Pal.SHINGLE_D); sx += 6 } }
+            c.hline(xl, xrr, y, col)
+            if (!env.snow && p > 9f && (y - ridge.toInt()) % step != 0) { var sx = xl + (row % 2) * 3; while (sx < xrr) { c.set(sx, y, Pal.SHINGLE_D); sx += 6 } }
         }
-        c.hline((xs[0] - over - 0.25f * p).toInt(), (xs[3] + over + 0.25f * p).toInt(), ridge.toInt() - 1, if (env.snow) Pal.SNOW_L else Pal.WOOD_X)
-        c.hline((xs[0] - over).toInt(), (xs[3] + over).toInt(), eave.toInt() + 1, Pal.WOOD_X)
+        c.hline((xs[0] - over - 0.25f * p).toInt(), (xr + over + 0.25f * p).toInt(), ridge.toInt() - 1, if (env.snow) Pal.SNOW_L else Pal.WOOD_X)
+        c.hline((xs[0] - over).toInt(), (xr + over).toInt(), eave.toInt() + 1, Pal.WOOD_X)
+    }
+
+    /** A row of the kozolec's first roof, of boards down its slope (before the shingles): seams between them, snow in winter. */
+    private fun roofBoards(xl: Int, xr: Int, y: Int, u: Float, p: Float) {
+        val bw = max(2f, 0.32f * p)
+        for (x in max(xl, c.left)..min(xr, c.right - 1)) {
+            val b = floor((x - xl) / bw).toInt(); val f = (x - xl) / bw - b
+            c.set(x, y, when {
+                env.snow && u < 0.75f -> if (f < 0.12f) Pal.SNOW_M else Pal.SNOW_L
+                f < 0.12f -> Pal.WOOD_X
+                Noise.rnd(b, 85) < 0.35f -> Pal.WOOD_L
+                u > 0.85f -> Pal.WOOD_D
+                else -> Pal.WOOD_M
+            })
+        }
     }
 
     /** The kozolec closer up: round rails lit on top, posts with their grain and the pegs through them, stone feet, braces, a roof of single shingles. */
     private fun kozolecFine(xa: Float, xb: Float, d: Float) {
         val k = detail
         val p = pm(d); val by = gy(d)
-        val xs = (0..3).map { gx(xa + (xb - xa) * it / 3f, d) }
+        val xs = (0..kBays).map { gx(xa + (xb - xa) * it / 3f, d) }
+        val xl3 = xs.last()
         val eave = by - 4.4f * p; val ridge = by - 5.4f * p
         val pw = max(2f, 0.26f * p)
         val grain = Col.mix(Pal.WOOD_M, Pal.WOOD_D, 0.45f)
@@ -1246,8 +1319,8 @@ internal class FieldPainter : WildPainter() {
         for ((ri, z) in rails.withIndex()) {
             val y = (by - z * p).toInt()
             val th = 2 * k
-            for (j in 0 until th) c.hline(xs[0].toInt(), xs[3].toInt(), y + j, when (j) { 0 -> Pal.WOOD_L; th - 1 -> Pal.WOOD_D; 1 -> railMid; else -> Pal.WOOD_M })
-            for (xx in max(xs[0].toInt(), c.left)..min(xs[3].toInt(), c.right - 1)) if (Noise.rnd(xx / 5, ri, 74) < 0.3f && xx % 5 != 0) c.set(xx, y + th / 2, grain)
+            for (j in 0 until th) c.hline(xs[0].toInt(), xl3.toInt(), y + j, when (j) { 0 -> Pal.WOOD_L; th - 1 -> Pal.WOOD_D; 1 -> railMid; else -> Pal.WOOD_M })
+            for (xx in max(xs[0].toInt(), c.left)..min(xl3.toInt(), c.right - 1)) if (Noise.rnd(xx / 5, ri, 74) < 0.3f && xx % 5 != 0) c.set(xx, y + th / 2, grain)
         }
         for ((pi, x) in xs.withIndex()) {
             val x0 = (x - pw / 2).toInt(); val pwi = pw.toInt()
@@ -1281,7 +1354,8 @@ internal class FieldPainter : WildPainter() {
         val lite = Col.mix(Pal.SHINGLE_L, Col.hex(0xFFF0C8), 0.2f)
         for (y in max(ridge.toInt(), c.top)..min(eave.toInt(), c.bottom - 1)) {
             val u = (y - ridge) / max(1f, eave - ridge)
-            val xl = (xs[0] - over - (1 - u) * 0.25f * p).toInt(); val xr = (xs[3] + over + (1 - u) * 0.25f * p).toInt()
+            val xl = (xs[0] - over - (1 - u) * 0.25f * p).toInt(); val xr = (xl3 + over + (1 - u) * 0.25f * p).toInt()
+            if (!kShingles) { roofBoards(xl, xr, y, u, p); continue }
             val fy = (y - ridge.toInt()) % step; val row = (y - ridge.toInt()) / step
             if (env.snow && u < 0.75f) { c.hline(xl, xr, y, if (((y - ridge.toInt()) / k + row) % 4 == 0) Pal.SNOW_M else Pal.SNOW_L); continue }
             if (fy == 0) { c.hline(xl, xr, y, Pal.SHINGLE_D); continue }
@@ -1304,8 +1378,8 @@ internal class FieldPainter : WildPainter() {
         }
         val th = max(1, k - 1)
         for (i in 0 until th) {
-            c.hline((xs[0] - over - 0.25f * p).toInt(), (xs[3] + over + 0.25f * p).toInt(), ridge.toInt() - 1 - i, if (env.snow) Pal.SNOW_L else Pal.WOOD_X)
-            c.hline((xs[0] - over).toInt(), (xs[3] + over).toInt(), eave.toInt() + 1 + i, if (i == 0) Pal.WOOD_X else Pal.WOOD_D)
+            c.hline((xs[0] - over - 0.25f * p).toInt(), (xl3 + over + 0.25f * p).toInt(), ridge.toInt() - 1 - i, if (env.snow) Pal.SNOW_L else Pal.WOOD_X)
+            c.hline((xs[0] - over).toInt(), (xl3 + over).toInt(), eave.toInt() + 1 + i, if (i == 0) Pal.WOOD_X else Pal.WOOD_D)
         }
     }
 
@@ -1345,8 +1419,8 @@ internal class FieldPainter : WildPainter() {
                 if (hm < 0f) continue
                 val v = dd - d // along the gable end, from its front corner
                 var col = fienileWall(v, hm, FIEN_DEPTH, max(0.025f, 0.6f / pp), px, py)
-                // a lattice high in the gable, to air the loft
-                if (abs(v - FIEN_DEPTH / 2f) < 0.45f && hm in FIEN_EAVE - 0.55f..FIEN_EAVE + 0.35f) col = lattice(v - (FIEN_DEPTH / 2f - 0.45f), hm - (FIEN_EAVE - 0.55f), pp)
+                // a lattice high in the gable, to air the loft (from the fourth level)
+                if (fLattice && abs(v - FIEN_DEPTH / 2f) < 0.45f && hm in FIEN_EAVE - 0.55f..FIEN_EAVE + 0.35f) col = lattice(v - (FIEN_DEPTH / 2f - 0.45f), hm - (FIEN_EAVE - 0.55f), pp)
                 c.set(px, py, Col.scale(col, 0.8f))
             }
         }
@@ -1433,8 +1507,9 @@ internal class FieldPainter : WildPainter() {
      * the string course, the loft's opening and its lattices, the quoins, else the cobbled wall.
      */
     private fun fienileFront(u: Float, hm: Float, width: Float, gap: Float, px: Int, py: Int, p: Float): Int {
-        // the two arches below, their brick rings
-        for (cxu in floatArrayOf(width * 0.28f, width * 0.72f)) {
+        // the two arches below, their brick rings (at first only the left one)
+        for ((ai, cxu) in floatArrayOf(width * 0.28f, width * 0.72f).withIndex()) {
+            if (ai >= fArches) break
             val dx = u - cxu
             if (abs(dx) > FIEN_ARCH + FIEN_RING) continue
             val r = if (hm > FIEN_SPRING) sqrt(dx * dx + (hm - FIEN_SPRING) * (hm - FIEN_SPRING)) else abs(dx)
@@ -1457,8 +1532,8 @@ internal class FieldPainter : WildPainter() {
                 return if (joint) MORTAR else brickTone(n, 3)
             }
         }
-        // the string course over the arches
-        if (hm in FIEN_STRING..FIEN_STRING + 0.16f) {
+        // the string course over the arches (from the third level)
+        if (fBands && hm in FIEN_STRING..FIEN_STRING + 0.16f) {
             val b = floor(u / 0.26f).toInt()
             return if (hm > FIEN_STRING + 0.13f) Col.mix(BRICK_L, Col.hex(0xFFF0D8), 0.25f) else if ((u / 0.26f - b) < gap / 0.26f * 1.2f) MORTAR else brickTone(b, 5)
         }
@@ -1469,7 +1544,7 @@ internal class FieldPainter : WildPainter() {
             return Col.hex(0x2A2220)
         }
         if (hm in FIEN_LOFT - 0.08f..FIEN_LOFT && u in lo - 0.08f..hi + 0.08f) return Pal.STONE_L // its sill
-        for (cxu in floatArrayOf(width * 0.15f, width * 0.85f)) if (abs(u - cxu) < 0.45f && hm in FIEN_LOFT + 0.05f..FIEN_LOFT + 1.0f) return lattice(u - (cxu - 0.45f), hm - (FIEN_LOFT + 0.05f), p)
+        if (fLattice) for (cxu in floatArrayOf(width * 0.15f, width * 0.85f)) if (abs(u - cxu) < 0.45f && hm in FIEN_LOFT + 0.05f..FIEN_LOFT + 1.0f) return lattice(u - (cxu - 0.45f), hm - (FIEN_LOFT + 0.05f), p)
         return fienileWall(u, hm, width, gap, px, py)
     }
 
@@ -1482,22 +1557,22 @@ internal class FieldPainter : WildPainter() {
         // the quoins: long and short bricks in turn up both corners
         val row = floor(hm / 0.2f).toInt()
         val quoin = if (row % 2 == 0) 0.46f else 0.26f
-        if (u < quoin || u > span - quoin) {
+        if (fLattice && (u < quoin || u > span - quoin)) {
             val fr = hm / 0.2f - row
             return if (fr < gap / 0.2f) MORTAR else brickTone(row, if (u < quoin) 1 else 2)
         }
-        // the brick bands
+        // the brick bands (from the third level; plain cobbles before)
         val band = hm % FIEN_BAND
-        if (band < 0.2f) {
+        if (fBands && band < 0.2f) {
             val c3 = floor(band / 0.066f).toInt()
             val b = floor(u / 0.25f + (c3 % 2) * 0.5f).toInt()
             val joint = (band / 0.066f - c3) < gap / 0.066f || (u / 0.25f + (c3 % 2) * 0.5f - b) < gap / 0.25f
             return if (joint) MORTAR else brickTone(b, c3 + 7)
         }
-        // the cobbles: courses 0.17 m high, stones along them
-        val cr = floor((band - 0.2f) / 0.17f).toInt() + floor(hm / FIEN_BAND).toInt() * 7
-        val cb = 0.2f + (cr % 7) * 0.17f
-        val vy = (band - cb) / 0.17f // 0..1 up the course
+        // the cobbles: courses 0.17 m high, stones along them (without the bands, a course of its own where a band would be)
+        val low = band < 0.2f
+        val cr = if (low) floor(hm / FIEN_BAND).toInt() * 7 - 1 else floor((band - 0.2f) / 0.17f).toInt() + floor(hm / FIEN_BAND).toInt() * 7
+        val vy = if (low) band / 0.2f else (band - (0.2f + (cr % 7) * 0.17f)) / 0.17f // 0..1 up the course
         val len = 0.24f + 0.08f * Noise.rnd(cr, 0, 61)
         val off = Noise.rnd(cr, 1, 61) * len
         val sx = (u + off) / len
@@ -1539,7 +1614,7 @@ internal class FieldPainter : WildPainter() {
         val p = pm(d); val by = gy(d)
         val k = detail
         val width = xb - xa
-        val full = when (env.season) { Season.SPRING -> 0.45f; Season.WINTER -> 0.8f; else -> 1f }
+        val full = when (env.season) { Season.SPRING -> 0.45f; Season.WINTER -> 0.8f; else -> 1f } * (if (hayFull) 1f else 0.45f)
         val hl = if (env.snow) Col.mix(Pal.HAY_L, Pal.SNOW_M, 0.2f) else Pal.HAY_L
         // in the loft: from the sill up as full as it is, bulging out a little at its bottom and over the pole
         val lo = width * 0.36f; val hi = width * 0.64f
@@ -1690,7 +1765,9 @@ internal class FieldPainter : WildPainter() {
             else -> if (full) intArrayOf(6, 6, 6) else intArrayOf(6, 3, 1)
         }
         val hl = if (env.snow) Col.mix(Pal.HAY_L, Pal.SNOW_M, 0.3f) else Pal.HAY_L
-        for (bay in 0 until 3) {
+        // a smaller kozolec holds its first hay on fewer rails: half its fill, until the fifth level
+        if (!full && !hayFull) for (i in fill.indices) fill[i] = (fill[i] + 1) / 2
+        for (bay in 0 until (if (full) 3 else kBays)) {
             val x0 = gx(xa + (xb - xa) * bay / 3f, d).toInt() + max(2, (0.2f * p).toInt())
             val x1 = gx(xa + (xb - xa) * (bay + 1) / 3f, d).toInt() - max(2, (0.2f * p).toInt())
             for (kk in 0 until fill[bay]) {
@@ -1726,12 +1803,14 @@ internal class FieldPainter : WildPainter() {
                 if (env.snow) for (i in 1..k) c.hline(x0, x1, top - i, Pal.SNOW_L)
             }
         }
+        // the hay fallen on the grass under it, as wide as it is
+        val xe = if (full || kBays == 3) xb else xa + (xb - xa) * kBays / 3f
         if (k == 1) {
-            for (x in gx(xa, d).toInt() - 3..gx(xb, d).toInt() + 3 step 2) if (Noise.rnd(x, 54) < 0.5f) { c.set(x, by.toInt() - 1, Pal.HAY_M); c.set(x + 1, by.toInt() - 2, hl) }
+            for (x in gx(xa, d).toInt() - 3..gx(xe, d).toInt() + 3 step 2) if (Noise.rnd(x, 54) < 0.5f) { c.set(x, by.toInt() - 1, Pal.HAY_M); c.set(x + 1, by.toInt() - 2, hl) }
         } else {
             val byi = by.toInt()
             var x = gx(xa, d).toInt() - 3 * k
-            while (x <= gx(xb, d).toInt() + 3 * k) {
+            while (x <= gx(xe, d).toInt() + 3 * k) {
                 if (Noise.rnd(x / k, 54) < 0.5f) {
                     c.line(x, byi - 1, x + k, byi - k, Pal.HAY_M)
                     c.line(x + 1, byi - 1, x + 2 * k - 1, byi - 1 - k / 2, hl)

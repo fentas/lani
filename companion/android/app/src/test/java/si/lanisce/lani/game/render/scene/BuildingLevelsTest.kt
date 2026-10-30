@@ -135,14 +135,12 @@ class BuildingLevelsTest {
         private val PENDING = setOf(
             "attic",
             "cellar",
-            "field",
             "kitchen",
             "livingroom",
             "market",
             "school",
             "smithy",
             "square",
-            "tent",
             "watchtower",
             "workshop",
         )

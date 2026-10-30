@@ -41,6 +41,19 @@ class FriuliApiaryChurchLooksTest {
         Triple("church", BuildingType.CHURCH, listOf("aunt", "grandma", "child3")),
     )
 
+    /**
+     * Every art whose levels this round drew (the tent and the field had their Friuli look already, the field seen by its
+     * own level and by the hayrack's): the checks of a level's things, its people and its pokes run over all of them.
+     */
+    private val levelArts = arts + listOf(
+        Triple("tent", BuildingType.TENT, listOf("shepherd", "child3", "child2")),
+        Triple("field", BuildingType.FIELD, listOf("farmer", "child3", "grandpa")),
+        Triple("field", BuildingType.KOZOLEC, listOf("farmer", "child3", "grandpa")),
+    )
+
+    /** The wild animals of an outdoor art come and go with the day ([si.lanisce.lani.game.scene.Wildlife]): not a level's things. */
+    private val wild = setOf("hare", "butterfly", "fox", "stag", "hedgehog", "boar", "badger", "dormouse", "bat", "deer", "chamois", "ibex")
+
     private fun world(type: BuildingType, level: Int, culture: String) =
         SceneWorld(culture = culture, here = Building("here", type, 0, level = level))
 
@@ -83,6 +96,16 @@ class FriuliApiaryChurchLooksTest {
         }
     }
 
+    @Test fun `render the tent's and the field's levels closer up`() {
+        for ((art, type, sprites) in levelArts.drop(arts.size)) {
+            val tag = "${art}-${type.name.lowercase()}"
+            for (level in levels) for (k in 2..3) for (culture in listOf("primorska", "friuli")) {
+                write(render(art, frame(art, type, level, culture, 10.5f, sprites, people = false), k), File(dir, "levels-$tag-L$level-k$k-$culture.png"))
+            }
+            for (level in listOf(1, 5)) write(render(art, frame(art, type, level, "friuli", 20f, sprites, month = 10), 2), File(dir, "levels-$tag-L$level-evening-friuli.png"))
+        }
+    }
+
     @Test fun `Friuli's look draws the bee garden and the church its own way at every level`() {
         for ((art, type, sprites) in arts) {
             assertTrue("Friuli's look touches $art", CultureLooks.of("friuli").touches(art))
@@ -95,12 +118,13 @@ class FriuliApiaryChurchLooksTest {
     }
 
     @Test fun `in Friuli each level draws what it has, once, and the people stand where they did`() {
-        for ((art, type, sprites) in arts) for (level in levels) for (k in 1..3) for (month in listOf(1, 5, 10)) {
+        for ((art, type, sprites) in levelArts) for (level in levels) for (k in 1..3) for (month in listOf(1, 5, 10)) {
             val w = world(type, level, "friuli")
             val hits = ScenePainters.create(art).render(PixelCanvas(240 * k, 160 * k), frame(art, type, level, "friuli", 10.5f, sprites, month = month), Lens(k, 0, 0, 240, 160))
             for (slot in SceneArt.objects.getValue(art)) {
+                if (slot in wild) continue
                 val n = hits.count { it.target == SceneTarget.Thing(slot) }
-                assertEquals("$art/$slot at level $level, detail $k, month $month", if (SceneFixtures.there(art, slot, w)) 1 else 0, n)
+                assertEquals("$art/$slot at level $level of ${type.name}, detail $k, month $month", if (SceneFixtures.there(art, slot, w)) 1 else 0, n)
             }
             // the people where the Slovene picture has them: the spots stay
             val home = ScenePainters.create(art).render(PixelCanvas(240 * k, 160 * k), frame(art, type, level, "primorska", 10.5f, sprites, month = month), Lens(k, 0, 0, 240, 160))
@@ -114,7 +138,8 @@ class FriuliApiaryChurchLooksTest {
 
     @Test fun `in Friuli every poke shows at every detail and level, can be tapped, and leaves the hits alone`() {
         val failed = ArrayList<String>()
-        for ((art, type, sprites) in arts) for (level in listOf(1, 3, 5)) for (poke in ScenePainters.create(art).pokes) for ((step, d) in poke.steps.withIndex()) for (k in 1..3) {
+        for ((art, type, sprites) in levelArts) for (level in listOf(1, 3, 5)) for (poke in ScenePainters.create(art).pokes) for ((step, d) in poke.steps.withIndex()) for (k in 1..3) {
+            if (poke.id in wild) continue
             val base = frame(art, type, level, "friuli", 14f, sprites).copy(time = 10.0)
             var diff = 0
             for (i in 0 until 5) {
@@ -127,13 +152,14 @@ class FriuliApiaryChurchLooksTest {
             }
             if (diff < 20 * k * k) failed += "$art/${poke.id} step $step, level $level, detail $k: $diff px change"
         }
-        for ((art, type, sprites) in arts) for (level in listOf(1, 5)) for (hour in listOf(14f, 22.5f)) {
+        for ((art, type, sprites) in levelArts) for (level in listOf(1, 5)) for (hour in listOf(14f, 22.5f)) {
             val p = ScenePainters.create(art)
             val c = PixelCanvas(240, 160)
             p.render(c, frame(art, type, level, "friuli", hour, sprites), Lens(1, 0, 0, 240, 160))
             val found = HashSet<String>()
             for (y in 0 until c.height) for (x in 0 until c.width) p.pokeAt(c, x, y, 0)?.let { found += it }
-            if (!found.containsAll(p.pokes.map { it.id })) failed += "$art at level $level, ${hour}h: ${p.pokes.map { it.id } - found} can't be tapped"
+            val want = p.pokes.map { it.id }.filter { it !in wild }
+            if (!found.containsAll(want)) failed += "$art at level $level, ${hour}h: ${want - found} can't be tapped"
         }
         assertTrue(failed.joinToString("\n", prefix = "\n"), failed.isEmpty())
     }
@@ -144,7 +170,7 @@ class FriuliApiaryChurchLooksTest {
     @Test fun `in Friuli nothing is drawn over the head of someone at a person spot, at every level`() {
         val failed = ArrayList<String>()
         val sprites = SceneArt.people - setOf("baby", "pedlar", "pilgrim")
-        for ((art, type, _) in arts) for (slot in SceneArt.personSlots.getValue(art)) {
+        for ((art, type, _) in levelArts) for (slot in SceneArt.personSlots.getValue(art)) {
             if ("$art/$slot" in behind) continue
             for (level in levels) for (sprite in sprites) for (hour in listOf(15f, 22.5f)) {
                 val p = ScenePainters.create(art) as ArtPainter

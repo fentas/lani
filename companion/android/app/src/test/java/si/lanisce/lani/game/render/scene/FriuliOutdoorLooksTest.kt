@@ -284,7 +284,8 @@ class FriuliOutdoorLooksTest {
 
     /**
      * Friuli's outdoor pictures as built on 2026-10-28, inland and on the coast: by day with someone at every spot and
-     * everything built, by day before anything is (the fienile not yet, the mill and the bridges not begun), a winter's
+     * everything built, by day before anything is (the fienile not yet, the mill and the bridges not begun, the field at its
+     * first level: its first plots, since 2026-10-30), a winter's
      * dusk in a tall view, a night closer up, a summer's afternoon at the closest. A change to one of them is a change to
      * Friuli's look: look at the review renders, then take the new digests from the test's output.
      */
@@ -312,12 +313,12 @@ class FriuliOutdoorLooksTest {
 
     private val golden: Map<String, String> = mapOf(
         "field/classic/day" to "46a3fcb02112ca22",
-        "field/classic/day-unbuilt" to "c28bd133703883b2",
+        "field/classic/day-unbuilt" to "68b9a33281dbbc82",
         "field/classic/dusk-winter" to "81910872d516f56",
         "field/classic/night-k2" to "9368eb8965f19962",
         "field/classic/afternoon-k3" to "3a924b936f6b69a2",
         "field/coast/day" to "46a3fcb02112ca22",
-        "field/coast/day-unbuilt" to "c28bd133703883b2",
+        "field/coast/day-unbuilt" to "68b9a33281dbbc82",
         "field/coast/dusk-winter" to "81910872d516f56",
         "field/coast/night-k2" to "72d982e740ef25b3",
         "field/coast/afternoon-k3" to "bd96d687fc0bf17d",
