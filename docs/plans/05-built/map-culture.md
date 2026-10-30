@@ -73,6 +73,26 @@ as before. A culture this app has no pack of shows its language's flag.
   and as a town, by day and at night, at rest and closer; `--steps friends,visit` with
   `LANI_DEV_TOWN_FIXTURE=dev-town-kaernten.json` for the Carinthian town's card and its map on a visit.
 
+## On the emulator
+
+Two runs of the debug build on the shared machine (2026-10-30, the first emulator, `ANDROID_SERIAL=emulator-5554`, inside
+the emulator's lock), screenshots in the round's scratchpad `ux-map-culture/emulator/`:
+
+- `--steps map-looks --no-town` on a synthetic Italian learner of the Friuli culture founded at Teo's land
+  (`LANI_CULTURE=friuli LANI_LANDSCAPE=coast LANI_QA_FOUND_SEED=551323397 LANI_QA_PAIR=sl-en`): the hamlet and the town by
+  day and at night, at rest and closer (`map-friuli-*.png`): the plastered houses under coppi, the campanile, the vera,
+  the watchtower on its pillars with Friuli's flag, the tent's pennant, the tricolore over the school. setup, map-looks and
+  the crash check passed; the map's render 82 to 122 ms a frame at details 1 to 3 (the emulator's software rendering under
+  a load average near 40).
+- `--steps visit` with `LANI_DEV_TOWN_FIXTURE=dev-town-kaernten.json` on a synthetic Slovene learner: the Friends card
+  of Probedorf with 🇦🇹 (`kaernten-friends-card.png`; 🇩🇪 before), the visit's header with 🇦🇹 and the Carinthian village
+  under the Karawanken and the Mittagskogel (`kaernten-visit-map.png`), Am See (`19-`, `21-visit-scene.png`). Every
+  visit step passed but `visit-home`, which still waits for the village where "⌂ Home" now leads back to Friends (the
+  infra part of this round fixes the step).
+
+The "before" of every culture is the default culture's map, which every culture drew until now: the left column of
+`00-before-after.png`.
+
 ## Tests
 
 `MapLooksTest` (app/src/test/.../game/render):
@@ -86,8 +106,15 @@ as before. A culture this app has no pack of shows its language's flag.
   the watchtower's;
 - every building of every culture's map is drawn and found by a tap at every age, at the nominal detail by day and
   closer up at night;
-- a frame of a culture's map costs no more than the default culture's;
+- a frame of a culture's map costs no more than the default culture's (a town at night on a phone upright, each
+  culture's best of five rounds taken in turn: 8.7 ms in Friuli, 9.0 in Carinthia, 8.9 in the Lake District, 10.1 in
+  Primorska, in the full suite's run on the shared machine; the windows of the upper floors glow without a light of their
+  own, so a culture's many windows don't fill the frame's lights);
 - the contact sheets.
+
+The whole Android unit suite after the rebase onto main: 3441 tests, none failed (2 skipped). The Python tests (251 and
+102, 11 skipped), the bridge's typecheck, its smoke (ports 9060, 9063, 9066) and `tutor-export --check` (87 files) pass;
+nothing of the bridge changed.
 
 ## Tap counts
 
