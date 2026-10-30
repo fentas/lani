@@ -42,9 +42,12 @@ class SceneWorldRenderTest {
         return c
     }
 
-    /** A village at the last age with [buildings] (all of them when null) and [projects] at their steps (the rest none). */
+    /**
+     * A village at the last age with [buildings] (all of them when null), each at the top level (a building's own levels are
+     * BuildingLevelsTest's), and [projects] at their steps (the rest none).
+     */
     private fun world(buildings: Set<BuildingType>? = BuildingType.entries.toSet(), projects: Map<String, Int> = emptyMap()) =
-        SceneWorld(Age.MESTO, buildings?.associateWith { 1 }, projects)
+        SceneWorld(Age.MESTO, buildings?.associateWith { si.lanisce.lani.game.Catalog.MAX_LEVEL }, projects)
 
     private val noTent = BuildingType.entries.toSet() - BuildingType.TENT
     private val noKozolec = BuildingType.entries.toSet() - BuildingType.KOZOLEC
@@ -64,17 +67,7 @@ class SceneWorldRenderTest {
         "campfire" to listOf("no tent" to SceneWorld.ALL.copy(buildings = noTent.associateWith { si.lanisce.lani.game.Catalog.MAX_LEVEL }), "tent" to SceneWorld.ALL),
         // the maypole's spruce felled in the forest (lying by its stump), then carried off to the village (the stump)
         "forest" to (0..2).map { s -> "mlaj $s/5" to world(projects = mapOf("mlaj" to s)) },
-        // the rooms by their building's level: the kitchen of a hut (bare, then the stove and the table, then the clock and
-        // the holy corner), the smithy (the bellows, then the wheel and the second anvil), the school (the map and the
-        // globe, then the clock)
-        "kitchen" to (1..3).map { "hut level $it" to SceneWorld.room(it, BuildingType.HUT) },
-        "smithy" to (1..3).map { "level $it" to SceneWorld.room(it, BuildingType.SMITHY) },
-        "school" to (1..3).map { "level $it" to SceneWorld.room(it, BuildingType.SCHOOL) },
-        // the rooms of the houses (game/scene/Homes) by their house's level
-        "livingroom" to (1..3).map { "house level $it" to SceneWorld.room(it, BuildingType.HOUSE) },
-        "workshop" to (1..3).map { "house level $it" to SceneWorld.room(it, BuildingType.HOUSE) },
-        "cellar" to (1..3).map { "house level $it" to SceneWorld.room(it, BuildingType.HOUSE) },
-        "attic" to (1..3).map { "house level $it" to SceneWorld.room(it, BuildingType.HOUSE) },
+        // a building's levels (the rooms, the smithy, the school, the tower …): BuildingLevelsTest, build/scene-snapshots/levels
     )
 
     @Test fun `render the stages side by side`() {
@@ -127,7 +120,8 @@ class SceneWorldRenderTest {
     }
 
     @Test fun `the arts without fixtures look the same whatever is built`() {
-        for (art in SceneArt.arts - stages.keys) {
+        // a building's own art shows its level (BuildingLevelsTest): not here
+        for (art in SceneArt.arts - stages.keys - BuildingLevelsTest.buildingArts.values.flatten().toSet()) {
             val all = render(art, frame(art, SceneWorld.ALL)).pixels.toList()
             val none = render(art, frame(art, SceneWorld.NONE)).pixels.toList()
             assertEquals("$art changes with the village", all, none)

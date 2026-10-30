@@ -221,11 +221,54 @@ object CultureLooks {
         variants = mapOf("map" to "friuli", "flag" to "it", "frieze" to "vine", "abacus" to "pallottoliere", "greeting" to "it"),
     )
 
+    // ------------------------------------------------------------------ Friuli's buildings and their rooms (places-it-buildings)
+    // Each art's table on its own (they fill in as each art gets its Friuli look); an empty one sets nothing.
+
+    /** Friuli's watchtower (Sulla torre, WatchtowerPainter). */
+    internal val FRIULI_WATCHTOWER = Table.of("watchtower")
+
+    /** Friuli's market (Al mercato, MarketPainter). */
+    internal val FRIULI_MARKET = Table.of("market")
+
+    /** Friuli's square (In piazza, SquarePainter). */
+    internal val FRIULI_SQUARE = Table.of("square")
+
+    /** Friuli's bee garden (Dalle api, ApiaryPainter). */
+    internal val FRIULI_APIARY = Table.of("apiary")
+
+    /** Friuli's church (In chiesa, ChurchPainter). */
+    internal val FRIULI_CHURCH = Table.of("church")
+
+    /** Nonno Bepi's room by the fogolâr (In salotto, LivingRoomPainter). */
+    internal val FRIULI_LIVINGROOM = Table.of("livingroom")
+
+    /** Vignaiolo Matteo's cantina (In cantina, CellarPainter). */
+    internal val FRIULI_CELLAR = Table.of("cellar")
+
+    /** Marisa and Tommaso's attic (In soffitta, AtticPainter). */
+    internal val FRIULI_ATTIC = Table.of("attic")
+
+    /** Mugnaio Franco's workshop (In bottega, WorkshopPainter). */
+    internal val FRIULI_WORKSHOP = Table.of("workshop")
+
+    /** The Collio's vineyard (the vinograd project's hills, HillsPainter). */
+    internal val FRIULI_HILLS = Table.of("hills")
+
     /** Each culture's look: its arts' tables added up. A culture not here draws every art as the default culture does. */
     private val tables: Map<String, Table> = mapOf(
         "kaernten" to KAERNTEN_ALPS + KAERNTEN_CAMPFIRE,
         "lakeland" to LAKELAND_ALPS + LAKELAND_CAMPFIRE,
-        "friuli" to FRIULI_KITCHEN + FRIULI_SMITHY + FRIULI_TENT + FRIULI_MILL + FRIULI_FIELD + FRIULI_FOREST + FRIULI_STREAM + FRIULI_POND + FRIULI_SEA + FRIULI_SCHOOL,
+        "friuli" to FRIULI_KITCHEN + FRIULI_SMITHY + FRIULI_TENT + FRIULI_MILL + FRIULI_FIELD + FRIULI_FOREST + FRIULI_STREAM + FRIULI_POND + FRIULI_SEA + FRIULI_SCHOOL +
+            FRIULI_WATCHTOWER +
+            FRIULI_MARKET +
+            FRIULI_SQUARE +
+            FRIULI_APIARY +
+            FRIULI_CHURCH +
+            FRIULI_LIVINGROOM +
+            FRIULI_CELLAR +
+            FRIULI_ATTIC +
+            FRIULI_WORKSHOP +
+            FRIULI_HILLS,
     )
 
     private val looks = ConcurrentHashMap<String, CultureLook>()

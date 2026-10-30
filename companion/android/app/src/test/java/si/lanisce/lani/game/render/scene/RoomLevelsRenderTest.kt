@@ -20,10 +20,10 @@ import java.io.File
 import javax.imageio.ImageIO
 
 /**
- * The rooms by their building's level (companion/SCENES.md, "What the village has built"): each at levels 1 to 3, by day
+ * The rooms by their building's level (companion/SCENES.md, "What the village has built"): each at levels 1 to 5, by day
  * and in the evening, with its people, rendered side by side for review (build/scene-snapshots/rooms: a sheet per room,
- * and each level alone, closer up), and checked: every level looks different, only what the level has is drawn and
- * tappable, and the third level is the top one.
+ * and each level alone, closer up), and checked: the levels that bring its things look different, and only what the level
+ * has is drawn and tappable (that every level shows and the fifth is everything built: BuildingLevelsTest).
  */
 class RoomLevelsRenderTest {
     private val dir = File("build/scene-snapshots/rooms").apply { mkdirs() }
@@ -52,13 +52,13 @@ class RoomLevelsRenderTest {
         return c
     }
 
-    @Test fun `render every room at levels 1 to 3`() {
+    @Test fun `render every room at levels 1 to 5`() {
         for ((art, _, sprites) in rooms) {
             val s = 2; val label = 16
             val hours = listOf("day" to 10.5f, "evening" to 20f)
-            val img = BufferedImage(240 * s * 3, (160 * s + label) * hours.size, BufferedImage.TYPE_INT_RGB)
+            val img = BufferedImage(240 * s * LEVELS, (160 * s + label) * hours.size, BufferedImage.TYPE_INT_RGB)
             val g = img.createGraphics()
-            for ((row, hh) in hours.withIndex()) for (level in 1..3) {
+            for ((row, hh) in hours.withIndex()) for (level in 1..LEVELS) {
                 val c = render(art, frame(art, level, hh.second, sprites))
                 val oy = row * (160 * s + label)
                 for (y in 0 until 160 * s) for (x in 0 until 240 * s) img.setRGB((level - 1) * 240 * s + x, oy + label + y, c.pixels[(y / s) * 240 + x / s])
@@ -68,17 +68,16 @@ class RoomLevelsRenderTest {
             g.dispose()
             ImageIO.write(img, "png", File(dir, "$art-levels.png"))
             // each level closer up, without people: the room itself
-            for (level in 1..3) write(render(art, frame(art, level, 10.5f, sprites, people = false), 3), File(dir, "$art-L$level.png"), 1)
+            for (level in 1..LEVELS) write(render(art, frame(art, level, 10.5f, sprites, people = false), 3), File(dir, "$art-L$level.png"), 1)
         }
     }
 
-    @Test fun `each level differs, draws only what it has, and the third is the top`() {
+    @Test fun `the levels that bring things differ, and each draws only what it has`() {
         for ((art, type, sprites) in rooms) {
             val pics = (1..3).map { render(art, frame(art, it, 10.5f, sprites, people = false)).pixels.toList() }
             assertNotEquals("$art: level 2 looks like level 1", pics[0], pics[1])
             assertNotEquals("$art: level 3 looks like level 2", pics[1], pics[2])
-            assertEquals("$art: the top level is the third's", pics[2], render(art, frame(art, 5, 10.5f, sprites, people = false)).pixels.toList())
-            for (level in 1..3) {
+            for (level in 1..LEVELS) {
                 val w = SceneWorld.room(level, type)
                 val hits = ScenePainters.create(art).render(PixelCanvas(240, 160), frame(art, level, 10.5f, sprites, people = false))
                 for (slot in SceneArt.objects.getValue(art)) {
@@ -87,6 +86,10 @@ class RoomLevelsRenderTest {
                 }
             }
         }
+    }
+
+    private companion object {
+        val LEVELS = si.lanisce.lani.game.Catalog.MAX_LEVEL
     }
 
     private fun write(c: PixelCanvas, f: File, scale: Int) {
