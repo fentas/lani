@@ -227,8 +227,17 @@ object CultureLooks {
     /** Friuli's watchtower (Sulla torre, WatchtowerPainter). */
     internal val FRIULI_WATCHTOWER = Table.of("watchtower")
 
-    /** Friuli's market (Al mercato, MarketPainter). */
-    internal val FRIULI_MARKET = Table.of("market")
+    /**
+     * Friuli's market (Al mercato, MarketPainter): a market day in a Collio village. The houses round it as Friuli builds them
+     * (the fire's village's colours, its coppi and shutters) and the free-standing brick campanile with its low pyramid cap,
+     * vine rows on the hills; river cobbles with bands of brick; the awnings in Friuli's colours, the village's own stall in
+     * the blue and gold of its flag; Friulian goods (Montasio, gubana, a San Daniele ham, salami, the season's white asparagus,
+     * rosa di Gorizia and chestnuts, scarpets, on the coast fish) and Matteo's Collio white on his cart.
+     */
+    internal val FRIULI_MARKET = Table.of(
+        "market",
+        variants = mapOf("village" to "friuli", "hills" to "collio", "ground" to "acciottolato", "awnings" to "friuli", "goods" to "friuli"),
+    )
 
     /** Friuli's square (In piazza, SquarePainter). */
     internal val FRIULI_SQUARE = Table.of("square")
