@@ -3420,7 +3420,7 @@ def lens_sheet():
                ["rodilnik, ed.", "Po predlogu «brez»: rodilnik.", "Zahteva rodilnik: «mleka»", "Koga? Česa?"], "lens-sheet-brez")
     sheet_line("France Prešeren je Zdravljico napisal leta 1844. Njena sedma kitica je slovenska himna.",
                "France Prešeren wrote the Zdravljica in 1844. Its seventh stanza is the Slovene anthem.",
-               ["Rodilnik časa", "Kdaj?", "kitica", "sedmi"], "lens-sheet-leta", swipes=2)
+               ["Rodilnik časa", "Kdaj?", "kitica", "sedmi"], "lens-sheet-leta", swipes=4)
     sheet_line("Marko mi je posodil svoj novi kombi.", "Marko lent me his new van.", ["tožilnik, ed.", "kombi"], "lens-sheet-kombi", swipes=1)
     lens_card("leta", "France Prešeren je Zdravljico napisal leta 1844.", "France Prešeren wrote the Zdravljica in 1844.", ["rodilnik", "Rodilnik časa"], "lens-card-leta")
     return ""

@@ -95,7 +95,9 @@ class SentenceController(
                 words.indices.map { i ->
                     val found = if (nth[i] > 0) more[i] ?: first[words[i].lowercase()]?.takeIf { it.lens == null } else first[words[i].lowercase()]
                     found?.lens?.takeIf { it.seen }?.rule?.let(caseSeen)
+                    // (a word the dictionary has no entry of may still have the lens's case: a name by its ending, Prešeren)
                     found?.entries?.firstOrNull()?.let { WordReading(it.lemma, it.pos, it.grammar, found.lens) }
+                        ?: found?.lens?.let { WordReading(words[i], null, null, it) }
                 }
             }
             val note = if (b == null) null else try {

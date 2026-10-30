@@ -32,6 +32,7 @@ class SentenceGrammarTest {
     private val les = """{"i":1,"word":"les","start":7,"end":10,"readings":[],"pick":null,"sure":"ambiguous","kind":"form","rule":"skloni","options":[{"case":"nom","number":"sg","as":"form"},{"case":"acc","number":"sg","as":"form"}],"out":[]}"""
     private val leta = """{"i":5,"word":"leta","start":38,"end":42,"readings":[{"lemma":"leto","pos":"noun","case":"gen","number":"sg","genders":["n"]}],"pick":{"case":"gen","number":"sg","as":"when"},"sure":"decided","kind":"when","trigger":{"i":6,"word":"1844","start":43,"end":47},"rule":"cas-izrazi","options":[{"case":"gen","number":"sg","as":"when"}],"out":[]}"""
     private val pomagamBabici = """{"i":1,"word":"babici","start":8,"end":14,"readings":[],"pick":{"case":"dat","number":"sg","as":"verb"},"sure":"decided","kind":"verb","trigger":{"i":0,"word":"Pomagam","start":0,"end":7,"lemma":"pomagati"},"rule":"dajalnik","options":[{"case":"dat","number":"sg","as":"verb"}],"out":[{"case":"loc","number":"sg","why":"needs-preposition"}]}"""
+    private val krpan = """{"i":0,"word":"Krpan","start":0,"end":5,"readings":[{"lemma":"Krpan","pos":"name","case":"nom","number":"sg","genders":["m"],"derived":true}],"pick":{"case":"nom","number":"sg","as":"subject"},"sure":"decided","kind":"subject","trigger":{"i":1,"word":"pride","start":6,"end":11,"lemma":"priti"},"rule":"imenovalnik","options":[{"case":"nom","number":"sg","as":"subject"}],"out":[],"derived":true}"""
     private val unresolved = """{"i":2,"word":"jurček","start":9,"end":15,"readings":[],"pick":null,"sure":"ambiguous","kind":"unresolved","rule":"imenovalnik","options":[{"case":"nom","number":"sg","as":"unresolved"}],"out":[]}"""
 
     @Test fun `a word with a case says what the lens says, the word card's row, and its page`() {
@@ -90,6 +91,10 @@ class SentenceGrammarTest {
         assertEquals(CaseLine("Kdaj?", "hint.qWhen", Case.GEN), year.why?.line)
         assertEquals("cas-izrazi", year.page)
         assertEquals("Kdaj? (when?) → 2. rodilnik (genitive) · When? The genitive of time («1844»): leta 1844, nekega dne.", SentenceGrammar.why(year.why!!))
+        // a word the dictionary has no entry of, its case by the lens alone (a name by its ending): the row all the same
+        val name = SentenceGrammar.analyze("Krpan pride.", listOf(WordReading("Krpan", null, null, lens(krpan)), null), any)[0]
+        assertEquals(Case.NOM, name.why?.case)
+        assertEquals("nominative singular", name.reading)
         val help = rows("Pomagam babici.", r("pomagati", "verb", "first-person singular present"), r("babica", "noun", "dative/locative singular", case = pomagamBabici))[1]
         assertEquals("dative singular", help.reading)
         assertEquals("Komu? Čemu? → 3. dajalnik (dative) · The verb «Pomagam» (pomagati) takes the dative.", SentenceGrammar.why(help.why!!))
