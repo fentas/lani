@@ -1,0 +1,688 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "in-bottega",
+  "language": "it",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in it, with sl, en and de translations, from the Friuli workshop's picture at every level (where each thing is drawn, the painter's colours); not reviewed by a native speaker",
+  "things": {
+    "workbench": {
+      "clues": [
+        {
+          "kind": "material",
+          "it": "È di legno.",
+          "sl": "Je iz lesa.",
+          "en": "It's made of wood.",
+          "de": "Das ist aus Holz.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "size",
+          "it": "È lungo.",
+          "sl": "Je dolga.",
+          "en": "It's long.",
+          "de": "Das ist lang.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "lungo"
+        },
+        {
+          "kind": "where",
+          "it": "È sotto la finestra.",
+          "sl": "Je pod oknom.",
+          "en": "It's under the window.",
+          "de": "Das steht unter dem Fenster.",
+          "grammar": [
+            "dove-preposizioni"
+          ],
+          "ref": "window"
+        },
+        {
+          "kind": "trait",
+          "it": "Sopra c'è il martello.",
+          "sl": "Na njej je kladivo.",
+          "en": "The hammer is on it.",
+          "de": "Darauf liegt der Hammer.",
+          "grammar": [
+            "ce-ci-sono"
+          ]
+        }
+      ]
+    },
+    "hammer": {
+      "clues": [
+        {
+          "kind": "where",
+          "it": "È sul banco da lavoro.",
+          "sl": "Je na delovni mizi.",
+          "en": "It's on the workbench.",
+          "de": "Das liegt auf der Werkbank.",
+          "grammar": [
+            "preposizioni-articolate"
+          ],
+          "ref": "workbench"
+        },
+        {
+          "kind": "trait",
+          "it": "Ha il manico di legno.",
+          "sl": "Ima lesen ročaj.",
+          "en": "It has a wooden handle.",
+          "de": "Das hat einen Holzstiel.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "does",
+          "it": "Fa bum, bum!",
+          "sl": "Dela bum, bum!",
+          "en": "It goes bang, bang!",
+          "de": "Das macht bumm, bumm!",
+          "grammar": [
+            "presente-regolare"
+          ]
+        },
+        {
+          "kind": "use",
+          "it": "Serve per i chiodi.",
+          "sl": "Rabimo ga za žeblje.",
+          "en": "It's for the nails.",
+          "de": "Das braucht man für die Nägel.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        }
+      ]
+    },
+    "nails": {
+      "clues": [
+        {
+          "kind": "size",
+          "it": "È piccolo.",
+          "sl": "Je majhen.",
+          "en": "It's small.",
+          "de": "Das ist klein.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "piccolo"
+        },
+        {
+          "kind": "material",
+          "it": "È di ferro.",
+          "sl": "Je iz železa.",
+          "en": "It's made of iron.",
+          "de": "Das ist aus Eisen.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "where",
+          "it": "È in una scatola sul banco da lavoro.",
+          "sl": "Je v škatli na delovni mizi.",
+          "en": "It's in a tin on the workbench.",
+          "de": "Das ist in einer Dose auf der Werkbank.",
+          "grammar": [
+            "preposizioni-articolate"
+          ],
+          "ref": "workbench"
+        },
+        {
+          "kind": "use",
+          "it": "Lo pianti con il martello.",
+          "sl": "Zabiješ ga s kladivom.",
+          "en": "You drive it in with the hammer.",
+          "de": "Das schlägt man mit dem Hammer ein.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        }
+      ]
+    },
+    "boards": {
+      "clues": [
+        {
+          "kind": "size",
+          "it": "È lunga.",
+          "sl": "Je dolga.",
+          "en": "It's long.",
+          "de": "Das ist lang.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "lungo"
+        },
+        {
+          "kind": "where",
+          "it": "È appoggiata al muro.",
+          "sl": "Je naslonjena na steno.",
+          "en": "It leans on the wall.",
+          "de": "Das lehnt an der Wand.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "appoggiato"
+        },
+        {
+          "kind": "material",
+          "it": "È di legno.",
+          "sl": "Je iz lesa.",
+          "en": "It's made of wood.",
+          "de": "Das ist aus Holz.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "use",
+          "it": "Ci facciamo le sedie.",
+          "sl": "Iz nje delamo stole.",
+          "en": "We make chairs from it.",
+          "de": "Daraus machen wir Stühle.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        }
+      ]
+    },
+    "axe": {
+      "clues": [
+        {
+          "kind": "where",
+          "it": "È nel ceppo.",
+          "sl": "Je v štoru.",
+          "en": "It's in the chopping block.",
+          "de": "Das steckt im Hackklotz.",
+          "grammar": [
+            "preposizioni-articolate"
+          ]
+        },
+        {
+          "kind": "trait",
+          "it": "Ha il manico lungo.",
+          "sl": "Ima dolg ročaj.",
+          "en": "It has a long handle.",
+          "de": "Das hat einen langen Stiel.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "material",
+          "it": "È di ferro e di legno.",
+          "sl": "Je iz železa in lesa.",
+          "en": "It's made of iron and wood.",
+          "de": "Das ist aus Eisen und Holz.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "use",
+          "it": "Ci spacchiamo la legna.",
+          "sl": "Z njo cepimo drva.",
+          "en": "We split the firewood with it.",
+          "de": "Damit spalten wir das Brennholz.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        }
+      ]
+    },
+    "broom": {
+      "clues": [
+        {
+          "kind": "size",
+          "it": "È lunga.",
+          "sl": "Je dolga.",
+          "en": "It's long.",
+          "de": "Das ist lang.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "lungo"
+        },
+        {
+          "kind": "where",
+          "it": "È nell'angolo.",
+          "sl": "Je v kotu.",
+          "en": "It's in the corner.",
+          "de": "Das steht in der Ecke.",
+          "grammar": [
+            "preposizioni-articolate"
+          ]
+        },
+        {
+          "kind": "trait",
+          "it": "Ha la paglia in fondo.",
+          "sl": "Spodaj ima slamo.",
+          "en": "It has straw at the bottom.",
+          "de": "Das hat unten Stroh.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "use",
+          "it": "Ci puliamo il pavimento.",
+          "sl": "Z njo pometemo tla.",
+          "en": "We sweep the floor with it.",
+          "de": "Damit fegen wir den Boden.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        }
+      ]
+    },
+    "window": {
+      "clues": [
+        {
+          "kind": "where",
+          "it": "È sopra il banco da lavoro.",
+          "sl": "Je nad delovno mizo.",
+          "en": "It's over the workbench.",
+          "de": "Das ist über der Werkbank.",
+          "grammar": [
+            "dove-preposizioni"
+          ],
+          "ref": "workbench"
+        },
+        {
+          "kind": "trait",
+          "it": "Ha i vetri.",
+          "sl": "Ima šipe.",
+          "en": "It has panes.",
+          "de": "Das hat Scheiben.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "does",
+          "it": "Da lì entra la luce.",
+          "sl": "Skozenj pride svetloba.",
+          "en": "The light comes in through it.",
+          "de": "Da kommt das Licht herein.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        },
+        {
+          "kind": "trait",
+          "it": "Da lì si vedono le vigne.",
+          "sl": "Skozenj se vidijo vinogradi.",
+          "en": "You can see the vineyards through it.",
+          "de": "Von dort sieht man die Weinberge.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        }
+      ]
+    },
+    "door": {
+      "clues": [
+        {
+          "kind": "material",
+          "it": "È di legno.",
+          "sl": "Je iz lesa.",
+          "en": "It's made of wood.",
+          "de": "Das ist aus Holz.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "colour",
+          "it": "È marrone.",
+          "sl": "Je rjave barve.",
+          "en": "It's brown.",
+          "de": "Das ist braun.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "marrone"
+        },
+        {
+          "kind": "trait",
+          "it": "Sopra c'è un ferro di cavallo.",
+          "sl": "Nad njimi je podkev.",
+          "en": "There's a horseshoe over it.",
+          "de": "Darüber hängt ein Hufeisen.",
+          "grammar": [
+            "ce-ci-sono"
+          ]
+        },
+        {
+          "kind": "use",
+          "it": "Da qui si entra.",
+          "sl": "Tu se vstopi.",
+          "en": "This is where you come in.",
+          "de": "Hier geht man hinein.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        }
+      ]
+    },
+    "saw": {
+      "clues": [
+        {
+          "kind": "where",
+          "it": "È appesa sopra il banco.",
+          "sl": "Visi nad mizo.",
+          "en": "It hangs over the bench.",
+          "de": "Das hängt über der Bank.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "appeso"
+        },
+        {
+          "kind": "trait",
+          "it": "Ha tanti denti.",
+          "sl": "Ima veliko zob.",
+          "en": "It has lots of teeth.",
+          "de": "Das hat viele Zähne.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "material",
+          "it": "È di ferro.",
+          "sl": "Je iz železa.",
+          "en": "It's made of iron.",
+          "de": "Das ist aus Eisen.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "use",
+          "it": "Ci tagliamo il legno.",
+          "sl": "Z njo režemo les.",
+          "en": "We cut wood with it.",
+          "de": "Damit schneiden wir Holz.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        }
+      ]
+    },
+    "tools": {
+      "number": "pl",
+      "clues": [
+        {
+          "kind": "where",
+          "it": "Sono appesi al muro.",
+          "sl": "Visi na steni.",
+          "en": "They hang on the wall.",
+          "de": "Das hängt an der Wand.",
+          "grammar": [
+            "preposizioni-articolate"
+          ]
+        },
+        {
+          "kind": "where",
+          "it": "Sono vicino alla finestra.",
+          "sl": "So ob oknu.",
+          "en": "They're by the window.",
+          "de": "Das ist beim Fenster.",
+          "grammar": [
+            "preposizioni-articolate"
+          ],
+          "ref": "window"
+        },
+        {
+          "kind": "trait",
+          "it": "Sono tanti.",
+          "sl": "Veliko jih je.",
+          "en": "There are lots of them.",
+          "de": "Davon gibt es viele.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "use",
+          "it": "Ci lavoriamo il legno.",
+          "sl": "Z njim obdelujemo les.",
+          "en": "We work the wood with them.",
+          "de": "Damit bearbeiten wir das Holz.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        }
+      ]
+    },
+    "ladder": {
+      "clues": [
+        {
+          "kind": "where",
+          "it": "È appoggiata al muro.",
+          "sl": "Je naslonjena na steno.",
+          "en": "It leans on the wall.",
+          "de": "Das lehnt an der Wand.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "appoggiato"
+        },
+        {
+          "kind": "material",
+          "it": "È di legno.",
+          "sl": "Je iz lesa.",
+          "en": "It's made of wood.",
+          "de": "Das ist aus Holz.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "trait",
+          "it": "Ha tanti pioli.",
+          "sl": "Ima veliko prečk.",
+          "en": "It has lots of rungs.",
+          "de": "Das hat viele Sprossen.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "use",
+          "it": "Ci saliamo in alto.",
+          "sl": "Po njej splezamo visoko.",
+          "en": "We climb up high on it.",
+          "de": "Darauf steigen wir hoch.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        }
+      ]
+    },
+    "rake": {
+      "clues": [
+        {
+          "kind": "size",
+          "it": "È lungo.",
+          "sl": "Je dolge.",
+          "en": "It's long.",
+          "de": "Das ist lang.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "lungo"
+        },
+        {
+          "kind": "where",
+          "it": "È appoggiato al muro.",
+          "sl": "Je naslonjen na steno.",
+          "en": "It leans on the wall.",
+          "de": "Das lehnt an der Wand.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "appoggiato"
+        },
+        {
+          "kind": "trait",
+          "it": "Ha tanti denti.",
+          "sl": "Ima veliko zob.",
+          "en": "It has lots of teeth.",
+          "de": "Das hat viele Zinken.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "use",
+          "it": "Serve per il fieno.",
+          "sl": "Rabimo ga za seno.",
+          "en": "It's for the hay.",
+          "de": "Das braucht man fürs Heu.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        }
+      ]
+    },
+    "wheelbarrow": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È verde.",
+          "sl": "Je zelene barve.",
+          "en": "It's green.",
+          "de": "Das ist grün.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "verde"
+        },
+        {
+          "kind": "trait",
+          "it": "Ha una ruota.",
+          "sl": "Ima eno kolo.",
+          "en": "It has one wheel.",
+          "de": "Das hat ein Rad.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "where",
+          "it": "È per terra.",
+          "sl": "Je na tleh.",
+          "en": "It's on the floor.",
+          "de": "Das steht auf dem Boden.",
+          "grammar": [
+            "preposizioni-articolate"
+          ]
+        },
+        {
+          "kind": "use",
+          "it": "Ci portiamo la legna.",
+          "sl": "Z njo vozimo drva.",
+          "en": "We carry the firewood in it.",
+          "de": "Damit fahren wir das Brennholz.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        }
+      ]
+    },
+    "horse": {
+      "clues": [
+        {
+          "kind": "size",
+          "it": "È piccolo.",
+          "sl": "Je majhen.",
+          "en": "It's small.",
+          "de": "Das ist klein.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "piccolo"
+        },
+        {
+          "kind": "material",
+          "it": "È di legno.",
+          "sl": "Je iz lesa.",
+          "en": "It's made of wood.",
+          "de": "Das ist aus Holz.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "where",
+          "it": "È sul banco da lavoro.",
+          "sl": "Je na delovni mizi.",
+          "en": "It's on the workbench.",
+          "de": "Das steht auf der Werkbank.",
+          "grammar": [
+            "preposizioni-articolate"
+          ],
+          "ref": "workbench"
+        },
+        {
+          "kind": "use",
+          "it": "Lorenzo ci gioca.",
+          "sl": "Lorenzo se igra z njim.",
+          "en": "Lorenzo plays with it.",
+          "de": "Lorenzo spielt damit.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        }
+      ]
+    },
+    "lantern": {
+      "clues": [
+        {
+          "kind": "where",
+          "it": "Pende sopra il banco.",
+          "sl": "Visi nad mizo.",
+          "en": "It hangs over the bench.",
+          "de": "Das hängt über der Bank.",
+          "grammar": [
+            "dove-preposizioni"
+          ]
+        },
+        {
+          "kind": "material",
+          "it": "È di ferro e di vetro.",
+          "sl": "Je iz železa in stekla.",
+          "en": "It's made of iron and glass.",
+          "de": "Das ist aus Eisen und Glas.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "does",
+          "it": "Di sera fa luce.",
+          "sl": "Zvečer sveti.",
+          "en": "In the evening it gives light.",
+          "de": "Am Abend macht das Licht.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        },
+        {
+          "kind": "use",
+          "it": "La accendiamo quando è buio.",
+          "sl": "Prižgemo jo, ko je tema.",
+          "en": "We light it when it's dark.",
+          "de": "Wir zünden das an, wenn es dunkel ist.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        }
+      ]
+    }
+  }
+}

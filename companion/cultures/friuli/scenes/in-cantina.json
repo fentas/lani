@@ -1,0 +1,1400 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "in-cantina",
+  "language": "it",
+  "title": {
+    "it": "In cantina",
+    "sl": "V kleti",
+    "en": "In the cellar",
+    "de": "Im Keller"
+  },
+  "emoji": "🍷",
+  "level": "A1",
+  "review": "it, sl, en, de (the lines, the reactions, the variants): machine-written, not reviewed by a native speaker; wine only for the grown-ups, the must (grape juice) for the child",
+  "art": "cellar",
+  "from": [
+    "house"
+  ],
+  "household": [
+    "matteo"
+  ],
+  "pack": "in-cantina",
+  "objects": [
+    {
+      "slot": "barrel",
+      "word": "botte"
+    },
+    {
+      "slot": "press",
+      "word": "torchio"
+    },
+    {
+      "slot": "stairs",
+      "word": "scala",
+      "pack": "casa-e-cucina"
+    },
+    {
+      "slot": "door",
+      "word": "porta",
+      "pack": "casa-e-cucina"
+    },
+    {
+      "slot": "window",
+      "word": "finestra",
+      "pack": "casa-e-cucina"
+    },
+    {
+      "slot": "candle",
+      "word": "candela",
+      "pack": "festa-natale"
+    },
+    {
+      "slot": "jug",
+      "word": "brocca"
+    },
+    {
+      "slot": "glass",
+      "word": "bicchiere",
+      "pack": "casa-e-cucina"
+    },
+    {
+      "slot": "crate",
+      "word": "cassetta"
+    },
+    {
+      "slot": "shelf",
+      "word": "scaffale",
+      "needs": {
+        "level": 2
+      }
+    },
+    {
+      "slot": "bottle",
+      "word": "bottiglia",
+      "needs": {
+        "level": 2
+      }
+    },
+    {
+      "slot": "grapes",
+      "word": "uva",
+      "pack": "festa-vendemmia",
+      "needs": {
+        "level": 2
+      }
+    },
+    {
+      "slot": "wine",
+      "word": "damigiana",
+      "needs": {
+        "level": 2
+      }
+    },
+    {
+      "slot": "ham",
+      "word": "prosciutto",
+      "needs": {
+        "level": 3
+      }
+    },
+    {
+      "slot": "cheese",
+      "word": "formaggio",
+      "pack": "cibo",
+      "needs": {
+        "level": 3
+      }
+    }
+  ],
+  "people": [
+    {
+      "id": "matteo",
+      "name": "Vignaiolo Matteo",
+      "emoji": "🍇",
+      "art": "winemaker",
+      "slot": "barrel",
+      "villager": "matteo"
+    },
+    {
+      "id": "marisa",
+      "name": "Ostessa Marisa",
+      "emoji": "🍲",
+      "art": "innkeeper",
+      "slot": "stairs",
+      "villager": "marisa"
+    }
+  ],
+  "happenings": [
+    {
+      "id": "brocca",
+      "title": {
+        "it": "Marisa prende il vino per l'osteria",
+        "sl": "Marisa pride po vino za gostilno",
+        "en": "Marisa is fetching wine for the osteria",
+        "de": "Marisa holt Wein für die Osteria"
+      },
+      "who": "marisa",
+      "when": [
+        "morning",
+        "afternoon"
+      ],
+      "chance": 0.5,
+      "dialog": "brocca",
+      "dialogs": [
+        "brocca-bottiglie",
+        "brocca"
+      ],
+      "reward": {
+        "food": 15
+      },
+      "marker": "🫗",
+      "memory": {
+        "it": "la brocca di vino che mi hai aiutato a riempire",
+        "sl": "vrč vina, ki si mi ga {m:pomagal|f:pomagala} napolniti",
+        "en": "the jug of wine you helped me fill",
+        "de": "den Krug Wein, den du mir füllen geholfen hast"
+      }
+    },
+    {
+      "id": "candela",
+      "title": {
+        "it": "Matteo accende la candela",
+        "sl": "Matteo prižge svečo",
+        "en": "Matteo is lighting the candle",
+        "de": "Matteo zündet die Kerze an"
+      },
+      "who": "matteo",
+      "when": [
+        "evening"
+      ],
+      "chance": 0.45,
+      "dialog": "candela",
+      "dialogs": [
+        "candela-bicchiere",
+        "candela"
+      ],
+      "reward": {
+        "wood": 10
+      },
+      "marker": "🕯️",
+      "memory": {
+        "it": "la sera che abbiamo acceso la candela in cantina",
+        "sl": "večer, ko sva v kleti prižgala svečo",
+        "en": "the evening we lit the candle in the cellar",
+        "de": "den Abend, an dem wir im Keller die Kerze angezündet haben"
+      }
+    },
+    {
+      "id": "vendemmia",
+      "title": {
+        "it": "La vendemmia in cantina",
+        "sl": "Trgatev v kleti",
+        "en": "The grape harvest in the cellar",
+        "de": "Die Weinlese im Keller"
+      },
+      "who": "matteo",
+      "when": [
+        "afternoon"
+      ],
+      "months": [
+        9,
+        10
+      ],
+      "chance": 0.5,
+      "needs": {
+        "level": 2
+      },
+      "dialog": "vendemmia",
+      "dialogs": [
+        "vendemmia-assaggio",
+        "vendemmia"
+      ],
+      "reward": {
+        "food": 20
+      },
+      "marker": "🍇",
+      "memory": {
+        "it": "la vendemmia, quando abbiamo girato il torchio insieme",
+        "sl": "trgatev, ko sva skupaj vrtela stiskalnico",
+        "en": "the harvest, when we turned the press together",
+        "de": "die Weinlese, als wir zusammen die Presse gedreht haben"
+      }
+    },
+    {
+      "id": "prosciutto",
+      "title": {
+        "it": "Matteo mostra il prosciutto",
+        "sl": "Matteo pokaže pršut",
+        "en": "Matteo is showing the ham",
+        "de": "Matteo zeigt den Schinken"
+      },
+      "who": "matteo",
+      "when": [
+        "afternoon"
+      ],
+      "chance": 0.4,
+      "needs": {
+        "level": 3
+      },
+      "dialog": "prosciutto",
+      "dialogs": [
+        "prosciutto-salami",
+        "prosciutto"
+      ],
+      "reward": {
+        "food": 15
+      },
+      "marker": "🍖",
+      "memory": {
+        "it": "il prosciutto di San Daniele e i salami",
+        "sl": "pršut iz San Danieleja in salame",
+        "en": "the San Daniele ham and the salami",
+        "de": "den Schinken aus San Daniele und die Salamis"
+      }
+    },
+    {
+      "id": "frasca",
+      "title": {
+        "it": "Matteo appende la frasca",
+        "sl": "Matteo obesi zeleno vejo",
+        "en": "Matteo is hanging out the frasca",
+        "de": "Matteo hängt die Frasca aus"
+      },
+      "who": "matteo",
+      "when": [
+        "morning"
+      ],
+      "chance": 0.45,
+      "needs": {
+        "level": 2
+      },
+      "dialog": "frasca",
+      "dialogs": [
+        "frasca-tappi",
+        "frasca"
+      ],
+      "reward": {
+        "wisdom": 15
+      },
+      "marker": "🌿",
+      "memory": {
+        "it": "la frasca che abbiamo appeso fuori",
+        "sl": "zeleno vejo, ki sva jo obesila zunaj",
+        "en": "the frasca we hung outside",
+        "de": "die Frasca, die wir draußen aufgehängt haben"
+      }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "brocca",
+      "fx_stays": false,
+      "lines": [
+        {
+          "who": "marisa",
+          "face": "happy",
+          "it": "Buongiorno! Matteo, mi serve una brocca di vino per l'osteria.",
+          "sl": "Dober dan! Matteo, potrebujem vrč vina za gostilno.",
+          "en": "Good morning! Matteo, I need a jug of wine for the osteria.",
+          "de": "Guten Morgen! Matteo, ich brauche einen Krug Wein für die Osteria."
+        },
+        {
+          "who": "matteo",
+          "it": "Subito! {learner}, mi aiuti? Metti la brocca sotto il rubinetto.",
+          "sl": "Takoj! {learner}, mi pomagaš? Postavi vrč pod pipo.",
+          "en": "Right away! {learner}, will you help me? Put the jug under the tap.",
+          "de": "Sofort! {learner}, hilfst du mir? Stell den Krug unter den Hahn."
+        },
+        {
+          "choices": [
+            {
+              "it": "Ecco, la brocca è sotto il rubinetto.",
+              "sl": "Tako, vrč je pod pipo.",
+              "en": "There, the jug is under the tap.",
+              "de": "So, der Krug steht unter dem Hahn.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Bene. Adesso apro il rubinetto.",
+                "sl": "Dobro. Zdaj odprem pipo.",
+                "en": "Good. Now I'll open the tap.",
+                "de": "Gut. Jetzt mache ich den Hahn auf.",
+                "fx": {
+                  "tap": 0.5
+                }
+              }
+            },
+            {
+              "it": "Ecco, il brocca è sotto il rubinetto.",
+              "sl": "Tako, vrč (moško) je pod pipo.",
+              "en": "There, the (masculine) jug is under the tap.",
+              "de": "So, der Krug (männlich) steht unter dem Hahn.",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Brocca se konča na -a in je ženskega spola: la brocca.",
+                "en": "Brocca ends in -a and is feminine: la brocca.",
+                "de": "Brocca endet auf -a und ist feminin: la brocca."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Il brocca? Hm, e chi è questo signore?",
+                "sl": "Il brocca? Hm, kdo pa je ta gospod?",
+                "en": "Il brocca? Hm, and who's this gentleman?",
+                "de": "Il brocca? Hm, und wer ist dieser Herr?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "matteo",
+          "face": "proud",
+          "it": "Guarda il vino come scende!",
+          "sl": "Poglej, kako teče vino!",
+          "en": "Look at the wine running down!",
+          "de": "Schau, wie der Wein läuft!",
+          "fx": {
+            "tap": 1
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Basta, Matteo! La brocca è piena!",
+              "sl": "Dovolj, Matteo! Vrč je poln!",
+              "en": "Stop, Matteo! The jug is full!",
+              "de": "Stopp, Matteo! Der Krug ist voll!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Giusto, appena in tempo!",
+                "sl": "Prav, ravno pravi čas!",
+                "en": "Right, just in time!",
+                "de": "Richtig, gerade noch rechtzeitig!",
+                "fx": {
+                  "tap": 0
+                }
+              }
+            },
+            {
+              "it": "Basta, Matteo! La brocca è pieno!",
+              "sl": "Dovolj, Matteo! Vrč je polno!",
+              "en": "Stop, Matteo! The jug is full (masculine)!",
+              "de": "Stopp, Matteo! Der Krug ist voller!",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Brocca je ženskega spola: piena.",
+                "en": "Brocca is feminine: piena.",
+                "de": "Brocca ist feminin: piena."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Pieno? Chi è pieno? Io no, ho fame!",
+                "sl": "Pieno? Kdo je sit? Jaz ne, lačen sem!",
+                "en": "Pieno? Who's full? Not me, I'm hungry!",
+                "de": "Pieno? Wer ist satt? Ich nicht, ich habe Hunger!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "marisa",
+          "face": "happy",
+          "it": "Grazie, cari! Stasera all'osteria c'è il frico.",
+          "sl": "Hvala, dragi! Nocoj je v gostilni frico.",
+          "en": "Thank you, dears! There's frico at the osteria tonight.",
+          "de": "Danke, ihr Lieben! Heute Abend gibt es Frico in der Osteria."
+        },
+        {
+          "choices": [
+            {
+              "it": "Arrivederci, signora Marisa!",
+              "sl": "Na svidenje, gospa Marisa!",
+              "en": "Goodbye, Mrs Marisa!",
+              "de": "Auf Wiedersehen, Frau Marisa!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Arrivederci! E vieni a mangiare il frico, eh!",
+                "sl": "Na svidenje! In pridi na frico, ja!",
+                "en": "Goodbye! And come and eat some frico, eh!",
+                "de": "Auf Wiedersehen! Und komm Frico essen, ja!"
+              }
+            },
+            {
+              "it": "Ciao, Marisa!",
+              "sl": "Živjo, Marisa!",
+              "en": "Bye, Marisa!",
+              "de": "Tschüss, Marisa!",
+              "grammar": "tu-lei",
+              "why": {
+                "sl": "Gospe Marisi rečeš Lei in signora: arrivederci. Ciao je za prijatelje.",
+                "en": "Say Lei and signora to signora Marisa: arrivederci. Ciao is for friends.",
+                "de": "Zu signora Marisa sagst du Lei und signora: arrivederci. Ciao ist für Freunde."
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "Ciao, Marisa? Che confidenza! Ah ah!",
+                "sl": "Živjo, Marisa? Kakšna domačnost! Ha ha!",
+                "en": "Bye, Marisa? Aren't we familiar! Ha ha!",
+                "de": "Tschüss, Marisa? Wie vertraut! Haha!"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "candela",
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "matteo",
+          "face": "worried",
+          "it": "Uh, la candela si è spenta! In cantina è buio.",
+          "sl": "Uh, sveča je ugasnila! V kleti je tema.",
+          "en": "Oh, the candle's gone out! It's dark in the cellar.",
+          "de": "Oh, die Kerze ist ausgegangen! Im Keller ist es dunkel.",
+          "fx": {
+            "candle": 0
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Ho i fiammiferi! La accendo io.",
+              "sl": "Imam vžigalice! Jo prižgem jaz.",
+              "en": "I've got matches! I'll light it.",
+              "de": "Ich habe Streichhölzer! Ich zünde sie an.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "{m:Bravo|f:Brava}! Ecco, adesso ci vediamo.",
+                "sl": "Bravo! Tako, zdaj se vidimo.",
+                "en": "Well done! There, now we can see.",
+                "de": "Gut gemacht! So, jetzt sehen wir wieder.",
+                "fx": {
+                  "candle": 1
+                }
+              }
+            },
+            {
+              "it": "Ho i fiammiferi! Lo accendo io.",
+              "sl": "Imam vžigalice! Ga prižgem jaz.",
+              "en": "I've got matches! I'll light him.",
+              "de": "Ich habe Streichhölzer! Ich zünde ihn an.",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Candela je ženskega spola, zato la: la accendo. Lo je za moški spol.",
+                "en": "Candela is feminine, so la: la accendo. Lo is for a masculine one.",
+                "de": "Candela ist feminin, also la: la accendo. Lo steht für ein Maskulinum."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Lo? Il gatto? Qui non c'è nessun gatto!",
+                "sl": "Ga? Mačka? Tu ni nobenega mačka!",
+                "en": "Him? The cat? There's no cat here!",
+                "de": "Ihn? Den Kater? Hier ist kein Kater!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "matteo",
+          "face": "thinking",
+          "it": "In cantina fa sempre fresco, anche d'estate.",
+          "sl": "V kleti je vedno hladno, tudi poleti.",
+          "en": "It's always cool in the cellar, even in summer.",
+          "de": "Im Keller ist es immer kühl, auch im Sommer."
+        },
+        {
+          "choices": [
+            {
+              "it": "Brr, ho un po' freddo.",
+              "sl": "Brr, malo me zebe.",
+              "en": "Brr, I'm a bit cold.",
+              "de": "Brr, mir ist ein bisschen kalt.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Allora restiamo vicino alla candela.",
+                "sl": "Potem pa ostaniva pri sveči.",
+                "en": "Then let's stay by the candle.",
+                "de": "Dann bleiben wir bei der Kerze."
+              }
+            },
+            {
+              "it": "Brr, sono un po' freddo.",
+              "sl": "Brr, malo sem mrzel.",
+              "en": "Brr, I am a bit cold (to touch).",
+              "de": "Brr, ich bin ein bisschen kalt.",
+              "grammar": "essere-avere",
+              "why": {
+                "sl": "Ko te zebe, rečeš avere freddo: ho freddo. Sono freddo pomeni, da si mrzel na otip.",
+                "en": "Feeling cold is avere freddo: ho freddo. Sono freddo means you're cold to the touch.",
+                "de": "Wenn dir kalt ist, sagst du avere freddo: ho freddo. Sono freddo heißt, du bist kalt zum Anfassen."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Sei freddo? Come un gelato? Ah ah!",
+                "sl": "Si mrzel? Kot sladoled? Ha ha!",
+                "en": "You're cold? Like an ice cream? Ha ha!",
+                "de": "Du bist kalt? Wie ein Eis? Haha!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "matteo",
+          "face": "proud",
+          "it": "Il vino ama il fresco e il buio. Per questo dorme qui, nella botte.",
+          "sl": "Vino ima rado hlad in temo. Zato spi tukaj, v sodu.",
+          "en": "Wine loves the cool and the dark. That's why it sleeps here, in the barrel.",
+          "de": "Wein liebt die Kühle und die Dunkelheit. Darum schläft er hier, im Fass."
+        }
+      ]
+    },
+    {
+      "id": "vendemmia",
+      "lines": [
+        {
+          "who": "matteo",
+          "face": "proud",
+          "it": "È la vendemmia! Guarda l'uva nella cassetta: è la Ribolla gialla.",
+          "sl": "Trgatev je! Poglej grozdje v zaboju: to je rebula.",
+          "en": "It's the grape harvest! Look at the grapes in the crate: it's Ribolla gialla.",
+          "de": "Es ist Weinlese! Schau die Trauben in der Kiste an: das ist Ribolla gialla."
+        },
+        {
+          "choices": [
+            {
+              "it": "Che bella uva gialla!",
+              "sl": "Kako lepo rumeno grozdje!",
+              "en": "What lovely yellow grapes!",
+              "de": "Was für schöne gelbe Trauben!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Sì, dolce come il sole del Collio.",
+                "sl": "Ja, sladko kot sonce v Collio.",
+                "en": "Yes, sweet as the Collio's sun.",
+                "de": "Ja, süß wie die Sonne im Collio."
+              }
+            },
+            {
+              "it": "Che bello uva gialla!",
+              "sl": "Kako lep rumeno grozdje!",
+              "en": "What lovely (masculine) yellow grapes!",
+              "de": "Was für schöner gelbe Trauben!",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Uva je ženskega spola: bella uva.",
+                "en": "Uva is feminine: bella uva.",
+                "de": "Uva ist feminin: bella uva."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Bello? Hm, l'uva è una signora, sai!",
+                "sl": "Bello? Hm, grozdje je gospa, veš!",
+                "en": "Bello? Hm, the grapes are a lady, you know!",
+                "de": "Bello? Hm, die Traube ist eine Dame, weißt du!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "matteo",
+          "face": "curious",
+          "it": "Adesso mettiamo l'uva nel torchio e giriamo.",
+          "sl": "Zdaj dajva grozdje v stiskalnico in vrtiva.",
+          "en": "Now let's put the grapes in the press and turn.",
+          "de": "Jetzt legen wir die Trauben in die Presse und drehen."
+        },
+        {
+          "choices": [
+            {
+              "it": "Giriamo insieme! Uno, due, tre!",
+              "sl": "Vrtiva skupaj! Ena, dve, tri!",
+              "en": "Let's turn together! One, two, three!",
+              "de": "Drehen wir zusammen! Eins, zwei, drei!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Forza! Senti come scricchiola il torchio?",
+                "sl": "Dajmo! Slišiš, kako stiskalnica škriplje?",
+                "en": "Come on! Hear how the press creaks?",
+                "de": "Los! Hörst du, wie die Presse knarrt?"
+              }
+            },
+            {
+              "it": "Girate insieme! Uno, due, tre!",
+              "sl": "Vrtite skupaj! Ena, dve, tri!",
+              "en": "You lot turn together! One, two, three!",
+              "de": "Dreht zusammen! Eins, zwei, drei!",
+              "grammar": "imperativo",
+              "why": {
+                "sl": "Vrtita oba, ti in Matteo: giriamo. Girate je ukaz več ljudem.",
+                "en": "You and Matteo both turn: giriamo (let's turn). Girate tells several people.",
+                "de": "Du und Matteo dreht beide: giriamo (drehen wir). Girate sagt es mehreren."
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "Girate? Chi? Qui ci siamo solo noi due!",
+                "sl": "Vrtite? Kdo? Tu sva samo midva!",
+                "en": "You lot turn? Who? There's only the two of us here!",
+                "de": "Dreht ihr? Wer? Hier sind nur wir zwei!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "matteo",
+          "face": "happy",
+          "it": "Ecco il mosto, il succo dell'uva. È dolce come il miele!",
+          "sl": "Tu je mošt, sok grozdja. Sladek je kot med!",
+          "en": "Here's the must, the grape juice. It's sweet as honey!",
+          "de": "Hier ist der Most, der Traubensaft. Er ist süß wie Honig!"
+        },
+        {
+          "choices": [
+            {
+              "it": "Posso assaggiare il mosto?",
+              "sl": "Lahko pokusim mošt?",
+              "en": "May I taste the must?",
+              "de": "Darf ich den Most probieren?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Certo! Il mosto è per tutti. Il vino è per i grandi.",
+                "sl": "Seveda! Mošt je za vse. Vino je za odrasle.",
+                "en": "Of course! The must is for everyone. Wine is for grown-ups.",
+                "de": "Natürlich! Most ist für alle. Wein ist für Erwachsene."
+              }
+            },
+            {
+              "it": "Posso assaggiare la mosto?",
+              "sl": "Lahko pokusim moštinjo?",
+              "en": "May I taste the (feminine) must?",
+              "de": "Darf ich die Most probieren?",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Mosto je moškega spola: il mosto.",
+                "en": "Mosto is masculine: il mosto.",
+                "de": "Mosto ist maskulin: il mosto."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "La mosto? Ah ah, che parola nuova!",
+                "sl": "La mosto? Ha ha, kakšna nova beseda!",
+                "en": "La mosto? Ha ha, what a new word!",
+                "de": "La mosto? Haha, was für ein neues Wort!"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prosciutto",
+      "lines": [
+        {
+          "who": "matteo",
+          "face": "proud",
+          "it": "Vedi il prosciutto appeso al muro? Viene da San Daniele.",
+          "sl": "Vidiš pršut, ki visi na steni? Iz San Danieleja je.",
+          "en": "See the ham hanging on the wall? It comes from San Daniele.",
+          "de": "Siehst du den Schinken an der Wand? Er kommt aus San Daniele."
+        },
+        {
+          "choices": [
+            {
+              "it": "È grande, il prosciutto!",
+              "sl": "Velik je, ta pršut!",
+              "en": "It's big, the ham!",
+              "de": "Der ist groß, der Schinken!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Grande e buono. Lo tagliamo per le feste.",
+                "sl": "Velik in dober. Narežemo ga za praznike.",
+                "en": "Big and good. We slice it for feast days.",
+                "de": "Groß und gut. Wir schneiden ihn an Festtagen an."
+              }
+            },
+            {
+              "it": "È grande, la prosciutto!",
+              "sl": "Velika je, ta pršut!",
+              "en": "It's big, the (feminine) ham!",
+              "de": "Die ist groß, die Schinken!",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Prosciutto je moškega spola: il prosciutto.",
+                "en": "Prosciutto is masculine: il prosciutto.",
+                "de": "Prosciutto ist maskulin: il prosciutto."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "La? Povero prosciutto, si offende!",
+                "sl": "La? Ubogi pršut, užaljen bo!",
+                "en": "La? Poor ham, he'll be offended!",
+                "de": "La? Armer Schinken, er ist beleidigt!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "matteo",
+          "face": "happy",
+          "it": "E sul tavolino c'è il formaggio: il Montasio, delle montagne del Friuli.",
+          "sl": "Na mizici pa je sir: montasio, iz furlanskih gora.",
+          "en": "And on the little table there's the cheese: Montasio, from Friuli's mountains.",
+          "de": "Und auf dem Tischchen liegt der Käse: Montasio, aus den Bergen des Friaul."
+        },
+        {
+          "choices": [
+            {
+              "it": "Mi piace il formaggio!",
+              "sl": "Sir mi je všeč!",
+              "en": "I like cheese!",
+              "de": "Ich mag Käse!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Allora una fetta per te e una per me!",
+                "sl": "Potem rezina zate in rezina zame!",
+                "en": "Then a slice for you and one for me!",
+                "de": "Dann eine Scheibe für dich und eine für mich!"
+              }
+            },
+            {
+              "it": "Mi piacciono il formaggio!",
+              "sl": "Mi so všeč sir!",
+              "en": "I like (plural) cheese!",
+              "de": "Mir gefallen der Käse!",
+              "grammar": "piacere",
+              "why": {
+                "sl": "Ena stvar: mi piace il formaggio. Mi piacciono je za več stvari.",
+                "en": "One thing: mi piace il formaggio. Mi piacciono is for more than one thing.",
+                "de": "Eine Sache: mi piace il formaggio. Mi piacciono steht für mehrere Dinge."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Quanti formaggi vedi? Io ne vedo uno!",
+                "sl": "Koliko sirov vidiš? Jaz vidim enega!",
+                "en": "How many cheeses do you see? I see one!",
+                "de": "Wie viele Käse siehst du? Ich sehe einen!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "matteo",
+          "face": "laugh",
+          "it": "Prosciutto, formaggio e pane: questa è la merenda dei vignaioli!",
+          "sl": "Pršut, sir in kruh: to je malica vinogradnikov!",
+          "en": "Ham, cheese and bread: that's the winemakers' snack!",
+          "de": "Schinken, Käse und Brot: das ist die Brotzeit der Winzer!"
+        }
+      ]
+    },
+    {
+      "id": "frasca",
+      "lines": [
+        {
+          "who": "matteo",
+          "face": "happy",
+          "it": "Oggi appendo la frasca fuori, all'angolo della casa.",
+          "sl": "Danes obesim zeleno vejo zunaj, na vogalu hiše.",
+          "en": "Today I'm hanging the frasca outside, at the corner of the house.",
+          "de": "Heute hänge ich die Frasca draußen auf, an der Hausecke."
+        },
+        {
+          "choices": [
+            {
+              "it": "Cos'è la frasca, Matteo?",
+              "sl": "Kaj je frasca, Matteo?",
+              "en": "What's the frasca, Matteo?",
+              "de": "Was ist die Frasca, Matteo?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "È un ramo verde. Quando c'è la frasca, la gente sa che vendiamo il vino.",
+                "sl": "To je zelena veja. Ko visi frasca, ljudje vedo, da prodajamo vino.",
+                "en": "It's a green branch. When the frasca is up, people know we're selling wine.",
+                "de": "Das ist ein grüner Zweig. Wenn die Frasca hängt, wissen die Leute, dass wir Wein verkaufen."
+              }
+            },
+            {
+              "it": "Chi è la frasca, Matteo?",
+              "sl": "Kdo je frasca, Matteo?",
+              "en": "Who's the frasca, Matteo?",
+              "de": "Wer ist die Frasca, Matteo?",
+              "grammar": "domande",
+              "why": {
+                "sl": "Za stvar vprašaš cos'è (kaj je). Chi (kdo) je za ljudi.",
+                "en": "For a thing you ask cos'è (what is). Chi (who) is for people.",
+                "de": "Nach einer Sache fragst du cos'è (was ist). Chi (wer) ist für Menschen."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Chi? Ah ah, la frasca non è una persona!",
+                "sl": "Kdo? Ha ha, frasca ni oseba!",
+                "en": "Who? Ha ha, the frasca isn't a person!",
+                "de": "Wer? Haha, die Frasca ist doch keine Person!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "matteo",
+          "face": "thinking",
+          "it": "Sul Carso, di là dal confine, la chiamano osmiza. Qui da noi è la frasca.",
+          "sl": "Na Krasu, onkraj meje, temu rečejo osmica. Tu pri nas je frasca.",
+          "en": "On the Karst, across the border, they call it an osmiza. Here it's the frasca.",
+          "de": "Im Karst, jenseits der Grenze, heißt das Osmiza. Bei uns ist es die Frasca."
+        },
+        {
+          "choices": [
+            {
+              "it": "Allora oggi arriva tanta gente!",
+              "sl": "Potem bo danes prišlo veliko ljudi!",
+              "en": "Then lots of people will come today!",
+              "de": "Dann kommen heute viele Leute!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Sì, e Marisa porta il frico. Che festa!",
+                "sl": "Ja, in Marisa prinese frico. Kakšno slavje!",
+                "en": "Yes, and Marisa's bringing frico. What a party!",
+                "de": "Ja, und Marisa bringt Frico. Was für ein Fest!"
+              }
+            },
+            {
+              "it": "Allora oggi arrivano tanta gente!",
+              "sl": "Potem bodo danes prišli veliko ljudi!",
+              "en": "Then lots of people (plural) will come today!",
+              "de": "Dann kommen heute viel Leute!",
+              "grammar": "presente-regolare",
+              "why": {
+                "sl": "Gente (ljudje) je v italijanščini ednina: la gente arriva.",
+                "en": "Gente (people) is singular in Italian: la gente arriva.",
+                "de": "Gente (Leute) ist im Italienischen Singular: la gente arriva."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Hm? Ripeti, il torchio fa troppo rumore.",
+                "sl": "Hm? Ponovi, stiskalnica preveč ropota.",
+                "en": "Hm? Say it again, the press is too noisy.",
+                "de": "Hm? Sag es noch mal, die Presse ist zu laut."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "brocca-bottiglie",
+      "count": {
+        "from": "dice",
+        "min": 2,
+        "max": 6,
+        "gender": "f"
+      },
+      "lines": [
+        {
+          "who": "marisa",
+          "face": "curious",
+          "it": "Matteo, per la festa di domenica mi servono {n} bottiglie di vino.",
+          "sl": "Matteo, za nedeljski praznik potrebujem {n} steklenic vina.",
+          "en": "Matteo, for Sunday's feast I need {n} bottles of wine.",
+          "de": "Matteo, für das Fest am Sonntag brauche ich {n} Flaschen Wein."
+        },
+        {
+          "choices": [
+            {
+              "it": "{n} {bottiglia|bottiglie}, signora Marisa? Va bene!",
+              "sl": "{n} {steklenica|steklenici|steklenice|steklenic}, gospa Marisa? Prav!",
+              "en": "{n} {bottle|bottles}, Mrs Marisa? All right!",
+              "de": "{n} {Flasche|Flaschen}, Frau Marisa? In Ordnung!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Sì, {n}. Una festa con tanta gente!",
+                "sl": "Ja, {n}. Praznik z veliko ljudmi!",
+                "en": "Yes, {n}. A feast with lots of people!",
+                "de": "Ja, {n}. Ein Fest mit vielen Leuten!"
+              }
+            },
+            {
+              "it": "{n} {bottiglia|bottiglie}, signora Marisa? Va bene!",
+              "sl": "{n} {steklenica|steklenici|steklenice|steklenic}, gospa Marisa? Prav!",
+              "en": "{n} {bottle|bottles}, Mrs Marisa? All right!",
+              "de": "{n} {Flasche|Flaschen}, Frau Marisa? In Ordnung!",
+              "wrong_form": 1,
+              "grammar": "plurale",
+              "why": {
+                "sl": "{Ena zahteva ednino|Več kot ena zahteva množino}: {n} {bottiglia|bottiglie}.",
+                "en": "{One takes the singular|More than one takes the plural}: {n} {bottiglia|bottiglie}.",
+                "de": "{Eins nimmt den Singular|Mehr als eins nimmt den Plural}: {n} {bottiglia|bottiglie}."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Come? Conta con me, piano piano.",
+                "sl": "Kako? Štej z mano, počasi.",
+                "en": "What? Count with me, nice and slowly.",
+                "de": "Wie bitte? Zähl mit mir, ganz langsam."
+              }
+            }
+          ]
+        },
+        {
+          "who": "matteo",
+          "face": "curious",
+          "it": "Le metto nella cassetta. Chi la porta su per la scala?",
+          "sl": "Dam jih v zaboj. Kdo ga bo nesel po stopnicah gor?",
+          "en": "I'll put them in the crate. Who'll carry it up the stairs?",
+          "de": "Ich lege sie in die Kiste. Wer trägt sie die Treppe hinauf?"
+        },
+        {
+          "choices": [
+            {
+              "it": "La porto io!",
+              "sl": "Jaz ga nesem!",
+              "en": "I'll carry it!",
+              "de": "Ich trage sie!",
+              "ok": true,
+              "reply": {
+                "face": "worried",
+                "it": "{m:Bravo|f:Brava}, ma piano: il vetro si rompe!",
+                "sl": "Bravo, ampak počasi: steklo se razbije!",
+                "en": "Good, but slowly: glass breaks!",
+                "de": "Gut, aber langsam: Glas zerbricht!"
+              }
+            },
+            {
+              "it": "La porti io!",
+              "sl": "Ga neseš jaz!",
+              "en": "You carry it, me!",
+              "de": "Du trägst sie, ich!",
+              "grammar": "presente-regolare",
+              "why": {
+                "sl": "Neseš ti: la porto (jaz nesem). La porti pomeni ti neseš.",
+                "en": "You're the one carrying: la porto (I carry). La porti means you carry.",
+                "de": "Du trägst: la porto (ich trage). La porti heißt du trägst."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Io? Allora tu cosa fai? Ah ah!",
+                "sl": "Jaz? Kaj pa boš ti? Ha ha!",
+                "en": "Me? So what will you do? Ha ha!",
+                "de": "Ich? Und was machst du dann? Haha!"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "candela-bicchiere",
+      "lines": [
+        {
+          "who": "matteo",
+          "face": "curious",
+          "it": "Dove ho messo il bicchiere? Lo vedi?",
+          "sl": "Kam sem dal kozarec? Ga vidiš?",
+          "en": "Where did I put the glass? Can you see it?",
+          "de": "Wo habe ich das Glas hingestellt? Siehst du es?"
+        },
+        {
+          "choices": [
+            {
+              "it": "È sul tavolino, vicino alla candela!",
+              "sl": "Na mizici je, ob sveči!",
+              "en": "It's on the little table, by the candle!",
+              "de": "Es steht auf dem Tischchen, bei der Kerze!",
+              "ok": true,
+              "tap": "glass",
+              "grammar": "preposizioni-articolate",
+              "reply": {
+                "face": "happy",
+                "it": "Ah, eccolo! Grazie.",
+                "sl": "A, tu je! Hvala.",
+                "en": "Ah, there it is! Thanks.",
+                "de": "Ah, da ist es! Danke."
+              }
+            },
+            {
+              "it": "È sotto la botte!",
+              "sl": "Pod sodom je!",
+              "en": "It's under the barrel!",
+              "de": "Es steht unter dem Fass!",
+              "tap": "jug",
+              "why": {
+                "sl": "Pod sodom je vrč, ne kozarec. Poglej ob svečo.",
+                "en": "Under the barrel is the jug, not the glass. Look by the candle.",
+                "de": "Unter dem Fass steht der Krug, nicht das Glas. Schau bei der Kerze."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Quella è la brocca, non il bicchiere!",
+                "sl": "To je vrč, ne kozarec!",
+                "en": "That's the jug, not the glass!",
+                "de": "Das ist der Krug, nicht das Glas!"
+              }
+            },
+            {
+              "it": "È nella cassetta!",
+              "sl": "V zaboju je!",
+              "en": "It's in the crate!",
+              "de": "Es ist in der Kiste!",
+              "tap": "crate",
+              "why": {
+                "sl": "V zaboju ga ni. Poglej ob svečo.",
+                "en": "It isn't in the crate. Look by the candle.",
+                "de": "In der Kiste ist es nicht. Schau bei der Kerze."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Nella cassetta? Lì non c'è!",
+                "sl": "V zaboju? Tam ga ni!",
+                "en": "In the crate? It's not there!",
+                "de": "In der Kiste? Da ist es nicht!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "matteo",
+          "face": "happy",
+          "it": "Il bicchiere è per l'acqua. Il vino è per i grandi!",
+          "sl": "Kozarec je za vodo. Vino je za odrasle!",
+          "en": "The glass is for water. Wine is for grown-ups!",
+          "de": "Das Glas ist für Wasser. Wein ist für Erwachsene!"
+        },
+        {
+          "choices": [
+            {
+              "it": "Io bevo l'acqua!",
+              "sl": "Jaz pijem vodo!",
+              "en": "I drink water!",
+              "de": "Ich trinke Wasser!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Giusto. Acqua fresca della fontana!",
+                "sl": "Prav. Sveža voda iz vodnjaka!",
+                "en": "Right. Fresh water from the fountain!",
+                "de": "Richtig. Frisches Wasser vom Brunnen!"
+              }
+            },
+            {
+              "it": "Io beve l'acqua!",
+              "sl": "Jaz pije vodo!",
+              "en": "I drinks water!",
+              "de": "Ich trinkt Wasser!",
+              "grammar": "verbi-irregolari",
+              "why": {
+                "sl": "Jaz: io bevo (bere je nepravilen). Beve je on ali ona.",
+                "en": "I: io bevo (bere is irregular). Beve is he or she.",
+                "de": "Ich: io bevo (bere ist unregelmäßig). Beve ist er oder sie."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Chi? Il gatto della cantina? Ah ah!",
+                "sl": "Kdo? Kletni maček? Ha ha!",
+                "en": "Who? The cellar cat? Ha ha!",
+                "de": "Wer? Die Kellerkatze? Haha!"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vendemmia-assaggio",
+      "lines": [
+        {
+          "who": "matteo",
+          "face": "curious",
+          "it": "Prendi un acino dalla cassetta e assaggia!",
+          "sl": "Vzemi jagodo iz zaboja in pokusi!",
+          "en": "Take a grape from the crate and taste it!",
+          "de": "Nimm eine Beere aus der Kiste und probier!"
+        },
+        {
+          "choices": [
+            {
+              "it": "Mmm, è dolce!",
+              "sl": "Mmm, sladka je!",
+              "en": "Mmm, it's sweet!",
+              "de": "Mmm, die ist süß!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Dolce, eh? Quest'anno il vino sarà buono.",
+                "sl": "Sladka, kajne? Letos bo vino dobro.",
+                "en": "Sweet, eh? The wine will be good this year.",
+                "de": "Süß, was? Dieses Jahr wird der Wein gut."
+              }
+            },
+            {
+              "it": "Mmm, è dolci!",
+              "sl": "Mmm, sladke so!",
+              "en": "Mmm, they're sweet (plural)!",
+              "de": "Mmm, die sind süße!",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "En acino (jagoda): dolce. Dolci je za več stvari.",
+                "en": "One acino (grape): dolce. Dolci is for more than one.",
+                "de": "Ein acino (Beere): dolce. Dolci steht für mehrere."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Quanti ne hai in bocca? Ah ah!",
+                "sl": "Koliko jih imaš v ustih? Ha ha!",
+                "en": "How many have you got in your mouth? Ha ha!",
+                "de": "Wie viele hast du im Mund? Haha!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "matteo",
+          "face": "curious",
+          "it": "Domani porto l'uva a Cormòns, al mercato. Vieni con me?",
+          "sl": "Jutri peljem grozdje v Krmin, na tržnico. Greš z mano?",
+          "en": "Tomorrow I'm taking the grapes to Cormòns, to the market. Are you coming with me?",
+          "de": "Morgen bringe ich die Trauben nach Cormòns, auf den Markt. Kommst du mit?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì, vengo anch'io!",
+              "sl": "Ja, tudi jaz grem!",
+              "en": "Yes, I'm coming too!",
+              "de": "Ja, ich komme auch!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Bene! Partiamo presto, con il trattore.",
+                "sl": "Dobro! Odpeljeva se zgodaj, s traktorjem.",
+                "en": "Good! We'll leave early, on the tractor.",
+                "de": "Gut! Wir fahren früh los, mit dem Traktor."
+              }
+            },
+            {
+              "it": "Sì, vieni anch'io!",
+              "sl": "Ja, prideš tudi jaz!",
+              "en": "Yes, you come too, me!",
+              "de": "Ja, du kommst auch, ich!",
+              "grammar": "verbi-irregolari",
+              "why": {
+                "sl": "Jaz: io vengo (venire je nepravilen). Vieni je ti prideš.",
+                "en": "I: io vengo (venire is irregular). Vieni is you come.",
+                "de": "Ich: io vengo (venire ist unregelmäßig). Vieni heißt du kommst."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Chi? Io? Sì, ma tu? Ah ah!",
+                "sl": "Kdo? Jaz? Ja, pa ti? Ha ha!",
+                "en": "Who? Me? Yes, but you? Ha ha!",
+                "de": "Wer? Ich? Ja, und du? Haha!"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prosciutto-salami",
+      "lines": [
+        {
+          "who": "matteo",
+          "face": "curious",
+          "it": "Vicino al prosciutto ci sono i salami. Contali!",
+          "sl": "Ob pršutu so salame. Preštej jih!",
+          "en": "The salami are next to the ham. Count them!",
+          "de": "Neben dem Schinken hängen die Salamis. Zähl sie!"
+        },
+        {
+          "choices": [
+            {
+              "it": "Ci sono tre salami.",
+              "sl": "Tri salame so.",
+              "en": "There are three salami.",
+              "de": "Da hängen drei Salamis.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Giusto, tre. Uno per la festa, uno per Marisa e uno per noi!",
+                "sl": "Tako je, tri. Ena za praznik, ena za Mariso in ena za naju!",
+                "en": "Right, three. One for the feast, one for Marisa and one for us!",
+                "de": "Richtig, drei. Eine fürs Fest, eine für Marisa und eine für uns!"
+              }
+            },
+            {
+              "it": "Ci sono tre salame.",
+              "sl": "Tri salama so.",
+              "en": "There are three salami (one form).",
+              "de": "Da hängen drei Salami (Einzahl).",
+              "grammar": "plurale",
+              "why": {
+                "sl": "Salame v množini je salami: tre salami.",
+                "en": "The plural of salame is salami: tre salami.",
+                "de": "Der Plural von salame ist salami: tre salami."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Tre? Hm, conta ancora con il dito.",
+                "sl": "Tri? Hm, preštej še enkrat s prstom.",
+                "en": "Three? Hm, count again with your finger.",
+                "de": "Drei? Hm, zähl noch mal mit dem Finger."
+              }
+            }
+          ]
+        },
+        {
+          "who": "matteo",
+          "face": "thinking",
+          "it": "I salami hanno bisogno di fresco e di tempo. Come il vino!",
+          "sl": "Salame potrebujejo hlad in čas. Kot vino!",
+          "en": "Salami need the cool and time. Like wine!",
+          "de": "Salamis brauchen Kühle und Zeit. Wie der Wein!"
+        },
+        {
+          "choices": [
+            {
+              "it": "Quanto tempo, Matteo?",
+              "sl": "Koliko časa, Matteo?",
+              "en": "How long, Matteo?",
+              "de": "Wie lange, Matteo?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Tre mesi. Pazienza, pazienza!",
+                "sl": "Tri mesece. Potrpežljivost, potrpežljivost!",
+                "en": "Three months. Patience, patience!",
+                "de": "Drei Monate. Geduld, Geduld!"
+              }
+            },
+            {
+              "it": "Quanta tempo, Matteo?",
+              "sl": "Koliko (žensko) časa, Matteo?",
+              "en": "How (feminine) long, Matteo?",
+              "de": "Wie viele Zeit, Matteo?",
+              "grammar": "domande",
+              "why": {
+                "sl": "Tempo je moškega spola: quanto tempo?",
+                "en": "Tempo is masculine: quanto tempo?",
+                "de": "Tempo ist maskulin: quanto tempo?"
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Quanta? Hm, il tempo non è una signora.",
+                "sl": "Quanta? Hm, čas ni gospa.",
+                "en": "Quanta? Hm, time isn't a lady.",
+                "de": "Quanta? Hm, die Zeit ist keine Dame."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "frasca-tappi",
+      "lines": [
+        {
+          "who": "matteo",
+          "face": "curious",
+          "it": "Aiutami a mettere i tappi alle bottiglie sullo scaffale.",
+          "sl": "Pomagaj mi zamašiti steklenice na polici.",
+          "en": "Help me put the corks in the bottles on the shelf.",
+          "de": "Hilf mir, die Korken in die Flaschen im Regal zu stecken."
+        },
+        {
+          "choices": [
+            {
+              "it": "Metto io i tappi!",
+              "sl": "Jaz dam zamaške!",
+              "en": "I'll put the corks in!",
+              "de": "Ich stecke die Korken rein!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "{m:Bravo|f:Brava}! Spingi forte. Pop!",
+                "sl": "Bravo! Pritisni močno. Pok!",
+                "en": "Good! Push hard. Pop!",
+                "de": "Gut! Drück fest. Plopp!"
+              }
+            },
+            {
+              "it": "Metti io i tappi!",
+              "sl": "Daš jaz zamaške!",
+              "en": "You put me the corks in!",
+              "de": "Du steckst ich die Korken rein!",
+              "grammar": "presente-regolare",
+              "why": {
+                "sl": "Daš jih ti: metto io (jaz dam). Metti pomeni ti daš.",
+                "en": "You're doing it: metto io (I put). Metti means you put.",
+                "de": "Du machst es: metto io (ich stecke). Metti heißt du steckst."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Io? Allora tu guardi e basta? Ah ah!",
+                "sl": "Jaz? Ti pa samo gledaš? Ha ha!",
+                "en": "Me? So you just watch? Ha ha!",
+                "de": "Ich? Und du schaust nur zu? Haha!"
+              }
+            }
+          ]
+        },
+        {
+          "choices": [
+            {
+              "it": "Ecco, la bottiglia è chiusa.",
+              "sl": "Tako, steklenica je zaprta.",
+              "en": "There, the bottle is closed.",
+              "de": "So, die Flasche ist zu.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "Perfetta! Adesso il vino può riposare.",
+                "sl": "Odlično! Zdaj lahko vino počiva.",
+                "en": "Perfect! Now the wine can rest.",
+                "de": "Perfekt! Jetzt kann der Wein ruhen."
+              }
+            },
+            {
+              "it": "Ecco, la bottiglia è chiuso.",
+              "sl": "Tako, steklenica je zaprt.",
+              "en": "There, the bottle is closed (masculine).",
+              "de": "So, die Flasche ist zuer.",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Bottiglia je ženskega spola: chiusa.",
+                "en": "Bottiglia is feminine: chiusa.",
+                "de": "Bottiglia ist feminin: chiusa."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Chiuso? Come un negozio la domenica? Ah ah!",
+                "sl": "Chiuso? Kot trgovina ob nedeljah? Ha ha!",
+                "en": "Chiuso? Like a shop on Sunday? Ha ha!",
+                "de": "Chiuso? Wie ein Laden am Sonntag? Haha!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "matteo",
+          "face": "proud",
+          "it": "Grazie, {learner}. Sei {m:un vero vignaiolo|f:una vera vignaiola}!",
+          "sl": "Hvala, {learner}. Pravi {m:vinogradnik|f:vinogradnica} si!",
+          "en": "Thank you, {learner}. You're a real winemaker!",
+          "de": "Danke, {learner}. Du bist {m:ein echter Winzer|f:eine echte Winzerin}!"
+        }
+      ]
+    }
+  ]
+}

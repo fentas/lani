@@ -1,0 +1,1491 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "in-soffitta",
+  "language": "it",
+  "title": {
+    "it": "In soffitta",
+    "sl": "Na podstrešju",
+    "en": "In the attic",
+    "de": "Auf dem Dachboden"
+  },
+  "emoji": "🛏️",
+  "level": "A1",
+  "review": "it, sl, en, de (the lines, the reactions, the variants): machine-written, not reviewed by a native speaker",
+  "art": "attic",
+  "from": [
+    "house"
+  ],
+  "household": [
+    "marisa",
+    "tommaso"
+  ],
+  "pack": "in-soffitta",
+  "objects": [
+    {
+      "slot": "bed",
+      "word": "letto",
+      "pack": "casa-e-cucina"
+    },
+    {
+      "slot": "pillow",
+      "word": "cuscino",
+      "pack": "nella-tenda"
+    },
+    {
+      "slot": "blanket",
+      "word": "coperta",
+      "pack": "festa-pasquetta"
+    },
+    {
+      "slot": "cradle",
+      "word": "culla"
+    },
+    {
+      "slot": "chest",
+      "word": "baule"
+    },
+    {
+      "slot": "roof",
+      "word": "tetto",
+      "pack": "sulla-torre"
+    },
+    {
+      "slot": "window",
+      "word": "finestra",
+      "pack": "casa-e-cucina"
+    },
+    {
+      "slot": "stairs",
+      "word": "scala",
+      "pack": "casa-e-cucina"
+    },
+    {
+      "slot": "wardrobe",
+      "word": "armadio",
+      "needs": {
+        "level": 2
+      }
+    },
+    {
+      "slot": "rug",
+      "word": "tappeto",
+      "pack": "in-salotto",
+      "needs": {
+        "level": 2
+      }
+    },
+    {
+      "slot": "lamp",
+      "word": "lampada",
+      "pack": "in-salotto",
+      "needs": {
+        "level": 2
+      }
+    },
+    {
+      "slot": "ball",
+      "word": "palla",
+      "needs": {
+        "level": 2
+      }
+    },
+    {
+      "slot": "mirror",
+      "word": "specchio",
+      "needs": {
+        "level": 3
+      }
+    },
+    {
+      "slot": "toy",
+      "word": "orsacchiotto",
+      "needs": {
+        "level": 3
+      }
+    }
+  ],
+  "people": [
+    {
+      "id": "tommaso",
+      "name": "Tommaso",
+      "emoji": "🧒",
+      "art": "child1",
+      "slot": "bed",
+      "villager": "tommaso"
+    },
+    {
+      "id": "marisa",
+      "name": "Ostessa Marisa",
+      "emoji": "🍲",
+      "art": "innkeeper",
+      "slot": "chest",
+      "villager": "marisa"
+    }
+  ],
+  "happenings": [
+    {
+      "id": "sveglia",
+      "title": {
+        "it": "Tommaso non vuole alzarsi",
+        "sl": "Tommaso noče vstati",
+        "en": "Tommaso doesn't want to get up",
+        "de": "Tommaso will nicht aufstehen"
+      },
+      "who": "tommaso",
+      "when": [
+        "dawn",
+        "morning"
+      ],
+      "chance": 0.5,
+      "act": {
+        "tommaso": {
+          "to": "in-bed"
+        }
+      },
+      "dialog": "sveglia",
+      "dialogs": [
+        "sveglia-scuola",
+        "sveglia-scarpets",
+        "sveglia"
+      ],
+      "reward": {
+        "wood": 15
+      },
+      "marker": "⏰",
+      "memory": {
+        "it": "la mattina che non volevo alzarmi",
+        "sl": "jutro, ko nisem hotel vstati",
+        "en": "the morning I didn't want to get up",
+        "de": "den Morgen, an dem ich nicht aufstehen wollte"
+      }
+    },
+    {
+      "id": "culla",
+      "title": {
+        "it": "Marisa e la vecchia culla",
+        "sl": "Marisa in stara zibelka",
+        "en": "Marisa and the old cradle",
+        "de": "Marisa und die alte Wiege"
+      },
+      "who": "marisa",
+      "when": [
+        "afternoon"
+      ],
+      "chance": 0.45,
+      "dialog": "culla",
+      "dialogs": [
+        "culla-ninna",
+        "culla"
+      ],
+      "reward": {
+        "food": 15
+      },
+      "marker": "🍼",
+      "memory": {
+        "it": "la vecchia culla di Tommaso, che abbiamo dondolato insieme",
+        "sl": "Tommasovo staro zibelko, ki sva jo skupaj zibali",
+        "en": "Tommaso's old cradle, which we rocked together",
+        "de": "Tommasos alte Wiege, die wir zusammen geschaukelt haben"
+      }
+    },
+    {
+      "id": "bora",
+      "title": {
+        "it": "La bora di notte",
+        "sl": "Burja ponoči",
+        "en": "The bora at night",
+        "de": "Die Bora in der Nacht"
+      },
+      "who": "tommaso",
+      "when": [
+        "night"
+      ],
+      "months": [
+        10,
+        11,
+        12,
+        1,
+        2,
+        3,
+        4
+      ],
+      "chance": 0.4,
+      "needs": {
+        "level": 2
+      },
+      "act": {
+        "tommaso": {
+          "to": "in-bed"
+        }
+      },
+      "dialog": "bora",
+      "dialogs": [
+        "bora-paura",
+        "bora"
+      ],
+      "reward": {
+        "wisdom": 15
+      },
+      "marker": "💨",
+      "memory": {
+        "it": "la notte della bora, quando la finestra si è aperta",
+        "sl": "noč burje, ko se je odprlo okno",
+        "en": "the night of the bora, when the window flew open",
+        "de": "die Nacht der Bora, als das Fenster aufging"
+      }
+    },
+    {
+      "id": "pannocchie",
+      "title": {
+        "it": "Tommaso e le pannocchie",
+        "sl": "Tommaso in koruzni storži",
+        "en": "Tommaso and the corn cobs",
+        "de": "Tommaso und die Maiskolben"
+      },
+      "who": "tommaso",
+      "when": [
+        "afternoon"
+      ],
+      "chance": 0.4,
+      "dialog": "pannocchie",
+      "dialogs": [
+        "pannocchie-conta",
+        "pannocchie"
+      ],
+      "reward": {
+        "food": 15
+      },
+      "marker": "🌽",
+      "memory": {
+        "it": "le pannocchie che abbiamo contato in soffitta",
+        "sl": "storže, ki sva jih preštela na podstrešju",
+        "en": "the corn cobs we counted in the attic",
+        "de": "die Maiskolben, die wir auf dem Dachboden gezählt haben"
+      }
+    },
+    {
+      "id": "palla",
+      "title": {
+        "it": "Tommaso vuole giocare a palla",
+        "sl": "Tommaso bi se igral z žogo",
+        "en": "Tommaso wants to play ball",
+        "de": "Tommaso will Ball spielen"
+      },
+      "who": "tommaso",
+      "when": [
+        "evening"
+      ],
+      "chance": 0.4,
+      "needs": {
+        "level": 2
+      },
+      "dialog": "palla",
+      "dialogs": [
+        "palla-dove",
+        "palla"
+      ],
+      "reward": {
+        "food": 10
+      },
+      "marker": "⚽",
+      "memory": {
+        "it": "la palla che abbiamo trovato in soffitta",
+        "sl": "žogo, ki sva jo našla na podstrešju",
+        "en": "the ball we found in the attic",
+        "de": "den Ball, den wir auf dem Dachboden gefunden haben"
+      }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "sveglia",
+      "lines": [
+        {
+          "who": "tommaso",
+          "it": "Mmm … ancora cinque minuti …",
+          "sl": "Mmm … še pet minut …",
+          "en": "Mmm … five more minutes …",
+          "de": "Mmm … noch fünf Minuten …"
+        },
+        {
+          "choices": [
+            {
+              "it": "Alzati, Tommaso! È mattina!",
+              "sl": "Vstani, Tommaso! Jutro je!",
+              "en": "Get up, Tommaso! It's morning!",
+              "de": "Steh auf, Tommaso! Es ist Morgen!",
+              "ok": true,
+              "reply": {
+                "it": "Uffa … va bene, mi alzo.",
+                "sl": "Ojej … prav, vstanem.",
+                "en": "Ugh … all right, I'm getting up.",
+                "de": "Menno … na gut, ich stehe auf.",
+                "act": {
+                  "tommaso": {
+                    "pose": "sit"
+                  }
+                }
+              }
+            },
+            {
+              "it": "Alzarti, Tommaso! È mattina!",
+              "sl": "Vstati, Tommaso! Jutro je!",
+              "en": "To get up, Tommaso! It's morning!",
+              "de": "Aufstehen dich, Tommaso! Es ist Morgen!",
+              "grammar": "imperativo",
+              "why": {
+                "sl": "Ukaz enemu: alzati! (vstani). Alzarti je nedoločnik.",
+                "en": "Telling one person: alzati! (get up). Alzarti is the infinitive.",
+                "de": "Zu einer Person: alzati! (steh auf). Alzarti ist der Infinitiv."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Alzarti? Mmm … non capisco, ho sonno …",
+                "sl": "Alzarti? Mmm … ne razumem, zaspan sem …",
+                "en": "Alzarti? Mmm … I don't get it, I'm sleepy …",
+                "de": "Alzarti? Mmm … verstehe ich nicht, ich bin müde …"
+              }
+            }
+          ]
+        },
+        {
+          "who": "tommaso",
+          "face": "surprised",
+          "it": "Che sonno! Ho sognato un drago.",
+          "sl": "Kako sem zaspan! Sanjal sem o zmaju.",
+          "en": "I'm so sleepy! I dreamt about a dragon.",
+          "de": "Bin ich müde! Ich habe von einem Drachen geträumt."
+        },
+        {
+          "choices": [
+            {
+              "it": "Un drago? Era grande?",
+              "sl": "Zmaj? Je bil velik?",
+              "en": "A dragon? Was it big?",
+              "de": "Ein Drache? War er groß?",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Grandissimo! Ma era buono: mangiava la polenta!",
+                "sl": "Ogromen! Ampak je bil priden: jedel je polento!",
+                "en": "Huge! But it was nice: it ate polenta!",
+                "de": "Riesig! Aber er war lieb: er hat Polenta gegessen!"
+              }
+            },
+            {
+              "it": "Un drago? Era grandi?",
+              "sl": "Zmaj? So bili veliki?",
+              "en": "A dragon? Were they big?",
+              "de": "Ein Drache? Waren sie groß?",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "En zmaj: grande. Grandi je za več stvari.",
+                "en": "One dragon: grande. Grandi is for more than one.",
+                "de": "Ein Drache: grande. Grandi steht für mehrere."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Grandi? Era uno solo, sai!",
+                "sl": "Veliki? Bil je samo eden, veš!",
+                "en": "Big ones? There was only one, you know!",
+                "de": "Große? Es war nur einer, weißt du!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "tommaso",
+          "face": "happy",
+          "it": "Arrivo! Mamma, fai il latte caldo?",
+          "sl": "Že grem! Mama, narediš toplo mleko?",
+          "en": "Coming! Mum, will you make hot milk?",
+          "de": "Ich komme! Mama, machst du warme Milch?",
+          "act": {
+            "tommaso": {
+              "to": "stairs"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "culla",
+      "lines": [
+        {
+          "who": "marisa",
+          "face": "happy",
+          "it": "Guarda questa vecchia culla. Era di Tommaso, quando era piccolo.",
+          "sl": "Poglej to staro zibelko. Bila je Tommasova, ko je bil majhen.",
+          "en": "Look at this old cradle. It was Tommaso's when he was little.",
+          "de": "Schau diese alte Wiege an. Sie war Tommasos, als er klein war."
+        },
+        {
+          "choices": [
+            {
+              "it": "Che piccola, la culla!",
+              "sl": "Kako majhna je zibelka!",
+              "en": "How small the cradle is!",
+              "de": "Wie klein die Wiege ist!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Sì, e Tommaso ci dormiva come un angelo.",
+                "sl": "Ja, in Tommaso je v njej spal kot angelček.",
+                "en": "Yes, and Tommaso slept in it like an angel.",
+                "de": "Ja, und Tommaso schlief darin wie ein Engel."
+              }
+            },
+            {
+              "it": "Che piccolo, la culla!",
+              "sl": "Kako majhen je zibelka!",
+              "en": "How small (masculine) the cradle is!",
+              "de": "Wie kleiner die Wiege ist!",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Culla je ženskega spola: piccola.",
+                "en": "Culla is feminine: piccola.",
+                "de": "Culla ist feminin: piccola."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Piccolo? Tommaso? Adesso è grande!",
+                "sl": "Majhen? Tommaso? Zdaj je velik!",
+                "en": "Small? Tommaso? He's big now!",
+                "de": "Klein? Tommaso? Jetzt ist er groß!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "marisa",
+          "face": "curious",
+          "it": "Prova a dondolarla, piano piano.",
+          "sl": "Poskusi jo zazibati, počasi.",
+          "en": "Try rocking it, nice and gently.",
+          "de": "Versuch sie zu schaukeln, ganz sanft."
+        },
+        {
+          "choices": [
+            {
+              "it": "La dondolo piano.",
+              "sl": "Počasi jo zazibam.",
+              "en": "I'm rocking it gently.",
+              "de": "Ich schaukle sie sanft.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Così, avanti e indietro. {m:Bravo|f:Brava}.",
+                "sl": "Tako, sem in tja. Bravo.",
+                "en": "That's it, to and fro. Well done.",
+                "de": "So, hin und her. Gut so.",
+                "fx": {
+                  "cradle": 0.8
+                }
+              }
+            },
+            {
+              "it": "Lo dondolo piano.",
+              "sl": "Ga počasi zazibam.",
+              "en": "I'm rocking him gently.",
+              "de": "Ich schaukle ihn sanft.",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Culla je ženskega spola: la dondolo. Lo je za moški spol.",
+                "en": "Culla is feminine: la dondolo. Lo is for a masculine one.",
+                "de": "Culla ist feminin: la dondolo. Lo steht für ein Maskulinum."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Lo? Chi? Tommaso? È troppo grande ormai!",
+                "sl": "Ga? Koga? Tommasa? Zdaj je že prevelik!",
+                "en": "Him? Who? Tommaso? He's far too big now!",
+                "de": "Ihn? Wen? Tommaso? Der ist jetzt viel zu groß!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "marisa",
+          "face": "shy",
+          "it": "Un giorno questa culla servirà ancora. Chissà!",
+          "sl": "Nekoč bo ta zibelka spet prišla prav. Kdo ve!",
+          "en": "One day this cradle will be needed again. Who knows!",
+          "de": "Eines Tages wird diese Wiege wieder gebraucht. Wer weiß!",
+          "fx": {
+            "cradle": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "bora",
+      "sky_stays": false,
+      "lines": [
+        {
+          "who": "tommaso",
+          "face": "worried",
+          "it": "Senti il vento? È la bora!",
+          "sl": "Slišiš veter? To je burja!",
+          "en": "Do you hear the wind? It's the bora!",
+          "de": "Hörst du den Wind? Das ist die Bora!",
+          "sky": {
+            "wind": 0.8
+          }
+        },
+        {
+          "who": "tommaso",
+          "face": "surprised",
+          "it": "Bum! La finestra si è aperta!",
+          "sl": "Bum! Okno se je odprlo!",
+          "en": "Bang! The window's flown open!",
+          "de": "Bumm! Das Fenster ist aufgegangen!",
+          "fx": {
+            "window": 1
+          },
+          "act": {
+            "tommaso": {
+              "pose": "sit"
+            }
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Chiudo io la finestra!",
+              "sl": "Jaz zaprem okno!",
+              "en": "I'll shut the window!",
+              "de": "Ich mache das Fenster zu!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Grazie! Adesso il vento resta fuori.",
+                "sl": "Hvala! Zdaj veter ostane zunaj.",
+                "en": "Thanks! Now the wind stays outside.",
+                "de": "Danke! Jetzt bleibt der Wind draußen.",
+                "fx": {
+                  "window": 0
+                }
+              }
+            },
+            {
+              "it": "Chiudi io la finestra!",
+              "sl": "Zapreš jaz okno!",
+              "en": "You shut me the window!",
+              "de": "Du machst ich das Fenster zu!",
+              "grammar": "presente-regolare",
+              "why": {
+                "sl": "Zapreš ga ti: chiudo io (jaz zaprem). Chiudi pomeni ti zapreš.",
+                "en": "You're the one shutting it: chiudo io (I shut). Chiudi means you shut.",
+                "de": "Du machst es zu: chiudo io (ich mache zu). Chiudi heißt du machst zu."
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "Io? Io sono sotto la coperta!",
+                "sl": "Jaz? Jaz sem pod odejo!",
+                "en": "Me? I'm under the blanket!",
+                "de": "Ich? Ich bin unter der Decke!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "tommaso",
+          "face": "worried",
+          "it": "Accendi la lampada, per favore? Al buio ho un po' paura.",
+          "sl": "Prižgeš svetilko, prosim? V temi me je malo strah.",
+          "en": "Will you turn the lamp on, please? I'm a bit scared in the dark.",
+          "de": "Machst du bitte die Lampe an? Im Dunkeln habe ich ein bisschen Angst.",
+          "fx": {
+            "lamp": 0
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Certo, accendo la lampada.",
+              "sl": "Seveda, prižgem svetilko.",
+              "en": "Of course, I'll turn the lamp on.",
+              "de": "Klar, ich mache die Lampe an.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Ecco, adesso va meglio.",
+                "sl": "Tako, zdaj je bolje.",
+                "en": "There, that's better now.",
+                "de": "So, jetzt ist es besser.",
+                "fx": {
+                  "lamp": 1
+                }
+              }
+            },
+            {
+              "it": "Certo, accendo il lampada.",
+              "sl": "Seveda, prižgem svetilka (moško).",
+              "en": "Of course, I'll turn the (masculine) lamp on.",
+              "de": "Klar, ich mache den Lampe an.",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Lampada je ženskega spola: la lampada.",
+                "en": "Lampada is feminine: la lampada.",
+                "de": "Lampada ist feminin: la lampada."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Il lampada? Ah ah, sei {m:mezzo addormentato|f:mezza addormentata}!",
+                "sl": "Il lampada? Ha ha, napol spiš!",
+                "en": "Il lampada? Ha ha, you're half asleep!",
+                "de": "Il lampada? Haha, du schläfst ja halb!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "tommaso",
+          "it": "Buonanotte, {learner}. Adesso dormo.",
+          "sl": "Lahko noč, {learner}. Zdaj bom spal.",
+          "en": "Good night, {learner}. I'm going to sleep now.",
+          "de": "Gute Nacht, {learner}. Jetzt schlafe ich.",
+          "sky": {
+            "wind": 0.3
+          },
+          "act": {
+            "tommaso": {
+              "pose": "sleep"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "pannocchie",
+      "lines": [
+        {
+          "who": "tommaso",
+          "face": "proud",
+          "it": "Hai visto le pannocchie appese sotto il tetto? La mamma le mette ad asciugare.",
+          "sl": "Si {m:videl|f:videla} storže, ki visijo pod streho? Mama jih da sušit.",
+          "en": "Have you seen the corn cobs hanging under the roof? Mum hangs them up to dry.",
+          "de": "Hast du die Maiskolben unter dem Dach gesehen? Mama hängt sie zum Trocknen auf."
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì! Sono gialle come il sole.",
+              "sl": "Ja! Rumeni so kot sonce.",
+              "en": "Yes! They're as yellow as the sun.",
+              "de": "Ja! Sie sind gelb wie die Sonne.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Con il mais facciamo la polenta!",
+                "sl": "Iz koruze naredimo polento!",
+                "en": "We make polenta from the maize!",
+                "de": "Aus dem Mais machen wir Polenta!"
+              }
+            },
+            {
+              "it": "Sì! Sono gialli come il sole.",
+              "sl": "Ja! Rumena sta kot sonce.",
+              "en": "Yes! They're yellow (masculine) as the sun.",
+              "de": "Ja! Sie sind gelbe wie die Sonne.",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Pannocchie je ženskega spola v množini: gialle.",
+                "en": "Pannocchie is feminine plural: gialle.",
+                "de": "Pannocchie ist feminin Plural: gialle."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Hm? Ripeti, c'è troppa polvere qui. Etciù!",
+                "sl": "Hm? Ponovi, tu je preveč prahu. Apčih!",
+                "en": "Hm? Say it again, there's too much dust up here. Atchoo!",
+                "de": "Hm? Sag es noch mal, hier ist zu viel Staub. Hatschi!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "tommaso",
+          "face": "curious",
+          "it": "D'inverno le portiamo al mulino. Ti piace la polenta?",
+          "sl": "Pozimi jih nesemo v mlin. Ti je polenta všeč?",
+          "en": "In winter we take them to the mill. Do you like polenta?",
+          "de": "Im Winter bringen wir sie zur Mühle. Magst du Polenta?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì, mi piace tanto!",
+              "sl": "Ja, zelo mi je všeč!",
+              "en": "Yes, I like it a lot!",
+              "de": "Ja, ich mag sie sehr!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Anche a me! Con il formaggio è la più buona.",
+                "sl": "Tudi meni! S sirom je najboljša.",
+                "en": "Me too! It's best with cheese.",
+                "de": "Ich auch! Mit Käse ist sie am besten."
+              }
+            },
+            {
+              "it": "Sì, mi piacciono tanto!",
+              "sl": "Ja, zelo so mi všeč!",
+              "en": "Yes, I like them (plural) a lot!",
+              "de": "Ja, sie gefallen mir sehr (Mehrzahl)!",
+              "grammar": "piacere",
+              "why": {
+                "sl": "Ena stvar, la polenta: mi piace. Piacciono je za več stvari.",
+                "en": "One thing, la polenta: mi piace. Piacciono is for more than one thing.",
+                "de": "Eine Sache, la polenta: mi piace. Piacciono steht für mehrere Dinge."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Piacciono? Quante polente mangi? Ah ah!",
+                "sl": "Piacciono? Koliko polent poješ? Ha ha!",
+                "en": "Piacciono? How many polentas do you eat? Ha ha!",
+                "de": "Piacciono? Wie viele Polentas isst du? Haha!"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "palla",
+      "lines": [
+        {
+          "who": "tommaso",
+          "face": "happy",
+          "it": "Giochiamo a palla qui in soffitta?",
+          "sl": "Se greva z žogo tu na podstrešju?",
+          "en": "Shall we play ball up here in the attic?",
+          "de": "Spielen wir hier auf dem Dachboden Ball?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì, ma piano piano!",
+              "sl": "Ja, ampak počasi!",
+              "en": "Yes, but gently!",
+              "de": "Ja, aber ganz vorsichtig!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Piano, sì. Ecco, prendi!",
+                "sl": "Počasi, ja. Na, ujemi!",
+                "en": "Gently, yes. Here, catch!",
+                "de": "Vorsichtig, ja. Hier, fang!"
+              }
+            },
+            {
+              "it": "Sì, ma pieno pieno!",
+              "sl": "Ja, ampak polno polno!",
+              "en": "Yes, but full full!",
+              "de": "Ja, aber voll voll!",
+              "why": {
+                "sl": "Piano pomeni počasi, rahlo. Pieno pomeni poln.",
+                "en": "Piano means gently, slowly. Pieno means full.",
+                "de": "Piano heißt sanft, langsam. Pieno heißt voll."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Pieno? Pieno di cosa? Ah ah!",
+                "sl": "Polno? Polno česa? Ha ha!",
+                "en": "Full? Full of what? Ha ha!",
+                "de": "Voll? Voll mit was? Haha!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "marisa",
+          "face": "cross",
+          "it": "Tommaso! Niente palla in soffitta. La culla è vecchia!",
+          "sl": "Tommaso! Brez žoge na podstrešju. Zibelka je stara!",
+          "en": "Tommaso! No ball in the attic. The cradle is old!",
+          "de": "Tommaso! Kein Ball auf dem Dachboden. Die Wiege ist alt!"
+        },
+        {
+          "choices": [
+            {
+              "it": "Scusi, signora Marisa. Andiamo in cortile.",
+              "sl": "Oprostite, gospa Marisa. Greva na dvorišče.",
+              "en": "Sorry, Mrs Marisa. We'll go out in the yard.",
+              "de": "Entschuldigung, Frau Marisa. Wir gehen in den Hof.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "{m:Bravo|f:Brava}. E portate anche il pallone!",
+                "sl": "Bravo. In vzemita še nogometno žogo!",
+                "en": "Good. And take the football too!",
+                "de": "Gut so. Und nehmt auch den Fußball mit!"
+              }
+            },
+            {
+              "it": "Scusa, Marisa. Andiamo in cortile.",
+              "sl": "Oprosti, Marisa. Greva na dvorišče.",
+              "en": "Sorry, Marisa. We'll go out in the yard.",
+              "de": "Entschuldige, Marisa. Wir gehen in den Hof.",
+              "grammar": "tu-lei",
+              "why": {
+                "sl": "Gospe Marisi rečeš Lei: scusi, signora Marisa. Scusa je za prijatelje.",
+                "en": "Say Lei to signora Marisa: scusi, signora Marisa. Scusa is for friends.",
+                "de": "Zu signora Marisa sagst du Lei: scusi, signora Marisa. Scusa ist für Freunde."
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "Come mi hai chiamata? Ah ah!",
+                "sl": "Kako si me {m:poklical|f:poklicala}? Ha ha!",
+                "en": "What did you call me? Ha ha!",
+                "de": "Wie hast du mich genannt? Haha!"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "sveglia-scuola",
+      "months": [
+        9,
+        10,
+        11,
+        12,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "lines": [
+        {
+          "who": "tommaso",
+          "face": "sad",
+          "it": "Oggi c'è scuola? No, voglio dormire!",
+          "sl": "Je danes šola? Ne, spat hočem!",
+          "en": "Is there school today? No, I want to sleep!",
+          "de": "Ist heute Schule? Nein, ich will schlafen!"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì, oggi c'è scuola. Dai, alzati!",
+              "sl": "Ja, danes je šola. Daj, vstani!",
+              "en": "Yes, there's school today. Come on, get up!",
+              "de": "Ja, heute ist Schule. Komm, steh auf!",
+              "ok": true,
+              "reply": {
+                "it": "Va bene … Ma prima la colazione!",
+                "sl": "Prav … Ampak najprej zajtrk!",
+                "en": "All right … But breakfast first!",
+                "de": "Na gut … Aber zuerst Frühstück!",
+                "act": {
+                  "tommaso": {
+                    "pose": "sit"
+                  }
+                }
+              }
+            },
+            {
+              "it": "Sì, oggi ci sono scuola. Dai, alzati!",
+              "sl": "Ja, danes so šola. Daj, vstani!",
+              "en": "Yes, there are school today. Come on, get up!",
+              "de": "Ja, heute sind Schule. Komm, steh auf!",
+              "grammar": "ce-ci-sono",
+              "why": {
+                "sl": "Ena šola: c'è scuola. Ci sono je za več stvari.",
+                "en": "One school: c'è scuola. Ci sono is for more than one thing.",
+                "de": "Eine Schule: c'è scuola. Ci sono steht für mehrere Dinge."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Ci sono? Quante scuole ci sono? Una basta!",
+                "sl": "Ci sono? Koliko šol je? Ena je dovolj!",
+                "en": "Ci sono? How many schools are there? One's enough!",
+                "de": "Ci sono? Wie viele Schulen gibt es? Eine reicht!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "tommaso",
+          "it": "Dove ho messo la cartella? Ah, eccola, vicino al baule.",
+          "sl": "Kam sem dal torbo? A, tu je, ob skrinji.",
+          "en": "Where did I put my school bag? Ah, here it is, by the trunk.",
+          "de": "Wo habe ich meine Schultasche hingelegt? Ah, hier ist sie, bei der Truhe."
+        },
+        {
+          "choices": [
+            {
+              "it": "Andiamo, è tardi!",
+              "sl": "Greva, pozno je!",
+              "en": "Let's go, it's late!",
+              "de": "Gehen wir, es ist spät!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Arrivo, arrivo! Corro come il vento!",
+                "sl": "Že grem, že grem! Tečem kot veter!",
+                "en": "Coming, coming! I'll run like the wind!",
+                "de": "Ich komme, ich komme! Ich renne wie der Wind!",
+                "act": {
+                  "tommaso": {
+                    "to": "stairs"
+                  }
+                }
+              }
+            },
+            {
+              "it": "Andate, è tardi!",
+              "sl": "Pojdite, pozno je!",
+              "en": "You lot go, it's late!",
+              "de": "Geht, es ist spät!",
+              "grammar": "imperativo",
+              "why": {
+                "sl": "Greva oba, ti in Tommaso: andiamo. Andate je ukaz več ljudem.",
+                "en": "You and Tommaso go together: andiamo. Andate tells several people.",
+                "de": "Du und Tommaso geht zusammen: andiamo. Andate sagt es mehreren."
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "Andate? E tu resti qui in soffitta?",
+                "sl": "Pojdite? Pa ti ostaneš tu na podstrešju?",
+                "en": "You lot go? And you're staying in the attic?",
+                "de": "Geht ihr? Und du bleibst auf dem Dachboden?"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sveglia-scarpets",
+      "lines": [
+        {
+          "who": "tommaso",
+          "face": "sad",
+          "it": "Brr … ho i piedi freddi.",
+          "sl": "Brr … zebe me v noge.",
+          "en": "Brr … my feet are cold.",
+          "de": "Brr … ich habe kalte Füße."
+        },
+        {
+          "choices": [
+            {
+              "it": "Ecco le tue pantofole, vicino al letto!",
+              "sl": "Tu so tvoji copati, ob postelji!",
+              "en": "Here are your slippers, by the bed!",
+              "de": "Hier sind deine Hausschuhe, neben dem Bett!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "I miei scarpets! Sono caldi e morbidi.",
+                "sl": "Moji scarpets! Topli in mehki so.",
+                "en": "My scarpets! They're warm and soft.",
+                "de": "Meine Scarpets! Die sind warm und weich.",
+                "act": {
+                  "tommaso": {
+                    "pose": "sit"
+                  }
+                }
+              }
+            },
+            {
+              "it": "Ecco i tuoi pantofole, vicino al letto!",
+              "sl": "Tu so tvojih copati, ob postelji!",
+              "en": "Here are your (masculine) slippers, by the bed!",
+              "de": "Hier sind deinen Hausschuhe, neben dem Bett!",
+              "grammar": "possessivi",
+              "why": {
+                "sl": "Pantofole je ženskega spola: le tue pantofole.",
+                "en": "Pantofole is feminine: le tue pantofole.",
+                "de": "Pantofole ist feminin: le tue pantofole."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Hm? Parla piano, ho ancora sonno.",
+                "sl": "Hm? Govori počasi, še sem zaspan.",
+                "en": "Hm? Speak slowly, I'm still sleepy.",
+                "de": "Hm? Sprich langsam, ich bin noch müde."
+              }
+            }
+          ]
+        },
+        {
+          "who": "tommaso",
+          "face": "proud",
+          "it": "In friulano si chiamano scarpets. Li ha cuciti la nonna, con un fiore.",
+          "sl": "Po furlansko jim rečemo scarpets. Sešila jih je babica, z rožico.",
+          "en": "In Friulian they're called scarpets. Grandma sewed them, with a flower.",
+          "de": "Auf Friaulisch heißen sie Scarpets. Oma hat sie genäht, mit einer Blume."
+        },
+        {
+          "choices": [
+            {
+              "it": "Che belle pantofole!",
+              "sl": "Kako lepi copati!",
+              "en": "What lovely slippers!",
+              "de": "Was für schöne Hausschuhe!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Il fiore è rosso, vedi? Come una rosa.",
+                "sl": "Rožica je rdeča, vidiš? Kot vrtnica.",
+                "en": "The flower is red, see? Like a rose.",
+                "de": "Die Blume ist rot, siehst du? Wie eine Rose."
+              }
+            },
+            {
+              "it": "Che belli pantofole!",
+              "sl": "Kako lepa copata!",
+              "en": "What lovely (masculine) slippers!",
+              "de": "Was für schönen Hausschuhe!",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Pantofole je ženskega spola v množini: belle.",
+                "en": "Pantofole is feminine plural: belle.",
+                "de": "Pantofole ist feminin Plural: belle."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Belli? Le pantofole sono signore, sai!",
+                "sl": "Belli? Copati so gospe, veš!",
+                "en": "Belli? Slippers are ladies, you know!",
+                "de": "Belli? Hausschuhe sind Damen, weißt du!"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "culla-ninna",
+      "lines": [
+        {
+          "who": "marisa",
+          "it": "Ti canto la ninna nanna che cantavo a Tommaso. «Ninna nanna, ninna oh …»",
+          "sl": "Zapojem ti uspavanko, ki sem jo pela Tommasu. »Ninna nanna, ninna oh …«",
+          "en": "I'll sing you the lullaby I used to sing to Tommaso. «Ninna nanna, ninna oh …»",
+          "de": "Ich singe dir das Schlaflied, das ich Tommaso gesungen habe. «Ninna nanna, ninna oh …»",
+          "fx": {
+            "cradle": 0.6
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Che bella canzone!",
+              "sl": "Kako lepa pesem!",
+              "en": "What a lovely song!",
+              "de": "Was für ein schönes Lied!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Grazie. La cantava anche mia nonna.",
+                "sl": "Hvala. Pela jo je tudi moja babica.",
+                "en": "Thank you. My grandma sang it too.",
+                "de": "Danke. Meine Oma hat es auch gesungen."
+              }
+            },
+            {
+              "it": "Che bello canzone!",
+              "sl": "Kako lep pesem!",
+              "en": "What a lovely (masculine) song!",
+              "de": "Was für ein schöner Lied!",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Canzone je ženskega spola: bella canzone.",
+                "en": "Canzone is feminine: bella canzone.",
+                "de": "Canzone ist feminin: bella canzone."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Bello? Chi? Il gatto che dorme? Ah ah!",
+                "sl": "Lep? Kdo? Maček, ki spi? Ha ha!",
+                "en": "Handsome? Who? The sleeping cat? Ha ha!",
+                "de": "Schön? Wer? Die schlafende Katze? Haha!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "marisa",
+          "it": "Shh … la ninna nanna fa venire sonno.",
+          "sl": "Pst … ob uspavanki postaneš zaspan.",
+          "en": "Shh … the lullaby makes you sleepy.",
+          "de": "Pst … das Schlaflied macht müde.",
+          "fx": {
+            "cradle": 0.3
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Ho sonno anch'io!",
+              "sl": "Tudi jaz sem zaspan!",
+              "en": "I'm sleepy too!",
+              "de": "Ich bin auch müde!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Ah ah, allora la ninna nanna funziona!",
+                "sl": "Ha ha, potem uspavanka deluje!",
+                "en": "Ha ha, then the lullaby works!",
+                "de": "Haha, dann wirkt das Schlaflied!",
+                "fx": {
+                  "cradle": 0
+                }
+              }
+            },
+            {
+              "it": "Sono sonno anch'io!",
+              "sl": "Sem spanec tudi jaz!",
+              "en": "I am sleep too!",
+              "de": "Ich bin Schlaf auch!",
+              "grammar": "essere-avere",
+              "why": {
+                "sl": "Zaspan si: avere sonno, ho sonno. Ne sono sonno.",
+                "en": "Being sleepy is avere sonno: ho sonno, not sono sonno.",
+                "de": "Müde sein ist avere sonno: ho sonno, nicht sono sonno."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Sei sonno? Ah ah, sei una nuvola?",
+                "sl": "Si spanec? Ha ha, si oblak?",
+                "en": "You are sleep? Ha ha, are you a cloud?",
+                "de": "Du bist Schlaf? Haha, bist du eine Wolke?"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bora-paura",
+      "sky_stays": false,
+      "lines": [
+        {
+          "who": "tommaso",
+          "face": "worried",
+          "it": "Ho paura del buio … e la bora canta: uuuh!",
+          "sl": "Strah me je teme … in burja poje: uuuh!",
+          "en": "I'm scared of the dark … and the bora's singing: oooh!",
+          "de": "Ich habe Angst im Dunkeln … und die Bora singt: uuuh!",
+          "fx": {
+            "lamp": 0
+          },
+          "sky": {
+            "wind": 0.7
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Non avere paura. Accendo la lampada.",
+              "sl": "Ne boj se. Prižgem svetilko.",
+              "en": "Don't be scared. I'll turn on the lamp.",
+              "de": "Hab keine Angst. Ich mache die Lampe an.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Grazie. Con la luce è tutto più bello.",
+                "sl": "Hvala. S svetlobo je vse lepše.",
+                "en": "Thank you. With the light everything's nicer.",
+                "de": "Danke. Mit Licht ist alles schöner.",
+                "fx": {
+                  "lamp": 1
+                }
+              }
+            },
+            {
+              "it": "Non avere paura. Accendi la lampada.",
+              "sl": "Ne boj se. Prižgi svetilko.",
+              "en": "Don't be scared. You turn on the lamp.",
+              "de": "Hab keine Angst. Mach du die Lampe an.",
+              "grammar": "presente-regolare",
+              "why": {
+                "sl": "Prižgeš jo ti: accendo (jaz prižgem). Accendi pomeni ti prižgeš.",
+                "en": "You're the one lighting it: accendo (I light). Accendi means you light.",
+                "de": "Du machst sie an: accendo (ich mache an). Accendi heißt du machst an."
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "Io? Ma io sono sotto la coperta!",
+                "sl": "Jaz? Saj sem pod odejo!",
+                "en": "Me? But I'm under the blanket!",
+                "de": "Ich? Aber ich bin unter der Decke!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "tommaso",
+          "face": "surprised",
+          "it": "La finestra trema … Bum! Si è aperta!",
+          "sl": "Okno se trese … Bum! Odprlo se je!",
+          "en": "The window's shaking … Bang! It's flown open!",
+          "de": "Das Fenster wackelt … Bumm! Es ist aufgegangen!",
+          "fx": {
+            "window": 1
+          },
+          "act": {
+            "tommaso": {
+              "pose": "sit"
+            }
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "È solo la bora. Chiudo la finestra. Dormi tranquillo.",
+              "sl": "To je samo burja. Zaprem okno. Mirno spi.",
+              "en": "It's only the bora. I'll shut the window. Sleep well.",
+              "de": "Das ist nur die Bora. Ich mache das Fenster zu. Schlaf ruhig.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Grazie, {learner}. Buonanotte …",
+                "sl": "Hvala, {learner}. Lahko noč …",
+                "en": "Thanks, {learner}. Good night …",
+                "de": "Danke, {learner}. Gute Nacht …",
+                "fx": {
+                  "window": 0
+                },
+                "act": {
+                  "tommaso": {
+                    "pose": "sleep"
+                  }
+                }
+              }
+            },
+            {
+              "it": "È solo la bora. Chiudo la finestra. Dormi tranquilla.",
+              "sl": "To je samo burja. Zaprem okno. Mirno spi (žensko).",
+              "en": "It's only the bora. I'll shut the window. Sleep well (feminine).",
+              "de": "Das ist nur die Bora. Ich mache das Fenster zu. Schlaf ruhig (weiblich).",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Tommaso je deček: tranquillo. Tranquilla je za deklico.",
+                "en": "Tommaso is a boy: tranquillo. Tranquilla is for a girl.",
+                "de": "Tommaso ist ein Junge: tranquillo. Tranquilla ist für ein Mädchen."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Tranquilla? Chi, la bora? Ah ah!",
+                "sl": "Mirna? Kdo, burja? Ha ha!",
+                "en": "Calm? Who, the bora? Ha ha!",
+                "de": "Ruhig? Wer, die Bora? Haha!"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pannocchie-conta",
+      "lines": [
+        {
+          "who": "tommaso",
+          "face": "curious",
+          "it": "Contiamo i mazzi di pannocchie sotto il tetto!",
+          "sl": "Preštejva šope storžev pod streho!",
+          "en": "Let's count the bunches of cobs under the roof!",
+          "de": "Zählen wir die Bündel Maiskolben unter dem Dach!"
+        },
+        {
+          "choices": [
+            {
+              "it": "Ci sono tre mazzi!",
+              "sl": "Trije šopi so!",
+              "en": "There are three bunches!",
+              "de": "Da sind drei Bündel!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Giusto! E in ogni mazzo ci sono cinque pannocchie.",
+                "sl": "Tako je! In v vsakem šopu je pet storžev.",
+                "en": "Right! And there are five cobs in each bunch.",
+                "de": "Richtig! Und in jedem Bündel sind fünf Kolben."
+              }
+            },
+            {
+              "it": "Ci sono tre mazzo!",
+              "sl": "Tri šop je!",
+              "en": "There are three bunch!",
+              "de": "Da sind drei Bündel (Einzahl)!",
+              "grammar": "plurale",
+              "why": {
+                "sl": "Več šopov: mazzi. Un mazzo je en šop.",
+                "en": "More than one bunch: mazzi. Un mazzo is one bunch.",
+                "de": "Mehrere Bündel: mazzi. Un mazzo ist ein Bündel."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Tre mazzo? Hm, conta di nuovo.",
+                "sl": "Tri šop? Hm, preštej še enkrat.",
+                "en": "Three bunch? Hm, count again.",
+                "de": "Drei Bündel? Hm, zähl noch mal."
+              }
+            }
+          ]
+        },
+        {
+          "choices": [
+            {
+              "it": "Allora sono quindici pannocchie!",
+              "sl": "Potem je petnajst storžev!",
+              "en": "Then there are fifteen cobs!",
+              "de": "Dann sind es fünfzehn Kolben!",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "{m:Bravo|f:Brava}! Cinque, dieci, quindici!",
+                "sl": "Bravo! Pet, deset, petnajst!",
+                "en": "Well done! Five, ten, fifteen!",
+                "de": "Gut gemacht! Fünf, zehn, fünfzehn!"
+              }
+            },
+            {
+              "it": "Allora sono otto pannocchie!",
+              "sl": "Potem je osem storžev!",
+              "en": "Then there are eight cobs!",
+              "de": "Dann sind es acht Kolben!",
+              "why": {
+                "sl": "Trije šopi po pet: 5 + 5 + 5 = 15, quindici.",
+                "en": "Three bunches of five: 5 + 5 + 5 = 15, quindici.",
+                "de": "Drei Bündel zu fünf: 5 + 5 + 5 = 15, quindici."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Otto? Conta meglio: cinque, dieci …",
+                "sl": "Osem? Preštej bolje: pet, deset …",
+                "en": "Eight? Count better: five, ten …",
+                "de": "Acht? Zähl besser: fünf, zehn …"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "palla-dove",
+      "lines": [
+        {
+          "who": "tommaso",
+          "face": "worried",
+          "it": "Dov'è la mia palla? L'ho persa!",
+          "sl": "Kje je moja žoga? Izgubil sem jo!",
+          "en": "Where's my ball? I've lost it!",
+          "de": "Wo ist mein Ball? Ich habe ihn verloren!"
+        },
+        {
+          "choices": [
+            {
+              "it": "È sul pavimento, vicino alla scala!",
+              "sl": "Na tleh je, ob stopnicah!",
+              "en": "It's on the floor, by the stairs!",
+              "de": "Er liegt auf dem Boden, bei der Treppe!",
+              "ok": true,
+              "tap": "ball",
+              "grammar": "preposizioni-articolate",
+              "reply": {
+                "face": "happy",
+                "it": "Eccola! Grazie!",
+                "sl": "Tu je! Hvala!",
+                "en": "There it is! Thanks!",
+                "de": "Da ist er! Danke!"
+              }
+            },
+            {
+              "it": "È nel baule!",
+              "sl": "V skrinji je!",
+              "en": "It's in the trunk!",
+              "de": "Er ist in der Truhe!",
+              "tap": "chest",
+              "why": {
+                "sl": "V skrinji je ni. Poglej po tleh, ob stopnicah.",
+                "en": "It isn't in the trunk. Look on the floor, by the stairs.",
+                "de": "In der Truhe ist er nicht. Schau auf dem Boden, bei der Treppe."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Nel baule ci sono solo i vestiti vecchi!",
+                "sl": "V skrinji so samo stara oblačila!",
+                "en": "There are only old clothes in the trunk!",
+                "de": "In der Truhe sind nur alte Kleider!"
+              }
+            },
+            {
+              "it": "È nell'armadio!",
+              "sl": "V omari je!",
+              "en": "It's in the wardrobe!",
+              "de": "Er ist im Schrank!",
+              "tap": "wardrobe",
+              "why": {
+                "sl": "V omari je ni. Poglej po tleh.",
+                "en": "It isn't in the wardrobe. Look on the floor.",
+                "de": "Im Schrank ist er nicht. Schau auf dem Boden."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Nell'armadio? No, lì ci sono le camicie!",
+                "sl": "V omari? Ne, tam so srajce!",
+                "en": "In the wardrobe? No, that's where the shirts are!",
+                "de": "Im Schrank? Nein, da sind die Hemden!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "tommaso",
+          "face": "happy",
+          "it": "È rossa e bianca, la mia palla preferita.",
+          "sl": "Rdeča in bela je, moja najljubša žoga.",
+          "en": "It's red and white, my favourite ball.",
+          "de": "Er ist rot und weiß, mein Lieblingsball."
+        },
+        {
+          "choices": [
+            {
+              "it": "Che bella palla!",
+              "sl": "Kako lepa žoga!",
+              "en": "What a lovely ball!",
+              "de": "Was für ein schöner Ball!",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "Me l'ha regalata il nonno Bepi.",
+                "sl": "Podaril mi jo je dedek Bepi.",
+                "en": "Nonno Bepi gave it to me.",
+                "de": "Nonno Bepi hat ihn mir geschenkt."
+              }
+            },
+            {
+              "it": "Che bello palla!",
+              "sl": "Kako lep žoga!",
+              "en": "What a lovely (masculine) ball!",
+              "de": "Was für ein schöne Ball!",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Palla je ženskega spola: bella palla.",
+                "en": "Palla is feminine: bella palla.",
+                "de": "Palla ist feminin: bella palla."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Bello? Hm, la palla rimbalza via! Ah ah!",
+                "sl": "Lep? Hm, žoga odskoči stran! Ha ha!",
+                "en": "Bello? Hm, the ball's bouncing away! Ha ha!",
+                "de": "Bello? Hm, der Ball hüpft weg! Haha!"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

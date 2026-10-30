@@ -1,0 +1,1341 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "in-bottega",
+  "language": "it",
+  "title": {
+    "it": "In bottega",
+    "sl": "V delavnici",
+    "en": "In the workshop",
+    "de": "In der Werkstatt"
+  },
+  "emoji": "🔨",
+  "level": "A1",
+  "review": "it, sl, en, de (the lines, the reactions, the variants): machine-written, not reviewed by a native speaker",
+  "art": "workshop",
+  "from": [
+    "house"
+  ],
+  "household": [
+    "franco",
+    "lorenzo"
+  ],
+  "pack": "in-bottega",
+  "objects": [
+    {
+      "slot": "workbench",
+      "word": "banco-da-lavoro"
+    },
+    {
+      "slot": "hammer",
+      "word": "martello",
+      "pack": "nella-fucina"
+    },
+    {
+      "slot": "nails",
+      "word": "chiodo",
+      "pack": "nella-fucina"
+    },
+    {
+      "slot": "boards",
+      "word": "tavola"
+    },
+    {
+      "slot": "axe",
+      "word": "ascia",
+      "pack": "al-fuoco"
+    },
+    {
+      "slot": "broom",
+      "word": "scopa",
+      "pack": "festa-epifania"
+    },
+    {
+      "slot": "window",
+      "word": "finestra",
+      "pack": "casa-e-cucina"
+    },
+    {
+      "slot": "door",
+      "word": "porta",
+      "pack": "casa-e-cucina"
+    },
+    {
+      "slot": "saw",
+      "word": "sega",
+      "needs": {
+        "level": 2
+      }
+    },
+    {
+      "slot": "tools",
+      "word": "attrezzi",
+      "needs": {
+        "level": 2
+      }
+    },
+    {
+      "slot": "ladder",
+      "word": "scala",
+      "pack": "casa-e-cucina",
+      "needs": {
+        "level": 2
+      }
+    },
+    {
+      "slot": "rake",
+      "word": "rastrello",
+      "pack": "nel-campo",
+      "needs": {
+        "level": 2
+      }
+    },
+    {
+      "slot": "wheelbarrow",
+      "word": "carriola",
+      "needs": {
+        "level": 3
+      }
+    },
+    {
+      "slot": "horse",
+      "word": "cavallino",
+      "needs": {
+        "level": 3
+      }
+    },
+    {
+      "slot": "lantern",
+      "word": "lanterna",
+      "pack": "nella-tenda",
+      "needs": {
+        "level": 3
+      }
+    }
+  ],
+  "people": [
+    {
+      "id": "franco",
+      "name": "Mugnaio Franco",
+      "emoji": "🧑‍🌾",
+      "art": "farmer",
+      "slot": "bench",
+      "villager": "franco"
+    },
+    {
+      "id": "lorenzo",
+      "name": "Lorenzo",
+      "emoji": "👦",
+      "art": "child3",
+      "slot": "floor",
+      "villager": "lorenzo"
+    }
+  ],
+  "happenings": [
+    {
+      "id": "martello",
+      "title": {
+        "it": "Franco pianta i chiodi",
+        "sl": "Franco zabija žeblje",
+        "en": "Franco is hammering nails",
+        "de": "Franco schlägt Nägel ein"
+      },
+      "who": "franco",
+      "when": [
+        "morning"
+      ],
+      "chance": 0.5,
+      "dialog": "martello",
+      "dialogs": [
+        "martello-chiodi",
+        "martello"
+      ],
+      "reward": {
+        "stone": 15
+      },
+      "marker": "🔨",
+      "memory": {
+        "it": "i chiodi che abbiamo piantato insieme",
+        "sl": "žeblje, ki sva jih skupaj zabila",
+        "en": "the nails we hammered in together",
+        "de": "die Nägel, die wir zusammen eingeschlagen haben"
+      }
+    },
+    {
+      "id": "sega",
+      "title": {
+        "it": "Franco sega una tavola",
+        "sl": "Franco žaga desko",
+        "en": "Franco is sawing a plank",
+        "de": "Franco sägt ein Brett"
+      },
+      "who": "franco",
+      "when": [
+        "afternoon"
+      ],
+      "chance": 0.45,
+      "needs": {
+        "level": 2
+      },
+      "dialog": "sega",
+      "dialogs": [
+        "sega-segatura",
+        "sega"
+      ],
+      "reward": {
+        "wood": 15
+      },
+      "marker": "🪚",
+      "memory": {
+        "it": "la tavola che abbiamo segato",
+        "sl": "desko, ki sva jo prežagala",
+        "en": "the plank we sawed",
+        "de": "das Brett, das wir gesägt haben"
+      }
+    },
+    {
+      "id": "cavallino",
+      "title": {
+        "it": "Il cavallino di Lorenzo",
+        "sl": "Lorenzov konjiček",
+        "en": "Lorenzo's little horse",
+        "de": "Lorenzos Pferdchen"
+      },
+      "who": "lorenzo",
+      "when": [
+        "evening"
+      ],
+      "chance": 0.45,
+      "needs": {
+        "level": 3
+      },
+      "dialog": "cavallino",
+      "dialogs": [
+        "cavallino-gamba",
+        "cavallino"
+      ],
+      "reward": {
+        "food": 15
+      },
+      "marker": "🐴",
+      "memory": {
+        "it": "il mio cavallino di legno, che il nonno ha riparato",
+        "sl": "mojega lesenega konjička, ki ga je dedek popravil",
+        "en": "my little wooden horse, which grandpa fixed",
+        "de": "mein Holzpferdchen, das Opa repariert hat"
+      }
+    },
+    {
+      "id": "sedia",
+      "title": {
+        "it": "Franco e la sedia friulana",
+        "sl": "Franco in furlanski stol",
+        "en": "Franco and the Friulian chair",
+        "de": "Franco und der friaulische Stuhl"
+      },
+      "who": "franco",
+      "when": [
+        "afternoon"
+      ],
+      "chance": 0.4,
+      "dialog": "sedia",
+      "dialogs": [
+        "sedia-gambe",
+        "sedia"
+      ],
+      "reward": {
+        "wisdom": 15
+      },
+      "marker": "🪑",
+      "memory": {
+        "it": "la sedia friulana che ti ho mostrato",
+        "sl": "furlanski stol, ki sem ti ga pokazal",
+        "en": "the Friulian chair I showed you",
+        "de": "den friaulischen Stuhl, den ich dir gezeigt habe"
+      }
+    },
+    {
+      "id": "scopa",
+      "title": {
+        "it": "Lorenzo pulisce la bottega",
+        "sl": "Lorenzo pospravlja delavnico",
+        "en": "Lorenzo is cleaning the workshop",
+        "de": "Lorenzo putzt die Werkstatt"
+      },
+      "who": "lorenzo",
+      "when": [
+        "morning"
+      ],
+      "chance": 0.4,
+      "needs": {
+        "level": 2
+      },
+      "dialog": "scopa",
+      "dialogs": [
+        "scopa-trucioli",
+        "scopa"
+      ],
+      "reward": {
+        "food": 10
+      },
+      "marker": "🧹",
+      "memory": {
+        "it": "la bottega che abbiamo pulito insieme",
+        "sl": "delavnico, ki sva jo skupaj pospravila",
+        "en": "the workshop we cleaned together",
+        "de": "die Werkstatt, die wir zusammen geputzt haben"
+      }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "martello",
+      "lines": [
+        {
+          "who": "franco",
+          "face": "curious",
+          "it": "Buongiorno. Oggi aggiusto una cassetta. Mi passi il martello?",
+          "sl": "Dober dan. Danes popravim zaboj. Mi podaš kladivo?",
+          "en": "Good morning. Today I'm mending a crate. Will you pass me the hammer?",
+          "de": "Guten Morgen. Heute repariere ich eine Kiste. Gibst du mir den Hammer?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Ecco il martello, signor Franco.",
+              "sl": "Izvolite kladivo, gospod Franco.",
+              "en": "Here's the hammer, Mr Franco.",
+              "de": "Hier ist der Hammer, Herr Franco.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Grazie. Adesso un chiodo … uno, due … bum!",
+                "sl": "Hvala. Zdaj pa žebelj … ena, dve … bum!",
+                "en": "Thanks. Now a nail … one, two … bang!",
+                "de": "Danke. Jetzt ein Nagel … eins, zwei … bumm!",
+                "fx": {
+                  "hammer": 1
+                }
+              }
+            },
+            {
+              "it": "Ecco la martello, signor Franco.",
+              "sl": "Izvolite kladivo (žensko), gospod Franco.",
+              "en": "Here's the (feminine) hammer, Mr Franco.",
+              "de": "Hier ist die Hammer, Herr Franco.",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Martello je moškega spola: il martello.",
+                "en": "Martello is masculine: il martello.",
+                "de": "Martello ist maskulin: il martello."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "La? Hm, non ho capito bene.",
+                "sl": "La? Hm, nisem dobro razumel.",
+                "en": "La? Hm, I didn't quite get that.",
+                "de": "La? Hm, das habe ich nicht recht verstanden."
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "it": "Senti? Bum, bum! Il chiodo entra nel legno.",
+          "sl": "Slišiš? Bum, bum! Žebelj gre v les.",
+          "en": "Hear that? Bang, bang! The nail goes into the wood.",
+          "de": "Hörst du? Bumm, bumm! Der Nagel geht ins Holz.",
+          "fx": {
+            "hammer": 1
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Posso provare anch'io?",
+              "sl": "Lahko tudi jaz poskusim?",
+              "en": "May I try too?",
+              "de": "Darf ich auch mal?",
+              "ok": true,
+              "reply": {
+                "face": "worried",
+                "it": "Sì, ma {m:attento|f:attenta} alle dita! Piano piano.",
+                "sl": "Ja, ampak pazi na prste! Počasi.",
+                "en": "Yes, but mind your fingers! Nice and slowly.",
+                "de": "Ja, aber pass auf deine Finger auf! Ganz langsam.",
+                "fx": {
+                  "hammer": 0
+                }
+              }
+            },
+            {
+              "it": "Posso provo anch'io?",
+              "sl": "Lahko poskusim (napačno) tudi jaz?",
+              "en": "May I tries too?",
+              "de": "Darf ich versuche auch?",
+              "grammar": "presente-regolare",
+              "why": {
+                "sl": "Po posso pride nedoločnik: posso provare.",
+                "en": "After posso comes the infinitive: posso provare.",
+                "de": "Nach posso kommt der Infinitiv: posso provare."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Come? Il martello fa troppo rumore!",
+                "sl": "Kako? Kladivo preveč ropota!",
+                "en": "What? The hammer's too noisy!",
+                "de": "Wie bitte? Der Hammer ist zu laut!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "face": "proud",
+          "it": "{m:Bravo|f:Brava}! Sei {m:un vero falegname|f:una vera falegname}.",
+          "sl": "Bravo! {m:Pravi mizar|f:Prava mizarka} si.",
+          "en": "Well done! You're a real carpenter.",
+          "de": "Gut gemacht! Du bist {m:ein echter Tischler|f:eine echte Tischlerin}."
+        }
+      ]
+    },
+    {
+      "id": "sega",
+      "fx_stays": false,
+      "lines": [
+        {
+          "who": "franco",
+          "face": "curious",
+          "it": "Adesso tagliamo questa tavola con la sega. Tienila ferma!",
+          "sl": "Zdaj bova to desko prežagala. Drži jo pri miru!",
+          "en": "Now let's cut this plank with the saw. Hold it still!",
+          "de": "Jetzt schneiden wir dieses Brett mit der Säge. Halt es fest!"
+        },
+        {
+          "choices": [
+            {
+              "it": "La tengo io, signor Franco.",
+              "sl": "Jo držim jaz, gospod Franco.",
+              "en": "I'm holding it, Mr Franco.",
+              "de": "Ich halte es, Herr Franco.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Così. Avanti e indietro, avanti e indietro …",
+                "sl": "Tako. Naprej in nazaj, naprej in nazaj …",
+                "en": "That's it. Back and forth, back and forth …",
+                "de": "So. Vor und zurück, vor und zurück …",
+                "fx": {
+                  "dust": 1
+                }
+              }
+            },
+            {
+              "it": "Lo tengo io, signor Franco.",
+              "sl": "Ga držim jaz, gospod Franco.",
+              "en": "I'm holding him, Mr Franco.",
+              "de": "Ich halte ihn, Herr Franco.",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Tavola je ženskega spola: la tengo. Lo je za moški spol.",
+                "en": "Tavola is feminine: la tengo. Lo is for a masculine one.",
+                "de": "Tavola ist feminin: la tengo. Lo steht für ein Maskulinum."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Lo? Cosa tieni, il gatto? Ah ah!",
+                "sl": "Ga? Kaj držiš, mačka? Ha ha!",
+                "en": "Him? What are you holding, the cat? Ha ha!",
+                "de": "Ihn? Was hältst du, den Kater? Haha!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "face": "laugh",
+          "it": "Guarda la segatura che vola!",
+          "sl": "Poglej žagovino, kako leti!",
+          "en": "Look at the sawdust flying!",
+          "de": "Schau, wie das Sägemehl fliegt!",
+          "fx": {
+            "dust": 1
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Ho la segatura nei capelli!",
+              "sl": "Žagovino imam v laseh!",
+              "en": "I've got sawdust in my hair!",
+              "de": "Ich habe Sägemehl in den Haaren!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Ah ah! Sembri un pulcino tutto giallo!",
+                "sl": "Ha ha! Kot rumen piščanček si!",
+                "en": "Ha ha! You look like a little yellow chick!",
+                "de": "Haha! Du siehst aus wie ein gelbes Küken!"
+              }
+            },
+            {
+              "it": "Sono la segatura nei capelli!",
+              "sl": "Sem žagovina v laseh!",
+              "en": "I am the sawdust in my hair!",
+              "de": "Ich bin das Sägemehl in den Haaren!",
+              "grammar": "essere-avere",
+              "why": {
+                "sl": "Kar imaš, povej z avere: ho la segatura. Sono pomeni sem.",
+                "en": "What you have takes avere: ho la segatura. Sono means I am.",
+                "de": "Was du hast, sagst du mit avere: ho la segatura. Sono heißt ich bin."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Sei la segatura? Ah ah, sei un albero?",
+                "sl": "Si žagovina? Ha ha, si drevo?",
+                "en": "You're the sawdust? Ha ha, are you a tree?",
+                "de": "Du bist das Sägemehl? Haha, bist du ein Baum?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "face": "proud",
+          "it": "Ecco, la tavola è tagliata. Diventerà una sedia.",
+          "sl": "Tako, deska je prežagana. Iz nje bo stol.",
+          "en": "There, the plank's cut. It'll become a chair.",
+          "de": "So, das Brett ist durchgesägt. Daraus wird ein Stuhl.",
+          "fx": {
+            "dust": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "cavallino",
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "lorenzo",
+          "face": "sad",
+          "it": "Il mio cavallino ha perso una gamba!",
+          "sl": "Moj konjiček je izgubil nogo!",
+          "en": "My little horse has lost a leg!",
+          "de": "Mein Pferdchen hat ein Bein verloren!",
+          "fx": {
+            "toy": 0
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Oh no! Il nonno lo può riparare.",
+              "sl": "O ne! Dedek ga lahko popravi.",
+              "en": "Oh no! Grandpa can fix it.",
+              "de": "Oh nein! Opa kann es reparieren.",
+              "ok": true,
+              "reply": {
+                "face": "curious",
+                "it": "Davvero? Nonno, lo ripari?",
+                "sl": "Res? Dedek, ga popraviš?",
+                "en": "Really? Grandpa, will you fix it?",
+                "de": "Wirklich? Opa, reparierst du es?"
+              }
+            },
+            {
+              "it": "Oh no! Il nonno la può riparare.",
+              "sl": "O ne! Dedek jo lahko popravi.",
+              "en": "Oh no! Grandpa can fix her.",
+              "de": "Oh nein! Opa kann sie reparieren.",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Cavallino je moškega spola: lo può riparare. La je za ženski spol.",
+                "en": "Cavallino is masculine: lo può riparare. La is for a feminine one.",
+                "de": "Cavallino ist maskulin: lo può riparare. La steht für ein Femininum."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "La? Chi? La nonna? La nonna è in cucina!",
+                "sl": "Jo? Koga? Babico? Babica je v kuhinji!",
+                "en": "Her? Who? Grandma? Grandma's in the kitchen!",
+                "de": "Sie? Wen? Oma? Oma ist in der Küche!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "face": "happy",
+          "it": "Certo. Un po' di colla sulla gamba, ed ecco fatto.",
+          "sl": "Seveda. Malo lepila na nogo in je.",
+          "en": "Of course. A bit of glue on the leg, and that's that.",
+          "de": "Natürlich. Ein bisschen Leim aufs Bein, und fertig.",
+          "fx": {
+            "toy": 0.5
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Che bravo, signor Franco!",
+              "sl": "Kako ste spretni, gospod Franco!",
+              "en": "How clever, Mr Franco!",
+              "de": "Wie geschickt, Herr Franco!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Ah ah, i nonni sanno fare tutto!",
+                "sl": "Ha ha, dedki znajo vse!",
+                "en": "Ha ha, grandpas can do everything!",
+                "de": "Haha, Opas können alles!"
+              }
+            },
+            {
+              "it": "Che brava, signor Franco!",
+              "sl": "Kako ste spretna, gospod Franco!",
+              "en": "How clever (feminine), Mr Franco!",
+              "de": "Wie geschickt (weiblich), Herr Franco!",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Franco je moški: bravo. Brava je za žensko.",
+                "en": "Franco is a man: bravo. Brava is for a woman.",
+                "de": "Franco ist ein Mann: bravo. Brava ist für eine Frau."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Brava? Io? Ah ah, sono un nonno, sai!",
+                "sl": "Spretna? Jaz? Ha ha, dedek sem, veš!",
+                "en": "Clever (feminine)? Me? Ha ha, I'm a grandpa, you know!",
+                "de": "Geschickt (weiblich)? Ich? Haha, ich bin ein Opa, weißt du!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "lorenzo",
+          "face": "happy",
+          "it": "Guarda! Il mio cavallino sta in piedi di nuovo!",
+          "sl": "Poglej! Moj konjiček spet stoji!",
+          "en": "Look! My little horse is standing up again!",
+          "de": "Schau! Mein Pferdchen steht wieder!",
+          "fx": {
+            "toy": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "sedia",
+      "lines": [
+        {
+          "who": "franco",
+          "face": "proud",
+          "it": "Vedi la sedia appesa al muro? L'ho fatta io, come a Manzano.",
+          "sl": "Vidiš stol, ki visi na steni? Naredil sem ga sam, kot v Manzanu.",
+          "en": "See the chair hanging on the wall? I made it myself, as they do in Manzano.",
+          "de": "Siehst du den Stuhl an der Wand? Den habe ich selbst gemacht, wie in Manzano."
+        },
+        {
+          "choices": [
+            {
+              "it": "Che bella sedia, signor Franco!",
+              "sl": "Kako lep stol, gospod Franco!",
+              "en": "What a lovely chair, Mr Franco!",
+              "de": "Was für ein schöner Stuhl, Herr Franco!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Grazie. Il sedile è di paglia intrecciata.",
+                "sl": "Hvala. Sedež je iz pletene slame.",
+                "en": "Thank you. The seat is of woven rush.",
+                "de": "Danke. Der Sitz ist aus geflochtenem Stroh."
+              }
+            },
+            {
+              "it": "Che bello sedia, signor Franco!",
+              "sl": "Kako lepa stol, gospod Franco!",
+              "en": "What a lovely (masculine) chair, Mr Franco!",
+              "de": "Was für ein schöne Stuhl, Herr Franco!",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Sedia je ženskega spola: bella sedia.",
+                "en": "Sedia is feminine: bella sedia.",
+                "de": "Sedia ist feminin: bella sedia."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Hm? Ripeti piano, la sega mi ha fatto sordo.",
+                "sl": "Hm? Ponovi počasi, žaga me je oglušila.",
+                "en": "Hm? Say it slowly, the saw's made me deaf.",
+                "de": "Hm? Sag es langsam, die Säge hat mich taub gemacht."
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "face": "happy",
+          "it": "A Manzano fanno tante sedie. È il paese delle sedie!",
+          "sl": "V Manzanu naredijo veliko stolov. To je vas stolov!",
+          "en": "In Manzano they make lots of chairs. It's the chair town!",
+          "de": "In Manzano machen sie viele Stühle. Das ist das Stuhldorf!"
+        },
+        {
+          "choices": [
+            {
+              "it": "Quante sedie fanno?",
+              "sl": "Koliko stolov naredijo?",
+              "en": "How many chairs do they make?",
+              "de": "Wie viele Stühle machen sie?",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Tantissime! Più delle stelle del cielo.",
+                "sl": "Ogromno! Več kot je zvezd na nebu.",
+                "en": "Loads! More than the stars in the sky.",
+                "de": "Unzählige! Mehr als Sterne am Himmel."
+              }
+            },
+            {
+              "it": "Quanti sedie fanno?",
+              "sl": "Koliko (moško) stolov naredijo?",
+              "en": "How many (masculine) chairs do they make?",
+              "de": "Wie vielen Stühle machen sie?",
+              "grammar": "domande",
+              "why": {
+                "sl": "Sedie je ženskega spola: quante sedie?",
+                "en": "Sedie is feminine: quante sedie?",
+                "de": "Sedie ist feminin: quante sedie?"
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Quanti? Hm, le sedie sono signore, sai!",
+                "sl": "Quanti? Hm, stoli so gospe, veš!",
+                "en": "Quanti? Hm, chairs are ladies, you know!",
+                "de": "Quanti? Hm, Stühle sind Damen, weißt du!"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scopa",
+      "lines": [
+        {
+          "who": "lorenzo",
+          "face": "curious",
+          "it": "Il nonno dice: prima del lavoro si pulisce! Dov'è la scopa?",
+          "sl": "Dedek pravi: pred delom se pospravlja! Kje je metla?",
+          "en": "Grandpa says: first you clean, then you work! Where's the broom?",
+          "de": "Opa sagt: vor der Arbeit wird geputzt! Wo ist der Besen?"
+        },
+        {
+          "choices": [
+            {
+              "it": "È nell'angolo, vicino al muro!",
+              "sl": "V kotu je, ob steni!",
+              "en": "It's in the corner, by the wall!",
+              "de": "Er steht in der Ecke, an der Wand!",
+              "ok": true,
+              "tap": "broom",
+              "grammar": "preposizioni-articolate",
+              "reply": {
+                "face": "happy",
+                "it": "Eccola! Grazie!",
+                "sl": "Tu je! Hvala!",
+                "en": "There it is! Thanks!",
+                "de": "Da ist er! Danke!"
+              }
+            },
+            {
+              "it": "È vicino all'ascia!",
+              "sl": "Ob sekiri je!",
+              "en": "It's by the axe!",
+              "de": "Er ist bei der Axt!",
+              "tap": "axe",
+              "why": {
+                "sl": "Tam je sekira v štoru. Poišči v kotu.",
+                "en": "That's the axe in its block. Look in the corner.",
+                "de": "Da steckt die Axt im Klotz. Such in der Ecke."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Quella è l'ascia del nonno!",
+                "sl": "To je dedkova sekira!",
+                "en": "That's grandpa's axe!",
+                "de": "Das ist Opas Axt!"
+              }
+            },
+            {
+              "it": "È dietro le tavole!",
+              "sl": "Za deskami je!",
+              "en": "It's behind the planks!",
+              "de": "Er ist hinter den Brettern!",
+              "tap": "boards",
+              "why": {
+                "sl": "Za deskami je ni. Poišči v kotu.",
+                "en": "It isn't behind the planks. Look in the corner.",
+                "de": "Hinter den Brettern ist er nicht. Such in der Ecke."
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "Dietro le tavole? No, lì c'è solo un ragno!",
+                "sl": "Za deskami? Ne, tam je samo pajek!",
+                "en": "Behind the planks? No, there's only a spider there!",
+                "de": "Hinter den Brettern? Nein, da ist nur eine Spinne!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "lorenzo",
+          "face": "happy",
+          "it": "Spazziamo insieme! Io qui, tu lì.",
+          "sl": "Pometajva skupaj! Jaz tu, ti tam.",
+          "en": "Let's sweep together! Me here, you there.",
+          "de": "Fegen wir zusammen! Ich hier, du da."
+        },
+        {
+          "choices": [
+            {
+              "it": "Va bene, spazzo io vicino al banco.",
+              "sl": "Prav, jaz pometem ob mizi.",
+              "en": "OK, I'll sweep by the workbench.",
+              "de": "Gut, ich fege bei der Werkbank.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Che bello, la bottega è pulita!",
+                "sl": "Super, delavnica je čista!",
+                "en": "Great, the workshop's clean!",
+                "de": "Toll, die Werkstatt ist sauber!"
+              }
+            },
+            {
+              "it": "Va bene, spazzi io vicino al banco.",
+              "sl": "Prav, pometeš jaz ob mizi.",
+              "en": "OK, you sweep me by the workbench.",
+              "de": "Gut, du fegst ich bei der Werkbank.",
+              "grammar": "presente-regolare",
+              "why": {
+                "sl": "Pometaš ti: spazzo io (jaz pometem). Spazzi pomeni ti pometaš.",
+                "en": "You're the one sweeping: spazzo io (I sweep). Spazzi means you sweep.",
+                "de": "Du fegst: spazzo io (ich fege). Spazzi heißt du fegst."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Io? Ma io ho già la scopa! Ah ah!",
+                "sl": "Jaz? Saj imam jaz metlo! Ha ha!",
+                "en": "Me? But I've got the broom! Ha ha!",
+                "de": "Ich? Aber ich habe doch den Besen! Haha!"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "martello-chiodi",
+      "count": {
+        "from": "dice",
+        "min": 3,
+        "max": 9,
+        "gender": "m"
+      },
+      "lines": [
+        {
+          "who": "franco",
+          "face": "curious",
+          "it": "Nella scatola ci sono i chiodi. Me ne servono {n}.",
+          "sl": "V škatli so žeblji. Potrebujem jih {n}.",
+          "en": "The nails are in the tin. I need {n}.",
+          "de": "In der Dose sind die Nägel. Ich brauche {n}."
+        },
+        {
+          "choices": [
+            {
+              "it": "Ecco {n} {chiodo|chiodi}!",
+              "sl": "Izvolite, {n} {žebelj|žeblja|žeblji|žebljev}!",
+              "en": "Here are {n} {nail|nails}!",
+              "de": "Hier sind {n} {Nagel|Nägel}!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Giusto, {n}. Uno per ogni tavola.",
+                "sl": "Prav, {n}. Enega za vsako desko.",
+                "en": "Right, {n}. One for each plank.",
+                "de": "Richtig, {n}. Einer für jedes Brett.",
+                "fx": {
+                  "hammer": 1
+                }
+              }
+            },
+            {
+              "it": "Ecco {n} {chiodo|chiodi}!",
+              "sl": "Izvolite, {n} {žebelj|žeblja|žeblji|žebljev}!",
+              "en": "Here are {n} {nail|nails}!",
+              "de": "Hier sind {n} {Nagel|Nägel}!",
+              "wrong_form": 1,
+              "grammar": "plurale",
+              "why": {
+                "sl": "{Ena zahteva ednino|Več kot ena zahteva množino}: {n} {chiodo|chiodi}.",
+                "en": "{One takes the singular|More than one takes the plural}: {n} {chiodo|chiodi}.",
+                "de": "{Eins nimmt den Singular|Mehr als eins nimmt den Plural}: {n} {chiodo|chiodi}."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Eh? Conta ancora, piano piano.",
+                "sl": "Eh? Preštej še enkrat, počasi.",
+                "en": "Huh? Count again, nice and slowly.",
+                "de": "Hä? Zähl noch mal, ganz langsam."
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "face": "proud",
+          "it": "Bum, bum, bum! Ecco, la cassetta è come nuova.",
+          "sl": "Bum, bum, bum! Tako, zaboj je kot nov.",
+          "en": "Bang, bang, bang! There, the crate's as good as new.",
+          "de": "Bumm, bumm, bumm! So, die Kiste ist wie neu.",
+          "fx": {
+            "hammer": 0
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Le tavole sono dritte!",
+              "sl": "Deske so ravne!",
+              "en": "The planks are straight!",
+              "de": "Die Bretter sind gerade!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Dritte e forti. Così dura cento anni!",
+                "sl": "Ravne in močne. Tako zdrži sto let!",
+                "en": "Straight and strong. Like that it lasts a hundred years!",
+                "de": "Gerade und stark. So hält sie hundert Jahre!"
+              }
+            },
+            {
+              "it": "Le tavole sono dritti!",
+              "sl": "Deske so ravni!",
+              "en": "The planks are straight (masculine)!",
+              "de": "Die Bretter sind gerader!",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Tavole je ženskega spola v množini: dritte.",
+                "en": "Tavole is feminine plural: dritte.",
+                "de": "Tavole ist feminin Plural: dritte."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Hm? Ripeti, il mio orecchio è stanco.",
+                "sl": "Hm? Ponovi, moje uho je utrujeno.",
+                "en": "Hm? Say it again, my ear's tired.",
+                "de": "Hm? Sag es noch mal, mein Ohr ist müde."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sega-segatura",
+      "lines": [
+        {
+          "who": "lorenzo",
+          "face": "curious",
+          "it": "Nonno, posso usare la sega anch'io?",
+          "sl": "Dedek, lahko tudi jaz uporabim žago?",
+          "en": "Grandpa, can I use the saw too?",
+          "de": "Opa, darf ich auch die Säge benutzen?"
+        },
+        {
+          "who": "franco",
+          "face": "thinking",
+          "it": "No, Lorenzo, la sega è per i grandi. Prendete la scopa, voi due.",
+          "sl": "Ne, Lorenzo, žaga je za odrasle. Vzemita metlo, vidva.",
+          "en": "No, Lorenzo, the saw is for grown-ups. Take the broom, you two.",
+          "de": "Nein, Lorenzo, die Säge ist für Erwachsene. Nehmt ihr zwei den Besen.",
+          "fx": {
+            "dust": 0.5
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Lorenzo, ti aiuto a scopare!",
+              "sl": "Lorenzo, pomagam ti pometati!",
+              "en": "Lorenzo, I'll help you sweep!",
+              "de": "Lorenzo, ich helfe dir beim Fegen!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "{m:Bravo|f:Brava}. Insieme si fa prima.",
+                "sl": "Bravo. Skupaj gre hitreje.",
+                "en": "Good. Together it's quicker.",
+                "de": "Gut so. Zusammen geht es schneller."
+              }
+            },
+            {
+              "it": "Lorenzo, ti aiuta a scopare!",
+              "sl": "Lorenzo, ti pomaga pometati!",
+              "en": "Lorenzo, he helps you sweep!",
+              "de": "Lorenzo, er hilft dir beim Fegen!",
+              "grammar": "presente-regolare",
+              "why": {
+                "sl": "Pomagaš ti: ti aiuto (jaz ti pomagam). Ti aiuta pomeni on ti pomaga.",
+                "en": "You're the one helping: ti aiuto (I help you). Ti aiuta means he helps you.",
+                "de": "Du hilfst: ti aiuto (ich helfe dir). Ti aiuta heißt er hilft dir."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Chi? Il gatto? Il gatto dorme!",
+                "sl": "Kdo? Maček? Maček spi!",
+                "en": "Who? The cat? The cat's asleep!",
+                "de": "Wer? Die Katze? Die Katze schläft!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "lorenzo",
+          "face": "curious",
+          "it": "Quanta segatura! Dove la mettiamo?",
+          "sl": "Koliko žagovine! Kam jo damo?",
+          "en": "So much sawdust! Where shall we put it?",
+          "de": "So viel Sägemehl! Wohin damit?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Mettiamola fuori, nell'orto!",
+              "sl": "Dajva jo ven, na vrt!",
+              "en": "Let's put it outside, in the vegetable garden!",
+              "de": "Bringen wir es raus, in den Gemüsegarten!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Sì! Il nonno dice che piace all'insalata.",
+                "sl": "Ja! Dedek pravi, da je solati všeč.",
+                "en": "Yes! Grandpa says the lettuce likes it.",
+                "de": "Ja! Opa sagt, der Salat mag das."
+              }
+            },
+            {
+              "it": "Mettiamolo fuori, nell'orto!",
+              "sl": "Dajva ga ven, na vrt!",
+              "en": "Let's put him outside, in the vegetable garden!",
+              "de": "Bringen wir ihn raus, in den Gemüsegarten!",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Segatura je ženskega spola: mettiamola. Lo je za moški spol.",
+                "en": "Segatura is feminine: mettiamola. Lo is for a masculine one.",
+                "de": "Segatura ist feminin: mettiamola. Lo steht für ein Maskulinum."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Lo? Il nonno? No, il nonno resta qui! Ah ah!",
+                "sl": "Ga? Dedka? Ne, dedek ostane tukaj! Ha ha!",
+                "en": "Him? Grandpa? No, grandpa stays here! Ha ha!",
+                "de": "Ihn? Opa? Nein, Opa bleibt hier! Haha!"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cavallino-gamba",
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "lorenzo",
+          "face": "curious",
+          "it": "Quante gambe ha un cavallo? Lo sai?",
+          "sl": "Koliko nog ima konj? Veš?",
+          "en": "How many legs does a horse have? Do you know?",
+          "de": "Wie viele Beine hat ein Pferd? Weißt du es?",
+          "fx": {
+            "toy": 0
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Un cavallo ha quattro gambe.",
+              "sl": "Konj ima štiri noge.",
+              "en": "A horse has four legs.",
+              "de": "Ein Pferd hat vier Beine.",
+              "ok": true,
+              "reply": {
+                "face": "sad",
+                "it": "Sì! E il mio cavallino adesso ne ha tre.",
+                "sl": "Ja! Moj konjiček pa jih ima zdaj tri.",
+                "en": "Yes! And my little horse only has three now.",
+                "de": "Ja! Und mein Pferdchen hat jetzt nur drei."
+              }
+            },
+            {
+              "it": "Un cavallo ha quattro gamba.",
+              "sl": "Konj ima štiri noga.",
+              "en": "A horse has four leg.",
+              "de": "Ein Pferd hat vier Bein.",
+              "grammar": "plurale",
+              "why": {
+                "sl": "Več nog: gambe. Una gamba je ena noga.",
+                "en": "More than one leg: gambe. Una gamba is one leg.",
+                "de": "Mehrere Beine: gambe. Una gamba ist ein Bein."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Quattro gamba? Hm, conta le mie: una, due!",
+                "sl": "Štiri noga? Hm, preštej moje: ena, dve!",
+                "en": "Four leg? Hm, count mine: one, two!",
+                "de": "Vier Bein? Hm, zähl meine: eins, zwei!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "face": "curious",
+          "it": "Facciamo la quarta gamba. Passami la colla, per favore.",
+          "sl": "Naredimo četrto nogo. Podaj mi lepilo, prosim.",
+          "en": "Let's do the fourth leg. Pass me the glue, please.",
+          "de": "Machen wir das vierte Bein. Gib mir bitte den Leim.",
+          "fx": {
+            "toy": 0.4
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Ecco la colla!",
+              "sl": "Izvolite lepilo!",
+              "en": "Here's the glue!",
+              "de": "Hier ist der Leim!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Grazie. Ecco: quattro gambe!",
+                "sl": "Hvala. Tako: štiri noge!",
+                "en": "Thanks. There: four legs!",
+                "de": "Danke. So: vier Beine!",
+                "fx": {
+                  "toy": 1
+                }
+              }
+            },
+            {
+              "it": "Ecco il colla!",
+              "sl": "Izvolite lepilo (moško)!",
+              "en": "Here's the (masculine) glue!",
+              "de": "Hier ist das Leim!",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Colla je ženskega spola: la colla.",
+                "en": "Colla is feminine: la colla.",
+                "de": "Colla ist feminin: la colla."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Hm? Cosa mi passi? Ripeti.",
+                "sl": "Hm? Kaj mi podajaš? Ponovi.",
+                "en": "Hm? What are you passing me? Say it again.",
+                "de": "Hm? Was gibst du mir? Sag es noch mal."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sedia-gambe",
+      "lines": [
+        {
+          "who": "franco",
+          "face": "curious",
+          "it": "Nel cesto ci sono le gambe per una sedia nuova. Contale!",
+          "sl": "V košu so noge za nov stol. Preštej jih!",
+          "en": "The legs for a new chair are in the basket. Count them!",
+          "de": "Im Korb sind die Beine für einen neuen Stuhl. Zähl sie!"
+        },
+        {
+          "choices": [
+            {
+              "it": "Ci sono sei gambe!",
+              "sl": "Šest nog je!",
+              "en": "There are six legs!",
+              "de": "Da sind sechs Beine!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Giusto, sei. Ma una sedia ne vuole quattro.",
+                "sl": "Prav, šest. Stol pa jih potrebuje štiri.",
+                "en": "Right, six. But a chair needs four.",
+                "de": "Richtig, sechs. Aber ein Stuhl braucht vier."
+              }
+            },
+            {
+              "it": "Ci sono sei gamba!",
+              "sl": "Šest noga je!",
+              "en": "There are six leg!",
+              "de": "Da sind sechs Bein!",
+              "grammar": "plurale",
+              "why": {
+                "sl": "Več nog: gambe. Una gamba je ena noga.",
+                "en": "More than one leg: gambe. Una gamba is one leg.",
+                "de": "Mehrere Beine: gambe. Una gamba ist ein Bein."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Sei gamba? Hm, conta ancora.",
+                "sl": "Šest noga? Hm, preštej še enkrat.",
+                "en": "Six leg? Hm, count again.",
+                "de": "Sechs Bein? Hm, zähl noch mal."
+              }
+            }
+          ]
+        },
+        {
+          "choices": [
+            {
+              "it": "Allora ne avanzano due!",
+              "sl": "Potem jih ostaneta dve!",
+              "en": "Then two are left over!",
+              "de": "Dann bleiben zwei übrig!",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "{m:Bravo|f:Brava}! Con quelle due facciamo uno sgabello.",
+                "sl": "Bravo! Iz teh dveh narediva stolček.",
+                "en": "Well done! With those two we'll make a stool.",
+                "de": "Gut gemacht! Aus den zwei machen wir einen Hocker."
+              }
+            },
+            {
+              "it": "Allora ne avanzano tre!",
+              "sl": "Potem jih ostanejo tri!",
+              "en": "Then three are left over!",
+              "de": "Dann bleiben drei übrig!",
+              "why": {
+                "sl": "6 − 4 = 2: due.",
+                "en": "6 − 4 = 2: due.",
+                "de": "6 − 4 = 2: due."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Tre? Conta ancora: sei meno quattro …",
+                "sl": "Tri? Preštej še enkrat: šest manj štiri …",
+                "en": "Three? Count again: six take away four …",
+                "de": "Drei? Zähl noch mal: sechs weniger vier …"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scopa-trucioli",
+      "lines": [
+        {
+          "who": "lorenzo",
+          "face": "laugh",
+          "it": "Quanti trucioli per terra! Sembrano riccioli.",
+          "sl": "Koliko oblancev na tleh! Kot kodri so.",
+          "en": "So many shavings on the floor! They look like curls.",
+          "de": "So viele Späne auf dem Boden! Die sehen aus wie Locken."
+        },
+        {
+          "choices": [
+            {
+              "it": "Sono riccioli di legno!",
+              "sl": "To so leseni kodri!",
+              "en": "They're curls of wood!",
+              "de": "Das sind Locken aus Holz!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Me ne metto uno sull'orecchio. Ah ah!",
+                "sl": "Enega si dam za uho. Ha ha!",
+                "en": "I'll put one behind my ear. Ha ha!",
+                "de": "Ich stecke mir einen hinters Ohr. Haha!"
+              }
+            },
+            {
+              "it": "È riccioli di legno!",
+              "sl": "To je leseni kodri!",
+              "en": "It's curls of wood!",
+              "de": "Das ist Locken aus Holz!",
+              "grammar": "essere-avere",
+              "why": {
+                "sl": "Trucioli (oblanci) so množina: sono. È je za eno stvar.",
+                "en": "Trucioli (shavings) is plural: sono. È is for one thing.",
+                "de": "Trucioli (Späne) ist Plural: sono. È steht für eine Sache."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "È? Uno solo? Io ne conto cento!",
+                "sl": "È? Samo en? Jaz jih naštejem sto!",
+                "en": "È? Just one? I count a hundred!",
+                "de": "È? Nur einer? Ich zähle hundert!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "lorenzo",
+          "face": "curious",
+          "it": "Il nonno li usa per accendere il fuoco. Li mettiamo nel cesto?",
+          "sl": "Dedek jih uporablja za podžig. Jih dava v koš?",
+          "en": "Grandpa uses them to light the fire. Shall we put them in the basket?",
+          "de": "Opa macht damit Feuer an. Tun wir sie in den Korb?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì, li mettiamo nel cesto.",
+              "sl": "Ja, dava jih v koš.",
+              "en": "Yes, let's put them in the basket.",
+              "de": "Ja, wir tun sie in den Korb.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "{m:Bravo|f:Brava}! Stasera il fuoco si accende subito.",
+                "sl": "Bravo! Nocoj se bo ogenj takoj prižgal.",
+                "en": "Well done! Tonight the fire will light straight away.",
+                "de": "Gut gemacht! Heute Abend brennt das Feuer sofort."
+              }
+            },
+            {
+              "it": "Sì, le mettiamo nel cesto.",
+              "sl": "Ja, dava jih (žensko) v koš.",
+              "en": "Yes, let's put them (feminine) in the basket.",
+              "de": "Ja, wir tun sie (weiblich) in den Korb.",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Trucioli je moškega spola v množini: li mettiamo. Le je za ženski spol.",
+                "en": "Trucioli is masculine plural: li mettiamo. Le is for feminine ones.",
+                "de": "Trucioli ist maskulin Plural: li mettiamo. Le steht für feminine."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Le? Le galline? Qui non ci sono galline!",
+                "sl": "Le? Kokoši? Tu ni kokoši!",
+                "en": "Le? The hens? There are no hens here!",
+                "de": "Le? Die Hühner? Hier sind keine Hühner!"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

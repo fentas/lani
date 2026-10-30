@@ -49,7 +49,7 @@ class CultureScenesTest {
     /** Art → its effects that bring one of its wild animals: a culture's scene of the art may leave them to the day. */
     private val SEEN = mapOf(
         // the near cow's bell lost in the grass only where a line says so (v-gorah's planina-zvonec), not on every Alm
-        "alps" to setOf("ibex", "bell-lost"), "hills" to emptySet(), "sea" to emptySet(), "mill" to emptySet(), "school" to emptySet(), "watchtower" to emptySet(),
+        "alps" to setOf("ibex", "bell-lost"), "hills" to emptySet(), "sea" to emptySet(), "mill" to emptySet(), "school" to emptySet(), "watchtower" to emptySet(), "livingroom" to emptySet(), "cellar" to emptySet(), "attic" to emptySet(), "workshop" to emptySet(),
     )
 
     @Test fun `each culture's scene opens from its place and uses only what its painter draws`() {
@@ -63,6 +63,11 @@ class CultureScenesTest {
             listOf("friuli", "a-scuola", "school", "school"),
             // the Friuli watchtower (Sulla torre): Davide on watch, Tommaso and the cramâr, Franco's storms and village
             listOf("friuli", "sulla-torre", "watchtower", "watchtower"),
+            // the rooms of Friuli's houses: Nonno Bepi's by the fogolâr, Matteo's cantina, Marisa and Tommaso's attic, Franco's bottega
+            listOf("friuli", "in-salotto", "livingroom", "house"),
+            listOf("friuli", "in-cantina", "cellar", "house"),
+            listOf("friuli", "in-soffitta", "attic", "house"),
+            listOf("friuli", "in-bottega", "workshop", "house"),
             listOf("kaernten", "am-see", "alps", "spot:${TownSpots.HORIZON}"),
             listOf("lakeland", "on-the-fell", "alps", "spot:${TownSpots.HORIZON}"),
         )) {

@@ -1,0 +1,1855 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "in-salotto",
+  "language": "it",
+  "title": {
+    "it": "In salotto",
+    "sl": "V dnevni sobi",
+    "en": "In the living room",
+    "de": "Im Wohnzimmer"
+  },
+  "emoji": "🔥",
+  "level": "A1",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker",
+  "art": "livingroom",
+  "from": [
+    "house"
+  ],
+  "household": [
+    "bepi"
+  ],
+  "pack": "in-salotto",
+  "objects": [
+    {
+      "slot": "stove",
+      "word": "focolare",
+      "pack": "in-cucina"
+    },
+    {
+      "slot": "bench",
+      "word": "panca",
+      "pack": "in-cucina"
+    },
+    {
+      "slot": "table",
+      "word": "tavolo",
+      "pack": "casa-e-cucina"
+    },
+    {
+      "slot": "chest",
+      "word": "cassapanca"
+    },
+    {
+      "slot": "window",
+      "word": "finestra",
+      "pack": "casa-e-cucina"
+    },
+    {
+      "slot": "door",
+      "word": "porta",
+      "pack": "casa-e-cucina"
+    },
+    {
+      "slot": "dog",
+      "word": "cane",
+      "pack": "famiglia"
+    },
+    {
+      "slot": "chair",
+      "word": "sedia",
+      "pack": "casa-e-cucina",
+      "needs": {
+        "level": 2
+      }
+    },
+    {
+      "slot": "curtains",
+      "word": "tendina",
+      "pack": "in-cucina",
+      "needs": {
+        "level": 2
+      }
+    },
+    {
+      "slot": "rug",
+      "word": "tappeto",
+      "needs": {
+        "level": 2
+      }
+    },
+    {
+      "slot": "lamp",
+      "word": "lampada",
+      "needs": {
+        "level": 2
+      }
+    },
+    {
+      "slot": "clock",
+      "word": "orologio",
+      "pack": "in-cucina",
+      "needs": {
+        "level": 2
+      }
+    },
+    {
+      "slot": "corner",
+      "word": "angolo",
+      "pack": "in-cucina",
+      "needs": {
+        "level": 3
+      }
+    },
+    {
+      "slot": "photo",
+      "word": "foto",
+      "needs": {
+        "level": 3
+      }
+    },
+    {
+      "slot": "glasses",
+      "word": "occhiali",
+      "needs": {
+        "level": 3
+      }
+    },
+    {
+      "slot": "book",
+      "word": "libro",
+      "pack": "nella-tenda",
+      "needs": {
+        "level": 3
+      }
+    }
+  ],
+  "people": [
+    {
+      "id": "bepi",
+      "name": "Nonno Bepi",
+      "emoji": "👴",
+      "art": "grandpa",
+      "slot": "table",
+      "villager": "bepi"
+    },
+    {
+      "id": "giulia",
+      "name": "Giulia",
+      "emoji": "👧",
+      "art": "child2",
+      "slot": "stove",
+      "villager": "giulia"
+    }
+  ],
+  "happenings": [
+    {
+      "id": "fuoco",
+      "title": {
+        "it": "Nonno Bepi accende il fogolâr",
+        "sl": "Dedek Bepi zakuri v fogolârju",
+        "en": "Nonno Bepi is lighting the fogolâr",
+        "de": "Nonno Bepi zündet den Fogolâr an"
+      },
+      "who": "bepi",
+      "when": [
+        "dawn",
+        "morning"
+      ],
+      "months": [
+        10,
+        11,
+        12,
+        1,
+        2,
+        3,
+        4
+      ],
+      "chance": 0.5,
+      "dialog": "fuoco",
+      "dialogs": [
+        "fuoco-castagne",
+        "fuoco-legna",
+        "fuoco"
+      ],
+      "reward": {
+        "wood": 15
+      },
+      "marker": "🔥",
+      "memory": {
+        "it": "la mattina che abbiamo acceso il fogolâr",
+        "sl": "jutro, ko sva zakurila v fogolârju",
+        "en": "the morning we lit the fogolâr",
+        "de": "den Morgen, an dem wir den Fogolâr angezündet haben"
+      }
+    },
+    {
+      "id": "moro",
+      "title": {
+        "it": "Giulia gioca con Moro",
+        "sl": "Giulia se igra z Morom",
+        "en": "Giulia is playing with Moro",
+        "de": "Giulia spielt mit Moro"
+      },
+      "who": "giulia",
+      "when": [
+        "afternoon"
+      ],
+      "chance": 0.5,
+      "dialog": "moro",
+      "dialogs": [
+        "moro-nascondino",
+        "moro-salame",
+        "moro"
+      ],
+      "reward": {
+        "food": 10
+      },
+      "marker": "🐕",
+      "memory": {
+        "it": "Moro che si nascondeva dietro la porta",
+        "sl": "Mora, ki se je skril za vrata",
+        "en": "Moro hiding behind the door",
+        "de": "Moro, der sich hinter der Tür versteckt hat"
+      }
+    },
+    {
+      "id": "foto",
+      "title": {
+        "it": "Nonno Bepi guarda una vecchia foto",
+        "sl": "Dedek Bepi gleda staro fotografijo",
+        "en": "Nonno Bepi is looking at an old photo",
+        "de": "Nonno Bepi schaut ein altes Foto an"
+      },
+      "who": "bepi",
+      "when": [
+        "evening"
+      ],
+      "chance": 0.4,
+      "dialog": "foto",
+      "dialogs": [
+        "foto-occhiali",
+        "foto"
+      ],
+      "needs": {
+        "level": 3
+      },
+      "reward": {
+        "wisdom": 20
+      },
+      "marker": "🖼️",
+      "memory": {
+        "it": "la foto del mio matrimonio, che ti ho mostrato",
+        "sl": "fotografijo s svoje poroke, ki sem ti jo pokazal",
+        "en": "the photo of my wedding I showed you",
+        "de": "das Foto meiner Hochzeit, das ich dir gezeigt habe"
+      }
+    },
+    {
+      "id": "nascondino",
+      "title": {
+        "it": "Giulia vuole giocare a nascondino",
+        "sl": "Giulia bi se igrala skrivalnice",
+        "en": "Giulia wants to play hide-and-seek",
+        "de": "Giulia will Verstecken spielen"
+      },
+      "who": "giulia",
+      "when": [
+        "morning",
+        "evening"
+      ],
+      "chance": 0.5,
+      "dialog": "nascondino",
+      "dialogs": [
+        "nascondino-porta",
+        "nascondino"
+      ],
+      "reward": {
+        "wood": 15
+      },
+      "marker": "🙈",
+      "memory": {
+        "it": "il nascondino vicino al fogolâr",
+        "sl": "skrivalnice ob fogolârju",
+        "en": "the hide-and-seek by the fogolâr",
+        "de": "das Versteckspiel am Fogolâr"
+      }
+    },
+    {
+      "id": "mandi",
+      "title": {
+        "it": "Nonno Bepi insegna il friulano",
+        "sl": "Dedek Bepi uči furlanščino",
+        "en": "Nonno Bepi is teaching Friulian",
+        "de": "Nonno Bepi bringt Friaulisch bei"
+      },
+      "who": "bepi",
+      "when": [
+        "afternoon"
+      ],
+      "chance": 0.4,
+      "dialog": "mandi",
+      "dialogs": [
+        "mandi-merenda",
+        "mandi"
+      ],
+      "reward": {
+        "wisdom": 15
+      },
+      "marker": "💬",
+      "memory": {
+        "it": "le parole friulane che ti ho insegnato",
+        "sl": "furlanske besede, ki sem te jih naučil",
+        "en": "the Friulian words I taught you",
+        "de": "die friaulischen Wörter, die ich dir beigebracht habe"
+      }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "fuoco",
+      "lines": [
+        {
+          "who": "bepi",
+          "face": "curious",
+          "it": "Brr, che freddo stamattina! Accendiamo il fogolâr?",
+          "sl": "Brr, kako je zjutraj mrzlo! Zakuriva v fogolârju?",
+          "en": "Brr, how cold it is this morning! Shall we light the fogolâr?",
+          "de": "Brr, ist das kalt heute Morgen! Zünden wir den Fogolâr an?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì, nonno! Porto la legna.",
+              "sl": "Ja, dedek! Prinesem drva.",
+              "en": "Yes, grandpa! I'll bring the wood.",
+              "de": "Ja, Opa! Ich bringe das Holz.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "{m:Bravo|f:Brava}. La legna è sotto il focolare, nel buco.",
+                "sl": "Bravo. Drva so pod ognjiščem, v luknji.",
+                "en": "Well done. The wood is under the hearth, in the hole.",
+                "de": "Gut so. Das Holz liegt unter dem Herd, im Loch.",
+                "fx": {
+                  "stove": 0.4
+                }
+              }
+            },
+            {
+              "it": "Sì, nonno! Porti la legna.",
+              "sl": "Ja, dedek! Prineseš drva.",
+              "en": "Yes, grandpa! You bring the wood.",
+              "de": "Ja, Opa! Du bringst das Holz.",
+              "grammar": "presente-regolare",
+              "why": {
+                "sl": "Drva prineseš ti: porto (jaz prinesem). Porti pomeni ti prineseš.",
+                "en": "You're the one bringing it: porto (I bring). Porti means you bring.",
+                "de": "Du bringst es: porto (ich bringe). Porti heißt du bringst."
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "Io? Con la mia schiena vecchia?",
+                "sl": "Jaz? S svojim starim hrbtom?",
+                "en": "Me? With my old back?",
+                "de": "Ich? Mit meinem alten Rücken?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "bepi",
+          "face": "happy",
+          "it": "Ecco, il fuoco si accende. Senti che caldo?",
+          "sl": "Glej, ogenj se prižiga. Čutiš, kako je toplo?",
+          "en": "There, the fire's catching. Can you feel how warm it is?",
+          "de": "So, das Feuer brennt. Spürst du die Wärme?",
+          "fx": {
+            "stove": 1
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì! Adesso ho caldo.",
+              "sl": "Ja! Zdaj mi je toplo.",
+              "en": "Yes! Now I'm warm.",
+              "de": "Ja! Jetzt ist mir warm.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "Anch'io. Il fogolâr è il cuore della casa.",
+                "sl": "Tudi meni. Fogolâr je srce hiše.",
+                "en": "Me too. The fogolâr is the heart of the house.",
+                "de": "Mir auch. Der Fogolâr ist das Herz des Hauses."
+              }
+            },
+            {
+              "it": "Sì! Adesso sono caldo.",
+              "sl": "Ja! Zdaj sem topel.",
+              "en": "Yes! Now I am warm (to the touch).",
+              "de": "Ja! Jetzt bin ich warm (zum Anfassen).",
+              "grammar": "essere-avere",
+              "why": {
+                "sl": "Ko te greje, rečeš avere caldo: ho caldo. Sono caldo pomeni, da si topel na otip.",
+                "en": "Feeling warm is avere caldo: ho caldo. Sono caldo means you're warm to the touch.",
+                "de": "Wenn dir warm ist, sagst du avere caldo: ho caldo. Sono caldo heißt, du bist warm zum Anfassen."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Sei caldo? Come una pagnotta appena sfornata? Ah ah!",
+                "sl": "Si topel? Kot hlebec iz peči? Ha ha!",
+                "en": "You're warm? Like a loaf fresh from the oven? Ha ha!",
+                "de": "Du bist warm? Wie ein Brot frisch aus dem Ofen? Haha!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "bepi",
+          "it": "Siediti sulla panca, vicino al fuoco.",
+          "sl": "Sedi na klop, k ognju.",
+          "en": "Sit on the bench, by the fire.",
+          "de": "Setz dich auf die Bank, ans Feuer."
+        },
+        {
+          "choices": [
+            {
+              "it": "Grazie, nonno. Mi siedo qui.",
+              "sl": "Hvala, dedek. Sedem sem.",
+              "en": "Thanks, grandpa. I'll sit here.",
+              "de": "Danke, Opa. Ich setze mich hierher.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Brava gente si scalda insieme. Così si diceva una volta.",
+                "sl": "Dobri ljudje se grejejo skupaj. Tako so rekli nekoč.",
+                "en": "Good folk warm up together. That's what they used to say.",
+                "de": "Gute Leute wärmen sich zusammen. So sagte man früher."
+              }
+            },
+            {
+              "it": "Grazie, nonno. Ti siedi qui.",
+              "sl": "Hvala, dedek. Sedeš sem.",
+              "en": "Thanks, grandpa. You sit here.",
+              "de": "Danke, Opa. Du setzt dich hierher.",
+              "grammar": "presente-regolare",
+              "why": {
+                "sl": "Sedeš se ti: mi siedo (jaz sedem). Ti siedi pomeni ti sedeš.",
+                "en": "You're the one sitting down: mi siedo (I sit). Ti siedi means you sit.",
+                "de": "Du setzt dich: mi siedo (ich setze mich). Ti siedi heißt du setzt dich."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Io? Io sono già seduto da un'ora!",
+                "sl": "Jaz? Jaz že eno uro sedim!",
+                "en": "Me? I've been sitting for an hour already!",
+                "de": "Ich? Ich sitze schon seit einer Stunde!"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "moro",
+      "lines": [
+        {
+          "who": "giulia",
+          "face": "curious",
+          "it": "Pst, {learner}! Moro dorme sulla panca. Lo svegliamo?",
+          "sl": "Pst, {learner}! Moro spi na klopi. Ga zbudiva?",
+          "en": "Psst, {learner}! Moro is asleep on the bench. Shall we wake him?",
+          "de": "Pst, {learner}! Moro schläft auf der Bank. Wecken wir ihn?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì, svegliamolo!",
+              "sl": "Ja, zbudiva ga!",
+              "en": "Yes, let's wake him!",
+              "de": "Ja, wecken wir ihn!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Moro! Moro! Guarda, muove già la coda.",
+                "sl": "Moro! Moro! Glej, že miga z repom.",
+                "en": "Moro! Moro! Look, he's wagging his tail already.",
+                "de": "Moro! Moro! Schau, er wedelt schon mit dem Schwanz.",
+                "fx": {
+                  "dog": 1
+                }
+              }
+            },
+            {
+              "it": "Sì, svegliatelo!",
+              "sl": "Ja, zbudite ga!",
+              "en": "Yes, you lot wake him!",
+              "de": "Ja, weckt ihr ihn!",
+              "grammar": "imperativo",
+              "why": {
+                "sl": "Zbudiva ga skupaj, ti in Giulia: svegliamolo. Svegliatelo je ukaz več ljudem.",
+                "en": "You and Giulia wake him together: svegliamolo (let's wake him). Svegliatelo tells several people.",
+                "de": "Du und Giulia weckt ihn zusammen: svegliamolo (wecken wir ihn). Svegliatelo sagt es mehreren."
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "Voi? Chi? Qui ci siamo solo io e te!",
+                "sl": "Vi? Kdo? Tu sva samo jaz in ti!",
+                "en": "You lot? Who? There's only you and me here!",
+                "de": "Ihr? Wer? Hier sind nur du und ich!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "giulia",
+          "face": "proud",
+          "it": "Moro è il cane più bravo del paese. Lo dice il nonno.",
+          "sl": "Moro je najbolj priden pes v vasi. Tako pravi dedek.",
+          "en": "Moro is the best dog in the village. Grandpa says so.",
+          "de": "Moro ist der bravste Hund im Dorf. Das sagt Opa."
+        },
+        {
+          "choices": [
+            {
+              "it": "Posso accarezzare il cane?",
+              "sl": "Lahko pobožam psa?",
+              "en": "May I stroke the dog?",
+              "de": "Darf ich den Hund streicheln?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Sì. Gli piace dietro le orecchie.",
+                "sl": "Ja. Najraje ima za ušesi.",
+                "en": "Yes. He likes it behind the ears.",
+                "de": "Ja. Am liebsten hinter den Ohren."
+              }
+            },
+            {
+              "it": "Posso accarezzare la cane?",
+              "sl": "Lahko pobožam psico?",
+              "en": "May I stroke the (feminine) dog?",
+              "de": "Darf ich die Hund streicheln?",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Cane je moškega spola: il cane.",
+                "en": "Cane is masculine: il cane.",
+                "de": "Cane ist maskulin: il cane."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Ih ih! Moro dice: bau, cosa hai detto?",
+                "sl": "Hi hi! Moro pravi: hov, kaj si {m:rekel|f:rekla}?",
+                "en": "Hee hee! Moro says: woof, what did you say?",
+                "de": "Hihi! Moro sagt: wau, was hast du gesagt?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "giulia",
+          "it": "Guarda come muove la coda! Moro, sei proprio buffo.",
+          "sl": "Poglej, kako miga z repom! Moro, ti si pa smešen.",
+          "en": "Look how he's wagging his tail! Moro, you're a funny one.",
+          "de": "Schau, wie er mit dem Schwanz wedelt! Moro, du bist lustig.",
+          "fx": {
+            "dog": 1
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Moro è buffo e bravo!",
+              "sl": "Moro je smešen in priden!",
+              "en": "Moro is funny and good!",
+              "de": "Moro ist lustig und brav!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "E gli piace il salame del nonno! Ih ih!",
+                "sl": "In rad ima dedkovo salamo! Hi hi!",
+                "en": "And he loves grandpa's salami! Hee hee!",
+                "de": "Und er mag Opas Salami! Hihi!"
+              }
+            },
+            {
+              "it": "Moro è buffa e brava!",
+              "sl": "Moro je smešna in pridna!",
+              "en": "Moro is funny and good (feminine)!",
+              "de": "Moro ist eine Lustige und Brave!",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Moro je samec, pes: buffo e bravo. Buffa e brava sta za žensko.",
+                "en": "Moro is a he: buffo e bravo. Buffa e brava are feminine.",
+                "de": "Moro ist ein Rüde: buffo e bravo. Buffa e brava sind feminin."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Moro, hai sentito? Ih ih!",
+                "sl": "Moro, si slišal? Hi hi!",
+                "en": "Moro, did you hear that? Hee hee!",
+                "de": "Moro, hast du das gehört? Hihi!"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "foto",
+      "lines": [
+        {
+          "who": "bepi",
+          "face": "proud",
+          "it": "Vedi quella foto sul muro? È il giorno del mio matrimonio.",
+          "sl": "Vidiš tisto fotografijo na steni? To je dan moje poroke.",
+          "en": "Do you see that photo on the wall? It's my wedding day.",
+          "de": "Siehst du das Foto an der Wand? Das ist mein Hochzeitstag."
+        },
+        {
+          "choices": [
+            {
+              "it": "Che bella foto, nonno!",
+              "sl": "Kako lepa fotografija, dedek!",
+              "en": "What a lovely photo, grandpa!",
+              "de": "Was für ein schönes Foto, Opa!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Grazie. Lei è Ida, mia moglie. Era la più brava a ballare.",
+                "sl": "Hvala. To je Ida, moja žena. Najlepše je plesala.",
+                "en": "Thank you. That's Ida, my wife. She was the best dancer.",
+                "de": "Danke. Das ist Ida, meine Frau. Sie tanzte am besten."
+              }
+            },
+            {
+              "it": "Che bello foto, nonno!",
+              "sl": "Kako lep fotografija, dedek!",
+              "en": "What a lovely (masculine) photo, grandpa!",
+              "de": "Was für ein schöner Foto, Opa!",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Foto je ženskega spola (la foto): bella.",
+                "en": "Foto is feminine (la foto): bella.",
+                "de": "Foto ist feminin (la foto): bella."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Bello? Sì, io ero bello allora! Ah ah!",
+                "sl": "Lep? Ja, takrat sem bil lep! Ha ha!",
+                "en": "Handsome? Yes, I was handsome then! Ha ha!",
+                "de": "Schön? Ja, damals war ich schön! Haha!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "bepi",
+          "face": "curious",
+          "it": "Abbiamo ballato tutta la notte. Ti piace ballare?",
+          "sl": "Plesala sva vso noč. Ali rad plešeš?",
+          "en": "We danced all night. Do you like dancing?",
+          "de": "Wir haben die ganze Nacht getanzt. Tanzt du gern?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì, mi piace ballare!",
+              "sl": "Ja, rad plešem!",
+              "en": "Yes, I like dancing!",
+              "de": "Ja, ich tanze gern!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Allora alla prossima sagra balliamo insieme!",
+                "sl": "Potem bova na naslednjem prazniku plesala skupaj!",
+                "en": "Then at the next sagra we'll dance together!",
+                "de": "Dann tanzen wir beim nächsten Dorffest zusammen!"
+              }
+            },
+            {
+              "it": "Sì, mi piacciono ballare!",
+              "sl": "Ja, mi so všeč plesati!",
+              "en": "Yes, I like (plural) dancing!",
+              "de": "Ja, mir gefallen tanzen!",
+              "grammar": "piacere",
+              "why": {
+                "sl": "Z glagolom (ballare) je piace: mi piace ballare. Piacciono je za več stvari.",
+                "en": "With a verb (ballare) it's piace: mi piace ballare. Piacciono is for more than one thing.",
+                "de": "Mit einem Verb (ballare) heißt es piace: mi piace ballare. Piacciono steht für mehrere Dinge."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Come? Le mie orecchie sono vecchie, ripeti.",
+                "sl": "Kako? Moja ušesa so stara, ponovi.",
+                "en": "What? My ears are old, say it again.",
+                "de": "Wie bitte? Meine Ohren sind alt, sag es noch mal."
+              }
+            }
+          ]
+        },
+        {
+          "who": "bepi",
+          "face": "proud",
+          "it": "Io ballo ancora, ma piano piano. Chi va piano va sano e va lontano!",
+          "sl": "Še plešem, ampak počasi. Kdor počasi hodi, daleč pride!",
+          "en": "I still dance, but slowly. Slow and steady goes far!",
+          "de": "Ich tanze noch, aber langsam. Wer langsam geht, kommt weit!"
+        }
+      ]
+    },
+    {
+      "id": "nascondino",
+      "memory": {
+        "it": "il nascondino quando mi sono nascosta sotto il tavolo",
+        "sl": "skrivalnice, ko sem se skrila pod mizo",
+        "en": "the hide-and-seek when I hid under the table",
+        "de": "das Versteckspiel, als ich mich unter dem Tisch versteckt habe"
+      },
+      "lines": [
+        {
+          "who": "giulia",
+          "face": "happy",
+          "it": "{learner}, giochiamo a nascondino! Tu conti fino a dieci, io mi nascondo.",
+          "sl": "{learner}, igrajva se skrivalnice! Ti štej do deset, jaz se skrijem.",
+          "en": "{learner}, let's play hide-and-seek! You count to ten, I'll hide.",
+          "de": "{learner}, spielen wir Verstecken! Du zählst bis zehn, ich verstecke mich."
+        },
+        {
+          "choices": [
+            {
+              "it": "Va bene. Sette, otto, nove, dieci! Arrivo!",
+              "sl": "Prav. Sedem, osem, devet, deset! Grem iskat!",
+              "en": "OK. Seven, eight, nine, ten! Here I come!",
+              "de": "Gut. Sieben, acht, neun, zehn! Ich komme!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Sono pronta! Trovami!",
+                "sl": "Pripravljena sem! Poišči me!",
+                "en": "I'm ready! Find me!",
+                "de": "Ich bin bereit! Such mich!",
+                "act": {
+                  "giulia": {
+                    "to": "under-table",
+                    "pose": "hide"
+                  }
+                }
+              }
+            },
+            {
+              "it": "Va bene. Sette, otto, nove, venti! Arrivo!",
+              "sl": "Prav. Sedem, osem, devet, dvajset! Grem iskat!",
+              "en": "OK. Seven, eight, nine, twenty! Here I come!",
+              "de": "Gut. Sieben, acht, neun, zwanzig! Ich komme!",
+              "why": {
+                "sl": "Po devet (nove) pride deset (dieci). Venti je dvajset.",
+                "en": "After nove (nine) comes dieci (ten). Venti is twenty.",
+                "de": "Nach nove (neun) kommt dieci (zehn). Venti ist zwanzig."
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "Venti? Così tanto no, {learner}!",
+                "sl": "Dvajset? Tako dolgo pa ne, {learner}!",
+                "en": "Twenty? Not that long, {learner}!",
+                "de": "Zwanzig? So lange nicht, {learner}!"
+              }
+            },
+            {
+              "it": "Va bene. Sette, otto, nove, sei! Arrivo!",
+              "sl": "Prav. Sedem, osem, devet, šest! Grem iskat!",
+              "en": "OK. Seven, eight, nine, six! Here I come!",
+              "de": "Gut. Sieben, acht, neun, sechs! Ich komme!",
+              "why": {
+                "sl": "Šteješ naprej: po nove (devet) pride dieci (deset). Sei je šest.",
+                "en": "Counting up: after nove (nine) comes dieci (ten). Sei is six.",
+                "de": "Vorwärts zählen: nach nove (neun) kommt dieci (zehn). Sei ist sechs."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Sei? Conti all'indietro? Ih ih!",
+                "sl": "Šest? Šteješ nazaj? Hi hi!",
+                "en": "Six? Are you counting backwards? Hee hee!",
+                "de": "Sechs? Zählst du rückwärts? Hihi!"
+              }
+            }
+          ]
+        },
+        {
+          "choices": [
+            {
+              "it": "Ah, sei dietro la porta!",
+              "sl": "Aha, za vrati si!",
+              "en": "Aha, you're behind the door!",
+              "de": "Aha, du bist hinter der Tür!",
+              "tap": "behind-door",
+              "why": {
+                "sl": "Giulie ni za vrati. Poglej sliko: nekje se vidijo njeni čevlji ali obleka.",
+                "en": "Giulia isn't behind the door. Look at the picture: her shoes or her dress show somewhere.",
+                "de": "Giulia ist nicht hinter der Tür. Schau ins Bild: irgendwo sieht man ihre Schuhe oder ihr Kleid."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Acqua, acqua! Ih ih!",
+                "sl": "Mrzlo, mrzlo! Hi hi!",
+                "en": "Cold, cold! Hee hee!",
+                "de": "Kalt, kalt! Hihi!",
+                "act": {
+                  "giulia": {
+                    "pose": "peek"
+                  }
+                }
+              }
+            },
+            {
+              "it": "Ah, sei sotto il tavolo!",
+              "sl": "Aha, pod mizo si!",
+              "en": "Aha, you're under the table!",
+              "de": "Aha, du bist unter dem Tisch!",
+              "ok": true,
+              "tap": "under-table",
+              "grammar": "dove-preposizioni",
+              "reply": {
+                "face": "surprised",
+                "it": "Uffa! Come hai fatto a trovarmi così presto?",
+                "sl": "Ojej! Kako si me tako hitro {m:našel|f:našla}?",
+                "en": "Oh no! How did you find me so fast?",
+                "de": "Mist! Wie hast du mich so schnell gefunden?",
+                "fx": {
+                  "dog": 1
+                },
+                "act": {
+                  "giulia": {
+                    "to": "under-table"
+                  }
+                }
+              }
+            },
+            {
+              "it": "Ah, sei dietro il focolare!",
+              "sl": "Aha, za ognjiščem si!",
+              "en": "Aha, you're behind the hearth!",
+              "de": "Aha, du bist hinter dem Herd!",
+              "tap": "stove",
+              "why": {
+                "sl": "Za ognjiščem je ni. Išči čevelj ali kos obleke, ki se vidi.",
+                "en": "Not behind the hearth. Look for a shoe or a bit of her dress that shows.",
+                "de": "Nicht hinter dem Herd. Such einen Schuh oder ein Stück Kleid, das hervorschaut."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Qui non ci sono! Ih ih!",
+                "sl": "Tu me ni! Hi hi!",
+                "en": "I'm not here! Hee hee!",
+                "de": "Hier bin ich nicht! Hihi!",
+                "act": {
+                  "giulia": {
+                    "pose": "peek"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "who": "giulia",
+          "face": "curious",
+          "it": "Adesso scegli tu! Dove mi nascondo?",
+          "sl": "Zdaj pa ti izberi! Kam naj se skrijem?",
+          "en": "Now you choose! Where shall I hide?",
+          "de": "Jetzt suchst du aus! Wo verstecke ich mich?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Dietro la porta!",
+              "sl": "Za vrata!",
+              "en": "Behind the door!",
+              "de": "Hinter die Tür!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Buona idea! Ssst, Moro, non dirlo a nessuno!",
+                "sl": "Dobra ideja! Pst, Moro, nikomur ne povej!",
+                "en": "Good idea! Shh, Moro, don't tell anyone!",
+                "de": "Gute Idee! Pst, Moro, sag es niemandem!",
+                "act": {
+                  "giulia": {
+                    "to": "behind-door",
+                    "pose": "hide"
+                  }
+                }
+              }
+            },
+            {
+              "it": "Dietro il porta!",
+              "sl": "Za vrat (moško)!",
+              "en": "Behind the (masculine) door!",
+              "de": "Hinter den Tür!",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Porta je ženskega spola: la porta, dietro la porta.",
+                "en": "Porta is feminine: la porta, dietro la porta.",
+                "de": "Porta ist feminin: la porta, dietro la porta."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Il porta? Che cos'è? Una porta signore? Ih ih!",
+                "sl": "Il porta? Kaj je to? Vrata gospod? Hi hi!",
+                "en": "Il porta? What's that? A gentleman door? Hee hee!",
+                "de": "Il porta? Was ist das? Eine Herren-Tür? Hihi!"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mandi",
+      "lines": [
+        {
+          "who": "bepi",
+          "face": "curious",
+          "it": "Sai come si dice «ciao» in friulano? Mandi!",
+          "sl": "Veš, kako se v furlanščini reče »živjo«? Mandi!",
+          "en": "Do you know how to say «hello» in Friulian? Mandi!",
+          "de": "Weißt du, wie man auf Friaulisch «hallo» sagt? Mandi!"
+        },
+        {
+          "choices": [
+            {
+              "it": "Mandi, nonno Bepi!",
+              "sl": "Mandi, dedek Bepi!",
+              "en": "Mandi, Nonno Bepi!",
+              "de": "Mandi, Nonno Bepi!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "{m:Bravo|f:Brava}! Parli già un po' di friulano.",
+                "sl": "Bravo! Že malo govoriš furlansko.",
+                "en": "Well done! You already speak a little Friulian.",
+                "de": "Gut so! Du sprichst schon ein bisschen Friaulisch."
+              }
+            },
+            {
+              "it": "Ciao, nonno Bepi!",
+              "sl": "Živjo, dedek Bepi!",
+              "en": "Hi, Nonno Bepi!",
+              "de": "Hallo, Nonno Bepi!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Ciao! Anche ciao va bene, sai.",
+                "sl": "Živjo! Tudi ciao je prav, veš.",
+                "en": "Hi! Ciao is fine too, you know.",
+                "de": "Hallo! Ciao geht auch, weißt du."
+              }
+            },
+            {
+              "it": "Grazie, nonno Bepi!",
+              "sl": "Hvala, dedek Bepi!",
+              "en": "Thank you, Nonno Bepi!",
+              "de": "Danke, Nonno Bepi!",
+              "why": {
+                "sl": "Bepi te pozdravi: odgovori s pozdravom, mandi ali ciao.",
+                "en": "Bepi is greeting you: answer with a greeting, mandi or ciao.",
+                "de": "Bepi grüßt dich: antworte mit einem Gruß, mandi oder ciao."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Grazie? Di niente! Ma io ti ho salutato!",
+                "sl": "Hvala? Ni za kaj! Ampak jaz sem te pozdravil!",
+                "en": "Thank you? You're welcome! But I said hello!",
+                "de": "Danke? Bitte! Aber ich habe dich gegrüßt!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "bepi",
+          "face": "proud",
+          "it": "Anche fogolâr è una parola friulana. In italiano si dice il focolare.",
+          "sl": "Tudi fogolâr je furlanska beseda. Po italijansko se reče il focolare.",
+          "en": "Fogolâr is a Friulian word too. In Italian you say il focolare.",
+          "de": "Auch Fogolâr ist ein friaulisches Wort. Auf Italienisch sagt man il focolare."
+        },
+        {
+          "choices": [
+            {
+              "it": "Il focolare è caldo.",
+              "sl": "Ognjišče je toplo.",
+              "en": "The hearth is warm.",
+              "de": "Der Herd ist warm.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Sì. E il fuoco ci fa compagnia.",
+                "sl": "Ja. In ogenj nama dela družbo.",
+                "en": "Yes. And the fire keeps us company.",
+                "de": "Ja. Und das Feuer leistet uns Gesellschaft."
+              }
+            },
+            {
+              "it": "La focolare è caldo.",
+              "sl": "Ognjišče (žensko) je toplo.",
+              "en": "The (feminine) hearth is warm.",
+              "de": "Die Herd ist warm.",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Focolare je moškega spola: il focolare.",
+                "en": "Focolare is masculine: il focolare.",
+                "de": "Focolare ist maskulin: il focolare."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "La? Povero fogolâr, si offende! Ah ah!",
+                "sl": "La? Ubogi fogolâr, užaljen bo! Ha ha!",
+                "en": "La? Poor fogolâr, he'll be offended! Ha ha!",
+                "de": "La? Armer Fogolâr, er ist beleidigt! Haha!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "bepi",
+          "face": "happy",
+          "it": "Il friulano era la lingua dei miei nonni. Mandi, {learner}!",
+          "sl": "Furlanščina je bila jezik mojih starih staršev. Mandi, {learner}!",
+          "en": "Friulian was my grandparents' language. Mandi, {learner}!",
+          "de": "Friaulisch war die Sprache meiner Großeltern. Mandi, {learner}!"
+        }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "fuoco-castagne",
+      "months": [
+        10,
+        11
+      ],
+      "count": {
+        "from": "dice",
+        "min": 5,
+        "max": 12,
+        "gender": "f"
+      },
+      "lines": [
+        {
+          "who": "bepi",
+          "face": "happy",
+          "it": "È autunno: sul focolare ci sono le castagne!",
+          "sl": "Jesen je: na ognjišču so kostanji!",
+          "en": "It's autumn: the chestnuts are on the hearth!",
+          "de": "Es ist Herbst: auf dem Herd sind die Kastanien!",
+          "fx": {
+            "stove": 0.8
+          }
+        },
+        {
+          "who": "bepi",
+          "face": "curious",
+          "it": "Ne ho messe {n} nella padella. Contale tu!",
+          "sl": "V ponev sem jih dal {n}. Preštej jih ti!",
+          "en": "I've put {n} in the pan. You count them!",
+          "de": "Ich habe {n} in die Pfanne gelegt. Zähl du sie!"
+        },
+        {
+          "choices": [
+            {
+              "it": "Ci sono {n} {castagna|castagne}!",
+              "sl": "{n} {kostanj|kostanja|kostanji|kostanjev} je!",
+              "en": "There are {n} {chestnut|chestnuts}!",
+              "de": "Da sind {n} {Kastanie|Kastanien}!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Giusto. Una per me e una per te.",
+                "sl": "Tako je. Eden zame in eden zate.",
+                "en": "Right. One for me and one for you.",
+                "de": "Richtig. Eine für mich und eine für dich."
+              }
+            },
+            {
+              "it": "Ci sono {n} {castagna|castagne}!",
+              "sl": "{n} {kostanj|kostanja|kostanji|kostanjev} je!",
+              "en": "There are {n} {chestnut|chestnuts}!",
+              "de": "Da sind {n} {Kastanie|Kastanien}!",
+              "wrong_form": 1,
+              "grammar": "plurale",
+              "why": {
+                "sl": "{Ena zahteva ednino|Več kot ena zahteva množino}: {n} {castagna|castagne}.",
+                "en": "{One takes the singular|More than one takes the plural}: {n} {castagna|castagne}.",
+                "de": "{Eins nimmt den Singular|Mehr als eins nimmt den Plural}: {n} {castagna|castagne}."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Eh? Conta ancora, piano piano.",
+                "sl": "Eh? Preštej še enkrat, počasi.",
+                "en": "Huh? Count again, nice and slowly.",
+                "de": "Hä? Zähl noch mal, ganz langsam."
+              }
+            }
+          ]
+        },
+        {
+          "who": "bepi",
+          "face": "worried",
+          "it": "Attenzione, scottano! Aspetta un momento.",
+          "sl": "Pozor, vroči so! Počakaj trenutek.",
+          "en": "Careful, they're burning hot! Wait a moment.",
+          "de": "Vorsicht, die sind heiß! Warte einen Moment."
+        },
+        {
+          "choices": [
+            {
+              "it": "Va bene, nonno. Aspetto.",
+              "sl": "Prav, dedek. Počakam.",
+              "en": "OK, grandpa. I'll wait.",
+              "de": "Gut, Opa. Ich warte.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Ecco, adesso sono buone. Dolci e calde!",
+                "sl": "Tako, zdaj so dobri. Sladki in topli!",
+                "en": "There, now they're good. Sweet and warm!",
+                "de": "So, jetzt sind sie gut. Süß und warm!"
+              }
+            },
+            {
+              "it": "Va bene, nonno. Aspetti.",
+              "sl": "Prav, dedek. Počakaš.",
+              "en": "OK, grandpa. You wait.",
+              "de": "Gut, Opa. Du wartest.",
+              "grammar": "presente-regolare",
+              "why": {
+                "sl": "Počakaš ti: aspetto (jaz počakam). Aspetti pomeni ti počakaš.",
+                "en": "You're the one waiting: aspetto (I wait). Aspetti means you wait.",
+                "de": "Du wartest: aspetto (ich warte). Aspetti heißt du wartest."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Io? Io non ho fretta, sai.",
+                "sl": "Jaz? Jaz se ne mudim, veš.",
+                "en": "Me? I'm in no hurry, you know.",
+                "de": "Ich? Ich habe keine Eile, weißt du."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fuoco-legna",
+      "lines": [
+        {
+          "who": "bepi",
+          "face": "thinking",
+          "it": "Il fuoco è piccolo stamattina. Soffia piano sulla brace!",
+          "sl": "Ogenj je zjutraj majhen. Pihni rahlo v žerjavico!",
+          "en": "The fire is small this morning. Blow gently on the embers!",
+          "de": "Das Feuer ist klein heute Morgen. Blas sanft in die Glut!",
+          "fx": {
+            "stove": 0.15
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Fff! Soffio piano.",
+              "sl": "Fff! Rahlo pihnem.",
+              "en": "Fff! I'm blowing gently.",
+              "de": "Fff! Ich blase sanft.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Così! Guarda: le fiamme tornano.",
+                "sl": "Tako! Poglej: plameni se vračajo.",
+                "en": "That's it! Look: the flames are coming back.",
+                "de": "So! Schau: die Flammen kommen zurück.",
+                "fx": {
+                  "stove": 1
+                }
+              }
+            },
+            {
+              "it": "Fff! Soffia piano.",
+              "sl": "Fff! Rahlo piha.",
+              "en": "Fff! He's blowing gently.",
+              "de": "Fff! Er bläst sanft.",
+              "grammar": "presente-regolare",
+              "why": {
+                "sl": "Pihaš ti: soffio (jaz piham). Soffia pomeni on ali ona piha.",
+                "en": "You're the one blowing: soffio (I blow). Soffia means he or she blows.",
+                "de": "Du bläst: soffio (ich blase). Soffia heißt er oder sie bläst."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Chi? Moro? Moro dorme!",
+                "sl": "Kdo? Moro? Moro spi!",
+                "en": "Who? Moro? Moro's asleep!",
+                "de": "Wer? Moro? Moro schläft!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "bepi",
+          "face": "proud",
+          "it": "Che belle fiamme! E come scoppietta la legna.",
+          "sl": "Kako lepi plameni! In kako drva prasketajo.",
+          "en": "What lovely flames! And how the wood crackles.",
+          "de": "Was für schöne Flammen! Und wie das Holz knistert."
+        },
+        {
+          "choices": [
+            {
+              "it": "Le fiamme sono gialle e rosse!",
+              "sl": "Plameni so rumeni in rdeči!",
+              "en": "The flames are yellow and red!",
+              "de": "Die Flammen sind gelb und rot!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "E calde, calde. Adesso la casa si scalda.",
+                "sl": "In vroči, vroči. Zdaj se hiša segreje.",
+                "en": "And hot, hot. Now the house warms up.",
+                "de": "Und heiß, heiß. Jetzt wird das Haus warm."
+              }
+            },
+            {
+              "it": "Le fiamme sono gialli e rossi!",
+              "sl": "Plameni so rumena in rdeča!",
+              "en": "The flames are yellow and red (masculine)!",
+              "de": "Die Flammen sind gelbe und rote!",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Fiamme je ženskega spola in v množini: gialle e rosse.",
+                "en": "Fiamme is feminine and plural: gialle e rosse.",
+                "de": "Fiamme ist feminin und Plural: gialle e rosse."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Hm? Scusa, la legna fa troppo rumore.",
+                "sl": "Hm? Oprosti, drva preveč pokajo.",
+                "en": "Hm? Sorry, the wood's too noisy.",
+                "de": "Hm? Entschuldige, das Holz ist zu laut."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "moro-nascondino",
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "giulia",
+          "face": "happy",
+          "it": "Moro vuole giocare a nascondino! Chiudi gli occhi e conta.",
+          "sl": "Moro se hoče igrati skrivalnice! Zapri oči in štej.",
+          "en": "Moro wants to play hide-and-seek! Close your eyes and count.",
+          "de": "Moro will Verstecken spielen! Mach die Augen zu und zähl.",
+          "fx": {
+            "dog-hides": 1
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Uno, due, tre … dieci! Dov'è Moro?",
+              "sl": "Ena, dve, tri … deset! Kje je Moro?",
+              "en": "One, two, three … ten! Where's Moro?",
+              "de": "Eins, zwei, drei … zehn! Wo ist Moro?",
+              "ok": true,
+              "reply": {
+                "face": "curious",
+                "it": "Cerca bene! Si vede qualcosa che si muove?",
+                "sl": "Dobro išči! Se kje kaj premika?",
+                "en": "Look carefully! Can you see something moving?",
+                "de": "Such gut! Bewegt sich da etwas?"
+              }
+            },
+            {
+              "it": "Uno, due, tre … venti! Dov'è Moro?",
+              "sl": "Ena, dve, tri … dvajset! Kje je Moro?",
+              "en": "One, two, three … twenty! Where's Moro?",
+              "de": "Eins, zwei, drei … zwanzig! Wo ist Moro?",
+              "why": {
+                "sl": "Šteje se do deset: dieci. Venti je dvajset.",
+                "en": "You count to ten: dieci. Venti is twenty.",
+                "de": "Man zählt bis zehn: dieci. Venti ist zwanzig."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Venti? Così Moro si addormenta! Ih ih!",
+                "sl": "Dvajset? Tako bo Moro zaspal! Hi hi!",
+                "en": "Twenty? Moro will fall asleep! Hee hee!",
+                "de": "Zwanzig? Da schläft Moro ja ein! Hihi!"
+              }
+            }
+          ]
+        },
+        {
+          "choices": [
+            {
+              "it": "Ecco la coda, dietro la porta!",
+              "sl": "Tu je rep, za vrati!",
+              "en": "There's the tail, behind the door!",
+              "de": "Da ist der Schwanz, hinter der Tür!",
+              "ok": true,
+              "tap": "dog",
+              "grammar": "dove-preposizioni",
+              "reply": {
+                "face": "laugh",
+                "it": "Sì! Moro, ti abbiamo trovato!",
+                "sl": "Ja! Moro, našla sva te!",
+                "en": "Yes! Moro, we've found you!",
+                "de": "Ja! Moro, wir haben dich gefunden!",
+                "fx": {
+                  "dog-hides": 0,
+                  "dog": 1
+                }
+              }
+            },
+            {
+              "it": "È dietro la cassapanca!",
+              "sl": "Za skrinjo je!",
+              "en": "He's behind the chest bench!",
+              "de": "Er ist hinter der Truhenbank!",
+              "tap": "chest",
+              "why": {
+                "sl": "Tam ga ni. Išči rep, ki miga.",
+                "en": "He isn't there. Look for a tail that wags.",
+                "de": "Da ist er nicht. Such einen Schwanz, der wedelt."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Acqua, acqua! Ih ih!",
+                "sl": "Mrzlo, mrzlo! Hi hi!",
+                "en": "Cold, cold! Hee hee!",
+                "de": "Kalt, kalt! Hihi!"
+              }
+            },
+            {
+              "it": "È sotto il tavolo!",
+              "sl": "Pod mizo je!",
+              "en": "He's under the table!",
+              "de": "Er ist unter dem Tisch!",
+              "tap": "table",
+              "why": {
+                "sl": "Pod mizo ga ni. Išči rep, ki miga.",
+                "en": "He isn't under the table. Look for a tail that wags.",
+                "de": "Unter dem Tisch ist er nicht. Such einen Schwanz, der wedelt."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Sotto il tavolo? No, lì c'è solo una briciola!",
+                "sl": "Pod mizo? Ne, tam je samo drobtina!",
+                "en": "Under the table? No, there's only a crumb there!",
+                "de": "Unter dem Tisch? Nein, da liegt nur ein Krümel!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "giulia",
+          "face": "laugh",
+          "it": "Moro è bravissimo a nascondersi. Ma la coda lo tradisce sempre!",
+          "sl": "Moro se zelo dobro skriva. Ampak rep ga vedno izda!",
+          "en": "Moro is very good at hiding. But his tail always gives him away!",
+          "de": "Moro kann sich super verstecken. Aber der Schwanz verrät ihn immer!"
+        }
+      ]
+    },
+    {
+      "id": "moro-salame",
+      "lines": [
+        {
+          "who": "giulia",
+          "face": "worried",
+          "it": "Oh no! Moro guarda il salame del nonno. Ha fame!",
+          "sl": "O ne! Moro gleda dedkovo salamo. Lačen je!",
+          "en": "Oh no! Moro's looking at grandpa's salami. He's hungry!",
+          "de": "Oh nein! Moro schaut auf Opas Salami. Er hat Hunger!",
+          "fx": {
+            "dog": 1
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Moro, no! Il salame è del nonno!",
+              "sl": "Moro, ne! Salama je dedkova!",
+              "en": "Moro, no! The salami is grandpa's!",
+              "de": "Moro, nein! Die Salami gehört Opa!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "{m:Bravo|f:Brava}! Guarda, adesso fa il bravo.",
+                "sl": "Bravo! Poglej, zdaj je priden.",
+                "en": "Well done! Look, now he's being good.",
+                "de": "Gut so! Schau, jetzt ist er brav."
+              }
+            },
+            {
+              "it": "Moro, no! Il salame è dal nonno!",
+              "sl": "Moro, ne! Salama je pri dedku!",
+              "en": "Moro, no! The salami is at grandpa's!",
+              "de": "Moro, nein! Die Salami ist bei Opa!",
+              "grammar": "preposizioni-articolate",
+              "why": {
+                "sl": "Čigav je: di + il = del (del nonno). Dal nonno pomeni pri dedku ali k dedku.",
+                "en": "Whose it is: di + il = del (del nonno). Dal nonno means at or to grandpa's.",
+                "de": "Wem es gehört: di + il = del (del nonno). Dal nonno heißt bei oder zu Opa."
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "Dal nonno? Ma il nonno è proprio qui!",
+                "sl": "Pri dedku? Saj je dedek čisto tukaj!",
+                "en": "At grandpa's? But grandpa's right here!",
+                "de": "Bei Opa? Aber Opa ist doch hier!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "giulia",
+          "face": "curious",
+          "it": "Diamo a Moro il suo biscotto, va bene?",
+          "sl": "Dajva Moru njegov piškot, prav?",
+          "en": "Let's give Moro his biscuit, OK?",
+          "de": "Geben wir Moro seinen Keks, ja?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì! Ecco, Moro: un biscotto per te.",
+              "sl": "Ja! Na, Moro: piškot zate.",
+              "en": "Yes! Here, Moro: a biscuit for you.",
+              "de": "Ja! Hier, Moro: ein Keks für dich.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Bau! Dice grazie. Ih ih!",
+                "sl": "Hov! Pravi hvala. Hi hi!",
+                "en": "Woof! He's saying thank you. Hee hee!",
+                "de": "Wau! Er sagt danke. Hihi!"
+              }
+            },
+            {
+              "it": "Sì! Ecco, Moro: una biscotto per te.",
+              "sl": "Ja! Na, Moro: ena piškot zate.",
+              "en": "Yes! Here, Moro: a (feminine) biscuit for you.",
+              "de": "Ja! Hier, Moro: eine Keks für dich.",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Biscotto je moškega spola: un biscotto.",
+                "en": "Biscotto is masculine: un biscotto.",
+                "de": "Biscotto ist maskulin: un biscotto."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Moro piega la testa. Non ha capito!",
+                "sl": "Moro nagne glavo. Ni razumel!",
+                "en": "Moro tilts his head. He didn't understand!",
+                "de": "Moro legt den Kopf schief. Er hat es nicht verstanden!"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "foto-occhiali",
+      "lines": [
+        {
+          "who": "bepi",
+          "face": "worried",
+          "it": "Dove sono i miei occhiali? Senza occhiali non vedo la foto!",
+          "sl": "Kje so moja očala? Brez očal ne vidim fotografije!",
+          "en": "Where are my glasses? Without my glasses I can't see the photo!",
+          "de": "Wo ist meine Brille? Ohne Brille sehe ich das Foto nicht!"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sono sul tavolo, vicino al libro!",
+              "sl": "Na mizi so, ob knjigi!",
+              "en": "They're on the table, by the book!",
+              "de": "Sie liegt auf dem Tisch, beim Buch!",
+              "ok": true,
+              "tap": "glasses",
+              "grammar": "preposizioni-articolate",
+              "reply": {
+                "face": "happy",
+                "it": "Eccoli! Grazie, {m:piccolo|f:piccola}.",
+                "sl": "Tu so! Hvala, {m:malček|f:mala}.",
+                "en": "There they are! Thank you, little one.",
+                "de": "Da ist sie! Danke, {m:Kleiner|f:Kleine}."
+              }
+            },
+            {
+              "it": "Sono sulla cassapanca!",
+              "sl": "Na skrinji so!",
+              "en": "They're on the chest bench!",
+              "de": "Sie liegt auf der Truhenbank!",
+              "tap": "chest",
+              "why": {
+                "sl": "Na skrinji jih ni. Poišči jih ob nečem za branje.",
+                "en": "They're not on the chest. Look by something to read.",
+                "de": "Auf der Truhe liegt sie nicht. Such bei etwas zum Lesen."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Sulla cassapanca? No, lì c'è solo la polvere!",
+                "sl": "Na skrinji? Ne, tam je samo prah!",
+                "en": "On the chest bench? No, there's only dust there!",
+                "de": "Auf der Truhenbank? Nein, da liegt nur Staub!"
+              }
+            },
+            {
+              "it": "Sono nell'angolo!",
+              "sl": "V kotu so!",
+              "en": "They're in the corner!",
+              "de": "Sie ist in der Ecke!",
+              "tap": "corner",
+              "why": {
+                "sl": "V kotu jih ni. Poišči jih ob knjigi.",
+                "en": "They aren't in the corner. Look by the book.",
+                "de": "In der Ecke ist sie nicht. Such beim Buch."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Nell'angolo? Lì ci sono solo la croce e la candela.",
+                "sl": "V kotu? Tam sta samo križ in sveča.",
+                "en": "In the corner? There's only the cross and the candle there.",
+                "de": "In der Ecke? Da sind nur das Kreuz und die Kerze."
+              }
+            }
+          ]
+        },
+        {
+          "who": "bepi",
+          "face": "happy",
+          "it": "Adesso vedo bene. Leggiamo un po' il mio vecchio libro?",
+          "sl": "Zdaj dobro vidim. Bova malo brala mojo staro knjigo?",
+          "en": "Now I can see well. Shall we read my old book for a bit?",
+          "de": "Jetzt sehe ich gut. Lesen wir ein bisschen in meinem alten Buch?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì! Leggi tu, nonno?",
+              "sl": "Ja! Bereš ti, dedek?",
+              "en": "Yes! Will you read, grandpa?",
+              "de": "Ja! Liest du, Opa?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "Va bene. «C'era una volta, sotto il grande tiglio …»",
+                "sl": "Prav. »Nekoč, pod veliko lipo …«",
+                "en": "All right. «Once upon a time, under the big linden …»",
+                "de": "Gut. «Es war einmal, unter der großen Linde …»"
+              }
+            },
+            {
+              "it": "Sì! Leggo tu, nonno?",
+              "sl": "Ja! Berem ti, dedek?",
+              "en": "Yes! I read you, grandpa?",
+              "de": "Ja! Ich lese du, Opa?",
+              "grammar": "presente-regolare",
+              "why": {
+                "sl": "Bere dedek, ti: leggi tu? Leggo je jaz berem.",
+                "en": "Grandpa reads, you (tu): leggi tu? Leggo is I read.",
+                "de": "Opa liest, du (tu): leggi tu? Leggo heißt ich lese."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Come? Chi legge, io o tu? Ah ah!",
+                "sl": "Kako? Kdo bere, jaz ali ti? Ha ha!",
+                "en": "What? Who's reading, me or you? Ha ha!",
+                "de": "Wie? Wer liest, ich oder du? Haha!"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nascondino-porta",
+      "memory": {
+        "it": "il nascondino quando la treccia mi ha tradita",
+        "sl": "skrivalnice, ko me je izdala kita",
+        "en": "the hide-and-seek when my plait gave me away",
+        "de": "das Versteckspiel, als mich mein Zopf verraten hat"
+      },
+      "lines": [
+        {
+          "who": "giulia",
+          "face": "happy",
+          "it": "Facciamo nascondino? Conta tu, io mi nascondo!",
+          "sl": "Se greva skrivalnice? Ti štej, jaz se skrijem!",
+          "en": "Shall we play hide-and-seek? You count, I'll hide!",
+          "de": "Spielen wir Verstecken? Du zählst, ich verstecke mich!"
+        },
+        {
+          "choices": [
+            {
+              "it": "Uno, due, tre, quattro, cinque! Arrivo!",
+              "sl": "Ena, dve, tri, štiri, pet! Grem iskat!",
+              "en": "One, two, three, four, five! Here I come!",
+              "de": "Eins, zwei, drei, vier, fünf! Ich komme!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Pronta! Trovami, se ci riesci!",
+                "sl": "Pripravljena! Poišči me, če ti uspe!",
+                "en": "Ready! Find me if you can!",
+                "de": "Fertig! Find mich, wenn du kannst!",
+                "act": {
+                  "giulia": {
+                    "to": "behind-door",
+                    "pose": "hide"
+                  }
+                }
+              }
+            },
+            {
+              "it": "Uno, due, tre, quattro, sei! Arrivo!",
+              "sl": "Ena, dve, tri, štiri, šest! Grem iskat!",
+              "en": "One, two, three, four, six! Here I come!",
+              "de": "Eins, zwei, drei, vier, sechs! Ich komme!",
+              "why": {
+                "sl": "Po quattro (štiri) pride cinque (pet), šele potem sei (šest).",
+                "en": "After quattro (four) comes cinque (five), then sei (six).",
+                "de": "Nach quattro (vier) kommt cinque (fünf), dann erst sei (sechs)."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Hai mangiato un numero? Ih ih!",
+                "sl": "Si {m:pojedel|f:pojedla} eno številko? Hi hi!",
+                "en": "Did you eat a number? Hee hee!",
+                "de": "Hast du eine Zahl gegessen? Hihi!"
+              }
+            }
+          ]
+        },
+        {
+          "choices": [
+            {
+              "it": "Ah, sei sotto il tavolo!",
+              "sl": "Aha, pod mizo si!",
+              "en": "Aha, you're under the table!",
+              "de": "Aha, du bist unter dem Tisch!",
+              "tap": "under-table",
+              "why": {
+                "sl": "Pod mizo je ni. Poišči kito, ki gleda izza nečesa.",
+                "en": "She's not under the table. Look for a plait peeking out from behind something.",
+                "de": "Unter dem Tisch ist sie nicht. Such einen Zopf, der hinter etwas hervorschaut."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Acqua, acqua! Ih ih!",
+                "sl": "Mrzlo, mrzlo! Hi hi!",
+                "en": "Cold, cold! Hee hee!",
+                "de": "Kalt, kalt! Hihi!",
+                "act": {
+                  "giulia": {
+                    "pose": "peek"
+                  }
+                }
+              }
+            },
+            {
+              "it": "Ah, sei dietro la porta!",
+              "sl": "Aha, za vrati si!",
+              "en": "Aha, you're behind the door!",
+              "de": "Aha, du bist hinter der Tür!",
+              "ok": true,
+              "tap": "behind-door",
+              "grammar": "dove-preposizioni",
+              "reply": {
+                "face": "surprised",
+                "it": "Uffa! Mi hai trovata!",
+                "sl": "Ojej! {m:Našel|f:Našla} si me!",
+                "en": "Oh no! You found me!",
+                "de": "Mist! Du hast mich gefunden!",
+                "act": {
+                  "giulia": {
+                    "to": "door"
+                  }
+                }
+              }
+            },
+            {
+              "it": "Ah, sei sulla panca!",
+              "sl": "Aha, na klopi si!",
+              "en": "Aha, you're on the bench!",
+              "de": "Aha, du bist auf der Bank!",
+              "tap": "bench",
+              "why": {
+                "sl": "Na klopi spi samo Moro. Poišči kito.",
+                "en": "Only Moro sleeps on the bench. Look for a plait.",
+                "de": "Auf der Bank schläft nur Moro. Such einen Zopf."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Sulla panca c'è Moro, non io!",
+                "sl": "Na klopi je Moro, ne jaz!",
+                "en": "Moro's on the bench, not me!",
+                "de": "Auf der Bank ist Moro, nicht ich!",
+                "act": {
+                  "giulia": {
+                    "pose": "peek"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "who": "giulia",
+          "face": "curious",
+          "it": "Si vedeva la mia treccia, vero?",
+          "sl": "Videla se je moja kita, kajne?",
+          "en": "You could see my plait, couldn't you?",
+          "de": "Man hat meinen Zopf gesehen, oder?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì! La tua treccia è lunga.",
+              "sl": "Ja! Tvoja kita je dolga.",
+              "en": "Yes! Your plait is long.",
+              "de": "Ja! Dein Zopf ist lang.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "La prossima volta la nascondo meglio!",
+                "sl": "Naslednjič jo bom bolje skrila!",
+                "en": "Next time I'll hide it better!",
+                "de": "Nächstes Mal verstecke ich ihn besser!"
+              }
+            },
+            {
+              "it": "Sì! La tua treccia è lungo.",
+              "sl": "Ja! Tvoja kita je dolg.",
+              "en": "Yes! Your plait is long (masculine).",
+              "de": "Ja! Dein Zopf ist langer.",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Treccia je ženskega spola: lunga.",
+                "en": "Treccia is feminine: lunga.",
+                "de": "Treccia ist feminin: lunga."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Lungo? La mia treccia non è un serpente! Ih ih!",
+                "sl": "Lungo? Moja kita ni kača! Hi hi!",
+                "en": "Lungo? My plait isn't a snake! Hee hee!",
+                "de": "Lungo? Mein Zopf ist doch keine Schlange! Hihi!"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mandi-merenda",
+      "lines": [
+        {
+          "who": "bepi",
+          "face": "curious",
+          "it": "Dimmi, a che ora mangi la merenda?",
+          "sl": "Povej mi, ob kateri uri ješ malico?",
+          "en": "Tell me, what time do you have your snack?",
+          "de": "Sag mal, um wie viel Uhr isst du dein Pausenbrot?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Alle quattro, nonno!",
+              "sl": "Ob štirih, dedek!",
+              "en": "At four, grandpa!",
+              "de": "Um vier, Opa!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Alle quattro! Allora fra poco. Oggi c'è pane e miele.",
+                "sl": "Ob štirih! Potem kmalu. Danes je kruh z medom.",
+                "en": "At four! Soon, then. Today there's bread and honey.",
+                "de": "Um vier! Dann bald. Heute gibt es Brot und Honig."
+              }
+            },
+            {
+              "it": "A le quattro, nonno!",
+              "sl": "Ob (ločeno) štirih, dedek!",
+              "en": "At (split up) four, grandpa!",
+              "de": "Um (getrennt) vier, Opa!",
+              "grammar": "preposizioni-articolate",
+              "why": {
+                "sl": "A in le se zlijeta v alle: alle quattro.",
+                "en": "A and le join into alle: alle quattro.",
+                "de": "A und le verschmelzen zu alle: alle quattro."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Hm? Ripeti piano, il mio orecchio è stanco.",
+                "sl": "Hm? Ponovi počasi, moje uho je utrujeno.",
+                "en": "Hm? Say it again slowly, my ear's tired.",
+                "de": "Hm? Sag es langsam noch mal, mein Ohr ist müde."
+              }
+            }
+          ]
+        },
+        {
+          "choices": [
+            {
+              "it": "Mi piace il miele!",
+              "sl": "Med mi je všeč!",
+              "en": "I like honey!",
+              "de": "Ich mag Honig!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Anche a me. Il miele di Aldo è il più buono.",
+                "sl": "Tudi meni. Aldov med je najboljši.",
+                "en": "Me too. Aldo's honey is the best.",
+                "de": "Ich auch. Aldos Honig ist der beste."
+              }
+            },
+            {
+              "it": "Mi piacciono il miele!",
+              "sl": "Mi so všeč med!",
+              "en": "I like (plural) honey!",
+              "de": "Mir gefallen der Honig!",
+              "grammar": "piacere",
+              "why": {
+                "sl": "Ena stvar: mi piace il miele. Mi piacciono je za več stvari.",
+                "en": "One thing: mi piace il miele. Mi piacciono is for more than one thing.",
+                "de": "Eine Sache: mi piace il miele. Mi piacciono steht für mehrere Dinge."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Quanti mieli? Ne abbiamo solo uno!",
+                "sl": "Koliko medov? Imava samo enega!",
+                "en": "How many honeys? We've only got one!",
+                "de": "Wie viele Honige? Wir haben nur einen!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "bepi",
+          "face": "laugh",
+          "it": "Allora andiamo. Mandi, fogolâr! Torniamo dopo.",
+          "sl": "Potem pa greva. Mandi, fogolâr! Vrneva se pozneje.",
+          "en": "Let's go, then. Mandi, fogolâr! We'll be back later.",
+          "de": "Dann gehen wir. Mandi, Fogolâr! Wir kommen später wieder."
+        }
+      ]
+    }
+  ]
+}
