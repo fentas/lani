@@ -241,7 +241,7 @@ class RunTest(unittest.TestCase):
     def test_an_emulator_nobody_here_started_keeps_slot_2_closed(self):
         holder = hold(os.environ["LANI_QA_EMULATOR_LOCK"])
         try:
-            with mock.patch.object(qs, "emulators", lambda: [(4242, 5556, True)]), \
+            with mock.patch.object(qs, "emulators", lambda: [(4242, 5556, True, "fluent-qa")]), \
                     mock.patch.dict(os.environ, {"LANI_QA_WAIT_S": "1"}):
                 self.assertEqual(75, qs.take_and_run([2], ["--no-build"]))
         finally:
@@ -258,15 +258,17 @@ class RunTest(unittest.TestCase):
 
     def test_a_writable_emulator_from_before_keeps_slot_2_closed_and_says_how_to_open_it(self):
         two = qs.slots({})[1]
-        with mock.patch.object(qs, "emulators", lambda: [(111, 5554, False)]):
+        with mock.patch.object(qs, "emulators", lambda: [(111, 5554, False, qs.avd())]):
             why = qs.usable(two)
         self.assertIn("emulator-5554 runs writable", why)
         self.assertIn("adb -s emulator-5554 emu kill", why)
-        with mock.patch.object(qs, "emulators", lambda: [(111, 5554, True)]):
+        with mock.patch.object(qs, "emulators", lambda: [(111, 5554, True, qs.avd())]):
             self.assertIsNone(qs.usable(two), "beside a read-only one: open")
+        with mock.patch.object(qs, "emulators", lambda: [(111, 5554, False, "another-avd")]):
+            self.assertIsNone(qs.usable(two), "another AVD's writable emulator is no instance of this one")
         holder = hold(os.environ["LANI_QA_EMULATOR_LOCK"])
         try:
-            with mock.patch.object(qs, "emulators", lambda: [(111, 5554, False)]), mock.patch.dict(os.environ, {"LANI_QA_WAIT_S": "1"}):
+            with mock.patch.object(qs, "emulators", lambda: [(111, 5554, False, qs.avd())]), mock.patch.dict(os.environ, {"LANI_QA_WAIT_S": "1"}):
                 self.assertEqual(75, qs.take_and_run([2], ["--no-build"]))
         finally:
             release(holder)

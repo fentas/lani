@@ -323,9 +323,20 @@ def build(args: list[str]) -> int:
 
 # --- slot 2's emulator ------------------------------------------------------------------------------------------------
 
-def emulators() -> list[tuple[int, int, bool]]:
-    """The emulator processes running (qemu, and the launcher while it's there): (pid, console port, read-only). An
-    emulator started without -port has the first one, 5554."""
+def avd() -> str:
+    """The QA AVD, as qa picks it: $LANI_QA_AVD, else lani-qa, else fluent-qa (made before the rename) when only that exists."""
+    if os.environ.get("LANI_QA_AVD"):
+        return os.environ["LANI_QA_AVD"]
+    try:
+        known = subprocess.run([str(SDK / "emulator/emulator"), "-list-avds"], capture_output=True, text=True, timeout=30).stdout.split()
+    except (OSError, subprocess.TimeoutExpired):
+        known = []
+    return "fluent-qa" if "lani-qa" not in known and "fluent-qa" in known else "lani-qa"
+
+
+def emulators() -> list[tuple[int, int, bool, str]]:
+    """The emulator processes running (qemu, and the launcher while it's there): (pid, console port, read-only, AVD).
+    An emulator started without -port has the first one, 5554."""
     out = []
     for d in os.listdir("/proc"):
         if not d.isdigit():
@@ -337,19 +348,21 @@ def emulators() -> list[tuple[int, int, bool]]:
         if not argv or not (argv[0].endswith(b"/emulator") or b"qemu-system" in argv[0]) or b"-avd" not in argv:
             continue
         port = next((argv[i + 1] for i, a in enumerate(argv[:-1]) if a == b"-port"), b"5554")
-        out.append((int(d), int(port) if port.isdigit() else 5554, b"-read-only" in argv))
+        name = next((argv[i + 1] for i, a in enumerate(argv[:-1]) if a == b"-avd"), b"").decode(errors="replace")
+        out.append((int(d), int(port) if port.isdigit() else 5554, b"-read-only" in argv, name))
     return out
 
 
 def emulator_pids(console: int) -> list[int]:
     """The emulator processes serving console port [console]."""
-    return [pid for pid, port, _ in emulators() if port == console]
+    return [pid for pid, port, _, _ in emulators() if port == console]
 
 
 def writable_beside(slot: Slot) -> int | None:
-    """The console port of an emulator running writable beside [slot]'s (none may: two instances of an AVD start only
-    when every one is read-only), or None. qa starts its emulators read-only; one started before that is writable."""
-    return next((port for _, port, ro in emulators() if not ro and port != slot.console), None)
+    """The console port of an instance of the QA AVD running writable beside [slot]'s (none may: two instances of an AVD
+    start only when every one is read-only), or None. qa starts its emulators read-only; one started before is writable."""
+    qa_avd = avd()
+    return next((port for _, port, ro, name in emulators() if not ro and port != slot.console and name == qa_avd), None)
 
 
 def adb(*args: str, timeout=30) -> str:
