@@ -142,13 +142,15 @@ object TownMarkers {
 
     /**
      * Where the people of the cast with a happening on now are: villager id → its scene's place ([placeOf]; the first of
-     * their happenings when they have more). They stand there instead of pottering about their homes, or, when the place is
+     * their happenings when they have more), and those a happening has with them ([Happening.with]) at its place. They stand there instead of pottering about their homes, or, when the place is
      * far from the clearing ([far]: the land at the horizon, a landmark out in the woods), aren't on the map at all: only
      * their bubble shows there. Everyone is on the map at most once.
      */
     fun standing(state: GameState, active: List<ActiveHappening>): Map<String, TownPlace> {
         val out = LinkedHashMap<String, TownPlace>()
         for (a in active) a.person?.villager?.let { id -> out.putIfAbsent(id, placeOf(a, state)) }
+        // whoever a happening has with its person (the pupils at the roll call) is there too, unless theirs is elsewhere
+        for (a in active) for (p in Happenings.withOf(a.scene, a.happening)) p.villager?.let { id -> out.putIfAbsent(id, placeOf(a, state)) }
         return out
     }
 

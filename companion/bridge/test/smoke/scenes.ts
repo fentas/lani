@@ -217,6 +217,8 @@ export default async function scenes() {
     ['a person on a spot the art does not have', { ...kitchen, people: [{ ...kitchen.people[0], slot: 'left' }] }, 'no person spot "left"'],
     ['an unknown sprite', { ...kitchen, people: [{ ...kitchen.people[0], art: 'dragon' }] }, 'art'],
     ['a happening of nobody', { ...kitchen, happenings: [{ ...kitchen.happenings[0], who: 'dedek' }] }, 'not a person'],
+    ['a happening with nobody of the scene', { ...kitchen, happenings: [{ ...kitchen.happenings[0], with: ['dedek'] }] }, '.with: "dedek" is not a person of this scene'],
+    ['a happening with its own person', { ...kitchen, happenings: [{ ...kitchen.happenings[0], with: ['babica'] }] }, "is the happening's own person"],
     ['a happening with a missing dialog', { ...kitchen, happenings: [{ ...kitchen.happenings[0], dialog: 'potica' }] }, 'does not exist'],
     ['a chance above 1', { ...kitchen, happenings: [{ ...kitchen.happenings[0], chance: 1.5 }] }, 'chance'],
     ['a weekday 8', { ...kitchen, happenings: [{ ...kitchen.happenings[0], weekdays: [8] }] }, 'weekdays'],

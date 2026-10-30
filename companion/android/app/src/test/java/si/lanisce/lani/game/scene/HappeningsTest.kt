@@ -180,6 +180,33 @@ class HappeningsTest {
         assertTrue("share $share", share in 0.45f..0.55f)
     }
 
+    @Test fun `a happening's others are there while it is on - the pupils at the roll call, here and met`() {
+        val teacher = ScenePerson("elena", "Maestra Elena", "👩", "teacher", "teacher", villager = "elena")
+        val lorenzo = ScenePerson("lorenzo", "Lorenzo", "👦", "child3", "desk1", villager = "lorenzo")
+        val giulia = ScenePerson("giulia", "Giulia", "👧", "child2", "desk2", villager = "giulia")
+        val school = SceneSpec(
+            id = "a-scuola", title = "A scuola", art = "school", from = listOf("fire"), people = listOf(teacher, lorenzo, giulia),
+            happenings = listOf(Happening("appello", "L'appello", who = "elena", with = listOf("lorenzo", "giulia"))),
+        )
+        fun village(vararg met: String) = camp.copy(
+            residents = met.map { si.lanisce.lani.game.villagers.Resident(it, "2026-09-01") },
+            bonds = met.associateWith { si.lanisce.lani.game.villagers.Bond(met = "2026-09-01") },
+            migrated = setOf(si.lanisce.lani.game.villagers.Arrivals.MIGRATION),
+        )
+        val all = village("elena", "lorenzo", "giulia")
+        val on = Happenings.active(listOf(school), all, evening)
+        assertEquals(listOf("appello"), on.map { it.happening.id })
+        val present = si.lanisce.lani.game.villagers.Residents.present(all, evening.toLocalDate())
+        assertEquals(listOf("elena", "lorenzo", "giulia"), Happenings.peopleIn(school, on, present).map { it.id })
+        assertEquals(listOf("teacher", "desk1", "desk2"), Happenings.peopleIn(school, on, present).map { it.slot })
+        // one of them busy with a happening elsewhere now is there, not here
+        assertEquals(listOf("elena", "giulia"), Happenings.peopleIn(school, on, present, elsewhere = setOf("lorenzo")).map { it.id })
+        // on the map they're at the school too
+        assertEquals(setOf("elena", "lorenzo", "giulia"), TownMarkers.standing(all, on).keys)
+        // a pupil not in the village (or not met yet): no roll call
+        assertTrue(Happenings.active(listOf(school), village("elena", "lorenzo"), evening).isEmpty())
+    }
+
     @Test fun `people in a scene and markers in the village`() {
         val on = Happenings.active(listOf(fire), camp, evening)
         assertEquals(listOf(PersonInScene("babica", "grandma", "left")), Happenings.peopleIn(fire, on))

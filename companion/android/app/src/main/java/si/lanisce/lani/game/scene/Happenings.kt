@@ -110,6 +110,8 @@ object Happenings {
         if (present != null && a.person.villager != null && a.person.villager !in present) return false
         // nor does the village talk of someone who isn't here, or whom the learner doesn't know yet
         if (present != null && cast.isNotEmpty() && !Mentions.known(Mentions.inTitle(h, Mentions.names(a.scene.language, cast)), present)) return false
+        // and whoever it has with them (the pupils at the roll call) is here and met too
+        if (present != null && !Mentions.known(withOf(a.scene, h).mapNotNull { it.villager }, present)) return false
         if (h.needs?.met(world) == false) return false
         // the hay in summer, the snow in winter: only in its months (by the phone's date)
         if (!h.inSeason(today)) return false
@@ -167,12 +169,20 @@ object Happenings {
 
     /**
      * Who is in [scene] now: the ones there [ScenePerson.always] (someone of the cast only while in the village:
-     * [present], ids, null for everyone), and those of its [active] happenings.
+     * [present], ids, null for everyone), those of its [active] happenings, and whoever those have with them
+     * ([Happening.with]: the pupils at the roll call) unless they're the person of a happening elsewhere now ([elsewhere],
+     * villager ids).
      */
-    fun peopleIn(scene: SceneSpec, active: List<ActiveHappening>, present: Set<String>? = null): List<PersonInScene> {
-        val here = active.filter { it.scene.id == scene.id }.mapNotNull { it.person }
-        return (always(scene, present) + here).distinctBy { it.id }.map { PersonInScene(it.id, it.art, it.slot) }
+    fun peopleIn(scene: SceneSpec, active: List<ActiveHappening>, present: Set<String>? = null, elsewhere: Set<String> = emptySet()): List<PersonInScene> {
+        val mine = active.filter { it.scene.id == scene.id }
+        val here = mine.mapNotNull { it.person }
+        val along = mine.flatMap { withOf(scene, it.happening) }
+            .filter { p -> p.villager == null || ((present == null || p.villager in present) && p.villager !in elsewhere) }
+        return (always(scene, present) + here + along).distinctBy { it.id }.map { PersonInScene(it.id, it.art, it.slot) }
     }
+
+    /** The people of [scene] happening [h] has with its person ([Happening.with]), as the scene has them. */
+    fun withOf(scene: SceneSpec, h: Happening): List<ScenePerson> = h.with.mapNotNull { w -> scene.people.firstOrNull { it.id == w } }
 
     /** The people always in [scene] who are in the village ([present] ids; null for everyone). */
     fun always(scene: SceneSpec, present: Set<String>?): List<ScenePerson> =

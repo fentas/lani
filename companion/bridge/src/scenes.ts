@@ -621,6 +621,12 @@ const happening = z.object({
    * from there (stageErrors follows them from it). An older bridge strips it (they wait on their spots).
    */
   act: actCue.optional(),
+  /**
+   * Who else of the scene is there while it is on (person ids): the pupils at their desks while the teacher holds the roll
+   * call or has them read. The app draws them at their spots (not the ones the learner talks with) and has the happening
+   * on only while they're in the village and met; an older bridge strips it (only its person is there).
+   */
+  with: z.array(id).min(1).max(6).optional(),
 })
 
 export const sceneSpec = z.object({
@@ -763,6 +769,13 @@ export function crossCheck(s: Scene, refs?: SceneRefs): string[] {
   s.happenings.forEach((h, i) => {
     const at = `happenings[${i}] (${h.id})`
     if (!people.has(h.who)) errs.push(`${at}: who "${h.who}" is not a person of this scene`)
+    // who else is there while it is on: others of the scene, each once
+    for (const w of h.with ?? []) {
+      if (w === h.who) errs.push(`${at}.with: "${w}" is the happening's own person (with: who else is there)`)
+      else if (!people.has(w)) errs.push(`${at}.with: "${w}" is not a person of this scene`)
+    }
+    dupes(h.with ?? [], `person with ${at}`)
+    if (h.with && h.stories) errs.push(`${at}.with: the storyteller tells tonight's story alone`)
     if (h.dialog && !dialogs.has(h.dialog)) errs.push(`${at}: dialog "${h.dialog}" does not exist`)
     for (const v of h.dialogs ?? []) if (!dialogs.has(v)) errs.push(`${at}.dialogs: dialog "${v}" does not exist`)
     dupes(h.dialogs ?? [], `variant of ${at}`)

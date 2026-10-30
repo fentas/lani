@@ -412,11 +412,13 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
     val present = remember(state) { state?.let { Residents.present(it, LocalDate.now()) } }
     val ispyHost = ispy?.host?.person?.id
     val cast = talk?.step?.cast.orEmpty()
-    val drawn = remember(scene, here, sleepers, about, talk?.person, cast, talkingId, facing, present, look, state, ispyTalking, ispyHost) {
+    val drawn = remember(scene, here, active, sleepers, about, talk?.person, cast, talkingId, facing, present, look, state, ispyTalking, ispyHost) {
         // whoever a dialog left somewhere for the day (act_stays: Luka by the lantern while it rains) is still there, and
         // who is here by their day (France hoeing the field)
         val stayed = Stage.stayed(scene, DayAct.of(state, now.toLocalDate(), scene.id), present)
-        val base = Sleep.inBed((Happenings.peopleIn(scene, here, present) + stayed + about).distinctBy { it.id }, sleepers)
+        // who a happening here has with its person (the pupils at the roll call), unless their own happening is elsewhere now
+        val elsewhere = active.filter { it.scene.id != scene.id }.mapNotNull { it.person?.villager }.toSet()
+        val base = Sleep.inBed((Happenings.peopleIn(scene, here, present, elsewhere) + stayed + about).distinctBy { it.id }, sleepers)
         // a project's step: its people on the stage where it puts them; whoever else stood there (or is one of them under the
         // scene's own name) makes way
         val ids = cast.map { it.id }.toSet()

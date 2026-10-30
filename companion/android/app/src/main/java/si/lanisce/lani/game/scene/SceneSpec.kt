@@ -163,6 +163,12 @@ data class Happening(
      * scene shows them there (its marker over them), and its dialog starts from there ([Stage.base]). Empty: on their spots.
      */
     val act: Map<String, ActCue> = emptyMap(),
+    /**
+     * Who else of the scene is there while it is on ([ScenePerson.id]s): the pupils at their desks while the teacher holds
+     * the roll call or has them read (companion/SCENES.md, "What's on today"). They're drawn at their spots, aren't the
+     * ones the learner talks with, and must be in the village and met for it to be on; on the map they're at its place.
+     */
+    val with: List<String> = emptyList(),
 )
 
 @Serializable
