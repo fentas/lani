@@ -150,5 +150,5 @@ as a plural; facelija, točiti med, "v kepi"; "Mir je največ, kar imamo".
   their happenings only ("Zdaj je tukaj mirno" between them). Stari Janez's afternoons at the bocce court, the children's
   at the playground, Teta Ančka's evenings at the chapel and Tone at the fire station would fill them, as France tends
   the mill (`needs = "project:mlin"`).
-- **The my-voice offer** comes over the first answer of the first dialog on a fresh install (QA's places step answers
-  through it in a later run once it dismisses it, as `my-voice` does).
+- **QA's dialog** on a fresh install: the offer of the learner's own voice came over the first answer; the step now keeps
+  the default voice and answers on (not run again on the emulator).

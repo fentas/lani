@@ -4405,6 +4405,9 @@ def places():
         snap("places-court-dialog")
         oks = mill_oks(scene, "igra", scene.get("language", "sl"))
         for k in range(6):
+            # a fresh install offers the learner's own voice at their first line: the default kept
+            if find("Kateri glas je tvoj?") is not None:
+                tap("V redu · OK", 2)
             if not answer_choice(oks):
                 tap(nxt, 2)
             time.sleep(2)
