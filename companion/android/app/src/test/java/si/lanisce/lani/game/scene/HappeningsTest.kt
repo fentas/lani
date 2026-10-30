@@ -180,7 +180,7 @@ class HappeningsTest {
         assertTrue("share $share", share in 0.45f..0.55f)
     }
 
-    @Test fun `a happening's others are there while it is on - the pupils at the roll call, here and met`() {
+    @Test fun `a happening's others are there while it is on - the pupils at the roll call, here, met, not elsewhere`() {
         val teacher = ScenePerson("elena", "Maestra Elena", "👩", "teacher", "teacher", villager = "elena")
         val lorenzo = ScenePerson("lorenzo", "Lorenzo", "👦", "child3", "desk1", villager = "lorenzo")
         val giulia = ScenePerson("giulia", "Giulia", "👧", "child2", "desk2", villager = "giulia")
@@ -205,6 +205,17 @@ class HappeningsTest {
         assertEquals(setOf("elena", "lorenzo", "giulia"), TownMarkers.standing(all, on).keys)
         // a pupil not in the village (or not met yet): no roll call
         assertTrue(Happenings.active(listOf(school), village("elena", "lorenzo"), evening).isEmpty())
+        // Lorenzo's own happening at the mill waits while the roll call has him: he's at school, in the picture and on the map
+        val mill = SceneSpec(
+            id = "nel-mulino", title = "Nel mulino", art = "mill", from = listOf("fire"), people = listOf(lorenzo.copy(slot = "stones")),
+            happenings = listOf(Happening("gatto", "Il gatto", who = "lorenzo")),
+        )
+        val both = Happenings.active(listOf(school, mill), all, evening)
+        assertEquals(listOf("appello"), both.map { it.happening.id })
+        assertEquals(listOf("elena", "lorenzo", "giulia"), Happenings.peopleIn(school, both.filter { it.scene.id == "a-scuola" }, present).map { it.id })
+        assertEquals(TownMarkers.standing(all, on), TownMarkers.standing(all, both))
+        // without the roll call, his day at the mill as before
+        assertEquals(listOf("gatto"), Happenings.active(listOf(mill), all, evening).map { it.happening.id })
     }
 
     @Test fun `people in a scene and markers in the village`() {

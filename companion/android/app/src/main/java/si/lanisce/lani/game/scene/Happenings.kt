@@ -80,6 +80,19 @@ object Happenings {
             .filter { busy.add(it.scene.id + "/" + it.happening.who) }
             .take(MAX_ACTIVE)
             .toList()
+            .let(::claimed)
+    }
+
+    /**
+     * [on] without what those a happening has with it ([Happening.with]: the pupils at the roll call) would do elsewhere
+     * meanwhile: they're there, so their own happenings in other scenes wait (Lorenzo's cat at the mill) and a scene, its
+     * line ("Lorenzo, presente.") and the map agree on where they are.
+     */
+    fun claimed(on: List<ActiveHappening>): List<ActiveHappening> {
+        val at = HashMap<String, String>() // villager id → the scene that has them
+        for (a in on) for (p in withOf(a.scene, a.happening)) p.villager?.let { at.putIfAbsent(it, a.scene.id) }
+        if (at.isEmpty()) return on
+        return on.filter { a -> a.person?.villager?.let { v -> at[v]?.let { it == a.scene.id } } ?: true }
     }
 
     /**
@@ -170,8 +183,8 @@ object Happenings {
     /**
      * Who is in [scene] now: the ones there [ScenePerson.always] (someone of the cast only while in the village:
      * [present], ids, null for everyone), those of its [active] happenings, and whoever those have with them
-     * ([Happening.with]: the pupils at the roll call) unless they're the person of a happening elsewhere now ([elsewhere],
-     * villager ids).
+     * ([Happening.with]: the pupils at the roll call; [active] has their happenings elsewhere wait) unless they're the
+     * person of a happening elsewhere now all the same ([elsewhere], villager ids: one QA forces on).
      */
     fun peopleIn(scene: SceneSpec, active: List<ActiveHappening>, present: Set<String>? = null, elsewhere: Set<String> = emptySet()): List<PersonInScene> {
         val mine = active.filter { it.scene.id == scene.id }

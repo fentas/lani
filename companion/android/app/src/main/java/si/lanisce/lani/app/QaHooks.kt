@@ -8,6 +8,7 @@ import si.lanisce.lani.BuildConfig
 import si.lanisce.lani.game.Mastery
 import si.lanisce.lani.game.render.TownClock
 import si.lanisce.lani.game.scene.ActiveHappening
+import si.lanisce.lani.game.scene.Happenings
 import si.lanisce.lani.game.scene.SceneSpec
 
 /**
@@ -771,6 +772,7 @@ object QaHooks {
         val s = scenes.firstOrNull { it.id == sid } ?: return active
         val h = s.happenings.firstOrNull { it.id == hid } ?: return active
         val dialog = variant.takeIf { v -> s.dialogs.any { it.id == v } }
-        return listOf(ActiveHappening(s, h, s.people.firstOrNull { it.id == h.who }, dialog = dialog)) + active.filter { it.key != "$sid/$hid" }
+        // as the day's are: whoever it has with it is there, their own happenings elsewhere wait (Happenings.claimed)
+        return Happenings.claimed(listOf(ActiveHappening(s, h, s.people.firstOrNull { it.id == h.who }, dialog = dialog)) + active.filter { it.key != "$sid/$hid" })
     }
 }

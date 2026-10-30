@@ -783,8 +783,8 @@ the scene there with them while it is on, by their ids: Maestra Elena's roll cal
 ("Lorenzo, presente. Giulia, presente. E {learner}?"), Učiteljica Mojca's dual lesson Tine and Zala ("Tine in Zala sta dva
 učenca. Kaj delata?"). They're drawn at their spots (`Happenings.peopleIn`), aren't the ones the learner talks with (a tap
 on them greets them), stand at its place on the map too (`TownMarkers.standing`), and the happening is on only while each
-is in the village and met, as a text that names them; one whose own happening is on in another scene now is there, not
-here. The bridge checks each is a person of the scene and not the happening's own; an older bridge strips it, an older app
+is in the village and met, as a text that names them; while it is on, their own happenings in other scenes wait
+(`Happenings.active`: Lorenzo's cat at the mill), so the picture, the line and the map agree on where they are. The bridge checks each is a person of the scene and not the happening's own; an older bridge strips it, an older app
 shows the person alone.
 
 ### Seasons: in their months
