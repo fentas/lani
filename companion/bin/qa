@@ -4622,10 +4622,13 @@ def places_friuli():
         time.sleep(3 * slow())
         snap("places-it-court-map")
         assert tap(project["name"][pair[0]], 5), "the bocce court's landmark on the map"
-        assert wait_for(court["title"]["it"], 8), "its card: the way in"
+        # its card's "🚪 Vstopi · Go in: 🎳 <the scene's title>", the title read in the phone's pair (Al campo da bocce's own
+        # "Na balinišču · At the bocce court" in sl · en): found by the label and the scene's emoji
+        go = "🚪 " + " · ".join(table(l)["placeCard.go"] for l in pair) + ": " + court["emoji"]
+        assert wait_for(go, 8), "its card: the way in"
         time.sleep(1)
         snap("places-it-court-card")
-        assert tap(court["title"]["it"], 4), "into Al campo da bocce from its card"
+        assert tap(go, 4), "into Al campo da bocce from its card"
         assert wait_for(back, 10), "the court opens"
         qa_hook("hour:16")
         time.sleep(3 * slow())
