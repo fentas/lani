@@ -10,15 +10,15 @@
   "from": ["project:vodnjak_na_trgu"],
   "pack": "la-fontana",
   "objects": [
-    { "slot": "linden", "word": "tiglio", "pack": "la-cuccagna" },
-    { "slot": "bench", "word": "panchina", "pack": "la-cuccagna" },
+    { "slot": "linden", "word": "tiglio", "pack": "in-piazza" },
+    { "slot": "bench", "word": "panchina", "pack": "in-piazza" },
     { "slot": "ball", "word": "pallone", "pack": "a-scuola" },
-    { "slot": "well", "word": "pozzo", "pack": "la-cuccagna", "needs": { "building": "WELL" } },
+    { "slot": "well", "word": "pozzo", "pack": "in-piazza", "needs": { "building": "WELL" } },
     { "slot": "dog", "word": "cane", "pack": "famiglia" },
     { "slot": "cat", "word": "gatto", "pack": "famiglia" },
     { "slot": "house", "word": "casa", "pack": "casa-e-cucina" },
     { "slot": "tower", "word": "campanile", "pack": "in-paese", "needs": { "building": "CHURCH" } },
-    { "slot": "bicycle", "word": "bicicletta", "pack": "la-cuccagna" },
+    { "slot": "bicycle", "word": "bicicletta", "pack": "in-piazza" },
     { "slot": "flowers", "word": "fiore", "pack": "festa-liberazione" },
     { "slot": "sun", "word": "sole", "pack": "festa-pasquetta" },
     { "slot": "fence", "word": "steccato", "pack": "nel-campo" }
@@ -140,7 +140,7 @@
           ],
           "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
         },
-        { "who": "bruno", "face": "proud", "it": "La fontana ha quattro cannelle. Le ho fatte io, nella fucina.", "sl": "Vodnjak ima štiri pipe. Naredil sem jih jaz, v kovačnici.", "en": "The fountain has four spouts. I made them myself, in the smithy.", "de": "Der Brunnen hat vier Röhren. Die habe ich selbst gemacht, in der Schmiede." },
+        { "who": "bruno", "face": "proud", "it": "La fontana ha quattro cannelle. Le ho fatte io, nella fucina.", "sl": "Vodnjak ima štiri cevi. Naredil sem jih jaz, v kovačnici.", "en": "The fountain has four spouts. I made them myself, in the smithy.", "de": "Der Brunnen hat vier Röhren. Die habe ich selbst gemacht, in der Schmiede." },
         {
           "choices": [
             {
@@ -256,7 +256,7 @@
           "who": "giulia",
           "face": "laugh",
           "it": "Guarda come esce l'acqua dalle cannelle! Splash!",
-          "sl": "Poglej, kako teče voda iz pip! Pljusk!",
+          "sl": "Poglej, kako teče voda iz cevi! Pljusk!",
           "en": "Look at the water pouring from the spouts! Splash!",
           "de": "Schau, wie das Wasser aus den Röhren kommt! Platsch!",
           "fx": { "fountain": 1}
@@ -480,13 +480,13 @@
   "variants": [
     {
       "id": "acqua-cannelle",
-      "memory": { "it": "le quattro cannelle che abbiamo contato", "sl": "štiri pipe, ki sva jih preštela", "en": "the four spouts we counted", "de": "die vier Röhren, die wir gezählt haben" },
+      "memory": { "it": "le quattro cannelle che abbiamo contato", "sl": "štiri cevi, ki sva jih preštela", "en": "the four spouts we counted", "de": "die vier Röhren, die wir gezählt haben" },
       "lines": [
         {
           "who": "bruno",
           "face": "curious",
           "it": "Buongiorno. Conta le cannelle della fontana. Quante sono?",
-          "sl": "Dober dan. Preštej pipe na vodnjaku. Koliko jih je?",
+          "sl": "Dober dan. Preštej cevi na vodnjaku. Koliko jih je?",
           "en": "Good morning. Count the fountain's spouts. How many are there?",
           "de": "Guten Morgen. Zähl die Röhren am Brunnen. Wie viele sind es?",
           "fx": { "fountain": 1}
@@ -507,17 +507,17 @@
               "en": "There are three!",
               "de": "Es sind drei!",
               "grammar": "numeri",
-              "why": { "sl": "Pipe so štiri: quattro. Tre je tri.", "en": "There are four spouts: quattro. Tre is three.", "de": "Es sind vier Röhren: quattro. Tre heißt drei." },
+              "why": { "sl": "Cevi so štiri: quattro. Tre je tri.", "en": "There are four spouts: quattro. Tre is three.", "de": "Es sind vier Röhren: quattro. Tre heißt drei." },
               "reply": { "face": "curious", "it": "Tre? Guarda meglio. Conta piano.", "sl": "Tri? Bolje poglej. Štej počasi.", "en": "Three? Look again. Count slowly.", "de": "Drei? Schau genauer hin. Zähl langsam." }
             }
           ]
         },
-        { "who": "bruno", "it": "Le cannelle sono di ferro. Il ferro è duro e forte.", "sl": "Pipe so iz železa. Železo je trdo in močno.", "en": "The spouts are made of iron. Iron is hard and strong.", "de": "Die Röhren sind aus Eisen. Eisen ist hart und stark." },
+        { "who": "bruno", "it": "Le cannelle sono di ferro. Il ferro è duro e forte.", "sl": "Cevi so iz železa. Železo je trdo in močno.", "en": "The spouts are made of iron. Iron is hard and strong.", "de": "Die Röhren sind aus Eisen. Eisen ist hart und stark." },
         {
           "choices": [
             {
               "it": "Le cannelle sono belle!",
-              "sl": "Pipe so lepe!",
+              "sl": "Cevi so lepe!",
               "en": "The spouts are beautiful!",
               "de": "Die Röhren sind schön!",
               "ok": true,
@@ -525,7 +525,7 @@
             },
             {
               "it": "Le cannelle sono belli!",
-              "sl": "Pipe so lepe!",
+              "sl": "Cevi so lepe!",
               "en": "The spouts are beautiful!",
               "de": "Die Röhren sind schön!",
               "grammar": "aggettivi-accordo",
@@ -548,7 +548,7 @@
           "who": "bruno",
           "face": "worried",
           "it": "Buongiorno. Che freddo! Stamattina l'acqua non esce: le cannelle sono gelate.",
-          "sl": "Dober dan. Kakšen mraz! Zjutraj voda ne teče: pipe so zamrznjene.",
+          "sl": "Dober dan. Kakšen mraz! Zjutraj voda ne teče: cevi so zamrznjene.",
           "en": "Good morning. How cold! This morning no water comes out: the spouts are frozen.",
           "de": "Guten Morgen. Wie kalt! Heute Morgen kommt kein Wasser: Die Röhren sind zugefroren.",
           "fx": { "fountain": 0}
@@ -884,7 +884,7 @@
               "en": "Due cannelle (two spouts)!",
               "de": "Due cannelle (zwei Röhren)!",
               "ok": true,
-              "reply": { "face": "happy", "it": "{m:Bravo|f:Brava}! Come le cannelle della fontana.", "sl": "Bravo! Kot pipe na vodnjaku.", "en": "Well done! Like the fountain's spouts.", "de": "Gut gemacht! Wie die Röhren am Brunnen." }
+              "reply": { "face": "happy", "it": "{m:Bravo|f:Brava}! Come le cannelle della fontana.", "sl": "Bravo! Kot cevi na vodnjaku.", "en": "Well done! Like the fountain's spouts.", "de": "Gut gemacht! Wie die Röhren am Brunnen." }
             },
             {
               "it": "Due cannelli!",

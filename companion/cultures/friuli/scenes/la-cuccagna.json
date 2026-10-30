@@ -10,15 +10,15 @@
   "from": ["project:mlaj"],
   "pack": "la-cuccagna",
   "objects": [
-    { "slot": "linden", "word": "tiglio", "pack": "la-cuccagna" },
-    { "slot": "bench", "word": "panchina", "pack": "la-cuccagna" },
+    { "slot": "linden", "word": "tiglio", "pack": "in-piazza" },
+    { "slot": "bench", "word": "panchina", "pack": "in-piazza" },
     { "slot": "ball", "word": "pallone", "pack": "a-scuola" },
-    { "slot": "well", "word": "pozzo", "pack": "la-cuccagna", "needs": { "building": "WELL" } },
+    { "slot": "well", "word": "pozzo", "pack": "in-piazza", "needs": { "building": "WELL" } },
     { "slot": "dog", "word": "cane", "pack": "famiglia" },
     { "slot": "cat", "word": "gatto", "pack": "famiglia" },
     { "slot": "house", "word": "casa", "pack": "casa-e-cucina" },
     { "slot": "tower", "word": "campanile", "pack": "in-paese", "needs": { "building": "CHURCH" } },
-    { "slot": "bicycle", "word": "bicicletta", "pack": "la-cuccagna" },
+    { "slot": "bicycle", "word": "bicicletta", "pack": "in-piazza" },
     { "slot": "flowers", "word": "fiore", "pack": "festa-liberazione" },
     { "slot": "sun", "word": "sole", "pack": "festa-pasquetta" },
     { "slot": "fence", "word": "steccato", "pack": "nel-campo" }
@@ -764,7 +764,7 @@
               "de": "Er ist unter der Linde!",
               "tap": "linden",
               "why": { "sl": "Pod lipo je ni. Poišči pod klopco: tam se vidi nekaj rdečega in belega.", "en": "It isn't under the linden. Look under the bench: something red and white shows there.", "de": "Unter der Linde ist er nicht. Such unter der Bank: Da sieht man etwas Rotes und Weißes." },
-              "reply": { "face": "curious", "it": "Sotto il tiglio? No, lì c'è solo l'ombra.", "sl": "Pod lipo? Ne, tam je samo senca.", "en": "Under the linden? No, there's only shade there.", "de": "Unter der Linde? Nein, da ist nur Schatten." }
+              "reply": { "face": "curious", "it": "Sotto il tiglio? No, lì non c'è.", "sl": "Pod lipo? Ne, tam ga ni.", "en": "Under the linden? No, it isn't there.", "de": "Unter der Linde? Nein, da ist er nicht." }
             },
             {
               "it": "È nei fiori!",
