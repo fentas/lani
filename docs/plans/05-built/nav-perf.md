@@ -83,8 +83,11 @@ The back stack already holds the stream under the mill gone into from it: mill-s
   notification, the chat's `lani://scene/…`) opens its scene over the village, Home under it, as navigation.md has it.
   A villager's page opened from a scene that opens their happening in another scene puts that scene where the first
   was (scenes lie side by side), by design.
-- **On the emulator** (QA's mill step, which now also leaves with the system's Back, the key as the gesture ends):
-  TODO.
+- **On the emulator** (QA's mill step, which now also leaves with the system's Back, the key as the gesture ends): it
+  passed on the after build (2026-10-30, slot 2): into the mill from the stream's mill's bubble, "‹ Ob potoku · By the
+  stream" back to the stream, then the village; into the mill again, the system's Back to the stream; inside by day and
+  at night, a dialog with the stones grinding. The tap counts are as they were: one tap in from the bubble, one Back to
+  the stream.
 
 ### The kitchen's closer frame
 
@@ -159,7 +162,53 @@ method and by line through the class's SMAP for Kotlin's inlined code).
 
 ## Before and after
 
-TODO
+On the emulator, the qa builds, QA's home-return, three tries of each row (min–max, the median in brackets). The host
+was rebooted twice during the round (/tmp is RAM: the builds, the learner and the tables went each time); the
+numbers below are the ones measured, the runs as they were.
+
+**Round 1** (home-freeze's synthetic learner: 1,812 cards, its clips' index; main as it was at `2437193f`): the before
+build, and a first after build whose version still counted the events and the voice store.
+
+| From | | requests in 6 s | allocated MB in 6 s | main thread besides frames, ms (3 s) |
+|---|---|---|---|---|
+| idle on Home | before | 0 | 16.0–19.4 | 12.6–18.3 |
+| Back from the village | before | 33–40 | 45.2–127.9 | 51.2–94.6 |
+| | after (first version) | 32–40 | 19.9–77.5 | 48.6–93.3 |
+| Back from Settings | before | 23–29 | 38.5–84.9 | 55.2–123.0 |
+| | after (first version) | 1–24 (1, 1 after the first) | 18.6–23.9 | 29.9–65.8 |
+
+A Back from Settings was one request; a Back from the village still read everything: the dev bridge voiced the
+village's lines in the background (its clips' index grew from 3.3 to 6.9 KB between the Backs), and each clip moved the
+version. So the version no longer counts the events nor the voice store (above).
+
+**Round 2** (a synthetic learner grown the same way from make-learner.ts's: 1,812 made-up cards, 60 error patterns, 120
+sessions, no clips; both builds on main `e5c5d810`: before = the instrument alone, `d820c9ac`; after = the branch at
+`184e77e7`, before Home's clock went by when it shows):
+
+| From | | requests in 6 s | allocated MB in 6 s | collections | main thread besides frames, ms (3 s) | longest frame's main thread, ms | all frames' main thread, ms (6 s) |
+|---|---|---|---|---|---|---|---|
+| idle on Home | before | 0 | 19.5–20.5 (20.3) | 0–1 | 10.7–14.2 (12.9) | 2.8–33.7 (3.8) | 81.5–165.9 (84.5) |
+| | after | 0–1 (0) | 16.5–17.1 (16.6) | 0–1 | 11.0–17.7 (11.6) | 20.2–54.6 (45.7) | 158.5–261.8 (190.8) |
+| Back from the village | before | 31 | 27.8–30.2 (29.5) | 1 | 31.4–45.3 (39.5) | 9.6–21.3 (10.0) | 160.8–223.3 (167.5) |
+| | after | 1–40 (1) | 24.3–102.2 (28.0) | 1–2 | 30.8–47.1 (44.7) | 13.0–20.9 (18.7) | 133.9–149.1 (134.6) |
+| Back from Settings | before | 23–29 (24) | 37.8–79.4 (41.3) | 2–3 | 30.1–84.1 (47.6) | 28.4–61.9 (59.7) | 195.8–232.5 (212.4) |
+| | after | 1 | 22.4–27.5 (25.4) | 1 | 25.5–38.3 (28.3) | 2.9–13.0 (11.3) | 79.6–160.6 (122.2) |
+| Opening the village | before | 3 | 42.4–45.1 (43.4) | 2 | 18.8–32.2 (28.1) | 23.6–58.1 (47.8) | 335.3–380.7 (372.0) |
+| | after | 3 | 49.6–53.9 (49.7) | 2 | 23.5–40.7 (27.1) | 12.3–30.7 (22.4) | 220.9–257.8 (253.0) |
+
+- **Requests:** a Back is one request now (`GET /changes`, 55 bytes) instead of 23 to 31; the after's 40 is the first
+  Back after the setup, which read everything once (the app's own writes at its start had moved the version; the forms
+  of the deck's words still being fetched, 680 at a reading).
+- **Allocation:** within a few MB of Home left alone (16.6 MB in 6 s, its header village drawing): 22 to 28 MB against 28
+  to 79 before; on round 1's learner, whose answers are bigger and whose clips' index was read and written each time,
+  before was 38 to 128 MB.
+- **The main thread:** Back from Settings 28 ms besides the frames against 48, its frames 122 ms against 212 in 6 s,
+  the longest frame 11 ms against 60. From the village the frames' sum fell (135 against 168 ms) and the messages
+  besides them stayed (39 to 45 ms: the village's own leaving), its longest frame 19 ms against 10: Home's display lists
+  drawn again on showing, where a Home composed anew recorded them fresh.
+- **Home left alone got worse** in this build (its longest frame 46 against 4 ms, its frames 191 against 85 ms in 6
+  s): the clock of the minute added for the kept Home recomposed all of Home once a minute. Fixed after this round
+  (`rememberShownAt`: what goes by the clock is worked out when Home shows, not every minute); round 3 below.
 
 ## Tests
 
