@@ -195,6 +195,44 @@ internal class PalisadeWalk private constructor(ring: PalisadeRing) {
         return d3 > 0f && d4 < 0f || d3 < 0f && d4 > 0f
     }
 
+    // ------------------------------------------------------------------ in front of a gate's lintel
+
+    /**
+     * A gate with a lintel ([PalisadeRing.Gate.lintel]): the beam is drawn with its nearer post, the one at [depth] (see
+     * [PalisadePainter]); [fx], [fy]: the unit way out of its line towards the viewer.
+     */
+    private class Lintel(val ax: Float, val ay: Float, val ux: Float, val uy: Float, val half: Float, val fx: Float, val fy: Float, val depth: Float)
+
+    private val lintels: List<Lintel> = ring.gates.filter { it.lintel }.mapNotNull { g ->
+        val a = ring.stakes[g.a]; val b = ring.stakes[g.b]
+        val len = hypot(b.x - a.x, b.y - a.y).takeIf { it > 1e-3f } ?: return@mapNotNull null
+        val ux = (b.x - a.x) / len; val uy = (b.y - a.y) / len
+        // the normal on the side where x + y grows: towards the viewer
+        var fx = -uy; var fy = ux
+        if (fx + fy < 0f) { fx = -fx; fy = -fy }
+        Lintel((a.x + b.x) / 2f, (a.y + b.y) / 2f, ux, uy, len / 2f, fx, fy, max(a.depth, b.depth))
+    }
+
+    /**
+     * The painter's depth of someone standing at world ([x], [y]): their own, x + y, but while they stand under a gate's
+     * lintel or just in front of it (in the opening, out to [LINTEL_REACH] cells on the side towards the viewer), just
+     * over the gate's nearer post, which draws the lintel: the beam is behind them then, as the posts are. Behind its line
+     * (in the gate, coming through it from the other side) the beam is drawn over them, as their own depth has it.
+     */
+    fun depth(x: Float, y: Float): Float {
+        val own = x + y
+        for (l in lintels) {
+            if (own > l.depth) continue
+            val s = (x - l.ax) * l.ux + (y - l.ay) * l.uy
+            val t = (x - l.ax) * l.fx + (y - l.ay) * l.fy
+            if (abs(s) < l.half && t >= 0f && t <= LINTEL_REACH) return l.depth + LIFT + (own - l.depth) * 1e-3f
+        }
+        return own
+    }
+
+    /** Whether someone at world ([x], [y]) is drawn over a lintel they'd stand behind by their own depth (see [depth]). */
+    fun beforeLintel(x: Float, y: Float): Boolean = depth(x, y) != x + y
+
     companion object {
         /** The gates people walk through: the road's, the path's into the woods, the river gate down to the stream. */
         val WALKED = setOf(PalisadeRing.Kind.ROAD, PalisadeRing.Kind.PATH, PalisadeRing.Kind.RIVER)
@@ -204,6 +242,12 @@ internal class PalisadeWalk private constructor(ring: PalisadeRing) {
 
         /** Someone standing within this of a door's post (cells, along its line) stands among the stakes, not in its opening. */
         private const val POST_ROOM = 0.35f
+
+        /** How far in front of a lintel's line someone is still drawn over it (cells): until the beam is clear of their head. */
+        const val LINTEL_REACH = 2.5f
+
+        /** Just over a lintel's post (painter's depth). */
+        private const val LIFT = 0.01f
 
         /** The walls' grid (cells), and a little slack round each wall in it. */
         private const val CELL = 1.5f

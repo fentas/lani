@@ -774,7 +774,7 @@ class VillageRenderer {
         // what the village reacts to now (companion/GAME.md "People react"): its event, or one just over
         val stir = si.lanisce.lani.game.villagers.Reactions.stir(state, frame.wall)
         val placed = frame.placed ?: TownPeople.of(state, frame.people, frame.time, frame.hour, frame.month, bw, bh, festival = gather, standing = frame.standing, date = frame.date, day = frame.day, wall = frame.wall)
-        addPeople(s, placed, comp, objs, painter)
+        addPeople(s, placed, comp, objs, painter, if (palisade != null) PalisadeWalk.of(ring) else null)
         shouts = if (frame.compact) emptyList() else TownReactions.shouts(stir, placed, frame.time, stir?.let { si.lanisce.lani.game.villagers.Reactions.shouts(it) }.orEmpty())
         // round the fire, the unnamed after the named (and a visitor waiting there): each in a place of their own, past the
         // named's places (they keep theirs while others come and go, so some round it may be free)
@@ -2033,9 +2033,10 @@ class VillageRenderer {
     /**
      * The people who live here, each where [TownPeople] put them, at the lens's detail: a 7 px figure, a 14 px one
      * with a hat and a prop, or the scene's people with faces at k = 3. Each is tappable and keeps a bubble anchor
-     * above their head.
+     * above their head. Going through a gate of the palisade ([walk]: the ring drawn) they are behind its posts or in front
+     * of them as they stand, and under its lintel or in front of it ([PalisadeWalk.depth]).
      */
-    private fun addPeople(s: SceneCtx, placed: List<Placed>, comp: Composition, objs: ArrayList<Obj>, painter: BuildingPainter? = null) {
+    private fun addPeople(s: SceneCtx, placed: List<Placed>, comp: Composition, objs: ArrayList<Obj>, painter: BuildingPainter? = null, walk: PalisadeWalk? = null) {
         val k = s.k
         for (p in placed) {
             val look = Effects.lookOf(p.villager.art, Noise.hash(p.id.hashCode(), 13))
@@ -2043,7 +2044,7 @@ class VillageRenderer {
             anchors[p.id] = TownPeople.headAnchor(p, comp, if (p.seated) height * 0.7f else height)
             // up on the watchtower: behind its parapet, in front of the rest of it
             val tower = if (p.z >= TownReactions.TOWER_Z - 0.5f && (p.place as? TownPlace.At)?.type == BuildingType.WATCHTOWER) p else null
-            objs.add(Obj(p.x + p.y + (if (p.z > 0f) 0.05f else 0f)) {
+            objs.add(Obj((walk?.depth(p.x, p.y) ?: (p.x + p.y)) + (if (p.z > 0f) 0.05f else 0f)) {
                 val bx = s.iso.ix(p.x, p.y); val by = s.iso.iy(p.x, p.y, p.z)
                 owner[s.newObject(Pal.OUTLINE)] = hits.size + 1
                 val seed = TownPeople.drawSeed(p.id)

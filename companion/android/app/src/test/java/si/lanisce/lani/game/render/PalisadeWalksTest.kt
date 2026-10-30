@@ -47,6 +47,7 @@ import java.io.File
 import java.time.LocalDate
 import java.time.ZoneId
 import javax.imageio.ImageIO
+import kotlin.math.abs
 import kotlin.math.hypot
 
 /**
@@ -54,8 +55,9 @@ import kotlin.math.hypot
  * point inside the ring and one outside goes through a gate (the road's, the path's into the woods, the river gate), a walk
  * inside never leaves it, the water gates and a shore are no way through; a village without a palisade walks as before.
  * Sampled over every age and landscape, Jan's classic hamlet and Teo's coast among them, on a phone and on Teo's tablet
- * both ways round; people through a day and while wolves are about. Path overlays and a strip of someone going into the
- * woods in build/village-snapshots/palisade-walks for visual review.
+ * both ways round; people through a day and while wolves are about; who passes a gate is drawn behind its posts or in front
+ * of them, under its lintel or in front of it. Path overlays and a strip through the main gate in
+ * build/village-snapshots/palisade-walks for visual review.
  */
 class PalisadeWalksTest {
     private val cultures = listOf(File("../../cultures"), File("../cultures")).first { it.isDirectory }
@@ -366,6 +368,36 @@ class PalisadeWalksTest {
         assertTrue("$moves steps", moves > 2000)
     }
 
+    // ---------------------------------------------------------------- the order at a gate
+
+    @Test fun `going through a gate under its lintel, behind it on the way in and in front of it once through`() {
+        for (s in listOf(grown(jan, Age.VAS), grown(teo, Age.ZASELEK), jan)) {
+            val ring = Palisade.ring(VillageLayout.of(s), s.age, null)
+            val walk = PalisadeWalk.of(ring)
+            val g = ring.main!!
+            assertTrue(g.lintel)
+            val near = maxOf(ring.stakes[g.a].depth, ring.stakes[g.b].depth)
+            val door = walk.doors.first { it.kind == PalisadeRing.Kind.ROAD && abs(it.mx - ring.middle(g)[0]) < 1e-3f }
+            // the way out along the road: from inside the gate to well outside it
+            var behind = 0; var front = 0
+            for (k in -20..20) {
+                val t = k * 0.1f
+                val x = door.mx - door.nx * t; val y = door.my - door.ny * t
+                val d = walk.depth(x, y)
+                // which side of the beam's line they stand on, towards the viewer
+                val ux = ring.stakes[g.b].x - ring.stakes[g.a].x; val uy = ring.stakes[g.b].y - ring.stakes[g.a].y
+                var fx = -uy; var fy = ux
+                if (fx + fy < 0f) { fx = -fx; fy = -fy }
+                val toward = (x - door.mx) * fx + (y - door.my) * fy
+                if (toward < -1e-3f) { behind++; assertTrue("${s.age} $t: behind the lintel at depth $d over its post's $near", d < near) }
+                else if (toward > 1e-3f && toward <= PalisadeWalk.LINTEL_REACH) { front++; assertTrue("${s.age} $t: in front of the lintel at depth $d under its post's $near", d > near) }
+            }
+            assertTrue(behind > 5 && front > 5)
+            // off the gate (beside it, inside the ring) their own depth
+            assertEquals(1f + 2f, walk.depth(1f, 2f), 0f)
+        }
+    }
+
     // ---------------------------------------------------------------- cost
 
     @Test fun `the ring's ways are cheap, worked out once, a walk in a few hundred microseconds`() {
@@ -451,7 +483,8 @@ class PalisadeWalksTest {
 
     /**
      * Someone walking out of the village into the woods, frame by frame, closer up (k = 2) where the walk meets the ring:
-     * before through the stakes, now through the path's gate. build/village-snapshots/palisade-walks/strip-….
+     * before through the stakes, now through the path's gate; and someone going out of the main gate under its lintel up
+     * close (k = 3), behind it and then in front of it. build/village-snapshots/palisade-walks/strip-….
      */
     @Test fun `render a strip of someone going out through a gate`() {
         val fit = SceneFit.town(1080, 2400)
@@ -499,5 +532,12 @@ class PalisadeWalksTest {
             }
             strip("strip-$when_-into-the-woods", way, meet - 3f, meet + 3f, 6, 2, 2.4f, at)
         }
+        // out of the main gate along the road, up close
+        val main = ring.main!!
+        val m = ring.middle(main)
+        val walk = PalisadeWalk.of(ring)
+        val door = walk.doors.first { it.kind == PalisadeRing.Kind.ROAD && abs(it.mx - m[0]) < 1e-3f }
+        val out = Walkways.of(s, fit.width, fit.height).along(listOf(floatArrayOf(door.inner[0] + door.nx * 2.5f, door.inner[1] + door.ny * 2.5f), floatArrayOf(door.outer[0] - door.nx * 3f, door.outer[1] - door.ny * 3f)))
+        strip("strip-after-out-of-the-main-gate", out, 0.5f, Walkways.length(out) - 0.5f, 7, 3, 4f, m)
     }
 }

@@ -284,8 +284,10 @@ internal object TownReactions {
                     val half = (if (st.post) Palisade.POST_WIDTH else Palisade.WIDTH) * 4f + 3f
                     if (abs(sx - px) <= half && covers(sy - st.h - Palisade.POINT, sy)) return true
                 }
+                // in front of a lintel, the renderer draws them over it (PalisadeWalk.depth)
+                val front = PalisadeWalk.of(r).beforeLintel(x, y)
                 for (g in r.gates) {
-                    if (!g.lintel) continue
+                    if (!g.lintel || front) continue
                     val a = r.stakes[g.a]; val b = r.stakes[g.b]
                     if (maxOf(a.x + a.y, b.x + b.y) <= x + y + 0.05f) continue
                     val ax = (a.x - a.y) * 4f; val bx = (b.x - b.y) * 4f
