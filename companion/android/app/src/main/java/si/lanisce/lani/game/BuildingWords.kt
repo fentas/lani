@@ -179,12 +179,15 @@ object BuildingWords {
 
     /**
      * The pack of each building type in each culture (by culture pack id): the words a building asks for where its scene
-     * has too few or it has none. In Primorska the scenes' own packs (the palisade the forest's, of whose stakes it is; a
-     * house the home's); in the other cultures, whose villages have no rooms to step into yet, the pack of what the building
-     * is for: the tent the campfire's, the fields, the hayrack, the bee house and the market the food's, the hut the house and
-     * kitchen's, the well and the palisade the village's, the linden the greetings (people meet under it), the house the
-     * family's, the watchtower the view from it (the culture's landscape), the smithy the charcoal pile's (its fire's), the
-     * church the sky over the steeple's and the school the numbers and the time.
+     * has too few or it has none (after its scene's things and its scene's own pack: [packsOf]). In Primorska the scenes'
+     * own packs (the palisade the forest's, of whose stakes it is; a house the home's); in the other cultures the pack of
+     * what the building is for: the tent the campfire's, the fields, the hayrack, the bee house and the market the food's,
+     * the hut the house and kitchen's, the well and the palisade the village's, the linden the greetings (people meet under
+     * it), the house the family's, the watchtower the view from it (the culture's landscape), the smithy the charcoal
+     * pile's (its fire's), the church the sky over the steeple's and the school the numbers and the time. A building whose
+     * culture has a room for it to step into (every Friuli building but the palisade) asks for its scene's words first,
+     * and these only after them; one without (Friuli's palisade, and Kärnten's and the Lake District's buildings, which
+     * have no rooms yet) for these alone.
      */
     val PACKS: Map<String, Map<BuildingType, String>> = mapOf(
         "primorska" to mapOf(
