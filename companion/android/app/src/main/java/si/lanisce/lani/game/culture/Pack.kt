@@ -26,7 +26,17 @@ data class Manifest(
     val review: String? = null,
     /** What the tutor is told about the place (the bridge's, in English); the app doesn't use it. */
     val tutor: TutorTexts? = null,
+    /** The first visit's words of the place ([CultureIntro]); none: the app's own ("a valley below Triglav"). */
+    val intro: CultureIntro? = null,
 )
+
+/**
+ * culture.json `intro`: how the first visit (ui/game/GameIntro, companion/GAME.md "The first visit") names the place the
+ * learner arrives in: [arrive], "Arrivi tra le colline del Collio, vicino a Gorizia. Con te hai solo un piccolo fuoco.",
+ * in the pack's language and the bases it serves; [emoji], the picture over it (🏔️ by default).
+ */
+@Serializable
+data class CultureIntro(val arrive: Text, val emoji: String? = null)
 
 /** culture.json `tutor`: the village's name, the role-play setting ({learner}), the style of newcomers, the voice's accent. */
 @Serializable

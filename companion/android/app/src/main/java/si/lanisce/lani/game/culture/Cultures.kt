@@ -472,6 +472,9 @@ object Cultures {
             text("region", m.region)
             text("name", m.name)
             text("about", m.about, anyLanguage = true)
+            // the first visit's line (CultureIntro): its arrive, and an emoji that says something
+            text("intro", m.intro?.arrive)
+            if (m.intro?.emoji?.isBlank() == true) fail("intro", "an empty emoji")
         }
 
         fun world(w: WorldFile) {

@@ -55,6 +55,18 @@ class GameIntroSpeechTest {
         assertTrue(GameIntroSpeech.learned(itDe).all { L10n.table(Lang.IT).values.contains(it) })
     }
 
+    @Test fun `a culture's own words for where the learner arrives, else the app's`() {
+        val collio = si.lanisce.lani.game.culture.CultureIntro(
+            si.lanisce.lani.game.culture.Text(mapOf("it" to "Arrivi tra le colline del Collio.", "de" to "Du kommst in die Hügel des Collio.")), "🌄",
+        )
+        assertEquals(listOf("Il mio villaggio", "Arrivi tra le colline del Collio.", "Du kommst in die Hügel des Collio."), GameIntroSpeech.step(0, itDe, collio).map { it.text })
+        assertTrue("Arrivi tra le colline del Collio." in GameIntroSpeech.learned(itDe, collio))
+        assertEquals("🌄", GameIntroSpeech.emoji(collio))
+        // none: the app's own line and the mountains
+        for (l in Lang.entries) assertEquals(L10n.text(l, GameIntroSpeech.ARRIVE), GameIntroSpeech.arrive(l, LangPair.DEFAULT, null))
+        assertEquals("🏔️", GameIntroSpeech.emoji(null))
+    }
+
     @Test fun `each piece goes to the voice of its language`() {
         // the learned language: the node's narrator clip, else the phone's voice for it; the base: the phone's voice of the base
         assertEquals(Locale.forLanguageTag("it-IT"), Speaker.locale(itDe.target))

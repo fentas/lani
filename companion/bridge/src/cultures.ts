@@ -65,6 +65,12 @@ export const manifestSpec = obj({
    * ({learner}: the learner's name), the [style] newcomers are written in, and the [voice] a designed voice speaks with.
    */
   tutor: obj({ village: str, setting: str, style: str, voice: str }).optional(),
+  /**
+   * How the app's first visit names the place the learner arrives in ([arrive], in the pack's language and the bases it
+   * serves: "Arrivi tra le colline del Collio, vicino a Gorizia. …"), and the picture over it ([emoji]); without it the
+   * app's own line ("a valley below Triglav"). An older bridge refuses the key: the content goes out after the bridge.
+   */
+  intro: obj({ arrive: text, emoji: str.max(16).optional() }).optional(),
 })
 export type Manifest = z.infer<typeof manifestSpec>
 
@@ -424,6 +430,12 @@ export function validateCulture(culturesDir: string, cultureId: string, cast?: C
   const lang = m.manifest.language
   for (const [path, t] of [...texts(m.manifest, 'culture'), ...FILES.flatMap(f => texts(pack.files[f], f))]) {
     if (!(lang in t) && !ANY_LANGUAGE.some(r => r.test(path))) errors.push(`${cultureId}: ${path}: no "${lang}" text (the pack's language)`)
+  }
+  // the first visit's line, read in the learner's base: in every language the app has
+  const arrive = m.manifest.intro?.arrive
+  if (arrive) {
+    const missing = APP_LANGUAGES.filter(l => !arrive[l])
+    if (missing.length) errors.push(`${cultureId}: culture.intro.arrive: no ${missing.map(l => `"${l}"`).join(', ')} text (the first visit reads it in the learner's base)`)
   }
   // what people say is in the pack's language too (the villager format's lines: {"sl": …, "en": …}, {"it": …, "sl": …, "en": …})
   const said = (where: string, lines: Record<string, unknown>) => {

@@ -64,7 +64,8 @@ import si.lanisce.lani.l10n.inTarget
 import si.lanisce.lani.l10n.inBase
 
 /**
- * First visit: arriving in the valley, what feeds the village, what threatens it. Each step is read aloud as it shows
+ * First visit: arriving in the village's place (its culture's words for it: [GameIntroSpeech.arrive]), what feeds the
+ * village, what threatens it. Each step is read aloud as it shows
  * ([GameIntroSpeech]: the language learned in the narrator's voice, the node's clip, else the phone's voice for it; the
  * base under it by the phone's voice of the base), when [auto] (the school's "🔊 Beri razlago" setting, and no screen
  * reader); its 🔊 reads it again or stops it. [voice]: null, silent (a preview).
@@ -117,11 +118,12 @@ fun GameIntro(onDone: () -> Unit, voice: HintVoice? = null, speaker: Speaker? = 
                 ) {
                     when (i) {
                         0 -> {
-                            Text("🏔️", style = MaterialTheme.typography.displayLarge)
+                            // the place the learner arrives in, as the village's culture names it
+                            Text(GameIntroSpeech.emoji(), style = MaterialTheme.typography.displayLarge)
                             Text("🔥", style = MaterialTheme.typography.displayMedium, modifier = Modifier.scale(flicker))
                             Title(inTarget("gameIntro.myVillage"))
-                            Body(inTarget("gameIntro.arrive"))
-                            Sub(inBase("gameIntro.arrive"))
+                            Body(GameIntroSpeech.arrive(pair.target, pair))
+                            Sub(GameIntroSpeech.arrive(pair.base, pair))
                         }
                         1 -> {
                             Title(inTarget("gameIntro.learningBuilds"))
