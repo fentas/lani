@@ -155,11 +155,14 @@ the key or the tap (QA's watch, `app/MainWatch.kt`), over 6 s:
   `SyncQueued`), and all the frames' main parts summed (dumpsys gfxinfo framestats);
 - first **Home left alone** for as long, the baseline (its header village draws at 12 frames a second).
 
-The learner: home-freeze's synthetic one grown to some weeks of use (1,812 cards, 2.6 MB of data; nothing of a real
-learner), a copy for each run. The builds: the qa build (R8 as in a release, QA's hooks) of this branch with only the
-instrument (`e7fa5e19`, "before") and of the branch's end ("after"), installed with `--apk`, so the same QA script
-measures both. The emulator draws in software (its frames are 200 to 400 ms whatever the app does), so the main
-thread's part of the frames and the messages besides the frames say the app's cost.
+The learner: synthetic, a copy for each run. Round 1 home-freeze's (1,812 cards, 2.6 MB of data); rounds 2 and 3 one
+made by `companion/bridge/test/fixtures/make-learner.ts` and grown by a seeded script to 1,812 made-up cards with review
+histories, 60 error patterns and 120 sessions (nothing of a real learner; home-freeze's went with /tmp in the first
+reboot). The builds: the qa build (R8 as in a release, QA's hooks) of the instrument alone ("before": `e7fa5e19` in round
+1, the same commit rebased onto main, `d820c9ac`, in round 2) and of the branch ("after"), installed with `--apk`, so the
+same QA script measures both; the dev bridge is the worktree's. The emulator draws in software (its frames are 200 to
+400 ms whatever the app does), so the main thread's part of the frames and the messages besides the frames say the
+app's cost.
 
 The kitchen's frame: SceneDetailTest's "a closer frame renders fast" (the CPU time of the rendering thread, the best of
 three rounds of ten frames, `FrameBudget`), and a JFR profile of 400 frames at detail 3 (a scratch test, not committed: execution samples every millisecond, by
