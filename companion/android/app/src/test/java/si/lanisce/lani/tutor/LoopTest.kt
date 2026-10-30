@@ -3,6 +3,7 @@ package si.lanisce.lani.tutor
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.currentTime
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.int
@@ -29,16 +30,22 @@ class LoopTest {
 
     private fun turn() = mutableListOf(userText("<event kind=\"chat\">Živjo</event>"))
 
-    @Test fun `parallel tool calls run together and answer in one message, in order`() = runBlocking {
+    /**
+     * On the test scheduler's virtual time (runTest; docs/plans/05-built/nav-perf.md): the two calls' 200 ms take 200 ms of
+     * its clock when they run together and 400 one after the other, whatever the machine's load (the wall clock's "under
+     * 390 ms" could fail on a busy machine with the calls together all the same).
+     */
+    @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
+    @Test fun `parallel tool calls run together and answer in one message, in order`() = kotlinx.coroutines.test.runTest {
         val t = ScriptedTransport { body, n ->
             if (n == 1) message("tool_use", thinking(), text("Pogledam."), toolUse("a", "learner_state"), toolUse("b", "guide", obj("topic" to "feedback")))
             else message("end_turn", text("done"))
         }
         val runner = Runner(delayMs = 200)
         val m = turn()
-        val started = System.currentTimeMillis()
+        val started = currentTime
         val r = TutorLoop(t, runner).run(prefix, "claude-sonnet-5-5", Task.CHAT, m)
-        assertTrue("ran together", System.currentTimeMillis() - started < 390)
+        assertEquals("ran together: 200 ms of the virtual clock, not 400", 200L, currentTime - started)
         assertEquals(LoopEnd.Done, r.end)
         assertEquals(2, r.calls)
         // user, assistant (tool_use), user (both results), assistant (end)

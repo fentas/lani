@@ -6,6 +6,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.currentTime
 import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
@@ -249,21 +250,27 @@ class BackupTest {
         }
     }
 
-    @Test fun `the push waits for the writes to stop, at most so long, and the background pushes at once`() = runBlocking {
-        val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
-        try {
+    /**
+     * On the test scheduler's virtual time (runTest; docs/plans/05-built/nav-perf.md): the scheduler's waits, its clock and
+     * the test's are one clock that only the test moves, so "at the latest maxWait after the first" is checked exactly (the
+     * wall clock's 600 to 1,900 ms could fail on a busy machine).
+     */
+    @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
+    @Test fun `the push waits for the writes to stop, at most so long, and the background pushes at once`() = kotlinx.coroutines.test.runTest {
+        val scope = backgroundScope
+        run {
             val pushes = AtomicInteger()
-            val s = PushScheduler(scope, quietMs = 200, maxWaitMs = 700) { pushes.incrementAndGet() }
+            val s = PushScheduler(scope, quietMs = 200, maxWaitMs = 700, now = { currentTime }) { pushes.incrementAndGet() }
             repeat(5) { s.touched(); delay(50) }
             assertEquals("not while the writes go on", 0, pushes.get())
             delay(400)
             assertEquals("once, after they stopped", 1, pushes.get())
             assertFalse(s.pending)
-            // writes that never stop: pushed at the latest maxWait after the first
-            val start = System.currentTimeMillis()
-            while (pushes.get() == 1 && System.currentTimeMillis() - start < 2_000) { s.touched(); delay(100) }
+            // writes that never stop: pushed maxWait after the first (seen at that moment, or at the next write's)
+            val start = currentTime
+            while (pushes.get() == 1 && currentTime - start < 2_000) { s.touched(); delay(100) }
             assertEquals(2, pushes.get())
-            assertTrue(System.currentTimeMillis() - start in 600..1_900)
+            assertTrue("pushed ${currentTime - start} ms after the first write", currentTime - start in 700..800)
             // to the background: at once
             delay(400)
             val before = pushes.get()
@@ -277,8 +284,6 @@ class BackupTest {
             delay(100)
             assertEquals("nothing waits: nothing pushed", before + 1, pushes.get())
             assertNotNull(s)
-        } finally {
-            scope.cancel()
         }
     }
 }
