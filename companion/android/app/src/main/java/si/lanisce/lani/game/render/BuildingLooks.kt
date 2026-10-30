@@ -165,6 +165,22 @@ internal class CultureBuildings(private val s: SceneCtx, private val p: Building
         }
     }
 
+    /**
+     * Walls of river cobbles with bands of brick every few courses (Friuli's smithy, fire station, the fienile's): pale
+     * rounded stones speckled over the faces, a band of brick across both every 3.5 px.
+     */
+    internal fun cobbleBox(x: Float, y: Float, z: Float, w: Float, d: Float, h: Float, seed: Int) {
+        i.box(x, y, z, w, d, h, COB[0], COB[1], COB[2])
+        val n = ((w + d) * h / (if (fine) 1.6f else 4f)).toInt()
+        for (j in 0 until n) {
+            val u = Noise.rnd(seed, j, 37); val v = Noise.rnd(seed, j, 38)
+            val col = if (j % 3 == 0) COB_D else Col.mix(COB[0], Col.hex(0xFFFFFF), 0.3f)
+            if (j % 2 == 0) i.px(x + u * w, y + d, z + 0.5f + v * (h - 1f), col) else i.px(x + w, y + u * d, z + 0.5f + v * (h - 1f), Col.scale(col, 0.85f))
+        }
+        var zz = z + 2.8f
+        while (zz < z + h - 0.5f) { i.line(x, y + d, zz, x + w, y + d, zz, BRICK_L); i.line(x + w, y, zz, x + w, y + d, zz, BRICK_D); zz += 3.5f }
+    }
+
     /** Plastered walls; at a closer look the plaster's patches and a shadow under the eaves at [eave]. */
     internal fun plaster(x: Float, y: Float, z: Float, w: Float, d: Float, h: Float, t: IntArray, seed: Int) {
         i.box(x, y, z, w, d, h, t[0], t[1], t[2])

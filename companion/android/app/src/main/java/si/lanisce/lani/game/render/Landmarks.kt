@@ -598,7 +598,10 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
         i.box(x0 - 0.05f, y0 - 0.05f, 0f, bw + 0.1f, bw + 0.1f, 1f, Pal.STONE_L, Pal.STONE_M, Pal.STONE_D)
         // its walls as the village builds them (the Lake District's of stone, [MapLook.style]), white by default
         val stone = s.look.style?.stone == true
+        // an ancona's ochre (Friuli's, [MapLook.ancona]: the village's first plaster)
+        val walls = if (s.look.ancona) s.look.style?.walls?.get(0) else null
         if (stone) b.looks.stoneBox(x0, y0, 1f, bw, bw, 9f, s.look.style!!.walls[0], 79, quoins = false)
+        else if (walls != null) i.box(x0, y0, 1f, bw, bw, 9f, walls[0], walls[1], walls[2])
         else i.box(x0, y0, 1f, bw, bw, 9f, Pal.WALL_L, Pal.WALL_M, Pal.WALL_D)
         // the niche, its rounded top, a frame round it at a closer look
         i.panelY(nx, ny, 3f, nw, 4f, NICHE)
@@ -616,7 +619,7 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
             if (lit) glow { i.panelX(x0 + bw, y0 + 0.4f, 4f, 0.22f, 2.5f, Pal.WINDOW_LIT) } else i.panelX(x0 + bw, y0 + 0.4f, 4f, 0.22f, 2.5f, Pal.GLASS)
             // flowers at its foot in the warm months
             if (warm) for (j in 0..3) i.px(x0 + 0.08f + j * 0.28f, ny + 0.02f, 1.5f, if (j % 2 == 0) Pal.GERANIUM else Pal.PAINTED[1])
-            b.roofY(x0 - 0.2f, y0 - 0.15f, 10f, bw + 0.4f, bw + 0.45f, 5.5f, b.villageRoof(), if (stone) s.look.style!!.walls[0][1] else Pal.WALL_L)
+            b.roofY(x0 - 0.2f, y0 - 0.15f, 10f, bw + 0.4f, bw + 0.45f, 5.5f, b.villageRoof(), if (stone) s.look.style!!.walls[0][1] else walls?.get(0) ?: Pal.WALL_L)
             val ax = i.ix(x0 + bw / 2f, y0 + bw + 0.3f); val ay = i.iy(x0 + bw / 2f, y0 + bw + 0.3f, 15.5f)
             s.sprite(ax, ay) { c.vline(ax, ay - 4, ay, IRON); c.hline(ax - 1, ax + 1, ay - 3, IRON) }
         } else {
@@ -890,7 +893,9 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
         // the hall
         i.box(hx, hy, 0f, hw, hd, 1.5f, Pal.STONE_L, Pal.STONE_M, Pal.STONE_D)
         if (fine) b.mortar(hx, hy, 0f, hw, hd, 1.5f, Pal.STONE_D, Pal.STONE_X)
+        val cobbles = s.look.cobbleStation
         if (rescue != null) b.looks.stoneBox(hx, hy, 1.5f, hw, hd, 7f, rescue.walls[0], 97)
+        else if (cobbles) b.looks.cobbleBox(hx, hy, 1.5f, hw, hd, 7f, 97)
         else i.box(hx, hy, 1.5f, hw, hd, 7f, Pal.WALL_L, Pal.WALL_M, Pal.WALL_D)
         val gx = hx + 0.3f; val gw = 0.85f
         i.panelY(gx, hy + hd, 0f, gw, 6f, GATE)
@@ -928,7 +933,8 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
         }
         // the hose tower
         if (!done) scaffoldBack(tx, ty, 21f)
-        i.box(tx, ty, 0f, tw, td, 20f, Pal.WALL_L, Pal.WALL_M, Pal.WALL_D)
+        if (cobbles) b.looks.cobbleBox(tx, ty, 0f, tw, td, 20f, 98)
+        else i.box(tx, ty, 0f, tw, td, 20f, Pal.WALL_L, Pal.WALL_M, Pal.WALL_D)
         if (fine) i.line(tx, ty + td, 1.5f, tx + tw, ty + td, 1.5f, Pal.STONE_M)
         i.panelX(tx + tw, ty + 0.25f, 11f, 0.15f, 2f, Pal.GLASS)
         if (done) {
@@ -1225,6 +1231,16 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
             i.line(x + a, y + bb, zz, x + bb, y + bb, zz, Pal.ROOF_M); i.line(x + bb, y + a, zz, x + bb, y + bb, zz, Col.scale(Pal.ROOF_D, 0.85f))
         }
         i.post(x + 0.9f, y + 0.9f, zp + 11f, zp + 13f, IRON)
+        // a culture's village flies its flag on the roof (Friuli's eagle, as its lookout's scene has it)
+        if (!s.look.own) {
+            val flag = s.look.flag
+            val ax = i.ix(x + 0.9f, y + 0.9f); val ay = i.iy(x + 0.9f, y + 0.9f, zp + 13f)
+            val wave = ((s.time * 3).toInt() and 1)
+            s.sprite(ax, ay) {
+                c.vline(ax, ay - 3, ay, IRON)
+                for (u in 0 until 4) for (v in 0 until 3) c.set(ax + 1 + u, ay - 3 + v + if (u == 3) wave else 0, flag.at(u, v, 4, 3))
+            }
+        }
     }
 
     /**

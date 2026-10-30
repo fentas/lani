@@ -59,6 +59,12 @@ internal class MapLook private constructor(val id: String, val style: FireStyle?
     /** The vineyard project's: the terraces with the klopotec, the Collio's without it, an orchard, damsons on terraces. */
     val vineyard: Vineyard = Vineyard.entries.firstOrNull { it.id == v("vineyard") } ?: Vineyard.TERRACES
 
+    /** The fire station's hall and tower of river cobbles with bands of brick (Friuli's, as its scene builds them). */
+    val cobbleStation: Boolean = v("firestation") == "cobbles"
+
+    /** The wayside chapel is an ancona in ochre (Friuli's, as its scene has it). */
+    val ancona: Boolean = v("chapel") == "ancona"
+
     /** The toplar project's is a stone bank barn (the Lake District's). */
     val bankBarn: Boolean = v("toplar") == "bank"
 

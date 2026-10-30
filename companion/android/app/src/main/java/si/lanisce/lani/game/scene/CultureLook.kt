@@ -404,14 +404,15 @@ object CultureLooks {
      * level 3 (`watchtower.tower`), and on the tent's pole (`tent.pennant`); the feasts in Friuli's blue and gold, as the
      * bee garden's bunting (`apiary.bunting`), the market's awnings as Al mercato's (`market.awnings`); the greasy pole
      * (l'albero della cuccagna) with its prizes for the maypole; the Collio's vines without the Slovene klopotec; the town
-     * clock in the campanile.
+     * clock in the campanile; the fire station of cobbles with bands of brick under coppi (`firestation.walls`), the wayside
+     * chapel an ancona in ochre (`chapel.chapel`), Friuli's eagle on the lookout tower's roof (`lookout.view`).
      */
     val FRIULI_MAP = Table.of(
         "map",
         variants = mapOf(
             "hayrack" to "fienile", "smithy" to "cobbles", "well" to "vera", "hives" to "plain", "school" to "italian",
             "flag" to "friuli", "watchtower" to "stone", "pennant" to "friuli", "festive" to "friuli", "maypole" to "cuccagna",
-            "vineyard" to "collio", "clock" to "campanile",
+            "vineyard" to "collio", "clock" to "campanile", "firestation" to "cobbles", "chapel" to "ancona",
         ),
     )
 

@@ -19,7 +19,9 @@ The table in GAME.md ("The map in a culture's look") lists every building and de
   of brick (as Nella fucina); the school with the tricolore over its door; Friuli's golden eagle on blue on the
   watchtower (as Sulla torre), its pillars of cobbles and brick from level 3, and on the tent (as Nella tenda); the
   feasts in Friuli's gold, blue and white (as Dalle api's bunting), the market's awnings as Al mercato's; the greasy pole
-  (l'albero della cuccagna) with its prizes; the Collio's vines without the klopotec; the town clock in the campanile.
+  (l'albero della cuccagna) with its prizes; the Collio's vines without the klopotec; the town clock in the campanile; the
+  wayside chapel an ancona in ochre, the fire station of cobbles, Friuli's eagle on the lookout tower (as their places'
+  scenes).
 - **Carinthia**: white houses with a timbered upper storey, the balcony with geraniums, dark shingles and the half-hipped
   gable (Krüppelwalm); the onion-domed church; the Harpfe (as on Am See's far shore); the log trough with its running
   spout; Austria's red, white and red on the watchtower, the tent (as Am Feuer) and the feasts; the Karawanken with the
@@ -102,7 +104,7 @@ The "before" of every culture is the default culture's map, which every culture 
 - each culture's map draws its own village;
 - the map shows what the scenes show: each `map` entry that a scene has too is the scene's (`field.kozolec`,
   `tent.pennant`, `smithy.walls`, `school.flag`, `watchtower.flag` and `.tower`, `square.well`, `apiary.house` and
-  `.bunting`, `alps.range`, `campfire.flag`), the houses' style is the fire's village's, and the Friends card's flag is
+  `.bunting`, `firestation.walls`, `chapel.chapel`, `alps.range`, `campfire.flag`), the houses' style is the fire's village's, and the Friends card's flag is
   the watchtower's;
 - every building of every culture's map is drawn and found by a tap at every age, at the nominal detail by day and
   closer up at night;

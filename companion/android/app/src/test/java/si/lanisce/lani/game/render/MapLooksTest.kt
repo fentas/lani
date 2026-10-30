@@ -156,6 +156,11 @@ class MapLooksTest {
         assertEquals(Hives.PLAIN, MapLook.of("friuli").hives)
         assertEquals("friuli", friuli.variant("apiary", "bunting"))
         assertEquals(Flag.FRIULI, MapLook.of("friuli").festive.banner)
+        // the projects' places (places-it): the fire station of cobbles, the chapel an ancona
+        assertEquals("cobbles", friuli.material("firestation", "walls", "plaster"))
+        assertTrue(MapLook.of("friuli").cobbleStation)
+        assertEquals("ancona", friuli.variant("chapel", "chapel"))
+        assertTrue(MapLook.of("friuli").ancona)
         for (c in listOf("kaernten", "lakeland")) {
             val look = CultureLooks.of(c)
             assertEquals("$c's mountains", look.variant("alps", "range"), MapLook.of(c).range.id)
