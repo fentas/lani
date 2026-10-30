@@ -170,7 +170,7 @@
       "count": { "from": "dice", "min": 3, "max": 12, "gender": "m" },
       "memory": { "it": "il cesto pieno di funghi che abbiamo contato", "sl": "polno košaro gob, ki sva jih preštela", "en": "the basket full of mushrooms we counted", "de": "den Korb voller Pilze, die wir gezählt haben" },
       "lines": [
-        { "who": "aldo", "face": "curious", "it": "{learner}, guarda nel mio cesto. Quanti funghi ci sono?", "sl": "{learner}, poglej v mojo košaro. Koliko gob je notri?", "en": "{learner}, look in my basket. How many mushrooms are there?", "de": "{learner}, schau in meinen Korb. Wie viele Pilze sind drin?" },
+        { "who": "aldo", "face": "curious", "it": "{learner}, guarda nel mio cesto. Quanti funghi ci sono?", "sl": "{learner}, poglej v mojo košaro. Koliko gob je notri?", "en": "{learner}, look in my basket. How many mushrooms are there?", "de": "{learner}, schau in meinen Korb. Wie viele Pilze sind drin?", "fx": { "basket": 1 } },
         { "choices": [
           { "it": "{C'è|Ci sono} {n} {fungo|funghi}!", "sl": "Tu {je|sta|so|je} {n} {goba|gobi|gobe|gob}!", "en": "There {is|are} {n} {mushroom|mushrooms}!", "de": "Da {ist|sind} {n} {Pilz|Pilze}!", "ok": true,
             "reply": { "face": "happy", "it": "Giusto. Bastano per una buona minestra.", "sl": "Tako je. Dovolj jih je za dobro juho.", "en": "That's right. Enough for a good soup.", "de": "Richtig. Das reicht für eine gute Suppe." } },
