@@ -142,8 +142,16 @@ class PlacesRenderTest {
 
     @Test fun `the palisade's gate looks different at every level`() {
         if ("palisade" !in arts) return
-        val looks = (1..5).map { render("palisade", frame("palisade", world = palisadeAt(it), who = false)).pixels.toList() }
-        for (lv in 2..5) assertNotEquals("level $lv looks like level ${lv - 1}", looks[lv - 2], looks[lv - 1])
-        assertEquals("the top level is the default picture", render("palisade", frame("palisade", who = false)).pixels.toList(), looks[4])
+        // by day in June, as the buildings' levels are judged: each level brings something a child sees (300 pixels of the
+        // 240 × 160 picture at least), in the default culture and in Friuli's look
+        for (culture in listOf(si.lanisce.lani.game.culture.Cultures.DEFAULT, "friuli")) {
+            val at = { lv: Int? -> SceneWorld(culture = culture, here = lv?.let { Building("palisade", BuildingType.PALISADE, 0, level = it) }) }
+            val looks = (1..5).map { render("palisade", frame("palisade", hour = 11f, month = 6, world = at(it), who = false)).pixels }
+            for (lv in 2..5) {
+                val n = looks[lv - 1].indices.count { looks[lv - 2][it] != looks[lv - 1][it] }
+                assertTrue("$culture: level $lv differs from level ${lv - 1} in $n pixels", n >= 300)
+            }
+            assertEquals("$culture: the top level is the default picture", render("palisade", frame("palisade", hour = 11f, month = 6, world = at(null), who = false)).pixels.toList(), looks[4].toList())
+        }
     }
 }

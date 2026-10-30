@@ -26,8 +26,9 @@ import kotlin.math.sin
  * It grows with the palisade's level, as the map's palisade does ([si.lanisce.lani.game.scene.SceneFixtures]): at the first
  * the wings are poles lashed together; from the second a torch burns on each post (lit from dusk) and the wings are of
  * planks; from the third a little shingle roof over the gate and a pennant on its ridge (blue, red at the fourth, gold at the
- * fifth, as the map's); from the fourth a walkway along the inside of the stakes with its ladder, iron bands on the wings; at
- * the fifth a bell under the gate's roof and the lintel carved with a sun.
+ * fifth, as the map's), the stakes' points fire-hardened, charred black; from the fourth a walkway along the inside of the
+ * stakes with its ladder, iron bands on the wings; at the fifth a footing of dry stones along the stakes' feet, a bell under
+ * the gate's roof and the lintel carved with a sun.
  *
  * The seasons: the meadow's flowers in spring and summer, the forest gold in October and bare and white in winter, snow on the
  * stakes' points; the wolves' eyes shine in the forest at night while the village's wolves event is on.
@@ -309,7 +310,7 @@ internal class PalisadePainter : VistaPainter() {
     /** The palisade, the posts and the lintel, the wings, the bar, and from their levels the torches, the roof and its pennant, the bell. */
     private fun palisadeAndGate() {
         val open = gateOpen().coerceIn(0f, 1f)
-        thing("palisade") { stakes() }
+        thing("palisade") { stakes(); if (lv >= 5) footing() }
         thing("gate") { posts(); wings(open) }
         thing("bar", slop = 1) { bar(open) }
         if (lv >= 3) {
@@ -355,13 +356,23 @@ internal class PalisadePainter : VistaPainter() {
         val lit = if (u < 0.3f) Col.mix(base, Col.hex(0xC8A880), 0.3f) else if (u > 0.75f) Col.scale(base, 0.7f) else base
         // the withies binding them, two bands across
         val band = min(abs(hm - 1.0f), abs(hm - 2.6f))
+        // from the third level the points are fire-hardened: charred black at the tip, browning down their last half metre
+        val char = if (lv >= 3) ((hm - (top - 0.5f)) / 0.95f).coerceIn(0f, 1f) else 0f
+        val coal = Col.hex(0x2A2420)
         return when {
-            hm > top -> if (u < 0.45f) Col.mix(woodL, base, 0.3f) else woodD
+            hm > top -> Col.mix(if (u < 0.45f) Col.mix(woodL, base, 0.3f) else woodD, coal, 0.75f * char)
             band < 0.05f + 0.5f / pm(pd) -> if (band < 0.25f / pm(pd)) withy else Col.scale(withy, 0.8f)
             rough && n < 0.12f -> barkD
-            n < 0.05f -> Col.scale(lit, 0.85f)
-            else -> lit
+            n < 0.05f -> Col.mix(Col.scale(lit, 0.85f), coal, 0.75f * char)
+            else -> Col.mix(lit, coal, 0.75f * char)
         }
+    }
+
+    /** The palisade's footing of dry stones at the fifth level, along the stakes' feet either side of the gate. */
+    private fun footing() {
+        val d = pd - 0.15f
+        dryWall(sideAt(0, d) - 1f, -gxp - 0.3f, d, 0.55f, 797, thick = 0.4f)
+        dryWall(gxp + 0.3f, sideAt(w, d) + 1f, d, 0.55f, 798, thick = 0.4f)
     }
 
     /** The gate's two stout posts and the lintel across them (carved with a sun at the fifth level). */

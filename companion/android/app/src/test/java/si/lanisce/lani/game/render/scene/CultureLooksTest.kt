@@ -64,7 +64,7 @@ class CultureLooksTest {
         "lookout" to mapOf("day" to "1a65549e7f4f8e39", "dusk-winter" to "62605923514f4d41", "night-k2" to "9982dd3271548e37"),
         "market" to mapOf("day" to "8dd099421cc3261", "dusk-winter" to "2d072797b199d996", "night-k2" to "b3dbc364108f1053"),
         "mill" to mapOf("day" to "d0297be1420f9767", "dusk-winter" to "885fab03655f7af3", "night-k2" to "f064f029a16ba8c0"),
-        "palisade" to mapOf("day" to "f16888db9f7d6efb", "dusk-winter" to "3132ceac8dbf5bd7", "night-k2" to "aaa9207a66c2b3d"),
+        "palisade" to mapOf("day" to "8da2e0f59f3051bf", "dusk-winter" to "67baaf3a9d2cd9ad", "night-k2" to "f446c8c1646edd68"),
         "playground" to mapOf("day" to "b58bf294c2f79037", "dusk-winter" to "614fddf15333bd83", "night-k2" to "9e1073bd8d6a20a7"),
         "pond" to mapOf("day" to "5a13676b2c982f85", "dusk-winter" to "9f8f32e1d4110d56", "night-k2" to "d62373967a2d989b"),
         "school" to mapOf("day" to "d95a98ccc0c168b4", "dusk-winter" to "166230201723e32a", "night-k2" to "c72dd088e6bbb3f6"),
