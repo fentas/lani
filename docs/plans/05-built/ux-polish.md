@@ -171,10 +171,10 @@ a refused key in the learner's words too ("🔑 Ta ključ ne deluje …") instea
 
 On the branch rebased onto main (e5c5d810: map-culture and native-check-sl merged):
 
-- **Android**, the whole unit suite through lani-slot.sh: 3,494 tests, 2 skipped. Its first run showed 2 failures in
-  `L10nTablesTest`: the visitor's new key (`villageSheets.visitingToday`) was written to the tables while the suite ran
-  (the code read at test time, the tables from the build before); the l10n tests again after it: 59, all passing; the
-  suite once more at the end (below, "The last checks"). New and changed:
+- **Android**, the whole unit suite through lani-slot.sh at the end: **3,494 tests, 0 failures, 2 skipped** (441
+  classes). A run before it showed 2 failures in `L10nTablesTest`: the visitor's new key (`villageSheets.visitingToday`)
+  was written to the tables while that run went on (the code read at test time, the tables from the build before). New
+  and changed:
   - `game/ReadAloudTest` (3): the founding in it · de and sl · en from each language's table in all twelve pairs; a
     chronicle line's halves, a name, halves holding " · ", an odd count, emoji gone, "°C" kept; the sheet's heading and
     its eight newest lines.
@@ -185,7 +185,9 @@ On the branch rebased onto main (e5c5d810: map-culture and native-check-sl merge
   - `app/SetupFlowTest` (15): the typed problems in plain words.
   - `hosted/HostedExportTest` (+1, 7): a child's export from the phone read back and verified by the node's script, a
     grown-up's without the flag, a node's child profile read by the app.
-- **Bridge**: `bunx tsc --noEmit -p .` clean; the smoke (ports 9170/9173/9176): 3,131 checks, all passing. Twice, at a
+- **Bridge**: `bunx tsc --noEmit -p .` clean; the smoke (`LANI_SMOKE_PORT=9170`, `…FRIULI…=9173`, `…TOWN…=9176`; its
+  Drama 3 fake worker on its default, port + 40: a later run belongs on `LANI_SMOKE_DRAMA3_PORT=9188`): 3,131 checks, all
+  passing. Twice, at a
   load average of 53 (three agents' Gradle and four emulators), one check failed: "POST /words: the tutor hears the words
   added, gathered in one line" (it waits 1.3 s for a note gathered 1 s after the first word); at a quiet moment it
   passes. Nothing of the bridge changed here; the stories' faces pass `faceErrors`. `tutor-export --check`: 88 files
