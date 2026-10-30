@@ -14,7 +14,7 @@ The table in GAME.md ("The map in a culture's look") lists every building and de
 - **Friuli** (Teo's): ochre, terracotta and cream houses under coppi with green shutters (blue by the sea), windows in
   pale stone frames, the vine's pergola over the portal, the fogolâr's chimney under its little roof; the church's gabled
   front with its rose window and the free-standing brick campanile; stone huts, by the sea the casoni of the lagoon under
-  their reed thatch; the fienile of Nel campo for the kozolec; la vera da pozzo under its iron arch for the well (as In
+  their reed thatch; the fienile of Nel campo for the kozolec, growing with its level as the scene's (an arch, two, the bands of brick, the quoins and lattices, the loft full); la vera da pozzo under its iron arch for the well (as In
   piazza); plain painted hives, in a shed of cobbles from level 2 (as Dalle api); the smithy of river cobbles with bands
   of brick (as Nella fucina); the school with the tricolore over its door; Friuli's golden eagle on blue on the
   watchtower (as Sulla torre), its pillars of cobbles and brick from level 3, and on the tent (as Nella tenda); the
@@ -68,6 +68,7 @@ as before. A culture this app has no pack of shows its language's flag.
   `00-<culture>-ages.png` (each culture's map at every age, by day, at dusk in October, at night, in winter),
   `00-before-after.png` (the default culture's map, which every culture drew before, beside each culture's: a hamlet, a
   village, a town), `01-buildings-<day|night|winter|autumn>.png` (each building closer up, a row per culture),
+  `01-friuli-levels.png` (Friuli's fienile, watchtower and bee house at levels 1 to 5),
   `02-feasts.png` (a celebration's decorations by day and at night, the feast's garlands), `03-landmarks.png` (the town's
   landmarks closer up in May and in September). Copied for the review to the round's scratchpad, `ux-map-culture/`.
 - In the app: any village of Friuli, Carinthia or the Lake District; a visit to such a town (the host's look). QA:
@@ -115,7 +116,7 @@ The "before" of every culture is the default culture's map, which every culture 
   own, so a culture's many windows don't fill the frame's lights);
 - the contact sheets.
 
-The whole Android unit suite after the last rebase onto main (2e4e0410): 3445 tests, 2 skipped, one failed:
+The whole Android unit suite after the rebase onto main 2e4e0410: 3445 tests, 2 skipped, one failed:
 SceneDetailTest's frame time ("kitchen at detail 3 too slow: 26.1 ms", alps 25.9 ms, against 20, at a load average near
 48; the flaky budget the infra part of this round makes robust), which passes alone (4 of 4). The Python tests (251 and
 102, 11 skipped), the bridge's typecheck, its smoke (ports 9060, 9063, 9066) and `tutor-export --check` (87 files) pass;
