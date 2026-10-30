@@ -110,17 +110,18 @@ The "before" of every culture is the default culture's map, which every culture 
   the watchtower's;
 - every building of every culture's map is drawn and found by a tap at every age, at the nominal detail by day and
   closer up at night;
-- a frame of a culture's map costs no more than the default culture's (a town at night on a phone upright, each
-  culture's best of five rounds taken in turn: 8.7 ms in Friuli, 9.0 in Carinthia, 8.9 in the Lake District, 10.1 in
-  Primorska, in the full suite's run on the shared machine; the windows of the upper floors glow without a light of their
+- a frame of a culture's map costs no more than the default culture's (a town at night on a phone upright, the CPU time
+  of the rendering thread, each culture's best of rounds taken in turn, as FrameBudget measures: 5.9 ms in Friuli, 5.4 in
+  Carinthia, 5.7 in the Lake District, 5.8 in Primorska; the windows of the upper floors glow without a light of their
   own, so a culture's many windows don't fill the frame's lights);
 - the contact sheets.
 
-The whole Android unit suite after the rebase onto main 2e4e0410: 3445 tests, 2 skipped, one failed:
-SceneDetailTest's frame time ("kitchen at detail 3 too slow: 26.1 ms", alps 25.9 ms, against 20, at a load average near
-48; the flaky budget the infra part of this round makes robust), which passes alone (4 of 4). The Python tests (251 and
-102, 11 skipped), the bridge's typecheck, its smoke (ports 9060, 9063, 9066) and `tutor-export --check` (87 files) pass;
-nothing of the bridge changed.
+The whole Android unit suite after the last rebase onto main (7cd66672, the infra part merged): 3480 tests, none failed
+(2 skipped). Before it, on 2e4e0410, SceneDetailTest's wall-clock frame budget missed once under a load near 48 and
+passed alone; the infra part's CPU-time budgets have replaced it. The Python tests (251 and 102, 11 skipped), the
+bridge's typecheck, its smoke (ports 9060, 9063, 9066) and `tutor-export --check` (88 files) pass on dbd98b39; nothing of
+the bridge changed. The Kotlin compiler ran out of its 3 GB heap once on the busy machine (`GC overhead limit
+exceeded`); with `-Dorg.gradle.jvmargs=-Xmx4g -Pkotlin.daemon.jvmargs=-Xmx4g` it compiled.
 
 ## Tap counts
 
