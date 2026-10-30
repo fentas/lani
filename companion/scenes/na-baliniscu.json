@@ -1,0 +1,1922 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "na-baliniscu",
+  "title": { "sl": "Na balinišču", "en": "At the bocce court", "de": "Auf der Bocciabahn", "it": "Al campo da bocce" },
+  "emoji": "🎳",
+  "level": "A2",
+  "review": "sl, de, it, reactions, variants: machine-written (Claude), not reviewed by a native speaker; to check: bulin, brajda, zbiti, bližja/bližje, the proverbs",
+  "art": "bocce",
+  "from": ["project:balinisce"],
+  "pack": "na-baliniscu",
+  "objects": [
+    { "slot": "court", "word": "balinisce" },
+    { "slot": "board", "word": "deska", "pack": "v-delavnici" },
+    { "slot": "sand", "word": "pesek" },
+    { "slot": "jack", "word": "bulin" },
+    { "slot": "ball", "word": "krogla" },
+    { "slot": "linden", "word": "lipa", "pack": "v-vasi" },
+    { "slot": "bench", "word": "klop", "pack": "na-vasi" },
+    { "slot": "table", "word": "miza", "pack": "v-kuhinji" },
+    { "slot": "jug", "word": "vrc", "pack": "v-kleti" },
+    { "slot": "glass", "word": "kozarec", "pack": "v-kuhinji" },
+    { "slot": "scoreboard", "word": "tabla", "pack": "v-soli" },
+    { "slot": "rake", "word": "grablje", "pack": "na-njivi" },
+    { "slot": "meter", "word": "meter" },
+    { "slot": "pergola", "word": "brajda" },
+    { "slot": "lantern", "word": "svetilka", "pack": "v-sotoru" }
+  ],
+  "people": [
+    { "id": "janez", "name": "Stari Janez", "emoji": "👴", "art": "grandpa", "slot": "throw", "villager": "janez" },
+    { "id": "france", "name": "Mlinar France", "emoji": "🧑‍🌾", "art": "farmer", "slot": "jack", "villager": "france" },
+    { "id": "marko", "name": "Vinar Marko", "emoji": "🍇", "art": "winemaker", "slot": "table", "villager": "marko" },
+    { "id": "anton", "name": "Čebelar Anton", "emoji": "🐝", "art": "beekeeper", "slot": "table", "villager": "anton" }
+  ],
+  "happenings": [
+    {
+      "id": "grablje",
+      "title": {
+        "sl": "Janez zjutraj grabi pesek",
+        "en": "Janez rakes the sand in the morning",
+        "de": "Janez recht morgens den Sand",
+        "it": "Janez rastrella la sabbia al mattino"
+      },
+      "who": "janez",
+      "when": ["morning"],
+      "chance": 0.5,
+      "dialog": "grablje",
+      "dialogs": ["grablje-pregovor", "grablje"],
+      "reward": { "wisdom": 15 },
+      "marker": "🧹",
+      "memory": {
+        "sl": "jutro, ko sva grabila pesek",
+        "en": "the morning we raked the sand",
+        "de": "den Morgen, an dem wir den Sand gerecht haben",
+        "it": "la mattina in cui abbiamo rastrellato la sabbia"
+      }
+    },
+    {
+      "id": "igra",
+      "title": {
+        "sl": "Janez vabi na igro",
+        "en": "Janez asks you to a game",
+        "de": "Janez lädt zu einem Spiel ein",
+        "it": "Janez ti invita a una partita"
+      },
+      "who": "janez",
+      "when": ["afternoon"],
+      "chance": 0.55,
+      "dialog": "igra",
+      "dialogs": ["igra-zbij", "igra-bulin", "igra"],
+      "reward": { "food": 20 },
+      "marker": "🎳",
+      "memory": {
+        "sl": "igro na balinišču, ko si {m:vrgel|f:vrgla} čisto k bulinu",
+        "en": "the game on the court when you threw right up to the jack",
+        "de": "das Spiel auf der Bahn, als du bis direkt an die Zielkugel geworfen hast",
+        "it": "la partita in cui hai tirato fin sotto il pallino"
+      }
+    },
+    {
+      "id": "meri",
+      "title": {
+        "sl": "France meri, čigava krogla je bližje",
+        "en": "France measures whose ball is closer",
+        "de": "France misst, wessen Kugel näher liegt",
+        "it": "France misura quale boccia è più vicina"
+      },
+      "who": "france",
+      "when": ["afternoon"],
+      "chance": 0.5,
+      "dialog": "meri",
+      "dialogs": ["meri-tocke", "meri-meter", "meri"],
+      "reward": { "stone": 15 },
+      "marker": "📏",
+      "memory": {
+        "sl": "dan, ko sva z metrom merila krogle",
+        "en": "the day we measured the balls with the measuring stick",
+        "de": "den Tag, an dem wir die Kugeln mit dem Meterstab gemessen haben",
+        "it": "il giorno in cui abbiamo misurato le bocce con il metro"
+      }
+    },
+    {
+      "id": "vino",
+      "title": {
+        "sl": "Marko toči vino pod brajdo",
+        "en": "Marko pours wine under the pergola",
+        "de": "Marko schenkt unter der Weinlaube Wein ein",
+        "it": "Marko versa il vino sotto il pergolato"
+      },
+      "who": "marko",
+      "when": ["evening"],
+      "chance": 0.5,
+      "dialog": "vino",
+      "dialogs": ["vino-midva", "vino"],
+      "reward": { "food": 20 },
+      "marker": "🍷",
+      "memory": {
+        "sl": "kozarec rebule pod brajdo",
+        "en": "the glass of rebula under the pergola",
+        "de": "das Glas Rebula unter der Weinlaube",
+        "it": "il bicchiere di ribolla sotto il pergolato"
+      }
+    },
+    {
+      "id": "vecer",
+      "title": {
+        "sl": "Večerna igra pod svetilko",
+        "en": "An evening game under the lantern",
+        "de": "Ein Abendspiel unter der Laterne",
+        "it": "Una partita serale sotto la lanterna"
+      },
+      "who": "anton",
+      "when": ["evening"],
+      "months": [5, 6, 7, 8, 9],
+      "chance": 0.45,
+      "dialog": "vecer",
+      "dialogs": ["vecer-mi", "vecer"],
+      "reward": { "wisdom": 20 },
+      "marker": "🏮",
+      "memory": {
+        "sl": "poletni večer pod svetilko na balinišču",
+        "en": "the summer evening under the lantern on the bocce court",
+        "de": "den Sommerabend unter der Laterne auf der Bocciabahn",
+        "it": "la sera d'estate sotto la lanterna sul campo da bocce"
+      }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "grablje",
+      "lines": [
+        {
+          "who": "janez",
+          "sl": "Dobro jutro, {learner}. Pesek je treba pograbiti. Vsako jutro.",
+          "en": "Good morning, {learner}. The sand needs raking. Every morning.",
+          "de": "Guten Morgen, {learner}. Der Sand muss gerecht werden. Jeden Morgen.",
+          "it": "Buongiorno, {learner}. La sabbia va rastrellata. Ogni mattina."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Dobro jutro! Vam lahko pomagam?",
+              "en": "Good morning! Can I help you?",
+              "de": "Guten Morgen! Kann ich Ihnen helfen?",
+              "it": "Buongiorno! La posso aiutare?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Lahko. Grablje so tam, ob deski. Pokažem ti.",
+                "en": "You can. The rake is over there, by the board. I'll show you.",
+                "de": "Kannst du. Der Rechen lehnt dort am Brett. Ich zeig's dir.",
+                "it": "Puoi. Il rastrello è là, vicino all'asse. Ti faccio vedere."
+              }
+            },
+            {
+              "sl": "Dobro jutro! Ti lahko pomagam?",
+              "en": "Good morning! Can I help you (ti)?",
+              "de": "Guten Morgen! Kann ich dir helfen?",
+              "it": "Buongiorno! Ti posso aiutare?",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Janez is older: you say vi to him, and pomagati takes the dative: vam. Ti is for a friend or a child.",
+                "de": "Janez ist älter: Du sagst vi zu ihm, und pomagati steht mit dem Dativ: vam. Ti sagt man zu Freunden und Kindern.",
+                "it": "Janez è più anziano: gli dai del vi, e pomagati vuole il dativo: vam. Ti si usa con gli amici e i bambini."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Ti? Tikaš starega Janeza? Hm …",
+                "en": "Ti? You're saying ti to old Janez? Hm …",
+                "de": "Ti? Du duzt den alten Janez? Hm …",
+                "it": "Ti? Dai del tu al vecchio Janez? Mm …"
+              }
+            },
+            {
+              "sl": "Dobro jutro! Vas lahko pomagam?",
+              "en": "Good morning! Can I help you (accusative)?",
+              "de": "Guten Morgen! Kann ich Sie (Akkusativ) helfen?",
+              "it": "Buongiorno! Posso aiutare voi (accusativo)?",
+              "grammar": "dajalnik",
+              "why": {
+                "en": "Pomagati takes the dative, like German helfen: vam. Vas is the accusative.",
+                "de": "Pomagati steht mit dem Dativ, wie helfen: vam. Vas ist der Akkusativ.",
+                "it": "Pomagati vuole il dativo: vam. Vas è l'accusativo."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Vas? Koga vas? Saj sem sam tukaj.",
+                "en": "Vas? Help whom? I'm here on my own.",
+                "de": "Vas? Wen denn? Ich bin doch allein hier.",
+                "it": "Vas? Chi? Sono qui da solo."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "janez",
+          "sl": "Pesek mora biti raven kot miza. Sicer krogla skače.",
+          "en": "The sand has to be as level as a table. Otherwise the ball bounces.",
+          "de": "Der Sand muss eben sein wie ein Tisch. Sonst springt die Kugel.",
+          "it": "La sabbia dev'essere piana come un tavolo. Altrimenti la boccia salta."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Zato ga grabite vsako jutro?",
+              "en": "That's why you rake it every morning?",
+              "de": "Darum rechen Sie ihn jeden Morgen?",
+              "it": "Per questo la rastrella ogni mattina?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Vsako jutro. Brez muje se še čevelj ne obuje.",
+                "en": "Every morning. Without effort you can't even put a shoe on.",
+                "de": "Jeden Morgen. Ohne Mühe zieht man nicht einmal einen Schuh an.",
+                "it": "Ogni mattina. Senza fatica non ti infili nemmeno una scarpa."
+              }
+            },
+            {
+              "sl": "Zato jo grabite vsako jutro?",
+              "en": "That's why you rake her (it, feminine) every morning?",
+              "de": "Darum rechen Sie sie (weiblich) jeden Morgen?",
+              "it": "Per questo rastrella lei (femminile) ogni mattina?",
+              "grammar": "spol-samostalnikov",
+              "why": {
+                "en": "Pesek is masculine: ga. Jo is for a feminine noun.",
+                "de": "Pesek ist männlich: ga. Jo steht für ein weibliches Wort.",
+                "it": "Pesek è maschile: ga. Jo è per un nome femminile."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Jo? Koga? Mojo ženo? He he.",
+                "en": "Jo (her)? Whom? My wife? Heh heh.",
+                "de": "Jo (sie)? Wen? Meine Frau? He he.",
+                "it": "Jo (lei)? Chi? Mia moglie? Eh eh."
+              }
+            },
+            {
+              "sl": "Zato ga grabiš vsako jutro?",
+              "en": "That's why you (ti) rake it every morning?",
+              "de": "Darum rechst du ihn jeden Morgen?",
+              "it": "Per questo la rastrelli (tu) ogni mattina?",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Janez is older: vi, grabite.",
+                "de": "Janez ist älter: vi, grabite.",
+                "it": "Janez è più anziano: vi, grabite."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Grabiš? Spet me tikaš. Hm.",
+                "en": "Grabiš (ti)? You're saying ti to me again. Hm.",
+                "de": "Grabiš (du)? Du duzt mich schon wieder. Hm.",
+                "it": "Grabiš (tu)? Mi dai di nuovo del tu. Mm."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "janez",
+          "face": "happy",
+          "sl": "Tako. Zdaj je balinišče lepo. Popoldne igramo!",
+          "en": "There. Now the court is nice. This afternoon we play!",
+          "de": "So. Jetzt ist die Bahn schön. Am Nachmittag spielen wir!",
+          "it": "Ecco. Adesso il campo è bello. Oggi pomeriggio si gioca!"
+        }
+      ]
+    },
+    {
+      "id": "igra",
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "janez",
+          "sl": "Dober dan, {learner}! Igrava? Poglej, bulin je že na koncu balinišča.",
+          "en": "Good afternoon, {learner}! Shall we play, the two of us? Look, the jack is at the end of the court already.",
+          "de": "Guten Tag, {learner}! Spielen wir zwei? Schau, die Zielkugel liegt schon am Ende der Bahn.",
+          "it": "Buongiorno, {learner}! Giochiamo noi due? Guarda, il pallino è già in fondo al campo."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Igrava! Kdo vrže prvi?",
+              "en": "Let's play! Who throws first?",
+              "de": "Spielen wir! Wer wirft zuerst?",
+              "it": "Giochiamo! Chi tira per primo?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Ti. Mladi vedno vržejo prvi.",
+                "en": "You. The young always throw first.",
+                "de": "Du. Die Jungen werfen immer zuerst.",
+                "it": "Tu. I giovani tirano sempre per primi."
+              }
+            },
+            {
+              "sl": "Igramo! Kdo vrže prvi?",
+              "en": "Let's (all) play! Who throws first?",
+              "de": "Spielen wir (alle)! Wer wirft zuerst?",
+              "it": "Giochiamo (tutti)! Chi tira per primo?",
+              "grammar": "dvojina",
+              "why": {
+                "en": "It's the two of you, Janez and you: the dual, igrava. Igramo is for three or more.",
+                "de": "Ihr seid zu zweit, Janez und du: der Dual, igrava. Igramo ist für drei oder mehr.",
+                "it": "Siete in due, Janez e tu: il duale, igrava. Igramo è per tre o più."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Igramo? Kdo še? Lipa?",
+                "en": "Igramo (all of us)? Who else? The linden?",
+                "de": "Igramo (wir alle)? Wer noch? Die Linde?",
+                "it": "Igramo (tutti noi)? Chi altro? Il tiglio?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "janez",
+          "sl": "Vzemi kroglo. Vrzi nizko, po pesku.",
+          "en": "Take a ball. Throw it low, along the sand.",
+          "de": "Nimm eine Kugel. Wirf sie flach, über den Sand.",
+          "it": "Prendi una boccia. Tirala bassa, sulla sabbia."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Vržem jo … zdaj!",
+              "en": "I'm throwing it … now!",
+              "de": "Ich werfe sie … jetzt!",
+              "it": "La tiro … adesso!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Lepo! Glej, kako se kotali … in obstane pri bulinu!",
+                "en": "Nice! Look how it rolls … and stops by the jack!",
+                "de": "Schön! Schau, wie sie rollt … und bei der Zielkugel liegen bleibt!",
+                "it": "Bello! Guarda come rotola … e si ferma vicino al pallino!",
+                "fx": { "throw": 1 }
+              }
+            },
+            {
+              "sl": "Vržem ga … zdaj!",
+              "en": "I'm throwing him (it, masculine) … now!",
+              "de": "Ich werfe ihn … jetzt!",
+              "it": "Lo (maschile) tiro … adesso!",
+              "grammar": "spol-samostalnikov",
+              "why": {
+                "en": "Krogla is feminine: jo. Ga would be the bulin, and that one stays where it is.",
+                "de": "Krogla ist weiblich: jo. Ga wäre der bulin, und der bleibt, wo er ist.",
+                "it": "Krogla è femminile: jo. Ga sarebbe il bulin, e quello resta dov'è."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Ga? Koga? Bulina? Tega ne mečemo!",
+                "en": "Ga? Whom? The jack? We don't throw that one!",
+                "de": "Ga? Wen? Die Zielkugel? Die werfen wir nicht!",
+                "it": "Ga? Chi? Il pallino? Quello non si tira!"
+              }
+            },
+            {
+              "sl": "Vrže jo … zdaj!",
+              "en": "He throws it … now!",
+              "de": "Er wirft sie … jetzt!",
+              "it": "La tira lui … adesso!",
+              "grammar": "glagoli-sedanjik",
+              "why": {
+                "en": "You say what you do: vržem (I throw). Vrže is he or she throws.",
+                "de": "Du sagst, was du tust: vržem (ich werfe). Vrže heißt er oder sie wirft.",
+                "it": "Dici che cosa fai tu: vržem (tiro). Vrže vuol dire lui o lei tira."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Kdo vrže? Jaz? Ne, ti, {learner}!",
+                "en": "Who throws? Me? No, you, {learner}!",
+                "de": "Wer wirft? Ich? Nein, du, {learner}!",
+                "it": "Chi tira? Io? No, tu, {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "janez",
+          "face": "proud",
+          "sl": "Oho! Samo pol metra od bulina. Dobro, {learner}!",
+          "en": "Oho! Only half a metre from the jack. Good, {learner}!",
+          "de": "Oho! Nur einen halben Meter von der Zielkugel. Gut, {learner}!",
+          "it": "Oh oh! Solo mezzo metro dal pallino. Bene, {learner}!"
+        }
+      ]
+    },
+    {
+      "id": "meri",
+      "lines": [
+        {
+          "who": "france",
+          "face": "thinking",
+          "sl": "Dober dan, {learner}. Poglej ti dve krogli pri bulinu. Katera je bližje?",
+          "en": "Good afternoon, {learner}. Look at those two balls by the jack. Which one is closer?",
+          "de": "Guten Tag, {learner}. Schau dir die zwei Kugeln bei der Zielkugel an. Welche liegt näher?",
+          "it": "Buongiorno, {learner}. Guarda quelle due bocce vicino al pallino. Quale è più vicina?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ne vem. Izmerite!",
+              "en": "I don't know. Measure it!",
+              "de": "Ich weiß nicht. Messen Sie nach!",
+              "it": "Non lo so. Misuri Lei!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Prav. Meter od bulina do krogle … tako.",
+                "en": "All right. The measuring stick from the jack to the ball … like this.",
+                "de": "Gut. Der Meterstab von der Zielkugel bis zur Kugel … so.",
+                "it": "Va bene. Il metro dal pallino alla boccia … così.",
+                "fx": { "measure": 1 }
+              }
+            },
+            {
+              "sl": "Ne vem. Izmeri!",
+              "en": "I don't know. Measure it (ti)!",
+              "de": "Ich weiß nicht. Miss nach!",
+              "it": "Non lo so. Misura tu!",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "France is older: you say vi, izmerite.",
+                "de": "France ist älter: Du sagst vi, izmerite.",
+                "it": "France è più anziano: gli dai del vi, izmerite."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Izmeri? No, prav, saj sva soseda.",
+                "en": "Izmeri (ti)? Well, fine, we're neighbours.",
+                "de": "Izmeri (du)? Na gut, wir sind ja Nachbarn.",
+                "it": "Izmeri (tu)? Va be', siamo vicini."
+              }
+            },
+            {
+              "sl": "Ne vem. Izmerim!",
+              "en": "I don't know. I'll measure it!",
+              "de": "Ich weiß nicht. Ich messe nach!",
+              "it": "Non lo so. Misuro io!",
+              "grammar": "velelnik",
+              "why": {
+                "en": "You're asking France to do it: the imperative, izmerite. Izmerim is I measure.",
+                "de": "Du bittest France darum: der Imperativ, izmerite. Izmerim heißt ich messe.",
+                "it": "Chiedi a France di farlo: l'imperativo, izmerite. Izmerim vuol dire misuro io."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ti? Saj meter imam jaz! He he.",
+                "en": "You? But I've got the measuring stick! Heh heh.",
+                "de": "Du? Den Meterstab habe doch ich! He he.",
+                "it": "Tu? Ma il metro ce l'ho io! Eh eh."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "france",
+          "sl": "Ta krogla: štirinajst centimetrov. Tista: dvanajst.",
+          "en": "This ball: fourteen centimetres. That one: twelve.",
+          "de": "Diese Kugel: vierzehn Zentimeter. Die da: zwölf.",
+          "it": "Questa boccia: quattordici centimetri. Quella: dodici."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Potem je tista bližje!",
+              "en": "Then that one is closer!",
+              "de": "Dann liegt die da näher!",
+              "it": "Allora quella è più vicina!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Tako je. Dvanajst je manj kot štirinajst. Ena točka!",
+                "en": "That's right. Twelve is less than fourteen. One point!",
+                "de": "Genau. Zwölf ist weniger als vierzehn. Ein Punkt!",
+                "it": "Esatto. Dodici è meno di quattordici. Un punto!"
+              }
+            },
+            {
+              "sl": "Potem je tista bolj bližje!",
+              "en": "Then that one is more closer!",
+              "de": "Dann liegt die da mehr näher!",
+              "it": "Allora quella è più più vicina!",
+              "grammar": "primernik",
+              "why": {
+                "en": "Bližje is the comparative already: no bolj.",
+                "de": "Bližje ist schon der Komparativ: kein bolj.",
+                "it": "Bližje è già il comparativo: niente bolj."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Bolj bližje? Tega pa še nisem slišal.",
+                "en": "More closer? I've never heard that one.",
+                "de": "Mehr näher? Das habe ich noch nie gehört.",
+                "it": "Più più vicina? Questa non l'ho mai sentita."
+              }
+            },
+            {
+              "sl": "Potem je tista dlje!",
+              "en": "Then that one is further!",
+              "de": "Dann liegt die da weiter weg!",
+              "it": "Allora quella è più lontana!",
+              "why": {
+                "en": "Twelve centimetres is less than fourteen: that one is closer (bližje), not further (dlje).",
+                "de": "Zwölf Zentimeter sind weniger als vierzehn: Die liegt näher (bližje), nicht weiter weg (dlje).",
+                "it": "Dodici centimetri sono meno di quattordici: quella è più vicina (bližje), non più lontana (dlje)."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Dlje? Je dvanajst več kot štirinajst? Ha!",
+                "en": "Further? Is twelve more than fourteen? Ha!",
+                "de": "Weiter? Ist zwölf mehr als vierzehn? Ha!",
+                "it": "Più lontana? Dodici è più di quattordici? Ah!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "france",
+          "face": "proud",
+          "sl": "Vidiš, zato imamo meter. Pri balinanju ni prepira.",
+          "en": "You see, that's why we have the measuring stick. No quarrels at bocce.",
+          "de": "Siehst du, darum haben wir den Meterstab. Beim Boccia gibt es keinen Streit.",
+          "it": "Vedi, per questo abbiamo il metro. Alle bocce non si litiga."
+        }
+      ]
+    },
+    {
+      "id": "vino",
+      "lines": [
+        {
+          "who": "marko",
+          "face": "happy",
+          "sl": "Ciao, {learner}! Sedi k nam pod brajdo. Kozarec vina?",
+          "en": "Ciao, {learner}! Sit with us under the pergola. A glass of wine?",
+          "de": "Ciao, {learner}! Setz dich zu uns unter die Weinlaube. Ein Glas Wein?",
+          "it": "Ciao, {learner}! Siediti con noi sotto il pergolato. Un bicchiere di vino?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ja, hvala, en kozarec.",
+              "en": "Yes, thanks, one glass.",
+              "de": "Ja, danke, ein Glas.",
+              "it": "Sì, grazie, un bicchiere.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Izvoli. Moja rebula, letošnja!",
+                "en": "Here you go. My rebula, this year's!",
+                "de": "Bitte. Meine Rebula, von diesem Jahr!",
+                "it": "Ecco. La mia ribolla, di quest'anno!",
+                "fx": { "pour": 1 }
+              }
+            },
+            {
+              "sl": "Malo, prosim. Samo pol kozarca.",
+              "en": "Just a little, please. Only half a glass.",
+              "de": "Nur ein bisschen, bitte. Nur ein halbes Glas.",
+              "it": "Poco, per favore. Solo mezzo bicchiere.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Pol? Allora, pol … in še malo. Izvoli!",
+                "en": "Half? Allora, half … and a bit more. Here you go!",
+                "de": "Halb? Allora, halb … und noch ein bisschen. Bitte!",
+                "it": "Mezzo? Allora, mezzo … e ancora un po'. Ecco!",
+                "fx": { "pour": 1 }
+              }
+            },
+            {
+              "sl": "Ja, hvala, en kozarec mleka.",
+              "en": "Yes, thanks, a glass of milk.",
+              "de": "Ja, danke, ein Glas Milch.",
+              "it": "Sì, grazie, un bicchiere di latte.",
+              "why": {
+                "en": "Marko is offering wine (vino), not milk (mleko).",
+                "de": "Marko bietet Wein an (vino), keine Milch (mleko).",
+                "it": "Marko offre vino (vino), non latte (mleko)."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Mleka? Pri vinarju? Ha ha, ne, ne!",
+                "en": "Milk? At a winemaker's? Ha ha, no, no!",
+                "de": "Milch? Beim Winzer? Ha ha, nein, nein!",
+                "it": "Latte? Da un vignaiolo? Ah ah, no, no!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "marko",
+          "face": "curious",
+          "sl": "Na zdravje! No, kako je moje vino?",
+          "en": "Cheers! Well, how's my wine?",
+          "de": "Prost! Na, wie ist mein Wein?",
+          "it": "Salute! Allora, com'è il mio vino?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Na zdravje! Tvoje vino je odlično.",
+              "en": "Cheers! Your wine is excellent.",
+              "de": "Prost! Dein Wein ist ausgezeichnet.",
+              "it": "Salute! Il tuo vino è ottimo.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Hvala! Letos je bilo grozdje sladko kot med.",
+                "en": "Thanks! This year the grapes were sweet as honey.",
+                "de": "Danke! Dieses Jahr waren die Trauben süß wie Honig.",
+                "it": "Grazie! Quest'anno l'uva era dolce come il miele."
+              }
+            },
+            {
+              "sl": "Na zdravje! Tvoje vino je odlična.",
+              "en": "Cheers! Your wine is excellent (feminine).",
+              "de": "Prost! Dein Wein ist ausgezeichnet (weiblich).",
+              "it": "Salute! Il tuo vino è ottima (femminile).",
+              "grammar": "pridevniki-ujemanje",
+              "why": {
+                "en": "Vino is neuter: odlično.",
+                "de": "Vino ist sächlich: odlično.",
+                "it": "Vino è neutro: odlično."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Odlična? Kdo? Rebula? Ha, ja, ona je!",
+                "en": "Odlična (feminine)? Who? Rebula? Ha, yes, she is!",
+                "de": "Odlična (weiblich)? Wer? Die Rebula? Ha, ja, die schon!",
+                "it": "Odlična (femminile)? Chi? La ribolla? Ah, sì, lei sì!"
+              }
+            },
+            {
+              "sl": "Na zdravje! Tvoj vino je odlično.",
+              "en": "Cheers! Your (masculine) wine is excellent.",
+              "de": "Prost! Dein (männlich) Wein ist ausgezeichnet.",
+              "it": "Salute! Il tuo (maschile) vino è ottimo.",
+              "grammar": "pridevniki-ujemanje",
+              "why": {
+                "en": "Vino is neuter: tvoje vino.",
+                "de": "Vino ist sächlich: tvoje vino.",
+                "it": "Vino è neutro: tvoje vino."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Tvoj vino? Hm, kako že? Še en kozarec, pa bo šlo.",
+                "en": "Tvoj vino? Hm, how was it? One more glass and it'll come.",
+                "de": "Tvoj vino? Hm, wie war das? Noch ein Glas, dann geht's.",
+                "it": "Tvoj vino? Mm, com'era? Un altro bicchiere e ci arrivi."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "marko",
+          "face": "laugh",
+          "sl": "Allora, še en kozarec, potem pa greš balinat z nami!",
+          "en": "Allora, one more glass, and then you're coming to play bocce with us!",
+          "de": "Allora, noch ein Glas, und dann spielst du Boccia mit uns!",
+          "it": "Allora, ancora un bicchiere, e poi vieni a giocare a bocce con noi!"
+        }
+      ]
+    },
+    {
+      "id": "vecer",
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "anton",
+          "face": "thinking",
+          "sl": "Dober večer … Že je temno. Bulina skoraj ne vidim več.",
+          "en": "Good evening … It's dark already. I can hardly see the jack any more.",
+          "de": "Guten Abend … Es ist schon dunkel. Die Zielkugel sehe ich kaum noch.",
+          "it": "Buonasera … È già buio. Il pallino quasi non lo vedo più.",
+          "fx": { "lantern": 0 }
+        },
+        {
+          "choices": [
+            {
+              "sl": "Prižgem svetilko?",
+              "en": "Shall I light the lantern?",
+              "de": "Soll ich die Laterne anzünden?",
+              "it": "Accendo la lanterna?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Prosim. Tako … zdaj vidimo vse.",
+                "en": "Please. There … now we can see everything.",
+                "de": "Bitte. So … jetzt sehen wir alles.",
+                "it": "Prego. Ecco … adesso vediamo tutto.",
+                "fx": { "lantern": 1 }
+              }
+            },
+            {
+              "sl": "Prižgem svetilka?",
+              "en": "Shall I light the lantern (nominative)?",
+              "de": "Soll ich die Laterne (Nominativ) anzünden?",
+              "it": "Accendo la lanterna (nominativo)?",
+              "grammar": "tozilnik",
+              "why": {
+                "en": "Prižgem what: the accusative, svetilko.",
+                "de": "Prižgem was: der Akkusativ, svetilko.",
+                "it": "Prižgem che cosa: l'accusativo, svetilko."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Svetilka? Ja, tam je … in kaj z njo?",
+                "en": "The lantern? Yes, it's there … and what about it?",
+                "de": "Die Laterne? Ja, da ist sie … und was ist mit ihr?",
+                "it": "La lanterna? Sì, è là … e allora?"
+              }
+            },
+            {
+              "sl": "Ugasnem svetilko?",
+              "en": "Shall I put out the lantern?",
+              "de": "Soll ich die Laterne ausmachen?",
+              "it": "Spengo la lanterna?",
+              "why": {
+                "en": "It's dark: you light it (prižgati), you don't put it out (ugasniti).",
+                "de": "Es ist dunkel: Du zündest sie an (prižgati), du machst sie nicht aus (ugasniti).",
+                "it": "È buio: la accendi (prižgati), non la spegni (ugasniti)."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Ugasniti? Saj sploh ne gori …",
+                "en": "Put it out? It isn't even lit …",
+                "de": "Ausmachen? Sie brennt doch gar nicht …",
+                "it": "Spegnerla? Ma non è nemmeno accesa …"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "anton",
+          "sl": "Hvala. Poleti igramo pozno. Tu je zvečer tiho in prijetno.",
+          "en": "Thank you. In summer we play late. It's quiet and pleasant here in the evening.",
+          "de": "Danke. Im Sommer spielen wir spät. Abends ist es hier still und angenehm.",
+          "it": "Grazie. D'estate giochiamo tardi. Qui la sera è tranquillo e piacevole."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Vi igrate vsak večer?",
+              "en": "Do you play every evening?",
+              "de": "Spielen Sie jeden Abend?",
+              "it": "Voi giocate ogni sera?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Skoraj vsak. Mi trije, včasih štirje.",
+                "en": "Nearly every one. The three of us, sometimes four.",
+                "de": "Fast jeden. Wir drei, manchmal vier.",
+                "it": "Quasi tutte. Noi tre, a volte quattro."
+              }
+            },
+            {
+              "sl": "Vi igramo vsak večer?",
+              "en": "Do you we-play every evening?",
+              "de": "Spielen (wir) Sie jeden Abend?",
+              "it": "Voi giochiamo ogni sera?",
+              "grammar": "glagoli-sedanjik",
+              "why": {
+                "en": "Igramo is we play. With vi: igrate.",
+                "de": "Igramo heißt wir spielen. Mit vi: igrate.",
+                "it": "Igramo vuol dire giochiamo. Con vi: igrate."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Mi? Vi in jaz? Hm … kdo igra?",
+                "en": "Mi (we)? You and I? Hm … who's playing?",
+                "de": "Mi (wir)? Sie und ich? Hm … wer spielt?",
+                "it": "Mi (noi)? Lei e io? Mm … chi gioca?"
+              }
+            },
+            {
+              "sl": "Ti igraš vsak večer?",
+              "en": "Do you (ti) play every evening?",
+              "de": "Spielst du jeden Abend?",
+              "it": "Tu giochi ogni sera?",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Anton says vi to you, and you say vi to him: vi igrate.",
+                "de": "Anton siezt dich, und du siezt ihn: vi igrate.",
+                "it": "Anton ti dà del vi, e tu lo dai a lui: vi igrate."
+              },
+              "reply": {
+                "face": "shy",
+                "sl": "Ti? Hm … no, lahko si rečeva ti. Počasi.",
+                "en": "Ti? Hm … well, we could say ti to each other. Slowly.",
+                "de": "Ti? Hm … na ja, wir könnten uns duzen. Langsam.",
+                "it": "Ti? Mm … be', potremmo darci del tu. Piano."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "anton",
+          "face": "happy",
+          "sl": "Pridite jutri zvečer. Svetilka bo gorela.",
+          "en": "Come tomorrow evening. The lantern will be lit.",
+          "de": "Kommen Sie morgen Abend. Die Laterne wird brennen.",
+          "it": "Venga domani sera. La lanterna sarà accesa."
+        }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "grablje-pregovor",
+      "memory": {
+        "sl": "pregovor o zgodnjem jutru, ki sem ti ga povedal",
+        "en": "the saying about the early morning I told you",
+        "de": "das Sprichwort vom frühen Morgen, das ich dir gesagt habe",
+        "it": "il proverbio sul mattino presto che ti ho detto"
+      },
+      "lines": [
+        {
+          "who": "janez",
+          "sl": "Dobro jutro, {learner}. Zgodaj si {m:vstal|f:vstala}! Rana ura, zlata ura, pravimo.",
+          "en": "Good morning, {learner}. You're up early! The early hour is a golden hour, we say.",
+          "de": "Guten Morgen, {learner}. Du bist früh aufgestanden! Morgenstund hat Gold im Mund, sagen wir.",
+          "it": "Buongiorno, {learner}. Ti sei {m:alzato|f:alzata} presto! Le ore del mattino hanno l'oro in bocca, diciamo."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Dobro jutro! Kdaj ste pa vi vstali?",
+              "en": "Good morning! And when did you get up?",
+              "de": "Guten Morgen! Und wann sind Sie aufgestanden?",
+              "it": "Buongiorno! E Lei quando si è alzato?",
+              "ok": true,
+              "reply": {
+                "sl": "Ob petih. Star človek malo spi.",
+                "en": "At five. An old man sleeps little.",
+                "de": "Um fünf. Ein alter Mensch schläft wenig.",
+                "it": "Alle cinque. Un vecchio dorme poco."
+              }
+            },
+            {
+              "sl": "Dobro jutro! Kdaj si pa ti vstal?",
+              "en": "Good morning! And when did you (ti) get up?",
+              "de": "Guten Morgen! Und wann bist du aufgestanden?",
+              "it": "Buongiorno! E tu quando ti sei alzato?",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Janez is older: vi, kdaj ste vstali.",
+                "de": "Janez ist älter: vi, kdaj ste vstali.",
+                "it": "Janez è più anziano: vi, kdaj ste vstali."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Tikaš me? Ob petih, če že vprašaš.",
+                "en": "Saying ti to me? At five, since you ask.",
+                "de": "Du duzt mich? Um fünf, wenn du schon fragst.",
+                "it": "Mi dai del tu? Alle cinque, visto che lo chiedi."
+              }
+            },
+            {
+              "sl": "Dober večer! Kdaj ste pa vi vstali?",
+              "en": "Good evening! And when did you get up?",
+              "de": "Guten Abend! Und wann sind Sie aufgestanden?",
+              "it": "Buonasera! E Lei quando si è alzato?",
+              "why": {
+                "en": "It's morning: dobro jutro. Dober večer is for the evening.",
+                "de": "Es ist Morgen: dobro jutro. Dober večer sagt man am Abend.",
+                "it": "È mattina: dobro jutro. Dober večer si dice la sera."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Večer? Saj je šele jutro, {learner}!",
+                "en": "Evening? It's only morning, {learner}!",
+                "de": "Abend? Es ist doch erst Morgen, {learner}!",
+                "it": "Sera? Ma è appena mattina, {learner}!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "janez",
+          "face": "thinking",
+          "sl": "Pa še en pregovor: Kdor zgodaj vstaja, mu kruha ostaja.",
+          "en": "And one more saying: who gets up early has bread to spare.",
+          "de": "Und noch ein Sprichwort: Wer früh aufsteht, dem bleibt Brot übrig.",
+          "it": "E un altro proverbio: a chi si alza presto, il pane avanza."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Potem bom jutri tudi jaz {m:vstal|f:vstala} zgodaj.",
+              "en": "Then tomorrow I'll get up early too.",
+              "de": "Dann stehe ich morgen auch früh auf.",
+              "it": "Allora domani mi alzo presto anch'io.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Prav. Ob petih te čakam pri grabljah. He he.",
+                "en": "Fine. At five I'll be waiting for you by the rake. Heh heh.",
+                "de": "Gut. Um fünf warte ich beim Rechen auf dich. He he.",
+                "it": "Bene. Alle cinque ti aspetto vicino al rastrello. Eh eh."
+              }
+            },
+            {
+              "sl": "Potem sem jutri tudi jaz {m:vstal|f:vstala} zgodaj.",
+              "en": "Then tomorrow I got up early too.",
+              "de": "Dann bin ich morgen auch früh aufgestanden.",
+              "it": "Allora domani mi sono {m:alzato|f:alzata} presto anch'io.",
+              "grammar": "prihodnjik",
+              "why": {
+                "en": "Jutri is tomorrow: the future, bom + the l-form.",
+                "de": "Jutri ist morgen: das Futur, bom + l-Form.",
+                "it": "Jutri è domani: il futuro, bom + la forma in -l."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Sem? Jutri? To pa ne gre skupaj, {learner}.",
+                "en": "Sem (the past)? Tomorrow? Those don't go together, {learner}.",
+                "de": "Sem (Vergangenheit)? Morgen? Das passt nicht zusammen, {learner}.",
+                "it": "Sem (passato)? Domani? Non vanno d'accordo, {learner}."
+              }
+            },
+            {
+              "sl": "Potem bom jutri tudi jaz {m:vstal|f:vstala} pozno.",
+              "en": "Then tomorrow I'll get up late too.",
+              "de": "Dann stehe ich morgen auch spät auf.",
+              "it": "Allora domani mi alzo tardi anch'io.",
+              "why": {
+                "en": "The saying is about getting up early (zgodaj), not late (pozno).",
+                "de": "Das Sprichwort handelt vom Frühaufstehen (zgodaj), nicht vom Spätaufstehen (pozno).",
+                "it": "Il proverbio parla di alzarsi presto (zgodaj), non tardi (pozno)."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Pozno? Potem ti kruha ne ostane, he he!",
+                "en": "Late? Then you won't have bread to spare, heh heh!",
+                "de": "Spät? Dann bleibt dir kein Brot übrig, he he!",
+                "it": "Tardi? Allora il pane non ti avanza, eh eh!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "janez",
+          "face": "proud",
+          "sl": "Pametno. Pregovori so stari, ampak še vedno držijo.",
+          "en": "Clever. Sayings are old, but they still hold.",
+          "de": "Klug. Sprichwörter sind alt, aber sie stimmen noch immer.",
+          "it": "Saggio. I proverbi sono vecchi, ma valgono ancora."
+        }
+      ]
+    },
+    {
+      "id": "igra-bulin",
+      "memory": {
+        "sl": "igro, ko je bila moja krogla bližja za prst",
+        "en": "the game when my ball was closer by a finger",
+        "de": "das Spiel, als meine Kugel um einen Finger näher lag",
+        "it": "la partita in cui la mia boccia era più vicina di un dito"
+      },
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "janez",
+          "sl": "Dober dan, {learner}! Moja krogla je že pri bulinu. Zdaj pa ti!",
+          "en": "Good afternoon, {learner}! My ball is by the jack already. Now you!",
+          "de": "Guten Tag, {learner}! Meine Kugel liegt schon bei der Zielkugel. Jetzt du!",
+          "it": "Buongiorno, {learner}! La mia boccia è già vicino al pallino. Adesso tocca a te!"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Prav. Vržem čisto počasi.",
+              "en": "All right. I'll throw really slowly.",
+              "de": "Gut. Ich werfe ganz langsam.",
+              "it": "Va bene. Tiro pianissimo.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Lepo … kotali se, kotali … stoj!",
+                "en": "Nice … it's rolling, rolling … stop!",
+                "de": "Schön … sie rollt, rollt … halt!",
+                "it": "Bello … rotola, rotola … ferma!",
+                "fx": { "throw": 1 }
+              }
+            },
+            {
+              "sl": "Prav. Vržem čisto počasno.",
+              "en": "All right. I'll throw really slow (adjective).",
+              "de": "Gut. Ich werfe ganz langsames (Adjektiv).",
+              "it": "Va bene. Tiro molto lento (aggettivo).",
+              "grammar": "prislovi",
+              "why": {
+                "en": "How you throw: the adverb, počasi. Počasno is the adjective (neuter).",
+                "de": "Wie du wirfst: das Adverb, počasi. Počasno ist das Adjektiv (sächlich).",
+                "it": "Come tiri: l'avverbio, počasi. Počasno è l'aggettivo (neutro)."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Počasno? Kaj je počasno? Moje koleno?",
+                "en": "Počasno (a slow one)? What's slow? My knee?",
+                "de": "Počasno (ein langsames)? Was ist langsam? Mein Knie?",
+                "it": "Počasno (uno lento)? Che cosa è lento? Il mio ginocchio?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "janez",
+          "face": "curious",
+          "sl": "Hm. Katera je bližje bulinu, moja ali tvoja?",
+          "en": "Hm. Which one is closer to the jack, mine or yours?",
+          "de": "Hm. Welche liegt näher an der Zielkugel, meine oder deine?",
+          "it": "Mm. Quale è più vicina al pallino, la mia o la tua?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Vaša je bližja kot moja.",
+              "en": "Yours is closer than mine.",
+              "de": "Ihre liegt näher als meine.",
+              "it": "La Sua è più vicina della mia.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Ja, za prst. Ampak hitro se učiš.",
+                "en": "Yes, by a finger. But you're learning fast.",
+                "de": "Ja, um einen Finger. Aber du lernst schnell.",
+                "it": "Sì, di un dito. Ma impari in fretta."
+              }
+            },
+            {
+              "sl": "Vaša je bolj bližja kot moja.",
+              "en": "Yours is more closer than mine.",
+              "de": "Ihre liegt mehr näher als meine.",
+              "it": "La Sua è più più vicina della mia.",
+              "grammar": "primernik",
+              "why": {
+                "en": "Bližja is the comparative already: no bolj in front of it.",
+                "de": "Bližja ist schon der Komparativ: kein bolj davor.",
+                "it": "Bližja è già il comparativo: niente bolj davanti."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Bolj bližja? To je pa dvakrat, {learner}. He he.",
+                "en": "More closer? That's twice over, {learner}. Heh heh.",
+                "de": "Mehr näher? Das ist doppelt, {learner}. He he.",
+                "it": "Più più vicina? È due volte, {learner}. Eh eh."
+              }
+            },
+            {
+              "sl": "Vaša je bližji kot moja.",
+              "en": "Yours is closer (masculine) than mine.",
+              "de": "Ihre ist näher (männlich) als meine.",
+              "it": "La Sua è più vicino (maschile) della mia.",
+              "grammar": "pridevniki-ujemanje",
+              "why": {
+                "en": "Krogla is feminine: bližja. Bližji is masculine.",
+                "de": "Krogla ist weiblich: bližja. Bližji ist männlich.",
+                "it": "Krogla è femminile: bližja. Bližji è maschile."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Bližji? Kdo? Bulin? Hm …",
+                "en": "Bližji (masculine)? Who? The jack? Hm …",
+                "de": "Bližji (männlich)? Wer? Die Zielkugel? Hm …",
+                "it": "Bližji (maschile)? Chi? Il pallino? Mm …"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "janez",
+          "face": "laugh",
+          "sl": "Še eno igro? Kdor izgubi, plača vino. He he.",
+          "en": "Another game? Whoever loses pays for the wine. Heh heh.",
+          "de": "Noch ein Spiel? Wer verliert, zahlt den Wein. He he.",
+          "it": "Un'altra partita? Chi perde paga il vino. Eh eh."
+        }
+      ]
+    },
+    {
+      "id": "igra-zbij",
+      "memory": {
+        "sl": "kroglo, ki sva jo zbila od bulina",
+        "en": "the ball we knocked away from the jack",
+        "de": "die Kugel, die wir von der Zielkugel weggeschossen haben",
+        "it": "la boccia che abbiamo bocciato via dal pallino"
+      },
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "janez",
+          "face": "thinking",
+          "sl": "Poglej, {learner}. Tista krogla je čisto pri bulinu. Ni naša.",
+          "en": "Look, {learner}. That ball is right by the jack. It isn't ours.",
+          "de": "Schau, {learner}. Die Kugel da liegt direkt an der Zielkugel. Sie ist nicht unsere.",
+          "it": "Guarda, {learner}. Quella boccia è attaccata al pallino. Non è nostra."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Zbijva jo!",
+              "en": "Let's knock it away!",
+              "de": "Schießen wir sie weg!",
+              "it": "Bocciamola, noi due!",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Tako je! Vrzi močno, naravnost vanjo.",
+                "en": "That's it! Throw hard, straight at it.",
+                "de": "Genau! Wirf fest, direkt auf sie.",
+                "it": "Così! Tira forte, dritto contro di lei."
+              }
+            },
+            {
+              "sl": "Zbijmo jo!",
+              "en": "Let's (all) knock it away!",
+              "de": "Schießen wir (alle) sie weg!",
+              "it": "Bocciamola (tutti)!",
+              "grammar": "dvojina",
+              "why": {
+                "en": "It's the two of you: the dual, zbijva. Zbijmo is for three or more.",
+                "de": "Ihr seid zu zweit: der Dual, zbijva. Zbijmo ist für drei oder mehr.",
+                "it": "Siete in due: il duale, zbijva. Zbijmo è per tre o più."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Zbijmo? Kdo še? Muri?",
+                "en": "Zbijmo (all of us)? Who else? Muri the dog?",
+                "de": "Zbijmo (wir alle)? Wer noch? Der Hund Muri?",
+                "it": "Zbijmo (tutti noi)? Chi altro? Il cane Muri?"
+              }
+            },
+            {
+              "sl": "Pustiva jo!",
+              "en": "Let's leave it!",
+              "de": "Lassen wir sie liegen!",
+              "it": "Lasciamola stare!",
+              "why": {
+                "en": "Janez wants to win: you knock it away (zbiti), you don't leave it.",
+                "de": "Janez will gewinnen: Du schießt sie weg (zbiti), du lässt sie nicht liegen.",
+                "it": "Janez vuole vincere: la bocci via (zbiti), non la lasci stare."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Pustiva? Tako pa ne zmagava!",
+                "en": "Leave it? That's no way to win!",
+                "de": "Liegen lassen? So gewinnen wir nicht!",
+                "it": "Lasciarla? Così non vinciamo!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "janez",
+          "sl": "Vzemi kroglo. Ena, dve … zdaj!",
+          "en": "Take a ball. One, two … now!",
+          "de": "Nimm eine Kugel. Eins, zwei … jetzt!",
+          "it": "Prendi una boccia. Uno, due … adesso!"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Vržem naravnost v kroglo!",
+              "en": "I'm throwing straight at the ball!",
+              "de": "Ich werfe direkt auf die Kugel!",
+              "it": "Tiro dritto contro la boccia!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Klek! {m:Zadel|f:Zadela} si jo! Odletela je!",
+                "en": "Clack! You hit it! Off it flew!",
+                "de": "Klack! Du hast sie getroffen! Sie ist weggeflogen!",
+                "it": "Clac! L'hai presa! È volata via!",
+                "fx": { "hit": 1 }
+              }
+            },
+            {
+              "sl": "Vržem naravnost v krogli!",
+              "en": "I'm throwing straight in the ball!",
+              "de": "Ich werfe direkt in der Kugel!",
+              "it": "Tiro dritto dentro la boccia (stando lì)!",
+              "grammar": "kam-tozilnik",
+              "why": {
+                "en": "Where the throw goes is a direction: v + the accusative, v kroglo.",
+                "de": "Wohin du wirfst, ist eine Richtung: v + Akkusativ, v kroglo.",
+                "it": "Dove va il tiro è una direzione: v + l'accusativo, v kroglo."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "V krogli? Notri? Krogla je polna, {learner}!",
+                "en": "In the ball? Inside it? The ball is solid, {learner}!",
+                "de": "In der Kugel? Drinnen? Die Kugel ist massiv, {learner}!",
+                "it": "Nella boccia? Dentro? La boccia è piena, {learner}!"
+              }
+            },
+            {
+              "sl": "Vržem naravnost v bulin!",
+              "en": "I'm throwing straight at the jack!",
+              "de": "Ich werfe direkt auf die Zielkugel!",
+              "it": "Tiro dritto contro il pallino!",
+              "why": {
+                "en": "You want to hit their ball (krogla), not the jack (bulin).",
+                "de": "Du willst ihre Kugel treffen (krogla), nicht die Zielkugel (bulin).",
+                "it": "Vuoi colpire la loro boccia (krogla), non il pallino (bulin)."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "V bulin? Ne, ne! Bulin pusti pri miru!",
+                "en": "At the jack? No, no! Leave the jack alone!",
+                "de": "Auf die Zielkugel? Nein, nein! Lass die in Ruhe!",
+                "it": "Contro il pallino? No, no! Il pallino lascialo stare!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "janez",
+          "face": "laugh",
+          "sl": "Ha ha! Tako se igra! Zdaj je naša najbližje.",
+          "en": "Ha ha! That's how it's played! Now ours is closest.",
+          "de": "Ha ha! So spielt man! Jetzt liegt unsere am nächsten.",
+          "it": "Ah ah! Così si gioca! Adesso la nostra è la più vicina."
+        }
+      ]
+    },
+    {
+      "id": "meri-meter",
+      "memory": {
+        "sl": "dan, ko je bila moja krogla za dva centimetra bližje",
+        "en": "the day my ball was two centimetres closer",
+        "de": "den Tag, an dem meine Kugel um zwei Zentimeter näher lag",
+        "it": "il giorno in cui la mia boccia era più vicina di due centimetri"
+      },
+      "lines": [
+        {
+          "who": "france",
+          "sl": "{learner}, podaj mi meter, prosim. Leži na deski.",
+          "en": "{learner}, pass me the measuring stick, please. It's lying on the board.",
+          "de": "{learner}, gib mir bitte den Meterstab. Er liegt auf dem Brett.",
+          "it": "{learner}, passami il metro, per favore. È sull'asse."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Izvolite, meter.",
+              "en": "Here you are, the measuring stick.",
+              "de": "Bitte schön, der Meterstab.",
+              "it": "Ecco a Lei, il metro.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Hvala. Od bulina do tvoje krogle … in do moje.",
+                "en": "Thanks. From the jack to your ball … and to mine.",
+                "de": "Danke. Von der Zielkugel bis zu deiner Kugel … und bis zu meiner.",
+                "it": "Grazie. Dal pallino alla tua boccia … e alla mia.",
+                "fx": { "measure": 1 }
+              }
+            },
+            {
+              "sl": "Izvoli, meter.",
+              "en": "Here you are (ti), the measuring stick.",
+              "de": "Bitte (du), der Meterstab.",
+              "it": "Ecco (tu), il metro.",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "France is older: izvolite.",
+                "de": "France ist älter: izvolite.",
+                "it": "France è più anziano: izvolite."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Izvoli? Hm, mladi danes …",
+                "en": "Izvoli (ti)? Hm, young people these days …",
+                "de": "Izvoli (du)? Hm, die Jungen heute …",
+                "it": "Izvoli (tu)? Mm, i giovani d'oggi …"
+              }
+            }
+          ]
+        },
+        {
+          "who": "france",
+          "sl": "Tvoja krogla je deset centimetrov od bulina. Moja pa osem.",
+          "en": "Your ball is ten centimetres from the jack. And mine eight.",
+          "de": "Deine Kugel ist zehn Zentimeter von der Zielkugel entfernt. Und meine acht.",
+          "it": "La tua boccia è a dieci centimetri dal pallino. E la mia a otto."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Moja je dlje od bulina.",
+              "en": "Mine is further from the jack.",
+              "de": "Meine ist weiter von der Zielkugel weg.",
+              "it": "La mia è più lontana dal pallino.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Ja, za dva centimetra. Danes zmagam jaz!",
+                "en": "Yes, by two centimetres. Today I win!",
+                "de": "Ja, um zwei Zentimeter. Heute gewinne ich!",
+                "it": "Sì, di due centimetri. Oggi vinco io!"
+              }
+            },
+            {
+              "sl": "Moja je dlje od bulin.",
+              "en": "Mine is further from the jack (wrong form).",
+              "de": "Meine ist weiter von der Zielkugel (falsche Form) weg.",
+              "it": "La mia è più lontana dal pallino (forma sbagliata).",
+              "grammar": "rodilnik-predlogi",
+              "why": {
+                "en": "Od takes the genitive: od bulina.",
+                "de": "Od steht mit dem Genitiv: od bulina.",
+                "it": "Od vuole il genitivo: od bulina."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Od bulin? Koliko bulinov pa imamo?",
+                "en": "Od bulin? How many jacks have we got, then?",
+                "de": "Od bulin? Wie viele Zielkugeln haben wir denn?",
+                "it": "Od bulin? Quanti pallini abbiamo, allora?"
+              }
+            },
+            {
+              "sl": "Moja je bližje bulinu.",
+              "en": "Mine is closer to the jack.",
+              "de": "Meine liegt näher an der Zielkugel.",
+              "it": "La mia è più vicina al pallino.",
+              "why": {
+                "en": "Ten is more than eight: yours is further (dlje), not closer (bližje).",
+                "de": "Zehn ist mehr als acht: Deine ist weiter weg (dlje), nicht näher (bližje).",
+                "it": "Dieci è più di otto: la tua è più lontana (dlje), non più vicina (bližje)."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Bližje? Deset je manj kot osem? Ha ha!",
+                "en": "Closer? Is ten less than eight? Ha ha!",
+                "de": "Näher? Ist zehn weniger als acht? Ha ha!",
+                "it": "Più vicina? Dieci è meno di otto? Ah ah!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "france",
+          "face": "laugh",
+          "sl": "Osem, deset … dva centimetra. Majhna razlika, velika zmaga!",
+          "en": "Eight, ten … two centimetres. A small difference, a big win!",
+          "de": "Acht, zehn … zwei Zentimeter. Kleiner Unterschied, großer Sieg!",
+          "it": "Otto, dieci … due centimetri. Piccola differenza, grande vittoria!"
+        }
+      ]
+    },
+    {
+      "id": "meri-tocke",
+      "count": { "from": "dice", "min": 3, "max": 12, "gender": "f" },
+      "memory": {
+        "sl": "točke na tabli, ki sva jih preštela",
+        "en": "the points on the board we counted",
+        "de": "die Punkte auf der Tafel, die wir gezählt haben",
+        "it": "i punti sulla lavagna che abbiamo contato"
+      },
+      "lines": [
+        {
+          "who": "france",
+          "face": "curious",
+          "sl": "{learner}, poglej tablo. Vsaka črta je ena točka. Koliko točk imamo?",
+          "en": "{learner}, look at the board. Every line is one point. How many points have we got?",
+          "de": "{learner}, schau auf die Tafel. Jeder Strich ist ein Punkt. Wie viele Punkte haben wir?",
+          "it": "{learner}, guarda la lavagna. Ogni segno è un punto. Quanti punti abbiamo?",
+          "fx": { "score": 1 }
+        },
+        {
+          "choices": [
+            {
+              "sl": "Na tabli {je|sta|so|je} {n} {!točka|točki|točke|točk}.",
+              "en": "There {is|are} {n} {point|points} on the board.",
+              "de": "Auf der Tafel {ist|sind} {n} {Punkt|Punkte}.",
+              "it": "Sulla lavagna {c'è|ci sono} {n} {punto|punti}.",
+              "wrong_form": 1,
+              "grammar": "stevila-samostalniki",
+              "why": {
+                "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on, the genitive plural}: {n} {točka|točki|točke|točk}.",
+                "de": "{Eins steht mit dem Singular|Zwei steht mit dem Dual|Drei und vier stehen mit dem Plural|Ab fünf steht der Genitiv Plural}: {n} {točka|točki|točke|točk}.",
+                "it": "{Uno vuole il singolare|Due vuole il duale|Tre e quattro vogliono il plurale|Da cinque in su, il genitivo plurale}: {n} {točka|točki|točke|točk}."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Hm? Štej še enkrat, počasi.",
+                "en": "Hm? Count again, slowly.",
+                "de": "Hm? Zähl noch einmal, langsam.",
+                "it": "Mm? Conta di nuovo, piano."
+              }
+            },
+            {
+              "sl": "Na tabli {je|sta|so|je} {n} {točka|točki|točke|točk}.",
+              "en": "There {is|are} {n} {point|points} on the board.",
+              "de": "Auf der Tafel {ist|sind} {n} {Punkt|Punkte}.",
+              "it": "Sulla lavagna {c'è|ci sono} {n} {punto|punti}.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Tako je. Ena, dve, tri … ti pa znaš šteti!",
+                "en": "That's right. One, two, three … you can count!",
+                "de": "Genau. Eins, zwei, drei … du kannst zählen!",
+                "it": "Esatto. Uno, due, tre … sai contare!"
+              }
+            },
+            {
+              "sl": "Na tabli {je|sta|so|je} {n} {!točka|točki|točke|točk}.",
+              "en": "There {is|are} {n} {point|points} on the board.",
+              "de": "Auf der Tafel {ist|sind} {n} {Punkt|Punkte}.",
+              "it": "Sulla lavagna {c'è|ci sono} {n} {punto|punti}.",
+              "wrong_form": 2,
+              "grammar": "stevila-samostalniki",
+              "why": {
+                "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on, the genitive plural}: {n} {točka|točki|točke|točk}.",
+                "de": "{Eins steht mit dem Singular|Zwei steht mit dem Dual|Drei und vier stehen mit dem Plural|Ab fünf steht der Genitiv Plural}: {n} {točka|točki|točke|točk}.",
+                "it": "{Uno vuole il singolare|Due vuole il duale|Tre e quattro vogliono il plurale|Da cinque in su, il genitivo plurale}: {n} {točka|točki|točke|točk}."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Toliko? Ne, ne, še enkrat, {learner}.",
+                "en": "That many? No, no, once more, {learner}.",
+                "de": "So viele? Nein, nein, noch einmal, {learner}.",
+                "it": "Così tanti? No, no, ancora una volta, {learner}."
+              }
+            }
+          ]
+        },
+        {
+          "who": "france",
+          "sl": "Kdor ima prvi trinajst točk, zmaga.",
+          "en": "Whoever gets to thirteen points first wins.",
+          "de": "Wer zuerst dreizehn Punkte hat, gewinnt.",
+          "it": "Chi arriva per primo a tredici punti vince."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Koliko točk še manjka?",
+              "en": "How many points are still missing?",
+              "de": "Wie viele Punkte fehlen noch?",
+              "it": "Quanti punti mancano ancora?",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "To izračunaj ti. Jaz samo merim, he he.",
+                "en": "You work that out. I only measure, heh heh.",
+                "de": "Das rechnest du aus. Ich messe nur, he he.",
+                "it": "Questo calcolalo tu. Io misuro e basta, eh eh."
+              }
+            },
+            {
+              "sl": "Koliko točke še manjka?",
+              "en": "How many point (wrong form) are still missing?",
+              "de": "Wie viele Punkt (falsche Form) fehlen noch?",
+              "it": "Quanti punto (forma sbagliata) mancano ancora?",
+              "grammar": "rodilnik-kolicina",
+              "why": {
+                "en": "Koliko takes the genitive plural: koliko točk.",
+                "de": "Nach koliko steht der Genitiv Plural: koliko točk.",
+                "it": "Koliko vuole il genitivo plurale: koliko točk."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Točke? Katere? Ne razumem, {learner}.",
+                "en": "Točke? Which ones? I don't understand, {learner}.",
+                "de": "Točke? Welche? Ich verstehe nicht, {learner}.",
+                "it": "Točke? Quali? Non capisco, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "france",
+          "face": "happy",
+          "sl": "Še ena igra, potem pa na kozarec vina.",
+          "en": "One more game, and then a glass of wine.",
+          "de": "Noch ein Spiel, und dann ein Glas Wein.",
+          "it": "Ancora una partita, e poi un bicchiere di vino."
+        }
+      ]
+    },
+    {
+      "id": "vino-midva",
+      "memory": {
+        "sl": "večer, ko sva pod brajdo gledala igro",
+        "en": "the evening we watched the game under the pergola",
+        "de": "den Abend, an dem wir unter der Weinlaube dem Spiel zugeschaut haben",
+        "it": "la sera in cui abbiamo guardato la partita sotto il pergolato"
+      },
+      "lines": [
+        {
+          "who": "marko",
+          "face": "happy",
+          "sl": "Ciao, {learner}! Ostali igrajo. Midva pa sediva pod brajdo, a?",
+          "en": "Ciao, {learner}! The others are playing. And we two sit under the pergola, eh?",
+          "de": "Ciao, {learner}! Die anderen spielen. Und wir zwei sitzen unter der Weinlaube, was?",
+          "it": "Ciao, {learner}! Gli altri giocano. E noi due ci sediamo sotto il pergolato, eh?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ja, midva samo gledava.",
+              "en": "Yes, we two just watch.",
+              "de": "Ja, wir zwei schauen nur zu.",
+              "it": "Sì, noi due guardiamo e basta.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Gledava in pijeva. Najlepše delo!",
+                "en": "We watch and we drink. The best job there is!",
+                "de": "Zuschauen und trinken. Die schönste Arbeit!",
+                "it": "Guardiamo e beviamo. Il lavoro più bello!"
+              }
+            },
+            {
+              "sl": "Ja, midva samo gledamo.",
+              "en": "Yes, we two just watch (three or more).",
+              "de": "Ja, wir zwei schauen (drei oder mehr) nur zu.",
+              "it": "Sì, noi due guardiamo (tre o più) e basta.",
+              "grammar": "dvojina",
+              "why": {
+                "en": "Midva is the two of you: the dual, gledava. Gledamo is for three or more.",
+                "de": "Midva, ihr zwei: der Dual, gledava. Gledamo ist für drei oder mehr.",
+                "it": "Midva, voi due: il duale, gledava. Gledamo è per tre o più."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Gledamo? Kdo še? Vrč?",
+                "en": "Gledamo (all of us)? Who else? The jug?",
+                "de": "Gledamo (wir alle)? Wer noch? Der Krug?",
+                "it": "Gledamo (tutti noi)? Chi altro? La brocca?"
+              }
+            },
+            {
+              "sl": "Ja, midva samo gledata.",
+              "en": "Yes, we two just watch (they two).",
+              "de": "Ja, wir zwei schauen (die zwei) nur zu.",
+              "it": "Sì, noi due guardano (loro due) e basta.",
+              "grammar": "dvojina",
+              "why": {
+                "en": "Midva is we two: gledava. Gledata is they two, or you two.",
+                "de": "Midva heißt wir zwei: gledava. Gledata heißt die zwei oder ihr zwei.",
+                "it": "Midva vuol dire noi due: gledava. Gledata è loro due, o voi due."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Gledata? Kdo? Onadva? Saj sva midva tukaj.",
+                "en": "Gledata? Who? Those two? We two are right here.",
+                "de": "Gledata? Wer? Die zwei? Wir zwei sind doch hier.",
+                "it": "Gledata? Chi? Quei due? Noi due siamo qui."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "marko",
+          "face": "curious",
+          "sl": "Dva kozarca, en vrč. Natočim?",
+          "en": "Two glasses, one jug. Shall I pour?",
+          "de": "Zwei Gläser, ein Krug. Soll ich einschenken?",
+          "it": "Due bicchieri, una brocca. Verso?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Natoči, prosim. Oba kozarca.",
+              "en": "Pour, please. Both glasses.",
+              "de": "Schenk ein, bitte. Beide Gläser.",
+              "it": "Versa, per favore. Tutti e due i bicchieri.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Allora … tvoj je poln. Moj pa takoj!",
+                "en": "Allora … yours is full. Mine in a moment!",
+                "de": "Allora … deins ist voll. Meins gleich!",
+                "it": "Allora … il tuo è pieno. Il mio subito!",
+                "fx": { "pour": 1 }
+              }
+            },
+            {
+              "sl": "Natoči, prosim. Obe kozarca.",
+              "en": "Pour, please. Both (feminine) glasses.",
+              "de": "Schenk ein, bitte. Beide (weiblich) Gläser.",
+              "it": "Versa, per favore. Tutte e due (femminile) i bicchieri.",
+              "grammar": "dvojina",
+              "why": {
+                "en": "Kozarec is masculine: oba kozarca. Obe is for feminine nouns.",
+                "de": "Kozarec ist männlich: oba kozarca. Obe ist für weibliche Wörter.",
+                "it": "Kozarec è maschile: oba kozarca. Obe è per i femminili."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Obe? Kozarca nista dami, {learner}! Ha!",
+                "en": "Obe (feminine)? The glasses aren't ladies, {learner}! Ha!",
+                "de": "Obe (weiblich)? Die Gläser sind keine Damen, {learner}! Ha!",
+                "it": "Obe (femminile)? I bicchieri non sono signore, {learner}! Ah!"
+              }
+            },
+            {
+              "sl": "Natoči, prosim. Oba kozarce.",
+              "en": "Pour, please. Both glasses (plural).",
+              "de": "Schenk ein, bitte. Beide Gläser (Plural).",
+              "it": "Versa, per favore. Tutti e due i bicchieri (plurale).",
+              "grammar": "dvojina",
+              "why": {
+                "en": "Two of them: the dual, kozarca. Kozarce is the plural, for three or more.",
+                "de": "Zwei: der Dual, kozarca. Kozarce ist der Plural, für drei oder mehr.",
+                "it": "Due: il duale, kozarca. Kozarce è il plurale, per tre o più."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Kozarce? Koliko jih vidiš? Jaz dva.",
+                "en": "Kozarce (plural)? How many can you see? I see two.",
+                "de": "Kozarce (Plural)? Wie viele siehst du? Ich zwei.",
+                "it": "Kozarce (plurale)? Quanti ne vedi? Io due."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "marko",
+          "face": "laugh",
+          "sl": "Na naju! In na tiste, ki igrajo.",
+          "en": "To us two! And to those who are playing.",
+          "de": "Auf uns zwei! Und auf die, die spielen.",
+          "it": "A noi due! E a quelli che giocano."
+        }
+      ]
+    },
+    {
+      "id": "vecer-mi",
+      "memory": {
+        "sl": "večer, ko sva bila ena ekipa",
+        "en": "the evening we were one team",
+        "de": "den Abend, an dem wir eine Mannschaft waren",
+        "it": "la sera in cui eravamo una squadra"
+      },
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "anton",
+          "face": "curious",
+          "sl": "Dober večer. Igrate z nami? Manjka nam en igralec.",
+          "en": "Good evening. Will you play with us? We're one player short.",
+          "de": "Guten Abend. Spielen Sie mit uns? Uns fehlt ein Spieler.",
+          "it": "Buonasera. Gioca con noi? Ci manca un giocatore.",
+          "fx": { "lantern": 1 }
+        },
+        {
+          "choices": [
+            {
+              "sl": "{m:Rad|f:Rada} igram z vami.",
+              "en": "I'd love to play with you.",
+              "de": "Ich spiele gern mit Ihnen.",
+              "it": "Gioco volentieri con voi.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Lepo. Vi in jaz sva skupaj, ena ekipa.",
+                "en": "Good. You and I are together, one team.",
+                "de": "Schön. Sie und ich sind zusammen, eine Mannschaft.",
+                "it": "Bene. Lei e io stiamo insieme, una squadra."
+              }
+            },
+            {
+              "sl": "{m:Rad|f:Rada} igram z vi.",
+              "en": "I'd love to play with you (nominative).",
+              "de": "Ich spiele gern mit Sie (Nominativ).",
+              "it": "Gioco volentieri con voi (nominativo).",
+              "grammar": "orodnik",
+              "why": {
+                "en": "Z (with) takes the instrumental: z vami.",
+                "de": "Z (mit) steht mit dem Instrumental: z vami.",
+                "it": "Z (con) vuole lo strumentale: z vami."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Z vi? Hm … tega ne poznam.",
+                "en": "Z vi? Hm … I don't know that one.",
+                "de": "Z vi? Hm … das kenne ich nicht.",
+                "it": "Z vi? Mm … questa non la conosco."
+              }
+            },
+            {
+              "sl": "{m:Rad|f:Rada} igram s tabo.",
+              "en": "I'd love to play with you (just one of you, ti).",
+              "de": "Ich spiele gern mit dir.",
+              "it": "Gioco volentieri con te.",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Anton asked for the team, and you say vi to him: z vami.",
+                "de": "Anton fragt für die Mannschaft, und du siezt ihn: z vami.",
+                "it": "Anton chiede per la squadra, e gli dai del vi: z vami."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "S tabo? Samo z mano? Kaj pa ostali?",
+                "en": "S tabo? Only with me? And the others?",
+                "de": "S tabo? Nur mit mir? Und die anderen?",
+                "it": "S tabo? Solo con me? E gli altri?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "anton",
+          "sl": "Midva mečeva prva. Vi najprej, potem jaz.",
+          "en": "We two throw first. You first, then me.",
+          "de": "Wir zwei werfen zuerst. Sie zuerst, dann ich.",
+          "it": "Noi due tiriamo per primi. Prima Lei, poi io."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Prav. Midva bova zmagala!",
+              "en": "Right. We two are going to win!",
+              "de": "Gut. Wir zwei werden gewinnen!",
+              "it": "Bene. Noi due vinceremo!",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Upam … Vrzite. Lepo, čisto pri bulinu!",
+                "en": "I hope so … Throw. Nice, right by the jack!",
+                "de": "Hoffentlich … Werfen Sie. Schön, direkt an der Zielkugel!",
+                "it": "Spero … Tiri. Bello, attaccata al pallino!",
+                "fx": { "throw": 1 }
+              }
+            },
+            {
+              "sl": "Prav. Midva bomo zmagali!",
+              "en": "Right. We two (all) are going to win!",
+              "de": "Gut. Wir zwei (alle) werden gewinnen!",
+              "it": "Bene. Noi due (tutti) vinceremo!",
+              "grammar": "dvojina",
+              "why": {
+                "en": "Midva, the two of you: bova zmagala. Bomo zmagali is for three or more.",
+                "de": "Midva, ihr zwei: bova zmagala. Bomo zmagali ist für drei oder mehr.",
+                "it": "Midva, voi due: bova zmagala. Bomo zmagali è per tre o più."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Bomo? Mi vsi? Ne, samo vi in jaz.",
+                "en": "Bomo (all of us)? Everyone? No, just you and me.",
+                "de": "Bomo (wir alle)? Alle? Nein, nur Sie und ich.",
+                "it": "Bomo (tutti noi)? Tutti? No, solo Lei e io."
+              }
+            },
+            {
+              "sl": "Prav. Midva sva zmagala!",
+              "en": "Right. We two have won!",
+              "de": "Gut. Wir zwei haben gewonnen!",
+              "it": "Bene. Noi due abbiamo vinto!",
+              "grammar": "prihodnjik",
+              "why": {
+                "en": "It hasn't happened yet: the future, bova zmagala.",
+                "de": "Es ist noch nicht passiert: das Futur, bova zmagala.",
+                "it": "Non è ancora successo: il futuro, bova zmagala."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Sva že? Saj še nisva vrgla!",
+                "en": "Already? We haven't even thrown yet!",
+                "de": "Schon? Wir haben doch noch nicht geworfen!",
+                "it": "Di già? Non abbiamo ancora tirato!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "anton",
+          "face": "laugh",
+          "sl": "Ha … Na balinišču se smejejo tudi tihi ljudje.",
+          "en": "Ha … On the bocce court even quiet people laugh.",
+          "de": "Ha … Auf der Bocciabahn lachen sogar die stillen Leute.",
+          "it": "Ah … Sul campo da bocce ridono anche le persone silenziose."
+        }
+      ]
+    }
+  ]
+}
