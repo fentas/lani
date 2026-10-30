@@ -306,7 +306,7 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        Home's tip; the tent's request failed, when it comes back (its end, the Scroll's Later, the giver's
                        🔁 and card), its drill passed, back the same day (as Teo with
                        LANI_CULTURE=friuli, LANI_CHILD=1, LANI_QA_SETUP_PAIR=it-de; g-*.png in $LANI_QA_GUIDANCE_SHOTS);
-                       "guidance-retry" (only when named) only that failed request (a run of its own);
+                       "guidance-tips" and "guidance-retry" (only when named) its two halves, each a run of its own;
                        "offline-audio" the
                        settings' "🔊 Zvok brez povezave" section; "prefetch" the day's clips got from the dev bridge (QA's
                        hook "audio:prefetch"; the day's size in prefetch.json); "offline-voice" the Piper voice downloaded
@@ -7093,8 +7093,9 @@ def guidance(part: str = "all"):
     school standing): the card's button opens the school's next unit. "tips:chat": Home's tip in "Danes". "tips:tentmove"
     (the shepherd's request asked anew): its run failed (a child's answers listed, ✅/❌), the end says when it comes back
     and offers its drill; the Scroll's "Later" says when; the giver's 🔁 on the map opens their card with the drill; the
-    drill passed: the request back the same day ("🔁 Riprova"), its intro opens. [part] "retry": only the failed request (the
-    step guidance-retry). Also as g-*.png and g-voice.log in $LANI_QA_GUIDANCE_SHOTS."""
+    drill passed: the request back the same day ("🔁 Riprova"), its intro opens. [part] "tips": only the tips (the step
+    guidance-tips), "retry": only the failed request (guidance-retry), each a run under ten minutes. Also as g-*.png and
+    g-voice.log in $LANI_QA_GUIDANCE_SHOTS."""
     pair = (os.environ.get("LANI_QA_SETUP_PAIR") or "sl-en").split("-")
     out = Path(os.environ["LANI_QA_GUIDANCE_SHOTS"]) if os.environ.get("LANI_QA_GUIDANCE_SHOTS") else None
     child = bool(os.environ.get("LANI_CHILD"))
@@ -7288,6 +7289,8 @@ def guidance(part: str = "all"):
     time.sleep(1.5)
     snap("g-home")
     tap(lab("tips.gotIt"), 4)
+    if part == "tips":
+        return None
     return guidance_retry(pair, child, msg, lab, snap, run, to_village)
 
 
@@ -13807,6 +13810,7 @@ def plan():
         # only when named: "💡 Namigi · Tips" (GAME.md "Guidance"): the map's, Home's, a failed request's way back (Teo's pair
         # with LANI_*; its hooks fill a store, build a school and fail a request)
         ("guidance", guidance, guidance_home, False, ""),
+        ("guidance-tips", lambda: guidance("tips"), guidance_home, False, ""),
         ("guidance-retry", lambda: guidance("retry"), guidance_home, False, ""),
         ("village-life", village_life, v, False, ""),
         ("palisade-walk", palisade_walk, v, False, ""),
@@ -14141,7 +14145,7 @@ def selected(steps):
     want = arg("--steps")
     if not want:
         # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
-        return [s for s in steps if s[0] not in ("hosted", "town-progress-child", "zoom-frames", "home-return", "friuli-looks", "friuli-watchtower", "guidance", "guidance-retry", "talk-mic") and s[4] != VOICES_GROUP]
+        return [s for s in steps if s[0] not in ("hosted", "town-progress-child", "zoom-frames", "home-return", "friuli-looks", "friuli-watchtower", "guidance", "guidance-tips", "guidance-retry", "talk-mic") and s[4] != VOICES_GROUP]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")
