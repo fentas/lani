@@ -139,8 +139,9 @@ interjections and verb forms). 0.21 ms a line on the node.
 SP2001 on fran.si (`FilteredDictionaryIds=134`) for each word's standard form, gender and labels; Sloleks 2.0
 (viri.cjvt.si/sloleks) for the paradigms, its labels (*variantno* kept, *nestandardno* left out, *živo*/*neživo* by
 SP2001's *člov.*/*živ.*). 81 requests (40 to fran.si, 41 to Sloleks), one at a time, 5 s apart, each page cached in the
-session's scratchpad (case-lens-2/cache/, a log of every request) so none was fetched twice; none refused. Every
-supplement entry's `source` names its SP2001 query and its Sloleks headword.
+session's scratchpad (with a log of every request) so none was fetched twice; none refused. The cache went with /tmp at
+the host's reboot (23:10); what was read from it is kept: every supplement entry's `source` names its SP2001 query and
+its Sloleks headword, the table's script cites the entries its rules rest on.
 
 ## For Jan's wife: the short list
 
