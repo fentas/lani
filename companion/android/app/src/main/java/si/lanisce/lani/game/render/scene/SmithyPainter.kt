@@ -1,5 +1,7 @@
 package si.lanisce.lani.game.render.scene
 
+import si.lanisce.lani.game.BuildingType
+import si.lanisce.lani.game.Catalog
 import si.lanisce.lani.game.render.Col
 import si.lanisce.lani.game.render.Dither
 import si.lanisce.lani.game.render.Noise
@@ -35,9 +37,11 @@ import kotlin.math.sqrt
  * Tapped ([pokes]), the anvil rings: its sound spreads, a glint runs over its face and sparks jump off it; tapped
  * again, it rings twice.
  *
- * The smithy grows with its level ([si.lanisce.lani.game.scene.SceneFixtures]): at the first the coals only glow in
- * the forge; the big bellows and the chain come with the second; the cart wheel, the axe on its pegs and a second,
- * smaller anvil on its stump in front of the wheel with the third.
+ * The smithy grows with its level ([level]; [si.lanisce.lani.game.scene.SceneFixtures]): at the first the coals only glow in
+ * the forge and the yard is grass; the big bellows and the chain come with the second; the cart wheel, the axe on its pegs
+ * and a second, smaller anvil on its stump in front of the wheel with the third; with the fourth the yard is cobbled where
+ * the horses wait to be shod, its tethering post on the cobbles and the water trough by the back edge; with the fifth the
+ * woodpile and the grindstone at the yard's front (the picture as it always was).
  *
  * A dialog can have the forge roar ("forge"), throw sparks off the anvil at every blow ("sparks") and lay a shoe being
  * forged on the anvil, held in the tongs ("iron": 1 the straight blank white-hot, cooling through orange and red as it is
@@ -140,9 +144,13 @@ internal class SmithyPainter : DioramaPainter() {
     private var cobbles = false
     private var grille = false
 
+    /** The smithy's level (1 … [Catalog.MAX_LEVEL]), read once a frame: its yard (see the class's comment). */
+    private var level = Catalog.MAX_LEVEL
+
     override fun paint() {
         fit()
         vignette()
+        level = frame.world.level(BuildingType.SMITHY).coerceIn(1, Catalog.MAX_LEVEL)
         cobbles = variant("walls") == "cobbles"; grille = variant("window") == "grille"
         val lit = env.windows > 0.35f
         // Tone asleep by it: the fire banked for the night, the bellows at rest (unless a dialog fires the forge up); the
@@ -198,14 +206,13 @@ internal class SmithyPainter : DioramaPainter() {
         cast("anvil")
         thing("bucket", slop = 1) { bucket() }
 
-        // the yard
-        prop { trough() }
-        tether()
+        // the yard: the trough and the tethering post on its cobbles from the smithy's fourth level, the woodpile and the
+        // grindstone from its fifth
+        if (level >= 4) { prop { trough() }; tether() }
         if (!winter) prop { lostShoe() }
         // a dialog's cart in the yard, Marko's, a wheel off ("cart")
         fx("cart")?.let { cart(it) }
-        woodpile()
-        prop { grindstone() }
+        if (level >= Catalog.MAX_LEVEL) { woodpile(); prop { grindstone() } }
 
         fireflies(iso.ix(3f, 12f), iso.iy(9f, 9f, 18f), iso.ix(12f, 3f), iso.iy(12f, 12f, 0f), 8, 5)
         lights(heat, banked)
@@ -289,12 +296,12 @@ internal class SmithyPainter : DioramaPainter() {
     private fun ground(x: Float, y: Float, px: Int, py: Int): Int {
         // under the room: its floor and walls cover it
         if (x > x0 - thick + 0.15f && x < x1 - 0.15f && y > y0 - thick + 0.15f && y < y1 - 0.15f) return slabD
-        if (inCobbles(x, y)) return cobble(x, y, px, py)
+        if (level >= 4 && inCobbles(x, y)) return cobble(x, y, px, py)
         val g = grassAt(x, y, px, py)
         // how bare the earth is: the apron along the room, the path, the trough's puddle (not measured where it can't be)
         val apron = if (x > x0 - thick && y > y0 - thick && x < x1 + 0.8f && y < y1 + 0.8f) 1f - hyp(max(0f, x - x1), max(0f, y - y1)) / 0.8f else 0f
         val path = if (x > x1 - 0.75f && y > y1 - 0.75f && x < 12.15f && y < 12.35f) 1f - segDist(x, y, x1, y1, 11.4f, 11.6f) / 0.75f else -1f
-        val trough = if (abs(x - 9.85f) < 1.4f && abs(y - 2.6f) < 2.1f) 1f - hyp((x - 9.85f) / 1.4f, (y - 2.6f) / 2.1f) else -1f
+        val trough = if (level >= 4 && abs(x - 9.85f) < 1.4f && abs(y - 2.6f) < 2.1f) 1f - hyp((x - 9.85f) / 1.4f, (y - 2.6f) / 2.1f) else -1f
         val m = max(max(apron, path), trough)
         if (m <= 0f) return g
         val f = m * (0.75f + Noise.v2(x * 2f, y * 2f, 3) * 0.5f)

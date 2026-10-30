@@ -1,0 +1,824 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "al-mercato",
+  "language": "it",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in it, with sl, en and de translations, from the Friuli market's picture (its painter's colours and where each thing is drawn at every level of the market: the stall a table at the first, the awnings only from the second); not reviewed by a native speaker",
+  "things": {
+    "stall": {
+      "clues": [
+        {
+          "kind": "material",
+          "it": "È di legno.",
+          "sl": "Je iz lesa.",
+          "en": "It's made of wood.",
+          "de": "Er ist aus Holz.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "size",
+          "it": "È grande e lunga.",
+          "sl": "Je velika in dolga.",
+          "en": "It's big and long.",
+          "de": "Er ist groß und lang.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "lungo"
+        },
+        {
+          "kind": "trait",
+          "it": "Ha una tovaglia bianca.",
+          "sl": "Ima bel prt.",
+          "en": "It has a white cloth.",
+          "de": "Er hat eine weiße Tischdecke.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "where",
+          "it": "È a sinistra.",
+          "sl": "Je na levi.",
+          "en": "It's on the left.",
+          "de": "Er ist links.",
+          "grammar": [
+            "dove-preposizioni"
+          ]
+        },
+        {
+          "kind": "use",
+          "it": "La nonna ci vende le uova.",
+          "sl": "Babica na njej prodaja jajca.",
+          "en": "Nonna sells eggs at it.",
+          "de": "Die Nonna verkauft dort Eier.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        }
+      ]
+    },
+    "scale": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È dorata.",
+          "sl": "Je zlata.",
+          "en": "It's golden.",
+          "de": "Sie ist golden.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "dorato"
+        },
+        {
+          "kind": "material",
+          "it": "È di ottone.",
+          "sl": "Je iz medenine.",
+          "en": "It's made of brass.",
+          "de": "Sie ist aus Messing.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "trait",
+          "it": "Ha due piatti.",
+          "sl": "Ima dve skodelici.",
+          "en": "It has two pans.",
+          "de": "Sie hat zwei Schalen.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "where",
+          "it": "È sulla bancarella.",
+          "sl": "Je na stojnici.",
+          "en": "It's on the stall.",
+          "de": "Sie steht auf dem Stand.",
+          "grammar": [
+            "preposizioni-articolate"
+          ],
+          "ref": "stall"
+        },
+        {
+          "kind": "use",
+          "it": "Con questa pesiamo il formaggio.",
+          "sl": "S tem tehtamo sir.",
+          "en": "We weigh the cheese with it.",
+          "de": "Damit wiegen wir den Käse.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        }
+      ]
+    },
+    "weights": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È dorato.",
+          "sl": "Je zlata.",
+          "en": "It's golden.",
+          "de": "Es ist golden.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "dorato"
+        },
+        {
+          "kind": "trait",
+          "it": "È pesante.",
+          "sl": "Je težka.",
+          "en": "It's heavy.",
+          "de": "Es ist schwer.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "pesante"
+        },
+        {
+          "kind": "where",
+          "it": "È vicino alla bilancia.",
+          "sl": "Je pri tehtnici.",
+          "en": "It's by the scale.",
+          "de": "Es steht bei der Waage.",
+          "grammar": [
+            "dove-preposizioni",
+            "preposizioni-articolate"
+          ],
+          "ref": "scale"
+        },
+        {
+          "kind": "use",
+          "it": "Lo mettiamo sulla bilancia.",
+          "sl": "Damo jo na tehtnico.",
+          "en": "We put it on the scale.",
+          "de": "Wir legen es auf die Waage.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        }
+      ]
+    },
+    "eggs": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È bianco o marrone.",
+          "sl": "Je belo ali rjavo.",
+          "en": "It's white or brown.",
+          "de": "Es ist weiß oder braun.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "bianco"
+        },
+        {
+          "kind": "size",
+          "it": "È piccolo.",
+          "sl": "Je majhno.",
+          "en": "It's small.",
+          "de": "Es ist klein.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "piccolo"
+        },
+        {
+          "kind": "where",
+          "it": "È sulla bancarella, nella paglia.",
+          "sl": "Je na stojnici, v slami.",
+          "en": "It's on the stall, in the straw.",
+          "de": "Es liegt auf dem Stand, im Stroh.",
+          "grammar": [
+            "preposizioni-articolate"
+          ],
+          "ref": "stall"
+        },
+        {
+          "kind": "does",
+          "it": "La gallina lo fa.",
+          "sl": "Kokoš ga znese.",
+          "en": "The hen lays it.",
+          "de": "Das Huhn legt es.",
+          "grammar": [
+            "verbi-irregolari"
+          ]
+        },
+        {
+          "kind": "use",
+          "it": "Lo mangiamo a colazione.",
+          "sl": "Jemo ga za zajtrk.",
+          "en": "We eat it for breakfast.",
+          "de": "Wir essen es zum Frühstück.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        }
+      ]
+    },
+    "bread": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È marrone.",
+          "sl": "Je rjav.",
+          "en": "It's brown.",
+          "de": "Es ist braun.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "marrone"
+        },
+        {
+          "kind": "trait",
+          "it": "È rotondo.",
+          "sl": "Je okrogel.",
+          "en": "It's round.",
+          "de": "Es ist rund.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "rotondo"
+        },
+        {
+          "kind": "where",
+          "it": "È vicino al formaggio.",
+          "sl": "Je pri siru.",
+          "en": "It's by the cheese.",
+          "de": "Es liegt beim Käse.",
+          "grammar": [
+            "dove-preposizioni",
+            "preposizioni-articolate"
+          ],
+          "ref": "cheese"
+        },
+        {
+          "kind": "use",
+          "it": "Lo mangiamo ogni giorno.",
+          "sl": "Jemo ga vsak dan.",
+          "en": "We eat it every day.",
+          "de": "Wir essen es jeden Tag.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        }
+      ]
+    },
+    "cheese": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È giallo chiaro.",
+          "sl": "Je svetlo rumen.",
+          "en": "It's pale yellow.",
+          "de": "Er ist hellgelb.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "giallo"
+        },
+        {
+          "kind": "trait",
+          "it": "È rotondo come una ruota.",
+          "sl": "Je okrogel kot kolo.",
+          "en": "It's round like a wheel.",
+          "de": "Er ist rund wie ein Rad.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "rotondo"
+        },
+        {
+          "kind": "where",
+          "it": "È vicino al pane.",
+          "sl": "Je pri kruhu.",
+          "en": "It's by the bread.",
+          "de": "Er liegt beim Brot.",
+          "grammar": [
+            "dove-preposizioni",
+            "preposizioni-articolate"
+          ],
+          "ref": "bread"
+        },
+        {
+          "kind": "use",
+          "it": "Con questo facciamo il frico.",
+          "sl": "Iz tega naredimo frico.",
+          "en": "We make frico with it.",
+          "de": "Daraus machen wir Frico.",
+          "grammar": [
+            "verbi-irregolari"
+          ]
+        }
+      ]
+    },
+    "honey": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È giallo o marrone.",
+          "sl": "Je rumen ali rjav.",
+          "en": "It's yellow or brown.",
+          "de": "Er ist gelb oder braun.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "giallo"
+        },
+        {
+          "kind": "trait",
+          "it": "È dolce.",
+          "sl": "Je sladek.",
+          "en": "It's sweet.",
+          "de": "Er ist süß.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "dolce"
+        },
+        {
+          "kind": "where",
+          "it": "È nei vasetti, sulla bancarella.",
+          "sl": "Je v kozarčkih, na stojnici.",
+          "en": "It's in the jars, on the stall.",
+          "de": "Er ist in den Gläsern, auf dem Stand.",
+          "grammar": [
+            "preposizioni-articolate"
+          ],
+          "ref": "stall"
+        },
+        {
+          "kind": "does",
+          "it": "Lo fanno le api.",
+          "sl": "Delajo ga čebele.",
+          "en": "The bees make it.",
+          "de": "Die Bienen machen ihn.",
+          "grammar": [
+            "verbi-irregolari"
+          ]
+        }
+      ]
+    },
+    "apples": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È rossa o gialla.",
+          "sl": "Je rdeče ali rumeno.",
+          "en": "It's red or yellow.",
+          "de": "Er ist rot oder gelb.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "rosso"
+        },
+        {
+          "kind": "trait",
+          "it": "È rotonda.",
+          "sl": "Je okroglo.",
+          "en": "It's round.",
+          "de": "Er ist rund.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "rotondo"
+        },
+        {
+          "kind": "where",
+          "it": "È in una cassetta, per terra.",
+          "sl": "Je v zaboju, na tleh.",
+          "en": "It's in a crate, on the ground.",
+          "de": "Er liegt in einer Kiste, auf dem Boden.",
+          "grammar": [
+            "dove-preposizioni"
+          ]
+        },
+        {
+          "kind": "use",
+          "it": "La mangiamo a merenda.",
+          "sl": "Jemo ga za malico.",
+          "en": "We eat it as a snack.",
+          "de": "Wir essen ihn zur Jause.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        }
+      ]
+    },
+    "vegetables": {
+      "clues": [
+        {
+          "kind": "trait",
+          "it": "Cambia con le stagioni.",
+          "sl": "Spreminja se z letnimi časi.",
+          "en": "It changes with the seasons.",
+          "de": "Es wechselt mit den Jahreszeiten.",
+          "grammar": [
+            "presente-regolare",
+            "preposizioni-articolate"
+          ]
+        },
+        {
+          "kind": "trait",
+          "it": "È sana.",
+          "sl": "Je zdrava.",
+          "en": "It's healthy.",
+          "de": "Es ist gesund.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "sano"
+        },
+        {
+          "kind": "where",
+          "it": "È in una cassetta, vicino alle mele.",
+          "sl": "Je v zaboju, pri jabolkih.",
+          "en": "It's in a crate, by the apples.",
+          "de": "Es ist in einer Kiste, bei den Äpfeln.",
+          "grammar": [
+            "dove-preposizioni",
+            "preposizioni-articolate"
+          ],
+          "ref": "apples"
+        },
+        {
+          "kind": "use",
+          "it": "La nonna la mette nella minestra.",
+          "sl": "Babica jo da v juho.",
+          "en": "Nonna puts it in the soup.",
+          "de": "Die Nonna gibt es in die Suppe.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        }
+      ]
+    },
+    "basket": {
+      "clues": [
+        {
+          "kind": "material",
+          "it": "È di vimini.",
+          "sl": "Je iz vrbovega protja.",
+          "en": "It's made of wicker.",
+          "de": "Er ist aus Weide geflochten.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "trait",
+          "it": "Ha un manico.",
+          "sl": "Ima ročaj.",
+          "en": "It has a handle.",
+          "de": "Er hat einen Henkel.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "where",
+          "it": "È per terra, davanti alla bancarella.",
+          "sl": "Je na tleh, pred stojnico.",
+          "en": "It's on the ground, in front of the stall.",
+          "de": "Er steht auf dem Boden, vor dem Stand.",
+          "grammar": [
+            "dove-preposizioni",
+            "preposizioni-articolate"
+          ],
+          "ref": "stall"
+        },
+        {
+          "kind": "use",
+          "it": "Ci mettiamo la frutta.",
+          "sl": "Vanjo damo sadje.",
+          "en": "We put fruit in it.",
+          "de": "Wir legen Obst hinein.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        }
+      ]
+    },
+    "crate": {
+      "clues": [
+        {
+          "kind": "material",
+          "it": "È di legno.",
+          "sl": "Je iz lesa.",
+          "en": "It's made of wood.",
+          "de": "Sie ist aus Holz.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "trait",
+          "it": "È vuota.",
+          "sl": "Je prazen.",
+          "en": "It's empty.",
+          "de": "Sie ist leer.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "vuoto"
+        },
+        {
+          "kind": "where",
+          "it": "È a destra, vicino al carro.",
+          "sl": "Je na desni, pri vozu.",
+          "en": "It's on the right, by the cart.",
+          "de": "Sie steht rechts, beim Wagen.",
+          "grammar": [
+            "dove-preposizioni",
+            "preposizioni-articolate"
+          ],
+          "ref": "cart"
+        },
+        {
+          "kind": "use",
+          "it": "Ci mettiamo le mele e la verdura.",
+          "sl": "Vanj damo jabolka in zelenjavo.",
+          "en": "We put apples and vegetables in it.",
+          "de": "Wir legen Äpfel und Gemüse hinein.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        }
+      ]
+    },
+    "hen": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È marrone.",
+          "sl": "Je rjava.",
+          "en": "It's brown.",
+          "de": "Es ist braun.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "marrone"
+        },
+        {
+          "kind": "trait",
+          "it": "Ha la cresta rossa.",
+          "sl": "Ima rdeč greben.",
+          "en": "It has a red comb.",
+          "de": "Es hat einen roten Kamm.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "where",
+          "it": "È in una gabbia di vimini.",
+          "sl": "Je v kletki iz protja.",
+          "en": "It's in a wicker coop.",
+          "de": "Es ist in einem Käfig aus Weide.",
+          "grammar": [
+            "dove-preposizioni"
+          ]
+        },
+        {
+          "kind": "does",
+          "it": "Fa coccodè.",
+          "sl": "Dela kokodak.",
+          "en": "It goes cluck cluck.",
+          "de": "Es macht gack gack.",
+          "grammar": [
+            "verbi-irregolari"
+          ]
+        },
+        {
+          "kind": "does",
+          "it": "Ci dà le uova.",
+          "sl": "Daje nam jajca.",
+          "en": "It gives us eggs.",
+          "de": "Es gibt uns Eier.",
+          "grammar": [
+            "verbi-irregolari"
+          ]
+        }
+      ]
+    },
+    "cart": {
+      "clues": [
+        {
+          "kind": "material",
+          "it": "È di legno.",
+          "sl": "Je lesen.",
+          "en": "It's made of wood.",
+          "de": "Er ist aus Holz.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "trait",
+          "it": "Ha quattro ruote.",
+          "sl": "Ima štiri kolesa.",
+          "en": "It has four wheels.",
+          "de": "Er hat vier Räder.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "size",
+          "it": "È grande.",
+          "sl": "Je velik.",
+          "en": "It's big.",
+          "de": "Er ist groß.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "grande"
+        },
+        {
+          "kind": "where",
+          "it": "È a destra.",
+          "sl": "Je na desni.",
+          "en": "It's on the right.",
+          "de": "Er steht rechts.",
+          "grammar": [
+            "dove-preposizioni"
+          ]
+        },
+        {
+          "kind": "trait",
+          "it": "Sopra c'è una botte.",
+          "sl": "Na njem je sod.",
+          "en": "There's a barrel on it.",
+          "de": "Darauf steht ein Fass.",
+          "grammar": [
+            "ce-ci-sono"
+          ]
+        }
+      ]
+    },
+    "wine": {
+      "clues": [
+        {
+          "kind": "material",
+          "it": "È di vetro.",
+          "sl": "Je iz stekla.",
+          "en": "It's made of glass.",
+          "de": "Sie ist aus Glas.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "trait",
+          "it": "È lunga e stretta.",
+          "sl": "Je dolga in ozka.",
+          "en": "It's long and narrow.",
+          "de": "Sie ist lang und schmal.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "lungo"
+        },
+        {
+          "kind": "where",
+          "it": "È sul carro.",
+          "sl": "Je na vozu.",
+          "en": "It's on the cart.",
+          "de": "Sie steht auf dem Wagen.",
+          "grammar": [
+            "preposizioni-articolate"
+          ],
+          "ref": "cart"
+        },
+        {
+          "kind": "use",
+          "it": "Dentro c'è il vino bianco del Collio.",
+          "sl": "V njej je belo vino iz Brd.",
+          "en": "There's white wine from the Collio in it.",
+          "de": "Darin ist Weißwein aus dem Collio.",
+          "grammar": [
+            "ce-ci-sono"
+          ]
+        }
+      ]
+    },
+    "pigeon": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È grigio.",
+          "sl": "Je siv.",
+          "en": "It's grey.",
+          "de": "Sie ist grau.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "grigio"
+        },
+        {
+          "kind": "size",
+          "it": "È piccolo.",
+          "sl": "Je majhen.",
+          "en": "It's small.",
+          "de": "Sie ist klein.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "piccolo"
+        },
+        {
+          "kind": "trait",
+          "it": "Ha le ali.",
+          "sl": "Ima krila.",
+          "en": "It has wings.",
+          "de": "Sie hat Flügel.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "does",
+          "it": "Mangia le briciole.",
+          "sl": "Je drobtine.",
+          "en": "It eats the crumbs.",
+          "de": "Sie frisst die Krümel.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        },
+        {
+          "kind": "does",
+          "it": "Vola via quando arriva la gente.",
+          "sl": "Odleti, ko pridejo ljudje.",
+          "en": "It flies off when people come.",
+          "de": "Sie fliegt weg, wenn Leute kommen.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        }
+      ]
+    },
+    "bell": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È dorato.",
+          "sl": "Je zlat.",
+          "en": "It's golden.",
+          "de": "Sie ist golden.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "dorato"
+        },
+        {
+          "kind": "size",
+          "it": "È piccolo.",
+          "sl": "Je majhen.",
+          "en": "It's small.",
+          "de": "Sie ist klein.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "piccolo"
+        },
+        {
+          "kind": "where",
+          "it": "È appeso a un palo.",
+          "sl": "Visi na drogu.",
+          "en": "It hangs from a post.",
+          "de": "Sie hängt an einem Pfosten.",
+          "grammar": [
+            "dove-preposizioni",
+            "aggettivi-accordo"
+          ]
+        },
+        {
+          "kind": "does",
+          "it": "Fa din don.",
+          "sl": "Dela cin cin.",
+          "en": "It goes ding dong.",
+          "de": "Sie macht bim bam.",
+          "grammar": [
+            "verbi-irregolari"
+          ]
+        },
+        {
+          "kind": "use",
+          "it": "Suona quando apre il mercato.",
+          "sl": "Zvoni, ko se odpre tržnica.",
+          "en": "It rings when the market opens.",
+          "de": "Sie läutet, wenn der Markt aufmacht.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        }
+      ]
+    }
+  }
+}

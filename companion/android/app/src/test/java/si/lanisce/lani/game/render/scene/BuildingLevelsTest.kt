@@ -136,10 +136,6 @@ class BuildingLevelsTest {
             "apiary",
             "church",
             "field",
-            "market",
-            "school",
-            "smithy",
-            "square",
             "tent",
         )
 
