@@ -9429,6 +9429,11 @@ def case_bank() -> list:
     return json.loads((ROOT / "companion/cases/sl/bank.json").read_text())["items"]
 
 
+def word_asked(it: dict) -> str:
+    """What the sentence's TalkBack line says of the word framed: "vprašana beseda: kosilu" (l10n cases.asked)."""
+    return "vprašana beseda: " + re.sub(r"^[^\w]+|[^\w]+$", "", it["sl"].split()[it["word"]])
+
+
 def case_item_on_screen(items: list, timeout=8.0):
     """The bank item on screen: its sentence (the which's, a place's prompt with its gap), or None."""
     end = time.time() + timeout * slow()
@@ -9443,7 +9448,8 @@ def case_item_on_screen(items: list, timeout=8.0):
                 prompt = " ".join(toks[:a] + ["___" + (f" ({it['cue']})" if it.get("cue") else "") + trailing] + toks[b + 1:])
                 if any(t.strip() == prompt for t in texts):
                     return it
-            elif any(t.startswith(it["sl"]) for t in texts):
+            elif any(t.startswith(it["sl"]) and word_asked(it) in t for t in texts):
+                # the sentence and the word framed in it ("…, vprašana beseda: kosilu"): two items may share a sentence
                 return it
         time.sleep(1)
     return None
@@ -9457,13 +9463,17 @@ def case_chip(case: str):
 
 def word_chip(word: str, ask: str = CASES_ASK_WHY):
     """A word's chip of "Zakaj?" (its text alone) below the question [ask]: the sentence above has the same word."""
-    for _ in range(3):
+    seen = False
+    for _ in range(4):
         ns = list(nodes())
         top = next((c[1] for t, c in ns if ask in t), None)
+        seen = seen or top is not None
+        if top is None and seen:
+            top = 300  # the question scrolled up out of sight: the sentence above it with it, every chip below
         c = None if top is None else next((c for t, c in ns if t == word and c[1] > top), None)
         if c is not None and c[1] < 2150:
             return c
-        # a long sentence: the chips under the screen's edge, the run's question scrolled up
+        # a long sentence or a place's picture: the chips under the screen's edge, the run's question scrolled up
         adb("shell", "input", "swipe", "540", "1500", "540", "1000", "400")
         time.sleep(1)
     return None
