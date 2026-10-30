@@ -154,8 +154,8 @@ measures both. The emulator draws in software (its frames are 200 to 400 ms what
 thread's part of the frames and the messages besides the frames say the app's cost.
 
 The kitchen's frame: SceneDetailTest's "a closer frame renders fast" (the CPU time of the rendering thread, the best of
-three rounds of ten frames, `FrameBudget`), and a JFR profile of 400 frames at detail 3 (a scratch test, not committed:
-execution samples every millisecond, by method and by line through the class's SMAP for Kotlin's inlined code).
+three rounds of ten frames, `FrameBudget`), and a JFR profile of 400 frames at detail 3 (a scratch test, not committed: execution samples every millisecond, by
+method and by line through the class's SMAP for Kotlin's inlined code).
 
 ## Before and after
 
@@ -190,9 +190,11 @@ TODO
 
 Nothing to do: the app asks a bridge that has `/changes` and ETags (this branch's, the phone's own bridge with the APK
 built from it), and an older bridge is read as before. To see what a Back costs, QA's home-return (above). To look at a
-renderer's time by line, the scratch profile (`scratchpad/ux-nav-perf/kitchen/KitchenProfileScratchTest.kt`: JFR from a
-unit test, then the SMAP of the class for Kotlin's inlined lines); to check a renderer's change kept every pixel, the
-scratch digests (`RoomDigestsScratchTest.kt`: run once before, once after).
+renderer's time by line: JFR from a unit test (`jdk.jfr.Recording` with the "profile" settings and
+`jdk.ExecutionSample` every millisecond around a few hundred renders, read back with `RecordingFile`), then the class's
+SMAP (`javap -v`, SourceDebugExtension) to map the lines Kotlin inlined into a painter's `paint` back to their source.
+To check a renderer's change kept every pixel: digest the pictures (pixels, ids, glow, hits) of every art, look, level,
+view, detail and window before the change and compare after; for the kitchen's floor SceneDetailTest does it.
 
 ## What's left
 
