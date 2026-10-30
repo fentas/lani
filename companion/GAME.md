@@ -1792,7 +1792,7 @@ The feast, forging, the project steps and buying goods are the uses for full sto
 
 Each step's task and story line, in Slovene and English, are in the culture pack (`projects.json`); the step lines name only the leader and groups ("fantje", "sosedje", "otroci", "vsa vas"), so they fit whoever lives here.
 
-**Landmarks to step into.** Every finished landmark leads into a scene of its own (its scenes open `from: ["project:<id>"]`): the vineyard's terraces into the vineyard (Na gričih) and, once it grinds, the mill into the mill (V mlinu, in the Friuli village Nel mulino; [SCENES.md](SCENES.md#the-mill-inside-from-the-stream-and-from-the-map)); in the Slovene village the maypole, the bridge, the bocce court, the chapel, the bee meadow, the fire station, the playground, the fountain, the double hayrack, the lookout tower and the town clock into theirs ([SCENES.md](SCENES.md#the-villages-places-every-project-a-place-to-go-in)). A tap on such a landmark opens its card with "🚪 Vstopi · Go in" and the project under it; the stream's mill leads in from the stream's scene too. Before the project is finished the tap opens the project, as before; a landmark down for the season (the maypole after May) has nothing to tap. The palisade's card leads in too, to its gate (Pri vratih).
+**Landmarks to step into.** Every finished landmark leads into a scene of its own (its scenes open `from: ["project:<id>"]`): the vineyard's terraces into the vineyard (Na gričih, in the Friuli village Nella vigna) and, once it grinds, the mill into the mill (V mlinu, in the Friuli village Nel mulino; [SCENES.md](SCENES.md#the-mill-inside-from-the-stream-and-from-the-map)); in the Slovene village the maypole, the bridge, the bocce court, the chapel, the bee meadow, the fire station, the playground, the fountain, the double hayrack, the lookout tower and the town clock into theirs ([SCENES.md](SCENES.md#the-villages-places-every-project-a-place-to-go-in)); in the Friuli village the greasy pole while it stands (L'albero della cuccagna), the fountain (La fontana) and the tower clock (L'orologio del campanile) into the square, the bridge into the stream (Il ponte), the big hay barn into the field (Il grande fienile) and the bee meadow into the bee house (Il prato delle api) ([SCENES.md](SCENES.md#scenes-of-a-culture-pack); docs/plans/05-built/places-it-projects.md). A tap on such a landmark opens its card with "🚪 Vstopi · Go in" and the project under it; the stream's mill leads in from the stream's scene too. Before the project is finished the tap opens the project, as before; a landmark down for the season (the maypole after May) has nothing to tap. The palisade's card leads in too, to its gate (Pri vratih).
 
 **For the map.** The state the landmarks are drawn from:
 
@@ -2101,7 +2101,10 @@ Each has its word pack in `cultures/friuli/packs/festa-<…>.json` (8 words). It
 too, in Italian with Slovene, English and German (SCENES.md, "Scenes of a culture pack"): Nella tenda, In cucina (from
 the hut and the houses), Nel campo, Nel bosco, Al ruscello, Allo stagno and Nella fucina, each with its word pack
 (`nella-tenda`, `in-cucina`, `nel-campo`, `nel-bosco`, `al-ruscello`, `allo-stagno`, `nella-fucina`, and the wild
-animals' `animali-del-bosco`). Its landscape is Il mare (`scenes/il-mare.json`,
+animals' `animali-del-bosco`); and the places its finished projects lead into: Nel mulino, Nella vigna, L'albero della
+cuccagna, Il ponte, Il prato delle api, La fontana, Il grande fienile and L'orologio del campanile (their packs
+`nel-mulino`, `nella-vigna`, `la-cuccagna`, `il-ponte`, `il-prato-delle-api`, `la-fontana`, `il-grande-fienile`,
+`l-orologio`). Its landscape is Il mare (`scenes/il-mare.json`,
 in Italian with Slovene and English, machine-written like the rest), its words in `packs/il-mare.json`; its campfire is Al fuoco
 (`scenes/al-fuoco.json`, words in `packs/al-fuoco.json`), where Nonno Bepi tells his five legends in the evening (`stories/`:
 the agane, the Devil's Bridge of Cividale, the castle hill of Udine, the sbilfs, the Orcolat; words in `packs/storie.json`). The starter packs of Italian are in
