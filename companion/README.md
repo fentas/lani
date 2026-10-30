@@ -1014,7 +1014,9 @@ grammar book, the course, drills, the family's words, a town's villagers, scenes
 the profile: `{learner}` and `{m:…|f:…}` rendered for them (`Route.addressed`, `bridge/src/addressee.ts`; the tutor's
 tools keep the placeholders, [SCENES.md](SCENES.md#the-learner-in-the-content)).
 
-All endpoints except `/health`, `POST /pair`, the family page and the routes between towns (`/town/…`, signed by the asking town, see [Towns](#towns)) need `Authorization: Bearer <token>`: the app token, or a paired phone's device token. The towns' routes for the app (`/towns…`) are in [Towns](#towns). The family token reaches only the `/family` and `/audio` routes, and can read voice clips (see [Family](#family)). JSON bodies are limited to 256 KB (`413` beyond; `PUT /game` 512 KB, audio 2 MB, a chat photo 8 MB); errors never carry stack traces. `PUT /game` keeps the village's `land` when a state leaves it out (an app from before generated land: GAME.md, "The land"), and the learner's `course` the same way (an app from before the school: [COURSE.md](COURSE.md#the-learners-progress)), as the numbers, the cases, the hearths and the tips ([Tips](#tips)).
+All endpoints except `/health`, `POST /pair`, the family page and the routes between towns (`/town/…`, signed by the asking town, see [Towns](#towns)) need `Authorization: Bearer <token>`: the app token, or a paired phone's device token. The towns' routes for the app (`/towns…`) are in [Towns](#towns). The family token reaches only the `/family` and `/audio` routes, and can read voice clips (see [Family](#family)). JSON bodies are limited to 256 KB (`413` beyond; `PUT /game` 512 KB, audio 2 MB, a chat photo 8 MB); errors never carry stack traces. Every `GET` answered with JSON carries its `ETag` (the SHA-1 of its bytes, after the
+rendering for the learner): asked again with it (`If-None-Match`), the same answer is a `304` without a body (never the
+event stream, a clip, an APK or an error). `PUT /game` keeps the village's `land` when a state leaves it out (an app from before generated land: GAME.md, "The land"), and the learner's `course` the same way (an app from before the school: [COURSE.md](COURSE.md#the-learners-progress)), as the numbers, the cases, the hearths and the tips ([Tips](#tips)).
 
 | Method | Path | Purpose |
 |---|---|---|
@@ -1030,6 +1032,7 @@ All endpoints except `/health`, `POST /pair`, the family page and the routes bet
 | `GET` | `/readings`, `/readings/:id` | the reading corner's readings (see [GAME.md](GAME.md#the-reading-corner)): the village's culture pack's (`companion/cultures/<culture>/readings/`, read per request) with `source: curated` and `culture`, then the tutor's (`<data>/app/readings/`, `publish_reading`) with `source: tutor`, `machine_written` and `published_at` |
 | `POST` | `/readings/done` | `{kind: reading\|story\|aloud, id, title?, level?, exercises, correct, duration_minutes, questions?: [{type?, right}], looks?, aloud?: {words, right, misread, skipped, wpm?, recognizer: node\|phone, misses?: [{word, heard?}]}, language?, client_id}` → reading practice persisted via `update-db.py` (no LLM): `skill_scores.reading` (a reading's questions, a story's turns, a reading aloud's sentences; a story's "🎯 Preveri se" in the story notebook reports as a reading, `id` `book:<story>`, its questions the telling's turns), and `speaking` too for a reading aloud (`command_used` `/lani-app-reading`, `/lani-app-story`, `/lani-app-read-aloud`); Claude gets a `reading_done` summary, with `looks` (how often the text, hidden while its questions were asked, was shown again: [GAME.md](GAME.md#read-first-then-answer)) as "looked back at the text 3 times while answering" |
 | `GET` | `/state[?language=it]` | all 6 learner databases + computed fields (no LLM involved), the home language's or, with `language`, that language's; always with `language` (whose they are) and `languages: [{code, name, level, words, due, source: home\|visits}]`, the home one first (see [docs/DB_SCRIPTS.md](../docs/DB_SCRIPTS.md#languages)), and `features`: what this bridge takes that an older one doesn't (`"dialog-words"`: POST /reviews' `dialog`); an older bridge has none, and the app sends it only what it takes |
+| `GET` | `/changes` | `{version, day}`: the version of everything the app reads (`bridge/src/changes.ts`): a digest of this run of the bridge, the events emitted, the day, and each file the answers come from (the learner's data directory without its history, clips, releases, backups and chat photos; the voice store's database; on a node the project's content under `companion/`, which a merge on main changes under a running bridge). Home coming back reads everything again only when it moved since the app's last whole reading, or that reading is ten minutes old ([docs/plans/05-built/nav-perf.md](../docs/plans/05-built/nav-perf.md)); an older bridge answers `404`, and the app reads everything as before |
 | `GET` | `/modules`, `/modules/:id[?version=N]` | published modules |
 | `GET` | `/packs` | word packs (curated: the village's language's, `companion/packs/` for Slovene or `companion/packs/<language>/`, then the culture pack's `packs/`; + tutor `<data>/app/packs/`) with `source`, `total`, `learned`, `language` (and `festival` for a festival's pack, `praznik-*`, `festa-*`; `project` for a village project's, `projekt-*`) |
 | `GET` | `/packs/:id` | a pack with its words and the ids of words already learned |
@@ -4524,6 +4527,15 @@ link (`lani://review`, `lani://village`, `lani://scene/<id>`, `lani://school/<un
 `lani://friends`, `lani://settings/<section>`) opens its target over Home, on the way the app has to it (a scene over the
 village, a unit over the school, a town's question over Friends); a town's invitation (`lani://town?…` or its web link)
 opens Friends with its Accept dialog filled in.
+
+Home stays composed under the screens opened from it (`ui/Covered.kt`, `ScreenStack`; docs/plans/05-built/nav-perf.md):
+Back to it shows it as it was, at once, nothing composed again (the other screens below the top keep their remembered
+state only, as before). While covered it is neither laid out nor drawn, TalkBack doesn't see it, its Back handlers are
+off, and what would run by itself in it waits: the header village's clock, the tickers, a tip's being shown, its sheets.
+Behind the back gesture from a screen over Home, Home itself shows. What Home reads from the node is read again only
+when something moved since the last whole reading (the bridge's `GET /changes`, [App API](#app-api)): a Back that changed
+nothing costs one small request instead of about 23, and the answers that did change come whole while the others are a
+`304`.
 
 **Home**, top to bottom: the village with the greeting, "🤝" to Friends (a count when a guest came, a question or a
 friend's offer waits), "⚙️" to the settings (its dot: the tutor's connection), the streak; "Danes · Today" (the one thing

@@ -82,6 +82,18 @@ class ClipsApi(private val config: BridgeConfig, private val routes: ClipRoutes 
     suspend fun index(): String = http.text(config.request(routes.index).build())
 
     /**
+     * The index asked with the ETag of the one the phone has ([etag]): null when it is the same (a bridge with ETags
+     * answers 304, nothing sent), else its text and its own ETag (null from a bridge without them). An [IOException]
+     * for another status or when the node can't be reached.
+     */
+    suspend fun indexIfChanged(etag: String?): Pair<String, String?>? {
+        val a = http.raw(config.request(routes.index).apply { etag?.let { header("If-None-Match", it) } }.build())
+        if (a.code == 304 && etag != null) return null
+        if (a.code !in 200..299) throw IOException("HTTP ${a.code}: ${a.text.take(200)}")
+        return a.text to a.etag
+    }
+
+    /**
      * Asks the node to voice [text] now: the clip URL and its voice, or null when no engine is available (204). With
      * [lang], an explanation in the learner's base language (the intro's, voiced in one go; never the reserve kept for
      * live lines): the store keys it apart ([IntroSpeech.key]).
@@ -284,7 +296,14 @@ class Clips(context: Context, private val scope: CoroutineScope, private val vis
         }
     }
 
-    /** Reloads the index from the node (on start and when content was published or voiced). */
+    /**
+     * The ETag of the index the phone read last from [indexOf] (this run of the app; the copy on disk is read whole once):
+     * asked with it, the same index costs a 304 and nothing else (2026-10-30, docs/plans/05-built/nav-perf.md: reading,
+     * parsing and writing it again on every Back to Home made tens of MB for the collector).
+     */
+    private var indexTag: Pair<ClipsApi, String>? = null
+
+    /** Reloads the index from the node (on start and when content was published or voiced); the same as before, nothing. */
     fun refresh() {
         val a = api ?: return
         scope.launch {
@@ -292,8 +311,12 @@ class Clips(context: Context, private val scope: CoroutineScope, private val vis
             profilesSaid(raw)
         }
         scope.launch {
-            // A bad index must not crash the app: parse inside the catch, write the file off the main thread.
-            val (raw, parsed) = withContext(Dispatchers.IO) { runCatching { a.index().let { it to parseIndex(it) } }.getOrNull() } ?: return@launch
+            // A bad index must not crash the app: parse inside the catch, write the file off the main thread. The same index
+            // as the last one read (a 304): nothing to do.
+            val tag = indexTag?.takeIf { it.first === a }?.second
+            val got = withContext(Dispatchers.IO) { runCatching { a.indexIfChanged(tag) } }.getOrElse { return@launch } ?: return@launch
+            val (raw, parsed) = withContext(Dispatchers.IO) { runCatching { got.first to parseIndex(got.first) }.getOrNull() } ?: return@launch
+            indexTag = got.second?.let { a to it }
             if (visit) {
                 // a visit's index: in memory only, with what was voiced for it meanwhile
                 index = parsed + index.filterKeys { it !in parsed }

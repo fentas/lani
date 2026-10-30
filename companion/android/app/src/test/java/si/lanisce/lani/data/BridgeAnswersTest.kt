@@ -25,7 +25,8 @@ import java.util.concurrent.atomic.AtomicInteger
  * The bridge's answers read once while they stay the same (docs/plans/05-built/home-return.md): Home reads everything anew
  * each time it comes back, and an answer the same as the last one gives back the value read then (the same instance:
  * nothing parsed, nothing for the screen's state to compare); a changed answer, another learner, a route an older bridge
- * hasn't (404: none) and a failure (its status named) as before.
+ * hasn't (404: none) and a failure (its status named) as before. Asked again with its ETag (docs/plans/05-built/nav-perf.md),
+ * the same answer is a 304 and the value read then; GET /changes is the version of what the bridge serves.
  */
 @RunWith(RobolectricTestRunner::class)
 @Config(sdk = [35])
@@ -33,13 +34,21 @@ class BridgeAnswersTest {
     /** The node: each path's body (changed by the test), and how many times each was asked. */
     private val bodies = ConcurrentHashMap<String, Pair<Int, String>>()
     private val asked = ConcurrentHashMap<String, AtomicInteger>()
+    /** With [etags] a bridge with ETags: each answer's is its body's hash, and asked with it the same answer is a 304. */
+    @Volatile private var etags = false
+    /** The If-None-Match of each path's last request ("" for none). */
+    private val sentTag = ConcurrentHashMap<String, String>()
     private val server = MockWebServer().also {
         it.dispatcher = object : Dispatcher() {
             override fun dispatch(request: RecordedRequest): MockResponse {
                 val path = request.requestUrl!!.encodedPath
                 asked.getOrPut(path) { AtomicInteger() }.incrementAndGet()
+                sentTag[path] = request.getHeader("If-None-Match").orEmpty()
                 val (code, body) = bodies[path] ?: (404 to """{"error":"not found"}""")
-                return MockResponse().setResponseCode(code).setBody(body)
+                if (!etags || code != 200) return MockResponse().setResponseCode(code).setBody(body)
+                val tag = "\"${body.hashCode()}\""
+                if (request.getHeader("If-None-Match") == tag) return MockResponse().setResponseCode(304).setHeader("ETag", tag)
+                return MockResponse().setResponseCode(code).setHeader("ETag", tag).setBody(body)
             }
         }
     }
@@ -77,6 +86,40 @@ class BridgeAnswersTest {
         val marko = bridge.dashboard()
         assertNotSame(ana, marko)
         assertEquals("Marko", marko.name)
+    }
+
+    @Test fun `asked with its ETag the same answer is a 304 and the value read then`() = runBlocking {
+        etags = true
+        bodies["/state"] = 200 to state("Ana")
+        val first = bridge.dashboard()
+        assertEquals("the first time no ETag is sent", "", sentTag["/state"])
+        val again = bridge.dashboard()
+        assertEquals("then the answer's", "\"${state("Ana").hashCode()}\"", sentTag["/state"])
+        assertSame("a 304: the value read then", first, again)
+        bodies["/state"] = 200 to state("Ana", today = "2026-10-29")
+        val changed = bridge.dashboard()
+        assertNotSame("a changed answer comes whole and is read", first, changed)
+        assertSame(changed, bridge.dashboard())
+        // another learner: the answer said to them is read anew, asked without the other's ETag
+        Learner.current = Learner.of("Marko", "m")
+        bridge.dashboard()
+        assertEquals("", sentTag["/state"])
+        // an older bridge's 404 and none of its ETags: as before
+        assertNull(bridge.grammar())
+        assertEquals("", sentTag["/grammar"])
+    }
+
+    @Test fun `changes is the bridge's version, none from an older bridge, a failure names its status`() = runBlocking {
+        assertNull("an older bridge: no /changes (404)", bridge.changes())
+        bodies["/changes"] = 200 to """{"version":"pOPfsKOSMP0dYh4392S7yE","day":"2026-10-30"}"""
+        assertEquals("pOPfsKOSMP0dYh4392S7yE", bridge.changes())
+        bodies["/changes"] = 503 to "busy"
+        try {
+            bridge.changes()
+            fail("a 503 is a failure")
+        } catch (e: IOException) {
+            assertEquals("HTTP 503: busy", e.message)
+        }
     }
 
     @Test fun `a route an older bridge hasn't is none, a failure names its status, neither kept`() = runBlocking {

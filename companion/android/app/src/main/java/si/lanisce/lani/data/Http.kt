@@ -49,16 +49,16 @@ internal suspend fun OkHttpClient.exchange(req: Request): Pair<Int, String> = wi
     newCall(req).execute().use { r -> r.code to r.body?.string().orEmpty() }
 }
 
-/** An answer as sent: its status [code], its [body] not decoded yet, and the [charset] it is in. */
-internal class RawAnswer(val code: Int, val body: ByteString, val charset: Charset) {
+/** An answer as sent: its status [code], its [body] not decoded yet, the [charset] it is in, and its [etag] (null: none). */
+internal class RawAnswer(val code: Int, val body: ByteString, val charset: Charset, val etag: String? = null) {
     val text: String get() = body.string(charset)
 }
 
-/** Like [exchange], the body as bytes ([Bridge] reads an answer the same as the last one not again). */
+/** Like [exchange], the body as bytes ([Bridge] reads an answer the same as the last one not again), with its ETag. */
 internal suspend fun OkHttpClient.raw(req: Request): RawAnswer = withContext(Dispatchers.IO) {
     newCall(req).execute().use { r ->
         val body = r.body
-        RawAnswer(r.code, body?.byteString() ?: ByteString.EMPTY, body?.contentType()?.charset(Charsets.UTF_8) ?: Charsets.UTF_8)
+        RawAnswer(r.code, body?.byteString() ?: ByteString.EMPTY, body?.contentType()?.charset(Charsets.UTF_8) ?: Charsets.UTF_8, r.header("ETag"))
     }
 }
 

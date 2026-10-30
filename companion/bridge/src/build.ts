@@ -4,7 +4,7 @@
 // What differs is the [Platform]: the config, the channel, the voices, the recordings' leveller. Everything else, the
 // shared stores (the context), the features, the guide and the tools, is made here, the same in both.
 import { existsSync } from 'node:fs'
-import { join } from 'node:path'
+import { join, resolve, sep } from 'node:path'
 import { addresseeOf } from './addressee'
 import { ArrivalStore } from './arrivals'
 import { CardStore, cardsDir } from './cards'
@@ -83,6 +83,10 @@ import type { VisitEngines } from './visit-voices'
 import { VisitTalks } from './visits'
 import type { RecordingLeveller, VoiceStore } from './voice'
 import { resultsDirOf } from './paths'
+import { Changes, changesRoute, conditional } from './changes'
+
+/** The settings that move a kind of content out of the project's companion/ (tests, the smoke): GET /changes walks them too. */
+const CONTENT_ENV = ['LANI_MODULES_DIR', 'LANI_PACKS_DIR', 'LANI_GRAMMAR_DIR', 'LANI_CARDS_DIR', 'LANI_CASES_DIR', 'LANI_COURSE_DIR', 'LANI_DRILLS_DIR', 'LANI_SCENARIOS_DIR', 'LANI_SCENES_DIR', 'LANI_VILLAGERS_DIR']
 
 /**
  * The built-in features in their order, each with a stable name (the in-app tutor's guide topics are named after them:
@@ -167,6 +171,11 @@ export type Platform<C extends ChannelPort = ChannelPort> = {
    * of the boot's time in QuickJS), unless LANI_CULTURE_CHECK=1.
    */
   checkCulture?: boolean
+  /**
+   * Whether the project's content can change while the bridge runs (GET /changes walks it then): a node's checkout, where
+   * a merge on main is read at once (the default); not the phone's, whose content came with the APK.
+   */
+  contentChanges?: boolean
 }
 
 export type BuildOptions = {
@@ -251,6 +260,8 @@ export function buildBridge<C extends ChannelPort>(platform: Platform<C>, o: Bui
     learner: new Learner(projectDir, dataDir, language),
     addressee: () => addresseeOf(dataDir, language),
     events: new Events(),
+    // set right below: it reads the voice store's directory and the content's
+    changes: undefined as unknown as Changes,
     channel: platform.channel,
     outbox: new Outbox(join(appDir, 'client-ids.json'), log),
     // The curated modules, scenarios and scenes are the village's language's: Slovene ones in their directories, another
@@ -322,6 +333,11 @@ export function buildBridge<C extends ChannelPort>(platform: Platform<C>, o: Bui
   }
   ctx.profiles = voicing.profiles(ctx)
   voicing.ready?.(ctx)
+  // What the app's reads depend on, as one version (GET /changes): the learner's data, the voice store's database, the
+  // content (a node's: the project's companion/, and each content directory set apart from it), each event, the day.
+  const contentDirs = [join(projectDir, 'companion'), ...[culturesDir, lexiconDir, ...CONTENT_ENV.map(k => env[k])].filter((d): d is string => !!d && !resolve(d).startsWith(resolve(projectDir, 'companion') + sep))]
+  ctx.changes = new Changes({ dataDir, voiceDir: () => ctx.voice.dir, contentDirs: (platform.contentChanges ?? true) ? [...new Set(contentDirs.map(d => resolve(d)))] : [] })
+  ctx.events.tap(() => ctx.changes.bump())
   // The pack the village is in, checked once against its cast, (its scenes) the packs and the grammar book its requests and
   // questions name: what's wrong is logged (the app checks the pack too).
   if (platform.checkCulture ?? true) {
@@ -374,7 +390,9 @@ export function appApi(b: Pick<BuiltBridge, 'ctx' | 'isApp' | 'features'>): { ro
   const health: Route = { method: '*', path: '/health', access: 'public', handle: () => json({ ok: true }) }
   const roleOf = (req: Request): Role => (isApp(req) || ctx.devices.authorize(req) ? 'app' : ctx.family.authorized(req) ? 'family' : null)
   // the app's writes are refused (423) while another side holds the learner's data (the lease: lease.ts)
-  const routes = guardRoutes(addressed([health, ...features.flatMap(f => f.routes ?? [])], ctx.addressee), ctx.lease)
+  // a GET's JSON answer has its ETag, and the same answer asked again with it is a 304 (changes.ts: conditional); GET /changes
+  // says whether anything the reads come from moved
+  const routes = conditional(guardRoutes(addressed([health, changesRoute(ctx.changes), ...features.flatMap(f => f.routes ?? [])], ctx.addressee), ctx.lease))
   return { routes, roleOf }
 }
 

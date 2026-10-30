@@ -69,8 +69,8 @@ class Bridge(private val config: BridgeConfig) {
         companion object { fun now() = Said(Learner.current, L10n.pair, LocalDate.now()) }
     }
 
-    /** An answer read before: its text's digest as sent, what else its reading depended on, the value it gave. */
-    private class Read(val digest: ByteString, val said: Said, val value: Any?)
+    /** An answer read before: its text's digest as sent, what else its reading depended on, the value it gave, its ETag. */
+    private class Read(val digest: ByteString, val said: Said, val value: Any?, val etag: String?)
 
     /** The last answer read of each path ([remembered]). */
     private val reads = ConcurrentHashMap<String, Read>()
@@ -83,6 +83,9 @@ class Bridge(private val config: BridgeConfig) {
      * processor and made tens of MB for the collector while Home was drawn, and a new value, equal to the last, was
      * compared field by field on the main thread before the screen's state kept the one it had. A status other than 2xx
      * is an [IOException] naming it, as [get] has it.
+     *
+     * Asked again with the answer's ETag (If-None-Match, 2026-10-30, docs/plans/05-built/nav-perf.md), a bridge that has
+     * them answers the same as a 304 without a body: nothing sent, nothing read or digested.
      */
     @Suppress("UNCHECKED_CAST")
     private suspend fun <T> remembered(path: String, parse: (String) -> T): T = answer(path, notFound = false, parse) as T
@@ -92,13 +95,30 @@ class Bridge(private val config: BridgeConfig) {
     private suspend fun <T : Any> rememberedOrNone(path: String, parse: (String) -> T?): T? = answer(path, notFound = true, parse) as T?
 
     private suspend fun answer(path: String, notFound: Boolean, parse: (String) -> Any?): Any? {
-        val a = http.raw(request(path).build())
+        val said = Said.now()
+        // the last answer read for the same learner, pair and day: asked with its ETag, the same one comes back as a 304
+        val last = reads[path]?.takeIf { it.said == said }
+        val a = http.raw(request(path).apply { last?.etag?.let { header("If-None-Match", it) } }.build())
+        if (a.code == 304 && last != null) return last.value
         if (notFound && a.code == 404) return null
         if (a.code !in 200..299 || (notFound && a.code != 200)) throw IOException("HTTP ${a.code}: ${a.text.take(200)}")
-        val said = Said.now()
         val digest = a.body.sha256()
-        reads[path]?.let { if (it.digest == digest && it.said == said) return it.value }
-        return parse(said.learner.renderJson(a.text)).also { reads[path] = Read(digest, said, it) }
+        if (last != null && last.digest == digest) return last.value.also { if (a.etag != last.etag) reads[path] = Read(digest, said, it, a.etag) }
+        return parse(said.learner.renderJson(a.text)).also { reads[path] = Read(digest, said, it, a.etag) }
+    }
+
+    /**
+     * The version of what the bridge serves the app now (GET /changes: it moves with every file its answers come from, each
+     * event, the day; docs/plans/05-built/nav-perf.md); null from a bridge without the route (404). An [IOException] when
+     * it can't be reached.
+     */
+    suspend fun changes(): String? = off {
+        val (code, body) = exchange(request("/changes").build())
+        when (code) {
+            200 -> (json.parseToJsonElement(body) as? JsonObject)?.get("version")?.let { (it as? JsonPrimitive)?.content }
+            404 -> null
+            else -> throw IOException("HTTP $code: ${body.take(200)}")
+        }
     }
 
     /** The home language's dashboard; with [language], that language's (its own review deck: GET /state?language=). */

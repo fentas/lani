@@ -787,15 +787,51 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         si.lanisce.lani.hosted.HostedRuntime.say("home: ${"%.0f".format((System.nanoTime() - startedAt) / 1e6)} ms after the app started or the onboarding ended (the bridge: $boot)")
     }
 
+    /** Reads everything from the node again ([reload]). */
     fun refresh(): Job = launchSafely { reload() }.also { reloading = it }
+
+    /**
+     * Home (or the packs) on view again: everything read again only when something may have changed since the last whole
+     * reading ([Fresh], docs/plans/05-built/nav-perf.md), else one small request; nothing while a reading runs.
+     */
+    private fun refreshIfChanged() {
+        if (reloading?.isActive == true) return
+        reloading = launchSafely { reload(onlyIfChanged = true) }
+    }
 
     /** The reload running now, if any ([shown] doesn't start another beside it). */
     private var reloading: Job? = null
 
-    private suspend fun reload() {
+    /** What the last whole reading was read for ([Fresh]); null before one, while one runs, and after one that failed. */
+    private var readFor: si.lanisce.lani.app.Fresh? = null
+
+    /**
+     * Reads everything from the node again; [onlyIfChanged]: only when the bridge's version of it ([Bridge.changes]), the
+     * day, the time of day, the learner, their pair or the culture moved since the last whole reading, or it is older than
+     * [si.lanisce.lani.app.Fresh.MAX_AGE_MS] (a bridge without the version, or none reachable: always).
+     */
+    private suspend fun reload(onlyIfChanged: Boolean = false) {
         val b = bridge ?: return
         // on a visit the host's language and culture are shown: the learner's own content waits until they're home
         if (VisitWorld.active) return
+        val version = try {
+            b.changes()
+        } catch (e: kotlinx.coroutines.CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            null // unreachable: the reading below says so as it always did
+        }
+        val now = version?.let {
+            si.lanisce.lani.app.Fresh(it, java.time.LocalDate.now(), si.lanisce.lani.game.scene.TimeOfDay.now(), L10n.pair,
+                si.lanisce.lani.l10n.Learner.current, Cultures.current.id, android.os.SystemClock.elapsedRealtime())
+        }
+        if (onlyIfChanged && now != null && readFor?.sameAs(now) == true) {
+            // nothing the node serves moved: only what the phone decides by itself (the class begun with the hamlet, the map offered)
+            school.touch()
+            treasure.check()
+            return
+        }
+        readFor = null
         // first the culture the bridge plays: what the village, its founding and everything after read (a new phone has
         // the default's until then, and a step below that fails mustn't keep it from coming)
         reloadCulture(b)
@@ -824,6 +860,8 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         treasure.check()
         // what the learner will likely hear today and tomorrow, for the background job to get on Wi-Fi
         offlineAudio.plan(::dayGather)
+        // read whole: until something moves, Home coming back reads nothing again
+        readFor = now
     }
 
     /** The days ahead's audio, from what the app has now (app/DayAudioGather); null before the learner's cards are loaded. */
@@ -1705,7 +1743,8 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     /** What a screen reads anew when it comes on view (opened, or Back to it). */
     private fun shown(s: Screen) {
         when (s) {
-            Screen.Home, Screen.Packs -> if (reloading?.isActive != true) refresh()
+            // read again only when something moved since the last whole reading (refreshIfChanged)
+            Screen.Home, Screen.Packs -> refreshIfChanged()
             // the role-plays (also when the app opens again on Talk after the process ended)
             Screen.Talk -> talk.load()
             Screen.Village -> game.sync()

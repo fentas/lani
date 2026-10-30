@@ -85,6 +85,8 @@ function boot(): string {
     onExit: fn => void exits.push(fn),
     // the APK's content was checked when it was built; the check would be most of the boot here
     checkCulture: process.env.LANI_CULTURE_CHECK === '1',
+    // and it can't change while the bridge runs: GET /changes walks the learner's data alone
+    contentChanges: false,
   })
   // what the app hasn't fetched yet, kept across the app's restarts (as the bridge service keeps it)
   bridge.ctx.events.persist(join(appDir, 'events.json'), log)

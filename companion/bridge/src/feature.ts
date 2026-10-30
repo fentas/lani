@@ -10,6 +10,7 @@ import type { CourseStore } from './course'
 import type { DrillStore } from './drills'
 import type { Manifest } from './cultures'
 import type { Events } from './events'
+import type { Changes } from './changes'
 import type { Family } from './family'
 import type { FormsBook } from './forms'
 import type { CaseTriggersFile } from './case-triggers'
@@ -65,6 +66,8 @@ export type Ctx = {
    */
   addressee: () => Addressee
   events: Events
+  /** The version of what the app reads (changes.ts, GET /changes): it moves with every file the reads come from, each event, the day. */
+  changes: Changes
   /** Events into the tutor's session, and tool approvals: the node's MCP channel (channel.ts), the phone's (src/phone/channel.ts). */
   channel: ChannelPort
   /**

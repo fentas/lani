@@ -115,8 +115,11 @@ class VillagerController(
         }
         if (!list.isNullOrEmpty()) {
             served = true
-            all = list
-            scope.launch(io) { runCatching { write(list) } }
+            // the very answer read before (Bridge.remembered, or a 304): kept on the phone already
+            if (list !== all) {
+                all = list
+                scope.launch(io) { runCatching { write(list) } }
+            }
         } else if (all.isEmpty()) {
             all = fixture()
         }

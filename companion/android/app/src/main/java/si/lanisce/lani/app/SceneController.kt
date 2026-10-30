@@ -213,6 +213,8 @@ class SceneController(
             null // offline, or an older bridge without scenes: keep what we have
         }
         if (list != null) {
+            // the very answer read before (Bridge.remembered, or a 304): on the phone already
+            if (list === all) return
             all = list.ifEmpty { fixture() }
             scope.launch(io) { runCatching { store.writeScenes(list) } }
         } else if (all.isEmpty()) {
