@@ -7086,8 +7086,20 @@ def friuli_watchtower():
         assert target == "horn" and "horn" in at, f"the first round spies the horn (QA's hook): {target}, {sorted(at)}"
         time.sleep(4 * slow())  # the child's line and the first clue
         snap("fw-ispy-round")
+        print(f"    the horn's area centred at {at['horn']} on the screen")
         tap_at(at["horn"])
-        assert wait_for(f"{word}!", 30), f"the child's cheer: «{word}» found"
+        if wait_for(f"{word}!", 15) is None:
+            # its area's centre isn't a sure tap (a tap goes by the pixel's owner: the horn's curve leaves the middle of its
+            # box to the palisade behind it): the guess is the learner's as it fell, then the thing by its word ("✋ Fammi
+            # scegliere · Lass mich wählen")
+            print("    the tap at its centre found something else: the horn by its word's chip")
+            snap("fw-ispy-guess")
+            assert tap(half("adaptive.letMeChoose"), 4), "✋ Fammi scegliere"
+            time.sleep(1)
+            chip = next((c for t, c in nodes() if t == word), None)
+            assert chip is not None, f"the chip of «{word}»"
+            tap_at(chip)
+            assert wait_for(f"{word}!", 30), f"the child's cheer: «{word}» found"
         time.sleep(1)
         snap("fw-ispy-found")
         qa_hook("ispy:")
