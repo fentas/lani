@@ -148,8 +148,9 @@ class ScreenStackTest {
         val first = compose.runOnIdle { now }
         assertFalse("a screen never covered isn't away", away)
         compose.runOnIdle { covered = true }
-        // a while covered (Robolectric's clock is its looper's: System.currentTimeMillis goes by it, not by the wall)
-        org.robolectric.Shadows.shadowOf(android.os.Looper.getMainLooper()).idleFor(java.time.Duration.ofMillis(1_100))
+        // a while covered: over a second (the clock says a time only when the one it has is a second old; System.currentTimeMillis
+        // is the wall's here)
+        Thread.sleep(1_100)
         compose.waitForIdle()
         assertEquals("nothing while covered", first, now)
         compose.mainClock.autoAdvance = false
