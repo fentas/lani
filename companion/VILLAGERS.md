@@ -766,7 +766,18 @@ and nobody else stands in it. On the map a field is flat ground with things stan
 `fieldParts`): its soil and furrows drawn under everyone and everything that stands, the crops in bands across it, the
 fence post by post, the scarecrow and the sheaves each at its own depth, so whoever walks along its back edge is over
 its soil, and whoever works in it stands among its crops, those in front of them over their legs. A long walk goes at a
-brisker step, so it takes at most `Routine.WALK_S` (45 s); the scenes have them there from then on. Nobody of the village
+brisker step, so it takes at most `Routine.WALK_S` (45 s); the scenes have them there from then on. Where the palisade
+stands, nobody walks through its stakes (`PalisadeWalk`, 2026-10-30, after Jan saw people walk straight through it): a
+walk between a place inside the ring and one outside goes through the gate that makes it shortest, straight through the
+middle of its opening (the road's gates, the path's into the woods, the river gate down to the stream), and into the
+woods always by the path's gate and down the path, as far as it goes nearest where they go; a walk inside never leaves
+the ring (where its line bends in between two places, the walk bends with it), and a walk between two places outside
+goes round it, or in at one gate and out at another. The water gates and a lake's or the sea's shore are no way through,
+nor a damaged palisade's breach (the stakes knocked down lie across it): the village keeps to its gates until it is
+patched up. Whoever stands at a place stands on its side of the stakes, and a household's nook that would lie beyond
+them (a house at the clearing's rim, its yard behind the stakes) comes in nearer the house, or round it. Going through a
+gate, they are behind its posts or in front of them as they stand, under its lintel on the way in and in front of it
+once through. Nobody of the village
 but the children at play (their games, above) potters about: at their place they stay put, first come first served (whoever
 waits there for the learner first, then each by their day keeping their spot until they leave, worked out for the whole
 day: nobody moves over when someone comes or goes, and away on an errand their spot waits for them), a walk goes from their
@@ -920,7 +931,10 @@ building, never a hop; ways round a field's crops; a field's soil under whoever 
 over them), `MapActivitiesTest` (the chores and the games drawn at every detail), `SleepTest` (who sleeps in which bed
 when, the four's beds and where `sleeps` falls back to, nobody changing beds in a night, the bed that waits),
 `HomeBedsRenderTest` (the beds drawn only with their sleeper), `TownDayRenderTest` (the map through a day and a night, the
-windows), `WalksTest` (no way through the fire or a building, round the fire on its nearer side, in the Primorska village,
+windows), `PalisadeWalksTest` (no walk through the stakes, every age and landscape, Jan's hamlet and Teo's coast on a
+phone and on the tablet both ways round: in or out through a gate, into the woods by the path's, inside never out; a
+village without a palisade as before; people through a day and while wolves are at the path's gate; the order under a
+lintel), `WalksTest` (no way through the fire or a building, round the fire on its nearer side, in the Primorska village,
 a generated valley and a town; through a day, its day shared out, nobody in the fire or a building on the map; nobody
 pottering but the children at play, nobody hopping from one spot to another, second by second into the evening; France at
 his field, the hay taken to the kozolec once or twice a stretch, in his field with his happening), `ClassicLandTest` (its
