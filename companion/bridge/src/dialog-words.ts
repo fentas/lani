@@ -213,7 +213,7 @@ export function lemmaFinder(dict: Pick<Lexicon, 'readings'> | undefined, book: P
     if (!tables) {
       tables = new Map()
       for (const t of book?.current().tables ?? []) {
-        for (const v of [...Object.values(t.forms), ...Object.values(t.also ?? {})])
+        for (const v of [...Object.values(t.forms), ...Object.values(t.also ?? {}), ...Object.values(t.variants ?? {})])
           for (const form of typeof v === 'string' ? [v] : (v ?? [])) tables.set(norm(form), [...(tables.get(norm(form)) ?? []), norm(t.lemma)])
       }
     }

@@ -210,8 +210,10 @@ const aspect = z.enum(['pf', 'impf', 'both'])
 
 /**
  * A hand-checked table: a word's forms by slot (one, or several standard ones), the forms also accepted (spoken ones:
- * bojo for bodo), its gloss and a noun's gender. It replaces Wiktionary's forms of that word and part of speech: the
- * everyday irregular verbs, and the nouns Wiktionary gets wrong (potok's accusative, dekle's gender, avto's plural).
+ * bojo for bodo), the old or dialect ones accepted and labelled ([variants]: brati beside bratu, as the regular check
+ * finds them), its gloss and a noun's gender. It replaces Wiktionary's forms of that word and part of speech: the
+ * everyday irregular verbs, and the nouns Wiktionary gets wrong (potok's accusative, dekle's gender, avto's plural) or
+ * the regular check can't confirm (dan, hči, the plural-only nouns: written from SP2001 and Sloleks).
  */
 const tableEntry = z
   .object({
@@ -222,13 +224,15 @@ const tableEntry = z
     gloss: gloss.optional(),
     forms: z.partialRecord(z.enum(SLOT_KEYS as [string, ...string[]]), z.union([formWord, z.array(formWord).min(1).max(4)])),
     also: z.partialRecord(z.enum(SLOT_KEYS as [string, ...string[]]), z.array(formWord).min(1).max(4)).optional(),
+    variants: z.partialRecord(z.enum(SLOT_KEYS as [string, ...string[]]), z.array(formWord).min(1).max(4)).optional(),
     note: z.string().trim().max(300).optional(),
   })
   .superRefine((t, ctx) => {
-    const keys = [...Object.keys(t.forms), ...Object.keys(t.also ?? {})]
+    const keys = [...Object.keys(t.forms), ...Object.keys(t.also ?? {}), ...Object.keys(t.variants ?? {})]
     if (!Object.keys(t.forms).length) ctx.addIssue({ code: 'custom', path: ['forms'], message: 'at least one form' })
     for (const k of keys) if (!KEYS_OF[t.pos].includes(k)) ctx.addIssue({ code: 'custom', path: ['forms', k], message: `"${k}" isn't a slot of a ${t.pos}` })
     for (const k of Object.keys(t.also ?? {})) if (!t.forms[k]) ctx.addIssue({ code: 'custom', path: ['also', k], message: `"${k}" is also accepted, but has no form of its own` })
+    for (const k of Object.keys(t.variants ?? {})) if (!t.forms[k]) ctx.addIssue({ code: 'custom', path: ['variants', k], message: `"${k}" has variants, but no form of its own` })
     if (t.gender && t.pos !== 'noun') ctx.addIssue({ code: 'custom', path: ['gender'], message: "a gender is a noun's" })
   })
 /** Two verbs that pair: [pf] once, [impf] going on; [kind] position (a movement and the state after it) or aspect. */
@@ -554,6 +558,7 @@ function paradigmOf(c: FormsContext, index: number | null, lemma: string, pos: F
   if (table) {
     for (const [key, v] of Object.entries(table.forms)) for (const f of typeof v === 'string' ? [v] : (v ?? [])) put(f, key, p.slots)
     for (const [key, v] of Object.entries(table.also ?? {})) for (const f of v ?? []) put(f, key, p.also)
+    for (const [key, v] of Object.entries(table.variants ?? {})) for (const f of v ?? []) put(f, key, p.also)
     return p
   }
   const own = norm(lemma)
@@ -760,7 +765,8 @@ export function formsOf(c: FormsContext, word: string): LemmaForms[] {
       if (!pg || !c.pages.has(pg.page) || pg.needs.some(n => !c.pages.has(n))) continue
       const sure = nc?.slots.get(key)
       const forms = sure?.standard ?? all
-      const variants = sure?.variants ?? []
+      // a table's old or dialect forms (accepted, labelled, never shown), else the regular check's
+      const variants = table ? (table.variants?.[key] ?? []).map(f => normalizeForm(f, c.language)).filter(f => !forms.includes(f)) : (sure?.variants ?? [])
       const also = [...new Set([...(p.also.get(key) ?? []), ...variants])].filter(f => !forms.includes(f))
       const ls = lines.get(key)
       slots.push({

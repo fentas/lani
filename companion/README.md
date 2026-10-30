@@ -3652,9 +3652,21 @@ adjective; `lep` is an adjective, nice, and a noun, glue):
   mož's plural as moži, not možje), dekle (feminine, not neuter), pot and klop (two words in one entry: the path's and
   the bench's, feminine, beside pot, sweat, and klop, tick), avto (its plural as a neuter's) and oktober (its genitive
   misspelt octobra). The supplement (`sl.extra.json`) overrides the word card's gender and gloss of dekle, pot and klop
-  the same way.
+  the same way. And a table for each noun whose dictionary forms the regular check can't confirm (below) or shows in
+  the wrong order, written from Slovenski pravopis 2001 on fran.si (the standard forms) and Sloleks 2.0 (the full
+  paradigm): dan, hči, uho, oko, kolo, zob, otrok, med, mir, most, zid, slap, grad, nebo, the plural-only vrata,
+  grablje, škarje, orgle, klešče, vilice, vile, the nouns Wiktionary has only a few forms of (potica … toplar, tesar),
+  and the plurals SP2001 orders otherwise (bratje before brati, gozdovi before gozdi; zvonovi, rogovi, lesovi only).
+  SP2001's forms come first in `forms` (with Sloleks's other standard variants where SP gives no whole paradigm);
+  `also` holds Sloleks's other variants and the spoken forms (its non-standard ones, SP's "°": z vratmi, pri otrokih),
+  accepted, never shown, except a spoken form that is another case's standard form (hči as the accusative, z otroci):
+  accepting it would hide the very case mistake asked. A table's `variants` (each also accepted) are the old or
+  dialect forms the regular check had found in the dictionary (brati, bratam; zvoni as a plural), labelled as such,
+  never shown. A mass or collective noun has its singular only (med, mir, nebo, listje), oko its singular and dual
+  (the plural oči is feminine). Each note cites its entries (docs/plans/05-built/native-check-sl.md).
 - `animate`: the masculine nouns naming a person or an animal, whose accusative singular is the genitive (vidim brata,
-  psa): Wiktionary can't be trusted on it.
+  psa): Wiktionary can't be trusted on it. Checked against SP2001's labels (a person, an animal: tesar, oven, trot,
+  jurček and zmaj, the kite too: spuščati zmaje).
 
 Each entry is checked on its own (a wrong one is logged and left out); the file is read again when it changes. A
 bridge from before it ignores it.
@@ -3672,8 +3684,9 @@ other forms are known old or dialect endings (a masculine's or neuter's -i in th
 slot with no fitting form, or with a form that is neither (oka beside očesa, kola beside kolesa, mira beside miru: two
 words or two declensions in one entry), stays as the dictionary has it, not checked: the case trainer never asks it as
 a form to produce. A forms book table's slots are all checked. The smoke runs the check over every noun of the packs
-and of the case trainer's bank: the pack's gender must be the one served, and the nouns with a slot not checked are the
-list in docs/plans/05-built/case-trainer.md ("Nouns left out").
+and of the case trainer's bank: the pack's gender must be the one served, and no noun may have a slot not checked
+(since the native check's tables none has; a new one is a word for a forms book table: docs/plans/05-built/case-trainer.md,
+"Nouns left out").
 
 **A verb's partner in the lookup.** A verb of the pairs gets `aspect` and `partner` (`{lemma, aspect, kind,
 gloss}`) in `GET /lookup` too. When both partners are found for the tapped form ("sedite": sesti's imperative,
