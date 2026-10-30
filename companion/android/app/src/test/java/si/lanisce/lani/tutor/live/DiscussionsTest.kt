@@ -36,10 +36,11 @@ import java.net.InetAddress
  */
 class DiscussionsTest {
     private val api = FakeGraphQL()
-    private val base = "http://127.0.0.1:$PORT"
+    // the fake on a free port the system picks (suites run at once on one machine: a fixed port collided)
+    private val base get() = "http://127.0.0.1:${api.server.port}"
     private var now = 1_000_000L
 
-    @Before fun start() = api.server.start(InetAddress.getByName("127.0.0.1"), PORT)
+    @Before fun start() = api.server.start(InetAddress.getByName("127.0.0.1"), 0)
 
     @After fun stop() = api.server.shutdown()
 
@@ -243,13 +244,13 @@ class DiscussionsTest {
         assertFalse(Discussions.mayCarryToken("http://api.github.com/graphql".toHttpUrl(), "http://api.github.com"))
         assertFalse(Discussions.mayCarryToken("https://evil.example/graphql".toHttpUrl(), Discussions.API))
         assertTrue(Discussions.mayCarryToken("$base/graphql".toHttpUrl(), base))
-        assertFalse(Discussions.mayCarryToken("http://127.0.0.1:$OTHER/graphql".toHttpUrl(), base))
-        assertFalse(Discussions.mayCarryToken("http://localhost:$PORT/graphql".toHttpUrl(), base))
+        assertFalse(Discussions.mayCarryToken("http://127.0.0.1:${api.server.port + 1}/graphql".toHttpUrl(), base)) // another port
+        assertFalse(Discussions.mayCarryToken("http://localhost:${api.server.port}/graphql".toHttpUrl(), base))
 
         // a redirect elsewhere is not followed: the other host never sees a request, let alone the token
-        val other = MockWebServer().apply { start(InetAddress.getByName("127.0.0.1"), OTHER) }
+        val other = MockWebServer().apply { start(InetAddress.getByName("127.0.0.1"), 0) }
         try {
-            api.redirect = "http://127.0.0.1:$OTHER/graphql"
+            api.redirect = "http://127.0.0.1:${other.port}/graphql"
             error(DiscussionsError.Kind.BAD_ANSWER) { discussions().find("Fix: x") }
             assertEquals(1, api.server.requestCount)
             assertEquals(0, other.requestCount)
@@ -273,7 +274,7 @@ class DiscussionsTest {
     }
 
     @Test fun `no answer is NETWORK, a garbled one BAD_ANSWER`() = runBlocking {
-        error(DiscussionsError.Kind.NETWORK) { discussions(at = "http://127.0.0.1:$CLOSED").find("Fix: x") }
+        error(DiscussionsError.Kind.NETWORK) { discussions(at = "http://127.0.0.1:${BatchesTest.closedPort()}").find("Fix: x") }
         api.raw = "<html>unicorn</html>"
         error(DiscussionsError.Kind.BAD_ANSWER) { discussions().find("Fix: x") }
         api.raw = """{"data":{"repository":null},"errors":[{"type":"NOT_FOUND","message":"Could not resolve to a Repository with the name 'fentas/lani'."}]}"""
@@ -293,9 +294,6 @@ class DiscussionsTest {
     private fun JsonObject.s(k: String): String? = (this[k] as? JsonPrimitive)?.contentOrNull
 
     companion object {
-        const val PORT = 19620
-        const val OTHER = 19621
-        const val CLOSED = 19625
         const val TOKEN = "gho_DISCUSSIONSTESTTOKEN0123456789"
     }
 }

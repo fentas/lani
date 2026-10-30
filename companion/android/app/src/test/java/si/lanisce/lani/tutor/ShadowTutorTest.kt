@@ -165,9 +165,11 @@ class ShadowTutorTest {
     private suspend fun signInChatGPT(t: ShadowTutor): String? = t.signInWithChatGPT { url ->
         val u = url.toHttpUrl()
         chatgptNonce = u.queryParameter("nonce")
+        // the loopback on the port the system picked (the redirect names it)
+        val port = u.queryParameter("redirect_uri")!!.toHttpUrl().port
         Thread {
-            java.net.Socket("127.0.0.1", SIGN_IN_PORT).use { sock ->
-                sock.getOutputStream().write("GET /auth/callback?code=c1&state=${u.queryParameter("state")}&client_id=oaiapp_9 HTTP/1.1\r\nHost: 127.0.0.1:$SIGN_IN_PORT\r\n\r\n".toByteArray())
+            java.net.Socket("127.0.0.1", port).use { sock ->
+                sock.getOutputStream().write("GET /auth/callback?code=c1&state=${u.queryParameter("state")}&client_id=oaiapp_9 HTTP/1.1\r\nHost: 127.0.0.1:$port\r\n\r\n".toByteArray())
                 sock.getInputStream().readBytes()
             }
         }.start()
@@ -194,7 +196,7 @@ class ShadowTutorTest {
             openai = openaiCreds,
             openaiTransportFor = { OpenAITransport(it, oai.client, clock = { now }) },
             openaiLaneTransportFor = { OpenAITransport(it, oai.client, clock = { now }) },
-            signInPort = SIGN_IN_PORT,
+            signInPort = 0, // a free port the system picks: suites run at once on one machine
             gemini = geminiCreds,
             geminiTransportFor = { k, p, f -> GeminiTransport(k, gem.client, clock = { now }, pacer = p, onFreeTier = f) },
             geminiLaneTransportFor = { k, p, f -> GeminiTransport(k, gem.client, clock = { now }, pacer = p, onFreeTier = f) },
@@ -1326,8 +1328,6 @@ class ShadowTutorTest {
     }
 
     private companion object {
-        /** The ChatGPT sign-in's loopback in the tests (this agent's port block, 19400–19499). */
-        const val SIGN_IN_PORT = 19420
         const val STATE = """{"databases":{"learner_profile":{"learner":{"name":"Jan","current_level":"A2"},"current_streak_days":12},"mistakes_db":{"error_patterns":{"clitic_order":{"category":"grammar","frequency":7}}},"spaced_repetition":{"items":{"vocab_kurim":{"item_id":"vocab_kurim","front":"kurim","back":"I heat"}}}},"computed":{"due_reviews_count":4,"streak_active":true},"language":"sl"}"""
 
         /** [m] as the API streams it. */

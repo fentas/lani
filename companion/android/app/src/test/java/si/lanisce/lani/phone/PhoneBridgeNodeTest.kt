@@ -3,6 +3,8 @@ package si.lanisce.lani.phone
 import java.io.BufferedReader
 import java.io.File
 import java.net.HttpURLConnection
+import java.net.InetAddress
+import java.net.ServerSocket
 import java.net.URI
 import java.nio.file.Files
 import java.util.concurrent.LinkedBlockingQueue
@@ -24,15 +26,17 @@ import org.junit.Test
 
 /**
  * The phone's bridge against a node's on the same data (docs/plans/05-built/phone-runtime.md): a node bridge (bun
- * src/index.ts, the classic mode, its MCP channel on stdio) on 127.0.0.1:19110 over the repository, and the bundle in
- * QuickJS over the content the APK carries (app/build.gradle.kts phoneProject: what the phone unpacks), each on a copy
- * of the same learner data (data-examples' templates). The routes' answers are the same JSON (so the APK's content is
- * all the bridge reads for them), and a message to the tutor reaches each channel with the same content and meta. Needs
- * bun and python3 (the node's hooks); without them it is skipped.
+ * src/index.ts, the classic mode, its MCP channel on stdio) on 127.0.0.1 over the repository, on a port the system
+ * picks as free ([port]: suites run at once on one machine, and a fixed port had two of them talk to one bridge), and
+ * the bundle in QuickJS over the content the APK carries (app/build.gradle.kts phoneProject: what the phone unpacks),
+ * each on a copy of the same learner data (data-examples' templates). The routes' answers are the same JSON (so the
+ * APK's content is all the bridge reads for them), and a message to the tutor reaches each channel with the same content
+ * and meta. Needs bun and python3 (the node's hooks); without them it is skipped.
  */
 class PhoneBridgeNodeTest {
     companion object {
-        const val PORT = 19110
+        /** The node bridge's port, picked free as it starts ([start]). */
+        var port = 0
         const val TOKEN = "phone-node-test-token"
         val repo = PhoneBridgeTest.repo
         lateinit var tmp: File
@@ -59,13 +63,11 @@ class PhoneBridgeNodeTest {
             "XDG_DATA_HOME" to File(home, "share").path,
         )
 
-        @BeforeClass
-        @JvmStatic
-        fun start() {
-            assumeTrue("bun and python3 run the node's bridge", have("bun") && have("python3"))
-            tmp = Files.createTempDirectory("lani-phone-node").toFile()
-            val nodeHome = File(tmp, "node").apply { mkdirs() }
-            val nodeData = PhoneBridgeTest.learnerData(File(nodeHome, "data"))
+        /** A port nothing listens on now, the system's pick (the node bridge takes it a moment later: [start] tries again). */
+        private fun freePort(): Int = ServerSocket(0, 1, InetAddress.getLoopbackAddress()).use { it.localPort }
+
+        /** The node bridge on [port] (its log in [log]), its channel initialized as Claude Code's side does it. */
+        private fun startNode(nodeHome: File, nodeData: File, log: File): Process {
             val pb = ProcessBuilder("bun", "src/index.ts").directory(File(repo, "companion/bridge"))
             pb.environment().apply {
                 listOf("ELEVENLABS_API_KEY", "LANI_BRIDGE_SHIM", "LANI_PROFILE", "LANI_CULTURE", "LANI_DATA_DIR").forEach { remove(it) }
@@ -74,15 +76,14 @@ class PhoneBridgeNodeTest {
                 put("CLAUDE_PROJECT_DIR", repo.path)
                 put("LANI_DATA_DIR", nodeData.path)
                 put("LANI_BRIDGE_HOST", "127.0.0.1")
-                put("LANI_BRIDGE_PORT", "$PORT")
+                put("LANI_BRIDGE_PORT", "$port")
                 put("LANI_BRIDGE_TOKEN", TOKEN)
                 // no local voice or speech workers
                 put("LANI_GEPARD_URL", "http://127.0.0.1:9")
                 put("LANI_STT_URL", "http://127.0.0.1:9")
             }
-            pb.redirectError(File(tmp, "node.log"))
+            pb.redirectError(log)
             val p = pb.start()
-            node = p
             Thread {
                 p.inputStream.bufferedReader().use { r: BufferedReader -> r.lineSequence().forEach { mcp.add(it) } }
             }.apply { isDaemon = true }.start()
@@ -90,9 +91,35 @@ class PhoneBridgeNodeTest {
             p.outputStream.write(("""{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"phone-test","version":"0"}}}""" + "\n").toByteArray())
             p.outputStream.write(("""{"jsonrpc":"2.0","method":"notifications/initialized"}""" + "\n").toByteArray())
             p.outputStream.flush()
-            val until = System.currentTimeMillis() + 30_000
-            while (System.currentTimeMillis() < until && nodeGet("/health").first != 200) Thread.sleep(200)
-            check(nodeGet("/health").first == 200) { "the node bridge didn't start: ${File(tmp, "node.log").readText().takeLast(2000)}" }
+            return p
+        }
+
+        /**
+         * Whether [p] is up and the one answering on [port]: alive, and its app routes take this test's token (another
+         * bridge that took the port meanwhile answers /health too, but not with this token).
+         */
+        private fun answers(p: Process): Boolean = p.isAlive && nodeGet("/culture").first == 200
+
+        @BeforeClass
+        @JvmStatic
+        fun start() {
+            assumeTrue("bun and python3 run the node's bridge", have("bun") && have("python3"))
+            tmp = Files.createTempDirectory("lani-phone-node").toFile()
+            val nodeHome = File(tmp, "node").apply { mkdirs() }
+            val nodeData = PhoneBridgeTest.learnerData(File(nodeHome, "data"))
+            val log = File(tmp, "node.log")
+            // a free port; if something takes it before the bridge does (the bridge exits), another one
+            for (attempt in 1..3) {
+                port = freePort()
+                val p = startNode(nodeHome, nodeData, log)
+                node = p
+                val until = System.currentTimeMillis() + 30_000
+                while (System.currentTimeMillis() < until && p.isAlive && !answers(p)) Thread.sleep(200)
+                if (answers(p)) break
+                p.destroyForcibly().waitFor(5, TimeUnit.SECONDS)
+                node = null
+            }
+            check(node != null) { "the node bridge didn't start: ${log.readText().takeLast(2000)}" }
 
             val phoneHome = File(tmp, "phone").apply { mkdirs() }
             val phoneData = PhoneBridgeTest.learnerData(File(phoneHome, "data"))
@@ -124,7 +151,7 @@ class PhoneBridgeNodeTest {
         }
 
         fun nodeGet(path: String, method: String = "GET", body: String? = null): Pair<Int, String> = try {
-            val c = URI("http://127.0.0.1:$PORT$path").toURL().openConnection() as HttpURLConnection
+            val c = URI("http://127.0.0.1:$port$path").toURL().openConnection() as HttpURLConnection
             c.requestMethod = method
             c.setRequestProperty("Authorization", "Bearer $TOKEN")
             if (body != null) {

@@ -37,9 +37,10 @@ import java.net.InetAddress
  */
 class BatchesTest {
     private val api = FakeBatches()
-    private val base = "http://127.0.0.1:$PORT"
+    // the fake on a free port the system picks (suites run at once on one machine: a fixed port collided)
+    private val base get() = "http://127.0.0.1:${api.server.port}"
 
-    @Before fun start() = api.server.start(InetAddress.getByName("127.0.0.1"), PORT)
+    @Before fun start() = api.server.start(InetAddress.getByName("127.0.0.1"), 0)
 
     @After fun stop() = api.server.shutdown()
 
@@ -160,7 +161,7 @@ class BatchesTest {
         api.ended = true
         api.resultsStatus = 500
         expect<ApiError.Overloaded> { batches().results(batches().get("msgbatch_01")) }
-        expect<ApiError.Network> { batches(at = "http://127.0.0.1:$CLOSED").get("msgbatch_01") }
+        expect<ApiError.Network> { batches(at = "http://127.0.0.1:${closedPort()}").get("msgbatch_01") }
         val asked = api.server.requestCount
         expect<ApiError.Auth> { batches(key = null).get("msgbatch_01") }
         assertEquals("no key: nothing asked", asked, api.server.requestCount)
@@ -191,9 +192,9 @@ class BatchesTest {
     }
 
     @Test fun `a results_url on another host is refused and gets no key`() = runBlocking {
-        val other = MockWebServer().apply { start(InetAddress.getByName("127.0.0.1"), OTHER) }
+        val other = MockWebServer().apply { start(InetAddress.getByName("127.0.0.1"), 0) }
         try {
-            for (url in listOf("http://localhost:$OTHER/v1/messages/batches/msgbatch_01/results", "http://127.0.0.1:$OTHER/results", "https://evil.example/results")) {
+            for (url in listOf("http://localhost:${other.port}/v1/messages/batches/msgbatch_01/results", "http://127.0.0.1:${other.port}/results", "https://evil.example/results")) {
                 val b = Batch("msgbatch_01", Batch.ENDED, emptyMap(), url, null, null, null)
                 try {
                     batches().results(b)
@@ -227,9 +228,8 @@ class BatchesTest {
     }
 
     companion object {
-        const val PORT = 19622
-        const val OTHER = 19623
-        const val CLOSED = 19626
+        /** A port nothing listens on: one the system picked free, closed again. */
+        fun closedPort(): Int = java.net.ServerSocket(0, 1, InetAddress.getByName("127.0.0.1")).use { it.localPort }
     }
 }
 
@@ -263,7 +263,7 @@ class FakeBatches : Dispatcher() {
             put("expires_at", "2026-10-20T08:00:00Z")
             put("ended_at", if (done) JsonPrimitive("2026-10-19T09:00:00Z") else JsonNull)
             put("cancel_initiated_at", JsonNull)
-            put("results_url", if (done) JsonPrimitive("http://127.0.0.1:${BatchesTest.PORT}/v1/messages/batches/msgbatch_01/results") else JsonNull)
+            put("results_url", if (done) JsonPrimitive("http://127.0.0.1:${server.port}/v1/messages/batches/msgbatch_01/results") else JsonNull)
         }
     }
 

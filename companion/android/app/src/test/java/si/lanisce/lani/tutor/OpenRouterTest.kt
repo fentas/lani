@@ -27,7 +27,7 @@ import java.util.Collections
 
 /**
  * OpenRouter (docs/plans/05-built/providers.md, "OpenRouter") over the real clients and a fake openrouter.ai on
- * MockWebServer (port 19450, this agent's block): "Continue with OpenRouter" (PKCE, the loopback on port 0: the
+ * MockWebServer (a free port the system picks: suites run at once on one machine): "Continue with OpenRouter" (PKCE, the loopback on port 0: the
  * redirect names the port it got), the exchange tried again while offline, the stream with a tool call and its
  * reasoning details then the reply, the request's shape (Claude's cache_control), usage and its cost, each error class,
  * the model list and the key's credit, the guard.
@@ -46,7 +46,7 @@ class OpenRouterTest {
                 return answer(request, sent.count { it.method == "POST" })
             }
         }
-        server.start(InetAddress.getByName("127.0.0.1"), PORT)
+        server.start(InetAddress.getByName("127.0.0.1"), 0)
     }
 
     @After fun stop() = server.shutdown()
@@ -327,7 +327,4 @@ data: {"id":"cmpl-abc123","object":"chat.completion.chunk","created":1234567890,
         assertFalse(Redact.all("Authorization: Bearer $FAKE_ROUTER_KEY").contains(FAKE_ROUTER_KEY))
     }
 
-    private companion object {
-        const val PORT = 19450
-    }
 }

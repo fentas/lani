@@ -25,8 +25,8 @@ import java.security.interfaces.RSAPublicKey
 import java.util.Base64
 
 /**
- * "Sign in with ChatGPT" against a scripted auth.openai.com (no network but the loopback on 127.0.0.1, in this agent's
- * port block 19400–19499): the first registration with PKCE, the browser's return to the loopback, the code exchange,
+ * "Sign in with ChatGPT" against a scripted auth.openai.com (no network but the loopback on 127.0.0.1, on a port the
+ * system picks as the app asks it: suites run at once on one machine, and fixed ports collided): the first registration with PKCE, the browser's return to the loopback, the code exchange,
  * the ID token's check, the session kept encrypted; refresh rotation, one refresh at a time; an unusable refresh token;
  * sign out with revocation, and the next sign-in with the kept client.
  */
@@ -100,8 +100,12 @@ class ChatGPTAuthTest {
         text.substringBefore("\r\n") to text.substringAfter("\r\n\r\n")
     }
 
-    private suspend fun signIn(c: ChatGPTAuth, port: Int, clientId: String? = "oaiapp_1"): ChatGPTSession {
-        val pending = c.begin(port)
+    /** The port the attempt's loopback listens on (the system's pick: the app begins with 0), as its redirect names it. */
+    private fun portOf(p: ChatGPTAuth.SignIn): Int = p.redirectUri.toHttpUrl().port
+
+    private suspend fun signIn(c: ChatGPTAuth, clientId: String? = "oaiapp_1"): ChatGPTSession {
+        val pending = c.begin(0)
+        val port = portOf(pending)
         val url = pending.url.toHttpUrl()
         nonce = url.queryParameter("nonce")
         val state = url.queryParameter("state")!!
@@ -113,13 +117,14 @@ class ChatGPTAuthTest {
 
     @Test fun `the first sign-in - registration with PKCE, the loopback, the exchange, the identity, kept encrypted`() = runBlocking {
         val c = chatgpt()
-        val pending = c.begin(19401)
+        val pending = c.begin(0)
+        val port = portOf(pending)
         val url = pending.url.toHttpUrl()
         assertEquals("https://auth.openai.com/api/accounts/authorize", url.toString().substringBefore('?'))
         assertEquals("dynamic_agent_client", url.queryParameter("client_id"))
         assertEquals("Lani", url.queryParameter("agent_name_hint"))
         assertEquals("code", url.queryParameter("response_type"))
-        assertEquals("http://127.0.0.1:19401/auth/callback", url.queryParameter("redirect_uri"))
+        assertEquals("http://127.0.0.1:$port/auth/callback", url.queryParameter("redirect_uri"))
         assertEquals("openid profile email offline_access resource.invoke chatgpt.tokens.use.direct", url.queryParameter("scope"))
         assertEquals("https://api.openai.com/v1", url.queryParameter("resource"))
         assertEquals("S256", url.queryParameter("code_challenge_method"))
@@ -132,11 +137,11 @@ class ChatGPTAuthTest {
         assertEquals(url.queryParameter("ext_agent_host_id"), c.session()!!.hostId)
 
         // a stray request and another attempt's state leave the attempt waiting
-        assertEquals("HTTP/1.1 404 Error", browser(19401, "/favicon.ico").first)
-        assertEquals("HTTP/1.1 400 Error", browser(19401, "/auth/callback?code=x&state=not-it&client_id=oaiapp_1").first)
-        assertEquals("HTTP/1.1 404 Error", browser(19401, "/auth/callback?code=x&state=$state&client_id=oaiapp_1", host = "localhost:19401").first)
+        assertEquals("HTTP/1.1 404 Error", browser(port, "/favicon.ico").first)
+        assertEquals("HTTP/1.1 400 Error", browser(port, "/auth/callback?code=x&state=not-it&client_id=oaiapp_1").first)
+        assertEquals("HTTP/1.1 404 Error", browser(port, "/auth/callback?code=x&state=$state&client_id=oaiapp_1", host = "localhost:$port").first)
         assertFalse(pending.redirectUri.isEmpty())
-        val (status, page) = browser(19401, "/auth/callback?code=code-1&state=$state&scope=chatgpt.tokens.use.direct+email+offline_access+openid+profile+resource.invoke&client_id=oaiapp_1")
+        val (status, page) = browser(port, "/auth/callback?code=code-1&state=$state&scope=chatgpt.tokens.use.direct+email+offline_access+openid+profile+resource.invoke&client_id=oaiapp_1")
         assertEquals("HTTP/1.1 200 OK", status)
         assertTrue(page.contains("lani://tutor/signed-in") && page.contains("Nazaj v Lani"))
         val session = pending.await(5_000)
@@ -147,7 +152,7 @@ class ChatGPTAuthTest {
         assertEquals("authorization_code", f["grant_type"])
         assertEquals("oaiapp_1", f["client_id"])
         assertEquals("code-1", f["code"])
-        assertEquals("http://127.0.0.1:19401/auth/callback", f["redirect_uri"])
+        assertEquals("http://127.0.0.1:$port/auth/callback", f["redirect_uri"])
         assertEquals("https://api.openai.com/v1", f["resource"])
         assertEquals(url.queryParameter("code_challenge"), b64(MessageDigest.getInstance("SHA-256").digest(f["code_verifier"]!!.toByteArray())))
         assertNull(f["client_secret"])
@@ -187,7 +192,7 @@ class ChatGPTAuthTest {
             chain.proceed(chain.request())
         }
         val c = ChatGPTAuth(vault, OkHttpClient.Builder().addInterceptor(flaky).addInterceptor(auth).build(), clock = { now }, pause = { waits += it })
-        val s = signIn(c, 19403)
+        val s = signIn(c)
         assertTrue(s.connected)
         assertEquals(ChatGPTAuth.OFFLINE_WAITS.take(3), waits)
     }
@@ -199,7 +204,7 @@ class ChatGPTAuthTest {
         }
         val c = ChatGPTAuth(vault, OkHttpClient.Builder().addInterceptor(down).addInterceptor(auth).build(), clock = { now }, pause = { })
         val e = try {
-            signIn(c, 19404)
+            signIn(c)
             null
         } catch (e: ChatGPTError) {
             e
@@ -211,7 +216,7 @@ class ChatGPTAuthTest {
 
     @Test fun `the access token is renewed near its end, the refresh token rotating, one refresh at a time`() = runBlocking {
         val c = chatgpt()
-        signIn(c, 19402)
+        signIn(c)
         forms.clear()
         now += 3_000_000 // 50 minutes: still valid
         assertEquals("access-1", c.accessToken())
@@ -237,7 +242,7 @@ class ChatGPTAuthTest {
 
     @Test fun `a refresh token that can't be used ends the sign-in, the client and the host kept`() = runBlocking {
         val c = chatgpt()
-        val first = signIn(c, 19403)
+        val first = signIn(c)
         refreshAnswer = { Triple(400, """{"error":"invalid_grant","error_description":"refresh token reused"}""", "application/json") }
         now += 3_600_000
         try {
@@ -254,7 +259,7 @@ class ChatGPTAuthTest {
         // a passing failure keeps everything
         val c2 = chatgpt()
         refreshAnswer = null
-        signIn(c2, 19404)
+        signIn(c2)
         refreshAnswer = { Triple(503, "busy", "text/plain") }
         now += 3_600_000
         try {
@@ -267,7 +272,7 @@ class ChatGPTAuthTest {
 
     @Test fun `sign out revokes the refresh token, and the next sign-in reuses the client and the host`() = runBlocking {
         val c = chatgpt()
-        val first = signIn(c, 19405)
+        val first = signIn(c)
         forms.clear()
         assertNull(c.signOut())
         val (kind, f) = forms.single()
@@ -279,7 +284,7 @@ class ChatGPTAuthTest {
         assertEquals("oaiapp_1", out.clientId)
         assertEquals(first.hostId, out.hostId)
         // signing in again: the issued client, no name hint, the email as login_hint, the same host
-        val again = c.begin(19406)
+        val again = c.begin(0)
         val url = again.url.toHttpUrl()
         assertEquals("oaiapp_1", url.queryParameter("client_id"))
         assertNull(url.queryParameter("agent_name_hint"))
@@ -287,14 +292,14 @@ class ChatGPTAuthTest {
         assertEquals(first.hostId, url.queryParameter("ext_agent_host_id"))
         nonce = url.queryParameter("nonce")
         // a reauthorization's callback may leave the client out: the kept one is used
-        browser(19406, "/auth/callback?code=code-2&state=${url.queryParameter("state")}")
+        browser(portOf(again), "/auth/callback?code=code-2&state=${url.queryParameter("state")}")
         assertEquals("oaiapp_1", again.await(5_000).clientId)
     }
 
     @Test fun `declined, another client, the plan's use not granted`() = runBlocking {
         val c = chatgpt()
-        val p = c.begin(19407)
-        browser(19407, "/auth/callback?error=access_denied&state=${p.url.toHttpUrl().queryParameter("state")}")
+        val p = c.begin(0)
+        browser(portOf(p), "/auth/callback?error=access_denied&state=${p.url.toHttpUrl().queryParameter("state")}")
         try {
             p.await(5_000)
             fail("no error")
@@ -302,8 +307,8 @@ class ChatGPTAuthTest {
             assertEquals("access_denied", e.code)
         }
         // a callback with the dynamic client as the issued one: registration incomplete
-        val q = c.begin(19408)
-        browser(19408, "/auth/callback?code=c&state=${q.url.toHttpUrl().queryParameter("state")}&client_id=dynamic_agent_client")
+        val q = c.begin(0)
+        browser(portOf(q), "/auth/callback?code=c&state=${q.url.toHttpUrl().queryParameter("state")}&client_id=dynamic_agent_client")
         try {
             q.await(5_000)
             fail("no error")
@@ -312,7 +317,7 @@ class ChatGPTAuthTest {
         }
         // signed in without the plan's scope: kept, but not usable for calls
         tokenScope = "email offline_access openid profile"
-        val s = signIn(c, 19409)
+        val s = signIn(c)
         assertTrue(s.connected)
         assertFalse(s.planUsage)
         val creds = OpenAICredentials(KeyVault(SoftCipher(), MemoryStore()), c)

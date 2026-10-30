@@ -24,7 +24,7 @@ import java.util.Collections
 
 /**
  * Gemini direct (docs/plans/05-built/providers.md, "Gemini") over the real client and a fake API on MockWebServer
- * (port 19440, this agent's block): the stream with a tool call (its thought signature) then the reply, the request's
+ * (a free port the system picks: suites run at once on one machine): the stream with a tool call (its thought signature) then the reply, the request's
  * shape, the usage with the cached and thinking tokens, each error class (the key, the quota and the free tier, the
  * rate limit, overload), the finish reasons, thinking levels, images, our ids for a call without one, the free tier's
  * pace, the guard, the model list, the prices by day.
@@ -44,7 +44,7 @@ class GeminiTest {
                 return answer(request, sent.count { it.method == "POST" })
             }
         }
-        server.start(InetAddress.getByName("127.0.0.1"), PORT)
+        server.start(InetAddress.getByName("127.0.0.1"), 0)
     }
 
     @After fun stop() = server.shutdown()
@@ -343,7 +343,4 @@ class GeminiTest {
         assertEquals(2.0 + 0.10 + 10.0, nov.cost("claude-sonnet-5-5", u)!!, 1e-9)
     }
 
-    private companion object {
-        const val PORT = 19440
-    }
 }
