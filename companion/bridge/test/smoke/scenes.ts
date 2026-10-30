@@ -71,6 +71,19 @@ export default async function scenes() {
   // the mill inside is an art of the third version: an app before it (arts 2) doesn't get the scene, this one does
   const beforeMill = forApp([{ art: 'mill', objects: [{ slot: 'millstone' }] }, { art: 'cellar', objects: [] }], 2)
   check('an app before the mill (arts=2) gets no mill scene; an app of arts=3 does', JSON.stringify(beforeMill) === '[{"art":"cellar","objects":[]}]' && forApp([{ art: 'mill', objects: [] }], 3).length === 1, beforeMill)
+  // the projects' things, the square's standing spots and the hour's count are the fifth version's (place-life): an app before
+  // it gets the square without them, its grown-ups at the play spots it had, and no variant counting the hour
+  const square = {
+    art: 'square', objects: [{ slot: 'bench' }, { slot: 'maypole' }, { slot: 'clock' }],
+    people: [{ id: 'a', slot: 'clock' }, { id: 'b', slot: 'bench' }, { id: 'c', slot: 'maypole' }, { id: 'd', slot: 'fountain' }],
+    happenings: [{ id: 'h', dialog: 'x', dialogs: ['x', 'ura'] }],
+    dialogs: [{ id: 'x' }], variants: [{ id: 'ura', count: { from: 'hour' } }, { id: 'kocke', count: { from: 'dice' } }],
+  }
+  const before5 = forApp([square], 4)[0] as any
+  check('an app before arts 5 gets the square without the projects\' things, its standing spots at the play spots, no hour count; arts 5 all',
+    JSON.stringify(before5.objects) === '[{"slot":"bench"}]' && before5.people.map((p: any) => p.slot).join() === 'play2,bench,play1,play3' &&
+      JSON.stringify(before5.variants) === '[{"id":"kocke","count":{"from":"dice"}}]' && JSON.stringify(before5.happenings[0].dialogs) === '["x"]' &&
+      JSON.stringify(forApp([square], 5)[0]) === JSON.stringify(square), before5)
   check('the bridge registry matches SceneArt.kt and Model.kt', JSON.stringify(kt) === JSON.stringify(SCENE_ART), { kt, ts: SCENE_ART })
   // the faces a line is said with (companion/SCENES.md, "Faces"): the app's, neutral first, the resting face never written
   const faceKt = readFileSync(join(android, 'scene/Face.kt'), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '')
