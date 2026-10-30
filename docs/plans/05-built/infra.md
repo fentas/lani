@@ -206,10 +206,45 @@ then a restart; the classic mode); rounds of the real script against fake `lani-
 once; low memory then enough; a failed start; pause and resume; a dry run; `--install` twice, the second rewriting
 nothing); `lani-session --stop` against a fake tmux.
 
+## On the emulator
+
+The slot-1 emulator that ran this afternoon was another agent's, started writable by the old qa, so slot 2 could not
+run beside it on the QA AVD (see "Every QA emulator read-only"). Slot 2 was shown on a throwaway AVD of the same system
+image and display (`LANI_QA_AVD`, `ANDROID_AVD_HOME` on /mnt/scratch, deleted after), while slot 1 ran other agents' QA:
+
+| Run (`companion/bin/qa-slot --slot 2 …`, a synthetic learner each) | Result | Screenshots |
+|---|---|---|
+| `--steps home`: the emulator started read-only on 5556 (cold boot), setup, Home | setup ✅, home ✅, crash check ✅; 5 min 20 s, the emulator stopped after | `scratchpad/ux-infra/slot2-home/` |
+| `--steps friends,visit,visit-home` (Slovene learner, the second town on 8787) | 11 ✅ (visit-home: Friends with "Borgo di Prova" after "⌂ Casa"), visit-sky skipped (by day) | `scratchpad/ux-infra/slot2-visit/` |
+| `--no-town --steps coast` (Friuli learner without a village) | setup ✅; coast ran to its end (the animal, the village and the town on the coast) past the point where "open village" failed; skipped for its talk's goals chip, which didn't open on that fresh AVD | `scratchpad/ux-infra/slot2-coast/` |
+
+The visit run waited for slot 2 while the home run held it, and the coast run for the visit run: the queue's lines name
+the holder ("slot 2 held by pid … in lani-infra: …").
+
 ## The numbers
 
-(filled in at the end of the round)
+- Android unit suite after the rebase: 3,432 tests, 2 skipped; one failure, SceneDetailTest's kitchen at detail 3
+  (25.19 ms against 25: its own cost, see "Close to its budget for real"), fixed by its own budget and run again
+  (SceneDetailTest 4 of 4). Before the rebase: the 462 render tests and MyWordsTest (0 failures), and the changed tests
+  (MyWordsSearchTest 4, PhoneBridgeNodeTest 25, ChatGPTAuthTest 10, ShadowTutorTest 46, GeminiTest 9, OpenRouterTest 9,
+  BatchesTest 8, DiscussionsTest 14, WildlifeTest 12, StickersTest 5), all passing.
+- The stall reproduction (not committed: `scratchpad/infra/MyWordsSearchStallRepro.kt`): the old test fails every time
+  with one 200 ms stall before the debounce starts.
+- Bridge: `tsc` clean; the smoke 3,013 checks, all passing (its new voice-build `--data` checks among them);
+  `tutor-export --check` 87 files match.
+- Python: `tests` 251, `companion/tests` 130 (11 skipped) before the last fixes; `test_qa_slot.py` and
+  `test_watchdog.py` 29 after them.
 
 ## What's left
 
-(filled in at the end of the round)
+- **The switch to read-only** (once, after merging): when slot 1 is free, `flock /tmp/lani-emulator.lock adb -s
+  emulator-5554 emu kill`; the next QA run starts it read-only, and slot 2 opens. Until then `qa-slot --status` says so.
+  Branches from before this one start a writable emulator, which the emulator refuses while slot 2 runs: rebase.
+- **Install the watchdog** (the lead): `companion/bin/lani-watchdog --install`, then `--status`. Linger is Jan's call.
+- **The kitchen at detail 3** is the dearest closer frame (23.5 ms of CPU time, 25.2 in all the weather, on the
+  desktop): worth a look at what its detail 3 draws, before a phone's scene view feels it.
+- **The coast step's talk** didn't find its goals chip within 20 s on a cold, fresh AVD (Nonna Rosa's page still showed
+  "Conversazione con l'insegnante"). Not seen on the QA AVD; it may need a longer wait on a slow emulator.
+- Two wall-clock checks remain, on purpose: `LoopTest` ("ran together" under 390 ms) and `BackupTest` (a retry within
+  600 to 1,900 ms) test real time. They could flake at a very high load; neither has failed so far.
+- A slot-2 run on the QA AVD itself, once slot 1 runs read-only.
