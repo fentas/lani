@@ -3048,7 +3048,7 @@ def lens_in_dialog() -> str:
 LENS_READINGS = (("Jutro v vasi", "Vstanem ob šestih"), ("Zdravljica (sedma kitica)", "Žive naj vsi narodi"))
 
 
-def lens_in_reading() -> str:
+def lens_in_reading() -> None:
     """A reading of the corner (LENS_READINGS) with the colours on (the dialog's ⋯ turned them on; here the switch under
     👁 Prevod), a word of a line tapped, then the switch off: the learner's default for the steps after."""
     adb("shell", "am", "start", "-a", "android.intent.action.VIEW", "-d", "lani://readings")
@@ -3070,7 +3070,6 @@ def lens_in_reading() -> str:
     shot("lens-reading-off")
     back_key()
     go_home()
-    return ""
 
 
 def typed_turn():
