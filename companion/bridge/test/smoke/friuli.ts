@@ -149,8 +149,13 @@ export default async function friuli() {
     const nobody = await lookup('w=xyzzyq')
     check('friuli: a villager is found by name; a word nobody knows, not at all', rosaName.entries[0]?.lemma === 'Nonna Rosa' && rosaName.entries[0].source === 'village' && nobody.entries.length === 0, { rosaName, nobody })
     const ombra = await lookup(`w=${encodeURIComponent("l'ombra")}&line=${encodeURIComponent("All'ombra dell'albero.")}`)
-    const o0 = ombra.entries[0]
-    check("friuli: l'ombra is looked up as ombra: senca, through English", ombra.word === "l'ombra" && o0?.lemma === 'ombra' && o0.gloss[0] === 'senca' && o0.gloss_via === 'pivot' && o0.gloss_lang === 'sl' && o0.gender === 'f', ombra)
+    // the tower clock's pack (l-orologio) has l'ombra: its entry first, then the dictionary's ombra, meant through English
+    const o0 = ombra.entries.find((e: any) => e.source === 'wiktionary')
+    check(
+      "friuli: l'ombra is the tower clock's pack word, then the dictionary's ombra: senca, through English",
+      ombra.word === "l'ombra" && ombra.entries[0]?.source === 'pack' && ombra.entries[0].item_id === 'vocab_l-orologio_ombra' && o0?.lemma === 'ombra' && o0.gloss[0] === 'senca' && o0.gloss_via === 'pivot' && o0.gloss_lang === 'sl' && o0.gender === 'f',
+      ombra,
+    )
     const acqua = await lookup(`w=${encodeURIComponent('l’acqua')}`)
     check("friuli: l’acqua (a typographic apostrophe) is the pack's l'acqua, meant in Slovene", acqua.entries[0]?.source === 'pack' && acqua.entries[0].lemma === "l'acqua" && acqua.entries[0].gloss_lang === 'sl', acqua)
 
