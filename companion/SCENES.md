@@ -2085,7 +2085,8 @@ opens the giver's card, with when it comes back and its drill; GAME.md "A try be
 The game's one tip ("💡 Namigi · Tips", GAME.md "Guidance") is a bubble at its thing among the others (`TownMarker.Kind.TIP`,
 "tip:<moment>"): paper with a gold rim and a 💡 in its corner, never wobbling or pulsing, never quiet (there is only ever
 one), laid out, nudged and stacked as the others (after their folding and clustering, so a crowded place never swallows
-it); its tap opens its card over the map, the thing kept in view above it. In a scene the first time inside one, the tip
+it), and in place of the bubble of the thing it is about while it shows (a request's 🔁, someone to meet, a festival …:
+`Tip.standsFor`); its tap opens its card over the map, the thing kept in view above it. In a scene the first time inside one, the tip
 is a card at the scene's foot, never over a dialog or a game of «Vidim, vidim».
 
 A bubble stays with its person or place (`ui/game/TownBubbles.kt`, `layoutBubbles`): over them, its pointer short.

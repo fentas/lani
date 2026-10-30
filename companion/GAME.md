@@ -1983,7 +1983,9 @@ docs/plans/05-built/guidance.md has the child's lines and the tap counts).
 
 - **One at a time, at its place.** On the map a tip is a gentle bubble at its thing (the bubbles' look, paper with a gold
   rim and a 💡 in its corner; it never wobbles or pulses, and lies out with the others: "Bubbles in the village" in
-  SCENES.md); a tap opens its card over the map, the thing kept in view above it. On Home it is a card of its own in "Danes ·
+  SCENES.md). It stands in for the bubble of the thing it is about while it shows (`Tip.standsFor`: a request's quiet 🔁,
+  the first request's "!", someone to meet, a visitor, a festival, the surprise, a project's step), so the map never shows
+  two bubbles for one thing. A tap opens its card over the map, the thing kept in view above it. On Home it is a card of its own in "Danes ·
   Today", under the ideas. In a scene it is a card at the scene's foot, never over a dialog or a game of «Vidim, vidim». The
   card: "💡 Namig · Tip", the thing's picture, the line, 🔊, ONE button that does it (opens the right screen with the
   right thing chosen), "👍 Razumem · Got it" and "⏰ Pozneje · Later" (the next day); on the map a ✕ folds it back into
@@ -2010,7 +2012,7 @@ docs/plans/05-built/guidance.md has the child's lines and the tap counts).
   first shown, dealt with, put off till; what the learner did; the day the tips began; the moments past then; off; the
   tutor's pointer. An older save has none; an older app drops it and the bridge keeps it (PUT /game).
 - **The update rule** (`Guidance.begin`, once the dashboard is in): in a village from before the tips, the moments that
-  hold already are past. The still useful ones (Teo's wisdom full, his school standing, his watchtower) wait in a backlog
+  hold already are past. The still useful ones (Teo's wisdom full, their school standing, their watchtower) wait in a backlog
   and come once, gently, at most one a day (`OLD_A_DAY`), the best first; the others (a word pack done weeks ago, an age
   reached long ago) count as seen. A village founded today has nothing past.
 - **"💡 Namigi · Tips" in the settings** (⚙️ → "💡 Namigi · Tips", a parent's on a child's device): on or off (synced, so

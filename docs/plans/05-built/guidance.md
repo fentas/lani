@@ -2,7 +2,7 @@
 
 Jan: "also some first guidance would be nice. E.g. teo had full wisdom -> would be a nice trigger to show user that
 he/she can trade it for something else. Or if the school is there that they can take lessons etc." And for the choices:
-"make it the best - prod ready". The same day, from the coordinator, Teo's real case: he tried the tent move ("La tenda in
+"make it the best - prod ready". The same day, from the coordinator, Teo's real case: Teo tried the tent move ("La tenda in
 un posto nuovo") at 10:40, got 1 of 4, and the request went to "Later" until the next morning, with no word of where it
 went: to the family "the challenge is not there anymore". That is a wall; it is part of this round.
 
@@ -71,6 +71,9 @@ child's lines are in the four tables (`tips.*.child`); here in English and in Te
   and only its tap opens the card, so the map is never covered unasked. Home has no "thing" to point at, so its tip is a
   card in "Danes", under the one thing to do and its ideas: the day's practice comes first. A scene's first visit is a card
   at the foot, because what it teaches (tap things, tap people) is the whole picture.
+- **One bubble for one thing.** A tip about something that has a bubble already (a request's 🔁, the first request's
+  "!", someone to meet, a visitor, a festival, the surprise, a project's step) takes that bubble's place while it shows,
+  so the map never shows the same thing twice; a giver's "!" for several requests stays (the tip names one).
 - **Gold rim and 💡, never a wobble or a pulse**: the threat's bubble wobbles and pulses (urgent); a tip is an offer, so it
   is calm, but distinct from a request's "!" and from the mint of someone there now. It is never "quiet" (shrunk away from
   the view's centre): there is only ever one.
@@ -148,7 +151,7 @@ Counted from the plain village map (the map) or Home.
 | Wisdom full → the trade with wisdom to give | 2 (the HUD's 📜 chip, "⇄ Zamenjaj"), if the learner knew; nothing said so | 2 (the 💡 bubble, "⇄ Scambia · Tauschen"), and the map says so |
 | A school standing → its next unit | 3 from the map (the school, "📚 Šola", the unit), 1 from Home's 🏫 tile; nothing said so | 2 from the map (the 💡 bubble, "▶️ Lezione") |
 | A request below the mark → playing it again today | not possible (back tomorrow; or the end's "🔁 Še enkrat", a guess) | 1 to its drill ("🎯 Esercitati e riprova") + the drill's answers + 1 ("🔁 Riprova") |
-| Where that request went | the Scroll (1), "Ljudje", scroll to "Kasneje"; no time said | at a glance: the run's end says when; the 🔁 over the giver (1 tap: their card with the time and the drill) |
+| Where that request went | the Scroll (1), "Ljudje", scroll to "Kasneje"; no time said | at a glance: the run's end says when; the tip (or the quiet 🔁) over the giver (1 tap: a card with the time and the drill); the Scroll's "Later" row says when |
 | A tip read aloud for a child | – | 0 (as the card opens), or 1 (🔊 / the line) |
 | A Home tip | – | 1 (its button) |
 
@@ -165,14 +168,43 @@ Counted from the plain village map (the map) or Home.
   got said by its name, no emoji said); every line in the four tables; the tutor's moments the catalogue's.
 - `RequestRetryTest` (5): a failed try is back tomorrow, says when, keeps a quiet "🔁" at its giver, offers the drill after
   one try; passing the drill brings it back today, its giver asking again; without it, tomorrow as ever; the tent move is
-  never lost (open, its try and missed pages kept, back today after the drill); the map's tip says where it went, once.
+  never lost (open, its try and missed pages kept, back today after the drill); the map's tip says where it went, once,
+  in place of the giver's quiet sign (`Tip.standsFor`).
+- `TipCardTest` (4, Robolectric): an adult's card (both languages, its one button, got it, later), a child's (German with
+  «Saggezza», the Italian buttons), a scene's tip with no button, the map's bubble of a tip.
 - The bridge's smoke: the tips kept from an older app, get_village's tips, show_tip's event and note, off, the guide.
 - QA: see below.
 
 ## QA on the emulator
 
-QA's step `guidance` (companion/bin/qa), as the synthetic Teo (it · de, Friuli, a child), inside the emulator's lock;
-the run's results and screenshots are added here after it.
+QA's steps `guidance` and `guidance-retry` (companion/bin/qa), as a synthetic Teo (`make-learner.ts --target it --base de`,
+LANI_CULTURE=friuli, LANI_CHILD=1, LANI_QA_SETUP_PAIR=it-de), each run inside `flock /tmp/lani-emulator.lock`, on the
+build rebased onto main (d3ff0c08). The screenshots are in the session's scratchpad, `ux-guidance/run7` (the tips),
+`run8` and `run9` (the failed request; run9 after the fix below).
+
+- **Wisdom full → the trade with wisdom chosen** (run7, ✅): the 💡 bubble with the 📜 at wisdom's place (no market
+  yet); its card in German with «Saggezza» bold ("Dein Lager ist voll: Saggezza! Tausch etwas gegen 🪨."), on the phone and on the tablet's
+  2560 × 1600 (landscape: the card on the left half, the map beside it); read aloud as it opened: HintVoice
+  `1/3 de "Dein Lager ist voll:"`, `2/3 it "Saggezza"`, `3/3 de "! Tausch etwas gegen Stein."` (the stone said by its
+  name, not its emoji); "⇄ Scambia · Tauschen" opened the trade sheet with the wisdom chip checked to give. 2 taps.
+- **A school standing → its next unit** (run7, ✅): the 💡 at the school ("Neu im Dorf: Scuola! Hier lernst du mit der
+  Lehrerin."), "▶️ Lezione · Unterricht" opened the unit over the village. 2 taps.
+- **Home's tip** (run7, ✅): the tip's card in "Oggi · Heute", below the day's practice and its ideas (the reviews first).
+- **The tent move failed, back the same day** (run8 and run9, ✅): the run answered wrong (0 of 4); its end lists the four
+  answers, each ❌ with the right answer, its picture and 🔊; under Pastore Davide's "Grazie! Domani ancora una volta?" it
+  says "🌙 Il compito torna domani alle 05:00. · Die Aufgabe kommt morgen um 05:00 wieder." and offers "🎯 Esercitati e
+  riprova · Üben und nochmal versuchen". On the map the tip "back" at the shepherd's (by the pond), the Scroll's people
+  end with "📜 Più tardi · Später": the tent move, "Pastore Davide · 🌙 Di nuovo domani dalle 05:00 · Morgen ab 05:00
+  wieder". The tip's card (read aloud: "La tenda in un posto nuovo kommt morgen wieder! Übe und versuch es heute noch
+  mal.") and the shepherd's own card both offer the drill; the drill (3 of 3) ends with "🔁 La tenda in un posto nuovo è di nuovo
+  qui: riprova adesso!" and "🔁 Riprova · Nochmal versuchen", which opened the request's intro ("▶ Inizia · Starten")
+  the same afternoon. The request was never gone: open, its try counted.
+- **Found and fixed on the way**: the end's "back tomorrow" line and the drill sat below the counts, off screen on a phone
+  after a child's answers (now right under the giver's line); on the map the tip "back" and the giver's quiet 🔁 stood side
+  by side for the same request (run8): a tip's bubble now stands in for its thing's own (run9: one bubble). QA itself: the
+  Scroll's "Later" is the people list's last row, found low on the screen.
+- Each run about nine minutes (the setup's onboarding and the emulator's start included); the tips and the failed request
+  are two steps so each stays under ten.
 
 ## Strings
 
