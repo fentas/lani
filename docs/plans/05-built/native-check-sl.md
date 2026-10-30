@@ -17,8 +17,9 @@ companion/README.md ("Word forms": the forms book) and docs/plans/05-built/case-
 - **Sloleks 2.0** (CJVT, https://viri.cjvt.si/sloleks/slv/headword/<id>) for full paradigms: every form by case and
   number with its Gigafida frequency and its label (*variantno* a standard variant, *nestandardno* non-standard,
   *živo*/*neživo* the masculine accusative).
-- **Politely**: 390 requests over about 80 minutes, one at a time with 4 s between them, each page cached in the
-  scratchpad so none was fetched twice (`native-check-sl/cache/`, a log of every request). No site refused one.
+- **Politely**: 388 requests (248 to fran.si, 139 to Sloleks, 1 to the Jezikovna svetovalnica) over 51 minutes, one at
+  a time with 4 s between them, each page cached in the scratchpad so none was fetched twice (`native-check-sl/cache/`,
+  a log of every request). No site refused one.
 - The Balinarska zveza Slovenije's rules (MTP, found by a web search) for the bocce words: balin, bližanje, zbijanje.
 
 ## The rules followed
