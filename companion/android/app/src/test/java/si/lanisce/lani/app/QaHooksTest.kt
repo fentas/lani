@@ -440,9 +440,16 @@ class QaHooksTest {
         QaHooks.handle("word:vretenom|Babica prede z vretenom.|Grandma spins with a spindle.", word = asked::add)
         QaHooks.handle("word:zlica", word = asked::add)
         assertEquals(listOf("vretenom|Babica prede z vretenom.|Grandma spins with a spindle.", "zlica"), asked)
+        // the sentence's grammar of a line, as a long press on it opens it; none for an empty line
+        val lines = mutableListOf<String>()
+        QaHooks.handle("sentence:Kavo pijem brez mleka.|I drink coffee without milk.", sentence = lines::add)
+        QaHooks.handle("sentence:", sentence = lines::add)
+        assertEquals(listOf("Kavo pijem brez mleka.|I drink coffee without milk."), lines)
         QaHooks.enabled = false
         QaHooks.handle("word:gozd", word = asked::add)
+        QaHooks.handle("sentence:Pod mizo!", sentence = lines::add)
         assertEquals(2, asked.size)
+        assertEquals(1, lines.size)
     }
 
     @Test fun `a grammar page QA names opens over the screen, none for an empty name, and a release build hears nothing`() {

@@ -72,6 +72,9 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        a list, every reading; veliko agreeing with smreko; brez itself, what it decides; then a word of a
                        dialog's line tapped, its case row, the ⋯'s "🎨 Skloni · Cases" on (the lines' colours, the
                        legend), a reading coloured, a word of it tapped, the switch off again;
+                       "lens-sheet" the sentence's grammar from the case lens (QA's hook "sentence:"): brez mleka, the
+                       genitive by brez and brez what it decides; leta 1844, the genitive of time; kitica, sedmi, kombi
+                       (the supplement's words); leta's card saying the same;
                        "typed-turn" a dialog's turn typed with the keyboard up (QA's hook "turns:type"), the
                        keyboard the answer's (its language, no suggestion strip); "faces" the faces: Babica's soup's
                        header portrait through a wrong and a right pick, then a free talk's stage with the dev tutor's
@@ -3381,6 +3384,46 @@ def lens_in_reading() -> None:
     shot("lens-reading-off")
     back_key()
     go_home()
+
+
+SENTENCE_SHEET = "Slovnica stavka"  # the sentence's grammar's title (sentence.title)
+
+
+def sheet_line(line: str, en: str, wants: list, name: str, swipes=0):
+    """The sentence's grammar of [line] (QA's hook "sentence:", as a long press on it opens it): once the lookups answer,
+    each of [wants] (the lens's case rows, what decided them) is on the sheet, scrolled down [swipes] times for a long
+    line's last words; shot as [name] (and [name]-2 scrolled), closed again."""
+    adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", QA_HOOK, shlex.quote(f"sentence:{line}|{en}"))
+    assert wait_for(SENTENCE_SHEET, 10), f"the sentence's grammar of «{line}»"
+    deadline = time.time() + 20
+    while time.time() < deadline and "Iščem" in html.unescape(screen_xml()):
+        time.sleep(1)  # the lookups (words.lookingUp)
+    time.sleep(1)
+    seen = html.unescape(screen_xml())
+    shot(name)
+    for k in range(swipes):
+        adb("shell", "input", "swipe", "540", "1700", "540", "900", "500")
+        time.sleep(1.2)
+        seen += html.unescape(screen_xml())
+        shot(f"{name}-{k + 2}")
+    missing = [w for w in wants if w not in seen]
+    assert not missing, f"«{line}»: not on the sheet: {missing}"
+    back_key()
+    assert not find(SENTENCE_SHEET), "the sheet closed"
+
+
+def lens_sheet():
+    """The sentence's grammar from the case lens (docs/plans/05-built/case-lens-2.md): each word's case as its card's row
+    says it (brez mleka: the genitive, by brez; brez itself what it decides; the genitive of time, leta 1844; Zdravljica's
+    seventh stanza and B1a's kombi, words the dictionary lacked), and a word's card in the same line saying the same."""
+    sheet_line("Kavo pijem brez mleka.", "I drink coffee without milk.",
+               ["rodilnik, ed.", "Po predlogu «brez»: rodilnik.", "Zahteva rodilnik: «mleka»", "Koga? Česa?"], "lens-sheet-brez")
+    sheet_line("France Prešeren je Zdravljico napisal leta 1844. Njena sedma kitica je slovenska himna.",
+               "France Prešeren wrote the Zdravljica in 1844. Its seventh stanza is the Slovene anthem.",
+               ["Rodilnik časa", "Kdaj?", "kitica", "sedmi"], "lens-sheet-leta", swipes=2)
+    sheet_line("Marko mi je posodil svoj novi kombi.", "Marko lent me his new van.", ["tožilnik, ed.", "kombi"], "lens-sheet-kombi", swipes=1)
+    lens_card("leta", "France Prešeren je Zdravljico napisal leta 1844.", "France Prešeren wrote the Zdravljica in 1844.", ["rodilnik", "Rodilnik časa"], "lens-card-leta")
+    return ""
 
 
 def typed_turn():
@@ -14488,6 +14531,7 @@ def plan():
         ("fire-peek", fire_peek, v, False, ""),
         ("dialog-words", dialog_words, v, False, ""),
         ("case-lens", case_lens, v, False, ""),
+        ("lens-sheet", lens_sheet, v, False, ""),
         ("typed-turn", typed_turn, v, False, ""),
         ("player-voice", player_voice, v, False, ""),
         # "🗣️ Moj glas · My voice": the offer at the first line, a ▶, the pick, the next line in it, the settings' page

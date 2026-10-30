@@ -79,6 +79,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   nothing built. "build:" lets it go.
  * - "word:<word>|<line>|<en>": that word's card opens as a tap on it in that line (meant [en]) would, from a scene: QA's
  *   word the dictionary doesn't know, added from its card (companion/README.md, "Word lookup").
+ * - "sentence:<line>|<en>": "🔍 Slovnica stavka · The sentence's grammar" opens on that line (meant [en]), as a long
+ *   press on it would: QA's look at each word's case from the case lens (docs/plans/05-built/case-lens-2.md).
  * - "chat:<text>": a tutor message comes into the chat on the phone (as a reply would, not sent anywhere; "\n" in [text]
  *   a new line), "chat:table" the tutor's imeti with its list ([TUTOR_TABLE]): QA pins it to the cheat sheet.
  * - "cheat" opens the cheat sheet; "cheat:<page>,<page>" as an exercise of those grammar pages would (their cards first).
@@ -382,7 +384,7 @@ object QaHooks {
         shadow: (String) -> Unit = {}, counting: (String) -> Unit = {}, dev: (String) -> Unit = {}, pair: (String) -> Unit = {},
         grow: (si.lanisce.lani.game.Age) -> Unit = {}, formsCard: (String, String) -> Unit = { _, _ -> }, data: () -> Unit = {}, tutorLive: (String) -> Unit = {},
         review: () -> Unit = {}, numbers: (String) -> Unit = {}, event: (String) -> Unit = {}, hearths: (String) -> Unit = {},
-        request: (List<String>) -> Unit = {}, word: (String) -> Unit = {}, friends: () -> Unit = {},
+        request: (List<String>) -> Unit = {}, word: (String) -> Unit = {}, sentence: (String) -> Unit = {}, friends: () -> Unit = {},
         sheet: (String, String) -> Unit = { _, _ -> }, grammar: (String) -> Unit = {}, talk: (String) -> Unit = {},
         cases: (String) -> Unit = {}, tips: (String) -> Unit = {}, news: () -> Unit = {},
     ) {
@@ -464,6 +466,7 @@ object QaHooks {
                 project?.let { step(it, n!!) }
             }
             command.startsWith("word:") -> word(command.removePrefix("word:"))
+            command.startsWith("sentence:") -> command.removePrefix("sentence:").takeIf { it.isNotBlank() }?.let(sentence)
             command == "chat:table" -> chat(TUTOR_TABLE)
             command.startsWith("chat:") -> command.removePrefix("chat:").replace("\\n", "\n").takeIf { it.isNotBlank() }?.let(chat)
             command.startsWith("grammar:") -> command.removePrefix("grammar:").trim().takeIf { it.isNotEmpty() }?.let(grammar)

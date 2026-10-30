@@ -1504,6 +1504,13 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         words.open(si.lanisce.lani.app.WordQuery(w, parts.getOrNull(1)?.trim().orEmpty(), parts.getOrNull(2)?.trim()?.takeIf { it.isNotEmpty() }, si.lanisce.lani.data.Words.SCENE))
     }
 
+    /** QA's "sentence:<line>|<en>": the sentence's grammar of that line opens, as a long press on it would. */
+    fun qaSentence(what: String) {
+        val parts = what.split('|')
+        val line = parts[0].trim().takeIf { it.isNotEmpty() } ?: return
+        sentences.open(si.lanisce.lani.app.SentenceQuery(line, parts.getOrNull(1)?.trim().orEmpty()))
+    }
+
     fun qaFormsCard(what: String, word: String) {
         when (what) {
             "unit" -> school.unit(word)?.let { u -> school.introProgress(u, u.intro?.steps?.size ?: 0, done = true) }
