@@ -60,7 +60,7 @@ object FriendsLogic {
         ).joinToString(" · ")
         return FriendRow(
             id = t.id,
-            title = "${Towns.flag(t.language)} ${t.name.ifBlank { "?" }}".trim(),
+            title = "${Towns.flag(t.culture, t.language)} ${t.name.ifBlank { "?" }}".trim(),
             subtitle = subtitle,
             thumbnail = if (t.reachable) thumbnail(age, t.buildings) else "",
             status = status(t),
@@ -88,7 +88,7 @@ object FriendsLogic {
     }
 
     /** "Moja vas · Jan 🇸🇮": this learner's own town. */
-    fun selfLine(s: TownSelf): String = "${s.name.ifBlank { "?" }} · ${s.learner} ${Towns.flag(s.language)}".trim()
+    fun selfLine(s: TownSelf): String = "${s.name.ifBlank { "?" }} · ${s.learner} ${Towns.flag(s.culture, s.language)}".trim()
 
     /**
      * Whether to offer "Povabi · Invite" and "Sprejmi · Accept": an adult's town links at once, a child's once a parent says
@@ -110,7 +110,7 @@ object FriendsLogic {
 
     /** "🇮🇹 Il mio villaggio · Mia": the other town of a link that waits for a parent. */
     fun requestTitle(r: LinkRequest): String =
-        "${Towns.flag(r.town.language)} ${r.town.name.ifBlank { "?" }}${r.town.learner.takeIf { it.isNotBlank() }?.let { " · $it" }.orEmpty()}".trim()
+        "${Towns.flag(r.town.culture, r.town.language)} ${r.town.name.ifBlank { "?" }}${r.town.learner.takeIf { it.isNotBlank() }?.let { " · $it" }.orEmpty()}".trim()
 
     /** How a link came to wait: they accepted this child's invitation, or the child accepted theirs. */
     fun viaLine(r: LinkRequest): String = if (r.via == "accept") "📨 ${bi("towns.viaAccept")}" else "📨 ${bi("towns.viaInvite")}"
@@ -136,7 +136,7 @@ object FriendsLogic {
 
     /** "🧒 Teo · 🇮🇹 Il villaggio di Teo": a child of this learner's on their Friends. */
     fun childTitle(c: TownChild): String =
-        "🧒 ${c.learner.ifBlank { c.profile ?: "?" }} · ${Towns.flag(c.language)} ${c.name.ifBlank { "?" }}".trim()
+        "🧒 ${c.learner.ifBlank { c.profile ?: "?" }} · ${Towns.flag(c.culture, c.language)} ${c.name.ifBlank { "?" }}".trim()
 
     /** Whether to offer "🔗 Poveži kot starš · Link as their parent": a child's town of this node, not linked as theirs yet. */
     fun canLinkAsParent(c: TownChild): Boolean = c.canLink && c.profile != null && !(c.linked && c.guardian)

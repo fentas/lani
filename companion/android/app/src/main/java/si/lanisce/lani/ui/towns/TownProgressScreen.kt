@@ -94,6 +94,7 @@ fun TownProgressScreen(vm: AppViewModel, id: String) {
     val learner = p?.town?.learner?.ifBlank { null } ?: row?.learner.orEmpty()
     val name = p?.town?.name?.ifBlank { null } ?: row?.name.orEmpty()
     val language = p?.town?.language?.ifBlank { null } ?: row?.language.orEmpty()
+    val culture = p?.town?.culture?.ifBlank { null } ?: row?.culture.orEmpty()
     var draft by remember { mutableStateOf<ChallengeDraft?>(null) }
     val lazy = rememberLazyListState()
     val base = L10n.pair.base.code
@@ -102,7 +103,7 @@ fun TownProgressScreen(vm: AppViewModel, id: String) {
             item {
                 GradientHeader(
                     "📈 ${bi("townProgress.title")}",
-                    "${learner.ifBlank { "?" }} · ${Towns.flag(language)} ${name.ifBlank { "?" }}",
+                    "${learner.ifBlank { "?" }} · ${Towns.flag(culture, language)} ${name.ifBlank { "?" }}",
                     vm.backLabel,
                     vm::back,
                 )

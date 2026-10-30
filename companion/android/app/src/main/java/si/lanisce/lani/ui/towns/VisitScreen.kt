@@ -212,7 +212,7 @@ private fun VisitBanner(v: TownVisit, onHome: () -> Unit, onRetry: () -> Unit, m
                     )
                     val age = v.state?.age
                     val line = listOfNotNull(
-                        Towns.flag(v.language),
+                        Towns.flag(v.culture, v.language),
                         age?.let { "${it.emoji} ${it.label()}" },
                         t?.villagers?.takeIf { it > 0 }?.let { "👥 $it" },
                         t?.festival?.let(Visits::festivalLine),

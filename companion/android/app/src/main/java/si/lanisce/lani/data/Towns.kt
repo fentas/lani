@@ -324,7 +324,13 @@ object Towns {
         else -> null
     }
 
-    /** "🇮🇹" for a town's language; its code when there is no flag for it. */
+    /**
+     * A town's flag: its culture's ("🇦🇹" for a Carinthian village, whatever its language; the flag its watchtower flies,
+     * [si.lanisce.lani.game.render.MapLook.flag]), else its language's ([flag]) for a culture this app doesn't know.
+     */
+    fun flag(culture: String, language: String): String = si.lanisce.lani.game.render.MapLook.flagEmoji(culture) ?: flag(language)
+
+    /** "🇮🇹" for a language; its code when there is no flag for it. */
     fun flag(language: String): String = when (language) {
         "sl" -> "🇸🇮"
         "it" -> "🇮🇹"

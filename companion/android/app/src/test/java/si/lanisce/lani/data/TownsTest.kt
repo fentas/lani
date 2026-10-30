@@ -125,6 +125,14 @@ class TownsTest {
         assertEquals("🇸🇮", Towns.flag("sl"))
         assertEquals("🇮🇹", Towns.flag("it"))
         assertEquals("PT", Towns.flag("pt"))
+        // a town's flag is its culture's, the one its watchtower flies (companion/GAME.md "The map in a culture's look"),
+        // else its language's: a Carinthian village is Austrian, a pack this app doesn't have shows the language's
+        assertEquals("🇦🇹", Towns.flag("kaernten", "de"))
+        assertEquals("🇮🇹", Towns.flag("friuli", "it"))
+        assertEquals("🇸🇮", Towns.flag("primorska", "sl"))
+        assertEquals("🏴\uDB40\uDC67\uDB40\uDC62\uDB40\uDC65\uDB40\uDC6E\uDB40\uDC67\uDB40\uDC7F", Towns.flag("lakeland", "en"))
+        assertEquals("🇩🇪", Towns.flag("", "de"))
+        assertEquals("🇩🇪", Towns.flag("bayern", "de"))
         assertEquals("4AHF MHS7 GKXM", Towns.groupCode("4AHFMHS7GKXM"))
         assertEquals("unknown", Towns.errorCode("""{"code":"unknown"}"""))
         assertNull(Towns.errorCode("<html>"))
