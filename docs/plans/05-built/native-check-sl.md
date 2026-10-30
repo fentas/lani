@@ -391,6 +391,16 @@ po te?" is settled above: pote.
   forms as variants, bratu, also brati) and expects no noun of the packs or the bank with a slot not checked;
   `PhoneBridgeTest.everyNounSklanjajCanPickIsSure` likewise through the phone's bridge.
 
+## Checks
+
+On the branch rebased onto main (6b766b61): the bridge's `bunx tsc --noEmit -p .` clean; the smoke 3,122 checks, all
+passed (LANI_SMOKE_PORT 9090, friuli 9092, kaernten and setup 9093, lakeland 9094, towns 9095–9096, service
+9097–9099); `tutor-export --check` 88 files match; the Android unit suite through lani-slot.sh 3,471 tests, 0 failures,
+2 skipped (its first run found two of DialogReactionsTest's rules broken by V podstrešju's new turn: its two right
+choices had one reply, the wrong one's said "sedem"; fixed); `bun test/check-cases.ts` ok; the case lens's labelled
+sets unchanged (97.9 %, 94.1 %, 94.2 %, the bank 97.2 %, none wrong and decided); Python 251 tests and 131 (11
+skipped), all OK. No emulator: no screen changed.
+
 ## What's left
 
 - **Jan's wife's list** above; a "yes" to a refused spoken form is one `also` line in its table.
