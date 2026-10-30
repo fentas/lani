@@ -164,7 +164,9 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   its cap, the day's trade of it free; "school" a school standing, the hamlet's class open) and the moment is asked, as the
  *   tutor's show_tip asks it: it shows first at its place, whatever was dealt with or the pacing (companion/GAME.md
  *   "Guidance"); "tips:home" opens Home, the village else; "tips:reset" forgets every tip, as the settings' "Pokaži jih spet",
- *   "tips:" takes the pointer back.
+ *   "tips:" takes the pointer back. "tips:tentmove" readies the shepherd's request to move the tent to the pond ([readyTentMove]:
+ *   the hamlet, a hut, the tent on a plot, the shepherd living here and met, the request asked anew, never tried) and starts
+ *   its run: QA fails it, sees where it went and does its drill (companion/GAME.md "Quests", "A run clears its \"!\"").
  * - "seed:<n>": the founding's place ("Kje bo tvoja vas?", ui/game/FoundingScreen) is the one of that seed for the dice and
  *   the land ([foundingSeed]; 551323397: Teo's coast, whose land seed it is too), a reroll going on from it; "seed:" rolls
  *   one at random again.
@@ -506,6 +508,33 @@ object QaHooks {
             if (free != null) r = r.copy(buildings = r.buildings + si.lanisce.lani.game.Building("school-qa", si.lanisce.lani.game.BuildingType.SCHOOL, free, builtAt = now))
         }
         return r
+    }
+
+    /**
+     * [s] ready for the shepherd's request to move the tent ("tips:tentmove", [si.lanisce.lani.game.TentMove]): a hamlet at least,
+     * a hut and the tent on plots (free ones of the age), the culture's shepherd living here and met, and the request asked
+     * anew today (a tent-move request of before and its way back gone). [s] as it is when the culture has no tent move.
+     */
+    fun readyTentMove(s: si.lanisce.lani.game.GameState, today: java.time.LocalDate, now: Long): si.lanisce.lani.game.GameState {
+        val t = si.lanisce.lani.game.culture.Cultures.current.quests.tentMove ?: return s
+        var r = if (s.age < si.lanisce.lani.game.Age.ZASELEK) s.copy(age = si.lanisce.lani.game.Age.ZASELEK) else s
+        fun free(): Int? = (0 until si.lanisce.lani.game.PLOTS_PER_AGE[r.age.ordinal]).firstOrNull { p -> r.buildings.none { it.type.onPlot && it.plot == p } }
+        fun add(type: si.lanisce.lani.game.BuildingType, id: String) {
+            val p = free() ?: return
+            r = r.copy(buildings = r.buildings + si.lanisce.lani.game.Building(id, type, p, builtAt = now))
+        }
+        if (r.buildings.none { it.type == si.lanisce.lani.game.BuildingType.HUT || it.type == si.lanisce.lani.game.BuildingType.HOUSE }) add(si.lanisce.lani.game.BuildingType.HUT, "hut-qa")
+        if (si.lanisce.lani.game.TentMove.tent(r) == null && !si.lanisce.lani.game.TentMove.moved(r)) add(si.lanisce.lani.game.BuildingType.TENT, "tent-qa")
+        val shepherd = si.lanisce.lani.game.Quests.idOf(t.giver)
+        if (r.residents.none { it.id == shepherd }) r = r.copy(residents = r.residents + si.lanisce.lani.game.villagers.Resident(shepherd, today.toString()))
+        val met = si.lanisce.lani.game.villagers.Memory(today.toString(), "qa", "qa", kind = "arrival")
+        r = r.copy(
+            villagers = maxOf(r.villagers, r.residents.size),
+            bonds = r.bonds + (shepherd to (r.bonds[shepherd] ?: si.lanisce.lani.game.villagers.Bond()).let { b -> b.copy(points = maxOf(b.points, 10), met = b.met ?: today.toString(), memories = b.memories.ifEmpty { listOf(met) }) }),
+            quests = r.quests.filter { it.id != si.lanisce.lani.game.TentMove.ID },
+            pace = r.pace.copy(back = r.pace.back - si.lanisce.lani.game.TentMove.ID, rests = r.pace.rests - t.giver, up = r.pace.up.filter { it.id != si.lanisce.lani.game.TentMove.ID }),
+        )
+        return si.lanisce.lani.game.TentMove.offer(r, now)
     }
 
     /** The id of the request QA makes ("request:<ids>", [withRequest]). */

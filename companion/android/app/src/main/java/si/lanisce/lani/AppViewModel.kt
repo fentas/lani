@@ -556,11 +556,12 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         private set
 
     /**
-     * The learner of this device is a child: their node's profile says so (lani-profile --child, told at pairing), or the
-     * hosted onboarding was for a child. Keys and accounts are then a parent's (app/ParentGate: the tutor's and the data's
-     * settings say so, and open after a hold).
+     * The learner of this device is a child: their node's profile says so (lani-profile --child, told at pairing; for a phone
+     * set up with a typed token, its town's own row says it: GET /towns' self), or the hosted onboarding was for a child. Keys
+     * and accounts are then a parent's (app/ParentGate: the tutor's and the data's settings say so, and open after a hold),
+     * and the game's tips speak to a child (game/Guidance).
      */
-    val child: Boolean get() = paired?.child == true || (hosted.active && hosted.child)
+    val child: Boolean get() = paired?.child == true || (hosted.active && hosted.child) || (!hosted.active && towns.list?.self?.child == true)
     var permission by mutableStateOf<BridgeEvent.PermissionRequest?>(null)
         private set
     /**
@@ -1410,12 +1411,18 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         val now = System.currentTimeMillis()
         when (what) {
             "reset" -> game.apply { si.lanisce.lani.game.Guidance.again(it) }
+            // the shepherd's request to move the tent, asked anew, and its run (QA fails it and does its drill)
+            "tentmove" -> {
+                game.apply { si.lanisce.lani.app.QaHooks.readyTentMove(it, java.time.LocalDate.now(), now) }
+                startQuest(si.lanisce.lani.game.TentMove.ID)
+            }
             "" -> game.tipAsked(null, null, now)
             "home" -> home()
             else -> {
                 val m = si.lanisce.lani.game.Guidance.moment(what) ?: return
-                game.apply { si.lanisce.lani.app.QaHooks.readyTip(it, what, si.lanisce.lani.game.GameEngine.attributes(it).caps, now) }
-                game.tipAsked(what, null, now)
+                // one change (readied and asked), so the push in flight never carries the village without the pointer
+                game.apply { si.lanisce.lani.game.Guidance.ask(si.lanisce.lani.app.QaHooks.readyTip(it, what, si.lanisce.lani.game.GameEngine.attributes(it).caps, now), what, null, now) }
+                school.touch() // the class begins with the hamlet (a school readied): its levels open, as a build keeps them
                 if (m.place == si.lanisce.lani.game.TipPlace.MAP) openVillage() else home()
             }
         }

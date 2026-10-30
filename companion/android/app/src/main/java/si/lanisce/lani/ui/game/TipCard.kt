@@ -102,6 +102,10 @@ fun rememberTip(vm: AppViewModel, place: TipPlace, quiet: Boolean, scene: String
     LaunchedEffect(s.tips.since.isEmpty(), facts.ready) { if (s.tips.since.isEmpty() && facts.ready) vm.game.tipsBegin(facts) }
     val tip = remember(s, facts, place, quiet) { runCatching { Guidance.next(s, facts, place, quiet) }.getOrNull() }
     LaunchedEffect(tip?.moment) { tip?.let(vm.game::tipShown) }
+    // a debug build says what each place shows (tag Tips): QA's evidence, and why the tutor's pointer waits
+    if (si.lanisce.lani.app.QaHooks.enabled) LaunchedEffect(tip?.moment, s.tips.asked, facts.lesson) {
+        android.util.Log.d("Tips", "$place: ${tip?.moment ?: "none"} asked=${s.tips.asked?.moment} lesson=${facts.lesson} ready=${facts.ready} quiet=$quiet")
+    }
     return tip
 }
 

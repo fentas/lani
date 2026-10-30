@@ -347,12 +347,18 @@ class GuidanceTest {
         s = Guidance.ask(s, "watchtower", "Show Teo the tower", t0)
         // at once (no quiet moment needed), ahead of wisdom full
         assertEquals("watchtower", Guidance.next(s, facts(now = t0 + minute), TipPlace.MAP, quiet = false)?.moment)
-        // a replay of the same event changes nothing; dealt with, it is done
+        // a replay of the same event changes nothing; dealt with, it is done, and its replay (the app connecting again) too
         assertEquals(s, Guidance.ask(s, "watchtower", "again", t0))
         s = Guidance.dealt(s, "watchtower", today, t0 + 2 * minute)
         assertNull(s.tips.asked)
+        assertNull(Guidance.ask(s, "watchtower", "Show Teo the tower", t0).tips.asked)
+        assertNull(Guidance.ask(Guidance.again(s), "watchtower", "Show Teo the tower", t0).tips.asked)
+        // a newer pointer is taken in; the tutor takes it back
+        val newer = Guidance.ask(s, "school", null, t0 + 3 * minute)
+        assertEquals("school", newer.tips.asked?.moment)
+        assertNull(Guidance.unask(newer, t0 + 4 * minute).tips.asked)
         // an unknown moment isn't asked
-        assertNull(Guidance.ask(s, "nonsense", null, t0 + 3 * minute).tips.asked)
+        assertNull(Guidance.ask(s, "nonsense", null, t0 + 5 * minute).tips.asked)
         // trading, asked: the fullest store's trade, also when no store is full
         val trade = Guidance.ask(hamlet(res = mapOf(Res.FOOD to 300)), "trade", null, t0)
         assertEquals(TipAction.Trade(Res.FOOD), Guidance.next(trade, facts(), TipPlace.MAP)?.action)

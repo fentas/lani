@@ -388,7 +388,7 @@ class GameController(
 
     /** The tutor points at moment [moment] (show_tip; null takes it back), asked at [at] (epoch ms: a replay changes nothing). */
     fun tipAsked(moment: String?, note: String?, at: Long): Boolean =
-        change { if (moment == null) si.lanisce.lani.game.Guidance.unask(it) else si.lanisce.lani.game.Guidance.ask(it, moment, note, at) }
+        change { if (moment == null) si.lanisce.lani.game.Guidance.unask(it, at) else si.lanisce.lani.game.Guidance.ask(it, moment, note, at) }
 
     /** The chest was opened: what came into it is seen, and the HUD's dot goes. */
     fun sawChest() = showChest(chestNews.opened())

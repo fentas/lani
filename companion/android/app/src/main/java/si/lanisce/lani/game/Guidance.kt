@@ -41,6 +41,8 @@ data class Tips(
     val off: Boolean = false,
     /** The tutor pointed at a moment (show_tip, "show Teo how to trade"): it comes first at its place, once, until dealt with. */
     val asked: TipAsk? = null,
+    /** When the tutor's latest pointer was sent (epoch ms): a replay of it, or of an older one, changes nothing, dealt with or not. */
+    val askedAt: Long = 0,
 )
 
 /** The tutor's pointer ([Tips.asked]): the moment, a line of why (the learner's base), when it was asked (epoch ms). */
@@ -537,17 +539,23 @@ object Guidance {
      * "Pokaži jih spet · Show them again": what was dealt with, put off, shown and done is forgotten, the tips on again; the
      * day they began stays (so nothing becomes a backlog again).
      */
-    fun again(s: GameState): GameState = s.tipsWith { Tips(since = it.since) }
+    fun again(s: GameState): GameState = s.tipsWith { Tips(since = it.since, askedAt = it.askedAt) }
 
-    /** The tutor points at moment [moment] (show_tip) at [at] (epoch ms); a replayed event older than the one kept changes nothing. */
+    /**
+     * The tutor points at moment [moment] (show_tip) at [at] (epoch ms, the event's): it comes first until dealt with. The
+     * events replay when the app connects again: one sent no later than the latest taken in ([Tips.askedAt]) changes nothing,
+     * so a pointer dealt with never comes back by itself.
+     */
     fun ask(s: GameState, moment: String, note: String?, at: Long): GameState {
-        if (moment(moment) == null) return s
-        if ((s.tips.asked?.at ?: Long.MIN_VALUE) >= at && s.tips.asked?.moment == moment) return s
-        return s.tipsWith { it.copy(asked = TipAsk(moment, note?.take(200), at)) }
+        if (moment(moment) == null || at <= s.tips.askedAt) return s
+        return s.tipsWith { it.copy(asked = TipAsk(moment, note?.take(200), at), askedAt = at) }
     }
 
-    /** The tutor takes the pointer back. */
-    fun unask(s: GameState): GameState = if (s.tips.asked == null) s else s.tipsWith { it.copy(asked = null) }
+    /** The tutor takes the pointer back (its event sent at [at]; an older one changes nothing). */
+    fun unask(s: GameState, at: Long): GameState {
+        val a = s.tips.asked ?: return s
+        return if (at < a.at) s else s.tipsWith { it.copy(asked = null, askedAt = maxOf(it.askedAt, at)) }
+    }
 
     /**
      * The tips begin in this village ([f]: the dashboard in, so the learning moments can be judged): the day kept; in a village
