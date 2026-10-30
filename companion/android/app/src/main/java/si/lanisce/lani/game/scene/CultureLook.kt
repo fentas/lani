@@ -256,11 +256,36 @@ object CultureLooks {
         variants = mapOf("village" to "friuli", "hills" to "collio", "well" to "vera", "bench" to "panchina", "osteria" to "frasca"),
     )
 
-    /** Friuli's bee garden (Dalle api, ApiaryPainter). */
-    internal val FRIULI_APIARY = Table.of("apiary")
+    /**
+     * Apicoltore Aldo's bee garden on the Collio (Dalle api, ApiaryPainter): not the Slovene bee house with its painted
+     * fronts (the končnice are Slovene) but a shed of river cobbles with brick bands under coppi, Dadant box hives in tiers in
+     * its open front, each painted a plain colour with its number and landing board (`house`); the hive apart a box hive too
+     * (`hive`); Aldo's sign by the path, MIELE on a yellow board, for the `panel`; an acacia (robinia) where the linden
+     * stands, white with racemes in May (`tree`); pale acacia honey in the jars, a dark chestnut one in autumn (`honey`);
+     * World Bee Day's bunting in Friuli's yellow and blue (`bunting`).
+     */
+    internal val FRIULI_APIARY = Table.of(
+        "apiary",
+        variants = mapOf("house" to "friuli", "panel" to "sign", "hive" to "box", "tree" to "acacia", "honey" to "acacia", "bunting" to "friuli"),
+    )
 
-    /** Friuli's church (In chiesa, ChurchPainter). */
-    internal val FRIULI_CHURCH = Table.of("church")
+    /**
+     * The little church of a Collio village (In chiesa, ChurchPainter), not the Karst church: the far wall a pitched gable
+     * under an open timber roof with its truss (`roof`) for the starry vault; bullseye glass in lead (`glass`, the rulli) for
+     * the coloured diamonds; a floor of terracotta tiles (`floor`, cotto) for the limestone slabs; a Venetian altarpiece, the
+     * Madonna enthroned between two saints, in an aedicule of white Istrian stone (`altarpiece`) for the marble columns and
+     * the sunburst; faded frescoes of saints, a grey plinth and a band of red teeth on ochre (`walls`) for the consecration
+     * crosses, the marbled dado and the wave frieze; the bell gable, a campanile a vela of the Collio's layered ponca with
+     * a brick arch and coppi (`gable`); the loft's balustrade painted as marble (`loft`) for the Slovene tulips; the bell rope's
+ * grip in Friuli's yellow and blue (`rope`) for the white, blue and red.
+     */
+    internal val FRIULI_CHURCH = Table.of(
+        "church",
+        variants = mapOf(
+            "roof" to "trusses", "glass" to "rulli", "floor" to "cotto", "altarpiece" to "pala", "walls" to "frescoes", "gable" to "ponca",
+            "loft" to "marble", "rope" to "friuli",
+        ),
+    )
 
     /**
      * Nonno Bepi's room by the fogolâr (In salotto, LivingRoomPainter): the fogolâr for the kmečka peč, a knee-high hearth of

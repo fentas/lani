@@ -65,7 +65,7 @@ class BuildingLevelsTest {
     @Test fun `each level of a building shows in its scene, the top one as everything built`() {
         val failed = ArrayList<String>()
         val report = StringBuilder()
-        for ((type, list) in arts.toSortedMap()) for (art in list - PENDING) for (culture in cultures(art)) {
+        for ((type, list) in arts.toSortedMap()) for (art in list) for (culture in cultures(art)) {
             val pics = (1..Catalog.MAX_LEVEL).map { render(art, frame(art, world(type, it, culture))) }
             val counts = (1 until pics.size).map { changed(pics[it - 1].first, pics[it].first) }
             report.append("$type/$art/$culture: ${counts.joinToString(" ")}\n")
@@ -130,14 +130,6 @@ class BuildingLevelsTest {
 
         /** How many pixels of the 240 × 160 canvas a level changes at least, by day: a thing a child sees come with it. */
         const val VISIBLE = 300
-
-        /** The arts whose levels are still being drawn this round (places-it-buildings): none at its end. */
-        private val PENDING = setOf(
-            "apiary",
-            "church",
-            "field",
-            "tent",
-        )
 
         /** The arts whose wild animals come and go with the day (Wildlife): not counted as a level's things. */
         private val WILD_ARTS = setOf("field", "forest", "stream", "pond", "alps")

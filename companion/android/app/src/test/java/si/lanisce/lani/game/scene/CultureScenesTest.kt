@@ -55,6 +55,7 @@ class CultureScenesTest {
         // the square's maypole, fountain and carts (the fire pump, the fountain's stone) are the village projects': their steps
         // and the projects' own scenes play them (places-it-projects), In piazza leaves them out
         "square" to setOf("maypole", "fountain", "cart-pump", "cart-stone"),
+        "apiary" to emptySet(), "church" to emptySet(),
     )
 
     @Test fun `each culture's scene opens from its place and uses only what its painter draws`() {
@@ -77,6 +78,10 @@ class CultureScenesTest {
             listOf("friuli", "al-mercato", "market", "market"),
             // the Friuli square (In piazza): Nonno Bepi on his bench with Moro, Tommaso's football, Maestra Elena at the well
             listOf("friuli", "in-piazza", "square", "lipa,well"),
+            // Friuli's bee garden (Dalle api): Apicoltore Aldo's hives, Nonno Bepi and the swarm, Giulia and the honey
+            listOf("friuli", "dalle-api", "apiary", "beehive"),
+            // Friuli's church (In chiesa): Zia Nives's flowers and the organ, Lorenzo at the noon bell, Nonna Rosa's candle
+            listOf("friuli", "in-chiesa", "church", "church"),
             listOf("kaernten", "am-see", "alps", "spot:${TownSpots.HORIZON}"),
             listOf("lakeland", "on-the-fell", "alps", "spot:${TownSpots.HORIZON}"),
         )) {

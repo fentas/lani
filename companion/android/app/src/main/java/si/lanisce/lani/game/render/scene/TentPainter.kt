@@ -39,6 +39,13 @@ import kotlin.math.sin
  * the top of the tent's front post; a pair of scarpets, the Friulian velvet slippers with flowers embroidered on their toes,
  * waits on the floor by the camp bed; and behind the meadow a row of vines runs along its back edge on its stakes and wire,
  * as on the Collio's slopes, green with grapes in summer, gold in autumn, bare in winter.
+ *
+ * It grows with the tent's level (TENT, read once a frame: companion/SCENES.md "What the village has built"): at 1 the
+ * canvas stands over a floor of trodden earth and straw, the low wall plain, the table bare underneath, no rug, no guy ropes,
+ * no path; at 2 the plank floor; at 3 the rug and the shelf under the table with its crock; at 4 the guy ropes and their
+ * stakes, the door flap rolled up and tied, the low wall's valance and straps; at 5 the worn path across the meadow and its
+ * stepping stones: the picture as it was. Every thing to tap, every spot of the stage, the camp bed and the lantern are
+ * there at every level, in Friuli's look too.
  */
 internal class TentPainter : DioramaPainter() {
     override val art = "tent"
@@ -91,12 +98,21 @@ internal class TentPainter : DioramaPainter() {
         return floatArrayOf(env.ambR + lift, env.ambG + lift, env.ambB + lift)
     }
 
+    /** The tent's level (1 … 5: TENT's) and what it has (the class comment): the plank floor, the rug and the shelf, the guy ropes, the flap and the straps, the path. */
+    private var lv = 5
+    private var planksUp = true
+    private var rugUp = true
+    private var ropesUp = true
+    private var pathUp = true
+
     /** Friuli's camp ([look]): its pennant, the scarpets by the bed, the row of vines behind the meadow. */
     private var pennant = false
     private var scarpets = false
     private var vines = false
 
     override fun paint() {
+        lv = frame.world.level(si.lanisce.lani.game.BuildingType.TENT).coerceIn(1, 5)
+        planksUp = lv >= 2; rugUp = lv >= 3; ropesUp = lv >= 4; pathUp = lv >= 5
         fit()
         vignette()
         pennant = variant("pennant") == "friuli"; scarpets = variant("slippers") == "scarpets"; vines = variant("vines") == "collio"
@@ -107,8 +123,8 @@ internal class TentPainter : DioramaPainter() {
         val lit = flame > 0.15f
         plot { x, y, px, py -> ground(x, y, px, py) }
         // tufts first: they lie flat, and whatever stands in front of them covers them
-        tufts(90, 7) { x, y -> (x in x0 - 0.2f..x1 + 0.3f && y in y0 - 0.2f..y1 + 0.3f) || pathDist(x, y) < 0.5f || hypot(x - coilAt.first, y - coilAt.second) < 1f }
-        prop { steppingStones() }
+        tufts(90, 7) { x, y -> (x in x0 - 0.2f..x1 + 0.3f && y in y0 - 0.2f..y1 + 0.3f) || (pathUp && pathDist(x, y) < 0.5f) || hypot(x - coilAt.first, y - coilAt.second) < 1f }
+        if (pathUp) prop { steppingStones() }
         if (vines) prop { vineRow() }
         // the tent's shade on the grass beside the low wall and in front of the floor
         shade(iso.sx(x1 + 0.6f, (y0 + yr) / 2), iso.sy(x1 + 0.6f, (y0 + yr) / 2, 0f), 3.2f * 4 * K, 1.1f * 4 * K, 0.8f, groundId)
@@ -124,13 +140,13 @@ internal class TentPainter : DioramaPainter() {
         roof()
         prop { beam() }
         prop { post(x1, yr, 0f, hEave + 1.6f); post(x1, y0 + 0.05f, 0f, hEave + 1.6f) }
-        prop { rolledFlap() }
+        if (ropesUp) prop { rolledFlap() }
         drips(frame.sky.rain)
         thing("coat") { coat() }
         thing("hat", slop = 1) { hat(x1, yr, hEave + 1.6f) }
 
         // the open front: rug, whoever sits on the bedroll behind the table, the table, lantern, bed
-        rug()
+        if (rugUp) rug()
         cast("lantern")
         prop { table() }
         thing("cup", slop = 2) { cup(2.95f, 6.25f, fl + 7.2f) }
@@ -148,12 +164,14 @@ internal class TentPainter : DioramaPainter() {
         if (pennant) prop { pennant() }
 
         // outside
-        prop(outline = 0) {
-            rope(x1, yr, hEave, 10.5f, 7.0f, 0f, sag = 0.8f)
-            rope(x1, y0 + 0.05f, hEave, 10.6f, 0.5f, 0f, sag = 0.8f)
-            rope(x0, y1 + 0.2f, hBeam, 0.35f, 11.3f, 0f, sag = 1.2f)
+        if (ropesUp) {
+            prop(outline = 0) {
+                rope(x1, yr, hEave, 10.5f, 7.0f, 0f, sag = 0.8f)
+                rope(x1, y0 + 0.05f, hEave, 10.6f, 0.5f, 0f, sag = 0.8f)
+                rope(x0, y1 + 0.2f, hBeam, 0.35f, 11.3f, 0f, sag = 1.2f)
+            }
+            prop { stake(10.5f, 7.0f); stake(10.6f, 0.5f); stake(0.35f, 11.3f) }
         }
-        prop { stake(10.5f, 7.0f); stake(10.6f, 0.5f); stake(0.35f, 11.3f) }
         thing("rope", slop = 1) { coil(coilAt.first, coilAt.second) }
         cast("right")
         cast("door")
@@ -167,6 +185,7 @@ internal class TentPainter : DioramaPainter() {
 
     private fun ground(x: Float, y: Float, px: Int, py: Int): Int {
         val g = grassAt(x, y, px, py)
+        if (!pathUp) return g
         // worn along the path from the tent across the meadow (away from it, grass: no need for the noise)
         val near = 1f - pathDist(x, y) / 0.45f
         if (near <= 0f) return g
@@ -288,6 +307,7 @@ internal class TentPainter : DioramaPainter() {
     /** The plank floor, a hand's breadth off the grass: its front edges show the board ends. */
     private fun floor() {
         floorId = s.newObject(Pal.OUTLINE)
+        if (!planksUp) { earthFloor(); c.penId = 0; return }
         iso.panelY(x0, y1, 0f, x1 - x0, fl, Pal.WOOD_D)
         iso.panelX(x1, y0, 0f, y1 - y0, fl, Pal.WOOD_X)
         var bx = x0
@@ -295,6 +315,31 @@ internal class TentPainter : DioramaPainter() {
         planks(x0, y0, x1, y1, fl)
         if (detail >= 2) boardDetail()
         c.penId = 0
+    }
+
+    /**
+     * The first floor, before the planks: trodden earth banked a hand's breadth over the grass, straw strewn over it, a few
+     * stones in its sides; snow blown onto its front edge in winter.
+     */
+    private fun earthFloor() {
+        quadFill(x0, y1, 0f, x1, y1, 0f, x1, y1, fl, x0, y1, fl) { px, py ->
+            if (Noise.rnd(px / detail, py / detail, 91) < 0.06f) Pal.STONE_M else if (Dither.at(px, py) < 0.5f) Col.hex(0x6E4C30) else Col.hex(0x5E4029)
+        }
+        quadFill(x1, y0, 0f, x1, y1, 0f, x1, y1, fl, x1, y0, fl) { px, py ->
+            if (Noise.rnd(px / detail, py / detail, 92) < 0.06f) Pal.STONE_D else Col.hex(0x4E3420)
+        }
+        quadFill(x0, y0, fl, x1, y0, fl, x1, y1, fl, x0, y1, fl) { px, py ->
+            val x = flatX(px, py, fl); val y = flatY(px, py, fl)
+            val n = Noise.rnd(px / detail, py / detail, 93)
+            val straw = Noise.v2(x * 2.2f, y * 2.2f, 94)
+            when {
+                winter && y > y1 - 0.5f && n < 0.6f -> Pal.SNOW_M
+                straw > 0.58f && n < 0.55f -> if (n < 0.2f) Pal.HAY_L else Pal.HAY_M
+                n < 0.1f -> Pal.DIRT_D
+                n > 0.92f -> Pal.DIRT_L
+                else -> Pal.DIRT_M
+            }
+        }
     }
 
     /**
@@ -401,15 +446,15 @@ internal class TentPainter : DioramaPainter() {
             val strap = (y - y0 + 0.35f) / 1.5f
             val fs = strap - floor(strap)
             when {
-                z > hEave - 3.2f && z < hEave - 2.7f -> col = Col.scale(Pal.CANVAS_D, 0.85f)
-                z >= hEave - 2.7f -> col = Col.mix(Pal.CANVAS_M, Pal.CANVAS_L, 0.3f)
+                ropesUp && z > hEave - 3.2f && z < hEave - 2.7f -> col = Col.scale(Pal.CANVAS_D, 0.85f)
+                ropesUp && z >= hEave - 2.7f -> col = Col.mix(Pal.CANVAS_M, Pal.CANVAS_L, 0.3f)
                 z < 1.8f -> col = Col.mix(col, Col.hex(0x6A5A60), 0.65f)
             }
-            if (fs < 0.06f && z in hEave - 5.5f..hEave - 1.2f) col = Col.hex(0x6F4527)
+            if (ropesUp && fs < 0.06f && z in hEave - 5.5f..hEave - 1.2f) col = Col.hex(0x6F4527)
             else if (detail >= 2) col = weave(col, px, py)
-            if (detail >= 2 && z > hEave - 2.7f && abs(z - (hEave - 2.35f)) < 0.5f / K && ((y * 3f * K).toInt() and 1) == 0) col = Col.mix(col, Pal.CANVAS_D, 0.6f)
+            if (ropesUp && detail >= 2 && z > hEave - 2.7f && abs(z - (hEave - 2.35f)) < 0.5f / K && ((y * 3f * K).toInt() and 1) == 0) col = Col.mix(col, Pal.CANVAS_D, 0.6f)
             // closer up, a buckle on each strap
-            if (detail >= 2 && fs < 0.1f && abs(z - (hEave - 4.3f)) < 0.55f) {
+            if (ropesUp && detail >= 2 && fs < 0.1f && abs(z - (hEave - 4.3f)) < 0.55f) {
                 val edge = fs < 0.1f / 6f || fs > 0.1f * 5f / 6f || abs(z - (hEave - 4.3f)) > 0.55f - 0.9f / K
                 col = if (edge) Col.hex(0xB08A3A) else if (fs < 0.06f) Col.hex(0x6F4527) else col
             }
@@ -798,9 +843,11 @@ internal class TentPainter : DioramaPainter() {
         iso.post(xa + 0.15f, yb - 0.15f, fl, top, leg)
         iso.post(xb - 0.15f, yb - 0.15f, fl, top, leg)
         iso.post(xb - 0.15f, ya + 0.15f, fl, top, Col.scale(leg, 0.85f))
-        // a shelf between the legs with a crock on it
-        iso.box(xa + 0.1f, ya + 0.1f, fl + 2f, xb - xa - 0.2f, yb - ya - 0.2f, 0.6f, Pal.WOOD_M, Pal.WOOD_D, Pal.WOOD_X)
-        iso.box(xa + 0.5f, ya + 0.4f, fl + 2.6f, 0.5f, 0.5f, 2.2f, Col.hex(0xC8B89A), Col.hex(0xA89878), Col.hex(0x887858))
+        // a shelf between the legs with a crock on it (from the third level)
+        if (rugUp) {
+            iso.box(xa + 0.1f, ya + 0.1f, fl + 2f, xb - xa - 0.2f, yb - ya - 0.2f, 0.6f, Pal.WOOD_M, Pal.WOOD_D, Pal.WOOD_X)
+            iso.box(xa + 0.5f, ya + 0.4f, fl + 2.6f, 0.5f, 0.5f, 2.2f, Col.hex(0xC8B89A), Col.hex(0xA89878), Col.hex(0x887858))
+        }
         woodTop(xa, ya, top, xb - xa, yb - ya, 1.2f)
     }
 
