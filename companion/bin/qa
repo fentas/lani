@@ -9,7 +9,13 @@ A second town to visit: a fixture Italian town (companion/bridge/test/fixtures/d
 culture pack) on its own dev bridge (test/dev-town.ts, a temp data dir), linked with the dev bridge's town;
 the visit steps go to it from Friends and back home.
 
-Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge] [--no-town] [--steps <names>] [--happening <scene>/<id>] [--dry] [--bridges-only]
+Two runs at once: companion/bin/qa-slot runs this on the first free of QA's two emulator slots (each its own emulator,
+lock and ports; companion/README.md, "QA on two emulators"). On its own, QA uses the first slot's emulator
+(emulator-5554) and ports, under no lock: take /tmp/lani-emulator.lock around it, or use qa-slot.
+
+Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] [--keep-bridge] [--no-town] [--steps <names>] [--happening <scene>/<id>] [--dry] [--bridges-only]
+  --build-only         build the APK a run would install (the debug build, or the qa build with --minified), nothing else
+                       (qa-slot builds with it before it waits for an emulator)
   --minified           the qa build instead of the debug build (:app:assembleQa, app-qa.apk): the release build's R8, with
                        its rules and optimizations, and QA's hooks, the debug build's manifest (the dev bridge over plain
                        HTTP), x86_64 and the debug key (app/build.gradle.kts); a crash or a screen that loads nothing
@@ -362,7 +368,12 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        place for the village's steps (Luka warming his hands at the fire: the fire's card and zoom with
                        someone beside it); a dialog step lets it go again
 Output: companion/qa-shots/<timestamp>/  (NN-step.png, contact-sheet.png, report.txt, bridge.log, town.log)
-Env: ANDROID_SERIAL picks the device when several run; LANI_DEV_PORT the dev bridge's port (default 8791);
+Env: ANDROID_SERIAL the device (default emulator-5554, the first slot's emulator; started when it isn't running, on that
+console port, read-only (-read-only) when another instance of the AVD runs or LANI_QA_READ_ONLY=1); never through the
+adb server on 5038 (a real tablet's); LANI_QA_BOOT_S how long a started emulator may take to boot (default 300);
+LANI_QA_SLOT the slot qa-slot runs it in (its screenshots' folder ends in -slot2); LANI_QA_GRADLE_NO_DAEMON=1 builds
+without leaving a Gradle daemon; LANI_DEV_PORT the dev bridge's port (default 8791); LANI_TUTOR_MOCK_PORT QA's mock of
+the Messages API (default 8771); LANI_QA_NOBODY_PORT the setup's unreachable computer (default 19601);
 LANI_PIPER_CACHE the dev bridge's offline voices (default ~/.cache/lani-qa/piper, kept between runs: the voice is fetched
 from Hugging Face once), LANI_PIPER_URL where it fetches them (default Hugging Face; a local mirror of its layout);
 LANI_DEV_TOWN_PORT the second town's (default 8797); LANI_DEV_TOWN_FIXTURE its fixture (a file of
@@ -415,12 +426,20 @@ MINIFIED = "--minified" in sys.argv  # the qa build: R8 as in a release (app/bui
 APK = ANDROID / ("app/build/outputs/apk/qa/app-qa.apk" if MINIFIED else "app/build/outputs/apk/debug/app-debug.apk")
 BUILD_TASK = ":app:assembleQa" if MINIFIED else ":app:assembleDebug"
 PKG = "si.lanisce.lani"
-OUT = ROOT / "companion/qa-shots" / time.strftime("%Y%m%d-%H%M%S")
+# the run's folder; a run in qa-slot's second slot ends in -slot2, so two runs started in one second keep apart
+SLOT = os.environ.get("LANI_QA_SLOT", "").strip()
+OUT = ROOT / "companion/qa-shots" / (time.strftime("%Y%m%d-%H%M%S") + (f"-slot{SLOT}" if SLOT and SLOT != "1" else ""))
 PORT = os.environ.get("LANI_DEV_PORT", "8791")
 BRIDGE_URL, TOKEN = f"http://10.0.2.2:{PORT}", "dev-token"
 # the setup's unreachable computer: a port nothing listens on (LANI_QA_NOBODY_PORT; never the bridges')
 SETUP_NOBODY_PORT = os.environ.get("LANI_QA_NOBODY_PORT", "19601")
-SERIAL = os.environ.get("ANDROID_SERIAL")
+# the device: the first slot's emulator unless ANDROID_SERIAL names another (qa-slot's second slot: emulator-5556). Named
+# always: with two emulators running, adb without -s refuses ("more than one device/emulator").
+SERIAL = os.environ.get("ANDROID_SERIAL") or "emulator-5554"
+# a real tablet is attached through the adb server on 5038: QA never talks to it
+if os.environ.get("ANDROID_ADB_SERVER_PORT", "").strip() == "5038" or ":5038" in os.environ.get("ADB_SERVER_SOCKET", ""):
+    sys.exit("QA: the adb server on 5038 is a real tablet's; QA's emulators are on the default server (5037): unset "
+             "ANDROID_ADB_SERVER_PORT / ADB_SERVER_SOCKET")
 # The second town (test/dev-town.ts): its own port (reserved for it in src/learners.ts) and app token, and its fixture
 # (LANI_DEV_TOWN_FIXTURE: dev-town-child.json is a child's town with a learner's progress, the dev bridge's its guardian).
 TOWN_PORT = os.environ.get("LANI_DEV_TOWN_PORT", "8797")
@@ -605,27 +624,53 @@ def mic_say(path: Path):
     time.sleep(0.5 + float(r.stdout.strip() or 2))
 
 
+def devices() -> dict:
+    """The adb server's devices: serial → state ("device", "offline" while an emulator boots, "unauthorized" …)."""
+    out = sh("adb", "devices", check=False)
+    return dict(l.split("\t", 1) for l in out.splitlines()[1:] if "\t" in l)
+
+
+BOOT_S = float(os.environ.get("LANI_QA_BOOT_S") or 420)  # how long a started emulator may take to boot
+
+
 def ensure_emulator():
-    if (SERIAL or "emulator-") in sh("adb", "devices"):
+    """The device QA runs on (SERIAL) up and booted. An emulator that isn't running is started: the QA AVD on SERIAL's
+    console port (emulator-5556: -port 5556), read-only when another emulator runs (a second instance of an AVD must be:
+    qa-slot's second slot) or LANI_QA_READ_ONLY=1; its output in emulator.log."""
+    state = devices().get(SERIAL)
+    if state == "device":
         return
-    print("starting emulator …")
-    mic = mic_on()
-    subprocess.Popen(
-        [str(SDK / "emulator/emulator"), "-avd", avd(), "-no-window", *(("-allow-host-audio",) if mic else ("-no-audio",)),
-         "-no-boot-anim", "-gpu", "swangle_indirect", "-no-snapshot-save", "-memory", "4096"],
-        env={**os.environ, **mic},
-        stdout=open(OUT / "emulator.log", "w") if mic else subprocess.DEVNULL, stderr=subprocess.STDOUT if mic else subprocess.DEVNULL,
-        start_new_session=True,
-        # A crashing emulator would otherwise leave a core dump of ~10 GB in the working directory.
-        preexec_fn=lambda: resource.setrlimit(resource.RLIMIT_CORE, (0, 0)),
-    )
-    adb("wait-for-device")
-    for _ in range(90):
-        if adb("shell", "getprop", "sys.boot_completed", check=False).strip() == "1":
+    m = re.fullmatch(r"emulator-(\d+)", SERIAL)
+    proc = None
+    if state is None:
+        if m is None:
+            sys.exit(f"QA: {SERIAL} is not attached (adb devices), and QA starts only emulators")
+        port = int(m.group(1))
+        if port % 2 or not 5554 <= port <= 5682:
+            sys.exit(f"QA: {SERIAL}: an emulator's console port is even, 5554 to 5682")
+        others = [d for d in devices() if d.startswith("emulator-") and d != SERIAL]
+        read_only = os.environ.get("LANI_QA_READ_ONLY") == "1" or bool(others)
+        print(f"starting emulator {SERIAL} (AVD {avd()}{', read-only' if read_only else ''}) …")
+        mic = mic_on()
+        proc = subprocess.Popen(
+            [str(SDK / "emulator/emulator"), "-avd", avd(), "-port", str(port), *(("-read-only",) if read_only else ()),
+             "-no-window", *(("-allow-host-audio",) if mic else ("-no-audio",)),
+             "-no-boot-anim", "-gpu", "swangle_indirect", "-no-snapshot-save", "-memory", "4096"],
+            env={**os.environ, **mic},
+            stdout=open(OUT / "emulator.log", "w"), stderr=subprocess.STDOUT,
+            start_new_session=True,
+            # A crashing emulator would otherwise leave a core dump of ~10 GB in the working directory.
+            preexec_fn=lambda: resource.setrlimit(resource.RLIMIT_CORE, (0, 0)),
+        )
+    end = time.time() + BOOT_S
+    while time.time() < end:
+        if proc is not None and proc.poll() is not None:
+            sys.exit(f"emulator {SERIAL} stopped ({proc.returncode}) before it booted: {tail(OUT / 'emulator.log')}")
+        if devices().get(SERIAL) == "device" and adb("shell", "getprop", "sys.boot_completed", check=False).strip() == "1":
             settle_after_boot()
             return
         time.sleep(2)
-    sys.exit("emulator did not boot")
+    sys.exit(f"emulator {SERIAL} did not boot in {BOOT_S:.0f} s: {tail(OUT / 'emulator.log')}")
 
 
 def settle_after_boot():
@@ -12120,6 +12165,10 @@ def shadow_tutor():
 
         # the mock's address (a QA build's setting), the key, shadow mode on
         assert scroll_to("The mock (10.0.2.2:8771)", 4) and tap("The mock (10.0.2.2:8771)", 3), "the mock's base URL"
+        if SHADOW_MOCK != "http://10.0.2.2:8771":
+            # the mock of this run's slot (qa-slot's second: LANI_TUTOR_MOCK_PORT), typed over the button's and used
+            type_into("http://10.0.2.2:8771", SHADOW_MOCK)
+            assert tap("Use it", 3), "the base URL's Use it"
         to_top()
         field = find("sk-ant-…")
         assert field, "the key's field"
@@ -14166,6 +14215,14 @@ def building() -> bool:
     return "--no-build" not in sys.argv and not arg("--apk")
 
 
+def build():
+    """The APK QA installs (BUILD_TASK), built; without a Gradle daemon left running with LANI_QA_GRADLE_NO_DAEMON=1."""
+    env = {**os.environ, "JAVA_HOME": sh("mise", "where", "java").strip()}
+    daemon = ("--no-daemon",) if os.environ.get("LANI_QA_GRADLE_NO_DAEMON") == "1" else ()
+    print(f"building ({BUILD_TASK}) …")
+    subprocess.run(["./gradlew", "-q", *daemon, BUILD_TASK], cwd=ANDROID, env=env, check=True)
+
+
 def dry(steps, visiting: bool):
     """--dry: what a run would do, with the ports as they are now; nothing is built, started or tapped."""
     if VOICES:
@@ -14223,11 +14280,15 @@ def main():
         return dry(steps, visiting)
     if "--bridges-only" in sys.argv:
         sys.exit(bridges_only())
+    if "--build-only" in sys.argv:
+        if arg("--apk") or "--no-build" in sys.argv:
+            sys.exit("--build-only builds the APK a run installs: not with --apk or --no-build")
+        build()
+        print(f"built: {APK}")
+        return
     OUT.mkdir(parents=True, exist_ok=True)
-    env = {**os.environ, "JAVA_HOME": sh("mise", "where", "java").strip()}
     if building():
-        print(f"building ({BUILD_TASK}) …")
-        subprocess.run(["./gradlew", "-q", BUILD_TASK], cwd=ANDROID, env=env, check=True)
+        build()
     ensure_emulator()
 
     alone = hosted_only(steps)

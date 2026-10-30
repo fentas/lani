@@ -16,10 +16,13 @@ export const DEFAULT_ID = 'default'
 export const DEFAULT_PROFILE = { id: DEFAULT_ID, port: 8790, https_port: 443, tmux: 'lani', remote_control: 'lani-tutor' } as const
 
 /**
- * The real bridge (8790), the QA dev bridge (8791) and its second town (8797, test/dev-town.ts), the voice and speech
- * workers (8795, 8796), and 8799, the smoke tests' port in a checkout from before they moved to 18800 and up.
+ * The real bridge (8790), the QA dev bridge (8791) and its second town (8797, test/dev-town.ts), the second emulator
+ * slot's dev bridge and town (8781, 8787: companion/bin/qa-slot), the voice and speech workers (8795, 8796), and 8799,
+ * the smoke tests' port in a checkout from before they moved to 18800 and up.
  */
-export const RESERVED_PORTS = new Set([8790, 8791, 8795, 8796, 8797, 8799])
+export const RESERVED_PORTS = new Set([8781, 8787, 8790, 8791, 8795, 8796, 8797, 8799])
+/** The second towns' ports of QA's two emulator slots (companion/bin/qa-slot): test/dev-town.ts serves on one of them. */
+export const QA_TOWN_PORTS = new Set([8797, 8787])
 const PORT_RANGE: [number, number] = [8792, 8899]
 
 /**

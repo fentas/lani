@@ -2,7 +2,7 @@
 // Friuli culture pack, not a child's, Italian from Slovene) in a temp data dir made as `lani-profile add` makes one,
 // with its village state, served by a bridge of its own. Nothing of a real learner is read or written.
 // Run: bun test/dev-town.ts   → http://127.0.0.1:8797, app token "dev-town-token".
-// Env: LANI_DEV_TOWN_PORT its port (default 8797, reserved for it in src/learners.ts).
+// Env: LANI_DEV_TOWN_PORT its port (default 8797; 8787 in qa-slot's second slot: both reserved in src/learners.ts).
 //      LANI_DEV_TOWN_VOICES=1 the town's own clips of its people's greetings (companion/README.md, "Voices on a visit"):
 //      once its bridge answers, a fake ElevenLabs (test/fakes/eleven.ts, tones; never a real key) voices each greeting
 //      of its residents and today's visitor that names nobody (no {learner}, no {memory}; both forms of a {m:…|f:…})
@@ -29,7 +29,7 @@ import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
 import { mkdtempSync, readFileSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
-import { RESERVED_PORTS, initLearnerData, portFree, readRegistry, writeRegistry } from '../src/learners'
+import { QA_TOWN_PORTS, RESERVED_PORTS, initLearnerData, portFree, readRegistry, writeRegistry } from '../src/learners'
 import { loadBridgeKey } from '../src/pairing'
 import { Towns, createInvite, inviteUri, localDate } from '../src/towns'
 import { fakeEleven } from './fakes/eleven'
@@ -54,8 +54,8 @@ const fail = (why: string, code = 1): never => {
   process.exit(code)
 }
 if (!Number.isInteger(port) || port < 1024 || port > 65535) fail(`LANI_DEV_TOWN_PORT is not a port: ${process.env.LANI_DEV_TOWN_PORT}`)
-// the real bridge, the dev bridge, the voice and speech workers, the smoke tests: never
-if (port !== DEFAULT_PORT && RESERVED_PORTS.has(port)) fail(`port ${port} is reserved (src/learners.ts RESERVED_PORTS)`)
+// the real bridge, the dev bridges, the voice and speech workers, the smoke tests: never (QA's slots' town ports: theirs)
+if (!QA_TOWN_PORTS.has(port) && RESERVED_PORTS.has(port)) fail(`port ${port} is reserved (src/learners.ts RESERVED_PORTS)`)
 // something answers there already (a learner's bridge, another dev town): leave it be
 if (!portFree(port)) fail(`port ${port} is taken; LANI_DEV_TOWN_PORT picks another`, 3)
 

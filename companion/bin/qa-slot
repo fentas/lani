@@ -1,0 +1,571 @@
+#!/usr/bin/env python3
+"""companion/bin/qa on the first free of QA's two emulator slots (companion/README.md, "QA on two emulators").
+
+Usage: companion/bin/qa-slot [--slot 1|2] [qa's options …]
+       companion/bin/qa-slot --status
+
+A slot is an emulator with its own lock and ports, so two QA runs go at once:
+
+  slot 1  lock /tmp/lani-emulator.lock    emulator-5554: the QA emulator as always, left running after a run
+          dev bridge 8791, second town 8797, tutor mock 8771, the setup's unreachable port 19601
+  slot 2  lock /tmp/lani-emulator-2.lock  emulator-5556: a second instance of the same AVD, read-only (its changes are
+          thrown away), started for the run and stopped after it, only while LANI_QA_MIN_GB (14) GB are available
+          dev bridge 8781, second town 8787, tutor mock 8761, the setup's unreachable port 19611
+
+The old way still works: `flock /tmp/lani-emulator.lock companion/bin/qa …` waits for slot 1 as before (qa on its own
+takes slot 1's emulator and ports), and qa-slot never takes slot 1 while that lock is held.
+
+What qa-slot does:
+1. Builds the APK the run installs (as qa does, unless --no-build or --apk), before it waits for a slot, so no emulator
+   waits for Gradle: once LANI_QA_MIN_GB are available, in one of the machine's heavy slots (LANI_HEAVY_LOCKS, the lock
+   files of lani-slot.sh: /tmp/lani-heavy-slot1.lock to 3), without a Gradle daemon left running. Inside one of those
+   slots already (an ancestor holds one open: lani-slot.sh qa-slot …), it builds in that one.
+2. Waits its turn: runs waiting for a slot take turns in the order they came (a ticket each in /tmp/lani-qa-queue);
+   slot 1 first (its emulator runs already), slot 2 when memory allows. No lock is held while waiting.
+3. Runs qa with the slot's serial and ports (ANDROID_SERIAL, LANI_DEV_PORT, LANI_DEV_TOWN_PORT, LANI_TUTOR_MOCK_PORT,
+   LANI_QA_NOBODY_PORT, LANI_QA_SLOT), and --no-build after its build. qa starts slot 2's emulator; qa-slot stops it
+   after the run (also after Ctrl-C, a timeout's SIGTERM or a failure), and the slot's dev bridges if qa left them.
+   The exit code is qa's.
+
+Options: --slot 1|2 only that slot (talk-mic needs an emulator that QA starts itself: --slot 2); --status who holds each
+slot and who waits, nothing else; anything else goes to qa.
+Env: LANI_QA_MIN_GB (14) the memory slot 2 and the build wait for; LANI_QA_SLOT2=0 never slot 2; LANI_HEAVY_LOCKS the
+build's lock files, ":"-separated ("" none: the memory alone); LANI_QA_WAIT_S (21600) how long to wait for a slot;
+LANI_QA_EMULATOR_LOCK, LANI_QA_EMULATOR_LOCK_2, LANI_QA_QUEUE_DIR other paths (tests). Never the adb server on 5038 (a
+real tablet's).
+"""
+from __future__ import annotations
+
+import dataclasses
+import fcntl
+import json
+import os
+import re
+import signal
+import subprocess
+import sys
+import time
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+QA = ROOT / "companion/bin/qa"
+SDK = Path.home() / "Android/Sdk"
+
+
+@dataclasses.dataclass(frozen=True)
+class Slot:
+    n: int
+    lock: str
+    serial: str
+    dev: int
+    town: int
+    mock: int
+    nobody: int
+    #: started for a run and stopped after it (a read-only second instance of the AVD), only with enough memory
+    ephemeral: bool
+
+    def env(self) -> dict:
+        """What qa reads of the slot."""
+        return {
+            "ANDROID_SERIAL": self.serial,
+            "LANI_DEV_PORT": str(self.dev),
+            "LANI_DEV_TOWN_PORT": str(self.town),
+            "LANI_TUTOR_MOCK_PORT": str(self.mock),
+            "LANI_QA_NOBODY_PORT": str(self.nobody),
+            "LANI_QA_SLOT": str(self.n),
+            **({"LANI_QA_READ_ONLY": "1"} if self.ephemeral else {}),
+        }
+
+    @property
+    def console(self) -> int:
+        return int(self.serial.rsplit("-", 1)[1])
+
+    @property
+    def ports(self) -> tuple:
+        return self.dev, self.town, self.mock
+
+
+def slots(env=os.environ) -> list[Slot]:
+    """The two slots (their locks can be moved for the tests)."""
+    return [
+        Slot(1, env.get("LANI_QA_EMULATOR_LOCK", "/tmp/lani-emulator.lock"), "emulator-5554", 8791, 8797, 8771, 19601, False),
+        Slot(2, env.get("LANI_QA_EMULATOR_LOCK_2", "/tmp/lani-emulator-2.lock"), "emulator-5556", 8781, 8787, 8761, 19611, True),
+    ]
+
+
+# --- the machine ------------------------------------------------------------------------------------------------------
+
+def available_gb(meminfo="/proc/meminfo") -> float:
+    """MemAvailable in GB (GiB, as lani-slot.sh counts); 0 when it can't be read."""
+    try:
+        with open(os.environ.get("LANI_QA_MEMINFO", meminfo)) as f:
+            for line in f:
+                if line.startswith("MemAvailable:"):
+                    return int(line.split()[1]) / 1048576
+    except OSError:
+        pass
+    return 0.0
+
+
+def min_gb() -> float:
+    return float(os.environ.get("LANI_QA_MIN_GB") or 14)
+
+
+def parent(pid: int) -> int:
+    """[pid]'s parent (0 when it's gone)."""
+    try:
+        with open(f"/proc/{pid}/stat") as f:
+            return int(f.read().rsplit(")", 1)[1].split()[1])
+    except (OSError, ValueError, IndexError):
+        return 0
+
+
+def ancestors(pid: int | None = None) -> list[int]:
+    """This process and its ancestors up to init."""
+    out, p = [], pid or os.getpid()
+    while p > 1 and p not in out:
+        out.append(p)
+        p = parent(p)
+    return out
+
+
+def held_open_by_us(path: str) -> bool:
+    """Whether this process or an ancestor has [path] open: inside that lock already (lani-slot.sh holds its slot's file
+    open while its command runs; `flock FILE cmd` holds the file open while cmd runs). A lock flock(1) took is the open
+    file's, and a new open of the file can't take it again: waiting for it would wait for ourselves."""
+    try:
+        want = os.stat(path)
+    except OSError:
+        return False
+    for pid in ancestors():
+        try:
+            fds = os.listdir(f"/proc/{pid}/fd")
+        except OSError:
+            continue
+        for fd in fds:
+            try:
+                st = os.stat(f"/proc/{pid}/fd/{fd}")
+            except OSError:
+                continue
+            if (st.st_dev, st.st_ino) == (want.st_dev, want.st_ino):
+                return True
+    return False
+
+
+def holder(path: str) -> str:
+    """Who holds the flock on [path], for --status and the waiting line ("pid 1234 in lani-map-culture: qa --steps …"),
+    or "" when nobody (or it can't tell)."""
+    try:
+        st = os.stat(path)
+        with open("/proc/locks") as f:
+            lines = f.read().splitlines()
+    except OSError:
+        return ""
+    for line in lines:
+        parts = line.split()
+        if len(parts) < 6 or parts[1] != "FLOCK":
+            continue
+        dev_ino = parts[5].split(":")
+        if len(dev_ino) == 3 and int(dev_ino[2]) == st.st_ino:
+            pid = int(parts[4])
+            return describe(pid)
+    return ""
+
+
+def describe(pid: int) -> str:
+    """[pid] as a person would recognize it: its worktree and its command (the lock's holder may be flock(1) itself)."""
+    try:
+        cmd = Path(f"/proc/{pid}/cmdline").read_bytes().replace(b"\0", b" ").decode(errors="replace").strip()
+        cwd = os.readlink(f"/proc/{pid}/cwd")
+    except OSError:
+        return f"pid {pid}"
+    where = next((p for p in Path(cwd).parts if p.startswith("lani")), Path(cwd).name)
+    return f"pid {pid} in {where}: {cmd[:120]}"
+
+
+def alive(pid: int) -> bool:
+    try:
+        os.kill(pid, 0)
+        return True
+    except ProcessLookupError:
+        return False
+    except PermissionError:
+        return True
+
+
+class Lock:
+    """An exclusive flock on a file, taken without waiting; [inherited]: an ancestor of ours holds it (we're inside it)."""
+
+    def __init__(self, path: str):
+        self.path, self.fd, self.inherited = path, None, False
+
+    def take(self) -> bool:
+        if held_open_by_us(self.path):
+            self.inherited = True
+            return True
+        fd = os.open(self.path, os.O_RDWR | os.O_CREAT, 0o644)
+        try:
+            fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except OSError:
+            os.close(fd)
+            return False
+        self.fd = fd
+        return True
+
+    def free(self):
+        if self.fd is not None:
+            fcntl.flock(self.fd, fcntl.LOCK_UN)
+            os.close(self.fd)
+            self.fd = None
+        self.inherited = False
+
+
+# --- the queue: runs waiting for a slot take turns in the order they came ------------------------------------------------
+
+def queue_dir() -> Path:
+    return Path(os.environ.get("LANI_QA_QUEUE_DIR", "/tmp/lani-qa-queue"))
+
+
+class Ticket:
+    """This run's place in the queue: a file named by when it came, saying which slots it can use and whose it is."""
+
+    def __init__(self, wants: list[int]):
+        d = queue_dir()
+        d.mkdir(parents=True, exist_ok=True)
+        self.path = d / f"{time.time_ns():020d}-{os.getpid()}.json"
+        self.path.write_text(json.dumps({"pid": os.getpid(), "slots": wants, "cwd": os.getcwd(), "args": sys.argv[1:]}))
+
+    def ahead(self) -> list[dict]:
+        """The live tickets that came before this one (a dead run's ticket is removed)."""
+        out = []
+        for p in sorted(queue_dir().glob("*.json")):
+            if p.name >= self.path.name:
+                break
+            try:
+                t = json.loads(p.read_text())
+            except (OSError, ValueError):
+                continue
+            if alive(int(t.get("pid", 0))):
+                out.append(t)
+            else:
+                p.unlink(missing_ok=True)
+        return out
+
+    def may_take(self, slot: int) -> bool:
+        """Whether no run that came earlier waits for [slot] too."""
+        return not any(slot in t.get("slots", []) for t in self.ahead())
+
+    def done(self):
+        self.path.unlink(missing_ok=True)
+
+
+def queued() -> list[dict]:
+    """Every live ticket, oldest first (for --status)."""
+    out = []
+    for p in sorted(queue_dir().glob("*.json")) if queue_dir().is_dir() else []:
+        try:
+            t = json.loads(p.read_text())
+        except (OSError, ValueError):
+            continue
+        if alive(int(t.get("pid", 0))):
+            out.append(t)
+    return out
+
+
+# --- the build --------------------------------------------------------------------------------------------------------
+
+def heavy_locks() -> list[str]:
+    v = os.environ.get("LANI_HEAVY_LOCKS")
+    if v is None:
+        return [f"/tmp/lani-heavy-slot{i}.lock" for i in (1, 2, 3)]
+    return [p for p in v.split(":") if p]
+
+
+def builds(args: list[str]) -> bool:
+    """Whether qa would build the APK for [args] (qa's own rules), and so qa-slot builds it first."""
+    if any(a in args for a in ("--no-build", "--dry", "--bridges-only", "--build-only", "-h", "--help")):
+        return False
+    return not any(a == "--apk" or a.startswith("--apk=") for a in args)
+
+
+def inside_heavy_slot() -> str | None:
+    """The heavy slot an ancestor of ours holds (lani-slot.sh qa-slot …), or None."""
+    return next((p for p in heavy_locks() if held_open_by_us(p)), None)
+
+
+def build(args: list[str]) -> int:
+    """`qa --build-only` (the APK the run installs), without a Gradle daemon left running: once memory allows, in a heavy
+    slot (or in the one we run in already, whose gate waited for memory). Its exit code."""
+    def gradle() -> int:
+        env = {**os.environ, "LANI_QA_GRADLE_NO_DAEMON": "1"}
+        return subprocess.run([sys.executable, str(QA), "--build-only", *[a for a in args if a == "--minified"]], env=env).returncode
+
+    if inside_heavy_slot():
+        return gradle()
+    locks = heavy_locks()
+    said = 0.0
+    while True:
+        if available_gb() >= min_gb():
+            if not locks:
+                return gradle()
+            for path in locks:
+                lk = Lock(path)
+                if lk.take():
+                    try:
+                        return gradle()
+                    finally:
+                        lk.free()
+        if time.time() - said > 60:
+            print(f"qa-slot: the build waits for {min_gb():.0f} GB available (now {available_gb():.1f}) and a heavy slot "
+                  f"({', '.join(locks)})", flush=True)
+            said = time.time()
+        time.sleep(15)
+
+
+# --- slot 2's emulator ------------------------------------------------------------------------------------------------
+
+def emulator_pids(console: int) -> list[int]:
+    """The emulator processes (qemu, and the launcher if it's still there) serving console port [console]."""
+    out = []
+    for d in os.listdir("/proc"):
+        if not d.isdigit():
+            continue
+        try:
+            argv = Path(f"/proc/{d}/cmdline").read_bytes().split(b"\0")
+        except OSError:
+            continue
+        if not argv or not any(b"emulator" in a or b"qemu-system" in a for a in argv[:1]):
+            continue
+        for i, a in enumerate(argv[:-1]):
+            if a == b"-port" and argv[i + 1] == str(console).encode():
+                out.append(int(d))
+    return out
+
+
+def adb(*args: str, timeout=30) -> str:
+    try:
+        return subprocess.run(["adb", *args], capture_output=True, text=True, timeout=timeout).stdout
+    except (OSError, subprocess.TimeoutExpired):
+        return ""
+
+
+def marker(slot: Slot) -> Path:
+    """Who started slot 2's emulator: written before the run, removed once it is stopped."""
+    return Path(slot.lock + ".run.json")
+
+
+def stop_emulator(slot: Slot, why: str):
+    """The slot's emulator stopped: asked first (adb emu kill), then its processes ended."""
+    pids = emulator_pids(slot.console)
+    if not pids and slot.serial not in adb("devices"):
+        return
+    print(f"qa-slot: stopping {slot.serial} ({why})", flush=True)
+    adb("-s", slot.serial, "emu", "kill", timeout=20)
+    end = time.time() + 40
+    while time.time() < end and emulator_pids(slot.console):
+        time.sleep(1)
+    for sig in (signal.SIGTERM, signal.SIGKILL):
+        left = emulator_pids(slot.console)
+        if not left:
+            break
+        for pid in left:
+            try:
+                os.kill(pid, sig)
+            except ProcessLookupError:
+                pass
+        time.sleep(5)
+
+
+def ready_ephemeral(slot: Slot) -> str | None:
+    """Slot 2 ready for a run (its lock held): an emulator left on its port by a run that died is stopped; one nobody
+    here started is left alone and the slot is not used (why, as a string)."""
+    running = emulator_pids(slot.console) or (slot.serial in adb("devices"))
+    if running:
+        try:
+            m = json.loads(marker(slot).read_text())
+        except (OSError, ValueError):
+            m = None
+        if m is None:
+            return f"an emulator qa-slot didn't start runs on {slot.serial}: left alone"
+        if alive(int(m.get("pid", 0))):
+            return f"{slot.serial} belongs to a run that is still going (pid {m.get('pid')})"
+        stop_emulator(slot, f"left by run {m.get('pid')}, which stopped")
+    marker(slot).write_text(json.dumps({"pid": os.getpid(), "since": time.strftime("%Y-%m-%d %H:%M:%S"), "cwd": os.getcwd()}))
+    return None
+
+
+def cleanup_ports(slot: Slot, keep_bridge: bool):
+    """The slot's dev bridges and mock that the run left listening (qa stopped hard), stopped; anything else left be."""
+    if keep_bridge:
+        return
+    for port in slot.ports:
+        pids = subprocess.run(["lsof", "-ti", f"tcp:{port}", "-sTCP:LISTEN"], capture_output=True, text=True).stdout.split()
+        for pid in pids:
+            try:
+                cmd = Path(f"/proc/{pid}/cmdline").read_bytes()
+                env = Path(f"/proc/{pid}/environ").read_bytes()
+            except OSError:
+                continue
+            # what a run in this slot started: qa's environment (LANI_QA_SLOT) goes to its bridges and their bridges
+            ours = f"LANI_QA_SLOT={slot.n}".encode() in env.split(b"\0") and b"bun" in cmd
+            if ours:
+                print(f"qa-slot: stopping what the run left on {port} (pid {pid})", flush=True)
+                try:
+                    os.kill(int(pid), signal.SIGTERM)
+                except ProcessLookupError:
+                    pass
+
+
+# --- the run ----------------------------------------------------------------------------------------------------------
+
+class Stopped(Exception):
+    """A signal to stop (Ctrl-C, SIGTERM from a timeout, SIGHUP)."""
+
+    def __init__(self, sig: int):
+        super().__init__(sig)
+        self.sig = sig
+
+
+def on_signal(sig, _frame):
+    raise Stopped(sig)
+
+
+def run_qa(slot: Slot, args: list[str]) -> int:
+    """qa on [slot]; Ctrl-C or SIGTERM reach qa as Ctrl-C (so its bridges stop), then harder if it doesn't stop."""
+    env = {**os.environ, **slot.env()}
+    print(f"qa-slot: slot {slot.n} ({slot.serial}, dev bridge {slot.dev}, second town {slot.town}): qa {' '.join(args)}", flush=True)
+    p = subprocess.Popen([sys.executable, str(QA), *args], env=env)
+    try:
+        return p.wait()
+    except Stopped as e:
+        # a Ctrl-C at a terminal reached qa too (one process group): it stops its bridges; a timeout's SIGTERM is passed
+        # on as a Ctrl-C; then harder, if qa doesn't stop
+        steps = [(None, 30)] if e.sig == signal.SIGINT else [(signal.SIGINT, 30)]
+        for sig, wait in [*steps, (signal.SIGTERM, 10), (signal.SIGKILL, 5)]:
+            if p.poll() is not None:
+                break
+            if sig is not None:
+                p.send_signal(sig)
+            try:
+                p.wait(wait)
+            except subprocess.TimeoutExpired:
+                pass
+        raise
+
+
+def usable(slot: Slot) -> str | None:
+    """Why [slot] can't be taken now (no lock looked at), or None."""
+    if slot.ephemeral:
+        if os.environ.get("LANI_QA_SLOT2", "1") == "0":
+            return "off (LANI_QA_SLOT2=0)"
+        if available_gb() < min_gb():
+            return f"waits for {min_gb():.0f} GB available (now {available_gb():.1f})"
+        if not (SDK / "emulator/emulator").exists():
+            return f"no emulator in {SDK}"
+    return None
+
+
+def status():
+    for s in slots():
+        who = holder(s.lock)
+        why = usable(s)
+        up = "running" if (emulator_pids(s.console) or s.serial in adb("devices")) else "not running"
+        print(f"slot {s.n}  {s.lock}  {s.serial} {up}: " + (f"held by {who}" if who else "free") + (f"; {why}" if why else ""))
+    print(f"memory available: {available_gb():.1f} GB (slot 2 needs {min_gb():.0f})")
+    q = queued()
+    print(f"waiting: {len(q)}" + "".join(f"\n  pid {t['pid']} in {Path(t.get('cwd', '')).name} for slot {'/'.join(map(str, t.get('slots', [])))}: qa {' '.join(t.get('args', []))}" for t in q))
+
+
+def main(argv: list[str]) -> int:
+    if os.environ.get("ANDROID_ADB_SERVER_PORT", "").strip() == "5038" or ":5038" in os.environ.get("ADB_SERVER_SOCKET", ""):
+        print("qa-slot: the adb server on 5038 is a real tablet's; QA's emulators are on the default server (5037)", file=sys.stderr)
+        return 2
+    args = list(argv)
+    if "--status" in args:
+        status()
+        return 0
+    if "-h" in args or "--help" in args:
+        print(__doc__)
+        return 0
+    want = [1, 2]
+    if "--slot" in args:
+        i = args.index("--slot")
+        if i + 1 >= len(args) or args[i + 1] not in ("1", "2"):
+            print("qa-slot: --slot 1 or --slot 2", file=sys.stderr)
+            return 2
+        want = [int(args[i + 1])]
+        del args[i:i + 2]
+    if "--dry" in args or "--bridges-only" in args or "--build-only" in args:
+        # no emulator: qa's own answer with slot 1's ports (--dry shows them), or the build alone
+        return subprocess.run([sys.executable, str(QA), *args], env={**os.environ, **slots()[want[0] - 1].env()}).returncode
+
+    for sig in (signal.SIGINT, signal.SIGTERM, signal.SIGHUP):
+        signal.signal(sig, on_signal)
+    try:
+        if builds(args):
+            code = build(args)
+            if code != 0:
+                print(f"qa-slot: the build failed ({code})", file=sys.stderr)
+                return code
+            args = [*args, "--no-build"]
+        return take_and_run(want, args)
+    except Stopped as e:
+        return 128 + e.sig
+
+
+def take_and_run(want: list[int], args: list[str]) -> int:
+    """Waits for the first free slot of [want] in turn, runs qa there, frees it."""
+    if (heavy := inside_heavy_slot()) is not None:
+        print(f"qa-slot: this runs inside a heavy slot ({heavy}), which stays taken while it waits for an emulator: "
+              "qa-slot gates its own build, run it on its own", flush=True)
+    ticket = Ticket(want)
+    deadline = time.time() + float(os.environ.get("LANI_QA_WAIT_S") or 21600)
+    said, last = 0.0, ""
+    try:
+        while time.time() < deadline:
+            whys = []
+            for s in (x for x in slots() if x.n in want):
+                why = usable(s)
+                ours = held_open_by_us(s.lock)  # inside its lock already: it is ours, whoever waits
+                if why is None and not ours and not ticket.may_take(s.n):
+                    why = "a run that came earlier waits for it"
+                lock = Lock(s.lock)
+                if why is None and not lock.take():
+                    why = f"held by {holder(s.lock) or 'another run'}"
+                if why is None and s.ephemeral:
+                    why = ready_ephemeral(s)
+                    if why is not None:
+                        lock.free()
+                if why is not None:
+                    whys.append(f"slot {s.n} {why}")
+                    continue
+                ticket.done()
+                return run_in(s, lock, args)
+            line = "; ".join(whys)
+            if line != last or time.time() - said > 300:
+                print(f"qa-slot: waiting ({line})", flush=True)
+                said, last = time.time(), line
+            time.sleep(5)
+        print("qa-slot: no slot came free in LANI_QA_WAIT_S", file=sys.stderr)
+        return 75
+    finally:
+        ticket.done()
+
+
+def run_in(slot: Slot, lock: Lock, args: list[str]) -> int:
+    """qa on [slot] under its [lock]; slot 2's emulator stopped after, whatever happened."""
+    try:
+        return run_qa(slot, args)
+    finally:
+        if slot.ephemeral:
+            # the signals wait until the emulator is down: a second Ctrl-C would leave it running
+            for sig in (signal.SIGINT, signal.SIGTERM, signal.SIGHUP):
+                signal.signal(sig, signal.SIG_IGN)
+            stop_emulator(slot, "the run is over")
+            marker(slot).unlink(missing_ok=True)
+        cleanup_ports(slot, keep_bridge="--keep-bridge" in args)
+        lock.free()
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))
