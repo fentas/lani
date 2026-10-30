@@ -133,7 +133,6 @@ class BuildingLevelsTest {
 
         /** The arts whose levels are still being drawn this round (places-it-buildings): none at its end. */
         private val PENDING = setOf(
-            "apiary",
             "attic",
             "cellar",
             "church",

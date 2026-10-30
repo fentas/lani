@@ -233,8 +233,18 @@ object CultureLooks {
     /** Friuli's square (In piazza, SquarePainter). */
     internal val FRIULI_SQUARE = Table.of("square")
 
-    /** Friuli's bee garden (Dalle api, ApiaryPainter). */
-    internal val FRIULI_APIARY = Table.of("apiary")
+    /**
+     * Apicoltore Aldo's bee garden on the Collio (Dalle api, ApiaryPainter): not the Slovene bee house with its painted
+     * fronts (the končnice are Slovene) but a shed of river cobbles with brick bands under coppi, Dadant box hives in tiers in
+     * its open front, each painted a plain colour with its number and landing board (`house`); the hive apart a box hive too
+     * (`hive`); Aldo's sign by the path, MIELE on a yellow board, for the `panel`; an acacia (robinia) where the linden
+     * stands, white with racemes in May (`tree`); pale acacia honey in the jars, a dark chestnut one in autumn (`honey`);
+     * World Bee Day's bunting in Friuli's yellow and blue (`bunting`).
+     */
+    internal val FRIULI_APIARY = Table.of(
+        "apiary",
+        variants = mapOf("house" to "friuli", "panel" to "sign", "hive" to "box", "tree" to "acacia", "honey" to "acacia", "bunting" to "friuli"),
+    )
 
     /** Friuli's church (In chiesa, ChurchPainter). */
     internal val FRIULI_CHURCH = Table.of("church")
