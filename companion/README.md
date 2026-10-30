@@ -3839,21 +3839,25 @@ with their school question words and colours (shared with the case trainer: imen
 the instrumental or the accusative; z/s: with, or from, the genitive; a time noun: kdaj-cas); the negations; the words
 of quantity, the nouns of measure and the numbers from five; the verbs and the words of feeling that govern a case
 (bati se, pomagati, dati, všeč); the verbs of motion and of rest, the copulas, the verbs with and without an object;
-the nouns of time; fixed phrases (dober dan, na svidenje); the personal pronouns (osebni-zaimki's, with the genitive
-and locative it leaves out) and the fused ones (zame, nanj). Each entry names its rule, a grammar page's id, and has
+the nouns of time; the genitive of time (`time_genitive`: leto before a year in figures, leta 1844; nekega, tistega …
+before a noun of time, nekega dne); fixed phrases (dober dan, na svidenje); words said of the subject (rad, sam); the
+personal pronouns (osebni-zaimki's, with the genitive and locative it leaves out) and the fused ones (zame, nanj). Each entry names its rule, a grammar page's id, and has
 examples the smoke analyses. A verb is given by its infinitive and its first person singular; the lens makes its forms.
 The JSON is made by `grammar/sl/data/case-triggers.py` beside it (the table in a compact form, its fixed layout): change
 the script and run it (`python3 companion/grammar/sl/data/case-triggers.py`), never the JSON; `--check` says whether they
 match, and `companion/tests/test_case_triggers.py` runs it, so a table edited by hand fails the Python tests.
 
-**The analysis**: each word's readings come from the forms book (Wiktionary's grammar strings read back into case,
-number and gender; the hand-checked tables; the table's pronouns; the villagers' and the learner's declined names; a
-noun's or an adjective's regular endings for a form the dictionary lacks, marked `derived`). The clause then decides,
+**The analysis**: each word's readings come from the forms book (Wiktionary's grammar strings and the supplement's
+read back into case, number and gender; the hand-checked tables, a noun's replacing Wiktionary's, and the animate list:
+a person's accusative is its genitive; the table's pronouns; the villagers' and the learner's declined names; a noun's
+or an adjective's regular endings for a form the dictionary lacks, and the word packs' nouns by their lemma, gender and
+plural, both marked `derived`). The clause then decides,
 each step a rule: a phrase, the preposition before the phrase (the verb's motion or rest where the form doesn't tell),
 a number or quantity, a word of feeling, a negation, a verb of the table, the subject's agreement with its verb (person,
 number, an l-form's gender), the object of a verb that takes one; the dual only with dva, dve, oba or a dual verb, the
 locative and the instrumental only after a preposition, a genitive only with something that asks for it (or when the
-form is nothing else: Daj mi kruha). What's left: one reading (`decided`), one preferred (`likely`: the singular of a form
+form is nothing else: Daj mi kruha); a comparison after kot takes the case of what it is compared with; words joined by
+in, ali, ter share their case; a nominative no role fits is left unresolved (no row). What's left: one reading (`decided`), one preferred (`likely`: the singular of a form
 that reads alike in the plural, the subject before its verb, a preposition's usual sense), or several (`ambiguous`,
 none picked). Adjectives, possessives and numbers agree with their noun (`agrees`).
 
@@ -3869,7 +3873,7 @@ none picked). Adjectives, possessives and numbers agree with their noun (`agrees
 ```
 
 - `kind`: what decided it (preposition, negation, quantity, number, verb, predicate, copula, subject, object, address,
-  attribute, time, phrase, fused, form, unresolved); `trigger` its word and place in the line (offsets of the line as
+  attribute, time, when: the genitive of time, phrase, fused, form, unresolved); `trigger` its word and place in the line (offsets of the line as
   sent); `options` the readings left, the likely one first; `out` the form's readings ruled out and why (`dual`,
   `preposition`, `needs-preposition`, `needs-trigger`, `agreement`, `subject-taken`, `no-object` …); `derived` a form read
   by its endings; `seen: true` when this look counts as seen for its rule (a case its line decides; once a day per word
@@ -3889,7 +3893,8 @@ could show). "🎨 Skloni · Cases" (off by default,
 remembered: `data/CasePrefs.kt`), a switch under "👁 Prevod" in a reading and an item of the ⋯ in the dialog panel's
 header (every dialog, story, talk), underlines each word in its case's colour, dotted where the line can't tell, with a
 legend; the lines are asked of the bridge a few dozen at a time (`app/CaseColoursController.kt`) and drawn with the text.
-Slovene only, at home.
+Slovene only, at home. The sentence's grammar (a long press on a line, [SCENES.md](SCENES.md#the-sentences-grammar-a-long-press-on-a-line))
+shows each word's row from the same lookups, so the sheet and the card never disagree.
 
 ### Forms cards
 

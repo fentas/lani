@@ -518,19 +518,22 @@ picked: that would give the answer away; a long press on a word of a choice stil
 stavka · The sentence's grammar" (`ui/words/SentenceSheet.kt`, `app/SentenceController.kt`): the line with 🔊 and its
 translation, then each word:
 
-- as written, its dictionary form and reading, looked up in the line as a word card does (GET /lookup: the dictionary
-  narrows a noun by the preposition before it), and narrowed further by what the sentence decides (`game/SentenceGrammar.kt`,
-  `WordReadings`): a number's category (after dvanajst the genitive plural), a no, a verb whose partner takes a case
-  (pomagam babici: the dative, not the locative); a noun in its dictionary form reads as the nominative or the
-  accusative like it (v šotor);
-- why that form, where a rule knows, in one line with its trigger: "*krav*: Koga? Česa? → 2. rodilnik · after «dvanajst»:
-  five and up", "*šotor*: Kam? → 4. tožilnik · after «v»", "*mi*: Komu? Čemu? → 3. dajalnik · with «mrzlo»", "*kruha*:
-  after the no «nimam»"; a verb's person ("who: jaz") or tense (the l-form with sem: the past; with bom: the future; with
-  bi: would; the imperative; an infinitive after moram); an adjective's gender;
-- its page as a 📖, on a sheet over this one; a tap on the word opens its card.
+- as written, its dictionary form and reading, looked up in the line as a word card does (GET /lookup with the line,
+  and for a word that is there twice its place, `n`);
+- for a word with a case, what the case lens says of it in the line (the lookup's `case`, `bridge/src/case-lens.ts`,
+  which reads what decides a case from the trigger table `grammar/sl/data/case-triggers.json`): the word card's
+  "🧩 Sklon · Case" row exactly, so the two never disagree (`game/SentenceGrammar.kt`, `data/CaseLens.kt`). The case and
+  number in its colour ("rodilnik, ed. · genitive, sg.", an adjective's gender), "verjetno · likely" for a likely one,
+  "Ne vem zagotovo" with the readings an ambiguous one leaves; the question it answers ("Kam? → 4. tožilnik", Kje? by
+  the preposition's sense, Kdaj? for a time and the genitive of time, Koliko?) and what decided it, Slovene then the
+  base ("Po predlogu «v»: tožilnik."); a preposition what it decides ("Zahteva rodilnik: «mleka»"). A word the lens
+  can't fit to any reading shows its form alone, as the card shows no row;
+- a verb's person ("who: jaz") or tense (the l-form with sem: the past; with bom: the future; with bi: would; the
+  imperative; an infinitive after moram);
+- its page as a 📖 (the lens's rule for a case), on a sheet over this one; a tap on the word opens its card.
 
-A word no rule explains shows its form alone. Without the node, the words alone, with what needs no dictionary (the case
-after iz, a number's category). "💬 Vprašaj učitelja · Ask your tutor" sends the line to the chat (`data.about_sentence`:
+A word nothing explains shows its form alone. Without the node, the words alone (the lens is the bridge's; the phone's
+own bridge has it too). A look the lens counts as seen for its rule goes to the case trainer, as the card's does. "💬 Vprašaj učitelja · Ask your tutor" sends the line to the chat (`data.about_sentence`:
 the sentence, its translation, the scene, the dialog, the person, the learner's own line's pages, and the words as read
 here); the tutor explains it and keeps the explanation (`publish_sentence_note`, `<data>/app/sentences.json`), and the sheet
 shows it ("🧑‍🏫 Učitelj razlaga · Your tutor explains") the next time the same line is long-pressed (GET /sentence, case

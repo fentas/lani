@@ -563,9 +563,10 @@ short line each:
 - the **short words** of the line marked with their slot (*sem – se – mi – ga – je*), when there are two or more;
 - a link to the page, as the why has.
 
-The triggers are one small table (the prepositions and their cases, the verbs with a dative or genitive, the
-numbers, the negation). The case of each word is the lookup's; where a preposition takes two cases (*v, na, pod,
-za …*), the form tells which. For the curated lines this can be worked out once, offline, and checked by hand: the
+The triggers are one table, the case lens's (companion/grammar/sl/data/case-triggers.json: the prepositions and their
+cases by sense, the verbs with a dative or genitive, the numbers, the negation, the genitive of time …). The case of
+each word is the lens's, the lookup's `case` (docs/plans/05-built/case-lens.md); where a preposition takes two cases
+(*v, na, pod, za …*), the form and the verb tell which. For the curated lines this can be worked out once, offline, and checked by hand: the
 Slovene pipeline CLASSLA-Stanza gives each word its lemma, case, number, gender and, for verbs, aspect, and links a
 noun to its preposition or verb [CLASSLA].
 

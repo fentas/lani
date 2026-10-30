@@ -192,6 +192,10 @@ sheet had it at all); now it is the one tap that already opened the word's card.
 
 ## What's left
 
+The second round (docs/plans/05-built/case-lens-2.md) did these: the year rule (the genitive of time), the dictionary's
+gaps (the supplement, the forms book's noun tables, the packs' nouns), the sentence's grammar on the lens, the trigger
+table's generator in the repository, and a third held-out set. What is still open is in its "What's left".
+
 - **The case trainer's merge** is done (the trainer rebased second; docs/plans/05-built/case-trainer.md, "The contract
   with the case lens"): the smoke runs the lens over the trainer's bank (324 "which case?" items, 97.2%, never
   contradicting a gold annotation: no wrong case decided or likely, every deciding word the bank's); one case look (the

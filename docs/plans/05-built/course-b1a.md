@@ -115,9 +115,11 @@ Every unit's `review` names its doubtful spots; in short:
 ## What's left
 
 - **The hint chip** (`game/TurnHint.kt`) has no rule of its own for the five new pages: a scene's turn that names one gets
-  the plain hint. No scene names them yet.
+  the plain hint. No scene names them yet. (Done in case-lens-2: a rule of its own for each.)
 - **The dictionary lacks some of the units' words** (hčerka, obe, zapirati, odpirati, kombi, pladenj, kmečki, novica,
   gradnja, izkušnja, test): the printed sheets leave them out of "Besede", and their cards have no meaning until the tutor
-  glosses them. *dekle* (neuter) is feminine and *sejem* "I sow" in it, so they were left out of the words.
+  glosses them. *dekle* (neuter) is feminine and *sejem* "I sow" in it, so they were left out of the words. (Done in
+  case-lens-2: all eleven in the supplement, checked against SP2001 and Sloleks.)
 - **da bi** is taught here as the aim (`odvisniki`); the conditional in full (`pogojnik-polno`, `course-b1b`) has *če bi …
-  bi*. The two pages should see each other once both are merged.
+  bi*. The two pages should see each other once both are merged. (Done in case-lens-2: odvisniki and pogojnik-ce-bi see
+  each other.)
