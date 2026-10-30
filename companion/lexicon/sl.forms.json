@@ -3,8 +3,8 @@
     "language": "sl",
     "reviewed": false,
     "machine_written": true,
-    "review": "machine-written (Claude): the tables and the partners; not reviewed by a native speaker",
-    "about": "The forms book of word forms (companion/README.md, \"Word forms\"; bridge/src/forms.ts). tables: hand-checked forms of everyday irregular verbs, by slot (pres.1sg … imp.2du), each replacing Wiktionary's forms of the word (sl.json merges homographs: biti, to be, carries biti, to beat's bijem, bije; hoteti's table has odd rows), standard Slovene in forms, the spoken forms a native speaker says too (bojo, grejo, jejo, vejo, reko, mam) in also: accepted, never shown as the answer. partners: verbs that pair, pf the one done once (a movement, a whole act), impf the one going on (a state, again and again); kind position for a movement and the state after it (sesti, sit down: sedeti, be sitting), aspect for the same act once or going on (kupiti, kupovati); gloss: a meaning where the dictionary has none, or says more. leave_out: words whose forms aren't asked (stati: to cost, stanem, and to stand, stojim, share one entry)."
+    "review": "machine-written (Claude): the tables, the partners and the animate nouns; not reviewed by a native speaker. For the native check: the noun tables (2026-10-30: potok, sin, cesar, mož, zdravnik, metulj, dekle, pot, avto, klop, oktober), each correcting Wiktionary as its note says, and the animate list",
+    "about": "The forms book of word forms (companion/README.md, \"Word forms\"; bridge/src/forms.ts). tables: hand-checked forms of everyday irregular verbs, by slot (pres.1sg … imp.2du), each replacing Wiktionary's forms of the word (sl.json merges homographs: biti, to be, carries biti, to beat's bijem, bije; hoteti's table has odd rows), standard Slovene in forms, the spoken forms a native speaker says too (bojo, grejo, jejo, vejo, reko, mam) in also: accepted, never shown as the answer. partners: verbs that pair, pf the one done once (a movement, a whole act), impf the one going on (a state, again and again); kind position for a movement and the state after it (sesti, sit down: sedeti, be sitting), aspect for the same act once or going on (kupiti, kupovati); gloss: a meaning where the dictionary has none, or says more. leave_out: words whose forms aren't asked (stati: to cost, stanem, and to stand, stojim, share one entry). Nouns: a table (with its gender) for each noun Wiktionary gets wrong (a wrong accusative, gender or plural, two words merged in one entry); every other noun's forms are checked against its regular declension (bridge/src/noun-paradigm.ts: the fitting forms standard, the dictionary's old or dialect ones variants, a slot that doesn't fit never asked as a form to produce). animate: the masculine nouns naming a person or an animal, whose accusative singular is the genitive (vidim brata, psa), which Wiktionary can't be trusted on."
   },
   "tables": [
     {
@@ -121,6 +121,105 @@
         "past.m.sg": "pil", "past.f.sg": "pila", "past.n.sg": "pilo", "past.m.pl": "pili", "past.f.pl": "pile", "past.m.du": "pila", "past.f.du": "pili",
         "imp.2sg": "pij", "imp.2pl": "pijte", "imp.1pl": "pijmo", "imp.1du": "pijva", "imp.2du": "pijta"
       }
+    },
+    {
+      "lemma": "potok", "pos": "noun", "gender": "m", "gloss": ["brook", "stream"],
+      "forms": {
+        "nom.sg": "potok", "gen.sg": "potoka", "dat.sg": "potoku", "acc.sg": "potok", "loc.sg": "potoku", "ins.sg": "potokom",
+        "nom.du": "potoka", "gen.du": "potokov", "dat.du": "potokoma", "acc.du": "potoka", "loc.du": "potokih", "ins.du": "potokoma",
+        "nom.pl": "potoki", "gen.pl": "potokov", "dat.pl": "potokom", "acc.pl": "potoke", "loc.pl": "potokih", "ins.pl": "potoki"
+      },
+      "note": "Wiktionary: the accusative singular as potoka (a thing's is the nominative: vidim potok) and old -i/-am/-ah forms beside the standard ones"
+    },
+    {
+      "lemma": "sin", "pos": "noun", "gender": "m", "gloss": ["son"],
+      "forms": {
+        "nom.sg": "sin", "gen.sg": "sina", "dat.sg": "sinu", "acc.sg": "sina", "loc.sg": "sinu", "ins.sg": "sinom",
+        "nom.du": "sinova", "gen.du": "sinov", "dat.du": "sinovoma", "acc.du": "sinova", "loc.du": "sinovih", "ins.du": "sinovoma",
+        "nom.pl": "sinovi", "gen.pl": "sinov", "dat.pl": "sinovom", "acc.pl": "sinove", "loc.pl": "sinovih", "ins.pl": "sinovi"
+      },
+      "note": "Wiktionary: the accusative singular as sin or sinu (a person's is the genitive: vidim sina)"
+    },
+    {
+      "lemma": "cesar", "pos": "noun", "gender": "m", "gloss": ["emperor"],
+      "forms": {
+        "nom.sg": "cesar", "gen.sg": "cesarja", "dat.sg": "cesarju", "acc.sg": "cesarja", "loc.sg": "cesarju", "ins.sg": "cesarjem",
+        "nom.du": "cesarja", "gen.du": "cesarjev", "dat.du": "cesarjema", "acc.du": "cesarja", "loc.du": "cesarjih", "ins.du": "cesarjema",
+        "nom.pl": "cesarji", "gen.pl": "cesarjev", "dat.pl": "cesarjem", "acc.pl": "cesarje", "loc.pl": "cesarjih", "ins.pl": "cesarji"
+      },
+      "note": "Wiktionary: the accusative singular as cesar (a person's is the genitive: vidim cesarja)"
+    },
+    {
+      "lemma": "mož", "pos": "noun", "gender": "m", "gloss": ["husband", "man"],
+      "forms": {
+        "nom.sg": "mož", "gen.sg": "moža", "dat.sg": "možu", "acc.sg": "moža", "loc.sg": "možu", "ins.sg": "možem",
+        "nom.du": "moža", "gen.du": "mož", "dat.du": "možema", "acc.du": "moža", "loc.du": "možeh", "ins.du": "možema",
+        "nom.pl": "možje", "gen.pl": "mož", "dat.pl": "možem", "acc.pl": "može", "loc.pl": "možeh", "ins.pl": "možmi"
+      },
+      "note": "Wiktionary: the accusative singular as mož (a person's is the genitive: vidim moža) and a regular plural (moži); the standard plural is možje, mož, možem, može, možeh, možmi"
+    },
+    {
+      "lemma": "zdravnik", "pos": "noun", "gender": "m", "gloss": ["doctor", "physician"],
+      "forms": {
+        "nom.sg": "zdravnik", "gen.sg": "zdravnika", "dat.sg": "zdravniku", "acc.sg": "zdravnika", "loc.sg": "zdravniku", "ins.sg": "zdravnikom",
+        "nom.du": "zdravnika", "gen.du": "zdravnikov", "dat.du": "zdravnikoma", "acc.du": "zdravnika", "loc.du": "zdravnikih", "ins.du": "zdravnikoma",
+        "nom.pl": "zdravniki", "gen.pl": "zdravnikov", "dat.pl": "zdravnikom", "acc.pl": "zdravnike", "loc.pl": "zdravnikih", "ins.pl": "zdravniki"
+      },
+      "note": "Wiktionary: the accusative singular as zdravnik (a person's is the genitive: grem k zdravniku, poklicati zdravnika)"
+    },
+    {
+      "lemma": "metulj", "pos": "noun", "gender": "m", "gloss": ["butterfly"],
+      "forms": {
+        "nom.sg": "metulj", "gen.sg": "metulja", "dat.sg": "metulju", "acc.sg": "metulja", "loc.sg": "metulju", "ins.sg": "metuljem",
+        "nom.du": "metulja", "gen.du": "metuljev", "dat.du": "metuljema", "acc.du": "metulja", "loc.du": "metuljih", "ins.du": "metuljema",
+        "nom.pl": "metulji", "gen.pl": "metuljev", "dat.pl": "metuljem", "acc.pl": "metulje", "loc.pl": "metuljih", "ins.pl": "metulji"
+      },
+      "note": "Wiktionary: the accusative singular as metulj or metulja (an animal's is the genitive: vidim metulja) and old -i/-am/-ah forms"
+    },
+    {
+      "lemma": "dekle", "pos": "noun", "gender": "n", "gloss": ["girl"],
+      "forms": {
+        "nom.sg": "dekle", "gen.sg": "dekleta", "dat.sg": "dekletu", "acc.sg": "dekle", "loc.sg": "dekletu", "ins.sg": "dekletom",
+        "nom.du": "dekleti", "gen.du": "deklet", "dat.du": "dekletoma", "acc.du": "dekleti", "loc.du": "dekletih", "ins.du": "dekletoma",
+        "nom.pl": "dekleta", "gen.pl": "deklet", "dat.pl": "dekletom", "acc.pl": "dekleta", "loc.pl": "dekletih", "ins.pl": "dekleti"
+      },
+      "note": "Wiktionary: dekle as feminine; it is neuter, with the stem dekleta (an adjective agrees as with a neuter: lepo dekle; a verb in the plural often as with a feminine: dekleta so prišla)"
+    },
+    {
+      "lemma": "pot", "pos": "noun", "gender": "f", "gloss": ["path", "way", "trip"],
+      "forms": {
+        "nom.sg": "pot", "gen.sg": "poti", "dat.sg": "poti", "acc.sg": "pot", "loc.sg": "poti", "ins.sg": "potjo",
+        "nom.du": "poti", "gen.du": "poti", "dat.du": "potema", "acc.du": "poti", "loc.du": "poteh", "ins.du": "potema",
+        "nom.pl": "poti", "gen.pl": "poti", "dat.pl": "potem", "acc.pl": "poti", "loc.pl": "poteh", "ins.pl": "potmi"
+      },
+      "note": "Wiktionary: pot (path, way: feminine, the i-declension) merged with pot (sweat: masculine, pota); this is the path's"
+    },
+    {
+      "lemma": "avto", "pos": "noun", "gender": "m", "gloss": ["car"],
+      "forms": {
+        "nom.sg": "avto", "gen.sg": "avta", "dat.sg": "avtu", "acc.sg": "avto", "loc.sg": "avtu", "ins.sg": "avtom",
+        "nom.du": "avta", "gen.du": "avtov", "dat.du": "avtoma", "acc.du": "avta", "loc.du": "avtih", "ins.du": "avtoma",
+        "nom.pl": "avti", "gen.pl": "avtov", "dat.pl": "avtom", "acc.pl": "avte", "loc.pl": "avtih", "ins.pl": "avti"
+      },
+      "note": "Wiktionary: the plural and the dual as a neuter's (avta, avti); avto is masculine: dva avta, trije avti"
+    },
+    {
+      "lemma": "klop", "pos": "noun", "gender": "f", "gloss": ["bench"],
+      "forms": {
+        "nom.sg": "klop", "gen.sg": "klopi", "dat.sg": "klopi", "acc.sg": "klop", "loc.sg": "klopi", "ins.sg": "klopjo",
+        "nom.du": "klopi", "gen.du": "klopi", "dat.du": "klopema", "acc.du": "klopi", "loc.du": "klopeh", "ins.du": "klopema",
+        "nom.pl": "klopi", "gen.pl": "klopi", "dat.pl": "klopem", "acc.pl": "klopi", "loc.pl": "klopeh", "ins.pl": "klopmi"
+      },
+      "note": "Wiktionary: klop (bench: feminine, the i-declension) merged with klop (tick: masculine, klopa); this is the bench's"
+    },
+    {
+      "lemma": "oktober", "pos": "noun", "gender": "m", "gloss": ["October"],
+      "forms": {
+        "nom.sg": "oktober", "gen.sg": "oktobra", "dat.sg": "oktobru", "acc.sg": "oktober", "loc.sg": "oktobru", "ins.sg": "oktobrom",
+        "nom.du": "oktobra", "gen.du": "oktobrov", "dat.du": "oktobroma", "acc.du": "oktobra", "loc.du": "oktobrih", "ins.du": "oktobroma",
+        "nom.pl": "oktobri", "gen.pl": "oktobrov", "dat.pl": "oktobrom", "acc.pl": "oktobre", "loc.pl": "oktobrih", "ins.pl": "oktobri"
+      },
+      "note": "Wiktionary: the genitive misspelt octobra"
     }
   ],
   "partners": [
@@ -156,5 +255,8 @@
   ],
   "leave_out": [
     { "lemma": "stati", "pos": "verb", "why": "one entry for to cost (stanem, stane) and to stand (stojim, stoji): which form is which meaning's can't be told" }
+  ],
+  "animate": [
+    "angel", "brat", "cesar", "človek", "dedek", "fant", "gams", "golob", "gost", "grof", "jazbec", "jelen", "jež", "kmet", "konj", "konjiček", "kovač", "kozorog", "kralj", "lovec", "medved", "metulj", "mladič", "mlinar", "mož", "netopir", "oče", "oglar", "otrok", "pastir", "pes", "pisatelj", "polh", "prijatelj", "romar", "sin", "sodnik", "sosed", "stric", "svizec", "škorec", "škoromat", "tast", "učenec", "učitelj", "velikan", "vitez", "vnuk", "volk", "zajec", "zdravnik", "zmaj"
   ]
 }

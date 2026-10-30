@@ -1,10 +1,12 @@
 // Smoke checks: a word's forms (GET /forms, forms.ts): its slots and their grammar book pages from Wiktionary's
 // dictionary (the repo's lexicon/sl.json), the content's lines a form stands in as that word, the forms book's hand-
 // checked tables and verb pairs (lexicon/sl.forms.json), the pairs the word lookup marks, and a review's forms.
-import { mkdtempSync, readFileSync } from 'node:fs'
+import { mkdtempSync, readdirSync, readFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { contentLines, FormsBook, formsOf, LineIndex, moodInEnglish, slotsOf, validateFormsBook, type LemmaForms } from '../../src/forms'
+import { checkNoun } from '../../src/noun-paradigm'
+import { caseCheck } from '../check-cases'
 import { Lexicon } from '../../src/lexicon'
 import { auth, base, channelEvents, check } from './harness'
 
@@ -159,4 +161,84 @@ export default async function formsSection() {
   )
   const king = (await (await fetch(`${base}/lookup?${new URLSearchParams({ w: 'sedi', line: 'Kralj sedi za mizo.', en: 'The king sits at the table.' })}`, { headers: auth })).json()) as any
   check('GET /lookup: "sedi" in "The king sits at the table" isn\'t sesti here', !king.entries?.some((e: any) => e.lemma === 'sesti' && e.here), king.entries?.map((e: any) => [e.lemma, e.here]))
+
+  // --- a noun's forms checked against its regular declension (noun-paradigm.ts), the nouns Wiktionary gets wrong -----
+  const m = (o: Record<string, string>) => new Map(Object.entries(o).map(([k, v]) => [k, v.split('/')]))
+  const brat = checkNoun('brat', 'm', m({ 'nom.sg': 'brat', 'gen.sg': 'brata', 'dat.sg': 'brati/bratu', 'acc.sg': 'brata', 'dat.pl': 'bratam/bratom', 'nom.pl': 'brati/bratje' }), true)
+  const potok = checkNoun('potok', 'm', m({ 'nom.sg': 'potok', 'gen.sg': 'potoka', 'acc.sg': 'potoka', 'loc.sg': 'potoki/potoku' }), false)
+  const kolo = checkNoun('kolo', 'n', m({ 'nom.sg': 'kolo', 'gen.sg': 'kola/kolesa', 'dat.sg': 'kolesu/kolu' }), false)
+  const shapes = [
+    checkNoun('pes', 'm', m({ 'nom.sg': 'pes', 'gen.sg': 'psa', 'ins.sg': 'psom', 'gen.pl': 'psov' }), true),
+    checkNoun('sladkor', 'm', m({ 'nom.sg': 'sladkor', 'gen.sg': 'sladkorja', 'ins.sg': 'sladkorjem' }), false),
+    checkNoun('ogenj', 'm', m({ 'nom.sg': 'ogenj', 'gen.sg': 'ognja', 'ins.sg': 'ognjem' }), false),
+    checkNoun('cerkev', 'f', m({ 'nom.sg': 'cerkev', 'gen.sg': 'cerkve', 'ins.sg': 'cerkvijo', 'gen.pl': 'cerkev' }), false),
+    checkNoun('stvar', 'f', m({ 'nom.sg': 'stvar', 'gen.sg': 'stvari', 'ins.sg': 'stvarjo', 'loc.pl': 'stvareh' }), false),
+    checkNoun('sestra', 'f', m({ 'nom.sg': 'sestra', 'gen.sg': 'sestre', 'gen.pl': 'sester', 'nom.du': 'sestri/sestre' }), false),
+    checkNoun('dekle', 'n', m({ 'nom.sg': 'dekle', 'gen.sg': 'dekleta', 'gen.pl': 'deklet' }), false),
+  ]
+  check(
+    'noun-paradigm: a slot\'s forms that fit the declension are standard, the dictionary\'s old ones variants (brati, bratam: bratu, bratom); a thing\'s accusative given as the genitive (potoka) or two declensions in one entry (kola, kolesa) never confirmed; a fleeting e, -j-, nj, -ev, the i-declension, a dual said as the plural',
+    same(brat.slots.get('dat.sg'), { standard: ['bratu'], variants: ['brati'] }) && same(brat.slots.get('dat.pl'), { standard: ['bratom'], variants: ['bratam'] }) && same(brat.slots.get('nom.pl')?.standard, ['brati', 'bratje']) &&
+      brat.unconfirmed.length === 0 && potok.unconfirmed.join() === 'acc.sg' && same(potok.slots.get('loc.sg'), { standard: ['potoku'], variants: ['potoki'] }) &&
+      kolo.unconfirmed.join() === 'gen.sg,dat.sg' && shapes.every(s => s.unconfirmed.length === 0) && same(shapes[5].slots.get('nom.du'), { standard: ['sestri'], variants: ['sestre'] }),
+    { brat: [...brat.slots], potok, kolo, shapes: shapes.map(s => [s.stem, s.unconfirmed]) },
+  )
+  const fixed = await forms(['potok', 'sin', 'cesar', 'mož', 'zdravnik', 'metulj', 'dekle', 'pot', 'avto', 'klop', 'oktober', 'brat', 'mleko', 'dan'].map(w => `w=${encodeURIComponent(w)}`).join('&'))
+  const noun = (w: string) => (fixed.body.words?.find((x: any) => x.word === w)?.entries ?? []).find((e: any) => e.pos === 'noun') as LemmaForms | undefined
+  const sf = (w: string, k: string) => slot(noun(w), k)?.forms
+  const hand = ['potok', 'sin', 'cesar', 'mož', 'zdravnik', 'metulj', 'dekle', 'pot', 'avto', 'klop', 'oktober']
+  check(
+    'GET /forms: the nouns Wiktionary gets wrong come from the forms book\'s tables, every slot checked (potok, a thing: vidim potok; sin, cesar, zdravnik, metulj, mož, people and an animal: sina, cesarja, zdravnika, metulja, moža, možje; dekle neuter; pot, the path, feminine: poti; avto\'s plural avti; klop, the bench: klopi; oktobra)',
+    hand.every(w => noun(w)?.table === 'checked' && noun(w)!.slots.every(s => s.checked)) &&
+      same(sf('potok', 'acc.sg'), ['potok']) && same(sf('sin', 'acc.sg'), ['sina']) && same(sf('cesar', 'acc.sg'), ['cesarja']) && same(sf('zdravnik', 'acc.sg'), ['zdravnika']) &&
+      same(sf('metulj', 'acc.sg'), ['metulja']) && same(sf('mož', 'acc.sg'), ['moža']) && same(sf('mož', 'nom.pl'), ['možje']) && noun('dekle')?.gender === 'n' && noun('pot')?.gender === 'f' &&
+      same(sf('pot', 'gen.sg'), ['poti']) && same(sf('avto', 'nom.pl'), ['avti']) && noun('klop')?.gender === 'f' && same(sf('klop', 'gen.sg'), ['klopi']) && same(sf('oktober', 'gen.sg'), ['oktobra']),
+    hand.map(w => [w, noun(w)?.table, noun(w)?.gender, sf(w, 'acc.sg'), sf(w, 'gen.sg')]),
+  )
+  check(
+    'GET /forms: a regular noun\'s slots checked, an old form a variant accepted, never the answer (bratu, also brati; mleku, also mleki); an irregular one (dan, dne/dneva) not checked',
+    noun('brat')?.table === 'wiktionary' && same(sf('brat', 'dat.sg'), ['bratu']) && same(slot(noun('brat'), 'dat.sg')?.variants, ['brati']) && slot(noun('brat'), 'dat.sg')?.also?.includes('brati') === true &&
+      slot(noun('brat'), 'dat.sg')?.checked === true && same(sf('mleko', 'loc.sg'), ['mleku']) && slot(noun('mleko'), 'loc.sg')?.checked === true && noun('dan')!.slots.every(s => !s.checked),
+    { brat: slot(noun('brat'), 'dat.sg'), mleko: slot(noun('mleko'), 'loc.sg'), dan: noun('dan')?.slots.map(s => [s.key, s.forms, s.checked]) },
+  )
+
+  // every noun the case trainer's "Sklanjaj!" could pick (the packs' words, the bank's fallback nouns): the pack's gender
+  // the one served; the nouns with a slot not checked are those its note lists (docs/plans/05-built/case-trainer.md,
+  // "Nouns left out"): a new one is a word to look at (a forms book table, or the list)
+  const companion = resolve(import.meta.dir, '../../..')
+  const packNouns = new Map<string, string>()
+  // the packs of every Slovene village: the shared ones (companion/packs) and each Slovene culture's own
+  const cultures = readdirSync(join(companion, 'cultures')).filter(c => JSON.parse(readFileSync(join(companion, 'cultures', c, 'culture.json'), 'utf8')).language === 'sl')
+  const packDirs = [join(companion, 'packs'), ...cultures.map(c => join(companion, 'cultures', c, 'packs'))]
+  for (const dir of packDirs) {
+    for (const f of readdirSync(dir).filter(f => f.endsWith('.json'))) {
+      const d = JSON.parse(readFileSync(join(dir, f), 'utf8'))
+      if ((d.language ?? 'sl') !== 'sl') continue
+      for (const w of d.words ?? []) if (w.gender && typeof w.sl === 'string' && !/\s/.test(w.sl.trim())) packNouns.set(w.sl.trim(), w.gender)
+    }
+  }
+  for (const n of JSON.parse(readFileSync(join(companion, 'cases/sl/bank.json'), 'utf8')).nouns) if (!packNouns.has(n.lemma)) packNouns.set(n.lemma, n.gender)
+  const ctx = caseCheck('sl').forms
+  const genders: string[] = []
+  const unchecked = new Map<string, string[]>()
+  let served = 0
+  for (const [w, g] of packNouns) {
+    const e = formsOf(ctx, w).find(x => x.pos === 'noun')
+    if (!e) continue
+    served++
+    if (e.gender !== g) genders.push(`${w}: the pack says ${g}, the forms ${e.gender}`)
+    const open = e.slots.filter(s => !s.checked).map(s => s.key)
+    if (open.length) unchecked.set(w, open)
+  }
+  const LEFT_OUT = [
+    'potica', 'vrata', 'hči', 'otrok', 'kosa', 'grablje', 'daljnogled', 'palisada', 'med', 'ribnik', 'kolo', 'mir', 'škarje', 'romar', 'oko', 'uho', 'zob',
+    'tehtnica', 'hlebec', 'tolminc', 'orgle', 'pršut', 'klešče', 'vilice', 'žito', 'most', 'dan', 'zid', 'trgatev', 'nebo', 'veselica', 'peskovnik',
+    'tobogan', 'zvonček', 'kolesje', 'venec', 'ogrodje', 'vile', 'grmovje', 'korito', 'slap', 'grad',
+  ]
+  console.log(`  nouns with a slot not checked: ${[...unchecked].map(([w, k]) => `${w} (${k.length === 18 ? 'all' : k.join(' ')})`).join(', ')}`)
+  check(
+    `every noun "Sklanjaj!" could pick (${packNouns.size} of the packs and the bank, ${served} with forms): the pack's gender the one served; ${served - unchecked.size} with every slot checked, the ${unchecked.size} with one not the note's list`,
+    genders.length === 0 && served > 300 && same([...unchecked.keys()].sort(), [...LEFT_OUT].sort()),
+    { genders, new: [...unchecked].filter(([w]) => !LEFT_OUT.includes(w)), gone: LEFT_OUT.filter(w => !unchecked.has(w)) },
+  )
 }

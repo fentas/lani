@@ -84,15 +84,19 @@ export function countingOf(e: LemmaForms, uses: (form: string) => number = () =>
   if (!e.gender) return { why: 'the dictionary gives no gender' }
   const norm = (s: string) => normalizeForm(s, language)
   const slot = (k: string) => [...new Set((e.slots.find(s => s.key === k)?.forms ?? []).map(norm).filter(Boolean))]
-  const forms = Object.fromEntries(COUNTS.map(c => [c.slot, slot(c.slot)])) as Record<CountSlot, string[]>
-  const missing = COUNTS.filter(c => !forms[c.slot].length).map(c => c.slot)
+  // a slot's standard forms are shown; the dictionary's old or dialect variants (dve sestre, pet ovac: forms.ts
+  // variants) are right too, never shown
+  const variants = (k: string) => (e.slots.find(s => s.key === k)?.variants ?? []).map(norm).filter(Boolean)
+  const standard = Object.fromEntries(COUNTS.map(c => [c.slot, slot(c.slot)])) as Record<CountSlot, string[]>
+  const forms = Object.fromEntries(COUNTS.map(c => [c.slot, [...new Set([...standard[c.slot], ...variants(c.slot)])]])) as Record<CountSlot, string[]>
+  const missing = COUNTS.filter(c => !standard[c.slot].length).map(c => c.slot)
   if (missing.length) return { why: `no ${missing.join(', ')} in the dictionary` }
   const lemma = norm(e.lemma)
   const sg = new Set(forms['nom.sg'])
-  const one = forms['nom.sg'].includes(lemma) ? lemma : shown(forms['nom.sg'], new Set(), uses)
-  const two = shown(forms['nom.du'], new Set([...forms['nom.pl'], ...sg]), uses)
-  const three = shown(forms['nom.pl'], sg, uses)
-  const five = shown(forms['gen.pl'], sg, uses)
+  const one = standard['nom.sg'].includes(lemma) ? lemma : shown(standard['nom.sg'], new Set(), uses)
+  const two = shown(standard['nom.du'], new Set([...forms['nom.pl'], ...sg]), uses)
+  const three = shown(standard['nom.pl'], sg, uses)
+  const five = shown(standard['gen.pl'], sg, uses)
   const n = NUMERALS[e.gender]
   const counted = new Set(COUNTS.flatMap(c => forms[c.slot]))
   const others = [...new Set(OTHER_SLOTS.flatMap(slot))].filter(f => !counted.has(f)).slice(0, OTHERS)

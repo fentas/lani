@@ -12,6 +12,7 @@ import { join } from 'node:path'
 import { z } from 'zod'
 import type { Log } from './config'
 import { englishWords, enScore, glossCoverage, normalizeForm, PREPOSITIONS, wordsOf, type Aspect, type Lexicon, type Partner, type WordGender } from './lexicon'
+import { checkNoun } from './noun-paradigm'
 
 // --- slots -------------------------------------------------------------------------------------------------------
 
@@ -209,12 +210,14 @@ const aspect = z.enum(['pf', 'impf', 'both'])
 
 /**
  * A hand-checked table: a word's forms by slot (one, or several standard ones), the forms also accepted (spoken ones:
- * bojo for bodo) and its gloss. It replaces Wiktionary's forms of that word and part of speech.
+ * bojo for bodo), its gloss and a noun's gender. It replaces Wiktionary's forms of that word and part of speech: the
+ * everyday irregular verbs, and the nouns Wiktionary gets wrong (potok's accusative, dekle's gender, avto's plural).
  */
 const tableEntry = z
   .object({
     lemma: lemmaText,
     pos: z.enum(FORM_POS),
+    gender: z.enum(['m', 'f', 'n']).optional(),
     aspect: aspect.optional(),
     gloss: gloss.optional(),
     forms: z.partialRecord(z.enum(SLOT_KEYS as [string, ...string[]]), z.union([formWord, z.array(formWord).min(1).max(4)])),
@@ -226,6 +229,7 @@ const tableEntry = z
     if (!Object.keys(t.forms).length) ctx.addIssue({ code: 'custom', path: ['forms'], message: 'at least one form' })
     for (const k of keys) if (!KEYS_OF[t.pos].includes(k)) ctx.addIssue({ code: 'custom', path: ['forms', k], message: `"${k}" isn't a slot of a ${t.pos}` })
     for (const k of Object.keys(t.also ?? {})) if (!t.forms[k]) ctx.addIssue({ code: 'custom', path: ['also', k], message: `"${k}" is also accepted, but has no form of its own` })
+    if (t.gender && t.pos !== 'noun') ctx.addIssue({ code: 'custom', path: ['gender'], message: "a gender is a noun's" })
   })
 /** Two verbs that pair: [pf] once, [impf] going on; [kind] position (a movement and the state after it) or aspect. */
 const partnerEntry = z.object({
@@ -241,7 +245,7 @@ const leaveOutEntry = z.object({ lemma: lemmaText, pos: z.enum(FORM_POS).optiona
 export type FormsTable = z.infer<typeof tableEntry>
 export type PartnerPair = z.infer<typeof partnerEntry>
 export type LeaveOut = z.infer<typeof leaveOutEntry>
-export type FormsBookFile = { tables: FormsTable[]; partners: PartnerPair[]; leaveOut: LeaveOut[] }
+export type FormsBookFile = { tables: FormsTable[]; partners: PartnerPair[]; leaveOut: LeaveOut[]; animate: string[] }
 
 /** The forms book's entries, each checked on its own: a wrong one is reported and left out, never the whole file. */
 export function validateFormsBook(input: unknown): FormsBookFile & { errors: string[] } {
@@ -251,9 +255,10 @@ export function validateFormsBook(input: unknown): FormsBookFile & { errors: str
       tables: z.array(z.unknown()).default([]),
       partners: z.array(z.unknown()).default([]),
       leave_out: z.array(z.unknown()).default([]),
+      animate: z.array(z.unknown()).default([]),
     })
     .safeParse(input)
-  if (!file.success) return { tables: [], partners: [], leaveOut: [], errors: [z.prettifyError(file.error)] }
+  if (!file.success) return { tables: [], partners: [], leaveOut: [], animate: [], errors: [z.prettifyError(file.error)] }
   const errors: string[] = []
   const each = <T>(list: unknown[], schema: z.ZodType<T>, what: string): T[] =>
     list.flatMap((e, i) => {
@@ -266,6 +271,7 @@ export function validateFormsBook(input: unknown): FormsBookFile & { errors: str
     tables: each(file.data.tables, tableEntry, 'tables'),
     partners: each(file.data.partners, partnerEntry, 'partners'),
     leaveOut: each(file.data.leave_out, leaveOutEntry, 'leave_out'),
+    animate: each(file.data.animate, lemmaText, 'animate'),
     errors,
   }
 }
@@ -273,7 +279,7 @@ export function validateFormsBook(input: unknown): FormsBookFile & { errors: str
 /** The forms book of a language (companion/lexicon/<language>.forms.json), read again when it changes. */
 export class FormsBook {
   private mtime = -1
-  private book: FormsBookFile = { tables: [], partners: [], leaveOut: [] }
+  private book: FormsBookFile = { tables: [], partners: [], leaveOut: [], animate: [] }
 
   constructor(private readonly o: { dir: string; language: string; log?: Log }) {}
 
@@ -287,12 +293,12 @@ export class FormsBook {
     const mtime = existsSync(path) ? statSync(path).mtimeMs : 0
     if (mtime === this.mtime) return this.book
     this.mtime = mtime
-    this.book = { tables: [], partners: [], leaveOut: [] }
+    this.book = { tables: [], partners: [], leaveOut: [], animate: [] }
     if (!mtime) return this.book
     try {
       const r = validateFormsBook(JSON.parse(readFileSync(path, 'utf8')))
       if (r.errors.length) this.o.log?.(`forms book ${path}: left out:\n${r.errors.join('\n')}`)
-      this.book = { tables: r.tables, partners: r.partners, leaveOut: r.leaveOut }
+      this.book = { tables: r.tables, partners: r.partners, leaveOut: r.leaveOut, animate: r.animate }
     } catch (e) {
       this.o.log?.(`forms book ${path} unreadable: ${(e as Error).message}`)
     }
@@ -311,6 +317,15 @@ export class FormsBook {
   tablePos(lemma: string): FormPos[] {
     const key = this.norm(lemma)
     return this.current().tables.filter(t => this.norm(t.lemma) === key).map(t => t.pos)
+  }
+
+  /**
+   * Whether [lemma] is a masculine noun naming a person or an animal (its accusative singular is its genitive: vidim
+   * brata, psa), as the book's hand-checked list says; Wiktionary's tables get it wrong for some (potok, sin, zdravnik).
+   */
+  animate(lemma: string): boolean {
+    const key = this.norm(lemma)
+    return this.current().animate.some(a => this.norm(a) === key)
   }
 
   /** What the book leaves out of [lemma] of [pos]: every form (all), or these. */
@@ -467,8 +482,15 @@ export type Slot = {
   key: string
   /** The standard form or forms: the first is shown as the answer, all are right. */
   forms: string[]
-  /** Accepted too, never shown as the answer: a spoken form (bojo for bodo). */
+  /** Accepted too, never shown as the answer: a spoken form (bojo for bodo), an old or dialect one ([variants]). */
   also?: string[]
+  /** Of [also], the dictionary's old or dialect forms (brati beside bratu: noun-paradigm.ts), for the app to say so. */
+  variants?: string[]
+  /**
+   * The forms are sure: a hand-checked table's, or a noun's slot whose standard forms fit its regular declension and
+   * whose other forms are known variants (noun-paradigm.ts). Only these are asked as a form to produce from nothing.
+   */
+  checked?: true
   grammar: string
   page: string
   needs?: string[]
@@ -725,23 +747,32 @@ export function formsOf(c: FormsContext, word: string): LemmaForms[] {
     if (c.book.leftOut(l.lemma, pos).all) continue
     const table = c.book.table(l.lemma, pos)
     const gloss = table?.gloss ?? l.gloss
+    const gender = table?.gender ?? l.gender
     const p = paradigmOf(c, l.index, l.lemma, pos, table)
     const lines = linesOf(c, l.lemma, pos, gloss, p)
+    // a noun's slots checked against its regular declension: the fitting forms standard, the dictionary's old ones variants
+    const nc = pos === 'noun' && !table ? checkNoun(normalizeForm(l.lemma, c.language), gender, p.slots, c.book.animate(l.lemma)) : null
     const slots: Slot[] = []
     for (const key of KEYS_OF[pos]) {
-      const forms = p.slots.get(key)
-      if (!forms?.length) continue
+      const all = p.slots.get(key)
+      if (!all?.length) continue
       const pg = pageOf(normalizeForm(l.lemma, c.language), key)
       if (!pg || !c.pages.has(pg.page) || pg.needs.some(n => !c.pages.has(n))) continue
-      const also = p.also.get(key)?.filter(f => !forms.includes(f))
+      const sure = nc?.slots.get(key)
+      const forms = sure?.standard ?? all
+      const variants = sure?.variants ?? []
+      const also = [...new Set([...(p.also.get(key) ?? []), ...variants])].filter(f => !forms.includes(f))
       const ls = lines.get(key)
-      slots.push({ key, forms, ...(also?.length ? { also } : {}), grammar: grammarOfSlot(key), page: pg.page, ...(pg.needs.length ? { needs: pg.needs } : {}), ...(ls?.length ? { lines: ls } : {}) })
+      slots.push({
+        key, forms, ...(also.length ? { also } : {}), ...(variants.length ? { variants } : {}), ...(table || sure ? { checked: true as const } : {}),
+        grammar: grammarOfSlot(key), page: pg.page, ...(pg.needs.length ? { needs: pg.needs } : {}), ...(ls?.length ? { lines: ls } : {}),
+      })
     }
     if (!slots.length) continue
     const pair = pos === 'verb' ? partnerOf(c.book, c.dict, l.lemma) : undefined
     const aspect = pos === 'verb' ? (table?.aspect ?? pair?.aspect ?? c.book.aspect(l.lemma)) : undefined
     out.push({
-      lemma: table?.lemma ?? l.lemma, pos, gloss, gender: l.gender,
+      lemma: table?.lemma ?? l.lemma, pos, gloss, gender,
       ...(aspect ? { aspect } : {}), ...(pair ? { partner: pair.partner } : {}),
       table: table ? 'checked' : 'wiktionary', slots,
     })
