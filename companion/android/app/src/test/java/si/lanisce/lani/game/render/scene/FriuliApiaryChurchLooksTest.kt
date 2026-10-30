@@ -38,6 +38,7 @@ class FriuliApiaryChurchLooksTest {
     /** The arts: the building they are seen in, and who stands at their spots in the previews. */
     private val arts = listOf(
         Triple("apiary", BuildingType.BEEHIVE, listOf("beekeeper", "child2", "grandpa")),
+        Triple("church", BuildingType.CHURCH, listOf("aunt", "grandma", "child3")),
     )
 
     private fun world(type: BuildingType, level: Int, culture: String) =
@@ -76,7 +77,7 @@ class FriuliApiaryChurchLooksTest {
                 write(render(art, frame(art, type, level, culture, 10.5f, sprites, people = false), k), File(dir, "friuli-$art-L$level-k$k-$culture.png"))
             }
             // the seasons in Friuli at the top level: spring, May, autumn, a winter night
-            for ((tag, month, hour) in listOf(Triple("april", 4, 11f), Triple("may", 5, 11f), Triple("october", 10, 15f), Triple("winter-night", 1, 22f))) {
+            for ((tag, month, hour) in listOf(Triple("april", 4, 11f), Triple("may", 5, 11f), Triple("october", 10, 15f), Triple("december", 12, 16f), Triple("winter-night", 1, 22f))) {
                 write(render(art, frame(art, type, 5, "friuli", hour, sprites, month = month), 2), File(dir, "friuli-$art-$tag.png"))
             }
         }

@@ -39,6 +39,24 @@ import kotlin.math.sqrt
  *
  * Its effects: `candles`, `bell`, `organ`, and `door`: the door blown open (how far), its two leaves swung into the nave
  * and stirring in the wind, the churchyard's day or night in the doorway, the candles' flames leaning in the draught.
+ *
+ * It grows with the church's level (CHURCH, read once a frame: companion/SCENES.md "What the village has built"): at 1 a
+ * bare chapel, plain whitewash, one window of clear glass, plain stone steps, the altarpiece in a plain frame, two rows of
+ * pews each side, a plain loft, nothing outside but the grass; at 2 the coloured glass and a second window, the painted
+ * dado, the sanctuary lamp, a third row of pews, the stone bench outside; at 3 the vault's end painted blue with golden
+ * stars and the frieze, the red and white tiles on the steps, the red runner, the painted balustrade, the fourth row; at 4
+ * the retable with its marble columns round the altarpiece, the Virgin on her pedestal, the consecration crosses, the
+ * lavender; at 5 the sunburst and the angels, the cypress and the gravel path: the picture as it was. Every word, every
+ * spot of the stage and every effect is there at every level; the nativity stands at Christmas at every level.
+ *
+ * In Friuli ([look]: companion/SCENES.md "Culture looks") it is a small church of a Collio village: whitewash and stone,
+ * the far wall a pitched gable under an open timber roof (from 3 its truss and the boards of the ceiling, instead of the
+ * starry vault), a Venetian altarpiece (the Madonna enthroned between two saints) framed from 4 in an aedicule of white
+ * Istrian stone with its pediment from 5, faded frescoes of saints on the far wall from 4 and a painted band of ochre and red
+ * teeth under the top from 3, a grey plinth for the marbled dado, windows of bullseye glass (rulli) in lead, the floor of
+ * terracotta tiles (cotto), the loft's balustrade painted as marble, and the bell gable over the door, a campanile a vela of
+ * the Collio's layered stone (ponca) with its arch edged in brick and a cap of coppi; the bell rope's woollen grip in Friuli's
+ * yellow and blue.
  * Its stage (companion/SCENES.md, "Stage directions"): by the altar, in the aisle, by the door, and at the bell's rope by
  * the door ("rope"): a child lifted up to it holds it up by the head, the feet off the floor, and rides up and down with
  * it while the bell swings.
@@ -95,6 +113,59 @@ internal class ChurchPainter : DioramaPainter() {
 
     // outside
     private val cypX = 10.9f; private val cypY = 2.3f
+
+    // ------------------------------------------------------------------ the level and the look, read once a frame
+
+    /** The church's level (1 … 5: CHURCH's, the one the scene is seen in). */
+    private var lv = 5
+
+    /** What the level has: see the class comment. */
+    private var colourGlass = true
+    private var windowB = true
+    private var dadoUp = true
+    private var lampUp = true
+    private var benchOut = true
+    private var vaultPainted = true
+    private var friezeUp = true
+    private var tilesUp = true
+    private var runnerUp = true
+    private var balustradePainted = true
+    private var retableUp = true
+    private var statueUp = true
+    private var crossesUp = true
+    private var lavenderUp = true
+    private var crown = true
+    private var cypressUp = true
+    private var gravelUp = true
+    private var nRowsL = 3
+    private var nRowsR = 4
+
+    /**
+     * Friuli's look ([look]): the open timber roof (`roof`), the bullseye glass (`glass`), the cotto (`floor`), the Venetian
+     * altarpiece and its stone frame (`altarpiece`), the frescoes, the grey plinth and the painted band (`walls`), the bell
+     * gable of ponca (`gable`), the faux marble of the loft (`loft`).
+     */
+    private var trusses = false
+    private var rulli = false
+    private var cottoFloor = false
+    private var pala = false
+    private var frescoWalls = false
+    private var ponca = false
+    private var fauxMarble = false
+    private var friuliGrip = false
+
+    private fun readLevel() {
+        lv = frame.world.level(si.lanisce.lani.game.BuildingType.CHURCH).coerceIn(1, 5)
+        trusses = variant("roof") == "trusses"; rulli = variant("glass") == "rulli"; cottoFloor = variant("floor") == "cotto"
+        pala = variant("altarpiece") == "pala"; frescoWalls = variant("walls") == "frescoes"; ponca = variant("gable") == "ponca"
+        fauxMarble = variant("loft") == "marble"; friuliGrip = variant("rope") == "friuli"
+        colourGlass = lv >= 2; windowB = lv >= 2; dadoUp = lv >= 2; lampUp = lv >= 2; benchOut = lv >= 2
+        vaultPainted = lv >= 3; friezeUp = lv >= 3; tilesUp = lv >= 3; runnerUp = lv >= 3; balustradePainted = lv >= 3
+        retableUp = lv >= 4; statueUp = lv >= 4; crossesUp = lv >= 4; lavenderUp = lv >= 4
+        crown = lv >= 5; cypressUp = lv >= 5; gravelUp = lv >= 5
+        nRowsL = if (lv == 1) 2 else rowsL.size
+        nRowsR = when (lv) { 1 -> 2; 2 -> 3; else -> rowsR.size }
+    }
 
     /**
      * The stage: by the altar, in the aisle and by the door, standing; at the rope, held up to it, a hand on it up by their
@@ -201,6 +272,7 @@ internal class ChurchPainter : DioramaPainter() {
     }
 
     override fun paint() {
+        readLevel()
         fit()
         vignette()
         yardPlot()
@@ -213,20 +285,20 @@ internal class ChurchPainter : DioramaPainter() {
         gable()
         thing("bell", slop = 1) { bell() }
         thing("window") { window(waA, wbA) }
-        prop { window(waB, wbB) }
+        if (windowB) prop { window(waB, wbB) }
         sparrow()
         thing("cross", slop = 1) { crucifix() }
         thing("font", slop = 1) { font() }
         val open = fxOn("door")
         thing("door") { door(open) }
-        prop { retable() }
+        if (retableUp) prop { if (pala) aedicule() else retable() }
         thing("painting") { painting() }
         prop { steps() }
         thing("altar") { altar() }
         thing("candles", slop = 2) { candles() }
         thing("flowers", slop = 1) { flowers() }
-        if (nativity) prop { jaslice() } else prop { statue() }
-        prop(outline = 0) { lamp() }
+        if (nativity) prop { jaslice() } else if (statueUp) prop { statue() }
+        if (lampUp) prop(outline = 0) { lamp() }
         if (easter) prop { baskets() }
         cast("altar")
 
@@ -241,9 +313,9 @@ internal class ChurchPainter : DioramaPainter() {
         cast("aisle")
 
         // the churchyard
-        prop { cypress() }
-        prop { bench() }
-        prop { lavender(4.05f, 11.3f); lavender(6.65f, 11.3f) }
+        if (cypressUp) prop { cypress() }
+        if (benchOut) prop { bench() }
+        if (lavenderUp) prop { lavender(4.05f, 11.3f); lavender(6.65f, 11.3f) }
 
         fireflies(iso.ix(9f, 12f), iso.iy(9f, 12f, 16f), iso.ix(12f, 5f), iso.iy(12f, 12f, 0f), 7, 11)
         sunPatches()
@@ -313,7 +385,7 @@ internal class ChurchPainter : DioramaPainter() {
     private fun ground(x: Float, y: Float, px: Int, py: Int): Int {
         if (x > x0 - th + 0.15f && x < x1 - 0.15f && y > y0 - th + 0.15f && y < y1 - 0.15f) return slabD
         val g = grassAt(x, y, px, py)
-        if (y > y1 - 0.2f && abs(x - aisleX) < 0.85f + Noise.v1(y * 3f, 5) * 0.12f) return gravel(px, py)
+        if (gravelUp && y > y1 - 0.2f && abs(x - aisleX) < 0.85f + Noise.v1(y * 3f, 5) * 0.12f) return gravel(px, py)
         val apron = if (x < x1 + 0.6f && y < y1 + 0.6f) 1f - max(max(0f, x - x1), max(0f, y - y1)) / 0.6f else 0f
         if (apron <= 0f) return g
         return dirtAt(px, py, (apron * (0.6f + Noise.v2(x * 2f, y * 2f, 3) * 0.5f)).coerceIn(0f, 1f), g)
@@ -393,8 +465,8 @@ internal class ChurchPainter : DioramaPainter() {
         c.penId = 0
         // contact shadows: along the steps, under the pews, the pedestal
         shade(iso.sx(5.4f, s1y + 0.1f), iso.sy(5.4f, s1y + 0.1f, fl), 9.5f * K, 1.4f * K, 0.8f, floorId)
-        for (r in rowsR) shade(iso.sx((rx0 + rx1) / 2f, r + 0.75f), iso.sy((rx0 + rx1) / 2f, r + 0.75f, fl), 6.5f * K, 1.2f * K, 0.84f, floorId)
-        for (r in rowsL) shade(iso.sx((lx0 + lx1) / 2f, r + 0.75f), iso.sy((lx0 + lx1) / 2f, r + 0.75f, fl), 5f * K, 1.2f * K, 0.84f, floorId)
+        for (r in rowsR.take(nRowsR)) shade(iso.sx((rx0 + rx1) / 2f, r + 0.75f), iso.sy((rx0 + rx1) / 2f, r + 0.75f, fl), 6.5f * K, 1.2f * K, 0.84f, floorId)
+        for (r in rowsL.take(nRowsL)) shade(iso.sx((lx0 + lx1) / 2f, r + 0.75f), iso.sy((lx0 + lx1) / 2f, r + 0.75f, fl), 5f * K, 1.2f * K, 0.84f, floorId)
     }
 
     private fun footing(a: Float, z: Float, px: Int, py: Int, light: Float): Int {
@@ -412,7 +484,7 @@ internal class ChurchPainter : DioramaPainter() {
 
     /** A limestone slab at ([x], [y]) in staggered rows; the red runner up the aisle with its gold borders. */
     private fun slab(x: Float, y: Float, px: Int, py: Int): Int {
-        if (x in runA..runB && y > s1y - 0.05f) {
+        if (runnerUp && x in runA..runB && y > s1y - 0.05f) {
             val e = min(x - runA, runB - x)
             return when {
                 e < 0.07f -> runnerD
@@ -421,6 +493,7 @@ internal class ChurchPainter : DioramaPainter() {
                 else -> runner
             }
         }
+        if (cottoFloor) return cotto(x, y, px, py)
         val rw = 1.05f
         val row = floor(y / rw).toInt(); val fy = y - row * rw
         val len = 1.1f + Noise.rnd(row, 71) * 0.7f
@@ -438,11 +511,26 @@ internal class ChurchPainter : DioramaPainter() {
         return col
     }
 
+    /** Friuli's floor of terracotta tiles (cotto): squares in pale mortar, each its own tone, worn in the aisle. */
+    private fun cotto(x: Float, y: Float, px: Int, py: Int): Int {
+        val ts = 0.62f
+        val i = floor(x / ts).toInt(); val j = floor(y / ts).toInt()
+        val fx = x / ts - i; val fy = y / ts - j
+        val jw = if (fine) 0.05f else 0.09f
+        if (fx < jw || fy < jw) return COTTO_JOINT
+        val tone = Noise.rnd(i, j, 76)
+        var col = if (tone < 0.25f) COTTO_L else if (tone > 0.78f) COTTO_D else COTTO
+        if (fine && (fx < jw + 0.08f || fy < jw + 0.08f)) col = Col.mix(col, Col.hex(0xFFFFFF), 0.12f)
+        if (Noise.rnd(px, py, 74) < 0.05f) col = Col.scale(col, 0.92f)
+        return col
+    }
+
     // ------------------------------------------------------------------ the walls
 
     /** The top of the far wall at [x]: the vault's end rises over it in a round arch. */
     private fun archTop(x: Float): Float {
         val u = (x - xm) / hw
+        if (trusses) return wallH + archH * max(0f, 1f - abs(u))
         return wallH + archH * sqrt(max(0f, 1f - u * u))
     }
 
@@ -452,14 +540,16 @@ internal class ChurchPainter : DioramaPainter() {
      */
     private fun plaster(a: Float, z: Float, px: Int, py: Int, light: Float): Int {
         val col = when {
-            z < fl + 4.6f -> {
+            frescoWalls && dadoUp && z < fl + 4.6f -> if (z > fl + 4.1f) PLINTH_D else if (Noise.v2(a * 1.6f, z * 0.4f, 14) > 0.62f) PLINTH_L else PLINTH_M
+            frescoWalls && friezeUp && z > wallH - 3.2f -> teeth(a, z)
+            dadoUp && z < fl + 4.6f -> {
                 if (z > fl + 4.1f) dadoD
                 else {
                     val vein = abs(Noise.v2(a * 2.6f, z * 0.45f, 13) - 0.5f)
                     if (vein < 0.035f) dadoD else if (Noise.v2(a * 1.3f, z * 0.3f, 14) > 0.6f) dadoL else dadoM
                 }
             }
-            z > wallH - 3.2f -> frieze(a, z)
+            friezeUp && z > wallH - 3.2f -> frieze(a, z)
             else -> {
                 val n = Noise.rnd(px, py, 12)
                 val cloud = Noise.v2(a * 1.1f, z * 0.12f, 15)
@@ -480,6 +570,45 @@ internal class ChurchPainter : DioramaPainter() {
                 if (abs(v - wave) < (if (fine) 0.28f else 0.4f)) redP else ochre
             }
         }
+    }
+
+    /** Friuli's painted band under the top of the walls: red teeth on ochre (a dente di sega) between thin lines. */
+    private fun teeth(a: Float, z: Float): Int {
+        val v = z - (wallH - 3.2f)
+        return when {
+            v < 0.45f || v > 2.75f -> redP
+            v < 0.75f || v > 2.45f -> plasterL
+            else -> {
+                val u = (a * 4.47f / 1.25f) % 1f
+                if ((v - 0.75f) / 1.7f < (if (u < 0.5f) u * 2f else (1f - u) * 2f)) redP else ochre
+            }
+        }
+    }
+
+    /**
+     * Friuli's frescoes on the far wall either side of the altar (where the Slovene church has its consecration crosses): a
+     * saint each in a painted frame of red ochre, haloed, one in a red cloak and one in green, faded, the plaster showing
+     * through where the paint has gone; 0 outside them.
+     */
+    private fun fresco(x: Float, z: Float): Int {
+        for ((k, cx) in floatArrayOf(2.3f, 8.55f).withIndex()) {
+            val dx = (x - cx) * 4.47f; val dz = z - (fl + 11.2f)
+            if (abs(dx) > 2.1f || dz < 0f || dz > 10.4f) continue
+            if (abs(dx) > 1.75f || dz < 0.35f || dz > 10.05f) return FRESCO_FRAME
+            val faded = Noise.v2(x * 9f, z * 0.7f, 18 + k) > 0.74f
+            if (faded) return plasterM
+            val head = hyp(dx * 1.4f, dz - 7.6f) < 0.9f
+            val halo = hyp(dx * 1.4f, dz - 7.8f) < 1.5f
+            val robe = dz < 6.8f && dz > 0.8f && abs(dx) < 0.55f + (6.8f - dz) * 0.13f
+            return when {
+                head -> FRESCO_SKIN
+                halo -> FRESCO_HALO
+                robe -> if (k == 0) FRESCO_RED else FRESCO_GREEN
+                dz < 2.2f -> FRESCO_GROUND
+                else -> FRESCO_SKY
+            }
+        }
+        return 0
     }
 
     /** Whether ([a], [z]) of the far wall is a painted consecration cross: a red cross in a ring. */
@@ -505,8 +634,11 @@ internal class ChurchPainter : DioramaPainter() {
             when {
                 z > top -> 0
                 z > wallH -> lunette(x, z, top)
-                consecration(x, z) -> redP
-                else -> plaster(x + 17f, z, 0, 0, 1f)
+                crossesUp && !frescoWalls && consecration(x, z) -> redP
+                else -> {
+                    val f = if (frescoWalls && crossesUp) fresco(x, z) else 0
+                    if (f != 0) f else plaster(x + 17f, z, 0, 0, 1f)
+                }
             }
         }
         // the walls' cut ends: rubble in section, the plaster's skin
@@ -523,6 +655,8 @@ internal class ChurchPainter : DioramaPainter() {
 
     /** The vault's end over the far wall: deep blue, lighter at its foot, golden stars, an ochre band along the arch. */
     private fun lunette(x: Float, z: Float, top: Float): Int {
+        if (trusses) return roofEnd(x, z, top)
+        if (!vaultPainted) return if (top - z < 0.5f) plasterD else if (Noise.v2(x * 5f, z * 0.5f, 16) > 0.8f) plasterM else plasterL
         val v = z - wallH
         if (v < 0.55f) return if (v < 0.25f) goldD else goldL
         if (top - z < 0.55f) return ochreD
@@ -543,6 +677,26 @@ internal class ChurchPainter : DioramaPainter() {
         }
         val shade = v / archH
         return if (shade < 0.25f) vaultL else if (shade > 0.8f && Dither.at(x.toInt(), z.toInt()) < 0.5f) vaultD else vault
+    }
+
+    /**
+     * Friuli's gable end over the far wall, under the open timber roof: whitewash; from the third level the truss in front
+     * of it (the tie beam along the wall's top, the king post up to the ridge, two struts) and the rafters along its edges
+     * with the boards of the roof showing over them.
+     */
+    private fun roofEnd(x: Float, z: Float, top: Float): Int {
+        val v = z - wallH
+        if (!vaultPainted) return if (top - z < 0.5f) plasterD else if (v < 0.4f) plasterM else plasterL
+        val d = (x - xm) * 4.47f
+        return when {
+            top - z < 0.7f -> if (Noise.rnd((x * 12).toInt(), 3, 19) < 0.5f) woodX else woodD
+            top - z < 1f -> Col.scale(woodM, 0.8f)
+            top - z < 1.6f -> woodL
+            v < 0.9f -> if (v > 0.65f) woodL else woodM
+            abs(d) < 0.55f -> if (d < -0.2f) woodL else woodM
+            abs(abs(d) - (v - 0.9f) * 1.8f - 0.6f) < 0.45f && v < archH * 0.62f -> woodD
+            else -> if (Noise.v2(x * 3f, z * 0.3f, 16) > 0.7f) plasterM else plasterL
+        }
     }
 
     /** The back of the arch: a thin strip along its top, the wall's thickness. */
@@ -596,7 +750,21 @@ internal class ChurchPainter : DioramaPainter() {
                         val tt = ((wallH + 9f - z) / 9f).coerceIn(0f, 1f)
                         skyCol(0.3f + tt * 0.6f)
                     }
-                    top - z < 0.45f -> if (winter) Pal.SNOW_L else stoneHi
+                    top - z < 0.45f -> if (winter) Pal.SNOW_L else if (ponca) COPPO else stoneHi
+                    ponca -> {
+                        val course = floor((z - wallH) / 0.9f).toInt()
+                        val u = (y - gy0) * 4.47f / 1.8f + Noise.rnd(course, 84) * 2f
+                        val fu = u - floor(u); val fz = (z - wallH) / 0.9f - course
+                        val tone = Noise.rnd(floor(u).toInt(), course, 85)
+                        val rim = inOpening(y, z - 0.7f) || inOpening(y + 0.14f, z) || inOpening(y - 0.14f, z)
+                        when {
+                            rim -> if (((z - wallH) / 0.6f).toInt() % 2 == 0) BRICK else BRICK_D
+                            fz < (if (fine) 0.12f else 0.2f) || fu < (if (fine) 0.04f else 0.07f) -> PONCA_D
+                            tone < 0.3f -> PONCA_L
+                            tone > 0.75f -> PONCA_D
+                            else -> PONCA
+                        }
+                    }
                     else -> {
                         val course = floor((z - wallH) / 1.8f).toInt()
                         val u = (y - gy0) * 4.47f / 2.6f + (course and 1) * 0.5f
@@ -613,7 +781,7 @@ internal class ChurchPainter : DioramaPainter() {
                 }
             }
             // its end, the stone's thickness
-            onRight(gy1, x0 - th, x0, wallH, wallH + 3.2f) { _, z -> if (z > wallH + 2.8f && winter) Pal.SNOW_L else stoneM }
+            onRight(gy1, x0 - th, x0, wallH, wallH + 3.2f) { _, z -> if (z > wallH + 2.8f && winter) Pal.SNOW_L else if (ponca) PONCA_D else stoneM }
             // the cross on top
             val cx = iso.ix(x0 - th / 2f, gm); val ct = iso.iy(x0 - th / 2f, gm, wallH + 14.4f); val cb = iso.iy(x0 - th / 2f, gm, wallH + 10.6f)
             c.fillRect(cx - detail / 2, ct, detail, cb - ct, ironL)
@@ -674,6 +842,28 @@ internal class ChurchPainter : DioramaPainter() {
     private fun glassAt(p: Float, q: Float, w: Float, px: Int, py: Int): Int {
         val lead = Col.hex(0x2A2428)
         val lw = if (fine) 0.5f / K + 0.12f else 0.5f
+        if (!colourGlass || rulli) {
+            if (p < lw || w - p < lw || q < lw) return lead
+            if (colourGlass) {
+                // Friuli's rulli: round panes of pale glass in lead, a bullseye in each, small panes between them
+                val gs = 1.9f
+                val row = floor(q / (gs * 0.87f)).toInt()
+                val cu = p / gs + (row and 1) * 0.5f
+                val du = (cu - floor(cu) - 0.5f) * gs; val dv = (q / (gs * 0.87f) - row - 0.5f) * gs * 0.87f
+                val r = hyp(du, dv)
+                return when {
+                    r > gs * 0.5f + lw * 0.2f -> RULLI_FILL
+                    r > gs * 0.5f - lw * 0.5f -> lead
+                    r < 0.32f -> RULLI_KNOB
+                    r < 0.55f -> RULLI_L
+                    else -> RULLI
+                }
+            }
+            // plain glass in diamond quarries
+            val s1 = (p + q) / 2.4f; val s2 = (p - q) / 2.4f
+            if (s1 - floor(s1) < lw / 2.4f || s2 - floor(s2) < lw / 2.4f) return lead
+            return if (Noise.hash(floor(s1).toInt(), floor(s2).toInt(), 21) % 3 == 0) PLAIN_GLASS_L else PLAIN_GLASS
+        }
         // the border
         val span = wz1 - wz0
         if (p < 0.9f || w - p < 0.9f || q < 0.9f) return if (p < lw || w - p < lw || q < lw || (p in 0.9f - lw..0.9f) || (w - p in 0.9f - lw..0.9f) || (q in 0.9f - lw..0.9f)) lead else glass[2]
@@ -744,7 +934,7 @@ internal class ChurchPainter : DioramaPainter() {
         val slope = 0.11f + 0.06f * (1f - sun)
         val dy = (s.hour - 13f) * 0.16f
         val id = floorId; val pew = pewId
-        for ((wa, wb) in listOf(waA to wbA, waB to wbB)) {
+        for ((wa, wb) in if (windowB) listOf(waA to wbA, waB to wbB) else listOf(waA to wbA)) {
             val w = (wb - wa) * 4.47f
             val xa = x0 + (wz0 - fl) * slope; val xb = x0 + (wz1 - fl) * slope
             s.fx {
@@ -993,6 +1183,7 @@ internal class ChurchPainter : DioramaPainter() {
                 }
                 z < c1 && x in 4.62f..6.18f -> if (x < 4.8f || x > 6.0f || z > c1 - 0.6f) (if (x < 4.7f || z > c1 - 0.3f) goldL else gold) else 0
                 z in c1..e1 && x in xa - 0.05f..xb + 0.05f -> if (z > e1 - 0.4f) goldHi else if (z < c1 + 0.4f) goldD else goldL // the cornice
+                z > e1 && !crown -> 0
                 z > e1 -> {
                     val d = hyp((x - xm) * 4.47f, z - sunZ)
                     val ang = kotlin.math.atan2(z - sunZ, (x - xm) * 4.47f)
@@ -1029,7 +1220,7 @@ internal class ChurchPainter : DioramaPainter() {
             val inside = u in 0f..w && v >= 0f && (z <= spring || hyp(cu, z - spring) <= r)
             val frame = u in -0.55f..w + 0.55f && v >= -0.5f && (z <= spring || hyp(cu, z - spring) <= r + 0.5f)
             when {
-                inside -> madonna(cu / r, v / (zb - za))
+                inside -> if (pala) pala(cu / r, v / (zb - za)) else madonna(cu / r, v / (zb - za))
                 frame -> if (cu < 0f) goldHi else goldL
                 else -> 0
             }
@@ -1057,10 +1248,91 @@ internal class ChurchPainter : DioramaPainter() {
         }
     }
 
+    /**
+     * Friuli's altarpiece, a Venetian pala: the Madonna enthroned in a blue mantle over a red dress with the Child on her
+     * lap, a saint either side (one in a red cloak, one in a brown habit), haloed, in a golden apse over a floor of red and
+     * white squares; at ([u] −1..1 across, [v] 0..1 up).
+     */
+    private fun pala(u: Float, v: Float): Int {
+        val skin = Col.hex(0xF0CCA8); val red = Col.hex(0xB83A30)
+        val head = hyp(u * 2.2f, (v - 0.66f) * 6f)
+        val halo = hyp(u * 1.5f, (v - 0.68f) * 3.8f)
+        val child = hyp((u - 0.12f) * 3.2f, (v - 0.46f) * 7f)
+        val throne = v in 0.16f..0.3f && abs(u) < 0.55f
+        val cloak = v in 0.24f..0.63f && abs(u) < 0.18f + (0.63f - v) * 0.6f
+        val dress = v in 0.24f..0.58f && abs(u) < 0.1f + (0.58f - v) * 0.2f
+        fun saint(cx: Float, body: Int): Int? {
+            val hd = hyp((u - cx) * 3.4f, (v - 0.58f) * 7f)
+            val hl = hyp((u - cx) * 2.4f, (v - 0.6f) * 4.6f)
+            return when {
+                hd < 0.5f -> skin
+                hl < 0.85f && v > 0.55f -> goldHi
+                v in 0.08f..0.54f && abs(u - cx) < 0.16f + (0.54f - v) * 0.12f -> body
+                else -> null
+            }
+        }
+        saint(-0.72f, Col.hex(0xB0402E))?.let { return it }
+        saint(0.72f, Col.hex(0x6A4A2C))?.let { return it }
+        return when {
+            head < 0.5f -> skin
+            head < 0.75f && v > 0.62f -> mantleD
+            halo < 0.95f && v > 0.6f -> goldHi
+            child < 0.55f -> if (v > 0.48f) skin else linen
+            dress -> red
+            cloak -> if (u > 0.08f) mantleD else mantle
+            throne -> if (v > 0.27f) stoneHi else stoneM
+            v < 0.16f -> if ((floor(u * 6f).toInt() + floor(v * 30f).toInt()) and 1 == 0) Col.hex(0xE8E0D2) else Col.hex(0xA8463A)
+            // the golden apse, darker toward its edges
+            abs(u) > 0.88f -> Col.hex(0x7A5A2E)
+            v > 0.82f -> goldL
+            else -> Col.mix(goldL, gold, abs(u))
+        }
+    }
+
+    /**
+     * Friuli's frame round the altarpiece from the fourth level: an aedicule of white Istrian stone, two fluted pilasters on
+     * a plain predella, the entablature over them; from the fifth its pediment, a gilt dove in it.
+     */
+    private fun aedicule() {
+        val yp = y0 + 0.03f
+        val xa = 4.1f; val xb = 6.7f
+        val p0 = mTop; val p1 = mTop + 2f; val c1 = fl + 21.6f; val e1 = c1 + 1.5f
+        onRight(yp, xa - 0.05f, xb + 0.05f, p0, e1 + 4f) { x, z ->
+            val colL = x in 4.18f..4.62f; val colR = x in 6.18f..6.62f
+            when {
+                z < p1 && x in xa..xb -> if (z > p1 - 0.35f) ISTRIA_L else if (x in 4.3f..6.5f && z in p0 + 0.45f..p1 - 0.45f) ISTRIA_D else ISTRIA_M
+                z < c1 && (colL || colR) -> {
+                    val cx = if (colL) 4.4f else 6.4f
+                    val d = (x - cx) * 4.47f
+                    when {
+                        z < p1 + 0.8f || z > c1 - 1f -> if (d < -0.4f) ISTRIA_L else ISTRIA_M
+                        // the flutes
+                        abs(((d + 2f) % 0.5f) - 0.25f) < 0.07f -> ISTRIA_D
+                        d > 0.6f -> ISTRIA_D
+                        else -> ISTRIA
+                    }
+                }
+                z in c1..e1 && x in xa - 0.05f..xb + 0.05f -> if (z > e1 - 0.4f) ISTRIA_L else if (z < c1 + 0.4f) ISTRIA_D else ISTRIA
+                z > e1 && crown -> {
+                    // the pediment over the middle, a gilt dove in it
+                    val half = 1.25f - (z - e1) * 0.32f
+                    val dx = abs(x - xm)
+                    when {
+                        dx > half -> 0
+                        dx > half - 0.12f || z < e1 + 0.3f -> ISTRIA_L
+                        hyp((x - xm) * 4.47f * 0.8f, z - (e1 + 1.3f)) < 0.65f || (abs(z - (e1 + 1.3f)) < 0.2f && dx < 0.32f) -> goldL
+                        else -> ISTRIA_M
+                    }
+                }
+                else -> 0
+            }
+        }
+    }
+
     /** The presbytery: two steps of white stone with red and white tiles on top. */
     private fun steps() {
-        block(s1x0, y0, s1x1, s1y, fl, fl + 0.8f, { _, z -> if (z > fl + 0.6f) stoneHi else stoneL }, { _, _ -> stoneM }, { x, y -> tile(x, y) })
-        block(s2x0, y0, s2x1, s2y, fl + 0.8f, fl + 1.6f, { _, z -> if (z > fl + 1.4f) stoneHi else stoneL }, { _, _ -> stoneM }, { x, y -> tile(x, y) })
+        block(s1x0, y0, s1x1, s1y, fl, fl + 0.8f, { _, z -> if (z > fl + 0.6f) stoneHi else stoneL }, { _, _ -> stoneM }, { x, y -> if (tilesUp) tile(x, y) else stoneL })
+        block(s2x0, y0, s2x1, s2y, fl + 0.8f, fl + 1.6f, { _, z -> if (z > fl + 1.4f) stoneHi else stoneL }, { _, _ -> stoneM }, { x, y -> if (tilesUp) tile(x, y) else stoneL })
     }
 
     /** The presbytery's tiles: red and white diamonds. */
@@ -1314,10 +1586,10 @@ internal class ChurchPainter : DioramaPainter() {
 
     /** The pews in rows either side of the runner, seen from behind: their backs, the scrolled ends, the kneelers. */
     private fun pews() {
-        val n = max(rowsL.size, rowsR.size)
+        val n = max(nRowsL, nRowsR)
         for (i in 0 until n) {
-            if (i < rowsL.size) pew(if (i == rowsL.lastIndex) 3.1f else lx0, lx1, rowsL[i])
-            if (i < rowsR.size) pew(rx0, rx1, rowsR[i])
+            if (i < nRowsL) pew(if (i == rowsL.lastIndex) 3.1f else lx0, lx1, rowsL[i])
+            if (i < nRowsR) pew(rx0, rx1, rowsR[i])
         }
     }
 
@@ -1415,7 +1687,12 @@ internal class ChurchPainter : DioramaPainter() {
             when {
                 v > 0.86f -> if (v > 0.95f) woodL else woodM
                 v < 0.1f -> woodD
-                fp < 0.1f || fp > 0.9f || v < 0.18f || v > 0.8f -> ochre
+                fp < 0.1f || fp > 0.9f || v < 0.18f || v > 0.8f -> if (!balustradePainted) woodD else if (fauxMarble) FAUX_FRAME else ochre
+                !balustradePainted -> if (Noise.rnd(ip, 93) < 0.5f) woodM else Col.mix(woodM, woodL, 0.4f)
+                fauxMarble -> {
+                    val vein = abs(Noise.v2(y * 9f, z * 0.8f, 94) - 0.5f)
+                    if (vein < 0.04f) FAUX_VEIN else if (Noise.v2(y * 4f, z * 0.4f, 95) > 0.62f) FAUX_L else FAUX
+                }
                 else -> {
                     val cu = (fp - 0.5f) * 0.68f * 4.47f; val cv = z - (zl + 2.1f)
                     val petal = hyp(cu * 1.2f, (cv - 0.3f) * 1.3f) < 0.9f && cv > -0.3f
@@ -1457,13 +1734,14 @@ internal class ChurchPainter : DioramaPainter() {
             val grip = z < fl + 8.4f + pull && z > fl + 5f + pull
             val col = if (grip) {
                 val band = floor((z - fl - pull) / 0.55f).toInt() % 3
-                when (band) { 0 -> Col.hex(0xC42A30); 1 -> Col.hex(0xF4F0E6); else -> Col.hex(0x2C50A8) }
+                if (friuliGrip) (if (band == 1) Col.hex(0x2E5AA8) else Col.hex(0xF2C230))
+                else when (band) { 0 -> Col.hex(0xC42A30); 1 -> Col.hex(0xF4F0E6); else -> Col.hex(0x2C50A8) }
             } else if (((py / max(1, detail)) + (if (fine) 0 else 0)) % 3 == 0) Col.hex(0xA88A5A) else Col.hex(0xD2B888)
             c.fillRect(px, py, th + (if (grip) detail else 0), 1, col)
         }
         // the tassel
         val tx = floor(topX + sway).toInt(); val ty = floor(botY).toInt()
-        if (!held) c.fillRect(tx - detail / 2, ty, 2 * detail, 2 * detail, Col.hex(0xC42A30))
+        if (!held) c.fillRect(tx - detail / 2, ty, 2 * detail, 2 * detail, if (friuliGrip) Col.hex(0x2E5AA8) else Col.hex(0xC42A30))
     }
 
     // ------------------------------------------------------------------ effects and light
@@ -1522,5 +1800,21 @@ internal class ChurchPainter : DioramaPainter() {
 
         /** How high over the floor (nominal px) the hands of someone held up to the rope are: on its plain length, over the grip. */
         const val ROPE_HOLD = 13f
+
+        private fun h(v: Long) = Col.hex(v)
+
+        /** Clear glass in its quarries (before the coloured glass); Friuli's rulli: the pane, its ring, its bullseye, the small panes between. */
+        private val PLAIN_GLASS = h(0xCAD8CE); private val PLAIN_GLASS_L = h(0xDCE6DC)
+        private val RULLI = h(0xD6DEBE); private val RULLI_L = h(0xEEF2DC); private val RULLI_KNOB = h(0xA8B48C); private val RULLI_FILL = h(0xC2CCA6)
+
+        /** Friuli: the grey plinth, the frescoes' colours, the cotto, the Istrian stone, the faux marble, the ponca, brick and coppi. */
+        private val PLINTH_L = h(0xB8B4AA); private val PLINTH_M = h(0xA6A298); private val PLINTH_D = h(0x86827A)
+        private val FRESCO_FRAME = h(0xA8583E); private val FRESCO_SKIN = h(0xE6C2A0); private val FRESCO_HALO = h(0xD8B060)
+        private val FRESCO_RED = h(0xB86A50); private val FRESCO_GREEN = h(0x7A9268); private val FRESCO_GROUND = h(0xB89A6A); private val FRESCO_SKY = h(0xA8B6BA)
+        private val COTTO_L = h(0xD68E5C); private val COTTO = h(0xC2744A); private val COTTO_D = h(0xA85E3A); private val COTTO_JOINT = h(0xC9BCA6)
+        private val ISTRIA = h(0xF0EDE4); private val ISTRIA_L = h(0xFAF8F2); private val ISTRIA_M = h(0xDEDACE); private val ISTRIA_D = h(0xBEB8AA)
+        private val FAUX = h(0xD6A89E); private val FAUX_L = h(0xE8C6BE); private val FAUX_VEIN = h(0xA67266); private val FAUX_FRAME = h(0x6E7E70)
+        private val PONCA = h(0xA8977A); private val PONCA_L = h(0xBFAE90); private val PONCA_D = h(0x857560)
+        private val BRICK = h(0xB0603E); private val BRICK_D = h(0x8A4A30); private val COPPO = h(0xC06C42)
     }
 }

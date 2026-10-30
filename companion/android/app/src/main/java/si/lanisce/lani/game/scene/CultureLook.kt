@@ -246,8 +246,23 @@ object CultureLooks {
         variants = mapOf("house" to "friuli", "panel" to "sign", "hive" to "box", "tree" to "acacia", "honey" to "acacia", "bunting" to "friuli"),
     )
 
-    /** Friuli's church (In chiesa, ChurchPainter). */
-    internal val FRIULI_CHURCH = Table.of("church")
+    /**
+     * The little church of a Collio village (In chiesa, ChurchPainter), not the Karst church: the far wall a pitched gable
+     * under an open timber roof with its truss (`roof`) for the starry vault; bullseye glass in lead (`glass`, the rulli) for
+     * the coloured diamonds; a floor of terracotta tiles (`floor`, cotto) for the limestone slabs; a Venetian altarpiece, the
+     * Madonna enthroned between two saints, in an aedicule of white Istrian stone (`altarpiece`) for the marble columns and
+     * the sunburst; faded frescoes of saints, a grey plinth and a band of red teeth on ochre (`walls`) for the consecration
+     * crosses, the marbled dado and the wave frieze; the bell gable, a campanile a vela of the Collio's layered ponca with
+     * a brick arch and coppi (`gable`); the loft's balustrade painted as marble (`loft`) for the Slovene tulips; the bell rope's
+ * grip in Friuli's yellow and blue (`rope`) for the white, blue and red.
+     */
+    internal val FRIULI_CHURCH = Table.of(
+        "church",
+        variants = mapOf(
+            "roof" to "trusses", "glass" to "rulli", "floor" to "cotto", "altarpiece" to "pala", "walls" to "frescoes", "gable" to "ponca",
+            "loft" to "marble", "rope" to "friuli",
+        ),
+    )
 
     /** Nonno Bepi's room by the fogolâr (In salotto, LivingRoomPainter). */
     internal val FRIULI_LIVINGROOM = Table.of("livingroom")
