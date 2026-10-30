@@ -254,9 +254,14 @@ class BuildingWordsTest {
     }
 
     @Test fun `a building without a scene asks for its type's pack`() {
-        // the palisade has no place to step into: the forest's words, of whose stakes it is
+        // the palisade opens "Pri vratih": the things at its gate at its level first
         val s = village(hut(1), Building("palisade-2", BuildingType.PALISADE, NO_PLOT))
-        val w = words(s, "palisade-2", book())!!
+        val gate = words(s, "palisade-2", book())!!
+        assertEquals(roomWords(s, s.buildings.last(), "pri-vratih"), gate.words.map(::key))
+        assertEquals(8, gate.need)
+        // without its scene (the content of before it): the forest's words, of whose stakes it is
+        val noScene = scenes.filter { it.id != "pri-vratih" }
+        val w = words(s, "palisade-2", book(), sc = noScene)!!
         val forest = packs.getValue("v-gozdu").words.map { "v-gozdu/${it.id}" }
         assertEquals(forest.take(8), w.words.map(::key))
         assertEquals(8, w.need)
@@ -265,7 +270,7 @@ class BuildingWordsTest {
         val well = words(village(Building("well-1", BuildingType.WELL, 1), age = Age.TABOR), "well-1", book())!!
         assertTrue(well.words.all { it.pack == "na-vasi" })
         // a pack not on the phone yet and no scene: nothing to ask for (the upgrade doesn't wait for it)
-        assertNull(words(s, "palisade-2", book(), p = packs - "v-gozdu"))
+        assertNull(words(s, "palisade-2", book(), sc = noScene, p = packs - "v-gozdu"))
     }
 
     @Test fun `a house asks for its own room's words`() {

@@ -154,8 +154,8 @@ class WordBook(cards: List<ReviewCard>, private val learned: Set<String>, privat
  * **The building's words**, in order: the things in its close-up scene as it is now ([Homes.scenesOf]: a house its own
  * room; the scene seen in this building, at its level: [Homes.world]), one per word; then, where those are fewer than the
  * upgrade asks for, the words of its scene's pack and of its type's pack in its culture ([PACKS]), in the pack's order. A
- * building without a scene (the palisade, a house nobody's room is in yet, every building of a culture whose scenes are the
- * fire's and the horizon's) has its type's pack alone. A word the phone can't teach (its pack not on the phone yet, and no
+ * building without a scene (a house nobody's room is in yet, the palisade on a phone whose content is from before "Pri
+ * vratih", every building of a culture whose scenes are the fire's and the horizon's) has its type's pack alone. A word the phone can't teach (its pack not on the phone yet, and no
  * card of it) isn't asked for.
  *
  * **How many** ([NEED]): 8 of them known for level 2, 14 for level 3, 20 for level 4, 26 for level 5 (or all there are,
