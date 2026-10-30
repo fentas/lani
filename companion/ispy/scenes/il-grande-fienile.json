@@ -3,7 +3,7 @@
   "scene": "il-grande-fienile",
   "language": "it",
   "machine_written": true,
-  "review": "clues: machine-written (Claude) in it, with sl, en and de translations; the field's picture is Nel campo's in Friuli's look, so are its clues (its painter's colours and where each thing is drawn; the small fienile of river stones and brick; the animals only when they are out), and the cart takes the hay to the big barn; not reviewed by a native speaker",
+  "review": "clues: machine-written (Claude) in it, with sl, en and de translations; the field's picture is Nel campo's in Friuli's look, so are its clues (its painter's colours and where each thing is drawn; the small fienile of river stones and brick; the animals only when they are out), and the cart takes the hay to the big barn; not reviewed by a native speaker; the finished projects' things (big hay barn): machine-written (Claude) from the picture as its painter draws them, not reviewed by a native speaker",
   "things": {
     "wheat": {
       "clues": [
@@ -594,6 +594,52 @@
           "sl": "Spi z glavo navzdol.",
           "en": "It sleeps upside down.",
           "de": "Das schläft kopfüber.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "toplar": {
+      "clues": [
+        {
+          "kind": "size",
+          "it": "È molto lungo.",
+          "sl": "Je zelo dolg.",
+          "en": "It's very long.",
+          "de": "Er ist sehr lang.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "lungo"
+        },
+        {
+          "kind": "material",
+          "it": "È di legno.",
+          "sl": "Je iz lesa.",
+          "en": "It's made of wood.",
+          "de": "Er ist aus Holz.",
+          "grammar": ["essere-avere"]
+        },
+        {
+          "kind": "trait",
+          "it": "Ha otto pali e un tetto di assi.",
+          "sl": "Ima osem stebrov in streho iz desk.",
+          "en": "It has eight posts and a roof of planks.",
+          "de": "Er hat acht Pfosten und ein Dach aus Brettern.",
+          "grammar": ["essere-avere"]
+        },
+        {
+          "kind": "where",
+          "it": "È lontano, dietro il grano.",
+          "sl": "Je daleč, za pšenico.",
+          "en": "It's far away, behind the wheat.",
+          "de": "Er steht weit weg, hinter dem Weizen.",
+          "grammar": ["dove-preposizioni"],
+          "ref": "wheat"
+        },
+        {
+          "kind": "use",
+          "it": "Ci appendiamo il fieno ad asciugare.",
+          "sl": "Nanj obesimo seno, da se suši.",
+          "en": "We hang the hay on it to dry.",
+          "de": "Wir hängen das Heu daran zum Trocknen.",
           "grammar": ["presente-regolare"]
         }
       ]

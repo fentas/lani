@@ -5,7 +5,7 @@
   "title": { "it": "La fontana", "sl": "Vodnjak", "en": "The fountain", "de": "Der Brunnen" },
   "emoji": "⛲",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written, not reviewed by a native speaker",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written, not reviewed by a native speaker; place-life lines and variants too",
   "art": "square",
   "from": ["project:vodnjak_na_trgu"],
   "pack": "la-fontana",
@@ -21,10 +21,13 @@
     { "slot": "bicycle", "word": "bicicletta", "pack": "in-piazza" },
     { "slot": "flowers", "word": "fiore", "pack": "festa-liberazione" },
     { "slot": "sun", "word": "sole", "pack": "festa-pasquetta" },
-    { "slot": "fence", "word": "steccato", "pack": "nel-campo" }
+    { "slot": "fence", "word": "steccato", "pack": "nel-campo" },
+    { "slot": "maypole", "word": "albero-della-cuccagna", "pack": "la-cuccagna", "needs": { "project": "mlaj" } },
+    { "slot": "fountain", "word": "fontana", "pack": "in-paese", "needs": { "project": "vodnjak_na_trgu" } },
+    { "slot": "clock", "word": "orologio-del-campanile", "pack": "l-orologio", "needs": { "building": "CHURCH", "project": "mestna_ura" } }
   ],
   "people": [
-    { "id": "bruno", "name": "Fabbro Bruno", "emoji": "⚒️", "art": "smith", "slot": "well", "villager": "bruno" },
+    { "id": "bruno", "name": "Fabbro Bruno", "emoji": "⚒️", "art": "smith", "slot": "fountain", "villager": "bruno" },
     { "id": "nives", "name": "Zia Nives", "emoji": "📻", "art": "aunt", "slot": "bench", "villager": "nives" },
     { "id": "giulia", "name": "Giulia", "emoji": "👧", "art": "child2", "slot": "play1", "villager": "giulia" },
     { "id": "lorenzo", "name": "Lorenzo", "emoji": "👦", "art": "child3", "slot": "play2", "villager": "lorenzo" }
@@ -140,7 +143,7 @@
           ],
           "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
         },
-        { "who": "bruno", "face": "proud", "it": "La fontana ha quattro cannelle. Le ho fatte io, nella fucina.", "sl": "Vodnjak ima štiri cevi. Naredil sem jih jaz, v kovačnici.", "en": "The fountain has four spouts. I made them myself, in the smithy.", "de": "Der Brunnen hat vier Röhren. Die habe ich selbst gemacht, in der Schmiede." },
+        { "who": "bruno", "face": "proud", "it": "Guarda la fontana: ha quattro cannelle. Le ho fatte io, nella fucina.", "sl": "Poglej vodnjak: ima štiri cevi. Naredil sem jih jaz, v kovačnici.", "en": "Look at the fountain: it has four spouts. I made them myself, in the smithy.", "de": "Schau dir den Brunnen an: Er hat vier Röhren. Die habe ich selbst gemacht, in der Schmiede." },
         {
           "choices": [
             {

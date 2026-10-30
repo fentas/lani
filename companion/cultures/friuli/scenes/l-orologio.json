@@ -5,7 +5,7 @@
   "title": { "it": "L'orologio del campanile", "sl": "Ura na zvoniku", "en": "The tower clock", "de": "Die Kirchturmuhr" },
   "emoji": "🕰️",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written, not reviewed by a native speaker",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written, not reviewed by a native speaker; place-life lines and variants too",
   "art": "square",
   "from": ["project:mestna_ura"],
   "pack": "l-orologio",
@@ -21,11 +21,14 @@
     { "slot": "bicycle", "word": "bicicletta", "pack": "in-piazza" },
     { "slot": "flowers", "word": "fiore", "pack": "festa-liberazione" },
     { "slot": "sun", "word": "sole", "pack": "festa-pasquetta" },
-    { "slot": "fence", "word": "steccato", "pack": "nel-campo" }
+    { "slot": "fence", "word": "steccato", "pack": "nel-campo" },
+    { "slot": "maypole", "word": "albero-della-cuccagna", "pack": "la-cuccagna", "needs": { "project": "mlaj" } },
+    { "slot": "fountain", "word": "fontana", "pack": "in-paese", "needs": { "project": "vodnjak_na_trgu" } },
+    { "slot": "clock", "word": "orologio-del-campanile", "needs": { "building": "CHURCH", "project": "mestna_ura" } }
   ],
   "people": [
-    { "id": "elena", "name": "Maestra Elena", "emoji": "👩‍🏫", "art": "teacher", "slot": "well", "villager": "elena" },
-    { "id": "bruno", "name": "Fabbro Bruno", "emoji": "⚒️", "art": "smith", "slot": "well", "villager": "bruno" },
+    { "id": "elena", "name": "Maestra Elena", "emoji": "👩‍🏫", "art": "teacher", "slot": "clock", "villager": "elena" },
+    { "id": "bruno", "name": "Fabbro Bruno", "emoji": "⚒️", "art": "smith", "slot": "clock", "villager": "bruno" },
     { "id": "bepi", "name": "Nonno Bepi", "emoji": "👴", "art": "grandpa", "slot": "bench", "villager": "bepi" },
     { "id": "nives", "name": "Zia Nives", "emoji": "📻", "art": "aunt", "slot": "bench", "villager": "nives" },
     { "id": "tommaso", "name": "Tommaso", "emoji": "🧒", "art": "child1", "slot": "play1", "villager": "tommaso" }
@@ -68,7 +71,7 @@
       "weekdays": [1, 2, 3, 4, 5, 6],
       "chance": 0.4,
       "dialog": "ingranaggi",
-      "dialogs": ["ingranaggi-campana", "ingranaggi"],
+      "dialogs": ["ingranaggi-colpi", "ingranaggi-campana", "ingranaggi"],
       "reward": { "stone": 20},
       "marker": "⚙️",
       "needs": { "building": "CHURCH" },
@@ -916,6 +919,60 @@
           "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumela.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
         },
         { "who": "nives", "face": "happy", "it": "Buonanotte, {learner}. A domani!", "sl": "Lahko noč, {learner}. Do jutri!", "en": "Good night, {learner}. See you tomorrow!", "de": "Gute Nacht, {learner}. Bis morgen!" }
+      ]
+    },
+    {
+      "id": "ingranaggi-colpi",
+      "count": { "from": "hour", "min": 1, "max": 12, "gender": "m" },
+      "memory": { "it": "i colpi dell'orologio che abbiamo contato", "sl": "udarce ure, ki sva jih preštela", "en": "the clock's strokes we counted", "de": "die Schläge der Uhr, die wir gezählt haben" },
+      "lines": [
+        { "who": "bruno", "face": "curious", "it": "Ciao. Silenzio, adesso: l'orologio batte l'ora. Conta i colpi.", "sl": "Živjo. Zdaj tiho: ura bije. Preštej udarce.", "en": "Hello. Quiet now: the clock is striking the hour. Count the strokes.", "de": "Hallo. Jetzt still: Die Uhr schlägt die Stunde. Zähl die Schläge.", "fx": { "strike": 1 } },
+        {
+          "choices": [
+            {
+              "it": "{È|Sono} {n} {colpo|colpi}!",
+              "sl": "{To je|To sta|To so|To je} {n} {udarec|udarca|udarci|udarcev}!",
+              "en": "That's {n} {stroke|strokes}!",
+              "de": "{Das ist|Das sind} {n} {Schlag|Schläge}!",
+              "ok": true,
+              "reply": { "face": "proud", "it": "Giusto. Il mio orologio non sbaglia mai.", "sl": "Prav. Moja ura se nikoli ne zmoti.", "en": "Right. My clock is never wrong.", "de": "Richtig. Meine Uhr irrt sich nie." }
+            },
+            {
+              "it": "{È|Sono} {n} {!colpo|colpi}!",
+              "sl": "{To je|To sta|To so|To je} {n} {udarec|udarca|udarci|udarcev}!",
+              "en": "That's {n} {stroke|strokes}!",
+              "de": "{Das ist|Das sind} {n} {Schlag|Schläge}!",
+              "wrong_form": 1,
+              "grammar": "plurale",
+              "why": { "sl": "{Ena je v ednini|Več jih je v množini}: {n} {colpo|colpi}.", "en": "{One takes the singular|More than one takes the plural}: {n} {colpo|colpi}.", "de": "{Eins steht im Singular|Mehrere stehen im Plural}: {n} {colpo|colpi}." },
+              "reply": { "face": "confused", "it": "Hm? Conta ancora, piano piano.", "sl": "Hm? Štej še enkrat, počasi.", "en": "Hm? Count again, nice and slowly.", "de": "Hm? Zähl noch mal, ganz langsam." }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "bruno", "it": "Ogni ora la stessa musica. Di giorno e di notte.", "sl": "Vsako uro ista glasba. Podnevi in ponoči.", "en": "Every hour the same music. By day and by night.", "de": "Jede Stunde dieselbe Musik. Bei Tag und bei Nacht." },
+        {
+          "choices": [
+            {
+              "it": "Grazie, signor Bruno!",
+              "sl": "Hvala, gospod Bruno!",
+              "en": "Thank you, Mr Bruno!",
+              "de": "Danke, Herr Bruno!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Prego. Adesso torno in fucina.", "sl": "Prosim. Zdaj grem nazaj v kovačnico.", "en": "You're welcome. Now I'm going back to the smithy.", "de": "Bitte. Jetzt gehe ich zurück in die Schmiede." }
+            },
+            {
+              "it": "Grazie, Bruno!",
+              "sl": "Hvala, Bruno!",
+              "en": "Thanks, Bruno!",
+              "de": "Danke, Bruno!",
+              "grammar": "tu-lei",
+              "why": { "sl": "Bruno je odrasel: rečeš mu signor Bruno.", "en": "Bruno is a grown-up: you call him signor Bruno.", "de": "Bruno ist ein Erwachsener: Du sagst signor Bruno zu ihm." },
+              "reply": { "face": "cross", "it": "Bruno? Hm. Ma che maniere!", "sl": "Bruno? Hm. Kakšno vedenje!", "en": "Bruno? Hm. What manners!", "de": "Bruno? Hm. Was für Manieren!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        }
       ]
     }
   ]

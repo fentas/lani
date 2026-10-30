@@ -5,7 +5,7 @@
   "title": { "it": "L'albero della cuccagna", "sl": "Drog z nagradami", "en": "The greasy pole", "de": "Der Klettermast" },
   "emoji": "🌲",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written, not reviewed by a native speaker",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written, not reviewed by a native speaker; place-life lines and variants too",
   "art": "square",
   "from": ["project:mlaj"],
   "pack": "la-cuccagna",
@@ -21,10 +21,13 @@
     { "slot": "bicycle", "word": "bicicletta", "pack": "in-piazza" },
     { "slot": "flowers", "word": "fiore", "pack": "festa-liberazione" },
     { "slot": "sun", "word": "sole", "pack": "festa-pasquetta" },
-    { "slot": "fence", "word": "steccato", "pack": "nel-campo" }
+    { "slot": "fence", "word": "steccato", "pack": "nel-campo" },
+    { "slot": "maypole", "word": "albero-della-cuccagna", "needs": { "project": "mlaj" } },
+    { "slot": "fountain", "word": "fontana", "pack": "in-paese", "needs": { "project": "vodnjak_na_trgu" } },
+    { "slot": "clock", "word": "orologio-del-campanile", "pack": "l-orologio", "needs": { "building": "CHURCH", "project": "mestna_ura" } }
   ],
   "people": [
-    { "id": "davide", "name": "Pastore Davide", "emoji": "🐑", "art": "shepherd", "slot": "well", "villager": "davide" },
+    { "id": "davide", "name": "Pastore Davide", "emoji": "🐑", "art": "shepherd", "slot": "maypole", "villager": "davide" },
     { "id": "tommaso", "name": "Tommaso", "emoji": "🧒", "art": "child1", "slot": "play1", "villager": "tommaso" },
     { "id": "lorenzo", "name": "Lorenzo", "emoji": "👦", "art": "child3", "slot": "play2", "villager": "lorenzo" },
     { "id": "rosa", "name": "Nonna Rosa", "emoji": "👵", "art": "grandma", "slot": "bench", "villager": "rosa" }
@@ -109,7 +112,7 @@
     {
       "id": "arrampicata",
       "lines": [
-        { "who": "davide", "face": "happy", "it": "Ehi, {learner}! Hai visto l'albero della cuccagna? È altissimo!", "sl": "Ej, {learner}! Si {m:videl|f:videla} drog z nagradami? Zelo visok je!", "en": "Hey, {learner}! Have you seen the greasy pole? It's really tall!", "de": "He, {learner}! Hast du den Klettermast gesehen? Der ist riesig hoch!" },
+        { "who": "davide", "face": "happy", "it": "Ehi, {learner}! Guarda l'albero della cuccagna! È altissimo!", "sl": "Ej, {learner}! Poglej drog z nagradami! Zelo visok je!", "en": "Hey, {learner}! Look at the greasy pole! It's really tall!", "de": "He, {learner}! Schau dir den Klettermast an! Der ist riesig hoch!", "fx": { "climb": 0 } },
         {
           "choices": [
             {
@@ -118,7 +121,7 @@
               "en": "Yes! Who climbs right to the top?",
               "de": "Ja! Wer klettert ganz nach oben?",
               "ok": true,
-              "reply": { "face": "laugh", "it": "Chi sale vince i premi! Ma non è facile.", "sl": "Kdor spleza, dobi nagrade! Ampak ni lahko.", "en": "Whoever climbs up wins the prizes! But it isn't easy.", "de": "Wer hinaufklettert, gewinnt die Preise! Aber das ist nicht leicht." }
+              "reply": { "face": "laugh", "it": "Chi sale vince i premi! Guarda, quel ragazzo ci prova.", "sl": "Kdor spleza, dobi nagrade! Poglej, tisti fant poskuša.", "en": "Whoever climbs up wins the prizes! Look, that boy is having a go.", "de": "Wer hinaufklettert, gewinnt die Preise! Schau, der Junge da versucht es.", "fx": { "climb": 0.9 } }
             },
             {
               "it": "Sì! Chi sali fino in cima?",
@@ -132,7 +135,7 @@
           ],
           "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
         },
-        { "who": "davide", "face": "laugh", "it": "Io ho provato stamattina. Sono salito un po'… e poi sono scivolato giù!", "sl": "Jaz sem poskusil zjutraj. Splezal sem malo … potem pa sem zdrsnil dol!", "en": "I tried this morning. I climbed up a little… and then I slid down!", "de": "Ich habe es heute Morgen versucht. Ich bin ein Stück hinaufgeklettert … und dann hinuntergerutscht!" },
+        { "who": "davide", "face": "laugh", "it": "Ah ah, è scivolato giù! Anch'io stamattina: sono salito un po'… e poi giù!", "sl": "Ha ha, zdrsnil je dol! Jaz tudi zjutraj: splezal sem malo … potem pa dol!", "en": "Ha ha, he slid down! Me too this morning: I climbed up a little… and then down!", "de": "Haha, er ist hinuntergerutscht! Ich heute Morgen auch: ein Stück hinauf … und dann hinunter!", "fx": { "climb": 0.2 } },
         {
           "choices": [
             {
@@ -250,7 +253,7 @@
     {
       "id": "premi",
       "lines": [
-        { "who": "lorenzo", "face": "happy", "it": "Ciao, {learner}! Per la festa Davide appende i premi in cima all'albero!", "sl": "Živjo, {learner}! Za praznik bo Davide obesil nagrade na vrh droga!", "en": "Hi, {learner}! For the feast Davide hangs the prizes at the top of the pole!", "de": "Hallo, {learner}! Zum Fest hängt Davide die Preise oben an den Mast!" },
+        { "who": "lorenzo", "face": "happy", "it": "Ciao, {learner}! Guarda i premi in cima all'albero! Quel ragazzo li vuole prendere.", "sl": "Živjo, {learner}! Poglej nagrade na vrhu droga! Tisti fant jih hoče dobiti.", "en": "Hi, {learner}! Look at the prizes at the top of the pole! That boy wants to get them.", "de": "Hallo, {learner}! Schau dir die Preise oben am Mast an! Der Junge da will sie holen.", "fx": { "climb": 0.6 } },
         {
           "choices": [
             {
@@ -259,7 +262,7 @@
               "en": "What prizes are there?",
               "de": "Welche Preise gibt es?",
               "ok": true,
-              "reply": { "face": "happy", "it": "Un salame, un formaggio e tante caramelle!", "sl": "Salama, sir in veliko bonbonov!", "en": "A salami, a cheese and lots of candies!", "de": "Eine Salami, einen Käse und viele Bonbons!" }
+              "reply": { "face": "happy", "it": "Un salame, un formaggio e tante caramelle!", "sl": "Salama, sir in veliko bonbonov!", "en": "A salami, a cheese and lots of candies!", "de": "Eine Salami, einen Käse und viele Bonbons!", "fx": { "climb": 1 } }
             },
             {
               "it": "Che premi c'è?",
@@ -273,7 +276,7 @@
           ],
           "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
         },
-        { "who": "lorenzo", "face": "shy", "it": "Io voglio le caramelle. Tutte! A te piacciono le caramelle?", "sl": "Jaz hočem bonbone. Vse! So tebi všeč bonboni?", "en": "I want the candies. All of them! Do you like candies?", "de": "Ich will die Bonbons. Alle! Magst du Bonbons?" },
+        { "who": "lorenzo", "face": "shy", "it": "Oh, è scivolato giù! Io voglio le caramelle. Tutte! A te piacciono le caramelle?", "sl": "Oh, zdrsnil je dol! Jaz hočem bonbone. Vse! So tebi všeč bonboni?", "en": "Oh, he slid down! I want the candies. All of them! Do you like candies?", "de": "Oh, er ist hinuntergerutscht! Ich will die Bonbons. Alle! Magst du Bonbons?", "fx": { "climb": 0.2 } },
         {
           "choices": [
             {

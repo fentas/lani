@@ -3,7 +3,7 @@
   "scene": "il-prato-delle-api",
   "language": "it",
   "machine_written": true,
-  "review": "clues: machine-written (Claude) in it, with sl, en and de translations, from the Friuli bee garden's picture (Aldo's shed of cobbles and brick with its box hives in plain colours, the light blue hive apart, his yellow MIELE sign by the path, the acacia, at every level of the bee garden); not reviewed by a native speaker; the same picture and things as Dalle api, so its clues",
+  "review": "clues: machine-written (Claude) in it, with sl, en and de translations, from the Friuli bee garden's picture (Aldo's shed of cobbles and brick with its box hives in plain colours, the light blue hive apart, his yellow MIELE sign by the path, the acacia, at every level of the bee garden); not reviewed by a native speaker; the same picture and things as Dalle api, so its clues; the finished projects' things (bee meadow): machine-written (Claude) from the picture as its painter draws them, not reviewed by a native speaker",
   "things": {
     "beehouse": {
       "clues": [
@@ -511,6 +511,60 @@
           "en": "We sit on it in the shade.",
           "de": "Wir sitzen im Schatten darauf.",
           "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "meadow": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È verde e pieno di fiori.",
+          "sl": "Je zelen in poln rož.",
+          "en": "It's green and full of flowers.",
+          "de": "Sie ist grün und voller Blumen.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "verde"
+        },
+        {
+          "kind": "trait",
+          "it": "Ha l'erba alta.",
+          "sl": "Ima visoko travo.",
+          "en": "It has tall grass.",
+          "de": "Sie hat hohes Gras.",
+          "grammar": ["essere-avere"]
+        },
+        {
+          "kind": "trait",
+          "it": "D'estate ha i girasoli.",
+          "sl": "Poleti ima sončnice.",
+          "en": "In summer it has sunflowers.",
+          "de": "Im Sommer hat sie Sonnenblumen.",
+          "grammar": ["essere-avere"]
+        },
+        {
+          "kind": "where",
+          "it": "È davanti alla panca.",
+          "sl": "Je pred klopjo.",
+          "en": "It's in front of the bench.",
+          "de": "Sie ist vor der Bank.",
+          "grammar": ["dove-preposizioni", "preposizioni-articolate"],
+          "ref": "bench"
+        },
+        {
+          "kind": "does",
+          "it": "Profuma di fiori.",
+          "sl": "Diši po rožah.",
+          "en": "It smells of flowers.",
+          "de": "Sie duftet nach Blumen.",
+          "grammar": ["presente-regolare"]
+        },
+        {
+          "kind": "use",
+          "it": "Le api ci vanno a mangiare.",
+          "sl": "Čebele gredo tja jest.",
+          "en": "The bees go there to eat.",
+          "de": "Die Bienen fliegen hin zum Fressen.",
+          "grammar": ["verbi-irregolari"]
         }
       ]
     }

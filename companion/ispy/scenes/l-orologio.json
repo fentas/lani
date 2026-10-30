@@ -3,7 +3,7 @@
   "scene": "l-orologio",
   "language": "it",
   "machine_written": true,
-  "review": "clues: machine-written (Claude) in it, with sl, en and de translations, from the Friuli piazza's picture (its painter's colours and where each thing is drawn at every level of the linden and the well: the young linden staked, the well a curb of field stones at first, the panchina green on iron, the near house ochre with the osteria, the campanile of brick); not reviewed by a native speaker; the same picture and things as In piazza, so its clues, and the tower's clock as this scene opens once the clock is finished",
+  "review": "clues: machine-written (Claude) in it, with sl, en and de translations, from the Friuli piazza's picture (its painter's colours and where each thing is drawn at every level of the linden and the well: the young linden staked, the well a curb of field stones at first, the panchina green on iron, the near house ochre with the osteria, the campanile of brick); not reviewed by a native speaker; the same picture and things as In piazza, so its clues, and the tower's clock as this scene opens once the clock is finished; the finished projects' things (maypole, fountain, clock): machine-written (Claude) from the picture as its painter draws them, not reviewed by a native speaker",
   "things": {
     "linden": {
       "clues": [
@@ -397,6 +397,160 @@
           "en": "It closes off the garden.",
           "de": "Er umschließt den Garten.",
           "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "maypole": {
+      "clues": [
+        {
+          "kind": "size",
+          "it": "È altissimo.",
+          "sl": "Je zelo visok.",
+          "en": "It's really tall.",
+          "de": "Er ist sehr hoch.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "altissimo"
+        },
+        {
+          "kind": "trait",
+          "it": "In cima ci sono i premi.",
+          "sl": "Na vrhu so nagrade.",
+          "en": "The prizes are at the top.",
+          "de": "Oben hängen die Preise.",
+          "grammar": ["ce-ci-sono"]
+        },
+        {
+          "kind": "trait",
+          "it": "È unto di sapone.",
+          "sl": "Namazan je z milom.",
+          "en": "It's greased with soap.",
+          "de": "Er ist mit Seife eingeschmiert.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "unto"
+        },
+        {
+          "kind": "where",
+          "it": "È davanti alla chiesa.",
+          "sl": "Stoji pred cerkvijo.",
+          "en": "It's in front of the church.",
+          "de": "Er steht vor der Kirche.",
+          "grammar": ["dove-preposizioni", "preposizioni-articolate"],
+          "ref": "tower"
+        },
+        {
+          "kind": "use",
+          "it": "I ragazzi ci salgono per vincere i premi.",
+          "sl": "Fantje plezajo nanj po nagrade.",
+          "en": "The boys climb it to win the prizes.",
+          "de": "Die Jungen klettern hinauf, um die Preise zu gewinnen.",
+          "grammar": ["verbi-irregolari"]
+        }
+      ]
+    },
+    "fountain": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È bianca.",
+          "sl": "Je bel.",
+          "en": "It's white.",
+          "de": "Er ist weiß.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "bianco"
+        },
+        {
+          "kind": "material",
+          "it": "È di pietra.",
+          "sl": "Je iz kamna.",
+          "en": "It's made of stone.",
+          "de": "Er ist aus Stein.",
+          "grammar": ["essere-avere"]
+        },
+        {
+          "kind": "trait",
+          "it": "In cima ha una pigna di pietra.",
+          "sl": "Na vrhu ima kamnit storž.",
+          "en": "On top it has a stone pine cone.",
+          "de": "Oben hat er einen Zapfen aus Stein.",
+          "grammar": ["essere-avere"]
+        },
+        {
+          "kind": "trait",
+          "it": "Ha quattro cannelle.",
+          "sl": "Ima štiri cevi.",
+          "en": "It has four spouts.",
+          "de": "Er hat vier Röhren.",
+          "grammar": ["essere-avere"]
+        },
+        {
+          "kind": "where",
+          "it": "È in mezzo alla piazza.",
+          "sl": "Je sredi trga.",
+          "en": "It's in the middle of the square.",
+          "de": "Er steht mitten auf dem Platz.",
+          "grammar": ["dove-preposizioni", "preposizioni-articolate"]
+        },
+        {
+          "kind": "does",
+          "it": "L'acqua scende nella vasca.",
+          "sl": "Voda teče v korito.",
+          "en": "The water runs into the basin.",
+          "de": "Das Wasser fließt ins Becken.",
+          "grammar": ["presente-regolare", "preposizioni-articolate"]
+        }
+      ]
+    },
+    "clock": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È bianco.",
+          "sl": "Je bela.",
+          "en": "It's white.",
+          "de": "Sie ist weiß.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "bianco"
+        },
+        {
+          "kind": "trait",
+          "it": "Ha il bordo d'oro.",
+          "sl": "Ima zlat rob.",
+          "en": "It has a gold rim.",
+          "de": "Sie hat einen goldenen Rand.",
+          "grammar": ["essere-avere"]
+        },
+        {
+          "kind": "trait",
+          "it": "Ha due lancette nere.",
+          "sl": "Ima dva črna kazalca.",
+          "en": "It has two black hands.",
+          "de": "Sie hat zwei schwarze Zeiger.",
+          "grammar": ["essere-avere", "aggettivi-accordo"]
+        },
+        {
+          "kind": "where",
+          "it": "È sul campanile.",
+          "sl": "Je na zvoniku.",
+          "en": "It's on the bell tower.",
+          "de": "Sie ist am Glockenturm.",
+          "grammar": ["preposizioni-articolate"],
+          "ref": "tower"
+        },
+        {
+          "kind": "does",
+          "it": "Batte le ore.",
+          "sl": "Bije ure.",
+          "en": "It strikes the hours.",
+          "de": "Sie schlägt die Stunden.",
+          "grammar": ["presente-regolare"]
+        },
+        {
+          "kind": "use",
+          "it": "Ci dice che ore sono.",
+          "sl": "Pove nam, koliko je ura.",
+          "en": "It tells us what time it is.",
+          "de": "Sie sagt uns, wie spät es ist.",
+          "grammar": ["verbi-irregolari"]
         }
       ]
     }

@@ -3,7 +3,7 @@
   "scene": "al-ruscello",
   "language": "it",
   "machine_written": true,
-  "review": "clues: machine-written (Claude) in it, with sl, en and de translations, from the stream's picture (its painter's colours and where each thing is drawn, as ob-potoku's clues have them; the mill once it stands, the animals when they are out); not reviewed by a native speaker",
+  "review": "clues: machine-written (Claude) in it, with sl, en and de translations, from the stream's picture (its painter's colours and where each thing is drawn, as ob-potoku's clues have them; the mill once it stands, the animals when they are out); not reviewed by a native speaker; the finished projects' things (cart bridge): machine-written (Claude) from the picture as its painter draws them, not reviewed by a native speaker",
   "things": {
     "stream": {
       "clues": [
@@ -125,6 +125,52 @@
         { "kind": "size", "it": "È piccolo.", "sl": "To je nekaj majhnega.", "en": "It's small.", "de": "Das ist klein.", "grammar": ["aggettivi-accordo"] },
         { "kind": "does", "it": "Vola di notte.", "sl": "Leta ponoči.", "en": "It flies at night.", "de": "Das fliegt nachts.", "grammar": ["presente-regolare"] },
         { "kind": "does", "it": "Dorme a testa in giù.", "sl": "Spi z glavo navzdol.", "en": "It sleeps upside down.", "de": "Das schläft kopfüber.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "cartbridge": {
+      "clues": [
+        {
+          "kind": "size",
+          "it": "È largo.",
+          "sl": "Je širok.",
+          "en": "It's wide.",
+          "de": "Sie ist breit.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "largo"
+        },
+        {
+          "kind": "material",
+          "it": "È di legno e di sassi.",
+          "sl": "Je iz lesa in kamnov.",
+          "en": "It's made of wood and stones.",
+          "de": "Sie ist aus Holz und Steinen.",
+          "grammar": ["essere-avere"]
+        },
+        {
+          "kind": "trait",
+          "it": "Ha due pilastri.",
+          "sl": "Ima dva stebra.",
+          "en": "It has two pillars.",
+          "de": "Sie hat zwei Pfeiler.",
+          "grammar": ["essere-avere", "plurale"]
+        },
+        {
+          "kind": "where",
+          "it": "È sopra il ruscello.",
+          "sl": "Je nad potokom.",
+          "en": "It's over the stream.",
+          "de": "Sie ist über dem Bach.",
+          "grammar": ["dove-preposizioni"],
+          "ref": "stream"
+        },
+        {
+          "kind": "use",
+          "it": "Ci passano i carri.",
+          "sl": "Po njem vozijo vozovi.",
+          "en": "The carts go over it.",
+          "de": "Darüber fahren die Wagen.",
+          "grammar": ["presente-regolare"]
+        }
       ]
     }
   }
