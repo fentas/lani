@@ -109,6 +109,10 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        a few at a place, a couple at the fire by day, a handful in the evening), and the field beside
                        the fire at the moments someone walks by it ($LANI_QA_FIELD_WALK, "h:mm[:ss],…"; "9:25,11:02,12:30"
                        when unset);
+                       "palisade-walk" nobody through the palisade's stakes (QA's hooks "hearths:zaselek", "hour:<h>",
+                       "show:path", "show:road"): the path's gate into the woods or the main gate up close at the moments
+                       of $LANI_QA_GATE_WALK ("h:mm[:ss][/spot]"; when unset, the shepherd's night ritual: out to the
+                       sheep at 21:25, home at 21:45), and four seconds on: whoever goes through, under the lintel;
                        "reactions" the people reacting to the village's events (QA's hooks "event:<kind>", "event:won",
                        "hour:<h>", "show:<spot>"): wolves coming and there by day (the defenders in the gate, the lookout,
                        the fire's gathering), a villager's card then (their line, "🐺 Branimo vas!", no talk), wolves at
@@ -4666,6 +4670,39 @@ def village_life():
             shot(f"village-life-field-{h:02d}{m:02d}{sec:02d}")
             plain_village()
     finally:
+        qa_hook("hour:")
+        qa_hook("bubbles:")
+    return None
+
+
+def palisade_walk():
+    """Nobody walks through the palisade (VILLAGERS.md "Walks"; docs/plans/05-built/palisade-walk.md; QA's hooks
+    "hearths:<age>", "hour:<h>", "show:<spot>"): the hamlet with its palisade ("hearths:zaselek"), and at each moment of
+    $LANI_QA_GATE_WALK ("h:mm[:ss][/spot]", the spot the camera flies to, "path" by default: the path's gate into the
+    woods; "road": the main gate) the gate up close, the clock standing there and four seconds on: whoever goes through
+    it then, under its lintel. When unset, the shepherd's night ritual (VILLAGERS.md "Night rituals": out to the sheep in
+    the meadow at 21:25, home at 21:45, a lantern in his hand, whatever the day's requests), through the path's gate a
+    quarter of a minute after in QA's village. The clock's hour after."""
+    moments = os.environ.get("LANI_QA_GATE_WALK", "21:25:10,21:25:14,21:45:24,21:45:28")
+    try:
+        qa_hook("bubbles:0")  # the people, not their bubbles over them
+        qa_hook("event:")
+        qa_hook("hearths:zaselek")
+        for m in moments.split(","):
+            hm, _, spot = m.strip().partition("/")
+            h, mi, sec = ([int(x) for x in hm.split(":")] + [0])[:3]
+            qa_hook(f"hour:{h + mi / 60 + sec / 3600:.6f}")
+            plain_village()
+            qa_hook(f"show:{spot or 'path'}")
+            time.sleep(3 * slow())
+            qa_hook("zoom")
+            time.sleep(3 * slow())
+            shot(f"palisade-walk-{spot or 'path'}-{h:02d}{mi:02d}{sec:02d}")
+            qa_hook(f"hour:{h + mi / 60 + (sec + 4) / 3600:.6f}")
+            time.sleep(2 * slow())
+            shot(f"palisade-walk-{spot or 'path'}-{h:02d}{mi:02d}{sec:02d}-4s")
+    finally:
+        qa_hook("show:")
         qa_hook("hour:")
         qa_hook("bubbles:")
     return None
@@ -13182,6 +13219,7 @@ def plan():
         ("friuli-school", friuli_school, None, False, ""),
         ("friuli-school-unit", friuli_school_unit, None, False, ""),
         ("village-life", village_life, v, False, ""),
+        ("palisade-walk", palisade_walk, v, False, ""),
         ("reactions", reactions, v, False, ""),
         ("quests-threat", quests_threat, v, False, ""),
         ("wishlist", wishlist, go_home, False, ""),
