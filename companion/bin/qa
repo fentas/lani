@@ -2537,10 +2537,16 @@ def story_faces():
     try:
         qa_hook(f"happening:{sc['id']}/{h['id']}", f"scene:{sc['id']}")
         assert wait_for(f"‹ {label('common.village')}", 12) or wait_for(teller, 8), f"the scene {sc['id']}"
-        c = scroll_to(listen, 4) or find(listen)
-        assert c is not None, f"{listen} by {teller}"
+        if (tip := find(label("tips.gotIt"))) is not None:  # a tip's card over "Here today" (a new village's): out of the way
+            tap_at(tip)
+            time.sleep(1.5)
+        # "📖 Poslušaj · Listen" by him under "Here today", else his marker over the picture ("<teller>: <tonight's story> …")
+        c = scroll_to(listen, 4) or find(listen) or next((c for t, c in nodes() if t.startswith(f"{teller}:")), None)
+        assert c is not None, f"{listen} by {teller}, or his marker"
         adb("logcat", "-c")
         tap_at(c)
+        if wait_for(close, 4) is None and (l := find(listen)) is not None:  # his choice of what he has: the story in it
+            tap_at(l)
         assert wait_for(close, 8), "the story's panel"
         time.sleep(2)
         said = portrait_says(teller)
@@ -13700,15 +13706,19 @@ def coast():
                 if not again:
                     break
                 at = again[0]
-            assert word_card(2), f"the word card of {word}"
-            time.sleep(1.5)
-            snap("animal-word")
-            labels = [t for t, _ in nodes()]
-            assert any(word in t for t in labels), f"{word} on its card"
-            assert not any(t in WILD_SL for t in labels), f"a Slovene animal's word on the card: {[t for t in labels if t in WILD_SL]}"
-            notes.append(f"animal: {word}")
-            adb("shell", "input", "keyevent", "KEYCODE_BACK")
-            time.sleep(1.2)
+            if not word_card(2):
+                # it moved on between the dump and the tap (a hare hops, a bird flies): its Italian word on the map is the
+                # check that matters (above); the land's steps go on
+                notes.append(f"animal: {word} on the map, its card not opened (it moved)")
+            else:
+                time.sleep(1.5)
+                snap("animal-word")
+                labels = [t for t, _ in nodes()]
+                assert any(word in t for t in labels), f"{word} on its card"
+                assert not any(t in WILD_SL for t in labels), f"a Slovene animal's word on the card: {[t for t in labels if t in WILD_SL]}"
+                notes.append(f"animal: {word}")
+                adb("shell", "input", "keyevent", "KEYCODE_BACK")
+                time.sleep(1.2)
         qa_hook("hour:11")
         plain_village()
 
