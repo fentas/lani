@@ -11,8 +11,9 @@ Usage: companion/bin/lani-watchdog                one round: every learner check
 
 A round, for each learner (lani-profile list --ids):
 - the bridge service is down (for a learner whose tutor uses one: lani-session's service mode): lani-bridge start;
-- the tutor's tmux session is gone; or it is there, older than 10 minutes (LANI_WATCHDOG_GRACE_MIN), and the tutor
-  hasn't been attached to the bridge service for 6 rounds' worth of minutes (LANI_WATCHDOG_DETACHED_MIN): lani-session
+- the tutor's tmux session is gone; or it is there, nobody has it open in a terminal, older than 10 minutes
+  (LANI_WATCHDOG_GRACE_MIN), and the tutor
+  hasn't been attached to the bridge service for 6 minutes (LANI_WATCHDOG_DETACHED_MIN): lani-session
   --restart --profile <id> --now (it quits a stale session, starts it detached and confirms the channel's prompt).
 It starts nothing:
 - while less than 4 GB of memory are available (LANI_WATCHDOG_MIN_GB): the log says what waits;
@@ -106,6 +107,7 @@ class Seen:
     session_age: float  # seconds since that session was made (0 without one)
     held_bridge: float | None  # how long ago the bridge was stopped on purpose (s), None: it wasn't
     held_tutor: float | None
+    watched: bool = False  # a terminal has the tutor's tmux session open (someone is looking at it)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -130,15 +132,16 @@ def learners() -> list[str]:
     return [l.strip() for l in r.stdout.splitlines() if l.strip()]
 
 
-def sessions() -> dict[str, float]:
-    """The tmux sessions by name, with when each was made (epoch s); {} when no tmux server runs."""
-    r = run(["tmux", "list-sessions", "-F", "#{session_name} #{session_created}"], timeout=15)
+def sessions() -> dict[str, tuple[float, bool]]:
+    """The tmux sessions by name: when each was made (epoch s), and whether a terminal has it open; {} when no tmux
+    server runs."""
+    r = run(["tmux", "list-sessions", "-F", "#{session_name} #{session_created} #{session_attached}"], timeout=15)
     out = {}
     if r.returncode == 0:
         for line in r.stdout.splitlines():
-            name, _, created = line.rpartition(" ")
-            if name and created.isdigit():
-                out[name] = float(created)
+            parts = line.rsplit(" ", 2)
+            if len(parts) == 3 and parts[1].isdigit():
+                out[parts[0]] = (float(parts[1]), parts[2].strip() not in ("", "0"))
     return out
 
 
@@ -149,18 +152,19 @@ def age(path: Path, now: float) -> float | None:
         return None
 
 
-def observe(learner: str, tmux: dict[str, float], now: float) -> Seen:
+def observe(learner: str, tmux: dict[str, tuple[float, bool]], now: float) -> Seen:
     b = str(bin_dir() / "lani-bridge")
     # the mode as lani-session decides it (its --print shows the service's start in the service mode)
     printed = run([str(bin_dir() / "lani-session"), "--print", *profile_args(learner)])
     mode = "service" if "lani-bridge start" in printed.stdout else "classic"
     up = run([b, "status", "--quiet", *profile_args(learner)]).returncode == 0
     attached = up and "the tutor is attached" in run([b, "status", *profile_args(learner)]).stdout
-    created = tmux.get(tmux_name(learner))
+    created, watched = tmux.get(tmux_name(learner), (None, False))
     return Seen(
         learner=learner, mode=mode, bridge_up=up, attached=attached, session=created is not None,
         session_age=max(0.0, now - created) if created is not None else 0.0,
         held_bridge=age(hold_file("bridge", learner), now), held_tutor=age(hold_file("tutor", learner), now),
+        watched=watched,
     )
 
 
@@ -209,7 +213,10 @@ def decide(seen: Seen, prev: dict, now: float, cfg: Config, gb: float, paused: s
     elif seen.mode == "service" and seen.bridge_up and not seen.attached:
         since = float(prev.get("detached_since") or now)
         state["detached_since"] = since
-        if seen.session_age < cfg.grace_s:
+        if seen.watched:
+            # someone has it open in a terminal: theirs to quit or fix, not the watchdog's
+            notes.append(f"the tutor isn't attached since {clock(since)}, but a terminal has its session open: left be")
+        elif seen.session_age < cfg.grace_s:
             notes.append(f"the tutor isn't attached yet: its session started at {clock(now - seen.session_age)}")
         elif now - since < cfg.detached_s:
             notes.append(f"the tutor isn't attached since {clock(since)}: restarted if it still isn't at {clock(since + cfg.detached_s)}")

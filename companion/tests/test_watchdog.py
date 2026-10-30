@@ -89,6 +89,10 @@ class DecideTest(unittest.TestCase):
         self.assertEqual(["tutor"], [a.kind for a in wd.decide(seen(attached=False), {"detached_since": NOW - 420}, NOW, CFG, 20)[0]])
         # attached again: forgotten
         self.assertEqual({}, self.kinds(seen(), prev={"detached_since": NOW - 420})[2])
+        # someone has the session open in a terminal: theirs, never restarted under them
+        actions, note, _ = wd.decide(seen(attached=False, watched=True), {"detached_since": NOW - 3600}, NOW, CFG, 20)
+        self.assertEqual([], actions)
+        self.assertIn("a terminal has its session open", note)
 
     def test_classic_mode_only_the_session(self):
         self.assertEqual(([], "", {}), self.kinds(seen(mode="classic", bridge_up=False, attached=False)))
@@ -114,7 +118,7 @@ elif name == "tmux":
         if not world["sessions"]:
             print("no server running", file=sys.stderr); sys.exit(1)
         for s, created in world["sessions"].items():
-            print(f"{s} {created}")
+            print(f"{s} {created} 0")
 elif name == "lani-bridge":
     me = world["learner"][learner()]
     if args[0] == "status":

@@ -495,8 +495,11 @@ def main(argv: list[str]) -> int:
             return 2
         want = [int(args[i + 1])]
         del args[i:i + 2]
-    if "--dry" in args or "--bridges-only" in args or "--build-only" in args:
-        # no emulator: qa's own answer with slot 1's ports (--dry shows them), or the build alone
+    if "--build-only" in args:
+        # the build alone, through the same memory gate and heavy slot as before a run
+        return build(args)
+    if "--dry" in args or "--bridges-only" in args:
+        # no emulator: qa's own answer with the slot's ports (--dry shows them)
         return subprocess.run([sys.executable, str(QA), *args], env={**os.environ, **slots()[want[0] - 1].env()}).returncode
 
     for sig in (signal.SIGINT, signal.SIGTERM, signal.SIGHUP):
@@ -542,9 +545,11 @@ def take_and_run(want: list[int], args: list[str]) -> int:
                 ticket.done()
                 return run_in(s, lock, args)
             line = "; ".join(whys)
-            if line != last or time.time() - said > 300:
+            # said again when the reason changes (not the memory's figures), and every 5 minutes
+            key = re.sub(r"\d+(\.\d+)?", "#", line)
+            if key != last or time.time() - said > 300:
                 print(f"qa-slot: waiting ({line})", flush=True)
-                said, last = time.time(), line
+                said, last = time.time(), key
             time.sleep(5)
         print("qa-slot: no slot came free in LANI_QA_WAIT_S", file=sys.stderr)
         return 75
