@@ -179,6 +179,48 @@ export default async function courseSpeech() {
       [tight.would, chars, fg.st.calls.length, after.cached])
   }
 
+  // --- companion/bin/voice-build --data of another learner: their village, as their bridge plays it ----------------------
+  {
+    // two culture packs (their manifests), an Italian learner's data with a tutor's Italian grammar page (Teo's,
+    // 2026-10-30: "a page of "it", this book is "sl""), and a registry that has them (or none)
+    const cultures = tempDir('lani-cs-vbc-cultures-')
+    for (const c of ['primorska', 'friuli']) {
+      mkdirSync(join(cultures, c), { recursive: true })
+      cpSync(join(culturesDir, c, 'culture.json'), join(cultures, c, 'culture.json'))
+    }
+    const root = tempDir('lani-cs-vbc-')
+    const data = join(root, 'teo/data')
+    mkdirSync(join(data, 'app/grammar'), { recursive: true })
+    const profile = JSON.parse(readFileSync(join(dataDir, 'learner-profile.json'), 'utf8'))
+    profile.learner = { ...profile.learner, name: 'Teo', target_language: 'Italian', target_language_code: 'it', base_language: 'German', base_language_code: 'de' }
+    writeFileSync(join(data, 'learner-profile.json'), JSON.stringify(profile))
+    cpSync(join(repo, 'companion/grammar/it/articoli-genere.json'), join(data, 'app/grammar/articoli-genere.json'))
+    const registry = tempDir('lani-cs-vbc-registry-')
+    const empty = (n: string) => tempDir(`lani-cs-vbc-${n}-`)
+    const env = {
+      ...process.env, LANI_CULTURES_DIR: cultures, LANI_PACKS_DIR: empty('packs'), LANI_MODULES_DIR: empty('modules'), LANI_SCENARIOS_DIR: empty('scenarios'),
+      LANI_SCENES_DIR: empty('scenes'), LANI_DRILLS_DIR: empty('drills'), LANI_GRAMMAR_DIR: empty('grammar'), LANI_VILLAGERS_DIR: empty('villagers'), LANI_COURSE_DIR: courseRoot,
+      LANI_KEYS_FILE: '/nonexistent', ELEVENLABS_API_KEY: '', LANI_GEPARD_URL: 'http://127.0.0.1:9', LANI_ENV_FILE: '/dev/null', LANI_PROFILES_DIR: registry,
+      LANI_VOICE_CACHE: join(root, 'voice'),
+    } as Record<string, string>
+    delete env.LANI_CULTURE
+    delete env.LANI_DATA_DIR
+    const planOf = async (extra: Record<string, string> = {}) => {
+      const p = Bun.spawn(['bun', resolve(import.meta.dir, '../../../bin/voice-build'), '--json', '--data', data], { env: { ...env, ...extra }, stdout: 'pipe', stderr: 'pipe' })
+      const [stdout, stderr] = await Promise.all([new Response(p.stdout).text(), new Response(p.stderr).text(), p.exited])
+      return { plan: JSON.parse(stdout || '{}'), stderr }
+    }
+    const byCourse = await planOf()
+    check('voice-build --data of a learner no registry names: the village of the language they learn (friuli, Italian), their Italian grammar page read as its book',
+      byCourse.plan.culture === 'friuli' && byCourse.plan.language === 'it' && !byCourse.stderr.includes('this book is'), [byCourse.plan.culture, byCourse.plan.language, byCourse.stderr.slice(0, 300)])
+    writeFileSync(join(registry, 'profiles.json'), JSON.stringify({ schema: 'lani.profiles/v1', profiles: [{ id: 'teo', name: 'Teo', target: 'it', base: 'de', culture: 'friuli', child: true, port: 18999, https_port: 9443, tmux: 'lani-teo', remote_control: 'lani-tutor-teo', data_dir: data, created: '2026-10-01' }] }))
+    const byEntry = await planOf()
+    const set = await planOf({ LANI_CULTURE: 'primorska' })
+    check('…a registry entry\'s culture as lani-session gives it to their bridge (friuli); LANI_CULTURE set wins (primorska: the page then is skipped as not the book\'s)',
+      byEntry.plan.culture === 'friuli' && byEntry.plan.language === 'it' && set.plan.culture === 'primorska' && set.plan.language === 'sl' && set.stderr.includes('this book is "sl"'),
+      [byEntry.plan.culture, set.plan.culture, set.stderr.slice(0, 200)])
+  }
+
   // --- a character's local clip, in the speaker's ElevenLabs voice as the app asks for it -----------------------------
   {
     const fe = fakeEleven()

@@ -125,7 +125,7 @@ import { ArrivalStore, cultureArrivals } from '../bridge/src/arrivals'
 import { cast, castVoiced, denoiseVoices, isLearnerVoice, isSpeaker, PERSON_VOICE, personVoice, tempoVoices, useCastFile, usePersonVoices } from '../bridge/src/cast'
 import { CourseStore, courseDir } from '../bridge/src/course'
 import { familyHas, indexHas } from '../bridge/src/course-speech'
-import { childOf, learnerLangs } from '../bridge/src/learners'
+import { childOf, cultureOf, learnerLangs } from '../bridge/src/learners'
 import { mineVoice } from '../bridge/src/my-voice'
 import { ownVoicesIn } from '../bridge/src/profiles'
 import { cultureDir, cultureKeepers, keeperTellings, resolveCulture } from '../bridge/src/cultures'
@@ -149,12 +149,13 @@ import { voiceDir } from '../bridge/src/paths'
 import { setting } from '../bridge/src/env'
 
 const root = resolve(import.meta.dir, '../..')
-// the learner's village's culture pack (LANI_CULTURE, as their bridge has it; primorska by default): its language,
-// its cast, its voice cast, its packs and its own scenes
+// the learner's village's culture pack, as their bridge has it (primorska by default): its language, its cast, its voice
+// cast, its packs and its own scenes. LANI_CULTURE (lani.env's for the default learner); another --data directory's as
+// its bridge gets it (learners.ts cultureOf: its registry entry's, else the language its course teaches): Teo's data
+// is friuli's, Italian, its grammar pages read as an Italian book
 const cultures = process.env.LANI_CULTURES_DIR ?? join(root, 'companion/cultures')
-// (lani.env's for the default learner; another --data directory's comes from LANI_CULTURE in the environment only)
 const dataArg = process.argv.indexOf('--data') >= 0 ? process.argv[process.argv.indexOf('--data') + 1] : undefined
-const village = resolveCulture(cultures, setting('LANI_CULTURE', dataArg ? { ...process.env, LANI_DATA_DIR: resolve(dataArg) } : process.env))
+const village = resolveCulture(cultures, dataArg ? cultureOf(dataArg, root, cultures) : setting('LANI_CULTURE', process.env))
 const culture = village.id
 const language = village.manifest?.language ?? 'sl'
 // the curated content of the village's language (a subdirectory for another than Slovene, as the bridge has it)
@@ -941,9 +942,11 @@ const opts = { maxChars, upgrade: flag('--upgrade'), revoice, revoiceWords, max,
 
 const before = await plan(items, store, eleven, gepard, opts)
 if (flag('--json') && !flag('--run')) {
-  console.log(JSON.stringify(before, null, 2))
+  // the village whose texts these are, and its language (another learner's --data: as their bridge plays it)
+  console.log(JSON.stringify({ ...before, culture, language }, null, 2))
   process.exit(0)
 }
+console.log(`Village: ${culture} (${language})${village.why ? `; ${village.wanted} isn't played: ${village.why}` : ''}`)
 console.log(formatPlan(before, store.dir))
 if (!flag('--run')) {
   const tail = `${only.length ? ` --only ${only.join(',')}` : ''}${explanations ? ' --explanations' : ''}${bases.length ? ` --base ${bases.join(',')}` : ''}${maxChars !== undefined ? ` --max-chars ${maxChars}` : ''}${data ? ` --data ${data}` : ''}`

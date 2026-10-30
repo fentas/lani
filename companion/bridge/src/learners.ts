@@ -7,7 +7,7 @@
 import { spawnSync } from 'node:child_process'
 import { existsSync, mkdirSync, readFileSync, readdirSync, renameSync, writeFileSync } from 'node:fs'
 import { isAbsolute, join, relative, resolve } from 'node:path'
-import { CULTURE_ID, DEFAULT_CULTURE, LANDSCAPES } from './cultures'
+import { CULTURE_ID, DEFAULT_CULTURE, LANDSCAPES, cultureFor } from './cultures'
 import { setting } from './env'
 
 export const DEFAULT_ID = 'default'
@@ -298,6 +298,26 @@ export function childOf(dataDir: string, projectDir: string, env: Record<string,
   } catch {
     return false
   }
+}
+
+/**
+ * The culture pack of the learner of [dataDir], for a tool run outside their bridge (voice-build --data), as their
+ * bridge plays it: LANI_CULTURE when it is set (the environment's; lani.env's for the default learner's own data);
+ * else their registry entry's (profiles/profiles.json, the entry whose data directory it is: lani-session gives their
+ * bridge that one); else the pack of the language they learn (learner-profile.json, as the phone picks it: an Italian
+ * learner's data plays friuli); else the default.
+ */
+export function cultureOf(dataDir: string, projectDir: string, culturesDir: string, env: Record<string, string | undefined> = process.env): string {
+  const set = setting('LANI_CULTURE', { ...env, LANI_DATA_DIR: resolve(dataDir) })?.trim()
+  if (set) return set
+  try {
+    const dir = profilesDir(projectDir, env)
+    const want = resolve(dataDir)
+    const e = readRegistry(dir).profiles.find(e => e && entryDataDir(dir, e) === want)
+    if (e) return e.culture ?? DEFAULT_CULTURE
+  } catch {} // no registry, or one that can't be read: as without one
+  const code = learnerFacts(dataDir).targetCode
+  return (code && cultureFor(culturesDir, code)) || DEFAULT_CULTURE
 }
 
 /** [target] and [base] as the profile names them ("Italian"); [targetCode] and [baseCode] as codes ("it"), when known. */
