@@ -152,19 +152,30 @@ None of these is needed for the scenes to be right as they are; each would let t
 
 ## How it was checked
 
-After the rebase onto main (the case trainer, the lens and the palisade's walks merged):
+After the rebase onto main with agent B's part merged (the Friuli buildings' scenes and looks, every building at its level):
 
 - The content, without Gradle (the scratchpad's replay of the app's content tests): every turn, reaction, why and grammar
-  page (DialogReactions, Variants, the seasons), every I spy clue (ISpyContent: 3–6 clues, two at A1, never the word, the
-  German pronoun by the Italian gender), the look lint ("guarda" cued or naming a thing the art draws, faces, 3–8 lines),
-  the culture's validation and the prompts of the seven packs (0 clashes over 619 Italian words), the learner audit
-  (`bun test/learner-content.ts`: 0 texts naming Jan, 0 malformed placeholders, 0 turns the same for one gender).
-- The app's content tests with the seven scenes (DialogReactionsTest `19 + 24` scene files, CultureScenesTest with the
-  vineyard's and the bee meadow's arts, ScenesContentTest, VariantsContentTest, ISpyContentTest, SceneCoherenceTest,
-  DialogWordsContentTest, WordStickersTest, FriuliCultureTest, CultureParityTest … 22 classes): 149 tests, 0 failed.
-- The bridge: `tsc` clean; the smoke on ports 9030–9035: 3009 checks, all passed (its lookup of l'ombra now finds the tower
+  page (DialogReactions, Variants, the seasons), every I spy clue, the look lint ("guarda" cued or naming a thing the art
+  draws, faces, 3–8 lines), the culture's validation, the prompts (0 clashes over 742 Italian words) and the learner audit
+  (`bun test/learner-content.ts`: 0 texts naming Jan, 0 malformed placeholders, 0 turns the same for one gender). The
+  replay also flags In piazza's German clues ("Sie hat einen braunen Stamm": die Linde) by the Italian noun's gender; the
+  app's test reads the German pronoun only in a German scene, and German goes by its own nouns, so nothing to change.
+- The full Android unit suite (lani-slot.sh): 3432 tests in 434 classes, 2 skipped, 2 failed, both timings with the machine
+  at a load of 42: TownWindowTest's pan (3.7 ms against 1.6 at rest), passing alone (8 of 8), and SceneDetailTest's "a
+  closer frame renders fast" (the kitchen and the alps at 28 ms; alone at a load of 45 the kitchen at 25 ms), arts this
+  branch doesn't touch. Every content test passes: DialogReactionsTest (19 + 33 scene files), CultureScenesTest (Nella vigna
+  and Il prato delle api among the culture scenes, every slot once, every effect of their arts), ScenesContentTest,
+  VariantsContentTest, ISpyContentTest, SceneCoherenceTest, BuildingLevelsTest, WordStickersTest, FriuliCultureTest.
+- The bridge: `tsc` clean; the smoke on ports 9030–9035: 3018 checks, all passed (its lookup of l'ombra finds the tower
   clock's pack word first, the dictionary's ombra after it); `tutor-export --check`: 87 files match.
-- The full Android unit suite (lani-slot.sh): 3413 tests in 430 classes, 2 skipped, 1 failed: ScenePaintersTest's "a frame
-  renders fast" (the alps at 22 ms, the machine at a load of 38); alone it passes (18 of 18). The run before the rebase
-  had the same kind of one (SceneDetailTest, the kitchen and the alps at 25 ms under a load of 45; alone it passed).
-- On the emulator (QA_PLACES), a synthetic Italian learner of the Friuli culture, the phone in sl · en: see below.
+- On the emulator (inside the emulator lock; the dev bridge on a synthetic Italian learner of the Friuli culture, the phone
+  in sl · en; a driver over companion/bin/qa's helpers, in the scratchpad): the village built up as a Vas, each project one
+  step short (QA's hook "step:<project>/<last>"): a tap on the vineyard's terraces and on the bee meadow opens the projects
+  sheet, no way in; finished: the tap opens the landmark's card with "🚪 Vstopi · Go in: 🍇 Nella vigna · In the vineyard ›"
+  and "… 🌼 Il prato delle api · The bee meadow ›", in with a tap (2 taps from the village); each scene at 11 o'clock and
+  closer up, and a dialog of each played to its end with no mistake (Matteo's morning among the vines; Aldo's last puff of
+  smoke and the bee on the flower, the bee garden at its first level in Friuli's look, the asters of October in its bed),
+  their memories ("la mattina nella vigna, sulle terrazze", "le api sui fiori del prato"); no crash. 14 minutes with the
+  emulator's boot and the first launch, the machine at a load of about 40. Before the rebase the same for the vineyard and
+  La fontana (the fountain on a Trg's square; Bruno's dialog to its end). Screenshots in the scratchpad's
+  ux-places/places-it-projects/qa (and qa-d3ff0c08 before the rebase).
