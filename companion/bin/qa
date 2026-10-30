@@ -112,7 +112,10 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        "places" the village's places: the bocce court finished, its landmark's card, "🚪 Vstopi", a dialog
                        and «Vidim, vidim» there, then the playground, the chapel, the fire station, the lookout and the
                        palisade's gate by day and at night ($LANI_QA_PLACES_SHOTS; with LANI_CULTURE=friuli and an
-                       Italian learner, the phone in sl · en, Teo's: Al campo da bocce and the other five); "trade" food for wood ("⇄ Zamenjaj · Trade"): the sheet, its run to the end,
+                       Italian learner, the phone in sl · en, Teo's: Al campo da bocce and the other five); "place-life" the
+                       projects as things of their scenes: each spied and tapped, the square's standing spots, the clock
+                       striking the hour, the lad up the maypole (the Friuli village's with LANI_CULTURE=friuli;
+                       $LANI_QA_PLACE_LIFE_SHOTS); "trade" food for wood ("⇄ Zamenjaj · Trade"): the sheet, its run to the end,
                        the result, the HUD's stocks moved and the dev bridge's village keeping the day's trade;
                        "village-life" the village's day on the map (QA's hook "hour:<h>", which the map follows too):
                        zoomed in at 8, 11, 15 and 19 o'clock (the people at their chores and work about the village,
@@ -4573,6 +4576,135 @@ def mill_texts() -> dict:
         "stream": "al-ruscello" if friuli else "ob-potoku",
         "scene": scene, "lang": scene.get("language", "sl"),
     }
+
+
+def place_life():
+    """The places come alive (docs/plans/05-built/place-life.md): the village built up as a Trg (QA's hook "hearths:trg": the
+    church among its buildings), its projects on the square, by the stream, in the field and at the apiary finished
+    ("step:<project>/<last + 1>"); in each project's scene (Pod uro, Pod mlajem, Pri vodnjaku, Na mostu, Pri toplarju, Na
+    čebeljem travniku; in the Friuli village L'orologio, La cuccagna, La fontana, Il ponte, Il grande fienile, Il prato delle
+    api) the project as a thing of the picture: «Vidim, vidim» there, its first round spying it ("ispy:<scene>/<slot>"),
+    found by a tap; then a tap on it outside the game, its word; the grown-ups at the square's standing spots; the clock
+    striking the hour (the variant counting the hour, its happening on through "happening:", shots as the strokes ring) and
+    the lad up the maypole (the variant with the climb). The Slovene village by default; the Friuli one with an Italian
+    learner (LANI_DEV_DATA, LANI_CULTURE=friuli), the app in it · de. Also as pl-*.png in $LANI_QA_PLACE_LIFE_SHOTS."""
+    try:
+        culture = api("/culture").get("id")
+    except (OSError, RuntimeError, ValueError):
+        culture = None
+    friuli = culture == "friuli"
+    out = Path(os.environ["LANI_QA_PLACE_LIFE_SHOTS"]) if os.environ.get("LANI_QA_PLACE_LIFE_SHOTS") else None
+    pair = ["it", "de"] if friuli else (os.environ.get("LANI_QA_PAIR") or "sl-en").split("-")
+    lab = lambda key: " · ".join(l10n(lang).get(key, key) for lang in pair)
+    back = lab("common.village")
+    close = lab("common.close")
+    nxt = lab("common.next")
+    tag = "fr" if friuli else "sl"
+    scenes_dir = ROOT / ("companion/cultures/friuli/scenes" if friuli else "companion/scenes")
+    specs = {p["id"]: p for p in json.loads((ROOT / f"companion/cultures/{'friuli' if friuli else 'primorska'}/projects.json").read_text())["projects"]}
+    places = (
+        [("l-orologio", "clock", "mestna_ura", "15"), ("la-cuccagna", "maypole", "mlaj", "16"), ("la-fontana", "fountain", "vodnjak_na_trgu", "11"),
+         ("il-ponte", "cartbridge", "most", "11"), ("il-grande-fienile", "toplar", "toplar", "11"), ("il-prato-delle-api", "meadow", "cebelji_travnik", "11")]
+        if friuli else
+        [("pod-uro", "clock", "mestna_ura", "15"), ("pod-mlajem", "maypole", "mlaj", "16"), ("pri-vodnjaku", "fountain", "vodnjak_na_trgu", "11"),
+         ("na-mostu", "cartbridge", "most", "11"), ("pri-toplarju", "toplar", "toplar", "11"), ("na-cebeljem-travniku", "meadow", "cebelji_travnik", "11")]
+    )
+
+    def snap(name: str):
+        shot(name)
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"{name}.png")
+
+    def fx_variant(sid: str, name: str):
+        """The happening and the dialog of [sid] whose lines cue the effect [name] (the clock's strike, the climb), or None."""
+        sc = json.loads((scenes_dir / f"{sid}.json").read_text())
+        cues = lambda d: any(name in (l.get("fx") or {}) or any(name in ((c.get("reply") or {}).get("fx") or {}) for c in l.get("choices", [])) for l in d["lines"])
+        for d in sc["dialogs"] + sc.get("variants", []):
+            if not cues(d):
+                continue
+            h = next((h for h in sc["happenings"] if d["id"] == h.get("dialog") or d["id"] in h.get("dialogs", [])), None)
+            if h is not None:
+                return sc, h["id"], d["id"]
+        return None
+
+    if friuli:
+        qa_hook("pair:it-de")
+    played = []
+    try:
+        qa_hook("bubbles:0")
+        qa_hook("hearths:trg")
+        for _, _, proj, _ in places:
+            qa_hook(f"step:{proj}/{len(specs[proj]['steps']) + 1}")
+        qa_hook("step:")
+        for sid, slot, proj, hour in places:
+            plain_village()
+            adb("logcat", "-c")
+            qa_hook(f"hour:{hour}", f"ispy:{sid}/{slot}", f"scene:{sid}")
+            if wait_for(back, 12) is None:
+                snap(f"pl-{tag}-{sid}-not-open")
+                continue
+            time.sleep(3 * slow())
+            snap(f"pl-{tag}-{sid}")
+            marker = wait_for(lab("ispy.title"), 20)
+            card = scroll_to("🔍 " + lab("ispy.play"), 5) or marker
+            if card is None:
+                snap(f"pl-{tag}-{sid}-no-ispy")
+                qa_hook("ispy:")
+                tap(back, 3)
+                continue
+            tap_at(card)
+            got = ispy_positions(15)
+            assert got is not None, "the debug build's ISpy log of where the things are"
+            _, target, at, word = got
+            assert target == slot and slot in at, f"{sid}: the first round spies the {slot}: {target}, {sorted(at)}"
+            time.sleep(4 * slow())
+            snap(f"pl-{tag}-{sid}-ispy-round")
+            tap_at(at[slot])
+            found = wait_for(f"{word}!", 15) is not None or wait_for("Bravo", 3) is not None
+            snap(f"pl-{tag}-{sid}-ispy-{'found' if found else 'tapped'}")
+            played.append(f"{sid}/{slot}{'' if found else ' (tap not taken)'}")
+            qa_hook("ispy:")
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")
+            time.sleep(2 * slow())
+            # the thing tapped in the scene: its word
+            if find(back) is not None:
+                tap_at(at[slot])
+                time.sleep(2 * slow())
+                snap(f"pl-{tag}-{sid}-{slot}-word")
+                adb("shell", "input", "keyevent", "KEYCODE_BACK")
+                time.sleep(1)
+            if find(back) is not None:
+                tap(back, 3)
+        # the clock striking the hour, the lad up the maypole
+        for sid, name, hour in ((places[0][0], "strike", "15"), (places[1][0], "climb", "16")):
+            found = fx_variant(sid, name)
+            if found is None:
+                print(f"    no dialog of {sid} cues {name}")
+                continue
+            sc, h, d = found
+            plain_village()
+            qa_hook(f"hour:{hour}", f"happening:{sid}/{h}/{d}", f"scene:{sid}@{sid}/{h}")
+            if wait_for(back, 12) is None or wait_for(close, 12) is None:
+                snap(f"pl-{tag}-{sid}-{name}-not-open")
+                continue
+            oks = set() if friuli else mill_oks(sc, d, sc.get("language", "sl"))
+            for k in range(8):
+                if find("Kateri glas je tvoj?") is not None:
+                    tap("V redu · OK", 2)
+                if not (oks and answer_choice(oks)):
+                    tap(nxt, 2)
+                time.sleep(2 * slow())
+                snap(f"pl-{tag}-{sid}-{name}-{k}")
+            tap(close, 3)
+            qa_hook("happening:")
+    finally:
+        qa_hook("ispy:")
+        qa_hook("happening:")
+        qa_hook("hour:")
+        qa_hook("step:")
+        qa_hook("bubbles:")
+    return "spied: " + ", ".join(played)
 
 
 def mill_oks(scene: dict, dialog: str, lang: str) -> set:
@@ -14366,6 +14498,7 @@ def plan():
         ("bridges", bridges, v, False, ""),
         ("mill", mill, v, False, ""),
         ("places", places, v, False, ""),
+        ("place-life", place_life, v, False, ""),
         ("projects", projects, v, False, ""),
         ("project-step", project_step, v, False, ""),
         ("scene-coherence", scene_coherence, v, False, ""),
