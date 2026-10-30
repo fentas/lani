@@ -37,6 +37,7 @@ class FriuliMarketSquareLooksTest {
     /** The arts, the buildings whose level each shows, and who stands at its spots in the previews. */
     private val arts = listOf(
         Triple("market", listOf(BuildingType.MARKET), listOf("grandma", "innkeeper", "winemaker")),
+        Triple("square", listOf(BuildingType.LIPA, BuildingType.WELL), listOf("grandpa", "teacher", "child1", "child2", "child3")),
     )
 
     private val levels = 1..Catalog.MAX_LEVEL
@@ -115,6 +116,44 @@ class FriuliMarketSquareLooksTest {
                 val b = hits.single { it.target == SceneTarget.Person("p-$slot") }
                 assertEquals("$art: someone at $slot stands where they did ($type's level $level, detail $k)", listOf(a.anchorX, a.anchorY), listOf(b.anchorX, b.anchorY))
             }
+        }
+    }
+
+    /**
+     * The square's dialog effects at every level of its linden and its well, in both cultures: the cat up the young linden and
+     * on her way down it (there to tap, above the bench), the ball lost under the bench (the bench's to tap), Muri at the
+     * flowers; the market's hen on Matteo's cart at the market's first level. A sheet for review: build/scene-snapshots/looks/
+     * friuli-square-cues.png.
+     */
+    @Test fun `the square's cues work at every level, in both cultures`() {
+        val stages = listOf(0f, 0.2f, 0.5f, 0.8f, 0.95f)
+        val s = 2; val label = 14
+        val cultures = listOf("primorska", "friuli")
+        val img = BufferedImage(240 * s * stages.size, (160 * s + label) * levels.count() * cultures.size, BufferedImage.TYPE_INT_RGB)
+        val g = img.createGraphics()
+        for ((ci, culture) in cultures.withIndex()) for ((row, level) in levels.withIndex()) for ((col, cat) in stages.withIndex()) {
+            val w = world(BuildingType.LIPA, level, culture).copy(here = Building("here", BuildingType.LIPA, 0, level = level))
+            val f = frame("square", w, 10.5f, listOf("grandpa", "teacher", "child1", "child2", "child3")).copy(fx = mapOf("cat" to cat, "ball" to 0f, "dog" to 0.5f))
+            val c = PixelCanvas(240, 160)
+            val hits = ScenePainters.create("square").render(c, f, Lens(1, 0, 0, 240, 160))
+            val catHit = hits.singleOrNull { it.target == SceneTarget.Thing("cat") }
+            assertTrue("the cat at $cat, linden level $level ($culture)", catHit != null)
+            val bench = hits.single { it.target == SceneTarget.Thing("bench") }
+            // up the linden, on its limb, she is above the bench (down its trunk she comes to it, the sooner the younger the tree)
+            if (cat < 0.3f) assertTrue("the cat up the linden at $cat is above the bench (level $level, $culture)", catHit!!.bottom <= bench.top + 2)
+            assertTrue("the lost ball is the bench's (level $level, $culture)", hits.none { it.target == SceneTarget.Thing("ball") })
+            val oy = (ci * levels.count() + row) * (160 * s + label)
+            for (y in 0 until 160 * s) for (x in 0 until 240 * s) img.setRGB(col * 240 * s + x, oy + label + y, c.pixels[(y / s) * 240 + x / s])
+            g.color = Color.WHITE
+            g.drawString("$culture, linden level $level, cat $cat", col * 240 * s + 4, oy + 11)
+        }
+        g.dispose()
+        ImageIO.write(img, "png", File(dir, "friuli-square-cues.png"))
+        // the market's hen on the cart at every level: a tap on her there is a tap on the cart
+        for (level in levels) for (culture in cultures) {
+            val f = frame("market", world(BuildingType.MARKET, level, culture), 10.5f, listOf("grandma", "innkeeper", "winemaker")).copy(fx = mapOf("hen" to 1f))
+            val hits = ScenePainters.create("market").render(PixelCanvas(240, 160), f, Lens(1, 0, 0, 240, 160))
+            assertEquals("the hen's coop and the cart at the market's level $level ($culture)", 2, hits.count { it.target == SceneTarget.Thing("hen") || it.target == SceneTarget.Thing("cart") })
         }
     }
 

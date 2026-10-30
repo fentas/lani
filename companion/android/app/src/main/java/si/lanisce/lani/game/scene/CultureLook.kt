@@ -239,8 +239,16 @@ object CultureLooks {
         variants = mapOf("village" to "friuli", "hills" to "collio", "ground" to "acciottolato", "awnings" to "friuli", "goods" to "friuli"),
     )
 
-    /** Friuli's square (In piazza, SquarePainter). */
-    internal val FRIULI_SQUARE = Table.of("square")
+    /**
+     * Friuli's square (In piazza, SquarePainter): a Collio village's piazza. The church's gable in plaster under coppi and the
+     * free-standing brick campanile with its low pyramid cap; the houses in Friuli's plaster under coppi with their shutters,
+     * the nearest Marisa's osteria with its sign and its frasca; the well-head of white stone under a wrought-iron arch with a
+     * copper bucket; a panchina of green slats on iron; vine rows on the hills. The linden (il tiglio) stays.
+     */
+    internal val FRIULI_SQUARE = Table.of(
+        "square",
+        variants = mapOf("village" to "friuli", "hills" to "collio", "well" to "vera", "bench" to "panchina", "osteria" to "frasca"),
+    )
 
     /** Friuli's bee garden (Dalle api, ApiaryPainter). */
     internal val FRIULI_APIARY = Table.of("apiary")
