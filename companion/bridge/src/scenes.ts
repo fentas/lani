@@ -32,18 +32,19 @@ export const SCENE_ART = {
       'tree', 'spruce', 'mushroom', 'berries', 'stream', 'stone', 'path', 'bird', 'deer', 'squirrel', 'owl', 'leaves', 'sheep',
       'highseat', 'hare', 'butterfly', 'fox', 'stag', 'hedgehog', 'boar', 'badger', 'dormouse', 'bat', 'flowers',
     ],
-    square: ['linden', 'bench', 'ball', 'well', 'dog', 'cat', 'house', 'tower', 'bicycle', 'flowers', 'sun', 'fence'],
+    // the finished projects on the square (SceneFixtures): the maypole, the fountain, the clock in the tower
+    square: ['linden', 'bench', 'ball', 'well', 'dog', 'cat', 'house', 'tower', 'bicycle', 'flowers', 'sun', 'fence', 'maypole', 'fountain', 'clock'],
     tent: ['lantern', 'sleepingbag', 'blanket', 'pillow', 'backpack', 'map', 'boots', 'coat', 'hat', 'book', 'cup', 'rope'],
-    field: ['wheat', 'corn', 'potatoes', 'cabbage', 'kozolec', 'hay', 'scythe', 'rake', 'basket', 'cart', 'scarecrow', 'fence', 'path', 'deer', 'hare', 'butterfly', 'fox', 'boar', 'bat', 'horse'],
+    field: ['wheat', 'corn', 'potatoes', 'cabbage', 'kozolec', 'hay', 'scythe', 'rake', 'basket', 'cart', 'scarecrow', 'fence', 'path', 'deer', 'hare', 'butterfly', 'fox', 'boar', 'bat', 'horse', 'toplar'],
     smithy: ['forge', 'fire', 'anvil', 'hammer', 'tongs', 'bellows', 'horseshoe', 'nails', 'bucket', 'chain', 'axe', 'wheel', 'window', 'door'],
     school: ['blackboard', 'chalk', 'sponge', 'desk', 'chair', 'book', 'notebook', 'pencil', 'bag', 'map', 'globe', 'clock', 'window', 'door'],
     hills: ['vineyard', 'vine', 'grapes', 'hill', 'church', 'belltower', 'farmhouse', 'cypress', 'persimmon', 'wall', 'mountains', 'sea', 'road', 'crate'],
     sea: ['sea', 'lagoon', 'casone', 'boat', 'posts', 'gull', 'wave', 'beach', 'pier', 'shell', 'fish', 'net', 'horizon', 'crab'],
     alps: ['mountain', 'peak', 'lake', 'church', 'bridge', 'pasture', 'hut', 'cow', 'cowbell', 'larch', 'spruce', 'waterfall', 'stream', 'stone', 'wall', 'chamois', 'ibex', 'path'],
-    stream: ['stream', 'stones', 'bridge', 'willow', 'trout', 'dragonfly', 'cress', 'mill', 'laundry', 'fox', 'hedgehog', 'butterfly', 'bat', 'sheep'],
+    stream: ['stream', 'stones', 'bridge', 'willow', 'trout', 'dragonfly', 'cress', 'mill', 'laundry', 'fox', 'hedgehog', 'butterfly', 'bat', 'sheep', 'cartbridge'],
     pond: ['pond', 'lilies', 'reeds', 'frog', 'ducks', 'jetty', 'boat', 'fish', 'heron', 'deer', 'fox', 'butterfly', 'bat', 'dragonfly'],
     church: ['altar', 'candles', 'cross', 'painting', 'pews', 'flowers', 'window', 'organ', 'font', 'bell', 'rope', 'door'],
-    apiary: ['beehouse', 'hive', 'panel', 'bee', 'honey', 'comb', 'flowers', 'tree', 'smoker', 'extractor', 'wax', 'bench'],
+    apiary: ['beehouse', 'hive', 'panel', 'bee', 'honey', 'comb', 'flowers', 'tree', 'smoker', 'extractor', 'wax', 'bench', 'meadow'],
     market: [
       'stall', 'scale', 'weights', 'eggs', 'bread', 'cheese', 'honey', 'apples', 'vegetables', 'basket',
       'crate', 'hen', 'cart', 'wine', 'pigeon', 'bell',
@@ -104,7 +105,8 @@ export const SCENE_ART = {
     campfire: ['left', 'right', 'back'],
     kitchen: ['stove', 'table', 'door'],
     forest: ['path', 'clearing', 'highseat'],
-    square: ['bench', 'well', 'play1', 'play2', 'play3'],
+    // the children's play spots, the grown-ups' standing spots by the maypole, the fountain and under the clock
+    square: ['bench', 'well', 'play1', 'play2', 'play3', 'maypole', 'fountain', 'clock'],
     tent: ['left', 'right', 'door'],
     field: ['field', 'kozolec', 'path'],
     smithy: ['anvil', 'forge', 'door'],
@@ -156,6 +158,9 @@ export const SCENE_ART = {
       'cat', 'dog', 'wag', 'ball', 'goal',
       'cart-pump', 'cart-stone',
       'band', 'dance', 'maypole', 'fountain',
+      // a lad climbing the maypole (0 at its foot, 1 at the top), the clock striking the hour (as many strokes as the dialog
+      // counts: a count of the hour)
+      'climb', 'strike',
     ],
     tent: ['lantern'],
     field: [
@@ -313,15 +318,28 @@ export function arrive(art: string, from: { spot: string; pose: string }, cue: {
 /**
  * Which arts and slots an app draws (SceneArt.VERSION in SceneArt.kt): 1 the first seventeen arts, 2 the rooms of the houses
  * and the kitchen's level slots, 3 the mill inside, 4 the village's places (the fire station, the bocce court, the playground,
- * the wayside chapel, the palisade's gate, the lookout tower). The app says it when it asks for its scenes (GET
- * /scenes?arts=4); one that doesn't is an older one, which gets what the first arts drew ([forApp]).
+ * the wayside chapel, the palisade's gate, the lookout tower), 5 the finished projects as things of their pictures (the
+ * square's maypole, fountain and clock, the stream's cart bridge, the field's toplar, the apiary's bee meadow), the square's
+ * standing spots by them, and a count of the hour. The app says it when it asks for its scenes (GET /scenes?arts=5); one
+ * that doesn't is an older one, which gets what the first arts drew ([forApp]).
  */
-export const SCENE_ARTS_VERSION = 4
-/** What each version after the first added: its new arts, and new slots of an art the version before had. */
-const ADDED: Record<number, { arts: string[]; slots: Record<string, string[]> }> = {
+export const SCENE_ARTS_VERSION = 5
+/**
+ * What each version after the first added: its new arts, new slots of an art the version before had, new person spots of
+ * one (for an older app each stands at the spot it had for them instead), and new sources of a count (an older app plays no
+ * variant that counts from one: it can't take the number).
+ */
+const ADDED: Record<number, { arts: string[]; slots: Record<string, string[]>; spots?: Record<string, Record<string, string>>; counts?: string[] }> = {
   2: { arts: ['livingroom', 'workshop', 'cellar', 'attic'], slots: { kitchen: ['hearth', 'bench', 'bed', 'shelf', 'curtains', 'corner'] } },
   3: { arts: ['mill'], slots: {} },
   4: { arts: ['firestation', 'bocce', 'playground', 'chapel', 'palisade', 'lookout'], slots: {} },
+  5: {
+    arts: [],
+    slots: { square: ['maypole', 'fountain', 'clock'], stream: ['cartbridge'], field: ['toplar'], apiary: ['meadow'] },
+    // the grown-ups who stand by the square's projects played at its middle spots before
+    spots: { square: { maypole: 'play1', clock: 'play2', fountain: 'play3' } },
+    counts: ['hour'],
+  },
 }
 
 /** The arts version an app asked with (`?arts=`): 1, the first, when it doesn't say (an older app). */
@@ -332,17 +350,36 @@ export function artsOf(url: URL): number {
 
 /**
  * [scenes] as an app that draws arts version [version] can paint them: without the places of a later art, nor the things
- * in a later slot of an art it has (an older app's kitchen has no hearth). A later need (a level) it reads past, as
- * everything it doesn't know: it shows the thing, as before.
+ * in a later slot of an art it has (an older app's kitchen has no hearth); its people at a later spot at the one the app
+ * had for it (the square's grown-ups by the maypole at its play spots), and none of its variants that count from a later
+ * source (the hour), a happening's list of them without them. A later need (a level) it reads past, as everything it doesn't
+ * know: it shows the thing, as before.
  */
 export function forApp<T extends { art: string; objects: { slot: string }[] }>(scenes: T[], version: number): T[] {
   const later = Object.entries(ADDED).filter(([v]) => Number(v) > version).map(([, a]) => a)
   if (!later.length) return scenes
   const arts = new Set(later.flatMap(a => a.arts))
   const slots = (art: string) => new Set(later.flatMap(a => a.slots[art] ?? []))
+  const spots = (art: string) => Object.assign({}, ...later.map(a => a.spots?.[art] ?? {})) as Record<string, string>
+  const counts = new Set(later.flatMap(a => a.counts ?? []))
   return scenes.filter(s => !arts.has(s.art)).map(s => {
+    let out: T = s
     const drop = slots(s.art)
-    return drop.size ? { ...s, objects: s.objects.filter(o => !drop.has(o.slot)) } : s
+    if (drop.size) out = { ...out, objects: out.objects.filter(o => !drop.has(o.slot)) }
+    const moved = spots(s.art)
+    const people = (out as { people?: { slot: string }[] }).people
+    if (people?.some(p => moved[p.slot])) out = { ...out, people: people.map(p => (moved[p.slot] ? { ...p, slot: moved[p.slot] } : p)) }
+    const all = out as unknown as { dialogs?: { id: string; count?: { from: string } }[]; variants?: { id: string; count?: { from: string } }[]; happenings?: { dialog?: string; dialogs?: string[] }[] }
+    const gone = new Set([...(all.dialogs ?? []), ...(all.variants ?? [])].filter(d => d.count && counts.has(d.count.from)).map(d => d.id))
+    if (gone.size) {
+      out = {
+        ...out,
+        ...(all.dialogs ? { dialogs: all.dialogs.filter(d => !gone.has(d.id)) } : {}),
+        ...(all.variants ? { variants: all.variants.filter(d => !gone.has(d.id)) } : {}),
+        ...(all.happenings ? { happenings: all.happenings.map(h => (h.dialogs?.some(id => gone.has(id)) ? { ...h, dialogs: h.dialogs.filter(id => !gone.has(id)) } : h)) } : {}),
+      }
+    }
+    return out
   })
 }
 /**

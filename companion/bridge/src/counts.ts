@@ -4,8 +4,12 @@
 import { z } from 'zod'
 import { withoutLearner } from './addressee'
 
-/** Where a count's number comes from: the day's dice, a store of the village, its people, its buildings of a type. */
-export const COUNT_SOURCES = ['dice', 'food', 'wood', 'stone', 'wisdom', 'villagers'] as const
+/**
+ * Where a count's number comes from: the day's dice, a store of the village, its people, its buildings of a type, or the
+ * hour the clock has struck last (1 … 12: the square's clock rings that many strokes, its `strike`; an app before arts 5
+ * doesn't know it, and the bridge leaves such a variant out for it: forApp in scenes.ts).
+ */
+export const COUNT_SOURCES = ['dice', 'food', 'wood', 'stone', 'wisdom', 'villagers', 'hour'] as const
 
 export const countSpec = z.strictObject({
   from: z.union([z.enum(COUNT_SOURCES), z.string().regex(/^building:[a-z]+$/, 'building:<type>, a building type in lower case')]),
@@ -76,8 +80,10 @@ type CountDialog = {
 
 /** The numbers a check renders a counting dialog at: every one from its min to 30, and round the hundreds, within it. */
 export function samples(c: CountSpec): number[] {
-  const lo = c.min ?? 1
-  const hi = Math.max(lo, c.max ?? 999)
+  // the hour: 1 … 12 whatever its min and max say beyond them
+  const top = c.from === 'hour' ? 12 : 999
+  const lo = Math.min(c.min ?? 1, top)
+  const hi = Math.min(Math.max(lo, c.max ?? top), top)
   const ns = new Set<number>([lo, hi])
   for (let n = lo; n <= Math.min(hi, 30); n++) ns.add(n)
   for (const n of [99, 100, 101, 102, 103, 104, 105, 111, 121, 122, 201, 202]) if (n >= lo && n <= hi) ns.add(n)
