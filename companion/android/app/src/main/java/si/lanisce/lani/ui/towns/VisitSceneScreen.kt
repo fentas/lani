@@ -130,7 +130,7 @@ private fun VisitPlace(vm: AppViewModel, v: TownVisit, spec: SceneSpec) {
     val cues = rememberSceneCues(state, scene, talk?.run, LocalDate.now(), waiting)
     val sceneClock = si.lanisce.lani.game.render.rememberTownClock()
     val fireSound = remember(scene.art, world, now, people) { si.lanisce.lani.ui.scene.fireSound(scene.art, world, now, people) }
-    si.lanisce.lani.ui.AmbientSound(vm.ambience, si.lanisce.lani.game.ambient.Place.Scene(scene.art, cues.fx.target, fireSound), cues.sky.target, sceneClock)
+    si.lanisce.lani.ui.AmbientSound(vm.ambience, si.lanisce.lani.game.ambient.Place.Scene(scene.art, cues.fx.target, fireSound, talk?.counted), cues.sky.target, sceneClock)
     // the dialog played to its end: the learner met them
     LaunchedEffect(talk?.key, talk?.settled) {
         val t = talk ?: return@LaunchedEffect

@@ -135,6 +135,10 @@ internal class ApiaryPainter : DioramaPainter() {
     private var paleHoney = false
     private var bunting2 = false
 
+    /** The bee meadow along the garden's front, once the village has made it ([beeMeadow]); in Friuli's look its sunflowers. */
+    private var meadowOn = true
+    private var girasoli = false
+
     /** Friuli's tiers of box hives: how many on each tier at this level. */
     private val tierHives = IntArray(2)
 
@@ -146,6 +150,8 @@ internal class ApiaryPainter : DioramaPainter() {
         acacia = variant("tree") == "acacia"
         paleHoney = variant("honey") == "acacia"
         bunting2 = variant("bunting") == "friuli"
+        meadowOn = there("meadow")
+        girasoli = variant("meadow") != null
         if (friuli) {
             rows = if (lv >= 3) 2 else 1
             tierHives[0] = if (lv == 1) 3 else F_HIVES
@@ -224,6 +230,8 @@ internal class ApiaryPainter : DioramaPainter() {
         thing("honey", slop = 1) { jars() }
         thing("comb", slop = 1) { comb() }
         thing("wax", slop = 1) { candles() }
+        // the bee meadow along the front, in front of everything but the bees' water, the bed and Aldo's sign
+        if (meadowOn) thing("meadow", outline = 0) { beeMeadow() }
         if (garden) prop { basin() }
         thing("flowers") { flowerHeads() }
         if (sign) thing("panel", slop = 1) { aldoSign() }
@@ -367,6 +375,115 @@ internal class ApiaryPainter : DioramaPainter() {
             c.fillRect(bx - detail + sway, floor(by - hgt).toInt() - detail, 2 * detail + (if (fine) detail else 0), 2 * detail, col)
             if (fine) c.fillRect(bx + sway, floor(by - hgt).toInt() - detail, detail, detail, Col.mix(col, Col.hex(0xFFF6A0), 0.5f))
         }
+    }
+
+    /**
+     * Whether ([x], [y]) is in the bee meadow: a strip along the garden's front edge and round its front corner, clear of the
+     * flower bed, the path's foot, the bees' water and Aldo's sign.
+     */
+    private fun inMeadow(x: Float, y: Float): Boolean {
+        val strip = (y > MEADOW_Y && y < plotD - 0.12f && x > 0.2f && x < plotW - 0.12f) || (x > plotW - MEADOW_W && x < plotW - 0.12f && y > MEADOW_Y0 && y < plotD - 0.12f)
+        if (!strip || flower(x, y) < 1.12f) return false
+        val t = ((y - 3.4f) / (plotD - 3.4f)).coerceIn(0f, 1f)
+        val path = 6.1f + (7.3f - 6.1f) * t
+        if (garden && abs(x - path) < 0.62f) return false
+        if (garden && hyp(x - basinX, y - basinY) < 1.0f) return false
+        if (sign && hyp(x - signX, y - signY) < 0.55f) return false
+        return true
+    }
+
+    /**
+     * The bee meadow (Čebelji travnik, the project "cebelji_travnik"): a strip of tall meadow along the garden's front and round
+     * its front corner, sown for the bees, flowering as the months go: dandelions and daisies in spring, then the clover, the
+     * phacelia's lavender-blue curls and the buckwheat's white and pink in summer, the buckwheat red and the asters in autumn,
+     * dry stalks and snow in winter. In Friuli's look ([girasoli]) the children's clover with sunflowers standing over it from
+     * July to September, their heads hanging brown in October.
+     */
+    private fun beeMeadow() {
+        val m = frame.month
+        val k = detail
+        // the meadow's grass, taller and darker than the lawn, in tufts
+        val x0 = iso.sx(0f, plotD); val x1 = iso.sx(plotW, MEADOW_Y0)
+        val y0 = iso.sy(0f, MEADOW_Y0 - 0.2f, 3f); val y1 = iso.sy(plotW, plotD, 0f)
+        val g = if (winter) intArrayOf(Pal.SNOW_L, Pal.SNOW_M, Col.hex(0x9A8A6A)) else if (m in 10..11 || m <= 2) intArrayOf(Col.hex(0x7A8A48), Col.hex(0x6A7440), Col.hex(0x8A7A50))
+            else intArrayOf(Col.hex(0x4E8C3A), Col.hex(0x3E7A34), Col.hex(0x2E6428))
+        for (py in max(c.top, y0.toInt())..min(c.bottom - 1, y1.toInt())) for (px in max(c.left, x0.toInt())..min(c.right - 1, x1.toInt())) {
+            // the blades stand up from the ground: a pixel is meadow when the ground just under it is
+            val lift = (Noise.rnd(px / k, 0, 61) * 2.5f + 0.5f) * k
+            val x = flatX(px, (py + lift).toInt(), 0f); val y = flatY(px, (py + lift).toInt(), 0f)
+            if (!inMeadow(x, y)) continue
+            val n = Noise.rnd(px / k, py / k, 62)
+            // a blade's tip catches the light
+            val tip = !winter && !inMeadow(flatX(px, (py + lift).toInt() - k, 0f), flatY(px, (py + lift).toInt() - k, 0f))
+            c.set(px, py, if (tip && n < 0.6f) Col.mix(g[0], Col.hex(0xD8E890), 0.35f) else if (n < 0.4f) g[0] else if (n < 0.8f) g[1] else g[2])
+        }
+        if (winter) {
+            // dry stalks sticking out of the snow
+            for (j in 0 until 40) {
+                val (x, y) = meadowPoint(j) ?: continue
+                val bx = iso.ix(x, y); val by = iso.iy(x, y, 0f)
+                c.fillRect(bx, by - 3 * K, k, 3 * K, Col.hex(0x8A7A5A))
+            }
+            return
+        }
+        // the flowers by the month: three kinds at a time, a dot of colour each on its stalk
+        val kinds: IntArray = when {
+            m in 3..4 -> intArrayOf(Col.hex(0xF6D83A), Col.hex(0xF8F6EC), Col.hex(0xF6D83A))
+            m == 5 -> intArrayOf(Col.hex(0xF8F6EC), Col.hex(0xE87AA8), Col.hex(0xF6D83A))
+            girasoli && m in 6..9 -> intArrayOf(Col.hex(0xE87AA8), Col.hex(0xF4F2EA), Col.hex(0x8A7AD8))
+            m in 6..7 -> intArrayOf(Col.hex(0x8A7AD8), Col.hex(0xE87AA8), Col.hex(0xF4F2EA))
+            m in 8..9 -> intArrayOf(Col.hex(0xF4F2EA), Col.hex(0xF0C8D8), Col.hex(0x8A7AD8))
+            m == 10 -> intArrayOf(Col.hex(0x9A6AD0), Col.hex(0xA8443A), Col.hex(0x9A6AD0))
+            else -> intArrayOf(Col.hex(0xD8D0B0), Col.hex(0xC8B890), Col.hex(0xD8D0B0))
+        }
+        val n = when (m) { in 6..8 -> 190; 5, 9 -> 150; 4, 10 -> 90; else -> 40 }
+        for (j in 0 until n) {
+            val (x, y) = meadowPoint(j) ?: continue
+            val bx = iso.ix(x, y); val by = iso.iy(x, y, 0f)
+            val hgt = (2.2f + Noise.rnd(j, 66) * 2.6f) * K
+            val col = kinds[j % 3]
+            val sway = floor(sin(t * 1.3 + j * 0.7) * 0.5f * gust).toInt() * k
+            c.fillRect(bx, floor(by - hgt).toInt(), k, floor(hgt).toInt(), Col.hex(0x3A6A2E))
+            // a small head: a dot, every third one a cluster of two
+            val big = j % 3 == 0
+            c.fillRect(bx - (if (big) k else 0) + sway, floor(by - hgt).toInt() - k, (if (big) 2 else 1) * k + (if (fine) k else 0), (if (big) 2 else 1) * k, col)
+            if (fine) c.fillRect(bx + sway, floor(by - hgt).toInt() - k, k, k, Col.mix(col, Col.hex(0xFFFFFF), 0.35f))
+        }
+        // Friuli's sunflowers standing over the clover at the meadow's back, in a row along it: in flower from July, bowed
+        // and brown in October
+        if (girasoli && m in 7..10) for (j in 0 until SUNFLOWERS) {
+            val x = 0.8f + j * (plotW - 1.8f) / (SUNFLOWERS - 1) + (Noise.rnd(j, 68) - 0.5f) * 0.4f
+            val y = MEADOW_Y + 0.25f + Noise.rnd(j, 69) * 0.25f
+            if (!inMeadow(x, y)) continue
+            val bx = iso.ix(x, y); val by = iso.iy(x, y, 0f)
+            val hgt = (9f + Noise.rnd(j, 67) * 3f) * K
+            val ripe = m == 10
+            val sway = floor(sin(t * 0.9 + j) * 0.6f * gust).toInt() * k
+            c.fillRect(bx, floor(by - hgt).toInt(), k, floor(hgt).toInt(), Col.hex(0x4A7A2E))
+            // a leaf on either side
+            c.fillRect(bx - 2 * k, floor(by - hgt * 0.45f).toInt(), 2 * k, k, Col.hex(0x3E7A34))
+            c.fillRect(bx + k, floor(by - hgt * 0.6f).toInt(), 2 * k, k, Col.hex(0x3E7A34))
+            val hx = bx + sway + (if (ripe) k else 0); val hy = floor(by - hgt).toInt() + (if (ripe) 2 * k else 0)
+            val r = 2 * k
+            for (dy in -r..r) for (dx in -r..r) {
+                val dd = dx * dx + dy * dy
+                if (dd > r * r + k) continue
+                c.set(hx + dx, hy + dy, when {
+                    ripe -> if (dd < k * k * 2) Col.hex(0x3A2A1A) else Col.hex(0x8A6A3A)
+                    dd <= k * k -> Col.hex(0x4A2E16)
+                    else -> if ((dx + dy) and 1 == 0 || !fine) Col.hex(0xF4C020) else Col.hex(0xE8A818)
+                })
+            }
+        }
+    }
+
+    /** The [j]th flower's place in the meadow (the same each frame), or null where it falls outside it; [back]: toward its far side. */
+    private fun meadowPoint(j: Int, back: Boolean = false): Pair<Float, Float>? {
+        val corner = Noise.rnd(j, 63) < 0.22f
+        val x = if (corner) plotW - 0.15f - Noise.rnd(j, 64) * (MEADOW_W - 0.1f) else 0.3f + Noise.rnd(j, 64) * (plotW - 0.5f)
+        val y0 = if (corner) MEADOW_Y0 else MEADOW_Y
+        val y = if (back) y0 + 0.1f + Noise.rnd(j, 65) * 0.35f else y0 + 0.08f + Noise.rnd(j, 65) * (plotD - 0.25f - y0)
+        return if (inMeadow(x, y)) x to y else null
     }
 
     // ------------------------------------------------------------------ the bee house
@@ -1151,8 +1268,10 @@ internal class ApiaryPainter : DioramaPainter() {
                 // out to a flower and back, a loop at the far end
                 // most to the flowers, some to the water
                 val water = garden && j % 4 == 3
-                val tx = if (water) basinX + (Noise.rnd(j, 57) - 0.5f) * 0.8f else flX + (Noise.rnd(j, 57) - 0.5f) * bedRx * 1.6f
-                val ty = if (water) basinY + (Noise.rnd(j, 58) - 0.5f) * 0.4f else flY + (Noise.rnd(j, 58) - 0.5f) * bedRy * 1.6f
+                // with the bee meadow, every other one out to its flowers
+                val field = if (meadowOn && !water && j % 2 == 1) meadowPoint(j * 3 + 1) else null
+                val tx = field?.first ?: if (water) basinX + (Noise.rnd(j, 57) - 0.5f) * 0.8f else flX + (Noise.rnd(j, 57) - 0.5f) * bedRx * 1.6f
+                val ty = field?.second ?: if (water) basinY + (Noise.rnd(j, 58) - 0.5f) * 0.4f else flY + (Noise.rnd(j, 58) - 0.5f) * bedRy * 1.6f
                 val s0 = sin(ph * PI.toFloat())
                 val wob = sin(ph * 17f + j).toFloat() * 0.25f
                 val x = ex + (tx - ex) * s0 + wob; val y = hf + 0.3f + (ty - hf - 0.3f) * s0 + cos(ph * 13f + j).toFloat() * 0.2f
@@ -1401,6 +1520,14 @@ internal class ApiaryPainter : DioramaPainter() {
 
         /** How much lower the bee house's eave is for each row of hives it doesn't have yet. */
         private const val ROW_STEP = 3.8f
+
+        /** The bee meadow: where its strip along the front begins (y), how wide it is round the front corner and where that begins. */
+        private const val MEADOW_Y = 9.85f
+        private const val MEADOW_W = 1.25f
+        private const val MEADOW_Y0 = 7.3f
+
+        /** Friuli's sunflowers along the bee meadow's back. */
+        private const val SUNFLOWERS = 7
 
         /** The fronts painted at each level (of 6, 12, 18 there are), the flower bed's size, the jars on the table. */
         private val PAINTED = intArrayOf(2, 6, 12, 18, 18)

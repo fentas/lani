@@ -10,11 +10,13 @@ object SceneArt {
     /**
      * Which arts and slots this app draws: 1 the first seventeen arts, 2 the rooms of the houses and the kitchen's level
      * slots, 3 the mill inside, 4 the village's places (the fire station, the bocce court, the playground, the wayside
-     * chapel, the palisade's gate, the lookout tower). The app asks for its scenes with it (GET /scenes?arts=4); the bridge
-     * gives an app that asks for less, or doesn't say, only what its arts drew, so an older app never gets a place it can't
-     * paint (bridge/src/scenes.ts, `forApp`).
+     * chapel, the palisade's gate, the lookout tower), 5 the finished projects as things of the pictures they stand in (the
+     * square's maypole, fountain and clock, the stream's cart bridge, the field's toplar, the apiary's bee meadow), the
+     * square's standing spots by them, its climb and its strike, and a count of the hour. The app asks for its scenes with
+     * it (GET /scenes?arts=5); the bridge gives an app that asks for less, or doesn't say, only what its arts drew, so an
+     * older app never gets a place it can't paint (bridge/src/scenes.ts, `forApp`).
      */
-    const val VERSION = 4
+    const val VERSION = 5
 
     /** art id → object slots, back to front roughly. */
     val objects: Map<String, List<String>> = mapOf(
@@ -34,14 +36,18 @@ object SceneArt {
             "tree", "spruce", "mushroom", "berries", "stream", "stone", "path", "bird", "deer", "squirrel", "owl", "leaves", "sheep",
             "highseat", "hare", "butterfly", "fox", "stag", "hedgehog", "boar", "badger", "dormouse", "bat", "flowers",
         ),
-        // Na vasi: the village square under the linden tree.
-        "square" to listOf("linden", "bench", "ball", "well", "dog", "cat", "house", "tower", "bicycle", "flowers", "sun", "fence"),
+        // Na vasi: the village square under the linden tree; the finished projects on it (SceneFixtures): the maypole before
+        // the church, the fountain in the middle, the clock in the tower.
+        "square" to listOf(
+            "linden", "bench", "ball", "well", "dog", "cat", "house", "tower", "bicycle", "flowers", "sun", "fence",
+            "maypole", "fountain", "clock",
+        ),
         // V šotoru: inside the tent, a lantern hanging from the ridge pole.
         "tent" to listOf("lantern", "sleepingbag", "blanket", "pillow", "backpack", "map", "boots", "coat", "hat", "book", "cup", "rope"),
-        // Na njivi: a field with the kozolec (hayrack) at its edge.
+        // Na njivi: a field with the kozolec (hayrack) at its edge; the double hayrack beyond the wheat once it is finished.
         "field" to listOf(
             "wheat", "corn", "potatoes", "cabbage", "kozolec", "hay", "scythe", "rake", "basket", "cart", "scarecrow", "fence", "path",
-            "deer", "hare", "butterfly", "fox", "boar", "bat", "horse",
+            "deer", "hare", "butterfly", "fox", "boar", "bat", "horse", "toplar",
         ),
         // V kovačnici: the smithy, the forge glowing.
         "smithy" to listOf("forge", "fire", "anvil", "hammer", "tongs", "bellows", "horseshoe", "nails", "bucket", "chain", "axe", "wheel", "window", "door"),
@@ -58,14 +64,19 @@ object SceneArt {
             "mountain", "peak", "lake", "church", "bridge", "pasture", "hut", "cow", "cowbell", "larch", "spruce",
             "waterfall", "stream", "stone", "wall", "chamois", "ibex", "path",
         ),
-        // Ob potoku: the stream below the village, France's mill on its bank, stepping stones and a footbridge.
-        "stream" to listOf("stream", "stones", "bridge", "willow", "trout", "dragonfly", "cress", "mill", "laundry", "fox", "hedgehog", "butterfly", "bat", "sheep"),
+        // Ob potoku: the stream below the village, France's mill on its bank, stepping stones and a footbridge; the cart bridge
+        // upstream once it is finished.
+        "stream" to listOf(
+            "stream", "stones", "bridge", "willow", "trout", "dragonfly", "cress", "mill", "laundry", "fox", "hedgehog", "butterfly", "bat", "sheep",
+            "cartbridge",
+        ),
         // Pri ribniku: the pond in the woods, water lilies, reeds and a jetty with a boat.
         "pond" to listOf("pond", "lilies", "reeds", "frog", "ducks", "jetty", "boat", "fish", "heron", "deer", "fox", "butterfly", "bat", "dragonfly"),
         // V cerkvi: the village church inside, the gilded altar at the far wall, pews, stained windows, the organ loft by the door.
         "church" to listOf("altar", "candles", "cross", "painting", "pews", "flowers", "window", "organ", "font", "bell", "rope", "door"),
-        // Pri čebelnjaku: the bee house with its painted hive fronts, a straw hive, the linden, a table of honey by the extractor.
-        "apiary" to listOf("beehouse", "hive", "panel", "bee", "honey", "comb", "flowers", "tree", "smoker", "extractor", "wax", "bench"),
+        // Pri čebelnjaku: the bee house with its painted hive fronts, a straw hive, the linden, a table of honey by the extractor;
+        // the bee meadow along the garden's front once it is finished.
+        "apiary" to listOf("beehouse", "hive", "panel", "bee", "honey", "comb", "flowers", "tree", "smoker", "extractor", "wax", "bench", "meadow"),
         // Na tržnici: market day at the edge of the square, a lane of stalls under striped awnings, the scale on the counter.
         "market" to listOf(
             "stall", "scale", "weights", "eggs", "bread", "cheese", "honey", "apples", "vegetables", "basket",
@@ -149,7 +160,9 @@ object SceneArt {
         "campfire" to listOf("left", "right", "back"),
         "kitchen" to listOf("stove", "table", "door"),
         "forest" to listOf("path", "clearing", "highseat"),
-        "square" to listOf("bench", "well", "play1", "play2", "play3"),
+        // the children's play spots, and the grown-ups' standing spots by the maypole, the fountain and the clock (under it,
+        // on the square below the tower): there whatever is built, as the well's spot is
+        "square" to listOf("bench", "well", "play1", "play2", "play3", "maypole", "fountain", "clock"),
         "tent" to listOf("left", "right", "door"),
         "field" to listOf("field", "kozolec", "path"),
         "smithy" to listOf("anvil", "forge", "door"),
@@ -245,7 +258,9 @@ object SceneArt {
         // the square with the fire pump, or with the white stone for the fountain (how far they have come: 1 stopped);
         // the village band playing under the linden (how many play); couples dancing a polka (how many); the maypole
         // raised (how far up: only where it lies ready or stands); the fountain's water (along the ditch, then from its
-        // four pipes: how much)
+        // four pipes: how much); a lad climbing the maypole (how far up: 0 at its foot, 1 at the top under the wreath, the
+        // prizes in Friuli's within reach; a cue back down slides him down); the clock striking the hour (the strokes ring one
+        // by one as the level rises, as many as the dialog counts, else the hour the clock shows: [SceneFx.SLOW])
         "square" to listOf(
             "bell",
             "cat",
@@ -259,6 +274,8 @@ object SceneArt {
             "dance",
             "maypole",
             "fountain",
+            "climb",
+            "strike",
         ),
         // the lantern: 0 dark, 1 lit (not set: lit from dusk)
         "tent" to listOf("lantern"),

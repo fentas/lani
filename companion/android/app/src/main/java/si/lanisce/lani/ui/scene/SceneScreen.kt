@@ -390,7 +390,7 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
     val sceneClock = si.lanisce.lani.game.render.rememberTownClock()
     // the fire's crackle as it burns now (the village's coals by day, out in a summer's noon: SCENES.md "Ob ognju by the age")
     val fireSound = remember(scene.art, world, now, about) { fireSound(scene.art, world, now, about) }
-    si.lanisce.lani.ui.AmbientSound(vm.ambience, si.lanisce.lani.game.ambient.Place.Scene(scene.art, cues.fx.target, fireSound), cues.sky.target, sceneClock)
+    si.lanisce.lani.ui.AmbientSound(vm.ambience, si.lanisce.lani.game.ambient.Place.Scene(scene.art, cues.fx.target, fireSound, talk?.counted), cues.sky.target, sceneClock)
 
     // Back closes what's open over the picture first, one at a time; then the screen below (Nav: its predictive gesture)
     val ispyHere = vm.ispy.play?.sceneId == scene.id

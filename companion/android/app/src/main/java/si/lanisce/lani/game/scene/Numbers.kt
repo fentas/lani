@@ -115,7 +115,7 @@ object Numbers {
  */
 @Serializable
 data class DialogCount(
-    /** dice | food | wood | stone | wisdom | villagers | building:<type> */
+    /** dice | food | wood | stone | wisdom | villagers | building:<type> | hour (the hour the square's clock has struck: 1 … 12) */
     val from: String = "dice",
     val min: Int = 1,
     val max: Int = 999,
@@ -134,19 +134,24 @@ data class DialogCount(
  * same all day; [render] puts it into every text with the forms that agree.
  */
 object Counts {
+    /** A count of the hour the clock has struck last ([of]). */
+    const val HOUR = "hour"
+
     /** A placeholder: {n}, or forms {a|b} / {a|b|c|d}, the ones marked ! ({!a|b|c|d}) a wrong choice's wrong forms. */
     // Every brace escaped: Android's regex engine (ICU) rejects a lone "}" that the JVM's reads as a literal.
     private val PLACEHOLDER = Regex("""\{(!?)([^\{\}]*)\}""")
 
     /**
      * The number [c] counts in [state] on [today]: the day's dice from `min` to `max` ([key]: the dialog's,
-     * "scene/happening/dialog"), else what the village has (a store per `per`, its villagers, its buildings of a type),
-     * kept within `min` and `max`.
+     * "scene/happening/dialog"), the hour the clock has struck last at [hour] of the day (1 … 12: the strokes the square's
+     * clock rings, [Strike]), else what the village has (a store per `per`, its villagers, its buildings of a type), kept
+     * within `min` and `max`.
      */
-    fun of(c: DialogCount, state: GameState, today: LocalDate, key: String): Int {
+    fun of(c: DialogCount, state: GameState, today: LocalDate, key: String, hour: Int = java.time.LocalTime.now().hour): Int {
         val lo = c.min.coerceAtLeast(1)
         val hi = c.max.coerceAtLeast(lo)
         if (c.from == "dice") return lo + (Happenings.roll(state.seed, today, "$key#n") * (hi - lo + 1)).toInt().coerceIn(0, hi - lo)
+        if (c.from == HOUR) return Strike.hour12(hour.toFloat()).coerceIn(lo, hi)
         val have = when {
             c.from == "villagers" -> state.villagers
             c.from.startsWith("building:") -> c.from.substringAfter(':').let { t -> state.buildings.count { it.type.name.equals(t, ignoreCase = true) } }

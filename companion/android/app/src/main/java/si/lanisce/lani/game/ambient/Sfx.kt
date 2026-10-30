@@ -1,5 +1,6 @@
 package si.lanisce.lani.game.ambient
 
+import si.lanisce.lani.game.scene.Strike
 import si.lanisce.lani.game.scene.Sky
 import kotlin.math.PI
 import kotlin.math.ceil
@@ -133,13 +134,23 @@ object Sfx {
      * voice (si.lanisce.lani.data.Ambience queues them so): it is saying the line that rings the bell, and ducked the peal
      * went unheard ("did not ring a bell"); at the background's own level it is still well under it.
      */
-    fun fx(art: String, before: Map<String, Float>, after: Map<String, Float>, now: Double): List<Cue> {
+    fun fx(art: String, before: Map<String, Float>, after: Map<String, Float>, now: Double, count: Int? = null): List<Cue> {
         val out = ArrayList<Cue>()
+        // the square's clock striking the hour: a stroke of its bell each time the painter swings it ([Strike]), as many as
+        // the dialog counts, else the hour now
+        if (art == "square" && (after["strike"] ?: 0f) > (before["strike"] ?: 0f)) {
+            val n = count ?: Strike.hour12(java.time.LocalTime.now().hour.toFloat())
+            val from = (before["strike"] ?: 0f) * Strike.SPAN
+            for (i in 0 until n) {
+                val at = Strike.FIRST + i * Strike.EVERY
+                if (at >= from) out += Cue(Sound.BELL, now + (at - from) + Strike.EVERY * 0.25, 0.8f, 0.92f)
+            }
+        }
         for ((name, level) in after) {
             // the square's cat, set up the linden (her 0 is up there), mews as the painter's rings go out: twice
             if (art == "square" && name == "cat" && name !in before && level <= 0.1f) { out += mews(now); continue }
             val was = before[name] ?: 0f
-            if (level < 0.05f || level - was < RISE) continue
+            if (name == "strike" || level < 0.05f || level - was < RISE) continue
             val l = level.coerceIn(0f, 1f)
             when (name) {
                 "bell" -> (BELLS[art] ?: VILLAGE_BELL.takeIf { art == VILLAGE })?.let { b -> out += peal(b, now, l) }

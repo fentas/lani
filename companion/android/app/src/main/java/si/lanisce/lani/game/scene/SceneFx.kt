@@ -28,6 +28,43 @@ object FxLevels : KSerializer<Map<String, Float>> {
     override fun serialize(encoder: Encoder, value: Map<String, Float>) = raw.serialize(encoder, value.mapValues { JsonPrimitive(it.value) })
 }
 
+/**
+ * The effects that play out in time rather than ease into a state, name → their span (s): the level rises at an even pace
+ * over it from the cue, and a cue back down (or the dialog closing) takes it there at once ([FxEase]). The square's clock
+ * striking the hour ([Strike]).
+ */
+val SLOW: Map<String, Double> = mapOf("strike" to Strike.SPAN)
+
+/**
+ * The square's clock striking the hour (the effect "strike", companion/SCENES.md "Arts"): as many strokes as the dialog counts
+ * ([SceneFrame.count]: a count of the hour, [Counts]), else the hour the clock shows, one every [EVERY] s from [FIRST] s
+ * after the cue, the level the time since the cue over [SPAN] (linear, [SLOW]). The painter swings the bell and sends a ring
+ * out at each; [Sfx][si.lanisce.lani.game.ambient.Sfx] rings each stroke as the painter strikes it.
+ */
+object Strike {
+    const val SPAN = 24.0
+    const val FIRST = 0.5
+    const val EVERY = 1.8
+
+    /** The hour a clock showing [hour] (0 until 24, the scene's) has struck last: 1 … 12. */
+    fun hour12(hour: Float): Int = ((hour.toInt() % 12 + 11) % 12) + 1
+
+    /** When stroke [i] (from 0) rings, as a level of the effect. */
+    fun at(i: Int): Float = ((FIRST + i * EVERY) / SPAN).toFloat()
+
+    /**
+     * Where the strike is at [level] for [n] strokes: the stroke ringing now (from 0) and how far into it (0 … 1 over
+     * [EVERY] s), or null between none and after the last.
+     */
+    fun now(level: Float, n: Int): Pair<Int, Float>? {
+        val s = level * SPAN - FIRST
+        if (s < 0.0 || n <= 0) return null
+        val i = (s / EVERY).toInt()
+        if (i >= n) return null
+        return i to ((s - i * EVERY) / EVERY).toFloat().coerceIn(0f, 1f)
+    }
+}
+
 /** Whether a line or a reply to a right choice sets an effect (a reaction's pass with it, see [si.lanisce.lani.ui.scene.DialogRun.fx]). */
 val Dialog.hasFx: Boolean get() = lines.any { l -> l.fx.isNotEmpty() || l.answers.any { it.reply?.fx.orEmpty().isNotEmpty() } }
 
@@ -50,10 +87,12 @@ data class FxEase(val fades: Map<String, Fade> = emptyMap(), val target: Map<Str
         val out = LinkedHashMap<String, Fade>()
         for ((name, f) in fades) {
             val to = next[name] ?: 0f
-            if (name !in next && f.to == 0f && now - f.start >= Sky.RAMP_S) continue // faded out a while ago
-            out[name] = f.toward(to, now)
+            if (name !in next && f.to == 0f && now - f.start >= f.span) continue // faded out a while ago
+            // one that plays out in time goes back at once (the clock doesn't strike backwards), and on at its own pace
+            out[name] = SLOW[name]?.let { span -> if (to < f.at(now)) Fade.still(to) else if (to == f.to) f else Fade(f.at(now), to, now, span, linear = true) }
+                ?: f.toward(to, now)
         }
-        for ((name, to) in next) if (name !in out) out[name] = Fade(0f, to, now)
+        for ((name, to) in next) if (name !in out) out[name] = SLOW[name]?.let { Fade(0f, to, now, it, linear = true) } ?: Fade(0f, to, now)
         return FxEase(out, next)
     }
 
@@ -62,7 +101,7 @@ data class FxEase(val fades: Map<String, Fade> = emptyMap(), val target: Map<Str
         if (fades.isEmpty()) return emptyMap()
         val out = LinkedHashMap<String, Float>()
         for ((name, f) in fades) {
-            if (name !in target && now - f.start >= Sky.RAMP_S) continue
+            if (name !in target && now - f.start >= f.span) continue
             out[name] = f.at(now)
         }
         return out

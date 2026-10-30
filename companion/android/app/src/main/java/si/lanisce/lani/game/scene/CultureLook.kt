@@ -179,11 +179,13 @@ object CultureLooks {
      * bands and quoins, two brick arches below, the hay loft above behind brick lattices, a coppi roof), the village on
      * the hill as Friuli builds it (ochre and terracotta plaster, coppi, the free-standing brick campanile), vine rows
      * on the Collio's slopes, and the plain's trees: a row of pollarded mulberries with the vines strung between them
-     * (the piantata) and Lombardy poplars along the far ditches.
+     * (the piantata) and Lombardy poplars along the far ditches. The big hay barn of the project (il grande fienile, the
+     * `toplar`): the village's stores under its roof, bunches of golden maize cobs hung from its tie beams to dry from August
+     * to March (`toplar`).
      */
     val FRIULI_FIELD = Table.of(
         "field",
-        variants = mapOf("kozolec" to "fienile", "village" to "friuli", "hills" to "collio", "trees" to "piantata"),
+        variants = mapOf("kozolec" to "fienile", "village" to "friuli", "hills" to "collio", "trees" to "piantata", "toplar" to "pannocchie"),
     )
 
     /**
@@ -193,8 +195,12 @@ object CultureLooks {
      */
     val FRIULI_FOREST = Table.of("forest", variants = mapOf("shrine" to "ancona"))
 
-    /** Friuli's stream (Al ruscello): Lombardy poplars along the banks and the woods' edge, vine rows and a campanile on the hill. */
-    val FRIULI_STREAM = Table.of("stream", variants = mapOf("trees" to "pioppi", "hills" to "collio"))
+    /**
+     * Friuli's stream (Al ruscello): Lombardy poplars along the banks and the woods' edge, vine rows and a campanile on the
+     * hill; the cart bridge's two pillars and its ramps' walls of river cobbles in courses with bands of brick, as the
+     * plain's farmsteads are built (`cartbridge`).
+     */
+    val FRIULI_STREAM = Table.of("stream", variants = mapOf("trees" to "pioppi", "hills" to "collio", "cartbridge" to "cobbles"))
 
     /**
      * Friuli's pond (Allo stagno): the lowland wood round it (Lombardy poplars and oaks, as by the lagoon's woods), and Nonno
@@ -252,11 +258,17 @@ object CultureLooks {
      * Friuli's square (In piazza, SquarePainter): a Collio village's piazza. The church's gable in plaster under coppi and the
      * free-standing brick campanile with its low pyramid cap; the houses in Friuli's plaster under coppi with their shutters,
      * the nearest Marisa's osteria with its sign and its frasca; the well-head of white stone under a wrought-iron arch with a
-     * copper bucket; a panchina of green slats on iron; vine rows on the hills. The linden (il tiglio) stays.
+     * copper bucket; a panchina of green slats on iron; vine rows on the hills. The linden (il tiglio) stays. The maypole is
+     * the greasy pole (l'albero della cuccagna, `maypole`): its soaped trunk shining, the wheel of prizes under its wreath (a
+     * salami, a cheese, bags of sweets), lying ready by it before it goes up; the fountain's pillar crowned with a pine cone of
+     * stone, as the Venetian fountains of the plain have it, and a moulded rim on its trough (`fountain`).
      */
     internal val FRIULI_SQUARE = Table.of(
         "square",
-        variants = mapOf("village" to "friuli", "hills" to "collio", "well" to "vera", "bench" to "panchina", "osteria" to "frasca"),
+        variants = mapOf(
+            "village" to "friuli", "hills" to "collio", "well" to "vera", "bench" to "panchina", "osteria" to "frasca",
+            "maypole" to "cuccagna", "fountain" to "pigna",
+        ),
     )
 
     /**
@@ -265,11 +277,15 @@ object CultureLooks {
      * its open front, each painted a plain colour with its number and landing board (`house`); the hive apart a box hive too
      * (`hive`); Aldo's sign by the path, MIELE on a yellow board, for the `panel`; an acacia (robinia) where the linden
      * stands, white with racemes in May (`tree`); pale acacia honey in the jars, a dark chestnut one in autumn (`honey`);
-     * World Bee Day's bunting in Friuli's yellow and blue (`bunting`).
+     * World Bee Day's bunting in Friuli's yellow and blue (`bunting`). The bee meadow (il prato delle api) as Friuli's
+     * children sowed it, clover with sunflowers standing over it in summer (`meadow`).
      */
     internal val FRIULI_APIARY = Table.of(
         "apiary",
-        variants = mapOf("house" to "friuli", "panel" to "sign", "hive" to "box", "tree" to "acacia", "honey" to "acacia", "bunting" to "friuli"),
+        variants = mapOf(
+            "house" to "friuli", "panel" to "sign", "hive" to "box", "tree" to "acacia", "honey" to "acacia", "bunting" to "friuli",
+            "meadow" to "girasoli",
+        ),
     )
 
     /**

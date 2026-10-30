@@ -103,11 +103,14 @@ internal class StreamPainter : WildPainter() {
     // woods' edge, the Collio's vines and a campanile on the hill
     private var pioppi = false
     private var collio = false
+    /** Friuli's cart bridge: its pillars and its ramps' walls of river cobbles with bands of brick ([cobbleTone]). */
+    private var cobblePiers = false
 
     override fun paint() {
         setup()
         pioppi = variant("trees") != null
         collio = variant("hills") != null
+        cobblePiers = variant("cartbridge") != null
         millDone = stage(MILL) >= stages(MILL)
         wheelIn = stage(MILL) >= stages(MILL) - 1
         roadDone = stage(BRIDGE) >= DECKED
@@ -851,12 +854,15 @@ internal class StreamPainter : WildPainter() {
      * finished, a railing along both sides (the
      * near one low). From the piers on, the cart road's ramps are heaped up to them off both banks (up to the deck once it
      * is laid), and once the deck is laid the cart road runs up the ramps and over it, from the village into the woods.
-     * Scenery: the scene's bridge word is the footbridge (brv).
+     * The scene's `bridge` is the footbridge (brv); finished (the first cart over it), the cart bridge is a word of its own,
+     * `cartbridge` ([si.lanisce.lani.game.scene.SceneFixtures]); before, scenery. In Friuli its pillars and its ramps' walls
+     * are of river cobbles with bands of brick ([cobbleTone]), as the plain builds.
      */
     private fun cartBridge() {
         val st = stage(BRIDGE)
         if (st <= 0) return
-        items.add(cartD to { prop { cartBridge(st) } })
+        if (st >= stages(BRIDGE)) items.add(cartD to { thing("cartbridge") { cartBridge(st) } })
+        else items.add(cartD to { prop { cartBridge(st) } })
     }
 
     private fun cartBridge(st: Int) {
@@ -949,7 +955,7 @@ internal class StreamPainter : WildPainter() {
         // the face toward the water, going back
         c.polyBegin()
         c.polyAdd(gx(inner, d0), gy(d0)); c.polyAdd(gx(inner, d1), gy(d1)); c.polyAdd(gx(inner, d1), gy(d1) - h * p1); c.polyAdd(gx(inner, d0), gy(d0) - h * p0)
-        c.polyFill { x, y -> val d = F * inner / (x + 0.5f - vx).let { if (abs(it) < 0.5f) 0.5f else it }; pierTone(x, y, gy(d.coerceIn(d0, d1)), pm(d.coerceIn(d0, d1)), 0.72f) }
+        c.polyFill { x, y -> val d = F * inner / (x + 0.5f - vx).let { if (abs(it) < 0.5f) 0.5f else it }; wallTone(x, y, gy(d.coerceIn(d0, d1)), pm(d.coerceIn(d0, d1)), 0.72f) }
         // the top
         c.polyBegin()
         c.polyAdd(gx(x0, d0), gy(d0) - h * p0); c.polyAdd(gx(x1, d0), gy(d0) - h * p0); c.polyAdd(gx(x1, d1), gy(d1) - h * p1); c.polyAdd(gx(x0, d1), gy(d1) - h * p1)
@@ -957,7 +963,7 @@ internal class StreamPainter : WildPainter() {
         // the front, toward us
         c.polyBegin()
         c.polyAdd(gx(x0, d0), gy(d0)); c.polyAdd(gx(x1, d0), gy(d0)); c.polyAdd(gx(x1, d0), gy(d0) - h * p0); c.polyAdd(gx(x0, d0), gy(d0) - h * p0)
-        c.polyFill { x, y -> pierTone(x, y, gy(d0), p0, 1f) }
+        c.polyFill { x, y -> wallTone(x, y, gy(d0), p0, 1f) }
     }
 
     /**
@@ -979,7 +985,41 @@ internal class StreamPainter : WildPainter() {
         val p0 = pm(d0)
         c.polyBegin()
         c.polyAdd(gx(x0, d0), gy(d0)); c.polyAdd(gx(x1, d0), gy(d0)); c.polyAdd(gx(x1, d0), hy(d0, h1)); c.polyAdd(gx(x0, d0), hy(d0, h0))
-        c.polyFill { x, y -> pierTone(x, y, gy(d0), p0, 0.92f) }
+        c.polyFill { x, y -> wallTone(x, y, gy(d0), p0, 0.92f) }
+    }
+
+    /** The bridge's stone at ([x], [y]): the art's dressed blocks ([pierTone]), Friuli's river cobbles ([cobbleTone]). */
+    private fun wallTone(x: Int, y: Int, base: Float, p: Float, shade: Float): Int =
+        if (cobblePiers) cobbleTone(x, y, base, p, shade) else pierTone(x, y, base, p, shade)
+
+    /**
+     * Friuli's pillars and walls: river cobbles, rounded, whitish, grey and ochre, laid in courses in lime mortar, and every
+     * fourth course a band of two rows of brick through them; wet and dark at the foot.
+     */
+    private fun cobbleTone(x: Int, y: Int, base: Float, p: Float, shade: Float): Int {
+        val hgt = (base - y - 0.5f) / p
+        val ch = 0.2f
+        val row = floor(hgt / ch).toInt()
+        val fv = hgt / ch - row
+        val mortar = Col.hex(0xC8BCA6)
+        var col = if (Math.floorMod(row, 5) == 3) {
+            // a band of brick
+            val bw = 0.26f * p
+            val u = (x + (row and 1) * bw * 0.5f) / bw
+            if (fv < 0.18f || u - floor(u) < 0.12f) mortar else if (Noise.hash(floor(u).toInt(), row * 7 + 3) % 2 == 0) Col.hex(0xB0603E) else Col.hex(0x9C5236)
+        } else {
+            val sw = (0.22f + 0.08f * Noise.rnd(row, 371)) * p
+            val u = (x + Noise.rnd(row, 372) * sw) / sw
+            val k = floor(u).toInt(); val fu = u - k
+            val r = (fu - 0.5f) * (fu - 0.5f) * 4f + (fv - 0.5f) * (fv - 0.5f) * 4f
+            when {
+                r > 0.8f -> mortar
+                fu < 0.4f && fv > 0.55f && detail > 1 -> Col.hex(0xDCD4C6)
+                else -> COBBLES[Math.floorMod(Noise.hash(k, row * 13 + 5), COBBLES.size)]
+            }
+        }
+        if (hgt < 0.18f) col = Col.mix(col, Pal.STONE_X, 0.5f)
+        return if (shade < 1f) Col.scale(col, shade) else col
     }
 
     /** A pier's stone: courses of blocks, the joints between them showing closer up, wet and dark at the foot. */
@@ -1756,6 +1796,9 @@ internal class StreamPainter : WildPainter() {
 
         private const val MILL = "mlin"
         private const val BRIDGE = "most"
+
+        /** Friuli's river cobbles: whitish, grey, buff and ochre ([cobbleTone]). */
+        private val COBBLES = intArrayOf(Col.hex(0xBCB2A0), Col.hex(0xA89E8C), Col.hex(0xC8C0AE), Col.hex(0x968C7A), Col.hex(0xC2B49C))
         /** Steps of the bridge done when its deck is laid: a cart ("cart") can go over it. */
         private const val DECKED = 5
         /** The lamb by the ewe ("lamb"), in front of her at the water's edge. */

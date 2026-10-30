@@ -282,9 +282,11 @@ data class SceneNeeds(
  * the third, and its hearth and straw bed only until then). An object in such a slot is there only when this holds too,
  * whatever its own [SceneObject.needs] says, so a scene the tutor writes can't offer a word for a thing that isn't drawn.
  *
- * The painters draw more that grows with the village without being a word of its own (the cart bridge over the stream,
- * the maypole and the clock on the square, the double hayrack in the field, the kitchen's tiled floor and painted walls,
- * the smithy's second anvil): see the painters and companion/SCENES.md.
+ * The painters draw more that grows with the village without being a word of its own (a project as far as its steps have
+ * come: the cart bridge's piers, the maypole on its trestles, the fountain's block of stone; the kitchen's tiled floor and
+ * painted walls, the smithy's second anvil): see the painters and companion/SCENES.md. A finished project is a word of the
+ * picture it stands in (the square's maypole, fountain and clock, the stream's cart bridge, the field's toplar, the apiary's
+ * bee meadow).
  */
 object SceneFixtures {
     private val L2 = SceneNeeds(level = 2)
@@ -300,8 +302,15 @@ object SceneFixtures {
             "bread" to L2, "plate" to L2, "bowl" to L2, "glass" to L2, "cup" to L2, "spoon" to L2, "fork" to L2, "knife" to L2, "salt" to L2,
             "cupboard" to L3, "clock" to L3, "corner" to L3,
         ),
-        "field" to mapOf("kozolec" to SceneNeeds(building = "KOZOLEC"), "hay" to SceneNeeds(building = "KOZOLEC")),
-        "square" to mapOf("well" to SceneNeeds(building = "WELL"), "tower" to SceneNeeds(building = "CHURCH")),
+        // the double hayrack beyond the wheat once the village has finished it (its project's steps before: scenery)
+        "field" to mapOf("kozolec" to SceneNeeds(building = "KOZOLEC"), "hay" to SceneNeeds(building = "KOZOLEC"), "toplar" to SceneNeeds(project = "toplar")),
+        // the finished projects on the square: the maypole while it stands (not down for the season), the fountain, and the
+        // town clock in the church's tower (the tower first)
+        "square" to mapOf(
+            "well" to SceneNeeds(building = "WELL"), "tower" to SceneNeeds(building = "CHURCH"),
+            "maypole" to SceneNeeds(project = "mlaj"), "fountain" to SceneNeeds(project = "vodnjak_na_trgu"),
+            "clock" to SceneNeeds(building = "CHURCH", project = "mestna_ura"),
+        ),
         // level 2 the big bellows and the chain; level 3 the cart wheel waiting for its tyre and the axe on the wall
         "smithy" to mapOf("bellows" to L2, "chain" to L2, "wheel" to L3, "axe" to L3),
         // level 2 the map and the globe; level 3 the clock
@@ -314,7 +323,10 @@ object SceneFixtures {
         "workshop" to mapOf("saw" to L2, "tools" to L2, "ladder" to L2, "rake" to L2, "wheelbarrow" to L3, "horse" to L3, "lantern" to L3),
         "cellar" to mapOf("shelf" to L2, "bottle" to L2, "grapes" to L2, "wine" to L2, "ham" to L3, "cheese" to L3),
         "attic" to mapOf("wardrobe" to L2, "rug" to L2, "lamp" to L2, "ball" to L2, "mirror" to L3, "toy" to L3),
-        "stream" to mapOf("mill" to SceneNeeds(project = "mlin")),
+        // France's mill once it grinds, the cart bridge once the first cart has crossed it
+        "stream" to mapOf("mill" to SceneNeeds(project = "mlin"), "cartbridge" to SceneNeeds(project = "most")),
+        // the bee meadow along the garden's front once the village has made it
+        "apiary" to mapOf("meadow" to SceneNeeds(project = "cebelji_travnik")),
         // the palisade's gate grows with the palisade's level, as the map's: the torches on the gate's posts from the second,
         // the gate's roof and its pennant from the third, the walkway along the stakes and its ladder from the fourth, the
         // bell under the gate's roof at the fifth

@@ -182,6 +182,8 @@ internal class FieldPainter : WildPainter() {
     private var collio = false
     private var piantata = false
     private var villageStyle: FireStyle? = null
+    /** Friuli's big hay barn (the `toplar`): bunches of maize cobs drying from its tie beams, August to March. */
+    private var pannocchie = false
 
     /** Fruit trees about the fields: side, depth, height (m). */
     private val orchard = listOf(
@@ -197,6 +199,7 @@ internal class FieldPainter : WildPainter() {
         fienile = variant("kozolec") != null
         collio = variant("hills") != null
         piantata = variant("trees") != null
+        pannocchie = variant("toplar") != null
         villageStyle = if (variant("village") != null) FireStyle.of(frame.world.culture, frame.world.landscape) else null
         vistaSky(5, 13, moonX = ox + 196 * k, moonY = oy + 12 * k)
         farHills()
@@ -1673,12 +1676,15 @@ internal class FieldPainter : WildPainter() {
     /**
      * The toplar, the double hayrack, as far as the village has built it (the project "toplar", [stage]): oak logs
      * felled and heaped at its place, the stone feet for its eight posts, the posts raised, the poles fixed between
-     * them, the plank roof over both racks; finished, the first hay hangs in it. Scenery: the field's word is the kozolec.
+     * them, the plank roof over both racks; finished, the first hay hangs in it, and it is a word of the field (`toplar`:
+     * [si.lanisce.lani.game.scene.SceneFixtures]); before, scenery. In Friuli (il grande fienile, the village's stores under
+     * its roof) bunches of golden maize cobs hang from its front tie beam to dry from August to March ([maizeCobs]).
      */
     private fun toplar() {
         val st = stage(TOPLAR)
         if (st <= 0) return
-        items.add(topD to { prop { toplar(st) } })
+        if (st >= stages(TOPLAR)) items.add(topD to { thing("toplar") { toplar(st) } })
+        else items.add(topD to { prop { toplar(st) } })
     }
 
     private fun toplar(st: Int) {
@@ -1750,6 +1756,34 @@ internal class FieldPainter : WildPainter() {
         }
         c.hline(gx(topA - over, dR).toInt(), gx(topB + over, dR).toInt(), yR.toInt() - 1, if (snow) Pal.SNOW_L else Pal.WOOD_X)
         c.hline(gx(topA - over, dF).toInt(), gx(topB + over, dF).toInt(), yE.toInt() + 1, Pal.WOOD_X)
+        if (pannocchie && st >= stages(TOPLAR) && (frame.month >= 8 || frame.month <= 3)) maizeCobs(xsF, eave)
+    }
+
+    /**
+     * Friuli's maize drying under the big hay barn's roof ([pannocchie]): from the front tie beam between each two posts a
+     * bunch of golden cobs tied by their husks (the husks pale over them), swaying a little; fewer as the winter goes on.
+     */
+    private fun maizeCobs(posts: List<Float>, eave: Float) {
+        val k = detail
+        val p = pm(topD); val beam = gy(topD) - eave * p
+        val bunches = if (frame.month in 8..12) 2 else 1
+        val gold = Col.hex(0xE88A18); val goldL = Col.hex(0xF8B032); val goldD = Col.hex(0xA85A10); val husk = Col.hex(0xF0E6C4)
+        for (bay in 0 until posts.size - 1) for (b in 0 until bunches) {
+            val x = gx(posts[bay] + (posts[bay + 1] - posts[bay]) * (if (bunches == 1) 0.5f else 0.33f + 0.34f * b), topD)
+            val sway = (sin(t * 1.2 + bay * 1.7 + b) * 0.04f * p * gust).toFloat()
+            val len = max(4f, 1.25f * p); val half = max(1f, 0.2f * p)
+            // the husks tied at the top, pale
+            c.fillRect((x - half * 0.6f).toInt(), beam.toInt() + 1, max(1, (half * 1.2f).toInt()), max(1, (0.18f * p).toInt()), husk)
+            for (y in (beam + 0.18f * p).toInt()..(beam + len).toInt()) {
+                val u = (y - beam) / len
+                val hw = half * (1f - 0.45f * u)
+                val sx = x + sway * u
+                for (xx in (sx - hw).toInt()..(sx + hw).toInt()) {
+                    val kern = k > 1 && ((xx + y) % (2 * k)) == 0
+                    c.set(xx, y, when { kern || xx >= (sx + hw).toInt() -> goldD; xx < sx - hw * 0.2f -> goldL; else -> gold })
+                }
+            }
+        }
     }
 
     /**

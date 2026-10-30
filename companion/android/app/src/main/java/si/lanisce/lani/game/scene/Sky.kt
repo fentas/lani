@@ -92,15 +92,18 @@ internal inline fun Dialog.played(at: Int, picks: List<Int>, each: (SkyCue?, Map
     }
 }
 
-/** One level easing from [from] to [to] over [Sky.RAMP_S] from [start] (seconds of [SkyEase.clock]), slow at both ends. */
-data class Fade(val from: Float, val to: Float, val start: Double) {
+/**
+ * One level easing from [from] to [to] over [span] seconds (by default [Sky.RAMP_S]) from [start] (seconds of
+ * [SkyEase.clock]), slow at both ends; [linear], at an even pace (an effect that plays out in time: [SLOW]).
+ */
+data class Fade(val from: Float, val to: Float, val start: Double, val span: Double = Sky.RAMP_S, val linear: Boolean = false) {
     fun at(now: Double): Float {
-        val u = ((now - start) / Sky.RAMP_S).coerceIn(0.0, 1.0).toFloat()
-        return from + (to - from) * u * u * (3f - 2f * u)
+        val u = ((now - start) / span).coerceIn(0.0, 1.0).toFloat()
+        return from + (to - from) * (if (linear) u else u * u * (3f - 2f * u))
     }
 
-    /** On toward [target] from where it is at [now]; the same target keeps the fade going. */
-    fun toward(target: Float, now: Double): Fade = if (target == to) this else Fade(at(now), target, now)
+    /** On toward [target] from where it is at [now], at the same pace; the same target keeps the fade going. */
+    fun toward(target: Float, now: Double): Fade = if (target == to) this else Fade(at(now), target, now, span, linear)
 
     companion object {
         fun still(v: Float) = Fade(v, v, 0.0)

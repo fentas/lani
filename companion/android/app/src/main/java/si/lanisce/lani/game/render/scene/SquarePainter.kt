@@ -10,6 +10,7 @@ import si.lanisce.lani.game.render.Season
 import si.lanisce.lani.game.scene.PersonInScene
 import si.lanisce.lani.game.scene.Poke
 import si.lanisce.lani.game.scene.SceneSights
+import si.lanisce.lani.game.scene.Strike
 import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.asin
@@ -136,6 +137,33 @@ internal class SquarePainter : VistaPainter() {
         val BAND_X = floatArrayOf(-4.1f, -3.2f, -2.3f, -1.4f)
         const val BAND_D = 16.5f
 
+        /**
+         * The grown-ups' standing spots (companion/SCENES.md "Arts"): by the maypole (behind the flower bed, left of its foot),
+         * under the clock (in the middle of the square behind the bed's right end, clear of whoever is at the play spots in
+         * front) and at the fountain (in front of its right side, clear of the well): side, depth (m), and 1 to face left. Near enough for a person sprite to stand for a person (13–17 m:
+         * the projects themselves stand farther, their heads just under them).
+         */
+        val STANDING = linkedMapOf(
+            "maypole" to floatArrayOf(-2.35f, 16.6f, 0f),
+            "clock" to floatArrayOf(-0.4f, 15.2f, 0f),
+            "fountain" to floatArrayOf(2.36f, 13.6f, 1f),
+        )
+
+        /** The cuccagna's prizes ([prize]). */
+        const val SALAMI = 0
+        const val CHEESE = 1
+        const val SWEETS = 2
+
+        /** How far the wind sways the maypole's ribbons at most (m, a metre down them): within its crown's width, as the weather keeps every box. */
+        const val RIBBON_SWAY = 0.38f
+
+        /** How high the cuccagna's wheel of prizes hangs on the pole (m), and how high the climber's feet get ("climb" 1). */
+        const val PRIZES_H = 7.35f
+        const val CLIMB_TOP = 5.0f
+
+        /** The children's sprites: they play at the play spots; anyone else there stands and watches. */
+        val CHILDREN = setOf("child1", "child2", "child3")
+
         /** Where the couples dance (side, depth: m), the first ones first. */
         val COUPLES = arrayOf(floatArrayOf(2.3f, 16.8f), floatArrayOf(-1.0f, 20.8f), floatArrayOf(1.2f, 24.2f), floatArrayOf(-3.6f, 23.6f))
     }
@@ -158,6 +186,9 @@ internal class SquarePainter : VistaPainter() {
     private var osteria = false
     private var collio = false
     private var shutterC = Pal.SHUTTER
+    /** Friuli's greasy pole with its wheel of prizes, and its fountain's stone pine cone ([maypole], [trough]). */
+    private var cuccagna = false
+    private var pigna = false
 
     override fun paint() {
         setup()
@@ -172,6 +203,8 @@ internal class SquarePainter : VistaPainter() {
         osteria = variant("osteria") != null
         collio = variant("hills") != null
         shutterC = style?.shutter ?: Pal.SHUTTER
+        cuccagna = variant("maypole") != null
+        pigna = variant("fountain") != null
         // ---- sky: the sun is a thing by day; at night the moon stands in its place as scenery
         sky(0, hz + 2 * k)
         // the real stars over the square (its moon is the sun's word's, where the sun stands by day)
@@ -213,7 +246,7 @@ internal class SquarePainter : VistaPainter() {
         val bx = gx(-4.8f, 11.8f).toInt(); val bby = gy(11.8f).toInt() - 7 * k
         val catDown = fx("cat")
         // the ball lost under the bench ("ball" 0) is the bench's: a tap on it is a tap there, where a tap turn looks for it
-        val ballAt = ballNow(ballPosition(frame.people.filter { it.slot.startsWith("play") }, playSpots()), bx, bby)
+        val ballAt = ballNow(ballPosition(frame.people.filter { it.slot.startsWith("play") && it.art in CHILDREN }, playSpots()), bx, bby)
         val lost = ballAt[6] > 0.5f
         items.add(11.8f to {
             thing("bench") {
@@ -229,8 +262,17 @@ internal class SquarePainter : VistaPainter() {
         })
         muri()
         for (p in peopleAt("well")) items.add(11.9f to { groundShadow(5.4f, 11.9f, 0.5f); person(p, gx(5.4f, 11.9f).toInt(), gy(11.9f).toInt(), flip = true) })
-        // the children and the ball, by their feet; they jump for joy at a goal ("goal")
-        val playing = frame.people.filter { it.slot.startsWith("play") }
+        // the grown-ups standing by the maypole, the fountain and under the clock: still, turned toward the square's middle
+        for ((slot, at) in STANDING) for (p in peopleAt(slot)) {
+            val (sx, sd) = at[0] to at[1]
+            items.add(sd to { groundShadow(sx, sd, 0.5f); person(p, gx(sx, sd).toInt(), gy(sd).toInt(), flip = at[2] > 0f) })
+        }
+        // the children and the ball, by their feet; they jump for joy at a goal ("goal"). A grown-up at a play spot watches
+        // the game from there, standing still (their spots are the standing ones above)
+        for (p in frame.people) if (p.slot.startsWith("play") && p.art !in CHILDREN) playSpots()[p.slot]?.let { (sx, sy) ->
+            items.add(depthAt(sy) to { shadow(sx.toFloat(), sy.toFloat(), 6f * k, 2f * k); person(p, sx, sy, flip = sx > vx) })
+        }
+        val playing = frame.people.filter { it.slot.startsWith("play") && it.art in CHILDREN }
         val spots = playSpots()
         val goal = fx("goal")
         val cheer = goal != null && goal in GOAL_IN..GOAL_BACK
@@ -788,14 +830,17 @@ internal class SquarePainter : VistaPainter() {
             // the round window, dark inside, its stone ring closer up
             if (k > 1) c.fillCircle(tm, cy, cr + max(1f, 0.15f * p), Pal.STONE_L)
             c.fillCircle(tm, cy, cr, Col.hex(0x2A2226))
-        } else clockFace(tm, cy, cr, p, lit, running = uraDone)
+        } else clockThing(tm, cy, cr, p, lit, running = uraDone)
         // the bell chamber; the bell swings when it rings (a dialog's "bell")
         val bw = max(2f, 0.9f * p)
         // tapped ([pokes]), it swings and rings a few times, dying down
         val tolled = poked("tower")?.age(t)?.let { a -> PokeArt.ease(a, 0f, 0.25f) * (1f - PokeArt.ease(a, 2f, 3.2f)) } ?: 0f
         val bell = max(fxOn("bell"), tolled)
-        val swing = sin(t * 5.5).toFloat() * bell
+        // striking the hour ("strike"): a swing to one side and back for each stroke, its ring going out
+        val stroke = strikeNow()
+        val swing = stroke?.let { (i, ph) -> sin(ph * PI).toFloat() * (if (i % 2 == 0) 0.9f else -0.9f) } ?: (sin(t * 5.5).toFloat() * bell)
         ringing(tm, by - 12.9f * p, p, bell)
+        stroke?.let { (_, ph) -> strokeRing(tm, by - 12.9f * p, p, ph) }
         if (k == 1) {
             c.fillRect((tm - bw / 2).toInt(), (by - 13.8f * p).toInt(), bw.toInt(), (1.6f * p).toInt(), Col.hex(0x2A2226))
             c.set(tm.toInt() + (if (swing > 0.45f) 1 else if (swing < -0.45f) -1 else 0), (by - 12.8f * p).toInt(), Pal.GOLD)
@@ -909,16 +954,18 @@ internal class SquarePainter : VistaPainter() {
         else if (ura < stages(CLOCK) - 1) {
             if (k > 1) c.fillCircle(tm, cy, cr + max(1f, 0.15f * p), Pal.STONE_L)
             c.fillCircle(tm, cy, cr, Col.hex(0x2A2226))
-        } else clockFace(tm, cy, cr, p, lit, running = uraDone)
+        } else clockThing(tm, cy, cr, p, lit, running = uraDone)
         // the cornice under the belfry, the belfry with the bell in its arch, the cornice at the top
         val cw = max(1f, 0.2f * p)
         c.fillRect((tx0 - cw).toInt(), (by - 12.2f * p).toInt(), (tx1 - tx0 + 2 * cw).toInt(), max(1, (0.3f * p).toInt()), Pal.STONE_L)
         val tolled = poked("tower")?.age(t)?.let { a -> PokeArt.ease(a, 0f, 0.25f) * (1f - PokeArt.ease(a, 2f, 3.2f)) } ?: 0f
         val bell = max(fxOn("bell"), tolled)
-        val swing = sin(t * 5.5).toFloat() * bell
+        val stroke = strikeNow()
+        val swing = stroke?.let { (i, ph) -> sin(ph * PI).toFloat() * (if (i % 2 == 0) 0.9f else -0.9f) } ?: (sin(t * 5.5).toFloat() * bell)
         val bw = max(2f, 1.1f * p)
         val ot = by - 14.8f * p; val oh = 2.3f * p
         ringing(tm, ot + oh * 0.5f, p, bell)
+        stroke?.let { (_, ph) -> strokeRing(tm, ot + oh * 0.5f, p, ph) }
         c.fillRect((tm - bw / 2).toInt(), (ot + bw / 2).toInt(), bw.toInt(), (oh - bw / 2).toInt(), Col.hex(0x2A2226))
         c.fillCircle(tm, ot + bw / 2, bw / 2, Col.hex(0x2A2226))
         val bt = ot + 0.45f * p; val bb = ot + 1.35f * p
@@ -945,6 +992,46 @@ internal class SquarePainter : VistaPainter() {
         c.fillRect(tm.toInt() - (0.4f * p).toInt(), ct + (0.3f * p).toInt(), (0.8f * p).toInt() + 1, th, Pal.GOLD)
     }
 
+    /**
+     * The clock's face in the tower: once the town clock is finished ([running]) a word of the square (`clock`), drawn under
+     * an object of its own without an outline inside the tower's (the tower drawn on round it as before, so its picture is
+     * the same, and a tap on the face is on the clock); before, the tower's, stopped at twelve.
+     */
+    private fun clockThing(tm: Float, cy: Float, cr: Float, p: Float, lit: Boolean, running: Boolean) {
+        if (!running) { clockFace(tm, cy, cr, p, lit, running = false); return }
+        val tower = c.penId
+        thing("clock", outline = 0) { clockFace(tm, cy, cr, p, lit, running = true) }
+        c.penId = tower
+    }
+
+    /**
+     * Where the clock is striking the hour ("strike", [Strike]): the stroke ringing now and how far into it, or null (before
+     * the first, after the last, not striking, or no clock going in the tower). As many strokes as the dialog counts, else
+     * the hour the clock shows.
+     */
+    private fun strikeNow(): Pair<Int, Float>? {
+        val level = fx("strike") ?: return null
+        if (stage(CLOCK) < stages(CLOCK)) return null
+        return Strike.now(level, frame.count ?: Strike.hour12(s.hour))
+    }
+
+    /** A stroke's ring going out from the bell at ([x], [y]), [ph] of the way through it: one ring, wide and fading. */
+    private fun strokeRing(x: Float, y: Float, p: Float, ph: Float) {
+        val th = max(1, detail / 2)
+        s.fx {
+            c.penEmissive = true
+            val r = (1.2f + 4.5f * ph) * p
+            val a = (1f - ph) * 0.95f
+            val steps = max(6, (r * 1.6f).toInt())
+            for (side in intArrayOf(-1, 1)) for (q in 0..steps) {
+                val ang = (q.toFloat() / steps - 0.5f) * 1.2f
+                val px = (x + side * cos(ang) * r).toInt(); val py = (y + sin(ang) * r).toInt()
+                for (o in 0 until th) c.blend(px + side * o, py, Pal.GOLD_L, a)
+            }
+            c.penEmissive = false
+        }
+    }
+
     /** The tower's clock face at ([tm], [cy]), [cr] px round: [running], the hands at the hour and lit at night; else stopped at twelve. */
     private fun clockFace(tm: Float, cy: Float, cr: Float, p: Float, lit: Boolean, running: Boolean) {
         val k = detail
@@ -969,7 +1056,12 @@ internal class SquarePainter : VistaPainter() {
      * in), peeled but for its green top (peeled), the wreath and the ribbons ready beside it (woven); raised, it stands
      * with the wreath below its crown and the ribbons fluttering. Taken down for the season (after May, until the village
      * raises it again on the eve of May Day: [si.lanisce.lani.game.ProjectSeasons]) nothing of it is here, not even the
-     * peg. Scenery: no word of its own here.
+     * peg. Standing, it is a word of the square (`maypole`: [si.lanisce.lani.game.scene.SceneFixtures]); before, scenery.
+     *
+     * In Friuli it is the greasy pole (l'albero della cuccagna): greased, it shines, and under its wreath hangs the wooden
+     * wheel of prizes the children made, a salami, a cheese and bags of sweets on its rim ([prizeWheel]), lying ready on the
+     * cobbles beside it before the pole goes up. A lad climbing it ("climb": [climber]) shins up from its foot (0) to the
+     * prizes (1), and slides back down when a cue lowers it.
      */
     private fun maypole() {
         val st = stage(MAYPOLE)
@@ -977,11 +1069,15 @@ internal class SquarePainter : VistaPainter() {
         val done = st >= stages(MAYPOLE)
         // raised by a dialog ("maypole": how far up), once the wreath is woven: the step that raises it, or the pole standing
         val raise = fx("maypole")?.takeIf { st >= stages(MAYPOLE) - 1 }
+        val up = (raise != null && raise >= 0.999f) || (raise == null && done)
+        // a word once its project is finished, also while a dialog raises it again; before, scenery
         when {
-            raise != null && raise >= 0.999f -> items.add(poleD to { prop { mlajStanding() } })
-            raise != null && raise > 0.001f -> items.add(poleD - 2f + 2f * raise to { prop { mlajRising(raise) } })
-            raise != null -> items.add(poleD - 2f to { prop { mlajLying(stages(MAYPOLE) - 1) } })
-            done -> items.add(poleD to { prop { mlajStanding() } })
+            up -> items.add(poleD to {
+                if (done) thing("maypole") { mlajStanding() } else prop { mlajStanding() }
+                fx("climb")?.let { climber(it) }
+            })
+            raise != null && raise > 0.001f -> items.add(poleD - 2f + 2f * raise to { if (done) thing("maypole") { mlajRising(raise) } else prop { mlajRising(raise) } })
+            raise != null -> items.add(poleD - 2f to { if (done) thing("maypole") { mlajLying(stages(MAYPOLE) - 1) } else prop { mlajLying(stages(MAYPOLE) - 1) } })
             else -> items.add(poleD - 2f to { prop { mlajLying(st) } })
         }
     }
@@ -1050,6 +1146,8 @@ internal class SquarePainter : VistaPainter() {
                 q += 0.5f
             }
         }
+        // Friuli's prizes on their wheel, hanging straight down from it as it goes up
+        if (cuccagna) { val pw = at(len - 3.05f); prizeWheel(pw[0], pw[1], p, standing = true) }
         // the wreath round it below the crown, and the ribbons hanging from it
         val wc = at(len - 2.6f); val wr = 0.6f * p
         for (a in 0 until 24) {
@@ -1094,6 +1192,8 @@ internal class SquarePainter : VistaPainter() {
             val hw = half * (1f - 0.45f * u)
             for (x in (bx - hw).toInt()..(bx + hw).toInt()) c.set(x, y, if (x < bx - hw * 0.2f) stripped else strippedD)
         }
+        // Friuli's greasy pole: the soap shining down its lit side
+        if (cuccagna) greased(bx, by, top, half)
         // the green crown: a young spruce's top, snowy in winter
         spruceTop(bx, top, 2.3f * p)
         // the wreath below it, the ribbons fluttering from it
@@ -1109,11 +1209,151 @@ internal class SquarePainter : VistaPainter() {
             val n = max(3, len.toInt())
             for (q in 0..n) {
                 val f = q / n.toFloat()
-                val sway = sin(t * 2.2 + j * 1.3 + f * 3.0).toFloat() * f * 0.35f * p * gust
+                val sway = sin(t * 2.2 + j * 1.3 + f * 3.0).toFloat() * f * min(0.35f * gust, RIBBON_SWAY) * p
                 c.fillRect((ax + sway).toInt(), (wy + f * len).toInt(), max(1, k), max(1, k), cols[j])
             }
         }
+        // the cuccagna's prizes on their wheel, just under the wreath
+        if (cuccagna) prizeWheel(bx, hy(poleD, PRIZES_H), p, standing = true)
     }
+
+    /**
+     * The soap on Friuli's greasy pole ([cuccagna]): a wet sheen down its lit side from [top] to its foot at [by] ([half] its
+     * half width there), and now and then a glint sliding down it.
+     */
+    private fun greased(bx: Float, by: Float, top: Float, half: Float) {
+        val sheen = Col.mix(stripped, Col.hex(0xFFFFFF), 0.55f)
+        val glint = ((t * 0.35) % 1.0).toFloat()
+        val gy0 = top + (by - top) * glint
+        for (y in max(top.toInt(), c.top)..min(by.toInt() - 1, c.bottom - 1)) {
+            val u = (by - y) / (by - top)
+            val hw = half * (1f - 0.45f * u)
+            val x = (bx - hw).toInt() + (if (hw >= 2f) 1 else 0)
+            c.set(x, y, if (abs(y - gy0) < 1.5f * detail) Col.hex(0xFFFFFF) else sheen)
+        }
+    }
+
+    /**
+     * The cuccagna's wheel of prizes ([cuccagna]), at row [wy] round the pole at [bx] ([p] px a metre): a wooden wheel seen
+     * from below, its rim lit, and hanging from it a salami, a round cheese, a bag of sweets on either side tied with a ribbon;
+     * [standing] on the pole (else lying ready on the cobbles, the prizes heaped by it: [mlajLying]).
+     */
+    private fun prizeWheel(bx: Float, wy: Float, p: Float, standing: Boolean) {
+        val k = detail
+        val r = 0.7f * p; val ry = max(1f, if (standing) 0.18f * p else 0.28f * p)
+        val wood = Col.hex(0x8A5A30); val woodL = Col.hex(0xB07C4A); val woodD = Col.hex(0x5E3A1E)
+        // the rim, its spokes closer up
+        c.fillEllipse(bx, wy, r, ry, woodD)
+        c.fillEllipse(bx, wy - max(1f, 0.04f * p), r * 0.82f, max(1f, ry * 0.6f), if (standing) Col.hex(0x2A2226) else wood)
+        if (k > 1) for (a in 0 until 6) {
+            val ang = a * PI.toFloat() / 3f
+            c.line(bx.toInt(), wy.toInt(), (bx + cos(ang) * r * 0.82f).toInt(), (wy + sin(ang) * ry * 0.6f).toInt(), wood)
+        }
+        c.hline((bx - r).toInt(), (bx + r).toInt(), (wy - ry).toInt() + 1, woodL)
+        if (!standing) {
+            // ready on the cobbles: the prizes heaped beside the wheel
+            prize(SALAMI, bx + r + 0.25f * p, wy, p, lying = true)
+            prize(CHEESE, bx + r + 0.55f * p, wy, p, lying = true)
+            prize(SWEETS, bx - r - 0.2f * p, wy, p, lying = true, j = 0)
+            prize(SWEETS, bx - r - 0.45f * p, wy, p, lying = true, j = 1)
+            return
+        }
+        // hanging from the rim on short strings, swaying a little in the wind
+        for ((j, kind) in intArrayOf(SWEETS, SALAMI, CHEESE, SWEETS).withIndex()) {
+            val f = -0.9f + j * 0.6f
+            val ax = bx + f * r
+            val sway = sin(t * 1.6 + j * 1.1).toFloat() * 0.05f * p
+            val hang = (0.2f + 0.1f * (j % 2)) * p
+            c.line(ax.toInt(), (wy + ry * 0.5f).toInt(), (ax + sway).toInt(), (wy + hang).toInt(), Col.hex(0xE8E0CC))
+            prize(kind, ax + sway, wy + hang, p, lying = false, j = j)
+        }
+    }
+
+    /** One of the cuccagna's prizes, its top at ([x], [y]) hanging (or lying on the ground there, [lying]). */
+    private fun prize(kind: Int, x: Float, y: Float, p: Float, lying: Boolean, j: Int = 0) {
+        val k = detail
+        when (kind) {
+            SALAMI -> {
+                // a salami in its net, dark red, tied at the top
+                val len = max(3f, 0.6f * p); val th = max(1f, 0.15f * p)
+                if (lying) c.fillEllipse(x, y - th, len / 2f, th, Col.hex(0x8C2E2A))
+                else c.fillEllipse(x, y + len / 2f, th, len / 2f, Col.hex(0x8C2E2A))
+                if (k > 1) {
+                    val cx = if (lying) x else x; val cy = if (lying) y - th else y + len / 2f
+                    c.set((cx - th * 0.4f).toInt(), (cy - (if (lying) 0f else len * 0.25f)).toInt(), Col.hex(0xD8C0B0))
+                    c.set((cx + th * 0.2f).toInt(), (cy + (if (lying) 0f else len * 0.15f)).toInt(), Col.hex(0xD8C0B0))
+                }
+            }
+            CHEESE -> {
+                // a wheel of Montasio, its rind straw yellow, lit on top
+                val rr = max(1.5f, 0.27f * p); val hh = max(1f, 0.14f * p)
+                val cy = if (lying) y - hh else y + hh
+                c.fillRect((x - rr).toInt(), (cy - hh).toInt(), max(2, (2 * rr).toInt()), max(1, (2 * hh).toInt()), Col.hex(0xD8B060))
+                c.hline((x - rr).toInt(), (x + rr).toInt() - 1, (cy - hh).toInt(), Col.hex(0xF0D488))
+                if (k > 1) c.hline((x - rr).toInt(), (x + rr).toInt() - 1, (cy + hh).toInt() - 1, Col.hex(0xA8843C))
+            }
+            else -> {
+                // a bag of sweets, tied at its neck with a ribbon of the flag's blue or gold
+                val bw = max(1.5f, 0.2f * p); val bh = max(2f, 0.3f * p)
+                val cy = if (lying) y - bh / 2f else y + bh / 2f + max(1f, 0.04f * p)
+                c.fillEllipse(x, cy, bw, bh / 2f, Col.hex(0xF4F0E6))
+                c.set(x.toInt(), (cy - bh / 2f).toInt(), if (j % 2 == 0) Col.hex(0x1F5AA8) else Pal.GOLD)
+                if (k > 1) {
+                    c.set((x - bw * 0.4f).toInt(), cy.toInt(), Pal.GERANIUM); c.set((x + bw * 0.3f).toInt(), (cy + bh * 0.2f).toInt(), Col.hex(0x3E8A3A))
+                }
+            }
+        }
+    }
+
+    /**
+     * A lad climbing the maypole ("climb": [level] how far up): at 0 at its foot, his arms up round it, ready; rising, he shins
+     * up it, arms and legs taking turns, a figure as small as its distance makes him; at 1 at the top, an arm up for the prize
+     * under the wreath (Friuli's on its wheel). A cue back down slides him down it.
+     */
+    private fun climber(level: Float) {
+        val k = detail
+        val p = pm(poleD); val bx = gx(poleX, poleD); val by = gy(poleD)
+        val u = level.coerceIn(0f, 1f)
+        val hgt = 1.6f * p
+        val fy = by - u * CLIMB_TOP * p // his feet, on the pole
+        val climbing = u > 0.02f && u < 0.98f
+        val step = if (climbing && ((t * 2.4) % 1.0) < 0.5) 1 else 0
+        val shirt = Col.hex(0xF4F0E6); val shirtD = Col.hex(0xC8C0B0); val trousers = Col.hex(0x4A4058); val hair = Pal.HAIR[1]
+        val lw = max(1f, 0.12f * p)
+        prop {
+            // seen from behind, hugging the pole: the legs round it, knees out, one higher than the other as he shins up
+            val hip = fy - hgt * 0.3f
+            for ((side, up) in listOf(-1 to step, 1 to 1 - step)) {
+                val ky = fy - hgt * (0.2f + 0.07f * up)
+                val kx = bx + side * hgt * 0.17f
+                thickLine(bx + side * hgt * 0.06f, hip, kx, ky, lw, trousers)
+                thickLine(kx, ky, bx + side * max(1f, 0.04f * p), fy - up * hgt * 0.06f, lw, trousers)
+            }
+            // the shirt, its shaded side
+            val bw = max(2, (hgt * 0.3f).toInt()); val bt = (fy - hgt * 0.6f).toInt()
+            c.fillRect((bx - hgt * 0.15f).toInt(), bt, bw, max(2, (hip - bt).toInt() + 1), shirt)
+            c.fillRect((bx + hgt * 0.15f).toInt() - max(1, bw / 4), bt, max(1, bw / 4), max(2, (hip - bt).toInt() + 1), shirtD)
+            // the arms up round the pole over his head, one hand higher, then the other; at the top one reaches for the prize
+            val shoulder = fy - hgt * 0.56f
+            val reach = u >= 0.98f
+            for ((i, side) in listOf(-1, 1).withIndex()) {
+                val hy = shoulder - hgt * (if (reach && i == 1) 0.55f else 0.34f + 0.1f * ((step + i) % 2))
+                val hx = if (reach && i == 1) bx + hgt * 0.26f else bx + side * max(1f, 0.05f * p)
+                thickLine(bx + side * hgt * 0.13f, shoulder, hx, hy, lw, shirt)
+                c.fillRect((hx - lw / 2f).toInt(), (hy - lw / 2f).toInt(), max(1, lw.toInt()), max(1, lw.toInt()), Pal.SKIN)
+            }
+            // the head from behind: his hair, his ears
+            val hr = max(1.5f, hgt * 0.19f)
+            val hcy = fy - hgt * 0.74f
+            c.fillEllipse(bx - hr, hcy, max(1f, hr * 0.25f), max(1f, hr * 0.35f), Pal.SKIN)
+            c.fillEllipse(bx + hr, hcy, max(1f, hr * 0.25f), max(1f, hr * 0.35f), Pal.SKIN)
+            c.fillEllipse(bx, hcy, hr, hr, hair)
+            if (k > 1) c.fillEllipse(bx - hr * 0.35f, hcy - hr * 0.4f, max(1f, hr * 0.3f), max(1f, hr * 0.2f), Col.mix(hair, Col.hex(0xFFFFFF), 0.25f))
+        }
+    }
+
+    /** A line [th] px thick (at least one) from ([x0], [y0]) to ([x1], [y1]). */
+    private fun thickLine(x0: Float, y0: Float, x1: Float, y1: Float, th: Float, col: Int) = thick(x0, y0, x1, y1, max(1, th.toInt()), col)
 
     /** A young spruce's top: tiers of branches narrowing up to a point, from [top] down [len] px. */
     private fun spruceTop(bx: Float, top: Float, len: Float) {
@@ -1183,6 +1423,8 @@ internal class SquarePainter : VistaPainter() {
             }
         }
         if (st < 4) return
+        // Friuli's prizes on their wheel, the children's (the cuccagna's fourth step), ready on the cobbles before the wreath
+        if (cuccagna) prizeWheel(gx(poleX - 1.2f, poleD - 3.6f), gy(poleD - 3.6f) - 0.12f * pm(poleD - 3.6f), pm(poleD - 3.6f), standing = false)
         // the wreath and the ribbons ready on the cobbles beside it
         val wx = gx(poleX + 1.6f, poleD - 3.4f); val wy = gy(poleD - 3.4f); val wp = pm(poleD - 3.4f)
         c.fillEllipse(wx, wy - 0.12f * wp, 0.55f * wp, max(1f, 0.2f * wp), Pal.LEAF)
@@ -1220,7 +1462,9 @@ internal class SquarePainter : VistaPainter() {
         }
         // the pool at the bottom while the ditch's water reaches it
         val pool = if (open && water != null) ((water - 0.85f) / 0.15f).coerceIn(0f, 1f) * 0.25f else 0f
-        items.add(FOUNT_D to { prop { trough(st, running, max(running, pool)) } })
+        // finished, a word of the square (`fountain`); before, scenery
+        if (st >= stages(FOUNTAIN)) items.add(FOUNT_D to { thing("fountain") { trough(st, running, max(running, pool)) } })
+        else items.add(FOUNT_D to { prop { trough(st, running, max(running, pool)) } })
     }
 
     /**
@@ -1352,6 +1596,8 @@ internal class SquarePainter : VistaPainter() {
             // eight faces: a joint at each corner
             if (k > 1 && abs(((asin(u.coerceIn(-1f, 1f)) / (PI.toFloat() / 8f)) % 1f)) < 0.08f) for (y in rimY.toInt()..bot.toInt()) c.set(x, y, lime[3])
         }
+        // Friuli's: a moulding round the wall under its rim
+        if (pigna && st >= 3) c.fillEllipse(cx, rimY + max(1f, 0.12f * p), r * p + max(1f, 0.05f * p), ry(FOUNT_WALL - 0.12f), lime[2])
         // the rim and the inside: dry stone, or the water in it
         c.fillEllipse(cx, rimY, r * p, ry(FOUNT_WALL), if (env.snow) Pal.SNOW_L else lime[0])
         val inR = r - 0.18f
@@ -1372,7 +1618,8 @@ internal class SquarePainter : VistaPainter() {
         c.fillRect((cx - pw).toInt(), pTop.toInt(), max(2, (2 * pw).toInt()), (pBot - pTop).toInt() + 1, lime[1])
         c.vline((cx - pw).toInt(), pTop.toInt(), pBot.toInt(), lime[0]); c.vline((cx + pw).toInt() - 1, pTop.toInt(), pBot.toInt(), lime[2])
         c.fillRect((cx - pw * 1.4f).toInt(), (pTop - 0.08f * p).toInt(), max(3, (2.8f * pw).toInt()), max(1, (0.12f * p).toInt()), lime[0])
-        c.fillCircle(cx, pTop - 0.2f * p, max(1f, 0.16f * p), if (env.snow) Pal.SNOW_L else lime[0])
+        if (pigna && st >= 3) pineCone(cx, pTop - 0.08f * p, p)
+        else c.fillCircle(cx, pTop - 0.2f * p, max(1f, 0.16f * p), if (env.snow) Pal.SNOW_L else lime[0])
         // the pipes, fitted to the pillar
         val iron = Col.hex(0x3A3A44); val ironL = Col.hex(0x6A6A78)
         val pipeY = hy(d, 1.3f)
@@ -1388,6 +1635,31 @@ internal class SquarePainter : VistaPainter() {
         }
         // the water falling from the pipes in arcs, glinting as it goes, splashing where it lands
         if (running > 0.03f && st >= stages(FOUNTAIN) - 1) s.fx { jets(cx, pw, pl, pipeY, rimY + inset, p, running) }
+    }
+
+    /**
+     * Friuli's fountain ([pigna]): a pine cone of white stone on the pillar's cap at row [y], as on the Venetian fountains of
+     * the plain, its scales in rows closer up, snow on it in winter.
+     */
+    private fun pineCone(cx: Float, y: Float, p: Float) {
+        val k = detail
+        val rw = max(1.2f, 0.17f * p); val hh = max(3f, 0.5f * p)
+        for (yy in max((y - hh).toInt(), c.top)..min(y.toInt(), c.bottom - 1)) {
+            val u = (y - yy) / hh // 0 at its foot, 1 at its tip
+            val half = rw * (if (u < 0.35f) 0.75f + 0.7f * u else 1f - (u - 0.35f) * 1.3f).coerceAtLeast(0.2f)
+            for (xx in (cx - half).toInt()..(cx + half).toInt()) {
+                val lit = xx < cx - half * 0.2f
+                val scale = k > 1 && ((yy - y.toInt()) / max(1, k)) % 2 == 0 && ((xx + (yy / max(1, k))) % (2 * k)) == 0
+                c.set(xx, yy, when {
+                    env.snow && u > 0.55f -> Pal.SNOW_L
+                    scale -> lime[3]
+                    lit -> lime[0]
+                    else -> lime[2]
+                })
+            }
+        }
+        // its moulded collar on the cap
+        c.hline((cx - rw).toInt(), (cx + rw).toInt(), y.toInt(), lime[1])
     }
 
     /** The four jets ([much] 0..1) from the pipes at row [pipeY], [pl] px long out of a pillar [pw] px thick, down to [waterY]. */

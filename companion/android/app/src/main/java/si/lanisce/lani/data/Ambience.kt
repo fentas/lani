@@ -87,7 +87,7 @@ class Ambience(context: Context, scope: CoroutineScope, talking: () -> Boolean) 
         this.sky = sky
         this.clock = clock
         update()
-        if (before != null && place is Place.Scene && before.fx != place.fx) cue(clock, duck = false) { now -> Sfx.fx(place.art, before.fx, place.fx, now) }
+        if (before != null && place is Place.Scene && before.fx != place.fx) cue(clock, duck = false) { now -> Sfx.fx(place.art, before.fx, place.fx, now, place.count) }
     }
 
     /**
