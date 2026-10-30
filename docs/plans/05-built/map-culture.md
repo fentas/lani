@@ -86,6 +86,7 @@ the emulator's lock), screenshots in the round's scratchpad `ux-map-culture/emul
   the watchtower on its pillars with Friuli's flag, the tent's pennant, the tricolore over the school. setup, map-looks and
   the crash check passed; the map's render 82 to 122 ms a frame at details 1 to 3 (the emulator's software rendering under
   a load average near 40).
+  Again after the second rebase (`emulator-2/`): setup, map-looks and the crash check passed, 71 to 97 ms a frame.
 - `--steps visit` with `LANI_DEV_TOWN_FIXTURE=dev-town-kaernten.json` on a synthetic Slovene learner: the Friends card
   of Probedorf with 🇦🇹 (`kaernten-friends-card.png`; 🇩🇪 before), the visit's header with 🇦🇹 and the Carinthian village
   under the Karawanken and the Mittagskogel (`kaernten-visit-map.png`), Am See (`19-`, `21-visit-scene.png`). Every
@@ -114,7 +115,9 @@ The "before" of every culture is the default culture's map, which every culture 
   own, so a culture's many windows don't fill the frame's lights);
 - the contact sheets.
 
-The whole Android unit suite after the rebase onto main: 3441 tests, none failed (2 skipped). The Python tests (251 and
+The whole Android unit suite after the last rebase onto main (2e4e0410): 3445 tests, 2 skipped, one failed:
+SceneDetailTest's frame time ("kitchen at detail 3 too slow: 26.1 ms", alps 25.9 ms, against 20, at a load average near
+48; the flaky budget the infra part of this round makes robust), which passes alone (4 of 4). The Python tests (251 and
 102, 11 skipped), the bridge's typecheck, its smoke (ports 9060, 9063, 9066) and `tutor-export --check` (87 files) pass;
 nothing of the bridge changed.
 
@@ -123,6 +126,12 @@ nothing of the bridge changed.
 No journey changes: the map's pictures do, not its places or its taps (a building's card: one tap, as before).
 
 ## What's left
+
+- Primorska's map is the one every sprite was drawn for and stays pixel for pixel as it was, so where its own scenes
+  differ from it now (the fire station's hose tower under shingles in V gasilskem domu, under tiles on the map) the map
+  wasn't changed; a change there takes new golden digests (`ClassicLandTest`).
+- Carinthia's and the Lake District's buildings and projects have no scenes of their own yet; their map looks are the
+  map's alone (from their fire's village and the places their packs name), to be matched when their scenes come.
 
 - The bridge over the stream is the map's timber bridge in every culture; the Lake District's project says a packhorse
   bridge of slate with one round arch (its steps, the walks over it and `BridgesTest` would change with it).
