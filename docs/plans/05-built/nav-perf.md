@@ -299,7 +299,8 @@ view, detail and window before the change and compare after; for the kitchen's f
   to cover what it says.
 - **QA's navigation step** fails at its first check on the grown synthetic learner ("the learning tiles' first row within
   three of QA's swipes of Today"): its Today card is long (two new modules, a tip, two arrivals to meet, "Še 7 v vasi"),
-  a learner's content, not the kept Home (its layout is the same). The step's other checks didn't run there.
+  a learner's content, not the kept Home: the before build fails it at the same check on the same learner. The step's
+  other checks didn't run there; it needs a learner whose Today is shorter, or a check that allows for a long one.
 - **The full unit suite once more** at the gate: after the last fixes only ScreenStackTest (7/7) and the `ui` package
   (600, LaniSheetTest among them) ran again.
 - Measured on the emulator and the desktop JVM, not on Jan's phone.
