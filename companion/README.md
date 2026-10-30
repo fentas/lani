@@ -47,6 +47,8 @@ Android app ──HTTP/SSE──► bridge service ◄──unix socket (MCP)─
 | `bin/lani-build-app` | Builds the app in Docker or Podman, without a JDK or an Android SDK: the debug or release APK, the unit tests, any Gradle task (see [Build in Docker](#build-in-docker)). |
 | `bin/lani-keystore` | Creates the app's release key outside the repository (`~/.config/lani`) and shows how to give it to the release workflow (see [docs/releasing.md](../docs/releasing.md)). |
 | `bin/qa` | End-to-end check on an emulator against a dev bridge on a copy of the data, and a second dev town to visit. |
+| `bin/qa-slot` | Runs `bin/qa` on the first free of two emulator slots, each with its own emulator, lock and ports (see [Test](#test), "QA on two emulators"). |
+| `bin/lani-watchdog` | Starts a learner's bridge service or tutor session that is down, every 3 minutes from a systemd user timer (see [The watchdog](#the-watchdog)). |
 | `bin/lani-backup` | Snapshots of the learner data, with restore (see [Backups](#backups)). |
 | `.claude/skills/lani-studio/` | How Claude designs, publishes, fixes and retires app modules. |
 | `.claude/skills/lani-fix/` | How Claude fixes a question, card, word or dialog choice the learner reports as wrong or confusing, with `.claude/hooks/card.py` for review cards. |
@@ -125,6 +127,48 @@ live); `.mcp.json` and Claude Code's own flags.
 **tmux or systemd.** The loop in tmux gives the service the tutor's lifetime: it survives a logout and doesn't start
 at boot. A systemd user unit (`systemd/lani-bridge@.service`, a template) would stop at logout unless linger is on
 (`loginctl enable-linger`), which is Jan's decision (plan 4, "How it runs").
+
+**tmux in a scope of its own.** A tmux server started from a terminal lives in that terminal's systemd scope and
+dies with it. On 2026-10-30 that took down both learners' bridge services and tutor sessions for hours. So when no
+tmux server runs, `lani-session` and `lani-bridge start` start it with `systemd-run --user --scope`
+(`bin/lani-env.sh` `lani_tmux_scope`): it outlives the terminal. A server that already runs is used as it is.
+`LANI_TMUX_SCOPE=0` turns this off.
+
+### The watchdog
+
+`companion/bin/lani-watchdog` brings a learner's bridge service and tutor back when they go down. A systemd user timer
+runs a round every 3 minutes, 3 minutes after the last one ended. For each learner (`lani-profile list --ids`):
+
+| What a round finds | What it does |
+|---|---|
+| The bridge service is down (service mode) | `lani-bridge start [--profile <id>]` |
+| The tutor's tmux session is gone | `lani-session --restart --profile <id> --now`: it starts the tutor detached and confirms the development channel's prompt |
+| The session is there, older than 10 minutes, and the tutor hasn't been attached to the service for 6 minutes | the same: `--restart --now` quits the stale session first; not while a terminal has the session open |
+| The tutor was stopped on purpose (`lani-session --stop`) less than 120 minutes ago | nothing |
+| The bridge service was stopped on purpose (`lani-bridge stop`) less than 120 minutes ago | nothing, for the service and its tutor |
+| Less than 4 GB of memory available | nothing; the log says what waits |
+| Paused (`--pause`) | nothing |
+
+In the classic mode (the bridge inside the tutor's session) a round only brings back a session that is gone. Every
+start, and every change in what a learner waits for, goes to `~/.local/state/lani/watchdog.log` (rotated at 1 MB)
+and to the journal. A start by hand (`lani-session`, `lani-bridge start`) ends a hold.
+
+```bash
+companion/bin/lani-watchdog --install           # the timer (systemd/lani-watchdog.{service,timer}); run it again after a move: idempotent
+companion/bin/lani-watchdog --status            # the timer, a pause, the holds, the log's last lines
+companion/bin/lani-watchdog --dry-run           # what a round would start now; nothing is started
+companion/bin/lani-session --stop [--profile <id> | --all]   # quit a tutor on purpose: the watchdog leaves it down for 120 minutes
+companion/bin/lani-watchdog --pause 60          # start nothing for an hour (no number: until --resume)
+companion/bin/lani-watchdog --resume
+companion/bin/lani-watchdog --uninstall
+```
+
+Settings: `LANI_WATCHDOG_MIN_GB` (4), `LANI_WATCHDOG_HOLD_MIN` (120), `LANI_WATCHDOG_GRACE_MIN` (10),
+`LANI_WATCHDOG_DETACHED_MIN` (6). `--install` writes the units with the checkout's path, the current `PATH` (with
+`bun`, `tmux` and `claude`) and locale. **Linger is off on this machine**: user timers run only while Jan is logged
+in, so the watchdog stops at logout and starts again at the next login. `loginctl enable-linger` would keep it (and
+the services it starts) running after a logout. That is Jan's decision; `--install` and `--status` say which is set.
+Tests: `companion/tests/test_watchdog.py` (fake tools, never the real services).
 
 ### Switching to the service mode (once)
 
@@ -4674,13 +4718,15 @@ cd companion/bridge && bun test/smoke.ts
 cd companion/bridge && bun test/relay.ts         # the relay end to end: three towns' bridges through it (LANI_RELAY_SMOKE_PORT, default 18870 and the next three)
 cd companion/relay && bun test                   # the relay's unit tests
 cd companion/android && ./gradlew :app:testDebugUnitTest
-cd companion/android && ./gradlew :app:testDebugUnitTest --tests 'si.lanisce.lani.phone.*'   # the bridge in QuickJS, and against a node's (port 19110)
+cd companion/android && ./gradlew :app:testDebugUnitTest --tests 'si.lanisce.lani.phone.*'   # the bridge in QuickJS, and against a node's (on a free port)
 adb shell am broadcast -n si.lanisce.lani/.phone.PhoneBridgeProbe   # the bridge in the app timed on a device (debug, qa); adb logcat -s PhoneBridgeProbe
 companion/bin/lani-build-app -- :app:testDebugUnitTest   # the same without a JDK, in Docker
 python3 -m unittest discover companion/tests     # backups, the Whisper worker (models faked)
 python3 tests/test_update_db.py                  # update-db.py
 python3 -m unittest discover -s tests            # update-db.py, card.py, the languages, the old names, lani.env (test_config), the data repository, lani-setup end to end
-companion/bin/qa                                 # end to end, on the lani-qa emulator
+companion/bin/qa-slot --steps home              # QA on whichever emulator slot is free (two runs at once): see "QA on two emulators"
+companion/bin/qa-slot --status                   # who holds each slot, who waits
+companion/bin/qa                                 # end to end, on the lani-qa emulator (slot 1's, without its lock: take it, or use qa-slot)
 companion/bin/qa --steps visit                   # only the visit of the second town (and setup)
 LANI_DEV_DATA=$(cd companion/bridge && bun test/fixtures/make-learner.ts /tmp/qa-parent/data) LANI_DEV_TOWN_FIXTURE=dev-town-child.json \
   companion/bin/qa --steps friends,town-progress,town-progress-child   # a parent sees a child's progress, then the child's side
@@ -4736,6 +4782,32 @@ companion/bin/qa --dry                           # the plan: bridges, ports, the
 companion/bin/qa --bridges-only                  # no app: both dev bridges, linked, and what a visit asks
 ```
 
+**QA on two emulators** (`companion/bin/qa-slot`; docs/plans/05-built/infra.md). One emulator was the queue: twelve QA
+runs waited at once on 2026-10-27, some holding it for 20 to 30 minutes, part of it their Gradle build. `qa-slot`
+takes qa's options and runs it on the first free of two slots:
+
+| Slot | Lock | Emulator | Dev bridge | Second town | Tutor mock | Setup's unreachable port |
+|---|---|---|---|---|---|---|
+| 1 | `/tmp/lani-emulator.lock` | `emulator-5554`, the QA AVD, left running | 8791 | 8797 | 8771 | 19601 |
+| 2 | `/tmp/lani-emulator-2.lock` | `emulator-5556`, a second instance of the same AVD, read-only: started for the run and stopped after it, only while 14 GB are available (`LANI_QA_MIN_GB`) | 8781 | 8787 | 8761 | 19611 |
+
+- **The build first.** Unless `--no-build` or `--apk`, it builds the APK before it waits for a slot, so no emulator
+  waits for Gradle: once 14 GB are available, in one of the machine's heavy slots (`/tmp/lani-heavy-slot1.lock` to 3,
+  `LANI_HEAVY_LOCKS`), without a Gradle daemon. Then qa runs with `--no-build`. Don't wrap it in `lani-slot.sh`: the
+  heavy slot would stay taken while it waits for an emulator (it says so).
+- **Turns.** Runs that wait take turns in the order they came (a ticket each in `/tmp/lani-qa-queue`); none holds a
+  lock while it waits. Slot 1 first (its emulator runs already), slot 2 when memory allows. It prints what it waits for.
+- **The old lock still works.** `flock /tmp/lani-emulator.lock companion/bin/qa …` waits for slot 1 as before, and
+  qa-slot never takes slot 1 while that lock is held. On its own, qa uses slot 1's emulator and ports.
+- **Slot 2's emulator** is started by qa (`-port 5556 -read-only`: its changes are thrown away) and stopped by qa-slot
+  after the run, also after Ctrl-C, a timeout's SIGTERM or a failure. One that a dead run left is stopped; one nobody
+  here started is left alone, and slot 2 isn't used.
+- `--slot 1|2` takes only that slot (`talk-mic` needs an emulator that qa starts itself: `--slot 2`). The exit code
+  is qa's; 75 when no slot came free within 6 hours (`LANI_QA_WAIT_S`). Never through the adb server on 5038 (a real
+  tablet's): qa and qa-slot refuse it.
+- Each slot's screenshots: `companion/qa-shots/<time>/` (slot 2: `<time>-slot2/`), its emulator's output in
+  `emulator.log` when qa started it. Tests: `companion/tests/test_qa_slot.py`.
+
 **QA on the release build's R8** (`--minified`). The qa build type (`app/build.gradle.kts`) is the release build as
 R8 makes it, with the same rules and optimizations, plus QA's hooks, fixtures and logs (`BuildConfig.QA`), the debug
 manifest's plain HTTP to the dev bridge, `x86_64` and the debug key. It isn't debuggable (a debuggable build gets R8's
@@ -4761,6 +4833,12 @@ debug key and not kept. Each step that downloads something has a time limit of i
 fails that step in minutes instead of taking the job's time; no test is retried. The QA on an emulator stays local.
 The release APKs come from `.github/workflows/android-release.yml` (see [docs/releasing.md](../docs/releasing.md)).
 What made CI red in October 2026 and how each was fixed: [docs/plans/05-built/ci-green.md](../docs/plans/05-built/ci-green.md).
+
+**The renderers' frame budgets** (`FrameBudget` in the unit tests). A budget test measures the CPU time of the thread
+that renders, the best of three rounds of the same frames, not the wall clock: on a busy machine a thread waits for a
+CPU for part of every frame, which says nothing about the renderer. A renderer that got slower makes every round
+slower and still fails. `LANI_PERF_SCALE` scales the budgets for a slow runner (CI: 4). The tests' servers take ports
+the system picks, so two suites run at once on one machine (docs/plans/05-built/infra.md).
 
 **The road's player in the unit tests.** `road/RoadPlayerTest` runs under Robolectric (a test dependency only, with
 media3's test utilities: a fake clock and fake renderers). It builds `RoadPlayer` over a real ExoPlayer with road

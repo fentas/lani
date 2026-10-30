@@ -218,7 +218,7 @@ from data-examples' templates and the repository as the project (read only):
   the instructions and the guide; the bridge key (PKCS#8, sign and verify, Q = d·G against Java's own); the file
   roots (EACCES, EROFS, ENOENT, EEXIST); the bundle from bytecode.
 - `PhoneBridgeNodeTest` (25): a node bridge (`bun src/index.ts`, classic, its MCP channel initialized over stdio, the
-  Python scripts) on 127.0.0.1:19110 over the repository, against the phone's over the content the APK carries
+  Python scripts) on 127.0.0.1 (a free port, picked as it starts) over the repository, against the phone's over the content the APK carries
   (`phoneProject`'s output), each on its own copy of the same templates: `/packs`, a pack, `/modules`, `/grammar`,
   `/cards`, `/course`, `/drills`, `/scenarios`, `/scenes`, `/villagers`, `/stories`, `/readings`, `/culture`,
   `/cultures`, `/lookup` (a noun, a verb's form), `/forms`, `/voice/profiles`, `/game`, `/health`, `/arrivals`,
