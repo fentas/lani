@@ -96,11 +96,12 @@ fun rememberTip(vm: AppViewModel, place: TipPlace, quiet: Boolean, scene: String
     if (si.lanisce.lani.data.VisitWorld.active) return null
     val minute = rememberNow(30_000) / 60_000
     val d = vm.content.dashboard
-    // covered (Home kept under another screen: ui/Covered.kt): the tip it showed stays as it was, nothing worked out again,
-    // nothing counted as shown, until it is on view again
+    // covered (Home kept under another screen: ui/Covered.kt): the tip it showed stays as it was, nothing worked out again
+    // until a moment after it is on view again (rememberAway), nothing counted as shown while covered
     val covered = si.lanisce.lani.ui.LocalCovered.current
+    val away = si.lanisce.lani.ui.rememberAway()
     val held = remember { arrayOfNulls<Any?>(2) }
-    if (!covered || held[0] == null) {
+    if (!away || held[0] == null) {
         held[0] = s
         held[1] = arrayOf(s, d, vm.packs.list, vm.chat.messages.size, vm.scenes.all, vm.scenes.found, vm.villagers.all, vm.school.course, scene, minute)
     }

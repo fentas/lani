@@ -22,6 +22,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.foundation.clickable
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
@@ -137,20 +138,32 @@ class ScreenStackTest {
         compose.runOnIdle { assertEquals(listOf("home"), backs) }
     }
 
-    @Test fun `a covered screen's clock stops, and says the time at once when it shows again`() {
+    @Test fun `a covered screen's clock stops, and says the time a moment after it shows again`() {
         var covered by mutableStateOf(false)
         var now = 0L
+        var away = false
         compose.setContent {
-            androidx.compose.runtime.CompositionLocalProvider(LocalCovered provides covered) { now = rememberNow(3_600_000) }
+            androidx.compose.runtime.CompositionLocalProvider(LocalCovered provides covered) { now = rememberNow(3_600_000); away = rememberAway() }
         }
         val first = compose.runOnIdle { now }
+        assertFalse("a screen never covered isn't away", away)
         compose.runOnIdle { covered = true }
-        Thread.sleep(20)
+        // a while covered (Robolectric's clock is its looper's: System.currentTimeMillis goes by it, not by the wall)
+        org.robolectric.Shadows.shadowOf(android.os.Looper.getMainLooper()).idleFor(java.time.Duration.ofMillis(1_100))
         compose.waitForIdle()
         assertEquals("nothing while covered", first, now)
+        compose.mainClock.autoAdvance = false
         compose.runOnIdle { covered = false }
+        compose.mainClock.advanceTimeByFrame()
+        assertEquals("its first frames as it was", first, now)
+        assertTrue("away a moment longer", away)
+        // the wait (a delay on the main looper) over: Robolectric's paused looper moved on, and the test's clock with it
+        compose.mainClock.advanceTimeBy(SHOWN_SETTLE_MS + 100)
+        org.robolectric.Shadows.shadowOf(android.os.Looper.getMainLooper()).idleFor(java.time.Duration.ofMillis(SHOWN_SETTLE_MS + 100))
+        compose.mainClock.autoAdvance = true
         compose.waitForIdle()
-        assertTrue("the time now as it shows again: $first, then $now", now > first)
+        assertTrue("then the time now: $first, then $now", now > first)
+        assertFalse(away)
     }
 
     @Test fun `behind the back gesture Home is drawn, still covered`() {

@@ -8,13 +8,18 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.SaveableStateHolder
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.semantics.clearAndSetSemantics
+import kotlinx.coroutines.delay
 import androidx.navigationevent.compose.LocalNavigationEventDispatcherOwner
 import androidx.navigationevent.compose.rememberNavigationEventDispatcherOwner
 import si.lanisce.lani.NavEntry
@@ -27,6 +32,30 @@ import si.lanisce.lani.Screen
  * ui.game.rememberNow]), a tip's being shown, its sheets. Back on top, it is there as it was, nothing composed again.
  */
 val LocalCovered = compositionLocalOf { false }
+
+/** How long after a covered screen shows again what it works out anew waits ([rememberAway]): its first frames first. */
+const val SHOWN_SETTLE_MS = 300L
+
+/**
+ * True while the screen is covered ([LocalCovered]) and for [SHOWN_SETTLE_MS] after it shows again: what it works out
+ * anew by the clock or from what changed meanwhile ([si.lanisce.lani.ui.game.rememberNow], a tip's facts) waits until it
+ * is on view as it was, so the Back's frame only shows it (2026-10-30: on the emulator the minute's work on Home took up
+ * to 57 ms of that frame). False from the start for a screen never covered.
+ */
+@Composable
+fun rememberAway(): Boolean {
+    val covered = LocalCovered.current
+    var settling by remember { mutableStateOf(false) }
+    LaunchedEffect(covered) {
+        if (covered) {
+            settling = true
+        } else if (settling) {
+            delay(SHOWN_SETTLE_MS)
+            settling = false
+        }
+    }
+    return covered || settling
+}
 
 /**
  * [content] composed, and while [covered] kept as it is out of the way: neither measured nor placed (nothing drawn, nothing
