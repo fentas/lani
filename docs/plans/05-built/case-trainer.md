@@ -233,15 +233,20 @@ then read through in samples.
   (levels, pages, a child); the weighting (the learner's mistakes as fading wrong answers, a pattern's words, the focus,
   the kinds' shares, the interleaving, the missed items first and their boxes); the mastery and stars; the errors'
   pattern ids (the learner's own first); the wire for the node; the storm's phrases and medal; Home's idea.
-  `PhoneBridgeTest.theCaseTrainer`: GET /cases and POST /cases/done on the phone's own bridge (38 features now).
-  `L10nTablesTest`: the `cases.*` keys in all four tables, each named as a literal.
-- **Bridge:** `bunx tsc --noEmit -p .`; the smoke's `cases` section (41 checks): the bank validates (and the checker
-  catches a wrong form, a wrong trigger, a rule of another case, a missing note, a scene there isn't, a frame's gap
-  twice, an adjective form and a mass noun the dictionary hasn't), its spread, GET /cases, `publish_case_items` and
+  `PhoneBridgeTest.theCaseTrainer`: GET /cases and POST /cases/done on the phone's own bridge (38 features now);
+  `theCaseLens`: a lookup says `seen` once, the node keeps no count. `CaseLensTest` (10) on the shared look's names and
+  colours. `L10nTablesTest`: the `cases.*` keys in all four tables, each named as a literal. The full suite after the
+  merge with the case lens: 3399 tests, 0 failures, 2 skipped.
+- **Bridge:** `bunx tsc --noEmit -p .`; the smoke's `case-trainer` section (42 checks): the bank validates (and the
+  checker catches a wrong form, a wrong trigger, a rule of another case, a missing note, a scene there isn't, a frame's
+  gap twice, an adjective form and a mass noun the dictionary hasn't), its spread, GET /cases, `publish_case_items` and
   `remove_case_item`, `assign_cases` and its event, POST /cases/done persisted by update-db.py once per client id with
   the mistakes under their patterns and the assignment done, the storm's note, PUT /game keeping the progress,
   `get_village`, `get_cases`, the guide. `bun test/check-cases.ts`: ok, 333 words judged by the dictionary.
-  `tutor-export --check`: 87 files, 52 tools, 32 topics.
+  `tutor-export --check`: 87 files, 52 tools, 32 topics. The lens's section runs it over the bank (above). The full
+  smoke after the merge: 2998 checks, all passed (its tool counts now 52, 53 and 54 with the case trainer's four).
+- **Python:** `python3 -m unittest discover -s tests` (251) and `-s companion/tests` (102, 11 skipped), for
+  `companion/bin/qa`.
 
 ## QA
 
@@ -254,7 +259,13 @@ za pečjo si!": imenovalnik ❌, "za + si → 6. orodnik", "📖 V knjigo: Orodn
 naloga pride spet"); "Kje ali kam?" ("Marko je ___ (Ljubljana).", v Ljubljani, then je: "je → kje? → 5. mestnik");
 "Sklanjaj!" typed; the storm (60 s, phrases as "ni zvezd") and its bronze medal; the grammar page's "🧩 Vadi sklone";
 Home. The first run found the QA's own tap on the sentence's k instead of the chip's (fixed in QA), the storm's "3 od
-30" and the mass noun's plural (fixed in the app, above), and five "Nova stran v knjigi" from QA's own hook (now quiet).
+30" and the mass noun's plural (fixed in the app, above), and five "Nova stran v knjigi" from QA's own hook (now quiet);
+later runs two items of one sentence ("Po kosilu gremo na njivo.": kosilu or njivo) and a chip under a place's picture
+(both QA's own, fixed in QA). After the merge with the case lens, `--steps cases,case-lens` on the merged build (in
+`ux-cases/after-merge/`): the lens's word cards, a dialog's and a reading's colours in the shared look, then the
+trainer's run through the grammar page; the node's log has every session ("Practised the cases …", "Played a case storm
+…", each already persisted). That run hit QA's 10-minute limit at the trainer's last check (Home's line, on a busy
+machine's slow boot); the run before it passed whole.
 
 ## What's left
 
