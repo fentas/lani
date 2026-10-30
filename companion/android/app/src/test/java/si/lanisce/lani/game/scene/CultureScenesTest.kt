@@ -84,6 +84,8 @@ class CultureScenesTest {
             listOf("friuli", "in-chiesa", "church", "church"),
             // the Friuli vineyard on its terraces (Nella vigna), once the vineyard project is finished
             listOf("friuli", "nella-vigna", "hills", "project:vinograd"),
+            // the Friuli bee meadow (Il prato delle api) at the bee house, once Aldo's meadow is in flower
+            listOf("friuli", "il-prato-delle-api", "apiary", "project:cebelji_travnik"),
             listOf("kaernten", "am-see", "alps", "spot:${TownSpots.HORIZON}"),
             listOf("lakeland", "on-the-fell", "alps", "spot:${TownSpots.HORIZON}"),
         )) {
