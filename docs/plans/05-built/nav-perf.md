@@ -20,14 +20,19 @@ are below.
   activity 1.12) and an idle OnBackPressedDispatcher for the older path. A covered Home's BackHandler never takes Back
   from the screen on top (`ScreenStackTest`).
 - **What would run by itself in it waits** (`LocalCovered`): the header village's frame clock (`VillageScene`: it asked
-  for every frame; on again from where it stopped, so the construction's and the celebration's marks hold), the tickers
-  (`rememberNow`: stopped, the time now at once when Home shows again), the streak's pulse (an infinite animation), a
-  tip's being worked out and counted as shown (`rememberTip`: what Home showed stays, `tipShown` and `tipsBegin` only
-  on view), and Home's sheets (a sheet is a window of its own: it would stay over the screen on top).
+  for every frame; on again from where it stopped, so the construction's and the celebration's marks hold, and a
+  celebration while covered counts as seen), the tickers (`rememberNow`), the streak's pulse (an infinite animation), a
+  tip's being worked out and counted as shown (`rememberTip`: what Home showed stays, `tipShown` and `tipsBegin` only on
+  view), and Home's sheets (a sheet is a window of its own: it would stay over the screen on top).
+- **Shown again, as it was first** (`rememberAway`: covered, and for 300 ms of frames after it shows again): the
+  tickers and the tip's facts wait that moment, so the Back's frame only shows Home and their work comes in a frame of
+  its own (the first after-run: up to 57 ms of composing in the Back's frame, the minute's clocks and the tip worked out
+  the moment Home was uncovered).
 - **What Home works out by the clock** (the festival soon, the burner at his pile now, what's on in the village, the
-  greeting's hour, a threat's time left) goes by a clock of the minute (`rememberNow(60_000)`), which says the time at
-  once when Home shows again: as fresh after a Back as when it was composed anew, and fresh while Home stays on view
-  (before, only a new composition read the clock).
+  greeting's hour, a threat's time left) goes by when Home showed (`rememberShownAt`: the first composition's time, then
+  a moment after each time it shows again from under another screen, steady while it stays on view): as fresh after a
+  Back as when Home was composed anew, and no work while it stays on view. A clock of the minute did it in between, and
+  recomposed all of Home once a minute (round 2 below).
 - **Behind the back gesture**, from a screen right over Home, Home itself shows under the shrinking screen (placed and
   drawn, still covered for the rest), dimmed by the scrim, the pill naming it as before.
 - Kept as they were: the stack's saved state and its restoring after the process's death (Home's remembered state is
