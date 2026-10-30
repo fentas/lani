@@ -315,7 +315,10 @@ them once every phone has an app that plays them.
 - `gaps`: one per `___`, in order: `accept` (the right answers, the first shown as the correction), `hint`, `explain`,
   `grammar`.
 - `bank` (default false): a word bank under the text, each gap's first answer, shuffled, plus `distractors` (0–6, only
-  with a bank). A word of the bank is tapped into the gap being filled; typing works too.
+  with a bank). A word of the bank is tapped into the gap being filled; typing works too. A distractor is a wrong form on
+  purpose (`pesom` for `psom`, the e that drops; `sedli`, sesti's, for `sedeli`, the other aspect), so tapped or typed it
+  is wrong, never a slip in the stem forgiven as almost (`Sheets.check`; `CourseContentTest`: none of the course's is right
+  or almost for any gap).
 - `translation` (optional): the text's meaning in English, shown after checking.
 - Checked all at once ("Preveri · Check"): each gap right, almost or wrong, the corrections of a sentence's gaps on a
   line under the sentence (its 🔊 the sentence said right).

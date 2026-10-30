@@ -28,8 +28,6 @@ import java.io.File
 abstract class CourseContentChecks(
     private val language: String,
     private val lang: Lang,
-    /** The distractors that are almost right for a gap, as "unit: word" (a slip in the stem forgiven): known, none other. */
-    private val almostDistractors: List<String>,
 ) {
     private val companion = listOf(File("../.."), File(".."), File("companion")).first { File(it, "course/$language/course.json").isFile }
     private val json = Json { ignoreUnknownKeys = true }
@@ -82,10 +80,9 @@ abstract class CourseContentChecks(
         fun right(where: String, item: SheetItem) = item.accept.forEach { a ->
             assertEquals("$where: «$a» in «${item.frame}»", Verdict.CORRECT, Grading.check(a, item.accept, lang).verdict)
         }
-        // a distractor almost right for a gap pays half when tapped: a slip in the stem is forgiven (Grading), so a
-        // distractor that is the gap's word with its stem wrong is almost: mestnik's ogenju for ognju,
-        // sklanjatev-posebnosti's pesom for psom, vid-vsi-casi's sedli (sesti) for sedeli (the other aspect: worth a
-        // look by whoever writes those units); none other
+        // a distractor is a wrong form on purpose: as the sheet grades it (Sheets.check), never right and never almost,
+        // though Grading alone forgives a slip in the stem (mestnik's ogenju for ognju, sklanjatev-posebnosti's pesom for
+        // psom, vid-vsi-casi's sedli, sesti's, for sedeli: the very mistakes they offer)
         val almost = mutableListOf<String>()
         for (u in course.units.values) {
             for ((where, e) in exercises(u)) {
@@ -94,7 +91,7 @@ abstract class CourseContentChecks(
                     is Exercise.GapText -> {
                         val items = Sheets.items(e, lang)
                         for (d in e.distractors) for (item in items) {
-                            val v = Grading.check(d, item.accept, lang).verdict
+                            val v = Sheets.check(item, d, lang).verdict
                             assertTrue("$where: the distractor «$d» is right for «${item.frame}»", v != Verdict.CORRECT)
                             if (v == Verdict.ALMOST) almost += "${u.id}: $d"
                         }
@@ -118,7 +115,7 @@ abstract class CourseContentChecks(
                 }
             }
         }
-        assertEquals("distractors almost right for a gap", almostDistractors, almost.distinct().sorted())
+        assertEquals("distractors almost right for a gap", emptyList<String>(), almost.distinct().sorted())
     }
 
     @Test fun `every page a unit names is a page of the bundled book`() {
@@ -146,7 +143,7 @@ abstract class CourseContentChecks(
  * checks with the Italian grading: its units' texts per base read in English here (the app reads them in the learner's
  * base, Courses.inBase), no distractor even almost right.
  */
-class ItalianCourseContentTest : CourseContentChecks("it", Lang.IT, emptyList()) {
+class ItalianCourseContentTest : CourseContentChecks("it", Lang.IT) {
     private val companion = listOf(File("../.."), File(".."), File("companion")).first { File(it, "course/it/course.json").isFile }
     private val files = File(companion, "course/it/units").listFiles { f -> f.name.endsWith(".json") }!!.sortedBy { it.name }
 
@@ -183,4 +180,4 @@ class ItalianCourseContentTest : CourseContentChecks("it", Lang.IT, emptyList())
  * gap are mestnik's ogenju for ognju, sklanjatev-posebnosti's pesom for psom, vid-vsi-casi's sedli (sesti) for sedeli (the
  * other aspect: worth a look by whoever writes those units); none other.
  */
-class CourseContentTest : CourseContentChecks("sl", Lang.SL, listOf("mestnik: ogenju", "sklanjatev-posebnosti: pesom", "vid-vsi-casi: sedli"))
+class CourseContentTest : CourseContentChecks("sl", Lang.SL)

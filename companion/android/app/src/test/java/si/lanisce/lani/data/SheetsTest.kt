@@ -41,6 +41,19 @@ class SheetsTest {
         assertEquals(WRONG, Sheets.check(line, "Babica je v kuhinji.").verdict)
     }
 
+    @Test fun `a distractor of the sheet is wrong, never a slip in the stem forgiven as almost`() {
+        // pesom for psom: one letter in the stem, which Grading alone forgives; the bank offers it as the wrong form
+        val bank = SheetItem(listOf("psom"), "sklanjatev-posebnosti", wrong = listOf("pesom", "Francu"))
+        assertEquals(ALMOST, Grading.check("pesom", bank.accept, si.lanisce.lani.l10n.Lang.SL).verdict)
+        assertEquals(WRONG, Sheets.check(bank, "pesom", si.lanisce.lani.l10n.Lang.SL).verdict)
+        assertEquals(WRONG, Sheets.check(bank, "Pesom.", si.lanisce.lani.l10n.Lang.SL).verdict)
+        // another slip in the stem is still almost, the right one right
+        assertEquals(ALMOST, Sheets.check(bank, "pzom", si.lanisce.lani.l10n.Lang.SL).verdict)
+        assertEquals(CORRECT, Sheets.check(bank, "psom", si.lanisce.lani.l10n.Lang.SL).verdict)
+        // a gap text's items carry its distractors
+        assertEquals(listOf(gap.distractors), Sheets.items(gap).map { it.wrong }.distinct())
+    }
+
     @Test fun `a table's items are its cells to fill, with the word's forms`() {
         val items = Sheets.items(table)
         assertEquals(3, items.size)

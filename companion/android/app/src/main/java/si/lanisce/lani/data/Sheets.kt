@@ -12,7 +12,8 @@ import kotlin.random.Random
  * else the exercise's); [frame]: the sentence it stands in with `___` where the answer goes ("Babica ___ v kuhinji."),
  * what a slip on its rule keeps; [lemma] and [form]: the word's form it practises (the forms book's key); [person]: the
  * person in brackets the answer may leave out ("Luka in Tine"), and [left] each answer without it that is the whole one
- * with only the person left out ("spita v šotoru" → "Luka in Tine spita v šotoru.", compared as [Grading.normalize]s).
+ * with only the person left out ("spita v šotoru" → "Luka in Tine spita v šotoru.", compared as [Grading.normalize]s);
+ * [wrong]: answers the sheet itself offers as wrong (a gap text's distractors), never a slip of the keyboard ([Sheets.check]).
  */
 data class SheetItem(
     val accept: List<String>,
@@ -24,6 +25,7 @@ data class SheetItem(
     val form: String? = null,
     val person: String? = null,
     val left: Map<String, String> = emptyMap(),
+    val wrong: List<String> = emptyList(),
 ) {
     /** [frame] with [answer] in its gap. */
     fun said(answer: String): String = frame.replaceFirst(Sheets.BLANK, answer.trim())
@@ -101,7 +103,7 @@ object Sheets {
                 val before = buildString { for (k in 0..i) { append(p.getOrElse(k) { "" }); if (k < i) append(others[k] ?: BLANK) } }
                 val whole = filled(ex, others.mapIndexed { j, a -> if (j == i) MARK else a })
                 val frame = sentenceAt(whole, before.length).replace(MARK, BLANK)
-                SheetItem(g.accept, g.grammar ?: ex.grammar, g.hint, g.explain, frame)
+                SheetItem(g.accept, g.grammar ?: ex.grammar, g.hint, g.explain, frame, wrong = ex.distractors)
             }
         }
         is Exercise.Table -> ex.rows.flatMap { row ->
@@ -237,8 +239,13 @@ object Sheets {
         if (!ex.bank) emptyList() else (ex.gaps.mapNotNull { it.accept.firstOrNull() } + ex.distractors).shuffled(Random(seed))
 
     /** A typed item checked as the app checks a cloze ([Grading.check]). */
-    fun check(item: SheetItem, answer: String): ItemMark {
-        val r = Grading.check(answer, item.accept)
+    fun check(item: SheetItem, answer: String, lang: Lang = L10n.pair.target): ItemMark {
+        val r = Grading.check(answer, item.accept, lang)
+        // a distractor is a wrong form the sheet offers on purpose (pesom for psom: the e that drops; sedli, sesti's, for
+        // sedeli: the other aspect), so picked or typed it is wrong, never a slip in the stem forgiven as almost
+        if (r.verdict == Verdict.ALMOST && item.wrong.any { Grading.canonical(it, lang) == Grading.canonical(answer, lang) }) {
+            return ItemMark(Verdict.WRONG, answer.trim(), r.expected, Grading.Hint.NONE, r.marks)
+        }
         return ItemMark(r.verdict, answer.trim(), r.expected, r.hint, r.marks)
     }
 
