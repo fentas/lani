@@ -136,8 +136,12 @@ QA, with a synthetic Teo (never a real learner's data):
 ```
 bun companion/bridge/test/fixtures/make-learner.ts <dir> --name Teo --target it --base de
 LANI_DEV_DATA=<dir> LANI_ENV_FILE=/dev/null LANI_CULTURE=friuli LANI_CHILD=1 LANI_QA_SETUP_PAIR=it-de LANI_QA_LEARNER=Teo \
-LANI_QA_GUIDANCE_SHOTS=<shots> flock /tmp/lani-emulator.lock companion/bin/qa --no-town --steps guidance
+LANI_QA_GUIDANCE_SHOTS=<shots> flock /tmp/lani-emulator.lock companion/bin/qa --no-town --steps guidance-tips
 ```
+
+`--steps guidance-retry` runs the failed request, `--steps guidance` both (about twelve minutes); all three only when
+named, never in a full run (their hooks fill a store, build a school and fail a request in the dev village). A fresh
+learner directory for each run: the dev village keeps what the last run did.
 
 QA's hooks: "tips:<moment>" (the dev village readied for it: "full-wisdom" its store at its cap, "school" a school standing;
 the moment asked as `show_tip` asks it), "tips:reset", "tips:tentmove" (the shepherd's request asked anew and started).
@@ -177,20 +181,21 @@ Counted from the plain village map (the map) or Home.
 
 ## QA on the emulator
 
-QA's steps `guidance` and `guidance-retry` (companion/bin/qa), as a synthetic Teo (`make-learner.ts --target it --base de`,
-LANI_CULTURE=friuli, LANI_CHILD=1, LANI_QA_SETUP_PAIR=it-de), each run inside `flock /tmp/lani-emulator.lock`, on the
-build rebased onto main (d3ff0c08). The screenshots are in the session's scratchpad, `ux-guidance/run7` (the tips),
-`run8` and `run9` (the failed request; run9 after the fix below).
+QA's steps (companion/bin/qa) as a synthetic Teo (`make-learner.ts --target it --base de`, LANI_CULTURE=friuli,
+LANI_CHILD=1, LANI_QA_SETUP_PAIR=it-de), each run inside `flock /tmp/lani-emulator.lock`. Last runs on the build rebased
+onto main 2bbbfb35: `guidance-tips` (run10, ✅, 6½ minutes) and `guidance-retry` (run11, ✅, 8 minutes); before them
+`guidance` (run7, on main d3ff0c08) and `guidance-retry` (run8, run9). The screenshots are in the session's scratchpad,
+`ux-guidance/run10` (the tips), `run11` and `run9` (the failed request), run8 (before the fix below).
 
-- **Wisdom full → the trade with wisdom chosen** (run7, ✅): the 💡 bubble with the 📜 at wisdom's place (no market
+- **Wisdom full → the trade with wisdom chosen** (run7, run10, ✅): the 💡 bubble with the 📜 at wisdom's place (no market
   yet); its card in German with «Saggezza» bold ("Dein Lager ist voll: Saggezza! Tausch etwas gegen 🪨."), on the phone and on the tablet's
   2560 × 1600 (landscape: the card on the left half, the map beside it); read aloud as it opened: HintVoice
   `1/3 de "Dein Lager ist voll:"`, `2/3 it "Saggezza"`, `3/3 de "! Tausch etwas gegen Stein."` (the stone said by its
   name, not its emoji); "⇄ Scambia · Tauschen" opened the trade sheet with the wisdom chip checked to give. 2 taps.
-- **A school standing → its next unit** (run7, ✅): the 💡 at the school ("Neu im Dorf: Scuola! Hier lernst du mit der
+- **A school standing → its next unit** (run7, run10, ✅): the 💡 at the school ("Neu im Dorf: Scuola! Hier lernst du mit der
   Lehrerin."), "▶️ Lezione · Unterricht" opened the unit over the village. 2 taps.
-- **Home's tip** (run7, ✅): the tip's card in "Oggi · Heute", below the day's practice and its ideas (the reviews first).
-- **The tent move failed, back the same day** (run8 and run9, ✅): the run answered wrong (0 of 4); its end lists the four
+- **Home's tip** (run7, run10, ✅): the tip's card in "Oggi · Heute", below the day's practice and its ideas (the reviews first).
+- **The tent move failed, back the same day** (run8, run9, run11, ✅): the run answered wrong (0 of 4); its end lists the four
   answers, each ❌ with the right answer, its picture and 🔊; under Pastore Davide's "Grazie! Domani ancora una volta?" it
   says "🌙 Il compito torna domani alle 05:00. · Die Aufgabe kommt morgen um 05:00 wieder." and offers "🎯 Esercitati e
   riprova · Üben und nochmal versuchen". On the map the tip "back" at the shepherd's (by the pond), the Scroll's people
@@ -203,8 +208,8 @@ build rebased onto main (d3ff0c08). The screenshots are in the session's scratch
   after a child's answers (now right under the giver's line); on the map the tip "back" and the giver's quiet 🔁 stood side
   by side for the same request (run8): a tip's bubble now stands in for its thing's own (run9: one bubble). QA itself: the
   Scroll's "Later" is the people list's last row, found low on the screen.
-- Each run about nine minutes (the setup's onboarding and the emulator's start included); the tips and the failed request
-  are two steps so each stays under ten.
+- Each half under ten minutes (the setup's onboarding and, when it was down, the emulator's start included); the whole
+  step `guidance` about twelve.
 
 ## Strings
 
