@@ -185,9 +185,9 @@ object BuildingWords {
      * the hut the house and kitchen's, the well and the palisade the village's, the linden the greetings (people meet under
      * it), the house the family's, the watchtower the view from it (the culture's landscape), the smithy the charcoal
      * pile's (its fire's), the church the sky over the steeple's and the school the numbers and the time. A building whose
-     * culture has a room for it to step into (every Friuli building but the palisade) asks for its scene's words first,
-     * and these only after them; one without (Friuli's palisade, and Kärnten's and the Lake District's buildings, which
-     * have no rooms yet) for these alone.
+     * culture has a room for it to step into (every Friuli building, the palisade its gate's: Al portone) asks for its
+     * scene's words first, and these only after them; one without (Kärnten's and the Lake District's buildings, which have
+     * no rooms yet) for these alone.
      */
     val PACKS: Map<String, Map<BuildingType, String>> = mapOf(
         "primorska" to mapOf(

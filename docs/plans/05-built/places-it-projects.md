@@ -138,6 +138,8 @@ None of these is needed for the scenes to be right as they are; each would let t
 
 ## What is left
 
+- (Both done in places-it-arts, docs/plans/05-built/places-it-arts.md: Sulla torre panoramica, and the bocce court, the
+  playground, the fire station, the chapel and the palisade's gate.)
 - **La torre panoramica** (`razgledni_stolp`): its place is the top of the lookout tower, which agent A is drawing as a new
   art (`lookout`, with a Friuli look: its railing, the board with the mountains' names, the telescope, the sea). Its Friuli
   scene (Ostessa Marisa and her guests, Tommaso at the telescope, Nonno Bepi naming the mountains, Davide) is written on that

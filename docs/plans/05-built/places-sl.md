@@ -140,9 +140,8 @@ as a plural; facelija, točiti med, "v kepi"; "Mir je največ, kar imamo".
 
 ## What is left
 
-- **Friuli scenes on the new arts**: the bocce court, the playground, the fire station, the chapel (an ancona), the
-  palisade and the lookout for Teo's village (the places-it-projects round's follow-up once this branch is merged; the
-  arts' Friuli looks are ready).
+- ~~**Friuli scenes on the new arts**~~: done in places-it-arts (docs/plans/05-built/places-it-arts.md): Al campo da bocce,
+  Al parco giochi, Alla cappelletta, Dai pompieri, Sulla torre panoramica and Al portone.
 - **The square's standing spots and the three things to tap** above, then moving the square scenes' grown-ups there.
 - **The native check** of the twelve scenes, their packs and I spy clues.
 - **Voices**: the new lines get their clips as for any scene (`voice-build`).
