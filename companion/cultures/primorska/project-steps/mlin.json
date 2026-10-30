@@ -297,7 +297,7 @@
         "A1": { "lines": [
           { "who": "france", "face": "happy", "sl": "Danes je velik dan. Danes spustimo vodo na kolo!", "en": "Today is a big day. Today we let the water onto the wheel!", "de": "Heute ist ein großer Tag. Heute lassen wir das Wasser aufs Rad!", "it": "Oggi è un gran giorno. Oggi diamo l'acqua alla ruota!" },
           { "who": "tine", "face": "surprised", "sl": "Voda teče … Glejte, kolo se vrti!", "en": "The water's running … Look, the wheel is turning!", "de": "Das Wasser fließt … Schaut, das Rad dreht sich!", "it": "L'acqua scorre … Guardate, la ruota gira!", "fx": { "wheel": 1 } },
-          { "who": "france", "sl": "Mlinski kamen melje žito. {learner}, kaj dobimo?", "en": "The millstone grinds the grain. {learner}, what do we get?", "de": "Der Mühlstein mahlt das Getreide. {learner}, was bekommen wir?", "it": "La macina macina il grano. {learner}, che cosa otteniamo?" },
+          { "who": "france", "sl": "Mlinski kamen melje žito. {learner}, kaj dobimo?", "en": "The millstone grinds the grain. {learner}, what do we get?", "de": "Der Mühlstein mahlt das Getreide. {learner}, was bekommen wir?", "it": "La macina macina il grano. {learner}, che cosa otteniamo?", "done": true },
           { "choices": [
             { "sl": "Dobimo moko.", "en": "We get flour.", "de": "Wir bekommen Mehl.", "it": "Otteniamo la farina.", "ok": true,
               "reply": { "face": "proud", "sl": "Tako je. Prvo moko!", "en": "That's right. The first flour!", "de": "Genau. Das erste Mehl!", "it": "Esatto. La prima farina!" } },
@@ -308,7 +308,7 @@
               "why": { "en": "Med is honey: the bees make that. A mill gives flour: moko.", "de": "Med ist Honig: Den machen die Bienen. Eine Mühle gibt Mehl: moko.", "it": "Med è il miele: lo fanno le api. Il mulino dà la farina: moko." },
               "reply": { "face": "surprised", "sl": "Med? Tega delajo čebele, ne mlin!", "en": "Honey? The bees make that, not the mill!", "de": "Honig? Den machen die Bienen, nicht die Mühle!", "it": "Miele? Quello lo fanno le api, non il mulino!" } }
           ] },
-          { "who": "micka", "face": "happy", "sl": "Prva moka! Kaj spečemo iz nje?", "en": "The first flour! What shall we bake from it?", "de": "Das erste Mehl! Was backen wir daraus?", "it": "La prima farina! Che cosa ci cuociamo?", "done": true },
+          { "who": "micka", "face": "happy", "sl": "Prva moka! Kaj spečemo iz nje?", "en": "The first flour! What shall we bake from it?", "de": "Das erste Mehl! Was backen wir daraus?", "it": "La prima farina! Che cosa ci cuociamo?" },
           { "choices": [
             { "sl": "Spečemo kruh!", "en": "We bake bread!", "de": "Wir backen Brot!", "it": "Cuociamo il pane!", "ok": true,
               "reply": { "face": "happy", "sl": "Tako je. Za vso vas!", "en": "That's right. For the whole village!", "de": "Genau. Für das ganze Dorf!", "it": "Esatto. Per tutto il paese!" } },
@@ -324,7 +324,7 @@
         "A2": { "lines": [
           { "who": "france", "face": "happy", "sl": "Kolo je pripravljeno, žleb tudi. Danes bomo prvič spustili vodo!", "en": "The wheel is ready, the flume too. Today we'll let the water in for the first time!", "de": "Das Rad ist bereit, die Rinne auch. Heute lassen wir zum ersten Mal das Wasser laufen!", "it": "La ruota è pronta, e anche la canaletta. Oggi daremo l'acqua per la prima volta!" },
           { "who": "tine", "face": "laugh", "sl": "Voda teče … Kolo se vrti! Vrti se!", "en": "The water's running … The wheel is turning! It's turning!", "de": "Das Wasser fließt … Das Rad dreht sich! Es dreht sich!", "it": "L'acqua scorre … La ruota gira! Gira!", "fx": { "wheel": 1 } },
-          { "who": "france", "sl": "Zdaj mlinski kamen melje žito. {learner}, kaj bomo dobili?", "en": "Now the millstone is grinding the grain. {learner}, what will we get?", "de": "Jetzt mahlt der Mühlstein das Getreide. {learner}, was werden wir bekommen?", "it": "Ora la macina macina il grano. {learner}, che cosa otterremo?" },
+          { "who": "france", "sl": "Zdaj mlinski kamen melje žito. {learner}, kaj bomo dobili?", "en": "Now the millstone is grinding the grain. {learner}, what will we get?", "de": "Jetzt mahlt der Mühlstein das Getreide. {learner}, was werden wir bekommen?", "it": "Ora la macina macina il grano. {learner}, che cosa otterremo?", "done": true },
           { "choices": [
             { "sl": "Dobili bomo prvo moko.", "en": "We'll get the first flour.", "de": "Wir bekommen das erste Mehl.", "it": "Otterremo la prima farina.", "ok": true,
               "reply": { "face": "proud", "sl": "Tako je. Belo in mehko!", "en": "That's right. White and soft!", "de": "Genau. Weiß und weich!", "it": "Esatto. Bianca e morbida!" } },
@@ -335,7 +335,7 @@
               "why": { "en": "Mleko is milk: that comes from a cow. A mill grinds grain into flour: moko.", "de": "Mleko ist Milch: Die kommt von der Kuh. Eine Mühle mahlt Getreide zu Mehl: moko.", "it": "Mleko è il latte: quello viene dalla mucca. Il mulino macina il grano in farina: moko." },
               "reply": { "face": "laugh", "sl": "Mleko? Ha ha, mlin ni krava!", "en": "Milk? Ha ha, a mill isn't a cow!", "de": "Milch? Ha ha, eine Mühle ist doch keine Kuh!", "it": "Latte? Ah ah, il mulino non è una mucca!" } }
           ] },
-          { "who": "micka", "face": "curious", "sl": "Peč je že vroča. Koliko bomo spekli?", "en": "The oven is already hot. How much shall we bake?", "de": "Der Ofen ist schon heiß. Wie viel backen wir?", "it": "Il forno è già caldo. Quanto ne cuociamo?", "done": true },
+          { "who": "micka", "face": "curious", "sl": "Peč je že vroča. Koliko bomo spekli?", "en": "The oven is already hot. How much shall we bake?", "de": "Der Ofen ist schon heiß. Wie viel backen wir?", "it": "Il forno è già caldo. Quanto ne cuociamo?" },
           { "choices": [
             { "sl": "Veliko kruha, za vso vas!", "en": "Lots of bread, for the whole village!", "de": "Viel Brot, für das ganze Dorf!", "it": "Tanto pane, per tutto il paese!", "ok": true,
               "reply": { "face": "happy", "sl": "Prav. Vsak dobi svoj hlebec!", "en": "Right. Everyone gets their own loaf!", "de": "Gut. Jeder bekommt seinen eigenen Laib!", "it": "Bene. Ognuno avrà la sua pagnotta!" } },

@@ -189,7 +189,7 @@ class SceneCoherenceTest {
             assertEquals(k, Projects.stepWorld(before, "mlin", k, shown = false).stage("mlin"))
             assertEquals(k + 1, Projects.stepWorld(before, "mlin", k, shown = true).stage("mlin"))
         }
-        // the last step: the wheel turns as Tine says so, the mill grinds (finished) from Micka's "Prva moka!"
+        // the last step: the wheel turns as Tine says so, the mill grinds (finished) from France's "Mlinski kamen melje žito"
         val last = p["steps"].list()[5].obj()!!["levels"].obj()!!["A1"].obj()!!["lines"].list().map { it.obj()!! }
         assertEquals(1, last.indexOfFirst { "wheel" in it.cues() })
         assertTrue(last.indexOfFirst { it.flag("done") } > 1)
