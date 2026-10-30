@@ -183,7 +183,7 @@ export default async function formsSection() {
       kolo.unconfirmed.join() === 'gen.sg,dat.sg' && shapes.every(s => s.unconfirmed.length === 0) && same(shapes[5].slots.get('nom.du'), { standard: ['sestri'], variants: ['sestre'] }),
     { brat: [...brat.slots], potok, kolo, shapes: shapes.map(s => [s.stem, s.unconfirmed]) },
   )
-  const fixed = await forms(['potok', 'sin', 'cesar', 'mož', 'zdravnik', 'metulj', 'dekle', 'pot', 'avto', 'klop', 'oktober', 'brat', 'mleko', 'dan'].map(w => `w=${encodeURIComponent(w)}`).join('&'))
+  const fixed = await forms(['potok', 'sin', 'cesar', 'mož', 'zdravnik', 'metulj', 'dekle', 'pot', 'avto', 'klop', 'oktober', 'brat', 'mleko', 'mati', 'dan', 'hči', 'otrok', 'vrata', 'oko', 'med', 'tesar'].map(w => `w=${encodeURIComponent(w)}`).join('&'))
   const noun = (w: string) => (fixed.body.words?.find((x: any) => x.word === w)?.entries ?? []).find((e: any) => e.pos === 'noun') as LemmaForms | undefined
   const sf = (w: string, k: string) => slot(noun(w), k)?.forms
   const hand = ['potok', 'sin', 'cesar', 'mož', 'zdravnik', 'metulj', 'dekle', 'pot', 'avto', 'klop', 'oktober']
@@ -196,10 +196,24 @@ export default async function formsSection() {
     hand.map(w => [w, noun(w)?.table, noun(w)?.gender, sf(w, 'acc.sg'), sf(w, 'gen.sg')]),
   )
   check(
-    'GET /forms: a regular noun\'s slots checked, an old form a variant accepted, never the answer (bratu, also brati; mleku, also mleki); an irregular one (dan, dne/dneva) not checked',
+    'GET /forms: a regular noun\'s slots checked, an old form a variant accepted, never the answer (bratu, also brati; mleku, also mleki); an irregular one without a table (mati, matere) not checked',
     noun('brat')?.table === 'wiktionary' && same(sf('brat', 'dat.sg'), ['bratu']) && same(slot(noun('brat'), 'dat.sg')?.variants, ['brati']) && slot(noun('brat'), 'dat.sg')?.also?.includes('brati') === true &&
-      slot(noun('brat'), 'dat.sg')?.checked === true && same(sf('mleko', 'loc.sg'), ['mleku']) && slot(noun('mleko'), 'loc.sg')?.checked === true && noun('dan')!.slots.every(s => !s.checked),
-    { brat: slot(noun('brat'), 'dat.sg'), mleko: slot(noun('mleko'), 'loc.sg'), dan: noun('dan')?.slots.map(s => [s.key, s.forms, s.checked]) },
+      slot(noun('brat'), 'dat.sg')?.checked === true && same(sf('mleko', 'loc.sg'), ['mleku']) && slot(noun('mleko'), 'loc.sg')?.checked === true && noun('mati')!.slots.every(s => !s.checked),
+    { brat: slot(noun('brat'), 'dat.sg'), mleko: slot(noun('mleko'), 'loc.sg'), mati: noun('mati')?.slots.map(s => [s.key, s.forms, s.checked]) },
+  )
+
+  const also = (w: string, k: string) => slot(noun(w), k)?.also ?? []
+  const native = ['dan', 'hči', 'otrok', 'vrata', 'oko', 'med', 'tesar']
+  check(
+    'GET /forms: the native check\'s tables (SP2001 on fran.si, Sloleks): dan dneva or dne, dni, also dnevih; hči hčer (never hči as the accusative); otroci, otrocih (otrokih accepted, never otroci as the instrumental); vrata vrati, vratmi accepted; oko\'s singular and dual only (oči is feminine); med singular, medu or meda; tesar a person: tesarja; sin also sinu, dekle also dekleta',
+    native.every(w => noun(w)?.table === 'checked' && noun(w)!.slots.every(s => s.checked)) &&
+      same(sf('dan', 'gen.sg'), ['dneva', 'dne']) && same(sf('dan', 'gen.pl'), ['dni']) && also('dan', 'loc.pl').includes('dnevih') &&
+      same(sf('hči', 'acc.sg'), ['hčer']) && !also('hči', 'acc.sg').includes('hči') &&
+      same(sf('otrok', 'nom.pl'), ['otroci']) && same(sf('otrok', 'loc.pl'), ['otrocih']) && also('otrok', 'loc.pl').includes('otrokih') && !also('otrok', 'ins.pl').includes('otroci') &&
+      same(sf('vrata', 'ins.pl'), ['vrati']) && also('vrata', 'ins.pl').includes('vratmi') && !slot(noun('vrata'), 'nom.sg') &&
+      !slot(noun('oko'), 'nom.pl') && same(sf('oko', 'nom.du'), ['očesi']) && !slot(noun('med'), 'nom.pl') && same(sf('med', 'gen.sg'), ['medu', 'meda']) &&
+      same(sf('tesar', 'acc.sg'), ['tesarja']) && also('sin', 'acc.sg').includes('sinu') && also('dekle', 'acc.sg').includes('dekleta'),
+    native.map(w => [w, noun(w)?.table, noun(w)?.slots.map(s => [s.key, s.forms, s.also])]),
   )
 
   // every noun the case trainer's "Sklanjaj!" could pick (the packs' words, the bank's fallback nouns): the pack's gender
@@ -230,13 +244,9 @@ export default async function formsSection() {
     const open = e.slots.filter(s => !s.checked).map(s => s.key)
     if (open.length) unchecked.set(w, open)
   }
-  const LEFT_OUT = [
-    'potica', 'vrata', 'hči', 'otrok', 'kosa', 'grablje', 'daljnogled', 'palisada', 'med', 'ribnik', 'kolo', 'mir', 'škarje', 'romar', 'oko', 'uho', 'zob',
-    'tehtnica', 'hlebec', 'tolminc', 'orgle', 'pršut', 'klešče', 'vilice', 'žito', 'most', 'dan', 'zid', 'trgatev', 'nebo', 'veselica', 'peskovnik',
-    'tobogan', 'zvonček', 'kolesje', 'venec', 'ogrodje', 'vile', 'grmovje', 'korito', 'slap', 'grad',
-    // the village's places (docs/plans/05-built/places-sl.md): partial tables, an animal's accusative given as the nominative
-    'balinišče', 'vaja', 'listje', 'krošnjar', 'toplar', 'oven', 'trot',
-  ]
+  // the nouns with a slot not checked: none since the native check's tables (docs/plans/05-built/native-check-sl.md);
+  // a new one is a word to look at (a forms book table from SP2001 and Sloleks, or this list)
+  const LEFT_OUT: string[] = []
   console.log(`  nouns with a slot not checked: ${[...unchecked].map(([w, k]) => `${w} (${k.length === 18 ? 'all' : k.join(' ')})`).join(', ')}`)
   check(
     `every noun "Sklanjaj!" could pick (${packNouns.size} of the packs and the bank, ${served} with forms): the pack's gender the one served; ${served - unchecked.size} with every slot checked, the ${unchecked.size} with one not the note's list`,

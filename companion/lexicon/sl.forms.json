@@ -3,7 +3,7 @@
     "language": "sl",
     "reviewed": false,
     "machine_written": true,
-    "review": "machine-written (Claude): the tables, the partners and the animate nouns; not reviewed by a native speaker. For the native check: the noun tables (2026-10-30: potok, sin, cesar, mož, zdravnik, metulj, dekle, pot, avto, klop, oktober), each correcting Wiktionary as its note says, and the animate list",
+    "review": "machine-written (Claude): the tables, the partners and the animate nouns; not reviewed by a native speaker. Checked against Fran (2026-10-30, docs/plans/05-built/native-check-sl.md): the noun tables by Slovenski pravopis 2001 (fran.si) and their full paradigms by Sloleks 2.0 (viri.cjvt.si/sloleks), each note citing its entries; the animate list by SP2001's labels (a person, an animal). For the native check: the spoken forms each table accepts (also) and those it leaves out because they are another case's form (the doc's list)",
     "about": "The forms book of word forms (companion/README.md, \"Word forms\"; bridge/src/forms.ts). tables: hand-checked forms of everyday irregular verbs, by slot (pres.1sg … imp.2du), each replacing Wiktionary's forms of the word (sl.json merges homographs: biti, to be, carries biti, to beat's bijem, bije; hoteti's table has odd rows), standard Slovene in forms, the spoken forms a native speaker says too (bojo, grejo, jejo, vejo, reko, mam) in also: accepted, never shown as the answer. partners: verbs that pair, pf the one done once (a movement, a whole act), impf the one going on (a state, again and again); kind position for a movement and the state after it (sesti, sit down: sedeti, be sitting), aspect for the same act once or going on (kupiti, kupovati); gloss: a meaning where the dictionary has none, or says more. leave_out: words whose forms aren't asked (stati: to cost, stanem, and to stand, stojim, share one entry). Nouns: a table (with its gender) for each noun Wiktionary gets wrong (a wrong accusative, gender or plural, two words merged in one entry); every other noun's forms are checked against its regular declension (bridge/src/noun-paradigm.ts: the fitting forms standard, the dictionary's old or dialect ones variants, a slot that doesn't fit never asked as a form to produce). animate: the masculine nouns naming a person or an animal, whose accusative singular is the genitive (vidim brata, psa), which Wiktionary can't be trusted on."
   },
   "tables": [
@@ -129,7 +129,7 @@
         "nom.du": "potoka", "gen.du": "potokov", "dat.du": "potokoma", "acc.du": "potoka", "loc.du": "potokih", "ins.du": "potokoma",
         "nom.pl": "potoki", "gen.pl": "potokov", "dat.pl": "potokom", "acc.pl": "potoke", "loc.pl": "potokih", "ins.pl": "potoki"
       },
-      "note": "Wiktionary: the accusative singular as potoka (a thing's is the nominative: vidim potok) and old -i/-am/-ah forms beside the standard ones"
+      "note": "Wiktionary: the accusative singular as potoka (a thing's is the nominative: vidim potok) and old -i/-am/-ah forms. Checked against Fran: SP2001 potok -oka, a thing (https://fran.si/iskanje?View=1&Query=potok&FilteredDictionaryIds=134)"
     },
     {
       "lemma": "sin", "pos": "noun", "gender": "m", "gloss": ["son"],
@@ -138,7 +138,8 @@
         "nom.du": "sinova", "gen.du": "sinov", "dat.du": "sinovoma", "acc.du": "sinova", "loc.du": "sinovih", "ins.du": "sinovoma",
         "nom.pl": "sinovi", "gen.pl": "sinov", "dat.pl": "sinovom", "acc.pl": "sinove", "loc.pl": "sinovih", "ins.pl": "sinovi"
       },
-      "note": "Wiktionary: the accusative singular as sin or sinu (a person's is the genitive: vidim sina)"
+      "also": { "gen.sg": ["sinu"], "acc.sg": ["sinu"], "nom.du": ["sina"], "dat.du": ["sinoma"], "acc.du": ["sina"], "ins.du": ["sinoma"] },
+      "note": "Wiktionary: the accusative as sin. Checked against Fran: SP2001 sin -a, also sinu (u-declension: acc sinu), du sinova sinov; Sloleks: dva sina too (https://fran.si/iskanje?View=1&Query=sin&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/88624)"
     },
     {
       "lemma": "cesar", "pos": "noun", "gender": "m", "gloss": ["emperor"],
@@ -147,7 +148,7 @@
         "nom.du": "cesarja", "gen.du": "cesarjev", "dat.du": "cesarjema", "acc.du": "cesarja", "loc.du": "cesarjih", "ins.du": "cesarjema",
         "nom.pl": "cesarji", "gen.pl": "cesarjev", "dat.pl": "cesarjem", "acc.pl": "cesarje", "loc.pl": "cesarjih", "ins.pl": "cesarji"
       },
-      "note": "Wiktionary: the accusative singular as cesar (a person's is the genitive: vidim cesarja)"
+      "note": "Wiktionary: the accusative singular as cesar (a person's is the genitive: vidim cesarja). Checked against Fran: SP2001 cesar -arja, a person, s -em (https://fran.si/iskanje?View=1&Query=cesar&FilteredDictionaryIds=134)"
     },
     {
       "lemma": "mož", "pos": "noun", "gender": "m", "gloss": ["husband", "man"],
@@ -156,7 +157,7 @@
         "nom.du": "moža", "gen.du": "mož", "dat.du": "možema", "acc.du": "moža", "loc.du": "možeh", "ins.du": "možema",
         "nom.pl": "možje", "gen.pl": "mož", "dat.pl": "možem", "acc.pl": "može", "loc.pl": "možeh", "ins.pl": "možmi"
       },
-      "note": "Wiktionary: the accusative singular as mož (a person's is the genitive: vidim moža) and a regular plural (moži); the standard plural is možje, mož, možem, može, možeh, možmi"
+      "note": "Wiktionary: the accusative as mož and a regular plural (moži). Checked against Fran: SP2001 mož moža; du moža mož možema; pl možje mož možem može možeh možmi (https://fran.si/iskanje?View=1&Query=mož&FilteredDictionaryIds=134)"
     },
     {
       "lemma": "zdravnik", "pos": "noun", "gender": "m", "gloss": ["doctor", "physician"],
@@ -165,7 +166,7 @@
         "nom.du": "zdravnika", "gen.du": "zdravnikov", "dat.du": "zdravnikoma", "acc.du": "zdravnika", "loc.du": "zdravnikih", "ins.du": "zdravnikoma",
         "nom.pl": "zdravniki", "gen.pl": "zdravnikov", "dat.pl": "zdravnikom", "acc.pl": "zdravnike", "loc.pl": "zdravnikih", "ins.pl": "zdravniki"
       },
-      "note": "Wiktionary: the accusative singular as zdravnik (a person's is the genitive: grem k zdravniku, poklicati zdravnika)"
+      "note": "Wiktionary: the accusative singular as zdravnik (a person's is the genitive: poklicati zdravnika). Checked against Fran: SP2001 zdravnik -a, a person (https://fran.si/iskanje?View=1&Query=zdravnik&FilteredDictionaryIds=134)"
     },
     {
       "lemma": "metulj", "pos": "noun", "gender": "m", "gloss": ["butterfly"],
@@ -174,7 +175,7 @@
         "nom.du": "metulja", "gen.du": "metuljev", "dat.du": "metuljema", "acc.du": "metulja", "loc.du": "metuljih", "ins.du": "metuljema",
         "nom.pl": "metulji", "gen.pl": "metuljev", "dat.pl": "metuljem", "acc.pl": "metulje", "loc.pl": "metuljih", "ins.pl": "metulji"
       },
-      "note": "Wiktionary: the accusative singular as metulj or metulja (an animal's is the genitive: vidim metulja) and old -i/-am/-ah forms"
+      "note": "Wiktionary: the accusative as metulj or metulja and old -i/-am/-ah forms. Checked against Fran: SP2001 metulj -a, an animal, z -em (https://fran.si/iskanje?View=1&Query=metulj&FilteredDictionaryIds=134)"
     },
     {
       "lemma": "dekle", "pos": "noun", "gender": "n", "gloss": ["girl"],
@@ -183,7 +184,8 @@
         "nom.du": "dekleti", "gen.du": "deklet", "dat.du": "dekletoma", "acc.du": "dekleti", "loc.du": "dekletih", "ins.du": "dekletoma",
         "nom.pl": "dekleta", "gen.pl": "deklet", "dat.pl": "dekletom", "acc.pl": "dekleta", "loc.pl": "dekletih", "ins.pl": "dekleti"
       },
-      "note": "Wiktionary: dekle as feminine; it is neuter, with the stem dekleta (an adjective agrees as with a neuter: lepo dekle; a verb in the plural often as with a feminine: dekleta so prišla)"
+      "also": { "acc.sg": ["dekleta"] },
+      "note": "Wiktionary: dekle as feminine. Checked against Fran: SP2001 dekle -eta, neuter (the nominative also feminine, the accusative also dekleta: accepted) (https://fran.si/iskanje?View=1&Query=dekle&FilteredDictionaryIds=134)"
     },
     {
       "lemma": "pot", "pos": "noun", "gender": "f", "gloss": ["path", "way", "trip"],
@@ -192,7 +194,7 @@
         "nom.du": "poti", "gen.du": "poti", "dat.du": "potema", "acc.du": "poti", "loc.du": "poteh", "ins.du": "potema",
         "nom.pl": "poti", "gen.pl": "poti", "dat.pl": "potem", "acc.pl": "poti", "loc.pl": "poteh", "ins.pl": "potmi"
       },
-      "note": "Wiktionary: pot (path, way: feminine, the i-declension) merged with pot (sweat: masculine, pota); this is the path's"
+      "note": "Wiktionary: pot (path) merged with pot (sweat, masculine, pota). Checked against Fran: SP2001 pot -i ž, potjo; du poti poti potema; pl poti poti potem poti poteh potmi (https://fran.si/iskanje?View=1&Query=pot&FilteredDictionaryIds=134)"
     },
     {
       "lemma": "avto", "pos": "noun", "gender": "m", "gloss": ["car"],
@@ -201,7 +203,7 @@
         "nom.du": "avta", "gen.du": "avtov", "dat.du": "avtoma", "acc.du": "avta", "loc.du": "avtih", "ins.du": "avtoma",
         "nom.pl": "avti", "gen.pl": "avtov", "dat.pl": "avtom", "acc.pl": "avte", "loc.pl": "avtih", "ins.pl": "avti"
       },
-      "note": "Wiktionary: the plural and the dual as a neuter's (avta, avti); avto is masculine: dva avta, trije avti"
+      "note": "Wiktionary: the plural and the dual as a neuter's (avta, avti). Checked against Fran: SP2001 avto -a m; Sloleks: dva avta, trije avti (https://fran.si/iskanje?View=1&Query=avto&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/48199)"
     },
     {
       "lemma": "klop", "pos": "noun", "gender": "f", "gloss": ["bench"],
@@ -210,7 +212,7 @@
         "nom.du": "klopi", "gen.du": "klopi", "dat.du": "klopema", "acc.du": "klopi", "loc.du": "klopeh", "ins.du": "klopema",
         "nom.pl": "klopi", "gen.pl": "klopi", "dat.pl": "klopem", "acc.pl": "klopi", "loc.pl": "klopeh", "ins.pl": "klopmi"
       },
-      "note": "Wiktionary: klop (bench: feminine, the i-declension) merged with klop (tick: masculine, klopa); this is the bench's"
+      "note": "Wiktionary: klop (bench) merged with klop (tick, masculine, klopa). Checked against Fran: SP2001 klop -i ž, klopjo; pl klopi klopi klopem klopi klopeh klopmi (https://fran.si/iskanje?View=1&Query=klop&FilteredDictionaryIds=134)"
     },
     {
       "lemma": "oktober", "pos": "noun", "gender": "m", "gloss": ["October"],
@@ -219,7 +221,420 @@
         "nom.du": "oktobra", "gen.du": "oktobrov", "dat.du": "oktobroma", "acc.du": "oktobra", "loc.du": "oktobrih", "ins.du": "oktobroma",
         "nom.pl": "oktobri", "gen.pl": "oktobrov", "dat.pl": "oktobrom", "acc.pl": "oktobre", "loc.pl": "oktobrih", "ins.pl": "oktobri"
       },
-      "note": "Wiktionary: the genitive misspelt octobra"
+      "note": "Wiktionary: the genitive misspelt octobra. Checked against Fran: SP2001 oktober -bra (https://fran.si/iskanje?View=1&Query=oktober&FilteredDictionaryIds=134)"
+    },
+    {
+      "lemma": "dan", "pos": "noun", "gender": "m", "gloss": ["day"],
+      "forms": {
+        "nom.sg": "dan", "gen.sg": ["dneva", "dne"], "dat.sg": "dnevu", "acc.sg": "dan", "loc.sg": "dnevu", "ins.sg": "dnem",
+        "nom.du": "dneva", "gen.du": "dni", "dat.du": "dnema", "acc.du": "dneva", "loc.du": "dneh", "ins.du": "dnema",
+        "nom.pl": "dnevi", "gen.pl": "dni", "dat.pl": "dnem", "acc.pl": "dni", "loc.pl": "dneh", "ins.pl": "dnevi"
+      },
+      "also": { "ins.sg": ["dnevom"], "gen.du": ["dnevov"], "dat.du": ["dnevoma"], "acc.du": ["dni"], "loc.du": ["dnevih"], "ins.du": ["dnevoma"], "gen.pl": ["dnevov"], "dat.pl": ["dnevom"], "acc.pl": ["dneve", "dnevov"], "loc.pl": ["dnevih"] },
+      "note": "SP2001: dan dneva, also dne; du dneva dni dnema; pl dnevi dni dnem dni dneh dnevi. Sloleks: also dnevom, dnevoma, dnevih. Wiktionary: no stem to check (https://fran.si/iskanje?View=1&Query=dan&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/52428)"
+    },
+    {
+      "lemma": "hči", "pos": "noun", "gender": "f", "gloss": ["daughter"],
+      "forms": {
+        "nom.sg": "hči", "gen.sg": "hčere", "dat.sg": "hčeri", "acc.sg": "hčer", "loc.sg": "hčeri", "ins.sg": "hčerjo",
+        "nom.du": "hčeri", "gen.du": "hčera", "dat.du": "hčerama", "acc.du": "hčeri", "loc.du": "hčerah", "ins.du": "hčerama",
+        "nom.pl": "hčere", "gen.pl": "hčera", "dat.pl": "hčeram", "acc.pl": "hčere", "loc.pl": "hčerah", "ins.pl": "hčerami"
+      },
+      "also": { "acc.sg": ["hčero"], "gen.pl": ["hčer"] },
+      "note": "SP2001: hči hčere, acc hčer, ins hčerjo; gen pl hčera. Sloleks: hčer and hčera for the nominative, hči and hčero for the accusative are non-standard (https://fran.si/iskanje?View=1&Query=hči&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/59044)"
+    },
+    {
+      "lemma": "uho", "pos": "noun", "gender": "n", "gloss": ["ear"],
+      "forms": {
+        "nom.sg": "uho", "gen.sg": "ušesa", "dat.sg": "ušesu", "acc.sg": "uho", "loc.sg": "ušesu", "ins.sg": "ušesom",
+        "nom.du": "ušesi", "gen.du": "ušes", "dat.du": "ušesoma", "acc.du": "ušesi", "loc.du": "ušesih", "ins.du": "ušesoma",
+        "nom.pl": "ušesa", "gen.pl": "ušes", "dat.pl": "ušesom", "acc.pl": "ušesa", "loc.pl": "ušesih", "ins.pl": "ušesi"
+      },
+      "note": "SP2001: uho ušesa (the stem ušes-). Sloleks: the whole table (https://fran.si/iskanje?View=1&Query=uho&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/94752)"
+    },
+    {
+      "lemma": "oko", "pos": "noun", "gender": "n", "gloss": ["eye"],
+      "forms": {
+        "nom.sg": "oko", "gen.sg": "očesa", "dat.sg": "očesu", "acc.sg": "oko", "loc.sg": "očesu", "ins.sg": "očesom",
+        "nom.du": "očesi", "gen.du": "očes", "dat.du": "očesoma", "acc.du": "očesi", "loc.du": "očesih", "ins.du": "očesoma"
+      },
+      "note": "SP2001: oko očesa; the plural of the eye is oči, feminine: left out, so an adjective never agrees with it as with a neuter. Sloleks: the singular and the dual (https://fran.si/iskanje?View=1&Query=oko&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/74989)"
+    },
+    {
+      "lemma": "kolo", "pos": "noun", "gender": "n", "gloss": ["wheel", "bicycle"],
+      "forms": {
+        "nom.sg": "kolo", "gen.sg": "kolesa", "dat.sg": "kolesu", "acc.sg": "kolo", "loc.sg": "kolesu", "ins.sg": "kolesom",
+        "nom.du": "kolesi", "gen.du": "koles", "dat.du": "kolesoma", "acc.du": "kolesi", "loc.du": "kolesih", "ins.du": "kolesoma",
+        "nom.pl": "kolesa", "gen.pl": "koles", "dat.pl": "kolesom", "acc.pl": "kolesa", "loc.pl": "kolesih", "ins.pl": "kolesi"
+      },
+      "note": "SP2001: kolo kolesa (wheel, bicycle); kolo kola is another word (a round dance). Sloleks: the whole table (https://fran.si/iskanje?View=1&Query=kolo&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/64332)"
+    },
+    {
+      "lemma": "zob", "pos": "noun", "gender": "m", "gloss": ["tooth"],
+      "forms": {
+        "nom.sg": "zob", "gen.sg": "zoba", "dat.sg": "zobu", "acc.sg": "zob", "loc.sg": "zobu", "ins.sg": "zobom",
+        "nom.du": "zoba", "gen.du": "zob", "dat.du": "zobema", "acc.du": "zoba", "loc.du": "zobeh", "ins.du": "zobema",
+        "nom.pl": "zobje", "gen.pl": "zob", "dat.pl": "zobem", "acc.pl": "zobe", "loc.pl": "zobeh", "ins.pl": "zobmi"
+      },
+      "also": { "dat.du": ["zoboma"], "ins.du": ["zoboma"] },
+      "note": "SP2001: zob zoba; du zoba zob zobema; pl zobje zob zobem zobe zobeh zobmi. Sloleks: also zoboma in the dual (https://fran.si/iskanje?View=1&Query=zob&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/99905)"
+    },
+    {
+      "lemma": "otrok", "pos": "noun", "gender": "m", "gloss": ["child"],
+      "forms": {
+        "nom.sg": "otrok", "gen.sg": "otroka", "dat.sg": "otroku", "acc.sg": "otroka", "loc.sg": "otroku", "ins.sg": "otrokom",
+        "nom.du": "otroka", "gen.du": "otrok", "dat.du": "otrokoma", "acc.du": "otroka", "loc.du": "otrocih", "ins.du": "otrokoma",
+        "nom.pl": "otroci", "gen.pl": "otrok", "dat.pl": "otrokom", "acc.pl": "otroke", "loc.pl": "otrocih", "ins.pl": "otroki"
+      },
+      "also": { "loc.du": ["otrokih"], "loc.pl": ["otrokih"] },
+      "note": "SP2001: pl otroci otrok otrokom otroke otrocih otroki; otrokih and z otroci marked wrong. Sloleks the same, otrokih non-standard (https://fran.si/iskanje?View=1&Query=otrok&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/90)"
+    },
+    {
+      "lemma": "med", "pos": "noun", "gender": "m", "gloss": ["honey"],
+      "forms": {
+        "nom.sg": "med", "gen.sg": ["medu", "meda"], "dat.sg": "medu", "acc.sg": "med", "loc.sg": "medu", "ins.sg": "medom"
+      },
+      "note": "SP2001: med medu and meda (honey, a mass noun); med medi is another word (brass, feminine). Sloleks: the singular (https://fran.si/iskanje?View=1&Query=med&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/68864)"
+    },
+    {
+      "lemma": "mir", "pos": "noun", "gender": "m", "gloss": ["peace", "quiet"],
+      "forms": {
+        "nom.sg": "mir", "gen.sg": ["miru", "mira"], "dat.sg": "miru", "acc.sg": "mir", "loc.sg": "miru", "ins.sg": "mirom"
+      },
+      "note": "SP2001: mir miru and mira, the singular. Sloleks the same (https://fran.si/iskanje?View=1&Query=mir&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/69755)"
+    },
+    {
+      "lemma": "most", "pos": "noun", "gender": "m", "gloss": ["bridge"],
+      "forms": {
+        "nom.sg": "most", "gen.sg": ["mostu", "mosta"], "dat.sg": "mostu", "acc.sg": "most", "loc.sg": "mostu", "ins.sg": "mostom",
+        "nom.du": "mostova", "gen.du": "mostov", "dat.du": "mostovoma", "acc.du": "mostova", "loc.du": "mostovih", "ins.du": "mostovoma",
+        "nom.pl": "mostovi", "gen.pl": "mostov", "dat.pl": "mostovom", "acc.pl": "mostove", "loc.pl": "mostovih", "ins.pl": "mostovi"
+      },
+      "note": "SP2001: most mostu and mosta; the plural on -ov-: mostovi, mostov. Sloleks the same (https://fran.si/iskanje?View=1&Query=most&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/70398)"
+    },
+    {
+      "lemma": "zid", "pos": "noun", "gender": "m", "gloss": ["wall"],
+      "forms": {
+        "nom.sg": "zid", "gen.sg": ["zidu", "zida"], "dat.sg": "zidu", "acc.sg": "zid", "loc.sg": "zidu", "ins.sg": "zidom",
+        "nom.du": "zidova", "gen.du": "zidov", "dat.du": "zidovoma", "acc.du": "zidova", "loc.du": "zidovih", "ins.du": "zidovoma",
+        "nom.pl": "zidovi", "gen.pl": "zidov", "dat.pl": "zidovom", "acc.pl": "zidove", "loc.pl": "zidovih", "ins.pl": "zidovi"
+      },
+      "also": { "nom.du": ["zida"], "acc.du": ["zida"], "loc.du": ["zidih"], "ins.du": ["zidoma"], "loc.pl": ["zideh"] },
+      "note": "SP2001: zid zida and zidu; the plural on -ov-: zidovi, zidov. Sloleks the same (https://fran.si/iskanje?View=1&Query=zid&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/99406)"
+    },
+    {
+      "lemma": "slap", "pos": "noun", "gender": "m", "gloss": ["waterfall"],
+      "forms": {
+        "nom.sg": "slap", "gen.sg": ["slapa", "slapu"], "dat.sg": "slapu", "acc.sg": "slap", "loc.sg": "slapu", "ins.sg": "slapom",
+        "nom.du": "slapova", "gen.du": "slapov", "dat.du": "slapovoma", "acc.du": "slapova", "loc.du": "slapovih", "ins.du": "slapovoma",
+        "nom.pl": "slapovi", "gen.pl": "slapov", "dat.pl": "slapovom", "acc.pl": "slapove", "loc.pl": "slapovih", "ins.pl": "slapovi"
+      },
+      "also": { "nom.du": ["slapa"], "dat.du": ["slapoma"], "acc.du": ["slapa"], "loc.du": ["slapih"], "ins.du": ["slapoma"], "nom.pl": ["slapi"], "dat.pl": ["slapom"], "acc.pl": ["slape"] },
+      "note": "SP2001: slap slapa, also slapu; the plural on -ov-: slapovi, slapov. Sloleks the same (https://fran.si/iskanje?View=1&Query=slap&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/89371)"
+    },
+    {
+      "lemma": "grad", "pos": "noun", "gender": "m", "gloss": ["castle"],
+      "forms": {
+        "nom.sg": "grad", "gen.sg": ["gradu", "grada"], "dat.sg": "gradu", "acc.sg": "grad", "loc.sg": "gradu", "ins.sg": "gradom",
+        "nom.du": "gradova", "gen.du": "gradov", "dat.du": "gradovoma", "acc.du": "gradova", "loc.du": "gradovih", "ins.du": "gradovoma",
+        "nom.pl": "gradovi", "gen.pl": "gradov", "dat.pl": "gradovom", "acc.pl": "gradove", "loc.pl": "gradovih", "ins.pl": "gradovi"
+      },
+      "note": "SP2001: grad gradu and grada (castle); grad grada is another word (a unit). Sloleks: the plural gradovi (https://fran.si/iskanje?View=1&Query=grad&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/58272)"
+    },
+    {
+      "lemma": "nebo", "pos": "noun", "gender": "n", "gloss": ["sky"],
+      "forms": {
+        "nom.sg": "nebo", "gen.sg": "neba", "dat.sg": "nebu", "acc.sg": "nebo", "loc.sg": "nebu", "ins.sg": "nebom"
+      },
+      "note": "SP2001: nebo neba, the singular (the plural is nebesa, heaven, a word of its own). Sloleks the same (https://fran.si/iskanje?View=1&Query=nebo&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/71849)"
+    },
+    {
+      "lemma": "vrata", "pos": "noun", "gender": "n", "gloss": ["door", "gate"],
+      "forms": {
+        "nom.pl": "vrata", "gen.pl": "vrat", "dat.pl": "vratom", "acc.pl": "vrata", "loc.pl": "vratih", "ins.pl": "vrati"
+      },
+      "also": { "ins.pl": ["vratmi"] },
+      "note": "SP2001: vrata vrat, plural only; z vrati, vratmi marked less right (spoken: accepted). Sloleks the same (https://fran.si/iskanje?View=1&Query=vrata&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/96929)"
+    },
+    {
+      "lemma": "grablje", "pos": "noun", "gender": "f", "gloss": ["rake"],
+      "forms": {
+        "nom.pl": "grablje", "gen.pl": "grabelj", "dat.pl": "grabljam", "acc.pl": "grablje", "loc.pl": "grabljah", "ins.pl": "grabljami"
+      },
+      "note": "SP2001: grablje grabelj, plural only. Sloleks the same (https://fran.si/iskanje?View=1&Query=grablje&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/58257)"
+    },
+    {
+      "lemma": "škarje", "pos": "noun", "gender": "f", "gloss": ["scissors"],
+      "forms": {
+        "nom.pl": "škarje", "gen.pl": "škarij", "dat.pl": "škarjam", "acc.pl": "škarje", "loc.pl": "škarjah", "ins.pl": "škarjami"
+      },
+      "note": "SP2001: škarje škarij, plural only. Sloleks the same (https://fran.si/iskanje?View=1&Query=škarje&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/88879)"
+    },
+    {
+      "lemma": "orgle", "pos": "noun", "gender": "f", "gloss": ["organ (instrument)"],
+      "forms": {
+        "nom.pl": "orgle", "gen.pl": "orgel", "dat.pl": "orglam", "acc.pl": "orgle", "loc.pl": "orglah", "ins.pl": "orglami"
+      },
+      "note": "SP2001: orgle orgel, plural only. Sloleks the same (https://fran.si/iskanje?View=1&Query=orgle&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/75710)"
+    },
+    {
+      "lemma": "klešče", "pos": "noun", "gender": "f", "gloss": ["pliers", "tongs"],
+      "forms": {
+        "nom.pl": "klešče", "gen.pl": "klešč", "dat.pl": "kleščam", "acc.pl": "klešče", "loc.pl": "kleščah", "ins.pl": "kleščami"
+      },
+      "note": "SP2001: klešče klešč, plural only. Sloleks the same (https://fran.si/iskanje?View=1&Query=klešče&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/63780)"
+    },
+    {
+      "lemma": "vilice", "pos": "noun", "gender": "f", "gloss": ["fork"],
+      "forms": {
+        "nom.pl": "vilice", "gen.pl": "vilic", "dat.pl": "vilicam", "acc.pl": "vilice", "loc.pl": "vilicah", "ins.pl": "vilicami"
+      },
+      "note": "SP2001: vilice vilic, plural only (vilica in the singular is spoken: Sloleks has it). The a-declension's plural (https://fran.si/iskanje?View=1&Query=vilice&FilteredDictionaryIds=134)"
+    },
+    {
+      "lemma": "vile", "pos": "noun", "gender": "f", "gloss": ["pitchfork"],
+      "forms": {
+        "nom.pl": "vile", "gen.pl": "vil", "dat.pl": "vilam", "acc.pl": "vile", "loc.pl": "vilah", "ins.pl": "vilami"
+      },
+      "note": "SP2001: vile vil, plural only (a pitchfork). The a-declension's plural (https://fran.si/iskanje?View=1&Query=vile&FilteredDictionaryIds=134)"
+    },
+    {
+      "lemma": "potica", "pos": "noun", "gender": "f", "gloss": ["potica (nut roll)"],
+      "forms": {
+        "nom.sg": "potica", "gen.sg": "potice", "dat.sg": "potici", "acc.sg": "potico", "loc.sg": "potici", "ins.sg": "potico",
+        "nom.du": "potici", "gen.du": "potic", "dat.du": "poticama", "acc.du": "potici", "loc.du": "poticah", "ins.du": "poticama",
+        "nom.pl": "potice", "gen.pl": "potic", "dat.pl": "poticam", "acc.pl": "potice", "loc.pl": "poticah", "ins.pl": "poticami"
+      },
+      "note": "SP2001: potica -e (tri potice). Sloleks: the whole table (https://fran.si/iskanje?View=1&Query=potica&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/81013)"
+    },
+    {
+      "lemma": "kosa", "pos": "noun", "gender": "f", "gloss": ["scythe"],
+      "forms": {
+        "nom.sg": "kosa", "gen.sg": "kose", "dat.sg": "kosi", "acc.sg": "koso", "loc.sg": "kosi", "ins.sg": "koso",
+        "nom.du": "kosi", "gen.du": "kos", "dat.du": "kosama", "acc.du": "kosi", "loc.du": "kosah", "ins.du": "kosama",
+        "nom.pl": "kose", "gen.pl": "kos", "dat.pl": "kosam", "acc.pl": "kose", "loc.pl": "kosah", "ins.pl": "kosami"
+      },
+      "also": { "nom.du": ["kose"], "gen.du": ["kosa"], "acc.du": ["kose"], "gen.pl": ["kosa"] },
+      "note": "SP2001: kosa kose, also the mobile accent (du kose, gen pl kosa). Sloleks: the regular table (https://fran.si/iskanje?View=1&Query=kosa&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/65087)"
+    },
+    {
+      "lemma": "palisada", "pos": "noun", "gender": "f", "gloss": ["palisade"],
+      "forms": {
+        "nom.sg": "palisada", "gen.sg": "palisade", "dat.sg": "palisadi", "acc.sg": "palisado", "loc.sg": "palisadi", "ins.sg": "palisado",
+        "nom.du": "palisadi", "gen.du": "palisad", "dat.du": "palisadama", "acc.du": "palisadi", "loc.du": "palisadah", "ins.du": "palisadama",
+        "nom.pl": "palisade", "gen.pl": "palisad", "dat.pl": "palisadam", "acc.pl": "palisade", "loc.pl": "palisadah", "ins.pl": "palisadami"
+      },
+      "note": "SP2001: palisada -e. Sloleks: the whole table (https://fran.si/iskanje?View=1&Query=palisada&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/76593)"
+    },
+    {
+      "lemma": "tehtnica", "pos": "noun", "gender": "f", "gloss": ["scales"],
+      "forms": {
+        "nom.sg": "tehtnica", "gen.sg": "tehtnice", "dat.sg": "tehtnici", "acc.sg": "tehtnico", "loc.sg": "tehtnici", "ins.sg": "tehtnico",
+        "nom.du": "tehtnici", "gen.du": "tehtnic", "dat.du": "tehtnicama", "acc.du": "tehtnici", "loc.du": "tehtnicah", "ins.du": "tehtnicama",
+        "nom.pl": "tehtnice", "gen.pl": "tehtnic", "dat.pl": "tehtnicam", "acc.pl": "tehtnice", "loc.pl": "tehtnicah", "ins.pl": "tehtnicami"
+      },
+      "note": "SP2001: tehtnica -e. Sloleks: the whole table (https://fran.si/iskanje?View=1&Query=tehtnica&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/92872)"
+    },
+    {
+      "lemma": "daljnogled", "pos": "noun", "gender": "m", "gloss": ["binoculars", "telescope"],
+      "forms": {
+        "nom.sg": "daljnogled", "gen.sg": "daljnogleda", "dat.sg": "daljnogledu", "acc.sg": "daljnogled", "loc.sg": "daljnogledu", "ins.sg": "daljnogledom",
+        "nom.du": "daljnogleda", "gen.du": "daljnogledov", "dat.du": "daljnogledoma", "acc.du": "daljnogleda", "loc.du": "daljnogledih", "ins.du": "daljnogledoma",
+        "nom.pl": "daljnogledi", "gen.pl": "daljnogledov", "dat.pl": "daljnogledom", "acc.pl": "daljnoglede", "loc.pl": "daljnogledih", "ins.pl": "daljnogledi"
+      },
+      "note": "SP2001: daljnogled -eda. Sloleks: the whole table (https://fran.si/iskanje?View=1&Query=daljnogled&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/52398)"
+    },
+    {
+      "lemma": "hlebec", "pos": "noun", "gender": "m", "gloss": ["loaf"],
+      "forms": {
+        "nom.sg": "hlebec", "gen.sg": "hlebca", "dat.sg": "hlebcu", "acc.sg": "hlebec", "loc.sg": "hlebcu", "ins.sg": "hlebcem",
+        "nom.du": "hlebca", "gen.du": "hlebcev", "dat.du": "hlebcema", "acc.du": "hlebca", "loc.du": "hlebcih", "ins.du": "hlebcema",
+        "nom.pl": "hlebci", "gen.pl": "hlebcev", "dat.pl": "hlebcem", "acc.pl": "hlebce", "loc.pl": "hlebcih", "ins.pl": "hlebci"
+      },
+      "note": "SP2001: hlebec -bca, s -em. Sloleks: the whole table (https://fran.si/iskanje?View=1&Query=hlebec&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/59506)"
+    },
+    {
+      "lemma": "tolminc", "pos": "noun", "gender": "m", "gloss": ["Tolminc (a cheese)"],
+      "forms": {
+        "nom.sg": "tolminc", "gen.sg": "tolminca", "dat.sg": "tolmincu", "acc.sg": "tolminc", "loc.sg": "tolmincu", "ins.sg": "tolmincem",
+        "nom.du": "tolminca", "gen.du": "tolmincev", "dat.du": "tolmincema", "acc.du": "tolminca", "loc.du": "tolmincih", "ins.du": "tolmincema",
+        "nom.pl": "tolminci", "gen.pl": "tolmincev", "dat.pl": "tolmincem", "acc.pl": "tolmince", "loc.pl": "tolmincih", "ins.pl": "tolminci"
+      },
+      "note": "eSSKJ: tolminc -a m (a cheese). The regular declension, a soft stem (https://fran.si/iskanje?View=1&Query=tolminc&FilteredDictionaryIds=134)"
+    },
+    {
+      "lemma": "pršut", "pos": "noun", "gender": "m", "gloss": ["pršut (dry-cured ham)"],
+      "forms": {
+        "nom.sg": "pršut", "gen.sg": "pršuta", "dat.sg": "pršutu", "acc.sg": "pršut", "loc.sg": "pršutu", "ins.sg": "pršutom",
+        "nom.du": "pršuta", "gen.du": "pršutov", "dat.du": "pršutoma", "acc.du": "pršuta", "loc.du": "pršutih", "ins.du": "pršutoma",
+        "nom.pl": "pršuti", "gen.pl": "pršutov", "dat.pl": "pršutom", "acc.pl": "pršute", "loc.pl": "pršutih", "ins.pl": "pršuti"
+      },
+      "note": "SP2001: pršut -a. Sloleks: the whole table (https://fran.si/iskanje?View=1&Query=pršut&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/84134)"
+    },
+    {
+      "lemma": "žito", "pos": "noun", "gender": "n", "gloss": ["grain", "cereal"],
+      "forms": {
+        "nom.sg": "žito", "gen.sg": "žita", "dat.sg": "žitu", "acc.sg": "žito", "loc.sg": "žitu", "ins.sg": "žitom",
+        "nom.du": "žiti", "gen.du": "žit", "dat.du": "žitoma", "acc.du": "žiti", "loc.du": "žitih", "ins.du": "žitoma",
+        "nom.pl": "žita", "gen.pl": "žit", "dat.pl": "žitom", "acc.pl": "žita", "loc.pl": "žitih", "ins.pl": "žiti"
+      },
+      "note": "SP2001: žito -a (bela žita). Sloleks: the whole table (https://fran.si/iskanje?View=1&Query=žito&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/99504)"
+    },
+    {
+      "lemma": "ribnik", "pos": "noun", "gender": "m", "gloss": ["pond"],
+      "forms": {
+        "nom.sg": "ribnik", "gen.sg": "ribnika", "dat.sg": "ribniku", "acc.sg": "ribnik", "loc.sg": "ribniku", "ins.sg": "ribnikom",
+        "nom.du": "ribnika", "gen.du": "ribnikov", "dat.du": "ribnikoma", "acc.du": "ribnika", "loc.du": "ribnikih", "ins.du": "ribnikoma",
+        "nom.pl": "ribniki", "gen.pl": "ribnikov", "dat.pl": "ribnikom", "acc.pl": "ribnike", "loc.pl": "ribnikih", "ins.pl": "ribniki"
+      },
+      "note": "SP2001: ribnik -a. Sloleks: the whole table (https://fran.si/iskanje?View=1&Query=ribnik&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/86293)"
+    },
+    {
+      "lemma": "romar", "pos": "noun", "gender": "m", "gloss": ["pilgrim"],
+      "forms": {
+        "nom.sg": "romar", "gen.sg": "romarja", "dat.sg": "romarju", "acc.sg": "romarja", "loc.sg": "romarju", "ins.sg": "romarjem",
+        "nom.du": "romarja", "gen.du": "romarjev", "dat.du": "romarjema", "acc.du": "romarja", "loc.du": "romarjih", "ins.du": "romarjema",
+        "nom.pl": "romarji", "gen.pl": "romarjev", "dat.pl": "romarjem", "acc.pl": "romarje", "loc.pl": "romarjih", "ins.pl": "romarji"
+      },
+      "note": "SP2001: romar -ja, a person (acc romarja), z -em. Sloleks: the whole table (https://fran.si/iskanje?View=1&Query=romar&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/86688)"
+    },
+    {
+      "lemma": "trgatev", "pos": "noun", "gender": "f", "gloss": ["grape harvest"],
+      "forms": {
+        "nom.sg": "trgatev", "gen.sg": "trgatve", "dat.sg": "trgatvi", "acc.sg": "trgatev", "loc.sg": "trgatvi", "ins.sg": "trgatvijo",
+        "nom.du": "trgatvi", "gen.du": "trgatev", "dat.du": "trgatvama", "acc.du": "trgatvi", "loc.du": "trgatvah", "ins.du": "trgatvama",
+        "nom.pl": "trgatve", "gen.pl": "trgatev", "dat.pl": "trgatvam", "acc.pl": "trgatve", "loc.pl": "trgatvah", "ins.pl": "trgatvami"
+      },
+      "note": "SP2001: trgatev -tve. Sloleks: the whole table (https://fran.si/iskanje?View=1&Query=trgatev&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/94075)"
+    },
+    {
+      "lemma": "veselica", "pos": "noun", "gender": "f", "gloss": ["village fête"],
+      "forms": {
+        "nom.sg": "veselica", "gen.sg": "veselice", "dat.sg": "veselici", "acc.sg": "veselico", "loc.sg": "veselici", "ins.sg": "veselico",
+        "nom.du": "veselici", "gen.du": "veselic", "dat.du": "veselicama", "acc.du": "veselici", "loc.du": "veselicah", "ins.du": "veselicama",
+        "nom.pl": "veselice", "gen.pl": "veselic", "dat.pl": "veselicam", "acc.pl": "veselice", "loc.pl": "veselicah", "ins.pl": "veselicami"
+      },
+      "note": "SP2001: veselica -e. Sloleks: the whole table (https://fran.si/iskanje?View=1&Query=veselica&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/96018)"
+    },
+    {
+      "lemma": "peskovnik", "pos": "noun", "gender": "m", "gloss": ["sandpit"],
+      "forms": {
+        "nom.sg": "peskovnik", "gen.sg": "peskovnika", "dat.sg": "peskovniku", "acc.sg": "peskovnik", "loc.sg": "peskovniku", "ins.sg": "peskovnikom",
+        "nom.du": "peskovnika", "gen.du": "peskovnikov", "dat.du": "peskovnikoma", "acc.du": "peskovnika", "loc.du": "peskovnikih", "ins.du": "peskovnikoma",
+        "nom.pl": "peskovniki", "gen.pl": "peskovnikov", "dat.pl": "peskovnikom", "acc.pl": "peskovnike", "loc.pl": "peskovnikih", "ins.pl": "peskovniki"
+      },
+      "note": "SP2001: peskovnik -a. Sloleks: the whole table (https://fran.si/iskanje?View=1&Query=peskovnik&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/77595)"
+    },
+    {
+      "lemma": "tobogan", "pos": "noun", "gender": "m", "gloss": ["slide"],
+      "forms": {
+        "nom.sg": "tobogan", "gen.sg": "tobogana", "dat.sg": "toboganu", "acc.sg": "tobogan", "loc.sg": "toboganu", "ins.sg": "toboganom",
+        "nom.du": "tobogana", "gen.du": "toboganov", "dat.du": "toboganoma", "acc.du": "tobogana", "loc.du": "toboganih", "ins.du": "toboganoma",
+        "nom.pl": "tobogani", "gen.pl": "toboganov", "dat.pl": "toboganom", "acc.pl": "tobogane", "loc.pl": "toboganih", "ins.pl": "tobogani"
+      },
+      "note": "SP2001: tobogan -a. Sloleks: the whole table (https://fran.si/iskanje?View=1&Query=tobogan&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/93492)"
+    },
+    {
+      "lemma": "zvonček", "pos": "noun", "gender": "m", "gloss": ["little bell", "snowdrop"],
+      "forms": {
+        "nom.sg": "zvonček", "gen.sg": "zvončka", "dat.sg": "zvončku", "acc.sg": "zvonček", "loc.sg": "zvončku", "ins.sg": "zvončkom",
+        "nom.du": "zvončka", "gen.du": "zvončkov", "dat.du": "zvončkoma", "acc.du": "zvončka", "loc.du": "zvončkih", "ins.du": "zvončkoma",
+        "nom.pl": "zvončki", "gen.pl": "zvončkov", "dat.pl": "zvončkom", "acc.pl": "zvončke", "loc.pl": "zvončkih", "ins.pl": "zvončki"
+      },
+      "note": "SP2001: zvonček -čka. Sloleks: the whole table (https://fran.si/iskanje?View=1&Query=zvonček&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/100482)"
+    },
+    {
+      "lemma": "kolesje", "pos": "noun", "gender": "n", "gloss": ["gears", "wheelwork"],
+      "forms": {
+        "nom.sg": "kolesje", "gen.sg": "kolesja", "dat.sg": "kolesju", "acc.sg": "kolesje", "loc.sg": "kolesju", "ins.sg": "kolesjem"
+      },
+      "note": "SP2001: kolesje -a, a collective: the singular. Sloleks the same (https://fran.si/iskanje?View=1&Query=kolesje&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/64296)"
+    },
+    {
+      "lemma": "venec", "pos": "noun", "gender": "m", "gloss": ["wreath"],
+      "forms": {
+        "nom.sg": "venec", "gen.sg": "venca", "dat.sg": "vencu", "acc.sg": "venec", "loc.sg": "vencu", "ins.sg": "vencem",
+        "nom.du": "venca", "gen.du": "vencev", "dat.du": "vencema", "acc.du": "venca", "loc.du": "vencih", "ins.du": "vencema",
+        "nom.pl": "venci", "gen.pl": "vencev", "dat.pl": "vencem", "acc.pl": "vence", "loc.pl": "vencih", "ins.pl": "venci"
+      },
+      "note": "SP2001: venec -nca, z -em. Sloleks: the whole table (https://fran.si/iskanje?View=1&Query=venec&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/95913)"
+    },
+    {
+      "lemma": "ogrodje", "pos": "noun", "gender": "n", "gloss": ["frame", "framework"],
+      "forms": {
+        "nom.sg": "ogrodje", "gen.sg": "ogrodja", "dat.sg": "ogrodju", "acc.sg": "ogrodje", "loc.sg": "ogrodju", "ins.sg": "ogrodjem",
+        "nom.du": "ogrodji", "gen.du": "ogrodij", "dat.du": "ogrodjema", "acc.du": "ogrodji", "loc.du": "ogrodjih", "ins.du": "ogrodjema",
+        "nom.pl": "ogrodja", "gen.pl": "ogrodij", "dat.pl": "ogrodjem", "acc.pl": "ogrodja", "loc.pl": "ogrodjih", "ins.pl": "ogrodji"
+      },
+      "note": "SP2001: ogrodje -a. Sloleks: the whole table (https://fran.si/iskanje?View=1&Query=ogrodje&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/74887)"
+    },
+    {
+      "lemma": "grmovje", "pos": "noun", "gender": "n", "gloss": ["bushes", "shrubbery"],
+      "forms": {
+        "nom.sg": "grmovje", "gen.sg": "grmovja", "dat.sg": "grmovju", "acc.sg": "grmovje", "loc.sg": "grmovju", "ins.sg": "grmovjem"
+      },
+      "note": "SP2001: grmovje -a, a collective: the singular. Sloleks the same (https://fran.si/iskanje?View=1&Query=grmovje&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/58628)"
+    },
+    {
+      "lemma": "korito", "pos": "noun", "gender": "n", "gloss": ["trough"],
+      "forms": {
+        "nom.sg": "korito", "gen.sg": "korita", "dat.sg": "koritu", "acc.sg": "korito", "loc.sg": "koritu", "ins.sg": "koritom",
+        "nom.du": "koriti", "gen.du": "korit", "dat.du": "koritoma", "acc.du": "koriti", "loc.du": "koritih", "ins.du": "koritoma",
+        "nom.pl": "korita", "gen.pl": "korit", "dat.pl": "koritom", "acc.pl": "korita", "loc.pl": "koritih", "ins.pl": "koriti"
+      },
+      "note": "SP2001: korito -a. Sloleks: the whole table (https://fran.si/iskanje?View=1&Query=korito&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/65036)"
+    },
+    {
+      "lemma": "balinišče", "pos": "noun", "gender": "n", "gloss": ["bocce court"],
+      "forms": {
+        "nom.sg": "balinišče", "gen.sg": "balinišča", "dat.sg": "balinišču", "acc.sg": "balinišče", "loc.sg": "balinišču", "ins.sg": "baliniščem",
+        "nom.du": "balinišči", "gen.du": "balinišč", "dat.du": "baliniščema", "acc.du": "balinišči", "loc.du": "baliniščih", "ins.du": "baliniščema",
+        "nom.pl": "balinišča", "gen.pl": "balinišč", "dat.pl": "baliniščem", "acc.pl": "balinišča", "loc.pl": "baliniščih", "ins.pl": "balinišči"
+      },
+      "note": "SP2001: balinišče -a. Sloleks: the whole table (https://fran.si/iskanje?View=1&Query=balinišče&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/48494)"
+    },
+    {
+      "lemma": "vaja", "pos": "noun", "gender": "f", "gloss": ["exercise", "practice", "rehearsal"],
+      "forms": {
+        "nom.sg": "vaja", "gen.sg": "vaje", "dat.sg": "vaji", "acc.sg": "vajo", "loc.sg": "vaji", "ins.sg": "vajo",
+        "nom.du": "vaji", "gen.du": "vaj", "dat.du": "vajama", "acc.du": "vaji", "loc.du": "vajah", "ins.du": "vajama",
+        "nom.pl": "vaje", "gen.pl": "vaj", "dat.pl": "vajam", "acc.pl": "vaje", "loc.pl": "vajah", "ins.pl": "vajami"
+      },
+      "note": "SP2001: vaja -e. Sloleks: the whole table (https://fran.si/iskanje?View=1&Query=vaja&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/95462)"
+    },
+    {
+      "lemma": "listje", "pos": "noun", "gender": "n", "gloss": ["leaves", "foliage"],
+      "forms": {
+        "nom.sg": "listje", "gen.sg": "listja", "dat.sg": "listju", "acc.sg": "listje", "loc.sg": "listju", "ins.sg": "listjem"
+      },
+      "note": "SP2001: listje -a, a collective: the singular. Sloleks the same (https://fran.si/iskanje?View=1&Query=listje&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/67385)"
+    },
+    {
+      "lemma": "krošnjar", "pos": "noun", "gender": "m", "gloss": ["pedlar"],
+      "forms": {
+        "nom.sg": "krošnjar", "gen.sg": "krošnjarja", "dat.sg": "krošnjarju", "acc.sg": "krošnjarja", "loc.sg": "krošnjarju", "ins.sg": "krošnjarjem",
+        "nom.du": "krošnjarja", "gen.du": "krošnjarjev", "dat.du": "krošnjarjema", "acc.du": "krošnjarja", "loc.du": "krošnjarjih", "ins.du": "krošnjarjema",
+        "nom.pl": "krošnjarji", "gen.pl": "krošnjarjev", "dat.pl": "krošnjarjem", "acc.pl": "krošnjarje", "loc.pl": "krošnjarjih", "ins.pl": "krošnjarji"
+      },
+      "note": "SP2001: krošnjar -ja, a person (acc krošnjarja), s -em. Sloleks: the whole table (https://fran.si/iskanje?View=1&Query=krošnjar&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/65951)"
+    },
+    {
+      "lemma": "tesar", "pos": "noun", "gender": "m", "gloss": ["carpenter"],
+      "forms": {
+        "nom.sg": "tesar", "gen.sg": "tesarja", "dat.sg": "tesarju", "acc.sg": "tesarja", "loc.sg": "tesarju", "ins.sg": "tesarjem",
+        "nom.du": "tesarja", "gen.du": "tesarjev", "dat.du": "tesarjema", "acc.du": "tesarja", "loc.du": "tesarjih", "ins.du": "tesarjema",
+        "nom.pl": "tesarji", "gen.pl": "tesarjev", "dat.pl": "tesarjem", "acc.pl": "tesarje", "loc.pl": "tesarjih", "ins.pl": "tesarji"
+      },
+      "note": "SP2001: tesar -ja, a person (acc tesarja), s -em; Wiktionary has the accusative as tesar. Sloleks: the whole table (https://fran.si/iskanje?View=1&Query=tesar&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/93174)"
+    },
+    {
+      "lemma": "toplar", "pos": "noun", "gender": "m", "gloss": ["double hayrack"],
+      "forms": {
+        "nom.sg": "toplar", "gen.sg": "toplarja", "dat.sg": "toplarju", "acc.sg": "toplar", "loc.sg": "toplarju", "ins.sg": "toplarjem",
+        "nom.du": "toplarja", "gen.du": "toplarjev", "dat.du": "toplarjema", "acc.du": "toplarja", "loc.du": "toplarjih", "ins.du": "toplarjema",
+        "nom.pl": "toplarji", "gen.pl": "toplarjev", "dat.pl": "toplarjem", "acc.pl": "toplarje", "loc.pl": "toplarjih", "ins.pl": "toplarji"
+      },
+      "note": "SP2001: toplar -ja, s -em (regional: a double hayrack). Sloleks: the whole table (https://fran.si/iskanje?View=1&Query=toplar&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/93671)"
     }
   ],
   "partners": [
@@ -257,6 +672,6 @@
     { "lemma": "stati", "pos": "verb", "why": "one entry for to cost (stanem, stane) and to stand (stojim, stoji): which form is which meaning's can't be told" }
   ],
   "animate": [
-    "angel", "brat", "cesar", "človek", "dedek", "fant", "gams", "golob", "gost", "grof", "jazbec", "jelen", "jež", "kmet", "konj", "konjiček", "kovač", "kozorog", "kralj", "lovec", "medved", "metulj", "mladič", "mlinar", "mož", "netopir", "oče", "oglar", "otrok", "pastir", "pes", "pisatelj", "polh", "prijatelj", "romar", "sin", "sodnik", "sosed", "stric", "svizec", "škorec", "škoromat", "tast", "učenec", "učitelj", "velikan", "vitez", "vnuk", "volk", "zajec", "zdravnik", "zmaj"
+    "angel", "brat", "cerkovnik", "cesar", "čebelar", "čevljar", "človek", "dedek", "fant", "gams", "gasilec", "golob", "gost", "grof", "jazbec", "jelen", "jež", "junak", "jurček", "kmet", "konj", "konjiček", "kovač", "kozorog", "kralj", "krošnjar", "lovec", "medved", "metulj", "Miklavž", "mladič", "mlinar", "mož", "netopir", "oče", "oglar", "otrok", "oven", "parkelj", "partner", "pastir", "pes", "pesnik", "pisatelj", "polh", "popotnik", "prijatelj", "romar", "sin", "sodelavec", "sodnik", "sosed", "stric", "svizec", "šef", "škorec", "škoromat", "tast", "tesar", "trot", "učenec", "učitelj", "velikan", "vinar", "vitez", "vnuk", "volk", "voznik", "zajček", "zajec", "zdravnik", "zmaj"
   ]
 }

@@ -212,8 +212,8 @@ class PhoneBridgeTest {
         // every noun the case trainer's "Sklanjaj!" could pick (the packs' words, the bank's fallback nouns), through the
         // phone's own GET /forms as the app builds them (CaseTrainer.nounOf): every frame it declines one with asks a
         // checked slot (a hand-checked table's, or its regular declension's: bridge/src/noun-paradigm.ts), its answer the
-        // slot's standard form, never an old variant; a slot the bridge couldn't confirm (dan, potok's accusative before
-        // the forms book corrected it) is never asked
+        // slot's standard form, never an old variant; a slot the bridge couldn't confirm (potok's accusative before the
+        // forms book corrected it, dan before its table) is never asked
         val bank = si.lanisce.lani.data.CaseBanks.parse(ok(get("/cases")).text)!!
         val words = mutableMapOf<String, String>()
         for (p in ok(get("/packs")).json().jsonArray) {
@@ -255,7 +255,9 @@ class PhoneBridgeTest {
         println("Sklanjaj: $asked decline tasks over ${nouns.size} nouns; left out where a slot isn't checked: ${leftOut.sorted()}")
         assertTrue("decline tasks: $asked", asked > 1000)
         assertEquals(wrong.take(20).joinToString("\n"), 0, wrong.size)
-        assertTrue("left out: $leftOut", "dan" in leftOut && "potok" !in leftOut && "vitez" !in leftOut)
+        // since the native check's tables (docs/plans/05-built/native-check-sl.md: dan, hči, oko, the plural-only nouns …)
+        // every pack noun's slots are checked; a slot not checked is never declined (CaseTrainerTest)
+        assertTrue("left out: $leftOut", leftOut.isEmpty() && listOf("dan", "hči", "otrok", "vrata", "potok", "vitez", "tesar").all { w -> nouns.any { it.lemma == w } })
         // the bank's fallback nouns are declined as they stand: each form the served standard form of a checked slot
         for (n in bank.nouns) for ((k, v) in n.slots) {
             val s = entries[n.lemma]?.slot(k) ?: continue
