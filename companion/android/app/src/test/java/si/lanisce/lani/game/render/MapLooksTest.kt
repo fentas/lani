@@ -301,27 +301,25 @@ class MapLooksTest {
     }
 
     @Test fun `a frame of a culture's map costs no more than the default's`() {
-        // a town at night (every window lit) on a phone upright; each culture's best of a few rounds, taken in turn, so
-        // the shared machine's load falls on all of them alike
+        // a town at night (every window lit) on a phone upright: the CPU time of the rendering thread, each culture's best of
+        // rounds taken in turn (FrameBudget), so the shared machine's load falls on all of them alike
         val s = village(Age.MESTO, Landscape.VALLEY)
         val names = listOf("primorska", "friuli", "kaernten", "lakeland")
         val renderers = names.associateWith { VillageRenderer() }
         val canvases = names.associateWith { PixelCanvas(360, 800) }
+        for (c in names) renderers.getValue(c).render(canvases.getValue(c), s, night.copy(culture = c)) // warm up
         val best = names.associateWith { Double.MAX_VALUE }.toMutableMap()
-        repeat(6) { round ->
+        repeat(si.lanisce.lani.FrameBudget.ROUNDS + 2) { round ->
             for (c in names) {
-                val f = night.copy(culture = c, time = 3.0 + round)
-                val t0 = System.nanoTime()
-                repeat(3) { renderers.getValue(c).render(canvases.getValue(c), s, f.copy(time = f.time + it * 0.1)) }
-                val t = (System.nanoTime() - t0) / 3e6
-                if (round > 0) best[c] = minOf(best.getValue(c), t)
+                val t = si.lanisce.lani.FrameBudget.ms(3, rounds = 1) { renderers.getValue(c).render(canvases.getValue(c), s, night.copy(culture = c, time = 3.0 + round + it * 0.1)) }
+                best[c] = minOf(best.getValue(c), t)
             }
         }
         val base = best.getValue("primorska")
         for (c in names.drop(1)) {
             val t = best.getValue(c)
-            println("frame ${"%.2f".format(t)} ms in $c, ${"%.2f".format(base)} ms in primorska")
-            assertTrue("$c's frame $t ms against $base", t < base * 1.25 + 1.0)
+            println("frame ${"%.2f".format(t)} ms in $c, ${"%.2f".format(base)} ms in primorska (CPU time)")
+            assertTrue("$c's frame $t ms against $base", t < base * 1.25 + si.lanisce.lani.FrameBudget.scaled(1.0))
         }
     }
 }
