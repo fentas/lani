@@ -43,12 +43,13 @@ by "Why?", the word that decides it.
 
 ## The contract with the case lens
 
-The case lens (branch `case-lens`, built in parallel) and the trainer share one definition of the cases. The trainer
-owns the app's case look; the lens owns the trigger table and the sentence analysis.
+The case lens (docs/plans/05-built/case-lens.md, merged first) and the trainer share one definition of the cases. The
+trainer owns the app's case look; the lens owns the trigger table and the sentence analysis. The trainer rebased second
+and did the merge.
 
 - **The cases are the app's own `game.Case`** (game/Triggers.kt, in main before either branch: NOM … INS, the school's
   number `n`, its question, its English name `lexicon`, its name in the string tables `key`: "rodilnik · genitive"). No
-  second enum: the case lens keys its colours by it too.
+  second enum.
 - **`data/CaseLook.kt`** (pure) adds the contract's look to it as extensions: `id` (the case's grammar page:
   imenovalnik, rodilnik, dajalnik, tozilnik, mestnik, orodnik; the bank's, the wire's and the mastery keys'), `slot`
   (the forms book's "gen"), `ask` (the question words lower case, "koga? česa?"; the locative's `alsoAsk` "o kom? o
@@ -57,25 +58,30 @@ owns the app's case look; the lens owns the trigger table and the sentence analy
   `Case.ofSlot("gen.pl")`. `CaseLook.RULES`: the contract's rule ids (rodilnik-predlogi, rodilnik-nikalnica,
   rodilnik-kolicina, kam-tozilnik, kje-mestnik-orodnik, dajalnik, orodnik, tozilnik, mestnik, skloni); `CaseLook.PAGES`
   the pages that show "🧩 Vadi sklone".
-- **`ui/cases/CaseColors.kt`**: `Case.color()` (Compose, by the theme), `Case.label()` ("2. rodilnik · genitive" from
-  `Case.key`), `numberLabel("pl")`, `Case.spoken()` (TalkBack), `CasePill(k)` (a case's pill: its bar of colour, name,
-  questions) for the lens's row to reuse.
-- **The "seen" entry point:** `vm.caseTrainer.seen(rule: String)` (`app/CasesController.kt`) →
-  `CaseTrainer.seen(progress, rule, today)`: a rule id the lens showed the learner, counted in
-  `GameState.cases.seen[rule] = {n, day}`, never an answer. A rule seen in the last three days weighs a third more in
-  the next session; the trainer's screen shows "👁 n×" on the rule.
-- **The bridge:** `bridge/src/case-bank.ts` (the bank's format, checks and store) has `CASES`, `CASE_SLOT`,
-  `CASE_QUESTIONS`, `CASE_EN` with the same values; `features/cases.ts` the routes and tools.
-- **Merging:** whoever rebases second switches to the other's definitions and leaves no duplicate. Both branches add
-  files of their own names (the trainer's `case-bank.ts` and smoke `case-trainer.ts`, the lens's `cases.ts`,
-  `case-triggers.ts`, `case-seen.ts` and smoke `cases.ts`); the view model has `caseTrainer` (the lens's `cases` is its
-  colours' controller); the routes differ (the trainer's GET /cases and POST /cases/done, the lens's POST /cases and GET
-  /cases/seen). What is left to merge by hand: the lens's `ui/words/CaseLook` colours (keyed by `game.Case` too) and
-  these extensions are one table to keep; the lens's GET /cases/seen can feed `vm.caseTrainer.seen(rule)` (its
-  `RuleSeen` per rule), or the lens calls it when its word card shows a rule; `PhoneBridgeTest`'s feature count; the
-  smoke's list; the four string tables (both add keys). When the lens's trigger table
-  (companion/grammar/sl/data/case-triggers.json) carries a rule's one line, the bank's `rules` may point at it later
-  (both key a rule by its grammar page). The bank's trigger indexes are gold and need no rules engine.
+- **`ui/cases/CaseColors.kt`**, the one case look in the app: `Case.color()` (by the theme on screen: dark when its
+  surface is, the app's own theme too) and `Case.color(dark)`, `Case.label()` ("2. rodilnik · genitive" from
+  `Case.key`), `numberLabel("pl")`, `Case.spoken()` (TalkBack), `CasePill(k)`, and `CaseNames` (the lens's word card's
+  "rodilnik, ed., ž. · genitive, sg., f."). The lens's word card, its colours in the lines (`WordText`, readings,
+  dialogs) and its row use them; its own `ui/words/CaseLook.kt` (a second table of the six colours and questions) is
+  gone, its `caseMarks` moved to `ui/words/CaseRowView.kt`.
+- **The "seen" signal, one count:** a lookup the lens counted (a word whose case its line decides; the bridge says
+  `seen: true` once a day per word of a line, keeping only today's looks in memory) reaches `WordsController`, which
+  calls `vm.caseTrainer.seen(rule)` (`app/CasesController.kt`) → `CaseTrainer.seen(progress, rule, today)`:
+  `GameState.cases.seen[rule] = {n, day}`, never an answer. That count is the only one: the trainer's weighting reads
+  it (a rule seen in the last three days weighs a third more), its screen shows "👁 n×" on the rule, `get_village`
+  shows it as `cases.seen_in_lens`, and it syncs with the village. The lens's own count on the node (`GET
+  /case-lens/seen`, `<data>/app/case-lens-seen.json`) was removed at the merge, so two counts can't disagree.
+- **The bridge:** `bridge/src/case-bank.ts` (the bank's format, checks and store) takes the case ids from the lens's
+  `case-triggers.ts` (`CASE_KEYS`, `CASE_IDS`; the question words and colours are in its trigger table): `CASES` and
+  `CASE_SLOT` are derived from them, `CASE_EN` names them in English for the tutor; `features/cases.ts` the routes and
+  tools. The names stay apart: the trainer's `case-bank.ts`, smoke `case-trainer.ts`, GET /cases, POST /cases/done,
+  `vm.caseTrainer`; the lens's `case-lens.ts`, `case-triggers.ts`, `case-seen.ts`, smoke `case-lens.ts`, POST
+  /case-lens, `vm.caseColours`.
+- **Each guards the other:** the lens's smoke runs it over the bank's 324 "which case?" items (97.2 % right, 9 left
+  open) and fails if it ever contradicts a gold annotation (a wrong case decided or likely, another deciding word): a
+  bank item it reads otherwise is one to look at again, and a lens change that breaks a case the bank knows shows. When
+  the lens's trigger table carries a rule's one line, the bank's `rules` may point at it later (both key a rule by its
+  grammar page). The bank's trigger indexes are gold and need no rules engine.
 
 ## Why it is built so
 
@@ -266,8 +272,6 @@ Home. The first run found the QA's own tap on the sentence's k instead of the ch
   masculine; klop mixed with klop "tick"; avto's plural as a neuter's; many old -i datives and locatives (brati, psi,
   mleki). A learner's noun with such a form gets it in "Sklanjaj!" as right (every form of the slot is), and the shown
   one is the usual ending's. Worth fixing in the forms book (`lexicon/sl.forms.json` tables or `leave_out`).
-- **Merging with the case lens** (above): one colour table, the lens's "seen" calls wired to
-  `vm.caseTrainer.seen(rule)`.
 - **A frame's meaning with the learner's word** stays in two parts ("There's no … here. · miza = table") rather than
   "There's no table here.": the card's meaning has its own article and form. Fine for an adult; a child's version could
   show the noun's picture (its pack's emoji) instead.

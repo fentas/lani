@@ -1,8 +1,8 @@
-// Smoke checks: the case lens (cases.ts, docs/plans/05-built/case-lens.md). Its trigger table (companion/grammar/sl/data/
+// Smoke checks: the case lens (case-lens.ts, docs/plans/05-built/case-lens.md). Its trigger table (companion/grammar/sl/data/
 // case-triggers.json: the schema, the shared case ids and colours, every rule a page, the personal pronouns as the
 // osebni-zaimki page has them, every example analysed as it says), the analysis on the hand-labelled sentences (the set
 // it was built on and the held-out lines: test/case-lens-eval.ts), on every line of the content (none throws, in time),
-// and through the bridge: GET /lookup's case, POST /case-lens for the colours, GET /case-lens/seen.
+// and through the bridge: GET /lookup's case, POST /case-lens for the colours, the lookup's seen flag.
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { addressee, renderDeep } from '../../src/addressee'
@@ -93,7 +93,9 @@ export default async function cases() {
   const bank = trainerItems()
   if (bank) {
     const t = evaluate(lens, bank)
-    check(`case lens: the case trainer's bank (${t.items} "which case?" items, its gold annotations): ${summary(t)}`, t.items >= 100 && t.right / t.labelled >= 0.93 && t.wrongDecided === 0, t.misses)
+    // the two guard each other: the lens never contradicts a gold annotation (no wrong case said as decided or as likely, no
+    // other deciding word), and a bank item the lens reads otherwise is one to look at again
+    check(`case lens: the case trainer's bank (${t.items} "which case?" items, its gold annotations), never contradicting one: ${summary(t)}`, t.items >= 100 && t.right / t.labelled >= 0.93 && t.wrongDecided === 0 && t.wrongLikely === 0 && t.triggers.right === t.triggers.labelled, t.misses)
   } else console.log('ℹ️ case lens: the case trainer\'s bank not here (companion/cases/sl/bank.json): its check skipped')
   const held2 = evaluate(lens, goldItems('heldout2'))
   check(`case lens: the second held-out lines (${held2.items}, drawn after those fixes): ${summary(held2)}`, held2.items >= 100 && held2.right / held2.labelled >= 0.88 && held2.wrongDecided === 0, held2.misses)
@@ -126,7 +128,6 @@ export default async function cases() {
   check(`case lens: every line of the content analysed (${lines.length} lines, ${words} words with a case, ${Math.round((decided / words) * 100)}% decided or likely; ${(ms / lines.length).toFixed(2)} ms a line)`, lines.length > 3000 && thrown.length === 0 && ms / lines.length < 5 && decided / words > 0.8, thrown.slice(0, 5))
 
   // --- through the bridge --------------------------------------------------------------------------------------------
-  const seenBefore = (await (await fetch(`${base}/case-lens/seen`, { headers: auth })).json()) as any
   const brez = await lookup({ w: 'mleka', line: 'Kavo pijem brez mleka.', en: 'I drink coffee without milk.' })
   const c0 = brez.case
   check(
@@ -160,25 +161,12 @@ export default async function cases() {
   const bad = await Promise.all([colours({}), colours({ lines: ['x'.repeat(401)] }), colours({ lines: Array.from({ length: 61 }, () => 'Grem.') }), colours({ lines: [3] })])
   check('POST /case-lens: no lines, a line too long, more than 60, a line not a string: 400', bad.every(b => b.status === 400 && typeof b.body.error === 'string'), bad.map(b => b.status))
 
-  const seen = (await (await fetch(`${base}/case-lens/seen`, { headers: auth })).json()) as any
   const repeat = await lookup({ w: 'mleka', line: 'Kavo pijem brez mleka.' })
-  const again = (await (await fetch(`${base}/case-lens/seen`, { headers: auth })).json()) as any
-  const kept = JSON.parse(readFileSync(join(dataDir, 'app/case-lens-seen.json'), 'utf8'))
-  const delta = (s: any, rule: string, key: 'seen' | 'words', word?: string) => {
-    const of = (x: any) => (key === 'seen' ? (x.rules[rule]?.seen ?? 0) : (x.rules[rule]?.words?.[word!] ?? 0))
-    return of(s) - of(seenBefore)
-  }
   check(
-    'GET /case-lens/seen: a word looked up through the lens counts as seen for its rule (rodilnik-predlogi: by brez, by do; tozilnik: the object), never one whose case it left open (Pod mizo: likely), once a day per word of a line; kept in <data>/app/case-lens-seen.json',
-    seen.schema === 'lani.case-seen/v0' && delta(seen, 'rodilnik-predlogi', 'seen') === 2 && delta(seen, 'rodilnik-predlogi', 'words', 'brez') === 1 && delta(seen, 'rodilnik-predlogi', 'words', 'do') === 1 &&
-      delta(seen, 'tozilnik', 'seen') === 1 && delta(seen, 'kam-tozilnik', 'seen') === 0 && delta(seen, 'kje-mestnik-orodnik', 'seen') === 0 &&
-      delta(again, 'rodilnik-predlogi', 'seen') === 2 && kept.rules['rodilnik-predlogi'].seen === again.rules['rodilnik-predlogi'].seen && seen.rules['rodilnik-predlogi'].last === new Date().toLocaleDateString('sv'),
-    { seenBefore, seen, again },
-  )
-  check(
-    'GET /lookup: a look that counted as seen says so (seen: true, the app\'s hook for the case trainer\'s count); the same word of the same line again today, or a case left open, does not',
-    c0?.seen === true && second.case?.seen === true && repeat.case?.pick?.case === 'gen' && repeat.case.seen === undefined && pod.case?.seen === undefined,
-    { first: c0?.seen, repeat: repeat.case?.seen, pod: pod.case?.seen },
+    'GET /lookup: a look that counts as seen for its rule says so (seen: true: the app counts it in the case trainer\'s progress, the one count; rodilnik-predlogi by brez and by do, tozilnik the object); the same word of the same line again today, or a case left open (Pod mizo: likely), does not; nothing kept in <data>/app',
+    c0?.seen === true && second.case?.seen === true && mize.case?.seen === true && repeat.case?.pick?.case === 'gen' && repeat.case.seen === undefined && pod.case?.seen === undefined &&
+      !existsSync(join(dataDir, 'app/case-lens-seen.json')) && (await fetch(`${base}/case-lens/seen`, { headers: auth })).status === 404,
+    { first: c0?.seen, second: second.case?.seen, mize: mize.case?.seen, repeat: repeat.case?.seen, pod: pod.case?.seen },
   )
   void CASE_KEYS
 }

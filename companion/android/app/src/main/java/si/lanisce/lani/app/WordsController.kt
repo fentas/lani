@@ -94,6 +94,8 @@ class WordsController(
     private val sync: SyncController,
     private val chat: ChatController,
     private val notices: Notices,
+    /** A look the case lens counted as seen for its rule (the lookup's `seen`): the case trainer's count of it. */
+    private val caseSeen: (String) -> Unit = {},
 ) {
     var card by mutableStateOf<WordCard?>(null)
         private set
@@ -188,6 +190,9 @@ class WordsController(
                 if (quiet) return@launch
                 WordState.Offline
             }
+            // the case lens showed a rule (a word its line decides, once a day per word of a line): the trainer counts it
+            val looked = (state as? WordState.Found)?.lookup ?: (state as? WordState.NotFound)?.lookup
+            looked?.lens?.takeIf { it.seen }?.rule?.let(caseSeen)
             card?.takeIf { it.query == q }?.let { c ->
                 // the word asked for came back as an entry: it shows added (the node added it with its meaning)
                 val asked = c.requestedItem?.let { id -> (state as? WordState.Found)?.lookup?.entries?.filter { it.itemId == id } }.orEmpty()

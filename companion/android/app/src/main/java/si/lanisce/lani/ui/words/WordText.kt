@@ -38,6 +38,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import si.lanisce.lani.l10n.bi
+import si.lanisce.lani.ui.cases.color
 
 /**
  * A line in the learner's target language whose words can be looked up: a tap on a word calls [onWord], and the
@@ -208,7 +209,7 @@ fun WordText(
         val dots = PathEffect.dashPathEffect(floatArrayOf(2.dp.toPx(), 2.5.dp.toPx()))
         for (m in cases) {
             if (m.end > shown || m.end > l.layoutInput.text.length || m.start >= m.end) continue
-            val ink = m.case?.let { CaseLook.colour(it, dark) } ?: unsure
+            val ink = m.case?.color(dark) ?: unsure
             var from = m.start
             while (from < m.end) {
                 val line = l.getLineForOffset(from)

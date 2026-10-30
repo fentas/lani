@@ -55,8 +55,8 @@ The case lens (Slovene): a word card of a Slovene word in its line shows its cas
 subject's verb), the rule's grammar page, and every reading when the line can't tell; readings, stories and dialogs can
 underline each noun in its case's colour ("Skloni · Cases"). The lens is a rule table (companion/grammar/sl/data/
 case-triggers.json), never a guess: point Jan to it when a case trips them ("tap the word: the card says what decides
-it"). GET /case-lens/seen lists, per rule (the grammar page's id), how often Jan has looked at a word through it: met, not
-practised; the case trainer weighs it lightly.
+it"). A word whose case its line decides, looked up that way, counts as seen for its rule (the grammar page's id): met,
+not practised; the app counts it in the case trainer's progress (get_village's cases.seen_in_lens), weighed lightly.
 `.trim()
 
 /**
@@ -150,7 +150,7 @@ export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox,
     const me: NameForms[] = a.generic ? [] : [{ name: a.name, forms: { nom: a.name, gen: a.forms.gen, dat: a.forms.dat, acc: a.forms.acc, loc: a.forms.loc, ins: a.forms.ins } }]
     return [...me, ...villagersNames.filter(n => n.name !== a.name)]
   }
-  const seen = new CaseSeen(join(cfg.appDir, 'case-lens-seen.json'), log)
+  const seen = new CaseSeen()
 
   // The content's lines a form may be asked in, by their words: made at the first ask, again after LINES_TTL_MS or when
   // the tutor published something with lines in it.
@@ -379,7 +379,7 @@ export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox,
       const c = l.at(line, w, n, lensNames())
       // seen: a word whose case the line decides (its number may be open: vasi, the genitive singular or plural)
       const decided = c && 'pick' in c && c.pick && c.kind !== 'unresolved' && c.rule && new Set(c.options.map(o => o.case)).size === 1
-      if (decided && seen.saw(c.rule!, line, `${c.i}`, c.trigger?.word)) return { ...c, seen: true }
+      if (decided && seen.saw(c.rule!, line, `${c.i}`)) return { ...c, seen: true }
       return c
     } catch (e) {
       log(`case lens: ${line.slice(0, 80)}: ${(e as Error).message}`)
@@ -639,7 +639,6 @@ export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox,
         },
       },
       // how often the learner has looked at a word through the lens, per rule (the case trainer weighs it lightly)
-      { method: 'GET', path: '/case-lens/seen', handle: () => json(seen.current()) },
     ],
     tools: [
       {

@@ -39,12 +39,15 @@ import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.data.CaseChoice
 import si.lanisce.lani.data.CaseRead
 import si.lanisce.lani.data.CaseRow
+import si.lanisce.lani.data.ask
 import si.lanisce.lani.game.Case
 import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.Lang
 import si.lanisce.lani.l10n.bi
 import si.lanisce.lani.l10n.inBase
 import si.lanisce.lani.l10n.inTarget
+import si.lanisce.lani.ui.cases.CaseNames
+import si.lanisce.lani.ui.cases.color
 
 /**
  * The word card's line («Kavo pijem brez mleka.») with what the case lens found in it: the tapped word in its case's
@@ -53,7 +56,7 @@ import si.lanisce.lani.l10n.inTarget
  */
 @Composable
 fun caseLine(line: String, read: CaseRead?, row: CaseRow?): AnnotatedString {
-    val colour = row?.case?.let { CaseLook.colour(it) }
+    val colour = row?.case?.color()
     val dark = MaterialTheme.colorScheme.surface.luminance() < 0.5f
     return buildAnnotatedString {
         append("«")
@@ -70,7 +73,7 @@ fun caseLine(line: String, read: CaseRead?, row: CaseRow?): AnnotatedString {
         // a trigger tapped: the words it decides, each in its case's colour
         for ((ref, case) in row.governs) {
             val g = read.governs?.words?.firstOrNull { it.i == ref.i } ?: continue
-            if (fits(g.start, g.end)) addStyle(SpanStyle(fontWeight = FontWeight.Bold, color = CaseLook.colour(case, dark)), g.start + 1, g.end + 1)
+            if (fits(g.start, g.end)) addStyle(SpanStyle(fontWeight = FontWeight.Bold, color = case.color(dark)), g.start + 1, g.end + 1)
         }
     }
 }
@@ -84,11 +87,11 @@ fun caseLine(line: String, read: CaseRead?, row: CaseRow?): AnnotatedString {
 @Composable
 fun CaseRowView(vm: AppViewModel, row: CaseRow, read: CaseRead) {
     val main = row.case
-    val accent = main?.let { CaseLook.colour(it) } ?: MaterialTheme.colorScheme.primary
+    val accent = main?.color() ?: MaterialTheme.colorScheme.primary
     val why = whyLine(row, read)
     val title = when (row.state) {
         CaseRow.State.GOVERNS -> null
-        else -> main?.let { CaseLook.bi(it, row.number, gender = row.gender) }
+        else -> main?.let { CaseNames.bi(it, row.number, gender = row.gender) }
     }
     val spoken = listOfNotNull(
         bi("caseLens.title"),
@@ -96,7 +99,7 @@ fun CaseRowView(vm: AppViewModel, row: CaseRow, read: CaseRead) {
             CaseRow.State.AMBIGUOUS -> "${inBase("caseLens.ambiguous")}: " + row.options.joinToString(", ") { spokenName(it) }
             CaseRow.State.GOVERNS -> row.governs.joinToString(", ") { (ref, c) -> governsText(c, wordAt(read, ref)) }
             else -> main?.let {
-                "${spokenName(CaseChoice(it, row.number ?: "sg", row.gender))}, ${CaseLook.question(it)}" +
+                "${spokenName(CaseChoice(it, row.number ?: "sg", row.gender))}, ${it.ask}" +
                     if (row.state == CaseRow.State.LIKELY) " (${bi("caseLens.likely")}); ${bi("caseLens.alsoForm")}: " + row.options.drop(1).joinToString(", ") { o -> spokenName(o) } else ""
             }
         },
@@ -121,14 +124,14 @@ fun CaseRowView(vm: AppViewModel, row: CaseRow, read: CaseRead) {
                 }
                 CaseRow.State.GOVERNS -> for ((ref, c) in row.governs) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Dot(CaseLook.colour(c))
+                        Dot(c.color())
                         Spacer(Modifier.width(8.dp))
-                        Text(governsText(c, wordAt(read, ref)), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold, color = CaseLook.colour(c))
+                        Text(governsText(c, wordAt(read, ref)), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold, color = c.color())
                     }
                 }
                 else -> if (main != null && title != null) {
                     Text(title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, color = accent)
-                    Text(CaseLook.question(main), style = MaterialTheme.typography.bodyLarge, fontStyle = FontStyle.Italic)
+                    Text(main.ask, style = MaterialTheme.typography.bodyLarge, fontStyle = FontStyle.Italic)
                     if (row.state == CaseRow.State.LIKELY) for (o in row.options.drop(1)) ChoiceLine(o, likely = false)
                 }
             }
@@ -142,7 +145,7 @@ fun CaseRowView(vm: AppViewModel, row: CaseRow, read: CaseRead) {
             if (row.derived) Text("〰 ${bi("caseLens.derived")}", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             if (row.others.isNotEmpty() && row.state != CaseRow.State.GOVERNS) {
                 Text(
-                    "${bi("caseLens.alsoForm")}: " + row.others.joinToString(", ") { CaseLook.name(it.case, it.number, L10n.pair.target) },
+                    "${bi("caseLens.alsoForm")}: " + row.others.joinToString(", ") { CaseNames.name(it.case, it.number, L10n.pair.target) },
                     style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
@@ -159,16 +162,16 @@ fun CaseRowView(vm: AppViewModel, row: CaseRow, read: CaseRead) {
 /** One reading the line leaves: its colour, case and number, question words; the likely one says so. */
 @Composable
 private fun ChoiceLine(o: CaseChoice, likely: Boolean) {
-    val c = CaseLook.colour(o.case)
+    val c = o.case.color()
     Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.clearAndSetSemantics { }) {
         Dot(c)
         Spacer(Modifier.width(8.dp))
         Column {
             Text(
-                CaseLook.bi(o.case, o.number, gender = o.gender) + if (likely) "  · ${bi("caseLens.likely")}" else "",
+                CaseNames.bi(o.case, o.number, gender = o.gender) + if (likely) "  · ${bi("caseLens.likely")}" else "",
                 style = MaterialTheme.typography.titleSmall, fontWeight = if (likely) FontWeight.Bold else FontWeight.Medium, color = c,
             )
-            Text(CaseLook.question(o.case), style = MaterialTheme.typography.bodySmall, fontStyle = FontStyle.Italic)
+            Text(o.case.ask, style = MaterialTheme.typography.bodySmall, fontStyle = FontStyle.Italic)
         }
     }
 }
@@ -182,7 +185,7 @@ private fun wordAt(read: CaseRead, ref: si.lanisce.lani.data.CaseRef): String =
 
 private fun spokenName(o: CaseChoice): String {
     val base = L10n.pair.base
-    return CaseLook.name(o.case, o.number, L10n.pair.target, short = false) + " · " + CaseLook.name(o.case, o.number, base, short = false)
+    return CaseNames.name(o.case, o.number, L10n.pair.target, short = false) + " · " + CaseNames.name(o.case, o.number, base, short = false)
 }
 
 /** "Zahteva rodilnik: «mleka» · Takes the genitive: «mleka»". */
@@ -259,11 +262,25 @@ fun CaseLegend(modifier: Modifier = Modifier) {
     FlowRow(modifier, horizontalArrangement = Arrangement.spacedBy(10.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         for (c in Case.entries) {
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.semantics(mergeDescendants = true) { }) {
-                Box(Modifier.width(14.dp).size(width = 14.dp, height = 3.dp).background(CaseLook.colour(c)))
+                Box(Modifier.width(14.dp).size(width = 14.dp, height = 3.dp).background(c.color()))
                 Spacer(Modifier.width(4.dp))
-                Text("${c.n}. ${inTarget(c.key)}", style = MaterialTheme.typography.labelSmall, color = CaseLook.colour(c), fontWeight = FontWeight.SemiBold)
+                Text("${c.n}. ${inTarget(c.key)}", style = MaterialTheme.typography.labelSmall, color = c.color(), fontWeight = FontWeight.SemiBold)
             }
         }
         Text("⋯ ${bi("caseLens.legendUnsure")}", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
+}
+
+/**
+ * "🎨 Skloni · Cases": the colours' marks of [line] (data/CaseLens.kt) as a text shows it after [offset] characters (a
+ * prefix: "1. "); none while the colours are off or the bridge hasn't answered (asked for once the line shows).
+ */
+@Composable
+@Suppress("ComposableNaming")
+fun caseMarks(vm: si.lanisce.lani.AppViewModel, line: String, offset: Int = 0): List<si.lanisce.lani.data.CaseMark> {
+    val c = vm.caseColours
+    if (!c.on) return emptyList()
+    androidx.compose.runtime.LaunchedEffect(line) { c.request(line) }
+    val spans = c.known(line) ?: return emptyList()
+    return androidx.compose.runtime.remember(spans, offset) { si.lanisce.lani.data.CaseLens.marks(spans, offset) }
 }

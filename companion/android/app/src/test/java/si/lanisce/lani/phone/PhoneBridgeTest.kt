@@ -116,7 +116,7 @@ class PhoneBridgeTest {
             "/stories", "/stt/status", "/villagers", "/voice/index", "/voice/offline", "/voice/profiles", "/voice/status", "/words",
             "/course", "/culture", "/cultures", "/game", "/lexicon/status", "/packs", "/scenes", "/app/latest", "/towns",
             "/towns/guests", "/towns/questions", "/towns/friendship", "/audio/index", "/family/api/settings", "/family/api/words",
-            "/family/api/challenges", "/counting", "/forms-cards", "/level", "/case-lens/seen", "/cases",
+            "/family/api/challenges", "/counting", "/forms-cards", "/level", "/cases",
         )
         val failed = routes.map { it to get(it) }.filter { (_, r) -> r.status >= 500 }
         assertEquals(failed.joinToString("\n") { (p, r) -> "$p: ${r.status} ${r.text.take(200)}" }, 0, failed.size)
@@ -179,9 +179,10 @@ class PhoneBridgeTest {
         val words = lines[0].jsonObject["words"]!!.jsonArray.map { it.jsonObject }
         assertEquals(listOf("Babica" to "nom", "kuhinji" to "loc"), words.map { it["word"]!!.jsonPrimitive.content to it["case"]!!.jsonPrimitive.content })
         assertEquals("likely", lines[1].jsonObject["words"]!!.jsonArray[0].jsonObject["sure"]!!.jsonPrimitive.content)
-        // the word looked up through the lens counts as seen for its rule
-        val seen = ok(get("/case-lens/seen")).json().jsonObject["rules"]!!.jsonObject
-        assertTrue(seen.toString(), (seen["rodilnik-predlogi"]?.jsonObject?.get("seen")?.jsonPrimitive?.content?.toInt() ?: 0) >= 1)
+        // the word looked up through the lens counts as seen for its rule: the lookup says so, once (the app keeps the count)
+        assertEquals("true", mleka["seen"]?.jsonPrimitive?.content)
+        assertEquals(null, ok(get("/lookup?w=mleka&line=$line")).json().jsonObject["case"]!!.jsonObject["seen"])
+        assertEquals(404, get("/case-lens/seen").status)
     }
 
     @Test

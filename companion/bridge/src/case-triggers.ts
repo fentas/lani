@@ -22,7 +22,7 @@ export const GENDER_KEYS = ['m', 'f', 'n'] as const
 export type GenderKey = (typeof GENDER_KEYS)[number]
 
 /** The cases' ids, shared with the case trainer: imenovalnik 1, rodilnik 2, dajalnik 3, tozilnik 4, mestnik 5, orodnik 6. */
-export const CASE_IDS: Record<CaseKey, string> = { nom: 'imenovalnik', gen: 'rodilnik', dat: 'dajalnik', acc: 'tozilnik', loc: 'mestnik', ins: 'orodnik' }
+export const CASE_IDS = { nom: 'imenovalnik', gen: 'rodilnik', dat: 'dajalnik', acc: 'tozilnik', loc: 'mestnik', ins: 'orodnik' } as const satisfies Record<CaseKey, string>
 
 const caseKey = z.enum(CASE_KEYS)
 const numberKey = z.enum(NUMBER_KEYS)

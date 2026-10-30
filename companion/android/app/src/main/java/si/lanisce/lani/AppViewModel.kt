@@ -338,7 +338,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
      */
     val cheat = si.lanisce.lani.app.CheatSheetController(game, grammar, notices)
     /** A word tapped in a line: its card, adding it to the learner's words, asking the tutor about it. */
-    val words = WordsController(viewModelScope, node, sync, chat, notices)
+    val words = WordsController(viewModelScope, node, sync, chat, notices, caseSeen = { caseTrainer.seen(it) })
     /** A word's forms: the form questions of the reviews, the table on a word's card (companion/GAME.md, "A word's forms"). */
     val forms = si.lanisce.lani.app.FormsController(app, viewModelScope, node, grammar)
     /**

@@ -2076,10 +2076,13 @@ a rule: Home and the trainer offer it until a session with that focus is played;
 back), `publish_case_items {items, note}` (the bank's format, checked as the bank is; ids of the tutor's own) and
 `remove_case_item`. `get_village` shows the trainer's progress too.
 
-**The case lens's entry point:** `vm.caseTrainer.seen(rule)` (`CasesController.seen`, `CaseTrainer.seen`): a rule id (a
-grammar page: the contract's rodilnik-predlogi, rodilnik-nikalnica, rodilnik-kolicina, kam-tozilnik,
-kje-mestnik-orodnik, dajalnik, orodnik, tozilnik, mestnik, skloni) the lens showed the learner; counted as seen
-(`GameState.cases.seen`: how often, the last day), never as an answer.
+**The case lens's "seen" signal:** a word card whose word the lens decided by a rule ([The case lens](#the-case-lens):
+the lookup's `seen: true`, once a day per word of a line) reaches `WordsController`, which calls
+`vm.caseTrainer.seen(rule)` (`CasesController.seen`, `CaseTrainer.seen`): the rule (a grammar page: the contract's
+rodilnik-predlogi, rodilnik-nikalnica, rodilnik-kolicina, kam-tozilnik, kje-mestnik-orodnik, dajalnik, orodnik,
+tozilnik, mestnik, skloni) counted as seen (`GameState.cases.seen`: how often, the last day; `get_village`'s
+`cases.seen_in_lens`), never as an answer: the one count. The cases' look (colours, question words, names) is one for
+both: `data/CaseLook.kt` on the app's `game.Case`, `ui/cases/CaseColors.kt`.
 
 QA: `companion/bin/qa --steps cases` (on a synthetic learner: LANI_DEV_DATA). Tests: `CaseTrainerTest`; the smoke's
 `case-trainer`.
@@ -3777,14 +3780,13 @@ none picked). Adjectives, possessives and numbers agree with their noun (`agrees
   attribute, time, phrase, fused, form, unresolved); `trigger` its word and place in the line (offsets of the line as
   sent); `options` the readings left, the likely one first; `out` the form's readings ruled out and why (`dual`,
   `preposition`, `needs-preposition`, `needs-trigger`, `agreement`, `subject-taken`, `no-object` …); `derived` a form read
-  by its endings; `seen: true` when this look counted for `GET /case-lens/seen` (below; the case trainer's hook). A
+  by its endings; `seen: true` when this look counts as seen for its rule (a case its line decides; once a day per word
+  of a line, kept in memory): the app hands it to the case trainer, whose count in the village state is the only one
+  ([Case trainer](#case-trainer), `GameState.cases.seen`; `get_village`'s `cases.seen_in_lens`). A
   preposition or another trigger tapped has `governs` (the words it decides and their case) instead. None for a word
   without a case, a line not given, a visit's word or another language's village.
 - **`POST /case-lens {lines: [...]}`** (60 lines of 400 characters at most; a read, no outbox): each line's words with a
   case, `{i, start, end, word, case?, number?, gender?, sure, kind, rule, trigger?}`, for the colours.
-- **`GET /case-lens/seen`**: per rule (the page id), how often and on how many days a word whose case its line decided was
-  looked up (`seen`, `days`, `last`, its trigger `words`); once a day per word of a line;
-  `<data>/app/case-lens-seen.json`. A light "met" signal for the case trainer, never a pass.
 
 **In the app**: the card's line shows the tapped word in its case's colour and the deciding word underlined; the row
 gives the case and number in both languages ("rodilnik, ed. · genitive, sg.", an adjective's gender too), the question

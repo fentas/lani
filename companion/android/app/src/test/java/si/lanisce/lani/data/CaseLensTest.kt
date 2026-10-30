@@ -9,7 +9,8 @@ import si.lanisce.lani.game.Case
 import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.Lang
 import si.lanisce.lani.l10n.LangPair
-import si.lanisce.lani.ui.words.CaseLook
+import si.lanisce.lani.ui.cases.CaseNames
+import si.lanisce.lani.ui.cases.color
 import si.lanisce.lani.ui.words.WordToken
 import si.lanisce.lani.ui.words.WordTokens
 
@@ -131,13 +132,13 @@ class CaseLensTest {
         val was = L10n.pair
         try {
             L10n.pair = LangPair(Lang.SL, Lang.EN)
-            assertEquals("rodilnik, ed. · genitive, sg.", CaseLook.bi(Case.GEN, "sg"))
-            assertEquals("mestnik, mn. · locative, pl.", CaseLook.bi(Case.LOC, "pl"))
-            assertEquals("tožilnik · accusative", CaseLook.bi(Case.ACC, null))
-            assertEquals("orodnik, ed., ž. · instrumental, sg., f.", CaseLook.bi(Case.INS, "sg", gender = "f"))
-            assertEquals("orodnik, dvojina", CaseLook.name(Case.INS, "du", Lang.SL, short = false))
-            assertEquals(listOf("kdo? kaj?", "koga? česa?", "komu? čemu?", "koga? kaj?", "pri kom? pri čem?", "s kom? s čim?"), Case.entries.map(CaseLook::question))
-            assertFalse(CaseLook.colour(Case.NOM, dark = false) == CaseLook.colour(Case.NOM, dark = true))
+            assertEquals("rodilnik, ed. · genitive, sg.", CaseNames.bi(Case.GEN, "sg"))
+            assertEquals("mestnik, mn. · locative, pl.", CaseNames.bi(Case.LOC, "pl"))
+            assertEquals("tožilnik · accusative", CaseNames.bi(Case.ACC, null))
+            assertEquals("orodnik, ed., ž. · instrumental, sg., f.", CaseNames.bi(Case.INS, "sg", gender = "f"))
+            assertEquals("orodnik, dvojina", CaseNames.name(Case.INS, "du", Lang.SL, short = false))
+            assertEquals(listOf("kdo? kaj?", "koga? česa?", "komu? čemu?", "koga? kaj?", "pri kom? pri čem?", "s kom? s čim?"), Case.entries.map { it.ask })
+            assertFalse(Case.NOM.color(dark = false) == Case.NOM.color(dark = true))
         } finally {
             L10n.pair = was
         }

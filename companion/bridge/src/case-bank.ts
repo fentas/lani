@@ -12,25 +12,21 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, renameSync, statSync, unlinkSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { z } from 'zod'
+import { CASE_IDS, CASE_KEYS, type CaseKey } from './case-triggers'
 import { adjectiveForms, formsOf, type FormsContext, type LemmaForms } from './forms'
 import { normalizeForm } from './lexicon'
 
 // --- the contract ------------------------------------------------------------------------------------------------
 
-/** The six cases in the school's order (1. imenovalnik … 6. orodnik): their ids are their grammar pages. */
-export const CASES = ['imenovalnik', 'rodilnik', 'dajalnik', 'tozilnik', 'mestnik', 'orodnik'] as const
-export type CaseId = (typeof CASES)[number]
-/** Each case's slot in the forms book (forms.ts NOUN_KEYS: "gen.sg"). */
-export const CASE_SLOT: Record<CaseId, string> = { imenovalnik: 'nom', rodilnik: 'gen', dajalnik: 'dat', tozilnik: 'acc', mestnik: 'loc', orodnik: 'ins' }
-/** The school's question words of each case (the app's CaseLook shows the same). */
-export const CASE_QUESTIONS: Record<CaseId, string> = {
-  imenovalnik: 'kdo? kaj?',
-  rodilnik: 'koga? česa?',
-  dajalnik: 'komu? čemu?',
-  tozilnik: 'koga? kaj?',
-  mestnik: 'pri kom? pri čem? (o kom? o čem?)',
-  orodnik: 's kom? s čim?',
-}
+/**
+ * The six cases in the school's order (1. imenovalnik … 6. orodnik), by their ids (their grammar pages): the case lens's
+ * shared definition (case-triggers.ts CASE_KEYS, CASE_IDS; the question words and colours in its trigger table), here as
+ * the bank names them.
+ */
+export const CASES = CASE_KEYS.map(k => CASE_IDS[k]) as [CaseId, ...CaseId[]]
+export type CaseId = (typeof CASE_IDS)[CaseKey]
+/** Each case's slot in the forms book (forms.ts NOUN_KEYS: "gen.sg"): the lens's key of the case. */
+export const CASE_SLOT = Object.fromEntries(CASE_KEYS.map(k => [CASE_IDS[k], k])) as Record<CaseId, CaseKey>
 /** English names, for the tutor's notes and the mistakes' pattern ids. */
 export const CASE_EN: Record<CaseId, string> = { imenovalnik: 'nominative', rodilnik: 'genitive', dajalnik: 'dative', tozilnik: 'accusative', mestnik: 'locative', orodnik: 'instrumental' }
 export const NUMBERS = ['sg', 'du', 'pl'] as const

@@ -22,5 +22,5 @@ The case lens (Slovene): a word card of a Slovene word in its line shows its cas
 subject's verb), the rule's grammar page, and every reading when the line can't tell; readings, stories and dialogs can
 underline each noun in its case's colour ("Skloni · Cases"). The lens is a rule table (companion/grammar/sl/data/
 case-triggers.json), never a guess: point Jan to it when a case trips them ("tap the word: the card says what decides
-it"). GET /case-lens/seen lists, per rule (the grammar page's id), how often Jan has looked at a word through it: met, not
-practised; the case trainer weighs it lightly.
+it"). A word whose case its line decides, looked up that way, counts as seen for its rule (the grammar page's id): met,
+not practised; the app counts it in the case trainer's progress (get_village's cases.seen_in_lens), weighed lightly.

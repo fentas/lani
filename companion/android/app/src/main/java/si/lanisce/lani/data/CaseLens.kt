@@ -40,8 +40,8 @@ data class GovernedWord(val i: Int, val case: String, val word: String = "", val
  * it can't tell), how sure ([sure]: decided, likely, ambiguous), what decided ([kind], [trigger], [sense]), the grammar
  * page ([rule]), the [options] left, the likely one first, the readings ruled [out], an adjective's noun ([agrees]), a
  * form read by its endings ([derived]); a preposition or another trigger tapped: what it [governs] (no [pick]). [seen]:
- * this look counted as met for [rule] (the bridge's GET /case-lens/seen; once a day per word of a line), the case
- * trainer's hook for its own count of a rule the lens showed.
+ * this look counted as met for [rule] (once a day per word of a line): WordsController hands it to the case trainer,
+ * whose count in the village state (GameState.cases.seen) is the only one.
  */
 @Serializable
 data class CaseRead(

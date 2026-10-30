@@ -46,15 +46,18 @@ shared contract below is kept exactly.
    picks (or none), how sure, what decided it and where, the rule, the readings left and those ruled out, an adjective's
    noun. Details in the README.
 3. **The lens in the lookup**: GET /lookup's `case` (one request, offline on the phone), the card's row and line
-   (`ui/words/CaseRowView.kt`, `data/CaseLens.kt`, `ui/words/CaseLook.kt`).
+   (`ui/words/CaseRowView.kt`, `data/CaseLens.kt`; the cases' colours, question words and names are the case trainer's
+   shared look since the merge: `data/CaseLook.kt`, `ui/cases/CaseColors.kt`'s `Case.color()` and `CaseNames`).
 4. **Colours on demand**: POST /case-lens (60 lines a request), `app/CaseColoursController.kt` (gathers a screen's lines a
    moment, asks once, keeps 800), `WordText`'s `cases` marks, `data/CasePrefs.kt`.
-5. **Feedback into practice**: GET /case-lens/seen, `<data>/app/case-lens-seen.json`: per rule id, how often (`seen`), on
-   how many days, the last day and the trigger words, for a word whose case its line decided, once a day per word of a
-   line. A "met" signal for the trainer to weigh lightly, never an answer. The lookup that counted says so (`seen:
-   true`, the app's `CaseRead.seen`): where the trainer's own count hooks in.
-6. **The tutor guide** says the lens exists and what GET /case-lens/seen means (the lexicon feature's paragraph,
-   `tutor-export` regenerated).
+5. **Feedback into practice**: a lookup of a word whose case its line decided says `seen: true` (the app's
+   `CaseRead.seen`; once a day per word of a line, the bridge keeping only today's looks in memory), and
+   `WordsController` hands its rule to the case trainer (`vm.caseTrainer.seen(rule)`), whose count in the village state
+   (`GameState.cases.seen`: how often, the last day) is the only one: its weighting reads it, `get_village` shows it
+   (`cases.seen_in_lens`). A "met" signal to weigh lightly, never an answer. (Before the merge the bridge kept a second
+   count, `GET /case-lens/seen` and `<data>/app/case-lens-seen.json`; gone, so two counts can't disagree.)
+6. **The tutor guide** says the lens exists and that a look counts as seen for the trainer (the lexicon feature's
+   paragraph, `tutor-export` regenerated).
 
 ## Choices, and why
 
@@ -94,10 +97,10 @@ shared contract below is kept exactly.
   app shows neither the row nor the switch).
 - **Fast**: the analysis takes 0.4–0.7 ms a line on the node (all 4 231 content lines in 1.5–3 s, as busy as the
   machine is), 85 ms on the JVM's QuickJS for a lookup and two lines with the lens built; the app draws only marks with the text it lays out anyway.
-- **Apart from the case trainer**: the trainer (built alongside) has `bridge/src/cases.ts`, `test/smoke/cases.ts`,
-  `GET /cases`, `POST /cases/done` and the view model's `cases`. The lens's are `bridge/src/case-lens.ts`,
-  `test/smoke/case-lens.ts`, `POST /case-lens`, `GET /case-lens/seen` and `vm.caseColours`: no add/add conflict, no path
-  serving two features, no property declared twice when both are merged.
+- **Apart from the case trainer**: the trainer (built alongside) has `bridge/src/case-bank.ts`,
+  `test/smoke/case-trainer.ts`, `GET /cases`, `POST /cases/done` and the view model's `caseTrainer`. The lens's are
+  `bridge/src/case-lens.ts`, `test/smoke/case-lens.ts`, `POST /case-lens` and `vm.caseColours`: no add/add conflict, no
+  path serving two features, no property declared twice.
 - **Gender only where it agrees**: an adjective's, a determiner's, a pronoun's or a number's gender is on the case line
   ("orodnik, ed., ž. · instrumental, sg., f."); a noun's is on its entry already (mleko · s.).
 - **Ambiguous means no preference**: the readings of an ambiguous word are listed in the cases' order, none marked; only
@@ -155,7 +158,7 @@ the strings (`caseLens.*` in sl, en, de, it, `_note_case_lens`). Spoken forms ar
   pronouns against osebni-zaimki, the verbs' forms, all 84 examples, the three labelled sets with their thresholds (and
   the trainer's bank once it is merged), every
   content line (no throw, in time), GET /lookup's case (decided, `n`, likely, a trigger, a verb, no line, a visit, the
-  `seen` flag), POST /case-lens (and its 400s), GET /case-lens/seen (counted once, never an open case).
+  `seen` flag: counted once a day, never an open case, nothing kept on the node), POST /case-lens (and its 400s).
 - App: `CaseLensTest` (the row's states: decided, likely with its others, ambiguous, governs, an adjective's agreement, none
   from an older bridge, an unresolved one; the tapped word's `n`; the colours' marks; the names), `PhoneBridgeTest
   .theCaseLens` (the lens in QuickJS), `L10nTablesTest` (the strings).
@@ -189,13 +192,12 @@ sheet had it at all); now it is the one tap that already opened the word's card.
 
 ## What's left
 
-- **The case trainer's merge** (whoever rebases second): the bank's check switches itself on (the smoke reads
-  companion/cases/sl/bank.json when it is there; its 324 "which case?" items run today from a copy, 97.2%). One case
-  look: the trainer's `data/CaseLook.kt` (`Kase`, `CasePill`) owns it, so this branch's `ui/words/CaseLook.kt` keeps
-  only what the lens adds (its number and gender words) on top of `Kase`, and the row may show the trainer's
-  `CasePill`. The seen signal: in `WordsController`, where a lookup arrives, `if (lens.seen) vm.cases.seen(lens.rule)`
-  (one line); then one of the two counts goes (the trainer's `GameState.cases.seen`, synced, or the bridge's
-  `case-lens-seen.json`: keep one). Both add string keys (`caseLens.*`, `cases.*`) and a QA step: keep both.
+- **The case trainer's merge** is done (the trainer rebased second; docs/plans/05-built/case-trainer.md, "The contract
+  with the case lens"): the smoke runs the lens over the trainer's bank (324 "which case?" items, 97.2%, never
+  contradicting a gold annotation: no wrong case decided or likely, every deciding word the bank's); one case look (the
+  app's `game.Case` with the trainer's `data/CaseLook.kt` extensions, `Case.color()`, `CaseNames`; this branch's
+  `ui/words/CaseLook.kt` is gone); the seen signal into the trainer's count, the bridge's own count removed; the bridge's
+  case ids from `case-triggers.ts` (`CASE_KEYS`, `CASE_IDS`) in the trainer's bank module too.
 - **The sentence's grammar sheet** (a long press on a line, `game/SentenceGrammar.kt`) still has the app's own trigger
   heuristics: it could read each word's `case` from the lookups it already makes, one analysis everywhere.
 - **Coverage**: the dictionary's gaps (a story character's name, a word the content uses that Wiktionary lacks, some
