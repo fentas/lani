@@ -84,16 +84,34 @@ object Happenings {
     }
 
     /**
-     * [on] without what those a happening has with it ([Happening.with]: the pupils at the roll call) would do elsewhere
-     * meanwhile: they're there, so their own happenings in other scenes wait (Lorenzo's cat at the mill) and a scene, its
-     * line ("Lorenzo, presente.") and the map agree on where they are.
+     * [on] without what those a happening has with it ([Happening.with]: the pupils at the roll call) would do meanwhile:
+     * they're there, so their own happenings wait, in other scenes (Lorenzo's cat at the mill) and in the room itself
+     * (Giulia's globe in the classroom), and a scene, its line ("Lorenzo, presente.") and the map agree on where they are.
+     * A happening with others is a lesson ([lessonIn]): while it is on, its room holds the others' happenings there back too
+     * (companion/SCENES.md, "Who else is there").
      */
     fun claimed(on: List<ActiveHappening>): List<ActiveHappening> {
-        val at = HashMap<String, String>() // villager id → the scene that has them
-        for (a in on) for (p in withOf(a.scene, a.happening)) p.villager?.let { at.putIfAbsent(it, a.scene.id) }
-        if (at.isEmpty()) return on
-        return on.filter { a -> a.person?.villager?.let { v -> at[v]?.let { it == a.scene.id } } ?: true }
+        val claimed = HashSet<String>() // the villagers a happening on has with it
+        val rooms = HashSet<String>() // the scenes where a lesson is on
+        for (a in on) {
+            val others = withOf(a.scene, a.happening)
+            if (others.isEmpty()) continue
+            rooms += a.scene.id
+            others.mapNotNullTo(claimed) { it.villager }
+        }
+        if (rooms.isEmpty()) return on
+        return on.filter { a ->
+            val lesson = a.happening.with.isNotEmpty()
+            (lesson || a.scene.id !in rooms) && a.person?.villager?.let { it !in claimed } != false
+        }
     }
+
+    /**
+     * The lesson on in a scene ([here]: the happenings on there): a happening that has others with it, the teacher with the
+     * class at the roll call (Maestra Elena's appello, Mojca's dual with Tine and Zala). While it runs, the room holds back
+     * what else it would offer: the others' happenings there ([claimed]) and a game of «Vedo, vedo» (ISpy).
+     */
+    fun lessonIn(here: List<ActiveHappening>): ActiveHappening? = here.firstOrNull { withOf(it.scene, it.happening).isNotEmpty() }
 
     /**
      * Whether one happening is on (what it [Happening.needs]: the age, a building, a project; its months, the weekday, the

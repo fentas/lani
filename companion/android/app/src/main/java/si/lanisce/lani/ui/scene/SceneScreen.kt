@@ -446,9 +446,11 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
                 ))
         }
     }
-    val offer = remember(scene, state, drawn, children, groups, ispy != null, talk != null, si.lanisce.lani.app.QaHooks.ispy) {
+    // while a lesson runs here (the roll call: the teacher with the class), the room holds the game back (Happenings.lessonIn)
+    val lessonOn = remember(here) { Happenings.lessonIn(here) != null }
+    val offer = remember(scene, state, drawn, children, groups, ispy != null, talk != null, lessonOn, si.lanisce.lani.app.QaHooks.ispy) {
         if (talk != null || ispy != null) null
-        else vm.ispy.offer(scene, state, drawn, children, { id -> everyone.firstOrNull { it.id == id } }, groups.now.map { it.slot }.toSet(), now.toLocalDate())
+        else vm.ispy.offer(scene, state, drawn, children, { id -> everyone.firstOrNull { it.id == id } }, groups.now.map { it.slot }.toSet(), now.toLocalDate(), lesson = lessonOn)
     }
     val host = ispy?.host ?: offer?.host
     val people = remember(drawn, host, ispyTalking) {

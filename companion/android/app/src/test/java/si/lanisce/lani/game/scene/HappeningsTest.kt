@@ -218,6 +218,38 @@ class HappeningsTest {
         assertEquals(listOf("gatto"), Happenings.active(listOf(mill), all, evening).map { it.happening.id })
     }
 
+    @Test fun `while a lesson runs its room holds the rest back - the pupils' own talks and the others' wait for the roll call`() {
+        val teacher = ScenePerson("elena", "Maestra Elena", "👩", "teacher", "teacher", villager = "elena")
+        val lorenzo = ScenePerson("lorenzo", "Lorenzo", "👦", "child3", "desk1", villager = "lorenzo")
+        val giulia = ScenePerson("giulia", "Giulia", "👧", "child2", "desk2", villager = "giulia")
+        val tommaso = ScenePerson("tommaso", "Tommaso", "🧒", "child1", "door", villager = "tommaso")
+        val appello = Happening("appello", "L'appello", who = "elena", with = listOf("lorenzo", "giulia"))
+        val room = listOf(Happening("mappamondo", "Il mappamondo", who = "giulia"), Happening("pallone", "Il pallone", who = "tommaso"))
+        val school = SceneSpec(
+            id = "a-scuola", title = "A scuola", art = "school", from = listOf("fire"), people = listOf(teacher, lorenzo, giulia, tommaso),
+            happenings = listOf(appello) + room,
+        )
+        val met = listOf("elena", "lorenzo", "giulia", "tommaso")
+        val all = camp.copy(
+            residents = met.map { si.lanisce.lani.game.villagers.Resident(it, "2026-09-01") },
+            bonds = met.associateWith { si.lanisce.lani.game.villagers.Bond(met = "2026-09-01") },
+            migrated = setOf(si.lanisce.lani.game.villagers.Arrivals.MIGRATION),
+        )
+        val on = Happenings.active(listOf(school), all, evening)
+        assertEquals(listOf("appello"), on.map { it.happening.id })
+        assertEquals("appello", Happenings.lessonIn(on)?.happening?.id)
+        // without the lesson (done today, or not on this morning): the room's own as before, and no lesson in it
+        val free = Happenings.active(listOf(school.copy(happenings = room)), all, evening)
+        assertEquals(setOf("mappamondo", "pallone"), free.map { it.happening.id }.toSet())
+        assertEquals(null, Happenings.lessonIn(free))
+        // a happening elsewhere of someone not in the class goes on (Tommaso's ball in the field)
+        val field = SceneSpec(
+            id = "nel-campo", title = "Nel campo", art = "field", from = listOf("fire"), people = listOf(tommaso.copy(slot = "path")),
+            happenings = listOf(Happening("calcio", "Il calcio", who = "tommaso")),
+        )
+        assertEquals(setOf("appello", "calcio"), Happenings.active(listOf(school, field), all, evening).map { it.happening.id }.toSet())
+    }
+
     @Test fun `people in a scene and markers in the village`() {
         val on = Happenings.active(listOf(fire), camp, evening)
         assertEquals(listOf(PersonInScene("babica", "grandma", "left")), Happenings.peopleIn(fire, on))
