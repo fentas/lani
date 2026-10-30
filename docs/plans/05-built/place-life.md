@@ -172,10 +172,11 @@ No crash in either run.
 
 ## The checks
 
-On the branch on main e5c5d810 (map-culture and native-check-sl merged), the content folded in:
+On the branch rebased onto main 18c3bd71 (map-culture, native-check-sl and places-it-arts merged; SCENES.md's culture-pack
+paragraph and qa's step list kept both sides), the content folded in:
 
 - The Android unit suite through lani-slot.sh: 3,497 tests in 441 classes, 2 skipped, none failed.
-- The bridge: `tsc` clean; the smoke on ports 9150–9158 and 9168 (Drama 3's worker): 3,132 checks, all passed (with the content; the run before it
+- The bridge: `tsc` clean; the smoke on ports 9150–9158 and 9168 (Drama 3's worker): 3,138 checks, all passed (with the content; the run before it
   failed on exactly the scenes that didn't word the new slots yet, and once on a timing check of the words' note under a
   load of 56); `tutor-export --check`: 88 files match.
 - The Python tests: `companion/tests` 131 (11 skipped), `tests` 251, all pass.
@@ -193,4 +194,9 @@ On the branch on main e5c5d810 (map-culture and native-check-sl merged), the con
 - The native check of the new content (see the content's `review` notes).
 - The Kärnten and Lake District villages have no square, stream, field or apiary scenes yet (a later wave): their looks of
   these arts come with them.
+- places-it-arts' requests for the new arts (an `inn` slot at the bocce court, the Friuli playground's `fontanella`, an
+  altar candle of the chapel's own, the cramâr's crassigne for the palisade's pedlar, NOI | VOI on Friuli's scoreboard)
+  belong to those arts' owners, not to this round's four.
+- Teo's new places (Al campo da bocce, Al parco giochi, Dai pompieri, …) now get their people by their days too (the routines
+  are by kind, every culture alike); no QA run has looked at them there yet.
 - The bee meadow is drawn once finished; its steps (mowed, sown) aren't drawn as they go.
