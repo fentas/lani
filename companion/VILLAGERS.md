@@ -713,6 +713,22 @@ church stands), the market on Saturday (three times as likely). Winter has no ho
 on the line, nor picking (the soil frozen, snow on the field), and more wood to chop. With nothing else to do they sit on the
 bench by the house.
 
+**The village's places** (the projects' landmarks, `project:<id>` in `Routine.options`, there once finished and while
+they stand, as the mill is for the miller): Stari Janez's afternoons at the bocce court, its sand raked in the morning,
+and the hundred steps of the lookout now and then; the grandfathers' game of bocce and a seat under the town clock; the
+children at the playground most of all, at the fountain on hot days, watching the trout from the cart bridge, in the bee
+meadow, round the maypole while it stands; the grandmother's fresh flowers at the wayside chapel and a seat in the bee
+meadow; the aunt's flowers there in the morning and its candles at dusk, a word under the clock; the shepherd's flock
+over the cart bridge and the fire brigade's pump drill in the warm months; the farmer's hay into the double hayrack from
+June to September (the field's hay taken there, an errand) and his cart over the new bridge; the smith at the fire
+station's hoses, the fountain's pipes and the clock he winds; the beekeeper in the bee meadow from April to September and
+a summer evening's bocce; the winemaker pouring at the bocce court's table and polishing the fire station's helmets; the
+innkeeper showing her guests the view from the lookout; the teacher on the playground's bench after school, telling the
+time under the clock, at the fountain. The map's people walk there (a landmark out in the woods takes them off the map,
+as the horizon does), and each place's scene shows whoever is there at their spot, as the field's shows France. A
+village's day is worked out from its buildings and its standing projects together (a project finished today changes the
+day at once).
+
 **Shared out** (`Routine.village`): the map and the scenes share one day for the whole village (`Routine.Day.people`:
 who lives here and today's visitor, `Whereabouts.day`), so no place gets crowded. Each wants their own day (above); then,
 first come first served (by when the stretch begins, and their own workplace's stretches before all: France in his field,
