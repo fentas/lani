@@ -82,6 +82,8 @@ class CultureScenesTest {
             listOf("friuli", "dalle-api", "apiary", "beehive"),
             // Friuli's church (In chiesa): Zia Nives's flowers and the organ, Lorenzo at the noon bell, Nonna Rosa's candle
             listOf("friuli", "in-chiesa", "church", "church"),
+            // the Friuli vineyard on its terraces (Nella vigna), once the vineyard project is finished
+            listOf("friuli", "nella-vigna", "hills", "project:vinograd"),
             listOf("kaernten", "am-see", "alps", "spot:${TownSpots.HORIZON}"),
             listOf("lakeland", "on-the-fell", "alps", "spot:${TownSpots.HORIZON}"),
         )) {
