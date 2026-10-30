@@ -14,13 +14,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.withFrameNanos
 import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.SaveableStateHolder
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.semantics.clearAndSetSemantics
-import kotlinx.coroutines.delay
 import androidx.navigationevent.compose.LocalNavigationEventDispatcherOwner
 import androidx.navigationevent.compose.rememberNavigationEventDispatcherOwner
 import si.lanisce.lani.NavEntry
@@ -51,7 +51,9 @@ fun rememberAway(): Boolean {
         if (covered) {
             settling = true
         } else if (settling) {
-            delay(SHOWN_SETTLE_MS)
+            // its frames for that moment, by the frame clock (the screen drawing them, the test's clock in a test)
+            val start = withFrameNanos { it }
+            while (withFrameNanos { it } - start < SHOWN_SETTLE_MS * 1_000_000) Unit
             settling = false
         }
     }
