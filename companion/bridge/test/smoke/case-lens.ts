@@ -72,6 +72,9 @@ export default async function cases() {
     return ok ? [] : [`${e.sl} ${e.word}: ${w && 'pick' in w ? `${w.pick?.case}.${w.pick?.number} ${w.sure} by ${w.trigger?.word}` : 'none'}`]
   })
   check(`case lens: every example of the table comes out as it says (${examples.length}: each preposition, the negation, quantity, the verbs, the words of feeling, the roles)`, examples.length >= 70 && wrong.length === 0, wrong)
+  // a relative adverb that is a noun's form too (koder: wherever, and a curl) starts its clause: no case, no second subject
+  const koder = lens.analyze('da, koder sonce hodi,', VILLAGE_NAMES).words
+  check('case lens: koder (wherever; a curl too) in "da, koder sonce hodi," starts its clause: no case of its own, sonce the one subject', koder.map(w => `${w.word}:${w.pick?.case}:${w.sure}`).join(' ') === 'sonce:nom:decided', koder.map(w => `${w.word}:${w.pick?.case}:${w.sure}`))
 
   // --- the analysis on the hand-labelled sentences ------------------------------------------------------------------
   const gold = goldItems('gold')

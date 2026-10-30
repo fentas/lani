@@ -165,8 +165,12 @@ type Clause = {
 
 const NOMINAL_POS = new Set(['noun', 'adj', 'det', 'pron', 'num', 'name'])
 const MODIFIER_POS = new Set(['adj', 'det', 'num'])
-/** Words that start a clause of their own: a comma isn't always written before them in a short line. */
-const CLAUSE_WORDS = new Set(['ki', 'ko', 'ker', 'če', 'ampak', 'toda', 'vendar', 'dokler', 'preden', 'čeprav', 'temveč'])
+/**
+ * Words that start a clause of their own: a comma isn't always written before them in a short line. The relative
+ * adverbs among them (kjer, kamor, koder …) are never a word with a case there, though one is a noun's form too
+ * (koder: wherever, and a curl).
+ */
+const CLAUSE_WORDS = new Set(['ki', 'ko', 'ker', 'če', 'ampak', 'toda', 'vendar', 'dokler', 'preden', 'čeprav', 'temveč', 'kjer', 'kamor', 'koder', 'kod', 'odkoder', 'dokoder', 'kadar'])
 const COORDINATION = new Set(['in', 'ali', 'ter'])
 /** Words that ask for something, after which a verbless line names what is wanted (Kavo, prosim: the accusative). */
 const ASKING = new Set(['prosim', 'hvala'])
