@@ -257,6 +257,10 @@ branch's full unit suite ran beside it, so its frames waited for the processor m
 - QA: home-return measures the requests, the allocations and the frames' phases; the mill step leaves the mill gone into
   from the stream with the system's Back too.
 
+The checks on the branch rebased onto main `e5c5d810`: the bridge's `tsc` clean; the smoke 3,145 checks, all passing
+(twice, the second with `LANI_SMOKE_DRAMA3_PORT=9128`); `tutor-export --check` 88 files match; Python `companion/tests`
+131 (11 skipped) and `tests` 251, all passing; the Android unit suite below.
+
 ## How to use it
 
 Nothing to do: the app asks a bridge that has `/changes` and ETags (this branch's, the phone's own bridge with the APK
