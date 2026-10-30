@@ -30,9 +30,11 @@ data class FormLine(
 
 /**
  * One form of a lemma ([key]: "pres.1sg", "past.f.sg", "loc.pl", "adj.f.sg"; companion/README.md, "Word forms"): its
- * standard [forms] (the first is shown as the answer; all are right), the spoken or variant ones also accepted ([also]),
- * the dictionary's [grammar], the grammar book's [page] whose rule it is (a wrong form counts there), the other pages it
- * [needs] introduced too, and real [lines] where it stands.
+ * standard [forms] (the first is shown as the answer; all are right), the spoken or variant ones also accepted ([also];
+ * of them, the dictionary's old or dialect forms: [variants], brati beside bratu), the dictionary's [grammar], the grammar
+ * book's [page] whose rule it is (a wrong form counts there), the other pages it [needs] introduced too, and real [lines]
+ * where it stands. [checked]: the forms are sure (a hand-checked table's, or a noun's slot that fits its regular
+ * declension: bridge/src/noun-paradigm.ts); only such a slot is asked as a form to produce from nothing ("Sklanjaj!").
  */
 @Serializable
 data class FormSlot(
@@ -43,6 +45,8 @@ data class FormSlot(
     val page: String,
     val needs: List<String> = emptyList(),
     val lines: List<FormLine> = emptyList(),
+    val variants: List<String> = emptyList(),
+    val checked: Boolean = false,
 ) {
     /** Every page the slot needs introduced: its own, then [needs]. */
     val pages: List<String> get() = listOf(page) + needs

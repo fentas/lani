@@ -362,6 +362,42 @@ class CaseTrainerTest {
         assertTrue("no «Vidim vode» nor «Vidim dve vodi»: ${plan.map { it.exercise.sentence }}", plan.none { it.task.number != "sg" })
     }
 
+    @Test fun `a slot whose forms aren't sure is never declined`() {
+        // GET /forms checked dat.sg and gen.sg of potok, not its acc.sg (Wiktionary's potoka): no "Vidim ___. (potok)"
+        val potok = noun("potok", "m", "nom.sg" to "potok", "gen.sg" to "potoka", "dat.sg" to "potoku", "acc.sg" to "potoka", "loc.sg" to "potoku", "ins.sg" to "potokom")
+            .copy(checked = setOf("nom.sg", "gen.sg", "dat.sg", "loc.sg", "ins.sg"))
+        val p = pool(nouns = listOf(potok))
+        assertFalse(CaseTrainer.declinable(p, frames.first { it.id == "vidim" }, potok))
+        assertTrue(CaseTrainer.declinable(p, frames.first { it.id == "danes-ni" }, potok))
+        val plan = CaseTrainer.plan(p, null, emptyList(), { 0.0 }, today, Random(5), only = CaseKind.DECLINE, size = 20)
+        assertTrue(plan.isNotEmpty())
+        assertTrue("never the accusative: ${plan.map { it.exercise.sentence }}", plan.none { it.task.case == Case.ACC })
+    }
+
+    @Test fun `an old form of the dictionary is right and labelled never the answer`() {
+        val e = LemmaForms(
+            "brat", "noun", gender = "m",
+            slots = listOf(
+                FormSlot("dat.sg", listOf("bratu"), also = listOf("brati"), page = "dajalnik", variants = listOf("brati"), checked = true),
+                FormSlot("acc.sg", listOf("brata"), page = "tozilnik", checked = true),
+                FormSlot("gen.pl", listOf("bratov"), page = "mnozina-skloni"),
+            ),
+        )
+        val n = CaseTrainer.nounOf(e, "brother")!!
+        assertEquals(setOf("dat.sg", "acc.sg"), n.checked)
+        assertEquals(emptyMap<String, List<String>>(), n.spoken)
+        assertEquals(mapOf("dat.sg" to listOf("brati")), n.variants)
+        val ex = CaseTrainer.decline(pool(nouns = listOf(n)), frames.first { it.id == "grem-k" }, n, null)!!
+        assertEquals("bratu", ex.shown)
+        assertEquals(listOf("bratu"), ex.accept)
+        assertEquals(listOf("brati"), ex.variants)
+        val g = CaseTrainer.gradeDecline(ex, "k brati")
+        assertEquals(Verdict.CORRECT, g.verdict)
+        assertTrue(g.variant && !g.spoken)
+        assertEquals("bratu", g.expected)
+        assertNull("no noun without a gender", CaseTrainer.nounOf(e.copy(gender = null), "brother"))
+    }
+
     // --- what may be asked, and the weighting ----------------------------------------------------------------------------
 
     @Test fun `the trainer opens once the cases have begun`() {

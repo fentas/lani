@@ -422,8 +422,12 @@ private fun DeclineEx(vm: AppViewModel, ex: Exercise.CaseTask, locked: Boolean, 
     TypedEx("", null, locked, done, accept = ex.accept) { a ->
         val g = CaseTrainer.gradeDecline(ex, a)
         vm.caseTrainer.marked(ex.key, null)
-        val spoken = if (g.spoken) "🗣️ ${bi("cases.spoken", "standard" to ex.shown)}" else null
-        Outcome(g.verdict, a.trim(), g.expected.takeIf { g.verdict != Verdict.CORRECT || g.spoken }, listOfNotNull(spoken, explain(ex, null)).joinToString("\n"), marks = g.marks, hint = g.hint)
+        val spoken = when {
+            g.spoken -> "🗣️ ${bi("cases.spoken", "standard" to ex.shown)}"
+            g.variant -> "🔀 ${bi("cases.variant", "standard" to ex.shown)}"
+            else -> null
+        }
+        Outcome(g.verdict, a.trim(), g.expected.takeIf { g.verdict != Verdict.CORRECT || g.spoken || g.variant }, listOfNotNull(spoken, explain(ex, null)).joinToString("\n"), marks = g.marks, hint = g.hint)
     }
 }
 

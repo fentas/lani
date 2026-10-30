@@ -23,6 +23,9 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.BeforeClass
 import org.junit.Test
+import si.lanisce.lani.data.ofId
+import si.lanisce.lani.data.slot
+import si.lanisce.lani.game.Case
 
 /**
  * The bridge in QuickJS on the JVM (quickjs-kt's JVM build: the same QuickJS as on the phone), the real bundle
@@ -202,6 +205,63 @@ class PhoneBridgeTest {
         assertEquals(before + 1, sessionCount())
         val mistakes = ok(get("/state")).json().jsonObject["databases"]!!.jsonObject["mistakes_db"].toString()
         assertTrue(mistakes.take(400), mistakes.contains("cases_genitive_brez"))
+    }
+
+    @Test
+    fun everyNounSklanjajCanPickIsSure() {
+        // every noun the case trainer's "Sklanjaj!" could pick (the packs' words, the bank's fallback nouns), through the
+        // phone's own GET /forms as the app builds them (CaseTrainer.nounOf): every frame it declines one with asks a
+        // checked slot (a hand-checked table's, or its regular declension's: bridge/src/noun-paradigm.ts), its answer the
+        // slot's standard form, never an old variant; a slot the bridge couldn't confirm (dan, potok's accusative before
+        // the forms book corrected it) is never asked
+        val bank = si.lanisce.lani.data.CaseBanks.parse(ok(get("/cases")).text)!!
+        val words = mutableMapOf<String, String>()
+        for (p in ok(get("/packs")).json().jsonArray) {
+            val id = p.jsonObject["id"]!!.jsonPrimitive.content
+            for (w in ok(get("/packs/$id")).json().jsonObject["words"]!!.jsonArray) {
+                val o = w.jsonObject
+                val sl = o["sl"]?.jsonPrimitive?.content?.trim() ?: continue
+                if (o["gender"] != null && ' ' !in sl) words[sl] = o["en"]?.jsonPrimitive?.content.orEmpty()
+            }
+        }
+        for (n in bank.nouns) words.putIfAbsent(n.lemma, n.en)
+        val entries = mutableMapOf<String, si.lanisce.lani.data.LemmaForms>()
+        for (batch in words.keys.chunked(si.lanisce.lani.data.WordFormsWire.BATCH)) {
+            val q = batch.joinToString("&") { "w=" + java.net.URLEncoder.encode(it, "UTF-8") }
+            val answer = si.lanisce.lani.data.json.decodeFromString(si.lanisce.lani.data.FormsAnswer.serializer(), ok(get("/forms?$q")).text)
+            for (fw in answer.words) {
+                val nouns = fw.entries.filter { it.pos == "noun" && it.gender != null }
+                si.lanisce.lani.data.WordFormsWire.entryFor(nouns, words[fw.word].orEmpty())?.let { entries[fw.word] = it }
+            }
+        }
+        val nouns = entries.mapNotNull { (w, e) -> si.lanisce.lani.data.CaseTrainer.nounOf(e, words[w].orEmpty()) }
+        assertTrue("nouns with forms: ${nouns.size}", nouns.size > 300)
+        val pages = setOf("mnozina", "dvojina", "dvojina-skloni", "pridevniki-ujemanje", "rodilnik", "rodilnik-predlogi", "dajalnik", "orodnik", "mestnik", "tozilnik")
+        val pool = si.lanisce.lani.data.CasePool(bank, nouns, pages, "B1", pageLevel = { "A1" })
+        var asked = 0
+        val wrong = mutableListOf<String>()
+        val leftOut = mutableSetOf<String>()
+        for (n in nouns) for (f in bank.frames) {
+            val slotKey = "${Case.ofId(f.case)!!.slot}.${f.number}"
+            val s = entries[n.lemma]?.slot(slotKey) ?: entries.values.firstOrNull { it.lemma == n.lemma }?.slot(slotKey) ?: continue
+            if (!si.lanisce.lani.data.CaseTrainer.declinable(pool, f, n)) {
+                if (!s.checked) leftOut += n.lemma
+                continue
+            }
+            val ex = si.lanisce.lani.data.CaseTrainer.decline(pool, f, n, null) ?: continue
+            asked++
+            if (!s.checked || ex.accept.any { it !in s.forms } || ex.accept.any { it in s.variants } || ex.shown !in s.forms) wrong += "${f.id} ${n.lemma}: ${ex.accept} for $slotKey ${s.forms} (checked ${s.checked}, variants ${s.variants})"
+        }
+        println("Sklanjaj: $asked decline tasks over ${nouns.size} nouns; left out where a slot isn't checked: ${leftOut.sorted()}")
+        assertTrue("decline tasks: $asked", asked > 1000)
+        assertEquals(wrong.take(20).joinToString("\n"), 0, wrong.size)
+        assertTrue("left out: $leftOut", "dan" in leftOut && "potok" !in leftOut && "vitez" !in leftOut)
+        // the bank's fallback nouns are declined as they stand: each form the served standard form of a checked slot
+        for (n in bank.nouns) for ((k, v) in n.slots) {
+            val s = entries[n.lemma]?.slot(k) ?: continue
+            assertTrue("${n.lemma} $k: checked", s.checked)
+            for (f in v) assertTrue("${n.lemma} $k: $f in ${s.forms}", f in s.forms)
+        }
     }
 
     private fun sessionCount(): Int =

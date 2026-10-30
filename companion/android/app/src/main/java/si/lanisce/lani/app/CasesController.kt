@@ -158,9 +158,7 @@ class CasesController(
             if (!seen.add(key)) continue
             val entries = forms.entriesOf(lemma)?.filter { it.pos == "noun" && it.gender != null } ?: continue
             val e = WordFormsWire.entryFor(entries, c.back) ?: continue
-            val f = e.slots.associate { it.key to it.forms }
-            val spoken = e.slots.filter { it.also.isNotEmpty() }.associate { it.key to it.also }
-            out += CaseNoun(e.lemma, e.gender!!, si.lanisce.lani.data.ReviewPlanner.meaning(c.back), f, spoken, card = c.id)
+            out += CaseTrainer.nounOf(e, si.lanisce.lani.data.ReviewPlanner.meaning(c.back), card = c.id) ?: continue
         }
         return out
     }

@@ -291,7 +291,9 @@ export function checkItems(items: CaseItem[], rules: Record<string, CaseRule>, c
     const slot = `${CASE_SLOT[it.case]}.${it.number}`
     if (it.pos === 'noun' && lex?.noun) {
       judged++
-      const fs = slotForms(lex.noun, slot)
+      // the slot's standard forms (an old or dialect variant is never the bank's gold), a spoken one the item names
+      const s = lex.noun.slots.find(x => x.key === slot)
+      const fs = s ? [...s.forms, ...(it.spoken && (s.also ?? []).includes(it.spoken.form) ? [it.spoken.form] : [])] : undefined
       if (!fs) p(`the dictionary has no ${slot} of ${it.lemma}`)
       else if (!fs.map(norm).includes(norm(form))) p(`"${form}" isn't the ${slot} of ${it.lemma} (${fs.join('/')})`)
       const others = slotsWith(lex.noun, form, lang).filter(k => k.split('.')[0] !== CASE_SLOT[it.case])
@@ -382,9 +384,12 @@ export function checkRest(bank: Pick<CaseBank, 'rules' | 'frames' | 'adjectives'
     if (!lex.noun) continue
     judged++
     if (lex.noun.gender && lex.noun.gender !== n.gender) p(`gender ${n.gender}, the dictionary says ${lex.noun.gender}`)
+    // a fallback noun is declined as it stands: each of its forms a confirmed slot's standard form (forms.ts checked: the
+    // forms book's table, or its regular declension), never an old variant nor a slot the check couldn't confirm
     for (const [k, v] of Object.entries(n.forms)) {
-      const fs = slotForms(lex.noun, k)
-      for (const f of typeof v === 'string' ? [v] : v) if (fs && !fs.map(norm).includes(norm(f))) p(`${k} "${f}" isn't the dictionary's (${fs.join('/')})`)
+      const s = lex.noun.slots.find(x => x.key === k)
+      if (s && !s.checked) p(`${k}: the dictionary's ${s.forms.join('/')} isn't confirmed (noun-paradigm.ts): a hand-checked table in the forms book, or leave the noun out`)
+      for (const f of typeof v === 'string' ? [v] : v) if (s && !s.forms.map(norm).includes(norm(f))) p(`${k} "${f}" isn't the standard form (${s.forms.join('/')}${s.variants?.length ? `; ${s.variants.join('/')} an old or dialect variant` : ''})`)
     }
   }
   for (const u of bank.uncountable ?? []) if (!lexOf(c, u).noun) problems.push(`uncountable.${u}: no noun in the dictionary`)

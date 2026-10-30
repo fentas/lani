@@ -61,7 +61,9 @@ data class CaseSeen(val n: Int = 0, val day: String = "")
 
 /**
  * A noun the frames decline: the learner's own (one of their cards whose forms the phone has: [card]) or the bank's; its
- * gender, what it means in the learner's base, its standard forms by slot ("gen.sg") and the spoken ones accepted too.
+ * gender, what it means in the learner's base, its standard forms by slot ("gen.sg"), the spoken ones accepted too, the
+ * dictionary's old or dialect ones accepted and labelled ([variants]), and the slots whose forms are sure ([checked]: the
+ * bridge's GET /forms says so; a bank noun's every slot, which the smoke checks): only those are declined.
  */
 data class CaseNoun(
     val lemma: String,
@@ -70,6 +72,8 @@ data class CaseNoun(
     val forms: Map<String, List<String>>,
     val spoken: Map<String, List<String>> = emptyMap(),
     val card: String? = null,
+    val variants: Map<String, List<String>> = emptyMap(),
+    val checked: Set<String> = forms.keys,
 ) {
     /** A masculine noun for a living being: its accusative singular is its genitive (brata, psa). */
     val animate: Boolean get() = gender == "m" && forms["acc.sg"].orEmpty().any { it in forms["gen.sg"].orEmpty() } && forms["acc.sg"].orEmpty().none { it == lemma }
@@ -183,6 +187,24 @@ object CaseTrainer {
     }
 
     /** The learner's nouns, else (too few of their own) the bank's too: every noun a frame may take. */
+    /**
+     * A noun of the learner's from its GET /forms entry [e] (a noun with a gender): its standard forms by slot, the spoken
+     * ones (its also, without the variants), the variants, the slots checked; what it means ([meaning]: the card's).
+     */
+    fun nounOf(e: LemmaForms, meaning: String, card: String? = null): CaseNoun? {
+        val gender = e.gender?.takeIf { e.pos == "noun" && it in setOf("m", "f", "n") } ?: return null
+        return CaseNoun(
+            e.lemma, gender, meaning, e.slots.associate { it.key to it.forms },
+            spoken = e.slots.associate { s -> s.key to s.also.filter { it !in s.variants } }.filterValues { it.isNotEmpty() },
+            card = card,
+            variants = e.slots.filter { it.variants.isNotEmpty() }.associate { it.key to it.variants },
+            checked = e.slots.filter { it.checked }.map { it.key }.toSet(),
+        )
+    }
+
+    /** Whether frame [f] declines noun [n] now: the frame allowed, the noun's slot there sure (and the rest [nounFits] asks). */
+    fun declinable(pool: CasePool, f: CaseFrame, n: CaseNoun): Boolean = allowed(pool, f) && nounFits(pool, f, n)
+
     fun nouns(pool: CasePool): List<CaseNoun> {
         val own = pool.nouns.filter { it.gender in setOf("m", "f", "n") }
         if (own.size >= 6) return own
@@ -218,6 +240,8 @@ object CaseTrainer {
     private fun nounFits(pool: CasePool, f: CaseFrame, n: CaseNoun): Boolean {
         val kase = Case.ofId(f.case) ?: return false
         if (f.gender != null && n.gender !in f.gender) return false
+        // only a slot whose forms are sure: never a form the dictionary may have wrong (potoka, sin) as the answer
+        if (slotOf(kase, f.number) !in n.checked) return false
         // a mass noun only in the singular (no "Grem k vodam", "Vidim pet mlek")
         if (f.number != "sg" && n.lemma.lowercase() in pool.bank.uncountable) return false
         if (n.forms[slotOf(kase, f.number)].isNullOrEmpty()) return false
@@ -780,7 +804,8 @@ object CaseTrainer {
         val rule = pool.bank.rule(f.why) ?: return null
         val slot = slotOf(kase, f.number)
         val forms = shownForms(n, slot).ifEmpty { return null }
-        val spoken = n.spoken[slot].orEmpty().filter { it !in forms }
+        val variants = n.variants[slot].orEmpty().filter { it !in forms }
+        val spoken = n.spoken[slot].orEmpty().filter { it !in forms && it !in variants }
         val a = adj?.let { adjectiveForm(it, kase, n.gender, f.number, n.animate) ?: return null }
         fun phrase(form: String) = listOfNotNull(a, form).joinToString(" ")
         val shown = phrase(forms.first())
@@ -794,7 +819,7 @@ object CaseTrainer {
         return Exercise.CaseTask(
             kind = CaseKind.DECLINE.wire, key = declineKey(f, n, adj), sentence = sentence, tokens = CaseBanks.tokens(fill("___")),
             case = f.case, number = f.number, rule = rule.page, why = f.why, line = rule.inBase(pool.base), ruleSl = rule.sl,
-            askWhy = false, prompt = "${fill("___")} ($cue)", accept = forms.map(::phrase), spoken = spoken.map(::phrase), shown = shown,
+            askWhy = false, prompt = "${fill("___")} ($cue)", accept = forms.map(::phrase), spoken = spoken.map(::phrase), variants = variants.map(::phrase), shown = shown,
             hint = (listOf(f.meaning(pool.base)) + words).joinToString(" · "), lemma = n.lemma, level = f.level, gender = n.gender,
             adj = adj?.lemma, possessive = adj?.possessive == true, grammar = rule.page,
         )
@@ -822,8 +847,11 @@ object CaseTrainer {
         else -> Verdict.CORRECT
     }
 
-    /** A typed decline answer graded as any typed answer (č, š, ž forgotten is almost; a wrong ending wrong); a spoken form is right. */
-    data class Typed(val verdict: Verdict, val expected: String, val hint: Grading.Hint, val marks: List<IntRange>, val spoken: Boolean = false)
+    /**
+     * A typed decline answer graded as any typed answer (č, š, ž forgotten is almost; a wrong ending wrong); a spoken form
+     * is right, an old or dialect variant of the dictionary's too ([variant]), each labelled with the standard form.
+     */
+    data class Typed(val verdict: Verdict, val expected: String, val hint: Grading.Hint, val marks: List<IntRange>, val spoken: Boolean = false, val variant: Boolean = false)
 
     /**
      * [answer] to decline task [ex]: the phrase alone, or with the frame's preposition before it ("k babici" for "k ___"), or
@@ -832,6 +860,7 @@ object CaseTrainer {
     fun gradeDecline(ex: Exercise.CaseTask, answer: String): Typed {
         val a = phraseOf(ex, answer)
         if (ex.spoken.any { Grading.canonical(it, Lang.SL) == Grading.canonical(a, Lang.SL) }) return Typed(Verdict.CORRECT, ex.shown, Grading.Hint.NONE, emptyList(), spoken = true)
+        if (ex.variants.any { Grading.canonical(it, Lang.SL) == Grading.canonical(a, Lang.SL) }) return Typed(Verdict.CORRECT, ex.shown, Grading.Hint.NONE, emptyList(), variant = true)
         val r = Grading.check(a, ex.accept, Lang.SL)
         return Typed(r.verdict, r.expected.ifBlank { ex.shown }, r.hint, r.marks)
     }

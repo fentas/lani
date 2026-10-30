@@ -23,7 +23,7 @@ Android app ──HTTP/SSE──► bridge service ◄──unix socket (MCP)─
 | Path | What |
 |---|---|
 | `bridge/` | Claude Code channel server (Bun/TS). Forwards app messages into the session, exposes `reply`, `publish_module`, `publish_pack`, `publish_grammar`, `publish_worksheet`, `publish_scenario`, `publish_scene`, `publish_reading` and `publish_gloss` tools, relays permission prompts, serves the app API. |
-| `lexicon/` | Word lookup's dictionaries (see [Word lookup](#word-lookup)): `sl.json`, built from Wiktionary, with its meanings in Italian and German, `sl.extra.json`, a hand-written supplement, and `sl.forms.json`, the forms book: hand-checked tables of the irregular verbs and the verb pairs (see [Word forms](#word-forms)). The larger ones (Italian, German, English) are downloads (`LANI_LEXICON_URL`). |
+| `lexicon/` | Word lookup's dictionaries (see [Word lookup](#word-lookup)): `sl.json`, built from Wiktionary, with its meanings in Italian and German, `sl.extra.json`, a hand-written supplement, and `sl.forms.json`, the forms book: hand-checked tables of the irregular verbs and of the nouns Wiktionary gets wrong, the verb pairs and the animate nouns (see [Word forms](#word-forms)). The larger ones (Italian, German, English) are downloads (`LANI_LEXICON_URL`). |
 | `grammar/` | The grammar book's curated pages (`lani.grammar/v0`, one rule each, see [Grammar book](#grammar-book)): `grammar/<language>/`, 59 in `grammar/sl/`, 16 each in `grammar/it/`, `grammar/de/` and `grammar/en/`; `grammar/sl/data/case-triggers.json`, what decides a case (the case lens's trigger table, see [The case lens](#the-case-lens)), no page. |
 | `cards/` | The cheat sheet's curated cards no grammar page fits (`lani.card/v0`, see [Cheat sheet](#cheat-sheet)): `cards/<language>/<id>.json`. |
 | `course/` | The school's course (see [The school's course](#the-schools-course) and [COURSE.md](COURSE.md)): `course/<language>/course.json`, the outline of its levels and units (`lani.course/v0`), and `course/<language>/units/<id>.json`, a unit each (`lani.unit/v0`). |
@@ -2007,8 +2007,11 @@ planned, no case three times in a row, no item, word or sentence twice):
 
 The case picked wrong is wrong; right with the deciding word wrong, almost ("Sklon je pravi, odločilna beseda pa ne");
 both right, right. A form typed is graded as any typed answer (č, š, ž forgotten is almost, a slip in the stem forgiven,
-a wrong ending wrong); every form the dictionary gives for the slot is right (the usual one shown: bratu before brati,
-sester before sestra), a spoken form is right and labelled ("🗣️ Pogovorno, prav tako prav; knjižno: …"), never wrong.
+a wrong ending wrong); the slot's standard forms are right, the first shown; a spoken form is right and labelled
+("🗣️ Pogovorno, prav tako prav; knjižno: …"), never wrong; the dictionary's old or dialect variant is right and labelled
+too ("🔀 Starinska ali narečna oblika, prav tako sprejeta; knjižno: bratu"), never the answer. Only a slot GET /forms
+says is `checked` is declined ([Word forms](#word-forms), "Checked nouns"): a noun Wiktionary gets wrong in that slot,
+or an irregular one, is left out there.
 After the answer, in the case's colour: the word framed, the deciding words underlined, a wrong tap struck through; the
 feedback's line "**brez** → **2. rodilnik** (koga? česa?) · ednina", the rule's line in the learner's base, the same
 form's other readings ("🔀 mize je lahko tudi 1. imenovalnik mn., 4. tožilnik mn."), the item's note on how the sentence
@@ -3554,7 +3557,9 @@ adjective; `lep` is an adjective, nice, and a noun, glue):
   (`adj.m.sg`, `adj.f.sg`, `adj.n.sg`, `adj.m.pl`, `adj.f.pl`) and comparative (`cmp.m.sg`). Wiktionary's grammar
   strings are read back into them ("dative/locative singular" → `dat.sg`, `loc.sg`); an infinitive, a supine, a
   participle, a vocative, a definite form are no slot. `forms`: the slot's standard forms (the first is shown as the
-  answer; Wiktionary's alternatives, gozdi and gozdovi, are both right); `also`: accepted too, never shown (bojo).
+  answer; Wiktionary's alternatives, gozdi and gozdovi, are both right); `also`: accepted too, never shown (bojo);
+  `variants`: of those, the dictionary's old or dialect forms (brati beside bratu); `checked: true`: the forms are sure
+  (below, "Checked nouns").
 - **Pages**: the present's endings (`glagoli-sedanjik`; biti's own page `biti`, imeti's and iti's `imeti-iti`), the
   negative's `zanikanje`, the future's `prihodnjik`, the l-form's `pretekli-cas`, the imperative's `velelnik`, each
   case's (`imenovalnik`, `rodilnik`, `dajalnik`, `tozilnik`, `mestnik`, `orodnik`), the plural's `mnozina` (the
@@ -3595,9 +3600,33 @@ adjective; `lep` is an adjective, nice, and a noun, glue):
   the state after it (sesti, sit down: sedeti, be sitting; leči: ležati; vstati: stati), `aspect` for the same act
   once or going on (kupiti: kupovati, reči: govoriti, …), and a gloss where the dictionary has none or says more.
 - `leave_out`: words whose forms aren't asked (stati: to cost, stanem, and to stand, stojim, in one entry).
+- Noun `tables` (with their `gender`) for the nouns Wiktionary gets wrong, each with a `note` saying how: potok (its
+  accusative as potoka), sin, cesar, zdravnik, metulj and mož (a person's or an animal's accusative as the nominative;
+  mož's plural as moži, not možje), dekle (feminine, not neuter), pot and klop (two words in one entry: the path's and
+  the bench's, feminine, beside pot, sweat, and klop, tick), avto (its plural as a neuter's) and oktober (its genitive
+  misspelt octobra). The supplement (`sl.extra.json`) overrides the word card's gender and gloss of dekle, pot and klop
+  the same way.
+- `animate`: the masculine nouns naming a person or an animal, whose accusative singular is the genitive (vidim brata,
+  psa): Wiktionary can't be trusted on it.
 
 Each entry is checked on its own (a wrong one is logged and left out); the file is read again when it changes. A
 bridge from before it ignores it.
+
+**Checked nouns** (`bridge/src/noun-paradigm.ts`). Wiktionary's noun tables put old and dialect forms beside the
+standard ones (brati beside bratu, potoki beside potoku, bratam, bratah, dve sestre). A noun without a forms book table
+is checked slot by slot against the regular declension its gender implies: its stem from the genitive singular (that
+goes with the nominative: a fleeting e, pes, psa; ogenj, ognja; a stem that goes on, oče, očeta; dekle, dekleta; a
+masculine's -j-, sladkor, sladkorja; the -ev feminines, cerkev, cerkve; the i-declension, stvar, stvari), the soft
+stems' -em and -ev, a masculine's -ov- plural and -je plural, a fleeting e or i in the genitive plural, the
+i-declension's -em/-im and -eh/-ih, a masculine's accusative by the `animate` list. A slot whose forms fit, and whose
+other forms are known old or dialect endings (a masculine's or neuter's -i in the dative and locative singular,
+-am/-ah/-ama in the plural and dual, a soft stem's -om/-ov, a feminine dual in -e, a feminine genitive plural in -a), is
+`checked`: the fitting forms are its `forms`, the others `also` and `variants`, accepted, never shown as the answer. A
+slot with no fitting form, or with a form that is neither (oka beside očesa, kola beside kolesa, mira beside miru: two
+words or two declensions in one entry), stays as the dictionary has it, not checked: the case trainer never asks it as
+a form to produce. A forms book table's slots are all checked. The smoke runs the check over every noun of the packs
+and of the case trainer's bank: the pack's gender must be the one served, and the nouns with a slot not checked are the
+list in docs/plans/05-built/case-trainer.md ("Nouns left out").
 
 **A verb's partner in the lookup.** A verb of the pairs gets `aspect` and `partner` (`{lemma, aspect, kind,
 gloss}`) in `GET /lookup` too. When both partners are found for the tapped form ("sedite": sesti's imperative,

@@ -387,6 +387,8 @@ sealed interface Exercise {
         val answer: Int = 0,
         val accept: List<String> = emptyList(),
         val spoken: List<String> = emptyList(),
+        /** A decline's old or dialect forms of the dictionary (brati beside bratu): right too, never shown, labelled. */
+        val variants: List<String> = emptyList(),
         val shown: String = "",
         val hint: String? = null,
         val translation: String? = null,

@@ -109,8 +109,9 @@ mill …, as the village has it now: only the scenes open in the learner's villa
 items have their scene; a place the village doesn't draw (the post office, the sea) is text alone.
 
 **Sklanjaj! on the learner's own words, in curated frames.** The nouns are the learner's (their one-word cards whose
-forms the phone has from GET /forms: every form the dictionary gives for the slot is right; the usual ending shown
-first, bratu before Wiktionary's brati, sester before its sestra), the bank's 23 when they have fewer than six. The
+forms the phone has from GET /forms; only a slot it says is `checked`, its standard forms right, the first shown, the
+dictionary's old or dialect variants right and labelled, never shown: "Sklanjaj! must never accept or show a wrong
+form", below), the bank's 23 when they have fewer than six. The
 frames (31) are written to read with any concrete noun ("Tukaj ni ___.", "Govorimo o ___.", "Pridem s ___.": no frame
 that only fits a place or a person), each with a known trigger and its rule; the bank's `uncountable` mass nouns (voda,
 mleko, kruh …: 24, each a noun of the dictionary) stay out of the plural and dual frames, which QA found asking "Grem k
@@ -172,6 +173,63 @@ checks (`validateBank`, `bun test/check-cases.ts`, the smoke's `cases`) catch a 
 trigger that isn't its rule's word, a rule of another case, a page or scene there isn't, a level below its page's, an
 ambiguous form no word decides without a note, a place item's answer that isn't its gap, a frame's gap twice, an
 adjective form the dictionary hasn't.
+
+## "Sklanjaj!" must never accept or show a wrong form
+
+The coordinator's fix before gating: the dictionary errors the bank found would have been graded right in "Sklanjaj!"
+and shown as the answer, in the learner's weakest cases. Fixed at the source, so GET /forms, the word card's table and
+the review's form questions are right too, not only the trainer:
+
+- **The forms book's noun tables** (`lexicon/sl.forms.json`, machine-written, flagged for the native check; each with a
+  `note` saying what Wiktionary has): potok (its accusative as potoka: vidim potok), sin (as sin/sinu: sina), cesar (as
+  cesar: cesarja), zdravnik (as zdravnik: zdravnika), metulj (as metulj/metulja: metulja), mož (as mož: moža; its plural
+  as moži: možje, mož, možem, može, možeh, možmi), dekle (feminine: neuter, dekleta), pot (the path, feminine, merged
+  with pot, sweat: poti, potjo), klop (the bench, feminine, merged with klop, tick: klopi, klopjo), avto (its plural as
+  a neuter's, avta: avti) and oktober (its genitive misspelt octobra). The table schema took nouns already; it gained a
+  noun's `gender`. The supplement overrides the word card's gender and gloss of dekle, pot and klop.
+- **`animate`** in the forms book: the 52 masculine nouns of the packs and the bank naming a person or an animal (brat,
+  sin, pes, konj, zdravnik, metulj, vitez, zmaj, kozorog …), whose accusative singular is the genitive. Wiktionary's accusative can't be
+  trusted (potoka, sin, zdravnik), so the check takes animacy from the list.
+- **Every other noun checked** against its regular declension (`bridge/src/noun-paradigm.ts`; README "Word forms",
+  "Checked nouns"): a slot's fitting forms are its standard forms, the dictionary's other forms in it must be known old
+  or dialect endings (they become `variants`), else the slot isn't confirmed. GET /forms marks a confirmed slot (and
+  every slot of a hand table) `checked: true`.
+- **The old -i forms** (brati, potoki, psi, mleki as datives and locatives) and the other old endings (bratam, bratah,
+  bratama; ključom; dve sestre; sestra as a genitive plural) are the dictionary's variants: never the standard form,
+  never shown as the answer anywhere; accepted, because they are forms of the language (old, dialect or spoken) and
+  marking them wrong would mark a native's form wrong. "Sklanjaj!" labels one typed: "🔀 Starinska ali narečna oblika,
+  prav tako sprejeta; knjižno: bratu · An old or dialect form, accepted too; the standard form: bratu". The review
+  accepts them as it accepts `also`; it shows only the standard forms, and asks a slot now that its standard form is one
+  (bratu, mleku).
+- **The guard:** "Sklanjaj!" declines a noun only in a `checked` slot (`CaseTrainer.declinable`, `CaseNoun.checked`
+  from GET /forms by `CaseTrainer.nounOf`); a bank fallback noun's forms must each be a checked slot's standard form (the
+  bank's check). Tests: `PhoneBridgeTest.everyNounSklanjajCanPickIsSure` runs the trainer over every noun of the packs and
+  the bank through the phone's own GET /forms: every decline task it makes asks a checked slot, its answer the slot's
+  standard form, never a variant (the bank's nouns each their standard forms); the smoke checks the corrected words
+  served, the regular check's cases, the pack genders against the served ones (one was wrong: pot), and that the nouns
+  with a slot not checked are exactly the list below; `CaseTrainerTest` an unchecked slot never declined and a variant
+  right, labelled and never shown.
+
+**Nouns left out** (a slot not checked; "Sklanjaj!" leaves them out there and asks their checked slots). Of the 637
+nouns of the packs (the shared ones and the Slovene culture's) and the bank, 433 have forms in the dictionary; 391 have
+every slot checked, 42 not:
+
+| noun | slots not checked | why |
+|---|---|---|
+| dan | all | irregular (dne/dneva, dni) |
+| hči, uho | all | irregular stems (hčere; ušesa) |
+| oko, kolo | all but nom.sg, acc.sg | two declensions in one entry (oka/očesa; kola/kolesa) |
+| zob | 12 of 18 | irregular plural (zobje, zob, zobem, zobeh, zobmi) mixed with old forms |
+| otrok | nom.pl, loc.pl, loc.du | otroci, otrocih (k → c) |
+| med, mir, most, zid, slap, grad | gen.sg | two genitives in the dictionary (medu/meda, miru/mira, mostu/mosta …); med's ins.sg medjo |
+| nebo | all but nom.sg, acc.sg | two declensions in one entry (neba/nebesa) |
+| vrata, grablje, škarje, orgle, klešče, vilice, vile | the plural | plural-only nouns: no singular to take the stem from |
+| potica, kosa, palisada, tehtnica | nom.sg, acc.sg, ins.sg | the dictionary has no genitive singular for them (partial tables) |
+| daljnogled, hlebec, tolminc, pršut, žito, ribnik, romar, trgatev, veselica, peskovnik, tobogan, zvonček, kolesje, venec, ogrodje, grmovje, korito | their few slots | partial tables without a genitive singular |
+
+The other 204 pack nouns have no forms in the dictionary at all (štedilnik, pečica, lonec …): never declined, as before.
+Through the phone's own bridge the trainer makes 11 524 decline tasks over these 433 nouns (every frame, no adjective),
+each in a checked slot.
 
 ## How to use it
 
@@ -278,11 +336,8 @@ machine's slow boot); the run before it passed whole.
   `pod-smreko`, `pod-peco`, `pred-kovacnico`, `pod-veliko-smreko`), `brada-kralja` / `okoli-mize`, the verbless
   fragments from the scenes (`z-vozom`, `h-kravam`, `vsi-v-hiso`, `z-mlekom`), `na-kozolcu`'s German and Italian,
   `nom-sta-soseda`, `dajte-mi-vedri`.
-- **The dictionary's errors** the bank found (Wiktionary's tables, the same the forms cards ask): potok's accusative
-  given as "potoka", sin's as "sin/sinu", cesar's as "cesar" (both animate: sina, cesarja); dekle as feminine, pot as
-  masculine; klop mixed with klop "tick"; avto's plural as a neuter's; many old -i datives and locatives (brati, psi,
-  mleki). A learner's noun with such a form gets it in "Sklanjaj!" as right (every form of the slot is), and the shown
-  one is the usual ending's. Worth fixing in the forms book (`lexicon/sl.forms.json` tables or `leave_out`).
+- **The irregular nouns left out of "Sklanjaj!"** (below): a forms book table each would bring them in (dan, oko, uho,
+  kolo, hči, zob, otrok's plural, the plural-only words); written by hand and checked by a native speaker first.
 - **A frame's meaning with the learner's word** stays in two parts ("There's no … here. · miza = table") rather than
   "There's no table here.": the card's meaning has its own article and form. Fine for an adult; a child's version could
   show the noun's picture (its pack's emoji) instead.
