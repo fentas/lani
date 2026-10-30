@@ -50,11 +50,13 @@ private const val RAIL_H = 3.9f
  * peeking out and coming home over the brook as it rises, 1 at her place as by herself ("Bianca è sparita!" … "Eccola!",
  * Luka's "Tam, za smreko!"); its "tracks" a bear's prints in the mud of the bank by the path (how many, how clear:
  * Anton's "Poglej tja, v blato. Velike sledi."); its "does" roe deer stepping out of the trees onto the far meadow at dusk,
- * as many as the dialog counts, else five (how many are out, 1 all of them grazing: Jože's "Zdaj pridejo srne na travnik").
+ * as many as the dialog counts, else five (how many are out, 1 all of them grazing: Jože's "Zdaj pridejo srne na travnik");
+ * its "basket" a willow basket of mushrooms on the grass at the clearing, by whoever stands there, with as many in it as
+ * the dialog counts, else a handful ([mushroomBasket]: Anton's "Preštej gobe v moji košari", Aldo's "guarda nel mio
+ * cesto"), in every culture's look.
  *
  * In Friuli's look (companion/SCENES.md "Culture looks") an ancona stands right of the path ([ancona]: the Madonna in her
- * niche on a plastered pillar, flowers at its foot, a lumino at night), and while a dialog counts Aldo's mushrooms his
- * basket stands by whoever is at the clearing with that many in it ([mushroomBasket]).
+ * niche on a plastered pillar, flowers at its foot, a lumino at night).
  */
 internal class ForestPainter : WildPainter() {
     override val art = "forest"
@@ -153,15 +155,14 @@ internal class ForestPainter : WildPainter() {
             }
             thing("highseat", slop = 1) { highSeat(seatX, seatD, back = false) }
         })
-        // the culture's look (companion/SCENES.md "Culture looks"): Friuli's ancona by the path, and Aldo's basket by whoever
-        // stands at the clearing while a dialog counts its mushrooms
+        // the culture's look (companion/SCENES.md "Culture looks"): Friuli's ancona by the path
         if (variant("shrine") != null) {
             items.add(SHRINE_D to { prop { ancona(SHRINE_X, SHRINE_D) } })
             anconaLight(SHRINE_X, SHRINE_D)
         }
-        val counted = frame.count
-        if (variant("basket") != null && counted != null && peopleAt("clearing").isNotEmpty()) {
-            items.add(BASKET_D to { prop { mushroomBasket(BASKET_X, BASKET_D, counted.coerceIn(1, BASKET_MAX)) } })
+        // the basket of mushrooms at the clearing, while a dialog has it there ("basket"): as many in it as it counts
+        if (fxOn("basket") > 0f) {
+            items.add(BASKET_D to { prop { mushroomBasket(BASKET_X, BASKET_D, (frame.count ?: BASKET_SOME).coerceIn(1, BASKET_MAX)) } })
         }
         wildlife()
         items.sortByDescending { it.first }
@@ -189,7 +190,7 @@ internal class ForestPainter : WildPainter() {
         }
     }
 
-    // ------------------------------------------------------------------ Friuli's ancona and Aldo's basket
+    // ------------------------------------------------------------------ Friuli's ancona, and the basket of mushrooms
 
     /**
      * Friuli's ancona by the path ([variant] "shrine": a maina, the wayside shrine of the Friulian roads and woods; companion/
@@ -300,9 +301,10 @@ internal class ForestPainter : WildPainter() {
     }
 
     /**
-     * Aldo's basket of mushrooms ([variant] "basket", Friuli's "guarda nel mio cesto. Quanti funghi ci sono?"): a willow
-     * basket on the grass by whoever stands at the clearing, as many mushrooms heaped in it as the dialog counts
-     * ([SceneFrame.count]), each cap its own so they can be counted (porcini brown, a few chanterelles), in rows over its rim.
+     * The basket of mushrooms (the effect "basket": Anton's "Preštej gobe v moji košari", Aldo's "guarda nel mio cesto.
+     * Quanti funghi ci sono?"): a willow basket on the grass at the clearing, by whoever stands there, [n] mushrooms heaped
+     * in it (as many as the dialog counts, [SceneFrame.count]), each cap its own so they can be counted (porcini brown, a
+     * few chanterelles), in rows over its rim.
      */
     private fun mushroomBasket(x: Float, d: Float, n: Int) {
         val p = pm(d); val cx = gx(x, d); val by = gy(d)
@@ -2405,10 +2407,13 @@ internal class ForestPainter : WildPainter() {
         /** Friuli's ancona ([ancona]): where it stands, right of the path before the big spruce (m). */
         private const val SHRINE_X = 5.3f
         private const val SHRINE_D = 15.6f
-        /** Aldo's basket of mushrooms ([mushroomBasket]): on the grass right of whoever stands at the clearing (m); at most so many in it. */
+        /** The basket of mushrooms ([mushroomBasket]): on the grass right of whoever stands at the clearing (m); at most so many in it. */
         private const val BASKET_X = -2.4f
         private const val BASKET_D = 12.6f
         private const val BASKET_MAX = 14
+
+        /** How many mushrooms it holds when the dialog counts none. */
+        private const val BASKET_SOME = 6
 
         /** With a "hoot" above 0.9 the owl turns her head right round every this many seconds, for this share of them. */
         private const val ROUND_S = 6.0

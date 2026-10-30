@@ -235,6 +235,8 @@ object SceneArt {
             // (how many, how clear); roe deer stepping out onto the far meadow at dusk (as many as the dialog counts, else
             // five: how many are out)
             "fell", "fell-oak", "sheep", "tracks", "does",
+            // a basket of mushrooms on the grass at the clearing, as many in it as the dialog counts (else six), to count
+            "basket",
         ),
         // the bell swinging in the tower, its ringing; the cat up the linden, coming down (0 stuck on its lowest limb,
         // mewing, 1 asleep on the bench again: how far down); Muri the dog coming back (0 away, 0.5 sniffing at the flower

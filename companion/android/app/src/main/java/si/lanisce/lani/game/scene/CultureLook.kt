@@ -185,10 +185,10 @@ object CultureLooks {
 
     /**
      * Friuli's wood (Nel bosco): an ancona by the path (a wayside shrine on its pillar, the Madonna in its niche, flowers
-     * at its foot, a candle at night), and Aldo's basket of mushrooms by whoever stands at the clearing while a dialog
-     * counts them ("guarda nel mio cesto").
+     * at its foot, a candle at night). Aldo's basket of mushrooms is the forest's own, as Anton's is: its dialog's
+     * "basket" ("guarda nel mio cesto").
      */
-    val FRIULI_FOREST = Table.of("forest", variants = mapOf("shrine" to "ancona", "basket" to "funghi"))
+    val FRIULI_FOREST = Table.of("forest", variants = mapOf("shrine" to "ancona"))
 
     /** Friuli's stream (Al ruscello): Lombardy poplars along the banks and the woods' edge, vine rows and a campanile on the hill. */
     val FRIULI_STREAM = Table.of("stream", variants = mapOf("trees" to "pioppi", "hills" to "collio"))

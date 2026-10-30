@@ -93,9 +93,11 @@ class FriuliOutdoorLooksTest {
         val w = world("friuli"); val p = world("primorska")
         fun f(art: String, world: SceneWorld, who: List<PersonInScene> = emptyList(), fx: Map<String, Float> = emptyMap(), count: Int? = null, hour: Float = 10f, month: Int = 9) =
             SceneFrame(time = 3.0, hour = hour, month = month, objects = SceneArt.objects.getValue(art).toSet(), people = who, world = world, fx = fx, count = count)
-        // Aldo's basket ("guarda nel mio cesto"), three and nine mushrooms, closer up too
+        // Aldo's basket ("guarda nel mio cesto"), three and nine mushrooms, closer up too; Anton's in Primorska
         val aldo = listOf(PersonInScene("aldo", "beekeeper", "clearing", talking = true))
-        for (n in listOf(3, 9, 12)) for (k in 1..3) write(render(f("forest", w, aldo, count = n), "forest", k = k), "words-forest-basket-$n-d$k", 4 - k)
+        val basket = mapOf("basket" to 1f)
+        for (n in listOf(3, 9, 12)) for (k in 1..3) write(render(f("forest", w, aldo, basket, count = n), "forest", k = k), "words-forest-basket-$n-d$k", 4 - k)
+        for (k in 1..3) write(render(f("forest", p, aldo, basket, count = 7), "forest", k = k), "words-forest-basket-primorska-7-d$k", 4 - k)
         // Nonno Bepi's tin of worms by Moro ("vicino a Moro"), and while he fishes
         val bepi = listOf(PersonInScene("bepi", "grandpa", "jetty"))
         for (k in 1..3) write(render(f("pond", w, bepi, mapOf("dog" to 0.1f, "bite" to 0f), hour = 15f, month = 6), "pond", k = k), "words-pond-tin-d$k", 4 - k)
@@ -175,19 +177,21 @@ class FriuliOutdoorLooksTest {
         assertFalse(none.containsKey(SceneTarget.Thing("kozolec"))); assertFalse(none.containsKey(SceneTarget.Thing("hay")))
     }
 
-    @Test fun `Aldo's basket holds as many mushrooms as the dialog counts, only while it counts, by whoever stands at the clearing`() {
-        val w = world("friuli")
-        val aldo = listOf(PersonInScene("aldo", "beekeeper", "clearing"))
-        val none = render(frameOf("forest", w, who = aldo), "forest")
-        val three = render(frameOf("forest", w, who = aldo, count = 3), "forest")
-        val nine = render(frameOf("forest", w, who = aldo, count = 9), "forest")
-        assertTrue("a basket comes with the count", changed(none, three) > 30)
-        assertTrue("nine mushrooms aren't three", changed(three, nine) > 6)
-        // Primorska keeps its picture with the count (its own look draws no basket)
-        val p = world("primorska")
-        assertEquals(0, changed(render(frameOf("forest", p, who = aldo), "forest"), render(frameOf("forest", p, who = aldo, count = 9), "forest")))
-        // nobody at the clearing: no basket
-        assertEquals(0, changed(render(frameOf("forest", w), "forest"), render(frameOf("forest", w, count = 9), "forest")))
+    @Test fun `the basket of mushrooms comes with its cue in every look, as many in it as the dialog counts`() {
+        val basket = mapOf("basket" to 1f)
+        for (culture in listOf("friuli", "primorska")) {
+            val w = world(culture)
+            val aldo = listOf(PersonInScene("aldo", "beekeeper", "clearing"))
+            val none = render(frameOf("forest", w, who = aldo, count = 3), "forest")
+            val three = render(frameOf("forest", w, who = aldo, fx = basket, count = 3), "forest")
+            val nine = render(frameOf("forest", w, who = aldo, fx = basket, count = 9), "forest")
+            assertTrue("$culture: a basket comes with the cue", changed(none, three) > 30)
+            assertTrue("$culture: nine mushrooms aren't three", changed(three, nine) > 6)
+            // a count alone (Jože's roe deer at dusk, someone at the clearing) brings no basket
+            assertEquals("$culture: no basket without its cue", 0, changed(render(frameOf("forest", w, who = aldo), "forest"), none))
+            // cued without a count: a handful
+            assertTrue("$culture: a handful without a count", changed(none, render(frameOf("forest", w, who = aldo, fx = basket), "forest")) > 30)
+        }
     }
 
     @Test fun `Friuli's ancona's lumino burns at night and lights the path`() {

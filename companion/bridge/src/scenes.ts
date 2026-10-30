@@ -148,6 +148,8 @@ export const SCENE_ART = {
       // the far side's tallest spruce and the oak beside it felled (1 lying by the stump); the lost sheep (0 out of sight
       // behind the big spruce, 1 home); a bear's tracks in the mud by the path; roe deer out on the far meadow at dusk
       'fell', 'fell-oak', 'sheep', 'tracks', 'does',
+      // a basket of mushrooms at the clearing, as many as the dialog counts (Anton's košara, Aldo's cesto)
+      'basket',
     ],
     square: [
       'bell',
