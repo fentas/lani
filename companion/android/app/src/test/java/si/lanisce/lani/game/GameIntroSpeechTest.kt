@@ -67,6 +67,29 @@ class GameIntroSpeechTest {
         assertEquals("🏔️", GameIntroSpeech.emoji(null))
     }
 
+    @Test fun `each culture names its own place - the Collio for Teo, the Gailtal, the fells, Triglav for Primorska`() {
+        val cultures = si.lanisce.lani.game.culture.Cultures
+        val friuli = cultures.load("friuli").manifest.intro
+        val first = GameIntroSpeech.step(0, itDe, friuli)
+        assertEquals(friuli?.arrive?.of(Lang.IT), first[1].text)
+        assertEquals(friuli?.arrive?.of(Lang.DE), first[2].text)
+        assertTrue(first[1].text, "Collio" in first[1].text && "Triglav" !in first[1].text)
+        assertTrue("Triglav" !in GameIntroSpeech.arrive(Lang.DE, itDe, friuli))
+        assertTrue("Gailtal" in GameIntroSpeech.arrive(Lang.DE, LangPair(Lang.DE, Lang.SL), cultures.load("kaernten").manifest.intro))
+        assertTrue("fells" in GameIntroSpeech.arrive(Lang.EN, LangPair(Lang.EN, Lang.SL), cultures.load("lakeland").manifest.intro))
+        // Primorska's is the line it always had (the app's own), as is a culture without one
+        val primorska = cultures.load("primorska").manifest.intro
+        for (l in Lang.entries) {
+            assertEquals(L10n.text(l, GameIntroSpeech.ARRIVE), GameIntroSpeech.arrive(l, LangPair.DEFAULT, primorska))
+            assertEquals(L10n.text(l, GameIntroSpeech.ARRIVE), GameIntroSpeech.arrive(l, LangPair.DEFAULT, null))
+        }
+        // every culture's in every language the app has, with its picture
+        for (id in listOf("primorska", "friuli", "kaernten", "lakeland")) {
+            val intro = cultures.load(id).manifest.intro
+            assertTrue(id, intro != null && Lang.entries.all { intro.arrive.has(it) } && GameIntroSpeech.emoji(intro).isNotBlank())
+        }
+    }
+
     @Test fun `each piece goes to the voice of its language`() {
         // the learned language: the node's narrator clip, else the phone's voice for it; the base: the phone's voice of the base
         assertEquals(Locale.forLanguageTag("it-IT"), Speaker.locale(itDe.target))
