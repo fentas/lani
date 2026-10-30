@@ -111,7 +111,8 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        stones grinding (Friuli's Nel mulino with LANI_CULTURE=friuli, an Italian learner, the phone in sl · en: LANI_QA_PAIR=sl-en);
                        "places" the village's places: the bocce court finished, its landmark's card, "🚪 Vstopi", a dialog
                        and «Vidim, vidim» there, then the playground, the chapel, the fire station, the lookout and the
-                       palisade's gate by day and at night ($LANI_QA_PLACES_SHOTS); "trade" food for wood ("⇄ Zamenjaj · Trade"): the sheet, its run to the end,
+                       palisade's gate by day and at night ($LANI_QA_PLACES_SHOTS; with LANI_CULTURE=friuli and an
+                       Italian learner, the phone in sl · en, Teo's: Al campo da bocce and the other five); "trade" food for wood ("⇄ Zamenjaj · Trade"): the sheet, its run to the end,
                        the result, the HUD's stocks moved and the dev bridge's village keeping the day's trade;
                        "village-life" the village's day on the map (QA's hook "hour:<h>", which the map follows too):
                        zoomed in at 8, 11, 15 and 19 o'clock (the people at their chores and work about the village,
@@ -4457,9 +4458,9 @@ def places():
     the afternoon), its first turns answered; «Vidim, vidim» there ("ispy:na-baliniscu/jack": the jack found); then the
     other new places by their links, each a shot: the playground, the chapel, the fire station, the lookout tower, the
     palisade's gate (by day and at night: the gate shut, the one from the road in for the night). The Slovene village only
-    (a Friuli learner's has these places in a later round). Also as places-*.png in $LANI_QA_PLACES_SHOTS."""
+    (a Friuli learner's: places_friuli). Also as places-*.png in $LANI_QA_PLACES_SHOTS."""
     if os.environ.get("LANI_CULTURE") == "friuli":
-        return "skipped: the Friuli village's places come in a later round"
+        return places_friuli()
     out = Path(os.environ["LANI_QA_PLACES_SHOTS"]) if os.environ.get("LANI_QA_PLACES_SHOTS") else None
     pair = (os.environ.get("LANI_QA_PAIR") or "sl-en").split("-")
     table = lambda lang: json.loads((ANDROID / f"app/src/main/resources/l10n/{lang}.json").read_text())
@@ -4548,6 +4549,145 @@ def places():
                 continue
             time.sleep(3)
             snap(f"places-{sid}-{hour.replace('.', '')}h")
+            tap(back, 3)
+    finally:
+        qa_hook("ispy:")
+        qa_hook("happening:")
+        qa_hook("hour:")
+        qa_hook("step:")
+        qa_hook("bubbles:")
+    return None
+
+
+def places_friuli():
+    """Teo's places (docs/plans/05-built/places-it-arts.md): the Friuli village's scenes on the places' own arts, with an
+    Italian learner of the Friuli culture (LANI_DEV_DATA: make-learner.ts --target it; LANI_CULTURE=friuli), the phone in
+    sl · en (LANI_QA_PAIR=sl-en, as the mill's and the coast's steps). The bocce court finished ("step:balinisce/6"), its
+    landmark on the map ("show:project:balinisce"), its card's "🚪 Vstopi · Go in: 🎳 Al campo da bocce", in; Nonno Bepi's
+    game there (QA's hook "happening:al-campo-da-bocce/partita/partita" at four in the afternoon), its turns answered; «Vedo,
+    vedo» there ("ispy:al-campo-da-bocce/jack": the jack, il pallino, found); then the other five by their links, each a
+    shot: the playground, the ancona, the fire station (Davide's drill opened, its first turn answered), the lookout tower,
+    the palisade's gate by day and at night. Also as places-it-*.png in $LANI_QA_PLACES_SHOTS."""
+    out = Path(os.environ["LANI_QA_PLACES_SHOTS"]) if os.environ.get("LANI_QA_PLACES_SHOTS") else None
+    pair = (os.environ.get("LANI_QA_PAIR") or "sl-en").split("-")
+    table = lambda lang: json.loads((ANDROID / f"app/src/main/resources/l10n/{lang}.json").read_text())
+    back = "‹ " + " · ".join(table(l)["common.village"] for l in pair)
+    close = " · ".join(table(l)["common.close"] for l in pair)
+    nxt = " · ".join(table(l)["common.next"] for l in pair)
+    culture = ROOT / "companion/cultures/friuli"
+    scene_of = lambda sid: json.loads((culture / f"scenes/{sid}.json").read_text())
+    projects = {p["id"]: p for p in json.loads((culture / "projects.json").read_text())["projects"]}
+    court = scene_of("al-campo-da-bocce")
+    project = projects["balinisce"]
+
+    def snap(name: str):
+        shot(name)
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"{name}.png")
+
+    def play(scene: dict, dialog: str, tag: str, turns: int):
+        """The open dialog played on: the right choice at a turn, else Next; the first line of the learner's offers their voice."""
+        oks = mill_oks(scene, dialog, "it")
+        answered = 0
+        for k in range(10):
+            if find("Kateri glas je tvoj?") is not None:
+                tap("V redu · OK", 2)
+                time.sleep(1.5)
+                continue
+            if answer_choice(oks):
+                answered += 1
+                time.sleep(2.5)
+                snap(f"places-it-{tag}-turn{answered}")
+                if answered >= turns:
+                    break
+            else:
+                tap(nxt, 2)
+            time.sleep(1.5)
+            if find(close) is None:
+                break
+        return answered
+
+    plain_village()
+    try:
+        qa_hook("bubbles:0")
+        # the court finished: its landmark on the map, its card's way in (2 taps from the village)
+        qa_hook(f"step:balinisce/{len(project['steps']) + 1}")
+        plain_village()
+        qa_hook("show:project:balinisce")
+        time.sleep(3 * slow())
+        snap("places-it-court-map")
+        assert tap(project["name"][pair[0]], 5), "the bocce court's landmark on the map"
+        assert wait_for(court["title"]["it"], 8), "its card: the way in"
+        time.sleep(1)
+        snap("places-it-court-card")
+        assert tap(court["title"]["it"], 4), "into Al campo da bocce from its card"
+        assert wait_for(back, 10), "the court opens"
+        qa_hook("hour:16")
+        time.sleep(3 * slow())
+        snap("places-it-court-inside")
+        qa_hook("zoom")
+        time.sleep(3 * slow())
+        snap("places-it-court-closer")
+        assert tap(back, 3), "back from the court"
+        # a dialog: Nonno Bepi's game, its turns answered (the ball thrown up to the jack)
+        plain_village()
+        qa_hook("happening:al-campo-da-bocce/partita/partita", "scene:al-campo-da-bocce@al-campo-da-bocce/partita")
+        assert wait_for(back, 10), "the court opens at its happening"
+        assert wait_for(close, 10), "its dialog opens"
+        time.sleep(3)
+        snap("places-it-court-dialog")
+        assert play(court, "partita", "court", 3) >= 1, "a turn of Bepi's game answered right"
+        snap("places-it-court-dialog-later")
+        tap(close, 3)
+        qa_hook("happening:")
+        # «Vedo, vedo» at the court: the jack
+        plain_village()
+        qa_hook("ispy:al-campo-da-bocce/jack", "scene:al-campo-da-bocce")
+        assert wait_for(back, 10), "the court opens"
+        marker = wait_for("Vidim, vidim · I spy. Igrajva", 20)
+        card = scroll_to("🔍 Igrajva · Let's play", 5)
+        assert marker is not None or card is not None, "the offer «Vedo, vedo» at the court"
+        snap("places-it-court-ispy-offer")
+        tap_at(card if card is not None else marker)
+        assert wait_for("Vedo, vedo", 8), "the child's opening line"
+        got = ispy_positions()
+        assert got is not None, "the debug build's ISpy log of where the things are"
+        _, target, at, _ = got
+        assert target == "jack" and "jack" in at, f"the first round spies the jack: {target}, {sorted(at)}"
+        time.sleep(4 * slow())
+        snap("places-it-court-ispy-round")
+        tap_at(at[target])
+        assert wait_for("Sì, è", 30), "the jack found"
+        snap("places-it-court-ispy-found")
+        qa_hook("ispy:")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1.5)
+        # the fire station: Davide's drill (its first turn), then the other places by their links (each a shot)
+        plain_village()
+        qa_hook(f"step:gasilski_dom/{len(projects['gasilski_dom']['steps']) + 1}")
+        qa_hook("hour:15")
+        qa_hook("happening:dai-pompieri/prova/prova", "scene:dai-pompieri@dai-pompieri/prova")
+        if wait_for(back, 10) is not None and wait_for(close, 10) is not None:
+            time.sleep(3)
+            snap("places-it-dai-pompieri-dialog")
+            play(scene_of("dai-pompieri"), "prova", "dai-pompieri", 2)
+            snap("places-it-dai-pompieri-dialog-later")
+            tap(close, 3)
+        else:
+            snap("places-it-dai-pompieri-not-open")
+        qa_hook("happening:")
+        for sid, proj, hour in (("al-parco-giochi", "igrisce", "15"), ("alla-cappelletta", "kapelica", "19"), ("dai-pompieri", "gasilski_dom", "11"),
+                                ("sulla-torre-panoramica", "razgledni_stolp", "13"), ("al-portone", None, "10"), ("al-portone", None, "22.5")):
+            plain_village()
+            if proj:
+                qa_hook(f"step:{proj}/{len(projects[proj]['steps']) + 1}")
+            qa_hook(f"hour:{hour}", f"scene:{sid}")
+            if wait_for(back, 10) is None:
+                snap(f"places-it-{sid}-not-open")
+                continue
+            time.sleep(3 * slow())
+            snap(f"places-it-{sid}-{hour.replace('.', '')}h")
             tap(back, 3)
     finally:
         qa_hook("ispy:")
