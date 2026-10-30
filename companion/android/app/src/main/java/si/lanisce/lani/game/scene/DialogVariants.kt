@@ -51,18 +51,19 @@ object DialogVariants {
      * [Happening.dialog]) with its number put in ([Counts]), and the happening with what its person remembers of it (a
      * variant's own [Dialog.memory]). Null: no such dialog in the scene.
      */
-    fun play(a: ActiveHappening, state: GameState, today: LocalDate): Pair<Happening, Dialog>? {
+    fun play(a: ActiveHappening, state: GameState, today: LocalDate, hour: Int = java.time.LocalTime.now().hour): Pair<Happening, Dialog>? {
         val d = dialogOf(a) ?: return null
-        val said = counted(a, state, today)?.let { n -> Counts.render(d, n, a.scene.language) } ?: d
+        val said = counted(a, state, today, hour)?.let { n -> Counts.render(d, n, a.scene.language) } ?: d
         return (d.memory?.let { a.happening.copy(memory = it) } ?: a.happening) to said
     }
 
     /**
      * The number happening [a]'s dialog of [today] counts in [state]'s village ([Counts.of], as [play] puts it into its
-     * texts), null when it counts nothing: the picture draws that many of what is counted (the sheep at the water).
+     * texts; a count of the hour by the scene's [hour]), null when it counts nothing: the picture draws that many of what is
+     * counted (the sheep at the water, the clock's strokes).
      */
-    fun counted(a: ActiveHappening, state: GameState, today: LocalDate): Int? =
-        dialogOf(a)?.let { d -> d.count?.let { c -> Counts.of(c, state, today, "${a.key}/${d.id}") } }
+    fun counted(a: ActiveHappening, state: GameState, today: LocalDate, hour: Int = java.time.LocalTime.now().hour): Int? =
+        dialogOf(a)?.let { d -> d.count?.let { c -> Counts.of(c, state, today, "${a.key}/${d.id}", hour) } }
 
     private fun dialogOf(a: ActiveHappening): Dialog? {
         val id = a.dialog ?: a.happening.dialog ?: return null

@@ -310,10 +310,12 @@ class SceneController(
         // the picture above it
         val now = village() ?: GameState()
         val today = LocalDate.now()
-        val (h, file) = DialogVariants.play(a, now, today) ?: return false
+        // the hour the scene is seen at (QA's "hour:" too), so a count of the hour is the one its clock shows and strikes
+        val hour = si.lanisce.lani.app.QaHooks.sceneNow(java.time.LocalDateTime.now()).hour
+        val (h, file) = DialogVariants.play(a, now, today, hour) ?: return false
         val (d, modes, notYet) = adapt(file, a.scene.language)
         val run = DialogRun.start(d, p.id, seed = kotlin.random.Random.nextLong(), modes = DialogRun.tapModes(d) + modes, notYet = notYet, words = words(d, a.scene.language, a.scene))
-        talk = SceneTalk(a.scene.id, a.key, p, h, d, run, counted = DialogVariants.counted(a, now, today))
+        talk = SceneTalk(a.scene.id, a.key, p, h, d, run, counted = DialogVariants.counted(a, now, today, hour))
         settle()
         return true
     }
