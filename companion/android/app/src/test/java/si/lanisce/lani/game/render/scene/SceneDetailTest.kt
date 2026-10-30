@@ -137,10 +137,8 @@ class SceneDetailTest {
             val c = PixelCanvas(bw, bh)
             val lens = Lens(k, (bw * k - bw) / 2, (bh * k - bh) / 2, bw, bh)
             repeat(10) { p.render(c, f.copy(time = it / 12.0), lens) }
-            val n = 30
-            val t0 = System.nanoTime()
-            repeat(n) { p.render(c, f.copy(time = 2 + it / 12.0), lens) }
-            val ms = (System.nanoTime() - t0) / 1e6 / n
+            // ten frames over 2.5 s, the best of three rounds of them, in this thread's CPU time (FrameBudget)
+            val ms = FrameBudget.ms(10) { p.render(c, f.copy(time = 2 + it / 4.0), lens) }
             val weather = if (sky.clear) "" else " in all the weather, every effect and poke on"
             println("ScenePainter %s at detail %d: %.2f ms/frame (night%s, a %dx%d window)".format(art, k, ms, weather, bw, bh))
             assertTrue("$art at detail $k$weather too slow: $ms ms", ms < FrameBudget.scaled(25.0))

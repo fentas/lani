@@ -145,15 +145,14 @@ class StormRenderTest {
         // the village on a portrait phone, the fitted canvas and closer up at detail 3
         for (k in listOf(1, 3)) {
             repeat(8) { village(storm, it / 12.0, k = k) }
-            val n = 30
+            // ten frames over 2.5 s, the best of three rounds of them, in this thread's CPU time (FrameBudget)
+            val n = 10
             val c = PixelCanvas(fit.width, fit.height)
             val comp = VillageLayout.composition(fit.width, fit.height, compact = false)
             val rig = CameraRig.town(fit, 1080, 2400)
             val lens = Lens.of(k, rig.lookAt(comp.fireX.toFloat(), comp.fireY.toFloat(), (rig.minScale * k).toFloat()), 1080, 2400, fit.width, fit.height, fit.width, fit.height)
             val r = VillageRenderer()
-            val t0 = System.nanoTime()
-            repeat(n) { r.render(c, storm, Frame(time = 2 + it / 12.0, hour = 11f, month = 10, lens = lens, today = "2026-10-13")) }
-            val ms = (System.nanoTime() - t0) / 1e6 / n
+            val ms = FrameBudget.ms(n) { r.render(c, storm, Frame(time = 2 + it / 4.0, hour = 11f, month = 10, lens = lens, today = "2026-10-13")) }
             println("VillageRenderer in the storm: %.2f ms/frame (detail %d, %dx%d)".format(ms, k, fit.width, fit.height))
             assertTrue("too slow: $ms ms", ms < FrameBudget.scaled(50.0))
         }
@@ -162,16 +161,14 @@ class StormRenderTest {
         val c = PixelCanvas(360, 240)
         val f = frame("kitchen", Sky.STORM, people = kitchen)
         repeat(15) { p.render(c, f.copy(time = it / 12.0)) }
-        val t0 = System.nanoTime()
-        repeat(40) { p.render(c, f.copy(time = 2 + it / 12.0)) }
-        val ms = (System.nanoTime() - t0) / 1e6 / 40
+        // thirteen frames over 3.3 s, the best of three rounds of them, in this thread's CPU time (FrameBudget)
+        val ms = FrameBudget.ms(13) { p.render(c, f.copy(time = 2 + it / 3.9)) }
         println("ScenePainter kitchen in the storm: %.2f ms/frame (360x240)".format(ms))
         assertTrue("too slow: $ms ms", ms < FrameBudget.scaled(20.0))
         val lens = Lens(3, (360 * 3 - 360) / 2, (240 * 3 - 240) / 2, 360, 240)
         repeat(5) { p.render(c, f.copy(time = it / 12.0), lens) }
-        val t1 = System.nanoTime()
-        repeat(20) { p.render(c, f.copy(time = 2 + it / 12.0), lens) }
-        val msFine = (System.nanoTime() - t1) / 1e6 / 20
+        // seven frames over 1.7 s, the best of three rounds of them, in this thread's CPU time (FrameBudget)
+        val msFine = FrameBudget.ms(7) { p.render(c, f.copy(time = 2 + it / 4.2), lens) }
         println("ScenePainter kitchen in the storm: %.2f ms/frame (detail 3)".format(msFine))
         assertTrue("too slow closer up: $msFine ms", msFine < FrameBudget.scaled(60.0))
     }

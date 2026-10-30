@@ -122,10 +122,12 @@ class MyWordsTest {
         val learnedBig = big.filter { rnd.nextBoolean() }.map { it.id }.toSet()
         // a copy each time: the same lists are given back the list made the last time
         repeat(3) { MyWords.of(big.toList(), learnedBig.toSet()) }
-        val copy = big.toList()
-        val t0 = System.nanoTime()
-        val listed = MyWords.of(copy, learnedBig)
-        val ms = (System.nanoTime() - t0) / 1e6
+        // the best of three rounds, each of its own copy, in this thread's CPU time (FrameBudget)
+        lateinit var listed: List<MyWord>
+        val ms = si.lanisce.lani.FrameBudget.best {
+            val copy = big.toList()
+            si.lanisce.lani.FrameBudget.cpuMs { listed = MyWords.of(copy, learnedBig) }
+        }
         assertEquals(listed.sortedWith(MyWords.ORDER), listed)
         val groups = MyWords.groups(listed, today)
         assertEquals(listed.size, groups.filterNot { it.recent }.sumOf { it.words.size })

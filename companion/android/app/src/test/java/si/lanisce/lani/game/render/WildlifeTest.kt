@@ -326,10 +326,8 @@ class WildlifeTest {
             val frame = Frame(time = 0.0, hour = hour, month = 9, today = today, lens = lens)
             repeat(15) { r.render(c, s, frame.copy(time = it / 12.0)) }
             assertTrue(r.wildlife.isNotEmpty())
-            val n = 40
-            val t0 = System.nanoTime()
-            repeat(n) { r.render(c, s, frame.copy(time = 2 + it / 12.0)) }
-            val ms = (System.nanoTime() - t0) / 1e6 / n
+            // thirteen frames over 3.3 s, the best of three rounds of them, in this thread's CPU time (FrameBudget)
+            val ms = FrameBudget.ms(13) { r.render(c, s, frame.copy(time = 2 + it / 3.9)) }
             println("VillageRenderer with wildlife: %.2f ms/frame (1080×2400 town, %s, k=%d): %s".format(ms, today, k, r.wildlife.map { it.kind }))
             assertTrue("k=$k too slow: $ms ms", ms < FrameBudget.scaled(30.0))
         }
@@ -337,21 +335,21 @@ class WildlifeTest {
         val quiet = (0 until 400).map { LocalDate.ofEpochDay(start + it).toString() }.first { Wildlife.plan(s.seed, it, 22f, 9).isEmpty() }
         val busy = Frame(time = 0.0, hour = 22f, month = 9, today = night); val calm = busy.copy(today = quiet)
         repeat(10) { r.render(c, s, busy.copy(time = it / 12.0)); r.render(c, s, calm.copy(time = it / 12.0)) }
+        // in this thread's CPU time (FrameBudget): a frame that waited for a CPU on a busy machine isn't the animals'
         var with = 0L; var without = 0L
         repeat(40) {
-            val a = System.nanoTime(); r.render(c, s, busy.copy(time = 2 + it / 12.0))
-            val b = System.nanoTime(); r.render(c, s, calm.copy(time = 2 + it / 12.0))
-            with += b - a; without += System.nanoTime() - b
+            val a = FrameBudget.now(); r.render(c, s, busy.copy(time = 2 + it / 12.0))
+            val b = FrameBudget.now(); r.render(c, s, calm.copy(time = 2 + it / 12.0))
+            with += b - a; without += FrameBudget.now() - b
         }
         println("VillageRenderer: %.2f ms/frame with the night's animals, %.2f ms without".format(with / 40e6, without / 40e6))
-        assertTrue("the animals cost ${(with - without) / 40e6} ms a frame", (with - without) / 40e6 < 1.5)
+        assertTrue("the animals cost ${(with - without) / 40e6} ms a frame", (with - without) / 40e6 < FrameBudget.scaled(1.5))
         // a phone on its side
         val side = PixelCanvas(400, 180)
         val frame = Frame(time = 0.0, hour = 22f, month = 9, today = night)
         repeat(20) { r.render(side, s, frame.copy(time = it / 12.0)) }
-        val t0 = System.nanoTime()
-        repeat(60) { r.render(side, s, frame.copy(time = 2 + it / 12.0)) }
-        val ms = (System.nanoTime() - t0) / 1e6 / 60
+        // twenty frames over 5 s, the best of three rounds of them, in this thread's CPU time (FrameBudget)
+        val ms = FrameBudget.ms(20) { r.render(side, s, frame.copy(time = 2 + it / 4.0)) }
         println("VillageRenderer with wildlife: %.2f ms/frame (400x180, night)".format(ms))
         assertTrue("too slow: $ms ms", ms < FrameBudget.scaled(15.0))
         // where they can be is worked out once for a village, not every frame

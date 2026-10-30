@@ -325,27 +325,22 @@ class VillageRendererTest {
         // a phone on its side
         val c = PixelCanvas(s.w, s.h)
         repeat(20) { r.render(c, s.state, s.frame.copy(time = it / 12.0)) }
-        val n = 60
-        val t0 = System.nanoTime()
-        repeat(n) { r.render(c, s.state, s.frame.copy(time = 2 + it / 12.0, hour = 22f)) }
-        val ms = (System.nanoTime() - t0) / 1e6 / n
+        // twenty frames over 5 s each time, the best of three rounds of them, in this thread's CPU time (FrameBudget)
+        val n = 20
+        val ms = FrameBudget.ms(n) { r.render(c, s.state, s.frame.copy(time = 2 + it / 4.0, hour = 22f)) }
         println("VillageRenderer: %.2f ms/frame (town, night, %dx%d)".format(ms, s.w, s.h))
         assertTrue("too slow: $ms ms", ms < FrameBudget.scaled(15.0))
         // a phone's village screen (1080×1188 px) renders a taller canvas
         val tall = PixelCanvas(270, 297)
         repeat(10) { r.render(tall, s.state, s.frame.copy(time = it / 12.0)) }
-        val t1 = System.nanoTime()
-        repeat(n) { r.render(tall, s.state, s.frame.copy(time = 2 + it / 12.0, hour = 22f)) }
-        val msTall = (System.nanoTime() - t1) / 1e6 / n
+        val msTall = FrameBudget.ms(n) { r.render(tall, s.state, s.frame.copy(time = 2 + it / 4.0, hour = 22f)) }
         println("VillageRenderer: %.2f ms/frame (town, night, 270x297)".format(msTall))
         assertTrue("too slow: $msTall ms", msTall < FrameBudget.scaled(30.0))
         // the full-screen town on a portrait phone renders the fitted canvas, 360×800
         val fit = SceneFit.town(1080, 2400)
         val full = PixelCanvas(fit.width, fit.height)
         repeat(10) { r.render(full, s.state, s.frame.copy(time = it / 12.0)) }
-        val t2 = System.nanoTime()
-        repeat(n) { r.render(full, s.state, s.frame.copy(time = 2 + it / 12.0, hour = 22f)) }
-        val msFull = (System.nanoTime() - t2) / 1e6 / n
+        val msFull = FrameBudget.ms(n) { r.render(full, s.state, s.frame.copy(time = 2 + it / 4.0, hour = 22f)) }
         println("VillageRenderer: %.2f ms/frame (town, night, %dx%d)".format(msFull, fit.width, fit.height))
         assertTrue("too slow: $msFull ms", msFull < FrameBudget.scaled(50.0))
     }

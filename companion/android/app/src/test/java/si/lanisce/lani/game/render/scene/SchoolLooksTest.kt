@@ -122,10 +122,8 @@ class SchoolLooksTest {
             val f = frame(culture, hour = 22.5f).copy(people = people.mapIndexed { i, x -> x.copy(talking = i == 0) })
             val c = PixelCanvas(360, 240)
             repeat(15) { p.render(c, f.copy(time = it / 12.0)) }
-            val n = 40
-            val t0 = System.nanoTime()
-            repeat(n) { p.render(c, f.copy(time = 2 + it / 12.0)) }
-            val ms = (System.nanoTime() - t0) / 1e6 / n
+            // thirteen frames over 3.3 s, the best of three rounds of them, in this thread's CPU time (FrameBudget)
+            val ms = FrameBudget.ms(13) { p.render(c, f.copy(time = 2 + it / 3.9)) }
             println("school in $culture: %.2f ms/frame (night, 360x240)".format(ms))
             assertTrue("$culture too slow: $ms ms", ms < FrameBudget.scaled(20.0))
         }

@@ -298,16 +298,15 @@ class LodTest {
         val r = VillageRenderer()
         val comp = VillageLayout.composition(fit.width, fit.height, false)
         val c = PixelCanvas(fit.width, fit.height)
-        val n = 40
+        // thirteen frames over 3.3 s, the best of three rounds of them, in this thread's CPU time (FrameBudget)
+        val n = 13
         for (k in 1..3) {
             val cam = rig.lookAt(comp.fireX.toFloat(), comp.fireY.toFloat(), (rig.minScale * k).toFloat())
             val lens = Lens.of(k, cam, 1080, 2400, fit.width, fit.height, fit.width, fit.height)
             val frame = Frame(time = 0.0, hour = 21f, month = 9, people = cast, today = today, lens = lens)
             repeat(15) { r.render(c, s, frame.copy(time = it / 12.0)) }
             r.profile = true
-            val t0 = System.nanoTime()
-            repeat(n) { r.render(c, s, frame.copy(time = 2 + it / 12.0)) }
-            val ms = (System.nanoTime() - t0) / 1e6 / n
+            val ms = FrameBudget.ms(n) { r.render(c, s, frame.copy(time = 2 + it / 3.9)) }
             r.profile = false
             println("VillageRenderer: %.2f ms/frame (1080×2400 town, night, k=%d, %d×%d): %s".format(ms, k, fit.width, fit.height, r.lastProfile))
             assertTrue("k=$k too slow: $ms ms", ms < FrameBudget.scaled(30.0))

@@ -310,10 +310,8 @@ class ScenePaintersTest {
             val f = SceneFrame(time = 1.0, hour = 22.5f, month = 10, objects = allObjects(art), people = everyone(art, 2, talking = true), highlight = SceneArt.objects.getValue(art).first())
             val c = PixelCanvas(360, 240)
             repeat(15) { p.render(c, f.copy(time = it / 12.0)) }
-            val n = 40
-            val t0 = System.nanoTime()
-            repeat(n) { p.render(c, f.copy(time = 2 + it / 12.0)) }
-            val ms = (System.nanoTime() - t0) / 1e6 / n
+            // thirteen frames over 3.3 s, the best of three rounds of them, in this thread's CPU time (FrameBudget)
+            val ms = FrameBudget.ms(13) { p.render(c, f.copy(time = 2 + it / 3.9)) }
             println("ScenePainter %s: %.2f ms/frame (night, 360x240)".format(art, ms))
             assertTrue("$art too slow: $ms ms", ms < FrameBudget.scaled(20.0))
         }
@@ -387,10 +385,8 @@ class ScenePaintersTest {
         repeat(30) { Portraits.painter.render(c, "grandma", Pose.TALK, it * 0.1, 12f) }
         var worst = 0.0
         for (sprite in listOf("grandma", "smith", "baby", "beekeeper")) for (pose in listOf(Pose.IDLE, Pose.CHEER, Pose.TALK)) {
-            val n = 60
-            val t0 = System.nanoTime()
-            repeat(n) { Portraits.painter.render(c, sprite, pose, 2 + it * 0.1, 21f) }
-            val us = (System.nanoTime() - t0) / 1e3 / n
+            // twenty frames over 6 s, the best of three rounds of them, in this thread's CPU time (FrameBudget)
+            val us = FrameBudget.us(20) { Portraits.painter.render(c, sprite, pose, 2 + it * 0.3, 21f) }
             worst = maxOf(worst, us)
             println("Portrait %s %s: %.0f us/frame (64x64)".format(sprite, pose, us))
         }

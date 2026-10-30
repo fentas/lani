@@ -282,13 +282,11 @@ class TownWindowTest {
                     return PixelCanvas(w.w, w.h).apply { originX = w.x0; originY = w.y0 } to
                         Frame(time = 2 + i / 12.0, hour = 22f, month = 9, lens = TownFrames.lens(k, fit.width, fit.height), screen = screen, sea = true, people = cast)
                 }
-                // warmed up over the whole path (its cells drawn once), then timed
+                // warmed up over the whole path (its cells drawn once), then timed, each frame in this thread's CPU time (FrameBudget)
                 repeat(cams.size) { val (c, f) = at(it); r.render(c, s, f) }
                 val ms = DoubleArray(31) { i ->
                     val (c, f) = at(i)
-                    val t0 = System.nanoTime()
-                    r.render(c, s, f)
-                    (System.nanoTime() - t0) / 1e6
+                    FrameBudget.cpuMs { r.render(c, s, f) }
                 }
                 return ms.sorted()[ms.size / 2]
             }

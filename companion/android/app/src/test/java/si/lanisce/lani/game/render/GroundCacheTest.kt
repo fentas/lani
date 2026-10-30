@@ -123,11 +123,8 @@ class GroundCacheTest {
                     val r = VillageRenderer()
                     val frame = Frame(hour = 22f, month = 9, lens = lens, sea = true)
                     repeat(15) { r.render(c, s, frame.copy(time = it / 12.0)) }
-                    val ms = DoubleArray(31) { i ->
-                        val t0 = System.nanoTime()
-                        r.render(c, s, frame.copy(time = 2 + i / 12.0))
-                        (System.nanoTime() - t0) / 1e6
-                    }
+                    // each frame in this thread's CPU time (FrameBudget)
+                    val ms = DoubleArray(31) { i -> FrameBudget.cpuMs { r.render(c, s, frame.copy(time = 2 + i / 12.0)) } }
                     return ms.sorted()[ms.size / 2]
                 }
                 val whole = median(false); val kept = median(true)

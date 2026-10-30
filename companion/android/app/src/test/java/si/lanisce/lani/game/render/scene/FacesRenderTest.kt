@@ -159,10 +159,8 @@ class FacesRenderTest {
         repeat(30) { painter.render(c, "grandma", Pose.TALK, it * 0.1, 12f, 0, Face.LAUGH) }
         var worst = 0.0
         for (f in Face.entries) {
-            val n = 40
-            val t0 = System.nanoTime()
-            repeat(n) { painter.render(c, "grandpa", Pose.TALK, 2 + it * 0.1, 21f, 0, f) }
-            worst = maxOf(worst, (System.nanoTime() - t0) / 1e3 / n)
+            // thirteen frames over 4 s, the best of three rounds of them, in this thread's CPU time (FrameBudget)
+            worst = maxOf(worst, FrameBudget.us(13) { painter.render(c, "grandpa", Pose.TALK, 2 + it / 3.25, 21f, 0, f) })
         }
         assertTrue("portraits with faces too slow: $worst us", worst < FrameBudget.scaled(3000.0))
     }

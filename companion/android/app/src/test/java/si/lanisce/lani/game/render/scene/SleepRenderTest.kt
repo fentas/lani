@@ -145,18 +145,15 @@ class SleepRenderTest {
             val c = PixelCanvas(360, 240)
             val f = frame(art, hour = 22.5f).copy(people = frame(art).people + PersonInScene("zala", "child2", SceneArt.personSlots.getValue(art).first()))
             repeat(15) { p.render(c, f.copy(time = it / 12.0)) }
-            val n = 40
-            val t0 = System.nanoTime()
-            repeat(n) { p.render(c, f.copy(time = 2 + it / 12.0, pokes = if (it % 2 == 0) poke(art, it % 4 / 2, 0.8, 2 + it / 12.0) else emptyMap())) }
-            val ms = (System.nanoTime() - t0) / 1e6 / n
+            // thirteen frames over 3.3 s, the best of three rounds of them, in this thread's CPU time (FrameBudget)
+            val ms = FrameBudget.ms(13) { p.render(c, f.copy(time = 2 + it / 3.9, pokes = if (it % 2 == 0) poke(art, it % 4 / 2, 0.8, 2 + it / 3.9) else emptyMap())) }
             println("ScenePainter %s asleep: %.2f ms/frame (night, 360x240)".format(art, ms))
             assertTrue("$art asleep too slow: $ms ms", ms < FrameBudget.scaled(20.0))
             // closer up, the view's worth of the picture at detail 3
             val lens = Lens(3, (360 * 3 - 360) / 2, (240 * 3 - 240) / 2, 360, 240)
             repeat(5) { p.render(c, f.copy(time = it / 12.0), lens) }
-            val t1 = System.nanoTime()
-            repeat(20) { p.render(c, f.copy(time = 2 + it / 12.0), lens) }
-            val msFine = (System.nanoTime() - t1) / 1e6 / 20
+            // seven frames over 1.7 s, the best of three rounds of them, in this thread's CPU time (FrameBudget)
+            val msFine = FrameBudget.ms(7) { p.render(c, f.copy(time = 2 + it / 4.2), lens) }
             println("ScenePainter %s asleep: %.2f ms/frame (night, detail 3)".format(art, msFine))
             assertTrue("$art asleep closer up too slow: $msFine ms", msFine < FrameBudget.scaled(60.0))
         }

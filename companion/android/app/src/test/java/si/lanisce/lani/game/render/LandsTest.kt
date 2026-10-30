@@ -366,10 +366,8 @@ class LandsTest {
             val s = state(t, Age.MESTO, types(Age.MESTO))
             val r = VillageRenderer()
             repeat(8) { r.render(c, s, Frame(time = it / 12.0, hour = 22f, month = 9)) }
-            val n = 30
-            val t0 = System.nanoTime()
-            repeat(n) { r.render(c, s, Frame(time = 2 + it / 12.0, hour = 22f, month = 9)) }
-            val ms = (System.nanoTime() - t0) / 1e6 / n
+            // ten frames over 2.5 s, the best of three rounds of them, in this thread's CPU time (FrameBudget)
+            val ms = FrameBudget.ms(10) { r.render(c, s, Frame(time = 2 + it / 4.0, hour = 22f, month = 9)) }
             println("${l.id}: %.2f ms/frame (town, night, %dx%d)".format(ms, fit.width, fit.height))
             assertTrue("${l.id} too slow: $ms ms", ms < FrameBudget.scaled(50.0))
         }

@@ -115,7 +115,7 @@ class FriuliIndoorLooksTest {
 
     /**
      * A frame of each art in Friuli's look and in Primorska's, at night with people and a highlight: the best of three
-     * rounds of 20 frames each, the two cultures by turns (the machine is shared: a round can lose time to the others).
+     * rounds of 20 frames each, the two cultures by turns, in this thread's CPU time (FrameBudget).
      */
     @Test fun `a Friuli frame renders fast`() {
         for ((art, type, sprites) in arts) {
@@ -124,9 +124,7 @@ class FriuliIndoorLooksTest {
                 val p = ScenePainters.of(art)
                 val f = frame(art, type, 3, culture, 22.5f, sprites, month = 10).copy(highlight = SceneArt.objects.getValue(art).first())
                 repeat(10) { p.render(c, f.copy(time = it / 12.0)) }
-                val t0 = System.nanoTime()
-                repeat(20) { p.render(c, f.copy(time = 2 + it / 12.0)) }
-                return (System.nanoTime() - t0) / 1e6 / 20
+                return FrameBudget.cpuMs { repeat(20) { p.render(c, f.copy(time = 2 + it / 12.0)) } } / 20
             }
             var friuli = Double.MAX_VALUE; var primorska = Double.MAX_VALUE
             repeat(3) { friuli = minOf(friuli, round("friuli")); primorska = minOf(primorska, round("primorska")) }

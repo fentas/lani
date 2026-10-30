@@ -333,17 +333,14 @@ class ReactionsTest {
         val c = PixelCanvas(fit.width, fit.height)
         val frame = Frame(time = 3.0, hour = 21.8f, month = 10, people = people(s), today = october.toString(), day = day(s), wall = t0 + 10_000L)
         repeat(10) { r.render(c, s, frame.copy(time = 3.0 + it / 12.0)) }
-        val n = 30
-        val t1 = System.nanoTime()
+        // ten frames over 2.5 s, the best of three rounds of them, in this thread's CPU time (FrameBudget)
+        val n = 10
         // people on their way there all the while (the most work: the walks and the reactions)
-        repeat(n) { r.render(c, s, frame.copy(time = 4.0 + it / 12.0, wall = t0 + 10_000L + it * 83L)) }
-        val ms = (System.nanoTime() - t1) / 1e6 / n
+        val ms = FrameBudget.ms(n) { r.render(c, s, frame.copy(time = 4.0 + it / 4.0, wall = t0 + 10_000L + it * 249L)) }
         println("VillageRenderer with wolves: %.2f ms/frame (%dx%d)".format(ms, fit.width, fit.height))
         assertTrue("too slow: $ms ms", ms < FrameBudget.scaled(50.0))
         // and the people placed for it alone, cheaply
-        val t2 = System.nanoTime()
-        repeat(n) { placed(s, 21.8f, t0 + 10_000L + it * 83L, time = 4.0 + it / 12.0) }
-        val pm = (System.nanoTime() - t2) / 1e6 / n
+        val pm = FrameBudget.ms(n) { placed(s, 21.8f, t0 + 10_000L + it * 249L, time = 4.0 + it / 4.0) }
         println("TownPeople with wolves: %.2f ms/frame".format(pm))
         assertTrue("too slow: $pm ms", pm < FrameBudget.scaled(12.0))
     }

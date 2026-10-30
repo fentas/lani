@@ -5,6 +5,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import si.lanisce.lani.FrameBudget
 import si.lanisce.lani.game.render.PixelCanvas
 import si.lanisce.lani.game.scene.CuratedContent
 import si.lanisce.lani.game.scene.SceneArt
@@ -73,11 +74,10 @@ class StickersTest {
             assertEquals(spot.toString(), a.width to a.height, b.width to b.height)
             assertArrayEquals(spot.toString(), a.argb, b.argb)
         }
-        val t0 = System.nanoTime()
-        val n = 3
-        repeat(n) { for (spot in shown.values.toSet()) Stickers.cut(spot.art, spot.slot) }
-        val ms = (System.nanoTime() - t0) / 1e6 / (n * shown.values.toSet().size)
-        assertTrue("a sticker takes $ms ms", ms < 120.0)
+        // every sticker cut once a round, the best of three rounds, in this thread's CPU time (FrameBudget)
+        val spots = shown.values.toSet()
+        val ms = FrameBudget.best { FrameBudget.cpuMs { for (spot in spots) Stickers.cut(spot.art, spot.slot) } } / spots.size
+        assertTrue("a sticker takes $ms ms", ms < FrameBudget.scaled(120.0))
     }
 
     @Test fun `a slot the art hasn't got, or one it draws nothing of, has no sticker`() {

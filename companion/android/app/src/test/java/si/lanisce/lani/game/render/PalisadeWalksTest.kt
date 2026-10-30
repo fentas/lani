@@ -406,20 +406,23 @@ class PalisadeWalksTest {
         val (w, h) = 320 to 512
         repeat(3) { PalisadeWalk.of(Palisade.ring(VillageLayout.of(teo), Age.MESTO, null)) }
         val ring = Palisade.ring(VillageLayout.of(s), s.age, Foreground.of(s, w, h))
-        val t0 = System.nanoTime()
-        val walk = PalisadeWalk.of(ring)
-        val once = (System.nanoTime() - t0) / 1e6
+        // the best of three rounds in this thread's CPU time (FrameBudget), each of a copy of the ring (its walk is remembered)
+        lateinit var walk: PalisadeWalk
+        val once = FrameBudget.best {
+            val copy = PalisadeRing(ring.stakes, ring.gates, ring.wet, ring.land)
+            FrameBudget.cpuMs { walk = PalisadeWalk.of(copy) }
+        }
         assertTrue("the ring once $once ms", once < FrameBudget.scaled(20.0))
-        // a crossing test over the whole clearing
-        val t1 = System.nanoTime()
+        // a crossing test over the whole clearing, three rounds of a third of 20,000
         var n = 0
-        for (i in 0 until 20_000) if (walk.crosses(-20f + (i % 40), -20f, 20f - (i % 37), 20f)) n++
-        val cross = (System.nanoTime() - t1) / 1e3 / 20_000
-        // every walk of the town, fresh (the ways' memory left out)
-        val ways = Walkways.Ways(Walkways.blocks(s, w, h), walk, null)
-        val t2 = System.nanoTime()
-        val r = routes(Village("cost", s, w, h), ways, 3000)
-        val each = (System.nanoTime() - t2) / 1e3 / r.size
+        val cross = FrameBudget.us(6_667) { i -> if (walk.crosses(-20f + (i % 40), -20f, 20f - (i % 37), 20f)) n++ }
+        // every walk of the town, fresh (the ways' memory left out): new ways for each round
+        val each = FrameBudget.best {
+            val ways = Walkways.Ways(Walkways.blocks(s, w, h), walk, null)
+            var walks = 0
+            val ms = FrameBudget.cpuMs { walks = routes(Village("cost", s, w, h), ways, 3000).size }
+            ms * 1000 / walks
+        }
         println("palisade walks: the ring once ${"%.2f".format(once)} ms, a crossing test ${"%.2f".format(cross)} µs, a walk ${"%.0f".format(each)} µs ($n)")
         assertTrue("a crossing test ${cross} µs", cross < FrameBudget.scaled(20.0))
         assertTrue("a walk $each µs", each < FrameBudget.scaled(3000.0))

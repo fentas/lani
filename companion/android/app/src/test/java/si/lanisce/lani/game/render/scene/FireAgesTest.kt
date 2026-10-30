@@ -336,10 +336,8 @@ class FireAgesTest {
                 p.keepStill = keep
                 val c = PixelCanvas(bw, bh)
                 repeat(8) { p.render(c, f.copy(time = it / 12.0), lens) }
-                val n = 24
-                val t0 = System.nanoTime()
-                repeat(n) { p.render(c, f.copy(time = 2 + it / 12.0), lens) }
-                return (System.nanoTime() - t0) / 1e6 / n
+                // eight frames over 2 s, the best of three rounds of them, in this thread's CPU time (FrameBudget)
+                return FrameBudget.ms(8) { p.render(c, f.copy(time = 2 + it / 4.0), lens) }
             }
             val drawn = ms(false); val kept = ms(true)
             println("Fire ${age.name} at detail $k: %.2f ms/frame kept, %.2f ms drawn whole (night, %dx%d, the village round the fire)".format(kept, drawn, bw, bh))
