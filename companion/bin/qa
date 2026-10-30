@@ -4589,22 +4589,26 @@ def places_friuli():
     def play(scene: dict, dialog: str, tag: str, turns: int):
         """The open dialog played on: the right choice at a turn, else Next; the first line of the learner's offers their voice."""
         oks = mill_oks(scene, dialog, "it")
+        offer = lambda: find("Kateri glas je tvoj?") is not None  # the sheet over the dialog at the learner's first line
         answered = 0
-        for k in range(10):
-            if find("Kateri glas je tvoj?") is not None:
+        for k in range(12):
+            if offer():
                 tap("V redu · OK", 2)
                 time.sleep(1.5)
                 continue
             if answer_choice(oks):
                 answered += 1
                 time.sleep(2.5)
+                if offer():
+                    tap("V redu · OK", 2)
+                    time.sleep(2)
                 snap(f"places-it-{tag}-turn{answered}")
                 if answered >= turns:
                     break
             else:
                 tap(nxt, 2)
             time.sleep(1.5)
-            if find(close) is None:
+            if find(close) is None and not offer():
                 break
         return answered
 
