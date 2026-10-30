@@ -259,7 +259,12 @@ branch's full unit suite ran beside it, so its frames waited for the processor m
 
 The checks on the branch rebased onto main `e5c5d810`: the bridge's `tsc` clean; the smoke 3,145 checks, all passing
 (twice, the second with `LANI_SMOKE_DRAMA3_PORT=9128`); `tutor-export --check` 88 files match; Python `companion/tests`
-131 (11 skipped) and `tests` 251, all passing; the Android unit suite below.
+131 (11 skipped) and `tests` 251, all passing. The Android unit suite (through lani-slot, 29 min): 3,500 tests, 2
+skipped, 3 failures, all three since fixed or explained: ScreenStackTest's two checks of the moment after showing waited
+on a timer and a clock's age that Robolectric's clocks never gave (they step the test's frame clock now: ScreenStackTest
+7 of 7), and LaniSheetTest's canary (Material's own sheet still bouncing), which passes on its own and with the whole
+`ui` package in one JVM (600 tests, 0 failures) and failed only in the runs where those two checks timed out and left
+their frame waits behind (its own comment: a later Compose test in the same JVM gets no frames).
 
 ## How to use it
 
@@ -289,4 +294,9 @@ view, detail and window before the change and compare after; for the kitchen's f
 - **The other rooms' plots** (the living room, the workshop, the cellar, the attic) could leave the grass under their
   floors unshaded the same way; they are under their budget (12 to 14 ms at detail 3), and each needs its floor checked
   to cover what it says.
+- **QA's navigation step** fails at its first check on the grown synthetic learner ("the learning tiles' first row within
+  three of QA's swipes of Today"): its Today card is long (two new modules, a tip, two arrivals to meet, "Še 7 v vasi"),
+  a learner's content, not the kept Home (its layout is the same). The step's other checks didn't run there.
+- **The full unit suite once more** at the gate: after the last fixes only ScreenStackTest (7/7) and the `ui` package
+  (600, LaniSheetTest among them) ran again.
 - Measured on the emulator and the desktop JVM, not on Jan's phone.
