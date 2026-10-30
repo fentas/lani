@@ -177,7 +177,8 @@ T = {
   {"words": "všeč mrzlo toplo vroče žal dolgčas hudo slabo težko treba ime jasno škoda vseeno".split(), "case": "dat", "rule": "custva",
    "examples": [ex("Rebula mi je zelo všeč.", "I like Rebula a lot.", "mi", "dat", "sg", "všeč"), ex("Tudi meni je mrzlo.", "I'm cold too.", "meni", "dat", "sg", "mrzlo"), ex("Koliko ti je let, Nejc?", "How old are you, Nejc?", "ti", "dat", "sg")]},
   {"words": ["strah", "sram"], "case": "acc", "rule": "custva", "examples": [ex("Strah me je.", "I'm afraid.", "me", "acc", "sg", "Strah")]},
-  # adjectives that take the genitive of what follows them (SP2001 poln: "poln vode"; vreden: "vreden truda") (case-lens-2)
+  # adjectives that take the genitive of what follows them (SP2001 pôln: "poln česa: vrč, ~ vina"; vréden: "vreden
+  # koga/česa: pomilovanja ~ človek") (case-lens-2)
   {"words": "poln polna polno polni polne vreden vredna vredno vredni vredne".split(), "case": "gen", "rule": "rodilnik", "after": True,
    "examples": [ex("Hrib je poln grmovja.", "The hill is full of bushes.", "grmovja", "gen", "sg", "poln"), ex("Pa poglej ta razgled. Vreden je vsake stopnice.", "And look at this view. It's worth every step.", "stopnice", "gen", "sg", "Vreden")]},
  ],
@@ -252,12 +253,15 @@ T = {
   v("bliskati", "bliskam", "bliska bliskalo", se=True), v("mračiti", "mračim", "mrači mračilo", se=True), v("začeti", "začnem", "začel začela začelo začeli", se=True),
  ],
  "time": {
-  "nouns": "dan teden mesec leto ura minuta sekunda trenutek jutro dopoldne popoldne večer noč zima pomlad poletje jesen ponedeljek torek sreda četrtek petek sobota nedelja čas vikend".split() + ["poldne", "polnoč"],
+  "nouns": "dan teden mesec leto ura minuta sekunda trenutek jutro dopoldne popoldne večer noč zima pomlad poletje jesen ponedeljek torek sreda četrtek petek sobota nedelja čas vikend".split()
+  # (SP2001 pôldne: "zvoniti ~", case-lens-2)
+  + ["poldne", "polnoč"],
   "rule": "kdaj-cas",
   "examples": [ex("Ves dan je deževalo.", "It rained all day.", "dan", "acc", "sg"), ex("Vsak dan grem v šolo.", "Every day I go to school.", "dan", "acc", "sg")],
  },
  # the genitive of time (when?): leto before a year in figures (leta 1844), a masculine or neuter noun of time after
- # nekega, tistega … (nekega dne, tistega večera): the cas-izrazi page's (datumi has leta 2026 too) (case-lens-2)
+ # nekega, tistega … (nekega dne, tistega večera): the cas-izrazi page's (datumi has leta 2026 too). SP2001 léto:
+ # "1945. ~a in ~a 1945", "Še istega ~a … je umrl"; néki: "~ega lepega dne" (case-lens-2)
  "time_genitive": {
   "years": ["leto"],
   "determiners": ["nekega", "tistega", "istega", "onega", "naslednjega", "prejšnjega", "drugega"],
